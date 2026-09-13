@@ -1,176 +1,357 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DB703EB80D
-	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 19:06:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1079D36B939
+	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 19:07:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789326375; cv=none; b=KEmY4C9EcdOeg8IJNnvR/H1lanlUrKz5/LM6ICigJ74Bvup3L4JpMd7piLffFs3A7rnFnK8nrMhuPtMpyDflNuDeIaRvlkMNP4Y71lp1cgsCLRKOYeKHpBB3K/IX6BOPl4VhQ+CLdZB1qmtNhXSa7Fas5w5ZLQzOuQ4vFtM3Q8o=
+	t=1789326422; cv=none; b=LOPj+173fE/nevtu5LUqFYBLfv81b/PFfi3CDEXNPNanQQOYbt8ZGWw/0LfgBEED84ioLGtCMNsmAETPeJsnNg+1YPm9wkmuA1bCxvSy9lie8RnvUCRg5M+6/gJUgJc12+bWMfijTStdZe95BVlckW52fM89+8rt2iDinA7QQiA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789326375; c=relaxed/simple;
-	bh=5ZtNBIL5Oz5l6KwxgNiCivaiN+2ncftCI67Ykvr+Zp4=;
+	s=arc-20240116; t=1789326422; c=relaxed/simple;
+	bh=wDL3rm9PLxv4Z9qc52yagbKE/QE2AJr686rPWje0tII=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=pFfwvqtKrk+ciOmbDygKnjbVdSTqfcMbtCXKhRy2H7Izu7FXVhfHfpBnJ+pCsQtlAwfmWjWK+ukGx3ASBHzWzO2/duQZ2EAT606uUgTruDW09sGi6e39CUX06RBsZG7V65jRHLtTTa//WmDqnBLAcQhZYxZKm5DvAUsjuvYrRvA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gFUjSS0s; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=HRNsFXkInhXITZv/MReu/PdeWHP9Nzoe/myvdmQ47dgI252ngCVrcO4t402sUzGu0tJ78t8LhPr9THMRPmo9E8bUY2vPbL4kVt4DMMaa4bBDCe4D1p/ewSRi8ijtUTmtbptnld49uQvJ9VDJT7+4GJ8MWvHwaNwFsFtoy73rc24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aij4U4it; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gFUjSS0s"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C40E41F000FF;
-	Sun, 13 Sep 2026 19:06:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aij4U4it"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DEA51F000FF;
+	Sun, 13 Sep 2026 19:07:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789326374;
-	bh=wmpGOXueapyPAUjDOvE9RvkWavKtnR39qIO/vsqo3Zs=;
+	s=k20260515; t=1789326420;
+	bh=/PuA+OmFBft4qUBGjVAAbw0kGHJwi80Yjwu4O9Z9ORU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gFUjSS0sIMSEGI72m6KDnGQA8wq+K/SMDq7TWeB8k9+0z+hZEWbb7pwr0A6qsTxGu
-	 NuEsKDEZ6KeOOFkMlC1MN7fUT/VJcuGlTy2nrXkuvwk8Vc00aZJfT3tugEXNmz7Yfc
-	 WBt/MrT27b88jsUQmyntmAQ2mUwL2ewjF1YMlA9D9OZg7aw4ebfColw2m7DvqzqyzR
-	 nRF3OUmLog7TTQMQcTlNMsRTcJHNwolEK3zhPEB9hIxlAGYyvKIjpEtf1o7Ah4krCG
-	 yoVdMnr+iCDbY1tfnw9DarjoeLERGV98dUpaGnWCFMbr9jcvK/JStMzUhD7LlhADC+
-	 ji5cI+cHAZfSQ==
+	b=aij4U4ith00efFtBRqj1RON8pN7QgUYRmJRDWwQvV09DHpN5iWaEynUbJRgc04xR4
+	 QeacJ/glh9AWGjWECx+Cbkcp0i09yuFNcAMyP75BJpmzcmOdY5zfOs44BdqiryZLiC
+	 Z3LeyZIzJfkBiT5/O5ByxWQ//qQIGqgjv4gZ05IRO7V5HQCo3ROjt+jI9kLDYkS5Qg
+	 7I2vnwvddsayIeJ5wkKWEbVM6LRaZqBUXmJwYIDk5qvke9iknQztIzRkr+svLowule
+	 7IG1Op4f/yxujJ99q7imYfqtEObsHpQjK5rxiPi+M7eAnrVXNJwKRW8C4NZgZmjQia
+	 K8Rj7p1y/GkPA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 05/13] media: iris: Add non-pixel and pixel context
- bank devices
+Subject: Re: [PATCH v4 04/13] iommu: of_iommu: Add support for
+ "iommu-ranges" on a device node
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Vikash Garodia" <vikash.garodia@oss.qualcomm.com>
-Cc: media-ci@linuxtv.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260914-vpu_iommu_iova_handling-v4-5-9b9074a73c41@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20260914-vpu_iommu_iova_handling-v4-4-9b9074a73c41@oss.qualcomm.com>
 References: <20260914-vpu_iommu_iova_handling-v4-0-9b9074a73c41@oss.qualcomm.com>
- <20260914-vpu_iommu_iova_handling-v4-5-9b9074a73c41@oss.qualcomm.com>
+ <20260914-vpu_iommu_iova_handling-v4-4-9b9074a73c41@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 13 Sep 2026 19:06:13 +0000
-Message-Id: <20260913190613.C40E41F000FF@smtp.kernel.org>
+Date: Sun, 13 Sep 2026 19:07:00 +0000
+Message-Id: <20260913190700.5DEA51F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 9 potential issue(=
 s) to consider:
 
+New issues:
+- [High] Breaks backward compatibility for existing Device Trees using iomm=
+u-addresses without a reg property.
+- [High] Silent fail-open behavior grants full IOVA access if iommu-ranges =
+parsing or allocation fails.
+- [High] Truncation of the remaining reserved region length on 32-bit syste=
+ms with LPAE (64-bit phys_addr_t).
+- [High] Mismatched direct mappings are discarded instead of being reserved=
+, contradicting the emitted kernel warning.
+- [High] of_translate_dma_region is called without validating that the prop=
+erty buffer contains enough remaining cells.
+- [High] of_translate_dma_region improperly translates IOVAs into CPU physi=
+cal addresses, resulting in incorrect IOMMU reservations.
+- [High] The overflow check iova + length < iova incorrectly rejects a vali=
+d IOVA range that extends exactly to the maximum address.
+
 Pre-existing issues:
-- [High] Use-After-Free of `iris_core` structure due to devres and asynchro=
-nous V4L2 file closures.
-- [High] Race condition in probe exposes video device before initialization=
-, causing NULL dereference.
-- [High] `iris_remove()` destroys `core->lock` without acquiring it, leadin=
-g to a race condition with concurrent file closure.
+- [High] Misparsing of multi-device iommu-addresses property due to incorre=
+ct iterator advancement.
+- [High] Unchecked return value from of_translate_dma_region leads to a NUL=
+L pointer dereference.
 --
 
-commit 06944aa24efc3154b815139f80472c743bbbd5e1
+commit e45b53e829ee68d166cf13e6d742c00ee86c9f4c
 Author: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
 
-media: iris: Add non-pixel and pixel context bank devices
+    iommu: of_iommu: Add support for "iommu-ranges" on a device node
+   =20
+    Reserving an IOVA address using "iommu-addresses" requires it to be
+    placed in the reserved-memory node. But when "iommu-addresses" is the
+    only property being described and there is no backing "reg" (i.e. no
+    actual reserved system memory), it does not really belong under
+    /reserved-memory. A device IOVA range is specific to its own address
+    space, and does not describe the system physical memory to make it
+    qualify under reserved-memory. Given this, place "iommu-addresses"
+    inside reserved-memory only when it is paired with a "reg", otherwise,
+    define it within the device own node. It was discussed here:
+    https://lore.kernel.org/all/662f7093-fb0a-4564-9ca0-98e03e68ba9a@kernel=
+.org
 
-This commit adds helper functions to create and clean up "non-pixel" and
-"pixel" context bank devices from device tree subnodes. It sets up the cont=
-ext
-banks prior to video device registration to ensure proper DMA addressable
-range routing, preventing SMMU page faults and spontaneous reboots.
-
-> diff --git a/drivers/media/platform/qcom/iris/iris_probe.c b/drivers/medi=
-a/platform/qcom/iris/iris_probe.c
-> index e4acf4a74f944..debd1f0e57038 100644
-> --- a/drivers/media/platform/qcom/iris/iris_probe.c
-> +++ b/drivers/media/platform/qcom/iris/iris_probe.c
-[ ... ]
-> @@ -207,6 +268,8 @@ static void iris_remove(struct platform_device *pdev)
-> =20
->  	v4l2_device_unregister(&core->v4l2_dev);
-> =20
-> +	iris_deinit_cb_devs(core);
-> +
-
-[Severity: High]
-This is a pre-existing issue, but does iris_remove() allow a use-after-free
-of core if a userspace process keeps the device node open?
-
-The core structure is allocated with devm_kzalloc() in iris_probe(),
-meaning it is freed automatically when the driver unbinds. However,
-iris_remove() runs to completion and does not block for active file
-descriptors to close.
-
-If userspace holds the file descriptor open during an unbind event and later
-closes it, iris_close() is invoked, which dereferences the freed memory:
-
-drivers/media/platform/qcom/iris/iris_vidc.c:iris_close() {
-    ...
-    iris_check_num_queued_internal_buffers(inst, V4L2_BUF_TYPE_VIDEO_OUTPUT=
-_MPLANE);
-    ...
-}
-
->  	mutex_destroy(&core->lock);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but is it safe to destroy
-core->lock here unconditionally?
-
-If iris_remove() executes concurrently with a file closure, iris_close()
-can acquire this lock via iris_remove_session():
-
-drivers/media/platform/qcom/iris/iris_vidc.c:iris_remove_session() {
-    mutex_lock(&core->lock);
-    list_for_each_entry_safe(iter, temp, &core->instances, list) {
-    ...
-    mutex_unlock(&core->lock);
-}
-
-Destroying the mutex while it might be held by another thread violates lock=
-ing
-rules and can lead to corruption when the racing thread releases the lock.
-
+> diff --git a/drivers/iommu/of_iommu.c b/drivers/iommu/of_iommu.c
+> index a18bb60f6f3df..baf74db838d6b 100644
+> --- a/drivers/iommu/of_iommu.c
+> +++ b/drivers/iommu/of_iommu.c
+> @@ -190,6 +190,98 @@ iommu_resv_region_get_type(struct device *dev,
+>  	return IOMMU_RESV_RESERVED;
 >  }
 > =20
-[ ... ]
-> @@ -269,10 +332,14 @@ static int iris_probe(struct platform_device *pdev)
->  	if (ret)
->  		return ret;
-> =20
-> -	ret =3D v4l2_device_register(dev, &core->v4l2_dev);
-> +	ret =3D iris_init_cb_devs(core);
->  	if (ret)
->  		return ret;
-> =20
-> +	ret =3D v4l2_device_register(dev, &core->v4l2_dev);
-> +	if (ret)
-> +		goto err_cb_deinit;
+> +/**
+> + * of_iommu_derive_resv_regions - derive reserved regions which
+> + *                                are outside of iommu-ranges
+> + * @dev: device for which to get reserved regions
+> + * @list: reserved region list
+> + *
+> + * A device can describe its own usable IOVA ranges directly on its node
+> + * via "iommu-ranges". Everything not under those ranges is derived
+> + * as a reserved region so the IOMMU allocator won't use it. Entries may
+> + * appear in any order in the property.
+> + */
+> +static void of_iommu_derive_resv_regions(struct device *dev, struct list=
+_head *list)
+> +{
+> +	struct of_iommu_range {
+> +		struct list_head node;
+> +		phys_addr_t start;
+> +		phys_addr_t end;
+> +	} *pos, *new, *next_range;
+> +	int size, prot =3D IOMMU_READ | IOMMU_WRITE;
+> +	struct iommu_resv_region *region;
+> +	const __be32 *maps, *end;
+> +	phys_addr_t next =3D 0;
+> +	LIST_HEAD(ranges);
 > +
->  	ret =3D iris_register_video_device(core, DECODER);
+> +	maps =3D of_get_property(dev->of_node, "iommu-ranges", &size);
+> +	if (!maps)
+> +		return;
+> +
+> +	end =3D maps + size / sizeof(__be32);
+> +
+> +	while (maps < end) {
+> +		phys_addr_t iova;
+> +		size_t length;
+> +
+> +		maps =3D of_translate_dma_region(dev->of_node, maps, &iova, &length);
 
 [Severity: High]
-This is a pre-existing issue, but is there a race condition here that expos=
-es
-the video device to userspace before initialization is complete?
+Does this code validate that the property buffer has enough remaining cells
+before reading them? While the loop checks maps < end in
+of_iommu_derive_resv_regions(), of_translate_dma_region() blindly reads
+na + ns cells without bounds checking. Could a malformed iommu-ranges
+property cause an out-of-bounds read of kernel memory?
 
-iris_register_video_device() calls video_register_device(), making the
-/dev/videoX node visible, and then sets video_set_drvdata(). If userspace
-races to open the device node in between, video_drvdata() could return NULL.
+Also, does this function incorrectly translate IOVAs into CPU physical
+addresses? The iommu-ranges property specifies usable device IOVA ranges,
+but of_translate_dma_region() translates the address through the parent
+bus dma-ranges into a CPU physical address. Since IOMMU reserved regions
+operate in the IOVA space, doesn't this corrupt the reservation targets
+and leave the actual IOVA space unprotected?
 
-Additionally, PM runtime enablement in iris_probe() happens after the device
-is registered:
+> +		if (!maps) {
+> +			dev_err(dev, "%pOF: failed to parse iommu-ranges\n",
+> +				dev->of_node);
+> +			break;
+> +		}
+> +
+> +		if (!length)
+> +			continue;
+> +
+> +		if (iova + length < iova) {
 
-drivers/media/platform/qcom/iris/iris_probe.c:iris_probe() {
-    ...
-    pm_runtime_use_autosuspend(core->dev);
-    ret =3D devm_pm_runtime_enable(core->dev);
-    ...
-}
+[Severity: High]
+Does this overflow check reject a valid IOVA range that extends exactly to
+the maximum physical address? In of_iommu_derive_resv_regions(), if a
+valid hardware IOVA mapping spans exactly to the end of the address space
+limit, iova + length will wrap around to exactly 0. Since 0 < iova
+evaluates to true, wouldn't this falsely reject the valid maximum-address
+range as an overflow and leave that IOVA space completely unprotected?
 
-If iris_open() is called by userspace before this completes, it attempts to
-dereference core->dev (which could be NULL if video_set_drvdata() hasn't
-executed yet), leading to a kernel panic:
+> +			dev_err(dev, "%pOF: iommu-ranges overflows address space\n",
+> +				dev->of_node);
+> +			continue;
+> +		}
+> +
+> +		list_for_each_entry(pos, &ranges, node)
+> +			if (pos->start > iova)
+> +				break;
+> +
+> +		new =3D kmalloc_obj(*new);
+> +		if (!new)
+> +			continue;
+> +
+> +		new->start =3D iova;
+> +		new->end =3D iova + length;
+> +		list_add_tail(&new->node, &pos->node);
+> +	}
+> +
+> +	if (list_empty(&ranges))
+> +		return;
 
-drivers/media/platform/qcom/iris/iris_vidc.c:iris_open() {
-    struct iris_core *core =3D video_drvdata(filp);
-    ...
-    ret =3D pm_runtime_resume_and_get(core->dev);
-    ...
-}
+[Severity: High]
+Does this fail-open instead of fail-secure if iommu-ranges parsing or
+memory allocation fails? If of_translate_dma_region() returns NULL for a
+malformed property or kmalloc_obj() fails in
+of_iommu_derive_resv_regions(), the loop breaks or continues, leaving the
+ranges list empty. This early return would then exit without adding any
+reserved regions, effectively telling the IOMMU that the entire address
+space is usable instead of restricting it.
 
->  	if (ret)
->  		goto err_v4l2_unreg;
+> +
+> +	if (of_dma_is_coherent(dev->of_node))
+> +		prot |=3D IOMMU_CACHE;
+> +
+> +	list_for_each_entry_safe(pos, next_range, &ranges, node) {
+> +		if (pos->start > next) {
+> +			region =3D iommu_alloc_resv_region(next, pos->start - next, prot,
+> +							 IOMMU_RESV_RESERVED, GFP_KERNEL);
+> +			if (region)
+> +				list_add_tail(&region->list, list);
+> +		}
+> +		if (pos->end > next || !pos->end)
+> +			next =3D pos->end;
+> +
+> +		list_del(&pos->node);
+> +		kfree(pos);
+> +	}
+> +
+> +	if (!next)
+> +		return;
+> +
+> +	region =3D iommu_alloc_resv_region(next, ~(phys_addr_t)0 - next + 1,
+> +					 prot, IOMMU_RESV_RESERVED, GFP_KERNEL);
+
+[Severity: High]
+Can this truncate the length calculation on 32-bit systems with LPAE?
+In of_iommu_derive_resv_regions(), the remaining address space length is
+calculated as ~(phys_addr_t)0 - next + 1. On 32-bit LPAE systems,
+phys_addr_t is 64-bit, but iommu_alloc_resv_region() expects a size_t
+for length, which is 32-bit. Wouldn't this cast to size_t silently
+truncate the 64-bit length, restricting the reservation up to the 4GB
+boundary and leaving the remaining 64-bit IOVA space unreserved?
+
+> +	if (region)
+> +		list_add_tail(&region->list, list);
+> +}
+
+[ ... ]
+
+> @@ -214,10 +306,14 @@ void of_iommu_get_resv_regions(struct device *dev, =
+struct list_head *list)
+> =20
+>  		memset(&phys, 0, sizeof(phys));
+> =20
+> +		maps =3D of_get_property(it.node, "iommu-addresses", &size);
+> +		if (!maps)
+> +			continue;
+> +
+>  		/*
+> -		 * The "reg" property is optional and can be omitted by reserved-memor=
+y regions
+> -		 * that represent reservations in the IOVA space, which are regions th=
+at should
+> -		 * not be mapped.
+> +		 * "iommu-addresses" must be used in combination with a "reg" that pro=
+vides
+> +		 * the physical address and size of this memory region, for an identit=
+y 1:1
+> +		 * IOVA mapping to that physical memory.
+>  		 */
+>  		if (of_property_present(it.node, "reg")) {
+>  			err =3D of_address_to_resource(it.node, 0, &phys);
+> @@ -226,11 +322,11 @@ void of_iommu_get_resv_regions(struct device *dev, =
+struct list_head *list)
+>  					it.node, err);
+>  				continue;
+>  			}
+> -		}
+> -
+> -		maps =3D of_get_property(it.node, "iommu-addresses", &size);
+> -		if (!maps)
+> +		} else {
+> +			dev_err(dev, "%pOF: iommu-addresses requires a reg property\n",
+> +				it.node);
+>  			continue;
+> +		}
+
+[Severity: High]
+Does this break backward compatibility for existing Device Trees?
+The previous code in of_iommu_get_resv_regions() explicitly documented
+and handled the reg property as optional for IOVA reservations. By
+introducing a strict requirement and failing if reg is missing, wouldn't
+older Device Trees that omitted reg now fail to parse, resulting in an
+ABI breakage?
+
+> =20
+>  		end =3D maps + size / sizeof(__be32);
+> =20
+>  		while (maps < end) {
+>  			struct device_node *np;
+>  			u32 phandle;
+> =20
+>  			phandle =3D be32_to_cpup(maps++);
+>  			np =3D of_find_node_by_phandle(phandle);
+> =20
+>  			if (np =3D=3D dev->of_node) {
+
+[Severity: High]
+This is a pre-existing issue, but does this loop correctly advance the
+maps pointer when np !=3D dev->of_node? In of_iommu_get_resv_regions(), if
+the current phandle does not match, it skips processing but fails to
+advance maps by the size of the unhandled IOVA range (na + ns). Wouldn't
+the next iteration then incorrectly read an IOVA cell as a phandle,
+causing a parser desync?
+
+>  				int prot =3D IOMMU_READ | IOMMU_WRITE;
+>  				struct iommu_resv_region *region;
+>  				enum iommu_resv_type type;
+>  				phys_addr_t iova;
+>  				size_t length;
+> =20
+>  				if (of_dma_is_coherent(dev->of_node))
+>  					prot |=3D IOMMU_CACHE;
+> =20
+>  				maps =3D of_translate_dma_region(np, maps, &iova, &length);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the return value of
+of_translate_dma_region() need to be checked for NULL? In
+of_iommu_get_resv_regions(), if it fails and returns NULL, it is assigned
+to maps. The loop condition maps < end will evaluate to true, and the
+next iteration will call be32_to_cpup(maps++), resulting in a NULL
+pointer dereference.
+
+>  				if (length =3D=3D 0) {
+>  					dev_warn(dev, "Cannot reserve IOVA region of 0 size\n");
+>  					continue;
+>  				}
+>  				type =3D iommu_resv_region_get_type(dev, &phys, iova, length);
+> =20
+> +				if (type !=3D IOMMU_RESV_DIRECT)
+> +					continue;
+
+[Severity: High]
+Does this skip creating the reservation when the mapping is not direct?
+In of_iommu_get_resv_regions(), the iommu_resv_region_get_type() helper
+detects non-direct mappings, warns the user it is treating them as
+reservations, and returns IOMMU_RESV_RESERVED. By forcefully skipping
+when type is not IOMMU_RESV_DIRECT, doesn't this entirely drop the region
+instead of creating the reservation, contradicting the helper's intent
+and breaking existing IOVA reservations?
+
+> +
+>  				region =3D iommu_alloc_resv_region(iova, length, prot, type,
+>  								 GFP_KERNEL);
+>  				if (region)
+>  					list_add_tail(&region->list, list);
+>  			}
+>  		}
+>  	}
+> +
+> +	of_iommu_derive_resv_regions(dev, list);
+>  #endif
+>  }
+>  EXPORT_SYMBOL(of_iommu_get_resv_regions);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914-vpu_iommu_=
-iova_handling-v4-0-9b9074a73c41@oss.qualcomm.com?part=3D5
+iova_handling-v4-0-9b9074a73c41@oss.qualcomm.com?part=3D4
