@@ -1,62 +1,63 @@
 Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32B623290B0
-	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 14:55:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66BAA31F9B4
+	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 14:56:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789311356; cv=none; b=CyRPfaz1MwWrZQvUPU2LmxqpxywrXMxkc4iRmWcQjs9Vyju+6leuVW5A9QN3dU9IiEfhRJWPWJpnAgtkKU1pt0NF1P8q5Lbamoo2ouszsWeVfqGW5Aa2ISJ+BmszhL+B64ZtJTUcMvRRon8MmX26CkNZP9ZgUTo5lrDGfUI+Ejk=
+	t=1789311371; cv=none; b=aioUL4vtzmioWIKqBtjZCv9JHdJuBw3rCkYhJuJlYKoMmPMyK1Ecnlx1vHF67w//14dwSmqH6crsN4wmkKxPKPPMm36jeJA8Ye5xlWANOzE63sTDALckPQk9H2TE17UXWW5pjviSdUK7BEeXsWYaZqfJP5SJwqx0C6sYGQQ29Jc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789311356; c=relaxed/simple;
-	bh=X50q29zW18mDiJilwD4ZnVc1TBJYKHZ54bN7CfyWkJE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=qA/KX7z+ch7vwUw2I5QHcUlIJ259es/a0/R7qILAfsCLu54s2mZSXoBFTq8B+nQ1XIBdDyJZx5YFvjHmNjCWV4F4YSe814uCwgYoFpbXvUZ9DS1YqSwS4KJFNZzoWjdUupd8VwILGSxYhJ3hr8dWrSloe1kEeKuwjD3pbiv1u8g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Umix1Iy1; arc=none smtp.client-ip=209.85.215.180
+	s=arc-20240116; t=1789311371; c=relaxed/simple;
+	bh=c0FwilGJH257Vmi4WBaFoyoKQXfgT/wqYU4kh/brsPk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PSoxuetYpnVO0WK5xoSxg0vZTg38ytUGLt62uzAA7xXDHKfEC3ZoVd5K7dGAOKOKzh4AydxLbQ3u++KVS2bAwVtC0syI0JXKxWCiwd/VVxRk0irk7il+go3PTUeOgFlrS5DnCDGlalEkC74dRc6JfFxJ/BHYgxqLZUrog7s34/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MLIX36Kt; arc=none smtp.client-ip=209.85.215.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Umix1Iy1"
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cc4aa18f9afso1681091a12.3
-        for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 07:55:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MLIX36Kt"
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cc4aa02a269so1894490a12.2
+        for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 07:56:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789311353; x=1789916153; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RLxxag6YaoEYXvuMdxlM7z9b6lVW4mPCbnkS4JP7U90=;
-        b=Umix1Iy1+Vb6kZX59/ZTdKd0BlVPHnu7w7HXj+og/0z1LMT/7+cf5lmt/c+ZRjjGwC
-         O8ffUEMIaEbaF94PJ00XY72pszU4v7LMZNiLSnKL6/0whGEJ61c8DJTXYoGuXCg2Md7/
-         elzne4aocw/hRt5UI6xY3wLgFXaaBxtACnxjvKBa9HaqOVFXrGALAh8UW6dzXIU+dBlM
-         gwsuFa8RUwBfCnbuOyu2xgD1LrPmhsxxDaJSLI7878FoCeeAOekvijBVdmujLEIsoIs1
-         WVnCmBNxLwAOz3V86zlj2B1OMj9q9aHOGfPCIhlbhp8huHHoeY2qjG7sjIu6gDTEYsNq
-         UQyg==
+        d=gmail.com; s=20251104; t=1789311368; x=1789916168; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=z/z4QNBtUdI4E15ZNXPZtkbjaHvGmUhKoMr+O5uGaIE=;
+        b=MLIX36KtvIrguZxHl4EIN4ZYIT5d/rtKSSQDUPsisRKi+NQnTebcXHH+K3HunAlv7a
+         2bocY7STE+TrXzmT2T7v09GLH2t5A7O3YPZ9c/dBr3oZlmKcArlNJn+BnUp71k1nH46y
+         7ur6zghuzwFXN/uHcYKeny6LR/AbP53U+fLtEa2ZBnqZCCiTEhTm8+HwVv3rJykr2caW
+         cgDq/DfNdwaOcPjlGbMZXm5/XeTV/7yWJGbESGuk7hT4E0bQzE0VyTPzyB0nJz6yo6nc
+         qWJ9FRlH6xnDT+B8Vxg9woD3B7bNxp4JVoJqvTqCu22YYAPL+ui++kZPfv9LWQDyqQFg
+         aBtg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789311353; x=1789916153;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RLxxag6YaoEYXvuMdxlM7z9b6lVW4mPCbnkS4JP7U90=;
-        b=GSxB66V0DJIdWgDbFWMIYEiyHr/tLorRXFXwgM1HeMnYkKADWyY5PzRli84A0DxYAo
-         CSIBcvrg1qbW85n+CZywrIJrwnzUbBRDsku91Pn0Ofpvg1QFJkQv/vGoynn/BOId0AK/
-         S+WVADuUCjYOdRGUy58RrAoRWNxTGTG+Y9mHIOy4HoLMv7M3N2vj07v8DD55Fkw4iSbg
-         lCjgGyp4N2SifLFXR1PsS8XRPVvjbYpJB+jfafw0r8ArhFPGYrZp975joUsNmvyhc0QQ
-         xb9oJ+VNdtujgc6IPdp7Mg/fMpF3H0aFv60E1yorlCtZp8Dyd0IZTjKs0sJHdKHkWyMY
-         M9yQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy5Zvo5tkMkmd8sZytS/8YdZFkZuSzoGSZAr/xjtJ1flcgNOXDnZOaP5GSyw4PxW81Ak9+nAB/4UsjC@vger.kernel.org
-X-Gm-Message-State: AFuF++mGoTSdqz0ucpKjZygS+E0WSNz4hVuCAGgVQOxABDSWiTejBTYK
-	Q+s5+wenjw0qfKS3gqND1ZJ6G6iuAjqIXl0mdHZsG7juAYE9UcworSsx
-X-Gm-Gg: AYBFou3Wtv++LsEITfiP0yKk2hqJtndubzCAH08rE9aSACPFoNCJ9yCQVdVeQTbsinZ
-	npW0fxAqjT/cWSA3/tdffHRU98n8KkouMzIY6TbtRcbx/QxstKXZvJHStrm1tDSpx8k6cQ98lZ/
-	H+gdyOk8HvXcF0oxWwpUco9aXMWyxtsttUDFo29OndmQILw3/30WRI9wP2gp1AFIHajw3nbvt0M
-	09W8hAAlu/1m4WAVG0hvVuQnzzNr/KgtrWFr/36nonhIiZRqiTbXoCnXBBtt7rJerxAGKx5jAU6
-	TdWF3U5TGwZOpAGreLjMBW2hlNeEQPR/1LstfpSjFclVIRXf9IoQhxn/5cm3ErRNnyrG6bDIBoZ
-	idQ/8KokfBQVMwqaOYzSRuVftA9Nvf+IY+ZiK0j5oc4ZKR9DAavut8t4kFWy6lprfM3S6bDhBjt
-	LBfdK4mn9DmMAxM77vlcVNYr+8RfL4SU4Ple3nLGSHjyps/ptMp4Uj867nj0tuEK0+
-X-Received: by 2002:a05:6a21:6f88:b0:3cc:45cc:c401 with SMTP id adf61e73a8af0-3daed33102emr23944156637.13.1789311353349;
-        Sun, 13 Sep 2026 07:55:53 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789311368; x=1789916168;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=z/z4QNBtUdI4E15ZNXPZtkbjaHvGmUhKoMr+O5uGaIE=;
+        b=D/rpjuS2lLNH8trNcVzrFFrJCTa6KJxf3mCBzHFeQM18YAa+tu7nlrqaxAS7E2+8gF
+         WBXDAxO2mwcIXFbn/Jfn+K6+fs2LLA+PZwt5toCc6FOZOor6MKgQefsML0/HxcvE6T7K
+         v7LF5f/sxaoGIRHDIpQ34nUuBhp2lvQ7mim9Xh/Fsj7PRBmNUMki/gn/PN/SL5ioSH8v
+         lzOiHWDc9h+sPAz9xTIpQijriEwNTwcXkeOgApXchjI2wMN/0tv6reCjeMVdHjdbmHeZ
+         b2/er2mu9CGvjwledQkyQATPZFOYVkMIyEp32xgSOETAxS/qSnwdCNf1P4FIid/iU9nw
+         Oj0g==
+X-Forwarded-Encrypted: i=1; AKwUvBys/e9idzNSjejPtdD/ZumiYy9Sn2NBTl9qQuc8rul1qbH1ybFBzy7cGu+JQd3rLSdQeuwkTga+dd1p@vger.kernel.org
+X-Gm-Message-State: AFuF++nA9Fvo6fCCEIbcIJ/R1bD+wnJY4H1/6naw8tcPqIC4EGuYIsrm
+	4Lx+CZHtVFw4Yi1Rwe8IvIgepwrNSKTpMMt1uxxvRiMHaG5rTlA6waZC
+X-Gm-Gg: AYBFou2yMIUBOuJ7gkq3zkz08JvJGSshPaQxzqVhhct6bef+bRWBcZ/SEZvaH8ciwdg
+	6E/g6R2IKqSEeya/G0BzZTSbaKGX7NtvEFPKD03f4slHxbmAtVTUFuCums/TesBAj7wJqzggOdV
+	gMVOpxwwkf7B6hDEKlhYrxLoDgyXy0B6GGDiuO04+lXSLmkgUqK+Zri+b46s2YSHh/dHPF4Ssw8
+	fnZT+cNUzj9WaquSw7DYyK0CpM1d41gDRbXVJNzPUG5VVJraXO+eU6+AT6EHtQCj5Bu2VFF7YhP
+	P/cAqHZUf0RYbLzGN8E41znSzc6NjHpxMQuF0kLsXO+dZHG0vGFj7ZGeW+cB94K2rFXLNjPPpuF
+	wKNkZ0DPgE2wSIpPlzRQKZKuHqX/A3I0THc/zCSxZAj6xzXKNchztgq5CSg59uRH4Q8etndzr1y
+	Fo5WouZAluB7RsXiQMX50ZIR4xcG9JBJmUi0NCTQGTiCDC7tUiTPCRbS1vLvWYHHEW
+X-Received: by 2002:a05:6a21:46c5:b0:3d1:60d3:99f8 with SMTP id adf61e73a8af0-3daed46ad42mr25849990637.5.1789311368455;
+        Sun, 13 Sep 2026 07:56:08 -0700 (PDT)
 Received: from archlinux ([207.90.239.231])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba7a9bb56sm21467366eec.31.2026.09.13.07.55.38
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba7a9bb56sm21467366eec.31.2026.09.13.07.55.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 07:55:52 -0700 (PDT)
+        Sun, 13 Sep 2026 07:56:08 -0700 (PDT)
 From: Mikhail Kalashnikov <iuncuim@gmail.com>
 To: Vasily Khoruzhick <anarsoul@gmail.com>,
 	Yangtao Li <tiny.windzz@gmail.com>,
@@ -78,171 +79,103 @@ Cc: linux-pm@vger.kernel.org,
 	Philipp Zabel <p.zabel@pengutronix.de>,
 	=?UTF-8?q?Juan=20Manuel=20L=C3=B3pez=20Carrillo?= <juanmanuellopezcarrillo@gmail.com>,
 	Andre Przywara <andre.przywara@arm.com>
-Subject: [PATCH v6 0/5] Allwinner: A523: add support for A523 THS0/1 controllers
-Date: Sun, 13 Sep 2026 22:55:22 +0800
-Message-ID: <20260913145527.18148-1-iuncuim@gmail.com>
+Subject: [PATCH v6 1/5] dt-bindings: thermal: sun8i: Add A523 THS0/1 controllers
+Date: Sun, 13 Sep 2026 22:55:23 +0800
+Message-ID: <20260913145527.18148-2-iuncuim@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260913145527.18148-1-iuncuim@gmail.com>
+References: <20260913145527.18148-1-iuncuim@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-This patch series adds temperature sensor support for the Allwinner A523
-family of processors (same die with H728/A527/T527)
+From: Mikhail Kalashnikov <iuncuim@gmail.com>
 
-Based on 7.3-rc2.
+Add dt-bindings description of the thermal sensors in the A523 processor.
 
-Changes v6~v5:
-1) dt-bindings: thermal: sun8i: Add A523 THS0/1 controllers
- - removed the redundant clocks constraint for the A523 controllers
- - simplified the else branch to maxItems: 1
- - dropped the extra example node
+The calibration data for both thermal controllers (THS0, THS1) is split
+across two nvmem cells at different offsets, requiring the two cells
+to be read and merged. To maintain backward compatibility, the name of
+the old cell remains "calibration" and the new cell is named
+"calibration-second-part".
 
-2) thermal/drivers/sun8i: replace devm_reset_control_get to...
- - no changes
+Signed-off-by: Mikhail Kalashnikov <iuncuim@gmail.com>
+---
+ .../thermal/allwinner,sun8i-a83t-ths.yaml     | 34 +++++++++++++++++--
+ 1 file changed, 31 insertions(+), 3 deletions(-)
 
-3) thermal/drivers/sun8i: get calibration data from two nvmem cells
- - skip calibration instead of passing a NULL pointer to the calibration
-   callback when no calibration cell is found
-
-4) thermal/drivers/sun8i: Add support for A523 THS0/1 controllers
- - THS1 has four sensors; added the ths1_3 (NPU) calibration data
- - renamed the scale/offset constants to match the BSP naming
- - check caldata[1] instead of caldata[0] for the factory temperature
- - use SCALE_BELOW as the calibration divisor, as in the BSP
- - documented that the BSP CAL_COM(5000) is applied through ft_deviation
- - updated the commit description
-
-5) arm64: dts: allwinner: sun55i: add thermal sensors
- - put nvmem-cell-names on a single line
- - dropped unused trip labels, kept the ones referenced by the cooling maps
- - renamed the "gpu-trips" container to "trips"
- - added the npu-thermal zone for the fourth THS1 sensor
-
-Changes v5~v4:
-1) dt-bindings: thermal: sun8i: Add A523 THS0/1 controllers
- - added empty line between what and context
- - clarified description
- - added missing period
-
-2) thermal/drivers/sun8i: replace devm_reset_control_get to...
- - updated Reviewed-by tag
-
-3) thermal/drivers/sun8i: get calibration data from two nvmem cells
- - removed dead IS_ERR(caldata) check
- - replaced NULL/IS_ERR check with IS_ERR_OR_NULL()
-
-4) thermal/drivers/sun8i: Add support for A523 THS0/1 controllers
- - clarified description
- - added Reviewed-by tag
-
-5) arm64: dts: allwinner: sun55i: add thermal sensors
- - fixed patch subject prefix
- - clarified description
- - sorted thermal-sensor nodes by base address
- - added empty lines between trip nodes (DT coding style)
-
-v4 https://lore.kernel.org/linux-sunxi/20260504050245.646078-1-iuncuim@gmail.com/
-Changes v4~v3:
-1) dt-bindings: thermal: sun8i: Add A523 THS0/1 controllers
- - gpadc replaced to mod clock
-
-x) thermal/drivers/sun8i: add gpadc clock
- - removed
-
-2) thermal/drivers/sun8i: replace devm_reset_control_get to
- - no functional changes
-
-3) thermal/drivers/sun8i: get calibration data from two nvmem cells
- - no functional changes
-
-4) thermal/drivers/sun8i: Add support for A523 THS0/1 controllers
- - gpadc replaced to mod clock
-
-5) arm64: dts: allwinner: A523: Add thermal sensors and zones
- - gpadc replaced to mod clock
-
-v3 https://lore.kernel.org/linux-sunxi/20251025043129.160454-1-iuncuim@gmail.com
-Changes v3~v2:
-x) dt-bindings: nvmem: SID: Add binding for A523 SID controller
- - previously accepted, therefore removed from this version
-
-1) dt-bindings: thermal: sun8i: Add A523 THS0/1 controllers
- - added changes as requested by Rob
-
-2) thermal/drivers/sun8i: add gpadc clock
- - removed undescribed changes spaces to tabs
-
-3) thermal/drivers/sun8i: replace devm_reset_control_get to
- - changed the commit description to the version suggested by wens
- - added reviewed-by tag
-
-4) thermal/drivers/sun8i: get calibration data from two nvmem cells
- - added spaces in the description block before "*"
-
-5) thermal/drivers/sun8i: Add support for A523 THS0/1 controllers
- - added alignment of functions in compliance with open parenthesis
-
-x) arm64: dts: allwinner: A523: Add SID controller node
- - previously accepted, therefore removed from this version
-
-6) arm64: dts: allwinner: A523: Add thermal sensors and zones
- - no functional changes
-
-Changes v2~v1:
-1) dt-bindings: nvmem: SID: Add binding for A523 SID controller
- - added new patch
-
-2) dt-bindings: thermal: sun8i: Add A523 THS0/1 controllers
- - changed clock order
- - added additional nvmem cell with calibration data
- - added requirements for new controllers
- - added description
-
-3) thermal/drivers/sun8i: add gpadc clock
- - removed unnecessary call to clk_prepare_enable() since
- devm_clk_get_enabled()includes this
-
-4) thermal/drivers/sun8i: replace devm_reset_control_get to
- - original function replaced with devm_reset_control_get_shared_deasserted()
- - removed some of the repetitive code executed by 
- devm_reset_control_get_shared_deasserted()
-
-5) thermal/drivers/sun8i: get calibration data from two nvmem cells
- - added possibility to get calibration data from two independent cells
-
-6) thermal/drivers/sun8i: Add support for A523 THS0/1 controllers
- - removed magic digits
- - changed description of calibration data procedure for A523
- - changed numbers of array elements with calibration data
-
-7) arm64: dts: allwinner: A523: Add SID controller node
- - fix typo (sun50i->sun55i)
-
-8) arm64: dts: allwinner: A523: Add thermal sensors and zones
- - cell with calibration data divided into two
- - added passive trips for gpu
- - added information that information obtained from BSP
-
-v1: https://lore.kernel.org/linux-sunxi/20250411003827.782544-1-iuncuim@gmail.com
-
-Mikhail Kalashnikov (5):
-  dt-bindings: thermal: sun8i: Add A523 THS0/1 controllers
-  thermal/drivers/sun8i: replace devm_reset_control_get to
-    devm_reset_control_get_shared_deasserted
-  thermal/drivers/sun8i: get calibration data from two nvmem cells
-  thermal/drivers/sun8i: Add support for A523 THS0/1 controllers
-  arm64: dts: allwinner: sun55i: add thermal sensors
-
- .../thermal/allwinner,sun8i-a83t-ths.yaml     |  34 ++-
- .../arm64/boot/dts/allwinner/sun55i-a523.dtsi | 172 +++++++++++++
- drivers/thermal/sun8i_thermal.c               | 242 +++++++++++++++---
- 3 files changed, 403 insertions(+), 45 deletions(-)
-
+diff --git a/Documentation/devicetree/bindings/thermal/allwinner,sun8i-a83t-ths.yaml b/Documentation/devicetree/bindings/thermal/allwinner,sun8i-a83t-ths.yaml
+index 3e61689f6..792081af5 100644
+--- a/Documentation/devicetree/bindings/thermal/allwinner,sun8i-a83t-ths.yaml
++++ b/Documentation/devicetree/bindings/thermal/allwinner,sun8i-a83t-ths.yaml
+@@ -24,6 +24,8 @@ properties:
+       - allwinner,sun50i-h5-ths
+       - allwinner,sun50i-h6-ths
+       - allwinner,sun50i-h616-ths
++      - allwinner,sun55i-a523-ths0
++      - allwinner,sun55i-a523-ths1
+ 
+   clocks:
+     minItems: 1
+@@ -47,11 +49,16 @@ properties:
+     maxItems: 1
+ 
+   nvmem-cells:
+-    maxItems: 1
+-    description: Calibration data for thermal sensors
++    minItems: 1
++    items:
++      - description: Calibration data for thermal sensors
++      - description: Additional cell in case of separate calibration data
+ 
+   nvmem-cell-names:
+-    const: calibration
++    minItems: 1
++    items:
++      - const: calibration
++      - const: calibration-second-part
+ 
+   allwinner,sram:
+     maxItems: 1
+@@ -107,6 +114,7 @@ allOf:
+             enum:
+               - allwinner,sun8i-h3-ths
+               - allwinner,sun20i-d1-ths
++              - allwinner,sun55i-a523-ths0
+ 
+     then:
+       properties:
+@@ -132,6 +140,26 @@ allOf:
+         - clock-names
+         - resets
+ 
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - allwinner,sun55i-a523-ths0
++              - allwinner,sun55i-a523-ths1
++    then:
++      properties:
++        nvmem-cells:
++          minItems: 2
++        nvmem-cell-names:
++          minItems: 2
++    else:
++      properties:
++        nvmem-cells:
++          maxItems: 1
++        nvmem-cell-names:
++          maxItems: 1
++
+ required:
+   - compatible
+   - reg
 -- 
 2.55.0
 
