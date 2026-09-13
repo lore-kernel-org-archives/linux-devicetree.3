@@ -1,188 +1,371 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f8.google.com (mail-ej2-f8.google.com [74.125.228.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EF81367F3A
-	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 15:25:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789313113; cv=none; b=dURFfgyqqP5JmdSpO63iOstUv9/aV5qeDEyghMPcPUsbdcghc+ScTYTp7hotvLv1w5lyWD1ppmhLV57KuocGIFvtoZ+EeyYAa5bApgsOIo3wYIZOvRiybVf41/G/2ZVk8+DW23UPCmnJcqCdTFuqWrW03qMKQNBzBIhEvALjlnc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789313113; c=relaxed/simple;
-	bh=ld4R1jneXBW1hGoO0VRUWX/Y4qVOEP+XupoaDss+ItI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gDE4gSo1fpkT9ZkM8koJ7zc+I6uklbvtTQSiHMnRMPZRathKo+NV56dfA1yWYX1yLzkSSZXGgJw4brXiDO8QVUeukyWjhPBIEWW0PvacFh7j6SQlz2Y6vVmiHLvFqy47oNWpAvxfGMwrgpEPZhnAe5W257hX/kDpylUv702wWxc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UClpXggN; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kfSCuwFm; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52194349CE8
+	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 15:30:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.136
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789313426; cv=pass; b=GlxzpjcGbE4THRMzuxIRDru9eDXvRZB6E+4/wUxBt1Yyt3v8ut+JxxnpUTxjQf39+2lFefzN5IyKBpS9L6LaQqnuQfyDWQ+xoi2EkYn2adWv5OurhTELJ6rJL8q7YiZ5luOH6OE0nSuexWL0dDZtEBmuADR1xYuCZfQB+QD+qcY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789313426; c=relaxed/simple;
+	bh=QOnd9Be0VKsR33e3Mz4oeKHlFLKxA5Rt/jBaVV6NUZU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=sq6axxCopMdh5AIPU1jakLrkvTAopMjoTfMvimDELxvCHn0w2Ze1b1mgc5RIGMWjr7JVwCaKE1YqQKCD/6WG839XWYfDfzC/P07FaeFizwgFUGtrhWYrOhBD8SbFrtiINwVWDMoLHGAtneDSyiFL3HqISr3vvAL/FrMLsNJyEeM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sxBeHxwc; arc=pass smtp.client-ip=74.125.228.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UClpXggN";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kfSCuwFm"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68DDxx181434036
-	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 15:25:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	JJ8vr1mNWBrNs+oy+VzKW00DnpjkO29odTofhcUnTGM=; b=UClpXggNDGnUoju4
-	8s7pg2DMW+aMyZIUBvoIm3xqhEDNuIZ4G7sd4CZmdYMnHd9zDSUsG5sjzuWrZDYg
-	qcVEOykNpnfBaM7ZnrgJiKY4L2LJZCYnSRsf7WlQ/j0Qy1Mq+Li9c58BMLT5crGK
-	p24eMVk9QrUCvPcDchUlxN5jCfOie3h0kC2kYxMJblMD7ubKLtio4iDmTlsw66xg
-	cyLXq+/xwyLLBs+OnBgqkVROVXdGzl0r8tcDDDGFaQ0xLcMvAt9PNDekthiXMMql
-	YhphqN8MA4xiN0Yy9MKDIVHK6ojMwvU5xHfOmCySmeQzZyAhh/cX9+QiEU3mjX0F
-	jwC9Vw==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmygd3kx5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 15:25:03 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc489e7a701so3569735a12.2
-        for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 08:25:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sxBeHxwc"
+Received: by mail-ej2-f8.google.com with SMTP id a640c23a62f3a-c254403ada6so123201166b.0
+        for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 08:30:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789313421; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rx+14HaKQ2jPHqkbufiuicNDi8wvVm0HjAa8klsV/ZOlquvZ3hG+Qdhk+9LUkV8drr
+         Hw7FcG6QdfUjAakvzvO9Polv7YnxrvO1ciau4VjdjZgHhJjnJpJyByfLMr2LzUsMBamQ
+         IlDXw7NdHo2fiomdo1dp8La1oUS++qrqf7shQdo6M13U9wYKx9sie1kIQMVF/BHqyQO5
+         YAa8hWVDdRKzAaGF6yuWPRykBaqFg9CfEea4guHE1WZCDLkw7i/YhtdKwZf/H3s6CZL1
+         Z4Znb3uDvl479kYvA+Jj6XIWrrDPgPEMhTEjObz8H3d9Ah4qgLWIgTVrx+21rEmar7zQ
+         ++gA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=MUmHj/LFwOw941/kenFz/i5xXlBgFi4Hi0DQiphahvI=;
+        fh=Y3Ejyqs/aV71vAi4d6E0yPp6gMAacMA9IcvGZqa/oHs=;
+        b=WnG9PBKyuIeFW2KmjUJH1OzEiroBiXLcgrUAzvquDjjLn3eh0AcbFxc7dRkCh4fFVh
+         OskJMqjsEo1XkgX6bpiLvSewbhvEys1TuAcWau1pqb19Wg7lxYIdreLPWb+x68Gtpq5r
+         Hnd2iKfgyr8nXdhYt1eBKkJUYzhTTfePfZrYNckDZau95ABOZPLPbFWa0FWe94IZ7r55
+         hoV8e6mA2OfD+XGI2DKcpb94aenPG+cL8Jep1rG+sEqpLgoje46bm5KrisD/6pbSlRfE
+         qR8jIHKxuftTG3k8VnGtl91w9WWLIna6pqHsoFM8KJDkZxelvQSjh6+UzEMbydUqNrOQ
+         nKYg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789313103; x=1789917903; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JJ8vr1mNWBrNs+oy+VzKW00DnpjkO29odTofhcUnTGM=;
-        b=kfSCuwFmeAoDKRa2E6ut27zPUILuazd2eQSuCF56wpXRAas+N5VntdtbODwIkYSVCQ
-         t6qhgXGPivLu50pzNGM65Ka5q4TVtCpG8a4cCiiCvW/yO/d2MTPFXT7KU4Qd+ocr6E0H
-         PEI6ZRG+mRNIKRE4HwSE3wKhJVt5rvAH3fv9OkADUvuG6dR/ewdEF9bgzXYnCsQz4vIU
-         mNiq4WUWxmq/NgeI5oIj8uuO2zwTYNyo8pmPb1n1fVcqJ6Bbq40zdQpdAArhX1PtYetD
-         zz2v0JFSCZ/VcA8xurDuX0gYtjSeIq3bcTkPJkPWf/OIjC20LL4ymj1GIAyRV9iQ6xGM
-         amQQ==
+        d=gmail.com; s=20251104; t=1789313421; x=1789918221; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MUmHj/LFwOw941/kenFz/i5xXlBgFi4Hi0DQiphahvI=;
+        b=sxBeHxwcYJZnauDyGs4G+wJeTExNt2znk2aa0D9SeqyB6QWN/P9OCBXnV+lGAV6VUt
+         2GOOIAUQxtnIk/8e4HZjGu5ZydTndQciLuyvL0FiOyWI7gDI2SUpuWDJNXgJe6rIfdWo
+         8tYxoNQZclHs+5mChholUzK1yKUzVIjlNONUYMvSotyj1o4WdAaPuNUdfe7xWCpWpC1Z
+         fBdDhSScik7JO1Wat4ounuDbOZTXwIFfQHCg2gKrfF0u9W28Rw0qsdpghlXgvba6N9z/
+         VXvpkXmpUIsiSSDqXCPxKJ8s8UrNfAvEUfxOtYk5TGV25hLGwJqI1KjPZ1Ibr7rNlN4k
+         k9Rw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789313103; x=1789917903;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JJ8vr1mNWBrNs+oy+VzKW00DnpjkO29odTofhcUnTGM=;
-        b=iCFh/b8J02uCd9m1P9YtDmfT7Jblrjy+PeTc7WtUz/J9PBXoqq8Insz2In8D67Lb3O
-         HIeEHPwzv4B6Q5AQqFJQxEUv8QJG47Y5ezttNQXdlIfALL9G+qsdUKb3SdMBKNhVQuzr
-         +z4dCpy9FVhiGtpMtxwZ8189ps6hB9HD7JDayICKVIWVVI7BoXlWhBbJOEmdkOgYseul
-         9gaEOdPItvXI5UPNWP0lf7fbRa+Os8IUjEm0uzYDNNKlUi/4svdThsUo2XwftmnX+TpD
-         BrIuRUgOyshZi1HLYRoMhEiSNjoFI9stHVZVEb90Hsxx2RZrAJ9lG+o2Cl4UdDRoe2L9
-         6i5Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwLX5McP5IALxRjnFeN3H1RxXpdxdyxxrDo3CVelmhPz8kybziAfZfRyu4W5nOXTrQqxv/53knLA0rX@vger.kernel.org
-X-Gm-Message-State: AFuF++mbYHqwArP9aZPDLn3KSt6vokjZgot6zyBAxtJKz2J8qq3akxAy
-	KVbu6HJhmUQ+pXluZ6fkT8U6RmuZE+g8M1QqpUFe30NpIAlvpRfOiKnIDlfWLUfGzAgAaKZw6Ch
-	xTzMuI4f6/wKnSF58SJljeSRlATsGMnhR2VOSA8kax/YYoE9lyZJl8ow3H199Ct/k
-X-Gm-Gg: AYBFou0OZsL7Qf4njPVChaLzfFPcecdEWlOVOgzHH+79kLAJYeosCLZazQHq64XDYCd
-	yKoErXbonEc04NlOzGPXIZjHz/hRGA9vJOigYGxFw7pmk+3DeZwPk+yK/csGJZaz7hKx/yN9eej
-	zsPVHSoK1xgkIw1HwgePD9yeA6BtetKY2RIyto8FfQxWcW1D/6TbTslwx4gotQcS4rTRF517UVq
-	I4Mnnn4BTGYcI/0QYnkYSUpO8s25hLdbGM2C1iBxwnzCtxPFhafzDDZiTgkgF/9yZH7jlv4fek2
-	sfLEGk7St169ogKyEcgZKF8LtJhi3Sfm/jtfHhHQMqPxbqCC1tcJYsxLKX8JCXGrR63CeMhK+1B
-	JqpvW/iQKx3b+r3DJnzpkbtcCqebWTQbUXRQ=
-X-Received: by 2002:a05:6a21:113:b0:3cc:8f53:26c0 with SMTP id adf61e73a8af0-3daed31ac42mr27011620637.17.1789313103245;
-        Sun, 13 Sep 2026 08:25:03 -0700 (PDT)
-X-Received: by 2002:a05:6a21:113:b0:3cc:8f53:26c0 with SMTP id adf61e73a8af0-3daed31ac42mr27011548637.17.1789313102860;
-        Sun, 13 Sep 2026 08:25:02 -0700 (PDT)
-Received: from [192.168.29.31] ([49.43.232.43])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4e9a8a9sm19916161eec.13.2026.09.13.08.24.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 13 Sep 2026 08:25:02 -0700 (PDT)
-Message-ID: <9345454b-4e31-4224-980c-0066c912252b@oss.qualcomm.com>
-Date: Sun, 13 Sep 2026 20:54:50 +0530
+        d=1e100.net; s=20251104; t=1789313421; x=1789918221;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MUmHj/LFwOw941/kenFz/i5xXlBgFi4Hi0DQiphahvI=;
+        b=Pv4DSdRy7Y3CYNemiEeZ5v7tEwZXDTbSVUd2e/bifnzqoZKczW05A1UE71Bm3aYOQ6
+         h8tByJD7YLcAcT3XKf4kRPJq/3zLkQVK+wRQegBeZsc48GralZn+cne1LiGba+f6B6Bi
+         roLoQx9/b12rMN6O+W4Mc1Bs56ZUBEhK7+CrcmlLLN4bjbp7T2t6ZzqkncMxdl4tbX37
+         KvdGMMIEyxop2gXbDiByc26GVOqyYOgnrQF0HgmTRLK2K6OBxFBwif4sKkFq8exMTmGS
+         0n7THJQE4JergL6lQ0pRWCtIR1SR0kFAJS83usFjn+Gj25QvkbeiuqqCwZ1wR+6puLk7
+         FqUw==
+X-Forwarded-Encrypted: i=1; AKwUvBy0au+SuO+e785q3f2qI4s5Kb9Hw4dIpkoNyhxW1FmXGk2DNWzx+wMwv+29sMw7q1xWwaOVn22Jh+cR@vger.kernel.org
+X-Gm-Message-State: AFuF++n4qTPeCzDnZRG3mItKzkxIG669ZLilo2MGK7AinQRyjYQ5o9hh
+	SVNx7UslCWcODWHvlVUQzEBPCRe7Y57Ktf/IwvJZyfT4ipizSS9WewFlcRDjbihsbeNKTWVHIVs
+	WsWADUpTPeD0wfP7zm3M8+5WOD8eDf6/lP1bHads=
+X-Gm-Gg: AYBFou3me7KKGiDZuOjNEA+3ahu+lgccRbi7OEMHhpCDEpV4SPASEbaKr7Z5LWPKFXJ
+	PU+6HSmXrKQTtWgpN2wYaRm5bi+UbjVZyNvYM292+z/APyV90M2+2WKOmu4/kWlWjAVyh29ZZO0
+	fWX5sGlYlVPDwN/Y98jyZJxxs6PUi9r3lE6NUS70E60v7G2dzuWtd3FsAWhL31nTVFh/TdtMTlW
+	dRTU2BWW5y7Lb0GRBg6LpEMThb+KFciCOzhNDwbCzxcsou2R0xS27gVAxVrTy47lLfvwCQl3vpP
+	31NKP/4e4iOzHyiuVLzqinFMEG2OOfP12cMMgHkXsMXitq1/o2wKeTPvs9g=
+X-Received: by 2002:a17:907:6d0c:b0:c26:1649:47a5 with SMTP id
+ a640c23a62f3a-c29858afb4dmr388468266b.27.1789313421314; Sun, 13 Sep 2026
+ 08:30:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v24 05/12] dt-bindings: arm: Document reboot mode magic
-To: Rob Herring <robh@kernel.org>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Sebastian Reichel <sre@kernel.org>,
-        Souvik Chakravarty <Souvik.Chakravarty@arm.com>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Andy Yan
- <andy.yan@rock-chips.com>,
-        Matthias Brugger <matthias.bgg@gmail.com>,
-        Mark Rutland <mark.rutland@arm.com>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        John Stultz
- <john.stultz@linaro.org>,
-        Moritz Fischer <moritz.fischer@ettus.com>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Christian Loehle <christian.loehle@arm.com>,
-        Lee Jones <lee@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
-        Pavan Kondeti
- <pavan.kondeti@oss.qualcomm.com>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Sudeep Holla <sudeep.holla@kernel.org>,
-        Florian Fainelli <florian.fainelli@broadcom.com>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-        Andre Draszik <andre.draszik@linaro.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
-        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, mfd@lists.linux.dev,
-        Srinivas Kandagatla <srini@kernel.org>
-References: <20260803-arm-psci-system_reset2-vendor-reboots-v24-0-889281373870@oss.qualcomm.com>
- <20260803-arm-psci-system_reset2-vendor-reboots-v24-5-889281373870@oss.qualcomm.com>
- <20260803140222.GA3188037-robh@kernel.org>
-Content-Language: en-US
-From: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-In-Reply-To: <20260803140222.GA3188037-robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=RY0FmFtv c=1 sm=1 tr=0 ts=6aa6c04f cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=ExSUBmHX20r5BGnuCy1yUw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=q4JZvQwPHRNDhfj5UpAA:9 a=QEXdDO2ut3YA:10 a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEzMDIyMCBTYWx0ZWRfXz/pGa57eqzSB
- nS+s2fSC+wD1rwEaAkeg5qMqbXiTv5C0j3Brn459rRyvwPGEfaKuFsCKLVWNXeFVxn3vGdR9GEa
- PRTIfUTIGFW00zknVmaOL18j8UY5Bca7fqLcC6iqfmhjWStz++mrS4DRjcBfwzkb1D9eRBtpF9z
- n8jh1bX8kce5ssn31QbYccOofwE55L8cUhznqlxCJ0BChImDvzDOHPwLEhpYY2KJlfja9pZyd+u
- bjJXDH/I1w2xGXxc5ylFQ0Gx9WzbXZvJy1YZsvTwfQLo2s/btZWKxzJAW22rv4xnaBqbu4zN1sQ
- kDVZzZIyD3s154bQciLXFqwApVhDwELKVs5v/E9YumrROypv6+YQ2PvaOvKYvIOP3FfFzth9/mN
- zssKAl6Vt3xTdzpq9lrNfV6tWtt8vK1QR+vxNxPT7WRaLLSKvp8b+QH3Xa0PlXQ1bSdAKTVHiKJ
- 6+8vLM1dbccEcfBfG9w==
-X-Proofpoint-ORIG-GUID: ZRkOhiozExEoOZ6oT9acvbq4Jg1xa1Sf
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEzMDIyMCBTYWx0ZWRfX0q8eEfWRsuhN
- E+1EcdnHdK2J6bVglJVtCtLmoBO8Keukr+bPytyRZDPy5WDesPSn81Pi7oJOkFvyztTBOMnqQCu
- 4Eq2sjHwJdKcnffJG1V9yorhnmwjyV4=
-X-Proofpoint-GUID: ZRkOhiozExEoOZ6oT9acvbq4Jg1xa1Sf
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-13_05,2026-09-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 spamscore=0 suspectscore=0
- lowpriorityscore=0 impostorscore=0 phishscore=0 malwarescore=0 bulkscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609130220
+References: <20260907153713.2572547-6-coiaprant@gmail.com> <20260912201324.126973-1-kuba@kernel.org>
+In-Reply-To: <20260912201324.126973-1-kuba@kernel.org>
+From: Coia Prant <coiaprant@gmail.com>
+Date: Sun, 13 Sep 2026 23:30:09 +0800
+X-Gm-Features: AcwNN1WBFJod78ZuorP_y9LCkHOcoGiWiUu5Cum7Oj84vat35RmRCRAX8YYOUss
+Message-ID: <CALj3r0hevQ2Y9ttORKOa-oOFmyi7zDwNdLETRG0endxhCoFibA@mail.gmail.com>
+Subject: Re: [PATCH net-next v4 04/10] dt-bindings: net: pcs: add
+ rockchip,rk3568-xpcs support
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com, 
+	pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	heiko@sntech.de, vkoul@kernel.org, maxime.chevallier@bootlin.com, 
+	mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com, 
+	prabhakar.mahadev-lad.rj@bp.renesas.com, romain.gantois@bootlin.com, 
+	hkallweit1@gmail.com, neil.armstrong@linaro.org, linux@armlinux.org.uk, 
+	shawn.lin@rock-chips.com, david@ixit.cz, netdev@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com, 
+	linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Jakub Kicinski <kuba@kernel.org> =E4=BA=8E2026=E5=B9=B49=E6=9C=8813=E6=97=
+=A5=E5=91=A8=E6=97=A5 04:13=E5=86=99=E9=81=93=EF=BC=9A
+>
+> This is an AI-generated review of your patch. The human sending this
+> email has considered the AI review valid, or at least plausible.
+> ---
+> dt-bindings: net: pcs: add rockchip,rk3568-xpcs support
+>
+> This adds a new standalone schema describing the Synopsys DesignWare XPCS
+> as integrated on the Rockchip RK3568, with a CSR window, csr/eee clocks, =
+a
+> Naneng Combo SerDes phy, a power domain and four MII child ports.  A few
+> questions about the property set and the file naming below.
+>
+> > diff --git a/Documentation/devicetree/bindings/net/pcs/rockchip-dwxpcs.=
+yaml b/Documentation/devicetree/bindings/net/pcs/rockchip-dwxpcs.yaml
+> > new file mode 100644
+> > index 0000000000000..0852d0bcb66a2
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/net/pcs/rockchip-dwxpcs.yaml
+> > @@ -0,0 +1,110 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/net/pcs/rockchip-dwxpcs.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>
+> [Severity: Low]
+>
+> This isn't a bug, but should the file be named after the documented
+> compatible, i.e. rockchip,rk3568-xpcs.yaml?  The other schemas in
+> Documentation/devicetree/bindings/net/pcs/ all use that form:
+> snps,dw-xpcs.yaml, fsl,lynx-pcs.yaml, mediatek,sgmiisys.yaml,
+> renesas,rzn1-miic.yaml.
+>
+> A rename would also have to update the $id line above, since it encodes t=
+he
+> same name.
+>
+> Related: the example at the bottom uses pcs@fda00000 and pcs-mii@0, while
+> the sibling PCS binding uses the generic ethernet-pcs@... node name, and =
+no
+> $nodename constraint is added here.  The SoC dtsi added later in the seri=
+es
+> copies the pcs@/pcs-mii@ names verbatim.
 
+I chose rockchip-dwxpcs.yaml intentionally, in case Rockchip integrates
+the same XPCS IP into other SoCs in the future. The filename is more
+generic and can cover multiple compatible strings if needed.
 
-On 8/3/2026 7:32 PM, Rob Herring wrote:
-> On Mon, Aug 03, 2026 at 03:13:36PM +0530, Shivendra Pratap wrote:
->> Add bindings to describe vendor-specific reboot modes. Values here
->> correspond to valid parameters to vendor-specific reset types in PSCI
->> SYSTEM_RESET2 call.
+However, I understand the convention is to name the file after the
+compatible string (like snps,dw-xpcs.yaml and fsl,lynx-pcs.yaml). If
+you prefer rockchip,rk3568-xpcs.yaml, I will rename it.
 
-[snip..]
+> > +properties:
+> > +  compatible:
+> > +    const: rockchip,rk3568-xpcs
+>
+> [Severity: Low]
+>
+> This isn't a bug, but would a set of SoC-specific if/then blocks in
+> Documentation/devicetree/bindings/net/pcs/snps,dw-xpcs.yaml be preferred
+> over a second schema for the same IP?
+>
+> To be clear, a snps,dw-xpcs fallback compatible or a $ref to that schema
+> would be wrong here.  The glue driver added later in the series builds CS=
+R
+> addresses with only a 3-bit MMD field:
+>
+>         return FIELD_PREP(0x70000, dev) | FIELD_PREP(0xffff, reg);
+>
+> and remaps the vendor MMDs in xpcs_rk_mdio_read_remapping() /
+> xpcs_rk_mdio_write_remapping(), so the generic direct mapping described i=
+n
+> snps,dw-xpcs.yaml would compute different offsets.
+>
+> So the only question is where the description should live, not whether th=
+e
+> compatible should be shared.
 
->> +  - if:
->> +      not:
->> +        properties:
->> +          compatible:
->> +            contains:
->> +              const: arm,psci-1.0
-> 
-> SYSTEM_RESET2 was introduced in PSCI 1.1...
+As you noted, a $ref to snps,dw-xpcs.yaml would be wrong because the
+Rockchip glue uses a different address mapping (3-bit MMD field with
+remapping). A separate schema is the right choice.
 
-just wanted to check on this.
-we have a max of arm,psci-1.0 defined in compatible.
-SYSTEM_RESET2 is already being used in some cases with "arm,psci-1.0".
-how should this be handled here?
+> [Severity: Low]
+>
+> Should the sbd_intr_o output be described as an optional interrupts
+> property?  With additionalProperties: false at the end of the file, a
+> conforming device tree cannot carry it, although adding it later stays
+> backward compatible.
+>
+> The single unnamed 2 MiB window itself does match the driver:
+> xpcs_rk_init_res() uses platform_get_resource(pdev, IORESOURCE_MEM, 0) an=
+d
+> requires resource_size(res) >=3D SZ_2M, and the largest computed offset
+> 0x7FFFF << 2 =3D 0x1FFFFC still falls inside 0x200000, so reg-names and
+> reg-io-width are not needed.
 
-thanks,
-Shivendra
+These are optional and can be added later without breaking ABI. I'll
+leave them out for now, since the mainline XPCS driver doesn't use them.
+
+> > +
+> > +  "#address-cells":
+> > +    const: 1
+> > +
+> > +  "#size-cells":
+> > +    const: 0
+> > +
+> > +  clocks:
+> > +    items:
+> > +      - description: APB3 bus interface clock (clk_csr_i), required fo=
+r register access
+> > +      - description: EEE clock (clk_eee_i), required for Energy Effici=
+ent Ethernet operation
+> > +
+> > +  clock-names:
+> > +    items:
+> > +      - const: csr
+> > +      - const: eee
+> > +
+> > +  phys:
+> > +    maxItems: 1
+> > +
+> > +  phy-names:
+> > +    const: serdes
+> > +
+> > +  power-domains:
+> > +    maxItems: 1
+>
+> [Severity: Low]
+>
+> Should resets/reset-names be described here too?  The RK3568 CRU exposes
+> four dedicated reset lines for this block in
+> include/dt-bindings/clock/rk3568-cru.h:
+>
+>         #define SRST_XPCS               150
+>         #define SRST_XPCS_TX_DIV10      151
+>         #define SRST_XPCS_RX_DIV10      152
+>         #define SRST_XPCS_XGXS_RX       153
+>
+> Since the schema ends with additionalProperties: false, a conforming devi=
+ce
+> tree cannot express them at all, and the glue driver added later in the
+> series never requests a reset control, so it depends on those resets alre=
+ady
+> being de-asserted.
+>
+> Peer blocks in the same island do describe theirs, e.g. combphy0 with
+> resets =3D <&cru SRST_PIPEPHY0> and gmac0 with resets =3D <&cru SRST_A_GM=
+AC0>.
+>
+> Note the XPCS core does provide a register-level reset via xpcs_soft_rese=
+t()
+> in drivers/net/pcs/pcs-xpcs.c, so a state-machine restart is possible
+> without the CRU resets, and an optional resets property can be added late=
+r
+> without breaking the ABI.
+
+These are optional and can be added later without breaking ABI. I'll
+leave them out for now, since the mainline XPCS driver doesn't use them.
+
+> > +patternProperties:
+> > +  "^pcs-mii@[0-3]$":
+> > +    type: object
+> > +    description:
+> > +      One of the four MII ports of the XPCS. The port is linked to an
+> > +      Ethernet MAC controller via the pcs-handle property in the MAC's
+> > +      device tree node.
+> > +
+> > +    properties:
+> > +      reg:
+> > +        description: MII port number.
+> > +        enum: [0, 1, 2, 3]
+>
+> [Severity: Low]
+>
+> This isn't a bug, but is pcs-mii@N the intended name for these per-port
+> children rather than the generic ethernet-pcs@N?
+>
+> Resolving a MAC pcs-handle that points at one of these children does work
+> with the rest of the series: xpcs_rk_create() in
+> drivers/net/pcs/pcs-xpcs-rk.c reads the child reg, walks up with
+> of_get_parent() and calls xpcs_create_mdiodev(pxpcs->bus, port), and
+> rk_pcs_init() in drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c does
+> of_parse_phandle(np, "pcs-handle", 0).  So the open point is just the nod=
+e
+> naming.
+
+Yes, I will use ethernet-pcs@N
+
+> > +
+> > +    required:
+> > +      - reg
+> > +
+> > +    additionalProperties: false
+> > +
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +  - "#address-cells"
+> > +  - "#size-cells"
+> > +  - clocks
+> > +  - clock-names
+> > +  - phys
+> > +  - phy-names
+> > +  - power-domains
+>
+> [Severity: Medium]
+>
+> Does requiring phys and phy-names here make dtbs_check fail for the RK356=
+8
+> boards?  The SoC node added later in the same series omits both, because =
+the
+> SerDes selection is board specific:
+>
+> arch/arm64/boot/dts/rockchip/rk3568.dtsi:
+>         xpcs: pcs@fda00000 {
+>                 compatible =3D "rockchip,rk3568-xpcs";
+>                 #address-cells =3D <1>;
+>                 #size-cells =3D <0>;
+>                 reg =3D <0x0 0xfda00000 0x0 0x200000>;
+>                 clocks =3D <&cru PCLK_XPCS>, <&cru CLK_XPCS_EEE>;
+>                 clock-names =3D "csr", "eee";
+>                 power-domains =3D <&power RK3568_PD_PIPE>;
+>                 status =3D "disabled";
+>
+> and only the board fills them in:
+>
+> arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts:
+>         &xpcs {
+>                 status =3D "okay";
+>                 phys =3D <&combphy2 PHY_TYPE_SGMII>;
+>                 phy-names =3D "serdes";
+>         };
+>
+> dtschema validates nodes irrespective of status =3D "disabled", so wouldn=
+'t
+> every rk3568*.dtb apart from the Photonicat report "'phys', 'phy-names' a=
+re
+> required properties"?
+>
+> Should phys/phy-names be dropped from required (or made conditional), or
+> should the SoC dtsi carry them instead?
+
+This is not actually a problem. dtbs_check and CHECK_DTBS only validate
+required properties for enabled nodes. As confirmed by Rob Herring:
+
+    "the dtbs_check only checks required properties from yaml if the
+     node is enabled. Yes, that is exactly how it works."
+
+The xpcs node in rk3568.dtsi is marked status =3D "disabled", so boards
+that include rk3568.dtsi without enabling XPCS will not trigger any
+validation warnings. Only boards that enable it need to provide phys
+and phy-names, and they do so at the board level (as Photonicat does).
+
+This is also the standard pattern for SoC nodes with board-specific
+connections: keep the SoC node disabled, and let the board dts enable
+it with all required properties.
+
+The phys/phy-names properties cannot be moved into rk3568.dtsi anyway,
+because the SerDes connection is board-specific: some boards use
+combphy1 for SGMII, others use combphy2 (like Photonicat).
+
+Thanks,
