@@ -1,310 +1,109 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EF9E32E73E
-	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 14:56:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61E3732E73E
+	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 14:56:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789311415; cv=none; b=DNIZCdI2NM9xDkRsSVAXzx3URp2w4U5y1RQMANusayHWmSjtBtVO5Q381/AshY+qOTmbn7iQzBnfnu+2TIT5DtbNWXYmeXYJjaybgrR0Wn6iCthRQnaDOKp2hMF7fU7nJp+DD+lMJoLT4s1E+rOOzE8KztFvcWERFjYMY8xmUM0=
+	t=1789311424; cv=none; b=IirRPMIKl+DuqSXASlA6+sfTm+axpwlNODLtUw6wkItg1X8c59QHB/RCAz2CojSrNe1gX/RLYijnT9IyBjOAoE85beLXSgamPNOQDL1cVCv7cJtAYTibvSD70+0EOYJ2a+10uxLSb5XWCoWy5m+QPAXEEsTNv01BlO7RRfzoKJ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789311415; c=relaxed/simple;
-	bh=002rqKnwYlIeVlmK+OrjXg0dmApCO+jy4dOIn8rGOwc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Yh2HR3p4CIkzlRHS++cKwsMfFGAmO0f86QC0rvQk8sXTdK/CPt8idN9HiyTZORGkMdovOa47zMHF64eUsvsu6Hykip+qYasdXF6mmQ2QohH1VJU9S1hkMEDCZnQX2nhmPJUzAbBpAGM1rYowGV5Wl8bKiqWuKiLOywqH1MD9SOc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=axNCiK0X; arc=none smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789311424; c=relaxed/simple;
+	bh=oO4gN+RlIcRcGUIUuWXBia0NlCsHGTtsjPotWkjb+E4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=X/IG7cQEArlfh13QeeihkuIgry3SwmxMcIT1H5epmuBu6nnrx2P8WrcWawvS1gTBRvLAE8LT4d46rpG/9nWL0aSOb9AKBLw1jijv/ie5xHIMXmuBEpOIZQ29AELaAYgOFR1tKjfQ6R8K4ubPNz69kyHr763RLd6AJl2BP5vDxL4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d7FfBa1n; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="axNCiK0X"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3990fe066ebso1979987a91.1
-        for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 07:56:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789311411; x=1789916211; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MFmILcFARM3nbjJrUrOfoTXP5jUQVkRuUWrnpYTCEmM=;
-        b=axNCiK0X16xSYIUjGMsp36VBO8SCzpYWM8SSINH0g9mtGnwz6dHHvLGBhckM76n67S
-         OOYQc5yjRlUQRd7kEq4AwwyOnpC2df+CC1o4F8fDYSZjmb5qfS+faPVek8Pd699qIrhL
-         Q9G0A5pZ+xObc1/KUtm2r6ciiqDuKIHIO6UoYFORmXEdjENfR5dXxTzZCLNUKcvFPnbU
-         cwnumFe7MNqWkyFsbH/Y8oY4nIybovzmaW9F3AjFNxvun8uoEFVNXW6YDN0xMxUI4osQ
-         3xwAg0GA/IABwucDXyq8r38gyv0nW7TZSabX3yW5C57IlcJPaajHc0zZtxxVzQQ88WJi
-         bz1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789311411; x=1789916211;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MFmILcFARM3nbjJrUrOfoTXP5jUQVkRuUWrnpYTCEmM=;
-        b=hAxpesOVNv1Vygb0jKt1VAg+cUuPZAHBhVaBDpFi1zsQoo3z7OLgiBjMvH2tOzEzCq
-         tyq8ldawJNPyCq0ikva4CQ5CirQNYLIAy+22REJGG33ET7sjzKDbJ5LaGobWMZEx/QB9
-         8UL3hKtDimQSpLYsMWFoWPzSrxpw1Dcbv9f7OK9n6wTRkDT3kZz1gNpkt/NTX/Ln5KBn
-         uthsfO4bVpYVJgs8lKs+siTCIiMrHhXy/EbGfi6VRfp8PHrTTxIHhB6Hn8caY2itRp8z
-         pvFArevtCw+pDCNcm3PaDVtBihHvckX5+fZ5tLGJ95a0n5us/S5ZWgkMZVuUws2O1n6S
-         2WSw==
-X-Forwarded-Encrypted: i=1; AKwUvBzZurLTzBG3Q6OAEzIWSzme3EFbiFc3fn+QuFFZw211fhJelrQUwQEWvEDDgAVB6cfyL+ewf43UCyVy@vger.kernel.org
-X-Gm-Message-State: AFuF++nN6ibRl9ZmpirTt6U55UiY/HJDS2CWammi7QGTxphprh4nrHV6
-	tbk8RMWOrlLEdsOQFGgiOO5e11jDtyTZgLNIZ7hVgxwP+df5MGNpJn8P
-X-Gm-Gg: AYBFou0aaWwYk9sa9L54YRov3usIwgXd8tjDLsAumuAE2x0NLnUotEJT7Iu/XM11/sN
-	SNnsl2HN778l3aROQzQEAF1S6OrvUNO+Ms6ps6E9yJsot/DdLx5dQ9K0+B/vyVlHNvufzeeDV6U
-	zGp2PSMW9q4MmMZzWcrUl7g+i1Gb93eWKt81GSD9U//BqR2hH/vWNQ2WWy6MS1y1OKkYX0DG9W/
-	lfLm4C0K6VmXmzCFqF5RxSabDusHhN29Y0OQe6D7cy4u5Vqv9LCKHjqUxWwpQY7I3ouFYe8r0QZ
-	EyuAoTJCjWJ2hGBqXdBPR+aeKARGCNi8ykKFycJzHe2JevAH8wi6RNbF16nJWs0XKA2Mc8AKdaZ
-	YZO8x5jV7UHdegV7jox1bAVEhXWZINJ/LJv8w6Fw5T90omG84mKT2rG2W2qbQ+/UAeKBXIafy/q
-	fakLS6kNhkSV7ZFGLViM2wyleA3GyxdCa6ujrPbBu3otHsPFjdJekekiM6gHuSYHqy
-X-Received: by 2002:a17:90b:51c8:b0:38e:5b59:c2ff with SMTP id 98e67ed59e1d1-39d9bbc802bmr22552630a91.3.1789311411298;
-        Sun, 13 Sep 2026 07:56:51 -0700 (PDT)
-Received: from archlinux ([207.90.239.231])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba7a9bb56sm21467366eec.31.2026.09.13.07.56.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 07:56:50 -0700 (PDT)
-From: Mikhail Kalashnikov <iuncuim@gmail.com>
-To: Vasily Khoruzhick <anarsoul@gmail.com>,
-	Yangtao Li <tiny.windzz@gmail.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>,
-	Lukasz Luba <lukasz.luba@arm.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>
-Cc: linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	=?UTF-8?q?Juan=20Manuel=20L=C3=B3pez=20Carrillo?= <juanmanuellopezcarrillo@gmail.com>,
-	Andre Przywara <andre.przywara@arm.com>
-Subject: [PATCH v6 4/5] thermal/drivers/sun8i: Add support for A523 THS0/1 controllers
-Date: Sun, 13 Sep 2026 22:55:26 +0800
-Message-ID: <20260913145527.18148-5-iuncuim@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260913145527.18148-1-iuncuim@gmail.com>
-References: <20260913145527.18148-1-iuncuim@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d7FfBa1n"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9EB71F000FF;
+	Sun, 13 Sep 2026 14:56:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789311418;
+	bh=qwT6SRGrWU5ixZrRtK9qFiINLnWC1+kF+GUOsHUyW3s=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=d7FfBa1nDgoFFRzBucfNuX0dXjf7XCoNg/ZwnoOpuN/AqmJ+ioHfPF4bWqGKqFDjU
+	 Uwj2Gmc74kkdpsEPGKzVlogYtoqqbAZuJ+48c4Z65oMcVH11StVG9Vz2YchCVEOCmU
+	 EIRjkYYwuKqrHNXjgcmGbHb8VFMMmLKNjjzo/m6UtLTgf6zD6LKYuW21DR/ur6O2AJ
+	 6G6ywaVPzPR+VNVnXaIvScuoc6d4vClgwwe0Hndgms18Mw0aYDlW+ZgnydS74y7bTV
+	 o/5MoGVErgJRCfUI05E/UboWnyEd8fCEKYTz1R1X3yGtm6OX/XAgMJFrjVTzZslEti
+	 LLaCoMyXPQ2Sw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/3] drivers: gpu: drm: panel: Add BOE NT51021 driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Nickolay Goppen" <setotau@mainlining.org>
+Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260913-qcom-novatek-nt51021-panels-v3-2-266bc5d7e8c9@mainlining.org>
+References: <20260913-qcom-novatek-nt51021-panels-v3-0-266bc5d7e8c9@mainlining.org>
+ <20260913-qcom-novatek-nt51021-panels-v3-2-266bc5d7e8c9@mainlining.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 13 Sep 2026 14:56:57 +0000
+Message-Id: <20260913145657.B9EB71F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-From: Mikhail Kalashnikov <iuncuim@gmail.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Unconditional execution of CABC off sequence overwrites untouche=
+d state for boe_tv101wum_nm0 variant.
+--
 
-The A523 processor has two temperature controllers, THS0 and THS1.
-THS0 has only one temperature sensor, which is located in the DRAM
-controller. THS1 does have 4 sensors:
-ths1_0 - "big" cores
-ths1_1 - "little" cores
-ths1_2 - gpu
-ths1_3 - npu
+commit 80218d28f8a5f485ff9423dca654f2257664a78b
+Author: Nickolay Goppen <setotau@mainlining.org>
 
-The user manual for the T527 processor describes 4 sensors, whereas
-the one for the A523 describes only 3. As additional information, the BSP
-driver was used, in which the value SUN55IW3_CAL_COM(5000) is used as
-the calibration value in the formula; in the mainline driver it is
-treated as the ft_deviation value. Also, in the BSP driver the NPU sensor
-is used for both the GPU and the NPU — its actual purpose is unclear;
-both sensors are functional and show temperature changes depending on
-load.
+drivers: gpu: drm: panel: Add BOE NT51021 driver
 
-Signed-off-by: Mikhail Kalashnikov <iuncuim@gmail.com>
----
- drivers/thermal/sun8i_thermal.c | 147 ++++++++++++++++++++++++++++++++
- 1 file changed, 147 insertions(+)
+Add driver for BOE NT51021-based 8-inch and 10-inch DSI video mode
+panels used in Xiaomi Mi Pad 4, Mi Pad 4 Plus and Amazon Fire HD 10 tablets.
 
-diff --git a/drivers/thermal/sun8i_thermal.c b/drivers/thermal/sun8i_thermal.c
-index 360654880..4a81486f8 100644
---- a/drivers/thermal/sun8i_thermal.c
-+++ b/drivers/thermal/sun8i_thermal.c
-@@ -59,6 +59,12 @@
- #define SUN50I_H6_THS_PC_TEMP_PERIOD(x)		((GENMASK(19, 0) & (x)) << 12)
- #define SUN50I_H6_THS_DATA_IRQ_STS(x)		BIT(x)
- 
-+#define SUN55I_A523_DELIMITER			0x7c8
-+#define SUN55I_A523_OFFSET_BELOW		2736
-+#define SUN55I_A523_OFFSET_ABOVE		2825
-+#define SUN55I_A523_SCALE_BELOW			74
-+#define SUN55I_A523_SCALE_ABOVE			65
-+
- struct tsensor {
- 	struct ths_device		*tmdev;
- 	struct thermal_zone_device	*tzd;
-@@ -114,6 +120,21 @@ static int sun50i_h5_calc_temp(struct ths_device *tmdev,
- 		return -1590 * reg / 10 + 276000;
- }
- 
-+/*
-+ * The constant names were chosen in accordance with the BSP driver;
-+ * they indicate whether the value corresponds to a high or low
-+ * temperature (relative to a value of ~55 °C), rather than the reg value
-+ * that was read.
-+ */
-+static int sun55i_a523_calc_temp(struct ths_device *tmdev,
-+				 int id, int reg)
-+{
-+	if (reg >= SUN55I_A523_DELIMITER)
-+		return SUN55I_A523_SCALE_BELOW * (SUN55I_A523_OFFSET_BELOW - reg);
-+	else
-+		return SUN55I_A523_SCALE_ABOVE * (SUN55I_A523_OFFSET_ABOVE - reg);
-+}
-+
- static int sun8i_ths_get_temp(struct thermal_zone_device *tz, int *temp)
- {
- 	struct tsensor *s = thermal_zone_device_priv(tz);
-@@ -298,6 +319,105 @@ static int sun50i_h6_ths_calibrate(struct ths_device *tmdev,
- 	return 0;
- }
- 
-+/*
-+ * The A523 calibration data is stored in the eFuse, split across two
-+ * nvmem cells. THS1 has four sensors, including ths1_3 which is used
-+ * for the NPU, each with its own calibration value. The fields are
-+ * packed as shown in the layouts below.
-+ *
-+ * efuse layout 0x38-0x3F (caldata[0..3]):
-+ *     caldata[0]      caldata[1]      caldata[2]      caldata[3]
-+ * 0               16      24      32  36          48          60 64
-+ * +---------------+---------------+---------------+---------------+
-+ * |               |       |   temp    |  ths1_0   |  ths1_1   |   +
-+ * +---------------+---------------+---------------+---------------+
-+ *
-+ * efuse layout 0x44-0x4B (caldata[4..7]):
-+ *     caldata[4]      caldata[5]      caldata[6]      caldata[7]
-+ * 0           12  16      24      32  36          48             64
-+ * +---------------+---------------+---------------+---------------+
-+ * |  ths1_2   |  ths1_3   |    ths0   |           |               +
-+ * +---------------+---------------+---------------+---------------+
-+ */
-+static int sun55i_a523_ths_calibrate(struct ths_device *tmdev,
-+				     u16 *caldata, int callen)
-+{
-+	struct device *dev = tmdev->dev;
-+	int i, ft_temp;
-+
-+	if (!caldata[1])
-+		return -EINVAL;
-+
-+	ft_temp = (((caldata[2] << 8) | (caldata[1] >> 8)) & FT_TEMP_MASK) * 100;
-+
-+	for (i = 0; i < tmdev->chip->sensor_num; i++) {
-+		int sensor_reg, sensor_temp, cdata, offset;
-+		/*
-+		 * Chips ths0 and ths1 have common parameters for value
-+		 * calibration. To separate them we can use the number of
-+		 * temperature sensors on each chip.
-+		 * For ths0 this value is 1.
-+		 */
-+		if (tmdev->chip->sensor_num == 1) {
-+			sensor_reg = ((caldata[5] >> 8) |
-+				      (caldata[6] << 8)) & TEMP_CALIB_MASK;
-+		} else {
-+			switch (i) {
-+			case 0:
-+				sensor_reg = (caldata[2] >> 4) & TEMP_CALIB_MASK;
-+				break;
-+			case 1:
-+				sensor_reg = caldata[3] & TEMP_CALIB_MASK;
-+				break;
-+			case 2:
-+				sensor_reg = caldata[4] & TEMP_CALIB_MASK;
-+				break;
-+			case 3:
-+				sensor_reg = ((caldata[4] >> 12) |
-+					      (caldata[5] << 4)) & TEMP_CALIB_MASK;
-+				break;
-+			default:
-+				sensor_reg = 0;
-+				break;
-+			}
-+		}
-+
-+		sensor_temp = tmdev->chip->calc_temp(tmdev, i, sensor_reg);
-+
-+		/*
-+		 * Calibration data is CALIBRATE_DEFAULT - (calculated
-+		 * temperature from sensor reading at factory temperature
-+		 * minus actual factory temperature) * X (scale from
-+		 * temperature to register values).
-+		 *
-+		 * The BSP's SUN55IW3_CAL_COM(5000) is applied as ft_deviation
-+		 * in sun8i_ths_get_temp(), after calc_temp(), and therefore
-+		 * intentionally not repeated here.
-+		 */
-+		cdata = CALIBRATE_DEFAULT -
-+			((sensor_temp - ft_temp) / SUN55I_A523_SCALE_BELOW);
-+
-+		if (cdata & ~TEMP_CALIB_MASK) {
-+			/*
-+			 * Calibration value more than 12-bit, but calibration
-+			 * register is 12-bit. In this case, ths hardware can
-+			 * still work without calibration, although the data
-+			 * won't be so accurate.
-+			 */
-+			dev_warn(dev, "sensor%d is not calibrated.\n", i);
-+			continue;
-+		}
-+
-+		offset = (i % 2) * 16;
-+		regmap_update_bits(tmdev->regmap,
-+				   SUN50I_H6_THS_TEMP_CALIB + (i / 2 * 4),
-+				   TEMP_CALIB_MASK << offset,
-+				   cdata << offset);
-+	}
-+
-+	return 0;
-+}
-+
- static int sun8i_ths_calibrate(struct ths_device *tmdev)
- {
- 	struct nvmem_cell *calcell = NULL;
-@@ -719,6 +839,31 @@ static const struct ths_thermal_chip sun50i_h616_ths = {
- 	.calc_temp = sun8i_ths_calc_temp,
- };
- 
-+/* The A523 has a shared reset line for both chips */
-+static const struct ths_thermal_chip sun55i_a523_ths0 = {
-+	.sensor_num = 1,
-+	.has_bus_clk_reset = true,
-+	.has_mod_clk = true,
-+	.ft_deviation = 5000,
-+	.temp_data_base = SUN50I_H6_THS_TEMP_DATA,
-+	.calibrate = sun55i_a523_ths_calibrate,
-+	.init = sun50i_h6_thermal_init,
-+	.irq_ack = sun50i_h6_irq_ack,
-+	.calc_temp = sun55i_a523_calc_temp,
-+};
-+
-+static const struct ths_thermal_chip sun55i_a523_ths1 = {
-+	.sensor_num = 4,
-+	.has_bus_clk_reset = true,
-+	.has_mod_clk = true,
-+	.ft_deviation = 5000,
-+	.temp_data_base = SUN50I_H6_THS_TEMP_DATA,
-+	.calibrate = sun55i_a523_ths_calibrate,
-+	.init = sun50i_h6_thermal_init,
-+	.irq_ack = sun50i_h6_irq_ack,
-+	.calc_temp = sun55i_a523_calc_temp,
-+};
-+
- static const struct of_device_id of_ths_match[] = {
- 	{ .compatible = "allwinner,sun8i-a83t-ths", .data = &sun8i_a83t_ths },
- 	{ .compatible = "allwinner,sun8i-h3-ths", .data = &sun8i_h3_ths },
-@@ -729,6 +874,8 @@ static const struct of_device_id of_ths_match[] = {
- 	{ .compatible = "allwinner,sun50i-h6-ths", .data = &sun50i_h6_ths },
- 	{ .compatible = "allwinner,sun20i-d1-ths", .data = &sun20i_d1_ths },
- 	{ .compatible = "allwinner,sun50i-h616-ths", .data = &sun50i_h616_ths },
-+	{ .compatible = "allwinner,sun55i-a523-ths0", .data = &sun55i_a523_ths0 },
-+	{ .compatible = "allwinner,sun55i-a523-ths1", .data = &sun55i_a523_ths1 },
- 	{ /* sentinel */ },
- };
- MODULE_DEVICE_TABLE(of, of_ths_match);
--- 
-2.55.0
+> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt51021.c b/drivers/gpu/=
+drm/panel/panel-novatek-nt51021.c
+> new file mode 100644
+> index 0000000000000..fc99908917868
+> --- /dev/null
+> +++ b/drivers/gpu/drm/panel/panel-novatek-nt51021.c
 
+[ ... ]
+
+> +static int nt51021_novatek_off(struct novatek_nt51021_desc *ctx)
+> +{
+> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
+> +
+> +	nt51021_cabc_off(&dsi_ctx);
+
+[Severity: Medium]
+The commit message mentions that for the boe_tv101wum_nm0 variant, CABC is
+untouched because the vendor drives it over I2C from the backlight path. Wh=
+ile
+the initialization sequence for the nm0 variant correctly omits turning CABC
+on, this teardown sequence appears to unconditionally call nt51021_cabc_off=
+()
+for all variants.
+
+When nt51021_cabc_off() is called, it executes:
+
+    mipi_dsi_generic_write_seq_multi(dsi_ctx, 0x90, 0xc0);
+
+Could this unconditional write cause unexpected hardware states or DSI/I2C
+collisions during the display teardown for the nm0 variant, since the regis=
+ter
+was intended to be left alone?
+
+> +
+> +	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x8f, 0xa5);
+> +	mipi_dsi_msleep(&dsi_ctx, 20);
+> +	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
+> +	mipi_dsi_msleep(&dsi_ctx, 130);
+> +	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
+> +	mipi_dsi_msleep(&dsi_ctx, 70);
+> +	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x8f, 0x00);
+> +	mipi_dsi_usleep_range(&dsi_ctx, 4000, 5000);
+> +
+> +	return dsi_ctx.accum_err;
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260913-qcom-novat=
+ek-nt51021-panels-v3-0-266bc5d7e8c9@mainlining.org?part=3D2
