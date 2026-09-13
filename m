@@ -1,41 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5298221FD4;
-	Sun, 13 Sep 2026 08:59:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A612348C7C;
+	Sun, 13 Sep 2026 09:02:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789289971; cv=none; b=iZF/lel0N3b80VQAL58cZruktRSzHmOH6LsbQgDjOV2BbhpkJDvz8gQMs3QFtv1rjk8Cms1R27GcjUK4UBKzlTA77sI8gjU+k1rgO1MZxY3Va2H+iXSCwYsVBHmhE/x06AwQ6/cxrH0Jifdi3JU0j17tHEGjlRG5BwidJOPSGdU=
+	t=1789290138; cv=none; b=ntIt/G1SNvTSrWzdUUS6IvIR8YoDTx5ZIWF4E9RttBwafKIfKYY4NtIHNz8umfPTJZ0CpYz5f8heW4HIlllUjOSQmEEdKYh3KdthE4UyuJNKQF72vT6AOo3qeaAYmLgafB1z7BT6kTg3AViwhSwHaGwEulBGs39UniwPr8YnHfw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789289971; c=relaxed/simple;
-	bh=30JdxxfnctuzQQcplp2ZpDOw3WNwpTTRcMdbjfo/hWM=;
+	s=arc-20240116; t=1789290138; c=relaxed/simple;
+	bh=nXv6ndA7zeGK+jZSLxvfpzCe+24JiYV5mTMN5XXMlmg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EBXWexvqbzl7nwwVsgwEs+qty9vqtS39D/jhTsOlbdo/rgVoQ2ipVolo1BklYVv413S220kR5O7mUYIzE3BJ6Y896y1KGIwI+wr5LH0VX/RfnN6IpWtjbMNLtB3ByUm1NNZQsMTkUjh0QEznLfgEFyn0b1ivvdqczQ6qKRf3Z44=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jD1z06Ma; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=qFpY7n3io8QK6OK47MazQFOqsqPu7Q1Nbz1F6r7e+oJFlXQLNzX2Da5fO5KiYBFoBtyRj8O+QWkmMwG1JiAexsPrVrs0Ryi7GPIO7lmec+r91dZJPzxSYNkhkXSn+Xy6GdzVSzexZVWgZ3VuJxB8YgVbsVN/S4r9J4OrfWsXFY0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SqGlnhW5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jD1z06Ma"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C43FB1F000FF;
-	Sun, 13 Sep 2026 08:59:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SqGlnhW5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 989E31F00893;
+	Sun, 13 Sep 2026 09:02:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789289970;
-	bh=bkszEUJOOnT0MnAIUqUL5L1rAxWgsJ/+d9BlDF6Z3KY=;
+	s=k20260515; t=1789290137;
+	bh=+QgNccPks/y5EiUIaW30j5t0+tXeWFsnPvbGtZbENV8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jD1z06Mawe3mX4zcWsyOZ4jmLmRi1IEv/iqtC7ClG4FScoeyM888Xc6wljaXdG4of
-	 e62L1lgJGAEpVFkt1MuKRLCp8JTlwIxPZqejm/OtX1cgw2eLgmYW+kRGxX0an9y/KG
-	 AhFsjPKfojyL1qCDWhdJzihnjhXUmwDn9c7ApYXJ3A3yDxvkOCbyzQOZd/coR50YKW
-	 8atCI5Ex1PNqUCum87wN6zyiW5CaOTztJjPtDJbwyPj6ftQpTX0bOayxecENqGsvbM
-	 rjtOvK7aw0CYI/U+s7XT+mhVsseouL8nAx4dI9aVzv2My/3Jn5IRVwyQ2Y2i83oxXg
-	 FUVPBt78LtM9Q==
-Date: Sun, 13 Sep 2026 10:59:27 +0200
+	b=SqGlnhW5et2E74vIhmPM8wAsQ3mBbGzl12yVa0lpWYSM03XO26ERPdeYvcg4C6u51
+	 DBzPjVne51Rj21eL3qrVxlGUSVakh9ozHXr2ndeW3jhglB5g/4QihRIlJc9zAf+Ioe
+	 RynUuR9tn9INyJgpv4khUwMb+1IjaT9ZImnnJn5vmlUK2QFvuN+hyx3XxMgQwZKjOg
+	 YQD1VyQmey39ZN3r3yGQGRr9eC/JQt2boly6YoAgai1OpGyGifuOmS3SLwgzPFr6KT
+	 IWKwqnulOD99EgD1jbF4FO20ZJlDTUqF/5CbXuYi9A91zoKoPg8VJLzWjBTQ8aCutb
+	 Nfw6IPfTUF8HQ==
+Date: Sun, 13 Sep 2026 11:02:14 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	krzk+dt@kernel.org, jic23@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com, 
-	Michael.Hennerich@analog.com, andy@kernel.org, robh@kernel.org, conor+dt@kernel.org
-Subject: Re: [PATCH v3 1/2] dt-bindings: iio: temperature: add ADI MAX30210
-Message-ID: <20260913-brainy-giraffe-of-climate-b9c8bc@quoll>
-References: <cover.1789032019.git.johnerasmusmari.geronimo@analog.com>
- <f84dff4406361f180bb85e4187a64e8f9fc21b18.1789032019.git.johnerasmusmari.geronimo@analog.com>
+To: Konrad Dybcio <konradybcio@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Paul Sajna <sajattack@postmarketos.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, dri-devel@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH] Revert "dt-bindings: display: panel: panel-simple: Add
+ lg,sw49410 compatible"
+Message-ID: <20260913-succinct-spiffy-chimera-32b06b@quoll>
+References: <20260911-topic-lg_sw49410_revert-v1-1-c9385a9e1926@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -44,27 +50,40 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <f84dff4406361f180bb85e4187a64e8f9fc21b18.1789032019.git.johnerasmusmari.geronimo@analog.com>
+In-Reply-To: <20260911-topic-lg_sw49410_revert-v1-1-c9385a9e1926@oss.qualcomm.com>
 
-On Fri, Sep 11, 2026 at 06:12:16AM +0800, John Erasmus Mari Geronimo wrote:
-> Add device tree binding documentation for the Analog Devices
-> MAX30210 temperature sensor.
+On Fri, Sep 11, 2026 at 09:36:48AM +0200, Konrad Dybcio wrote:
+> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 > 
-> Signed-off-by: John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com>
+> This patch had been applied before the review has concluded. The panel
+
+"Commit foo bar had been applied..."
+
+> needs more specific handling than the one provided by panel-simple and
+> the intended compatible was supposed to contain both the display panel
+> name and the driver IC model number.
+
+You miss subject prefixes. It is "dt-bindings: dispaly: panel-simple:
+Revert something".
+
+> 
+> Moreover, the other compatible that didn't make it in the end landed in
+> the Qualcomm tree some time ago, instead of the one this revert
+> removes, so it's not even used.
+> 
+> See the link for reference.
+> 
+> This reverts commit a74c2e55ab66519ffa2069ac9ae83cd937bff4c4.
+> 
+> Link: https://lore.kernel.org/all/20260614-judyln-panel-v3-2-07f4134441bd@postmarketos.org/
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 > ---
->  .../iio/temperature/adi,max30210.yaml         | 61 +++++++++++++++++++
->  MAINTAINERS                                   |  7 +++
->  2 files changed, 68 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/iio/temperature/adi,max30210.yaml
-> 
+> Paul, please resubmit your bindings patch with the proper compatible
+> and let's get it merged.
 
-Do not attach (thread) your patchsets to some other threads (unrelated
-or older versions). This buries them deep in the mailbox and might
-interfere with applying entire sets. See also:
-https://elixir.bootlin.com/linux/v6.16-rc2/source/Documentation/process/submitting-patches.rst#L830
-
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+lg,sw49410 is already used, so instead new binding should be posted
+moving this one from panel-simple.  Revert does not solve anything -
+changes one warning into other one.
 
 Best regards,
 Krzysztof
