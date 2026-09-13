@@ -1,303 +1,135 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AD221EB5FD
-	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 17:06:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50E96372B57;
+	Sun, 13 Sep 2026 17:15:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789319220; cv=none; b=kBdtBGYJ8k62H34c5fIEZFgdUjMfS2jjwpV5QTnx73SOv75LquYmTUwjlVa7zM8c/+2pIdACZxhZ6o8mG77Z4cPOrvgGzHroc4TKpl+dMgmXW03s97Nk5wqnV+18oBtcHcoRiArwXJgy0DDh4I1QeWLpH+ZwqPxwDb4UVuIWyMI=
+	t=1789319705; cv=none; b=HtFHqg8mkX50MhJDqW71IpFqhbb+JHslJpRlvBcE+GhwWRd80Nmw77o4riFfpWVEZbmWRNmrL1dEGmnTHo3Kk4+/zXxhr2vvxM+3EcPL1VXNUrrue793AUFXYjIhZInkRZEFnCjq6thHo9+F07nG4UEvi7h3tGfwuhc8BtDohz4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789319220; c=relaxed/simple;
-	bh=55HOlgxv5Osy61VeA0QW3rB1klhKperyZUva8emw96E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LEkhPRzwvO42rsbkZR7Mg21e19+VfX3gQBY1nRyjZebpOl9maBYsZsweaVPmU/nezbivlRENo6t9LCk4r7qKb/5mWOvoMFHXj4iMyHBmAw6Q6JRSX53fqgwNqv81Xsob+44O0nEh0AW7dqX7Gitip3YyJJTW58Hzn52KQvgAUBE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dekYmsWU; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789319705; c=relaxed/simple;
+	bh=VMXd+8O+nrJIrt1DXeop6McgNG1S6nCLtX13sL5fG/E=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=e57sSRSevNDBVM9s7ERMuShCX9UPDUQf9I9iRGIuSVgwI/LtmT2+0nnjrMVSWBOaPdrI8DbMUeqalFwzx0FmRJR6XkltxXHR++Ig3rdQuMxsLvvnskJg0UvTvpm1gn7ZLNFc5Whq9ADdjQzuEIRXvUykSEW4+cSCYoGyQUke83c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QfZ8pjri; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dekYmsWU"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ce364488dso3727355e9.0
-        for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 10:06:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789319217; x=1789924017; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CLfGELYFsfdMyOIjPBzlfKUMxy/FgAuN3WPbdQvjEjI=;
-        b=dekYmsWUMA7orNWR6WnDt3hnCugYL9EL5TDQAiY5o7DHGi0kZ6P3aa+BKVulfH0MU2
-         JR5PzjfyJALmC4niZdo2ziA6iK2Zhyyi7LUJj0RXuN54DkAcYuT7uEyaVGsGBiWabpQc
-         v5LfckbHJotM4pgsQKpOWHeVVY04nArvmu3uI99e6aJ16K7bohTfkwRtCRpOpraIAGtT
-         zQLvfTNhCKjdVy272vFGDiZPFm+DhLah/lQkiDtNp3VMiA15jWKAYqvGOqFcKcVpPyKZ
-         D6FlgIU8PbWHBFOVrWc8ZuJf/udoIjz9PwxzwS5+TXfiWoq2bjSicAvqGmlQf9QpYKwi
-         pBGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789319217; x=1789924017;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CLfGELYFsfdMyOIjPBzlfKUMxy/FgAuN3WPbdQvjEjI=;
-        b=J/KQOe9113AAHQX43JC3f6lK4HcwH5MEMGrG5KJW0v+LMr0BJ36Vw2/LoLjVaGFgNO
-         FqANEQFSKpoc4faFPaLbRcPBMjarLz14e60WgP14HePxY7Au+zBow9915m6fkskWlW5Z
-         C36oA/F9ocIonWoq2X6NPSke4BjknztZz66MVqIY+SlaWdlDpDTrtb3GBbHTDlKgllaX
-         MOP+/0bJXn7eYP48awnnoBQS6Ebc8Wd5sHOgmeDkPRyAOTCyY+T5/Uq38LD/AJ7ZJTKO
-         V74WsL/wUhejJNTeSc9Vg3c+6Fdzp3PGus3sxNCIqsW1w0M1I/XT0+hLdsSstOH3jlEc
-         W76g==
-X-Forwarded-Encrypted: i=1; AKwUvByMSEo7tTAkoWRdWtZZDiFQAT0ZAmbRWPQFBpQyGjcPe3PGyJ+U/W+HD2P5lObDL/Qr1HKZCwyICrJ9@vger.kernel.org
-X-Gm-Message-State: AFuF++mdK5GcoIcqM+wwZ5M7E3qE4J06F09vVbg+7f+4mnEU4FXtIPS/
-	eM5NrfL4mlh4KTb6cNRY5xn2gqctzx/DCv0d2mjTgHs+waK1uLKxhFja
-X-Gm-Gg: AYBFou2Mp8eVyk3HvEPZ/h6JJ4xNhPLOl5r+kax8/BP6yELesikWEtcjWKseiMOMBxT
-	9pB7ee3hlrA1KpSBJYAWZxePo2DW2npLlBhBLGJgKvWom1MjBF12CMpQGddIgyWuvWzz+uKhupN
-	aDjjk/srqSZBqRqjbniAYrxZIsSiD17H4LZHT2IOUPLYiVuj2fpL+uv5eLvhiJqCOD3BHDR5IrE
-	dI9gp/D3jSaWGKezwCT6Zc5vw9gJKb1K888+HJWBX+5m9wP7yOcqSHY8/w+YBLSqMh7OscuGiqT
-	QIe02MC4IUzyYGxqMsxpLd/CHJcHjXT44yoottFWmyIz93EilQJ2yaWWyj7HNvx8XtaQrGNFRaM
-	lW/KHLdRdC0ALpzQdyw6YgE8ARd66bru1KH4CjjLEpBjYv5a0jTFPNOmON1i3K4x+HhdEoZwy25
-	IQbXj4W2muZkmixggbh5A7qxJIdjwNpbIGC36UK00AqfFGiwNZrBfagUUrqmWAUr1w5Lft0XlJt
-	tvUKOw109NZgewnsdez3A==
-X-Received: by 2002:a05:600d:4443:20b0:49d:257c:a735 with SMTP id 5b1f17b1804b1-49e76065da4mr22473745e9.11.1789319216429;
-        Sun, 13 Sep 2026 10:06:56 -0700 (PDT)
-Received: from [192.168.1.10] ([95.43.220.235])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49e6aac22bbsm116205845e9.0.2026.09.13.10.06.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 13 Sep 2026 10:06:54 -0700 (PDT)
-Message-ID: <7dfe251c-7c1f-46c9-a3e4-fb7388ddae49@gmail.com>
-Date: Sun, 13 Sep 2026 20:06:52 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QfZ8pjri"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F50C1F000FF;
+	Sun, 13 Sep 2026 17:15:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789319703;
+	bh=4gHBDOzcBkUXQHNg33c8Xf79lj4KhzckDilx8uOCLas=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=QfZ8pjri5eg5Pi0N5v72ZSxX1L9IWTm7IGidM5eID6l3k7oxSz2fBUW8C2sXmm43t
+	 Y0KGg2cgqgg7lAhCq4HIf4XnqVvPQp+9uosRB+y9VCFhi7/569z1qklqjQJJfn3Ohl
+	 shbtWRlcjgEehwjhvcMwMOD4jJ8fy9wzNB3ueZom4HLr2NFsXRE1Rc6i59fXsi2dTE
+	 2YJefEY+xRHCSFFX3RzUWsr5pQR7OEvzzvvK4YdEIf/YPKYxfP8V7j7qRjvGJPHmEy
+	 jKduIsII+P1T2oim/tUZkZnZqExgacVbP0bUkcTP++/hTUKZe/btnrI7ifFaik8Z7Y
+	 9kPyz3x8nJ9dw==
+Date: Sun, 13 Sep 2026 18:14:57 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Chang Yu <marcus.yu.56@gmail.com>
+Cc: Andy Shevchenko <andy@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Shi Hao <i.shihao.999@gmail.com>, "Jose A.
+ Perez de Azpillaga" <azpijr@gmail.com>, Joshua Crofts
+ <joshua.crofts1@gmail.com>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/2] dt-bindings: iio: light: add as7343
+Message-ID: <20260913181457.4bb2ebbc@jic23-hlaptop>
+In-Reply-To: <aqYWbWoBYaDJA9h-@gmail.com>
+References: <20260912013912.51887-1-marcus.yu.56@gmail.com>
+	<20260912013912.51887-2-marcus.yu.56@gmail.com>
+	<20260913015652.029475d2@jic23-hlaptop>
+	<aqX90oniPRdsu5jp@gmail.com>
+	<20260913035132.1fb50e6e@jic23-hlaptop>
+	<aqYWbWoBYaDJA9h-@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 4/7] phy: cpcap-usb: add DCP detection and make UART
- idle mode optional
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Aaro Koskinen <aaro.koskinen@iki.fi>,
- Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>,
- Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
- Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-omap@vger.kernel.org,
- linux-gpio@vger.kernel.org
-References: <20260711204210.197144-1-ivo.g.dimitrov.75@gmail.com>
- <20260711204210.197144-5-ivo.g.dimitrov.75@gmail.com>
- <oheoylzdj3arrnfdm6747cuubllkdmg4gx7vm3zhs3owuooj4v@zdbytrztbdp4>
-Content-Language: en-GB
-From: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
-In-Reply-To: <oheoylzdj3arrnfdm6747cuubllkdmg4gx7vm3zhs3owuooj4v@zdbytrztbdp4>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Sat, 12 Sep 2026 20:20:13 -0700
+Chang Yu <marcus.yu.56@gmail.com> wrote:
 
-
-On 9.09.26 г. 19:07 ч., Manivannan Sadhasivam wrote:
-> On Sat, Jul 11, 2026 at 11:42:07PM +0300, Ivaylo Dimitrov wrote:
->> Handle DCP separately from USB host connections using CPCAP charger
->> detection status.
->>
->> Make the existing idle UART mode optional via the "enable_uart" module
->> parameter. When disabled (default), the PHY remains in its USB/charger
->> detection configuration while idle.
->>
->> Also initialize the PHY into the baseline configuration required for
->> reliable charger detection during probe.
->>
->> Use the optional "safe" pinctrl state before switching between modes to
->> avoid glitches on USB or UART lines.
->>
+> On Sun, Sep 13, 2026 at 03:51:32AM +0100, Jonathan Cameron wrote:
+> > On Sat, 12 Sep 2026 18:35:14 -0700
+> > Chang Yu <marcus.yu.56@gmail.com> wrote:
+> >   
+> > > Hi Jonathan,
+> > > 
+> > > A quick comment inline.
+> > > 
+> > > On Sun, Sep 13, 2026 at 01:56:52AM +0100, Jonathan Cameron wrote:  
+> > > > On Fri, 11 Sep 2026 18:39:11 -0700
+> > > > Chang Yu <marcus.yu.56@gmail.com> wrote:
+> > > >     
+> > > > > +    description:
+> > > > > +      The driver current for the external LED connected to the LDR pin.
+> > > > > +    minimum: 4000
+> > > > > +    maximum: 258000
+> > > > > +    multipleOf: 2000
+> > > > > +    default: 12000
+> > > > > +
+> > > > > +  sync-gpios:
+> > > > > +    description: |
+> > > > > +      Optional GPIO pin that can be used either as a synchronization input to
+> > > > > +      start/stop measurement or as an external start/stop signal for
+> > > > > +      synchronizing with the connected LED.    
+> > > > 
+> > > > So the datasheet starts referring to using this for some level of sync
+> > > > but then only actually treats it as as a gpio (maybe I'm missing something).
+> > > > Any idea what that stuff about start/stop is talking about?
+> > > > 
+> > > > The only thing I can find about this is the device diagram in figure 13 that has the GPIO
+> > > > wired to the led driver and the automatic measurement engine.
+> > > >     
+> > > That's what I got from the datasheet as well. They don't describe how to
+> > > use the GPIO pin to perform synchronizations at all.
+> > > 
+> > > The adafruit arduino driver
+> > > (https://github.com/adafruit/Adafruit_AS7343/blob/main/Adafruit_AS7343.cpp)
+> > > is slightly more helpful - the GPIO in output mode signals when the
+> > > spectral measurement starts. Unfortunately no information about input
+> > > mode.  
+> > 
+> > There is no separate control?  If so we can't use it as a GPIO as whilst
+> > there is a control to set the state it will randomly get overwritten if
+> > we do such a read. So to me sounds like that is there for testing the
+> > connection and similar usecases only and we should not expose this as
+> > a GPIO. Maybe input is possible but that may also have side effects.
+> > So I'd be tempted to drop it from the binding - with some description
+> > of why it is not there in the patch description.
+> >   
 > 
-> Looks like this change is doing multiple things at once. Please split the
-> changes logically to separate patches.
-> 
-will spliting in two:
+> Agreed. What does this mean for the LED then? For all intents and purposes
+> it's controlled by only 1 register. It may have some interactions with the
+> GPIO but since they are completely undocumented so we might as well consider
+> them non-existent. IMO it probably doesn't warrant a LED subnode and
+> led-max-microamp is enough. Maybe DT folks can also comment on that.
 
-patch1: enable_uart + safe pinctrl
-patch2: DCP detection + init on probe
-
-be ok or you want me to split even more? To me it makes sense as 
-enable_uart will be few lines only if sent as a separate patch and I 
-don't think splitting DCP detection + init on probe makes sense.
-
->> Note: Enabling UART idle mode increases idle power consumption (by 25mW
->> on droid4).
->>
->> Signed-off-by: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
->>
->> # Conflicts:
->> #	drivers/phy/motorola/phy-cpcap-usb.c
-> 
-> What is this conflict?
-
-an artefact from nth local rebase/merge before submission :) .
+Agreed, given software is controlling the current we need that and there
+isn't a lot more we can do.  I guess you have the Adafruit board. Are the
+pins wired out so you can perhaps see what happens in practice?
 
 > 
->> ---
->>   drivers/phy/motorola/phy-cpcap-usb.c | 301 +++++++++++++++++++++------
->>   1 file changed, 238 insertions(+), 63 deletions(-)
->>
->> diff --git a/drivers/phy/motorola/phy-cpcap-usb.c b/drivers/phy/motorola/phy-cpcap-usb.c
->> index 741145c89e5b..2d770ff19e93 100644
->> --- a/drivers/phy/motorola/phy-cpcap-usb.c
->> +++ b/drivers/phy/motorola/phy-cpcap-usb.c
->> @@ -110,6 +110,15 @@ enum cpcap_gpio_mode {
->>   	CPCAP_OTG_DM_DP,
->>   };
->>   
->> +enum cpcap_mode {
->> +	CPCAP_UNKNOWN,
->> +	CPCAP_IDLE,
->> +	CPCAP_CHARGER,
->> +	CPCAP_USB,
->> +	CPCAP_USB_HOST,
->> +	CPCAP_DOCK,
->> +};
->> +
->>   struct cpcap_phy_ddata {
->>   	struct regmap *reg;
->>   	struct device *dev;
->> @@ -119,15 +128,19 @@ struct cpcap_phy_ddata {
->>   	struct pinctrl_state *pins_ulpi;
->>   	struct pinctrl_state *pins_utmi;
->>   	struct pinctrl_state *pins_uart;
->> +	struct pinctrl_state *pins_safe;
->>   	struct gpio_desc *gpio[2];
->>   	struct iio_channel *vbus;
->>   	struct iio_channel *id;
->>   	struct regulator *vusb;
->>   	atomic_t active;
->> -	unsigned int vbus_provider:1;
->> -	unsigned int docked:1;
->> +	enum cpcap_mode mode;
->>   };
->>   
->> +static bool cpcap_enable_uart;
->> +module_param_named(enable_uart, cpcap_enable_uart, bool, 0644);
->> +MODULE_PARM_DESC(enable_uart,
->> +		 "Enable UART on the USB connector while idle (increases power consumption)");
-> 
-> Use of module params is discouraged these days. Also, you are disabling it by
-> default, which could cause surprises to users who have boards wired up for debug
-> console. But considering that it consumes a lot of power, I think it is OK to
-> disable it this way. I can't think of another way to add this knob.
-> 
+> > >   
+> > > > > +    maxItems: 1
+> > > > > +
+> > > > > +required:
+> > > > > +  - compatible
+> > > > > +  - reg
+> > > > > +  - vdd-supply
+> > > > > +
+> > > > > +additionalProperties: false    
+> > > > 
+> > > >     
+> > >   
+> >   
 
-Me neither, that's why I came up with a module parameter. Yes, I 
-understand disabling it by default may cause regression for some 
-(presumably knowledgeable) users, however, I think stripping ~25% from 
-idle power usage for the others worths it.
-
->>   static bool cpcap_usb_vbus_valid(struct cpcap_phy_ddata *ddata)
->>   {
->>   	int error, value = 0;
->> @@ -196,8 +209,9 @@ static int cpcap_phy_get_ints_state(struct cpcap_phy_ddata *ddata,
->>   	return 0;
->>   }
->>   
-> 
-> [...]
-> 
->> @@ -473,21 +559,10 @@ static int cpcap_usb_set_usb_mode(struct cpcap_phy_ddata *ddata)
->>   {
->>   	int error;
->>   
->> -	/* Disable lines to prevent glitches from waking up mdm6600 */
->> -	error = cpcap_usb_gpio_set_mode(ddata, CPCAP_UNKNOWN_DISABLED);
->> +	error = cpcap_usb_set_safe_mode(ddata);
->>   	if (error)
->>   		return error;
->>   
->> -	if (ddata->pins_utmi) {
->> -		error = pinctrl_select_state(ddata->pins, ddata->pins_utmi);
->> -		if (error) {
->> -			dev_err(ddata->dev, "could not set usb mode: %i\n",
->> -				error);
->> -
->> -			return error;
->> -		}
->> -	}
->> -
->>   	error = regmap_update_bits(ddata->reg, CPCAP_REG_USBC1,
->>   				   CPCAP_BIT_VBUSPD, 0);
->>   	if (error)
->> @@ -503,11 +578,23 @@ static int cpcap_usb_set_usb_mode(struct cpcap_phy_ddata *ddata)
->>   		goto out_err;
->>   
->>   	error = regmap_update_bits(ddata->reg, CPCAP_REG_USBC2,
->> -				   CPCAP_BIT_USBXCVREN,
->> +				   CPCAP_BIT_USBXCVREN |
->> +				   CPCAP_BIT_UARTMUX0 |
->> +				   CPCAP_BIT_EMUMODE0,
-> 
-> As Sashiko noted, you are not clearing CPCAP_BIT_USBSUSPEND bit set in
-> cpcap_usb_set_idle_mode().
-> 
-
-Vendor kernel does not do it and we are using the patch with 
-CPCAP_BIT_USBSUSPEND not cleared for few months with no issues 
-whatsoever, so I am not convinced this is needed. However, tests on the 
-device didn't show any difference if I clear the bit so OK, will do.
-
->>   				   CPCAP_BIT_USBXCVREN);
->>   	if (error)
->>   		goto out_err;
->>   
->> +	if (ddata->pins_utmi) {
->> +		error = pinctrl_select_state(ddata->pins, ddata->pins_utmi);
->> +		if (error) {
->> +			dev_err(ddata->dev, "could not set usb mode: %i\n",
->> +				error);
->> +
->> +			return error;
->> +		}
->> +	}
->> +
->>   	/* Enable USB mode */
->>   	error = cpcap_usb_gpio_set_mode(ddata, CPCAP_OTG_DM_DP);
->>   	if (error)
->> @@ -521,6 +608,38 @@ static int cpcap_usb_set_usb_mode(struct cpcap_phy_ddata *ddata)
->>   	return error;
->>   }
->>   
->> +static int cpcap_usb_set_dcp_mode(struct cpcap_phy_ddata *ddata)
->> +{
->> +	int error;
->> +
->> +	error = cpcap_usb_set_safe_mode(ddata);
->> +	if (error)
->> +		return error;
->> +
->> +	error = regmap_update_bits(ddata->reg, CPCAP_REG_USBC2,
->> +				   CPCAP_BIT_USBXCVREN |
->> +				   CPCAP_BIT_UARTMUX0 |
->> +				   CPCAP_BIT_EMUMODE0, 0);
->> +	if (error)
->> +		goto out_err;
->> +
->> +	error = regmap_update_bits(ddata->reg, CPCAP_REG_USBC3,
->> +				   CPCAP_BIT_SUSPEND_SPI, 0);
->> +	if (error)
->> +		goto out_err;
->> +
->> +	error = cpcap_usb_gpio_set_mode(ddata, CPCAP_DM_DP);
->> +	if (error)
->> +		goto out_err;
->> +
->> +	return 0;
->> +
->> +out_err:
->> +	dev_err(ddata->dev, "%s failed with %i\n", __func__, error);
-> 
-> Don't print function names in the error log.
-> 
-
-Ok.
-
-Will send new series, just LMK if you want the patch split in 2 or more 
-patches.
-
-Thanks,
-Ivo
