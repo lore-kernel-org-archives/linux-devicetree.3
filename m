@@ -1,164 +1,187 @@
-Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com [74.125.227.43])
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19AC72E2663
-	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 20:42:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AA1A48CFC
+	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 20:50:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789332132; cv=none; b=hmonO0oluMs9+XUKAkWuDSwWqo+du36/x/hkfXyJGGIYqOEuVnRohgJJwF7ZGWj1guSoO3rqA3W6aW+ufFiE2cOUYxAI5uQP37lN7l/edm7oXJ4TgIvDXBK1kk98irpwtcnp2F6LjyBRaRoaembrtM9DCerSuxBS2m0ElTrwlSI=
+	t=1789332615; cv=none; b=jOq6G63XbsofAp36ASGxklFvK/gaQ/qyWBPPTUCixBw8nNy0OJxJonlIsKNwL8SUqmhfRtyDHatR/rsY9hAcIkj8A6rRDNmiQnDGrpEvjua7Tlpz/4qYEFLg33CP3ibc/yacLyqw3Gm1XPR60HWzLCvObZhFXDzfVebb8xWInDU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789332132; c=relaxed/simple;
-	bh=8ee+7gFBh2B/5NzYVSDcJVxrx4aUxOp66VqIfZZZWKk=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ivbPVk2qLYY4yxcmgDffM6ZN1olP37n54QTKIc4UNFhntNVnQega7rWWFOYng+AOHfH0og5EuOBLd3xW91/nLdKgQ/qDqF8zuUi6lEMeHAw3mIYtSpHeVN3cykc/U0EQKQQcM7kXWFX7XZbZTp1PAEUsCimnMUMOHvpcHBU5Bdw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LDNFP+RW; arc=none smtp.client-ip=74.125.227.43
+	s=arc-20240116; t=1789332615; c=relaxed/simple;
+	bh=iXjQ7ZL5zf0L4khBIAIZRuOtNLqxabdX7LHVbhud9JQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GJXG1EJQs6f2+BfZ7DKV7j5RcaPnfOfYTxFEDi85Sln4/q71Fs/WhgwLptbV74eimsK87iw9s2SF107BfF9horGp12t5HK9Y2AsbcrXEELleQUrs3nH8pI+TcNQKv0Po6mX7KB8tbi83wD5H39ZCr8d+fo7I/cfTk/EbqrcGnMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oY8x+Ejp; arc=none smtp.client-ip=209.85.221.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LDNFP+RW"
-Received: by mail-vs2-f43.google.com with SMTP id ada2fe7eead31-78a4c5c582eso494620137.3
-        for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 13:42:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oY8x+Ejp"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-486955ae01eso2247008f8f.0
+        for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 13:50:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789332130; x=1789936930; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=8ee+7gFBh2B/5NzYVSDcJVxrx4aUxOp66VqIfZZZWKk=;
-        b=LDNFP+RWd7ij18dzk6/MVf/eAlddcD3WClEG209fDJjRVVIWfEs9UGiATEYYMZJcKi
-         7SrRZwGKLCdiRiytYmb8O43m6JAItrT5fUPbFm9r7bxTk7svpphWQdPJCPkUB+BSuxt/
-         +otmT9bkkEaryJEBUhWdRtlGREfyEYN2/8OWnmJY+oy1FoEj1z54fDK5b+H0dMmbUCWA
-         EMiu4OsvmfflRa1fYQhwo30cZTw1NgEScmwSIHTekFVNQPWVF1Fyznr9J6g9G5+IM7qB
-         Op0RXgT2jgcYC6yXGBGTHSQKSzGFT8QQ71DmS4O5WnhvoEtGa4guUm6MlI/fzmKzOvLi
-         K3DA==
+        d=gmail.com; s=20251104; t=1789332612; x=1789937412; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vjMoUF4yuavaTKyLY/U0g6P8MTIyeIYTubqXPU+RsMY=;
+        b=oY8x+Ejp6pjAQoaUB+OdehHWWiseEU8uFp3S4bp5dt+QpLNG7CUCwxBOGIMl0i5YjF
+         i7zl50R3sCsK+e7v2BjY+PgGzl7TzYJYM/n7j4IyGRfSnLfAPdAvY0z3Co+hQCI/7Prq
+         7ps496KjYpEgFE7O62CW/V+zruQGYfYnjwUvUbfXLAMqEbWlZY6Cz18phTl6TsQqnH1C
+         yZVVBulrz4kL9vzO9KgkbIRB80TYEIBapXEklQ3O2s6u+SpsVIRxcyon1T8yFQ5vPa1x
+         NJMomXtcORFMfV5i8pcnBn1zCsNbu9zddOqq0bZc3e0SABFtORUSFopJOPeVYaSUFJsJ
+         LUwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789332130; x=1789936930;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8ee+7gFBh2B/5NzYVSDcJVxrx4aUxOp66VqIfZZZWKk=;
-        b=Of34bmL/cHfun8c8KEQNM8E0r8GRPkQ7UtjqVGol+jTMHhUTjpow2/s6UChuzVQxX0
-         CWnNNb8eq6lKF00LReejFgkajc6t1FEhv8TyOIcxX29TWUN3NtSzQPoI60Ha9yJ+PQlz
-         i2R8+97mWNIiSdDAlCG6F9UtRum1QxN5qON0HkEKtPdWE5iwEgHrMuUCJgfhm733zwnq
-         n2VImJu2JSmkbZU2078wDHvBXO/H/7u8wty9h7fmiEg9G5nUPXpXQRzDBVktiHCpL0y3
-         Jz8lM41cizRCju3QRdxLT1WDj1I1wHkqsZXq1J+oMh7q934BQsF1FEDNh1GXmXkiKwwN
-         +GvQ==
-X-Forwarded-Encrypted: i=1; AKwUvByMvEy0YQXy4bTqFj3mRQ6lRxU2LY/hd874r+OHnalhFQqYYqmtp2MisYJ5LsSbyvgs3SPD+/AgTEg+@vger.kernel.org
-X-Gm-Message-State: AFuF++kfzLgsrXl5Xv2dr8lxgV5MINq6aclo77pNpgg4HnJAnVDxz+Re
-	oFKAmhKHybPMzxDVSRTJRdMDi8kr+3OVQc8LG7ugGpVuoAhhxwLmGKQ7
-X-Gm-Gg: AYBFou3iYWsnAqo0INmZ3xRVWsS/JhJ1bne/61RMpe/iSuU8rtPUS3tqntcCYBMTfgq
-	vNmdXkjg29IzASZST+6rgEzPoeBaZTgGtwx88FKC+1S7kwLnOcO4F9+TdmfVyxtbEZUWpvI+PU5
-	NPwtwodDy3n428rrICJiVPRp1Cv27w0xMEZKSWSXWdaJW305QiT/pk9QZpKV+UPq1fI3sTVpq7c
-	O5o4GztqtlyoyP30U1oLjQ8npK1nimvDRfycohKUBvnJZFSvwFESe2/RFUt4yOiASX9ezp7S/nv
-	QQBri15Y1Q4mgk3rWcUGP10sEeXvB07ylQNRi2LRH9HqmQpV7ucS2J5pfGYjsjcRrLkqO3aCv8n
-	wNhMie0rlKR8vB4wpir+h/JVquqsZ5UNxi5Qk1nkDxvK3ORoX5smHy5osjdFTje5KH/5N67zEGB
-	BMaZhB4DOXCYulUUicBxggcfzz2eBHWWrhvmFPARFEjDhpdB9OlaNYU0tzJUb+Sowu239jgakJB
-	g==
-X-Received: by 2002:a05:6102:330d:b0:783:f3bf:f9aa with SMTP id ada2fe7eead31-792ac9e510amr4898086137.8.1789332129863;
-        Sun, 13 Sep 2026 13:42:09 -0700 (PDT)
-Received: from [192.168.0.10] ([189.60.169.129])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-982b9f41426sm9597329241.6.2026.09.13.13.42.06
+        d=1e100.net; s=20251104; t=1789332612; x=1789937412;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vjMoUF4yuavaTKyLY/U0g6P8MTIyeIYTubqXPU+RsMY=;
+        b=gjMVHNjcU2fmhrJrQQGPZy84sW3vA4RNLtR3ReDY9bkTrl0LwwYyxZWdwSERJsQXQ0
+         E5EthTn6PSc9h69r3E/AeNtzU4+SUfCzzGilTz7PLAX4yEy3bRDy8X+gENs27LJW/O9p
+         9fNILDbmUkaZCaKkkamwAoAy2EwxB2zbu5ZiFBVqOm3l35fQe/i8wW3Y8JVgY3fiKTpu
+         2YmdGyKWewSZr2LzRz00mnMhMrpq5Rk4KlNc9xA+CpR+tSSA0uecG4kuJwM8YAlHKQkP
+         bHYYAKiTZqmpiYcnXLEN8YWII93h+7Vf/ntyKd2d0GY5XZtWzFk7RdSH6OjgnPXzlE9x
+         MRAA==
+X-Forwarded-Encrypted: i=1; AKwUvBxUyELapbYp5XAIGBgmf8633FsX375X2AfY4WcWXmQGuhSAeB252yQtRESuIsUeWm+qvI+HkQMehtDZ@vger.kernel.org
+X-Gm-Message-State: AFuF++lJ3N0WZOGns+lpy6Z8tWYGFBFyEvqoQKvEhujCPUwYhiQTsaif
+	rtcINfsXih98XF4sZko+FvN3X6phZVUuC859NKjHaKpVHzMo+9Bv9Fpz
+X-Gm-Gg: AYBFou2MDPX90KUREDHyIaWyGD+uUk38BI2eZtPQZevJ2N4IsGBTDnRuHfxDNxS+vbw
+	CMXhjhqIg1KicmVWCVY74J2q0YiGhQOMvoeq+eTmyxUZ1jDsm75lZZbMP6a//qIRUgjCfpPN1hR
+	RYxbRhu4mCnmj7g5oGH+InIPgdr5FpoU6BukPq+uLUJeolXUPJmx/VuJvjixD2R9qchP5gQcyQa
+	2JMRbHU1bQvPKCO5xRPazME1vHso1sS5E31qwZXqKQp2k8ZomBxb7iQV9K+9puAKttCBXvuUHN0
+	SpN6xRqXL51/ze00Z1wUS+0Vdg1ZN3BHx+tGSp+KY+GrRVBJTFkXq+pAz19cLrINLVTPXCv5TGB
+	0swR4uFDFdifcix0FyszPLno6mVKeTAcvflPeLWl2Z4BagoTtIfH7tgBX80JRPuq9CVNAW0twmv
+	1E5NEDcWnpx7YgUlByH32aJ2n5YErFuIM7jiMU17NHlzTMi4LUJecBpg+XHNub6xD+FM+v7bthH
+	SrM9ewubKrR0XKLP7+ggTFomOP4GkbpkcAVoABCQdD/bvlUZPfjhwGfpL3wc/xNFUJfuPPh5ZA2
+	nmCE70oDelHqHD7j6ki8SxoxfIVH6YK6VJk2IQ==
+X-Received: by 2002:a05:600c:4e8e:b0:49e:7423:687c with SMTP id 5b1f17b1804b1-49e742368a8mr56005745e9.1.1789332611594;
+        Sun, 13 Sep 2026 13:50:11 -0700 (PDT)
+Received: from stiangglanda-IdeaPad.. ([85.233.101.104])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7723d458sm54986345e9.0.2026.09.13.13.50.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 13:42:09 -0700 (PDT)
-Message-ID: <f8fbfb26a60bd664bb4c436acfa541b5e4976916.camel@gmail.com>
-Subject: Re: [PATCH v2] dt-bindings: display: panel: mipi-dbi-spi: add
- sitronix,st7789v-tft28
-From: Frese <freseenzo@gmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, Noralf =?ISO-8859-1?Q?Tr=F8nnes?=
- <noralf@tronnes.org>, Neil Armstrong	 <neil.armstrong@linaro.org>, Jessica
- Zhang <jesszhan0024@gmail.com>, 	devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 	linux-kernel@vger.kernel.org
-Date: Sun, 13 Sep 2026 17:42:05 -0300
-In-Reply-To: <20260913-easygoing-chubby-sidewinder-67beb9@quoll>
-References: <20260911203342.76692-1-freseenzo@gmail.com>
-	 <20260913-easygoing-chubby-sidewinder-67beb9@quoll>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (by Flathub.org) 
+        Sun, 13 Sep 2026 13:50:11 -0700 (PDT)
+From: Leander Kieweg <kieweg.leander@gmail.com>
+To: dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org
+Cc: airlied@gmail.com,
+	simona@ffwll.ch,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	u.kleine-koenig@baylibre.com,
+	Leander Kieweg <kieweg.leander@gmail.com>
+Subject: [PATCH v4 0/2] drm: Add DRM driver for GlandaGPU (VHDL soft-IP GPU)
+Date: Sun, 13 Sep 2026 22:50:05 +0200
+Message-ID: <20260913205007.118552-1-kieweg.leander@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi Krzysztof,
+This is v4 of the GlandaGPU DRM driver series [1][2][3]. It addresses
+review feedback from Thomas Zimmermann and the automated review bot
+on v3.
 
-Thanks for the review, this is one of my first kernel contributions,
-so please bear with me.
+GlandaGPU is a small VHDL soft-IP 2D display controller, currently
+targeting a Terasic DE10-Standard (Cyclone V SoC). This series has
+been tested against a QEMU digital twin and on real hardware.
 
-This panel is a generic hobbyist module, wired via jumpers to a stock
-Raspberry Pi 4B, not soldered onto any fixed product like
-saef,sftc154b (Anbernic RG-Nano) or shineworld,lh133k (LXA boards).
-Mainline has no Raspberry Pi overlay tree, so there's no in-tree
-consumer to add. I noticed sainsmart18 currently has no in-tree
-consumer either, though it was added as part of the original binding's
-example, so I'm not sure that's a strong precedent. Would a
-documentation example, or an out-of-tree overlay demonstrating the
-tested wiring, be an acceptable alternative here?
+Hardware/VHDL:   https://github.com/stiangglanda/GlandaGPU
+QEMU fork:       https://github.com/stiangglanda/qemu-glandagpu
+Userspace tests: https://github.com/stiangglanda/GlandaGPU-userspace-tests
 
-Vendor prefix was already fixed in v2 (sitronix,st7789v-tft28) =E2=80=94
-sorry the subject change broke Patchwork's series detection.
+Changes since v3:
 
-Thanks,
-Enzo
+dt-bindings:
+- Fix alphabetical ordering of the '^kieweg,.*' vendor prefix in
+  vendor-prefixes.yaml.
 
-On Sun, 2026-09-13 at 11:34 +0200, Krzysztof Kozlowski wrote:
-> On Fri, Sep 11, 2026 at 05:33:42PM -0300, Enzo Frese wrote:
-> > This is a generic 2.8" 240x320 RGB LCD panel with a MIPI DBI
-> > compatible
-> > SPI interface, based on the Sitronix ST7789V controller. It is
-> > commonly
-> > sold by various resellers without an identifiable original
-> > manufacturer
-> > name printed on the PCB.
-> >=20
-> > A basic mipi-dbi-cmd[1] script to get the display running looks
-> > like
-> > this:
-> >=20
-> > $ cat sitronix,st7789v-tft28.txt
-> > command 0x11
-> > delay 120
-> > command 0x3a 0x55
-> > command 0xb2 0x05 0x05 0x00 0x33 0x33
-> > command 0xb7 0x75
-> > command 0xc2 0x01 0xff
-> > command 0xc3 0x13
-> > command 0xc4 0x20
-> > command 0xbb 0x22
-> > command 0xc5 0x20
-> > command 0xd0 0xa4 0xa1
-> > command 0xe0 0xd0 0x05 0x0a 0x09 0x08 0x05 0x2e 0x44 0x45 0x0f 0x17
-> > 0x16 0x2b 0x33
-> > command 0xe1 0xd0 0x05 0x0a 0x09 0x08 0x05 0x2e 0x43 0x45 0x0f 0x16
-> > 0x16 0x2b 0x33
-> > command 0x36 0x00
-> > command 0x29
-> > command 0x21
-> >=20
-> > $ mipi-dbi-cmd sitronix,st7789v-tft28.bin sitronix,st7789v-
-> > tft28.txt
-> >=20
-> > Tested on a Raspberry Pi 4B using the panel-mipi-dbi driver.
-> >=20
-> > [1]: https://github.com/notro/panel-mipi-dbi
-> >=20
-> > Signed-off-by: Enzo Frese <freseenzo@gmail.com>
-> > ---
-> > =C2=A0.../devicetree/bindings/display/panel/panel-mipi-dbi-spi.yaml=C2=
-=A0=C2=A0=C2=A0 |
-> > 1 +
-> > =C2=A01 file changed, 1 insertion(+)
-> >=20
->=20
-> So v2 send in a few minutes, with different subject so Patchwork
-> could
-> not detect that it is v2, thus I spent time there.
->=20
-> Same comments.
->=20
-> Best regards,
-> Krzysztof
+driver core:
+- Use devm_ioremap_wc() instead of devm_ioremap() for the VRAM
+  mapping in both the platform and PCI probe paths, avoiding a severe
+  performance regression from uncached writes (Sashiko bot).
+- Only enable the hardware VSYNC interrupt when an IRQ handler is
+  actually registered. enable_vblank() now returns -EINVAL when
+  falling back to polling mode, instead of risking an unhandled
+  interrupt storm (Sashiko bot).
+- Stop unconditionally enabling the VSYNC interrupt during probe.
+  Let the DRM core enable/disable it through enable_vblank()/
+  disable_vblank() as needed (Thomas Zimmermann, Sashiko bot).
+- Guard the PCI probe/remove code and pci_driver structure with
+  #ifdef CONFIG_PCI so the driver builds with
+  CONFIG_COMPILE_TEST=y && CONFIG_PCI=n (Sashiko bot).
+- Use container_of_const() instead of container_of() (Thomas
+  Zimmermann).
+- Add glanda_plane_atomic_disable(), which blanks VRAM when the
+  plane is disabled, instead of silently returning on a NULL fb
+  (Thomas Zimmermann).
+- Wrap direct access to the shadow-plane buffer object in
+  drm_gem_fb_begin_cpu_access()/drm_gem_fb_end_cpu_access() to
+  synchronize against imported buffers (Thomas Zimmermann).
+- Switch atomic_update() to damage-clipped blitting via
+  drm_atomic_helper_damage_iter instead of copying the whole frame
+  on every update (Thomas Zimmermann).
+- Always call drm_atomic_helper_check_plane_state() in
+  atomic_check(), even when the plane has no CRTC yet (Thomas
+  Zimmermann).
+- Support panning within a larger, system-allocated framebuffer by
+  calculating the correct source offset when reading pixel data 
+  (Thomas Zimmermann).
+- Remove glanda_connector_detect(). The default "connected" status
+  is sufficient (Thomas Zimmermann).
+- Wrap hardware register access in enable_vblank()/disable_vblank()
+  with drm_dev_enter()/drm_dev_exit() (Thomas Zimmermann).
+- Use drm_crtc_vblank_atomic_enable()/drm_crtc_vblank_atomic_disable()
+  instead of custom wrapper functions (Thomas Zimmermann).
+- Use drmm_mode_config_init() so the mode-config pipeline is cleaned
+  up automatically (Thomas Zimmermann).
+- Raise mode_config.max_width/max_height to
+  DRM_SHADOW_PLANE_MAX_WIDTH/DRM_SHADOW_PLANE_MAX_HEIGHT instead of
+  the fixed 640x480, so userspace can allocate larger framebuffers
+  (Thomas Zimmermann).
+- Call drm_plane_enable_fb_damage_clips() to enable damage clipping
+  (Thomas Zimmermann).
+- Move drm_vblank_init() to right before drm_mode_config_reset()
+  (Thomas Zimmermann).
+- Remove the manual drm_helper_probe_single_connector_modes() call
+  during init. The DRM core probes modes on demand (Thomas
+  Zimmermann).
+- Simplify glanda_drm_fini() to just drm_dev_unplug(). The DRM core
+  handles vblank/IRQ teardown after unplug (Thomas Zimmermann).
+- Drop "Hardware Accelerated" from the driver description (Thomas
+  Zimmermann).
+
+Regarding the panning support: Since the physical VRAM is fixed to 
+640x480, the display output itself cannot be panned. Instead, the 
+panning is handled on the source side. If userspace allocates a 
+larger framebuffer, the driver now calculates the correct src_x and 
+src_y offsets from the plane state and copies only the requested 
+sub-region into VRAM. Please let me know if this implementation 
+matches what you had in mind with the sysfb reference.
+
+[1] v1: https://lore.kernel.org/dri-devel/20260714101146.200416-1-kieweg.leander@gmail.com/T/#t
+[2] v2: https://lore.kernel.org/dri-devel/20260730173643.256052-1-kieweg.leander@gmail.com/T/#t
+[3] v3: https://lore.kernel.org/dri-devel/20260824195418.17707-1-kieweg.leander@gmail.com/T/#t
+
+Leander Kieweg (2):
+  dt-bindings: display: Add GlandaGPU binding
+  drm/glanda: Add initial DRM driver for GlandaGPU
+
+ .../bindings/display/kieweg,gpu.yaml          |  55 ++
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ MAINTAINERS                                   |   6 +
+ drivers/gpu/drm/tiny/Kconfig                  |  11 +
+ drivers/gpu/drm/tiny/Makefile                 |   1 +
+ drivers/gpu/drm/tiny/glandagpu.c              | 642 ++++++++++++++++++
+ 6 files changed, 717 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/kieweg,gpu.yaml
+ create mode 100644 drivers/gpu/drm/tiny/glandagpu.c
+
+-- 
+2.43.0
+
