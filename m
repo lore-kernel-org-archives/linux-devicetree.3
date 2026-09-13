@@ -1,145 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 843B814AD0D
-	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 13:07:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7064E39E9C8
+	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 13:32:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789304868; cv=none; b=BoWfyB9sqMJf8WIzCCH4kdFX+GU8dOS+K2obc5gP+Plns00oaQznOZfXMvR/WKc4D0mGBsjlhn7ZWlO0pqFeQTQO1dAqdYc1LhiCcQALplPWyCmEZbhXUM2rH+F9MnNc9zHVTrPLGLH2d7yjRJYkChC9Y0EaWQdqW8bciZjmqqc=
+	t=1789306338; cv=none; b=VgWX6vP6WCA+UD5DeDY2H6+hyJwm+6ReSZWXmWLIh/+iBPM0muD18tBO2QeUF4ZGL0WnoQF08SEhHGMsj5SAyEzbcSZ615VZWNuy1z8Czhg8TK3ZrjcroyxzZ1/iIwgmLNBxOcqe2ksIzod4IfzUOKLnNEOQiryTsDZhmH+HIzY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789304868; c=relaxed/simple;
-	bh=7jU/ODjRHshAxmYNzczr9+S8Qn0/QlPUz22OfPNI2XU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=btyMz1U3dtWe/iQmnFWa8KvdHKMO4bSMEVTX+lCwdlrjEowMjLjiqmNbl4ntSLzFFmdJiGW6zHQnT2k7XcC6LBHcsKp6f3DGDwtizjZkpRwQWkw47UfrDrfvPhdJZvqI9j6tYd/JgQXODIO9Hng8pcsWykOTF9i5Q6WV8W7Ul2I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gcHUqp5e; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789306338; c=relaxed/simple;
+	bh=tacF+0/UgVgf1ZF2kBFCF17soFgwFERlvzcI1lOcP4g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=d3HxhbBRpy79Eb9SPjl+m8kSWO/qcjbFkIteGZpVofoX3QP54fMiMSz/GwuqhMmafQNGDc7xQfrm/Om0dxsAYv3K4U0kvYU56VCfTfnOfqQYu/tRZW9frW2CpTI8hMj8fXTAALR0Tr+A9Fr7b+QhJqYOajaNynPK4eHiqfLeahQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=RfJqYLFk; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gcHUqp5e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE44B1F000FF;
-	Sun, 13 Sep 2026 13:07:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789304867;
-	bh=SBnrjAY5zsGNkRMgnWNWc5IQ9Jc6+RArbVl95FJvjA0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gcHUqp5e12cIKi78g8B0Qpj5qU3UGMEMEPBJowpXP5WOFs2yn95cOjdAZDUHQTUqe
-	 NfEDhYlN1g/9RLtGVzlGQ1lq9ckEgTk+CsbGCgeSkKx1NycTSck+EpdyonDbxoAfMg
-	 bZ5jzKSfCMMcjnjcDYmOiRSHl1sNee20nJCfeSp+7n46t4u7v3A8Fc45qpRBt68eFz
-	 wmU6wgcqbhAAVwneJe6OrGoyxgTm3G2rRv14CGY4NzTWq+bL/Z4RwS0jOS31VDocPw
-	 7xUsVH5rb7PJUCXjBVxPUj0aIejP0BKTGJY50xnsoKmKzKGDujh4GBPI5T2PjNOccx
-	 nOkJUxw6WqPRA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/4] thermal/drivers/airoha: Register a thermal zone per
- AN7583 sensor
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vitaliy Sochnev" <sochnev.v.74@gmail.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260913145226.34643-5-sochnev.v.74@gmail.com>
-References: <20260913145226.34643-1-sochnev.v.74@gmail.com>
- <20260913145226.34643-5-sochnev.v.74@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 13 Sep 2026 13:07:46 +0000
-Message-Id: <20260913130746.CE44B1F000FF@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="RfJqYLFk"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f9f0b1eso225486266b.1
+        for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 06:32:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=konsulko.com; s=google; t=1789306335; x=1789911135; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=VWrnyKIL/nI3FCiUVdAFpShSwUN32IQc4eQdP+H1XA0=;
+        b=RfJqYLFkf8SlvZ96xG8i9WqC13j8EKnF90tzaYo/pjf7wCsczu8/q5nJC4qlMgChGw
+         97xIX25acdQM3Wb72varKNKwt7iVGfsspGXrdjMorSCeXkbTO1sgZs1G6BHqmgouNzba
+         eDr7fitugbYs/JJJmYCbfJIT9nQ3+HY+41v14=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789306335; x=1789911135;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VWrnyKIL/nI3FCiUVdAFpShSwUN32IQc4eQdP+H1XA0=;
+        b=g8jJxAWLakcdE6Ythd7Vx9OEhhdmsgaqc76IU3Y69kfTF9EvxrGdM+2Ov8b0qcUtVz
+         CSecKrQXY2Cbyi9JKujdB3lcFIVsP8E7ttaZ25Siyc9DzXm5Ey+6G99vIco0nup1X9BY
+         /EK5Wg9iW5jnzqa0kXAZ0ow1NiSgcPBQ3LQHqcBTnvEi3MwSx0/eJ7O8o/L0C/buA82T
+         7Do0bx5OuJYDAE9VLXQut3i9umEUgxektB5wpJVz2XHUN0NlBJg5PU31tMk8N1JkmdIK
+         DsMUNolemx17o0wwwMnHtVigRYc+hl4cHOo+4L+OXqkdqqiVQh/3j9IvlDba3qgLTnLn
+         F6Ig==
+X-Forwarded-Encrypted: i=1; AKwUvBwEKb2R9gOC/Sw6v+fgPMjF2PM+KQQMSDBCM7TW02leWOd2R9zvwuDJFcU9tjXPEkcILFGDt0DnKfay@vger.kernel.org
+X-Gm-Message-State: AFuF++nTrx6tAGMSmY038YAGmTnkZoxH0H7ScJd/j5JI/D/o86rJK15t
+	PoJALDcRV3qy0j2sUtEQg0+Xke4m7Djz/K7SJmBfF//XO7qpU/yROyVEilw3TI1nesq10/MLrYK
+	+R39s
+X-Gm-Gg: AYBFou1psUHlAvUhHRB1fHGmX2GmEufLdozxhlxFo7F8dmF7IhP5vu2e7s8KuiDfCJw
+	tb9SlMWNXjnAY7s+EEtWZNBYbofkoE38NT1uJ0PGnenaB5bGx0Mns3GxY3QYwxcABb7X67KhPdg
+	9ATr7VJ4oTPFqUVHW85DNHoDhqdb8i/+hdS3H/VS/mtgutEkOwbKI7H9tVYcYWU3IlN1egQ7sFL
+	Ys26aqUPvHHvuo8g2N7WhopMAKQmNyoWp6aDl75suvDP6R7IG/CzydgbR3HcV5l785MECDjNSLH
+	U7yb2b7vFK+zJfAzj5k6mWhM8SiC2RqJBf7j4/gCEcN/983yonnOk+BVkxlB2/YrWvmsT7x31z2
+	aTVJ3nwyUUnSmLayPzeSz0I2G2iWOSsqZCu/HdUiS0cgvriScVtY5PTkGeBK55II4Fnm5yyoK0/
+	4tleikBwMOlgGsp29arwg5YvxLEe2ljlJhojQsXu3zyrK0J5pqOE3A1783lPUkWVqpoF9xkWlvm
+	kZGKOM=
+X-Received: by 2002:a17:907:724d:b0:c25:5114:c832 with SMTP id a640c23a62f3a-c29665acdeemr1293801966b.3.1789306335536;
+        Sun, 13 Sep 2026 06:32:15 -0700 (PDT)
+Received: from cabron.k.g ([95.111.117.177])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2965c4cf01sm296633166b.1.2026.09.13.06.32.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 13 Sep 2026 06:32:15 -0700 (PDT)
+Date: Sun, 13 Sep 2026 16:32:14 +0300
+From: Petko Manolov <petko.manolov@konsulko.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	dinguyen@kernel.org
+Subject: Re: [PATCH v4 2/3] dt-bindings: arm: altera: add Draeger M48 Module
+Message-ID: <20260913133214.GF20345@cabron.k.g>
+References: <20260911150755.2803736-1-petko.manolov@konsulko.com>
+ <20260911150755.2803736-3-petko.manolov@konsulko.com>
+ <20260913-perky-resolute-badger-6c5e96@quoll>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260913-perky-resolute-badger-6c5e96@quoll>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On 26-09-13 11:18:16, Krzysztof Kozlowski wrote:
+> On Fri, Sep 11, 2026 at 06:07:53PM +0300, Petko Manolov wrote:
+> > Add DT compatible string for Draeger's M48 CPU Module, an i.MX6
+> > based board.
+> 
+> Sashiko comment is valid.
 
-Pre-existing issues:
-- [High] IRQ requested before thermal zone is registered and freed after th=
-ermal zone is destroyed, causing a race window that can result in a NULL po=
-inter dereference or Use-After-Free.
---
+Sashiko doesn't know that this is indeed an i.MX6q board with the Altera FPGA as
+a separate module, that is secondary to the NXP SoC.
 
-commit 749e5e99054c0cc567360c9cf2985ce4702c7297
-Author: Vitaliy Sochnev <sochnev.v.74@gmail.com>
+What do you want me to put in the commit message so that everyone is happy?
 
-    thermal/drivers/airoha: Register a thermal zone per AN7583 sensor
-   =20
-    AN7583 has three temperature sensors and the driver has constants for
-    all of them, but it registers one zone and reads only the bandgap senso=
-r.
-   =20
-    Register a zone per sensor. With one thermal sensor cell the cell
-    selects the sensor. Device trees without cells describe only zone 0 and
-    keep reading the bandgap sensor. EN7581 still registers one zone.
 
-> diff --git a/drivers/thermal/airoha_thermal.c b/drivers/thermal/airoha_th=
-ermal.c
-> index d7e4a088b7eac..d996ef539fa14 100644
-> --- a/drivers/thermal/airoha_thermal.c
-> +++ b/drivers/thermal/airoha_thermal.c
-
-[ ... ]
-
-> @@ -737,11 +745,31 @@ static int airoha_thermal_probe(struct platform_dev=
-ice *pdev)
->  		return ret;
-> =20
->  	/* register of thermal sensor and get info from DT */
-> -	priv->tz =3D devm_thermal_of_zone_register(dev, 0, priv,
-> -						 soc_data->thdev_ops);
-> -	if (IS_ERR(priv->tz)) {
-> -		dev_err(dev, "register thermal zone sensor failed\n");
-> -		return PTR_ERR(priv->tz);
-> +	for (i =3D 0; i < soc_data->num_sensors; i++) {
-> +		struct airoha_thermal_zone *zone;
-> +		struct thermal_zone_device *tz;
-> +
-> +		zone =3D devm_kzalloc(dev, sizeof(*zone), GFP_KERNEL);
-> +		if (!zone)
-> +			return -ENOMEM;
-> +
-> +		zone->priv =3D priv;
-> +		zone->sensor =3D soc_data->sensors ? soc_data->sensors[i] :
-> +						   AIROHA_THERMAL_NO_MUX_SENSOR;
-> +
-> +		tz =3D devm_thermal_of_zone_register(dev, i, zone,
-> +						   soc_data->thdev_ops);
-> +		if (IS_ERR(tz)) {
-> +			/* A DT may describe fewer zones than sensors */
-> +			if (i && PTR_ERR(tz) =3D=3D -ENODEV)
-> +				continue;
-> +
-> +			dev_err(dev, "register thermal zone %d failed\n", i);
-> +			return PTR_ERR(tz);
-> +		}
-> +
-> +		if (!i)
-> +			priv->tz =3D tz;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but is it possible for the IRQ
-handler to dereference priv->tz when it is NULL or freed?
-
-Looking at airoha_thermal_probe(), soc_data->probe() is called before
-priv->tz is initialized here. For EN7581, en7581_thermal_probe() requests
-the threaded IRQ:
-
-	ret =3D devm_request_threaded_irq(&pdev->dev, irq, NULL,
-					en7581_thermal_irq, IRQF_ONESHOT,
-					pdev->name, priv);
-
-This creates a race window during probe where the IRQ could fire before
-priv->tz is assigned, causing a NULL pointer dereference in
-en7581_thermal_irq():
-
-	if (update)
-		thermal_zone_device_update(priv->tz, event);
-
-Furthermore, because devm_request_threaded_irq() is called before
-devm_thermal_of_zone_register(), devres teardown will destroy the thermal
-zone before freeing the IRQ. Unbinding the driver via sysfs or encountering
-a probe error path could leave the IRQ active while priv->tz points to
-freed memory, leading to a Use-After-Free.
-
->  	}
-> =20
->  	platform_set_drvdata(pdev, priv);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260913145226.3464=
-3-1-sochnev.v.74@gmail.com?part=3D4
+		Petko
