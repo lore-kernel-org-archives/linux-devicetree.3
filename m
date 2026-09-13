@@ -1,64 +1,64 @@
-Received: from mail-wr2-f1.google.com (mail-wr2-f1.google.com [74.125.225.65])
+Received: from mail-wm2-f11.google.com (mail-wm2-f11.google.com [74.125.225.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4991C391512
-	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 08:53:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC4AE39B947
+	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 08:54:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789289640; cv=none; b=FOenQivFsq79cWCxTQI+OEZoQyAnBT5pNe8GNjd6EGOcTU+QpUMEfT7kDN+yODo+8tVo88Z3cD3f6t041KjEDTgV2gbK1uZDmICqj+80AHYwZMqnk35JZONS4X6EwFMmhfdpD2pNjYXOUvzv0vZUICT9E6rl2nMrYQuYPbSRR1U=
+	t=1789289644; cv=none; b=YVgtxr5UrxzNLoxFImIXrl9Gq+f2Ar3GXdjjviiFZjgIQ1orqPyzvcRUCXzolTXxwhzLSxOCfI1SDMCsQk5i1elyn1AygiYn9nAA6uS+MpQcZzx2skr+MwqX+S0uTzUiOthvCqSST4TH1wmnlliDwwO8g/uo58H7idVz5P2FV5E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789289640; c=relaxed/simple;
-	bh=envbLuQDbQDDEWH3XcYF5G304K0mIQCtaASdr8Op0dw=;
+	s=arc-20240116; t=1789289644; c=relaxed/simple;
+	bh=4qNDIkx2Z+sd0cRmZWMv6HPT0dpHS/9jEtFdCIxz8JE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CFwotctg4YG4k7bEXxqdEPGAv7u9A1qcee7oWNXg7k+0KQtR1O/CgwBQwDWX8kjgWIde2HqA7efRRBzGzOMMpF38ACNrQ2Y9kANHg/X7atWRO4fSaLjfzklzEz7FZkg0LibhSSQCZC8qOhHAZsDQ8k4VOArFdLI9Kdm8byTHGb8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DCXOjZ9i; arc=none smtp.client-ip=74.125.225.65
+	 MIME-Version; b=RVgMZsA9UlqscBXgE58Qivy7mkO060R3SIRLcAQvf5sUP4ZJQEzODw+reNeDx+3QBKdMJQL0XHhkpzyrW/Idb+q1TPaCwWVMrM4KVhOia7yWsIr+coIZeU5APyDRKulJSJcSIH9fb7t/Ga1q/+ah4UvND43TOGrDM5d8Zf84+I4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oeeS487U; arc=none smtp.client-ip=74.125.225.139
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DCXOjZ9i"
-Received: by mail-wr2-f1.google.com with SMTP id ffacd0b85a97d-482dd2e92ebso484507f8f.0
-        for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 01:53:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oeeS487U"
+Received: by mail-wm2-f11.google.com with SMTP id 5b1f17b1804b1-49ccea58fe3so6856835e9.1
+        for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 01:54:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789289637; x=1789894437; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789289641; x=1789894441; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=SDLkgYBNbtyZoarKCnkrYArqCb7j8Bh77/axESvjCE0=;
-        b=DCXOjZ9ijXzDxYixge4RPYSgc5mABw3Rhal/7gdgkFzXagRkIFnJYpX+XZ0oHll947
-         qrAdVpZZnHr7uN4i9XAFs2QZD9cngEabnU17kkJ6bg5525r1wi3yu/C+Ip85kc6lM22F
-         7p1kpyeursYavGWlsnOOxUSfO4NbNzbnJkmybAp62i2FxZ+5rLb9Rsq+2T/uQpWzG3ac
-         ltQHeo8C6dp8zVz12mVhSDPC8CQpgSyG0fQhzrUTgx/w75rD7KjCnfWTL48Hs6X/YcYA
-         zg6pQzx5QMFuiCdFKVaQZj3mZYJvC3ZBupO1/i0YnOttp4rWdfUElQXTeCDgNYA3iyEz
-         oyjw==
+        bh=cr6uYpQbF5rfyq1VxaZzsHsqaGvyw37xfoh8fFiyzec=;
+        b=oeeS487UJH92Uph2l1U4Yd+cW6rFONTws2qqezh5OwEkUa7+qlmRJGwHx4Eib3FhRV
+         JikIFkUmczXYUbsPFIZWt9CeHHzuZph8eNwaHImUq+6oJaPacTVzLqXSpcnZOrzHWf2t
+         E/U6tXXbv71bVbFX56+fcOMqlYHvofsmOBxa9p+mDXMpZrL7RdxPLfZia6JSyTBgDMBu
+         CsAHNKjLjx5PfaNH7eTkicBfggXLHkwiqh+pI7T3RGpwxbtBLYdzEHrQgwUMBAiJTSUV
+         IsAOLZ08sXQcb64Di8zxeJU+e0FnUEWOeVEIyp4WirfoP0BGxEIEV4U1pYk7jjLyUS2Y
+         43yw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789289637; x=1789894437;
+        d=1e100.net; s=20251104; t=1789289641; x=1789894441;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SDLkgYBNbtyZoarKCnkrYArqCb7j8Bh77/axESvjCE0=;
-        b=QNvIB0+k8CT+KgBNR/Pug7/27NUlCYJwb+sOMi6DQIlKShTaEw7WPBXouZjXIRs/+e
-         Xf1Fkj6tbpsofsmzN1sZ9nOI04OUjVUkeLaHGPLE4zygasCIKaJ/ou//cvE4C50OnDM9
-         QjuVzYehKfO5sPFlfsXdIjkKzEuF5Xo2XlJS5GO8XbtGUWl7n7VcYkGU6zpRP6nD7E4i
-         cds5B7fF8vi4zW0jjjyj11K9N5GiRapb4YOSdA1O1hdJKiK2rLROW4SB59fMLVkzlopE
-         nq+gXU187eGZZ5fAjtntoY4PYOG3BCvOaqNwMidMZsfBzhVapxAd9aNPLe6x5USBzLpQ
-         XzTw==
-X-Forwarded-Encrypted: i=1; AKwUvBxGBFeKMLf/fu0bxJukKAW3RIAgdkDNZKR/5p5FyZvMe/CKUWj8Fl6jMipqCgvCFKwmeOZxJYzYho3k@vger.kernel.org
-X-Gm-Message-State: AFuF++lB0a6x0eAHI+VlMbW251iVh9IjE5Cz/dIiwD+SJKP9EZ2FvCCD
-	mgy29nPah1PZdtpKikJ30HN4ZYQ1YKlHm/OUgT2qJ8omoMbvY6VlIL/j
-X-Gm-Gg: AYBFou3PwgIVKjK0sshIaSg2WSqYj7oqSpjuAryFEA9mGVzXRdP2rt8dgDM5DREyY70
-	fnnldtUKVcfEcUb1gKEJKUrAb0pkzVYxHgsTxngH4uugBETfRP8cm8xKhsaieO2KtuRHbXbbZmn
-	nAiSbKC5U/Y98aurdEfx0eQchHFix9EU0FLI7hE1VkUnhkXxSPo/fC8rJLKSHUydvAcDAkl4LmR
-	gXvnYqxR+L/Yrhe8bfxDTWr03UJOG6mbvMc2cxNRGAhcR/RA5YGo9R86rX1RDWmaAqZpBbjuvWu
-	wSUF2AzAuAgJsOc2grf+xietWEBYCMaYLhCay7vHMMB1Bx8GgAHClpzgQTl3C5ygq/rkv0VHlEx
-	azQcIzyqPnL7fo3dPPR7+te0ggkuiePlez3p3JWZyfN1W/BeThO9rM6NIVuvjnKMiz/V3Iee8jQ
-	a79KIFWZW/L+zat8XbdAnSToj+Wr60yiTaUYIgTdFTTqLZyH498qBon56ovG7EINqQ2QI2tH7Mm
-	SzttyMjxJOdXCczDOA=
-X-Received: by 2002:a5d:6f17:0:b0:486:fcc8:aaf with SMTP id ffacd0b85a97d-486fcc80b06mr1476198f8f.26.1789289637449;
-        Sun, 13 Sep 2026 01:53:57 -0700 (PDT)
+        bh=cr6uYpQbF5rfyq1VxaZzsHsqaGvyw37xfoh8fFiyzec=;
+        b=DRr5fiOuIcwmE2XwLgIPlxZpaVd1uyei/7hwU0bsoKpV82kihbAhmUvf9a8TqZr4sl
+         6ynQMLOJs4RMUoEs9vn3vN2Aqx96kYqqS3bfWENdtA6BKygKGC/zp5uHl13VEJ3dljNY
+         DmEJ/07cAtmPiwbJHcDQ35N/Iql8ta1EYN77jM9oBcF6d3dD+qm7xu2JElBrtTz9wa92
+         VJ/z6K3DrNEIffPAox6vjOeFk5seozRw/nJ3cbeN6YVCNf/Z1gJHgc/lviq5o/Fg9OYW
+         5smrH3JLS+sav64C/f6zRYVCAG++d9lrzl5HW2Nbd9v7cLs3Q0dhgVzZvfY0qhwlGCJG
+         4msA==
+X-Forwarded-Encrypted: i=1; AKwUvBwYli74if912fHYOjuDoFqLzxOP3yA1carQyKkvrE1eMmhLTksanwGu9a1NydBzARs2XsCDqfS4h7J9@vger.kernel.org
+X-Gm-Message-State: AFuF++nzeeVQFlPiIIFG1JB6H/EU0+yHyBPzoQK4Q7cW5wNGheBs8pq0
+	6iK5J7vTvnN4e9gMjGQQ7A5ZPRMxu8x3EzI7GRCpj0fWK5xoTHevrt+B
+X-Gm-Gg: AYBFou0xnC2IkHpRYhkft2uw19aysYFcWZj80+zja4xGIbzUzC5nhCyq87q86GqzHKt
+	5e/1WY5l4yAl5ewfd7czhH2dXkBK5YgsRq5EcUyV+y6PyVe5bWGgrGDZKZDU+8oKn5Y2B0n5Kma
+	oH+g6hgaqgHc1dKwGOGsp+Lx15+wP6MHbF9pCrs0X/RlpDiIBCq0vZTkMJU55jWkjk8TaQPWQ84
+	Z8L9pRYvEYMVtG3nYZwA2BKgqGJLuxPVSveIuOxgoNLo9CuGOIvbNnQ0d+DKHrVjeHw0YWlzPPN
+	PykPZ5YLmY2u1ju6NzPMeOCaBP8gid5Isx7KDIL7aTAJE+2bddBUpXIclb8H/F1QuGyeQYPGyEQ
+	Xh28hN6JWik9lOT6Uc1LKKVIPHGgjyaNkCLQoCmx/VaAWTP07zmz5BcTlIdeZ+lj12Lg3VP0hNZ
+	Tx00qJQfScYQ7AXPaX2QLjtsZYbKwCK6U8gp+Ikmasxw2kQJRqXCvnkeatM4U6Teh4HCqOGch1M
+	CnzHa56j2gcJrKKS1NmYbHsP+vOXg==
+X-Received: by 2002:a05:600c:3515:b0:49c:fc6c:be09 with SMTP id 5b1f17b1804b1-49e6cc0baccmr46185225e9.32.1789289641059;
+        Sun, 13 Sep 2026 01:54:01 -0700 (PDT)
 Received: from DESKTOP-M0MLFVC.localdomain ([165.99.41.145])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb32e7f5sm18228489f8f.9.2026.09.13.01.53.53
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb32e7f5sm18228489f8f.9.2026.09.13.01.53.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 01:53:57 -0700 (PDT)
+        Sun, 13 Sep 2026 01:54:00 -0700 (PDT)
 From: Shehryar Ahmad <shehryar.amd@gmail.com>
 To: jic23@kernel.org
 Cc: nuno.sa@analog.com,
@@ -75,9 +75,9 @@ Cc: nuno.sa@analog.com,
 	linux-staging@lists.linux.dev,
 	devicetree@vger.kernel.org,
 	Shehryar Ahmad <shehryar.amd@gmail.com>
-Subject: [PATCH v2 2/6] iio: accel: adis16201: add OF device ID table
-Date: Sun, 13 Sep 2026 13:53:03 +0500
-Message-ID: <20260913085307.13846-3-shehryar.amd@gmail.com>
+Subject: [PATCH v2 3/6] iio: accel: adis16201: prepare driver to support additional parts
+Date: Sun, 13 Sep 2026 13:53:04 +0500
+Message-ID: <20260913085307.13846-4-shehryar.amd@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260913085307.13846-1-shehryar.amd@gmail.com>
 References: <20260913085307.13846-1-shehryar.amd@gmail.com>
@@ -89,40 +89,201 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add of_device_id table for adis16201 and register it with
-MODULE_DEVICE_TABLE() to enable device tree based matching.
+Introduce adis16201_chip_info to hold per chip data and adis16201_state
+to wrap struct adis. Move adis16201 to this infrastructure. This
+prepares the driver to support additional chip variants by keeping
+chip-specific parameters in adis16201_chip_info. Additionally,
+adis16201_write_raw applies mask directly on value.
 
 Signed-off-by: Shehryar Ahmad <shehryar.amd@gmail.com>
 ---
- drivers/iio/accel/adis16201.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/iio/accel/adis16201.c | 78 ++++++++++++++++++++++++-----------
+ 1 file changed, 55 insertions(+), 23 deletions(-)
 
 diff --git a/drivers/iio/accel/adis16201.c b/drivers/iio/accel/adis16201.c
-index 1e76a3560..2ce5c409b 100644
+index 2ce5c409b..e0bf7df50 100644
 --- a/drivers/iio/accel/adis16201.c
 +++ b/drivers/iio/accel/adis16201.c
-@@ -288,6 +288,13 @@ static int adis16201_probe(struct spi_device *spi)
- 	return devm_iio_device_register(&spi->dev, indio_dev);
- }
+@@ -87,6 +87,22 @@ enum adis16201_scan {
+ 	ADIS16201_SCAN_TEMP,
+ };
  
-+static const struct of_device_id adis16201_of_match[] = {
-+	{ .compatible = "adi,adis16201" },
-+	{ },
++struct adis16201_chip_info {
++	const char *name;
++	const struct iio_chan_spec *arr_channels;
++	unsigned int incli_scale_val2;
++	u16 write_mask_incli;
++	u16 diag_stat_mask;
++	unsigned int read_bits_incli;
++	unsigned int num_channels;
 +};
 +
-+MODULE_DEVICE_TABLE(of, adis16201_of_match);
++struct adis16201_state {
++	struct adis adis;
++	const struct adis16201_chip_info *info;
++	struct adis_data data;
++};
 +
- static const struct spi_device_id adis16201_ids[] = {
- 	{ .name = "adis16201", 0 },
+ static const u8 adis16201_addresses[] = {
+ 	[ADIS16201_SCAN_ACC_X] = ADIS16201_XACCL_OFFS_REG,
+ 	[ADIS16201_SCAN_ACC_Y] = ADIS16201_YACCL_OFFS_REG,
+@@ -99,7 +115,7 @@ static int adis16201_read_raw(struct iio_dev *indio_dev,
+ 			      int *val, int *val2,
+ 			      long mask)
+ {
+-	struct adis *st = iio_priv(indio_dev);
++	struct adis16201_state *st = iio_priv(indio_dev);
+ 	int ret;
+ 	int bits;
+ 	u8 addr;
+@@ -137,7 +153,7 @@ static int adis16201_read_raw(struct iio_dev *indio_dev,
+ 			return IIO_VAL_INT_PLUS_NANO;
+ 		case IIO_INCLI:
+ 			*val = 0;
+-			*val2 = 100000;
++			*val2 = st->info->incli_scale_val2;
+ 			return IIO_VAL_INT_PLUS_MICRO;
+ 		default:
+ 			return -EINVAL;
+@@ -157,13 +173,13 @@ static int adis16201_read_raw(struct iio_dev *indio_dev,
+ 			bits = 12;
+ 			break;
+ 		case IIO_INCLI:
+-			bits = 9;
++			bits = st->info->read_bits_incli;
+ 			break;
+ 		default:
+ 			return -EINVAL;
+ 		}
+ 		addr = adis16201_addresses[chan->scan_index];
+-		ret = adis_read_reg_16(st, addr, &val16);
++		ret = adis_read_reg_16(&st->adis, addr, &val16);
+ 		if (ret)
+ 			return ret;
+ 
+@@ -180,25 +196,24 @@ static int adis16201_write_raw(struct iio_dev *indio_dev,
+ 			       int val2,
+ 			       long mask)
+ {
+-	struct adis *st = iio_priv(indio_dev);
+-	int m;
++	struct adis16201_state *st = iio_priv(indio_dev);
+ 
+ 	if (mask != IIO_CHAN_INFO_CALIBBIAS)
+ 		return -EINVAL;
+ 
+ 	switch (chan->type) {
+ 	case IIO_ACCEL:
+-		m = GENMASK(11, 0);
++		val &= GENMASK(11, 0);
+ 		break;
+ 	case IIO_INCLI:
+-		m = GENMASK(8, 0);
++		val &= st->info->write_mask_incli;
+ 		break;
+ 	default:
+ 		return -EINVAL;
+ 	}
+ 
+-	return adis_write_reg_16(st, adis16201_addresses[chan->scan_index],
+-				 val & m);
++	return adis_write_reg_16(&st->adis, adis16201_addresses[chan->scan_index],
++				 val);
+ }
+ 
+ static const struct iio_chan_spec adis16201_channels[] = {
+@@ -217,6 +232,20 @@ static const struct iio_chan_spec adis16201_channels[] = {
+ 	IIO_CHAN_SOFT_TIMESTAMP(7)
+ };
+ 
++static const struct adis16201_chip_info adis16201_chip_data = {
++	.arr_channels = adis16201_channels,
++	.incli_scale_val2 = 100000,
++	.write_mask_incli = GENMASK(8, 0),
++	.diag_stat_mask =
++		BIT(ADIS16201_DIAG_STAT_SPI_FAIL_BIT) |
++		BIT(ADIS16201_DIAG_STAT_FLASH_UPT_FAIL_BIT) |
++		BIT(ADIS16201_DIAG_STAT_POWER_HIGH_BIT) |
++		BIT(ADIS16201_DIAG_STAT_POWER_LOW_BIT),
++	.read_bits_incli = 9,
++	.num_channels = ARRAY_SIZE(adis16201_channels),
++	.name = "adis16201",
++};
++
+ static const struct iio_info adis16201_info = {
+ 	.read_raw = adis16201_read_raw,
+ 	.write_raw = adis16201_write_raw,
+@@ -248,16 +277,12 @@ static const struct adis_data adis16201_data = {
+ 	.timeouts = &adis16201_timeouts,
+ 
+ 	.status_error_msgs = adis16201_status_error_msgs,
+-	.status_error_mask = BIT(ADIS16201_DIAG_STAT_SPI_FAIL_BIT) |
+-		BIT(ADIS16201_DIAG_STAT_FLASH_UPT_FAIL_BIT) |
+-		BIT(ADIS16201_DIAG_STAT_POWER_HIGH_BIT) |
+-		BIT(ADIS16201_DIAG_STAT_POWER_LOW_BIT),
+ };
+ 
+ static int adis16201_probe(struct spi_device *spi)
+ {
+ 	struct iio_dev *indio_dev;
+-	struct adis *st;
++	struct adis16201_state *st;
+ 	int ret;
+ 
+ 	indio_dev = devm_iio_device_alloc(&spi->dev, sizeof(*st));
+@@ -266,22 +291,29 @@ static int adis16201_probe(struct spi_device *spi)
+ 
+ 	st = iio_priv(indio_dev);
+ 
+-	indio_dev->name = spi->dev.driver->name;
++	st->info = spi_get_device_match_data(spi);
++	if (!st->info)
++		return -ENODATA;
++
++	indio_dev->name = st->info->name;
+ 	indio_dev->info = &adis16201_info;
+ 
+-	indio_dev->channels = adis16201_channels;
+-	indio_dev->num_channels = ARRAY_SIZE(adis16201_channels);
++	indio_dev->channels = st->info->arr_channels;
++	indio_dev->num_channels = st->info->num_channels;
+ 	indio_dev->modes = INDIO_DIRECT_MODE;
+ 
+-	ret = adis_init(st, indio_dev, spi, &adis16201_data);
++	st->data = adis16201_data;
++	st->data.status_error_mask = st->info->diag_stat_mask;
++
++	ret = adis_init(&st->adis, indio_dev, spi, &st->data);
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = devm_adis_setup_buffer_and_trigger(st, indio_dev, NULL);
++	ret = devm_adis_setup_buffer_and_trigger(&st->adis, indio_dev, NULL);
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = __adis_initial_startup(st);
++	ret = __adis_initial_startup(&st->adis);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -289,14 +321,14 @@ static int adis16201_probe(struct spi_device *spi)
+ }
+ 
+ static const struct of_device_id adis16201_of_match[] = {
+-	{ .compatible = "adi,adis16201" },
++	{ .compatible = "adi,adis16201", .data = &adis16201_chip_data },
  	{ },
-@@ -298,6 +305,7 @@ MODULE_DEVICE_TABLE(spi, adis16201_ids);
- static struct spi_driver adis16201_driver = {
- 	.driver = {
- 		.name = "adis16201",
-+		.of_match_table = adis16201_of_match,
- 	},
- 	.probe = adis16201_probe,
- 	.id_table = adis16201_ids,
+ };
+ 
+ MODULE_DEVICE_TABLE(of, adis16201_of_match);
+ 
+ static const struct spi_device_id adis16201_ids[] = {
+-	{ .name = "adis16201", 0 },
++	{ .name = "adis16201", .driver_data = (kernel_ulong_t)&adis16201_chip_data },
+ 	{ },
+ };
+ 
 -- 
 2.43.0
 
