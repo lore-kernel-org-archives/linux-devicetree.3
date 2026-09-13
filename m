@@ -1,110 +1,589 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DF4C1BD9C9;
-	Sun, 13 Sep 2026 14:07:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB1533EDAA0
+	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 14:14:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789308458; cv=none; b=YPfaD4UlklOoNw5uzF3+NUrp4NKd1WoX/IXo0gEzJaTLReYzDAGOAl1jHErBnJ1WuOm0fFA39tA0qHUdPBUcXc9tflbafqZ2rLSn+QIlpklSBJfPQTfn49mp3wf4FC9aJBpTT011spLjBgmi9yRFSCU7bfTyL5K09EOqPadh3YA=
+	t=1789308892; cv=none; b=Cl9DSfWiZ2YddO1LZN36ujwdDHw77Vf3pdDfRaN5MBWW9mwvWXqudqANH15jjTFge38J5vMn6mQBME/fIFpy7FxlbdqGCl18QRgb2t5LpRCg1CU7cER7jiX7I5NCmvaBdl8iUeF33OYDDh26dnPdc2VY/2u/rvJ211/fgSXCw4k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789308458; c=relaxed/simple;
-	bh=ixc7W2hEoJHFHQTWH/TSY9pqmLaZyw3GY8SzVD68ZTg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cQpYGuUvAIbBo+2cfI6tIFSex8/yfPS6j4yfmjhAWlhnrRVhaxliB+42qu0d22xw7pQlOrUr7H2whZLSV0uGbJ6j8mpsYWxzLsGNxKh75htLPid55GrC/l/aX4d1CS7TE3d8gbgm9OM8plALIExp7bPcLjnWRXfM/krvxrnutKk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=Dfq0amYD; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=XvtL4TNd; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1789308892; c=relaxed/simple;
+	bh=4K4J93pgjU29ndT2pO7eB0/fX0aJsfLjMkJogz8j4ks=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BHSBkxKTp8FEBlRDU2yxNThdXNbvpIRe8K557c99JzLT2al+rNi7EZINNqjLyQXOGi5dkz2JEotgGkFt7AbVyTLadH66NSsa32v3fgJ4PvgyAPtO/uWjtwi7MfzQp/qj80GadV3LXlAE0nbU9nQlbjQzZO4pQw9L5m6ZPMJRm3I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XheeCp6Z; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=a6v30ekB; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="Dfq0amYD";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="XvtL4TNd"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=From:To:Subject:Date:Message-ID; t=1789308422; bh=d/FolRGNwV32g+HDDqmcEuE
-	qeqSAhKnzy/VVhQSphPs=; b=Dfq0amYD7lqUXWfFx93w4ioc3qhc+HEuljkNQpRBpXb4Ixfms3
-	yqh/Sdety5Q+OHNvY8dPP+DRbzt4j9INnUML2CM4vPlMJuCw01bbtbHbRyJci5PiAfteBa9o480
-	f/J/BaAlSabfFZdDsPOgQ4jZdWGSjuo5ES8rgYzc1CGcLiPIf3tTh4agQKoCQy4AbqQ4qZkdruG
-	ZFj4n2zEHkibItCLSVFcfd+QPWgqHGS/wXnKLvDyii2oLo6bX8z2elT/UgJOMsPmw7oRVZs9wey
-	HWoCnsOaPABY+GaajFK/AShljO1TAVrRwtfCRcR8MZof9uXZt6/fFs+1+r4/Mx8OyyQ==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=From:To:Subject:Date:Message-ID; t=1789308422; bh=d/FolRGNwV32g+HDDqmcEuE
-	qeqSAhKnzy/VVhQSphPs=; b=XvtL4TNdgfsTIiFHDl2M1wEhabYb8ybL7dnap4Ui7FyTxyTJWE
-	e7DggnBYSjnYrV0PgOAaTNI8N7/xVUTAKYBw==;
-Message-ID: <0c8527cc-2ed9-444f-b113-223f117e635b@mainlining.org>
-Date: Sun, 13 Sep 2026 17:07:00 +0300
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XheeCp6Z";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="a6v30ekB"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68DE0Cd7700132
+	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 14:14:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=XqjI25mMzf9Ds1zvuwZQE2UD6QaoVFtaiOH
+	lyAJ+WxA=; b=XheeCp6ZA3AA52we9mXCN1pp4qi0hDhqhuCktarUebKeZxuWUcf
+	dhCPtgzfdn/Cb+AbqcwXJGy/C644xNwn9YgfkF4xd8dAZepXl3xCsKHdQrvC3CJ1
+	UWJAyDlR0eTKha4aUKl8+oy/ooMVGvAI+kA+V4VnVyrldCCt3gY9PrZNHMH1C0ce
+	uGWaJeBaZnzCV6GsACawDcU3hhRIbYTFOM2S0TcY+4ZHJzINosc7E6Ja6Rfs8dFb
+	12AS/pXDY+ZdaoSVmV2HGOCq6wdpc53yKVHqbYTWSQ31lXxk9RAVePulOKFGUmWk
+	KogIVtev1UkwfpHcvy6+eThEz3gbdCNdQgg==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmywh3an8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 14:14:48 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-939f27c80a3so467246785a.1
+        for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 07:14:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789308887; x=1789913687; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XqjI25mMzf9Ds1zvuwZQE2UD6QaoVFtaiOHlyAJ+WxA=;
+        b=a6v30ekBafhbQjTk8m/PmTgiY4BX69Rd0odAHzkqmlYJ0/drKjfMJhff63QgugEqma
+         xv7ktVGE/wbQ36VGkgrcNWYax8/lPnMzfw02rn21STD2v9uGK3G0Vz8iduzudls8QGh1
+         esDvRPTz/oohmwyl3kvYkpLQQFm12/NqDv9XXvONrXcc0HF33bnAwD5QcM4CFoBuiE05
+         7wq9I4CPRkzCnJqIZ0KZIQvtUKpKZxAWZql44SkX7RMZ6SpwpeFx6nPeyTeSPzpLb5HH
+         c4SJm/r9DYsubCjpFEzronxzQRgAuS3HzdLArBwQ870pOFwR9wmtCluBqeFTU+Qoafb7
+         b1Vg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789308887; x=1789913687;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XqjI25mMzf9Ds1zvuwZQE2UD6QaoVFtaiOHlyAJ+WxA=;
+        b=orlwFHAGZS+VF3Q0MRM2KAoHNGFfc8CUqbzerxvnk5QdEy4W+I22JeE4yey7EvgKhZ
+         ScUAh4XgylgfltS1TQKgPlUMyvrz7u64jvnEH1qwtAHIGhjhqYa7jPP1GB8NPKgApMD7
+         Rwl5ncit3lCYfoxUGv3LMlHugwKY5SQpPEuU7pdIVnvMEoY0I1IBiWqkUUXv5dqw/IJw
+         ZUrWbWPNl5HaibeRE+aEmOAZjjL1By+Xha3Vj7JgarAaC3qQSq26A9c5Ntnbvd93XELb
+         pSszv3ac6v46Tniw6eGdLLjjeoMwbKFXsTcB4KHZa0replt0vksABFhZRoJetLDXKLRg
+         LJ6g==
+X-Forwarded-Encrypted: i=1; AKwUvBwB4sOqOCVunz+igr8cQUnhZRbciMYzGYJmNTq5Lcha/v2HNBIC8IKG2UgF4o6FaNvu/LXJ9KQvZw5S@vger.kernel.org
+X-Gm-Message-State: AFuF++m2LNi5welYIeMhU0/5tp34PLvfzdKQTLV/ZeRO1KhnxCx2zTzM
+	4cY5d0QDlToYJQe20QAmlOircrrDWRwsojBfNXTNqphEsg0pmWeLyD6G2EOTvn0+MQJpwmzZ9Ew
+	/G2BLXlS/DcJ+lMSn13eNOe/34TVFW4hzi+Y4RO6x+q/EnZ5SJXXgq+tUp6ii1GO3
+X-Gm-Gg: AYBFou3YlBBHy8qw7JCchsKaobl0qVLP0bu1FAabH8b3Csa7+57pvTD/iKB3JWINlDO
+	wkPffghZoeQJhmMCA2ldBY/uiWBw03KEAuQshifsp7tYGRc0i8QRXgXhtCl3Oe0dYAIRjoeOrtC
+	/vWpIQBE3Iybec96gdS6UgAHSKcDDy80w1o8VVAg7AzlwGH17E0WUfvzNHUEMMf7pq4sP4tLD1B
+	SA/djQPy9B6jgGeFe7Z8H+AkMoYwvPqxHTh/oOqPW1357+5N7fltPJ2W2X9aWt7PyRW3V6nRoLa
+	85zrFow5ftWcppRoo7DFUPHzYXNsHeOdOaj2y1RTNI6SBKfQnlwm6Oig34tveHnaMGQSMjh4gTL
+	4VVaEQsqqZnFVAvU=
+X-Received: by 2002:a05:620a:25c7:b0:939:d675:f166 with SMTP id af79cd13be357-93a038b522bmr979731185a.48.1789308887254;
+        Sun, 13 Sep 2026 07:14:47 -0700 (PDT)
+X-Received: by 2002:a05:620a:25c7:b0:939:d675:f166 with SMTP id af79cd13be357-93a038b522bmr979723585a.48.1789308886417;
+        Sun, 13 Sep 2026 07:14:46 -0700 (PDT)
+Received: from quoll ([178.197.219.214])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb33ebe4sm16693948f8f.14.2026.09.13.07.14.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 13 Sep 2026 07:14:45 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH] arm64: dts: qcom: Correct inconsistent indentation
+Date: Sun, 13 Sep 2026 16:14:41 +0200
+Message-ID: <20260913141440.177169-2-krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] drm/panel: novatek-nt51021: add the BOE TV101WUM-NM0
-To: Ryan Brue <ryanbrue.dev@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org
-References: <20260912-add-boe-tv101wum-nm0-v1-0-3057a08e8b80@gmail.com>
-Content-Language: ru-RU, en-US
-From: Nickolay Goppen <setotau@mainlining.org>
-In-Reply-To: <20260912-add-boe-tv101wum-nm0-v1-0-3057a08e8b80@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-Developer-Signature: v=1; a=openpgp-sha256; l=14384; i=krzysztof.kozlowski@oss.qualcomm.com;
+ h=from:subject; bh=4K4J93pgjU29ndT2pO7eB0/fX0aJsfLjMkJogz8j4ks=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqpq/QETT2S+PHwGmh/v1sULymlBIKL4C6vkzs4
+ 7921v93EgWJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaqav0AAKCRDBN2bmhouD
+ 1xElD/4yZhl4R4nzcxPQPM4hCrEkKBPN7/zq9uwL4YXiCjQWMFq4RQ8z5xshoTyHNGGWfeUWf8H
+ cj8RFwVcTGVFxCzbS9qwEQYSR8+usTU4Y/AU6/OSXmCtgirLIWyj7eHXKYBCDoCpq1934NKVKhZ
+ MW5mcDAFT8+yjH1ftyM/sIzZA8Oh9InwJhUtz+MpitkmRPMndHE6PRZVfGebt7KGZ3v70kUeZQF
+ HEkS8qz/1A8qaj2s+RWwpIXk2O7vjYTIAmv9xCkj4cYBsJnGOYdYXY7hIW5rUgFN+bqX7xVIu8K
+ o0C6aUk4U11hjUQAHe/TLQh6tekXVFxnvqY/1SXrm3oFo6aUFQPeJVkFBLzUcNqQEOxuZnxkrBc
+ 78J+oZsvY/fnIHMecuXCyuftPNpljYYPPHTOh6nWuuDwhkR/7ffOhzDONerkLiGeV6Wn7+iplHo
+ lXJnA1HnFOWdiHndqkRye4gXXkjpkFllRZ/E5djKbBUQ8YBkKo0mItAQBRz1vEhsrcGaF41qMe8
+ VgSxDEfWXKWpJ6WHPQLdRRt1TOHlPKnLbfCNR2rOTYI80mZ+09A2moA3c9VkndQ4pzNF/JyW7s5
+ 3zYlYrEKNFWvcvJmpcIIAStJRS+TS1jqMerwwNd90UI8cGhlTj6LHDkhMXrHaeBSN/Mw2C8Q615 iY+brgGIBCFSGXQ==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: aUjJj0R6I3ebI1qu1WRWi4HEfmLck6B-
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEzMDIwNCBTYWx0ZWRfXygFOb3rY4xFU
+ luipiWdaMZPSFZqcyPWve0BZxURNW+8I+MTEudAmJBmhTyP3AmcVXeQRFKleFCrXVAfje73AoP4
+ Et5bbbrHolRl1CgZRh3Qcna3adadtbYK5qVJToi1MGPprdROxxv87uzDyy/s7nnshKpQpnH5rnj
+ 7r/SIArEd4RQbIpkcY7fZ/NqZTzfHoQju8a1gqrim3+tqwRIdPavThhBlay2/uVdyEXFN6KRAAc
+ L/vLUzUgxF5TrkRdU+AB4bWeygIhKYRYHEDv1SlhaaVCcb5w8vpbyo3xTcvqmJqFAPhjOy29BOZ
+ DhRjbtvkF5ys1asPa5Wxtz5qs5TCtM2yy/4NP8H2z8vzXEc0BzAQsogvagsyIg5htwvXk3brtr2
+ NX5U1Rg/z5vyHPfl4bcLj2mSv31F888njmNlVgcXpGvSm5RHNor0l0lF5m1J4bpt8LtwnRu95Oe
+ qBfIumApkIPXO8k4Agg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEzMDIwNCBTYWx0ZWRfX4qft7y0vmjRf
+ ube14I07dg1B8YJ58TVRbTsPqsr4YsDdeuMQbl5iukBGIzG3uCJV0sH+smiU5zgxQGH0ssgKJra
+ 9QVgHOrU31CzHaA9FmHYc5HdPjOjd80=
+X-Proofpoint-ORIG-GUID: aUjJj0R6I3ebI1qu1WRWi4HEfmLck6B-
+X-Authority-Analysis: v=2.4 cv=PsUG/AM3 c=1 sm=1 tr=0 ts=6aa6afd8 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
+ a=tVI0ZWmoAAAA:8 a=jP-IZvqGofB6M-FGhCQA:9 a=bTQJ7kPSJx9SKPbeHEYW:22
+ a=-BPWgnxRz2uhmvdm1NTO:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-13_05,2026-09-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 priorityscore=1501 suspectscore=0 bulkscore=0 spamscore=0
+ malwarescore=0 lowpriorityscore=0 phishscore=0 adultscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609130204
 
+Fixup mis-indentation, e.g. spaces or tabs mixed with spaces, to fix
+dt-check-style warnings like:
 
-12.09.2026 21:22, Ryan Brue wrote:
-> This series depends on the following series:
-> [PATCH v2 0/3] Novatek NT51021 DSI panel IC driver
-> https://lore.kernel.org/all/20260911-qcom-novatek-nt51021-panels-v2-0-135e3190a7fb@mainlining.org/
->
-> The BOE TV101WUM-NM0 is a 10.1" panel present in the Amazon Fire HD 10
-> (2017) tablet. It differs from the BOE panels in the dependent series in
-> key ways:
->
-> - The pin count is 51 instead of 46
-> - The vendor asks for SYNC_EVENT_VDO_MODE with cont_clock=1 instead of
-> burst mode.
-> - Different timings and flags expected.
->
-> The init sequence, flags and timings are mostly adapted straight from
-> Amazon's vendor kernel.
->
-> Tested on the Amazon Fire HD 10 (2017) driven by mediatek-drm: 1200x1920
-> at 62.5 Hz across a cold boot, display off and on cycles and a
-> suspend/resume, with the MIPI TX PLL reading back at the intended rate
-> every time.
->
-> Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
-> ---
-> Ryan Brue (2):
->        dt-bindings: display: panel: add the BOE TV101WUM-NM0
->        drm/panel: novatek-nt51021: add the BOE TV101WUM-NM0
->
->   .../bindings/display/panel/novatek,nt51021.yaml    |  1 +
->   drivers/gpu/drm/panel/panel-novatek-nt51021.c      | 66 +++++++++++++++++++++-
->   2 files changed, 65 insertions(+), 2 deletions(-)
-> ---
-> base-commit: 5e036ce12de91c6fd674dad33b169c6150be2a7a
-> change-id: 20260912-add-boe-tv101wum-nm0-da01c4474db6
-> prerequisite-message-id: <20260911-qcom-novatek-nt51021-panels-v2-0-135e3190a7fb@mainlining.org>
-> prerequisite-patch-id: d8b58f07dc5c9e1fcf7c51a14b48eddca2e09090
-> prerequisite-patch-id: 79dfdac7b7fa79f7d05a5f3849909c9a7f956398
-> prerequisite-patch-id: 79c01de4e67563772dde152cd4c4d0c568b14d17
->
-> Best regards,
-> --
-> Ryan Brue <ryanbrue.dev@gmail.com>
-I will incorporate this series into my series and add Co-developed-by to 
-the patches and your name and email to maintainers.
+  talos-evk.dts:39: [indent-consistent] indent mismatch (expected depth 4 * '\t')
 
+No functional change.
+
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+ arch/arm64/boot/dts/qcom/kaanapali.dtsi        | 10 +++++-----
+ arch/arm64/boot/dts/qcom/lemans-el2.dtso       |  4 ++--
+ arch/arm64/boot/dts/qcom/pmi8996.dtsi          | 12 ++++++------
+ .../qcs6490-rb3gen2-industrial-mezzanine.dtso  |  4 ++--
+ .../sc7180-trogdor-lazor-limozeen-nots-r4.dts  |  2 +-
+ .../boot/dts/qcom/sc7180-trogdor-lazor-r1.dts  |  4 ++--
+ .../boot/dts/qcom/sc7180-trogdor-pompom-r1.dts |  4 ++--
+ arch/arm64/boot/dts/qcom/sc7180-trogdor-r1.dts |  4 ++--
+ .../boot/dts/qcom/sc8280xp-huawei-gaokun3.dts  | 10 +++++-----
+ .../dts/qcom/sc8280xp-microsoft-arcata.dts     |  2 +-
+ arch/arm64/boot/dts/qcom/sdm630.dtsi           | 14 +++++++-------
+ arch/arm64/boot/dts/qcom/shikra-iqs-som.dtsi   |  2 +-
+ arch/arm64/boot/dts/qcom/sm6115.dtsi           |  2 +-
+ arch/arm64/boot/dts/qcom/sm8250.dtsi           | 18 +++++++++---------
+ arch/arm64/boot/dts/qcom/sm8450.dtsi           |  2 +-
+ arch/arm64/boot/dts/qcom/sm8650-hdk.dts        |  8 ++++----
+ arch/arm64/boot/dts/qcom/sm8650-qrd.dts        |  8 ++++----
+ arch/arm64/boot/dts/qcom/talos-evk.dts         |  2 +-
+ 18 files changed, 56 insertions(+), 56 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/kaanapali.dtsi b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+index 0c5657eb0d30..02d3d26fec6d 100644
+--- a/arch/arm64/boot/dts/qcom/kaanapali.dtsi
++++ b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+@@ -4360,11 +4360,11 @@ qup_spi21_data_clk: qup-spi21-data-clk-state {
+ 			};
+ 
+ 			qup_uart7_default: qup-uart7-state {
+-				 /* TX, RX */
+-				 pins = "gpio62", "gpio63";
+-				 function = "qup1_se7";
+-				 drive-strength = <2>;
+-				 bias-disable;
++				/* TX, RX */
++				pins = "gpio62", "gpio63";
++				function = "qup1_se7";
++				drive-strength = <2>;
++				bias-disable;
+ 			};
+ 
+ 			qup_uart18_default: qup-uart18-default-state {
+diff --git a/arch/arm64/boot/dts/qcom/lemans-el2.dtso b/arch/arm64/boot/dts/qcom/lemans-el2.dtso
+index 621ad930cf54..ceaab5f55fa2 100644
+--- a/arch/arm64/boot/dts/qcom/lemans-el2.dtso
++++ b/arch/arm64/boot/dts/qcom/lemans-el2.dtso
+@@ -31,9 +31,9 @@ &remoteproc_cdsp1 {
+ };
+ 
+ &remoteproc_gpdsp0 {
+-       iommus = <&apps_smmu 0x38a0 0x0>;
++	iommus = <&apps_smmu 0x38a0 0x0>;
+ };
+ 
+ &remoteproc_gpdsp1 {
+-       iommus = <&apps_smmu 0x38c0 0x0>;
++	iommus = <&apps_smmu 0x38c0 0x0>;
+ };
+diff --git a/arch/arm64/boot/dts/qcom/pmi8996.dtsi b/arch/arm64/boot/dts/qcom/pmi8996.dtsi
+index 31b47209e261..711a01c7e624 100644
+--- a/arch/arm64/boot/dts/qcom/pmi8996.dtsi
++++ b/arch/arm64/boot/dts/qcom/pmi8996.dtsi
+@@ -3,12 +3,12 @@
+  * Copyright (c) 2021, Konrad Dybcio <konrad.dybcio@somainline.org>
+  */
+ 
+- /*
+-  * PMI8996 is a slight modification of PMI8994 with
+-  * some notable changes, like being the first PMIC
+-  * whose the bootloader has to check to continue booting
+-  * and a change to a LABIBB parameter.
+-  */
++/*
++ * PMI8996 is a slight modification of PMI8994 with
++ * some notable changes, like being the first PMIC
++ * whose the bootloader has to check to continue booting
++ * and a change to a LABIBB parameter.
++ */
+ 
+ / {
+ 	qcom,pmic-id = <0x20009 0x10013 0 0>;
+diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
+index 5259f4f4f857..8b5ef889733f 100644
+--- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
++++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
+@@ -33,7 +33,7 @@ vreg_1p8: regulator-1v8 {
+ };
+ 
+ &remoteproc_wpss {
+-       status = "disabled";
++	status = "disabled";
+ };
+ 
+ &spi11 {
+@@ -270,5 +270,5 @@ pcie1_tc9563_resx_n: pcie1-tc9563-resx-state {
+ };
+ 
+ &wifi {
+-       status = "disabled";
++	status = "disabled";
+ };
+diff --git a/arch/arm64/boot/dts/qcom/sc7180-trogdor-lazor-limozeen-nots-r4.dts b/arch/arm64/boot/dts/qcom/sc7180-trogdor-lazor-limozeen-nots-r4.dts
+index 70d5a7aa8873..3390fd0aabce 100644
+--- a/arch/arm64/boot/dts/qcom/sc7180-trogdor-lazor-limozeen-nots-r4.dts
++++ b/arch/arm64/boot/dts/qcom/sc7180-trogdor-lazor-limozeen-nots-r4.dts
+@@ -17,7 +17,7 @@ / {
+  */
+ /delete-node/&trackpad;
+ &ap_tp_i2c {
+-	 trackpad: trackpad@2c {
++	trackpad: trackpad@2c {
+ 		compatible = "hid-over-i2c";
+ 		reg = <0x2c>;
+ 		pinctrl-names = "default";
+diff --git a/arch/arm64/boot/dts/qcom/sc7180-trogdor-lazor-r1.dts b/arch/arm64/boot/dts/qcom/sc7180-trogdor-lazor-r1.dts
+index b60060a38426..c70ad0398d89 100644
+--- a/arch/arm64/boot/dts/qcom/sc7180-trogdor-lazor-r1.dts
++++ b/arch/arm64/boot/dts/qcom/sc7180-trogdor-lazor-r1.dts
+@@ -19,9 +19,9 @@ / {
+ 
+ 
+ &usb_hub_2_x {
+-	 vdd-supply = <&pp3300_l7c>;
++	vdd-supply = <&pp3300_l7c>;
+ };
+ 
+ &usb_hub_3_x {
+-	 vdd-supply = <&pp3300_l7c>;
++	vdd-supply = <&pp3300_l7c>;
+ };
+diff --git a/arch/arm64/boot/dts/qcom/sc7180-trogdor-pompom-r1.dts b/arch/arm64/boot/dts/qcom/sc7180-trogdor-pompom-r1.dts
+index ba222a60c4c6..9eea257197f8 100644
+--- a/arch/arm64/boot/dts/qcom/sc7180-trogdor-pompom-r1.dts
++++ b/arch/arm64/boot/dts/qcom/sc7180-trogdor-pompom-r1.dts
+@@ -35,9 +35,9 @@ &pm6150_adc_tm {
+ };
+ 
+ &usb_hub_2_x {
+-	 vdd-supply = <&pp3300_l7c>;
++	vdd-supply = <&pp3300_l7c>;
+ };
+ 
+ &usb_hub_3_x {
+-	 vdd-supply = <&pp3300_l7c>;
++	vdd-supply = <&pp3300_l7c>;
+ };
+diff --git a/arch/arm64/boot/dts/qcom/sc7180-trogdor-r1.dts b/arch/arm64/boot/dts/qcom/sc7180-trogdor-r1.dts
+index d393a2712ce6..1d9f3dbd9735 100644
+--- a/arch/arm64/boot/dts/qcom/sc7180-trogdor-r1.dts
++++ b/arch/arm64/boot/dts/qcom/sc7180-trogdor-r1.dts
+@@ -53,11 +53,11 @@ &trackpad {
+ };
+ 
+ &usb_hub_2_x {
+-	 vdd-supply = <&pp3300_l7c>;
++	vdd-supply = <&pp3300_l7c>;
+ };
+ 
+ &usb_hub_3_x {
+-	 vdd-supply = <&pp3300_l7c>;
++	vdd-supply = <&pp3300_l7c>;
+ };
+ 
+ /* PINCTRL - modifications to sc7180-trogdor.dtsi */
+diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts b/arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts
+index da82b51cbf40..43bd2e09119e 100644
+--- a/arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts
++++ b/arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts
+@@ -1366,11 +1366,11 @@ perst-n-pins {
+ 		};
+ 
+ 		wake-n-pins {
+-		       pins = "gpio145";
+-		       function = "gpio";
+-		       drive-strength = <2>;
+-		       bias-pull-up;
+-	       };
++			pins = "gpio145";
++			function = "gpio";
++			drive-strength = <2>;
++			bias-pull-up;
++		};
+ 	};
+ 
+ 	pcie4_default: pcie4-default-state {
+diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
+index 765b029f8412..cc50805b43bc 100644
+--- a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
++++ b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
+@@ -1117,7 +1117,7 @@ wake-n-pins {
+ 			function = "gpio";
+ 			drive-strength = <2>;
+ 			bias-pull-up;
+-	       };
++		};
+ 	};
+ 
+ 	pcie3a_default: pcie3a-default-state {
+diff --git a/arch/arm64/boot/dts/qcom/sdm630.dtsi b/arch/arm64/boot/dts/qcom/sdm630.dtsi
+index e785854e2e83..3a1014804fb0 100644
+--- a/arch/arm64/boot/dts/qcom/sdm630.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm630.dtsi
+@@ -1423,26 +1423,26 @@ sdhc_2: mmc@c084000 {
+ 			status = "disabled";
+ 
+ 			sdhc2_opp_table: opp-table {
+-				 compatible = "operating-points-v2";
++				compatible = "operating-points-v2";
+ 
+-				 opp-50000000 {
++				opp-50000000 {
+ 					opp-hz = /bits/ 64 <50000000>;
+ 					required-opps = <&rpmpd_opp_low_svs>;
+ 					opp-peak-kBps = <200000 140000>;
+ 					opp-avg-kBps = <130718 133320>;
+-				 };
+-				 opp-100000000 {
++				};
++				opp-100000000 {
+ 					opp-hz = /bits/ 64 <100000000>;
+ 					required-opps = <&rpmpd_opp_svs>;
+ 					opp-peak-kBps = <250000 160000>;
+ 					opp-avg-kBps = <196078 150000>;
+-				 };
+-				 opp-200000000 {
++				};
++				opp-200000000 {
+ 					opp-hz = /bits/ 64 <200000000>;
+ 					required-opps = <&rpmpd_opp_nom>;
+ 					opp-peak-kBps = <4096000 4096000>;
+ 					opp-avg-kBps = <1338562 1338562>;
+-				 };
++				};
+ 			};
+ 		};
+ 
+diff --git a/arch/arm64/boot/dts/qcom/shikra-iqs-som.dtsi b/arch/arm64/boot/dts/qcom/shikra-iqs-som.dtsi
+index e119ace54e58..8a60f304eaa4 100644
+--- a/arch/arm64/boot/dts/qcom/shikra-iqs-som.dtsi
++++ b/arch/arm64/boot/dts/qcom/shikra-iqs-som.dtsi
+@@ -218,7 +218,7 @@ pm8150_l18: l18 {
+ };
+ 
+ &tlmm {
+-	 gpio-reserved-ranges = <6 4>, /* Fingerprint SPI */
++	gpio-reserved-ranges = <6 4>, /* Fingerprint SPI */
+ 			       <30 2>, /* NFC SPI */
+ 			       <138 1>, /* NFC Secure IO */
+ 			       <155 11>; /* eMMC Boot */
+diff --git a/arch/arm64/boot/dts/qcom/sm6115.dtsi b/arch/arm64/boot/dts/qcom/sm6115.dtsi
+index 3520802d1fed..0f2af8abacc3 100644
+--- a/arch/arm64/boot/dts/qcom/sm6115.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm6115.dtsi
+@@ -1665,7 +1665,7 @@ usb: usb@4ef8800 {
+ 
+ 			resets = <&gcc GCC_USB30_PRIM_BCR>;
+ 			power-domains = <&gcc GCC_USB30_PRIM_GDSC>;
+-			 /* TODO: USB<->IPA path */
++			/* TODO: USB<->IPA path */
+ 			interconnects = <&system_noc MASTER_USB3 RPM_ALWAYS_TAG
+ 					 &bimc SLAVE_EBI_CH0 RPM_ALWAYS_TAG>,
+ 					<&bimc MASTER_AMPSS_M0 RPM_ALWAYS_TAG
+diff --git a/arch/arm64/boot/dts/qcom/sm8250.dtsi b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+index 90f8b091634e..7ebd53ebb58e 100644
+--- a/arch/arm64/boot/dts/qcom/sm8250.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+@@ -3290,7 +3290,7 @@ in-ports {
+ 				port@4 {
+ 					reg = <4>;
+ 					funnel_in1_in_funnel_apss_merg: endpoint {
+-					remote-endpoint = <&funnel_apss_merg_out_funnel_in1>;
++						remote-endpoint = <&funnel_apss_merg_out_funnel_in1>;
+ 					};
+ 				};
+ 			};
+@@ -3306,7 +3306,7 @@ funnel@6045000 {
+ 			out-ports {
+ 				port {
+ 					funnel_merg_out_funnel_swao: endpoint {
+-					remote-endpoint = <&funnel_swao_in_funnel_merg>;
++						remote-endpoint = <&funnel_swao_in_funnel_merg>;
+ 					};
+ 				};
+ 			};
+@@ -3318,14 +3318,14 @@ in-ports {
+ 				port@0 {
+ 					reg = <0>;
+ 					funnel_merg_in_funnel_in0: endpoint {
+-					remote-endpoint = <&funnel_in0_out_funnel_merg>;
++						remote-endpoint = <&funnel_in0_out_funnel_merg>;
+ 					};
+ 				};
+ 
+ 				port@1 {
+ 					reg = <1>;
+ 					funnel_merg_in_funnel_in1: endpoint {
+-					remote-endpoint = <&funnel_in1_out_funnel_merg>;
++						remote-endpoint = <&funnel_in1_out_funnel_merg>;
+ 					};
+ 				};
+ 			};
+@@ -3493,7 +3493,7 @@ funnel@6c0b000 {
+ 			out-ports {
+ 				port {
+ 					funnel_dl_mm_out_funnel_dl_center: endpoint {
+-					remote-endpoint = <&funnel_dl_center_in_funnel_dl_mm>;
++						remote-endpoint = <&funnel_dl_center_in_funnel_dl_mm>;
+ 					};
+ 				};
+ 			};
+@@ -3533,7 +3533,7 @@ in-ports {
+ 				port@2 {
+ 					reg = <2>;
+ 					funnel_dl_center_in_funnel_dl_mm: endpoint {
+-					remote-endpoint = <&funnel_dl_mm_out_funnel_dl_center>;
++						remote-endpoint = <&funnel_dl_mm_out_funnel_dl_center>;
+ 					};
+ 				};
+ 			};
+@@ -3701,7 +3701,7 @@ funnel@7800000 {
+ 			out-ports {
+ 				port {
+ 					funnel_apss_out_funnel_apss_merg: endpoint {
+-					remote-endpoint = <&funnel_apss_merg_in_funnel_apss>;
++						remote-endpoint = <&funnel_apss_merg_in_funnel_apss>;
+ 					};
+ 				};
+ 			};
+@@ -3778,7 +3778,7 @@ funnel@7810000 {
+ 			out-ports {
+ 				port {
+ 					funnel_apss_merg_out_funnel_in1: endpoint {
+-					remote-endpoint = <&funnel_in1_in_funnel_apss_merg>;
++						remote-endpoint = <&funnel_in1_in_funnel_apss_merg>;
+ 					};
+ 				};
+ 			};
+@@ -3786,7 +3786,7 @@ funnel_apss_merg_out_funnel_in1: endpoint {
+ 			in-ports {
+ 				port {
+ 					funnel_apss_merg_in_funnel_apss: endpoint {
+-					remote-endpoint = <&funnel_apss_out_funnel_apss_merg>;
++						remote-endpoint = <&funnel_apss_out_funnel_apss_merg>;
+ 					};
+ 				};
+ 			};
+diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
+index b8793482b181..ee19680acb81 100644
+--- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
+@@ -3489,7 +3489,7 @@ port@1 {
+ 						mdss_dp0_out: endpoint {
+ 							remote-endpoint = <&usb_1_qmpphy_dp_in>;
+ 						};
+-		};
++					};
+ 				};
+ 
+ 				dp_opp_table: opp-table {
+diff --git a/arch/arm64/boot/dts/qcom/sm8650-hdk.dts b/arch/arm64/boot/dts/qcom/sm8650-hdk.dts
+index 41d0c7edc433..97dc524373d4 100644
+--- a/arch/arm64/boot/dts/qcom/sm8650-hdk.dts
++++ b/arch/arm64/boot/dts/qcom/sm8650-hdk.dts
+@@ -125,7 +125,7 @@ port@2 {
+ 
+ 					pmic_glink_sbu: endpoint {
+ 						remote-endpoint = <&wcd_usbss_sbu_mux>;
+-				    };
++					};
+ 				};
+ 			};
+ 		};
+@@ -905,9 +905,9 @@ &gpi_dma1 {
+ };
+ 
+ &i2c3 {
+-       status = "okay";
++	status = "okay";
+ 
+-       wcd_usbss: typec-mux@e {
++	wcd_usbss: typec-mux@e {
+ 		compatible = "qcom,wcd9395-usbss", "qcom,wcd9390-usbss";
+ 		reg = <0xe>;
+ 
+@@ -929,7 +929,7 @@ wcd_usbss_sbu_mux: endpoint {
+ 				};
+ 			};
+ 		};
+-       };
++	};
+ };
+ 
+ &i2c6 {
+diff --git a/arch/arm64/boot/dts/qcom/sm8650-qrd.dts b/arch/arm64/boot/dts/qcom/sm8650-qrd.dts
+index 1fb78588a504..e851114f1155 100644
+--- a/arch/arm64/boot/dts/qcom/sm8650-qrd.dts
++++ b/arch/arm64/boot/dts/qcom/sm8650-qrd.dts
+@@ -86,7 +86,7 @@ port@2 {
+ 
+ 					pmic_glink_sbu: endpoint {
+ 						remote-endpoint = <&wcd_usbss_sbu_mux>;
+-				    };
++					};
+ 				};
+ 			};
+ 		};
+@@ -875,9 +875,9 @@ &gpi_dma1 {
+ };
+ 
+ &i2c3 {
+-       status = "okay";
++	status = "okay";
+ 
+-       wcd_usbss: typec-mux@e {
++	wcd_usbss: typec-mux@e {
+ 		compatible = "qcom,wcd9395-usbss", "qcom,wcd9390-usbss";
+ 		reg = <0xe>;
+ 
+@@ -907,7 +907,7 @@ wcd_usbss_headset_out: endpoint {
+ 				};
+ 			};
+ 		};
+-       };
++	};
+ };
+ 
+ &i2c6 {
+diff --git a/arch/arm64/boot/dts/qcom/talos-evk.dts b/arch/arm64/boot/dts/qcom/talos-evk.dts
+index b7f514fbc7b2..2ec3710a227a 100644
+--- a/arch/arm64/boot/dts/qcom/talos-evk.dts
++++ b/arch/arm64/boot/dts/qcom/talos-evk.dts
+@@ -36,7 +36,7 @@ hdmi_connector: hdmi-out {
+ 
+ 		port {
+ 			hdmi_con_out: endpoint {
+-			remote-endpoint = <&adv7535_out>;
++				remote-endpoint = <&adv7535_out>;
+ 			};
+ 		};
+ 	};
 -- 
-Best regards,
-Nickolay
+2.53.0
 
