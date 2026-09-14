@@ -1,39 +1,40 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4675B4477F1;
-	Mon, 14 Sep 2026 12:03:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 192B945C715;
+	Mon, 14 Sep 2026 12:04:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789387416; cv=none; b=jZQqnjW8a0Dxs5sgJatHguKu0WSoPWp71kUt1rs7iVYBimWsF/c7sMQdGq1PYR1BLYq3NKiqcA8C6y5Fe8Q9HU9b04mzUReuZioRFpdBzS5JwehQXkouuNTnwKT2nKBv4oCrgdBV13lbyNmIZN6S1rfx91xQoROmK9ZncUWxsvE=
+	t=1789387447; cv=none; b=JDNIBFlW2sr1vcpUr+38ja/bjnb4GEy+8AluD/s/PHIyIhToVEdWeBvv9vI6tz1GnYiGVpoSnfT1GynI4gNk0u7WBS4FxZHYD7q6t4HI3zQgCdWT8zns+5EdvSJP5zy/3plX7RiiVbUx4trFfJo92HEpruuovHM/lwJlVjyO3VQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789387416; c=relaxed/simple;
-	bh=Rnuxg8Bm+X7suNH/2fHdk6Yixl0QR/yEH5sBAlxOcuY=;
+	s=arc-20240116; t=1789387447; c=relaxed/simple;
+	bh=FIBAsyGFPvfETpyBr09HjNxH1AY/V6dy8oQmWy+oGKQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mFJFHQZ9Rq/2+FuBzaKEbhVJxTsmjEN2jLiPfg85FIh3VooYidrJXNZCh7Fz9JTVCHQAedIluJw+4GakFo1z/jkOIl0d2dCkgOdz2b+ywI0fd3NwqSPUPWkTlLR3kwn/syv3gX4yxTyXV9Sol6uVvB/6Wtz9MneGvnG6fzgqmlw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=yk4ugO3z; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	 In-Reply-To:Content-Type; b=nJlGcppXPKQ9Cw4cXavqw5CT4tUEhHzjaIXaNmcYR9I1+WFbK5O0/uagxNaqjjaPbAy9wyMgZaXoa+66ce+W3ERWMQV6rFdgDwo3m3B0umJD/yfa2p8Cx7NxWkm+Q1AGgk+7yWS7ZlZq2IeecNrRFWTu0zIAro/NL+LrN/L4csk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=LJMRJl+p; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="yk4ugO3z"
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="LJMRJl+p"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789387442;
+	bh=FIBAsyGFPvfETpyBr09HjNxH1AY/V6dy8oQmWy+oGKQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=LJMRJl+pUKWfH3GPfyZgm75Fi0YlKga5UpcvvrqMf4QWJ4gh29GLdVho1OI5g6X4v
+	 QFTnQy3htoeUqMhV8qjZ1UW7pegE2uAT+XlSkDRzeMT+jvtV/LyEk9f9gy2I8UTa2Q
+	 KiuHqW+kQE5IqDJqTC1ZaAJ/6sKUzxaN8JolzkKzXxFsI8SmC8bE9wECXcgzmDYxEu
+	 0zR7+DHT+Ti33kDASsuNHrBqxNOv929m+df+QNmZpig5pmecpbpKRHbg97jmb/hsEo
+	 sOVsIbeAVJ3WQ+9HNtK8NkqZKxj7+lkk0lq+1r9Aofh6nqBW76fJ+cFC0n00xYvc6A
+	 rqgbBU/9wCEzg==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange x25519)
 	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id C6B5B5340FE3;
-	Mon, 14 Sep 2026 14:03:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1789387410;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=CT3fvfkTnmD+9Y/Sm1S+OZ4fvH4Lgpj6mZGIs3PMRKs=;
-	b=yk4ugO3zR7g8xsYbXAuNiz3nJr1jKS3jKZGTd7eWUCwqkhpc4wKYYkaAYEn480KsNRa+Yb
-	R1296FSaH/5bTqKFp57+6y4rj3s7GO/ZGKOhFHnJArnziFXWc84YTnyfriLslJ8idjn6c3
-	tpAKwOzr9QZHsevcN8Iya4SkqFesigQ=
-Message-ID: <be018c1c-88f3-41fc-9293-d5090a79b3a7@ixit.cz>
-Date: Mon, 14 Sep 2026 14:03:29 +0200
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 8603417E020C;
+	Mon, 14 Sep 2026 14:04:01 +0200 (CEST)
+Message-ID: <37b8b39d-0880-4625-a8cc-f41a6aab3308@collabora.com>
+Date: Mon, 14 Sep 2026 14:04:01 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,174 +42,87 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 20/20] arm64: dts: qcom: generalmobile-shamrock: new
- device
-To: Muzaffer Kadir <muzafferkadir@mainlining.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
+Subject: Re: [PATCH v12 02/24] dt-bindings: ufs: mediatek,ufs: Complete the
+ binding
+To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
+ Chunfeng Yun <chunfeng.yun@mediatek.com>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>,
- Ulf Hansson <ulfh@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>,
- Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, Kees Cook <kees@kernel.org>,
- Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli"
- <gpiccoli@igalia.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Dang Huynh <danct12@riseup.net>, phone-devel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Peter Wang <peter.wang@mediatek.com>,
+ Chaotian Jing <chaotian.jing@mediatek.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman
+ <avri.altman@sandisk.com>, Bart Van Assche <bvanassche@acm.org>,
+ Stanley Jhu <chu.stanley@gmail.com>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
+ "Martin K. Petersen" <mkp@kernel.org>
+Cc: kernel@collabora.com, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-phy@lists.infradead.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mmc@vger.kernel.org, iommu@lists.linux.dev, mfd@lists.linux.dev,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- Krzysztof Kozlowski <krzk@kernel.org>, linux-pm@vger.kernel.org,
- linux-input@vger.kernel.org
-References: <20260912-msm8952-initial-support-v1-0-0e742578b524@mainlining.org>
- <20260912-msm8952-initial-support-v1-20-0e742578b524@mainlining.org>
- <d0d7e3d0-15bf-4850-99ec-44d429c6bae1@oss.qualcomm.com>
- <42ef03e8-112a-4689-aedd-eeb7ec9b4f58@mainlining.org>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <42ef03e8-112a-4689-aedd-eeb7ec9b4f58@mainlining.org>
+ linux-scsi@vger.kernel.org,
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+References: <20260914-mt8196-ufs-v12-0-9279d7ef814d@collabora.com>
+ <20260914-mt8196-ufs-v12-2-9279d7ef814d@collabora.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20260914-mt8196-ufs-v12-2-9279d7ef814d@collabora.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 14/09/2026 13:58, Muzaffer Kadir wrote:
-> Hi Konrad,
+On 9/14/26 13:38, Louis-Alexis Eyraud wrote:
+> From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 > 
-> On Mon, 14 Sep 2026 13:22:52 +0200, Konrad Dybcio wrote:
->> On 9/12/26 10:39 AM, Muzaffer Kadir via B4 Relay wrote:
->>> From: Muzaffer Kadir <muzafferkadir@mainlining.org>
->>>
->>> Add General Mobile Shamrock (GM 5 Plus).
->>> Shamrock is designed similar to L9300.
->>> Downstream reference is [1].
->>
->> Please feel free to
->> wrap your messages at 72
->> characters, otherwise they are
->> a bit hard to read! :D
+> As it stands, the mediatek,ufs.yaml binding is startlingly incomplete.
+> Its one example, which is the only real "user" of this binding in
+> mainline, uses the deprecated freq-table-hz property.
 > 
-> I am sorry to hear that. vim shows
-> it less than 72 and I can't see which
-> line is bigger than 72.
-
-Hehe, yeah, had the same issue.
-
-require('lualine').setup {
-   options = {
-     icons_enabled = true,
-     theme = 'auto',
-     component_separators = { left = '', right = '|'},
-     section_separators = { left = '', right = ''},
-     disabled_filetypes = {
-       statusline = {},
-       winbar = {},
-     },
-     ignore_focus = {},
-     always_divide_middle = true,
-     globalstatus = false,
-     refresh = {
-       statusline = 1000,
-       tabline = 1000,
-       winbar = 1000,
-     }
-   },
-   sections = {
-     lualine_a = {'mode'},
-     lualine_b = {'branch', 'diff', 'diagnostics'},
-     lualine_c = {'filename'},
-     lualine_x = {'filetype'},
-     lualine_y = {'progress'},
-     lualine_z = {
-       { '%3l:%-2.(%c%V%)', type = 'stl' },
-     },
-   },
-   inactive_sections = {
-     lualine_a = {},
-     lualine_b = {},
-     lualine_c = {'filename'},
-     lualine_x = {'location'},
-     lualine_y = {},
-     lualine_z = {}
-   },
-   tabline = {},
-   winbar = {}, 
-  
-
-   inactive_winbar = {}, 
-  
-
-   extensions = {} 
-  
-
-}
-
-see a lualine_z for the way how to let neovim show length INCLUDING tabs :)
-
-David
-
-> Only one I can see is url itself.
-> Should I move url to Link trailer?
+> The resets, of which there are three optional ones, are completely
+> absent.
 > 
-> For other parts of review,
-> I will fix them in v2.
-> Thanks a lot for review.
+> The clock description for MT8195 is incomplete, as is the one for
+> MT8192. It's not known if the one clock binding for MT8183 is even
+> correct, but I do not have access to the necessary code and
+> documentation to find this out myself.
 > 
-> Best regards,
-> Muzaffer Kadir
+> The power supply situation is not much better; the binding describes one
+> required power supply, but it's the UFS card supply, not any of the
+> supplies feeding the controller silicon.
+> 
+> No second example is present in the binding, making verification
+> difficult.
+> 
+> Disallow freq-table-hz and move to operating-points-v2. It's fine to
+> break compatibility here, as the binding is currently unused and would
+> be impossible to correctly use in its current state.
+> 
+> Add the three resets and the corresponding reset-names property. These
+> resets appear to be optional, i.e. not required for the functioning of
+> the device.
+> 
+> Move the list of clock names out of the if condition, and expand it for
+> the confirmed clocks I could find by cross-referencing several clock
+> drivers. For MT8195, increase the minimum number of clocks to include
+> the rx_symbol ones, as they're internal to the SoC and should always
+> be present, and should therefore not be omitted.
+> 
+> MT8192 gets to have at least 3 clocks, as these were the ones I could
+> quickly confirm from a glance at various trees. I can't say this was an
+> exhaustive search though, but it's better than the current situation.
+> 
+> Properly document all supplies, with which pin name on the SoCs they
+> supply. Complete the example with them.
+> 
+> Also add a MT8195 example to the binding, using supply labels that I am
+> pretty sure would be the right ones for e.g. the Radxa NIO 12L.
+> 
+> Finally, remove the 'ufs_' prefix from all clock names containing it
+> and rename 'ufs' clock to 'main'.
+> 
+> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> Reviewed-by: Chaotian Jing <chaotian.jing@mediatek.com>
+> Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
