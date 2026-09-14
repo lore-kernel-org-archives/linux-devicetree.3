@@ -1,130 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1173E3EEACF
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 19:57:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 388B1480DE0
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 20:15:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789415847; cv=none; b=T1l19KefFln8LN7YQTx2vmKeTbGDcby1g6CcPkwEIINmTGNh5galomQ7IRCaNBEal1JhMCn+H+GrLLdkC939o0dCOof49XpijOzDHsN32Ut9OicHSiE8fuko3v5HW6amd37/vmAFOm7FeFYDCTEXLAfxRGRKoY4fW6CaZU9fSus=
+	t=1789416930; cv=none; b=GIZ+C643LM2GGWZU+VuWhzi/5a6dYhjPOlSzhwpPjuY58pPz2gcX3XdvHbhNQz7CsHieWgbW58Z4ziBYSd+dfla3mU3VDVvO7ZTG+8F0PtBD0Wf78Wk/YpWOf5trdBlYcQALFaoUOGzpRNqNqRdUauzpRZ2McDIuiP/4Kx9h/Pk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789415847; c=relaxed/simple;
-	bh=YuKevFO+YHl3qSCBbgV1wZsc5cF4dODe7yDVvg939c8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=p80AwOLwyroEUkMDkSRZb1tDmAkcE6j8zSjzRj3Gyk0znFvWZIc1SjyrXm5LRcFGYIn6NW5uT5JFm0agNW2GmZA8huZ5oHccXrK0H/xcf1xP1kuCW+u0GX8NGbx7ojVpnb25PJkVUORLLneai1Wm73N5MCN/ua0q5ngqamdBqv8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lCVcqpnd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789416930; c=relaxed/simple;
+	bh=GykgSnZ4kWqbaJjn/9T0vyH9n/iK2VhkIfkcUJdlBuk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nbvh6X27fROKN/LShJQ8ZuTgcJUCav1/fYkN85Rg1WfrPO2eEp3mFfkYXqX19BJZBRkwcMOXZ+RD+RwBMjmy7A041OQVuzRCLlXL9yjN1RcRlcX07pAjBx9QfiHxfhb2gO7KI/5nfJAA7ZWFLYNx8afMyA25E5N+vu7ki33jO/s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=bMZZDctY; arc=none smtp.client-ip=209.85.208.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lCVcqpnd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 924981F00893;
-	Mon, 14 Sep 2026 19:57:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789415845;
-	bh=7NGsCDX7UAxowmcMcSm0O36oiZraomOeE4mdh9cv6As=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lCVcqpndNIZ1nJ6p5EXclQkVwKvpNuM4Po9B+Zx+HZf+jMrKM22t5anCUGeABcvDB
-	 KHtiX09mZRABT01+BLc3KA9NpuImah4pHfrPGZ788qJNwZaSJKtqR3u2jR0iNIKGBn
-	 /00QE8T+C46msRjUJmtL+s5U3WRKJAVSsvpU8kW5OwsKrP7n0XpBzU2hes3x+XU22a
-	 9hK+NzLVDL4gakVpwbDq5SGLGkD/ChIwxXPbgbENtECse3G/VcpMMMkHYZlbcY3tG5
-	 o1FJQZxl2GGeWWm2fBYMyw7Qacgp0fQBs2qqrpjKp5jOIVhgxrwWJvyvJ51j9SOlz7
-	 1wGY/XoJcsOGA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v13 3/4] net: dsa: microchip: Support Microchip
- KSZ8995XA / KS8995XA
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Linus Walleij" <linusw@kernel.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260913-ks8995-to-ksz8-v13-3-327b16d309eb@kernel.org>
-References: <20260913-ks8995-to-ksz8-v13-0-327b16d309eb@kernel.org>
- <20260913-ks8995-to-ksz8-v13-3-327b16d309eb@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 19:57:25 +0000
-Message-Id: <20260914195725.924981F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="bMZZDctY"
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6a9a2f16ed4so381754a12.0
+        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 13:15:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1789416926; x=1790021726; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=K7ypREDUbgOotRmXNI3oJlTg66vvpyevfxzia1IXsPA=;
+        b=bMZZDctYnf21WxAkfoqiCg9XxwZLGTkmzQt8JZ45r39/go9xGReDPVtHVcK3Bs6EYU
+         bEfOyNxykmx7gPfJAs44CUDF3S5HEcYaWIo50S37e9b4mYlvZE30G0juDcqNds1VYU+J
+         6gT7B+KTl8FpHeUfv0S62eoly12FlbZvGTt9xkMG1PYShuDCP57/bYD4zn+m4USqhpCk
+         GxeY+AGznjb9+s/dnCm/66lD2i+b7hJU0aQpmfrTziqskXsVfCIEhba8OYac8UNVHg7x
+         Xklv9+HRxzWMWSFTrrafknvLXUH9LNjDIJ4Nkg5JRNLDzQp4EAYPsiR9I3soTYl0VJ6r
+         VfvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789416926; x=1790021726;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=K7ypREDUbgOotRmXNI3oJlTg66vvpyevfxzia1IXsPA=;
+        b=hDZ21/XLhY8TG8gpm4T2Zm6EBd9r+WZpTvyyzc69v80qy1hDQXHas2vM1i8J8SkqCE
+         G5hitQvcynT/2BEO4H4i3L6wWCA/VJVhnm1rwqiffSeK1DuRDhelOZjt1mzl971HWJJs
+         A+RuOveL6H3/LplflaJWgaisLkVuvyE90Uhe6O1Fdbs9AbjJMsikwG8INxW05B9cGIyA
+         QBLYo+01wmHqWH5kW1Gg9sPRu2Mhn7sZqniZHLvqSXa1v3hterXizrJqb521yD/6RcPP
+         5K/PFwDN/ZSMVoHm89iBoss+w8WHmxRbMui+GG0ZcYLRowLPIpfHY+U0oNE83m9hBqlN
+         Oo6A==
+X-Forwarded-Encrypted: i=1; AKwUvBwRYy8xBdE6piV7q0MpZGV2BNGgWCg4eMnydOuvTrhejI6Q9MU1BEC7K72G187Hv//XeRPPuMLPCS/X@vger.kernel.org
+X-Gm-Message-State: AFuF++kZdUvjDivwFknXw9eBrL1fszrV/rSHTOaFMM5jxw9uM4pXXEfc
+	z4J1di9SxIZr0VgzCgrzSn2dgBTJu0SgqOfmKEtmoAnOpnBrIHabRAEytu0OP9S2wIo=
+X-Gm-Gg: AYBFou2G4uePTMnWiD7EUjtSWQNdFas9g6AOE46rYpu/geUicvSoZnzx2dVuH+zJj0K
+	RDNQC0I1UqjB/jlYfvuv5Bfwl3mn1w/id8gRekO1NqioLgfYR5+1ue57YjmOCwNCW99+Cdz8onW
+	ut1jZLZMgQ6UEXGCRUIv7toUxZ77uoORpri7ls7lkbQPBN9ItmGpNpnyctqFkiHET4fMwYoV0QY
+	iinERfuoTBvCooB3QwOuR7WbXcjqqGQNgi5M0P8+MGwlPSrfjbd2UaMmbc+wI853KH6tIfpoqR4
+	SQ51BrK67ZcwaMFWeSqHv5C+i1G3U1FHN/+8DmPyYRBnX1aaSLM8TUvKYISbpgFe5T+ehr+oSZW
+	GPho91IVFohqHcxJjSr6+Nfj2p3P0y+Tx0AQwGLtKlr+U+gU3Ha3UzldvIZT5OLIcTSLkGOSCmq
+	zyf9V/w+JW7gl8bX+GG9GHqOk+2T+6gTusLeCBoXGVE+VwPNVtnzry1oL9rOlY10PebsvnFKZNu
+	iqf3RGGHw==
+X-Received: by 2002:a05:6402:b86:b0:6a6:75b7:4ff6 with SMTP id 4fb4d7f45d1cf-6aa03f7ab4cmr403420a12.8.1789416926406;
+        Mon, 14 Sep 2026 13:15:26 -0700 (PDT)
+Received: from [192.168.0.35] ([109.76.248.34])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9b594e462sm4859796a12.24.2026.09.14.13.15.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 14 Sep 2026 13:15:25 -0700 (PDT)
+Message-ID: <cd7d3d8d-f629-4fa4-9417-98bbef3230d4@linaro.org>
+Date: Mon, 14 Sep 2026 21:15:23 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: Fix touchscreen address on Dell
+ Inspiron 7441
+To: avalon.vargas.centeno@est.una.ac.cr,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: Val Packett <val@packett.cool>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260914-dell7441-touchscreen-v1-1-d79540ca5e81@est.una.ac.cr>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-US
+In-Reply-To: <20260914-dell7441-touchscreen-v1-1-d79540ca5e81@est.una.ac.cr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The PHY soft reset loop incorrectly iterates over all ports includ=
-ing the CPU port, writing to and polling a reserved register which can lead=
- to a 600ms timeout and probe failure.
---
+On 14/09/2026 14:30, Avalon Vargas via B4 Relay wrote:
+> From: Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
+> 
+> The LXST2021 touchscreen on the tested Dell Inspiron 14 Plus 7441
+> responds at I2C address 0x09, while the device tree specifies 0x10.
+> Probing the latter fails with -ENXIO and no touchscreen input device
+> is registered.
+> 
+> Use address 0x09, matching the LXST2021 configuration on the related
+> Dell Latitude 7455. With this address, the controller identifies as
+> 29BD:1103 and binds to hid-multitouch. Touch input and suspend/resume
+> have been verified on the affected Inspiron using Linux 7.2.4 with
+> the equivalent device-tree overlay.
+> 
+> Signed-off-by: Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
+> ---
+> This replaces the earlier report-plus-diff with a patch submission.
+> Only one unit has been tested. I have no evidence of double-sourcing
+> or a working Inspiron touchscreen at 0x10; a typo remains possible.
+> 
+> touch input and suspend/resume. The native upstream patch has not yet
+> undergone a full kernel DTB build or dtbs_check.
+> 
+> Validation: Linux 7.2.4 plus the equivalent local DT overlay, physical
+> ---
+>   arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts | 5 +++--
+>   1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts b/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts
+> index 75e10d9..0cf5716 100644
+> --- a/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts
+> +++ b/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts
+> @@ -25,9 +25,10 @@ &gpu_zap_shader {
+>   };
+>   
+>   &i2c8 {
+> -	touchscreen@10 {
+> +	/* LXST2021 */
+> +	touchscreen@9 {
+>   		compatible = "hid-over-i2c";
+> -		reg = <0x10>;
+> +		reg = <0x09>;
+>   
+>   		hid-descr-addr = <0x1>;
+>   		interrupts-extended = <&tlmm 51 IRQ_TYPE_LEVEL_LOW>;
+Nice.
 
-commit f211090124449a019250a45d2be289b7aa2d1e62
-Author: Linus Walleij <linusw@kernel.org>
+A Fix should have a
 
-net: dsa: microchip: Support Microchip KSZ8995XA / KS8995XA
+Fixes: tag
+Cc: stable@vger.kernel.org
 
-This commit adds support for the Microchip KSZ8995XA switch to the KSZ driv=
-er, along with handling its specific PHY reset requirements, DSCP mapping, =
-and legal packet size semantics. It also transitions the legacy KS8995 driv=
-er exclusives.
-
-> diff --git a/drivers/net/dsa/microchip/ksz8.c b/drivers/net/dsa/microchip=
-/ksz8.c
-> index 941ae9f66f70b..d7498132064e8 100644
-> --- a/drivers/net/dsa/microchip/ksz8.c
-> +++ b/drivers/net/dsa/microchip/ksz8.c
-[ ... ]
-> @@ -253,7 +255,35 @@ static int ksz8463_reset_switch(struct ksz_device *d=
-ev)
-> =20
->  static int ksz8_reset_switch(struct ksz_device *dev)
->  {
-> -	if (ksz_is_ksz88x3(dev)) {
-> +	if (ksz_is_ksz8995xa(dev)) {
-> +		unsigned int port, reg, val;
-> +		int ret;
-> +
-> +		/* The KSZ8995XA switch itself cannot be reset by software, but
-> +		 * often boot loaders have fun with ports, so reset them. This
-> +		 * reset bit is self-clearing.
-> +		 */
-> +		for (port =3D 0; port < dev->info->port_cnt; port++) {
-> +			ret =3D ksz_prmw8(dev, port, REG_PORT_STATUS_3,
-> +					PORT_PHY_SOFT_RESET,
-> +					PORT_PHY_SOFT_RESET);
-
-[Severity: High]
-Does this code inadvertently write to a reserved register for the CPU port?
-
-The PHY soft reset loop iterates over all ports up to dev->info->port_cnt,
-which includes the CPU port (port 4). However, the CPU port lacks an intern=
-al
-PHY (.internal_phy =3D false). Initiating a PHY reset here means writing to
-REG_PORT_STATUS_3, which maps to a reserved register (offset 0x5D) for the
-CPU port.
-
-> +			if (ret)
-> +				return ret;
-> +		}
-> +
-> +		/* IEEE 802.3 allows up to 500 ms for a PHY reset. */
-> +		for (port =3D 0; port < dev->info->port_cnt; port++) {
-> +			reg =3D dev->dev_ops->get_port_addr(port, REG_PORT_STATUS_3);
-> +			ret =3D regmap_read_poll_timeout(ksz_regmap_8(dev), reg, val,
-> +						       !(val & PORT_PHY_SOFT_RESET),
-> +						       1000, 600000);
-
-[Severity: High]
-Can this polling loop cause a 600ms probe timeout?
-
-Since this loop also polls the reserved register on the CPU port, if the
-written bit does not self-clear as it would on actual PHYs, this could block
-for the entire 600ms duration and cause the initialization to fail.
-
-Should these loops iterate up to dev->phy_port_cnt or explicitly check
-.internal_phy[port] before interacting with the PHY reset register?
-
-> +			if (ret)
-> +				return ret;
-> +		}
-> +
-> +		/* Some PHYs need additional settling time after reset. */
-> +		usleep_range(1000, 2000);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260913-ks8995-to-=
-ksz8-v13-0-327b16d309eb@kernel.org?part=3D3
+---
+bod
