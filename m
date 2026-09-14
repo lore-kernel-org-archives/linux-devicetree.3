@@ -1,226 +1,189 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com [209.85.221.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 486F73B27F9;
-	Mon, 14 Sep 2026 22:23:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789424594; cv=none; b=N7Lwis0F9L/YN2xoO782NYkd+dh4uv8zYfEFKmBMThY4CsrAWAhfdzYoGx8+zFl76sM7R3Q1BuZoqpF6GAlDjOajG6iF/3v16TvjOvO6ZVOsEYCdlHMfTkvw10omAKb3zebWSGAFyVXHTKER3XcMl78TpYPTyHH8ljbPVkLFpf8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789424594; c=relaxed/simple;
-	bh=AY14/dh+9hvDyIE5lh6vj7qd/HDUj2RhBboboa6VLC0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eWjKRl8xvhGk0/Ieqn6C6amaxXAWcAVMpxuJhRvjnMvvS8TiZ4hH/NcFJ08LvVJF/3Ey6BZDFWmrGu3ipi/vzHXk7ETOTUtu18/h50xh2ARbeDHBO7eZ043rUtoNkcErU2y9ZU2PpT1aQ3m372Flz84m3oU3bqowtgp1tdgSLUY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NOwfO8z0; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CD91379ED2
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 22:49:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.172
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789426152; cv=pass; b=dIya0K5G6cpzw0vQpX5Oktp+tW1KP/prpCDhzt4HYR0thkkDwS5UrrrIQ6qjqlNGfOivLAzJIIPQwhsKrteK+cMw3UqJULCRpeo8OM0rjExyTSIAxCcuM+nice4u0ZHBoIFZ/RsD5bWfbg8VJF+RIhJUA7LTv9rJBiUsho1GWJw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789426152; c=relaxed/simple;
+	bh=Gb8DWQjrs9f+P3wLgZ+RgMWcDCFnHm5XHmUmq+Bd4U8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nd4M06M92mvWFHM+axTw+WOSi6lL9Z+a7xtEYKd7R4gBt6Qh8cc4mJZPf3g8CX+7BCCbX9QvXKQhmISZOdikSNMJLLvKVTL0jiK3mNi0TwEBY2UDCgTqJFk/p1iFMHgT5DxtYX+bFCVNU6P4GaJ3w8wTm0QFlAAk2fz0dzSXCy4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oyPsWtY+; arc=pass smtp.client-ip=209.85.221.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NOwfO8z0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DBAD1F000FF;
-	Mon, 14 Sep 2026 22:23:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789424592;
-	bh=gX0+buPol0IOu2STFYojX6mwp/Bods897OXsqduo5aA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=NOwfO8z0DKR9n0v0AyUrHXu/Z3wP42nsBxLo0tx0FGp2Emi5MCpMD36NqKiet0mAb
-	 IXPC8DIN8pmkayfa+n1Z7hC/3olMJXvvaKUIo6QNmdWFSPkmHH63+mM1703odrTrZw
-	 2+YvigqxHBQ4EGAVmpzwrx5cWeOwfvgMiUqTHaTPQXGpBmGdTZwec5mv3vphaphKo8
-	 QyvjqVSrprtX/d5wqALXX2ExpnGjuF6jfAYHARk/xbN7sA8wTYSV7ndxcS3dq9FnT0
-	 3GKB82ttVc5M3nL1SJZCEQAEdRk1EugwXIILObbzO4TY/H4M9n2uFgtxsM3Jzwt4Tf
-	 ibMjyTgI8+Rsw==
-Message-ID: <f506f53c-0fa1-4853-9560-2172bf880efa@kernel.org>
-Date: Mon, 14 Sep 2026 23:23:09 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oyPsWtY+"
+Received: by mail-vk1-f172.google.com with SMTP id 71dfb90a1353d-5c989be99abso258246e0c.1
+        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 15:49:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789426150; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HIyyAoe76GFRIHyX/9F7Bz47Y9+PHHPkgBuxsGsEL1SRD8NATCsiPrSoijL9wqHgt4
+         hUVbuEu1Cf8dF3Ku1y5hZuv0ev28K7+IySqpkI7pPzfwXgJr23VvPObHJsvFPkXVN0zs
+         dyLhImUt/n9lFEQ4w+3C84zVYDhuNtIMhe07hloVormffuYDjThUxoIYe3RvbzgDxp49
+         XNkDfvSy4jFVKjefsXlfvkUcPDtxENZXncYwqCcObbrhgiHE/XBIMsnLPJVJ6zQ0QbWU
+         s7QuA6WkNO/pabXmsMnrdYdrOmXdbf8VM8GkmWE1mzzaLK7vy9EX1Xj9VcI49RqB9F0E
+         uybQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Gb8DWQjrs9f+P3wLgZ+RgMWcDCFnHm5XHmUmq+Bd4U8=;
+        fh=/s1ORse2Hk8GVe1R/i5z+qDw4oNC+p5HU3dLL5LZqcw=;
+        b=AEYrCEadI7hd0QsCjAcxfiYuvTE7u2HH9oYp8Rj5yWYyMF6XqwFkib6OBwgTl4poyE
+         gQXLgOlhDkJzi0QsKRMOMfy4aUjsUyqPGAr7qQ2mY1TaYrCFTKtbumnbJQT4kM7MuMib
+         k+sswg/Fyr2nRAAbFmX7jiAEuPdq+kw10FUkGSwdxwm3fRxfZgs69FGYqnSXUP62CbE5
+         mPFkbbMBE4xVnV/81w3U3E/L6SisgzGFFyeObtUS0hZQAqRr01R9lA11g21Xf2Mqz/Xc
+         wPcltcLQZPbIrNoOC/ybztDpmEa0Pu+QYmWODpjANbGrPRZnIqUs6ViVrbYaqnuCq+VI
+         1dOA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789426150; x=1790030950; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Gb8DWQjrs9f+P3wLgZ+RgMWcDCFnHm5XHmUmq+Bd4U8=;
+        b=oyPsWtY+1hS3t8V8z9RpnsZRLnxIV9qtcOHvrQbtUBmUMe7f1xz7MLjUN7a8o16jRY
+         3bFyo4+PDeK/3L22Gn/aetbXQINkdcsE5fMW9ON73sFbQmENKaMxjaDPxfkbHSa8WnD0
+         UPYsY+oJ4CSzzmudPYyramALSGrPll0WxysYDnleDKRu18YfpTonHcUntjCrhi+fknM1
+         S4n4lPai/yV6NoSARkvrE9YnKt3eJZHt7DeqLTksX8yPG/kGzAKKDTL8suIyPKB9SQSz
+         hrnNO477Kld+wk16uJCB5UJzPr2hi+eqKjWGZ+eom9oZs0kaojNuC8rPYBiV6WD61dl3
+         fVbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789426150; x=1790030950;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Gb8DWQjrs9f+P3wLgZ+RgMWcDCFnHm5XHmUmq+Bd4U8=;
+        b=URDzl4WgkG5r5eH7oREPyn3OacmDDCM9YuO6Zfvsz2rb2+TKrtqvuzeZb/NPIH53aP
+         jwZuIqtfxJ0v6KgoMIbOjDxVr6bCnHIRv5xr6wmqqps7xOSe8qws6Vm81TsEMfy8SjLk
+         JmuB/V+8siaYodWpS3U3zzk0f4TxbDo7YqP4QT5/p0cCoyNZlKH5cFCThOPrjQJsUzJn
+         FzaAwWRMakP2zYAYEbplBI3IHHM6cwd4vp7cKs0Ho7TS6zD7uMc7Lne8mSLfM+3aq8jF
+         p/K/PcLzB+BY0KP70LaUwZLv40Umndv3mFJIQCZLlUBZtAXHkGJb2ailUeGmEj3QJxQi
+         7O0w==
+X-Forwarded-Encrypted: i=1; AKwUvBwAGR7rDa60HbzCzyreDf7nFVBK4a3nIkRNZLZN0jXGDutGqXkzRRbKA8L1gD1OmoveeM5Cs2VyFcZ7@vger.kernel.org
+X-Gm-Message-State: AFuF++lWZvj0fuadK/wJcnWx+kAb2YAYoNa/aJkWT98RcC1VxvHbLG/X
+	/+m5WXBoEVUWBhP0dg8ID7HIrG6imH6kfTRRMmi7kR9hA3++VeO/ypi0VglBHwWTEqYZRB/d/dA
+	r05FN417zv1JdX0GGDCKGKT3s9zjQcgk=
+X-Gm-Gg: AYBFou036YKlYE2np2q0Z1n0B51MVHvDAy5MnKtc/zhlYbAteT6xvdrKjCcfKsDHdg6
+	+MCzVPWIDNaN8jqdrGdFM0lnZ8HU3RM8atzk+dlp/c71Qot5qux87b2pYsgQbhi2072ZvB9VTIC
+	jUCn+F6/BUG9bS4tMJmyY1tU8ftAymwpCxBrZaPbAtd9Y168A7VTIC4B0znfHM/XPVGkHCN/zzu
+	PLhyWb9fhVnHl+DNW44KJqdnzgBkRXQN6A7XstMXjvzF3upO4ULk3dQjyP77Sad0H7ZRBcTU69P
+	luXidgpyQwhsuY3kz2YOqrysaOHh+0FGyY8KuOJEL70VU3S8BsHh8+ZLkoz9SsIlTqx0zFmBoPk
+	IY0hkXX80KeDTkNPZ3ERnRxqBYu0bWyTUszhfpGvRaLpKQfJtUMI+r6WNKXQSOparu199n7rOqg
+	6hDkip2iZDseYGvZhf0Mptos+zRXmnA+aAJx2qRKKByEIqQotY
+X-Received: by 2002:a05:6102:4492:b0:77a:d089:3dd8 with SMTP id
+ ada2fe7eead31-79b60973580mr409096137.12.1789426149941; Mon, 14 Sep 2026
+ 15:49:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] nvmem: layouts: Add Rockchip OTP CPUID layout
- driver
-To: Alexey Charkov <alchark@flipper.net>,
- Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Michael Walle <michael@walle.cc>, Miquel Raynal <miquel.raynal@bootlin.com>,
- Finley Xiao <finley.xiao@rock-chips.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org
-References: <20260902-rk3576-otp-cpuid-mac-v2-0-e4b7fe2ab13f@flipper.net>
- <20260902-rk3576-otp-cpuid-mac-v2-3-e4b7fe2ab13f@flipper.net>
-Content-Language: en-US
-From: Srinivas Kandagatla <srini@kernel.org>
-In-Reply-To: <20260902-rk3576-otp-cpuid-mac-v2-3-e4b7fe2ab13f@flipper.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260904-submit-sunxi-nand-vendor-oob-layout-v1-v2-0-b12074f4aca7@gmail.com>
+ <20260904-submit-sunxi-nand-vendor-oob-layout-v1-v2-2-b12074f4aca7@gmail.com> <87ik4fu4fh.fsf@bootlin.com>
+In-Reply-To: <87ik4fu4fh.fsf@bootlin.com>
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Mon, 14 Sep 2026 16:48:58 -0600
+X-Gm-Features: AcwNN1UlC9FxjgijfoClAvZzNG8RBzvUoNkXu_nF9VDV4LFTu4fZlyRKfp3tTWs
+Message-ID: <CADvTj4pH8KvTmsxOXO8JQYCQmKf2OA__eqvYXrM+1=vjq0368Q@mail.gmail.com>
+Subject: Re: [PATCH v2 2/3] mtd: rawnand: sunxi: support randomized OOB formats
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	Maxime Ripard <mripard@kernel.org>, linux-mtd@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Tue, Sep 8, 2026 at 9:51=E2=80=AFAM Miquel Raynal <miquel.raynal@bootlin=
+.com> wrote:
+>
+> Hi James,
+>
+> On 04/09/2026 at 15:22:12 -06, James Hilliard <james.hilliard1@gmail.com>=
+ wrote:
+>
+> > The controller randomizer covers the bad block marker along with the
+> > rest of the OOB data. The driver currently compensates the marker bytes
+> > before writes and after reads so that they remain plain on flash.
+> >
+> > Allwinner NAND firmware instead stores the marker through the
+> > randomizer. Media using that format appears to contain bad blocks unles=
+s
+> > the randomizer is enabled while reading the marker.
+> >
+> > Honor the allwinner,randomized-oob property by marking the NAND as
+> > requiring scrambling during normal hardware-ECC transfers and leaving
+> > the marker in the randomizer data stream. Keep the existing plain marke=
+r
+> > behavior when the property is absent. Reject the property with software
+> > or disabled ECC because those paths do not operate the controller
+> > randomizer.
+> >
+> > MTD_OPS_RAW behavior remains unchanged: raw accesses bypass both ECC an=
+d
+> > randomization and expose the physical representation. The raw-NAND
+> > core's bad-block and flash-BBT paths use decoded accesses and therefore
+> > continue through the hardware-ECC/randomizer path.
+> >
+> > This changes marker handling on all supported controllers; the H6/H616
+> > protected user-data placement is handled separately.
+> >
+> > Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+>
+> I believe it is still not completely working. If you look at the error
+> path in the read functions, in case we face a factory bad block, there
+> will be no data, we will face the "page is maybe empty" case where we
+> still address columns like before. Since data is randomized with these
+> accesses, I believe we would return errors which will not be interpreted
+> correctly by the core. The discovery of the factory bad block markers is
+> thus broken during BBT scan. But a BBT read is also broken, because even
+> if errors are ignored, we perform pattern matching on data which is, if
+> my understanding of your implementation is correct, not de-randomized in
+> this case.
 
+The erased-page fallback could overwrite the decoded buffers with
+physical randomized bytes before the core inspected the bad-block
+marker or BBT signature.
 
-On 9/2/26 2:07 PM, Alexey Charkov wrote:
-> Rockchip SoCs customarily use the CPU ID programmed into their on-chip OTP
-> memory to derive stable Ethernet MAC addresses even when a board doesn't
-> otherwise have dedicated storage for those. The derivation depends on the
-> particular bootloader implementation (e.g. it is done by upstream U-Boot,
-> which patches the derived MAC addresses at runtime into the device tree it
-> hands to the kernel). Using less featureful bootloaders, such as direct
-> boot to Linux from SPL, leaves the kernel with only a random MAC address
-> instead, even though everything required for the derivation is equally
-> available to Linux as it is to U-Boot.
-> 
-> Reproduce the same derivation in the kernel and expose the result as an
-> nvmem cell named "mac-address", so that of_get_mac_address() picks it up
-> through its standard nvmem fallback. The address index comes from the DT
-> phandle argument, which lets both interfaces of a dual Ethernet board
-> share a single cell.
-> 
-> Enable the layout by default on Rockchip, as consumers of its cells would
-> otherwise defer their probe indefinitely.
-> 
-> Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
-> Signed-off-by: Alexey Charkov <alchark@flipper.net>
-> ---
->  MAINTAINERS                                |   1 +
->  drivers/nvmem/layouts/Kconfig              |  13 ++++
->  drivers/nvmem/layouts/Makefile             |   1 +
->  drivers/nvmem/layouts/rockchip-otp-cpuid.c | 119 +++++++++++++++++++++++++++++
->  4 files changed, 134 insertions(+)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index f3d07ce7b3c8..73e0531445be 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -23727,6 +23727,7 @@ M:	Alexey Charkov <alchark@flipper.net>
->  L:	linux-rockchip@lists.infradead.org
->  S:	Maintained
->  F:	Documentation/devicetree/bindings/nvmem/layouts/rockchip,rk3576-otp-cpuid.yaml
-> +F:	drivers/nvmem/layouts/rockchip-otp-cpuid.c
->  
->  ROCKCHIP RK3568 RANDOM NUMBER GENERATOR SUPPORT
->  M:	Daniel Golle <daniel@makrotopia.org>
-> diff --git a/drivers/nvmem/layouts/Kconfig b/drivers/nvmem/layouts/Kconfig
-> index 5e586dfebe47..6e2511ac6f7e 100644
-> --- a/drivers/nvmem/layouts/Kconfig
-> +++ b/drivers/nvmem/layouts/Kconfig
-> @@ -26,6 +26,19 @@ config NVMEM_LAYOUT_ONIE_TLV
->  
->  	  If unsure, say N.
->  
-> +config NVMEM_LAYOUT_ROCKCHIP_OTP_CPUID
-> +	tristate "Rockchip OTP CPU ID layout support"
-> +	default ARCH_ROCKCHIP
-> +	select CRYPTO_LIB_SHA256
-> +	help
-> +	  Say Y here if you want to expose the MAC addresses that Rockchip
-> +	  bootloaders derive from the CPU ID programmed into the OTP memory of
-> +	  Rockchip SoCs. Boards which have no other source of MAC addresses
-> +	  need this to get stable ones when the bootloader does not patch them
-> +	  into the device tree.
-> +
-> +	  If unsure, say N.
-> +
->  config NVMEM_LAYOUT_U_BOOT_ENV
->  	tristate "U-Boot environment variables layout"
->  	select CRC32
-> diff --git a/drivers/nvmem/layouts/Makefile b/drivers/nvmem/layouts/Makefile
-> index dd6c6c70b1a9..a0ade4c22c79 100644
-> --- a/drivers/nvmem/layouts/Makefile
-> +++ b/drivers/nvmem/layouts/Makefile
-> @@ -6,4 +6,5 @@
->  obj-$(CONFIG_NVMEM_LAYOUTS) += fixed-layout.o
->  obj-$(CONFIG_NVMEM_LAYOUT_SL28_VPD) += sl28vpd.o
->  obj-$(CONFIG_NVMEM_LAYOUT_ONIE_TLV) += onie-tlv.o
-> +obj-$(CONFIG_NVMEM_LAYOUT_ROCKCHIP_OTP_CPUID) += rockchip-otp-cpuid.o
->  obj-$(CONFIG_NVMEM_LAYOUT_U_BOOT_ENV) += u-boot-env.o
-> diff --git a/drivers/nvmem/layouts/rockchip-otp-cpuid.c b/drivers/nvmem/layouts/rockchip-otp-cpuid.c
-> new file mode 100644
-> index 000000000000..61f509c4a8cf
-> --- /dev/null
-> +++ b/drivers/nvmem/layouts/rockchip-otp-cpuid.c
-> @@ -0,0 +1,119 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +// SPDX-FileCopyrightText: 2026 Flipper FZCO
-> +/*
-> + * NVMEM layout for the CPU ID in Rockchip OTP memory
-> + */
-> +
-> +#include <crypto/sha2.h>
-> +#include <linux/device-id/of.h>
-> +#include <linux/etherdevice.h>
-> +#include <linux/hex.h>
-> +#include <linux/module.h>
-> +#include <linux/nvmem-provider.h>
-> +#include <linux/of.h>
-> +#include <uapi/linux/if_ether.h>
-...
-> +
-> +static int rockchip_cpuid_mac_pp(void *priv, const char *id, int index,
-> +				 unsigned int offset, void *buf, size_t bytes)
-> +{
-> +	char cpuid[ROCKCHIP_CPUID_LEN * 2];
-> +	u8 digest[SHA256_DIGEST_SIZE];
-> +	u8 *mac = buf;
-> +
-> +	if (bytes != ROCKCHIP_CPUID_LEN)
-> +		return -EINVAL;
-> +
-> +	if (index < 0 || index > 1)
-> +		return -EINVAL;
-> +
-> +	/* The buffer still holds the raw CPU ID at this point */
-> +	bin2hex(cpuid, mac, ROCKCHIP_CPUID_LEN);
-> +
-> +	sha256(cpuid, sizeof(cpuid), digest);
-> +
-> +	memcpy(mac, digest, ETH_ALEN);
-> +	mac[0] &= 0xfe;		/* clear the multicast bit */
-> +	mac[0] |= 0x02;		/* set the locally administered bit */
-> +	mac[5] ^= index;
-> +
-> +	if (!is_valid_ether_addr(mac))
-> +		return -EINVAL;
-isn't this a dead check?
+In v6 [1], both PIO and DMA preserve the main data and protected OOB
+from the original hardware read in randomized-OOB mode, including on
+uncorrectable ECC errors.
 
-> +
-> +	return 0;
-> +}
-> +
-> +static int rockchip_cpuid_add_cells(struct nvmem_layout *layout)
-> +{
-> +	const struct rockchip_cpuid_data *data;
-> +	struct nvmem_cell_info info = {0};
-> +	struct device_node *layout_np;
-> +	int ret;
-> +
-> +	data = of_device_get_match_data(&layout->dev);
-> +	if (!data)
-> +		return -EINVAL;
-same here, this is dead check as we can never reach to this point
-without matching compatible.
+Erased-page classification uses the controller-specific vendor
+spare-byte heuristic without a raw reread. Accepted erased pages
+return all-0xff data and OOB; all-zero physical pages instead retain
+a bad marker and an ECC failure. Other uncorrectable reads retain
+the decoded buffers and report failures through the ECC statistics,
+so the core can inspect the marker and BBT pattern.
 
-> +
-> +	layout_np = of_nvmem_layout_get_container(layout->nvmem);
-> +	if (!layout_np)
-> +		return -ENOENT;
-> +
-> +	info.name = "mac-address";
-> +	info.offset = data->offset;
-> +	info.raw_len = ROCKCHIP_CPUID_LEN;
-> +	info.bytes = ETH_ALEN;
-> +	info.read_post_process = rockchip_cpuid_mac_pp;
-> +	info.np = of_get_child_by_name(layout_np, info.name);
-> +
-> +	of_node_put(layout_np);
-> +
-> +	ret = nvmem_add_one_cell(layout->nvmem, &info);
-> +	if (ret)
-> +		of_node_put(info.np);
-> +
-> +	return ret;
-> +}
-> +...
+I verified this on H616 using the actual NAND-core BBM and BBT paths
+through PIO, DMA and forced split-DMA reads. Signature searches
+retained the decoded pattern despite ECC errors, while table loading
+rejected an uncorrectable primary and successfully loaded its clean
+mirror. Correctable protected-OOB cases and BBT creation/update also
+passed. Hardware validation is limited to H616.
 
-> +MODULE_LICENSE("GPL");
-> +MODULE_AUTHOR("Alexey Charkov <alchark@flipper.net>");
-> +MODULE_DESCRIPTION("NVMEM layout driver for the CPU ID in Rockchip OTP memory");
-> 
+MTD_OPS_RAW remains physical, and the existing plain-marker
+erased-page check is unchanged apart from the prerequisite
+error-handling fixes.
 
+The series grew because this work exposed existing bugs in the shared
+PIO/DMA paths: error propagation and cleanup, IRQ/completion ordering,
+OOB indexing and program-command handling. Those fixes also apply
+without the new property, so they are split from the format support.
+The final patches are separate optimizations.
+
+[1] https://patch.msgid.link/20260914-submit-sunxi-nand-vendor-oob-layout-v=
+1-v6-0-2fb084fe0751@gmail.com
+
+>
+> Thanks,
+> Miqu=C3=A8l
