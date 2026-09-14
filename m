@@ -1,225 +1,138 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010005.outbound.protection.outlook.com [52.101.69.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com [74.125.226.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B4C547ECF6;
-	Mon, 14 Sep 2026 14:11:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.5
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789395126; cv=fail; b=PES8Poa6LSzZ7edmZ+mhZ4iPSic8Liis6CG7LNTXwGtO/MNFCJIWanX/JkYzXw04gTatUemsBkRoMpXAXsp2RFOwfBzC34T6wO8Nk8DUe7UmtyZ233p5Wp9GJ8ZhA/LE9sI069IDRZaDcDgjizTrwTBFaT0R39ABNqgaks5tl/w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789395126; c=relaxed/simple;
-	bh=vsKaUQMCunSlmWeYEPnMWmm9qCmWNh5oGRkVrreCRJw=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=B+wJ6meBaqZXbnustm34MRf94EAhODMtXWgczh9vl6ZwZJqr5y1sR2zHbXKxyw6pUHaHpLRTwDkmNe1XpvKx0XrbhlBcZD65FBl+XkGkHxtZZ6RIH34uf85WYQfZU3v11iHF3/ylXd4u3jvcnWU/sIi2K/gZWQDWhrMXDbH3Umc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=YdWmylpj; arc=fail smtp.client-ip=52.101.69.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="YdWmylpj"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PkUmWu4fP/rQeFbaRIcIDKyyiiR/JMTOjvmudZbwzoQh+wXqsuchvSANx8TNL+jUA4I9g+wwx3kB8QN4R95H2cwF3nU5UL6EOguP0JULfxlVF50KNRlN20s3Wmlnbi6yUfVrYXB463ssNQ8nfMN5mjEh5vmm7tAu2cVN9xn2U3U0izJBkomIhjAQ4QdZmyLLcuKT3jTVD3XWCJUROVDpUZaqZG9Z3Wf+AC1nmu1wjlTlNhfNcRM/uEU0VfOXCEY2ym7ZZZ0nD9lyA3t11c6f64whhLGRZ8C/YUAI/GtaFa4wk8PPhCTUbVo2L/wbEyYnDxu/K+PLPmvotN8oJsT3Pg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=777BBndEZWN0pQ0+ExXhYlFGeXGjovNqwjmxa9SC7PY=;
- b=g/b7+ZP58XnY1q8mwNEjmGqYndFGBNnPaf2bQOuwdGulwBAXyxFk4MSOvGoKolG3IJiYduNbcwnInDB80o7AQpTGHzLzMqbAsvib8Ds8qpp0cQ/py+VitEH4QdgVp/XQvsbgn3Eu84mi+qyhI7gH3ZOsOSkcreo5v0N/NA8T7vIL9itfDXVNmkHT0tE2Ir2Mg9Opu0LNF7njhRcLGY7Il8Qr/MtJRmwWWrb+aYFf3Bhxs7HB5wUtPjs25TMfv9apor/FN5MDQbdWII26OMwcTqP8V86whjJ59qEe01lEgkSS8dyIXAwNGt6NIMC99UgoFZkxaPK56L/LrgubfjQvIQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=777BBndEZWN0pQ0+ExXhYlFGeXGjovNqwjmxa9SC7PY=;
- b=YdWmylpjZ9qgf5ipU5kQGikIQfhYhRdiNEXo8bdFhLCnXkP6T2H4KcI6lgGDvqCkSS4v5/GLoDQgYgKUn4leK58UpS+NhcOgxfZg43W5Q/hSF3XsQcpfhMz7Eq3bl5TfwIpzpXj3z28bG/cy6RCE7+8yY/pWW608WXzhynyBTTl0K+1vDbV54riJw0vEIW4vd8axjVRD/s9YurBI9eSdwGQffFPJTBMMbs6aYbicuKnlp4ZuIBuJqOiOv45Iog909HfyjzLuvNtNP/aCNSBIhwM0qWplHqW8g8s3OExICqVvh22azgNt1tq88l5LRBMc8AQc7B1ZySpx2K8s8Tnxuw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM9PR04MB8469.eurprd04.prod.outlook.com (2603:10a6:20b:414::15)
- by AM9PR04MB8618.eurprd04.prod.outlook.com (2603:10a6:20b:439::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 14:11:19 +0000
-Received: from AM9PR04MB8469.eurprd04.prod.outlook.com
- ([fe80::1f31:d3d0:6150:b49c]) by AM9PR04MB8469.eurprd04.prod.outlook.com
- ([fe80::1f31:d3d0:6150:b49c%3]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
- 14:11:19 +0000
-From: pankaj.gupta@oss.nxp.com
-Date: Tue, 15 Sep 2026 01:10:04 +0530
-Subject: [PATCH v51 7/7] arm64: dts: imx8ulp: add reserved memory for
- EdgeLock Enclave
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-imx-se-if-v51-7-4a7dac612cb5@nxp.com>
-References: <20260915-imx-se-if-v51-0-4a7dac612cb5@nxp.com>
-In-Reply-To: <20260915-imx-se-if-v51-0-4a7dac612cb5@nxp.com>
-To: Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Pankaj Gupta <pankaj.gupta@nxp.com>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789414820; l=2500;
- i=pankaj.gupta@nxp.com; s=20260817; h=from:subject:message-id;
- bh=LA5pZ8YRZFeVk56nd//uP0RHiwT4E6voL97vzkkh9tk=;
- b=KVWgMDZfM9mLR1M6Pt+nqxQ/woC1r7hcmjT+tyv2qJ8o8pm1aFOta5dv08X4IHaq9fQV9F8eA
- ciE097xvaxtAff0qyGHFVnAipoEGu/oPO9HVu4QZ/BNGJVhs1Ud1BFD
-X-Developer-Key: i=pankaj.gupta@nxp.com; a=ed25519;
- pk=g4ZgzIWbpXnSxRsoH+l6PWLP78a+Mzpl8e6RQe74d5Y=
-X-ClientProxiedBy: MA5P287CA0294.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:221::18) To AM9PR04MB8469.eurprd04.prod.outlook.com
- (2603:10a6:20b:414::15)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 289B8479889
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 14:12:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.204
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789395143; cv=none; b=BKIlow6YONHurINK8bE7gYJjGBSIJBr2xPKnl5N6+mHOi+yvv6R9sQFb6O1JD8iN2EPAaNLD43lbH1O8VEBR7pjz4FwtwFgr/E/equD18TL2XBoKrwrT3WnoZv4Stv+w6ap0UeTmW8bLpgoZAVMNeATDjFrEIxaUYgRA/qCRids=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789395143; c=relaxed/simple;
+	bh=8ceMByd673naR3PwEiJsfobu32L4XCtKVcpdbpqYa5Q=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IdHN5LevoKXL7A5oDL+OMX4TYDjqijQMo71AMS3QJ/gwJ4oIJoenQ3Guix4rSrHpncS8ySK4DrQtZMkWvSI79q0uwElfRQzz9HsA+pBi+z14cjenvICL0r1+vKK0I+V7S4YTUtHfhvRNDwX1OpnL0nisgraf/DVLSvsECZrja7w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.226.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97e8ef5b507so413524241.1
+        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 07:12:16 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789395134; x=1789999934;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/0GO/2vfF/XubgIzu8oiJogl7L+f/XkIHsO6TluNVPc=;
+        b=Kfq284fp+mrEn+KBFGWGV9gqg3J0+wmROzXzL3YlisruVTzgSrqDqW9FUT5KsWBETH
+         b5CcrYB31GoxvHB84GV4lx8seo2hLteB8NaRxic5VLyo+OSDScvcEawn+AxjjjdZkXsK
+         GOZM5wiIBYrNXQWqwh/IyQhRhOYu1rkocrt4LU+pEZf3HZDakaRvtibh6OIdtDjjrMO/
+         arXN4GfyCWolfOo0QX6heTUHQOU16mmhknN2O2bf1LRtyqfya6i7fIkc5bfa9OANGA+X
+         jKt6MKEzZqlT4s2ipQmwMVQ5YEvxTZU9p0XuSEFPVwRbqLK3SPmO4PYl+hAwSp0rci7y
+         /Qqw==
+X-Forwarded-Encrypted: i=1; AKwUvBzHLziCq4uYSGlU1XmO/GgyjrDsa/b5A0x7hNHymV535SsgT1Aj8WXLCqHMJmZKlq6xYqMcOX6Yijx5@vger.kernel.org
+X-Gm-Message-State: AFuF++mWyUpjKsZBYL5pnIfO6aXOw6+1HxcOc3mOpbBP0h0tNybdT9mX
+	b/g0tc2j0M4UBaGrnO+1YISlZtWU5P/OKGOs9cDExV3iAisauy64JvedYKi1+OWU
+X-Gm-Gg: AYBFou2rCYEmHjX3QCaT9SRr0LQnB6M21iAS/RmdTRwzrhMgoNy2n8g6MhrJJDO2gaf
+	IWgc6KdyKWFkSBFoPvPY7u7uVzbO3QvqrHJgDESplnN4sn0MxV2rVqfESseaBllW1j9+C2xrgjp
+	rdfJIbOP31NvQq+LfsatpQdUT598ZhSzZShLPLLNah1fP1SisWzIO5mXunsiOQvJMJ1JtEeOVrz
+	duhwyNEdRqkTXqHFv3PsNmgPSVAvaX/qzGWh+4zPZ7RmDWOceJkUmYk1I4mr259jxZghR9nniqd
+	j+BzrE2ahfv031ZJzmlMjRhu2PABXuJr/M70MWE8QUyr6UKgW5h7zo18KqAYj5ZbBbI3Gro6myA
+	tOJkpZAEcG9c2/X2Ft98XvhzvBUvTRDVr31o0IDVVBnfC8koIp2iV2ulKqRjbU1gPIMjW5hHltn
+	p89Jrc8BEWRQHaP+WJzSvOzg4M/n+jvd35Qpp2D1Wxc1wXbtay/5XW4cmPZTGBx1VpKnxmI3ywk
+	PX65TqqEAgjAGFaHCQKvoVURDRstMXiPSiqQ78u
+X-Received: by 2002:a05:6102:5129:b0:779:328:8a2e with SMTP id ada2fe7eead31-79b4d1bd126mr941849137.5.1789395134339;
+        Mon, 14 Sep 2026 07:12:14 -0700 (PDT)
+Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com. [209.85.221.169])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-79278f86adfsm10744797137.2.2026.09.14.07.12.13
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 14 Sep 2026 07:12:13 -0700 (PDT)
+Received: by mail-vk1-f169.google.com with SMTP id 71dfb90a1353d-5c671456e25so3230336e0c.1
+        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 07:12:13 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx9N2sxW3DYCjPV1atQ2pNfZfThy5N+BaoOdEp/0ymWQoRP+m2qD9/cIUmTakUifHhCtAd2C35aRP7J@vger.kernel.org
+X-Received: by 2002:a05:6122:5315:b0:5c6:65e5:99a8 with SMTP id
+ 71dfb90a1353d-5c9749fed16mr2500859e0c.3.1789395132980; Mon, 14 Sep 2026
+ 07:12:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM9PR04MB8469:EE_|AM9PR04MB8618:EE_
-X-MS-Office365-Filtering-Correlation-Id: b35eaf02-7f4a-4067-d460-08df126a0c3e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|366016|19092799006|921020|11063799006|56012099006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	oxgdThyx4t4oaEpLhvQ9MjG6PptDJG5pHvCRp3c+QVMMF8Hhe3WIxLXH44vbYkgU19wRLomgDGwxxWxJSQYYGQBDQHbpqIyxqvyGCfGisi/XbZoJlK2Zoik53tKCxxkxCMpblR/QVRMmZAbk99tXzhZ1O0R5rFqSbZ6z6bmOuAOr49OftZJRQI3tZ01Mnr3UoTqmfP5yUSqBTaNRpX/cN9JiB8a9xNL+tmviA9G69N/IHsIgNVIUiXg6jCV3vRtVxtvXMqvglE1SCLhcdKCvS1x7o1zr5R2qlU12Fkqxgv9B7U62QeT/7zLRlxOItp6JrWtzjHqxZizkGb3qkZ4BIJ2yko9jirbBjZhzRVdG1ItbPFcC2UmkBpiJSBx3G3VFRtNVc1hnCFsTg1qFA1YusLj4u2EMT92ldxhcxQlrMILHTR/YNo7IdmpnhxWHsgrMvjD0++M+ZVyQr4l+VNo06ansuiH2PdSXLBuSqH+3CErmOx04pFp45gfHRznT/WCHNjsJfw7gkK8WKoAfYZvdX7iKp633LV0MHoAWkGfOEPlQW+k8ZyWUzL3KGTY1DddjQ3z1Ooz+0lznPnsUZDkx5jDrLmgnTtwB6Mn+iQIe87CVAwh/WxQ71pAxHESKypNVPWweZlPeklt3AvNLBn0V3DWxXMankv6tPxCb18vhauaQJ5BBu2kcB+hpZ7SSOLQP/Gxe/SaWqzbM/ek3+k9/fw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR04MB8469.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(366016)(19092799006)(921020)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MmpBdXlRUVFzc1c1RFg2Zkk0V25yUUdxcWNBb3Z3ZDZPbUJMWWFMalN2elIv?=
- =?utf-8?B?OWVQK3UwZFNMQjZybG52Q2FjeHZ0djZmd0VrMFZOMjdWazBjZE5iZE5hM0FW?=
- =?utf-8?B?MnQ0VFVzUFY3Y2NqK3pwZUZGSmFiOVZvWGhBZlpqNUhBQ2VVSHpKZStsbmdN?=
- =?utf-8?B?K1hsK0lPeVVpOHdkVThKTVVSZjRKUUtTZHB5c1lMMXFyTExvQkJoSWRIeGZm?=
- =?utf-8?B?WnlZQjRnSkRVWXIxSWVDYktjVGZuSHdtZU5qTkcyR0JCRmt4Q1RjcmhwbWlV?=
- =?utf-8?B?WGlLM25Za0wvZzN2Z2Urb2hhSjNwYnBkQlIySzY0SDNNMUErMU5vbExIMU5M?=
- =?utf-8?B?eWE4ejF5U3dEcGk0RGtDanJJbFA0WjNyOXAwUjB4R2pMN3k2b3VMZ0ZCS25q?=
- =?utf-8?B?YXk2dG5uV096T3NLMjR3NGFsb2E3OE5EOTRydFU4TGFYcXRHMjI0SHZOZUdB?=
- =?utf-8?B?a0FodTRqYkE5NVl4Wms1NXFpTm90N054cGdzS2s2TUFabEx0QVBJVm9mWUgx?=
- =?utf-8?B?VXhUODFjQU9zclZOTzFsYmplYVA2TnUzV0RTTXA5T0ZaT042MUYyTmVUc0NB?=
- =?utf-8?B?MFBMbXRMU2NTQ0RCUTBGZ3ZKU3YrOXBOeUgzaWx3aVJaSVJGU2xCNnZRVG41?=
- =?utf-8?B?TGZIODI2ZWR2SnNmbkdaN2JOdGZtQ2txRmNNMklvZ29iRFFYeVpFNDl6bzli?=
- =?utf-8?B?cmJKdjdHWThQZzlsZkU4WnRkZEZYZUttdGlsblRlbkVSK0lnZDU1TGVRR2VV?=
- =?utf-8?B?T2tpVktvb1lrVDBSOUpTVHlqdVY1QnRnekxyeHpMUlN3UzZkOGRNMk02ZHNC?=
- =?utf-8?B?MCs2TVZQa3paVzNVUnd1Q1A5VnFuSlozanZjdEZlQ3FndCtIbTZiMUEreXdB?=
- =?utf-8?B?WUdKUlZJYUFtQTZyQURldCtsZTFTbFdQS1Ywb1hWTlM0R2JLQWlsaUhvbDE1?=
- =?utf-8?B?VnF2d0dsMjNhRFJxbFBBbWhpbXBVdmRoLzloYVcxRkhBSjNqeEFNQzhUWUFL?=
- =?utf-8?B?eVp5aWVQSGliaHBCZk9XNjRkZmlHNG1wVkt0cXZRQ0M3NzRuYVZMQlF0Q0lL?=
- =?utf-8?B?WkhUb3RnaDVvcXc0VTFoR3kwcDdHdnNIa0dlOUJrYWVEVjNwcllKcm5TRzZK?=
- =?utf-8?B?NGlkSjZ1RGFvLzBDNG1xV3FrYkM0OFJFdWRiT252L3FyL3BQRWJPODlXaG0z?=
- =?utf-8?B?U0lZN1dzdmVZdVZFcEg4WnlSeU5KZ3VpcU1wZWk4MzZIeCtMNS9UVzFXZmUz?=
- =?utf-8?B?UHZtWTU0OGN4UXVwZ21payt1SXl1TUdIMGFxOVhweDkxbHlYbTJ4ak1DZWV2?=
- =?utf-8?B?Z09BMUdkQ0JZc2NwVXNTS1c1WkVCVGFwTDJnUWhsb0dWZU9aWmx1NVJWZ3pN?=
- =?utf-8?B?S2lsZFVWUTRoQ1VFcFRiejgzVXlOL2NhOTdraTBXV25LTkNBMzlXdWN6MkVp?=
- =?utf-8?B?bmg1R05scEtyR2pGQ1B2dEhVWGNaSWY3aDAwQTA3ZGY0S2VuTUtkVFBvZFAx?=
- =?utf-8?B?bndiM2wwQ21LbmFJZmRLRmQyS2U4ZWVpSHBod1RNZ1NVNEFMMHRNQWR0enpE?=
- =?utf-8?B?MXIzZUdia2dpMUQ0cE52bTYrdTBzZHo2YTd3UnZWaW5nSVpXaThtTTc5RXJL?=
- =?utf-8?B?cDVyT1JoV1RrSHJPYUZ1QVZmMU5FajE5RTFKTXQ2ZmM5bDNBbmo5QlQwYXBL?=
- =?utf-8?B?RW04UndLaWtMOHBKRnlIaVVFQ0FxUTJINkdYYmtodkhQNzdrU0Y0ZjBGZVFG?=
- =?utf-8?B?Q0dMS1d5OUQxZitUYTZFd3NQQjB6ZWhkT0tRMUxoWUlpUjducXNSYzg0Y0xD?=
- =?utf-8?B?VVpNRy9vTllYc1BITTNYWmhpNnNGalpCNHQrdlhEM0UzSjIyWkVpelQrblp1?=
- =?utf-8?B?T1lMR0ZoQXkwMmM4STlqOXhIVFQ2MnZPaFdlNkZneFRDYlZuTmVqTmFQVzZM?=
- =?utf-8?B?M0RpQ21HZzRJT3RGYncreFJmZzZ5R3FUN1oyVm1MUjIxTHdjQThPMUszY2tk?=
- =?utf-8?B?L1ZLL0tZMGd2eDBvUDA3N0ZRb0RlaEpha3hyVVhwTzRaamxDdERnaUFaRUdr?=
- =?utf-8?B?cExnOU84SHhiQVRiN0JzQU1XMHBiZy9OVW9TS29GV3hXNmE1NDN0d1JGaUlm?=
- =?utf-8?B?YldkeUxNWVlPZlJwMzFtaytXczVLSTZUTy9zVTZNU1pCcnAxTnpTRlRtTWRw?=
- =?utf-8?B?NlovZWFBU2tTdnRoVXZtQ3hvQVB3SUxIQ1ZERmRoOEZ0ekFBWTcxdG1pOERP?=
- =?utf-8?B?YWxBY0VPdE9uMENUbm1sc0h5TkNjb2ZTUlBnTThxSnNSdWdnZVlrK1U4N0FY?=
- =?utf-8?B?QjY0QnFCVG5wT2lwbm85UzJrdGsxSXM0ZWJ0clV6YjNReCtyZXdzMEhDWDAv?=
- =?utf-8?Q?eVkTSuDWL3NCo1T8RKGE4K/v3gui3RQn8vq9w?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b35eaf02-7f4a-4067-d460-08df126a0c3e
-X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8469.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 14:11:19.3661
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dEFn147VpPSh0oXP95aC49Ed8M8ikqymEDo4qrnbfpqEfnZx1AsDMhnTKrPCZMl/PzDkYK45nmNFNeGN1FIrMEAOvfglvddLpmxg1HN4Xm5Io3qb7VRMUopQiKh/apVb
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8618
+References: <20260911073058.253000-1-den@valinux.co.jp> <CAMuHMdVAFq4izexG=Sf2i9dZdMMNLnb85AVgBazAFMtTA2jwxg@mail.gmail.com>
+In-Reply-To: <CAMuHMdVAFq4izexG=Sf2i9dZdMMNLnb85AVgBazAFMtTA2jwxg@mail.gmail.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 14 Sep 2026 16:12:02 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWDJac0Soob+Cf-dgwWPBpGrfCwHDN_nWTyE84pXJSoGg@mail.gmail.com>
+X-Gm-Features: AcwNN1Uyp_yKSLQHdhola9oXjT2PLkCEjRN0YsdOH8kD2k3alY3_Suk4gIB3dpw
+Message-ID: <CAMuHMdWDJac0Soob+Cf-dgwWPBpGrfCwHDN_nWTyE84pXJSoGg@mail.gmail.com>
+Subject: Re: [PATCH] arm64: dts: renesas: r8a779f0: Set UFS lane count
+To: Koichiro Den <den@valinux.co.jp>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Marek Vasut <marek.vasut@mailbox.org>, linux-renesas-soc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Palash Kambar <palash.kambar@oss.qualcomm.com>, Bart Van Assche <bvanassche@acm.org>, 
+	Shawn Lin <shawn.lin@rock-chips.com>, Manivannan Sadhasivam <mani@kernel.org>, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	"Martin K. Petersen" <mkp@kernel.org>, scsi <linux-scsi@vger.kernel.org>, 
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-From: Pankaj Gupta <pankaj.gupta@nxp.com>
+On Fri, 11 Sept 2026 at 10:44, Geert Uytterhoeven <geert@linux-m68k.org> wrote:
+> On Fri, 11 Sept 2026 at 09:31, Koichiro Den <den@valinux.co.jp> wrote:
+> > Since commit e72323f3b09f ("scsi: ufs: core: Configure only active lanes
+> > during link"), the following error is observed on R-Car S4:
+> >
+> > ufshcd-renesas e6860000.ufs: Tx lane mismatch [config,reported] [2,1]
+> > ufshcd-renesas e6860000.ufs: link startup failed -67
+> > ufshcd-renesas e6860000.ufs: error -ENOLINK: Initialization failed with error -67
+> > ufshcd-renesas e6860000.ufs: probe with driver ufshcd-renesas failed with error -67
+>
+> This is very unfortunate...
+>
+> > R-Car S4 has one UFS lane per direction, as described in section 152.1
+> > of its hardware manual. Without lanes-per-direction, the UFS platform
+> > driver defaults to two lanes.
+> >
+> > Previously, the core used PA_CONNECTEDRXDATALANES and
+> > PA_CONNECTEDTXDATALANES to configure the link without checking them
+> > against lanes-per-direction, so the missing property did not prevent
+> > initialization.
+> >
+> > Explicitly set lanes-per-direction to 1, now that the validation is in
+> > place.
+>
+> Given this breaks backwards compatibility with existing DTBs, I think
+> this new check should be relaxed iff the DT property "lanes-per-direction" is
+> not present. Are any other platforms affected?
+> Possible solutions I see are:
+>   1. Skip the check completely, like commit 06a34d9c1f47b923 ("scsi:
+>      ufs: core: Skip link param validation when lanes_per_direction is
+>      unset") does for ufshcd-pci?
+>   2. Correct hba->lanes_per_direction based on the actual values of
+>      PA_CONNECTED[RT]XDATALANES?
 
-Reserve 1MB of DDR for the EdgeLock Enclave. The enclave hardware can only
-access DDR in the 0x80000000 - 0xafffffff window, so constrain the pool to
-that range with alloc-ranges and let the kernel choose the placement rather
-than hardcoding an address.
+Both solutions would modify the core, instead of the platform-specific
+driver.
 
-Provide this as a shared imx8ulp-firmware.dtsi that also enables the hsm0
-node and wires up its memory-region, so every i.MX8ULP board can bring up
-the enclave with a single include instead of duplicating the reserved
-memory node. Include it from imx8ulp-evk.
+> Alternatively, ufshcd_init_lanes_per_dir() could override
+> hba->lanes_per_direction to one if "lanes-per-direction" is missing
+> and the device is compatible with renesas,r8a779f0-ufs.  Or perhaps
+> hba->lanes_per_direction could be preset in ufs-renesas.c, and not
+> overwritten by UFSHCD_DEFAULT_LANES_PER_DIRECTION when non-zero?
 
-Signed-off-by: Pankaj Gupta <pankaj.gupta@nxp.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
----
- arch/arm64/boot/dts/freescale/imx8ulp-evk.dts      |  3 ++-
- .../arm64/boot/dts/freescale/imx8ulp-firmware.dtsi | 31 ++++++++++++++++++++++
- 2 files changed, 33 insertions(+), 1 deletion(-)
+As ufs-renesas.c does not have early access to hba, I went with
+handling the quirk in ufshcd_init_lanes_per_dir() in
+"[PATCH] scsi: ufs: pltfrm: Add quirk for R-Car S4 lacking lanes-per-direction"
+https://lore.kernel.org/ae0cc2bd764e6dfffce99db3d8b44a55887c508c.1789394185.git.geert+renesas@glider.be
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8ulp-evk.dts b/arch/arm64/boot/dts/freescale/imx8ulp-evk.dts
-index 4b925832bb66..5fe58a025cfd 100644
---- a/arch/arm64/boot/dts/freescale/imx8ulp-evk.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8ulp-evk.dts
-@@ -1,12 +1,13 @@
- // SPDX-License-Identifier: (GPL-2.0+ OR MIT)
- /*
-- * Copyright 2021 NXP
-+ * Copyright 2021, 2025 NXP
-  */
- 
- /dts-v1/;
- 
- #include <dt-bindings/input/input.h>
- #include "imx8ulp.dtsi"
-+#include "imx8ulp-firmware.dtsi"
- 
- / {
- 	model = "NXP i.MX8ULP EVK";
-diff --git a/arch/arm64/boot/dts/freescale/imx8ulp-firmware.dtsi b/arch/arm64/boot/dts/freescale/imx8ulp-firmware.dtsi
-new file mode 100644
-index 000000000000..e4bc352f68af
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8ulp-firmware.dtsi
-@@ -0,0 +1,31 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Copyright 2025 NXP
-+ *
-+ * Default reserved memory and EdgeLock Enclave (ELE) enablement shared by
-+ * i.MX8ULP boards. Include this from a board dts to bring up the secure
-+ * enclave without having to duplicate the reserved-memory node. The ELE
-+ * hardware can only access DDR in the 0x80000000 - 0xafffffff window, so the
-+ * pool is constrained to that range with alloc-ranges and the kernel is left
-+ * to place the 1 MiB region.
-+ */
-+
-+/ {
-+	reserved-memory {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
-+
-+		ele_reserved: ele-reserved {
-+			compatible = "shared-dma-pool";
-+			alloc-ranges = <0 0x80000000 0 0x30000000>;
-+			size = <0 0x100000>;
-+			no-map;
-+		};
-+	};
-+};
-+
-+&hsm0 {
-+	memory-region = <&ele_reserved>;
-+	status = "okay";
-+};
+Gr{oetje,eeting}s,
+
+                        Geert
 
 -- 
-2.43.0
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
