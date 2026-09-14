@@ -1,225 +1,201 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D42E446060
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 11:50:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25E603D813E;
+	Mon, 14 Sep 2026 11:54:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789386618; cv=none; b=GKkSPPwxu5L1RNFQaaZqppogHgBGPSlQ3IreYi4e2CS4CiV5ddnk1LqNuqT6Q5LETuTXpFpWqqMIWYqqObEZ508KwNz18xCUcNed9ox4X/oPSoGpipkLisMuzsflFiRO0lE/FJMzYJErpQdSvoPkE2EKpsB05T7GtGppCzadBGE=
+	t=1789386878; cv=none; b=sNfwoqUXTkjeEUQTN2/hlucWSJ5qyg75lHeV4TAeUkRJT5gw7gYsVNmWma5IPIjsG76bYH9HMr0aqiQ8rjsb9wqO6S04e6o3edH3VfKJ5C9Hqt73VG11gdNM/qzelY/t+CtfWbOJ9v1v0L7xOHLs2AXbiHZMVVSUgPqyUH5n00Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789386618; c=relaxed/simple;
-	bh=Q8ksi+xZgxIagv9+QQVvkuR0wfKZoHt0nu/3YJrwAf8=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BBrp3oxZ1MJYkqea0iV5UA+A7LJ8M7sUcboi7S2iSmfR1tIlN2+aRSqpxP9bA9PZP2kqIBlGHsM0iB3C5N9V+PppIapPZ6ElstyiBx5MKpfZ+b/w73CM1ENDmRV+mKxmHVMJ+loN5rkhtP9BB7yylSIwHvuwMhiHisSqMndwonI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=X3W0IJr9; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1789386878; c=relaxed/simple;
+	bh=qIqLny9tepBEf/HjIMYQVL7ybpIsmoTSzbmXgB63JJg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=RsFYsEP2jyaQctQ+YthThgh8hZTLLLUbxvMtTFoBhG1wl88OoIRHpKy8qr3eWDD0zHR3HtzAGervz1olVmnxlmRuYqJIbB7+XJDZ4hsEmCG1UAcVXvsVtzomczjWZJawESwZl0fHAA7ptCt82U4FBnQuYJe69XFX44BvFn/+s2g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QQepjeCi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="X3W0IJr9"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254fa663c2so285991666b.3
-        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 04:50:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1789386614; x=1789991414; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=b3d/NyVwn33xRXNwAVXKr9GMiiFtUoOWjxTC/8TNYXw=;
-        b=X3W0IJr9hBeZ4qGivj24+Ul+Des8dIPbzdBUI0Q3HKkT75wJXHtgj54KOm+hxQ/KqR
-         fyqkuVBubWlibJlw9IbMg8vMBwpNfU1BdYlbUEMzUXJw6nZR+Sl8LKghIo/Czi2oglzR
-         ko059MNsVA6Xug/DpswvQdsMreHPygok49yraiBKD/RtX0mgU3wy6ojGiWrnGqbjlr3Z
-         207qdc90W5EDJdfiZBlD699pqxU/usdleueoL8FGYku2aewzCsDD8BhgaSGfwh5VL47f
-         Ze2PqngAgaDxwJPk8wxa/ZSZpp9OA2IxHIXunHn0hqsPx4fc+K2h/IbT3Westz4XGr8t
-         oMHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789386614; x=1789991414;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=b3d/NyVwn33xRXNwAVXKr9GMiiFtUoOWjxTC/8TNYXw=;
-        b=sWzSlsW5oQ+OgXF3cXmiYMdR3PDI9w2ighHJbVmzbXoENVdwQgN55+vp09MUXXpPa+
-         G61cTGayD9IAp2Q05+XwYFxY3QcQ5AQpb8Hf14c22YlqhWJcCzvSWR5pqVCRMu69mRFv
-         5MxtjFEem63cUMu7+mjVoe585OieE6daM2POk3PHfbXKBvKuuPMIR8UuYW9GcG3/rzUh
-         tP2/DWhkOaXzAQ6G5zDztwagCdKkZnk2U3jh9CeXPqLVLtGl2W6wlH1t7RCYl/GPzo+y
-         fU9fH1pAq1khdvqXTlJwsWLpaVJnAjeob7uzOTG+9tu/akLYis2WXHcoova3hejz6kqf
-         FzuQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz8m4A/JSmnuh9GwGRXlizdce1Gb0gIdtECVE1BhDA3TF0A/ishNM58aYB/fQF3st2Y7eE82Lv00cYR@vger.kernel.org
-X-Gm-Message-State: AFuF++ko2Ehv6AbTgJyNToQsqo3cIa69/94lbEoQgxblgDD6sm2Sy71B
-	2we8apB+g1frlXi+i0Pla+fhLSmLjj5bkJAjjJOtGlNTf1X6PUPF2VgnDodviUDU8sc=
-X-Gm-Gg: AYBFou0kSFVsvshi1ihserUBNZtqFBBexeiBQxgEauDK3BhT+YoKhoXgU2yg9WCJb1g
-	ipL/HLSnZRB4Kfm/oMkJJlRWT8cp0yubix8y69mAKfKP+AuPLPvw6udgtf8+OZbHklmwsZDJVnx
-	Bw4o2nokAoTAtiS0RDbZcteQauHpnol1rc9feysKI3o4zGpAHTdmtBAEEcF61Y2XPNEfk9UGT9E
-	WSb/uh/Ww9my4z24yRaUF9BKmEPh77/yf7UT4g0oT0A9a4YMXwfiWvRF4XKSIoX7w14+rq8vcdg
-	TOgxW6R3Y9hLTTEo8qogmMvOXLhI9XCr/BxYoGGU1qxNOPV63mSNQ3sTTF7c0gF5tEGY5XGOddj
-	ea9jfww3dp8y8DW7qGQHq0SX8pHNkpter+DtZ+8dtB07Y5e29xXoDupHmPamp/V7k/Y3JzUFtNO
-	clJCOGuO28ijZtHe3fYHecQCFzG+vn6KTwirBpA72sSV9DaIDQKRItOmCY+dPfTCjLTcY=
-X-Received: by 2002:a17:907:3e07:b0:c25:8c05:902f with SMTP id a640c23a62f3a-c29b86b7559mr277818766b.13.1789386614302;
-        Mon, 14 Sep 2026 04:50:14 -0700 (PDT)
-Received: from localhost ([82.145.119.8])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2965c4dfc7sm415116366b.4.2026.09.14.04.50.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 04:50:13 -0700 (PDT)
-From: Andrea della Porta <andrea.porta@suse.com>
-X-Google-Original-From: Andrea della Porta <aporta@suse.de>
-Date: Mon, 14 Sep 2026 13:53:53 +0200
-To: Angel J <iamanaws@httpd.dev>
-Cc: "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
-	"regressions@lists.linux.dev" <regressions@lists.linux.dev>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-rpi-kernel@lists.infradead.org" <linux-rpi-kernel@lists.infradead.org>,
-	"helgaas@kernel.org" <helgaas@kernel.org>,
-	"robh@kernel.org" <robh@kernel.org>,
-	"andrea.porta@suse.com" <andrea.porta@suse.com>,
-	"florian.fainelli@broadcom.com" <florian.fainelli@broadcom.com>
-Subject: Re: [REGRESSION] PCI: Dynamic OF node creation hangs on invalid
- bridge configuration
-Message-ID: <aqfgUUkZYZg6ZABF@apocalypse>
-References: <GXe6anuewkS4bLNwca3cYOmUxN9csc0TxLYGSBc1qNRmfrmvFlcmD62wEM23TxfzfuXAv4P3yvUv7pyraleARrL1Na-aN8w-t9uc1Igu8DA=@httpd.dev>
- <cFJoUZ6c5g5YbFCrwUnx6RlitHRl-0cS2fadDSFJNf9SgLreKutrmZj1r56hFh8ZUAbzvuCqBG4w9ZYAE8xAWP9HnLwbjMOBzac-iMnMMZc=@httpd.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QQepjeCi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EF4A1F000FF;
+	Mon, 14 Sep 2026 11:54:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789386876;
+	bh=aP8EWaxJ8YclgzGeNnOXFKi/SYtV4Lu4pF6yBNZunAk=;
+	h=From:Subject:Date:To:Cc;
+	b=QQepjeCiPrn9OsVCGWBlEXtRJVEtCYCIOrfNoRL85odxkHs4b5hWu8MRcozCA80dr
+	 zD2O/sxsaPdpTHA1auQKKbQVhJdTYfKkt4TtCsDyjavUZsmLwVShJVQL7/DAKRQK/q
+	 UtwynsVbQTXTEed4Z0FTqFl+i5+dRYwH9bkJf352Y8ftkx/ei5+NG7r9EuIG6kGgIh
+	 ZRw8Z10ZsNOlrYYfA0K8hPJ+4C0CYp4me4udkx7a0cgYuPCv1izFfYOS2jHqVpqyOf
+	 d9IWSCthQKDWgbj2z/ZwMzyJqADsjsNvtEST5uq9GNsWt0iRht1VECYFJ/87JyuQpA
+	 pnvSWyEpe3kxQ==
+From: Linus Walleij <linusw@kernel.org>
+Subject: [PATCH v2 00/20] pmdomain: st: ux500: Implement ux500 power
+ domains
+Date: Mon, 14 Sep 2026 13:54:28 +0200
+Message-Id: <20260914-ux500-power-domains-v7-1-v2-0-9d0c17e1f816@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <cFJoUZ6c5g5YbFCrwUnx6RlitHRl-0cS2fadDSFJNf9SgLreKutrmZj1r56hFh8ZUAbzvuCqBG4w9ZYAE8xAWP9HnLwbjMOBzac-iMnMMZc=@httpd.dev>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42NTQ6CMBBGr0K6dsy0plhceQ/Dgp8RJmpLploxh
+ LtbOYHL95LvfYuKJExRnYpFCSWOHHwGsytUNzZ+IOA+szJoSiy1g9dsEWEKbxLow6NhHyEdQcO
+ hq3qsrDOuMyrPJ6Erz1v6UmceOT6DfLanpH/2j2jSgECtJYutbqxz5xuJp/s+yKDqdV2/51lS3
+ MEAAAA=
+X-Change-ID: 20260618-ux500-power-domains-v7-1-3c9d095828c2
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
+ Mark Brown <broonie@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+ Lee Jones <lee@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-pm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ dmaengine@vger.kernel.org, Linus Walleij <linusw@kernel.org>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, Frank Li <Frank.li@oss.nxp.com>
+X-Mailer: b4 0.14.3
 
-Hi Angel,
+This series pays off technical debt from the beginning of the device
+tree for ARM initiative in the early 2010s.
 
-On 23:01 Fri 11 Sep     , Angel J wrote:
-> Hi Andrea, Hervé, Bjorn, Thorsten,
-> 
-> Thanks for the guidance, it was very useful. I went back through the tests
-> and got some more insight into the hang.
-> 
-> Andrea wrote:
-> > Angel, could you please provide the following output:
-> >
-> > lspci -nn
-> > setpci -s 00:00.0 HEADER_TYPE
-> >
-> > from a running (i.e. with CONFIG_PCI_DYNAMIC_OF_NODES=n) system?
-> 
-> On Linux 6.12.109, with CONFIG_PCI_DYNAMIC_OF_NODES disabled, the relevant
-> output is:
-> 
->   $ lspci -nn
->   00:00.0 PCI bridge [0604]: Intel Corporation Device [8086:4c43] (rev 01)
-> 
->   $ setpci -s 00:00.0 HEADER_TYPE
->   01
-> 
->   $ setpci -s 00:00.0 PRIMARY_BUS SECONDARY_BUS SUBORDINATE_BUS
->   ff
->   ff
->   ff
+Today the Ux500 SoC specifically DB8500 is using what is called "EPOD
+regulators" (EPOD = Electric POwer Domain) to control its power domains.
+This was done like this because at the time, power domains did not exist
+as a concept in the Linux kernel.
 
-So it seems that a device which is reported as a PCI bridge does not manage any
-bus underneath.
+This patch series completes the ambitious work started in commit
+cd931dcfda5e ("ARM: ux500: Initial support for PM domains") which added
+a dummy domain driver for Ux500 in the following steps:
 
-> 
-> The device is bound to icl_uncore. I get the same values on the patched
-> kernel with CONFIG_PCI_DYNAMIC_OF_NODES=y.
-> 
-> Hervé wrote:
-> > Is this PCI logs reported with PCI_DYNAMIC_OF_NODES=y or PCI_DYNAMIC_OF_NODES=n
-> > or always whatever the PCI_DYNAMIC_OF_NODES Kconfig value ?
-> 
-> The messages appear on successful boots with either setting:
-> 
->   pci 0000:00:00.0: [8086:4c43] type 01 class 0x060400 conventional PCI bridge
->   pci 0000:00:00.0: bridge configuration invalid ([bus ff-ff]), reconfiguring
-> 
-> I confirmed this on 6.12.107 with the option disabled and 6.12.108 with it
-> enabled. They also appear on the patched 6.18.44 kernel.
-> 
-> Bjorn wrote:
-> > I don't think 49d63971f963 ("misc: rp1: RaspberryPi RP1 misc driver")
-> > is a likely culprit by itself because there's just nothing there that
-> > looks like it would relate to a Dell XPS 8940.
-> 
-> That change exposed the problem by enabling PCI_DYNAMIC_OF_NODES in my
-> configuration. I bisected again with the option enabled throughout and
-> found an earlier boundary:
-> 
->   3dc8adeeefa0  PCI: of_property: Constify parameter in of_pci_get_addr_flags()
->   1f340724419e  PCI: of: Create device tree PCI host bridge node
-> 
-> The first is the direct parent of the second. I boot-tested both without
-> any guard, changing only the source commit; their generated kernel
-> configurations are identical.
-> 
-> All of these tests have CONFIG_PCI_DYNAMIC_OF_NODES=y:
-> 
->   Source         Change             Result
->   3dc8adeeefa0    None               Boots
->   1f340724419e    None               Hangs
->   1f340724419e    Subordinate guard  Boots
->   6.18.44        None               Hangs
->   6.18.44        Subordinate guard  Boots
-> 
-> Hervé wrote:
-> > Maybe the test done at [1] should be improved to detect those wrong bridges.
-> > and skip the of_pci_make_dev_node() call when a wrong bridge is detected.
-> 
-> I added logging to the first bad commit to check the bridge scan. It shows
-> that 00:00.0 has no subordinate bus after either pass, despite satisfying
-> pci_is_bridge():
-> 
->   pci 0000:00:00.0: PCI OF debug: scan pass 0, buses ff/ff/ff
->   pci 0000:00:00.0: PCI OF debug: scan pass 0 done, subordinate bus absent
->   pci 0000:00:00.0: PCI OF debug: scan pass 1, buses ff/ff/ff
->   pci 0000:00:00.0: PCI OF debug: scan pass 1 done, subordinate bus absent
+- Convert the old Ux500 power domain text DT bindings to YAML schema.
 
-This is confirmed by the BIOS/fw not filling the bus range and by the kernel
-failing to reallocate the bus since the range registers are probably read-only.
-Apparently this is not a bridge, it should be at most a host controller.
+- Extend the bindings with all the 16 power domains actually existing in
+  the hardware.
 
-> 
-> of_pci_prop_bus_range() dereferences pdev->subordinate without checking it.
-> of_pci_prop_intr_map() also uses that pointer. Before 1f340724419e,
-> of_pci_make_dev_node() returns because the parent OF node is missing on
-> this ACPI system. That commit creates the parent node, allowing property
-> generation to reach the unchecked access.
-> 
-> My earlier report overstated the device_type="pci" result. The minimal-node
-> test that hung added device_type, bus-range and interrupt-map together;
-> I haven't confirmed a hang with device_type alone.
-> 
-> I tested this guard in of_pci_make_dev_node(), before node creation:
-> 
->   if (pci_is_bridge(pdev) && !pdev->subordinate)
->           return;
+- Add these domains to the existing ux500 power domain driver (still as
+  dummy domains).
 
-Not sure, maybe can it be considered a hw bug? If this is the case, we can maybe
-add a quirk for this device. Could you please test adding a quirk as PCI_FIXUP_HEADER
-in which you downgrade the class from 0604 to 0600 and see it works even without
-your proposed check in of_pci_make_dev_node()?
+- Add the power domains to the DB8500 SoC DTSI file.
 
-If this works, maybe we can just turn the body of your conditional into just an error
-log plus fast exit, because a bridge must have valid subordinate.
+- Move code over from the EPOD regulators to the actual power domain
+  driver. Since the two drivers now control the same hardware, make the
+  drivers mutually exclusive.
 
-Many thanks,
-Andrea
+- Modify the MCDE display driver to use the power domain instead of the
+  EPOD regulators.
 
-> Both the first bad commit and 6.18.44 boot with it. The 6.18.44 test uses
-> only the guard, without diagnostic logging. The host OF node and the nodes
-> for bridges 00:01.0 and 00:1c.0 are still created; 00:00.0 is skipped.
-> 
-> This points to the NULL subordinate pointer as the cause of the hang,
-> although I still don't have a crash trace from an unguarded boot. I'll
-> send the patch as a reply to this email. Is of_pci_make_dev_node() the
-> right place for this check?
-> 
-> #regzbot introduced: 1f340724419eda8ab07a20edcaf5ec8f70134231
-> 
-> Thanks,
-> Angel J
+- Modify the DMA40 DMA controller to use the power domain instead of the
+  EPOD regulators.
 
+- Delete the old EPOD regulators.
 
+- Delete the references to the unused EPOD regulators from the device
+  tree.
+
+The series is ordered so binding updates and compatibility glue precede
+the DTS and driver changes that depend on them.
+
+MERGE STRATEGY:
+
+1. Device tree bindings need review, before that the series is a
+   no-go.
+
+2. For simplicity, the series can be merged in separate paths and
+   subsystems as there are no build-time dependencies, as long as the
+   result ends up in kernel v7.4.
+
+   Once the concept and patches are ACKed by the power domain folks, I
+   will send the patches that can be split out individually to each
+   maintainer and it can all be merged in parallel. I will send a
+   pull request to the SoC tree with bindings and DTS changes.
+
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+---
+Changes in v2:
+- Went on a detour clean-up job relating to buck regulators.
+  Rebased on kernel v7.3-rc1 and the regulator re-works in this
+  mail thread:
+  https://lore.kernel.org/mfd/20260901-ux500-dts-snowball-regulator-v2-0-fe88b01829bf@kernel.org/
+- Drop the PM domain "regulators" entirely, the external components
+  now use their actual buck regulators.
+- Fix the DB8500 pin controller power domain to use VAPE.
+- Allow power-domain references in the l2c2x0, arm,pmu,
+  stericsson,u8500-clks, arm,twd-timer, arm,twd-wdt and ste,mcde
+  schemas used by the DB8500 DTS additions.
+- Treat only negative pm_runtime_put_sync_suspend() returns as errors.
+- Fix the MCDE probe error path to disable the main clock after reset.
+- Fix Ux500 PM-domain probe error cleanup for domains and provider data.
+- Drop the unused Ux500 power-state activity counter.
+- Describe Ux500 subdomains in DT and use OF child ID helpers.
+- Move DMA40 LCLA power-domain get out of atomic transfer paths.
+- Enable runtime PM in the generic SRAM driver so SRAM power domains
+  are managed by their owner before DMA40 takes LCLA references.
+- Add a DMA40 device link so system PM orders the LCLA SRAM supplier.
+- Add binding fixes for the DB8500 PRCMU regulator child nodes.
+- Add an MCDE binding update for the new power-domain reference.
+- Fix up the DB8500 DTS changes for the remaining VAPE and VSMPS2
+  compatibility regulators.
+- Link to v1: https://lore.kernel.org/r/20260618-ux500-power-domains-v7-1-v1-0-eb5e50b1a588@kernel.org
+
+---
+Linus Walleij (20):
+      dt-bindings: power: Convert Ux500 PM domains to schema
+      dt-bindings: arm: ux500: Drop NR_DOMAINS
+      dt-bindings: arm: Add the actual power domains on U8500
+      dt-bindings: mfd: db8500-prcmu: Relax EPOD regulators
+      dt-bindings: display: ste,mcde: Allow power domains
+      pmdomain: st: ux500: Implement more power domains
+      ARM: dts: ux500: Rename power domains node
+      dt-bindings: cache: l2c2x0: Document power domain
+      dt-bindings: arm: pmu: Allow power domains
+      dt-bindings: clock: stericsson,u8500-clks: Allow power domains
+      dt-bindings: timer: arm,twd-timer: Allow power domains
+      dt-bindings: watchdog: arm,twd-wdt: Allow power domains
+      ARM: dts: ux500: Add power domains
+      pmdomain: st: ux500: Control DB8500 EPODs
+      drm/mcde: Use power domain for display power
+      misc: sram: Enable runtime PM
+      dmaengine: ste_dma40: Use power domain for LCLA SRAM
+      mfd/regulator: db8500-prcmu: Remove EPOD regulators
+      dt-bindings: display: ste,mcde: Deprecate EPOD supply
+      ARM: dts: ux500: Remove DB8500 EPOD regulators
+
+ Documentation/devicetree/bindings/arm/pmu.yaml     |   3 +
+ .../devicetree/bindings/arm/ux500/power_domain.txt |  35 --
+ .../devicetree/bindings/cache/l2c2x0.yaml          |   2 +
+ .../bindings/clock/stericsson,u8500-clks.yaml      |   3 +
+ .../devicetree/bindings/display/ste,mcde.yaml      |  10 +-
+ .../bindings/mfd/stericsson,db8500-prcmu.yaml      |  24 +-
+ .../power/stericsson,ux500-pm-domains.yaml         |  46 ++
+ .../devicetree/bindings/timer/arm,twd-timer.yaml   |   3 +
+ .../devicetree/bindings/watchdog/arm,twd-wdt.yaml  |   3 +
+ MAINTAINERS                                        |   1 +
+ arch/arm/boot/dts/st/ste-dbx5x0.dtsi               | 144 +++---
+ arch/arm/mach-ux500/Kconfig                        |   2 +-
+ drivers/dma/ste_dma40.c                            | 130 ++++--
+ drivers/gpu/drm/mcde/mcde_clk_div.c                |   4 +-
+ drivers/gpu/drm/mcde/mcde_display.c                |  11 +-
+ drivers/gpu/drm/mcde/mcde_drm.h                    |   2 -
+ drivers/gpu/drm/mcde/mcde_drv.c                    |  68 +--
+ drivers/gpu/drm/mcde/mcde_dsi.c                    |   1 -
+ drivers/mfd/db8500-prcmu.c                         | 239 ----------
+ drivers/misc/sram.c                                |   5 +
+ drivers/pmdomain/st/ste-ux500-pm-domain.c          | 330 ++++++++++++--
+ drivers/regulator/Kconfig                          |  11 -
+ drivers/regulator/Makefile                         |   2 -
+ drivers/regulator/db8500-prcmu.c                   | 501 ---------------------
+ drivers/regulator/dbx500-prcmu.c                   | 155 -------
+ drivers/regulator/dbx500-prcmu.h                   |  55 ---
+ include/dt-bindings/arm/ux500_pm_domains.h         |  17 +-
+ include/linux/regulator/db8500-prcmu.h             |  38 --
+ 28 files changed, 566 insertions(+), 1279 deletions(-)
+---
+base-commit: 67aa45aae7efe0162f198f26714f668b759468c4
+change-id: 20260618-ux500-power-domains-v7-1-3c9d095828c2
+
+Best regards,
+-- 
+Linus Walleij <linusw@kernel.org>
 
