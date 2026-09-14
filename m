@@ -1,140 +1,262 @@
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 388B1480DE0
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 20:15:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5175A46D573;
+	Mon, 14 Sep 2026 20:24:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789416930; cv=none; b=GIZ+C643LM2GGWZU+VuWhzi/5a6dYhjPOlSzhwpPjuY58pPz2gcX3XdvHbhNQz7CsHieWgbW58Z4ziBYSd+dfla3mU3VDVvO7ZTG+8F0PtBD0Wf78Wk/YpWOf5trdBlYcQALFaoUOGzpRNqNqRdUauzpRZ2McDIuiP/4Kx9h/Pk=
+	t=1789417481; cv=none; b=bP2Z7oYTcVmY1xGLwFJr1f/M7SRksT4YLmKOUPGxh8CzyPjabmja41aQyah+pPP3lvVaEnmNcnG2XdnnNHhlyLzgY5LFi7stPx2iR8//1ECfCTPwgc1bhufMONTvfoebTWKv4UgNElF8gB6vGwvZ0AGCL9/7hEpbgHIZEHS5SR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789416930; c=relaxed/simple;
-	bh=GykgSnZ4kWqbaJjn/9T0vyH9n/iK2VhkIfkcUJdlBuk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nbvh6X27fROKN/LShJQ8ZuTgcJUCav1/fYkN85Rg1WfrPO2eEp3mFfkYXqX19BJZBRkwcMOXZ+RD+RwBMjmy7A041OQVuzRCLlXL9yjN1RcRlcX07pAjBx9QfiHxfhb2gO7KI/5nfJAA7ZWFLYNx8afMyA25E5N+vu7ki33jO/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=bMZZDctY; arc=none smtp.client-ip=209.85.208.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1789417481; c=relaxed/simple;
+	bh=i9ZUDU2F2FGWMeO9GW8ycRXVCKukXCPguAW6h5niXkE=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=qz+oSwNF/AnmbEltmE4UlQtc2bV5AabQ0EwZk8SYoaDd4R7iTvPIu/dzu3MB9QaJTqc/XxWZwi3N+M35gSqjK+dzs70KkjKtIV0Wi2hHbC7o724NbN5j0nQwsfnB8z+AP+Xj7Q/9b6Jn0wv88KGRamoSoYQ9IpWlukaAsN2AL5E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a3ZZ+FSy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="bMZZDctY"
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6a9a2f16ed4so381754a12.0
-        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 13:15:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789416926; x=1790021726; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=K7ypREDUbgOotRmXNI3oJlTg66vvpyevfxzia1IXsPA=;
-        b=bMZZDctYnf21WxAkfoqiCg9XxwZLGTkmzQt8JZ45r39/go9xGReDPVtHVcK3Bs6EYU
-         bEfOyNxykmx7gPfJAs44CUDF3S5HEcYaWIo50S37e9b4mYlvZE30G0juDcqNds1VYU+J
-         6gT7B+KTl8FpHeUfv0S62eoly12FlbZvGTt9xkMG1PYShuDCP57/bYD4zn+m4USqhpCk
-         GxeY+AGznjb9+s/dnCm/66lD2i+b7hJU0aQpmfrTziqskXsVfCIEhba8OYac8UNVHg7x
-         Xklv9+HRxzWMWSFTrrafknvLXUH9LNjDIJ4Nkg5JRNLDzQp4EAYPsiR9I3soTYl0VJ6r
-         VfvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789416926; x=1790021726;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=K7ypREDUbgOotRmXNI3oJlTg66vvpyevfxzia1IXsPA=;
-        b=hDZ21/XLhY8TG8gpm4T2Zm6EBd9r+WZpTvyyzc69v80qy1hDQXHas2vM1i8J8SkqCE
-         G5hitQvcynT/2BEO4H4i3L6wWCA/VJVhnm1rwqiffSeK1DuRDhelOZjt1mzl971HWJJs
-         A+RuOveL6H3/LplflaJWgaisLkVuvyE90Uhe6O1Fdbs9AbjJMsikwG8INxW05B9cGIyA
-         QBLYo+01wmHqWH5kW1Gg9sPRu2Mhn7sZqniZHLvqSXa1v3hterXizrJqb521yD/6RcPP
-         5K/PFwDN/ZSMVoHm89iBoss+w8WHmxRbMui+GG0ZcYLRowLPIpfHY+U0oNE83m9hBqlN
-         Oo6A==
-X-Forwarded-Encrypted: i=1; AKwUvBwRYy8xBdE6piV7q0MpZGV2BNGgWCg4eMnydOuvTrhejI6Q9MU1BEC7K72G187Hv//XeRPPuMLPCS/X@vger.kernel.org
-X-Gm-Message-State: AFuF++kZdUvjDivwFknXw9eBrL1fszrV/rSHTOaFMM5jxw9uM4pXXEfc
-	z4J1di9SxIZr0VgzCgrzSn2dgBTJu0SgqOfmKEtmoAnOpnBrIHabRAEytu0OP9S2wIo=
-X-Gm-Gg: AYBFou2G4uePTMnWiD7EUjtSWQNdFas9g6AOE46rYpu/geUicvSoZnzx2dVuH+zJj0K
-	RDNQC0I1UqjB/jlYfvuv5Bfwl3mn1w/id8gRekO1NqioLgfYR5+1ue57YjmOCwNCW99+Cdz8onW
-	ut1jZLZMgQ6UEXGCRUIv7toUxZ77uoORpri7ls7lkbQPBN9ItmGpNpnyctqFkiHET4fMwYoV0QY
-	iinERfuoTBvCooB3QwOuR7WbXcjqqGQNgi5M0P8+MGwlPSrfjbd2UaMmbc+wI853KH6tIfpoqR4
-	SQ51BrK67ZcwaMFWeSqHv5C+i1G3U1FHN/+8DmPyYRBnX1aaSLM8TUvKYISbpgFe5T+ehr+oSZW
-	GPho91IVFohqHcxJjSr6+Nfj2p3P0y+Tx0AQwGLtKlr+U+gU3Ha3UzldvIZT5OLIcTSLkGOSCmq
-	zyf9V/w+JW7gl8bX+GG9GHqOk+2T+6gTusLeCBoXGVE+VwPNVtnzry1oL9rOlY10PebsvnFKZNu
-	iqf3RGGHw==
-X-Received: by 2002:a05:6402:b86:b0:6a6:75b7:4ff6 with SMTP id 4fb4d7f45d1cf-6aa03f7ab4cmr403420a12.8.1789416926406;
-        Mon, 14 Sep 2026 13:15:26 -0700 (PDT)
-Received: from [192.168.0.35] ([109.76.248.34])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9b594e462sm4859796a12.24.2026.09.14.13.15.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 13:15:25 -0700 (PDT)
-Message-ID: <cd7d3d8d-f629-4fa4-9417-98bbef3230d4@linaro.org>
-Date: Mon, 14 Sep 2026 21:15:23 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a3ZZ+FSy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81F881F000FF;
+	Mon, 14 Sep 2026 20:24:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789417476;
+	bh=w7u0klR/IYUoGVOagYiSZ6HuUkgEjMwxzSC/jxfPsQg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=a3ZZ+FSyFcr4SLQqyug8gOzfrkQByO+wC7LUaFlE64JBvjeqHk170lvQkBTR+Fqci
+	 m7PXm5OX8yCqHyCxCkO5gVaspHgasepSHjUbGzs/vNCXvdZjPKiEufKqzTBSoNhdTd
+	 Kizf80RvRTTw+PMZbu9uIOBJV/+jjkH9GqaK0xi3Do1IuJ/MymwXv9h+ZFbHdhT0tV
+	 lQc8FfQyYD2yxFgcxhDWnBb8VQdeN9uuYmCRi97+rSC8oiesh6yTnziNmhtVegZx4m
+	 267+LpqHhdeZqq9dMFoahSzZuD+CDpKvKZmOMTIOlESmletw9JZG6Y//+WqkWmrMAN
+	 PAP+F5yHSFTsA==
+Subject: Re: [PATCH net-next v5 01/11] net: stmmac: move XPCS lifetime
+ management to platform drivers
+From: netdev-bot+sashiko@kernel.org
+To: coiaprant@gmail.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, heiko@sntech.de, vkoul@kernel.org,
+ maxime.chevallier@bootlin.com, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com, prabhakar.mahadev-lad.rj@bp.renesas.com,
+ romain.gantois@bootlin.com, hkallweit1@gmail.com, neil.armstrong@linaro.org,
+ linux@armlinux.org.uk, shawn.lin@rock-chips.com, david@ixit.cz,
+ netdev@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-renesas-soc@vger.kernel.org
+Date: Mon, 14 Sep 2026 20:24:35 +0000
+Message-ID: <178941747507.22033.8211069120708719813@kernel.org>
+In-Reply-To: <20260913185849.907479-2-coiaprant@gmail.com>
+References: <20260913185849.907479-2-coiaprant@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: Fix touchscreen address on Dell
- Inspiron 7441
-To: avalon.vargas.centeno@est.una.ac.cr,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: Val Packett <val@packett.cool>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260914-dell7441-touchscreen-v1-1-d79540ca5e81@est.una.ac.cr>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-US
-In-Reply-To: <20260914-dell7441-touchscreen-v1-1-d79540ca5e81@est.una.ac.cr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 14/09/2026 14:30, Avalon Vargas via B4 Relay wrote:
-> From: Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
-> 
-> The LXST2021 touchscreen on the tested Dell Inspiron 14 Plus 7441
-> responds at I2C address 0x09, while the device tree specifies 0x10.
-> Probing the latter fails with -ENXIO and no touchscreen input device
-> is registered.
-> 
-> Use address 0x09, matching the LXST2021 configuration on the related
-> Dell Latitude 7455. With this address, the controller identifies as
-> 29BD:1103 and binds to hid-multitouch. Touch input and suspend/resume
-> have been verified on the affected Inspiron using Linux 7.2.4 with
-> the equivalent device-tree overlay.
-> 
-> Signed-off-by: Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
-> ---
-> This replaces the earlier report-plus-diff with a patch submission.
-> Only one unit has been tested. I have no evidence of double-sourcing
-> or a working Inspiron touchscreen at 0x10; a typo remains possible.
-> 
-> touch input and suspend/resume. The native upstream patch has not yet
-> undergone a full kernel DTB build or dtbs_check.
-> 
-> Validation: Linux 7.2.4 plus the equivalent local DT overlay, physical
-> ---
->   arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts | 5 +++--
->   1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts b/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts
-> index 75e10d9..0cf5716 100644
-> --- a/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts
-> +++ b/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts
-> @@ -25,9 +25,10 @@ &gpu_zap_shader {
->   };
->   
->   &i2c8 {
-> -	touchscreen@10 {
-> +	/* LXST2021 */
-> +	touchscreen@9 {
->   		compatible = "hid-over-i2c";
-> -		reg = <0x10>;
-> +		reg = <0x09>;
->   
->   		hid-descr-addr = <0x1>;
->   		interrupts-extended = <&tlmm 51 IRQ_TYPE_LEVEL_LOW>;
-Nice.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider:
 
-A Fix should have a
+Critical: 0 · High: 0 · Medium: 2 · Low: 1
 
-Fixes: tag
-Cc: stable@vger.kernel.org
+- [Medium] Commit message mischaracterizes the removal of the generic
+  XPCS creation as removing dead code.
+- [Medium] DT binding vs implementation mismatch: after this patch
+  nothing in the stmmac core reads the generic 'pcs-handle' property,…
+- [Low] The commit message describes two defects, one framed as "more
+  critically" (the common code overwriting priv->hw->xpcs after a…
 
----
-bod
+--
+
+net: stmmac: move XPCS lifetime management to platform drivers
+
+The generic XPCS creation in stmmac_pcs_setup() (pcs-handle lookup and
+mdio_bus_data->pcs_mask based xpcs_create_mdiodev()) is removed, leaving
+only the plat->pcs_init() / plat->pcs_exit() dispatch. The Intel mGbE glue
+grows its own pcs_init()/pcs_exit() that create and destroy the XPCS, and
+the renesas-gbeth, rzn1 and socfpga pcs_exit() callbacks now clear
+priv->hw->phylink_pcs after destroying the PCS.
+
+A few questions on the commit message and on the removal of the generic
+path.
+
+>     First, if a device tree specifies a "pcs-handle" but no select_pcs()
+>     callback is provided by the platform driver, the created XPCS is never
+>     used. The phylink framework requires select_pcs() to actually return
+>     the PCS to the core, so the pcs-handle property becomes effectively
+>     useless without the matching callback.
+
+[Severity: Medium]
+Is "the created XPCS is never used" accurate?  An XPCS stored in
+priv->hw->xpcs has two consumers that do not go through select_pcs().
+
+stmmac_phylink_setup() in stmmac_main.c uses it to widen the phylink
+interface sets:
+
+	/* If we have an xpcs, it defines which PHY interfaces are supported. */
+	if (priv->hw->xpcs)
+		pcs = xpcs_to_phylink_pcs(priv->hw->xpcs);
+	else
+		pcs = priv->hw->phylink_pcs;
+
+	if (pcs)
+		phy_interface_or(config->supported_interfaces, ...
+
+and stmmac_init_phy() uses it to decide whether to attach a PHY at all:
+
+	if (priv->hw->xpcs &&
+	    xpcs_get_an_mode(priv->hw->xpcs, mode) == DW_AN_C73)
+		return 0;
+
+So for a dwmac instance with a pcs-handle but no plat->pcs_init, does this
+change narrow config->supported_interfaces (and config->lpi_interfaces) and
+alter the PHY-attach decision, rather than just dropping something unused?
+Would it be worth spelling that behavioural change out in the commit
+message?
+
+>     Second, and more critically, when a platform driver sets pcs_init()
+>     and creates an XPCS inside that callback, the common code afterwards
+>     still runs unconditionally and overwrites priv->hw->xpcs with the
+>     local xpcs variable, which stays NULL. The platform driver has no way
+>     to prevent this override because the common code runs after the
+>     platform-specific initialization.
+
+[Severity: Low]
+This isn't a bug, but could this paragraph say that no in-tree platform is
+affected today?
+
+All three pre-existing pcs_init() implementations store their PCS in
+priv->hw->phylink_pcs, not priv->hw->xpcs:
+
+  renesas_gmac_pcs_init()  -> priv->hw->phylink_pcs = miic_create(...)
+  rzn1_dwmac_pcs_init()    -> priv->hw->phylink_pcs = miic_create(...)
+  socfpga_dwmac_pcs_init() -> priv->hw->phylink_pcs = pcs
+
+so the old "priv->hw->xpcs = xpcs;" on the pcs_init branch overwrote NULL
+with NULL.  intel_mgbe_pcs_init() added here is the first in-tree pcs_init()
+that stores an XPCS, which makes this a refactor that removes a latent trap
+rather than a fix for observable breakage.
+
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+> index f5f9fa67ecd77..4308dccbf2570 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+> @@ -603,13 +603,47 @@ static void common_default_data(struct plat_stmmacenet_data *plat)
+>  	plat->mdio_bus_data->needs_reset = true;
+>  }
+>  
+> +static int intel_mgbe_pcs_init(struct stmmac_priv *priv)
+> +{
+> +	struct fwnode_handle *devnode, *pcsnode;
+> +	struct dw_xpcs *xpcs;
+> +	int addr;
+> +
+> +	devnode = dev_fwnode(priv->device);
+> +
+> +	if (fwnode_property_present(devnode, "pcs-handle")) {
+> +		pcsnode = fwnode_find_reference(devnode, "pcs-handle", 0);
+> +		xpcs = xpcs_create_fwnode(pcsnode);
+> +		fwnode_handle_put(pcsnode);
+> +	} else {
+> +		addr = ffs(priv->plat->mdio_bus_data->pcs_mask) - 1;
+> +		xpcs = xpcs_create_mdiodev(priv->mii, addr);
+> +	}
+> +
+> +	if (IS_ERR(xpcs))
+> +		return PTR_ERR(xpcs);
+> +
+> +	xpcs_config_eee_mult_fact(xpcs, priv->plat->mult_fact_100ns);
+> +
+> +	priv->hw->xpcs = xpcs;
+> +	return 0;
+> +}
+> +
+
+[ ... ]
+
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+> index afe98ff5bdcb0..7396b68899c66 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+> @@ -426,35 +426,14 @@ int stmmac_mdio_reset(struct mii_bus *bus)
+>  int stmmac_pcs_setup(struct net_device *ndev)
+>  {
+>  	struct stmmac_priv *priv = netdev_priv(ndev);
+> -	struct fwnode_handle *devnode, *pcsnode;
+> -	struct dw_xpcs *xpcs = NULL;
+> -	int addr, ret;
+> -
+> -	devnode = dev_fwnode(priv->device);
+> -
+> -	if (priv->plat->pcs_init) {
+> -		ret = priv->plat->pcs_init(priv);
+> -	} else if (fwnode_property_present(devnode, "pcs-handle")) {
+> -		pcsnode = fwnode_find_reference(devnode, "pcs-handle", 0);
+> -		xpcs = xpcs_create_fwnode(pcsnode);
+> -		fwnode_handle_put(pcsnode);
+> -		ret = PTR_ERR_OR_ZERO(xpcs);
+> -	} else if (priv->plat->mdio_bus_data &&
+> -		   priv->plat->mdio_bus_data->pcs_mask) {
+> -		addr = ffs(priv->plat->mdio_bus_data->pcs_mask) - 1;
+> -		xpcs = xpcs_create_mdiodev(priv->mii, addr);
+> -		ret = PTR_ERR_OR_ZERO(xpcs);
+> -	} else {
+> +	int ret;
+> +
+> +	if (!priv->plat->pcs_init)
+>  		return 0;
+> -	}
+>  
+> +	ret = priv->plat->pcs_init(priv);
+>  	if (ret)
+> -		return dev_err_probe(priv->device, ret, "No xPCS found\n");
+> -
+> -	if (xpcs)
+> -		xpcs_config_eee_mult_fact(xpcs, priv->plat->mult_fact_100ns);
+> -
+> -	priv->hw->xpcs = xpcs;
+> +		return dev_err_probe(priv->device, ret, "Failed to initialize PCS\n");
+>  
+>  	return 0;
+>  }
+
+[Severity: Medium]
+After this change, does anything in the stmmac core still read the generic
+"pcs-handle" property?
+
+The property is still documented generically in
+Documentation/devicetree/bindings/net/ethernet-controller.yaml:
+
+  pcs-handle:
+    $ref: /schemas/types.yaml#/definitions/phandle-array
+    items:
+      maxItems: 1
+    description:
+      Specifies a reference to a node representing a PCS PHY device on a MDIO
+      bus to link with an external PHY (phy-handle) if exists.
+
+and snps,dwmac.yaml $refs ethernet-controller.yaml and ends with
+"additionalProperties: true", so pcs-handle stays schema-valid on every
+dwmac node regardless of which glue is bound.
+
+On a glue that does not set plat->pcs_init, stmmac_pcs_setup() now returns 0
+without looking at the property, priv->hw->xpcs stays NULL, and nothing is
+logged - whereas the removed code would at least fail probe with
+"No xPCS found" for a bad phandle.  Should the binding be updated to say
+pcs-handle is only honoured by specific glue drivers, or should the core
+keep a generic path (or emit a warning) so the two agree?
+
+The same question applies to struct stmmac_mdio_bus_data.pcs_mask.
+stmmac_mdio_register() still treats it as "a PCS lives at these MDIO
+addresses" and masks them out of the bus scan:
+
+	new_bus->phy_mask = mdio_bus_data->phy_mask | mdio_bus_data->pcs_mask;
+
+but no core code creates a PCS for those addresses any more, only
+dwmac-intel's private intel_mgbe_pcs_init().  Does a glue that sets
+pcs_mask without pcs_init now end up with that address neither scanned as a
+PHY nor instantiated as a PCS?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260913185849.907479-1-coiaprant%40gmail.com
