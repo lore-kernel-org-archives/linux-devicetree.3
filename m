@@ -1,101 +1,70 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2C9641D638;
-	Mon, 14 Sep 2026 09:15:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E620D3EFFA8
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 09:16:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789377356; cv=none; b=Nmv2KHwJjGX5BUjNjc21VIbgInpfyS5hn9rGskXr2VvWOvVd/h5XuHgVYLdaOCmfk7q3p8PZJ7Fqj43NdRMl24CzsdmiWxTqRDSp9pd5T5u1TUx2WHqCb914HohW74M8kYM3nZ4PS+DSRzpCdXf9KfLGwpmDXctFW6Dem1ihZQE=
+	t=1789377410; cv=none; b=iejS59eXnfVN9DBfdhg0qdSnQJi5bMvQ+q107ZlZG1Q+SOFmcjVs4Fa+bXuU3auMpl5BqaisCh3YwTwz+/sP7+ZU/GyHKOY2wKNx4vOmwkex+9NeGlLPycRqquIlrvPhZTrjZgPKN9/164tQ1X5j/P4XPPzpoflUTIrlwFNHY1M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789377356; c=relaxed/simple;
-	bh=3/7GKMq7Ffdymv55nF8gv1UWfbh97fBRIE6jQOLW8wo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=SX1UkY/IwC76rvF5ehTkzYRHUrCaHL8kSpksKYNu4tu17Cu2exVLtPhsOtOVeXTqQMCWv+aWfdFza2tDhgpPPtXmJYKrJxAbUXQKPqQihHUWiLGxPJt1e5g1O6gWsy3PA+oayghb+2oud30KCJxsUhoLoz2r+sJD02W0tYxnnb8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YsosOKkk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789377410; c=relaxed/simple;
+	bh=lL5fD+w9Z9W5MFPTiA6NfyqDMUa/V2c57aHVggpsQ0I=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=FNx6sinIc0gkYMp4GMpJgcEHXsLwCooEFfIN46ecV2fFwGg6nuforoT9cyxYm9lDEqUfSbAneNdLdjnt62A7EX5wRBkD59ZMPOCGDZA6aygt6yG+bOwwd+8loQgnLOd7NzdrHgWGS2g9rzaHTopKxX/80znqoNLLoX90hBxC/Wo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FOpL/5mZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YsosOKkk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8ED91F000FF;
-	Mon, 14 Sep 2026 09:15:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FOpL/5mZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1CA41F00899
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 09:16:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789377354;
-	bh=NwcMwKRRkkYemv2BkawzfM9Z8f4KUTQ+iOJ5B5DQHDw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YsosOKkkACWgHmLGooGZU2Iu/XKmv8IqHtvqiVWKja1e+CrXncdgG95nxAuaqamYr
-	 WRIj3eY5bMyQrs/SSDdkDLsptDcrqQ9qTTjj+vcIHJkv1gCPPdN5VQLaKl0AgCTDnr
-	 dYCQtKl3gKZTUenV/9b5srtYpB6kKuLlMn6o4jbuK6ruLX1voZs5RxEZn4F1HtEO6S
-	 cYgMzzZSBkPBv+QPC1cNbewwWudGhqn6dALRImvvEZ+w2Ltz0AkiI0YxGV9OQmXXI+
-	 tq/tHJVl7uDvdKVtCev9iQA5PNPjjklQ22XtV8Xl8eefM4GCB5I6S3cWARyqJz+SGP
-	 Yc4JKWsUgmV1w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] dt-bindings: net: can: fsl,mpc5xxx-mscan:
- Convert to DT schema
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Quchaosheng <quchaosheng000406@163.com>
-Cc: "Vincent Mailhol" <mailhol@kernel.org>, conor+dt@kernel.org, "Oliver
- Hartkopp" <socketcan@hartkopp.net>, "Oleksij Rempel" <o.rempel@pengutronix.de>, devicetree@vger.kernel.org, linux-can@vger.kernel.org, "Marc
- Kleine-Budde" <mkl@pengutronix.de>, robh@kernel.org
-In-Reply-To: <20260914090440.552884-2-quchaosheng000406@163.com>
-References: <20260914090440.552884-2-quchaosheng000406@163.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 09:15:53 +0000
-Message-Id: <20260914091553.D8ED91F000FF@smtp.kernel.org>
+	s=k20260515; t=1789377407;
+	bh=lL5fD+w9Z9W5MFPTiA6NfyqDMUa/V2c57aHVggpsQ0I=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=FOpL/5mZNhDTMrJ06E7znQravKIhaA2LoVaMeq/SJWzDBjJGyk9NVWgdn8CR6sdEO
+	 EWwoAxzwOmvP8gtUYNGeVFoMjS22O23tBTK2mvghDRttgWSXbR6oU3RgRYPUqNa+oW
+	 SKBpabQeunGjmXpknDyZJPgbEPnY2sMjg5PwHrvzCkXchfww+BbNNAswXLyZfZDIP3
+	 dwLJ07J5TafQ/1uza03T7abPY1ow+vmxTubG/pVTgXY+sBjlR9F6OIsG/Tra25Kx2p
+	 fabaoSrrZs5BHpn7g312s8pRClQAwxVO+eLihvFUXkxMUCEX8WYj8Q3eKYfYLQZZa7
+	 VFw7lMdBuZLLw==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f1744fso2347719e87.2
+        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 02:16:47 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxHnAjFkj76zAFpQi08DDdS8mWykSdr5aR3Aa+1zAkhVq+r8IuYQGHs3Q4VGevBonK29KvwI8wPoBhO@vger.kernel.org
+X-Gm-Message-State: AFuF++n3uz4xZIi33tqDASJdzMnmnOAE4NXXm0m9a8wAnawFCjXWXO7j
+	/QQnlfir3Hka6VN0YTx67I0hyC7m4QgQumuei5Q5BmWrSnqI5FJwwF8dzJ6i2CXCL4hzStqTEWg
+	iwqfml8nUuQECEM9LrSTtvonJ++KQdOw=
+X-Received: by 2002:a05:6512:2252:b0:5ae:aeeb:e902 with SMTP id
+ 2adb3069b0e04-5b8ae65e118mr465823e87.13.1789377406368; Mon, 14 Sep 2026
+ 02:16:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <cover.1787830440.git.misha.zavertkin@mail.ru> <bd1fd3ab47001c303e62d331486779c2be6d6eb3.1787830440.git.misha.zavertkin@mail.ru>
+In-Reply-To: <bd1fd3ab47001c303e62d331486779c2be6d6eb3.1787830440.git.misha.zavertkin@mail.ru>
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 14 Sep 2026 11:16:33 +0200
+X-Gmail-Original-Message-ID: <CAD++jLmpe83LJyx_3T6CP9tAjB7LbA=nkJjiYKdC=WV=J3z_jQ@mail.gmail.com>
+X-Gm-Features: AcwNN1X7HXA-0AQ2MyHLjmaPjKkos5_RD-aC0ZNZ7Zg699iMEX_ahmRBpDwAIDM
+Message-ID: <CAD++jLmpe83LJyx_3T6CP9tAjB7LbA=nkJjiYKdC=WV=J3z_jQ@mail.gmail.com>
+Subject: Re: [PATCH v4 1/2] dt-bindings: gpio: otto-gpio: Add gpio-ranges
+To: Michael Zavertkin <misha.zavertkin@mail.ru>
+Cc: linux-gpio@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Sander Vanheule <sander@svanheule.net>, Bert Vermeulen <bert@biot.com>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Missing `$ref` type definition for vendor property `fsl,mscan-clock=
--source`.
---
+On Thu, Aug 27, 2026 at 4:29=E2=80=AFPM Michael Zavertkin
+<misha.zavertkin@mail.ru> wrote:
 
-commit 0f4e0331aedb88733ad8480e58d0cb6aed274e62
-Author: Quchaosheng <quchaosheng000406@163.com>
+> Add 'gpio-ranges' optional property to reflect driver changes.
+>
+> Signed-off-by: Michael Zavertkin <misha.zavertkin@mail.ru>
 
-dt-bindings: net: can: fsl,mpc5xxx-mscan: Convert to DT schema
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-This commit converts the Freescale MPC5xxx MSCAN binding from free-form
-text to DT schema format. It describes multiple controller variants, sets
-up clock definitions, and introduces conditional properties for different
-compatible strings.
-
-> diff --git a/Documentation/devicetree/bindings/net/can/fsl,mpc5xxx-mscan.=
-yaml b/Documentation/devicetree/bindings/net/can/fsl,mpc5xxx-mscan.yaml
-> new file mode 100644
-> index 0000000000000..277e78ca21f11
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/net/can/fsl,mpc5xxx-mscan.yaml
-
-[ ... ]
-
-> +  clock-names:
-> +    items:
-> +      - const: ipg
-> +      - const: ips
-> +      - const: sys
-> +      - const: ref
-> +      - const: mclk
-> +
-> +  fsl,mscan-clock-source:
-> +    description:
-> +      Clock source used for the controller.
-> +    enum: [ip, ref, sys]
-
-[Severity: Low]
-Does this custom property need an explicit type definition?
-
-Vendor-specific custom properties without a standard type suffix typically
-require an explicit type reference to pass dt-schema validation when running
-make dt_binding_check.
-
-Even though the allowed values are defined via an enum, a base type referen=
-ce
-such as `$ref: /schemas/types.yaml#/definitions/string` is usually required
-to prevent build-time tooling failures.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914090440.5528=
-84-1-quchaosheng000406@163.com?part=3D2
+Yours,
+Linus Walleij
