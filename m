@@ -1,391 +1,136 @@
-Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com [74.125.227.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB5B5413D69
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 09:36:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789378617; cv=pass; b=Q5zVU6EAkEQ2zfFYJ7/+C/GGr80uZy68lkrTGB7D9HjyvD78FJ8vwqCK+9PNO5z4CLxb+9SkWOO23KgRj98/6hCD9eQI9SlqkzdDB3mF5NKe1JSHHuqLAVj4QeO4jhtPEjvOF0mkAJSKB+qfola5GrzAFs2T8DHcmNQRE3Frcmw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789378617; c=relaxed/simple;
-	bh=wbTsbaaraRurUVBMZm1/N3nbYDvOMB8ZhzA+hO9kfIY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bpkDUusxklvnSeR5zaHRl4sTOfQ3BsxuXmc/Y4NwNNouL7lccDTrIH70R6L5nYZWuoJaqN+jfpfh0aKEMIpKo3soWHrVeIbkMThR0+CoGlEzgPVxFheqzY1wc2VRm4+P86f4LI1ZTBSkTZjP709DPoAB82NVD9tmK2F7aQEggdU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=psTZMUxj; arc=pass smtp.client-ip=74.125.227.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C15F941F344;
+	Mon, 14 Sep 2026 09:37:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789378623; cv=none; b=fq9TK4TFGrlyvSUkPJCtY5BNh+I+MNzTJaBw+AHRAostjnbPLj0mZB2AfQfWmVa6ySCc/gsfRqfN/sXQFyaZCmFXy+ZX4kxF+drfprAGnpYWsk+on8I8ZmRC7p7ml9mI9IAxtp+YluGyIiREVBzWcGtzyLIioq8gTvsKmtz6vpo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789378623; c=relaxed/simple;
+	bh=hMldSWroWGP/S+eEz+iRvaMa9EjagfN9teuKYm2j7xk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=dKwsOAgbAsMMYvRTc2Cua/kLZpSpF60uzIyxncsefFbPZYhY5rVJEXBSBcPcyKqSwGrW/uorEs3cA2leNF73PZZlPTG2NiWEmcVVIaFwRkyu3Bdv5IGQu5nM8rJq0h3sS4HGfTf/iK85Eb8XoL3hI0Ck13epgOF6RdW1KVkdlZI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ivfswI2j; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="psTZMUxj"
-Received: by mail-vs2-f42.google.com with SMTP id 71dfb90a1353d-5c963a787c9so573650e0c.2
-        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 02:36:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789378614; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lS71LnTMWT+BXcCCQH751Bj7BzZs3Cb35K3psYV5vWgsf3HnTblCbIxvEt6awbsOhW
-         IrWirs3YU9TIRaXl4PBW4j1OXj5QsK0xyxl8bD2EuaxG38tg1DAwRq4o5TVnAeZqnDbb
-         2EDtIaZwCosbD5oU4wScQu3f42zYNsFaLgra1I0s+XAqkCb4U6Sp9WA+Poezof250lhb
-         qANgfKtKDYOFtXhwNsM8aSpXXTqEzeyV5Vf9g2rYr9Vg3Ke3rEwbJdYZ544U6vqrjNSE
-         KkjcDHS2nANVPCwIq28IEOvVG3qUySOpVyKkFAxZBULkg7A5CoOLbZ9XQ4ZpdTSgrwnz
-         K1oA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=bH2hEpXtRoRU2iikLb41kShYLYcasMrhcO4+UhblFzQ=;
-        fh=EMODJwzSx3BJkrOYOvsrt/Y+yxtEqrUwL5bzjryL7hw=;
-        b=sGMFj2louc7p5du6z8mlaYiex5xzah3N8gkIMUpW1jJDBo5c3NBck+Iql5QjQUBHak
-         4qOQKYH/ACoXHo6+EMYrQFaiv6nh3w+HaRiWeej2fjjy4tH1UXm0GYUrNR239lOcPvC4
-         jPg4VI3UyMh9BFylptdj5rInQzBYp1kt130W1kgu9XtK68toCG/yx7Za4MUIBjFehGIn
-         8Bmkqn1Ng9B+NHM1LqyGE+TSmtzOSBIv4VHSRMCdp/fgZfP//DJguD3cf97vUvgBcPHR
-         52/EFgUUn4u0hgvRpQLz8VPEHr5wU+PvUglgGLlIpqSb0hILnZGdkuJUsgUAE/QtHKQY
-         SyCw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789378614; x=1789983414; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bH2hEpXtRoRU2iikLb41kShYLYcasMrhcO4+UhblFzQ=;
-        b=psTZMUxjGibfNKdUxqs2LYkifssd0mqqMAIRzgrCW+mAZDj9acj0dP+bjjJIW/mXVM
-         CJEU81R5Y3eh7Vp59cjbnxAk4SH5rFaS6BhGaYiNHLXe8zQWlYqcDbVk7Dn0xjJ7nNs0
-         ZGMS5NCPUkIVvwgyORYTdhSF+g0bYEA8TedwWliyQXnnIsqjnyJ3rPZuH61IS4fCGmFe
-         EId+yukwBxdM6phB/q2Y+7tECuRj1L72ez1QnZnQC4LLDohgAKE+SFKpkpCZdzBjiuxD
-         8i2VapveuA1v+Nrdl9ok+RYbLjCOO5cGXzZV8gAaOQs+BsWvYJ+oWIN9eyxyK3sTLXdx
-         57hw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789378614; x=1789983414;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bH2hEpXtRoRU2iikLb41kShYLYcasMrhcO4+UhblFzQ=;
-        b=IJJw7NzKPHxiJWzppCHsWtJU6ISVh3sA+VizEtT59QhrHHoAkUCl7E4+RpkYjWXHs9
-         dpXQej+aUD/2/Z0eRhaAMHui9bd1XQBPAQGRIRneepVPh2maUdPbi32xNwOJyjxuMndH
-         xeqM2JBjcdg/ek/IuidhYMWiaFhvBRgDKP8BmCoqnNAtcwZ+lXCOeDE50GJ6naV8ppae
-         34jrDfh/Ay6fPgwYxtBgrvZYenf+swksof7AaQZRmNTDGh/PaJHX2/4+ZDQAmF+ErUe2
-         9dPgeyI+SYaoccrVmONTSx7ELMXJnq8Q7O3sW4NULQ0TWhmoY47ehhmwZTsAozEKRtsX
-         cm4Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzG5QT2Z5O76aL9UmSkyf2moSwEGXPw7EBaRVf1lN6FqwtJaIJcjUv8rycDZsmLGU6Em82sf4orhwFu@vger.kernel.org
-X-Gm-Message-State: AFuF++kL39JkAWYlCTFGoGRX2k1apECUP3MIan8S4smGTf2w0mIZV2kj
-	Zb8opaZSge0IP7H8aF1DKyV7GqkXibe2YqrMsupcXCNpXA+lLYmQgk45JytoNhrNtf5fOvP/u+B
-	kS8Tg7BaVzOKNVHEmxd2pq8QEaeC55qk=
-X-Gm-Gg: AYBFou0GmUt06+VUDTNsYxGcOqi0q7JEwlBOOgFoqKWN05LzfBhXZDNhFblDcHPmf2K
-	y4OiZp+kzFhG02QnxzoO+Tw/nfhBrt93TOdNbzMIvpTDq4A3xwuEMxriHwsRc3/gO6nbuBMPl/H
-	mNtTmsbdX8VONbvn3+hr1CRN+1EDRLA0Yf15eB57E2so1A2dkhkYIB7YfysrcuX/Qs8y3jG9G4X
-	lrLYH+xFnAurm5mhx+cky3q5U9/l1QGzBx2jRnxokcXAi4lfZwo2Tqg53QX89adORvkZpK3I1i4
-	k6lBOUm7MuuqCeUpoWwcJAyrbIveDJjajebRqjRYBf4u0g8NbxeSonxs2A==
-X-Received: by 2002:a05:6122:8cc:b0:5bd:71b1:d5c6 with SMTP id
- 71dfb90a1353d-5c981b4a790mr891390e0c.4.1789378614538; Mon, 14 Sep 2026
- 02:36:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ivfswI2j"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C09ED1F00898;
+	Mon, 14 Sep 2026 09:37:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789378621;
+	bh=Fb3Gbu63WdRcm3l/BT5yDQ+d6ojJvsJYU6utwkkkNyA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ivfswI2jhPu3PsLCc2jLEhL+3TGjEiKZcUv193mZaPdq6wTS2tKwPWHkkQpSXozZx
+	 Lr2Xt3geTW207OMwsaGMIUpERvvipzrxS3CoDWJvOYBku3bOqnL4qp+t/aANsldFFQ
+	 ulB8PbGRiQ4sa7gUJIAPET/WpBNTNQzMKbzckOAWW7TCy+6+2II0PXneTZFAZsO9Cz
+	 PK9VwfbsHtZA58vInJsVuc5fyp9ay4M1F1afdhoxDCqh2ECKHcC/y2zuzbbGRvo9Wk
+	 prwTF6wHupWXeifPFkZOWojok3rDI29sWPPDihmFuJaeUXsTLeHJv011RGwkgxSljd
+	 UnX2zayycrgug==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 5/5] rtc: pcf85363: add watchdog support with
+ configurable step size
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Lakshay Piplani" <lakshay.piplani@nxp.com>
+Cc: "Alexandre Belloni" <alexandre.belloni@bootlin.com>, linux-watchdog@vger.kernel.org, robh@kernel.org, linux-rtc@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260914092126.3757418-5-lakshay.piplani@nxp.com>
+References: <20260914092126.3757418-1-lakshay.piplani@nxp.com>
+ <20260914092126.3757418-5-lakshay.piplani@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 14 Sep 2026 09:37:00 +0000
+Message-Id: <20260914093700.C09ED1F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260910-add-tda38740-and-tda38725-v4-0-dbae7fabce09@gmail.com>
- <20260910-add-tda38740-and-tda38725-v4-2-dbae7fabce09@gmail.com> <7317a007-3995-47b3-b9f8-3aaf7702c7a4@roeck-us.net>
-In-Reply-To: <7317a007-3995-47b3-b9f8-3aaf7702c7a4@roeck-us.net>
-From: Colin Huang <u8813345@gmail.com>
-Date: Mon, 14 Sep 2026 17:36:42 +0800
-X-Gm-Features: AcwNN1VEtBxmaPHhbUkPMT-6OnFxOWdVDaJlXfoqr6_GZOAayu7CdhuyNqvV14E
-Message-ID: <CAPBH0A-PGwYQRD=eVZaZfzuT+LA3iasbqrVvS4-umekjg5r6VA@mail.gmail.com>
-Subject: Re: [PATCH v4 2/2] hwmon: (pmbus/tda38740) Add driver for Infineon TDA38740/TDA38725
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Colin Huang <colin.huang2@amd.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, linux-hwmon@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-doc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Guenter Roeck <linux@roeck-us.net> =E6=96=BC 2026=E5=B9=B49=E6=9C=8810=E6=
-=97=A5=E9=80=B1=E5=9B=9B =E4=B8=8B=E5=8D=8811:19=E5=AF=AB=E9=81=93=EF=BC=9A
->
-> On 9/10/26 05:35, Colin Huang wrote:
-> > From: Colin Huang <u8813345@gmail.com>
-> >
-> > Add a PMBus driver for Infineon TDA38740 and TDA38725
-> > single-voltage synchronous buck regulators.
-> >
-> > Signed-off-by: Colin Huang <u8813345@gmail.com>
-> > ---
-> >   Documentation/hwmon/index.rst    |  1 +
-> >   Documentation/hwmon/tda38740.rst | 65 +++++++++++++++++++++++++++
-> >   drivers/hwmon/pmbus/Kconfig      |  9 ++++
-> >   drivers/hwmon/pmbus/Makefile     |  1 +
-> >   drivers/hwmon/pmbus/tda38740.c   | 94 +++++++++++++++++++++++++++++++=
-+++++++++
-> >   5 files changed, 170 insertions(+)
-> >
-> > diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.=
-rst
-> > index f07977a20271..aeff87b3d46d 100644
-> > --- a/Documentation/hwmon/index.rst
-> > +++ b/Documentation/hwmon/index.rst
-> > @@ -265,6 +265,7 @@ Hardware Monitoring Kernel Drivers
-> >      sy7636a-hwmon
-> >      tc654
-> >      tc74
-> > +   tda38740
-> >      thmc50
-> >      tmp102
-> >      tmp103
-> > diff --git a/Documentation/hwmon/tda38740.rst b/Documentation/hwmon/tda=
-38740.rst
-> > new file mode 100644
-> > index 000000000000..55ce12f14914
-> > --- /dev/null
-> > +++ b/Documentation/hwmon/tda38740.rst
-> > @@ -0,0 +1,65 @@
-> > +.. SPDX-License-Identifier: GPL-2.0-only
-> > +
-> > +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > +Kernel driver tda38740
-> > +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > +
-> > +Supported chips:
-> > +  * Infineon TDA38740
-> > +  * Infineon TDA38725
-> > +
-> > +    Prefix: 'tda38740'
-> > +
-> > +    Addresses scanned: -
-> > +
-> > +    Datasheet:
-> > +      https://www.infineon.com/row/public/documents/24/49/infineon-tda=
-38740-tda38725-datasheet-en.pdf
-> > +
-> > +Author: Colin Huang <u8813345@gmail.com>
-> > +
-> > +Description
-> > +-----------
-> > +
-> > +The TDA38740 and TDA38725 are single-output synchronous buck regulator=
-s with a
-> > +PMBus interface. They expose basic voltage, current, power and tempera=
-ture
-> > +telemetry through the standard PMBus hwmon interfaces.
-> > +
-> > +Sysfs entries
-> > +-------------
-> > +
-> > +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D =
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D
-> > +curr1_alarm          Input current alarm
-> > +curr1_input          Measured input current
-> > +curr1_label          "iin"
-> > +
-> > +curr2_crit           Critical maximum output current
-> > +curr2_crit_alarm     Output current critical high alarm
-> > +curr2_input          Measured output current
-> > +curr2_label          "iout"
-> > +
-> > +in1_crit             Critical maximum input voltage
-> > +in1_crit_alarm               Input voltage critical high alarm
-> > +in1_input            Measured input voltage
-> > +in1_label            "vin"
-> > +
-> > +in2_crit             Critical maximum output voltage
-> > +in2_crit_alarm               Output voltage critical high alarm
-> > +in2_input            Measured output voltage
-> > +in2_label            "vout"
-> > +in2_lcrit            Critical minimum output voltage
-> > +in2_lcrit_alarm              Output voltage critical low alarm
-> > +
-> > +power1_alarm         Input power alarm
-> > +power1_input         Measured input power
-> > +power1_label         "pin"
-> > +
-> > +power2_input         Measured output power
-> > +power2_label         "pout"
-> > +
-> > +temp1_crit           Critical high temperature
-> > +temp1_crit_alarm     Chip temperature critical high alarm
-> > +temp1_input          Measured temperature
-> > +temp1_max            Maximum temperature
-> > +temp1_max_alarm              Chip temperature high alarm
-> > +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D =
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D
-> > +
-> > diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
-> > index bcfdc4ce4c10..e4ca80dd0574 100644
-> > --- a/drivers/hwmon/pmbus/Kconfig
-> > +++ b/drivers/hwmon/pmbus/Kconfig
-> > @@ -763,6 +763,15 @@ config SENSORS_TDA38640_REGULATOR
-> >         If you say yes here you get regulator support for Infineon
-> >         TDA38640 as regulator.
-> >
-> > +config SENSORS_TDA38740
-> > +     tristate "Infineon TDA38725/TDA38740"
-> > +     help
-> > +       If you say yes here you get hardware monitoring support for Inf=
-ineon
-> > +       TDA38725 and TDA38740.
-> > +
-> > +       This driver can also be built as a module. If so, the module wi=
-ll
-> > +       be called tda38740.
-> > +
-> >   config SENSORS_TPS25990
-> >       tristate "TI TPS25990"
-> >       help
-> > diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefil=
-e
-> > index e288fe72a437..eb06d47816fd 100644
-> > --- a/drivers/hwmon/pmbus/Makefile
-> > +++ b/drivers/hwmon/pmbus/Makefile
-> > @@ -70,6 +70,7 @@ obj-$(CONFIG_SENSORS_STEF48H28)     +=3D stef48h28.o
-> >   obj-$(CONFIG_SENSORS_SQ24860)       +=3D sq24860.o
-> >   obj-$(CONFIG_SENSORS_STPDDC60)      +=3D stpddc60.o
-> >   obj-$(CONFIG_SENSORS_TDA38640)      +=3D tda38640.o
-> > +obj-$(CONFIG_SENSORS_TDA38740)       +=3D tda38740.o
-> >   obj-$(CONFIG_SENSORS_TPS25990)      +=3D tps25990.o
-> >   obj-$(CONFIG_SENSORS_TPS40422)      +=3D tps40422.o
-> >   obj-$(CONFIG_SENSORS_TPS53679)      +=3D tps53679.o
-> > diff --git a/drivers/hwmon/pmbus/tda38740.c b/drivers/hwmon/pmbus/tda38=
-740.c
-> > new file mode 100644
-> > index 000000000000..6d3e9884f733
-> > --- /dev/null
-> > +++ b/drivers/hwmon/pmbus/tda38740.c
-> > @@ -0,0 +1,94 @@
-> > +// SPDX-License-Identifier: GPL-2.0+
-> > +/*
-> > + * Hardware monitoring driver for Infineon TDA38725/TDA38740
-> > + *
-> > + * Copyright (c) 2023 9elements GmbH
-> > + *
-> > + */
-> > +
-> > +#include <linux/err.h>
-> > +#include <linux/i2c.h>
-> > +#include <linux/init.h>
-> > +#include <linux/kernel.h>
-> > +#include <linux/module.h>
-> > +#include "pmbus.h"
-> > +
-> > +/*
-> > + * TDA38725/TDA38740 only support Linear format for VOUT related comma=
-nds,
-> > + * with exponents in the range of -8 to -12 (see datasheet VOUT_MODE
-> > + * description). Direct format is not supported by this device.
-> > + */
-> > +static int tda38740_identify(struct i2c_client *client,
-> > +                          struct pmbus_driver_info *info)
-> > +{
-> > +     int vout_mode;
-> > +
-> > +     vout_mode =3D pmbus_read_byte_data(client, 0, PMBUS_VOUT_MODE);
-> > +     if (vout_mode < 0 || vout_mode =3D=3D 0xff)
-> > +             return vout_mode < 0 ? vout_mode : -ENODEV;
-> > +
-> > +     if ((vout_mode >> 5) !=3D 0)
-> > +             return -ENODEV;
-> > +
->
-> What is the point of this code ? The PMBus core, in pmbus_identify_common=
-(),
-> already compares the configured mode (info->format[PSC_VOLTAGE_OUT]) with
-> the value in the PMBUS_VOUT_MODE register and bails out if it does not ma=
-tch.
-> The code here just seems to duplicate that. Am I missing something ?
-Hi Guenter,
-  Thanks for your review.
-  Yes, code is duplicating.
-  I will remove this function in next.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] The watchdog is left running on driver unbind without an IRQ handl=
+er, leading to an unhandled interrupt storm.
+- [High] The watchdog timer is left running during system suspend, which wi=
+ll cause spurious wakeups.
+- [Medium] Un-ratelimited dev_err() in the threaded IRQ handler can cause a=
+ log storm and consume 100% of a CPU core if clearing the watchdog flag fai=
+ls.
+--
 
-Best regards,
-Colin Huang
+commit 5bad6cdbd177d2e1690c8afe67f641dfa821a364
+Author: Lakshay Piplani <lakshay.piplani@nxp.com>
+Subject: rtc: pcf85363: add watchdog support with configurable step size
 
-> > +     info->format[PSC_VOLTAGE_OUT] =3D linear;
-> > +
-> > +     return 0;
-> > +}
-> > +
-> > +static struct pmbus_driver_info tda38740_info =3D {
-> > +     .pages =3D 1,
-> > +     .format[PSC_VOLTAGE_IN] =3D linear,
-> > +     .format[PSC_CURRENT_OUT] =3D linear,
-> > +     .format[PSC_CURRENT_IN] =3D linear,
-> > +     .format[PSC_POWER] =3D linear,
-> > +     .format[PSC_TEMPERATURE] =3D linear,
-> > +     .func[0] =3D PMBUS_HAVE_VIN | PMBUS_HAVE_STATUS_INPUT
-> > +         | PMBUS_HAVE_TEMP | PMBUS_HAVE_STATUS_TEMP
-> > +         | PMBUS_HAVE_IIN
-> > +         | PMBUS_HAVE_VOUT | PMBUS_HAVE_STATUS_VOUT
-> > +         | PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_IOUT
-> > +         | PMBUS_HAVE_POUT | PMBUS_HAVE_PIN,
-> > +     .identify =3D tda38740_identify,
-> > +};
-> > +
-> > +static int tda38740_probe(struct i2c_client *client)
-> > +{
-> > +     struct tda38740_data *data;
-> > +
->
-> This definition got lost, and I don't immediately see why it would be
-> needed.
->
-> Thanks,
-> Guenter
->
-Thanks for the review.
-I plan to change it to:
-```
-static int tda38740_probe(struct i2c_client *client)
-{
-return pmbus_do_probe(client, &tda38740_info);
-}
-```
-Best regards,
-Colin Huang
+This commit adds watchdog support to PCF85263/PCF85363 using the watchdog=20
+subsystem. The chip has no reset output, so expiry is only signalled via=20
+the WDF flag routed to INTA as an alarm-only watchdog.
 
+> diff --git a/drivers/rtc/rtc-pcf85363.c b/drivers/rtc/rtc-pcf85363.c
+> index 22661abd9ebb5..aa45d71e6ab58 100644
+> --- a/drivers/rtc/rtc-pcf85363.c
+> +++ b/drivers/rtc/rtc-pcf85363.c
+[ ... ]
+> @@ -512,6 +539,15 @@ static irqreturn_t pcf85363_rtc_handle_irq(int irq, =
+void *dev_id)
+>  		handled =3D true;
+>  	}
+> =20
+> +	if (flags & FLAGS_WDF) {
+> +		dev_warn_ratelimited(&pcf85363->rtc->dev,
+> +				     "watchdog timer expired\n");
+> +		if (pcf85363_clear_flags(pcf85363, FLAGS_WDF))
+> +			dev_err(&pcf85363->rtc->dev,
+> +				"failed to clear watchdog flag\n");
+> +		handled =3D true;
+> +	}
+> +
 
-> > +     data =3D devm_kzalloc(&client->dev, sizeof(*data), GFP_KERNEL);
-> > +     if (!data)
-> > +             return -ENOMEM;
-> > +
-> > +     memcpy(&data->info, &tda38740_info, sizeof(tda38740_info));
-> > +
-> > +     return pmbus_do_probe(client, &data->info);
-> > +}
-> > +
-> > +static const struct i2c_device_id tda38740_id[] =3D {
-> > +     { .name =3D "tda38725"},
-> > +     { .name =3D "tda38740"},
-> > +     {}
-> > +};
-> > +MODULE_DEVICE_TABLE(i2c, tda38740_id);
-> > +
-> > +static const struct of_device_id __maybe_unused tda38740_of_match[] =
-=3D {
-> > +     { .compatible =3D "infineon,tda38725"},
-> > +     { .compatible =3D "infineon,tda38740"},
-> > +     {}
-> > +};
-> > +MODULE_DEVICE_TABLE(of, tda38740_of_match);
-> > +
-> > +static struct i2c_driver tda38740_driver =3D {
-> > +     .driver =3D {
-> > +             .name =3D "tda38740",
-> > +             .of_match_table =3D of_match_ptr(tda38740_of_match),
-> > +     },
-> > +     .probe =3D tda38740_probe,
-> > +     .id_table =3D tda38740_id,
-> > +};
-> > +
-> > +module_i2c_driver(tda38740_driver);
-> > +
-> > +MODULE_DESCRIPTION("PMBus driver for Infineon TDA38725/TDA38740");
-> > +MODULE_LICENSE("GPL");
-> > +MODULE_IMPORT_NS("PMBUS");
-> >
->
+[Severity: Medium]
+If the I2C write inside pcf85363_clear_flags() fails (e.g., due to a=20
+transient bus error), this path prints a non-ratelimited error and=20
+returns IRQ_HANDLED.
+
+Because the physical level-triggered INTA line would remain asserted in=20
+hardware, won't the IRQ immediately re-fire and loop infinitely? Could=20
+this result in a CPU lockup and a log storm from the un-ratelimited=20
+dev_err()?=20
+
+Should the error log be rate-limited, or the interrupt disabled if it=20
+cannot be successfully cleared?
+
+[ ... ]
+> +static int pcf85363_watchdog_init(struct device *dev, struct pcf85363 *p=
+cf85363)
+> +{
+> +	struct pcf85363_watchdog *wd;
+[ ... ]
+> +	watchdog_set_drvdata(&wd->wdd, wd);
+> +
+> +	return devm_watchdog_register_device(dev, &wd->wdd);
+> +}
+
+[Severity: High]
+If a user unbinds the driver via sysfs while the watchdog is running,=20
+will the devm-managed IRQ handler be freed while the hardware watchdog=20
+continues to count down?=20
+
+When the hardware timer subsequently expires and asserts the INTA line,=20
+could this cause an unhandled interrupt storm that disables the shared=20
+IRQ line?=20
+
+Should WDOG_STOP_ON_UNREGISTER be set on the watchdog device, or a=20
+custom devm cleanup action be registered to halt the hardware timer=20
+on unbind?
+
+[Severity: High]
+Does the watchdog timer continue running during system suspend?=20
+
+Since INTA is configured as a system wakeup source earlier in the driver,=20
+if the watchdog is active when the system goes to sleep, won't it=20
+eventually expire and cause an unexpected, spurious system wakeup?=20
+
+Should dev_pm_ops be provided to halt the hardware timer during suspend=20
+and resume it upon waking up?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914092126.3757=
+418-1-lakshay.piplani@nxp.com?part=3D5
