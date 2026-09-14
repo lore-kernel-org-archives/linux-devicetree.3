@@ -1,177 +1,148 @@
-Received: from mail-vs2-f18.google.com (mail-vs2-f18.google.com [74.125.227.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B725941F7D4
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 09:22:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.18
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789377779; cv=pass; b=ukh2bCSQ9UYnm1MwHI9R5hx7krkDG/3Dvse5uHu008gQ3wmuu53Fo+ONGmYCiSouRCGRsHDhaB0KgnO9RbhB5b+BhXsqmaaydfwoe7Ilv3KGW8S8wSi/c3PzKwMGjQKh44vOH9xankAV10CNPQIwcTXXKhghojm3jQMxHqznOMc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789377779; c=relaxed/simple;
-	bh=OQIDM3IadPguqK9CTcDIpxeqUSPP28I07Cp1akqRRk8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nLeYYDx0OXCJf0CB22sNKXytRUZkZb5Q8rimhrFoYPulByUTqoghjY0IaoV+TK5aQwAyO7TH09idEnWlZdboqd+4omkDroKwDMxOGbJsHNQN3jVsHF+UJq+Ik7aRWedZfzmJ8zKJH0HELVrZ+pt3uGbDYUIWUZ1kqDqrZxsI/GE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gN9yXWj2; arc=pass smtp.client-ip=74.125.227.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FEC54334BC
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 09:24:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789377844; cv=none; b=NXM87ZigK1fzrQr6bnZAmnJPjgFNcpC8zskOR2q6ToKSd3KWdY66mclHwE/w2NBQGC1UtV+ZOQ0fXZn0HyV3yqcvc0m5hvgHfFtmUxfD2hDyYyT5LfRjBrytcQ5AfzNKegow3THe5y+zHBSX4jH57wcKVlV8ccbVDBoGJtpDKd4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789377844; c=relaxed/simple;
+	bh=PJCpttXgaFTAAuIppNV/gcSz4Kqn62rNZomfMgasjmI=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=Vvh9maVs0RXQImnxSiV0Jn7mUmMnaOqDgXGE6qVpGI2sLgpsGzLkDlsDjPRRxFo1SRmbbRJdxU0imazGS3UfzhDD29Xhuvq8DxKoVuI7/cPWF07a5u4/bEMxIAqbmvFO/yHH8g3+E4icFqZgXtJSkc2C9W88EYJ1MEURAHBedwc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=eUpC/kwA; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=oYsrdG6F; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gN9yXWj2"
-Received: by mail-vs2-f18.google.com with SMTP id 71dfb90a1353d-5c67e5168ceso699001e0c.3
-        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 02:22:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789377776; cv=none;
-        d=google.com; s=arc-20260327;
-        b=al2ujvAZw5vTDwkhA1U5zidCP4Q28O3aTjv48BAVrGlNxf5XM3BLAfYBDB1KqqVejM
-         8ShQO+7iedZO6E7VplspYcA2Lz6WIjU/+E1e1xzuUICVyUC3G4I+G9MZtdkz02XTdto3
-         64RmgsTvRZLAmPaTQZPwTdMw5zEFxgxbUIDW09PRlOXv1rJSlhzcew4URLR8pSk2Q02l
-         m4hCgoqB5xouPzCu6y5hkcDUnW7vWoxB5C/ik/gfUj/JqRoHD3cOB1hlsvNmD9nHiWEE
-         15az7s28RCIqr7X0X6I9byGjTBcOkSeUzlISmTm3aNarZDY2or0VD6LClqKMCnhCjMmc
-         /mHA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=l+fyavDdNifniiSGc7Q4VRxGCTufa+XKjYswJwqMKYc=;
-        fh=11QH5ZO5b0nsVvdmNTmoCivFF8hyGlUmUf0Xxko+x0E=;
-        b=n3mg1D+4Sl37Y0det71d6D4JVcfBNT//Av9EoDL8/9Rmy6Bqq+uhtMIo1CiVUYAC7g
-         V1j+Nu8gmp3kGpaundTyrlTz2qcyu7RGKP4jSz03eYx0PGh4tQdemDY4QkaGz0Rg6W1u
-         6d226JcnohjlC+9kYMe4u39PTexuA/1d0EC8yZSNcsvZmThf7SH1Z1uP1gMoi/HV2PMt
-         TUqQI54by7BoeBfv3CkPs1LwGnaCYd4HmDUkhU+kmWYGy9ituQu2pl8xrzCiZwtZ9wLb
-         ri/3YpB4OyqNR8aJHnAbMDjLp0kBAXrFXQpJ3tlZOMUD7scQZel+jIVk6Mup+0geJRCy
-         CVVg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="eUpC/kwA";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="oYsrdG6F"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789377838;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Tb/KsUxM9jxkMjSRJHpE7KiQY8ZPLkB6sQ8Hi6kwrEk=;
+	b=eUpC/kwAn0OjkPn05Nx//nzuTxVB20QZ+0khxOVls1OOoeSnFp4D9tWD1qfu4sP5+LsW0r
+	KRw5dmxRZX9jLiixL0oC1DS0lqn3Hs55OR7xDK65SQ45DWh3xTzJDqYzkSnYwgwpXN1FkZ
+	MU81GRbLqWaxpoA2FWj9XNjQld6k5cw=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-58-RonP_6egM92SXSAZn2zo5A-1; Mon, 14 Sep 2026 05:23:56 -0400
+X-MC-Unique: RonP_6egM92SXSAZn2zo5A-1
+X-Mimecast-MFC-AGG-ID: RonP_6egM92SXSAZn2zo5A_1789377836
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-490a767c7dcso24912995e9.2
+        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 02:23:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789377776; x=1789982576; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=l+fyavDdNifniiSGc7Q4VRxGCTufa+XKjYswJwqMKYc=;
-        b=gN9yXWj2NwLeAygJFikNXoAQYCoJ++oqeZ0Y5hC7wNvahvx3+BU6UIP8KB2Wd9G+ha
-         z+ppUR8y4ILjC4GZ+mhAqrXxcFu677LT5zmmzXqdmjjJ5v7PQCTFqPBGgjQUVfBOtHao
-         JqKeeHpxuHbQsGO3UmboepPwIDyzYXHN//94WiD+d9zzbwxgPrCmTyVXEFgF12CzZCrZ
-         eDsDH2CSNepnrpT0GZauLSwYMjN+wTiQo6bt0x9peP01nvXAUEGQE7Wg7ktK841UTmPr
-         3XKTHe8qOpa9lnfhV6DjIS1DQ45n9nRqZzHutlRG1bJZjgnR/+AXmcXORoxq2/kxsiXp
-         iNJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789377776; x=1789982576;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=redhat.com; s=google; t=1789377835; x=1789982635; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=l+fyavDdNifniiSGc7Q4VRxGCTufa+XKjYswJwqMKYc=;
-        b=HWJzxL2BmD/0Xw0DB9QMpv2OjGzRAbwFCcB764NJkcS1PiaLD8qJp6aMLbwyCmu3sp
-         i/cT40eA0JPujPflwM5BIamrwNXoHxHpmoXMgKLF4svz5IJcEcnT70k3ucCi0dkNaTf6
-         WSopepSZDLbhuYyTCsdqMqnCCdgG/mvHX3fPsMWV33hwhbApeEfk1nshUmU0vPUnF8vs
-         sQq724GnvuWztayPR5T4+CjvLd4E5u/OCULfSGMoo4JWACTp0acl4iUPdPacu5c6/dmL
-         TjjS9NunBqWchYhmideGV1PY3QHeFO/qB/Wu5oodjWvLBPFaJl1VWq8oGJEbCUGd7J0b
-         Q6iA==
-X-Forwarded-Encrypted: i=1; AKwUvBwWlyja9Xsls5fsT83zoujiGlJkPTEorW2OUyoDr4lYmoAZNJ5Jpbmk+KNFhkHGph+zIdQRL6EWlcPw@vger.kernel.org
-X-Gm-Message-State: AFuF++nwxqryuq7oOfiP6sUH7spuyz3U5aAm/Q7SjKQDKTdDDREXu+mS
-	G1fjBXi/DPxJsWoPtGI5ijvdxm1Buf+TVYDI3D4JENp5HqqvyrRDql1EiqtrHlarUXUQzUjncBo
-	nylzL2E11iRVl35dlUBjF+b1YeTF+b9I=
-X-Gm-Gg: AYBFou32fMtBzGlLDJfbJz67VfPfoCnT8TjQxXrqEQaWdkzAHJ+EZsx/w0QlQrulO12
-	upt3e+Zq3u7KALT0Nf3hUWHKOf7D5f8/RBjGshmZvYT8F5dQnn/sAvk4tqz8JifEwVObYmQp+PX
-	npB06wOo8C3L/BgUuyzgQ74CeQ49LPlwRZvEBYRKNQXdr1lZHQ2E1Z56kfq70Py6HeDeMo7d9PG
-	7isv18fvTLKWdTzpoXjwpVUMhoX35MjiRQR1u9fa8M5Acl1wxSgIs5WbdHban/gO0xHx/YR3Oi6
-	L6L1uJoZrZ3krfh9+zofUFjEJeK1q1w4c8P0brlSSbVMqwDh+4xQ1jUwBQ==
-X-Received: by 2002:a05:6102:3a0c:b0:790:2ae8:32c3 with SMTP id
- ada2fe7eead31-79b58093728mr573931137.6.1789377776433; Mon, 14 Sep 2026
- 02:22:56 -0700 (PDT)
+        bh=Tb/KsUxM9jxkMjSRJHpE7KiQY8ZPLkB6sQ8Hi6kwrEk=;
+        b=oYsrdG6Fa2kcN1QW3mC4SMRafmaJlaWHFHx8NyuuN73+zAFvY2tPFf7YGXAIVuMaAI
+         TuNAH/9BzAlWVMsrUBltCllDPhOgbHvFBAkMrQbDkzm2hVgPpnxH9oTQid9kARUuwHm5
+         fm968OJObPInV9GSSIwg+hjDhj4ndPu7t4HrlEVXcG2TnbBy+d+jE4ftJ0Z5s7Aqj9WH
+         I6eZOyqa7gnahAmpdKOSSjgyQIhIL24G/K+5BkCdTqOVLOcRiG/PcECYtOPZJu4GEFa3
+         cIGrepfFT0BCydOZlb28oXsTrhlmf3txMq3h/BxZRpwCptWUqZPYDbF+faiW/O2iXgvn
+         ocxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789377835; x=1789982635;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Tb/KsUxM9jxkMjSRJHpE7KiQY8ZPLkB6sQ8Hi6kwrEk=;
+        b=UhMi9YftmffYK3hl7dmNBLM4uxGtti5jQM315eHd+ueUYUotc7caUb1mwuVhh7kiMB
+         cNrbFtVvyb9eqcKEjZMqs70sd2PT0mKkV5shqKaOmwal5eN+zBHor/lvwELTE4mXhj63
+         CSsHOUmzE7RxN4hmXzRFskBT/z64RigJ9coOlYe1EkXP33MWE/EnPbDoeyNXH8KYCAqe
+         obVdkXgm0HC9/GsUvJNuLv+3+I7e6GyVv6JxDpoYs0ySMAKydSu1hQ+b6SHC58cbrYAL
+         7QWEYNyT5ooWIVv6BLU0c2rxz2TpADmT+2xxfiAPo2JTysmrBaEn3eGR0O3A4AZaobeX
+         ssgQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxBbbWsulQYuG8ymheFfWlNTrTv4U1V4OrUaijN6BK80WqPK0qopw9g9yeLtAbgHXuWOWalT0hGXZ5Q@vger.kernel.org
+X-Gm-Message-State: AFuF++kCGDFLoDnoKfjYIxUWPoRl0RJ7hdE4ZK6AH1n+oh1ytel+o9MQ
+	10PA7McQ204Bf4+kZ59j8zNbHVJOvPjYESUWwYVzlnCH3CW0a7TRqDo07FCNgVOP/PstYyZxNiM
+	z7kyMMvZAwPqCjjDtIg0f4DKSBnUTA8HgKXx3jWQ0l+3Q+1y3ZBeNlniHtEZ72UA=
+X-Gm-Gg: AYBFou3XxOgp8joh0DIYNeVkkgxXBKeYcE7JkcnjL7KlOk3JZesK3sTT4/hHmhq+x9C
+	qynUrHCtK5iJNyypZBo+LDLj7VAmKbl6gQnNPOD77SKa+odKcbYjfKNiCUXpLSfEATIHQGUnbEZ
+	x3YmywksA/PNVFN31/hEoAYgG9hWSN26GoABFTOXLhVHMhzcu8M6MEYHNS4CZTa4whKCS9AiQK8
+	vJ4CTbStVnJjwlwDktsQ7tojMI13zPUfnP8971nDgGUm+BnS08ixAI0SK9Go6slNpU5E9ja87Fn
+	6AYramVdug2f10oVN7pvlcGoGklNEgaS371hYzHfjM9fnhY2TQlQQRD5F7tPLT4dMUajiiypuTe
+	wb8VGQ0uexXMTd9JJjQnyPajFwj+Wz9Uf9dWHqRBrCAdsUMPwh088ZGM1kQ==
+X-Received: by 2002:a05:600c:628f:b0:49d:1df6:2592 with SMTP id 5b1f17b1804b1-49e7a66ae3dmr16857995e9.21.1789377835299;
+        Mon, 14 Sep 2026 02:23:55 -0700 (PDT)
+X-Received: by 2002:a05:600c:628f:b0:49d:1df6:2592 with SMTP id 5b1f17b1804b1-49e7a66ae3dmr16857405e9.21.1789377834915;
+        Mon, 14 Sep 2026 02:23:54 -0700 (PDT)
+Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e6576122bsm399519375e9.2.2026.09.14.02.23.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 02:23:54 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Chen-Yu Tsai
+ <wens@kernel.org>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann
+ <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec
+ <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, Liu Ying
+ <victor.liu@nxp.com>, Andrzej Hajda <andrzej.hajda@intel.com>, Neil
+ Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Luca Ceresoli <luca.ceresoli@bootlin.com>, Frank Li
+ <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix
+ Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>,
+ Francesco Dolcini <francesco@dolcini.it>, Philipp Zabel
+ <p.zabel@pengutronix.de>, Chun-Kuang Hu <chunkuang.hu@kernel.org>, Rob
+ Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang
+ <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, Marcus Folkesson
+ <marcus.folkesson@gmail.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Yannick Fertre
+ <yannick.fertre@foss.st.com>, Raphael Gallais-Pou
+ <raphael.gallais-pou@foss.st.com>, Philippe Cornu
+ <philippe.cornu@foss.st.com>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Adrien Grassein <adrien.grassein@gmail.com>, Russell King
+ <linux@armlinux.org.uk>, Simha BN <simhavcs@gmail.com>, CK Hu
+ <ck.hu@mediatek.com>, Jitao shi <jitao.shi@mediatek.com>, Yongxing Mou
+ <yongxing.mou@oss.qualcomm.com>, Abel Vesa <abelvesa@kernel.org>, Chris
+ Morgan <macromorgan@hotmail.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
+ imx@lists.linux.dev, linux-mediatek@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH 1/2] dt-bindings: display: Use consistent indentation in
+ the example
+In-Reply-To: <20260913123331.100293-3-krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260913123331.100293-3-krzysztof.kozlowski@oss.qualcomm.com>
+Date: Mon, 14 Sep 2026 11:23:52 +0200
+Message-ID: <87pkyg1907.fsf@ocarina.mail-host-address-is-not-set>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260910-add-tda38740-and-tda38725-v4-0-dbae7fabce09@gmail.com>
- <20260910-add-tda38740-and-tda38725-v4-1-dbae7fabce09@gmail.com> <20260911-placid-clever-lizard-de1258@quoll>
-In-Reply-To: <20260911-placid-clever-lizard-de1258@quoll>
-From: Colin Huang <u8813345@gmail.com>
-Date: Mon, 14 Sep 2026 17:22:44 +0800
-X-Gm-Features: AcwNN1Vq0GUYmtB80Y3cnrvTLaVxABwghCq2riX6lN5HPRWReqpu9nIst8JoDro
-Message-ID: <CAPBH0A_-fUYsbweGEu8gkUEYNHp=dXxupxW0bqNkKKr2vJH--Q@mail.gmail.com>
-Subject: Re: [PATCH v4 1/2] dt-bindings: hwmon: pmbus: Add Infineon tda38740
- and tda38725
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Colin Huang <colin.huang2@amd.com>, Guenter Roeck <linux@roeck-us.net>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, linux-hwmon@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-doc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 
-Krzysztof Kozlowski <krzk@kernel.org> =E6=96=BC 2026=E5=B9=B49=E6=9C=8811=
-=E6=97=A5=E9=80=B1=E4=BA=94 =E4=B8=8B=E5=8D=884:49=E5=AF=AB=E9=81=93=EF=BC=
-=9A
->
-> On Thu, Sep 10, 2026 at 08:35:50PM +0800, Colin Huang wrote:
-> > From: Colin Huang <u8813345@gmail.com>
-> >
-> > Add devicetree bindings for the Infineon TDA38740 and TDA38725
-> > single-voltage synchronous buck regulators with PMBus interface.
-> >
-> > Signed-off-by: Colin Huang <u8813345@gmail.com>
-> > ---
-> >  .../bindings/hwmon/pmbus/infineon,tda38740.yaml    | 46 ++++++++++++++=
-++++++++
-> >  1 file changed, 46 insertions(+)
-> >
-> > diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/infineon,tda=
-38740.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/infineon,tda3874=
-0.yaml
-> > new file mode 100644
-> > index 000000000000..28eeb85f13df
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/hwmon/pmbus/infineon,tda38740.y=
-aml
-> > @@ -0,0 +1,46 @@
-> > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +
->
-> There is no blank line here. Do not come with own style (like your
-> version 1).
->
-Hi Krzysztof
-  Thanks for review.
-  I will remove this blank line in next rev.
+Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com> writes:
 
+> Correct indentation in the examples to consistent 2- or 4-spaces
+> indentation to fix dt-check-style warnings ("example 0
+> [indent-consistent] indent mismatch ...").  Preferred is 4-spaces, but
+> re-indenting entire example just for that is too much churn.
+>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> ---
+
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+
+-- 
 Best regards,
-Colin Huang
 
-> > +$id: http://devicetree.org/schemas/hwmon/pmbus/infineon,tda38740.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: Infineon TDA38740 and TDA38725 PMBus Synchronous Buck Regulator
-> > +
-> > +maintainers:
-> > +  - Colin Huang <u8813345@gmail.com>
-> > +
-> > +description: |
-> > +  The Infineon TDA38740/TDA38725 is a 40A/25A single-voltage synchrono=
-us
-> > +  buck regulator with a PMBus interface designed for industrial use.
-> > +
-> > +  Datasheet:
-> > +  https://www.infineon.com/row/public/documents/24/49/infineon-tda3874=
-0-tda38725-datasheet-en.pdf
-> > +
-> > +properties:
-> > +  compatible:
-> > +    enum:
-> > +      - infineon,tda38725
-> > +      - infineon,tda38740
->
-> I don't see how you responded to Conor's feedback.
->
-Thanks for remind.
-I have responded Connor's feedback today.
+Javier Martinez Canillas
+Core Platforms
+Red Hat
 
-Best regards,
-Colin Huang
-
-> Best regards,
-> Krzysztof
->
