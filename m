@@ -1,86 +1,68 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACD113F5BDB
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 08:14:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8D2F18A93F
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 08:15:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789373651; cv=none; b=O8AxOfSWvenDylB+QXBugILBAeOnYm8FnDzWZhdg7wgd8LmcNFHmbDwLwcM42lOXBpWTyncZV0WAa74hpIkuqZ+y4kAyzPi9l/FsjYiK78j5ZujYqOcgNJs/DzQ0JrYwk4UhMrl9Y+D0iA5f+1PZAezXthp8byLvJvBtkTjxWi8=
+	t=1789373746; cv=none; b=jCNC42UPcPiDuVa8YCMH0RZujqF6WC42La5lWe8oILlmm3goxsFQg7+E/YRyvSWbtEgYamI6kB/GpDFRVHeQ7xKWuBIg+6rrvlbO46QVrR3C01368HXVhaEbTWFnXVDZFsGUWzU+P13gx2RO4B9oTDr+PTg1Gtp1Bpq5YFwvB/c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789373651; c=relaxed/simple;
-	bh=y5T/F7vrssXPrR0h8cK35gqPOkp5meOnh4qAw5/OTjU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=UCOEzB5+5vbixna5QlIcNMTfhyTUmL8X2yyha0rCw4fiKIeK3nfIvthUT8GAVfh8b2lbHyv8cVKAUA/osVL27ASw3OBsJp8b21NJcOhVSbHTt6uwleeBzeoSbJDxxb1fzvbs0Iq+0uTr5Y20W/tOr1BFbU6YUoV+bLHjPuk0hQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dU8XY3+Q; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Jb6flQ9A; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789373746; c=relaxed/simple;
+	bh=YuXBmvIFB1Et+q+Dd5qvNxVQigDmtR3StCiUh0MdB5E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cgXgNZTsm8Xg6+q9pwQqz8ejvJUaWNajmGn20o2GdimwNP/cysoDrJR0e1MqT7KTnJDU10KDYpLQkHybJz0uF7aQMaEhFYCUwEX9iwOMsvOxDFx1I6hm4zr1AONuLZm2ZI7+UDmf5wHClwU9datraJDi7kRas+Dcs3JO3WlV8hE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PbmZltK0; arc=none smtp.client-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dU8XY3+Q";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Jb6flQ9A"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E5jFpn3842394
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 08:14:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	6slG+PlxKqF6Q98TkEjyPj1ZH9nSMFFefO7QrlI6Ul4=; b=dU8XY3+QUzdnFCrd
-	XDVzW3ItUiB9RsOrZ1WDsqBO+rh3UuBRdhGY4dFeIMNuHRB09bsT4yKHg7d8mH8S
-	IoP0yKe1QhHTyvix+X11/IER18drswGDVcvqUbVvripoKm9ZinF0yBivsBCEWiAZ
-	AL8+ZjQtIAQ8CaSCsy8SuJJAW9nr5Fp7SHjWqcTwhvR9ZzNDL7fMDgedMZQhXuq9
-	B2eRh+4wMsEEBqyWOvbwsGAtmrUrotF4CtH54lTFnze6FiJ4b311mAtecjYH+kBi
-	zSOqCJJfJ/U5F0ddYyuDhab+OIG+TYwoChMyXSptzZz5yyc2zAOKftXoVnuotxzk
-	xTUAlQ==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9c5pa6-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 08:14:08 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-939f4002c1aso35809985a.1
-        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 01:14:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PbmZltK0"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2d715f4a587so42647545ad.2
+        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 01:15:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789373648; x=1789978448; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789373744; x=1789978544; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6slG+PlxKqF6Q98TkEjyPj1ZH9nSMFFefO7QrlI6Ul4=;
-        b=Jb6flQ9AuZ3AGzGREQ/C5vAMrps0GMVSLRbB8/7D7wSogM9hmjafchHm51+UiI4/yl
-         GZ4oe2Ut+FKXmwf8MmNnOE+pLtqpJk+UR/f6tVaskGMMBgdwPvY86om55aFAExcvO67K
-         +uz8Vn6NlX1+blcoIaK0WVrVk19h/m+rsm7+gf5H4LsVJAB3JuPGqEB+raGW+6AFn6Ak
-         WyCRTb3CgI4BL5TRn85Ypkkc33MrwdFT6X3FKcagx6Xg6ctM2/10M2Al1nNdWpx2L6ZA
-         dLS2RAQyhCQAdh8/cxXE2AHzLP82TwZnF88ofhSw2rzaI1DlOL5jxAZJs1bhit3/UPuV
-         n3ig==
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=a+mbYj9gFoY+dF3f91W1Xx4566ofLNjeGKmQ/I7aiac=;
+        b=PbmZltK0MZfEbi8ouIkbmxwzSvsC5A+XQiJftvWZURthCUQw2G5pcYukjzOfaGelPZ
+         w/NJ3baHLBKwqaZ9Jkpo4Sx06GdXMvhKym80qXrXygyyTNH2n4lx3DhOrHYMdtnxUMtd
+         Cbu8v6hQSvF+4iVFfUzlN1yKUeDPe/X4AgbVun1I5JTksno9cnrPCqThragIcZ4NyXE7
+         ZDGoq8FePK/SwmZF4dl+AuL5om7pSnej7i3wHb9hQ0HeNcalEcrWkBxh6wEHYwxRtAQx
+         IPuUhnnj5bkER3jj1pf2XUgP5lDOO3I51VFhl9/XBmj+1w2CH+iS3UF+iZFQ2AshFXTg
+         NCEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789373648; x=1789978448;
+        d=1e100.net; s=20251104; t=1789373744; x=1789978544;
         h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6slG+PlxKqF6Q98TkEjyPj1ZH9nSMFFefO7QrlI6Ul4=;
-        b=bhZx0ynmEyVq+/yu/wHY07w9VhG7BwDZTTu03kLdCB7fHqyggSSyye9TzXWMeZWHHI
-         z1+lW0rhGl1YTAOjP+rkdM0T/sXVp1yNQ23CyZpGvb9TN/8R6QVBMFaZmEyzfKQ04B4Z
-         JXaaGiDYWUWx310bCOClsWYIWtKwCvHM0HxXV0FN7iACwB2Ms6wbkt9FKsr9wl/B+brZ
-         TzBN171QUSEV8lJe/fkWp70hH6zTyu2TnsMtIFAyznXhh/yyYjWJd604MSphuciWGSZu
-         q6N1xzb2n8nNe3lukRFrT+BB2SXBB9wSu3CDpkLhsO6C9wivEy6vjtf//CkV7/pCABt7
-         gTiQ==
-X-Forwarded-Encrypted: i=1; AKwUvByMKqepiSNdz4DS308bLUbg2AV1qYa0oeRvbJWUs/bgYb/6S6ZGOBz44JABLrYpSJ1eou4SLf6rqNfD@vger.kernel.org
-X-Gm-Message-State: AFuF++kIskq1zrWO6UuhZnXXFieMGlgHZ56R3dZp+0y+MyJMOPsl8XZb
-	gSWoOG6/+380RhXuqwQieIYa/MkLgy8kiGimc50CCmcA0vrq7II4kqZ5KEKOB/TSA4eFJgMwzmi
-	GKY7rrZL1yrS3Ed6grYcRcxSFZgfFJTu2FE79HaI7WTj61iBUoy8xNgwWypzjSR8U
-X-Gm-Gg: AYBFou2+1qmj0nXoE2W2pK4uMrmjDPCt004IVlEVq663gOi9kglCGBBXnAy9O2xkRL5
-	u7O9YvTb5l5/ToRcKPj1rFWyb6DQcY7vQmZYdnS0dypLL5ZG3aY/pq/VQRZpkecuewEdp1j1pqs
-	JjcGOO2+s431TyEhOLMTOHcVW3ogCeqxSCFJDI4RMjIwe/TFfymDCYaTRJ0T0WtPuOheQXQftmT
-	6NjgEmR+sNtHtCbakqqaqgOGMRaFIx9NwM6T574dm7uccWy469LwaDzSJWiA4TFie+su3JkxQZ+
-	Ct2mJdudG1DcdPOJuOhA1fWm1O2LRZHEidOKYKIqymD5V3a26YB3RVUURZt3szhS34y1QBKH5Fr
-	E33Rx/+GzRKXqHUOva69u2g==
-X-Received: by 2002:a05:620a:288d:b0:939:94c4:b799 with SMTP id af79cd13be357-93a29cc315fmr167361385a.5.1789373647752;
-        Mon, 14 Sep 2026 01:14:07 -0700 (PDT)
-X-Received: by 2002:a05:620a:288d:b0:939:94c4:b799 with SMTP id af79cd13be357-93a29cc315fmr167359285a.5.1789373647409;
-        Mon, 14 Sep 2026 01:14:07 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2965c4e1ffsm376092166b.7.2026.09.14.01.14.05
+        bh=a+mbYj9gFoY+dF3f91W1Xx4566ofLNjeGKmQ/I7aiac=;
+        b=X9ZgB23uMmAOTLG+1Rxrjw5rSIKv5GD0YhBNMu3zPbPvXaw2fd0aGsM/fHaFwBgwBr
+         br7tS6V9ZrWmrnclkn6bsOKgZruYEcYglU+tHMizBhgqIux6Spb30jCnAR69Zgd0rKs3
+         mUNYYpQm5CLNpIPf2lt9hD9+vGmFqJpVR4vCwGuQr6pYUCKVZ1PQxUGLleKo9+3mAh0i
+         rhoKFHf5wI8hyCGhZxqcdZYh3vaVWbYVFoUGN2JE9t7xPKt0Izd6uWVKoA5d97tIN/L7
+         3tskO+hJTHFnhRKp+bV6tuZd6hSjSXZy6h5FxP1b2OII5c+TVbFh4IjciNR+3+rjv6qf
+         edmw==
+X-Forwarded-Encrypted: i=1; AKwUvByEYbVEJ7CjXUij0UY3rMlBuj6I43Uqba/i3R+cEW8nqaFZHeek33iDuLket2xozq0B5gB3eh3av6q8@vger.kernel.org
+X-Gm-Message-State: AFuF++ms2LjBYLmLfPY5xyxnd/zz77ADjHRXBpagqJ46dG+klh+vDgpu
+	y7PKNYzv0kk7vzmleRqm31H886b90HKAm2ZJkIG9FdgH6aw0E3Ud8jaR
+X-Gm-Gg: AYBFou3d7YWxCS3lE5tsl8g/DAJ1cAdNdbAK2JNw5J8xzVrIl6eBNLGGwsWH5iHp63f
+	DD/qjbWEqCg1INvXXQhKxMfGqp03wkNmrHBtsG5eU3zPKepR6plZqi9rD5y+nGXyFUkzVKGsSPy
+	koGwDjaEmJjP3i4JmHV59qi5JzSDFHDOR1pj6GaPdFg3C487tHDqL0AjDCu/D7XCEodqBx/KOAR
+	MLqjcpUtyVU/blk6Oo1KWuDeO+QelqD9AnpUNerw7KXvxvsK+/DRhBmbHiXiy0V7ZVTgUxKs2Sz
+	j7125xpxaz+0CXueR1Kvcq+YN4rZ6kG6xzPvtbRmAg8J77ZKdqcWfVnT3yXA/pJ6tj1QKtlkJzU
+	gNrxvvuD2jco7FcnmMjFrOCbS08/LcFcZs0hS08jH9x52NbbaQY9T5NK3M56xbwX9RtAOjwgCoJ
+	7Y4QK/4aJ+PuUb5cpVlzoxacKgldOuEXOkRuTnb6W3OhUIKNQNg+bTPjbO+lisfZAa89al9igf/
+	0Ol2nHvb3E1Aap3dxDhpAP3jBN45Fpxv5uuVmY3Jo3Ba5iUfXsevXr8Q16ECleFOQ==
+X-Received: by 2002:a17:902:e744:b0:2bf:dd0:c8b1 with SMTP id d9443c01a7336-2dd6c4835d0mr31756845ad.0.1789373744241;
+        Mon, 14 Sep 2026 01:15:44 -0700 (PDT)
+Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cec8483sm44238255ad.44.2026.09.14.01.15.38
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 01:14:06 -0700 (PDT)
-Message-ID: <a66a9afe-f649-44f8-ab13-06455f95ccec@oss.qualcomm.com>
-Date: Mon, 14 Sep 2026 10:14:04 +0200
+        Mon, 14 Sep 2026 01:15:42 -0700 (PDT)
+Message-ID: <2fd1f320-05a8-4782-8134-157c50024adb@gmail.com>
+Date: Mon, 14 Sep 2026 16:15:37 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -88,60 +70,210 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: Correct inconsistent indentation
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260913141440.177169-2-krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v6 1/6] dt-bindings: display: verisilicon,dc: add support
+ for nuvoton,ma35d1-dcu
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260908092840.225220-1-a0987203069@gmail.com>
+ <20260908092840.225220-2-a0987203069@gmail.com>
+ <f74168b54fe8f070b7cfe79dc2fc83a63c2e8842.camel@iscas.ac.cn>
+ <9d697240-3632-401f-aeba-c1fa5c2a29d4@gmail.com>
+ <14f7fdf36a25b9669145b766becc6f32ef205320.camel@iscas.ac.cn>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260913141440.177169-2-krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: S29rH775Aws4IqKnZYD6uByD1JFIH6pN
-X-Proofpoint-GUID: S29rH775Aws4IqKnZYD6uByD1JFIH6pN
-X-Authority-Analysis: v=2.4 cv=c5Y+0h9l c=1 sm=1 tr=0 ts=6aa7acd0 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=tPLuR_csD6jfBswSsDEA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDExNiBTYWx0ZWRfX63rTPioEzD84
- zfrE1eRWIGn0zfsJurcY+kZfdI6u4XrB1tQCv+CR1qLCG7WT9laPC0HV2q+tkhuEoRs8BsEfd4u
- iXVYeZ6F/rZR+IWnQ6ZwPBv7T+RHnt6Xj9vfz2USjqwwUatMhHI6cvFtOOLBSC5wyQ3Di9VIrua
- B989Vhy4tH6hDdtnjP0p8qXiEuHg20i4oyfi8I1V4SxkIyBF49/jT1DFLYkfyFcys8oeGub1cA2
- Cwp0u04CWWMhU16VB2azWIMDQiz6DjH75c7xswZ+5g2rAVydDv4G3U6WGdesUh1uK3NV3a8yjoM
- 9CVy3vRDTw47U2WX2ntMmTD9CLQ32C9eRnvkN0woKg6BK827z0l9+MxJmoRuBVCUlSKgBz6rZUc
- W0PoeT6k6v+LC9C1hy7Dqcz1saOXPgdC1bkfzaqvVd5IzNPcFLkb/HOE2OyhG1LrVXRGaq1hYiW
- 91ZSw+Oo7SnRA8oSDZw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDExNiBTYWx0ZWRfX+cFwONkqKqkM
- oJ6QRm4o48nazUmZh1pZj4E1YQspXiMrBr60EvG3T+qrKxsu6PcG+FjL+qgG5TKwlozqX555ix7
- AXf084TYTNHIZV5ctwD3f4Db0HiK1Q0=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-14_02,2026-09-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0 bulkscore=0
- impostorscore=0 suspectscore=0 malwarescore=0 phishscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140116
+From: Joey Lu <a0987203069@gmail.com>
+In-Reply-To: <14f7fdf36a25b9669145b766becc6f32ef205320.camel@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 9/13/26 4:14 PM, Krzysztof Kozlowski wrote:
-> Fixup mis-indentation, e.g. spaces or tabs mixed with spaces, to fix
-> dt-check-style warnings like:
-> 
->   talos-evk.dts:39: [indent-consistent] indent mismatch (expected depth 4 * '\t')
-> 
-> No functional change.
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> ---
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-
-Konrad
+Icenowy Zheng 於 2026/9/10 下午 03:08 寫道:
+> 在 2026-09-10四的 09:52 +0800，Joey Lu写道：
+>> Icenowy Zheng 於 2026/9/9 下午 01:44 寫道:
+>>> 在 2026-09-08二的 17:28 +0800，Joey Lu写道：
+>>>> Add the Nuvoton MA35D1 DCUltraLite (nuvoton,ma35d1-dcu) to the
+>>>> binding.
+>>>> The DCUltraLite uses only four clocks (core, axi, ahb, pix0) and
+>>>> one
+>>>> reset (core), with a single output port.
+>>>>
+>>>> The MA35D1 clock controller gates the core, AXI and AHB clocks
+>>>> with a
+>>>> single bit, but each remains a distinct clock line feeding the IP
+>>>> with
+>>>> its own rate constraints, so all four must still be listed
+>>>> individually
+>>>> in the devicetree; core, axi and ahb happen to share the same
+>>>> clock
+>>>> phandle.
+>>> This is weird, but I must admit that we're limited by the Common
+>>> Clock
+>>> Framework here, so I cannot give a better solution either.
+>>>
+>>> Anyway let's settle with the current result.
+>>>
+>>>> Move the clocks/clock-names minItems to 4 and resets/reset-names
+>>>> minItems to 1 at the top level, since that is the lowest count
+>>>> any
+>>>> supported variant needs.  Add an allOf/if block that tightens the
+>>>> constraint back up to the fixed 5-clock/3-reset topology required
+>>>> by
+>>>> the existing thead,th1520-dc8200 compatible, and another one that
+>>>> caps
+>>>> the new nuvoton,ma35d1-dcu compatible at the 4-clock/1-reset
+>>>> count it
+>>>> actually wires up.
+>>>>
+>>>> Signed-off-by: Joey Lu <a0987203069@gmail.com>
+>>>> ---
+>>>>    .../bindings/display/verisilicon,dc.yaml      | 44
+>>>> +++++++++++++++++++
+>>>>    1 file changed, 44 insertions(+)
+>>>>
+>>>> diff --git
+>>>> a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+>>>> b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+>>>> index 919a900122012..773966677d0f4 100644
+>>>> ---
+>>>> a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+>>>> +++
+>>>> b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+>>>> @@ -17,6 +17,7 @@ properties:
+>>>>        items:
+>>>>          - enum:
+>>>>              - thead,th1520-dc8200
+>>>> +          - nuvoton,ma35d1-dcu
+>>>>          - const: verisilicon,dc # DC IPs have discoverable
+>>>> ID/revision
+>>>> registers
+>>>>    
+>>>>      reg:
+>>>> @@ -26,6 +27,7 @@ properties:
+>>>>        maxItems: 1
+>>>>    
+>>>>      clocks:
+>>>> +    minItems: 4
+>>>>        items:
+>>>>          - description: DC Core clock
+>>>>          - description: DMA AXI bus clock
+>>>> @@ -34,6 +36,7 @@ properties:
+>>>>          - description: Pixel clock of output 1
+>>>>    
+>>>>      clock-names:
+>>>> +    minItems: 4
+>>>>        items:
+>>>>          - const: core
+>>>>          - const: axi
+>>>> @@ -42,12 +45,14 @@ properties:
+>>>>          - const: pix1
+>>>>    
+>>>>      resets:
+>>>> +    minItems: 1
+>>>>        items:
+>>>>          - description: DC Core reset
+>>>>          - description: DMA AXI bus reset
+>>>>          - description: Configuration AHB bus reset
+>>>>    
+>>>>      reset-names:
+>>>> +    minItems: 1
+>>>>        items:
+>>>>          - const: core
+>>>>          - const: axi
+>>>> @@ -79,6 +84,45 @@ required:
+>>>>      - reset-names
+>>>>      - ports
+>>>>    
+>>>> +allOf:
+>>>> +  - if:
+>>>> +      properties:
+>>>> +        compatible:
+>>>> +          contains:
+>>>> +            const: thead,th1520-dc8200
+>>>> +    then:
+>>>> +      properties:
+>>>> +        clocks:
+>>>> +          minItems: 5
+>>>> +
+>>>> +        clock-names:
+>>>> +          minItems: 5
+>>>> +
+>>>> +        resets:
+>>>> +          minItems: 3
+>>>> +
+>>>> +        reset-names:
+>>>> +          minItems: 3
+>>>> +
+>>>> +  - if:
+>>>> +      properties:
+>>>> +        compatible:
+>>>> +          contains:
+>>>> +            const: nuvoton,ma35d1-dcu
+>>>> +    then:
+>>>> +      properties:
+>>>> +        clocks:
+>>>> +          maxItems: 4
+>>>> +
+>>>> +        clock-names:
+>>>> +          maxItems: 4
+>>>> +
+>>>> +        resets:
+>>>> +          maxItems: 1
+>>>> +
+>>>> +        reset-names:
+>>>> +          maxItems: 1
+>>> Maybe it's reasonable to restrict max port count to 1 for MA35D1?
+>>> Although I am not sure about how to do this...
+>>>
+>>> Thanks,
+>>> Icenowy
+>>    I found the same kind of per-compatible port restriction already
+>> used
+>> upstream in renesas,du.yaml, e.g.:
+>>
+>>           ports:
+>>             properties:
+>>               port@2: false
+>>               port@3: false
+>>             required:
+>>               - port@0
+>>               - port@1
+>>
+>> Applied to our binding, that would look like:
+>>
+>>           ports:
+>>             properties:
+>>               port@1: false
+>>             required:
+>>               - port@0
+>>
+>> in the existing nuvoton,ma35d1-dcu allOf/if/then block, so schema
+>> checks
+>> would reject a port@1 node on this compatible instead of silently
+>> accepting it.
+>>
+>> Happy to add it if you'd like the schema to enforce this, but wanted
+>> to
+>> check whether you consider it worth the extra lines given it doesn't
+>> reflect an actual bug in any DT today. Let me know which way you'd
+>> prefer and I'll fold it into the next version.
+> Personally I think this is good, but maybe adding it as an additional
+> patch after merging isn't a big problem, because this just plays as
+> kind of a safety guard.
+>
+> Well this depends on how DT binding maintainers think, but as Conor has
+> dropped his Ack, this shouldn't be a big issue.
+>
+> Thanks,
+> Icenowy
+I'll send the port@1: false restriction as a follow-up patch once this 
+series lands.
+Thanks!
+>> Thanks.
+>>>> +
+>>>>    additionalProperties: false
+>>>>    
+>>>>    examples:
