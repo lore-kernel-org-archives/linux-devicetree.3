@@ -1,123 +1,236 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5492B38F92F;
-	Mon, 14 Sep 2026 06:14:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 514D33E1D02;
+	Mon, 14 Sep 2026 06:27:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789366490; cv=none; b=BC1RnIAlE+iTyRvgepK8AT7CPRHkYa1faTCZGIFm2SShXdFtjLMaF9AFNa1h12CIzil2yNp6zJypkjHGnYyPVxAgLNUvZRP9Kv8KMVBLydilA8A4FinykZe6ybE4EBbvsTQQ7Z2WTbU65PsHO964XUxgDClVdkOJepwoXsCsJ+g=
+	t=1789367263; cv=none; b=K3Xojp0sxURfS8yQITD/D86+e9qovCa4E4D/LNsAxHAoXLqizbErBzg+jWx55DqNCX6sUbATJWGgkqHOZygmbrXIejSlHb6VohEDvq9I1y0kI84yh54bFOz3EZgDzraSxTJjxtvW0qTskyv2PIG6INHc5qt4fUKmlBEcmgFOSoY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789366490; c=relaxed/simple;
-	bh=R6nNQ2Vf3r2xxYZfLTkQqd4XV0kVoSqb6az1vwGIgqs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=O2o/F80qz46WC8bAhXIohLCXOY901pArQ1YoWBT2cMBIOTowWZvcoQt66/HRDNm60aGUO8vQw40iM5R6SsE/p5V+ZxKIhydwviej4Y0pS7LLNF0kH6wX1sTzv5jeeWlSCBgLUxAkGrkzLO959Px81eU1UO9g5DMI3WNNEMiVGec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FX6T44Mu; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FX6T44Mu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0A941F000FF;
-	Mon, 14 Sep 2026 06:14:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789366488;
-	bh=hsHhEwjRelMETV0SOSf9KM5LnIitGPECDLvB3vxb5yA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=FX6T44MuMh0nTRbs4ySaFJnbQR3lMxOJaFLksI5P5+PBRsfxXqlfFvNPeA/e1mYlw
-	 zutMD+ojdaDnzTH3S+5d3Ojvm6YWHIE/q45H1k6p5OyxcAIuv5cov2+30+O0r6QEto
-	 MhNRKR4bFwTyxokCFPrre33KaP27bwKG0wdCreQgo197U/qoSfj7VtDkvDDDCSWDcT
-	 IMhy8P2nyWpLhPy9mxRasd8GSPlM4vkVA2fK5D9g8RTCt/eK3j/xNsQAEi1R12Ht4D
-	 HsiKFdxKE6WKe2sDHsxzTlcJk47MeP1rPC8oMQ4i1CzDdEx4x1KTaELmyAp0k0DIxc
-	 tAHBIvdetvqJQ==
-Message-ID: <f0ae73cf-ac0c-4400-a805-21f1db32b5ff@kernel.org>
-Date: Mon, 14 Sep 2026 08:14:42 +0200
+	s=arc-20240116; t=1789367263; c=relaxed/simple;
+	bh=D56GPCGahKLDuXttiSiC3Exxa+dmfpPG4N2rp8tO3zw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=AMu2feQDyNQ+NngL/F+Hg+8ZBABryHBpO9W3u7jKiCXT+np4ce/4K4s2uJ8TKiThzp7LKULUoZ4i0SWc+1J1684Op8CFCYNG9e0TpN/1urfQ8q52qjcErPKaM5nc0xMRKjaShkXd4zhkZ62aYG0KgVPS9DPqhYx3YrkSvHHe8sk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; arc=none smtp.client-ip=92.121.34.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+Received: from inva021.nxp.com (localhost [127.0.0.1])
+	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 53379200201;
+	Mon, 14 Sep 2026 08:20:59 +0200 (CEST)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 1CA9F200209;
+	Mon, 14 Sep 2026 08:20:59 +0200 (CEST)
+Received: from lsv03900.swis.in-blr01.nxp.com (lsv03900.swis.in-blr01.nxp.com [10.12.177.15])
+	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id D84341800068;
+	Mon, 14 Sep 2026 14:20:57 +0800 (+08)
+From: Lakshay Piplani <lakshay.piplani@nxp.com>
+To: alexandre.belloni@bootlin.com,
+	linux-rtc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org
+Cc: pankit.garg@nxp.com,
+	vikash.bansal@nxp.com,
+	priyanka.jain@nxp.com,
+	Lakshay Piplani <lakshay.piplani@nxp.com>,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v9 1/2] dt-bindings: rtc: Add pcf85053 support
+Date: Mon, 14 Sep 2026 11:50:47 +0530
+Message-Id: <20260914062048.3704059-1-lakshay.piplani@nxp.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] regulator: mpq4210: Use the -ohms feedback divider
- property
-To: Tapio Reijonen <tapio.reijonen@vaisala.com>,
- Saravanan Sekar <sravanhome@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260913-mpq4210-ohms-fixup-v1-0-dcff627001ff@vaisala.com>
- <20260913-mpq4210-ohms-fixup-v1-2-dcff627001ff@vaisala.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260913-mpq4210-ohms-fixup-v1-2-dcff627001ff@vaisala.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: ClamAV using ClamSMTP
 
-On 13/09/2026 13:40, Tapio Reijonen wrote:
-> Follow the binding rename of mps,fb-voltage-divider to
-> mps,fb-voltage-divider-ohms.
-> 
-> The old name was never in a release and this driver is its only reader,
-> so it is dropped rather than kept as a fallback.
-> 
-> Fixes: 61879d561e91 ("regulator: Add MPS MPQ4210 buck-boost regulator driver")
-> Suggested-by: Krzysztof Kozlowski <krzk@kernel.org>
-> Link: https://lore.kernel.org/r/20260911-gaur-of-satisfying-action-1a3b0f@quoll
-> Signed-off-by: Tapio Reijonen <tapio.reijonen@vaisala.com>
-> ---
->  drivers/regulator/mpq4210.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/regulator/mpq4210.c b/drivers/regulator/mpq4210.c
-> index 227136d8225805a759d2d6545637858ea7122b89..315f8e02ff2a117e37b32f8a128c9e0feacfac74 100644
-> --- a/drivers/regulator/mpq4210.c
-> +++ b/drivers/regulator/mpq4210.c
-> @@ -144,11 +144,12 @@ static int mpq4210_i2c_probe(struct i2c_client *client)
->  	u32 r[2];
->  	int ret;
+Add device tree bindings for NXP PCF85053 RTC chip.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Pankit Garg <pankit.garg@nxp.com>
+Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
+Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+---
+V8 -> V9: - Document optional CLKOUT clock provider and add it to the example.
+	  - Disallow interrupts and nxp,write-access on the secondary interface.
+	  - Describe the alarm interrupt as active-low level triggered.
+	  - Use 'const' for the single compatible string.
+V7 -> V8: - Use 'unevaluatedProperties: false' instead of 'additionalProperties:
+	    false'.
+	  - Fix typo in 'nxp,interface' description ("ready only" -> "read only").
+V6 -> V7: - no changes
+	  - Added Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+V5 -> V6: - Dropped driver-specific commentary from property descriptions.
+	  - Simplified and clarified descriptions for better readability.
+V4 -> V5: - Updated schema validation logic to enforce correct combinations of
+            'nxp,interface' and 'nxp,write-access' using oneOf clauses.
+          - Refined property descriptions for clarity and hardware alignment.
+V3 -> V4: Add dedicated nxp,pcf85053.yaml.
+          Remove entry from trivial-rtc.yaml.
+V2 -> V3: Moved MAINTAINERS file changes to the driver patch
+V1 -> V2: Handled dt-bindings by trivial-rtc.yaml
 
-Best regards,
-Krzysztof
+ .../devicetree/bindings/rtc/nxp,pcf85053.yaml | 129 ++++++++++++++++++
+ MAINTAINERS                                   |   7 +
+ 2 files changed, 136 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/rtc/nxp,pcf85053.yaml
+
+diff --git a/Documentation/devicetree/bindings/rtc/nxp,pcf85053.yaml b/Documentation/devicetree/bindings/rtc/nxp,pcf85053.yaml
+new file mode 100644
+index 000000000000..1a5dbe7f02d3
+--- /dev/null
++++ b/Documentation/devicetree/bindings/rtc/nxp,pcf85053.yaml
+@@ -0,0 +1,129 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++# Copyright 2025-2026 NXP
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/rtc/nxp,pcf85053.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: NXP PCF85053 Real Time Clock
++
++maintainers:
++  - Pankit Garg <pankit.garg@nxp.com>
++  - Lakshay Piplani <lakshay.piplani@nxp.com>
++
++properties:
++  compatible:
++    const: nxp,pcf85053
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  "#clock-cells":
++    const: 0
++    description: |
++      Present when the CLKOUT pin is exposed as a clock provider. In a
++      dual-host configuration, only one PCF85053 interface node should
++      expose CLKOUT as a clock provider.
++
++  clock-output-names:
++    maxItems: 1
++
++  nxp,interface:
++    $ref: /schemas/types.yaml#/definitions/string
++    enum: [ primary, secondary ]
++    description: |
++      Identifies this host's logical role in a multi-host topology for the
++      PCF85053 RTC. The device exposes a "TWO" ownership bit in the CTRL
++      register that gates which host may write the time registers.
++        - "primary": Designated host that *may* claim write ownership (set
++          CTRL.TWO=1) **if** write-access is explicitly requested.
++        - "secondary": Peer host that writes only when CTRL.TWO=0 (default).
++
++      This property determines the intended role of the host in relation to
++      the write ownership.
++
++      The actual role depends on whether 'nxp,write-access' is also specified.
++      Supported configurations are:
++        1. Primary with 'nxp,write-access' -> primary claims write ownership.
++        2. Primary without 'nxp,write-access' -> secondary owns time-register writes.
++        3. Secondary (must not specify 'nxp,write-access') -> secondary may write
++           the time registers when CTRL.TWO=0.
++
++  nxp,write-access:
++    type: boolean
++    description: |
++      Indicates that write ownership of the PCF85053 RTC should be claimed by setting
++      CTRL.TWO=1. This property is only valid when acting as the primary interface
++      (nxp,interface="primary").
++
++required:
++  - compatible
++  - reg
++  - nxp,interface
++
++unevaluatedProperties: false
++
++allOf:
++  - $ref: rtc.yaml#
++  - if:
++      properties:
++        nxp,interface:
++          const: secondary
++    then:
++      properties:
++        # The secondary interface has read-only access to the control and
++        # status registers, so it cannot service or clear the alarm IRQ and
++        # cannot claim write ownership.
++        interrupts: false
++        nxp,write-access: false
++
++examples:
++  # Single host example.
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++    i2c {
++      #address-cells = <1>;
++      #size-cells = <0>;
++
++      rtc@6f {
++        compatible = "nxp,pcf85053";
++        reg = <0x6f>;
++        nxp,interface = "primary";
++        nxp,write-access;
++        #clock-cells = <0>;
++        clock-output-names = "pcf85053-clkout";
++        interrupt-parent = <&gpio2>;
++        interrupts = <3 IRQ_TYPE_LEVEL_LOW>;
++      };
++    };
++
++  # Dual-host example: one primary that claims writes; one secondary that never claims writes.
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++    i2c0 {
++      #address-cells = <1>;
++      #size-cells = <0>;
++
++      rtc@6f {
++        compatible = "nxp,pcf85053";
++        reg = <0x6f>;
++        nxp,interface = "primary";
++        nxp,write-access;
++        interrupt-parent = <&gpio2>;
++        interrupts = <3 IRQ_TYPE_LEVEL_LOW>;
++      };
++    };
++
++    i2c1 {
++      #address-cells = <1>;
++      #size-cells = <0>;
++
++      rtc@6f {
++        compatible = "nxp,pcf85053";
++        reg = <0x6f>;
++        nxp,interface = "secondary";
++      };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 3a19da74d00c..01b4f7157f36 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -19793,6 +19793,13 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/extcon/extcon-ptn5150.yaml
+ F:	drivers/extcon/extcon-ptn5150.c
+ 
++NXP RTC PCF85053 DRIVER
++M:	Pankit Garg <pankit.garg@nxp.com>
++M:	Lakshay Piplani <lakshay.piplani@nxp.com>
++L:	linux-rtc@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/rtc/nxp,pcf85053.yaml
++
+ NXP SGTL5000 DRIVER
+ M:	Fabio Estevam <festevam@gmail.com>
+ L:	linux-sound@vger.kernel.org
+-- 
+2.25.1
+
