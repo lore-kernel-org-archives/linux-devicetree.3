@@ -1,520 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F157477984;
-	Mon, 14 Sep 2026 13:56:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99444455621
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 13:56:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789394167; cv=none; b=nL8RlfSYeB7w6eQw/SfhK4rETltQNzGvPT3Ksw2obgxfjwJ/D6ivI6kI/ti55ge/1J1VKQlfDlOLbSd4V3SNc+iCJ7ywcavjtLTMJCvTiHMs941OsHBsnycPPBw2BPLbAOebbpMQB5UcOcBU4YPO0eZuMYmochZ84yWXAcwdw0E=
+	t=1789394215; cv=none; b=LuHhL0Mb1eGrCqcY9fBjBrC4x9Mw2NEMF+diBEq5trWQEgvafvUdH2w7xSPfFQuYSdiggVBtDp8UotDBzu/GGDD3luoIIOivDhcU1ZXxZd5ho3xWY1g7x/OJFeYIQvJasJEPdHWPsHVLUOajz+U6g4QZ4WIo1mAGCsmHqjH8Fbs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789394167; c=relaxed/simple;
-	bh=TI6Y15jK2WMpO29t4KxW6iYgnJvRaN1hre64+unrls0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=NFettpG5ire7xXNOG6zAALxMrHOSWXMSDn8L8syqWJaMz/imOAVgCHqduClq/dM+vRQHdCWoQF5NkEGfMk7GMue1MlfKDpc5g4yNdOgpt9+PO/MTcw47ZltQtFqgJG3tGM6gr3MjpB2uFSBP2OwQnjuF964qDN1/JUyB4TetmR8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SWCAcz+b; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789394215; c=relaxed/simple;
+	bh=M+6skgex2LbjIffcqUB493F4H69t33R9/Nvqv1Ylk1U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MohQXOERw61xwsRQHlP43hc8xAbnuSs/R3V62MNuhbT7Ui9+UPcdZcS/qY0w8OtKeXGNqzl9BmI3Y0GvZ7LnF5a5hy4mvGkO091KWn+SSO6qjcHm9AB2fecUzAy6RwB1YplyK8kxJD+Ai8JsMkgE3Rep7MEtEFZ7/jQ6J1fZ/bg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hMV/ZtK3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hRjBlqhS; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SWCAcz+b"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 244AAC2BCB8;
-	Mon, 14 Sep 2026 13:56:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789394167;
-	bh=TI6Y15jK2WMpO29t4KxW6iYgnJvRaN1hre64+unrls0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=SWCAcz+bE6QBe1jss6bpNT9GHXXM7uGMMa6CvNsGzvYFRKGoWhEgCQMdxHInnpC1c
-	 z8ug/Dq41gwk93CcT1TvhsTlNFmuJoQ7UrnenEeZL58U34uertlOI6MFSB4sHFsD5q
-	 BJHzRs8Wo+Y8YvA/zy8Yw43pyV9bxO9wCWf4hcdl5tNtYxVy3U6DjpK0MEi960B7/k
-	 G0qkCcog3zC1XXv8vMEaqWmr+EpoIl/rA6AltAgsHSi1hRxYreQu3dCk2/lu+JJdlq
-	 2pe+OZHMhcHrh2OnUHWcCBe2WI+rFQKZI8ph9TtKSU47S02ms4MKimEFG710hHX6HB
-	 VEjeiKkB8TV6Q==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 06997C88E72;
-	Mon, 14 Sep 2026 13:56:07 +0000 (UTC)
-From: Aleksa Paunovic via B4 Relay <devnull+aleksa.paunovic.htecgroup.com@kernel.org>
-Date: Mon, 14 Sep 2026 15:55:56 +0200
-Subject: [PATCH 8/9] riscv: dts: gf: Initial support for the P8700 Boston
- board
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hMV/ZtK3";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hRjBlqhS"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68ED0UJi510998
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 13:56:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=yQZu//0K1s9pcLymof9rDsgR
+	75pGuXjqO8YGkCYwTZE=; b=hMV/ZtK3+GXgbYpoksDHzpZSkIsTOaqBgOmBbUzi
+	0LSxipFA+Eoo+Pdwx+o1SbgPTx06vSoQDVFAJWamlLrBw+uwNVh75jwX1sRlWS/e
+	uK8l2sEy3QhFcg56tJEfx0MGDVtFLZxL/8jfcETogCVm8ADj+1Vvs3ksW3gyim6S
+	0IFemGHV+e+aF7+Q/1epZDeiebsM3igtat+K9V3AU2rOG8rjLLDdZ5ooft7q8pW4
+	nu0gbnVz8PmkzAwDZnUDTufBQPZlVaWexPSmZEt+x1/26Gd7rDZIV12jSfGQGkg0
+	Zj2ZfdJHyOkWEiMcc1+hNqanxWGoY9IVt91ETgnK7NOUCQ==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpgvtgay6-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 13:56:52 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93a05d645acso462742085a.2
+        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 06:56:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789394212; x=1789999012; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yQZu//0K1s9pcLymof9rDsgR75pGuXjqO8YGkCYwTZE=;
+        b=hRjBlqhSF9TeN6Wm/MpUM/N/DNXiPPLyEqPx/+P/3WDswDHBJnM6Gh0FMRnLv4cd9i
+         cet4VMyxeyPHHrFqeBbnV+BNGc4Nn1IqcGb5GFnWN2aiOVjfGMx/VYZEOmAdYd2Q7UNQ
+         tJLimNMnS61VeZpgDTkg4la8n2zgm2+fzbBaqXlx30pccxTWEDkT4/Nvt6HTb8/cj69X
+         EJXOfxtCEJOwI4PVTK5wBjmV2bMAQDA+A0kj1oW54VXENAvqdLK2hm2+FRs/az9++MIF
+         Bzy6Wo1+ZAqkNWYpTwhgInIFnLUwmUgufffg7lC3es2AJdrOtKFEacXB0YVNzTPjOhfR
+         JvVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789394212; x=1789999012;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yQZu//0K1s9pcLymof9rDsgR75pGuXjqO8YGkCYwTZE=;
+        b=fxGq57UzVsUeVEvKHiM5OJ1onCIdOiLZMiEGBbrCRuvHEHSZL9rE0z/9l6E/WNaW3r
+         sx+W6fMqoLJKTzsBSFHJ1bWJex52HQmlG2Zagx6Y5AuDxawnTS1LLPtHyoGPB+HpaiBy
+         6GHghuUER3UHy07uZrWQLgTWrj+6rUkKYeIxb9+8bJeswqNC2W+NwrL33PKT7FXVqp0m
+         Vd+Ri4ZVGjdog2nJPB78vaFk2CkT7Seykg9ecquWypZveyoyrXwBaseW0ZzfRwceNDzE
+         RAiMv0aOolxBGTX9biljJpsRt71YiRBXvO5JiCCYxrQcFH1ZmJq/EuI9dOSD0P7dvVK0
+         gkxA==
+X-Forwarded-Encrypted: i=1; AKwUvBycoeGYaHEfUxdpxjZDuoLovb8OSxYspl28ANdXn9z5YHBWyI3vGyYpySwXpM0/0mF5qRMzfwshvM8S@vger.kernel.org
+X-Gm-Message-State: AFuF++nVzKZE6xhKPj4Cnt92m6rlTUeAHoD5zl4jffIgxHZAG+qgnz2P
+	rtTyuJ4yShaExPDDoyWCfoIM1AELm/Ntz8ZaJB+q+/lH2pT0T+8urowx57MGmCDK0dFZiGsSn1x
+	SNW0OElkUHJOzDf5qz2ea+Uw4qRvOFIHXrIBcn6OnZy+cKopnCFyUBI8NCSXmDMFB
+X-Gm-Gg: AYBFou0OBsH1VSNk3lcI+pH5oXH5WM7PnZq2prz4P39QvpfLpnplAE8+OXHK1FQjfsk
+	2ulryWUrC5w70kIbWlhHKp1QOc9xPVrVbIqH3z+fkyIuqLuTa/VUOOGOQDbecV2vvl0rsfAcJGA
+	AebYOlAhHk8vH3nHnDx5mKz99wg+q4yDkd+EMLCgIsSQBKpCgj6gIi1RzMmsMppOllwazesAuMZ
+	vKN0dosyK00XO6l8/QGtztzj3OeOieB2l7z4dIPrqVwr8lznWBKGawSB3xFv+HsWecglJrHbcTQ
+	yxMffXKKohEAaVOS3Q8AV3v2VJkIIOFEzQoA+QD8KW/MHzIdrLx7Q8/Ds9VyO7DniGpn7WEPpjO
+	13TIl7lWqIP1PHA==
+X-Received: by 2002:a05:620a:4089:b0:939:6de6:9516 with SMTP id af79cd13be357-93a29a5a848mr332587085a.45.1789394211633;
+        Mon, 14 Sep 2026 06:56:51 -0700 (PDT)
+X-Received: by 2002:a05:620a:4089:b0:939:6de6:9516 with SMTP id af79cd13be357-93a29a5a848mr332581185a.45.1789394210989;
+        Mon, 14 Sep 2026 06:56:50 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.232])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e60adaee4sm479951375e9.14.2026.09.14.06.56.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 06:56:50 -0700 (PDT)
+Date: Mon, 14 Sep 2026 16:56:48 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: Correct inconsistent indentation
+Message-ID: <czb5ip5ndan7dbp2psu6mzycyv3rrk2sq5ngc7czdpen2czchz@odfmpqm2hhij>
+References: <20260913141440.177169-2-krzysztof.kozlowski@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-p8700-dts-v1-8-3267f14ebce1@htecgroup.com>
-References: <20260914-p8700-dts-v1-0-3267f14ebce1@htecgroup.com>
-In-Reply-To: <20260914-p8700-dts-v1-0-3267f14ebce1@htecgroup.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, 
- Djordje Todorovic <djordje.todorovic@htecgroup.com>, 
- Anup Patel <anup@brainfault.org>, Thomas Gleixner <tglx@kernel.org>, 
- Radu Rendec <radu@rendec.net>, Inochi Amaoto <inochiama@outlook.com>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Conor Dooley <conor@kernel.org>, linux-riscv@lists.infradead.org, 
- Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
- Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789394164; l=12458;
- i=aleksa.paunovic@htecgroup.com; s=20250806; h=from:subject:message-id;
- bh=sdKgjEvUZZC8ghjKq0mA+IWSifHHew1uS0qIbTFq0Zo=;
- b=eCS9CDGlBSaLwX04m02bgLCpgxbKPkhAzCqPlL4F9bEU4rjHqrmqDCPXU8Bzg/o1qNezlm5SL
- VR3Ux3RFmBkABkCRYg0z7KKzkVIet9TltRC2Fmf0Ql4feDSBqTm52KW
-X-Developer-Key: i=aleksa.paunovic@htecgroup.com; a=ed25519;
- pk=Dn4KMnDdgyhlXJNspQQrlHJ04i7/irG29p2H27Avd+8=
-X-Endpoint-Received: by B4 Relay for aleksa.paunovic@htecgroup.com/20250806
- with auth_id=476
-X-Original-From: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
-Reply-To: aleksa.paunovic@htecgroup.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260913141440.177169-2-krzysztof.kozlowski@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=c/0+0h9l c=1 sm=1 tr=0 ts=6aa7fd24 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=tPLuR_csD6jfBswSsDEA:9 a=CjuIK1q_8ugA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDE5OSBTYWx0ZWRfX9ArrSGYU1l0x
+ ReGEbA79oIEzhW11ccactr6G6mKPAkMqEhcprJS85vK608q7hyB6NQHXBJx6UVWs3SPfhCVQ8Ba
+ YgE7RhCw2+O3EaFXHA+J/xETDpqJ0ZX9OLl/lodI6GcbrDFWSV8hG/vRzDnWY9K/qP384GxQkRr
+ 5J556BoOCjV1aIxEyszo1KPC1jiX/hVSx86w+3+Kqtu7wVawmZ3uiug0IGM9OV6I6DPY05RHU+h
+ A6lJvNBb6Y9YVTtcoFZEgyLty+/V5kzRHgY96MkV2J+oCOMWFAGGGjHJK/CHjl+2TY+qOcpRaIm
+ e4tk8f3rkqAEwE8dfqxFH+BSDyPhR/PuLmhkaJxv8SsgDw8xpT2cUHTT0XYOqQp1s6rp6TW/+G7
+ 3rzXzLLJ1BKrG8t6t8WfiaKVFYK+7mD3XPKPp7uXbo7qEmpR8RkerR1ok7XQ1WZvmlMV1iuO/Cc
+ Cu/cNl+ZuRaRzTwkT0Q==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDE5OSBTYWx0ZWRfX+3MBAwUD97Pp
+ +y+JC7TGpZNo/W40/9NWbcBRbDUSqcJHXbcbdzt8EH4GpfEzq3BycUT4Jr6nH8GgSTTNHDz5HGg
+ GiLW90nt/NGcyQiMINsBEXoe6NR5z3c=
+X-Proofpoint-ORIG-GUID: yeBv8IwodWI51Le4jRNozHgSWbyrgokg
+X-Proofpoint-GUID: yeBv8IwodWI51Le4jRNozHgSWbyrgokg
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_03,2026-09-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 bulkscore=0 impostorscore=0 clxscore=1015
+ adultscore=0 phishscore=0 malwarescore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140199
 
-From: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
+On 26-09-13 16:14:41, Krzysztof Kozlowski wrote:
+> Fixup mis-indentation, e.g. spaces or tabs mixed with spaces, to fix
+> dt-check-style warnings like:
+> 
+>   talos-evk.dts:39: [indent-consistent] indent mismatch (expected depth 4 * '\t')
+> 
+> No functional change.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Add initial device tree for the MIPS P8700 and the device tree
-for the Boston FPGA development board with a MIPS P8700 bitfile.
-
-Add related Makefile and KCONFIG changes.
-
-Co-developed-by: Djordje Todorovic <djordje.todorovic@htecgroup.com>
-Signed-off-by: Djordje Todorovic <djordje.todorovic@htecgroup.com>
-Signed-off-by: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
----
- arch/riscv/Kconfig.socs                 |   6 +
- arch/riscv/boot/dts/Makefile            |   1 +
- arch/riscv/boot/dts/gf/Makefile         |   2 +
- arch/riscv/boot/dts/gf/p8700-boston.dts | 135 ++++++++++++++++++
- arch/riscv/boot/dts/gf/p8700.dtsi       | 241 ++++++++++++++++++++++++++++++++
- 5 files changed, 385 insertions(+)
-
-diff --git a/arch/riscv/Kconfig.socs b/arch/riscv/Kconfig.socs
-index 429e0758930687c742c4dd09603e71e90dc096a2..78b0a0076feb14ebdafc4b7f0fa1be3aa416d415 100644
---- a/arch/riscv/Kconfig.socs
-+++ b/arch/riscv/Kconfig.socs
-@@ -18,6 +18,12 @@ config ARCH_ESWIN
- 	  This enables support for ESWIN SoC platform hardware,
- 	  including the ESWIN EIC7700 SoC.
- 
-+config ARCH_GF
-+	bool "GlobalFoundries SoCs"
-+	help
-+	  This enables support for GlobalFoundries SoC platform hardware,
-+	  including the MIPS P8700.
-+
- config ARCH_MICROCHIP_POLARFIRE
- 	def_bool ARCH_MICROCHIP
- 
-diff --git a/arch/riscv/boot/dts/Makefile b/arch/riscv/boot/dts/Makefile
-index 69d8751fb17c803f0efb8003e111ee24144c222b..5d8d55c4cf9d0b17f2a8744aa17526819e6c277a 100644
---- a/arch/riscv/boot/dts/Makefile
-+++ b/arch/riscv/boot/dts/Makefile
-@@ -4,6 +4,7 @@ subdir-y += andes
- subdir-y += anlogic
- subdir-y += canaan
- subdir-y += eswin
-+subdir-y += gf
- subdir-y += microchip
- subdir-y += renesas
- subdir-y += sifive
-diff --git a/arch/riscv/boot/dts/gf/Makefile b/arch/riscv/boot/dts/gf/Makefile
-new file mode 100644
-index 0000000000000000000000000000000000000000..180d7cc7f5cf87e48e2219f9ac9882828ca62016
---- /dev/null
-+++ b/arch/riscv/boot/dts/gf/Makefile
-@@ -0,0 +1,2 @@
-+# SPDX-License-Identifier: GPL-2.0
-+dtb-$(CONFIG_ARCH_GF) += p8700-boston.dtb
-diff --git a/arch/riscv/boot/dts/gf/p8700-boston.dts b/arch/riscv/boot/dts/gf/p8700-boston.dts
-new file mode 100644
-index 0000000000000000000000000000000000000000..b829899592aeed5f1cfe3323e755410de07dbdb8
---- /dev/null
-+++ b/arch/riscv/boot/dts/gf/p8700-boston.dts
-@@ -0,0 +1,135 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+/*
-+ * Copyright (C) 2025 MIPS
-+ *
-+ * Boston FPGA development board with a MIPS P8700 bitfile.
-+ */
-+
-+/dts-v1/;
-+
-+#include "p8700.dtsi"
-+
-+#include <dt-bindings/interrupt-controller/irq.h>
-+
-+/* Clock frequency (in Hz) of the FPGA bitfile */
-+#define BITFILE_FREQ	25000000
-+
-+/ {
-+	model = "MIPS P8700 Boston";
-+	compatible = "gf,mips-p8700-boston";
-+
-+	aliases {
-+		serial0 = &uart0;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	cpus {
-+		timebase-frequency = <BITFILE_FREQ>;
-+	};
-+
-+	memory@80000000 {
-+		device_type = "memory";
-+		reg = <0x80000000 0x80000000>;
-+	};
-+
-+	pci2: pci@14000000 {
-+		compatible = "xlnx,axi-pcie-host-1.00.a";
-+		device_type = "pci";
-+		reg = <0x14000000 0x2000000>;
-+
-+		#address-cells = <3>;
-+		#size-cells = <2>;
-+		#interrupt-cells = <1>;
-+
-+		interrupt-parent = <&aplic_s0>;
-+		interrupts = <7 IRQ_TYPE_LEVEL_HIGH>;
-+
-+		ranges = <0x02000000 0 0x16000000
-+			  0x16000000 0 0x100000>;
-+
-+		bus-range = <0x00 0xff>;
-+
-+		interrupt-map-mask = <0 0 0 7>;
-+		interrupt-map = <0 0 0 1 &pci2_intc 1>,
-+				<0 0 0 2 &pci2_intc 2>,
-+				<0 0 0 3 &pci2_intc 3>,
-+				<0 0 0 4 &pci2_intc 4>;
-+
-+		pci2_intc: interrupt-controller {
-+			interrupt-controller;
-+			#address-cells = <0>;
-+			#interrupt-cells = <1>;
-+		};
-+
-+		pci2_root@0,0 {
-+			compatible = "pci10ee,7021", "pci-bridge";
-+			reg = <0x00000000 0 0 0 0>;
-+
-+			#address-cells = <3>;
-+			#size-cells = <2>;
-+
-+			eg20t_bridge@1,0,0 {
-+				compatible = "pci8086,8800", "pci-bridge";
-+				reg = <0x00010000 0 0 0 0>;
-+
-+				#address-cells = <3>;
-+				#size-cells = <2>;
-+
-+				eg20t_mac@2,0,1 {
-+					compatible = "pci8086,8802",
-+						     "intel,pch-gbe";
-+					reg = <0x00020100 0 0 0 0>;
-+					phy-reset-gpios = <&eg20t_gpio 6 1>;
-+				};
-+
-+				eg20t_gpio: eg20t_gpio@2,0,2 {
-+					compatible = "pci8086,8803",
-+						     "intel,eg20t-gpio";
-+					reg = <0x00020200 0 0 0 0>;
-+
-+					gpio-controller;
-+					#gpio-cells = <2>;
-+				};
-+
-+				eg20t_i2c@2,12,2 {
-+					compatible = "pci8086,8817";
-+					reg = <0x00026200 0 0 0 0>;
-+
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					rtc@68 {
-+						compatible = "st,m41t81s";
-+						reg = <0x68>;
-+					};
-+				};
-+			};
-+		};
-+	};
-+
-+	uart0: serial@17ffe000 {
-+		compatible = "ns16550a";
-+		reg = <0x17ffe000 0x1000>;
-+		reg-shift = <2>;
-+		reg-io-width = <4>;
-+
-+		interrupt-parent = <&aplic_s0>;
-+		interrupts = <4 IRQ_TYPE_LEVEL_HIGH>;
-+
-+		clock-frequency = <BITFILE_FREQ>;
-+	};
-+
-+	lcd: lcd@17fff000 {
-+		compatible = "img,boston-lcd";
-+		reg = <0x17fff000 0x8>;
-+	};
-+
-+	flash@18000000 {
-+		compatible = "cfi-flash";
-+		reg = <0x18000000 0x8000000>;
-+		bank-width = <2>;
-+	};
-+};
-diff --git a/arch/riscv/boot/dts/gf/p8700.dtsi b/arch/riscv/boot/dts/gf/p8700.dtsi
-new file mode 100644
-index 0000000000000000000000000000000000000000..ba1854df5201bc4a6ca26868811834a7847dc624
---- /dev/null
-+++ b/arch/riscv/boot/dts/gf/p8700.dtsi
-@@ -0,0 +1,241 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+/*
-+ * Copyright (C) 2025 MIPS
-+ */
-+
-+/dts-v1/;
-+
-+/ {
-+	#address-cells = <1>;
-+	#size-cells = <1>;
-+
-+	cpus {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		cpu0: cpu@0 {
-+			device_type = "cpu";
-+			compatible = "gf,mips-p8700", "riscv";
-+			reg = <0x0>;
-+			mmu-type = "riscv,sv39";
-+			riscv,cbom-block-size = <64>;
-+			riscv,isa-base = "rv64i";
-+			riscv,isa-extensions = "i", "m", "a", "f", "d", "c",
-+					       "zicntr", "zicsr", "zifencei",
-+					       "zihpm", "zba", "zbb",
-+					       "xmipsexectl";
-+
-+			cpu0_intc: interrupt-controller {
-+				compatible = "riscv,cpu-intc";
-+				interrupt-controller;
-+				#interrupt-cells = <1>;
-+			};
-+		};
-+
-+		cpu1: cpu@1 {
-+			device_type = "cpu";
-+			compatible = "gf,mips-p8700", "riscv";
-+			reg = <0x1>;
-+			mmu-type = "riscv,sv39";
-+			riscv,cbom-block-size = <64>;
-+			riscv,isa-base = "rv64i";
-+			riscv,isa-extensions = "i", "m", "a", "f", "d", "c",
-+					       "zicntr", "zicsr", "zifencei",
-+					       "zihpm", "zba", "zbb",
-+					       "xmipsexectl";
-+
-+			cpu1_intc: interrupt-controller {
-+				compatible = "riscv,cpu-intc";
-+				interrupt-controller;
-+				#interrupt-cells = <1>;
-+			};
-+		};
-+
-+		cpu2: cpu@10 {
-+			device_type = "cpu";
-+			compatible = "gf,mips-p8700", "riscv";
-+			reg = <0x10>;
-+			mmu-type = "riscv,sv39";
-+			riscv,cbom-block-size = <64>;
-+			riscv,isa-base = "rv64i";
-+			riscv,isa-extensions = "i", "m", "a", "f", "d", "c",
-+					       "zicntr", "zicsr", "zifencei",
-+					       "zihpm", "zba", "zbb",
-+					       "xmipsexectl";
-+
-+			cpu2_intc: interrupt-controller {
-+				compatible = "riscv,cpu-intc";
-+				interrupt-controller;
-+				#interrupt-cells = <1>;
-+			};
-+		};
-+
-+		cpu3: cpu@11 {
-+			device_type = "cpu";
-+			compatible = "gf,mips-p8700", "riscv";
-+			reg = <0x11>;
-+			mmu-type = "riscv,sv39";
-+			riscv,cbom-block-size = <64>;
-+			riscv,isa-base = "rv64i";
-+			riscv,isa-extensions = "i", "m", "a", "f", "d", "c",
-+					       "zicntr", "zicsr", "zifencei",
-+					       "zihpm", "zba", "zbb",
-+					       "xmipsexectl";
-+
-+			cpu3_intc: interrupt-controller {
-+				compatible = "riscv,cpu-intc";
-+				interrupt-controller;
-+				#interrupt-cells = <1>;
-+			};
-+		};
-+
-+		cpu4: cpu@20 {
-+			device_type = "cpu";
-+			compatible = "gf,mips-p8700", "riscv";
-+			reg = <0x20>;
-+			mmu-type = "riscv,sv39";
-+			riscv,cbom-block-size = <64>;
-+			riscv,isa-base = "rv64i";
-+			riscv,isa-extensions = "i", "m", "a", "f", "d", "c",
-+					       "zicntr", "zicsr", "zifencei",
-+					       "zihpm", "zba", "zbb",
-+					       "xmipsexectl";
-+
-+			cpu4_intc: interrupt-controller {
-+				compatible = "riscv,cpu-intc";
-+				interrupt-controller;
-+				#interrupt-cells = <1>;
-+			};
-+		};
-+
-+		cpu5: cpu@21 {
-+			device_type = "cpu";
-+			compatible = "gf,mips-p8700", "riscv";
-+			reg = <0x21>;
-+			mmu-type = "riscv,sv39";
-+			riscv,cbom-block-size = <64>;
-+			riscv,isa-base = "rv64i";
-+			riscv,isa-extensions = "i", "m", "a", "f", "d", "c",
-+					       "zicntr", "zicsr", "zifencei",
-+					       "zihpm", "zba", "zbb",
-+					       "xmipsexectl";
-+
-+			cpu5_intc: interrupt-controller {
-+				compatible = "riscv,cpu-intc";
-+				interrupt-controller;
-+				#interrupt-cells = <1>;
-+			};
-+		};
-+
-+		cpu6: cpu@30 {
-+			device_type = "cpu";
-+			compatible = "gf,mips-p8700", "riscv";
-+			reg = <0x30>;
-+			mmu-type = "riscv,sv39";
-+			riscv,cbom-block-size = <64>;
-+			riscv,isa-base = "rv64i";
-+			riscv,isa-extensions = "i", "m", "a", "f", "d", "c",
-+					       "zicntr", "zicsr", "zifencei",
-+					       "zihpm", "zba", "zbb",
-+					       "xmipsexectl";
-+
-+			cpu6_intc: interrupt-controller {
-+				compatible = "riscv,cpu-intc";
-+				interrupt-controller;
-+				#interrupt-cells = <1>;
-+			};
-+		};
-+
-+		cpu7: cpu@31 {
-+			device_type = "cpu";
-+			compatible = "gf,mips-p8700", "riscv";
-+			reg = <0x31>;
-+			mmu-type = "riscv,sv39";
-+			riscv,cbom-block-size = <64>;
-+			riscv,isa-base = "rv64i";
-+			riscv,isa-extensions = "i", "m", "a", "f", "d", "c",
-+					       "zicntr", "zicsr", "zifencei",
-+					       "zihpm", "zba", "zbb",
-+					       "xmipsexectl";
-+
-+			cpu7_intc: interrupt-controller {
-+				compatible = "riscv,cpu-intc";
-+				interrupt-controller;
-+				#interrupt-cells = <1>;
-+			};
-+		};
-+	};
-+
-+	soc: soc {
-+		compatible = "simple-bus";
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges;
-+
-+		mtimer0: timer@16108050 {
-+			compatible = "gf,mips-p8700-aclint-mtimer";
-+			reg = <0x16108050 0x8>,
-+			      <0x16154000 0x7ff8>;
-+			reg-names = "mtime", "mtimecmp";
-+			interrupts-extended = <&cpu0_intc 7>, <&cpu1_intc 7>,
-+					      <&cpu2_intc 7>, <&cpu3_intc 7>,
-+					      <&cpu4_intc 7>, <&cpu5_intc 7>,
-+					      <&cpu6_intc 7>, <&cpu7_intc 7>;
-+		};
-+
-+		aplic_m0: interrupt-controller@16140000 {
-+			compatible = "gf,mips-p8700-aplic", "riscv,aplic";
-+			reg = <0x16140000 0x8000>;
-+			interrupt-controller;
-+			#interrupt-cells = <2>;
-+			interrupts-extended = <&cpu0_intc 11>, <&cpu1_intc 11>,
-+					      <&cpu2_intc 11>, <&cpu3_intc 11>,
-+					      <&cpu4_intc 11>, <&cpu5_intc 11>,
-+					      <&cpu6_intc 11>, <&cpu7_intc 11>;
-+			riscv,num-sources = <53>;
-+			riscv,hart-indexes = <0x00 0x01 0x10 0x11
-+					      0x20 0x21 0x30 0x31>;
-+			riscv,children = <&aplic_s0>;
-+			riscv,delegation = <&aplic_s0 1 53>;
-+		};
-+
-+		mswi0: mswi@16150000 {
-+			compatible = "gf,mips-p8700-aclint-mswi";
-+			reg = <0x16150000 0x4000>;
-+			interrupts-extended = <&cpu0_intc 3>, <&cpu1_intc 3>,
-+					      <&cpu2_intc 3>, <&cpu3_intc 3>,
-+					      <&cpu4_intc 3>, <&cpu5_intc 3>,
-+					      <&cpu6_intc 3>, <&cpu7_intc 3>;
-+			riscv,hart-indexes = <0x00 0x01 0x10 0x11
-+					      0x20 0x21 0x30 0x31>;
-+		};
-+
-+		aplic_s0: interrupt-controller@16160000 {
-+			compatible = "gf,mips-p8700-aplic", "riscv,aplic";
-+			reg = <0x16160000 0x8000>;
-+			interrupt-controller;
-+			#interrupt-cells = <2>;
-+			interrupts-extended = <&cpu0_intc 9>, <&cpu1_intc 9>,
-+					      <&cpu2_intc 9>, <&cpu3_intc 9>,
-+					      <&cpu4_intc 9>, <&cpu5_intc 9>,
-+					      <&cpu6_intc 9>, <&cpu7_intc 9>;
-+			riscv,num-sources = <53>;
-+			riscv,hart-indexes = <0x00 0x01 0x10 0x11
-+					      0x20 0x21 0x30 0x31>;
-+		};
-+
-+		sswi0: interrupt-controller@1616c000 {
-+			compatible = "gf,mips-p8700-aclint-sswi",
-+				     "mips,p8700-aclint-sswi";
-+			reg = <0x1616c000 0x4000>;
-+			interrupt-controller;
-+			#interrupt-cells = <0>;
-+			interrupts-extended = <&cpu0_intc 1>, <&cpu1_intc 1>,
-+					      <&cpu2_intc 1>, <&cpu3_intc 1>,
-+					      <&cpu4_intc 1>, <&cpu5_intc 1>,
-+					      <&cpu6_intc 1>, <&cpu7_intc 1>;
-+			riscv,hart-indexes = <0x00 0x01 0x10 0x11
-+					      0x20 0x21 0x30 0x31>;
-+		};
-+	};
-+};
-
--- 
-2.43.0
-
-
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
