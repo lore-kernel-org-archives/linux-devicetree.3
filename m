@@ -1,91 +1,196 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04E9C4A5EC8;
-	Mon, 14 Sep 2026 21:11:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D27B940B373
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 21:11:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789420302; cv=none; b=UpkwVFLKaKgT5wa7H8FqNw5W8dSd3/pXNx7t5zNVYGqwcij1Vsy9zS/v/t64MlZ70CkgPF+14EFpwyE+QZogAn6k3mRk5kGRDRNU/azDAii5Zq9d8yH9SkOeH8wS6QrEht5nyu/b/yCCbBGcnbRGnpstHoQdIcu7s/HhQ6+EAjk=
+	t=1789420303; cv=none; b=d0Kd8CF6BiBEA6kWPXkFfsUkTHcdvUuD2ExwMJqebnbSVzVxzrJcp/bJDpt0QAk7udzlZyTfjxNVNFS9cC3fo0R/BwDdlZk9bXBD+2bA4j6bXAv+fqwBl3ktpnswyGZQIFpX9ikK2CJYsEY0CaxG3t5g9KPTAkQ/Ui+bvFOTUYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789420302; c=relaxed/simple;
-	bh=pGSEAu/g2kaG2QN4I9tvjR6mVOvHDT4VujbHedonOmU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=owvbciN5itQTwohPw9BkVNbrkhzHcmsNGs2WaKp8MpCDOdTpFYmFLs9AtI+G/hN2Tv1dgVnoMbPGZapUanVZEH0EDQIVPFuUfJ0fg8qZf6zcpbDg1/A51xl6nRDE9wA79TInyiXvspk9602s2zfcB2PfPE30lBIJEFJAhs1Vz3w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=okf10R/5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789420303; c=relaxed/simple;
+	bh=urEMJqkip8r8NUOYHF0OXc2V0NjD2LcpIt+Sm1C4lC8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dyZePSTfTuqVQ4Ogg7QKP1R911YUF8L75vDv59Tad5IDIpxLMc0PuvoM0shdZw94lcNxY8W/rbxNNVnmgYG2U9I5n4Xu4T9dahEH6M8TYqDJUEmHBkCHN7eYj6fAbGoMBBEkbs9wGi4J8NDBvla4pz67DftjaxNxdd9sGMaHoY8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=d39uCyYr; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="okf10R/5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48AA61F000FF;
-	Mon, 14 Sep 2026 21:11:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789420299;
-	bh=kW2v4tXGIhoaPsLlsL6oyArdwXeto9xEATBG5z4hA7M=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=okf10R/5+O5HfZYvIXAXGXrmGEhWnf0wy8w6OR+1ngkVnPz5KcvT7yIsn68V5ijfC
-	 xlBT6u/eetdX3x+ueQORBiiJQCk5hMW8YIyOAUX1fyYPlo1vyKKvvhHDn1pl0uCqIr
-	 wT1KnJdl2xRLEIcEESnueP4eTOBRsEElz6j4Z+tX8j6KkhBIHsCJBaHYyRhL6fDsdc
-	 gSJRmA/QoAuktOAj05IhmbrNf+xdgZyMchp+UD1e+aYEaah4PVlC7wZmErLJLvoZC/
-	 Jq1aw7lehq0urWzB46yl5YOGzFJGSySRVYbJfp/o22+BkeCv1DFJRKPErdItTdWTpM
-	 Y3b6JZrbVsTfw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: vendor-prefixes: Add vendor prefix for
- Teclast
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Andre Przywara" <andre.przywara@arm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev, conor+dt@kernel.org
-In-Reply-To: <20260914210115.28151-2-andre.przywara@arm.com>
-References: <20260914210115.28151-1-andre.przywara@arm.com>
- <20260914210115.28151-2-andre.przywara@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 21:11:38 +0000
-Message-Id: <20260914211139.48AA61F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="d39uCyYr"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49cd77e0f95so28259725e9.3
+        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 14:11:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=lex.la; s=google; t=1789420300; x=1790025100; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=w+vmo4SiPc4dv8Etu0O6oCuBcVgzOf6ES9F0FzCUqMs=;
+        b=d39uCyYryHOVdG26WBfKPGEIGCixeJxe0tqrkewY4zxOvkkxkHhq2pDMXfkdb0Bb1c
+         iHxxv5l5cJcJaoaWFIHyL3Ki9YVMNk6Xt8uLEM7CVAZ7X7+S7U+hWpY9Ju9l/4R0WBbR
+         6QBX+ueEkWNH8kufqZwCDPG3EnF7H79RtBNMw532HlrZw0eDcwgz+jAtP0sBReQY0beh
+         OH4Q8m3yf66rgclNYrp4yELPwbXpK3nnNbKQdqxRernI+OK8O+paHkSmC+INQxL66/8b
+         KYnEE9UK8M6vPVR96j4Ai2088SfWZvqH6LjwQkFvhEra0ycuttChCeucQTVqTMqKqvdN
+         XniA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789420300; x=1790025100;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=w+vmo4SiPc4dv8Etu0O6oCuBcVgzOf6ES9F0FzCUqMs=;
+        b=dBg1RBSJHiZfz3cEd4JamYgVmOhlYbNGasCVf+G3C7nFVjgMO8tYZJtGF2PMQ69xXN
+         7G1f7d+9NiV07Hd2QzX0sfNN5pMp8t3xUB3zFi5dkC/dkpgHfefCjjGQbOepQkZsIuN0
+         OWWDgPslF47nuHzlpQwXokRKUe8TYEAC0YCoSuC9rJ37dua1uO3o0bhIieW5kvVVbLwG
+         Efk0EyljVNp/D7weEMJ3rjrYpC2XyMhVG4CxKrZPkh3vwXS4C80hWL+VB3IBCtK1HlLk
+         tsNDRlVTRE1OQsjFM3HFHIHU8uEU9xRXso1xHqNeqhUZqv+TLkSF8gpB39bYnRchnLwE
+         9F6g==
+X-Forwarded-Encrypted: i=1; AKwUvBx2Wjvp+w6hH3vF0aLnvdRgxH1zNFkGG/vBekCZH8dzVCiAH5fkEo0fR8wIPG51J4GXXymZRM9pZ6Al@vger.kernel.org
+X-Gm-Message-State: AFuF++n6aSpMs8mB/zxNSCDL9x+VxQhfEvYo5hdDQHFyEuIDNh+6URs/
+	7QBywx9hJbO30Mo0EBGBflmgJyRjJaofnXCe7KYgl2CdvDmj60tzmhb66Z7OMZzxd30=
+X-Gm-Gg: AYBFou0Cd5VclhW2ZjZJzRL37wzsI7GaC8MyhjhJiA7tMuPCPmHK7UkQaHaBQTp3UM6
+	Zc36GIkaNywh/o61sdI48y7BhpZXYygsRNHxOLqxECx+QYBJg0574ugScugIJqrZY6lIZDYSYLk
+	PFdiRSQv8OXhV74pZENz7SkgPgAvWA5XHuh4bDVUwhHqaraS+lJQxRB1DCgV8yWIWkEyo0wRyLG
+	qvBrzCSo37dpsf4wbu+OJEQ9nQJ+vIihCIfh/f2shdgkqkddjN+QTzU7oB8hhMTitCfbQIEZ5kp
+	gMjlc7J5TQEIr9e0YNYZbXafnSJDa+zTK7wEtxOqfcF+4FTsdn9HJnE11GSE36LvduY5AYQo8Tp
+	esKuWj2nOYzhdbTBcPTkVRvrQwyay9slVjQmcfsSpvCJy3+3wzh0KLZm4hICvyDlk4E09laC960
+	R3B77nogKF+839gsuN2u7DmqyD8PKqCmnHzdh6mQv1HaVesY0K6ydSK1zcOd8S
+X-Received: by 2002:a05:600c:37c3:b0:49c:fc6e:a3d9 with SMTP id 5b1f17b1804b1-49e7a678879mr63803615e9.24.1789420300103;
+        Mon, 14 Sep 2026 14:11:40 -0700 (PDT)
+Received: from remote-01 ([84.17.55.229])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7ef74a5dsm5642305e9.7.2026.09.14.14.11.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 14:11:39 -0700 (PDT)
+From: Aleksei Sviridkin <f@lex.la>
+To: netdev@vger.kernel.org
+Cc: linux@armlinux.org.uk,
+	andrew@lunn.ch,
+	andrew+netdev@lunn.ch,
+	hkallweit1@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Aleksei Sviridkin <f@lex.la>
+Subject: [RFC PATCH net-next v3 0/2] net: phylink: wait for a PHY that probes after the MAC
+Date: Tue, 15 Sep 2026 00:11:35 +0300
+Message-ID: <20260914211137.2760618-1-f@lex.la>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The newly added vendor prefix `^teclast,.*` is inserted out of alph=
-abetical order.
---
+On an MT7981B board with an MT7531 switch, the Airoha EN8811H behind
+lan4 has its PHY driver built as a module on the root filesystem. The
+switch sets up its ports before that filesystem is mounted, so the port
+is validated against the generic driver, fails its phy-mode and stays
+dead for the uptime. Nothing retries it.
 
-commit 5eadfadaf4aefd64a40c08bf27f4fc8d4fc5a0a6
-Author: Andre Przywara <andre.przywara@arm.com>
+Let the PHY node say so with needs-host-firmware and have phylink poll
+for the PHY instead of giving up. Patch 1 adds the property, patch 2
+does the waiting; the reasoning behind each choice is in patch 2. On
+that board the port now attaches at 7.0 s and links up on its own.
 
-dt-bindings: vendor-prefixes: Add vendor prefix for Teclast
+Changes since v2:
 
-This commit adds a new vendor prefix for Teclast to the device tree
-vendor-prefixes.yaml file. Teclast is a manufacturer of tablets, laptops,
-and mini PCs.
+ - A connect that fails with the real driver bound is retried up to
+   three times at the poll rate, then given up on with one error naming
+   the PHY node. v2 did not retry and asked whether to retry unless the
+   PHY node owns a reset line. That condition does not hold up: the
+   detach asserts whatever reset the DT describes, but the re-attach
+   runs phy_init_hw() with the driver's soft reset and config_init on
+   every board, so what a retry costs depends on the board and the PHY
+   in ways phylink cannot see. It is bounded rather than conditioned.
+ - The poller returns without attaching if a PHY arrived by another
+   path while it was queued.
+ - phylink_destroy() cancels the poller before any teardown instead of
+   in the middle of it.
+ - The NULL phydev->drv window v2 asked about is not specific to this
+   series; phy_attach_direct() meets it from any caller racing a driver
+   unbind. The guard is posted for net on its own [2] and covers an
+unbind already in flight.
+ - The link_state fix v2 needed is in net-next now, as 113998aa372f
+   ("net: phylink: initialise link_state before a forced major
+   config"), so this applies without it.
+ - The MDIO device driver posted beside v2 is withdrawn [3]; nothing
+   here depends on it.
+ - Rebased onto net-next.
 
-Link: https://www.teclast.com [1]
+Still needed underneath: patch 1 of the phylink/phylib pair pending for
+net [4]. A late bringup failure has to leave pl->phydev clear: the
+poller takes a set pl->phydev for a PHY that arrived by another path,
+so without it the first such failure ends the wait with no retry and no
+give-up line. It is the prerequisite listed below.
 
-> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Doc=
-umentation/devicetree/bindings/vendor-prefixes.yaml
-> index ba20029693734..6da733d465a31 100644
-> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> @@ -1722,6 +1722,8 @@ patternProperties:
->      description: Thundercomm Technology Co., Ltd.
->    "^thwc,.*":
->      description: Shenzhen Tong Heng Wei Chuang Technology Co., Ltd.
-> +  "^teclast,.*":
-> +    description: Teclast
+Tested on that board, with these two patches and the prerequisite
+backported to its OpenWrt 6.18 tree, warm boots. The retry paths need a
+connect that fails after a successful attach, which this chip does not
+produce, so those runs used a debug-only module parameter that, after
+a successful attach, detaches and fails the connect with -EIO a given
+number of times, on an image without the PHY driver so the poller was
+still waiting when the driver was loaded by hand:
 
-[Severity: Low]
-Is this newly added vendor prefix inserted out of alphabetical order?
+ - one warning after the first minute naming the PHY node, then the
+   interval doubling up to the 30 s ceiling
+ - two injected failures: retried 30 s apart, the third attempt
+   attaches and the link comes up, no give-up line
+ - failures that do not stop: four attempts at 1 s intervals, one
+   "giving up on ... after 4 attempts", and with per-iteration tracing
+   on no further poll in the 237 s the capture covers after it
 
-In the patternProperties section of vendor-prefixes.yaml, there is a
-requirement to keep the list in alphabetical order. Alphabetically, the
-entry "^teclast,.*" should be placed after "^techwell,.*" and before
-"^teejet,.*", rather than after "^thwc,.*".
+Retries inherit the interval the wait has reached rather than choosing
+one, as the two runs show.
 
->    "^ti,.*":
->      description: Texas Instruments
->    "^tianma,.*":
+Not tested: cancelling the poller from a teardown while it runs, because
+the only path to it on this board, unbinding the switch driver, oopsed
+earlier in mt7530_remove() until the fixes in [5]; and a PHY arriving by
+a second path, which this board does not offer - that rests on the check
+at the top of the poll body.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914210115.2815=
-1-1-andre.przywara@arm.com?part=3D1
+The runs above also went through both attach branches: in the
+two-failure run the PHY attached to a port up since 15.8 s and linked
+2.9 s later, and with the driver present it attached at 7.0 s to a port
+not yet started, which linked once brought up. Not repeated on v3:
+ifdown/ifup with the PHY attached, and checking that the PHY interrupt
+fires after a running-port attach.
+
+No in-tree device tree sets needs-host-firmware yet. The board is
+supported out of tree, in OpenWrt.
+
+Still asking, which is why this stays RFC:
+
+ 1. The poller repeats what phylink_fwnode_phy_connect() does - choose
+    the interface, attach, bring up, detach on failure - with a
+    different point at which the reference is dropped. Do you want a
+    shared helper before the rest?
+
+ 2. Polling was the plan set out in [6]. BUS_NOTIFY_BOUND_DRIVER
+    gives the exact edge; do you want the notifier in this series
+    instead?
+
+[1] v2: https://lore.kernel.org/r/20260908155729.4164814-1-f@lex.la/
+[2] https://lore.kernel.org/r/20260914204200.2743251-1-f@lex.la/
+[3] https://lore.kernel.org/r/20260912130430.2246285-1-f@lex.la/
+[4] https://lore.kernel.org/r/20260909204306.2374562-1-f@lex.la/
+[5] https://lore.kernel.org/r/20260914202421.2737079-1-f@lex.la/
+[6] https://lore.kernel.org/r/a230d199-5d4d-4637-aff3-e725a37e1da1@lunn.ch/
+
+Aleksei Sviridkin (2):
+  dt-bindings: net: ethernet-phy: add needs-host-firmware
+  net: phylink: wait for PHYs that are known to probe late
+
+ .../devicetree/bindings/net/ethernet-phy.yaml |   8 +
+ drivers/net/phy/phylink.c                     | 227 +++++++++++++++++-
+ 2 files changed, 228 insertions(+), 7 deletions(-)
+
+
+base-commit: 879e280b8486d4612ad1aa050d6fada2dd80cf1c
+prerequisite-patch-id: 293623f600b825505376e5c5bf72df2ac1f58e1e
+-- 
+2.53.0
+
