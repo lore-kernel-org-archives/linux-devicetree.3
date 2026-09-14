@@ -1,216 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0400044238E
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 11:24:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C529440A3E;
+	Mon, 14 Sep 2026 11:26:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789385077; cv=none; b=HswOGpI+gnj1QE5xgyyNZvGEAZRzNoxe9KKJ/V247GkXCmxinAtQEo+2j4FqSKUmLwZJ5U+7MUPx+CPuOkuQvlMuHQsjI16kCO2EYQQf0/QTuPiIbiAx1Rp6BRnzHkK2sn9T6OZQMD0jtmgkuojNPkmDu6KH9luwXTBsTqo9MkE=
+	t=1789385177; cv=none; b=Co6nIC37ykpa5aFuDuZPb6dxBXy4N5/slW2UMHUG3Jx+KvqW42r92wRnQrp/udGo+vPpNkXfBwTJYodshuAhMpYsxLuP6phe58N/MmB2WLEhOAIK+3FzxE1c/cNGHXCAdONxO7p6Riyf6Y+2n8S0zCufOWxgY0TC+QOiro8w04M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789385077; c=relaxed/simple;
-	bh=+rbok683pCVl1YyX4Cv/1MgBmxMn9kXIkyJQvlzP7es=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Og1jG4zD+zaKB7nkJDhsTfMOe/kbSFlXAJw+HzFLn5P+c0lzZiwJIVqeFNeBWll5ZFy+skrL+TMO2OM1YyguRgeNPLkV/QxHJFnQ/5ALzp8n9TzqHxT/iQ6ACwcaUiI7kNOTKXAVOA8liIt9iAuYZdTF1u5fhSg1XJyc+wYQ2eU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IwjpQcer; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789385177; c=relaxed/simple;
+	bh=lXVPwq7s2VUOFgW7l33ir3TRXWPIYSzWJPDJTQ63R+U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=KIleHfjJT/NaPFt2F2fk83Jz5/IZ23haXOkZi28FoPj1zpaBaOWUpEPq54x0EdJ4ZnAclgHYeyEmLsbvXMfHvz9L5KnnI0vx62ThsQqv0gL66hTWTTe6aOn6cPFGB6hL7RrNXrGhIrLQQMDVUNRoJiw3PssW0jQ8vOf+csKkaW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=cGGB0QNM; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IwjpQcer"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A37C1F000FF;
-	Mon, 14 Sep 2026 11:24:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789385075;
-	bh=X0NaEhbnJ2qLCSJt0IjXUu1+mtyt1s3dv7Sg8R+UTaE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IwjpQcerm7+iNEFn106NGsmS5mIyUCg9uvivlYfLz9/YXxn2XXJmyjYAZ955CSDLC
-	 9P7lB53QWqJ6ff1bost0BBHNOWEjtb1BAtYcEqD8wwZKw2euQkNA1iNW5w2KrEt82j
-	 QVYEU/EypVwlOVbdyUvyWGLNVHpMQjvIlP/pd0YAZBh3scg3027SkQ8AaL2YYIpRsF
-	 nNP0d5WG1wfZCnlGTxzsQKZxNB+vsjwCtx74Lhyc0HDkTLhpsfu0Wtlhqtc5soTVqP
-	 wlH9YtnnRCIkdIeq1AMHSB3cJwdxIyh6enIK1tdcHMOaxjy+r71tnbYVTMRQuFpg3e
-	 sepFIMsffN7cA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/2] media: i2c: Add Samsung S5KJN5 image sensor
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wenmeng Liu" <wenmeng.liu@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, media-ci@linuxtv.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260914-sk5jn5-v4-2-386e84cfb2b3@oss.qualcomm.com>
-References: <20260914-sk5jn5-v4-0-386e84cfb2b3@oss.qualcomm.com>
- <20260914-sk5jn5-v4-2-386e84cfb2b3@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 11:24:34 +0000
-Message-Id: <20260914112435.6A37C1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="cGGB0QNM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789385173;
+	bh=lXVPwq7s2VUOFgW7l33ir3TRXWPIYSzWJPDJTQ63R+U=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=cGGB0QNMA3UGaFW+2zS9yJ2f0H9CIkbzniMnzaf5CY35eK4B6hGXWbzssm1GNP0XA
+	 kLXyg/waZcQo6l7/lZGAV6gRv/HHyDq4BIxldXCaL8BFmyRdoH4TwIz3vEuvOdg9Jf
+	 E+dx868sHUpJfNl5Gi7YIOfkrYwliAvLDiRcoU8+0WffH0urqgo0B8lwnK0av25B8n
+	 PNUDXcX67mvM+ZVVesjNycvTIHj5EmTQmyz5HcyLnqPCfcY9wP8TYdxRG0O0sCKXeQ
+	 IImkggd+Z3tGxYzxuts56gFpuORikG2V8XMgdKOFsqlv9BfvyrAIFuYUC24rg6GTW4
+	 v10dtaDm5DakA==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id D193C17E0894;
+	Mon, 14 Sep 2026 13:26:12 +0200 (CEST)
+Message-ID: <69562510-23f3-4993-b740-60ba83979237@collabora.com>
+Date: Mon, 14 Sep 2026 13:26:12 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 11/11] drm/mediatek: Add Write DMA (WDMA) Engine for
+ Writeback support
+To: =?UTF-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>,
+ "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>
+Cc: "kernel@collabora.com" <kernel@collabora.com>,
+ "robh@kernel.org" <robh@kernel.org>,
+ "tzimmermann@suse.de" <tzimmermann@suse.de>,
+ "simona@ffwll.ch" <simona@ffwll.ch>, "mripard@kernel.org"
+ <mripard@kernel.org>, =?UTF-8?B?Sml0YW8gU2hpICjnn7PorrDmtpsp?=
+ <jitao.shi@mediatek.com>,
+ "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "conor+dt@kernel.org" <conor+dt@kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+ "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
+ "airlied@gmail.com" <airlied@gmail.com>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
+ =?UTF-8?B?SnVzdGluIFllaCAo6JGJ6Iux6IyCKQ==?= <Justin.Yeh@mediatek.com>,
+ =?UTF-8?B?SmFzb24tSkggTGluICjmnpfnnb/npaUp?= <Jason-JH.Lin@mediatek.com>
+References: <20260715135703.46540-1-angelogioacchino.delregno@collabora.com>
+ <20260715135703.46540-12-angelogioacchino.delregno@collabora.com>
+ <232cbc7ff5f2c50230eddf4db1f8eb7145a41d23.camel@mediatek.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <232cbc7ff5f2c50230eddf4db1f8eb7145a41d23.camel@mediatek.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Incorrect ordering of clock and reset signals during power-on and =
-power-off sequences.
-- [Medium] Missing `pm_runtime_mark_last_busy()` before dropping the runtim=
-e PM reference defeats the autosuspend delay.
---
+On 8/27/26 07:33, CK Hu (胡俊光) wrote:
+> On Wed, 2026-07-15 at 15:57 +0200, AngeloGioacchino Del Regno wrote:
+>> Add a basic driver for the Write DMA Engine and initial compatible
+>> for the MediaTek MT8173 and MediaTek Dimensity 1200 MT6893, and
+>> hook it up to the mtk_ddp_comp and mtk_drm_drv in order for it to
+>> probe.
+>>
+>> This display controller component is used to enable the writeback
+>> engine that can be used for faster display image capturing in the
+>> userspace (for example, screenshots and screen recording).
+>>
+>> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+>> ---
+>>   
+>> +static const struct mtk_ddp_comp_funcs ddp_wdma = {
+>> +	.clk_enable = mtk_wdma_clk_enable,
+>> +	.clk_disable = mtk_wdma_clk_disable,
+>> +	.config = mtk_wdma_config,
+>> +	.start = mtk_wdma_start,
+>> +	.stop = mtk_wdma_stop,
+>> +	.register_vblank_cb = mtk_wdma_register_vblank_cb,
+>> +	.unregister_vblank_cb = mtk_wdma_unregister_vblank_cb,
+>> +	.enable_vblank = mtk_wdma_enable_vblank,
+>> +	.disable_vblank = mtk_wdma_disable_vblank,
+>> +	.layer_nr = mtk_wdma_layer_nr,
+>> +	.layer_config = mtk_wdma_layer_config,
+>> +	.get_formats = mtk_wdma_get_formats,
+>> +	.get_num_formats = mtk_wdma_get_num_formats,
+> 
+> I does not see you modify mtk crtc.
+> mtk crtc would use some interface only on 'first' ddp component of a pipeline.
+> WDMA would not be the first component,
+> so register_vblank_cb, unregister_vblank_cb, enable_vblank, disable_vblank, layer_nr, layer_config, get_formats, and get_num_formats are useless.
 
-commit ba7e808a699f95cdf2ed0596c95aeb83fbeac746
-Author: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+It's true in this specific case, but this was done while performing the big
+mediatek-drm restructuring.
 
-media: i2c: Add Samsung S5KJN5 image sensor driver
+I decided to split the full changes in two separate series, because the one
+restructuring mediatek-drm is literally huge... and this series is adding
+only things that can be applied before the full restructuring takes place.
 
-This commit adds a V4L2 sub-device driver for the Samsung S5KJN5, a
-50 MP 10-bit RAW MIPI CSI-2 image sensor. The driver supports the
-4096x3072 mode and exposes standard v4l2 controls.
+That was done in order to speed up the upstreaming and nothing else - so you
+can safely ignore the fact that there is extra functionality in this driver,
+because those extras will be used once the other big series is merged.
 
-> diff --git a/drivers/media/i2c/s5kjn5.c b/drivers/media/i2c/s5kjn5.c
-> new file mode 100644
-> index 0000000000000..edf824228bb6f
-> --- /dev/null
-> +++ b/drivers/media/i2c/s5kjn5.c
-[ ... ]
-> +static int s5kjn5_power_on(struct device *dev)
-> +{
-> +	struct v4l2_subdev *sd =3D dev_get_drvdata(dev);
-> +	struct s5kjn5 *s5kjn5 =3D sd_to_s5kjn5(sd);
-> +	int ret;
-> +
-> +	ret =3D regulator_bulk_enable(ARRAY_SIZE(s5kjn5_supply_names),
-> +				    s5kjn5->supplies);
-> +	if (ret) {
-> +		dev_err(dev, "failed to enable regulators: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	gpiod_set_value_cansleep(s5kjn5->reset_gpio, 0);
-> +	usleep_range(8000, 10000);
-> +
-> +	ret =3D clk_prepare_enable(s5kjn5->inclk);
+It's a lot of code, please-please-please don't make me split things up even
+more, because then the commit log becomes messy :-)
 
-[Severity: High]
-Does this power-on sequence introduce a regression with hardware sequencing?
-The reset line is de-asserted before the sensor clock is running. Transitio=
-ning
-the reset signal without an active external clock violates the synchronous
-reset requirements of the sensor's digital logic, which might leave the
-internal state machine in an undefined or latch-up state.
+As for the comments on 8189/8196 (link rate and qos), you're right in that it
+makes sense to split the algo additions from the soc addition: I've done that
+already and will come in v7.
 
-> +	if (ret) {
-> +		dev_err(dev, "failed to enable clock: %d\n", ret);
-> +		gpiod_set_value_cansleep(s5kjn5->reset_gpio, 1);
-> +		regulator_bulk_disable(ARRAY_SIZE(s5kjn5_supply_names),
-> +				       s5kjn5->supplies);
-> +		return ret;
-> +	}
-> +
-> +	usleep_range(10000, 12000);
-> +
-> +	return 0;
-> +}
-> +
-> +static int s5kjn5_power_off(struct device *dev)
-> +{
-> +	struct v4l2_subdev *sd =3D dev_get_drvdata(dev);
-> +	struct s5kjn5 *s5kjn5 =3D sd_to_s5kjn5(sd);
-> +
-> +	clk_disable_unprepare(s5kjn5->inclk);
-> +	gpiod_set_value_cansleep(s5kjn5->reset_gpio, 1);
+Cheers,
+Angelo
 
-[Severity: High]
-Can this sequence cause a hardware latch-up? The clock is killed before the
-sensor is put back into hardware reset, which reverses the typical power-off
-ordering and violates hardware sequencing rules.
-
-> +	regulator_bulk_disable(ARRAY_SIZE(s5kjn5_supply_names),
-> +			       s5kjn5->supplies);
-> +
-> +	return 0;
-> +}
-[ ... ]
-> +static int s5kjn5_s_ctrl(struct v4l2_ctrl *ctrl)
-> +{
-> +	struct s5kjn5 *s5kjn5 =3D
-> +		container_of(ctrl->handler, struct s5kjn5, ctrl_handler);
-> +	struct device *dev =3D s5kjn5->sd.dev;
-> +	const struct s5kjn5_mode *mode =3D &s5kjn5_modes[0];
-> +	u32 exposure_max;
-> +	int ret;
-[ ... ]
-> +	switch (ctrl->id) {
-> +	case V4L2_CID_EXPOSURE:
-> +		ret =3D cci_write(s5kjn5->regmap, S5KJN5_REG_EXPOSURE,
-> +				ctrl->val, NULL);
-> +		break;
-> +
-> +	case V4L2_CID_ANALOGUE_GAIN:
-> +		ret =3D cci_write(s5kjn5->regmap, S5KJN5_REG_AGAIN,
-> +				ctrl->val, NULL);
-> +		break;
-[ ... ]
-> +	default:
-> +		ret =3D -EINVAL;
-> +		break;
-> +	}
-> +
-> +	pm_runtime_put_autosuspend(dev);
-
-[Severity: Medium]
-Is a call to pm_runtime_mark_last_busy() missing before dropping the runtime
-PM reference here?
-
-Without marking the device as busy, the PM core evaluates the delay against=
- a
-stale last_busy timestamp (which was set when the device originally resumed=
-).
-This calculates that the delay has already expired and suspends the device
-instantly, defeating the autosuspend optimization.
-
-> +
-> +	return ret;
-> +}
-[ ... ]
-> +static int s5kjn5_disable_streams(struct v4l2_subdev *sd,
-> +				  struct v4l2_subdev_state *state,
-> +				  u32 pad, u64 streams_mask)
-> +{
-> +	struct s5kjn5 *s5kjn5 =3D sd_to_s5kjn5(sd);
-> +	struct device *dev =3D sd->dev;
-> +	u64 val;
-> +	int ret;
-> +	int i;
-> +
-> +	ret =3D cci_write(s5kjn5->regmap, S5KJN5_REG_STREAMING,
-> +			S5KJN5_STREAMING_OFF, NULL);
-> +	if (ret)
-> +		dev_warn(dev, "failed to stop streaming: %d\n", ret);
-> +
-> +	/* Poll frame count register until it reads standby */
-> +	for (i =3D 0; i < S5KJN5_STANDBY_POLL_ITERS; i++) {
-> +		usleep_range(5000, 6000);
-> +		ret =3D cci_read(s5kjn5->regmap, S5KJN5_REG_FRAME_COUNT,
-> +			       &val, NULL);
-> +		if (!ret && val =3D=3D S5KJN5_FRAME_COUNT_STANDBY)
-> +			break;
-> +	}
-> +	if (i =3D=3D S5KJN5_STANDBY_POLL_ITERS)
-> +		dev_warn(dev, "timed out waiting for standby\n");
-> +
-> +	pm_runtime_put_autosuspend(dev);
-
-[Severity: Medium]
-Similarly, does this stream disable path need to mark the device as busy?
-
-Because pm_runtime_mark_last_busy() is omitted before
-pm_runtime_put_autosuspend(), the sensor powers down immediately when strea=
-ming
-stops instead of remaining active for the configured 1000ms autosuspend win=
-dow.
-This can cause unnecessary power cycling latency if the stream is restarted
-shortly after.
-
-> +
-> +	return 0;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914-sk5jn5-v4-=
-0-386e84cfb2b3@oss.qualcomm.com?part=3D2
