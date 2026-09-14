@@ -1,101 +1,166 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0ED047CA77
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 14:25:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789395944; cv=none; b=cIcGzwB3RIRYTMjf+ytilsC50cbk1ln6Vn5ZVjiMjCLgnma6udUg9bKoUW1fKIS/zf/kP5Wqv+glnbxKNT2/0rnt1TruLhnA3vXAc9EQlGPl44omRrhaXZeNq4FvGV5zVTuy+dU3etcZFzxe90Q8CU41Jq2q1S8LPqjAJwqBWpk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789395944; c=relaxed/simple;
-	bh=yWBz2u9MZyDcGdapPsHVrPMmzYjBtuHU9QqFvO4VM2Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=CCkwa9GkUWBeDGKkDD765tD44hy82utSG9NhoulUzf0HwoFAUHGD23k0CedZStg0X1csNP9V89gjmtwV3gn+YoFTOxHu1NYBllWPiaGnOMPM7spp2FFxlfcJ8U3XDKVSPAcI6Zs2CWgruZ/JKPAt00X+3eQHKlLMLdBD7a64L88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ctYEAbmK; arc=none smtp.client-ip=74.125.229.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DA0847A87B
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 14:26:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789396015; cv=pass; b=ZWppgCbcGI828CjN0retl2QRTKpoWGS8J8VabqvZN1GusrU3PV2Z5kSJytjOXxqnjQEabNBrwKIxwgSHcrFjCsB8I9Va8IrvpSLFV6LTbTZCQfhICTFoLZP6AZsYQHIPEExBywhPoOPSf2YKFUxfiHBHP4MCQZifCOamZiBoebU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789396015; c=relaxed/simple;
+	bh=81vJhDkEw0hvn3+KQOXHxZ2yc0dONF02B9FfrP65Cdw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DMD5wDQFMzTchKuVDrKtApWFzPbXlthyGECIUi/WZT4Pvhc0YOaU4pg044TNeC2K0YbIsSeUiueaICymsNcV4cLerY+fPqwInhnfraFF2d9IodsscFdZhJ9NsNttJvSFM0t1owfutlEtyRrBFrTSI0QTLXKYnm6mQAUSRazK9Uw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=LP6NjGNJ; arc=pass smtp.client-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ctYEAbmK"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f18010so2151733e87.0
-        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 07:25:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="LP6NjGNJ"
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c25b661d37dso473426966b.0
+        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 07:26:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789396012; cv=none;
+        d=google.com; s=arc-20260327;
+        b=eFp/7jTmWILjk0IR5VMw7hH4AXBCWiqgZJsySPCAA8s0nDUWPwTaXPTU3NqK1MlJ4W
+         UOxG+rkeTUhTmNyr3Bh4zBals8HK7f0MQz/ZHBS2AZ/Uyr1YamTDFKyOBgF0FXRBOoan
+         VbaAqExZbsFbAkzQuEz0qsYxOkkthKOJrYixf+YiiWThaFBVMQV+jX8ghHqzIgAf+9wB
+         WlTDbiSJhbzBIHuc/r5EvRIJLfnB9L1f8z2Yy1Wug2RB6UgyolQ0YxwNW6vDYvPwH9V2
+         ZuMJaFWJc4513PPVIm2hYai/IaEGp51tLJgK025g9mCjDtjISPWQxC3/B7xfdYkMcHEg
+         8QeA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=3SRl5RlCoBEMdB/onhWIkx4Vv9NPOyhwv41Rqd2HgvQ=;
+        fh=9pitv8PlQ2ECanTu32n7AHATsHTMvf2jKmbGEYVwLJU=;
+        b=aBETqET23y23BH/Uz/X+7wzlgmtsB4Hwl76y/kbqfuuowY3q7uySwseOQlOkiP6ilG
+         lCSmVeLrNFMtoPSmVURiFdSHUZj29eeS/w9sizDFbJgsoHmcF9pYulJhEp379xwlx8ep
+         9XAvqdJUPFJavO+LjDwd+rrJkNffRlYGHkRYbUNgJBY38Bqcf4YMrGzPxVxCBaFMsQ3B
+         PRTKZFmXLiuOiKW+sMOt/WR3cRP54ZwxHQJihAajSf2f4K4RiwO3LvQqmpILgDLyQNnb
+         KUMSVegCNY1x5az4KM//UMRVm6tpof5Lh0I6zgyQOHbIwOCy57lLIMvNk4WluUh0MN86
+         1Z3w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789395940; x=1790000740; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=flipper.net; s=google; t=1789396012; x=1790000812; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=yWBz2u9MZyDcGdapPsHVrPMmzYjBtuHU9QqFvO4VM2Q=;
-        b=ctYEAbmKM1zNZHrU+XV8igxUqmTrudmqtsAV9iCQ5idk1q9DPUALKlbLLxYJq104HB
-         iAO00ldDfwowENTn6muAiDNaPXUaNirdLHZrVdmccEGDxvTku869d+6++DZi6gWUxqPp
-         wmmAHvM6RREDOdqcCjPaDsPkx58pphm4oMhPLESQjUCLKawdRCUBxtsr7+DkPOGT4X17
-         r6zmz8fZUTlCbIRVNwkBk+NZBVmqzJG0PoGeZmen7IZb5G+wRJ241TsFPKtY7yT7X1/s
-         eE5cKHHkuJbc/pF+WYh1/88WYCbvt7uNZJ4lPIMyxwbVRVb1Hh5MIVbutKig4B/4S+Ve
-         h8iA==
+        bh=3SRl5RlCoBEMdB/onhWIkx4Vv9NPOyhwv41Rqd2HgvQ=;
+        b=LP6NjGNJE+hKXOjbl9OyaZMTR1mXVdrIpNoixBRsgZ9XEiySkFhq2N7kY02pIxC3J8
+         W+o7jWbiUR4d3+JUwPutShJQeS2QmugUdEW+No9tith4a9OsDcAeqwbFReoYSuL1r/Kw
+         FK5fYDHR3YOsyt7K2n9ZGghK0TzE7XkWb3xbxg0McOuCI7Xq6s+wJLCZcxTAFuft3ZzT
+         zsRV4u7alXzvMriRu+8WHAyKbW453y4WHl1WzFkHjlTUB35JefJWqb+t60JDt8Jb2dDX
+         +PjTC3WQYKDzxNrSplUvYvaE/WB1aKFePGOQU4DfxIAjIh4cv3MlhsqOcEAuUIHAQcbH
+         5sWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789395940; x=1790000740;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20251104; t=1789396012; x=1790000812;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=yWBz2u9MZyDcGdapPsHVrPMmzYjBtuHU9QqFvO4VM2Q=;
-        b=OA+LMsHb5oNGBhWJ31ICoJq8XNwpzRFm7gD3qIXEOiD07p9mZFc0dt2LE3Nc45Z0mt
-         mNJfrlKb0DRhlmCjcM5lVBnItYzTIae9xGPZ+KseZWCV4Hu9faxnWYNrxTMEoKisY3Ug
-         7GT3exCqIIFgJOFeqNnp+CCa0LMa8/NOf2XHxAAWNakM+M8aF32VWI9S4klfdC6PyVQa
-         JFYr/C+Y3NbbABgLgQj+rJRg2afxacl43HpZl9BKMVpBv7SEKnhXVYqSZix1hTChNk+/
-         HUROcKXDeVr3JYQ2SDvHVcexEkf0cp42uDMuMZPtcBdA+bf+bBXQei1GN1aePN5ZedIz
-         /Kdw==
-X-Forwarded-Encrypted: i=1; AKwUvBzgfx8gt+iufeDupaJ/V5/b4V12z5ZSEHff9RLEAAw6hOJppaMQOTLeqbwxpbKEsidYzCRYUveI0XhN@vger.kernel.org
-X-Gm-Message-State: AFuF++nPsTOq71uQndVggll9Ej4bBSkEuhoevTfS0o0+FKt9/x2913ki
-	Uez7eectn9lwF1llelCVAfZ4J049r4GDtuR4OmJegBMG2WyMcGr74GDbjbOL5EP7xtqutw==
-X-Gm-Gg: AYBFou1qJCvT6fvTkFAPFnUw7Cvrct3sakvYjiQAQqPgCSJhmavF3Mn4I1K1Tqr8ZoD
-	EmSlf7Msm4LTrsziBY4WrQRbSBsYiEuB4QxoQ+PQYLfQK+5kiR4tXUtrrM+czS56MCJbgsnshvR
-	vM6dj1zIUxqwHOaQdxLB3desZsSY5//6l+SKiWoco3C77z9DFgQ+IQBRy2oMCjksAqs6N8byI8t
-	EaBNsw2xhRogx07sCckcJY7xFqIQ52/WJB5x7tgCn111D3r1XO23Z+JScvXpuG+wTBUjWgK0qog
-	fHnCRHvrRexGxmDQCc4OAfrWZRDX2EqjzuaXu8qYpl9fSYEQ31JLEwCYuTTCnlwiY4ZmOrP+l7a
-	mRKKh6c0mSZ/7EJQzGV96UtvSorphLRQ7PvGRdgSC86B6LCOgqV3dAjKpdOUFjpXtncorgR1vtA
-	ZWqRE/3wL+9OREVY9S5aPfn82ycBvQyKasUlkyCk0cxJyWDxQ6cD9n6WKZraT5as453nPXEx+KK
-	lJoUWLWGPGNjg==
-X-Received: by 2002:a05:6512:2511:b0:5b6:183b:d202 with SMTP id 2adb3069b0e04-5b8ae69ca27mr768798e87.41.1789395940103;
-        Mon, 14 Sep 2026 07:25:40 -0700 (PDT)
-Received: from KAS (94-29-32-34.dynamic.spd-mgts.ru. [94.29.32.34])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a04798d2sm2492509e87.69.2026.09.14.07.25.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 07:25:39 -0700 (PDT)
-From: Andrey Korshunov <razor1702@gmail.com>
-To: Chukun Pan <amadeus@jmu.edu.cn>
-Cc: Heiko Stuebner <heiko@sntech.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] arm64: dts: rockchip: Add MangoPi M28K
-Date: Mon, 14 Sep 2026 17:25:32 +0300
-Message-ID: <20260914142532.1997-1-razor1702@gmail.com>
-X-Mailer: git-send-email 2.54.0.windows.1
-In-Reply-To: <20260801080018.3220034-3-amadeus@jmu.edu.cn>
-References: <20260801080018.3220034-1-amadeus@jmu.edu.cn> <20260801080018.3220034-3-amadeus@jmu.edu.cn>
+        bh=3SRl5RlCoBEMdB/onhWIkx4Vv9NPOyhwv41Rqd2HgvQ=;
+        b=KVEsKXU1xEwPQoZJxrYWOiTReyibeQ2G492BX2iiwwUTYwy5gNdJYTBtpvMOm8Yu7m
+         uTYvB5T33yq3DM6rniE3CIth7aHKikQTeIgr5kHMMjXjvB/Y5llK7H4F7XD/Ov8Jxnyv
+         qmmgdqdMw4LvOhNcZAx0i7UUccbqhaKHfQHwCv20CziWdTHRWTmMvjXljFx65tEDWjd7
+         L7+kA3y3j3mZsE8eej663EAVr1a+mxFQkfePMdm+bBUtYiBfZDD6aHVyPaxWp0edSDPb
+         ta29JOAn/QuaE1NaRCclgZ+AhAFIwaek7ZE6xt9TOfQDoOz7UOrDVo7l41T4w5dtyLzT
+         O9aQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy4YGOQOmQg5YmwcS9m85Zy9xt9vtJ/yaTjkvtiElhPao5LcxbNoWOI8rOxgbo11RFqyUrqa2Qq8kJf@vger.kernel.org
+X-Gm-Message-State: AFuF++nTrm4utEpyO2GCEHFqfpIEnr+w//k0NJaaRAVSAKB8CyVzeQ6r
+	ROGBdot2UdHUf8J4UCw/Gd5zIA+S6KBWdGLEG8QJQKLWzN79pY9pi+4yvSlnsAVrVKTDvUu3hFX
+	NmnKddsWhbrto6JcjRdJzfEWxqWG0Th11fMmazkxnFQ==
+X-Gm-Gg: AYBFou1MQP2+UpdQi9WcFiDbXTjTWot6QzcODwhWba13nWGAZPt3wwVAmmsCDq8Vetm
+	uozyv0pe4h7tJbOHRhgeGoqflgBzQ3GVQ8lLjwkG5QevwXLZIr6ylct67enAwEQXduAjEpZPNEm
+	FQ9xbeO9BfvjX7ntK2EbLvxGiZ3qd/u7eo8rMQFhJ2Lrun7vI1jqWJ2cQJ3K5G5lm0J1S7eCIqL
+	VOm7+tc8+m3qxoQ8Gm71l9UWmrM8c66CwkeCge1PpIA6LIC2IfVFSoKV3zr9gHHDtSaLlyr1Ca8
+	VFywBAM+uld/1mxEBtyHtve+o/ghoN9l5nHAnq5nt0N1GSZRW3Gq9uQ=
+X-Received: by 2002:a17:907:1c1f:b0:c29:3bc7:c13 with SMTP id
+ a640c23a62f3a-c29b861ead8mr178688066b.4.1789396011638; Mon, 14 Sep 2026
+ 07:26:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260914-bq25798-v1-1-dc5e2ec343c4@flipper.net> <20260914140821.269AC1F00893@smtp.kernel.org>
+In-Reply-To: <20260914140821.269AC1F00893@smtp.kernel.org>
+From: Alexey Charkov <alchark@flipper.net>
+Date: Mon, 14 Sep 2026 18:26:44 +0400
+X-Gm-Features: AcwNN1URozr7S4_r01G8CCPPRVZ26CghHbia4XeX1NY-TwCeIavw2uWVQYPLnZ0
+Message-ID: <CAKTNdwGnbzJnvxdGJa58wf_ab8RPBurjPSt7uxXno-z8sqdqxg@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: mfd: ti,bq25703a: Expand to include BQ25798
+To: sashiko-reviews@lists.linux.dev
+Cc: mfd@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, lee@kernel.org, 
+	devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, 1 Aug 2026 16:00:18 +0800, Chukun Pan wrote:
-> The MangoPi M28K is a development board with the
-> Rockchip RK3528 SoC. It has the following features:
+On Mon, Sep 14, 2026 at 6:08=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
+>
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [Medium] Adding an array-based fallback compatible string without updat=
+ing the `if: properties: compatible: const:` conditionals causes the new co=
+mpatible to bypass device-specific schema constraints.
+> --
+>
+> commit 37d04d6cb52639a3cc4ba9ade1878fa540a5cb3e
+> Author: Alexey Charkov <alchark@flipper.net>
+>
+> dt-bindings: mfd: ti,bq25703a: Expand to include BQ25798
+>
+> TI has unpublished the BQ25792 charger variant and pulled its docs from
+> their website. BQ25798 is a pin and register compatible replacement. Expa=
+nd
+> the existing binding to include BQ25798 with a fallback compatible to
+> BQ25792.
+>
+> Link: https://www.ti.com/product/BQ25798
+>
+> > diff --git a/Documentation/devicetree/bindings/mfd/ti,bq25703a.yaml b/D=
+ocumentation/devicetree/bindings/mfd/ti,bq25703a.yaml
+> > index cdce83f058041..43afd232a6142 100644
+> > --- a/Documentation/devicetree/bindings/mfd/ti,bq25703a.yaml
+> > +++ b/Documentation/devicetree/bindings/mfd/ti,bq25703a.yaml
+> > @@ -11,9 +11,14 @@ maintainers:
+> >
+> >  properties:
+> >    compatible:
+> > -    enum:
+> > -      - ti,bq25703a
+> > -      - ti,bq25792
+> > +    oneOf:
+> > +      - enum:
+> > +          - ti,bq25703a
+> > +          - ti,bq25792
+> > +      - items:
+> > +          - enum:
+> > +              - ti,bq25798
+> > +          - const: ti,bq25792
+>
+> [Severity: Medium]
+> Is this a regression that causes the new compatible string to bypass
+> device-specific schema constraints?
+>
+> Later in the file's allOf/if section, there is an exact match condition
+> for the ti,bq25792 compatible string:
+>
+>   - if:
+>       properties:
+>         compatible:
+>           const: ti,bq25792
+>
+> Since the schema const keyword mandates strict equality, it will fail to
+> match the fallback array ["ti,bq25798", "ti,bq25792"]. As a result, if a
+> devicetree author specifies compatible =3D "ti,bq25798", "ti,bq25792" and
+> configures out-of-bounds regulator or current values, the device-specific
+> hardware constraints for ti,bq25792 will not be applied during validation=
+.
+>
+> Could this if condition be updated to use contains instead of const, or
+> otherwise include the new fallback array?
 
-Tested on a MangoPi M28K v1.1 (non-Pro, 4 GB, no eMMC module) booting
-from microSD, with this patch applied to OpenWrt's 6.18.44 kernel and
-U-Boot 2026.07 built with a board target for the M28K.
+Fair point, will address in v2.
 
-Both GbE ports work (RTL8211F on gmac1, RTL8111H on PCIe), as do the
-LAN and WAN LEDs and both USB 2.0 ports. With the same devicetree on a
-6.12 kernel, the AIC8800D80 on sdio0 also comes up with the out-of-tree
-driver.
-
-Tested-by: Andrey Korshunov <razor1702@gmail.com>
+Best regards,
+Alexey
