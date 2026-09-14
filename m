@@ -1,165 +1,203 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-178.mta0.migadu.com [91.218.175.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3A2841A76F
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 08:58:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57574417BC3
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 08:59:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789376338; cv=none; b=Yw351LcsMMmHywrTLBw8uWX4+POpGRbaSeqHZlLTHYD0QjhDSmrCmxJYCF1tP+hDudk7cp2ZwnzfYkrF2jIe64296reHxrkp+HGg1yjOJehGHW1XQGk/KK1NXYyWHOY4cjggASgu7FUWT7voA8usy0sdnCadPMWalF/lPuFZBo4=
+	t=1789376349; cv=none; b=TrWef2xjWzJtICTQf6kQFga4emeNucwTw7wQSuHb4JesgcUzVQxZz1BBo2SLdHoqD0Cb6vsZxcubgBFtA/Zux0xChvwrAFaezak9A2lP2CgOjAH/78C+VWcRHaR9D9LDJcJFLxqPUaLaQJgEKHyBaF6mLTk9HK8EkX1sFXIOESI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789376338; c=relaxed/simple;
-	bh=007UxazwKBVk6DLr4rQj/ZyfjuNlcMJacLfSlvz+yX0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=L8/DSyfdPjxCLIiqiM3zk3rig7QwohaThxBXrX11A7ALq+kYOqrA12uBiNL/cg9MjHEW6x1RV0efjzpr1vNh2UI3xvUZdeNQX6hHDYvO6XExsI+Lzj5XNXUU4xc9TDTNNbYdp9wtDzpzTl56I8BPrls/vJY8ik/A79hpkMTr7H8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Vu30TUyl; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EQjQIqtc; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789376349; c=relaxed/simple;
+	bh=g6znYCCn3/yoIa4DdoJwc9F7KKna78UvWYBm5/Hagk4=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=ngjZIA724c8JZEepbgbe7oyBhd5dzT1iO3XCP44baslsvtc2JPRGJJ8gNfr73vp7Fqd1KbV5fq2X3jQpMCg4KCl3txxoLrxLBoee/O0ISq248WofOCtkIfBCM+sHIOOeioV2wAsFU53XKgyzIhm/SGanx7I3xypSE2QOPGUhKPU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=MRCLqk/l; arc=none smtp.client-ip=91.218.175.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Vu30TUyl";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EQjQIqtc"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E8ScTO594663
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 08:58:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	wWYZ7msSYmlK31FCpNcPthlZHIih2I60thjD4nII2Fg=; b=Vu30TUylXcs2ApAz
-	jpkrAuzfnDI01giNPNamMcYuTycPsGACZcmeAoEaH68U938aRg7P+tTJyoCzJ3Kg
-	Hz7L9XJGh6gZNfZFlqwBjwB6ua7RH+d2K7ux5q4hAzFb0pnK7RmvkShCFm0HkNZ4
-	vhd5qCxHBCaeGIQCKaRxdRZ/TUS0adGCNnQ8GZRiysAdrLMPVLTQmQV/2qutymXp
-	9/GTDPFNdtlf/d1hRlVuU1RBuri8/HiGbzwuxC9U60XD36wE1yEWNrYhSvFhtuM5
-	RnC0kI+hKebmtvkMet94c84ooaV952/X+Na1dC/Q1aqQkRpSlx7hVRm276BRIa8y
-	JF/yCg==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpdevr3bv-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 08:58:48 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-9102fee9920so3678256d6.0
-        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 01:58:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789376328; x=1789981128; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wWYZ7msSYmlK31FCpNcPthlZHIih2I60thjD4nII2Fg=;
-        b=EQjQIqtcAE+MKCZ/4lA2xv8oPV/TdbQU6fQUYZDC+SJMKPoTV/icvV8V9u59vj843g
-         O0obnarcby7A/umIqcPN5oh8dbtla3OfsMdmbeFn6T0bzo8N3PNh+hV6PdcxrTzUImeH
-         UruVPol8nh0+7l/eYkjDt9qP4RwdEWzcuFKBbD4g7ntrerid/7A8aG2O5AwG7On0SvTS
-         Z5OFjAxBC26p4QfuvxC8jwuJU2m7fpJphCd/BqR4ZtxYymM8GNUXMwEo+8o//7UWSsPK
-         e5R6yvU0I5oAltwwDpFZSLM61/1T711ZEwEB3gr3fzAFD+bxJIDbsBjhKoDSKAQUTf82
-         mulg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789376328; x=1789981128;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wWYZ7msSYmlK31FCpNcPthlZHIih2I60thjD4nII2Fg=;
-        b=IjqQ1RuONUvtvwU+U+3kDLSL0f2Qm40mdQ0/M0/iRSzshbUPXkRD0U57QbMdg1c14k
-         30qHD44Y4ar8xWwxSAQDN8onosZKG1CJLDKetXhroygo1wp1jw0IpwswuezLb3qCDmK/
-         qLTuaLpz24fKnxF/8ssnPN1uVR3d5MNbt1ZSvfjDh9kIoZJaMlPf8T5zqkZZGZNAq3DF
-         7RjVTTTO+oh/3R7N/OpSSN0mUhepckLY9qd7JGl8wezGPfa5kSrAqEhkCUQxL6jJx9dW
-         pxPot1f+C3lhh8pdNs2SBV9Jv7QF/iv62iHHRgEHa3Zy5z1ETkSncaBus3udUp/aKylj
-         o+eQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxq4pSE9AMR2W9bq5bjIh7IaPdhnkyzcbQgUlMY9hxxkdQtMVVDspdDTJY9zs1oz6tNG5uyGF+1biWr@vger.kernel.org
-X-Gm-Message-State: AFuF++m4Q+dHngz3THNiqGBfEOKhNK0KOYK0qcgTOPlrbPaF+C3ni4ad
-	00LGKPpF+E5WAITcV1/ka1hpi8fY3mTI61wOZZsWmZpC3y+2BdNZDT8OP8FjmKpjx6XXR5PQ71K
-	hrItXSgmtlGW7dPMG1uS7bKSDH4ypOSAyI35fypVTqaOBWm5MXEqYcZo/B0+DqMlt
-X-Gm-Gg: AYBFou0yl6UvsnxjjF3ny3MgpZ2m7O3Nt3TyWKFwVnhRQMkIREXyWEp3UrRc/3VNasB
-	1IK1vkhk4jNhqINY2eC0VdEGJvXObvXtlsNr6ySqRscWYwAbic7IjyCvv6b9/nDseNTzSqEKGHb
-	LGOmY+EayJDu3L9E2mNfItie8L5RNgbiCmW2Knlen2zmTnxX2WEbwwC2QemQBhQGUDH4vHUC6ht
-	7+vEtUI29PHQc5/45QO05GaJHrpryUI41nlOP1wjNyM9hnsbnkuTM7C+URBtGgpv73o4wNXJsUJ
-	lkm0jtHXRWJ4QsWu5wvMkKSYyobREb23eJpP0HBzxVXoH7UAqrS5SerUSUeENHMGxF00e+dHPNG
-	EEXtFJnl1PafHfw3qeICgQw==
-X-Received: by 2002:a05:6214:2c09:b0:90c:e7f4:8bfe with SMTP id 6a1803df08f44-9122e4f6497mr21528396d6.2.1789376327878;
-        Mon, 14 Sep 2026 01:58:47 -0700 (PDT)
-X-Received: by 2002:a05:6214:2c09:b0:90c:e7f4:8bfe with SMTP id 6a1803df08f44-9122e4f6497mr21528266d6.2.1789376327545;
-        Mon, 14 Sep 2026 01:58:47 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29660219ecsm391189266b.16.2026.09.14.01.58.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 01:58:46 -0700 (PDT)
-Message-ID: <583a10f4-a1ac-4539-8e80-1bf197bfaa63@oss.qualcomm.com>
-Date: Mon, 14 Sep 2026 10:58:43 +0200
+	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="MRCLqk/l"
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=g6znYCCn3/yoIa4DdoJwc9F7KKna78UvWYBm5/Hagk4=;
+ c=simple/simple; d=cknow-tech.com;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789376339; v=1; x=1789981139;
+ b=MRCLqk/ltyx2C0g5pRAKsZtm0iJXn9FdB5sUR+T1MnXCemAG26tqvbnbbddaf9RktEnzOt9X
+ TSLxHSlYVsVIjbLYi5uXv6WKgVq0AKwacGgwccAXFTttdo0UPTHO8QEQKpmoBx1lXyZLeG5px5v
+ kknGEyoBsgSXy6p8rGUpCJrMsqagq6RD/75wJU1tzuDqorV13kb47SteqvdSmhnZh7tE26U7xty
+ DjohuNK0lmEYta8feJoc4bXJtTZTY2xT5ZO1a76AT7oRcL7AFMad1522r1nPPaaiyAw18PBhtO/
+ 0/534V5NzQwNmzkHbYfFB92CgWxPXN7/PnVsACG+tMzqA==
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b1d13efd5afab658;
+	Mon, 14 Sep 2026 08:58:49 +0000
+X-Mizu-Trace-ID: b1d13efd5afab658
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v15 5/6] arm64: dts: qcom: Add device tree for Nord Ride
- board
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
-        Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>,
-        Yadu M G <yadu.mg@oss.qualcomm.com>,
-        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>, devicetree@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-References: <20260914031412.140856-1-shengchao.guo@oss.qualcomm.com>
- <20260914031412.140856-6-shengchao.guo@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260914031412.140856-6-shengchao.guo@oss.qualcomm.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: UDO231vJAhajEli8lCDUgoFo_HZDjnQy
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDEyNiBTYWx0ZWRfX5OsBoiEm0a2U
- HvVEZqYp+7iUVJlHg+VG8KPEAjsyJFrxzcixrdWd2fWVOs9PEW5l4G0ex090j2kICDEvfEke+3g
- 6frw/GCoaNkFMdCVeojeg1UFZSRyMbY=
-X-Proofpoint-GUID: UDO231vJAhajEli8lCDUgoFo_HZDjnQy
-X-Authority-Analysis: v=2.4 cv=ftpJ914f c=1 sm=1 tr=0 ts=6aa7b748 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=HHB2upKr6LlMs7tUYOwA:9 a=QEXdDO2ut3YA:10
- a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDEyNiBTYWx0ZWRfX1Y1qCh/2oPm2
- p2iE6CK3ob7GAR0x0M+OVDUvyBOuH72DSCz8J7CEAM4tpD79Nv/UxHBQFypIP5+y8qB+Rb3rYR4
- lXkLDlK6Et2WVc7gH98iHEecpNJIUQQgAugv3dPsCotWnCXwfv54ghQy8N0xW55ps6Z6ih+ekKK
- 1DcWmWpp5UVKN7UC5G2Ot/vqz0j5FPWnHXd8Qe881J6DxqA2lhaOhduHbf1yYfGgpqca3sXR5Na
- FfYhIZ32TCNFEMoCDjiXnt1FGXXRHFhOBXXNJhYFypXm67GBTcaWs0HWRw67IdvBzLb5evVDZQC
- vKdR8PqyUwRF7NH1Rt0Q+hePQH/SmVD6x/9rXLEVT7acL7/ntURx0DYlMBu5DuLFhQErtjOJy8T
- n/gfsoMekqVcUbcKTEsQ2wA5F4hGBHsK2LFtfZYqgumOm5ITPR3jXq+/PVQ1isw+oNHiAkVfWSh
- MZUnokdH3VeIiwTNq+w==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-14_02,2026-09-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 phishscore=0 adultscore=0 impostorscore=0
- priorityscore=1501 malwarescore=0 spamscore=0 suspectscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609140126
+Date: Mon, 14 Sep 2026 10:58:44 +0200
+Message-Id: <DLEWYVCME40R.L2IMBIU3ILG1@cknow-tech.com>
+Cc: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-rockchip@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ "Chukun Pan" <amadeus@jmu.edu.cn>, "Jonas Karlman" <jonas@kwiboo.se>,
+ "jensen" <jensenhuang@friendlyarm.com>, "Andrey Korshunov"
+ <razor1702@gmail.com>, "Diederik de Haas" <diederik@cknow-tech.com>, "Conor
+ Dooley" <conor.dooley@microchip.com>
+Subject: Re: [PATCH v5 0/4] arm64: dts: rockchip: Add FriendlyElec NanoPi
+ R28S
+From: "Diederik de Haas" <diederik@cknow-tech.com>
+To: <HystericalDragons@proton.me>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, "Heiko Stuebner" <heiko@sntech.de>
+X-Mailer: aerc 0.22.0-9-ge948bb7230f4
+References: <20260914-r28s-upstream-v5-0-7409c498e8dc@proton.me>
+In-Reply-To: <20260914-r28s-upstream-v5-0-7409c498e8dc@proton.me>
 
-On 9/14/26 5:14 AM, Shawn Guo wrote:
-> From: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
-> 
-> Add initial device tree for the Qualcomm SA8797P Ride reference board,
-> which is built on Nord GearVM variant.
-> 
->  - Configure UART15 as the primary console and UART4 as the secondary
->    serial port
->  - Enable UFS storage support
->  - Define thermal zones for PMIC dies, UFS, and two SDRAM sensors,
->    all sourced from SCMI sensor protocol on channel 23
-> 
-> Signed-off-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
-> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> Tested-by: Yadu M G <yadu.mg@oss.qualcomm.com>
-> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+On Mon Sep 14, 2026 at 10:24 AM CEST, =E5=AE=89=E5=AE=B9 via B4 Relay wrote=
+:
+> The NanoPi R28S is a dual gigabit Ethernet router board based on the
+> Rockchip RK3528 SoC:
+>
+>   https://wiki.friendlyelec.com/wiki/index.php/NanoPi_R28S
+>
+> It is closely related to the already supported NanoPi Zero2, sharing
+> most of its power tree and peripheral routing. Patch 2 therefore moves
+> the common parts into rk3528-nanopi.dtsi, and patch 3 adds the board on
+> top of it. The split leaves the NanoPi Zero2 dtb unchanged; I verified
+> this by comparing the node and property sets of the dtb before and after
+> the split, which differ only in node order and phandle numbering. Patch
+> 4 is a coding style cleanup in the shared devicetree and the NanoPi
+> Zero2 devicetree.
+>
+> The devicetree was derived from the vendor tree:
+>
+>   https://github.com/friendlyarm/kernel-rockchip/commit/ee640c5344b13a0a3=
+17436e2357df01af8268ce7
+>
+> but with many changes to make it suitable for mainline.
+>
+> Tested on a metal-case unit without the optional onboard eMMC: boots
+> from microSD, both Ethernet ports link up at 1000 Mbps, the HYM8563 RTC
+> registers, and all three LEDs are functional. The USB Type-C connector
+> registers as a DWC3 UDC in peripheral mode; gadget enumeration against
+> a USB host was not completed, because that connector is also the 5V
+> input and a PC port cannot power the board.
+>
+> The bootloader was U-Boot 2026.07 with a board specific R28S target,
+> which releases the RGMII PHY reset before Linux starts, so the reset
+> description in the PHY node is all the kernel needs.
+>
+> Two things I did not do, because my hardware cannot verify them:
+>
+> - The AICSemi AIC8800D80 WiFi chip on sdio0 has no upstream driver, so
+>   only the SDIO controller is described.
+> - The eMMC is described as HS200 rather than the vendor's HS400 with
+>   enhanced strobe, since the board at hand has an unpopulated eMMC
+>   footprint and the faster modes could not be verified.
+>
 > ---
+> Changes in v5:
+> - Dropped the pinctrl-0 before pinctrl-names reordering from the coding
+>   style patch and used the order the rest of the rockchip devicetrees
+>   use, pinctrl-names first, in the new devicetree as well. The strict
+>   mode of scripts/dtc/dt-check-style asks for the alphabetical order,
+>   but it does so for many other properties that no rockchip devicetree
+>   sorts that way either (Chukun Pan).
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Then you can also just drop patch 4 as (by far) most rockchip devicetrees
+do not have a blank line before ``status =3D <okay>;``
 
-Konrad
+> - Moved the SYS LED, which the NanoPi R28S shares with the NanoPi Zero2,
+>   and the led1 and led_sys pin configurations into rk3528-nanopi.dtsi.
+>   Both boards now only add their own LEDs to &leds (Chukun Pan).
+> - Renamed the NanoPi R28S LED nodes to led-1 and led-2, to use the
+>   led-[0-9] node naming (Chukun Pan).
+> - Changed the user button from KEY_RESTART to BTN_1. It is a general
+>   purpose button on this board, not a reset button (Chukun Pan).
+> - Link to v4: https://patch.msgid.link/20260911-r28s-upstream-v4-0-fb6c85=
+f226d4@proton.me
+>
+> Changes in v4:
+> - Dropped the patch that moved the NanoPi Zero2 RGMII PHY reset to the
+>   MDIO bus. GPIO4_C2 resets the PHY, not the bus, so describing it on
+>   &mdio1 is not a description of the hardware. It would also break
+>   Ethernet in U-Boot, which reads reset-gpios, reset-assert-us and
+>   reset-deassert-us from the PHY node and has no support for a bus
+>   level reset. The nanopi-zero2-rk3528 U-Boot target releases the PHY
+>   reset before Linux starts; the failure I reported was seen with the
+>   generic-rk3528 target, which carries no board devicetree. Pointed out
+>   by Chukun Pan, and by Jonas Karlman in the same discussion for the
+>   HINLINK H28K:
+>   https://lore.kernel.org/lkml/1e8da54f-ef87-4d31-9a0a-17c0ff66bee0@kwibo=
+o.se/
+>   My own R28S has in fact been running a board specific U-Boot target
+>   all along, with the PHY node description this series now keeps, so
+>   the reset ordering problem I described does not arise there.
+> - Reworded the coding style patch to state the coding style violation
+>   itself as the reason, rather than the tool that found it (Diederik de
+>   Haas).
+> - Link to v3: https://patch.msgid.link/20260909-r28s-upstream-v3-0-ee3e1a=
+34a353@proton.me
+>
+> Changes in v3:
+> - New patch 1: describe the NanoPi Zero2 RGMII PHY reset on the MDIO
+>   bus rather than in the PHY node, so that it is applied before the PHY
+>   ID is read. A PHY held in reset by the bootloader was otherwise never
+>   probed, leaving the port dead. Reported by Andrey Korshunov, who
+>   proposed the deprecated snps,reset-gpio properties on the MAC; the
+>   bus level reset-gpios in mdio.yaml fixes the same ordering without a
+>   deprecated property.
+> - New patch 5: follow the DTS coding style in the three NanoPi RK3528
+>   devicetrees, as found by scripts/dtc/dt-check-style --mode=3Dstrict:
+>   pinctrl-0 before pinctrl-names, and a blank line before status.
+>   Suggested by Diederik de Haas.
+> - Picked up Conor Dooley's Acked-by on the binding.
+> - Link to v2: https://patch.msgid.link/20260907-r28s-upstream-v2-0-21ab57=
+0fc91c@proton.me
+>
+> Changes in v2:
+> - Split the parts shared with the NanoPi Zero2 into a new
+>   rk3528-nanopi.dtsi (new patch 2). The NanoPi Zero2 dtb is unchanged.
+> - Name the pinctrl labels after the nets in the schematic: usr_btn,
+>   led1, led2, led_sys, pwr_wf and pcie_eth_perstb.
+> - Rename the button node to button-user and its label to "USER".
+> - Link to v1: https://patch.msgid.link/20260905-r28s-upstream-v1-0-f68d53=
+89269a@proton.me
+>
+> ---
+> =E5=AE=89=E5=AE=B9 (4):
+>       dt-bindings: arm: rockchip: Add FriendlyElec NanoPi R28S
+>       arm64: dts: rockchip: Split out the common NanoPi RK3528 parts
+>       arm64: dts: rockchip: Add devicetree for the FriendlyElec NanoPi R2=
+8S
+>       arm64: dts: rockchip: Follow the DTS coding style in the NanoPi RK3=
+528 devicetrees
+>
+>  .../devicetree/bindings/arm/rockchip.yaml          |   5 +
+>  arch/arm64/boot/dts/rockchip/Makefile              |   1 +
+>  .../arm64/boot/dts/rockchip/rk3528-nanopi-r28s.dts | 127 +++++++++
+>  .../boot/dts/rockchip/rk3528-nanopi-zero2.dts      | 306 +--------------=
+-----
+>  arch/arm64/boot/dts/rockchip/rk3528-nanopi.dtsi    | 314 +++++++++++++++=
+++++++
+>  5 files changed, 456 insertions(+), 297 deletions(-)
+> ---
+> base-commit: 32e0f64640d558a0f5410ac5cdd8ebf371c5e6a6
+> change-id: 20260905-r28s-upstream-e212e27d6165
+>
+> Best regards,
+> -- =20
+> =E5=AE=89=E5=AE=B9 <HystericalDragons@proton.me>
+>
+>
+>
+> _______________________________________________
+> Linux-rockchip mailing list
+> Linux-rockchip@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-rockchip
+
+
