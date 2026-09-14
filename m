@@ -1,88 +1,87 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7452347AF5F
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 15:00:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BA6E48381D
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 15:00:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789398009; cv=none; b=LAxju4MrTEWohJs9CjveE0ZAPBf+ctgj0V9khY5yJNpFyPodYVpWu6zfgS3rv/hdIarG2wPwNOxB12mOel/IIF59BMByl744MOu0MVFCIxEJbcvN0/jqW6EML5rzFcX7slz0QdeInqZQfWq4BQJw53dToSk85WArN/h2yRSFGQM=
+	t=1789398019; cv=none; b=VSoY/mGdPTN5iaXMrJ0L+r/mmv6peMWDjFhAJivfsYBBINW7WWZjDudBGOAqUWpYCG2UG6ViJiA+8LYPdYsOGuTz8A1akvNRr02UT2fNyXkM9wy4dMkCMFoIsWraAtxkIClB4NQFXNQyKWhIvf7CFSSfPIkdb/JTEx85eJmRz3E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789398009; c=relaxed/simple;
-	bh=FOu15IfVscVgR29NkFHFBNDuZD58sPfHqAtlXoQpgqw=;
+	s=arc-20240116; t=1789398019; c=relaxed/simple;
+	bh=1LKdaQC3O+xm9aTmJtKPrncrf8fJAOhX1XLDI/B4dnM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=obtUTisiZzPP1Mqopav2FwzK80TyXjcD/njzmlwlxf13dwhXJHlTYHP+HyPlKdVOeDDZ4HFYaSqne3hyW2/SWfKgC9Wu/ouF8NpSvQmqBc6CXHwzPTw14D546iIzEPspzVvrZDvQjSR+UAAIvoIwofh1RageAILVEl3SN4YTvu8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=blqUaSU/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=b/ois5zR; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=OAvEWRDsLChci/zrbCqnR//sC2G7BBggkjV32sKLMgy4NIQmvIxxruQXdkyWAd8ycBb9tlODJXMunsuVOHfYE94M7pij0j19BJ0dtwRop6BYJXwVTgAg2xSXJWqBt3iqzx/IxvVIMOFKi9gWDYxdp6hnAaZ5wp8fsmYHTesibvE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=S9nrs0NI; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KGueaIQ2; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="blqUaSU/";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="b/ois5zR"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68ED0Usq3588154
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 15:00:04 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="S9nrs0NI";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KGueaIQ2"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68ED0Ye2674516
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 15:00:16 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	EzX6Y8Q0nJrzC5BWWNN7/NXu0LvfGsQ9qXt/GZGOImI=; b=blqUaSU/AByAjmRF
-	3/KxVrVmmy2+UIwo9MJkrozlcxMh8I/dRjVhjcqOc+hwWPo9Dpo0szw9L+F9CiIw
-	Rde8hKoMf7sN/7c/w80bl7DYgFYY2avc/obz4t1WyDD1fUm6QeSu1Xv1nzMEBJCx
-	WW09M6pqd1ddBksaBovxdrvWkK7Dcdvsgqg5tFCHInQuTMfN6r2QIkcPFkdmR+qi
-	GTB02Y6jTgvYp9wquYeMOnDycwBq9WzkHZ2MkipalMfAy8azPQ3HocQnEhWczN0J
-	2NPfkZNUi3dyPKuph2wCUGkobdBg+RamG9iPlg6TdDFDcisnZics85ryx35ER40M
-	5SOThQ==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gperg972s-1
+	DHDwEn+WIWhQ0IciLdsAkajeCelVa0Flp2Kskcti1Lo=; b=S9nrs0NII51EzlaS
+	oPQDWtpnPaQQRLUIa8BGGsCw6DbMcjf6l2hropH0DVPM361GXEM7Bdfw8uKwdZot
+	5dOgiLl6tw+aB+VWElqzrMmfCq1GH88Sa41UbYxNA0bYRzwTWYmxS93DiKmTotia
+	mQ54DderMnj43hGaEWqkAwXXi3K/j6rpsGhQRXwbjH04nbzWP0BZhZza/lfcOIMp
+	1pNrHYjjo47G5xuwQBxuKPBIzyWyFqSXimgw7Mm5av/gpzxNL3dG3wV6JYUqHGlv
+	Nz6KPv8wCjTyjO36EN3wNZEWB3aExOdQV2sjiMZ7alXNteBk+XLP6itFWwR5O76z
+	BZFdTQ==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpecs99q8-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 15:00:04 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2dd753a52bbso2249135ad.0
-        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 08:00:04 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 15:00:15 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2dc92350888so56833775ad.3
+        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 08:00:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789398004; x=1790002804; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1789398015; x=1790002815; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=EzX6Y8Q0nJrzC5BWWNN7/NXu0LvfGsQ9qXt/GZGOImI=;
-        b=b/ois5zR/EafgBhf3eJBYuEKdrGrMUcBh3JWpxD3xUqXaGhHFXlZXUQi/4NIuxXBCS
-         BZEr5axgnzjXjiK1322+KbgScnW75RS2y8S0ouY4B9LiXn/Sp3CviD6x3mxh5gau1WL6
-         obAjEgmf72r3j4n/GhUhv4vTCnTTpOj7JO4YRY63v6iK+lyCfOU4CLBkE31UUgc/+xJf
-         S1NkhhwsiC6GeJxEfJENBtsFpSLG2g5F6M9djc5StMGzenQLvUrBO4D7yQgxxa6FjWdu
-         1p8PDXtBl+89e+ghbTo3xpFSGdAIEBLna/jiMDfMWUG+Ek/sviSjAqhCOcak7Z7BYm8m
-         fBLA==
+        bh=DHDwEn+WIWhQ0IciLdsAkajeCelVa0Flp2Kskcti1Lo=;
+        b=KGueaIQ28TLlrCw7oMSBaWfyw1ExxsYSRTlBZuANNKe4KaZZRRMhzrJ/GwSYNwRE6d
+         +i6RLRUO608keZsPf+7Aio+XJoglUHTtoDQhqYucHvHElrNnqgbMQpQehIgNP820l8Im
+         TCBLhVdBsgvaWsvg1q0Gst+1kRN9qFArcMcdb2gAg7ABcnhOtUtHhov+wHvfwmW0LePe
+         7Iz0PxUHJ5gqn7yofX8vTy5TAQTDj8zr6A2wuXihbHGCAEMTDvaabIk/QvvBpxhIE8w4
+         iNO73i2Teu+FpfVsmG6/tyXMusOXrWDipJPAvrj6tN3nL6GE6/tAlhun6LA9ApBMqUdj
+         +G6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789398004; x=1790002804;
+        d=1e100.net; s=20251104; t=1789398015; x=1790002815;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=EzX6Y8Q0nJrzC5BWWNN7/NXu0LvfGsQ9qXt/GZGOImI=;
-        b=F4F3GS3sSwSiEe1K4ICAh1I/5K5e8aqW/KWibC+W5jQyauFKTK8qzMo72G5aho2xCz
-         FLL4pKjGqSDrfEC8+4MVuod/z8Yd0YNOYLPzvbnA1G+A+KkkcRB3LqwELzv6Apq3+6Us
-         YXuyUCrO9YM8HhNsWY0k3fHw55V5MHLF2E79oXBRmRpCAgkhWN6WbYEwsgcIyCLyqSTA
-         I+RUJoeopvJ2TYjfGBDHjxpKX8mK0IhYrmq8TzRUZIJyCnlcqfs6QCKvS/BQCIcNUVMc
-         zyW/2zyw1iRdVEi81brL6a/UVFqW9K5ujoG6RXtJUOgbInCGOqXRTtY7RfE7Vn76K9uH
-         pvRA==
-X-Forwarded-Encrypted: i=1; AKwUvBwm5IDuBKrk3mOFV4cWWkW7h9ZUfkaV/5HlLkx/5UW2iafmmmUrX8hKUAEcOJTuBEEVKl9f7Hh0Gk7M@vger.kernel.org
-X-Gm-Message-State: AFuF++kn8hdWx5asjYtp3hPnlNERo6t2AZK5fBTNVqBBEVOTlTNbGt/1
-	uA48KHdzIFOxPBzcBAi5xFM2TgJYL1/YIOn5ZQVDyzoDtVofgCGmekqgJfEwIX3w54ZqDadyxL5
-	KrQf1kbqk3KlBKhfgOdd2xw7707/dI0y6cPq0K99XSQyURP2FrSsw/3aNrqvxEG9e
-X-Gm-Gg: AYBFou1KX0ne2QoucSEDI09wRhCiggni37kfmQr+JwpBcbbM/7JvBkmWq1fa5qLYuTP
-	K4xVwyEXT16HFWJCDZ6OfdTLcU/ImRvmhdbBOnOFNV8/+OPNokpgHVzlAFZeTeEdhjUYHoxJyVj
-	CijfUnnmUBzPJUuo1kBPF0dUlOzO6ITkr9D5Z4mJYbvuGcHn0+kV2eiRJqxLyiXxtEyZm4Ql79f
-	NStDRPITGbbBQBsInMgHD2tnU21omakkEBdTdR7QJEP2CL4V/u52FHrLBoBqc2Now0Q8MCgisQR
-	arMZdo9ZqFPxYXjYUzc+ukhTYxMUjxoyQNwBxBnEjOZG2qm83S/rp9haa63odJ2ul2vBvDg+URE
-	A8a3bVk9rjINbRhSUFg9oHXfTrGiyNHciLOaS
-X-Received: by 2002:a17:903:f87:b0:2d6:fee6:65ae with SMTP id d9443c01a7336-2dd6c5b16famr61614965ad.4.1789398003372;
-        Mon, 14 Sep 2026 08:00:03 -0700 (PDT)
-X-Received: by 2002:a17:903:f87:b0:2d6:fee6:65ae with SMTP id d9443c01a7336-2dd6c5b16famr61613975ad.4.1789398002807;
-        Mon, 14 Sep 2026 08:00:02 -0700 (PDT)
+        bh=DHDwEn+WIWhQ0IciLdsAkajeCelVa0Flp2Kskcti1Lo=;
+        b=rNtqbYQb5rva1IQUFBBTPZXPOTDFo+vImcMtlgUTjylnRwFsnaaxaosRVGLzcRkWWe
+         MbBvqnjl9GoeYGmvxtF2gFHvVt+cvYO8bmBnSHI8GdcOyyooRIZlcaDaqm3Cp+bTYcAK
+         4kGZODWK83zry9B8/0ep1Xx7rXS/xe+nH+wBNjQQDR4NCnDeoJCVBMs6pnJZgcAXGcNn
+         uvGh6jVSZKZWK2uFFdtcv5lcJD8L8eifUR40p0nkMcOnvwZgOIM8floP84M2GDgWIBDU
+         C18loG3J6g1/Qg52zLCVvH96qNCUtITqbIDKvmcL8IraM/mGnOSH5gWH1imisz4S9Fnc
+         3vLw==
+X-Forwarded-Encrypted: i=1; AKwUvBzYrteSSbR2U7oS0iruPttqc0f47dOhW4XlnWawLXyeAlxNuV3GMVpENKIDE2AJYppVmIL1ab2gQx2Q@vger.kernel.org
+X-Gm-Message-State: AFuF++ldjIfYek2RmpHDrlk1CZ2IdFBAlS4QYemohI3gZd9MD02HjJrK
+	ZZ8/mMbsDSMYVlCuf0t9vDQVxgj97+loA3tN2N+Ecuwguvuxlt9m3QD7qBzRDFT4S+rb4+jcCp1
+	ZP/I3B48CJOHiz06Jw6jV72qhQvoTrsSRAxtexnqXEOFB87q5QQHPxG+egFxPubmc
+X-Gm-Gg: AYBFou3sZTm+svd5c/YVwJf27Oe9QoGPwx0ikAfZTDzAMaRCnjYFqP7NV63SolTef4V
+	LmiyndbTYbQ22LJLZre+STRAJm348ucrrdhuCXdtuE+fvb5a2ojoA/7YgBRaEJ/r3t0CTp+ymR6
+	9dwEIbBBNVvYsDY7EfUxPe4BnsfziyAOPnasF7ckhzecWXjkYQZWmEcVj0cZE04GBr/W86cfH8Q
+	cEJA/1gGNcqZd/r9EDagbo66vkZ3M4agmK3vDK0p1BYgAsVagrkIKeyMy9Sg4wmb668yzARC7SO
+	yuv/Bpol8YG4g3NvT5AzuBUXFat+DBkjNVEA8gg8ksyzhgmRRGquW9Cf13HMpNoXX2DimmiToAJ
+	TngkqdxQvRPjVP3s/Xa2qujujknEZf2RKI1cy
+X-Received: by 2002:a17:902:ef0a:b0:2d9:4871:393d with SMTP id d9443c01a7336-2dd6c741d36mr64686505ad.21.1789398014857;
+        Mon, 14 Sep 2026 08:00:14 -0700 (PDT)
+X-Received: by 2002:a17:902:ef0a:b0:2d9:4871:393d with SMTP id d9443c01a7336-2dd6c741d36mr64684915ad.21.1789398014250;
+        Mon, 14 Sep 2026 08:00:14 -0700 (PDT)
 Received: from hu-spratap-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd4007bd4dsm42943345ad.4.2026.09.14.07.59.51
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd4007bd4dsm42943345ad.4.2026.09.14.08.00.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 08:00:02 -0700 (PDT)
+        Mon, 14 Sep 2026 08:00:13 -0700 (PDT)
 From: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-Date: Mon, 14 Sep 2026 20:29:08 +0530
-Subject: [PATCH v25 04/10] firmware: psci: Add support for PSCI auxiliary
- devices
+Date: Mon, 14 Sep 2026 20:29:09 +0530
+Subject: [PATCH v25 05/10] dt-bindings: arm: Document reboot mode magic
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -91,7 +90,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-arm-psci-system_reset2-vendor-reboots-v25-4-4aaf5c09b5c2@oss.qualcomm.com>
+Message-Id: <20260914-arm-psci-system_reset2-vendor-reboots-v25-5-4aaf5c09b5c2@oss.qualcomm.com>
 References: <20260914-arm-psci-system_reset2-vendor-reboots-v25-0-4aaf5c09b5c2@oss.qualcomm.com>
 In-Reply-To: <20260914-arm-psci-system_reset2-vendor-reboots-v25-0-4aaf5c09b5c2@oss.qualcomm.com>
 To: Lorenzo Pieralisi <lpieralisi@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
@@ -124,243 +123,136 @@ Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
         linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
         devicetree@vger.kernel.org, mfd@lists.linux.dev,
         Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>,
-        Srinivas Kandagatla <srini@kernel.org>,
-        Ulf Hansson <ulf.hansson@oss.qualcomm.com>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+        Srinivas Kandagatla <srini@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789397948; l=6657;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789397948; l=3255;
  i=shivendra.pratap@oss.qualcomm.com; s=20250710; h=from:subject:message-id;
- bh=FOu15IfVscVgR29NkFHFBNDuZD58sPfHqAtlXoQpgqw=;
- b=K6Xup1/+JMH4iBlOks405xptv03xSmRxdRpOFG8uwredQE2Y6VwEQ0H5O5UdKrsn7FCn47XNr
- +fU2rVjd4lHAx1eJNJQoD6tG8t2Xqsg9Fftyx5RyenNhZsPc+k8Sy60
+ bh=1LKdaQC3O+xm9aTmJtKPrncrf8fJAOhX1XLDI/B4dnM=;
+ b=9f7VltXLt86w6F9+EGr8WWpUIDOdDKEqN7YWpUaS4nIV6sFJpeL13CNDFTmp4mRqRZO347vQt
+ fCuknKj9CbwBQX5SYiQx+DzSwdtAWrzVzAFYgN2Gc7+Nd//a8CWe0qk
 X-Developer-Key: i=shivendra.pratap@oss.qualcomm.com; a=ed25519;
  pk=ssWsJFX3OM9pkdoe4+guOfGPaulHOFt0GVnVlB6on+s=
-X-Authority-Analysis: v=2.4 cv=QK/91QLL c=1 sm=1 tr=0 ts=6aa80bf4 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDIxNSBTYWx0ZWRfXwaxdrASahGmU
+ TrUsZyhr1XEaYNoBgIW7ADwtLHrOlFQFzhkP9lRVuIEsIsxii3afMTlB3WXOrCSDCrBAOuKfIHy
+ CPRvnuyFhu5wHcBE6Hi7/0+CZ4ppBIM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDIxNSBTYWx0ZWRfX3eiXRvznTXUE
+ v+HaYSbLE7qddGTdHriE90ACNUPQrnp2caD7uMESCPsN8PJQqcc5mM7vAMkcRVgvcsapw/hIznZ
+ vOcPkb8KcBFe/V2RSWKJLCTUOjZsFlK/RGM6mzbTycpe8WeTm+nHbxuRK995GiKcnQEv0cj8aYR
+ w4EGGszbOMm1c+Hz1V9iAJItxXxQ6JPikuhr0/63j5IEIpfahiDc+TqKwNCegTQi96tYwQZMKzf
+ Nbkx2qjbuad1NGTXm067Q+b/c3QH8jvEweTmTKsxJn7bMvfjNhAKIrSrnnCwsD4l6kH1j/6U3ty
+ dwLEyYpveQJ2q+hV6JQQI5TooG/jqJhfMAU1XjhuGK3vfhfxBJGwjKgCktyCqkCNZ2Turmzo4xL
+ AUgrhzEtFleuV2ljPh4SWOwY8wlOtrayhq52YSL2Oa50qdSKSvBoYcsdaEjxafsZRdnzDr3Fprs
+ Ol3PiszMgO+U7RPhzEQ==
+X-Proofpoint-GUID: IR76pI00CS8CZxlbVS4IEcwQqmV-88YI
+X-Authority-Analysis: v=2.4 cv=b/cncdGx c=1 sm=1 tr=0 ts=6aa80bff cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=JfrnYn6hAAAA:8 a=eg3YruLvm9Mffrp2VfYA:9
- a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22 a=1CNFftbPRP8L7MoqJWF3:22
-X-Proofpoint-GUID: VrkQL-JpimoqjEPHODXAQwbyTZOiZt4y
-X-Proofpoint-ORIG-GUID: VrkQL-JpimoqjEPHODXAQwbyTZOiZt4y
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDIxNSBTYWx0ZWRfX7siBXK+Agemb
- J7g2MFUfgfRl3U6pHzIcWHRPYRiiBilQpqyEkvlRgLM5nD7MvoXAzS9SXDKyQhPzKKJ0qsXO6fY
- yFXuq0znrDKdMboAWJq0zL9dVf3myA/wrJfhKuib2ZZTRikC/+kvAoCknThJp+To2BHP73evkUU
- Ww3DO+K8Cwd2xvyTC3i45byC6CX6SHYQQKjwppj/cRpKDvfVuE8AOmU9oEt4QBlC8lE6g84GIWH
- onlhhHDtVt4F+WA4mLzmmcLJn4WEfjnL5VJxt8RH2JMG4sFPxdciCjlOpMIT9rK29dfiPHtUY/u
- 0Hq/Kashz6COXSwYe20Rf44OOxayYxlD9HKxq8ICc7Pj3Zx4hCWefJu1ZDoaPa3kasXJqoJIYlS
- RvH8ovP3+ZB5Ua5g1SYqf8tYHUkgFFW8Iw7wBwCWBlIroLifkW1xfHWIN+bBmTx9KCcFRRP8yH3
- gbJKYT911JRZJ1OomlQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDIxNSBTYWx0ZWRfX9oWp7dWfoPoA
- c13HaaCQjB85Su6tCwhMxVNJxA6RiZAmcZuqVxqVFSW8wbAKZ3At4pYGN59pWMfXyfvOSG8tE1A
- ri0mimP/uGKuCYKgr0fxI4oijZgdgoY=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=VHtpXdJELXZ9Nr0wy4oA:9 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-ORIG-GUID: IR76pI00CS8CZxlbVS4IEcwQqmV-88YI
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-14_03,2026-09-14_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 malwarescore=0 suspectscore=0 lowpriorityscore=0
- priorityscore=1501 spamscore=0 adultscore=0 bulkscore=0 clxscore=1015
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ spamscore=0 bulkscore=0 adultscore=0 priorityscore=1501 phishscore=0
+ clxscore=1015 impostorscore=0 lowpriorityscore=0 suspectscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
  definitions=main-2609140215
 
-PSCI has multiple kernel consumers, such as cpuidle-psci-domain.
-Currently, both the PSCI core driver and cpuidle-psci-domain bind
-directly to the same PSCI node "arm,psci-1.0". Additional consumers, if
-introduced, would also need to bind in the same way, leading to multiple
-drivers attached to a single device node.
+Add bindings to describe vendor-specific reboot modes. Values here
+correspond to valid parameters to vendor-specific reset types in PSCI
+SYSTEM_RESET2 call.
 
-Introduce a PSCI auxiliary-device provider that binds to "arm,psci-1.0"
-and registers PSCI child devices on the auxiliary bus. As the first
-user, register cpuidle-psci-domain as an auxiliary device.
-
-Update cpuidle-psci-domain to probe as an auxiliary driver and use
-the PSCI device node for power-domain traversal.
-
-Suggested-by: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Suggested-by: Lee Jones <lee@kernel.org>
-Suggested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 Signed-off-by: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
 ---
- MAINTAINERS                           |  1 +
- drivers/cpuidle/Kconfig.arm           |  1 +
- drivers/cpuidle/cpuidle-psci-domain.c | 31 +++++++++++++++-----------
- drivers/firmware/psci/Kconfig         | 14 ++++++++++++
- drivers/firmware/psci/Makefile        |  1 +
- drivers/firmware/psci/psci-devices.c  | 41 +++++++++++++++++++++++++++++++++++
- 6 files changed, 76 insertions(+), 13 deletions(-)
+ Documentation/devicetree/bindings/arm/psci.yaml | 60 +++++++++++++++++++++++++
+ 1 file changed, 60 insertions(+)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 207a6e2db70c..9c0334ee2ed2 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -21932,6 +21932,7 @@ L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
- S:	Maintained
- F:	Documentation/devicetree/bindings/arm/psci.yaml
- F:	drivers/firmware/psci/
-+F:	drivers/firmware/psci/psci-devices.c
- F:	include/linux/psci.h
- F:	include/uapi/linux/psci.h
+diff --git a/Documentation/devicetree/bindings/arm/psci.yaml b/Documentation/devicetree/bindings/arm/psci.yaml
+index 0d04389c81fa..8b6a28b81ed7 100644
+--- a/Documentation/devicetree/bindings/arm/psci.yaml
++++ b/Documentation/devicetree/bindings/arm/psci.yaml
+@@ -98,6 +98,43 @@ properties:
+       [1] Kernel documentation - ARM idle states bindings
+         Documentation/devicetree/bindings/cpu/idle-states.yaml
  
-diff --git a/drivers/cpuidle/Kconfig.arm b/drivers/cpuidle/Kconfig.arm
-index b88b01aa5829..f22e18b05053 100644
---- a/drivers/cpuidle/Kconfig.arm
-+++ b/drivers/cpuidle/Kconfig.arm
-@@ -36,6 +36,7 @@ config ARM_PSCI_CPUIDLE_DOMAIN
- 	bool "PSCI CPU idle Domain"
- 	depends on ARM_PSCI_CPUIDLE
- 	depends on PM_GENERIC_DOMAINS_OF
-+	depends on ARM_PSCI_DEVICES
- 	select DT_IDLE_GENPD
- 	default y
- 	help
-diff --git a/drivers/cpuidle/cpuidle-psci-domain.c b/drivers/cpuidle/cpuidle-psci-domain.c
-index b9e4ad7d43a3..0ce6a83f6588 100644
---- a/drivers/cpuidle/cpuidle-psci-domain.c
-+++ b/drivers/cpuidle/cpuidle-psci-domain.c
-@@ -9,10 +9,11 @@
++  reboot-mode:
++    type: object
++    $ref: /schemas/power/reset/reboot-mode.yaml#
++    unevaluatedProperties: false
++    properties:
++      # "mode-normal" is just SYSTEM_RESET
++      mode-normal: false
++    patternProperties:
++      "^mode-.*$":
++        $ref: /schemas/types.yaml#/definitions/uint32-array
++        minItems: 2
++        items:
++          - description: arg1 (vendor-specific SYSTEM_RESET2 reset_type)
++            $ref: /schemas/types.yaml#/definitions/uint32
++            minimum: 0x80000000
++          - description:
++              arg2 (cookie_lo in 2-cell form, cookie_hi in 3-cell form)
++            $ref: /schemas/types.yaml#/definitions/uint32
++          - description: arg3 (cookie_lo in 3-cell form)
++            $ref: /schemas/types.yaml#/definitions/uint32
++        description: |
++          Describes a PSCI SYSTEM_RESET2 vendor-specific reset type. The string
++          after "mode-" maps a reboot mode to a vendor-specific reset.
++
++          A vendor-specific reset takes two arguments, a 32-bit reset_type and a
++          64-bit cookie. The arguments are encoded as up to three 32-bit cells.
++          Each mode property is encoded as mode-xxx = <arg1 arg2[, arg3]>,
++          where:
++
++            - arg1 is reset_type and must be >= 0x80000000.
++            - In 2-cell form, arg2 is lower 32 bits of cookie.
++            - In 3-cell form, arg2 is high 32 bits of cookie
++              and arg3 is low 32 bits of cookie.
++
++          All values should be provided as per the PSCI SYSTEM_RESET2
++          specification.
++
+ patternProperties:
+   "^power-domain-":
+     $ref: /schemas/power/power-domain.yaml#
+@@ -137,6 +174,15 @@ allOf:
+       required:
+         - cpu_off
+         - cpu_on
++  - if:
++      not:
++        properties:
++          compatible:
++            contains:
++              const: arm,psci-1.0
++    then:
++      properties:
++        reboot-mode: false
  
- #define pr_fmt(fmt) "CPUidle PSCI: " fmt
+ additionalProperties: false
  
-+#include <linux/auxiliary_bus.h>
- #include <linux/cpu.h>
- #include <linux/device.h>
- #include <linux/kernel.h>
--#include <linux/platform_device.h>
-+#include <linux/module.h>
- #include <linux/pm_domain.h>
- #include <linux/pm_runtime.h>
- #include <linux/psci.h>
-@@ -122,14 +123,10 @@ static void psci_pd_remove(void)
- 	}
- }
- 
--static const struct of_device_id psci_of_match[] = {
--	{ .compatible = "arm,psci-1.0" },
--	{}
--};
--
--static int psci_cpuidle_domain_probe(struct platform_device *pdev)
-+static int psci_cpuidle_domain_probe(struct auxiliary_device *auxdev,
-+				     const struct auxiliary_device_id *id)
- {
--	struct device_node *np = pdev->dev.of_node;
-+	struct device_node *np = auxdev->dev.of_node;
- 	bool use_osi = psci_has_osi_support();
- 	int ret = 0, pd_count = 0;
- 
-@@ -177,16 +174,24 @@ static int psci_cpuidle_domain_probe(struct platform_device *pdev)
- 	return ret;
- }
- 
--static struct platform_driver psci_cpuidle_domain_driver = {
--	.probe  = psci_cpuidle_domain_probe,
-+static const struct auxiliary_device_id psci_cpuidle_domain_id_table[] = {
-+	{ .name = "arm-psci.psci-cpuidle-domain" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(auxiliary, psci_cpuidle_domain_id_table);
+@@ -260,4 +306,18 @@ examples:
+         domain-idle-states = <&cluster_ret>, <&cluster_pwrdn>;
+       };
+     };
 +
-+static struct auxiliary_driver psci_cpuidle_domain_driver = {
-+	.probe = psci_cpuidle_domain_probe,
- 	.driver = {
--		.name = "psci-cpuidle-domain",
--		.of_match_table = psci_of_match,
-+		.suppress_bind_attrs = true,
- 	},
-+	.id_table = psci_cpuidle_domain_id_table,
- };
- 
- static int __init psci_idle_init_domains(void)
- {
--	return platform_driver_register(&psci_cpuidle_domain_driver);
-+	return __auxiliary_driver_register(&psci_cpuidle_domain_driver,
-+					   THIS_MODULE,
-+					   "psci-cpuidle-domain");
- }
- core_initcall(psci_idle_init_domains);
-diff --git a/drivers/firmware/psci/Kconfig b/drivers/firmware/psci/Kconfig
-index 97944168b5e6..68e381f1a618 100644
---- a/drivers/firmware/psci/Kconfig
-+++ b/drivers/firmware/psci/Kconfig
-@@ -2,6 +2,20 @@
- config ARM_PSCI_FW
- 	bool
- 
-+config ARM_PSCI_DEVICES
-+	bool "PSCI auxiliary device support"
-+	depends on ARM_PSCI_FW
-+	depends on OF
-+	select AUXILIARY_BUS
-+	default y
-+	help
-+	  Say Y here to enable auxiliary device support for PSCI.
++  - |+
 +
-+	  This creates auxiliary devices for PSCI functionality implemented
-+	  outside the core PSCI firmware driver. These devices allow PSCI
-+	  child drivers to bind through the auxiliary bus while sharing the
-+	  PSCI firmware device as their parent.
++    // Case 5: SYSTEM_RESET2 vendor resets
++    psci {
++      compatible = "arm,psci-1.0";
++      method = "smc";
 +
- config ARM_PSCI_CHECKER
- 	bool "ARM PSCI checker"
- 	depends on ARM_PSCI_FW && HOTPLUG_CPU && CPU_IDLE && !TORTURE_TEST
-diff --git a/drivers/firmware/psci/Makefile b/drivers/firmware/psci/Makefile
-index 1956b882470f..8e75a0ed6f74 100644
---- a/drivers/firmware/psci/Makefile
-+++ b/drivers/firmware/psci/Makefile
-@@ -1,4 +1,5 @@
- # SPDX-License-Identifier: GPL-2.0
- #
- obj-$(CONFIG_ARM_PSCI_FW)	+= psci.o
-+obj-$(CONFIG_ARM_PSCI_DEVICES)	+= psci-devices.o
- obj-$(CONFIG_ARM_PSCI_CHECKER)	+= psci_checker.o
-diff --git a/drivers/firmware/psci/psci-devices.c b/drivers/firmware/psci/psci-devices.c
-new file mode 100644
-index 000000000000..f1eca61e3269
---- /dev/null
-+++ b/drivers/firmware/psci/psci-devices.c
-@@ -0,0 +1,41 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+#include <linux/auxiliary_bus.h>
-+#include <linux/init.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+
-+static int arm_psci_probe(struct platform_device *pdev)
-+{
-+	struct auxiliary_device *auxdev;
-+
-+	auxdev = __devm_auxiliary_device_create(&pdev->dev, "arm-psci",
-+						"psci-cpuidle-domain", NULL, 0);
-+	if (!auxdev)
-+		return -ENOMEM;
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id arm_psci_of_match[] = {
-+	{ .compatible = "arm,psci-1.0" },
-+	{ }
-+};
-+
-+static struct platform_driver arm_psci_driver = {
-+	.probe = arm_psci_probe,
-+	.driver = {
-+		.name = "arm-psci",
-+		.of_match_table = arm_psci_of_match,
-+		.suppress_bind_attrs = true,
-+	},
-+};
-+
-+static int __init arm_psci_init(void)
-+{
-+	return platform_driver_register(&arm_psci_driver);
-+}
-+core_initcall(arm_psci_init);
++      reboot-mode {
++        mode-edl = <0x80000000 0x00000001>;
++        mode-bootloader = <0x80010001 0x00000002>;
++        mode-vendor = <0x80000000 0x00000001 0x00000002>;
++      };
++    };
+ ...
 
 -- 
 2.34.1
