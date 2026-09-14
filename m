@@ -1,78 +1,71 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CD452475E3;
-	Mon, 14 Sep 2026 05:20:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D44F18C008
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 05:32:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789363228; cv=none; b=gMt5yQiSOgj8bhPcYGajrevRRGCV+ds9B7N3d474qij0W8GBgJM2cTzcY/LRxDHfmKlVR6hKbYvhM/zCTp28dneXPDcXp7HRUn3vRiS4pR2YOPAjdJhPMiqmzJyGqaz+kIxrBr3+qaq3I7yUK/YB4H3X1VHJz99yfigNSuP8L8c=
+	t=1789363947; cv=none; b=g79N2qTKmEB2aiGbNie9/x65fIUyASB3rr9qiwfCXl5xH7hJJ0MUqT+DoLsDRCgev597Ax6IMrI2fOaLXlY1upXEG2VwP5MCPXafEfPRwCRd9yY6NthJFFVLcw8Yyx73+4TkdomgDN9+Ux9/H/pqTy7LBgIj6nFLvvkomC5a9Hg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789363228; c=relaxed/simple;
-	bh=TE6lnEedq9AEX81sCvjlzrnKeWus+zLHddFN4XOUUJ4=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=iXewhPblM9evkvgG7NvxL9+5MmdjEVzPEf8KnbNpVjwxNYVRx5ekMf6SAOEVeldT7nCrvW7SbPlVZxhXU2NdeYAQzfhu6ouDnO4zkgvHZxYbwFVs11oJYNFdrqqFla25lsgwbdYnuPbEc2HL+/Ro/eDRhW4NDEfPCc8Zw2+AS4k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CkTExBz8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789363947; c=relaxed/simple;
+	bh=JLDyb1EJ9pEsBiZ5e7lfY4A4KF9zkpRjkgHJql1+FZ4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=dDR1YjimeR2s5gWjapp/AZXnqAD9RkLyIxwBT5cHTDdVpvR2UUF9x/RlX11xRwSrL0qAD/KYrZukaPAO+pOGA4CqmxGZWx2T+Qag21hQ2/PtvA/+bRXEA4Ydo4iPxk19Atn7C7XHDwcQ8+dHf8wz2CbaZsN/Yv4uGfRLkem7BUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=korsgaard.com; spf=pass smtp.mailfrom=korsgaard.com; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=w85p4Pr3; arc=none smtp.client-ip=34.202.193.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=korsgaard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=korsgaard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CkTExBz8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 998861F000FF;
-	Mon, 14 Sep 2026 05:20:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789363226;
-	bh=o779dzepK0mFhzpZscdSpSvYUsF1kQ6qSiTkadkPzf4=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=CkTExBz8pPEMBf1jk73HqRy9cRVhv5/C+/iPCXbOYp6XW7Lzx+sQ1dPL4vfhzGUKD
-	 1Qo4YLuCVLvhPKTxzUqjNbUy1Uvh7gG1I3nHUUqHzs/WEJuNkr9qBqahooT/6T5ZVm
-	 oR6CnuJc3DGdo2E3oDlVtXriiCz3rzEwiOys5VH0cgx+ZEDK5FyJNz90827TMmdf6G
-	 W2CcXEXQKcYkcl5oqdBHkuIsqpx+QgJgJl5qBheg0r2tbsTh9PXCq9NF/SX2bSEv/+
-	 2xV2YnJfUQF8bV7GrpUBqRvCECLrzr3MeGPvYWJKa4h381dPopjrSfvVE5ZktcPrKV
-	 K+Ef5ba1feaow==
+	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="w85p4Pr3"
+DKIM-Signature: a=rsa-sha256; b=w85p4Pr3vyldw4Fn6aC2IMeeVGCMdPXlbQ6qMWqjfg6UUbAvjK5maYPauleA5x1QkmRZ1OmJFg50vk7V0D002rY1wM9KHAhXiAaMS5me4FCO5QfpWFQ6H+JHQVyWI286svJga8ljF4VlVmuJ8EVxxMsgY58eRmSzVnQCSJMeeimFGFyxKcQ++EIWLV6Hxzc8ggK2I3jbGyKcptpt5iImW9beQJbsXYB0TiV3aTcG75JAje/jIDK6hRpOQRWV1jImxy9FJ/T9rgaQeqVUarYccw9VuKiuWmMm/7JPYHkEzflOJVjMN4QYzbvDisg7UqBMUYgbopnIFB7+V71ePrVp0g==; s=purelymail1; d=purelymail.com; v=1; bh=JLDyb1EJ9pEsBiZ5e7lfY4A4KF9zkpRjkgHJql1+FZ4=; h=Feedback-ID:Received:Received:From:To:Subject:Date;
+Feedback-ID: 21632:4007:null:purelymail
+X-Pm-Original-To: devicetree@vger.kernel.org
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -1229845082;
+          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+          Mon, 14 Sep 2026 05:32:07 +0000 (UTC)
+Received: from peko by dell.be.48ers.dk with local (Exim 4.98.2)
+	(envelope-from <peter@korsgaard.com>)
+	id 1x5zIT-0000000Fmcu-3VsK;
+	Mon, 14 Sep 2026 07:32:05 +0200
+From: Peter Korsgaard <peter@korsgaard.com>
+To: Marek Vasut <marex@nabladev.com>
+Cc: linux-arm-kernel@lists.infradead.org,  Conor Dooley
+ <conor+dt@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,  Michal
+ Simek <michal.simek@amd.com>,  Rob Herring <robh@kernel.org>,
+  devicetree@vger.kernel.org,  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] arm64: zynqmp: Add ifm ZynqMP VHIP6 EvalBoard
+In-Reply-To: <00acb35f-ea7c-465c-96da-4eb5dac9e2cc@nabladev.com> (Marek
+	Vasut's message of "Mon, 14 Sep 2026 03:55:28 +0200")
+References: <20260909182641.165383-1-marex@nabladev.com>
+	<20260909182641.165383-2-marex@nabladev.com>
+	<874ifwjff2.fsf@dell.be.48ers.dk>
+	<fdf07bc2-428f-4055-97fa-61a302f57a6b@nabladev.com>
+	<87wlspb50g.fsf@dell.be.48ers.dk>
+	<00acb35f-ea7c-465c-96da-4eb5dac9e2cc@nabladev.com>
+Date: Mon, 14 Sep 2026 07:32:05 +0200
+Message-ID: <87y0d4v1nu.fsf@dell.be.48ers.dk>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v6 01/10] mm: memblock: add missing HugeTLB flag name
-From: Mike Rapoport <rppt@kernel.org>
-To: Wandun Chen <chenwandun1@gmail.com>
-Cc: catalin.marinas@arm.com, will@kernel.org, chenhuacai@kernel.org, 
- pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, tglx@kernel.org, 
- mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org, 
- robh@kernel.org, saravanak@kernel.org, akpm@linux-foundation.org, 
- baoquan.he@linux.dev, rppt@kernel.org, pasha.tatashin@soleen.com, 
- pratyush@kernel.org, m.szyprowski@samsung.com, mark.rutland@arm.com, 
- kernel@xen0n.name, alex@ghiti.fr, hpa@zytor.com, ruirui.yang@linux.dev, 
- robin.murphy@arm.com, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, loongarch@lists.linux.dev, 
- linux-riscv@lists.infradead.org, devicetree@vger.kernel.org, 
- kexec@lists.infradead.org, linux-mm@kvack.org, iommu@lists.linux.dev
-In-Reply-To: <20260902073116.802752-2-chenwandun1@gmail.com>
-References: <20260902073116.802752-1-chenwandun1@gmail.com>
- <20260902073116.802752-2-chenwandun1@gmail.com>
-Date: Mon, 14 Sep 2026 08:20:16 +0300
-Message-Id: <178936321614.3691424.10386784926753862087.b4-review@b4>
-X-Mailer: b4 0.17-dev
+Content-Type: text/plain
+
+>>>>> "Marek" == Marek Vasut <marex@nabladev.com> writes:
 
 Hi,
 
-> Commit 7d163a75f821 ("memblock: make HugeTLB bootmem allocation work
-> with KHO") added MEMBLOCK_RSRV_HUGETLB but did not add the corresponding
-> entry to flagname[]. As a result, memblock debugfs cannot report the
-> flag by name.
-> 
-> Add the missing RSV_HUGETLB entry.
-> 
-> Fixes: 7d163a75f821 ("memblock: make HugeTLB bootmem allocation work with KHO")
-> Signed-off-by: Meijing Zhao <zhaomeijing@lixiang.com>
-> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
-> Link: https://lore.kernel.org/lkml/20260821020910.3428585-2-zhaomeijing100@gmail.com/
+ >> OK, but why not add all the referenced GPIOs if you fill out
+ >> gpio-line-names anyway?
 
-Can you please send this as a separate patch, I'll pick it to the
-memblock tree.
+ > Because the userspace depends only on this one line name. But since
+ > eeprom node contains wp-gpios DT property now and the kernel controls
+ > the nWP GPIO, I can also turn this around and drop the gpio-line-names
+ > entirely. What do you think ?
+
+Up to you. I personally find it helpful for debugging (E.G. the debugfs
+output), but if it isn't used at all...
 
 -- 
-Sincerely yours,
-Mike.
-
+Bye, Peter Korsgaard
