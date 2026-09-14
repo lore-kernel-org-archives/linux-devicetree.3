@@ -1,255 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp3-g21.free.fr (smtp3-g21.free.fr [212.27.42.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD400414A3B;
-	Mon, 14 Sep 2026 20:47:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 290B3414A21
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 20:59:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789418823; cv=none; b=EgMU14LxVg2K3pQnCpADxffT6H+rE7ZvSVcwwiLnSXYXnDp3GpoEqgpagPpNZH7ffsyx1Bj/yZmkT5LKpMj4A3/XJ64IKgc42uCUW3WmmG9YcQ3YNjLYdtbCNF3b7bdz1ruIi8yrEgry7bQ+GC+RlvgCuCViOYf17xDZu0D4IuE=
+	t=1789419594; cv=none; b=DiaVxydL1AZ2E54xqhGAGoo+yKXK82azDQa8Qg2V5bhSGLe77CGXypU1xdxMgZbPJFV4Iz18C8LgeXMZSQG4Px5tpzvcKx6VZd9RF7cUzsZ7oZ9N426sF5h8tLH+SvxIolztd6u2AbnbN+NjA3QSDozocBbRspSnrQxB18d6oqw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789418823; c=relaxed/simple;
-	bh=iuc0Ms3G1QCaMWS7uxt0b+11hbylwKF9JN6l7Ng6xnw=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=d1Da8ptTWkc/WKVZF18Sz1xj1QpAbmc8MASNyMHRtSSVXnE98AZye2xZ50bHeQpvHY6lhzsfs9QgF1PFZt26D6nIKF2F+oqbJYsgxfXUi5Tcoof6ioYSeUGJsPWOqoPPmqK1ZITO7eCKPQ+C7NzrnZIKf0fUCCgi9X8NO+24owg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WFhVStkq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789419594; c=relaxed/simple;
+	bh=5kxlidUFCpU0ULPnNoqi4Oj2SDugDDeRksisx15L+fs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ckcCRnUq4nkwK2SX4oTQYZS+ymzxm5escgLYJKatGPgf2eWwdlrgPEZEsF7ws217wmplAH/5wKxbnQBuXZFWmgzzL8s5jVJJRKLvpXLBNnIV13qSOPtaBzwuIVAUFxeAkFgVO2TqzIcpTrwWu92AH8Km+bLAeC2ENr5aot0bVu8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr; spf=pass smtp.mailfrom=free.fr; dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b=NIQHoxlk; arc=none smtp.client-ip=212.27.42.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WFhVStkq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C92C1F000FF;
-	Mon, 14 Sep 2026 20:47:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789418821;
-	bh=AjrYB93weBBzKDKZwSdDA669TbxyiIUSowl+L7cCzB8=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=WFhVStkqt0pF2sz9XYgnfb/CJ9xYY3pWPvAN7OWkgIsRyA6AVCniagiAp/OsHUU8M
-	 HD/v+LDwWpRCRKZr9w0N2vLV5PFhsRwqhPuWr0JmXSfwboubKe1TzZ7lbUdqhVY5Tj
-	 dqOCfRi0qNYMzIkB/NPIlI8TA9JuXuc4T3ON1E/AeQ7jrPL2l3Qdih64dMrpUPl+Fd
-	 LlrtlnNr0fiCsxlUaBckuUUByGdVYYyKpdA/GZ7zTGC9DlJF8DP4xtfekv0jsTQTJF
-	 /Q8koIsoki7d0tEp3H4AsGtsN3F6kHJQbyNrbmWA6ANF5AXfYAnx8+xV1GIrT2niCE
-	 +i6PAmMiWR4xQ==
-Subject: Re: [PATCH net-next v13 3/4] net: dsa: microchip: Support Microchip
- KSZ8995XA / KS8995XA
-From: netdev-bot+sashiko@kernel.org
-To: linusw@kernel.org
-Cc: woojung.huh@microchip.com, UNGLinuxDriver@microchip.com, andrew@lunn.ch,
- olteanv@gmail.com, davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- marex@denx.de, horms@kernel.org, linux@armlinux.org.uk, nb@tipi-net.de,
- netdev@vger.kernel.org, devicetree@vger.kernel.org
-Date: Mon, 14 Sep 2026 20:46:59 +0000
-Message-ID: <178941881987.22033.2678404976824973480@kernel.org>
-In-Reply-To: <20260913-ks8995-to-ksz8-v13-3-327b16d309eb@kernel.org>
-References: <20260913-ks8995-to-ksz8-v13-3-327b16d309eb@kernel.org>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b="NIQHoxlk"
+Received: from l301776.home (unknown [IPv6:2a01:e0a:ac2:22b0:3514:9134:2ea8:d094])
+	(Authenticated sender: vjardin@free.fr)
+	by smtp3-g21.free.fr (Postfix) with ESMTPSA id 200EF13F879;
+	Mon, 14 Sep 2026 22:59:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+	s=smtp-20201208; t=1789419590;
+	bh=5kxlidUFCpU0ULPnNoqi4Oj2SDugDDeRksisx15L+fs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=NIQHoxlkAdE05We4kmWYV8nraIak2Ff5y29nmaPQHdG8t6hZOxyV17pu7r8mL8DYl
+	 jKyP/RFBfBXhsrkiZYKzyLDseGCr5jpgItMvarlPmmrroy1A57uGjliRxkLUgaSCZ/
+	 IDCXJMgHaR39Wh1hDMgG8xrFP0ZoA+zLaei8j8SdwLtm48ztXnoOMudBEUbmtx0Eqz
+	 rp+UD9XvBdRMJaX1S9ieCovwY9QoXC9q6iUM8AezqUaihaF2s5POQO0X7ip2teXNIP
+	 ptVu5Ki6McgRnW5n8uBJtidRdcAklShpzR1RcpjElapeR82UDQtD30fGc0PGi3QdhC
+	 ohxATrfoOHPzw==
+Date: Mon, 14 Sep 2026 22:59:43 +0200
+From: Vincent Jardin <vjardin@free.fr>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: sashiko-reviews@lists.linux.dev, imx@lists.linux.dev,
+	devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
+	Frank.Li@kernel.org
+Subject: Re: [PATCH v6 3/3] arm64: dts: freescale: add Nodebox v3 CPU Module
+Message-ID: <aqhgP3Yy6uGB9RIC@l301776.home>
+References: <20260913-for-upstream-nbxv3-dts-v6-0-058566b93ba1@free.fr>
+ <20260913-for-upstream-nbxv3-dts-v6-3-058566b93ba1@free.fr>
+ <20260913124548.EBB021F000FF@smtp.kernel.org>
+ <aqf91XlM-aiX2MXe@SMW015318>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aqf91XlM-aiX2MXe@SMW015318>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider:
+Hi Frank,
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 0 (1)
+Le 14/09/26 08:59, Frank Li a �crit :
+> > However, the board's strict naming convention uses a '#' or '-b' suffix for
+> > active-low signals (e.g., ethsw-reset#, usb01-oc#). The absence of this
+> > suffix on ethsw-mdio-en strongly implies it is an active-high signal. If it
+> > is active-high, driving it low will erroneously disable the MDIO bus to the
+> > Ethernet switch.
+> 
+> Is it true?
 
-- [Medium] ksz_spi.c claims the three legacy compatibles "micrel,ks8995",
-  "micrel,ksz8795" and "micrel,ksz8864", but the only in-tree schema…
-- [Medium] In the new KSZ8995XA branch of ksz8_reset_switch()
-  (drivers/net/dsa/microchip/ksz8.c:256), both the PHY-reset write loop…
+Yes, the polarity is right: the SoC enables the carrier's MDIO level
+shifter through an inverting stage, so the shifter is on when the pad is
+low.
 
-Pre-existing issues:
-- [Low] Reported concern (validated as NOT a functional regression): the
-  new `{ "ks8995" }` and `{ "ksz8995xa" }` entries in ksz_spi_ids[]…
+> > > +&gpio3 {
+> > > +	gpio-line-names =
+> > > +		"altfn:ec1-txd3", "altfn:ec1-txd2",
+> > > +		"altfn:ec1-txd1", "altfn:ec1-txd0",
+> > > +		"altfn:ec1-tx-en", "altfn:ec1-gtx-clk",
+> > > +		"altfn:ec1-rxd3", "altfn:ec1-rxd2",
+> > > +		"altfn:ec1-rxd1", "altfn:ec1-rxd0",
+> > > +		"altfn:ec1-rx-clk", "altfn:ec1-rx-dv",
+> > > +		"", "",
+> > > +		"ptp-refclk-in",
+> > > +		"", "", "", "", "", "", "", "",
+> > > +		"u1700-zl30733-pps-out",
+> > > +		"",
+> > > +		"ethsw-mdio-en",
+> > > +		"usb01-oc#",	/* USB1_PWRFAULT and USB2_PWRFAULT share one net */
+> > > +		"",
+> > > +		"usb01-oc#",
+> >
+> > [Severity: Low]
+> > Are these duplicate line names intentional?
+> 
+> Please fix this small problem.
 
---
+OK, I'll do it in a v7
 
-net: dsa: microchip: Support Microchip KSZ8995XA / KS8995XA
+Thanks,
+  Vincent
 
-This adds KSZ8995XA (Micrel KS8995XA) support to the KSZ DSA driver,
-including a reduced set of dev/switch ops, a per-port PHY reset in
-ksz8_reset_switch(), DCB helpers for the eight global TOS priority
-registers, and new SPI/OF match entries. It also makes the legacy
-NET_DSA_KS8995 driver mutually exclusive with NET_DSA_MICROCHIP_KSZ_SPI
-and takes over the legacy micrel compatibles.
-
-> diff --git a/drivers/net/dsa/microchip/ksz8.c b/drivers/net/dsa/microchip/ksz8.c
-> index 941ae9f66f70b..d7498132064e8 100644
-> --- a/drivers/net/dsa/microchip/ksz8.c
-> +++ b/drivers/net/dsa/microchip/ksz8.c
-
-[ ... ]
-
-> @@ -253,7 +255,35 @@ static int ksz8463_reset_switch(struct ksz_device *dev)
->  
->  static int ksz8_reset_switch(struct ksz_device *dev)
->  {
-> -	if (ksz_is_ksz88x3(dev)) {
-> +	if (ksz_is_ksz8995xa(dev)) {
-> +		unsigned int port, reg, val;
-> +		int ret;
-> +
-> +		/* The KSZ8995XA switch itself cannot be reset by software, but
-> +		 * often boot loaders have fun with ports, so reset them. This
-> +		 * reset bit is self-clearing.
-> +		 */
-> +		for (port = 0; port < dev->info->port_cnt; port++) {
-> +			ret = ksz_prmw8(dev, port, REG_PORT_STATUS_3,
-> +					PORT_PHY_SOFT_RESET,
-> +					PORT_PHY_SOFT_RESET);
-> +			if (ret)
-> +				return ret;
-> +		}
-> +
-> +		/* IEEE 802.3 allows up to 500 ms for a PHY reset. */
-> +		for (port = 0; port < dev->info->port_cnt; port++) {
-> +			reg = dev->dev_ops->get_port_addr(port, REG_PORT_STATUS_3);
-> +			ret = regmap_read_poll_timeout(ksz_regmap_8(dev), reg, val,
-> +						       !(val & PORT_PHY_SOFT_RESET),
-> +						       1000, 600000);
-> +			if (ret)
-> +				return ret;
-> +		}
-
-[Severity: Medium]
-Should both of these loops be bounded by dev->phy_port_cnt rather than
-dev->info->port_cnt?
-
-The chip data added here declares five ports with no PHY on the last one:
-
-	[KSZ8995XA] = {
-		...
-		.port_cnt = 5,		/* total cpu and user ports */
-		...
-		.internal_phy = {true, true, true, true, false},
-	},
-
-and ksz8_switch_init() sets dev->phy_port_cnt = port_cnt - 1 = 4 with
-dev->cpu_port = 4.  Other PHY-specific per-port loops in this file, for
-example in ksz8_config_cpu_port(), use dev->phy_port_cnt.
-
-With port_cnt the loops also touch index 4, and
-PORT_CTRL_ADDR(4, REG_PORT_STATUS_3) resolves to absolute register 0x5F,
-for which ksz8_reg.h has no definition; it only defines up to port 4:
-
-	#define REG_PORT_1_STATUS_3		0x1F
-	#define REG_PORT_2_STATUS_3		0x2F
-	#define REG_PORT_3_STATUS_3		0x3F
-	#define REG_PORT_4_STATUS_3		0x4F
-
-If PORT_PHY_SOFT_RESET does not read back as zero at 0x5F, the poll
-returns -ETIMEDOUT after 600 ms and setup is aborted:
-
-	ret = ksz8_reset_switch(dev);
-	if (ret) {
-		dev_err(ds->dev, "failed to reset switch\n");
-		return ret;
-	}
-
-so probe fails.  Alternatively, if 0x5F is the control register of the
-standalone PHY5 on MII-P5 (the in-tree wrv54g and mi424wr-d device trees
-describe PHY5 being used by a separate WAN netdev at external MDIO
-address 5), does this soft-reset a PHY that belongs to an unrelated
-network interface on every switch setup?
-
-[ ... ]
-
-> diff --git a/drivers/net/dsa/microchip/ksz_spi.c b/drivers/net/dsa/microchip/ksz_spi.c
-> index 373e9054947cb..e3bb9e604186d 100644
-> --- a/drivers/net/dsa/microchip/ksz_spi.c
-> +++ b/drivers/net/dsa/microchip/ksz_spi.c
-
-[ ... ]
-
-> @@ -224,6 +228,25 @@ static void ksz_spi_shutdown(struct spi_device *spi)
->  }
->  
->  static const struct of_device_id ksz_dt_ids[] = {
-> +	/*
-> +	 * Legacy Micrel bindings. In 2015 Microchip acquired
-> +	 * Micrel which is the originator of the KSZ series, and
-> +	 * devices branded for Micrel already existed, as well as
-> +	 * some device tree bindings. These two products are identical
-> +	 * to the same Microchip products.
-> +	 */
-> +	{
-> +		.compatible = "micrel,ksz8864",
-> +		.data = &ksz_switch_chips[KSZ8864]
-> +	},
-> +	{
-> +		.compatible = "micrel,ksz8795",
-> +		.data = &ksz_switch_chips[KSZ8795]
-> +	},
-> +	{
-> +		.compatible = "micrel,ks8995",
-> +		.data = &ksz_switch_chips[KSZ8995XA]
-> +	},
-
-[Severity: Medium]
-Do the bindings need updating to match the properties this driver reads
-for these three compatibles?
-
-The only schema matching micrel,ks8995, micrel,ksz8795 and micrel,ksz8864
-is Documentation/devicetree/bindings/net/dsa/micrel,ks8995.yaml, which
-allows only compatible, reg, reset-gpios, ethernet-ports/ports and
-spi-peripheral-props, with:
-
-	unevaluatedProperties: false
-
-The properties this driver parses are documented only in
-Documentation/devicetree/bindings/net/dsa/microchip,ksz.yaml, and that
-file does not list any micrel compatible (this series added only
-microchip,ksz8995xa there).
-
-Consumers in the driver for chips now reachable through these
-compatibles:
-
-  ksz8_parse_drive_strength() reads and applies
-  microchip,hi-drive-strength-microamp,
-  microchip,lo-drive-strength-microamp and
-  microchip,io-drive-strength-microamp for KSZ8795_CHIP_ID, i.e. for
-  micrel,ksz8795
-
-  ksz_switch_register() reads microchip,synclko-125,
-  microchip,synclko-disable, wakeup-source, microchip,pme-active-high
-  and the per-port micrel,fiber-mode
-
-  ksz_spi_probe() takes spi->irq, and ksz8_setup() calls
-  ksz_girq_setup(), so interrupts is meaningful
-
-None of those properties, nor interrupts, is permitted by
-micrel,ks8995.yaml, so a device tree using this functionality on one of
-these nodes is rejected by dt_binding_check while the driver honours it.
-The Documentation tree is unchanged through the end of the series.
-
-[ ... ]
-
-> @@ -317,6 +344,7 @@ static const struct of_device_id ksz_dt_ids[] = {
->  MODULE_DEVICE_TABLE(of, ksz_dt_ids);
->  
->  static const struct spi_device_id ksz_spi_ids[] = {
-> +	{ "ks8995" },
->  	{ "ksz8463" },
->  	{ "ksz8765" },
->  	{ "ksz8794" },
-
-[Severity: Low]
-This isn't a bug introduced by this patch, but the new "ks8995" and
-"ksz8995xa" entries carry no driver_data, matching the existing
-convention in ksz_spi_ids[] where none of "ksz8463" ... "lan9646" set it
-either.  Since ksz_spi_probe() only uses firmware match data:
-
-	chip = device_get_match_data(ddev);
-	if (!chip)
-		return -EINVAL;
-
-a device instantiated from board info (modalias match only) cannot probe,
-whereas the legacy ks8995.c used spi_get_device_id(spi)->driver_data.
-Nothing in the tree instantiates these devices that way, and the final
-patch of the series states the platform data path is unused, so this is
-only a cleanup suggestion: either populate driver_data and use
-spi_get_device_match_data(), or drop the IDs that cannot be matched.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260913-ks8995-to-ksz8-v13-0-327b16d309eb%40kernel.org
+> > Sashiko AI review � https://sashiko.dev/#/patchset/20260913-for-upstream-nbxv3-dts-v6-0-058566b93ba1@free.fr?part=3
