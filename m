@@ -1,375 +1,328 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D4DB45FFA0
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 12:45:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6992E45FFB0
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 12:48:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789389956; cv=none; b=Yxf/bBHJfdn4fxhvwGkEKSShWAFqoeh3HOZaMcvc8qawuQcHdnBA2lLzFeySf0J/rfMnJEEM0UpXdVwo0gQ9F4YPN2T+WoNY3f/hXo6gA0Qpo98wMnRlf3/2rqHRGWPWMO0VgVMtDYO7jhx8WatsJ9ufyfgT+Z0mJZXkqhsxFbc=
+	t=1789390087; cv=none; b=tdk8JUk/bvjjG4+c9t4Q4ckIYuQffrusL3och9427G4M9aWw+cwLJ3ZjQchGM9uK7N/kVQjCGFXWcYbvVDh7iovEiTjpdABRGpHk2LTi/hqzQsuo+HspRFOHNXhLgXMds1rjcSLbsbGlIjHGF9HY0zDNU2d3bGKbhV3BGLJt/vQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789389956; c=relaxed/simple;
-	bh=1GDtDP3OFpq7NJLUmbj/0ID1kjfq8k4ENToZ3o0FA5c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HMiDIZfdyyGv4O/cYkfirwGQ+BjPT3DTE4pVj5aQNQXdcGjg2ZNR2KKWg8m8AWwcb8fp4OdPKo2nVRa4bGyOMFJunYFvCg+AwxoZrJPdor6pmqmoms1RouTKbqKW3pj0X6ri0DpFk1u7qjYlKfPazIPRU1tS3xByycD8Hz0IRQ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QnS9yUpa; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Tykx9q/g; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1789390087; c=relaxed/simple;
+	bh=uLsEr8EDJzNep8q26/q2XvfljzL5t9C+5nxwdza3c1E=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=aoL3F/qy9boyU4CcgTor3NPx5Zq034eYoWhG6fRgFy2HEPhGrWmXhaR2m4Lj60cBXZ1AD1z+02dbSkvc9//YPJJPhqO++ZrNWkUQ44Efk1EwFzCEeBiD+pVcWmHBRAm6AEfCwoB5EEBn3Dq1BgG4b9abCvbk3qyS2ALwzD5XBWg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=e/GuS53a; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EqGnT8i1; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QnS9yUpa";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Tykx9q/g"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68EAmLel4032464
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 12:45:53 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="e/GuS53a";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EqGnT8i1"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68EAm07t727567
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 12:48:03 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	l7KCTyCnAql3eBzhMGVF8+s6B/KLW2Pt7JD9jXvISpw=; b=QnS9yUpa1Xly6lWs
-	vWv4Aq2Pc7H4GhHyTWrola0gT6Ig/Zy5N0hgLAkByd9aM3vaZTGlOySe1cYpQKb5
-	YYNaxxnTAQxpSTmfMsf6gRpEYsofe/40XNP66Jxw59URBNc7lPz09fKJOax5y4Yf
-	BWz1Hre73QPAXtOiBb+PccxtgD2pGSJY9OpaQn2WC2JmJMitek1Oy37A73IeVA9W
-	IkANGydE4+PaQKi+M3s1KW3IFFplRcrnK9QdxQt2I9LO4gRFszMNd2r7wtdtQWCj
-	c0/ZupjjIGFVX5efegYN0wMII8/Fk12rMxtWVfmhO7b+LZGBixC7Qg4TL6vD7UT0
-	C+64JQ==
-Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpeuq8k6x-1
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=orjs4bNCCx3kTIyjX9b953
+	ojx8d06e/Oru4ovIPKQFA=; b=e/GuS53aKzdP5bYpWsF9MivTKiJMAjYx2rbFuH
+	25YV7k8aLO6W6YtrHXq2gHCC0qnkJWsJ6H3rNLhlSX1Rt3FzS1vANqmTZUVldTYL
+	cmJF7ZQ/nc02CJIogxsE8m0RnDmtzTpTnqNz/HPFO2f44Fz9qq03Tn2wxk6T/lcI
+	B0msQVk/ncOUY/16eXSmXvrgiLobBJ5/eFgiHUBY2k3oaerp7SP71GpriKLJPeiN
+	Twtd7WSWa2qiflpQDOPS4GZb5qjqrkxDk7b/NveZeGKpkqx/XocJ4lkBJobFcSBO
+	nIP7GdVg1L9RgqrcHhjCmNNakk1rHl+szyPWBt391yw1hbAQ==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpdb5rxwp-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 12:45:53 +0000 (GMT)
-Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-97e9909eeeaso451043241.3
-        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 05:45:53 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 12:48:03 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92e82060977so640556585a.1
+        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 05:48:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789389952; x=1789994752; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=l7KCTyCnAql3eBzhMGVF8+s6B/KLW2Pt7JD9jXvISpw=;
-        b=Tykx9q/ghTBv6GMTp5XRD8w/YoJJtoZOFExofQT9aeJafJu1v8DhPBIlrvpnMpdfOl
-         NIQCjeYHB5tGx81zV6p9iL8fgDDwQUVCWqlIhNEwFt7k3aqQ1Uoz777npKwThxPRjeIt
-         EwKXyHbJ6AVznlI5rMNPSIsADDDMiKf5XCl8hcBbAtmSiD4kv+bIZy6r3sit5ijj/OzY
-         uIahjVuJROCjM3D8VmhCeV1olfabd3tW4SRqLNL7gqAS/AnFBPSlx8vMaAEKvNAgYgCr
-         pkPbdyIzNrxtyQ5I84xKby/9G8zvEOzw0jrO08nOUowC68RvQ9eqg4KND/jth57GXM8m
-         KFKA==
+        d=oss.qualcomm.com; s=google; t=1789390082; x=1789994882; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=orjs4bNCCx3kTIyjX9b953ojx8d06e/Oru4ovIPKQFA=;
+        b=EqGnT8i1cn3qPZ5T1amAU2r5iznDyF4S/P4IqOY8bu8wL7lGYnoskBfyGKfvLdonvU
+         ieL2CDSWjAz0eohNsi1Lf3ZFIzt7/2w2L2JQ7scNM3y+x/D1qFA0Ulfa9q0fjY5ES4g7
+         g8YQ4RN8a/bIOfWaSCuQ5I1Je+29DS8GwwlmUufO9ibhVGFHl7kymOOQu5ZbxMXQ8mcn
+         GDiYBikX0GWpeZnp0OdXChxVIaJWuuthCCxeL1aU0qF8NVmVbSf6A3wKcnzljMdkoalQ
+         Pr8L7/Y9f7+7F1p/BuhEoUDde5XItD726/NyGPZoU2Pq3sV9+gw9ufQKF69Ri6lSZDGL
+         2G7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789389952; x=1789994752;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=l7KCTyCnAql3eBzhMGVF8+s6B/KLW2Pt7JD9jXvISpw=;
-        b=FGaMDulaLshC5adtBLgMgbYM29F9W3eaIL17g7MBI+14mtO0FmBj6WwbgOavv29RU6
-         OFX8rFdPoyR42nwjYydpMxjwRJ1T7+urHogzJky4op4Cta43auZ8l+knHBV7k/mcHriZ
-         9PHMGUUZVhRfgWXARpd+pGuS7ZlqL4p0idC9gdypnlgmBSik9wG4OrpijHD7DPQmvhtr
-         oWzq6G+YZOieM4DV/rmrZllcNqfhNOhU2SaKQNlka69vmMN79TkjyMf82N6Ke4ZYk2Fn
-         ORkuA8wVKQiOOHNpEVq9lHtvZIdpaeXYqWUrixeB4l84Pc/Sa3vU52subiW+4BhvvOqe
-         elqg==
-X-Forwarded-Encrypted: i=1; AKwUvBwy/8ERmdhQ/sODfuzqWENbacykTcVl33ikXvqdteRuTJE/6DdPkBEgc8vOupIAGWF/EpOUb4GA3n63@vger.kernel.org
-X-Gm-Message-State: AFuF++lDkm7qqWi+EwAw7APPkbDvb0ZpNZjP6dcbeyN63rKwuum20fqw
-	MxjKHMRfgpxJw/gP/Zp7oVvTZIOjOs2sJ0VaVrRmX487HEQm+4TDySmxDrlikmIJJfgUZrcrwbp
-	FhOircovDxevDKenb0qL0S7es+ui8FNCZz+IhtlLJjC9Cfuhm3iT325vpKSiPJbaN
-X-Gm-Gg: AYBFou2FkCTuhFH7fqMHtfaV95l2rtMDqXNwWg2xKEawgYeiRKTcUqpeHkOnd51Y3E7
-	fl7KL6zu6lScXLMDto1bSOV+zdrnNStLITqFxJj0rVwaObmvyPn4LsLYo69QdqGHrCz9nj3RdfJ
-	IdDOfMPb6pwyzZJQT5AhRFjX+h6KxCYiXD8HG7ywaMhumQA2hI6zTm9+Zb8wwEoEM/31+PXoHaI
-	STyQf5hVlHtTKIBDOKLwmE1XMICyGQ7b7H2Cx6A9Ue1LHTNrclKvoVuNIxZ1WLjTiR58C5OUw4w
-	GHQSCeqsQIJgbdaHH5kHZgSqmZkq9ewOn076Z2C6+9K0m81nfCGWLhwnXc+VeRYxO/uf/0JnNhT
-	G/mRl2IrAvfT5ygD1gZslsc/P298=
-X-Received: by 2002:a05:6122:3382:b0:5c7:a9ee:dcfb with SMTP id 71dfb90a1353d-5c9820c3842mr1704499e0c.5.1789389952084;
-        Mon, 14 Sep 2026 05:45:52 -0700 (PDT)
-X-Received: by 2002:a05:6122:3382:b0:5c7:a9ee:dcfb with SMTP id 71dfb90a1353d-5c9820c3842mr1704396e0c.5.1789389951547;
-        Mon, 14 Sep 2026 05:45:51 -0700 (PDT)
-Received: from [192.168.68.120] ([5.133.47.210])
-        by smtp.googlemail.com with ESMTPSA id 2adb3069b0e04-5b8a0471d5bsm2429218e87.61.2026.09.14.05.45.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 05:45:50 -0700 (PDT)
-Message-ID: <3b22232c-7573-4f09-86d3-21984d5c3a1c@oss.qualcomm.com>
-Date: Mon, 14 Sep 2026 13:45:48 +0100
+        d=1e100.net; s=20251104; t=1789390082; x=1789994882;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=orjs4bNCCx3kTIyjX9b953ojx8d06e/Oru4ovIPKQFA=;
+        b=dg6I+RoA6ceSkl+6MJIYn/I3FjN23JFIjg7D17N88C8jTA2MyXiSMccbtCcKn85dlJ
+         EgS/Q2PGx7jS1WSBL8YtvXyKVtCZJwSw92bFo61b8DVmZYNKjHGz3VvYJfOH9qUVgnkL
+         BNDb6NyYPDwYw6PkxbLOcMWvAnVuo4sADoWqvnoDOEqW2HE7HZ3DEdBwaV0zlk0zqULJ
+         u/+qRTuX7IRDd26T2yDKatLFKjMvwTq7WzQJ88M7lVFq0eM/5q4Ba7Fuk1Y4M1dEkEVT
+         xXmeao4mJv/Qp1ptAJ3fw2v6bJrsKgHGrifb91m2MC9HmY0L2WoXqaWqc3Q1qqON8JF4
+         9Tkg==
+X-Forwarded-Encrypted: i=1; AKwUvBw3SRHbDVjuIehCUfLwcbSIMwDie+lH2QHjXP0sh5BzQZ3gNoGgSyzgcUlVDOF+MW8a8zmou/eQlerB@vger.kernel.org
+X-Gm-Message-State: AFuF++kxVBeb1KGmAMJGep3Rl3murIm4aKxMG7p6xT7g/Sexrdzv7sgV
+	W7p/9KvXMMYljmAtA1S06+gNaFh5F/uyvORSeT1/k85KVMPgiz6hBzH4h7dOdNNjrcX+AdwZJIT
+	boLb0Gequ8jjzUlcd4yloPeESETlUoftvOz9v/MYeL9I3EaRkH7sbBwmXDp2/Vhgv
+X-Gm-Gg: AYBFou307Ti4mKHQoB7blP/zPdqf5pZhwrhyU/rDKc/vOjjRKDoEn8tigYNtTXfhjxG
+	OGTFqbNqp6YYrbGe+5Uzrojwb5+Yx6VJFkblJE4Fycs1e7v8xEz0ATAIgEOMSKqwFP5ra0BPLLM
+	6bMH6FNnlA1VqHXbWpFW1mQ2U+NsJWv0I5jS/Z/7/yCYyJOZMHYIvPZ4SsUgUkkTqqySaxPEAXE
+	e9+Y5tjDjbacINlHVTJ7C8ERqhP03DfxZal86nsqjIoi7KDdexk7vnsgMRfA2Q1I6NGLS0p4ooR
+	/Boua+kS1LCP6ecIkKJEO8gRPOAQjVjTr52qkYBVd3i8MVdxwKRPyAdN0ldEOYf24UvHCslagz7
+	5YSy5gT52
+X-Received: by 2002:a05:620a:8394:b0:93a:1773:a16 with SMTP id af79cd13be357-93a18147155mr628435985a.0.1789390082358;
+        Mon, 14 Sep 2026 05:48:02 -0700 (PDT)
+X-Received: by 2002:a05:620a:8394:b0:93a:1773:a16 with SMTP id af79cd13be357-93a18147155mr628429685a.0.1789390081704;
+        Mon, 14 Sep 2026 05:48:01 -0700 (PDT)
+Received: from [127.0.1.1] ([86.121.170.232])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e6c566bdbsm242387555e9.11.2026.09.14.05.47.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 05:48:00 -0700 (PDT)
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Subject: [PATCH v4 00/52] clk: qcom: Tie CX power domains to GCCs
+Date: Mon, 14 Sep 2026 15:46:59 +0300
+Message-Id: <20260914-qcom-tie-cx-to-gcc-v4-0-9d5a606ada33@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 6/6] ASoC: qcom: lpass-va-macro: Add SoundWire
- microphone mux support
-To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
-        Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMTsp2oC/33OQQ6CMBAF0KuYrh3STksLrryHcVHKqDVqlQLBE
+ O5u0Y0LdNPkJ3/e78giNZ4i26xG1lDvow+3FNR6xdzJ3o4Evk6ZIUfNC1HCw4UrtJ7ADdAGODo
+ H2pDWpdGyrHKWDu8NHfzwRnf7T45ddSbXztLcOPnYhub5Xu3F3Ps70AvgUCjOpRKoyMhtiDF7d
+ PaSutcsPWze6fFLQr4oYZIofdhKXheVqX5I8ltSi5JM0kEgz22JusAlaZqmF6w6oQlhAQAA
+X-Change-ID: 20260819-qcom-tie-cx-to-gcc-67e6697639b5
+To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
         Rob Herring <robh@kernel.org>,
         Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260910-add_shikra_support-v2-0-fdd2129c696c@oss.qualcomm.com>
- <20260910-add_shikra_support-v2-6-fdd2129c696c@oss.qualcomm.com>
-Content-Language: en-US
-From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-In-Reply-To: <20260910-add_shikra_support-v2-6-fdd2129c696c@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDE4MiBTYWx0ZWRfX9BHcltDEgxci
- whgK4RcbP8l7+zhqXGyVpiPCEqOkeCK167wIIE6dEzRHnlg9toctcX4H5ums3pJKjuF+YAf1ryC
- psB/Y2BlbxDDh/8PpMBvYPxIYqWPhfF8h/nSxgjootnvrtOagNyqXnt+HnllJiAX6qZy82AhxRN
- 6KpVYSNIx2PMCE4XVme62dH7LAO+sLY8tmfENQPoi9CLQldwbZ9ZmIS3uwEXK/D+C3qH0AV1F5p
- pZU5opCiZHFEGVj2VrYWts0ffkhQizByhUplPipQk/uAp3SJhbzClRYvdkSig8A+723SlLE9Uei
- cJmfqsORJqL0fMfh1LnyDypZnXRQF1i5jiHmWQVm8/SudzoShI8c+TdUdnkf8Sv+vnnvth3q1uh
- agIwYfLwNQySnKtwsdZZVh+c1S9ZPEKJXXLk444bZqPpm600tjRMckNF/ZWk36E6t3AuBCViHGJ
- 9lCZ7D+qr3pUaibUpKw==
-X-Authority-Analysis: v=2.4 cv=TrFzFzXh c=1 sm=1 tr=0 ts=6aa7ec81 cx=c_pps
- a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
+        Conor Dooley <conor+dt@kernel.org>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Vinod Koul <vkoul@kernel.org>,
+        Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
+        Ajit Pandey <quic_ajipan@quicinc.com>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Imran Shaik <quic_imrashai@quicinc.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Tengfei Fan <tengfei.fan@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Krzysztof Kozlowski <krzk@kernel.org>
+X-Mailer: b4 0.16-dev-0e65f
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9466;
+ i=abel.vesa@oss.qualcomm.com; h=from:subject:message-id;
+ bh=uLsEr8EDJzNep8q26/q2XvfljzL5t9C+5nxwdza3c1E=;
+ b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBqp+zLSSrRhhlSkcXiCk0RCchmj1A5Dmh1RnM7d
+ MCrB8jpQv+JAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCaqfsywAKCRAbX0TJAJUV
+ Vt1wEAClYr3nGIg7OGBX6+wxZBsQvZ/2JHU0f0St5CoHlzhKKVLVTvd7yUWsBeusBnsFAkggzt8
+ 7CYBVMAbt3XGIpTxEFmQcvAnUxnmPZECHT6radX4Ptl59BsbREoab4cthXckHoeADD6Bf/mdLwL
+ qJ2VpOgu8D4gZseFTSpaxU2cLU0KJL6JE2L50sybFM1MHdZuMlkVUTzSqWRL/xuVAuHOTkiiNIG
+ OmRzqqEJigQThtirVECwA/0kqcJSH1zS0duXp1EkJM9JVeGWpap47tCWUeHlnZDmNQTzCNUyzQU
+ ZxTnQcwphBqHwNw6dOmdtULnBqThCZE5GCObohwB8SwW6NJpt2/W3mViKuvhU5/krvXUfgvMuL0
+ G8I7bVY0gFirYMNa7QkG4pksvDSHwtKsIiFL/pI8QWIX9b/yY5g89QRb2UMrpgCpuaGe1dV8WX8
+ Dg9889k5leIg/NXwhJwQPaHoPFMQusFHk4ntXLcx9To/r67yBiKMGLKujCwgZtyOmx/zBataZMl
+ vRQMK7nqMBWN0YZ8EoBf2HZBIdeHTEFEs+MT32y30VIy0gTJht4GmiybC+YmK1E5o++YgUntdND
+ BSxJgwZ40SwFF5gCcTPkrAz4MIHuXkzNB65L951G5az3xD9QMhQRq7V7hqZxpdccRaS0Sp0If7C
+ um+V9bdGKbWYbrQ==
+X-Developer-Key: i=abel.vesa@oss.qualcomm.com; a=openpgp;
+ fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDE4MiBTYWx0ZWRfX6ZhxcKGB3nsP
+ sFXjCApXVYG9tYocbA43cKrwRscPWWCY/3WC/t6RTgeZgS6Wi254ap4dwGl2SRCkc85mKVhmQNm
+ w+HbQxc2SyD9lMRVjCeKcaXsdSAE+jU=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDE4MiBTYWx0ZWRfX9q3IIV2BSA1n
+ MxNInxcpVUI+66hXjPdOWWI6MXEkK+J3WsUgoc+GXpnMnrxyv+aREqGxpGtjDDu6cuCHr4X8/sE
+ 80GGZk+ejnfl9lslNhjQ4SgvsPL+UMxcKFPffBQqa/MSQB/1+/KzbZBhDh9lKAR49NrBPuhj39h
+ WluxPfJBXE96uw0xI5iVJlNp0xkAW378FVflPsPGchLScAdaTGWT0b0iyyqnOt/I4/w3+8uAhVB
+ +MT85H+yxM1lBVjuJNWI5TPKvosNRP8BQ/L02+CTSdmFgtz+3ey8Rc4U3+NG5iU/KTp4o5aV1eO
+ w7wYCitG5+qVtBTlP5st1FGNHrImW2ViAzhWm/SEyGSdteQ4aNlLBsAupoPrv+1zV3a66ISIwoG
+ O4nbcXYImEviMYgnguLm8P7F41Z5vcsqbSgMl2yzoddHmpNcg0WkraEzLSMVSvOun+SLb5rO/65
+ JHnYBhe8/8rhmyUSAsg==
+X-Proofpoint-GUID: Aajrl9o1HWfhhnrGLxXjYI_QYuB1mWr2
+X-Authority-Analysis: v=2.4 cv=Ie4Symqa c=1 sm=1 tr=0 ts=6aa7ed03 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=DNEr2gOle52aZHLQxwsA:9 a=QEXdDO2ut3YA:10
- a=TD8TdBvy0hsOASGTdmB-:22
-X-Proofpoint-ORIG-GUID: EK1jyIREur0mpGXlvNUvtC9EoKkzhFCD
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDE4MiBTYWx0ZWRfX2EEPuqotpSR8
- R31rrP9mGHiFqczhnHjRUldmZxOE0ltB/EVQQpJSqOaxK6aYG1nW06uQHlh6osCvX4zqAcisafN
- R0brGnx4XT0e/Nw0qL0I2TXeaTKx5yA=
-X-Proofpoint-GUID: EK1jyIREur0mpGXlvNUvtC9EoKkzhFCD
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=20KFwNOVAAAA:8
+ a=IpJZQVW2AAAA:8 a=kPtngmjWIyd-nL7Q3W8A:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22 a=FO4_E8m0qiDe52t0p3_H:22 a=IawgGOuG5U0WyFbmm1f5:22
+X-Proofpoint-ORIG-GUID: Aajrl9o1HWfhhnrGLxXjYI_QYuB1mWr2
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-14_03,2026-09-13_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 priorityscore=1501 lowpriorityscore=0 bulkscore=0
- clxscore=1015 suspectscore=0 impostorscore=0 adultscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140182
+ spamscore=0 bulkscore=0 impostorscore=0 phishscore=0 adultscore=0
+ malwarescore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609140182
 
-On 9/10/26 10:46 AM, Mohammad Rafi Shaik wrote:
-> The VA decimators can currently capture audio only from DMIC inputs.
-> Add support for routing audio from SoundWire microphone (SMIC) inputs
-> as well.
-> 
-> Update the decimator source selection logic to switch between DMIC and
-> SMIC sources based on the active input path.
-> 
-> Add a helper to detect whether a decimator is using a SoundWire microphone
-> input. Use this information to skip DMIC-specific HPF programming sequences
-> when the decimator is configured for an SMIC source.
-> 
-> This enables VA decimators to capture audio from either DMIC or SoundWire
-> microphone inputs.
-> 
-> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-> ---
->  sound/soc/codecs/lpass-va-macro.c | 124 ++++++++++++++++++++++++++++++++++----
->  1 file changed, 113 insertions(+), 11 deletions(-)
-> 
-> diff --git a/sound/soc/codecs/lpass-va-macro.c b/sound/soc/codecs/lpass-va-macro.c
-> index 8353921f7..46f35a984 100644
-> --- a/sound/soc/codecs/lpass-va-macro.c
-> +++ b/sound/soc/codecs/lpass-va-macro.c
-> @@ -249,6 +249,7 @@ enum {
->  	VA_MACRO_CLK_DIV_16,
->  };
->  
-> +
->  #define VA_NUM_CLKS_MAX		3
->  
->  struct va_macro {
-> @@ -756,10 +757,16 @@ static int va_macro_put_dec_enum(struct snd_kcontrol *kcontrol,
->  		return -EINVAL;
->  	}
->  
-> -	if (val != 0)
-> -		snd_soc_component_update_bits(component, mic_sel_reg,
-> +	if (val != 0) {
-> +		if (strstr(widget->name, "SMIC"))
-Where is this widget in this patch, it could be anything which has SMIC.
-or either match the full Widget name.
+Tie the CX power domain to GCC clock controllers for SDM670,
+SM8150, SM8250, SM8350, SM8450, SM8550, SM8650, SM8750, SM6350,
+SM4450, QDU1000, QCS8300, SDX75, SAR2130P, SC7180, SC7280, SA8775P,
+X1E80100, Eliza, Kaanapali, and QCS615.
 
-> +			snd_soc_component_update_bits(component, mic_sel_reg,
-> +					      CDC_VA_TX_PATH_ADC_DMIC_SEL_MASK,
-> +					      CDC_VA_TX_PATH_ADC_DMIC_SEL_ADC);
-> +		else
-> +			snd_soc_component_update_bits(component, mic_sel_reg,
->  					      CDC_VA_TX_PATH_ADC_DMIC_SEL_MASK,
->  					      CDC_VA_TX_PATH_ADC_DMIC_SEL_DMIC);
-> +	}
->  
->  	return snd_soc_dapm_put_enum_double(kcontrol, ucontrol);
->  }
-> @@ -940,6 +947,16 @@ static int va_macro_enable_dmic(struct snd_soc_dapm_widget *w,
->  	return 0;
->  }
->  
-> +static bool is_amic_enabled(struct snd_soc_component *comp, int decimator)
-> +{
-> +	u16 adc_mux_reg;
-> +
-> +	adc_mux_reg = CDC_VA_INP_MUX_ADC_MUX0_CFG1 +
-> +		      VA_MACRO_ADC_MUX_CFG_OFFSET * decimator;
-> +
-> +	return snd_soc_component_read(comp, adc_mux_reg) & BIT(0);
-> +}
-> +
->  static int va_macro_enable_dec(struct snd_soc_dapm_widget *w,
->  			       struct snd_kcontrol *kcontrol, int event)
->  {
-> @@ -949,7 +966,6 @@ static int va_macro_enable_dec(struct snd_soc_dapm_widget *w,
->  	u16 tx_gain_ctl_reg;
->  	u16 adpt_ctrl_reg;
->  	u8 hpf_cut_off_freq;
-> -
->  	struct va_macro *va = snd_soc_component_get_drvdata(comp);
->  
->  	decimator = w->shift;
-> @@ -980,7 +996,8 @@ static int va_macro_enable_dec(struct snd_soc_dapm_widget *w,
->  		snd_soc_component_update_bits(comp, tx_vol_ctl_reg,
->  					      CDC_VA_TX_PATH_CLK_EN_MASK,
->  					      CDC_VA_TX_PATH_CLK_EN);
-> -		snd_soc_component_update_bits(comp, hpf_gate_reg,
-> +		if (!is_amic_enabled(comp, decimator))
-> +			snd_soc_component_update_bits(comp, hpf_gate_reg,
->  					      CDC_VA_TX_HPF_ZERO_GATE_MASK,
->  					      CDC_VA_TX_HPF_ZERO_GATE);
->  
-> @@ -994,21 +1011,20 @@ static int va_macro_enable_dec(struct snd_soc_dapm_widget *w,
->  						      CF_MIN_3DB_150HZ << 5);
->  
->  			snd_soc_component_update_bits(comp, hpf_gate_reg,
-> -				      CDC_VA_TX_HPF_CUTOFF_FREQ_CHANGE_MASK,
-> -				      CDC_VA_TX_HPF_CUTOFF_FREQ_CHANGE_REQ);
-> +					      CDC_VA_TX_HPF_CUTOFF_FREQ_CHANGE_MASK,
-> +					      CDC_VA_TX_HPF_CUTOFF_FREQ_CHANGE_REQ);
->  
->  			/*
->  			 * Minimum 1 clk cycle delay is required as per HW spec
->  			 */
->  			usleep_range(1000, 1010);
->  
-> -			snd_soc_component_update_bits(comp,
-> -				hpf_gate_reg,
-> -				CDC_VA_TX_HPF_CUTOFF_FREQ_CHANGE_MASK,
-> -				0x0);
-> +			if (!is_amic_enabled(comp, decimator))
-> +				snd_soc_component_update_bits(comp, hpf_gate_reg,
-> +						      CDC_VA_TX_HPF_CUTOFF_FREQ_CHANGE_MASK,
-> +						      0x0);
->  		}
->  
-> -
->  		usleep_range(1000, 1010);
->  		snd_soc_component_update_bits(comp, hpf_gate_reg,
->  					      CDC_VA_TX_HPF_ZERO_GATE_MASK,
-> @@ -1208,6 +1224,39 @@ static const char * const adc_mux_text[] = {
->  	"VA_DMIC", "SWR_MIC"
->  };
->  
-> +static const char * const smic_mux_text[] = {
-> +	"ZERO", "SWR_MIC0", "SWR_MIC1", "SWR_MIC2", "SWR_MIC3",
-> +	"SWR_MIC4", "SWR_MIC5", "SWR_MIC6", "SWR_MIC7"
-> +};
-> +
-> +static SOC_ENUM_SINGLE_DECL(va_smic0_enum, CDC_VA_INP_MUX_ADC_MUX0_CFG0,
-> +			0, smic_mux_text);
-> +
-> +static SOC_ENUM_SINGLE_DECL(va_smic1_enum, CDC_VA_INP_MUX_ADC_MUX1_CFG0,
-> +			0, smic_mux_text);
-> +
-> +static SOC_ENUM_SINGLE_DECL(va_smic2_enum, CDC_VA_INP_MUX_ADC_MUX2_CFG0,
-> +			0, smic_mux_text);
-> +
-> +static SOC_ENUM_SINGLE_DECL(va_smic3_enum, CDC_VA_INP_MUX_ADC_MUX3_CFG0,
-> +			0, smic_mux_text);
-> +
-> +static const struct snd_kcontrol_new va_smic0_mux = SOC_DAPM_ENUM_EXT("va_smic0",
-> +			 va_smic0_enum, snd_soc_dapm_get_enum_double,
-> +			 va_macro_put_dec_enum);
-> +
-> +static const struct snd_kcontrol_new va_smic1_mux = SOC_DAPM_ENUM_EXT("va_smic1",
-> +			 va_smic1_enum, snd_soc_dapm_get_enum_double,
-> +			 va_macro_put_dec_enum);
-> +
-> +static const struct snd_kcontrol_new va_smic2_mux = SOC_DAPM_ENUM_EXT("va_smic2",
-> +			 va_smic2_enum, snd_soc_dapm_get_enum_double,
-> +			 va_macro_put_dec_enum);
-> +
-> +static const struct snd_kcontrol_new va_smic3_mux = SOC_DAPM_ENUM_EXT("va_smic3",
-> +			 va_smic3_enum, snd_soc_dapm_get_enum_double,
-> +			 va_macro_put_dec_enum);
-> +
->  static SOC_ENUM_SINGLE_DECL(va_dec0_enum, CDC_VA_INP_MUX_ADC_MUX0_CFG1,
->  		   0, adc_mux_text);
->  static SOC_ENUM_SINGLE_DECL(va_dec1_enum, CDC_VA_INP_MUX_ADC_MUX1_CFG1,
-> @@ -1343,6 +1392,11 @@ static const struct snd_soc_dapm_widget va_macro_dapm_widgets[] = {
->  	SND_SOC_DAPM_MUX("VA DMIC MUX2", SND_SOC_NOPM, 0, 0, &va_dmic2_mux),
->  	SND_SOC_DAPM_MUX("VA DMIC MUX3", SND_SOC_NOPM, 0, 0, &va_dmic3_mux),
->  
-> +	SND_SOC_DAPM_MUX("VA SMIC MUX0", SND_SOC_NOPM, 0, 0, &va_smic0_mux),
-> +	SND_SOC_DAPM_MUX("VA SMIC MUX1", SND_SOC_NOPM, 0, 0, &va_smic1_mux),
-> +	SND_SOC_DAPM_MUX("VA SMIC MUX2", SND_SOC_NOPM, 0, 0, &va_smic2_mux),
-> +	SND_SOC_DAPM_MUX("VA SMIC MUX3", SND_SOC_NOPM, 0, 0, &va_smic3_mux),
-> +
->  	SND_SOC_DAPM_REGULATOR_SUPPLY("vdd-micb", 0, 0),
->  	SND_SOC_DAPM_INPUT("DMIC0 Pin"),
->  	SND_SOC_DAPM_INPUT("DMIC1 Pin"),
-> @@ -1397,6 +1451,14 @@ static const struct snd_soc_dapm_widget va_macro_dapm_widgets[] = {
->  	SND_SOC_DAPM_INPUT("VA SWR_MIC5"),
->  	SND_SOC_DAPM_INPUT("VA SWR_MIC6"),
->  	SND_SOC_DAPM_INPUT("VA SWR_MIC7"),
-> +	SND_SOC_DAPM_INPUT("VA SWR_INPUT0"),
-> +	SND_SOC_DAPM_INPUT("VA SWR_INPUT1"),
-> +	SND_SOC_DAPM_INPUT("VA SWR_INPUT2"),
-> +	SND_SOC_DAPM_INPUT("VA SWR_INPUT3"),
-> +	SND_SOC_DAPM_INPUT("VA SWR_INPUT4"),
-> +	SND_SOC_DAPM_INPUT("VA SWR_INPUT5"),
-> +	SND_SOC_DAPM_INPUT("VA SWR_INPUT6"),
-> +	SND_SOC_DAPM_INPUT("VA SWR_INPUT7"),
+Also enable the runtime PM in each of the GCC provider drivers.
 
-Why not use exising SWR_MICx's ?
+On SDM845, the DT already describes the CX as power domain for GCC,
+only the driver needs runtime PM enabling.
 
+Update the GCC bindings to document and require the CX power-domain
+dependency for the affected compatibles.
 
->  
->  	SND_SOC_DAPM_MUX_E("VA DEC0 MUX", SND_SOC_NOPM, VA_MACRO_DEC0, 0,
->  			   &va_dec0_mux, va_macro_enable_dec,
-> @@ -1487,6 +1549,46 @@ static const struct snd_soc_dapm_route va_audio_map[] = {
->  	{"VA DMIC MUX3", "DMIC6", "VA DMIC6"},
->  	{"VA DMIC MUX3", "DMIC7", "VA DMIC7"},
->  
-> +	{"VA DEC0 MUX", "SWR_MIC", "VA SMIC MUX0"},
-> +	{"VA SMIC MUX0", "SWR_MIC0", "VA SWR_INPUT0"},
-> +	{"VA SMIC MUX0", "SWR_MIC1", "VA SWR_INPUT1"},
-> +	{"VA SMIC MUX0", "SWR_MIC2", "VA SWR_INPUT2"},
-> +	{"VA SMIC MUX0", "SWR_MIC3", "VA SWR_INPUT3"},
-> +	{"VA SMIC MUX0", "SWR_MIC4", "VA SWR_INPUT4"},
-> +	{"VA SMIC MUX0", "SWR_MIC5", "VA SWR_INPUT5"},
-> +	{"VA SMIC MUX0", "SWR_MIC6", "VA SWR_INPUT6"},
-> +	{"VA SMIC MUX0", "SWR_MIC7", "VA SWR_INPUT7"},
-> +
-> +	{"VA DEC1 MUX", "SWR_MIC", "VA SMIC MUX1"},
-> +	{"VA SMIC MUX1", "SWR_MIC0", "VA SWR_INPUT0"},
-> +	{"VA SMIC MUX1", "SWR_MIC1", "VA SWR_INPUT1"},
-> +	{"VA SMIC MUX1", "SWR_MIC2", "VA SWR_INPUT2"},
-> +	{"VA SMIC MUX1", "SWR_MIC3", "VA SWR_INPUT3"},
-> +	{"VA SMIC MUX1", "SWR_MIC4", "VA SWR_INPUT4"},
-> +	{"VA SMIC MUX1", "SWR_MIC5", "VA SWR_INPUT5"},
-> +	{"VA SMIC MUX1", "SWR_MIC6", "VA SWR_INPUT6"},
-> +	{"VA SMIC MUX1", "SWR_MIC7", "VA SWR_INPUT7"},
-> +
-> +	{"VA DEC2 MUX", "SWR_MIC", "VA SMIC MUX2"},
-> +	{"VA SMIC MUX2", "SWR_MIC0", "VA SWR_INPUT0"},
-> +	{"VA SMIC MUX2", "SWR_MIC1", "VA SWR_INPUT1"},
-> +	{"VA SMIC MUX2", "SWR_MIC2", "VA SWR_INPUT2"},
-> +	{"VA SMIC MUX2", "SWR_MIC3", "VA SWR_INPUT3"},
-> +	{"VA SMIC MUX2", "SWR_MIC4", "VA SWR_INPUT4"},
-> +	{"VA SMIC MUX2", "SWR_MIC5", "VA SWR_INPUT5"},
-> +	{"VA SMIC MUX2", "SWR_MIC6", "VA SWR_INPUT6"},
-> +	{"VA SMIC MUX2", "SWR_MIC7", "VA SWR_INPUT7"},
-> +
-> +	{"VA DEC3 MUX", "SWR_MIC", "VA SMIC MUX3"},
-> +	{"VA SMIC MUX3", "SWR_MIC0", "VA SWR_INPUT0"},
-> +	{"VA SMIC MUX3", "SWR_MIC1", "VA SWR_INPUT1"},
-> +	{"VA SMIC MUX3", "SWR_MIC2", "VA SWR_INPUT2"},
-> +	{"VA SMIC MUX3", "SWR_MIC3", "VA SWR_INPUT3"},
-> +	{"VA SMIC MUX3", "SWR_MIC4", "VA SWR_INPUT4"},
-> +	{"VA SMIC MUX3", "SWR_MIC5", "VA SWR_INPUT5"},
-> +	{"VA SMIC MUX3", "SWR_MIC6", "VA SWR_INPUT6"},
-> +	{"VA SMIC MUX3", "SWR_MIC7", "VA SWR_INPUT7"},
-> +
->  	{ "VA DMIC0", NULL, "DMIC0 Pin" },
->  	{ "VA DMIC1", NULL, "DMIC1 Pin" },
->  	{ "VA DMIC2", NULL, "DMIC2 Pin" },
-> 
+Only Kaanapali and Eliza require Fixes tags, as runtime PM support was not
+available when the other platforms were upstreamed.
+
+---
+Changes in v4:
+- Rebased on next-20260911.
+- Add missing CX power-domain bindings for QCS8300, QDU1000, SDX75, SM4450, and SM6350.
+- Address Krzysztof's binding review by documenting the CX power-domain item.
+- Explain why the new required property is needed to prevent CX undervolting.
+- Include the direct RPMh power-domain header in binding examples.
+- Link to v3: https://patch.msgid.link/20260824-qcom-tie-cx-to-gcc-v3-0-f1205a92682b@oss.qualcomm.com
+
+Changes in v2:
+- Clarify the runtime PM rationale in the GCC driver commit messages.
+- Picked up Konrad's R-b tag for the dts patches.
+- Link to v1: https://patch.msgid.link/20260819-qcom-tie-cx-to-gcc-v1-0-840034124e73@oss.qualcomm.com
+
+To: Bjorn Andersson <andersson@kernel.org>
+To: Stephen Boyd <sboyd@kernel.org>
+To: Brian Masney <bmasney+clk@redhat.com>
+To: Jerome Brunet <jbrunet+clk@baylibre.com>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Taniya Das <taniya.das@oss.qualcomm.com>
+To: Vinod Koul <vkoul@kernel.org>
+To: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Tengfei Fan <tengfei.fan@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: linux-clk@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzk@kernel.org>
+
+---
+Abel Vesa (52):
+      dt-bindings: clock: qcom: gcc-sdm845: Add CX power domain
+      dt-bindings: clock: qcom: gcc-sm8150: Add CX power domain
+      dt-bindings: clock: qcom: gcc-sm8250: Add CX power domain
+      dt-bindings: clock: qcom: gcc-sm8350: Add CX power domain
+      dt-bindings: clock: qcom: gcc-sm8450: Add CX power domain
+      dt-bindings: clock: qcom: qcs615-gcc: Add CX power domain
+      dt-bindings: clock: qcom: sm8550-gcc: Add CX power domain
+      dt-bindings: clock: qcom: sm8650-gcc: Add CX power domain
+      dt-bindings: clock: qcom: sm8750-gcc: Add CX power domain
+      dt-bindings: clock: qcom: sm4450-gcc: Add CX power domain
+      dt-bindings: clock: qcom: gcc-sm6350: Add CX power domain
+      dt-bindings: clock: qcom: qcs8300-gcc: Add CX power domain
+      dt-bindings: clock: qcom: qdu1000-gcc: Add CX power domain
+      dt-bindings: clock: qcom: sdx75-gcc: Add CX power domain
+      clk: qcom: gcc-eliza: Tie the CX power domain to controller
+      clk: qcom: gcc-kaanapali: Tie the CX power domain to controller
+      clk: qcom: gcc-qcs615: Tie the CX power domain to controller
+      clk: qcom: gcc-qcs8300: Tie the CX power domain to controller
+      clk: qcom: gcc-qdu1000: Tie the CX power domain to controller
+      clk: qcom: gcc-sa8775p: Tie the CX power domain to controller
+      clk: qcom: gcc-sar2130p: Tie the CX power domain to controller
+      clk: qcom: gcc-sc7180: Tie the CX power domain to controller
+      clk: qcom: gcc-sc7280: Tie the CX power domain to controller
+      clk: qcom: gcc-sdm670: Tie the CX power domain to controller
+      clk: qcom: gcc-sdm845: Tie the CX power domain to controller
+      clk: qcom: gcc-sdx75: Tie the CX power domain to controller
+      clk: qcom: gcc-sm4450: Tie the CX power domain to controller
+      clk: qcom: gcc-sm6350: Tie the CX power domain to controller
+      clk: qcom: gcc-sm8150: Tie the CX power domain to controller
+      clk: qcom: gcc-sm8250: Tie the CX power domain to controller
+      clk: qcom: gcc-sm8350: Tie the CX power domain to controller
+      clk: qcom: gcc-sm8450: Tie the CX power domain to controller
+      clk: qcom: gcc-sm8550: Tie the CX power domain to controller
+      clk: qcom: gcc-sm8650: Tie the CX power domain to controller
+      clk: qcom: gcc-sm8750: Tie the CX power domain to controller
+      clk: qcom: gcc-x1e80100: Tie the CX power domain to controller
+      arm64: dts: qcom: kaanapali: Add GCC CX power domain
+      arm64: dts: qcom: monaco: Add GCC CX power domain
+      arm64: dts: qcom: qdu1000: Add GCC CX power domain
+      arm64: dts: qcom: sar2130p: Add GCC CX power domain
+      arm64: dts: qcom: sdm670: Add GCC CX power domain
+      arm64: dts: qcom: sdx75: Add GCC CX power domain
+      arm64: dts: qcom: sm4450: Add GCC CX power domain
+      arm64: dts: qcom: sm6350: Add GCC CX power domain
+      arm64: dts: qcom: sm8150: Add GCC CX power domain
+      arm64: dts: qcom: sm8250: Add GCC CX power domain
+      arm64: dts: qcom: sm8350: Add GCC CX power domain
+      arm64: dts: qcom: sm8450: Add GCC CX power domain
+      arm64: dts: qcom: sm8550: Add GCC CX power domain
+      arm64: dts: qcom: sm8650: Add GCC CX power domain
+      arm64: dts: qcom: sm8750: Add GCC CX power domain
+      arm64: dts: qcom: talos: Add GCC CX power domain
+
+ Documentation/devicetree/bindings/clock/qcom,gcc-sdm845.yaml  | 9 ++++++++-
+ Documentation/devicetree/bindings/clock/qcom,gcc-sm6350.yaml  | 7 +++++++
+ Documentation/devicetree/bindings/clock/qcom,gcc-sm8150.yaml  | 7 +++++++
+ Documentation/devicetree/bindings/clock/qcom,gcc-sm8250.yaml  | 7 +++++++
+ Documentation/devicetree/bindings/clock/qcom,gcc-sm8350.yaml  | 7 +++++++
+ Documentation/devicetree/bindings/clock/qcom,gcc-sm8450.yaml  | 7 +++++++
+ Documentation/devicetree/bindings/clock/qcom,qcs615-gcc.yaml  | 7 +++++++
+ Documentation/devicetree/bindings/clock/qcom,qcs8300-gcc.yaml | 7 +++++++
+ Documentation/devicetree/bindings/clock/qcom,qdu1000-gcc.yaml | 7 +++++++
+ Documentation/devicetree/bindings/clock/qcom,sdx75-gcc.yaml   | 7 +++++++
+ Documentation/devicetree/bindings/clock/qcom,sm4450-gcc.yaml  | 7 +++++++
+ Documentation/devicetree/bindings/clock/qcom,sm8550-gcc.yaml  | 7 +++++++
+ Documentation/devicetree/bindings/clock/qcom,sm8650-gcc.yaml  | 7 +++++++
+ Documentation/devicetree/bindings/clock/qcom,sm8750-gcc.yaml  | 7 +++++++
+ arch/arm64/boot/dts/qcom/kaanapali.dtsi                       | 2 ++
+ arch/arm64/boot/dts/qcom/monaco.dtsi                          | 1 +
+ arch/arm64/boot/dts/qcom/qdu1000.dtsi                         | 1 +
+ arch/arm64/boot/dts/qcom/sar2130p.dtsi                        | 1 +
+ arch/arm64/boot/dts/qcom/sdm670.dtsi                          | 1 +
+ arch/arm64/boot/dts/qcom/sdx75.dtsi                           | 1 +
+ arch/arm64/boot/dts/qcom/sm4450.dtsi                          | 1 +
+ arch/arm64/boot/dts/qcom/sm6350.dtsi                          | 1 +
+ arch/arm64/boot/dts/qcom/sm8150.dtsi                          | 1 +
+ arch/arm64/boot/dts/qcom/sm8250.dtsi                          | 1 +
+ arch/arm64/boot/dts/qcom/sm8350.dtsi                          | 1 +
+ arch/arm64/boot/dts/qcom/sm8450.dtsi                          | 1 +
+ arch/arm64/boot/dts/qcom/sm8550.dtsi                          | 1 +
+ arch/arm64/boot/dts/qcom/sm8650.dtsi                          | 2 ++
+ arch/arm64/boot/dts/qcom/sm8750.dtsi                          | 2 ++
+ arch/arm64/boot/dts/qcom/talos.dtsi                           | 2 ++
+ drivers/clk/qcom/gcc-eliza.c                                  | 1 +
+ drivers/clk/qcom/gcc-kaanapali.c                              | 1 +
+ drivers/clk/qcom/gcc-qcs615.c                                 | 1 +
+ drivers/clk/qcom/gcc-qcs8300.c                                | 1 +
+ drivers/clk/qcom/gcc-qdu1000.c                                | 1 +
+ drivers/clk/qcom/gcc-sa8775p.c                                | 1 +
+ drivers/clk/qcom/gcc-sar2130p.c                               | 1 +
+ drivers/clk/qcom/gcc-sc7180.c                                 | 1 +
+ drivers/clk/qcom/gcc-sc7280.c                                 | 1 +
+ drivers/clk/qcom/gcc-sdm845.c                                 | 2 ++
+ drivers/clk/qcom/gcc-sdx75.c                                  | 1 +
+ drivers/clk/qcom/gcc-sm4450.c                                 | 1 +
+ drivers/clk/qcom/gcc-sm6350.c                                 | 1 +
+ drivers/clk/qcom/gcc-sm8150.c                                 | 1 +
+ drivers/clk/qcom/gcc-sm8250.c                                 | 1 +
+ drivers/clk/qcom/gcc-sm8350.c                                 | 1 +
+ drivers/clk/qcom/gcc-sm8450.c                                 | 1 +
+ drivers/clk/qcom/gcc-sm8550.c                                 | 1 +
+ drivers/clk/qcom/gcc-sm8650.c                                 | 1 +
+ drivers/clk/qcom/gcc-sm8750.c                                 | 1 +
+ drivers/clk/qcom/gcc-x1e80100.c                               | 1 +
+ 51 files changed, 141 insertions(+), 1 deletion(-)
+---
+base-commit: 68142f986ff04b2b70b31db00f719bf690f64a9a
+change-id: 20260819-qcom-tie-cx-to-gcc-67e6697639b5
+
+Best regards,
+--  
+Abel Vesa <abel.vesa@oss.qualcomm.com>
 
