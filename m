@@ -1,108 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CC8D3B42C7
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 07:21:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEE6C3AE198
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 07:22:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789370481; cv=none; b=mZSmMXYqxuDYHbhXdNbI4e3O49wBMMoTDpW2w4JL5+ArNQwhvlKLjyReVvxhuMaQGgisSAZ1bptHz36fyxYxPk1FR4v40bX4DMw9vIJlo5+476dhWTaiBH20nMhAdMMMaxPbbtlfp1yuN+e4II091r0zM0OEmJCIHu+fktBM/5I=
+	t=1789370565; cv=none; b=UO5tStrzITSCRc5wxJ+7mN+5JNzyWaiMzJVgjIFtc/GYTLjmG3jN855hbgxI2jl0M4VeO48GzrjpJULnxp5MLMrxt59AwgIFZjuwWJ5lQT6Y+SQ8Nb5SBAZiV7+eqyWY/+N37EOQAizaM7LfJX+8iuiIxG7X0WjZKRZ5RZwOO2c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789370481; c=relaxed/simple;
-	bh=BYArAMB3zhgYj4wbOyAQUfqJeIZMloggfSS6CrsLBpA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=pJJKY1rjv3WvsxGo3ETCk+3jcCYOr4dkQVWoA/6yQi45I8fGdR0vzs7aRhlUOF9DAA+XboeRSNxRgIVsJO+3IBzF7xq1IBzg9PqpK+pBIHL+FAMW0LPf1JcHCndRZrB6kfo9Mi7iK2qQH91MkW/pHlkUmNa4d6hqgodTiVseqM0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xp2b/zDS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789370565; c=relaxed/simple;
+	bh=5NBVtwAK0BAoXDnntVPQyaH3IyuLl1zCV9teA8E6PnI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Qgp5f6DJ1jmv1dNNnTRk0yN53/McwkFWvSjKD0cPgeb/HyYFdokxnNuy2erArAxjQFwjbrbde8swG10pwDzON8oHyOcNANlVJuJKMIfqgXhKBTzZG9EFjv5MQe2GX+agZnJ+/Ovrp627eyK3nnN0MwpwOpNAQrmEEg9v7I9oD+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=lqASA6ZL; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xp2b/zDS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CE4F1F00893;
-	Mon, 14 Sep 2026 07:21:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789370475;
-	bh=HJBBbYRowQIYT3O4jdPUnCWs8LD79LrkZBlQBAS+uQ0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Xp2b/zDSPffD5DdmRXLK6kOcafilAZGXsI9hcY2u3WszohwpX/TQHfJRJqq+sxnMn
-	 GSVL+JzNVQFlzdmCkf5iNeFw3uWju7C6dCpFu2YsuTWuP0OiInlZJzKV/rxkVkoAN/
-	 DezbyjjNMOpEd5TL3sgB/3dyt/qxyZuYnJkhgo809e921u449+h8g+6bErVElPli/G
-	 ZT7GXOwb2h0zSIWk56+7mh73xMd3CADEUxKJbTFBqw/Tky+7R25ZjgyNubSOz5tSEF
-	 p5hbsqZmqzsL1slqc1RJM2Bqs5RuvsZwAw5hBr7NmdcizJi4FPbSTN905nT0FZgG+T
-	 PQJixGdNqY9Qg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] arm64: dts: st: add dcmi node on stm32mp23x
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alain Volmat" <alain.volmat@foss.st.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260914-stm32mp2x-dcmi-v1-2-c594e081d21b@foss.st.com>
-References: <20260914-stm32mp2x-dcmi-v1-0-c594e081d21b@foss.st.com>
- <20260914-stm32mp2x-dcmi-v1-2-c594e081d21b@foss.st.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 07:21:14 +0000
-Message-Id: <20260914072115.5CE4F1F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="lqASA6ZL"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccfd61ecaso15626565e9.3
+        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 00:22:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1789370560; x=1789975360; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5NBVtwAK0BAoXDnntVPQyaH3IyuLl1zCV9teA8E6PnI=;
+        b=lqASA6ZL6Ht4dMepBaEUizpDJdypfAn4OveqtXpPdzI+asgnuwR3FZcyXJpR/biBMa
+         ZqVqH3zi2YGRv51vHLbIuSdljhEmyXKFBxI04Y/G0Fws57Iy5yUHtfchS5G9BtkmgfkN
+         nmKflFrYmXi5AVS/LrvtenmC335VoJHn8cXd1zmzCwAME61eZZ+9Pk70vCffDb3N15ak
+         RFJvZ72usOyFLLzzRFS3P+v8yqay2hYJQS1kQV4LjndudZ0ng9YiCro5j/KKXzDg2SuE
+         WNkF3dK1FHbV4aKMrPKzZmw7HiMCkPy9WKUiVt0FrAj5x3Jgsop5eN9OVgOEvhChv7ZR
+         bkSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789370560; x=1789975360;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5NBVtwAK0BAoXDnntVPQyaH3IyuLl1zCV9teA8E6PnI=;
+        b=b6jYp7e3r85/fHH5HIeVaVVQnniy++vvgo/zQ3LVEQSY6JbuuDHkzCFat7IGGYsFM1
+         pzifAFL78gt3+2Ij5mqEXO8KsW8pbyhpEIYkeKxPQ5vFZ+30D2xo1SS0K3M75D9Hs1km
+         dxSJnZ3M4w5s6s8pjaGyEfzBuYykutWeJXp34Vmqfk+aqw3SOEfNazX1QSUGxHCWsV66
+         sZON74msTXFJffHA0l/sml0+83kQ0/YSGMAP5qcRGojYPcmeYdg5gi36IC1CawsJmUrQ
+         NPZ9bN2zuRiX4Wkr0ZF3/8JVZ8CvMtRrnIkxltZr95/sVXutxcq8hvgqYPBmZAiMmiGz
+         PCLA==
+X-Forwarded-Encrypted: i=1; AKwUvBzGu9kQUC82CF1K09TQgf3ofl4RyF1y1IogUkYta7tOGphcXv9HGfrniBw9l5BYpJsXT6YC5eN/z4pP@vger.kernel.org
+X-Gm-Message-State: AFuF++noqaAGzZZT2JMpGbVTkAYuAWhKseJI2Oomf3D4Oe/DBuDCu1+5
+	QEZ1miy+qnwdOpL6SMzKjnr/uXEp/lCQFEJWiFkUVxacd5yzYgPC1OG5ZlmIUm79c+I=
+X-Gm-Gg: AYBFou09Ftp9nW6sXANpb6RDYlOI4/9Tno0AIz0x9UW2c55Ro224pI6SL3ZKWa4nUnS
+	PmB+onmwEpLCRQZrvcE3jLr8mQ2rHZ8jdlLEo/lzXR6XRMrZy6mtrtB7dlYNojdclxfQdcvvMSJ
+	0ISHusfCkiJ0Jeo1S3gxIAvuvYTo3Zq7IZO9COKAte76lsiPV/15jd8Qv1+5bZgBy6tvezyCLn+
+	IihBBNwinpSX/v7VXap5rFd/9kI/5Him9i8cElXZhaKnRAss8fdeUESoMURmhLQTPHNsjyulCA1
+	7oRpN/RLm+EBa5bKimOkr7vpxIMbqiz0nKpBAkcoc4nXt0DGVM8rlPdPgpfgy6o0FOPWNqjj4Aa
+	VSEUu/HinbyBUK/hXts3FL1Ig76Syz+BmPaaH7bNkWc/U1P5VLBlACw698VKkLOzpbSBYQNVqV3
+	0TluGgJHpuYqhgv8s3PTPd419bg3vIJ2H6lQzUkxWRXF0rMMEpA9Vd7iaZbadnT0T3rTEzd9h7q
+	0+RqCIYawquhiRnpuVDqNrGQJKUjhQ6PcNvj5YDL25qUrIqrDc9oZ/F5etaOg==
+X-Received: by 2002:a05:600c:548b:b0:498:952:e276 with SMTP id 5b1f17b1804b1-49e7a6625aamr13720395e9.8.1789370559823;
+        Mon, 14 Sep 2026 00:22:39 -0700 (PDT)
+Received: from localhost (p200300f65f19a904d5c06a7863c841d4.dip0.t-ipconnect.de. [2003:f6:5f19:a904:d5c0:6a78:63c8:41d4])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49e71e300f3sm198482485e9.7.2026.09.14.00.22.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 00:22:38 -0700 (PDT)
+Date: Mon, 14 Sep 2026 09:22:37 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Tapio Reijonen <tapio.reijonen@vaisala.com>
+Cc: Saravanan Sekar <sravanhome@gmail.com>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH 3/3] regulator: mpq4210: Drop the mod_devicetable.h
+ include
+Message-ID: <aqeghbaA5yS8aO9R@monoceros>
+References: <20260913-mpq4210-ohms-fixup-v1-0-dcff627001ff@vaisala.com>
+ <20260913-mpq4210-ohms-fixup-v1-3-dcff627001ff@vaisala.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="n5ywwnv2z25hkbgi"
+Content-Disposition: inline
+In-Reply-To: <20260913-mpq4210-ohms-fixup-v1-3-dcff627001ff@vaisala.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Missing unconditionally required 'port' property in the newly added=
- 'dcmi' node, causing a dtbs_check warning.
---
 
-commit 42a2863a4d17c3ffce4549b0b100b843b4aeb937
-Author: Alain Volmat <alain.volmat@foss.st.com>
+--n5ywwnv2z25hkbgi
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 3/3] regulator: mpq4210: Drop the mod_devicetable.h
+ include
+MIME-Version: 1.0
 
-arm64: dts: st: add dcmi node on stm32mp23x
+Hello,
 
-This commit adds the devicetree node for the DCMI controller in the
-stm32mp231.dtsi include file.
+On Sun, Sep 13, 2026 at 11:40:18AM +0000, Tapio Reijonen wrote:
+> <linux/mod_devicetable.h> is meant to go away, and this driver does not
+> need it: <linux/i2c.h> already supplies struct i2c_device_id and
+> <linux/of.h> struct of_device_id, and both are included already.
+>=20
+> Suggested-by: Uwe Kleine-K=F6nig <u.kleine-koenig@baylibre.com>
+> Link: https://lore.kernel.org/r/aqRMb8q7BT3uZ9iF@monoceros
+> Signed-off-by: Tapio Reijonen <tapio.reijonen@vaisala.com>
 
-> diff --git a/arch/arm64/boot/dts/st/stm32mp231.dtsi b/arch/arm64/boot/dts=
-/st/stm32mp231.dtsi
-> index 0feb8943efae6..ad008049384b7 100644
-> --- a/arch/arm64/boot/dts/st/stm32mp231.dtsi
-> +++ b/arch/arm64/boot/dts/st/stm32mp231.dtsi
-> @@ -646,6 +646,20 @@ uart7: serial@40370000 {
->  				status =3D "disabled";
->  			};
-> =20
-> +			dcmi: dcmi@404a0000 {
-> +				compatible =3D "st,stm32-dcmi";
-> +				reg =3D <0x404a0000 0x400>;
-> +				interrupts =3D <GIC_SPI 141 IRQ_TYPE_LEVEL_HIGH>;
-> +				resets =3D <&rcc CCI_R>;
-> +				clocks =3D <&rcc CK_BUS_CCI>;
-> +				clock-names =3D "mclk";
-> +				dmas =3D <&hpdma 137 0x60 0x00003012>;
-> +				dma-names =3D "tx";
-> +				access-controllers =3D <&rifsc 88>;
-> +				power-domains =3D <&cluster_pd>;
-> +				status =3D "disabled";
-> +			};
+thanks for picking up the suggestion.
 
-[Severity: Low]
-Does this node need a 'port' property to satisfy the st,stm32-dcmi.yaml
-dt-binding?
+Acked-by: Uwe Kleine-K=F6nig <u.kleine-koenig@baylibre.com>
 
-While the driver safely handles a missing endpoint in dcmi_probe() by
-returning -ENODEV:
+Best regards
+Uwe
 
-drivers/media/platform/st/stm32/stm32-dcmi.c:dcmi_probe() {
-	...
-	np =3D of_graph_get_endpoint_by_regs(np, 0, -1);
-	if (!np) {
-		dev_err(&pdev->dev, "Could not find the endpoint\n");
-		return -ENODEV;
-	}
-	...
-}
+--n5ywwnv2z25hkbgi
+Content-Type: application/pgp-signature; name="signature.asc"
 
-the binding schema unconditionally requires the port property, which will
-trigger a dtbs_check warning when omitted.
+-----BEGIN PGP SIGNATURE-----
 
-[ ... ]
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqnoLsACgkQj4D7WH0S
+/k4GpAgAokIXS4bLfKhNIx0SshCZ9XhCw7DHg6bS5Zez7NpE6GsOiajjl2CUZKPa
+HjSkricKdreGJm/mQI55gxYkzXrQ+p3dzX4M0+MlWFjbfLhyPddiOfPYze1k3FpS
+A2EsKD8LOGUYCs+DPnN2atAfVSy3JlMEU/mrc0Ckx3JQHQDx+yPUdVLeLxtfkATe
+D5Aoh5jbeAAX8jsPiRNay4V6x9BSCYXl5DlI9n3px3alDtYlUZqlOc8AgLvo7OfX
+2ilFZlWwn1GvnCYsOhBlRB/G16rKDG0Pjgyrh+ZNu5JanTIkap0/DWWESsebHjqU
+d03AvoYE2P0vIQpZ2zQmNTK3e48I5g==
+=/zv7
+-----END PGP SIGNATURE-----
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914-stm32mp2x-=
-dcmi-v1-0-c594e081d21b@foss.st.com?part=3D2
+--n5ywwnv2z25hkbgi--
