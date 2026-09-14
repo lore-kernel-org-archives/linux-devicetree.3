@@ -1,133 +1,176 @@
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46E723DB332;
-	Mon, 14 Sep 2026 19:38:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC57139A06A;
+	Mon, 14 Sep 2026 19:42:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789414737; cv=none; b=EsJiy5ywc3Gz4hjDQ78BBzx98lM7DdbAQoHLQpHhBwdUpmBRkilKF9JOSV6O4JzMDuWtspfFCpdWmaHBzArQjRizSEohyQ7DgVwp69QnUMtb1DqGYXkePot6+e1pfBNxkO731+RX/dEFAMUhjXqcF0lSf4fKfbGgYhlBw19q2lo=
+	t=1789414949; cv=none; b=jQC92m8LIMhoJFrOctAqvYvAbmPQFBzu6yi2BcfZMersUfFDOvV1ZSdhSiEMbFIISxQazzQgHdmdSwZ/ygo+9RBk9tAf24XrJ+gNsm4blfAeA93ljtoeYeJYEXJP8rnvnhtBaGxWydYgzo19rPRdCZZsC4LamrEV7nOfPUXBKH8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789414737; c=relaxed/simple;
-	bh=slQN8zGDUmYs9br0zIMXRpsNo5O7uLthjpuA9U0b8rM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=Vp/e1PJvm2SfLmALqW0ClQANvlbUudx6mC/lLXcn0NHMGMR+13oVGmqy54RINJt+FilvjEG04lzMSnNkQ863xmDHvM3BTRQ6nB68CWM7RGRb/IjZlcbaUtoVGHowD+IBmaLpDvUSSbqyIY5rpdTFXv/PEES+yi86UTwOF0jeYac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=WTY8xEi6; arc=none smtp.client-ip=210.118.77.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1789414949; c=relaxed/simple;
+	bh=HC76wcK5ULVwD+LMba2Nz22Z5JvZJ4S2D7yoIjm/E6w=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=FNtAlsDqWA8FzZ2WTx+wglFWqMdPjMCEcgdOjYeWQxY2IsWUO6HX+e85vl9Rntiy+Iex3FQs+kZuwY6gvA2vtIVr927jlsoyAIOIly+KsGJwtT8c8df49bozQMO7jsYoiz372o+2LqQNzyLYAakZHTby5eJrEq4yR2D+etQfPs4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gvl0M2pY; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="WTY8xEi6"
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20260914193842euoutp01953e61d38ec40643bc4d7157964f6df4~VRzWra7uK0314903149euoutp01E;
-	Mon, 14 Sep 2026 19:38:42 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20260914193842euoutp01953e61d38ec40643bc4d7157964f6df4~VRzWra7uK0314903149euoutp01E
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1789414722;
-	bh=l4wDoWVeNywfcIR5L4rg3J/vDfSoW2zWF07vjDkO78A=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=WTY8xEi6jJOa1gLnOSUBPvlQpMk4v2dS5Nlb2zkZtStSIF1Pr3VZihsDFbmaj+Y4h
-	 48ffokqJfJoWOeBrkZRq1liliRT+IYnxf1/b09yAMsjlsgBoE69rhThGKgRG7auZzS
-	 XuVmAtFsH2iSO/zueW7kE3R3lnmCSs0qp5222L1M=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20260914193842eucas1p27f2871f925584e946f2bb24c04b38b90~VRzWUs-Iu3205232052eucas1p2N;
-	Mon, 14 Sep 2026 19:38:42 +0000 (GMT)
-Received: from [192.168.1.44] (unknown [106.210.136.40]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20260914193840eusmtip1c6e3388713b55ee3f14ee6a855ba8b6e~VRzUiiOIx1812818128eusmtip1N;
-	Mon, 14 Sep 2026 19:38:40 +0000 (GMT)
-Message-ID: <fcfdd9da-8425-4cf9-94ba-23b06cd06185@samsung.com>
-Date: Mon, 14 Sep 2026 21:38:40 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gvl0M2pY"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id BE3DCC2BCB8;
+	Mon, 14 Sep 2026 19:42:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789414948;
+	bh=HC76wcK5ULVwD+LMba2Nz22Z5JvZJ4S2D7yoIjm/E6w=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=gvl0M2pYygwjmzrNG+VbX6MASEcemVPDx9nQv52Ptxf2YXbkYcbH0gIPGLTBkZwaP
+	 Q5Jq5b31yu3EXtC4oXdEVIm52gT7NIW9ooKtZmF8whMecg0vWNq748DeM7yRQaaGFg
+	 AZ8bHGg3YhAnyaa5tbKp3ROO9HEy+4C9T7SSsZcHQxq13aGv7IYX8WgcN16KMza537
+	 gdNbBM3Tr77iHuIMz7M0A7bcmm5Q55Fy1n8JTsJEC+GoQLHPV5d53gFsyO9EkFFTfZ
+	 neXcCIA0PI1fqrVVEwMcUncg/ljp/y+Aa5Ko92qQjjYYGQ8spgxDRQOkKPN+0QX5Hn
+	 ReWCzt5eLX+XA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8A907C88E73;
+	Mon, 14 Sep 2026 19:42:28 +0000 (UTC)
+From: Jens Glathe via B4 Relay <devnull+jens.glathe.oldschoolsolutions.biz@kernel.org>
+Date: Mon, 14 Sep 2026 21:42:21 +0200
+Subject: [PATCH] arm64: dts: qcom: x1: split PAS remoteproc iommus out of
+ x1-el2
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 18/19] riscv: dts: starfive: jh7110: Update DT for
- display subsystem
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
-	<neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
-	Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrzej
-	Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent
-	Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
-	<jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
-	<luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>, Simona Vetter
-	<simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
-	Lee Jones <lee@kernel.org>, Andy Yan <andy.yan@rock-chips.com>, Philipp
-	Zabel <p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>, Hal
-	Feng <hal.feng@starfivetech.com>, Michael Turquette
-	<mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Brian Masney
-	<bmasney@redhat.com>, Heiko Stuebner <heiko@sntech.de>, Conor Dooley
-	<conor@kernel.org>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt
-	<palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti
-	<alex@ghiti.fr>, Dominique Belhachemi <db@domibel.de>, Brian Masney
-	<bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>,
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	mfd@lists.linux.dev, linux-clk@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
-	linux-riscv@lists.infradead.org, Andy Yan <andyshrk@163.com>, Marek
-	Szyprowski <m.szyprowski@samsung.com>, Maud Spierings
-	<maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, Icenowy
-	Zheng <zhengxingda@iscas.ac.cn>
-Content-Language: en-US
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-In-Reply-To: <20260910-determined-fantastic-seriema-3ff701@quoll>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20260914193842eucas1p27f2871f925584e946f2bb24c04b38b90
-X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260904132743eucas1p1e02218d3fb38af95c3dd4bfa24904cab
-X-EPHeader: CA
-X-CMS-RootMailID: 20260904132743eucas1p1e02218d3fb38af95c3dd4bfa24904cab
-References: <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
-	<CGME20260904132743eucas1p1e02218d3fb38af95c3dd4bfa24904cab@eucas1p1.samsung.com>
-	<20260904-jh7110-clean-send-v3-18-484f9ae72715@samsung.com>
-	<20260910-determined-fantastic-seriema-3ff701@quoll>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260914-x1-el2-unfuck-v1-1-00d8bc35a635@oldschoolsolutions.biz>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDU0MT3QpD3dQcI93SvLTS5Gxdg2QTM0Mzc1NjizQTJaCegqLUtMwKsHn
+ RsbW1AE+96IRfAAAA
+X-Change-ID: 20260514-x1-el2-unfuck-0c46167538f4
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Xin Liu <xin.liu@oss.qualcomm.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Nikita Travkin <nikita@trvn.ru>, Birk Skyum <birk.skyum@pm.me>, 
+ Stephan Gerhold <stephan.gerhold@linaro.org>, 
+ Xin Liu <xin.liu@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789414947; l=3766;
+ i=jens.glathe@oldschoolsolutions.biz; s=20240919;
+ h=from:subject:message-id;
+ bh=pcARbTPQLLzJMHpzrEgAxvpBCM84LLIQ4irIlV+wpRg=;
+ b=hOgJH7ZgIKORaNu2PEFpC1fObpJibjTEqdFQTFW9H8XrKZERkN8v+deMZW7sbb2gJ32oTjs8Z
+ AAVFcSOvpqNCwHIfuoQEyhX2V+6Edk0kynR4v99nFooF9+VBBRwViFL
+X-Developer-Key: i=jens.glathe@oldschoolsolutions.biz; a=ed25519;
+ pk=JcRJqJc/y8LsxOlPakALD3juGfOKmFBWtO+GfELMJVg=
+X-Endpoint-Received: by B4 Relay for
+ jens.glathe@oldschoolsolutions.biz/20240919 with auth_id=216
+X-Original-From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+Reply-To: jens.glathe@oldschoolsolutions.biz
 
+From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 
+The shared x1-el2 overlay currently attaches apps_smmu streams to
+remoteproc_adsp/cdsp so Linux can program those SIDs when PAS is
+used to authenticate and reset the DSPs.
 
-On 9/10/26 10:37, Krzysztof Kozlowski wrote:
-> On Fri, Sep 04, 2026 at 03:27:19PM +0200, Michal Wilczynski wrote:
->> diff --git a/arch/riscv/boot/dts/starfive/jh7110.dtsi b/arch/riscv/boot/dts/starfive/jh7110.dtsi
->> index 9c3e4598747eb5541effe697044484715569a285..0f981f4c89586269b987be8591037c9461e04703 100644
->> --- a/arch/riscv/boot/dts/starfive/jh7110.dtsi
->> +++ b/arch/riscv/boot/dts/starfive/jh7110.dtsi
->> @@ -290,12 +290,6 @@ gmac1_rmii_refin: gmac1-rmii-refin-clock {
->>  		#clock-cells = <0>;
->>  	};
->>  
->> -	hdmitx0_pixelclk: hdmitx0-pixel-clock {
->> -		compatible = "fixed-clock";
->> -		clock-output-names = "hdmitx0_pixelclk";
->> -		#clock-cells = <0>;
->> -	};
->> -
->>  	i2srx_bclk_ext: i2srx-bclk-ext-clock {
->>  		compatible = "fixed-clock";
->>  		clock-output-names = "i2srx_bclk_ext";
->> @@ -352,6 +346,13 @@ tdm_ext: tdm-ext-clock {
->>  		#clock-cells = <0>;
->>  	};
->>  
->> +	xin24m: xin24m {
-> 
-> Other clocks are called foo-clock, so follow this as well (even though
-> it does not follow recommended practice of clock-foo, but at least some
-> consistency).
+That is wrong for the common WoA EL2 path (slbounce + shipping
+UEFI). There the DSPs are already running from the bootloader and
+the SMMU probe path leaves their SIDs in bypass. Describing iommus
+on the remoteproc nodes replaces that bypass with a translated
+context that is never set up, and boot dies in an SMMU fault storm
+on SID 0x1000 before userspace.
 
-will rename to to xin24m-clock
+Move the remoteproc iommus into a new x1-el2-pas overlay and apply
+it only on hamoa-iot-evk, which is the platform that actually needs
+PAS-managed remoteproc under EL2. Other x1e/x1p -el2 DTBs stay on
+the generic overlay.
 
-> 
-> Best regards,
-> Krzysztof
-> 
-> 
+Tested on:
+  Lenovo Yoga Slim 7x (83ED, BIOS NHCN62WW) by Birk
+  Lenovo Thinkpad T14s G6 (21N1, Hamoa)
+  Lenovo IdeaCentre Mini 01q8x10 (91B6, Purwa)
+  Lenovo Ideapad 5 2in1 14Q8X9 (83GH, Purwa)
+
+Fixes: 47c88db49f6c ("arm64: dts: qcom: hamoa: Add remoteproc IOMMUS in EL2 device trees")
+Link: https://lore.kernel.org/all/20260130073113.3091884-1-xin.liu@oss.qualcomm.com/
+Suggested-by: Nikita Travkin <nikita@trvn.ru>
+Assisted-by: Grok(xAI):4.6
+Tested-by: Birk Skyum <birk.skyum@pm.me>
+Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+---
+ arch/arm64/boot/dts/qcom/Makefile        |  2 +-
+ arch/arm64/boot/dts/qcom/x1-el2-pas.dtso | 21 +++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/x1-el2.dtso     |  8 --------
+ 3 files changed, 22 insertions(+), 9 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index d6547fb18edf0..1d1cdf057fd99 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -22,7 +22,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= glymur-hp-elitebook-x-g2q.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= glymur-lenovo-yoga-slim7x.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= hamoa-iot-evk.dtb
+ 
+-hamoa-iot-evk-el2-dtbs	:= hamoa-iot-evk.dtb x1-el2.dtbo
++hamoa-iot-evk-el2-dtbs := hamoa-iot-evk.dtb x1-el2.dtbo x1-el2-pas.dtbo
+ 
+ dtb-$(CONFIG_ARCH_QCOM)	+= hamoa-iot-evk-el2.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= hamoa-lenovo-ideacentre-mini-01q8x10.dtb
+diff --git a/arch/arm64/boot/dts/qcom/x1-el2-pas.dtso b/arch/arm64/boot/dts/qcom/x1-el2-pas.dtso
+new file mode 100644
+index 0000000000000..05364b439182a
+--- /dev/null
++++ b/arch/arm64/boot/dts/qcom/x1-el2-pas.dtso
+@@ -0,0 +1,21 @@
++// SPDX-License-Identifier: BSD-3-Clause
++/*
++ * Extra EL2 overlay for platforms where Linux programs remoteproc
++ * IOMMU streams because PAS is available.
++ *
++ * Do not apply this on current WoA firmware. Those DSPs are started
++ * by the bootloader and rely on the SMMU SID bypass set up in
++ * qcom_smmu_cfg_probe(). Attaching iommus here replaces that bypass
++ * with an empty translated context and faults SID 0x1000.
++ */
++
++/dts-v1/;
++/plugin/;
++
++&remoteproc_adsp {
++	iommus = <&apps_smmu 0x1000 0x80>;
++};
++
++&remoteproc_cdsp {
++	iommus = <&apps_smmu 0x0c00 0x0>;
++};
+diff --git a/arch/arm64/boot/dts/qcom/x1-el2.dtso b/arch/arm64/boot/dts/qcom/x1-el2.dtso
+index ee006742d6f3b..175679be01eba 100644
+--- a/arch/arm64/boot/dts/qcom/x1-el2.dtso
++++ b/arch/arm64/boot/dts/qcom/x1-el2.dtso
+@@ -52,14 +52,6 @@ &pcie_smmu {
+ 	status = "okay";
+ };
+ 
+-&remoteproc_adsp {
+-	iommus = <&apps_smmu 0x1000 0x80>;
+-};
+-
+-&remoteproc_cdsp {
+-	iommus = <&apps_smmu 0x0c00 0x0>;
+-};
+-
+ /*
+  * The "SBSA watchdog" is implemented in software in Gunyah
+  * and can't be used when running in EL2.
+
+---
+base-commit: 1a1de54f7369cd2b5bac0f265910e60ad3a6b4c3
+change-id: 20260514-x1-el2-unfuck-0c46167538f4
 
 Best regards,
 -- 
-Michal Wilczynski <m.wilczynski@samsung.com>
+Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+
 
