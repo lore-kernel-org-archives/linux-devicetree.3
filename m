@@ -1,103 +1,183 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A482447805;
-	Mon, 14 Sep 2026 12:11:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9A3A2C11DF
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 12:12:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789387880; cv=none; b=GZfWKA2ZUs+zqpVRHJU/+Pc3MoBkxi6He8hHTiifHxM0j0dICj8ey7PbPVI88rNmQnC5QG6ky3frLczgOmwccPHc3K1nBWrxrLeDgQBrHqEJCTd7pgC3z4j+zqWPMoDHjRxetNRhc2aYLNXGYg38xJAtEh0lv7fb84lPW2qHIao=
+	t=1789387939; cv=none; b=MqGp0y9zDs4FQoWS9sXcpRAtR8LuXF5cXhlPxu+yu2lwhTUvAxU9cbrP0737WROPSuEuhsNs7TR38rAqWOyrp2XcgWsoPJlrOFWlhNLtCt9v+44tYT3RhTgm+gL2Y7/nhFqeaaNcVG7Hfg7XiDpgfkODobH06QEFKlVtKJqhwSw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789387880; c=relaxed/simple;
-	bh=Wl3ENf6BnjTaC8yIrHzo+jFAUyZCF78AjgSJCTeDpsQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=idxt+GCgVxU+5IcYMMgY+YdWCft6YV4zKLRCdNgunLrg/Dr7zUg79XnSTZLmlnyF3RP4QPBQQhTjK1bKUAYAiC6L39yF+ihsU0xzJnOed7nC5OApt0ZYyh8pgF7VVW8kymay1fCXun0lSlYmXlnVGtjumdfPICvJ5R8FkPQbV+c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kCpdq6Dt; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789387939; c=relaxed/simple;
+	bh=6Bmd6RTxvQFK310xXTMwNx7JXICjU026Z+04k/eZsDE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=hdGI6OZfO8QXYIiR74JKTCGGBxPdlojUHHoRQ51hbapIMrDrPrCpU3190WAELG//td+DCMLL0QBfQ23l653j9sz5rTVww0SmidiSAzfvTWVqN8ZtIUclT8jsxRmeVqZ7/Q6QNaBl2hTCfJXIYtWhukz2cDHgTzhw87Mubitcjx8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LGQFq4jN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kCpdq6Dt"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A27A4C2BCB8;
-	Mon, 14 Sep 2026 12:11:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789387879;
-	bh=Wl3ENf6BnjTaC8yIrHzo+jFAUyZCF78AjgSJCTeDpsQ=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=kCpdq6DtgJOWAmHAVesZBQZ3QI3SR0VjjqtVlKVxBD2DzeEDSud0cbzcFUbNA68yq
-	 ORRzC9AsXJPmMfMv+RlMxcS4C0HRLOBslEYWt+WKG1bzOXPi8FsgiaCDWJxQ9Lvpb+
-	 vmA1aYFhe3qrv9pdnyD30TxdyNyuGDmLA6gfwWEFq09qwFakjxWVxf1lUNKnYf/rqi
-	 CxRxkCZ6rJjx/GlrKVvJoVrUbR7eYpWARCOtZogFrgLJK+Mu8e7NaQddF/88S4+vFD
-	 ktV0yt0p+0Xk6LszE8bxenBNoNwsrDvy1V9oqDrW45NzS62t3wBhZFUM430LVhEJkx
-	 iB9AfEM7tdP4A==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8EB02C88E66;
-	Mon, 14 Sep 2026 12:11:19 +0000 (UTC)
-From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
-Date: Mon, 14 Sep 2026 15:10:52 +0300
-Subject: [PATCH] dt-bindings: dma: mediatek,uart-dma: add mt6572
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LGQFq4jN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B05D1F00898;
+	Mon, 14 Sep 2026 12:12:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789387937;
+	bh=UbAaw2XhYMriZB0R4isXtOGHocpJznTQCk/PFrUQPJ0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=LGQFq4jNPMqOXXd9PamNZJMvv42Bd0UTt135UGfA/QoUqmrwLNBZpF+SOn2SrNM6b
+	 qVamxm1kwt20eZJjxItY2VeYrq3q7tWEFbFSYDtGTEaTsi+Hba4ejqM3AV2f8j5Xh+
+	 M4yw5FwrVoOthf+Ir6jKR7ZqUTRBGGVwCGa+9SPgXLn1i1D7kshomWt3nlcMpleCeb
+	 bz1RLtSBm/6FOimyhHCXEX6YXT8ZsQe2LJhhhlme3/QE75kNRlQ6w+3wqQAIcWpI0E
+	 mvDuPStmOUcaZaIh0X+/uPsMy6aQbyUElF8sQfq5qg/C8IpJQsoyKRrYDc+FxhRFKF
+	 SA4Mosr1mNNmA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 04/13] drm/mediatek: mtk_dsi: Cleanup encoder if
+ reset fails during bind
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260914115812.22751-5-angelogioacchino.delregno@collabora.com>
+References: <20260914115812.22751-1-angelogioacchino.delregno@collabora.com>
+ <20260914115812.22751-5-angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 14 Sep 2026 12:12:16 +0000
+Message-Id: <20260914121217.0B05D1F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-6572-dt-uartdma-v1-1-b26b429ab68c@protonmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQqDMBBA4avIrB1IQv2pVxEXcTLqFGoliUUQ7
- 27U5bd4b4fAXjhAk+3g+S9BfnOCzjOgyc4jo7hkMMqUqtYvLIvKoIu4Wh/d16J5MzmtqposQao
- Wz4Ns97HtHoe1/zDFawPHcQI3ahAucwAAAA==
-X-Change-ID: 20260814-6572-dt-uartdma-29ecd1078cac
-To: Sean Wang <sean.wang@mediatek.com>, Vinod Koul <vkoul@kernel.org>, 
- Frank Li <Frank.Li@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Long Cheng <long.cheng@mediatek.com>
-Cc: dmaengine@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Roman Vivchar <rva333@protonmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789387877; l=1054;
- i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
- bh=R/+/MvTbfqvkqZYPWb9QyO+k6HKf/kl6ZguY9m0N+VQ=;
- b=vHFQ8nf+Cscdtn5vC9FyI/0sorPVchBdXpOIQ+fzj8SGBcpe4ZMoTKRWZGvDpsjerB48ledz2
- KESJiMeDfqWDtBQYWIV6sKsJwpR3GB4+CKVowCWSei6VHMLmKXh0tdV
-X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
- pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
-X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
- auth_id=777
-X-Original-From: Roman Vivchar <rva333@protonmail.com>
-Reply-To: rva333@protonmail.com
 
-From: Roman Vivchar <rva333@protonmail.com>
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-Add a compatible string for the mt6572 APDMA, that is compatible with
-mt6577 IP.
+Pre-existing issues:
+- [High] Unbalanced reference count on error path in `mtk_dsi_poweron`.
+- [High] Data race on `dsi->irq_data` between process and IRQ contexts lead=
+ing to lost interrupts.
+- [High] Missing synchronization in `mtk_dsi_host_transfer` allows concurre=
+nt DSI commands to corrupt hardware state.
+- [High] Sleeping function `usleep_range()` called from atomic context.
+--
 
-Signed-off-by: Roman Vivchar <rva333@protonmail.com>
----
-Based on next-20260813 tag.
----
- Documentation/devicetree/bindings/dma/mediatek,uart-dma.yaml | 1 +
- 1 file changed, 1 insertion(+)
+commit 911862fd7e3a1163be08c7ed054bcfc694f709a1
+Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-diff --git a/Documentation/devicetree/bindings/dma/mediatek,uart-dma.yaml b/Documentation/devicetree/bindings/dma/mediatek,uart-dma.yaml
-index bba20e88a6dc..bd5f5260613b 100644
---- a/Documentation/devicetree/bindings/dma/mediatek,uart-dma.yaml
-+++ b/Documentation/devicetree/bindings/dma/mediatek,uart-dma.yaml
-@@ -23,6 +23,7 @@ properties:
-       - items:
-           - enum:
-               - mediatek,mt2712-uart-dma
-+              - mediatek,mt6572-uart-dma
-               - mediatek,mt6795-uart-dma
-               - mediatek,mt8173-uart-dma
-               - mediatek,mt8183-uart-dma
+drm/mediatek: mtk_dsi: Cleanup encoder if reset fails during bind
 
----
-base-commit: 2697ef8943c9985c14708a6429e21812693857b2
-change-id: 20260814-6572-dt-uartdma-29ecd1078cac
+When binding the dsi component, the .bind() callback initializes
+the encoder, and then will optionally trigger resets. This patch
+cleans up the encoder upon reset failure to prevent a use-after-free.
 
-Best regards,
---  
-Roman Vivchar <rva333@protonmail.com>
+> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediate=
+k/mtk_dsi.c
+> index 97b8a91874f5b..0b167b4411e59 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
+> @@ -1095,7 +1095,13 @@ static int mtk_dsi_bind(struct device *dev, struct=
+ device *master, void *data)
+[ ... ]
+
+While reviewing this patch, I noticed a few pre-existing issues in the same
+file.
+
+drivers/gpu/drm/mediatek/mtk_dsi.c:mtk_dsi_poweron() {
+...
+	if (++dsi->refcount !=3D 1)
+		return 0;
+
+	ret =3D mipi_dsi_pixel_format_to_bpp(dsi->format);
+	if (ret < 0) {
+		dev_err(dev, "Unknown MIPI DSI format %d\n", dsi->format);
+		return ret;
+...
+}
+
+[Severity: High]
+This is a pre-existing issue, but does this error path fail to decrement th=
+e=20
+reference count?=20
+
+Since dsi->refcount is incremented at the start of mtk_dsi_poweron(),
+returning directly here instead of jumping to err_refcount seems to skip
+the decrement. This could lead to an unbalanced count, causing problems
+during teardown when mtk_dsi_poweroff() attempts to disable clocks that
+were never powered up.
 
 
+drivers/gpu/drm/mediatek/mtk_dsi.c:mtk_dsi_irq_data_clear() {
+...
+static void mtk_dsi_irq_data_clear(struct mtk_dsi *dsi, u32 irq_bit)
+{
+	dsi->irq_data &=3D ~irq_bit;
+}
+...
+
+[Severity: High]
+This isn't a bug introduced by this patch, but is there a data race on
+dsi->irq_data between process and IRQ contexts?
+
+If a DSI interrupt fires concurrently while mtk_dsi_irq_data_clear()=20
+executes in process context during a DSI host transfer, the non-atomic=20
+read-modify-write here could overwrite and erase the flag set by the=20
+hardware IRQ handler, potentially causing lost interrupts.
+
+
+drivers/gpu/drm/mediatek/mtk_dsi.c:mtk_dsi_host_transfer() {
+...
+static ssize_t mtk_dsi_host_transfer(struct mipi_dsi_host *host,
+				     const struct mipi_dsi_msg *msg)
+{
+	struct mtk_dsi *dsi =3D host_to_dsi(host);
+	struct drm_device *drm =3D dsi->bridge.dev;
+	ssize_t recv_cnt;
+	u8 read_data[16];
+	void *src_addr;
+	u8 irq_flag =3D CMD_DONE_INT_FLAG;
+	u32 dsi_mode;
+	int ret, i;
+
+	dsi_mode =3D readl(dsi->regs + dsi->driver_data->reg_main[DSI_MODE_CTRL]);
+	if (dsi_mode & MODE) {
+		mtk_dsi_stop(dsi);
+...
+}
+
+[Severity: High]
+This is a pre-existing issue, but does mtk_dsi_host_transfer() lack
+synchronization to protect hardware state?
+
+If called concurrently (for example, from a sysfs backlight update while an
+atomic display modeset is ongoing), the lack of internal locking for the DSI
+controller's registers could allow concurrent commands to corrupt the hardw=
+are
+state machine and lead to DSI transmission failures.
+
+
+drivers/gpu/drm/mediatek/mtk_dsi.c:mtk_dsi_lane_ready() {
+...
+static void mtk_dsi_lane_ready(struct mtk_dsi *dsi)
+{
+	if (!dsi->lanes_ready) {
+		dsi->lanes_ready =3D true;
+		mtk_dsi_rxtx_control(dsi);
+		usleep_range(30, 100);
+		mtk_dsi_reset_dphy(dsi);
+		mtk_dsi_clk_ulp_mode_leave(dsi);
+		mtk_dsi_lane0_ulp_mode_leave(dsi);
+		mtk_dsi_clk_hs_mode(dsi, 0);
+		usleep_range(1000, 3000);
+...
+}
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does this code sleep in an=20
+atomic context?
+
+It appears drm_atomic_helper_commit_tail() can invoke the bridge atomic=20
+pre-enable callback mtk_dsi_bridge_atomic_pre_enable(), which calls=20
+mtk_dsi_lane_ready(). Calling usleep_range() from an atomic callback=20
+violates DRM subsystem rules and can lead to scheduling while atomic panics=
+=20
+or warnings.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914115812.2275=
+1-1-angelogioacchino.delregno@collabora.com?part=3D4
