@@ -1,99 +1,64 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2CFF42668B;
-	Mon, 14 Sep 2026 09:24:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C380642254A;
+	Mon, 14 Sep 2026 09:25:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789377859; cv=none; b=jBc04ikbolPEXtYyLegRKKIiW7PA0Ot1apTaeNLSnREXu61bghCdnpCrdkj94/oxISUmAvUclyavHutosYj66mtTvLMlEYLOkSXtrn5lVKRG5TKYG7DBC2zmVW1UvgmLF5Pb/7N6zz9uUhZe1xY36+PYXs1GexNAoTE9I+6fIB0=
+	t=1789377925; cv=none; b=XwaXLhmG9t9Pr/Qjx903CDbInGQ4xT1UQ5EVIe5Xaz85oEfM+Lc5BZBkcptO8yOKTmy5RmtcbFs9C30AxtfaEj75UcA67YAi/CV7/TAnA2oHO/C0YYPWvMpkvPQW1OXBmpp+7OBwmgwkZb6XvfwRDNzX1qa8ytXB2hqpxlKkeJU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789377859; c=relaxed/simple;
-	bh=kLvWlprQnIRWSPtEAKnN7A7nxK4UTEzVWAHY2WJ6JDw=;
-	h=From:To:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=Lq9Sv3TMDEJG5I4xWblls7mDg0U8gq2jTAfLM2jhDu+GN6TmbIXsGV+LerRe5B5Ndg7qOwVR6nt9c+5mGXLuqRWoXX7s/6bXYPWOLc8fINmkCxiYvrYnB9QtnQ89xY1SBXAb3gHwDKKpZfoen9L+22EbgWY2x1JS6UZnFqrCJf0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nspUx3mt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789377925; c=relaxed/simple;
+	bh=4G2NVXv6SlBDy0bCSAgPf+ahZD9eOdtgxH7/fF46vg0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=LhiKsGgdJq3wRnh2ovP2X7CEGEDIxNurBVOOlkmFVtPUbfvpUu9hoRa9csa7rUUlnC6xKUi1VUizWesSigVQCBM3c4eh+ADulGF7ZXV5AdBPn+uEx9CuiqpmWKjxVx3wFaxD/NHpnEQRZavtlWnLWT3ltZnUtkbpCKrnH+WpcRw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T6M3voQc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nspUx3mt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5FE71F000FF;
-	Mon, 14 Sep 2026 09:24:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T6M3voQc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03C9B1F000FF;
+	Mon, 14 Sep 2026 09:25:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789377857;
-	bh=yl1VYOcTE/3CX3UWsQgOyYMZmU0KbF2rQp0ezzp9AAI=;
-	h=From:To:In-Reply-To:References:Subject:Date;
-	b=nspUx3mtaiLDv+zFtZB8b+6VTtPAc/QyqiIYnrfbFcv1Yy72F2h45hzyGnx6A3wzJ
-	 uqu5OgL0LSjqvuBqlxNpAlwDCD6oqh2XaY+Sm443vlV96SFqQW4c1esRzF1sQKy+qs
-	 lvWGgodqR1qvpjJWsL+0I2dVd+K744fn4tgmQkXBcoBAT0HdBASlVHJLSPJOxvdB+e
-	 KFuHYpY3T7INGy/IdzniD7zqM8BCvMz8engTnq4VnA4fO2wC8UBejaXD488Hxil8wt
-	 uDNNJWGaob/T/UUE79/K42VyWyNQoTswjDhWwq3z5lr8KxL3lvFwQKVQqRFxptsRAx
-	 x3/EEX39DQRhg==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>, 
- Saravanan Sekar <sravanhome@gmail.com>, Iskren Chernev <me@iskren.info>, 
- Jisheng Zhang <jszhang@kernel.org>, Joy Zou <joy.zou@nxp.com>, 
- Christoph Fritz <chf.fritz@googlemail.com>, 
- Brian Norris <briannorris@chromium.org>, Lee Jones <lee@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- ChiYuan Huang <cy_huang@richtek.com>, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-In-Reply-To: <20260913123212.99817-2-krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260913123212.99817-2-krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH] regulator: dt-bindings: Use consistent indentation in
- the example
-Message-Id: <178931248778.924975.2279213599006097904.b4-ty@b4>
-Date: Sun, 13 Sep 2026 16:14:47 +0100
+	s=k20260515; t=1789377924;
+	bh=4G2NVXv6SlBDy0bCSAgPf+ahZD9eOdtgxH7/fF46vg0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=T6M3voQc7IM2fb5Gy+zouPiN1+Mip8eG+1DULv22zSOLSaTqakktu+LjUARFu2oc/
+	 qt+0nkThnm2pBuaOFiCT86vbre4Ksj0zdEgcbbT6BEMCbr2PhCiEDUnDNUQ9+JvNsY
+	 UQ9w2sbLKhqww4IgFxeSAdlvlt5l5bwtruG9CVvAnfIKeCqKBWDtXvUrFK+5ZxAZ4I
+	 sqnYR5tj5JAXDKyTCjzqzmViNuNvv+bJ5Lz/ykJSov/oH4QPiSvFNh570WEQC8nNMh
+	 UGQdkyZvMzpSUwIAnPxw2J3CvW7KmPFk61hygeSZAmA4XqeqbzIzZMe6NB7Nz2RVVR
+	 zAMoMWIcbCLaA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 1/5] dt-bindings: rtc: nxp,pcf85363: add timestamp
+ mode config
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Lakshay Piplani" <lakshay.piplani@nxp.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, linux-rtc@vger.kernel.org, "Alexandre
+ Belloni" <alexandre.belloni@bootlin.com>, robh@kernel.org, linux-watchdog@vger.kernel.org
+In-Reply-To: <20260914092126.3757418-1-lakshay.piplani@nxp.com>
+References: <20260914092126.3757418-1-lakshay.piplani@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 14 Sep 2026 09:25:23 +0000
+Message-Id: <20260914092524.03C9B1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1163; i=broonie@kernel.org;
- h=from:subject:message-id; bh=kLvWlprQnIRWSPtEAKnN7A7nxK4UTEzVWAHY2WJ6JDw=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqp707ls/2fvJ5mpoHBsmBT5YWdxobuwHxqW0/O
- U5zPVLuc2uJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaqe9OwAKCRAk1otyXVSH
- 0A4xB/kBHH/yRTDSU0Z2YxgyJYIS7w5HDFNe/aslhGSdkTmTzX55JxqcOvA1IOinrEtbyfVXasx
- GZXBgDjxdkOYvmvcPpW/j3QmdTzw7xK7+NWonPyKwMkDb4gcu+hm7hTmYtBVNMj/5ouGlHNNosz
- oLTy5nhE3VeoQu+EhdEURVdK6ui6jv+N0hej5bCXlKKU58yEXvseJKZGqwJ0tV1BSyF5FaOMDyj
- 9dnf/REJ3Kd4+xP+feLjJ0Ayd9WRR8cHwA9QADRFDSWqXqwS722kh78bfP/khIXxslSj21DeC7D
- Ft/jJdPbq4XKoG5p4+LGBzl9gq+qXlwkvmOG6c37T2M+2/KE
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Sun, 13 Sep 2026 14:32:13 +0200, Krzysztof Kozlowski wrote:
-> regulator: dt-bindings: Use consistent indentation in the example
+> NXP PCF85263/PCF85363 provides three timestamp registers (TSR1-TSR3)
+> which latch the current time when a selected event occurs. Add a
+> vendor specific property, nxp,timestamp-mode, to select the event
+> source for each register.
+>=20
+> Also introduce a new header 'pcf85363-tsr.h' to expose
+> macros for timestamp mode fields, improving readability
+> of device tree file.
+>=20
+> Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
 
-Applied to
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.4
-
-Thanks!
-
-[1/1] regulator: dt-bindings: Use consistent indentation in the example
-      https://git.kernel.org/broonie/regulator/c/b89f8972f754
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914092126.3757=
+418-1-lakshay.piplani@nxp.com?part=3D1
 
