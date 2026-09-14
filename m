@@ -1,235 +1,112 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D12D44F566
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 12:14:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AD642C15BE
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 12:16:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789388065; cv=none; b=LSD2CrB77QJAFixYZZxR040SrCR05EzrycZG2/uhkfH2FARzb9vI/fv6t02SkJ1/847Rh8BFSI5LgsBc/NrOzNVHlP/JT8syvjcjB/2zFIkkZFsJWSLe6YRORscFYteWDjjGruqyUwjWd4wWO78Sf6aJ5IvTQasm5VM9s6kkVuI=
+	t=1789388167; cv=none; b=u4x/TBcg23YCEppdG9lYE8LJAUqAMI8UqDYzBS+ELKTn9xw13Sgsc9a6KFopRhN8BPAndao7DG4bM/ELruf2SaQBfDKzUS8GdtBWBjMWc4mCnZlDft5a2hRF++sWa5n57GvHFHps5qyROtSMqA4D9CiI+wvlczppDp0c4F7Zo5g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789388065; c=relaxed/simple;
-	bh=0F8hpNW6UA/zDNPKe/cPlHt3x1r1ik9HnSuWp1mFtvY=;
+	s=arc-20240116; t=1789388167; c=relaxed/simple;
+	bh=wSpzwBigUXcBmhStRiKIe5UCX/SlnEtz1biM5fxc3qc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Ged4UT3et41b7h52oHzY6GrYJeHMrUVFqak0oql7iC+v1NGFTJaMRiToX2/1IxkPB20w8+zZapt9pQfJK0SY92cOFav88hkE4JlZxvTJJOV9kndcTy5Q5epx5OmuSn+N+Q2ugJdlrZ0n9js9YK+UKL0kV6/SPqdwFMvkn0UgEbM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PLAq8gat; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=VnygP/a/p4BBpWIFhXgq8K2IUD5tzVGIO/DjmxiaqBggh/vBnIg1dydHuiZgQyZijMd9dk9q7++0Xuk/akRSrP8qjbdZjNiCkvcwYV3hKl82ifMrFUFNi0ItYuGutRkT0KH0A2qXA+JJPuTt/568uCtd9mDAExC9w9jqBPtve7M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=APFa41OP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PLAq8gat"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE1DC1F000FF;
-	Mon, 14 Sep 2026 12:14:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="APFa41OP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 528941F000FF;
+	Mon, 14 Sep 2026 12:16:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789388063;
-	bh=ODSVSyx06mM0EpsCLHsJi4P7JRyrA2Wu6m19U/nSj+A=;
+	s=k20260515; t=1789388165;
+	bh=G9j8P16ohM1dtXdGttVWFduSxmI/IRnk9KK7+T7DMvM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PLAq8gateE8gOSUbIkmBeMOL3zmczMs8ZDq4J/9JIiy8ojVIPWyyMacqxo7SBAfnB
-	 jHwQyWXspVi4D71ZAzy2tQ8Zhh52UlzV2OMPyP1juEOBEPgu47/q56p1M76e4Y6WUR
-	 Gh8SwWxggHEtgfCNk0UsDe3Z/4KbXjo44Ajf4HmQovHsvG+yhjkvSHiK63jHliRx/E
-	 7/oqPoZVs3AVLgDYgGM9yPIh5OBs/9h6/Ez0zZmaUNB44SBXOJp5YC2n56FmxVrqAx
-	 +m9hrMfSs9+qUgYWbVKhP2zS9g6MWvw7K5na4ouBlZ/Cd+6pfNQKuBnGH06VReBu2X
-	 TpKDA+re3+CxA==
+	b=APFa41OPauSGU1+OyFwp4i9Ti0M3TdOiJ2Owl69DwPA2TEXR3SC00KJs1lkL4yAiP
+	 yppwx8iyM7bqIe5LNcsm/x2R7wwLMUKruEmwOx5JsemcJOHwMEvvDZDT/nftjkEX+1
+	 RE3jQ0zBYWqA+USn3vdiKT+qfXXKNqz7xCwChQ3V2uZP2k72tTUg1eXetey03OIChY
+	 M1G5e1BEmVxez6fY6kDH8cB0438mGo2BXaapMEbUbPbfvSUw9JSEqrD6GuBlt7rNSh
+	 mXt39isQhkCAYwZ0x9hPVvmMhRH1o9gx6gQ1Lt/y5+baqrotgBNcbtSNRVK7RXVsgG
+	 jYTNW5Boy99Zw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 02/13] drm/mediatek: Implement Display Stream
- Compression support
+Subject: Re: [PATCH v7 07/13] drm/mediatek: mtk_dsi: Move max link rate
+ parameter to platform data
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260914115812.22751-3-angelogioacchino.delregno@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260914115812.22751-8-angelogioacchino.delregno@collabora.com>
 References: <20260914115812.22751-1-angelogioacchino.delregno@collabora.com>
- <20260914115812.22751-3-angelogioacchino.delregno@collabora.com>
+ <20260914115812.22751-8-angelogioacchino.delregno@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 12:14:22 +0000
-Message-Id: <20260914121422.EE1DC1F000FF@smtp.kernel.org>
+Date: Mon, 14 Sep 2026 12:16:04 +0000
+Message-Id: <20260914121605.528941F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] DSI and DSC component detection loop misses the terminal component=
- of the display pipeline, preventing DSC configuration.
-- [High] Incorrect execution order for DSC setup and missing state reset ca=
-uses DSC hardware corruption on subsequent modesets or resume.
-- [High] DSI link data rate, horizontal blanking timings, and clock lane wo=
-rd counts do not adjust for DSC compression, breaking timing synchronizatio=
-n.
-- [High] The pixel stream word count incorrectly hardcodes an assumption of=
- exactly 2 DSC slices per line.
-- [High] DSI power-on accesses uninitialized DSC parameters by invoking `mt=
-k_dsi_ps_control` before computing them.
-- [Medium] The `dsi->dsc` pointer is set to NULL during panel unbind withou=
-t serialization, leading to a Use-After-Free or NULL pointer dereference du=
-ring modeset.
+
+Pre-existing issues:
+- [High] mtk_dsi_bridge_atomic_pre_enable ignores mtk_dsi_poweron failure a=
+nd accesses registers without clocks.
 --
 
-commit d2929d85efc73eb974427b3e2c2a0afbfbe66701
+commit 5b6418994a183b2b2cc5727632b7cacb276f50a5
 Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: drm/mediatek: Implement Display Stream Compression support
 
-This commit adds Display Stream Compression (DSC) support for the MediaTek
-DRM driver. It introduces a new standalone mtk_disp_dsc driver and modifies
-the existing CRTC and DSI drivers to configure and integrate DSC.
+drm/mediatek: mtk_dsi: Move max link rate parameter to platform data
 
-> diff --git a/drivers/gpu/drm/mediatek/mtk_crtc.c b/drivers/gpu/drm/mediat=
-ek/mtk_crtc.c
-> index 97e3ff412e6ee..c0a53c153b8d5 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_crtc.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_crtc.c
-> @@ -398,6 +401,17 @@ static int mtk_crtc_ddp_hw_init(struct mtk_crtc *mtk=
-_crtc)
->  		if (!mtk_ddp_comp_add(mtk_crtc->ddp_comp[i], mtk_crtc->mutex))
->  			mtk_mutex_add_comp(mtk_crtc->mutex,
->  					   mtk_crtc->ddp_comp[i]->id);
-> +
-> +		/* For now, only single DSI is supported */
-> +		if (mtk_crtc->ddp_comp[i]->id >=3D DDP_COMPONENT_DSI0 &&
-> +		    mtk_crtc->ddp_comp[i]->id <=3D DDP_COMPONENT_DSI3)
-> +			if (!comp_dsi)
-> +				comp_dsi =3D mtk_crtc->ddp_comp[i];
-> +
-> +		if (mtk_crtc->ddp_comp[i]->id =3D=3D DDP_COMPONENT_DSC0 ||
-> +		    mtk_crtc->ddp_comp[i]->id =3D=3D DDP_COMPONENT_DSC1)
-> +			if (!comp_dsc)
-> +				comp_dsc =3D mtk_crtc->ddp_comp[i];
->  	}
-
-[Severity: High]
-Will this loop successfully find the DSI component?=20
-
-The loop condition in mtk_crtc_ddp_hw_init iterates until
-mtk_crtc->ddp_comp_nr - 1. Because the DSI encoder is always the terminal
-component of the display pipeline at ddp_comp_nr - 1, the loop appears to
-terminate before inspecting it.
-
-Could this leave comp_dsi as NULL and skip the DSC configuration entirely?
-
-> @@ -413,6 +427,13 @@ static int mtk_crtc_ddp_hw_init(struct mtk_crtc *mtk=
-_crtc)
->  		mtk_ddp_comp_start(comp);
->  	}
-> =20
-> +	/* Setup the DSC if present, with the config coming from DSI */
-> +	if (comp_dsc && comp_dsi) {
-> +		dsc_cfg =3D mtk_dsi_get_dsc_config(comp_dsi->dev);
-> +		if (dsc_cfg)
-> +			mtk_ddp_comp_dsc_setup(comp_dsc, dsc_cfg);
-> +	}
-
-[Severity: High]
-Is the hardware started before it is fully configured?=20
-
-The preceding loop calls mtk_ddp_comp_start on all components, which will
-invoke mtk_dsc_start and write the DSC_EN bit to the control register.
-
-If mtk_ddp_comp_dsc_setup is executed afterwards, could the hardware enter
-an invalid state by being enabled before its parameters are applied?
-
-> diff --git a/drivers/gpu/drm/mediatek/mtk_disp_dsc.c b/drivers/gpu/drm/me=
-diatek/mtk_disp_dsc.c
-[ ... ]
-> +void mtk_dsc_stop(struct device *dev)
-> +{
-> +	struct mtk_dsc *disp_dsc =3D dev_get_drvdata(dev);
-> +
-> +	writel(0, disp_dsc->reg + DISP_REG_DSC_CON);
-> +}
-
-[Severity: High]
-Should dsc_config_done be reset to false when stopping the hardware?
-
-If mtk_dsc_stop writes 0 to the register but leaves dsc_config_done as
-true, a subsequent resume or modeset might cause mtk_dsc_start to see
-dsc_config_done =3D=3D true.=20
-
-Would this skip the bypass mode fallback and write DSC_EN over a zeroed
-configuration register, potentially hanging the display pipeline?
+This commit moves the max link rate configuration to SoC-specific platform
+data to support newer MediaTek IPs capable of up to 2.5Gbps. It also updates
+the data rate calculation to prevent integer overflows at higher clocks.
 
 > diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediate=
 k/mtk_dsi.c
-> index f82506e10fd59..97b8a91874f5b 100644
+> index fa0f404bc7add..6e92e4e1586f7 100644
 > --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
 > +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
 [ ... ]
-> +static void mtk_dsi_ps_control_dsc(struct mtk_dsi *dsi, bool config_vact)
-> +{
-> +	const struct mtk_dsi_driver_data *data =3D dsi->driver_data;
-> +	const u16 *reg_main =3D dsi->driver_data->reg_main;
-> +	const short dsi_buf_bpp =3D 3;
-> +	u32 ps_wc;
-> +
-> +	/* Word count */
-> +	ps_wc =3D FIELD_PREP(DSI_PS_WC, 2 * dsi->dsc->slice_chunk_size);
-
-[Severity: High]
-Can this hardcoded multiplier cause incorrect word counts on different pane=
-ls?
-
-Using 2 here assumes there are always exactly 2 DSC slices per line.
-
-Should this use dsi->dsc->slice_count to ensure the payload bytes are
-calculated correctly for displays with other slice layouts?
-
-> +	if (config_vact) {
-> +		writel(FIELD_PREP(VACT_NL, dsi->vm.vactive),
-> +		       dsi->regs + reg_main[DSI_VACT_NL]);
-> +		writel(ps_wc, dsi->regs + reg_main[DSI_HSTX_CKL_WC]);
-> +	}
-
-[Severity: High]
-Does this blindly overwrite the clock lane word count register?
-
-In mtk_dsi_config_vdo_timing_per_frame_lp, hstx_cklp_wc is carefully
-calculated based on front porch, back porch, and trailing lengths, and then
-written to DSI_HSTX_CKL_WC. When mtk_dsi_ps_control_dsc is subsequently
-called, it overwrites that same register with ps_wc (the raw compressed
-payload size).=20
-
-Additionally, the calculations for dsi->data_rate in mtk_dsi_poweron and
-horizontal blanking timings use uncompressed pixel bit depths rather than
-adjusting for DSC compression.
-
-Will these issues combined break clock lane timing synchronization?
-
-> @@ -741,10 +828,17 @@ static int mtk_dsi_poweron(struct mtk_dsi *dsi)
+> @@ -921,7 +923,7 @@ static int mtk_dsi_poweron(struct mtk_dsi *dsi)
+>  	}
+>  	bit_per_pixel =3D ret;
 > =20
->  	mtk_dsi_ps_control(dsi, true);
->  	mtk_dsi_set_vm_cmd(dsi);
-> -	mtk_dsi_config_vdo_timing(dsi);
-> +	ret =3D mtk_dsi_config_vdo_timing(dsi);
+> -	dsi->data_rate =3D DIV_ROUND_UP_ULL(dsi->vm.pixelclock * bit_per_pixel,
+> +	dsi->data_rate =3D DIV_ROUND_UP_ULL((u64)dsi->vm.pixelclock * bit_per_p=
+ixel,
+>  					  dsi->lanes);
+> =20
+>  	ret =3D clk_set_rate(dsi->hs_clk, dsi->data_rate);
 
 [Severity: High]
-Could this sequence write uninitialized values to the hardware?
+This is a pre-existing issue, but does mtk_dsi_bridge_atomic_pre_enable()
+safely handle failures from mtk_dsi_poweron()?
 
-mtk_dsi_poweron calls mtk_dsi_ps_control, which reads
-dsi->dsc->slice_chunk_size to program the DSI payload size registers.
+If mtk_dsi_poweron() fails (for example, if clk_set_rate() fails here, or if
+phy_power_on() fails later), it rolls back the clock state and returns a
+negative error.
 
-However, dsi->dsc->slice_chunk_size is only populated when
-mtk_dsi_config_vdo_timing eventually calls drm_dsc_compute_rc_parameters.
+However, the caller in drivers/gpu/drm/mediatek/mtk_dsi.c:
 
-Does this imply the payload size registers are initially programmed with
-zeros or uninitialized memory?
+mtk_dsi_bridge_atomic_pre_enable() {
+    ...
+    ret =3D mtk_dsi_poweron(dsi);
+    if (ret < 0)
+        drm_err(drm, "failed to power on dsi\n");
 
-> @@ -1030,6 +1157,8 @@ static int mtk_dsi_host_detach(struct mipi_dsi_host=
- *host,
-> =20
->  	component_del(host->dev, &mtk_dsi_component_ops);
->  	drm_bridge_remove(&dsi->bridge);
-> +	dsi->dsc =3D NULL;
-> +
->  	return 0;
->  }
+    mtk_dsi_lane_ready(dsi);
+    ...
+}
 
-[Severity: Medium]
-Is it safe to clear dsi->dsc without modeset synchronization?
+logs the error but continues execution instead of returning early. It then
+immediately calls mtk_dsi_lane_ready(), which attempts to access DSI hardwa=
+re
+registers (such as DSI_TXRX_CTRL) while the DSI clocks are disabled.
 
-If a user unbinds the panel concurrently while a display modeset is active
-(for example, while executing mtk_dsi_config_vdo_timing), could the pointer
-become NULL immediately after the check for dsi->dsc?=20
-
-Could this lead to a NULL pointer dereference or use-after-free in
-mtk_dsi_set_dsc_params?
+Could this trigger an AXI bus timeout and cause a hard system hang when the
+unclocked register access occurs?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914115812.2275=
-1-1-angelogioacchino.delregno@collabora.com?part=3D2
+1-1-angelogioacchino.delregno@collabora.com?part=3D7
