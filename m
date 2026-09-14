@@ -1,61 +1,95 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2364A1E5B88;
-	Mon, 14 Sep 2026 08:24:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8FB7321F5E
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 08:26:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789374270; cv=none; b=ANtzayjAekMomKQFgRKhv8LAxNVifd8PqCIJQlCg8GtsYqB5euXaFmp7MVozpTJhIjCTvk7Sb0QqNDiL2p8TPwSpMG1se4522IOkUhnLQyrOw6k22HDc8HbZ5KaNuLDGXp4O7uFIIB8pK1DozXN8X7wCdyWbD6f5bn+Z4nGdQgY=
+	t=1789374408; cv=none; b=bWc2gbiBQcPV4e+JrgMFqo5YvQgd50uCXTCQ1UYN4vo5Pxk6BTQVHoA7v0UKbP2uOaBAd560Xoydo9bV47JE4AzPKtRB94cBBJEyGlU1hQ9MsnqNduXl+PpI5vCybNUqu2cI0FZZpG7imJDS5TJ/I5HtJzixT7pTkhZPFx694go=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789374270; c=relaxed/simple;
-	bh=X+dyPXNbQ5okxSNJOsncS3NtPB4XWj6X/Tip6CM87Z4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=cKEJAhsAzEg6R6ORV86nrge65JDxIgC0U0KdNHAyJVNxyLPDzjeyRddL9ykWh7w4iTD34HlvoB/iwOCPmbnjs2dOg2e9b6HR1TwbIX/OBtzBUkIJuUpArD2DV4MDAdRkUaanw5hIpNo5a0JS3NoCXhucgfH7qHT91My9rcG7FRg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CjtFklG1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789374408; c=relaxed/simple;
+	bh=TA26xEZ/LjJXtkH+wc6rh6u0nbvSN8fi3WWcPpbpONU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tXF8bamb17WKO6IPFDrNpZrmEfrM8Ejo467D52gJYN0ioMsDN3TnRArW4UNLIJ8r/Fu7ukclD5x3aK3i2c2G0EX9TYWbbTX/PwZOxcoh5zdPzbEaeKaA2SgX8hwqj7MfO42jcdWyik1lzoWsQiuqz5WAJTvKlR9luqVelq8BlRg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S7rZ64Er; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CjtFklG1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56FE61F000FF;
-	Mon, 14 Sep 2026 08:24:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S7rZ64Er"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C9BA1F008A4
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 08:26:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789374268;
-	bh=X+dyPXNbQ5okxSNJOsncS3NtPB4XWj6X/Tip6CM87Z4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CjtFklG1AbxiPPXz8Pn9ZsMqZbPFQ2HUmoZ2Z2WzIZ0HMQgq3MBwACfXw/RYnVKZ+
-	 VuDDgV/IKzYVPhPcypyu6Df8lPlH/0dJGSPmdNcyMXz+6Powo2n8aUu8UDoGIq8RYf
-	 a5wkcYEFVsDjx5e9DFzo/RaGECpx2xVbn+c4M6HSiaf1fQ5G2S+DWznudlh9YnOFjJ
-	 FoFuy4hfUj3Ni5SAdkgYQio48vkDEuaze+K4ENOMZnFPAvGrKpLVRBbSDK/PKQoSYB
-	 /komu2djrbgXbwJxU06XmwJrgsCz9ZShfbJd8RO906J2vRPTEzF4ecBWfrg5/up7D6
-	 x9W4Zqi3sglfQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/6] dt-bindings: hwmon: Move LM63 family to a
- dedicated binding
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Troy Mitchell" <troy.mitchell@linux.dev>
-Cc: robh@kernel.org, linux-hwmon@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260914-ctl2301-v5-2-b44b81cd2c3c@linux.dev>
-References: <20260914-ctl2301-v5-0-b44b81cd2c3c@linux.dev>
- <20260914-ctl2301-v5-2-b44b81cd2c3c@linux.dev>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 08:24:27 +0000
-Message-Id: <20260914082428.56FE61F000FF@smtp.kernel.org>
+	s=k20260515; t=1789374407;
+	bh=e6EWldjLUV164UHYmg9SwSNk9vpahiavUGimVKHnqTs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=S7rZ64Er9f2J3r71j+Ra/t2dR0m3MCQd2lZWyIajqu/P1gyoxwditamSmJAhvxfLO
+	 oPuqEeUZCXSPfct5Y87skLbFYzdxrBs7ygzvAI1ulhvODDeH36Yy4wapVKHZPMta6V
+	 qIosKNt2T6yX/nNiiwHxrqRS5JDVDo+RH2e7LJLdLwtV5R1W0nJdzhIK2Vzu5m+ATB
+	 rfIubf7stDTGlVK6riX994NejNaH1p6zZQ7VN41kJTqT93rPJIumty0w/xQRmcW+dk
+	 /+zwsJ/MZoiBqKepzlCCkPLfbDXMjS0GneU9PtrZOkKHWMV7u/AmzKmfTX45sGS/ID
+	 DxVr/E2qiV97g==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f1651bso1381987e87.3
+        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 01:26:47 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzh9ac/P9GUPBjUV+csA5d9bufDyycVb0rnZTSNALmm+mZ5TxfwYk6ceSga1cAwyipPddTtE/T/Eiy+@vger.kernel.org
+X-Gm-Message-State: AFuF++lNNacgm6isxRGREUixO1HgEPCG7glUdHtJeMmKmD0gTKfBLjZ4
+	ZwqWAngmsRUto35f1XezwSw9Jcvk3JD8ogB6TFkYWDaauNOUqlUJ/vNB7QLUTmAX71wYVpCXcqI
+	PW+PR+mOvYO6nEEH4a18goZ+pNpTXUPA=
+X-Received: by 2002:a05:6512:239f:b0:5b6:184c:7da3 with SMTP id
+ 2adb3069b0e04-5b8ae6afb21mr372849e87.44.1789374406193; Mon, 14 Sep 2026
+ 01:26:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260827-kuno-soc-support-v5-0-6d47636a8f09@oss.qualcomm.com> <ac236a52-1293-4a70-b5ea-ec6118cb02e1@oss.qualcomm.com>
+In-Reply-To: <ac236a52-1293-4a70-b5ea-ec6118cb02e1@oss.qualcomm.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 14 Sep 2026 10:26:33 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnmH31iNsOeB7CWWpxkav6qxRgU6-tp=gxZxwWz3KUupA@mail.gmail.com>
+X-Gm-Features: AcwNN1UxxQOsVcBHVbSaj8l-dq0hp_W-v71JNdK8T8AJOQnCtU1FStuksPYcjMI
+Message-ID: <CAD++jLnmH31iNsOeB7CWWpxkav6qxRgU6-tp=gxZxwWz3KUupA@mail.gmail.com>
+Subject: Re: [PATCH v5 00/15] Add initial support for Qualcomm Kuno SoC
+To: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>, Georgi Djakov <djakov@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney@redhat.com>, Bartosz Golaszewski <brgl@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Radu Rendec <radu@rendec.net>, Robert Marko <robimarko@gmail.com>, 
+	Guru Das Srinagesh <linux@gurudas.dev>, Taniya Das <taniya.das@oss.qualcomm.com>, 
+	linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, 
+	Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>, Abel Vesa <abel.vesa@oss.qualcomm.com>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> Move the National Semiconductor LM63, LM64, and LM96163 compatibles out
-> of trivial-devices.yaml and into a dedicated binding. Describe their
-> integrated fan control and preserve the optional interrupt used by the
-> ALERT output. Permit use as thermal cooling devices via #cooling-cells.
->=20
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Signed-off-by: Troy Mitchell <troy.mitchell@linux.dev>
+On Wed, Sep 9, 2026 at 8:43=E2=80=AFAM Hardeep Sharma
+<hardeep.sharma@oss.qualcomm.com> wrote:
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+> Several patches from the series have already been picked up and applied
+> through their respective subsystem trees.
+>
+> The remaining patches listed below are ready to be picked up as well:
+>
+>   [PATCH v5 06/15] dt-bindings: interconnect: Add Qualcomm Kuno NoC
+>   [PATCH v5 07/15] interconnect: qcom: Add Kuno interconnect provider dri=
+ver
+>   [PATCH v5 14/15] dt-bindings: arm: qcom: Document Kuno IDP board
+>
+> Since the majority of the series has already been applied, I would
+> appreciate it if the remaining patches could also be considered for
+> inclusion.
+>
+> Please let me know if there are any outstanding concerns or additional
+> changes required from my side.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914-ctl2301-v5=
--0-b44b81cd2c3c@linux.dev?part=3D2
+6+7 looks like stuff Georgi should pick up, patch 14 looks like something
+Bjorn should apply to the Qcom SoC tree.
 
+Yours,
+Linus Walleij
