@@ -1,138 +1,149 @@
-Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com [74.125.226.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 289B8479889
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 14:12:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5782547F2F3
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 14:13:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789395143; cv=none; b=BKIlow6YONHurINK8bE7gYJjGBSIJBr2xPKnl5N6+mHOi+yvv6R9sQFb6O1JD8iN2EPAaNLD43lbH1O8VEBR7pjz4FwtwFgr/E/equD18TL2XBoKrwrT3WnoZv4Stv+w6ap0UeTmW8bLpgoZAVMNeATDjFrEIxaUYgRA/qCRids=
+	t=1789395212; cv=none; b=WkXHWY47DnooItTlTn5ZelFK3GJP4JU8zubNAWp31GEf2x/t4Sxhb+lmUFv4Pjbx5ZYEEQz99OfqTBiwCcFJtEDkaApV5UQ6he5JVMlF02kMeypxHQYX3rI6cExFhLaQLL2rQyEZ+SyzLTISzaTvM6GAInGUINzkW9VGulc6qOo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789395143; c=relaxed/simple;
-	bh=8ceMByd673naR3PwEiJsfobu32L4XCtKVcpdbpqYa5Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IdHN5LevoKXL7A5oDL+OMX4TYDjqijQMo71AMS3QJ/gwJ4oIJoenQ3Guix4rSrHpncS8ySK4DrQtZMkWvSI79q0uwElfRQzz9HsA+pBi+z14cjenvICL0r1+vKK0I+V7S4YTUtHfhvRNDwX1OpnL0nisgraf/DVLSvsECZrja7w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.226.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97e8ef5b507so413524241.1
-        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 07:12:16 -0700 (PDT)
+	s=arc-20240116; t=1789395212; c=relaxed/simple;
+	bh=Ja150srwy3mFRrkC5Saxj8416lNXSM0AjqAqBZ8T0iM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rlT+d8cwazfc9+cn6iqZ8k4kMGMeF3GUGyycTJhtDdSHZCPTF+a2DkQ4GWxJmnOZk0/6ML1MH0BitdzvSEktVkCfoKUKqR3pfDVriQUShJQN2uVecf1YqZFbkcfb7BDTQyfZ7Wc7VKNpLYeJNUOJv2Tg+jicD8VTOUxRMS+my5w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lIyhfN9I; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PnEI23hr; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lIyhfN9I";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PnEI23hr"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68ED0aj0674538
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 14:13:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=rYzXu3B4dIp7MCCvaiH/6Vgp
+	CIXGA5CKASATJDp6n9s=; b=lIyhfN9IMenvjTlpFjdiWkSY8LDTOgpJB4h+0Fqz
+	O6um7sqLwO5lmDY+i4jBPIopxm7MrJl+k26OodzhP2K4sIJ4rmcFCuJEaqEN3JHe
+	10efQZErtlvnoGbZrrTHXN9D/tY8bPLk2Bjisi/w7xsEAihle8mYkjbIAEyAfEFO
+	0Fqs0rhwbtsdiXewMxuk0y41kRgyWMcDmsO5Mj2vvk9L7Pu9Tmp+xwYw1AgAcMEH
+	5Ch3/6vTUtVjPILetgLy+U4Ai+XrFVpygpDtEYE2BS+NYeZBs6LYGQZ/npuSNUv6
+	jhzek16eOyFIyDBOyayvpUzfx6lHO01eMRL8KmZDS8IEPA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpecs92yp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 14:13:30 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92e82060977so658871485a.1
+        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 07:13:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789395209; x=1790000009; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rYzXu3B4dIp7MCCvaiH/6VgpCIXGA5CKASATJDp6n9s=;
+        b=PnEI23hrwJRD0kM5xRgstrT5c55pDbvJatGPF89o6UdIM6A06nLOG6qaP5UmLs8ll5
+         Vstftb5ZOO0ChocPoxqZyaNpUn9mdxtDoiO8+Mw6IpgCKv6uW++g8HwJjOVPExvV4jQM
+         JaSENs0HIGLeIjLITS2rA/KrqC435m4cv7bUtxkQUg9sqA9z80M/YCGG1laOx4dl6Vp2
+         2foPOjSoeSH9DAZsSI/35tp3welzB4LL5hZo2DxeHdoaQcxK2jQ+6L6KNrvMt0rz30F7
+         jfEcJC+9AmiHcLVBO5xq7ie9mzlQ6x3MqUXVndW+wSnalBvZxJK0CHoAgurs7gll1Dcf
+         b+fg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789395134; x=1789999934;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/0GO/2vfF/XubgIzu8oiJogl7L+f/XkIHsO6TluNVPc=;
-        b=Kfq284fp+mrEn+KBFGWGV9gqg3J0+wmROzXzL3YlisruVTzgSrqDqW9FUT5KsWBETH
-         b5CcrYB31GoxvHB84GV4lx8seo2hLteB8NaRxic5VLyo+OSDScvcEawn+AxjjjdZkXsK
-         GOZM5wiIBYrNXQWqwh/IyQhRhOYu1rkocrt4LU+pEZf3HZDakaRvtibh6OIdtDjjrMO/
-         arXN4GfyCWolfOo0QX6heTUHQOU16mmhknN2O2bf1LRtyqfya6i7fIkc5bfa9OANGA+X
-         jKt6MKEzZqlT4s2ipQmwMVQ5YEvxTZU9p0XuSEFPVwRbqLK3SPmO4PYl+hAwSp0rci7y
-         /Qqw==
-X-Forwarded-Encrypted: i=1; AKwUvBzHLziCq4uYSGlU1XmO/GgyjrDsa/b5A0x7hNHymV535SsgT1Aj8WXLCqHMJmZKlq6xYqMcOX6Yijx5@vger.kernel.org
-X-Gm-Message-State: AFuF++mWyUpjKsZBYL5pnIfO6aXOw6+1HxcOc3mOpbBP0h0tNybdT9mX
-	b/g0tc2j0M4UBaGrnO+1YISlZtWU5P/OKGOs9cDExV3iAisauy64JvedYKi1+OWU
-X-Gm-Gg: AYBFou2rCYEmHjX3QCaT9SRr0LQnB6M21iAS/RmdTRwzrhMgoNy2n8g6MhrJJDO2gaf
-	IWgc6KdyKWFkSBFoPvPY7u7uVzbO3QvqrHJgDESplnN4sn0MxV2rVqfESseaBllW1j9+C2xrgjp
-	rdfJIbOP31NvQq+LfsatpQdUT598ZhSzZShLPLLNah1fP1SisWzIO5mXunsiOQvJMJ1JtEeOVrz
-	duhwyNEdRqkTXqHFv3PsNmgPSVAvaX/qzGWh+4zPZ7RmDWOceJkUmYk1I4mr259jxZghR9nniqd
-	j+BzrE2ahfv031ZJzmlMjRhu2PABXuJr/M70MWE8QUyr6UKgW5h7zo18KqAYj5ZbBbI3Gro6myA
-	tOJkpZAEcG9c2/X2Ft98XvhzvBUvTRDVr31o0IDVVBnfC8koIp2iV2ulKqRjbU1gPIMjW5hHltn
-	p89Jrc8BEWRQHaP+WJzSvOzg4M/n+jvd35Qpp2D1Wxc1wXbtay/5XW4cmPZTGBx1VpKnxmI3ywk
-	PX65TqqEAgjAGFaHCQKvoVURDRstMXiPSiqQ78u
-X-Received: by 2002:a05:6102:5129:b0:779:328:8a2e with SMTP id ada2fe7eead31-79b4d1bd126mr941849137.5.1789395134339;
-        Mon, 14 Sep 2026 07:12:14 -0700 (PDT)
-Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com. [209.85.221.169])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-79278f86adfsm10744797137.2.2026.09.14.07.12.13
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 07:12:13 -0700 (PDT)
-Received: by mail-vk1-f169.google.com with SMTP id 71dfb90a1353d-5c671456e25so3230336e0c.1
-        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 07:12:13 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx9N2sxW3DYCjPV1atQ2pNfZfThy5N+BaoOdEp/0ymWQoRP+m2qD9/cIUmTakUifHhCtAd2C35aRP7J@vger.kernel.org
-X-Received: by 2002:a05:6122:5315:b0:5c6:65e5:99a8 with SMTP id
- 71dfb90a1353d-5c9749fed16mr2500859e0c.3.1789395132980; Mon, 14 Sep 2026
- 07:12:12 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789395209; x=1790000009;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rYzXu3B4dIp7MCCvaiH/6VgpCIXGA5CKASATJDp6n9s=;
+        b=sUa+J84kQITKKH+FcbtM8lAyzq6FUtckvwYSnTauWd+ZOMTTO6zcmYF1cMGXP0e3ZA
+         DwbQiH5roWG2oMeblAzbjGsfIfaXt28nQFl2eABSd9jn00oX/up3bn3kAJh/sym7ub0K
+         Z4FjJvRUrY/8CbXR8Ww9z13RLrHo0GQtV3OpH0xm7HOckleh5/qjeMERoMoT7hUwuqeg
+         62MjnGlRRdgGlX0YsBtQWF/tADQmjK6z6O0LLvL6r4hGCGOtkD6AhyvouEHzp7JYviOR
+         DYYtlXZg2WepDDby+uOEJEZp91xTuK+V/C+iKWl9yf7efGsASNV1IwItCNRcI37v/SVA
+         GYrw==
+X-Forwarded-Encrypted: i=1; AKwUvByOad2UIVE6j04D/jImoU6bLvtpHMxFgKaUSEIY4dGPrkHSL03tKDjnuwtXAoh1vHssSQv8TR+flOb4@vger.kernel.org
+X-Gm-Message-State: AFuF++lf64W5ugycIVABiMlLGSbZ/SmrvGI+5jOcRFX0CxcncBumNG7Y
+	JUlZ9i1UkDS2amjke6htJ1nID+APypNneirC2r7Lms1ED13lcEgwym5v4mJkc6fkU9EGMr4eon3
+	MYwaU2rVx9TPI1nzERzoO7VBn6+JuF6aLT4qUIIR91GGXV0TyhN0ImP9ZmlQe+R7y
+X-Gm-Gg: AYBFou3VPxrR4Ow0a42QwSSrvdFYPuZdYnFt40EJbDI1gXYrBFREbKlV5oDbfE7vsex
+	VRVIZmq/q6u9KItsTSv/tSnlmALV60XZ7jbQVfntimTBuBCd8o4nfSIDh27prXXAdmpWmr4kROH
+	1goaAHfiudeaE+R7Pl8i3AFgj9r9QEdkYhXRcNJvTHJ7RWaTlODYoRgcWk4/dRRXzAw1Ny3bTb6
+	A7VYBtUi+eGq/+Jzsc7qZZ6f9mxV9qhWq12jxVpUpc7EFcu4iKuU9u4H/rxN2mZxPpr1rW0TrUE
+	qj5h2GKs8k3+5gLnEYNQRZkOBWgfKBVVK0FOv0i1EmVXvs3ltLsVt9z7/7ooYnqbHoY8m+gVcXV
+	hhmxDZjcZZaNziyc=
+X-Received: by 2002:a05:620a:4544:b0:939:b053:ce44 with SMTP id af79cd13be357-93a1870be85mr691999985a.22.1789395209462;
+        Mon, 14 Sep 2026 07:13:29 -0700 (PDT)
+X-Received: by 2002:a05:620a:4544:b0:939:b053:ce44 with SMTP id af79cd13be357-93a1870be85mr691991485a.22.1789395208751;
+        Mon, 14 Sep 2026 07:13:28 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.232])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7d23b945sm1815295e9.1.2026.09.14.07.13.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 07:13:27 -0700 (PDT)
+Date: Mon, 14 Sep 2026 17:13:25 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: avalon.vargas.centeno@est.una.ac.cr
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Val Packett <val@packett.cool>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: Fix touchscreen address on Dell
+ Inspiron 7441
+Message-ID: <fx4mot22jw2wzvd6nhzjejfjip76bpru77uj3ag7v2n6zedk6o@hze6gos4ez7j>
+References: <20260914-dell7441-touchscreen-v1-1-d79540ca5e81@est.una.ac.cr>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260911073058.253000-1-den@valinux.co.jp> <CAMuHMdVAFq4izexG=Sf2i9dZdMMNLnb85AVgBazAFMtTA2jwxg@mail.gmail.com>
-In-Reply-To: <CAMuHMdVAFq4izexG=Sf2i9dZdMMNLnb85AVgBazAFMtTA2jwxg@mail.gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 14 Sep 2026 16:12:02 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWDJac0Soob+Cf-dgwWPBpGrfCwHDN_nWTyE84pXJSoGg@mail.gmail.com>
-X-Gm-Features: AcwNN1Uyp_yKSLQHdhola9oXjT2PLkCEjRN0YsdOH8kD2k3alY3_Suk4gIB3dpw
-Message-ID: <CAMuHMdWDJac0Soob+Cf-dgwWPBpGrfCwHDN_nWTyE84pXJSoGg@mail.gmail.com>
-Subject: Re: [PATCH] arm64: dts: renesas: r8a779f0: Set UFS lane count
-To: Koichiro Den <den@valinux.co.jp>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Marek Vasut <marek.vasut@mailbox.org>, linux-renesas-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Palash Kambar <palash.kambar@oss.qualcomm.com>, Bart Van Assche <bvanassche@acm.org>, 
-	Shawn Lin <shawn.lin@rock-chips.com>, Manivannan Sadhasivam <mani@kernel.org>, 
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
-	"Martin K. Petersen" <mkp@kernel.org>, scsi <linux-scsi@vger.kernel.org>, 
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260914-dell7441-touchscreen-v1-1-d79540ca5e81@est.una.ac.cr>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDIwMyBTYWx0ZWRfX6yMxu07ZDmIA
+ zviNKKEcsHS2MKMQwIua9DZSvmt7EEK3QevAU1+X1XA9P3rct539tdeR03Ak1nWlrgqnYXadffP
+ OfV5d57dSufSBgszujyad68F9yJyf40=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDIwMyBTYWx0ZWRfX8BkNV+IZteab
+ YIdVdLBO3p5icBSkdcqBj+gN/H60GjCyLOg6FqVbF411EmrFTy4+wXxFMVlZDhxIRYvdXl3KE4W
+ D5pYa5zw6uBTx8POy9xmXJPuCyOhvbPB3rrtt5io63JE3a5wqd4sx07oMFFVQ7cPx4QbVhQ4Wsv
+ bVEHohbGV9RQs+7NbRHWej36qpnNqt7fqyoyymaUMNEoRvuMAr14psSvu7ZAhIHQ5HDKceMUAox
+ EKvlsKxZCxJOdlHjN9iGI9xANFuAbfOVvyfAxER0z7tBRL2HUkSA6++f9c3o9jFsVfy93Atov5A
+ G+Sz+vf5yyuj7e+9zNpAaOQPOUP28xRdLYHmqJhOcylCtoz2De39PM7RMMPHGnyo//aWZwkbr+0
+ +XM0nzcRqlX8CAWv2w26ObavBjo+CRRfWG5V7jFIlnVYAvUeVgNjBthHIIy3pVDJ7sBaD9Eo2VE
+ A3ulKAoEPdpgeg5c9Mw==
+X-Proofpoint-GUID: A3n1vEoB7NAIP3o0mDyfFTOY6JEVk-At
+X-Authority-Analysis: v=2.4 cv=b/cncdGx c=1 sm=1 tr=0 ts=6aa8010a cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=BXSMCdXCMYupIW_o_JgA:9 a=CjuIK1q_8ugA:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-ORIG-GUID: A3n1vEoB7NAIP3o0mDyfFTOY6JEVk-At
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_03,2026-09-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 adultscore=0 priorityscore=1501 phishscore=0
+ clxscore=1015 impostorscore=0 lowpriorityscore=0 suspectscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609140203
 
-On Fri, 11 Sept 2026 at 10:44, Geert Uytterhoeven <geert@linux-m68k.org> wrote:
-> On Fri, 11 Sept 2026 at 09:31, Koichiro Den <den@valinux.co.jp> wrote:
-> > Since commit e72323f3b09f ("scsi: ufs: core: Configure only active lanes
-> > during link"), the following error is observed on R-Car S4:
-> >
-> > ufshcd-renesas e6860000.ufs: Tx lane mismatch [config,reported] [2,1]
-> > ufshcd-renesas e6860000.ufs: link startup failed -67
-> > ufshcd-renesas e6860000.ufs: error -ENOLINK: Initialization failed with error -67
-> > ufshcd-renesas e6860000.ufs: probe with driver ufshcd-renesas failed with error -67
->
-> This is very unfortunate...
->
-> > R-Car S4 has one UFS lane per direction, as described in section 152.1
-> > of its hardware manual. Without lanes-per-direction, the UFS platform
-> > driver defaults to two lanes.
-> >
-> > Previously, the core used PA_CONNECTEDRXDATALANES and
-> > PA_CONNECTEDTXDATALANES to configure the link without checking them
-> > against lanes-per-direction, so the missing property did not prevent
-> > initialization.
-> >
-> > Explicitly set lanes-per-direction to 1, now that the validation is in
-> > place.
->
-> Given this breaks backwards compatibility with existing DTBs, I think
-> this new check should be relaxed iff the DT property "lanes-per-direction" is
-> not present. Are any other platforms affected?
-> Possible solutions I see are:
->   1. Skip the check completely, like commit 06a34d9c1f47b923 ("scsi:
->      ufs: core: Skip link param validation when lanes_per_direction is
->      unset") does for ufshcd-pci?
->   2. Correct hba->lanes_per_direction based on the actual values of
->      PA_CONNECTED[RT]XDATALANES?
+On 26-09-14 07:30:47, Avalon Vargas via B4 Relay wrote:
+> From: Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
+> 
+> The LXST2021 touchscreen on the tested Dell Inspiron 14 Plus 7441
+> responds at I2C address 0x09, while the device tree specifies 0x10.
+> Probing the latter fails with -ENXIO and no touchscreen input device
+> is registered.
+> 
+> Use address 0x09, matching the LXST2021 configuration on the related
+> Dell Latitude 7455. With this address, the controller identifies as
+> 29BD:1103 and binds to hid-multitouch. 
 
-Both solutions would modify the core, instead of the platform-specific
-driver.
 
-> Alternatively, ufshcd_init_lanes_per_dir() could override
-> hba->lanes_per_direction to one if "lanes-per-direction" is missing
-> and the device is compatible with renesas,r8a779f0-ufs.  Or perhaps
-> hba->lanes_per_direction could be preset in ufs-renesas.c, and not
-> overwritten by UFSHCD_DEFAULT_LANES_PER_DIRECTION when non-zero?
+> Touch input and suspend/resume
+> have been verified on the affected Inspiron using Linux 7.2.4 with
+> the equivalent device-tree overlay.
 
-As ufs-renesas.c does not have early access to hba, I went with
-handling the quirk in ufshcd_init_lanes_per_dir() in
-"[PATCH] scsi: ufs: pltfrm: Add quirk for R-Car S4 lacking lanes-per-direction"
-https://lore.kernel.org/ae0cc2bd764e6dfffce99db3d8b44a55887c508c.1789394185.git.geert+renesas@glider.be
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Drop this last part, as it is irrelevant in this specific case.
