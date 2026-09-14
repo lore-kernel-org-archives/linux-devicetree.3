@@ -1,38 +1,38 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B718D41BA83;
-	Mon, 14 Sep 2026 09:09:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2450141F5D4
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 09:10:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789376999; cv=none; b=TSRbrZmtk53/I2TqfMxM8kLxmroxJrlVkL5qFm6irBKc+9iWWiJsx9gOGW0LzVroFZehqfV5Kux9vyCSSPOophx0+cYDpA8i9m2tTcRFQUdfgiavcCz7Jr7Fl38ebcuFz6qswQtRVWpxVrdNqHtVXeCpfcG27L0cf8GctZqPDRA=
+	t=1789377007; cv=none; b=Uk+iqt4Emf1iUwmR8Pd2lnVBBcbR/wbDaC+LOVHi5zrK6SQU0e+poXlpOm6pX0zC7/1loOxa9/ANfWd6OVJb8V9M2g285CE9BLRpn0oeMbeMm4p7+V0dPK+sWNEa889142YGpEJtHyu0xofVA2fsFFmos7R8pBhgpLuKbZ0Oraw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789376999; c=relaxed/simple;
+	s=arc-20240116; t=1789377007; c=relaxed/simple;
 	bh=sHMWlu+OTUqYhqFrSUJL3jwM1neJ6/5JmISeQqqjsEA=;
 	h=Mime-Version:Content-Type:Date:Message-Id:Subject:To:From:
-	 References:In-Reply-To; b=Vztw8m5QSwVRpLbZE5pSvAFzzxjNfA6JeXNxqYhIj9EdNM3hk7XZvAQs2/1eIpz4cycQZ9LEYr4Fs+/Z06yTzRxFffqZoY5c9D6e7PKu+zLsGE0CMOJ1shZtLFyL5Sm+bKfCBHwdY/iIq9VynWt2+nxieGoo9miPp1NurrHATkI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=QOx/baCy; arc=none smtp.client-ip=185.246.85.4
+	 References:In-Reply-To; b=BdYu/sdRLUbICVin5fkAIeWdMETBwc1IpjbZmX7Roxe0Dri2HAeOkXCKKAoVMIxEJwffVK3eaiMmP0jRqxk+ksi6kXjc5wlitYz2Kz4BMt0z/ttvX6FDZX9tr9VumCN1+aomr8ezc0ApuPTz44Zl/wD9e8AggEnAH9OSF26vs1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=V/S0lrmm; arc=none smtp.client-ip=185.246.84.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="QOx/baCy"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="V/S0lrmm"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id C6C994E405A0;
-	Mon, 14 Sep 2026 09:09:54 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id DDE2D1A0606;
+	Mon, 14 Sep 2026 09:10:02 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 93F0D60580;
-	Mon, 14 Sep 2026 09:09:54 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1E0CB11C7AFDB;
-	Mon, 14 Sep 2026 11:09:21 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id B03C560323;
+	Mon, 14 Sep 2026 09:10:02 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9370F11C7AFDC;
+	Mon, 14 Sep 2026 11:09:37 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789376991; h=from:subject:date:message-id:to:mime-version:content-type:
+	t=1789376999; h=from:subject:date:message-id:to:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
 	bh=J6gkIocMxhvdpf/NKA6qKbg3ZwMu+O+tLx3jm8Ehdxo=;
-	b=QOx/baCyIfdZIARepp6rSTVpentmNiDyxh/MzkNo667zrVwrPzSi/av2sIi9036kR90wcX
-	1cvc4jdCrwV097hLpWf2iDVabSiC11DtW7J1xyqQXazNoA64Wl91R5rKEI8FxCpyc9ptil
-	d+WhOydTJIs7zDbd6mw+szwsocwD9lCzeBTxIRfayrxJRpUvKv/JdIZAezkFvDYRk5/QsS
-	OPFQcb5MRz94HyIbB/OsKBkagZqlQWVnJh1TLJZMeu43YXlcLA101Ygc2ctU0spQmfnRI1
-	mlCgsvmVZUbYE5ne3cozOiZTcqNTeXaw+yp6jOZae8jNUAqU4pSkxil5SzkMsw==
+	b=V/S0lrmmL71ZBsBR/XBCFjI98LgKkiHAv7j9dc0xrTkjkGC9lUUILnC0yOpXTDdo6Jqym+
+	efzToVH1eyBm9ahiseIPrlPneDIHEWt7DqGZb6bDmy0oDinA45cHma+7+DqkRjloEf6G4P
+	4WXtli+F8pHa2mmVqCJu2x1nfnLkYl9O8hXqGEWBaHmOvlr71+4u4LL0Zq9vhSM23gTlDx
+	LJ4AlI90ifROUyx7NgNve5QPatdQ4yidw+kC682ul7VhVGHAmjFHi85J+j86VqIpop0Cj4
+	CBgFpqr4f/HRNcCCy9bbwsy07nqo+molgZt2jZxtiBDm5iimwdzMn/T/gWxDQg==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,10 +41,10 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Mon, 14 Sep 2026 11:09:15 +0200
-Message-Id: <DLEX6WY9X3PO.S0N8N4G4K301@bootlin.com>
-Subject: Re: [PATCH 1/2] dt-bindings: display: Use consistent indentation in
- the example
+Date: Mon, 14 Sep 2026 11:09:31 +0200
+Message-Id: <DLEX74H9NP51.1V8PYE64K89RI@bootlin.com>
+Subject: Re: [PATCH 2/2] dt-bindings: display/msm: Use consistent
+ indentation in the example
 To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>, "Chen-Yu
  Tsai" <wens@kernel.org>, "David Airlie" <airlied@gmail.com>, "Simona
  Vetter" <simona@ffwll.ch>, "Maarten Lankhorst"
@@ -86,7 +86,8 @@ To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>, "Chen-Yu
 From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
 X-Mailer: aerc 0.22.0
 References: <20260913123331.100293-3-krzysztof.kozlowski@oss.qualcomm.com>
-In-Reply-To: <20260913123331.100293-3-krzysztof.kozlowski@oss.qualcomm.com>
+ <20260913123331.100293-4-krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260913123331.100293-4-krzysztof.kozlowski@oss.qualcomm.com>
 X-Last-TLS-Session-Version: TLSv1.3
 
 On Sun Sep 13, 2026 at 2:33 PM CEST, Krzysztof Kozlowski wrote:
