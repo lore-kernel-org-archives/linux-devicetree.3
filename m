@@ -1,139 +1,185 @@
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 210DA46EC95
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 13:11:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D650A46EF62
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 13:14:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789391466; cv=none; b=CQLX62QLY4tPVMv9Eybc5CMRlRrsdcuI7p2XrEkDrdQIirM1YEzGCZ4P82y+AzmXdbucTfe8PC6ZHXvovfcb53GK/vW+7HgXjTg283pkd+h0R7hkgSBg/bgrsjxruJzu1d9Q/fw6A6zdufokQeCzdyxcQm2pDmfTanra+a4Lq7c=
+	t=1789391692; cv=none; b=Fi2ezdn5BiM6u1B7RmVa99dGbcLFPJUpbspD4erkuCbWhNBBR5xAVR38PfjubsBv2yRvIYPdGCSypB6/jzaYwAXn202EO4cw45fli15tKPfEBzaUD1V2diLNLdUdb5UtLZ5qdNAg+hH5d893OVdfGAT0mXjS9hqXC9sIKVyiITk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789391466; c=relaxed/simple;
-	bh=iwfdzr2iy+sC6+czneLHwr8xAhX/X+iDimNm1BSeY5U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hsKVnHw4jFWRMzAelHxeJaLindHKcXp4FeTLmrNohIiT9F3rVsp1oZG0Kf3CHNBTYxUvelr2DwPYBYgmniu+1YwmkBKVrjkLP9U5x1juKWLYU0lKuAtuWeEVCilwBDwnfd6Qi7KktGYDBz8s+ZzuzhrDV+LQVcHxDCMhEpuMd+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nVHq8lnG; arc=none smtp.client-ip=209.85.218.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789391692; c=relaxed/simple;
+	bh=JbNhrARpv6JYgXbHTtrDTe6wuqZhnPpG+LDN0UD/1q8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ia5X1dRW9hwzjYPHyooxoynDWyfNZJ4WFp/UfDls9WWuLdUoL7TKQ3DL/An0JeFkeXrIB/wj0bX4wrCKWxqEas6KiTG1r8Cg7a3T9gvHrjtM6nKiSxJIp7H/Pubc/+hOQMxL6V/Vwr9cTRh01Os1KL93ElDdUwgzRwRh4dVEVsM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Bm9gTt3l; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nVHq8lnG"
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c2949ed8cc3so530897466b.2
-        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 06:11:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Bm9gTt3l"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4834977ae75so1086339f8f.3
+        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 06:14:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789391462; x=1789996262; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rHHo4dn4rFwPjLFZeXv9ABL/gp9nPfJCU+f+sXBzG+Y=;
-        b=nVHq8lnGBWVdBIdc67fVSPaF9/cTT9t83+WwvFjCZ3e2vWzufeOFAFVzjl8BQfIOsU
-         CRfMhurFa0ylgZJz5eLBuOgzgWQEaC9rY2FNq0ZrStS2+N7U+g19uKbja1+6Fqn+Sa4i
-         hnCbFeHPG0r2dqbgPEtMrcH5v6gA9qaV/7MXUON3EyLpUgxePSovlba9oZP3+KjDZT1Y
-         McY+xoXtLVziazvga6QWylC8adQuQIdaz373IZLIsofvg2/JVKaxkfCz7uY0ypXTFvxw
-         dimuIr3vDJ2XfZjxov0ssqBLtwdHAzuzetldEkVd1dIbo6lxpAQIHRnpLQ4skyJ19Ptr
-         zo1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789391462; x=1789996262;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=baylibre.com; s=google; t=1789391688; x=1789996488; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=rHHo4dn4rFwPjLFZeXv9ABL/gp9nPfJCU+f+sXBzG+Y=;
-        b=bKbFXXfeZYfHDcE//v2zXuZUDOfJjChwewznGa5WgwsVLrWt9xucHIJOyyBZhRSQPM
-         BSX7+yBOdkYGmGCAc4f240cQZUV7VgnMvqPiiE5cx58S+AROn8AMp0aXVXDvGGvVV1c6
-         6HIZeHWaDN7xltJKKUCyVXw4DTePLkSU/bO8Sa3K7nFGhSVwDZKxaqqFVNL92ptlNR8W
-         vowmA5zbegPCF76dmNO0OPYZomS7kVJxqHSxADglGIMIFqUiQvOjcnKhoD1JiGqg7I4j
-         cCL+aG4xFm/TzD14GN+cNVmIZXNnXPN7ATdcm5zK8gUztmcw4fWikhH8f9GsU/Uj6CeM
-         Ydwg==
-X-Forwarded-Encrypted: i=1; AKwUvBw/JqOghal2MRJbydCFcloqzktBz7G5b1DoaOiAStjHKsIFWYfkptAiN0mG8kJbZ8wo9ntMO7Wx9fLB@vger.kernel.org
-X-Gm-Message-State: AFuF++lgreBr1iCNSVohheB6q5DNwIsYQuxsgniORzXLPnY50da5ub3D
-	YjhsNlyVmwYD6fMqMgEQxseN4DimjhiFIus/TZB16nd1ErjhnO4wYDYc
-X-Gm-Gg: AYBFou1VCoRSxOgvZiGknypjvDZAXvSTxYScq9lgGa/RW/Bax2TNbEBmbu5tgNXiaJL
-	+sEzWuQwy1Rs5KSGmEQF2cFgXT61MdHAZYKxgthgJv5LHwyoIHefV3T+7ib/EG2Fk+KxIg+Bwgu
-	wLXs5bQGcp2r0FNR0hDjokq8BLMxFeZgdxXPstg+QW5g1QlFmkuLllJoi2Rpv/bCWCUJcKFETIC
-	fYebuqTfPa7SHfKPlf9030tH1LGUINWz1a8QqupZryfb60oqqr+4R5h/PBk9omOxdIlynklldjw
-	YOn/Lhu5/MZzjH7DZvJDRDY4haRvUxvfXweeXQaBUUrequ1WgXPpFxJnaag+RdxL2THhnIVxLks
-	fNht/GR5fr1EZjoqOyi8Mam1qXWgl5KND2XF08QOj63bh0FiNwYdMy7WtDU0MBhfBdv1DXZ/NHt
-	k5cVGECWBcmEFdpqlqqQiiRTqI6n1E6vTujLyCS2bn+ZRdpTq9fbjEoATv+ru0fQpgRmg4ng6xN
-	+EAHA==
-X-Received: by 2002:a17:907:f497:b0:c26:19de:912c with SMTP id a640c23a62f3a-c29b86f1102mr156986966b.31.1789391461783;
-        Mon, 14 Sep 2026 06:11:01 -0700 (PDT)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2966021ae8sm429403566b.22.2026.09.14.06.11.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 06:11:00 -0700 (PDT)
-Date: Mon, 14 Sep 2026 16:10:57 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Ricardo Ribalda <ribalda@chromium.org>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Ceclan Dumitru <mitrutzceclan@gmail.com>, dumitru.ceclan@analog.com,
-	Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Julien Massot <julien.massot@collabora.com>,
-	Rob Herring <robh@kernel.org>,
-	Niklas =?iso-8859-1?Q?S=F6derlund?= <niklas.soderlund@ragnatech.se>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-gpio@vger.kernel.org,
-	Niklas =?iso-8859-1?Q?S=F6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
-	Martin Hecht <Martin.Hecht@avnet.eu>,
-	Andrian Suciu <Adrian.Suciu@analog.com>,
-	Cosmin Tanislav <demonsingur@gmail.com>,
-	Vivekananda Dayananda <vivekana@amd.com>,
-	Cory Keitz <ckeitz@amazon.com>
-Subject: Re: [PATCH v16 00/22] media: i2c: add Maxim GMSL2/3 serializer and
- deserializer drivers
-Message-ID: <aqfyYSagcejWb4xD@stanley.mountain>
-References: <20260831-gmsl2-3_serdes-v16-0-4fa6e08bb514@analog.com>
- <apqGlTiybdvQX3Ao@kekkonen.localdomain>
- <eff6fe78-cc4b-4192-93ed-53a738fc3c3a@gmail.com>
- <aqU5QFGmYlCtbdiE@kekkonen.localdomain>
- <CANiDSCv=cwm=aHLfO_ccPfc-XyK3gS8Y+8DZpbb3gcXX0n8mqQ@mail.gmail.com>
+        bh=QXqt/TfNNS4iK2D0KIQwOPPSsGXvQRI7uTBOlyeJv7U=;
+        b=Bm9gTt3llcq6HzSZnkF8+WXQV8xXPVZ2g0D5BPBkmL/qiv6sPRq6apAExzIHrm0zU5
+         XF5jJf8J2pQYlFkhhkGSyw9nlGLupgjLYryWWR/ZB32/AbhLaMVYSC+rBjWU90lVIn+D
+         fdUaOlDqzhHvE0jPcNSvBEggEBNyzA8odl6LafeIDm4l//CNbfo8U3/yu18b0AMZhQk3
+         Jn+AHMqBF3Bi4ihz3KG3OjPhKljDGSuQXKuMRLziUGzjTpuhtugQRnmxiBFW/6WEuz0R
+         BkzekbsTk+Kh1kXEvsDECVUAfaAlejtC6UcuQTcdiTUJBPY/ODPcNlV30enUTk7zOTFW
+         yIZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789391688; x=1789996488;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QXqt/TfNNS4iK2D0KIQwOPPSsGXvQRI7uTBOlyeJv7U=;
+        b=gBzreVuCCWm1XtHqPr2oEHA9gFwZRH2uvD5txi6LsDmIJyHOb+CJ+1It55Lo0dMU9C
+         ZPpEPkwdwe9fkgpycr6Dfrttyuu01KQ09lfC3hHoErdU3nJ1p83z4IKB7qNmu73F+gIo
+         wO85AVW4EtY0uv+9T7QAP94y/cc5jM53mQ86AdFZvN+BKUhYwpSqumEOkDT9+P/QZpJR
+         IGC9hgaWu6gURjb2N2FrZYEptKeIGwziMjJlIaq+++8rNyBdSojqVsVbo9gLWvR3b6PK
+         /BTJQuNsd9meSW3xQMXGANePFtTbMR9M99Eo3lnVRyIm7jacBHhBWFG3VNwBI7ILGyuz
+         UUuw==
+X-Forwarded-Encrypted: i=1; AKwUvBwVBoLyPFMiPm7ZpzeX+lm2HwMgPe9mfIaT1TBsVY5SgUDpaq6t0BHphd0HqC+RBlGse5AyO+56+ZLb@vger.kernel.org
+X-Gm-Message-State: AFuF++lZ6hH8E27rBdEa1Kp7Tv3xa1fqGTMMU5mmixLAMFoaaMtJxIi1
+	qgawSveWMzDZDcisYQW98y13tjXVM2MLur8OdYXiKV7yYlBeejmsemM855c5h0n4IlM=
+X-Gm-Gg: AYBFou2UCWu0j8t+1myvZTYnljZ1axWscJHHJGG2DqCJTkRgUbdVE+ImuE43/9jv7IY
+	Lmy4pNTplqBtqRXg2lM0TCM0jMANenmVgVwfB4wNjVGQnS5f3MlpOC1U05kQOPFPSDnZ0bomPBE
+	JSH3MJqEWVysM8ArFMubv2cc4Kl65BYhgP7CybXaWmC7LwcIyk80mOZf4cfL7zsVjplJHb04JNM
+	xcRuaveIoTl7nWjFQRyRr3xeu4/xZF+Jw26hFyd9cTxfiy+g2xajPBQdXkF8JTvGhtmpdpKPImW
+	bk5tX+HzCJNSCU10LgxPAgpeHQRAn689aDnaeXFy3VmY9viHnafEeIAk3FYjuTJkeh7OGb26GZi
+	v0et1A3XJzTp2CkpJV8lZZj6onGJGau/LzrYuMTqBRuDnIlrOkVE5pMfWCCE/vc3lnQSufxHqgc
+	Pwk81XjoK7aE+luYBHzQTakInzT1AFTNyDiiFmtMxwH1UhJ5bdciFsjbUGH4iIqG0VIcvd+nw=
+X-Received: by 2002:a05:600c:46ce:b0:49c:dca4:94c with SMTP id 5b1f17b1804b1-49e7a6870d9mr47453825e9.13.1789391687993;
+        Mon, 14 Sep 2026 06:14:47 -0700 (PDT)
+Received: from [192.168.3.100] ([151.42.87.32])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb34e608sm28719703f8f.23.2026.09.14.06.14.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 14 Sep 2026 06:14:47 -0700 (PDT)
+Message-ID: <964d6626-202c-4d0a-aef2-86a383f405ab@baylibre.com>
+Date: Mon, 14 Sep 2026 15:14:46 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CANiDSCv=cwm=aHLfO_ccPfc-XyK3gS8Y+8DZpbb3gcXX0n8mqQ@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/6] ASoC: meson: add audin main module and I2S formatter
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Jerome Brunet <jbrunet@baylibre.com>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260912-audin-v1-0-7fbefe928711@baylibre.com>
+ <20260912-audin-v1-2-7fbefe928711@baylibre.com>
+ <20260913-inventive-millipede-of-certainty-dd58ce@quoll>
+Content-Language: en-US
+From: Valerio Setti <vsetti@baylibre.com>
+In-Reply-To: <20260913-inventive-millipede-of-certainty-dd58ce@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 14, 2026 at 02:10:10PM +0200, Ricardo Ribalda wrote:
-> Hi Sakari
+Thanks for your review and feedbacks.
+
+
+On 9/13/26 11:41 AM, Krzysztof Kozlowski wrote:
+> On Sat, Sep 12, 2026 at 12:14:32AM +0200, Valerio Setti wrote:
+>> +static int meson_gx_audin_probe(struct platform_device *pdev)
+>> +{
+>> +	struct device *dev = &pdev->dev;
+>> +	struct resource *res;
+>> +	void __iomem *mmio;
+>> +	struct regmap *regmap;
+>> +	struct clk *clk;
+>> +	int ret;
+>> +
+>> +	ret = device_reset(dev);
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret, "Failed to reset device\n");
+>> +
+>> +	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+>> +	if (!res)
+>> +		return dev_err_probe(dev, -EINVAL, "Failed to get memory resource\n");
+>> +
+>> +	/*
+>> +	 * Do not use devm_platform_ioremap_resource() here: it would claim the
+>> +	 * whole AUDIN window exclusively and the FIFO children would then fail
+>> +	 * to request their own sub-ranges.
+>> +	 */
 > 
-> On Sat, 12 Sept 2026 at 13:36, Sakari Ailus
-> <sakari.ailus@linux.intel.com> wrote:
-> >
-> > Hi Dumitru, Dan, Ricardo,
-> >
-> > On Tue, Sep 08, 2026 at 01:35:05PM +0300, Ceclan Dumitru wrote:
-> > > > Can you check this
-> > > > <URL:https://linux-media.pages.freedesktop.org/-/users/sailus/-/jobs/109521830/artifacts/junit/test-smatch.log.txt>
-> > > > please? If there's a single patch that needs to be modified, I can squash a
-> > > > patch into that, otherwise v17 it is.
-> > > >
-> > >
-> > > These are the same warns reported by Niklas in V13. Dan fixed them in
-> > > smatch in devel branch but fix is not in master. Testing with smatch on
-> > > that branch yields no warnings.
-> >
-> > Dan: any plans to merge these things to master some time soon? Or:
-> >
-> > Ricardo: could we use devel branch of smatch for some time?
+> And this should point you that child is not a separate device.
 > 
-> Do you know what patch fixes it? If it is easy to cherry pick I can
-> add it to our list of smatch patches
-> https://gitlab.freedesktop.org/linux-media/media-ci/-/tree/main/third_party?ref_type=heads
+> Please open your datasheet and read what is the address space of this
+> device. You claim here ENTIRE address space. If you insist that entire
+> address space is not owned by this device, then you misrepresented
+> hardware in the DT anyway.
+
+As I mentioned in the cover letter I designed it this way so that I 
+could easily re-use the same driver code for all 3 FIFOs just offsetting 
+the base address. I knew it was a bit hackish a solution, but IMO that 
+was worth it since it was simplifying a bit driver's code. Perhaps it 
+was more software-oriented rather than hardware related.
+The other possible approach is to fully copy what AIU is doing and 
+allocate each FIFO as a DAI. I'll follow that design then, but if you 
+have any better idea please let me know.
+
+>> +	mmio = devm_ioremap(dev, res->start, resource_size(res));
+>> +	if (!mmio)
+>> +		return dev_err_probe(dev, -ENOMEM, "Failed to remap memory\n");
+>> +
+>> +	regmap = devm_regmap_init_mmio(dev, mmio, &audin_regmap_cfg);
+>> +	if (IS_ERR(regmap))
+>> +		return dev_err_probe(dev, PTR_ERR(regmap), "Failed to init regmap\n");
+>> +
+>> +	clk = devm_clk_get_enabled(dev, NULL);
+>> +	if (IS_ERR(clk))
+>> +		return dev_err_probe(dev, PTR_ERR(clk), "Failed to get clock\n");
+>> +
+>> +	ret = gx_formatter_create(dev, &audin_dapm_widgets[0], &audin_formatter_i2s_drv, regmap);
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret, "Failed to allocate formatter\n");
+>> +
+>> +	ret = devm_snd_soc_register_component(dev, &audin_component, NULL, 0);
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret, "Failed to register component\n");
+>> +
+>> +	ret = devm_of_platform_populate(dev);
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret, "Failed to probe child nodes\n");
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static void meson_gx_audin_remove(struct platform_device *pdev)
+>> +{
+>> +	gx_formatter_free(&audin_dapm_widgets[0]);
+>> +}
+>> +
+>> +static const struct of_device_id meson_gx_audin_of_match[] = {
+>> +	{ .compatible = "amlogic,meson-gxbb-audin" },
+>> +	{ .compatible = "amlogic,meson-gxl-audin" },
 > 
+> Why do you have two entries here and no fallbacks? This makes no sense,
+> really. I have no more doubts that your "gx" is a real SoC/
 
-Commit d12183645a31 ("precedence: silence some false positives")
+OK. Genuine question about naming here: would "amlogic,gx-audin" be 
+fine? Because in "meson-gx.dtsi" I see many surrounding nodes have 
+"amlogic,meson-gx-" prefix, but that doesn't seem to follow design rules 
+from "writing-bindings.rst".
 
-Sorry, I felt like I was close to merging devel but then I started
-another major surgery to the core and got stuck.
 
-regards,
-dan carpenter
-
+-- 
+Valerio
 
