@@ -1,1065 +1,244 @@
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012036.outbound.protection.outlook.com [52.101.48.36])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 751F53E4500;
-	Mon, 14 Sep 2026 06:27:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.21
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789367266; cv=none; b=BajLSzkCeYjQQ6hOSY2uBtmJHGwh9SEI7xHbO0GlLOhwy56cAjmbrbkgWM/LGvgsGNXhNlMdRomz1ENDMbzaf46p+qcjxKAmZcV/b4olYsFwDO+y4/SxDPjFasIBaVYptZdfTdh6VKXSH0nGxgZf6Qr/UGLRZR7m7LqtWZrxL24=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789367266; c=relaxed/simple;
-	bh=+5JsbnTYovC9LgVQ4KRDQWw3aQPNkA3ajGSks1N/9D4=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=mkYYCp7L0CvQyCOH5iqVr80Gyvd105Z/GJ+WmxRJ4bof+A3klg4svLn8w9x3UsFpi+cdsyezDLy0RxsnsZM2Cy7Xomh0NVqx74w4A254E90w2ryuUtsxx+8JNd0SRpabL5sOR6v7bRTb4vkibXbpoxUNj0VbLQ2QF/IVoeftygQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; arc=none smtp.client-ip=92.121.34.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
-Received: from inva021.nxp.com (localhost [127.0.0.1])
-	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id E7EB3200239;
-	Mon, 14 Sep 2026 08:21:00 +0200 (CEST)
-Received: from aprdc01srsp001v.ap-rdc01.nxp.com (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
-	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 71376200229;
-	Mon, 14 Sep 2026 08:21:00 +0200 (CEST)
-Received: from lsv03900.swis.in-blr01.nxp.com (lsv03900.swis.in-blr01.nxp.com [10.12.177.15])
-	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 3DBFC18000BA;
-	Mon, 14 Sep 2026 14:20:59 +0800 (+08)
-From: Lakshay Piplani <lakshay.piplani@nxp.com>
-To: alexandre.belloni@bootlin.com,
-	linux-rtc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org
-Cc: pankit.garg@nxp.com,
-	vikash.bansal@nxp.com,
-	priyanka.jain@nxp.com,
-	Lakshay Piplani <lakshay.piplani@nxp.com>,
-	Daniel Aguirre <daniel.aguirre@nxp.com>
-Subject: [PATCH v9 2/2] rtc: Add NXP PCF85053 driver support
-Date: Mon, 14 Sep 2026 11:50:48 +0530
-Message-Id: <20260914062048.3704059-2-lakshay.piplani@nxp.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260914062048.3704059-1-lakshay.piplani@nxp.com>
-References: <20260914062048.3704059-1-lakshay.piplani@nxp.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C9EF3E1204;
+	Mon, 14 Sep 2026 06:29:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.36
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789367383; cv=fail; b=BIxshDkjZN3oF8dnSmVvZ9hH3rG8LFnDqnMtMUXWRtQQAl+OkPnAtkKnKoZo/twzVIQcCS+/q33FIGzXP0SOXbhZVgT4sm/Fy6PCIW09yNn1U9avNhX9DxJbllLW7PO6MZmDDOmFYEyeKvxSaPwCTAXgWUqZDmPw2wSof4VSRts=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789367383; c=relaxed/simple;
+	bh=jRlCmWPBaL5OwWFVUlNvRBmGc1/FDTS7DaPq2oGRIMU=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=c+smF/MNB29XprkcTqDWTdsM8nlYbxT5eTX25e5vg1WZCkWgB3fKWALwP8wk3S+P4WLPJMStL5aKPaxbvND/gQwiiJrFYpSxaCQSuF6HLtqP1TAfiJe5AOZIMqMPqLHLFl0kMyrb0uJ71UPZDU+GWkZFbPKSC2sLUg0PmJzLoa0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=C/EMTcZ6; arc=fail smtp.client-ip=52.101.48.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="C/EMTcZ6"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=B9GvqiWrUoD5aDBNAEyFYdre1UgebPto7EwsmfdL1vf5Crz6cNuvIfXiEr8f1G0rG4YzNrNsyYbsNEIcwHIiWmL970DQW0T3aaYxf0iCywVReDthtnekW6ADXpp1QREuZspDW0Kvtf3tHQ3r0RPYPk786FzA+N3MRoejsP5SigsfKXc4zEzA2GeH2mq3ieT3+UIVzHyrKU/A8pvxNhGQa9fL8BGxBTWq3mS0sSCMM7F6PN67oTHQgwSK2ajz0dHE6WyrqyQWQ54t8UaL1R+LOhSS9Gkqx/H+rr5bb6hXM2MwfUDltqapQSm9o4dXZEDp4gldjtA5d0330zcVIDX+lw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KH2Tf3aUslS0snnm+NLM6WjJeD7VQIapw0oy+Iq9Uh0=;
+ b=OXRtmdb2BR8G5xNPlLOuOrjpdtsUBpRlt0QFkjcNTQ8bZV8mlXqa2HzABFol9Cye3KSOSrqr0ar+uyziJw2iCLwZpsXv3Cmhz2rzmfQ4ITbAHVgk0OXIScqIJcGbOSTsqPMTuAK4CUWJ9U2CeLOTA8rrvx/tqEei1PyXmQTfOeDbMqGBjvN2QoXgdYuwGvkgFJr3nakCCsWJzp7GuF6ZfycF53W+BlzXIA6V+tmZrZmDY4f9mFIERicYALe0C4Mss36rgqzQGAHFqxNKJgoL3suRSP5Xj+/iP6QC2oB8vYMga+leRgC2MV8qOQltH/mrNBsfxG39kdZjZw2O27tM6Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KH2Tf3aUslS0snnm+NLM6WjJeD7VQIapw0oy+Iq9Uh0=;
+ b=C/EMTcZ6FITQFOY7xb9N9IyKUuUDqcVn0nJDqTUa1jMftcJMjaYr75TDgTwpdSS+4Y+DDq7vN9924n00jz23bqW6sUT98xF6aIzEfYP1s2F9Pne7nbAK/6929K2ZvRZ4m46DcVa1ywT1WjcUgtDjvUzUFJMFqzZ/pMnj0LwSfa0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from LV5PR12MB9779.namprd12.prod.outlook.com (2603:10b6:408:301::14)
+ by SJ5PPF816B88375.namprd12.prod.outlook.com (2603:10b6:a0f:fc02::99b) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.10; Mon, 14 Sep
+ 2026 06:29:40 +0000
+Received: from LV5PR12MB9779.namprd12.prod.outlook.com
+ ([fe80::8ac8:e862:8ae9:9287]) by LV5PR12MB9779.namprd12.prod.outlook.com
+ ([fe80::8ac8:e862:8ae9:9287%5]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
+ 06:29:35 +0000
+Message-ID: <656ae6e2-608a-4839-bcfe-941dfffdca11@amd.com>
+Date: Mon, 14 Sep 2026 08:29:30 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] dt-bindings: soc: xilinx: Document ifm ZynqMP
+ VHIP6 EvalBoard
+To: Marek Vasut <marex@nabladev.com>, linux-arm-kernel@lists.infradead.org
+Cc: Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260909182641.165383-1-marex@nabladev.com>
+ <082df9b0-0517-4580-8ba8-cf6f4d3e0713@amd.com>
+ <1c39be54-c931-40a2-a806-fa963b2188ec@nabladev.com>
+ <e305b607-76ca-489c-b27f-bf45b6fdb59c@amd.com>
+ <7b957072-df73-4fab-91ba-9835285ff8c5@nabladev.com>
+ <a0d23fc9-6f7b-4c19-9f6f-9cc0c7cce3f5@amd.com>
+ <f80845ae-9ab8-474e-89b2-80ac3fbd184c@nabladev.com>
+Content-Language: en-US
+From: Michal Simek <michal.simek@amd.com>
+Autocrypt: addr=michal.simek@amd.com; keydata=
+ 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
+ mpwx1d8=
+In-Reply-To: <f80845ae-9ab8-474e-89b2-80ac3fbd184c@nabladev.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BY3PR05CA0005.namprd05.prod.outlook.com
+ (2603:10b6:a03:254::10) To LV5PR12MB9779.namprd12.prod.outlook.com
+ (2603:10b6:408:301::14)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: ClamAV using ClamSMTP
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV5PR12MB9779:EE_|SJ5PPF816B88375:EE_
+X-MS-Office365-Filtering-Correlation-Id: ff8c9db3-2903-478a-d883-08df12298b49
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|4143699003|11063799006|5023799004|56012099006|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	dfcVZ4k4/s2mZNXofc9Gjx6R3htBD7VGOsvnuRC6m1wkQqpQeJrrXcnxfxcRYbbTderni+Ggi9XLW+d+Eww2RYAsu0t6wwHAxpPbPJFM24S+Q7vJTjWqkmRx2iMUSmQsMJbS6eT+NRkavuTlHQvLG3SduJsf01j30qoX/SfGto0he4QBymgadnCwQckr213Rg+bVvMRoi8pb6f02QMLfCZStuiAM5MCM18H76DyQA3T3lsreIfyEvf3Dprw9b1vNfTVJgc7vwpABk4vJ7an0knkpm1WBTpDPUXQndBfjO9pNf9jOHjyQYKF6MYM8cuP+y5Vf/Ei+3JCp67270VUPtRzk7gejInitd6kz9a3SJucY6Icgze2ZS4vHk09P1iCer6UtUuYxPGKwnOVUSJWPAuQwswfquGbMxNzAFDby71gzr1h8DEsFIUqhAv62qYCBiC6PMPnaVwtRSdf0Whb3yk1E2Qpu41SffSgIaGhSlThGQMn6LM8tfoy0D7fBmtKTyrwr9y5TshZARhviM0DPUmzeoQHnySCfMR9qB7PRK5cnwtD7bqkB8sI2iiGzvFfKnN6kUoEOrlSRa+OfQYLGV6SO637qA/NCMU4V3v99SlFWTsKS7bxjlfGm4hFgDUanRmSqClIjGuEk5ITvYSOfNsBr8BXNWsU8Z6rdPejOwX4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV5PR12MB9779.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(4143699003)(11063799006)(5023799004)(56012099006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ck1kSTRybTh6bVltL0xObmxmRWVTOGNXRkVYYzc4Rll4R1FEbmVjWVV1WlNv?=
+ =?utf-8?B?UEkySFY5YkV0OHY3WU15R3lUdXFFNU1oV2dMUmtMdlRobmozNzRvcUNnVHNx?=
+ =?utf-8?B?YmVYdjloU2VzRGtudU5jWlVSZlVWTEVaU200QXlwbWYySmJtZjZFSjEzODFJ?=
+ =?utf-8?B?UkxZSVE2cytMc2h5Y3JFU3VBTWNUWjZjRi9YUGFlcVdyWFVJdHdBSXZ1VzQr?=
+ =?utf-8?B?SVZ6aERQTkVpdHFTYmVmZWQzNjd3SGNyeGNvR2ZqSGZLWXZPQ0xGcVlWdy9R?=
+ =?utf-8?B?a1UyQ1hxMjZkYlVvcUlVaURlUCtEUDB5bHRFTnMxems5VDM4a2FCNUpiVkhO?=
+ =?utf-8?B?dXdER0RxK281L1RaYk9VZklBcC9Ya2dJcTZjdU1QeUx6cHM5bDFRYm92Tktn?=
+ =?utf-8?B?bTFJcjMxV0MyVE5GMXBpQlhHZkFRMlJDdkdoYTZ0WTdyQUNNUWRZVEUwTUdn?=
+ =?utf-8?B?NmhvS3R3K2xDMkdocEpIMU43UnZWK0YzM0FyZnlsZE9ja1hMODBPNktNR3Bt?=
+ =?utf-8?B?OG0vVmlYRDFQV1U2TFFQemN5blQvaCtBNDN6YXJ2UWZpdWhGbkd4UUlQa0Mw?=
+ =?utf-8?B?bE5jY21oQjJuNGp0ZWdhekdFTWtQKzdLTHYxK28vNHk1VU9sTC9hbzBpM0VI?=
+ =?utf-8?B?bVZMR3ZDUUl0Y2FZMCtTemh0WUFpdHlvZk9vMUV6aGFONkxHUW1LWXZ1UXc4?=
+ =?utf-8?B?Q2Q5N1BNTmVyUlJjT2Ixd3BUNnRxTFREcEVKSXpVY0paaVY5ZDY2VFhFNzg4?=
+ =?utf-8?B?Z2dZNFV5YmdnQThGNzFLdGd1RlBaU05uQ0pyM21GZGM5clVvN0YydHlEVzg4?=
+ =?utf-8?B?bEo4WVpldFBHTUR2Snp6ZmVEdjhJZ01ZSkJzS1FMd2VkRnZONnhmMHpzUk84?=
+ =?utf-8?B?amlvUUtBb1ZRZVN3dk0zNkxOc20zN0FMTmI5azEwN3J3YjVoMStVdG1uZFpt?=
+ =?utf-8?B?ZmM2b1Uza2NGeHBnTFpzUzNTMmU5ZU1rbEsvUzR3SUtkWGdpb1QzL3FScEpt?=
+ =?utf-8?B?djVtdDh6aG8rSVBiTWVPVllIQmJQc3ZpOER6WUJLS01ZZnYxR0UxaHBHYzFy?=
+ =?utf-8?B?RW53bjRUYStwZnhBNnBZV21Id2xMaEZxTGdhRGhjbXZNRTZvcExQTEpkbTRX?=
+ =?utf-8?B?cTIwNUlhTE1PWU1zZ3FNWXhZTG14Sk9ZL3FrZXRJVm5qWExma2ZYVFhpT200?=
+ =?utf-8?B?QThENlFRc2ZhUW1YNC8wYUl0S3R1eGZpQXFnVXY5dDNTNEhjVnVXaXBCMm1F?=
+ =?utf-8?B?QkRUUlRPZXFoQklFRkZhWWhJWk1rQi9DNU56OTVtdVB1bm1JMDlLNnhEbXRN?=
+ =?utf-8?B?dUdxTmFIUEJEQ29VNmpqN2VtTUFkMldkNE9nK2N5MTFZaExWTUZSOTVZY3I2?=
+ =?utf-8?B?YnJodWRzTzJBSUF1cDJzWVo4cEZOTHg5Z3I4Skdqd3NlVDQvbkNzWmZlZlR3?=
+ =?utf-8?B?bzdOeUpVTnVTaEhRbjMyNlM5N28rVnRRZ2pQbjY4OUU0enNLamEzcjB4YWFh?=
+ =?utf-8?B?ZTJhdk1xUkdXZTg4L0VvWTIraWx0TUEvMThYRUFsN3dCVm9xYnF1dDRQWk5a?=
+ =?utf-8?B?VmxFTGYzT0t2WU9sU201RXNibEFVRE5JaHVRRjFQQXZtN1ZDOFNRM1BiNjNt?=
+ =?utf-8?B?enZMY1oyOHpMdE5mTFgvQkV4RE1jTW1LaVBSL05YYzZ5bGo3b3lQWmxZeHVz?=
+ =?utf-8?B?R1QvRkNPWTBhK2NsL2ZNTE83bzJ6Zm9LNmVvNzRzbStRZi8wd3plM0V2bUs2?=
+ =?utf-8?B?d25WWUNWdFRZblpOalZaR2RoRFh5T1lwdEdlSUJiK08rc2oxK0tDbDBkNDdj?=
+ =?utf-8?B?aUo0MnA0NDdmR09ONUJYTlFCUUhhdCtnYjNtTFpXRUh0MDUzMnpLUHMrcmdN?=
+ =?utf-8?B?SkQ1U0pHcmt0LzRwZGo5Zk9rM1UreDI4L2E4ZTFGSGhoblMxaG42YXZ3czMv?=
+ =?utf-8?B?U1BjY3hoY2w0T3JUTzlPUk5DelB0L3lkSGNpbHVFM2VUdXB6UytQZWtKWWZU?=
+ =?utf-8?B?cE4wY2ttdlB3c0l6azNLcW05SUxja3E0YndNR0N4a1JndmNJS2daZ1BnR3Fv?=
+ =?utf-8?B?bkl1aENZOWMrN0YzM0dQZGwrY2R5cXZnbk1RN1dKL3ZYWjlOZ2xWcjdTWFV0?=
+ =?utf-8?B?V2RsaTExWDFCY2J4S3g2V3JBR3h0b2RETTRnSEhjdWVpaEIraUQ5QXZwR1V0?=
+ =?utf-8?B?TkMzVlFQSXpGa2NkZ2ZxU1ZWRmw0Vm1aRmFNdzFHMklqdS9DZVhpWWV3SzBl?=
+ =?utf-8?B?RVB0VnRtS3ovOUNnZTZlbmtJbjZjMkh6Sm0rVmh3WEdLN1Y5dCtMUzQxYjlV?=
+ =?utf-8?Q?W7K8bsisVsaMom8gpi?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ff8c9db3-2903-478a-d883-08df12298b49
+X-MS-Exchange-CrossTenant-AuthSource: LV5PR12MB9779.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 06:29:35.1101
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: sLQdOf06qz0CtdATesCLmjofJl4ZnUn9Co0vrXlpzBmV5LZzBZllazU6AyXnqC3R
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF816B88375
 
-PCF85053 is i2c based RTC which supports timer and calendar
-functionality.
 
-Features supported:
-1. Read/Write time
-2. Get/Set Alarm
-3. Wakeup Source
-4. Generate up to 32768Hz clock output
-5. Primary/Secondary i2c bus
 
-Signed-off-by: Daniel Aguirre <daniel.aguirre@nxp.com>
-Signed-off-by: Pankit Garg <pankit.garg@nxp.com>
-Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
----
-V8 -> V9: - Select REGMAP_I2C; avoid RMW on write-0-to-clear status flags.
-	  - Fix alarm IRQ enable/flag sequencing; disable unused OFIE/CIE sources.
-	  - Limit alarms to the 24-hour window; handle alarm don't-care values.
-	  - Restrict alarm IRQ handling to the primary interface.
-	  - Handle CLKOUT ownership via XCLK; register provider only with #clock-cells.
-	  - Use managed wake IRQ handling.
-V7 -> V8: - read_time(): evaluate the status register and return -EINVAL when the
-	    OF (oscillator fail) or RTCF flag is set, instead of ignoring it and
-	    using a corrupted time.
-	  - set_time()/set_alarm(): stop forcing 24h/binary mode; format values to
-	    match the mode the device is currently configured for, avoiding
-	    corruption of the running clock and the read-only secondary interface.
-	  - set_time(): read-modify-write the interleaved time/alarm block so a
-	    previously configured alarm is preserved instead of being cleared.
-	  - Clear OF/RTCF after a valid set_time() and add an RTC_VL_CLR ioctl so the
-	    RTC no longer reports data permanently invalid after a power loss.
-	  - clkout: use devm_clk_hw_register()/devm_of_clk_add_hw_provider() so the
-	    clock provider is removed on unbind/probe failure, fixing the leak and
-	    potential use-after-free.
-V6 -> V7: - Addressed minor cleanups from review: use dev_get_drvdata()/dev_set_drvdata()
-	    consistently, fix alarm IRQ dev_id handling, and switch to devm_device_init_wakeup().
-	  - Simplified time/alarm programming by forcing 24h + binary mode in hardware,
-	    dropping complex 12h/BCD handling in setters.
-	  - Documented the 2000-2099 supported year range, explaining how the 00-99 year
-	    register maps to leap-year behavior in the device.
-V5 -> V6: no changes
-V4 -> V5: no changes
-V3 -> V4: - Handle multi-host ownership explicitly using primary/secondary bus hadling.
-          - Probe no longer changes any CTRL bits unconditionally and do not clear ST/AF/OF
-            avoiding lost interrupts or silent mode changes.
-          - Read/Set time & alarm now respect HF(12/24h) and DM(BCD/BIN) converting
-            hour fields correctly for all combinations.
-          - Minor changes: drop noisy warnings, tidy error paths/comments.
-V2 -> V3: Add MAINTAINERS file changes to this patch
-V1 -> V2: no changes
+On 9/11/26 17:54, Marek Vasut wrote:
+> On 9/11/26 10:38 AM, Michal Simek wrote:
+>>
+>>
+>> On 9/11/26 01:39, Marek Vasut wrote:
+>>> On 9/10/26 9:17 AM, Michal Simek wrote:
+>>>
+>>>>>>> +++ b/Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml
+>>>>>>> @@ -44,6 +44,11 @@ properties:
+>>>>>>>             - const: xlnx,zynq-zed
+>>>>>>>             - const: xlnx,zynq-7000
+>>>>>>> +      - items:
+>>>>>>> +          - const: ifm,zynqmp-vhip6-evalboard
+>>>>>>> +          - const: ifm,zynqmp-vhip6
+>>>>>>> +          - const: xlnx,zynqmp
+>>>>>>> +
+>>>>>>>         - items:
+>>>>>>>             - enum:
+>>>>>>>                 - xlnx,zynqmp-zc1751
+>>>>>>
+>>>>>> Can you please provide any link to public documentation about this board?
+>>>>>> I wasn't able to find anything through google..
+>>>>>
+>>>>> I do not know whether there is any, it is an internal board from which 
+>>>>> other boards get derived.
+>>>>>
+>>>>> What would you like to know ?
+>>>>
+>>>> I would like to know value for me to maintain it. Why should I care about 
+>>>> board which don't have any public documentation and none can buy? 
+>>>
+>>> I think because the users of this board actually do benefit from having the 
+>>> support upstream, instead of having to lug around random downstream patches 
+>>> in assorted state of decay.
+>>>
+>>>> There will be thousands of similar boards out there and I am definitely not 
+>>>> going to have all of them in the tree.
+>>> Why not ? There are users who benefit from having their board support 
+>>> upstream. This is what other SoC vendors do as well, it does not seem to be a 
+>>> problem, rather it is a good indicator that the SoC has users who care about 
+>>> it and about upstream.
+>>
+>> If there is public documentation about it I don't have any problem with it.
+> 
+> I do not think there is, but no public documentation is the case with many 
+> boards/DTs that are upstream, and it does not diminish their usefulness to their 
+> users.
+> 
+> What do you need to know ?
 
- MAINTAINERS                |   1 +
- drivers/rtc/Kconfig        |  11 +
- drivers/rtc/Makefile       |   1 +
- drivers/rtc/rtc-pcf85053.c | 900 +++++++++++++++++++++++++++++++++++++
- 4 files changed, 913 insertions(+)
- create mode 100644 drivers/rtc/rtc-pcf85053.c
+All these SOC based boards are created not because of hard block (PS part) but 
+because of programmable logic which is not described in any upstream project DT. 
+It means no matter what manufacturer has to maintain PL description separately.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 01b4f7157f36..188385be2b5f 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -19799,6 +19799,7 @@ M:	Lakshay Piplani <lakshay.piplani@nxp.com>
- L:	linux-rtc@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/rtc/nxp,pcf85053.yaml
-+F:	drivers/rtc/rtc-pcf85053.c
- 
- NXP SGTL5000 DRIVER
- M:	Fabio Estevam <festevam@gmail.com>
-diff --git a/drivers/rtc/Kconfig b/drivers/rtc/Kconfig
-index 05b9233b9418..d261d71a0af3 100644
---- a/drivers/rtc/Kconfig
-+++ b/drivers/rtc/Kconfig
-@@ -1005,6 +1005,17 @@ config RTC_DRV_PCF85063
- 	  This driver can also be built as a module. If so, the module
- 	  will be called rtc-pcf85063.
- 
-+config RTC_DRV_PCF85053
-+	tristate "NXP PCF85053"
-+	depends on OF && I2C
-+	select REGMAP_I2C
-+	help
-+	  If you say yes here you get support for the NXP PCF85053 I2C Bootable CPU RTC
-+	  chip.
-+
-+	  This driver can also be built as a module. If so, the module
-+	  will be called rtc-pcf85053.
-+
- config RTC_DRV_RV3029C2
- 	tristate "Micro Crystal RV3029/3049"
- 	depends on RTC_I2C_AND_SPI
-diff --git a/drivers/rtc/Makefile b/drivers/rtc/Makefile
-index 0347645b021f..9bf36f3b76e7 100644
---- a/drivers/rtc/Makefile
-+++ b/drivers/rtc/Makefile
-@@ -131,6 +131,7 @@ obj-$(CONFIG_RTC_DRV_PALMAS)	+= rtc-palmas.o
- obj-$(CONFIG_RTC_DRV_PCF2123)	+= rtc-pcf2123.o
- obj-$(CONFIG_RTC_DRV_PCF2127)	+= rtc-pcf2127.o
- obj-$(CONFIG_RTC_DRV_PCF85063)	+= rtc-pcf85063.o
-+obj-$(CONFIG_RTC_DRV_PCF85053)	+= rtc-pcf85053.o
- obj-$(CONFIG_RTC_DRV_PCF8523)	+= rtc-pcf8523.o
- obj-$(CONFIG_RTC_DRV_PCF85363)	+= rtc-pcf85363.o
- obj-$(CONFIG_RTC_DRV_PCF8563)	+= rtc-pcf8563.o
-diff --git a/drivers/rtc/rtc-pcf85053.c b/drivers/rtc/rtc-pcf85053.c
-new file mode 100644
-index 000000000000..2eb94b1da3ed
---- /dev/null
-+++ b/drivers/rtc/rtc-pcf85053.c
-@@ -0,0 +1,900 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// Copyright 2025-2026 NXP
-+
-+#include <linux/bcd.h>
-+#include <linux/clk-provider.h>
-+#include <linux/err.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/property.h>
-+#include <linux/rtc.h>
-+#include <linux/slab.h>
-+#include <linux/pm_wakeirq.h>
-+#include <linux/regmap.h>
-+
-+#define PCF85053_REG_SC		0x00 /* seconds */
-+#define PCF85053_REG_SCA	0x01 /* alarm */
-+#define PCF85053_REG_MN		0x02 /* minutes */
-+#define PCF85053_REG_MNA	0x03 /* alarm */
-+#define PCF85053_REG_HR		0x04 /* hour */
-+#define PCF85053_REG_HRA	0x05 /* alarm */
-+#define PCF85053_REG_DW		0x06 /* day of week */
-+#define PCF85053_REG_DM		0x07 /* day of month */
-+#define PCF85053_REG_MO		0x08 /* month */
-+#define PCF85053_REG_YR		0x09 /* year */
-+#define PCF85053_REG_CTRL	0x0A /* timer control */
-+#define PCF85053_REG_ST		0x0B /* status */
-+#define PCF85053_REG_CLKO	0x0C /* clock out */
-+#define PCF85053_REG_ACC	0x14 /* xclk access */
-+
-+#define PCF85053_BIT_AF		BIT(7)
-+#define PCF85053_BIT_ST		BIT(7)
-+#define PCF85053_BIT_DM		BIT(6)
-+#define PCF85053_BIT_HF		BIT(5)
-+#define PCF85053_BIT_DSM	BIT(4)
-+#define PCF85053_BIT_AIE	BIT(3)
-+#define PCF85053_BIT_OFIE	BIT(2)
-+#define PCF85053_BIT_CIE	BIT(1)
-+#define PCF85053_BIT_TWO	BIT(0)
-+#define PCF85053_BIT_XCLK	BIT(7)
-+
-+#define PCF85053_REG_CLKO_F_MASK	0x03 /* Frequency mask */
-+#define PCF85053_REG_CLKO_CKE	0x80 /* clock out enabled */
-+#define PCF85053_BIT_OF	BIT(6)
-+#define PCF85053_BIT_RTCF	BIT(5)
-+#define PCF85053_BIT_CIF	BIT(4)
-+
-+#define PCF85053_HR_PM	BIT(7)
-+#define PCF85053_HR_24H_MASK	GENMASK(5, 0)
-+
-+/*
-+ * Writing 0xC0-0xFF to an alarm register (SCA/MNA/HRA) marks that field as a
-+ * "don't care" so it is excluded from the alarm match, e.g. for periodic
-+ * alarms (datasheet 7.3). Every value in that range has the top two bits set,
-+ * so test for those bits.
-+ */
-+#define PCF85053_ALARM_DONT_CARE_BITS	GENMASK(7, 6)
-+
-+struct pcf85053_config {
-+	const struct regmap_config regmap;
-+	unsigned has_alarms:1;
-+};
-+
-+struct pcf85053 {
-+	struct rtc_device *rtc;
-+	struct regmap	*regmap;
-+#ifdef CONFIG_COMMON_CLK
-+	struct clk_hw clkout_hw;
-+#endif
-+	bool is_primary;
-+};
-+
-+static inline int pcf85053_read_two_bit(struct pcf85053 *pcf85053, bool *two)
-+{
-+	unsigned int ctrl;
-+	int err;
-+
-+	err = regmap_read(pcf85053->regmap, PCF85053_REG_CTRL, &ctrl);
-+	if (err)
-+		return err;
-+
-+	*two = !!(ctrl & PCF85053_BIT_TWO);
-+
-+	return 0;
-+}
-+
-+static int pcf85053_time_write_access(struct pcf85053 *pcf85053,
-+				      bool *write_access)
-+{
-+	bool two;
-+	int err;
-+
-+	err = pcf85053_read_two_bit(pcf85053, &two);
-+	if (err)
-+		return err;
-+
-+	/* Primary writes iff TWO=1; secondary writes iff TWO=0 */
-+	*write_access = pcf85053->is_primary ? two : !two;
-+
-+	return 0;
-+}
-+
-+/*
-+ * AF/OF/RTCF/CIF are write-0-to-clear. Write 1 to every flag except the ones
-+ * being cleared; a read-modify-write could drop a flag asserted between the
-+ * read and the write. BVL[2:0] are read-only and the reserved bit is 0.
-+ */
-+static int pcf85053_clear_status(struct regmap *regmap, u8 clr)
-+{
-+	u8 keep = PCF85053_BIT_AF | PCF85053_BIT_OF |
-+		  PCF85053_BIT_RTCF | PCF85053_BIT_CIF;
-+
-+	return regmap_write(regmap, PCF85053_REG_ST, keep & ~clr);
-+}
-+
-+static int pcf85053_set_aie(struct regmap *regmap, bool enable)
-+{
-+	return regmap_update_bits(regmap, PCF85053_REG_CTRL,
-+				  PCF85053_BIT_AIE,
-+				  enable ? PCF85053_BIT_AIE : 0);
-+}
-+
-+static int pcf85053_get_alarm_mode(struct device *dev,
-+				   unsigned char *alarm_enable, unsigned char *alarm_flag)
-+{
-+	struct pcf85053 *pcf85053 = dev_get_drvdata(dev);
-+	unsigned int val;
-+	int err;
-+
-+	if (alarm_enable) {
-+		err = regmap_read(pcf85053->regmap, PCF85053_REG_CTRL, &val);
-+		if (err)
-+			return err;
-+
-+		*alarm_enable = !!(val & PCF85053_BIT_AIE);
-+	}
-+
-+	if (alarm_flag) {
-+		err = regmap_read(pcf85053->regmap, PCF85053_REG_ST, &val);
-+		if (err)
-+			return err;
-+
-+		*alarm_flag = !!(val & PCF85053_BIT_AF);
-+	}
-+
-+	return 0;
-+}
-+
-+static irqreturn_t pcf85053_irq(int irq, void *dev_id)
-+{
-+	struct device *dev = dev_id;
-+	struct pcf85053 *pcf85053 = dev_get_drvdata(dev);
-+	unsigned int st;
-+	int err;
-+
-+	err = regmap_read(pcf85053->regmap, PCF85053_REG_ST, &st);
-+	if (err || !(st & PCF85053_BIT_AF))
-+		return IRQ_NONE;
-+
-+	/*
-+	 * The alarm matches every day; disable AIE to make it one-shot. Mask
-+	 * the interrupt before clearing AF so there is no window where AF is
-+	 * cleared but AIE is still able to re-assert the line.
-+	 */
-+	err = pcf85053_set_aie(pcf85053->regmap, false);
-+	if (err)
-+		dev_err_ratelimited(dev, "failed to disable alarm interrupt\n");
-+
-+	/* Clear AF to release the interrupt line. */
-+	err = pcf85053_clear_status(pcf85053->regmap, PCF85053_BIT_AF);
-+	if (err) {
-+		dev_err_ratelimited(dev, "failed to clear alarm flag\n");
-+		return IRQ_HANDLED;
-+	}
-+
-+	rtc_update_irq(pcf85053->rtc, 1, RTC_IRQF | RTC_AF);
-+	return IRQ_HANDLED;
-+}
-+
-+static int pcf85053_rtc_read_time(struct device *dev, struct rtc_time *tm)
-+{
-+	struct pcf85053 *pcf85053 = dev_get_drvdata(dev);
-+	unsigned int ctrl, st, h12;
-+	bool is_24h, is_bin;
-+	u8 regs[10], hr;
-+	int err;
-+
-+	err = regmap_read(pcf85053->regmap, PCF85053_REG_CTRL, &ctrl);
-+	if (err)
-+		return err;
-+
-+	err = regmap_read(pcf85053->regmap, PCF85053_REG_ST, &st);
-+	if (err)
-+		return err;
-+
-+	/*
-+	 * The stored time cannot be trusted when the clock is stopped (ST is
-+	 * set), when the oscillator has failed since the last valid time (OF is
-+	 * set on power-up or oscillator failure), or when the device lost power
-+	 * entirely (RTCF is set). None of these flags are cleared automatically,
-+	 * so treat any of them as an invalid time.
-+	 */
-+	if ((ctrl & PCF85053_BIT_ST) ||
-+	    (st & (PCF85053_BIT_OF | PCF85053_BIT_RTCF)))
-+		return -EINVAL;
-+
-+	err = regmap_bulk_read(pcf85053->regmap, PCF85053_REG_SC, regs, sizeof(regs));
-+	if (err)
-+		return err;
-+
-+	if (ctrl & PCF85053_BIT_DM) {
-+		tm->tm_sec = regs[PCF85053_REG_SC] & 0x7F;
-+		tm->tm_min = regs[PCF85053_REG_MN] & 0x7F;
-+		tm->tm_mday = regs[PCF85053_REG_DM] & 0x3F;
-+		tm->tm_mon = (regs[PCF85053_REG_MO] & 0x1F) - 1;
-+		tm->tm_year = regs[PCF85053_REG_YR] + 100;
-+	} else {
-+		tm->tm_sec = bcd2bin(regs[PCF85053_REG_SC] & 0x7F);
-+		tm->tm_min = bcd2bin(regs[PCF85053_REG_MN] & 0x7F);
-+		tm->tm_mday = bcd2bin(regs[PCF85053_REG_DM] & 0x3F);
-+		tm->tm_mon = bcd2bin(regs[PCF85053_REG_MO] & 0x1F) - 1;
-+		tm->tm_year = bcd2bin(regs[PCF85053_REG_YR]) + 100;
-+	}
-+	/* Hardware weekday is 1-7 (Sunday=1); Linux tm_wday is 0-6. */
-+	tm->tm_wday = (regs[PCF85053_REG_DW] & 0x07) - 1;
-+
-+	hr = regs[PCF85053_REG_HR];
-+	is_24h = ctrl & PCF85053_BIT_HF;
-+	is_bin = ctrl & PCF85053_BIT_DM;
-+
-+	if (is_24h) {
-+		tm->tm_hour = is_bin
-+		? (hr & PCF85053_HR_24H_MASK)
-+		: bcd2bin(hr & PCF85053_HR_24H_MASK);
-+	} else {
-+		h12 = is_bin ? (hr & PCF85053_HR_24H_MASK)
-+			     : bcd2bin(hr & PCF85053_HR_24H_MASK);
-+
-+		tm->tm_hour = (h12 == 12) ? ((hr & PCF85053_HR_PM) ? 12 : 0) :
-+			       ((hr & PCF85053_HR_PM) ? h12 + 12 : h12);
-+	}
-+
-+	return 0;
-+}
-+
-+/* Encode a value into the current data mode: binary when DM=1, BCD otherwise. */
-+static inline u8 pcf85053_encode_val(u8 val, bool is_bin)
-+{
-+	return is_bin ? val : bin2bcd(val);
-+}
-+
-+/*
-+ * Encode an hour (0-23) into the current hour format: stored directly in
-+ * 24-hour mode, or mapped to 1-12 with the PM flag (BIT7) in 12-hour mode.
-+ */
-+static u8 pcf85053_encode_hour(int hour, bool is_24h, bool is_bin)
-+{
-+	u8 h12, val;
-+
-+	if (is_24h) {
-+		val = hour & PCF85053_HR_24H_MASK;
-+		return is_bin ? val : bin2bcd(val);
-+	}
-+
-+	if (hour == 0) {
-+		h12 = 12;		/* 12 AM */
-+		val = 0;
-+	} else if (hour < 12) {
-+		h12 = hour;		/* 1-11 AM */
-+		val = 0;
-+	} else if (hour == 12) {
-+		h12 = 12;		/* 12 PM */
-+		val = PCF85053_HR_PM;
-+	} else {
-+		h12 = hour - 12;	/* 1-11 PM */
-+		val = PCF85053_HR_PM;
-+	}
-+
-+	val |= is_bin ? h12 : bin2bcd(h12);
-+	return val;
-+}
-+
-+static int pcf85053_rtc_set_time(struct device *dev, struct rtc_time *tm)
-+{
-+	struct pcf85053 *pcf85053 = dev_get_drvdata(dev);
-+	bool is_24h, is_bin, write_access;
-+	unsigned int ctrl;
-+	int err, ret;
-+	u8 buf[10];
-+
-+	/* TWO gates time-register writes: primary owns it at TWO=1, secondary at TWO=0. */
-+	err = pcf85053_time_write_access(pcf85053, &write_access);
-+	if (err)
-+		return err;
-+
-+	if (!write_access)
-+		return -EACCES;
-+
-+	err = regmap_read(pcf85053->regmap, PCF85053_REG_CTRL, &ctrl);
-+	if (err)
-+		return err;
-+
-+	/*
-+	 * Format the values to match the hour format (HF) and data mode (DM)
-+	 * the device is already configured for, rather than forcing those bits.
-+	 * The secondary interface cannot write the control register, and
-+	 * changing HF or DM without converting the stored values would make the
-+	 * hardware reinterpret the existing time.
-+	 */
-+	is_24h = !!(ctrl & PCF85053_BIT_HF);
-+	is_bin = !!(ctrl & PCF85053_BIT_DM);
-+
-+	/*
-+	 * The datasheet requires seconds through years to be transferred in
-+	 * one I2C access. Alarm registers are interleaved at 01h, 03h and 05h,
-+	 * so read the whole block first and write those bytes back unchanged.
-+	 */
-+	err = regmap_bulk_read(pcf85053->regmap, PCF85053_REG_SC, buf, sizeof(buf));
-+	if (err)
-+		return err;
-+
-+	buf[0] = pcf85053_encode_val(tm->tm_sec, is_bin) & 0x7F;
-+	buf[2] = pcf85053_encode_val(tm->tm_min, is_bin) & 0x7F;
-+	buf[4] = pcf85053_encode_hour(tm->tm_hour, is_24h, is_bin);
-+	/* Hardware weekday is 1-7 (Sunday=1); Linux tm_wday is 0-6. */
-+	buf[6] = (tm->tm_wday + 1) & 0x07;
-+	buf[7] = pcf85053_encode_val(tm->tm_mday, is_bin) & 0x3F;
-+	buf[8] = pcf85053_encode_val(tm->tm_mon + 1, is_bin) & 0x1F;
-+	buf[9] = pcf85053_encode_val(tm->tm_year - 100, is_bin);
-+
-+	if (pcf85053->is_primary) {
-+		err = regmap_update_bits(pcf85053->regmap, PCF85053_REG_CTRL,
-+					 PCF85053_BIT_ST, PCF85053_BIT_ST);
-+		if (err)
-+			return err;
-+
-+		ret = regmap_bulk_write(pcf85053->regmap, PCF85053_REG_SC, buf, sizeof(buf));
-+		err = regmap_update_bits(pcf85053->regmap, PCF85053_REG_CTRL,
-+					 PCF85053_BIT_ST, 0);
-+		if (ret)
-+			return ret;
-+		if (err)
-+			return err;
-+
-+		/* ST=1 sets OF, so clear the validity flags after releasing ST. */
-+		return pcf85053_clear_status(pcf85053->regmap,
-+					     PCF85053_BIT_OF | PCF85053_BIT_RTCF);
-+	}
-+
-+	return regmap_bulk_write(pcf85053->regmap, PCF85053_REG_SC, buf, sizeof(buf));
-+}
-+
-+/* See PCF85053_ALARM_DONT_CARE_BITS: both top bits set means "don't care". */
-+static bool pcf85053_alarm_is_dont_care(u8 val)
-+{
-+	return (val & PCF85053_ALARM_DONT_CARE_BITS) == PCF85053_ALARM_DONT_CARE_BITS;
-+}
-+
-+static int pcf85053_rtc_read_alarm(struct device *dev, struct rtc_wkalrm *tm)
-+{
-+	struct pcf85053 *pcf85053 = dev_get_drvdata(dev);
-+	unsigned int ctrl, h12;
-+	bool is_24h, is_bin, pm;
-+	u8 buf[5];
-+	u8 hr;
-+	int err;
-+
-+	err = regmap_read(pcf85053->regmap, PCF85053_REG_CTRL, &ctrl);
-+	if (err)
-+		return err;
-+
-+	err = regmap_bulk_read(pcf85053->regmap, PCF85053_REG_SCA, buf, sizeof(buf));
-+	if (err)
-+		return err;
-+
-+	is_24h = !!(ctrl & PCF85053_BIT_HF);
-+	is_bin = !!(ctrl & PCF85053_BIT_DM);
-+
-+	/*
-+	 * Report don't-care fields as -1; the RTC core fills those in from the
-+	 * current time, so it never tries to interpret the wildcard encoding as
-+	 * a real value.
-+	 */
-+	if (pcf85053_alarm_is_dont_care(buf[0])) /* SCA */
-+		tm->time.tm_sec = -1;
-+	else
-+		tm->time.tm_sec = is_bin ? (buf[0] & 0x7F) : bcd2bin(buf[0] & 0x7F);
-+
-+	if (pcf85053_alarm_is_dont_care(buf[2])) /* MNA */
-+		tm->time.tm_min = -1;
-+	else
-+		tm->time.tm_min = is_bin ? (buf[2] & 0x7F) : bcd2bin(buf[2] & 0x7F);
-+
-+	hr = buf[4];
-+
-+	if (pcf85053_alarm_is_dont_care(hr)) {
-+		tm->time.tm_hour = -1;
-+	} else if (is_24h) {
-+		tm->time.tm_hour = is_bin
-+		? (hr & PCF85053_HR_24H_MASK)
-+		: bcd2bin(hr & PCF85053_HR_24H_MASK);
-+	} else {
-+		pm = !!(hr & PCF85053_HR_PM);
-+
-+		if (is_bin)
-+			h12 = (hr & PCF85053_HR_24H_MASK);
-+		else
-+			h12 = (bcd2bin(hr & PCF85053_HR_24H_MASK));
-+
-+		if (h12 == 12)
-+			h12 = 0;
-+		tm->time.tm_hour = pm ? (h12 + 12) : h12;
-+	}
-+
-+	return pcf85053_get_alarm_mode(dev, &tm->enabled, &tm->pending);
-+}
-+
-+static int pcf85053_rtc_set_alarm(struct device *dev, struct rtc_wkalrm *tm)
-+{
-+	struct pcf85053 *pcf85053 = dev_get_drvdata(dev);
-+	bool is_24h, is_bin;
-+	struct rtc_time now_tm;
-+	time64_t now, later;
-+	unsigned int ctrl;
-+	u8 sec, min, hr;
-+	int err;
-+
-+	/* Secondary has read-only access to the alarm registers. */
-+	if (!pcf85053->is_primary)
-+		return -EACCES;
-+
-+	/* The alarm matches only HH:MM:SS, so reject requests beyond 24 hours. */
-+	later = rtc_tm_to_time64(&tm->time);
-+
-+	err = pcf85053_rtc_read_time(dev, &now_tm);
-+	if (err)
-+		return err;
-+
-+	now = rtc_tm_to_time64(&now_tm);
-+
-+	if (later <= now)
-+		return -EINVAL;
-+
-+	if (later - now > pcf85053->rtc->alarm_offset_max)
-+		return -ERANGE;
-+
-+	err = regmap_read(pcf85053->regmap, PCF85053_REG_CTRL, &ctrl);
-+	if (err)
-+		return err;
-+
-+	/*
-+	 * Format the alarm values to match the hour format (HF) and data mode
-+	 * (DM) the device is already configured for, rather than forcing those
-+	 * bits. Changing HF or DM without converting the stored time would
-+	 * corrupt the running clock.
-+	 */
-+	is_24h = !!(ctrl & PCF85053_BIT_HF);
-+	is_bin = !!(ctrl & PCF85053_BIT_DM);
-+
-+	/*
-+	 * Disable AIE, program the alarm, clear any match that occurred while
-+	 * programming, then set AIE to the requested state. Clearing AF after
-+	 * the writes (not before) ensures a stale/transient match cannot leave
-+	 * AF asserted once the interrupt is enabled.
-+	 */
-+	err = pcf85053_set_aie(pcf85053->regmap, false);
-+	if (err)
-+		return err;
-+
-+	sec = pcf85053_encode_val(tm->time.tm_sec, is_bin) & 0x7F;
-+	min = pcf85053_encode_val(tm->time.tm_min, is_bin) & 0x7F;
-+	hr  = pcf85053_encode_hour(tm->time.tm_hour, is_24h, is_bin);
-+
-+	err = regmap_write(pcf85053->regmap, PCF85053_REG_SCA, sec);
-+	if (err)
-+		return err;
-+
-+	err = regmap_write(pcf85053->regmap, PCF85053_REG_MNA, min);
-+	if (err)
-+		return err;
-+
-+	err = regmap_write(pcf85053->regmap, PCF85053_REG_HRA, hr);
-+	if (err)
-+		return err;
-+
-+	err = pcf85053_clear_status(pcf85053->regmap, PCF85053_BIT_AF);
-+	if (err)
-+		return err;
-+
-+	return pcf85053_set_aie(pcf85053->regmap, tm->enabled);
-+}
-+
-+static int pcf85053_irq_enable(struct device *dev, unsigned int enabled)
-+{
-+	struct pcf85053 *pcf85053 = dev_get_drvdata(dev);
-+	int err;
-+
-+	/* Only the primary interface may write the control/status registers. */
-+	if (!pcf85053->is_primary)
-+		return -EACCES;
-+
-+	dev_dbg(dev, "%s: alarm enable=%d\n", __func__, enabled);
-+
-+	if (!enabled)
-+		return pcf85053_set_aie(pcf85053->regmap, false);
-+
-+	err = pcf85053_clear_status(pcf85053->regmap, PCF85053_BIT_AF);
-+	if (err)
-+		return err;
-+
-+	return pcf85053_set_aie(pcf85053->regmap, true);
-+}
-+
-+static int pcf85053_ioctl(struct device *dev, unsigned int cmd, unsigned long arg)
-+{
-+	struct pcf85053 *pcf85053 = dev_get_drvdata(dev);
-+	unsigned int val = 0, vl_status = 0;
-+	int status;
-+
-+	switch (cmd) {
-+	case RTC_VL_READ:
-+		status = regmap_read(pcf85053->regmap, PCF85053_REG_ST, &val);
-+		if (status)
-+			return status;
-+
-+		if (val & (PCF85053_BIT_OF | PCF85053_BIT_RTCF))
-+			vl_status |= RTC_VL_DATA_INVALID;
-+
-+		return put_user(vl_status, (unsigned int __user *)arg);
-+
-+	case RTC_VL_CLR:
-+		/* Only the primary interface may write the status register. */
-+		if (!pcf85053->is_primary)
-+			return -EACCES;
-+
-+		return pcf85053_clear_status(pcf85053->regmap,
-+					     PCF85053_BIT_OF | PCF85053_BIT_RTCF);
-+
-+	default:
-+		return -ENOIOCTLCMD;
-+	}
-+}
-+
-+#ifdef CONFIG_COMMON_CLK
-+/*
-+ * Handling of the clkout
-+ */
-+
-+#define clkout_hw_to_pcf85053(_hw) container_of(_hw, struct pcf85053, clkout_hw)
-+
-+static const int clkout_rates[] = {
-+	32768,
-+	1024,
-+	32,
-+	1,
-+};
-+
-+/*
-+ * XCLK selects the CLKOUT owner: primary has write access when XCLK=1,
-+ * secondary when XCLK=0. Only the primary can change XCLK, so it claims
-+ * ownership; the secondary may proceed only while XCLK=0.
-+ */
-+static int pcf85053_clkout_write_access(struct pcf85053 *pcf85053)
-+{
-+	unsigned int acc;
-+	int err;
-+
-+	err = regmap_read(pcf85053->regmap, PCF85053_REG_ACC, &acc);
-+	if (err)
-+		return err;
-+
-+	if (pcf85053->is_primary) {
-+		if (acc & PCF85053_BIT_XCLK)
-+			return 0;
-+
-+		return regmap_update_bits(pcf85053->regmap, PCF85053_REG_ACC,
-+					  PCF85053_BIT_XCLK, PCF85053_BIT_XCLK);
-+	}
-+
-+	return (acc & PCF85053_BIT_XCLK) ? -EACCES : 0;
-+}
-+
-+static unsigned long pcf85053_clkout_recalc_rate(struct clk_hw *hw,
-+						 unsigned long parent_rate)
-+{
-+	struct pcf85053 *pcf85053 = clkout_hw_to_pcf85053(hw);
-+	unsigned int val = 0;
-+	int err;
-+
-+	err = regmap_read(pcf85053->regmap, PCF85053_REG_CLKO, &val);
-+	if (err)
-+		return 0;
-+
-+	val &= PCF85053_REG_CLKO_F_MASK;
-+	return clkout_rates[val];
-+}
-+
-+static int pcf85053_clkout_determine_rate(struct clk_hw *hw,
-+					  struct clk_rate_request *req)
-+{
-+	int i;
-+	unsigned long best = 0;
-+
-+	for (i = 0; i < ARRAY_SIZE(clkout_rates); i++) {
-+		if (clkout_rates[i] <= req->rate) {
-+			best = clkout_rates[i];
-+			break;
-+		}
-+	}
-+	if (!best)
-+		best = clkout_rates[ARRAY_SIZE(clkout_rates) - 1];
-+
-+	req->rate = best;
-+	return 0;
-+}
-+
-+static int pcf85053_clkout_set_rate(struct clk_hw *hw, unsigned long rate,
-+				    unsigned long parent_rate)
-+{
-+	struct pcf85053 *pcf85053 = clkout_hw_to_pcf85053(hw);
-+	unsigned int val = 0;
-+	int err, i;
-+
-+	err = pcf85053_clkout_write_access(pcf85053);
-+	if (err)
-+		return err;
-+
-+	err = regmap_read(pcf85053->regmap, PCF85053_REG_CLKO, &val);
-+	if (err)
-+		return err;
-+
-+	for (i = 0; i < ARRAY_SIZE(clkout_rates); i++)
-+		if (clkout_rates[i] == rate) {
-+			val &= ~PCF85053_REG_CLKO_F_MASK;
-+			val |= i;
-+			return regmap_write(pcf85053->regmap, PCF85053_REG_CLKO, val);
-+		}
-+
-+	return -EINVAL;
-+}
-+
-+static int pcf85053_clkout_control(struct clk_hw *hw, bool enable)
-+{
-+	struct pcf85053 *pcf85053 = clkout_hw_to_pcf85053(hw);
-+	unsigned int val = 0;
-+	int err;
-+
-+	err = pcf85053_clkout_write_access(pcf85053);
-+	if (err)
-+		return err;
-+
-+	err = regmap_read(pcf85053->regmap, PCF85053_REG_CLKO, &val);
-+	if (err)
-+		return err;
-+
-+	if (enable)
-+		val |= PCF85053_REG_CLKO_CKE;
-+	else
-+		val &= ~PCF85053_REG_CLKO_CKE;
-+
-+	return regmap_write(pcf85053->regmap, PCF85053_REG_CLKO, val);
-+}
-+
-+static int pcf85053_clkout_prepare(struct clk_hw *hw)
-+{
-+	return pcf85053_clkout_control(hw, 1);
-+}
-+
-+static void pcf85053_clkout_unprepare(struct clk_hw *hw)
-+{
-+	pcf85053_clkout_control(hw, 0);
-+}
-+
-+static int pcf85053_clkout_is_prepared(struct clk_hw *hw)
-+{
-+	struct pcf85053 *pcf85053 = clkout_hw_to_pcf85053(hw);
-+	unsigned int val = 0;
-+	int err;
-+
-+	err = regmap_read(pcf85053->regmap, PCF85053_REG_CLKO, &val);
-+	if (err)
-+		return err;
-+
-+	return !!(val & PCF85053_REG_CLKO_CKE);
-+}
-+
-+static const struct clk_ops pcf85053_clkout_ops = {
-+	.prepare = pcf85053_clkout_prepare,
-+	.unprepare = pcf85053_clkout_unprepare,
-+	.is_prepared = pcf85053_clkout_is_prepared,
-+	.recalc_rate = pcf85053_clkout_recalc_rate,
-+	.determine_rate = pcf85053_clkout_determine_rate,
-+	.set_rate = pcf85053_clkout_set_rate,
-+};
-+
-+static int pcf85053_clkout_register_clk(struct pcf85053 *pcf85053)
-+{
-+	struct device *dev = pcf85053->rtc->dev.parent;
-+	struct device_node *node = dev->of_node;
-+	struct clk_init_data init = {};
-+	int err;
-+
-+	/*
-+	 * Only expose CLKOUT as a clock provider when the device tree opts in
-+	 * with #clock-cells; otherwise there is nothing to register.
-+	 */
-+	if (!device_property_present(dev, "#clock-cells"))
-+		return 0;
-+
-+	init.name = "pcf85053-clkout";
-+	init.ops = &pcf85053_clkout_ops;
-+	init.flags = 0;
-+	init.parent_names = NULL;
-+	init.num_parents = 0;
-+	pcf85053->clkout_hw.init = &init;
-+
-+	/* optional override of the clockname */
-+	of_property_read_string(node, "clock-output-names", &init.name);
-+
-+	err = devm_clk_hw_register(dev, &pcf85053->clkout_hw);
-+	if (err)
-+		return err;
-+
-+	/* devres-managed so the provider is removed on unbind/probe failure. */
-+	return devm_of_clk_add_hw_provider(dev, of_clk_hw_simple_get,
-+					   &pcf85053->clkout_hw);
-+}
-+#endif
-+
-+static const struct rtc_class_ops pcf85053_rtc_ops = {
-+	.read_time	= pcf85053_rtc_read_time,
-+	.set_time	= pcf85053_rtc_set_time,
-+	.read_alarm	= pcf85053_rtc_read_alarm,
-+	.set_alarm	= pcf85053_rtc_set_alarm,
-+	.alarm_irq_enable = pcf85053_irq_enable,
-+	.ioctl		= pcf85053_ioctl,
-+};
-+
-+static const struct pcf85053_config config_pcf85053 = {
-+	.regmap = {
-+		.reg_bits = 8,
-+		.val_bits = 8,
-+		.max_register = 0x1D,
-+	},
-+	.has_alarms = 1,
-+};
-+
-+static int pcf85053_probe(struct i2c_client *client)
-+{
-+	const struct pcf85053_config *config;
-+	struct device *dev = &client->dev;
-+	const char *iface = NULL;
-+	struct pcf85053 *pcf85053;
-+	int err;
-+
-+	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
-+		return -ENODEV;
-+
-+	pcf85053 = devm_kzalloc(dev, sizeof(struct pcf85053),
-+				GFP_KERNEL);
-+	if (!pcf85053)
-+		return -ENOMEM;
-+
-+	config = i2c_get_match_data(client);
-+	if (!config)
-+		return -ENODEV;
-+
-+	pcf85053->regmap = devm_regmap_init_i2c(client, &config->regmap);
-+	if (IS_ERR(pcf85053->regmap))
-+		return PTR_ERR(pcf85053->regmap);
-+
-+	dev_set_drvdata(dev, pcf85053);
-+
-+	if (of_property_read_string(dev->of_node, "nxp,interface", &iface))
-+		return dev_err_probe(dev, -EINVAL,
-+				     "Missing mandatory property: nxp,interface\n");
-+	if (!strcmp(iface, "primary"))
-+		pcf85053->is_primary = true;
-+	else if (!strcmp(iface, "secondary"))
-+		pcf85053->is_primary = false;
-+	else
-+		return dev_err_probe(dev, -EINVAL,
-+				     "Invalid value for nxp,interface: %s\n", iface);
-+
-+	if (pcf85053->is_primary) {
-+		unsigned int ctrl;
-+
-+		err = regmap_read(pcf85053->regmap, PCF85053_REG_CTRL, &ctrl);
-+		if (err)
-+			return err;
-+
-+		if (of_property_read_bool(dev->of_node, "nxp,write-access")) {
-+			if (!(ctrl & PCF85053_BIT_TWO)) {
-+				err = regmap_update_bits(pcf85053->regmap, PCF85053_REG_CTRL,
-+							 PCF85053_BIT_TWO, PCF85053_BIT_TWO);
-+				if (err)
-+					return err;
-+			}
-+			dev_dbg(dev, "Ownership set: TWO=1 (primary writes)\n");
-+		} else {
-+			/* Relinquish ownership (TWO=0) so the secondary may write. */
-+			if (ctrl & PCF85053_BIT_TWO) {
-+				err = regmap_update_bits(pcf85053->regmap, PCF85053_REG_CTRL,
-+							 PCF85053_BIT_TWO, 0);
-+				if (err)
-+					return err;
-+			}
-+			dev_dbg(dev, "Default ownership set: TWO=0 (secondary writes)\n");
-+		}
-+	}
-+
-+	pcf85053->rtc = devm_rtc_allocate_device(dev);
-+	if (IS_ERR(pcf85053->rtc))
-+		return PTR_ERR(pcf85053->rtc);
-+
-+	/*
-+	 * The year register is 00-99 with (year % 4) leap-year logic, so map
-+	 * it to 2000-2099 to keep leap years correct.
-+	 */
-+	pcf85053->rtc->ops = &pcf85053_rtc_ops;
-+	pcf85053->rtc->range_min = RTC_TIMESTAMP_BEGIN_2000;
-+	pcf85053->rtc->range_max = RTC_TIMESTAMP_END_2099;
-+	/*
-+	 * The alarm has second, minute and hour fields but no date, so it can
-+	 * only match within a 24-hour window. Bound the offset so the core
-+	 * rejects requests further out instead of silently arming an alarm
-+	 * within the next day.
-+	 */
-+	pcf85053->rtc->alarm_offset_max = 24 * 60 * 60;
-+	clear_bit(RTC_FEATURE_UPDATE_INTERRUPT, pcf85053->rtc->features);
-+	clear_bit(RTC_FEATURE_ALARM, pcf85053->rtc->features);
-+
-+	if (config->has_alarms && pcf85053->is_primary && client->irq > 0) {
-+		/*
-+		 * ALRT is shared by the alarm (AIE), oscillator-fail (OFIE) and
-+		 * RTC-clear (CIE) sources. This driver only services the alarm,
-+		 * so disable the other two; otherwise ALRT could stay asserted
-+		 * with AF=0 and the handler could not clear it.
-+		 */
-+		err = regmap_update_bits(pcf85053->regmap, PCF85053_REG_CTRL,
-+					 PCF85053_BIT_OFIE | PCF85053_BIT_CIE, 0);
-+		if (err)
-+			return err;
-+
-+		err = devm_request_threaded_irq(dev, client->irq,
-+						NULL, pcf85053_irq,
-+						IRQF_ONESHOT,
-+						"pcf85053", dev);
-+		if (err)
-+			return dev_err_probe(dev, err,
-+					     "unable to request IRQ %d\n",
-+					     client->irq);
-+
-+		set_bit(RTC_FEATURE_ALARM, pcf85053->rtc->features);
-+		err = devm_device_init_wakeup(dev);
-+		if (err)
-+			return dev_err_probe(dev, err,
-+					     "failed to initialize wakeup\n");
-+		err = devm_pm_set_wake_irq(dev, client->irq);
-+		if (err)
-+			return dev_err_probe(dev, err,
-+					     "failed to set wake IRQ\n");
-+	}
-+
-+#ifdef CONFIG_COMMON_CLK
-+	err = pcf85053_clkout_register_clk(pcf85053);
-+	if (err)
-+		return err;
-+#endif
-+
-+	return devm_rtc_register_device(pcf85053->rtc);
-+}
-+
-+static const struct i2c_device_id pcf85053_id[] = {
-+	{ "pcf85053", .driver_data = (kernel_ulong_t)&config_pcf85053 },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, pcf85053_id);
-+
-+static const struct of_device_id pcf85053_of_match[] = {
-+	{ .compatible = "nxp,pcf85053", .data = &config_pcf85053 },
-+	{}
-+};
-+MODULE_DEVICE_TABLE(of, pcf85053_of_match);
-+
-+static struct i2c_driver pcf85053_driver = {
-+	.driver		= {
-+		.name	= "rtc-pcf85053",
-+		.of_match_table = of_match_ptr(pcf85053_of_match),
-+	},
-+	.probe		= pcf85053_probe,
-+	.id_table	= pcf85053_id,
-+};
-+
-+module_i2c_driver(pcf85053_driver);
-+
-+MODULE_AUTHOR("Pankit Garg <pankit.garg@nxp.com>");
-+MODULE_AUTHOR("Lakshay Piplani <lakshay.piplani@nxp.com>");
-+MODULE_DESCRIPTION("NXP pcf85053 RTC driver");
-+MODULE_LICENSE("GPL");
--- 
-2.25.1
+I don't really mind if other maintainers are fine with dealing with these kind 
+of boards without any public documentation. There is no way to check if even 
+your description is correct.
+I am not going to take any responsibility for maintaining them.
 
+Thanks,
+Michal
