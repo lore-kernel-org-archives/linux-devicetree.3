@@ -1,221 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4A63421226
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 09:27:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FA8F41E6CE
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 09:28:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789378081; cv=none; b=dA6jQVdU54+FePy88BcjgczYxcIZqn0t1i40AHpU7def8zSXwt+7yuvNe5RhbVpkGPdCrE5Nvd9ihkXqNMWhrK1cF0UyfoX2niyIspcem+clBlkPoX3RhujE4amwTfWho+eqaLBOpLyFURqBOIIgaIUtRgGU8EQZYX0QXA+36xI=
+	t=1789378094; cv=none; b=uYnCqk0ALU5tnbBJitkJj8+SRNUJ8AdqK6zF1mtyKtAQnA1GSKtR7Wvv9FUp+7xn89l09FBND5mKfsc5YQnUonXvkegsYvgbgGUS/kdljlUu/cHAQ2gpktpWF/n+mzEJY/UD+hkfYJrV2CoRJOq8HPzeByPT4ajCnU6S8KzVu7I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789378081; c=relaxed/simple;
-	bh=gPkLk0J0puSO6ahahjexA5iqlNCW6BjG4YuywVro7gw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=MvqEcfMclvfHJ+qtruOfKPLswIvUJoOEkje9/d9u8V67kKfSNvLX8oiWC39ZIbtb7QBnHmrDEzElthQmXhJQw2pws3cw33Eyl2ZVqUz8wpS8jLZgDgCcuBGK8a9D2TTRJZUMNo8ygL7BoHHe8GECErRdppENEBy5PMp6CLKMvFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GhrfIwCx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789378094; c=relaxed/simple;
+	bh=uBRBgt60qnQzF51ZX1c+WFKEWEU4s4VaOlHTPM97Lag=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AU99UMoU9Rl+OnTPv8nKiXuf5o+oZs91I+tS+CziKj1Mb/Q32/oZvE5y1Vmhsvlt/3WObQp0gFUE8ifOHIcWaMp/mHTqw7Jcz9yrmMus2UWKW5ATs8m8LBnIKh0PZMaqH0kA8b7iWXmMDOUjA3eaM4aEpBN4PKydTRl4Wtr99Do=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F0uMdTl0; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GhrfIwCx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22BFE1F000FF;
-	Mon, 14 Sep 2026 09:27:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789378079;
-	bh=KYESfg63gjpRbgWZixWJGeMAWRHYqoxx1w+21M9gsSg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=GhrfIwCxcnz+b0rZj4XFT31QmrAofJU7QbAyXIrCvQcC/DEnVXoG/2KQyBM35wqq8
-	 lSACGAWGhtf+N14K8uvTNWealacWL7sTsqqYAffTFs1PItby2F+FKmFoa3CRMPvC0W
-	 Fb6gqiO9NsDRMMNptz7VGcFz+mvwycNYMP0M5gz3BZ+LK8nCWYmAGDlvuPMdrV1XQT
-	 0aVdCO0hA0Cvb0gp0qaUD+MVMqspNE7SizakrX2uWN+rdFha5KFfYT+17xuGjnMGlY
-	 VzUY6RA7DfDzVGt3NC0SmN5sUvENL5d084fT1E7y6vr+toYXI1OTL4+GF0TM4aR1t4
-	 gFRBfoVc9STZQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 6/6] drm/ssd130x: Add SSD135X_FAMILY and SSD1351
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Amit Barzilai" <amit.barzilai22@gmail.com>
-Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260914085931.66857-7-amit.barzilai22@gmail.com>
-References: <20260914085931.66857-1-amit.barzilai22@gmail.com>
- <20260914085931.66857-7-amit.barzilai22@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 09:27:58 +0000
-Message-Id: <20260914092759.22BFE1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F0uMdTl0"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843172bff4so810919f8f.0
+        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 02:28:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789378091; x=1789982891; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xa5ZbUfuvrToiYmQZWM/hOZFSIc+eJSMXf4MjNO/px8=;
+        b=F0uMdTl0wnRVDDi57eBVsSwHBeIkhHZKMwQ/GgzQiYBRyj/cwd3ioOOu9yvZYO/6dj
+         qKTEwc1euxg6XUgHxeuXj2Xprb47cfK08fzyHMn/4ctls1rDrY1sy1Ng7zYGTuuG//zD
+         l1W7vXQHSjlhM6LtEWuijGJR0mleo8hmNT+o1+jwvueIIfPlLfjnyCSO+U/UVAcJFOAh
+         qZfkH12MUF95515wgaZJn4dPz/cEI21IMKuDEnYmhZtet+FCFw7WwDxX7wNcEg0msrjE
+         BeLOvSFElOUsRJPvfWGt+mvmNrK+254WRZViXp0b8ILiSJyXQCo/hVc7X0xLjiPA88dO
+         B5zw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789378091; x=1789982891;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xa5ZbUfuvrToiYmQZWM/hOZFSIc+eJSMXf4MjNO/px8=;
+        b=IXq46KsB5+uPmJtGjC25utMCyK/9uGUcv9AxAtrU0BnDR6vzQXJnQ8PsomybrDYpDN
+         32WUPS0uQybjgCvuZKhKTrpdt+6bYVDhhZPWNP64UWetiHQEudaWm4Eeje8gOj8pCVZQ
+         oQT4cel/HARh+osbMxsb0F+TkiwUWJs28xJwcMY6wZ2Kx58EomXcmyDbBhOYG5TnPB0/
+         NvxtmQD8C2PdCznHRKoao3TFF32OwRUQ7voYPmYIa6kBNlS8BGnPP3RM2ufhpjsVrIRb
+         sNnlfRpIwlyJmEgjhWrr9ztSwDgyyyLMtFIhCvD0uAzKjIIpUNoE2uD81tsi8w/pr4Hm
+         nR5g==
+X-Forwarded-Encrypted: i=1; AKwUvBzPkbUZvyaFtdEve1fL4XjvbqdwFWAuoUOOul8h15/PuG+Ln38cx4hkhNcJryrHlN0lO0BqxvNZ5GNy@vger.kernel.org
+X-Gm-Message-State: AFuF++ni1qraZAgxLken8Mvo84Ox1xLoJZp/BenNI4f7hobrsv265uh7
+	df3c4uXcsM4BX5cL/qtJK58SN1Uo6qp9Uhd1holDMI8T986rYwXYldXE
+X-Gm-Gg: AYBFou2eeL9hbAd/3omRFBJhUfn0T6m5SDcYvDpQoEPSCapUbSOYS3UoNVmMerX+aXa
+	P+8aPGqFuCuYKMGs+PpA1XypohyLPMsUlsYYO9lw6Y1EfyMHDUZ12fQjCalzNJz3nat2cLRM58C
+	SsHRCB3Ml+2iatkQsSzgtEkmSRr0QwOn0f4CNQ+z5Ktr5I2W6l2V17XejmDiQfezIzs6B1ZQaCR
+	TEYOpAhPrIpc3PfTffFuQFEEFTR2KUFLLCHLUBEx8BTDSgmdDCiQsmR3Hb6yfwLFksrE766Qt9l
+	BkkW2S4mIE9uWCyTlks9ZfWF2PRJfqtL80Fk0h1u6JUWi6xpBmLwe4q8awGfc9EG+jn4c1i5qgl
+	kPvhemEVWVse4+DApgwr/v4XjP5+8QGo3cQcYB4q0gJ84fZhDw+VXMPZKRBaFepCjRFkQizoHeo
+	uIS6woBhzwRS5+EDvsJ/VDVuof+RFfCFCcaj9J8E2QL4TnPk6fVjBNGk0ePyvB5WAocTZkULwN/
+	UWBnWk=
+X-Received: by 2002:a05:600c:4745:b0:49e:799e:c1c3 with SMTP id 5b1f17b1804b1-49e7a6868a8mr17463165e9.17.1789378091334;
+        Mon, 14 Sep 2026 02:28:11 -0700 (PDT)
+Received: from localhost.localdomain ([94.252.75.25])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49e7a29826fsm45244255e9.4.2026.09.14.02.28.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 02:28:10 -0700 (PDT)
+From: Oleg Keri <okerixx@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] arm64: dts: qcom: glymur-lenovo-yoga-slim7x: add the camera privacy switch The laptop has a camera privacy switch on the side of the top case - a slider, not a mechanical cover over the lens, and it does nothing to the camera itself. TLMM gpio99 follows its position: high with the switch open, low with it engaged. Describe it as a gpio-keys switch so userspace can act on it.
+Date: Mon, 14 Sep 2026 11:28:02 +0200
+Message-ID: <20260914092802.12315-1-okerixx@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+SW_CAMERA_LENS_COVER is the only switch code the input layer has for a
+camera privacy state, and it is what the Lenovo WMI camera driver and
+Dell's privacy driver report for the same kind of electronic switch on
+x86 machines, so use it here as well despite the name.
 
-New issues:
-- [High] Lack of locking between backlight sysfs updates and DRM plane upda=
-tes causes non-atomic display command sequences and hardware state corrupti=
-on.
-- [High] Plane atomic update callback calls sleeping functions (DMA-buf acc=
-ess and regmap I2C/SPI transfers) in atomic context.
-- [Medium] Plane atomic_disable callback uses new plane state to fetch CRTC=
-, failing to clear screen when the plane is unassigned.
+The embedded controller also raises event 0x29 whenever the switch
+moves, which makes it tempting to report it from the EC driver instead.
+That would be the wrong layer: the pin is a plain level that tracks the
+slider position and needs no EC transaction to read, and the EC event
+carries nothing the pin does not already say.
 
-Pre-existing issues:
-- [High] Missing format conversion buffer preallocation leads to a GFP_KERN=
-EL allocation inside the atomic_update callback.
---
+Signed-off-by: Oleg Keri <okerixx@gmail.com>
+---
+Changes in v2:
+- Capitalize the switch label (Konrad).
+- Put the pin state where the GPIO index sorts it, between gpio94 and
+  gpio111, instead of after the trackpad state (Konrad).
+- Link to v1: https://lore.kernel.org/all/20260914081652.5935-1-okerixx@gmail.com/
 
-commit ab4ccb74bbc041abd3279239df7704ec6c09b2b7
-Author: Amit Barzilai <amit.barzilai22@gmail.com>
-Subject: drm/ssd130x: Add SSD135X_FAMILY and SSD1351 support
+ .../boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts   | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
 
-Adds support for the Solomon SSD1351 128x128 RGB OLED controller as a new
-SSD135X_FAMILY. Reuses the ssd130x plane, CRTC, and encoder infrastructure
-but introduces custom primary plane update, disable, initialization, and
-backlight callbacks to accommodate differences in command protocols.
+diff --git a/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts b/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts
+index ecc8c34fb983..769f195c99d9 100644
+--- a/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts
++++ b/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts
+@@ -51,7 +51,7 @@ sleep_clk: sleep-clk {
+ 	gpio-keys {
+ 		compatible = "gpio-keys";
+ 
+-		pinctrl-0 = <&hall_int_n_default>;
++		pinctrl-0 = <&hall_int_n_default>, <&cam_privacy_default>;
+ 		pinctrl-names = "default";
+ 
+ 		switch-lid {
+@@ -62,6 +62,13 @@ switch-lid {
+ 			wakeup-source;
+ 			wakeup-event-action = <EV_ACT_DEASSERTED>;
+ 		};
++
++		switch-camera-privacy {
++			label = "Camera privacy switch";
++			gpios = <&tlmm 99 GPIO_ACTIVE_LOW>;
++			linux,input-type = <EV_SW>;
++			linux,code = <SW_CAMERA_LENS_COVER>;
++		};
+ 	};
+ 
+ 	leds {
+@@ -1012,6 +1019,12 @@ wcn_sw_en: wcn-sw-en-state {
+ 		bias-disable;
+ 	};
+ 
++	cam_privacy_default: cam-privacy-default-state {
++		pins = "gpio99";
++		function = "gpio";
++		bias-pull-up;
++	};
++
+ 	cam_indicator_en: cam-indicator-en-state {
+ 		pins = "gpio111";
+ 		function = "gpio";
+-- 
+2.55.0
 
-> diff --git a/drivers/gpu/drm/solomon/ssd130x.c b/drivers/gpu/drm/solomon/=
-ssd130x.c
-> index fd13250ef56a9..324467ae9309f 100644
-> --- a/drivers/gpu/drm/solomon/ssd130x.c
-> +++ b/drivers/gpu/drm/solomon/ssd130x.c
-[ ... ]
-> @@ -271,6 +310,18 @@ static int ssd130x_write_cmds(struct ssd130x_device =
-*ssd130x, const u8 *cmd,
->  	unsigned int i;
->  	int ret;
-> =20
-> +	if (!len)
-> +		return 0;
-> +
-> +	if (ssd130x->device_info->cmd_params_are_data) {
-> +		ret =3D regmap_write(ssd130x->regmap, SSD13XX_COMMAND, cmd[0]);
-> +		/* A command with no parameters is complete after its opcode. */
-> +		if (ret || len =3D=3D 1)
-> +			return ret;
-> +
-> +		return ssd130x_write_data(ssd130x, cmd + 1, len - 1);
-> +	}
-> +
-
-[Severity: High]
-Is it possible for a concurrent sysfs backlight update to interleave its
-commands here?
-
-Since the regmap API drops its internal lock between the regmap_write call
-for the opcode and the ssd130x_write_data call for the parameters, a
-concurrent ssd135x_update_bl call (which lacks driver-level locks) could
-inject its own opcode into the hardware.
-
-This interleaving could cause the hardware to misinterpret the backlight
-opcode as a parameter, potentially corrupting the state machine and causing
-display artifacts or permanent link failure until device reset. Does this
-sequence require a driver-level lock to remain atomic?
-
-[ ... ]
-> @@ -1247,6 +1432,45 @@ static void ssd133x_primary_plane_atomic_update(st=
-ruct drm_plane *plane,
->  	drm_dev_exit(idx);
->  }
-> =20
-> +static void ssd135x_primary_plane_atomic_update(struct drm_plane *plane,
-> +						struct drm_atomic_commit *state)
-> +{
-> +	struct drm_plane_state *plane_state =3D drm_atomic_get_new_plane_state(=
-state, plane);
-> +	struct drm_plane_state *old_plane_state =3D drm_atomic_get_old_plane_st=
-ate(state, plane);
-> +	struct drm_shadow_plane_state *shadow_plane_state =3D to_drm_shadow_pla=
-ne_state(plane_state);
-> +	struct drm_crtc_state *crtc_state =3D drm_atomic_get_new_crtc_state(sta=
-te, plane_state->crtc);
-> +	struct ssd130x_crtc_state *ssd130x_crtc_state =3D  to_ssd130x_crtc_stat=
-e(crtc_state);
-> +	struct drm_framebuffer *fb =3D plane_state->fb;
-> +	struct drm_atomic_helper_damage_iter iter;
-> +	struct drm_device *drm =3D plane->dev;
-> +	struct drm_rect dst_clip;
-> +	struct drm_rect damage;
-> +	int idx;
-> +
-> +	if (!drm_dev_enter(drm, &idx))
-> +		return;
-> +
-> +	if (drm_gem_fb_begin_cpu_access(fb, DMA_FROM_DEVICE))
-> +		goto out_drm_dev_exit;
-
-[Severity: High]
-Does this function run in atomic context during non-blocking commits?
-
-Calling drm_gem_fb_begin_cpu_access here might block on dma-buf
-reservations or fences. Since DRM guidelines specify that plane atomic
-updates must not sleep, this could lead to system instability or deadlocks.
-
-> +
-> +	drm_atomic_helper_damage_iter_init(&iter, old_plane_state, plane_state);
-> +	drm_atomic_for_each_plane_damage(&iter, &damage) {
-> +		dst_clip =3D plane_state->dst;
-> +
-> +		if (!drm_rect_intersect(&dst_clip, &damage))
-> +			continue;
-> +
-> +		ssd135x_fb_blit_rect(fb, &shadow_plane_state->data[0], &dst_clip,
-> +				     ssd130x_crtc_state->data_array,
-> +				     &shadow_plane_state->fmtcnv_state);
-
-[Severity: High]
-This is a pre-existing issue, but does this path trigger a sleeping
-allocation in atomic context?
-
-The ssd133x_primary_plane_atomic_check function (reused by this family)
-can return without calling drm_format_conv_state_reserve. During the
-subsequent non-blocking commit, this blit call ultimately invokes
-drm_fb_xfrm, which will dynamically allocate the conversion buffer using
-krealloc with GFP_KERNEL if it wasn't preallocated.
-
-[Severity: High]
-Does this blit operation also trigger sleeping hardware writes?
-
-The ssd135x_fb_blit_rect function sends data using regmap bulk writes over
-an SPI or I2C bus. Since bus transfers are typically sleeping operations,
-calling them from an atomic update callback might crash the system or
-cause a deadlock.
-
-> +	}
-> +
-> +	drm_gem_fb_end_cpu_access(fb, DMA_FROM_DEVICE);
-> +
-> +out_drm_dev_exit:
-> +	drm_dev_exit(idx);
-> +}
-> +
-[ ... ]
-> @@ -1319,6 +1543,31 @@ static void ssd133x_primary_plane_atomic_disable(s=
-truct drm_plane *plane,
->  	drm_dev_exit(idx);
->  }
-> =20
-> +static void ssd135x_primary_plane_atomic_disable(struct drm_plane *plane,
-> +						 struct drm_atomic_commit *state)
-> +{
-> +	struct drm_device *drm =3D plane->dev;
-> +	struct ssd130x_device *ssd130x =3D drm_to_ssd130x(drm);
-> +	struct drm_plane_state *plane_state;
-> +	struct drm_crtc_state *crtc_state;
-> +	struct ssd130x_crtc_state *ssd130x_crtc_state;
-> +	int idx;
-> +
-> +	plane_state =3D drm_atomic_get_new_plane_state(state, plane);
-> +	if (!plane_state->crtc)
-> +		return;
-
-[Severity: Medium]
-Will this skip clearing the screen when a plane is disabled?
-
-When a plane is detached from a CRTC during a mode set or plane disable
-operation, the DRM core sets the new plane state crtc field to NULL.
-
-Checking the new plane state for a valid crtc here will cause an early
-return, leaving stale pixel data frozen on the screen indefinitely. Should
-this function check the old plane state crtc field instead?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914085931.6685=
-7-1-amit.barzilai22@gmail.com?part=3D6
+base-commit: 68142f986ff04b2b70b31db00f719bf690f64a9a
