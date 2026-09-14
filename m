@@ -1,104 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68194313522;
-	Mon, 14 Sep 2026 14:25:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0ED047CA77
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 14:25:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789395922; cv=none; b=LEDI4KLPjeK8SPup0yND2q5gL9bOXNTQTVKTg5a3GqJikwY5bnF1/GyMa2CRuUmHbSlVgf42USHJhU2ZfkYNsQixAOK+qL3SDmT7Rm8JElr7QV/FwRSq7KD3c1K14iCf3rWa2nmdCaakMCfqTWG00YOBGrV6DKCJUw8it9pWVsg=
+	t=1789395944; cv=none; b=cIcGzwB3RIRYTMjf+ytilsC50cbk1ln6Vn5ZVjiMjCLgnma6udUg9bKoUW1fKIS/zf/kP5Wqv+glnbxKNT2/0rnt1TruLhnA3vXAc9EQlGPl44omRrhaXZeNq4FvGV5zVTuy+dU3etcZFzxe90Q8CU41Jq2q1S8LPqjAJwqBWpk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789395922; c=relaxed/simple;
-	bh=tMOcf0VSmgrOTAYKc0LUcVv5zdjbLnYbielD0+ul63g=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ivE6uBnVziutyM+fi8KkA5CVSZBlvSsoTy6lQbE0FzQ1nhEUKPE5rwmqIC5kmgPEpUsVJqjO3GrJi6994tCpnh9VDWLyJPr6Vxkx2TLcvPohNXy4eXopU755YfheTgt8iEfiz7swPI/BARcjRB/qtVWmhCjtXWPX0IBMDdIBbaY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fa8Vo/+9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789395944; c=relaxed/simple;
+	bh=yWBz2u9MZyDcGdapPsHVrPMmzYjBtuHU9QqFvO4VM2Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=CCkwa9GkUWBeDGKkDD765tD44hy82utSG9NhoulUzf0HwoFAUHGD23k0CedZStg0X1csNP9V89gjmtwV3gn+YoFTOxHu1NYBllWPiaGnOMPM7spp2FFxlfcJ8U3XDKVSPAcI6Zs2CWgruZ/JKPAt00X+3eQHKlLMLdBD7a64L88=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ctYEAbmK; arc=none smtp.client-ip=74.125.229.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fa8Vo/+9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A706F1F000FF;
-	Mon, 14 Sep 2026 14:25:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789395921;
-	bh=g/oiuJ9HHblMLLh8Pc2n3fKfKnpbDEmBGeMJ+bGYrLI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Fa8Vo/+9cNwmIwwV4xFI/VH9nJnpXmN9UsdDxA+88r57Sd70iQ37QepvNhq1MQn6j
-	 HemcoJfcPwmW5+o5JQYsKjxBw2RDI17vWbtJE6O8wO4OtJzX2UCLNgD5B4nq3sY0hu
-	 bft6ClgrbjHeTVpYcH2BbOZgJj2BHr/LhCOzWy0wo6ICISHKQlqNGEcfpiYOUnTaLa
-	 MXn8wxn5SEUzfZODP6NmNr5XW1QkVzoCBilDRgx5hKQpCOlmDXCe6gXzZCxB9KxbA2
-	 aTfPuY5llvda/GgIrmbbbOB0yZS+IRUAct9qYDmYmIKD7CxVnlHzC6Y78hLGk3ArmF
-	 uzdi5hV/w3/aQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 7/9] arm64: dts: imx8mm-kontron: Add GPIO labels and
- comments
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Frieder Schrempf" <frieder@fris.de>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev
-In-Reply-To: <20260914-upstreaming-v7-2-imx-dt-improvements-08-26-v2-7-8e12bc5f1f10@kontron.de>
-References: <20260914-upstreaming-v7-2-imx-dt-improvements-08-26-v2-0-8e12bc5f1f10@kontron.de>
- <20260914-upstreaming-v7-2-imx-dt-improvements-08-26-v2-7-8e12bc5f1f10@kontron.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 14:25:20 +0000
-Message-Id: <20260914142520.A706F1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ctYEAbmK"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f18010so2151733e87.0
+        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 07:25:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789395940; x=1790000740; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yWBz2u9MZyDcGdapPsHVrPMmzYjBtuHU9QqFvO4VM2Q=;
+        b=ctYEAbmKM1zNZHrU+XV8igxUqmTrudmqtsAV9iCQ5idk1q9DPUALKlbLLxYJq104HB
+         iAO00ldDfwowENTn6muAiDNaPXUaNirdLHZrVdmccEGDxvTku869d+6++DZi6gWUxqPp
+         wmmAHvM6RREDOdqcCjPaDsPkx58pphm4oMhPLESQjUCLKawdRCUBxtsr7+DkPOGT4X17
+         r6zmz8fZUTlCbIRVNwkBk+NZBVmqzJG0PoGeZmen7IZb5G+wRJ241TsFPKtY7yT7X1/s
+         eE5cKHHkuJbc/pF+WYh1/88WYCbvt7uNZJ4lPIMyxwbVRVb1Hh5MIVbutKig4B/4S+Ve
+         h8iA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789395940; x=1790000740;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yWBz2u9MZyDcGdapPsHVrPMmzYjBtuHU9QqFvO4VM2Q=;
+        b=OA+LMsHb5oNGBhWJ31ICoJq8XNwpzRFm7gD3qIXEOiD07p9mZFc0dt2LE3Nc45Z0mt
+         mNJfrlKb0DRhlmCjcM5lVBnItYzTIae9xGPZ+KseZWCV4Hu9faxnWYNrxTMEoKisY3Ug
+         7GT3exCqIIFgJOFeqNnp+CCa0LMa8/NOf2XHxAAWNakM+M8aF32VWI9S4klfdC6PyVQa
+         JFYr/C+Y3NbbABgLgQj+rJRg2afxacl43HpZl9BKMVpBv7SEKnhXVYqSZix1hTChNk+/
+         HUROcKXDeVr3JYQ2SDvHVcexEkf0cp42uDMuMZPtcBdA+bf+bBXQei1GN1aePN5ZedIz
+         /Kdw==
+X-Forwarded-Encrypted: i=1; AKwUvBzgfx8gt+iufeDupaJ/V5/b4V12z5ZSEHff9RLEAAw6hOJppaMQOTLeqbwxpbKEsidYzCRYUveI0XhN@vger.kernel.org
+X-Gm-Message-State: AFuF++nPsTOq71uQndVggll9Ej4bBSkEuhoevTfS0o0+FKt9/x2913ki
+	Uez7eectn9lwF1llelCVAfZ4J049r4GDtuR4OmJegBMG2WyMcGr74GDbjbOL5EP7xtqutw==
+X-Gm-Gg: AYBFou1qJCvT6fvTkFAPFnUw7Cvrct3sakvYjiQAQqPgCSJhmavF3Mn4I1K1Tqr8ZoD
+	EmSlf7Msm4LTrsziBY4WrQRbSBsYiEuB4QxoQ+PQYLfQK+5kiR4tXUtrrM+czS56MCJbgsnshvR
+	vM6dj1zIUxqwHOaQdxLB3desZsSY5//6l+SKiWoco3C77z9DFgQ+IQBRy2oMCjksAqs6N8byI8t
+	EaBNsw2xhRogx07sCckcJY7xFqIQ52/WJB5x7tgCn111D3r1XO23Z+JScvXpuG+wTBUjWgK0qog
+	fHnCRHvrRexGxmDQCc4OAfrWZRDX2EqjzuaXu8qYpl9fSYEQ31JLEwCYuTTCnlwiY4ZmOrP+l7a
+	mRKKh6c0mSZ/7EJQzGV96UtvSorphLRQ7PvGRdgSC86B6LCOgqV3dAjKpdOUFjpXtncorgR1vtA
+	ZWqRE/3wL+9OREVY9S5aPfn82ycBvQyKasUlkyCk0cxJyWDxQ6cD9n6WKZraT5as453nPXEx+KK
+	lJoUWLWGPGNjg==
+X-Received: by 2002:a05:6512:2511:b0:5b6:183b:d202 with SMTP id 2adb3069b0e04-5b8ae69ca27mr768798e87.41.1789395940103;
+        Mon, 14 Sep 2026 07:25:40 -0700 (PDT)
+Received: from KAS (94-29-32-34.dynamic.spd-mgts.ru. [94.29.32.34])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a04798d2sm2492509e87.69.2026.09.14.07.25.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 07:25:39 -0700 (PDT)
+From: Andrey Korshunov <razor1702@gmail.com>
+To: Chukun Pan <amadeus@jmu.edu.cn>
+Cc: Heiko Stuebner <heiko@sntech.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] arm64: dts: rockchip: Add MangoPi M28K
+Date: Mon, 14 Sep 2026 17:25:32 +0300
+Message-ID: <20260914142532.1997-1-razor1702@gmail.com>
+X-Mailer: git-send-email 2.54.0.windows.1
+In-Reply-To: <20260801080018.3220034-3-amadeus@jmu.edu.cn>
+References: <20260801080018.3220034-1-amadeus@jmu.edu.cn> <20260801080018.3220034-3-amadeus@jmu.edu.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Undocumented functional change in hardware pin configuration
---
+On Sat, 1 Aug 2026 16:00:18 +0800, Chukun Pan wrote:
+> The MangoPi M28K is a development board with the
+> Rockchip RK3528 SoC. It has the following features:
 
-commit d302aef127127e0c0034e70e30def7814e7b8ba2
-Author: Oualid Derouiche <oualid.derouiche@kontron.de>
+Tested on a MangoPi M28K v1.1 (non-Pro, 4 GB, no eMMC module) booting
+from microSD, with this patch applied to OpenWrt's 6.18.44 kernel and
+U-Boot 2026.07 built with a board target for the M28K.
 
-arm64: dts: imx8mm-kontron: Add GPIO labels and comments
+Both GbE ports work (RTL8211F on gmac1, RTL8111H on PCIe), as do the
+LAN and WAN LEDs and both USB 2.0 ports. With the same devicetree on a
+6.12 kernel, the AIC8800D80 on sdio0 also comes up with the out-of-tree
+driver.
 
-Describe the GPIOs and their purpose using labels and comments.
-
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mm-kontron-bl.dts b/arch/a=
-rm64/boot/dts/freescale/imx8mm-kontron-bl.dts
-> index 1f3d0577f10c9..72588af057d21 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8mm-kontron-bl.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx8mm-kontron-bl.dts
-[ ... ]
->  	pinctrl_gpio4: gpio4grp {
->  		fsl,pins =3D <
-> -			MX8MM_IOMUXC_SAI1_TXD2_GPIO4_IO14		0x19
-> -			MX8MM_IOMUXC_SAI1_TXD3_GPIO4_IO15		0x19
-> +			/* CAN address DIP switches 1-4 */
-> +			MX8MM_IOMUXC_SAI1_RXC_GPIO4_IO1			0x19 /* CAN_ADR0 */
-> +			MX8MM_IOMUXC_SAI1_RXD2_GPIO4_IO4		0x19 /* CAN_ADR1 */
-> +			MX8MM_IOMUXC_SAI1_RXD3_GPIO4_IO5		0x19 /* CAN_ADR2 */
-> +			MX8MM_IOMUXC_SAI1_RXD4_GPIO4_IO6		0x19 /* CAN_ADR3 */
-
-[Severity: Medium]
-Does this code introduce an undocumented functional change to the hardware =
-pin
-configurations in pinctrl_gpio4?
-
-The patch modifies pinctrl_gpio4 to actively configure four entirely new pi=
-ns
-(GPIO4_IO1, GPIO4_IO4, GPIO4_IO5, GPIO4_IO6) with the pad setting 0x19. Sin=
-ce
-the &gpio4 node references this group, applying this patch alters the hardw=
-are
-pin multiplexing state during boot.
-
-The commit message strictly claims to 'Add GPIO labels and comments' and
-'Describe the GPIOs and their purpose using labels and comments', implying =
-no
-functional behavioral changes.
-
-Could the commit message be updated to describe this functional change, or
-should these new pins be separated into their own patch?
-
-> +			MX8MM_IOMUXC_SAI1_TXD2_GPIO4_IO14		0x19 /* DSI_MUX_SEL */
-> +			MX8MM_IOMUXC_SAI1_TXD3_GPIO4_IO15		0x19 /* DSI_MUX_OE */
->  		>;
->  	};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914-upstreamin=
-g-v7-2-imx-dt-improvements-08-26-v2-0-8e12bc5f1f10@kontron.de?part=3D7
+Tested-by: Andrey Korshunov <razor1702@gmail.com>
