@@ -1,165 +1,122 @@
-Received: from mta0.migadu.com (out-28.mta0.migadu.com [91.218.175.28])
+Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com [209.85.221.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CC143F54C6
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 08:04:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.28
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 594093E5A0E
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 08:04:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789373080; cv=none; b=duzmllqS4V2wFQSYczgwqhsZyMTfa8ozkCW0FB/xDBKLjYknq1fFuvhob43PqdGQLGAEsI8BZA6x6hM+YqXztEuiYph5crGas3WondDLvbzJWTOxItm5bGApZOP6PJrIoI7lHvSBy883EfAHHTSHhMqX9isrp/exyWHE6siD7Q0=
+	t=1789373088; cv=none; b=afSgarHTO212Mr0MiXHX4SG1oSvtVNPNJmbb19Rbkg8Ml+3nOKiLrilQFghjH/o6lCdtNdSRmfWs/isHB5m0E2VAmc6R3VTCvX27yhTL4NAW2XFIBGgzVh/ZpKMwyEIoPQfHcREwfaRwAriNz3EHPYwp7omJY0MUZzBE10HJn/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789373080; c=relaxed/simple;
-	bh=T2TbIB10b98M8VFnbRgkYEzSgOl2JI73PuH/i08J044=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=jvexBL35Stu4rSm4chT1OfuH/Ep16gI5zenX35KBiz4C/w2xNqh2yyinWod1qBp19RayfXhOXPQof76m15xGm+AF7oXVIPQ6Fi1DRk0nV0C1t6GzaTk2jbjmD0ySwMbmTBLvNxEtGpjLgI8TENUC2zcuEanMva50Y1r3CmkER6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Zblgm2PK; arc=none smtp.client-ip=91.218.175.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Zblgm2PK"
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=T2TbIB10b98M8VFnbRgkYEzSgOl2JI73PuH/i08J044=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789373075; v=1; x=1789977875;
- b=Zblgm2PKALYugzvDRWf9IF9Ys3ClEX0rguv1i5JhO9h6K74DCAigiTHanIx+nWPDoYQSkMnT
- ATW0hppLcOrT9TFoTCaDTlF4bNvPQwKCQv1iaF1LcSLYQNIiKYGmorpQvFXCz+OOFpL6IfZgRSk
- Gm3HahWM5ryVROBJmLYQQmvM=
-X-Envelope-To: devicetree@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 95a8c5560b05925a;
-	Mon, 14 Sep 2026 08:04:35 +0000
-X-Mizu-Trace-ID: 95a8c5560b05925a
-X-Migadu-Flow: FLOW_OUT
-From: Troy Mitchell <troy.mitchell@linux.dev>
-Date: Mon, 14 Sep 2026 16:03:54 +0800
-Subject: [PATCH v5 2/6] dt-bindings: hwmon: Move LM63 family to a dedicated
- binding
+	s=arc-20240116; t=1789373088; c=relaxed/simple;
+	bh=qOxCYMeZioIGCmh0MxrsIyGPyaOCPaAbU6O6uizTRQE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=RrlA8SNHQPdQButvwPFY+nCUZOzJvb7R5za6S48lWjI5/W11BxKHyXIo3VgnI7AOGRGX8spbQmp6pyf43WCMH/epJu20V1IiQdLNUcD4JgooQBm5y6SoELTY9cvzn5VlzAlu1vqO93nL4X1NecW0KuVDOuZLvAH3BlO+FPnv6fw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f172.google.com with SMTP id 71dfb90a1353d-5c9851764a8so43115e0c.2
+        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 01:04:47 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789373086; x=1789977886;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=G2JcK4+UnTdYFj4YxjDgOg657J6kp6BHITWmwnB32W8=;
+        b=dadIjfAoni9kpWyNTUTfhwSLa1bHplsMnvSwIhoENVfT53K2K65r4a0ksJYRGlnFzl
+         uv+Ez3l1+ur1HYk+m0tWSKo2kO7zXeZNbYUD11GszoGN9dB0VSgDKnn5o+1CvZXkXsEk
+         UEXg0NSFO1Fjm1GYcLq8jnu+aAS904Y9m6N5JHLGqKm3gk5dkTaWTL8N5kteiVALxz3k
+         WeXyU7uBY6/7Dfqh+NWnsUg5EYACIzltRgu8EqHJrdsAj9nGxfiw2yAYlZAFvkcldiM/
+         NuSy96gGcS+WJKje6EyZi+QOoscmh5H/5S8GY88RxYYFm2ii+sNOfbyTzjExyoWB8HB+
+         Swzg==
+X-Forwarded-Encrypted: i=1; AKwUvBwKX3NXBQ5FUidYtp++7JS46FSN0d64m2W7o8uFybRD5Y/MY/j+jyQBACibOJQH/4lBVBIBy5xX8D62@vger.kernel.org
+X-Gm-Message-State: AFuF++nK+fkEOHd2kGUWLbXFVg/9NnJvSOpQwKLkGl0ni81j+DT2OsgE
+	V9EsagZEkbErwUsZwfELwAnkHvTBx5GvPR86Nk8auDMckTx5XW193bsMI++d8Q6T
+X-Gm-Gg: AYBFou2tWtoCOB0sG93LBjaYl0I0q+atz9XG5UIAgDcHKvjI1xEs6ZWgsi8kmFORJeH
+	TspVNUfi8vexVPIqHsTCTXGKKcVEiAq319wqyoxTfhOhHtdACI8EKXBUlOzrZrDQQcgYg3FNtmO
+	MZWXeITa70RiKf/y/0hm9Fr30GAccwznq0bB21tluh9wWKnyfbOkYkyo4kfb1nf4HHX4cYWFm2H
+	97VfQHqZ434rC7N6XwcE9+nLqaiD2vpmlwYQA/FV4VUYA8qZrzg43hZu+0VlOCOXs644jIohzPP
+	0As/T4B11wsRMDuSJm1Cnb/ePhMP0D5HRcJ11tWg8WPhz4JmxHU1v+WKJXFLHRyeXbOflVpqELB
+	ZG5Gz9ECDaCyraa3X4eOOhgKlLTKwTgO83vpbwFEU/54r06d94BzFP8nf7+hthhW51Pq0kAHPxB
+	Tu8XLb0UgCn8V0Kif6Sp2jWkyeJ482rYXBDEwshDwM0O2i8nMubPTCbyenMiceGMHpixMzOYbGn
+	E49bamPeJpTmhpeIchR0wJu/nFbDAmlfk8hA/XVNHkMKhGaxes=
+X-Received: by 2002:a05:6122:4f8c:b0:5c8:3697:9289 with SMTP id 71dfb90a1353d-5c981d6c271mr712492e0c.8.1789373086046;
+        Mon, 14 Sep 2026 01:04:46 -0700 (PDT)
+Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com. [209.85.221.170])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c8470d661bsm11078722e0c.8.2026.09.14.01.04.45
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 14 Sep 2026 01:04:45 -0700 (PDT)
+Received: by mail-vk1-f170.google.com with SMTP id 71dfb90a1353d-5c663437fe5so1686451e0c.3
+        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 01:04:45 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBykONeKTWyFavQH38Ylhs3cb3cdC62t4wm4SUWmteVWu5MVGvYC2O12PneZAGWuedy3rUdPGJrp4jaD@vger.kernel.org
+X-Received: by 2002:a05:6122:4905:b0:5bd:cb34:1b70 with SMTP id
+ 71dfb90a1353d-5c981a7ddc0mr603320e0c.1.1789373084860; Mon, 14 Sep 2026
+ 01:04:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-ctl2301-v5-2-b44b81cd2c3c@linux.dev>
-References: <20260914-ctl2301-v5-0-b44b81cd2c3c@linux.dev>
-In-Reply-To: <20260914-ctl2301-v5-0-b44b81cd2c3c@linux.dev>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Guenter Roeck <linux@roeck-us.net>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Yixun Lan <dlan@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: Troy Mitchell <troy.mitchell@linux.dev>, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org, 
- linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
- linux-doc@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3142;
- i=troy.mitchell@linux.dev; h=from:subject:message-id;
- bh=T2TbIB10b98M8VFnbRgkYEzSgOl2JI73PuH/i08J044=;
- b=owGbwMvMwCU2g/N9w09jE33G02pJDFnLVxXsZdHWM1131i9na/d5B/8zkZlcXyN4dvLkb4zS8
- tuY6Di9o5SFQYyLQVZMkaX7Ac+2Ap8o2wKBQl+YOaxMIEMYuDgFYCJOHYwMJ4p2KnTLf+Y67L/0
- 98ub2scOzst+xPbF6Gzqb9cem/elkxgZFkW//RqtkzO/f+tWR0duw+u3r5Qt3RK6eOLEwOiSVgZ
- DDgA=
-X-Developer-Key: i=troy.mitchell@linux.dev; a=openpgp;
- fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
+References: <20260907-rcar-du-dsc-v6-0-f8ef711a7494@ideasonboard.com> <2489cf57-65f1-4502-86ae-1e3673899b87@ideasonboard.com>
+In-Reply-To: <2489cf57-65f1-4502-86ae-1e3673899b87@ideasonboard.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 14 Sep 2026 10:04:33 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWfmVHsJBtnn0sB1f6YwnVpQOY5coP0pu6qOsknc-XfaA@mail.gmail.com>
+X-Gm-Features: AcwNN1UjvEXLwhrFNF_ZKWONSXtVIhmEHRxBRtfYrWrrOz2Bml4dSuA03jjsOBQ
+Message-ID: <CAMuHMdWfmVHsJBtnn0sB1f6YwnVpQOY5coP0pu6qOsknc-XfaA@mail.gmail.com>
+Subject: Re: [PATCH v6 0/6] drm/rcar-du: Add support for DSI pipelines with DSC
+To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Marek Vasut <marek.vasut+renesas@mailbox.org>, 
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-renesas-soc@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	Conor Dooley <conor.dooley@microchip.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Move the National Semiconductor LM63, LM64, and LM96163 compatibles out
-of trivial-devices.yaml and into a dedicated binding. Describe their
-integrated fan control and preserve the optional interrupt used by the
-ALERT output. Permit use as thermal cooling devices via #cooling-cells.
+Hi Tomi,
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Troy Mitchell <troy.mitchell@linux.dev>
----
- .../devicetree/bindings/hwmon/national,lm63.yaml   | 53 ++++++++++++++++++++++
- .../devicetree/bindings/trivial-devices.yaml       |  6 ---
- 2 files changed, 53 insertions(+), 6 deletions(-)
+On Fri, 11 Sept 2026 at 09:07, Tomi Valkeinen
+<tomi.valkeinen+renesas@ideasonboard.com> wrote:
+> On 07/09/2026 12:29, Tomi Valkeinen wrote:
+> > Some DSI pipelines have DSC (Display Stream Compression) IP block
+> > between the DU and the DSI. Even if DSC is not needed, the IP must be
+> > enabled for the DSI output to work.
+> >
+> > This series adds a basic DSC driver, so that the DSC IP gets enabled in
+> > bypass mode. This enables DisplayPort output on Sparrow Hawk board, as
+> > the DP output comes from DSI and sn65dsi86 bridge, and also White Hawk
+> > board's second mini-DP output.
+> >
+> > Original series from Marek.
+> >
+> > Note: I see that not every run of kms++'s kmstest gives me a picture on
+> > my monitor. Sometimes the monitor seems to be trying to repeatedly sync,
+> > but fails, and the screen stays black. However, I see this same issue on
+> > WhiteHawk, which uses DSI0 pipeline, without DSC, so I think that is a
+> > separate issue.
+>
+> Pushed the first three patches to drm-misc-next. I'll leave the dts ones
+> to Geert.
 
-diff --git a/Documentation/devicetree/bindings/hwmon/national,lm63.yaml b/Documentation/devicetree/bindings/hwmon/national,lm63.yaml
-new file mode 100644
-index 0000000000000..f2e0993cfbef3
---- /dev/null
-+++ b/Documentation/devicetree/bindings/hwmon/national,lm63.yaml
-@@ -0,0 +1,53 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/hwmon/national,lm63.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: LM63-compatible temperature sensors with integrated fan control
-+
-+maintainers:
-+  - Guenter Roeck <linux@roeck-us.net>
-+
-+description: |
-+  The LM63 family provides local and remote temperature monitoring together
-+  with fan speed monitoring and PWM fan control. Supported devices include
-+  the National Semiconductor LM63, LM64 and LM96163.
-+
-+allOf:
-+  - $ref: hwmon-common.yaml#
-+
-+properties:
-+  compatible:
-+    enum:
-+      - national,lm63
-+      - national,lm64
-+      - national,lm96163
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  "#cooling-cells":
-+    const: 2
-+
-+required:
-+  - compatible
-+  - reg
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        temperature-sensor@4c {
-+            compatible = "national,lm63";
-+            reg = <0x4c>;
-+            #cooling-cells = <2>;
-+        };
-+    };
-diff --git a/Documentation/devicetree/bindings/trivial-devices.yaml b/Documentation/devicetree/bindings/trivial-devices.yaml
-index 2de8eb09cb7d1..e46912ba2fd66 100644
---- a/Documentation/devicetree/bindings/trivial-devices.yaml
-+++ b/Documentation/devicetree/bindings/trivial-devices.yaml
-@@ -368,16 +368,10 @@ properties:
-           - mps,mpq82d00
-             # Murata D1U74T-W power supply unit
-           - murata,d1u74t
--            # Temperature sensor with integrated fan control
--          - national,lm63
--            # Temperature sensor with integrated fan control
--          - national,lm64
-             # Temperature sensor
-           - national,lm95235
-             # Temperature sensor
-           - national,lm95245
--            # Temperature sensor with integrated fan control
--          - national,lm96163
-             # Serial Interface ACPI-Compatible Microprocessor System Hardware Monitor
-           - national,lm80
-             # Serial Interface ACPI-Compatible Microprocessor System Hardware Monitor
+Thanks, will queue in renesas-devel for v7.4.
+
+Gr{oetje,eeting}s,
+
+                        Geert
 
 -- 
-2.55.0
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
