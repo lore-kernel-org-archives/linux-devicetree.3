@@ -1,127 +1,128 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 359563F327D;
-	Mon, 14 Sep 2026 08:21:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C8DC3A16B6
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 08:22:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789374115; cv=none; b=B0g+LovV0BG2ClEL8yPs3UBjDXMx4h3+sGRkl64y9e2wZqkU9drQ6Tg0X58TeQEcHCpb1dH37tJqWQlmiDki5eyJPhB2EkubLlOkfGDSa1/yjsXTFEU7QDyznuxc8Jo3mHaoPkF+n9sgLEkf64CSZWZQBeSmuKK/8D2iVLeJRFs=
+	t=1789374131; cv=none; b=VnxjAfi4fW6UL3Qk8akLRHOh+6xyxHXeeRd5+4qt3lxZEBzWDXM5YH/NfO2y/2MSM/kT9fF+fVlKFCPJ1kMfpGS+iViz9ynygovSXiN3Ai9zU0dRJ11KXW3EYh31xOaHZA2gGIQ3u/k1RX3UMgcYYo6D4/MaBs/1UldAewGM/KM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789374115; c=relaxed/simple;
-	bh=h0ZDlCIpMnn4plv/EFe5DgntsyKiPCy62D+ewDEunGI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ku0tePxuQCN33lIu764kwn3MrxQ34omZImUCior+DxSoT0zbfUIRx/+caCz1ZqSXjaB+AVwdvit/PkFTXFKzG2x4NUW9uSePyrAo4Kn9Go8r4OFHE103SZuLE7MLMLJSRODgsL7Y6SJAHATt3sx6WkH6ESA0grrLys3WzDdf0SM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GoTRunH5; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789374131; c=relaxed/simple;
+	bh=o/HJQw4CZTJ87WfaUX5MlKoS7VM4RY1p6K29KXn7XhY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=c9CagYKS9H1q5bFTNVu0932Be3VPgu3ciVLQoEHoSG4lqcbKUYD0qttOwMQYTAm1D7GP1DECFvepos0kzJlVrxVa2NR0hBiaD8HD3IrPQXM4nqgkLXaP7M/ixwIBh27sML8N7itQFl5LtJKfOokD40H/nMA7YP/jEtP6v9rSZA0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bQcnj0Xc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GoTRunH5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789374114; x=1820910114;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=h0ZDlCIpMnn4plv/EFe5DgntsyKiPCy62D+ewDEunGI=;
-  b=GoTRunH5b7c15sZI625TBu+zKDzRFgZqY0dQWt2CKFEaVvMbMR5c+hzk
-   w4+UEYczUiCWaDbzp+fSuhremDk5kzExxjIgfiigcoL6XmsC4y3Eu2k9A
-   XIZ0RfdwL85Qe1IOTbBq0Rhrcn2cwa2wxAX7YPBOPZAEqdVYzqobfD8nO
-   RQp6jo16eIDFziobK3qEUlps8jM0wDXCWkXQRDmvTpsAVpUVTdvMyYXed
-   ZkOMToJLXqqA2B8DjV5JzaPbgBat2Cal4nC+jd6+5Uc8mR9PTzcUe1c3d
-   CCYx15EG+wf3vwtt6MD30JZhtQY9axdymUkYfa3kafSBdNZZH4vgawLld
-   Q==;
-X-CSE-ConnectionGUID: vrtIdsMfQf+yXDjONfPHsQ==
-X-CSE-MsgGUID: c7ztubwoQialkALNeeuPxA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="107096466"
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="107096466"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 01:21:53 -0700
-X-CSE-ConnectionGUID: CS5J1K11TlOhsEkDhiRgYA==
-X-CSE-MsgGUID: OE3KkhNuQJKXw3zNuDo7pg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="276097317"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.29])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 01:21:50 -0700
-Date: Mon, 14 Sep 2026 11:21:47 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Shehryar Ahmad <shehryar.amd@gmail.com>
-Cc: jic23@kernel.org, nuno.sa@analog.com, Michael.Hennerich@analog.com,
-	dlechner@baylibre.com, andy@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, gregkh@linuxfoundation.org,
-	linux@analog.com, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 4/6] iio: accel: adis16201: add ADIS16203 support
-Message-ID: <aqeum_w6AnMnuDsI@ashevche-desk.local>
-References: <20260913085307.13846-1-shehryar.amd@gmail.com>
- <20260913085307.13846-5-shehryar.amd@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bQcnj0Xc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F07391F000FF;
+	Mon, 14 Sep 2026 08:22:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789374129;
+	bh=Ya+mF+antM4J5XtVgltbSZyyhQ3bptqwoug1LCd7lmo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=bQcnj0XcWZeTCGBHe3S7ThRlAMvb7lUN7L+/Ml0K79AmxuPEva3uDOZDx4KoKEsjL
+	 KB2R6E92wE4TEq7d8ZZEkPOOd7zIp4/91NSanJ7uljZxVzqKlxHejCtilbNZFxnB1u
+	 lHULhghYsV10s7GviT1+DmAwTPj97wmZdTdfWRM0afO8naQSlrT5IFBIHEo2nUGSAM
+	 7MD5BgovOwVMUv3i36Rbc0UYC3O90Iyfar+ZHfQkP/mQ3PTccVAvzlT0rVczKJpsY9
+	 G7rDCCr8KyvChcND3hmSvP17R4P1pZYHSS0cwjjvo5KKENTHrtrS/TbELilkSF79+7
+	 qfYRD93EvmIIA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 2/6] firmware: meson: sm: Add video firmware loading
+ SMC call
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Zhentao Guo" <zhentao.guo@amlogic.com>
+Cc: media-ci@linuxtv.org, linux-amlogic@lists.infradead.org, neil.armstrong@linaro.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260914-b4-s4-vdec-upstream-v9-2-72fdb0d71b02@amlogic.com>
+References: <20260914-b4-s4-vdec-upstream-v9-0-72fdb0d71b02@amlogic.com>
+ <20260914-b4-s4-vdec-upstream-v9-2-72fdb0d71b02@amlogic.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 14 Sep 2026 08:22:08 +0000
+Message-Id: <20260914082208.F07391F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260913085307.13846-5-shehryar.amd@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sun, Sep 13, 2026 at 01:53:05PM +0500, Shehryar Ahmad wrote:
-> Add ADIS16203 from staging to mainline ADIS16201. ADIS16203 shares same
-> SPI protocol and register addresses. Differing parameters are handled by
-> adis16201_chip_info structure.
-> 
-> ADIS16203 specific support includes DIAG_STAT_SELFTEST_FAIL_BIT, which
-> is supported only on ADIS16203, and a separate channel array.
-> 
-> Kconfig is updated accordingly.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-...
+Pre-existing issues:
+- [Critical] Missing synchronization around shared memory accesses for SMC =
+calls.
+--
 
->  #define ADIS16201_DIAG_STAT_REG				0x3C
->  #define  ADIS16201_DIAG_STAT_ALARM2			BIT(9)
->  #define  ADIS16201_DIAG_STAT_ALARM1			BIT(8)
-> +#define ADIS16203_DIAG_STAT_SELFTEST_FAIL_BIT		5	/* ADIS16203 only */
+commit e3c062e69752dda5c782cbb1944c0acc0d0866c2
+Author: Zhentao Guo <zhentao.guo@amlogic.com>
 
-Two issues with this:
-- indentation
-- useless comment (we may kinda deduct this from the prefix)
+firmware: meson: sm: Add video firmware loading SMC call
 
->  #define  ADIS16201_DIAG_STAT_SPI_FAIL_BIT		3
->  #define  ADIS16201_DIAG_STAT_FLASH_UPT_FAIL_BIT		2
+Add SM_LOAD_VIDEO_FW at SMC ID 0xb200000f in the command
+table to load video firmware.
 
-...
+> diff --git a/drivers/firmware/meson/meson_sm.c b/drivers/firmware/meson/m=
+eson_sm.c
+> index ab9751a59b552..887caa5c625db 100644
+> --- a/drivers/firmware/meson/meson_sm.c
+> +++ b/drivers/firmware/meson/meson_sm.c
+> @@ -48,6 +48,7 @@ static const struct meson_sm_chip gxbb_chip =3D {
+>  		CMD(SM_THERMAL_CALIB_READ,	0x82000047),
+>  		CMD(SM_A1_PWRC_SET,		0x82000093),
+>  		CMD(SM_A1_PWRC_GET,		0x82000095),
+> +		CMD(SM_LOAD_VIDEO_FW,		0xb200000f),
 
->  static const struct of_device_id adis16201_of_match[] = {
->  	{ .compatible = "adi,adis16201", .data = &adis16201_chip_data },
-> +	{ .compatible = "adi,adis16203", .data = &adis16203_chip_data },
->  	{ },
+[Severity: Critical]
+This is a pre-existing issue, but is there missing synchronization around
+shared memory accesses for SMC calls when handling these commands?
 
-We want to have the common style for the terminator entries. Perhaps you need
-an additional patch to fix that.
+Looking at meson_sm_call_write() and meson_sm_call_read(), data is copied to
+and from shared, unprotected memory regions (sm_shmem_in_base and
+sm_shmem_out_base) during the SMC calls:
 
+meson_sm_call_write() {
+	...
+	memcpy(fw->sm_shmem_in_base, buffer, size);
+
+	if (meson_sm_call(fw, cmd_index, &written, arg0, arg1, arg2, arg3, arg4) <=
+ 0)
+		return -EINVAL;
+	...
+}
+
+meson_sm_call_read() {
+	...
+	if (meson_sm_call(fw, cmd_index, &size, arg0, arg1, arg2, arg3, arg4) < 0)
+		return -EINVAL;
+
+	if (buffer)
+		memcpy(buffer, fw->sm_shmem_out_base, size);
+	...
+}
+
+Since there are no mutexes in meson_sm.c or the upstream nvmem core's
+read/write handlers (nvmem_reg_read/nvmem_reg_write), concurrent access to
+the SMC functions is unsynchronized.=20
+
+For example, two root processes could concurrently write to nvmem, or
+concurrently read the world-readable sysfs files.
+
+One thread could overwrite sm_shmem_in_base while another thread is
+mid-sequence (after its memcpy but before its SMC call executes), leading to
+the SM receiving corrupted data.=20
+
+Similarly, SMC execution and the subsequent read from sm_shmem_out_base can
+be interleaved by another thread's SMC call, causing a thread to read the
+other thread's returned data.
+
+Could this concurrent access cause data corruption during one-time hardware
+operations like EFUSE writes, or corrupt thermal calibration data reads and
+lead to system instability?
+
+>  		{ /* sentinel */ },
+>  	},
 >  };
->  
 
-(this blank line included).
-
-...
-
->  static const struct spi_device_id adis16201_ids[] = {
->  	{ .name = "adis16201", .driver_data = (kernel_ulong_t)&adis16201_chip_data },
-> +	{ .name = "adis16203", .driver_data = (kernel_ulong_t)&adis16203_chip_data },
->  	{ },
->  };
->  
-
-Same as per above.
-
->  module_spi_driver(adis16201_driver);
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914-b4-s4-vdec=
+-upstream-v9-0-72fdb0d71b02@amlogic.com?part=3D2
