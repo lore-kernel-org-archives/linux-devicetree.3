@@ -1,159 +1,70 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C83A841DEF7
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 09:42:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2A6E41A93A;
+	Mon, 14 Sep 2026 09:44:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789378934; cv=none; b=aIZEczCtVG5Yg/hXV1c6NBfOOcERupAwtgUP9raRyStW+/E0sYEehSZeOdT0fE+9dVCsoguos7WfE9mB3P2HDgu1i7mTy8i4OcTAE3VaJt3nPDTbtjBe9sGARUEBkWNK+AwtiMjNRpr7OMWHu2hiiGt4l4LsnspD8L7SScjpJr4=
+	t=1789379093; cv=none; b=J06O2y+B3FNLNuU11s1p3Vv1Xp5AgiTEv2vqzdM+84bfIkqgPkWoKMj+zJIECCtPfGwlRRWVzVe00tXKEocWVfKraA11xM88Z+DC9zBCGeuZVOQqz9hxr/gcq5QG3YeTHfGwKe0vQTtA3U0Nlna+tGNhDNhvfYAcL9Db72YjvOU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789378934; c=relaxed/simple;
-	bh=sDW/aUbwwqIKdbo7NlCofhlvpdp67Pa1CeIZ4QAv9mc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tI6hYLYp/0R/Dxx7sxWWwdAC3ozrtGw5njXgLh268oGZleP+4yNFq/gE2W7uDv9efInLYnUemKeGkocylaOd23GsZ1YDzIgatxCy/A3F8tifw06KxVqzKWsBHai44z2DtJIHiPiqbbOhipfaPWi2o+HWUhDlQpfW3J/PAGQTpwg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dk7pOs+4; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789379093; c=relaxed/simple;
+	bh=6nYt2qmvQiwbF8zdA1cWcafihjBF9zdHKhaWCkPbVsc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PffzBM2Rlkek4/BENBDcC+5wehVpbMt8q+MB/dxCHseNSU2WcbrHJu0+tXPAd4VeTExtbiLvC/y9DEwEnPDSg6BYEzumkZqTM5/pnKeorIsUsPY5OKC2IlBame4az2hDV4SDVfqIe/JmqDSZOx+E2iLeOXgTdb+tdv7PHSlAIA4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AwJKXUYx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dk7pOs+4"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e2406so7040725e9.1
-        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 02:42:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789378931; x=1789983731; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rlXT5Vymmz2XHkxfsW/ZgZr1rgsCOvph5WJnVxHzsa8=;
-        b=dk7pOs+4ko1nD0ddf2WC6nGetmYmLkIxDoy7hM9ID8JOtPa4HxmbZdZuBttEixGEeP
-         Xbb+ZZc28WYCtfWtjChVa19u8CoOOzLGz5tFSFz/GMwh8rEsEa/XfSRcgri4rX9f1z+f
-         iOuSbXK0P1UlMgrjZKPDBGfGjJY7hbO02qwAUUifV1SwKCIFNob790P/YXduioXsBXIV
-         edMgxMTBrbN3iBjBCPYELA76Ui3DCD80b85JZ+yu5CI3Szr7MjNM/AYysrDlCFYqgGHz
-         myCrAhZ8NQyYMkpxwWckaHvrEKWQhInTmh20X/Op9LNgeXbW6KZBJr+gNTRMgJ2MeLA2
-         N37w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789378931; x=1789983731;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rlXT5Vymmz2XHkxfsW/ZgZr1rgsCOvph5WJnVxHzsa8=;
-        b=eJhCUyBM+W27XFc2JmH68XfT9nHNbrWBZ7nnnWiHdOC0Q7gdlGZKxC/YRUiasoLNM1
-         GEd7PvSTSmI4G7xEFLe/wB+63sncuNfjI3YgEC5jtOikWVLuYef4irgwshrn7a24SY4A
-         aAVW/8bxibHOfsZ/v5T16PTIzCNgFrm9I+PttoiXu93EDBE3zmbQFJN5F9X/jOubbdNQ
-         Z+6HkBROjsQYj2WEQ76f35Edow1x96LD9RjyBxiQUd9Yh7t72YDpQvKy5w595BmVgtFn
-         keU/J1r5Dd5wSCuKu8oHBdh9TH6c3/14MIk80jMGR+lOvV+wCJ3nfXVxDAaeTf5S2tg8
-         7Gpw==
-X-Forwarded-Encrypted: i=1; AKwUvBzlQwSkw734gUL8ZSzDFvPi9kx1D3SZBNiNk2LfuLyYPIC70IvDw3tZggBMJoPJ/NIOaCtr7p3Ryx8V@vger.kernel.org
-X-Gm-Message-State: AFuF++nwgnIwJwmw98tF93UggPTpGxfhYal9ZB4l9GQvPPXugxfuUiAN
-	bX1mySdDJBfB12EgxKlTWlwoKL80XkbpCShwPNe2UhFsTzHNBMCW7fAD
-X-Gm-Gg: AYBFou0oFcvPJIubs4//aER9s3+UE7luwPJxAvGefHAxfQd9Jv8OQvjF5EbLkz7jm5v
-	nA56qw3cq963Q+9vTxiN73Ih0ZyPVq7UdkFowOWHD1r7A7FzvgpajMYfDXZguEVCnTqVRINHKve
-	dzCyG7snQ7fcEKEGsFLWA7rBPqM2IGAz45Ri3p8kVAU4wY9n9g7U8Pkns11001sbsu4lGnrcd72
-	1u55huq7ZwtWUR0yIlGq10km3dA6aNy/2F9zyewSuRFAb5TuCO5M8tTHj8wW7f/ZikVUoAPMyKK
-	piDHzrSvLan5LChUZOJw6v6LZcbtlC9RCcrDDvKuuf4uUBY1J5ACa3iFHo+EvpSAaoupuwZXUgc
-	w1WcExT2WKhWjJ2ennpdDqkb63NtZu6HODNbV4osJEQYlDxUPOmOnBL09WOsbP7gVctJ5IFecx/
-	fRdTNN+v8DMm4KoZg74IaBQx679zMyNswRBcYovrTuyRVY2FkxPEepe19knhELcr3UraDSXTEyP
-	hmMo6U=
-X-Received: by 2002:a05:600c:6383:b0:49e:715d:95ca with SMTP id 5b1f17b1804b1-49e7a67e134mr19168495e9.13.1789378930817;
-        Mon, 14 Sep 2026 02:42:10 -0700 (PDT)
-Received: from localhost.localdomain ([94.252.75.25])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49d26c2a419sm429816655e9.7.2026.09.14.02.42.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 02:42:10 -0700 (PDT)
-From: Oleg Keri <okerixx@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3] arm64: dts: qcom: glymur-lenovo-yoga-slim7x: add the camera privacy switch
-Date: Mon, 14 Sep 2026 11:42:01 +0200
-Message-ID: <20260914094201.14009-1-okerixx@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AwJKXUYx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C06121F000FF;
+	Mon, 14 Sep 2026 09:44:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789379092;
+	bh=7oTu0d+0Fng6387kjjfZt62xlgG4iwEnpYsY40VG/Ho=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AwJKXUYxu2mk018JrvfobY4v2/1iitVaMT3IPdoEL9Dhptuk86dYWjE1hmwbGweip
+	 G9YbI8JCD/Roai2iKXzafYLn7VJDIHvKI17gT5I1gWWOYsXmzjqZSQhQNBsHzuyGDq
+	 1nK49n33KIeUVVdWn+taXyyAGZw0xq1efG6Py78j/samC5nea2i9H9TTuc80epxaRb
+	 hEp+8O4fOix1UsVy6dGnIcKEFqv+Mw9K0Dj4cnmNokkpRtYaxF3FRPeXgCa14aUi+9
+	 YahzdtRk++xKNYA3nR/U1gK6j6YXyqdOQR2zE9s0nL4s6nHAK0u6hyNkk9s1fTEPoH
+	 y8gLqWQpfryXQ==
+Date: Mon, 14 Sep 2026 11:44:48 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Long Zhao <longzhao@ambarella.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Jiri Slaby <jirislaby@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Long Zhao <zl020895@163.com>, Lee Jones <lee@kernel.org>, 
+	mfd@lists.linux.dev, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 04/13] dt-bindings: pinctrl: add Ambarella CV75 pinctrl
+Message-ID: <20260914-refined-elite-seriema-0f7eaa@quoll>
+References: <20260904-cv75-v5-v6-0-e918514cb3b1@ambarella.com>
+ <20260904-cv75-v5-v6-4-e918514cb3b1@ambarella.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260904-cv75-v5-v6-4-e918514cb3b1@ambarella.com>
 
-The laptop has a camera privacy switch on the side of the top case - a
-slider, not a mechanical cover over the lens, and it does nothing to the
-camera itself. TLMM gpio99 follows its position: high with the switch
-open, low with it engaged. Describe it as a gpio-keys switch so userspace
-can act on it.
+On Fri, Sep 04, 2026 at 02:38:11PM +0800, Long Zhao wrote:
+> Document the CV75 pin controller binding using generic function and
+> groups properties for pinmux configuration.
+> 
+> Signed-off-by: Long Zhao <longzhao@ambarella.com>
+> ---
+>  .../bindings/pinctrl/ambarella,cv75-pinctrl.yaml   | 239 +++++++++++++++++++++
+>  1 file changed, 239 insertions(+)
 
-SW_CAMERA_LENS_COVER is the only switch code the input layer has for a
-camera privacy state, and it is what the Lenovo WMI camera driver and
-Dell's privacy driver report for the same kind of electronic switch on
-x86 machines, so use it here as well despite the name.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-The embedded controller also raises event 0x29 whenever the switch
-moves, which makes it tempting to report it from the EC driver instead.
-That would be the wrong layer: the pin is a plain level that tracks the
-slider position and needs no EC transaction to read, and the EC event
-carries nothing the pin does not already say.
+Best regards,
+Krzysztof
 
-Signed-off-by: Oleg Keri <okerixx@gmail.com>
----
-Changes in v3:
-- v2 went out with its subject header swallowing the first paragraph of
-  the message, a mistake in how I generated the mail; no change to the
-  patch itself.
-- Link to v2: https://lore.kernel.org/all/20260914092802.12315-1-okerixx@gmail.com/
-
-Changes in v2:
-- Capitalize the switch label (Konrad).
-- Put the pin state where the GPIO index sorts it, between gpio94 and
-  gpio111, instead of after the trackpad state (Konrad).
-- Link to v1: https://lore.kernel.org/all/20260914081652.5935-1-okerixx@gmail.com/
-
- .../boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts   | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts b/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts
-index ecc8c34fb983..769f195c99d9 100644
---- a/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts
-+++ b/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts
-@@ -51,7 +51,7 @@ sleep_clk: sleep-clk {
- 	gpio-keys {
- 		compatible = "gpio-keys";
- 
--		pinctrl-0 = <&hall_int_n_default>;
-+		pinctrl-0 = <&hall_int_n_default>, <&cam_privacy_default>;
- 		pinctrl-names = "default";
- 
- 		switch-lid {
-@@ -62,6 +62,13 @@ switch-lid {
- 			wakeup-source;
- 			wakeup-event-action = <EV_ACT_DEASSERTED>;
- 		};
-+
-+		switch-camera-privacy {
-+			label = "Camera privacy switch";
-+			gpios = <&tlmm 99 GPIO_ACTIVE_LOW>;
-+			linux,input-type = <EV_SW>;
-+			linux,code = <SW_CAMERA_LENS_COVER>;
-+		};
- 	};
- 
- 	leds {
-@@ -1012,6 +1019,12 @@ wcn_sw_en: wcn-sw-en-state {
- 		bias-disable;
- 	};
- 
-+	cam_privacy_default: cam-privacy-default-state {
-+		pins = "gpio99";
-+		function = "gpio";
-+		bias-pull-up;
-+	};
-+
- 	cam_indicator_en: cam-indicator-en-state {
- 		pins = "gpio111";
- 		function = "gpio";
--- 
-2.55.0
-
-base-commit: 68142f986ff04b2b70b31db00f719bf690f64a9a
