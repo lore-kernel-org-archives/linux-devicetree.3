@@ -1,145 +1,129 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2226342669C
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 09:58:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EABF3414A20
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 09:59:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789379930; cv=none; b=jGv/KsjKAThwaj9m1n+0zY9HTxTN2Z+shK/UowAuXPlNrhpd6vAEU9a0R5jVYO2oUjysZGANfSiksKCRAWsWhuBkP6izSqMcFf0k4Sp1gsZE8txsbJ8HOEZeuQlGo+MO3U4TA5rdQ4PfpPtGp+SVChQCSnndPvpx9qSy5Cpngzg=
+	t=1789379946; cv=none; b=Z9wgLDFcs6TCuDnXC/VSMhPYfJAzmza2lFhj5hoLuBj7u8AEpJleNeQjUkSs9iWQiQ19b92fAJvmVTUZNHk0FO4XgtZO2zBMqCoQ28PJJ5Mg3/jql/qphLhFKayA0IOo0vovkSyV3YIdpLcQ9XiYIqxGtgssdxggj6G5Mw4wvsQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789379930; c=relaxed/simple;
-	bh=m0HdupB3Z3bUQ94mCqAWtjXdM9N8iAnFkajltBeM0Nk=;
+	s=arc-20240116; t=1789379946; c=relaxed/simple;
+	bh=ylPAb5+2kFRl0QTVyUdlklN8vBcS5PjmNvU9sAb4Lew=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=IAO78m/2CeP576OEf5FM0vnOLCIzq0czFaSF+GDg81h5DKaVq2QOfbEQOTH8vL2NsJXclsjKlhkXPBUlyk3MIXpRVgoIgtCx8JSUgO62IZF/uDEQWlPuenk8c4Sw0eTOV9/QbsoDt2XlpsM2UHoDu0EqRHhjKNMRkgM3fJjPL6I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e9/tq36z; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=rrWoXDq66Sc+60z/m05/vn/r7kQ+P+aT2Zi+01gy+lSTr5yc72ZTNeijjz4X5F3TxH9MQm5s7jvnjh0EhWou7xnzIgO0MRqafIrNu2I98cC4T+X/9IvC+ceNcyVV19AfMypDu9SntqqTVFQNxZY086zqyX6TobL+CuKjdSp0OWo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AMoNjEaP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e9/tq36z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 743281F000FF;
-	Mon, 14 Sep 2026 09:58:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AMoNjEaP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 432361F000FF;
+	Mon, 14 Sep 2026 09:59:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789379928;
-	bh=e0OH765dwSoAyj4PwdKbk+GqZEMkZ2nhRMaXN2Smpys=;
+	s=k20260515; t=1789379944;
+	bh=kNaEukcuuXIrs17BlAkJB8GhGaGntSpOQ9b0Y62pOh8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=e9/tq36zoy89249NxXCGmC6ebZFGWOvehh+C8oik+5t+Jrqz575S2r2kWeqJu9QOJ
-	 /oNJJKt52bIoHpxWGVsBnlvsz1pQghsnIDc7lbR93dJDFW/U2oPybh583bz8C0BpRq
-	 tuI7RJqyMkrhVXVX0XO+xuhSJVqHuJhjzcW5dTd4ipM/xOew2GtSCbmmtUBb1OfqLx
-	 QgpXbBHK2yHpkW6qUE9Ztdwz1sAZxmxi/5jZO6OwXgLoX8cuyrnPx458njWNypHNjK
-	 vkp7aR7U2XpdR6Y0L/zSO3HhLgqyi2KUi8tBrX4Ulc//dGTbtqav/vzWkbAyONMu1E
-	 4eB+hUm4xKHsw==
+	b=AMoNjEaPEM3iafIPE/tSJCC14gJtFWcjdTeX+h0Mu2amre6qzPDguBLLJaqyaCiAp
+	 xCshEa+ENVq/rGzGpR7gPAwAY2G7LFUi3yJX0C88rG7TSF918h6qJlYRtVjp/r8h+s
+	 vfeZNdtTldwQa2QEU7/h1M90U1ueAaQckstAHXcn4gHOaxw6Tiq7PkCLUQ4PlBbsZ0
+	 xYOXUYdixUj73bVvwonukanV4QtLR6TWJYb02ZD3u0EAfvnnIP+bJiDTSVLVXnFNBU
+	 pldfMpAaVioATpnMLWSTzQ8IW5+pIWw/gaZ4z+Tn7UAIQneliJosNwYVX33R4kpFH1
+	 oMREhRrxw+65g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v2 07/10] arm_mpam: Fix
- mpam_dt_create_foundling_msc() to create MSC platform devices
+Subject: Re: [PATCH DNM RFC v2 10/10] arm64: dts: qcom: kaanapali: Add MPAM
+ MSC nodes for the L2 caches
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Yin Li" <yin.li@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260914-mpam-resctrl-dt-knp-support-v2-7-bf6645bb2f65@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260914-mpam-resctrl-dt-knp-support-v2-10-bf6645bb2f65@oss.qualcomm.com>
 References: <20260914-mpam-resctrl-dt-knp-support-v2-0-bf6645bb2f65@oss.qualcomm.com>
- <20260914-mpam-resctrl-dt-knp-support-v2-7-bf6645bb2f65@oss.qualcomm.com>
+ <20260914-mpam-resctrl-dt-knp-support-v2-10-bf6645bb2f65@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 09:58:48 +0000
-Message-Id: <20260914095848.743281F000FF@smtp.kernel.org>
+Date: Mon, 14 Sep 2026 09:59:03 +0000
+Message-Id: <20260914095904.432361F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Mismatch between counted MSCs and created MSC platform devices pre=
-vents driver initialization.
+- [Medium] Moving CPU cache nodes to the root of the DT to act as memory bu=
+ses violates devicetree architecture and topology guidelines.
+- [Medium] The patch merges a DTS example that the author explicitly stated=
+ is not intended for merging.
 --
 
-commit bac73a6ff8544df56e037a08ea1cdb821fbb6bbc
+commit f6c1db4f30b0478f01fb8ab1a9aacf8a8f1f03a0
 Author: Yin Li <yin.li@oss.qualcomm.com>
 
-arm_mpam: Fix mpam_dt_create_foundling_msc() to create MSC platform devices
+arm64: dts: qcom: kaanapali: Add MPAM MSC nodes for the L2 caches
 
-This commit modifies mpam_dt_create_foundling_msc() to walk the cache's
-children using for_each_child_of_node_scoped() and create a platform
-device for the MSC child node, rather than for the cache node itself. It
-also skips cache parents that have been marked disabled by the firmware.
+This commit adds MPAM MSC device nodes for each L2 cache in the kaanapali
+device tree. The L2 cache nodes are moved from the CPU nodes to the root
+of the device tree, gaining memory bus properties like ranges to allow the
+MSC devices to be nested under them.
 
-> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_device=
-s.c
-> index 480e38cfa86dc..7ef3ed55b0665 100644
-> --- a/drivers/resctrl/mpam_devices.c
-> +++ b/drivers/resctrl/mpam_devices.c
-> @@ -2366,23 +2366,20 @@ static struct platform_driver mpam_msc_driver =3D=
- {
->   */
->  static void mpam_dt_create_foundling_msc(void)
->  {
-> -	struct platform_device *pdev;
-> -	struct device_node *cache;
-> -
-> -	for_each_compatible_node(cache, NULL, "cache") {
-> -		struct device_node *cache_device;
-> -
-> -		if (of_node_check_flag(cache, OF_POPULATED))
-> -			continue;
-> -
-> -		cache_device =3D of_find_matching_node_and_match(cache, mpam_of_match,=
- NULL);
-> -		if (!cache_device)
-> +	for_each_compatible_node_scoped(cache, NULL, "cache") {
-> +		if (!of_device_is_available(cache))
->  			continue;
+> The nodes are disabled by default. Production firmware does not expose
+> MSC register access to the OS, so these nodes can only be enabled on a
+> local test setup where firmware permits direct MMIO access to the MSCs.
+> This DTS is therefore only an example for other platform DT authors and
+> is not intended to be merged.
 
-[Severity: High]
-Does skipping the creation of platform devices for MSCs under disabled cach=
-es
-cause a mismatch with fw_num_msc?
+[Severity: Medium]
+Is this patch intended for the production tree? The commit message explicit=
+ly
+states that this device tree is only an example for a local test setup and =
+is
+not intended to be merged, so applying it would pollute the production
+hardware description with dead test code.
 
-Looking at mpam_dt_count_msc(), it appears to count all available MSCs with=
-out
-checking if their parent cache is actually enabled:
-
-drivers/resctrl/mpam_devices.c:mpam_dt_count_msc() {
-    ...
-	for_each_compatible_node(np, NULL, "arm,mpam-msc") {
-		if (of_device_is_available(np))
-			count++;
-	}
-    ...
-}
-
-If firmware has marked a cache node as disabled but the child arm,mpam-msc
-node is not explicitly disabled, this counting mismatch causes fw_num_msc to
-be greater than the number of successfully probed MSCs.
-
-As a result, would the condition in mpam_msc_drv_probe() never evaluate to
-true?
-
-drivers/resctrl/mpam_devices.c:mpam_msc_drv_probe() {
-    ...
-	if (atomic_add_return(1, &mpam_num_msc) =3D=3D fw_num_msc)
-		mpam_register_cpuhp_callbacks(mpam_discovery_cpu_online, NULL,
-					      "mpam:drv_probe");
-    ...
-}
-
-This could completely prevent mpam_register_cpuhp_callbacks() from being
-called and leave the MPAM subsystem functionally unusable.
-
+> diff --git a/arch/arm64/boot/dts/qcom/kaanapali.dtsi b/arch/arm64/boot/dt=
+s/qcom/kaanapali.dtsi
+> --- a/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+[ ... ]
+> @@ -531,6 +519,44 @@ soccp_smp2p_in: slave-kernel {
+>  		};
+>  	};
 > =20
-> -		pdev =3D of_platform_device_create(cache, "cache", NULL);
-> -		if (!pdev)
-> -			pr_err_once("Failed to create MSC devices under caches\n");
-> +		for_each_child_of_node_scoped(cache, child) {
-> +			if (!of_match_node(mpam_of_match, child))
-> +				continue;
-> +			if (!of_device_is_available(child))
-> +				continue;
-> +			if (of_node_check_flag(child, OF_POPULATED))
-> +				continue;
-> +			if (!of_platform_device_create(child, NULL, NULL))
-> +				pr_err("Failed to create MSC device for %pOF\n", child);
-> +		}
->  	}
->  }
+> +	l2_0: l2-cache-0 {
+> +		compatible =3D "cache";
+> +		cache-level =3D <2>;
+> +		cache-unified;
+> +		cache-size =3D <0xc00000>;
+> +		ranges;
+> +
+> +		#address-cells =3D <2>;
+> +		#size-cells =3D <2>;
+
+[Severity: Medium]
+Does moving the CPU cache nodes to the root of the device tree and treating
+them as memory buses (by adding ranges and #address-cells) violate
+devicetree architectural topology guidelines? Typically, logical cache nodes
+reside within the /cpus hierarchy rather than at the root of the physical
+address space.
+
+> +
+> +		msc@19870000 {
+> +			compatible =3D "arm,mpam-msc";
+> +			reg =3D <0x0 0x19870000 0x0 0x10000>;
+> +			arm,not-ready-us =3D <1>;
+> +			status =3D "disabled";
+> +		};
+> +
+> +	};
+> +
+> +	l2_1: l2-cache-1 {
+> +		compatible =3D "cache";
+> +		cache-level =3D <2>;
+> +		cache-unified;
+> +		cache-size =3D <0xc00000>;
+> +		ranges;
+
+[Severity: Medium]
+Similarly, the second cache node is moved to the root to act as a bus. Does
+this distort the device tree topology?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914-mpam-resct=
-rl-dt-knp-support-v2-0-bf6645bb2f65@oss.qualcomm.com?part=3D7
+rl-dt-knp-support-v2-0-bf6645bb2f65@oss.qualcomm.com?part=3D10
