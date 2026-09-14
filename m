@@ -1,189 +1,320 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B1753F4DC2
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 07:51:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84D9232B989;
+	Mon, 14 Sep 2026 08:00:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789372315; cv=none; b=eN44FeUUapnSXLIbjQNh+eYJ1gXrwxTP6BYdSvG/62PvOZ090Z1TT5Y+JmSI3jtWIwHL5XZnspTHMRxJfiI6CBJbkri5X2dvQ57QJt1p9150Ufl3q96Wl2+fNh2dlIJnPlKoHb0buf4Lx8fRo29k7sU6zybKAhJFAndlwqqpbOg=
+	t=1789372826; cv=none; b=dk1wT1QNbxMRZKw36+WW5IYXhGvxpzOOLTIMKf/RdVtZh9cUdhCvADD1GT4olkr5WZ7AJwx7s85pqlmJX7G5NwX3ZAYcQg8GX3eqFEt+m1zEYCI6JM268h0EoLeiZo5ZcrW14RzB3FiTDL4dXHxJ85CnTuitzJiOzC5jMHj+MmI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789372315; c=relaxed/simple;
-	bh=WwWbIqSDOJ+qV9SKI9J586/vs2UZGdEGjYPUxiNFyQ4=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
-	 References:In-Reply-To; b=b1gnGJHa0sLzItq9Jsm9KQvz+0zSj//Igl8Eojxlz2jc0KNAoKqSvVOp2+h6dDq0SIgN3PHHIjg5PoUoJK00wFszgsLH5HwE3uUmlEMLJL/gFCqm9jrL+98fqDFOr8FRkr1RLyJ0bO6oIjC2/Z/E9eXkGCus6QU4mpZf9o9BGkg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=BujHPMc6; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1789372826; c=relaxed/simple;
+	bh=9Sn76LLDRFARz/KCNhJyCKv/7XWJMa9IVHapNKGw/TU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KqOAHp7AQAgldZdVvvdCKCVC+TrQ10QWaY53LZM5UtEIUlSuMnoTY0zGKmHK7VlCR+c3vOCGgQpGTUeW/TYJ5MLAHhWXQuFXS6uFYz5ucs+LxfPZxC8U4zVYGtYJVPya8KusQRWQUhwHrOXNbNdFBCjlcl4Ppt/mggTbcONYYiI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FwrudPih; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="BujHPMc6"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4858bc96fabso1119135f8f.3
-        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 00:51:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789372310; x=1789977110; darn=vger.kernel.org;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:mime-version:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=IlCQLgA1I6Tlq7Eawq8974ry400ZD6uMfidPXTvqpL8=;
-        b=BujHPMc6lXh3EijUpzfR1khdP8mYFxWcP0EGoWis0G9S0hfzr25q+RRQrbP2X6M8oq
-         zULSzarveZYPLLyJ/K9fA9OQZNiwuRTxo7Ga5lI6zt2vuO8UMbHmqZehuPjCk87C8SUR
-         Y/1K+RkUMiN5JrgpQRlrBPO+M+PjhQoB+7FqI05qsKAkP+2MVPDBMiK69LaYRtdrTpwR
-         ct9mLwvgvrTkEBjjJeQzkODkL827fm6PEPhPCbOhU8wM/VvNL/4WgCUTqF8zcew/GUOc
-         zjusiHgjM4Xb1VGBqGRN7x360jhdbHceCALLZBb4ika+3WJr6vwirGlEsWSfdOUMcKdG
-         194g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789372310; x=1789977110;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=IlCQLgA1I6Tlq7Eawq8974ry400ZD6uMfidPXTvqpL8=;
-        b=NLYYWEx4VCfK1sBkC+WjWOOBE48OVjzqiawrFGdwJct8tQ4LPK5cstlaQ6lqFErd90
-         5DdsTGQAaUthlWpYmE8lxBqlznrMNL0aupezT4OrZi5itCrp0Uao+tzhP+GYyttBg/aF
-         6nbIbhHKWwsvSyNUS4gr3VLMIZEqrSb5gxzK1DkhMVpbw+/cZcQnzmkD32QS8nDAT4Sd
-         9/oBZdZCcXytEPMwz0Sf/c0Q3AgbFVWl8VoHEPbxkwbS5Pbm7g/R5yCHZORYPnvviVN2
-         amv9o8d2k2V/nUuKx9hriz9xp8QXtS2fPxCJ/jSAPsl7z2Hag4vVcDIDQlx6KfW1ckHK
-         Niog==
-X-Forwarded-Encrypted: i=1; AKwUvByZeZH5tWfPn5R+FvLyXwys8NH+HAqbdoKAa/W43++ECur5vu2l0EecOpxf9asCDg/dFT5HmYDjT8V2@vger.kernel.org
-X-Gm-Message-State: AFuF++lI3A5mARj1juyNBEMVWgLcI80gvCDAAgvZav1KACcHPT7HdjF+
-	TbN06JiOGGyWpwC3go9g6haCwsogE6kseS0aSQr9p4SpaeWlxB06Kjo4TOOoqATItMs=
-X-Gm-Gg: AYBFou1nZ8tKbjt7CCKxK2rmJqligTKf0A8BfZrKD0KVDpkYlknzqyQRBp8aTNajVg2
-	KZO152SBF4PKNbR+aJ5GWaa0XzckWzJyCpb8NlnieaNelaBfuVAk5lkucqbdBKXtuaxK8pM39/7
-	SGZ7/0PVmkBaxTQO4uLWKYkXpDONGeOjXf2r4btKh4bSZ/5qnMNWN8tcxDCIIvllwGregsrCjDn
-	WRQdFr6HVJFY0j9febYkcJ29gWai4p2perIcfuZnqTPYpmBqPZMQJqKMM1iWGrKwh+Q6IDcHUZB
-	0FMNPHJIlILlHUojbZCAtm6bCT4QZrMxAdiVTAF3Pzn8Y7XNu5lxN2KrCDcyWbg+jCxzO4dN8Ns
-	99FooUzgf8SLswbQI95vskf5yA/bKqHyNej78FTb+FK8EKBIf5jbvtXYmDGZRQQDZO7MN4fIqAc
-	aYhxVlvWsfBYUcXswrkdCAvHiCOoX0h1zT/9Qj6AxbT9phqcRC00nnMzugj5QbacwPQg==
-X-Received: by 2002:a5d:5e8c:0:b0:486:f76f:f2ea with SMTP id ffacd0b85a97d-48702b2a6f6mr1438636f8f.51.1789372310252;
-        Mon, 14 Sep 2026 00:51:50 -0700 (PDT)
-Received: from localhost ([2001:4091:a245:8029:665d:b7b:5fa4:7ad0])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb33ee5csm24980103f8f.20.2026.09.14.00.51.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 00:51:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FwrudPih"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789372825; x=1820908825;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=9Sn76LLDRFARz/KCNhJyCKv/7XWJMa9IVHapNKGw/TU=;
+  b=FwrudPihN7K2/klcJdseH+q3SdFLz7Hr1F8+frQN5iOZszV/TX29UggH
+   byzorJmUYZIBiIQ7+C6etvxc7mzk6Y4SYZCbQrIPW1xUJyIwONZnjK6+F
+   95yY1+sTPY7d+fhwFcEL+zd5gPWACiL9I35DU8GcuhvHT4mKhprkHV2fa
+   +w1XbYTBrOo8JzcpmbMgDR1ZXZo6mGx/eKggylXbh9oMMvklm+dkYny/v
+   AWIg88kAfF5GoArAPoOhPMUA/+CFwd9n5n1bj2/HiP/SbZSgWqvQEkD9H
+   MuHWtnbZ66HfFsEIP/tTjCpu/xdT45sBYoEx1HzRDLWlo9Q6fYueYcj1S
+   A==;
+X-CSE-ConnectionGUID: qMe4vhmKRcmhpiO2nyGvRg==
+X-CSE-MsgGUID: S7Rzx+4+SimYc/7TOFc1vA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="107095139"
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="107095139"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 01:00:24 -0700
+X-CSE-ConnectionGUID: F8Dbi8XtTzmsChUlk8/s5g==
+X-CSE-MsgGUID: LB7HtylyQcCR9f2GSz/REw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="271160132"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.29])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 01:00:20 -0700
+Date: Mon, 14 Sep 2026 11:00:18 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Chang Yu <marcus.yu.56@gmail.com>
+Cc: Andy Shevchenko <andy@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Shi Hao <i.shihao.999@gmail.com>,
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/2] iio: light: add AS7343 multi-spectral sensor
+ driver
+Message-ID: <aqepkmQS_p6K1Bd6@ashevche-desk.local>
+References: <20260912013912.51887-1-marcus.yu.56@gmail.com>
+ <20260912013912.51887-3-marcus.yu.56@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=569c53e9584ef61498e821a4338055056548e03f1b97846d365c71442448;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Mon, 14 Sep 2026 09:51:39 +0200
-Message-Id: <DLEVJIB1SL4O.2WZY8O2F54YL4@baylibre.com>
-Subject: Re: [PATCH 2/2] Input: gpio-keys - support wakeup pinctrl state on
- suspend
-From: "Markus Schneider-Pargmann" <msp@baylibre.com>
-To: "Kendall Willis" <k-willis@ti.com>, "Dmitry Torokhov"
- <dmitry.torokhov@gmail.com>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>
-Cc: <msp@baylibre.com>, <s-kochidanadu@ti.com>, <a-kaur@ti.com>,
- <s-tripathi1@ti.com>, <vishalm@ti.com>, <linux-input@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>
-X-Mailer: aerc 0.21.0-146-gb5c16ebe1835
-References: <20260912-upstream-gpio-wakeup-v1-0-f0e12484b836@ti.com>
- <20260912-upstream-gpio-wakeup-v1-2-f0e12484b836@ti.com>
-In-Reply-To: <20260912-upstream-gpio-wakeup-v1-2-f0e12484b836@ti.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260912013912.51887-3-marcus.yu.56@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
---569c53e9584ef61498e821a4338055056548e03f1b97846d365c71442448
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+On Fri, Sep 11, 2026 at 06:39:12PM -0700, Chang Yu wrote:
+> Add a driver for the AMS AS7343 14-channel multi-spectral sensor.
+> 
+> The AS7343 is a 14-channel spectral sensor featuring 11 visible
+> channels, 1 near-infrared channel, 1 clear channel (VIS), and 1
+> flicker detection channel.
+> 
+> The driver exposes 12 spectral channels (11 visible light and 1
+> near-infrared) via sysfs. Runtime PM is implemented to stop
+> measurements when the device is suspended or torn down. Power is
+> never cut (PON=1 always) to preserve register values.
+> 
+> Future patches will add configurable gain and integration time,
+> interrupt support, buffered reads, VIS channel, and flicker
+> detection.
 
-Hi Kendall,
+...
 
-On Sat Sep 12, 2026 at 11:33 PM CEST, Kendall Willis wrote:
-> GPIO can be used as a wakeup source for TI K3 AM62 devices during
-> suspend to RAM states. The GPIO controller is powered off in these
-> states, so a wakeup enable flag must be set on the GPIO pin in the
-> pinctrl in order to allow wakeup.
->
-> If the device is wakeup enabled, select the 'wakeup' pinctrl state on
-> suspend and restore the default pinctrl state on resume.
->
-> Signed-off-by: Kendall Willis <k-willis@ti.com>
-> ---
->  drivers/input/keyboard/gpio_keys.c | 13 +++++++++++++
->  1 file changed, 13 insertions(+)
->
-> diff --git a/drivers/input/keyboard/gpio_keys.c b/drivers/input/keyboard/=
-gpio_keys.c
-> index 129fc4212a5ed126496b331ce626682d441c53bf..b409e179705195e5fec172ff6=
-2088395109cd758 100644
-> --- a/drivers/input/keyboard/gpio_keys.c
-> +++ b/drivers/input/keyboard/gpio_keys.c
-> @@ -28,6 +28,7 @@
->  #include <linux/of.h>
->  #include <linux/of_irq.h>
->  #include <linux/spinlock.h>
-> +#include <linux/pinctrl/consumer.h>
->  #include <dt-bindings/input/gpio-keys.h>
-> =20
->  struct gpio_button_data {
-> @@ -60,6 +61,8 @@ struct gpio_keys_drvdata {
->  	struct input_dev *input;
->  	struct mutex disable_lock;
->  	unsigned short *keymap;
-> +	struct pinctrl *pinctrl;
-> +	struct pinctrl_state *pinctrl_wakeup;
->  	struct gpio_button_data data[];
->  };
-> =20
-> @@ -884,6 +887,10 @@ static int gpio_keys_probe(struct platform_device *p=
-dev)
->  	platform_set_drvdata(pdev, ddata);
->  	input_set_drvdata(input, ddata);
-> =20
-> +	ddata->pinctrl =3D devm_pinctrl_get(dev);
-> +	if (!IS_ERR_OR_NULL(ddata->pinctrl))
-> +		ddata->pinctrl_wakeup =3D pinctrl_lookup_state(ddata->pinctrl, "wakeup=
-");
+> +/*
+> + * Support for AMS AS7343 14-channel multi-spectral sensor.
+> + * (7-bit I2C slave address 0x39)
+> + *
+> + * Based on the work of:
+> + *   Christian Eggers <ceggers@arri.de> (AS73211 driver)
+> + *
+> + * Copyright (c) 2026 Chang Yu <marcus.yu.56@gmail.com>
+> + *
+> + * Datasheets:
+
+Why plural?
+
+> + *   https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
+> + *
+> + * TODO:
+> + *   - Autosuspend
+> + *   - Support for configurable gain and integration time
+> + *   - Interrupt support
+> + *   - Add support for reading the VIS channel
+> + *   - Flicker detection
+> + */
+
+...
+
+> +#define AS7343_ID				0x5a
+
+> +/* AS7343 config registers */
+> +#define AS7343_ENABLE				0x80
+
+> +#define AS7343_ATIME				0x81
+
+> +#define AS7343_ASTEP				0xd4
+
+
+> +#define AS7343_CFG0				0xbf
 > +
->  	input->name =3D pdata->name ? : pdev->name;
->  	input->phys =3D "gpio-keys/input0";
->  	input->dev.parent =3D dev;
-> @@ -1010,6 +1017,9 @@ gpio_keys_enable_wakeup(struct gpio_keys_drvdata *d=
-data)
->  	int error;
->  	int i;
-> =20
-> +	if (!IS_ERR_OR_NULL(ddata->pinctrl_wakeup))
-> +		pinctrl_select_state(ddata->pinctrl, ddata->pinctrl_wakeup);
+> +#define AS7343_CFG1				0xc6
 
-If wakeup state selection failed, should it really just continue here?
+> +#define AS7343_CFG20				0xd6
 
+> +#define AS7343_CONTROL				0xfa
 > +
->  	for (i =3D 0; i < ddata->pdata->nbuttons; i++) {
->  		bdata =3D &ddata->data[i];
->  		if (bdata->button->wakeup) {
-
-There is some error handling below in this function. The selected
-pinctrl state is not rolled back in the error path.
-
-Best
-Markus
-
-> @@ -1039,6 +1049,9 @@ gpio_keys_disable_wakeup(struct gpio_keys_drvdata *=
-ddata)
->  	struct gpio_button_data *bdata;
->  	int i;
-> =20
-> +	if (!IS_ERR_OR_NULL(ddata->pinctrl_wakeup))
-> +		pinctrl_pm_select_default_state(ddata->input->dev.parent);
+> +/* AS7343 status registers */
+> +#define AS7343_STATUS2				0x90
+> +#define AS7343_STATUS3				0x91
+> +#define AS7343_STATUS				0x93
+> +#define AS7343_ASTATUS				0x94
+> +#define AS7343_STATUS5				0xbb
+> +#define AS7343_STATUS4				0xbc
+> +#define AS7343_FD_STATUS			0xe3
 > +
->  	for (i =3D 0; i < ddata->pdata->nbuttons; i++) {
->  		bdata =3D &ddata->data[i];
->  		bdata->suspended =3D false;
+> +/* AS7343 spectral data registers */
+> +#define AS7343_DATA_FZ		0x95
+> +#define AS7343_DATA_FY		0x97
+> +#define AS7343_DATA_FXL		0x99
+> +#define AS7343_DATA_NIR		0x9b
+> +#define AS7343_DATA_F2		0xa1
+> +#define AS7343_DATA_F3		0xa3
+> +#define AS7343_DATA_F4		0xa5
+> +#define AS7343_DATA_F6		0xa7
+> +#define AS7343_DATA_F1		0xad
+> +#define AS7343_DATA_F7		0xaf
+> +#define AS7343_DATA_F8		0xb1
+> +#define AS7343_DATA_F5		0xb3
+> +#define AS7343_DATA_FD_L	0xb7
+> +#define AS7343_DATA_FD_H	0xb8
+
+> +/* AS7343 FIFO buffer data registers */
+> +#define AS7343_FIFO_LVL		0xfd
+> +#define AS7343_FDATA_L		0xfe
+> +#define AS7343_FDATA_H		0xff
+
+Please, keep indentation for the registers the same. Also would be nice to have
+them sorted by offset.
+
+...
+
+> +static int as7343_read_raw(struct iio_dev *indio_dev,
+> +			   struct iio_chan_spec const *chan,
+> +			   int *val, int *val2, long mask)
+> +{
+> +	struct as7343_data *data = iio_priv(indio_dev);
+> +	unsigned int unused;
+> +	struct regmap *map;
+> +	struct device *dev;
+> +	__le16 result;
+> +	int ret;
+
+> +	map = data->regmap;
+> +	dev = regmap_get_device(map);
+
+Assign them directly in the definition block above.
+
+> +	PM_RUNTIME_ACQUIRE_IF_ENABLED(dev, pm);
+> +	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
+> +	if (ret)
+> +		return ret;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_RAW: {
+> +		/* Wait until integration time passes for all 3 cycles. */
+> +		msleep(160);
+> +
+> +		/*
+> +		 * Reading ASTATUS latches all data registers to this read.
+> +		 * We don't care about the returned saturation/gain status for
+> +		 * now.
+> +		 */
+> +		guard(mutex)(&data->mutex);
+
+Blank line. Always make guard()() to be visible (by grouping it separately
+from the other pieces of code).
+
+> +		ret = regmap_read(map, AS7343_ASTATUS, &unused);
+> +		if (ret)
+> +			return ret;
+> +
+> +		ret = regmap_bulk_read(map, chan->address,
+> +				       &result, sizeof(result));
+> +		if (ret)
+> +			return ret;
+> +
+> +		*val = le16_to_cpu(result);
+> +		return IIO_VAL_INT;
+> +	}
+> +
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+
+...
+
+> +static int as7343_setup_device(struct device *dev, struct as7343_data *data)
+> +{
+> +	struct regmap *map = data->regmap;
+> +	unsigned int val;
+> +	__le16 step;
+> +	int ret;
+> +
+> +	/* Power on */
+> +	ret = regmap_set_bits(map, AS7343_ENABLE, AS7343_ENABLE_PON);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Need to set REG_BANK to 1 before we can access ID */
+> +	ret = regmap_set_bits(map, AS7343_CFG0, AS7343_CFG0_REG_BANK);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_read(map, AS7343_ID, &val);
+> +	if (ret)
+> +		return ret;
+
+> +	if (val != 0x81)
+> +		dev_info(dev, "Unknown device ID: %x\n", val);
+
+Wouldn't be better to define 0x81 with meaningful name?
+
+> +	ret = regmap_clear_bits(map, AS7343_CFG0, AS7343_CFG0_REG_BANK);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Configure the SMUX to readout all channels */
+> +	ret = regmap_update_bits(map, AS7343_CFG20, AS7343_CFG20_AUTO_SMUX,
+> +				 FIELD_PREP(AS7343_CFG20_AUTO_SMUX,
+> +					    AS7343_CFG20_AUTO_SMUX_READOUT_ALL));
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Set 50.1ms integration time and x256 gain for now */
+> +	step = cpu_to_le16(AS7343_ASTEP_VAL);
+> +	ret = regmap_bulk_write(map, AS7343_ASTEP, &step, sizeof(step));
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_write(map, AS7343_ATIME, AS7343_ATIME_VAL);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return regmap_update_bits(map, AS7343_CFG1, AS7343_CFG1_AGAIN,
+> +				  FIELD_PREP(AS7343_CFG1_AGAIN,
+> +					     AS7343_CFG1_AGAIN_X256));
+> +}
+
+...
+
+> +static int as7343_suspend(struct device *dev)
+> +{
+> +	struct iio_dev *indio_dev = dev_get_drvdata(dev);
+> +	struct as7343_data *data = iio_priv(indio_dev);
+> +	struct regmap *map = data->regmap;
+
+> +	return regmap_clear_bits(map, AS7343_ENABLE, AS7343_ENABLE_SP_EN);
+
+Can this mess up the raw read? If so, also needs a mutex to be held.
+
+> +}
+> +
+> +static int as7343_resume(struct device *dev)
+> +{
+> +	struct iio_dev *indio_dev = dev_get_drvdata(dev);
+> +	struct as7343_data *data = iio_priv(indio_dev);
+> +	struct regmap *map = data->regmap;
+> +
+> +	return regmap_set_bits(map, AS7343_ENABLE, AS7343_ENABLE_SP_EN);
+> +}
+
+Same Q.
+
+...
+
+> +static void as7343_suspend_action(void *data)
+> +{
+> +	struct device *dev = data;
+
+Unneeded casting, can name parameter 'dev' above.
+
+> +	as7343_suspend(dev);
+> +}
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-
---569c53e9584ef61498e821a4338055056548e03f1b97846d365c71442448
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iKMEABYKAEsWIQSJYVVm/x+5xmOiprOFwVZpkBVKUwUCaqenjBsUgAAAAAAEAA5t
-YW51MiwyLjUrMS4xMiwyLDIRHG1zcEBiYXlsaWJyZS5jb20ACgkQhcFWaZAVSlNt
-TQD/c7MnXiIvcG3gG7E2Zu1Y5tUTvEOFzAkx75oJO+cS5BkBAMsQqdj/0BD9A8lR
-clBJhgIZ87/YOz4F1lVPFwWtX4cN
-=SuGg
------END PGP SIGNATURE-----
-
---569c53e9584ef61498e821a4338055056548e03f1b97846d365c71442448--
