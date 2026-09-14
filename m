@@ -1,174 +1,160 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E93C429827
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 09:54:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 654513438BE
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 09:58:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789379694; cv=none; b=gfo6k7OKgVpD5y/c6zXu8PWt5h9wLx5BAg0qWM9ONXViEWk3DT+S+hVQ85CTCPHkVk3iQ2kLVf5n6qlf59eSThEyJTjvsIq9AHTh5kEy6Ybi0XoNT4IU8xvRZdHWgSKH5rN/r4sXQEkgOO4YETP8u60nd6xgk+3Htf/UoJDwVhU=
+	t=1789379899; cv=none; b=pGeT8Jsjm3aGZXWa+Nvts8GAGZFjCQmHdEiH292kntPvUzXabmO2hMUhFqMiTRx18dCTGDqzXUnvC3sxchwkcrJl+X/1j7llvnYaqWQr46/+hOgpscUbdAxkqGr1qkQK/fYwRD5on4r1DysAFIE2mqgQXH6ai2Cm7To0DJgSnn4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789379694; c=relaxed/simple;
-	bh=yhrLrIbyiT7c4YyDNNJbJJzV4AM7Y+QrAL2VnT2KYpQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=sVLBOubbn3yWz4sBlha9HBiIMZJwFPdbeb9MOWYRJTV9e7zsI+p6AruRw//nuQcZ1pYwnZhK/28i0H8YmikGHhOB/7tXci/9Zs0eoeEemQRuB4Zazd1G3CI1wPoWDoqC6syyISlf9DSga+/GfhqyTX9gjeBUo6/c+k/mvNjsw40=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bfPQGe0q; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=joKHBfxV; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789379899; c=relaxed/simple;
+	bh=HilxZZk8eR2h9DSshuAFtI2+y3AuwC09GktdgBd/scA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=rrrjYdi6ysvpUKN7oLDblo1+aIDoAWzsfOvs+PJWOTBj16gc7Al+Bkwek7b/cUi3mvc6HSzClC7wqmfOocymskipfCCHoRDPJmrOrIN/ZA7MMCupKHrClbOCR6VzYGj5J2Rdwmtp2+7HcR4MPZZhi8K6xGZxSuU8dGZPMMstt9M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QG/kCyJL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bfPQGe0q";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="joKHBfxV"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E9nfCm1086193
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 09:54:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	L9rl6Sgop0Hx7CQKELd9DVOeFYbbcRcJKtXX5jZ/dwk=; b=bfPQGe0qB6D04faV
-	Ldkqqu6D5qNcNuNStg4jspGKeeZ8GghPptxBoYKoOfu6hraKLiPpdI499cZNe2xb
-	6XrWFbucuGoXK9Dzz4yJhPrPN41cJfV9W1EyyI67kmgDDy9D4oq9AmBbkAFWeYeY
-	XJRm/yqxi6CFRifzX/tslsc5lTtybXHgdm50AklX7u8Fjry24GTfIH5EzNXGwwRo
-	tXiUVmy9fNNmIzmBOmPdBWK++WyZ93taUBAy3jXYhAn/MquMneV9xT+JqhoIAO2g
-	vqNkdtjBziOl0kJg4jZkF/p4dH/xv8lI93BZxJyrzTVJTo8uJp8xtTEmkhK6OzRF
-	Sa9Apw==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gp3k09vd2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 09:54:52 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-39deda201bcso740993a91.2
-        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 02:54:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789379692; x=1789984492; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=L9rl6Sgop0Hx7CQKELd9DVOeFYbbcRcJKtXX5jZ/dwk=;
-        b=joKHBfxViAzuEmRgs8ylLLzwfP5+YICyMj6epIi4KJRGUxrTZgVWa95nFaCdRrzk7j
-         RGZ4qNPSAYh0BRfYfTVc9VL8RIb/0C10gSlAJDT+X9xIZqecaLK2vOr3OEsxeR/I+BJ4
-         6Q20VUmL/6g9K4AhbcIRE/6kugyokCzH6qOVAi9+6TiseW5PuULqpQrW/ie3z758iqex
-         ubsgB9jc7HU/B0UcUjjeADBw4btHB+m2ViWOZ76eSPaj1m9r09/iI4jdACRRfoqlNqM+
-         Mvwg3I9NZdIvWcVvYwpwCC19tyLZHZkqBsEK5bEA3CvYIaduupSAWvSbPv2v5rhen0y4
-         l4+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789379692; x=1789984492;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=L9rl6Sgop0Hx7CQKELd9DVOeFYbbcRcJKtXX5jZ/dwk=;
-        b=jUOstJn0xvuqydStDtB0/dzPLQ+Z4flwDXX5RuyiEoZ3S1XQCN0nCQw3Cqe+ry43KF
-         MEevXV783C+Tl4yRUIkYPJn8NwW8Hw0Ek4IPQx3q9WbyFmujFrggitUjnsbTMFtlC+Xs
-         se8Mrlab9gXyDtId+Ho9LnaHZqcnHgDqp54dxcoNGx6kAqYrBgSjrpqX0kE/VoHhvtV0
-         g+IJzQ+CWxp8AlkPaRf7TsjlhVpmZpEiPOvIV+Nt7nTZRrz8Pij7P+sHT3Cf4XTcbx9q
-         CQHTpUxUihKcS+g1EX3M+wJ3RYpn3NKKYNi8ugu8E6S7qQXzqx0aa3eHWB8Kvkt1q/7C
-         80cA==
-X-Forwarded-Encrypted: i=1; AKwUvBw3fsuD//c9yFJt7iqFADY9bgXvfgG8+isYcXrirRBg4dhJCzMK6SHv5gumrYJWiqLC3qLeNGD+akUA@vger.kernel.org
-X-Gm-Message-State: AFuF++k3o1fF+K/xRnl7dXQV5Mg36VKvvoG9xx3d2fDo0ZS4iDpRJklw
-	POFohXQXu4A/MUrFxNLZP4+U9bWITOizXznpAxMKTuzsUb+WvuPs6u/3kZ0xgTUm5qRBSfupQLc
-	pZNkQYyaOOYrVsMKPTRIZUiG7wiclpUbdyaFpQScfX+HURyboz3a8NunpqtyCutTQ
-X-Gm-Gg: AYBFou1f8jVYmfd0/QL8xSWI/qqZa7zX0FTtK8Yl2ux4I66CZyNRCf3H1i3NaRZrCBI
-	mW/RHWT9iMXGDJLw0lRwO6U+TscGSoZI3p6rnxrMWazTW5cwair3/N7iR6WSqpuzGiiTL9rdhOS
-	7opckT5DcJNEIbYVYR0tvdowwkS2aiJaMs6PAxbAxF3tfCFvlLSG/sWO33Mrf6k2cGktkEeOYCk
-	5TUft/m/3dr//83opDWdcgcYt2Ra5gQcm5m2EZM9A149kKkp4URjh0pypxuifPg5Mad8me6rFBG
-	F411wDG1tqBnS00cXEYRb8wqtJgsX7e7wniwLTCh5HqWJgUDdABkYjM8nbQuxjvMc4qFixzk0Ne
-	g5HTC2uGGJC+OHti5qNDM1QpHnVAdpJLOuUr1c/mfCxEzrZt58nS2bkb1BRJCIdIHu5zDIfSuql
-	0=
-X-Received: by 2002:a17:90b:1c90:b0:39d:f660:fa9c with SMTP id 98e67ed59e1d1-39df660fademr786302a91.10.1789379691799;
-        Mon, 14 Sep 2026 02:54:51 -0700 (PDT)
-X-Received: by 2002:a17:90b:1c90:b0:39d:f660:fa9c with SMTP id 98e67ed59e1d1-39df660fademr786256a91.10.1789379691395;
-        Mon, 14 Sep 2026 02:54:51 -0700 (PDT)
-Received: from WANGAOW-LAB01.ap.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d94bafb3bsm20664313a91.1.2026.09.14.02.54.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 02:54:51 -0700 (PDT)
-From: Wangao Wang <wangao.wang@oss.qualcomm.com>
-Date: Mon, 14 Sep 2026 17:54:26 +0800
-Subject: [PATCH 4/4] arm64: dts: qcom: eliza-mtp: Enable iris video codec
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QG/kCyJL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A272F1F000FF;
+	Mon, 14 Sep 2026 09:58:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789379897;
+	bh=II3WHko20zRsvUlhPeKvFvo/tq3LGZY5r0bNpCMCK9A=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=QG/kCyJLEKM7Lu/xuz32nkosR/p79RSxJ5K/hvhWaZv00469rmsFmgPDahr89ymvK
+	 C+B0ULaO7YCZD91bhpVaBjuqfmfpbknNondSP8UwKbEs6S15TFoCwnfvW9Iv16F3uS
+	 IsDn0ncz0s2WR/nRjJyiKoyzA7SQTPHhG33wEzBXGfsCZfj0xS+6i+nyN1VRWzSeu6
+	 u00hz0Z+Ea36RPMGz9CgQGxdN8aLz75JgqZ6KLcsvulB8g1mmldmGbYafhwxVE3JC6
+	 ssNezVgnviUYsdVL1zPIUUAr6GjDwqUTBzKUsmFcbotdzkPoIBU7/eSkH2qGp8+jC5
+	 +X7a7vyLlxDmQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC v2 02/10] arm_mpam: Fix MSC MMIO window size
+ off-by-one with resource_size()
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Yin Li" <yin.li@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260914-mpam-resctrl-dt-knp-support-v2-2-bf6645bb2f65@oss.qualcomm.com>
+References: <20260914-mpam-resctrl-dt-knp-support-v2-0-bf6645bb2f65@oss.qualcomm.com>
+ <20260914-mpam-resctrl-dt-knp-support-v2-2-bf6645bb2f65@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 14 Sep 2026 09:58:17 +0000
+Message-Id: <20260914095817.A272F1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-add_iris_for_eliza-v1-4-e8ccd9b8cf7a@oss.qualcomm.com>
-References: <20260914-add_iris_for_eliza-v1-0-e8ccd9b8cf7a@oss.qualcomm.com>
-In-Reply-To: <20260914-add_iris_for_eliza-v1-0-e8ccd9b8cf7a@oss.qualcomm.com>
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Wangao Wang <wangao.wang@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789379665; l=782;
- i=wangao.wang@oss.qualcomm.com; s=20251021; h=from:subject:message-id;
- bh=yhrLrIbyiT7c4YyDNNJbJJzV4AM7Y+QrAL2VnT2KYpQ=;
- b=MrTTsCTueK2mjYj6fVajeVTW6P2WYtKUIqy7dS4Nu0LthySSosdLm5PPZLhBTX5u5hEzIRp2v
- Xr3gybn6m04DijQs6wE3F5kzxnJoiremFE74zFp1yxa83IVF7tr9iKm
-X-Developer-Key: i=wangao.wang@oss.qualcomm.com; a=ed25519;
- pk=bUPgYblBUAsoPyGfssbNR7ZXUSGF8v1VF4FJzSO6/aA=
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDE0MSBTYWx0ZWRfX7lcwmpGU8x+k
- m20YUo7jGYxujIfRaxFaOiU7Y9WXCo2sxjhWfgefWBHe3euWWSk92sUqKJ4EeauA0KLz+WiZlif
- p2poFs07cS/T9AtwUIm6di5/UXyL5u4=
-X-Proofpoint-GUID: wlBXnNYg7oocIXbJCPxTrEAl3oMKhSTe
-X-Proofpoint-ORIG-GUID: wlBXnNYg7oocIXbJCPxTrEAl3oMKhSTe
-X-Authority-Analysis: v=2.4 cv=BtAIUoX5 c=1 sm=1 tr=0 ts=6aa7c46c cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=nChROllu96siAGe8wIkA:9 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDE0MSBTYWx0ZWRfXzG5V32CvhMaS
- WKEdUY/Gd1Dtg+cS9zGSe8QRSFgS37UOIIFKABpCmF8iL76Y6HILQrxSmwdMNQgV2iG/9CDk1su
- MGa65CKeQXOWdWUT131Bf1yoLIX7/6wfZiU9f4b9XWqE7n59ZLQ5eHBEHjMB/dSS4qCcXw9Mzfh
- DihnPzljomwUG6hQ506Q//VXZEq5OrOWCNyYOgHJFc9rUwtSGCVNHRlHLkY5go8xUj0oT5EzPt1
- go6z+mFmSgp/iEBBZjZsjCHXzm+PZwbL5fVUkOpzo1NUVHQrVPPv/57KyGvs9CDTbt6rYFUwtH0
- TuDuoy8Nza/o8HvQDplcwYumVHrqmWdYFEHBn6DK+BwnleJ3iMFEIdgC0PbyTyQrtnvoizVoUpp
- KqmewIEz5pUnT7pj+ER9jgW6fJkQBhCeRBaUm/1+AiYXTpAjhhR/wA7vL1K0viLtc2kemj07Dnc
- +qD29ZnsljQ6D7S0l2Q==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-14_03,2026-09-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0 phishscore=0 impostorscore=0 suspectscore=0
- bulkscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140141
 
-The Eliza MTP includes the Iris video codec, but the device tree leaves
-the node disabled. Mark it as okay so the video codec driver can probe
-on this board.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-Signed-off-by: Wangao Wang <wangao.wang@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/eliza-mtp.dts | 4 ++++
- 1 file changed, 4 insertions(+)
+Pre-existing issues:
+- [High] The per-cpu memory allocated for msc->error_dev_id is never freed,=
+ resulting in a memory leak.
+- [High] Premature devm_kfree of the msc structure leads to a Use-After-Fre=
+e during devres cleanup.
+- [High] Virtual memory leak in the NVIDIA T241 quirk due to unconditional =
+ioremap.
+- [High] Hardware NRDY wait delay loop may be skipped entirely due to usecs=
+_to_jiffies truncation.
+--
 
-diff --git a/arch/arm64/boot/dts/qcom/eliza-mtp.dts b/arch/arm64/boot/dts/qcom/eliza-mtp.dts
-index ee05192adcfb9f79cba59f11001b640a8572cc91..e5a698602dfc7a2d3ad00eade40d4f91a0cee57d 100644
---- a/arch/arm64/boot/dts/qcom/eliza-mtp.dts
-+++ b/arch/arm64/boot/dts/qcom/eliza-mtp.dts
-@@ -430,6 +430,10 @@ &gpu_zap_shader {
- 	firmware-name = "qcom/eliza/gen71700_zap.mbn";
- };
- 
-+&iris {
-+	status = "okay";
-+};
-+
- &mdss {
- 	status = "okay";
- };
+commit 730cddf02b20e6f247fdb58e9bc95501ec54e318
+Author: Yin Li <yin.li@oss.qualcomm.com>
 
--- 
-2.43.0
+    arm_mpam: Fix MSC MMIO window size off-by-one with resource_size()
 
+    struct resource uses an inclusive end address, so the window size is
+    end - start + 1. do_mpam_msc_drv_probe() computed it as end - start,
+    which is one byte too small.
+
+Closes: https://lore.kernel.org/oe-kbuild-all/202609030809.ObirDhR3-lkp@int=
+el.com/
+
+> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_device=
+s.c
+> index 6da217abf6894..c68135ee0ffcb 100644
+> --- a/drivers/resctrl/mpam_devices.c
+> +++ b/drivers/resctrl/mpam_devices.c
+> @@ -2095,7 +2095,7 @@ static struct mpam_msc *do_mpam_msc_drv_probe(struc=
+t platform_device *pdev)
+>  			dev_err_once(dev, "Failed to map MSC base address\n");
+>  			return ERR_CAST(io);
+>  		}
+> -		msc->mapped_hwpage_sz =3D msc_res->end - msc_res->start;
+> +		msc->mapped_hwpage_sz =3D resource_size(msc_res);
+>  		msc->mapped_hwpage =3D io;
+>  	} else {
+>  		return ERR_PTR(-EINVAL);
+
+[Severity: High]
+This is a pre-existing issue, but does do_mpam_msc_drv_probe() leak
+the per-cpu memory allocated for msc->error_dev_id?
+
+When setting up the MSC, __setup_ppi() allocates per-cpu memory:
+
+__setup_ppi()
+	msc->error_dev_id =3D alloc_percpu(struct mpam_msc *);
+
+If the probe later fails, or during normal device teardown via
+mpam_msc_destroy(), is free_percpu() ever called to release this memory?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the devres cleanup
+for msc->probe_lock lead to a use-after-free?
+
+In do_mpam_msc_drv_probe(), the msc structure is allocated via devm_kzalloc=
+(),
+and then several mutexes embedded within it are registered with
+devm_mutex_init():
+
+do_mpam_msc_drv_probe()
+	msc =3D devm_kzalloc(&pdev->dev, sizeof(*msc), GFP_KERNEL);
+	err =3D devm_mutex_init(dev, &msc->probe_lock);
+
+During removal, the driver manually deletes the allocation:
+
+mpam_free_garbage()
+	devm_kfree(&iter->pdev->dev, iter->to_free);
+
+This frees the msc memory immediately, but the devm_mutex_release actions
+remain on the devres list.
+
+When the driver core cleans up the remaining devres actions, will it call
+mutex_destroy(&msc->probe_lock) on the already-freed msc structure?
+
+[Severity: High]
+This is a pre-existing issue, but does mpam_enable_quirk_nvidia_t241_1()
+leak the virtual memory mapping for the scratch registers?
+
+mpam_enable_quirk_nvidia_t241_1()
+	t241_scratch_regs[msc->t241_id] =3D ioremap(phys, SZ_8M);
+
+This maps an 8MB physical region and stores the pointer unconditionally.
+
+If multiple MSCs exist on the same chip, or if the driver is unbound and
+rebound, will this overwrite the pointer and permanently leak the previous
+VMA, since there is no corresponding iounmap() during device removal?
+
+[Severity: High]
+This is a pre-existing issue, but can the hardware NRDY wait delay loop
+be skipped entirely due to truncation?
+
+In mpam_msmon_read(), the back-off wait is calculated as:
+
+mpam_msmon_read()
+	wait_jiffies =3D usecs_to_jiffies(class->nrdy_usec);
+
+	while (wait_jiffies)
+		wait_jiffies =3D schedule_timeout_uninterruptible(wait_jiffies);
+
+If nrdy_usec is smaller than one jiffy tick, usecs_to_jiffies() truncates
+to 0.
+
+Does this cause the while loop to be skipped entirely, forcing the code to
+immediately retry without giving the hardware the required physical time to
+exit the NRDY state?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914-mpam-resct=
+rl-dt-knp-support-v2-0-bf6645bb2f65@oss.qualcomm.com?part=3D2
