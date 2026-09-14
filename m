@@ -1,128 +1,224 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEE6C3AE198
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 07:22:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3299C3ACEEA;
+	Mon, 14 Sep 2026 07:24:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789370565; cv=none; b=UO5tStrzITSCRc5wxJ+7mN+5JNzyWaiMzJVgjIFtc/GYTLjmG3jN855hbgxI2jl0M4VeO48GzrjpJULnxp5MLMrxt59AwgIFZjuwWJ5lQT6Y+SQ8Nb5SBAZiV7+eqyWY/+N37EOQAizaM7LfJX+8iuiIxG7X0WjZKRZ5RZwOO2c=
+	t=1789370643; cv=none; b=MwNIde3RPi5TPCPsqDmwjGD1JLLNFAEAKjgSQ/xErYgyyyRVYX7BdrNlxdM9OOxG/lCgErs2vpLy9FLnykcEy9pmY/ljFJu4cqEISvI7kbNRuJg1LRI4LXXKrIgrEDNQtjV1mILfWTRjimQKDcnm52TABgMQz0PaunqBosbq3L8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789370565; c=relaxed/simple;
-	bh=5NBVtwAK0BAoXDnntVPQyaH3IyuLl1zCV9teA8E6PnI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Qgp5f6DJ1jmv1dNNnTRk0yN53/McwkFWvSjKD0cPgeb/HyYFdokxnNuy2erArAxjQFwjbrbde8swG10pwDzON8oHyOcNANlVJuJKMIfqgXhKBTzZG9EFjv5MQe2GX+agZnJ+/Ovrp627eyK3nnN0MwpwOpNAQrmEEg9v7I9oD+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=lqASA6ZL; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1789370643; c=relaxed/simple;
+	bh=g+38FgOC9ZNKh6fCvn7Jb2t1Ja9Frdbw3eNYbL4oaoA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nm1gBHgBXzDJA+07XHVsVsrhYbwTIGekSwTb2RWO+0Zsiyo17AMMnbDXaoi8npfATgtD3Xr/u0U+qxXogzHHxTggpWObImPdDpBs4xlqiER3Kz/F6mj4xy1v7bdBT9zt46kRPQdLHu77CUWnMs3u1w69d+xFfSFqzZJykNUT+1k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H3gysuNk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="lqASA6ZL"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccfd61ecaso15626565e9.3
-        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 00:22:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789370560; x=1789975360; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5NBVtwAK0BAoXDnntVPQyaH3IyuLl1zCV9teA8E6PnI=;
-        b=lqASA6ZL6Ht4dMepBaEUizpDJdypfAn4OveqtXpPdzI+asgnuwR3FZcyXJpR/biBMa
-         ZqVqH3zi2YGRv51vHLbIuSdljhEmyXKFBxI04Y/G0Fws57Iy5yUHtfchS5G9BtkmgfkN
-         nmKflFrYmXi5AVS/LrvtenmC335VoJHn8cXd1zmzCwAME61eZZ+9Pk70vCffDb3N15ak
-         RFJvZ72usOyFLLzzRFS3P+v8yqay2hYJQS1kQV4LjndudZ0ng9YiCro5j/KKXzDg2SuE
-         WNkF3dK1FHbV4aKMrPKzZmw7HiMCkPy9WKUiVt0FrAj5x3Jgsop5eN9OVgOEvhChv7ZR
-         bkSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789370560; x=1789975360;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5NBVtwAK0BAoXDnntVPQyaH3IyuLl1zCV9teA8E6PnI=;
-        b=b6jYp7e3r85/fHH5HIeVaVVQnniy++vvgo/zQ3LVEQSY6JbuuDHkzCFat7IGGYsFM1
-         pzifAFL78gt3+2Ij5mqEXO8KsW8pbyhpEIYkeKxPQ5vFZ+30D2xo1SS0K3M75D9Hs1km
-         dxSJnZ3M4w5s6s8pjaGyEfzBuYykutWeJXp34Vmqfk+aqw3SOEfNazX1QSUGxHCWsV66
-         sZON74msTXFJffHA0l/sml0+83kQ0/YSGMAP5qcRGojYPcmeYdg5gi36IC1CawsJmUrQ
-         NPZ9bN2zuRiX4Wkr0ZF3/8JVZ8CvMtRrnIkxltZr95/sVXutxcq8hvgqYPBmZAiMmiGz
-         PCLA==
-X-Forwarded-Encrypted: i=1; AKwUvBzGu9kQUC82CF1K09TQgf3ofl4RyF1y1IogUkYta7tOGphcXv9HGfrniBw9l5BYpJsXT6YC5eN/z4pP@vger.kernel.org
-X-Gm-Message-State: AFuF++noqaAGzZZT2JMpGbVTkAYuAWhKseJI2Oomf3D4Oe/DBuDCu1+5
-	QEZ1miy+qnwdOpL6SMzKjnr/uXEp/lCQFEJWiFkUVxacd5yzYgPC1OG5ZlmIUm79c+I=
-X-Gm-Gg: AYBFou09Ftp9nW6sXANpb6RDYlOI4/9Tno0AIz0x9UW2c55Ro224pI6SL3ZKWa4nUnS
-	PmB+onmwEpLCRQZrvcE3jLr8mQ2rHZ8jdlLEo/lzXR6XRMrZy6mtrtB7dlYNojdclxfQdcvvMSJ
-	0ISHusfCkiJ0Jeo1S3gxIAvuvYTo3Zq7IZO9COKAte76lsiPV/15jd8Qv1+5bZgBy6tvezyCLn+
-	IihBBNwinpSX/v7VXap5rFd/9kI/5Him9i8cElXZhaKnRAss8fdeUESoMURmhLQTPHNsjyulCA1
-	7oRpN/RLm+EBa5bKimOkr7vpxIMbqiz0nKpBAkcoc4nXt0DGVM8rlPdPgpfgy6o0FOPWNqjj4Aa
-	VSEUu/HinbyBUK/hXts3FL1Ig76Syz+BmPaaH7bNkWc/U1P5VLBlACw698VKkLOzpbSBYQNVqV3
-	0TluGgJHpuYqhgv8s3PTPd419bg3vIJ2H6lQzUkxWRXF0rMMEpA9Vd7iaZbadnT0T3rTEzd9h7q
-	0+RqCIYawquhiRnpuVDqNrGQJKUjhQ6PcNvj5YDL25qUrIqrDc9oZ/F5etaOg==
-X-Received: by 2002:a05:600c:548b:b0:498:952:e276 with SMTP id 5b1f17b1804b1-49e7a6625aamr13720395e9.8.1789370559823;
-        Mon, 14 Sep 2026 00:22:39 -0700 (PDT)
-Received: from localhost (p200300f65f19a904d5c06a7863c841d4.dip0.t-ipconnect.de. [2003:f6:5f19:a904:d5c0:6a78:63c8:41d4])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49e71e300f3sm198482485e9.7.2026.09.14.00.22.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 00:22:38 -0700 (PDT)
-Date: Mon, 14 Sep 2026 09:22:37 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Tapio Reijonen <tapio.reijonen@vaisala.com>
-Cc: Saravanan Sekar <sravanhome@gmail.com>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH 3/3] regulator: mpq4210: Drop the mod_devicetable.h
- include
-Message-ID: <aqeghbaA5yS8aO9R@monoceros>
-References: <20260913-mpq4210-ohms-fixup-v1-0-dcff627001ff@vaisala.com>
- <20260913-mpq4210-ohms-fixup-v1-3-dcff627001ff@vaisala.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H3gysuNk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57AD01F000FF;
+	Mon, 14 Sep 2026 07:23:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789370641;
+	bh=pZcpAcr+/zzbC+AJSoK5adn1YRsesqqRQr6hReF8Wug=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=H3gysuNk8zdh7URFf7FLGlilz9hCA4zjYeK5IzjcfURn2IrXKQtKPpJz4Fhky0yXd
+	 WpoSEdb0Exip+c22bwx7Usf6yratEwco1cclfU5O39eBSRyUVsaYDFOQWz0h6HDJJX
+	 K/gwyEkYWguB/zyrv8OPVZo/PQ1nlpfAN7hd/LGW6B1lj1zoqi3WtRRFR25+HS2sSQ
+	 n+SsCP1KOltDH+jnJjW9hweUPa9xfKWt4U3zk9rpqMFKuUVYzxC1mVPWErYkF+CiJF
+	 72w+yuoxtmArigyL0mz1Jrqq2Th6eBwyvM4kadoLRRIt5lnPaXbMFMm9uue0nZznfe
+	 sLgL5kaqQPFtw==
+Message-ID: <63126241-b217-46c6-8ec3-071283e86d69@kernel.org>
+Date: Mon, 14 Sep 2026 09:23:55 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="n5ywwnv2z25hkbgi"
-Content-Disposition: inline
-In-Reply-To: <20260913-mpq4210-ohms-fixup-v1-3-dcff627001ff@vaisala.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] dt-bindings: net: can: holt,hi3110: Convert to DT
+ schema
+To: Quchaosheng <quchaosheng000406@163.com>,
+ Marc Kleine-Budde <mkl@pengutronix.de>, Vincent Mailhol
+ <mailhol@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-can@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260914055608.495084-1-quchaosheng000406@163.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <20260914055608.495084-1-quchaosheng000406@163.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+On 14/09/2026 07:56, Quchaosheng wrote:
+> Convert the Holt HI-311X stand-alone CAN controller binding from
+> free-form text to DT schema, and reference the common can-controller.yaml
+> schema.
+> 
+
+Do not attach (thread) your patchsets to some other threads (unrelated
+or older versions). This buries them deep in the mailbox and might
+interfere with applying entire sets. See also:
+https://elixir.bootlin.com/linux/v6.16-rc2/source/Documentation/process/submitting-patches.rst#L830
 
 
---n5ywwnv2z25hkbgi
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 3/3] regulator: mpq4210: Drop the mod_devicetable.h
- include
-MIME-Version: 1.0
+> The controller is connected over SPI, so reference
+> spi-peripheral-props.yaml as well, otherwise the standard SPI properties
+> such as spi-max-frequency would be rejected by unevaluatedProperties.
 
-Hello,
+Redundant, drop.
 
-On Sun, Sep 13, 2026 at 11:40:18AM +0000, Tapio Reijonen wrote:
-> <linux/mod_devicetable.h> is meant to go away, and this driver does not
-> need it: <linux/i2c.h> already supplies struct i2c_device_id and
-> <linux/of.h> struct of_device_id, and both are included already.
->=20
-> Suggested-by: Uwe Kleine-K=F6nig <u.kleine-koenig@baylibre.com>
-> Link: https://lore.kernel.org/r/aqRMb8q7BT3uZ9iF@monoceros
-> Signed-off-by: Tapio Reijonen <tapio.reijonen@vaisala.com>
+> 
+> The old text listed clocks as required, but the driver obtains the clock
+> with devm_clk_get_optional() and falls back to the "clock-frequency"
 
-thanks for picking up the suggestion.
+No, read the git log history. It's only for ACPI. You cannot add ABI
+post factum on the basis of "but someone added it to the driver code".
 
-Acked-by: Uwe Kleine-K=F6nig <u.kleine-koenig@baylibre.com>
+> property when no clock is provided, so either one of the two must be
+> present and neither is required on its own. This is expressed with an
+> anyOf block, and clock-frequency is documented, as it was previously
+> undocumented. The maximum supported clock frequency of 40000000 is
+> enforced, as that is the limit the driver applies.
+> 
+> unevaluatedProperties is used rather than additionalProperties so that
+> properties provided by can-controller.yaml remain usable.
 
-Best regards
-Uwe
+All this is redundant. You just paste here LLM explanations, so let me
+stop you right here - do not ever paste us LLM text. It's pointless.
 
---n5ywwnv2z25hkbgi
-Content-Type: application/pgp-signature; name="signature.asc"
+Explain the changes done to the binding ONLY.
 
------BEGIN PGP SIGNATURE-----
+> 
+> Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
+> ---
+> v2:
+>  - Reference spi-peripheral-props.yaml. Without it, unevaluatedProperties
+>    rejected the standard SPI properties, spi-max-frequency among them.
+>    Reported by Sashiko.
+> 
+>  - Add a maximum of 40000000 to clock-frequency. The description stated
+>    the limit but did not enforce it. Reported by Sashiko.
+> ---
+>  .../bindings/net/can/holt,hi311x.yaml         | 81 +++++++++++++++++++
+>  .../bindings/net/can/holt_hi311x.txt          | 23 ------
+>  2 files changed, 81 insertions(+), 23 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/net/can/holt,hi311x.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/net/can/holt_hi311x.txt
+> 
+> diff --git a/Documentation/devicetree/bindings/net/can/holt,hi311x.yaml b/Documentation/devicetree/bindings/net/can/holt,hi311x.yaml
+> new file mode 100644
+> index 000000000..36497b114
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/can/holt,hi311x.yaml
+> @@ -0,0 +1,81 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/net/can/holt,hi311x.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Holt HI-311X stand-alone CAN controller
+> +
+> +maintainers:
+> +  - Marc Kleine-Budde <mkl@pengutronix.de>
+> +
+> +description:
+> +  The Holt HI-3110 is a stand-alone CAN controller with an SPI interface.
+> +
+> +allOf:
+> +  - $ref: can-controller.yaml#
+> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: holt,hi3110
+> +
+> +  reg:
+> +    description: SPI chip select.
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    description:
+> +      The clock feeding the CAN controller. If this property is not present
+> +      clock-frequency must be specified instead.
+> +    maxItems: 1
+> +
+> +  clock-frequency:
+> +    description:
+> +      Frequency of the clock feeding the CAN controller, in Hz. Used when
+> +      no clocks property is provided.
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    maximum: 40000000
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqnoLsACgkQj4D7WH0S
-/k4GpAgAokIXS4bLfKhNIx0SshCZ9XhCw7DHg6bS5Zez7NpE6GsOiajjl2CUZKPa
-HjSkricKdreGJm/mQI55gxYkzXrQ+p3dzX4M0+MlWFjbfLhyPddiOfPYze1k3FpS
-A2EsKD8LOGUYCs+DPnN2atAfVSy3JlMEU/mrc0Ckx3JQHQDx+yPUdVLeLxtfkATe
-D5Aoh5jbeAAX8jsPiRNay4V6x9BSCYXl5DlI9n3px3alDtYlUZqlOc8AgLvo7OfX
-2ilFZlWwn1GvnCYsOhBlRB/G16rKDG0Pjgyrh+ZNu5JanTIkap0/DWWESsebHjqU
-d03AvoYE2P0vIQpZ2zQmNTK3e48I5g==
-=/zv7
------END PGP SIGNATURE-----
+No
 
---n5ywwnv2z25hkbgi--
+> +
+> +  interrupts:
+> +    description: IRQ line for the CAN controller.
+> +    maxItems: 1
+> +
+> +  vdd-supply:
+> +    description: Regulator that powers the CAN controller.
+> +
+> +  xceiver-supply:
+> +    description: Regulator that powers the CAN transceiver.
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +
+> +anyOf:
+> +  - required:
+> +      - clocks
+> +  - required:
+> +      - clock-frequency
+
+No
+
+
+Best regards,
+Krzysztof
