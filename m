@@ -1,115 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4499E1DFFB;
-	Mon, 14 Sep 2026 03:29:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6B232B9BA;
+	Mon, 14 Sep 2026 03:33:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789356582; cv=none; b=Et/Ws4/2Ykq3djOUZZVqncwQZTLoyuPz/OvIU0Uc1awde9+ri4l2d4aGaYOi1Ydm6H1XFkjOQBrqTt2eQJMMLKeiKVcVDQSng7n9+FXQOrQJTTVXSc8fbfUFyS4qkOPsefWg56SUE55H3TFcAurM039OwJHFZQM3uW/5l+ZQveA=
+	t=1789356822; cv=none; b=gj4/ZBr1zaXdBZpZqMiwfWe4CZSzA2uElvNK7avHjFlWcJK5/0HNVCq1VA3s23lBmdTj4RFGcAY3LSjoWWwLTvWIUzSbfjuVsITZ1JP62eXJpeNVyiKKcKHF/Ge+mRnrH8pr4bx0gHLaKJMbHC+CpTJdWyNUQBGp95IfYgst8Oc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789356582; c=relaxed/simple;
-	bh=OgRYnskRSXcQGXmFXdSfwMqCUHXv6d01XoMry68YySM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=gx9fuiGiDkHryNfG5whhSZZrr/oysNk5beVIVd5ouEg7pJfrpgzyzWokCTZhaayLEjhosdY1AhrH7mkbso4dHw/Fi+ptms3tJVz6bJ1MqqA28GRipuNTcHdVfW4hg9gDoiiorGRlt3k17iHM5lzU9y550jrbp3A1XswSQYfaw84=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H4KTcb2e; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789356822; c=relaxed/simple;
+	bh=236WAL/SVgLvSVtYPtEU82p2g0kMPt5QCc4VChf1E1k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JDby9Bc0tDa7OibN/Dt9hvyDDPunSKVKxryZIehlQ3bfpV/HdVAvsSntJvBu5sy956SwtqDXotHk1ijoWA66ZkXbCRX/QzhFRUMT1QyPvkk2hVssN/0XKpDUd8wWmKbUADpY1yTm8oCi1CcElmCuzd8sYo7gY3rNLQn7qXF1wAE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=xirn+Ven; arc=none smtp.client-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H4KTcb2e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A54E1F000FF;
-	Mon, 14 Sep 2026 03:29:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789356580;
-	bh=XISYk5QwMdZqbWtmBK3jBSsBiP6RCYu78or/sAONXZY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=H4KTcb2e/4OaRPCBMbWlWOJ3ROJieyRI2Vky2ij+pORE4WPqWwYP8EIqTQ/RxpIVc
-	 4ev+MjM38BTcNxoWk96+dC1VswhNavVxIKrOONJDlP5KKPkhJmxZ3bVIzGh17YJ4RT
-	 fRP9dPtxpBB02Zgbh/eU5rTz/fj/u5TnCuEHIe25iMaoxMSIFtIwTd4yucnkDUwDH/
-	 gJwNma02VrnAWsHb0fGfpPV5skPrIF5WmT9em9iD0TaYvgEgwBx/cfu6OYJUyh10cZ
-	 EUcI756HZMDHJIigBDUbF0sDS6nP26vBSxbXBzWjD3TNFiq1t/gx0KiBt3o/hBA6Ls
-	 +f6vp3DRepMzg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] arm64: dts: imx93-evk/qsb: add rtc1 alias for
- external PCF2131 RTC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Joy Zou" <joy.zou@oss.nxp.com>
-Cc: devicetree@vger.kernel.org, Frank.Li@kernel.org, robh@kernel.org, conor+dt@kernel.org, imx@lists.linux.dev
-In-Reply-To: <20260914-b4_imx91_93_rtc-v1-2-daed1cba0714@oss.nxp.com>
-References: <20260914-b4_imx91_93_rtc-v1-0-daed1cba0714@oss.nxp.com>
- <20260914-b4_imx91_93_rtc-v1-2-daed1cba0714@oss.nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 03:29:40 +0000
-Message-Id: <20260914032940.7A54E1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="xirn+Ven"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hjrN11n10z8sqP;
+	Mon, 14 Sep 2026 05:33:37 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1789356817;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zi/HNH51DYMqF6FrKwXWRt/DS3wGH248vhAG+zCzkeg=;
+	b=xirn+Venw00wFe+IUQ/RNMvSnxo+YxdBpuOkeFNaf8GxFGck+yfpKHTWTVWaE8ewbq5Erd
+	6W6Xsheui0UA/3iOKYpuHARwG2zg1EOslox7KPmeX9JTLVs+grgYayBb+4xe4CATN0votw
+	KJDukKN8RQ+Sft9qJYtx6F6uaHRYPNODsOHITu9soAP6a7WUt8dxmUtT8RfoomqR1e3Fgk
+	jSpzWcS6sHnSCXnjnVykK14cm+gGRmxRxK5/IHF63/JesQgPg+g+G2MV/xKjC7IVfHL7Pt
+	WIgqHQzrEn/0kQthFqruGUszK/GfHLqZG6IwDsIKIBDHb05UHMRZLrf5pyqIyg==
+Message-ID: <c88cad21-dc3c-4791-837c-49a6a41a811c@mailbox.org>
+Date: Mon, 14 Sep 2026 05:33:31 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Subject: Re: [PATCH 2/2] phy: renesas: Add Renesas Multi-Protocol PHY driver
+ for R-Car X5H
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-phy@lists.infradead.org, Thanh Quan <thanh.quan.xn@renesas.com>,
+ Phong Hoang <phong.hoang.wz@renesas.com>, Hai Pham
+ <hai.pham.ud@renesas.com>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ Arnd Bergmann <arnd@arndb.de>, Biju Das <biju.das.jz@bp.renesas.com>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Magnus Damm
+ <magnus.damm@gmail.com>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Rob Herring <robh@kernel.org>, Tam Nguyen <tam.nguyen.xa@renesas.com>,
+ Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+ Vinh Nguyen <vinh.nguyen.xz@renesas.com>, Vinod Koul <vkoul@kernel.org>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org
+References: <20260828192223.402422-1-marek.vasut+renesas@mailbox.org>
+ <20260828192223.402422-2-marek.vasut+renesas@mailbox.org>
+ <c2rlwdyn2xm3tti7skniz3uldwh4lly4jlqdmggqjm2a2xpyxq@nczmbl7tyqa7>
+Content-Language: en-US
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <c2rlwdyn2xm3tti7skniz3uldwh4lly4jlqdmggqjm2a2xpyxq@nczmbl7tyqa7>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MBO-RS-META: 8bfkjky1pt3whjxf1p558bchj4awyzb1
+X-MBO-RS-ID: 2deee22f53a4f685405
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On 9/3/26 12:15 PM, Manivannan Sadhasivam wrote:
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but several other NX=
-P boards with multiple RTCs lack explicit RTC aliases, leading to the exact=
- same unpredictable /dev/rtcN numbering that this patch fixes.
---
+Hello Manivannan,
 
-commit 3914a89ee5c45116b8135c7ac05a01b772cb8462
-Author: Joy Zou <joy.zou@oss.nxp.com>
+>> +/* Firmware update */
+>> +#define MPPHY_FW_BASE			0x10000
+>> +#define MPPHY_FW_CH_OFFSET		0x20000
+>> +#define MPPHY_FW_NAME			"rcar_gen5_mp_phy.bin"
+> 
+> Is this firmware redistributable? I would assume not as like other Renesas IP
+> firmware. If so, you should add a documentation about how an user can get the
+> firmware, and package it. Like,
+> Documentation/PCI/controller/rcar-pcie-firmware.rst
 
-arm64: dts: imx93-evk/qsb: add rtc1 alias for external PCF2131 RTC
+I will do so in V2 .
 
-This commit fixes unpredictable /dev/rtcN numbering for imx93 boards by add=
-ing
-an explicit rtc1 alias.
+The Gen4 firmware is now part of linux-firmware, so I updated that piece 
+of documentation and sent a patch.
 
-> Only rtc0 was aliased to bbnsm_rtc, while the external pcf2131 had
-> no fixed index. When both drivers are modules, the pcf2131 may register
-> first and take rtc0, pushing bbnsm_rtc to rtc1. Since suspend/resume
-> wakeup relies on the internal bbnsm RTC at rtc0, this broke wakeup.
->=20
-> Add rtc1 alias for the pcf2131 on imx93-11x11-evk and imx93-9x9-qsb,
-> so it keeps a fixed index while bbnsm_rtc stays rtc0.
+[...]
 
-[Severity: High]
-This isn't a bug introduced by this patch, but several other NXP boards with
-multiple RTCs lack explicit RTC aliases, leading to the exact same
-unpredictable /dev/rtcN numbering that this patch fixes.
+>> +static int mp_phy_probe(struct platform_device *pdev)
+>> +{
 
-For example, in arch/arm64/boot/dts/freescale/imx8mn-dimonoff-gateway-evk.d=
-ts:
+[...]
 
-	rtc@53 {
-		compatible =3D "nxp,pcf2131";
+>> +	return pm_runtime_resume_and_get(dev);
+> 
+> Since the runtime usage count is incremented and not dropped anywhere else, the
+> driver will never runtime suspend.
+> 
+>> +}
 
-This board defines multiple RTCs (pcf2129 and pcf2131) without aliases,
-leaving them susceptible to the same index race condition.
+I do not think we can actually runtime suspend the PHY itself, so this 
+is expected.
 
-In arch/arm64/boot/dts/freescale/imx8mp-navqp.dts:
+The rest of the feedback is handled in V2, thank you !
 
-	rtc@53 {
-		compatible =3D "nxp,pcf2131";
-
-This board defines an external RTC alongside the SoC's internal snvs_rtc
-without any aliases, causing unpredictable index assignment.
-
-In arch/arm64/boot/dts/freescale/fsl-ls1088a-rdb.dts:
-
-	rtc@51 {
-				compatible =3D "nxp,pcf2129";
-
-This board defines multiple external RTCs without a complete set of aliases,
-leading to unpredictable rtc0/rtc2 index assignment.
-
-A race condition between module probes will swap these indices unpredictabl=
-y,
-which can break system time initialization (since CONFIG_RTC_HCTOSYS_DEVICE
-defaults to rtc0) or suspend/resume wakeup functionality.
-
-Could these other boards also be updated with explicit RTC aliases to preve=
-nt
-the same issue?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914-b4_imx91_9=
-3_rtc-v1-0-daed1cba0714@oss.nxp.com?part=3D2
+-- 
+Best regards,
+Marek Vasut
