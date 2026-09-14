@@ -1,139 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD31947DD59;
-	Mon, 14 Sep 2026 14:19:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B92A47F788
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 14:21:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789395558; cv=none; b=AWxqnONe2+UEFXhIJ7D9TavvFUaNh+m63fuhqrV+6dcp5K6D2ePX9Jlq8iPGKg8C9K/bDrbOmHg/2CyY5/Ek9/EWj9id9TKxsENnDi57t8IIfhHIKNSFOTHg+a5atfIjk/Z+BDPzeHXa9Y7l0cKsEwOhw89NeTR5SQhjbywdyeA=
+	t=1789395686; cv=none; b=rgz031mZDvdCqNLFfe/C2TMqinsEwMh44FaAtjrXjRDmaVfNFqkI6Ar1brIN/Wp9hT96kPD9jFFoBXeFgN2ERqeMl/gNnfmzU7Cv4zBKT1jOTkrP59JJ/ppP2iBcUxQExNqmHO8sGFEPqK1lrIpicy2J7VZ5zqiXsOfoG2trFPw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789395558; c=relaxed/simple;
-	bh=fKyld9t6D/FMJyIZs8tLQZezDPQ3bZZpyrpcFezMKXo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:
-	 In-Reply-To:References:To:Cc; b=ob9GU/mOND9EDGCvl4+G+XJvmv/UY9RNIRF4xacWluhfJ9GPMqkJtzboNzGGX2mxvOczhGVygldhO3jnZvB3PNNsnDFhEOqRraC+cok+tUrl0N9PvytLfhC4xx7IbCk/ZxY11FowlNZzOSA8olqCbKIJ52J0MKqrWtesnqGNAks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b4HRqQr5; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789395686; c=relaxed/simple;
+	bh=qpr20bFoWIAVz6Uu6SDBY1Onol/yGpj70dm5w/7HmbQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rXi3Gki57Tyy/TWwN4po66K8f6VShyROxR03akVb/gPssxbh24K2jYfvdbJA7t0lMqS5ogGxKgSeVVzbosUQ0GjhdXksgSLTyZEUUwopZ6iOvU/DBMlqUGHh1g3EJQC/ANUqHBdG+e5ZyURKSuojBSUcMYxNCVvS2GN2bOGpJ34=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZAA0sVec; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dZQtb65n; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b4HRqQr5"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 2837AC2BCB8;
-	Mon, 14 Sep 2026 14:19:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789395558;
-	bh=fKyld9t6D/FMJyIZs8tLQZezDPQ3bZZpyrpcFezMKXo=;
-	h=From:Date:Subject:In-Reply-To:References:To:Cc:Reply-To:From;
-	b=b4HRqQr5dnfbWzKQC9koLO2TXDaTa8LAvDcIRaVR2nzCExWTodohylpw6ORBxUVqZ
-	 R1ljAi8UoN+EnhTiNAxAh3rPWJPfK0iVOPRKPsgTrAeYA1dT6XknSUY9vG5rtpu9Vs
-	 RIyrrEQb0uGa4C6biF3T5Hi1lIQOXxCnS2XvfF2qFgMVJ0NUNqJQ4SBtK25FIKhtde
-	 vlutklImIjj+i8JVaKw3cfoZtCzFLE8fVYF6sRWUkskBGWI7PuJDLZIYOk9JjsOObP
-	 S7kJPXcUdoYEYQw5jPdZmqhbZ54Xf/njk8FR6pnrYVnKeKGKFqyYgsvIsZwYv6UFRU
-	 d7hZkphHiFSqg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BFBBCC88E73;
-	Mon, 14 Sep 2026 14:19:17 +0000 (UTC)
-From: Avalon Vargas via B4 Relay <devnull+avalon.vargas.centeno.est.una.ac.cr@kernel.org>
-Date: Mon, 14 Sep 2026 08:19:12 -0600
-Subject: [PATCH v2] arm64: dts: qcom: Fix touchscreen address on Dell
- Inspiron 7441
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZAA0sVec";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dZQtb65n"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68ED0OJB1514357
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 14:21:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=hsC/n5G/ysH1TDMPqrs15Xr5
+	Fe1eAaS5X/4GfDOh5vA=; b=ZAA0sVecotuQbIutF2EPWz8avV8PBXwK/D22V4EB
+	T7JIXLLQ1Pw29b6EVFSY0wTE0TlLHg8qvV6Ovch1DnuNa6WKDmsBAgDOqC5PTuHw
+	CixdNiZOG/sxPSsQUkr2Jpm8dKWiAr/QMr+AD9bvsFRLx/2dX/P8Syg4vKCUUFV0
+	L1N+4XVPHfeVUI6LLy/0yu5JJQapY83jolFHwcayTw30aMwBkLJUNgcQzrjDmiuy
+	EtLVZFaInA13UVi4sYGXkQg5Tur2Nc3gNJ1GHg1TMmmKRltzL3ZNdMRdbhd0y4qk
+	MjDsMNpT3yqlYInbKgzhkCs/Kot+rkHfPMWXQuX82Ttt7Q==
+Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com [209.85.222.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gp3k0axew-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 14:21:22 +0000 (GMT)
+Received: by mail-ua1-f71.google.com with SMTP id a1e0cc1a2514c-97e768af628so2813060241.3
+        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 07:21:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789395681; x=1790000481; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hsC/n5G/ysH1TDMPqrs15Xr5Fe1eAaS5X/4GfDOh5vA=;
+        b=dZQtb65nHQWP/U+6nd8BGH73mm5a8w6wz52rIwnINgZABoGFTDTakG+dMqia/1/Dvg
+         9RS5uXK5f0C324qddWAmOuCAEiGUTZvamsJReUOEgV9KWNx8GyPixE++IPNCq17wsaSm
+         SXIBJZMGXuAUkpgDIQV7TLwWtBAmrK9Iwv1cpciZXhUX9kbixtZf6JQ4cIIqiEtTHHan
+         wjRONlkdE6Fnd3odKhr1/ZqBG/alF9p/1EQOXWWJ65iZ7Y84RUjijBfHQkCAAXtSiiGz
+         c9J0VTg9bY9xZ+OJ+2DvswPTRocLXSH+vN4LhIa37qX/Oz06LUQZeQRaReogwlSzrTbz
+         zyZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789395681; x=1790000481;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hsC/n5G/ysH1TDMPqrs15Xr5Fe1eAaS5X/4GfDOh5vA=;
+        b=qctMVrl0xPh3xH3elmuRLS/5FhnAEUt4YSDLPKO94xP6+uxnAa183qE9NUh4ixdEJd
+         I+6H9RAVY9In5uy/p5+DdPU4nfN/GkF/lMI+8X47vQ77A/w99lX0v0EsZ+uIgpYjeGfs
+         KOqMUp7ivDMp2pJb5dei+Zpby/7EFg4vIsj1CqUubDW3NkiRzqeHxs4SrF772CC4ZE5i
+         u7Me7+weJuSI0xgmoQmojV1rUyfyazdWshxBH5h7Y54tTlMOv8TzOzL/DfTVB+ACz7a8
+         AsCudJFfVYP9I+ozBlfwGAjBts1RJyJuS0LMdwWqIyIEAr0GTMIKcpUK1Xomn+VOX94c
+         w0eQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxNLtFkrWtJKuslDPBExy/AZwgnnnsNfZkCZdOOzoWbHYmoLbhHpT/EX6m9eQwss3squlrjgUwdriIa@vger.kernel.org
+X-Gm-Message-State: AFuF++m3exIEhtEwS1H5EEYazK7Tep7T/FfkuOlSQ7menVOOQJsNIIyH
+	Gh99BkvtYczVSe2/x2OM1O6hfB9wMHoxkmOV6V3EGOtSsV3RRl76GNRg8mCRTBD/LYNPe9zCrh1
+	RrlPWVGe8vN69+mw60xmPMHPVvMH3ysRuJ4M4w2vgtj7Dah+kZSGdWCJcPJtoSOmJ
+X-Gm-Gg: AYBFou0fwDDixe0365f+AYt9PF8gbuIOZvWJLYEQqjTwq+69934H23ye3byW+xU/e3p
+	ZFUsjCjx0pQmqNzPfQLrBnIvYm2hfrxNMgpbqGu1GCgdiGQboH4uXsllgSnlkxMP9TKhhV9g5hN
+	AvNnUr84u3RgvuPqRvwExOG8sVW4Che9A7ae0y9S+csNawzhN5TdHJPO9ldDjYx5OGQdLk+LR4Y
+	nb3259mKZRHxr3su+ITnxZMTD/6Shvo1qHczQoDdHIWqwRsgIjruasy+Yznb2UgKbLXFzqNMZYt
+	EYoE5rIb2N+sWZRim52HVg8N/Spd/yDCJQ77ycU3qJeKm5enLeA5SOO4NzbrP6YGNWhcRU3lxiZ
+	t4gYO2PeUS6kYMw8=
+X-Received: by 2002:a05:6102:548a:b0:79b:dfbd:d0f7 with SMTP id ada2fe7eead31-79bdfbded2bmr1730996137.0.1789395679749;
+        Mon, 14 Sep 2026 07:21:19 -0700 (PDT)
+X-Received: by 2002:a05:6102:548a:b0:79b:dfbd:d0f7 with SMTP id ada2fe7eead31-79bdfbded2bmr1730677137.0.1789395677612;
+        Mon, 14 Sep 2026 07:21:17 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.232])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e6499d57bsm477423505e9.3.2026.09.14.07.21.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 07:21:16 -0700 (PDT)
+Date: Mon, 14 Sep 2026 17:21:12 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Muzaffer Kadir <muzafferkadir@mainlining.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Srinivas Kandagatla <srini@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Robert Marko <robimarko@gmail.com>,
+        Guru Das Srinagesh <linux@gurudas.dev>,
+        Amit Kucheria <amitk@kernel.org>,
+        Thara Gopinath <thara.gopinath@gmail.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+        Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>,
+        "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
+        Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+        David Heidelberg <david@ixit.cz>, Dang Huynh <danct12@riseup.net>,
+        phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org,
+        iommu@lists.linux.dev, mfd@lists.linux.dev,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        Krzysztof Kozlowski <krzk@kernel.org>, linux-pm@vger.kernel.org,
+        linux-input@vger.kernel.org
+Subject: Re: [PATCH RFC 15/20] soc: qcom: ubwc: Add UBWC config for MSM8952
+Message-ID: <z7rjt5237gdtytb35chtyjposyvqpgqfsxhov2all4g2527aix@dabjw24dluwa>
+References: <20260912-msm8952-initial-support-v1-0-0e742578b524@mainlining.org>
+ <20260912-msm8952-initial-support-v1-15-0e742578b524@mainlining.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-dell7441-touchscreen-v2-1-7f7224c0cce5@est.una.ac.cr>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WOQQ6CMBBFr0K6tqStpaAr72FYTMsoNVhMpxAN4
- e5SPIDL92fm/VkYYfRI7FwsLOLsyY9hA3UomOsh3JH7bmOmhDLiJDXvcBhqrSVP4+R6chExcGO
- NEvKoG7CGbaeviDf/3rXX9sc02Qe6lF15wwIhtxGC63P0BEoY86D3lMb42R+aZRb86Z4ll7yrT
- 5UWDips5AUplVOAElzpImvXdf0CiCOKQecAAAA=
-X-Change-ID: 20260914-dell7441-touchscreen-6b6201348ab6
-In-Reply-To: <20260914-dell7441-touchscreen-v1-1-d79540ca5e81@est.una.ac.cr>
-References: <20260914-dell7441-touchscreen-v1-1-d79540ca5e81@est.una.ac.cr>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Val Packett <val@packett.cool>, 
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789395556; l=2302;
- i=avalon.vargas.centeno@est.una.ac.cr; s=avalon-una-20260914;
- h=from:subject:message-id;
- bh=6gBsV7jPIMZCPp+JlhmXPksh2uvU1i6L1e9XqSDCAiw=;
- b=ZYH8yQrfacLkBtsncjtGdW8vXgGgPM/evxGnTyhkeXzbHgAKY/9UTIj1I0W1UN3ejqHJIVqHR
- F8PySNTN4CFBhYR11IRgw1vhN6xRakWDEwqcTGHwkKCQlkME7BDLwbf
-X-Developer-Key: i=avalon.vargas.centeno@est.una.ac.cr; a=ed25519;
- pk=I7FZ301yhA9Jl2LReBEqv+9LUrd5zi397CIT2gTB6RE=
-X-Endpoint-Received: by B4 Relay for
- avalon.vargas.centeno@est.una.ac.cr/avalon-una-20260914 with auth_id=1032
-X-Original-From: Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
-Reply-To: avalon.vargas.centeno@est.una.ac.cr
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260912-msm8952-initial-support-v1-15-0e742578b524@mainlining.org>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDIwNSBTYWx0ZWRfX5zYNYruZei4I
+ WfOCL5TFzTisWL6n0ny/9d9P4fa4Ei1CyYcono0vzz0bpakqsTOPRTP4reRGl/po3CtM/jxuvXS
+ FnZeWsiPN5psNMfS9mCIYPbOSUTh4n8=
+X-Proofpoint-GUID: sjCageLZCNIBoSkaM8OFv2qJzI48RoUp
+X-Proofpoint-ORIG-GUID: sjCageLZCNIBoSkaM8OFv2qJzI48RoUp
+X-Authority-Analysis: v=2.4 cv=BtAIUoX5 c=1 sm=1 tr=0 ts=6aa802e2 cx=c_pps
+ a=KB4UBwrhAZV1kjiGHFQexw==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=OuZLqq7tAAAA:8 a=EUspDBNiAAAA:8 a=OvtQcJRYg_U4C0nSOkMA:9 a=CjuIK1q_8ugA:10
+ a=TpgoBOgV9RAA:10 a=o1xkdb1NAhiiM49bd1HK:22 a=AKGiAy9iJ-JzxKVHQNES:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDIwNSBTYWx0ZWRfXytNt+gD2Bitx
+ ciWW9ip8fAYFCyZt7hP4CNw8WnhlTim8ITMeXcK5Zu4N33RAKG52iZrUCZkF72RaTBncKAXkjyu
+ 5m9NBLSGKZtvWPoeiY8S5UU75w/5Jy6qoDZQNH8KHTBvwWvNQhzLdRZT3p9xRdHLe8YxIP/6iCT
+ 3whZdrbhIcKVkzCB55Gynn1SSw5qhHMcI3ZG6fsS25Jqn+qV1zQLUcHOSBo8EUS/I9kt3doXMbt
+ 0WsvzyQWRETK8j3FrEfSyTo7AV76FeREfzD0GIGclaHynatoh+N144aDP6ETNbVy2YlJMHtUHzO
+ jkJE1JJqKnaBPSv/AZPtv4QHZlnYDhuV/eYYmKzVr/xBEWHYGpyZvtg3/e2dUXa/EOBnaN7R3sc
+ LJfhrSGO67OLW5SmhOdzdnqceJ9dluBEKb+eBL8XLFxfi6OM5kfUooY+3LVNR0Rl3fkuyJwN7s6
+ 1GdjtR/NnEeptWkTOlQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_03,2026-09-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0 phishscore=0 impostorscore=0 suspectscore=0
+ bulkscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140205
 
-From: Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
+On 26-09-12 11:39:24, Muzaffer Kadir wrote:
+> MSM8952 uses Adreno 405 and predates ubwc just like MSM8939.
+> 
+> Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-The LXST2021 touchscreen on the tested Dell Inspiron 14 Plus 7441
-responds at I2C address 0x09, while the device tree specifies 0x10.
-Probing the latter fails with -ENXIO and no touchscreen input device
-is registered.
-
-Use address 0x09, matching the LXST2021 configuration on the related
-Dell Latitude 7455. With this address, the controller identifies as
-29BD:1103 and binds to hid-multitouch.
-
-Signed-off-by: Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
----
-This replaces the earlier report-plus-diff with a patch submission.
-Only one unit has been tested. I have no evidence of double-sourcing
-or a working Inspiron touchscreen at 0x10; a typo remains possible.
-
-touch input and suspend/resume. The native upstream patch has not yet
-undergone a full kernel DTB build or dtbs_check.
-
-Validation: Linux 7.2.4 plus the equivalent local DT overlay, physical
----
-Changes in v2:
-- Drop the testing details from the commit message as requested.
-- Link to v1: https://patch.msgid.link/20260914-dell7441-touchscreen-v1-1-d79540ca5e81@est.una.ac.cr
-
-To: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
----
- arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts b/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts
-index 75e10d9..0cf5716 100644
---- a/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts
-+++ b/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts
-@@ -25,9 +25,10 @@ &gpu_zap_shader {
- };
- 
- &i2c8 {
--	touchscreen@10 {
-+	/* LXST2021 */
-+	touchscreen@9 {
- 		compatible = "hid-over-i2c";
--		reg = <0x10>;
-+		reg = <0x09>;
- 
- 		hid-descr-addr = <0x1>;
- 		interrupts-extended = <&tlmm 51 IRQ_TYPE_LEVEL_LOW>;
-
----
-base-commit: 704340f1cd0dcef829eb62f5b48ae95a2ce17bdf
-change-id: 20260914-dell7441-touchscreen-6b6201348ab6
-
-Best regards,
---  
-Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
-
-
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
