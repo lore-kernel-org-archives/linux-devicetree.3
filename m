@@ -1,248 +1,70 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 397EA471430
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 12:31:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57153472528;
+	Mon, 14 Sep 2026 12:31:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789389094; cv=none; b=kfvgzSIahw3UXNBWMf7MNEt7AnEKD865zRUby82Xk2s4HdX2EESg6bTJn/0JUNmxykyQvv8OHSmn0Bht0lcCqcB6yR5B4+lHoxaeCR9d6dwjpYs6D4vUQL32nDhcIao6Pt7ZtdL2cVnC4lYeqkE9WUB3U1jEvyhSzgL3dsWzRmg=
+	t=1789389117; cv=none; b=rlax4M+3QsT0Z5x/ktK0atyuLoW6VzFnMBhvcv/NKm5KJRFOVZbMPTRYrUMSvBwr2X29nnYPaZaLOr8sfiGBMAk2QzcAulE75+VPFOxA+zWRYZMLQQC+Q4ThvCjqMraDNyxcOC7hPBrD4jYnPKblfzZmwS2O89K6qMHL/7dgtR8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789389094; c=relaxed/simple;
-	bh=5140tWO7ULiKDhbTkl/bBcsLXGip5kwTlk20zhNTLqg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Y+XE6WtfsXJydptmTJ/d6vTnQpocA4UzuThqqrBF7qlBKRL9viGCesk1AIRTS+xwBFQ2VGxHZRsFtiS5gMvhpTBBoDxQK+cbQ6cQ1YDgewxTBHJydiFwFIkqxA/jwaYN2P6snEQuexW5zHWUVMtbzTyzoCmGHaJTEi6oxhmYLFU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D67ezFZZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789389117; c=relaxed/simple;
+	bh=JprKAj3WcBPMjGGlKwMb7u1QmjKgBn6gWZ8gnKo1/yo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Jx9YUqmk83NiNwbuueu3Gv5MytrVXU8lhhfkDQreGnJafWEkposTKd0b7OtfMmU4ghQuNlQifCgzVWttjXTISeUln9ud4kKEZkd0wqS0R6rb7Dq8GpJv81kjYAovvZp1M4BgTijRe+5S+qZqs6aida6jkCrcNlPJEUM4z8Wrph0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=gFuUeK4k; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D67ezFZZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DA671F00893;
-	Mon, 14 Sep 2026 12:31:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789389087;
-	bh=7GJ0hmqm2wYU9Cj0CXv/fEzS/E6qw/c7RxMyhw4VYoU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=D67ezFZZhXw/EV3UhJSvvlAGq9RdVEZRAbUGHYDIS2Y9j0mpinfqT56D61mDMgWpE
-	 QvThnzsONiyiemd2vwj2Bh9kRCbV71d4VloL+fomUUDgTseaTxazYPUy2ex1RJh0aE
-	 YgktUIWzSGf8W6cl1k64mNU+OA6TGVx9oZ3+F2r+itgXkqegnZX1OhTviv6fMqdszi
-	 20ap8SrNXq6jOKgo46dCo2TmVOZCIfGbeZvgod7FhYKNnW1p+UqEUJHgVrrdVdE/LU
-	 Gwx/7zNmvmqjztYNQ+O0cy6m+5AJl3eKYbc6K4+JhvqF6klN/bwmjIJhOoeTVt0d1A
-	 5hn6nz3W62Wuw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 13/13] drm/mediatek: Add Write DMA (WDMA) Engine for
- Writeback support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260914115812.22751-14-angelogioacchino.delregno@collabora.com>
-References: <20260914115812.22751-1-angelogioacchino.delregno@collabora.com>
- <20260914115812.22751-14-angelogioacchino.delregno@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 12:31:26 +0000
-Message-Id: <20260914123127.2DA671F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="gFuUeK4k"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789389106;
+	bh=JprKAj3WcBPMjGGlKwMb7u1QmjKgBn6gWZ8gnKo1/yo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=gFuUeK4krZqgQHfcKDSyoAiSnzipqUN7ouuMdphPMobsw04OFTxt+5Mu9HPYAkASH
+	 tR2s65Q7i+1ETuV57y+xhrIbLgPZRPMwAZvJeMXbZb/TImo4m1pSyo9ap6O7VEYQw7
+	 Xk/Mh4fIw3DrKK9sHmNYe91I8glwXanJQvD/OKlI9lhsEqFoHC2qrXyCOnH/URx6tr
+	 AFE5hvIoMNjspfyGTdcxy728DGtsXkWG/emg3ljf7+ItyrlnSwBIwH80kpF4UV5djl
+	 MPGMv3iwgpiAGbEwLiKwOpWaz0zgXFQJ0JOJQR3U95gna5Ap2G6ZjFbIUbzSLubvfi
+	 DXnpIWDkg9XKg==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id B049A17E020C;
+	Mon, 14 Sep 2026 14:31:45 +0200 (CEST)
+Message-ID: <a8610c0e-3332-46b1-9a28-1c1ef504a727@collabora.com>
+Date: Mon, 14 Sep 2026 14:31:45 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: dma: mediatek,uart-dma: add mt6572
+To: rva333@protonmail.com, Sean Wang <sean.wang@mediatek.com>,
+ Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>, Long Cheng <long.cheng@mediatek.com>
+Cc: dmaengine@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260914-6572-dt-uartdma-v1-1-b26b429ab68c@protonmail.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20260914-6572-dt-uartdma-v1-1-b26b429ab68c@protonmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [Critical] Unconditional NULL pointer dereference due to double-queuing o=
-f writeback job.
-- [Critical] Hardware Use-After-Free and continuous memory corruption due t=
-o missing one-shot WDMA disable.
-- [Critical] WDMA destination address is erroneously programmed with the in=
-put plane's source buffer.
-- [High] Direct CPU MMIO writes bypass the CMDQ and VBLANK synchronization,=
- risking tearing.
-- [High] PM Runtime usage counter leak on failure.
---
+On 9/14/26 14:10, Roman Vivchar via B4 Relay wrote:
+> From: Roman Vivchar <rva333@protonmail.com>
+> 
+> Add a compatible string for the mt6572 APDMA, that is compatible with
+> mt6577 IP.
+> 
+> Signed-off-by: Roman Vivchar <rva333@protonmail.com>
 
-commit 755cfd13f385380e700d97174dac89e1c3a5c181
-Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: drm/mediatek: Add Write DMA (WDMA) Engine for Writeback support
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-This commit adds a basic driver for the Write DMA Engine (WDMA) on the
-MediaTek MT8173 and Dimensity 1200 MT6893 platforms. It enables the
-writeback engine used for display image capturing.
-
-> diff --git a/drivers/gpu/drm/mediatek/mtk_disp_wdma.c b/drivers/gpu/drm/m=
-ediatek/mtk_disp_wdma.c
-> new file mode 100644
-> index 0000000000000..0575fade92c6b
-> --- /dev/null
-> +++ b/drivers/gpu/drm/mediatek/mtk_disp_wdma.c
-[ ... ]
-> +static irqreturn_t mtk_disp_wdma_irq_handler(int irq, void *dev_id)
-> +{
-> +	struct mtk_disp_wdma *wdma =3D dev_id;
-> +
-> +	/* Clear frame completion interrupt */
-> +	writel(0x0, wdma->regs + DISP_REG_WDMA_INT_STATUS);
-> +
-> +	if (wdma->vblank_cb)
-> +		wdma->vblank_cb(wdma->vblank_cb_data);
-> +
-> +	/* TODO: Move completion signaling to CMDQ interrupt callback */
-> +	if (wdma->wb_pending) {
-> +		drm_writeback_signal_completion(&wdma->wb_connector, 0);
-> +		wdma->wb_pending =3D false;
-> +	}
-> +
-> +	return IRQ_HANDLED;
-> +}
-
-[Severity: Critical]
-Is it possible this leaves the hardware engine running continuously?
-
-DRM writeback operations are typically one-shot per queued job, and when
-this interrupt handler signals completion, buffer ownership returns to
-userspace. However, it appears WDMA_ENGINE_EN is never cleared here.
-
-Because the underlying display pipeline stays active, could the hardware
-continue capturing frames and silently overwrite the completed buffer on
-subsequent vblanks if userspace reuses or frees it?
-
-[ ... ]
-> +void mtk_wdma_config(struct device *dev, unsigned int width,
-> +		     unsigned int height, unsigned int vrefresh,
-> +		     unsigned int bpc, struct cmdq_pkt *cmdq_pkt)
-> +{
-> +	struct mtk_disp_wdma *wdma =3D dev_get_drvdata(dev);
-> +
-> +	writel(WDMA_FORCE_COMMIT | WDMA_BYPASS_SHADOW,
-> +	       wdma->regs + DISP_REG_WDMA_SHADOW_CTRL);
-> +}
-
-[Severity: High]
-Does bypassing the shadow registers here break vblank synchronization?
-
-Since atomic commits execute asynchronously, forcing an immediate shadow
-register commit with a direct CPU writel() might race with the active
-hardware engine mid-frame and cause display tearing. The pipeline usually
-relies on the command engine via cmdq_pkt to serialize updates
-synchronously at vblank.
-
-[ ... ]
-> +static void mtk_wdma_format_config(struct mtk_disp_wdma *wdma,
-> +				   struct mtk_plane_pending_state *pending,
-> +				   const struct drm_format_info *fmt_info,
-> +				   struct cmdq_pkt *cmdq_pkt)
-> +{
-> +	unsigned int u_off, u_stride, u_size, v_off;
-> +	u32 val;
-> +
-> +	/*
-> +	 * For RGB formats, this sets the image destination address;
-> +	 * For YUV formats, this sets the Y component destination address.
-> +	 */
-> +	mtk_wdma_ddp_write_dst_addr(cmdq_pkt, pending->addr, 0, wdma);
-
-[Severity: Critical]
-Could this accidentally overwrite the active display's source memory buffer?
-
-mtk_wdma_layer_config() operates on the input plane being scanned out and
-passes its pending state into this function. Writing pending->addr (the DMA
-address of the source input plane) into the WDMA destination registers means
-the hardware might capture the display output and dump it straight back into
-the source buffer, corrupting it.
-
-[ ... ]
-> +void mtk_wdma_layer_config(struct device *dev, unsigned int idx,
-> +			   struct mtk_plane_state *state,
-> +			   struct cmdq_pkt *cmdq_pkt)
-> +{
-[ ... ]
-> +	mtk_wdma_format_config(wdma, pending, fmt_info, cmdq_pkt);
-> +
-> +	drm_writeback_queue_job(&wdma->wb_connector, wdma->wb_connector.base.st=
-ate);
-> +}
-
-[Severity: Critical]
-Will this trigger a null pointer dereference?
-
-mtk_wdma_wb_connector_atomic_commit() correctly consumes the writeback job
-by queuing it, setting conn_state->writeback_job to NULL.
-
-Later in the pipeline, this secondary call passes the connector state where
-the job pointer is now NULL (or was already NULL if no job was requested),
-which drm_writeback_queue_job() will immediately try to dereference when
-adding to the job queue.
-
-[ ... ]
-> +static void mtk_wdma_wb_connector_atomic_commit(struct drm_connector *co=
-nnector,
-> +						struct drm_atomic_commit *state)
-> +{
-> +	struct drm_connector_state *conn_state =3D
-> +		drm_atomic_get_new_connector_state(state, connector);
-> +	struct mtk_disp_wdma *wdma =3D connector_to_wdma(connector);
-> +	struct drm_framebuffer *fb;
-> +	struct drm_gem_object *gem;
-> +	struct drm_gem_dma_object *dma_obj;
-> +	dma_addr_t addr;
-> +
-> +	if (WARN_ON(!conn_state->writeback_job))
-> +		return;
-> +
-> +	fb =3D conn_state->writeback_job->fb;
-> +	if (!fb)
-> +		return;
-> +
-> +	gem =3D fb->obj[0];
-> +	dma_obj =3D to_drm_gem_dma_obj(gem);
-> +	addr =3D dma_obj->dma_addr;
-> +
-> +	/* Store writeback pending state before queuing the job */
-> +	wdma->wb_pending =3D true;
-> +
-> +	mtk_wdma_ddp_write_dst_addr(NULL, addr, 0, wdma);
-
-[Severity: High]
-Similar to the shadow register bypass above, does passing NULL for the
-cmdq_pkt here risk tearing?
-
-This forces an immediate, unsynchronized writel() of the destination address
-during the atomic commit setup, rather than queuing it for the command engi=
-ne
-to apply synchronously at vblank.
-
-> +	drm_writeback_queue_job(&wdma->wb_connector, conn_state);
-> +}
-[ ... ]
-> +static int mtk_disp_wdma_bind(struct device *dev, struct device *master,
-> +			      void *data)
-> +{
-[ ... ]
-> +	ret =3D pm_runtime_get_sync(dev);
-> +	if (ret)
-> +		dev_warn(dev, "Could not get PM Runtime!\n");
-> +
-> +	/*
-> +	 * Disable and clear pending interrupts - write unconditionally as no
-> +	 * crash (SError, etc) will happen as if unpowered/unclocked this is
-> +	 * simply going to be ignored (and the registers will be 0 at reset).
-> +	 */
-> +	writel(0x0, wdma->regs + DISP_REG_WDMA_INT_ENABLE);
-> +	writel(0x0, wdma->regs + DISP_REG_WDMA_INT_STATUS);
-> +
-> +	/* Put RPM only if refcount was incremented before to avoid unbalancing=
- */
-> +	if (ret >=3D 0)
-> +		pm_runtime_put(dev);
-
-[Severity: High]
-Does this leak the PM runtime usage counter on failure?
-
-pm_runtime_get_sync() increments the usage counter unconditionally. By
-skipping the put when ret < 0, the device and its power domain might
-never be able to suspend.
-
-Also, pm_runtime_get_sync() returns 1 if the device is already active. This
-would be treated as an error by the preceding if (ret) check and emit a
-spurious warning.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914115812.2275=
-1-1-angelogioacchino.delregno@collabora.com?part=3D13
