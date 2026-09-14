@@ -1,45 +1,75 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F40847F3D7;
-	Mon, 14 Sep 2026 16:47:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC18D48D89B
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 16:53:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789404444; cv=none; b=PrqAvhEVWzQjBhzcuzG+FfQC4GaKz3U6bx+Kunw1svp6p8jmo3KmInCF88q3emodenYZ2qKxF9xHF9p6wbJOhb5q8yK+si4olbkO0GTbCYydbBcL+sXUkEjmN1tWBl84nVp4g/Lj601Oj5jmZW/dJG+qal4+qvpFBI2Ep8FVEqc=
+	t=1789404805; cv=none; b=ZlxhRgl99l6DgdQ1+siCCPuZ0p7N8rYgLl2PqqXEkJ67YxA66XkBOqKO6eUNneV6WBEgDoc90a5VTQrgENNTeSScJOIAQs9z1V8H1k3aslSzS4bF1MiFnjeD68TtJMf8fTzOKU3Ja3iG2DsgAixaYqBi7Zg5OKC17s5AxGax6O8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789404444; c=relaxed/simple;
-	bh=HNtcd+ewiXvHrJ9yBZI4T6p8YJwLsvj2rvRAawMR5yU=;
+	s=arc-20240116; t=1789404805; c=relaxed/simple;
+	bh=6TMcO2Y5Kw0EVrvk20oE12w5dXKJk7zNaPDpg06x4co=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MSeSl9rhDrhvz6S9mJGkhBxCCliVrATvYZahbXhhByR0kX4CcOFU9NzrQNrjqvLmF/9mFrzjZM4X4nhJVY6nMmLswaytdClLNZBjYQzPrp2pXY2t5sd1Tt0Lo35FN0ZuirrcH8TFDoaKN2Iiiuhz9s6bnS4BXdhT2vuddYa5b2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=RuJJcVyI; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=EwHGqJeeknuQOuRwVGzFDkENIMlkigq7C46CpOs+RgdHlCI+6oFuK+E5RLPmTvFbzT6L8hU6uGvi290j7JaSi7kZgAZ7rs2l572JgKrvSp5Jbrj9guwkM1/udEMp6XGc6WFTRrUm24/8CL1o73hPrh0aUGCepBa3gkjYPZDwymM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=tmAPQT97; arc=none smtp.client-ip=209.85.218.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="RuJJcVyI"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=+xj57OvvQeQlUrS4UVi7WN1UdWQAEAOQPl3JtQkTp7c=; b=RuJJcVyIXrOmEY76DBdxeMGlN8
-	XEG62SHjEyVgcgTUgY5Y6R9zBjtntlHf/YFvKyJA5OqVxAXnMQ8rQWPMf3mSPqNvJgn+cLDIWWOuV
-	Y7HuCTE6k1Tok5yPrQIKEHkVeZ8vIGkDmKdUM7hwypvcZq9apMZaL9qyTRq//t6dTUe4=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x69po-0057Bg-7k; Mon, 14 Sep 2026 18:47:12 +0200
-Date: Mon, 14 Sep 2026 18:47:12 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Markus Stockhausen <markus.stockhausen@gmx.de>
-Cc: hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	netdev@vger.kernel.org, chris.packham@alliedtelesis.co.nz,
+	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="tmAPQT97"
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c29c49a977aso47170166b.0
+        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 09:53:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=konsulko.com; s=google; t=1789404802; x=1790009602; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lumnmvwB9uVaRviDsmnKgFO+t5iIy+oIBHk/e0BQmpM=;
+        b=tmAPQT97RXipwx22SVY7eilw11ufAShLltIZBxzpdRu+Rb6Vx4ql15HQftqIgUzmR/
+         AogICVciFlY4KDFhNP9bsNreAJvnLfIVyUD/0GnABbD+fznHAIHwnP6GXfBRrWqRWh6f
+         seLuNzPcZxmSd6ecEhjUwnYLlpvnT2jIPkATA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789404802; x=1790009602;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lumnmvwB9uVaRviDsmnKgFO+t5iIy+oIBHk/e0BQmpM=;
+        b=DtRPiI3hIPScDdTIwa/C427sgRfEmGMJESFzToNoTKFxh+H7x7rg4Ss2wXJt3D2Mca
+         bXheDMMw3AV1oGZcSVSHT6Fr0/Z9MX8/PjeHM3CDCIgIWzbZ0NrRP80PGnvpA3h3CttJ
+         0IlR/chNKS4p9cYWQBKz4PCnFNsdkhFmOdhia06WNXoxQjYPh7WtcCzBuOMzhuYC0b9G
+         LC9/PIEtt3f4q/K64dUCwFBbpXbfNg2Fauo3ycdaisfCAVydCUAIUa3B9v7BZvwwKIZX
+         +C+YjdAjzXGYItdGPQeWeDWfOszEMFhSkg4Vkj0nSmjEuyuQt0jQAr+O00Pa3Dbx8ZKg
+         NnHg==
+X-Forwarded-Encrypted: i=1; AKwUvBzXpdjs4DAzDdksyDf5PMuydQ10LKJ4McEQEAoG5x6G1w4Uv9ai88lMjX0A94qoG8T+JizJqoF6QI10@vger.kernel.org
+X-Gm-Message-State: AFuF++l1hj9sH2G2OiY0p2fjwkGeAR6DUnMwFr2G81HIW+VtLO44ZBND
+	KgIhm7DkOTpry3lu/xFl/kkyo90a+l2MwAZzqmd2JBg8zo/VjApK5X3/AEosL3Culig=
+X-Gm-Gg: AYBFou0LCTs6u8cwHVyXFKtmdNs18fAyWUNBdeNow2qvhppQExuP/UEZstiN/fmz9Xg
+	0Ns4Yb6tu/r3NeiBMXAK2RoA4cuQrY+YWrjPlRDVo6P36AjWB1kKwOkBQbSW0kAxE+CGp84j+RS
+	8UScMOa5zHLC7/XN/kccRei8TtXUqJE69xepydwPnTZ5sKTMIpL8hGWtB55u+ZIoXoAgrSLvxdx
+	XvtnYE99Gx3uWZh7m+tHTGq4D/9z+9ORdZg1B/IMb10OYyDjFVlK9cwPxw3LJ39/SoO7kEj75TM
+	n8XPzl/ZUu9wxYZKOvUlAcp2hhlvEKbJfEAFpm2fY6YwOnKqTlajTM2tbMyDGfc8cjRcfe/3e6L
+	BPH9FNl6VqUgB7ENP+f/B94gN3j/Mw3OKf0oTtXeB0GMsCZXxCtFbbcVAf/ZE8t7rBTuV6VpfyZ
+	YM8jLLT/5dlQ2TTkCZUkY4YJGP9I9dp635t2MVdRZUdKYpOU1nHPuvpUz1K7MLUgMo+tD1mti/W
+	CTrsHoteoEsAXCaow==
+X-Received: by 2002:a17:907:9616:b0:c29:349e:7c1d with SMTP id a640c23a62f3a-c29b879a34fmr217563666b.49.1789404801836;
+        Mon, 14 Sep 2026 09:53:21 -0700 (PDT)
+Received: from cabron.k.g ([95.111.117.177])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2965c4e8a1sm467264566b.6.2026.09.14.09.53.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 09:53:19 -0700 (PDT)
+Date: Mon, 14 Sep 2026 19:53:18 +0300
+From: Petko Manolov <petko.manolov@konsulko.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH net-next v4 5/5] net: mdio: realtek-rtl9300: support
- non-default clock frequencies
-Message-ID: <14d8680e-a64d-4ce3-aafd-314b32f579fc@lunn.ch>
-References: <20260912130451.3757276-1-markus.stockhausen@gmx.de>
- <20260912130451.3757276-6-markus.stockhausen@gmx.de>
+	dinguyen@kernel.org
+Subject: Re: [PATCH v4 2/3] dt-bindings: arm: altera: add Draeger M48 Module
+Message-ID: <20260914165318.GA10966@cabron.k.g>
+References: <20260911150755.2803736-1-petko.manolov@konsulko.com>
+ <20260911150755.2803736-3-petko.manolov@konsulko.com>
+ <20260913-perky-resolute-badger-6c5e96@quoll>
+ <20260913133214.GF20345@cabron.k.g>
+ <565e4f26-69c3-4129-b4f1-29d67c381591@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,34 +78,44 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260912130451.3757276-6-markus.stockhausen@gmx.de>
+In-Reply-To: <565e4f26-69c3-4129-b4f1-29d67c381591@kernel.org>
 
-On Sat, Sep 12, 2026 at 03:04:51PM +0200, Markus Stockhausen wrote:
-> The Ethernet MDIO controllers in Realtek Otto switches use an MDC clock
-> frequency of 2.5 MHz by default. Hardware configuration fields allow the
-> following frequencies to be selected:
+On 26-09-13 16:20:54, Krzysztof Kozlowski wrote:
+> On 13/09/2026 15:32, Petko Manolov wrote:
+> > On 26-09-13 11:18:16, Krzysztof Kozlowski wrote:
+> >> On Fri, Sep 11, 2026 at 06:07:53PM +0300, Petko Manolov wrote:
+> >>> Add DT compatible string for Draeger's M48 CPU Module, an i.MX6
+> >>> based board.
+> >>
+> >> Sashiko comment is valid.
+> > 
+> > Sashiko doesn't know that this is indeed an i.MX6q board with the Altera FPGA as
+> > a separate module, that is secondary to the NXP SoC.
+> > 
+> > What do you want me to put in the commit message so that everyone is happy?
 > 
-> - RTL838x: 2.5 MHz or 10 MHz
-> - RTL839x, RTL930x and RTL931x: 1.25 MHz, 2.5 MHz or 5 MHz
-> 
-> Add support for configuring the MDC frequency through the
-> clock-frequency property of each MDIO bus node. Lower frequencies can
-> simplify protocol analysis with a logic analyzer, while higher
-> frequencies reduce MDIO transaction times during normal operation.
-> 
-> Program the frequency selector during every probe. If clock-frequency is
-> absent, select the defined default of 2.5 MHz. This matches the
-> configuration observed with a protocol analyzer under the stock firmware
-> or after issuing "rtk network on" in the bootloader.
-> 
-> RTL839x is an exception because both MDIO buses share a single frequency
-> field. Use an explicitly specified frequency as the shared frequency and
-> let buses without the property inherit it. Use the 2.5 MHz default if
-> neither bus specifies a frequency. Reject conflicting explicit
-> frequencies because the hardware cannot configure them independently.
-> 
-> Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
+> Your commit msgs for bindings and DTS should explain the hardware and with the
+> current explanation this is just so incomplete that basically wrong. i.mx6 is
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Incomplete - yes, but who cares.  The only consumer is Draeger and they know
+better than anyone else what the board looks like and what it is for.
 
-    Andrew
+Wrong - how?
+
+> completely different vendor. Altera FPGA does not make it Altera SoCFPGA,
+> these are two different things. If Linux runs on iMX6, then what are you
+> describing here? DTS which never is going to be loaded because there is no
+> SocFPGA?
+
+I'm no Draeger employee, but i've been told that both the i.MX6 and the FPGA are
+running Linux (both chips are on the same physical board) and are monitoring
+each other's health.  Apart from doing whatever whatever their primary task is.
+Whichever fails, the other guy takes over on the fly. This is a medical device
+so full redundancy is a must.
+
+So, again and in order to save everyone's time, please elaborate (preferably
+with an existing example) whatever it is that you expect to see in the cover
+letter and the commit messages.
+
+
+		Petko
