@@ -1,104 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com [74.125.227.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85B6048D86E;
-	Mon, 14 Sep 2026 17:39:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 881C8445AE3
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 17:42:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789407592; cv=none; b=Elj56+YLsfxccPGg1uRP/9BljUWG8UztQXOLYTZyjLf2AogAa7WbCmMjXFCjm5OSWh48ONCVUnIusnoRvPUdLN8WOlkoFyKUlsvInv7DHtEUemfK+mEVOr3cMeh07sM0ZZLOBuQSnv/luhHVcyClJ79Vu5J8U87rsumg/5uOMDs=
+	t=1789407774; cv=none; b=SwpYoNUNdgmJhlNqmV50ASBeS4bEoW+6zrgUcZZitBrJuU9GVk616ceLdWCezQBGoej4pXnHBMLREWo5eMGbOLcA9y9WlXfjyG21IPs3zjS7QyVbALuxBEViYZGULtNM8oeac8eIpyHPZfGAACo85f1bTapocNsf2hHlOHDyW+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789407592; c=relaxed/simple;
-	bh=tNg17BOxVpkoJpR31ohmaZ8j5/6sfIseLFklZ3x4dBA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=VST0pmlGJ563ePXjwAodqweMM05Tq262by687/WWsftjzt2h7Vc3rEgKZTJGX8XW4/XDmeqvRGUGZPNlDuxciNgTVaA+Vi4qZfqJIAGzwVE3r2o99MrwBA36sVULCaV3ygzHXZKkYUhdSyT5x/F9zXtM3rKoP0tFalz3sYykBl0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BLVGxYil; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BLVGxYil"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6CD11F00893;
-	Mon, 14 Sep 2026 17:39:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789407590;
-	bh=iYiTXJK7wNWUpf2GSyFq/G/BUgh/HLCN2HZwoDzn3iQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BLVGxYilCNCdLtkstGctvqH/RV/mkzTgSNPdvP+4L4gXVXkmOCxqJR6P+fCx64Ax9
-	 hBwW2ap3r2OiT79yltPc0BjaSsU/O9g+CBQuBT9AuAWYm6Wb2xjHrCFQC2qUoTpdkL
-	 SzVxZGS57OKzrQ6FIjlcWfRPOHZ0/M3LaaT1pB05Bu2iLRJR+RIZS5sPQW9UeRmE9v
-	 EGynjEnFiiDjpMV8lmUeYXLdS/VRUi+MOwp30Zd04mRm5zfMOilTQSExxomBe3iNXq
-	 aH1UtssiWteGL2aKrZNcjWOJj+quPUbuPxQSMPEhmSf5TF/SOh0sC05RPeZVdTltow
-	 bdh5aQEByBQwg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 45/52] arm64: dts: qcom: sm8150: Add GCC CX power
- domain
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Abel Vesa" <abel.vesa@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, linux-clk@vger.kernel.org
-In-Reply-To: <20260914-qcom-tie-cx-to-gcc-v4-45-9d5a606ada33@oss.qualcomm.com>
-References: <20260914-qcom-tie-cx-to-gcc-v4-0-9d5a606ada33@oss.qualcomm.com>
- <20260914-qcom-tie-cx-to-gcc-v4-45-9d5a606ada33@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 17:39:49 +0000
-Message-Id: <20260914173949.E6CD11F00893@smtp.kernel.org>
+	s=arc-20240116; t=1789407774; c=relaxed/simple;
+	bh=+izH8riELWSAMprbT5C678K1jl8pB7zXElojauJucHg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=RBwPRqUgxsPRUV4dcznf7TEe3YEhe+TOODmQrIQLDwInEi9FETD1Bcs8g9iQQJPv+C6uQOh7HquwhxB+LEYW5rlGB+rK9HRXKiphHqptMSQCviBJKAfMlvGvbMUoSIUA6WWUiSZkf4nB5vQRRp0Ml4uqjJhvxYE2uRVHrCtj7JQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs2-f42.google.com with SMTP id 71dfb90a1353d-5c8319dd4a5so938412e0c.1
+        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 10:42:52 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789407771; x=1790012571;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gjfZXacAwr82/eq+UL7cs88Dit/YxtI5ifxFAg8Xa84=;
+        b=cdpM2wgP/3xwRLFIxDzF9IgfvMkf616ILRA9W4NIUdzUyro5/ValUV3ZOS2Rb7vir0
+         9ENgZt4l7xZP7C/79bM8zbJBp4hNTzi8HMFPodAuTtWdpBQuzHixdqtOMts8wl1ITipI
+         Sthf0tgcPRZBOT66ASFvX76qoXA6xK4S6Q18z704KcWMFCm/1gxPudUSh/UQg+cTNiYf
+         esqzzB7RyiZZ4Co3QN96EQZd1zegUg8qKfdMUHyIf6Fd7NYezefwJguJ/3S8x8wZtpCP
+         5Rj4WGhyeAAhSu20Sn7+BuODxdpRc5yuCLA7oaJ320QUJ5xdVx++WdTCaUmX14aD2q/x
+         ZBcg==
+X-Forwarded-Encrypted: i=1; AKwUvBxt7hTNJIDnhsqt8WGwDA90MqlOFaQKjlmUmlYHuZfk7GEuntDRhK5IYBG0xh1iB0KoByCAqtGB7/RU@vger.kernel.org
+X-Gm-Message-State: AFuF++l+ZrU+RZBY6Jk1sEY9gGtiWuXbF5kYltH2p12l6ULIiR/LfXIX
+	0C+ahbbjUlU/+09AR4GtBBzEM9mASOsWTqUIEJwQGUlOMYjWXgT7h1WPTd99T+K8
+X-Gm-Gg: AYBFou0XcC4oTVEhABAZRNM0/uHXQNhuYgAd7wAgPWC7nBWZP2Td0XkGOy93ehGnP7I
+	AfXMnKUDUW3Bm6PdGUBMo9lG7E0Asty3CZKe6No9fHoS3y6M4PEbhUnrTTdNu126dSQIYpPiI0U
+	XtM5JrarHaImFxeToTtwHySlZwc6jQ0rUDgwswOTPCT7WgGhSYTaD3iF2bNJXbYPEmOwvS8RSuo
+	gsJMaj0dFaKQwJ1ckgbeRtBYl3YtjORqYpJjGtK8dqlcaJ9eKVSxSp7UEFa+j7A3zSVxRjWROKW
+	4rK76nbT4adR9dJ+Z0aGkYLvfKMUyyK+IG7W3R0V/gaElOhHFg27LE2iISKRQa537S8307z3J4A
+	fKzK8FejFqICoHSXLuoWdhr/d9JSIkm8EMRYLWKR1tGl1bP+ZKOZ4++ycMHRHlifAdFLVzhKzbx
+	yW4pYLfzNc1FCxdeT/v0XhHxEgHgLy422K7nA7LvpcXgb65Xaq/WtuLlhCE3D1yhVr8qVL30mwl
+	B/8nyiR9aW/UroxqvjBaesk5l2affYbqAOXka0=
+X-Received: by 2002:a05:6122:8cc:b0:5bd:71b1:d5c6 with SMTP id 71dfb90a1353d-5c981b4a790mr4925618e0c.4.1789407771059;
+        Mon, 14 Sep 2026 10:42:51 -0700 (PDT)
+Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com. [74.125.226.204])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c8470ae511sm12770218e0c.5.2026.09.14.10.42.50
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 14 Sep 2026 10:42:50 -0700 (PDT)
+Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97e7c62dde2so732039241.2
+        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 10:42:50 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBztLaLP7txByWMmhKCeAnF7u834EUqa8zgx9O0/w8cASGQv4T55mui0HXg0Az1y2JggUk4tDazJfQRv@vger.kernel.org
+X-Received: by 2002:a05:6102:54a9:b0:789:5f54:2367 with SMTP id
+ ada2fe7eead31-79b579b0d38mr4032527137.4.1789407765732; Mon, 14 Sep 2026
+ 10:42:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <cover.1788943229.git.tommaso.merciai.xr@bp.renesas.com> <34a6d23e309aab5fbf369132d75794222097396d.1788943229.git.tommaso.merciai.xr@bp.renesas.com>
+In-Reply-To: <34a6d23e309aab5fbf369132d75794222097396d.1788943229.git.tommaso.merciai.xr@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 14 Sep 2026 19:42:34 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUYC2m3YgayTrCvZHoTVkj4v+7a5cvO1g=UFxR+6dJiJw@mail.gmail.com>
+X-Gm-Features: AcwNN1XJ1dIjrp16s-r0VgwKaAicGc_4VU9cyLbRu-FG27nHPGFdbzVolc0-zaM
+Message-ID: <CAMuHMdUYC2m3YgayTrCvZHoTVkj4v+7a5cvO1g=UFxR+6dJiJw@mail.gmail.com>
+Subject: Re: [PATCH v3 4/4] arm64: dts: renesas: r9a09g047e57-smarc: Enable
+ USB2.0 support
+To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Cc: tomm.merciai@gmail.com, prabhakar.mahadev-lad.rj@bp.renesas.com, 
+	linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+Hi Tommaso,
 
-Pre-existing issues:
-- [High] Incorrect Power Domain Mapping for SDHC controller in sm8150.dtsi
---
+On Wed, 9 Sept 2026 at 10:55, Tommaso Merciai
+<tommaso.merciai.xr@bp.renesas.com> wrote:
+> Enable USB2.0 support on the RZ/G3E EVK board. The USB1B_1A_HOST and
+> USB5_4_HOST connectors support host operation only, while USB0_OTG
+> supports both host and peripheral operation.
+>
+> renesas-smarc2.dtsi is shared by all boards based on the RZ SMARC
+> Carrier II Board. USB2.0 is not yet supported on the RZ/G3L SMARC
+> EVK, so disable the common USB2.0 nodes in its board DTS until proper
+> support is added.
+>
+> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
 
-commit 1237bb3ae1765094917da1bf7fa592fe294eff27
-Author: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Thanks for your patch!
 
-arm64: dts: qcom: sm8150: Add GCC CX power domain
+> --- a/arch/arm64/boot/dts/renesas/r9a09g047e57-smarc.dts
+> +++ b/arch/arm64/boot/dts/renesas/r9a09g047e57-smarc.dts
+> @@ -298,6 +298,28 @@ sd1-data {
+>                 };
+>         };
+>
+> +       usb20_pins: usb20 {
+> +               ovc {
+> +                       pinmux = <RZG3E_PORT_PINMUX(0, 0, 12)>; /* USB20_OVRCURN */
+> +                       bias-pull-up;
+> +               };
+> +
+> +               vbus {
+> +                       pinmux = <RZG3E_PORT_PINMUX(0, 1, 12)>; /* USB20_VBUSEN */
+> +               };
+> +       };
+> +
+> +       usb21_pins: usb21 {
+> +               ovc {
+> +                       pinmux = <RZG3E_PORT_PINMUX(G, 6, 12)>; /* USB21_OVRCURN */
+> +                       bias-pull-up;
+> +               };
+> +
+> +               vbus {
+> +                       pinmux = <RZG3E_PORT_PINMUX(K, 3, 12)>; /* USB21_VBUSEN */
+> +               };
 
-This commit adds the CX power-domain reference to the GCC node for the
-SM8150 platform. This ensures that GCC GDSC consumers properly propagate
-their performance state votes to the RPMh CX domain.
+While these two signals are wired to the SLG46108, which generates
+USB1_EN_OC# from that, the latter does not seem to be wired on the
+carrier board (SMARC_MODULE_CN P67)?
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8150.dtsi b/arch/arm64/boot/dts/q=
-com/sm8150.dtsi
-> index 94a3b02cb2897..397c0142ea579 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8150.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm8150.dtsi
-[ ... ]
-> @@ -913,6 +913,7 @@ gcc: clock-controller@100000 {
->  				      "sleep_clk";
->  			clocks =3D <&rpmhcc RPMH_CXO_CLK>,
->  				 <&sleep_clk>;
-> +			power-domains =3D <&rpmhpd SM8150_CX>;
->  		};
+> +       };
+> +
+>         usb3_pins: usb3 {
+>                 pinmux = <RZG3E_PORT_PINMUX(4, 1, 12)>, /* USB30_VBUSEN */
+>                          <RZG3E_PORT_PINMUX(4, 0, 12)>; /* USB30_OVRCURN */
 
-While reviewing power domain mappings in this file, I noticed a potential
-issue further down in the sdhc_2 node:
+The rest LGTM.
 
-arch/arm64/boot/dts/qcom/sm8150.dtsi:sdhc_2 {
-    ...
-			power-domains =3D <&rpmhpd 0>;
-    ...
-}
+Gr{oetje,eeting}s,
 
-[Severity: High]
-This is a pre-existing issue, but does this incorrectly map the SDHC
-controller to power domain index 0?
+                        Geert
 
-Index 0 corresponds to SM8150_MSS (Modem Subsystem) instead of SM8150_CX. W=
-hen
-the mmc driver is initialized or accessed, it requests higher clock
-frequencies and scales up the attached power domain via dev_pm_opp_set_rate=
-().
-If mapped to index 0, it will request voltage changes on the Modem Subsystem
-rather than the CX domain.
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-Could this leave the CX domain undervolted for the SDHC controller's clock
-frequencies, potentially leading to hardware instability or data corruption
-during SD card access?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914-qcom-tie-c=
-x-to-gcc-v4-0-9d5a606ada33@oss.qualcomm.com?part=3D45
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
