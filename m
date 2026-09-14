@@ -1,183 +1,77 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9A3A2C11DF
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 12:12:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53DB644BCA1
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 12:12:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789387939; cv=none; b=MqGp0y9zDs4FQoWS9sXcpRAtR8LuXF5cXhlPxu+yu2lwhTUvAxU9cbrP0737WROPSuEuhsNs7TR38rAqWOyrp2XcgWsoPJlrOFWlhNLtCt9v+44tYT3RhTgm+gL2Y7/nhFqeaaNcVG7Hfg7XiDpgfkODobH06QEFKlVtKJqhwSw=
+	t=1789387954; cv=none; b=CUPhITcmklmdnLLd1l+VADTQ37kxlgVOQJtrL2HZbvF3N9QrWT6smXEhU5u7H0puUhIRa1e8AZFBzBpJTrIgY5LtxZPt5V7Hqx6cBmaGaBgJMUY1zvjpRqusmJIxzThXtHRfl8F5BjphPyhxsirxTmNPOp60CvmKHhxDD6wSRtI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789387939; c=relaxed/simple;
-	bh=6Bmd6RTxvQFK310xXTMwNx7JXICjU026Z+04k/eZsDE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=hdGI6OZfO8QXYIiR74JKTCGGBxPdlojUHHoRQ51hbapIMrDrPrCpU3190WAELG//td+DCMLL0QBfQ23l653j9sz5rTVww0SmidiSAzfvTWVqN8ZtIUclT8jsxRmeVqZ7/Q6QNaBl2hTCfJXIYtWhukz2cDHgTzhw87Mubitcjx8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LGQFq4jN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789387954; c=relaxed/simple;
+	bh=OsSTOY//BG8cCCupHatEDXqNpsM8A13HReU4V1MAq14=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=bgn6sqkYwFhlLIWH5z5RyURbN37Nr9Wdsks6zEeIjU4dF0vNuRyLO091/onoj7oUFhlDhFIHddqBa8SFiGzQ6u+pbi1wnZgqAKaOMR63kxwncOxkLiAexVUbyzhMwCcptAoXY2ptH63BVpn+WpINJSr137lw6TbAxzMVt121KX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bw2nOGPj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LGQFq4jN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B05D1F00898;
-	Mon, 14 Sep 2026 12:12:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bw2nOGPj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFFA61F00898
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 12:12:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789387937;
-	bh=UbAaw2XhYMriZB0R4isXtOGHocpJznTQCk/PFrUQPJ0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LGQFq4jNPMqOXXd9PamNZJMvv42Bd0UTt135UGfA/QoUqmrwLNBZpF+SOn2SrNM6b
-	 qVamxm1kwt20eZJjxItY2VeYrq3q7tWEFbFSYDtGTEaTsi+Hba4ejqM3AV2f8j5Xh+
-	 M4yw5FwrVoOthf+Ir6jKR7ZqUTRBGGVwCGa+9SPgXLn1i1D7kshomWt3nlcMpleCeb
-	 bz1RLtSBm/6FOimyhHCXEX6YXT8ZsQe2LJhhhlme3/QE75kNRlQ6w+3wqQAIcWpI0E
-	 mvDuPStmOUcaZaIh0X+/uPsMy6aQbyUElF8sQfq5qg/C8IpJQsoyKRrYDc+FxhRFKF
-	 SA4Mosr1mNNmA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 04/13] drm/mediatek: mtk_dsi: Cleanup encoder if
- reset fails during bind
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260914115812.22751-5-angelogioacchino.delregno@collabora.com>
-References: <20260914115812.22751-1-angelogioacchino.delregno@collabora.com>
- <20260914115812.22751-5-angelogioacchino.delregno@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 12:12:16 +0000
-Message-Id: <20260914121217.0B05D1F00898@smtp.kernel.org>
+	s=k20260515; t=1789387952;
+	bh=2OZJc4pE75EzQY4TF0i25vLvB8iiwVxxIUeR10SzMyg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Bw2nOGPjucfG7nhjRzYodb3iK4DV8+USHY06ZbAUWNQk/2XDQFpyxnuKDAXZCfU+i
+	 EP5EbUlHuYNOou+YJLAMnFILQzAgHclGwLbJsRck+i3l9djbcp/agUAwq3AxEZNJcN
+	 rMpgNvw8dgIXF9lLAJ4vF4E4lEJJ0wm8uw4MiyMzO5zyT5SmomV+DXthqJlXiTHahn
+	 D+Fb6IC/sm84hD/GtdVi4vxA3X551CeqTVC9frkqWXdRex9VavFP7bpnqTr2XhbIbz
+	 XMlgyk9QHzwHCyAsAWAPlTMCmvbCmeYrUTVsRAXajHarneswJ179cphFT3O4STlU4T
+	 92kU020jTGOAQ==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b79784a6edso1796143e87.1
+        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 05:12:31 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByk1/C8rcbTzuwmFYZFIdp+gJgRGsrLMhCFnJxb9QxRF+3qmi6EujKp02TFKvYsnaLCj9MQRcS4GGx5@vger.kernel.org
+X-Gm-Message-State: AFuF++krGxb2g2fLWvW9yHGo18gt5Zq88oJ0JAXqKciMSiuXQ5YmFuGI
+	GchnbuEr4aDwrm4af+Zek7pqBbA9Lr0/pROVqX9BDNP5YbTP7Hg2WU9vuBTZsccP6D1M5nK4XnE
+	KY+LlT5mfEVkumyJJlQ4JAam4qQKe2Hg=
+X-Received: by 2002:a05:6512:3b25:b0:5b6:4ae:3ff3 with SMTP id
+ 2adb3069b0e04-5b8ae68dcf4mr642559e87.27.1789387950724; Mon, 14 Sep 2026
+ 05:12:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260830084104.14968-2-krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260830084104.14968-2-krzysztof.kozlowski@oss.qualcomm.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 14 Sep 2026 14:12:17 +0200
+X-Gmail-Original-Message-ID: <CAD++jLneoGy4q-ihKWVhW3iyH2YEATeGf76RB9NiDLk3-OW1iw@mail.gmail.com>
+X-Gm-Features: AcwNN1V856sA9k7HWfZhF0PQNVfwgYy4TkqwdpzU71qB7kL_qOjvZ23sMHNDQ8M
+Message-ID: <CAD++jLneoGy4q-ihKWVhW3iyH2YEATeGf76RB9NiDLk3-OW1iw@mail.gmail.com>
+Subject: Re: [PATCH v2] dt-bindings: pinctrl: fsl: Replace tabs with spaces
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>, 
+	Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, NXP S32 Linux Team <s32@nxp.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Peng Fan <peng.fan@nxp.com>, 
+	Giulio Benetti <giulio.benetti@benettiengineering.com>, 
+	Jesse Taube <Mr.Bossman075@gmail.com>, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+On Sun, Aug 30, 2026 at 10:41=E2=80=AFAM Krzysztof Kozlowski
+<krzysztof.kozlowski@oss.qualcomm.com> wrote:
 
-Pre-existing issues:
-- [High] Unbalanced reference count on error path in `mtk_dsi_poweron`.
-- [High] Data race on `dsi->irq_data` between process and IRQ contexts lead=
-ing to lost interrupts.
-- [High] Missing synchronization in `mtk_dsi_host_transfer` allows concurre=
-nt DSI commands to corrupt hardware state.
-- [High] Sleeping function `usleep_range()` called from atomic context.
---
+> YAML files do not use tabs, even within the values in DTS.  No
+> functional change, although dt-style-check will warn about it
+> ("[tab-in-yaml] tab character not allowed in DTS example").
+>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-commit 911862fd7e3a1163be08c7ed054bcfc694f709a1
-Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Pulled out v1 and applied this v2 instead.
 
-drm/mediatek: mtk_dsi: Cleanup encoder if reset fails during bind
-
-When binding the dsi component, the .bind() callback initializes
-the encoder, and then will optionally trigger resets. This patch
-cleans up the encoder upon reset failure to prevent a use-after-free.
-
-> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediate=
-k/mtk_dsi.c
-> index 97b8a91874f5b..0b167b4411e59 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-> @@ -1095,7 +1095,13 @@ static int mtk_dsi_bind(struct device *dev, struct=
- device *master, void *data)
-[ ... ]
-
-While reviewing this patch, I noticed a few pre-existing issues in the same
-file.
-
-drivers/gpu/drm/mediatek/mtk_dsi.c:mtk_dsi_poweron() {
-...
-	if (++dsi->refcount !=3D 1)
-		return 0;
-
-	ret =3D mipi_dsi_pixel_format_to_bpp(dsi->format);
-	if (ret < 0) {
-		dev_err(dev, "Unknown MIPI DSI format %d\n", dsi->format);
-		return ret;
-...
-}
-
-[Severity: High]
-This is a pre-existing issue, but does this error path fail to decrement th=
-e=20
-reference count?=20
-
-Since dsi->refcount is incremented at the start of mtk_dsi_poweron(),
-returning directly here instead of jumping to err_refcount seems to skip
-the decrement. This could lead to an unbalanced count, causing problems
-during teardown when mtk_dsi_poweroff() attempts to disable clocks that
-were never powered up.
-
-
-drivers/gpu/drm/mediatek/mtk_dsi.c:mtk_dsi_irq_data_clear() {
-...
-static void mtk_dsi_irq_data_clear(struct mtk_dsi *dsi, u32 irq_bit)
-{
-	dsi->irq_data &=3D ~irq_bit;
-}
-...
-
-[Severity: High]
-This isn't a bug introduced by this patch, but is there a data race on
-dsi->irq_data between process and IRQ contexts?
-
-If a DSI interrupt fires concurrently while mtk_dsi_irq_data_clear()=20
-executes in process context during a DSI host transfer, the non-atomic=20
-read-modify-write here could overwrite and erase the flag set by the=20
-hardware IRQ handler, potentially causing lost interrupts.
-
-
-drivers/gpu/drm/mediatek/mtk_dsi.c:mtk_dsi_host_transfer() {
-...
-static ssize_t mtk_dsi_host_transfer(struct mipi_dsi_host *host,
-				     const struct mipi_dsi_msg *msg)
-{
-	struct mtk_dsi *dsi =3D host_to_dsi(host);
-	struct drm_device *drm =3D dsi->bridge.dev;
-	ssize_t recv_cnt;
-	u8 read_data[16];
-	void *src_addr;
-	u8 irq_flag =3D CMD_DONE_INT_FLAG;
-	u32 dsi_mode;
-	int ret, i;
-
-	dsi_mode =3D readl(dsi->regs + dsi->driver_data->reg_main[DSI_MODE_CTRL]);
-	if (dsi_mode & MODE) {
-		mtk_dsi_stop(dsi);
-...
-}
-
-[Severity: High]
-This is a pre-existing issue, but does mtk_dsi_host_transfer() lack
-synchronization to protect hardware state?
-
-If called concurrently (for example, from a sysfs backlight update while an
-atomic display modeset is ongoing), the lack of internal locking for the DSI
-controller's registers could allow concurrent commands to corrupt the hardw=
-are
-state machine and lead to DSI transmission failures.
-
-
-drivers/gpu/drm/mediatek/mtk_dsi.c:mtk_dsi_lane_ready() {
-...
-static void mtk_dsi_lane_ready(struct mtk_dsi *dsi)
-{
-	if (!dsi->lanes_ready) {
-		dsi->lanes_ready =3D true;
-		mtk_dsi_rxtx_control(dsi);
-		usleep_range(30, 100);
-		mtk_dsi_reset_dphy(dsi);
-		mtk_dsi_clk_ulp_mode_leave(dsi);
-		mtk_dsi_lane0_ulp_mode_leave(dsi);
-		mtk_dsi_clk_hs_mode(dsi, 0);
-		usleep_range(1000, 3000);
-...
-}
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does this code sleep in an=20
-atomic context?
-
-It appears drm_atomic_helper_commit_tail() can invoke the bridge atomic=20
-pre-enable callback mtk_dsi_bridge_atomic_pre_enable(), which calls=20
-mtk_dsi_lane_ready(). Calling usleep_range() from an atomic callback=20
-violates DRM subsystem rules and can lead to scheduling while atomic panics=
-=20
-or warnings.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914115812.2275=
-1-1-angelogioacchino.delregno@collabora.com?part=3D4
+Yours,
+Linus Walleij
