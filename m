@@ -1,147 +1,107 @@
-Received: from mail-oo2-f43.google.com (mail-oo2-f43.google.com [74.125.231.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 200C64477FD
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 12:10:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 697B446EC6E
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 12:11:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789387831; cv=none; b=jIEbj3YbyvTOb35chBepG0YIPbFqqAiWoKnoh1uVL69olSyBCzgnCj1L/yTbwxQZtJpwC/DYeP1C7FVl557i5S6C88jlAO84vgBEikh6qMqebDPq7BMtf0NotMnrQtGN4+29huhylKrI0l0JKXWGiLD/SssAmtFzRCf3pE1SIbo=
+	t=1789387868; cv=none; b=ZBYuGciAkh8t9IA2Y0V/J+qxJByyv1nVHy5LbpV4ZRaNpkynkVhafd3NJbkdDgFqjQ6Ih6DFpy33IBGWbTcosnbn8n6+TvZ5simk7bvFX1UuTwRW1rh6ncSKRqMFc241s/WYuPeqeuQ+Q4VgsZI97jq32xJfzbuJ7WCJDDM0mWA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789387831; c=relaxed/simple;
-	bh=Se7NkzKRBbstIWMyWUOVe+AMD6O75GbMwW/t+1YRS3o=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ODDSb/jjTKlMrwiPtglp9zOJ6DCn5q4o5dartKgCmRrrv8T4x2M2ICZqzClFbPRfpZ7Yy7Uvhoyec80qIBmhRYTdRK4cw/qsLE+GIAeRzKcf2b3HwbIdA9SI3MBm/YMlF0ytJd6r0QGhYwQhE7KUwEDqmQ7xzKgfon0n8ws8pDQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=JlWuwWtx; arc=none smtp.client-ip=74.125.231.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1789387868; c=relaxed/simple;
+	bh=GAjIzxxh1WVvTV7o17zQrPCuJRrflA6FNh3mZT0Ceuw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=iRC6FNL8o3DPPNj24nlaW/tZYWWnmajX8qCKpMZ4H3/BNSFllSYkGZ0NBE92GC0dbu3yfeDLF6fM9QF1BuYrDwVeg/0xlzu4+JxWfA7aUxQlfAZXNrHr/v2EWWZO16QQAWkzkSnjf2geLxvCnbDSAnM2/vRqPCIkgwhynUeVCyE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hjOk9pzn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="JlWuwWtx"
-Received: by mail-oo2-f43.google.com with SMTP id 006d021491bc7-6b1ae6b1b26so783813eaf.2
-        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 05:10:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1789387829; x=1789992629; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=26Uw7zNV0CaU8mcuuO2rFoHLPl3S+teCO+5Ml7uyCio=;
-        b=JlWuwWtxH51nEvHn7rF4rdoYC+mKObVerBorCAzI+wqx4svsciLn3rHQDBxyBU/Gcf
-         HVDeXuDpwgUQ5ma77MiaPMO8pt7haDKW6ohqTldYLQGdza5uL/J0CK0SKAm/qgEUk1Eo
-         FlaV/8RJioxINO1PT2vVYS2NV+h3X6OWkvNLo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789387829; x=1789992629;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=26Uw7zNV0CaU8mcuuO2rFoHLPl3S+teCO+5Ml7uyCio=;
-        b=lfI/YlGlfpOnOLIoVyN5HbMjwus4CjTqERP/D37NcbNRtizbediZYJnwH1pDbp5Alt
-         uDYGB9f9MhB6Ll8VBdHzH5QFESbT06si5I5V7rKGpCUKe6NMJO5mebDzySp5iUaBMZl0
-         R+24mD7wUKk/nj1Sm4XrAkuyLlpIyERLNBpDZ+Y9HSji/AtK7o/aJTxdZDZBcZgR3G1k
-         96D+O9xPPql78J1bGvMimZKXOp3NEMtvSyOdy2khua+xMCAXJMxyM4PfanfWRN6eGkta
-         ISrSdFcPUIxj7S5kEaevU5OSUahoWmaV92J2oluChVXqk604W3Aj6G9X1+UkbfEUnxhf
-         j4qg==
-X-Forwarded-Encrypted: i=1; AKwUvByPp8T5Q+j9JOK9+mZw4NfwnfMLSKdqh61nHi+4CEfSVXVBJaGWBFdgUr25Tkn+LCq8WLP5MGubg2iL@vger.kernel.org
-X-Gm-Message-State: AFuF++m1iIn8Y42bc0jaH56xSXQcnRNphBqrWY+56EGFjd8lYRcv7klE
-	FeVZ5gD/9jT3HikCiD/i8/nPJyk062wk7MdlVmojb9pt/AFidMq1s/FjPncVucY2nMwImrJyNhl
-	ygWHPYYAS
-X-Gm-Gg: AYBFou2ePqIxhjYE4C0AU6GsN8janmyIl7V4tIM8gNd91oh2Fyo3eiqd4l6uZzzObAU
-	fdxD4EyMow+NEMLpU5s4lcUJqhuFmi78v/3k88yOYoKP9Nh96XnwdCzIUdZuv7YuKPjDAR7JRmM
-	woOzQIEBHPm4Q8RIR4aoqwWTBPjpeLIqQVHaAJ7fXYsYGTzI4ySX7OZ2WVEspUtoNWuNI/Z2XXP
-	ylxIvd8yDcz4afuPa12FozFzJNh5L01YfswqPAWPQ0cqgOE1tLRv+RG+/L2qqDz7rKK1ILPhQ50
-	uIraoh+LLr9i3UOqLgzKM7Ra4o4bofxRofesPBDtcsAZXSj2jbBuJOidFDf8UKo38B9BLIvWhRx
-	TOOfkJetqqBaMXZ55H3mlvhZNKQK3Cw94+Bl0ItqJNaj1YSa4mI3XI82WRzEYrwBFvEgY62jdZa
-	UofG3PMa/vPesbrALNsk7TkpjPkXV5BEm/8xY1LgaTdOfaLAXdu8DlAlNwnK1Mnd0f4CXctFs47
-	gHAj89+72SNRL01+6gH5Dr3DBqInnX9c9oNF0s4CC74hNf+
-X-Received: by 2002:a05:6820:4cc1:b0:6c3:ce1d:8e15 with SMTP id 006d021491bc7-6c53fe7f2a3mr1088142eaf.25.1789387828907;
-        Mon, 14 Sep 2026 05:10:28 -0700 (PDT)
-Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com. [74.125.231.76])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6c0927adc48sm11286688eaf.0.2026.09.14.05.10.27
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 05:10:28 -0700 (PDT)
-Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-470417e5b52so1434409fac.3
-        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 05:10:27 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx7PKu8IJwXCkfmlBQPynEZQ0lWZcBjSPSI0ByHK4SLes8wgeXLWV1zWRZ34gi2M3SGzulabFZnOrED@vger.kernel.org
-X-Received: by 2002:a05:6820:1f10:b0:6bd:cd33:b885 with SMTP id
- 006d021491bc7-6c541b4585amr1031566eaf.42.1789387826624; Mon, 14 Sep 2026
- 05:10:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hjOk9pzn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96BF21F00893;
+	Mon, 14 Sep 2026 12:11:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789387865;
+	bh=g9boCQT3MsnPj/NEGZBxC5NyaRFO13IZCgLb6bhn340=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=hjOk9pznvQyoU6RisAITbSUay7Ypjxvp/gtuodZELKksA4XOvznKTVHKl1de34EKZ
+	 /fx3H487xUy3REuLSpZ3kDLqEIg75fLv5AM3uodkjb8XbvH2LUBK6XGr0Ukjt+Q2Xi
+	 4ihxa9J+4N6ouTMMtXNuRJ8y+r8dZZAD/cPpkOr9VvTAn/CPgbxpECYuaoN/BoZAQc
+	 VWl9+pcBtQN5GY3HHNaEAIqCNkk0wd54O/lMFe1B+ORKYtnJYkqUmu+tsgAB8RFmQP
+	 KpvYK/LVFdAr2nsvhZ+nIqf9Emif/zEUJM007liza0WwJLLMVk529NyJKpCwWoD/TW
+	 HiWnrrR+KUXIQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 05/13] drm/mediatek: mtk_dsi: Enable interrupt at
+ component bind time
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260914115812.22751-6-angelogioacchino.delregno@collabora.com>
+References: <20260914115812.22751-1-angelogioacchino.delregno@collabora.com>
+ <20260914115812.22751-6-angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 14 Sep 2026 12:11:05 +0000
+Message-Id: <20260914121105.96BF21F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260831-gmsl2-3_serdes-v16-0-4fa6e08bb514@analog.com>
- <apqGlTiybdvQX3Ao@kekkonen.localdomain> <eff6fe78-cc4b-4192-93ed-53a738fc3c3a@gmail.com>
- <aqU5QFGmYlCtbdiE@kekkonen.localdomain>
-In-Reply-To: <aqU5QFGmYlCtbdiE@kekkonen.localdomain>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 14 Sep 2026 14:10:10 +0200
-X-Gmail-Original-Message-ID: <CANiDSCv=cwm=aHLfO_ccPfc-XyK3gS8Y+8DZpbb3gcXX0n8mqQ@mail.gmail.com>
-X-Gm-Features: AcwNN1WrtThLwvG4t-JyEDTnuDjJJzAFO-QYuNebGgduCRp--_WjKNF02oVq8vc
-Message-ID: <CANiDSCv=cwm=aHLfO_ccPfc-XyK3gS8Y+8DZpbb3gcXX0n8mqQ@mail.gmail.com>
-Subject: Re: [PATCH v16 00/22] media: i2c: add Maxim GMSL2/3 serializer and
- deserializer drivers
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Ceclan Dumitru <mitrutzceclan@gmail.com>, Dan Carpenter <error27@gmail.com>, 
-	dumitru.ceclan@analog.com, 
-	Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Julien Massot <julien.massot@collabora.com>, Rob Herring <robh@kernel.org>, 
-	=?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-staging@lists.linux.dev, linux-gpio@vger.kernel.org, 
-	=?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>, 
-	Martin Hecht <Martin.Hecht@avnet.eu>, Andrian Suciu <Adrian.Suciu@analog.com>, 
-	Cosmin Tanislav <demonsingur@gmail.com>, Vivekananda Dayananda <vivekana@amd.com>, Cory Keitz <ckeitz@amazon.com>
-Content-Type: text/plain; charset="UTF-8"
 
-Hi Sakari
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-On Sat, 12 Sept 2026 at 13:36, Sakari Ailus
-<sakari.ailus@linux.intel.com> wrote:
->
-> Hi Dumitru, Dan, Ricardo,
->
-> On Tue, Sep 08, 2026 at 01:35:05PM +0300, Ceclan Dumitru wrote:
-> > > Can you check this
-> > > <URL:https://linux-media.pages.freedesktop.org/-/users/sailus/-/jobs/109521830/artifacts/junit/test-smatch.log.txt>
-> > > please? If there's a single patch that needs to be modified, I can squash a
-> > > patch into that, otherwise v17 it is.
-> > >
-> >
-> > These are the same warns reported by Niklas in V13. Dan fixed them in
-> > smatch in devel branch but fix is not in master. Testing with smatch on
-> > that branch yields no warnings.
->
-> Dan: any plans to merge these things to master some time soon? Or:
->
-> Ricardo: could we use devel branch of smatch for some time?
+Pre-existing issues:
+- [High] The DSI interrupt is enabled before hardware clocks are turned on,=
+ leaving the system vulnerable to a kernel panic or interrupt storm from un=
+clocked register access.
+--
 
-Do you know what patch fixes it? If it is easy to cherry pick I can
-add it to our list of smatch patches
-https://gitlab.freedesktop.org/linux-media/media-ci/-/tree/main/third_party?ref_type=heads
+commit c2f480f41de24a194e9b0ecae5811e54e2bf871e
+Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
->
-> This driver has been waiting to be merged for quite some time so it'd be
-> nice to get it to 7.4
->
-> >
-> > https://lore.kernel.org/all/ai_txjwLPHsSKsJI@stanley.mountain
-> > https://repo.or.cz/smatch.git/commit/d12183645a31b737d7fb39cbefa589e34615e8f7
-> >
-> > v17 is still needed to revert one breaking change introduced in v16 and
-> > fix more findings from Sashiko.
->
-> Ack.
->
-> --
-> Kind regards,
->
-> Sakari Ailus
+drm/mediatek: mtk_dsi: Enable interrupt at component bind time
 
+This commit requests the DSI interrupt with IRQF_NO_AUTOEN to prevent it
+from firing prematurely during probe. It explicitly enables the interrupt
+during component bind and disables it during unbind instead.
 
+> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediate=
+k/mtk_dsi.c
+> index 0b167b4411e59..ef1638e77f00e 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
+[ ... ]
+> @@ -1101,6 +1102,8 @@ static int mtk_dsi_bind(struct device *dev, struct =
+device *master, void *data)
+>  		return ret;
+>  	}
+> =20
+> +	enable_irq(dsi->irq);
+> +
 
--- 
-Ricardo Ribalda
+[Severity: High]
+This isn't a bug introduced by this patch, but does this leave the system
+vulnerable to a kernel panic or interrupt storm from unclocked register
+accesses?
+
+By enabling the interrupt here at the GIC level before the hardware clocks
+are actually enabled in mtk_dsi_poweron(), the mtk_dsi_irq() handler can be
+invoked while clocks are off. The handler in
+drivers/gpu/drm/mediatek/mtk_dsi.c unconditionally accesses DSI_INTSTA:
+
+mtk_dsi_irq() {
+    ...
+    status =3D readl(dsi->regs + DSI_INTSTA) & flag;
+    ...
+}
+
+If a spurious interrupt or a delayed bootloader interrupt fires between
+mtk_dsi_bind() and mtk_dsi_poweron(), or indefinitely after the display is
+disabled via mtk_dsi_poweroff() (which disables clocks but does not disable
+the IRQ), the handler will execute while clocks are off. Accessing hardware
+registers while clocks are disabled can cause a synchronous external abort.
+
+>  	return 0;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914115812.2275=
+1-1-angelogioacchino.delregno@collabora.com?part=3D5
