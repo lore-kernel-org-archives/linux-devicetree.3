@@ -1,165 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-4399.protonmail.ch (mail-4399.protonmail.ch [185.70.43.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ED32438473;
-	Mon, 14 Sep 2026 23:16:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F177D361954
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 23:28:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789427794; cv=none; b=CoazFJgv1T2tF5pba25GSuo+XR4Ovcy1EnTIVQS80gY65x36iQi8bNTuHSikza5pSSydXKKK9Uq558R2dVG7vczRcRB75KEEDcl1ljQVqnOjwI2FZDa8arJSpfd/QM3YsxxnuYqxs7euVi+jb30gQaU6HxVrW6gJ1EX9OV83r0o=
+	t=1789428535; cv=none; b=q+D2tWJWNAA06CMJ1mFhksfhwaZI/vp6dhMcT6dx9wW0vCqGnbRt2ZHobnxaUgs2Cnh+N/e8GXf6scb7jcCIqEWyZr9DkaTlkFMyFwolotvVBQdJCQ6/xVzsnw4xLiIJlFj4K0rqzS49gGGPGyPNGbPQTykkqx4WhQIBuZ2Lhlg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789427794; c=relaxed/simple;
-	bh=a9OoLxlbgryrlLKAmEGZIJMmuk4Mh04+3SkjLyPClyw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=i1DsTFiJVlY7zS4sSOBrORFdAfR4zvZIANlwbcjquy/RcwEHKdDW0x+13OHiRs1pfdcYyapJ8OQjT0MpFyd7/neCmMts45ocm+FcmlOqwrKmie65miWV4uYTj5mFDp5EcoM7w5uh16gpg2BrX0vmBXCDIDNlKIw8kgN/92FFbBk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z0MKwixY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789428535; c=relaxed/simple;
+	bh=so6+kpWSPAr+SaQAzS8bXa6DUJTn4TrJn7YN0EqL8rI=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=A+1KcUP+m9fqNYriBy7m68XkMM6KkQhbK8ILqFhkI1YjsfiHTnFjrjkq11SeAyOtuG524lmyPx5G6L08Iy14kl26IJadA4DYTmXuDP85xId5qLpV74KvwGTgnlhf+qYk90YduS9HZMIvZ89NLImm4viuAaKL8OX0WrV1pUAGERQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=httpd.dev; spf=pass smtp.mailfrom=httpd.dev; dkim=pass (2048-bit key) header.d=httpd.dev header.i=@httpd.dev header.b=m262tNUn; arc=none smtp.client-ip=185.70.43.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=httpd.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=httpd.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z0MKwixY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 586901F000FF;
-	Mon, 14 Sep 2026 23:16:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789427776;
-	bh=tIIjh/Uf6BNc6qFW23Fkd03LNzbGrXqGSgv6kpFBBBk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Z0MKwixYFejC9aXB2ou9gDyVgw+IXUfla6yha+G1h+pdjyd9O2GMLR6rfbmVCIqRh
-	 qnCgaS96Y5zdrUGXyZHeCOvJUyELkRb+9fGwuS5j2u7zwvM0KNnIOldogKIDh75OXI
-	 UU1X49g4kycw28XdTtqVEurHf9Wwkc//rViLO6ZtoDml0qlU8ptCINWW4hrt54jJG2
-	 hAPr0WuTs5yk74shR3GBcrH+k1Xa8WmdEfWKZAyL5keV+wX4e0ljXisLoEP1cRbpgh
-	 4LO1uDw+LaWAO/9Fcz1VWy59hEVIdQMtiu7jS8LG28h+tTb8lnAcVAxnFEOPTpkgHm
-	 sgjmnSADR5CMg==
-From: Jakub Kicinski <kuba@kernel.org>
-To: bartosz.golaszewski@oss.qualcomm.com
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	andersson@kernel.org,
-	konradybcio@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	pabeni@redhat.com,
-	mcoquelin.stm32@gmail.com,
-	alexandre.torgue@foss.st.com,
-	vkoul@kernel.org,
-	peppe.cavallaro@st.com,
-	wens@kernel.org,
-	jernej.skrabec@gmail.com,
-	neil.armstrong@linaro.org,
-	khilman@baylibre.com,
-	jbrunet@baylibre.com,
-	shawnguo@kernel.org,
-	festevam@gmail.com,
-	jan.petrous@oss.nxp.com,
-	s32@nxp.com,
-	mohd.anwar@oss.qualcomm.com,
-	romain.gantois@bootlin.com,
-	geert+renesas@glider.be,
-	magnus.damm@gmail.com,
-	mripard@kernel.org,
-	christophe.roullier@foss.st.com,
-	brgl@kernel.org,
-	radu@rendec.net,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
-	dfustini@tenstorrent.com,
-	linux-sunxi@lists.linux.dev,
-	linux-amlogic@lists.infradead.org,
-	linux-mips@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-renesas-soc@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	sophgo@lists.linux.dev,
-	linux-riscv@lists.infradead.org,
-	bartosz.golaszewski@linaro.org
-Subject: Re: [PATCH net-next v14 07/10] net: stmmac: qcom-ethqos: fix SGMII loopback not set on resume after speed change
-Date: Mon, 14 Sep 2026 16:16:13 -0700
-Message-ID: <20260914231614.704318-1-kuba@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260908-qcom-sa8255p-emac-v14-7-ec212b747a7d@oss.qualcomm.com>
-References: <20260908-qcom-sa8255p-emac-v14-7-ec212b747a7d@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=httpd.dev header.i=@httpd.dev header.b="m262tNUn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=httpd.dev;
+	s=protonmail3; t=1789428529; x=1789687729;
+	bh=yxoj++wFvVAwzImdOHquYq/PvmSP6Nwb1m+Fxi9E1PA=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=m262tNUn0qggQ6BzAr6L7CTMNd/qcn7PFIcSzWLEgQf6UWVQ5Rwi8wcNhMUddA0GJ
+	 o21obADMQC6PjFbfGNy/Qt1MxIz+0r0lUCjX5jC+NA2f+ddY9vkdxqPNatH4e07E9T
+	 UMDRj73N6reiM7ZmItw/MudS9bYjLfug+QW/i2oCRD4KGN5WUUkKs6I8Xg87j07s9F
+	 P3VkZgItjLu9PdklKh035FJBOMK94QTqbEtPmUfCGnEP+jgTEFDZxT1Q2AcJ0HNdWN
+	 hF4LeDW+lXOxWIWiEPJ46bhiT1DMdUOSLb1oMno7/fx7O/j1VX64JA3vkO8dKxZL/Y
+	 Y6zybbh5jNVrA==
+Date: Mon, 14 Sep 2026 23:28:45 +0000
+To: Andrea della Porta <andrea.porta@suse.com>
+From: Angel J <iamanaws@httpd.dev>
+Cc: "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>, "regressions@lists.linux.dev" <regressions@lists.linux.dev>, "stable@vger.kernel.org" <stable@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "linux-rpi-kernel@lists.infradead.org" <linux-rpi-kernel@lists.infradead.org>, "helgaas@kernel.org" <helgaas@kernel.org>, "robh@kernel.org" <robh@kernel.org>, "florian.fainelli@broadcom.com" <florian.fainelli@broadcom.com>
+Subject: Re: [REGRESSION] PCI: Dynamic OF node creation hangs on invalid bridge configuration
+Message-ID: <VaPKN3QbW3sGj8wePAvI_xD3twp_MQE4-4xeSbvgoQPVUnKDWKz0EWT_JiLehpmc6WOsCAoFOPs412Xhtthes_ZtvrgsKB4QB6QPz-XvRb4=@httpd.dev>
+In-Reply-To: <B6jXhRRiVu4TfgjwfVOLgxbh1xIciImKFVMmjkMRoDt5SO7WpM2M3gBqsjtnh3VhYobWdcNfqFrmlCdhqZBqUakSNkTeVNZYJnXLTx55kRI=@httpd.dev>
+References: <GXe6anuewkS4bLNwca3cYOmUxN9csc0TxLYGSBc1qNRmfrmvFlcmD62wEM23TxfzfuXAv4P3yvUv7pyraleARrL1Na-aN8w-t9uc1Igu8DA=@httpd.dev> <cFJoUZ6c5g5YbFCrwUnx6RlitHRl-0cS2fadDSFJNf9SgLreKutrmZj1r56hFh8ZUAbzvuCqBG4w9ZYAE8xAWP9HnLwbjMOBzac-iMnMMZc=@httpd.dev> <aqfgUUkZYZg6ZABF@apocalypse> <B6jXhRRiVu4TfgjwfVOLgxbh1xIciImKFVMmjkMRoDt5SO7WpM2M3gBqsjtnh3VhYobWdcNfqFrmlCdhqZBqUakSNkTeVNZYJnXLTx55kRI=@httpd.dev>
+Feedback-ID: 163474212:user:proton
+X-Pm-Message-ID: d2ba4b13e36e34d8135a55ca2599efddc5d2a885
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha512; boundary="------19abcaf36a79a582b2fcee0af394648d3ca185f375b08afc4f8b0c2cc5776182"; charset=utf-8
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
----
-net: stmmac: qcom-ethqos: fix SGMII loopback not set on resume after speed change
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------19abcaf36a79a582b2fcee0af394648d3ca185f375b08afc4f8b0c2cc5776182
+Content-Type: multipart/mixed;boundary=---------------------7de5e8224e3f8cd20eea8e5ae1dd0491
 
-This extends the guard in qcom_ethqos_set_sgmii_loopback() so that the MAC
-wrapper TX-to-RX loopback is also armed when ethqos->phy_mode holds
-PHY_INTERFACE_MODE_SGMII, not only PHY_INTERFACE_MODE_2500BASEX. Without
-the loopback, dwmac4_dma_reset() polls an RX clock that never toggles and
-times out.
+-----------------------7de5e8224e3f8cd20eea8e5ae1dd0491
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;charset=utf-8
 
-No Link: tags were present in the commit header.
+Ok, here it is...
 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> index fd7414a50eb4e..e067ceee01621 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> @@ -190,7 +190,8 @@ static void
->  qcom_ethqos_set_sgmii_loopback(struct qcom_ethqos *ethqos, bool enable)
->  {
->  	if (!ethqos->needs_sgmii_loopback ||
-> -	    ethqos->phy_mode != PHY_INTERFACE_MODE_2500BASEX)
-> +	    (ethqos->phy_mode != PHY_INTERFACE_MODE_2500BASEX &&
-> +	     ethqos->phy_mode != PHY_INTERFACE_MODE_SGMII))
->  		return;
+I tested this quirk on Linux 6.18.44 with CONFIG_PCI_DYNAMIC_OF_NODES=3Dy,
+and it boots without either OF fix. The diff below omits the test logging.
 
-[Severity: Medium]
-Should this hunk be squashed into the preceding patch of the series, or at
-least carry a Fixes: tag naming it?
+PCI_FIXUP_HEADER runs after the resources have been parsed using the
+original header type, and changing hdr_type also affects configuration
+restore. I don't know enough about this part of PCI to judge whether
+that's safe, so I'll wait for your advice before submitting it as a patch.
 
-The commit message says "mac_finish() now updates phy_mode to the
-runtime-resolved interface", which is the change made one patch earlier in
-this same series:
+Thanks,
+Angel J
 
-  f40e72d57bcb38 ("net: stmmac: qcom-ethqos: update phy_mode to the
-  resolved interface in mac_finish()")
+diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+index de9bbccda..57df88a38 100644
+--- a/drivers/pci/quirks.c
++++ b/drivers/pci/quirks.c
+@@ -291,6 +291,22 @@ static int __init pci_apply_final_quirks(void)
+ }
+ fs_initcall_sync(pci_apply_final_quirks);
+ =
 
-git blame at this commit shows the assignment in ethqos_mac_finish_serdes():
 
-	ethqos->phy_mode = interface;
++/*
++ * On the Dell XPS 8940, 8086:4c43 reports a PCI-to-PCI bridge but has no
++ * downstream bus. Use host-bridge class and a normal header so that
++ * pci_is_bridge() does not send it through bridge scanning.
++ */
++static void quirk_intel_4c43_host_bridge(struct pci_dev *dev)
++{
++	if ((dev->class >> 8) !=3D PCI_CLASS_BRIDGE_PCI ||
++	    dev->hdr_type !=3D PCI_HEADER_TYPE_BRIDGE)
++		return;
++
++	dev->class =3D (PCI_CLASS_BRIDGE_HOST << 8) | (dev->class & 0xff);
++	dev->hdr_type =3D PCI_HEADER_TYPE_NORMAL;
++}
++DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x4c43, quirk_intel_4c43_ho=
+st_bridge);
++
+ /*
+  * Decoding should be disabled for a PCI device during BAR sizing to avoi=
+d
+  * conflict. But doing so may cause problems on host bridge and perhaps o=
+ther
 
-came from f40e72d57bcb38. Before that, ethqos->phy_mode was written only
-once, in qcom_ethqos_probe() from the DT phy-mode property, so the
-2500BASEX-only guard could not go stale at runtime and the DMA reset
-timeout described here did not exist.
+-----------------------7de5e8224e3f8cd20eea8e5ae1dd0491--
 
-Does that leave f40e72d57bcb38 broken on its own, e.g. as a bisect point or
-a stable backport? On a needs_sgmii_loopback platform (emac_v4_0_0_data)
-with DT phy-mode "2500base-x" whose link resolves to 1G SGMII:
+--------19abcaf36a79a582b2fcee0af394648d3ca185f375b08afc4f8b0c2cc5776182
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
 
-  ethqos_mac_finish_serdes()      -> ethqos->phy_mode = PHY_INTERFACE_MODE_SGMII
-  suspend / ifdown
-  resume / ifup
-  ethqos_clks_config(ethqos, true)
-    qcom_ethqos_set_sgmii_loopback(ethqos, true)
-      if (... ethqos->phy_mode != PHY_INTERFACE_MODE_2500BASEX)
-              return;                 /* loopback never enabled */
-  dwmac4_dma_reset()                  /* polls a non-toggling clock, times out */
+-----BEGIN PGP SIGNATURE-----
+Version: ProtonMail
 
-Also, the subject line reads as a standalone fix for a pre-existing
-problem, which hides the dependency on the previous patch. Would either
-squashing the guard change into f40e72d57bcb38, or adding
+wrsEARYKAG0Fgmqogx0JEBoBbwppzUxnRRQAAAAAABwAIHNhbHRAbm90YXRp
+b25zLm9wZW5wZ3Bqcy5vcmes3p/1OSpN6LMhObrgEYZy+8qMUO+52BFBVbvV
+KvCQQRYhBEAFf9htFyVnqZzmVhoBbwppzUxnAACY0wD/SFb48faYSk4S81Rn
+a+nMZZ6WbytcUHJBks8/2VhxtfcA/jdk2n5GJvzeuyWgZAPW5fl9UDEyWQuO
+Mti2YQDwnA4D
+=zn2q
+-----END PGP SIGNATURE-----
 
-  Fixes: f40e72d57bcb38 ("net: stmmac: qcom-ethqos: update phy_mode to the resolved interface in mac_finish()")
 
-make the ordering requirement explicit?
+--------19abcaf36a79a582b2fcee0af394648d3ca185f375b08afc4f8b0c2cc5776182--
 
-One more note on the commit message wording: the second paragraph reads
-"qcom_ethqos_set_sgmii_loopback() gates this on phy_mode being 2500BASEX.
-mac_finish() now updates phy_mode to the runtime-resolved interface, any
-subsequent resume with a 1G SGMII link skips the loopback setup" — the
-sentence joining is missing a connector such as "so that" or "and since",
-which makes the causal relationship hard to follow.
