@@ -1,127 +1,74 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-222.mta0.migadu.com [91.218.175.222])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F4B6380FFB;
-	Mon, 14 Sep 2026 18:18:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AC1A38A734
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 18:29:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.222
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789409893; cv=none; b=eWFCnGfWliimf7mUZJE90wjJm6Rs8CD8fZ2C5HvFi2kWsypLG4/UDpwU520/FFONJ6cm/cw6ARx/YCraSq7klqluIV4LKpbkRs4GG9Ow8v1tpDfKHFl1GpFTvelArzQytqhifF0tRiBiH9cVsTpmATBbYZBMNn0D53nqlStsQ9c=
+	t=1789410563; cv=none; b=PDkZxDvp6XrjxxRWEVMt1hrbOapwUFnteCY5Oa4kMdud1jkPrFNvJsLA5Fiaj25N34Ar6rv7PJC2e13VVTT6LVDDnExX84MTNyk8WX2948Q8uPDAgbIBp6Rwyw10wk72UkE15TE+7OB6/ogFqn2dE5qVldbpVIjqGQ3OuxvWKY8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789409893; c=relaxed/simple;
-	bh=LeGJVJUrFccUrTCqBYPQTfeXCn2hPt8IfFObYNGk4eU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LETLpUPFWmRH2iIUobkRC7JtUxPPB1hFNatFKEB4ucN6gS65FgSF3k32coRXsUNebqnneucapRZCvvimfuaflZf3ClBDQIlOQ5XICxOD5/0QWw0rh+L2fCEc/JKq54Tbic+3SrApT6U7uSP5kC/yBHa1/nrr3SzoeCalcE3K8bI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nDpojIh2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789410563; c=relaxed/simple;
+	bh=oiUF5LhxlHtYbTxjopkGNneVmugHN51Eq7CGGnZam7c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FwRd5lUH0hWck7+luQcwyd8c9yTvq/HzX3XmsPSwRU0njB9c7Dv0mblsUa0L+uCD19K6MfksVJWA8JFy4+5PShtSFedy6xjgEVa2qreVxnGc6yTRjIYNzBoo/hs/uI3Km/BoR4YQddm35uJOMk+DNoJtb1RZ94GwGJVyKS4fJSc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Ejzlphn0; arc=none smtp.client-ip=91.218.175.222
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nDpojIh2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE94A1F00893;
-	Mon, 14 Sep 2026 18:18:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789409891;
-	bh=UfV2+3ufoodcnS2hr2MvymVG9xMpLrrAfO1Pi9klSVg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nDpojIh2i5FVIFYzzVAshOI8GnTHsdKHqfOhmt4+rDQ8byU+w+2gVVVqlik8hIy6K
-	 35AwBNdW/FhoJf2pIszi34Jfkr97mkz6sVSNjxocSuqf2u0gzNR97iy/oZv3X50Foc
-	 cxpJLldl6TiTpdS1N28tSkzl1MV/WAVkffi4mT71XLg8N8kyUPwRF0iUrSR3re5v7b
-	 6J3flpuzkP0Yx1DQVaYJ6zfCPjy1HNwJekjW66mO46h5p3UJPZCfZfQ6fCvkWNbwq+
-	 6+yj5QSrhJ5MZjydlDKliQLVCmZgQIvdefuUXRWsJsx+NFqIRhtZu/2w5X7Qz8ZF7W
-	 nGs0jHncwc+iQ==
-Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
-	id EAE67FDACBA; Mon, 14 Sep 2026 19:17:57 +0100 (BST)
-Date: Mon, 14 Sep 2026 19:17:57 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Lars-Peter Clausen <lars@metafoo.de>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	David Rhodes <david.rhodes@cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Binbin Zhou <zhoubinbin@loongson.cn>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
-	Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Khanh Le <khanh.le.xr@renesas.com>,
-	Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>,
-	patches@opensource.cirrus.com,
-	David Rau <David.Rau.opensource@dm.renesas.com>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Shengjiu Wang <shengjiu.wang@nxp.com>,
-	Oleksij Rempel <o.rempel@pengutronix.de>,
-	Yingkun Meng <mengyingkun@loongson.cn>,
-	Trevor Wu <trevor.wu@mediatek.com>,
-	Julien Massot <jmassot@collabora.com>,
-	Jiaxin Yu <jiaxin.yu@mediatek.com>,
-	Shane Chien <shane.chien@mediatek.com>,
-	Daniel Beer <daniel.beer@igorinstitute.com>,
-	Sebastian Reichel <sre@kernel.org>, linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	asahi@lists.linux.dev, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v2] ASoC: dt-bindings: Use consistent indentation in the
- example
-Message-ID: <aqg6VUKriyVANv6u@sirena.org.uk>
-References: <20260914093657.61218-2-krzysztof.kozlowski@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Ejzlphn0"
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=oiUF5LhxlHtYbTxjopkGNneVmugHN51Eq7CGGnZam7c=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789410557; v=1; x=1790015357;
+ b=Ejzlphn0Vu+wMB4ePv4GJDq8Ynn9cQqvSpCU10hF+uxC8F80TICdVTbCmo6KiSutmeBR4fI1
+ hocfncLt4Vl1ncC8qP1A+6CPpapeUB07ZBKFvbk54LI18nrO88VK9Tb5SxifhursPBzyf2G9+t3
+ s7xQxC8rGhmgUgO8HGQ+Mp4k=
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 934f72edde8d4b3d;
+	Mon, 14 Sep 2026 18:29:07 +0000
+X-Mizu-Trace-ID: 934f72edde8d4b3d
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <8c6bfa54-83a7-4d37-bbc8-d3384dfc6ce2@linux.dev>
+Date: Mon, 14 Sep 2026 19:21:32 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lBcZ00JTkHLtIO8U"
-Content-Disposition: inline
-In-Reply-To: <20260914093657.61218-2-krzysztof.kozlowski@oss.qualcomm.com>
-X-Cookie: Orders subject to approval.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] soundwire: qcom: add multi-master support
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+ robh@kernel.org, vkoul@kernel.org
+Cc: krzk+dt@kernel.org, conor+dt@kernel.org, srini@kernel.org,
+ yung-chuan.liao@linux.intel.com, prasad.kumpatla@oss.qualcomm.com,
+ jingyi.wang@oss.qualcomm.com, sibi.sankar@oss.qualcomm.com,
+ quic_srivasam@quicinc.com, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-sound@vger.kernel.org
+References: <cover.1789114385.git.srinivas.kandagatla@oss.qualcomm.com>
+ <0097b59e2b96d692b9fb542e207ee43f9dd44a7f.1789114385.git.srinivas.kandagatla@oss.qualcomm.com>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+In-Reply-To: <0097b59e2b96d692b9fb542e207ee43f9dd44a7f.1789114385.git.srinivas.kandagatla@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 9/11/26 10:21, Srinivas Kandagatla wrote:
+> v3.1.0+ Qualcomm SoundWire IPs can be paired to expose one logical
+> bus with more than two DATA lanes. One IP owns SWR_CLK and drives
+> the bus; the other contributes DATA lanes only.
+> 
+> Support this pairing on the driver side. A device link between the
+> two IPs enforces correct unbind ordering and keeps the peer resumed
+> while the primary is active.
+> 
+> Single-master deployments (no qcom,multi-master-mode in DT) are
+> unaffected.
 
---lBcZ00JTkHLtIO8U
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+It'd be good to clarify how the command protocol is handled. Each IP is
+probably capable of handling PING/READ/WRITE commands in Column0, but in
+the paired option the primary IP is the only one that deals with Column0
+and all other DATA lanes are just data?
 
-On Mon, Sep 14, 2026 at 11:36:58AM +0200, Krzysztof Kozlowski wrote:
-> Correct indentation in the examples to consistent 2- or 4-spaces
-> indentation to fix dt-check-style warnings ("example 0
-> [indent-consistent] indent mismatch ...").  Preferred is 4-spaces, but
-> re-indenting entire example just for that is too much churn.
->=20
-> While changing the lines, correct also node name to be generic in
-> cirrus,cs35l45.yaml, cirrus,cs42l42.yaml and dialog,da7219.yaml.
->=20
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-Can you rebase this against current for-7.4 please?
-
---lBcZ00JTkHLtIO8U
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqoOlUACgkQJNaLcl1U
-h9CLWQf/VFTw/qe/g+8peqE05M8nHdQKkYqM+VK25BVf7NMl4rlEDI4nR8k4bWEW
-17u4cI3rTrRngHBJYjWjjUC0UiYUR7325nlIvtC30fNLDIctjAGClIGzHVQK2hPB
-XJ7EI7rdJhwcimKRi1SfB7zbKG4fCKI8LWaAQ/mGdleTtwEsCOT44F6Kyx5fVfkX
-0RtEzTl7X6PnR1BwjiB4jGSUObEPfPTr5144+S7TCCfzAzAQClmOtcIwyGqZekNu
-ByUbfJcB5JGDnHnLkn9NL/QU3J4jNOAwEs54z3SUk1hQoQro8UQc6Jh2KUeNGIHG
-CdWnP+p/QA1EiUgQEJpb6pMeRUj3AA==
-=TYrF
------END PGP SIGNATURE-----
-
---lBcZ00JTkHLtIO8U--
