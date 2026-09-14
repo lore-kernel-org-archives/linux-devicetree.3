@@ -1,33 +1,33 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9C59D47AF5F;
-	Mon, 14 Sep 2026 14:41:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7313947A89B;
+	Mon, 14 Sep 2026 14:51:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789396873; cv=none; b=eAZeB+rEx7ncFYAto2VljuktClTgSkYwqbsHoRrwNXE+IfV2gMUeKg/I9PCDmQES31fUS18E/1NjwGm3wTmMwSK2acrlZ8QvtcVJfO2MhzNLGExFnn4j3HPLFGzgwnn5v1EpDfZ6sS70Ivzmds/hsmSs+uwdA7NkzrKSEWcmLm8=
+	t=1789397474; cv=none; b=e6UFeKiosQMI30CSR9fwd0OxjwNk57pd7ZIP4rZFjOevawiA9kNsrVyr+ErD8h0G9WxspEK9TQUYjJVTr8eE8f1RdK/AgpwdK/FVsdslKDd4f+KHg30BRh7VBOOGZNYALBjQjAYfbIY39z9hoUIz4uomnZIqY+uODce/zBX3xxQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789396873; c=relaxed/simple;
-	bh=+FD/VOEtpkJiv8RtMGh6Vj4oR48HBb21Vg/klWs5GCY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ipT/SPm5JfOdnrYHSNfSYNXwJ4KJDc7mQstyTqS9RcHaTkTPRLEsBjXSdGZV9lMUzPb6tm62F2IOawN3qCIPM5ZHR9Eab8h5lQHSDymBIkYvaknHSgxL+zI6IJ7uqv7H09ZrFoPPSlBgqciAozhV/O2sCc8Yn+yPOFTBfuvxcZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=jgiJAwIo; arc=none smtp.client-ip=217.140.110.172
+	s=arc-20240116; t=1789397474; c=relaxed/simple;
+	bh=4eY6nSFOq/Va/DPcpboYKZBk7jH8z6qFhz7/XnF2Xng=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=jMyBEHGGMLgMQn09TGXHmCLRZoyApuNbdd1aFGYOgG6K/MLzu96rWloKyLsAuTk7J1l+/ebZtpfZDIWi2wm9EHfKjhlTnap7yGNjCoB5VAj+m59rMxDzbOhfZEPXbTJoNhF3C8qM2COvwpSRVSGSCm4LY2iJ1C3Ke7x3kKNNU2g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=mjlA8VU3; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="jgiJAwIo"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="mjlA8VU3"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5243A152B;
-	Mon, 14 Sep 2026 07:41:07 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 99FD91576;
+	Mon, 14 Sep 2026 07:50:53 -0700 (PDT)
 Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B47243F86F;
-	Mon, 14 Sep 2026 07:41:05 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 14DF33F86F;
+	Mon, 14 Sep 2026 07:50:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789396870; bh=+FD/VOEtpkJiv8RtMGh6Vj4oR48HBb21Vg/klWs5GCY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=jgiJAwIoSHIjCWQqVPLqNO7n+iJfGzSlu/Ud1uOI0smhjd9zQB9s/xtX48CKL4iyb
-	 Q5PsiKuuCfBfl3SzAIlv/fg/ih8mRQrrXEQ5VxG4UfsLJC3bIOrrstYMxwcYykJHnW
-	 rt3H+NV3j1sGU2yb047zYBp1fvaUvW+YlgFDMzKI=
-Message-ID: <f71cfbcc-2e53-4e37-bb98-693996542396@arm.com>
-Date: Mon, 14 Sep 2026 16:41:04 +0200
+	t=1789397457; bh=4eY6nSFOq/Va/DPcpboYKZBk7jH8z6qFhz7/XnF2Xng=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+	b=mjlA8VU3/wPr4fGHLHOy27VUoOJLDK1Md9hbXusyenIG6Msi/NrGc576r3T5+P3ND
+	 v3aAKee9OQwjnzEy+PLeuoA6Uj242BSoJDCG6X0rq92iZ1mhcCsy//bagStF39M71f
+	 Btik+Fsx1UPmE+fqdCbNXgGpBvJqqxxifhkIAvA4=
+Message-ID: <07d32b4c-1f00-45e5-b318-0f28bbb46f33@arm.com>
+Date: Mon, 14 Sep 2026 16:50:50 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -36,6 +36,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH RFC v2 03/10] dt-bindings: arm: Add MPAM MSC binding
+From: Andre Przywara <andre.przywara@arm.com>
 To: Yin Li <yin.li@oss.qualcomm.com>, James Morse <james.morse@arm.com>,
  Rob Herring <robh@kernel.org>, Shanker Donthineni <sdonthineni@nvidia.com>,
  Ben Horgan <ben.horgan@arm.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -57,252 +58,89 @@ Cc: Drew Fustini <fustini@kernel.org>,
  devicetree@vger.kernel.org
 References: <20260914-mpam-resctrl-dt-knp-support-v2-0-bf6645bb2f65@oss.qualcomm.com>
  <20260914-mpam-resctrl-dt-knp-support-v2-3-bf6645bb2f65@oss.qualcomm.com>
+ <f71cfbcc-2e53-4e37-bb98-693996542396@arm.com>
 Content-Language: en-GB
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <20260914-mpam-resctrl-dt-knp-support-v2-3-bf6645bb2f65@oss.qualcomm.com>
+In-Reply-To: <f71cfbcc-2e53-4e37-bb98-693996542396@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 Hi,
 
-On 9/14/26 11:37, Yin Li wrote:
-> From: Rob Herring <robh@kernel.org>
+On 9/14/26 16:41, Andre Przywara wrote:
+> Hi,
 > 
-> The binding is designed around the assumption that an MSC will be a
-> sub-block of something else such as a memory controller, cache controller,
-> or IOMMU. However, it's certainly possible a design does not have that
-> association or has a mixture of both, so the binding illustrates how we can
-> support that with RIS child nodes.
+> On 9/14/26 11:37, Yin Li wrote:
+>> From: Rob Herring <robh@kernel.org>
+>>
+>> The binding is designed around the assumption that an MSC will be a
+>> sub-block of something else such as a memory controller, cache 
+>> controller,
+>> or IOMMU. However, it's certainly possible a design does not have that
+>> association or has a mixture of both, so the binding illustrates how 
+>> we can
+>> support that with RIS child nodes.
+>>
+>> A key part of MPAM is we need to know about all of the MSCs in the system
+>> before it can be enabled. This drives the need for the genericish
+>> 'arm,mpam-msc' compatible. Though we can't assume an MSC is accessible
+>> until a h/w specific driver potentially enables the h/w.
+>>
+>> Cc: James Morse <james.morse@arm.com>
+>> Signed-off-by: Rob Herring <robh@kernel.org>
+>> Signed-off-by: James Morse <james.morse@arm.com>
+>> Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
+>> ---
+>>   .../devicetree/bindings/arm/arm,mpam-msc.yaml      | 199 +++++++++++ 
+>> ++++++++++
+>>   1 file changed, 199 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/arm/arm,mpam-msc.yaml 
+>> b/Documentation/devicetree/bindings/arm/arm,mpam-msc.yaml
+>> new file mode 100644
+>> index 000000000000..53a6fdbbf05f
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/arm/arm,mpam-msc.yaml
+>> @@ -0,0 +1,199 @@
+>> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/arm/arm,mpam-msc.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Arm Memory System Resource Partitioning and Monitoring (MPAM)
+>> +
+>> +description: |
+>> +  The Arm MPAM specification can be found here:
+>> +
+>> +  https://developer.arm.com/documentation/ddi0598/latest
+>> +
+>> +maintainers:
+>> +  - Rob Herring <robh@kernel.org>
+>> +
+>> +properties:
+>> +  compatible:
+>> +    items:
+>> +      - const: arm,mpam-msc                   # Further details are 
+>> discoverable
+>> +      - const: arm,mpam-memory-controller-msc
 > 
-> A key part of MPAM is we need to know about all of the MSCs in the system
-> before it can be enabled. This drives the need for the genericish
-> 'arm,mpam-msc' compatible. Though we can't assume an MSC is accessible
-> until a h/w specific driver potentially enables the h/w.
-> 
-> Cc: James Morse <james.morse@arm.com>
-> Signed-off-by: Rob Herring <robh@kernel.org>
-> Signed-off-by: James Morse <james.morse@arm.com>
-> Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
-> ---
->   .../devicetree/bindings/arm/arm,mpam-msc.yaml      | 199 +++++++++++++++++++++
->   1 file changed, 199 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/arm/arm,mpam-msc.yaml b/Documentation/devicetree/bindings/arm/arm,mpam-msc.yaml
-> new file mode 100644
-> index 000000000000..53a6fdbbf05f
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/arm/arm,mpam-msc.yaml
-> @@ -0,0 +1,199 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/arm/arm,mpam-msc.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Arm Memory System Resource Partitioning and Monitoring (MPAM)
-> +
-> +description: |
-> +  The Arm MPAM specification can be found here:
-> +
-> +  https://developer.arm.com/documentation/ddi0598/latest
-> +
-> +maintainers:
-> +  - Rob Herring <robh@kernel.org>
-> +
-> +properties:
-> +  compatible:
-> +    items:
-> +      - const: arm,mpam-msc                   # Further details are discoverable
-> +      - const: arm,mpam-memory-controller-msc
+> But that doesn't match the examples below, does it? Don't we want to 
+> allow just "arm,mpam-msc", but also the memory controller string, with 
+> "arm,mpam-msc" as a fallback?
+> I guess the pattern should then look similar to interrupt-names below?
 
-But that doesn't match the examples below, does it? Don't we want to 
-allow just "arm,mpam-msc", but also the memory controller string, with 
-"arm,mpam-msc" as a fallback?
-I guess the pattern should then look similar to interrupt-names below?
+Just seeing that you fix this and other things up in patch 08/10 later.
+I think it's confusing to have this split now for a v2 still. I wouldn't 
+be aware of previous review of this original patch, so it doesn't really 
+matter. Please squash them.
 
-> +
-> +  reg:
-> +    maxItems: 1
-> +    description: A memory region containing registers as defined in the MPAM
-> +      specification.
-> +
-> +  interrupts:
-> +    minItems: 1
-> +    items:
-> +      - description: error (optional)
-> +      - description: overflow (optional, only for monitoring)
-> +
-> +  interrupt-names:
-> +    oneOf:
-> +      - items:
-> +          - enum: [ error, overflow ]
-> +      - items:
-> +          - const: error
-> +          - const: overflow
-> +
-> +  arm,not-ready-us:
-> +    description: The maximum time in microseconds for monitoring data to be
-> +      accurate after a settings change. For more information, see the
-> +      Not-Ready (NRDY) bit description in the MPAM specification.
-> +
-> +  numa-node-id: true # see NUMA binding
-> +
-> +  '#address-cells':
-> +    const: 1
-> +
-> +  '#size-cells':
-> +    const: 0
-> +
-> +patternProperties:
-> +  '^ris@[0-9a-f]+$':
-> +    type: object
-> +    additionalProperties: false
-> +    description:
-> +      RIS nodes for each resource instance in an MSC. These nodes are required
-> +      for each resource instance implementing known MPAM controls
-> +
-> +    properties:
-> +      compatible:
-> +        enum:
-> +          - arm,mpam-cache
-> +          # Memory bandwidth
-> +          - arm,mpam-memory
-> +
-> +      reg:
-> +        minimum: 0
-> +        maximum: 0xf
-> +
-> +      cpus:
-> +        description:
-> +          Phandle(s) to the CPU node(s) this RIS belongs to. By default, the parent
-> +          device's affinity is used.
-> +
-> +      arm,mpam-device:
-> +        $ref: /schemas/types.yaml#/definitions/phandle
-> +        description:
-> +          By default, the MPAM enabled device associated with a RIS is the MSC's
-> +          parent node. It is possible for each RIS to be associated with different
-> +          devices in which case 'arm,mpam-device' should be used.
-> +
-> +    required:
-> +      - compatible
-> +      - reg
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +
-> +dependencies:
-> +  interrupts: [ interrupt-names ]
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    L3: cache-controller@30000000 {
-> +        compatible = "arm,dsu-l3-cache", "cache";
-> +        cache-level = <3>;
-> +        cache-unified;
-> +
-> +        ranges = <0x0 0x30000000 0x800000>;
-> +        #address-cells = <1>;
-> +        #size-cells = <1>;
-> +
-> +        msc@10000 {
-> +            compatible = "arm,mpam-msc";
-> +
-> +            reg = <0x10000 0x2000>;
-> +            interrupts = <1>, <2>;
-> +            interrupt-names = "error", "overflow";
-> +            arm,not-ready-us = <1>;
-> +            /* CPU affinity implied by parent cache node  */
-> +        };
-> +    };
-> +
-> +    mem: memory-controller@20000 {
-> +        compatible = "foo,a-memory-controller";
-> +        reg = <0x20000 0x1000>;
-> +
-> +        #address-cells = <1>;
-> +        #size-cells = <1>;
-> +        ranges;
-> +
-> +        msc@21000 {
-> +            compatible = "arm,mpam-memory-controller-msc", "arm,mpam-msc";
-> +            reg = <0x21000 0x1000>;
-> +            interrupts = <3>;
-> +            interrupt-names = "error";
-> +            arm,not-ready-us = <1>;
-> +            numa-node-id = <1>;
-> +        };
-> +    };
-> +
-> +    iommu@40000 {
-> +        reg = <0x40000 0x1000>;
-> +
-> +        ranges;
-> +        #address-cells = <1>;
-> +        #size-cells = <1>;
-> +
-> +        msc@41000 {
-> +            compatible = "arm,mpam-msc";
-> +            reg = <0 0x1000>;
-> +            interrupts = <5>, <6>;
-> +            interrupt-names = "error", "overflow";
-> +            arm,not-ready-us = <1>;
-> +
-> +            #address-cells = <1>;
-> +            #size-cells = <0>;
-> +
-> +            ris@2 {
-> +                compatible = "arm,mpam-cache";
-> +                reg = <0>;
-> +                // TODO: How to map to device(s)?
+So I think you should merge 07/10 and 08/10 into their original patches, 
+otherwise reviewers might just get confused.
 
-Maybe we should remove this example, if it isn't ready yet?
+But you might wait for a bit with a repost, to see if there are more 
+generic comments on DT support.
 
 Cheers,
 Andre
 
-> +            };
-> +        };
-> +    };
-> +
-> +    msc@80000 {
-> +        compatible = "foo,a-standalone-msc";
-> +        reg = <0x80000 0x1000>;
-> +
-> +        clocks = <&clks 123>;
-> +
-> +        ranges;
-> +        #address-cells = <1>;
-> +        #size-cells = <1>;
-> +
-> +        msc@10000 {
-> +            compatible = "arm,mpam-msc";
-> +
-> +            reg = <0x10000 0x2000>;
-> +            interrupts = <7>;
-> +            interrupt-names = "overflow";
-> +            arm,not-ready-us = <1>;
-> +
-> +            #address-cells = <1>;
-> +            #size-cells = <0>;
-> +
-> +            ris@0 {
-> +                compatible = "arm,mpam-cache";
-> +                reg = <0>;
-> +                arm,mpam-device = <&L2_0>;
-> +            };
-> +
-> +            ris@1 {
-> +                compatible = "arm,mpam-memory";
-> +                reg = <1>;
-> +                arm,mpam-device = <&mem>;
-> +            };
-> +        };
-> +    };
-> +
-> +...
-> 
 
