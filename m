@@ -1,279 +1,148 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8D2F18A93F
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 08:15:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF10C33F599
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 08:17:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789373746; cv=none; b=jCNC42UPcPiDuVa8YCMH0RZujqF6WC42La5lWe8oILlmm3goxsFQg7+E/YRyvSWbtEgYamI6kB/GpDFRVHeQ7xKWuBIg+6rrvlbO46QVrR3C01368HXVhaEbTWFnXVDZFsGUWzU+P13gx2RO4B9oTDr+PTg1Gtp1Bpq5YFwvB/c=
+	t=1789373826; cv=none; b=Jw7pqsW7l7CdYvYdDvnZwY0O5SYjRcR7sAGCXqc79QHsd3yCFdCv8sD9IPo6r7soqJzMiPyG2nCseLEkSmYICuXl9D47HV6JTSQwWxXkGLS1TNs72uPOqrWdVWCNNDXRFmzst1I+9p1hWc6MGdG6vqNobih3JzEwPoRDNPya49w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789373746; c=relaxed/simple;
-	bh=YuXBmvIFB1Et+q+Dd5qvNxVQigDmtR3StCiUh0MdB5E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cgXgNZTsm8Xg6+q9pwQqz8ejvJUaWNajmGn20o2GdimwNP/cysoDrJR0e1MqT7KTnJDU10KDYpLQkHybJz0uF7aQMaEhFYCUwEX9iwOMsvOxDFx1I6hm4zr1AONuLZm2ZI7+UDmf5wHClwU9datraJDi7kRas+Dcs3JO3WlV8hE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PbmZltK0; arc=none smtp.client-ip=209.85.214.180
+	s=arc-20240116; t=1789373826; c=relaxed/simple;
+	bh=U2fObva/T4kb4gnGW2Nd5bcGjQpO3qUpI3v+NuFZT80=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZNuPfjRnFMl/6554USpN6vmht573FsEmvC2gL9HriSKa0A3oz8rEkuS+4akAcG6bSleOZtG0np8Xh9aPkQ++ulTzNOz2RM3xvEY7D3MURnp/3+83fV8wnJoAkEJ9im8D4150x9YUtRiV8UxH2IS8XWa43LfsjbysSgNRNvShAuA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IZK4k8zT; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PbmZltK0"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2d715f4a587so42647545ad.2
-        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 01:15:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IZK4k8zT"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843cedd129so1014002f8f.0
+        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 01:17:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789373744; x=1789978544; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=a+mbYj9gFoY+dF3f91W1Xx4566ofLNjeGKmQ/I7aiac=;
-        b=PbmZltK0MZfEbi8ouIkbmxwzSvsC5A+XQiJftvWZURthCUQw2G5pcYukjzOfaGelPZ
-         w/NJ3baHLBKwqaZ9Jkpo4Sx06GdXMvhKym80qXrXygyyTNH2n4lx3DhOrHYMdtnxUMtd
-         Cbu8v6hQSvF+4iVFfUzlN1yKUeDPe/X4AgbVun1I5JTksno9cnrPCqThragIcZ4NyXE7
-         ZDGoq8FePK/SwmZF4dl+AuL5om7pSnej7i3wHb9hQ0HeNcalEcrWkBxh6wEHYwxRtAQx
-         IPuUhnnj5bkER3jj1pf2XUgP5lDOO3I51VFhl9/XBmj+1w2CH+iS3UF+iZFQ2AshFXTg
-         NCEQ==
+        d=gmail.com; s=20251104; t=1789373823; x=1789978623; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bDdWbQbVn5+bafx3DiaQBgQ61FY9LOrox9bmnpws3Bc=;
+        b=IZK4k8zTtDuva5FJNWkxh/YAunjlvDUeOuwsPgN0/ONSwLidsMf1GdJTDRv1Gskf3R
+         XXM/WcoRhUON13Tb3oPy+oTfMNa57c6xgyMs3pJuklo7HzDhLadq/Au+YLqDbiESiMZN
+         NIof1TsyDzE2XtBtipxEwkpZ9gW71nJcwVk2wB/WveaX4RNc2PglNl3d74wU9/meX88I
+         3gYlgGXYpf7xDinlQEQtyxlR8W7GXgewfNtp2Rr29oeJBczewPSQ1uVi4vs/QTepJ7ko
+         rp9umskdHnBESNoAo/pvZeD7ZfTk+jcr8Idx/D+f25xblIVbirJxTtOENxVHmFfH5KuW
+         iMpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789373744; x=1789978544;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1789373823; x=1789978623;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=a+mbYj9gFoY+dF3f91W1Xx4566ofLNjeGKmQ/I7aiac=;
-        b=X9ZgB23uMmAOTLG+1Rxrjw5rSIKv5GD0YhBNMu3zPbPvXaw2fd0aGsM/fHaFwBgwBr
-         br7tS6V9ZrWmrnclkn6bsOKgZruYEcYglU+tHMizBhgqIux6Spb30jCnAR69Zgd0rKs3
-         mUNYYpQm5CLNpIPf2lt9hD9+vGmFqJpVR4vCwGuQr6pYUCKVZ1PQxUGLleKo9+3mAh0i
-         rhoKFHf5wI8hyCGhZxqcdZYh3vaVWbYVFoUGN2JE9t7xPKt0Izd6uWVKoA5d97tIN/L7
-         3tskO+hJTHFnhRKp+bV6tuZd6hSjSXZy6h5FxP1b2OII5c+TVbFh4IjciNR+3+rjv6qf
-         edmw==
-X-Forwarded-Encrypted: i=1; AKwUvByEYbVEJ7CjXUij0UY3rMlBuj6I43Uqba/i3R+cEW8nqaFZHeek33iDuLket2xozq0B5gB3eh3av6q8@vger.kernel.org
-X-Gm-Message-State: AFuF++ms2LjBYLmLfPY5xyxnd/zz77ADjHRXBpagqJ46dG+klh+vDgpu
-	y7PKNYzv0kk7vzmleRqm31H886b90HKAm2ZJkIG9FdgH6aw0E3Ud8jaR
-X-Gm-Gg: AYBFou3d7YWxCS3lE5tsl8g/DAJ1cAdNdbAK2JNw5J8xzVrIl6eBNLGGwsWH5iHp63f
-	DD/qjbWEqCg1INvXXQhKxMfGqp03wkNmrHBtsG5eU3zPKepR6plZqi9rD5y+nGXyFUkzVKGsSPy
-	koGwDjaEmJjP3i4JmHV59qi5JzSDFHDOR1pj6GaPdFg3C487tHDqL0AjDCu/D7XCEodqBx/KOAR
-	MLqjcpUtyVU/blk6Oo1KWuDeO+QelqD9AnpUNerw7KXvxvsK+/DRhBmbHiXiy0V7ZVTgUxKs2Sz
-	j7125xpxaz+0CXueR1Kvcq+YN4rZ6kG6xzPvtbRmAg8J77ZKdqcWfVnT3yXA/pJ6tj1QKtlkJzU
-	gNrxvvuD2jco7FcnmMjFrOCbS08/LcFcZs0hS08jH9x52NbbaQY9T5NK3M56xbwX9RtAOjwgCoJ
-	7Y4QK/4aJ+PuUb5cpVlzoxacKgldOuEXOkRuTnb6W3OhUIKNQNg+bTPjbO+lisfZAa89al9igf/
-	0Ol2nHvb3E1Aap3dxDhpAP3jBN45Fpxv5uuVmY3Jo3Ba5iUfXsevXr8Q16ECleFOQ==
-X-Received: by 2002:a17:902:e744:b0:2bf:dd0:c8b1 with SMTP id d9443c01a7336-2dd6c4835d0mr31756845ad.0.1789373744241;
-        Mon, 14 Sep 2026 01:15:44 -0700 (PDT)
-Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cec8483sm44238255ad.44.2026.09.14.01.15.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 01:15:42 -0700 (PDT)
-Message-ID: <2fd1f320-05a8-4782-8134-157c50024adb@gmail.com>
-Date: Mon, 14 Sep 2026 16:15:37 +0800
+        bh=bDdWbQbVn5+bafx3DiaQBgQ61FY9LOrox9bmnpws3Bc=;
+        b=lFdjr5ysSZT3mxTAVRGN5iIzE+GyOsL/SKZuljLJASL6Hg+xpdLzNYAIxO1ei3+htc
+         lYblZ7biZnAM3GBaP/1gD6DjnjF1Iz3q+nA3qXS8lS0I2Rb8ELGXieK0TAttBtwzTjMD
+         02fKgFkiZ8EYUq8v6DIWqRt2YRHppH+Krs2qlRtZCvluIGgYctt8PAZ5QoeO08rpYMIS
+         U7MsVUAyZKTfK+xlN+fxVyO4v/nAQGjWKEZVbKNPOP05MCC1nc++/x3tlEpfQgJ2mSjv
+         yfJl40EdzN7uwdwgVTdMYeX0SKD+/198FJhmy22hdJzVnFFD+RbYWS6kPvhNLxlSJrFw
+         8cSA==
+X-Forwarded-Encrypted: i=1; AKwUvBz13BwBbrVY4KJSYps2Aekh7jaSohJEyja2pGW8c27p+gvED7GTC/Ibc3A+Ca5la0y+2R5NjkmyRmWH@vger.kernel.org
+X-Gm-Message-State: AFuF++kY3Tn3J/Cnc7HoGIyRSdAluEWi52as6gL3PPVkIJ3h/AhDkxhx
+	F0DKTBWUvRR1XLbSsdUw2JKGq+feadmkL7QzCG4FGffBJn3OOE2x5vqSyTm+TWYtXHlu/A==
+X-Gm-Gg: AYBFou2a30/4a8wqtTx+yfhXtp6hU2CvA9ZCJ51wt1eBtdOh9aMawNArAUP0Kpm3bsD
+	5V0j1LcwF2ybQa/UeOC/O6UOLgJwQUf3wapeJLHar5hopwYK2uRk7UI5HZDlHK6p45A4FXjNcOq
+	RHzAEeTKlhEMMyEcU40Cb0fTe2qWUT7b2mFWkL7yRGV8V/tfJy3KAX5w3pGR6x5A+Dsj1sRPGj1
+	u1YHQNTlHd0m/6N95/IFnFyod5xUubcuswhGo3D3VSAycz4MSfrypa960gCpxqITWIzEWj8LCwU
+	w5vW4o3FLTfzOe6Ls3GXdYunTLKl3ckAc57SO9U0+Ce0r2kNRb9hGmWFjdzY9QA6Omb43s2mI4x
+	cqElHoHNxsHd5lRYoZdwjlBUNjWJYjAggWFI7bWlWj2o1Nz17P4GVEy1ITn6UxFA+V0N7Ex9v90
+	+xk4/Dq4nTUJEbsnNT+WB3hIzuu7ljkSdy1KbzoFjCote0h6NkZcW9OxufsoWVZIlRRlVWcYR5s
+	+2E2rGbmUoc9n3inw==
+X-Received: by 2002:a05:600c:3e17:b0:49d:726:cc9f with SMTP id 5b1f17b1804b1-49e7a65e422mr30100785e9.5.1789373822299;
+        Mon, 14 Sep 2026 01:17:02 -0700 (PDT)
+Received: from localhost.localdomain ([94.252.75.25])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49e6221963dsm202053055e9.2.2026.09.14.01.17.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 01:17:01 -0700 (PDT)
+From: Oleg Keri <okerixx@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] arm64: dts: qcom: glymur-lenovo-yoga-slim7x: add the camera privacy switch
+Date: Mon, 14 Sep 2026 10:16:52 +0200
+Message-ID: <20260914081652.5935-1-okerixx@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/6] dt-bindings: display: verisilicon,dc: add support
- for nuvoton,ma35d1-dcu
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260908092840.225220-1-a0987203069@gmail.com>
- <20260908092840.225220-2-a0987203069@gmail.com>
- <f74168b54fe8f070b7cfe79dc2fc83a63c2e8842.camel@iscas.ac.cn>
- <9d697240-3632-401f-aeba-c1fa5c2a29d4@gmail.com>
- <14f7fdf36a25b9669145b766becc6f32ef205320.camel@iscas.ac.cn>
-Content-Language: en-US
-From: Joey Lu <a0987203069@gmail.com>
-In-Reply-To: <14f7fdf36a25b9669145b766becc6f32ef205320.camel@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+The laptop has a camera privacy switch on the side of the top case - a
+slider, not a mechanical cover over the lens, and it does nothing to the
+camera itself. TLMM gpio99 follows its position: high with the switch
+open, low with it engaged. Describe it as a gpio-keys switch so userspace
+can act on it.
 
-Icenowy Zheng 於 2026/9/10 下午 03:08 寫道:
-> 在 2026-09-10四的 09:52 +0800，Joey Lu写道：
->> Icenowy Zheng 於 2026/9/9 下午 01:44 寫道:
->>> 在 2026-09-08二的 17:28 +0800，Joey Lu写道：
->>>> Add the Nuvoton MA35D1 DCUltraLite (nuvoton,ma35d1-dcu) to the
->>>> binding.
->>>> The DCUltraLite uses only four clocks (core, axi, ahb, pix0) and
->>>> one
->>>> reset (core), with a single output port.
->>>>
->>>> The MA35D1 clock controller gates the core, AXI and AHB clocks
->>>> with a
->>>> single bit, but each remains a distinct clock line feeding the IP
->>>> with
->>>> its own rate constraints, so all four must still be listed
->>>> individually
->>>> in the devicetree; core, axi and ahb happen to share the same
->>>> clock
->>>> phandle.
->>> This is weird, but I must admit that we're limited by the Common
->>> Clock
->>> Framework here, so I cannot give a better solution either.
->>>
->>> Anyway let's settle with the current result.
->>>
->>>> Move the clocks/clock-names minItems to 4 and resets/reset-names
->>>> minItems to 1 at the top level, since that is the lowest count
->>>> any
->>>> supported variant needs.  Add an allOf/if block that tightens the
->>>> constraint back up to the fixed 5-clock/3-reset topology required
->>>> by
->>>> the existing thead,th1520-dc8200 compatible, and another one that
->>>> caps
->>>> the new nuvoton,ma35d1-dcu compatible at the 4-clock/1-reset
->>>> count it
->>>> actually wires up.
->>>>
->>>> Signed-off-by: Joey Lu <a0987203069@gmail.com>
->>>> ---
->>>>    .../bindings/display/verisilicon,dc.yaml      | 44
->>>> +++++++++++++++++++
->>>>    1 file changed, 44 insertions(+)
->>>>
->>>> diff --git
->>>> a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
->>>> b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
->>>> index 919a900122012..773966677d0f4 100644
->>>> ---
->>>> a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
->>>> +++
->>>> b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
->>>> @@ -17,6 +17,7 @@ properties:
->>>>        items:
->>>>          - enum:
->>>>              - thead,th1520-dc8200
->>>> +          - nuvoton,ma35d1-dcu
->>>>          - const: verisilicon,dc # DC IPs have discoverable
->>>> ID/revision
->>>> registers
->>>>    
->>>>      reg:
->>>> @@ -26,6 +27,7 @@ properties:
->>>>        maxItems: 1
->>>>    
->>>>      clocks:
->>>> +    minItems: 4
->>>>        items:
->>>>          - description: DC Core clock
->>>>          - description: DMA AXI bus clock
->>>> @@ -34,6 +36,7 @@ properties:
->>>>          - description: Pixel clock of output 1
->>>>    
->>>>      clock-names:
->>>> +    minItems: 4
->>>>        items:
->>>>          - const: core
->>>>          - const: axi
->>>> @@ -42,12 +45,14 @@ properties:
->>>>          - const: pix1
->>>>    
->>>>      resets:
->>>> +    minItems: 1
->>>>        items:
->>>>          - description: DC Core reset
->>>>          - description: DMA AXI bus reset
->>>>          - description: Configuration AHB bus reset
->>>>    
->>>>      reset-names:
->>>> +    minItems: 1
->>>>        items:
->>>>          - const: core
->>>>          - const: axi
->>>> @@ -79,6 +84,45 @@ required:
->>>>      - reset-names
->>>>      - ports
->>>>    
->>>> +allOf:
->>>> +  - if:
->>>> +      properties:
->>>> +        compatible:
->>>> +          contains:
->>>> +            const: thead,th1520-dc8200
->>>> +    then:
->>>> +      properties:
->>>> +        clocks:
->>>> +          minItems: 5
->>>> +
->>>> +        clock-names:
->>>> +          minItems: 5
->>>> +
->>>> +        resets:
->>>> +          minItems: 3
->>>> +
->>>> +        reset-names:
->>>> +          minItems: 3
->>>> +
->>>> +  - if:
->>>> +      properties:
->>>> +        compatible:
->>>> +          contains:
->>>> +            const: nuvoton,ma35d1-dcu
->>>> +    then:
->>>> +      properties:
->>>> +        clocks:
->>>> +          maxItems: 4
->>>> +
->>>> +        clock-names:
->>>> +          maxItems: 4
->>>> +
->>>> +        resets:
->>>> +          maxItems: 1
->>>> +
->>>> +        reset-names:
->>>> +          maxItems: 1
->>> Maybe it's reasonable to restrict max port count to 1 for MA35D1?
->>> Although I am not sure about how to do this...
->>>
->>> Thanks,
->>> Icenowy
->>    I found the same kind of per-compatible port restriction already
->> used
->> upstream in renesas,du.yaml, e.g.:
->>
->>           ports:
->>             properties:
->>               port@2: false
->>               port@3: false
->>             required:
->>               - port@0
->>               - port@1
->>
->> Applied to our binding, that would look like:
->>
->>           ports:
->>             properties:
->>               port@1: false
->>             required:
->>               - port@0
->>
->> in the existing nuvoton,ma35d1-dcu allOf/if/then block, so schema
->> checks
->> would reject a port@1 node on this compatible instead of silently
->> accepting it.
->>
->> Happy to add it if you'd like the schema to enforce this, but wanted
->> to
->> check whether you consider it worth the extra lines given it doesn't
->> reflect an actual bug in any DT today. Let me know which way you'd
->> prefer and I'll fold it into the next version.
-> Personally I think this is good, but maybe adding it as an additional
-> patch after merging isn't a big problem, because this just plays as
-> kind of a safety guard.
->
-> Well this depends on how DT binding maintainers think, but as Conor has
-> dropped his Ack, this shouldn't be a big issue.
->
-> Thanks,
-> Icenowy
-I'll send the port@1: false restriction as a follow-up patch once this 
-series lands.
-Thanks!
->> Thanks.
->>>> +
->>>>    additionalProperties: false
->>>>    
->>>>    examples:
+SW_CAMERA_LENS_COVER is the only switch code the input layer has for a
+camera privacy state, and it is what the Lenovo WMI camera driver and
+Dell's privacy driver report for the same kind of electronic switch on
+x86 machines, so use it here as well despite the name.
+
+The embedded controller also raises event 0x29 whenever the switch
+moves, which makes it tempting to report it from the EC driver instead.
+That would be the wrong layer: the pin is a plain level that tracks the
+slider position and needs no EC transaction to read, and the EC event
+carries nothing the pin does not already say.
+
+Signed-off-by: Oleg Keri <okerixx@gmail.com>
+---
+ .../boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts   | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts b/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts
+index ecc8c34fb983..b5848991dffb 100644
+--- a/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts
++++ b/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts
+@@ -51,7 +51,7 @@ sleep_clk: sleep-clk {
+ 	gpio-keys {
+ 		compatible = "gpio-keys";
+ 
+-		pinctrl-0 = <&hall_int_n_default>;
++		pinctrl-0 = <&hall_int_n_default>, <&cam_privacy_default>;
+ 		pinctrl-names = "default";
+ 
+ 		switch-lid {
+@@ -62,6 +62,13 @@ switch-lid {
+ 			wakeup-source;
+ 			wakeup-event-action = <EV_ACT_DEASSERTED>;
+ 		};
++
++		switch-camera-privacy {
++			label = "camera privacy switch";
++			gpios = <&tlmm 99 GPIO_ACTIVE_LOW>;
++			linux,input-type = <EV_SW>;
++			linux,code = <SW_CAMERA_LENS_COVER>;
++		};
+ 	};
+ 
+ 	leds {
+@@ -958,6 +965,12 @@ tpad_default: tpad-default-state {
+ 		bias-disable;
+ 	};
+ 
++	cam_privacy_default: cam-privacy-default-state {
++		pins = "gpio99";
++		function = "gpio";
++		bias-pull-up;
++	};
++
+ 	edp_bl_en: edp-bl-en-state {
+ 		pins = "gpio18";
+ 		function = "gpio";
+-- 
+2.55.0
+
+
+base-commit: 68142f986ff04b2b70b31db00f719bf690f64a9a
