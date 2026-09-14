@@ -1,119 +1,152 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AAA4470E81
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 12:53:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9788E44781E;
+	Mon, 14 Sep 2026 12:58:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789390411; cv=none; b=bTkt1L3PbqNkluOEyNcnn9EJisCgng1qkR5tGc5deVi623gN4M0x5fso2R/+5JnBURHskrnd8r1dA/YzYZRkRoDObLuQRWqrRA5lEl8IpnRZcU5jrGRjqoJBUX9ynIrMMWE2C4NsQIDTD4TwPi/EYSs2bFyhRzZmdowGGIU6kEo=
+	t=1789390722; cv=none; b=jqOatn2CHKHuB+z2bww1YHcx87D5pSY4tcO4QVZnH4nTSmpwMpLzMFU4OTkzu6oXj5V/sWb3mV6oKuze8jE2jGhz+EQPFg9OjucMeoBFWkLfEegdYTzu1+n01Xwh07POTURNloaWRYhdf2eoSUA6ZpDBuJDMTfPf48uu5+Xje3U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789390411; c=relaxed/simple;
-	bh=9MU3GlGUB1OPK/XpXe4SqAgEDW6zxQdlcL04VkOQLyg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mMVJwkW/kxWjyXaFFPyoGgTdDIddrlzdglWJpSH8DhnpZ8zUgdaRoHBGR+cyGh/pF5kdwrnw+99UBFo5a+vPUIkBJQBL2a3Jc6ZL3oml1QvLt44ckOFlauWVoqWI/b0XP1aaeHaXwjmbKophUh3PUQ9OgY2Hs0RkwEITFSwS1C0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E2YYoThV; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789390722; c=relaxed/simple;
+	bh=7H9dnY6wsJtZbf2mjTq8YqUQStBF5b7JSb0nOakOZAE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=rAAnZO3dYcc6MBtTmN9gxakb/E7RLbh2nmfgvmpPNCx2CbFp5dyM8WosX1Qr9xmJ567iYosj3hfdqFE7L8or2qyXUJOzArDaTxtHlU/zfbJZEMFQ3uAiRZ377R0POSvH6UylQBt5EYhem9TqV/Gjo6MsxpA+TCt8Zj6YHyWeGkI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j33lRb/W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E2YYoThV"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b965f447cso14841165e9.3
-        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 05:53:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789390408; x=1789995208; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=A3kON4+baHQ2AT9bdbK8IFIq5pzfZyIIzNPdnsQweAI=;
-        b=E2YYoThVHapCK8qtFsBg/sfmGrjkk2YeXPVNr/8A9P6LTdg80I84CuHlttgoVx4VH6
-         mDuxnQdf4nAyafR1x6cbN98nSFWwA4+nD9OFQP3T1PsvFGV5ruxBz2lQcn2uUSpaulpL
-         z9Aw06Lp0jCfN278+G9XJuN1K2buU/Q8km2FwIqenveDyjdzRGamHkaM+a336TOCKzRD
-         DcJBAsQVkv9lSrbLxgs/o0her5FaZYdL8YWznX0DDt0MYvfg+m2sScfkDOYWyUVZr2Ef
-         8xqYllWr22mCzuGYkQYzsrp/4/O8l2DUaxOA4TnZiFeJlm3RPsigTG74m3YSkt6TfGJE
-         Blsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789390408; x=1789995208;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=A3kON4+baHQ2AT9bdbK8IFIq5pzfZyIIzNPdnsQweAI=;
-        b=epG1arm7oolcPXzC/NM9FU1f4+o88S3o61CmFb7yh7bzypo/2OnLn9pDxguTW8ZPUK
-         vZtSrN77xl0FUx8+7Yy/Zo6WNqQ5gQSBHAj8XCJ4scytBPAtXbXQfp5KOf5RWmxshdte
-         4ALDntSaP8bJW86ty8T+crM0EMPGIh9q8tPGadzegO+7BaMA+2OjpR1l2ouZdsyL5akc
-         TXGR+7qMVPCRii6XQB0DwzLfPLV1FyJ6oquaTqfihB4PT5l4+SQJonM0UiYBIq4lkWtn
-         Bc1UYly63ef99l9qXx5oTYBrfPXafi/0jtSSjazPm7op8ey/9zg9krRDtxQn6dHN/8MK
-         eZ+g==
-X-Forwarded-Encrypted: i=1; AKwUvBxbZIzKX8iGqw2Jc2Lv/wA8zpC5KPxIt7AXX+MVV1LriudQEQfx2JGE2/ks+lZLqtKqyTNTPRVlqd1/@vger.kernel.org
-X-Gm-Message-State: AFuF++kjnQLYD4HhuAo1E8YAB89norK0xgL2bl3gJssWYs0CEZKSpyCW
-	CzPBi9bY2urf/R7DznNYBpPlMHjE20JjZiuox4WbQ/fRzJEz8ZSYgmF2xxz9RTrrIFjF7w==
-X-Gm-Gg: AYBFou0TPGUu2tjMgVj3RYkV4Jhj0JmmvBY+eA7dvTuyz2KmFo/TvcWe/ebTWc0kju9
-	iZcUgxRjk8262t0vAhUI3bssKMzv0nUm9e6YL1Mnwg7vektCa8RcMVFCcTkye4EIPg8YrcK2Kq/
-	TwYqOwzO4RMl0kf10QsWK2OdxI7k3oTg3SOfHq02aiGTM0WGpkqfoxM+CvC3F2z19Ub5SBqYLJ7
-	eI+PI7FFF+D8325GuAj/GxcxvJOrxLli7owVKrIMaKzCmoNgxOSUzRD8/k3jvg+2k+ke2XUQBCJ
-	r8dEaXalpEWnXwUJzWmKZ0Xo2NOagD4MGut3COUG+JFpCDWRx1oiyCYvsVzb93EwE6ZgplHk/yo
-	BBgZRiDodIY0GbMM4iC+5yK4ilykzC8LohdBQqrCSpWVimprKIDKKZMvP0SxrssqHD23NbtEP/C
-	/jffvAkiaZAZmdBFdDOH60GIHHOEaSeoBpqZyJCwoyhzRuTg0TsJVkT1NDQlwk9njnAC9NvI8wA
-	IEP3kzk0B7fcCrBCOwH3NN9k1w9/sz5JcT1+mjOnsrea0ib59Kan0QKa9Niu0Q0dPKOpg6q1ELG
-	48CoJo/flqpvrulM
-X-Received: by 2002:a05:600c:4693:b0:49c:fa20:cbfc with SMTP id 5b1f17b1804b1-49e7a66b714mr30526925e9.19.1789390408188;
-        Mon, 14 Sep 2026 05:53:28 -0700 (PDT)
-Received: from GLaDOS.station ([187.14.102.91])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e60acff8bsm320954365e9.9.2026.09.14.05.53.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 05:53:27 -0700 (PDT)
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
-To: linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Cc: pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Natasha Kovalenko <natasha.k@variscite.com>
-Subject: [PATCH v1 1/1] arm64: dts: imx95-var-dart-sonata: correct UART8 header pins
-Date: Mon, 14 Sep 2026 14:53:11 +0200
-Message-ID: <20260914125311.8354-1-stefano.r@variscite.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j33lRb/W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98F0D1F0089A;
+	Mon, 14 Sep 2026 12:58:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789390721;
+	bh=q7P/XxnfFbOpFBgH2nN6WeSNPU29sWcz6NGAJwuE7q4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=j33lRb/WtPSc1p+/G8H6Ounna1cbV/nYNSwGzjIYrUEuuJi7JHCMh/ohtpBzABqDx
+	 m+oKdiYqGpPbbTUvo+oYdbkA3YQVTw8FAfp1ILnJMfz4u+dMy94URJCVXSfkB6qQvI
+	 JxP+8Kk3yn2v+GvGg3WY8DnLH75C7qwyno4tFxcMgTh6jNdgDNX0gkwrAKMYs74hRl
+	 VvIoc+tDPj3CEIZ9HzMyyu1b4UAAcSq+TWLIr7C/rPaL/H0pJ5MM9xDlH85YPSkwsT
+	 RYDPzc5z5hcA8viiHusjwnHiThgoZBg3APVtIqpcvh6XmymhqUN/mude/ModhEFkB5
+	 rs91TCdpWLXMA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v12 14/24] scsi: ufs: mediatek: Use the common PHY
+ framework
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Louis-Alexis Eyraud" <louisalexis.eyraud@collabora.com>
+Cc: devicetree@vger.kernel.org, vkoul@kernel.org, olteanv@gmail.com, linux-scsi@vger.kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260914-mt8196-ufs-v12-14-9279d7ef814d@collabora.com>
+References: <20260914-mt8196-ufs-v12-0-9279d7ef814d@collabora.com>
+ <20260914-mt8196-ufs-v12-14-9279d7ef814d@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 14 Sep 2026 12:58:40 +0000
+Message-Id: <20260914125840.98F0D1F0089A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Stefano Radaelli <stefano.r@variscite.com>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Correct the UART8 header reference from J12 to J6 on the DART-MX95
-Sonata carrier board.
+New issues:
+- [High] Returning an error in `ufs_mtk_runtime_suspend` without rolling ba=
+ck the hardware state causes a fatal PM state desync.
 
-This is a documentation-only fix and does not change the hardware
-configuration.
+Pre-existing issues:
+- [High] `ufs_mtk_mphy_power_on` fails to update `mphy_powered_on` when ret=
+urning an error, permanently desynchronizing the PHY state.
+--
 
-Co-developed-by: Natasha Kovalenko <natasha.k@variscite.com>
-Signed-off-by: Natasha Kovalenko <natasha.k@variscite.com>
-Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
----
- arch/arm64/boot/dts/freescale/imx95-var-dart-sonata.dts | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+commit 090d0e1cc91ef448f0346929e47ee45484365fd1
+Author: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
-diff --git a/arch/arm64/boot/dts/freescale/imx95-var-dart-sonata.dts b/arch/arm64/boot/dts/freescale/imx95-var-dart-sonata.dts
-index 3479abc25df2..9344a0d99418 100644
---- a/arch/arm64/boot/dts/freescale/imx95-var-dart-sonata.dts
-+++ b/arch/arm64/boot/dts/freescale/imx95-var-dart-sonata.dts
-@@ -336,7 +336,7 @@ &lpuart1 {
- 	status = "okay";
- };
- 
--/* Header (J12.4, J12.6) */
-+/* Header (J6.4, J6.6) */
- &lpuart8 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_uart8>;
--- 
-2.47.3
+scsi: ufs: mediatek: Use the common PHY framework
 
+This commit changes the driver to use the common PHY framework to acquire t=
+he
+device's PHY during initialization. This simplifies the driver by removing
+reinvented PHY framework code and OF parsing.
+
+> diff --git a/drivers/ufs/host/ufs-mediatek.c b/drivers/ufs/host/ufs-media=
+tek.c
+> index 3c10a9fd09dfc..538009e3b1f17 100644
+> --- a/drivers/ufs/host/ufs-mediatek.c
+> +++ b/drivers/ufs/host/ufs-mediatek.c
+[ ... ]
+> @@ -2497,9 +2442,8 @@ static int ufs_mtk_system_resume(struct device *dev)
+>  static int ufs_mtk_runtime_suspend(struct device *dev)
+>  {
+>  	struct ufs_hba *hba =3D dev_get_drvdata(dev);
+> -	struct ufs_mtk_host *host =3D ufshcd_get_variant(hba);
+>  	struct arm_smccc_res res;
+> -	int ret =3D 0;
+> +	int ret;
+> =20
+>  	ret =3D ufshcd_runtime_suspend(dev);
+>  	if (ret)
+> @@ -2510,8 +2454,11 @@ static int ufs_mtk_runtime_suspend(struct device *=
+dev)
+>  	if (ufs_mtk_is_rtff_mtcmos(hba))
+>  		ufs_mtk_mtcmos_ctrl(false, res);
+> =20
+> -	if (host->phy_dev)
+> -		pm_runtime_put_sync(host->phy_dev);
+> +	ret =3D ufs_mtk_mphy_power_on(hba, false);
+
+[Severity: High]
+This is a pre-existing issue, but ufs_mtk_mphy_power_on() fails to update
+mphy_powered_on when returning an error, which can permanently desynchronize
+the PHY state.
+
+Looking at ufs_mtk_mphy_power_on():
+
+drivers/ufs/host/ufs-mediatek.c:ufs_mtk_mphy_power_on() {
+    ...
+	} else {
+		phy_power_off(mphy);
+		ret =3D ufs_mtk_09v_off(host);
+		if (ret)
+			return ret;
+	}
+
+	host->mphy_powered_on =3D on;
+
+	return 0;
+}
+
+If ufs_mtk_09v_off() fails during power off, it returns the error immediate=
+ly,
+leaving host->mphy_powered_on as true.
+
+On the next resume, ufs_mtk_mphy_power_on(hba, true) will return early beca=
+use
+on =3D=3D host->mphy_powered_on, skipping phy_power_on(mphy).
+
+Can this permanently leave the PHY powered off and make the storage
+inaccessible?
+
+> +	if (ret) {
+> +		dev_err(dev, "Failed to power off PHY: %pe\n", ERR_PTR(ret));
+> +		return ret;
+
+[Severity: High]
+If ufs_mtk_mphy_power_on() fails, this returns an error immediately without
+rolling back the earlier suspend operations.
+
+Since the UFS hardware is already left physically suspended (clocks gated,
+VREGs and MTCMOS powered down via ufshcd_runtime_suspend and=20
+ufs_mtk_dev_vreg_set_lpm), returning an error causes the PM core to mismatch
+the physical hardware state and consider the device active.
+
+Can this cause a fatal PM state desync, where subsequent I/O requests crash=
+ or
+hang the bus because the PM core will skip calling runtime_resume?
+
+> +	}
+> =20
+>  	return 0;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914-mt8196-ufs=
+-v12-0-9279d7ef814d@collabora.com?part=3D14
