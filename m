@@ -1,102 +1,185 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1A37483816;
-	Mon, 14 Sep 2026 14:31:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75F4347F2CC;
+	Mon, 14 Sep 2026 14:34:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789396285; cv=none; b=YUDOCoHlP0xCtlvc4w6y/Fr3OmVRe7jgyc1VNJpHtfUj7fPKVd9pyCCNW1OX7blBIqN4J9tckYn5q30DVf+YRJFONh3+uxJs5Stjf+9RNaa+fP5sn6WBwPndXTSdhiSZzH/fdrECsVZM04+mrPHpSITPLx2rIhB6G41B7YezKIE=
+	t=1789396481; cv=none; b=Jq9H1mObIJ0nqyv+eXL9tgdej7mMrRwCA4afoSJ058DIm/PLIN9GuWWqng57Pp+FDhn+nkg5cWoexXPCyxEwYuCl5jC+PrznoSGoOL2IXQDSEmEwSB1Mz3GxhmiGnlMa/4wfCeP9OqARszcmoxv6Ra9Yh3ETomQTDR+wRtUX9a0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789396285; c=relaxed/simple;
-	bh=YD3wdaecxOK4+16Ks87Ex8K4AMnmFu3VfULPi+HpcVM=;
+	s=arc-20240116; t=1789396481; c=relaxed/simple;
+	bh=f5byggXjpqh+b/WuNgnpgsX06cKUQVwY955c/sKkggI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Vyeba0S3fx/QCmIuuEfYaZg2RtpNGk56AwFgUAW2186izuxa6JybjsKfE39/SSDHgzoqUw9lW165IZhs/9LTbs9SkaTdlqGfbb0+zpDpdzNMclhXhUasFdWJzTDFmpkWfmeqfsZ2z0fWl0GFSWx0Zy5HJSjZPaTp8g2KEPwYO4E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FEG1Pdtc; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=D2yNP3mE4uariPggRwdvn4Y+Eon95/jEwhVJ5ivf0m1DLIm84CBngD4mpfDgQGQqhETGXoEIdnoGnedtf7z5jW//i3+9foQoGDCOI7EcJZ3eQ/ZD9MtCR9qfJkux7XT06uHogT1Kk1z6ysLP8duQfH2YOenDEHX5Weq8Hx9RLDg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UzBkOHyR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FEG1Pdtc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 365DE1F000FF;
-	Mon, 14 Sep 2026 14:31:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UzBkOHyR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D15BA1F000FF;
+	Mon, 14 Sep 2026 14:34:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789396283;
-	bh=MJovtcylYmL5yCSxOuybT8hbz7tN/4fqZybGUx3vpAY=;
+	s=k20260515; t=1789396480;
+	bh=93VDUuptAX940frxflNLuAn9xS5nIidbQbVMzIjHoPo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FEG1PdtcSrYN080vEZEC8peWH+Te1zxgOZ/hEmxiWHufpJ7t/Hvyf3oRJhOX/mAPm
-	 GPdkBzIGUklTWb5WqD18/pVLyL1uwRc/BA3HxPduS62QAs7Zt2S7EIGDJlEYqw5xck
-	 Hr5gWZiZNLEx2YELEXF1tMIOy/FxnY0gozQa33RO8bHeeGm6Bp9PBNlPqrmfoAdPOL
-	 462W+dX/jwgLYiRP9Un5NdVP5DdUOPti2ff0uvgMpDlQDoqf4ShmXHSfGwGNqhXC4Q
-	 aYylYINwCsgcoitYUQ/uhoXNY7Zo/+hy1gKAzQgAxb6ddaaPhmqqP0fAQ6QUKHawAX
-	 7CBs+0ely7VoQ==
+	b=UzBkOHyRCd8fRU28htTfHJh59oE+BQvu7+ypdZ5GTQ10WjwZaWPU+C7vLYAXS52EW
+	 47gaJ4FJ56eXS3NXFhNfgad7xmdrXwSaxfs+AAPbLGtkPaRP5tYeTJL4HEUs6UJUlM
+	 +qAfYo5zZVCMx0kBx6ioKL5MHUIp39DEa8ZY6Jjj22nYW1dUIdWgOJIS56V5+11/ui
+	 vrJTCE2fk/5N0WlSaaeSxYnCgioQISA7REo7PuMJdksIlcLC17ebPNLhq+KfefR79M
+	 unHALzWtzPSQW4BCYzob8x+9oKJxhB8Qxvc49GY+3hBb0owQKUKXq+EkHIKJEJmsV5
+	 Z3ByTfpSKOMwA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 20/52] clk: qcom: gcc-sa8775p: Tie the CX power
- domain to controller
+Subject: Re: [PATCH v10 2/2] rtc: Add NXP PCF85053 driver support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Abel Vesa" <abel.vesa@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, linux-clk@vger.kernel.org
-In-Reply-To: <20260914-qcom-tie-cx-to-gcc-v4-20-9d5a606ada33@oss.qualcomm.com>
-References: <20260914-qcom-tie-cx-to-gcc-v4-0-9d5a606ada33@oss.qualcomm.com>
- <20260914-qcom-tie-cx-to-gcc-v4-20-9d5a606ada33@oss.qualcomm.com>
+To: "Lakshay Piplani" <lakshay.piplani@nxp.com>
+Cc: linux-rtc@vger.kernel.org, "Alexandre Belloni" <alexandre.belloni@bootlin.com>, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260914141537.3881890-2-lakshay.piplani@nxp.com>
+References: <20260914141537.3881890-1-lakshay.piplani@nxp.com>
+ <20260914141537.3881890-2-lakshay.piplani@nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 14:31:22 +0000
-Message-Id: <20260914143123.365DE1F000FF@smtp.kernel.org>
+Date: Mon, 14 Sep 2026 14:34:39 +0000
+Message-Id: <20260914143439.D15BA1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Asserting a reset via the generic reset framework can cause a sync=
-hronous external abort when the GCC controller is runtime suspended.
+- [High] Possible use-after-free of `rtc` object in `rtc->irqwork` due to u=
+nbalanced devres teardown order.
+- [High] Missing mutual exclusion between the threaded IRQ handler and alar=
+m configuration leads to dropped alarms.
 --
 
-commit 7874573f5500623d6e83e44dfea983e35bc931dd
-Author: Abel Vesa <abel.vesa@oss.qualcomm.com>
+commit 41cf346ef49a0ce7f8953c6b31dac43a5fae5017
+Author: Lakshay Piplani <lakshay.piplani@nxp.com>
+Subject: rtc: Add NXP PCF85053 driver support
 
-clk: qcom: gcc-sa8775p: Tie the CX power domain to controller
+This commit introduces support for the NXP PCF85053 I2C RTC. It includes
+timer and calendar functionality, alarm management, and clock output contro=
+l.
 
-This commit enables runtime PM for the GCC controller by setting use_rpm to
-true. This allows the CX power domain to be powered down once all GCC
-consumers have released their clocks and GDSCs.
+diff --git a/drivers/rtc/rtc-pcf85053.c b/drivers/rtc/rtc-pcf85053.c
+--- a/drivers/rtc/rtc-pcf85053.c
++++ b/drivers/rtc/rtc-pcf85053.c
 
-> diff --git a/drivers/clk/qcom/gcc-sa8775p.c b/drivers/clk/qcom/gcc-sa8775=
-p.c
-> index dca316decd0e6..2f867596bbc5c 100644
-> --- a/drivers/clk/qcom/gcc-sa8775p.c
-> +++ b/drivers/clk/qcom/gcc-sa8775p.c
-> @@ -4652,6 +4652,7 @@ static const struct qcom_cc_desc gcc_sa8775p_desc =
-=3D {
->  	.num_resets =3D ARRAY_SIZE(gcc_sa8775p_resets),
->  	.gdscs =3D gcc_sa8775p_gdscs,
->  	.num_gdscs =3D ARRAY_SIZE(gcc_sa8775p_gdscs),
-> +	.use_rpm =3D true,
+[ ... ]
+
+> +static irqreturn_t pcf85053_irq(int irq, void *dev_id)
+> +{
+> +	struct device *dev =3D dev_id;
+> +	struct pcf85053 *pcf85053 =3D dev_get_drvdata(dev);
+> +	unsigned int st;
+> +	int err;
+> +
+> +	err =3D regmap_read(pcf85053->regmap, PCF85053_REG_ST, &st);
+> +	if (err || !(st & PCF85053_BIT_AF))
+> +		return IRQ_NONE;
+> +
+> +	/*
+> +	 * The alarm matches every day; disable AIE to make it one-shot. Mask
+> +	 * the interrupt before clearing AF so there is no window where AF is
+> +	 * cleared but AIE is still able to re-assert the line.
+> +	 */
+> +	err =3D pcf85053_set_aie(pcf85053->regmap, false);
 
 [Severity: High]
-Could enabling use_rpm here cause a synchronous external abort during device
-resets?
+Could this threaded IRQ handler race with pcf85053_rtc_set_alarm() and drop=
+ a
+newly programmed alarm?
 
-The QCOM reset controller operations, such as qcom_reset_set_assert(), perf=
-orm
-raw regmap MMIO writes but neither the reset core nor the qcom reset ops ta=
-ke
-a PM runtime reference beforehand. Additionally, gcc_sa8775p_regmap_config =
-has
-no PM runtime awareness.
+If the IRQ thread reads the status register and sees the alarm flag AF is
+set, but is then preempted by a userspace process programming a new alarm v=
+ia
+pcf85053_rtc_set_alarm():
 
-If a consumer driver (such as PCIe or UFS) calls reset_control_assert() bef=
-ore
-enabling any GCC clocks, the register write will hit a powered-off bus beca=
-use
-the CX power domain is suspended.
+Userspace in pcf85053_rtc_set_alarm() would:
+- configure the new time
+- clear AF
+- enable AIE
 
-Should the reset controller paths take a PM runtime reference to ensure the
-hardware is accessible before allowing the bus to be powered down?
+When the IRQ thread resumes here, it calls pcf85053_set_aie(..., false).
+Would this overwrite the newly enabled AIE bit and silently disable the new
+alarm interrupt?
 
->  };
-> =20
->  static const struct of_device_id gcc_sa8775p_match_table[] =3D {
+[ ... ]
+
+> +static int pcf85053_probe(struct i2c_client *client)
+> +{
+> +	const struct pcf85053_config *config;
+> +	struct device *dev =3D &client->dev;
+> +	const char *iface =3D NULL;
+> +	struct pcf85053 *pcf85053;
+> +	int err;
+
+[ ... ]
+
+> +	pcf85053->rtc =3D devm_rtc_allocate_device(dev);
+> +	if (IS_ERR(pcf85053->rtc))
+> +		return PTR_ERR(pcf85053->rtc);
+
+[ ... ]
+
+> +	if (config->has_alarms && pcf85053->is_primary && client->irq > 0) {
+> +		/*
+> +		 * ALRT is shared by the alarm (AIE), oscillator-fail (OFIE) and
+> +		 * RTC-clear (CIE) sources. This driver only services the alarm,
+> +		 * so disable the other two; otherwise ALRT could stay asserted
+> +		 * with AF=3D0 and the handler could not clear it.
+> +		 */
+> +		err =3D regmap_update_bits(pcf85053->regmap, PCF85053_REG_CTRL,
+> +					 PCF85053_BIT_OFIE | PCF85053_BIT_CIE, 0);
+> +		if (err)
+> +			return err;
+> +
+> +		err =3D devm_request_threaded_irq(dev, client->irq,
+> +						NULL, pcf85053_irq,
+> +						IRQF_ONESHOT,
+> +						"pcf85053", dev);
+
+[Severity: High]
+Is there a potential use-after-free during device unbind due to the devres
+allocation order here?
+
+Since devres cleans up in reverse order of creation:
+1. devm_rtc_register_device() unregisters the RTC.
+2. devm_request_threaded_irq() frees the IRQ.
+3. devm_rtc_allocate_device() frees the RTC structure.
+
+If a hardware alarm interrupt fires exactly in the window after the RTC is
+unregistered but before the IRQ is freed, the handler pcf85053_irq() will
+execute and call rtc_update_irq().
+
+This unconditionally queues rtc->irqwork, but the rtc object will be freed
+momentarily when devm_rtc_allocate_device() unrolls. Can this result in a
+use-after-free when the scheduled work runs on the freed rtc object?
+
+> +		if (err)
+> +			return dev_err_probe(dev, err,
+> +					     "unable to request IRQ %d\n",
+> +					     client->irq);
+> +
+> +		set_bit(RTC_FEATURE_ALARM, pcf85053->rtc->features);
+> +		err =3D devm_device_init_wakeup(dev);
+> +		if (err)
+> +			return dev_err_probe(dev, err,
+> +					     "failed to initialize wakeup\n");
+> +		err =3D devm_pm_set_wake_irq(dev, client->irq);
+> +		if (err)
+> +			return dev_err_probe(dev, err,
+> +					     "failed to set wake IRQ\n");
+> +	}
+> +
+> +#ifdef CONFIG_COMMON_CLK
+> +	err =3D pcf85053_clkout_register_clk(pcf85053);
+> +	if (err)
+> +		return err;
+> +#endif
+> +
+> +	return devm_rtc_register_device(pcf85053->rtc);
+> +}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914-qcom-tie-c=
-x-to-gcc-v4-0-9d5a606ada33@oss.qualcomm.com?part=3D20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914141537.3881=
+890-1-lakshay.piplani@nxp.com?part=3D2
