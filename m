@@ -1,77 +1,235 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53DB644BCA1
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 12:12:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D12D44F566
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 12:14:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789387954; cv=none; b=CUPhITcmklmdnLLd1l+VADTQ37kxlgVOQJtrL2HZbvF3N9QrWT6smXEhU5u7H0puUhIRa1e8AZFBzBpJTrIgY5LtxZPt5V7Hqx6cBmaGaBgJMUY1zvjpRqusmJIxzThXtHRfl8F5BjphPyhxsirxTmNPOp60CvmKHhxDD6wSRtI=
+	t=1789388065; cv=none; b=LSD2CrB77QJAFixYZZxR040SrCR05EzrycZG2/uhkfH2FARzb9vI/fv6t02SkJ1/847Rh8BFSI5LgsBc/NrOzNVHlP/JT8syvjcjB/2zFIkkZFsJWSLe6YRORscFYteWDjjGruqyUwjWd4wWO78Sf6aJ5IvTQasm5VM9s6kkVuI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789387954; c=relaxed/simple;
-	bh=OsSTOY//BG8cCCupHatEDXqNpsM8A13HReU4V1MAq14=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bgn6sqkYwFhlLIWH5z5RyURbN37Nr9Wdsks6zEeIjU4dF0vNuRyLO091/onoj7oUFhlDhFIHddqBa8SFiGzQ6u+pbi1wnZgqAKaOMR63kxwncOxkLiAexVUbyzhMwCcptAoXY2ptH63BVpn+WpINJSr137lw6TbAxzMVt121KX0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bw2nOGPj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789388065; c=relaxed/simple;
+	bh=0F8hpNW6UA/zDNPKe/cPlHt3x1r1ik9HnSuWp1mFtvY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Ged4UT3et41b7h52oHzY6GrYJeHMrUVFqak0oql7iC+v1NGFTJaMRiToX2/1IxkPB20w8+zZapt9pQfJK0SY92cOFav88hkE4JlZxvTJJOV9kndcTy5Q5epx5OmuSn+N+Q2ugJdlrZ0n9js9YK+UKL0kV6/SPqdwFMvkn0UgEbM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PLAq8gat; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bw2nOGPj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFFA61F00898
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 12:12:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PLAq8gat"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE1DC1F000FF;
+	Mon, 14 Sep 2026 12:14:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789387952;
-	bh=2OZJc4pE75EzQY4TF0i25vLvB8iiwVxxIUeR10SzMyg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Bw2nOGPjucfG7nhjRzYodb3iK4DV8+USHY06ZbAUWNQk/2XDQFpyxnuKDAXZCfU+i
-	 EP5EbUlHuYNOou+YJLAMnFILQzAgHclGwLbJsRck+i3l9djbcp/agUAwq3AxEZNJcN
-	 rMpgNvw8dgIXF9lLAJ4vF4E4lEJJ0wm8uw4MiyMzO5zyT5SmomV+DXthqJlXiTHahn
-	 D+Fb6IC/sm84hD/GtdVi4vxA3X551CeqTVC9frkqWXdRex9VavFP7bpnqTr2XhbIbz
-	 XMlgyk9QHzwHCyAsAWAPlTMCmvbCmeYrUTVsRAXajHarneswJ179cphFT3O4STlU4T
-	 92kU020jTGOAQ==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b79784a6edso1796143e87.1
-        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 05:12:31 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByk1/C8rcbTzuwmFYZFIdp+gJgRGsrLMhCFnJxb9QxRF+3qmi6EujKp02TFKvYsnaLCj9MQRcS4GGx5@vger.kernel.org
-X-Gm-Message-State: AFuF++krGxb2g2fLWvW9yHGo18gt5Zq88oJ0JAXqKciMSiuXQ5YmFuGI
-	GchnbuEr4aDwrm4af+Zek7pqBbA9Lr0/pROVqX9BDNP5YbTP7Hg2WU9vuBTZsccP6D1M5nK4XnE
-	KY+LlT5mfEVkumyJJlQ4JAam4qQKe2Hg=
-X-Received: by 2002:a05:6512:3b25:b0:5b6:4ae:3ff3 with SMTP id
- 2adb3069b0e04-5b8ae68dcf4mr642559e87.27.1789387950724; Mon, 14 Sep 2026
- 05:12:30 -0700 (PDT)
+	s=k20260515; t=1789388063;
+	bh=ODSVSyx06mM0EpsCLHsJi4P7JRyrA2Wu6m19U/nSj+A=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=PLAq8gateE8gOSUbIkmBeMOL3zmczMs8ZDq4J/9JIiy8ojVIPWyyMacqxo7SBAfnB
+	 jHwQyWXspVi4D71ZAzy2tQ8Zhh52UlzV2OMPyP1juEOBEPgu47/q56p1M76e4Y6WUR
+	 Gh8SwWxggHEtgfCNk0UsDe3Z/4KbXjo44Ajf4HmQovHsvG+yhjkvSHiK63jHliRx/E
+	 7/oqPoZVs3AVLgDYgGM9yPIh5OBs/9h6/Ez0zZmaUNB44SBXOJp5YC2n56FmxVrqAx
+	 +m9hrMfSs9+qUgYWbVKhP2zS9g6MWvw7K5na4ouBlZ/Cd+6pfNQKuBnGH06VReBu2X
+	 TpKDA+re3+CxA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 02/13] drm/mediatek: Implement Display Stream
+ Compression support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260914115812.22751-3-angelogioacchino.delregno@collabora.com>
+References: <20260914115812.22751-1-angelogioacchino.delregno@collabora.com>
+ <20260914115812.22751-3-angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 14 Sep 2026 12:14:22 +0000
+Message-Id: <20260914121422.EE1DC1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260830084104.14968-2-krzysztof.kozlowski@oss.qualcomm.com>
-In-Reply-To: <20260830084104.14968-2-krzysztof.kozlowski@oss.qualcomm.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 14 Sep 2026 14:12:17 +0200
-X-Gmail-Original-Message-ID: <CAD++jLneoGy4q-ihKWVhW3iyH2YEATeGf76RB9NiDLk3-OW1iw@mail.gmail.com>
-X-Gm-Features: AcwNN1V856sA9k7HWfZhF0PQNVfwgYy4TkqwdpzU71qB7kL_qOjvZ23sMHNDQ8M
-Message-ID: <CAD++jLneoGy4q-ihKWVhW3iyH2YEATeGf76RB9NiDLk3-OW1iw@mail.gmail.com>
-Subject: Re: [PATCH v2] dt-bindings: pinctrl: fsl: Replace tabs with spaces
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>, 
-	Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, NXP S32 Linux Team <s32@nxp.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Peng Fan <peng.fan@nxp.com>, 
-	Giulio Benetti <giulio.benetti@benettiengineering.com>, 
-	Jesse Taube <Mr.Bossman075@gmail.com>, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Sun, Aug 30, 2026 at 10:41=E2=80=AFAM Krzysztof Kozlowski
-<krzysztof.kozlowski@oss.qualcomm.com> wrote:
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [High] DSI and DSC component detection loop misses the terminal component=
+ of the display pipeline, preventing DSC configuration.
+- [High] Incorrect execution order for DSC setup and missing state reset ca=
+uses DSC hardware corruption on subsequent modesets or resume.
+- [High] DSI link data rate, horizontal blanking timings, and clock lane wo=
+rd counts do not adjust for DSC compression, breaking timing synchronizatio=
+n.
+- [High] The pixel stream word count incorrectly hardcodes an assumption of=
+ exactly 2 DSC slices per line.
+- [High] DSI power-on accesses uninitialized DSC parameters by invoking `mt=
+k_dsi_ps_control` before computing them.
+- [Medium] The `dsi->dsc` pointer is set to NULL during panel unbind withou=
+t serialization, leading to a Use-After-Free or NULL pointer dereference du=
+ring modeset.
+--
 
-> YAML files do not use tabs, even within the values in DTS.  No
-> functional change, although dt-style-check will warn about it
-> ("[tab-in-yaml] tab character not allowed in DTS example").
->
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+commit d2929d85efc73eb974427b3e2c2a0afbfbe66701
+Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Subject: drm/mediatek: Implement Display Stream Compression support
 
-Pulled out v1 and applied this v2 instead.
+This commit adds Display Stream Compression (DSC) support for the MediaTek
+DRM driver. It introduces a new standalone mtk_disp_dsc driver and modifies
+the existing CRTC and DSI drivers to configure and integrate DSC.
 
-Yours,
-Linus Walleij
+> diff --git a/drivers/gpu/drm/mediatek/mtk_crtc.c b/drivers/gpu/drm/mediat=
+ek/mtk_crtc.c
+> index 97e3ff412e6ee..c0a53c153b8d5 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_crtc.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_crtc.c
+> @@ -398,6 +401,17 @@ static int mtk_crtc_ddp_hw_init(struct mtk_crtc *mtk=
+_crtc)
+>  		if (!mtk_ddp_comp_add(mtk_crtc->ddp_comp[i], mtk_crtc->mutex))
+>  			mtk_mutex_add_comp(mtk_crtc->mutex,
+>  					   mtk_crtc->ddp_comp[i]->id);
+> +
+> +		/* For now, only single DSI is supported */
+> +		if (mtk_crtc->ddp_comp[i]->id >=3D DDP_COMPONENT_DSI0 &&
+> +		    mtk_crtc->ddp_comp[i]->id <=3D DDP_COMPONENT_DSI3)
+> +			if (!comp_dsi)
+> +				comp_dsi =3D mtk_crtc->ddp_comp[i];
+> +
+> +		if (mtk_crtc->ddp_comp[i]->id =3D=3D DDP_COMPONENT_DSC0 ||
+> +		    mtk_crtc->ddp_comp[i]->id =3D=3D DDP_COMPONENT_DSC1)
+> +			if (!comp_dsc)
+> +				comp_dsc =3D mtk_crtc->ddp_comp[i];
+>  	}
+
+[Severity: High]
+Will this loop successfully find the DSI component?=20
+
+The loop condition in mtk_crtc_ddp_hw_init iterates until
+mtk_crtc->ddp_comp_nr - 1. Because the DSI encoder is always the terminal
+component of the display pipeline at ddp_comp_nr - 1, the loop appears to
+terminate before inspecting it.
+
+Could this leave comp_dsi as NULL and skip the DSC configuration entirely?
+
+> @@ -413,6 +427,13 @@ static int mtk_crtc_ddp_hw_init(struct mtk_crtc *mtk=
+_crtc)
+>  		mtk_ddp_comp_start(comp);
+>  	}
+> =20
+> +	/* Setup the DSC if present, with the config coming from DSI */
+> +	if (comp_dsc && comp_dsi) {
+> +		dsc_cfg =3D mtk_dsi_get_dsc_config(comp_dsi->dev);
+> +		if (dsc_cfg)
+> +			mtk_ddp_comp_dsc_setup(comp_dsc, dsc_cfg);
+> +	}
+
+[Severity: High]
+Is the hardware started before it is fully configured?=20
+
+The preceding loop calls mtk_ddp_comp_start on all components, which will
+invoke mtk_dsc_start and write the DSC_EN bit to the control register.
+
+If mtk_ddp_comp_dsc_setup is executed afterwards, could the hardware enter
+an invalid state by being enabled before its parameters are applied?
+
+> diff --git a/drivers/gpu/drm/mediatek/mtk_disp_dsc.c b/drivers/gpu/drm/me=
+diatek/mtk_disp_dsc.c
+[ ... ]
+> +void mtk_dsc_stop(struct device *dev)
+> +{
+> +	struct mtk_dsc *disp_dsc =3D dev_get_drvdata(dev);
+> +
+> +	writel(0, disp_dsc->reg + DISP_REG_DSC_CON);
+> +}
+
+[Severity: High]
+Should dsc_config_done be reset to false when stopping the hardware?
+
+If mtk_dsc_stop writes 0 to the register but leaves dsc_config_done as
+true, a subsequent resume or modeset might cause mtk_dsc_start to see
+dsc_config_done =3D=3D true.=20
+
+Would this skip the bypass mode fallback and write DSC_EN over a zeroed
+configuration register, potentially hanging the display pipeline?
+
+> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediate=
+k/mtk_dsi.c
+> index f82506e10fd59..97b8a91874f5b 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
+[ ... ]
+> +static void mtk_dsi_ps_control_dsc(struct mtk_dsi *dsi, bool config_vact)
+> +{
+> +	const struct mtk_dsi_driver_data *data =3D dsi->driver_data;
+> +	const u16 *reg_main =3D dsi->driver_data->reg_main;
+> +	const short dsi_buf_bpp =3D 3;
+> +	u32 ps_wc;
+> +
+> +	/* Word count */
+> +	ps_wc =3D FIELD_PREP(DSI_PS_WC, 2 * dsi->dsc->slice_chunk_size);
+
+[Severity: High]
+Can this hardcoded multiplier cause incorrect word counts on different pane=
+ls?
+
+Using 2 here assumes there are always exactly 2 DSC slices per line.
+
+Should this use dsi->dsc->slice_count to ensure the payload bytes are
+calculated correctly for displays with other slice layouts?
+
+> +	if (config_vact) {
+> +		writel(FIELD_PREP(VACT_NL, dsi->vm.vactive),
+> +		       dsi->regs + reg_main[DSI_VACT_NL]);
+> +		writel(ps_wc, dsi->regs + reg_main[DSI_HSTX_CKL_WC]);
+> +	}
+
+[Severity: High]
+Does this blindly overwrite the clock lane word count register?
+
+In mtk_dsi_config_vdo_timing_per_frame_lp, hstx_cklp_wc is carefully
+calculated based on front porch, back porch, and trailing lengths, and then
+written to DSI_HSTX_CKL_WC. When mtk_dsi_ps_control_dsc is subsequently
+called, it overwrites that same register with ps_wc (the raw compressed
+payload size).=20
+
+Additionally, the calculations for dsi->data_rate in mtk_dsi_poweron and
+horizontal blanking timings use uncompressed pixel bit depths rather than
+adjusting for DSC compression.
+
+Will these issues combined break clock lane timing synchronization?
+
+> @@ -741,10 +828,17 @@ static int mtk_dsi_poweron(struct mtk_dsi *dsi)
+> =20
+>  	mtk_dsi_ps_control(dsi, true);
+>  	mtk_dsi_set_vm_cmd(dsi);
+> -	mtk_dsi_config_vdo_timing(dsi);
+> +	ret =3D mtk_dsi_config_vdo_timing(dsi);
+
+[Severity: High]
+Could this sequence write uninitialized values to the hardware?
+
+mtk_dsi_poweron calls mtk_dsi_ps_control, which reads
+dsi->dsc->slice_chunk_size to program the DSI payload size registers.
+
+However, dsi->dsc->slice_chunk_size is only populated when
+mtk_dsi_config_vdo_timing eventually calls drm_dsc_compute_rc_parameters.
+
+Does this imply the payload size registers are initially programmed with
+zeros or uninitialized memory?
+
+> @@ -1030,6 +1157,8 @@ static int mtk_dsi_host_detach(struct mipi_dsi_host=
+ *host,
+> =20
+>  	component_del(host->dev, &mtk_dsi_component_ops);
+>  	drm_bridge_remove(&dsi->bridge);
+> +	dsi->dsc =3D NULL;
+> +
+>  	return 0;
+>  }
+
+[Severity: Medium]
+Is it safe to clear dsi->dsc without modeset synchronization?
+
+If a user unbinds the panel concurrently while a display modeset is active
+(for example, while executing mtk_dsi_config_vdo_timing), could the pointer
+become NULL immediately after the check for dsi->dsc?=20
+
+Could this lead to a NULL pointer dereference or use-after-free in
+mtk_dsi_set_dsc_params?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914115812.2275=
+1-1-angelogioacchino.delregno@collabora.com?part=3D2
