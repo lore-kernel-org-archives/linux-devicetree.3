@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07FCC1EBFE0;
-	Mon, 14 Sep 2026 03:19:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF220331ED6
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 03:26:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789355983; cv=none; b=WA2ZcdlKrvXG4ZznjjomkCfiMvLR5AJyby/WuVoIEn4NDZ9C3kFCXwkWCV54y9IP/1mGXRp0Xndn0fQeEzN8yZfIB5dnUMb7oHLbzHIXksDpqjr7+PUo4qoCi2nWCg2X3qt+DXEuQmbL4uC+cRlc9VfRWfvGzvxCZAfzRM0Pa8w=
+	t=1789356382; cv=none; b=J1gNhlUkMVvL+ZI9RR48wzbXC/fSrQEyGAyHiqgMcrdNaxEWXkLfEzu1NBaRu7ez4iu4OzS0LXSVgUql5Mte61yNil/jrxdZbK4Xve7WefGrJin1P45NDsMFzdpeN1U0qMeZmXm3ygPZq7EKbnK6/NU4PmBlRWPivFePmNDn0JU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789355983; c=relaxed/simple;
-	bh=sSNh8UDcaV5JjF3uiQsJPsVdY5IiGZm9E+NPVqoO1II=;
+	s=arc-20240116; t=1789356382; c=relaxed/simple;
+	bh=NIJXp5gDnoRxjvM80zTOkwr0v3e+FKmh+rguOp/xFQw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=NVXHjPv6gpNRTd6GfVcaUv24eIEsWmiPKTsQ0fE9s8rMTNwlypLCtz49H9syktr+dyMlG2jnwyvq8ZY4oROkU7+KYeMvjbcURFYqeS3Y6BaHgryBx6FFtu100BXZ6QU+QQE/oVQFjRuJ4MLjWQ+HMWI2PcRCevkb5nYTHMLIbro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZZeKEOLR; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=I8LwbfFiELYU/xTtqF/WY/DP48NmfrXze8oOildKSqPjL6xHS+iUKfM+zKnQHQM4Biwqp3YdcnLoDQ0IEGgQW1buu6q5v7KFMGZx7H7E0G6j2cYkru9+YT1fEglDuyypJkMT/trHialXXXSG0tnRQdAk4to1pEWcx4ifBdqzpT4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MwFjhvWb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZZeKEOLR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E7091F000FF;
-	Mon, 14 Sep 2026 03:19:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MwFjhvWb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7BD21F000FF;
+	Mon, 14 Sep 2026 03:26:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789355969;
-	bh=gTHHZ0u/Cdmx12suvpYJdoH8kPnjSd/rUQhORL6kD5M=;
+	s=k20260515; t=1789356378;
+	bh=LWP9f2Lq7+QzWfn/pvBgYbcAxddCt8wlvxZT8cUzg3k=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZZeKEOLRhJb6Cx2jw/Bi4mZOGQtosaP6qrDOJzRhdAtRHQGZQXci/CC3JOKIjBVYC
-	 65qo5R9tJJBIrIr0ALVl9s1KzhFjt5b/suOhFdRNKXXLoHYq6UykoFk5oVpOcfZUHO
-	 XSUXF1u2MgiGLS4bNy8i30/XzGIP1cYwuGXOlH4vcsr/MWjc6kQtQVcbLnwxu4o07q
-	 G4YGLWv8FtAqWK2dlbJwRsmS0FgxAyETpyHbzVpcTtJCPUvfv2szaOjnTe/YoMBzb7
-	 qtnaDISXDD3RE1uSNuMtBCxsSpbGaD8xZICFqz/oz/Nq0AgdNmJUh/K8xih3vuFWsu
-	 /hctmlW+4mhNg==
+	b=MwFjhvWbIQi3zeVhbe0HAGWBccVKXjT7G8WAEqO3kp8FO5KaEDfL4n7U1nxYTRxvA
+	 yb+m0Ach+TFkWDkyYXofxjLrEdXaieINKM95/Z/Or/NN6ePyfXcvH4roNUHqS0xqI5
+	 am30Rufe9h0Uy1fp+piyhW8xWbMe4umPf/P2Huc5xG6FFLZBw57t3587bPwBuapcqu
+	 PHiFImNp9OpdrMICB1wqT2uafqALX1SVCZXPTRQ0lMuCtPiqTjPvlzzyJKz0GHBdul
+	 ZSFTZQ2JtdxWKoGzVCu7OIBWiKhgeGb6VsDuuuAH/82Ds93QUlnPY/hEQyvEKN5CGf
+	 wLOrVQIL6TieA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 10/18] mtd: rawnand: sunxi: bound DMA batches by the
- user-data register bank
+Subject: Re: [PATCH v15 1/6] arm64: dts: qcom: Add device tree for Nord SoC
+ series
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "James Hilliard" <james.hilliard1@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev, robh@kernel.org
-In-Reply-To: <20260913-submit-sunxi-nand-vendor-oob-layout-v1-v5-10-7d711076a6f7@gmail.com>
-References: <20260913-submit-sunxi-nand-vendor-oob-layout-v1-v5-0-7d711076a6f7@gmail.com>
- <20260913-submit-sunxi-nand-vendor-oob-layout-v1-v5-10-7d711076a6f7@gmail.com>
+To: "Shawn Guo" <shengchao.guo@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260914031412.140856-2-shengchao.guo@oss.qualcomm.com>
+References: <20260914031412.140856-1-shengchao.guo@oss.qualcomm.com>
+ <20260914031412.140856-2-shengchao.guo@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 03:19:28 +0000
-Message-Id: <20260914031929.2E7091F000FF@smtp.kernel.org>
+Date: Mon, 14 Sep 2026 03:26:17 +0000
+Message-Id: <20260914032617.B7BD21F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,60 +47,87 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] DMA batching breaks because the hardware's internal chunk counter =
-resets for each batch, causing it to generate incorrect flash column addres=
-ses for main data chunks after the first in subsequent batches.
+- [High] All `trip-point1` (critical threshold) thermal trip points are inc=
+orrectly configured as `type =3D "passive"`, disabling emergency shutdown o=
+n SoC overheat.
 --
 
-commit fcea2b1acac181df9bb3db6577c776b8c30250b9
-Author: James Hilliard <james.hilliard1@gmail.com>
+commit 064e0b2912cbdce3f68bb9c83f53cc3134182d27
+Author: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 
-mtd: rawnand: sunxi: bound DMA batches by the user-data register bank
+arm64: dts: qcom: Add device tree for Nord SoC series
 
-This commit splits DMA transfers into batches whose aggregate user data
-fits the hardware's user-data register bank. It reuses hardware slots
-from zero in each batch while maintaining logical offsets.
+Add base device tree include (nord.dtsi) for the Nord SoC series
+describing the core hardware components:
 
-Fixes: 54dcd6aa69db ("mtd: rawnand: sunxi: introduce maximize variable user=
- data length")
+> diff --git a/arch/arm64/boot/dts/qcom/nord.dtsi b/arch/arm64/boot/dts/qco=
+m/nord.dtsi
+> new file mode 100644
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/nord.dtsi
 
-> diff --git a/drivers/mtd/nand/raw/sunxi_nand.c b/drivers/mtd/nand/raw/sun=
-xi_nand.c
-> index e29638c828caf..fbea6f16ea9d7 100644
-> --- a/drivers/mtd/nand/raw/sunxi_nand.c
-> +++ b/drivers/mtd/nand/raw/sunxi_nand.c
 [ ... ]
-> @@ -1761,69 +1776,88 @@ static int sunxi_nfc_hw_ecc_write_page_dma(struct=
- nand_chip *nand,
-[ ... ]
-> -	writel(NFC_PAGE_OP | NFC_DATA_SWAP_METHOD |
-> -	       NFC_DATA_TRANS | NFC_ACCESS_DIR,
-> -	       nfc->regs + NFC_REG_CMD);
-> +		writel(NFC_PAGE_OP | NFC_DATA_SWAP_METHOD |
-> +		       NFC_DATA_TRANS | NFC_ACCESS_DIR,
-> +		       nfc->regs + NFC_REG_CMD);
+
+> +	thermal_zones: thermal-zones {
+> +		ddr-0-0-thermal {
+> +			polling-delay-passive =3D <0>;
+> +			polling-delay =3D <0>;
+> +			thermal-sensors =3D <&tsens0 0>;
+> +
+> +			trips {
+> +				trip-point0 {
+> +					temperature =3D <105000>;
+> +					hysteresis =3D <10000>;
+> +					type =3D "passive";
+> +				};
+> +
+> +				trip-point1 {
+> +					temperature =3D <115000>;
+> +					hysteresis =3D <10000>;
+> +					type =3D "passive";
 
 [Severity: High]
-Does this batching approach cause a regression where the controller's
-autonomous state machine generates incorrect flash column addresses?
+Are these maximum temperature trip points intended to be passive rather than
+critical?
 
-When a page is split into multiple DMA batches, both
-sunxi_nfc_hw_ecc_read_batch_dma() and sunxi_nfc_hw_ecc_write_page_dma()
-iterate over the batches with first_step > 0. Because the hardware is
-reprogrammed for each batch, it appears the controller's internal chunk
-counter resets to 0.
+If the SoC overheats to 115C or 125C, the Linux kernel will not trigger an
+emergency shutdown because the maximum trip points are marked as passive
+instead of critical.
 
-While the first chunk of a batch is read or written correctly due to the
-manual column change beforehand, won't the NFC_PAGE_OP state machine
-automatically issue a 0x05/0x85 column change to jump back to main data
-for the second chunk of the batch?
+The Qualcomm TSENS driver explicitly disables hardware-based critical therm=
+al
+interrupts on Linux, deferring shutdown entirely to the software thermal
+framework. Because the framework will treat this as a passive cooling thres=
+hold
+crossing, it will not initiate orderly_poweroff(), risking hardware damage.
 
-If the internal counter is reset, would the hardware calculate the return
-column address as 1 * ecc_size instead of (first_step + 1) * ecc_size?
-Could this cause the controller to read or write over the wrong flash
-offsets for all chunks after the first in subsequent batches, leading
-to data corruption?
+This pattern appears to be repeated across all thermal zones in this file
+(e.g., cpu-0-0-0-thermal, ddr-0-0-thermal).
+
+> +				};
+> +			};
+> +		};
+> +
+> +		cpu-0-0-0-thermal {
+> +			polling-delay-passive =3D <0>;
+> +			polling-delay =3D <0>;
+> +			thermal-sensors =3D <&tsens0 1>;
+> +
+> +			trips {
+> +				trip-point0 {
+> +					temperature =3D <105000>;
+> +					hysteresis =3D <10000>;
+> +					type =3D "passive";
+> +				};
+> +
+> +				trip-point1 {
+> +					temperature =3D <125000>;
+> +					hysteresis =3D <10000>;
+> +					type =3D "passive";
+> +				};
+> +			};
+> +		};
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260913-submit-sun=
-xi-nand-vendor-oob-layout-v1-v5-0-7d711076a6f7@gmail.com?part=3D10
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914031412.1408=
+56-1-shengchao.guo@oss.qualcomm.com?part=3D1
