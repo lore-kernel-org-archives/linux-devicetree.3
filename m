@@ -1,361 +1,166 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B081A4483AC
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 11:35:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1F6543F8BE
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 11:37:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789385716; cv=none; b=gYCAk/MSZurCsH8eh7XPX8UevdmP3uO+M/PaHG2suBNvPEplSewAfXItOarFFqaR3AAqCyUp6YSbSGfamOB/9kMqHIrQfJxkiID3usPbNQ3lm4PFw4arjQBiuq94f5GPqJO4wfDcDUqPOFDWh5YK5/HoDVkGJPY96+hejw1s3ag=
+	t=1789385833; cv=none; b=j06BYlALnfh+cVj7YMwT/+jHQDWWtWOxLvAKg3ZsirfCqxyv67V10iSHtcPvMAWlKq3YjKa2M7F3utKd0GYDB+IQVg0GXVoSHKNHYZolH2045BZfmY0GwT4gqYdqAgIZm84YJ3V7eciZgDIxYW01sXM0hHoP2nmnuwjFCsY6O3E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789385716; c=relaxed/simple;
-	bh=0gtX+dbD2z7gQkrFNmZkFTj7KcPdJd2m+2n9w8cQSow=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=A1+nGXTuCcrUEgfL1iPh9ssfrqQOrCEJ9K5zD5YS/876WKVtk+WO0U2+EipII5oyBpLK7V0un+BqdO4FwhnULSo7Ykj6PVAivq/JlrGAWnXd7t5F1w2ljcoABeI5hhINi2GsSC67Jt8z0wLcpcMVaeChxEKWhJb7xBLLPhaJORU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rSz2INX6; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789385833; c=relaxed/simple;
+	bh=fVFayjc2eOqsSz3WXVu1VPZKmGsi43dhiuYuNC+XHjw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=o0xnKv+mkameGyNiXA17oBUB7ROEzlL3kV6V4y4Dy4oOqXlsGkFl//J81U2VvSrETIkPS/tZVYGU3i29/0QRyNyfU6OpHFvjVgh7Q9ME4KdF1kcqf/ut3sFXLWM0UId2jEezZSt+rM+BdmOAcFUMrM8NOtpaD64uP/BHIWzeVRQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=wHsPQhQa; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rSz2INX6"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4998b5a63e2so34580145e9.1
-        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 04:35:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="wHsPQhQa"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c2953a01240so283245866b.0
+        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 04:37:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789385712; x=1789990512; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LHdGMoxzi2wHxj/rRPHa6zr3JYkbxRfl/EgABIz7bgc=;
-        b=rSz2INX6sRJB5nrMh5NYvwhSkSokkbsvFCngMFVIU9H3bt93V79PKe/eh+9nLXhRep
-         JsuJpUFIBZfu4y49pFiQh40rCB139RVQY0+D50m2lwaDTJqAznMG6I8JsGWWOJxYYgXC
-         iG3+vdhXlXCd5ysYB7V3ddjPHBGcQa42jusOPJk5uONOXtF7o5N+vfU6yheDqoGDbdmN
-         yrAx0Tgu+4HLTE2aRmqMzDkBpS1TnBSgObHs//U/GkeUAdQgrw1JoM3deddQZglnZLFH
-         dtvyCLiB6c7kb6/CmAPXky4+/OKvu+Nr+RloDvkNMn0dkpx8CN9UuvN7nOHigSh1zp3W
-         s/aA==
+        d=linaro.org; s=google; t=1789385830; x=1789990630; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BrFobApx96GbKEm837whkFKjtf7GL+qiMSoZ+3ZGcro=;
+        b=wHsPQhQaTJzUQzz1qYlTn4P++71n2Iy5bqhx0T7CRPf+7i3lKHY1rexkOlNGQMCwcZ
+         u0Si7AN1hryouOPT0nQ0XaHFU17Iz0k837RLoBm0pTbq3bVh3u6e8NjjrxEZo1yzlreq
+         1zeFFjjSVCVNE917fZ1a0rcs2BBY86bNkcm8ynrlvONS2osqrRYMOqKc4nbC9jcDbBaR
+         8Mo1vHCg2uYDr/G9ok+a/q8fdH2mrPsd4SB5QMrq9jVl5Vb8QjRxzNjhzSrHzNM275s4
+         w8KsXaUL4F+uO0EjoogrCOS/Qg7/3bCEvsns7xfnDYsM2h8qyihbpQOc/NHgDu7MPpdn
+         3q7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789385712; x=1789990512;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LHdGMoxzi2wHxj/rRPHa6zr3JYkbxRfl/EgABIz7bgc=;
-        b=kywBg6QsYqtNMlWHMwK5B5l9T72pfO8ltSgXJXSeSlU2POhOB/sAE/LjYXP9oWxdO1
-         oQFPdMsyJsp0UjDVc7N7WXItJMMffxLrui1F2ERnZlZPpmJ2sHPRi+dO+ijUz2yDDRsV
-         1BzoTH9piwM9KtyD1WLuCJ1intNZz5JALs9IxEkhgVJzs56Gvguy/uPlHhGiGmsxfTjs
-         NO82w5h35qmybwdcqLeL0srQzf81oJxlIVF23EWu9L/CZETESlIv4+xkC04ylk7PaCw+
-         Gp5CLQ0yjsJFt3FDZ5RAxGL7sYlvaqz3Yz2ipCA19G9u/w7ABuJ1JjP7kKgq/iGlj7ev
-         WQCg==
-X-Forwarded-Encrypted: i=1; AKwUvBwj5TIccWlPX/2wv0P/FtL7HyyJ3W+G7ewH2jGYy7W3sut5aMM1poFDb9e0BLQ3HgNwUqA4oG2pRyMu@vger.kernel.org
-X-Gm-Message-State: AFuF++mXhIBNYifxewk1NTdQcHxSC0Kh5+oDK7v3lftBCYc62JpiHtMC
-	xrf8MPhsLwyBoqJY9P++qB1W1bxf4SJ/lXlL0NX9XJ4ognnKCAI1Qy9N
-X-Gm-Gg: AYBFou3gzXihl7VgzmdAcPqtdejmtYY1+/XYsPvjdnOLpGbSQW3L8m1KZ02/YUCJSNa
-	r//T7yN7PEnuDV38KA8JFwoynlSefPVe3YxFipr+ai2QxZffk9Ek+x6Cg6P+J6RcX75wJAny9+G
-	7R4SDr220o9ZU6ZiIosttK17pdWnvszBzwbyUKwdn8XsQi+MbKWe7klIJxdhbb6uZ6HAgX/4tT3
-	20k5XylpviqUzOvvKvjqHJOKljHJH1qcczkIxJdCMMTZIeWXT+rtqoSxq6Ee6sX6UPR4y0Z6Hye
-	q2SDIktZRWipjyzq30CTK021Kiw2ae3NnLrGJICZIdUufuM0sVCil144CuH5DqvcDGqKL1iYgH4
-	awLguKH+9eVzbVAeKccxnN5jv3xXijJUw/DyOJOO/o96i3ohwFEUoijm0GbLgAUtmcTtuy48Rx+
-	7nLtix6qWvFa0PTHnU01pgRos4qn3gkybKWRMBAYVOPILXTlYIfZJf8nQQPxOUCN3D8TSRR6Y0x
-	8HwnFB6JsjuL3UG9l6vsKVVJA==
-X-Received: by 2002:a05:600d:8644:20b0:49e:7cfc:a9b7 with SMTP id 5b1f17b1804b1-49e7cfca9eamr68145e9.18.1789385711541;
-        Mon, 14 Sep 2026 04:35:11 -0700 (PDT)
-Received: from SMW024614.wbi.nxp.com ([128.77.115.157])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb36e4a6sm27906531f8f.37.2026.09.14.04.35.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 04:35:11 -0700 (PDT)
-From: Laurentiu Mihalcea <laurentiumihalcea111@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Frank Li <Frank.Li@nxp.com>,
-	Fabio Estevam <festevam@gmail.com>,
-	Ahmad Fatoum <a.fatoum@pengutronix.de>,
-	elena.popa@nxp.com,
-	cosmin.stoica@nxp.com
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v5 2/2] arm64: dts: freescale: add MR-NAVQ95 basic board support
-Date: Mon, 14 Sep 2026 04:30:10 -0700
-Message-ID: <20260914113010.988-3-laurentiumihalcea111@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260914113010.988-1-laurentiumihalcea111@gmail.com>
-References: <20260914113010.988-1-laurentiumihalcea111@gmail.com>
+        d=1e100.net; s=20251104; t=1789385830; x=1789990630;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BrFobApx96GbKEm837whkFKjtf7GL+qiMSoZ+3ZGcro=;
+        b=qw8yo0Zh6Bp5wtiPz5rHEo91aMc88XDQ9QGPi4OB9VzbbCrOD38TcwU+yWPcRtWPfh
+         40I4kdwUx43BvB5YR1e5ycTmb3h9X+vUzUl3/8TpIWUdIbWelGag14o3wXlkQLmUrVb5
+         t+r7rrabcb4ZlEuZFq2dV2U3vbxwAhDoq4M3lo9JOx5COfUWa1cPD7rmb3KobajRUU8K
+         Wov0UC90AThDtO5zL7JUorC+cJ9Q+j1W8Go9/vTuIShBCjOWtexUrycfdEHef9bk+qPC
+         Y80OQSIMJjOcHPwLVriFnO3BqjJLZvIUbj9xQd7Hm7MCVbfHs0Nnl4AC/57+raLhZnJA
+         gHAA==
+X-Forwarded-Encrypted: i=1; AKwUvBw51xeXeUIojDYz1lU8en2dUg4dZ4BVE+alynsBQTbSfLz/Et2slsaxQ+p8XjFmMacWb1MWp1bNibtF@vger.kernel.org
+X-Gm-Message-State: AFuF++kh9t/xL/hBWKyrDbdOcmMkFsg6BiBE3M4YANSanqFxtcLUo929
+	FMhKZAwhlfQo+yjfoYgzcIU7ZB2GVa+4mZK8OEj9jJ3+JacSCiYC70bPbg7ENuo81KI=
+X-Gm-Gg: AYBFou3KaiL3BClKao5qgnpEfk1aL8xxrGGrBr/K4YYeWxcrPU0LDHbodmRqqUXEP2g
+	qphu46+r0pGEpPaHb9rClIymxf/I++zeEwsatjvc2tb5OpVQtKpXISFZp07G3MFzugKBehjY5qu
+	k7VZOeV79uaCzYg9J9EoBlxe2yPl5olzeTRATSk9k/wuw9XZUEjceLM65lfKqz3nbMtAe0c9+C6
+	G7lGdAWzvaC+eeChbYKeiuKQeYfMiuOTo8lXTYOi/+VeyACEWPZzRyksuOxyRknhd4pjlnenb8i
+	JWWmB7TRm/0MXET3thtwr8R0HFSUiRm6QulHpc2UPLepgLbwJMMGhA/ZMjkKbw4ootPfjKwm8ki
+	8os7SlwZkzze021rgZTdQiX/Ki3L0Cf1NwW7bvS91V6c1E8eiY0iIC+wlOfUtb797RiTPaHXgom
+	COtn70djfPKcmwi04W0aCOzZdlz4mQY0v1kzYuGyo2BJaKKJfGcValaWIfrj12RsiA5+QSiJvXx
+	rYGnmKbvA==
+X-Received: by 2002:a17:907:806:b0:c29:53b5:c69d with SMTP id a640c23a62f3a-c29b86f99a5mr151242966b.28.1789385830007;
+        Mon, 14 Sep 2026 04:37:10 -0700 (PDT)
+Received: from [192.168.0.35] ([109.76.248.34])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29660219ecsm412455366b.16.2026.09.14.04.37.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 14 Sep 2026 04:37:09 -0700 (PDT)
+Message-ID: <44634913-fd6c-454d-a3a2-6a8d541b2c1e@linaro.org>
+Date: Mon, 14 Sep 2026 12:37:06 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v16 1/5] phy: core: Fix use-after-free in phy_get paths
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
+ Todor Tomov <todor.too@gmail.com>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Bryan O'Donoghue <bod@kernel.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>, Felipe Balbi <balbi@ti.com>,
+ linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-phy@lists.infradead.org,
+ Krzysztof Kozlowski <krzk@kernel.org>, stable@vger.kernel.org
+References: <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v16-0-f7bd68b5369f@linaro.org>
+ <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v16-1-f7bd68b5369f@linaro.org>
+ <aqRq-xZRIDL1apdI@lizhi-Precision-Tower-5810>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-US
+In-Reply-To: <aqRq-xZRIDL1apdI@lizhi-Precision-Tower-5810>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
+On 11/09/2026 21:56, Frank Li wrote:
+> suggested subject:
+> 
+> phy: core: use phy_provider_mutex protect between _of_phy_get and try_module_get()
 
-Add basic support for NXP's MR-NAVQ95 board. This board is designed for
-robotics applications (e.g. drones, rovers, humanoids, etc..) and has the
-following hardware feats (list is not exhaustive):
+A pattern I try to encourage and role-model is making fixes very 
+explicit and obvious - frequently I'll ask people to prefix their 
+patches fixing things with Fix.
 
-* based on i.MX95 19x19 SoC
-* 64GB eMMC
-* 16GB of LPDDR5 memory
-* 1 x USB 2.0 TypeC
-* 1 x USB 3.0 TypeC
-* 1 x RJ45 port with RTL8211 PHY
+I'll split the difference with you since now that I read this submitted 
+patch title you're right, it could read better.
 
-The support targets revision B of the board.
+"Fix race-condition between _of_phy_get and try_module_get()"
+>> Sashiko asked during a patch review if the existing usage pattern had a
+>> race condition; specifically in of_phy_get() if it was possible between
+>> returning from _of_phy_get() and running try_module_get() that a module
+>> might be unbound leading to use-after-free.
+>>
+>> Looking at the code this appears to be so, there is no linkage between the
+>> phy and module under a synchronisation primitive.
+>>
+>> Using the phy_provider_mutex in phy_get() will ensure there is a link between
+>> the returned phy pointer and the module_get() bumping the module reference
+>> count.
+>>
+>> Amend phy_get(), of_phy_get() and devm_of_phy_get_by_index() to fix the
+>> same usage pattern.
+>>
+>> phy_provider_unregister() must take the phy_provider_mutex so amending
+>> phy_get()/of_phy_get() to take that same mutex guarantees there is no
+>> use-after-free.
+>>
+>> Fixes: ff764963479a1 ("drivers: phy: add generic PHY framework")
+>> Cc:stable@vger.kernel.org
+>> Reviewed-by: Loic Poulain<loic.poulain@oss.qualcomm.com>
+>> Signed-off-by: Bryan O'Donoghue<bryan.odonoghue@linaro.org>
+>> ---
+> ...
+>> @@ -678,15 +677,21 @@ struct phy *of_phy_get(struct device_node *np, const char *con_id)
+>>   	if (con_id)
+>>   		index = of_property_match_string(np, "phy-names", con_id);
+>>
+>> +	mutex_lock(&phy_provider_mutex);
+>> +
+>>   	phy = _of_phy_get(np, index);
+>>   	if (IS_ERR(phy))
+>> -		return phy;
+>> +		goto out_unlock;
+>>
+>> -	if (!try_module_get(phy->ops->owner))
+>> -		return ERR_PTR(-EPROBE_DEFER);
+>> +	if (!try_module_get(phy->ops->owner)) {
+>> +		phy = ERR_PTR(-EPROBE_DEFER);
+>> +		goto out_unlock;
+>> +	}
+> why no use auto cleanup guard() for mutex lock?
 
-Signed-off-by: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
+Technically this fix would apply to kernels predating scoped_guard() - 
+kernel 6.5 v Fixes: @ ~ 3.13.
+
+Not really sure how far back the cherry-pick will work but I'd like to 
+give the possibility.
+
+We can always sweep this file to use scoped_guard() on tip-of-tree later.
+
 ---
- arch/arm64/boot/dts/freescale/Makefile       |   1 +
- arch/arm64/boot/dts/freescale/imx95-navq.dts | 228 +++++++++++++++++++
- 2 files changed, 229 insertions(+)
- create mode 100644 arch/arm64/boot/dts/freescale/imx95-navq.dts
-
-diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index 984642146dd9..b6dd7040c385 100644
---- a/arch/arm64/boot/dts/freescale/Makefile
-+++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -947,6 +947,7 @@ dtb-$(CONFIG_ARCH_MXC) += imx95-19x19-evk-sof.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-19x19-frdm-pro.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-aquila-clover.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-aquila-dev.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx95-navq.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-toradex-smarc-dev.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-tqma9596la-mba95xxca.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx95-tqma9596sa-mb-smarc-2.dtb
-diff --git a/arch/arm64/boot/dts/freescale/imx95-navq.dts b/arch/arm64/boot/dts/freescale/imx95-navq.dts
-new file mode 100644
-index 000000000000..7860c113e9e0
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx95-navq.dts
-@@ -0,0 +1,228 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Copyright 2026 NXP
-+ */
-+
-+/dts-v1/;
-+
-+#include "imx95.dtsi"
-+
-+/ {
-+	model = "NXP MR-NAVQ95";
-+	compatible = "fsl,imx95-navq", "fsl,imx95";
-+
-+	aliases {
-+		ethernet0 = &enetc_port0;
-+		mmc0 = &usdhc1;
-+		mmc1 = &usdhc2;
-+		serial0 = &lpuart1;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	memory@80000000 {
-+		device_type = "memory";
-+		/* actual size filled in by the bootloader */
-+		reg = <0x0 0x80000000 0 0x80000000>;
-+	};
-+
-+	reg_usdhc2_vmmc: regulator-usdhc2 {
-+		compatible = "regulator-fixed";
-+		bootph-pre-ram;
-+		enable-active-high;
-+		gpios = <&gpio3 7 GPIO_ACTIVE_HIGH>;
-+		off-on-delay-us = <12000>;
-+		pinctrl-0 = <&pinctrl_reg_usdhc2_vmmc>;
-+		pinctrl-names = "default";
-+		regulator-max-microvolt = <3300000>;
-+		regulator-min-microvolt = <3300000>;
-+		regulator-name = "VDD_SD2_3V3";
-+	};
-+};
-+
-+&edma1 {
-+	/* owned by M7 */
-+	status = "reserved";
-+};
-+
-+&edma2 {
-+	/* channels 30-63 owned by M7 */
-+	dma-channels = <30>;
-+};
-+
-+&enetc_port0 {
-+	phy-handle = <&ethphy0>;
-+	phy-mode = "rgmii-id";
-+	pinctrl-0 = <&pinctrl_enetc0>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+};
-+
-+&lpi2c3 {
-+	clock-frequency = <400000>;
-+	pinctrl-0 = <&pinctrl_lpi2c3>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+
-+	i2c3_gpio_expander_21: gpio-expander@21 {
-+		compatible = "nxp,pcal6408";
-+		reg = <0x21>;
-+		#gpio-cells = <2>;
-+		gpio-controller;
-+		#interrupt-cells = <2>;
-+		interrupt-controller;
-+		interrupt-parent = <&gpio4>;
-+		interrupts = <27 IRQ_TYPE_LEVEL_LOW>;
-+		pinctrl-0 = <&pinctrl_i2c3_gpio_expander_21>;
-+		pinctrl-names = "default";
-+	};
-+};
-+
-+&lpuart1 {
-+	bootph-pre-ram;
-+	pinctrl-0 = <&pinctrl_uart1>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+};
-+
-+&netc_blk_ctrl {
-+	status = "okay";
-+};
-+
-+&netc_emdio {
-+	pinctrl-0 = <&pinctrl_emdio>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+
-+	ethphy0: ethernet-phy@1 {
-+		compatible = "ethernet-phy-id001c.c916";
-+		reg = <1>;
-+		reset-assert-us = <10000>;
-+		reset-deassert-us = <80000>;
-+		reset-gpios = <&i2c3_gpio_expander_21 1 GPIO_ACTIVE_LOW>;
-+		realtek,clkout-disable;
-+	};
-+};
-+
-+&scmi_iomuxc {
-+	pinctrl_emdio: emdiogrp {
-+		fsl,pins = <IMX95_PAD_ENET2_MDC__NETCMIX_TOP_NETC_MDC			0x57e>,
-+			   <IMX95_PAD_ENET2_MDIO__NETCMIX_TOP_NETC_MDIO			0x97e>;
-+	};
-+
-+	pinctrl_enetc0: enetc0grp {
-+		fsl,pins = <IMX95_PAD_ENET1_TD3__NETCMIX_TOP_ETH0_RGMII_TD3		0x57e>,
-+			   <IMX95_PAD_ENET1_TD2__NETCMIX_TOP_ETH0_RGMII_TD2		0x57e>,
-+			   <IMX95_PAD_ENET1_TD1__NETCMIX_TOP_ETH0_RGMII_TD1		0x57e>,
-+			   <IMX95_PAD_ENET1_TD0__NETCMIX_TOP_ETH0_RGMII_TD0		0x57e>,
-+			   <IMX95_PAD_ENET1_TX_CTL__NETCMIX_TOP_ETH0_RGMII_TX_CTL	0x57e>,
-+			   <IMX95_PAD_ENET1_TXC__NETCMIX_TOP_ETH0_RGMII_TX_CLK		0x58e>,
-+			   <IMX95_PAD_ENET1_RX_CTL__NETCMIX_TOP_ETH0_RGMII_RX_CTL	0x57e>,
-+			   <IMX95_PAD_ENET1_RXC__NETCMIX_TOP_ETH0_RGMII_RX_CLK		0x58e>,
-+			   <IMX95_PAD_ENET1_RD0__NETCMIX_TOP_ETH0_RGMII_RD0		0x57e>,
-+			   <IMX95_PAD_ENET1_RD1__NETCMIX_TOP_ETH0_RGMII_RD1		0x57e>,
-+			   <IMX95_PAD_ENET1_RD2__NETCMIX_TOP_ETH0_RGMII_RD2		0x57e>,
-+			   <IMX95_PAD_ENET1_RD3__NETCMIX_TOP_ETH0_RGMII_RD3		0x57e>;
-+	};
-+
-+	pinctrl_i2c3_gpio_expander_21: i2c3gpioexpander21grp {
-+		fsl,pins = <IMX95_PAD_ENET2_RD3__GPIO4_IO_BIT27				0x31e>;
-+	};
-+
-+	pinctrl_lpi2c3: lpi2c3grp {
-+		fsl,pins = <IMX95_PAD_GPIO_IO28__LPI2C3_SDA				0x40000b9e>,
-+			   <IMX95_PAD_GPIO_IO29__LPI2C3_SCL				0x40000b9e>;
-+	};
-+
-+	pinctrl_reg_usdhc2_vmmc: regusdhc2vmmcgrp {
-+		bootph-pre-ram;
-+		fsl,pins = <IMX95_PAD_SD2_RESET_B__GPIO3_IO_BIT7			0x31e>;
-+	};
-+
-+	pinctrl_uart1: uart1grp {
-+		bootph-pre-ram;
-+		fsl,pins = <IMX95_PAD_UART1_RXD__AONMIX_TOP_LPUART1_RX			0x31e>,
-+			   <IMX95_PAD_UART1_TXD__AONMIX_TOP_LPUART1_TX			0x31e>;
-+	};
-+
-+	pinctrl_usdhc1_200mhz: usdhc1-200mhzgrp {
-+		bootph-pre-ram;
-+		fsl,pins = <IMX95_PAD_SD1_CLK__USDHC1_CLK				0x15fe>,
-+			   <IMX95_PAD_SD1_CMD__USDHC1_CMD				0x13fe>,
-+			   <IMX95_PAD_SD1_DATA0__USDHC1_DATA0				0x13fe>,
-+			   <IMX95_PAD_SD1_DATA1__USDHC1_DATA1				0x13fe>,
-+			   <IMX95_PAD_SD1_DATA2__USDHC1_DATA2				0x13fe>,
-+			   <IMX95_PAD_SD1_DATA3__USDHC1_DATA3				0x13fe>,
-+			   <IMX95_PAD_SD1_DATA4__USDHC1_DATA4				0x13fe>,
-+			   <IMX95_PAD_SD1_DATA5__USDHC1_DATA5				0x13fe>,
-+			   <IMX95_PAD_SD1_DATA6__USDHC1_DATA6				0x13fe>,
-+			   <IMX95_PAD_SD1_DATA7__USDHC1_DATA7				0x13fe>,
-+			   <IMX95_PAD_SD1_STROBE__USDHC1_STROBE				0x15fe>;
-+	};
-+
-+	pinctrl_usdhc1: usdhc1grp {
-+		bootph-pre-ram;
-+		fsl,pins = <IMX95_PAD_SD1_CLK__USDHC1_CLK				0x158e>,
-+			   <IMX95_PAD_SD1_CMD__USDHC1_CMD				0x138e>,
-+			   <IMX95_PAD_SD1_DATA0__USDHC1_DATA0				0x138e>,
-+			   <IMX95_PAD_SD1_DATA1__USDHC1_DATA1				0x138e>,
-+			   <IMX95_PAD_SD1_DATA2__USDHC1_DATA2				0x138e>,
-+			   <IMX95_PAD_SD1_DATA3__USDHC1_DATA3				0x138e>,
-+			   <IMX95_PAD_SD1_DATA4__USDHC1_DATA4				0x138e>,
-+			   <IMX95_PAD_SD1_DATA5__USDHC1_DATA5				0x138e>,
-+			   <IMX95_PAD_SD1_DATA6__USDHC1_DATA6				0x138e>,
-+			   <IMX95_PAD_SD1_DATA7__USDHC1_DATA7				0x138e>,
-+			   <IMX95_PAD_SD1_STROBE__USDHC1_STROBE				0x158e>;
-+	};
-+
-+	pinctrl_usdhc2_gpio: usdhc2gpiogrp {
-+		bootph-pre-ram;
-+		fsl,pins = <IMX95_PAD_SD2_CD_B__GPIO3_IO_BIT0				0x31e>;
-+	};
-+
-+	pinctrl_usdhc2: usdhc2grp {
-+		bootph-pre-ram;
-+		fsl,pins = <IMX95_PAD_SD2_CLK__USDHC2_CLK				0x158e>,
-+			   <IMX95_PAD_SD2_CMD__USDHC2_CMD				0x138e>,
-+			   <IMX95_PAD_SD2_DATA0__USDHC2_DATA0				0x138e>,
-+			   <IMX95_PAD_SD2_DATA1__USDHC2_DATA1				0x138e>,
-+			   <IMX95_PAD_SD2_DATA2__USDHC2_DATA2				0x138e>,
-+			   <IMX95_PAD_SD2_DATA3__USDHC2_DATA3				0x138e>,
-+			   <IMX95_PAD_SD2_VSELECT__USDHC2_VSELECT			0x51e>;
-+	};
-+};
-+
-+&usdhc1 {
-+	bootph-pre-ram;
-+	bus-width = <8>;
-+	no-sd;
-+	no-sdio;
-+	non-removable;
-+	pinctrl-0 = <&pinctrl_usdhc1>;
-+	pinctrl-1 = <&pinctrl_usdhc1>;
-+	pinctrl-2 = <&pinctrl_usdhc1_200mhz>;
-+	pinctrl-3 = <&pinctrl_usdhc1>;
-+	pinctrl-names = "default", "state_100mhz", "state_200mhz", "sleep";
-+
-+	status = "okay";
-+};
-+
-+&usdhc2 {
-+	bootph-pre-ram;
-+	bus-width = <4>;
-+	cd-gpios = <&gpio3 0 GPIO_ACTIVE_LOW>;
-+	pinctrl-0 = <&pinctrl_usdhc2>, <&pinctrl_usdhc2_gpio>;
-+	pinctrl-1 = <&pinctrl_usdhc2>, <&pinctrl_usdhc2_gpio>;
-+	pinctrl-2 = <&pinctrl_usdhc2>, <&pinctrl_usdhc2_gpio>;
-+	pinctrl-3 = <&pinctrl_usdhc2>, <&pinctrl_usdhc2_gpio>;
-+	pinctrl-names = "default", "state_100mhz", "state_200mhz", "sleep";
-+	vmmc-supply = <&reg_usdhc2_vmmc>;
-+
-+	status = "okay";
-+};
--- 
-2.53.0
-
+bod
