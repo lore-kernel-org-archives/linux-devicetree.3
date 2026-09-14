@@ -1,506 +1,203 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022106.outbound.protection.outlook.com [52.101.126.106])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B98BE253B58;
-	Mon, 14 Sep 2026 02:59:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789354793; cv=none; b=VQAWuCCDwkgwYNGgDHd5/0hWCMAKuZpGOvFw3K8eUN0Bhw6teYyVxo3hDUIRBAMpj3WOPQP4BHxzR66VLgvQnMvM0mcDIRgUs5R2A2OQUBM5/7V3gjdVDpG3EYWf4tH7y4gm+oTtuGaDGXDZrJnZ+gdye8KwD3pS54KmFDGerBA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789354793; c=relaxed/simple;
-	bh=j/vuMr+kvW4xhdZvDUHtBqCkmo5710zjkxCNn7/bAQ8=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=j5yqG58qtKEmrilIkSWWVbzPdENZaYFdECfiZJLBl+U1eIeLGqpl1oFPtxnod+SS2ji0kcJ5ZFHvObLenPTq/6LJT+aZxUCNvyMoEoI68ZlLkivZT+9PdxCiLvEQyZPB03i2W3eqPK4fa5RofcgammCjXOsnjq4iLC/6dYCira0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CQnLsYDr; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AC0E3290B7
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 03:00:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.106
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789354821; cv=fail; b=JI6HW6obC5meepajT6eflIB2DStjrEaqrxVTcsP3WVf2I/pqvRBFyBOGaG0ORQRv8bs7c05eplhKGlUq9vsO0jI2y1x0HTq7RcQpRnDeb+PdEEATsu57cg4AepmKN27g79nmo9itjfG52H0b49d6Hs8seFqy6p9YBROZM4Wn2Ns=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789354821; c=relaxed/simple;
+	bh=u6OSHB8HcgZDkW/DkpjcZkke4iNmHPZQ67OJ57vjBfk=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=osE3Rg5Xdt0ULhyVxZzVay9tjl+Kex+DLi1sVPWZV5KB1h1SBWH+cNhlEcBqi9f0tPcCAKyfr8wbFe9Ht4e8Z6m0afXf7gNkb7hmnOM1+7eeF5a3o/WEQQOoYm8+Nzku1SmGNIapEL6imcibuFmZs8889lvvLngRkw/upSvy9vU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=lQvJi7Oa; arc=fail smtp.client-ip=52.101.126.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CQnLsYDr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14CE91F000FF;
-	Mon, 14 Sep 2026 02:59:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789354791;
-	bh=ku0UdGsBA5pF/q1icn12RlKu3J/RM6ugjPnqqjVoc7g=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=CQnLsYDrTqfX2NgWh6AtyN677oW42Vf/oMezcW3BQ4Bo2Lz/6QHb9ek97MVCX3l1d
-	 H5tJg4O33TPiacwhrNnkgZR9mLg7Fj0oxhmYufSmUi+Ifzaf37z57hH8gDvoBzzGIP
-	 AIoXopOvCKHlb+Gqlgeek1xKV5Z1LibZsFMWrVzZL+FuYEDH7XL1NeEWbp7y63T0aI
-	 rTFr+khQwqxGHvcxy73Gwkj+sekTv+L72chWJ0XP4qpiHLI0XGJWcuNoc7CNeI6RID
-	 YTRODUfWuph6F+Yzl4YLFjGE6Fhz91cqxe7ApVF9dnriaLFzqyjp9va4TzYDAMbnL3
-	 psCULE5cVKfLg==
+	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="lQvJi7Oa"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wwE7IQv1lzBLApZbyJBHJ6x+cr/kVNXaIZt8XHwdqIDzqafo0gzkfpYbWwC07xMFWNiIv/0ZjWNayN2lFx/+9SsKaHYCN7DUvDzWUqX9P9BKtLKWDTRESsyiUPFU8xEBi/ZViVzKeA/Otq+gopOqwXHobw+jsV4nowseXwkQ8wHUf0np9U1ysbAixJ2BS/EWNmSDsheRRad9J64SaiJ28qO0ueVD6WOUQ9qGGDiiXzzX1rvNT33VCHp7R6oMqkp9K0BwL7DAjnyKV/C5cpYyIpsWRkYDR0g/kVaNAmv0Lz6mvlqTK5lnL7TuV7G+psywD1gT90unII4SOVf0TRZBDQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+4PllXCQ+FmuK2JXPzop8Seem16MYlsrBaoKHpUxyvM=;
+ b=s6bWECwa+QCFhpaInH83N7VKot2dY2TsS0qGqPDHE/dZRi5d3r/vJZJcFAgRpeHCZXnwQpwyVRXEkLweNCAKvn5L9Z8+nrQ/oDYV0hKQXgzLjrPXNSTOW0SoCDiKwuf8erbcozJQJEl0gKegGT7fn13jYHp2VWSh+y2n9Uqp8OwERcRP1heP5GC20myAHs9YRuvitdk7WSVRsNuxQ/DLabT1das7L2RXomkoQ7R8Ur1nBZfmQnzSim6uep1qKgnIpgW7IK9cteVskIgOC6O9WVRs1AZ2yivepC32VNxb1j6qjpvDNYK1piFnKOkvcnMG9gBnmIwEb1Efc3mrAlP+lQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
+ dkim=pass header.d=amlogic.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+4PllXCQ+FmuK2JXPzop8Seem16MYlsrBaoKHpUxyvM=;
+ b=lQvJi7OaWw7di55d6JttDYNkzOXTMf4H2PsfPPxlg8arokrOWLLAuw2rON62npcsy3sJxDOVYOw/zyWhbuVj8y7mwIO25fGc0wHjSUP8p6+JBeIyjDEUWcqNGBHbthui0xBE5nMq55kHSzcr/fH2prE6ESfpBDNK6VpLk0/tVgNt6ml59Vd1nLotteqnEnE4LaO/buVmlVGXjBo3XrUvcUXY7qY5wyBMuHqHxKsfAv6wBIWdVwUlk1W+oFIO9ibOmwIhlqGG2WMfG0vPCb2pHeknWtrbinZB33kyHOJu2C53AdM/rsQlxiWH6e/4Bl2VS83M1AfAkUthFgERWfUlNw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amlogic.com;
+Received: from KL1PR03MB5778.apcprd03.prod.outlook.com (2603:1096:820:6d::13)
+ by SEZPR03MB8636.apcprd03.prod.outlook.com (2603:1096:101:232::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
+ 2026 03:00:17 +0000
+Received: from KL1PR03MB5778.apcprd03.prod.outlook.com
+ ([fe80::e1e:5c95:a889:828e]) by KL1PR03MB5778.apcprd03.prod.outlook.com
+ ([fe80::e1e:5c95:a889:828e%4]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
+ 03:00:17 +0000
+Message-ID: <86ae1163-1507-4b4f-8d21-87fd2492a833@amlogic.com>
+Date: Mon, 14 Sep 2026 11:00:13 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 03/10] soc: amlogic: clk-measure: Add support for more
+ SoCs
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, neil.armstrong@linaro.org,
+ conor+dt@kernel.org, robh@kernel.org, linux-amlogic@lists.infradead.org
+References: <20260911-more-socs-to-support-clk_measure-v1-0-940e269aa52f@amlogic.com>
+ <20260911-more-socs-to-support-clk_measure-v1-3-940e269aa52f@amlogic.com>
+ <20260911083742.9C6621F000FF@smtp.kernel.org>
+From: Chuan Liu <chuan.liu@amlogic.com>
+In-Reply-To: <20260911083742.9C6621F000FF@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: TY4P286CA0113.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:37c::8) To KL1PR03MB5778.apcprd03.prod.outlook.com
+ (2603:1096:820:6d::13)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v11 2/2] iio: health: add MAX86150 ECG and PPG
- biosensor driver
-From: Jonathan Cameron <jic23@kernel.org>
-To: Md Shofiqul Islam <shofiqtest@gmail.com>
-Cc: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>, jic23@kernel.org, 
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, 
- krzk+dt@kernel.org, conor+dt@kernel.org, andriy.shevchenko@intel.com, 
- u.kleine-koenig@baylibre.com, joshua.crofts1@gmail.com, nuno.sa@analog.com, 
- Michael.Hennerich@analog.com, dlechner@baylibre.com, linux@analog.com, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260913104658.230422-3-shofiqtest@gmail.com>
-References: <20260913104658.230422-1-shofiqtest@gmail.com>
- <20260913104658.230422-3-shofiqtest@gmail.com>
-Date: Mon, 14 Sep 2026 03:59:34 +0100
-Message-Id: <178935477415.496856.13726907933383299203.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=14617;
- i=jonathan.cameron@oss.qualcomm.com; h=from:subject:message-id;
- bh=j/vuMr+kvW4xhdZvDUHtBqCkmo5710zjkxCNn7/bAQ8=;
- b=owEBfwKA/ZANAwAKAVSFNJnE9BaIAcsmYgBqp2MYSrKAPtxnXSeUceR/usmshBcCLsnXa+xq2
- fXdRx2LuJGJAkUEAAEKAC8WIQRuKWazh4QGUpEmgbFUhTSZxPQWiAUCaqdjGBEcamljMjNAa2Vy
- bmVsLm9yZwAKCRBUhTSZxPQWiEq+D/917FaSh76Y8gfMsSNw9zztH0uyRq3xcvSsqG0GKBe1FNe
- 1vYbbId7dK3jC9wVqbMYTKM6r5eOg0rG/+oGUHQ9bP4mJSt/HnKM/S3caICqre9FOMKyFQvJIUO
- U+RRS42B6k5VLbVGn6O1rhSHsrEd12dwRKd/p3WTMdZv3G5Lqh0GIJXOmcasq21/vx86a+YCqN0
- BYoJn0T401s4jxkytS40aYkGPqrqKGM8IUGxlGShfPdql9/0Tqq/c23Du/OcJUI5JF2XJJyYj4l
- 3GXLvk7VLJu1NUCUCOkbRNfwB1sCMvKKdHMkjUFLcgboaaUaJq15Bg00+C2SpEymAO5U8alTQsS
- slPxgHpISBWDooyG9aCJf9vKjLgiqWtAWRHkTriQrlESb1RAsEWX1Ck8HblmVglVdPGfjMSTaB3
- bfdc2D37hSINzGjoTgzchtAyC4p5Bfwjcg+oP7qUnbCpf8slx/nsVplW0JJhZn80/dpw1Y4n+2o
- WBrDGg6Lar6l2sF2Mkg43ZmvQhF08NXcJmmpIAgJ2GoIDKXxvLcZInWflS/dPPdHP4neF4hYfa1
- FHqYUJkyaqHr7e4w07kl/ekwv/bTdhgswF+e88bH/wFvggSsBdFK+k0xzNcg3Syvw3teytWUGR9
- WxORz0kRWGNpNxDT6cOGT66kn3YlLqd5RF+nZxg==
-X-Developer-Key: i=jonathan.cameron@oss.qualcomm.com; a=openpgp;
- fpr=6E2966B387840652912681B154853499C4F41688
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: KL1PR03MB5778:EE_|SEZPR03MB8636:EE_
+X-MS-Office365-Filtering-Correlation-Id: 636e3c3d-d848-4f1b-9c46-08df120c4e0e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|10067099003|4143699003|22082099003|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	gHa5ZEL66/Iz0m4TDtkX7cKjfmbGdsiuFqcKS/JDwe+/L6SRshorPgWTIbJIO65tjcFoyWaXm/wV+IZvz4XGtgf4RgEQn/huN7N7N3N9DAYmfkGXQ/YiHpoCo8dx7YWhAXBWe/dn1Embc1RLnwRqY9bTcEhNWzY/c+AWwfuDB2ezhcozTTgja9RgD2Sy4ZqDeCye+/hPkYnkaeZTgw2jH6wgniLOcWZSxxOcLYZdftAwMxkb85/7va0bA/Mz5BLmZWzOHOr7OnPW3bWX0/cf7RiJDDyZAjISijN02maz6pIGyxVFMgwCdXrkLeQoJYEhWzBY6xBbJBs/hP3r7G8ggqomLUD8fpjbzDD4hRz/KppilPAeNFzn5XJh4bhixAO31XQhpwxDOoftB/i6wZ5ReY0wmwlKD/Tr3dqTDwVGi8jhPAGVOR2iJYOt2TKhYF1N7X8ZqifDzZep2Vzl8HPALsTkOP/sRrqMPQjEzQQoQdi+aXr+P4pLuGXzFCot3C46VPk6LAtNzF73xJFN/x3ON/UTC9u11DU3fUv/ktxNvaGMEQf46r065zlTVAze/UYhaKGyN3aW+KocsfVhMSiFiUqZVrXEGwgHGd0NDjTaiuo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB5778.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(10067099003)(4143699003)(22082099003)(18002099003)(56012099006)(11063799006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cWtEOEFwTWhzczc3aXNUcVFTSEpJK1pubktHc3hkakI4dkV6Rkt5bGliWE9Z?=
+ =?utf-8?B?Slh1YlNWOEoxVmlVMlBJRURPQWRCdENIT0FjZDVmSVMzQURaeVM2VjFKeklu?=
+ =?utf-8?B?cmIrcEQvWlFkdmlTVHRra2dvcVhtMUlNSFpULzZlZjdSWXFwUlNMUFBYa0Y1?=
+ =?utf-8?B?dG4vaHRYZ2ZkNUpkWDVveGZLOGltMDV2QU44dHdRY0dFNU1MNVlNUithNm5k?=
+ =?utf-8?B?MS9MOC9VTjBmdDZsWkg0QjB3K0Q0RXhZczNsS3pIVWR0a1VlbXI5NGhEQXVj?=
+ =?utf-8?B?N3d1dEJOVzB6RXVrTHFWR3AwbmNCVnUyQjRLL251dE1lK3ZhclQwMnZ1OGdl?=
+ =?utf-8?B?YkpBOENkbndFTXN6NHNVVXR5ajFYTkwwQzg5VnhFL01HTlpqTktrZ3lVWE1r?=
+ =?utf-8?B?VXNtT0hBUTF0ZTZDaDdzMnZKai94bnNaM0JyaUhDQU13T244djNMK0JCMmlo?=
+ =?utf-8?B?YnFtc0hpSlZrYWwxcHVlRkFBU0kwMWFwbVFWSXgyNWkxK2ZOMXF3bE9FV2hs?=
+ =?utf-8?B?Q1pmaFNITGZySzR1cS94MkR1NE9SdmppVnp5L3BuWmpSS0d0d285cjZLUjdX?=
+ =?utf-8?B?bEs1eTJ3WmIwM0lLZVljWDZpUy80UXY4aXEzU2NFd3pmd1o3T1dseUh4elhr?=
+ =?utf-8?B?ZjQrYWNlM3FzK0JuZ2hYaVpaRDUzZnFuNkdPYWFXQTJJdUp1SjRhT3ZmZmFr?=
+ =?utf-8?B?TGx3aG8xUHQ0aitzMFdkVGN0VzZQbmdJdTdIMllDTEdQUGp4UEJOSWFEYXRa?=
+ =?utf-8?B?TkE0aDgzdXM4ZmtTdHlvdW5nMUdwZGFocEtHVGo5bWxHd013MWdvcXRYTHQ4?=
+ =?utf-8?B?WEd1TDRnV2R1TCtpaWVlamhzdzQ4QmdaUlNMVmVnUXZ5eG81OW44SGlIRVZq?=
+ =?utf-8?B?NmZPbjhacGZRZ1RVWVBqTS9acVY1ZXpDcVhZTC9RYndtZGNRQ3E0ZndkdHlX?=
+ =?utf-8?B?NGFJc2U3WmFMWDNRSk1reGJlc0ZJYVgrUlBFdnN4U1lmUEVvckpNK1BCTFh4?=
+ =?utf-8?B?Q1N4b1J2dytQL0VKTkJEN0xqL1lxVzNMWmRab1RRR2xEWlNSRjNqRHN5N2VH?=
+ =?utf-8?B?OERSTlVtMzR6a1RMS05wbGp2TDVBSWcvR1QwTDYxMDdkZWI1NGVrenAyVmlI?=
+ =?utf-8?B?d1RrYjR4WWo1cHA5bDhVWktJWVBwL0VwNDJ2cExBeVdSRnFpSTRLSWtRRWor?=
+ =?utf-8?B?bFNDdVZCZjl6UmdwdzQ3RURORUwza0Ntc3NwdFJZZlhBeFVxaHVlVXZhMUJ6?=
+ =?utf-8?B?QW5maDk4L0ZTTUQwd0gwQ1JORE9EekNrUUhXZEZtMG1nQkNSeTN3MFdkUVBr?=
+ =?utf-8?B?RnNNZ2xWVCsySU1HcTF0MkhLcG40bTAvL1NJWEhhb2RlUHd5NFNLc2FHT0JP?=
+ =?utf-8?B?TkZqd0lVc0ZqZmV6TjU2ZlQzckd2NHgrV1lyMWVRZmMzRkM3QmhJRXZuU3ZD?=
+ =?utf-8?B?RTJKOVpDckxBb3lINkhFclQxUGxFWFVkTWlodi9tdXc5Yi9CZG8yQkdUZHRv?=
+ =?utf-8?B?eDZqNDkva0QxeHQ4RHZ6TEtLWS9PWjNocXdCL0tQTFdlU2FwdVcwMEwxeUF1?=
+ =?utf-8?B?SHpCc215V2JoNEpyM0NQSUJlcVIzaG5aV0lJWkpkcXFsZXVsOWZ3QnRUVS9o?=
+ =?utf-8?B?OFRnai9HMEY1KzVZN01ZYnR2MHJRb2dqWll5Z1NUWCt3TXZjU3J2TVhhTTRp?=
+ =?utf-8?B?cFNrQmFoTEU4VFRBOWFjY014MmN5dzRoeVpKdUFJYjNNb3dQSkViUUwrcUF5?=
+ =?utf-8?B?U0JRUTkxbXJaQ2pITk9STm1QRk5oTTFSTkUrYlQ3SXBRbFR2NGhoNjFCWHlE?=
+ =?utf-8?B?RXFBblFHWXVEd3k3VVBpdkI5QnZYRU8zSGFpS2loTTI4TzZHSDFETVEvTGxa?=
+ =?utf-8?B?WkoxcENNWHBPNjBCRlFKUWpwbWlqUXRtT2RkTFFVUVR4UVdxLzFxRG1KUzlF?=
+ =?utf-8?B?RUhtNVZ0b0RxdDFIcS9RZ0I5SjhhV2lBY1IrQ0l4dXIyQ2NTZ29lRmZnQ0hS?=
+ =?utf-8?B?dlBxZFpyMkRTZnpGNmRpWk4yOWYvT2ZWT0pMTHBvUjNwWXB4a0wxQU5pa0ZG?=
+ =?utf-8?B?dncrOXN6K2EzS0p0TmkvOGJuWG5qeHJDa1AzVkppSC9LUXZCYWFZUFM2aUpz?=
+ =?utf-8?B?VkRvclhIaHZKYWxOQVMzWFY5UDQvdFBtcy9IN3JHV250elNlU0lwQmJmYjBW?=
+ =?utf-8?B?ck5PTlVRZElWeXBMaDl6aU1mMHdXUExzWStBNTBpc2ZZSmJseHlsK1FzM1Zs?=
+ =?utf-8?B?THNSOGRaWEtTcm5pOVVXYkkyNXJmTFM0ZDg1a3M3YVNnbTMzLzZrbWhjQmxP?=
+ =?utf-8?B?djJ1WVJlS2NMeFE3SGE4WkNMUWR3QkRjOHB2UWorTXkvTUh3M0xDQT09?=
+X-OriginatorOrg: amlogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 636e3c3d-d848-4f1b-9c46-08df120c4e0e
+X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB5778.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 03:00:17.0171
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PI4UdZnBWhPyZ6SzCG/Z58bD5hLLV8C29pTmJxKKcWK9CSY0bvR8XppBnNd0EqHAz6NQ2wXA2GTmSHRJdZblRQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR03MB8636
 
-> Add a new IIO driver for the Analog Devices MAX86150 integrated
-> biosensor, which combines two PPG optical channels (Red/IR LED) and
-> one ECG biopotential channel behind a 32-entry hardware FIFO in a
-> single I2C device.
+
+
+On 9/11/2026 4:37 PM, sashiko-bot@kernel.org wrote:
+> [你通常不会收到来自 sashiko-bot@kernel.org 的电子邮件。请访问 https://aka.ms/LearnAboutSenderIdentification，以了解这一点为什么很重要]
 > 
-> The driver registers a kfifo buffer directly, matching max30102.c in
-> this directory, rather than using the trigger framework: enabling the
-> buffer powers the chip up and arms the FIFO almost-full interrupt, and
-> a single threaded IRQ handler drains the FIFO and pushes samples
-> straight to the buffer. A part-ID check on probe rejects mismatched
-> hardware before chip_init() writes any configuration blind.
+> [ EXTERNAL EMAIL ]
 > 
-> Suggested-by: Jonathan Cameron <jic23@kernel.org>
-> Suggested-by: Joshua Crofts <joshua.crofts1@gmail.com>
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [Low] The `clk_msr_a9` array is missing the `const` qualifier, causing it to be placed in the modifiable `.data` section instead of the read-only `.rodata` section.
+> - [Low] Possible typo in the clock name "exit_Tsin_B_CLK_IN" for ID 26 in the `clk_msr_a9` array.
+> --
+> 
+> commit f03ec42ca0d7092f88d23ba06d4bfb38fc33ede1
+> Author: Chuan Liu <chuan.liu@amlogic.com>
+> 
+> soc: amlogic: clk-measure: Add support for more SoCs
+> 
+> This commit adds clk-measure driver support for several Amlogic SoCs
+> including A5, A4, S7, S7D, S6, and A9.
+> 
+>> diff --git a/drivers/soc/amlogic/meson-clk-measure.c b/drivers/soc/amlogic/meson-clk-measure.c
+>> index 0d4ba2555d175..671e0c3753dec 100644
+>> --- a/drivers/soc/amlogic/meson-clk-measure.c
+>> +++ b/drivers/soc/amlogic/meson-clk-measure.c
+> [ ... ]
+>> @@ -1041,6 +1041,843 @@ static const struct meson_msr_id clk_msr_t7[] = {
+> [ ... ]
+>> +static struct meson_msr_id clk_msr_a9[] = {
+> 
+> [Severity: Low]
+> Is the missing const qualifier here intentional? Without const, this array is
+> placed in the modifiable data section instead of the read-only rodata section,
+> increasing the mutable memory footprint.
+> 
+> Other clock ID tables introduced in this patch, such as clk_msr_a5 and
+> clk_msr_s7, are properly defined as static const struct meson_msr_id. Because
+> the driver only copies the elements from these arrays during device probe,
+> the original template array does not need to be mutable.
+> 
 
-These are only appropriate markings in a patch that is doing just
-what was suggested, don't apply them to a whole driver.
+I'll add "const" in V2.
 
-> Assisted-by: Claude:claude-sonnet-5
-> Signed-off-by: Md Shofiqul Islam <shofiqtest@gmail.com>
+>> +     CLK_MSR_ID(0,  "sys_clk"),
+>> +     CLK_MSR_ID(1,  "axi_clk"),
+> [ ... ]
+>> +     CLK_MSR_ID(24, "ddr_dpll_pt_clk"),
+>> +     CLK_MSR_ID(25, "mod_Tsin_A_CLK_IN"),
+>> +     CLK_MSR_ID(26, "exit_Tsin_B_CLK_IN"),
+> 
+> [Severity: Low]
+> Does this string contain a typo? The name "exit_Tsin_B_CLK_IN" is exported to
+> userspace via debugfs.
+> 
+> In similar SoC definitions like clk_msr_s6, the corresponding ID 26 is named
+> "ext_Tsin_B_CLK_IN", likely standing for external. Using "exit" here instead
+> of "ext" could confuse users or break userspace scripts expecting consistent
+> naming across SoCs.
+> 
 
-End of day with me, so this isn't the most thorough of reviews, but
-a few things inline to sort out.
+and rename "exit_Tsin_B_CLK_IN" to "ext_Tsin_B_CLK_IN".
 
-Thanks,
-
-Jonathan
-
-
-> diff --git a/drivers/iio/health/max86150.c b/drivers/iio/health/max86150.c
-> new file mode 100644
-> index 000000000000..9829edaed32b
-> --- /dev/null
-> +++ b/drivers/iio/health/max86150.c
-> @@ -0,0 +1,658 @@
-
-
-
-> +/**
-> + * struct max86150_data - driver private state
-> + * @regmap:           register map for this device
-> + * @sample_period_ns: sample period in nanoseconds (set from configured rate)
-> + * @fifo_raw:         scratch buffer for regmap_noinc_read() FIFO bursts; kept
-> + *                    in struct (heap) rather than on the stack, since stack
-> + *                    memory isn't guaranteed DMA-safe (e.g. CONFIG_VMAP_STACK)
-> + *                    and some I2C host controllers DMA the read buffer
-> + * @scan:             IIO push buffer; channels[] packed per active_scan_mask
-> + */
-> +struct max86150_data {
-> +	struct regmap		*regmap;
-> +	u32			 sample_period_ns;
-> +	u8			 fifo_raw[MAX86150_SAMPLE_BYTES];
-> +	IIO_DECLARE_DMA_BUFFER_WITH_TS(s32, scan, MAX86150_NUM_SLOTS);
-
-Why does this sneed to be dma safe?
-
-> +};
-
-
-> +static bool max86150_volatile_reg(struct device *dev, unsigned int reg)
-> +{
-> +	switch (reg) {
-> +	case MAX86150_REG_INT_STATUS1:
-> +	case MAX86150_REG_INT_STATUS2:
-> +	case MAX86150_REG_FIFO_WR_PTR:
-> +	case MAX86150_REG_OVF_COUNTER:
-> +	case MAX86150_REG_FIFO_RD_PTR:
-> +	case MAX86150_REG_FIFO_DATA:
-> +		return true;
-> +	default:
-> +		return false;
-> +	}
-
-
-> +static int max86150_read_one_sample(struct max86150_data *data,
-> +				    u32 *ppg_red, u32 *ppg_ir, s32 *ecg)
-> +{
-> +	int ret;
-> +
-> +	ret = regmap_noinc_read(data->regmap, MAX86150_REG_FIFO_DATA,
-> +				data->fifo_raw, MAX86150_SAMPLE_BYTES);
-> +	if (ret)
-> +		return ret;
-> +
-> +	*ppg_red = get_unaligned_be24(&data->fifo_raw[0]) & GENMASK(18, 0);
-> +	*ppg_ir  = get_unaligned_be24(&data->fifo_raw[3]) & GENMASK(18, 0);
-> +	*ecg = sign_extend32(get_unaligned_be24(&data->fifo_raw[6]) & GENMASK(17, 0), 17);
-
-It helps readability a little to have a blank line before simple
-sucess returns like this one.
-
-> +	return 0;
-> +}
-> +
-> +/* Does the actual work for max86150_do_read_raw(); see that function for the shutdown wrapping. */
-> +static int max86150_read_raw_locked(struct max86150_data *data,
-
-What is locked?  Direct mode is claimed and under the hood that includes
-a lock but that is an implementation detail.
-I was expecting to see a local lock in the caller but there isn't one.
-
-> +				    u32 *ppg_red, u32 *ppg_ir, s32 *ecg)
-> +{
-There are 3 layers of wrapping going on here. That seems excesive.
-
-> +	unsigned int ppg_rdy_status;
-> +	int ret;
-> +
-> +	ret = regmap_clear_bits(data->regmap, MAX86150_REG_SYS_CTRL,
-> +				MAX86150_SYS_SHDN);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_write(data->regmap, MAX86150_REG_FIFO_WR_PTR, 0);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_write(data->regmap, MAX86150_REG_OVF_COUNTER, 0);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_write(data->regmap, MAX86150_REG_FIFO_RD_PTR, 0);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/*
-> +	 * Clear stale PPG_RDY from a previous session; reading
-> +	 * INT_STATUS1 de-asserts any pending flags so the poll
-> +	 * below waits for a genuinely new sample.
-> +	 */
-> +	ret = regmap_read(data->regmap, MAX86150_REG_INT_STATUS1,
-> +			  &ppg_rdy_status);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/*
-> +	 * Poll PPG_RDY rather than sleeping a fixed interval — the
-> +	 * internal oscillator may start slower than nominal.  25 ms
-> +	 * covers more than two 100 Hz sample periods.
-> +	 */
-> +	ret = regmap_read_poll_timeout(data->regmap,
-> +				       MAX86150_REG_INT_STATUS1,
-> +				       ppg_rdy_status,
-> +				       ppg_rdy_status & MAX86150_INT_PPG_RDY,
-> +				       USEC_PER_MSEC, 25 * USEC_PER_MSEC);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return max86150_read_one_sample(data, ppg_red, ppg_ir, ecg);
-> +}
-> + *
-> + * Take the device out of shutdown, reset the FIFO pointers, wait for the
-> + * first PPG sample, and read it back.  Always returns the device to
-> + * shutdown before returning, whether or not the read succeeded.
-> + */
-This comment isn't needed as the code is fairly obvious.
-> + static int max86150_do_read_raw(struct max86150_data *data,
-> +				u32 *ppg_red, u32 *ppg_ir, s32 *ecg)
-> +{
-> +	int ret;
-> +
-> +	ret = max86150_read_raw_locked(data, ppg_red, ppg_ir, ecg);
-> +	regmap_set_bits(data->regmap, MAX86150_REG_SYS_CTRL, MAX86150_SYS_SHDN);
-> +	return ret;
-
-We've ended up with too many layers of wrappers. Just have this
-code in the max86150_read_raw() instead of having this one.
-
-> +}
-> +
-
-
-> +
-> +static int max86150_buffer_predisable(struct iio_dev *indio_dev)
-> +{
-> +	struct max86150_data *data = iio_priv(indio_dev);
-> +	int ret;
-> +
-> +	ret = regmap_write(data->regmap, MAX86150_REG_INT_ENABLE1, 0);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return regmap_set_bits(data->regmap, MAX86150_REG_SYS_CTRL,
-> +			       MAX86150_SYS_SHDN);
-
-Sashiko calls out that there maybe a race between an ongoing threaded
-handler and this. Given the threaded hander requires use of
-active_scan_masks that is a race that should be closed. The suggestion
-to disable irqs is a bad one. Instead we may need to synchronize irqs
-after this code has ensured we should see no new ones.
-That should close the race I think
-
-> +}
-
-
-
-> +/*
-> + * Threaded IRQ handler (primary=NULL): clears INT_STATUS1 to de-assert the
-> + * line, then drains every sample currently in the FIFO and pushes each one
-> + * straight to the buffer.  No trigger indirection -- enabling/disabling the
-> + * buffer is what arms/disarms the interrupt, via
-> + * max86150_buffer_postenable()/_predisable() above.  Matches the direct
-> + * kfifo pattern max30102.c uses in this same directory.
-
-What does this comment print us?  Very little that I can see that
-we can't see from the code.  It is all standard stuff for a fifo
-equiped part.
-
-> + */
-> +static irqreturn_t max86150_irq_handler(int irq, void *private)
-> +{
-> +	struct iio_dev *indio_dev = private;
-> +	struct max86150_data *data;
-> +	s64 irq_time;
-> +	unsigned int status, wr_ptr, rd_ptr, ovf, n_avail;
-> +	u32 ppg_red, ppg_ir;
-> +	s32 ecg;
-> +	int ret;
-> +
-> +	data = iio_priv(indio_dev);
-> +	irq_time = iio_get_time_ns(indio_dev);
-> +
-> +	ret = regmap_read(data->regmap, MAX86150_REG_INT_STATUS1, &status);
-> +	if (ret || !(status & MAX86150_INT_A_FULL))
-> +		return IRQ_NONE;
-> +
-> +	ret = regmap_read(data->regmap, MAX86150_REG_FIFO_WR_PTR, &wr_ptr);
-> +	if (ret)
-> +		return IRQ_HANDLED;
-> +	ret = regmap_read(data->regmap, MAX86150_REG_FIFO_RD_PTR, &rd_ptr);
-> +	if (ret)
-> +		return IRQ_HANDLED;
-> +	ret = regmap_read(data->regmap, MAX86150_REG_OVF_COUNTER, &ovf);
-> +	if (ret)
-> +		return IRQ_HANDLED;
-> +
-> +	if (ovf > 0) {
-> +		n_avail = MAX86150_FIFO_DEPTH;
-> +	} else {
-> +		n_avail = (wr_ptr - rd_ptr) & (MAX86150_FIFO_DEPTH - 1);
-> +		/*
-> +		 * wr_ptr == rd_ptr with no overflow means either empty or
-> +		 * exactly 32 slots filled (pointer wrapped).  Since this
-> +		 * handler only runs when A_FULL fired, the FIFO must be
-> +		 * full — treat as 32 available.
-> +		 */
-> +		if (n_avail == 0)
-> +			n_avail = MAX86150_FIFO_DEPTH;
-> +	}
-> +
-> +	for (unsigned int i = 0; i < n_avail; i++) {
-> +		unsigned int j;
-> +		s64 ts;
-> +
-> +		if (ovf > 0)
-> +			ts = irq_time -
-> +			     (s64)(n_avail - 1 - i) * data->sample_period_ns;
-> +		else
-> +			ts = irq_time +
-> +			     ((s64)i - (MAX86150_FIFO_A_FULL_SAMPLES - 1)) *
-> +			     data->sample_period_ns;
-> +
-> +		ret = max86150_read_one_sample(data, &ppg_red, &ppg_ir, &ecg);
-> +		if (ret)
-> +			break;
-> +
-> +		memset(data->scan, 0, sizeof(data->scan));
-> +		j = 0;
-> +
-> +		if (test_bit(MAX86150_IDX_PPG_RED, indio_dev->active_scan_mask))
-
-These accesses to the active_scan_index are the thing that sashiko
-called out as problematic if the handling is still running as we
-exit buffered mode.
-
-I'm also not sure they are useful. If you have to read all the
-channels back from the device anyway, the core support for demuxing
-data if you set available_scan_mask is probably a better way to handle
-this.
-
-> +			data->scan[j++] = ppg_red;
-> +		if (test_bit(MAX86150_IDX_PPG_IR, indio_dev->active_scan_mask))
-> +			data->scan[j++] = ppg_ir;
-> +		if (test_bit(MAX86150_IDX_ECG, indio_dev->active_scan_mask))
-> +			data->scan[j++] = ecg;
-> +
-> +		iio_push_to_buffers_with_timestamp(indio_dev, data->scan, ts);
-
-Use the newer _with_ts() variant. This one is going away once we've
-finished converting drivers over.
-
-> +	}
-> +
-> +	return IRQ_HANDLED;
-> +}
-> +
-> +/*
-> + * This is a devm_add_action_or_reset() callback, so it can't return an
-> + * error like the rest of this driver does -- dev_warn() is the only way
-> + * left to surface a failed cleanup write here.
-
-No need for the comment.  If anyone actually thinks they can add the
-returns they'll rapidly figure it out!
-
-> + */
-> +static void max86150_powerdown(void *arg)
-> +{
-> +	struct max86150_data *data = arg;
-> +	struct device *dev = regmap_get_device(data->regmap);
-> +	int ret;
-> +
-> +	ret = regmap_write(data->regmap, MAX86150_REG_INT_ENABLE1, 0);
-> +	if (ret)
-> +		dev_warn(dev, "Failed to disable interrupts: %d\n", ret);
-> +
-> +	ret = regmap_set_bits(data->regmap, MAX86150_REG_SYS_CTRL,
-> +			      MAX86150_SYS_SHDN);
-> +	if (ret)
-> +		dev_warn(dev, "Failed to shut down device: %d\n", ret);
-> +}
-> +
-> +static int max86150_chip_init(struct max86150_data *data)
-> +{
-> +	int ret;
-> +
-> +	ret = regmap_write(data->regmap, MAX86150_REG_SYS_CTRL,
-> +			   MAX86150_SYS_RESET);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* SYS_RESET self-clears within 1 ms (datasheet SYS_CTRL register) */
-
-So why wait 10?  We don't generally add margins as we get a bit extra
-anyway from the surounding calls and datasheets tend to be
-conservative.
-
-> +	fsleep(10 * USEC_PER_MSEC);
-> +
-> +	/*
-> +	 * FIFO_A_FULL holds (FIFO depth - samples available), i.e. how many
-> +	 * free slots remain when the interrupt should fire.
-> +	 */
-> +	ret = regmap_write(data->regmap, MAX86150_REG_FIFO_CONFIG,
-> +			   MAX86150_FIFO_ROLLOVER_EN |
-> +			   FIELD_PREP_CONST(MAX86150_FIFO_A_FULL,
-> +					    MAX86150_FIFO_DEPTH -
-> +					    MAX86150_FIFO_A_FULL_SAMPLES));
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_write(data->regmap, MAX86150_REG_FIFO_DCTRL1,
-> +			   FIELD_PREP_CONST(MAX86150_FIFO_FD1, MAX86150_FD_LED1) |
-> +			   FIELD_PREP_CONST(MAX86150_FIFO_FD2, MAX86150_FD_LED2));
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_write(data->regmap, MAX86150_REG_FIFO_DCTRL2,
-> +			   FIELD_PREP_CONST(MAX86150_FIFO_FD3, MAX86150_FD_ECG) |
-> +			   FIELD_PREP_CONST(MAX86150_FIFO_FD4, MAX86150_FD_NONE));
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_write(data->regmap, MAX86150_REG_PPG_CONFIG1,
-> +			   FIELD_PREP_CONST(MAX86150_PPG_ADC_RGE,
-> +					    MAX86150_PPG_ADC_RGE_16384_NA) |
-> +			   FIELD_PREP_CONST(MAX86150_PPG_SR,
-> +					    MAX86150_PPG_SR_SP_100_HZ));
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* matches MAX86150_PPG_SR_SP_100_HZ above */
-> +	data->sample_period_ns = NSEC_PER_SEC / 100;
-> +
-> +	ret = regmap_write(data->regmap, MAX86150_REG_LED1_PA,
-> +			   MAX86150_LED_PA_DEFAULT);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_write(data->regmap, MAX86150_REG_LED2_PA,
-> +			   MAX86150_LED_PA_DEFAULT);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return regmap_write(data->regmap, MAX86150_REG_SYS_CTRL,
-> +			    MAX86150_SYS_SHDN);
-> +}
-
-
-> +static int max86150_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev = &client->dev;
-> +	struct iio_dev *indio_dev;
-> +	struct max86150_data *data;
-> +	unsigned int part_id;
-> +	int ret;
-> +
-> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
-> +	if (!indio_dev)
-> +		return -ENOMEM;
-> +
-> +	data = iio_priv(indio_dev);
-> +
-> +	data->regmap = devm_regmap_init_i2c(client, &max86150_regmap_config);
-> +	if (IS_ERR(data->regmap))
-> +		return dev_err_probe(dev, PTR_ERR(data->regmap),
-> +				     "Failed to init regmap\n");
-> +
-> +	ret = devm_regulator_bulk_get_enable(dev, ARRAY_SIZE(max86150_supply_names),
-> +					     max86150_supply_names);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to enable supplies\n");
-> +
-> +	ret = regmap_read(data->regmap, MAX86150_REG_PART_ID, &part_id);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Cannot read part ID\n");
-> +
-> +	/*
-> +	 * Deliberately fatal, not a dev_warn()+continue: chip_init() below
-> +	 * writes FIFO/PPG/LED configuration blind, with no readback. A
-> +	 * mismatched part ID means either the wrong device is on this
-> +	 * address or the bus itself is faulty, and letting chip_init()
-> +	 * write to that is a worse default than refusing to bind.
-
-This doesn't align with the current thinking on device tree fallback
-compatible handling.
-
-If the firmware is wrong then people get to keep the pieces and
-so we should at most print an informational message and then
-carry on anyway.  A missmatched ID can also mean a future compatible
-part that has a different ID.
-
-Thankfully people are very careful with firmwares when there is
-any chance of the bad form of smoke emerging!
+>> +     CLK_MSR_ID(27, "u3p2pll1_0_clk_div16"),
+> [ ... ]
+> 
+> --
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260911-more-socs-to-support-clk_measure-v1-0-940e269aa52f@amlogic.com?part=3
 
 -- 
-Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Best regards,
+Chuan
+
