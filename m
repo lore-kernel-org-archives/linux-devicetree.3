@@ -1,106 +1,101 @@
-Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com [74.125.227.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sm24.hosting.reg.ru (sm24.hosting.reg.ru [31.31.198.150])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EE9E3A1A38
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 12:38:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0B0F45A284;
+	Mon, 14 Sep 2026 12:41:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=31.31.198.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789389540; cv=none; b=PJbOkOVxHtnvGFe0x1nDivnRmaCWLoBrTSDJdAS5cCrwwvmWUhzwFuNt8cv0d5KB0GXHBkjnqLNMMf55w47PLytFotgTziZn6cbPfl8ajsjQUH9cVyEnnxkf150yYWxk+lTwgap/q4emnhfrpJ23RdObGLqMU18xTKY5ohpLnWc=
+	t=1789389682; cv=none; b=ppFaYWk5HKj/UrVdz7LvD5TIoPKEDCxTh2HjlkIGBxXb1QQrqzJTJAoquPIXM39Ln9n7phQZeqz9UdcZSKkL2GPXK5iBIq9fBOltQdrHVGv0gTUL/ElG5dy/TWSqO9x7JDGnbPgH+Q+ng6dFkwF1UjQEegkwu7H22QgcktxluOQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789389540; c=relaxed/simple;
-	bh=alCv2i4afikLPEBE/ZSB/QPy8e/IVs00EB1s3dQO9nU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=FpVacCbwEugkzBtncmHROdO4asffAc5dGX7IYGN+qwqp5crixDx3/f36MIU/y3aUd1YnmIGTcNQPLW6vuRexaVXBy3OZ2ZimLQDv/CiPTceV7Z6O0j7tN20qbHr0lvgH4UAHF87+kyDSz/w0T7i+4AkjPk0I28hEUQAQPfPkqpw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs2-f42.google.com with SMTP id 71dfb90a1353d-5c963a787c9so633710e0c.2
-        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 05:38:57 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789389537; x=1789994337;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=OYAVE9OAvj5W369HdyvqFVzrTYEbVyLELurCOBH65i0=;
-        b=LKzVJbZ4gJMLhG//CVyRtrzES6vo8BdDkW2lv3Dp4O0tqItjhzGR/j+rCJhPP7OrEP
-         /nIUe8OVQ3PwdeWGYuqZJt4Zl2Z9wvP2pqzpBgrBXBxNzEKqaHuICwP37Fo5rJTGXo71
-         zoZHuwBX6T7ccMZfk5vnYrpePJBWe4TU82SA2DHqsrfwg3ljBMjYl3SOdwyWyQM3Mj6n
-         YEPDOM7q//KQt2vBEBmKJGUxlX7bYAko2ORZRdJyxaxFucBfkcxP1bm8+nFMTReD8/Oc
-         ZRVSyWvSgMHjEutN35IhuasQtfgvrngXabzHd1AHz/CWXIQNaalFCtbt9IhrgbThztqB
-         vCsg==
-X-Forwarded-Encrypted: i=1; AKwUvByxggTGpj089tQWu83laW9xVEENvLrI0Hm423+Xa77mxVqglJyolrdxcjxXNe/jIm00WDcJgImhT+mq@vger.kernel.org
-X-Gm-Message-State: AFuF++kNOWhCFOCJm9TmeexS8s/8nbxieHwsd3XsD6jXoFnNmPsQe3t5
-	0a4O7CmXmrdBi3F4EXnJzzVv6+zhzFEya2JEiHsynGmEUIEjLUUKkIZcCw1tzFoq
-X-Gm-Gg: AYBFou39Riv52J3IYdMSTtiWRZtsJ/8mNeqm1LltvQlDQCE80z++aelsnOe4XI3q07a
-	lS4UP7ELmSF5LIswE7ifaROfDxFXUQkDXlsMXcCbqEUFxr2HhHVp0lL5I/4yLZI/w0MSU7ETtH3
-	vp+2BGbBjAWmwpqsYOsVRhnkCtZ6/RMu3JKoxvmhZ8uglkCS7Wd74UssYW+2TEBuZimXvv/qNDf
-	mr5bzEVmbxpPRV2kC7v/bMTFg7YQSjKMqMgktzmtWOUqqnWB6q03wz868TJDpLJ4bRIkGh2FLvR
-	tiWxRZl4W69aU7gbm9QFz12pjwY+wMbI5V+53lGr3sFCcM4p22FQKdJy8ttJYiiCqe0gyHYLTro
-	2bjrHkA6Bmrup3tr1XVQutRMS5l4zw16i1Q1Vf3aKLMkHNXCtewL0qBcsPT/pzxPA67/MDlrh6Z
-	yvfDtPxAluGUacGYrXu9ZElGS/Qqx4S/azQdwM3eR6gwr67vRspeUFzt+lrM8iRl59TNJTfTPT9
-	Mu3CxS2dJKxbm+q57VE7hUP9HiQMogXQCEpkRJDafBjbJw=
-X-Received: by 2002:a05:6122:50d:b0:5bd:aba5:3830 with SMTP id 71dfb90a1353d-5c981884dedmr1650602e0c.0.1789389536621;
-        Mon, 14 Sep 2026 05:38:56 -0700 (PDT)
-Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com. [74.125.227.43])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c847153919sm11962341e0c.16.2026.09.14.05.38.55
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 05:38:55 -0700 (PDT)
-Received: by mail-vs2-f43.google.com with SMTP id ada2fe7eead31-785643199c4so514500137.2
-        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 05:38:55 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwYHE6hcxYDOlvIiVUSThTQriKRR7+WYJn2r7Izv3b6bJpcRe76n3H5g6ByQbu3iEzx8u7qc3Mdn6PX@vger.kernel.org
-X-Received: by 2002:a05:6102:54a9:b0:789:5f54:2367 with SMTP id
- ada2fe7eead31-79b579b0d38mr1196005137.4.1789389535416; Mon, 14 Sep 2026
- 05:38:55 -0700 (PDT)
+	s=arc-20240116; t=1789389682; c=relaxed/simple;
+	bh=vCLorVAVxanrta8JLN2PLiWfTClU2E8uYbyKYvMDCFo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kFBU2VPs2CUL4Pku/qfSKyoSwFIA4ogrIYo/Wxc5I5oIUlaJ4YD75pVIxo2BHRGEVJ/YF41otiamSj+vbiphP6hV5zjqDL31p0oNfvY2ZKYg9f9pHSp9v5fdTGDJPEZlglm9bpSs1jlHf0nMNdvT6zXv/oa9imwp07948od99ns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=minlexx.ru; spf=none smtp.mailfrom=minlexx.ru; dkim=pass (1024-bit key) header.d=minlexx.ru header.i=@minlexx.ru header.b=jCJsQUhd; arc=none smtp.client-ip=31.31.198.150
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=minlexx.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=minlexx.ru
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=minlexx.ru header.i=@minlexx.ru header.b="jCJsQUhd"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=minlexx.ru;
+	s=dkim; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:References:
+	Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=6YH4J9Hj8sLaEx3AOney7Tm4RlI3Wg0dMrSsHpFTSN0=; b=jCJsQUhd3GoW4jDTzzDez2xbPo
+	YN7TxoSGk5ePWPE1euZQN+3SyWufUmNSjMvSOhjv66GzABXdo3igMWSjZuJwsQU7PcEvaqygWGzpb
+	4nuE3idrPu76NW0SHqg1ck5oT7xm4vMTPnEmpYqURQ2EMmnnecAX88pztz2ltVagp5hk=;
+Received: 
+	by sm24.hosting.reg.ru with esmtpsa (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(envelope-from <alexeymin@minlexx.ru>)
+	id 1x65zo-0000000AOwK-2Zrz;
+	Mon, 14 Sep 2026 15:41:18 +0300
+Message-ID: <63327c15-47f8-4491-a7e5-f90ab931f4e6@minlexx.ru>
+Date: Mon, 14 Sep 2026 15:41:15 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260909175922.161658-1-marek.vasut+renesas@mailbox.org>
-In-Reply-To: <20260909175922.161658-1-marek.vasut+renesas@mailbox.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 14 Sep 2026 14:38:43 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdX=gEiN37Su3hhVS+kdTiw2j8WXDtjy=bQy0M8drBa_kQ@mail.gmail.com>
-X-Gm-Features: AcwNN1URkRSQsxTlCS1AkYCaZYHp_UGH2AcjGLEgcywIPONdLTrdjIQPHpbJFxk
-Message-ID: <CAMuHMdX=gEiN37Su3hhVS+kdTiw2j8WXDtjy=bQy0M8drBa_kQ@mail.gmail.com>
-Subject: Re: [RFC][PATCH] arm64: dts: renesas: r8a779f0: Add GICv3 ITS and
- update PCIe nodes
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-pci@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>, 
-	Koichiro Den <den@valinux.co.jp>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6/9] drm/panel: novatek-nt36672a: Add 3 panels used in
+ Xiaomi phones
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org, robh@kernel.org,
+ devicetree@vger.kernel.org, conor+dt@kernel.org
+References: <20260913-nt36672a-panels-v1-0-ce097402c6ea@minlexx.ru>
+ <20260913-nt36672a-panels-v1-6-ce097402c6ea@minlexx.ru>
+ <20260913063414.8C27C1F000FF@smtp.kernel.org>
+Content-Language: en-US
+From: Alexey Minnekhanov <alexeymin@minlexx.ru>
+In-Reply-To: <20260913063414.8C27C1F000FF@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, 9 Sept 2026 at 19:59, Marek Vasut
-<marek.vasut+renesas@mailbox.org> wrote:
-> This SoC implements GIC600 with GICv3 ITS and PCIe host mode on this
-> SoC can use it. Add GIC ITS node into GIC node, update interrupt-map
-> and add msi-map into PCIe controller node.
->
-> The GIC ITS does have master interface to issue transactions to RAM.
-> The interface does support cacheable transactions, however, it does
-> not support shareable attribute, because the AXI port signals are tied
-> to inactive in this implementation. Therefore, add "dma-noncoherent"
-> DT property into the GIC ITS subnode.
->
-> The GIC redistributor does not have cacheable/shareable, therefore
-> add "dma-noncoherent" DT property into the GIC node.
->
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+On 13.09.2026 09:34, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] Duplicate execution of DCS display off and enter sleep mode commands, causing redundant panel instructions and excess delay.
+> --
+> 
+> 
+>> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+>> --- a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+>> +++ b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+> [ ... ]
+>> @@ -361,6 +361,90 @@ static void tianma_fhd_video_send_deinit_cmds(struct mipi_dsi_multi_context *dsi
+> [ ... ]
+>> +static void lavender_tulip_deinit_cmds(struct mipi_dsi_multi_context *dsi_ctx)
+>> +{
+>> +	dsi_ctx->dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
+>> +
+>> +	mipi_dsi_dcs_set_display_off_multi(dsi_ctx);
+>> +	mipi_dsi_msleep(dsi_ctx, 20);
+>> +	mipi_dsi_dcs_enter_sleep_mode_multi(dsi_ctx);
+>> +	mipi_dsi_msleep(dsi_ctx, 120);
+>> +}
+> 
+> [Severity: Medium]
+> Could this result in redundant panel instructions and an excess delay?
+> 
+> When the panel is disabled, lavender_tulip_deinit_cmds() is called as the
+> panel-specific deinit sequence by nt36672a_panel_unprepare(). However,
+> nt36672a_panel_unprepare() already unconditionally executes these exact same
+> display off and sleep commands, along with their corresponding delays,
+> immediately after the panel-specific sequence completes.
+> 
+> This appears to result in turning off the screen twice, incurring an
+> unnecessary 140ms sleep and redundant DCS commands being sent to the panel
+> during every power down operation.
+> 
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.4.
+Hmm right, I should perhaps move tianma-beryllium specific deinit
+sequence out from common nt36672a_panel_unprepare() to its own
+tianma_fhd_video_send_deinit_cmds(), so each panel can use their
+own deinit sequence if it's needed.
 
-Gr{oetje,eeting}s,
+Will be done in v2
 
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+--
+Regards,
+Alexey Minnekhanov
