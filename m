@@ -1,153 +1,196 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE7DD41DDEA;
-	Mon, 14 Sep 2026 09:17:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE8BC33D4E2
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 09:19:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789377459; cv=none; b=AmUDOWSi1/ywsHHSocCc/xUwQifwU52W2Md3ZBzPtN5+xEEop5YrIq4PfX6sfuuLZuoTGmtlLQgsNsLPLciliwCoZuAE3oA+D+cjQuBoztk78AzJXZb4M0KqXquFjELGRJU7YLB/EnAjw+dtlSbJi1yCph/YW6tJWsghRqVoAbo=
+	t=1789377567; cv=none; b=QVlT8U5a88T6T66FaIab1RSwbObPFml+6bhbs3pcRkpeQbj9xImQ2QUuavUykmfd1WNG/QYYKB3eelpj9sxFydYzYtWczxgbW+wlI7c41IaOm9ETisAoaJ4BJ6gtXKAWkT9zROAfW5qMOwl1VeXTEJXk5DRZfX8WBPTzIR6NIpI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789377459; c=relaxed/simple;
-	bh=4LO209qPT9/4FhKWuPGziA9jHpYKGrG00/EKUGV1z3c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=dyEx9IWqss/Tt+h2VaJf27oRy4NB8bwi5Ebb15d6MWBvNoM96h7QPNnULkf3IUCKTIBatYCicLL4romjGnix1I+t1POCTkFl2uq3+KdL2E13IhcjUZl8eYOg6CUDpHJwzC5OWf3JX7DJE4W9z3Fm++5SWxQUoqdLXnA+TcD6T3w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EJj4jtxH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789377567; c=relaxed/simple;
+	bh=LdENv6pEHSZPaMdPoABlUe+8eZ4WRBOkLr7fPIEaHsM=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=LapX9p2DLxo7Ppq7pdrLF+NEQcYxfLFWWxfchg0aIzxJzJmWDWy23IW8fPqfAyUqsTWrIfL8nWQhL5WaBWBn8Pnc5ZLyIeH0zg0lezYvjAPaj83kKryMi3wN6l9g6yb6/LFML9wzBf7KgwEXOy5f4OUI6SmTG4/VEJIKBxA6UFg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MO1mmk64; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cjeFsERt; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EJj4jtxH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D10821F000FF;
-	Mon, 14 Sep 2026 09:17:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789377458;
-	bh=c162nsAv+WgH5DBdIOz9opPhre+CgPQ3J8rcJUeSGws=;
-	h=Date:Subject:To:References:From:In-Reply-To;
-	b=EJj4jtxHyjAfrzi3/mqsrA/t06zEhysC8g9J9sGOtiCEK7zAT+AtlZln3EJM34ZD7
-	 p8rvkMcJjKvqKc9ejAfXNHOkpo/yECvujPFNk7ojFOuDyGneuxyHjlAxSM7pOyNUDU
-	 qrhgolW66BW5o2FhP4cqUlGdlbISYrmqjOSTg5Uh2aYk2YoPZEkmcTadV67pTxz3mR
-	 X8mvYAOIy5SPeu0eAdKHoocUv0xpMgrH5Ei9lQrHEiE1Q8ItNNax+z2t1cVEgsWIjA
-	 vX1Qx+vfJC2g/I1mvTaCYNK4ZgxPSzsRAEEcQN/x1Jpm8xm1fR0jOHARWlgjDlpAn/
-	 G5Ug+H8M0ZSbQ==
-Message-ID: <911f404f-ca3d-4c91-9e59-8e486bda9456@kernel.org>
-Date: Mon, 14 Sep 2026 11:17:16 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MO1mmk64";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cjeFsERt"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E5ivS43739599
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 09:19:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=zYo6Ia7AJOmeWwK5TRKCoC
+	asnx1PwxU0PK05z7YV+IQ=; b=MO1mmk64ChUKs9xKLbzcoZA7q2z8vVbD+KhBXc
+	u0sWhlswTJ2wCBRAIvG734XjqCJFBYuulJDIKPzqN82Kzx6rVqy4N9L3ZASr5bfa
+	7dlr1d9XkTNeWzgTfP1uPtCDR7fGXeKb63kvL9CqmyYm3u+8rKsFYIa0piUOzVPy
+	0lUI+ZiMsOzr9gS8GdSZZIak/iy6hH+59MfkWJxox9qn3gRwpr0APPxlkk8f8WCL
+	LyUbxWuaSBmhcbvpRvMii0yeHCSpKcLEaHSMc9yAhHF72hr6HBviLatkCJJWQ8yj
+	MQ6as3WUE3iZGQOfnMIauuMKHCvPt0k8ZPg6emOllexP8dPQ==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9ddwj6-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 09:19:23 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-39924189378so1170703a91.1
+        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 02:19:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789377562; x=1789982362; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=zYo6Ia7AJOmeWwK5TRKCoCasnx1PwxU0PK05z7YV+IQ=;
+        b=cjeFsERtUuqtMSHxETIXwtZFsxVC/UUWzTdu8ClQdQTz73nAFSodWIF90cIMmtHEd5
+         31ZDPhskRMAObMk/J1kbgC3yrkJL9C0gRE7fDItWZIKhf3GqtLjiWmeTdK3Rqtvbd7yY
+         5r+QGuCQxhnGbUy0oK7pLeNH0nnZ1aHKPalqdR4X5MQTHu4kBCsiyy34pp2jSZ4j6wzI
+         D2eBPYCki7w4H+Pa/qYmzkdiorY+J5XHY64oGGekOz5fXBIpt09jIOy6skKSbJ2HKgD7
+         vib4y8x/fEaitG6RaCvt5rToTqepUVrLegdGyHcEvF55NE9P+tVAbMe5TAHbpxZcPf4v
+         H+NA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789377562; x=1789982362;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=zYo6Ia7AJOmeWwK5TRKCoCasnx1PwxU0PK05z7YV+IQ=;
+        b=IQUEPWKFpaTgom6+YQ7gOLroPmh8L04eShbzHdNdJOz+zli8kmrs0RZ72pDQahFTJT
+         SW3BrMubHP4runASvZLncBycJwkYiZO+Z3RvyQ8fL4GhvSyOVLiJtWPtzOrDTTrYZhuq
+         fhqJMQSZPCFBgHULGU3RwXmFVzOQc4ae8rYt2ypKQkhp8C/mhHTYANAv4nTYFdJ/qcYw
+         uI90A1M9qOeJIli3SJASxbY0IukabhcR52X4svdjPbbHZ27GMA8xT7W6NQR80KkqT4mS
+         P7jkE8xu/ZILN9XwlpU6XKVBtLLsy1GpBZBlXarRwsFJJd8hisQebq6xdMXLFt99W4+V
+         bFdg==
+X-Forwarded-Encrypted: i=1; AKwUvBwU1I0Qg1bHVgDy+DJryqxCL/ruTB3yHCmdeoeqH1WSH/CVTsLwBna/zZdo4XJ7nfEkTaabjErG+yNq@vger.kernel.org
+X-Gm-Message-State: AFuF++kbJHtkobFEmc0GLjmzyMeaUl9eEqk0SD6JBeOlB+s7FiuelUq/
+	18OTS7iMfd2IA1qSsqNkY2angy3RNCnCmuwoj5EPdLeuq3uCJVuz+xrRLdihFQNUywFUQhOgETq
+	3O4feszaEXvcygIz86eupxFEYW6e9e1fLUS5QMURlg41TX/63rRsYtRrNEOZjFeM/
+X-Gm-Gg: AYBFou3gVniIt8fWdJmIuvAC6jmSzaMBFKrLLZq9VWjZKfjSam8e3MSgVJCk8h5J4R+
+	vCeXtgyY6he67Z6d6Mitf3yV8z1i9v1pKCeu0e9YmfmfMXzky0piLoRSfQJZMVS6mYgEDemS6lL
+	ZFJK3bENlktDVukFctbGNih1+wMSZtEj6ipXrpQ9jhUVRphdLM/VIK2mYMfOTrNPy8kiHwPiD3q
+	vQSxmo9iSd3yNYJbuxeSnkHYIq0Lh5AR8bOeEFfz24WCXfLieGG7iRHTgtza4d1Sq8rhmmQdsly
+	qgA8unJsNH4ynhBcwmEzjC8PRqXsCBbug5qia/gjRTYd3tG0Bxy5zpJtiB6djBXoI1Oo02JTXrT
+	t+f4ED4faFIYV4EeK0Y67vXc=
+X-Received: by 2002:a17:90a:d2cf:b0:39b:34ef:3b24 with SMTP id 98e67ed59e1d1-39debf77c94mr2493501a91.1.1789377562376;
+        Mon, 14 Sep 2026 02:19:22 -0700 (PDT)
+X-Received: by 2002:a17:90a:d2cf:b0:39b:34ef:3b24 with SMTP id 98e67ed59e1d1-39debf77c94mr2493461a91.1.1789377561909;
+        Mon, 14 Sep 2026 02:19:21 -0700 (PDT)
+Received: from hu-weiden-sha.qualcomm.com ([114.94.8.21])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4b1f409sm29416837eec.0.2026.09.14.02.19.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 02:19:21 -0700 (PDT)
+From: Wei Deng <wei.deng@oss.qualcomm.com>
+Subject: [PATCH v4 0/2] arm64: dts: qcom: Describe the PCIe M.2 Key E
+ connector for Monaco EVK
+Date: Mon, 14 Sep 2026 14:49:12 +0530
+Message-Id: <20260914-b4-monaco-evk-m2-v1-v4-0-dab83b048d03@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next] dt-bindings: net: Use consistent indentation in
- the example
-To: Claudiu Manoil <claudiu.manoil@nxp.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Justin Chen <justin.chen@broadcom.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Hans Ulli Kroll <ulli.kroll@googlemail.com>,
- Linus Walleij <linusw@kernel.org>, =?UTF-8?B?Q2zDqW1lbnQgTMOpZ2Vy?=
- <clement.leger@bootlin.com>, Vladimir Oltean <olteanv@gmail.com>,
- Heiner Kallweit <hkallweit1@gmail.com>, Russell King
- <linux@armlinux.org.uk>, Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Masami Hiramatsu <mhiramat@kernel.org>, Felix Fietkau <nbd@nbd.name>,
- Lorenzo Bianconi <lorenzo@kernel.org>, Ryder Lee <ryder.lee@mediatek.com>,
- Shayne Chen <shayne.chen@mediatek.com>, Sean Wang <sean.wang@mediatek.com>,
- Johannes Berg <johannes@sipsolutions.net>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Jeff Johnson <jjohnson@kernel.org>,
- Richard Cochran <richardcochran@gmail.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Yongxing Mou <yongxing.mou@oss.qualcomm.com>, Robert Foss
- <rfoss@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- "G. Jaya Kumaran" <vineetha.g.jaya.kumaran@intel.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Alex Elder <elder@kernel.org>, Siddharth Vadapalli <s-vadapalli@ti.com>,
- Roger Quadros <rogerq@kernel.org>,
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "bcm-kernel-feedback-list@broadcom.com"
- <bcm-kernel-feedback-list@broadcom.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
- "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "ath10k@lists.infradead.org" <ath10k@lists.infradead.org>
-References: <20260913122910.99457-3-krzysztof.kozlowski@oss.qualcomm.com>
- <GV2PR04MB11740B2D119032B8B12B2FA9396BB2@GV2PR04MB11740.eurprd04.prod.outlook.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <GV2PR04MB11740B2D119032B8B12B2FA9396BB2@GV2PR04MB11740.eurprd04.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABC8p2oC/33NTQ6CMBAF4KuQri1pS39deQ/jAtpBGoUq1UZDu
+ LuFjS7UZDLJe8l8M6EIo4eItsWERkg++jDkwDcFsl09HAF7lzNihEmimMINx30YahswpBPuGU4
+ UOyckNMaoSmmULy8jtP6xqvtDzp2PtzA+1yeJLu1/Lw/BgjNjLUgtjNmFGMvrvT7b0PdlXmhhE
+ /ukzHeKZYoIroG6ulGS/KCqN6XpD6rKlNGacgGtFNZ9oeZ5fgEoK0/kUwEAAA==
+X-Change-ID: 20260727-b4-monaco-evk-m2-v1-dd56eb997378
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: quic_chezhou@quicinc.com, cheng.jiang@oss.qualcomm.com,
+        shuai.zhang@oss.qualcomm.com, jinwang.li@oss.qualcomm.com,
+        xiuzhuo.shang@oss.qualcomm.com, mengshi.wu@oss.qualcomm.com,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Wei Deng <wei.deng@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDEzMSBTYWx0ZWRfX6OrihJ95I6ra
+ kWxFT+4GWogqATcumwpZSiFP034b9XFHyozoc5EAXObyntCZA542t/7/1RrYtLKH1NtxNM44Cao
+ DJllWCgelWxPxOCp0uVoKzFYLvvl2tzEKsrsQpP6K1lSJVNmBUc43cujfgbE4hUaUnyi/N5iqow
+ lBlZ9IZXNXpVLCus+0LrvXR+zXEP2zlZUw4FnWJS1qpC6nuxKm3MuT852u1S21BB3E5/yfxWHYy
+ QBq1WQpFv42oPxPxTFBSo805i3NJMaG1wESlLGeRscUh4UCHhF8/XjHP3q0ujw97iAdxoJfFypL
+ 0RDslxYshCtSSNTKs2x3EU4cfEocVkZBo/yzLh10SlOapS7tLALCv6G5lPSUMKxYSF1A9aYW1Hw
+ Eqk+vMwcmZnkKyr01S2pE2pqSFeILtUsCeQm3Z9AsLPk3K12BnLN+dX/v+O2cFDDy8J2ncr6MdW
+ mYBFXc+3GyhPY+BogKg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDEzMSBTYWx0ZWRfX3zSBY+Y5UvT2
+ fuzuHOw6Z5im6ECKOGB6E9pJycNNfU8G9AtVxCwKyBQ5nIhpvU51o6GrsonqTK3pEsoX1o1rDDn
+ K8ZjuI6cHRLgv8U+SpvTgNQBxHyzREg=
+X-Proofpoint-GUID: q3QGLD28FOOty0rC6SZee21oMXDld2TI
+X-Authority-Analysis: v=2.4 cv=OeUNnRTY c=1 sm=1 tr=0 ts=6aa7bc1b cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=q_Sc9yZfLxUicUOugGkA:9 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-ORIG-GUID: q3QGLD28FOOty0rC6SZee21oMXDld2TI
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_02,2026-09-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 malwarescore=0 phishscore=0 bulkscore=0 spamscore=0
+ priorityscore=1501 suspectscore=0 impostorscore=0 adultscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140131
 
-On 14/09/2026 11:14, Claudiu Manoil wrote:
-> 
-> 
-> 
-> NXP Confidential
+Add DT support for the PCIe M.2 Mechanical Key E connector on the
+Monaco EVK, following the same pattern as the lemans-evk series
+(already in linux-next, commits 67f06acf/a6d4bb0a).
 
-No. Please fix your corpo systems or switch kindly to @linux.dev
-https://korg.docs.kernel.org/linuxdev.html
+Patch 1/2 adds 'compatible = "pciclass,0604"' to the pcieport0 node in
+monaco.dtsi, required for downstream DT nodes to be matched to PCI
+devices.
 
-You just top-posted with "confidential" and then quoted entire email.
+Patch 2/2 describes the connector-3 node in monaco-evk.dts, wires the
+PCIe 0 Root Port and UART2 endpoints inline in the board file, adds the
+vreg_wcn_3p3 regulator, and adds the serial1 = &uart2 alias for BT
+serdev enumeration.
+
+This series is based on next-20260726.
+
+Changes in v4:
+- Drop the DTSI anchor patch (formerly 2/4): upstream BT maintainer
+  Manivannan Sadhasivam indicated that changing the hci_qca.c detection
+  from of_graph_is_present() to of_graph_get_remote_endpoint() is not
+  warranted [1], so placing empty anchor nodes in the DTSI would cause
+  hci_qca to probe the M.2 pwrseq path on all monaco-based boards,
+  including those without an M.2 connector (e.g. qcs8300-ride). The
+  port/endpoint nodes are now written directly inline in monaco-evk.dts.
+- Fold former patches 3 and 4 into a single EVK patch (now 2/2).
+- Fix &uart2 node override ordering in monaco-evk.dts (alphabetical,
+  before &uart6).
+- Link to v3: https://lore.kernel.org/r/20260819-b4-monaco-evk-m2-v1-v3-0-988145ef65cd@oss.qualcomm.com
+
+[1] https://lore.kernel.org/all/isbrpaztfrgwfcleujrn4w26cshbi2mgn57tbh5bubvsegn6lc@jh3ab6htvd24/
+
+Changes in v3:
+- Drop vreg_dcin_12v from connector node; the 12V DC input is not
+  software-controllable (Konrad)
+- Add patch 4/4: move graph port/endpoint anchors from monaco.dtsi to
+  monaco-evk.dts, so of_graph_is_present() only returns true on boards
+  with an M.2 Key E connector
+- Link to v2: https://lore.kernel.org/r/20260729-b4-monaco-evk-m2-v1-v2-0-0548e1dab760@oss.qualcomm.com
+
+Changes in v2:
+- Move PCIe Root Port and UART2 graph port/endpoint declarations from
+  monaco-evk.dts into monaco.dtsi, per Konrad's suggestion.
+- Link to v1: https://lore.kernel.org/all/20260727-b4-monaco-evk-m2-v1-v1-0-5429cce68599@oss.qualcomm.com/
+
+---
+Wei Deng (2):
+      arm64: dts: qcom: monaco: Add compatible to the PCIe Root Port
+      arm64: dts: qcom: monaco-evk: Describe the PCIe M.2 Key E connector
+
+ arch/arm64/boot/dts/qcom/monaco-evk.dts | 60 +++++++++++++++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/monaco.dtsi    |  1 +
+ 2 files changed, 61 insertions(+)
+---
+base-commit: 80489b8b7c62068b5223af10ead175367dcd127d
+change-id: 20260727-b4-monaco-evk-m2-v1-dd56eb997378
 
 Best regards,
-Krzysztof
+-- 
+Wei Deng <wei.deng@oss.qualcomm.com>
+
