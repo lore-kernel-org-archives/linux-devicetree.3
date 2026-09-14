@@ -1,245 +1,171 @@
-Received: from mail-106111.protonmail.ch (mail-106111.protonmail.ch [79.135.106.111])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D73863A9D94
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 07:16:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4DB638DC71
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 07:19:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789370164; cv=none; b=JXxNU8SMAFBzIxcPPFNNoPPNajr0oZG99sNim9JVxUny3qQKZ8/2yYBcv2P1YZoGsD1ua/xV6gemo4PxL2Wyh0nYWpxCQlUMt6EN9BFis43U0lWuOHw09nreGIvKIaT2/PnZWlpGs5lESeR8TA7JA7bVLM0WewJ5kDGSavUs4sI=
+	t=1789370397; cv=none; b=NgaPLwvFI5D6xmQmeF0tAuyp5s4wZgi0hYqgzzZWTOK3rnbM//MVwJU7dFPWUN6rUScjg6R92ZPA4zfsvwLsipnWlwDSbAbJRP389MmcYJT+h1dhJ7iVFSvUdT1nM/piesCf2cGj+X71QVhf+0VQ3xGvc8Mxdm7kppfgx/q6AYo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789370164; c=relaxed/simple;
-	bh=+9qvXNG0V3EvlwpXeMXN0075vbs75g7OZP2JSZOyNFo=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=SpNSs88Np2nCSZbH4N86yjUgikl9hFdcEq0GcZhoT5XBNjjd/5VjFdzpD3vZdX1eg1aWW4xJlpe9PfYYJG15+ItZrZrrUsxHc1uEmw1XKuD0a6+vaqeDuFGxAeVzRPoNued4BwFthxayilzbl9k5OQVn62qymQdCClQpZU4a9+Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=dsFXt8st; arc=none smtp.client-ip=79.135.106.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	s=arc-20240116; t=1789370397; c=relaxed/simple;
+	bh=q1ljk6z59O3AZSsPtTvFwtfAbufwzglG7sgdImtEKuI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PEAFMYIsTAaEkTZeTh76xRQunqngWEDvmYofhsSSPG1s5xlYM+NRAsV8GI5tlkvhW2tK2KI0J8SxtjUUBe2kLHkJmJPNif2thLrzttQcff/0x9/LqJwtPvF7NSuQXl4dtRaIE80rT4r1mVEiT1Lvmu9hHyRhDjBRKa7lZLEDG0k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=oh7ZNtHM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DpCm6s0Z; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="dsFXt8st"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1789370157; x=1789629357;
-	bh=U1IpbkgfNMga2YklmwuKhovIzDnZPM+tL+jR3Z6DJ5o=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=dsFXt8stm8SY+/WMjjOUUvum9fMU0ZcsROpBkIbBBxN+bIBQKfuu7kjebsMY8VXJZ
-	 YQF0UIFlsOuu6hbSQCvCIw1TlG1txuhxSMrHQ5ytuuQIwz8vQWstXNKoyqfQsRf4xA
-	 8wCTjhfHR7wD7bELyKFM/MN2kHR1tUJ/xIJ0VygHIwYkbNSwCN7UrTlYvSIoP/omVI
-	 WireAwbKIlY2B2R0Wu9x7me4XeKcgVJiUFSZh+v8DemEBWjn4zZ+qxsb7HQTEgG7kS
-	 08vrpZcKAcnHuecQNWK34YwPnHXObIODo66DZsjLsWmUX9nK6lDrrG60Lc2lL/orUi
-	 0ZMWmXNt8cBqA==
-X-Pm-Submission-Id: 4hjxJX0l9bz2ScPS
-From: Esben Haabendal <esben@geanix.com>
-To: "Jonathan Cameron" <jic23@kernel.org>
-Cc: "Lars-Peter Clausen" <lars@metafoo.de>,  "Rob Herring"
- <robh@kernel.org>,  "Krzysztof Kozlowski" <krzk+dt@kernel.org>,  "Conor
- Dooley" <conor+dt@kernel.org>,  "Martin Kepplinger" <martink@posteo.de>,
-  "Sean Nyekjaer" <sean@geanix.com>,  "David Lechner"
- <dlechner@baylibre.com>,  Nuno =?utf-8?Q?S=C3=A1?= <nuno.sa@analog.com>,
-  "Andy Shevchenko"
- <andy@kernel.org>,  "Martin Kepplinger"
- <martin.kepplinger@theobroma-systems.com>,  "Christoph Muellner"
- <christoph.muellner@theobroma-systems.com>,  <linux-iio@vger.kernel.org>,
-  <devicetree@vger.kernel.org>,  <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v8 9/9] iio: accel: mma8452: Support interrupt sharing
-In-Reply-To: <20260914002203.5ca07dd0@jic23-hlaptop>
-References: <20260907-mma8452-open-drain-v8-0-c17407e22118@geanix.com>
-	<20260907-mma8452-open-drain-v8-9-c17407e22118@geanix.com>
-	<_9NG2PCqwv-AxkrhQVOkPVIgvYD4-t2CFH5W5HVBmr35w9xmX9v9FIraB1OPE8Ssbd_pjQqM-bq3DEAtRl78Sg==@protonmail.internalid>
-	<20260914002203.5ca07dd0@jic23-hlaptop>
-Date: Mon, 14 Sep 2026 09:15:55 +0200
-Message-ID: <87y0d4pal0.fsf@geanix.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="oh7ZNtHM";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DpCm6s0Z"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E5ivWq3739594
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 07:19:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=8SX7emL9Dk1aIYNg0ZKMDsjeP+BjQgq7Sr3
+	pyrxA7lk=; b=oh7ZNtHMfgGyk1NZaM0giPbdhcB3eNh5vnPn1xziodmUx1fMcYu
+	WuIjEuh6WOP1By5B8ArVtOgWvVzKj0DoecFbpR/SHcjOKJxuX/AobS2ELXaR6N6+
+	fLchPo2BVqkQvtG7s09WJESxrHBwAa7kOk5cClZECOV8kky1IVSsFfAGCkXG20mg
+	2MX8LMg4kdUayhKoTcaxD4yg/l+RfGkHr4/c5wa+JwBcn2uQT4MFGSH3I1M7k1ap
+	YT3ULZkPkA8lBTYNk5iBmgYf4IWJ8ClvNHdr8YHt8sM+jWhlXWdthfB6/Fi6lk0+
+	ZskJGKroA2KNvSMsNb+Eu+cgcwvUPKAz41w==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9ddfwg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 07:19:54 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-86917d18880so4563710b3a.0
+        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 00:19:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789370393; x=1789975193; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8SX7emL9Dk1aIYNg0ZKMDsjeP+BjQgq7Sr3pyrxA7lk=;
+        b=DpCm6s0ZgsAQJaLUnUoZVSR8UPp5hk/VEyzEZ1IWQyP0fkxsOE7Sm/guxItDnGgZdJ
+         vTSp3EPkBjAqhPnKaT86UYDApt5EvJo0UOcobNYp73hOIxHzPfeUQQXIVw5W/RGyXZUA
+         hNpj4HjG9W02aOlEq/0u8MpVljydBU4spSe8+KimQg74MXB/Au4qWQAdzeAGl1AizNz6
+         3L34pLd4J0zc85RZvMjwvJquGugwa0ezoZdvWnaGNQ2B5inkNnoEWuVjcE7hN7GFJLcH
+         JOT3fHIIC1yJoWiZwZxB/i16hbHoR/84i10ryZEOXPWC/lCIzUBy6liMARNdlVysv9ma
+         Byzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789370393; x=1789975193;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8SX7emL9Dk1aIYNg0ZKMDsjeP+BjQgq7Sr3pyrxA7lk=;
+        b=YxawyEWo4xgl79eScC5jPjtfpnvpWsjr769y6k6STBHWrQ5vcPktVB0TpkniMGFN5v
+         04HDO2Y762fvZz24DdJ6jNTCAUwkAkEtJrz3Ic9dx0DJggLA9VTiDI9H3gY0YYXl4mpD
+         OneeQVvSEdmzF7vlclAAwcfYJEpNXKsZTB9sTwrAwFTZmA/8i3yGGwaStBWQ/dBOgN84
+         P0ZQ83E08PyCfj35i8HqWk9t34LaRDdd2Ka9YbnCwWRNA+1y1ps7rxWdbmpHC0m+1MIM
+         CTSjb1rKvutO/KIk/qTpBvcfGGFgeuVg0gkd5frn65g2jOS/pb11cE4ZK+5KWAu6zlfK
+         VqQw==
+X-Forwarded-Encrypted: i=1; AKwUvBxW+SxijBhV3L1bh6nh6kNwk6BcHAK+BqpD0euqb16YCX4yTfSp/bLWGVyIAodx3Of+FNanN8eDvVaw@vger.kernel.org
+X-Gm-Message-State: AFuF++m83hTbkFDAN4vakKX+bbp4qoO1k2YHszrCRaJT1cl9WhDZxiqT
+	If3J6UyQ8UluxqjXKdXHJRq9cjKQH6xoHOVdKJn2g38+20+L2d4sLBuvNfS2V1UTwcIlfFjZyIU
+	tmizsf+4GgAPgQCwOMSa+3ngvnRthyDpjkEzHIUb/i8tcU8sWkK7kA9S5po3P3R9J
+X-Gm-Gg: AYBFou1hEWwjX0aTem7IzDPQeok/xlT8+p63ZL2SrKMDfzWSzNIUwt+fupNN1aEIHP3
+	f933Kf29zHsjVNKUU/AjgxBtSlnxbrSjmKZRlK9zPotindqRs04eXH9GGD8ibjg0vQYCk4MuZEU
+	SJn8QzC9MtiwQJcj9A5lvm8dU2JGKnzpY9KkN2qUOC7eVbNC3jeQ1jXbg+lGc/Qe43ZrSXBkHVh
+	u6/DzH+JNRx9PWir2ut25R50lLSyBDq5NCGE1c0fzO/jqztwUZm0fmfJhLa/9Y7guDHUewwAjhy
+	VAq6TOmfIouAikgfOfbTxFsBXGmdvde4BYvc26CbZiAp1JKllBhQTBOS47Taq4qjvbdo+KNZvos
+	LsXrDpKngYU9MeCBi1rK2FflpXaPTQX6IGn5nCN/D5CdXcnNc6lPwOz5ZNZzL
+X-Received: by 2002:a05:6a20:d70f:b0:3bf:6222:2e7e with SMTP id adf61e73a8af0-3db4039d992mr2900070637.4.1789370393464;
+        Mon, 14 Sep 2026 00:19:53 -0700 (PDT)
+X-Received: by 2002:a05:6a20:d70f:b0:3bf:6222:2e7e with SMTP id adf61e73a8af0-3db4039d992mr2900019637.4.1789370392985;
+        Mon, 14 Sep 2026 00:19:52 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bc03778c7sm14782238eec.9.2026.09.14.00.19.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 00:19:52 -0700 (PDT)
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+        Yu Zhang <yu.zhang@oss.qualcomm.com>, devicetree@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH 0/5] arm64: dts: qcom: nord: Add PCIe and WLAN support
+Date: Mon, 14 Sep 2026 15:19:39 +0800
+Message-ID: <20260914071944.164217-1-shengchao.guo@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDEwMyBTYWx0ZWRfXxqQrhSx2gkuT
+ A2ZeVbzSBfOq8xI5Tyhy8S/G2aN6VJtQtXHvW80XRwnOrpfLLP/TgswaJxXherNFalBthjcai86
+ fZXUdrz4NLtq/VKPC3eEEV5B9guNM9fIqW291IwWLYlR4sVNtt0AUsV5veUFSuw04mKMsySjLyH
+ hxT5rvVUaLWawFldKPdN5cJ8M0JxZtoB4WreXziqQTUYizqIgF5Az4Ws7NAvtpo0JwNdb/bTchy
+ A692W7PXul8s0gZT3OPjC3drF9Tzg3T8dgTV9AQo28Wku8jgySIkfo0IlWY6JoaoQ6DxRCCRHCO
+ ZIQ/CdGca1Lja56FB5paw8W3bMIFndaLtVxIK2VOUCMszDYMxwdVIrcH05t/aF5oYhIZbwL6EI5
+ qsHiCk/pdq99YDLZsb4DunB98UMPkX6bBVGPuTPlbMq09Q3nymFXwVXpUY+Ah7r8DFs2sJOUK/A
+ mojDMeuDmj1dPnBaydg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDEwMyBTYWx0ZWRfX/XQT2+3kotEV
+ 4WG5fVclX7nQ0VRNcFimOr/Hzt3bw7vbt9V5xcO56WRswpUjd+UFTDWXlnIOUtZHf9c/ku83teU
+ qQYUZUnSdcakgKPnL2mkqjYO7+IZxfA=
+X-Proofpoint-GUID: e7wMIjnjhVRZhHV3pZHVY0CfZqodXp8f
+X-Authority-Analysis: v=2.4 cv=OeUNnRTY c=1 sm=1 tr=0 ts=6aa7a01a cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=-CvtibuEYNIfTV4diQsA:9 a=zc0IvFSfCIW2DFIPzwfm:22
+X-Proofpoint-ORIG-GUID: e7wMIjnjhVRZhHV3pZHVY0CfZqodXp8f
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_02,2026-09-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 malwarescore=0 phishscore=0 bulkscore=0 spamscore=0
+ priorityscore=1501 suspectscore=0 impostorscore=0 adultscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140103
 
-"Jonathan Cameron" <jic23@kernel.org> writes:
+This series enables PCIe on the Qualcomm Nord SoC and brings up the WLAN
+modules on the two reference boards.
 
-> On Mon, 07 Sep 2026 16:51:04 +0200
-> Esben Haabendal <esben@geanix.com> wrote:
->
->> Adding support for sharing interrupt line with other device requires the
->> interrupt handler to handle runtime PM suspension properly, ignoring the
->> irq if the device is suspended (maybe even off). And while at it, we use
->> the PM reference to ensure we do not get suspended while processing an irq.
->>
->> In order to prevent the chip from raising irq while suspended (that is when
->> using fixed regulator, where suspend just means setting the device in
->> STANDBY mode), we disable all interrupt sources by clearing CTRL_REG4, and
->> then restores the value again when resuming.
->>
->> With that in place, it is safe to add the IRQF_SHARED flag.
->>
->> Keep in mind that the device by default is using push-pull for the irq pin,
->> which might require additional hardware design to allow interrupt sharing.
->>
->> Signed-off-by: Esben Haabendal <esben@geanix.com>
->> ---
->>  drivers/iio/accel/mma8452.c | 67 +++++++++++++++++++++++++++++++++++++++------
->>  1 file changed, 58 insertions(+), 9 deletions(-)
->>
->> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
->> index fda29df5d109..e521dca37f76 100644
->> --- a/drivers/iio/accel/mma8452.c
->> +++ b/drivers/iio/accel/mma8452.c
->> @@ -120,6 +120,7 @@
->>   * @sleep_val:			time in ms to sleep while waiting for drdy
->>   * @ctrl_reg1:			CTRL_REG1 register shadow value
->>   * @data_cfg:			DATA_CFG register shadow value
->> + * @ctrl_reg4:			CTRL_REG4 register value to restore on resume
->>   * @open_drain:			true for irq pin in open-drain mode
->>   */
->>  struct mma8452_data {
->> @@ -138,6 +139,7 @@ struct mma8452_data {
->>  	int sleep_val;
->>  	u8 ctrl_reg1;
->>  	u8 data_cfg;
->> +	u8 ctrl_reg4;
->>  	bool open_drain;
->>  };
->>
->> @@ -1083,15 +1085,21 @@ static irqreturn_t mma8452_interrupt(int irq, void *p)
->>  {
->>  	struct iio_dev *indio_dev = p;
->>  	struct mma8452_data *data = iio_priv(indio_dev);
->> +	struct device *dev = &data->client->dev;
->>  	irqreturn_t ret = IRQ_NONE;
->> +	int pm_status;
->>  	int src;
->>
->> +	pm_status = pm_runtime_get_if_active(dev);
->
-> Sashiko raises the question of what happens if you actually get an error
-> return from this. You may be deliberately ignoring those, but if
-> so add a comment.
+Nord has four PCIe controllers fed by a single quadfurcated Gen5 QMP
+multi-PHY.  The link topology (x16, x8+x8, x8+x4+x4 or x8+x4+x2+x2) is
+selected by firmware through a TCSR register that the PHY driver reads at
+probe time, so the DT only describes the PHY ports and hands the driver
+the TCSR handle.  Patch 1 adds the PHY, the four controllers and the PCIe
+SMMU; patches 2 and 3 enable them on the IQ10 Robotics Reference Design
+and the Ride Embedded board respectively, along with the per-port PERST#
+and WAKE# lines.
 
-Yes, sounds like a good idea.
+Patches 4 and 5 add the WCN7850 WLAN module sitting on PCIe2 on both
+boards.  The two boards power the module differently: the Ride Embedded
+connectivity adapter card derives the core rails from the module DBUs
+gated by PWR_CORE and PWR_CTRL1, whereas the RRD generates them with
+discrete on-board bucks behind a single core power enable.  Both are
+described as they are wired.
 
-> The fun race around tear down is worth considering in particular (see
-> sashiko comment).
+This depends on the Nord Gen5x16 multi-PHY driver support [1], without
+which the PHY does not probe.
 
-I will look into that. Although very unlikely, it does sound like a real
-issue that *could* occur.
+Dependencies:
+- PCIe and PHY: https://lore.kernel.org/all/20260909-nord-v3-0-b0a82721c547@oss.qualcomm.com/
+- DTS prerequisite: https://lore.kernel.org/all/20260904081619.593602-1-shengchao.guo@oss.qualcomm.com/
 
-Adding a boolean flag (remove_in_progress = true) to the mma8452_data
-struct, and set that in mma8452_remove() before disabling runtime pm
-seems like a KISS solution. Should we be returning IRQ_HANDLED or
-IRQ_NONE in that case?  There is no IRQ_MAYBE return value :D
+Krishna Chaitanya Chundru (3):
+  arm64: dts: qcom: nord: Add PCIe PHY and controller nodes
+  arm64: dts: qcom: nord-rrd: Enable PCIe controllers and PHY
+  arm64: dts: qcom: nord-ride-embedded: Enable PCIe controllers and PHY
 
->> +	if (pm_status == 0)
->> +		return IRQ_NONE; /* device is powered down */
->
->> @@ -1784,29 +1796,62 @@ static void mma8452_remove(struct i2c_client *client)
->>  #ifdef CONFIG_PM
->>  static int mma8452_runtime_suspend(struct device *dev)
->>  {
->> -	struct iio_dev *indio_dev = i2c_get_clientdata(to_i2c_client(dev));
->> +	struct i2c_client *client = to_i2c_client(dev);
->> +	struct iio_dev *indio_dev = i2c_get_clientdata(client);
->>  	struct mma8452_data *data = iio_priv(indio_dev);
->>  	int ret;
->>
->> -	scoped_guard(mutex, &data->lock)
->> -		ret = mma8452_standby(data);
->> +	guard(mutex)(&data->lock);
-> Mixing guards...
+Shawn Guo (1):
+  arm64: dts: qcom: nord-rrd: Add WCN7850 WLAN support
 
-Yes, I know. Resolving that turned out to be a bit more painful than I
-thought. I do have that resolved in the next series I keep on talking
-about. But distilling that as a separate patch for adding to this series
-turned out to be impossible, as it relies on some of the other work,
-like refactoring of the ACTIVE/STANDBY state handling (synchronization),
-and most importantly, the switch to using regmap caching to properly
-handle restoring of register values on resume.
+Yu Zhang(Yuriy) (1):
+  arm64: dts: qcom: nord-ride-embedded: Add WCN7850 WLAN support
 
-I am therefore hoping that we can find some way to agree on things here,
-and then properly resolve it in the next series...
+ arch/arm64/boot/dts/qcom/nord-embedded.dtsi   | 926 +++++++++++++++++-
+ .../boot/dts/qcom/nord-ride-embedded.dts      | 151 +++
+ arch/arm64/boot/dts/qcom/nord-rrd.dts         | 158 +++
+ arch/arm64/boot/dts/qcom/nord.dtsi            | 297 ++++++
+ 4 files changed, 1528 insertions(+), 4 deletions(-)
 
-For what it is worth, in this very specific case, the only guard used is
-first in the LIFO order, and will therefore be executed in exactly the
-right order on exit, as it will run after all the goto cleanup, just as
-the LIFO cleanup order requires.
+-- 
+2.43.0
 
-Obviously a fragile and undesirable way of doing error handling, but it
-will go away again in the next series where I will eliminate the goto
-error handling in mma8452_runtime_suspend().
-
->> +
->> +	ret = i2c_smbus_read_byte_data(client, MMA8452_CTRL_REG4);
->>  	if (ret < 0) {
->> -		dev_err(dev, "powering off device failed\n");
->> +		dev_warn(dev, "backing up CTRL_REG4 failed\n");
->>  		return -EAGAIN;
->> +	} else
->> +		data->ctrl_reg4 = ret;
->> +
->> +	ret = i2c_smbus_write_byte_data(client, MMA8452_CTRL_REG4, 0);
->> +	if (ret) {
->> +		dev_warn(dev, "disabling interrupt sources (CTRL_REG4) failed\n");
->> +		return -EAGAIN;
->> +	}
->> +
->> +	ret = mma8452_standby(data);
->> +	if (ret < 0) {
->> +		dev_err(dev, "transition to STANDBY mode failed\n");
->> +		ret = -EAGAIN;
->> +		goto out_restore_ctrl_reg4;
->
-> and goto is explicitly advised against in the docs in cleanup.h
-> You need to restructure the code to avoid that, potentially via
-> a helper function.
-
-I agree. See above.
-
->>  	}
->>
->> +	/*
->> +	 * Interrupt line should be deasserted now, so we just need ensure any
->> +	 * mid-flight irq is completed (will return IRQ_NONE due to
->> +	 * pm_status==0).
->> +	 */
->> +	if (client->irq)
->> +		synchronize_irq(client->irq);
->> +
->>  	ret = regulator_bulk_disable(ARRAY_SIZE(data->regs), data->regs);
->>  	if (ret) {
->>  		dev_err(dev, "failed to disable regulators\n");
->> -		return ret;
->> +		goto out_active;
->>  	}
->>
->>  	return 0;
->> +
->> +out_active:
->> +	if (mma8452_active(data))
->> +		dev_warn(dev, "failed to switch back to ACTIVE mode\n");
->> +out_restore_ctrl_reg4:
->> +	if (i2c_smbus_write_byte_data(client, MMA8452_CTRL_REG4, data->ctrl_reg4))
->> +		dev_warn(dev, "restoring CTRL_REG4 failed\n");
->> +	return ret;
->>  }
->>
->>  static int mma8452_runtime_resume(struct device *dev)
->>  {
->> -	struct iio_dev *indio_dev = i2c_get_clientdata(to_i2c_client(dev));
->> +	struct i2c_client *client = to_i2c_client(dev);
->> +	struct iio_dev *indio_dev = i2c_get_clientdata(client);
->>  	struct mma8452_data *data = iio_priv(indio_dev);
->>  	int ret, sleep_val;
->>
->> @@ -1820,6 +1865,10 @@ static int mma8452_runtime_resume(struct device *dev)
->>  	if (ret)
->>  		goto runtime_resume_failed;
->>
->> +	ret = i2c_smbus_write_byte_data(client, MMA8452_CTRL_REG4, data->ctrl_reg4);
->> +	if (ret)
->> +		goto runtime_resume_failed;
->> +
->>  	ret = mma8452_active(data);
->>  	if (ret < 0)
->>  		goto runtime_resume_failed;
->>
