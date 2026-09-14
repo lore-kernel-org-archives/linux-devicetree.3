@@ -1,135 +1,129 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C3C237CD2C;
-	Mon, 14 Sep 2026 08:45:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4569038B140
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 08:47:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789375508; cv=none; b=pwANKAsbqtYRzXMaJ7Mmeu8dyqycYsgm5Osx4fGu5Ax5n7giOYqwG7sXR7Co3fZJJxwNPTnja2QXuBTxAatZwzu4/yQmydhVOCKE/4kgVF9pXhT5k5grzksTQp9bOLwQfvlNJN8Mmw7MKgMkmjLZxlb8k6NdwHDRB8XgHWXF160=
+	t=1789375639; cv=none; b=om4ibYR6xjtKFGziG3GjE5CxPT5ZwmI6TXrs/nRNePm5Xpa3eyxcyZAAWKhZqxq4Ea2olRMUTqnz9yMWznZs7LzT0SyotZ94o2QjXthWyoUM1vlBf24D7husj775fB2pAF5H7zH4qUAOfYNcxtUJSK3RS9QX1Ukg+sAdGWewXCQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789375508; c=relaxed/simple;
-	bh=8QeRlCqAjJ8EwhdQNeaHy3qTLWL5VNSQvltXO9KH64c=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=IpshQHn+sM7Rd5NZlkhF//h2hrz4ykAqoUui8x/ulP7t+2NL3WQPzrcVjiWospxZvWtJ5Fb49HOZ8xtuCllLa9QGW+VIAnqga2Y9Q5dN1TU5tty7+9NsAuwDaiEUOkCLVWfDYlHEfskuf1O592m9afJvNEnBzjvBCTDUv9i1ArI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=oXxE50Xp; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	s=arc-20240116; t=1789375639; c=relaxed/simple;
+	bh=xSsTA1+Iig8rnrr46UdcEnmTqyfP4pnCIpRKT/lZv4s=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=htEsJhHYCgu9fBOHCGCdaaT90WRCUMQ5JzxTwfzaiKkreWWlO3ogfRWlp139fO/esbMr7+Qk419jTtbaYfhYktok78bgQCFWLzT1c3kl7ncP97SzC4V0wDwGZHFO1nAdm28PQuCLoMf+4iGlPH90oPTB2UbJBW9gMYp6waL8Lsw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=DWhDb4yh; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="oXxE50Xp"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=4Oga6kynJatjXzIzded2ZK3xQfzefluemmgp053xo+o=; b=oXxE50XpvUsc9+1sShx9MKy8G7
-	ZaK3mQH1NmG9vpdk8rY34b8HtMDKjYJXL5nPxqJmUFqe4yfqMZQg9PBytZfGeW8Osv7jZAZ8JQLyo
-	F7+QMS20iAEH4mBl8wul861TZSwnxh4nbeO8a7B7gCzuA0K65c+8n7IlH7kwIzActt3YtJWs07F3Z
-	ny/79WmP4Z4dcIyfO9PHDiTxMPLh4EsrRaZq3ct1UkXMP6xWuIXWQ6kePyP3XvDFC2ivmQ3x9IFiz
-	pVnQC5FPJkC2wn3fXqaxcGn0TE8uXghpn6chXIW1D95CAyKvS6k9G1G+paJlVC2Lob+NrRur1vAbk
-	I/ooo0AA==;
-Received: from sslproxy07.your-server.de ([78.47.199.104])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <nora.schiffer@ew.tq-group.com>)
-	id 1x61yd-000OVW-35;
-	Mon, 14 Sep 2026 10:23:47 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy07.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <nora.schiffer@ew.tq-group.com>)
-	id 1x61yd-000Ffh-0P;
-	Mon, 14 Sep 2026 10:23:47 +0200
-Message-ID: <31aace01ed19712b2984890adf61144a80cf7f42.camel@ew.tq-group.com>
-Subject: Re: [PATCH 2/7] dt-bindings: leds: pca995x: describe output-gain
- property
-From: Nora Schiffer <nora.schiffer@ew.tq-group.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>, lee@kernel.org
-Cc: sashiko-reviews@lists.linux.dev, linux-leds@vger.kernel.org, 
-	conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, 
-	linux@ew.tq-group.com
-Date: Mon, 14 Sep 2026 10:23:46 +0200
-In-Reply-To: <20260903-sophisticated-magic-fennec-7c8aeb@quoll>
-References: 
-	<6d3600f99c77c31166f0b6a5ccfb7f518b53c4c9.1788350618.git.nora.schiffer@ew.tq-group.com>
-	 <7f61e7e8781292450f920c49ef8853b802d76ecc.1788350618.git.nora.schiffer@ew.tq-group.com>
-	 <20260902123105.11B171F000E9@smtp.kernel.org>
-	 <630889485b7be21875c858c705e1c9d828973c67.camel@ew.tq-group.com>
-	 <20260903-sophisticated-magic-fennec-7c8aeb@quoll>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="DWhDb4yh"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd5462b69so10054085e9.1
+        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 01:47:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=flipper.net; s=google; t=1789375636; x=1789980436; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=BiGb6WiQWJmFrzRKswfmgWeyhlzVvwsEuctPqCr7l7Q=;
+        b=DWhDb4yhvopwPruP5Q5F7OZ55DAV/JpMAJOdPFaA24t6+9ac0cAKjYWxHgYAPhRgjj
+         yVmNB6lJeldStVpTsV9FM4DdXcSYwFA8NRH6jrWEzWvuQcOhHKPUm0/uab/+lAyTQjmh
+         N0B5HZd7SzlMxUvDfplwpTKwnyXwJspCFN3l8XZs8jqUhSwL2pgP338t2nmqLzF4eesJ
+         7NeSQhjXIp7yk3y0coMmcg7uW5uSDlZa08N3oNLqgHEOzrm2x0qWtpazwLUTfaIRHnSF
+         4M1UlyQUrsU+SyE047LTcUsXZPHpuVkBj+f88rRqHpAr4ODCmomaroxdZ890npZrpmP9
+         tifw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789375636; x=1789980436;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=BiGb6WiQWJmFrzRKswfmgWeyhlzVvwsEuctPqCr7l7Q=;
+        b=CbY9UN3mCiqjzxyIra9HUzQkwiMR43uxnAIc2s3LEQpXFl2KtXEAlkmQoWS/rGwGB0
+         BhF9Fi1U3GNRGj++HC+JgyNnVV/aW0I90E0oiKWGB/R6VEzrQy86HfwQ0mPlJbISgod3
+         qhhi59H569kaK/xWzKgJyNK/fGpjkvLnPzwWG1SDvCCuCVfnxsd0zNgrNkE+7ZBWR6ko
+         8P+jOe1oKVFItHIcMLrdxOkKXt+mFW8OY+oxXeXi5K36Hc+2l0wKUbcJR3Faouw1oTRx
+         K9rvMC5VQwblGtreMB7RlwWOBAgOy8VRrz6bTRukxKRDxNEpSeWZD2qo9Og6e0W6Svmr
+         AqqA==
+X-Gm-Message-State: AFuF++lRjCeImvGxZVvrkhHO8taOiFwHwLHZZWN6CS7LW4ZZ8+a8eKHg
+	tUG/bWT1aYwPVZe/Pzl7JiJbzYRW88CCxjzpbr8FWbUUOsNAk5OI3kV0Qc0mlsiLYRk=
+X-Gm-Gg: AYBFou0d/d92lhjUlRCmASKyU5uKomTTmLps/9U9PlpG1Yl1469VUS1VlGjel5rEpC5
+	1wR2sgXZ51iRbZFhoxoH8jrqliyGQNWa794rFcQDhS0g4HmR+ofJfcNLd1nWoO96iu4SsFcuJ5z
+	xFwDYdBN7wCjiVn16eEJwHLS/C2Blk52/CKQkDU9dkwpzCC6b3C1fK9EwobKNf+IU2/cjRUnb1F
+	usKD8JtyhnjbHaYY3xsNe7dYAA+KDl/eS8dHshgsa67ZtpHpRZj+Ldq/x92b3tuFYIDPmNWFvAQ
+	fSltKDB8yfv+hP1yS9IY9OI/rg9KTx2581xQyfDZoLyCoCItz4zaFkc2JeeJJh2ERABQk0EZN/P
+	qSG/HNO3B8xPtSGq3MUHojtisJASaObCRdxHn46NK5D3CdW+Gms8tWuZQuWSnte6AxcJXEibmvj
+	mIn2X5kl+Hpi9g/MKUHYXuO4QfclGv49++H7dwP1PpJRVuPR1IcYdlSmh68XsNEaTHJJh6Pv++z
+	hxXdRQweBe3dINs3Fpf
+X-Received: by 2002:a05:600c:19cf:b0:49c:ed94:cdd8 with SMTP id 5b1f17b1804b1-49e7a663d35mr22293075e9.6.1789375636366;
+        Mon, 14 Sep 2026 01:47:16 -0700 (PDT)
+Received: from alchark-surface.localdomain ([146.70.184.81])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e6cc11607sm199520805e9.12.2026.09.14.01.47.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 01:47:15 -0700 (PDT)
+From: Alexey Charkov <alchark@flipper.net>
+Date: Mon, 14 Sep 2026 12:47:15 +0400
+Subject: [PATCH] arm64: dts: rockchip: Set gpioN aliases on RK3576
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28123/Mon Sep 14 08:24:19 2026)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260914-rk3576-gpio-aliases-v1-1-ce5f86f9ae0e@flipper.net>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrB2IWqPxKuIipqOOLRoyKgXx7
+ k3r8i3+P0EoMAk0yQmBDhZel4gsTcBNdhkJ+RkNucq1MtkDw6soK42j5xXtm62QoHHKalXXfWk
+ GiKUPNPDnf22727L3M7ntt4Lr+gIIVSeBdwAAAA==
+X-Change-ID: 20260914-rk3576-gpio-aliases-9c0a6088b59f
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Alexey Charkov <alchark@flipper.net>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1143; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=xSsTA1+Iig8rnrr46UdcEnmTqyfP4pnCIpRKT/lZv4s=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWQt3zKl493uJBmRTYsfxiasex+ntehC9OljXSWFERvsA
+ mfd/1JyoWMiC4MYF4OlmCLL3G9LbKca8c3a5eHxFWYOKxPIEGmRBgYgYGHgy03MKzXSMdIz1TbU
+ MzTSMdYxYuDiFICpblZkZPgc/9Zs9pLzqxY/nhGV8HvV+a4TP/0nLDXQdtWPW3FtodMhhv+lMQ1
+ 7JS9MP6Y6Ke9bbihns0MOn+PB0x+cbJRm7zq7/DcnAA==
+X-Developer-Key: i=alchark@flipper.net; a=openpgp;
+ fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-On Thu, 2026-09-03 at 15:09 +0200, Krzysztof Kozlowski wrote:
-> On Wed, Sep 02, 2026 at 03:10:09PM +0200, Nora Schiffer wrote:
-> > On Wed, 2026-09-02 at 12:31 +0000, sashiko-bot@kernel.org wrote:
-> > > Thank you for your contribution! Sashiko AI review found 3 potential =
-issue(s) to consider:
-> > > - [Low] The custom, device-specific property `output-gain` lacks a ma=
-ndatory vendor prefix.
-> >=20
-> > Probably makes sense to add the vendor prefix, will do in v2.
-> >=20
-> > > - [Low] The `output-gain` property incorrectly exposes a raw hardware=
- register value directly to the Device Tree instead of describing physical =
-units.
-> >=20
-> > According to the datasheet, the LED current is calculated as follows:
-> >=20
-> >     Iled =3D output_gain * 900mV / Rext / 4
-> >=20
-> > If we want to fully describe the output gain using physical units, some=
-thing
-> > like output-current-microamps and external-resistor-ohms would work. Th=
-ere
-> > wouldn't be a meaningful default for these properties to describe in th=
-e binding
-> > docs however, which is possible for "output-gain" (as the driver just s=
-ets that
-> > to 127.)
->=20
-> Output current is already there, no? led-max-microamp? So basically you
-> would be re-describing it... although I understand that for your case
-> you need two properties (also the resistor) to calculate the value to pro=
-gram.
+With no alias, the OS is free to number the GPIO chips arbitrarily, such
+as in probe order, which is what Linux kernel's rockchip_gpio_probe() does
+if its of_alias_get_id(np, "gpio") fails.
 
-One other idea I had was to treat the output gain as a single value, but ha=
-ndle
-the constant factor in the driver, so it defines just the Iled * Rext term =
-with
-unit microvolts. This could be used in the Device Tree as follows:
+This results in GPIO chip numbers arbitrarily shuffled in userspace,
+causing confusion and pain.
 
-    /* Configure an output current of 15000uA for Rext =3D 3000Ohm */
-    nxp,output-gain-microvolts =3D <(15000 * 3000)>;
+Set gpioN aliases in the SoC .dtsi, just like other SoC versions do.
 
-Two notes regarding this approach:
+Signed-off-by: Alexey Charkov <alchark@flipper.net>
+---
+ arch/arm64/boot/dts/rockchip/rk3576.dtsi | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-- These "microvolts" do not correspond to any actual voltage, but the full
-  "microamps-ohms" seems very verbose.
-- It is unclear to me whether using physical units actually makes this bind=
-ing
-  more generic. I have not worked with other LED drivers, so I don't know h=
-ow
-  common the concept of a gain that relates the current with an external
-  resistor is.
+diff --git a/arch/arm64/boot/dts/rockchip/rk3576.dtsi b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+index d418bfc04097..e87ace5d05e6 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3576.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+@@ -21,6 +21,11 @@ / {
+ 	#size-cells = <2>;
+ 
+ 	aliases {
++		gpio0 = &gpio0;
++		gpio1 = &gpio1;
++		gpio2 = &gpio2;
++		gpio3 = &gpio3;
++		gpio4 = &gpio4;
+ 		i2c0 = &i2c0;
+ 		i2c1 = &i2c1;
+ 		i2c2 = &i2c2;
 
+---
+base-commit: 68142f986ff04b2b70b31db00f719bf690f64a9a
+change-id: 20260914-rk3576-gpio-aliases-9c0a6088b59f
 
-Opinions?
+Best regards,
+--  
+Alexey Charkov <alchark@flipper.net>
 
-Best,
-Nora
-
-
---=20
-TQ-Systems GmbH | M=C3=BChlstra=C3=9Fe 2, Gut Delling | 82229 Seefeld, Germ=
-any
-Amtsgericht M=C3=BCnchen, HRB 105018
-Gesch=C3=A4ftsf=C3=BChrer: Detlef Schneider, R=C3=BCdiger Stahl, Stefan Sch=
-neider
-https://www.tq-group.com/
