@@ -1,880 +1,245 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE40149EC71;
-	Mon, 14 Sep 2026 20:24:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A96C49EC79;
+	Mon, 14 Sep 2026 20:35:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789417498; cv=none; b=jPWkHC+aYjnAfAddpIod7m2yMIfxCgTTCU91dTUjJp/hRn5zLaYPuh6SufCPe1L/eo8E86qQtQtCGEKNVWA/rhAxxautzNQhOfNsMnB0m8Dz8zVL1F2FJGXXg72icpgfpqvQEP7r/AuhZJzChafs0IkHGc5biLU61zNnD7Zl6yA=
+	t=1789418114; cv=none; b=PforB5zYewsQ+vEkxp+F51rstgZar8DvvHu0EuShRurzU0xDNVatqErpczu9w1mqHgr+AoW3bSD1Ll9l37DgtB1LUBgMi081LVgP4oDTSrDiWEoBvVAxHvZF9xOurXDMXhdkeskA/qS9lOvLxgCX74UvPBnD6ljKudF1c1w/PJ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789417498; c=relaxed/simple;
-	bh=LbzhcDmPFD3lPNZ6b3m1tq7HziJgSsGa6ZxT9yz/xcI=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=aKapSG3o7Wl1wcEqiIO3AWvXEXHzmVxeZcZjjYsOVkh+S8qRifkU4OZQBKnEoCQsTkUIrM+e/7VKmpOCPl1OGlm1cjnySliD6xSB3ecAO+pg39gkExJTn3IyoPZVV9D6b6wtHTD10oWMWzPWHDT7DKSI+KQGJ1+LzaElMac30DI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OP28RTtT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789418114; c=relaxed/simple;
+	bh=D/7aAlffi/pUMrrlnc+Op3VG7O0x3VaPsP87IfGYOn0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=tp4Id5g9CcptaFZ+Ydy1MhDHSkiRHOsl3qEgvrbrQazYbr+T0Mc+OuM1yVJH2DGicFcKybBu4EafsdbXQGeo/Z1heBNUhoRDahAvrn39+L6UkXzD07a39o2+SefiW82zhch47hWFQk38Jh94TtBU0nJJNbWC8FwFzES9lMm0vzY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T45z3Go1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OP28RTtT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09CF11F0089B;
-	Mon, 14 Sep 2026 20:24:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T45z3Go1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 805561F000FF;
+	Mon, 14 Sep 2026 20:35:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789417489;
-	bh=OMMuydY+HeFbYXxtpaEu5EzSRSgh0D+mnFhpMS3MlYc=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=OP28RTtTZbrWRtWJ6KNB7eDOWxxWj0whdphMwls2X7V8eD+p6FUeznbEXk+AOb0nm
-	 TJxbcfpqlk1J1uXjjRSx35aKDZebcXVu32skRn5RF4ESczR38UtaVT/UubGZC02akT
-	 qF82YQ3hAhLC9zW788NWNe0KRygv0UEChdWXkTQpfrB7UkxhF76aXC10hMEbhdGdI2
-	 FWIPBh2ZZFYLE/RVvqSrddisVzlJH7isjLIyxdgddvuiMPTgNeF5EGrMY0ZmODhcPZ
-	 afnk3jm9gyNAS4hIQE5/EZmb4py2cguCsYjJ8/4oVbxYE/hW/XyrEC0Y60Gimf1z9X
-	 pdisggaqfcIcg==
-Subject: Re: [PATCH net-next v5 07/11] net: pcs: xpcs: add Rockchip RK3568
- platform glue driver
-From: netdev-bot+sashiko@kernel.org
-To: coiaprant@gmail.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, heiko@sntech.de, vkoul@kernel.org,
- maxime.chevallier@bootlin.com, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, prabhakar.mahadev-lad.rj@bp.renesas.com,
- romain.gantois@bootlin.com, hkallweit1@gmail.com, neil.armstrong@linaro.org,
- linux@armlinux.org.uk, shawn.lin@rock-chips.com, david@ixit.cz,
- netdev@vger.kernel.org, linux-rockchip@lists.infradead.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-renesas-soc@vger.kernel.org
-Date: Mon, 14 Sep 2026 20:24:47 +0000
-Message-ID: <178941748759.22033.1861925605437398903@kernel.org>
-In-Reply-To: <20260913185849.907479-8-coiaprant@gmail.com>
-References: <20260913185849.907479-8-coiaprant@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1789418111;
+	bh=0Va/UXa6Zpw0RJqM1GLVluXWbIoh/Xdf2sZht+OTDxs=;
+	h=From:Subject:Date:To:Cc;
+	b=T45z3Go1VFNigCVkkSY6QJO5dRIUACw00KaZZAntambaTpIwFJikzWrUzjN/pICZA
+	 WpCJoJwjUHX4GaUQmPWXDFCH8ewry2WBCLrmW3sz9KGot3lXQurdqNDO3SkgtUzeE6
+	 LaHYnkbduuCvDTsUEuQg3PoGQf/+6w77g2lPrxEFBP50FQf1AkcmIE2/wrVbz5P+ap
+	 tyDYtDSv32H50D2d1Wa0y36HEkCAgRfbJ2f8ss7X6HOctwiinnT3DE70kJ5ZCSXU1e
+	 hzhY2HqZWicjLI95VDKZfISRGHh8RuiqgPxQ9/qu38NpCuuH4Fxv5GZYrJc8m8QyoD
+	 Tc6yzne8boUdQ==
+From: Linus Walleij <linusw@kernel.org>
+Subject: [PATCH net-next v14 0/4] net: dsa: microchip: Add support for
+ KSZ8995XA/KS8995XA
+Date: Mon, 14 Sep 2026 22:35:02 +0200
+Message-Id: <20260914-ks8995-to-ksz8-v14-0-3d72692b3c97@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23Sz3KcMAwG8FfJcA4dybZsK6e+RycHbMsJSYbNA
+ NnZNrPvXkMOS6vc+Pf7BOL77BaZR1m6h7vPbpbzuIynqZ2gu7/r8vMwPUk/lnahM2A8EHD/ukR
+ m6tdTO/oTe6RqK+doAtauofdZ6njZE391k6z9JJe1e/y6s3ykF8nrlrc9+zwu62n+vQ8/4y6+x
+ qD/f8wZe+gDFJDqhoGq+/kq8yRvP07z055+NgdvjPKmeQpoMpTMEkh5e/R6vm0+k4XqCTlyVd7
+ dvAervGtekNCxVIMSlKejd8pT8xzTIMmReK/f3x99VN43Xxgbt1Jy1j7cfPhmfmjeDBWkbd/RE
+ JWPNx8tKh+brwVLSiYFL9rzzTPo/XPzscSINDCmoj3CMUAvAGFrkA1sLEvypP8g4jGBdcLWQRB
+ wDnEg4qITDiVk1EvAvYXZOmMKlGBEJ9hjgq4Rbj20JiT0xUL7kH8SrtfrX6moVwfSAwAA
+X-Change-ID: 20260509-ks8995-to-ksz8-15f3f9c8271f
+To: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com, 
+ Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>, 
+ Simon Horman <horms@kernel.org>, Russell King <linux@armlinux.org.uk>, 
+ Nicolai Buchwitz <nb@tipi-net.de>
+Cc: netdev@vger.kernel.org, Woojung Huh <Woojung.Huh@microchip.com>, 
+ devicetree@vger.kernel.org, Linus Walleij <linusw@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
 
-Thank you for your contribution! Sashiko AI review found 6 potential
-issue(s) to consider:
+This series breaks with the dated attempt to polish the old
+KS8995 driver, and instead implement support for the KS8995XA
+in the KSZ driver, and after that delete the old KS8995 driver.
 
-Critical: 0 · High: 1 · Medium: 3 · Low: 2
+The hardware clearly has the same ancestry, the KSZ8995XA is
+just a rebrand of the much older Micrel KX8995XA switch.
 
-- [High] Incorrect MMD write remapping for MII vendor registers breaks
-  configuration for ports 1, 2, and 3.
-- [Medium] The patch silently re-packages the pre-existing generic
-  Synopsys XPCS platform driver.
-- [Medium] xpcs_rk_init_clk() (drivers/net/pcs/pcs-xpcs-rk.c:361-362)
-  computes `pxpcs->eee_mult_fact = DIV_ROUND_CLOSEST(100 *…
-- [Medium] Acquiring `device_lock()` of another device from within a
-  probe path causes a lockdep warning (recursive locking).
-- [Low] Concern that the newly exported xpcs_rk_create()
-  (include/linux/pcs/pcs-xpcs-rk.h) has no in-tree caller and no Kconfig…
-- [Low] The rockchip,rk3568-xpcs binding lists `phys` and `phy-names` in
-  its `required:` list…
+The old driver identified the shared 0x95/0x0 ID as KS8995MA, but
+this ID cannot distinguish MA from XA. No KS8995MA users are known,
+and KS8995E has no documented SPI management interface. Neither
+variant has been verified with the replacement driver.
 
---
+Add new compatibles, add special code paths for the KSZ8995XA,
+including support for its two-level DCB priority model, and add a
+new tagger for the special front tag found in the KSZ8995XA.
 
-net: pcs: xpcs: add Rockchip RK3568 platform glue driver
+The patches, including the per-port PHY reset polling, were tested
+with the Actiontec MI424WR rev D (which has the KS8995XA) and
+OpenWrt as userspace.
 
-Adds a platform glue driver for the DesignWare XPCS block found on RK3568,
-exposing the APB3-mapped XPCS registers as a virtual MDIO bus with per-port
-MMD remapping so the generic pcs-xpcs core can create a phylink_pcs.  Also
-adds new Kconfig symbols for the generic and Rockchip XPCS glue and an
-exported xpcs_rk_create() helper for MAC drivers.
+Assisted-by: LLM
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+---
+Changes in v14:
+- Add a KS8995 flow dissector using the four-byte in-band RX tag length,
+  keeping the eight-byte TX headroom reservation separate.
+- Link to v13: https://patch.msgid.link/20260913-ks8995-to-ksz8-v13-0-327b16d309eb@kernel.org
 
-Link: https://dl.radxa.com/rock3/docs/hw/datasheet/Rockchip%20RK3568%20TRM%20Part2%20V1.1-20210301.pdf (Page 2078)
+Changes in v13:
+- Limit XA apptrust to one selector at a time, since PCP and DSCP results
+  are ORed rather than ordered; reject both-enabled readback as well.
+- Use the XA fast-age control instead of changing the 802.1p priority
+  threshold, and wait for its 800 us cycle before restoring normal ageing.
+- Link to v12: https://patch.msgid.link/20260911-ks8995-to-ksz8-v12-0-5c3422d0d72e@kernel.org
 
-> diff --git a/drivers/net/pcs/Kconfig b/drivers/net/pcs/Kconfig
-> index e417fd66f660a..080538f193d59 100644
-> --- a/drivers/net/pcs/Kconfig
-> +++ b/drivers/net/pcs/Kconfig
-> @@ -12,6 +12,31 @@ config PCS_XPCS
->  	  This module provides a driver and helper functions for Synopsys
->  	  DesignWare XPCS controllers.
->  
-> +if PCS_XPCS
-> +
-> +config PCS_XPCS_PLATFORM
-> +	tristate "Generic XPCS controller support"
-> +	default PCS_XPCS
-> +	help
-> +	  Generic DWXPCS driver for platforms that don't require any
-> +	  platform specific code to function or is using platform
-> +	  data for setup.
-> +
-> +	  If you have a controller with this interface, say Y or M here.
-> +
-> +config PCS_XPCS_ROCKCHIP
-> +	tristate "Rockchip XPCS controller support"
-> +	default ARCH_ROCKCHIP
-> +	depends on OF && (ARCH_ROCKCHIP || COMPILE_TEST)
-> +	depends on GENERIC_PHY || COMPILE_TEST
-> +	depends on PM_GENERIC_DOMAINS || COMPILE_TEST
-> +	help
-> +	  Support for XPCS controller on Rockchip RK356x SoC.
-> +
-> +	  If you have a Rockchip SoC with this interface, say Y or M here.
-> +
-> +endif # PCS_XPCS
-> +
->  config PCS_LYNX
->  	tristate
->  	help
-> diff --git a/drivers/net/pcs/Makefile b/drivers/net/pcs/Makefile
-> index 4f7920618b900..f9f6cf2578d72 100644
-> --- a/drivers/net/pcs/Makefile
-> +++ b/drivers/net/pcs/Makefile
-> @@ -1,10 +1,11 @@
->  # SPDX-License-Identifier: GPL-2.0
->  # Makefile for Linux PCS drivers
->  
-> -pcs_xpcs-$(CONFIG_PCS_XPCS)	:= pcs-xpcs.o pcs-xpcs-plat.o \
-> -				   pcs-xpcs-nxp.o pcs-xpcs-wx.o
-> +pcs_xpcs-$(CONFIG_PCS_XPCS)	:= pcs-xpcs.o pcs-xpcs-nxp.o pcs-xpcs-wx.o
->  
->  obj-$(CONFIG_PCS_XPCS)		+= pcs_xpcs.o
-> +obj-$(CONFIG_PCS_XPCS_PLATFORM) += pcs-xpcs-plat.o
-> +obj-$(CONFIG_PCS_XPCS_ROCKCHIP) += pcs-xpcs-rk.o
+Changes in v12:
+- Program both KSZ8995XA port tag-control bits together, clearing the
+  opposite setting so stale bootloader configuration cannot leave both on.
+- Handle KS8995 receive tags in VLAN metadata as well as in-band,
+  validating the source-port bits before deciding whether to untag.
+- Reserve eight bytes of KS8995 transmit headroom for the switch tag
+  and a hardware-accelerated VLAN tag, avoiding an extra head expansion.
+- Link to v11: https://patch.msgid.link/20260909-ks8995-to-ksz8-v11-0-0e04411a559d@kernel.org
 
-[Severity: Medium]
-Should this repackaging of the pre-existing generic platform glue be a
-separate patch, or at least be described in the commit message?
+Changes in v11:
+- Drop KSZ8995XA from the three-port binding exception so ports 3 and
+  4 receive generic DSA port validation.
+- Reject invalid KS8995 receive port masks before ilog2() so plain
+  802.1Q frames are dropped safely.
+- Propagate KSZ8995XA PHY reset assertion errors instead of treating
+  a failed write as a completed reset.
+- Do not advertise legacy VLAN behavior for KSZ8995XA, preserving genuine
+  ingress VLAN tags through the DSA receive path.
+- Link to v10: https://patch.msgid.link/20260908-ks8995-to-ksz8-v10-0-7379239eb65f@kernel.org
 
-pcs-xpcs-plat.o is moved out of the pcs_xpcs composite object and built as
-its own module, and the new PCS_XPCS_PLATFORM tristate makes the snps,dw-xpcs
-platform glue user-selectable where it was previously unconditional under
-PCS_XPCS.  So the snps,dw-xpcs platform driver ships in pcs-xpcs-plat.ko
-instead of pcs_xpcs.ko after this patch.
+Changes in v10:
+- Wait for the KSZ8995XA per-port PHY reset bits to clear before
+  continuing setup; verified to work on Actiontec MI424WR rev D
+  hardware.
+- Drop the unreachable KSZ8995XA VLAN filtering check because the
+  restricted switch operations do not expose that callback.
+- Add KSZ8995XA to the binding's Ethernet-port schema exception list.
+- Convert big-endian KS8995 transmit tag fields to host byte order
+  before logging them.
+- Align the KSZ8995XA SPI ID with its DT compatible to restore module
+  autoloading and avoid the SPI registration warning.
+- Link to v9: https://patch.msgid.link/20260906-ks8995-to-ksz8-v9-0-8d8815a91bd8@kernel.org
 
-The commit message only describes adding the Rockchip glue driver and does
-not mention this change to existing functionality.  Could the Makefile and
-Kconfig refactor be split out with its own rationale?
+Changes in v9:
+- Fold the legacy Micrel compatibles into KSZ8995XA support and use an
+  exact tristate dependency to avoid probe races and bisect gaps.
+- Always prepend a distinct KS8995 switch tag to preserve existing VLAN
+  headers and avoid unsafe MAC-header access on direct transmit paths.
+- Rate-limit KS8995 receive untagging errors to avoid log flooding.
+- Link to v8: https://patch.msgid.link/20260831-ks8995-to-ksz8-v8-0-fd1dbb2b76e8@kernel.org
 
-> diff --git a/drivers/net/pcs/pcs-xpcs-rk.c b/drivers/net/pcs/pcs-xpcs-rk.c
-> new file mode 100644
-> index 0000000000000..7fd1408c044cc
-> --- /dev/null
-> +++ b/drivers/net/pcs/pcs-xpcs-rk.c
-> @@ -0,0 +1,559 @@
+Changes in v8:
+- Add DCB support for the KSZ8995XA two-level priority model and set its
+  internal priority map count to two.
+- Initialize the KSZ8995XA per-port default tags to VID 0 so the tagger can
+  distinguish originally untagged packets from VLAN-tagged frames.
+- Push non-802.1Q hardware-accelerated VLAN tags into the packet before
+  adding the KS8995 tag, so they cannot displace the switch tag from its
+  required offset 12.
+- Account for the discrepancy between the documented and observed
+  KSZ8995XA MTU behavior. Its packet-size control bits use the same
+  polarity as the other KSZ8 switches, while using the opposite polarity
+  documented in the manual makes the switch hang on big packets.
+- Rebased on v7.3-rc1
+- Link to v7: https://patch.msgid.link/20260704-ks8995-to-ksz8-v7-0-2af0eaa545a8@kernel.org
 
-[ ... ]
+Changes in v7:
+- Rebased on v7.2-rc1
+- Rebased on top of Bastiens cleanups.
+- Rebased and reworked on top of my patch changing the SKB ownership
+  model in the taggers.
+- Drop bogus reset routine, keep per-port reset but use the right
+  defines.
+- Properly implement the 2way queue split support (low/hi prio)
+- Drop bogus surplus ops assignment.
+- Link to v6: https://patch.msgid.link/20260608-ks8995-to-ksz8-v6-0-d91eb43edcc5@kernel.org
 
-> +static int xpcs_rk_serdes_phy_init(struct dw_xpcs_rk *pxpcs)
-> +{
-> +	struct device *dev = &pxpcs->pdev->dev;
-> +
-> +	pxpcs->serdes_phy = devm_phy_get(dev, "serdes");
-> +	if (IS_ERR(pxpcs->serdes_phy))
-> +		return dev_err_probe(dev, PTR_ERR(pxpcs->serdes_phy),
-> +					"Failed to get SerDes PHY\n");
-> +
-> +	return 0;
-> +}
+Changes in v6:
+- Provide a prompt along with the transition symbol NET_DSA_KS8995
+  so that oldconfig works.
+- Clarify in commit message that the platform data probe path is
+  unused in the kernel and it is fine to delete this mechanism.
+- Link to v5: https://patch.msgid.link/20260604-ks8995-to-ksz8-v5-0-98baeb45e665@kernel.org
 
-[Severity: Low]
-xpcs_rk_serdes_phy_init() treats the "serdes" phy as mandatory and fails
-probe when it cannot be resolved, and the binding added later in this series
-(Documentation/devicetree/bindings/net/pcs/rockchip,rk3568-xpcs.yaml) lists
-phys and phy-names under required:
+Changes in v5:
+- Rebase on net-next again to be sure we apply.
+- Fix the codepath where DCB was set up per-port, damaging KS8995XA
+  port registers.
+- Fix up the transitional symbol NET_DSA_KS8995 to depend on
+  SPI and select both NET_DSA_MICROCHIP_KSZ_COMMON and
+  NET_DSA_MICROCHIP_KSZ_SPI.
+- Link to v4: https://patch.msgid.link/20260603-ks8995-to-ksz8-v4-0-e15149ef21e7@kernel.org
 
-  required:
-    - compatible
-    - reg
-    ...
-    - phys
-    - phy-names
-    - power-domains
+Changes in v4:
+- Create a stub symbol for NET_DSA_KS8995 to phase over users to
+  the new driver.
+- Link to v3: https://patch.msgid.link/20260526-ks8995-to-ksz8-v3-0-c530f651989f@kernel.org
 
-The SoC node added in arch/arm64/boot/dts/rockchip/rk3568.dtsi only has:
+Changes in v3:
+- Rebase on net-next again, moving target!
+- Fix a netdev_info() print in the tagger to be netdev_debug()
+- Add net/dsa/tag_ks8995.c to MAINTAINERS
+- Link to v2: https://patch.msgid.link/20260522-ks8995-to-ksz8-v2-0-5712c0dc9e75@kernel.org
 
-	xpcs: ethernet-pcs@fda00000 {
-		compatible = "rockchip,rk3568-xpcs";
-		#address-cells = <1>;
-		#size-cells = <0>;
-		reg = <0x0 0xfda00000 0x0 0x200000>;
-		clocks = <&cru PCLK_XPCS>, <&cru CLK_XPCS_EEE>;
-		clock-names = "csr", "eee";
-		power-domains = <&power RK3568_PD_PIPE>;
-		status = "disabled";
+Changes in v2:
+- Avoid trying to configure TOS priority settings (DCB) on the KSZ8995XA.
+  It does have some support for this, but let's add that later.
+- Pick up Krzysztof's ACK on the new DT bindings.
+- Reset the KSZ8995XA by disabling and enabling the switch like the old
+  driver does.
+- Move mutually exclusive Kconfig over to the patch introducing the
+  old Micrel compatibles to the Microchip ksz_spi driver.
+  (this complaint from Sashiko.)
+- Use __be16 instead of u16 when casting into the SKB in the tagger
+  (this complaint from Sashiko.)
+- Do not modify the hdr->h_vlan_TCI if no hardware accelerated tag
+  is detected, it would get nullified. Use whatever the Linux network stack
+  assigned to TCI there.
+  (this complaint from Sashiko.)
+- Avoid dereference of NULL in debug prints in the tagger.
+  (this complaint from Sashiko.)
+- Ignored comment: Sashiko complains about ilog2(0) being potentially
+  undefined but that is clearly defined as 0 in the Linux kernel.
+- Link to v1: https://patch.msgid.link/20260516-ks8995-to-ksz8-v1-0-70d0ef4aa5f4@kernel.org
 
-CHECK_DTBS validates nodes regardless of status, so does every RK3568 DTB
-now report missing phys/phy-names for this node?  Only
-rk3568-photonicat.dts adds them, so a board that just flips this node to
-status = "okay" would also fail probe with "Failed to get SerDes PHY".
+---
+Linus Walleij (4):
+      dt-bindings: net: dsa: microchip: Add KSZ8995XA
+      net: dsa: tag_ks8995: Add the KS8995 tag handling
+      net: dsa: microchip: Support Microchip KSZ8995XA / KS8995XA
+      net: dsa: ks8995: Delete surplus driver
 
-Should the SoC node carry phys/phy-names, or should the binding not mark
-them required at the SoC level?
+ .../devicetree/bindings/net/dsa/microchip,ksz.yaml |   1 +
+ MAINTAINERS                                        |   1 +
+ drivers/net/dsa/Kconfig                            |   9 +-
+ drivers/net/dsa/Makefile                           |   1 -
+ drivers/net/dsa/ks8995.c                           | 857 ---------------------
+ drivers/net/dsa/microchip/Kconfig                  |   1 +
+ drivers/net/dsa/microchip/ksz8.c                   | 252 +++++-
+ drivers/net/dsa/microchip/ksz8.h                   |   2 +
+ drivers/net/dsa/microchip/ksz8_reg.h               |   2 +
+ drivers/net/dsa/microchip/ksz_common.c             |  53 +-
+ drivers/net/dsa/microchip/ksz_common.h             |  11 +-
+ drivers/net/dsa/microchip/ksz_dcb.c                |  68 +-
+ drivers/net/dsa/microchip/ksz_spi.c                |  33 +-
+ include/linux/platform_data/microchip-ksz.h        |   1 +
+ include/net/dsa.h                                  |   2 +
+ net/dsa/Kconfig                                    |   6 +
+ net/dsa/Makefile                                   |   1 +
+ net/dsa/tag_ks8995.c                               | 173 +++++
+ 18 files changed, 542 insertions(+), 932 deletions(-)
+---
+base-commit: 17d3afadf539c93def8106bbb83c88274bdc7ab1
+change-id: 20260509-ks8995-to-ksz8-15f3f9c8271f
 
-[ ... ]
+Best regards,
+--  
+Linus Walleij <linusw@kernel.org>
 
-> +static int xpcs_rk_init_clk(struct dw_xpcs_rk *pxpcs)
-> +{
-[ ... ]
-> +	/*
-> +	 * Compute the multiplier for the EEE clock so that
-> +	 * clk_eee_period * (mult_fact + 1) falls within 80..120 ns.
-> +	 *
-> +	 * On RK3568, clk_xpcs_eee is muxed between gpll200 (200 MHz, 5 ns)
-> +	 * and cpll125 (125 MHz, 8 ns), selected by CRU_CLKSEL_CON29 bit 13.
-> +	 * The reset value is 0 (200 MHz), but derive the value at runtime to
-> +	 * stay correct if the mux is changed by a board.
-> +	 */
-> +	pxpcs->eee_mult_fact = DIV_ROUND_CLOSEST(100 * clk_get_rate(pxpcs->eee_clk),
-> +						 1000000000UL) - 1;
-
-[Severity: Medium]
-Can this value overflow the 4-bit register field it ends up in?
-
-For the reset configuration named in the comment (200 MHz, 5 ns) this
-computes 100 * 200000000 / 1000000000 - 1 = 19.  That is passed on
-unchecked:
-
-	xpcs_config_eee_mult_fact(xpcs, pxpcs->eee_mult_fact);
-
-and the core programs it in xpcs_config_eee():
-
-	drivers/net/pcs/pcs-xpcs.c:
-		      FIELD_PREP(DW_VR_MII_EEE_MULT_FACT_100NS,
-				 xpcs->eee_mult_fact);
-
-with
-
-	drivers/net/pcs/pcs-xpcs.h:
-	#define DW_VR_MII_EEE_MULT_FACT_100NS		GENMASK(11, 8)
-
-FIELD_PREP on a runtime value does no range check, so 19 (0x13) becomes 3.
-The hardware is then told the 100 ns reference is 4 EEE clock periods
-(20 ns) rather than the 80..120 ns the comment and the kernel-doc of
-xpcs_config_eee_mult_fact() require, which affects all derived LPI timers
-once EEE is enabled.  Since the field caps the count at 16 periods, is 15
-the only representable value for a 5 ns clock, and should this be clamped?
-
-Two more things about the same expression:
-
-- 100 * clk_get_rate() is evaluated in unsigned long, so on 32-bit builds
-  100 * 200000000 wraps to 2820130816 and yields mult_fact 2.  Would
-  mul_u64_u32_div() or a u64 intermediate be better here?
-
-- If clk_get_rate() returns 0, 0 - 1 stored in a u8 becomes 255, giving
-  field value 15.  Is a zero rate worth rejecting?
-
-[ ... ]
-
-> @@ -0,0 +1,559 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Rockchip XPCS platform device driver
-> + *
-> + * Based on the Synopsys DesignWare XPCS platform driver.
-> + * Copyright (C) 2024 Serge Semin
-> + *
-> + * Adapted for Rockchip SoCs, with reference to the Rockchip OEM driver.
-> + * Copyright (C) 2026 Coia Prant
-> + */
-> +
-> +#include <linux/atomic.h>
-> +#include <linux/bitfield.h>
-> +#include <linux/clk.h>
-> +#include <linux/device.h>
-> +#include <linux/io.h>
-> +#include <linux/iopoll.h>
-> +#include <linux/math.h>
-> +#include <linux/mdio.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/of_platform.h>
-> +#include <linux/pcs/pcs-xpcs-rk.h>
-> +#include <linux/phy.h>
-> +#include <linux/phy/phy.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/pm_domain.h>
-> +#include <linux/pm_runtime.h>
-> +#include <linux/property.h>
-> +#include <linux/sizes.h>
-> +
-> +#include "pcs-xpcs.h"
-> +
-> +struct dw_xpcs_rk {
-> +	struct platform_device *pdev;
-> +	struct mii_bus *bus;
-> +	void __iomem *reg_base;
-> +	struct phy *serdes_phy;
-> +	struct clk *csr_clk;
-> +	struct clk *eee_clk;
-> +	u8 eee_mult_fact;
-> +};
-> +
-> +static ptrdiff_t xpcs_rk_addr_format(int dev, int reg)
-> +{
-> +	return FIELD_PREP(0x70000, dev) | FIELD_PREP(0xffff, reg);
-> +}
-> +
-> +static int xpcs_rk_read_reg(struct dw_xpcs_rk *pxpcs, int dev, int reg)
-> +{
-> +	ptrdiff_t csr;
-> +	int ret;
-> +
-> +	csr = xpcs_rk_addr_format(dev, reg);
-> +
-> +	ret = pm_runtime_resume_and_get(&pxpcs->pdev->dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = readl(pxpcs->reg_base + (csr << 2)) & 0xffff;
-> +
-> +	pm_runtime_put(&pxpcs->pdev->dev);
-> +	return ret;
-> +}
-> +
-> +static int xpcs_rk_write_reg(struct dw_xpcs_rk *pxpcs, int dev, int reg, u16 val)
-> +{
-> +	ptrdiff_t csr;
-> +	int ret;
-> +
-> +	csr = xpcs_rk_addr_format(dev, reg);
-> +
-> +	ret = pm_runtime_resume_and_get(&pxpcs->pdev->dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	writel(val, pxpcs->reg_base + (csr << 2));
-> +
-> +	pm_runtime_put(&pxpcs->pdev->dev);
-> +	return 0;
-> +}
-> +
-> +#define ROCKCHIP_MMD_MII1	2
-> +#define ROCKCHIP_MMD_MII2	3
-> +#define ROCKCHIP_MMD_MII3	4
-> +#define ROCKCHIP_MMD_PMAPMD	6
-> +#define ROCKCHIP_MMD_MII	7
-> +
-> +static bool xpcs_rk_mdio_addr_validate(int addr)
-> +{
-> +	return !(addr < 0 || addr > 3);
-> +}
-> +
-> +static int xpcs_rk_mdio_read_remapping(int addr, int dev, int reg)
-> +{
-> +	switch (dev) {
-> +	case MDIO_MMD_PMAPMD:
-> +		return ROCKCHIP_MMD_PMAPMD;
-> +	case MDIO_MMD_VEND2:
-> +		break;
-> +	default:
-> +		return -ENXIO;
-> +	}
-> +
-> +	/* read remapping to MII is performed by HW */
-> +	switch (addr) {
-> +	case 0:
-> +		return ROCKCHIP_MMD_MII;
-> +	case 1:
-> +		return ROCKCHIP_MMD_MII1;
-> +	case 2:
-> +		return ROCKCHIP_MMD_MII2;
-> +	case 3:
-> +		return ROCKCHIP_MMD_MII3;
-> +	default:
-> +		return -ENODEV;
-> +	}
-> +}
-> +
-> +static int xpcs_rk_mdio_write_remapping(int addr, int dev, int reg)
-> +{
-> +	switch (dev) {
-> +	case MDIO_MMD_PMAPMD:
-> +		return ROCKCHIP_MMD_PMAPMD;
-> +	case MDIO_MMD_VEND2:
-> +		break;
-> +	default:
-> +		return -ENXIO;
-> +	}
-> +
-> +	/* Writable only on MII */
-> +	switch (reg) {
-> +	case DW_VR_MII_AN_CTRL:
-> +	case DW_VR_MII_AN_INTR_STS:
-> +	case DW_VR_MII_EEE_MCTRL0:
-> +	case DW_VR_MII_EEE_MCTRL1:
-> +	case DW_VR_MII_DIG_CTRL2:
-> +		return ROCKCHIP_MMD_MII;
-> +	default:
-> +		break;
-> +	}
-> +
-> +	switch (addr) {
-> +	case 0:
-> +		return ROCKCHIP_MMD_MII;
-> +	case 1:
-> +		return ROCKCHIP_MMD_MII1;
-> +	case 2:
-> +		return ROCKCHIP_MMD_MII2;
-> +	case 3:
-> +		return ROCKCHIP_MMD_MII3;
-> +	default:
-> +		return -ENODEV;
-> +	}
-> +}
-> +
-> +static int xpcs_rk_read_c22(struct mii_bus *bus, int addr, int reg)
-> +{
-> +	struct dw_xpcs_rk *pxpcs = bus->priv;
-> +	int dev;
-> +
-> +	if (!xpcs_rk_mdio_addr_validate(addr))
-> +		return -ENODEV;
-> +
-> +	dev = xpcs_rk_mdio_read_remapping(addr, MDIO_MMD_VEND2, reg);
-> +	if (dev < 0)
-> +		return 0xffff;
-> +
-> +	return xpcs_rk_read_reg(pxpcs, dev, reg);
-> +}
-> +
-> +static int xpcs_rk_write_c22(struct mii_bus *bus, int addr, int reg, u16 val)
-> +{
-> +	struct dw_xpcs_rk *pxpcs = bus->priv;
-> +	int dev;
-> +
-> +	if (!xpcs_rk_mdio_addr_validate(addr))
-> +		return -ENODEV;
-> +
-> +	dev = xpcs_rk_mdio_write_remapping(addr, MDIO_MMD_VEND2, reg);
-> +	if (dev < 0)
-> +		return 0;
-> +
-> +	return xpcs_rk_write_reg(pxpcs, dev, reg, val);
-> +}
-> +
-> +static int xpcs_rk_read_c45(struct mii_bus *bus, int addr, int dev, int reg)
-> +{
-> +	struct dw_xpcs_rk *pxpcs = bus->priv;
-> +
-> +	if (!xpcs_rk_mdio_addr_validate(addr))
-> +		return -ENODEV;
-> +
-> +	dev = xpcs_rk_mdio_read_remapping(addr, dev, reg);
-> +	if (dev < 0)
-> +		return 0xffff;
-> +
-> +	return xpcs_rk_read_reg(pxpcs, dev, reg);
-> +}
-> +
-> +static int xpcs_rk_write_c45(struct mii_bus *bus, int addr, int dev, int reg, u16 val)
-> +{
-> +	struct dw_xpcs_rk *pxpcs = bus->priv;
-> +
-> +	if (!xpcs_rk_mdio_addr_validate(addr))
-> +		return -ENODEV;
-> +
-> +	dev = xpcs_rk_mdio_write_remapping(addr, dev, reg);
-> +	if (dev < 0)
-> +		return 0;
-> +
-> +	return xpcs_rk_write_reg(pxpcs, dev, reg, val);
-> +}
-> +
-> +static struct dw_xpcs_rk *xpcs_rk_create_data(struct platform_device *pdev)
-> +{
-> +	struct dw_xpcs_rk *pxpcs;
-> +
-> +	pxpcs = devm_kzalloc(&pdev->dev, sizeof(*pxpcs), GFP_KERNEL);
-> +	if (!pxpcs)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	pxpcs->pdev = pdev;
-> +
-> +	dev_set_drvdata(&pdev->dev, pxpcs);
-> +
-> +	return pxpcs;
-> +}
-> +
-> +static int xpcs_rk_serdes_phy_init(struct dw_xpcs_rk *pxpcs)
-> +{
-> +	struct device *dev = &pxpcs->pdev->dev;
-> +
-> +	pxpcs->serdes_phy = devm_phy_get(dev, "serdes");
-> +	if (IS_ERR(pxpcs->serdes_phy))
-> +		return dev_err_probe(dev, PTR_ERR(pxpcs->serdes_phy),
-> +					"Failed to get SerDes PHY\n");
-> +
-> +	return 0;
-> +}
-> +
-> +static void xpcs_rk_serdes_phy_poweroff(void *data)
-> +{
-> +	struct dw_xpcs_rk *pxpcs = data;
-> +	struct device *dev = &pxpcs->pdev->dev;
-> +
-> +	phy_power_off(pxpcs->serdes_phy);
-> +	phy_exit(pxpcs->serdes_phy);
-> +
-> +	dev_pm_genpd_rpm_always_on(dev, false);
-> +}
-> +
-> +static int xpcs_rk_serdes_phy_poweron(struct dw_xpcs_rk *pxpcs)
-> +{
-> +	struct device *dev = &pxpcs->pdev->dev;
-> +	int ret;
-> +
-> +	/*
-> +	 * The power domain is required and must be enabled, which allows us to
-> +	 * dynamically turn the CSR clock on/off using PM while keeping the PCS
-> +	 * powered on.
-> +	 */
-> +	ret = dev_pm_genpd_rpm_always_on(dev, true);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to power on power-domains\n");
-> +		return ret;
-> +	}
-> +
-> +	ret = phy_init(pxpcs->serdes_phy);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to init SerDes PHY\n");
-> +		goto pm_domain;
-> +	}
-> +
-> +	ret = phy_power_on(pxpcs->serdes_phy);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to power on SerDes PHY\n");
-> +		goto serdes_phy;
-> +	}
-> +
-> +	ret = devm_add_action_or_reset(dev, xpcs_rk_serdes_phy_poweroff, pxpcs);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to register devm for SerDes PHY: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +
-> +serdes_phy:
-> +	phy_exit(pxpcs->serdes_phy);
-> +pm_domain:
-> +	dev_pm_genpd_rpm_always_on(dev, false);
-> +	return ret;
-> +}
-> +
-> +static int xpcs_rk_init_res(struct dw_xpcs_rk *pxpcs)
-> +{
-> +	struct platform_device *pdev = pxpcs->pdev;
-> +	struct device *dev = &pdev->dev;
-> +	struct resource *res;
-> +
-> +	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> +	if (!res) {
-> +		dev_err(dev, "No reg-space found\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (resource_size(res) < SZ_2M) {
-> +		dev_err(dev, "Invalid reg-space size\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	pxpcs->reg_base = devm_ioremap_resource(dev, res);
-> +	if (IS_ERR(pxpcs->reg_base)) {
-> +		dev_err(dev, "Failed to map reg-space\n");
-> +		return PTR_ERR(pxpcs->reg_base);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static void xpcs_rk_exit_clk(void *data)
-> +{
-> +	struct dw_xpcs_rk *pxpcs = data;
-> +	struct device *dev = &pxpcs->pdev->dev;
-> +
-> +	pm_runtime_force_suspend(dev);
-> +	clk_disable_unprepare(pxpcs->eee_clk);
-> +}
-> +
-> +static int xpcs_rk_init_clk(struct dw_xpcs_rk *pxpcs)
-> +{
-> +	struct device *dev = &pxpcs->pdev->dev;
-> +	int ret;
-> +
-> +	pxpcs->csr_clk = devm_clk_get(dev, "csr");
-> +	if (IS_ERR(pxpcs->csr_clk))
-> +		return dev_err_probe(dev, PTR_ERR(pxpcs->csr_clk),
-> +					 "Failed to get CSR clock\n");
-> +
-> +	pxpcs->eee_clk = devm_clk_get(dev, "eee");
-> +	if (IS_ERR(pxpcs->eee_clk))
-> +		return dev_err_probe(dev, PTR_ERR(pxpcs->eee_clk),
-> +					 "Failed to get EEE clock\n");
-> +
-> +	ret = clk_prepare_enable(pxpcs->eee_clk);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to enable EEE clock\n");
-> +		return ret;
-> +	}
-> +
-> +	/*
-> +	 * Compute the multiplier for the EEE clock so that
-> +	 * clk_eee_period * (mult_fact + 1) falls within 80..120 ns.
-> +	 *
-> +	 * On RK3568, clk_xpcs_eee is muxed between gpll200 (200 MHz, 5 ns)
-> +	 * and cpll125 (125 MHz, 8 ns), selected by CRU_CLKSEL_CON29 bit 13.
-> +	 * The reset value is 0 (200 MHz), but derive the value at runtime to
-> +	 * stay correct if the mux is changed by a board.
-> +	 */
-> +	pxpcs->eee_mult_fact = DIV_ROUND_CLOSEST(100 * clk_get_rate(pxpcs->eee_clk),
-> +						 1000000000UL) - 1;
-> +
-> +	pm_runtime_set_suspended(dev);
-> +	pm_runtime_enable(dev);
-> +
-> +	ret = devm_add_action_or_reset(dev, xpcs_rk_exit_clk, pxpcs);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to register devm for EEE clock: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int xpcs_rk_init_bus(struct dw_xpcs_rk *pxpcs)
-> +{
-> +	struct device *dev = &pxpcs->pdev->dev;
-> +	static atomic_t id = ATOMIC_INIT(-1);
-> +	struct mii_bus *bus;
-> +	int ret;
-> +
-> +	bus = devm_mdiobus_alloc_size(dev, 0);
-> +	if (!bus)
-> +		return -ENOMEM;
-> +
-> +	bus->name = "Rockchip DW XPCS MCI/APB3";
-> +	bus->read = xpcs_rk_read_c22;
-> +	bus->write = xpcs_rk_write_c22;
-> +	bus->read_c45 = xpcs_rk_read_c45;
-> +	bus->write_c45 = xpcs_rk_write_c45;
-> +	bus->phy_mask = ~0;
-> +	bus->parent = dev;
-> +	bus->priv = pxpcs;
-> +
-> +	snprintf(bus->id, MII_BUS_ID_SIZE,
-> +		 "rockchip_dwxpcs-%x", atomic_inc_return(&id));
-> +
-> +	/*
-> +	 * MDIO-bus here serves as just a back-end engine abstracting out
-> +	 * the MDIO and MCI/APB3 IO interfaces utilized for the Rockchip DWXPCS CSRs
-> +	 * access.
-> +	 */
-> +	ret = devm_mdiobus_register(dev, bus);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to create MDIO bus\n");
-> +		return ret;
-> +	}
-> +
-> +	pxpcs->bus = bus;
-> +	return 0;
-> +}
-> +
-> +static int xpcs_rk_probe(struct platform_device *pdev)
-> +{
-> +	struct dw_xpcs_rk *pxpcs;
-> +	int ret;
-> +
-> +	pxpcs = xpcs_rk_create_data(pdev);
-> +	if (IS_ERR(pxpcs))
-> +		return PTR_ERR(pxpcs);
-> +
-> +	/*
-> +	 * The XPCS may be attached to a power domain (e.g. PD_PIPE). The domain
-> +	 * must be powered on before any register access, otherwise the SoC will
-> +	 * trigger a synchronous external abort (SError).
-> +	 *
-> +	 * Accessing the XPCS registers also requires a TX clock from the SerDes,
-> +	 * which is needed for the soft reset.
-> +	 */
-> +	ret = xpcs_rk_serdes_phy_init(pxpcs);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = xpcs_rk_serdes_phy_poweron(pxpcs);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = xpcs_rk_init_res(pxpcs);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = xpcs_rk_init_clk(pxpcs);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = xpcs_rk_init_bus(pxpcs);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct of_device_id xpcs_rk_of_ids[] = {
-> +	{ .compatible = "rockchip,rk3568-xpcs" },
-> +	{ /* sentinel */ },
-> +};
-> +MODULE_DEVICE_TABLE(of, xpcs_rk_of_ids);
-> +
-> +struct dw_xpcs *xpcs_rk_create(struct device *dev, struct device_node *np)
-> +{
-> +	struct platform_device *pdev;
-> +	struct device_node *pcs_np;
-> +	struct dw_xpcs_rk *pxpcs;
-> +	struct dw_xpcs *xpcs;
-> +	u32 port;
-> +
-> +	if (!of_device_is_available(np))
-> +		return ERR_PTR(-ENODEV);
-> +
-> +	if (of_property_read_u32(np, "reg", &port))
-> +		return ERR_PTR(-EINVAL);
-> +
-> +	if (!xpcs_rk_mdio_addr_validate((int)port))
-> +		return ERR_PTR(-EINVAL);
-> +
-> +	/* The XPCS pdev is attached to the parent node */
-> +	pcs_np = of_get_parent(np);
-> +	if (!pcs_np)
-> +		return ERR_PTR(-ENODEV);
-> +
-> +	if (!of_device_is_available(pcs_np)) {
-> +		of_node_put(pcs_np);
-> +		return ERR_PTR(-ENODEV);
-> +	}
-> +
-> +	if (!of_match_node(xpcs_rk_of_ids, pcs_np)) {
-> +		of_node_put(pcs_np);
-> +		return ERR_PTR(-EINVAL);
-> +	}
-> +
-> +	pdev = of_find_device_by_node(pcs_np);
-> +	of_node_put(pcs_np);
-> +	if (!pdev)
-> +		return ERR_PTR(-EPROBE_DEFER);
-> +
-> +	device_lock(&pdev->dev);
-
-[Severity: Medium]
-xpcs_rk_create() is called from a MAC driver's probe path, which is
-already running under device_lock() of the MAC device taken by
-really_probe().  Taking device_lock(&pdev->dev) here nests a second
-struct device mutex, and since all device mutexes share one lockdep
-class unless annotated, lockdep will report "possible recursive
-locking detected" on the first probe.  That is a splat in the logs on
-any CONFIG_PROVE_LOCKING build, and a panic with panic_on_warn set.
-
-Holding the XPCS device's lock across xpcs_create_mdiodev() and
-device_link_add() is also unusual - device_link_add() does its own
-locking and the driver core normally expects supplier device locks not
-to be held by consumers.
-
-What race is the lock actually protecting against?  pxpcs and
-pxpcs->bus are published by xpcs_rk_probe() via dev_set_drvdata() and
-xpcs_rk_init_bus(), and the !pxpcs || !pxpcs->bus case already returns
--EPROBE_DEFER, so the consumer retries later; the device link then
-keeps the supplier around.  Can the device_lock()/device_unlock() pairs
-simply be dropped, or is something else needed here (e.g. checking that
-the supplier is bound) to close the window you had in mind?
-
-> +	pxpcs = platform_get_drvdata(pdev);
-> +	if (!pxpcs || !pxpcs->bus) {
-> +		device_unlock(&pdev->dev);
-> +		put_device(&pdev->dev);
-> +		return ERR_PTR(-EPROBE_DEFER);
-> +	}
-> +
-> +	xpcs = xpcs_create_mdiodev(pxpcs->bus, (int)port);
-> +	if (IS_ERR(xpcs)) {
-> +		device_unlock(&pdev->dev);
-> +		put_device(&pdev->dev);
-> +		return xpcs;
-> +	}
-> +
-> +	if (!device_link_add(dev, &pdev->dev, DL_FLAG_AUTOREMOVE_CONSUMER)) {
-> +		xpcs_destroy(xpcs);
-> +		device_unlock(&pdev->dev);
-> +		put_device(&pdev->dev);
-> +		return ERR_PTR(-ENOMEM);
-> +	}
-> +
-> +	xpcs_config_eee_mult_fact(xpcs, pxpcs->eee_mult_fact);
-> +	device_unlock(&pdev->dev);
-> +	put_device(&pdev->dev);
-> +	return xpcs;
-> +}
-> +EXPORT_SYMBOL_GPL(xpcs_rk_create);
-> +
-> +static int xpcs_rk_pm_runtime_suspend(struct device *dev)
-> +{
-> +	struct dw_xpcs_rk *pxpcs = dev_get_drvdata(dev);
-> +
-> +	clk_disable_unprepare(pxpcs->csr_clk);
-> +
-> +	return 0;
-> +}
-> +
-> +static int xpcs_rk_pm_runtime_resume(struct device *dev)
-> +{
-> +	struct dw_xpcs_rk *pxpcs = dev_get_drvdata(dev);
-> +
-> +	return clk_prepare_enable(pxpcs->csr_clk);
-> +}
-> +
-> +static DEFINE_RUNTIME_DEV_PM_OPS(xpcs_rk_pm_ops,
-> +			   xpcs_rk_pm_runtime_suspend,
-> +			   xpcs_rk_pm_runtime_resume,
-> +			   NULL);
-> +
-> +static struct platform_driver xpcs_rk_driver = {
-> +	.probe = xpcs_rk_probe,
-> +	.driver = {
-> +		.name = "rk_xpcs-dwxpcs",
-> +		.pm = pm_ptr(&xpcs_rk_pm_ops),
-> +		.of_match_table = xpcs_rk_of_ids,
-> +	},
-> +};
-> +module_platform_driver(xpcs_rk_driver);
-> +
-> +MODULE_DESCRIPTION("Rockchip XPCS platform device driver");
-> +MODULE_AUTHOR("Coia Prant <coiaprant@gmail.com>");
-> +MODULE_LICENSE("GPL");
-
-[Severity: High]
-This block in xpcs_rk_mdio_write_remapping() ignores addr entirely:
-any write to DW_VR_MII_AN_CTRL, DW_VR_MII_AN_INTR_STS,
-DW_VR_MII_EEE_MCTRL0, DW_VR_MII_EEE_MCTRL1 or DW_VR_MII_DIG_CTRL2 is
-routed to ROCKCHIP_MMD_MII, which per the commit message is port 0's
-MMD (7), regardless of which of the four ports the MDIO address
-selects.
-
-So when the core configures a PCS instance created with addr 1, 2 or 3
-- xpcs_config_aneg_c37_sgmii() writing DW_VR_MII_AN_CTRL and
-DW_VR_MII_DIG_CTRL2, xpcs_config_eee() writing DW_VR_MII_EEE_MCTRL0/1,
-and the interrupt-status clear on DW_VR_MII_AN_INTR_STS - the write
-lands on port 0 instead.  That has two effects: the intended port is
-never configured (so its link stays broken), and port 0's
-auto-negotiation/EEE state is silently clobbered by an unrelated
-interface, including its pending AN interrupt status.
-
-The read path is not symmetric either: xpcs_rk_mdio_read_remapping()
-remaps per addr with the comment "read remapping to MII is performed by
-HW", so a write to these registers on port 2 followed by a read back
-would not return what was written.  Is that asymmetry deliberate?
-
-Does the TRM say these vendor registers physically exist only in MMD 7
-and are shared by all four MII ports?  If so, redirecting writes
-silently still leaves per-port configuration impossible, and the driver
-probably needs to say so explicitly (reject the access, or document how
-the shared block is meant to be programmed) rather than aliasing ports
-1..3 onto port 0.  If instead each port has its own copy of these
-registers, this switch should be dropped so the addr-based mapping
-below applies.  Which is it?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260913185849.907479-1-coiaprant%40gmail.com
