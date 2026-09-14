@@ -1,207 +1,82 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE27337A827;
-	Mon, 14 Sep 2026 05:56:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF1FC38DC43;
+	Mon, 14 Sep 2026 05:59:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789365406; cv=none; b=dsBIrlPmUxa273DL2tpqmj6X/nr7bRPsabg0OnsTzzzkNeGvYTiNLbGnQ0qqHuNim6gviskqx2J7oaBhwvQJQ3mytCB9iX1sk1sCb4PL7zMis+nXXOXH54GHeyUV1OTQFtxPpDvZnSevxa070gNqeC0nubeF4sXbFquEJSpGM9I=
+	t=1789365588; cv=none; b=Iqpz+ir4h7sYZJtSSY5khVmQOMHvo3fOB9FDrIHEhYGLiWHzR9hLZ6L7DbhsrIrL+xHpc5OIWEPiV7oFGJjCOhV8dciRAXfMlTFLFejtS3DHApnJjs4DW5hyeB0DiDZE+A8bqt7htm3cQ2cPgKxrEkexOyIUiR0EuLIbDviZNkY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789365406; c=relaxed/simple;
-	bh=4FOoy3+cYMFuDvcWN2DGWZbWRci1m+r32zFK1U35ayw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AF5ZGK/CLz+zVxdx8cqkZdqw2NRGGKkHAROtSCZ9TDnHgTZ+yu+RxPWsT/zXpOKd9R+NDcBIn6AFUAV+I46gvjGq6HaYuUdkiCpBfQ9MJ8XfwNHAX/tOVz5SbIx1bipGVlcdY9G3q4boNs0YH4hrpKg8u1AQJdXjnuVp6CDNVDo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Hmpb9lcC; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789365588; c=relaxed/simple;
+	bh=pBh966lODtpbh0icAJ5LQuJV8RVZqXy67eLTo61PdeQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=s/MBIuzJYSe0B8fTvxVk5qHxGZ4E6QvH2rm31w+ch9B7GPNzjbiPsInVjN45g2RQdFgvrdhscscA6Ya0nmqIUDoo23lNs1F3VIEr11kjTsJUIfQemmwkLBvcqVmn5tj/NZPSGjvhyQtzrglcQTbVxlwKtc8EKpLOax7pvBk/MOM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=NmSo4jER; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Hmpb9lcC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=du
-	J6rhWFHCaYM7Kl2I6mmSt92M2WX49yA3HWZnei47c=; b=Hmpb9lcCm5iq0zlaXT
-	aLFRTCdQXZgWB/PUenABO2HBEBSHXmIELXzuK8qXMvOLEUM8bUtmKwi4pgMzixiS
-	wIDGsXGkakATWuhzhfO1Sf9sfnGquW1IHUfD0ZLW00UPy47NdbE7tr/vAbInpanU
-	SDh1jxbUj/PffPU47GbUkGu7Y=
-Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wBXg9l4jKdqXB8tAg--.2092S2;
-	Mon, 14 Sep 2026 13:56:09 +0800 (CST)
-From: Quchaosheng <quchaosheng000406@163.com>
-To: Marc Kleine-Budde <mkl@pengutronix.de>,
-	Vincent Mailhol <mailhol@kernel.org>,
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="NmSo4jER"
+Received: from francesco-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch [83.173.201.248])
+	by mail11.truemail.it (Postfix) with ESMTPA id C15F91FB7B;
+	Mon, 14 Sep 2026 07:59:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1789365577;
+	bh=CFirnp4rcQADvcn62AmTmPFCZMeve+7sCvYxo8PgTBg=; h=From:To:Subject;
+	b=NmSo4jERgiI/C62kJqShM5aU4chxp0UiSj8dx2VAVve/2ktWG4e4BLLu9sX76L/p/
+	 fT5cQ9CgqUDuXg9uts3P3U7dAYauLencxLImbUI1/3YNW6J1qNJKhuK3rQSjtumbhB
+	 6HvvgVKWagPTK1yruXU5QJ7dd08aU1Maz3W2uw+cYb+sQ4ytLI5pHsDuSNi6FoOK9J
+	 QOHB6focBBS9uvTVfBg4x2Ga68x5Dkna316fBnDogkawHZnv0L9/8h1ZfM5StOP7qt
+	 3TL/kmqAeQ4VTg0D2a/Ehue4iLrOzkQF8TvmBKCsK6Ei/QQMJQlv8p9SNGKFLGPEm1
+	 Agm1sEaaMHD6g==
+Date: Mon, 14 Sep 2026 07:59:35 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Kendall Willis <k-willis@ti.com>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-can@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	quchaosheng000406@163.com
-Subject: [PATCH v2] dt-bindings: net: can: holt,hi3110: Convert to DT schema
-Date: Mon, 14 Sep 2026 13:56:07 +0800
-Message-ID: <20260914055608.495084-1-quchaosheng000406@163.com>
-X-Mailer: git-send-email 2.43.0
+	Conor Dooley <conor+dt@kernel.org>, msp@baylibre.com,
+	s-kochidanadu@ti.com, a-kaur@ti.com, s-tripathi1@ti.com,
+	vishalm@ti.com, linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 0/2] Input: gpio-keys - support wakeup pinctrl state
+Message-ID: <20260914055935.GB19835@francesco-nb>
+References: <20260912-upstream-gpio-wakeup-v1-0-f0e12484b836@ti.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wBXg9l4jKdqXB8tAg--.2092S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCF43WF1ktr15uw4UJFy7ZFb_yoWrKrWfpa
-	y5KanrGF4vqF1fXa10q3W8CF9xXan5ZF47GrZ7X348J3WYga1rtFWSkry5ZFy7Xrs7AasF
-	9F1093W8K3W3AaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pR9F4tUUUUU=
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC4xrFO2qnjHqragAA39
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260912-upstream-gpio-wakeup-v1-0-f0e12484b836@ti.com>
 
-Convert the Holt HI-311X stand-alone CAN controller binding from
-free-form text to DT schema, and reference the common can-controller.yaml
-schema.
+Hello Kendall,
 
-The controller is connected over SPI, so reference
-spi-peripheral-props.yaml as well, otherwise the standard SPI properties
-such as spi-max-frequency would be rejected by unevaluatedProperties.
+On Sat, Sep 12, 2026 at 04:33:52PM -0500, Kendall Willis wrote:
+> Add 'wakeup' pinctrl state to support separate pin wakeup
+> configurations for GPIO. Upon suspend the 'wakeup' pinctrl state is
+> chosen if it exists. On resume the 'default' pinctrl state is selected.
+> The 'wakeup' pinctrl state allows wakeup from low-power states if a
+> specific pin configuration is needed.
+> 
+> On TI K3 AM62 family of devices, the GPIO controller is turned off in
+> suspend to RAM states, so no interrupt can be received by the
+> controller. This prevents system wakeup from low-power states.
+> Alternatively, the pins can wakeup the system if a wakeup flag is set on
+> the pin by using pinctrl.
+> 
+> A corresponding device tree patch using the 'wakeup' pinctrl state can
+> be found under "arm64: dts: ti: k3-am62l3-evm: add wakeup-source for GPIO
+> button".
+> 
+> Tested GPIO wakeup from suspend on AM62L EVM and AM62P EVM.
+> 
+> Signed-off-by: Kendall Willis <k-willis@ti.com>
 
-The old text listed clocks as required, but the driver obtains the clock
-with devm_clk_get_optional() and falls back to the "clock-frequency"
-property when no clock is provided, so either one of the two must be
-present and neither is required on its own. This is expressed with an
-anyOf block, and clock-frequency is documented, as it was previously
-undocumented. The maximum supported clock frequency of 40000000 is
-enforced, as that is the limit the driver applies.
+This is going to be useful also for verdin am62 (verdin_key_wakeup /
+k3-am62-verdin.dtsi).
 
-unevaluatedProperties is used rather than additionalProperties so that
-properties provided by can-controller.yaml remain usable.
-
-Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
----
-v2:
- - Reference spi-peripheral-props.yaml. Without it, unevaluatedProperties
-   rejected the standard SPI properties, spi-max-frequency among them.
-   Reported by Sashiko.
-
- - Add a maximum of 40000000 to clock-frequency. The description stated
-   the limit but did not enforce it. Reported by Sashiko.
----
- .../bindings/net/can/holt,hi311x.yaml         | 81 +++++++++++++++++++
- .../bindings/net/can/holt_hi311x.txt          | 23 ------
- 2 files changed, 81 insertions(+), 23 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/net/can/holt,hi311x.yaml
- delete mode 100644 Documentation/devicetree/bindings/net/can/holt_hi311x.txt
-
-diff --git a/Documentation/devicetree/bindings/net/can/holt,hi311x.yaml b/Documentation/devicetree/bindings/net/can/holt,hi311x.yaml
-new file mode 100644
-index 000000000..36497b114
---- /dev/null
-+++ b/Documentation/devicetree/bindings/net/can/holt,hi311x.yaml
-@@ -0,0 +1,81 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/can/holt,hi311x.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Holt HI-311X stand-alone CAN controller
-+
-+maintainers:
-+  - Marc Kleine-Budde <mkl@pengutronix.de>
-+
-+description:
-+  The Holt HI-3110 is a stand-alone CAN controller with an SPI interface.
-+
-+allOf:
-+  - $ref: can-controller.yaml#
-+  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-+
-+properties:
-+  compatible:
-+    const: holt,hi3110
-+
-+  reg:
-+    description: SPI chip select.
-+    maxItems: 1
-+
-+  clocks:
-+    description:
-+      The clock feeding the CAN controller. If this property is not present
-+      clock-frequency must be specified instead.
-+    maxItems: 1
-+
-+  clock-frequency:
-+    description:
-+      Frequency of the clock feeding the CAN controller, in Hz. Used when
-+      no clocks property is provided.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    maximum: 40000000
-+
-+  interrupts:
-+    description: IRQ line for the CAN controller.
-+    maxItems: 1
-+
-+  vdd-supply:
-+    description: Regulator that powers the CAN controller.
-+
-+  xceiver-supply:
-+    description: Regulator that powers the CAN transceiver.
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+
-+anyOf:
-+  - required:
-+      - clocks
-+  - required:
-+      - clock-frequency
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    spi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        can@1 {
-+            compatible = "holt,hi3110";
-+            reg = <1>;
-+            clocks = <&clk32m>;
-+            interrupt-parent = <&gpio4>;
-+            interrupts = <13 IRQ_TYPE_LEVEL_HIGH>;
-+            vdd-supply = <&reg5v0>;
-+            xceiver-supply = <&reg5v0>;
-+        };
-+    };
-+...
-diff --git a/Documentation/devicetree/bindings/net/can/holt_hi311x.txt b/Documentation/devicetree/bindings/net/can/holt_hi311x.txt
-deleted file mode 100644
-index 3a9926f99..000000000
---- a/Documentation/devicetree/bindings/net/can/holt_hi311x.txt
-+++ /dev/null
-@@ -1,23 +0,0 @@
--* Holt HI-311X stand-alone CAN controller device tree bindings
--
--Required properties:
-- - compatible: Should be one of the following:
--   - "holt,hi3110" for HI-3110
-- - reg: SPI chip select.
-- - clocks: The clock feeding the CAN controller.
-- - interrupts: Should contain IRQ line for the CAN controller.
--
--Optional properties:
-- - vdd-supply: Regulator that powers the CAN controller.
-- - xceiver-supply: Regulator that powers the CAN transceiver.
--
--Example:
--	can0: can@1 {
--		compatible = "holt,hi3110";
--		reg = <1>;
--		clocks = <&clk32m>;
--		interrupt-parent = <&gpio4>;
--		interrupts = <13 IRQ_TYPE_LEVEL_HIGH>;
--		vdd-supply = <&reg5v0>;
--		xceiver-supply = <&reg5v0>;
--	};
--- 
-2.43.0
+Thanks,
+Francesco
 
