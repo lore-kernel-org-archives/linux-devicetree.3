@@ -1,234 +1,657 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98A4F175A9D
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 00:12:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5186423D295;
+	Mon, 14 Sep 2026 00:24:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789344756; cv=none; b=hAgeb8mGUTDh15qor+AA7UW+V7twNtRGmykWkUnuD+xeev7GvZ1gs6IEOhEWsklLmxbMYatLRudlvaGrRnlx/q/feKfVrXqNdUkKTET0/LihnNLM6R55dpuojoW3YNARgxpYxlfaHVMQWcx2xOcQYncZ2ZYIG2zFtz2L+ysHDRY=
+	t=1789345499; cv=none; b=Dep6tSzrEG6s2V+pdgb/rhMhwuL/hLkf4YCpW4IrGZDQcGSQfUhw/7kdiTkxWSw2WMOPeyT0IfkCfHjyeSS+aKHpmJZ5OB06wtEYgQl6z7HVfR5UjiW+Fjjp/udzITTaiyklN2eO+/YLAMpfKWPVuUY9Ec8xQX3K9raghSHCXCk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789344756; c=relaxed/simple;
-	bh=z1S32XWP7jC8lPOo1+4cGo0acfHdRdOY9hgIWbMGNr0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=g7cnpk5lJpdxrB8sxgbXhn+N2kY6pWzq1PF2kPI0PAEBDdFjG72JSNJv6iSqIne5L10+aqo5JBXg1scRHE46gnly542vErMV7KZzB9D5TVCLzL/mGxgjeWuaS3CMMRrsZ00pcwZOy/sNM+aoc7yM7AqFVX0B6ipHfGEHieq5EEk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=a4I1IM2R; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Rw4g9QUH; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789345499; c=relaxed/simple;
+	bh=ZZDckdZQufNfz7OQGOgfqCpdbTEo/Vr5DJjtpearVvo=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ABbu+NkVkxFsUV2WOpr4APVNKeZLeUiHIrcUqUS6vgBepVtu2C7te0fV6OlFm1fpjf/gBsjBlKIANVFPW5vdHMURULgKjyZH36lp3a4cK3xOrDYOyVjd6TlZu0+CmEezUb/s6r5+VXezzKXDfJX2K5DmWR/wbV7apyyGLyQGvd8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P1GvFMjQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="a4I1IM2R";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Rw4g9QUH"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E062qt4020759
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 00:12:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=iBqYeqzlYtNhEASxOYthivbr
-	ArLVaXRL5F5mIYJzUbE=; b=a4I1IM2R4U1J5p/cgW5v53ft0l+3aKuGkhoaeN6W
-	1V9Gl1Df1TLWWTdLzhdo2d5PdVooU1TZDJya2FsJ2PaP6lAcHGGl6Od/u7hqaLlk
-	FX277kySkhVlq8yo7l8ML++ln1b5Pe5+2ErKWm4Ij0cwj8UXKQSHTilzfh3Y3hAt
-	8utdbXlR0jMwfFa9ffmkalPODTEXx29fXgs0lfoIvT3xAAqSbgXY5r5s795dSjhq
-	bFoaVofgasBu4yN7QU1lPwZkEenBfP4ccUgpHXNn+qE37e+SOk0VDqkNmWD+0F3N
-	EeWnjVbYKznK0YpQQx/E9MoktyAu0rGSVZFIagq98Vq9ZQ==
-Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gp3k0886v-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 00:12:34 +0000 (GMT)
-Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-97c3796d17dso308850241.2
-        for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 17:12:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789344753; x=1789949553; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=iBqYeqzlYtNhEASxOYthivbrArLVaXRL5F5mIYJzUbE=;
-        b=Rw4g9QUH8pSg36dXk9AjwdhI6icEQgsMlNNprTISptL962j3DsFt/cxkxoPTUjlAdp
-         9ekjR35uOeocLhO8QopPk4qasL2L9h6aAdN1mVYBEUSipcJjT3U+khYx3KCaPPlN83bR
-         K/l7ATbuJaTuKwmw6ZmSMCWYXVwClXkLUkC2BJJWx6yMo9O8B0q8q6T6A9QWkunAcOs0
-         /6AkocaW2v9h8gZZXYXYfufrt4aYngJYVlipBtCVO2jfi19HAc8n/nXYALIZjS9GNruT
-         I0NB9h2teszXYOttWXilO+OcfR9PZV60VOrK6QBF/Ibwu23iFa/sfveFOarimHZQYBGP
-         PGrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789344753; x=1789949553;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iBqYeqzlYtNhEASxOYthivbrArLVaXRL5F5mIYJzUbE=;
-        b=KsfMQ7/P/uJQOwONOQ+rnhSEjcdHgU438lINXeH6FNYAABrNpEgNRUV2TjvhhGLOfs
-         s69PTiSXliX5+ayhCtPMJbhDsD4wO1vcC6FtgPRWNkzU25WfPRDRSoW8rdFpKPjnfF7W
-         7LcPU+3nskQXLOyND6EnL/uJtI/7NKDFFjFx7PTtNYF8XpVxMkpbLSbEFz7bFi3ROVhZ
-         JS7ufzRC0s6n05bYWbgNqixv0u5Jiu+kuS7AfIiSKN8Mta38FzA+b7smZ4BziQqnr49d
-         L3TR09cuAjIw3Q/eTSa+sMnJqiIoZ3MYvNpaTnbJCFaH2zSx074T5VoVe84Kei3zL2z3
-         u0VA==
-X-Forwarded-Encrypted: i=1; AKwUvBydYwZB1rOra8Erlpyg7Cq0AI33UTfDo4XDBqYg+Y88S7doK1jPEvLGOpEl4DqPD0ng5dDBGbX2XPZM@vger.kernel.org
-X-Gm-Message-State: AFuF++n7E6do5WU8TN0TGDgBvNtNN1kV5EqiAKIo8fv06Taw80Trgv3D
-	ZwlxAXVfsDvW8xAHeG5+Ny7CYzTupvrNFRUjs56A8eR1RqqbPvzuSpkVq1enQYvy5arGEWDRl2o
-	LYu/bhmDj+oK7caHKWtifgwtpVQYJjAUI2c+wazphMtNNEV9geoSbLpBmtI9g7XLD
-X-Gm-Gg: AYBFou0JRHt9O0bHFpFN2qpHFTduvcZ6swbBwphaDvJ6PVLZgYxrtMBubd8mnh0wqhQ
-	zO990ohLE3SgXg1wqKalK5FWneEiV/KlYDwfoN3H9NZTm+uTJ+Hwn373wh3OmeVcdQSCU3xFsnu
-	nY5UFY3SU5asChxsEPbe/qpMZystKuPNuNeU3T5yhgPx2mTqkEpWOdgpgXqzax8x61aMurrdqmY
-	rpoQSE6WymuM4Ks6Hq9vJmzlMnDw9JLp+2ujauGX548tcRflhaP9B45BHz8tD4bBU4wo5bZKdB8
-	rULKSuQXHFNEqO+VgDF9x/W6Cyp2IyFttjJw+BRTDrEL0TjASmSbc1T737bQ9gHDFB9hOo3pJD1
-	YhVPohQOXE/OLOJhWU7YbxRy7ZhHVP30q9hmgxX6Fl7uAKG8qsAjXAfDRerW04FdauZ1tatNMD/
-	bbRXV4qVAmPLkF
-X-Received: by 2002:a05:6102:6886:b0:790:fd7:cf36 with SMTP id ada2fe7eead31-79b5b95efa9mr63918137.11.1789344753404;
-        Sun, 13 Sep 2026 17:12:33 -0700 (PDT)
-X-Received: by 2002:a05:6102:6886:b0:790:fd7:cf36 with SMTP id ada2fe7eead31-79b5b95efa9mr63899137.11.1789344752966;
-        Sun, 13 Sep 2026 17:12:32 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a047d3cbsm1975589e87.81.2026.09.13.17.12.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 17:12:31 -0700 (PDT)
-Date: Mon, 14 Sep 2026 03:12:29 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Nabige Aala <nabige.aala@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Kuogee Hsieh <quic_khsieh@quicinc.com>, linux-arm-msm@vger.kernel.org,
-        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org,
-        Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>,
-        Mahadevan P <mahadevan.p@oss.qualcomm.com>
-Subject: Re: [PATCH 15/17] phy: qcom: edp: Add Nord LDO, TX lane and TX
- resistor calibration callbacks
-Message-ID: <ezvhdreygsfihvqsg66cp4s3jvkj5efhzpsoqmjedutn2giuad@fx734ykvkzwp>
-References: <20260911-nord-drv-dt-v1-0-e25c073cf1b6@oss.qualcomm.com>
- <20260911-nord-drv-dt-v1-15-e25c073cf1b6@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P1GvFMjQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 713851F000FF;
+	Mon, 14 Sep 2026 00:24:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789345496;
+	bh=sMp4OlxMubDm15/O1egPO7x6gi2SBim6wJVLfxemPt0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=P1GvFMjQDkq8XR8ZtQH5igQks7LO2esgJ1K1turIrUD4wXsZGj8MFrCdvkH7deeeh
+	 e/o4NIu6IVqn5MZqB5ShvD6joF94ARdBe5ZZsb0bQRKTnvr+jUc1KFzAFFssw3Rdw4
+	 3V3zxiHxoXBguvZNS9nvLSXuI70jqvVYUpu44k6GP5goN/fPiuYnGpFCOtU+6w2Q0g
+	 34PTzvROTyuicV7XmxkVCIxSjhTVufR8cElsAPQtRLmmshY53BaKAwPDZWITwpcLBL
+	 6PiGq7qCsGD6Bq6f87wxwh5UefocbIdVx9orM+N3ZdYD9Y8pJ87dPvTnqBrsPRIW/r
+	 2pp1WgFCJW20w==
+Date: Mon, 14 Sep 2026 01:24:48 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Ariana Lazar <ariana.lazar@microchip.com>
+Cc: Guenter Roeck <linux@roeck-us.net>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-hwmon@vger.kernel.org>
+Subject: Re: [PATCH v3 2/2] iio: adc: add support for PAC1711
+Message-ID: <20260914012448.15b14540@jic23-hlaptop>
+In-Reply-To: <20260909-pac1711-v3-2-dff81003b82f@microchip.com>
+References: <20260909-pac1711-v3-0-dff81003b82f@microchip.com>
+	<20260909-pac1711-v3-2-dff81003b82f@microchip.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260911-nord-drv-dt-v1-15-e25c073cf1b6@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDAwMSBTYWx0ZWRfX0kpsAX8ckNIP
- NV5pT3yItcSbGt9A5I+qlCvzNTPPsPzU5bwukvg9tpsEClsftQWK25gSVWvwNBII8ksqYKcpa0K
- KpTwovqmm0wm/FzmNPg22qqh5FcZVFY=
-X-Proofpoint-GUID: 8rQuNQszvqIDKbPNpIbpu8bFGgPxQit_
-X-Proofpoint-ORIG-GUID: 8rQuNQszvqIDKbPNpIbpu8bFGgPxQit_
-X-Authority-Analysis: v=2.4 cv=BtAIUoX5 c=1 sm=1 tr=0 ts=6aa73bf2 cx=c_pps
- a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=JfrnYn6hAAAA:8
- a=EUspDBNiAAAA:8 a=DE_EJvfAnEflg5IDAsIA:9 a=CjuIK1q_8ugA:10
- a=TD8TdBvy0hsOASGTdmB-:22 a=1CNFftbPRP8L7MoqJWF3:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDAwMSBTYWx0ZWRfX6NUQ8XgFbDD+
- +19I40Ax0HgL4bUTszHKgEu5bIyrhFLDmRP/zxQ8AAMURcAeWK2M+meykWx9ToQcGBt9nn6t4l6
- NOx3ISGgvDLQe9Zv23qa94OF5rfIuFAspz21bFzpjCvM95t9yVpn54M4LpM0URsVNHUuTCTiQPl
- ipmnYyeL86v6QwSxjy0AhSV2JTOM2+GOtvA2cxuSaJmkBvB1DesfBBDJVQ/3JZyoCoylAi90Vuz
- X3BzbxZdnSffReq3tWtrNlxXblMmmcCCBOqGapYiFlrmWClWMXAIlR55xolajPJpAr9U7pVEMOc
- WKBCz7hREnSCg2kMrHVT2Hk/g1vOxWUnn7nv4HyRailjcQRhR/vNdXvEabSSVEyV2Koomg53+PX
- pvNnRSuJbSO0AOmGsGITs8lwL1VjRGdhkJBYZBVN7tND4QdCH1tw6VuLzftH/X++a1Fb9jpN4Mo
- 5DYC4E3Ul9NeSuGKyig==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-13_08,2026-09-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0 phishscore=0 impostorscore=0 suspectscore=0
- bulkscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140001
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 11, 2026 at 09:06:46PM +0530, Nabige Aala wrote:
-> From: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
+On Wed, 9 Sep 2026 15:23:35 +0300
+Ariana Lazar <ariana.lazar@microchip.com> wrote:
+
+> This is the iio driver for Microchip PAC1711, PAC1721, PAC1811 and
+> PAC1821 single-channel power monitors with accumulator. The PAC1711 and
+> PAC1721 devices use 12-bit resolution for voltage and current measurements
+> and 24 bits for power calculations, while PAC1811 and PAC1821 have 16-bit
+> resolution and use 32 bits for power calculations. The 56-bit accumulator
+> register accumulates power (energy) or current (Coulomb counter).
 > 
-> Nord requires different LDO levels, TX lane control offsets and TX
-> resistor calibration codes compared to existing SoCs.  Add
-> qcom_edp_ldo_config_nord(), qcom_edp_phy_tx_lane_cfg_nord() and
-> qcom_edp_phy_tx_res_cfg_nord() with values per HPG Table 2-1-d.
+> PAC1711 and PAC1811 measure up to 42V Full-Scale Range, respectively 9V for
+> PAC1721 and PAC1821.
 > 
-> Signed-off-by: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
-> Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
+> Signed-off-by: Ariana Lazar <ariana.lazar@microchip.com>
+sashiko has quite a bit to say. Please take a look.
+https://sashiko.dev/#/patchset/20260909-pac1711-v3-0-dff81003b82f%40microchip.com
+
+Not sure if I missed it on previous but the way you have
+features structures in here has missed the aim of that design
+pattern.  If you see any use of chip ids outside of the actual
+match then you have stuff as code that should be const data.
+
+Jonathan
+
 > ---
->  drivers/phy/qualcomm/phy-qcom-edp.c | 47 +++++++++++++++++++++++++++++++++++++
->  1 file changed, 47 insertions(+)
+>  .../ABI/testing/sysfs-bus-iio-adc-pac1711          |   24 +
+>  MAINTAINERS                                        |    2 +
+>  drivers/iio/adc/Kconfig                            |   11 +
+>  drivers/iio/adc/Makefile                           |    1 +
+>  drivers/iio/adc/pac1711.c                          | 1304 ++++++++++++++++++++
+>  5 files changed, 1342 insertions(+)
 > 
-> diff --git a/drivers/phy/qualcomm/phy-qcom-edp.c b/drivers/phy/qualcomm/phy-qcom-edp.c
-> index 4d1b2c81d956..361f4e467351 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-edp.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-edp.c
-> @@ -1800,6 +1800,53 @@ static int qcom_edp_com_configure_pll_nord(const struct qcom_edp *edp)
->  }
->  
->  
-> +/*
-> + * nord LDO configuration.
-> + * From HPG Table 2-1-d: LDO Configuration section.
-> + * eDP mode: 0xD1 for rates <= 8.1 Gbps, 0x00 for UHBR (>8.1 Gbps).
-> + * DP mode: always 0x00.
-> + * Also programs EDP2_DP_PHY_LDO_CFG: 0x03 for eDP rates <= 8.1G, 0x00 otherwise.
+> diff --git a/Documentation/ABI/testing/sysfs-bus-iio-adc-pac1711 b/Documentation/ABI/testing/sysfs-bus-iio-adc-pac1711
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..679b331e455624f493d7c326843cbbe4a129e924
+> --- /dev/null
+> +++ b/Documentation/ABI/testing/sysfs-bus-iio-adc-pac1711
+> @@ -0,0 +1,24 @@
+> +What:		/sys/bus/iio/devices/iio:deviceX/in_coulomb_counter_raw
+> +KernelVersion:	7.4
+> +Contact:	linux-iio@vger.kernel.org
+> +Description:
+> +		This attribute is used to read the accumulated voltage
+> +		measured on the shunt resistor (Coulomb counter). Units
+> +		after application of scale are milliCoulombs. X is the IIO index
+> +		of the device.
+> +
+> +What:		/sys/bus/iio/devices/iio:deviceX/in_coulomb_counter_scale
+> +KernelVersion:	7.4
+> +Contact:	linux-iio@vger.kernel.org
+> +Description:
+> +		If known for a device, scale to be applied to
+> +		in_coulomb_counter_raw in order to obtain the measured
+> +		value in milliCoulombs. X is the IIO index of the device.
+> +
+> +What:		/sys/bus/iio/devices/iio:deviceX/in_coulomb_counter_en
+> +KernelVersion:	7.4
+> +Contact:	linux-iio@vger.kernel.org
+> +Description:
+> +		This attribute, if available, is used to enable digital
+> +		accumulation of VSENSE measurements. X is the IIO index of
+> +		the device.
+
+Why are treating these 3 as custom?  The look like a standard thing we
+might want to measure.  Look instead to add a new channel type and
+handle them that way.
+
+> diff --git a/drivers/iio/adc/pac1711.c b/drivers/iio/adc/pac1711.c
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..f23d08205952f9eda16bf88826a740120de55988
+> --- /dev/null
+> +++ b/drivers/iio/adc/pac1711.c
+...
+
+> +
+> +/**
+> + * struct pac1711_features - features of a pac1711 instance
+> + * @name: chip's name
+> + * @prod_id: hardware ID
+
+This misses the point of having features type structures.
+They must contain everything that is specific to that device and
+typically do not contain a product_id.  Take a look at the many
+other drivers in tree that have structures called things like chip_info.
+This should include things like whether it is capable of 16 bits.
+The only code that ever uses the product ID should be the function
+you have that goes from what is read from the register to the relevant
+instance of the _features structure.
+
 > + */
-> +static int qcom_edp_ldo_config_nord(const struct qcom_edp *edp)
+> +struct pac1711_features {
+> +	const char *name;
+> +	u8 prod_id;
+> +};
+> +
+> +static const struct pac1711_features pac1711_chip_features = {
+> +	.name = "pac1711",
+> +	.prod_id = PAC1711_PRODUCT_ID_1711,
+> +};
+...
+
+> +/**
+> + * struct pac1711_chip_info - information about the chip
+> + * @chip_reg_data:		measurement/control/accumulator output device registers
+> + * @iio_info:			device information
+> + * @client:			the I2C client attached to the device
+> + * @work_chip_refresh:		work queue used for refresh commands
+> + * @lock:			synchronize access to driver's state members
+> + * @shunt:			shunt resistor value
+> + * @vbus_mode:			Full Scale Range (FSR) mode for VBus
+> + * @vsense_mode:		Full Scale Range (FSR) mode for VSense
+> + * @accumulation_mode:		accumulation mode for hardware accumulator
+> + * @sample_rate_idx:		sampling frequency index
+> + * @chip_variant:		chip variant
+> + * @voltage_range_idx:		Voltage range based on part number
+> + * @enable_acc:			true means that accumulation channel is enabled
+> + * @has_16bit_resolution:	true if device is part of the PAC18x1 family
+> + */
+> +struct pac1711_chip_info {
+> +	struct reg_data		chip_reg_data;
+> +	struct iio_info		iio_info;
+> +	struct i2c_client	*client;
+> +	struct delayed_work	work_chip_refresh;
+> +	/* Prevents concurrent writes into control, voltage measurement or accumulator registers. */
+> +	struct mutex		lock;
+> +	u32			shunt;
+> +	u8			vbus_mode;
+> +	u8			vsense_mode;
+> +	u8			accumulation_mode;
+> +	u8			sample_rate_idx;
+> +	u8			chip_variant;
+
+If you are storing the chip id after probe the driver is not correctly
+doing the whole chip_info / features selection of structure pattern.
+So this needs to go.
+
+What you want to end up with is a pointer to const structure with
+all the stuff in it that you are deriving from this variant.
+
+> +	u8			voltage_range_idx;
+> +	bool			enable_acc;
+> +	bool			has_16bit_resolution;
+> +};
+
+
+> +
+> +static int pac1711_get_samp_rate_idx(u32 new_samp_rate)
 > +{
-> +	const struct phy_configure_opts_dp *dp_opts = &edp->dp_opts;
-> +	u32 ldo_config;
-> +	u32 phy_ldo_cfg;
+> +	int cnt;
 > +
-> +	ldo_config = 0xd0;
-> +	phy_ldo_cfg = 0x03;
+> +	for (cnt = 0; cnt < ARRAY_SIZE(pac1711_samp_rate_map_tbl); cnt++)
+	for (unsigned int cnt = 0; ...
 
-You don't need those variables.
+> +		if (new_samp_rate == pac1711_samp_rate_map_tbl[cnt])
+> +			return cnt;
+> +
+> +	return -EINVAL;
+> +}
 
 > +
-> +	writel(ldo_config, edp->tx0 + TXn_LDO_CONFIG);
-> +	writel(dp_opts->lanes > 2 ? ldo_config : 0x00, edp->tx1 + TXn_LDO_CONFIG);
-> +	writel(phy_ldo_cfg, edp->edp + DP_PHY_LDO_CFG);
+> +static IIO_DEVICE_ATTR(in_coulomb_counter_raw, 0444,
+> +		       pac1711_in_coulomb_counter_raw_show, NULL, 0);
+> +
+> +static IIO_DEVICE_ATTR(in_coulomb_counter_scale, 0444,
+> +		       pac1711_in_coulomb_counter_scale_show, NULL, 0);
+> +
+> +static IIO_DEVICE_ATTR(in_coulomb_counter_en, 0644,
+> +		       pac1711_in_enable_acc_show, pac1711_in_enable_acc_store, 0);
+> +
+> +static struct attribute *pac1711_coulomb_counter_attr[] = {
+> +	PAC1711_DEV_ATTR(in_coulomb_counter_raw),
+> +	PAC1711_DEV_ATTR(in_coulomb_counter_scale),
+> +	PAC1711_DEV_ATTR(in_coulomb_counter_en),
+
+Why aren't we adding a standard channel type? Seems like that would make more
+sense given these attributes.
+
+
+> +	NULL
+> +};
+> +
+> +static const struct attribute_group pac1711_coulomb_counter_group = {
+> +	.attrs = pac1711_coulomb_counter_attr,
+> +};
+> +
+> +/*
+> + * The value of the shunt resistor may be known only at runtime and set by a client
+> + * application. This attribute allows to set its value in micro-ohms. Y is the channel
+> + * number. The value is used to calculate current, power and accumulated energy or
+> + * Coulomb counter.
+> + */
+> +static ssize_t pac1711_write_shunt_resistor(struct iio_dev *indio_dev, uintptr_t private,
+> +					    const struct iio_chan_spec *ch, const char *buf,
+> +					    size_t len)
+> +{
+> +	struct pac1711_chip_info *info = iio_priv(indio_dev);
+> +	struct device *dev = &info->client->dev;
+> +	unsigned int sh_val;
+> +	int ret;
+> +
+> +	ret = kstrtouint(buf, 10, &sh_val);
+> +	if (ret) {
+> +		dev_err(dev, "Shunt value is not valid\n");
+> +		return ret;
+> +	}
+> +
+> +	if (sh_val == 0)
+> +		return -EINVAL;
+> +
+> +	scoped_guard(mutex, &info->lock)
+
+Can just use a guard()
+
+> +		info->shunt = sh_val;
+> +
+> +	return len;
+> +}
+> +
+> +static const struct iio_chan_spec_ext_info pac1711_ext_info[] = {
+> +	{
+> +		.name = "in_shunt_resistor",
+> +		.read = pac1711_read_shunt_resistor,
+> +		.write = pac1711_write_shunt_resistor,
+> +		.shared = IIO_SHARED_BY_ALL,
+> +	},
+> +	{ }
+> +};
+> +
+> +#define TO_PAC1711_CHIP_INFO(d) container_of(d, struct pac1711_chip_info, work_chip_refresh)
+
+This is only used once. I'd not bother with the define.
+
+
+> +
+> +static int pac1711_read_raw(struct iio_dev *indio_dev, struct iio_chan_spec const *chan,
+> +			    int *val, int *val2, long mask)
+> +{
+> +	struct pac1711_chip_info *info = iio_priv(indio_dev);
+> +	int ret;
+> +	u64 tmp = 0;
+
+reverse xmas when nothing prevents it.
+
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_RAW:
+> +		ret = pac1711_retrieve_data(info, PAC1711_MIN_UPDATE_WAIT_TIME_US);
+> +		if (ret)
+> +			return ret;
+> +
+> +		switch (chan->type) {
+> +		case IIO_VOLTAGE:
+> +			*val = info->chip_reg_data.vbus;
+> +			return IIO_VAL_INT;
+> +		case IIO_CURRENT:
+> +			*val = info->chip_reg_data.vsense;
+> +			return IIO_VAL_INT;
+> +		case IIO_POWER:
+> +			*val = (u32)info->chip_reg_data.vpower;
+> +			*val2 = (u32)(info->chip_reg_data.vpower >> 32);
+> +			return IIO_VAL_INT_64;
+> +		case IIO_ENERGY:
+> +			*val = (u32)info->chip_reg_data.acc_val;
+> +			*val2 = (u32)(info->chip_reg_data.acc_val >> 32);
+> +			return IIO_VAL_INT_64;
+> +		default:
+> +			return -EINVAL;
+> +		}
+> +	case IIO_CHAN_INFO_SCALE:
+> +		switch (chan->address) {
+> +		case PAC1711_VBUS_REG_ADDR:
+> +			/* Voltages - scale for millivolts */
+> +			switch (info->chip_variant) {
+> +			case PAC1711_PRODUCT_ID_1711:
+> +			case PAC1711_PRODUCT_ID_1811:
+> +				*val = PAC1711_VOLTAGE_MILLIVOLTS_MAX;
+> +				break;
+> +			case PAC1711_PRODUCT_ID_1721:
+> +			case PAC1711_PRODUCT_ID_1821:
+> +				*val = PAC1721_VOLTAGE_MILLIVOLTS_MAX;
+> +				break;
+> +			default:
+> +				return -EINVAL;
+> +			}
+> +
+> +			*val2 = (info->vbus_mode == PAC1711_FULL_RANGE_BIPOLAR) ? 15 : 16;
+> +
+> +			return IIO_VAL_FRACTIONAL_LOG2;
+> +		case PAC1711_VSENSE_REG_ADDR:
+> +			/*
+> +			 * Currents - scale for mA - depends on the channel's shunt value
+> +			 * (100mV * 1000000) / (2^16 * shunt(uohm))
+> +			 */
+> +			*val = 1526;
+> +			*val2 = info->shunt;
+> +
+> +			if (info->vsense_mode == PAC1711_FULL_RANGE_BIPOLAR)
+> +				*val = *val << 1;
+> +
+> +			return IIO_VAL_FRACTIONAL;
+> +		case PAC1711_VPOWER_REG_ADDR:
+> +		case PAC1711_VACC_REG_ADDR:
+> +			/*
+> +			 * Power - uW - it will use the combined scale
+> +			 * for current and voltage
+> +			 * current(mA) * voltage(mV) = power (uW)
+> +			 */
+> +			switch (info->chip_variant) {
+> +			case PAC1711_PRODUCT_ID_1711:
+This stuff all needs to be data in the _features structure. Making this
+sort of switch statement become a look up of a value in a
+static const structure that we have a pointer to.
+
+			tmp = info->features->voltage_pv_fsr;
+
+> +			case PAC1711_PRODUCT_ID_1811:
+> +				tmp = PAC1711_PRODUCT_VOLTAGE_PV_FSR;
+> +				break;
+> +			case PAC1711_PRODUCT_ID_1721:
+> +			case PAC1711_PRODUCT_ID_1821:
+> +				tmp = PAC1721_PRODUCT_VOLTAGE_PV_FSR;
+> +				break;
+> +			default:
+> +				return -EINVAL;
+> +			}
+> +
+> +			do_div(tmp, info->shunt);
+> +			*val = (int)tmp;
+> +
+> +			if (chan->type == IIO_ENERGY)
+> +				*val2 = info->has_16bit_resolution ? 32 : 24;
+> +			else
+> +				*val2 = 32;
+> +
+> +			if (info->vsense_mode == PAC1711_FULL_RANGE_BIPOLAR)
+> +				*val2 -= 1;
+> +
+> +			if (info->vbus_mode == PAC1711_FULL_RANGE_BIPOLAR)
+> +				*val2 -= 1;
+> +
+> +			return IIO_VAL_FRACTIONAL_LOG2;
+> +		default:
+> +			return -EINVAL;
+> +		}
+> +	case IIO_CHAN_INFO_SAMP_FREQ:
+> +		scoped_guard(mutex, &info->lock) {
+> +			*val = pac1711_samp_rate_map_tbl[info->sample_rate_idx];
+> +		}
+> +		return IIO_VAL_INT;
+> +	case IIO_CHAN_INFO_ENABLE:
+> +		*val = info->enable_acc;
+> +		return IIO_VAL_INT;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static int pac1711_write_raw(struct iio_dev *indio_dev, struct iio_chan_spec const *chan,
+> +			     int val, int val2, long mask)
+> +{
+> +	struct pac1711_chip_info *info = iio_priv(indio_dev);
+> +	struct i2c_client *client = info->client;
+> +	struct device *dev = &info->client->dev;
+> +	s32 old_samp_rate;
+> +	int new_idx, ret, refresh_time;
+
+Where ordering doesn't matter for other reasons, use reverse xmas tree.
+
+> +	__be16 val_be16;
+> +	u16 val_u16;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_SAMP_FREQ:
+> +		scoped_guard(mutex, &info->lock) {
+> +			old_samp_rate = pac1711_samp_rate_map_tbl[info->sample_rate_idx];
+> +			new_idx = pac1711_get_samp_rate_idx(val);
+> +			if (new_idx < 0)
+> +				return new_idx;
+> +
+> +			ret = i2c_smbus_read_i2c_block_data(client, PAC1711_CTRL_ACT_REG_ADDR,
+> +							    sizeof(val_u16), (u8 *)&val_be16);
+> +			if (ret != sizeof(val_u16)) {
+> +				dev_err(&client->dev, "cannot read regs from 0x%02X\n",
+> +					PAC1711_CTRL_ACT_REG_ADDR);
+> +				return ret < 0 ? ret : -EIO;
+> +			}
+> +
+> +			val_u16 = be16_to_cpu(val_be16);
+> +			FIELD_MODIFY(PAC1711_CTRL_SAMPLE_MODE_MASK, &val_u16, new_idx);
+> +			ret = i2c_smbus_write_i2c_block_data(client, PAC1711_CTRL_REG_ADDR,
+> +							     sizeof(val_be16), (u8 *)&val_be16);
+
+There was a sashiko query on this one for why you aren't writing back update value.
+Perhaps a comment if that is intentional.
+
+> +			if (ret) {
+> +				dev_err(dev, "Failed to configure sampling mode in 0x%02X\n",
+> +					PAC1711_CTRL_ACT_REG_ADDR);
+> +				return ret;
+> +			}
+> +
+> +			info->sample_rate_idx = new_idx;
+> +			info->chip_reg_data.ctrl_act_reg = val_u16;
+> +
+> +			/* Force register snapshot and timestamp update with a refresh. */
+> +			refresh_time = msecs_to_jiffies(PAC1711_MIN_POLLING_TIME_MS) - 1;
+> +			info->chip_reg_data.jiffies_tstamp -= refresh_time;
+> +		}
+> +
+> +		ret = pac1711_retrieve_data(info, ((1024 * 1000) / old_samp_rate));
+> +		if (ret) {
+> +			dev_err(dev, "%s - cannot snapshot ctrl and measurement regs\n", __func__);
+> +			return ret;
+> +		}
+> +
+> +		return 0;
+> +	case IIO_CHAN_INFO_ENABLE:
+> +		if (chan->type != IIO_ENERGY)
+> +			return -EINVAL;
+> +
+> +		return pac1711_set_acc_enable(info, val);
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+
+> +
+> +static int pac1711_init_variant(struct iio_dev *indio_dev, struct pac1711_chip_info *info)
+> +{
+> +	switch (info->chip_variant) {
+> +	case PAC1711_PRODUCT_ID_1711:
+
+This has me confused. All data specific to a given part should be in the
+pac1721_chip_features and similar structures. We should just be picking
+between them based on the detected chip ID (and just using them if
+using the dt fallback path).
+This should look something like
+
+static struct pac1711_get_features_from_id(u8 id)
+{
+	switch (id) {
+		case PAC1711_PRODUCT_ID_1711:
+			return &pac1711_features;
+...
+	default:
+		return ERR_PTR(-ENODATA);
+	}
+}
+
+
+
+> +		info->has_16bit_resolution = false;
+> +		info->voltage_range_idx = PAC1711_VOLTAGE_RANGE_IDX;
+> +		indio_dev->name = pac1711_chip_features.name;
+> +		return 0;
+> +	case PAC1711_PRODUCT_ID_1721:
+> +		info->has_16bit_resolution = false;
+> +		info->voltage_range_idx = PAC1721_VOLTAGE_RANGE_IDX;
+> +		indio_dev->name = pac1721_chip_features.name;
+> +		return 0;
+> +	case PAC1711_PRODUCT_ID_1811:
+> +		info->has_16bit_resolution = true;
+> +		info->voltage_range_idx = PAC1711_VOLTAGE_RANGE_IDX;
+> +		indio_dev->name = pac1811_chip_features.name;
+> +		return 0;
+> +	case PAC1711_PRODUCT_ID_1821:
+> +		info->has_16bit_resolution = true;
+> +		info->voltage_range_idx = PAC1721_VOLTAGE_RANGE_IDX;
+> +		indio_dev->name = pac1821_chip_features.name;
+> +		return 0;
+> +	default:
+> +		return -ENODEV;
+> +	}
 > +
 > +	return 0;
 > +}
 > +
-> +static int qcom_edp_phy_tx_lane_cfg_nord(const struct qcom_edp *edp)
+> +static int pac1711_chip_identify(struct iio_dev *indio_dev, struct pac1711_chip_info *info)
 > +{
-> +	writel(0x05, edp->edp + DP_PHY_TX2_TX3_LANE_CTL_NORD);
-> +	writel(0x12, edp->edp + DP_PHY_TX_LN0_DRV_LVL_NORD);
-> +	writel(0x12, edp->edp + DP_PHY_TX_LN1_DRV_LVL_NORD);
-> +	writel(0x05, edp->tx0 + TXn_TX_BAND_NORD);
-> +	writel(0x05, edp->tx1 + TXn_TX_BAND_NORD);
-> +
-> +	return 0;
-> +}
-> +
-> +static int qcom_edp_phy_tx_res_cfg_nord(const struct qcom_edp *edp)
-> +{
-> +	writel(0x06, edp->tx0 + TXn_RES_CODE_LANE_OFFSET_TX0);
-> +	writel(0x06, edp->tx0 + TXn_RES_CODE_LANE_OFFSET_TX1);
-> +	writel(0x06, edp->tx1 + TXn_RES_CODE_LANE_OFFSET_TX0);
-> +	writel(0x06, edp->tx1 + TXn_RES_CODE_LANE_OFFSET_TX1);
-> +	writel(0x06, edp->tx0 + TXn_TX_EMP_POST1_LVL);
-> +	writel(0x06, edp->tx1 + TXn_TX_EMP_POST1_LVL);
-> +
-> +	return 0;
-> +}
-> +
-> +
->  static const struct of_device_id qcom_edp_phy_match_table[] = {
->  	{ .compatible = "qcom,glymur-dp-phy", .data = &glymur_phy_cfg, },
->  	{ .compatible = "qcom,sa8775p-edp-phy", .data = &sa8775p_dp_phy_cfg, },
-> 
-> -- 
-> 2.34.1
-> 
-> 
-> -- 
-> linux-phy mailing list
-> linux-phy@lists.infradead.org
-> https://lists.infradead.org/mailman/listinfo/linux-phy
+> +	struct i2c_client *client = info->client;
+> +	struct device *dev = &client->dev;
+> +	u8 chip_rev_info[3] = { 0 };
 
--- 
-With best wishes
-Dmitry
+= { };
+
+is the standard c way of doing that in newer versions of the standard and
+works in old compilers (there are self tests to ensure that!)
+
+> +	int ret;
+> +
+> +	ret = i2c_smbus_read_i2c_block_data(client, PAC1711_PID_REG_ADDR,
+> +					    sizeof(chip_rev_info), chip_rev_info);
+> +	if (ret != sizeof(chip_rev_info)) {
+> +		ret = ret < 0 ? ret : -EIO;
+> +		dev_err(dev, "product ID (0x%02X, 0x%02X, 0x%02X) not recognized %d\n",
+> +			chip_rev_info[0], chip_rev_info[1], chip_rev_info[2], ret);
+> +		return ret;
+
+Only run in probe so use dev_err_probe()
+
+> +	}
+> +
+> +	info->chip_variant = chip_rev_info[0];
+> +
+> +	return pac1711_init_variant(indio_dev, info);
+> +}
+> +
+> +static int pac1711_check_range(struct device *dev, s32 *vals, bool is_vbus,
+> +			       unsigned int voltage_range_idx)
+> +{
+> +	int num_ranges = ARRAY_SIZE(pac1711_vbus_range_tbl[PAC1711_VOLTAGE_RANGE_IDX]);
+> +	const int (*ranges)[3][2];
+> +	int i;
+> +
+> +	if (is_vbus)
+> +		switch (voltage_range_idx) {
+> +		case PAC1711_VOLTAGE_RANGE_IDX:
+> +			ranges = &pac1711_vbus_range_tbl[PAC1711_VOLTAGE_RANGE_IDX];
+> +			break;
+> +		case PAC1721_VOLTAGE_RANGE_IDX:
+> +			ranges = &pac1711_vbus_range_tbl[PAC1721_VOLTAGE_RANGE_IDX];
+> +			break;
+> +		default:
+> +			return -EINVAL;
+> +		}
+> +	else
+> +		ranges = &pac1711_vsense_range_tbl;
+	if (is_vbus) {
+		....
+	} else {
+		ranges = &pac1711_vsense_range_tbl;
+	}
+Whilst you could technically argue the switch is one statement
+it is not easy to parse visually so the extra brackets should be there.
+
+> +
+> +	for (i = 0; i < num_ranges; i++) {
+	for (int i = 0; ...
+
+> +		if (vals[0] == (*ranges)[i][0] && vals[1] == (*ranges)[i][1])
+> +			return i;
+> +	}
+> +
+> +	return -EINVAL;
+> +}
+> +
+> +static int pac1711_init_vbus_vsense_ranges(struct pac1711_chip_info *info, bool is_vbus)
+> +{
+> +	struct i2c_client *client = info->client;
+> +	struct device *dev = &client->dev;
+> +	const char *prop_name;
+> +	u32 vals[2];
+> +	int ret;
+> +
+> +	if (is_vbus)
+> +		prop_name = "microchip,vbus-input-range-microvolt";
+> +	else
+> +		prop_name = "microchip,vsense-input-range-microvolt";
+> +
+> +	ret = device_property_read_u32_array(dev, prop_name, vals, 2);
+> +	if (ret) {
+> +		dev_dbg(dev, "%s property error %X\n", prop_name, ret);
+> +		/* Set default range to PAC1711_FULL_RANGE_UNIPOLAR */
+> +		ret = PAC1711_FULL_RANGE_UNIPOLAR;
+
+There are different things here that should be handled. The normal
+case is the property isn't present, the other is that it is but
+we can't read it. Trick is to use a presence check to separate
+the not present case at the start.
+
+
+	if (device_property_present(dev, prop_name)) {
+		ret = device_property_read_u32_array(dev, prop_name, vals, 2);
+		if (ret)
+			return dev_err_probe();
+		
+		ret = pac1711_check_range(dev, (s32 *)vals, is_vbus, info->voltage_range_idx);
+		if (ret < 0)
+			return dev_err_probe(dev, -EINVAL, "Invalid value %d, %d for prop %s\n",
+					     vals[0], vals[1], prop_name);
+	} else {
+		dev_dbg(dev, "%s property error %X\n", prop_name, ret);
+		/* Set default range to PAC1711_FULL_RANGE_UNIPOLAR */
+		ret = PAC1711_FULL_RANGE_UNIPOLAR;
+	}
+
+I haven't checked to see if you have more places where this pattern would help.
+Please see if you have and look to update them all. Note this is what is
+considered best practice today, but in the past we did it like you had things
+and there are a lot of drivers we haven't updated yet.
+
+> +	} else {
+> +		ret = pac1711_check_range(dev, (s32 *)vals, is_vbus, info->voltage_range_idx);
+> +		if (ret < 0)
+> +			return dev_err_probe(dev, -EINVAL, "Invalid value %d, %d for prop %s\n",
+> +					     vals[0], vals[1], prop_name);
+> +	}
+> +
+> +	if (is_vbus)
+> +		info->vbus_mode = ret;
+> +	else
+> +		info->vsense_mode = ret;
+> +
+> +	return 0;
+> +}
