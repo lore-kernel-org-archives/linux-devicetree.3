@@ -1,100 +1,197 @@
-Received: from mail.fris.de (mail.fris.de [116.203.77.234])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B13104734EC;
-	Mon, 14 Sep 2026 13:47:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.203.77.234
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 678DC47534E;
+	Mon, 14 Sep 2026 13:47:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789393625; cv=none; b=Iydu+KAJijxRLiKHt9KY3U3LkqaTLbxPgaVEZfOcveYiC0MyPm+yY7x3NS6rokOpW2TsEnEHeA1FjE3a3ju+oONg0Bqu1ea+vW1bl18vQKzQaLXV722Rgl1yr7W1PbxfdNk2oAgPy/+uGLPc4bqxPJl22mTeVVJe80dlGUUcB84=
+	t=1789393626; cv=none; b=mp+DK9daEn4xCnGVJLVVPhD4Br23UinzNNvvC0NHRoRbZk2VgYm3T1YjiQnFXmPTglxCglaSIhC9OukXuZYf9KRAQ2pK/VqiV2bW5lZfNETw0JtcDkTtpL5jDMTFmciBATaCQKmn1ZEkRpvrCllVC/Hf7HVYvGng2ItDxgRs3CE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789393625; c=relaxed/simple;
-	bh=HhKaOp+p3KwfCAFbogop7pZiTI++nVe1i/l8LRcwlhI=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=dRMC6CYI+ZZIoWQzFAyiuOqSrnPVx6JBlz+RVlZX6MpHnGPwvfFRlfPwqJU9E7zGyIdUmf9p9DIwsko1a1SjLF4SCMnbyy+Q/20rrj4jtbYM4/K5h0ZHIqy/8Q8IcnLS1oZ4lhrkv+YpA/6ly6xmQh36JVVzi5QCQiAAKrX0LAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=EClNtoXU; arc=none smtp.client-ip=116.203.77.234
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fris.de
+	s=arc-20240116; t=1789393626; c=relaxed/simple;
+	bh=AUWd5f1BsfZwB1Pj4UBNwd8TrTwhAsm3rwAnyxw+nsc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=PHKyL2ETawid8jJHfzl9T4+Or/i+n9KRs9wpgEeBUKhVK49MpQdZ1pOoZn1/S9wzyK9WwhPs/L2bQhXPqr1OTAe+jbNYdLKREPyXmTu6eNyivfLexSMUZgXuQCPC/eYE+1WYUm9D5mNxzwFSHYzv26Gdr+My7UhekDLEPRAlPYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=12kVEqZO; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="EClNtoXU"
-From: Frieder Schrempf <frieder@fris.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fris.de; s=mail;
-	t=1789393611;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=eUarJMGDCqEqgZdWHNd0rs5//gAl4YBmb9tU/Vt4LlY=;
-	b=EClNtoXUYcXzDih0sdO1e952pojjjB1DfG78s/IGdSmmcoO8KyEl3EUX57/Uc+pp1A6i44
-	P0jnaLqmrfh6/HLmufF5tWngrDl9t2lUflbiCxdVs+bvFsGdLBKa5E2o+BTMvqx2EiD92r
-	7yBYkxY/kHF6DJZqOQP8FwV6VX2AqHaoGt2gZpcbKSBB23QAaVWP4Qzyz4vTHqDY+Zc2nb
-	OGzr/770DQrY1SFkAGx/LGeC7OBzuaUNEW5zaYCNtcvUxnONolA+CBCo8Zb7/v1Rg1hGHJ
-	UEHogQxBGKFOc1UqqE/xFAC27E1tX2VThFH+yZoSfQbomFeqWS5L88HtAjj7zw==
-Subject: [PATCH v2 0/9] Misc Kontron i.MX DT improvements
-Date: Mon, 14 Sep 2026 15:46:08 +0200
-Message-Id: <20260914-upstreaming-v7-2-imx-dt-improvements-08-26-v2-0-8e12bc5f1f10@kontron.de>
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="12kVEqZO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1789393625; x=1820929625;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=AUWd5f1BsfZwB1Pj4UBNwd8TrTwhAsm3rwAnyxw+nsc=;
+  b=12kVEqZOfUOIDy8kCcn5O4V0z0Ni7rllCJFE4oiO/KRPOH4D0boWFHk5
+   Sr7M4MORO+MywH5hF5u4NC0MWocbZK7amymqpDqjX3dkz01ZMr66TqWLU
+   K3xy2F63sWHRnK7NE6WZxISE9SaKolS5C1Zvd5Oam/wfEZ2UDpVcCrkKU
+   q7M8u2sDHldPZzLQZGwsOvyH8st8VwWH14dyYTY6achFuo2Qf6+92ILCP
+   BMviwJCO6E7rmin5dlS1sLCxjfLn90peA39Bj32/U/iskx8Hcs+pJlSdt
+   b7TaZvCRQSz5nDH7SquuwreXC1cVWyNQDTDdxeFk1+L83TBcONJY++u8j
+   A==;
+X-CSE-ConnectionGUID: 1o03+rbMSC+xGV5OYnDwfA==
+X-CSE-MsgGUID: NH+UKW30SL+1hGVvF2+r9w==
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="63566881"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 14 Sep 2026 06:46:59 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Mon, 14 Sep 2026 06:46:57 -0700
+Received: from [10.159.227.146] (10.10.85.11) by chn-vm-ex01.mchp-main.com
+ (10.10.85.143) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
+ Transport; Mon, 14 Sep 2026 06:46:55 -0700
+Message-ID: <bfcd57f8-ffca-4a44-a84f-12c46cb9fe76@microchip.com>
+Date: Mon, 14 Sep 2026 15:46:56 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/6] mmc: sdhci-of-at91: add option to keep clocks
+ enabled
+To: Robert Marko <robert.marko@sartura.hr>, <ulfh@kernel.org>,
+	<robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+	<nicolas.ferre@microchip.com>, <alexandre.belloni@bootlin.com>,
+	<claudiu.beznea@tuxon.dev>, <adrian.hunter@intel.com>, <ehristev@kernel.org>,
+	<linux-mmc@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+CC: <luka.perkov@sartura.hr>
+References: <20260907132617.1198548-1-robert.marko@sartura.hr>
+ <20260907132617.1198548-3-robert.marko@sartura.hr>
+Content-Language: en-US, fr
+From: Aubin Constans <aubin.constans@microchip.com>
+In-Reply-To: <20260907132617.1198548-3-robert.marko@sartura.hr>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/52OQQ6CMBBFr0K6dkwt2oIr72FYAB1gNLSkLQ2Gc
- HcL3sDV5CUv/83KPDpCz+7ZyhxG8mRNAnHKWDvUpkcgnZgJLiQveQHz5IPDeiTTQ1QggMYFdEh
- ncjbiiCZ4SJ6QIFXeCV2qEmXO0uDksKPliD2rH/u5eWEb9sJuDOSDdZ/jm3jZvb/C8QIcrppjU
- aubblT5eFsTnDVnjazatu0Lja3ImfcAAAA=
-X-Change-ID: 20260908-upstreaming-v7-2-imx-dt-improvements-08-26-673f2d979e63
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, 
- Frieder Schrempf <frieder.schrempf@kontron.de>, 
- Shawn Guo <shawnguo@kernel.org>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Eberhard Stoll <eberhard.stoll@kontron.de>, 
- Oualid Derouiche <oualid.derouiche@kontron.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1476;
- i=frieder.schrempf@kontron.de; h=from:subject:message-id;
- bh=HhKaOp+p3KwfCAFbogop7pZiTI++nVe1i/l8LRcwlhI=;
- b=owGbwMvMwCWWWSatKlDTJMZ4Wi2JIWv5r63ubrdvpivce9KoeCtILcgxvyF8xlVJKaugkJT3l
- QtWv+foKGVhEONikBVTZJHit3htaxbrI3+sOgpmDisTyBAGLk4BmIiDN8P/7O+FvDEHt5+TFFkv
- KugZf4p/RmT3ojglhUtXDsUked6Yw8jQ/O3xbbPVrN51px992HOS95GY8teaHSfiTRfIylquymr
- iBQA=
-X-Developer-Key: i=frieder.schrempf@kontron.de; a=openpgp;
- fpr=1A0F38EB3D365D4C1FC67B5A69761B25107C8216
 
-Changes in v2:
-- Patch 1 and 8: Improve commit message (Frank)
-- Link to v1: https://patch.msgid.link/20260908-upstreaming-v7-2-imx-dt-improvements-08-26-v1-0-4d0e8a75db79@kontron.de
+Hi Robert,
 
----
-Eberhard Stoll (1):
-      ARM: dts: imx6ul-kontron-bl-common: Replace UART3 with DIP switch GPIOs
+On 07/09/2026 15:25, Robert Marko wrote:
+> sdhci_at91_set_clks_presets() both enables the controller clocks and
+> programs its capabilities and preset registers. This prevents callers from
+> restoring the registers without changing the clock enable counts.
+> 
+> Move clock enablement to callers and add a SoC data flag for controllers
+> that must keep their clocks enabled. Use it in the runtime PM paths while
+> keeping register restoration separate from clock enablement.
 
-Frieder Schrempf (2):
-      arm64: dts: imx93-kontron: Adjust GPIO4_IO29 usage
-      arm64: dts: imx8mm-kontron: Describe the ethernet PHY LEDs
+This change has been required for the SAMA7G54 MPU already, and implemented by
+two complementary commits:
 
-Oualid Derouiche (6):
-      ARM: dts: imx6ul-kontron-bl-common: Add GPIO labels
-      ARM: dts: imx6ul-kontron-bl-common: Fix USB OTG1 ID pin configuration
-      arm64: dts: imx93-kontron: Make USB-C connector "device-only"
-      arm64: dts: imx8mm-kontron: Add GPIO labels and comments
-      arm64: dts: imx8mm-kontron: Add SPI EERAM on BL device
-      arm64: dts: imx8mp-kontron: Fix LVDS clock frequency for DL device
+https://github.com/linux4microchip/linux/commit/763a3c05c8f9d0feb279c6f308fa5d48d14e07d3
+https://github.com/linux4microchip/linux/commit/b5bbc888fb39471d46fe0a4ff28f69533c265dd0
 
- .../boot/dts/nxp/imx/imx6ul-kontron-bl-common.dtsi |  38 +++++---
- .../arm64/boot/dts/freescale/imx8mm-kontron-bl.dts | 107 ++++++++++++++++-----
- .../boot/dts/freescale/imx8mp-kontron-dl.dtso      |  11 +++
- .../boot/dts/freescale/imx93-kontron-bl-osm-s.dts  |   6 +-
- .../boot/dts/freescale/imx93-kontron-osm-s.dtsi    |  32 +-----
- 5 files changed, 117 insertions(+), 77 deletions(-)
----
-base-commit: 73e3f0710014fe6d4ed98cfc02292f6121db7558
-change-id: 20260908-upstreaming-v7-2-imx-dt-improvements-08-26-673f2d979e63
-
-Best regards,
---  
-Frieder Schrempf <frieder.schrempf@kontron.de>
+At least they have been validated by test campaigns.
+If that existing work seemed OK for you and the LAN969x, then I could squash
+these two commits and submit the result.
+> 
+> Signed-off-by: Robert Marko <robert.marko@sartura.hr>
+> 
+>   drivers/mmc/host/sdhci-of-at91.c | 39 +++++++++++++++++++-------------
+>   1 file changed, 23 insertions(+), 16 deletions(-)
+> 
+> diff --git a/drivers/mmc/host/sdhci-of-at91.c b/drivers/mmc/host/sdhci-of-at91.c
+> index 7c4ac65f247d..b7e2a89da348 100644
+> --- a/drivers/mmc/host/sdhci-of-at91.c
+> +++ b/drivers/mmc/host/sdhci-of-at91.c
+> @@ -38,6 +38,7 @@
+>   struct sdhci_at91_soc_data {
+>          const struct sdhci_pltfm_data *pdata;
+>          bool baseclk_is_generated_internally;
+> +       bool keep_clks_on;
+>          unsigned int divider_for_baseclk;
+>   };
+> 
+> @@ -164,7 +165,7 @@ static const struct of_device_id sdhci_at91_dt_match[] = {
+>   };
+>   MODULE_DEVICE_TABLE(of, sdhci_at91_dt_match);
+> 
+> -static int sdhci_at91_set_clks_presets(struct device *dev)
+> +static void sdhci_at91_set_clks_presets(struct device *dev)
+>   {
+>          struct sdhci_host *host = dev_get_drvdata(dev);
+>          struct sdhci_pltfm_host *pltfm_host = sdhci_priv(host);
+> @@ -174,7 +175,6 @@ static int sdhci_at91_set_clks_presets(struct device *dev)
+>          unsigned int                    gck_rate, clk_base_rate;
+>          unsigned int                    preset_div;
+> 
+> -       clk_prepare_enable(priv->hclock);
+>          caps0 = readl(host->ioaddr + SDHCI_CAPABILITIES);
+>          caps1 = readl(host->ioaddr + SDHCI_CAPABILITIES_1);
+> 
+> @@ -222,11 +222,6 @@ static int sdhci_at91_set_clks_presets(struct device *dev)
+>          preset_div = DIV_ROUND_UP(gck_rate, 50000000) - 1;
+>          writew(SDHCI_AT91_PRESET_COMMON_CONF | preset_div,
+>                 host->ioaddr + SDHCI_PRESET_FOR_DDR50);
+> -
+> -       clk_prepare_enable(priv->mainck);
+> -       clk_prepare_enable(priv->gck);
+> -
+> -       return 0;
+>   }
+> 
+>   static int sdhci_at91_suspend(struct device *dev)
+> @@ -254,9 +249,11 @@ static int sdhci_at91_runtime_suspend(struct device *dev)
+>          if (host->tuning_mode != SDHCI_TUNING_MODE_3)
+>                  mmc_retune_needed(host->mmc);
+> 
+> -       clk_disable_unprepare(priv->gck);
+> -       clk_disable_unprepare(priv->hclock);
+> -       clk_disable_unprepare(priv->mainck);
+> +       if (!priv->soc_data->keep_clks_on) {
+> +               clk_disable_unprepare(priv->gck);
+> +               clk_disable_unprepare(priv->hclock);
+> +               clk_disable_unprepare(priv->mainck);
+> +       }
+> 
+>          return 0;
+>   }
+> @@ -269,14 +266,23 @@ static int sdhci_at91_runtime_resume(struct device *dev)
+>          int ret;
+> 
+>          if (priv->restore_needed) {
+> -               ret = sdhci_at91_set_clks_presets(dev);
+> -               if (ret)
+> -                       return ret;
+> +               if (!priv->soc_data->keep_clks_on)
+> +                       clk_prepare_enable(priv->hclock);
+> +
+> +               sdhci_at91_set_clks_presets(dev);
+> +
+> +               if (!priv->soc_data->keep_clks_on) {
+> +                       clk_prepare_enable(priv->mainck);
+> +                       clk_prepare_enable(priv->gck);
+> +               }
+> 
+>                  priv->restore_needed = false;
+>                  goto out;
+>          }
+> 
+> +       if (priv->soc_data->keep_clks_on)
+> +               goto out;
+> +
+>          ret = clk_prepare_enable(priv->mainck);
+>          if (ret) {
+>                  dev_err(dev, "can't enable mainck\n");
+> @@ -344,9 +350,10 @@ static int sdhci_at91_probe(struct platform_device *pdev)
+>                  return dev_err_probe(&pdev->dev, PTR_ERR(priv->gck),
+>                                       "failed to get multclk\n");
+> 
+> -       ret = sdhci_at91_set_clks_presets(&pdev->dev);
+> -       if (ret)
+> -               return ret;
+> +       clk_prepare_enable(priv->hclock);
+> +       sdhci_at91_set_clks_presets(&pdev->dev);
+> +       clk_prepare_enable(priv->mainck);
+> +       clk_prepare_enable(priv->gck);
+> 
+>          priv->restore_needed = false;
+> 
+> --
+> 2.55.0
 
