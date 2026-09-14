@@ -1,118 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8BAA442B1D
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 19:44:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68BFA485CF9
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 19:44:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789415064; cv=none; b=WPuwUDF1X4wqukHq3tMlEvUZHooeGINYkXZbl42U4Y9DbZPbCld20rdVnmCX7LwFUZ+mfnhos6NVDQ178NtXEGh6209dxNM82pTEJ0KkUrqO72LPQNTwZCWOWuSe9eslCrot7C9FojQUk+0M5BXwQGccY3oqjtB0RyqnHk+QndA=
+	t=1789415066; cv=none; b=UU1tXhIkt/EKzOxwV58dRKE+81KxtSsUSA7PykJJW76+HF9ZNH6w2SutQ6kY5Yeh2YLvNnAo7jK5rs6p0aaK8WJyrQ3izu2F4ZjwhX5bs626s5aeboJEqnQCUcCJFf27y3T/l684RLuEaT7k9NHNnsuFj91dmp08brM4TQVPxC4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789415064; c=relaxed/simple;
-	bh=DBVfptiLaAY0jgkxgc1ZkUU7O+YhHp43xLiTAjElyAs=;
+	s=arc-20240116; t=1789415066; c=relaxed/simple;
+	bh=Ve6Nz5gRY2/c8sLjrklvkjwr1xs56qnYT4QKjlLWKK4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=YVrLnlQuK/792zkdcWJNcJJWnPfcKtu7seqTRqNF0G31KKTUcPg5HmzhOt7y9Kldm8XwtCi0H0z9JKfln/kmULNFIYG99KCmM3g1CdZPreetIXOZ5L3l8gyNRP6xvPUVdx7T7uAQ4pc11i3nptYnw+RrX8ZPQmgP9seyJ5m2KMc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=njb24naR; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=R+EGnDLxZ99c7MjpUwApA6ruUu0T4+4MBx9m+XHrSNpILlmk2+XHLTSYFVnKCFqtYsTetddXz2qVnP8V59+OtkGC0ihk7q2Ay474pUzn4v3oe6HGC33SihxwcIBwV6NtOv/tlzRJvax7kSZtUBxrbvDZ1ak5757neEOE3BNIc0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b+olwNv7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="njb24naR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 944211F00893;
-	Mon, 14 Sep 2026 19:44:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b+olwNv7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 979E11F00898;
+	Mon, 14 Sep 2026 19:44:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789415062;
-	bh=lqI3ODgO2LNSJBicniYkHecRRZp2tEoUeHm8xIYO/4c=;
+	s=k20260515; t=1789415063;
+	bh=/ir94dy3AU1OanbTxeg78bmKUnOKTcIEX4RThMQ3HbM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=njb24naRFr4370jvLpu2zSQy9Pp+LFi1K/4vV+nRJLxeSqL2oKxSJ/fOvNEimIlzW
-	 Bq+yAP6NtCMGxg0FwCpX4zB0dz1QnWoSdTS6m7g56C0Ox1htRKSJxomB6jzZcZhom4
-	 K+U2RY2wmFoIfdSzbc0woh2AbeCd8/FDOXNabdV/rs3eLQmkXUGN5RygIAm21D7jnZ
-	 tZ/pnC6WoS2lj+Ssqj5QENdoqd32UxBsSn1WyJVZII0+oaHnI9fXogCzxAys+huUMg
-	 V/LPl+FnCf7Mk1/W0t9HPrLBPpamVQFqqS3dFNBTowCo2z2sQSCj9EU9l5njQoIkQS
-	 u3zxaHV4g5rGg==
+	b=b+olwNv7kQk8s5ajCpO5RtdWZ8rbmLjfpf8NkBS8PoK8qFp+NzhlQxV5lYNIMmTCH
+	 NdHiGAB7v2vCf1+CfhnPxsqHRAHV9R5e2CrSb5n1fi2H1gf98cvxdLJEcwScyma6EL
+	 3+AMbayay5qVGdBKiNR9ducA0UOdokb5rvf4QTJdXOfO/HAQLiOzic7d/5VxAVcJsX
+	 y5oAKFyzZho/zmm02AFe5Mp3kI/QQCwJlOGghYJhQoNNWzOAzWpPOKNy2M0SaEruLa
+	 m2J+7huT4DI5t01t/QG3VZYa4e12pgCPz2Q3mUDOSw6VfGiuGIDGDyYmuCfIwyH4Jm
+	 vZpFj/Nk6eq+w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v5 06/11] net: pcs: xpcs: add ANRESTART support
- for SGMII link recovery
+Subject: Re: [PATCH net-next v5 05/11] arm64: dts: rockchip: rk3568: add
+ XPCS and fixed-clock nodes
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Coia Prant" <coiaprant@gmail.com>
-Cc: neil.armstrong@linaro.org, olteanv@gmail.com, vkoul@kernel.org, conor+dt@kernel.org, linux-phy@lists.infradead.org, wsa+renesas@sang-engineering.com, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260913185849.907479-7-coiaprant@gmail.com>
+Cc: olteanv@gmail.com, vkoul@kernel.org, wsa+renesas@sang-engineering.com, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, linux-phy@lists.infradead.org, neil.armstrong@linaro.org
+In-Reply-To: <20260913185849.907479-6-coiaprant@gmail.com>
 References: <20260913185849.907479-1-coiaprant@gmail.com>
- <20260913185849.907479-7-coiaprant@gmail.com>
+ <20260913185849.907479-6-coiaprant@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 19:44:21 +0000
-Message-Id: <20260914194421.944211F00893@smtp.kernel.org>
+Date: Mon, 14 Sep 2026 19:44:22 +0000
+Message-Id: <20260914194422.979E11F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] Unconditionally applying the RK3568 SGMII AN restart quirk cause=
-s an infinite interrupt storm or workqueue loop on standard interrupt-drive=
-n DW XPCS configurations.
+- [Low] The `xpcs` node omits the `phys` and `phy-names` properties, which =
+are unconditionally required by the DT binding schema.
+- [Low] The `status` property is used in the `ethernet-pcs-mii@[0-3]` child=
+ nodes, but it is not permitted by the `rockchip,rk3568-xpcs.yaml` schema.
 --
 
-commit 78eb5488d0c0d3fe9f609e56e59710ced52856fa
+commit 2dc66bd193ed0eb637b2ea9fc03e4b482b419260
 Author: Coia Prant <coiaprant@gmail.com>
 
-net: pcs: xpcs: add ANRESTART support for SGMII link recovery
+arm64: dts: rockchip: rk3568: add XPCS and fixed-clock nodes
 
-This patch adds BMCR_ANRESTART to DW XPCS when configuring auto-negotiation
-and when the link goes down. This is intended to resolve an issue on some
-platforms (like RK3568) where the PCS does not automatically restart
-auto-negotiation when the link goes down and comes back up.
+This commit adds the XPCS device node and its pcs-mii sub-nodes to the=20
+RK3568 SoC device tree to support 1000BASE-X, SGMII, and QSGMII interfaces.=
+=20
+It also introduces two fixed-clock nodes providing the 125 MHz reference=20
+clock for the GMACs.
 
-> diff --git a/drivers/net/pcs/pcs-xpcs.c b/drivers/net/pcs/pcs-xpcs.c
-> index 0337e2bcc0125..8c3875b6985b9 100644
-> --- a/drivers/net/pcs/pcs-xpcs.c
-> +++ b/drivers/net/pcs/pcs-xpcs.c
-[ ... ]
-> @@ -1093,9 +1107,18 @@ static int xpcs_get_state_c37_sgmii(struct dw_xpcs=
- *xpcs,
->  		return 0;
->  	}
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3568.dtsi b/arch/arm64/boot/d=
+ts/rockchip/rk3568.dtsi
+> --- a/arch/arm64/boot/dts/rockchip/rk3568.dtsi
+> +++ b/arch/arm64/boot/dts/rockchip/rk3568.dtsi
+> @@ -110,6 +110,51 @@ sata0: sata@fc000000 {
+>  		status =3D "disabled";
+>  	};
 > =20
-> -	/* Clear AN complete status or interrupt */
-> -	if (state->an_complete)
-> -		xpcs_write(xpcs, MDIO_MMD_VEND2, DW_VR_MII_AN_INTR_STS, 0);
-> +	if (state->an_complete) {
-> +		/* Clear AN complete status or interrupt */
-> +		ret =3D xpcs_write(xpcs, MDIO_MMD_VEND2, DW_VR_MII_AN_INTR_STS, 0);
-> +		if (ret < 0)
-> +			return ret;
+> +	xpcs: ethernet-pcs@fda00000 {
+> +		compatible =3D "rockchip,rk3568-xpcs";
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <0>;
+> +		reg =3D <0x0 0xfda00000 0x0 0x200000>;
+> +		clocks =3D <&cru PCLK_XPCS>, <&cru CLK_XPCS_EEE>;
+> +		clock-names =3D "csr", "eee";
+> +		power-domains =3D <&power RK3568_PD_PIPE>;
+> +		status =3D "disabled";
+
+[Severity: Low]
+Does this node need to include the phys and phy-names properties?
+The DT binding schema for rockchip,rk3568-xpcs unconditionally requires
+these properties. Omitting them here might cause make dtbs_check to fail
+with validation warnings on boards that do not override and populate this
+node.
+
 > +
-> +		/* Initiate the next round of AN */
-> +		ret =3D xpcs_modify(xpcs, MDIO_MMD_VEND2, MII_BMCR, BMCR_ANRESTART,
-> +				  BMCR_ANRESTART);
+> +		xpcs_mii0: ethernet-pcs-mii@0 {
+> +			reg =3D <0>;
+> +			status =3D "disabled";
 
-[Severity: Medium]
-Could unconditionally applying this AN restart quirk cause an infinite
-interrupt storm or MDIO polling loop on standard DW XPCS configurations?
+[Severity: Low]
+Is the status property permitted in these child nodes?
+The schema for ethernet-pcs-mii@[0-3] uses additionalProperties: false
+and restricts properties to just reg. Including status here will likely
+trigger validation warnings during make dtbs_check.
 
-If a cable is disconnected on an SGMII port, the PHY may continuously trans=
-mit
-the 'Link Down' AN configuration word. When the MAC completes AN and genera=
-tes
-an interrupt, xpcs_get_state_c37_sgmii() is called. It clears the interrupt
-and unconditionally sets BMCR_ANRESTART.
+> +		};
 
-Will this cause the hardware to reset its AN state machine, immediately
-complete AN again with the PHY's continuous 'Link Down' word, and fire anot=
-her
-interrupt, creating an endless loop?
-
-Should this behavior be isolated to only the platforms that require the qui=
-rk
-(like RK3568), rather than applied to all hardware using the DesignWare XPC=
-S IP?
-
-> +		if (ret < 0)
-> +			return ret;
-> +	}
-> =20
->  	return 0;
->  }
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260913185849.9074=
-79-1-coiaprant@gmail.com?part=3D6
+79-1-coiaprant@gmail.com?part=3D5
