@@ -1,151 +1,172 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6D023E559A
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 07:34:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A66AD3E95B2;
+	Mon, 14 Sep 2026 07:34:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789371258; cv=none; b=JzxY2GAvsNskkNQVPEkIB05vzPz7EHIaJTli1zonCgBvcyGOMRjwbsnmm77az1YDWHVjrNJ/UOMInedf+r1GZ6aePt9LRturTJsEhwJr7ASregQ9mjqKg4cnoZOeLSSmj9bMa8y3ZK4/mopat6wzJRquB1Nj4gbrHGKu2nHxxfg=
+	t=1789371278; cv=none; b=PdlXc8on1d9ZwPn1JtbCJ65ssKLNRKpVY8JkieAofzVkIZdCwNuAmMHaOjWU8LhIq9ZwlZfVRaUE7HU1KobH8zkeYCcwhISrXSMH3JdGByBR41uRV0c/xlYT79BZ2IRTaniRZtvY7/nI8Z85QIndBKK1xT0UQkJE0rznnJpeyVc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789371258; c=relaxed/simple;
-	bh=1ey+7BuuywOfPmHLIz/6UMXpAWTAVAah4dLipk9yDGE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=prLqE2ERHic7KECVJiU/qcI2EssRb7G2rOmLqSQdobEte+dvgWyByS7pYds5MEqrRjYoGlfF5LJrkowknBh7ADe3Qo85qWGdcWaMLBRDMAGxpDIfi4q2uXxTAi4upN05Xou4aIJfZ/YumDQddRrYmhA01Ya9mIMe00hR+3J71a8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PA2vsX75; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EWhir8oB; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789371278; c=relaxed/simple;
+	bh=iYpxcEi+vSsmeCzv9oPf1ygPfNIU0QvOstJVHg7uGgs=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=iEdr0An4aDfm+ToeExqhST+0Edo4QR9YVcRnA1nRYl3ePgpBMc0xVHkXsoKdi883xAU+AfBycVewUyD+gAQfTT8YsNbRZ94on5yUX1dW++6A5bEb1Efy9x/AuZBNUXdvjmDPPY0RO7bP3/yDo0yaHobtTtliUc3oHwiTifgePH4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=ZFV8yspg; arc=none smtp.client-ip=60.244.123.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PA2vsX75";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EWhir8oB"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E5iwF53739615
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 07:34:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=bJ0LnXcfs2eCKZrtoDG+orKK
-	jrb0m3XGM63JVNK8OTI=; b=PA2vsX75z1gcXpghMbiHotqxgTQDNnDbIsHtHarI
-	T7SqbpFbUFX8pXO81QdcRCdey2Ab/gzWuCCBSPDoE07/1yUzVasxgAA+inrPNizL
-	trZQCMAIpAomS50ABkai0L8lVVlPq7T3GKTLute9cmz+TrPTlixL1TgjDcMIYDZH
-	ejuaCoFEUWLxZsnDES9mlg/qtdsha/m2D9gzlG9NaDDyNFXKHEGPAl9y75nYmn0D
-	2cMBHE7XzGOzPVyMufcSGX2OmP4tk1ie84AQPzzfCMM7qy2FZoewgsOysasLj/ez
-	BrUXzuRj5x9w1NY6C1yaXZvIJcpBY3ezZpeYVlxGKm8WUw==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9ddhrw-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 07:34:15 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93909014c85so569594385a.0
-        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 00:34:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789371255; x=1789976055; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bJ0LnXcfs2eCKZrtoDG+orKKjrb0m3XGM63JVNK8OTI=;
-        b=EWhir8oBcpBB9HwQvs19m84Lx8xJ/hKYIVV3jo+aZs3k1cSfuWO0bOyMMT2bLkZESq
-         evoBakU1+OCTc0YnNmnN70l2JlX0fX6vktLyuqMFj9TzbW3HZFNstEAiD/1g5oS8J/cJ
-         IITA0qCYg7nz0tq0Nrs0PHcLTljPvQb3BGuhKJLpQpZPMuXJb4Zv5ESqs0TeAFBZ+nsq
-         FMaJdM1D4VphEiVTCiPI2YlpQCuGmH+MtDkPbcztOeTBh/hrKb0ptCKvoEvXyT8TRGqY
-         lHQLoYdCRJ35Bhi+UyL2bBd0eQN22ce7E7L0G8nQWZ7JuXiWQMLBSMeHtdPsjXXtMge7
-         ljPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789371255; x=1789976055;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bJ0LnXcfs2eCKZrtoDG+orKKjrb0m3XGM63JVNK8OTI=;
-        b=WIhmYzUSziUYeGZDIzVv9RgckBJHtdCpXYgdfJ2FtNfyex4mofmhBPQoPbQY/hbwgO
-         0GsUqyH4UFRc8IkPnow8GNeMWQt7iKvla/LmnA+kCr0vGpD14mc7/lI+S3TAm4+kojOm
-         V7ftd+NqV0IxSqUojegwud4QSaRUauJ1Cq3xDbv9rTWh2ENJOC/X61mFR/9yqF1aZFD6
-         necBZ+gnn10bl5c5i+zNhUUpCfSX029NVubTG2UtaCu9MIG0rh48EBqonYfw5gHI4Nq/
-         1XGZjcQt+shqDUb6nVDC/QaDcOIqY/LtH4gy3+gCOEW4aIGw1x3LL16mk1bDAo1NblQ5
-         thjg==
-X-Forwarded-Encrypted: i=1; AKwUvBzdAuy7vrre6buUGiZGF9q2piZ+HOJD9SmacGiSKWvmWeT+QUTHiNe8SqMXbHDcc3W8kYs0W9dWS2Jn@vger.kernel.org
-X-Gm-Message-State: AFuF++nr7hKICVPuR4uFUmudhVunsg7rsjwjgw2KnrG5cpov6vEf8JE9
-	28rICL+9wwsstQrsT1Z3w5CA9AT83nKaIBhn6TIV/6lDU8L9K+8nwtImrUoKJijTRuD8UwTgMK7
-	xjK5yo6d6oK/D7SQ8knJMwKqVPuzDs3wRm712YaHij405bI9TPWpylApN23jojHJF
-X-Gm-Gg: AYBFou37W8q1KTukatgiSi06Yq0lfDVKuAvhl/rzCrM3M4D5EjO9zN8FGTr8Snryy7Z
-	zGdD8zooKbt82SPCxeT5/AZghdNBnEEYMway6N/ac1Eamo0bE+foPUI5qhaxHqb1tPrv2YBN665
-	FCHW9En7bf6mq3Uwm7suNCNE+451VXHR52MCk4ppClPqdMNLPi2axNrK/sAvKf1hQhNdg1aXLOv
-	WgXLKMeQ1a1E7Hd/AMkICjW8jwwjZsJLwmXuR0ZEyFV04Jxn4RbGz55VWGwQxxw8dy/+Jikrrme
-	qe7qDtbIGILrN8euYVg2HzRFdCBUjNGLPY29f+euGROTy7mbCm39ptiviSGuwXsMzP7UHWs8eWA
-	WIYweLMXIxpw8pA==
-X-Received: by 2002:a05:620a:1788:b0:939:f27c:7433 with SMTP id af79cd13be357-93a29c132f5mr158406485a.50.1789371255012;
-        Mon, 14 Sep 2026 00:34:15 -0700 (PDT)
-X-Received: by 2002:a05:620a:1788:b0:939:f27c:7433 with SMTP id af79cd13be357-93a29c132f5mr158403485a.50.1789371254520;
-        Mon, 14 Sep 2026 00:34:14 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.232])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb35f3d9sm24084717f8f.35.2026.09.14.00.34.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 00:34:13 -0700 (PDT)
-Date: Mon, 14 Sep 2026 10:34:11 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Douglas Anderson <dianders@chromium.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-        mpearson-lenovo@squebb.ca, sibi.sankar@oss.qualcomm.com
-Subject: Re: [PATCH 2/4] drm/panel-edp: add CSOT MNE007QB1-1 entry
-Message-ID: <biywo5isdeagqu323ozaleeakngl4sngps4v7ngwqo23ju2sw7@jn53hxxuccff>
-References: <20260913201835.250085-1-srinivas.kandagatla@oss.qualcomm.com>
- <20260913201835.250085-3-srinivas.kandagatla@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="ZFV8yspg"
+X-UUID: b7ae3efeb00e11f1b1788b6acf885367-20260914
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From; bh=Bj+p5Xe9b4pgmGeFJIUoTwkyssUTNsuSHbYegk9Xjrw=;
+	b=ZFV8yspgU1VgGR6tUJWNf7u1AoMM7HcELO1vAqj6Gc0nFzYfwY5c/3bdsPfCkGQCkKPzjmv7IDRgG9dImRHLZ15ddfuxTVurox6JwqZiPHc9G7JY7P96UurSLNp8y2vElil1jn0a+R8bKbs7YivDxbhJp2jAc81hZkEkj5Oz6os=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:d9664ca1-cf66-4310-bb2b-a53af62cf69b,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:ccb83c0c-027a-4b0a-91ab-050fa8cdb9b0,B
+	ulkID:nil,BulkQuantity:0,SF:102|136|836|865|888|898,TC:-5,Content:0|15|50|
+	99,EDM:-3|-100,IP:nil,URL:99|1,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,
+	OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: b7ae3efeb00e11f1b1788b6acf885367-20260914
+Received: from mtkmbs10n2.mediatek.inc [(172.21.101.183)] by mailgw01.mediatek.com
+	(envelope-from <irui.wang@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 1847673177; Mon, 14 Sep 2026 15:34:28 +0800
+Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
+ mtkmbs11n2.mediatek.inc (172.21.101.187) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Mon, 14 Sep 2026 15:34:27 +0800
+Received: from mhfsdcap04.gcn.mediatek.inc (10.17.3.154) by
+ mtkmbs11n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Mon, 14 Sep 2026 15:34:26 +0800
+From: Irui Wang <irui.wang@mediatek.com>
+To: Hans Verkuil <hverkuil-cisco@xs4all.nl>, Mauro Carvalho Chehab
+	<mchehab@kernel.org>, Rob Herring <robh+dt@kernel.org>, Matthias Brugger
+	<matthias.bgg@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	<wenst@chromium.org>, <angelogioacchino.delregno@collabora.com>,
+	<nicolas.dufresne@collabora.com>, Tiffany Lin <tiffany.lin@mediatek.com>,
+	kyrie wu <kyrie.wu@mediatek.com>
+CC: Yunfei Dong <yunfei.dong@mediatek.com>, Maoguang Meng
+	<maoguang.meng@mediatek.com>, Longfei Wang <longfei.wang@mediatek.com>, Irui
+ Wang <irui.wang@mediatek.com>,
+	<Project_Global_Chrome_Upstream_Group@mediatek.com>,
+	<linux-media@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-mediatek@lists.infradead.org>
+Subject: [PATCH v8 0/6] Add support for MT8196 video encoder
+Date: Mon, 14 Sep 2026 15:34:15 +0800
+Message-ID: <20260914073423.16131-1-irui.wang@mediatek.com>
+X-Mailer: git-send-email 2.46.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260913201835.250085-3-srinivas.kandagatla@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDEwNiBTYWx0ZWRfX/4xBuVc53ZnL
- 6bAAbzSTy2dm47eVwHFVUMftZqg65kSQURnocIoYSGJr/IB4Pdyb2fVefq+1FaqaNbOIENHqXf0
- 58mpgVwdR/foUuMQYHxOL4EezXdE5RWH9/ckFvjpuSmc0KImqHW2WdUWeqw92w/pGlVXagiqpV3
- aBvRDhJeezWgnP9jMHC3PL4mwKWVU4CvUM3k2L1q/M953dY94fczo+PIgONk3UHzmvK8MH0ptrX
- a/UYGMvSa+Q24e2+cAF+rKyxpi5UwDlHcULHFiaYPioxzxQtg3riE69HlEB1dkIwrld1cS9wh5E
- 8K2xD1y4cOhzQU3kaDsi9UUn90bnFt4IFqHg/Afz92gI+8bR9PLrdxzD6cm2didqdEYBo62NgPs
- 0XVvuAxfpaVgTz5pIiGyORs5HO7xRPUtO+Uo17F95c189BBCyPz6DFCOO2gPA65ganyQyyvDhpw
- Hvja6rN7IE9B3BX2/qw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDEwNiBTYWx0ZWRfX+8zwc2wLVl/f
- RO/CwvDTmDDxQ1F86u68p0MI2Qp4eMwtXIC4YYEdBT2gkUNRa4XG8/3AEyzX/ugzTVYmgTVihZ4
- +5ikeFOQSbvD1tq/DCyxIDM10ldzeI8=
-X-Proofpoint-GUID: d9ntva8Q5ygUigJf2jhBsZYhnnn4w1QA
-X-Authority-Analysis: v=2.4 cv=OeUNnRTY c=1 sm=1 tr=0 ts=6aa7a377 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=PY3c6-KAFs37oqjDjR4A:9 a=CjuIK1q_8ugA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-ORIG-GUID: d9ntva8Q5ygUigJf2jhBsZYhnnn4w1QA
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-14_02,2026-09-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 malwarescore=0 phishscore=0 bulkscore=0 spamscore=0
- priorityscore=1501 suspectscore=0 impostorscore=0 adultscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140106
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-MTK: N
 
-On 26-09-13 21:18:33, Srinivas Kandagatla wrote:
-> 14" 1920x1200 IPS panel used on Lenovo ThinkPad T14s Gen 7 (Mahua).
-> Panel identifies as CSW 0x1465 over eDP AUX; uses conservative
-> delay_200_500_e50 preset in line with sibling MNE007QB/QS panels.
-> 
-> Assisted-by: Claude:claude-opus-4-7
-> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+This series adds support for the MT8196 video encoder.
 
-I think Doug starting asking for EDID dump in the commit message.
+Patch 1 adds the device-tree binding changes.
+Patch 2 adds the new encoder platform data.
+Patches 3 through 5 add a new encoder driver interface for VCP firmware.
+Patch 6 adds the MT8196 compatible data.
 
-The rest looks good to me, so:
+The v4l2-compliance result for the encoder is:
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+  Total for mtk-vcodec-enc device /dev/video3: 47, Succeeded: 46,
+  Failed: 1, Warnings: 0
+
+The one failed test is not caused by this series:
+
+  fail: v4l2-test-controls.cpp(1171):
+        node->codec_mask & STATEFUL_ENCODER
+  test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: FAIL
+
+This series depends on the MT8196 video decoder v6 series [1]. The decoder
+series retains the "Add MediaTek VCP remoteproc driver support" v4
+prerequisite [2].
+
+[1] https://patchwork.linuxtv.org/project/linux-media/list/?series=28000
+[2] https://patchwork.kernel.org/series/1086068/
+
+Changes in v8:
+ - Rebase the encoder series on the MT8196 decoder v6 series.
+ - Adapt patch 2 to the decoder v6 firmware-selection flow, retaining its
+   generic selector and validation while supplying the encoder platform
+   firmware initialization callback.
+ - Adapt patch 5 to the decoder v6 VCP teardown flow, retaining the complete
+   teardown before adding the encoder firmware-device callback.
+ - Link to v7:
+   https://patchwork.linuxtv.org/project/linux-media/list/?series=26089
+
+Changes in v7:
+ - Patch 2: Add new pdata members to remove device-tree parsing branches.
+ - Rebase the series on the decoder patch set.
+ - Link to v6:
+   https://patchwork.linuxtv.org/project/linux-media/cover/20260423073345.27402-1-irui.wang@mediatek.com/
+
+Changes in v6:
+ - Move the device-tree binding changes to patch 1.
+ - Rebase the series on the decoder patch set.
+ - Link to v5:
+   https://patchwork.linuxtv.org/project/linux-media/cover/20260302035244.8994-1-irui.wang@mediatek.com/
+
+Changes in v5:
+ - Rewrite the patch 5 commit subject.
+ - Add the else branch in patch 5.
+ - Link to v4:
+   https://patchwork.linuxtv.org/project/linux-media/list/?series=21757
+
+Changes in v4:
+ - Rework the patch 3 commit message.
+ - Rework patch 5 with more details.
+ - Rebase the series on the decoder patch set.
+ - Link to v3:
+   https://patchwork.linuxtv.org/project/linux-media/cover/20250814085642.17343-1-kyrie.wu@mediatek.com/
+
+Changes in v3:
+ - Add encoder rate-control buffer allocation failure handling.
+ - Add the mediatek,vcp property definition to the device-tree binding.
+
+Changes in v2:
+ - Add support for the VCP encode process.
+ - Add the MT8196 encoder platform data.
+ - Rebase the encoder series on the decoder patch set.
+ - Address review comments from v1.
+
+Irui Wang (6):
+  media: dt-bindings: mediatek,vcodec-encoder: Add MT8196
+  media: mediatek: encoder: Add new platform data members
+  media: mediatek: encoder: Add a new encoder driver interface
+  media: mediatek: encoder: Add support for common firmware interface
+  media: mediatek: encoder: Add support for VCP encode process
+  media: mediatek: encoder: Add MT8196 encoder compatible data
+
+ .../media/mediatek,vcodec-encoder.yaml        |  22 +
+ .../mediatek/vcodec/common/mtk_vcodec_fw.c    |   6 +
+ .../mediatek/vcodec/common/mtk_vcodec_fw.h    |   1 +
+ .../vcodec/common/mtk_vcodec_fw_priv.h        |   1 +
+ .../vcodec/common/mtk_vcodec_fw_vcp.c         |   6 +
+ .../platform/mediatek/vcodec/encoder/Makefile |   1 +
+ .../mediatek/vcodec/encoder/mtk_vcodec_enc.c  |  24 +-
+ .../vcodec/encoder/mtk_vcodec_enc_drv.c       |  63 +-
+ .../vcodec/encoder/mtk_vcodec_enc_drv.h       |  15 +-
+ .../vcodec/encoder/venc/venc_common_if.c      | 684 ++++++++++++++++++
+ .../mediatek/vcodec/encoder/venc_drv_if.c     |   3 +-
+ .../mediatek/vcodec/encoder/venc_drv_if.h     |   3 +
+ .../mediatek/vcodec/encoder/venc_ipi_msg.h    |  26 +
+ .../mediatek/vcodec/encoder/venc_vpu_if.c     |  47 +-
+ 14 files changed, 850 insertions(+), 52 deletions(-)
+ create mode 100644 drivers/media/platform/mediatek/vcodec/encoder/venc/venc_common_if.c
+
+
+base-commit: bf115aeef8fc70bc46b05733d0d3b77bd9e8af50
+-- 
+2.55.0.windows.3
