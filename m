@@ -1,140 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8664F1E32D6;
-	Mon, 14 Sep 2026 00:56:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDA6D1B6D08;
+	Mon, 14 Sep 2026 01:32:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789347418; cv=none; b=gduUNjc/kqaxuWqjAWCGYAZ+ap0XMVZ+QPfohCdbjB3O4thW7ch+Yqv3tz3JvnAKIun63beEHdz0FOeBZhCPV3VOd1+2zbjPruFIHe9iy2JEjnLID04OgsFGbLmAL+ZMqhgIt7rSoaffEO5NVxiS2ET2v9J2pmLl27SGz/BZrzg=
+	t=1789349528; cv=none; b=fcyx8LFM4bcOrgUjl5gVzsozif/JzN5/L+yqvv65VZTokE1EmlwtEJAkcZ4geuLzfyQ4qtCGjD8hXAXDGFU1QOOfI2G1/8OpT/GGa3e2mOF1ByPsKC0b5sOLGuun4SQ6bm8q8aGTjAOwwL4HgIx9Db3xbRrxuKHxl6ykJV3TSD0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789347418; c=relaxed/simple;
-	bh=+MkTzwfqhSJb/70CCTjbOLRTPi5UnSbW+UCf9mStgjw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZtJfIcvPI3EES6tdyQqvOY/GHciblwFL0A2VwBbyCOopERD/Rp2AnDQcGacemczISbWZ1avYEQ6a/COFZq/baxefInnxHl65S4Ehwbw1lfye7rahWAe3eBE3Ir3DFjEAr1yPNlszTb0twNjU+oX0Pgeq/aeYSMdYevwga887eWc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lFrRgqhW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789349528; c=relaxed/simple;
+	bh=fF2nuq3kQYsJt2TWbvwHKoCLJCJrAJvPw/QqZaRKGoc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sTn8phyka6bcR0QYmLt7Af8Kffl0sHxn1b+yYGCTASAYn91zioUeIw3qanbhdgHuVRqprxXfKBxp/YS8dXOVVKVqMZRj85zKz8L1KyXm3KrDio9LvQWByI71KPhn6W6Pa/SeFSACHkRD8pmpbZM6cejoExTdRxSGKyPQAAXABd4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=p8mMgtBH; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lFrRgqhW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D01B1F000FF;
-	Mon, 14 Sep 2026 00:56:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789347417;
-	bh=SlxlFkaqeMHSCNUNSGnnPjIslXu3RAAtVEoKqxRIKps=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=lFrRgqhWaKT5uM1mkwc3lhoZ3FkiK5wzDVJoqsUkSRO9IjY9k7UefKqGInfYqucVT
-	 3XXMotK4hFa2vH9hN/+y0B9sDSOe9nafdaTmL0Tt0r7jNrwYPJQadMcyBS5fbZ3EPj
-	 V8QYIzjksvWnfsEmho8Wl9+1t2oI0vzy8jDj5qJab0T28FjezcOVmeezwSgnXsKUFQ
-	 fNy0gbkc7c5yV11+OTs13WOtqBMBr6zUlUj5mzXvzGmAX6QPxRLNbQ3tcAAgRv3/Gs
-	 H/U0oRq1UoD9Ebi3jBANm3eCq6SD7LJ2xKU7wltNQROQO4aBHh/gw8kju9JCxLD02M
-	 r4mg2N6+Y+bIQ==
-Date: Mon, 14 Sep 2026 01:56:51 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Shehryar Ahmad <shehryar.amd@gmail.com>
-Cc: nuno.sa@analog.com, Michael.Hennerich@analog.com, dlechner@baylibre.com,
- andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- gregkh@linuxfoundation.org, linux@analog.com, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev,
- devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 4/6] iio: accel: adis16201: add ADIS16203 support
-Message-ID: <20260914015651.70277ca2@jic23-hlaptop>
-In-Reply-To: <20260913085307.13846-5-shehryar.amd@gmail.com>
-References: <20260913085307.13846-1-shehryar.amd@gmail.com>
-	<20260913085307.13846-5-shehryar.amd@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="p8mMgtBH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Ux
+	K2MWPoDVuf9Q62xs0Mp51oj2Iuc6GkP4TJSe+QWaA=; b=p8mMgtBHMjPFaembhJ
+	ie2b9wJ8lxYtljq7zIaQxYiP0myipVO8feS6eEpsZ7UkHuGmKOsWru2q+3P1z9rZ
+	+7k7fbqfzl9Hg3oMRmGg1aqr9aCw4z49z3EFK5GFEIr9usRIpHlGaVDzHQ8Lm27z
+	N0mE9Jqj0dhlWhq97p17A7lzw=
+Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wBHsQp8TqdqrTwhAg--.12080S2;
+	Mon, 14 Sep 2026 09:31:40 +0800 (CST)
+From: Quchaosheng <quchaosheng000406@163.com>
+To: Marc Kleine-Budde <mkl@pengutronix.de>,
+	Vincent Mailhol <mailhol@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-can@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	quchaosheng000406@163.com
+Subject: [PATCH] dt-bindings: net: can: convert ifi_canfd to DT schema
+Date: Mon, 14 Sep 2026 09:31:38 +0800
+Message-ID: <20260914013138.392969-1-quchaosheng000406@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wBHsQp8TqdqrTwhAg--.12080S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxCF4DJF18uFykCw13uw4UArb_yoW5Jw4rpa
+	43CFnrXa1IqF43Gws3K3W8Aw13XFn5ZF15Gr9Fvw18AF98CFy5Kw4aka48Za4jgrZ2yFyx
+	XF1Fga15ta18GaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRk9NcUUUUU=
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbDAB43rGqnTn6RJAAA3N
 
-On Sun, 13 Sep 2026 13:53:05 +0500
-Shehryar Ahmad <shehryar.amd@gmail.com> wrote:
+Convert the IFI CAN-FD controller binding from free-form text to DT
+schema, and reference the common can-controller.yaml schema.
 
-> Add ADIS16203 from staging to mainline ADIS16201. ADIS16203 shares same
-> SPI protocol and register addresses. Differing parameters are handled by
-> adis16201_chip_info structure.
-> 
-> ADIS16203 specific support includes DIAG_STAT_SELFTEST_FAIL_BIT, which
-> is supported only on ADIS16203, and a separate channel array.
-> 
-> Kconfig is updated accordingly.
-> 
-> Signed-off-by: Shehryar Ahmad <shehryar.amd@gmail.com>
-> ---
->  drivers/iio/accel/Kconfig     |  6 +++---
->  drivers/iio/accel/adis16201.c | 32 ++++++++++++++++++++++++++++++--
->  2 files changed, 33 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/iio/accel/Kconfig b/drivers/iio/accel/Kconfig
-> index 4094299e2..f884ec66f 100644
-> --- a/drivers/iio/accel/Kconfig
-> +++ b/drivers/iio/accel/Kconfig
-> @@ -7,13 +7,13 @@
->  menu "Accelerometers"
->  
->  config ADIS16201
-> -	tristate "Analog Devices ADIS16201 Dual-Axis Digital Inclinometer and Accelerometer"
-> +	tristate "ADIS16201 Digital Inclinometer and similar"
->  	depends on SPI
->  	select IIO_ADIS_LIB
->  	select IIO_ADIS_LIB_BUFFER if IIO_BUFFER
->  	help
-> -	  Say Y here to build support for Analog Devices adis16201 dual-axis
-> -	  digital inclinometer and accelerometer.
-> +	  Say Y here to build support for Analog Devices adis16201 Digital
-> +	  Inclinometer and similar
-Here is where the names should be.
-	  Say Y here to build support for Analog Devices Digital Inclinometers:
-	  - ADIS16201
-	  - ADIS16203
+The driver matches on the "ifi,canfd-1.0" compatible and obtains its
+interrupt through platform_get_irq(), so interrupts is required and no
+additional properties are used.
 
-or something like that.  Key is that a new device being supported is a single
-line added with no churn of the surrounding text.
+Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
+---
+ .../bindings/net/can/ifi,canfd.yaml           | 43 +++++++++++++++++++
+ .../devicetree/bindings/net/can/ifi_canfd.txt | 15 -------
+ 2 files changed, 43 insertions(+), 15 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/can/ifi,canfd.yaml
+ delete mode 100644 Documentation/devicetree/bindings/net/can/ifi_canfd.txt
 
->  
->  	  To compile this driver as a module, say M here: the module will
->  	  be called adis16201.
-> diff --git a/drivers/iio/accel/adis16201.c b/drivers/iio/accel/adis16201.c
-> index e0bf7df50..8e8e612fd 100644
-> --- a/drivers/iio/accel/adis16201.c
-> +++ b/drivers/iio/accel/adis16201.c
-> @@ -1,6 +1,6 @@
->  // SPDX-License-Identifier: GPL-2.0-or-later
->  /*
-> - * ADIS16201 Dual-Axis Digital Inclinometer and Accelerometer
-> + * ADIS16201 Digital Inclinometer and similar
->   *
->   * Copyright 2010 Analog Devices Inc.
->   */
-> @@ -63,6 +63,7 @@
->  #define ADIS16201_DIAG_STAT_REG				0x3C
->  #define  ADIS16201_DIAG_STAT_ALARM2			BIT(9)
->  #define  ADIS16201_DIAG_STAT_ALARM1			BIT(8)
-> +#define ADIS16203_DIAG_STAT_SELFTEST_FAIL_BIT		5	/* ADIS16203 only */
->  #define  ADIS16201_DIAG_STAT_SPI_FAIL_BIT		3
->  #define  ADIS16201_DIAG_STAT_FLASH_UPT_FAIL_BIT		2
->  /* Power supply above 3.625 V */
-> @@ -232,6 +233,15 @@ static const struct iio_chan_spec adis16201_channels[] = {
->  	IIO_CHAN_SOFT_TIMESTAMP(7)
->  };
->  
-> +static const struct iio_chan_spec adis16203_channels[] = {
-> +	ADIS_SUPPLY_CHAN(ADIS16201_SUPPLY_OUT_REG, ADIS16201_SCAN_SUPPLY, 0, 12),
-> +	ADIS_TEMP_CHAN(ADIS16201_TEMP_OUT_REG, ADIS16201_SCAN_TEMP, 0, 12),
-> +	ADIS_AUX_ADC_CHAN(ADIS16201_AUX_ADC_REG, ADIS16201_SCAN_AUX_ADC, 0, 12),
-> +	ADIS_INCLI_CHAN(X, ADIS16201_XINCL_OUT_REG, ADIS16201_SCAN_INCLI_X,
-> +			BIT(IIO_CHAN_INFO_CALIBBIAS), 0, 14),
-> +	IIO_CHAN_SOFT_TIMESTAMP(7),
-
-As per the sashiko feedback on previous, this needs reordering so they are
-in scan index ordering.
-
-> +};
-Otherwise this is coming together nicely.
-
-Thanks
-
-Jonathan
+diff --git a/Documentation/devicetree/bindings/net/can/ifi,canfd.yaml b/Documentation/devicetree/bindings/net/can/ifi,canfd.yaml
+new file mode 100644
+index 000000000..72f2b934c
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/can/ifi,canfd.yaml
+@@ -0,0 +1,43 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/can/ifi,canfd.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: IFI CAN-FD Controller
++
++maintainers:
++  - Quchaosheng <quchaosheng000406@163.com>
++
++description:
++  The IFI CAN-FD controller is a CAN-FD capable controller found on
++  Renesas SoCs.
++
++allOf:
++  - $ref: can-controller.yaml#
++
++properties:
++  compatible:
++    const: ifi,canfd-1.0
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - interrupts
++
++additionalProperties: false
++
++examples:
++  - |
++    canfd0: can@ff220000 {
++        compatible = "ifi,canfd-1.0";
++        reg = <0xff220000 0x1000>;
++        interrupts = <0 43 0>;
++    };
++...
+diff --git a/Documentation/devicetree/bindings/net/can/ifi_canfd.txt b/Documentation/devicetree/bindings/net/can/ifi_canfd.txt
+deleted file mode 100644
+index 20ea5c70a..000000000
+--- a/Documentation/devicetree/bindings/net/can/ifi_canfd.txt
++++ /dev/null
+@@ -1,15 +0,0 @@
+-IFI CANFD controller
+---------------------
+-
+-Required properties:
+-  - compatible: Should be "ifi,canfd-1.0"
+-  - reg: Should contain CAN controller registers location and length
+-  - interrupts: Should contain IRQ line for the CAN controller
+-
+-Example:
+-
+-	canfd0: canfd@ff220000 {
+-		compatible = "ifi,canfd-1.0";
+-		reg = <0xff220000 0x00001000>;
+-		interrupts = <0 43 0>;
+-	};
+-- 
+2.43.0
 
