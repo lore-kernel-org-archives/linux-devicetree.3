@@ -1,40 +1,37 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from sm24.hosting.reg.ru (sm24.hosting.reg.ru [31.31.198.150])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 507D7448D0E;
-	Mon, 14 Sep 2026 12:02:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6A9E443312;
+	Mon, 14 Sep 2026 12:03:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=31.31.198.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789387344; cv=none; b=e9M/frUK2aerrvpMwQesqbfKt876rbqFm8y2HlyejwHzg6rPsFiUz1xYmmpSpU6mgeD7kJoHLHMNL2jHgwUh7vRWhQrGUlSfVzDDh6AT8qE0R9LPExKE7Gj30INqgSbLtVV1Gh7MBeR7DH+DGzb8bZMLRCMvGSIo349LPSfumnU=
+	t=1789387409; cv=none; b=kJbAw4ZLdV7nA3xrJD6A0p7L+wEjI+Ftx3rmZQMHcq5+RMk05XQtzTxaTzc0CY8B9mWpjHZDcQWbdBuuvbnuttJQjoEUO6ZPDu2EwGP90wJB9OPe7gRQhiUvMM5nqgJ/iD86hHS30ocoEFPG5da4krA1Iz3SMSLCIVAd/1jfCA4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789387344; c=relaxed/simple;
-	bh=nrwqPCZkQIimnka60MFra6BC5Jik31pbN2PY4QrlaYo=;
+	s=arc-20240116; t=1789387409; c=relaxed/simple;
+	bh=4rVs1G60SquvRPm8LGN3T+Gv7XLhQnHJjEFlJY9TsJA=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=brAl/O1nmqJ7XZA5g8YOG8jr49lN1uyORv9ZsVOVCeVtFggJpiZTMioYtQ3UUMyx8KeoVHMdr8nW09xyq19oVutYcsp4EkeNgihJt32EJOMaIAEE7kXIl408eO6YZ3/lBDSDeWeLpjo7OR3fJZhNnVzPEyCYZ2mdIIPgySkDR6g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=h5KI1TJ/; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	 In-Reply-To:Content-Type; b=SJ0YnzfKLPgSpE8Dk1ZL0TOleI2TePZ7vXo1qPS4MALu6U9zAK2OR5zwC6ApjmO3ygNHC6h/7HjESk5KQTxRJ7NsRJ0J7tnM18Q27igu5axjHHiKd7y4gsnK85aePgdzVf4tTzA9L9IFZdoq+pV7HYhbQXUQT4QeqvO+ShTwIKQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=minlexx.ru; spf=none smtp.mailfrom=minlexx.ru; dkim=pass (1024-bit key) header.d=minlexx.ru header.i=@minlexx.ru header.b=n0P2cKvZ; arc=none smtp.client-ip=31.31.198.150
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=minlexx.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=minlexx.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="h5KI1TJ/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789387338;
-	bh=nrwqPCZkQIimnka60MFra6BC5Jik31pbN2PY4QrlaYo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=h5KI1TJ/E/gcDBfB4bNFcKVP9n8rcAPff+fNsd457fjS+8MhM3chYQW3ynEEhuBva
-	 bsZS0djpQLU/cus5BHLBN8hYMyewO77dkBWzGHQtSqdP2iumHZLK0w/dQgtR+35mC6
-	 D0+Y1QJJ1HKxDDyFN84rqiIb47XJUCisltvqUGvvNsDiD0rhOnietbTSig7ULNzmRn
-	 yKMI8o5YbKuG1GDq8sEfasXOgSAgHrV/qQshWPRiFTQjbuD9YNIp9f/de8rTVdQW6K
-	 9cLXKzLNSSmMXUaY1S3pEd7Lh0mUMxT83tC/u7JaOywePC3gRDj0MK3Sa//PHL4Jls
-	 YlFva8qS8akZw==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id E959E17E0074;
-	Mon, 14 Sep 2026 14:02:16 +0200 (CEST)
-Message-ID: <ca3ec44c-710b-4812-9d22-c70003a136d3@collabora.com>
-Date: Mon, 14 Sep 2026 14:02:16 +0200
+	dkim=pass (1024-bit key) header.d=minlexx.ru header.i=@minlexx.ru header.b="n0P2cKvZ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=minlexx.ru;
+	s=dkim; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:References:
+	Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=SLMQO28uQgqrnJh6++zlcI3D9Cp6DaVv2tStRpu6n7g=; b=n0P2cKvZQr1mhdDWSiR/mWQvv9
+	QwGVwbL+cXUCOdfFgwoP9HfIcnCDWHOX9tk/IYM5XmtD37kmexj416VjVqtdn/isteChz3Xh6hcFA
+	opQs9C8GFARll7Kd8mN3dQlX0i+S2pv12U8bxbgP77ndK/EygG6uKdihsPTcZ3Bx0GO0=;
+Received: 
+	by sm24.hosting.reg.ru with esmtpsa (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(envelope-from <alexeymin@minlexx.ru>)
+	id 1x65P7-00000009zfN-0vLA;
+	Mon, 14 Sep 2026 15:03:23 +0300
+Message-ID: <3eb4f6f6-e8bb-4094-b5bd-8b65fd843243@minlexx.ru>
+Date: Mon, 14 Sep 2026 15:03:20 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -42,45 +39,61 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 08/24] scsi: ufs: mediatek: Add dual 0.9V supply
- support
-To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
- Chunfeng Yun <chunfeng.yun@mediatek.com>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- Peter Wang <peter.wang@mediatek.com>,
- Chaotian Jing <chaotian.jing@mediatek.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman
- <avri.altman@sandisk.com>, Bart Van Assche <bvanassche@acm.org>,
- Stanley Jhu <chu.stanley@gmail.com>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
- "Martin K. Petersen" <mkp@kernel.org>
-Cc: kernel@collabora.com, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-scsi@vger.kernel.org,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-References: <20260914-mt8196-ufs-v12-0-9279d7ef814d@collabora.com>
- <20260914-mt8196-ufs-v12-8-9279d7ef814d@collabora.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Subject: Re: [PATCH 7/9] drm/panel: novatek-nt36672a: Add Tianma panel for
+ Xiaomi Mi A2
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org,
+ devicetree@vger.kernel.org
+References: <20260913-nt36672a-panels-v1-0-ce097402c6ea@minlexx.ru>
+ <20260913-nt36672a-panels-v1-7-ce097402c6ea@minlexx.ru>
+ <20260913063102.0BEC71F000FF@smtp.kernel.org>
 Content-Language: en-US
-In-Reply-To: <20260914-mt8196-ufs-v12-8-9279d7ef814d@collabora.com>
+From: Alexey Minnekhanov <alexeymin@minlexx.ru>
+In-Reply-To: <20260913063102.0BEC71F000FF@smtp.kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 9/14/26 13:38, Louis-Alexis Eyraud wrote:
-> The MT8196 SoC has an additional pin in comparison of the MT8183 SoC,
-> that is used to feed the host controller with a 0.9V supply.
+On 13.09.2026 09:31, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Low] Direct use of `usleep_range` instead of `mipi_dsi_usleep_range` bypasses multi-context error tracking.
+> --
 > 
-> In preparation of this SoC support, add in platform data and
-> driver the management a second optional 0.9V regulator named
-> "avdd09-1".
+> commit 883b76cff93d823c9430acc0b7cfca0a77f61ed2
+> Author: Alexey Minnekhanov <alexeymin@minlexx.ru>
 > 
-> Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+> drm/panel: novatek-nt36672a: Add Tianma panel for Xiaomi Mi A2
+> 
+> Add support for Tianma TL060FVXS16-00 video mode panel based on
+> Novatek NT36672A, used in Xiaomi Mi A2 smartphone (xiaomi-jasmine).
+> It shares some code with already supported panel in this driver
+> for xiaomi-lavender, so we can reuse the same panel deinit function.
+> 
+>> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+>> index e6971ba6ef464..1bfa808365874 100644
+>> --- a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+>> +++ b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+>> @@ -445,6 +445,29 @@ static void lavender_tulip_deinit_cmds(struct mipi_dsi_multi_context *dsi_ctx)
+>>   	mipi_dsi_msleep(dsi_ctx, 120);
+>>   }
+>>   
+>> +static void tianma_jasmine_init_cmds(struct mipi_dsi_multi_context *dsi_ctx)
+>> +{
+> [ ... ]
+>> +	mipi_dsi_dcs_set_display_on_multi(dsi_ctx);
+>> +	usleep_range(5000, 6000);
+> 
+> [Severity: Low]
+> Is it intentional to use usleep_range() here instead of mipi_dsi_usleep_range()?
+> 
+> Using usleep_range() directly bypasses the multi-context error tracking in
+> tianma_jasmine_init_cmds(). This causes the unconditional 5-6ms sleep to
+> execute even if previous DSI commands have failed and set dsi_ctx->accum_err.
+> 
+>> +}
+> 
 
+Good find, this is likely not intentional, will be fixed in v2.
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-
+--
+Regards,
+Alexey Minnekhanov
