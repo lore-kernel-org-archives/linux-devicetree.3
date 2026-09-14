@@ -1,159 +1,421 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022090.outbound.protection.outlook.com [40.107.75.90])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CC4D311968
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 02:16:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789352173; cv=none; b=Pva2n5W46EhME7y1Daje//LMK1e/ox6CS+y1BOdO5ny+Az4zKSIwJyDoXnk2OV1a4fJHezCalJthAEV6nQCS8e1Pzz/vg02d4r+ruIaw5oIz5JPqYTLxWA8Zla/LZwv4bymZJX1QoXVMJP6bC1BLX9V5pyancNeRoXGVNCjo44Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789352173; c=relaxed/simple;
-	bh=lpVWWp/A2y5xm33udhGlUqR1U3bzlh8VjjycKDx7tzw=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ABCC2D73A0;
+	Mon, 14 Sep 2026 02:22:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.75.90
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789352524; cv=fail; b=jHenOMicC/ctE/FkUVVpbX2OVp1irnf1/uhfJfm6sp8dJ7i1PbfB2DDIuylobopV0+YF9SWHanKmazE0fs6txH60u2HCvtwM4V7ygVgarNN0cCP+yqy99Z1CRLN7vo3tYDYqxkhpuGJLq3RB2hA2Z7e5o2hSZ9LAEqX+OqOPwFY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789352524; c=relaxed/simple;
+	bh=shuJ44nN2TbhdkiogL8b2ljF5OSU8hK+kig6w1pjg4Y=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PgNEuF/CAHh2yQO1M4d8hQgj/aXU+d06utXwpMDk2zLaZVHqJphjIM0hhzyeHV4d1YrqsVFxWWWDtFw26aB9/JF19KP4Vauwu+oGnACXyo1OEWwvst7FHn1GNOo++ME60SG9Q4gpddIFirVJbNIrfW1BL4xylSDESJJrwlvrlWs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MC9OEsST; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Xo1gmHuS; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MC9OEsST";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Xo1gmHuS"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E06Gm13539997
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 02:16:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=dUlKOakabOfOfKvw0tID44kB
-	yEWki54+dGy5HyjJFPo=; b=MC9OEsSTSlK+kxcuIyVDQxfBTRIbTFbL6ALkfxgp
-	DELOVZ3naEL6GZa6YlfiGv+dopIHL9cp65W6qWGfR53RUDaIbycBvWTvNz1getL1
-	kV+GidfFto+svfwgSkL67CV1gHxQCIm7nx4UyHVvWP8vJf7mzgI/Y9AQpo9OrZM9
-	cae5KKkGZcVv0/KpVw3Hy77YLMsRIpuMIX2n7Dd9fbNohf6gTM24YdTpIhZQ1aBF
-	ecF+zawMFWjzD2GOod03k+xYUQwhyBy2eiokOMc4Bkynx9kgbs5dgGJOzAcYiaec
-	mt/xjQ2IbwVUHHbZlf/jSFTDrujqNPPfWhj+zZT/HZw4ow==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9dmpk9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 02:16:10 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38dbf293831so6535812a91.3
-        for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 19:16:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789352170; x=1789956970; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dUlKOakabOfOfKvw0tID44kByEWki54+dGy5HyjJFPo=;
-        b=Xo1gmHuSrY1KD/E9tgeP149mtsWODNwk68M0CWeIBG4gtbFzL8k6QZxtzieDG3dlEU
-         OpEw6SUvxKIDQd4lMPX7Eft6jdTs3LE5qLjeWISptUsQLqGtwIabGAz3jjIwdK7UKrdh
-         gl8nQ5NL1oS49kbGj/2zL9P+rWokP52Oxq5nRgvuqZzwJZIhz+zCOYs4l38apuGDZnbp
-         LYwh5rCkN3OwH0B1/WcGnIF/BlxIEdos36HZk+oHlpua/2Y2v0Lx5N3RrgVwJy/+S67k
-         rqSwa2dPg0pMWql8WWY3jrvloIiJCNkqlBMgxVsxoDPsB/zbHXhwLqpl5PSvZ4lAlDJu
-         JhLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789352170; x=1789956970;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dUlKOakabOfOfKvw0tID44kByEWki54+dGy5HyjJFPo=;
-        b=d1zFS9HuKNjD6PlR3mNmGzZ7CmHArOo3cxX/bq/TVX/2YtGRNI8rief9v6dwVhVlmp
-         FwCmbUT2FaX9rQS7de5ddj7w/vZJobou2rEyUj+LM6YKB+bAHM8/9pYMcV7A/wsfHpJH
-         fSroq2Gcp5lE3n9B61Eh5g14uJjHkyjQwbQ1T7732BU/557BIwxF8nEglIe5BRLSxoQk
-         vm+wcsAVrnCO1/LYlVkiQsFN9psju/u2uKiuLbDOeuN5tHrwxToRuhB+rt+Sf4nDupkE
-         VC5ssX8hafQmaOtDfbOP+sud8wyXq8GrZ0if6sY7oSKotNB+ij//TEmiIcvYauuUxfKR
-         wGGg==
-X-Forwarded-Encrypted: i=1; AKwUvByrrnE4K2VQffIpYrlKKff0k5o1xKBzEGz3co62PY4DI3nt/p7WCJorTD8lhFGpHAh5yuwGSr4d9sf3@vger.kernel.org
-X-Gm-Message-State: AFuF++mh1PgqKM2ac8KmL9cbZIaeZ7hsS41f5I+rhvFtM6lyMPnfT/15
-	rSQCTVhaJS5B/lurryvvX7F+YXrgxriT3dLYRV0tbEpLo8xpH89DbsJvEl01bl9a2/hdh3pFcdG
-	DdTR4E2hX4xkeCWeG3hRCWpz//+n5E5yDf3cT18qKJWUgkvlggBtENbeyx+DH/rEU
-X-Gm-Gg: AYBFou3ZAnXWQQVUTvACbOJfXUpIl6How+j0xW1JeqXknYwyU9lHgt2IRDTZ+2q6Wi3
-	uuaQEwIHUmNCmfT6yOfYjGqaofm5DLFL5yo0sEnEBIl9uCPlYO6gGYbGGCuGkoUsS5LICVGlcdL
-	Ragzl3u6h9O/Q6tHQTDSXqTzTmC8JH2iOJqEZV0U7w9STHTH+sVInQBye40BeMebiv3DGFFiWqn
-	YvUt0xYxUSijw/+RoWSmtomxkXMw9hXRwwj2S4lS8RDN5IAqZOc3awAatxtgFLUAr6ZN4DHYMgs
-	J1mhTPe+GBpe03kisabfFGwQTaRW/s9iSefueW9EV22bzJlxbArSNbwZSxZtX8u8lbUvtdlDS3k
-	EDffbiPtPmKxU3aqh2wnXgSMqmfBJlcuKJPIXux1McKc=
-X-Received: by 2002:a17:90b:55c4:b0:396:4cbf:45a2 with SMTP id 98e67ed59e1d1-39dec06ca7fmr1443723a91.14.1789352169988;
-        Sun, 13 Sep 2026 19:16:09 -0700 (PDT)
-X-Received: by 2002:a17:90b:55c4:b0:396:4cbf:45a2 with SMTP id 98e67ed59e1d1-39dec06ca7fmr1443678a91.14.1789352169614;
-        Sun, 13 Sep 2026 19:16:09 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4e9a8a9sm22477711eec.13.2026.09.13.19.16.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 19:16:09 -0700 (PDT)
-Date: Mon, 14 Sep 2026 10:16:03 +0800
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
-        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/5] arm64: dts: qcom: nord-embedded: Fix i2c9/i2c10 pin
- functions
-Message-ID: <aqdY43X_kskpsjYV@QCOM-aGQu4IUr3Y>
-References: <20260911142040.100263-1-shengchao.guo@oss.qualcomm.com>
- <20260911142040.100263-2-shengchao.guo@oss.qualcomm.com>
- <zsohlfgrvaqxg2wsymmgeiiasstmk3y5t6vj3aj3v6gl6arcqf@dwyie4ondge7>
+	 Content-Type:Content-Disposition:In-Reply-To; b=CqYyDfiXJm04LO6T3AW1VX70W5hH0AA+juJSyBf5aUJpOa2lEuL/oq/LVlIt6fH8WeuFHHSspCx3uQHdzSsfPmnzsOg4YzaTpe9mT6j/jw/iZ3wHpkCH/HBjDAT9K3lkz4qxVWRGzudX+b++0QNS2ksn+X2XJj8H2BRl+WDHRlY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=40.107.75.90
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=n2fAuA5nFwsL/ms606WSMHYPGwe2Jo1bAW0OzmLFFeEevxdH0uPPC/qGtzOl1SkaDlKISO/oOe/m24F5yfij7KMD8gw4l2oIrM4BZI1xKsnRELgUOPUYdaLXR0avOCGaVWAKr+epSVocNO6K7iVCeokSjsaiqz2Qa1obeX+Z5SXMYhwIgr4Kr9lQSeR2stig8Wv2OcpBx50jH3fnr0oVaVppfgFtmYoelz/HHQXk55y4Q2BTa7PobKHLpjviAv/AynWXdeGAMqc6sqPiGC0ewZg9LkorgN9DQOJ+pq7fipRO7o7qTEvPpSTMHadwl6eU8d53W/Uzd28I2HeLxItfvA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3tEjgAAbHV/rvWkki0Kg0WXaYwrNIughZ7yXhBTXOcY=;
+ b=NOUhGfUNcuXZdRyjRe2T14EVyuvupn8+xuYTO+i+vcLQFj8v6x+e5X6Eycwh5Bgm9DCWhrpdi08EcbSpw8UCgANnYfOKptcIY9UoDwS6TX9cE6799Dvsx0haIt6tuBORsbej0le4pbjpSXJnktuFk/bAAaDxTdxVV3UhUR4RFlM8NUDsOBLfxYv3xEyMepwlCHEOAYV20APl0STRl2zwjcsgTyzhEaDMpu1+T1Gs9cMHn0WBsx7u8cLT50tWaFDXjk2inWi8a890bSuXpVR7kWneKu0bankhJTklxH+rkTZq/MDRbFWRCdcwc/3r8u+S3Vtwql7AZwBS31kdXlsOxg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=amd.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from SG2PR02CA0124.apcprd02.prod.outlook.com (2603:1096:4:188::9) by
+ TYNPR06MB8997.apcprd06.prod.outlook.com (2603:1096:405:3c4::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
+ 2026 02:21:56 +0000
+Received: from SG1PEPF000082E8.apcprd02.prod.outlook.com
+ (2603:1096:4:188:cafe::2b) by SG2PR02CA0124.outlook.office365.com
+ (2603:1096:4:188::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.12 via Frontend Transport; Mon,
+ 14 Sep 2026 02:21:56 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
+ smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ SG1PEPF000082E8.mail.protection.outlook.com (10.167.240.9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.7 via Frontend Transport; Mon, 14 Sep 2026 02:21:56 +0000
+Received: from gary-System-Product-Name (unknown [172.16.64.196])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id B5031427F209;
+	Mon, 14 Sep 2026 10:21:55 +0800 (CST)
+Date: Mon, 14 Sep 2026 10:21:54 +0800
+From: Gary Yang <gary.yang@cixtech.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dong Aisheng <aisheng.dong@nxp.com>,
+	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>,
+	Jacky Bai <ping.bai@nxp.com>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	NXP S32 Linux Team <s32@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Sean Wang <sean.wang@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Michal Simek <michal.simek@amd.com>,
+	Fugang Duan <fugang.duan@cixtech.com>,
+	CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>,
+	Del Regno <angelogioacchino.delregno@somainline.org>,
+	Rahul Tanwar <rahul.tanwar@linux.intel.com>,
+	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+	Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Krishna Potthuri <sai.krishna.potthuri@amd.com>,
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: pinctrl: Use consistent indentation in the
+ example
+Message-ID: <aqdaQgd2zD7p5GDU@gary-System-Product-Name>
+References: <20260913123223.99893-2-krzysztof.kozlowski@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <zsohlfgrvaqxg2wsymmgeiiasstmk3y5t6vj3aj3v6gl6arcqf@dwyie4ondge7>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDAzMCBTYWx0ZWRfXz3TYL6mArH/V
- v0y9PLWvpOiONxMgYJ2L912DKl6lTonk6hHY76uxBnamPhAXuivmcqwayIS2dbrm79rucHWdtuh
- QYlBvOgcK3uUHwVibVoBwAkmFrVQKqSoV1kznjswkSkbR7yiWFby1nBb072ZJzcb182Hh9v/EqX
- 9rXOcJ4q2PTSj4Pgjd/1yT2JokWG8gWHCVip/VJA5oAOxvDhp/HyYsHWWTUiqM/AOQLRYbSMu0j
- qcKxeu78HLN9EsnGiKVNU8xrFQ3TieQahsprmXVkr0voWOEOXCj/Vxu2kYxFEgZpF2EsRArFjnB
- diYu1A+9epz2DYgslq4vYP4URUs1vD0v0r+tGiZo2+CSNj5TRDxvjnm/71AD/trdiHZJW2nfEO5
- ZhKEhzjirZhSdhzPUlRWN0Lq/Ziywc+SrpxI1A5/RuXuIeHIoe9LW2Me9Qop5YayEYssIl6W4aK
- TKweSY2D1+vbg37cYlQ==
-X-Proofpoint-ORIG-GUID: H2ffa1DQFuYRX23dGJCh4zE5-lCNTNZy
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDAzMCBTYWx0ZWRfX+WSh0rI1f6rx
- ZCwzl61NeYzC/HcUx833ZoiUIohY4dxPQlcUloDGEDFi/DD8eOqdY25qWiKiAMcKqZbtRlHjfGT
- A6Y+rmTHBOzo/sa/38t4IhXuU/nBqI0=
-X-Authority-Analysis: v=2.4 cv=Y6htIReN c=1 sm=1 tr=0 ts=6aa758ea cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=Nm0QhUF52wnen16JF4QA:9 a=CjuIK1q_8ugA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-GUID: H2ffa1DQFuYRX23dGJCh4zE5-lCNTNZy
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-13_08,2026-09-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 adultscore=0 spamscore=0 impostorscore=0
- bulkscore=0 clxscore=1015 suspectscore=0 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140030
+In-Reply-To: <20260913123223.99893-2-krzysztof.kozlowski@oss.qualcomm.com>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SG1PEPF000082E8:EE_|TYNPR06MB8997:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8ba692ce-7cbb-437c-4565-08df1206f2fe
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|82310400026|36860700016|22082099003|18002099003|3023799007|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	aWkdQLddGLsxkMstMEUMdsyDfguVp4YV/4ik0FSJS9fiVZE0JS/94ZLu+1Bzj3OI0ZS66oWOgZ2TH5XYPjVvK+8m5rmniOM0ZjL+kna9wC8V/qeUPZXpuFvRphGzFGMwSAtvCdu1MTY6D+0zHgCqsrc5aZAxO/8ksnQgaQs4p/WLkpbEWqLFqtGheEp4oitKI8fy0VGDaFmdGq+MeDNpmrFH46rTfnkQr2hemBMaKgoVIHwXxgKqt8UrRE/AlnGpMOeL0we2rlrEZ99IsBBIq5FMA/pxhOrBh9Wi6n9j4zKR0X3XkaD8pTtb3XjhLZIQjzBgrbbfvyLTZC9Qj/49cn+bW09wj8MmPSC1kXXnJM/U0QQGffwtq7hePeXboZ9o9s3gpr8/pGCowrCTKjgRt6/ep8Q6nJ94EwppGQ7brvCVwiG4H6i+Nuq9LnNoQi5xClXWdZ+xwu3NagjGjiB+N/98rhnIbDDB2/8Vv6TascRfKawtJb2Vj+MslnBtl9fUzsQwlyTnusKJGkcY23CrmxH4qD62UlGSJ/MmSru0hGlWbultUdmOfNM4hxC1DfeuTLOIBI9FnJ5KYJZMajBNL+ggkBgEkQ5Hx1fbhlQaRSbfK7Qt0GWIzky5k9IFdsdXFp8MOJSPNgJDumznryVNoNPudl31FsPs18hErSsYV11DOTTvp4hqMCWhdwMLn8NUfPsxoZbbZZ07QtI3VNKj+g==
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(82310400026)(36860700016)(22082099003)(18002099003)(3023799007)(10067099003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	F/79DqLaazRwUbD86GoJJ7cC8g4ftG4fKHYIMyvQWnpFbvcZ1Dpjzu46frkHE6frKlGOX9itotiyrcWeuRWeqmn4BH+Kd8If6rw5QeTkrQ9wBMrPrr6k4JFy4xEqA31EeAcBc9wdknEVjibm7FGI2RgBJLfPGFSCc+IJN1+QcrQalV9+zu8we7zcFruF54tXn1umPiy0uwiZT/2NONNYiy0rmYgtBB+0XrldmXS0qkSGWmauPVM4CsL5y9VrMy0wHvF/2/0qjNEXGGmGkEcZIIh6T1aaJZ2oaWYf3Xkh4fKummeAyYC5uVSKMVT7KvstKQm65CF6KNreG+oIj/ibI+cthHLVhoITOJ9jkMvntYI+zLTSj3XQsyIUtSo64dFu8vMzlm6jdLVF2yfGckDPRLhfzeHMxwA7/4klbCQEPyDEQGNtantIJ5teSe9rEGOh
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 02:21:56.3984
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8ba692ce-7cbb-437c-4565-08df1206f2fe
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SG1PEPF000082E8.apcprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYNPR06MB8997
 
-On Sat, Sep 12, 2026 at 06:34:14PM +0300, Abel Vesa wrote:
-> On 26-09-11 22:20:36, Shawn Guo wrote:
-> > The i2c9/i2c10 and uart9/uart10 pinctrl states shared the same pins and
-> > the same "qup1_se2"/"qup1_se3" function name, so the I2C states were
-> > indistinguishable from the UART ones and ended up muxing the UART lanes.
-> > i2c9 and i2c10 therefore did not work.
-> > 
-> > Now that the TLMM driver names each lane pair separately, select the
-> > lane 0/1 function for I2C and the lane 2/3 function for UART.
-> > 
-> > Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+On 2026-09-13 14:32, Krzysztof Kozlowski wrote:
+
+> EXTERNAL EMAIL
 > 
-> No fixes tag?
-
-The Nord DTS hasn't been picked up. If it's preferable, I can send v15
-of Nord DTS to fold this fix.
-
+> Correct indentation in the examples to consistent 2- or 4-spaces
+> indentation to fix dt-check-style warnings ("example 0
+> [indent-consistent] indent mismatch ...").  Preferred is 4-spaces, but
+> re-indenting entire example just for that is too much churn.
 > 
-> Otherwise, LGTM.
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+For the cix part:
+
+Reviewed-by: Gary Yang <gary.yang@cixtech.com>
+
+> ---
+>  .../pinctrl/awinic,aw9523-pinctrl.yaml        | 50 +++++++++----------
+>  .../bindings/pinctrl/cix,sky1-pinctrl.yaml    |  2 +-
+>  .../bindings/pinctrl/fsl,imx7d-pinctrl.yaml   |  8 +--
+>  .../bindings/pinctrl/intel,lgm-io.yaml        | 14 +++---
+>  .../pinctrl/mediatek,mt8183-pinctrl.yaml      |  4 +-
+>  .../pinctrl/mediatek,mt8195-pinctrl.yaml      |  2 +-
+>  .../bindings/pinctrl/qcom,hawi-tlmm.yaml      |  4 +-
+>  .../bindings/pinctrl/qcom,kaanapali-tlmm.yaml |  4 +-
+>  .../bindings/pinctrl/qcom,maili-tlmm.yaml     |  4 +-
+>  .../bindings/pinctrl/semtech,sx1501q.yaml     |  4 +-
+>  .../bindings/pinctrl/xlnx,zynqmp-pinctrl.yaml | 46 ++++++++---------
+>  11 files changed, 71 insertions(+), 71 deletions(-)
 > 
-> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-
-Thanks Abel!
-
-Shawn
+> diff --git a/Documentation/devicetree/bindings/pinctrl/awinic,aw9523-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/awinic,aw9523-pinctrl.yaml
+> index 98c310a3c63c..1c09c0fd4930 100644
+> --- a/Documentation/devicetree/bindings/pinctrl/awinic,aw9523-pinctrl.yaml
+> +++ b/Documentation/devicetree/bindings/pinctrl/awinic,aw9523-pinctrl.yaml
+> @@ -108,32 +108,32 @@ examples:
+>          #size-cells = <0>;
+> 
+>          aw9523: gpio-expander@58 {
+> -                compatible = "awinic,aw9523-pinctrl";
+> -                reg = <0x58>;
+> -                interrupt-parent = <&tlmm>;
+> -                interrupts = <50 IRQ_TYPE_EDGE_FALLING>;
+> -                gpio-controller;
+> -                #gpio-cells = <2>;
+> -                gpio-ranges = <&tlmm 0 0 16>;
+> -                interrupt-controller;
+> -                #interrupt-cells = <2>;
+> -                reset-gpios = <&tlmm 51 GPIO_ACTIVE_HIGH>;
+> +            compatible = "awinic,aw9523-pinctrl";
+> +            reg = <0x58>;
+> +            interrupt-parent = <&tlmm>;
+> +            interrupts = <50 IRQ_TYPE_EDGE_FALLING>;
+> +            gpio-controller;
+> +            #gpio-cells = <2>;
+> +            gpio-ranges = <&tlmm 0 0 16>;
+> +            interrupt-controller;
+> +            #interrupt-cells = <2>;
+> +            reset-gpios = <&tlmm 51 GPIO_ACTIVE_HIGH>;
+> 
+> -                keyboard-matrix-col-pins {
+> -                        pins = "gpio8", "gpio9", "gpio10", "gpio11",
+> -                               "gpio12", "gpio13", "gpio14", "gpio15";
+> -                        function = "gpio";
+> -                        input-disable;
+> -                        output-low;
+> -                };
+> +            keyboard-matrix-col-pins {
+> +                pins = "gpio8", "gpio9", "gpio10", "gpio11",
+> +                       "gpio12", "gpio13", "gpio14", "gpio15";
+> +                function = "gpio";
+> +                input-disable;
+> +                output-low;
+> +            };
+> 
+> -                keyboard-matrix-row-pins {
+> -                        pins = "gpio0", "gpio1", "gpio2", "gpio3",
+> -                               "gpio4", "gpio5", "gpio6", "gpio7";
+> -                        function = "gpio";
+> -                        bias-pull-up;
+> -                        drive-open-drain;
+> -                        input-enable;
+> -                };
+> +            keyboard-matrix-row-pins {
+> +                pins = "gpio0", "gpio1", "gpio2", "gpio3",
+> +                       "gpio4", "gpio5", "gpio6", "gpio7";
+> +                function = "gpio";
+> +                bias-pull-up;
+> +                drive-open-drain;
+> +                input-enable;
+> +            };
+>          };
+>      };
+> diff --git a/Documentation/devicetree/bindings/pinctrl/cix,sky1-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/cix,sky1-pinctrl.yaml
+> index 8ed53496c386..4ab1f00775cc 100644
+> --- a/Documentation/devicetree/bindings/pinctrl/cix,sky1-pinctrl.yaml
+> +++ b/Documentation/devicetree/bindings/pinctrl/cix,sky1-pinctrl.yaml
+> @@ -86,6 +86,6 @@ examples:
+>                  pinmux = <CIX_PAD_GPIO012_FUNC_GPIO012>;
+>                  bias-pull-up;
+>                  drive-strength = <8>;
+> -           };
+> +            };
+>          };
+>      };
+> diff --git a/Documentation/devicetree/bindings/pinctrl/fsl,imx7d-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/fsl,imx7d-pinctrl.yaml
+> index 948160cfbc5f..7275215918bb 100644
+> --- a/Documentation/devicetree/bindings/pinctrl/fsl,imx7d-pinctrl.yaml
+> +++ b/Documentation/devicetree/bindings/pinctrl/fsl,imx7d-pinctrl.yaml
+> @@ -106,8 +106,8 @@ examples:
+>        fsl,input-sel = <&iomuxc>;
+> 
+>        pinctrl_gpio_lpsr: gpio1-grp {
+> -          fsl,pins =
+> -            <0x0008 0x0038 0x0000 0x0 0x0 0x59>,
+> -            <0x000C 0x003C 0x0000 0x0 0x0 0x59>;
+> -        };
+> +        fsl,pins =
+> +          <0x0008 0x0038 0x0000 0x0 0x0 0x59>,
+> +          <0x000C 0x003C 0x0000 0x0 0x0 0x59>;
+> +      };
+>      };
+> diff --git a/Documentation/devicetree/bindings/pinctrl/intel,lgm-io.yaml b/Documentation/devicetree/bindings/pinctrl/intel,lgm-io.yaml
+> index 1144ca2896e3..96c405711f65 100644
+> --- a/Documentation/devicetree/bindings/pinctrl/intel,lgm-io.yaml
+> +++ b/Documentation/devicetree/bindings/pinctrl/intel,lgm-io.yaml
+> @@ -64,13 +64,13 @@ examples:
+>          reg = <0xe2880000 0x100000>;
+> 
+>          uart0-pins {
+> -             pins = <64>, /* UART_RX0 */
+> -                    <65>; /* UART_TX0 */
+> -             function = "CONSOLE_UART0";
+> -             pinmux = <1>,
+> -                      <1>;
+> -             groups = "CONSOLE_UART0";
+> -          };
+> +            pins = <64>, /* UART_RX0 */
+> +                   <65>; /* UART_TX0 */
+> +            function = "CONSOLE_UART0";
+> +            pinmux = <1>,
+> +                     <1>;
+> +            groups = "CONSOLE_UART0";
+> +        };
+>      };
+> 
+>  ...
+> diff --git a/Documentation/devicetree/bindings/pinctrl/mediatek,mt8183-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/mediatek,mt8183-pinctrl.yaml
+> index 3db2438fadc7..4bcee7741fcd 100644
+> --- a/Documentation/devicetree/bindings/pinctrl/mediatek,mt8183-pinctrl.yaml
+> +++ b/Documentation/devicetree/bindings/pinctrl/mediatek,mt8183-pinctrl.yaml
+> @@ -221,8 +221,8 @@ examples:
+> 
+>              i2c0_pins_a: i2c0-pins {
+>                  pins1 {
+> -                  pinmux = <PINMUX_GPIO48__FUNC_SCL5>,
+> -                           <PINMUX_GPIO49__FUNC_SDA5>;
+> +                    pinmux = <PINMUX_GPIO48__FUNC_SCL5>,
+> +                             <PINMUX_GPIO49__FUNC_SDA5>;
+>                      mediatek,pull-up-adv = <3>;
+>                      drive-strength-microamp = <1000>;
+>                  };
+> diff --git a/Documentation/devicetree/bindings/pinctrl/mediatek,mt8195-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/mediatek,mt8195-pinctrl.yaml
+> index 33cb71775db9..0bcafa78acb2 100644
+> --- a/Documentation/devicetree/bindings/pinctrl/mediatek,mt8195-pinctrl.yaml
+> +++ b/Documentation/devicetree/bindings/pinctrl/mediatek,mt8195-pinctrl.yaml
+> @@ -234,7 +234,7 @@ examples:
+>    - |
+>      #include <dt-bindings/pinctrl/mt8195-pinfunc.h>
+>      #include <dt-bindings/interrupt-controller/arm-gic.h>
+> -    #
+> +
+>      pio: pinctrl@10005000 {
+>        compatible = "mediatek,mt8195-pinctrl";
+>        reg = <0x10005000 0x1000>,
+> diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,hawi-tlmm.yaml b/Documentation/devicetree/bindings/pinctrl/qcom,hawi-tlmm.yaml
+> index 3b3961789860..2b1354e212e5 100644
+> --- a/Documentation/devicetree/bindings/pinctrl/qcom,hawi-tlmm.yaml
+> +++ b/Documentation/devicetree/bindings/pinctrl/qcom,hawi-tlmm.yaml
+> @@ -113,8 +113,8 @@ examples:
+>          #interrupt-cells = <2>;
+> 
+>          qup-uart7-state {
+> -          pins = "gpio62", "gpio63";
+> -          function = "qup1_se7";
+> +            pins = "gpio62", "gpio63";
+> +            function = "qup1_se7";
+>          };
+>      };
+>  ...
+> diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,kaanapali-tlmm.yaml b/Documentation/devicetree/bindings/pinctrl/qcom,kaanapali-tlmm.yaml
+> index 53534a07a1f0..ea7d4768483d 100644
+> --- a/Documentation/devicetree/bindings/pinctrl/qcom,kaanapali-tlmm.yaml
+> +++ b/Documentation/devicetree/bindings/pinctrl/qcom,kaanapali-tlmm.yaml
+> @@ -120,8 +120,8 @@ examples:
+>          #interrupt-cells = <2>;
+> 
+>          qup-uart7-state {
+> -          pins = "gpio62", "gpio63";
+> -          function = "qup1_se7";
+> +            pins = "gpio62", "gpio63";
+> +            function = "qup1_se7";
+>          };
+>      };
+>  ...
+> diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,maili-tlmm.yaml b/Documentation/devicetree/bindings/pinctrl/qcom,maili-tlmm.yaml
+> index 64fe90b2391b..a0b56adb3388 100644
+> --- a/Documentation/devicetree/bindings/pinctrl/qcom,maili-tlmm.yaml
+> +++ b/Documentation/devicetree/bindings/pinctrl/qcom,maili-tlmm.yaml
+> @@ -113,8 +113,8 @@ examples:
+>          #interrupt-cells = <2>;
+> 
+>          qup-uart7-state {
+> -          pins = "gpio62", "gpio63";
+> -          function = "qup1_se7";
+> +            pins = "gpio62", "gpio63";
+> +            function = "qup1_se7";
+>          };
+>      };
+>  ...
+> diff --git a/Documentation/devicetree/bindings/pinctrl/semtech,sx1501q.yaml b/Documentation/devicetree/bindings/pinctrl/semtech,sx1501q.yaml
+> index 39d7dad3313b..f7a7551d7f50 100644
+> --- a/Documentation/devicetree/bindings/pinctrl/semtech,sx1501q.yaml
+> +++ b/Documentation/devicetree/bindings/pinctrl/semtech,sx1501q.yaml
+> @@ -244,8 +244,8 @@ examples:
+>              interrupt-controller;
+> 
+>              gpio1-cfg {
+> -                  pins = "gpio1";
+> -                  bias-pull-up;
+> +                pins = "gpio1";
+> +                bias-pull-up;
+>              };
+>          };
+>      };
+> diff --git a/Documentation/devicetree/bindings/pinctrl/xlnx,zynqmp-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/xlnx,zynqmp-pinctrl.yaml
+> index ce66fd15ff9c..300d38f87f2d 100644
+> --- a/Documentation/devicetree/bindings/pinctrl/xlnx,zynqmp-pinctrl.yaml
+> +++ b/Documentation/devicetree/bindings/pinctrl/xlnx,zynqmp-pinctrl.yaml
+> @@ -317,37 +317,37 @@ examples:
+>      #include <dt-bindings/pinctrl/pinctrl-zynqmp.h>
+>      zynqmp_firmware: zynqmp-firmware {
+>          pinctrl0: pinctrl {
+> -          compatible = "xlnx,zynqmp-pinctrl";
+> +            compatible = "xlnx,zynqmp-pinctrl";
+> 
+> -          pinctrl_uart1_default: uart1-default {
+> -             mux {
+> -                 groups = "uart0_4_grp", "uart0_5_grp";
+> -                 function = "uart0";
+> -             };
+> +            pinctrl_uart1_default: uart1-default {
+> +                mux {
+> +                    groups = "uart0_4_grp", "uart0_5_grp";
+> +                    function = "uart0";
+> +                };
+> 
+> -             conf {
+> -                groups = "uart0_4_grp";
+> -                slew-rate = <SLEW_RATE_SLOW>;
+> -                power-source = <IO_STANDARD_LVCMOS18>;
+> -             };
+> +                conf {
+> +                    groups = "uart0_4_grp";
+> +                    slew-rate = <SLEW_RATE_SLOW>;
+> +                    power-source = <IO_STANDARD_LVCMOS18>;
+> +                };
+> 
+> -             conf-rx {
+> -                pins = "MIO18";
+> -                bias-pull-up;
+> -             };
+> +                conf-rx {
+> +                    pins = "MIO18";
+> +                    bias-pull-up;
+> +                };
+> 
+> -             conf-tx {
+> -                pins = "MIO19";
+> -                bias-disable;
+> -                input-schmitt-disable;
+> -             };
+> -          };
+> +                conf-tx {
+> +                    pins = "MIO19";
+> +                    bias-disable;
+> +                    input-schmitt-disable;
+> +                };
+> +            };
+>          };
+>      };
+> 
+>      uart1 {
+> -         pinctrl-names = "default";
+> -         pinctrl-0 = <&pinctrl_uart1_default>;
+> +        pinctrl-names = "default";
+> +        pinctrl-0 = <&pinctrl_uart1_default>;
+>      };
+> 
+>  ...
+> --
+> 2.53.0
+> 
