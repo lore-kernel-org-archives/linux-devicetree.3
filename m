@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBB0044A40E;
-	Mon, 14 Sep 2026 13:31:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 881CA472528;
+	Mon, 14 Sep 2026 13:35:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789392661; cv=none; b=faaLyBhT8vTeGXxOGOImN/jFFIb1+hcZM1/JfBJz8qIsqTYxgRTYC1/82WPanww/wk/pTc0z9XXCPneOZVNJEK7f+a3zG5jffaQ0O2/A/VTrI3pIevpYcohwWnIt5YMVaFkDvp8fbqkChRcIwnY5hISc90Hd1wX1DSM/sucJXBg=
+	t=1789392910; cv=none; b=vCkGtjTduEf2Gfc8InqtkiqAmVErpmK7spvkYxhlEyAs+KBHj1xxd9BSq5MXtGjSGJqFEjV+bwjFeUkv+s7/r6moEyK4t/ySQMFzBsgkq6sgKsdSMnad94Hmhp6Y4YJgafeRrkHHGEee1WrCxm5eQtz9Id7KVJAUVgjFtX3gfxE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789392661; c=relaxed/simple;
-	bh=FZ93MFND4SZk1HkhbjKt6fLSIxoPV8LGoHAopPRUrH0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=rMgFuH8HT7O/2eKDDwBQ+fEV9EZe40Tmbnq67zQJDexTki+S1lkvf36ZkF3ccf7Rji7KbTEu9nlY9NAfm1cigpVXxKDZ9+J5IMeopNO6wwhmJc2MclnSBsUc1K58yksk+JooqCdt1FcAhUiO/8gPdDrv+PJts/kyFm+8oaUkk3Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J00m7Nhg; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789392910; c=relaxed/simple;
+	bh=S0bqte9siZrqZnDtdWnyZJkPTbp/4riMI2jQQfrALZs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=GW2QbtidtVSsytK8oG+brPhKUKC6Rcrdv291vCG5wP++ib24Uy9f2kxRPe5xRLx/pSvYon6G9bXM2/dod850uxlQEb52zhUnccFa2BFdkVjXzTNtK58azz7IFOrNCRO3jOY4ipxA9EERg0ERkr43eqoEKcjsPj3/TkxY+473uqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rV4ibUud; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J00m7Nhg"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 67BE9C2BCF5;
-	Mon, 14 Sep 2026 13:31:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rV4ibUud"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 548C3C2BD04;
+	Mon, 14 Sep 2026 13:35:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789392661;
-	bh=FZ93MFND4SZk1HkhbjKt6fLSIxoPV8LGoHAopPRUrH0=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=J00m7NhgRyXI+XMBNkxOggYYXeK5lmXV6TeNMOHvxYjKGkuHepuIkUaueDTV13o0N
-	 Ao5sP1vj4XySZQL0ZYnKCkZhlbM50rN4q73xy+X65JStst4Y561QbWmmF0ORZ8D1Jb
-	 qhftgzNP51MLYUxKTKMvEEY5F6feXFiG1LXLTRLZSxZL7V7XfCwvgdbPZkFIf21Qwj
-	 vKW+ovafpj3lJ1eNyDzmahsq4fWPUMP6Ui/52aVPQ+bro7hp/XTQ01bmK1WqOvsYbK
-	 lc/ZD+OppcuLZ3Pwj9ekL1AJ2qelF72zYFGiwRr0N6olLL2yTEWOLuIYxFpxTyyVO5
-	 6sLZgtmAzBGbA==
+	s=k20201202; t=1789392910;
+	bh=S0bqte9siZrqZnDtdWnyZJkPTbp/4riMI2jQQfrALZs=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=rV4ibUudy1AVJ+FQuqnciNffwY1mVYaOyupGmNfrxxsn36dtT3ur7AZ7x8WNxSjGh
+	 VcefBo1+5KrN+8QpPhuQ//QEYP6ZYjxqUUl/9Q30OZJ3+Coq11ZznlZpOshkLRUlzt
+	 8Lbv3HI45TeCAj37EGPfw4bfQziq95q/sMFA8G/cEi7Ho1QQvG3bOgDArawVGsbhUw
+	 Bn4kvsCVt+KU/qEJ7uWudbly7nU96UqnFFp6Bj/jZfLqTf2OkQCdENV0+iDmjqyC/G
+	 YaBOm0YLZxXtPgGlBK6d385P5fCuAY+2OX2XNEwAWnTDw9wUKVWbotJbLzJ1TCza9P
+	 OSox7IaEc2Xxw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5285CC88E70;
-	Mon, 14 Sep 2026 13:31:01 +0000 (UTC)
-From: Avalon Vargas via B4 Relay <devnull+avalon.vargas.centeno.est.una.ac.cr@kernel.org>
-Date: Mon, 14 Sep 2026 07:30:47 -0600
-Subject: [PATCH] arm64: dts: qcom: Fix touchscreen address on Dell Inspiron
- 7441
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3A19FC88E73;
+	Mon, 14 Sep 2026 13:35:10 +0000 (UTC)
+From: =?utf-8?q?=E5=AE=89=E5=AE=B9_via_B4_Relay?= <devnull+HystericalDragons.proton.me@kernel.org>
+Date: Mon, 14 Sep 2026 21:35:03 +0800
+Subject: [PATCH v6 3/3] arm64: dts: rockchip: Add devicetree for the
+ FriendlyElec NanoPi R28S
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -39,86 +40,228 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-dell7441-touchscreen-v1-1-d79540ca5e81@est.una.ac.cr>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMyw7CIBBFf6WZtSSABB+/YlwAHWVMpWaGGpOm/
- y7o8tzcc1YQZEKB87AC45uE5tLA7AZIOZQ7Khobg9XW65NxasRpOjhnVJ2XlCUxYlE+eqvN3h1
- D9NDUF+ONPr/s5fpnWeIDU+2t/ohBUEUOJeU+PYNUZNi2Lxvirp6RAAAA
-X-Change-ID: 20260914-dell7441-touchscreen-6b6201348ab6
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Val Packett <val@packett.cool>, 
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260914-r28s-upstream-v6-3-ea9edd75c126@proton.me>
+References: <20260914-r28s-upstream-v6-0-ea9edd75c126@proton.me>
+In-Reply-To: <20260914-r28s-upstream-v6-0-ea9edd75c126@proton.me>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Chukun Pan <amadeus@jmu.edu.cn>, Jonas Karlman <jonas@kwiboo.se>, 
+ jensen <jensenhuang@friendlyarm.com>, 
+ Andrey Korshunov <razor1702@gmail.com>, 
+ Diederik de Haas <diederik@cknow-tech.com>, 
+ =?utf-8?q?=E5=AE=89=E5=AE=B9?= <HystericalDragons@proton.me>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789392660; l=1937;
- i=avalon.vargas.centeno@est.una.ac.cr; s=avalon-una-20260914;
- h=from:subject:message-id;
- bh=cWKOXfSe8ZMCWag3Rxp781xh1Hgee6YPOPUmg88AEUg=;
- b=FayQ/FIpndcg5F9U82KQTUWBFChd9LE0wC09Rwqx5L/LbJmEocy1yRMpLDy6XxVvXCd7RqZO/
- e4kAxKsH227CfRIje3fiLIkNHHlW5RPRbbXXgsMdHh8llOfoxy/alhI
-X-Developer-Key: i=avalon.vargas.centeno@est.una.ac.cr; a=ed25519;
- pk=I7FZ301yhA9Jl2LReBEqv+9LUrd5zi397CIT2gTB6RE=
-X-Endpoint-Received: by B4 Relay for
- avalon.vargas.centeno@est.una.ac.cr/avalon-una-20260914 with auth_id=1032
-X-Original-From: Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
-Reply-To: avalon.vargas.centeno@est.una.ac.cr
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4997;
+ i=HystericalDragons@proton.me; h=from:subject:message-id;
+ bh=/vyK+Bs22B1ZYJ3TWXwv77tqbArdt32/JXMUhi4gQoU=;
+ b=owGbwMvMwCUmepz3XUtTHjvjabUkhqzlP3jMTu4K+L7fscG14Wb1jtL3xoy5TrPr406UPlZr6
+ tt15Pr3jlIWBjEuBlkxRRbZTdWRQquiZxaxSB2HmcPKBDKEgYtTACYyqYfhJ+O17vU+LaGnntcx
+ FyccFDqctO//3fXS3hNmNHw8vKRSI5jhf/RvJ+9FSw6nnXDXPX5gW0uke9dLC1ejvTK6BqvMHsh
+ JsgEA
+X-Developer-Key: i=HystericalDragons@proton.me; a=openpgp;
+ fpr=1DB27B5912AA5B9972041AC715C70DEE84826E07
+X-Endpoint-Received: by B4 Relay for HystericalDragons@proton.me/default
+ with auth_id=1004
+X-Original-From: =?utf-8?q?=E5=AE=89=E5=AE=B9?= <HystericalDragons@proton.me>
+Reply-To: HystericalDragons@proton.me
 
-From: Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
+From: 安容 <HystericalDragons@proton.me>
 
-The LXST2021 touchscreen on the tested Dell Inspiron 14 Plus 7441
-responds at I2C address 0x09, while the device tree specifies 0x10.
-Probing the latter fails with -ENXIO and no touchscreen input device
-is registered.
+The NanoPi R28S is a dual gigabit Ethernet router board based on the
+Rockchip RK3528 SoC, designed and developed by FriendlyElec. It shares
+most of its design with the NanoPi Zero2, so it builds on the common
+rk3528-nanopi.dtsi.
 
-Use address 0x09, matching the LXST2021 configuration on the related
-Dell Latitude 7455. With this address, the controller identifies as
-29BD:1103 and binds to hid-multitouch. Touch input and suspend/resume
-have been verified on the affected Inspiron using Linux 7.2.4 with
-the equivalent device-tree overlay.
+Specification:
+- Rockchip RK3528
+- 1GB RAM
+- eMMC socket (optional)
+- MicroSD slot
+- 1x 1000Base-T (GMAC1, Realtek RTL8211F)
+- 1x 1000Base-T (PCIe, Realtek RTL8111H)
+- AICSemi AIC8800D80 SDIO WiFi
+- 3x LEDs (SYS, LAN, WAN)
+- 1x USB 2.0 Type-C, peripheral only, shared with the 5V power input
+- User and MaskROM buttons
+- Haoyu HYM8563 RTC
+- 1x USB Type-C debug UART (onboard WCH CH340E)
 
-Signed-off-by: Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
+Assisted-by: LLM
+Signed-off-by: 安容 <HystericalDragons@proton.me>
 ---
-This replaces the earlier report-plus-diff with a patch submission.
-Only one unit has been tested. I have no evidence of double-sourcing
-or a working Inspiron touchscreen at 0x10; a typo remains possible.
+ arch/arm64/boot/dts/rockchip/Makefile              |   1 +
+ .../arm64/boot/dts/rockchip/rk3528-nanopi-r28s.dts | 146 +++++++++++++++++++++
+ 2 files changed, 147 insertions(+)
 
-touch input and suspend/resume. The native upstream patch has not yet
-undergone a full kernel DTB build or dtbs_check.
+diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/rockchip/Makefile
+index b677914cd3..51a9889088 100644
+--- a/arch/arm64/boot/dts/rockchip/Makefile
++++ b/arch/arm64/boot/dts/rockchip/Makefile
+@@ -94,6 +94,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3399-vicharak-vaaman.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3399pro-rock-pi-n10.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3528-armsom-sige1.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3528-hinlink-h28k.dtb
++dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3528-nanopi-r28s.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3528-nanopi-zero2.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3528-radxa-e20c.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3528-rock-2a.dtb
+diff --git a/arch/arm64/boot/dts/rockchip/rk3528-nanopi-r28s.dts b/arch/arm64/boot/dts/rockchip/rk3528-nanopi-r28s.dts
+new file mode 100644
+index 0000000000..a453a990b3
+--- /dev/null
++++ b/arch/arm64/boot/dts/rockchip/rk3528-nanopi-r28s.dts
+@@ -0,0 +1,146 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (c) 2022 Rockchip Electronics Co., Ltd.
++ * Copyright (c) 2026 FriendlyElec Computer Tech. Co., Ltd.
++ * Copyright (c) 2026 安容 <HystericalDragons@proton.me>
++ */
++
++/dts-v1/;
++
++#include <dt-bindings/leds/common.h>
++#include "rk3528-nanopi.dtsi"
++
++/ {
++	model = "FriendlyElec NanoPi R28S";
++	compatible = "friendlyarm,nanopi-r28s", "rockchip,rk3528";
++
++	aliases {
++		mmc2 = &sdio0;
++		serial2 = &uart2;
++	};
++
++	gpio-keys {
++		compatible = "gpio-keys";
++		pinctrl-names = "default";
++		pinctrl-0 = <&gpio4_b2_usr_btn>;
++
++		button-user {
++			debounce-interval = <50>;
++			gpios = <&gpio4 RK_PB2 GPIO_ACTIVE_LOW>;
++			label = "USER";
++			linux,code = <BTN_1>;
++			wakeup-source;
++		};
++	};
++
++	sdio_pwrseq: sdio-pwrseq {
++		compatible = "mmc-pwrseq-simple";
++		pinctrl-names = "default";
++		pinctrl-0 = <&pwr_wf>;
++		post-power-on-delay-ms = <100>;
++		reset-gpios = <&gpio1 RK_PC2 GPIO_ACTIVE_LOW>;
++	};
++};
++
++&combphy {
++	status = "okay";
++};
++
++&leds {
++	pinctrl-0 = <&led1>, <&led2>, <&led_sys>;
++
++	led-1 {
++		color = <LED_COLOR_ID_GREEN>;
++		default-state = "off";
++		function = LED_FUNCTION_WAN;
++		gpios = <&gpio4 RK_PB1 GPIO_ACTIVE_HIGH>;
++		linux,default-trigger = "netdev";
++	};
++
++	led-2 {
++		color = <LED_COLOR_ID_GREEN>;
++		default-state = "off";
++		function = LED_FUNCTION_LAN;
++		gpios = <&gpio4 RK_PB3 GPIO_ACTIVE_HIGH>;
++		linux,default-trigger = "netdev";
++	};
++};
++
++&pcie {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pcie_eth_perstb>;
++	reset-gpios = <&gpio4 RK_PC0 GPIO_ACTIVE_HIGH>;
++	vpcie3v3-supply = <&vcc_3v3>;
++	status = "okay";
++};
++
++&pinctrl {
++	gpio-keys {
++		gpio4_b2_usr_btn: gpio4-b2-usr-btn {
++			rockchip,pins = <4 RK_PB2 RK_FUNC_GPIO &pcfg_pull_up>;
++		};
++	};
++
++	leds {
++		led2: led2 {
++			rockchip,pins = <4 RK_PB3 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++	};
++
++	pcie {
++		pcie_eth_perstb: pcie-eth-perstb {
++			rockchip,pins = <4 RK_PC0 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++	};
++
++	wifi {
++		pwr_wf: pwr-wf {
++			rockchip,pins = <1 RK_PC2 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++	};
++};
++
++&sdio0 {
++	bus-width = <4>;
++	cap-sd-highspeed;
++	cap-sdio-irq;
++	keep-power-in-suspend;
++	mmc-pwrseq = <&sdio_pwrseq>;
++	no-mmc;
++	no-sd;
++	non-removable;
++	sd-uhs-sdr104;
++	vmmc-supply = <&vcc_3v3>;
++	vqmmc-supply = <&vcc_1v8>;
++	status = "okay";
++};
++
++&uart2 {
++	dma-names = "tx", "rx";
++	pinctrl-names = "default";
++	pinctrl-0 = <&uart2m1_xfer>, <&uart2m1_ctsn>, <&uart2m1_rtsn>;
++	uart-has-rtscts;
++	status = "okay";
++};
++
++&usb_host0_xhci {
++	/*
++	 * The Type-C port is also the 5V power input. Both CC pins have a
++	 * 5.1k pull-down, the ID pin is not connected and VBUS only feeds
++	 * the 5V rail, so the port can only ever be a device.
++	 */
++	dr_mode = "peripheral";
++	extcon = <&usb2phy>;
++	maximum-speed = "high-speed";
++	phys = <&usb2phy_otg>;
++	phy-names = "usb2-phy";
++	status = "okay";
++};
++
++&usb2phy {
++	status = "okay";
++};
++
++&usb2phy_otg {
++	status = "okay";
++};
 
-Validation: Linux 7.2.4 plus the equivalent local DT overlay, physical
----
- arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts b/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts
-index 75e10d9..0cf5716 100644
---- a/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts
-+++ b/arch/arm64/boot/dts/qcom/x1e80100-dell-inspiron-14-plus-7441.dts
-@@ -25,9 +25,10 @@ &gpu_zap_shader {
- };
- 
- &i2c8 {
--	touchscreen@10 {
-+	/* LXST2021 */
-+	touchscreen@9 {
- 		compatible = "hid-over-i2c";
--		reg = <0x10>;
-+		reg = <0x09>;
- 
- 		hid-descr-addr = <0x1>;
- 		interrupts-extended = <&tlmm 51 IRQ_TYPE_LEVEL_LOW>;
-
----
-base-commit: 704340f1cd0dcef829eb62f5b48ae95a2ce17bdf
-change-id: 20260914-dell7441-touchscreen-6b6201348ab6
-
-Best regards,
---  
-Avalon Vargas <avalon.vargas.centeno@est.una.ac.cr>
+-- 
+2.55.0
 
 
