@@ -1,74 +1,111 @@
-Received: from mta0.migadu.com (out-222.mta0.migadu.com [91.218.175.222])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AC1A38A734
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 18:29:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.222
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C415738838B;
+	Mon, 14 Sep 2026 18:34:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789410563; cv=none; b=PDkZxDvp6XrjxxRWEVMt1hrbOapwUFnteCY5Oa4kMdud1jkPrFNvJsLA5Fiaj25N34Ar6rv7PJC2e13VVTT6LVDDnExX84MTNyk8WX2948Q8uPDAgbIBp6Rwyw10wk72UkE15TE+7OB6/ogFqn2dE5qVldbpVIjqGQ3OuxvWKY8=
+	t=1789410868; cv=none; b=BbNtnqk2o0f4Dl5LMIWiOmFYbDVNCbmUEpGV/NbWe3WLS3778KJP3zinooZTFaldNjXYt2VPg6UfsF9KveHfquGe1BK1qnbKID8u/zXTMye56vcrepix6Z8VpMrYMgzKzgnIUIpg3GHldAzVBXWi6Mdoak7GfsjfQMGzG1E0N0k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789410563; c=relaxed/simple;
-	bh=oiUF5LhxlHtYbTxjopkGNneVmugHN51Eq7CGGnZam7c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FwRd5lUH0hWck7+luQcwyd8c9yTvq/HzX3XmsPSwRU0njB9c7Dv0mblsUa0L+uCD19K6MfksVJWA8JFy4+5PShtSFedy6xjgEVa2qreVxnGc6yTRjIYNzBoo/hs/uI3Km/BoR4YQddm35uJOMk+DNoJtb1RZ94GwGJVyKS4fJSc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Ejzlphn0; arc=none smtp.client-ip=91.218.175.222
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789410868; c=relaxed/simple;
+	bh=P7vuABoQPB/jBq7MF1gSPsyzvKUQewcumsuLyNTDzXY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qT22oCHWM0+5e2C1LSbomvjfdiH+RQJ6B/I6o3/xUFRj7Av2OzSBFCNKTQql6jBQ7JfW0/WfO5UQYn0ZqVL51LUHinGkbo5ZbGCZOSHivoDvErsK5eRRp4If7seYHmyKz0sQml6rY3zNVMBuFHVtX8WxBjJfC/ntz2+ZXwjiCAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MJYEfIGr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Ejzlphn0"
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=oiUF5LhxlHtYbTxjopkGNneVmugHN51Eq7CGGnZam7c=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789410557; v=1; x=1790015357;
- b=Ejzlphn0Vu+wMB4ePv4GJDq8Ynn9cQqvSpCU10hF+uxC8F80TICdVTbCmo6KiSutmeBR4fI1
- hocfncLt4Vl1ncC8qP1A+6CPpapeUB07ZBKFvbk54LI18nrO88VK9Tb5SxifhursPBzyf2G9+t3
- s7xQxC8rGhmgUgO8HGQ+Mp4k=
-X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 934f72edde8d4b3d;
-	Mon, 14 Sep 2026 18:29:07 +0000
-X-Mizu-Trace-ID: 934f72edde8d4b3d
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <8c6bfa54-83a7-4d37-bbc8-d3384dfc6ce2@linux.dev>
-Date: Mon, 14 Sep 2026 19:21:32 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MJYEfIGr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 260EE1F000FF;
+	Mon, 14 Sep 2026 18:34:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789410866;
+	bh=rWfUa8bmXSX552+TKwgWU2/ORXQ7Q1rSLsaWVFwWKOk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MJYEfIGrctCrjp80fMHKOXL+v3+v0amDvVqRBdeLLF76eNP297tbt4N2hkUpC/EY8
+	 sznchidEzPuY5BXJrdL3Qk1U/r6FvSouZfldBrCHdwCJ0jchfgmlon20ABH3i/IyX9
+	 tlKRZ3e0ZjaMwXImYLMxWj1j8hmdsfinHS25br3JrEdfAQzq340GWMHZLKKys/hneP
+	 EbJiCCFIczFPvH8PKF37Yrmt4PeTTXu9IBpgafISv1FkdrcmUoLptX2xV/ZtRWV1ws
+	 dwGblnrLMxwcucJtFyLmILmqwAmzDk7HqZnouelylwENwi2le+HZ2RfdCnluPz8aJ0
+	 frLzKwIpeUrIw==
+Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
+	id 3772BFDB50F; Mon, 14 Sep 2026 19:34:13 +0100 (BST)
+Date: Mon, 14 Sep 2026 19:34:13 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, robh@kernel.org,
+	Saikiran <bjsaikiran@gmail.com>, monish.chunara@oss.qualcomm.com,
+	jishnu.prakash@oss.qualcomm.com, nitin.rawat@oss.qualcomm.com,
+	Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+	lgirdwood@gmail.com, andersson@kernel.org,
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+	krzk+dt@kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 0/2] regulator: qcom-rpmh: Add off-on-delay support
+Message-ID: <aqg-JSTrbg-xR69l@sirena.org.uk>
+References: <20260127190211.14312-1-bjsaikiran@gmail.com>
+ <20260515111647.qg75thdvcbvvjpoi@hu-kamalw-hyd.qualcomm.com>
+ <06a264d0-6a14-4b71-b783-82b771f04411@oss.qualcomm.com>
+ <oa3okt7mdhoqmrebwim5yswarbcacbmhpwfvqbhtv6ib3cwrwi@ddox6mw3uhmy>
+ <0d4fa333-df22-42b9-b9c2-ccb43ac4fac3@oss.qualcomm.com>
+ <3pybhkqdvve2ct6burnhav3utis6nljz7ncheqcrs7v55ullz4@nek57empeoca>
+ <086f8e7c-0afa-45d5-bdb2-54ac5f79eefa@sirena.org.uk>
+ <xmjovrqonged7m77zlx4gbz6xvfksygbw7g4vgv2stlucvqoy6@uie3qdhdtkoe>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] soundwire: qcom: add multi-master support
-To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
- robh@kernel.org, vkoul@kernel.org
-Cc: krzk+dt@kernel.org, conor+dt@kernel.org, srini@kernel.org,
- yung-chuan.liao@linux.intel.com, prasad.kumpatla@oss.qualcomm.com,
- jingyi.wang@oss.qualcomm.com, sibi.sankar@oss.qualcomm.com,
- quic_srivasam@quicinc.com, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-sound@vger.kernel.org
-References: <cover.1789114385.git.srinivas.kandagatla@oss.qualcomm.com>
- <0097b59e2b96d692b9fb542e207ee43f9dd44a7f.1789114385.git.srinivas.kandagatla@oss.qualcomm.com>
-Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-In-Reply-To: <0097b59e2b96d692b9fb542e207ee43f9dd44a7f.1789114385.git.srinivas.kandagatla@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="3w1ZrWn4GhR4n0Bg"
+Content-Disposition: inline
+In-Reply-To: <xmjovrqonged7m77zlx4gbz6xvfksygbw7g4vgv2stlucvqoy6@uie3qdhdtkoe>
+X-Cookie: Orders subject to approval.
 
-On 9/11/26 10:21, Srinivas Kandagatla wrote:
-> v3.1.0+ Qualcomm SoundWire IPs can be paired to expose one logical
-> bus with more than two DATA lanes. One IP owns SWR_CLK and drives
-> the bus; the other contributes DATA lanes only.
-> 
-> Support this pairing on the driver side. A device link between the
-> two IPs enforces correct unbind ordering and keeps the peer resumed
-> while the primary is active.
-> 
-> Single-master deployments (no qcom,multi-master-mode in DT) are
-> unaffected.
 
-It'd be good to clarify how the command protocol is handled. Each IP is
-probably capable of handling PING/READ/WRITE commands in Column0, but in
-the paired option the primary IP is the only one that deals with Column0
-and all other DATA lanes are just data?
+--3w1ZrWn4GhR4n0Bg
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
+On Wed, Sep 09, 2026 at 02:34:21AM +0530, Kamal Wadhwa wrote:
+
+Please fix your mail client to word wrap within paragraphs at something
+substantially less than 80 columns.  Doing this makes your messages much
+easier to read and reply to.
+
+> However recently on Qualcomm's QCS8300 RB4 boards we started seeing "NOP OUT" issue
+> for UFS driver, where this patch seems to be helping.
+
+> Also, Rob had earlier raised a few points to Saikiran on this patch series
+> (https://lore.kernel.org/all/20260129174829.GA1324020-robh@kernel.org/):
+
+> 3. If we can avoid turning the regulator off itself, so we may not need this delay
+
+> point 3 - We evaluated this for UFS - but the problem is that the issue happens in
+> the defer probe path, so if we avoid turning off the regulator, it leads to long
+> error prints appearing for the regulator being left ON. So we couldn't take that
+> path.
+
+I think Rob might be thinking here of something like the runtime PM
+autosuspend delay where once the final reference is dropped we wait some
+time before we actually implement the power off in hardware, thus a
+quick power cycle would never actually get implemented.  That does sound
+like a good idea if we've got issues with quick cycling, obviously the
+actual delay would still be needed but if you've got quick bounces
+happening routinely then a delay like that would allow you to avoid both
+power off and ramp delays.
+
+--3w1ZrWn4GhR4n0Bg
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqoPiQACgkQJNaLcl1U
+h9B66Af/Z1tqV+rU3YT1wzEkMZtPgbjGkYlEPQq9zkJIbzo3O5Rv3ZK0mmP2ktCj
+PMkcbyFA1Eih3z8Ig/1bena+n9JUt4x86hWGS8KdZyUUNkeDzDyvWGSLAhUPhr9N
+encu5859kXdlZXAMEkBpYRLqtDAf1jzIX4ERiL0TaFJ7w9D7a6K/U0n++20vAjQX
+hnLU9/GJMEKLmuxrOqJ8vCG9EZjsc2/ZCAtOowEhdQ4AI+09eox76Oi0bZxGdg6l
+JjxdiJmPwV5tKMA6hz2rKBlgmLfEMeGZr1hpd8iGDxvT8BP8lUw/XDbLCIdZ9JLO
+RrNvY5qPZzw9w7gBst8zrYgUcLq/fA==
+=NvkX
+-----END PGP SIGNATURE-----
+
+--3w1ZrWn4GhR4n0Bg--
