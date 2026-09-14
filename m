@@ -1,127 +1,178 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70C9944A40A
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 12:20:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 746B34499B0;
+	Mon, 14 Sep 2026 12:21:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789388440; cv=none; b=jzH/fStEJoW9WtsRf3HojyRImXe6mapuI+oQnJhH9VBJlErhagvyrNyGaX8/WFcPNMX1k04hPrAwq8fBM5SimgfO8NM13rSH8T51z7XG4RR3Z6pL72olFGzdmR744gbLJ4k7NF9XfaOOqPK0S0Hi9ZDy7/SN0yQ0VJ5PSXuD/5Y=
+	t=1789388486; cv=none; b=b9Od9Yyhj51gSf3A0LEpnzNs00AD7n0IPfEW2pvCVEL0njQ8ZuQ3hmqdjfELpBL6tJCLOentbvyhvBSPwj4dlRy+KjIIkZkaFYovYafinqX01T5C5ykSgpNupreKhKrlPYoQBS5IPtJxSIF4egxPCW0T4o3a4QFy99BRXm1Wd1I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789388440; c=relaxed/simple;
-	bh=2ep7m4CueWA21Uibrn6jy+V/Qyh3L/Yj7KRWxqne0RI=;
+	s=arc-20240116; t=1789388486; c=relaxed/simple;
+	bh=ApsZGKuPi3IwisuXYR4uVlRDKwOUYJO7HSStNuLCH7w=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=CIqIpKvUdPDsvqu7jAloCKHpVYRqs2i6qmEmT3l/Yhm5OJNZwG/Rd5tP1i8aq0UeHOZpQo0iQ5tT9cMNp7ubCk2N0yj8CPQNc7xCVCamwMK1oYgWE4c629NiVYYvBCFZCKwP5hGbeDOYZn3DcHXG5Pg/aT8qHaIPpzfR6NMd1MU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kqL6Z2Wo; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=T55oHDPerPFIY6bh0+DllMlVcziF4OxBlSiaYdhkj7fd1n92xPphGRt0LmzXZ7rXHNueNowwo1VNm6uLw6LCTaydr9nyWkQowbDrz7OX3UXot4UjC531efKooAR8+5t2SGCfERiAwEtPYBF4yNNei263mahdB34xnpusNoGWlXU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G0N4iX5T; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kqL6Z2Wo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA61C1F00898;
-	Mon, 14 Sep 2026 12:20:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G0N4iX5T"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B80631F000FF;
+	Mon, 14 Sep 2026 12:21:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789388439;
-	bh=Fma9rGpR3kYSf6wqhkSVql+tZr4Z1DqBDtJJrSnRMHA=;
+	s=k20260515; t=1789388485;
+	bh=RBJbzxmO+Vl6+bOBg4GNP5t1gGxwYu+KqDZ/3fHyHIk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kqL6Z2WoW+fwSIZ3MQh48r0gXKPIO/NRvfPleSh2gRLebWojoD49abUbRCH/5JMRB
-	 A1EBLFn7nMsOAHMWEVjeFaet4Hxj8BhTuJqzaCTl2nHuJeg00aJ3/hs9dTOfQaJI8a
-	 EeS9y9Wi45+akCkTEKD4ULqgTJISg3sqzdMmzwsY1PpqhxBSUALRKyqQmjKwHAsr95
-	 YCk0FJY/7QIKqvBuIsygP5JZfCzVbiT/aXMC94ZCOs/59dbMb9tuactA3XlYERzgvz
-	 DJ7Uq9PldvmVvjlLq68AlL5tGpjKoWM5oC91lMhcn6FT7uMh0m1galANMPBU5csrLT
-	 FbLg2QlCTYI+A==
+	b=G0N4iX5TmB2lNBpvlydl6JqxmM1AKpVtLAjDNL1i6Yt1L8PK0xv+HrewAcKU2ytwu
+	 OyKy2AmZ03In+nGG45APhb9RHUSpPMGSJKIqNy+QDz4YbSxj+96Z/uTrOZQ9XLzrH/
+	 Eb8TpDpnHX86KNhk99Speuzuf2skEP/NqRb2+I1weadNw6BSgjH9LEVg0roNOlZ9D/
+	 cmxzzc8+xssCqPMkaMXcnQhfjdwJDv3YM8dZlos6BzptRevYt8JTTcuMdg65yk2GpX
+	 R5ZV8zojq26gKlvdLRQiPabtgD9T4tFNv8Y6WzUhFSfvy1mktjDzx/Kgt8u70QM20s
+	 i47R1fV5NMvtQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 08/13] drm/mediatek: mtk_dsi: Add support for MT8189
+Subject: Re: [PATCH v12 08/24] scsi: ufs: mediatek: Add dual 0.9V supply
+ support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260914115812.22751-9-angelogioacchino.delregno@collabora.com>
-References: <20260914115812.22751-1-angelogioacchino.delregno@collabora.com>
- <20260914115812.22751-9-angelogioacchino.delregno@collabora.com>
+To: "Louis-Alexis Eyraud" <louisalexis.eyraud@collabora.com>
+Cc: linux-phy@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, linux-scsi@vger.kernel.org, olteanv@gmail.com, devicetree@vger.kernel.org, neil.armstrong@linaro.org
+In-Reply-To: <20260914-mt8196-ufs-v12-8-9279d7ef814d@collabora.com>
+References: <20260914-mt8196-ufs-v12-0-9279d7ef814d@collabora.com>
+ <20260914-mt8196-ufs-v12-8-9279d7ef814d@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 12:20:38 +0000
-Message-Id: <20260914122038.AA61C1F00898@smtp.kernel.org>
+Date: Mon, 14 Sep 2026 12:21:24 +0000
+Message-Id: <20260914122124.B80631F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Out-of-bounds MMIO write in mtk_dsi_cmdq() due to unchecked msg->t=
-x_len.
-- [High] Register access with disabled clocks after mtk_dsi_poweron() fails=
- causes kernel panic.
+- [High] Unchecked NULL pointer dereference of optional regulator `host->re=
+g_avdd09` in error recovery paths.
 --
 
-commit f15ebc6147af7232db3b125277a76b1726ee2a6a
-Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+commit c69b1189125cd5106318d877fff7d1bf82dfd012
+Author: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 
-drm/mediatek: mtk_dsi: Add support for MT8189
+scsi: ufs: mediatek: Add dual 0.9V supply support
 
-This commit adds support for the DSI IP found in the MT8189 SoC. It updates
-the device tree match table to map the new compatible string to the DSI
-driver.
+This commit adds support for an additional 0.9V supply on the MT8196 SoC.
+It introduces a second optional 0.9V regulator named "avdd09-1" to the
+platform data and manages its enabling and disabling alongside the primary
+supply.
 
-> diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/med=
-iatek/mtk_drm_drv.c
-> index bd2d17017bd2f..08f6be311dd14 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+> diff --git a/drivers/ufs/host/ufs-mediatek.c b/drivers/ufs/host/ufs-media=
+tek.c
+> index f43bee50adb28..467fc77c90e12 100644
+> --- a/drivers/ufs/host/ufs-mediatek.c
+> +++ b/drivers/ufs/host/ufs-mediatek.c
+
 [ ... ]
-> @@ -826,6 +826,8 @@ static const struct of_device_id mtk_ddp_comp_dt_ids[=
-] =3D {
->  	{ .compatible =3D "mediatek,mt8188-dsi",
->  	  .data =3D (void *)MTK_DSI },
-> +	{ .compatible =3D "mediatek,mt8189-dsi",
-> +	  .data =3D (void *)MTK_DSI },
+
+> @@ -513,18 +514,37 @@ static int ufs_mtk_wait_link_state(struct ufs_hba *=
+hba, u32 state,
+>  static int ufs_mtk_09v_off(struct ufs_mtk_host *host)
+>  {
+>  	struct arm_smccc_res res;
+> -	int ret;
+> +	int ret, ret2;
+> =20
+> -	if (!host->reg_avdd09)
+> +	if (!host->reg_avdd09 && !host->reg_avdd09_1)
+>  		return 0;
+> =20
+>  	ufs_mtk_va09_pwr_ctrl(res, 0);
+> -	ret =3D regulator_disable(host->reg_avdd09);
+> -	if (ret) {
+> -		dev_err(host->hba->dev, "Failed to disable avdd09-supply: %pe\n",
+> -			ERR_PTR(ret));
+> -		ufs_mtk_va09_pwr_ctrl(res, 1);
+> -		return ret;
+> +
+> +	if (host->reg_avdd09) {
+> +		ret =3D regulator_disable(host->reg_avdd09);
+> +		if (ret) {
+> +			dev_err(host->hba->dev, "Failed to disable avdd09-supply: %pe\n",
+> +				ERR_PTR(ret));
+> +			ufs_mtk_va09_pwr_ctrl(res, 1);
+> +			return ret;
+> +		}
+> +	}
+> +
+> +	if (host->reg_avdd09_1) {
+> +		ret =3D regulator_disable(host->reg_avdd09_1);
+> +		if (ret) {
+> +			dev_err(host->hba->dev, "Failed to disable avdd09-1-supply: %pe\n",
+> +				ERR_PTR(ret));
+> +
+> +			ret2 =3D regulator_enable(host->reg_avdd09);
 
 [Severity: High]
-This isn't a bug introduced by this patch, but adding a new DSI user exposes
-a pre-existing issue in mtk_dsi_cmdq().
+Can this cause a NULL pointer dereference?
 
-Does this code overflow the MMIO boundaries if msg->tx_len is large?
+Since host->reg_avdd09 is fetched using devm_regulator_get_optional(), it
+can be NULL if it is absent from the device tree. If a system only has the
+avdd09-1 supply configured and disabling it fails, this error path will
+unconditionally call regulator_enable() with a NULL pointer, which will
+cause a crash when the core API dereferences it.
 
-In drivers/gpu/drm/mediatek/mtk_dsi.c:mtk_dsi_cmdq():
-
-	for (i =3D 0; i < msg->tx_len; i++)
-		mtk_dsi_mask(dsi, (data->reg_adv[DSI_CMDQ] + cmdq_off + i) & (~0x3U),
-			     (0xffUL << (((i + cmdq_off) & 3U) * 8U)),
-			     tx_buf[i] << (((i + cmdq_off) & 3U) * 8U));
-
-Because msg->tx_len isn't validated against the hardware command queue size,
-a large payload could write past the queue's boundary and corrupt adjacent
-hardware registers.
-
+> +			if (ret2)
+> +				dev_err(host->hba->dev, "Failed to re-enable avdd09-supply: %pe\n",
+> +					ERR_PTR(ret2));
+> +
+> +			ufs_mtk_va09_pwr_ctrl(res, 1);
+> +			return ret;
+> +		}
+>  	}
+> =20
+>  	return 0;
+> @@ -535,14 +555,26 @@ static int ufs_mtk_09v_on(struct ufs_mtk_host *host)
+>  	struct arm_smccc_res res;
+>  	int ret;
+> =20
+> -	if (!host->reg_avdd09)
+> +	if (!host->reg_avdd09 && !host->reg_avdd09_1)
+>  		return 0;
+> =20
+> -	ret =3D regulator_enable(host->reg_avdd09);
+> -	if (ret) {
+> -		dev_err(host->hba->dev, "Failed to enable avdd09-supply: %pe\n",
+> -			ERR_PTR(ret));
+> -		return ret;
+> +	if (host->reg_avdd09) {
+> +		ret =3D regulator_enable(host->reg_avdd09);
+> +		if (ret) {
+> +			dev_err(host->hba->dev, "Failed to enable avdd09-supply: %pe\n",
+> +				ERR_PTR(ret));
+> +			return ret;
+> +		}
+> +	}
+> +
+> +	if (host->reg_avdd09_1) {
+> +		ret =3D regulator_enable(host->reg_avdd09_1);
+> +		if (ret) {
+> +			dev_err(host->hba->dev, "Failed to enable avdd09-1-supply: %pe\n",
+> +				ERR_PTR(ret));
+> +			regulator_disable(host->reg_avdd09);
 
 [Severity: High]
-This is a pre-existing issue, but registering a new DSI device also inherits
-this error handling regression.
+Could this lead to a kernel panic if avdd09 is missing from the device tree?
 
-Can this sequence cause a panic if mtk_dsi_poweron() fails?
+Similar to the off path, if host->reg_avdd09 is NULL and enabling
+reg_avdd09_1 fails during runtime, calling regulator_disable() on a NULL
+pointer will result in an immediate crash.
 
-In drivers/gpu/drm/mediatek/mtk_dsi.c:mtk_dsi_bridge_atomic_pre_enable():
+Should there be a check to ensure host->reg_avdd09 is not NULL before
+attempting to disable or enable it in these error paths?
 
-	ret =3D mtk_dsi_poweron(dsi);
-	if (ret < 0)
-		drm_err(drm, "failed to power on dsi\n");
+> +			return ret;
+> +		}
+>  	}
+> =20
+>  	ufs_mtk_va09_pwr_ctrl(res, 1);
 
-	mtk_dsi_lane_ready(dsi);
-	mtk_dsi_clk_hs_mode(dsi, 1);
-
-If power-on fails, the error path within mtk_dsi_poweron() disables the
-clocks.
-
-However, this function ignores the failure, logs an error, and
-unconditionally proceeds to call mtk_dsi_lane_ready(dsi) and
-mtk_dsi_clk_hs_mode(dsi, 1).
-
-These subsequent calls write to hardware registers while the device clocks
-are gated, which typically triggers a synchronous external abort.
-
->  	{ }
->  };
+[ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914115812.2275=
-1-1-angelogioacchino.delregno@collabora.com?part=3D8
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914-mt8196-ufs=
+-v12-0-9279d7ef814d@collabora.com?part=3D8
