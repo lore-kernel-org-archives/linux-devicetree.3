@@ -1,81 +1,42 @@
-Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11012009.outbound.protection.outlook.com [40.107.75.9])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B43930DD10;
-	Mon, 14 Sep 2026 01:57:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.75.9
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789351028; cv=fail; b=ZzVG1BluXvku20+2O1AfJgMEGxsgdD+1X1SOWDibGsQWivVq0J2cXt+VQdsJe60VoXrhQ1J7u6sCbYK+cviyiSInUKnkSrvPbB35P48EiA9/bARB5XmVILfzXsuH/zymhxYIRUO5rmFEAIuUE2Nsct4t5WotNZVFCBdCGM7wzrI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789351028; c=relaxed/simple;
-	bh=kDlMbxzbfpUkEg5KF6YuM5b1sNPU98Tyb41guAP4tRg=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=RwO0B0shM8duDr/HlliNM2QhqloBJMjRjRz+rbkvVq4Pv9tKfJ85Q8E8ifzv2Jy9I2emXPgQHwpuc4Ar5zyaVOFp6X4mXF3Mb/lwFS5ITsCtnv0b/eZp0XKXDuyRxm+vkgZNLk9ih7+1KMNgIMchVBr6Efs5yK/X4bMOYpOnxtU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nuvoton.com; spf=pass smtp.mailfrom=nuvoton.com; dkim=pass (2048-bit key) header.d=nuvoton.com header.i=@nuvoton.com header.b=KaP3Q89B; arc=fail smtp.client-ip=40.107.75.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nuvoton.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nuvoton.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 385A8312807;
+	Mon, 14 Sep 2026 02:09:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789351751; cv=none; b=sDm+RFZRswuYVMjzDU08bDxoDNiGDyhslqMrOSTXb1yL1B4Hp6PJ4jgtOxSpSWLYSePg8XsZA8i+jAN9Zqpb3fvA6M7Zv/U/IQz/YcrQ3o4sKYZcq0ub6BtQ24kd4TxSRKqUHbPEJ6+OHF0+RzxgPmo6eel1xEi+t4CARF1IGfE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789351751; c=relaxed/simple;
+	bh=tE+/RKfjW0+OO9uDWiJobyWNLY8faWVDmpC3yEpNN+k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AGNDdG3kFfWmU03ynYgA/eWjgiqdm5+MIHntune6BAfZLfjlEFXGfFX0RyWuF9z9yAxpzXUQJkjxoPhxSOryJTiUaq93Pshf2zLL7NDgiJkUl7PDGo3DQ27VI9oLi6XDalyEOyIJ7wJkBoxuqJ+XpsoMDumZkzXclAgbnbm27Yc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=nBgp6qZf; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nuvoton.com header.i=@nuvoton.com header.b="KaP3Q89B"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rZ7dDqZTednqqmkx10BWVlVFdzjebXInVX0WrzfAiau7tR1IFqDSgfiFwRknzhhPSdYFcK/jGQeGwYQEVtdGax1OgSzzaO+ar0/+cVTa5hAGQCVikdbYOFj1R1voAFhKtKSO/TnNIlwld0rPDrZRZeqB2DpIP7tIWzKv+G8tvMjTtX7MRpTZf342g6Cp4CnFQh4C2gGjS8CeH+7AXtU7Zo418AdclTVsPn8q/QZnmT9oERpHFas4s3akIjMxoD3IjiJen5pRL0ivvSXTxyWQiVF+XHBd797EsAr0Hq7C7I+xmBqN4+1XwN+gSn8duwjf5FaN6P/l84Gg9ENvzNwlrg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4ijuNyx63mv5Vtx9n3EuW3O6VvF79aFEO4k2v+o3fJE=;
- b=aKnzMkjrMN65Gp01Vr5Owp84UTAuPGPWHs7OoRE2pYvANC09PFY7N1TyJCRa+rA0cirMr8mv9RWNP5CQfOdCLHBbvjX+fttvVCZjCEvz8r6Sa5CILcC+BQ7QeoG9wP406BQAX3gvUYWVxjxI+k1pV9k6TQ9Uq1VMkZXZ5V6fvwlb6kZ3FH0BbS0tmplS4BB5DPMDnd1wtnfrH+Zaeb8XLO2/ULJdsIq90l6cQTs9jKFND91gzLuU/UPzCXbwSQqWi83IK3gv6xH8VlB1zaV3GT/G8jIjcrr0W1kJGeBI/UjPzHtHeCw82/+Sqe4d3R8OLBlMU5bpo0OwdTY+9cOfyQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 175.98.123.7) smtp.rcpttodomain=kernel.org smtp.mailfrom=nuvoton.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=nuvoton.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nuvoton.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4ijuNyx63mv5Vtx9n3EuW3O6VvF79aFEO4k2v+o3fJE=;
- b=KaP3Q89BWQVUQnHvhEQzbPKuOyG+O+cee3Y0FGf9VorW0Oz8fLV/ddf5Bogehcr19z2m2sqZwKLP4fMiWpvt6rHjwlAlfWLQ0T5XiIw1NOik/wztR1AtVsbaQp++H2QNnSBKtsH5hBwtz2ECGiufLQDaDrYKmHGdz514wzhHbMFECNldJIoik8yQGGnMweUgWnEEBKpDwu5LvcK0y8n/1aIoRUPNCcU3j/Ab2YH25DixeWwXrbL6HruvbXrAW3yGwgQ60EucuReLnBaZZeXkyPWRwCpolFKzL+RrQDFYghk9uy6kOr67u9ZB6QGT/sQ7AOhHPmmxBoKUcjA+/lmAZQ==
-Received: from OSTP286CA0104.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:219::18)
- by SEYPR03MB7681.apcprd03.prod.outlook.com (2603:1096:101:13d::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 01:56:56 +0000
-Received: from OSA0EPF000000C9.apcprd02.prod.outlook.com
- (2603:1096:604:219:cafe::2e) by OSTP286CA0104.outlook.office365.com
- (2603:1096:604:219::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.12 via Frontend Transport; Mon,
- 14 Sep 2026 01:56:54 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 175.98.123.7)
- smtp.mailfrom=nuvoton.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nuvoton.com;
-Received-SPF: Pass (protection.outlook.com: domain of nuvoton.com designates
- 175.98.123.7 as permitted sender) receiver=protection.outlook.com;
- client-ip=175.98.123.7; helo=NTHCCAS02.nuvoton.com; pr=C
-Received: from NTHCCAS02.nuvoton.com (175.98.123.7) by
- OSA0EPF000000C9.mail.protection.outlook.com (10.167.240.55) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Mon, 14 Sep 2026 01:56:54 +0000
-Received: from NTHCML01A.nuvoton.com (10.1.8.177) by NTHCCAS02.nuvoton.com
- (10.1.9.121) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2507.61; Mon, 14 Sep
- 2026 09:56:52 +0800
-Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCML01A.nuvoton.com
- (10.1.8.177) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2507.61; Mon, 14 Sep
- 2026 09:56:51 +0800
-Received: from localhost.localdomain (10.11.36.27) by NTHCCAS01.nuvoton.com
- (10.1.8.28) with Microsoft SMTP Server id 15.1.2507.61 via Frontend
- Transport; Mon, 14 Sep 2026 09:56:51 +0800
-From: Neo Chang <YLCHANG2@nuvoton.com>
-To: <broonie@kernel.org>
-CC: <error27@gmail.com>, <lgirdwood@gmail.com>, <perex@perex.cz>,
-	<robh@kernel.org>, <krzk+dt@kernel.org>, <linux-sound@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <alsa-devel@alsa-project.org>,
-	<neo.chang70@gmail.com>, <kchsu0@nuvoton.com>, <sjlin0@nuvoton.com>, "Neo
- Chang" <YLCHANG2@nuvoton.com>, Sashiko AI <sashiko-bot@kernel.org>
-Subject: [PATCH v5 2/2] ASoC: codecs: nau8360: Fix AB-BA deadlock in mux update
-Date: Mon, 14 Sep 2026 09:56:48 +0800
-Message-ID: <20260914015648.311986-3-YLCHANG2@nuvoton.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260914015648.311986-1-YLCHANG2@nuvoton.com>
-References: <20260914015648.311986-1-YLCHANG2@nuvoton.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="nBgp6qZf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=HX
+	lr2YfK+zrkGs7O0rlBtmClB4eNp7AonFTjz8Jryuc=; b=nBgp6qZf+kl0vcs1BZ
+	Gojg/wlOpBDRkWIBiVKVLHlCXjlXwlSGSLJtwW97Yozzig0Kzc7h2MEWrD/pa3SZ
+	at94qByHZxRCmRGnSkbnNvnA6o0ttU68OxWQKPZ0WZav9AWDqm9UNjQavo9Nnwt5
+	rRhGflXlPKt5CDXObhmICQFNg=
+Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3v3ExV6dqumQUAg--.21380S2;
+	Mon, 14 Sep 2026 10:08:50 +0800 (CST)
+From: Quchaosheng <quchaosheng000406@163.com>
+To: Marc Kleine-Budde <mkl@pengutronix.de>,
+	Vincent Mailhol <mailhol@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-can@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	quchaosheng000406@163.com
+Subject: [PATCH v4] dt-bindings: net: can: convert ifi_canfd to DT schema
+Date: Mon, 14 Sep 2026 10:08:49 +0800
+Message-ID: <20260914020849.402974-1-quchaosheng000406@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -83,103 +44,346 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NotSetDelaration: True
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OSA0EPF000000C9:EE_|SEYPR03MB7681:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0f18ab0b-f820-4a56-9950-08df120373bf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|82310400026|36860700016|22082099003|18002099003|3023799007|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	RYJc7Mk494Sz8aAti94ZAFNf0++euf6yCQjJeLp0OfHnbi9kmLroEPZXS8W2Zhh/wkdVq2wZHQtCC0q+MTENVRIgsGN+kwVtG8oD+i0lN/ehjL0+9DDiDBSX7856L2j7ksHRTRIlMbHRgKHf9p9fkursB0hM36xBMkqIUEBCUJ8xa1Dy/YmoVbADpZ6f5V2MyR7To7h2lZSxV+omhKV4QRrI3qDwKHuhpVtezAOV+oe2oUxid/OogUM8qIvvuJ43KcxhJaouj0Gqqm5cKRftqOtKZYoaGzXYTQ0hmeoh76g1c2pNelBJYRJwqTc4VEzD4DfqUfxA9u3l3lQ3jR5IKDUVXB5YGRniW/N7XIin2vhyK1kgoX4PbzRfOn9HTQA5XrY0tZJgtuVJ/63Bh6SooW6YNo7LP75V1TnGKDdYew2T1q5dwhZQv2mP1ejBsB8YeLdLKc7JFQE4DYGsVrOH7iP0dUNgMLBS/SU/krWuW0S8a8EJaSzQpD7tAvBMEf2Vwh4adFNKasHoqkhgy+mDY5E03BuqIhIT2zLG/Xgqjsgy7x554fwlY3v1Nr8z6YpS24fmdjfQpyZwKR59VfGlkOQEDhDIxehbTlyliTDA8Qly+OSY1+Br5XyWq6hiprBdLmwjeZUoxk7Rgk8h+MCiFw==
-X-Forefront-Antispam-Report:
-	CIP:175.98.123.7;CTRY:TW;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:NTHCCAS02.nuvoton.com;PTR:175-98-123-7.static.tfn.net.tw;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(82310400026)(36860700016)(22082099003)(18002099003)(3023799007)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	a1M5y28RhkRSe3thHOAfh2hl4RMPErs7roA7PtrAm6r3ZKb0sWLXXDRvPKr7kY2C1YUamjafh+D4e07Kej2svirmZJ4UvSVMOHBSI11T+UFhrQ/9rNApTljMGseUGLiu3BPMx1nMnnMyn2w7xBZMorgQv2XgHf7dYMA2JykXwI9pJHQ/se99Wui3jxASz3xdLwa8ifTqyRT6yYiPdPML/dHNJXCsSNap2O46Kk2vp9l8NWckwle4bU76tAlLq60CAmziEQcI37NrE6TFpdN6i3DuyGzsfmR43uicyfqfjitLDVo1ff7+FPfwqXJRWJuZnyyCFea4DPq0QUqYoiAj/uC5v51qD6StnKsMJriA7+s+nYDP/XuDOaDXGYDAOdNLjvtXaSCKt73RdlIwAfktenGnEpJlRpaPS4Lte+/ashOs9ny8M2+LdIv8f3w4cRhR
-X-OriginatorOrg: nuvoton.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 01:56:54.5102
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0f18ab0b-f820-4a56-9950-08df120373bf
-X-MS-Exchange-CrossTenant-Id: a3f24931-d403-4b4a-94f1-7d83ac638e07
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=a3f24931-d403-4b4a-94f1-7d83ac638e07;Ip=[175.98.123.7];Helo=[NTHCCAS02.nuvoton.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	OSA0EPF000000C9.apcprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR03MB7681
+X-CM-TRANSID:_____wD3v3ExV6dqumQUAg--.21380S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3KF4DJrW7WF48JF4DXFyUAwb_yoWDCF4rpF
+	ZxCa9xtr4vqF15Wa1ftw18Aa4jv3Z5AF1rCFyqv34UCa98GFyYqr43Ka4FvF1jgrWIya47
+	Xr4Yka4Uuw1Duw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRDCzAUUUUU=
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC4xNm22qnVzMoXgAA3S
 
-nau8360_dac_mux_put_enum() acquires nau8360->lock before the DAPM mutex,
-causing an AB-BA lock inversion. This deadlocks with concurrent stream
-startups or mixer updates, which acquire locks in the reverse order.
+Convert the IFI CAN-FD controller binding from free-form text to DT
+schema, and reference the common can-controller.yaml schema.
 
-Fix this by replacing nau8360->lock with the DAPM mutex to protect
-pre-checks, releasing it before calling snd_soc_dapm_put_enum_double().
+The driver matches on the "ifi,canfd-1.0" compatible and obtains its
+interrupt through platform_get_irq(), so interrupts is required and no
+additional properties are used.
 
-Reported-by: Sashiko AI <sashiko-bot@kernel.org>
-Link: https://sashiko.dev/#/patchset/20260908030342.222655-1-YLCHANG2@nuvoton.com?part=1
-Signed-off-by: Neo Chang <YLCHANG2@nuvoton.com>
+The example uses the GIC and irq header defines instead of the raw
+numbers from the original text, which keeps the values unchanged
+(GIC_SPI is 0 and IRQ_TYPE_NONE is 0). The node name is changed from
+"canfd" to "can" so that it matches the $nodename pattern required by
+can-controller.yaml.
+
 ---
- sound/soc/codecs/nau8360.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+v2:
+ - Correct the description: this is a soft IP block typically synthesised
+   into an FPGA or CPLD, not a controller found on Renesas SoCs.
+   Wording now follows the driver's Kconfig entry.
 
-diff --git a/sound/soc/codecs/nau8360.c b/sound/soc/codecs/nau8360.c
-index f5dee12127cd..f0942739d7ab 100644
---- a/sound/soc/codecs/nau8360.c
-+++ b/sound/soc/codecs/nau8360.c
-@@ -689,6 +689,8 @@ static void nau8360_dsp_switch(struct snd_soc_component *component, bool enable)
- 	struct regmap *regmap = nau8360->regmap;
- 	int value = NAU8360_PEQ_BAND_8;
- 
-+	mutex_lock(&nau8360->lock);
+v3:
+ - Use unevaluatedProperties: false instead of additionalProperties: false.
+   As can-controller.yaml is referenced through allOf, additionalProperties
+   would have rejected properties defined by that common schema, such as
+   termination-gpios and termination-ohms.
+
+v4:
+ - Use defines instead of raw numbers in the example, and rename the
+   example node from canfd to can. No functional change.
+
+Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
+---
+ .../bindings/iio/adc/xilinx-xadc.txt          | 141 ------------------
+ .../bindings/iio/adc/xlnx,xadc.yaml           | 123 +++++++++++++++
+ .../bindings/net/can/ifi,canfd.yaml           |   7 +-
+ 3 files changed, 128 insertions(+), 143 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
+ create mode 100644 Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
+
+diff --git a/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt b/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
+deleted file mode 100644
+index f42e18078..000000000
+--- a/Documentation/devicetree/bindings/iio/adc/xilinx-xadc.txt
++++ /dev/null
+@@ -1,141 +0,0 @@
+-Xilinx XADC device driver
+-
+-This binding document describes the bindings for the Xilinx 7 Series XADC as well
+-as the UltraScale/UltraScale+ System Monitor.
+-
+-The Xilinx XADC is an ADC that can be found in the Series 7 FPGAs from Xilinx.
+-The XADC has a DRP interface for communication. Currently two different
+-frontends for the DRP interface exist. One that is only available on the ZYNQ
+-family as a hardmacro in the SoC portion of the ZYNQ. The other one is available
+-on all series 7 platforms and is a softmacro with a AXI interface. This binding
+-document describes the bindings for both of them since the bindings are very
+-similar.
+-
+-The Xilinx System Monitor is an ADC that is found in the UltraScale and
+-UltraScale+ FPGAs from Xilinx. The System Monitor provides a DRP interface for
+-communication. Xilinx provides a standard IP core that can be used to access the
+-System Monitor through an AXI interface in the FPGA fabric. This IP core is
+-called the Xilinx System Management Wizard. This document describes the bindings
+-for this IP.
+-
+-Required properties:
+-	- compatible: Should be one of
+-		* "xlnx,zynq-xadc-1.00.a": When using the ZYNQ device
+-		  configuration interface to interface to the XADC hardmacro.
+-		* "xlnx,axi-xadc-1.00.a": When using the axi-xadc pcore to
+-		  interface to the XADC hardmacro.
+-		* "xlnx,system-management-wiz-1.3": When using the
+-		  Xilinx System Management Wizard fabric IP core to access the
+-		  UltraScale and UltraScale+ System Monitor.
+-	- reg: Address and length of the register set for the device
+-	- interrupts: Interrupt for the XADC control interface.
+-	- clocks: When using the ZYNQ this must be the ZYNQ PCAP clock,
+-	  when using the axi-xadc or the axi-system-management-wizard this must be
+-	  the clock that provides the clock to the AXI bus interface of the core.
+-
+-Optional properties:
+-	- xlnx,external-mux:
+-		* "none": No external multiplexer is used, this is the default
+-		  if the property is omitted.
+-		* "single": External multiplexer mode is used with one
+-		   multiplexer.
+-		* "dual": External multiplexer mode is used with two
+-		  multiplexers for simultaneous sampling.
+-	- xlnx,external-mux-channel: Configures which pair of pins is used to
+-	  sample data in external mux mode.
+-	  Valid values for single external multiplexer mode are:
+-		0: VP/VN
+-		1: VAUXP[0]/VAUXN[0]
+-		2: VAUXP[1]/VAUXN[1]
+-		...
+-		16: VAUXP[15]/VAUXN[15]
+-	  Valid values for dual external multiplexer mode are:
+-		1: VAUXP[0]/VAUXN[0] - VAUXP[8]/VAUXN[8]
+-		2: VAUXP[1]/VAUXN[1] - VAUXP[9]/VAUXN[9]
+-		...
+-		8: VAUXP[7]/VAUXN[7] - VAUXP[15]/VAUXN[15]
+-
+-	  This property needs to be present if the device is configured for
+-	  external multiplexer mode (either single or dual). If the device is
+-	  not using external multiplexer mode the property is ignored.
+-	- xnlx,channels: List of external channels that are connected to the ADC
+-	  Required properties:
+-		* #address-cells: Should be 1.
+-		* #size-cells: Should be 0.
+-
+-	  The child nodes of this node represent the external channels which are
+-	  connected to the ADC. If the property is no present no external
+-	  channels will be assumed to be connected.
+-
+-	  Each child node represents one channel and has the following
+-	  properties:
+-		Required properties:
+-			* reg: Pair of pins the channel is connected to.
+-				0: VP/VN
+-				1: VAUXP[0]/VAUXN[0]
+-				2: VAUXP[1]/VAUXN[1]
+-				...
+-				16: VAUXP[15]/VAUXN[15]
+-			  Note each channel number should only be used at most
+-			  once.
+-		Optional properties:
+-			* xlnx,bipolar: If set the channel is used in bipolar
+-			  mode.
+-
+-
+-Examples:
+-	xadc@f8007100 {
+-		compatible = "xlnx,zynq-xadc-1.00.a";
+-		reg = <0xf8007100 0x20>;
+-		interrupts = <0 7 4>;
+-		interrupt-parent = <&gic>;
+-		clocks = <&pcap_clk>;
+-
+-		xlnx,channels {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			channel@0 {
+-				reg = <0>;
+-			};
+-			channel@1 {
+-				reg = <1>;
+-			};
+-			channel@8 {
+-				reg = <8>;
+-			};
+-		};
+-	};
+-
+-	xadc@43200000 {
+-		compatible = "xlnx,axi-xadc-1.00.a";
+-		reg = <0x43200000 0x1000>;
+-		interrupts = <0 53 4>;
+-		interrupt-parent = <&gic>;
+-		clocks = <&fpga1_clk>;
+-
+-		xlnx,channels {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			channel@0 {
+-				reg = <0>;
+-				xlnx,bipolar;
+-			};
+-		};
+-	};
+-
+-	adc@80000000 {
+-		compatible = "xlnx,system-management-wiz-1.3";
+-		reg = <0x80000000 0x1000>;
+-		interrupts = <0 81 4>;
+-		interrupt-parent = <&gic>;
+-		clocks = <&fpga1_clk>;
+-
+-		xlnx,channels {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			channel@0 {
+-				reg = <0>;
+-				xlnx,bipolar;
+-			};
+-		};
+-	};
+diff --git a/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml b/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
+new file mode 100644
+index 000000000..98f71f36e
+--- /dev/null
++++ b/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
+@@ -0,0 +1,123 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/iio/adc/xlnx,xadc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
- 	/* If DSP is enabled, unstall HW3 engine and DSP, loading DSP firmware,
- 	 * and configure PEQ after dsp reset.
- 	 */
-@@ -702,6 +704,7 @@ static void nau8360_dsp_switch(struct snd_soc_component *component, bool enable)
- 	regmap_update_bits(regmap, NAU8360_R9D_PEQ_CTL, NAU8360_PEQ_BAND_MASK,
- 		value << NAU8360_PEQ_BAND_SFT);
++title: Xilinx XADC and System Monitor
++
++maintainers:
++  - Quchaosheng <quchaosheng000406@163.com>
++
++description:
++  The Xilinx XADC is an ADC found in the 7 Series FPGAs. It has a DRP
++  interface for communication, which can be reached either through the ZYNQ
++  device configuration interface or through the axi-xadc pcore. The Xilinx
++  System Monitor is an equivalent ADC found in the UltraScale and UltraScale+
++  FPGAs, accessed through the System Management Wizard IP core.
++
++properties:
++  compatible:
++    enum:
++      - xlnx,zynq-xadc-1.00.a
++      - xlnx,axi-xadc-1.00.a
++      - xlnx,system-management-wiz-1.3
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    description: Interrupt for the XADC control interface.
++    maxItems: 1
++
++  clocks:
++    description:
++      When using the ZYNQ this is the ZYNQ PCAP clock. When using the
++      axi-xadc or the axi-system-management-wizard this is the clock that
++      feeds the AXI bus interface of the core.
++    maxItems: 1
++
++  xlnx,external-mux:
++    description:
++      External multiplexer mode. When omitted no external multiplexer is
++      assumed to be used.
++    enum: [none, single, dual]
++    default: none
++
++  xlnx,external-mux-channel:
++    description:
++      Which pair of pins is used to sample data in external multiplexer mode.
++      In single mode the valid range is 0 to 16, in dual mode 1 to 8. This
++      property is required when external multiplexer mode is used and is
++      otherwise ignored.
++    $ref: /schemas/types.yaml#/definitions/uint32
++    minimum: 0
++    maximum: 16
++
++  xlnx,channels:
++    description:
++      Container for the external channels connected to the ADC. When this
++      node is absent no external channels are assumed to be connected.
++    type: object
++    additionalProperties: false
++
++    properties:
++      '#address-cells':
++        const: 1
++
++      '#size-cells':
++        const: 0
++
++    patternProperties:
++      "^channel@[0-9a-f]+$":
++        type: object
++        additionalProperties: false
++
++        properties:
++          reg:
++            description:
++              Pair of pins the channel is connected to. 0 is VP/VN and 1 to
++              16 are VAUXP/VAUXN pairs. Each channel number may be used at
++              most once.
++            maxItems: 1
++
++          xlnx,bipolar:
++            description: If set the channel is used in bipolar mode.
++            type: boolean
++
++        required:
++          - reg
++
++required:
++  - compatible
++  - reg
++  - clocks
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    xadc@f8007100 {
++        compatible = "xlnx,zynq-xadc-1.00.a";
++        reg = <0xf8007100 0x20>;
++        interrupts = <0 7 IRQ_TYPE_LEVEL_HIGH>;
++        interrupt-parent = <&gic>;
++        clocks = <&pcap_clk>;
++
++        xlnx,channels {
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            channel@0 {
++                reg = <0>;
++            };
++
++            channel@1 {
++                reg = <1>;
++                xlnx,bipolar;
++            };
++        };
++    };
++...
+diff --git a/Documentation/devicetree/bindings/net/can/ifi,canfd.yaml b/Documentation/devicetree/bindings/net/can/ifi,canfd.yaml
+index eeb5f403c..63f982e73 100644
+--- a/Documentation/devicetree/bindings/net/can/ifi,canfd.yaml
++++ b/Documentation/devicetree/bindings/net/can/ifi,canfd.yaml
+@@ -35,9 +35,12 @@ unevaluatedProperties: false
  
-+	mutex_unlock(&nau8360->lock);
- }
- 
- static int nau8360_dac_mux_put_enum(struct snd_kcontrol *kcontrol,
-@@ -714,27 +717,26 @@ static int nau8360_dac_mux_put_enum(struct snd_kcontrol *kcontrol,
- 	unsigned int *item = ucontrol->value.enumerated.item;
- 	int ret = 0;
- 
-+	snd_soc_dapm_mutex_lock(dapm);
- 	if (snd_soc_dapm_get_bias_level(dapm) > SND_SOC_BIAS_STANDBY) {
- 		dev_warn_ratelimited(nau8360->dev, "changing path is not allowed during playback");
-+		snd_soc_dapm_mutex_unlock(dapm);
- 		return -EBUSY;
- 	}
- 
- 	if (item[0] == NAU8360_DAC_SRC_DSP && !nau8360->load_fw_done) {
- 		dev_warn_ratelimited(nau8360->dev, "Cannot enable DSP: Firmware not ready or disabled\n");
-+		snd_soc_dapm_mutex_unlock(dapm);
- 		return -EBUSY;
- 	}
--
--	mutex_lock(&nau8360->lock);
-+	snd_soc_dapm_mutex_unlock(dapm);
- 
- 	ret = snd_soc_dapm_put_enum_double(kcontrol, ucontrol);
- 	if (ret <= 0)
--		goto unlock;
-+		return ret;
- 
- 	nau8360_dsp_switch(component, snd_soc_enum_item_to_val(e, item[0]));
- 
--unlock:
--	mutex_unlock(&nau8360->lock);
--
- 	return ret;
- }
- 
+ examples:
+   - |
+-    canfd0: can@ff220000 {
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    can@ff220000 {
+         compatible = "ifi,canfd-1.0";
+         reg = <0xff220000 0x1000>;
+-        interrupts = <0 43 0>;
++        interrupts = <GIC_SPI 43 IRQ_TYPE_NONE>;
+     };
+ ...
 -- 
-2.25.1
+2.43.0
 
