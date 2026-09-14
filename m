@@ -1,81 +1,110 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-44.mta0.migadu.com [91.218.175.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C6B83EEAEA;
-	Mon, 14 Sep 2026 08:19:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F00EA3F482F
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 08:20:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789373951; cv=none; b=ao8Ta0vUoZkDJ8gFoDj3CJmL1yNnqctggeWeK+RsMtyvKs71JqdrOgmUncwRJhVJSyKxOsUPfH2DVNEORcRkmzIE9L7za9ZpuU5bOMDaWIc1LvIbZ7cs2A9N5iKnHZ/27J3W7v8evNrFW4TNYh/zkCFP33SOHFVUqmeC42SlE4Y=
+	t=1789374003; cv=none; b=iXVR0n8/VazRhaJ2VXwGCOrYQg7gYw9sZ3crbSLfe1ct6Cm+K/O0LxoKGH4FCSiA5U21uwfyYOFFEgccqa6YZR8cgLd5xfZd9St2L6AyK0Ok7J9ELiHAoFqQMIK4c4th5wwRmxryGJslybPobbSZPtYmVsOCW5lTv3cg9qPtwo8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789373951; c=relaxed/simple;
-	bh=bSzJO/Gm0VfLyOaG123eiqMw2z6vU1EmYkjOF6AivUA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BZuxfygcW6Papww30rcfpJMRh6bfvwWFspiq7JngzF4v7VQ9bqcEWtM7Jl+Ys/IxBmHbo4zcvii3rG0ZQQlxADSDU4sppVce8fyNofc3gKEcfkIcmm0EqBWXTpYJdHRBq0DYNHk2Ch3ipTmlJCGrtMLxtyfbYSXU/NJga/PUUu4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HjWprQxq; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789374003; c=relaxed/simple;
+	bh=U7vTt2iELlQ0EEFdakKRfkx0wSobYgfSFzBqINVEnHs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc:
+	 In-Reply-To:References; b=Q/S2luG5aYlybqX9WldrOrsJugih+eOjbPoriKZa38v5dp8UTbjc6jXP0sFNM97hc3IphNbkgM2lt2nLJ3AKaM29V/f2P5CKJRGYt7PkauuJc5kb/qkdxOr6cW4LbAY9mgi9DYSWWOEYIa5Cl6GcoUKyy4tmx5FdN5f7o00x6Ec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=UK7DmuMD; arc=none smtp.client-ip=91.218.175.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HjWprQxq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789373950; x=1820909950;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=bSzJO/Gm0VfLyOaG123eiqMw2z6vU1EmYkjOF6AivUA=;
-  b=HjWprQxqWSt8ZhRXjdQFVScaIaDK5SJaPTNfV+IYJSdfhayOvYaYfyvK
-   bXuQv0HqBnohWpFL5LLcxrnx0WbUxkXEPdwrILjtFDMaYisqPkLKjj2M/
-   ZsEKuRLUH5NtUYBurdLpEUTv5uBWr0MSHiq8r7LdWojpxBGv5hfXptxzB
-   1WutLA/gCema1a2jE65hFqaROi5VyeUjgJeYSpS7G66zq8XSVQyKO2NRq
-   JmVidyfMhwV0UwYtk6PAWHXcQjS9LQnyip+t9S7hLsdPHkXBZkO1Gg9/Q
-   y8TAKzQz1Q/fhjekEJwuc2mQotQ1HkInRqhbsCBnbWawvw4lcvtMOJb0m
-   w==;
-X-CSE-ConnectionGUID: THzuJLTtR7m1SlifJhg/5w==
-X-CSE-MsgGUID: JHW13EnmSa+MJ/2QthkdeA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="89658670"
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="89658670"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 01:19:10 -0700
-X-CSE-ConnectionGUID: 2X/ZwpQdRxm/qG1A4hoI7Q==
-X-CSE-MsgGUID: Xlipky5lTTKk2ubkixgZLg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="270778679"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.29])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 01:19:06 -0700
-Date: Mon, 14 Sep 2026 11:19:04 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Shehryar Ahmad <shehryar.amd@gmail.com>
-Cc: jic23@kernel.org, nuno.sa@analog.com, Michael.Hennerich@analog.com,
-	dlechner@baylibre.com, andy@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, gregkh@linuxfoundation.org,
-	linux@analog.com, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 2/6] iio: accel: adis16201: add OF device ID table
-Message-ID: <aqet-FxqeFzYDBa0@ashevche-desk.local>
-References: <20260913085307.13846-1-shehryar.amd@gmail.com>
- <20260913085307.13846-3-shehryar.amd@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="UK7DmuMD"
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=U7vTt2iELlQ0EEFdakKRfkx0wSobYgfSFzBqINVEnHs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789373998; v=1; x=1789978798;
+ b=UK7DmuMDV0VPrT5MmKknXCqLYrMAI/3rY1tOmAtZZL5XIAOpbl7EE374D19gQGnOPXE4LDgv
+ k2Um6ED2NATlrru+MbYUXcGbZXWmtV+f7di7ZqQ2yq5HRFNxc317ZO30E23i79Ks0cePx8El0No
+ AqMVoFOZDQSWY5YN844+v+L4=
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 85b6144fd9a19aa4;
+	Mon, 14 Sep 2026 08:19:58 +0000
+X-Mizu-Trace-ID: 85b6144fd9a19aa4
+X-Migadu-Flow: FLOW_OUT
+From: Troy Mitchell <troy.mitchell@linux.dev>
+Date: Mon, 14 Sep 2026 16:18:03 +0800
+Subject: [PATCH v5 3/6] dt-bindings: hwmon: Add Sensylink CTF2301
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260913085307.13846-3-shehryar.amd@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260914-ctl2301-v5-3-522def70acb4@linux.dev>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Guenter Roeck <linux@roeck-us.net>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Yixun Lan <dlan@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: Troy Mitchell <troy.mitchell@linux.dev>, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
+ linux-doc@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+In-Reply-To: <20260914-ctl2301-v5-0-b44b81cd2c3c@linux.dev>
+References: <20260914-ctl2301-v5-0-b44b81cd2c3c@linux.dev>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1686;
+ i=troy.mitchell@linux.dev; h=from:subject:message-id;
+ bh=U7vTt2iELlQ0EEFdakKRfkx0wSobYgfSFzBqINVEnHs=;
+ b=owGbwMvMwCU2g/N9w09jE33G02pJDFnL1x76eWbBXPl7F+xPi/5g/Tg77+OZHetkKg7IdR5t6
+ xb8IHrIsqOUhUGMi0FWTJGl+wHPtgKfKNsCgUJfmDmsTCBDGLg4BWAiJy8y/GRMuGXty6XuH9Lj
+ l1CYWmXifsWjbZ64w4c5n+eXKc85fIKRYV76CZb9U913eTW3f6nbbRjNZHAsTkhQ5u5be+9lVud
+ 2MgEA
+X-Developer-Key: i=troy.mitchell@linux.dev; a=openpgp;
+ fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
 
-On Sun, Sep 13, 2026 at 01:53:03PM +0500, Shehryar Ahmad wrote:
-> Add of_device_id table for adis16201 and register it with
-> MODULE_DEVICE_TABLE() to enable device tree based matching.
+Add the Sensylink CTF2301 temperature sensor and fan controller to the
+LM63 family binding. The chip follows the LM63 register model and can
+provide a thermal cooling device when #cooling-cells is present.
 
-Same comments as per previous patch.
+Do not provide a national,lm63 fallback because the CTF2301 is not fully
+compatible with LM63. It uses different conversion-rate encodings,
+extended local-temperature registers, additional fan lookup table
+entries, and device-specific PWM and ALERT/TACH configuration. An older
+LM63 driver would therefore not operate the device correctly.
+
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Troy Mitchell <troy.mitchell@linux.dev>
+---
+ Documentation/devicetree/bindings/hwmon/national,lm63.yaml | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/Documentation/devicetree/bindings/hwmon/national,lm63.yaml b/Documentation/devicetree/bindings/hwmon/national,lm63.yaml
+index f2e0993cfbef3..4c8d0a15fbd12 100644
+--- a/Documentation/devicetree/bindings/hwmon/national,lm63.yaml
++++ b/Documentation/devicetree/bindings/hwmon/national,lm63.yaml
+@@ -12,7 +12,8 @@ maintainers:
+ description: |
+   The LM63 family provides local and remote temperature monitoring together
+   with fan speed monitoring and PWM fan control. Supported devices include
+-  the National Semiconductor LM63, LM64 and LM96163.
++  the National Semiconductor LM63, LM64 and LM96163, and the Sensylink
++  CTF2301.
+ 
+ allOf:
+   - $ref: hwmon-common.yaml#
+@@ -23,6 +24,7 @@ properties:
+       - national,lm63
+       - national,lm64
+       - national,lm96163
++      - sensylink,ctf2301
+ 
+   reg:
+     maxItems: 1
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.55.0
 
