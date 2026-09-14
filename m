@@ -1,178 +1,203 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88F0E3F65EF
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 08:06:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E5F13EF0C2;
+	Mon, 14 Sep 2026 08:07:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789373169; cv=none; b=R/i7J/ecT0QYr1VBOwRkg6XNcij98zEvDW7hc/vU6c1Z5HdGVaoy8zNDe6zdXQIIK80Lj2fRKoYum+c0gvTTDTlNgisIZVxKpl6j6q4KwcqmqxWvzZHiI9pm5VT1lCi5V9rsbW29NP621mkPHwxkCwyslr3LhiHh0yRFD9qUyEo=
+	t=1789373245; cv=none; b=oebA0kex1Y/1rLlz62dsR+SIR9PCSh1/8WZVAEQiKeN05bYbgqY90OH/ie4RuFyyGs38rT3aEqgZd8J5aVcp0Mksu/xb1cBAa6viwK/vVjFKHqFSAS+xfs4DCettos1rDr7uenBEmUFF/L/XPCA/KpF+EIQm4RQ9sHZExbzv93U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789373169; c=relaxed/simple;
-	bh=b2FqTnEw1/hRFQRqvUOt4/hmdqysDshXRiF5dS67NOw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eRKFwlbpFGLjRfc3WfhPC1pucvBzTygWFKxTbB1Hqk2TmAXHijXjerbH523sAH8X3KOi4mvCwKMwGL1jjaMueaQjgzUe0vWjuIU2MKs5dOBh5BjkJMzaUw9jeyiEYBJ8H8W3xXcZDzEtJtcJMvIcHeWRt1omSZ+poqusS7kqzWU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SAqur3NJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QeXUmkyV; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789373245; c=relaxed/simple;
+	bh=d964lmMynRY6TF37LTrBUpGzjhBpSiFKZ/HJl725XKw=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=TNhG9GqUOjAxm02qGXiYju45qHWvh18YNb8418XWsZE4sLimUQqriiTFoXBlEd83q/6T+NtU2yPjKR7cSXEdxjRwSniPWczt51BaCGIBW0zGxPlJSnBCGUeRWQeoGAw6CNLoDJnqq3b8N1ReXUFymLRoF+/DqJ9SUxvJ1nfm3/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SBZsREzV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SAqur3NJ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QeXUmkyV"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E5ifU13900798
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 08:06:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	W0XjNnKxrhdkJEO1lOyERnjUwOJSfzdDQ+y6uKaxrfQ=; b=SAqur3NJjAHajSPz
-	p71yL37AMtj7uRBHbsiM4yYkQgW26WJdrDHYpDLv/j7qZ20ul5WIE3ANCKxg5bl2
-	pPSN0Bqdgo8Kyrk8uMEFIhqdPgAIT4uIYBLgnrvmo9cjmjO0fgR68gEj9d6IxRHj
-	LH1AkNcOH3X3UygpIymjPAbl1DbsW2GwepQFj5hWY00HOIJCa1d3imAPPt5VnfHC
-	c3JDmJE18TwZkMlPeXpmxHE/wZxsfSQzXbR1OMlitglBKBvW3of1qeGqjbHgYWlr
-	wLHsPLoEJlUSMtu7AFwX9pYgF/gI78hLk9lpUxGfvDOYZ6BVn4Ig5CKrA6fHmQsa
-	liGQEQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9d5mv3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 08:06:06 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-938fd633df7so45862185a.1
-        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 01:06:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789373166; x=1789977966; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=W0XjNnKxrhdkJEO1lOyERnjUwOJSfzdDQ+y6uKaxrfQ=;
-        b=QeXUmkyVV6FqUSr7vUT9mvLcf1VoXfqorX0o8K0f1iuQJI3ACz/O3fGSlQ0h78Suty
-         xAaf9tiIzGzG+VEGe97DefDx2yxY6koWEb/8jyVDRkBTFl3CkTWObTT7rPLIDH1W6+qQ
-         MZqk78ffwwnVNgnNRZq9GqDqO4RfQxvBRRigYTO0KQGE1dyw/mUD6fqtqjRM3n4dM/rA
-         oZhGiNtQyWqUfTqqBBslzPq1YPrWDsBnAoVA/3fZgxLwY8aEJSCf1zsw07jKW/8bpV0K
-         vUt8WmIrh6NBNCxvbZ5Pw8+eioFwDB23DxDV9hwpLp7dasVHuZlSIWtBsG42W+4No34T
-         OUfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789373166; x=1789977966;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=W0XjNnKxrhdkJEO1lOyERnjUwOJSfzdDQ+y6uKaxrfQ=;
-        b=KfeTB3Rj1lUTV19/+OIBAs/e66dkqIq8vpgGOnChAhSYBKn+F5j6ebk0WbHkJdrWaY
-         IXmZJWHAe6qTY0jnaCXPLtKNxamYw+7+3vg6gQdO2IRvp2D8cxY7LOpoJaGX1XUZheb0
-         iHdGK74qv4o39jLigZXzpYzpSTB3IdyTj9zOadNupdsoqOEiUiAb5T7JrpP4tUb41P7V
-         BFcnLwznSwDewIiak2Hcmb6QxOojJE7n1e1jq9maoZAvXzIIgrVHHs/feMCd5mCaopHH
-         Niz9RhPWOLkd1suaK2IkCL8IG8gQvpL0uWszBypkb642JvVwBhmJyL6gCbJ4bDB5XSk0
-         PTbA==
-X-Forwarded-Encrypted: i=1; AKwUvByLhsLoQ+kH4xe/KUkubNA91Gjd40Jp5oV+eClBExRQFBl6UKrL+BsfgOd5E02N2cpqJDe1bdIIy1re@vger.kernel.org
-X-Gm-Message-State: AFuF++me3nfhruu8vqGrtk6+ZfEI6S6c5EC6TURkpWR+OXxUhhLifHZ9
-	MQrzyguTAEMo5TnMf4ToK9irbiQ+K7WPZdNm1ONntWOnPOrasNWu2I7MR0qv+1PxbnK/OngBa/H
-	P39JUbMwk2vmISW+PPcWCN+s2tu/2bIjIFFmTV8wBdfFeHCya2Al1JdNy7zaiubac
-X-Gm-Gg: AYBFou2KXv5orjeBgc0jX7jiaA1aruRGFJurMMd3vH/7gtXYL67Egc16XOsCb38yt5q
-	m/Exxxe+5WI2E5k+rsqY6CpJG84MT7s7cvuaDC1xhKjsPbJJvIWg92GKiKtODeuYqrEe5Qet3Zp
-	Cain9OS+zAJOdGoofi6Xo/i4QFngUBvtOJ5UkCxyX1QYZzak6ML/O1T6PtOEhNVZSZGvApAa/nI
-	3QiSFwvCSFkKvolkxGuHZzJIkUqkkUB4FH6MoTic9glWw9dmRlpyh62psvpB8cGKUF8b3wJqy/N
-	TitnZho2cQfy7ceKzcyhzvDLqh8YZp51/diQyq0KjE4UOpiNgKuGznAMLRGNsB2FLN7Vb29v8Xh
-	gpMdX7/jvULQeWSrnemTiuQ==
-X-Received: by 2002:a05:6214:4307:b0:912:1333:e04f with SMTP id 6a1803df08f44-9122e149532mr19326086d6.0.1789373165638;
-        Mon, 14 Sep 2026 01:06:05 -0700 (PDT)
-X-Received: by 2002:a05:6214:4307:b0:912:1333:e04f with SMTP id 6a1803df08f44-9122e149532mr19325476d6.0.1789373165021;
-        Mon, 14 Sep 2026 01:06:05 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9b5831187sm3844483a12.1.2026.09.14.01.06.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 01:06:04 -0700 (PDT)
-Message-ID: <126833f7-236a-4338-ba24-e4c56155c71d@oss.qualcomm.com>
-Date: Mon, 14 Sep 2026 10:06:00 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SBZsREzV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D8601F000FF;
+	Mon, 14 Sep 2026 08:07:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789373243;
+	bh=e4MDPnk0sVi6M/ZwVTwBYhAjHK5Lznz8GI867hQNhLo=;
+	h=From:Subject:Date:To:Cc;
+	b=SBZsREzVD5PbeSyJiFSNramm0bMw6+ATY8CHNACOpPnhhOEZptV/wPpDGFT0lMTaO
+	 Zp+geWUBm871wAPMgjrc/TwEgzjtRPOo2gjVircSDe9/OCR+DJrEzxQrhsFqesbv7R
+	 lW9C+YMVU4fNsCvi49aE28NGGvXO/DynmZBWtIfKOXlcXtsMz/QoLvh2AtWI1hVDtX
+	 KpxM6vw61RM4Nlaa4jYCuhjHRcs24+cACFBbwQr9NBtFhKLvs5OGZC5bu4WQrfXFj4
+	 nI9YI4Vcor7crMZ3HPXFPJLcPvLzdlu6NZyBqgXM7kg/3xAuxOUSR2YVrf1BV9oKlp
+	 HrBonrTvUeSlw==
+From: Linus Walleij <linusw@kernel.org>
+Subject: [PATCH v2 00/20] pmdomain: st: ux500: Implement ux500 power
+ domains
+Date: Mon, 14 Sep 2026 10:06:51 +0200
+Message-Id: <20260914-ux500-power-domains-v7-1-v2-0-256967abde51@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 04/17] drm/msm/dpu: Add support for DPU 12.1 on Nord
-To: Nabige Aala <nabige.aala@oss.qualcomm.com>, Vinod Koul
- <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov
- <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Kuogee Hsieh <quic_khsieh@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>,
-        Mahadevan P <mahadevan.p@oss.qualcomm.com>
-References: <20260911-nord-drv-dt-v1-0-e25c073cf1b6@oss.qualcomm.com>
- <20260911-nord-drv-dt-v1-4-e25c073cf1b6@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260911-nord-drv-dt-v1-4-e25c073cf1b6@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDExNCBTYWx0ZWRfXw/ONiTkd4hiR
- tItPrNxscFqS27bJaYX1hraIYFrVOGY5mfLiKJHBPLrdOFUsSNskh6a5M8ucc5htIDy5sJsjfn1
- 0DSQTq4Gqgv21QVQPRvoJDUJPjGKb9I=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDExNCBTYWx0ZWRfXzr+68GqT9ZJV
- NM7sjp8YlCSJFYVICZJGls3DCVLf1r9vXfRm9PYv44fmzMYNgbaGYdrH3PmiHPjyI+gQIkjNxtQ
- d0AoxTMWW9YJjMXKYJpfKu7lfwcWO+XvRpRMEYjDgsELRrx9zPT4RYP/aIqUirULgdLoCqpbZbb
- z+aPKNOrn29jLogD5TK1jjBU+KFN2ElY8G5Uwh22zwwnR+yvHG4jv7ToN+jF5JqnRI29Wjswde8
- +CkCcVAv9IvROLY1qRH6sIbrl+d42uIhKM9qjbXUf5DpNdf6l/E2r+oznohdyL2Xn6aN4p3GpYR
- jFk1Kpz1ZrHvWFDlL/sQDckQLGbUnQyrBVHPcCM1/fsPYe5aP06zcWR9ccY6lV2NoDl9hp24mse
- SmA56LoHf8LX/d4zM9KlkzUew8CyoPaetoxiyA/Xn8NvUXr1c0YuKRrC3mSwGxbE6AxSWsvN9Tr
- lnKqnAUpCopy8Yf5FhA==
-X-Authority-Analysis: v=2.4 cv=IOSXmQvG c=1 sm=1 tr=0 ts=6aa7aaee cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=tJERSlHITJMJguJ_9RQA:9 a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-ORIG-GUID: cjZ_5gObt6AV3OQDFpnJd1uiwQXKMR1Q
-X-Proofpoint-GUID: cjZ_5gObt6AV3OQDFpnJd1uiwQXKMR1Q
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-14_02,2026-09-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 phishscore=0 adultscore=0 suspectscore=0
- priorityscore=1501 lowpriorityscore=0 impostorscore=0 clxscore=1015
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609140114
+X-B4-Tracking: v=1; b=H4sIAByrp2oC/42NTQ6CMBBGr0K6dsy0plhceQ/Dgp8RJmpLploxh
+ LtbOYHL95LvfYuKJExRnYpFCSWOHHwGsytUNzZ+IOA+szJoSiy1g9dsEWEKbxLow6NhHyEdQcO
+ hq3qsrDOuMyrPJ6Erz1v6UmceOT6DfLanpH/2j2jSgECtJYutbqxz5xuJp/s+yKDqdV2/51lS3
+ MEAAAA=
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
+ Mark Brown <broonie@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+ Lee Jones <lee@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-pm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ dmaengine@vger.kernel.org, Linus Walleij <linusw@kernel.org>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, Frank Li <Frank.li@oss.nxp.com>
+X-Mailer: b4 0.13.0
 
-On 9/11/26 5:36 PM, Nabige Aala wrote:
-> From: Mahadevan P <mahadevan.p@oss.qualcomm.com>
-> 
-> Add the DPU catalog entry for the Qualcomm Nord SoC (MDSS 12.1, DPU
-> 1499A). Nord is DP-only with no DSI, and provides 8 DSPP blocks, 2
-> writeback blocks, 8 interfaces and 2 DP controllers.
-> 
-> Extend enum dpu_intf with INTF_9 and INTF_10, which Nord is the first
-> platform to use.
-> 
-> Note: register addresses and xin_id values in the catalog are borrowed
-> from sm8750 and precedent platforms and are marked with FIXME(REG_ADDR)
-> and FIXME(XIU_MAP); they need verification against a real Nord register
-> map before production use.
-> 
-> Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
-> Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
-> ---
+This series pays off technical debt from the beginning of the device
+tree for ARM initiative in the early 2010s.
 
-Please remember to mark AI-assisted contributions as such, if
-that was the case..
+Today the Ux500 SoC specifically DB8500 is using what is called "EPOD
+regulators" (EPOD = Electric POwer Domain) to control its power domains.
+This was done like this because at the time, power domains did not exist
+as a concept in the Linux kernel.
 
-Documentation/process/coding-assistants.rst
-Documentation/process/submitting-patches.rst
+This patch series completes the ambitious work started in commit
+cd931dcfda5e ("ARM: ux500: Initial support for PM domains") which added
+a dummy domain driver for Ux500 in the following steps:
 
-Konrad
+- Convert the old Ux500 power domain text DT bindings to YAML schema.
+
+- Extend the bindings with all the 16 power domains actually existing in
+  the hardware.
+
+- Add these domains to the existing ux500 power domain driver (still as
+  dummy domains).
+
+- Add the power domains to the DB8500 SoC DTSI file.
+
+- Move code over from the EPOD regulators to the actual power domain
+  driver. Since the two drivers now control the same hardware, make the
+  drivers mutually exclusive.
+
+- Modify the MCDE display driver to use the power domain instead of the
+  EPOD regulators.
+
+- Modify the DMA40 DMA controller to use the power domain instead of the
+  EPOD regulators.
+
+- Delete the old EPOD regulators.
+
+- Delete the references to the unused EPOD regulators from the device
+  tree.
+
+The series is ordered so binding updates and compatibility glue precede
+the DTS and driver changes that depend on them.
+
+MERGE STRATEGY:
+
+1. Device tree bindings need review, before that the series is a
+   no-go.
+
+2. For simplicity, the series can be merged in separate paths and
+   subsystems as there are no build-time dependencies, as long as the
+   result ends up in kernel v7.4.
+
+   Once the concept and patches are ACKed by the power domain folks, I
+   will send the patches that can be split out individually to each
+   maintainer and it can all be merged in parallel. I will send a
+   pull request to the SoC tree with bindings and DTS changes.
+
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+---
+Changes in v3:
+- Went on a detour clean-up job relating to buck regulators.
+  Rebased on kernel v7.3-rc1 and the regulator re-works in this
+  mail thread:
+  https://lore.kernel.org/mfd/20260901-ux500-dts-snowball-regulator-v2-0-fe88b01829bf@kernel.org/
+- Drop the PM domain "regulators" entirely, the external components
+  now use their actual buck regulators.
+- Fix the DB8500 pin controller power domain to use VAPE.
+- Allow power-domain references in the l2c2x0, arm,pmu,
+  stericsson,u8500-clks, arm,twd-timer, arm,twd-wdt and ste,mcde
+  schemas used by the DB8500 DTS additions.
+- Treat only negative pm_runtime_put_sync_suspend() returns as errors.
+- Fix the MCDE probe error path to disable the main clock after reset.
+- Fix Ux500 PM-domain probe error cleanup for domains and provider data.
+- Drop the unused Ux500 power-state activity counter.
+- Describe Ux500 subdomains in DT and use OF child ID helpers.
+- Move DMA40 LCLA power-domain get out of atomic transfer paths.
+- Enable runtime PM in the generic SRAM driver so SRAM power domains
+  are managed by their owner before DMA40 takes LCLA references.
+- Add a DMA40 device link so system PM orders the LCLA SRAM supplier.
+
+Changes in v2:
+- Merge the dbx500 PRCMU header into the DB8500 PRCMU header.
+- Add binding fixes for the DB8500 PRCMU regulator child nodes.
+- Add an MCDE binding update for the new power-domain reference.
+- Fix up the DB8500 DTS changes for the remaining VAPE and VSMPS2
+  compatibility regulators.
+- Link to v1: https://lore.kernel.org/r/20260618-ux500-power-domains-v7-1-v1-0-eb5e50b1a588@kernel.org
+
+---
+Linus Walleij (20):
+      dt-bindings: power: Convert Ux500 PM domains to schema
+      dt-bindings: arm: ux500: Drop NR_DOMAINS
+      dt-bindings: arm: Add the actual power domains on U8500
+      dt-bindings: mfd: db8500-prcmu: Relax EPOD regulators
+      dt-bindings: display: ste,mcde: Allow power domains
+      pmdomain: st: ux500: Implement more power domains
+      ARM: dts: ux500: Rename power domains node
+      dt-bindings: cache: l2c2x0: Document power domain
+      dt-bindings: arm: pmu: Allow power domains
+      dt-bindings: clock: stericsson,u8500-clks: Allow power domains
+      dt-bindings: timer: arm,twd-timer: Allow power domains
+      dt-bindings: watchdog: arm,twd-wdt: Allow power domains
+      ARM: dts: ux500: Add power domains
+      pmdomain: st: ux500: Control DB8500 EPODs
+      drm/mcde: Use power domain for display power
+      misc: sram: Enable runtime PM
+      dmaengine: ste_dma40: Use power domain for LCLA SRAM
+      mfd/regulator: db8500-prcmu: Remove EPOD regulators
+      dt-bindings: display: ste,mcde: Deprecate EPOD supply
+      ARM: dts: ux500: Remove DB8500 EPOD regulators
+
+ Documentation/devicetree/bindings/arm/pmu.yaml     |   3 +
+ .../devicetree/bindings/arm/ux500/power_domain.txt |  35 --
+ .../devicetree/bindings/cache/l2c2x0.yaml          |   2 +
+ .../bindings/clock/stericsson,u8500-clks.yaml      |   3 +
+ .../devicetree/bindings/display/ste,mcde.yaml      |  10 +-
+ .../bindings/mfd/stericsson,db8500-prcmu.yaml      |  24 +-
+ .../power/stericsson,ux500-pm-domains.yaml         |  46 ++
+ .../devicetree/bindings/timer/arm,twd-timer.yaml   |   3 +
+ .../devicetree/bindings/watchdog/arm,twd-wdt.yaml  |   3 +
+ MAINTAINERS                                        |   1 +
+ arch/arm/boot/dts/st/ste-dbx5x0.dtsi               | 144 +++---
+ arch/arm/mach-ux500/Kconfig                        |   2 +-
+ drivers/dma/ste_dma40.c                            | 130 ++++--
+ drivers/gpu/drm/mcde/mcde_clk_div.c                |   4 +-
+ drivers/gpu/drm/mcde/mcde_display.c                |  11 +-
+ drivers/gpu/drm/mcde/mcde_drm.h                    |   2 -
+ drivers/gpu/drm/mcde/mcde_drv.c                    |  68 +--
+ drivers/gpu/drm/mcde/mcde_dsi.c                    |   1 -
+ drivers/mfd/db8500-prcmu.c                         | 239 ----------
+ drivers/misc/sram.c                                |   5 +
+ drivers/pmdomain/st/ste-ux500-pm-domain.c          | 330 ++++++++++++--
+ drivers/regulator/Kconfig                          |  11 -
+ drivers/regulator/Makefile                         |   2 -
+ drivers/regulator/db8500-prcmu.c                   | 501 ---------------------
+ drivers/regulator/dbx500-prcmu.c                   | 155 -------
+ drivers/regulator/dbx500-prcmu.h                   |  55 ---
+ include/dt-bindings/arm/ux500_pm_domains.h         |  17 +-
+ include/linux/regulator/db8500-prcmu.h             |  38 --
+ 28 files changed, 566 insertions(+), 1279 deletions(-)
+---
+base-commit: 67aa45aae7efe0162f198f26714f668b759468c4
+change-id: 20260618-ux500-power-domains-v7-1-3c9d095828c2
+
+Best regards,
+-- 
+Linus Walleij <linusw@kernel.org>
+
