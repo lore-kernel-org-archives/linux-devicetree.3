@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5182C37EFE2;
-	Mon, 14 Sep 2026 06:14:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5492B38F92F;
+	Mon, 14 Sep 2026 06:14:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789366477; cv=none; b=i2Lazwf3CzEQaHWEyW78ssSx2aC2H1GEpuFC0Vcmqk/r/6bf5RRs8pzxA7uWLC4nI0Sqcl/eGgEMhdCMggVjiC/PsHWg3eIa6GADIF3lGFyQxJYo5nQmw4rsIO04GEjmzsd65I+QTXDTilrDmWhXGmWfU5xz4uyVsryQps21iaw=
+	t=1789366490; cv=none; b=BC1RnIAlE+iTyRvgepK8AT7CPRHkYa1faTCZGIFm2SShXdFtjLMaF9AFNa1h12CIzil2yNp6zJypkjHGnYyPVxAgLNUvZRP9Kv8KMVBLydilA8A4FinykZe6ybE4EBbvsTQQ7Z2WTbU65PsHO964XUxgDClVdkOJepwoXsCsJ+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789366477; c=relaxed/simple;
-	bh=D+8aOxJXMD347b9JM7MVWjQiv0Ot/yr0750Z+Yl17e4=;
+	s=arc-20240116; t=1789366490; c=relaxed/simple;
+	bh=R6nNQ2Vf3r2xxYZfLTkQqd4XV0kVoSqb6az1vwGIgqs=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lmE53mcJt+VMg9tYZEVm8ijAWDMb0F5b3V+JWW/cAtWV4YhW53TU6ucsbBywRy1dWH5wNGiAxkQEHkDr/4SsQB/As1kb5y7yu7FuBY6HT2kzhqnHGZzRCvT4QWBvbUi2Wr8EaKkcF1i5URXILvvxapkglwOVaOgiqiAfmGvGWYs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YCtLc6kc; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=O2o/F80qz46WC8bAhXIohLCXOY901pArQ1YoWBT2cMBIOTowWZvcoQt66/HRDNm60aGUO8vQw40iM5R6SsE/p5V+ZxKIhydwviej4Y0pS7LLNF0kH6wX1sTzv5jeeWlSCBgLUxAkGrkzLO959Px81eU1UO9g5DMI3WNNEMiVGec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FX6T44Mu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YCtLc6kc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14A711F000FF;
-	Mon, 14 Sep 2026 06:14:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FX6T44Mu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0A941F000FF;
+	Mon, 14 Sep 2026 06:14:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789366476;
-	bh=Waw7MMaEE8rkinzfWLMxpciulClflponC7nwOUELg0c=;
+	s=k20260515; t=1789366488;
+	bh=hsHhEwjRelMETV0SOSf9KM5LnIitGPECDLvB3vxb5yA=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=YCtLc6kcBT/PiQ8j3zo0LdILzy6PJBws4+xSfqHRnx6ss5FPdVrOH25NYfGmUNauk
-	 D/JalCzYQPJBDbDhQx87zzPJ2C1pqY7GKWBFe0Y7CsSIhddgIlVxvGvx3Pa5gT7zkT
-	 xKWF34Jat3UwcQJfsxkqrBgiEulrbW8q0AQTFXLuqvJmJe+SCPBkAIJ8ckVMkVxw4O
-	 UrTLfROK2zLkvSF5QyK7hAX7yXyBn2EjYkySYzWORJSVdTm5KuhO03hOC0MC8MaipB
-	 Qae9U5mZmNskr2C00qq/teyyupjtplFJnpLGaFYcHd8ve+BMRyFXNBPUxuuctLv3z1
-	 kCRxA/9zBwm3w==
-Message-ID: <c23ce338-2c85-4ab9-8981-9023564e629c@kernel.org>
-Date: Mon, 14 Sep 2026 08:14:29 +0200
+	b=FX6T44MuMh0nTRbs4ySaFJnbQR3lMxOJaFLksI5P5+PBRsfxXqlfFvNPeA/e1mYlw
+	 zutMD+ojdaDnzTH3S+5d3Ojvm6YWHIE/q45H1k6p5OyxcAIuv5cov2+30+O0r6QEto
+	 MhNRKR4bFwTyxokCFPrre33KaP27bwKG0wdCreQgo197U/qoSfj7VtDkvDDDCSWDcT
+	 IMhy8P2nyWpLhPy9mxRasd8GSPlM4vkVA2fK5D9g8RTCt/eK3j/xNsQAEi1R12Ht4D
+	 HsiKFdxKE6WKe2sDHsxzTlcJk47MeP1rPC8oMQ4i1CzDdEx4x1KTaELmyAp0k0DIxc
+	 tAHBIvdetvqJQ==
+Message-ID: <f0ae73cf-ac0c-4400-a805-21f1db32b5ff@kernel.org>
+Date: Mon, 14 Sep 2026 08:14:42 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,8 +35,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] regulator: dt-bindings: mps,mpq4210: Use the -ohms
- unit suffix
+Subject: Re: [PATCH 2/3] regulator: mpq4210: Use the -ohms feedback divider
+ property
 To: Tapio Reijonen <tapio.reijonen@vaisala.com>,
  Saravanan Sekar <sravanhome@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
  Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
@@ -44,7 +44,7 @@ To: Tapio Reijonen <tapio.reijonen@vaisala.com>,
 Cc: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
 References: <20260913-mpq4210-ohms-fixup-v1-0-dcff627001ff@vaisala.com>
- <20260913-mpq4210-ohms-fixup-v1-1-dcff627001ff@vaisala.com>
+ <20260913-mpq4210-ohms-fixup-v1-2-dcff627001ff@vaisala.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -90,35 +90,32 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260913-mpq4210-ohms-fixup-v1-1-dcff627001ff@vaisala.com>
+In-Reply-To: <20260913-mpq4210-ohms-fixup-v1-2-dcff627001ff@vaisala.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 13/09/2026 13:40, Tapio Reijonen wrote:
-> The feedback divider property was added without the standard unit
-> suffix. Rename mps,fb-voltage-divider to mps,fb-voltage-divider-ohms.
+> Follow the binding rename of mps,fb-voltage-divider to
+> mps,fb-voltage-divider-ohms.
 > 
-> The suffix is worth more here than the convention alone: mps,mp886x.yaml
-> already describes a property of the exact same name whose values are in
-> kilo ohms, so two bindings from the same vendor spelled the resistances
-> identically while meaning different units. The suffix states the unit
-> where it cannot be missed.
+> The old name was never in a release and this driver is its only reader,
+> so it is dropped rather than kept as a fallback.
 > 
-> Drop the explicit uint32-array $ref along with the rename. Properties
-> ending in -ohms are typed by property-units.yaml, which reports the type
-> error itself, so restating it only produced a duplicate complaint.
-> 
-> The binding has not appeared in a release and has no in-tree users, so
-> nothing depends on the old name. The driver is updated in the next patch.
-> 
-> Fixes: e3c05a881fc9 ("regulator: dt-bindings: Add MPS MPQ4210")
+> Fixes: 61879d561e91 ("regulator: Add MPS MPQ4210 buck-boost regulator driver")
 > Suggested-by: Krzysztof Kozlowski <krzk@kernel.org>
 > Link: https://lore.kernel.org/r/20260911-gaur-of-satisfying-action-1a3b0f@quoll
 > Signed-off-by: Tapio Reijonen <tapio.reijonen@vaisala.com>
 > ---
->  Documentation/devicetree/bindings/regulator/mps,mpq4210.yaml | 9 ++++-----
->  1 file changed, 4 insertions(+), 5 deletions(-)
-
+>  drivers/regulator/mpq4210.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/regulator/mpq4210.c b/drivers/regulator/mpq4210.c
+> index 227136d8225805a759d2d6545637858ea7122b89..315f8e02ff2a117e37b32f8a128c9e0feacfac74 100644
+> --- a/drivers/regulator/mpq4210.c
+> +++ b/drivers/regulator/mpq4210.c
+> @@ -144,11 +144,12 @@ static int mpq4210_i2c_probe(struct i2c_client *client)
+>  	u32 r[2];
+>  	int ret;
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
