@@ -1,76 +1,99 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D64C4A0914
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 20:42:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B992329D260;
+	Mon, 14 Sep 2026 20:46:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789418531; cv=none; b=egywqAg3B+zxDMpLLegA2KHeTO7U0nTWY5GWJuYDeZDQvV5de+EEYlWlP+J10EQn/i5akqNFGRfxkNnULWrZosRLbWlfAeIMgzmBuIGYYKj2uwkzLZ+j6OMDnygctjRQGqRUuIalblaqPEJ7gjBXQ6lovFqRbk5RbgMxfOMKbb8=
+	t=1789418819; cv=none; b=U1JHCCQxe2zHgMZht1LntpWQUlCCV9vay9HoKp2bibGGr8AJSBjFgwMPmZcw9ftNKkaqSCdxb9KozLIrGvtZ+rGb3LLRnHQJWdyvjCfW/f0aGhlyo03J9oY47GHsg0hNEiSjzMSmwUNTdmGWuazaJuI7HE2rKuGD9CTnQjLfENo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789418531; c=relaxed/simple;
-	bh=xLBwIg9EwYsNi7YU/G7iiom+8BVuvjOa+9ZI1dLZqII=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NxXap2PEHo/O1bs3etSs07v83Lj4p4Es8FMxht+T2CrDVpL1YOwwaNRR9uk/sLvwaHi4JS5SNRy1fxkG8OLjOUI+tQLKLSwr3y5sAGKVjOTrHSCs1VG56ZDNyjD0XpdiAL00X9QIuVVVLO10KZ5aUmRCshUQX8pF802a8oJ1nmQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V/m2H66H; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789418819; c=relaxed/simple;
+	bh=UDzSfb4BwG6sGVb9E/qfHZLyZRA17sltkEQsWYJqHwE=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=a0Xoi/hdAR8Z7l0LxBBdWz19IscR7GEVby6t6MDB+UlpwcmaZDKICZGqHLDMtJYaRsj9ls5SIQv6WF6EUtYiNU0TS3dX8ZN1gg+nWq6MOeZqrJwl68L1HnO1D02NG98VGS14HoQ/+4ee3z2ISmLGHU6J1MNS3u61IXQnBpYmFzE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kv5gQB1r; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V/m2H66H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53B6E1F00899
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 20:42:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kv5gQB1r"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5753F1F000FF;
+	Mon, 14 Sep 2026 20:46:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789418528;
-	bh=xLBwIg9EwYsNi7YU/G7iiom+8BVuvjOa+9ZI1dLZqII=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=V/m2H66HcmQkQrkLSwAfd5V8gcfWAr21unV6/Hg/RXHpWyk3hRRTWUbwc8JeFk8lO
-	 jCSTLCIBrWIhtCUB2JivTWVcQT2jTxXLdcgu4j9iYntxnK4TPJfKSCaOcVAoTy/YMT
-	 N9tNMiBdlhGfPwqBwEZtVS6vZg6ikHZFcmfzOydnRBiGRUINPZgocsWsOfa/7Vkkz5
-	 bJLp9TF9g3ldqMVlSb6nuvke+IAUfmJKqYnKQZPzIoBfWKiqOHmtSDsC93qdqB6GM/
-	 2qbEtuLN0DpEZAXUmijNRmduX+mvSviXtkS4qqMRJh4twssuSptf20NZtVQAVyBCXe
-	 kE4ADiiOXGCAA==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f17452so2026429e87.3
-        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 13:42:08 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxC67/KKK884sSmPspmH2rezRITprfjhGYgCZMVb6bjTVz/s6FmqdNVNNQF0YkLrhMWWW4vZ92nPCVx@vger.kernel.org
-X-Gm-Message-State: AFuF++lIPylt0trAcmaIB443IuXeDbuO157aLRxytCWFfolwDawEgXdr
-	gj9UUe//jya4u9YpoRQs6obOUIBWgg2YtwK6cFN5aHB0yUsvZyGE8EzBqHIWUt5A0X7KOZVswVG
-	Mbqe/cfGGmJgJEt2/EZ+TYVOzpkFDw/s=
-X-Received: by 2002:a05:6512:2311:b0:5b6:183c:5ca0 with SMTP id
- 2adb3069b0e04-5b8ae6a5697mr1072184e87.62.1789418527005; Mon, 14 Sep 2026
- 13:42:07 -0700 (PDT)
+	s=k20260515; t=1789418818;
+	bh=8o78y66u0vvIngvMECM8vbjVN71viUZnjA1J36HR0Ls=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Kv5gQB1rpViurVjFZd7MXsarJoFi6SsaLW9cj51xRoXOb+WMJl0pSNpvhHtbKRMDD
+	 U5+4hFPIxziwIUMgJXL9vW9avT++o0GvE9rWmbPHMIwcyZQI0mJYQ68jxYGYgTflSY
+	 zH6ptobiYa9yTpJ7nuidm19IRNGKjop6GsDOMWjuJX7OGeEai+PzGnqU4MPZ4W07LU
+	 pGpZfE0IdJ7T2qP73zBgtb6Hfkr3wvOQb8zVG4QolXpn6co00hFl5UkmRdqlSsR1e8
+	 hYYSHxOXFi8NunbqW8FlNiOl8qAmwrZeeYzcVEHK4ttSWbkDjWmIJ31Gpdc/mwC7LU
+	 V5z0rQ2uQuJ3g==
+Subject:
+ Re: [PATCH net-next v13 1/4] dt-bindings: net: dsa: microchip: Add KSZ8995XA
+From: netdev-bot+sashiko@kernel.org
+To: linusw@kernel.org
+Cc: woojung.huh@microchip.com, UNGLinuxDriver@microchip.com, andrew@lunn.ch,
+ olteanv@gmail.com, davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ marex@denx.de, horms@kernel.org, linux@armlinux.org.uk, nb@tipi-net.de,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org
+Date: Mon, 14 Sep 2026 20:46:56 +0000
+Message-ID: <178941881689.22033.5621078266167272370@kernel.org>
+In-Reply-To: <20260913-ks8995-to-ksz8-v13-1-327b16d309eb@kernel.org>
+References: <20260913-ks8995-to-ksz8-v13-1-327b16d309eb@kernel.org>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260913-ks8995-to-ksz8-v13-0-327b16d309eb@kernel.org>
- <20260913-ks8995-to-ksz8-v13-2-327b16d309eb@kernel.org> <20260914195724.C15A71F000FF@smtp.kernel.org>
-In-Reply-To: <20260914195724.C15A71F000FF@smtp.kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 14 Sep 2026 22:41:55 +0200
-X-Gmail-Original-Message-ID: <CAD++jLmnh+dBTr7OiQ=3BRC2g2Hic9LnrQ+=GQJL==gA11astQ@mail.gmail.com>
-X-Gm-Features: AcwNN1UwhN-0JboAQCMTsnJVo52bIt_Q8uI2Avhv6cSLm1jRuWuU9cW8jmIi_rA
-Message-ID: <CAD++jLmnh+dBTr7OiQ=3BRC2g2Hic9LnrQ+=GQJL==gA11astQ@mail.gmail.com>
-Subject: Re: [PATCH net-next v13 2/4] net: dsa: tag_ks8995: Add the KS8995 tag handling
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 14, 2026 at 9:57=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider:
 
-> Because there is no custom .flow_dissect override here, the DSA core fall=
-s
-> back to the generic flow dissector, which will use the 8-byte needed_head=
-room
-> as the RX tag length instead of 4 bytes.
->
-> Will this corrupt protocol extraction by skipping 8 bytes into the packet
-> instead of 4? This could cause the network core to read an invalid
-> encapsulated EtherType and break Receive Packet Steering (RPS), Transmit
-> Packet Steering (XPS), and Traffic Control (TC) rules on the conduit
-> interface.
+Critical: 0 · High: 0 · Medium: 0 · Low: 1
 
-That was actually a really interesting find so I send a v14 for
-fixing this alone!
+- [Low] Concern (validated as a FALSE POSITIVE, retained only because
+  requires_validation=true): the concern claims that adding…
 
-Yours,
-Linus Walleij
+--
+
+dt-bindings: net: dsa: microchip: Add KSZ8995XA
+
+This adds a microchip,ksz8995xa compatible string to the Microchip KSZ
+DSA switch binding. The commit notes the part was renamed from KS8995XA
+and shares its properties, while KSZ8995MA and KSZ8995E are different
+devices.
+
+No Link: tags are present in the commit header.
+
+> diff --git a/Documentation/devicetree/bindings/net/dsa/microchip,ksz.yaml b/Documentation/devicetree/bindings/net/dsa/microchip,ksz.yaml
+> index 8d4a3a9a33fcc..4ed13870ed3ac 100644
+> --- a/Documentation/devicetree/bindings/net/dsa/microchip,ksz.yaml
+> +++ b/Documentation/devicetree/bindings/net/dsa/microchip,ksz.yaml
+> @@ -23,6 +23,7 @@ properties:
+>        - microchip,ksz8864  # 4-port version of KSZ8895 family switch
+>        - microchip,ksz8873
+>        - microchip,ksz8895  # 5-port version of KSZ8895 family switch
+> +      - microchip,ksz8995xa
+>        - microchip,ksz9477
+>        - microchip,ksz9897
+>        - microchip,ksz9896
+
+No regressions to report on this patch.
+
+For the record, one point was checked and found not to be an issue: whether
+the new compatible belongs in this file rather than in
+Documentation/devicetree/bindings/net/dsa/micrel,ks8995.yaml, and whether any
+driver matches it. Later patches in the same series add
+{ .compatible = "microchip,ksz8995xa", .data = &ksz_switch_chips[KSZ8995XA] }
+to ksz_dt_ids and { "ksz8995xa" } to ksz_spi_ids in
+drivers/net/dsa/microchip/ksz_spi.c, along with the KSZ8995XA chip
+description in ksz_common.c, so microchip,ksz.yaml is the matching binding
+file. The only compatible-conditional blocks in this schema cover
+ksz8863/ksz8873 and ksz8463, neither of which applies to this part, so no
+if-then block needed updating.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260913-ks8995-to-ksz8-v13-0-327b16d309eb%40kernel.org
