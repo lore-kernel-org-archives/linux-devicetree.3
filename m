@@ -1,115 +1,164 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7934E3F39D0
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 08:32:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6D403EEAE2;
+	Mon, 14 Sep 2026 08:32:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789374729; cv=none; b=kepXHeAr2WzXe0Hl+Ce3hotXvcQDwDL+NaKo5IdAF1UaZZXPNcylA4tvGbfqsiM+3exwK2jHhfIjxu7jzEWX90aYInJjNX1r01+VC3jYbStpjZCQMrkKAAab86ZOXiHXkN9L+//eszaQHEsINST5GiZ7LMezoaeC9NzUmDQVD0U=
+	t=1789374772; cv=none; b=odZQMF0bN/SIZCSvQ6XmAXgijBrdE9NYtk8e5WoDtM1wJebFWxa1CUcT6q2Mlqo9l3CLUklMwFYtAmJVHj7b/phAdfwEPIfarj7/GK8KaipX8gzy/ujLFTZD4EAwSkw5fwhoKkGrro8oFeMG3iGrzDB4zKvR5WY/7bS1+v04wsQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789374729; c=relaxed/simple;
-	bh=ZjvoAZq6BqkeR00N7bUgD3L00YB0HoOliJ8WeMyqzas=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=T4zuA2fwIMijTy9+Bx+jSXtdIBWya1alq7NNwcaIej2FROkrMtVk4lAkjWU3UhceDtP2u4Qoovk/jxWO9jObXWoqgW6EmVRh3/9WzvUsHbdm35Ic48ChKxCRLpgtT0JF6rgHPeZ45LJee91PkyzBJ079qrugX5vy/CbgWyxMKz4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=A9agbOju; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1789374772; c=relaxed/simple;
+	bh=wQIW58kd96Mxvk8XVo8GGflIQ5a1Ent2zmnDJu8T9NU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=C9FFtu7djVbYztNxtaQWpLCWt9x6uwZZw4ukBiIlffs7n06FMbqWC8MsVpGjxKDEE4E9vwIeJk82OqRuict5hH6lA4w9z5qwt+UWiI552fgab5vX/kHWrjj3c5dqjQDUbRkIjyZrFAF0cypvkNctCUsnkEMfCTGABXlAOHhBFek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=2d/FvAvt; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="A9agbOju"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d097b4939so7364265e9.0
-        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 01:32:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789374726; x=1789979526; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZjvoAZq6BqkeR00N7bUgD3L00YB0HoOliJ8WeMyqzas=;
-        b=A9agbOjulthb4cDLBia/e1cVbnvRatBiT2IdRMj1LqBmpuuLnKM4J0z0oj/TANAIVb
-         25HGJFk0Xf2bEPP4o881NehgcVeuPTk1kEGwPAN+gCSvfOsQODsah+jc3g0aoCyiQKap
-         2MoK7A927tkAHA33bcum8PdNAePX/YFs0wv4/SntXmkIoD9PeIo1BEgOUCI3YLryKw2C
-         hgWYpMXTkqUqCmgpNfGTOkAuheSs3qd7csJ2HGTtW9OzKrQCy7PBcUZALhDZzhDKZAOE
-         A7slkzmdVM40zFZ7R9n+B5oHrHCCDr4eFoscZA5yQEoJNiGVhurPLg6k4Yp0NANsd3kc
-         hQZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789374726; x=1789979526;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZjvoAZq6BqkeR00N7bUgD3L00YB0HoOliJ8WeMyqzas=;
-        b=k89KyxYVZgOjkggw3fzQMKkT2G1Byg+PBBjd+xS2HYeTrAQLCXx0hLxp351Ek0PemZ
-         xKPmRoEa1bBZiLxRPRWJA9dwpKcRZyzDKuyA9h2m/vQtTCkW3lQOASrg8warC08r78of
-         1dDIM8Go0zjItM+GSKfjFCjfPBrYEecY8gVNuOMIk3DgS2DND5hYw7NLEBUnkbw8+MBT
-         eZQdw2lO2z4amX70TIGLPWwFm+idB6NnjCBpiRdSCaWWMlirc7jyVdOsOStAi/CwkIvX
-         pkUmbyTRXsg2jqpja7NdDAng0Dd9uowMs/OcgnwQ8V5SIryG8nSqk+VgbXixCG3/slKq
-         s83w==
-X-Forwarded-Encrypted: i=1; AKwUvBypsfMQ8BDMdH/F12YcIosF+WQi+5xuByG7VOQ8ANB8CxfeL7ww1iQNgjArUWN/zt0DFiEHs8ullfwf@vger.kernel.org
-X-Gm-Message-State: AFuF++n6GPh7bHJ8sBsYBpYfWjvSRNjZqNkxEQF8jmULt+hig8Ox9JXe
-	0Uybajm21MMifXTbkyHIIulel47n71DaWrKzelsLjs00MnsOy+E4GHu9BISLb4ep49A=
-X-Gm-Gg: AYBFou3YhpBJpWszql+W3MbrPJrUPllNXREM1OokuPtvz2dnVTHuHbrJGJ/Fi1XZNiz
-	Qx+687dhsai6hBsRjf3S9TJY/P51BpxiydlGtYmAhK8pMMvFRCmU4Sd940sGFycjp/EiSwBG9ss
-	jxtfy1Ku77rlf8JFngHnVm1vmPSTzItu7z3ONlb1aLc/XgATOBkJc0x3XiEkURCdoNP8mCK/1x+
-	sKqCAolQfsbsF1Kp1VB4maUfASAlaQIskzzG9UFgt8QNkfovbh3dD8sHFLnPAVIyKlAAqAJoMjn
-	pAFu7I7GYOub+MxvOf0gpF2H0HytWI0LfNIYjdRfpIEz7kBpx0/CvsiSnsKLIuO9i/po+9TVpa+
-	qAZVeMOiXWe2lwWm4s3+o7VPy53w4xy42OWgv6iF85jhCXrhoozwUvldLZOMBJeUFb5thxqrYH5
-	P6lcMxuZltFZKE1ZO3M/iPuXe/D/AuxQ2rSZhQiyEa0tnsv+FBf8lFlKwh8gQ2YZZY4HMcetDZe
-	ZHKGwZImVCKVGu7vGBNdBK6IIze30Pxhyl/j7juflP1711++nUzImNo4ab8HM3xYFqHsW/aDw==
-X-Received: by 2002:a05:600c:c8f:b0:49e:715e:ec1f with SMTP id 5b1f17b1804b1-49e7a692430mr15660125e9.30.1789374725646;
-        Mon, 14 Sep 2026 01:32:05 -0700 (PDT)
-Received: from localhost (p200300f65f19a904d5c06a7863c841d4.dip0.t-ipconnect.de. [2003:f6:5f19:a904:d5c0:6a78:63c8:41d4])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-486eb357288sm25639728f8f.29.2026.09.14.01.32.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 01:32:04 -0700 (PDT)
-Date: Mon, 14 Sep 2026 10:32:03 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Chi-Wen Weng <cwweng.linux@gmail.com>, devicetree@vger.kernel.org, 
-	conor+dt@kernel.org, robh@kernel.org
-Subject: Re: [PATCH v5 2/2] pwm: Add Nuvoton MA35D1 PWM controller support
-Message-ID: <aqew8W2wgNvlqrfc@monoceros>
-References: <20260721062308.536947-1-cwweng.linux@gmail.com>
- <20260721062308.536947-3-cwweng.linux@gmail.com>
- <20260721063343.9C6561F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="2d/FvAvt"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 8507BC6220A;
+	Mon, 14 Sep 2026 08:33:30 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 632E060323;
+	Mon, 14 Sep 2026 08:32:47 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3BF4E11C7AFD9;
+	Mon, 14 Sep 2026 10:32:42 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789374766; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=t+bhyABek7V/xx++E1c8RabUELBTBXODnbFXuaAAKQQ=;
+	b=2d/FvAvtyc/nTCI+osd9aWSzqN3jILc8tPO/hoImrs1bErK9hO29yZuznpWAQ1KLbDsZAF
+	VEn/Wa/kJOlX3KwrGPW5TbqsABU1F2iayhdQmkxK7jF9NzPcsT2rFg4bzX2uWIsRhvPJrh
+	lMZpnW69DbP0OLRIXsr/xLcqfowQNtxCNSL3jp38UiRBQXpPc47MXSkR5Qu77BVKgdJMdI
+	lgRutwBQivXKAkON0WsRRxp+YhQVKdE7rT80cm9UE+Vcxp3SrNyFyS3Phat1rqLYDajzmP
+	SLi0Vq9YQE5JEuRCxb5N+G42oNkbsDlSzysWDB1bx3aZUQtvgipfGUHLaJOPdg==
+Message-ID: <b86b0f43-4a86-4bc8-865b-1d767992597a@bootlin.com>
+Date: Mon, 14 Sep 2026 10:32:42 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ucvzjrpo32wzefdd"
-Content-Disposition: inline
-In-Reply-To: <20260721063343.9C6561F00A3A@smtp.kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] watchdog: omap: Preserve OMAP watchdog across boot to
+ detect faulty boots
+To: Guenter Roeck <linux@roeck-us.net>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>,
+ Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade
+ <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>,
+ Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-omap@vger.kernel.org, devicetree@vger.kernel.org,
+ thomas.petazzoni@bootlin.com
+References: <20260911-omap4-wdt_boot-v1-0-637d778a4a1e@bootlin.com>
+ <407b9420-0ec6-4d95-960b-633677edf760@roeck-us.net>
+ <14eb1c72-fab0-445a-82f2-5851a855f723@bootlin.com>
+ <f1adea74-8f87-4442-aa12-18536cabec3c@roeck-us.net>
+Content-Language: en-US
+From: Diogo Ivo <diogo.ivo@bootlin.com>
+In-Reply-To: <f1adea74-8f87-4442-aa12-18536cabec3c@roeck-us.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
 
---ucvzjrpo32wzefdd
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH v5 2/2] pwm: Add Nuvoton MA35D1 PWM controller support
-MIME-Version: 1.0
 
-On Tue, Jul 21, 2026 at 06:33:43AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] The apply callback returns early when !state->enabled, dropping updates to polarity, period, and duty_cycle.
+On 9/11/26 7:25 PM, Guenter Roeck wrote:
+> On 9/11/26 08:17, Diogo Ivo wrote:
+>> Hi Guenter,
+>>
+>> On 9/11/26 4:29 PM, Guenter Roeck wrote:
+>>> On 9/11/26 02:17, Diogo Ivo wrote:
+>>>> Allow the OMAP watchdog to survive being stopped on kernel 
+>>>> initialization
+>>>> so it can detect a faulty boot in cases where the bootloader leaves it
+>>>> running and the watchdog driver picks it up during kernel init.
+>>>>
+>>>> - Patch 1 removes a duplicate omap_wdt_start() call left behind by
+>>>> cd004d8299f1 ("watchdog: Fix OMAP watchdog early handling"). This is
+>>>> unrelated to the main goal of the series and can be picked up
+>>>> independently.
+>>>>
+>>>> - Patch 2 adds support for reading the watchdog boot status. Probe now
+>>>> checks whether the watchdog is already running and takes it over 
+>>>> instead
+>>>> of blindly stopping it based on early_enable alone. This introduces a
+>>>> regression possibility, explained in detail in the patch's message.
+>>>>
+>>>> - Patch 3 marks the OMAP4 watchdog node ti,no-reset-on-init so the
+>>>> ti-sysc driver stops resetting it. A detailed explaination of why is
+>>>> also provided in the commit message of the patch.
+>>>>
+>>>> This series has been tested on a platform based on the VAR-SOM-OM44 
+>>>> from
+>>>> Variscite, running a TI OMAP4460 SoC.
+>>>>
+>>> Please address the issues reported by Sashiko, or explain why they 
+>>> don't apply.
+>>
+>> I have just replied to the Sashiko reviews but I'm not sure if you got
+>> the replies as Sashiko did not include your e-mail in its review. If you
+>> did not receive them please let me know and I can resend them. In
+>> any case if you could give your opinion on the comments I left on the
+>> patches about regressions that would be great as I think after the
+>> Sashiko points are addressed that is the main blocker for this series.
+>>
+> I did. I just wonder if the effort is worth the pain / cost.
+> 
+> Is there an actual use case ? Is the problem you are trying to solve
+> a real problem, or a theoretic one ? For example, the patches impose
+> a hard boot delay of more than 30 ms in omap_wdt_is_running().
+> Even though that could be optimized (there is no reason to wait
+> that long; the value could change a microsecond after the first read),
+> it is nevertheless a mandatory boot delay.
 
-FTR: This is fine.
+Yes, I stumbled upon this problem while trying to do exactly what is on
+the commit messages, so having a system that does A/B updates and uses
+the watchdog to detect if the boot succeeded or failed. The current boot
+delay is actually (1000000 / 32768) * 10 = 305us, so quite a bit smaller
+than the 30ms you mention, even though from the Sashiko comments I need
+to take into account the prescaler, which in the worst case brings the
+value to the 30ms you mention, but if I adjust it I can bring it down to
+3ms in the worst case of a 128 prescaler. However, for a system with
+prescaler=1 the delay can be brought down to 30us.
 
-Best regards
-Uwe
+> Another concern is the impact and potential side effects of setting
+> ti,no-reset-on-init (and the possible boot loop cause by it due to the odd
+> 30-second init delay). After this change, a running watchdog is no longer
+> stopped. What happens on systems which do not load the watchdog at all
+> (for example because the driver was not configured) ? Will that also cause
+> a boot loop on such systems ?
 
---ucvzjrpo32wzefdd
-Content-Type: application/pgp-signature; name="signature.asc"
+Here with ti,no-reset-on-init the ti-sysc driver will shutdown the
+watchdog driver after 30 seconds, which can indeed cause problems. When
+I sent the patch I thought the timeout would be 3 seconds, which
+considerable reduces the possibility of a bootloop. I will look into it
+to see if it makes sense to change the timeout value and reduce the
+possibility of the bootloop. My initial assumption of the 3 seconds was
+what actually made me not add ti,no-idle-on-reset since that would
+completely block the watchdog stopping from ti-sysc.
 
------BEGIN PGP SIGNATURE-----
+> This is just a couple of problems introduced by this series. You better 
+> have
+> a very good reason for it to warrant having to deal with the potential 
+> fallout.
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqnsQEACgkQj4D7WH0S
-/k4T+wgAsIgiczkV9Wuo63Pki2TvLHBbduzIfu9P6B0CD5KEzPO6FQXvrCrTNFbH
-xicxyvVumhSSPvHN07qM7x0HQZQaPPaH4A399FJHh+o0sQM6lCHlh9GXNcRA9Uls
-CLNTgeTx+9YlaafkTMQ4vSUEcYX4xTrlfggluCeHHmEW1XzhppGQpTJufmeANnnv
-scuzxuzV0wAD7LV2vHivtgPaShrpR8KhUVWordnkSRmbFGHZ8KfZnT2y9ZeF+Iv8
-xhoHpQm3f/zvSGkO5EQUTelHYG+eDxJV3DhdymPoo2C78MhUCCqMEehZ8K5DsI0a
-NiGHzjD5LrBJzAIhx4u9CyuADB7bNA==
-=RNyn
------END PGP SIGNATURE-----
+The reason is that in these systems the watchdog is not behaving as one
+would expect: if the bootloader leaves the watchdog running it is a
+reasonable expectation that unless the kernel or userspace services it
+the system should shutdown. With this series I have tried to achieve
+this while minimizing the risk of regressions, and from my point of
+view the only sore point is indeed the 30s timeout in ti-sysc. If you
+agree with my reasoning and think this is worth pursuing let me know and
+I will change the 30s timeout for v2. In the meantime patch 1 is
+completely regression free and can be picked up!
 
---ucvzjrpo32wzefdd--
+Thanks,
+Diogo
+
+> Thanks,
+> Guenter
