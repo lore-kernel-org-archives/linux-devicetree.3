@@ -1,169 +1,272 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f40.google.com (mail-oo2-f40.google.com [74.125.231.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C1832E888C;
-	Mon, 14 Sep 2026 03:01:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8157231280C
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 03:01:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789354900; cv=none; b=dgj9hGLO6xvYFeVdLu8pzrCKK3PfSWsUufC8EGYKsWiafeH5YO8C8mpuW8Itm8d3O4alK8TqQwBAiWFLV2j4E4VJdAqCSgz5nIeyd00474AvrpRqrSPzLwUwvhAEczAbUb9wskV62EiFA9PCI2NXbZRKrlnFD5pDAXIqUg+O7Dc=
+	t=1789354900; cv=none; b=C1DUm1hCpi2U9brewXEqPxsktY8Tfrjrqj8j+Wz/eeMeg8YtRA9i4GeWFtHJe1QlK73qKtffOLIgFDCRQOoCpA+6k42pTR8SwAiDIBoMBRByVXJbjk3AQhyo+B5mTpsjASDGeF2wbN21jLGz/uskZueHfolERCxsXgGZ6bptCAc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789354900; c=relaxed/simple;
-	bh=HVA3NWrT/wQga/eiKqTcToZeQeq0wzt46cH0Rpm5AhQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ark54FPTKu2PojYUlIKNjvJpfA6qGrak0H+RnQz+7jczArUgeB8sYfy5z09VxvwdE8+Tv6/XM/RVGuILWKhd3KLLXJkfRXDNRbRMzt4BZnhvh/3ABTCPJSoBQt3p9Fe+5nnTeBEgdP3S+MSI/LhQ4yBJw8znFjQloUcgfEZo2Ro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=R4vWLwDA; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	bh=Pi6YDXOmrmzc3kuI0rj21OMihyFbVdTsdDqZvaKEQ6U=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=H3HbyM9SISHNUlzDsxVvN4E8r+kE/nQdFgoSGMCUpxoYq0mWIqadknkFUmwIpMJrZoVHTM8iiFZWZuqFba7irF42FNbYOPVkBm4F2wBr0/ZCemUfhs/Qsq0bb9BmOtk3giAB8ym5GSBm71nmYtNAElPY9k43RvU4lhETzox8QSI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ISktQbGC; arc=none smtp.client-ip=74.125.231.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="R4vWLwDA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=1v
-	5b+fRL9NAYhSdoLEcKC3YciDkKADtaABnc4lssut4=; b=R4vWLwDAeCUlc1oG99
-	6hOB/8ePLSDiDYE0jRNi2E0F0gQ+76N50DFkH2PKjXtJisdMcyiWD9qOI7L5nj85
-	yMOGWRcFz8Jvn6vGgydMXao+ncygxhZSyh5Hp9sceG7KnsfSqqZKVDltGL22e4zJ
-	u3u3vel/8WtaTpcdnZ6QHb7xI=
-Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wAHyGd8Y6dqsoVfAg--.21450S2;
-	Mon, 14 Sep 2026 11:01:18 +0800 (CST)
-From: Quchaosheng <quchaosheng000406@163.com>
-To: Marc Kleine-Budde <mkl@pengutronix.de>,
-	Vincent Mailhol <mailhol@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-can@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	quchaosheng000406@163.com
-Subject: [PATCH v5] dt-bindings: net: can: ifi,canfd-1.0: Convert to DT schema
-Date: Mon, 14 Sep 2026 11:01:16 +0800
-Message-ID: <20260914030116.437424-1-quchaosheng000406@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ISktQbGC"
+Received: by mail-oo2-f40.google.com with SMTP id 46e09a7af769-7f4f1354074so249935a34.0
+        for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 20:01:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789354896; x=1789959696; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=jnEXefFLpaIksM6/IH6BmftoOS/Z3PWT+GpaSS3SKPo=;
+        b=ISktQbGCwERh+dbq2+JNjpq0jOYb78qqna1qBP4ocQfhfnqUDCYmvoJ6sUlNZLPIH8
+         1O0wFbOLJQhr71IJEb0K1ugmsI9phV0EI+fx4+SrJjLxRUMLl8jNp9mbUdBjlKhrAwFm
+         j5nFySI17vx8EWZVN18n+LGc9j7msgQCXATgbtO/t9e7CuiYiGNK8NEICvLm3AvZGapU
+         76zIU2Nsxtiex3+TYETGAbat5g0uqa9QY+x9qshetpTukche4mF4WWrZn/qQflfqylzU
+         0Y89Qa54ogNom6WMHgtgRSa4qU76eT8iRVgYOohKsMT2Th/UCryj2oetJTWfoXtbLvjN
+         7sHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789354896; x=1789959696;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=jnEXefFLpaIksM6/IH6BmftoOS/Z3PWT+GpaSS3SKPo=;
+        b=kniJTklR684/nDQGlu63BhJ7apnT4Q09SV5OBXCDuVJ9Fi6CShhYi2XMzMSETXLH9k
+         HjZxMpcMO6ibfHBfJZgMWp+OZwOQJ0Mufva8HZQPiN9a7WWt2Gatel+Ki3/B7fs13MPy
+         xnxonXrypN08LZ4PM7lyPn6ICFGqDh9OrOg53MGlYeQCtFHBQDpetZqk/T3AEaqlLYWm
+         oCwdita0atnPeFrxVc4GgnkUH0wOfDwNzjmGLSkcxM4rgdNYJHWzvVHXjHL3M9xF8ugy
+         w2jXqxDE54InGEBnlgJwoYlZTh2yLm3CdMHMMWCQ4jxEJ3zjEmdW+MTKxcQlGgkEbCez
+         5HUw==
+X-Forwarded-Encrypted: i=1; AKwUvBxR16LoUmEzA9KpY9WcIXlP/x2Gc7S2HNd+k1HgdGFk8FWO+zX5Hgv6lOeQbHIwEciXdOtntsY/nUv7@vger.kernel.org
+X-Gm-Message-State: AFuF++mX2/vicDZJfRBhq7rU4Gcnp5i35XhNLjasyANV2NRqParLHt0N
+	/R8XX3nsE9mDgAH8bVHKNpI2maCqhjdd/gm2xB4yry9gEXjRmjOABU3B
+X-Gm-Gg: AYBFou20/q8WUWSJvX0CpAeRMIbzwK8abD0lUZhy4mtTaVhB5/xvXzvDZ6nOL8whgst
+	rzwi/XiR18lwm3MnbF7NZXzHf+KUdIrdbBXY85heQC5c1z5NCzyCFdMTeY6oYAdy5qJQlQ8OR8z
+	E6K063uXosed7BRu6HznAxyzr41HZlKxwWaw6n+azhe3g8fw2am9t6WBNUmE60EU4bZvCfRPRuz
+	hhqGdZxik+UZfRHUoKuKKQyODfWOplQwbz6vJj8HyFLYdKiKBy72YjfmNUsiNOam8sHjdkSqIB+
+	xNFdBb+WNgeRpYNklkQ2HZj549Mc/FynJeELkgTzrRWvlHVauEKr7frZRKkZKbgT5WSRLskkzwZ
+	k20mpMzaUw2CDoULSc/iB+e3Jr4SUwpuVsVDVJ1DXrjO6C5/VKtHVqzdHKLQ839VAyFMrRSlcOt
+	6lqVGU0ZouyWhnSqaQTx6ET8BDUCmPI5ZOlTOPD7t6keKzdgGdV7fmfC/doV/RF2PCRhZhRT37M
+	Ji/A3GhLbk0qUt0aI2Nnnty3G2d1wkLTBj5KiHErd43kGwmr5jUQgiD9r1B1+oLCrRK5/NJfIer
+	9vfz8XSFb0qxeLEaYA11PzTU7bdfOk/cZo6fXnl4hUPpzEXmy2hNOQrSJaTYlKXt+yO8SrpzLPd
+	swHqYrJl8VUXUF5DyNZNVIAItf+kO/A==
+X-Received: by 2002:a05:6830:2a8a:b0:806:24fd:7c10 with SMTP id 46e09a7af769-80884cc9d67mr340575a34.7.1789354896400;
+        Sun, 13 Sep 2026 20:01:36 -0700 (PDT)
+Received: from [127.0.1.1] (184-96-157-145.hlrn.qwest.net. [184.96.157.145])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-803f60feba1sm10619014a34.13.2026.09.13.20.01.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 13 Sep 2026 20:01:35 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Subject: [PATCH v5 00/18] mtd: rawnand: sunxi: support the Allwinner
+ randomized OOB format
+Date: Sun, 13 Sep 2026 21:01:06 -0600
+Message-Id: <20260913-submit-sunxi-nand-vendor-oob-layout-v1-v5-0-7d711076a6f7@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wAHyGd8Y6dqsoVfAg--.21450S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCF4DJrWDKF1kGr1rXw1UZFb_yoWrGryUpF
-	W3CrnrJFs2qF43Gws7K3W8Cw13ZFs5AF15Gr9rZw18Aas0gFy5tw4akas5ZFyYgrZ2vFyx
-	XF4Fga15J3W7uaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pR9Z2xUUUUU=
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC5B588WqnY34SpgAA3T
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5XQz2oDIRAG8FcJnmtxdHazm1Pfo/Qw/kliyWrRj
+ SSEffdqemjaXrYgDB8Mv0/mxrJL3mW229xYcsVnH0MN3dOGmSOFg+Pe1sykkL0YQPB81pOf6wg
+ XzwMFy4sLNiYeo+YnusbzzAtwpwDQgjBmNKxiH8nt/eVe9Pr2lav07szc9LZx9HmO6Xr/SYG29
+ +/S+gTHXg2dIkCy48thIn96NnFirbTIb3YUuJqVldUgxRb3SIa2v1n1yI6rWVXZQQ1GC03Q4R8
+ WH1iQq1lsR6AetbMjSvnjCMuyfAIJbfDy8wEAAA==
+X-Change-ID: 20260810-submit-sunxi-nand-vendor-oob-layout-v1-e3114d10cc9c
+To: Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>, 
+ Richard Genoud <richard.genoud@bootlin.com>, 
+ Masahiro Yamada <yamada.masahiro@socionext.com>, 
+ Boris Brezillon <bbrezillon@kernel.org>, 
+ Brian Norris <computersforpeace@gmail.com>
+Cc: linux-mtd@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.15.2
 
-Convert the IFI CAN-FD controller binding from free-form text to DT
-schema, and reference the common can-controller.yaml schema.
+Allwinner NAND firmware leaves the bad-block marker in the randomizer
+data stream. On H6/H616 it also places all protected user data before the
+first ECC step. These choices differ from the mainline format, which
+keeps the physical marker plain and maximizes the H6/H616 user-data area.
 
-The driver matches on the "ifi,canfd-1.0" compatible and obtains its
-interrupt through platform_get_irq(), so interrupts is required.
+Add allwinner,randomized-oob to select the firmware format for the
+configured hardware-ECC geometry. Older controllers keep their fixed
+four-byte-per-step user-data layout; H6/H616 use four bytes per 1 KiB
+step, capped at 16 bytes, packed before the first ECC step. Without the
+property, retain the existing marker handling and OOB layout.
 
-The example uses the GIC and irq header defines instead of the raw
-numbers from the original text, which keeps the values unchanged
-(GIC_SPI is 0, IRQ_TYPE_NONE is 0 and 1 is IRQ_TYPE_EDGE_RISING). The
-node name is changed from "canfd" to "can" so that it matches the
-$nodename pattern required by can-controller.yaml.
+Normal hardware-ECC accesses use the controller randomizer. MTD_OPS_RAW
+continues to bypass both ECC and randomization and expose physical data
+and OOB, including randomized markers stored by firmware.
 
-Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
+Address the ECC-error paths as well. In randomized-OOB mode, use the
+controller-specific vendor spare-byte erased-page heuristic on the
+protected user data from the original hardware read. Older controllers
+use exact erased-spare checks, including their first-page and page-127
+signatures; H616 requires byte zero and at least nine of ten spare bytes
+to be 0xff. Accepted erased pages return all-0xff data and OOB without a
+raw reread. An all-zero physical page instead returns a bad marker and
+an ECC failure.
+
+Other ECC failures retain the original decoded data and protected OOB for
+bad-block and flash-BBT pattern scans. PIO and DMA share this page-wide
+classification, including randomized-format subpage reads. Plain-marker
+mode keeps its existing physical erased-chunk check.
+
+Start with fixes for interrupt/completion ordering, PIO OOB lengths,
+per-step pattern IDs, read/write error handling, duplicate OOB program
+confirms and the extra-OOB cursor. Follow these with the small-page
+command fix and the DMA register-bank fix, then the OOB-helper cleanup,
+binding and randomized-format support.
+
+Use page-addressed reads to reposition small-page NAND in hardware-ECC
+read paths, retaining transport errors and the existing geometry checks.
+Select PIO for those pages because the DMA sequencer uses large-page
+random-column commands. Large-page DMA and the on-flash layout are unchanged.
+
+Bound H6/H616 DMA batches by the 128-byte user-data register bank.
+Keep the existing default OOB allocation and ECC offsets, reusing hardware
+slots across batches instead of changing the format or falling back to PIO.
+Preserve page-wide ECC accounting and a single final program confirm.
+All of these fixes apply without the randomized-OOB property.
+
+Finish with optimizations to combine contiguous unprotected OOB reads and
+reduce repeated chip setup and register accesses without changing the
+page format.
+
+Assisted-by: Codex:gpt-6-astra
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
-v2:
- - Correct the description: this is a soft IP block typically synthesised
-   into an FPGA or CPLD, not a controller found on Renesas SoCs.
-   Wording now follows the driver's Kconfig entry.
+Changes in v5:
+- add a separate small-page command-handling fix: use READ0/READ1/READOOB
+  with the page address for rereads and normal OOB access, and select PIO
+  instead of the large-page DMA sequencer
+- keep physical reread errors visible, preserve the OOB cursor and retain
+  the existing ECC geometry requirements, including rejection of 512+16
+  with controller ECC
+- group the small-page fix and the DMA register-bank fix with the opening
+  fixes, ahead of cleanups, bindings, format support and optimizations
+- make the DMA register-bank fix independent of randomized-OOB support
+  and the later register-access optimizations
+- Link to v4: https://patch.msgid.link/20260912-submit-sunxi-nand-vendor-oob-layout-v1-v4-0-4a64bed94229@gmail.com
 
-v3:
- - Use unevaluatedProperties: false instead of additionalProperties: false.
-   As can-controller.yaml is referenced through allOf, additionalProperties
-   would have rejected properties defined by that common schema, such as
-   termination-gpios and termination-ohms.
+Changes in v4:
+- prepend an independent fix for completion reuse and IRQ timeout races:
+  initialize the completion once, finish IRQ register updates before
+  signalling success, and drain timed-out handlers before clearing their
+  interrupt state
+- add a separate fix for aggregate protected-user-data register overflow
+  by splitting DMA transfers into bounded batches, retaining the existing
+  OOB layout, ECC offsets and DMA support
+- distinguish logical page steps from batch-local hardware slots, retain
+  page-wide ECC accounting and avoid retrying partially transferred writes
+- Link to v3: https://patch.msgid.link/20260909-submit-sunxi-nand-vendor-oob-layout-v1-v3-0-838cb0ba1547@gmail.com
 
-v4:
- - Use defines instead of raw numbers in the example, and rename the
-   example node from canfd to can. No functional change.
+Changes in v3:
+- add a prerequisite fix for the logical OOB length used by PIO transfers
+- clarify logical ECC steps versus hardware slots and share protected-OOB
+  register indexing
+- select the controller-specific vendor spare-byte erased-page check from
+  the SoC capabilities, only in randomized-OOB mode and without rereading
+  the main data
+- retain hardware-decoded data and protected OOB on other ECC failures
+  for bad-block and BBT pattern scans (reported by Miquel Raynal)
+- retain a bad marker and ECC failure for all-zero physical pages, and
+  disable the ECC exception for the vendor format
+- share page classification between PIO and DMA, reading complete pages
+  for randomized-format subpage requests
+- propagate OOB read errors and defer randomized-format ECC accounting
+  until those reads have succeeded
+- propagate read/program setup, column-change and buffer-transfer errors,
+  including extra OOB; stop failed writes and disable ECC and randomization
+- discard partial DMA ECC statistics before retrying in PIO, and keep
+  correction counts separate from successful OOB-transfer status
+- select the current hardware step's pattern ID instead of slot zero
+- avoid a second program confirm after an OOB-only write
+- avoid redundant column changes before writing extra OOB bytes
+- reject oversized ECC steps in randomized-OOB mode before the core can
+  fall back to software ECC
+- combine adjacent parity and trailing OOB reads in randomized-OOB mode
+- remove duplicate chip setup immediately before core page commands
+- program each packed DMA user-data length register once per operation,
+  and write PIO slot zero directly without read-modify-write
+- reuse pattern IDs and packed error counters within a DMA read, while
+  refreshing the snapshot after every PIO ECC operation
+- Link to v2: https://patch.msgid.link/20260904-submit-sunxi-nand-vendor-oob-layout-v1-v2-0-b12074f4aca7@gmail.com
 
-v5:
- - Re-send the patch on its own. The v4 posting accidentally included
-   unrelated changes to the xilinx-xadc binding and did not remove
-   ifi_canfd.txt. Only the intended change is present now.
+Changes in v2:
+- rebase on the current MTD nand/next branch
+- retain the merged protected-OOB allocation, BBM reservation and
+  stack-buffer fixes
+- clarify that randomization is part of the normal hardware-ECC page
+  format while MTD_OPS_RAW continues to expose physical bytes
+- explain why a BSP-compatible BBM remains randomized in physical raw data
+- document the decoded bad-block and flash-BBT access paths
+- reject the firmware OOB format with software or disabled ECC
+- document the BSP page-format compatibility contract and the
+  older-controller format audit
+- Link to v1: https://patch.msgid.link/20260810-submit-sunxi-nand-vendor-oob-layout-v1-v1-0-463853a14ad9@gmail.com
+
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Richard Weinberger <richard@nod.at>
+To: Vignesh Raghavendra <vigneshr@ti.com>
+To: Chen-Yu Tsai <wens@kernel.org>
+To: Jernej Skrabec <jernej.skrabec@gmail.com>
+To: Samuel Holland <samuel@sholland.org>
+To: Richard Genoud <richard.genoud@bootlin.com>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Maxime Ripard <mripard@kernel.org>
+To: Masahiro Yamada <yamada.masahiro@socionext.com>
+To: Boris Brezillon <bbrezillon@kernel.org>
+To: Brian Norris <computersforpeace@gmail.com>
+Cc: linux-mtd@lists.infradead.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-sunxi@lists.linux.dev
+Cc: linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+
 ---
- .../bindings/net/can/ifi,canfd.yaml           | 46 +++++++++++++++++++
- .../devicetree/bindings/net/can/ifi_canfd.txt | 15 ------
- 2 files changed, 46 insertions(+), 15 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/net/can/ifi,canfd.yaml
- delete mode 100644 Documentation/devicetree/bindings/net/can/ifi_canfd.txt
+James Hilliard (18):
+      mtd: rawnand: sunxi: drain interrupts before reusing the completion
+      mtd: rawnand: sunxi: use the logical step's OOB length in PIO
+      mtd: rawnand: sunxi: propagate page-setup and erased-check errors
+      mtd: rawnand: sunxi: stop failed program operations and disable ECC
+      mtd: rawnand: sunxi: select the pattern ID for the current ECC step
+      mtd: rawnand: sunxi: propagate buffer and column transfer errors
+      mtd: rawnand: sunxi: avoid a second program confirm for OOB writes
+      mtd: rawnand: sunxi: avoid redundant column changes for extra OOB
+      mtd: rawnand: sunxi: use page reads to reposition small-page NAND
+      mtd: rawnand: sunxi: bound DMA batches by the user-data register bank
+      mtd: rawnand: sunxi: clarify OOB register and step handling
+      dt-bindings: mtd: sunxi: Add randomized OOB flag
+      mtd: rawnand: sunxi: support randomized OOB formats
+      mtd: rawnand: sunxi: select the packed H6/H616 OOB layout
+      mtd: rawnand: sunxi: combine contiguous unprotected OOB reads
+      mtd: rawnand: sunxi: avoid duplicate chip setup before page commands
+      mtd: rawnand: sunxi: reduce user-data length register accesses
+      mtd: rawnand: sunxi: reuse ECC status within each DMA read
 
-diff --git a/Documentation/devicetree/bindings/net/can/ifi,canfd.yaml b/Documentation/devicetree/bindings/net/can/ifi,canfd.yaml
-new file mode 100644
-index 000000000..c8c3105c7
---- /dev/null
-+++ b/Documentation/devicetree/bindings/net/can/ifi,canfd.yaml
-@@ -0,0 +1,46 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/can/ifi,canfd.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: IFI CAN-FD Controller
-+
-+maintainers:
-+  - Marc Kleine-Budde <mkl@pengutronix.de>
-+
-+description:
-+  The I/F/I CAN-FD soft IP block connected to the platform bus. It is most
-+  often synthesised into an FPGA or CPLD.
-+
-+allOf:
-+  - $ref: can-controller.yaml#
-+
-+properties:
-+  compatible:
-+    const: ifi,canfd-1.0
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    can@ff220000 {
-+        compatible = "ifi,canfd-1.0";
-+        reg = <0xff220000 0x1000>;
-+        interrupts = <GIC_SPI 43 IRQ_TYPE_NONE>;
-+    };
-+...
-diff --git a/Documentation/devicetree/bindings/net/can/ifi_canfd.txt b/Documentation/devicetree/bindings/net/can/ifi_canfd.txt
-deleted file mode 100644
-index 20ea5c70a..000000000
---- a/Documentation/devicetree/bindings/net/can/ifi_canfd.txt
-+++ /dev/null
-@@ -1,15 +0,0 @@
--IFI CANFD controller
----------------------
--
--Required properties:
--  - compatible: Should be "ifi,canfd-1.0"
--  - reg: Should contain CAN controller registers location and length
--  - interrupts: Should contain IRQ line for the CAN controller
--
--Example:
--
--	canfd0: canfd@ff220000 {
--		compatible = "ifi,canfd-1.0";
--		reg = <0xff220000 0x00001000>;
--		interrupts = <0 43 0>;
--	};
--- 
-2.43.0
+ .../bindings/mtd/allwinner,sun4i-a10-nand.yaml     |   10 +
+ drivers/mtd/nand/raw/sunxi_nand.c                  | 1168 ++++++++++++++------
+ 2 files changed, 836 insertions(+), 342 deletions(-)
+---
+base-commit: 7e874b1750a40f3dc9a629aeb72eba09c77f77e9
+change-id: 20260810-submit-sunxi-nand-vendor-oob-layout-v1-e3114d10cc9c
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
 
