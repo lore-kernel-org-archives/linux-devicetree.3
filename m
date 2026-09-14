@@ -1,102 +1,82 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB6BB415F08
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 10:14:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC65C2E6CA6;
+	Mon, 14 Sep 2026 10:14:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789380859; cv=none; b=UP1iCvpuK11nO1qjjMFWiY3hhVLcuSGWrhySGjPqluQgdUalU8uShoDhNPkNUEPOITh5GZJ2U1e+pS5d0WPHNyYzfQLSr+OSEamqATiuQeKJp6YODeNWgwVhMyZ6nswv8bfPVbkWZwQE6QCM08rmH3aGQfvpXfWKDXAo5TSpXN0=
+	t=1789380863; cv=none; b=LZr7HZLabiHE5yQHtApFRpLjfINEiEzNuOeIEDE7T+zjAJObllOdC3KPtODKlzJQpjOp+2TdzoKn4o32VW6+Vp9riqh29oO9aHYzIVBmD35fikHXeOHLa6h7Fa6bB+KXzC4StqZNt5ySXoJ/U5ov9E6bC6s+FCNgG+EEn59mw1Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789380859; c=relaxed/simple;
-	bh=ND54zP4E5qpqzsM4D4OTFXCufpmZ3NHGMoJ83u/FFVY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=o3Y7XWbimagQBSOuo//VEd3bT6yRrCm0/uxXiobn/ZJXqaQYZ48rvkTcEUUkCLI5hTfXyBRarL9l7NN3iKFdxBkkGtSpLyBZ1Nk+v9WmYMtOblzwGmk9i/z4l+qXcDJRTa9dVSkvB0TKM58M+/yfiOTzxBO203+iiEcKMHdSaYc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZYVUiJVL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789380863; c=relaxed/simple;
+	bh=rmC4/YcEq5olwYAkjh+h4YWndqEVCVaCPUGICgBvd/A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Vc1u8W3lOy6QiRB3uZ5OZg0b1FZVtANVtflb4cPObISAy8A2ax0H4I2umfJ8z9QseqwtCL28LG08gx7EpJY/tRUJbRGTFQj+1DTktRWDHCF512DBxKWlxOf6szOucMx32XiqCmRRl0dG3id8FmKnXRte8aFyhHVs/BymCS5Ox/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a5NLQ/Od; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZYVUiJVL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 034911F00893;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a5NLQ/Od"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E9BB1F000FF;
 	Mon, 14 Sep 2026 10:14:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789380856;
-	bh=j2IJSJyuyvYy1s3pyeu+qwktKWG6Apdrf4CAI1e1Zfw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZYVUiJVLPwpF1opDrsVChag6itjLkHxRBoiHO/leyyNC+IHnb45/D9Avn3R+Tg/oz
-	 SJLM03BwaCvPt4rLca/9UgTXhQPMNbl+hMExWjomJeTrpwUyErHwkhtOeCrFlFNJV0
-	 kHDUACTqFMdc9bnD6JQSnbqvsGDzUi4FHGXRYkYDNQ/lwQ++NWP15MPc3zWWSBNcwp
-	 1t1OKk4GFbwXSUKUHxyAylICX+Fq92HS64bthWw19cD3bnb6zaEaHD+y4m86NHXM+C
-	 dtxIAFOq3YZxc77ghJRbDUKv10NyF6OBy0F9p96kFNORGR534YRgJAIV1HRFFTdNmL
-	 DpeL4D//pVPqA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/1] arm64: dts: qcom: sdm845-sony-tama: Enable UFS host
- controller and PHY
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Shujath Mohd" <shujath@outlook.in>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <PUZPR01MB514158F5EDA660AC85FA8D5BC3BB2@PUZPR01MB5141.apcprd01.prod.exchangelabs.com>
-References: <PUZPR01MB5141BA498FEEA594E61CCFB1C3BB2@PUZPR01MB5141.apcprd01.prod.exchangelabs.com>
- <PUZPR01MB514158F5EDA660AC85FA8D5BC3BB2@PUZPR01MB5141.apcprd01.prod.exchangelabs.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 10:14:15 +0000
-Message-Id: <20260914101416.034911F00893@smtp.kernel.org>
+	bh=50Ab5hgRM3J+T1RQ+KqVdIaeqjJu0Jhurl0zuN8lli4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=a5NLQ/Od9aoxLSn7RFt6Rh4GdF+QEP9wSGi7MiaVvDuVs1p0VVbK1KLEAnGmeDHeI
+	 y+RZXoaGQt/Jied7/1sMcrVfyv92ByAWk9d1v06Pqs7YjR7TMHeBiUv9FUyWZvLEBh
+	 20wT0IvMCpbm/U6v1ptX9x69kRMWA+4YNav8yH2uz6dXRmUsou2RhLp65dgNGw1gI/
+	 MgmsPMnN3VnmRS54wtnztO7i9bysAs6R0EF6kuGj0hB3oTk83+tQVYsVg20btgIMbB
+	 ps+dFjQ9LXFjzy1XwlKRf3wkNVU9bQGFbgw+YEX6G9HFQYk5GJijzyqOHSTH9aOTuK
+	 UcRzxTkGAOfeg==
+Date: Mon, 14 Sep 2026 12:14:12 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Alexey Minnekhanov <alexeymin@minlexx.ru>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Sumit Semwal <sumit.semwal@linaro.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	David Heidelberg <david@ixit.cz>, Joel Selvaraj <foss@joelselvaraj.com>, 
+	Chintan Patel <chintanlike@gmail.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, phone-devel@vger.kernel.org
+Subject: Re: [PATCH 1/9] dt-bindings: vendor-prefixes: Add Shenzhen TXD
+ Technology Co., Ltd.
+Message-ID: <20260914-venerable-accelerated-seagull-acdb8d@quoll>
+References: <20260913-nt36672a-panels-v1-0-ce097402c6ea@minlexx.ru>
+ <20260913-nt36672a-panels-v1-1-ce097402c6ea@minlexx.ru>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260913-nt36672a-panels-v1-1-ce097402c6ea@minlexx.ru>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Critical] Enabling the UFS controller on the Sony Xperia Tama platform w=
-ithout the required driver workaround risks erasing the bootloader and perm=
-anently hard-bricking the device.
---
+On Sun, Sep 13, 2026 at 08:36:33AM +0300, Alexey Minnekhanov wrote:
+> Add prefix for Shenzhen TXD Technology Co., Ltd., manufacturer of
+> medium sized LCD and camera modules for mobile phones, tablets and
+> automotive.
+> 
+> [1] https://en.txdkj.com/
+> 
+> Signed-off-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
+> ---
+>  Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> index ba20029693734..86c502d8d1d5f 100644
+> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> @@ -1771,6 +1771,8 @@ patternProperties:
+>      description: Turing Machines, Inc.
+>    "^tuxedo,.*":
+>      description: TUXEDO Computers GmbH
+> +  "^txd,.*":
 
-commit 91d507f63b9143b3c7a96ab7389c84dca2784cd5
-Author: Shujath Mohd <shujath@outlook.in>
-Subject: arm64: dts: qcom: sdm845-sony-tama: Enable UFS host controller and=
- PHY
+So prefix is "txdkj"
 
-This commit enables the UFS host controller and PHY on Sony Xperia Tama
-devices. It removes the previous status disabled guard and configures the
-necessary regulators and reset GPIOs.
+Best regards,
+Krzysztof
 
-> diff --git a/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama.dtsi b/arch=
-/arm64/boot/dts/qcom/sdm845-sony-xperia-tama.dtsi
-> --- a/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama.dtsi
-[ ... ]
-> @@ -774,9 +774,21 @@ &uart9 {
->  	status =3D "okay";
->  };
-> =20
-> -/* BIG WARNING! DO NOT TOUCH UFS, YOUR DEVICE WILL DIE! */
-> -&ufs_mem_hc { status =3D "disabled"; };
-> -&ufs_mem_phy { status =3D "disabled"; };
-> +&ufs_mem_hc {
-> +	status =3D "okay";
-> +
-> +	reset-gpios =3D <&tlmm 150 GPIO_ACTIVE_LOW>;
-
-[Severity: Critical]
-Does enabling the UFS controller here on the Sony Xperia Tama platform
-without the required driver workaround risk erasing the bootloader and
-permanently hard-bricking the device?
-
-The original commit (30a7f99befc6) that introduced the platform explicitly
-documented that sending a specific UFS command on these devices effectively
-erases the bootloader. If the system or a user issues that UFS command,
-such as via block discard, secure erase, firmware upgrade, or during
-specific error-recovery paths, the device becomes unbootable. Userspace
-operations such as fstrim or background kernel maintenance tasks can trigger
-these commands.
-
-Is the required downstream UFS driver workaround (kholk/kernel@2e7a9ee)
-ported to the mainline drivers/ufs/ core? Removing the status=3D"disabled"
-protection without the driver-level mitigation active appears to expose
-users of this device to a known hardware brick, even if normal boot and
-reboot cycles appear stable.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/PUZPR01MB514158F5ED=
-A660AC85FA8D5BC3BB2@PUZPR01MB5141.apcprd01.prod.exchangelabs.com?part=3D1
