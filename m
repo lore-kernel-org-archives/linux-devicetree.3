@@ -1,96 +1,79 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E94E9411A10
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 21:15:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D08523C3F40
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 21:18:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789420537; cv=none; b=DA1mmfPLPS8OJsFohKIvh/fCpSx5IaeU9/xKxUjMMWw85oTaAM2TI4kNQI7r5PQHsPgEFZGiL8iTipVz99H5bEMphruN0N+ldvos65uVGskYgp1zth5V6FYsAZ5SiaZR3tlam48bb7DbBkvlDk4zoLc+Qq26STY5RqZrz7fgnvY=
+	t=1789420737; cv=none; b=rPCHXpGYkjZsahdc9xHImpkxiY6heOUebGcyacjdvNJPaVgL9hGwwmQRwfCJ06/2Tg5d961wGUpLGlG52IVuQnC7EORigS8n9JJchPdZdqV4PDDO5K0xfitx1ikAcK166FivVov2y+1Jjdgd1WxsBmFvmZ7OvGyvU0Ey0WBeuzM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789420537; c=relaxed/simple;
-	bh=bFgdgeID/Ne6jUxyfD1OKQlY0Yi3oEhR74YsVLKphVg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mm+1ESQ3x7hnBWbAoFlA8oQOux9vUkoUPklI6J9ochwBi8IVNilzls3XYWB3mojzQJG/ZC9jOF90kkR1h3N4Rvf3gm65CFj0c6GB1R42mxZr93Mxh3tz9h0zHcxCqU7ZtODTLDaVp/3RO+WeCx+Ay0gWXOqsehgvM77Oc06eDbs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nZ3svjAW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789420737; c=relaxed/simple;
+	bh=816jbw1UaOZZPT4qvlKB5sYYu83BuleHbDj1ZgcFbOM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=n8rB+HUWC0jQJmdYwGOyLxzxkuVLv2UwYqsmASyYMyJ3qPA+izQgnFt4N8YDZJgVmF44DIa4u/TpvWMORdfUX8bSTLBZScz+M8ln3VrhndReFH+FhTIHhx7fz2XaDoNWVYi2whxIDHalV3aFcvX1ZpUfitgD84nLA9wYisY2p8g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=KURBMiYm; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nZ3svjAW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 910C11F0089B
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 21:15:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789420535;
-	bh=NevuUkbIbY8Xir1EiuknrCzVePMTrnsw9qsLi8W12R0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=nZ3svjAWFX3+xqUFjVpIL9dgPp8tQFeM5gg5QoY7Pu7qXBjj4Xt4sf+78cNwfD5Y3
-	 gVAngk7ti3CFZ92sivt3gMZFqY2SYum3QAw2RronjZ8MTENStKYof7+tNtUAFp9zFW
-	 51SM5bXydhxNXEQOy87BV8o3tqVL75/Y3pFuku/MJl/IR/oUUNdWZj+fQO5d1OmSxS
-	 2+N/aeuRXGkaHbyOqCleTd55yqKAnO3VXOEgHsmKKhvoY/bhz23CuGFHm1Wtw706L3
-	 w7ZPkrmlkJd8Yy8r6N0rWzr0l3nJdogRCztyFnYBBmfphr7Q+79HaU2FyG9C0BDZHz
-	 xb2iaQxsriXZg==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b899413537so4168326e87.1
-        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 14:15:35 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw7StiK1mDTaSQJSEfOWZjsLf5TF5f/BeJP5yqc3D5Fmq1k0L6R6Un6NLeWLOI8TlT33yBgpyz1r+4Z@vger.kernel.org
-X-Gm-Message-State: AFuF++kA2AaQ3ME98zWlgdmcL6TdbZAcUmcwAiJmKF62U8ZzH2zC2lyx
-	StZZexM10R5JpGym3aRmb7ZyAsEyzfqPHHI9OUKlBvBtaMEsyCLw31OnOEOQ2vSgRRyjGMYzeJX
-	MJ5HFikvXZ3Nr1KbOSQv24/Fc0ckY7XA=
-X-Received: by 2002:a05:6512:3f0e:b0:5b6:183b:d214 with SMTP id
- 2adb3069b0e04-5b8ae6a6fbbmr1185441e87.59.1789420534106; Mon, 14 Sep 2026
- 14:15:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="KURBMiYm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=from:to:cc:subject:date:message-id
+	:in-reply-to:references:mime-version:content-transfer-encoding;
+	 s=k1; bh=V1q1KL8H0Kb3zs8zgane8yh6ez+l5mHY9fyORNQ8DRs=; b=KURBMi
+	Ym/7h6/5rwP1q4jW++RCi0hUtE1GCvONyRGJQXRkpj3hluvN4bU6ysDm4uQvaAaJ
+	c3lsShmfX5jPQxDRfjMYl/VNA6HhdbRkkUTByNISW6OleToAPOCMKMnWVd7AjkOQ
+	egFpWhf0Efx/ehwDWCwzDuyBmSlnEtpnQzBqeXwjfKUlJoVzCskjE32j3WXkWVvC
+	N+eXDR0weDLdsCKPUMQnl2+9sl5fkjoCr602cvr9hli8RfhFAw0YuayZxbxpIZU3
+	PnIgq6vNOS3cZlBO5braDNT+TzYL2mURjvCXCehGNM6OWmXiQeeMbiZ7cvKMVSPw
+	HoYdEpG5pEjrYftg==
+Received: (qmail 892825 invoked from network); 14 Sep 2026 23:18:45 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 14 Sep 2026 23:18:45 +0200
+X-UD-Smtp-Session: l3s3148p1@deio+ndbeLYujnvr
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: linux-renesas-soc@vger.kernel.org
+Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	linux-rtc@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH 1/6] dt-bindings: rtc: rzn1: drop unneeded 'start-year' from example
+Date: Mon, 14 Sep 2026 23:18:26 +0200
+Message-ID: <20260914211826.73727-9-wsa+renesas@sang-engineering.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260914211826.73727-8-wsa+renesas@sang-engineering.com>
+References: <20260914211826.73727-8-wsa+renesas@sang-engineering.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914155645.112508-2-krzysztof.kozlowski@oss.qualcomm.com>
-In-Reply-To: <20260914155645.112508-2-krzysztof.kozlowski@oss.qualcomm.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 14 Sep 2026 23:15:20 +0200
-X-Gmail-Original-Message-ID: <CAD++jLmu2vovxXa9jqX+pq32KV6ONQ-=Yoo3fKF-49oMFVv3GA@mail.gmail.com>
-X-Gm-Features: AcwNN1W41lYuox0pw4JKzbuFr7Ojh_AWjTCNy5TnXF9BlZMG2RX-71m9k3IWIl8
-Message-ID: <CAD++jLmu2vovxXa9jqX+pq32KV6ONQ-=Yoo3fKF-49oMFVv3GA@mail.gmail.com>
-Subject: Re: [PATCH v2 net-next] dt-bindings: net: Use consistent indentation
- in the example
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Justin Chen <justin.chen@broadcom.com>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Hans Ulli Kroll <ulli.kroll@googlemail.com>, =?UTF-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@bootlin.com>, 
-	Vladimir Oltean <olteanv@gmail.com>, Heiner Kallweit <hkallweit1@gmail.com>, 
-	Russell King <linux@armlinux.org.uk>, Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, Felix Fietkau <nbd@nbd.name>, 
-	Lorenzo Bianconi <lorenzo@kernel.org>, Ryder Lee <ryder.lee@mediatek.com>, 
-	Shayne Chen <shayne.chen@mediatek.com>, Sean Wang <sean.wang@mediatek.com>, 
-	Johannes Berg <johannes@sipsolutions.net>, Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	Jeff Johnson <jjohnson@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	"G. Jaya Kumaran" <vineetha.g.jaya.kumaran@intel.com>, Claudiu Manoil <claudiu.manoil@nxp.com>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Alex Elder <elder@kernel.org>, 
-	Siddharth Vadapalli <s-vadapalli@ti.com>, Roger Quadros <rogerq@kernel.org>, 
-	bcm-kernel-feedback-list@broadcom.com, netdev@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-renesas-soc@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, linux-wireless@vger.kernel.org, 
-	linux-mediatek@lists.infradead.org, ath10k@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 14, 2026 at 5:57=E2=80=AFPM Krzysztof Kozlowski
-<krzysztof.kozlowski@oss.qualcomm.com> wrote:
+We don't use 'start-year' in upstream DTs because the driver does the
+right thing by default, ranging from 2000 to 2099. So, drop it from the
+example, too.
 
-> Correct indentation in the examples to consistent 2- or 4-spaces
-> indentation to fix dt-check-style warnings ("example 0
-> [indent-consistent] indent mismatch ...").  Preferred is 4-spaces, but
-> re-indenting entire example just for that is too much churn.
->
-> In cortina,gemini-ethernet.yaml also drop the wrongly indented mdio bus,
-> because it is not necessary for the example.
->
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+---
+ Documentation/devicetree/bindings/rtc/renesas,rzn1-rtc.yaml | 1 -
+ 1 file changed, 1 deletion(-)
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+diff --git a/Documentation/devicetree/bindings/rtc/renesas,rzn1-rtc.yaml b/Documentation/devicetree/bindings/rtc/renesas,rzn1-rtc.yaml
+index ea7b039a91e7..e96007981c34 100644
+--- a/Documentation/devicetree/bindings/rtc/renesas,rzn1-rtc.yaml
++++ b/Documentation/devicetree/bindings/rtc/renesas,rzn1-rtc.yaml
+@@ -91,5 +91,4 @@ examples:
+         clocks = <&sysctrl R9A06G032_HCLK_RTC>;
+         clock-names = "hclk";
+         power-domains = <&sysctrl>;
+-        start-year = <2000>;
+     };
+-- 
+2.53.0
 
-Yours,
-Linus Walleij
