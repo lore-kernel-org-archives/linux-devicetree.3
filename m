@@ -1,98 +1,58 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A352D411A10;
-	Mon, 14 Sep 2026 21:19:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4421833A00C;
+	Mon, 14 Sep 2026 21:20:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789420781; cv=none; b=fN4qmbAu8cI8P8ZKTH/RRHxL2OCSsM6bjjkFa/kq1VVKDGtmy1zfwYGngmcG6tCqXZHe6ZvfP/jyGRv6UjnRSjgdlBd6KH8F8nRd+SjAtC/hM9Q9aKGsUDlc0raqtYoFjzws+ekZdf6XQXY7ORlF/PnWPbNAzzXUCswSd+1u0Us=
+	t=1789420853; cv=none; b=hfREgwEMRn5jzwYdaYwiw4xmgCW8t2LHcIJso9SiPr4gFi6bm/T2fjsVMEHsYerZW5TcHH43eEYkB0N/iTp5CBdMAwm3lT3E8eCcHdodrqqolUqy5IYUBqAkmclkevGaJhyeIeV1YTZxMkuXKCmI8+ZELozkNFxEQQSOL4qR4fY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789420781; c=relaxed/simple;
-	bh=pfgkq6Vk30heg/yk84FWkw06TgJhepcOIt73IbngY1g=;
+	s=arc-20240116; t=1789420853; c=relaxed/simple;
+	bh=2H5syE67OIonLRXl1f6hju4squF9vzYlVrkBtAYZqYo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=FcPSAh7i104mURO58g1pfxNFramPhTTYJFThlYKNzjyAHHNMw76WbpKFGwUnprtBLhrwREhKik9qhkN3BIAM9mKIMo+lGgIO63Iki6MhZrsj64HZ50x0ahRUoLiaVkecYU55wW4YLgKBI9ogxo3Ea9uIe2IgWZ16rqDtTeGIpXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jq0P+Hce; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=qaryZvRSK0K09HyfzSfX8K/RAcqsC9Iasag/7bj07Pt7yvIPELMQUKjAcxGGINQZyARzxu66e7i7nJ+RWMJ0a00KuwiCfD7Cu87sI1UzBSgCvGln47qof2qEEXiWSUrKhMQ3OuLPodmQbn6AEUX9L/DcuScb31cElXqhGNlay7M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V7ms/bUC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jq0P+Hce"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 256A11F000FF;
-	Mon, 14 Sep 2026 21:19:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V7ms/bUC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6215C1F000FF;
+	Mon, 14 Sep 2026 21:20:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789420780;
-	bh=XdzOfZmnQIdeLDp/hOIIbnvV+RukEE4cD2KkuQvI2iQ=;
+	s=k20260515; t=1789420851;
+	bh=2H5syE67OIonLRXl1f6hju4squF9vzYlVrkBtAYZqYo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jq0P+HceVa0gpT4e01RaCq7pXyae0fUwgqARXelTM931nh8gY8hOYC9lIVZVyCaMs
-	 SsOD5mVlpSXTF8mI8gNeucrQRNQVpIQkMFQKW4bpYVikoWETgtrTOIKvDTiPLjODJd
-	 YL4YA53gL5XM7Fx5Oc5RF132JrnPGjUCkGGCBS6S6oNrdur1hL32KvVByuJT6jpPhe
-	 X6DdYZFBeTlE4+dhnw/apHdGOGiBHtg/iLIY6XnsifCQoTac3G1eWAfH/FKo2iZsDV
-	 BuFCpxSHTdVLVdsjskfvpQkInKLP9iwTUdrfBgqzOjjyHzT1TKuqCcx5/LMP8nr7PW
-	 odh+Nukdn/aKA==
+	b=V7ms/bUCk2ylOsZBlT4ERY9hahZmzjbXxH5VFm/ruLJ0aAkm8To6vQP7TRRKM5xkV
+	 o3IKUu8cLj46Ut7Xx1lotLKbYoHpIc2y6SGhIjYSmTjSTSMSk39ghT/vQSZ8UUcBQl
+	 otb92b35A4/kT6k9IgjOSu+MVtobVf7lscPFdQp7ieR8dvExQBxlMKgo6SD1YxGbxE
+	 WsAxyrRIGaU3vIpJjV8DdNYvdnyX02/zMevMRlvA4d6MTFEy5O4dnOAjy3tCVfJx12
+	 qPMVR/7amhdpvJZMKdLJZiKcEvEkm9Hp8HuKPokExJSjqXqChA7UyYY9g9RDXUEhWO
+	 iV2KF4lWnxjTw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] dt-bindings: arm: sunxi: Add two Teclast tablets
+Subject: Re: [PATCH 2/6] dt-bindings: rtc: rzn1: add SoC names next to their
+ IDs
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Andre Przywara" <andre.przywara@arm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev, conor+dt@kernel.org
-In-Reply-To: <20260914210115.28151-3-andre.przywara@arm.com>
-References: <20260914210115.28151-1-andre.przywara@arm.com>
- <20260914210115.28151-3-andre.przywara@arm.com>
+To: "Wolfram Sang" <wsa+renesas@sang-engineering.com>
+Cc: robh@kernel.org, wsa+renesas@sang-engineering.com, linux-rtc@vger.kernel.org, "Alexandre
+ Belloni" <alexandre.belloni@bootlin.com>, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260914211826.73727-10-wsa+renesas@sang-engineering.com>
+References: <20260914211826.73727-8-wsa+renesas@sang-engineering.com>
+ <20260914211826.73727-10-wsa+renesas@sang-engineering.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 21:19:39 +0000
-Message-Id: <20260914211940.256A11F000FF@smtp.kernel.org>
+Date: Mon, 14 Sep 2026 21:20:50 +0000
+Message-Id: <20260914212051.6215C1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Missing SoC fallback compatible string 'allwinner,sun50i-a100' for=
- the Teclast P80 tablet breaks CPU frequency scaling.
---
+> This helps maintaining because the numbers are easy to confuse.
+>=20
+> Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
-commit 582b866f1ad9000afddf47eb7e4c9d37a95dfbc8
-Author: Andre Przywara <andre.przywara@arm.com>
-
-dt-bindings: arm: sunxi: Add two Teclast tablets
-
-This commit adds devicetree bindings for the Teclast P80 and P85T tablets.
-The Teclast P80 is based on the Allwinner A133 SoC, and the P85T uses the
-Allwinner A523 SoC.
-
-> diff --git a/Documentation/devicetree/bindings/arm/sunxi.yaml b/Documenta=
-tion/devicetree/bindings/arm/sunxi.yaml
-> index f04db28c630ac..28437c47ac01b 100644
-> --- a/Documentation/devicetree/bindings/arm/sunxi.yaml
-> +++ b/Documentation/devicetree/bindings/arm/sunxi.yaml
-> @@ -933,6 +933,16 @@ properties:
-
-[ ... ]
-
-> +      - description: Teclast P80 Tablet
-> +        items:
-> +          - const: teclast,p80
-> +          - const: allwinner,sun50i-a133
-
-[Severity: High]
-Does this strict two-item compatible array omit the necessary fallback stri=
-ng?
-
-The sun50i-cpufreq-nvmem driver in drivers/cpufreq/sun50i-cpufreq-nvmem.c
-requires allwinner,sun50i-a100 to exist in the root node's compatible array
-to bind via of_machine_device_match(sun50i_cpufreq_match_list).
-
-Without this fallback string included in the bindings (and subsequently the
-board's Device Tree), cpufreq-dt will not be instantiated. This will cause
-CPU frequency scaling to silently fail on the Teclast P80 tablet, leaving
-the system stuck at the bootloader-configured frequency.
-
-> +
-> +      - description: Teclast P85T Tablet
-> +        items:
-> +          - const: teclast,p85t
-> +          - const: allwinner,sun55i-a523
-> +
+Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914210115.2815=
-1-1-andre.przywara@arm.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914211826.7372=
+7-8-wsa+renesas@sang-engineering.com?part=3D2
+
