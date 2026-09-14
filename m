@@ -1,129 +1,128 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4569038B140
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 08:47:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3CBB414418;
+	Mon, 14 Sep 2026 08:49:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789375639; cv=none; b=om4ibYR6xjtKFGziG3GjE5CxPT5ZwmI6TXrs/nRNePm5Xpa3eyxcyZAAWKhZqxq4Ea2olRMUTqnz9yMWznZs7LzT0SyotZ94o2QjXthWyoUM1vlBf24D7husj775fB2pAF5H7zH4qUAOfYNcxtUJSK3RS9QX1Ukg+sAdGWewXCQ=
+	t=1789375785; cv=none; b=Llxba1cX7IqOjaz8KZsi2ldLQJm4oHCJIJvG+tkmKdPL0i6P/2El02Ycf4YuB6vadbX7PRDFiVB9uJjeoJxkQthOhNx8ILEv9+TavM9RMmlWk3PzfewlyQrONblqo9xRwOSfPFcnblb0t1SiLeziXr6g8XGyZV6PNqWqvs+UcHY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789375639; c=relaxed/simple;
-	bh=xSsTA1+Iig8rnrr46UdcEnmTqyfP4pnCIpRKT/lZv4s=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=htEsJhHYCgu9fBOHCGCdaaT90WRCUMQ5JzxTwfzaiKkreWWlO3ogfRWlp139fO/esbMr7+Qk419jTtbaYfhYktok78bgQCFWLzT1c3kl7ncP97SzC4V0wDwGZHFO1nAdm28PQuCLoMf+4iGlPH90oPTB2UbJBW9gMYp6waL8Lsw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=DWhDb4yh; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+	s=arc-20240116; t=1789375785; c=relaxed/simple;
+	bh=ZNKb6Bfr6dN91prZr3gOlBcn1dAneXmqFSvRYY045cw=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=g2m8nBzWrbeNYnwWFRYiusrnFbskJtZgMQ7IkreBd2r0iJbYSFIP9GlGq2OiR87+n69YNzlgxwsjakfKL4ZDuVGKekkGL+gKwWWMQ8BxVD1fBJfKYSlMQwum8MRcbr8RbIel5fE26cjOvDm6+CHl2gUiFy5A1jfc7o5TY5qHsFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ANEkIZCV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="DWhDb4yh"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd5462b69so10054085e9.1
-        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 01:47:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1789375636; x=1789980436; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=BiGb6WiQWJmFrzRKswfmgWeyhlzVvwsEuctPqCr7l7Q=;
-        b=DWhDb4yhvopwPruP5Q5F7OZ55DAV/JpMAJOdPFaA24t6+9ac0cAKjYWxHgYAPhRgjj
-         yVmNB6lJeldStVpTsV9FM4DdXcSYwFA8NRH6jrWEzWvuQcOhHKPUm0/uab/+lAyTQjmh
-         N0B5HZd7SzlMxUvDfplwpTKwnyXwJspCFN3l8XZs8jqUhSwL2pgP338t2nmqLzF4eesJ
-         7NeSQhjXIp7yk3y0coMmcg7uW5uSDlZa08N3oNLqgHEOzrm2x0qWtpazwLUTfaIRHnSF
-         4M1UlyQUrsU+SyE047LTcUsXZPHpuVkBj+f88rRqHpAr4ODCmomaroxdZ890npZrpmP9
-         tifw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789375636; x=1789980436;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=BiGb6WiQWJmFrzRKswfmgWeyhlzVvwsEuctPqCr7l7Q=;
-        b=CbY9UN3mCiqjzxyIra9HUzQkwiMR43uxnAIc2s3LEQpXFl2KtXEAlkmQoWS/rGwGB0
-         BhF9Fi1U3GNRGj++HC+JgyNnVV/aW0I90E0oiKWGB/R6VEzrQy86HfwQ0mPlJbISgod3
-         qhhi59H569kaK/xWzKgJyNK/fGpjkvLnPzwWG1SDvCCuCVfnxsd0zNgrNkE+7ZBWR6ko
-         8P+jOe1oKVFItHIcMLrdxOkKXt+mFW8OY+oxXeXi5K36Hc+2l0wKUbcJR3Faouw1oTRx
-         K9rvMC5VQwblGtreMB7RlwWOBAgOy8VRrz6bTRukxKRDxNEpSeWZD2qo9Og6e0W6Svmr
-         AqqA==
-X-Gm-Message-State: AFuF++lRjCeImvGxZVvrkhHO8taOiFwHwLHZZWN6CS7LW4ZZ8+a8eKHg
-	tUG/bWT1aYwPVZe/Pzl7JiJbzYRW88CCxjzpbr8FWbUUOsNAk5OI3kV0Qc0mlsiLYRk=
-X-Gm-Gg: AYBFou0d/d92lhjUlRCmASKyU5uKomTTmLps/9U9PlpG1Yl1469VUS1VlGjel5rEpC5
-	1wR2sgXZ51iRbZFhoxoH8jrqliyGQNWa794rFcQDhS0g4HmR+ofJfcNLd1nWoO96iu4SsFcuJ5z
-	xFwDYdBN7wCjiVn16eEJwHLS/C2Blk52/CKQkDU9dkwpzCC6b3C1fK9EwobKNf+IU2/cjRUnb1F
-	usKD8JtyhnjbHaYY3xsNe7dYAA+KDl/eS8dHshgsa67ZtpHpRZj+Ldq/x92b3tuFYIDPmNWFvAQ
-	fSltKDB8yfv+hP1yS9IY9OI/rg9KTx2581xQyfDZoLyCoCItz4zaFkc2JeeJJh2ERABQk0EZN/P
-	qSG/HNO3B8xPtSGq3MUHojtisJASaObCRdxHn46NK5D3CdW+Gms8tWuZQuWSnte6AxcJXEibmvj
-	mIn2X5kl+Hpi9g/MKUHYXuO4QfclGv49++H7dwP1PpJRVuPR1IcYdlSmh68XsNEaTHJJh6Pv++z
-	hxXdRQweBe3dINs3Fpf
-X-Received: by 2002:a05:600c:19cf:b0:49c:ed94:cdd8 with SMTP id 5b1f17b1804b1-49e7a663d35mr22293075e9.6.1789375636366;
-        Mon, 14 Sep 2026 01:47:16 -0700 (PDT)
-Received: from alchark-surface.localdomain ([146.70.184.81])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e6cc11607sm199520805e9.12.2026.09.14.01.47.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 01:47:15 -0700 (PDT)
-From: Alexey Charkov <alchark@flipper.net>
-Date: Mon, 14 Sep 2026 12:47:15 +0400
-Subject: [PATCH] arm64: dts: rockchip: Set gpioN aliases on RK3576
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ANEkIZCV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B72431F000FF;
+	Mon, 14 Sep 2026 08:49:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789375783;
+	bh=rcaxHOdZ3xOGPj8wMwDKY7K3IAoqQJUNiULgWMU18Z4=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=ANEkIZCVDzN1sECFUoL8rbUFeFsNwpWedQvAW4HdQVzCddYcH7762K0sRskW2JBoQ
+	 JVVtgH63puZf0lPUzPcHyxy5ckVmVfRjkGdRBitX92WIs4vAVzj7+XizpNq26WM4lT
+	 AAqjfX4cByfF+729twf0eDyz+bs1b2koZQu9Ytk3vdLC1YtPLBpIcxHLGyQ7StWVPi
+	 6SzLJK3ox3nyX9O556a8lLUgRgxPpI0KS4iE3uY0jH0kHiMZ7gnCBijoCrkAAAHfkd
+	 LHof+tqKmeePm3CnKsNfWmTnCe1pSlvG5HdzKMswA2hopG7+OvN9jaag10NGS6Pj0t
+	 rYnTHiaP3TgPw==
+Message-ID: <284b3be8-319a-4abc-9628-f96209bbe467@kernel.org>
+Date: Mon, 14 Sep 2026 10:49:38 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] dt-bindings: net: can: fsl,mpc5xxx-mscan: Convert to
+ DT schema
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Quchaosheng <quchaosheng000406@163.com>,
+ Marc Kleine-Budde <mkl@pengutronix.de>, Vincent Mailhol
+ <mailhol@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-can@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260914055608.495084-1-quchaosheng000406@163.com>
+ <20260914055608.495084-2-quchaosheng000406@163.com>
+ <a3d4cb8f-3550-48de-a275-914c4aef2923@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <a3d4cb8f-3550-48de-a275-914c4aef2923@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-rk3576-gpio-aliases-v1-1-ce5f86f9ae0e@flipper.net>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrB2IWqPxKuIipqOOLRoyKgXx7
- k3r8i3+P0EoMAk0yQmBDhZel4gsTcBNdhkJ+RkNucq1MtkDw6soK42j5xXtm62QoHHKalXXfWk
- GiKUPNPDnf22727L3M7ntt4Lr+gIIVSeBdwAAAA==
-X-Change-ID: 20260914-rk3576-gpio-aliases-9c0a6088b59f
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Alexey Charkov <alchark@flipper.net>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1143; i=alchark@flipper.net;
- h=from:subject:message-id; bh=xSsTA1+Iig8rnrr46UdcEnmTqyfP4pnCIpRKT/lZv4s=;
- b=owGbwMvMwCW2adGNfoHIK0sZT6slMWQt3zKl493uJBmRTYsfxiasex+ntehC9OljXSWFERvsA
- mfd/1JyoWMiC4MYF4OlmCLL3G9LbKca8c3a5eHxFWYOKxPIEGmRBgYgYGHgy03MKzXSMdIz1TbU
- MzTSMdYxYuDiFICpblZkZPgc/9Zs9pLzqxY/nhGV8HvV+a4TP/0nLDXQdtWPW3FtodMhhv+lMQ1
- 7JS9MP6Y6Ke9bbihns0MOn+PB0x+cbJRm7zq7/DcnAA==
-X-Developer-Key: i=alchark@flipper.net; a=openpgp;
- fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-With no alias, the OS is free to number the GPIO chips arbitrarily, such
-as in probe order, which is what Linux kernel's rockchip_gpio_probe() does
-if its of_alias_get_id(np, "gpio") fails.
+On 14/09/2026 09:31, Krzysztof Kozlowski wrote:
+> On 14/09/2026 07:56, Quchaosheng wrote:
+>> Convert the Freescale MPC5xxx MSCAN controller binding from free-form
+>> text to DT schema, and reference the common can-controller.yaml schema.
+>>
+>> The original text described the two compatible strings and their clock
+>> source properties in separate sections. "fsl,mpc5200b-mscan" is added as
+>> a fallback of "fsl,mpc5200-mscan", the way existing device trees such as
+>> mpc5200b.dtsi use it. The allowed values of fsl,mscan-clock-source are
+>> constrained to the strings the driver accepts: the driver compares
+>> against "ip", "sys" and "ref" and rejects anything else.
+>>
+>> The clocks and clock-names properties are documented as well. The driver
+> 
+> Don't paste here LLM output.
+> 
+>> looks up the "ipg", "ips", "sys", "ref" and "mclk" clocks by name, and
+>> the existing MPC5121 device trees provide exactly those. They were not
+>> described by the old text.
+> 
+> You write complicated paragraphs and complicated sentences in some
+> passive voice. Please look at other commits how the commit msg is written.
 
-This results in GPIO chip numbers arbitrarily shuffled in userspace,
-causing confusion and pain.
 
-Set gpioN aliases in the SoC .dtsi, just like other SoC versions do.
+Also, submitting patches gives some advice, which you used in the first
+paragraph but then stopped completely in the rest.
 
-Signed-off-by: Alexey Charkov <alchark@flipper.net>
----
- arch/arm64/boot/dts/rockchip/rk3576.dtsi | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576.dtsi b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-index d418bfc04097..e87ace5d05e6 100644
---- a/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-@@ -21,6 +21,11 @@ / {
- 	#size-cells = <2>;
- 
- 	aliases {
-+		gpio0 = &gpio0;
-+		gpio1 = &gpio1;
-+		gpio2 = &gpio2;
-+		gpio3 = &gpio3;
-+		gpio4 = &gpio4;
- 		i2c0 = &i2c0;
- 		i2c1 = &i2c1;
- 		i2c2 = &i2c2;
-
----
-base-commit: 68142f986ff04b2b70b31db00f719bf690f64a9a
-change-id: 20260914-rk3576-gpio-aliases-9c0a6088b59f
+See longer explanation here:
+https://elixir.bootlin.com/linux/v6.16/source/Documentation/process/submitting-patches.rst#L94
 
 Best regards,
---  
-Alexey Charkov <alchark@flipper.net>
-
+Krzysztof
