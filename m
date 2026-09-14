@@ -1,40 +1,87 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6D403EEAE2;
-	Mon, 14 Sep 2026 08:32:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 648E540DB43
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 08:33:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789374772; cv=none; b=odZQMF0bN/SIZCSvQ6XmAXgijBrdE9NYtk8e5WoDtM1wJebFWxa1CUcT6q2Mlqo9l3CLUklMwFYtAmJVHj7b/phAdfwEPIfarj7/GK8KaipX8gzy/ujLFTZD4EAwSkw5fwhoKkGrro8oFeMG3iGrzDB4zKvR5WY/7bS1+v04wsQ=
+	t=1789374794; cv=none; b=sewfNT7GOVDi8Acf5IvnMF0SGgORE4LZkGDC96ThBRixvQbzF1vii56motMXfBhesQkwaZGbtsgRNi2ZOFtFU58wfDrnVdcURwF3fA27mJUc8N4VUubj97UklMi8yWs1MpMXj1iRwcisyLn/diJsCaiozTZ/RT/sDjC5hPgN05U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789374772; c=relaxed/simple;
-	bh=wQIW58kd96Mxvk8XVo8GGflIQ5a1Ent2zmnDJu8T9NU=;
+	s=arc-20240116; t=1789374794; c=relaxed/simple;
+	bh=Z/dnDR91JaOOm7tCQOgtRQXg66Drh2LR1ZgLyfNFPn8=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=C9FFtu7djVbYztNxtaQWpLCWt9x6uwZZw4ukBiIlffs7n06FMbqWC8MsVpGjxKDEE4E9vwIeJk82OqRuict5hH6lA4w9z5qwt+UWiI552fgab5vX/kHWrjj3c5dqjQDUbRkIjyZrFAF0cypvkNctCUsnkEMfCTGABXlAOHhBFek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=2d/FvAvt; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	 In-Reply-To:Content-Type; b=F70jCYnE0z4ej8bJBeI5yWaTSERH11jUn1WXXhfKAtAiAQ3B+MxsvCs75ClOiXc6H+G87N7aOEE6GVF8Z0HEvg9gdlP2WSCSuooVnFE9L+xU9gWVSjyI7XCF0quZ32m8VUh1LiIvd8XpH4lH7gPTjpcZA5AILmcEctI+9mItCt0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=P7/H/aIx; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GaiO/pFP; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="2d/FvAvt"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 8507BC6220A;
-	Mon, 14 Sep 2026 08:33:30 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 632E060323;
-	Mon, 14 Sep 2026 08:32:47 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3BF4E11C7AFD9;
-	Mon, 14 Sep 2026 10:32:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789374766; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=t+bhyABek7V/xx++E1c8RabUELBTBXODnbFXuaAAKQQ=;
-	b=2d/FvAvtyc/nTCI+osd9aWSzqN3jILc8tPO/hoImrs1bErK9hO29yZuznpWAQ1KLbDsZAF
-	VEn/Wa/kJOlX3KwrGPW5TbqsABU1F2iayhdQmkxK7jF9NzPcsT2rFg4bzX2uWIsRhvPJrh
-	lMZpnW69DbP0OLRIXsr/xLcqfowQNtxCNSL3jp38UiRBQXpPc47MXSkR5Qu77BVKgdJMdI
-	lgRutwBQivXKAkON0WsRRxp+YhQVKdE7rT80cm9UE+Vcxp3SrNyFyS3Phat1rqLYDajzmP
-	SLi0Vq9YQE5JEuRCxb5N+G42oNkbsDlSzysWDB1bx3aZUQtvgipfGUHLaJOPdg==
-Message-ID: <b86b0f43-4a86-4bc8-865b-1d767992597a@bootlin.com>
-Date: Mon, 14 Sep 2026 10:32:42 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="P7/H/aIx";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GaiO/pFP"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E7xxpk3490199
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 08:33:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	9M8c5GIhlhYtnwXpHSwrc5gl0njHPZHWU2sW5mopQqc=; b=P7/H/aIxjinZ7tbE
+	zP1tjSeLbDVKO2j4rcLWnKJX1W9YAm29Wjn+nhi57xi65Cev8mPiYMNpGFXT1Z0B
+	sudMWv9tziJMMM7xJCiQLkKINf4zJmp7tDeD60+WJXnSbJuHNG3n+gTEnYiQ/jYH
+	79Ts6Nw7+65yPHN+ctk0uJyXbD8MkwU5W3OfERHEug0Nhpr7msnj1GpiTtZ5zdvi
+	FWj4I2xXoPkiX9lalTHG2PMDgIyWfvmOFCf081MW7Dl5hkMWMPo2UKIPRblVIIJ0
+	WC49ms0CYM0I1Dbgt0vMlvbpG0Syo33/50SYmuz7OG07+6IR6B52DqIUYzs2lDe7
+	bVCfEw==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpd1f03fy-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 08:33:11 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-9102fee9920so3642446d6.0
+        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 01:33:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789374790; x=1789979590; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9M8c5GIhlhYtnwXpHSwrc5gl0njHPZHWU2sW5mopQqc=;
+        b=GaiO/pFPoORytKrGsptXb37jb8ozHG32OVEncmJwD9Qhgw3xh8ICgbzhhaHGfA6rD3
+         J7fCF63klZkBsptCZ7pp5c9/xozxISR+0QEuIW/n8EagIRY/OV3GdmNU3JQrK+9Q04Ay
+         X3X+iVKRGCCKXW02xovqFUKAdOzSgD4KiszQ7VkajcWzln6ZC08/c5A5+5K/yc9CGD8g
+         ku3WU25zIySlD7wsBQ1hyudaCvK6x1g2hy2yCNmkLZx3AXzChilreoeB87IYEfR6e0y7
+         wpjzS7kpvzSpEmlC63nTj9gEjNfCCMC6XZfyRWW5zioUgOLSBn45nboYHzU+H/8aIwzz
+         Rheg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789374790; x=1789979590;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9M8c5GIhlhYtnwXpHSwrc5gl0njHPZHWU2sW5mopQqc=;
+        b=r0gkMZIfzmMwb8errzSk1CKEdTJXFwDCUQ229Ci/Irut4/X1/Hi0BCXQnlfDpf/ykr
+         xmMB7HemVvzeVx5h/JDuhybLVuk7qeWr5jRVFhFzD0/AOQ/gJw/4SdjcSwNXyzQ/YS9a
+         c6y089VivzNmEtIFyGYONHvzlh9EbDjizppmqM8IM7PfkFoTGgqZ2s0DMIW917vyiqT6
+         oJ+iHqVoHM2lSRf2rY2Ea7rdmW1nEFhAZeZ5FW9eSWZtDw9qF3UaR94HFZWZKFIg6lan
+         2mftDLaGJkT8K9ZRv3cACuDbQYqdSwMvsKWeiN6VKkYqf7KnmeRrN6AYNJsvdxvvO/dM
+         XeZg==
+X-Forwarded-Encrypted: i=1; AKwUvBzh3PhmbSvrYod2CNDTqSXd6w9vjI0sqbapKYktCGT3x7m/e5/9VvVbhA2TVE+nENzDkpoS9BxHzpkH@vger.kernel.org
+X-Gm-Message-State: AFuF++negoaqgbXE2isVTAtQvqRoMi7gSTsLYiiRbX1EmDZFpWV/6//3
+	JsOOgwJ6+p6cqsjbeiGghUP5Xu4NwVMLxEBCejB18AoJzaxfC+StlNcdLBSdfyHJ4xHyFHl4IWm
+	tkZvPdofNNek3TvCQ0t9unzCLDW4/yTKHd5MuBpqPEX/5VwAVSxrVwTo+4UUazwpJ
+X-Gm-Gg: AYBFou29+ipGo307QU9x193VK7RWh8sZBFWRJFUaS/+ytpkZZbpsHtK9NQodJ3wEyWb
+	r7BYg0LjjN/gUn0DIuLehDSyAy9ZZDsW1+ZIAWRm7tW5A70bu1E8QilovI0veTkATcsqOR42x4o
+	3OIUZEbkitY3Xz06rwvcfOfVzQnZch+7RNwogeo4x3nBNtrRB0yTGFqy2UYiu2M6Gwbr6wCfT3o
+	QUp0mIfA1TrHF7hsGtmnEtLGL1D4aMG773vaPYBM/EPphL/q7tQQZLDY1gAUZvJ2IuNbE0vVUr+
+	ynscbXzWYIz6rOij5UkCzbV0u2+3eqeiSnB9XNUvInjJbQS1uJOabC7HLmDlIGUTE9EfD54WxWt
+	ErUpJUbxZt8R4g1ts5ivA9Q==
+X-Received: by 2002:a05:6214:246b:b0:8e9:ee1f:6631 with SMTP id 6a1803df08f44-9122e65fae8mr19414596d6.3.1789374790336;
+        Mon, 14 Sep 2026 01:33:10 -0700 (PDT)
+X-Received: by 2002:a05:6214:246b:b0:8e9:ee1f:6631 with SMTP id 6a1803df08f44-9122e65fae8mr19413986d6.3.1789374789717;
+        Mon, 14 Sep 2026 01:33:09 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9b5951c89sm3670269a12.26.2026.09.14.01.33.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 14 Sep 2026 01:33:08 -0700 (PDT)
+Message-ID: <f04ee103-ada5-41bc-88e7-7380b2b38e98@oss.qualcomm.com>
+Date: Mon, 14 Sep 2026 10:33:06 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -42,123 +89,143 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] watchdog: omap: Preserve OMAP watchdog across boot to
- detect faulty boots
-To: Guenter Roeck <linux@roeck-us.net>,
- Wim Van Sebroeck <wim@linux-watchdog.org>,
- Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade
- <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>,
- Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-omap@vger.kernel.org, devicetree@vger.kernel.org,
- thomas.petazzoni@bootlin.com
-References: <20260911-omap4-wdt_boot-v1-0-637d778a4a1e@bootlin.com>
- <407b9420-0ec6-4d95-960b-633677edf760@roeck-us.net>
- <14eb1c72-fab0-445a-82f2-5851a855f723@bootlin.com>
- <f1adea74-8f87-4442-aa12-18536cabec3c@roeck-us.net>
+Subject: Re: [PATCH 2/5] arm64: dts: qcom: nord: Add the USB controller nodes
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
+        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+References: <20260911142040.100263-1-shengchao.guo@oss.qualcomm.com>
+ <20260911142040.100263-3-shengchao.guo@oss.qualcomm.com>
 Content-Language: en-US
-From: Diogo Ivo <diogo.ivo@bootlin.com>
-In-Reply-To: <f1adea74-8f87-4442-aa12-18536cabec3c@roeck-us.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260911142040.100263-3-shengchao.guo@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-Proofpoint-ORIG-GUID: C6GdrQtgr1A-dLWkJNjzcp79KvocklpV
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDEyMCBTYWx0ZWRfX1Ygev5ZKl8VZ
+ jj+yT+6ndqW1TXN6PaNZzGbsGB6ioEc9CHB4eG5pG148kNw0Qp/aqjSI9t66N69MMHmN3+K9XWf
+ KqaU4uRo7Vq+21VZi36wvGX/NqR/T3U=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDEyMCBTYWx0ZWRfX5S7u7R/DwIVb
+ OMF2wIpVG5LpGzf+Ehi/nYGUqAPQ0nbeniEAev5bVfc1nL6798yGlax2NOLXIalt7+BFmzIA5oM
+ x9l5Xah91pG/FdPWd9y2mn4y/tavUp66iVpg16pwKee+RoSEzyBmC6jB0JCCLQi8xhTw2unRAUh
+ HNKtHwJ7k8nnliezH3nl3RV6YgO8+EbBgOIP96MwHo1utsDN6U5Yj9AGRYvPqw68GvUq+c/I9IE
+ 8GrFc+NyR4J3TcYNUkbs8MdmOvrb2lrfHl7cf9IZjlA5KHRkRv2Cwu2yx5vmTdX5v9qwMCAhdoq
+ Sm31SromVc3pqjqf3ZRJwyzsjzLj4wMq0YT7pEUpPmD03YP8EG8rIr+sWDd+RGy8Gtt139PavWl
+ QzNxJPyrO64joXuTMvzzQJiHL6+V1JqAofKhRxcJdPNbIg23DSLbnolvP6EebWOLd0rimIzC5Y0
+ fddEZ9tfajfiAAX+WEg==
+X-Authority-Analysis: v=2.4 cv=XKel2ghE c=1 sm=1 tr=0 ts=6aa7b147 cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=08BlROG3YVwwi0i9V5UA:9 a=QEXdDO2ut3YA:10
+ a=iYH6xdkBrDN1Jqds4HTS:22
+X-Proofpoint-GUID: C6GdrQtgr1A-dLWkJNjzcp79KvocklpV
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_02,2026-09-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 spamscore=0 bulkscore=0 phishscore=0
+ priorityscore=1501 impostorscore=0 malwarescore=0 clxscore=1015
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609140120
 
-
-
-On 9/11/26 7:25 PM, Guenter Roeck wrote:
-> On 9/11/26 08:17, Diogo Ivo wrote:
->> Hi Guenter,
->>
->> On 9/11/26 4:29 PM, Guenter Roeck wrote:
->>> On 9/11/26 02:17, Diogo Ivo wrote:
->>>> Allow the OMAP watchdog to survive being stopped on kernel 
->>>> initialization
->>>> so it can detect a faulty boot in cases where the bootloader leaves it
->>>> running and the watchdog driver picks it up during kernel init.
->>>>
->>>> - Patch 1 removes a duplicate omap_wdt_start() call left behind by
->>>> cd004d8299f1 ("watchdog: Fix OMAP watchdog early handling"). This is
->>>> unrelated to the main goal of the series and can be picked up
->>>> independently.
->>>>
->>>> - Patch 2 adds support for reading the watchdog boot status. Probe now
->>>> checks whether the watchdog is already running and takes it over 
->>>> instead
->>>> of blindly stopping it based on early_enable alone. This introduces a
->>>> regression possibility, explained in detail in the patch's message.
->>>>
->>>> - Patch 3 marks the OMAP4 watchdog node ti,no-reset-on-init so the
->>>> ti-sysc driver stops resetting it. A detailed explaination of why is
->>>> also provided in the commit message of the patch.
->>>>
->>>> This series has been tested on a platform based on the VAR-SOM-OM44 
->>>> from
->>>> Variscite, running a TI OMAP4460 SoC.
->>>>
->>> Please address the issues reported by Sashiko, or explain why they 
->>> don't apply.
->>
->> I have just replied to the Sashiko reviews but I'm not sure if you got
->> the replies as Sashiko did not include your e-mail in its review. If you
->> did not receive them please let me know and I can resend them. In
->> any case if you could give your opinion on the comments I left on the
->> patches about regressions that would be great as I think after the
->> Sashiko points are addressed that is the main blocker for this series.
->>
-> I did. I just wonder if the effort is worth the pain / cost.
+On 9/11/26 4:20 PM, Shawn Guo wrote:
+> From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 > 
-> Is there an actual use case ? Is the problem you are trying to solve
-> a real problem, or a theoretic one ? For example, the patches impose
-> a hard boot delay of more than 30 ms in omap_wdt_is_running().
-> Even though that could be optimized (there is no reason to wait
-> that long; the value could change a microsecond after the first read),
-> it is nevertheless a mandatory boot delay.
+> Add the base nodes for the three DWC3 USB controllers. These carry only
+> the SoC-invariant properties and are disabled by default. The extension
+> for the embedded Nord variant and relevant board files will add the
+> platform resources and enable them.
 
-Yes, I stumbled upon this problem while trying to do exactly what is on
-the commit messages, so having a system that does A/B updates and uses
-the watchdog to detect if the boot succeeded or failed. The current boot
-delay is actually (1000000 / 32768) * 10 = 305us, so quite a bit smaller
-than the 30ms you mention, even though from the Sashiko comments I need
-to take into account the prescaler, which in the worst case brings the
-value to the 30ms you mention, but if I adjust it I can bring it down to
-3ms in the worst case of a 128 prescaler. However, for a system with
-prescaler=1 the delay can be brought down to 30us.
+[...]
 
-> Another concern is the impact and potential side effects of setting
-> ti,no-reset-on-init (and the possible boot loop cause by it due to the odd
-> 30-second init delay). After this change, a running watchdog is no longer
-> stopped. What happens on systems which do not load the watchdog at all
-> (for example because the driver was not configured) ? Will that also cause
-> a boot loop on such systems ?
+> +		usb_2: usb@a200000 {
+> +			compatible = "qcom,nord-dwc3",
+> +				     "qcom,snps-dwc3";
+> +			reg = <0x0 0x0a200000 0x0 0xfc100>;
+> +
+> +			interrupts-extended = <&intc GIC_SPI 910 IRQ_TYPE_LEVEL_HIGH>,
+> +					      <&intc GIC_SPI 907 IRQ_TYPE_LEVEL_HIGH>,
+> +					      <&pdc 8 IRQ_TYPE_EDGE_BOTH>,
+> +					      <&pdc 7 IRQ_TYPE_EDGE_BOTH>;
+> +			interrupt-names = "dwc_usb3",
+> +					  "pwr_event",
+> +					  "dp_hs_phy_irq",
+> +					  "dm_hs_phy_irq";
 
-Here with ti,no-reset-on-init the ti-sysc driver will shutdown the
-watchdog driver after 30 seconds, which can indeed cause problems. When
-I sent the patch I thought the timeout would be 3 seconds, which
-considerable reduces the possibility of a bootloop. I will look into it
-to see if it makes sense to change the timeout value and reduce the
-possibility of the bootloop. My initial assumption of the 3 seconds was
-what actually made me not add ti,no-idle-on-reset since that would
-completely block the watchdog stopping from ti-sysc.
+There's also a hs_phy_irq @ SPI 908
+> +
+> +			iommus = <&apps_smmu_0 0x14e0 0x0>;
+> +
+> +			dma-coherent;
+> +			wakeup-source;
+> +
+> +			snps,dis-u1-entry-quirk;
+> +			snps,dis-u2-entry-quirk;
 
-> This is just a couple of problems introduced by this series. You better 
-> have
-> a very good reason for it to warrant having to deal with the potential 
-> fallout.
+This is a suspiciously short list of quirks..
+> +
+> +			maximum-speed = "high-speed";
+> +
+> +			qcom,select-utmi-as-pipe-clk;
+> +
+> +			status = "disabled";
+> +		};
+> +
+> +		usb_1: usb@a400000 {
+> +			compatible = "qcom,nord-dwc3",
+> +				     "qcom,snps-dwc3";
+> +			reg = <0x0 0x0a400000 0x0 0xfc100>;
+> +
+> +			interrupts-extended = <&intc GIC_SPI 917 IRQ_TYPE_LEVEL_HIGH>,
+> +					      <&intc GIC_SPI 918 IRQ_TYPE_LEVEL_HIGH>,
+> +					      <&pdc 13 IRQ_TYPE_EDGE_BOTH>,
+> +					      <&pdc 12 IRQ_TYPE_EDGE_BOTH>,
+> +					      <&pdc 41 IRQ_TYPE_LEVEL_HIGH>;
+> +			interrupt-names = "dwc_usb3",
+> +					  "pwr_event",
+> +					  "dp_hs_phy_irq",
+> +					  "dm_hs_phy_irq",
+> +					  "ss_phy_irq";
 
-The reason is that in these systems the watchdog is not behaving as one
-would expect: if the bootloader leaves the watchdog running it is a
-reasonable expectation that unless the kernel or userspace services it
-the system should shutdown. With this series I have tried to achieve
-this while minimizing the risk of regressions, and from my point of
-view the only sore point is indeed the 30s timeout in ti-sysc. If you
-agree with my reasoning and think this is worth pursuing let me know and
-I will change the 30s timeout for v2. In the meantime patch 1 is
-completely regression free and can be picked up!
+hs_phy_irq @ SPI 919
 
-Thanks,
-Diogo
+> +
+> +			iommus = <&apps_smmu_0 0x15c0 0x0>;
+> +
+> +			dma-coherent;
+> +			wakeup-source;
+> +
+> +			snps,dis-u1-entry-quirk;
+> +			snps,dis-u2-entry-quirk;
+> +
+> +			status = "disabled";
+> +		};
+> +
+> +		usb_0: usb@a600000 {
+> +			compatible = "qcom,nord-dwc3",
+> +				     "qcom,snps-dwc3";
+> +			reg = <0x0 0x0a600000 0x0 0xfc100>;
+> +
+> +			interrupts-extended = <&intc GIC_SPI 133 IRQ_TYPE_LEVEL_HIGH>,
+> +					      <&intc GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH>,
+> +					      <&pdc 14 IRQ_TYPE_EDGE_BOTH>,
+> +					      <&pdc 15 IRQ_TYPE_EDGE_BOTH>,
+> +					      <&pdc 17 IRQ_TYPE_LEVEL_HIGH>;
+> +			interrupt-names = "dwc_usb3",
+> +					  "pwr_event",
+> +					  "dp_hs_phy_irq",
+> +					  "dm_hs_phy_irq",
+> +					  "ss_phy_irq";
 
-> Thanks,
-> Guenter
+hs_phy_irq @ SPI 131
+
+Konrad
