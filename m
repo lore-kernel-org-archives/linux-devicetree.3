@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FBD24718D3;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FD6E477294;
 	Mon, 14 Sep 2026 13:56:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789394167; cv=none; b=oC/tvvZCz97lA1lmqg+uRwlb5J+kqE2ir8nn1RR+VKgZ6FRwrKNXgmluzh0hHVdBJ9GLZNXQ8lajenN2jbhSjt+DqAGm8izGqsYGrhJJen76X+HpnGGX0oVah296DkoPHu6/r2d2FiYyDyMDrcH/yDO17DJCvPHAtFVn8Bn3GhA=
+	t=1789394167; cv=none; b=OqzkpkaOcIunmAkkq/HCTEmSZ1Lt8VH2W3mxukwoSjoRR5m7Ek/4yGiL+yxZ7PG7QZhf4t5o49X8Xb05OwsH1a8RbwKiWWjADdK/BalBg/8CyaCO14AHaNp4vd2guchP1l8hTxxrW7jcDobuTN5KiB99xvJAFsS8IAjSmAiWTGA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789394167; c=relaxed/simple;
-	bh=H88R8D2yBEpmvpGWUbzHlGqiXdsK5APs1RfBjdRvVgM=;
+	bh=f0bTgSyA5DkXGRiU8pHG8moLCaSdDcvyHOvL4bU7uNA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Kj9WM7jlyQd5MRbWpDXGC60kO3CBJfSIzVPXJFlbFG5CFzCIsorsDkc8/2otsXToMdtw1Hu3Cu0cHyoyajmJzOxFp1icTJOJsSM+T999ZuE/eUajdDRaBQK7Gy9a5EevoEDldWeIBr+8TdDnb/q939H32RJqC3RroxXSUiMpx1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qeewrU8w; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=ccK1EFIZDkGM/VpSoDq7CQIKDiIAM7Lh/1m6i0UC5lYwc+kHtXuAVOkex/RoSW90gpMIJqmvNqu8/wAEmC7nBrGueYzoeiVsIf2spWs+9ma3Jz1/CxIq11TQYqNzY+WWnCF0EXXOMCdccAPDga3M1zJl4whPRm6Zo0uFbpiLxXk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bZZ8YlgT; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qeewrU8w"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id B10B5C2BD00;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bZZ8YlgT"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id CD276C2BCFB;
 	Mon, 14 Sep 2026 13:56:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1789394166;
-	bh=H88R8D2yBEpmvpGWUbzHlGqiXdsK5APs1RfBjdRvVgM=;
+	bh=f0bTgSyA5DkXGRiU8pHG8moLCaSdDcvyHOvL4bU7uNA=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=qeewrU8w0XLDazi5K4DRGQfKH54os/0xFquFkhtLjkFzFrolc48MQGq5y2P06vpMf
-	 kAeXXASlNVLAPetaijsTKmz5JpVhZHZSKIizKWz+wwV1tN7YE9hLlqg0ZGEhGb42mN
-	 aozHG67PiOmgYODPBsAtx9tvkeXp7M9mZwJXrEP+WpEO22xfq6zvVtyAIADxEDNXvi
-	 xyLY9ZwOtfMVXC1y+S5eGr5Ja5kG7u+FUGiuQtRqaLIhnbgy8bRMkvoZni7esGxrZv
-	 78rgls1UsjnaGkCl/iCMXJDuyqol42S07nyknhV3Ego2CCsF/ZuubxjuuYZu4NqVEh
-	 zn3QyNeVGCT/g==
+	b=bZZ8YlgTomE8GX9Q1j0+tONFNUkeqo6WHKyFr4O3B7zi5wF9U/TvGQHWu0FJmghNH
+	 0M71xObdvIR36f9ZRjTlgDvnNyF77ADUBBqqU+0SzOYsUQBa2W9YRNGHPBcEqDLQ7R
+	 GqhO1RuuEaCGWBTq8NP25NY8ucJBlHoQn6zful1Ez4veYq316T+MFHTdqiQ+VHzfHL
+	 OalMYAFud4hZ5GhICMUNsYRTh4Pw4Owjek7h6eqjszm7lbS6UA6gWozE6tylifMOy6
+	 MenETbC+Ne+ojCvKI3l/PFGcRerP/q8bFzHEHf93AHPR+aTOI5UzEm/LrRmtKRnr6g
+	 T5sXfkjK2Q3mQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9917BC88E72;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B551DC88E75;
 	Mon, 14 Sep 2026 13:56:06 +0000 (UTC)
 From: Aleksa Paunovic via B4 Relay <devnull+aleksa.paunovic.htecgroup.com@kernel.org>
-Date: Mon, 14 Sep 2026 15:55:53 +0200
-Subject: [PATCH 5/9] dt-bindings: interrupt-controller: Add MIPS P8700
- ACLINT MSWI
+Date: Mon, 14 Sep 2026 15:55:54 +0200
+Subject: [PATCH 6/9] dt-bindings: timer: Add MIPS P8700 ACLINT MTIMER
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +40,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-p8700-dts-v1-5-3267f14ebce1@htecgroup.com>
+Message-Id: <20260914-p8700-dts-v1-6-3267f14ebce1@htecgroup.com>
 References: <20260914-p8700-dts-v1-0-3267f14ebce1@htecgroup.com>
 In-Reply-To: <20260914-p8700-dts-v1-0-3267f14ebce1@htecgroup.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -58,11 +57,11 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
  Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789394164; l=2394;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789394164; l=2438;
  i=aleksa.paunovic@htecgroup.com; s=20250806; h=from:subject:message-id;
- bh=d6dCUSpFr/wHwlyABy937JZmuMEa5B5i8Du3V+WGvRU=;
- b=/CK+7BpY2QEZwNjyCeVxDPxAdvJb8B+L1XLb3ovHEhU/AAcNGfbaoNr5qYc7dKzjrvvqjF5gS
- 9i9e+eTcC1HCfeO68b+1EqPs+F600EQRxdEx2cyEs8zcUkYaL6wuIze
+ bh=M5IyHBybwxEJk8ac4GspHzVPEulbhlRzm20t9LNaGmM=;
+ b=9Aj12FjNDRPLsiFijbdUWSzeynhgFvKygTdmlPOuxb81BeHEw3ZUUNOXAlM1adSx55m0YRq7V
+ TSBpv33dDYvD1Q+vq/Md9Se5o8TYo+6qcTfV6wdJEUXvYRe9MDz2m7k
 X-Developer-Key: i=aleksa.paunovic@htecgroup.com; a=ed25519;
  pk=Dn4KMnDdgyhlXJNspQQrlHJ04i7/irG29p2H27Avd+8=
 X-Endpoint-Received: by B4 Relay for aleksa.paunovic@htecgroup.com/20250806
@@ -72,45 +71,46 @@ Reply-To: aleksa.paunovic@htecgroup.com
 
 From: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
 
-Document the aclint mswi compatible for the MIPS P8700 and
-introduce the 'riscv,hart-indexes' property,
-used to address the sparse MIPS P8700 harts.
+Document the MIPS P8700 ACLINT MTIMER.
+Extend support for both mtimecmp and mtime registers
+within the ACLINT MTIMER, identified via reg-names.
 
 Signed-off-by: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
 ---
- .../thead,c900-aclint-mswi.yaml                    | 34 ++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
+ .../bindings/timer/thead,c900-aclint-mtimer.yaml   | 43 ++++++++++++++++++++--
+ 1 file changed, 39 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/interrupt-controller/thead,c900-aclint-mswi.yaml b/Documentation/devicetree/bindings/interrupt-controller/thead,c900-aclint-mswi.yaml
-index 62fd220e126e650e3800d8eee2a749fdbbde6108..47c04943eb0c793467aaa5570776605cae0eadfd 100644
---- a/Documentation/devicetree/bindings/interrupt-controller/thead,c900-aclint-mswi.yaml
-+++ b/Documentation/devicetree/bindings/interrupt-controller/thead,c900-aclint-mswi.yaml
-@@ -17,6 +17,8 @@ properties:
-               - sophgo,sg2042-aclint-mswi
-               - sophgo,sg2044-aclint-mswi
-           - const: thead,c900-aclint-mswi
+diff --git a/Documentation/devicetree/bindings/timer/thead,c900-aclint-mtimer.yaml b/Documentation/devicetree/bindings/timer/thead,c900-aclint-mtimer.yaml
+index cf7c82e980f674afcf59fc726742dc4f49c1a820..35e02da675becb3c8bb187b8e1e623994d52df8c 100644
+--- a/Documentation/devicetree/bindings/timer/thead,c900-aclint-mtimer.yaml
++++ b/Documentation/devicetree/bindings/timer/thead,c900-aclint-mtimer.yaml
+@@ -17,18 +17,20 @@ properties:
+               - sophgo,sg2042-aclint-mtimer
+               - sophgo,sg2044-aclint-mtimer
+           - const: thead,c900-aclint-mtimer
 +      - items:
-+          - const: gf,mips-p8700-aclint-mswi
++          - const: gf,mips-p8700-aclint-mtimer
        - items:
            - enum:
-               - anlogic,dr1v90-aclint-mswi
-@@ -29,6 +31,14 @@ properties:
-     minItems: 1
-     maxItems: 4095
+               - anlogic,dr1v90-aclint-mtimer
+           - const: nuclei,ux900-aclint-mtimer
  
-+  riscv,hart-indexes:
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
+   reg:
+-    items:
+-      - description: MTIMECMP Registers
 +    minItems: 1
-+    maxItems: 4095
-+    description:
-+      A list of hart indexes that the MSWI device uses to address each hart
-+      that is mentioned in the "interrupts-extended"
-+
- additionalProperties: false
++    maxItems: 2
  
- required:
-@@ -36,6 +46,19 @@ required:
-   - reg
+   reg-names:
+-    items:
+-      - const: mtimecmp
++    minItems: 1
++    maxItems: 2
+ 
+   interrupts-extended:
+     minItems: 1
+@@ -42,6 +44,28 @@ required:
+   - reg-names
    - interrupts-extended
  
 +allOf:
@@ -118,31 +118,40 @@ index 62fd220e126e650e3800d8eee2a749fdbbde6108..47c04943eb0c793467aaa5570776605c
 +      properties:
 +        compatible:
 +          contains:
-+            const: gf,mips-p8700-aclint-mswi
++            const: gf,mips-p8700-aclint-mtimer
 +    then:
-+      required:
-+        - riscv,hart-indexes
++      properties:
++        reg:
++          minItems: 2
++        reg-names:
++          items:
++            - const: mtime
++            - const: mtimecmp
 +    else:
 +      properties:
-+        riscv,hart-indexes: false
++        reg:
++          maxItems: 1
++        reg-names:
++          items:
++            - const: mtimecmp
 +
  examples:
    - |
-     interrupt-controller@94000000 {
-@@ -46,4 +69,15 @@ examples:
-                             <&cpu4intc 3>;
-       reg = <0x94000000 0x00010000>;
+     timer@ac000000 {
+@@ -53,4 +77,15 @@ examples:
+       reg = <0xac000000 0x00010000>;
+       reg-names = "mtimecmp";
      };
 +
 +  - |
-+    mswi@16150000 {
-+      compatible = "gf,mips-p8700-aclint-mswi";
-+      reg = <0x16150000 0x4000>;
-+      interrupts-extended = <&cpu1intc 3>,
-+                            <&cpu2intc 3>,
-+                            <&cpu3intc 3>,
-+                            <&cpu4intc 3>;
-+      riscv,hart-indexes = <0x0 0x1 0x10 0x11>;
++    timer@16108050 {
++      compatible = "gf,mips-p8700-aclint-mtimer";
++      reg = <0x16108050 0x8>, <0x16154000 0x7ff8>;
++      reg-names = "mtime", "mtimecmp";
++      interrupts-extended = <&cpu1intc 7>,
++                            <&cpu2intc 7>,
++                            <&cpu3intc 7>,
++                            <&cpu4intc 7>;
 +    };
  ...
 
