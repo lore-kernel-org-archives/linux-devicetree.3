@@ -1,74 +1,94 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AFDA40F73B
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 09:06:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3109286D4D
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 09:07:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789376819; cv=none; b=mszgcmWDyoKwLLT8wsPk8fQ3x/bbdBH6QSXnxZm3TRu383M7XyvuWi3ePun7T2buEcoaVTQr/nYT8FlgKW6dDYdVYZoIjqReLAjq8ZotYLOAHxYoAt86CEXtupVKc1H/Lx2K/W5cyOKXVcJgeJNirX+1lU5itW/ikyCF5rXr8o4=
+	t=1789376868; cv=none; b=MKFgQLkOP9s6MJNa+0SBX+qHug7Kf+LTgTii5Lts/Sj4fKTXo5l9X5eO9zNBSjdsbRg+pFNXjsrATvPcXo7G4/NIFEno5l0ZkNJxidH3qo9uK4Si8gZXKr6H5woKBE1oZqinHH/amE0whvAxBDM098JVJQDqNpt35Rvl8ZmbEt0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789376819; c=relaxed/simple;
-	bh=XXqdFfm2oi60CilFBpYaMXmU2C/cnVtVxjiWgELSSf0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Wq0rsV4M+66i26l199fI7+Oz3h+ZpN7OoKzNGqrLdBOekS17iJg2yk8eW2UPsam4emnXx+6TkH6UG94kqHCISNMYeIKq3w5FXV0exqQgwgIsayjQofFJBkqX03NFnXaiuNB9nxMD8rglZoAMeR5ISwuxnn5+ABROxezl1HcHU8g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O9CgMr9a; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789376868; c=relaxed/simple;
+	bh=OmsXcAkKOvYXas1kR4J24UYv0QJ/y/GJAAKgPXb5hwc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=SIfQ66aFeQl+yiH8NbE+aZuBVA1jCvDpPmbcrwmAVDThpvuAVpEsh70oTm6K4NydY2XoUXGHwVMjXpSNFohCSu+kIt86mF8rcP5YL28UyqZJ0A4t5/Hjbf86vMTq55d6nH9cq3+1OLXQpE7ce34r/vF9S3okED0OTia3aVwAUWY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nL+n45wi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O9CgMr9a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2EC81F0089A
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 09:06:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nL+n45wi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52B6E1F000FF;
+	Mon, 14 Sep 2026 09:07:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789376816;
-	bh=XXqdFfm2oi60CilFBpYaMXmU2C/cnVtVxjiWgELSSf0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=O9CgMr9a9PpnUA6uJDLNSprc5BQZ6BBNdbQ+CCidyW5qqIIccOCSQC6TAMDVtT4Th
-	 JEadJ2pjqcR2OreerVqke/q5nM8OUyNRAEZhPlzGjd5Ce0rNrAyYYhHRgxPostUS6L
-	 4pjtkye+HpP+sqEpgdfmdI126RTP5DtHlWMBNlE9vmHUP+/wQWSS1c28JoNoky667c
-	 3LMaziHemqDsM/sYqenEg2l11Stgg9L20+as3M+0bdKRZLyM2xWzFt7rv7NkVKAMVK
-	 zkl84kaXAoBRtJPrWXzmsgMVTzmBhGIf80HZMsSN/vGlNViLVfnwC2w5y2K2vy1w8/
-	 b2uVLg35M8rTA==
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5b2b92065ffso3569610e87.1
-        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 02:06:56 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw//dSt3ZM6/wOdxJMicvMrE7oO17hMWsIuUWVmalAyFPfVwN4Y2fkcYWkJLRQy1BuiSsskLAdC3VhQ@vger.kernel.org
-X-Gm-Message-State: AFuF++lr9QSjDrBzuY4jTIPrIwQMH+pOeBRCO1+YQAsLuITsEeGzEvTj
-	mCHS2hCmDSMIzXWEqWOytpu45uSVJw3u+AJoUh/l0G/fQt2lGU6wIJt5ijgbEMV1qIKtelZf9HM
-	/thz5z1LhHP/91cz7Ap0ct2VORdViy10=
-X-Received: by 2002:a05:6512:1293:b0:5b6:1a7c:aa12 with SMTP id
- 2adb3069b0e04-5b8ae6acc3dmr453888e87.42.1789376815593; Mon, 14 Sep 2026
- 02:06:55 -0700 (PDT)
+	s=k20260515; t=1789376866;
+	bh=6mSqZk8j4PmcrbuDvZ4mTCSDfKR5btI3gNHgLFSKmU8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=nL+n45wixSaHCLUVPjtbmhNeXnLQbPs4sMi5Ree/eL13z6zTnsFQ4g3U26t+W56sj
+	 +Yr+n6wUa5ivNj5NL6d43XILsYfDL4GAcSVyIKFHTPIHfeTLkNxNTABw7nPuHwwfff
+	 KcGdZ9+smMaDRi4rupUJ7YFlqwx9wULZTs30Nrmoze1FGRo3aZMKoUzPzSByXM1fgz
+	 IpAbi2b+COOp9e3Nsy4wSxzSoLl6sD27eeR6YkOMWU/tV02y1Gha0UwgxpfY0/9y6t
+	 sZ439JCiRy/5bdFpSKW5MZ0gO0LFjwx1ah/H7gdCW4SghO+ejdSv5qcrzM0CtRBqQE
+	 qYCbg+PwK18Xg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 1/6] dt-bindings: display: Add Solomon SSD1351 OLED
+ controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Amit Barzilai" <amit.barzilai22@gmail.com>
+Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260914085931.66857-2-amit.barzilai22@gmail.com>
+References: <20260914085931.66857-1-amit.barzilai22@gmail.com>
+ <20260914085931.66857-2-amit.barzilai22@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 14 Sep 2026 09:07:45 +0000
+Message-Id: <20260914090746.52B6E1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260822-ti-pinctrl-palmas-v3-1-f92cd3b773fd@gmail.com>
-In-Reply-To: <20260822-ti-pinctrl-palmas-v3-1-f92cd3b773fd@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 14 Sep 2026 11:06:43 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=TG8TQbDZhxDTsZXwR=WhxjF-H9eGDbtZd0qvtiE=MAw@mail.gmail.com>
-X-Gm-Features: AcwNN1XDEoJDTBd-1-U2gQTcxDtwimIocXKyJkSK1zdIyDo_BPhYufwlnitpmMY
-Message-ID: <CAD++jL=TG8TQbDZhxDTsZXwR=WhxjF-H9eGDbtZd0qvtiE=MAw@mail.gmail.com>
-Subject: Re: [PATCH v3] dt-bindings: pinctrl: ti,pinctrl-palmas: Convert to DT schema
-To: Bhargav Joshi <j.bhargav.u@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Laxman Dewangan <ldewangan@nvidia.com>, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com, 
-	simona.toaca@nxp.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Sat, Aug 22, 2026 at 6:39=E2=80=AFPM Bhargav Joshi <j.bhargav.u@gmail.co=
-m> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The binding schema omits default values for `solomon,width` and `so=
+lomon,height`.
+--
 
-> Convert TI Palmas pin control text binding to DT schema. The legacy
-> binding allowed any subnode name. Restrict them to standard prefixes to
-> prevent the validator from accidentally evaluating standard integer
-> properties (like phandle) as child nodes.
->
-> Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+commit d69921d470fb48f9128b8539591beb3d33f26088
+Author: Amit Barzilai <amit.barzilai22@gmail.com>
 
-Patch applied.
+dt-bindings: display: Add Solomon SSD1351 OLED controller
 
-Yours,
-Linus Walleij
+This commit adds a device tree binding for the Solomon SSD1351 RGB OLED
+display controller. It builds upon the shared solomon,ssd-common.yaml
+properties.
+
+> diff --git a/Documentation/devicetree/bindings/display/solomon,ssd1351.ya=
+ml b/Documentation/devicetree/bindings/display/solomon,ssd1351.yaml
+> new file mode 100644
+> index 0000000000000..80850c2ab5b3e
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/solomon,ssd1351.yaml
+[ ... ]
+> +allOf:
+> +  - $ref: solomon,ssd-common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - solomon,ssd1351
+
+[Severity: Low]
+Does this properties block need to define solomon,width and solomon,height
+with default constraints?
+
+The SSD1351 controller is 128x128 according to the commit message. Since th=
+is
+binding includes solomon,ssd-common.yaml, validation of a device tree node
+for solomon,ssd1351 without explicit width and height properties will not
+populate or document the default values in the schema output.
+
+Adding these properties here with a default constraint of 128 would match t=
+he
+hardware specs and maintain subsystem consistency.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914085931.6685=
+7-1-amit.barzilai22@gmail.com?part=3D1
