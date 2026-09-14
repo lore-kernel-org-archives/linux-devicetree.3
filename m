@@ -1,87 +1,81 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 898993ACA5F
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 14:10:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77A7C46C4A9;
+	Mon, 14 Sep 2026 14:10:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789395015; cv=none; b=KlGKp+5G9FpdvUAsg2Iu9LpRukRKPdFAevFfa2Ew5vBHm2EUZVEnivl5InjFLZJJHfpbcekp9musvEvxU4U4U6F6BUNS4cEsgqbOrnMAlGh1Gs/u618P3pK/QWDTKFB5hBlzTyy0/CCmtKWr9ozVVufJPnUQqWUd7Jbmp34dt5Y=
+	t=1789395052; cv=none; b=lVPXE7rtmbRYJLspoiucpvRAn/oKECNpigMuRiy5hlDNmS8g2LEY9Sf8kexX1i2rnQaZDpQzvxVQD6GoWJonVdebDNhOzlVCwxY01XIe1fhl2QkcT+FYMRatNd8R3IGaawo9s/Tr37Ke/cJHiSefyBhIf6m38CvCTduy18/l+d8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789395015; c=relaxed/simple;
-	bh=G3NamduHy9LjRWPDnNrXLCYeu2wlpG74gsLOfOvCg6U=;
+	s=arc-20240116; t=1789395052; c=relaxed/simple;
+	bh=+lwZydvY2Vbef6JTQmBdSFQEQB9Px5uUFLtxJvN5Iqg=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bM9aY3LyqYrd5zMJ8IdFuWuHA/ZGtnarhQ1yHwcek/YoijSIjdXhAL8fBDmr9pZI/HN0u3G/3vwxE66FeeNziGaQo4jlW+5v6YVxao8iSJjW/ighmRyNPburyO+TEH5TBxFQLqIfTAPNb95xtYht39f73gZ4qKoRmMXOMWJd26g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SZqk5gYk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TafEGr62; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=rgIweNLLr5M6fLYyg3njmxorPe3gOqnMPWw7xq+B2xAIVcMZtASgFUJy1iix9VK0DRjOySwMpAGQ7Cnpb/1g68TdaVcQ6Bcs3VtwLWzbEqIQZhF2cOY02CDL66CIKJEMiZD+AvAx2VX1b5JZHAmiTwDYG7qm1wgYBknr6WMjU1g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=RJN+Apn6; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=8l7yOgeZ; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=OCTLjWk0; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=QXJ1c/8z; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SZqk5gYk";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TafEGr62"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68ED0Yix830691
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 14:10:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	0dESWhJtwJ1B8Cji2yPp7F/P3j8Dn+EL1xmVdDBmUgU=; b=SZqk5gYk539fJVBk
-	0iuYGl6Hah0hZ3CVAwTO9KhYpoX49iXXrnMm2wW4iT6NPO6iSMCyNyNsjzuVjHjn
-	j4W/NA3LG5eZ7TFWuwasSDC+azfxjsvGPn9K5g1Z3nYPwjq6pKWT5atnNfuUf0vp
-	zeBwSZI456Yohbi/a1wGm3Qg8UobzGXthbzxBfvenoyM/5uyP88wjVtnqN7OMFsH
-	j9WpXyQYgBR+DN73f1V12vnHYbchsyWElwV6CLCd5G8RtxbDZnfxnMq6wkEMIgyn
-	wQef/Crp4VsRXJoXRVMHy5yLJTJqfnAgFgQYzu29V8nDePW22+bgkOsc3BzQZWdT
-	bvV8jQ==
-Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gp3hstsup-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 14:10:10 +0000 (GMT)
-Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5c82b8e1ec4so71245e0c.3
-        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 07:10:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789395009; x=1789999809; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0dESWhJtwJ1B8Cji2yPp7F/P3j8Dn+EL1xmVdDBmUgU=;
-        b=TafEGr62lFhkUO7o2mANMLPP1KCUcRCWKbHmpgRDaXPx/q89SePv7xJRjDj1JOviQA
-         KsWRnYCXXwf460xB/yyGcHBB4m4mrzsAszqBwjXu5HFFmpytCs2qKpnhxMgWfcMwVw9O
-         +Hc2h6Rw9KnyjfTvnMMVXGeBdZDRLAxBbI+DGkzHrvgsuC9EujAo0KBvJWE12zVaDdx0
-         4A9VvtzoEGaEiBb7e37UVUvK6nyNAfknAu3tv2/AeRKB3GG+84AJ+ZpDwZiex7R+tbrp
-         RaPMC8O+FXH7UUHPeO206LU2S3cQRk+utg5qX9Ti0YGSfQoFR1w9o2NWcyd8AzqJAUGd
-         zbcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789395009; x=1789999809;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0dESWhJtwJ1B8Cji2yPp7F/P3j8Dn+EL1xmVdDBmUgU=;
-        b=ggrebxNEQqNZKVh8sIu9iFBAFGJ0ucVba3gjRK7FFtLhieqSaGzPzcxJum8JZrb6s3
-         eTYhIcGXgzT9KZKLFUvGSlz/YBP7obCCfgMhGdMteZcrrdNphZNsCoarpgZnVr4XCZk7
-         A44vlngRlxMMswYzTOSsi7zbf6gXxqT84J8okCJQ0X3YGc05B9bfLB4237NJde44U5QQ
-         1iS3ekPV3HfZ8jkkSQaY8rjUPUDXo0FCGBXbuRBpX9TQuVFRYpFLxjLx3ldqPS4i/yz8
-         iQlFkz2ABMa8gMjWqYbQ+L9vCe3+MLoedpqmGCty82vhRJbsan30S5QVYmVQfWPWXAkN
-         F14Q==
-X-Forwarded-Encrypted: i=1; AKwUvByosRDNdHApUSWFucAjpSzqZBoSXg9lB8drjy1v/4PiDlTZR03iAJ7iAGPILBMXUvgsIpCzA8lDcyaO@vger.kernel.org
-X-Gm-Message-State: AFuF++k8mzReAUtmAHy9DTuZj9i2nSNcoL5RkMkn7mXI1UoeSQL0Gw3X
-	CkUiEX2HYrVTpOr6DTsd6008XjNX3fusNTNB0m5vuN7JKtkEYeOb+OVvV7hHCvOFlST0t3oS9QA
-	1DnRNbwBCQJ67YnQjyiPEgk52/TyIUPMq+IIoO6P69InP4ihPVR583YWUt7o5rWiS
-X-Gm-Gg: AYBFou03fsR5iNNUqpR9fyXgMFZKJ9Teh0qvRgSZGjf78miJNATYsC1xGrUGDfAUpRr
-	EwXt7iHkQbdYpBKkEKvK9g563wgbg8KRHg7GiNhxqbs2WOlwq+vFSY2fByynJRvRw8n2ssVl/da
-	VR3Za/BSMyAEQU87OdMWkP/e4NPHHWZw0C5oZoSHax/pCWhzsQf0+uZFq0C54WYXQ77vTJLoy4j
-	9murxQuh0qJlDgwbjyypxAViA7Ue/DoVDv8H2Rnif4bdmw8ammCZnJqCo+/48k9N7W9FjOC3VWz
-	WqY7IRODVOy4aaCocNb/+9VZ14elipfWSB+unkOqmVzlNbE4nCQ4XQJq9PK83g+hnP82iN354ku
-	tGpI+pIzqjsEMTDelv+KlGA==
-X-Received: by 2002:a05:6122:6b8a:10b0:5bd:9cbc:93c6 with SMTP id 71dfb90a1353d-5c981880ad0mr550785e0c.0.1789395009359;
-        Mon, 14 Sep 2026 07:10:09 -0700 (PDT)
-X-Received: by 2002:a05:6122:6b8a:10b0:5bd:9cbc:93c6 with SMTP id 71dfb90a1353d-5c981880ad0mr550685e0c.0.1789395008214;
-        Mon, 14 Sep 2026 07:10:08 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9b5960c17sm4318072a12.27.2026.09.14.07.10.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 07:10:06 -0700 (PDT)
-Message-ID: <1e303381-9f3f-481d-bd4b-9424942b5932@oss.qualcomm.com>
-Date: Mon, 14 Sep 2026 16:10:04 +0200
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="RJN+Apn6";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="8l7yOgeZ";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="OCTLjWk0";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="QXJ1c/8z"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 54A601F7D7;
+	Mon, 14 Sep 2026 14:10:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789395031; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=VSrt92bw9g8iah1NebfN0cFbUIAoXSrwEgpbBbQbj28=;
+	b=RJN+Apn6THMVTpO8IWmAFqhKgyv3MsP1smdwmjNL4NhRE9CVA8T4RMcfH3EFFk+QFAAFSc
+	O0uHtqNHWdOd/Ld+4E2EoPs/1jG49J6BX4+ptjbXhPFZEamS+8de9eXGPQs3n64m4ZRnLM
+	6EvjEQt58TcTSopgoFx7z0B5RafriMA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789395031;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=VSrt92bw9g8iah1NebfN0cFbUIAoXSrwEgpbBbQbj28=;
+	b=8l7yOgeZwVWsLIt/9b7OU1gkI4FywyQXMU7ehH9c8iAHGkYovP/+QlbvEDsFy3TzWrWezq
+	uNWbDPVKeWisNeBw==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=OCTLjWk0;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="QXJ1c/8z"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789395027; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=VSrt92bw9g8iah1NebfN0cFbUIAoXSrwEgpbBbQbj28=;
+	b=OCTLjWk0VppYFK76+0E6N10M4YVdBPJrBTYZfYjkOy4Nk93wVcydNUUXG5r6DFbT30+vx/
+	ZwoIAQRs/iMvbpwEyfV13JHVec1T2dYPnIIvFx9LhrPenM3uQPJk65q31NSUch2EPZsq4G
+	Vq/XMk15C9DalBjRHIG5A9Co1/b+9L0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789395027;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=VSrt92bw9g8iah1NebfN0cFbUIAoXSrwEgpbBbQbj28=;
+	b=QXJ1c/8zqcPYnsNuaC38zOnO5wfiz4RZxxyg6J26hfNbhVTKLmkIfeWuumyKy/KcNSqK6W
+	K2vR0oHf1k349MCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 32A0B13693;
+	Mon, 14 Sep 2026 14:10:26 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id DPfBA1IAqGqaDgAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Mon, 14 Sep 2026 14:10:26 +0000
+Message-ID: <0dc12950-68e7-4c30-9138-23539e676e1a@suse.de>
+Date: Mon, 14 Sep 2026 16:10:25 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,114 +83,1572 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] arm64: dts: qcom: glymur: Add CAMSS and CSIPHY nodes
- for Glymur
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Suresh Vankadara <svankada@qti.qualcomm.com>,
-        Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-References: <20260907-glymur_camss_dts-v1-0-6c2ced5ea5f9@oss.qualcomm.com>
- <20260907-glymur_camss_dts-v1-1-6c2ced5ea5f9@oss.qualcomm.com>
+Subject: Re: [PATCH v2 08/17] drm/spacemit: add Saturn DPU core types, cmdlist
+ and display MMU
+To: codykang.hk@gmail.com, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Haylen Chu <heylenay@4d2.org>, Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>, Yao Zi <me@ziyao.cc>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+ Guodong Xu <docular.xu@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, linux-riscv@lists.infradead.org,
+ devicetree@vger.kernel.org, spacemit@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-clk@vger.kernel.org
+References: <20260809-k3-display-v2-0-327d7910bf71@gmail.com>
+ <20260809-k3-display-v2-8-327d7910bf71@gmail.com>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260907-glymur_camss_dts-v1-1-6c2ced5ea5f9@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDIwMyBTYWx0ZWRfX9NZhg08vtasl
- lmMCL55jVcYiLmyflbDr1yGrRFC1q1d0onBOwbphcbTq1664pyLSJ58lq31Mq8dqUX7McIqWqEa
- 7Tv5R+cHM9hGm0gbl933DO87ra4Bi9fBwHhqsG5KkC3/hOYWwB3dYu+CrPYttUwrYkllw3UFzv1
- gYFYcLGkCFrRN7V4AxVLBxYoki9SBSQnhxoPMoX2Ie/sVQGV4uPTO6g+1iCkyLgSOKbmn+V9lPe
- Kn7a/XcbANmXJZ5WzaiDMdq/bC5zpGlrukH9W1U03W1DN4oePi9x+H1er5y6m0ypKAZl4It4Pqa
- CJlGc9Jlvnp+C9Xitb2T3tEVHyMkkHf0sY8k2cRzf0EQT3nWU7JTbK0YxWqXkri3+6JKPE0Uf8F
- KW5aNvskHzp5fsfF0deVsPrhyN5tjPBwJLSKDDBITfw6xWy8wMMK22sZGsdxODuRTJ8f1eCpN1i
- MIpZfquDAz8Toz3Uw5g==
-X-Authority-Analysis: v=2.4 cv=IZwSymqa c=1 sm=1 tr=0 ts=6aa80042 cx=c_pps
- a=wuOIiItHwq1biOnFUQQHKA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=TmAJPP8FuOU3jFEyuIoA:9 a=QEXdDO2ut3YA:10
- a=XD7yVLdPMpWraOa8Un9W:22
-X-Proofpoint-GUID: ZFqr3nIQ3M0NRFK02hZ913tTi7KA8-ZH
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDIwMyBTYWx0ZWRfXyMG2Z/f4dh5w
- 9Hjxrz+J9yoQntmMPw0toh2oFPat0GFiiKFWmVgbwGHsTGLUFPjWtFjcGkgZuFZWmxrjoydhrcv
- 4N7EDNc/fuiRa0mBgZsAWocg5gBdEIw=
-X-Proofpoint-ORIG-GUID: ZFqr3nIQ3M0NRFK02hZ913tTi7KA8-ZH
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-14_03,2026-09-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 impostorscore=0 malwarescore=0 phishscore=0
- clxscore=1015 bulkscore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140203
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260809-k3-display-v2-8-327d7910bf71@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Score: -3.01
+X-Rspamd-Queue-Id: 54A601F7D7
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FREEMAIL_TO(0.00)[gmail.com,ffwll.ch,linux.intel.com,kernel.org,linaro.org,4d2.org,baylibre.com,redhat.com,pengutronix.de,dabbelt.com,eecs.berkeley.edu,ghiti.fr,ziyao.cc];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[30];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[dt];
+	R_RATELIMIT(0.00)[to_ip_from(RLkaw45m9fyyou58pkcdpg1rmb)];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,suse.com:url,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns]
+X-Spam-Flag: NO
 
-On 9/7/26 12:07 PM, Nihal Kumar Gupta wrote:
-> Glymur shares the same IP as X1E80100, with three CSIPHYs that use
-> the new standalone PHY API. Compared to X1E80100, csiphy2 is absent
-> on Glymur.
-> 
-> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Hi
+
+Am 09.08.26 um 15:14 schrieb Cody Kang via B4 Relay:
+> From: Cody Kang <codykang.hk@gmail.com>
+>
+> Register programming of the Saturn DPU is batched: the driver builds
+> per-module register lists in memory and the hardware command-list
+> engine replays them at frame boundaries, while scanout buffers are
+> mapped through the DPU's private address translation unit (DMMU)
+> rather than scanned out by physical address.
+
+I've looked through the code in patch 10. How does a plane interact with 
+the hardware? It apparently has its own command list, but there's mostly 
+code for the CRTC update.
+
+Best regards
+Thomas
+
+>
+> Add the shared driver types, the MMIO field accessors, the trace
+> events, the command-list builder and the DMMU table code. Some DPU
+> configuration registers are write-only, so a read-modify-write would
+> corrupt neighbouring fields; byte- and halfword-aligned fields are
+> therefore written at their native width instead.
+>
+> Signed-off-by: Cody Kang <codykang.hk@gmail.com>
+>
 > ---
-
-[...]
-
-> +	csiphy_mxc_opp_table: opp-table-mxc {
-> +		compatible = "operating-points-v2";
+> v2:
+> - hold the DPU reset lines as one reset_control_bulk_data
+>    pipe_resets[5] array in spacemit_drm_private and drop the pointers
+>    duplicated into struct spacemit_crtc (Philipp Zabel)
+> - drop the INT_VSYNC_UPDATE enum member; it never had an irq_list[]
+>    mapping and the register model has no such status bit (Sashiko)
+> - drop the unreachable multi-planar arms in spacemit_dmmu_map(); every
+>    advertised format is single-planar (Sashiko)
+> - drop the unused cmdlist parameter from the crtc_cmdlist op (Sashiko)
+> ---
+>   drivers/gpu/drm/spacemit/dpu/dpu_saturn.h   |  35 +++
+>   drivers/gpu/drm/spacemit/dpu/dpu_trace.h    | 350 ++++++++++++++++++++++++++++
+>   drivers/gpu/drm/spacemit/spacemit_cmdlist.c | 304 ++++++++++++++++++++++++
+>   drivers/gpu/drm/spacemit/spacemit_cmdlist.h | 146 ++++++++++++
+>   drivers/gpu/drm/spacemit/spacemit_crtc.h    | 246 +++++++++++++++++++
+>   drivers/gpu/drm/spacemit/spacemit_dmmu.c    |  80 +++++++
+>   drivers/gpu/drm/spacemit/spacemit_dmmu.h    |  40 ++++
+>   drivers/gpu/drm/spacemit/spacemit_dpu_reg.h | 108 +++++++++
+>   drivers/gpu/drm/spacemit/spacemit_drm.h     |  61 +++++
+>   9 files changed, 1370 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/spacemit/dpu/dpu_saturn.h b/drivers/gpu/drm/spacemit/dpu/dpu_saturn.h
+> new file mode 100644
+> index 0000000000000..22d77d56eca1a
+> --- /dev/null
+> +++ b/drivers/gpu/drm/spacemit/dpu/dpu_saturn.h
+> @@ -0,0 +1,35 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Copyright (C) 2025-2026 SpacemiT Co., Ltd.
+> + *
+> + */
 > +
-> +		opp-300000000 {
-> +			opp-hz = /bits/ 64 <300000000>;
-> +			required-opps = <&rpmhpd_opp_low_svs_d1>,
-> +					<&rpmhpd_opp_low_svs_d1>;
-> +		};
+> +#ifndef _DPU_SATURN_H_
+> +#define _DPU_SATURN_H_
 > +
-> +		opp-400000000 {
-> +			opp-hz = /bits/ 64 <400000000>;
-> +			required-opps = <&rpmhpd_opp_low_svs>,
-> +					<&rpmhpd_opp_low_svs>;
-> +		};
+> +#include "../spacemit_crtc.h"
 > +
-> +		opp-480000000 {
-> +			opp-hz = /bits/ 64 <480000000>;
-> +			required-opps = <&rpmhpd_opp_low_svs>,
-> +					<&rpmhpd_opp_low_svs>;
-> +		};
-> +	};
+> +struct dpu_format_id {
+> +	u32 format;		/* DRM fourcc */
+> +	u8 id;
+> +	u8 bpp;			/* bits per pixel */
+> +};
 > +
-> +	csiphy_mxa_opp_table: opp-table-mxa {
-
-Nodes without a unit address should be sorted alphabetically
-
-[...]
-
-> +		camss: isp@acb6000 {
-
-This needs to be sorted based on the address (it currently seems
-sorted, but is off by a zero)
-
-[...]
-
-> +		csiphy0: phy@ace4000 {
-> +			compatible = "qcom,glymur-csi2-phy", "qcom,x1e80100-csi2-phy";
-> +			reg = <0x0 0x0ace4000 0x0 0x2000>;
+> +#define SPACEMIT_DPU_INVALID_FORMAT_ID	0xff
 > +
-> +			clocks = <&camcc CAM_CC_CSIPHY0_CLK>,
-> +				 <&camcc CAM_CC_CSI0PHYTIMER_CLK>,
-> +				 <&camcc CAM_CC_CORE_AHB_CLK>;
-> +			clock-names = "core",
-> +				      "timer",
-> +				      "ahb";
+> +enum format_features {
+> +	FORMAT_RGB  = BIT(0),
+> +};
 > +
-> +			operating-points-v2 = <&csiphy_mxc_opp_table>;
+> +struct spacemit_hw_rdma {
+> +	u16 formats;
+> +};
+> +
+> +int dpu_parse_clocks(struct device *dev, struct dpu_clk_context *clk_ctx);
+> +u8 spacemit_plane_hw_get_format_id(u32 format);
+> +u32 saturn_conf_dpuctrl_rdma(struct spacemit_crtc *a_crtc);
+> +extern const struct spacemit_hw_device k3_saturn_dpu;
+> +void saturn_enable_irq_mask(struct spacemit_crtc *a_crtc, bool enable,
+> +			    u32 offset, u32 mask);
+> +void spacemit_cfg_rdy_timer_handler(struct timer_list *t);
+> +#endif
+> diff --git a/drivers/gpu/drm/spacemit/dpu/dpu_trace.h b/drivers/gpu/drm/spacemit/dpu/dpu_trace.h
+> new file mode 100644
+> index 0000000000000..abfe34a67a4bd
+> --- /dev/null
+> +++ b/drivers/gpu/drm/spacemit/dpu/dpu_trace.h
+> @@ -0,0 +1,350 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Copyright (C) 2025-2026 SpacemiT Co., Ltd.
+> + *
+> + */
+> +
+> +#undef TRACE_SYSTEM
+> +#define TRACE_SYSTEM spacemit_dpu
+> +
+> +#if !defined(_DPU_TRACE_H_) || defined(TRACE_HEADER_MULTI_READ)
+> +#define _DPU_TRACE_H_
+> +
+> +#include <linux/stringify.h>
+> +#include <linux/types.h>
+> +#include <linux/tracepoint.h>
+> +
+> +#include "dpu_saturn.h"
+> +
+> +TRACE_EVENT(drm_display_mode_info,
+> +	    TP_PROTO(struct drm_display_mode *mode),
+> +	TP_ARGS(mode),
+> +	TP_STRUCT__entry(
+> +		__field(u16, hdisplay)
+> +		__field(u16, hbp)
+> +		__field(u16, hfp)
+> +		__field(u16, hsync)
+> +		__field(u16, vdisplay)
+> +		__field(u16, vbp)
+> +		__field(u16, vfp)
+> +		__field(u16, vsync)
+> +	),
+> +	TP_fast_assign(
+> +		__entry->hdisplay = mode->hdisplay;
+> +		__entry->hbp = mode->htotal - mode->hsync_end;
+> +		__entry->hfp = mode->hsync_start - mode->hdisplay;
+> +		__entry->hsync = mode->hsync_end - mode->hsync_start;
+> +		__entry->vdisplay = mode->vdisplay;
+> +		__entry->vbp = mode->vtotal - mode->vsync_end;
+> +		__entry->vfp = mode->vsync_start - mode->vdisplay;
+> +		__entry->vsync = mode->vsync_end - mode->vsync_start;
+> +	),
+> +	TP_printk("drm_display_mode: hdisplay=%d vdisplay=%d hsync=%d vsync=%d hbp=%d hfp=%d vbp=%d vfp=%d",
+> +		  __entry->hdisplay, __entry->vdisplay,  __entry->hsync, __entry->vsync,
+> +		  __entry->hbp, __entry->hfp,  __entry->vbp, __entry->vfp
+> +	)
+> +);
+> +
+> +TRACE_EVENT(dpu_plane_info,
+> +	    TP_PROTO(struct drm_plane_state *state, struct drm_framebuffer *fb,
+> +		     u32 rdma_id, u32 alpha, u32 rotation),
+> +	TP_ARGS(state, fb, rdma_id, alpha, rotation),
+> +	TP_STRUCT__entry(
+> +			__field(u32, rdma_id)
+> +			__field(u32, src_w)
+> +			__field(u32, src_h)
+> +			__field(u32, src_x)
+> +			__field(u32, src_y)
+> +			__field(u32, crtc_w)
+> +			__field(u32, crtc_h)
+> +			__field(u32, crtc_x)
+> +			__field(u32, crtc_y)
+> +			__field(u32, width)
+> +			__field(u32, height)
+> +			__field(u32, format)
+> +			__field(u32, blend_mode)
+> +			__field(u32, alpha)
+> +			__field(u32, zpos)
+> +			__field(u32, rotation)
+> +	),
+> +	TP_fast_assign(
+> +			__entry->rdma_id = rdma_id;
+> +			__entry->src_w = state->src_w >> 16;
+> +			__entry->src_h = state->src_h >> 16;
+> +			__entry->src_x = state->src_x >> 16;
+> +			__entry->src_y = state->src_y >> 16;
+> +			__entry->crtc_w = state->crtc_w;
+> +			__entry->crtc_h = state->crtc_h;
+> +			__entry->crtc_x = state->crtc_x;
+> +			__entry->crtc_y = state->crtc_y;
+> +			__entry->width = fb->width;
+> +			__entry->height = fb->height;
+> +			__entry->format = fb->format->format;
+> +			__entry->blend_mode = state->pixel_blend_mode;
+> +			__entry->alpha = alpha;
+> +			__entry->zpos = state->zpos;
+> +			__entry->rotation = rotation;
+> +	),
+> +	TP_printk("rdma_id=%d src: w=%d h=%d x=%d y=%d crtc: w=%d h=%d x=%d y=%d width=%d height=%d fmt=0x%x blend=%d alpha=%d zpos=%d rot=%d",
+> +		  __entry->rdma_id, __entry->src_w,
+> +		  __entry->src_h, __entry->src_x,
+> +		  __entry->src_y, __entry->crtc_w,
+> +		  __entry->crtc_h, __entry->crtc_x,
+> +		  __entry->crtc_y, __entry->width,
+> +		  __entry->height, __entry->format,
+> +		  __entry->blend_mode, __entry->alpha,
+> +		  __entry->zpos, __entry->rotation)
+> +);
+> +
+> +DECLARE_EVENT_CLASS(dpu_status_template,
+> +		    TP_PROTO(const char *name, int status),
+> +	TP_ARGS(name, status),
+> +	TP_STRUCT__entry(
+> +		__string(name_str, name)
+> +		__field(int, status)
+> +	),
+> +	TP_fast_assign(
+> +		__assign_str(name_str);
+> +		__entry->status = status;
+> +	),
+> +	TP_printk("%s: 0x%x",
+> +		  __get_str(name_str), __entry->status)
+> +);
+> +
+> +DEFINE_EVENT(dpu_status_template, dpuctrl,
+> +	     TP_PROTO(const char *name, int status),
+> +	TP_ARGS(name, status)
+> +);
+> +DEFINE_EVENT(dpu_status_template, spacemit_plane_update_hw_channel,
+> +	     TP_PROTO(const char *name, int status),
+> +	TP_ARGS(name, status)
+> +);
+> +DEFINE_EVENT(dpu_status_template, saturn_irq_enable,
+> +	     TP_PROTO(const char *name, int status),
+> +	TP_ARGS(name, status)
+> +);
+> +DEFINE_EVENT(dpu_status_template, saturn_enable_vsync,
+> +	     TP_PROTO(const char *name, int status),
+> +	TP_ARGS(name, status)
+> +);
+> +DEFINE_EVENT(dpu_status_template, dpu_isr_status,
+> +	     TP_PROTO(const char *name, int status),
+> +	TP_ARGS(name, status)
+> +);
+> +
+> +DECLARE_EVENT_CLASS(dpu_uint64_t_data_template,
+> +		    TP_PROTO(const char *name, u64 data),
+> +	TP_ARGS(name, data),
+> +	TP_STRUCT__entry(
+> +		__string(name_str, name)
+> +		__field(u64, data)
+> +	),
+> +	TP_fast_assign(
+> +		__assign_str(name_str);
+> +		__entry->data = data;
+> +	),
+> +	TP_printk("%s: %lld",
+> +		  __get_str(name_str), __entry->data)
+> +);
+> +
+> +DEFINE_EVENT(dpu_uint64_t_data_template, u64_data,
+> +	     TP_PROTO(const char *name, u64 data),
+> +	TP_ARGS(name, data)
+> +);
+> +
+> +TRACE_EVENT(spacemit_dpu_reg_write,
+> +	    TP_PROTO(u32 data, u32 base, const char *name),
+> +	TP_ARGS(data, base, name),
+> +	TP_STRUCT__entry(
+> +		__field(u32, data)
+> +		__field(u32, base)
+> +		__string(name_str, name)
+> +	),
+> +	TP_fast_assign(
+> +		__entry->data = data;
+> +		__entry->base = base;
+> +		__assign_str(name_str);
+> +	),
+> +	TP_printk("dpu write 0x%x to addr 0x%x field %s",
+> +		  __entry->data, __entry->base, __get_str(name_str))
+> +);
+> +
+> +TRACE_EVENT(spacemit_plane_disable_hw_channel,
+> +	    TP_PROTO(u32 layer_id, u32 rdma_id),
+> +	TP_ARGS(layer_id, rdma_id),
+> +	TP_STRUCT__entry(
+> +		__field(u32, layer_id)
+> +		__field(u32, rdma_id)
+> +	),
+> +	TP_fast_assign(
+> +		__entry->layer_id = layer_id;
+> +		__entry->rdma_id = rdma_id;
+> +	),
+> +	TP_printk("layer_id:%d rdma_id:%d",
+> +		  __entry->layer_id, __entry->rdma_id)
+> +);
+> +
+> +DECLARE_EVENT_CLASS(dpu_func_template,
+> +		    TP_PROTO(u32 dev_id),
+> +	TP_ARGS(dev_id),
+> +	TP_STRUCT__entry(
+> +		__field(u32, dev_id)
+> +	),
+> +	TP_fast_assign(
+> +		__entry->dev_id = dev_id;
+> +	),
+> +	TP_printk("dev_id=%d", __entry->dev_id)
+> +);
+> +DEFINE_EVENT(dpu_func_template, spacemit_plane_atomic_check,
+> +	     TP_PROTO(u32 dev_id),
+> +	TP_ARGS(dev_id)
+> +);
+> +DEFINE_EVENT(dpu_func_template, spacemit_plane_atomic_update,
+> +	     TP_PROTO(u32 dev_id),
+> +	TP_ARGS(dev_id)
+> +);
+> +DEFINE_EVENT(dpu_func_template, spacemit_plane_atomic_duplicate_state,
+> +	     TP_PROTO(u32 dev_id),
+> +	TP_ARGS(dev_id)
+> +);
+> +DEFINE_EVENT(dpu_func_template, spacemit_plane_atomic_destroy_state,
+> +	     TP_PROTO(u32 dev_id),
+> +	TP_ARGS(dev_id)
+> +);
+> +DEFINE_EVENT(dpu_func_template, spacemit_plane_init,
+> +	     TP_PROTO(u32 dev_id),
+> +	TP_ARGS(dev_id)
+> +);
+> +DEFINE_EVENT(dpu_func_template, dpu_enable_clocks,
+> +	     TP_PROTO(u32 dev_id),
+> +	TP_ARGS(dev_id)
+> +);
+> +DEFINE_EVENT(dpu_func_template, dpu_disable_clocks,
+> +	     TP_PROTO(u32 dev_id),
+> +	TP_ARGS(dev_id)
+> +);
+> +DEFINE_EVENT(dpu_func_template, dpu_uninit,
+> +	     TP_PROTO(u32 dev_id),
+> +	TP_ARGS(dev_id)
+> +);
+> +DEFINE_EVENT(dpu_func_template, dpu_isr,
+> +	     TP_PROTO(u32 dev_id),
+> +	TP_ARGS(dev_id)
+> +);
+> +DEFINE_EVENT(dpu_func_template, dpu_run,
+> +	     TP_PROTO(u32 dev_id),
+> +	TP_ARGS(dev_id)
+> +);
+> +DEFINE_EVENT(dpu_func_template, spacemit_crtc_atomic_enable,
+> +	     TP_PROTO(u32 dev_id),
+> +	TP_ARGS(dev_id)
+> +);
+> +DEFINE_EVENT(dpu_func_template, spacemit_crtc_atomic_disable,
+> +	     TP_PROTO(u32 dev_id),
+> +	TP_ARGS(dev_id)
+> +);
+> +DEFINE_EVENT(dpu_func_template, spacemit_crtc_atomic_check,
+> +	     TP_PROTO(u32 dev_id),
+> +	TP_ARGS(dev_id)
+> +);
+> +DEFINE_EVENT(dpu_func_template, spacemit_crtc_atomic_begin,
+> +	     TP_PROTO(u32 dev_id),
+> +	TP_ARGS(dev_id)
+> +);
+> +DEFINE_EVENT(dpu_func_template, spacemit_crtc_atomic_flush,
+> +	     TP_PROTO(u32 dev_id),
+> +	TP_ARGS(dev_id)
+> +);
+> +DEFINE_EVENT(dpu_func_template, spacemit_crtc_enable_vblank,
+> +	     TP_PROTO(u32 dev_id),
+> +	TP_ARGS(dev_id)
+> +);
+> +DEFINE_EVENT(dpu_func_template, spacemit_crtc_disable_vblank,
+> +	     TP_PROTO(u32 dev_id),
+> +	TP_ARGS(dev_id)
+> +);
+> +DEFINE_EVENT(dpu_func_template, spacemit_crtc_run,
+> +	     TP_PROTO(u32 dev_id),
+> +	TP_ARGS(dev_id)
+> +);
+> +DEFINE_EVENT(dpu_func_template, spacemit_crtc_init,
+> +	     TP_PROTO(u32 dev_id),
+> +	TP_ARGS(dev_id)
+> +);
+> +DEFINE_EVENT(dpu_func_template, spacemit_crtc_uninit,
+> +	     TP_PROTO(u32 dev_id),
+> +	TP_ARGS(dev_id)
+> +);
+> +DEFINE_EVENT(dpu_func_template, saturn_ctrl_cfg_ready_timer,
+> +	     TP_PROTO(u32 dev_id),
+> +	TP_ARGS(dev_id)
+> +);
+> +DECLARE_EVENT_CLASS(dpu_ctrl_template,
+> +		    TP_PROTO(int id, int enable),
+> +	TP_ARGS(id, enable),
+> +	TP_STRUCT__entry(
+> +		__field(u32, id)
+> +		__field(u32, enable)
+> +	),
+> +	TP_fast_assign(
+> +		__entry->id = id;
+> +		__entry->enable = enable;
+> +	),
+> +	TP_printk("id=%d enable:%d",
+> +		  __entry->id, __entry->enable)
+> +);
+> +DEFINE_EVENT(dpu_ctrl_template, saturn_ctrl_cfg_ready,
+> +	     TP_PROTO(int id, int enable),
+> +	TP_ARGS(id, enable)
+> +);
+> +
+> +DEFINE_EVENT(dpu_ctrl_template, saturn_ctrl_sw_start,
+> +	     TP_PROTO(int id, int enable),
+> +	TP_ARGS(id, enable)
+> +);
+> +
+> +TRACE_EVENT(plat_cmdlist_dump_node,
+> +	    TP_PROTO(char *dump),
+> +	TP_ARGS(dump),
+> +	TP_STRUCT__entry(
+> +		__string(dump_str, dump)
+> +	),
+> +	TP_fast_assign(
+> +		__assign_str(dump_str);
+> +	),
+> +	TP_printk("%s", __get_str(dump_str))
+> +);
+> +
+> +TRACE_EVENT(cmdlist_dump_node,
+> +	    TP_PROTO(char *type, int rdma_id, u8 dev_id, int zpos, u16 nod_len),
+> +	TP_ARGS(type, rdma_id, dev_id, zpos, nod_len),
+> +	TP_STRUCT__entry(
+> +		__string(type_str, type)
+> +		__field(int, rdma_id)
+> +		__field(u8, dev_id)
+> +		__field(int, zpos)
+> +		__field(u16, nod_len)
+> +	),
+> +	TP_fast_assign(
+> +		__assign_str(type_str);
+> +		__entry->rdma_id = rdma_id;
+> +		__entry->dev_id = dev_id;
+> +		__entry->zpos = zpos;
+> +		__entry->nod_len = nod_len;
+> +	),
+> +	TP_printk("cmdlist[%s]: rdma_id:%d crtc:%d zpos:%d rows:%d",
+> +		  __get_str(type_str),
+> +		  __entry->rdma_id,
+> +		  __entry->dev_id,
+> +		  __entry->zpos,
+> +		  __entry->nod_len)
+> +);
+> +#endif /* _DPU_TRACE_H_ */
+> +
+> +/* This part must be outside protection */
+> +#undef TRACE_INCLUDE_FILE
+> +#undef TRACE_INCLUDE_PATH
+> +#define TRACE_INCLUDE_PATH ../../drivers/gpu/drm/spacemit/dpu/
+> +
+> +#define TRACE_INCLUDE_FILE dpu_trace
+> +#include <trace/define_trace.h>
+> diff --git a/drivers/gpu/drm/spacemit/spacemit_cmdlist.c b/drivers/gpu/drm/spacemit/spacemit_cmdlist.c
+> new file mode 100644
+> index 0000000000000..f4f14eaa12a0f
+> --- /dev/null
+> +++ b/drivers/gpu/drm/spacemit/spacemit_cmdlist.c
+> @@ -0,0 +1,304 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (C) 2025-2026 SpacemiT Co., Ltd.
+> + *
+> + */
+> +
+> +#include <linux/dma-mapping.h>
+> +#include <linux/sort.h>
+> +#include <drm/drm_print.h>
+> +#include <drm/drm_atomic.h>
+> +#include <drm/drm_atomic_helper.h>
+> +#include <drm/drm_crtc_helper.h>
+> +#include <drm/drm_plane_helper.h>
+> +#include "spacemit_cmdlist.h"
+> +#include "spacemit_crtc.h"
+> +#include "spacemit_dpu_reg.h"
+> +#include "spacemit_drm.h"
+> +#include "dpu/dpu_saturn.h"
+> +#include "dpu/dpu_trace.h"
+> +
+> +struct spacemit_plane_state *cl_to_spacemit_pstate(const struct cmdlist *cl)
+> +{
+> +	return container_of(cl, struct spacemit_plane_state, cl);
+> +}
+> +
+> +struct spacemit_crtc_state *cl_to_spacemit_cstate(const struct cmdlist *cl)
+> +{
+> +	return container_of(cl, struct spacemit_crtc_state, cl);
+> +}
+> +
+> +struct cmdlist *plane_to_cl(struct drm_plane *plane)
+> +{
+> +	struct spacemit_plane_state *spacemit_pstate =
+> +			to_spacemit_plane_state(plane->state);
+> +
+> +	return &spacemit_pstate->cl;
+> +}
+> +
+> +struct cmdlist *crtc_to_cl(struct drm_crtc *crtc)
+> +{
+> +	struct spacemit_crtc_state *spacemit_cstate =
+> +			to_spacemit_crtc_state(crtc->state);
+> +
+> +	return &spacemit_cstate->cl;
+> +}
+> +
+> +static void cmdlist_dump_node(struct cmdlist *cl)
+> +{
+> +	struct spacemit_drm_private *priv;
+> +	struct spacemit_hw_device *hwdev;
+> +	struct spacemit_crtc *a_crtc;
+> +	char *type;
+> +	int zpos = -1, rdma_id = -1;
+> +
+> +	if (!cl)
+> +		return;
+> +
+> +	if (cl->type == CMDLIST_PLANE) {
+> +		struct spacemit_plane_state *spacemit_pstate =
+> +				cl_to_spacemit_pstate(cl);
+> +
+> +		a_crtc = to_spacemit_crtc(spacemit_pstate->state.crtc);
+> +		rdma_id = spacemit_pstate->rdma_id;
+> +		zpos = (int)(spacemit_pstate->state.zpos);
+> +		type = "RDMA";
+> +	} else if (cl->type == CMDLIST_CRTC) {
+> +		struct spacemit_crtc_state *spacemit_cstate =
+> +				cl_to_spacemit_cstate(cl);
+> +
+> +		a_crtc = to_spacemit_crtc(spacemit_cstate->base.crtc);
+> +		type = "CRTC";
+> +	} else {
+> +		return;
+> +	}
+> +
+> +	trace_cmdlist_dump_node(type, rdma_id, a_crtc->dev_id, zpos,
+> +				cl->nod_len);
+> +
+> +	priv = a_crtc->crtc.dev->dev_private;
+> +	hwdev = priv->hwdev;
+> +	hwdev->cmdlist_dump_node(cl);
+> +}
+> +
+> +void cmdlist_regs_packing(struct cmdlist *cl, enum cmdlist_mode_type mod,
+> +			  struct cmdlist_regs *cl_regs)
+> +{
+> +	struct spacemit_crtc *a_crtc;
+> +	struct spacemit_drm_private *priv;
+> +	struct spacemit_hw_device *hwdev;
+> +	u32 *reg_base;
+> +	int i;
+> +	u32 index;
+> +
+> +	if (!cl_regs)
+> +		return;
+> +
+> +	if (cl->type == CMDLIST_PLANE) {
+> +		struct spacemit_plane_state *spacemit_pstate =
+> +				cl_to_spacemit_pstate(cl);
+> +
+> +		a_crtc = to_spacemit_crtc(spacemit_pstate->state.crtc);
+> +
+> +		drm_dbg(a_crtc->crtc.dev, "rch_id = %d, ch_y = %u\n",
+> +			spacemit_pstate->rdma_id,
+> +			spacemit_pstate->state.crtc_y);
+> +	} else if (cl->type == CMDLIST_CRTC) {
+> +		struct spacemit_crtc_state *spacemit_cstate =
+> +				cl_to_spacemit_cstate(cl);
+> +
+> +		a_crtc = to_spacemit_crtc(spacemit_cstate->base.crtc);
+> +	} else {
+> +		WARN_ONCE(1, "unsupported cmdlist type %d\n", cl->type);
+> +		return;
+> +	}
+> +
+> +	priv = a_crtc->crtc.dev->dev_private;
+> +	hwdev = priv->hwdev;
+> +	reg_base = cl_regs->module;
+> +
+> +	cl->mode_mask |= mod;
+> +
+> +	/*
+> +	 * Without the atomic_check() buffer the staged register writes vanish.
+> +	 */
+> +	if (drm_WARN_ON(a_crtc->crtc.dev, !cl->va))
+> +		return;
+> +
+> +	for (i = 0; i < cl_regs->size;) {
+> +		u32 value[CMDLIST_ROW_REGS] = {0x0};
+> +		u32 offset, strobe = 0;
+> +		u8 regs_in_row = 0;
+> +
+> +		if (cl_regs->flags[i]) {
+> +			offset = cl_regs->base + i * sizeof(u32);
+> +			for (u8 j = 0; j < CMDLIST_ROW_REGS; j++) {
+> +				index = i + j;
+> +				if (likely(index < cl_regs->size)) {
+> +					if (cl_regs->flags[index]) {
+> +						value[j] = reg_base[index];
+> +						regs_in_row++;
+> +						strobe |= CMDLIST_REG_STROBE(j);
+> +					}
+> +				} else {
+> +					break;
+> +				}
+> +			}
+> +			hwdev->cmdlist_fill_data_row(cl, strobe, offset, value);
+> +			/*
+> +			 * the row covers the whole window; a shorter stride
+> +			 * would revisit covered words as duplicate rows
+> +			 */
+> +			i += CMDLIST_ROW_REGS;
+> +			cl->nod_len++;
+> +		} else {
+> +			i++;
+> +		}
+> +	}
+> +
+> +	drm_dbg(a_crtc->crtc.dev, "row_num = %d\n", cl->nod_len);
+> +}
+> +
+> +void cmdlist_sort_by_group(struct drm_crtc *crtc)
+> +{
+> +	struct cmdlist *first_cl;
+> +	struct cmdlist *last_cl;
+> +	struct cmdlist *p;
+> +	struct cmdlist *prev;
+> +	struct drm_plane *plane;
+> +	struct spacemit_crtc_rdma *rdmas =
+> +			to_spacemit_crtc_state(crtc->state)->rdmas;
+> +	struct spacemit_drm_private *priv = crtc->dev->dev_private;
+> +
+> +	drm_atomic_crtc_for_each_plane(plane, crtc) {
+> +		struct spacemit_plane_state *spacemit_pstate =
+> +			to_spacemit_plane_state(plane->state);
+> +		u32 rdma_id = spacemit_pstate->rdma_id;
+> +
+> +		first_cl = &spacemit_pstate->cl;
+> +		if (!first_cl->va)
+> +			continue;
+> +
+> +		last_cl = first_cl;
+> +		last_cl->next = NULL;
+> +
+> +		rdmas[rdma_id].in_use = true;
+> +		if (priv->cmdlist_groups[rdma_id]) {
+> +			p = priv->cmdlist_groups[rdma_id];
+> +			prev = NULL;
+> +			while (p) {
+> +				if (cl_to_spacemit_pstate(p)->state.crtc_y <
+> +				    spacemit_pstate->state.crtc_y) {
+> +					prev = p;
+> +					p = p->next;
+> +				} else {
+> +					break;
+> +				}
+> +			}
+> +			if (!prev) {
+> +				priv->cmdlist_groups[rdma_id] = first_cl;
+> +				last_cl->next = p;
+> +			} else {
+> +				prev->next = first_cl;
+> +				last_cl->next = p;
+> +			}
+> +		} else {
+> +			priv->cmdlist_groups[rdma_id] = first_cl;
+> +		}
+> +	}
+> +}
+> +
+> +void cmdlist_atomic_commit(struct drm_crtc *crtc,
+> +			   struct drm_crtc_state *old_state)
+> +{
+> +	int i;
+> +	struct cmdlist *cur_cl, *first_cl;
+> +	struct spacemit_crtc *a_crtc = NULL;
+> +	u32 chy, addrl, addrh;
+> +	struct spacemit_drm_private *priv = crtc->dev->dev_private;
+> +	struct spacemit_hw_device *hwdev = priv->hwdev;
+> +	struct spacemit_crtc_rdma *cur_rdmas =
+> +			to_spacemit_crtc_state(crtc->state)->rdmas;
+> +	struct spacemit_crtc_rdma *old_rdmas =
+> +			to_spacemit_crtc_state(old_state)->rdmas;
+> +
+> +	a_crtc = to_spacemit_crtc(crtc);
+> +
+> +	for (i = 0; i < hwdev->rdma_nums; i++) {
+> +		if (old_rdmas[i].in_use)
+> +			hwdev->enable_cmdlist(a_crtc, hwdev, i, false);
+> +
+> +		if (cur_rdmas[i].in_use) {
+> +			drm_dbg(crtc->dev, "cmdlist group = %d\n", i);
+> +			cur_cl = priv->cmdlist_groups[i];
+> +			first_cl = cur_cl;
+> +			while (cur_cl) {
+> +				hwdev->cmdlist_fill_conf_row(cur_cl, hwdev,
+> +					CMDLIST_CMP_INVALID);
+> +				cmdlist_dump_node(cur_cl);
+> +				cur_cl = cur_cl->next;
+> +			}
+> +			chy = cl_to_spacemit_pstate(first_cl)->state.crtc_y;
+> +			addrl = (lower_32_bits(priv->cmdlist_groups[i]->pa) &
+> +				 CMDLIST_ADDRL_ALIGN_MASK) >> CMDLIST_ADDRL_ALIGN_BITS;
+> +
+> +			addrh = upper_32_bits(priv->cmdlist_groups[i]->pa);
+> +			hwdev->cfg_cmdlist(hwdev, i, chy, addrl, addrh);
+> +			hwdev->enable_cmdlist(a_crtc, hwdev, i, true);
+> +			priv->cmdlist_groups[i] = NULL;
+> +		}
+> +	}
+> +}
+> +
+> +void crtc_cmdlist_sort_by_group(struct spacemit_crtc *a_crtc)
+> +{
+> +	struct cmdlist *first_cl;
+> +	struct cmdlist *last_cl;
+> +	struct drm_crtc *crtc = &a_crtc->crtc;
+> +	struct spacemit_drm_private *priv = crtc->dev->dev_private;
+> +	struct spacemit_hw_device *hwdev = priv->hwdev;
+> +	struct drm_crtc_state *crtc_state = a_crtc->crtc.state;
+> +	struct spacemit_crtc_state *spacemit_crtc_state =
+> +			to_spacemit_crtc_state(crtc_state);
+> +	u8 crtc_id = drm_crtc_index(crtc);
+> +
+> +	first_cl = &spacemit_crtc_state->cl;
+> +	last_cl = first_cl;
+> +	last_cl->next = NULL;
+> +	priv->cmdlist_groups[hwdev->rdma_nums + crtc_id] = first_cl;
+> +}
+> +
+> +void crtc_cmdlist_atomic_commit(struct spacemit_crtc *a_crtc)
+> +{
+> +	struct cmdlist *cur_cl;
+> +	struct drm_crtc *crtc = &a_crtc->crtc;
+> +	struct spacemit_drm_private *priv = crtc->dev->dev_private;
+> +	struct spacemit_hw_device *hwdev = priv->hwdev;
+> +	u8 crtc_id = drm_crtc_index(crtc);
+> +	u8 dev_id = a_crtc->dev_id;
+> +
+> +	drm_dbg(crtc->dev, "cmdlist group = %d\n",
+> +		hwdev->rdma_nums + crtc_id);
+> +	cur_cl = priv->cmdlist_groups[hwdev->rdma_nums + crtc_id];
+> +	while (cur_cl) {
+> +		hwdev->cmdlist_fill_conf_row(cur_cl, hwdev, dev_id);
+> +		cmdlist_dump_node(cur_cl);
+> +		cur_cl = cur_cl->next;
+> +	}
+> +	hwdev->crtc_cmdlist(hwdev, priv, crtc_id, dev_id);
+> +}
+> +
+> +/* Called from atomic_check(), where -ENOMEM is still an answer. */
+> +int spacemit_cmdlist_alloc(struct device *dev, struct cmdlist *cl)
+> +{
+> +	if (cl->va)
+> +		return 0;
+> +
+> +	cl->size = PER_CMDLIST_SIZE;
+> +	cl->va = dma_alloc_coherent(dev, cl->size, &cl->pa,
+> +				    GFP_KERNEL | __GFP_ZERO);
+> +	if (!cl->va)
+> +		return -ENOMEM;
+> +
+> +	return 0;
+> +}
+> diff --git a/drivers/gpu/drm/spacemit/spacemit_cmdlist.h b/drivers/gpu/drm/spacemit/spacemit_cmdlist.h
+> new file mode 100644
+> index 0000000000000..d5acdbeb3b0e7
+> --- /dev/null
+> +++ b/drivers/gpu/drm/spacemit/spacemit_cmdlist.h
+> @@ -0,0 +1,146 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Copyright (C) 2025-2026 SpacemiT Co., Ltd.
+> + *
+> + */
+> +
+> +#ifndef _SATURN_FW_CMDLIST_H_
+> +#define _SATURN_FW_CMDLIST_H_
+> +
+> +#include <linux/stddef.h>
+> +#include <linux/types.h>
+> +#include <drm/drm_crtc.h>
+> +#include <drm/drm_plane.h>
+> +
+> +struct spacemit_crtc;
+> +struct spacemit_plane_state;
+> +
+> +#define PER_CMDLIST_SIZE             4096
+> +#define CMDLIST_ROW_REGS	(3)
+> +#define CMDLIST_CMP_INVALID	(0xff)
+> +/* poison for the per-cmdlist compose sentinels, never written to hw */
+> +#define CMDLIST_SENTINEL_POISON	0xDEADBEEF
+> +
+> +/**
+> + * enum cmdlist_type - what surface owns a cmdlist instance
+> + * @CMDLIST_PLANE: Per-plane RDMA register batches.
+> + * @CMDLIST_CRTC: Compose-side batches submitted on every flush.
+> + */
+> +enum cmdlist_type {
+> +	CMDLIST_PLANE = 1,
+> +	CMDLIST_CRTC,
+> +};
+> +
+> +/**
+> + * struct cmdlist - A DMA-backed batch of register writes replayed at CFG_RDY
+> + * @nod_len: Number of register-write rows currently filled.
+> + * @size: Capacity of the DMA buffer in bytes.
+> + * @mode_mask: cmdlist_mode_type sources; gates which rows are pulled.
+> + * @va: Kernel virtual address of the DMA buffer.
+> + * @pa: DMA address programmed into the cmdlist base register.
+> + * @next: Cmdlists in submission order; the CRTC-level one comes last.
+> + * @type: Originating surface; see &enum cmdlist_type.
+> + * @rch_start_cmps_y: Compositor-Y start sentinel.
+> + * @cmdlist_ch_y_other: Companion sentinel to @rch_start_cmps_y.
+> + */
+> +struct cmdlist {
+> +	u16 nod_len;
+> +	u32 size;
+> +	u32 mode_mask;
+> +	void *va;
+> +	dma_addr_t pa;
+> +	struct cmdlist *next;
+> +	u8 type;
+> +	u32 rch_start_cmps_y;
+> +	u32 cmdlist_ch_y_other;
+> +};
+> +
+> +enum cmdlist_mode_type {
+> +	CMDLIST_MOD_RDMA = BIT(0),
+> +	CMDLIST_MOD_COMP = BIT(3),
+> +	CMDLIST_MOD_DMMU = BIT(6),
+> +};
+> +
+> +#define CMDLIST_REG_STROBE(index)	(0xf << ((index) * 4))
+> +
+> +#define CMDLIST_ADDRL_ALIGN_BITS               (4) /* From cmdlist_reg_0[] in CMDLIST_REG */
+> +#define CMDLIST_ADDRL_ALIGN_MASK \
+> +	((u32)(~(BIT(CMDLIST_ADDRL_ALIGN_BITS) - 1)))
+> +/* NULL on failure is safe: every consumer falls back to direct MMIO. */
+> +#define alloc_cmdlist_regs(module_name) \
+> +({ \
+> +	struct cmdlist_regs *cl = kzalloc(sizeof(*cl), GFP_KERNEL); \
+> +	if (cl) { \
+> +		cl->size = module_name##__NWORDS; \
+> +		cl->module = kzalloc(4 * module_name##__NWORDS, GFP_KERNEL); \
+> +		cl->flags = kzalloc(module_name##__NWORDS, GFP_KERNEL); \
+> +		if (!cl->module || !cl->flags) { \
+> +			kfree(cl->module); \
+> +			kfree(cl->flags); \
+> +			kfree(cl); \
+> +			cl = NULL; \
+> +		} \
+> +	} \
+> +	cl; \
+> +})
+> +
+> +#define free_cmdlist_regs(cl_p) \
+> +do { \
+> +	struct cmdlist_regs *cl = (cl_p); \
+> +	if (cl) { \
+> +		kfree(cl->module); \
+> +		kfree(cl->flags); \
+> +		kfree(cl); \
+> +	} \
+> +} while (0)
+> +
+> +/*
+> + * First touch seeds the word from a live MMIO read: only register blocks that
+> + * read back what was written may be routed through cmdlist.
+> + */
+> +#define cmdlist_write_reg(hwdev, module_name, module_base, field, data, cl_regs) \
+> +do { \
+> +	struct cmdlist_regs *cl_p = (cl_regs); \
+> +	u32 *__words = cl_p->module; \
+> +	const unsigned int __w = dpu_field_word(module_name, field); \
+> +	if (cl_p->flags[__w] == 0) { \
+> +		__words[__w] = readl((hwdev)->base + (module_base) + 4 * __w); \
+> +		cl_p->base = (module_base); \
+> +		cl_p->flags[__w] = 1; \
+> +	} \
+> +	__words[__w] &= ~dpu_field_mask(module_name, field); \
+> +	__words[__w] |= FIELD_PREP(dpu_field_mask(module_name, field), \
+> +				   (u32)(data)); \
+> +} while (0)
+> +
+> +/* Raw whole-word variant (the value32[] call sites); no seeding needed. */
+> +#define cmdlist_write_word(module_base, word, data, cl_regs) \
+> +do { \
+> +	struct cmdlist_regs *cl_p = (cl_regs); \
+> +	u32 *__words = cl_p->module; \
+> +	cl_p->base = (module_base); \
+> +	cl_p->flags[(word)] = 1; \
+> +	__words[(word)] = (u32)(data); \
+> +} while (0)
+> +
+> +struct cmdlist_regs {
+> +	u32 base;
+> +	u16 size;
+> +	u32 *module;
+> +	u8 *flags;
+> +};
+> +
+> +void cmdlist_regs_packing(struct cmdlist *cl, enum cmdlist_mode_type mod,
+> +			  struct cmdlist_regs *cl_regs);
+> +void cmdlist_sort_by_group(struct drm_crtc *crtc);
+> +void cmdlist_atomic_commit(struct drm_crtc *crtc,
+> +			   struct drm_crtc_state *old_state);
+> +struct spacemit_plane_state *cl_to_spacemit_pstate(const struct cmdlist *cl);
+> +void crtc_cmdlist_sort_by_group(struct spacemit_crtc *a_crtc);
+> +void crtc_cmdlist_atomic_commit(struct spacemit_crtc *a_crtc);
+> +struct spacemit_crtc_state *cl_to_spacemit_cstate(const struct cmdlist *cl);
+> +int spacemit_cmdlist_alloc(struct device *dev, struct cmdlist *cl);
+> +struct cmdlist *plane_to_cl(struct drm_plane *plane);
+> +struct cmdlist *crtc_to_cl(struct drm_crtc *crtc);
+> +
+> +#endif /* _SATURN_FW_CMDLIST_H_ */
+> diff --git a/drivers/gpu/drm/spacemit/spacemit_crtc.h b/drivers/gpu/drm/spacemit/spacemit_crtc.h
+> new file mode 100644
+> index 0000000000000..7c03102414d00
+> --- /dev/null
+> +++ b/drivers/gpu/drm/spacemit/spacemit_crtc.h
+> @@ -0,0 +1,246 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Copyright (C) 2025-2026 SpacemiT Co., Ltd.
+> + *
+> + */
+> +
+> +#ifndef _SPACEMIT_CRTC_H_
+> +#define _SPACEMIT_CRTC_H_
+> +
+> +#include <linux/delay.h>
+> +#include <linux/string.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/device.h>
+> +#include <linux/kernel.h>
+> +#include <linux/bug.h>
+> +#include <linux/regmap.h>
+> +#include <video/videomode.h>
+> +#include <linux/workqueue.h>
+> +
+> +#include <drm/drm_atomic_uapi.h>
+> +#include <drm/drm_print.h>
+> +#include <drm/drm_crtc.h>
+> +#include <drm/drm_fourcc.h>
+> +#include <drm/drm_vblank.h>
+> +#include "spacemit_dpu_ids.h"
+> +#include "spacemit_cmdlist.h"
+> +#include "spacemit_drm.h"
+> +#include <linux/spinlock.h>
+> +
+> +#define RDMA_INVALID_ID			(~0)
+> +
+> +#define DPU_MCLK_DEFAULT	307200000
+> +#define DPU_AXICLK_DEFAULT	409000000
+> +
+> +enum spacemit_dpu_irq {
+> +	INT_UNDERRUN,
+> +	INT_CFG_RDY,
+> +	INT_VSYNC,
+> +	INT_EOF,
+> +	INT_REST,
+> +};
+> +
+> +struct spacemit_crtc_fbcmem {
+> +	u32 start;
+> +	u32 size;
+> +	bool map;
+> +};
+> +
+> +struct spacemit_crtc_rdma {
+> +	struct spacemit_crtc_fbcmem fbcmem;
+> +	bool in_use;
+> +	u32 use_cnt;
+> +};
+> +
+> +struct dpu_mmu_tbl {
+> +	u32 size;
+> +	void *va;
+> +	dma_addr_t pa;
+> +};
+> +
+> +
+> +/**
+> + * struct spacemit_crtc - Per-instance state for a Saturn DPU CRTC
+> + * @dev: Underlying platform device for this DPU instance.
+> + * @crtc: Embedded DRM CRTC; reachable via to_spacemit_crtc().
+> + * @core: Vtable of DPU pipeline operations, populated at probe.
+> + * @mmu_tbl: DPU-local page table mapping planes' buffers into the TBUs.
+> + * @dev_id: Vendor-numbered DPU instance ID (0 or 1 on K3).
+> + * @irq_online: Online-compose IRQ, kept for synchronize_irq().
+> + * @cfg_rdy_timer: Watchdog for a CFG_RDY that never arrives.
+> + * @is_1st_f: True until the first frame of a new modeset is transferred.
+> + * @first_modeset: True until the first .atomic_enable after probe; that first
+> + *		   pass resets the DPU to stop the U-Boot pipeline.
+> + * @clk_ctx: Cached clock handles, enabled by dpu_enable_clocks().
+> + * @aclk: Requested DPU AXI clock rate (Hz).
+> + * @out_format: Output pixel format register cache.
+> + * @cl_rdma: Cmdlist register slot for RDMA programming.
+> + * @flip_done: Set once the DPU has committed the most recent page flip.
+> + * @clocks_on: True while clocks run; MMIO on a gated DPU stalls the bus.
+> + * @ur_reported: True once an underrun has been logged since the last CFG_RDY.
+> + * @ur_mask_armed: True while clr_int_sts() may still mask the underrun IRQ.
+> + */
+> +struct spacemit_crtc {
+> +	struct device *dev;
+> +	struct drm_crtc crtc;
+> +	const struct dpu_core_ops *core;
+> +	struct dpu_mmu_tbl mmu_tbl;
+> +	int dev_id;
+> +	int irq_online;
+> +	struct timer_list cfg_rdy_timer;
+> +
+> +	bool is_1st_f;
+> +	bool first_modeset;
+> +	struct dpu_clk_context clk_ctx;
+> +	u32 aclk;
+> +	u32 out_format;
+> +
+> +	struct cmdlist_regs *cl_rdma;
+> +
+> +	bool flip_done;
+> +
+> +	bool clocks_on;
+> +
+> +	bool ur_reported;
+> +	bool ur_mask_armed;
+> +};
+> +
+> +static inline struct spacemit_crtc *to_spacemit_crtc(struct drm_crtc *crtc)
+> +{
+> +	return crtc ? container_of(crtc, struct spacemit_crtc, crtc) : NULL;
+> +}
+> +
+> +struct spacemit_hw_device;
+> +struct dpu_core_ops {
+> +	int (*init)(struct spacemit_crtc *a_crtc);
+> +	void (*uninit)(struct spacemit_crtc *a_crtc);
+> +	void (*run)(struct drm_crtc *crtc,
+> +		    struct drm_crtc_state *old_state);
+> +	void (*disable_vsync)(struct spacemit_crtc *a_crtc);
+> +	void (*enable_vsync)(struct spacemit_crtc *a_crtc);
+> +	u32 (*online_isr)(struct spacemit_crtc *a_crtc);
+> +	int (*enable_clk)(struct spacemit_crtc *a_crtc);
+> +	int (*disable_clk)(struct spacemit_crtc *a_crtc);
+> +	int (*cal_layer_fbcmem_size)(struct drm_plane *plane,
+> +				     struct drm_plane_state *state);
+> +	int (*adjust_rdma_fbcmem)(struct spacemit_hw_device *hwdev,
+> +				  struct spacemit_crtc_rdma *rdmas);
+> +};
+> +
+> +extern const struct dpu_core_ops dpu_saturn_ops;
+> +
+> +int spacemit_crtc_run(struct drm_crtc *crtc,
+> +		      struct drm_crtc_state *old_state);
+> +
+> +struct spacemit_plane {
+> +	struct drm_plane plane;
+> +	struct spacemit_hw_device *hwdev;
+> +};
+> +
+> +/**
+> + * struct spacemit_plane_state - Subclassed drm_plane_state for the Saturn DPU
+> + * @state: Embedded drm_plane_state; reachable via to_spacemit_plane_state().
+> + * @rdma_id: RDMA channel feeding this plane, derived from its zpos.
+> + * @format: DPU-internal pixel-format token translated from the fourcc.
+> + * @fbcmem_size: Bytes of FBC line buffer reserved for this plane.
+> + * @mmu_tbl: Per-plane page table populated by spacemit_dmmu_map().
+> + * @cl: Plane-level cmdlist filled during atomic_update.
+> + */
+> +struct spacemit_plane_state {
+> +	struct drm_plane_state state;
+> +	u32 rdma_id;
+> +	u8 format;
+> +	u32 fbcmem_size;
+> +	struct dpu_mmu_tbl mmu_tbl;
+> +	struct cmdlist cl;
+> +};
+> +
+> +struct spacemit_plane *to_spacemit_plane(struct drm_plane *plane);
+> +
+> +static inline struct
+> +spacemit_plane_state *
+> +to_spacemit_plane_state(const struct drm_plane_state *state)
+> +{
+> +	return container_of(state, struct spacemit_plane_state, state);
+> +}
+> +
+> +/**
+> + * struct spacemit_crtc_state - Subclassed drm_crtc_state for the Saturn DPU
+> + * @base: Embedded drm_crtc_state; reachable via to_spacemit_crtc_state().
+> + * @rdmas: Per-RDMA-channel descriptors, hwdev->rdma_nums entries.
+> + * @cl: CRTC-level cmdlist used during atomic_flush.
+> + */
+> +struct spacemit_crtc_state {
+> +	struct drm_crtc_state base;
+> +	struct spacemit_crtc_rdma *rdmas;
+> +	struct cmdlist cl;
+> +};
+> +
+> +#define to_spacemit_crtc_state(x) \
+> +	container_of(x, struct spacemit_crtc_state, base)
+> +
+> +struct drm_plane *spacemit_plane_init(struct drm_device *drm,
+> +				      struct spacemit_crtc *a_crtc);
+> +
+> +struct spacemit_plane_state;
+> +struct spacemit_crtc;
+> +struct tbu_instance;
+> +struct dpu_mmu_tbl;
+> +enum spacemit_dpu_irq;
+> +
+> +/*
+> + * Per-revision Saturn DPU description and operation vtable. One static instance
+> + * per DT compatible, selected at probe; reached through spacemit_crtc::core.
+> + */
+> +struct spacemit_hw_device {
+> +	void __iomem *base;
+> +	struct regmap *regmap;
+> +	u8 plane_nums;
+> +	u8 rdma_nums;
+> +	u8 crtc_nums;
+> +	const struct spacemit_hw_rdma *rdmas;
+> +	u8 n_formats;
+> +	const struct dpu_format_id *formats;
+> +	u8 n_fbcmems;
+> +	const u32 *fbcmem_sizes;
+> +	void (*enable_vsync)(struct spacemit_crtc *a_crtc,
+> +			     struct spacemit_hw_device *hwdev, bool enable);
+> +	void (*enable_cfg_irq)(struct spacemit_crtc *a_crtc,
+> +			       struct spacemit_hw_device *hwdev, bool enable);
+> +	void (*cfg_ready)(struct spacemit_crtc *a_crtc,
+> +			  struct spacemit_hw_device *hwdev);
+> +	void (*sw_start)(struct spacemit_crtc *a_crtc,
+> +			 struct spacemit_hw_device *hwdev);
+> +	void (*dpu_init)(struct spacemit_crtc *a_crtc);
+> +	void (*irq_enable)(struct spacemit_crtc *a_crtc, bool enable);
+> +	void (*plane_update_hw_channel)(struct drm_plane *plane);
+> +	void (*plane_disable_hw_channel)(struct drm_plane *plane,
+> +					 struct drm_plane_state *old_state);
+> +	void (*conf_dpuctrl)(struct drm_crtc *crtc,
+> +			     struct drm_crtc_state *old_state);
+> +	u32 (*get_cfg_rdy)(struct spacemit_crtc *a_crtc,
+> +			   struct spacemit_hw_device *hwdev);
+> +	u32 (*get_irq_bit)(enum spacemit_dpu_irq irq_id, int dev_id);
+> +	u32 (*get_int_sts)(struct spacemit_hw_device *hwdev, int dev_id);
+> +	void (*clr_int_sts)(struct spacemit_crtc *a_crtc, u32 data, int dev_id);
+> +	void (*enable_cmdlist)(struct spacemit_crtc *a_crtc,
+> +			       struct spacemit_hw_device *hwdev, int id,
+> +			       bool enable);
+> +	void (*cfg_cmdlist)(struct spacemit_hw_device *hwdev, int id, u32 chy,
+> +			    u32 addrl, u32 addrh);
+> +	void (*rdma_dmmu)(struct spacemit_hw_device *hwdev, u8 tbu_id,
+> +			  struct tbu_instance *tbu, struct drm_framebuffer *fb,
+> +			  u32 val, struct cmdlist_regs *cl_rdma,
+> +			  struct drm_plane *plane);
+> +	int (*get_cl_rdma_buf)(struct spacemit_crtc *a_crtc);
+> +	void (*cmdlist_fill_data_row)(struct cmdlist *cl, u32 strobe,
+> +				      u32 offset, u32 value[]);
+> +	void (*cmdlist_fill_conf_row)(struct cmdlist *cl,
+> +				      struct spacemit_hw_device *hwdev,
+> +				      u8 dev_id);
+> +	void (*crtc_cmdlist)(struct spacemit_hw_device *hwdev,
+> +			     struct spacemit_drm_private *priv, u8 crtc_id,
+> +			     u8 dev_id);
+> +	void (*cmdlist_dump_node)(struct cmdlist *cl);
+> +};
+> +#endif
+> diff --git a/drivers/gpu/drm/spacemit/spacemit_dmmu.c b/drivers/gpu/drm/spacemit/spacemit_dmmu.c
+> new file mode 100644
+> index 0000000000000..ff4b3378a087c
+> --- /dev/null
+> +++ b/drivers/gpu/drm/spacemit/spacemit_dmmu.c
+> @@ -0,0 +1,80 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (C) 2023-2026 SpacemiT Co., Ltd.
+> + *
+> + */
+> +
+> +#include <linux/stddef.h>
+> +#include <linux/gfp.h>
+> +#include <linux/dma-mapping.h>
+> +#include <drm/drm_framebuffer.h>
+> +#include <drm/drm_gem_shmem_helper.h>
+> +
+> +#include "spacemit_cmdlist.h"
+> +#include "spacemit_dmmu.h"
+> +#include "spacemit_drm.h"
+> +#include "spacemit_crtc.h"
+> +#include "spacemit_dpu_reg.h"
+> +
+> +static inline void spacemit_dmmu_fill_pgtable(struct dpu_mmu_tbl *tbl,
+> +					      struct sg_table *sgt)
+> +{
+> +	struct sg_dma_page_iter dma_iter;
+> +	u32 max_entries = tbl->size / 4;
+> +	u32 *ttbr = tbl->va;
+> +	u32 i = 0, n = 0, temp = 0;
+> +
+> +	for_each_sgtable_dma_page(sgt, &dma_iter, 0) {
+> +		/*
+> +		 * atomic_check sized the table off this same fb; catch a drift
+> +		 */
+> +		if (WARN_ON_ONCE(n + HW_ALIGN_TTB_NUM >= max_entries))
+> +			break;
+> +		ttbr[n++] = (sg_page_iter_dma_address(&dma_iter) >> PAGE_SHIFT) & 0x3FFFFFF;
+> +	}
+> +
+> +	if (WARN_ON_ONCE(!n))
+> +		return;
+> +
+> +	/*
+> +	 * The silicon over-fetches past the last entry; pad it to avoid a DDR
+> +	 * fault.
+> +	 */
+> +	temp = ttbr[n - 1];
+> +	for (i = 0; i < HW_ALIGN_TTB_NUM; i++)
+> +		ttbr[n++] = temp;
+> +}
+> +
+> +int spacemit_dmmu_map(struct drm_framebuffer *fb, struct dpu_mmu_tbl *mmu_tbl,
+> +		      u8 tbu_id, struct cmdlist_regs *cl_rdma,
+> +		 struct drm_plane *plane)
+> +{
+> +	struct spacemit_drm_private *priv = fb->dev->dev_private;
+> +	struct spacemit_hw_device *hwdev = priv->hwdev;
+> +	struct sg_table *sgt = NULL;
+> +	struct tbu_instance tbu = { };
+> +	u32 val;
+> +
+> +	sgt = drm_gem_shmem_get_pages_sgt(to_drm_gem_shmem_obj(fb->obj[0]));
+> +	if (IS_ERR(sgt))
+> +		return PTR_ERR(sgt);
+> +
+> +	/* Every advertised format is single-planar */
+> +	tbu.ttb_pa[0] = mmu_tbl->pa;
+> +	tbu.tbu_va[0] = TBU_BASE_VA(tbu_id);
+> +	tbu.ttb_size[0] = roundup(fb->obj[0]->size, PAGE_SIZE) >> PAGE_SHIFT;
+> +
+> +	spacemit_dmmu_fill_pgtable(mmu_tbl, sgt);
+> +
+> +	/*
+> +	 * enable = 1, fbc_mode = 0 (linear only)
+> +	 * single plane in bits [3:2]
+> +	 */
+> +	val = 0x1;
+> +	/* tbu_burst_limit_en = 1, tlb_fetch_active_en = 1 */
+> +	val |= BIT(4) | BIT(5);
+> +	val = val | (DPU_QOS_URGENT << 8);
+> +	hwdev->rdma_dmmu(hwdev, tbu_id, &tbu, fb, val, cl_rdma, plane);
+> +
+> +	return 0;
+> +}
+> diff --git a/drivers/gpu/drm/spacemit/spacemit_dmmu.h b/drivers/gpu/drm/spacemit/spacemit_dmmu.h
+> new file mode 100644
+> index 0000000000000..5aaf1ad77f9f1
+> --- /dev/null
+> +++ b/drivers/gpu/drm/spacemit/spacemit_dmmu.h
+> @@ -0,0 +1,40 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Copyright (C) 2025-2026 SpacemiT Co., Ltd.
+> + *
+> + */
+> +
+> +#ifndef _SPACEMIT_DMMU_H_
+> +#define _SPACEMIT_DMMU_H_
+> +
+> +#include <linux/types.h>
+> +
+> +#include <drm/drm_file.h>
+> +#include "spacemit_cmdlist.h"
+> +
+> +#define DPU_QOS_URGENT	4
+> +#define DPU_QOS_NORMAL	3
+> +#define DPU_QOS_LOW	2
+> +/* Worst-case TLB alignment over-fetch at the maximum 4096 src_x. */
+> +#define HW_ALIGN_TTB_NUM	60
+> +
+> +#define RD_OUTS_NUM             16
+> +#define RDMA_TIMELIMIT  0xFFFF
+> +
+> +#define BASE_VA         0x10000000ULL
+> +#define VA_STEP_PER_TBU 0x40000000ULL
+> +
+> +#define TBU_BASE_VA(tbu_id) ((u64)BASE_VA + (u64)VA_STEP_PER_TBU * (tbu_id))
+> +
+> +struct tbu_instance {
+> +	u64 ttb_pa[3];
+> +	u64 tbu_va[3];
+> +	u32 ttb_size[3];
+> +};
+> +
+> +struct dpu_mmu_tbl;
+> +int spacemit_dmmu_map(struct drm_framebuffer *fb, struct dpu_mmu_tbl *mmu_tbl,
+> +		      u8 tbu_id, struct cmdlist_regs *cl_rdma,
+> +			struct drm_plane *plane);
+> +
+> +#endif /* _SPACEMIT_DMMU_H_ */
+> diff --git a/drivers/gpu/drm/spacemit/spacemit_dpu_reg.h b/drivers/gpu/drm/spacemit/spacemit_dpu_reg.h
+> new file mode 100644
+> index 0000000000000..a57ed34d38e2f
+> --- /dev/null
+> +++ b/drivers/gpu/drm/spacemit/spacemit_dpu_reg.h
+> @@ -0,0 +1,108 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Copyright (C) 2025-2026 SpacemiT Co., Ltd.
+> + *
+> + * Saturn DPU register accessors.
+> + */
+> +
+> +#ifndef _SPACEMIT_DPU_REG_H_
+> +#define _SPACEMIT_DPU_REG_H_
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/io.h>
+> +
+> +#include "dpu/dpu_trace.h"
+> +#include "dpu/saturn_regs/saturn_fields.h"
+> +
+> +#define dpu_field_word(module_name, field)	(module_name##__##field##_WORD)
+> +#define dpu_field_mask(module_name, field)	(module_name##__##field##_MASK)
+> +
+> +/* MMIO field read: returns the field value shifted down to bit 0. */
+> +#define dpu_read_reg(hwdev, module_name, module_base, field)		\
+> +	FIELD_GET(dpu_field_mask(module_name, field),			\
+> +		  readl((hwdev)->base + (module_base) +			\
+> +			4 * dpu_field_word(module_name, field)))
+> +
+> +/* MMIO raw 32-bit register read/write by word index within the block. */
+> +#define dpu_read_word(hwdev, module_base, word)				\
+> +	readl((hwdev)->base + (module_base) + 4 * (word))
+> +
+> +#define dpu_write_reg_word(hwdev, module_base, word, data)		\
+> +do {									\
+> +	trace_spacemit_dpu_reg_write((u32)(data), (module_base), NULL);	\
+> +	writel((u32)(data),						\
+> +	       (hwdev)->base + (module_base) + 4 * (word));		\
+> +} while (0)
+> +
+> +/*
+> + * Not every DPU config word reads back what was written, so a byte- or
+> + * halfword-aligned field is stored at its own width rather than read-modified.
+> + */
+> +#define __dpu_mmio_field_write(__addr, __mask, data)			\
+> +do {									\
+> +	if ((__mask) == 0xffU)						\
+> +		writeb((u8)((data) & 0xffU), __addr);			\
+> +	else if ((__mask) == 0xff00U)					\
+> +		writeb((u8)((data) & 0xffU), (__addr) + 1);		\
+> +	else if ((__mask) == 0xff0000U)					\
+> +		writeb((u8)((data) & 0xffU), (__addr) + 2);		\
+> +	else if ((__mask) == 0xff000000U)				\
+> +		writeb((u8)((data) & 0xffU), (__addr) + 3);		\
+> +	else if ((__mask) == 0xffffU)					\
+> +		writew((u16)((data) & 0xffffU), __addr);		\
+> +	else if ((__mask) == 0xffff0000U)				\
+> +		writew((u16)((data) & 0xffffU), (__addr) + 2);		\
+> +	else if ((__mask) == 0xffffffffU)				\
+> +		writel((u32)(data), __addr);				\
+> +	else								\
+> +		writel((readl(__addr) & ~(__mask)) |			\
+> +		       FIELD_PREP(__mask, (u32)(data)), __addr);	\
+> +} while (0)
+> +
+> +#define dpu_write_reg(hwdev, module_name, module_base, field, data)	\
+> +do {									\
+> +	void __iomem *__waddr = (hwdev)->base + (module_base) +	\
+> +				4 * dpu_field_word(module_name, field);	\
+> +									\
+> +	trace_spacemit_dpu_reg_write((u32)(data), (module_base), #field); \
+> +	__dpu_mmio_field_write(__waddr,					\
+> +			       dpu_field_mask(module_name, field), data); \
+> +} while (0)
+> +
+> +/* Field write into a register array element; the index is a runtime value. */
+> +#define dpu_write_reg_arr(hwdev, module_name, module_base, arr, i, field, data) \
+> +do {									\
+> +	void __iomem *__waddr = (hwdev)->base + (module_base) +	\
+> +		4 * module_name##__##arr##__##field##_WORD(i);		\
+> +									\
+> +	trace_spacemit_dpu_reg_write((u32)(data), (module_base), #field); \
+> +	__dpu_mmio_field_write(__waddr,					\
+> +			       module_name##__##arr##__##field##_MASK,	\
+> +			       data);					\
+> +} while (0)
+> +
+> +/*
+> + * Unified CPU/cmdlist field write; a NULL cl_regs selects the direct MMIO path.
+> + */
+> +#define _dpu_write_reg(hwdev, module_name, module_base, field, data, cl_regs, ...) \
+> +do {									\
+> +	if ((cl_regs) != NULL)						\
+> +		cmdlist_write_reg(hwdev, module_name, module_base,	\
+> +				  field, data, cl_regs);		\
+> +	else								\
+> +		dpu_write_reg(hwdev, module_name, module_base, field,	\
+> +			      data);					\
+> +} while (0)
+> +
+> +#define dpu_write(...) _dpu_write_reg(__VA_ARGS__, NULL)
+> +
+> +/* Unified CPU/cmdlist raw-word write (the value32[] call sites). */
+> +#define dpu_write_word(hwdev, module_base, word, data, cl_regs)	\
+> +do {									\
+> +	if ((cl_regs) != NULL)						\
+> +		cmdlist_write_word(module_base, word, data, cl_regs);	\
+> +	else								\
+> +		dpu_write_reg_word(hwdev, module_base, word, data);	\
+> +} while (0)
+> +
+> +#endif
+> diff --git a/drivers/gpu/drm/spacemit/spacemit_drm.h b/drivers/gpu/drm/spacemit/spacemit_drm.h
+> new file mode 100644
+> index 0000000000000..425f6221a1645
+> --- /dev/null
+> +++ b/drivers/gpu/drm/spacemit/spacemit_drm.h
+> @@ -0,0 +1,61 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Copyright (C) 2025-2026 SpacemiT Co., Ltd.
+> + *
+> + */
+> +
+> +#ifndef _SPACEMIT_DRM_H_
+> +#define _SPACEMIT_DRM_H_
+> +
+> +#include <drm/drm_print.h>
+> +#include <drm/drm_atomic.h>
+> +#include <drm/drm_drv.h>
+> +#include <drm/drm_vblank.h>
+> +#include <drm/drm_probe_helper.h>
+> +#include <linux/dma-mapping.h>
+> +#include <linux/clk.h>
+> +#include <linux/reset.h>
+> +#include "spacemit_dmmu.h"
+> +
+> +/* The DPU's clock inputs, as named by the binding. */
+> +struct dpu_clk_context {
+> +	struct clk *pxclk;
+> +	struct clk *mclk;
+> +	struct clk *escclk;
+> +	struct clk *aclk;
+> +	struct clk *dscclk;
+> +};
+> +
+> +/**
+> + * struct spacemit_drm_private - Top-level driver state for the SpacemiT DRM
+> + * card
+> + * @ddev: DRM device, created in the component master bind callback; bind-scope,
+> + *	  see spacemit_kms in spacemit_crtc.c.
+> + * @dev: The DPU platform device; the DPU is the drm subsystem root.
+> + * @a_crtc: Per-DPU CRTC state.
+> + * @hwdev: Per-revision Saturn DPU description and vtable.
+> + * @cmdlist_groups: Pool of per-pipeline cmdlist groups.
+> + * @clk_ctx: The DPU's clocks, acquired once at probe.
+> + * @pipe_resets: The DPU reset lines, in assert order; bulk-deassert
+> + *		 releases them in reverse.
+> + * @irq_online: Online-compose IRQ; requested disabled, enabled at bind.
+> + */
+> +struct spacemit_drm_private {
+> +	struct drm_device *ddev;
+> +	struct device *dev;
+> +	struct spacemit_crtc *a_crtc;
+> +	struct spacemit_hw_device *hwdev;
+> +	struct cmdlist **cmdlist_groups;
+> +
+> +	struct dpu_clk_context clk_ctx;
+> +	struct reset_control_bulk_data pipe_resets[5];
+> +	int irq_online;
+> +};
+> +
+> +extern struct drm_driver spacemit_drm_drv;
+> +extern const struct component_master_ops spacemit_drm_master_ops;
+> +
+> +int spacemit_drm_mode_config_init(struct drm_device *drm);
+> +int spacemit_drm_of_component_probe(struct device *dev);
+> +
+> +#endif /* _SPACEMIT_DRM_H_ */
+>
 
-nit: please move operating-points-v2 to before status
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
 
-otherwise
 
-Tested-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com> # Zenbook A16
-
-Konrad
