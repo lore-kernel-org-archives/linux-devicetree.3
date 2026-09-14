@@ -1,67 +1,67 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4AD6493D24
-	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 15:26:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABFE3494827
+	for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 15:27:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789399601; cv=none; b=nm/VQ2bpkN3y002adXZ6LPQP+hX4ChBx0Lha8d/bcAkLWUDUmAq6qQ78QMP/zgAc+zzFrvabLMCMBiIogGY7h2mK2oQymt0hfIbEe30+R9rGrmOpcb5XoA0Wyldn3AFoSeSJOMVN2lNmImCMOB+goRiYThL2bTvv26d7aYaZvvQ=
+	t=1789399628; cv=none; b=gcUGZcT6BZEEqSqqbLGaV2HY+e4D6ozFCGwdS6Xr5jPVpzowlbQutNr0hxdRM/03uSGGYFKyWzQWP7yWOkKGXDPMipNmoHm3DHTcKnhPMzgMcX90lxbm/jOXLYB781AS1h2vvrCpeOeL54l6Jx/cuj91eRUTthpk81epwkPMsxA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789399601; c=relaxed/simple;
-	bh=A+WJXH8LEWEmVEvHuluPt5ZSvK79HhNgL+/k4aL7GRQ=;
+	s=arc-20240116; t=1789399628; c=relaxed/simple;
+	bh=VzeJEVXSydd4pMUvk9yqOjcNxVq4nwrj6o3Y3f+o2kQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EGseHAx0U4OhQgoyISzhkDcI5fSVraSRlY4UXk/MAAOPd0geqZE6FqdVod+CFurFVhdQ6xifRJZeIfsk1J2JwrAwpavd6QJPzGymCXfLpvh0wELuWrcCOxyg5VAngwPiXJ+Z8/QwlYdSL7ozU98hNze9vu5ZETtlvYA6dWbcBhU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D5rh4SYV; arc=none smtp.client-ip=74.125.227.141
+	 Content-Type:Content-Disposition:In-Reply-To; b=ToRU8xH1JF6ucPB9jh4r3294/5obfyZuJaTk0iC2eky0aqrXzimLPqTwd+hiO/Qp8402Um8cuHEgzO/DyCLFuDT+7alVOcuHNgWYm8YdpblYFCliXAICNMQH+46pdbkhvdH39ld6OYcCDyM9S3AxKKJhKAG10GT5XIJ+vFjBF9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oKmjJgsY; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D5rh4SYV"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d90ba1d807so30379535ad.3
-        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 08:26:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oKmjJgsY"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747eb79fbso12859485ad.3
+        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 08:27:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789399599; x=1790004399; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789399626; x=1790004426; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:sender:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=JSZQy8BrbphsTuB3PP3GNkS6dKaTus6BUKVlBhlcQXk=;
-        b=D5rh4SYVfQYCkRVFKzGdB1L9V1OLhlOhCKclHkp+fpx02F4njrQeeIvyX4IjvkCoeN
-         49UqSrnQcp10IlD0Xs4cpRY32d+DNCyFuq3RxJtRPQP5MY6wEZBAvX3hovhbeve12R7v
-         yHHPP4vATJstE3HPnmqdMD/Df0viOU2smgRrg2FX5vjTT4B3RZIoyS4Y4m/2wtPgnNqv
-         N+bJCFePE20bR6N2mPA5+hVEUi1AIFuTvS4g9sPD+tr7nsIKE1VUlz6MzXEILC7vrKgE
-         iLhfMRVKMeoiAgUXinhCIck8ovROQigpouBcTItAOSRivEo99eVxvhBsC0v0wYbNk44g
-         UOqQ==
+        bh=1rv9xIW83dIFufmAMVUXAe8Zj75CE5o/0qI0POtGfBo=;
+        b=oKmjJgsYAj5S+Yp+SBg9vNCgkVaENatjOEuHEvv0VwlTi9wgFXrLcv4pTT1N4KEYPD
+         0IUmh3kI7uvYkLF58abHh/EYlrro9L21HPJeOcjKN4oz8G/Xz29d6lQ/L1Y8IW96HKeX
+         fl/8Vw1PRwfT4q57qc8T8NU2n5Y04tasuT3tYJsWvcpoxk3nb1aA5pyi48EjkI+395SA
+         sfOi2JXSF5O8yfqnqN8ghtfJB5HWMs5J6sWgfbbQgzDJAOIUtDKb7sBaC1wMNfU0PcTX
+         IfN1ZHLDFCJZzB1LG2D/O3ILYk6pQFgmW3qalP/sqRsQU8GfSKA+OeLKs+Rut0Xv44fP
+         wg6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789399599; x=1790004399;
+        d=1e100.net; s=20251104; t=1789399626; x=1790004426;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=JSZQy8BrbphsTuB3PP3GNkS6dKaTus6BUKVlBhlcQXk=;
-        b=oKsl5eviW1uu6dNqGHrkECzvjCuTFFhPsaf8AWXrRt1GH8iWeejMkgp0ffk5wurgzZ
-         RsahWpq0GCAJzv7ego2/PZcV+d1uZ58MJ6WM0E4hhhvGiZbY5YehhBbVdsRHrhHo++4q
-         UQgoJbKuHdun50mRe/nW/8lm6ioeOchhkOIcN7HuC36naiMzOAhYUh9aAhv91ylu5i+g
-         Qn1EGON4sLxXg2U43AkTSI6RQxAWrTKwn8tR+Xx/q3swiADJozqDDQSa9s37xHitdKmF
-         gJFQsvNeEq8koYPDjepO6hMxzHnECOQtRdJR3q9PV2D1pQhQTvMg7soRvXB1+u+9TTP/
-         oL6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxIEV+9XFWrx6BHTDPH+BDmIgbp0nEf1usfKLKUn/Ph1gD9P597cOYbGTKIPEZ0Ly+B0U/+SdpFxUJm@vger.kernel.org
-X-Gm-Message-State: AFuF++mydaRa7jVHIKDhrCzLNvMtQIYHqOLU8FOTNXHRyd18wGiZaEM4
-	XUxUHqH+Lil++lBZXDXFJalX3VNGmK2Gy8Zd2rh3EHJumuZANf4dlQFW
-X-Gm-Gg: AYBFou0NhXsaeuW65xCsBc7F47Padrd0fkn3yv+Qmf407FPHWRA/freVSXCafJahpON
-	3JIz+NNDWxz9AbSoygiK3bi4x78/sGfxXO4gDz7v4l4riWp4CScjNWn/RjR8QUGWOAzH217Wq+Q
-	TAz9cQjJqQ35Tw0w7iv98eA23Iq3QT7YKI5b4BkvHsbk+U4Fa1cnZiyRw+xUwbr+FQBeYViTjI7
-	9z7VYX24ZTsLcXxs4GEs9hnC9O2yqUzGbUGpC7GkzsCC3pTcQ34Npj1hHcp4jbFfh5ETxUkdfLw
-	AqDydGwSxjTjiyIpxZCw2iJhkHAB4WYtwGWC3GCIj5OutwBRrvQAtPjqYkBWfNlcurWGdDE9Jy9
-	CdRoF0zfKnfa4HvEJh4/jXzFBT3JCMnR5P7q46nM1Gtbflh+W1YIC6UDY0GryFcE+G5sLSLsS5k
-	Hnmuqpn69pGF3Q/O+Pxb5NzpbSmX2l1TNwDrpd+Bn/zfVpkkRctVLMPt1Gy/9EBZ4D57S6TXYDt
-	KqchfZ3It2o
-X-Received: by 2002:a17:903:35c6:b0:2db:73fc:b57f with SMTP id d9443c01a7336-2dd6c6c0cc0mr59735695ad.10.1789399599255;
-        Mon, 14 Sep 2026 08:26:39 -0700 (PDT)
+        bh=1rv9xIW83dIFufmAMVUXAe8Zj75CE5o/0qI0POtGfBo=;
+        b=pVkoJki9a8G1wwwrQg8kGqiB0SesmUlgXAgvpQ8GTdTuy9IO0o8Ji9Urhez2trhTQq
+         kmrSjWOWtCrDIAHhRti/wi72RK/I+ECH/c+hOXWSfAGZO+1jOfPcY2ahL/kMC0IgNXkO
+         e441QwZvisS821trBZ3Ipx0/EDT4CvNwr8w2ziGBTQF3R66j80jd6Hc+ATXCXH0OEMcM
+         8+rM7CusZA2NTks8WpupMKLuUqpCik346QGWPfa5wayA9l81ZUi5ShOKJ7NPaOZjZXDu
+         f/jgy6NaEmmqJ7Ud2Vtw6/ZeRRblFR+5Efo5mBpDU8KwAy2lASGXqKoriftplDXzn+ia
+         XFBw==
+X-Forwarded-Encrypted: i=1; AKwUvBxKGvRAHuS4p5RUkplV1M4J/KSvt+/BXX0EqGvJPWXEZxl1bfdPps1/G0qInR+joTX3MNY8pGSC/8Er@vger.kernel.org
+X-Gm-Message-State: AFuF++kcrvRHzTZZ4v5p3cpZ2NxwaeH7lW9xzVtOl86/3oG+MkiTTAHM
+	TUL6Lg/N8TaAqshGkT9y7vnJu85zZnZSAzX5utTg1Tvusg3/rtltUxlt
+X-Gm-Gg: AYBFou3eIOPf5K0+/dIMpRf1yXDn84Yl7WAaCh+7HrvIedEYq5SGjbriWcxjp8xlrbr
+	VSWkQ2kQeWMdx1qlEl54x2tauQ0tFo5dUABD2HyI7tEzNXrTPFZAjxJ+cUO887MZ1zWuYcGQkto
+	ed2ZY+NKGV7Y33qlCvMXB5f+CWRlYa35TF2KQcVjZ4woAOvHpuz/ddC2PvIgQHkN2dRBvvd1FeV
+	vOzs1ewkl1dTY+ZcI47X/IWyLoyyPiKPzS5wxWA6kErlJng3JSEy6QjiR8E3Ka3CWVmHeb3XAcN
+	5JHNuLkIAj6MR2mbox11qVMteTyA2ZSsSY7VL+SlGgID/dnu/r/1dqh7dEuPY8X7tJDKS3oYWWe
+	99OhugXrOGrFjDkHU3EhxK1X8JObTBi8U95ZtvSGRs76+zB4YkJHuqsegM5mU+gMMIYu0PbHk8c
+	CtJgXCoM8lOGm0LxJHIDm1upW04QGJxga7ZUDtSpAqvdvQbs5CyQpVjxxkRtBEazJlaSJ9qRwr/
+	PrfzFP733iD
+X-Received: by 2002:a17:902:fc4b:b0:2db:257c:9fd5 with SMTP id d9443c01a7336-2dd6c70df7dmr77776255ad.16.1789399625921;
+        Mon, 14 Sep 2026 08:27:05 -0700 (PDT)
 Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cfdc15esm51211505ad.66.2026.09.14.08.26.37
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cfc56b1sm51774945ad.54.2026.09.14.08.27.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 08:26:37 -0700 (PDT)
+        Mon, 14 Sep 2026 08:27:04 -0700 (PDT)
 Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Mon, 14 Sep 2026 08:26:36 -0700
+Date: Mon, 14 Sep 2026 08:27:03 -0700
 From: Guenter Roeck <linux@roeck-us.net>
 To: Troy Mitchell <troy.mitchell@linux.dev>
 Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -75,10 +75,11 @@ Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
 	linux-doc@vger.kernel.org,
 	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v5 1/6] dt-bindings: vendor-prefixes: Add Sensylink
-Message-ID: <35ea8534-5446-40fc-b1a7-72a115bc40b6@roeck-us.net>
+Subject: Re: [PATCH v5 2/6] dt-bindings: hwmon: Move LM63 family to a
+ dedicated binding
+Message-ID: <f9a4679b-52f3-45ea-b451-26c27dbebf1e@roeck-us.net>
 References: <20260914-ctl2301-v5-0-b44b81cd2c3c@linux.dev>
- <20260914-ctl2301-v5-1-b44b81cd2c3c@linux.dev>
+ <20260914-ctl2301-v5-2-b44b81cd2c3c@linux.dev>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -87,13 +88,15 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260914-ctl2301-v5-1-b44b81cd2c3c@linux.dev>
+In-Reply-To: <20260914-ctl2301-v5-2-b44b81cd2c3c@linux.dev>
 
-On Mon, Sep 14, 2026 at 04:03:53PM +0800, Troy Mitchell wrote:
-> Add the vendor prefix for Sensylink Microelectronics.
+On Mon, Sep 14, 2026 at 04:03:54PM +0800, Troy Mitchell wrote:
+> Move the National Semiconductor LM63, LM64, and LM96163 compatibles out
+> of trivial-devices.yaml and into a dedicated binding. Describe their
+> integrated fan control and preserve the optional interrupt used by the
+> ALERT output. Permit use as thermal cooling devices via #cooling-cells.
 > 
-> Link: https://en.sensylink.com/
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 > Signed-off-by: Troy Mitchell <troy.mitchell@linux.dev>
 
 Applied.
