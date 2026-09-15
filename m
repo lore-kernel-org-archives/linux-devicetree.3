@@ -1,292 +1,277 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82CCB44F566
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 19:50:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8737E4ACC72
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 19:51:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789501842; cv=none; b=RfosLwPoNIw9O91N/0Q7DdW/qkptQVY1CdmhSV8SmJj5LEXF/sJXVsBLbu3p+9odnomvL9cMdmbixTUE3kX5aerFjc8w93LcXfy9cqyKDm/xkohUpzDKwuGwSqyASItVp/ARNQieI8yo8fu8ZpICaKSLYYTtVL3jIcDCtk6oY+4=
+	t=1789501876; cv=none; b=mIYahaafvtIQZ6pb4RYBny2+t9rT3Dt1kucu54qWpYjYEGmGRCY8z3R9Efrsnf38F+z5Yd0p36Rn8IQJjDOuGvATsvhQi+9uTS0XBN99P3Z8WxkG+mmBZuHLxSvwww2ywz1dD2WELeTmEoFXMV9X4agnS16HlluWBOy+FQAf9QM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789501842; c=relaxed/simple;
-	bh=bAhNK36CxfZvTkpOYKwzixdJsBgaemS0UcHctdLdZZk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Vzf2GYmqh7pcNxoHYCsY50SdqS9r5DreaVeQLHwGk0QvMIVPE2KB5LIm4zkNrD3Hj06Z1llJD7nCWigVBX2Lv511G9gxZgpgJAUBuIdvvmLGigwjoX5hZ6YR3JwJcl9ASQ/K/TpALgVuApjCYb41m+SvOTflrExaitz2tsgrHIs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RADk6tWx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789501876; c=relaxed/simple;
+	bh=0SutQsPaKmuH/BzzQlpsitohyJ4zQTJeSU9h2QbL30Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NZPcJsJcJiY/fwnlyxerueQqPnLHP9cOuXIHNp9EljMZt85b8Jd/Mrg2Txs+1NRvHp3TdRGXu57aQO73je7Y9QUmmq+hLVMUJdxOMyFU/E+ujgquscCjh3/pyS+e665Nquz/nv8C+7brraB1wNyAQeC4rBPUhqI06giA+lzZ9b0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hqo47FZm; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RADk6tWx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2050C1F00898;
-	Tue, 15 Sep 2026 19:50:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789501840;
-	bh=HJoAufq/j2bf0UXwY7AUQDQF7Rl/papHOGlWTVzSG28=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RADk6tWxN+DcTeVbavfkPP1FTb0KXr2LXIMuQNrebqIFu4TmdOHcX2CgFVVo0a8TE
-	 yASZ2JyFujAWu4ZW810SxkG+xR5vTsM8OmknYPLvoB1VP5Sr5lHKzh3OEzO0YVh+mU
-	 Gn3D+NwtTp9rhqHvxjfZtqCWpc0FUFsDRrP3D2B6/V998srgvwiIj0RfQyimDdWqAN
-	 bvsJU29IS94h78rO7wG4bOBlaC4y1E7IFG9fIFNf4/bnFBARpoPWeGeJBOApMwuJ2g
-	 ESnSSejCT3n1M/vlmWCIWneScQTluJmFuBHPnldFJDEDRhvy0Gu1EvCu1E0UgoLG5q
-	 aNh7+cA35f4Ww==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 14/15] iio: adc: ad4134: Support high-speed data
- capture
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marcelo Schmitt" <marcelo.schmitt@analog.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <0bf6ca5c7ac264b90429efb2009574db0d0e3315.1789494473.git.marcelo.schmitt@analog.com>
-References: <cover.1789494473.git.marcelo.schmitt@analog.com>
- <0bf6ca5c7ac264b90429efb2009574db0d0e3315.1789494473.git.marcelo.schmitt@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 19:50:39 +0000
-Message-Id: <20260915195040.2050C1F00898@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hqo47FZm"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d8fdc579daso1704615ad.1
+        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 12:51:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789501874; x=1790106674; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=meRzmuvuHs1bpyaBL9rOvIRnoaP+Ll3HcV4m+UFLE28=;
+        b=Hqo47FZmBsugrkxHw4neCIWsrQil6FGzg8smscUx6/ZGf2O7xusTVQqPbUbxVxQoxG
+         zCgkNq+TN7YbUQ5xsDWUyhtNR4GXF6DBE7i4F/d1nsN3n7nmhSHQsd6yqSeejEH3XWEL
+         VzQfG2wLZSz6HUyxKxO+7BZgo5Lxes+guF+4p2eIrV1bWVE47lFSOatIQCLxIeMeGgsP
+         kLc5BE/U1NA2vRrLetVwd9CKXtjYemT7hB47CSrtPncJo7yvlTX5cXEdkefWFKHyNJkG
+         cnqyh81y7YZ8GIrrD0XXOnmmLIyi4uEd9vs61kC6NxlxYjCT6XfMBqrbmAZ/AVm3a23+
+         eh8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789501874; x=1790106674;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=meRzmuvuHs1bpyaBL9rOvIRnoaP+Ll3HcV4m+UFLE28=;
+        b=VHQ0RZvXWWqa0YDfiv+gD7StDZxSjZWn0wmk8mDWdS+3XeNOc+C9RWWgZTHY8EFpdZ
+         pVKPj1NlD79w4fmGcSJL0vdIgs4hi39g1YqHx0xINhxScJsuTETNte6oFE5TQjTDE6zV
+         C+AIA8poAbCGJ1W6dppmeYw9EHPtVOfvuiTcHGcgrgOt2RFVMuCa8o3ytwkYKWrjuaLm
+         VMq5LczxNhjSadFmEI7fZ8YPo0padBlBiGAu7YAW2QniPYi4AzBO9jvhpDjB6lMWSx1X
+         WHyMGt2wP2J6kiUDt7kbcEtbnqKuxWGob0tF98gcm9X5RsuVShqWBsV5NV+/gVar7B+q
+         lcPw==
+X-Gm-Message-State: AFuF++mhv+qw/6/yQvAu+Dejo3R4FBPryor8F8y+ejdVRLVufBhMSg/m
+	JQXeLnITHxIEsE+VepJdroL/0Zj8F9CFRC/3fr2vsmbjFIl32ByGOHpA
+X-Gm-Gg: AYBFou2pVd+sfle6vjxprV5dRwpC2V7JYv+WpU9nGcyAYBRkiH7kIXbGUHzhPG72Ls7
+	BBCVMDaI2WIAC/0vUFhPU0nQGwrnVLojvfFg6Q8mS8L1ZN/2gjr0hAVYLbo7Yap+zUz/BFoyfJa
+	gT9FgAZ2ZcaiNcQE2DWmh1khQ+3jCbpbXNOftJQlLPGnstE0QFFDIGbZZHvypgPDDzP5dx6y1jn
+	oLrRlvQRng74F4UiYPdK4+xJMzAikxFtd3r0H6OnurhjPwe3mBlZSKViDtxPBZ5RRtxZmoFueiI
+	Ly0d0RwNEZ6F76RbEq+mHgbm8xCnJLvtliyW/JI0pGZDEiWCnMNV3BjrQXrdFzYyBWqoA9YNzJT
+	UK2FZHSsM8e4JUDA9Dv5rhmlImUDvtBVoArUckZtJHQLL7Zwu9fV+O6hWFPL6eL0Sr+yNlaNxfP
+	A6g0JEpDkMUQvsbdkmZgOVEpntjjcIMDLkIkGqzDSwZkSCiVfaoGm/l01iink0FEGpqPFbL0UCB
+	za74nipdoKhglhb1vMupbiN3I/cJiPEFhEEzq5gDDcFahOX46qDpg==
+X-Received: by 2002:a17:902:c94f:b0:2dd:68a4:170c with SMTP id d9443c01a7336-2dd83851eccmr42584015ad.11.1789501873810;
+        Tue, 15 Sep 2026 12:51:13 -0700 (PDT)
+Received: from [192.168.68.67] (104-12-136-65.lightspeed.irvnca.sbcglobal.net. [104.12.136.65])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5a6a166sm1247306eec.10.2026.09.15.12.51.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 15 Sep 2026 12:51:12 -0700 (PDT)
+Message-ID: <18a2d286-2345-4c0f-925f-125217983d44@gmail.com>
+Date: Tue, 15 Sep 2026 12:51:11 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 2/3] leds: flash: rt8515: Support single-GPIO flash ICs
+ with vin supply
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, robh@kernel.org, linux-leds@vger.kernel.org,
+ conor+dt@kernel.org, lee@kernel.org
+References: <20260912-expressatt_camera_flash-v7-0-e1fd2edc8d84@gmail.com>
+ <20260912-expressatt_camera_flash-v7-2-e1fd2edc8d84@gmail.com>
+ <20260913025029.34B121F000FF@smtp.kernel.org>
+Content-Language: en-US
+From: Rudraksha Gupta <guptarud@gmail.com>
+In-Reply-To: <20260913025029.34B121F000FF@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 9 potential issue(=
-s) to consider:
-- [High] iio: adc: ad4134: division by zero panic in probe if optional cloc=
-ks are missing
-- [High] iio: adc: ad4134: incorrect SPI transfer length drops channels in =
-single-lane mode
-- [High] iio: adc: ad4134: data corruption in ad4134_trigger_handler() due =
-to missed increment
-- [High] iio: adc: ad4134: triggered buffer samples dropped due to undersiz=
-ed buffer
-- [Medium] iio: adc: ad4134: loop failure with valid slow clocks in ad4134_=
-update_conversion_rate()
-- [Medium] iio: adc: ad4134: PWM hardware resource leak on driver unbind
-- [Medium] iio: adc: ad4134: LIFO teardown order violation in ad4134_offloa=
-d_buffer_predisable()
-- [Low] iio: adc: ad4134: off-by-one bounds check in in_range() validation
-- [Low] iio: adc: ad4134: data race on odr_hz in ad4134_read_raw()
---
 
-commit a29ef6f09380617b32619e37a1eab7692d45d1b3
-Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
+On 9/12/26 19:50, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 4 potential issue(s) to consider:
+>
+> New issues:
+> - [High] Regulator is not enabled when requesting maximum torch brightness, preventing the LED from turning on.
+> - [High] Replacing mod_timer with schedule_delayed_work silently drops updates to the strobe timeout and causes premature LED power down.
+> - [Medium] Unbalanced regulator disable due to reliance on the global/physical regulator state instead of the driver's consumer enable count.
+>
+> Pre-existing issues:
+> - [Critical] Premature destruction of mutex and cancellation of workqueue during device removal while the LED class device is still registered, leading to a Use-After-Free.
+> --
+1. Max torch regulator [High] - not reachable. The else branch needs
+    brightness >= RT8515_TORCH_MAX (100). expressatt max_brightness is
+    16, ux500 boards reach it but have no vin-supply so rt->reg is NULL.
 
-iio: adc: ad4134: Support high-speed data capture
+2. schedule_delayed_work [High] - shouldn't matter. max timeout is 250ms
+    on every in-tree board. Imperceptible. Happy to change it though
 
-This commit adds support for high-speed data capture to the AD4134 driver
-using SPI transfer offloading. It adds PWM triggering for the ADC ODR pin
-and DMA support for higher sample rates.
+3. Unbalanced disable [Medium] - was in v2, dropped in v3 at Linus's
+    request. happy to reinstate.
 
-> diff --git a/drivers/iio/adc/ad4134.c b/drivers/iio/adc/ad4134.c
-> index cc6bc325f6ee6..94d979c61501a 100644
-> --- a/drivers/iio/adc/ad4134.c
-> +++ b/drivers/iio/adc/ad4134.c
-[ ... ]
-> @@ -178,6 +225,14 @@ struct ad4134_state {
-[ ... ]
->  	/*
->  	 * DMA (thus cache coherency maintenance) requires the transfer buffers
->  	 * to live in their own cache lines.
->  	 */
->  	union {
->  		u8 reg[AD4134_SPI_MAX_XFER_LEN];
->  		u32 scan[ARRAY_SIZE(ad4134_chan_set)];
+4. remove() UAF [Critical] - pre-existing. not sure if i should address in
+this series.
 
-[Severity: High]
-Will this array be large enough to hold the timestamp channel?
-The size is calculated as 5 elements (20 bytes). However, the timestamp
-channel requires 8 bytes, which would make the total required buffer size
-24 bytes when all channels and the timestamp are active.
 
->  	} rx_buf __aligned(IIO_DMA_MINALIGN);
->  	u8 tx_buf[AD4134_SPI_MAX_XFER_LEN];
->  };
-[ ... ]
-> @@ -464,6 +519,91 @@ static const struct regmap_config ad4134_regmap_conf=
-ig =3D {
-> +static int ad4134_update_conversion_rate(struct ad4134_state *st,
-> +					 unsigned int freq_Hz)
-> +{
-> +	struct spi_offload_trigger_config config =3D st->offload_trigger_config;
-> +	struct pwm_waveform odr_wf =3D { };
-> +	u64 offload_period_ns;
-> +	u64 offload_offset_ns;
-> +	u64 odr_high_time_ns;
-> +	unsigned int count;
-> +	u64 target_ns;
-> +	int ret;
-> +
-> +	if (!in_range(freq_Hz, AD4134_MIN_ODR_FREQ_HZ, AD4134_MAX_ODR_FREQ_HZ))
-> +		return -ERANGE;
-
-[Severity: Low]
-Does this accurately validate the frequency upper bound? The in_range()
-macro takes the length of the range as its third parameter. By passing the
-absolute maximum frequency (1496000), it seems to allow frequencies up to
-1496010 Hz rather than capping strictly at 1496000 Hz.
-
-> +
-> +	odr_wf.period_length_ns =3D DIV_ROUND_UP_ULL(NSEC_PER_SEC, freq_Hz);
-> +	/*
-> +	 * Set the PWM duty cycle to keep ODR high for at least minimum required
-> +	 * time. If the rounded PWM's value is less than the minimum required,
-> +	 * increase the target value by 10 and attempt to round the waveform
-> +	 * again, until the minimum (or try count limit) is reached.
-> +	 */
-> +	odr_high_time_ns =3D div64_ul(6ULL * NSEC_PER_SEC, st->sys_clk_hz);
-
-[Severity: High]
-Could this cause a division by zero panic? If the optional xtal and clkin
-clocks are missing in the device tree, ad4134_clock_select() can fall back
-to clk_get_rate(NULL) =3D=3D 0, resulting in st->sys_clk_hz being 0.
-
-> +	target_ns =3D 0;
-> +	count =3D 100;
-> +	do {
-> +		target_ns +=3D 10; /* Increment by PWM duty cycle period */
-> +		odr_wf.duty_length_ns =3D target_ns;
-> +		ret =3D pwm_round_waveform_might_sleep(st->odr_pwm, &odr_wf);
-> +		if (ret)
-> +			return ret;
-> +	} while (count-- && odr_wf.duty_length_ns < odr_high_time_ns);
-
-[Severity: Medium]
-Will this loop artificially fail for valid slow-clock hardware
-configurations? If sys_clk_hz is low (e.g. 2 MHz), odr_high_time_ns will
-exceed 1000 ns. Since this loop starts target_ns at 0 and increments by 10
-for a maximum of 100 iterations, it can never reach a duty cycle above
-1000 ns.
-
-[ ... ]
-> +	ret =3D pwm_set_waveform_might_sleep(st->odr_pwm, &odr_wf, false);
-> +	if (ret)
-> +		return ret;
-
-[Severity: Medium]
-Does this leak the PWM hardware resource on driver unbind?
-The PWM waveform is started here, but it doesn't look like there is a
-cleanup callback registered (e.g. via devm_add_action_or_reset()) to stop
-the waveform when the module is removed or if a later probe step fails.
-
-> +
-> +	st->offload_trigger_config =3D config;
-> +	st->odr_wf =3D odr_wf;
-> +	st->odr_hz =3D DIV_ROUND_UP_ULL(NSEC_PER_SEC, odr_wf.period_length_ns);
-> +
-> +	return 0;
-> +}
-> +
-> +static irqreturn_t ad4134_trigger_handler(int irq, void *p)
-> +{
-> +	struct iio_poll_func *pf =3D p;
-> +	struct iio_dev *indio_dev =3D pf->indio_dev;
-> +	struct ad4134_state *st =3D iio_priv(indio_dev);
-> +	unsigned int i =3D 0;
-> +	int ret;
-> +
-> +	gpiod_set_value_cansleep(st->odr_gpio, 1);
-> +	fsleep(1);
-> +	gpiod_set_value_cansleep(st->odr_gpio, 0);
-> +
-> +	for (unsigned int ch =3D 0; ch < AD4134_NUM_CHANNELS; ch++) {
-> +		ret =3D spi_write_then_read(st->spi, NULL, 0, &st->rx_buf.scan[ch],
-> +					  BITS_TO_BYTES(AD4134_CHAN_PRECISION_BITS));
-> +		if (ret)
-> +			goto err_out;
-> +
-> +		if (test_bit(ch, indio_dev->active_scan_mask) && ch !=3D i)
-> +			memcpy(&st->rx_buf.scan[i++], &st->rx_buf.scan[ch],
-> +			       sizeof(st->rx_buf.scan[ch]));
-
-[Severity: High]
-Can this logic cause channels to overwrite each other? If the test_bit()
-check is true and ch =3D=3D i, the memcpy is avoided but i is never increme=
-nted.
-The next active channel will then overwrite the previous one at index i.
-
-> +	}
-> +
-> +	iio_push_to_buffers_with_ts(indio_dev, &st->rx_buf.scan,
-> +				    sizeof(st->rx_buf.scan), pf->timestamp);
-
-[Severity: High]
-Will samples be dropped when all channels and the timestamp are active?
-sizeof(st->rx_buf.scan) is 20 bytes, but when 4 channels (16 bytes) and the
-timestamp (8 bytes) are active, the IIO core expects 24 bytes and may reject
-the sample with -ENOSPC.
-
-> +
-> +err_out:
-> +	iio_trigger_notify_done(indio_dev->trig);
-> +	return IRQ_HANDLED;
-> +}
-[ ... ]
-> @@ -549,6 +689,44 @@ static int ad4134_read_raw(struct iio_dev *indio_dev,
-[ ... ]
->  		*val2 =3D AD4134_CHAN_PRECISION_BITS - 1;
-> =20
->  		return IIO_VAL_FRACTIONAL_LOG2;
-> +	case IIO_CHAN_INFO_SAMP_FREQ:
-> +		*val =3D st->odr_hz;
-> +		return IIO_VAL_INT;
-
-[Severity: Low]
-Is it safe to read st->odr_hz here without claiming direct mode or holding
-st->lock? It appears ad4134_update_conversion_rate() modifies it
-concurrently under the lock, which could result in a data race or a
-torn read.
-
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-[ ... ]
-> @@ -600,6 +778,176 @@ static const struct iio_info ad4134_info =3D {
-[ ... ]
-> +static void ad4134_prepare_offload_msg(struct iio_dev *indio_dev)
-> +{
-> +	struct ad4134_state *st =3D iio_priv(indio_dev);
-> +	unsigned int base_len =3D roundup_pow_of_two(BITS_TO_BYTES(AD4134_CHAN_=
-PRECISION_BITS));
-> +	unsigned int bpw =3D AD4134_CHAN_PRECISION_BITS;
-> +
-> +	st->xfers.cs_off =3D 1;
-> +	st->xfers.bits_per_word =3D bpw;
-> +	st->xfers.len =3D base_len * st->spi->num_rx_lanes;
-
-[Severity: High]
-Could this drop channels when operating in single-lane mode?
-If num_rx_lanes is 1, the transfer length computes to 4 bytes instead of the
-required 16 bytes. However, ad4134_scan_masks forces all 4 channels to be
-read per sample, which might leave the rest of the IIO buffer unpopulated.
-
-> +	if (st->spi->num_rx_lanes > 1)
-> +		st->xfers.multi_lane_mode =3D SPI_MULTI_LANE_MODE_STRIPE;
-> +
-> +	st->xfers.offload_flags =3D SPI_OFFLOAD_XFER_RX_STREAM;
-> +
-> +	spi_message_init_with_transfers(&st->msg, &st->xfers, 1);
-> +}
-[ ... ]
-> +static int ad4134_offload_buffer_predisable(struct iio_dev *indio_dev)
-> +{
-> +	struct ad4134_state *st =3D iio_priv(indio_dev);
-> +	int ret =3D 0;
-> +
-> +	spi_offload_trigger_disable(st->offload, st->offload_trigger);
-> +
-> +	if (st->spi_mode =3D=3D AD4134_SPI_MODE_4_WIRE)
-> +		ret =3D ad4134_set_register_access(st);
-> +
-> +	spi_unoptimize_message(&st->msg);
-> +
-> +	return ret;
-> +}
-
-[Severity: Medium]
-Is this violating LIFO teardown order?
-In ad4134_offload_buffer_postenable(), spi_optimize_message() is called
-before changing access modes, but here ad4134_set_register_access() (which
-alters the SPI mode) is called before spi_unoptimize_message(). Altering the
-mode while a message is actively optimized might cause undefined behavior in
-the SPI controller.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1789494473.gi=
-t.marcelo.schmitt@analog.com?part=3D14
+>
+> commit 6a964f82a818f57f5a1a31366f614609bc9c5008
+> Author: Rudraksha Gupta <guptarud@gmail.com>
+>
+> leds: flash: rt8515: Support single-GPIO flash ICs with vin supply
+>
+> This commit extends the RT8515 driver to support flash ICs that use
+> only a single GPIO for both flash and torch modes, alongside an
+> optional vin regulator that gates power to the flash IC.
+>
+>> diff --git a/drivers/leds/flash/leds-rt8515.c b/drivers/leds/flash/leds-rt8515.c
+>> index 00904cc90ed6e..541f61e13f018 100644
+>> --- a/drivers/leds/flash/leds-rt8515.c
+>> +++ b/drivers/leds/flash/leds-rt8515.c
+> [ ... ]
+>> @@ -62,27 +66,50 @@ static struct rt8515 *to_rt8515(struct led_classdev_flash *fled)
+>>   	return container_of(fled, struct rt8515, fled);
+>>   }
+>>   
+>> -static void rt8515_gpio_led_off(struct rt8515 *rt)
+>> +static int rt8515_gpio_led_off(struct rt8515 *rt)
+>>   {
+>> -	gpiod_set_value(rt->enable_flash, 0);
+>> -	gpiod_set_value(rt->enable_torch, 0);
+>> +	gpiod_set_value(rt->enable_flash, RT8515_OFF);
+>> +	gpiod_set_value(rt->enable_torch, RT8515_OFF);
+>> +
+>> +	if (!rt->reg)
+>> +		return 0;
+>> +
+>> +	return regulator_is_enabled(rt->reg) > 0 ? regulator_disable(rt->reg) : 0;
+> [Severity: Medium]
+> Since regulator_is_enabled() returns the global physical state rather than
+> the per-consumer enable count, could this lead to an unbalanced disable if
+> the regulator is marked always-on or shared with another consumer?
+>
+> Because rt8515_gpio_led_off() is reachable from user-controllable sysfs
+> attributes via rt8515_led_brightness_set(), repeated calls when the driver
+> has not enabled the regulator might cause the regulator core to throw a
+> warning and return -EIO. Should the driver maintain its own boolean state
+> to track whether it has enabled the regulator?
+>
+>>   }
+> [ ... ]
+>> @@ -91,23 +118,37 @@ static int rt8515_led_brightness_set(struct led_classdev *led,
+>>   {
+>>   	struct led_classdev_flash *fled = lcdev_to_flcdev(led);
+>>   	struct rt8515 *rt = to_rt8515(fled);
+>> +	int ret = 0;
+>>   
+>>   	mutex_lock(&rt->lock);
+>>   
+>>   	if (brightness == LED_OFF) {
+>> -		/* Off */
+>> -		rt8515_gpio_led_off(rt);
+>> +		ret = rt8515_gpio_led_off(rt);
+>> +		if (ret)
+>> +			goto out;
+>>   	} else if (brightness < RT8515_TORCH_MAX) {
+>> -		/* Step it up to movie mode brightness using the flash pin */
+>> -		rt8515_gpio_brightness_commit(rt->enable_torch, brightness);
+>> +		/*
+>> +		 * Step it up to movie mode brightness.
+>> +		 * If there is no separate torch pin, use the flash pin
+>> +		 * for torch as well.
+>> +		 */
+>> +		ret = rt8515_gpio_brightness_commit(rt,
+>> +				rt->enable_torch ?: rt->enable_flash, brightness);
+>> +		if (ret)
+>> +			goto out;
+>>   	} else {
+>> -		/* Max torch brightness requested */
+>> -		gpiod_set_value(rt->enable_torch, 1);
+>> +		/*
+>> +		 * Max torch brightness requested.
+>> +		 * If there is no separate torch pin, use the flash pin
+>> +		 * for torch as well.
+>> +		 */
+>> +		gpiod_set_value(rt->enable_torch ?: rt->enable_flash, RT8515_ON);
+> [Severity: High]
+> If a transition is made from LED_OFF directly to max torch brightness, the
+> optional vin regulator remains disabled because
+> rt8515_gpio_brightness_commit() is completely bypassed here. Does this mean
+> the max torch state might silently fail to power the IC?
+>
+>>   	}
+>>   
+>> +out:
+>>   	mutex_unlock(&rt->lock);
+>>   
+>> -	return 0;
+>> +	return ret;
+>>   }
+>>   
+>>   static int rt8515_led_flash_strobe_set(struct led_classdev_flash *fled,
+>> @@ -116,27 +157,35 @@ static int rt8515_led_flash_strobe_set(struct led_classdev_flash *fled,
+> [ ... ]
+>> -	if (state) {
+>> -		/* Enable LED flash mode and set brightness */
+>> -		rt8515_gpio_brightness_commit(rt->enable_flash, brightness);
+>> -		/* Set timeout */
+>> -		mod_timer(&rt->powerdown_timer,
+>> -			  jiffies + usecs_to_jiffies(timeout->val));
+>> -	} else {
+>> -		timer_delete_sync(&rt->powerdown_timer);
+>> -		/* Turn the LED off */
+>> -		rt8515_gpio_led_off(rt);
+>> -	}
+>> +	/* Enable LED flash mode and set brightness */
+>> +	ret = rt8515_gpio_brightness_commit(rt, rt->enable_flash, brightness);
+>> +	if (ret)
+>> +		goto out;
+>> +
+>> +	/* Set timeout */
+>> +	schedule_delayed_work(&rt->powerdown_work, usecs_to_jiffies(timeout->val));
+> [Severity: High]
+> Does schedule_delayed_work() correctly handle consecutive flash strobe
+> commands? Unlike mod_timer(), schedule_delayed_work() silently ignores
+> updates if the work is already pending. This could cause consecutive V4L2
+> flash strobes to fail to extend the timeout, shutting down the flash
+> prematurely.
+>
+> Additionally, if the delayed work is actively executing and blocked waiting
+> on rt->lock, its pending bit is cleared. In that scenario, could
+> schedule_delayed_work() queue a duplicate instance of the work that
+> immediately shuts down the LED as soon as the lock is released? Would using
+> mod_delayed_work() resolve these state management issues?
+>
+>>   
+>>   	fled->led_cdev.brightness = LED_OFF;
+>>   	/* After this the torch LED will be disabled */
+>>   
+>> +out:
+>>   	mutex_unlock(&rt->lock);
+>>   
+>> -	return 0;
+>> +	return ret;
+>>   }
+> [ ... ]
+>> @@ -327,12 +389,17 @@ static int rt8515_probe(struct platform_device *pdev)
+> [ ... ]
+>>   	platform_set_drvdata(pdev, rt);
+>>   
+>>   	ret = devm_led_classdev_flash_register_ext(dev, fled, &init_data);
+> [Severity: Critical]
+> This is a pre-existing issue, but registering the LED class device via the
+> devm API schedules its sysfs interfaces to be unregistered after
+> rt8515_remove() returns.
+>
+> [ ... ]
+>> @@ -371,7 +438,7 @@ static void rt8515_remove(struct platform_device *pdev)
+>>   	struct rt8515 *rt = platform_get_drvdata(pdev);
+>>   
+>>   	rt8515_v4l2_flash_release(rt);
+>> -	timer_delete_sync(&rt->powerdown_timer);
+>> +	cancel_delayed_work_sync(&rt->powerdown_work);
+>>   	mutex_destroy(&rt->lock);
+> Because devres destroys the sysfs interfaces after this function returns,
+> could a concurrent user-space write to sysfs (like triggering a flash
+> strobe) occur during this window? This would cause the sysfs handler to
+> attempt to lock the destroyed mutex and queue work on the freed device
+> structure, leading to a use-after-free. Should devm_add_action_or_reset()
+> be used here instead to ensure the work and mutex are only destroyed after
+> the devm-managed LED registration is cleanly torn down?
+>
+>>   }
