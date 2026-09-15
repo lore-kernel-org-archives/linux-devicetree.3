@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6279E488214;
-	Tue, 15 Sep 2026 10:59:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09B51484232
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 10:59:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789469956; cv=none; b=ADYr5qnUdSkyIS9naknpakdR8hnN04ZcNs/7tINx181MUI4thPMrJkgKu0ss/dC5Xfo8rjDn88IvrQ5/PW8h7cjZPZ+9Ps6fzxOz4cvUmRLVgA0Dy0dvOsWSvLR2kTaE+D1G0xQQMGavz7LRLvjiApzpDLi2lh17LsLy8Q4ynPc=
+	t=1789469957; cv=none; b=kwupAH5Qzxox60WQo2+oK+Bha0HWNtf0/Dg5B+azlzZYEa2PxD8Ztmg7BkeZ7aaEB1JM0MYGA1wfswN6+JwTRUBdHG/C6L98H5Ny7yxcVWGNR4Ode3aBYRLGItwXT79lmWFCgh93uf/Zf2L0Bgvcl/Kp42MwnwpXeOAJW3VP3yQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789469956; c=relaxed/simple;
-	bh=jkHd/+kXnloKIZbvaKAZQT8K+rqModjcKtRFsI/VHcc=;
+	s=arc-20240116; t=1789469957; c=relaxed/simple;
+	bh=/1+rOeg2Bzsr37h1r7pVUbJZf9/HPXkJ1jIOCFsU5Wc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=EGTxFZvcBVVFg3CprcxF0YlmUJzyp/e1cutKIMAEAyb2ysMpZAq/tYvD9Xg3F0o21D8NbypRxN0166jXY0zuG8DfWPHm46Ucgj64lDSp7QJBLKep8sVjKBKjRbacvBtN8RlTKi2NXhJKQir3fQR52JQWw5AMZycojQLuh53Boc4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KZ5Dj0xn; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=sbv5+kSd/Jb1wWDxig4vkP0dl4JJYBPlSyTpedPvCeSW0exk64dttX/jWCgzRNKE1AkMtwWEgi/6Wk6lsZ+4qDsoMl67iCLGJlC4P4tWLS7F+nyaoEUrLQ09+VWEyuEK9P/V6q7lUQl0Y7PZz7svuXVSPQVPrgWJ8TDLZqdUqe0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MD529qBQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KZ5Dj0xn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F2EA1F000FF;
-	Tue, 15 Sep 2026 10:59:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MD529qBQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96DAA1F00893;
+	Tue, 15 Sep 2026 10:59:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789469955;
-	bh=sxI8bFXV+UHdLagTpnyMcDcyyC1hidkJMSQa/EzkTtM=;
+	bh=MxEe2Lo7w/D52n9l2TGx+I1QZn4Kk7wjxsiWWPNYUgI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KZ5Dj0xnwDsG9kMXC9tyvvsr16kadAJprAMS4xVKi+SRNQZRukcmkzgP9BjELmoxp
-	 fAaTyzVCf+kLCAvR6EgmCpazuUCuzhDHsz8fV78NnoCdZhSa5496Esu9fZjosNotNk
-	 LHhHyT37ej9yCvDuux4F0CvMrHuyffkPayh2xP2eCeRTHKfHi9zq1AowDTZJJShZh2
-	 3iPE7jE3hwfVIxC592Zry3bVC2R7wqLsfZtASxRuIOA7AEp4WP/Xd0SuSY27RYdnU0
-	 BbJrEAakBoSnHctw3iLK9JPSPMuCMvc3M5k9YDwENPEffw+QMDU7ru9cUj2gRbuenz
-	 1jOrN4xmtlDHw==
+	b=MD529qBQMSnrB16ur7srg3DJqJVLlmQ0rjnRgV5MhTU2u6Unqx/hyE3wKMaj9BIdr
+	 OOalVvzUb9IY5mlEJthEo9nH+F/1G8TGyXB1BNgfQe4HRutYAyNpKz2V0kRBSJFA55
+	 5KQdN5u6uvNg5CuerB7q87/kD9Kr8F/8iwSCoHf1RGPqTCfk3JYXq/pQW4kbprbgEN
+	 M626LEM9zAibe8BTYNbP7KB2UBEQ//JwWOUsYhHDXYNgg/s6ayZG+gajz8iriZZOSz
+	 /rfSn8sGJZ1kZnEYPAqfAh05FBEtb0dx1DUSu9shq78RkLnDmaCMvhdaW6KakGNLAC
+	 ERT/fd/tE5ALQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 5/5] media: imx8-isi: Enable ISI RAW10/12/14 output
- LSB alignment
+Subject: Re: [PATCH v13 03/14] accel/rocket: wait for a running IRQ handler
+ before resetting a core
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Guoniu Zhou" <guoniu.zhou@oss.nxp.com>
-Cc: devicetree@vger.kernel.org, Frank.Li@kernel.org, robh@kernel.org, imx@lists.linux.dev, media-ci@linuxtv.org, conor+dt@kernel.org
-In-Reply-To: <20260915-isi_imx952-v3-5-3d8ff1363dda@oss.nxp.com>
-References: <20260915-isi_imx952-v3-0-3d8ff1363dda@oss.nxp.com>
- <20260915-isi_imx952-v3-5-3d8ff1363dda@oss.nxp.com>
+To: "Jiaxing Hu" <gahing@gahingwoo.com>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260915104328.45901-4-gahing@gahingwoo.com>
+References: <20260915104328.45901-1-gahing@gahingwoo.com>
+ <20260915104328.45901-4-gahing@gahingwoo.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 10:59:14 +0000
-Message-Id: <20260915105914.9F2EA1F000FF@smtp.kernel.org>
+Date: Tue, 15 Sep 2026 10:59:15 +0000
+Message-Id: <20260915105915.96DAA1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,61 +47,80 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] media: imx8-isi: Unconditional setting of RAW alignment bits may=
- corrupt non-RAW streams
+- [High] rocket: interrupt masking bypassed when PM is disabled or suspendi=
+ng
 --
 
-commit 24f35e10010e44cf9f1ebb2452592fd2a6c1b167
-Author: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+commit 514c825015ef4be7a517e9ee1eca6f94eae37e6d
+Author: Jiaxing Hu <gahing@gahingwoo.com>
+Subject: accel/rocket: wait for a running IRQ handler before resetting a co=
+re
 
-media: imx8-isi: Enable ISI RAW10/12/14 output LSB alignment
+This commit introduces a mechanism to wait for a threaded IRQ handler that
+might already be running when rocket_reset() is called. It masks the
+interrupt block, clears the raw status, and calls synchronize_irq() to
+prevent a concurrent handler from running. It uses
+pm_runtime_get_if_active() to avoid writing to registers while the power
+domain is down, preventing an SError.
 
-This commit updates the i.MX8 ISI driver to use the hardware LSB alignment
-capability introduced in i.MX952 for RAW10/12/14 formats. It drops the older
-RAW16 workaround for these newer platforms and updates the alignment bits
-during channel setup.
+Link: https://lore.kernel.org/all/20260819073530.6087-1-royalnet026@gmail.c=
+om/
+Link: https://lore.kernel.org/all/CAEWPSH5mxTbUkNouxm6yecMZYvDowquhvYvhaXQ8=
+HoMtHD5U1g@mail.gmail.com/
+Link: https://lore.kernel.org/all/20260912113717.6819-1-royalnet026@gmail.c=
+om/
 
-> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c b/drivers/=
-media/platform/nxp/imx8-isi/imx8-isi-hw.c
-> index 6aa760ce36053..0832b4a110ed2 100644
-> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c
-> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c
-
+> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
+ket_job.c
+> index 575945015ca3b..dfe9135d86af5 100644
+> --- a/drivers/accel/rocket/rocket_job.c
+> +++ b/drivers/accel/rocket/rocket_job.c
 [ ... ]
-
-> @@ -357,6 +368,20 @@ static void mxc_isi_channel_set_control(struct mxc_i=
-si_pipe *pipe,
->  			val |=3D CHNL_CTRL_VC_ID_1(vc >> 2);
->  	}
-> =20
-> +	if (isi_raw_out_lsb(pdata)) {
-> +		/*
-> +		 * Enable RAW10/12/14 output LSB alignment to match the
-> +		 * V4L2 requirement that RAW formats are LSB-aligned.
-> +		 */
-> +		val |=3D CHNL_CTRL_RAW_OUT_LSB_ALIGN;
-> +
-> +		/*
-> +		 * Align the data selection from pixel link to MSB to
-> +		 * avoid data shift since the data from PL is MSB.
-> +		 */
-> +		val |=3D CHNL_CTRL_RAW_IN_MSB_ALIGN;
+> @@ -377,9 +377,68 @@ rocket_reset(struct rocket_core *core, struct drm_sc=
+hed_job *bad)
+[ ... ]
+> +	 * pm_runtime_get_if_active() does not invoke a callback -- it only
+> +	 * takes a reference on an already-active device -- and
+> +	 * pm_runtime_put_autosuspend() is asynchronous, so neither can re-enter
+> +	 * this driver's runtime PM callbacks while the lock is held.
+> +	 */
+> +	scoped_guard(mutex, &core->job_lock) {
+> +		if (pm_runtime_get_if_active(core->dev) > 0) {
+> +			rocket_pc_writel(core, INTERRUPT_MASK, 0x0);
+> +			rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
+> +			pm_runtime_put_autosuspend(core->dev);
+> +		}
 > +	}
 > +
+> +	/*
+> +	 * drm_sched_stop() returns without waiting for a threaded handler that
+> +	 * is already running, so wait for one here. This has to stay outside
+> +	 * job_lock: the handler takes that lock, so waiting for it while
+> +	 * holding it would deadlock instead of fencing anything.
+> +	 */
+> +	synchronize_irq(core->irq);
 
-[Severity: Medium]
-When starting a non-RAW stream (such as YUV or RGB) on an i.MX952 platform,
-could setting these alignment bits unconditionally cause data shift or
-corruption for the non-RAW video streams?
+[Severity: High]
+Does this logic bypass interrupt masking when PM is disabled or during syst=
+em
+suspend?
 
-It looks like mxc_isi_channel_set_control() applies these bits without
-checking if the currently active format is actually a RAW format. Would it
-make sense to verify the active stream format before enabling these bits?
+If CONFIG_PM is disabled, pm_runtime_get_if_active() unconditionally returns
+-EINVAL, which evaluates to <=3D 0.
 
->  	mxc_isi_write(pipe, CHNL_CTRL, val);
-> =20
->  	mutex_unlock(&pipe->lock);
+Additionally, during system suspend, the driver uses
+pm_runtime_force_suspend(). This increments the PM disable_depth before
+invoking the runtime suspend callback to turn off the clocks. Because
+disable_depth is non-zero, pm_runtime_get_if_active() returns -EINVAL even
+though the device is still fully active at that point.
+
+In both of these scenarios, the condition evaluates to false and the crucial
+interrupt masking is skipped.
+
+Since the hardware remains active and the interrupt is unmasked, can the
+handler fire concurrently with or immediately after synchronize_irq(),
+recreating the exact race condition this code aims to close?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-isi_imx952=
--v3-0-3d8ff1363dda@oss.nxp.com?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915104328.4590=
+1-1-gahing@gahingwoo.com?part=3D3
