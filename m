@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4590497B96;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E431B49B208;
 	Tue, 15 Sep 2026 11:15:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789470941; cv=none; b=VzYVNEMf9KW899LlP6CsxqBW3EPoUEnV54z6sVr34oyxyTk44Ht0U7i8mGVGeYj0/PKcQ1KU3MCcmDr3Eg8z3SgZea2SnBxvTRgZ8ObDJ1igunaO2UTp+Le1zQj19Nso0MzrdfnWtcE4Tx6A+5vBiqv+OZifc7ScJhtc5ArlVoc=
+	t=1789470942; cv=none; b=lAEXIbzIo+O0E9JQDXSU9KUEMeT+0Yrbecg3usGBxuhXq8QsCFk9U/eqIhikc5AgwaTdCph+XokAUuuSg6atuWXRVMSOsWsN+zuQNeZBR9+1bqfUCbLZPaD/yz22U0dpQZRa8Z01CPqOgxwxI/yB3pWuYt/16CzZpS570hMnMac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789470941; c=relaxed/simple;
-	bh=apLWzdvgb1s6ZZhPE9IW2ykFDz8tGxdLt1ms1gbZrRo=;
+	s=arc-20240116; t=1789470942; c=relaxed/simple;
+	bh=CHdPf6ttp8oRTNspmipbi6RxCjeRHb+9rUMleA8zgb4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=mSZ/J7OZIWApkbWZtCqplvlpi4OdvqlBGws2XFTeA7kJpd7NnAXlL0l1L8S9HeHb0IW7eazucLpPD+3mjzNRwrUKfgRZyBWs+36BREzctcYDx1/3gqDbi1OPInPlu4LXqStKVoVSgWBV+np2TbL2SMKXY4fxGFxQys8Ush09ZGc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y9BO/s29; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=fyL07dGnB2cx3egWkbgWO1Y7SuBNYKk1D4LkdEhQesvV22Vt89DhtnR0pQFUcAeodmcgiDmrY7xFvEhj1WtABguVGQKT6xPIVUSejY/j4zGeAiksVU0qJ2eg4d8CsphguzFRIRM9Mb9c/FUMFTe/1lBC9WKVGA4bXvfAvArgOYM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WQ0EBjMJ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y9BO/s29"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 65688C2BCB9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WQ0EBjMJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B0BCCC2BCFF;
 	Tue, 15 Sep 2026 11:15:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1789470941;
-	bh=apLWzdvgb1s6ZZhPE9IW2ykFDz8tGxdLt1ms1gbZrRo=;
+	bh=CHdPf6ttp8oRTNspmipbi6RxCjeRHb+9rUMleA8zgb4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Y9BO/s29j57o78qggRkGKful6hGXP2r6a2OTsdz/w/y9S8ebKCvw0F8c61dpp3OIV
-	 zbxy+hRDzxQrxrUnfKki8IUzYeZC3ZJ9MAlEzqIJ6YmCaJSDjnx4Znr6BMQODaHMWb
-	 uMiHlUIuWQAQ+p9myh4436uTs2ObGxevnlj5Edmwus73cH/SHn3PhKsUJ5Vjupw88C
-	 ibET0FHNqg/oRjC3KwZDglZiT/180loBJ3oTlzJKqLm5LASWcxMZpMf2EnrgbubZWH
-	 ziDPugAxDOvSGxqzfrc6TWqbvXZ8wEq4JdvDyD5XkuwKLKV8HDkI4mjmbnvo1KNG5U
-	 vvetE8L+Kzr7g==
+	b=WQ0EBjMJ3VOwYF0YoULAfjLzG7YVAOQuMovf/uJvdtGE+bIfr0ArGRraSsIuotCzO
+	 1RFZt5TQQZldA9jeoMmEwm5lOffQEbvFR/qk56vRjmc+ot/fsc339+T5lTvVVT6kbU
+	 e+u8xMcFoOluiVy309NflHnCKaYsdYmOK8E+J+SKiMtAoVX3QiSQCWAyaJbjfuuC69
+	 TptU890IOP566UjnBINkdpsyx0EzqKD+NwgdACZX/sWMRT3NqhiEzVAsZNfzcNJEsY
+	 enfTwTlkc4V96GU4aDJaugxuVdkzcTUSHvawkIkzXBW3b+pPWVlTINM7Js02w1Uqrk
+	 +AQ2n/gXx4IAQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 517CBC88E7B;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9EE7BC88E53;
 	Tue, 15 Sep 2026 11:15:41 +0000 (UTC)
 From: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>
-Date: Tue, 15 Sep 2026 19:15:39 +0800
-Subject: [PATCH v7 09/15] gpiolib: regmap: add gpio_regmap_get_chip()
+Date: Tue, 15 Sep 2026 19:15:43 +0800
+Subject: [PATCH v7 13/15] serial: 8250_dw: add Ambarella CV75 quirks
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,7 +40,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-cv75-v5-v7-9-3297d3fbc9c0@ambarella.com>
+Message-Id: <20260915-cv75-v5-v7-13-3297d3fbc9c0@ambarella.com>
 References: <20260915-cv75-v5-v7-0-3297d3fbc9c0@ambarella.com>
 In-Reply-To: <20260915-cv75-v5-v7-0-3297d3fbc9c0@ambarella.com>
 To: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
@@ -62,11 +62,11 @@ Cc: Long Zhao <longzhao@ambarella.com>, Rob Herring <robh@kernel.org>,
  linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org, 
  linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789470938; l=2769;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789470938; l=3195;
  i=longzhao@ambarella.com; s=20260730; h=from:subject:message-id;
- bh=nq9zwoYxD+NQm8KCrReHWkDIjxPc8aBRQx3slgbQG5I=;
- b=UeddQ/k7Bfy8M1+7iO6pMfuGpWJDosaPnbR8AD5YXnJ+tU3kaZLmZlTKQJxKltmA4XbkZBtYx
- 5KaLQ39XmhGAPEeZoRCm0OWLNLWcAdP+3CeBaRHKRGIQRJmtn+/dY9O
+ bh=TyYXNJamoUTysqAoDyQ16o7yw8rPZR1pbkI5mcWDXNQ=;
+ b=cFaCJcredgGBXcBSwIuIfOzodofwhQx24frfan2HeXABZxotA7jj/M8fz+AFlpR+VMScLetO0
+ WwUU85oaxQoCuXsq5+up3Etlo3eangE1uCARNbFK9prNHCl3+e09e3w
 X-Developer-Key: i=longzhao@ambarella.com; a=ed25519;
  pk=/xGhPTOX0/eYsyTWzyjjgAIW1Z/YD+IlnOnvcdRozow=
 X-Endpoint-Received: by B4 Relay for longzhao@ambarella.com/20260730 with
@@ -76,81 +76,99 @@ Reply-To: longzhao@ambarella.com
 
 From: Long Zhao <longzhao@ambarella.com>
 
-Let drivers that implement a custom irqchip retrieve the gpio_chip
-after registration. Attach a caller-provided irq_domain only when it
-is present.
+The Ambarella CV75 UART is Ambarella IP, not a Synopsys DesignWare
+licensed block. At the register level it is close enough to DW APB UART
+that a full custom UART driver is unnecessary: reuse 8250_dw with a
+small platform quirk.
 
+Quirks:
+- keep IER ETOI (bit 5) set for RX timeout behaviour
+- skip set_rate; baud clock is managed outside the UART block
+
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 Signed-off-by: Long Zhao <longzhao@ambarella.com>
 ---
- drivers/gpio/gpio-regmap.c  | 20 +++++++++++++++-----
- include/linux/gpio/regmap.h |  1 +
- 2 files changed, 16 insertions(+), 5 deletions(-)
+ drivers/tty/serial/8250/8250_dw.c | 32 ++++++++++++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
-diff --git a/drivers/gpio/gpio-regmap.c b/drivers/gpio/gpio-regmap.c
-index dfcc1f1122ec..56c2c873cbfa 100644
---- a/drivers/gpio/gpio-regmap.c
-+++ b/drivers/gpio/gpio-regmap.c
-@@ -296,6 +296,12 @@ void *gpio_regmap_get_drvdata(struct gpio_regmap *gpio)
+diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
+index 5fba913f3301..19431c476c55 100644
+--- a/drivers/tty/serial/8250/8250_dw.c
++++ b/drivers/tty/serial/8250/8250_dw.c
+@@ -43,6 +43,9 @@
+ #define RZN1_UART_xDMACR_8_WORD_BURST	(2 << 1)
+ #define RZN1_UART_xDMACR_BLK_SZ(x)	((x) << 3)
+ 
++/* Ambarella IER: receive timeout interrupt enable */
++#define AMBARELLA_UART_IER_ETOI		BIT(5)
++
+ /* Quirks */
+ #define DW_UART_QUIRK_OCTEON		BIT(0)
+ #define DW_UART_QUIRK_ARMADA_38X	BIT(1)
+@@ -60,6 +63,7 @@
+ 
+ struct dw8250_platform_data {
+ 	u8 usr_reg;
++	u8 ier_mask;
+ 	u32 cpr_value;
+ 	unsigned int quirks;
+ };
+@@ -572,6 +576,25 @@ static void dw8250_prepare_rx_dma(struct uart_8250_port *p)
+ 	dw8250_writel_ext(up, RZN1_UART_RDMACR, val);
  }
- EXPORT_SYMBOL_GPL(gpio_regmap_get_drvdata);
  
-+struct gpio_chip *gpio_regmap_get_chip(struct gpio_regmap *gpio)
++static int dw8250_ier_mask_startup(struct uart_port *p)
 +{
-+	return &gpio->gpio_chip;
++	struct dw8250_data *d = to_dw8250_data(p->private_data);
++	struct uart_8250_port *up = up_to_u8250p(p);
++	int ret;
++
++	ret = serial8250_do_startup(p);
++	if (ret)
++		return ret;
++
++	/*
++	 * Ambarella keeps variant IER bits (e.g. ETOI) set for correct RX
++	 * timeout behaviour.
++	 */
++	up->ier |= d->pdata->ier_mask;
++
++	return 0;
 +}
-+EXPORT_SYMBOL_GPL(gpio_regmap_get_chip);
 +
- /**
-  * gpio_regmap_register() - Register a generic regmap GPIO controller
-  * @config: configuration for gpio_regmap
-@@ -304,7 +310,6 @@ EXPORT_SYMBOL_GPL(gpio_regmap_get_drvdata);
-  */
- struct gpio_regmap *gpio_regmap_register(const struct gpio_regmap_config *config)
+ static void dw8250_quirks(struct uart_port *p, struct dw8250_data *data)
  {
--	struct irq_domain *irq_domain;
- 	struct gpio_regmap *gpio;
- 	struct gpio_chip *chip;
- 	int ret;
-@@ -412,6 +417,8 @@ struct gpio_regmap *gpio_regmap_register(const struct gpio_regmap_config *config
- 
- #ifdef CONFIG_REGMAP_IRQ
- 	if (config->regmap_irq_chip) {
-+		struct irq_domain *irq_domain;
-+
- 		gpio->regmap_irq_line = config->regmap_irq_line;
- 		ret = regmap_add_irq_chip_fwnode(dev_fwnode(config->parent), config->regmap,
- 						 config->regmap_irq_line, config->regmap_irq_flags,
-@@ -420,12 +427,15 @@ struct gpio_regmap *gpio_regmap_register(const struct gpio_regmap_config *config
- 			goto err_remove_gpiochip;
- 
- 		irq_domain = regmap_irq_get_domain(gpio->irq_chip_data);
-+		if (irq_domain) {
-+			ret = gpiochip_irqchip_add_domain(chip, irq_domain);
-+			if (ret)
-+				goto err_remove_gpiochip;
-+		}
- 	} else
- #endif
--	irq_domain = config->irq_domain;
--
--	if (irq_domain) {
--		ret = gpiochip_irqchip_add_domain(chip, irq_domain);
-+	if (config->irq_domain) {
-+		ret = gpiochip_irqchip_add_domain(chip, config->irq_domain);
- 		if (ret)
- 			goto err_remove_gpiochip;
+ 	unsigned int quirks = data->pdata->quirks;
+@@ -606,6 +629,8 @@ static void dw8250_quirks(struct uart_port *p, struct dw8250_data *data)
+ 		p->serial_in = dw8250_serial_in32;
+ 		data->uart_16550_compatible = true;
  	}
-diff --git a/include/linux/gpio/regmap.h b/include/linux/gpio/regmap.h
-index d7ffc12b00a2..6bc00b9775a5 100644
---- a/include/linux/gpio/regmap.h
-+++ b/include/linux/gpio/regmap.h
-@@ -128,5 +128,6 @@ void gpio_regmap_unregister(struct gpio_regmap *gpio);
- struct gpio_regmap *devm_gpio_regmap_register(struct device *dev,
- 					      const struct gpio_regmap_config *config);
- void *gpio_regmap_get_drvdata(struct gpio_regmap *gpio);
-+struct gpio_chip *gpio_regmap_get_chip(struct gpio_regmap *gpio);
++	if (data->pdata->ier_mask)
++		p->startup = dw8250_ier_mask_startup;
+ }
  
- #endif /* _LINUX_GPIO_REGMAP_H */
+ static void dw8250_reset_control_assert(void *data)
+@@ -879,6 +904,12 @@ static const struct dw8250_platform_data dw8250_intc10ee = {
+ 	.quirks = DW_UART_QUIRK_IER_KICK,
+ };
+ 
++static const struct dw8250_platform_data dw8250_ambarella_cv75_data = {
++	.usr_reg = DW_UART_USR,
++	.ier_mask = AMBARELLA_UART_IER_ETOI,
++	.quirks = DW_UART_QUIRK_SKIP_SET_RATE,
++};
++
+ static const struct dw8250_platform_data dw8250_ultrarisc_dp1000_data = {
+ 	.usr_reg = DW_UART_USR,
+ 	.cpr_value = FIELD_PREP_CONST(DW_UART_CPR_ABP_DATA_WIDTH, 2) |
+@@ -889,6 +920,7 @@ static const struct dw8250_platform_data dw8250_ultrarisc_dp1000_data = {
+ };
+ 
+ static const struct of_device_id dw8250_of_match[] = {
++	{ .compatible = "ambarella,cv75-uart", .data = &dw8250_ambarella_cv75_data },
+ 	{ .compatible = "snps,dw-apb-uart", .data = &dw8250_dw_apb },
+ 	{ .compatible = "cavium,octeon-3860-uart", .data = &dw8250_octeon_3860_data },
+ 	{ .compatible = "marvell,armada-38x-uart", .data = &dw8250_armada_38x_data },
 
 -- 
 2.34.1
