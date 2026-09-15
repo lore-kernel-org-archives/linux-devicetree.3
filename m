@@ -1,173 +1,272 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 705D44399CC;
-	Tue, 15 Sep 2026 18:05:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FAD54BC018
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 18:10:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789495532; cv=none; b=scEk3jaJqbfeet0JDqfFF0hblNplzvmS+1lPz5NwnsVrm4u1kVOCfExiYi/g6Hcz/08l4v56diz5hEAm6GLeiPHgwD5vF0ECUh6ZHM6V+9zH5qgIzxHNOxKGwTLx8eYsV+cO0V34F90js4GWpfA4rKUMxDgVeEre50pX0LwffPE=
+	t=1789495816; cv=none; b=kMxwew2cfzF5H+kaRKx1x7b4dfKbGJwRja6qZwb3ZHpVHe3G01tPs4pSmdE2lN0kSyG5u4mtdl7d/jocUSvtsFF0dnoZZbi2VXRSgXGiPxr4w/ss0IjRuCPRnqzWg3Pw1MAdgoOOI5fLruD8WiO/qzsJ3VfUsx+isQska1h0wSM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789495532; c=relaxed/simple;
-	bh=V6K4OlMCnUsCbDMREVaUa2vUImH9KQWys0wgaxngXJA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gfuPf03J7lxn0tqT5OuVYHZ4DS/aVd4KrSy2EDRM8b982EshWCpuzHWUr+D9KdPANs83cOFX09kIsaIw7aDm2lEcsp6xot0jmqiCR0NzNGmwbnunVarZnX3eiEP4fnf2GnWnQ/YsopuMzFiqjYgckczMy+23ng8N45508TCOPxI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jTo4X3Om; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789495816; c=relaxed/simple;
+	bh=jFoxdux0wrRAGgjXbC4e/Ezp+SHTGN6U+C7MT5kRbTY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=XMf+paSuSybv5u05RYdi7w8mXxviOJ4jkGqU4kskU89WtSBJiJgdeFQ084IYz/VBHGTIWQYxK2B5iDgaplq33TWBw4t+RlrwEDLssaT28LZ379Dln+CB999/HW8v+N2+SjdzasCpZawGXGNDLd0fA6d++nmAxlkfe5//X6Kuuz8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=RlA4eZoO; arc=none smtp.client-ip=74.125.230.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jTo4X3Om"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF23A1F00898;
-	Tue, 15 Sep 2026 18:05:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789495529;
-	bh=mPeI+6lTU/Y8EitQI5ZfnrfapFmX8wWN22xo6A7UJaE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jTo4X3Om6pjYJxMpPsXGw742bcwi+fNKt1WirPMCjMB3CN4+QeGCMAad0HowUYo27
-	 zkPX73/bpXrtYTMe0XsfHOKvy0auvvNyZSnejxr33FwP5Y4EAzd8YeVUzA5p/dgDEw
-	 5cFlE/iE3GLNGT0ByRP+/biS9WQfT2P4HJ97Jm9P9K/qgKyfL5uH3H46GOijU3awQE
-	 U05QkDGXb1dMAlMiuCtrF46H69n28W2iJaBayGHH26y3LSBp2/268of5pUNUCjMz6C
-	 lP5HOIiL9QmsIGugbJJQ+XSzW3eNNY7uy3+IQE3mKC77JsHqvgv78X1PoCadcnYcJG
-	 U7RPeBeWp4lDg==
-Date: Tue, 15 Sep 2026 11:05:29 -0700
-From: Kees Cook <kees@kernel.org>
-To: Bill Wendling <morbo@google.com>
-Cc: linux-kernel@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
-	Helge Deller <deller@gmx.de>, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>,
-	H Hartley Sweeten <hsweeten@visionengravers.com>,
-	Tony Luck <tony.luck@intel.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Matthias Schwarzott <zzam@gentoo.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Arend van Spriel <arend.vanspriel@broadcom.com>,
-	Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Sylwester Nawrocki <s.nawrocki@samsung.com>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Anil Gurumurthy <anil.gurumurthy@qlogic.com>,
-	Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>,
-	"Martin K. Petersen" <mkp@kernel.org>,
-	Trond Myklebust <trondmy@kernel.org>,
-	Anna Schumaker <anna@kernel.org>,
-	Mike Marshall <hubcap@omnibond.com>,
-	Martin Brandenburg <martin@omnibond.com>,
-	Jiri Pirko <jiri@resnulli.us>, Simon Horman <horms@kernel.org>,
-	Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Olga Kornievskaia <okorniev@redhat.com>,
-	Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	Kanglong Wang <wangkanglong@loongson.cn>,
-	Tiezhu Yang <yangtiezhu@loongson.cn>,
-	Qiang Ma <maqianga@uniontech.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Ard Biesheuvel <ardb@kernel.org>, Breno Leitao <leitao@debian.org>,
-	Thorsten Blum <blum@kernel.org>,
-	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Lyude Paul <lyude@redhat.com>,
-	Ashutosh Desai <ashutoshdesai993@gmail.com>,
-	Imre Deak <imre.deak@intel.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Johan Hovold <johan@kernel.org>,
-	Johannes Berg <johannes.berg@intel.com>,
-	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
-	Alexander Stein <alexander.stein@ew.tq-group.com>,
-	Cryolitia PukNgae <cryolitia@uniontech.com>,
-	Jiaming Zhang <r772577952@gmail.com>,
-	Will Porter <mrwillporter@gmail.com>,
-	Cen Zhang <zzzccc427@gmail.com>,
-	=?iso-8859-1?Q?C=E1ssio?= Gabriel <cassiogabrielcontato@gmail.com>,
-	Rong Zhang <i@rong.moe>, Arun Raghavan <arunr@valvesoftware.com>,
-	nikitash.mariiaw@gmail.com, linux-arm-kernel@lists.infradead.org,
-	loongarch@lists.linux.dev, linux-mips@vger.kernel.org,
-	linux-parisc@vger.kernel.org, linux-edac@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
-	linux-input@vger.kernel.org, linux-media@vger.kernel.org,
-	intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org,
-	linux-wireless@vger.kernel.org, brcm80211@lists.linux.dev,
-	brcm80211-dev-list.pdl@broadcom.com, devicetree@vger.kernel.org,
-	linux-samsung-soc@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-scsi@vger.kernel.org, linux-nfs@vger.kernel.org,
-	devel@lists.orangefs.org, linux-hardening@vger.kernel.org,
-	linux-sound@vger.kernel.org
-Subject: Re: [PATCH 00/28] Replace remaining strlcat() call sites with
- snprintf()/seq_buf()
-Message-ID: <202609151055.AFC6267@keescook>
-References: <20260915081910.4142719-1-morbo@google.com>
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="RlA4eZoO"
+Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-93a222edc62so12085185a.0
+        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 11:10:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1789495810; x=1790100610; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=r4WiN+Wa/+9pdrc7rIlvQD4FYM3H93hwsZ2FoFV7wN8=;
+        b=RlA4eZoO6/22YVnN5f/CUqGcbvRxkxwV2p/x8YrlOA9rX+j32FFLnwppkhExSGpPtK
+         DA5FyWlo9iK2GCZ4gLNtSrdojsHI/Z62bMDKEvBdXSwEyWK5kDE3At+dqx+rx59pz28T
+         6Cg239I3bQAVP1++pRUPQgLfme9hHBmrmBW/65jU4Qgo57iYBRMcXSlaSSFshNIxXY6M
+         dhQK8qmJndMsBHxAFD7jc2mLNx8ZUAnuf8WrdXW0jXjqYQ8nyV/XYigZtc9lIygCiDXV
+         T74DLD6Fnwf7sVTmubMq9CIY4gOiFaebViH9fW9yM/A/Z4MZ9pXakJz7GqegctPPJ4wr
+         T3fg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789495810; x=1790100610;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=r4WiN+Wa/+9pdrc7rIlvQD4FYM3H93hwsZ2FoFV7wN8=;
+        b=WUAAjh4nAvKsfeWWw/SACYR4Y3Bas+nV4A8kChpw+26c2voTFLeW3naYatoz9Ky7yc
+         GLmtStj6YWma/HijZLkeHYv6Zb79sbLjzq1nubd8YAV5GL/DkdUa4WdNX81gqm6zwp6j
+         LNz6xP6OujB+t0iBau76tdcgrrovbPY2Pg5FAyk0qIsVgezvl63G4Yx95Ss6dK3jzRu+
+         nyrwCsAdDJ3bGyRS12OBIzoOZ1Z84nZvTfVYEzaYsO/rVzMdIBt/wPdQuYIh8V0BDzf4
+         8QaP47nQ/jd9ZrlRYTJ9YrZMGIKEu3lp24ZKmpDGx5Nf7HrOEG0feK6IuMoWeFPhgwTV
+         M/jA==
+X-Forwarded-Encrypted: i=1; AKwUvByy/kyV19vVqBjN2HYuMKWd1AxUc46W0XUh+NGV2F5siGh51Ou89iI9bq9DzngSTSu9o59EnbOrhyfV@vger.kernel.org
+X-Gm-Message-State: AFuF++k71TvaJydjTFUsD/m5e9ZH5BNYOUOWGuHbpKALXk0Eu61UAbHk
+	mDyzGqL+XziwCMXEWLJ8TdAmHGTvkRzcYaQ+89DO9hD5MVfgQ4kKsoe4R3nH1y6OWB0=
+X-Gm-Gg: AYBFou3NYuQ98niGcRnzdcxv1nGw+/1w/U8Ir5CjMk0CGdivjC5xjYYEhBnV/awq4qL
+	X8dC7Ta+3NfXREs2kcZ+aPDIF5VTg80Pcm+2/ZcfbRGKqtEkTv9dcn1Aie2Px/ehMM21h0cew5D
+	WpoyNAksU4itowpSXGHy47eZxsz3KPIxrzqC5VWgiCKINQu0FaxN2CoL4j5ciKFYPeX/4yQPniz
+	U9vMGSuD4ANvEeRmzy8VXTqecdnIs4gDrnwPIQINDvL5cwVTgQk+EOhAczyHjW1lIL6v34K++kO
+	gbtrJGQBxUuhHzpMeUSt1gMXruxlF50eM07ts5PzQ5R0DoINj2U+XIBNOsTNLLBk1nNnEEl02j+
+	u8AiY4/f6AGVSHiheY/U9iizD2IfQQZPQ19Y6usV569tquTJYXuR6FUqtXMYu/kf9S1tE9ytS1F
+	u7tfMz/0BUC/vkRVQ17+97bhyGQYR06FC5jWGuc5n9iZz+qfhIvhfgAQ8CeLPylRWwaGSP4MHwV
+	2c=
+X-Received: by 2002:a05:620a:1994:b0:92e:4927:2002 with SMTP id af79cd13be357-93a299edea9mr1397956185a.39.1789495810011;
+        Tue, 15 Sep 2026 11:10:10 -0700 (PDT)
+Received: from zippy.localdomain ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93b7824f72fsm14648485a.28.2026.09.15.11.10.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 11:10:09 -0700 (PDT)
+From: Alex Elder <elder@riscstar.com>
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	arnd@arndb.de,
+	gregkh@linuxfoundation.org,
+	bhelgaas@google.com,
+	andersson@kernel.org,
+	konradybcio@kernel.org,
+	abelvesa@kernel.org
+Cc: daniel@riscstar.com,
+	mohdayaa@qti.qualcomm.com,
+	lbiancon@qti.qualcomm.com,
+	devicetree@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 2/3] misc: tc9564: introduce base PCI driver
+Date: Tue, 15 Sep 2026 13:10:01 -0500
+Message-ID: <20260915181003.1633543-3-elder@riscstar.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260915181003.1633543-1-elder@riscstar.com>
+References: <20260915181003.1633543-1-elder@riscstar.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915081910.4142719-1-morbo@google.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 15, 2026 at 08:18:17AM +0000, Bill Wendling wrote:
-> strlcat() is deprecated: like strcat(), it requires re-scanning the
-> destination string from the beginning on every call, which is O(n^2)
-> when used to build up a string incrementally, and its truncation
-> behavior is easy to get wrong. See:
-> 
->   https://github.com/KSPP/linux/issues/370
-> 
-> This series removes the remaining strlcat() call sites in the tree
-> (plus the one inside fortify-string.h's strcat() implementation
-> itself), replacing each with snprintf(), scnprintf(), or the seq_buf()
-> API, whichever best fits the surrounding code.
+The Toshiba TC9564 is small and highly-specialized SoC that implements
+a PCIe switch as well as an Ethernet AVB/TSN bridge.  In addition to
+these, the SoC implements other functions, including a reset and clock
+controller, an address translation unit, and a few other devices.  PCIe
+BARs provide access to registers that manage these IP blocks, and the
+SoC is modeled using a PCI endpoint bus in devicetree.  This allows the
+IP blocks to be bound to platform drivers using MMIO through the PCI BARs.
 
-Thanks for tackling this!
+Create a new PCI driver under drivers/misc that binds with the embedded
+PCI endpoint functions within the TC9564 SoC.  Because these functions
+will use devicetree pci-ep-bus to provide access to other IP blocks
+within the TC9564 chip, the main purpose of this driver is to do basic
+PCI initialization, then call of_platform_default_populate() to scan for
+the any endpoint bus children, and probe all devices defined therein.
 
-A few global notes:
+Because we're using pci-ep-bus, we need to use the PCI quirks mechanism
+to have of_pci_make_dev_node() be called for each endpoint device in
+pci_bus_add_device() (via pci_fixup_device(pci_fixup_final, dev)).
 
-- This series almost certainly needs to be sent as separate single
-  patches to each subsystem maintainer (rather than a giant CC list).
+Co-developed-by: Daniel Thompson <daniel@riscstar.com>
+Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+Signed-off-by: Alex Elder <elder@riscstar.com>
+---
+v3: - Dropped Kconfig dependence on REGMAP_MMIO
+    - Added call to of_platform_depopulate() on error in the probe function
 
-- As others noted already, we don't want to do anything as just an
-  open-coded strlen/sprintf; this doesn't gain us anything. If we can't
-  use seq_buf or some other solution, we need to figure out what we _can_
-  do for a given use.
+ MAINTAINERS               |  1 +
+ drivers/misc/Kconfig      |  9 +++++
+ drivers/misc/Makefile     |  1 +
+ drivers/misc/tc9564-pci.c | 84 +++++++++++++++++++++++++++++++++++++++
+ drivers/pci/quirks.c      |  1 +
+ 5 files changed, 96 insertions(+)
+ create mode 100644 drivers/misc/tc9564-pci.c
 
-- There are some collisions with other in-flight patches, e.g.  Mariia's[1]
-
-- The "Assisted-by:" trailer doesn't need the level of detail you've
-  got, which changed recently[2]. Now the desired trailer would just be:
-    Assisted-by: LLM
-
-- Please avoid including the Cc list in the email body (above or below
-  the "---" line), as it ends up being redundant.
-
-I'll go look through the individual patches...
-
--Kees
-
-[1] https://lore.kernel.org/all/27956255dde39f58d73a7b51cb53cbe3d7804f54.1786411026.git.mariianikitash@google.com/
-[2] https://git.kernel.org/linus/816d9992d9ed ("coding-assistants: simplify attribution")
-
+diff --git a/MAINTAINERS b/MAINTAINERS
+index aa6b805e1ab2b..cf846853fdc79 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -27675,6 +27675,7 @@ M:	Alex Elder <elder@kernel.org>
+ M:	Daniel Thompson <danielt@kernel.org>
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/misc/pci1179,0220.yaml
++F:	drivers/misc/tc9564-pci.c
+ 
+ TOSHIBA WMI HOTKEYS DRIVER
+ M:	Azael Avalos <coproscefalo@gmail.com>
+diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
+index 7364931dad3a1..c35f9dda355a6 100644
+--- a/drivers/misc/Kconfig
++++ b/drivers/misc/Kconfig
+@@ -568,6 +568,15 @@ config MCHP_LAN966X_PCI
+ 	    - lan966x-miim (MDIO_MSCC_MIIM)
+ 	    - lan966x-switch (LAN966X_SWITCH)
+ 
++config TC9564_PCI
++	tristate "Toshiba TC9564 PCI function support"
++	depends on PCI
++	help
++	  This enables support for the two PCI functions implemented by
++	  the embedded PCIe endpoint in the Toshiba TC9564 SoC.  This
++	  driver uses a pci-ep-bus node in devicetree to provide MMIO
++	  access to other SoC devices through PCI function BARs.
++
+ source "drivers/misc/c2port/Kconfig"
+ source "drivers/misc/eeprom/Kconfig"
+ source "drivers/misc/cb710/Kconfig"
+diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
+index e8d8d5d88c0df..7cc3d615d37a4 100644
+--- a/drivers/misc/Makefile
++++ b/drivers/misc/Makefile
+@@ -71,3 +71,4 @@ obj-y				+= keba/
+ obj-y				+= amd-sbi/
+ obj-$(CONFIG_MISC_RP1)		+= rp1/
+ obj-$(CONFIG_INTEL_SSEI)	+= issei/
++obj-$(CONFIG_TC9564_PCI)	+= tc9564-pci.o
+diff --git a/drivers/misc/tc9564-pci.c b/drivers/misc/tc9564-pci.c
+new file mode 100644
+index 0000000000000..10dfa3beecc53
+--- /dev/null
++++ b/drivers/misc/tc9564-pci.c
+@@ -0,0 +1,84 @@
++// SPDX-License-Identifier: GPL-2.0
++
++/*
++ * Copyright (C) 2026 by RISCstar Solutions Corporation.  All rights reserved.
++ */
++
++/*
++ * The Toshiba TC9564 implements a PCIe Gen 3 switch that connects an
++ * upstream x4 port to three downstream PCIe ports.  Two of the downstream
++ * ports are external, and the third is internal, implementing a PCIe
++ * endpoint with implements two PCIe functions.  Each PCIe function drives
++ * a Synopsys XGMAC Ethernet interface capable of 10 Gbps operation.
++ *
++ * The TC9564 implements other functionality, including an embedded MCU,
++ * a UART, a GPIO controller, a reset controller, a clock controller, and
++ * interrupt handling.  These features are separate from (and in some
++ * cases used by) both Ethernet XGMACs.  Each Ethernet MAC must be
++ * attached to a working PHY for it to be functional, and for this
++ * reason either of them (or both!) might not be usable/used.
++ *
++ * This PCI driver binds to the Toshiba TC9564 (physical) PCI function
++ * (VID 0x1179, DID 0x0220).
++ */
++
++#include <linux/device.h>
++#include <linux/irqdomain.h>
++#include <linux/of.h>
++#include <linux/of_platform.h>
++#include <linux/pci.h>
++
++static int
++tc9564_function_probe(struct pci_dev *pdev, const struct pci_device_id *id)
++{
++	struct device *dev = &pdev->dev;
++	struct device_node *np;
++	int ret;
++
++	/* Despite being a PCI device, we require devicetree */
++	np = dev_of_node(dev);
++	if (!np)
++		return dev_err_probe(dev, -EINVAL, "no devicetree node\n");
++
++	ret = pcim_enable_device(pdev);
++	if (ret)
++		return ret;
++
++	pci_set_master(pdev);
++
++	/* Scan for pci-ep-bus nodes and probe their sub-devices */
++	ret = of_platform_default_populate(np, NULL, dev);
++	if (ret)
++		goto err_depopulate;
++
++	return 0;
++
++err_depopulate:
++	of_platform_depopulate(dev);
++	pci_clear_master(pdev);
++
++	return dev_err_probe(dev, ret, "failed to populate platform bus\n");
++}
++
++static void tc9564_function_remove(struct pci_dev *pdev)
++{
++	of_platform_depopulate(&pdev->dev);
++	pci_clear_master(pdev);
++}
++
++static const struct pci_device_id tc9564_function_id_table[] = {
++	{ PCI_DEVICE(PCI_VENDOR_ID_TOSHIBA, 0x0220), },
++	{ },
++};
++MODULE_DEVICE_TABLE(pci, tc9564_function_id_table);
++
++static struct pci_driver tc9564_function_driver = {
++	.name		= KBUILD_MODNAME,
++	.id_table	= tc9564_function_id_table,
++	.probe		= tc9564_function_probe,
++	.remove		= tc9564_function_remove,
++};
++module_pci_driver(tc9564_function_driver);
++
++MODULE_DESCRIPTION("Toshiba TC9564 PCIe Embedded Function Driver");
++MODULE_LICENSE("GPL");
+diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+index de9bbccda21fd..54e310c4153df 100644
+--- a/drivers/pci/quirks.c
++++ b/drivers/pci/quirks.c
+@@ -6391,6 +6391,7 @@ DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_XILINX, 0x5020, of_pci_make_dev_node);
+ DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_XILINX, 0x5021, of_pci_make_dev_node);
+ DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_REDHAT, 0x0005, of_pci_make_dev_node);
+ DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_EFAR, 0x9660, of_pci_make_dev_node);
++DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_TOSHIBA, 0x0220, of_pci_make_dev_node);
+ 
+ /*
+  * Devices known to require a longer delay before first config space access
 -- 
-Kees Cook
+2.53.0
+
