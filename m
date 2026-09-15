@@ -1,179 +1,122 @@
-Received: from mail-vs2-f41.google.com (mail-vs2-f41.google.com [74.125.227.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A3653542D4
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 19:30:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789500653; cv=pass; b=p9/Pg76w8exOvL+1yRjZ+TDvAahaBsaGnl15aGEKRh4TkpJtR9dmbG4IMokVrUN+WysjBYWCx0pp2AKh7k9q319PC2bqNMosDEtvwv/lnZ3oIFtOFsnfyaepvo1qniMXLPmm1p/v+PEAPHepLuLQYbx3hV2TsgQ+IXsRvuODGc8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789500653; c=relaxed/simple;
-	bh=RfxsKW+gWzHzPnl0VGV4sp1JrOew5XduTAso8G35GXs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PO6XK3Z2rpMA1H6rvEu882ZnM88avKun2Una91Gj2dirs3UfLwW/FawkJRXqtfGyNLowBJSUuiZ+SjBW6Q2Akf26t4Tf9Xymn72tsJv7Flk4daBA+UXyWqxOz+LaoTUVFTx/bQs1PJbK5WnBKZx1dwv6sTEDXl70S4SxlqohGBE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=mHQpOIQY; arc=pass smtp.client-ip=74.125.227.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 882D43BB4A;
+	Tue, 15 Sep 2026 19:34:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789500846; cv=none; b=EQh/o7jWlPZfPZ6Mrhd+uHtiirwCPpH7xT+hBcCxHeYoddcQn6HCWb4BbqccT6mFomX1vW1GHoHr5IsDiHcWVSAfO5QIVIyc5WSkKyAxyx17n9jok7DNQQh9YXXuNjjjeNumkSwEkkiLd95LbH/IIzZvNWKS8Vidnyx/+v88WcY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789500846; c=relaxed/simple;
+	bh=M0fn0wDeDj0PYctfUQQ6Zg5NN2QyXOiqYRG6KHup8hY=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=ix3kfpSgLfLrRFpmB9DzOC9AAy+I71E4ofA4luTIfd06qSmDsu3AdXjGLe8qraS9zasd7ryBmBrF5CwDW3WeWDTU/+/GKdHbAFWaiuVU+baJzeK8Bo0ZCxtHbnGY6FgBMoZHv2q9GcpBMEvcowLvPvzvzwyvS5lcuNwTIDfOOtg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N6qz05IS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="mHQpOIQY"
-Received: by mail-vs2-f41.google.com with SMTP id 71dfb90a1353d-5c67e4fff62so50698e0c.2
-        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 12:30:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789500649; cv=none;
-        d=google.com; s=arc-20260327;
-        b=r2HRpBEFLg2xV6jVyIWF+CUG7vKvPliqa2xSuQO8XkgMwA4lpWSq9nZCwJSJbDxMBL
-         WeIwUv841LjITDSHFGHhWdDTlujYoa4tb4PpTov6TavnjGGski2D0kQ4CKpgI+nsEyXV
-         aiLvJwdlM46pUI2NE03zJQ4kfp2gizHutK2Evi3e5dDn7+HhIo0YXx8G1QNJtRjhpmdy
-         KZJZu/ecl268CZ4k/p0abUnzeb5NyXVZbq91dszQcE6RB0d/UWdXV1aspH1ZckbuUi8n
-         n/pcQ7WtmH0jvTIMf7a/Ktvj1gdgvF5rMn1a6sDQUZZ/BjBuBXrkaWOkBRtgQGtqaAGC
-         fIog==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=bRLtXj28C7ZetbPCXePmHpMel3/nm53ij0hFxwsbjIQ=;
-        fh=HtXEtgHZMrKoAk0fVys++zjdgy9WjEaN5si4SRzVnvk=;
-        b=E+BeKgpHm5E1Y1486/fdp6HEO4uNbrP/thB7GhzhvBSOhUC8mmGrZ9IB9pRpeTvJCa
-         zJKwosDMqjmyX5s8zPXaOUQ66HTH3WWQwQx0KASG0v3AAV2VFMbKb5uS5HCEaRM42znc
-         jPtLF3kUQr1aWqNQV8N6zOxUCyIeozyqceAnmGskkeg+t8TwfnKj0H2TQRXUN8ev/csu
-         cAnG09DkAkr5SHfKB9kgTYdGWb4gZ7FPQtk3FPDl0T9g2/fprXUB01+N/RF9ZwroK4ea
-         llR66XRsRK9AU7MbZkxt5JzfElBlKUPm2YPJUGdnRU9vQST5HwwCsCS4bUBrb+giWf5s
-         zEhg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789500649; x=1790105449; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bRLtXj28C7ZetbPCXePmHpMel3/nm53ij0hFxwsbjIQ=;
-        b=mHQpOIQYcK/f3LO6suOWFn0Cy720wLrLpDZ76Y2mpOM3+C9DQTQajqMKss2+8vswyu
-         6kP5JbXC/uQnmjFeNyvbn7ykDMjEjp2433FP2tusVe+U1jFmELny3ub1VOqaeQk4+bmw
-         tGfgnCt0FH77KKNFK/CBvajJjeEiwDPenSWUOdNQWc6FxW5qw9OoucUz3vPurhja7+2W
-         SRX2li+U/pB+n68jTLoULDYN4LWrOMyMYUPvz3nmRdNTo7uPdox+mGt4Z2VuXMis+C7M
-         e3WQC4JCEtRXPwtZDWEutENmL8gBQ5snBkXOOLsO675Xs4UrytQv+QbVij8iLiq/Acss
-         xb9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789500649; x=1790105449;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bRLtXj28C7ZetbPCXePmHpMel3/nm53ij0hFxwsbjIQ=;
-        b=bIIbBhIUju4OJmlG9KaazlQb66WE18ukgA8ypAF4vF0O3kTiKIF8BI0aPm2AE6ZrMg
-         vWvGmi5b4trDf9O4YfDClaCDLfOgZcuT2O78Vz9wnIasFwEQ2KZcPQsOF61CNidt0RNR
-         Xutb4Q2vvJMLxBwJM/FBLndjTdVmOspsWP9IXB1cZwRzUfIbnNr6Y9xSdyg5HlzuDksb
-         FQ3VjG3tEHcuOwpFg2uWv2ab4yjbA36o2qyk9YxRfl1hI1LyLNUYwXV0r5gaMzKb4rt5
-         DPzMtfC/J+KWpkYPRJ41sqKIESfAjAdVYjr6nBqmBoqELMJiSHspPppJwWmI9RMYZYiA
-         P+GA==
-X-Forwarded-Encrypted: i=1; AKwUvBykj4orDkz5nuKu2+R7v8Kbjk4xV9oC1Mjlat4fY+Q/ZXsOQ0i/haX02fs8ppZmYMEW/aZsWJ8GypE/@vger.kernel.org
-X-Gm-Message-State: AFuF++lTL2WpJpaO5vdaf50OpoTwGAxlcMPPOacTsTGx11E/JcVZaim3
-	rrrOVrlAbi6QQLEzUB8QbDqVIl15+3NW/fcYzBwN+mC6mPsJ7yllMrhTY3vCKnM0OrZ43mRcdS1
-	1aBoVqGhm6ZKyTGdE00oW6vEDyDlh8hCA4E7pH/U=
-X-Gm-Gg: AYBFou1aCcVeIr7p0qRnRVQXu7l40afzml7IK4kcTYTQZyz3ULNwJTmOtPpGtFjcqlK
-	HTBr8nzpd1Jt66/o1UzXhN19TUmzCYBAI7h5bogmeQGQpsMDcC6yCrZtW8WJxX3CvLVHxe6ShOh
-	dE4AqdQGZ7yd2iQ4eDXfDFJAtxZZiTeUSrUCib/uCMWHcPcjl+cYj920msoy6dhMGU1UpKr1K0b
-	C+s3LjZekLQc/wX13d2PLmbc2l/EUjHwh10sq9TCx/KXVcZvT1mFJDLpCFL6Yxa9KqzLLnspQre
-	Ws62ksyJPbbj1WC+OC6JysaN/302T6Wm5dZBefYS6pg0PdVMvIeEmbQOkKnTNGBkKpSv7MUfs1j
-	2b/fPkQ/q5S4FVo0pkSoPcu1Jr5YOa6Vekk9DDjvZcWCSTIoOL6WgiOR3MIf6CLs=
-X-Received: by 2002:a05:6122:8d4:b0:5c8:3697:9289 with SMTP id
- 71dfb90a1353d-5c993b49b7cmr4231155e0c.8.1789500648289; Tue, 15 Sep 2026
- 12:30:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N6qz05IS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAD041F000FF;
+	Tue, 15 Sep 2026 19:34:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789500845;
+	bh=L71WPmZxDx8wZZPJ5Om9wyHwxrzK8OZGBKGYPFDIuq8=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=N6qz05ISzNbqHKxG7rvjtaQSslj++v/BoZ7Q0j8MsuuiM+88E4SzEY+zv5Uff8jZq
+	 3zyvRREGfxevKWnjBaT6LCgcFk54wQhh+UBLD8mmrg6TysDAWI/pMHdGRi+aTwdDDW
+	 Ga8PIRrk5vx9RTXEZ/KjK6U/R2WPNS2MQ9GPSHcf2gHr/NP5PUZlEaMaBxi6uxlxqC
+	 +S814POFlQv7maeE15HF7XbEc37aTW5CEfXcD6H5Oupx33Ge0ulCOLR8t7iDd5TnKW
+	 RsOFjguGc+e6+ZsEimsyLLDGuaTYiZg2Xf+21IazwTSB91ehCsl15rXndHPb/LAldf
+	 VR2owqU1a6d4A==
+Date: Tue, 15 Sep 2026 14:34:03 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915081910.4142719-1-morbo@google.com> <20260915081910.4142719-22-morbo@google.com>
- <202609151147.C5B45CB@keescook>
-In-Reply-To: <202609151147.C5B45CB@keescook>
-From: Bill Wendling <morbo@google.com>
-Date: Tue, 15 Sep 2026 12:30:31 -0700
-X-Gm-Features: AcwNN1W7vYosDgc2DMy2_OinBNj1qeEQ35WOY6PL8-NHlzjaHMOKmE1leyIGWNs
-Message-ID: <CAGG=3QXYtmJqE5oy5ZD0-G0=GNxK71KKYurusNJvLQNqR-o6+A@mail.gmail.com>
-Subject: Re: [PATCH 21/28] NFS: nfsroot: Refactor root_nfs_cat() to use snprintf()
-To: Kees Cook <kees@kernel.org>
-Cc: nikitash.mariiaw@gmail.com, linux-kernel@vger.kernel.org, 
-	codemender-patching+linux@google.com, Russell King <linux@armlinux.org.uk>, 
-	Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, Helge Deller <deller@gmx.de>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>, 
-	H Hartley Sweeten <hsweeten@visionengravers.com>, Tony Luck <tony.luck@intel.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Matthew Brost <matthew.brost@intel.com>, 
-	=?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
-	Rodrigo Vivi <rodrigo.vivi@intel.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	Matthias Schwarzott <zzam@gentoo.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Tony Nguyen <anthony.l.nguyen@intel.com>, Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Arend van Spriel <arend.vanspriel@broadcom.com>, Rob Herring <robh@kernel.org>, 
-	Saravana Kannan <saravanak@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Sylwester Nawrocki <s.nawrocki@samsung.com>, Peter Griffin <peter.griffin@linaro.org>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Linus Walleij <linusw@kernel.org>, 
-	Anil Gurumurthy <anil.gurumurthy@qlogic.com>, 
-	Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>, "Martin K. Petersen" <mkp@kernel.org>, 
-	Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
-	Mike Marshall <hubcap@omnibond.com>, Martin Brandenburg <martin@omnibond.com>, Jiri Pirko <jiri@resnulli.us>, 
-	Simon Horman <horms@kernel.org>, Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
-	NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, 
-	Tom Talpey <tom@talpey.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, "Mike Rapoport (Microsoft)" <rppt@kernel.org>, 
-	Kanglong Wang <wangkanglong@loongson.cn>, Tiezhu Yang <yangtiezhu@loongson.cn>, 
-	Qiang Ma <maqianga@uniontech.com>, Randy Dunlap <rdunlap@infradead.org>, 
-	Pengpeng Hou <pengpeng@iscas.ac.cn>, Ard Biesheuvel <ardb@kernel.org>, Breno Leitao <leitao@debian.org>, 
-	Thorsten Blum <blum@kernel.org>, Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Lyude Paul <lyude@redhat.com>, 
-	Ashutosh Desai <ashutoshdesai993@gmail.com>, Imre Deak <imre.deak@intel.com>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Johan Hovold <johan@kernel.org>, 
-	Johannes Berg <johannes.berg@intel.com>, 
-	Miri Korenblit <miriam.rachel.korenblit@intel.com>, 
-	Alexander Stein <alexander.stein@ew.tq-group.com>, 
-	Cryolitia PukNgae <cryolitia@uniontech.com>, Jiaming Zhang <r772577952@gmail.com>, 
-	Will Porter <mrwillporter@gmail.com>, Cen Zhang <zzzccc427@gmail.com>, 
-	=?UTF-8?Q?C=C3=A1ssio_Gabriel?= <cassiogabrielcontato@gmail.com>, 
-	Rong Zhang <i@rong.moe>, Arun Raghavan <arunr@valvesoftware.com>, 
-	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev, 
-	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org, 
-	linux-edac@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	intel-xe@lists.freedesktop.org, linux-input@vger.kernel.org, 
-	linux-media@vger.kernel.org, intel-wired-lan@lists.osuosl.org, 
-	netdev@vger.kernel.org, linux-wireless@vger.kernel.org, 
-	brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com, 
-	devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, linux-scsi@vger.kernel.org, 
-	linux-nfs@vger.kernel.org, devel@lists.orangefs.org, 
-	linux-hardening@vger.kernel.org, linux-sound@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, Abel Vesa <abelvesa@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Maxime Ripard <mripard@kernel.org>, linux-kernel@vger.kernel.org, 
+ David Airlie <airlied@gmail.com>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Krishna Manikandan <quic_mkrishn@quicinc.com>, Sean Paul <sean@poorly.run>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Conor Dooley <conor+dt@kernel.org>, freedreno@lists.freedesktop.org, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+In-Reply-To: <20260915-msm_gdsc2-v2-1-9157237b8382@oss.qualcomm.com>
+References: <20260915-msm_gdsc2-v2-0-9157237b8382@oss.qualcomm.com>
+ <20260915-msm_gdsc2-v2-1-9157237b8382@oss.qualcomm.com>
+Message-Id: <178947727730.1548829.13172666413996021793.robh@kernel.org>
+Subject: Re: [PATCH v2 1/3] dt-bindings: display: msm: Add INT2 GDSC to
+ Kaanapali DPU
 
-On Tue, Sep 15, 2026 at 11:52=E2=80=AFAM Kees Cook <kees@kernel.org> wrote:
->
-> On Tue, Sep 15, 2026 at 08:18:38AM +0000, Bill Wendling wrote:
-> >  fs/nfs/nfsroot.c | 11 +++++++----
-> >  1 file changed, 7 insertions(+), 4 deletions(-)
->
-> This collides with:
-> https://lore.kernel.org/all/27956255dde39f58d73a7b51cb53cbe3d7804f54.1786=
-411026.git.mariianikitash@google.com/
->
-> > +     ret =3D snprintf(dest + len, destlen - len, "%s%s",
-> > +                    (len && dest[len - 1] !=3D ',') ? "," : "", src);
->
-> I prefer Mariia's version because this inline ternary is difficult
-> to read.
->
-Agreed. I was trying to not stomp on her work. Please ignore this patch.
 
--bw
+On Tue, 15 Sep 2026 17:27:48 +0800, Yongxing Mou wrote:
+> Kaanapali (SM8850) has an additional INT2 GDSC that powers a subset
+> of the DPU source pipes (VIG2/VIG3/DMA5), on top of the CORE_GDSC
+> that powers the rest of the MDSS hardware.
+> 
+> Describe INT2 GDSC as an additional power domain of the DPU device
+> rather than of the whole MDSS, since it only supplies DPU-local
+> source pipes. Restrict the schema change to the Kaanapali DPU
+> compatible via an if/then, so other platforms sharing
+> qcom,sm8650-dpu.yaml (which don't have an INT2 GDSC) keep the
+> existing single power-domain constraint.
+> 
+> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+> ---
+>  .../bindings/display/msm/dpu-common.yaml           | 19 ++++++++++++++++--
+>  .../bindings/display/msm/qcom,sm8650-dpu.yaml      | 23 ++++++++++++++++++++++
+>  2 files changed, 40 insertions(+), 2 deletions(-)
+> 
 
-> I was expecting to land hers soon if the NFS folks don't pipe up. It is
-> one of the rare cases of still being open-coded, but the strlen() usage
-> was pre-existing to check for the trailing comma, so it's not a clean
-> seq_buf() conversion candidate...
->
-> --
-> Kees Cook
+My bot found errors running 'make dt_binding_check' on your patch:
+
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml: allOf:0:then:properties:power-domain-names: {'minItems': 2, 'maxItems': 2, 'items': [{'const': 'mmcx'}, {'const': 'int2'}]} should not be valid under {'required': ['maxItems']}
+	hint: "maxItems" is not needed with an "items" list
+	from schema $id: http://devicetree.org/meta-schemas/items.yaml
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml: allOf:0:then:properties:power-domain-names: 'oneOf' conditional failed, one must be fixed:
+	False schema does not allow 2
+	[{'const': 'mmcx'}, {'const': 'int2'}] is too long
+	[{'const': 'mmcx'}, {'const': 'int2'}] is too short
+	1 was expected
+	hint: "minItems" is only needed if less than the "items" list length
+	from schema $id: http://devicetree.org/meta-schemas/items.yaml
+Documentation/devicetree/bindings/display/msm/qcom,kaanapali-mdss.example.dtb: display-controller@9801000 (qcom,kaanapali-dpu): power-domains: [[4294967295, 6]] is too short
+	from schema $id: http://devicetree.org/schemas/display/msm/qcom,sm8650-dpu.yaml
+Documentation/devicetree/bindings/display/msm/qcom,kaanapali-mdss.example.dtb: display-controller@9801000 (qcom,kaanapali-dpu): power-domains: [[4294967295, 6]] is too short
+	from schema $id: http://devicetree.org/schemas/display/msm/qcom,sm8650-dpu.yaml
+Documentation/devicetree/bindings/display/msm/qcom,kaanapali-mdss.example.dtb: display-controller@9801000 (qcom,kaanapali-dpu): 'power-domain-names' is a required property
+	from schema $id: http://devicetree.org/schemas/display/msm/qcom,sm8650-dpu.yaml
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260915-msm_gdsc2-v2-1-9157237b8382@oss.qualcomm.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
