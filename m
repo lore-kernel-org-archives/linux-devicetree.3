@@ -1,108 +1,239 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 504214AF9FA
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 12:04:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E3734A8A12;
+	Tue, 15 Sep 2026 12:05:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789473888; cv=none; b=eHKdZW48Cvrt9aGr33TrwpB1ap5+rtz+/x8f18riTDxP9o/4q6ifMMrNCOtBNIvj2jE+tB0lhmzXECRxBFS6WD1ZJhZDAtno+Xxs1sI3YHbfI05dvka+S2x93pLjN2B1zaOui9cLUoacTxMiWHmxwNvSSIefVLkkkmOXzUDon6k=
+	t=1789473959; cv=none; b=ZdOnzaVNA3NXtITiC5x/xbaDuFjVeHjaxDzOqKexWRVdsbu1z9VLyHK5pIVmBzZSezR8VoAks87g8+swvIsfPAOND/MPtOfOreBeQ6FOWMxYtOcMU2Ze0tyQwHY2422y9Do+kPFGQNt3skMcPwSBZWmdEOrFQ2MOgcNuslJO3y4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789473888; c=relaxed/simple;
-	bh=1epU9YLJOkR+Bary5kuCyWNV7Ej7XA0y+qipCq40FxI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=JV/LARpj8sSSbXHGLlLtlaeEHjvmyr1eGeX+nCgprc3c5bt8+9K5j02RYqvnvr4uLuXOlJYMTq1YB7RpjbvOHRMKM9gAwwSdUuUTFM+05syRu9Qo0Uagok1KU4mNx3C5ImcUZ6SDqzrxRIEitmnmFRevmwe5mA0NURKWKgnIx1o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SSPAo8b+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789473959; c=relaxed/simple;
+	bh=smDUg2lzTohEI4WrRi8fPXD2+62NnBCDLDMxeX1VJ54=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rKh4igTXqgafYbeEM8Tn5H10dpEnZL95AE//bmAhrFcLZrvtNOoIcsm6uzfKidTw40jg5YvdO55jHkpBD5Zfk6a153SYNfJTvagZA1YiUA+MQN+b23AfpS5YWz/wfNCg1YShSQQ/bBDPRsPswaPvgnvIMOZfxWmT8thgzJzrtTQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ZL7fcFTW; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SSPAo8b+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E697B1F000FF;
-	Tue, 15 Sep 2026 12:04:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789473887;
-	bh=C5uneN+NwdqiqfRmnbiWBODVBh9MVdgg7lwgybuEVwU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=SSPAo8b+GcFmrJCq/zKcbFWjdsPmiS9H7XFKU4CEbURaWHEOeU6vOSqsxzXZYYT+W
-	 zMnJuA93E+7VEw7S70Lg+oyBgpTlRyQeCL/tQb/wLCAXFrpqRpA55pwgYkLtv1jZiR
-	 aEVLog0YIMBP71VekxuusrNZChuvaG/JHHBhJDkUvGmwnnJ7bjsh1ixL8CJsUyBiHB
-	 zNKNYwm0w2efC4LoqG2LaRKOxaiobsEsjIHCPlRj7rAxLZ8IKc7h8rmHAxFNRtR+VS
-	 fy52Rtwh/dTwBhqQZBpwcCjsX5dFPhAGJtmK49GhWCH6Q0b68gJ09mMsDltkuHv29J
-	 09hy382cHbtqg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4] arm64: dts: mediatek: mt7986a-bananapi-bpi-r3: add
- ramoops region
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?TWFydGlubyBEZWxsJ0FtYnJvZ2lv?= <tillo@tillo.ch>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260915135727.567145-1-tillo@tillo.ch>
-References: <20260915135727.567145-1-tillo@tillo.ch>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 12:04:46 +0000
-Message-Id: <20260915120446.E697B1F000FF@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ZL7fcFTW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=2T
+	LMma9ufzb1/Q0mvHHgvC1iRVn+AuJXO1UOIk5GqbM=; b=ZL7fcFTWJL9Y2OJw/o
+	BwEoK5PB15Wp+g69CllCy+PP7WRpsE1ES3+NiqDtePb+qKQ8f9k22JLEsFwsqjS0
+	3+8EUVHbm253ODxCJr/ijJcHsXQJS0jov49xnLPCT7by52R9uNhm3i9/8LkxEHWp
+	LrJ4mGx34P/n/EeBsTU5H26Lg=
+Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
+	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wDnN_cQNKlq1ig+Aw--.34817S4;
+	Tue, 15 Sep 2026 20:03:29 +0800 (CST)
+From: Quchaosheng <quchaosheng000406@163.com>
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: Tony Lindgren <tony@atomide.com>,
+	Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-omap@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Quchaosheng <quchaosheng000406@163.com>
+Subject: [PATCH 1/2] dt-bindings: display: ti,tpd12s015: Convert to DT schema
+Date: Tue, 15 Sep 2026 20:03:26 +0800
+Message-ID: <20260915120327.47114-1-quchaosheng000406@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDnN_cQNKlq1ig+Aw--.34817S4
+X-Coremail-Antispam: 1Uf129KBjvJXoWxWFy3KFy3uw4kWw45WFWDtwb_yoWrurWxpF
+	n5Ga929F1kWFyaqw4xAF1kCa1rAFWkJF40kF1xXFy5ta10qF40yF43Krn5XFy5GFyfZaya
+	qF47Ww17Krn7uw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEUGYJUUUUU=
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC4xIWi2qpNBJzrgAA3U
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] dts: ramoops misconfiguration wastes memory and contradicts comm=
-it intent
---
+Convert the TPD12S015 HDMI level shifter binding to DT schema.
 
-commit 1ae7641b46f058deabfa7ee4bb83a27014f13e00
-Author: Martino Dell'Ambrogio <tillo@tillo.ch>
-Subject: arm64: dts: mediatek: mt7986a-bananapi-bpi-r3: add ramoops region
+The TI TPD12S015 is an HDMI companion chip that combines a level shifter
+and ESD protection circuitry. Document the two ports it exposes between
+the HDMI transmitter and the connector.
 
-This commit reserves RAM for persistent kernel log storage via pstore/ramoo=
-ps
-to allow post-panic console output recovery after a warm reset. It intends =
-to
-reserve a 64 KiB carve-out just below the ARM Trusted Firmware secmon regio=
-n.
+The tpd12s016 is described as software compatible with the tpd12s015 and
+is listed as a fallback compatible by am57xx-idk-common.dtsi, so accept
+both orderings. Boards that also route the DDC lines through the chip
+pass five GPIOs rather than three.
 
-Link: https://lore.kernel.org/all/20260915064302.1595204-1-tillo@tillo.ch/
-Link: https://lore.kernel.org/all/20260528123655.2650868-1-tillo@tillo.ch/
-Link: https://lore.kernel.org/all/20260528093038.1945245-1-tillo@tillo.ch/
+Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
+---
+ .../bindings/display/ti/ti,tpd12s015.txt      | 44 ---------
+ .../bindings/display/ti/ti,tpd12s015.yaml     | 93 +++++++++++++++++++
+ 2 files changed, 93 insertions(+), 44 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
+ create mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
 
-> diff --git a/arch/arm64/boot/dts/mediatek/mt7986a-bananapi-bpi-r3.dts b/a=
-rch/arm64/boot/dts/mediatek/mt7986a-bananapi-bpi-r3.dts
-> index 637e5567c1e08..150b794c2118d 100644
-> --- a/arch/arm64/boot/dts/mediatek/mt7986a-bananapi-bpi-r3.dts
-> +++ b/arch/arm64/boot/dts/mediatek/mt7986a-bananapi-bpi-r3.dts
+diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
+deleted file mode 100644
+index 26e6d32e3..000000000
+--- a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
++++ /dev/null
+@@ -1,44 +0,0 @@
+-TPD12S015 HDMI level shifter and ESD protection chip
+-====================================================
+-
+-Required properties:
+-- compatible: "ti,tpd12s015"
+-
+-Optional properties:
+-- gpios: CT CP HPD, LS OE and HPD gpios
+-
+-Required nodes:
+-- Video port 0 for HDMI input
+-- Video port 1 for HDMI output
+-
+-Example
+--------
+-
+-tpd12s015: encoder@1 {
+-	compatible = "ti,tpd12s015";
+-
+-	gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>,	/* 60, CT CP HPD */
+-		<&gpio2 9 GPIO_ACTIVE_HIGH>,	/* 41, LS OE */
+-		<&gpio2 31 GPIO_ACTIVE_HIGH>;	/* 63, HPD */
+-
+-	ports {
+-		#address-cells = <1>;
+-		#size-cells = <0>;
+-
+-		port@0 {
+-			reg = <0>;
+-
+-			tpd12s015_in: endpoint@0 {
+-				remote-endpoint = <&hdmi_out>;
+-			};
+-		};
+-
+-		port@1 {
+-			reg = <1>;
+-
+-			tpd12s015_out: endpoint@0 {
+-				remote-endpoint = <&hdmi_connector_in>;
+-			};
+-		};
+-	};
+-};
+diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
+new file mode 100644
+index 000000000..b3351b601
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
+@@ -0,0 +1,93 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/ti/ti,tpd12s015.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: TI TPD12S015 HDMI level shifter and ESD protection chip
++
++maintainers:
++  - Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
++
++description: |
++  The TPD12S015 is an HDMI companion chip that combines a level shifter and
++  ESD protection circuitry. It sits between an HDMI transmitter and the HDMI
++  connector, and provides control over the level shifter enable and the
++  hot-plug detect signals.
++
++properties:
++  compatible:
++    oneOf:
++      - const: ti,tpd12s015
++      - items:
++          - const: ti,tpd12s016
++          - const: ti,tpd12s015
++
++  gpios:
++    description:
++      The CT CP HPD, LS OE and HPD GPIOs, in that order. The first GPIO
++      controls the level shifter, the second enables the level shifter
++      outputs and the third reads the hot-plug detect line. Boards that
++      also route the DDC lines through the chip use five entries, with
++      the SCL and SDA GPIOs appended.
++    minItems: 3
++    maxItems: 5
++
++  ports:
++    $ref: /schemas/graph.yaml#/properties/ports
++
++    properties:
++      port@0:
++        $ref: /schemas/graph.yaml#/$defs/port-base
++        unevaluatedProperties: false
++        description: HDMI input from the transmitter.
++
++      port@1:
++        $ref: /schemas/graph.yaml#/$defs/port-base
++        unevaluatedProperties: false
++        description: HDMI output to the connector.
++
++    required:
++      - port@0
++      - port@1
++
++required:
++  - compatible
++  - ports
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    encoder1 {
++        compatible = "ti,tpd12s015";
++
++        gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>,    /* 60, CT CP HPD */
++                <&gpio2 9 GPIO_ACTIVE_HIGH>,    /* 41, LS OE */
++                <&gpio2 31 GPIO_ACTIVE_HIGH>;    /* 63, HPD */
++
++        ports {
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            port@0 {
++                reg = <0>;
++
++                tpd12s015_in: endpoint {
++                    remote-endpoint = <&hdmi_out>;
++                };
++            };
++
++            port@1 {
++                reg = <1>;
++
++                tpd12s015_out: endpoint {
++                    remote-endpoint = <&hdmi_connector_in>;
++                };
++            };
++        };
++    };
++
++...
 
-[ ... ]
-
-> +	reserved-memory {
-> +		ramoops@42f00000 {
-> +			compatible =3D "ramoops";
-> +			reg =3D <0 0x42f00000 0 0x100000>;
-> +			no-map;
-> +			record-size =3D <0x20000>;
-> +			console-size =3D <0x40000>;
-> +			ftrace-size =3D <0x10000>;
-> +			pmsg-size =3D <0x10000>;
-
-[Severity: Medium]
-Does this block define sizes that mismatch the commit message intent?
-
-The commit message explicitly claims to reserve exactly 64 KiB (0x10000)=20
-with zone sizes of 8 KiB, 32 KiB, 8 KiB, and 8 KiB.
-
-However, the reg property here reserves 1 MiB (0x100000) instead of 64 KiB,
-and the configured zone sizes sum to 512 KiB (0x80000). Because this region
-has the no-map property, it unconditionally removes 1 MiB from the system=20
-memory map, wasting 960 KiB of usable RAM compared to the stated design.
-
-Additionally, the requested sizes are scaled up (e.g., record-size is=20
-128 KiB / 0x20000 rather than 8 KiB / 0x2000), leaving the second half of=20
-the 1 MiB carve-out completely unused by ramoops.
-
-> +			ecc-size =3D <16>;
-> +		};
-> +	};
->  };
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915135727.5671=
-45-1-tillo@tillo.ch?part=3D1
