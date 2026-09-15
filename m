@@ -1,93 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 295ED4AF9F1;
-	Tue, 15 Sep 2026 21:57:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FA99485CCB;
+	Tue, 15 Sep 2026 22:25:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789509480; cv=none; b=SequHTJhGVum8SCQSmJJ1c7i2IbwrvR4IYyFP50l+5wEPnZbUuFoedla8uNWXWh5oVMzG2G7tiWjJ3V2h/AA0RmpT2/GNrBQpedO7bilAyN5uR03EjZxgYMg/XfyiWfZweStA574LtgEJaswkrM+b/20WLjn1AaCBCEtWJuATjA=
+	t=1789511156; cv=none; b=phXnFrdGO8NiluZ7HZbywpe1frYiiQwU78dMH+v7O2YaDW7Ibnnd+z2RUaWtw9jnckM0tQ/3D4Cp+rl5GxByith1EC+O5v2OHb/vEpQB6iX1eGPpqIBl17IzrWXTtBGbsOpNyE52+xURt+6qWf7yLpNPZ2XYe0/A6s8ZvYEllIQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789509480; c=relaxed/simple;
-	bh=yPy7BjhV6cGC93sUA+Ili2G6XwUmycDh4mVtFme0ZJM=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=nofLp5GdT9fnGYNSJlIzyEUleCkhRWB74L6p8jNif1ZxkGUwow0efMNgP7hOipPa63Ko0YG/J5kzqaykWdd68u6bkF9dFxfx0Np9SoOvTYQNR1A5bh6P74Y9Zi7BlZ5BMwT/VCN/+iSF1jHJUPmuGxFNwTdiBln96HcvSERN3Kg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AGTHSEWA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789511156; c=relaxed/simple;
+	bh=VZIygbDeKhSInpkJlp86QQMYBs3UwcY2IdgjnMm/luo=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=NVTuxSuSawbFf68HzrL6NPOAnV8eByJ6QUTaDK5D8MByk1qgb70IPrEQcujD51BRA0Ww4Un+571iGlCHxardNRHlq6pKan8EeAThzliMwwPjFTccvVrBgEVc/R/ZNtI0PNRNC2ReWaXtb2QXRucEIHSU8wMn7wJUcQ4Kf25CVFI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YEMhXEdd; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AGTHSEWA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5AA81F000FF;
-	Tue, 15 Sep 2026 21:57:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789509478;
-	bh=HeK0Zl+oIscV8guaYAWxUoysqKv/uRYunOKktwVvfP0=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=AGTHSEWAxCcbOOlf1sICHdepQ3rvuASBNfybEhZ3SGV7u0oGD9m/mZFRnQlVGmNYL
-	 gQ6WVvLxutjWdzeReYtB2a5/s0Lz5PtdK2jQxzgKeeR5y03CXzfx5objl4I1LRGtLJ
-	 rQxdDU2Y4pidGOFJ9MNkIDZ3fYDniN8Fq9u9oEReJcsp/VYeAW0TPvvO5VKjyHuz9Z
-	 pWz5l6wgfowrnrjyfLKlsnh0tB1HN7d1hCy+IMqdRpewyUMIOyg6aQ/Hwxnq0iQTIG
-	 oijhZUZvRlfuzIMgzAlxE4brHRyCzP9L8zlCwp9ZkK19fmk4RHrQ5qIi0QoW5EJLHD
-	 2GdCoMq3xutmg==
-Date: Tue, 15 Sep 2026 16:57:57 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YEMhXEdd"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 14C15C2BCB8;
+	Tue, 15 Sep 2026 22:25:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789511156;
+	bh=VZIygbDeKhSInpkJlp86QQMYBs3UwcY2IdgjnMm/luo=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=YEMhXEddj2C/nD/jzMInh4+EvkTl1m+nlJFNoO/J49MMC4WoiXtMViHJM2dZZuVn8
+	 1W6LJGHUwfuo/1G7Lo3l4Cw4Xjro5wFgbp97SOX9s75GRpOkfSPy1i2XZzWWK7/Vvz
+	 74aXo2w6qyJmlN/whS1ExsubOj5eSrnKLvlj8sFfOuDnIk1MOqyczAqPnhQ5bjjxWd
+	 nikwra214RPZc4Lr7Ud+kxsyU3c2k9q+LsB0gTaky7taXfJEVK4tKt4C08vi5oQNPS
+	 ks8FVTe/RAAiBtjFhOtd9Qx2sd+rchoHf/S7mWBnbeY6uLWR4/6xwE5UeHQx7fbEAd
+	 F/pSuB6Y3sbiQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E687DC982C1;
+	Tue, 15 Sep 2026 22:25:55 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Subject: [PATCH 0/2] arm64: dts: qcom: sdm845-xiaomi: Recent firmware needs
+ bigger XBL
+Date: Wed, 16 Sep 2026 00:25:45 +0200
+Message-Id: <20260916-sdm845-xbl-mem-v1-0-6e3c88507997@ixit.cz>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Alexander Stein <alexander.stein@ew.tq-group.com>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, devicetree@vger.kernel.org, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Conor Dooley <conor+dt@kernel.org>
-To: Richard Leitner <richard.leitner@linux.dev>
-In-Reply-To: <20260915-vc-mipi-ctrl-v1-2-8a42b693d889@linux.dev>
-References: <20260915-vc-mipi-ctrl-v1-0-8a42b693d889@linux.dev>
- <20260915-vc-mipi-ctrl-v1-2-8a42b693d889@linux.dev>
-Message-Id: <178950938963.3847606.3090142150815454220.robh@kernel.org>
-Subject: Re: [PATCH 2/3] dt-bindings: media: i2c: Add
- vision-components,mipi-module-controller
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrB0wQYP2KuJC40w7xVjJ2CKId
+ zfa5Vv8v4NSFFJ4ZDtE+onKZ04weQb+1c9PQhmTwRbWFY1xqGOoywq3YcJAAY31rmTPXPcMKVo
+ isWz3sO3+1u/wJr9eFziOE/n4X6JyAAAA
+X-Change-ID: 20260916-sdm845-xbl-mem-12c64fcff8af
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Amit Pundir <amit.pundir@linaro.org>, 
+ Molly Sophia <mollysophia379@gmail.com>, 
+ Petr Hodina <petr.hodina@protonmail.com>
+Cc: Konrad Dybcio <konradybcio@gmail.com>, linux-arm-msm@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>, stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=790; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=VZIygbDeKhSInpkJlp86QQMYBs3UwcY2IdgjnMm/luo=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqqcXyimET/iGGEG5mbRbG1KhPkybeerM2oIatg
+ 7zjQcHqL9mJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaqnF8gAKCRBgAj/E00kg
+ ciWJEACL8pVPY6lIDEYPoMdAZygN3sVA7hroVx+xUrCKDJF1IT/w4TE8vuYulkquzgBHSwbATfx
+ fU9dfKfMH8DSELF0nggRDBCRXgKWRv/oDuDO0mpCjgNWHkISaB9EjoYYH2CceRK0qg7P9dBjVf8
+ NGwpQYwW3Ce7Lc1QwZOjqkmRbP8SCqV/RXN7WZozzshUhZKByZATP7vxDOrS4knR2/SKDx1FKvT
+ YFl52nU3vcix8+iHaWJBCQNjPZDpJGrs0iovjJj5KjbtthXZNIIkm74RmicYgwYE6MbszaH+p01
+ 29xse7M40PB2fIB8KcBvL3SHq1bv5R6YrSaDw7bD7877bwiTm283YbIkoNlv4B4D246PUwKcEgr
+ LeQpKBvn5WNIXyWWBstANGamVkZbKuVgcylbudsWcnOSBrRh5HzfbDE1SCrpy5emFgNrTT7GXRj
+ A0GiywxsKfktLs2BYb+s9nWRMzK7+b1oP8chZNSDlxYtLiiuhCc/eESDPkqrHXh/+/CjvPuKzZP
+ R8g92xL9V95RMyO1zyoo6aSgT7t8qMIXZ6EyhKltGgKmegRQUqObQH1Pdr/cuwRzIqMTNWYxpX/
+ OLf0ISOJqe1NznTTxgIcqxHAwjpvXaBjzsj2CAd6nnYTQBSQ1chBYare0+gnnZJE4exJrWjPLan
+ DiB4+k7p6JTrVVg==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
+Applies to all known Snapdragon 845 Xiaomi devices.
 
-On Tue, 15 Sep 2026 22:20:24 +0200, Richard Leitner wrote:
-> Add bindings for the Vision Components MIPI Camera Module Controller.
-> 
-> Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
-> ---
->  .../vision-components,mipi-module-controller.yaml  | 92 ++++++++++++++++++++++
->  MAINTAINERS                                        |  7 ++
->  2 files changed, 99 insertions(+)
-> 
+Verified against the vendor trees, only vendor trees with smaller XBL
+are < Android 9.0.
 
-My bot found errors running 'make dt_binding_check' on your patch:
+Needs some Tested-by, I don't own any of these two devices.
 
-yamllint warnings/errors:
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+David Heidelberg (2):
+      arm64: dts: qcom: sdm845-xiaomi-beryllium: Extend the xbl_mem region
+      arm64: dts: qcom: sdm845-xiaomi-polaris: Extend the xbl_mem region
 
-dtschema/dtc warnings/errors:
-Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.example.dts:32.23-47.19: Warning (unit_address_vs_reg): /example-0/i2c/controller@10/i2c@0: node has a unit name, but no reg or ranges property
-Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.example.dtb: controller@10 (vision-components,mipi-module-controller): Unevaluated properties are not allowed ('i2c@0' was unexpected)
-	from schema $id: http://devicetree.org/schemas/media/i2c/vision-components,mipi-module-controller.yaml
-Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.example.dtb: camera@60 (ovti,ov9281): 'clock-names' does not match any of the regexes: '^pinctrl-[0-9]+$'
-	from schema $id: http://devicetree.org/schemas/media/i2c/ovti,ov9282.yaml
-Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.example.dtb: camera@60 (ovti,ov9281): 'port' is a required property
-	from schema $id: http://devicetree.org/schemas/media/i2c/ovti,ov9282.yaml
+ arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi | 6 ++++++
+ arch/arm64/boot/dts/qcom/sdm845-xiaomi-polaris.dts           | 6 ++++++
+ 2 files changed, 12 insertions(+)
+---
+base-commit: 7079a12d7506b07fb53b54a664bfad5fa9b16d70
+change-id: 20260916-sdm845-xbl-mem-12c64fcff8af
 
-doc reference errors (make refcheckdocs):
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
 
-See https://patchwork.kernel.org/project/devicetree/patch/20260915-vc-mipi-ctrl-v1-2-8a42b693d889@linux.dev
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
 
