@@ -1,37 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A601477E4D;
-	Tue, 15 Sep 2026 09:27:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8042447F3DD
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 09:28:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789464469; cv=none; b=k0C/eOcfJsRj9ihRwM1uXyjciZqDLjUeViSriO36LO5mKKStgT680yTjKpkJh6IKk2MUSrHOHRk0UDFi3/MbIAGl3fLKCkMMgQ8I6EBfmXs/mIlvrpEPddsTBCnBn0W0WOuzv9eM2J7Pvg/kZQ4msG8jhsgqdzZuSggtNqwHwJI=
+	t=1789464483; cv=none; b=ayPUVv163G++/QtHcNzvoo+L4MoqTlf/rWqcOJywKf4bVDPX81yJJk3t1P3azzBtaaWkGLI1C3ZF8LIM7if6/tath9WUW2+79OLmv0jIRnoZJosc4LJTqOs0iWuGzdhx4htMefhu1NmUEgUA4ctpY2PMvwk4Qq2cWt7QAHRxYW8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789464469; c=relaxed/simple;
-	bh=Woa+UVR+lUCwlGcZ5UZNgO5+x5Um9szm1kj58H3qW8U=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=HswkOKwH2SDHt3TOQSETdu/p4S4rduLusxFOm05myLCiTNolTJY2TiLDRAiVtRDrnFfBeR/E4/Jm36udaD47r9H49aE+U1NX9v0kffUi0mfMLBx7PRH28S/KI6ze08JUnxyKMtzPiD6k7aecdcblLipgdhnF6hVJTtPXjWM067Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JP8sQ/j2; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789464483; c=relaxed/simple;
+	bh=tS5jYHAOJiHwqtVjHphp88eu6y5+S+EodtZQBgori04=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=fsKKw9Uv/fNOFigHUOb9CZ5YGUZFx1Jraqch2eJY27du+iy0hjIoLcoeCoahX0hDfWMSb2A8vBayStu4UFuqrIKGWbhrpShWvUjHElbubFKwm8NVOhF5BHVFuOGKeKCg/uaFP1GMFc/J3O6ZwXPJLALIZXNzbPube7QDBFB9RBw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZoGFAlzi; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FE8cTKTV; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JP8sQ/j2"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id CA35CC2BCF6;
-	Tue, 15 Sep 2026 09:27:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789464468;
-	bh=Woa+UVR+lUCwlGcZ5UZNgO5+x5Um9szm1kj58H3qW8U=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=JP8sQ/j29YuPCXzLxARpBriWnOdr0Nz7KkUs4vuRjdQz9v6QJeFokZoHHSKe8smwu
-	 LLPkwFMfnJb00dA1Qz7vaTVSrZNMvyp7VWlzwwWeD3WCgtVCV2Hm2XtMWtEZDNe9Pk
-	 D1P8rEECVQrVBQpg52VTLlpg1zRJ2NaiYXJdft94zZYLv5kvlJzD+SoQJ8cJHRtOb2
-	 wgGy0rhxoG8Z4RQrR2/h7LJB8Mc4ehFb9vFsSD/NWWMjM1sWJSTz6ThkDhHLBI2lde
-	 WaI0zUnwaCa0WsjtRG9zP+bDJjW9vGKufyHzvOCKylNcMk/NStvbGtx93VLOK6w55a
-	 AHkmoHRkn99bA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AA739C88E7D;
-	Tue, 15 Sep 2026 09:27:48 +0000 (UTC)
-From: Vyacheslav Yurkov via B4 Relay <devnull+V.Yurkov.EXT.bruker.com@kernel.org>
-Date: Tue, 15 Sep 2026 09:27:40 +0000
-Subject: [PATCH v5 2/2] clk: Add gpio-locked fixed clock driver
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZoGFAlzi";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FE8cTKTV"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F6ZQQq2983915
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 09:28:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=dwbltoz28/icpViL8WHNMd
+	s2UytK2mXXode9Ychb5S4=; b=ZoGFAlziyitaTgGpu65LmxS0uRwG2cMA71LkoX
+	x0tMBvewaN8k7Q0bxYZaR9zcRESzLpcEvmpX0qeOKuhxZi+NDIxY2Ftkcscaba0z
+	57LBiewrups+gasJKhB70tEc6E6ULLIVa+0vDvDVvZntL5doZK5LizlfwxDDgJ3l
+	XILpOnrYgBV9qcrpZoHjH/oBNFTDM3GF3UH+SrWUXcgy7BWGBzy72XC6UIgagQs4
+	s6uje1Gy5oFbIDoMkRnHytetmdwuQQSaA1vKkfQTLUhezLDzpFDTBl7AJtb6Bwnz
+	VLfRDbuxvSKqNCNML5rCKl9tXwHoyuY2trMCsmO5eDnsRsQw==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpnet3ker-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 09:28:00 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93a1de6d5c3so437355285a.3
+        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 02:28:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789464479; x=1790069279; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=dwbltoz28/icpViL8WHNMds2UytK2mXXode9Ychb5S4=;
+        b=FE8cTKTVIvM2X6XtIJy1vz31aClBDI9xhD7e6jAGSOsBGbBHbg5nZgEhpj6a5wNDfY
+         EF9mJ7X1NKiHEZFzWisEwpaM6ginx5YTrWlLb1zFta5H36bDUyWEX3JPnM/uE0o3ATV5
+         NAglPg4m73a1gv7F9dO1TsXlvgvenJNxLKPzWvfozOw3xAq5n+gs39I0JmonlvICE+oF
+         tdqnAT5v+Lqw9Fl12LKVEoMTtIVBPb6PRT7VTEeyXKBQRCHOR8EkE3N+s79NewvmV4kF
+         +HnMLx1cl9d6s27f7G5S4ifHT6k4cw0zydZUigjqVaMC039KiUIV+FgtmS2dH+GEPs0X
+         a0ug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789464479; x=1790069279;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=dwbltoz28/icpViL8WHNMds2UytK2mXXode9Ychb5S4=;
+        b=pNUSjnuNL1ixIMdDyflOZNtMqGWp6cQ/AIpJpG89UFSS8/m+MKaJUH6l4U4dgS91tn
+         hhYc9FiqNUOZcUMzXrBvO7Sr8GvSOTva42IHo68w8aGahprwg61hOrDJILTPaaB+8eVk
+         KF5REff6PuSZ7i+lQYJD+1B2FI7LZ3B+muGNom6k/f17H9aYpNhPRUhSe84tSQ845LCh
+         UeUS7Te+SSSS5ITVwFqUTvvpS6dkLp/25FvthXj1anVZb5IkxyrdSmlS0j6TkVaBdHAC
+         ZZMKlBTTItZ6+dX0JjnJf+CB8uU0oLqz8fTSV9A4AyeeUpLodnAevv3fHi4dEzYQMZv0
+         Urqw==
+X-Forwarded-Encrypted: i=1; AKwUvBxMnJcSq0Wgv1pLLky3zRF1BYvs7RbuXplwAF0K5q/vwpu6GqrARgPyw6cCeSvg3lzaghQrJtHTwSBC@vger.kernel.org
+X-Gm-Message-State: AFuF++kYCARLuXaQOfzylthiF4YEPqxSBBHX55Z6wqh5xOF7qsNXLYiY
+	AgUC30tiDQuTa1ZX92HKBaE76NamHOlLQrN3qzJvCa3IPjZkuYTti7L+DJ9DKv8wZp5FlAJdLM2
+	BNvCj2gc6iGdvhow98pjD+ZszFQ6TOHmHghfNibAMb5gVvZsTpS8G1f9xpga+tfbz
+X-Gm-Gg: AYBFou1o3+7LYtDJVyzGqwOAcMOyCE/qsrIgQeBH8M6JhO2dHY7DKXiUbvhzKc++Ip+
+	ED77C2ZAjdp5eDcS4RQFdMbvW2nPvjnlwoZmPU2h+8mkmDEl0tOOQxeZcXoDr41/lqHuPKmHoao
+	ZMwRSea7KS4i4y70vK0NEfHBxFS/4KhgEEx5hM3h84Fi6AHQurYR5qOUf0yL5iqIlemVOx1Fl6a
+	P3Nv5auWFdCR7Mbg5fkahTj1NsCVX04mRb+ybMCo1CFPmd3nIjrHtJh7eLGtreksckpJYUB83P6
+	eoDZ18aS5cmmSd/WEi8YTz/Erm1H4ZVulvFcZStXjQU29ftH8pgdJwzCOxhghxefBzfivBCJYQL
+	fTo1nsFj5zct7VgJHhqQIwLcq62cuKu2RHdgGTWMaCxCm19FjUWbGEsBR7s95JEI=
+X-Received: by 2002:a05:620a:1a28:b0:939:ff11:5338 with SMTP id af79cd13be357-93a29a14534mr962820785a.40.1789464479670;
+        Tue, 15 Sep 2026 02:27:59 -0700 (PDT)
+X-Received: by 2002:a05:620a:1a28:b0:939:ff11:5338 with SMTP id af79cd13be357-93a29a14534mr962818785a.40.1789464479293;
+        Tue, 15 Sep 2026 02:27:59 -0700 (PDT)
+Received: from yongmou2.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93a3f467566sm18939785a.39.2026.09.15.02.27.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 02:27:58 -0700 (PDT)
+From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Subject: [PATCH v2 0/3] drm/msm/dpu: Add INT2 GDSC power domain support for
+ Kaanapali
+Date: Tue, 15 Sep 2026 17:27:47 +0800
+Message-Id: <20260915-msm_gdsc2-v2-0-9157237b8382@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -39,236 +88,102 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-feature-clock-guard-v5-2-42ab5dc3a6aa@bruker.com>
-References: <20260915-feature-clock-guard-v5-0-42ab5dc3a6aa@bruker.com>
-In-Reply-To: <20260915-feature-clock-guard-v5-0-42ab5dc3a6aa@bruker.com>
-To: Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Brian Masney <bmasney@redhat.com>, 
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Jyri Sarha <jsarha@ti.com>
-Cc: linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, Vyacheslav Yurkov <uvv.mail@gmail.com>, 
- Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAJMPqWoC/22OywrCMBBFf6XM2kg6rUnqyv8QkTwmGrBWM7Uo0
+ n831q2bC+cynLlvYMqJGLbVGzJNidNwLYCrCvzZXk8kUigMKFFJjVL03B9PgT0K7zpspERtMUC
+ 5v2WK6bm49ocfZ7o/inL8leAsk/BD36dxWzkirZqwiU1bu67zsdVoI7mNNKHtjIkKrfK2hq/rn
+ Hgc8muZOdWL7M+iqRZStMpoo1RQ3sndwLy+P+zl+3RdAg7zPH8AH0qKE/UAAAA=
+X-Change-ID: 20260720-msm_gdsc2-cb9230027a2d
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Krishna Manikandan <quic_mkrishn@quicinc.com>,
+        Abel Vesa <abelvesa@kernel.org>,
+        Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789464467; l=5873;
- i=V.Yurkov.EXT@bruker.com; s=20260318; h=from:subject:message-id;
- bh=nirKesIVE9mcT8oiPNP1IW1AFY1kSjQQQFntoBbVofE=;
- b=acbuq9plX3EJHJOj0S/5azwe9hFdHBGAlmRXnHuBg3vDOmR1/Z8NTrY7x3ysflkUwsV3wlu99
- Pigylj+07NwA1cIRqFWq3kUM6sFjF0/ohCnE1kZ/xCPbxqiTf0UUmFg
-X-Developer-Key: i=V.Yurkov.EXT@bruker.com; a=ed25519;
- pk=snJmgYVOKlp7aQtK9tWnEI7QTYxpPpJJvxdVsnxA7Fk=
-X-Endpoint-Received: by B4 Relay for V.Yurkov.EXT@bruker.com/20260318 with
- auth_id=686
-X-Original-From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
-Reply-To: V.Yurkov.EXT@bruker.com
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789464471; l=1690;
+ i=yongxing.mou@oss.qualcomm.com; s=20250910; h=from:subject:message-id;
+ bh=tS5jYHAOJiHwqtVjHphp88eu6y5+S+EodtZQBgori04=;
+ b=7tl1t99L/eer1X7h6G9i0YVXv+uuiXjnDmBy1pJtQsinRKG6Wz0LgXvJ6daGyiR+PmRG70xN7
+ AYrKFQ2cdNoCNBkvUufsDR+Gng9T4t6C5nSDS1KqOcHYRTUsWe2eYAz
+X-Developer-Key: i=yongxing.mou@oss.qualcomm.com; a=ed25519;
+ pk=rAy5J1eP+V7OXqH5FJ7ngMCtUrnHhut30ZTldOj52UM=
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDEzNSBTYWx0ZWRfX2F8hHwk6U3sp
+ 7O6HysxxBQMUehz92Wo8VGTrnJ32mkMCKQWaCxzOh875KC93z5tzbC801JCR7UViZtuALyHLfoW
+ 0vNSTSEcgVr5Y9eo+DbOcNXlyM2qAzo=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDEzNSBTYWx0ZWRfX8UocMGsSHlOV
+ rWd/rNKcBlA70h9dncIH1tuL8rR/e24+/f3Leea/NaoogB9DObB6S2w5ihPSCmjnGS+LmW4JmFX
+ HDmLTPCMIxrZE97lA+waCjRCzwSHsH0TLbOT5OhIm/KO34hNGU3u/LZ0OcAbVTvfECEUuLFWo8s
+ tSU7SeZ7lQwvCcjqmm6WMzsLFtcPtYyB3RwqvHq2pS1s5pjw2tyXIdAl2gHxSshcQX6JWnGeXGo
+ VrUIWohytOuofFFEd8eHoIBWewtnRgfAhWe5K8twCY9akfaAhA+Q1AYWm+gF+rhjm4aAQdwryBu
+ 2uQb+klrOLJR1QIUFEPQi/QYX4l/+e5yTcO86PKKTTuNepJdZShOacLFnRr1zlSAlV8tgUGnsk5
+ 4P3PE2WKWWHfN5+hPjJImm4/jKKkkfboQXChslaUw8xItC9sg/rJOyYLz6qTKLzlRqlwO6uWs8S
+ zhZ5aIq/Dq5UjBdJYkg==
+X-Authority-Analysis: v=2.4 cv=PKKaavqC c=1 sm=1 tr=0 ts=6aa90fa0 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=smZlIRouz1c8XS0CwesA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-GUID: NZTrHhhl3Mlq_FVpR2Vi_aweeNrxW43T
+X-Proofpoint-ORIG-GUID: NZTrHhhl3Mlq_FVpR2Vi_aweeNrxW43T
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_02,2026-09-14_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 malwarescore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 impostorscore=0 phishscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150135
 
-From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+Kaanapali (SM8750) has an additional INT2 GDSC that powers a
+subset of DPU source pipes (VIG2/VIG3/DMA5). Without enabling
+it, those pipes remain inaccessible.
 
-A gpio-locked clock exposes a clock, which status is determined by a
-GPIO signal. The common use-case is a FPGA-assisted clocking design
-where peripheral clocks are generated by FPGA PLLs that are outside
-CPU control, with clock-valid/PLL-lock status exposed through GPIO signals.
-Consumers can use the output clock to wait until the input clock is locked
-and only then initialize dependent peripherals.
+This series adds INT2 GDSC as a second power domain on the DPU
+device node, updates the DT bindings to describe it (restricted
+to Kaanapali via if/then), and attaches it in the DPU driver
+alongside the existing MMCX performance-state domain.
 
-Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 ---
- drivers/clk/Makefile          |   1 +
- drivers/clk/clk-gpio-locked.c | 169 ++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 170 insertions(+)
+Changes in v2:
+- Moved INT2 GDSC from MDSS to DPU, as it only powers DPU-local source pipes (Dmitry)
+- Dropped Glymur — only Kaanapali actually needs INT2 GDSC
+- Used if/then in DT binding to restrict second power domain to Kaanapali compatible only (Dmitry, Krzysztof)
+- Dropped PD_FLAG_NO_DEV_LINK, let device link auto-attach handle INT2 as runtime-PM supplier (Dmitry)
+- Link to v1: https://lore.kernel.org/r/20260720-msm_gdsc2-v1-0-4687866d6cb0@oss.qualcomm.com
 
-diff --git a/drivers/clk/Makefile b/drivers/clk/Makefile
-index b18af485d7f0..b904f292d683 100644
---- a/drivers/clk/Makefile
-+++ b/drivers/clk/Makefile
-@@ -46,6 +46,7 @@ obj-$(CONFIG_CLK_FD_KUNIT_TEST) += clk-fractional-divider_test.o
- obj-$(CONFIG_COMMON_CLK)	+= clk-gpio.o
- ifeq ($(CONFIG_OF), y)
- obj-$(CONFIG_COMMON_CLK)	+= clk-conf.o
-+obj-$(CONFIG_COMMON_CLK)	+= clk-gpio-locked.o
- endif
- 
- # KUnit specific helpers
-diff --git a/drivers/clk/clk-gpio-locked.c b/drivers/clk/clk-gpio-locked.c
-new file mode 100644
-index 000000000000..b648f8763922
---- /dev/null
-+++ b/drivers/clk/clk-gpio-locked.c
-@@ -0,0 +1,169 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+/*
-+ * Clock Controller Guard Driver
-+ *
-+ * Copyright 2026 Bruker Corporation
-+ */
-+
-+#include <linux/clk.h>
-+#include <linux/clk-provider.h>
-+#include <linux/device.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/slab.h>
-+
-+/**
-+ * struct gpio_locked_clk_priv - private state for the whole driver
-+ * @dev:		platform device
-+ *
-+ * @input_clk	input clock
-+ * @gpios:		input GPIO descriptor
-+ *
-+ * @output_hw_clk:      output clock HW descriptor
-+ * @output_clock_name:  output clock name
-+ */
-+struct gpio_locked_clk_priv {
-+	struct device *dev;
-+
-+	struct clk *input_clk;
-+	struct gpio_desc *gpios;
-+
-+	struct clk_hw output_hw_clk;
-+	const char *output_clock_name;
-+};
-+
-+#define to_gpio_locked_clk_priv(_hw) \
-+	container_of(_hw, struct gpio_locked_clk_priv, output_hw_clk)
-+
-+static int gpio_locked_clk_is_enabled(struct clk_hw *hw)
-+{
-+	struct gpio_locked_clk_priv *priv = to_gpio_locked_clk_priv(hw);
-+
-+	int data = gpiod_get_value(priv->gpios);
-+
-+	if (data < 0) {
-+		dev_err(priv->dev, "Failed to get data gpio val: %d\n",
-+				data);
-+		return data;
-+	} else if (!data) {
-+		dev_warn(priv->dev, "GPIO is not ready");
-+		return -EBUSY;
-+	}
-+
-+	return 0;
-+}
-+
-+/* We can't enable the clock, but the Common Clock Framework calls only
-+ * enable() not is_enabled()
-+ */
-+static int gpio_locked_clk_enable(struct clk_hw *hw)
-+{
-+	return gpio_locked_clk_is_enabled(hw);
-+}
-+
-+/* We have to implement it, but we are not going to control
-+ * parent clock selection
-+ */
-+static u8 gpio_locked_clk_get_parent(struct clk_hw *hw)
-+{
-+	return 0;
-+}
-+
-+static const struct clk_ops gpio_locked_clk_ops = {
-+	.enable =	gpio_locked_clk_enable,
-+	.is_enabled =	gpio_locked_clk_is_enabled,
-+	.get_parent =	gpio_locked_clk_get_parent,
-+};
-+
-+static int gpio_locked_clk_parse_outputs(struct gpio_locked_clk_priv *priv)
-+{
-+	struct device *dev = priv->dev;
-+	struct device_node *np = dev->of_node;
-+	int ret;
-+
-+	of_property_read_string_index(np, "clock-output-names", 0,
-+		&priv->output_clock_name);
-+
-+	if (!priv->output_clock_name)
-+		priv->output_clock_name = dev_name(priv->dev);
-+
-+	priv->output_hw_clk.init =
-+		CLK_HW_INIT_FW_NAME(priv->output_clock_name,
-+				    __clk_get_name(priv->input_clk),
-+				    &gpio_locked_clk_ops, 0);
-+
-+	ret = devm_clk_hw_register(dev, &priv->output_hw_clk);
-+	if (ret) {
-+		dev_err(dev, "failed to register output clk'%s': %d\n",
-+			priv->output_clock_name, ret);
-+		return ret;
-+	}
-+
-+	dev_info(priv->dev, "Output clock '%s' registered\n", priv->output_clock_name);
-+
-+	return 0;
-+}
-+
-+static int gpio_locked_clk_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct gpio_locked_clk_priv *priv;
-+	int ret;
-+
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
-+	priv->dev = dev;
-+	platform_set_drvdata(pdev, priv);
-+
-+	priv->input_clk = devm_clk_get_enabled(priv->dev, NULL);
-+	if (IS_ERR(priv->input_clk))
-+		return dev_err_probe(priv->dev, PTR_ERR(priv->input_clk),
-+				"Failed to get locked fixed clock, not yet ready\n");
-+
-+	priv->gpios = devm_gpiod_get(priv->dev, "locked", GPIOD_ASIS);
-+	if (IS_ERR(priv->gpios)) {
-+		dev_err(dev, "failed to get locked gpios: %ld\n",
-+				PTR_ERR(priv->gpios));
-+		return PTR_ERR(priv->gpios);
-+	}
-+
-+	ret = gpio_locked_clk_parse_outputs(priv);
-+	if (ret)
-+		return ret;
-+
-+	ret = devm_of_clk_add_hw_provider(priv->dev, of_clk_hw_simple_get,
-+		&priv->output_hw_clk);
-+	if (ret) {
-+		dev_err(priv->dev, "failed to register clock provider '%s': %d\n",
-+			priv->output_clock_name, ret);
-+		return ret;
-+	}
-+
-+	dev_info(dev, "registered %s gpio locked clock\n",
-+		 clk_hw_get_name(&priv->output_hw_clk));
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id gpio_locked_clk_of_match[] = {
-+	{ .compatible = "gpio-locked-fixed-clock" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, gpio_locked_clk_of_match);
-+
-+static struct platform_driver gpio_locked_clk_driver = {
-+	.probe  = gpio_locked_clk_probe,
-+	.driver = {
-+		.name           = "gpio-locked-fixed-clock",
-+		.of_match_table = gpio_locked_clk_of_match,
-+	},
-+};
-+module_platform_driver(gpio_locked_clk_driver);
-+
-+MODULE_AUTHOR("Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>");
-+MODULE_DESCRIPTION("GPIO-locked clock driver");
-+MODULE_LICENSE("Dual BSD/GPL");
+---
+Yongxing Mou (3):
+      dt-bindings: display: msm: Add INT2 GDSC to Kaanapali DPU
+      drm/msm/dpu: Attach INT2 power domain alongside MMCX on Kaanapali
+      arm64: dts: qcom: Add INT2 GDSC to Kaanapali DPU
 
+ .../bindings/display/msm/dpu-common.yaml           | 19 +++++++++++--
+ .../bindings/display/msm/qcom,sm8650-dpu.yaml      | 23 ++++++++++++++++
+ arch/arm64/boot/dts/qcom/kaanapali.dtsi            |  4 ++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            | 32 ++++++++++++++++++++++
+ 4 files changed, 75 insertions(+), 3 deletions(-)
+---
+base-commit: bee763d5f341b99cf472afeb508d4988f62a6ca1
+change-id: 20260720-msm_gdsc2-cb9230027a2d
+
+Best regards,
 -- 
-2.34.1
-
+Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 
