@@ -1,71 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-204.mta0.migadu.com [91.218.175.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6372028B7C8;
-	Tue, 15 Sep 2026 04:05:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E8383CE0BB
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 04:14:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789445142; cv=none; b=UL1RTgeHG6WFrFAwJD4fbE6BR/TGgw27gtve4u0c2rjpf6baeJfo54OE9N9UIWM7b6lvvLjPwTDIOipSNzCMxi2g2a6sWCsqbuCgtnDHDrs4qDkiCPsYMQy8yqxdn0KUUTqQpZBhx3gQQBIOXsksIkB/fUTPkftJFFBWKDhKsBw=
+	t=1789445689; cv=none; b=A/SvGe3WAdTx9v6i1zxC+MxkI+VJvFEX5jECT6M7WQe555b4jjvUjVPsEldwG2uq7PPo8nL2p6/6v2tPw9Q7a6A8xin/Q+F1R89eZx4TA5UP1lxsYpKHwhLxvlmUh1kAut3QOJR1/oSR44w2VsaknkVBlI/7H10SeyPQH6gfNZ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789445142; c=relaxed/simple;
-	bh=Fitd9xic3VY7OxGA/U1n7+dTEemtLBhOmyJzBiuhKgI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=DPJE5VbBwGUfQFtLO8e58+RsrooFGu5k5Hrn1ia6RcX+6gNw/e39U7DMgvgO5c94TaOK8GyoqcHTM2n5SdI2KWtPMRFYvIfLhBQlTvTVD1pzcV8cyEvLxz916pzhd4jjeoDTAWlRvBKtTSjGylR2ZQWzDyMBWFtEkM9a/kPuubA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NZjemYoV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789445689; c=relaxed/simple;
+	bh=fQi6LObdbPaT1I0LG9SIMJzBcZuGi1zGw2ytNtntm1w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aXKcLODmRcplW343cdcJABPdVhAhwsUFcHCg2fMcJXTzYlMEv2i14RZXq3pXDrn6W/BUsxS/ZlH4wqRgYcd4X7LU4xJIH4uOO/+nPw8iFQ73srbFdWh2TsoWYY2xShMzna7xGhkIyKOf+ZG2SPhN+brSyPJuF4y/Tk2X4fQdqKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=C8cCQBeA; arc=none smtp.client-ip=91.218.175.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NZjemYoV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 937371F000FF;
-	Tue, 15 Sep 2026 04:05:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789445141;
-	bh=Fitd9xic3VY7OxGA/U1n7+dTEemtLBhOmyJzBiuhKgI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NZjemYoVTE5ymLVvmURpHe8SYld1uoddgP5GBpRUcDLcPjJpqI6cq2kRD0G6VQeOY
-	 8j2keyRcUxIe8bxNmH0YK5b1e/igmRctGHJ7U5kx2I7ADLsN0fjwCMmTTEBkwrGwPs
-	 WYKfIv4YYqx+1ooxpzkhBivaByXer/rgLA7hDgT2kTUujs/ye+XXlGmnDC21M/qkXq
-	 8CBB7gtI0+XqD2TD8nhZd7yFdQsbsGoMgd7AeInPZMfohI8eaB/uC3/wF6+SJfRsUR
-	 vPDVAuj1kEvQhfByU4LQ81Q+NTsnQHdgQb6BZDQvHcV4BIurnkvQFnsKsRNekVvJeK
-	 7xP2iGeBlmyGQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 5/5] rtc: pcf85363: add watchdog support with
- configurable step size
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Lakshay Piplani" <lakshay.piplani@nxp.com>
-Cc: robh@kernel.org, linux-rtc@vger.kernel.org, linux-watchdog@vger.kernel.org, "Alexandre
- Belloni" <alexandre.belloni@bootlin.com>, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260915034452.4086683-5-lakshay.piplani@nxp.com>
-References: <20260915034452.4086683-1-lakshay.piplani@nxp.com>
- <20260915034452.4086683-5-lakshay.piplani@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 04:05:39 +0000
-Message-Id: <20260915040540.937371F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="C8cCQBeA"
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=fQi6LObdbPaT1I0LG9SIMJzBcZuGi1zGw2ytNtntm1w=;
+ c=simple/simple; d=packett.cool;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789445685; v=1; x=1790050485;
+ b=C8cCQBeA+vDuMfWOZvOL6OkFNdThpIanA9qfMZw1NgmxA7eGxOcCjpHr+wNUkticI6sDrPfL
+ IWdlfzHhGVSDjR9JQfLJYT0gVovyyO/t1pgDqsmTExgjYUWLMEAp0qfd/MQXjWQi15YwZA2xeK0
+ bPPTkJSJqCi/Hi7H2p8WEI66i/QpGw3B6T6Co958hp/YL4cS2bf+zxuJwhMxzPO5rouSrj+90W1
+ 62H8ALdXOR6Sod2JsZ4AWgSF44yfO9BJ0NIrAhYo95elMemimqoi/cfV3+cJPIFtYiiQmSIbMhU
+ RTmB1dGAc9dWFInXZ/lDsSvjpPp97Zc/mErNQ7yN36vqg==
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2131e7c511c91062;
+	Tue, 15 Sep 2026 04:14:35 +0000
+X-Mizu-Trace-ID: 2131e7c511c91062
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <c49fe267-7da4-4b34-8dbd-3536a327423c@packett.cool>
+Date: Tue, 15 Sep 2026 01:14:27 -0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] AW8695 haptic driver.
+To: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+References: <20260914-aw8695_haptic_fp4_driver-v1-0-156f7549149a@fairphone.com>
+Content-Language: en-US
+From: Val Packett <val@packett.cool>
+In-Reply-To: <20260914-aw8695_haptic_fp4_driver-v1-0-156f7549149a@fairphone.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-> Add watchdog support to PCF85263/PCF85363 using the watchdog subsystem.
-> The 5-bit count selects the timeout with a clock step: timeouts up to
-> 30 seconds use the 1 Hz step, longer ones the 0.25 Hz step (max 120 s),
-> reported back through the watchdog device. One count of margin is added
-> because the first period after a reload lasts between WDR and WDR-1
-> counts, so the timeout is never shorter than requested. Select
-> WATCHDOG_CORE if WATCHDOG so the device can register.
->=20
-> The chip has no reset output; expiry is only signalled via the WDF flag
-> routed to INTA, so this is an alarm-only watchdog (WDIOF_ALARMONLY). WDIE
-> is toggled on start/stop with rollback-safe register ordering, expiry is
-> rate-limited from the IRQ handler, and the watchdog is only registered
-> when an interrupt line is present. WDF is cleared through the
-> write-0-to-clear helper.
->=20
-> Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+On 9/14/26 11:37 AM, Griffin Kroah-Hartman wrote:
+> Clean-up of the aw8695 haptic driver patchset that was sent in 2022.
+> Variables dependant on devicetree have been hardcoded, and unnecessary
+> functions have been removed.
+> [..]
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915034452.4086=
-683-1-lakshay.piplani@nxp.com?part=3D5
+This looks similar to aw86927.c just with a somewhat different register 
+layout, but there's even the same waveform and so on.
+
+Could it be better / worth it to do everything in one driver (aw86927.c) 
+and only have different register accessors per model but shared "logic" 
+overall? Or would that make testing too annoying?
+
+FWIW I've been trying to bring up aw86224 which has even fewer (but 
+still *some*) differences to aw86927, so I'm potentially interested in 
+having a unified base to add it to (when I figure out why it's stuck in 
+overvoltage protection or whatever it was..)
+
+Thanks,
+~val
 
