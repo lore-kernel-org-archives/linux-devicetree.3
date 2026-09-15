@@ -1,296 +1,125 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C4C53CAE60
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 12:42:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC1393BADB2
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 12:47:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789476132; cv=none; b=FIF/0T5aanQ1LL++gkIyc1ALwTFyjJCgysYTG/dU0ErCaYxZpgz4XQdeaHxfApnCLaEJvjTlApft/Jjc0EIZxWqdIII84EdcoypNM3MHeFZqA4URNE1PmNcNZCOljWHKO73ZqpI1s5BF/2cqBq4Vla6hz8TMM2srKaLzhFloCbg=
+	t=1789476447; cv=none; b=K2CnYD+hekZLaGI4j/M/ItzZ5euV7zitlA0xXXGJI9Nh3GGwDl8fB7UB+WkG5ABiygRFlA0+fZi+LuRjdHnVNzDylbP7JFOtcgST1rabmIRJgvsbmcQAwiUtHLd1pKY2mT5fTjqhRprZ26TKG4tK8jdfFQlDORICE2vt0KG1u/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789476132; c=relaxed/simple;
-	bh=582/7s3JxsfQWjUN6EMHISrALdyatqiIyfqpimTuSgs=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=FU/sWohFgjOHY7oa8UlzPAjDXvbwjU3a1/ZpE5ay1ccz2FYO7efl04W6jp8fHP+myRUtbSBzfhZOdkVCa0qMRk1riYrJRYq4x3Qm43LNLaNf9ROQmz5uOUsCiXB8HHE5KB1h8Xdzx3W7aD8DQuo4j3gFVx+tJL8ncj1r6Cl0AKM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=KOxcEmYl; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1789476447; c=relaxed/simple;
+	bh=LNFU1MBvpof7NPzxV+BS3Cv+GOldTpuNa+rgDGA9SUI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=X5xJi6nzmGCsBt2s6LUXRDQb1QBLljqpybCJBJzIPRRadF23T1u3Fpk/BsWRSFd5Uk47TePUtsXL7oqD19XPoGzLRw0OnVUEAs6b3sjaHMrAohZ7Cv8F9mLk7SrQYIHo3P/+STmHEuSGNIUm44ki6f7TunDDrNDw8GGHzOkj1F4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hqay66Jc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="KOxcEmYl"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48583cc7ab1so1439513f8f.2
-        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 05:42:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789476127; x=1790080927; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Ve43d7pTFVOMTSVWgJo3u0Un/jBoaP9onTkW8Y5KW4w=;
-        b=KOxcEmYl7cDxmte4t7uZs4KgK2Sm/eVru02cSfwCebv/+0xhVtXw67vA1D9vbkeX7F
-         AMmx1PHi5M6wLUfqiXuYOyJVReld8t9o5TShYux31cdCJ7V+2E8S1YdQyFOceNuNF3hD
-         lttnnDONdXwDPmyG+9ApNKLxkVdmrwZpdQfLqW/4U1nZQ8l9/+JsFiot03noixIioxw8
-         jiZRxnRzRoJSUe0IKFeYodSNwjIsqZSl1LjJrTJ/EnUObJnZIkZC9Lgz9sJ/3WHQUE58
-         J2tf8oFf994U6iH68JYrWcydHv3M/Cz1fn+YjbXPWtx18t8MF1/3LSmJx6UyRnNd0uXE
-         xxfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789476127; x=1790080927;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ve43d7pTFVOMTSVWgJo3u0Un/jBoaP9onTkW8Y5KW4w=;
-        b=nktG3Vcsz5ojnd5teg3SRH0UbvkNTSfzRidhf1O8ik1Prgz7QOJWqJdp5XBB06mOik
-         6AxftTGqdn512SWISAwLHHj+yr2gTft38vYHGcOu+BTzoZlkC7buW9NBhyqFi+WtkfdH
-         S3CQHe+hzokSarZAo2Q0nLMjxtOlGzTM9qWJeM4RPj/s33Y/1N4IPrLYvqa5/ElnsFHR
-         1vlPN5EGQNh3rtHxDVcKi3O7i7L/mZxvIT+iXGtCiBxNhnSYT/qOVHhwB2t8JhXAN0Cy
-         kvLo2VApWFIJ3RtbYLqmj0vtespOtRU6uDdj6bDwEYk7vEhYeE7QkojoQSUw9RD82BHC
-         udHA==
-X-Forwarded-Encrypted: i=1; AKwUvBwsK8p/Sr88+GT5tXf9iU99h/e28w+xD7r666ZQtHwgapO/cUMIoiX5TEyooJ17UI/09NSzej+5yyU5@vger.kernel.org
-X-Gm-Message-State: AFuF++lwHPtOuEv7vMeKjXilLgPc7Gp0y1MEWmw5YiMwWdeK4WpR3OMP
-	fH4ob6S/mYEIjbcg6SUxtqKDf6jppD81uU0veYT9ZUFN2wtQv5DirdJOyM3y65EyymA=
-X-Gm-Gg: AYBFou1wAyZL0lhjoCQMeFhfEz7dsMv4y3xJ43vWn6XewGMkb+iUMnrvadTzHx43LO1
-	++de9gMwYON6pcQH9cfrwY7QaAwbjS1cN0P4lBFN09Ichi0AO2kOuyUwZFqitRGTAB4hrH+UkIo
-	qAD7Dh9/56gE56kIsY5MaKK0xey5RF6PmnWdvOvt6OrrM0f+QnTOryXo+5wit2xQv55rm0uED68
-	0rTBSxVxE01whni/5yQ7HbKvFJOl9wlb0tyvnmvx5CKb+W0zJ99OtPi3X8uTLQhBPj2zd1toQoG
-	TigusGEaZua1xHN2fxBhw+YFK/NWurhi/rdzpDlB5Lwfp42gGDEF1gjE4WOCit1ivqpIR7D/x1b
-	WTaFF8w433NHgn0wrsE+vWa3o/n8rN5V64uTyYlTgVDj9XjIhomQWFuVdFgD8UfBaYS4PSR/lgC
-	hQZ0lt6yLwwn+ywcHNJgidy43yYOfAtZyJuUjGxXW9prMWFgTyUreKtHAjzp+LLiAAfRbeoSWjl
-	uq8kxKzJPQ14nZFhVA=
-X-Received: by 2002:a05:6000:470c:b0:486:f4cf:59b2 with SMTP id ffacd0b85a97d-48702aae4e6mr8151011f8f.4.1789476127347;
-        Tue, 15 Sep 2026 05:42:07 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb35f3d9sm33532218f8f.35.2026.09.15.05.42.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 05:42:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hqay66Jc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11D981F000FF;
+	Tue, 15 Sep 2026 12:47:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789476445;
+	bh=AcF743jMb+sO2uh/JqmPECcRpmkx5/Xnhg8uC18e1iI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=hqay66JcOYVuojWRYIzbr+03Iako3s9gcE43A5l+thsgwox9g1dCBi6ihzTuMYRRx
+	 h/wNzG+Qgi/chxrxGnRRMLXvMy3g4UZ2zmfsVPVv1djMUIVjI83QZQ0+zza5z0rNbL
+	 zPBw5EUS+VUIYwlCLbxG7npkceTpaV8NLmWlzyLeqIrWxUZaKJhE/IJhTi2ZZkKpZs
+	 ktp3BWhEzJ2CmAKdbpUuGumdavGCaQTw59kXqub1VMd8JigkrRLQ4vLJYg8hCnnVzN
+	 wAvtNhhkuEu6rxYwKieHF10JkOp7gLmoZmO+GVN4EDZFLrP8jsnLiYPT9nGM6ctbqO
+	 yXCspdZD41z6Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v15 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI
+ DSI to HDMI driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: mohit.dsor@oss.qualcomm.com
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260915-lt9611c-v7-v15-2-88f9e9387eab@oss.qualcomm.com>
+References: <20260915-lt9611c-v7-v15-0-88f9e9387eab@oss.qualcomm.com>
+ <20260915-lt9611c-v7-v15-2-88f9e9387eab@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 15 Sep 2026 12:47:24 +0000
+Message-Id: <20260915124725.11D981F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v14 06/11] clk: realtek: Add support for gate clock
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Yu-Chun Lin <eleanor.lin@realtek.com>
-Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, 
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
- p.zabel@pengutronix.de, cylee12@realtek.com, afaerber@suse.com, 
- jyanchou@realtek.com, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-realtek-soc@lists.infradead.org, james.tai@realtek.com, 
- cy.huang@realtek.com, stanley_chang@realtek.com, 
- Brian Masney <bmasney@redhat.com>
-In-Reply-To: <20260901072446.2563145-7-eleanor.lin@realtek.com>
-References: <20260901072446.2563145-1-eleanor.lin@realtek.com>
- <20260901072446.2563145-7-eleanor.lin@realtek.com>
-Date: Tue, 15 Sep 2026 14:42:04 +0200
-Message-Id: <178947612411.448573.8319851834736456413.b4-reply@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6855; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=582/7s3JxsfQWjUN6EMHISrALdyatqiIyfqpimTuSgs=;
- b=owEBbQKS/ZANAwAKAeb8Dxw38tqFAcsmYgBqqT0c9mkExB03yY3YHr0fhg3XGhRRzOgE7qYbx
- W7L0HKibU6JAjMEAAEKAB0WIQT04VmuGPP1bV8btxvm/A8cN/LahQUCaqk9HAAKCRDm/A8cN/La
- hUCHD/wLct30ewH+5Y3QuClGJamgZYobFou8PoCe8ZNwegUjci+LL8dHd3LcPTENTfOHXYFlgkQ
- PVDdSqnMGkiIKdJ+TaI92nbPkyt10u920xrR5yGCGE+qZ/wPHxlqjBu6zRUo47KLDJUEGbL7D48
- +anKtOEZ3A08V2uIO6RiH/2UsE8JJvAZHVeY0u2K84trqjeBp1DiQe/JSTEAGiSHTjA8ZttkIe3
- 25FEOUjZ+pbm8G4MeN7gvS2VjLogBvQtHlc90hdCcViOgPqP5SrOcodAOFVeaFuZKTLjbOH6aXO
- QhBHsQqscoL9OJiDBDe+l22fRIMiCPvDS0pwoeZC48RrFRuGikqcqk4GWCRqHEltrxgh/d31Gly
- g7BVtv5s+ZSnyHL4p95rVQUNzzc3uAiQ8Llp3hOVayemE/TWZP4BRMLdrSPVgYAvs/yuJyFTK3l
- FBAYULGRs2mxJmlEhjcOtyjTJDBw+6qsx8YOpgJIeawB3NBo3sM/Pw9/1D4LIfm2e69modjwPRb
- l7WAxge1vw+kHz8c/yeIII68hVKqg0fBgEKVxUi8oIysPoL8BVtFt+NefV0TSDcNnt/CEMy3BtM
- Ykad0qE9ldVDgxCCcebuqZMX1e/zfwRqnnJWIciP7QPGLBsUl+CVPgyvX8Aam+s6F5neGVnQO/r
- SjATklyYSJCn07g==
-X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
- fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
-On 2026-09-01 15:24 +0800, Yu-Chun Lin wrote:
-> From: Cheng-Yu Lee <cylee12@realtek.com>
-> 
-> Introduce clk_regmap_gate_ops supporting enable, disable, is_enabled, and
-> for standard regmap gate clocks.
-> 
-> Add clk_regmap_gate_ro_ops as a read-only variant exposing only is_enabled.
-> 
-> Signed-off-by: Cheng-Yu Lee <cylee12@realtek.com>
-> Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
-> Reviewed-by: Brian Masney <bmasney@redhat.com>
-> Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
-> ---
-> Changes in v14:
-> - Move Reviewed-by tag to the correct position.
-> ---
->  drivers/clk/realtek/Makefile          |  1 +
->  drivers/clk/realtek/clk-regmap-gate.c | 70 +++++++++++++++++++++++++++
->  drivers/clk/realtek/clk-regmap-gate.h | 65 +++++++++++++++++++++++++
->  3 files changed, 136 insertions(+)
->  create mode 100644 drivers/clk/realtek/clk-regmap-gate.c
->  create mode 100644 drivers/clk/realtek/clk-regmap-gate.h
-> 
-> diff --git a/drivers/clk/realtek/Makefile b/drivers/clk/realtek/Makefile
-> index 71edc18121c6..840aff067b61 100644
-> --- a/drivers/clk/realtek/Makefile
-> +++ b/drivers/clk/realtek/Makefile
-> @@ -3,4 +3,5 @@ obj-$(CONFIG_RTK_CLK_COMMON) += clk-rtk.o
->  
->  clk-rtk-y += clk-rtk-common.o
->  clk-rtk-y += clk-pll.o
-> +clk-rtk-y += clk-regmap-gate.o
->  clk-rtk-y += freq_table.o
-> diff --git a/drivers/clk/realtek/clk-regmap-gate.c b/drivers/clk/realtek/clk-regmap-gate.c
-> new file mode 100644
-> index 000000000000..1c32a87d97df
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] drm/bridge: lt9611c: incorrect interrupt clear logic toggles unhan=
+dled bits
+- [Medium] drm/bridge: lt9611c: missing delay after reset deassertion on su=
+spend error path
+--
+
+commit 1c8b096eca4758947d0ce62950c84436cc31f839
+Author: Sunyun Yang <syyang@lontium.com>
+
+drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI to HDMI driver
+
+This commit introduces the driver for the Lontium LT9611C(EX/UXD) DSI to
+HDMI bridge, supporting conversion of single or dual MIPI DSI to HDMI.
+
+> diff --git a/drivers/gpu/drm/bridge/lontium-lt9611c.c b/drivers/gpu/drm/b=
+ridge/lontium-lt9611c.c
 > --- /dev/null
-> +++ b/drivers/clk/realtek/clk-regmap-gate.c
-> @@ -0,0 +1,70 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (C) 2017-2026 Realtek Semiconductor Corporation
-> + * Author: Cheng-Yu Lee <cylee12@realtek.com>
-> + */
-> +
-> +#include <linux/bits.h>
-> +#include <linux/clk-provider.h>
-> +#include <linux/export.h>
-> +#include <linux/regmap.h>
-> +#include "clk-regmap-gate.h"
-> +
-> +static int rtk_clk_regmap_gate_enable(struct clk_hw *hw)
-> +{
-> +	struct rtk_clk_regmap_gate *clkg = to_rtk_clk_regmap_gate(hw);
-> +	unsigned int mask;
-> +	unsigned int val;
-> +
-> +	mask = BIT(clkg->bit_idx);
-> +	val = BIT(clkg->bit_idx);
-> +
-> +	if (clkg->write_en) {
-> +		mask |= BIT(clkg->bit_idx + 1);
-> +		val |= BIT(clkg->bit_idx + 1);
-> +	}
-> +
-> +	return regmap_update_bits(clkg->clkr.regmap, clkg->gate_ofs, mask, val);
-> +}
-> +
-> +static void rtk_clk_regmap_gate_disable(struct clk_hw *hw)
-> +{
-> +	struct rtk_clk_regmap_gate *clkg = to_rtk_clk_regmap_gate(hw);
-> +	unsigned int mask;
-> +	unsigned int val;
-> +
-> +	mask = BIT(clkg->bit_idx);
-> +	val = 0;
-> +
-> +	if (clkg->write_en) {
-> +		mask |= BIT(clkg->bit_idx + 1);
-> +		val |= BIT(clkg->bit_idx + 1);
-> +	}
+> +++ b/drivers/gpu/drm/bridge/lontium-lt9611c.c
+[ ... ]
+> @@ -758,26 +758,26 @@ static irqreturn_t lt9611c_irq_thread_handler(int i=
+rq, void *dev_id)
+>  	if (!(irq_status & BIT(0)))
+>  		return IRQ_NONE;
+> =20
+>  	/* Clear interrupt: hardware requires two writes with delay */
+>  	regmap_write(lt9611c->regmap, 0xe0df, irq_status & BIT(0));
+>  	usleep_range(10000, 12000);
+>  	regmap_write(lt9611c->regmap, 0xe0df, irq_status & (~BIT(0)));
 
-Could add a comment explaining this write_en thing ? Some kind of volatile bit to commit the change ?
+[Severity: High]
+Can this second write unintentionally clear or toggle other pending
+interrupts?
 
-> +
-> +	regmap_update_bits(clkg->clkr.regmap, clkg->gate_ofs, mask, val);
+When clearing BIT(0), writing irq_status & (~BIT(0)) to the register
+asserts the mask for any other bits that were active in irq_status
+during the read. This might leave them in a partially toggled state or
+inadvertently clear them without handling their events, potentially
+dropping important hardware interrupts like HPD or EDID status.
 
-Nitpick: the 2 functions above more less copy/paste. 
+> =20
+>  	schedule_work(&lt9611c->work);
+> =20
+>  	return IRQ_HANDLED;
+>  }
+[ ... ]
+> @@ -1193,17 +1193,17 @@ static int lt9611c_bridge_suspend(struct device *=
+dev)
+>  	disable_irq(lt9611c->client->irq);
+>  	cancel_work_sync(&lt9611c->work);
+> =20
+>  	gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
+> =20
+>  	ret =3D regulator_bulk_disable(ARRAY_SIZE(lt9611c->supplies), lt9611c->=
+supplies);
+>  	if (ret) {
+>  		dev_err(lt9611c->dev, "regulator bulk disable failed.\n");
+>  		gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
+>  		enable_irq(lt9611c->client->irq);
+>  		return ret;
+>  	}
 
-> +}
-> +
-> +static int rtk_clk_regmap_gate_is_enabled(struct clk_hw *hw)
-> +{
-> +	struct rtk_clk_regmap_gate *clkg = to_rtk_clk_regmap_gate(hw);
-> +	int ret;
-> +	u32 val;
-> +
-> +	ret = regmap_read(clkg->clkr.regmap, clkg->gate_ofs, &val);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	return !!(val & BIT(clkg->bit_idx));
-> +}
-> +
-> +const struct clk_ops rtk_clk_regmap_gate_ops = {
-> +	.enable     = rtk_clk_regmap_gate_enable,
-> +	.disable    = rtk_clk_regmap_gate_disable,
-> +	.is_enabled = rtk_clk_regmap_gate_is_enabled,
-> +};
-> +EXPORT_SYMBOL_NS_GPL(rtk_clk_regmap_gate_ops, "CLK_REALTEK");
-> +
-> +const struct clk_ops rtk_clk_regmap_gate_ro_ops = {
-> +	.is_enabled = rtk_clk_regmap_gate_is_enabled,
-> +};
-> +EXPORT_SYMBOL_NS_GPL(rtk_clk_regmap_gate_ro_ops, "CLK_REALTEK");
-> diff --git a/drivers/clk/realtek/clk-regmap-gate.h b/drivers/clk/realtek/clk-regmap-gate.h
-> new file mode 100644
-> index 000000000000..9303adda3166
-> --- /dev/null
-> +++ b/drivers/clk/realtek/clk-regmap-gate.h
-> @@ -0,0 +1,65 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Copyright (C) 2017-2026 Realtek Semiconductor Corporation
-> + * Author: Cheng-Yu Lee <cylee12@realtek.com>
-> + */
-> +
-> +#ifndef __CLK_REALTEK_CLK_REGMAP_GATE_H
-> +#define __CLK_REALTEK_CLK_REGMAP_GATE_H
-> +
-> +#include "clk-rtk-common.h"
-> +
-> +struct rtk_clk_regmap_gate {
-> +	struct rtk_clk_regmap clkr;
-> +	unsigned int gate_ofs;
-> +	u8 bit_idx;
-> +	u32 write_en : 1;
-> +};
-> +
-> +#define __rtk_clk_regmap_gate_hw(_p) __rtk_clk_regmap_hw(&(_p)->clkr)
-> +
-> +#define __RTK_CLK_REGMAP_GATE(_name, _parent, _ops, _flags, _ofs, _bit_idx, \
-> +			      _write_en)                                    \
-> +	struct rtk_clk_regmap_gate _name = {                                \
-> +		.clkr.hw.init = CLK_HW_INIT(#_name, _parent, _ops, _flags), \
-> +		.gate_ofs = _ofs,                                           \
-> +		.bit_idx = _bit_idx,                                        \
-> +		.write_en = _write_en,                                      \
-> +	}
-> +
-> +#define RTK_CLK_REGMAP_GATE(_name, _parent, _flags, _ofs, _bit_idx, _write_en)        \
-> +	__RTK_CLK_REGMAP_GATE(_name, _parent, &rtk_clk_regmap_gate_ops, _flags, _ofs, \
-> +			      _bit_idx, _write_en)
-> +
-> +#define RTK_CLK_REGMAP_GATE_RO(_name, _parent, _flags, _ofs, _bit_idx, _write_en)  \
-> +	__RTK_CLK_REGMAP_GATE(_name, _parent, &rtk_clk_regmap_gate_ro_ops, _flags, \
-> +			  _ofs, _bit_idx, _write_en)
-> +
-> +#define __RTK_CLK_REGMAP_GATE_NO_PARENT(_name, _ops, _flags, _ofs, _bit_idx,  \
-> +				    _write_en)                                \
-> +	struct rtk_clk_regmap_gate _name = {                                  \
-> +		.clkr.hw.init = CLK_HW_INIT_NO_PARENT(#_name, _ops, _flags),  \
-> +		.gate_ofs = _ofs,                                             \
-> +		.bit_idx = _bit_idx,                                          \
-> +		.write_en = _write_en,                                        \
-> +	}
-> +
-> +#define RTK_CLK_REGMAP_GATE_NO_PARENT(_name, _flags, _ofs, _bit_idx, _write_en)        \
-> +	__RTK_CLK_REGMAP_GATE_NO_PARENT(_name, &rtk_clk_regmap_gate_ops, _flags, _ofs, \
-> +				    _bit_idx, _write_en)
-> +
-> +#define RTK_CLK_REGMAP_GATE_NO_PARENT_RO(_name, _flags, _ofs, _bit_idx, _write_en)  \
-> +	__RTK_CLK_REGMAP_GATE_NO_PARENT(_name, &rtk_clk_regmap_gate_ro_ops, _flags, \
-> +				    _ofs, _bit_idx, _write_en)
-> +
-> +static inline struct rtk_clk_regmap_gate *to_rtk_clk_regmap_gate(struct clk_hw *hw)
-> +{
-> +	struct rtk_clk_regmap *clkr = to_rtk_clk_regmap(hw);
-> +
-> +	return container_of(clkr, struct rtk_clk_regmap_gate, clkr);
-> +}
-> +
-> +extern const struct clk_ops rtk_clk_regmap_gate_ops;
-> +extern const struct clk_ops rtk_clk_regmap_gate_ro_ops;
-> +
-> +#endif /* __CLK_REALTEK_CLK_REGMAP_GATE_H */
-> -- 
-> 2.43.0
-> 
-> 
+[Severity: Medium]
+Is a delay required here before re-enabling the interrupt?
 
+In lt9611c_reset(), the driver uses a 400ms msleep after deasserting the
+reset GPIO. Re-enabling the IRQ immediately on this suspend error recovery
+path might interact with an uninitialized MCU, which could trigger I2C
+timeouts or IRQ storms while the system resumes.
 
+> =20
+>  	return 0;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-lt9611c-v7=
+-v15-0-88f9e9387eab@oss.qualcomm.com?part=3D2
