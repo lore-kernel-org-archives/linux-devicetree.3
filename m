@@ -1,184 +1,189 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47D434BB5BD
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 17:31:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6901C3E716F
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 17:33:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789493480; cv=none; b=eMjPp036g//DlrJQRAOkfwjF+fpTL5seWSlibLt75fqlzhcF5mjQP9YIZRsdolpvZZ2mXpTzURjaiWl7QMgx8dswKdSLBO8vuY7sS7thEQkmDo5xBPlwY+GrCIzfmy3Rdpiyz6LhGZ9fU/34JCwGeMzvMS/HVc2g8Yu/c3S9lb8=
+	t=1789493590; cv=none; b=thzdWwutORtOMundnvr1vb3s1N/0kuKHXqwlAUTqJGs+REUE0XvAiKPVr7l11LUAl7NgUEUqRqpPhAYBlCXSLtmuG3fmBX3UJpmX42L2lP2KjYXLPSaiPzT3raIOmr4FmgTgj/jG9vGW68LHrIgb3o8cpTFCwJkSc9WwEDRRiw4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789493480; c=relaxed/simple;
-	bh=o9xq46vXu5Tdoa925A4y5EdPo5VNKEplp1aJ/lym32Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kp7GZYt/HE8cu7UBRrNip/OyX0wAjsr3liWwBTSAmWbyj0DeMShT84AENK7nXOQm228CVOMY7E84wIEoXrXmvEowzIuFyUSp2/yflXG1kISvDjvOTj0iQj///8DpUMn9nQ/HyddQtkED51MwbUkXD7uU0v/YaKS0xOsveMzntvk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CJqWvuh/; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789493590; c=relaxed/simple;
+	bh=6XPX+qIPMVCkTk4wE39/6SN04F3sUwQBUey9+D80NgE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=iuq0cRgU/pXuRCEB4W39GKKaNW9/Vl2V85yRO+Dgn56zL1LFu2OkEAJgLs8cxjgxWMA/+7BPj+lN7GQbdU+pZZZGrjPXzNanyQHBeRTjbDnGv1wWTQuzqC8Uot/1SfoV6i/F+8hUpcuLroX0q97ahu9CX3yqi3+Sa05I8CrlMU4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mz/cSx33; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=W2r3lgSs; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CJqWvuh/"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccafb751so3579982a91.2
-        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 10:31:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mz/cSx33";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="W2r3lgSs"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68FFAgQa3567071
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 17:33:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=JcXOtDItZ2KP0yTfGCEEsb
+	PPFeDcbTN97h6/R+twec4=; b=mz/cSx33W4fpoDagIdxKwskvzOGfW8FnqmgGP8
+	fTNLvP8YxzCDS/1tqPwgVaCCHZaRPbebTSd9vJpA25l4cfjVb+xwrYSmgTy7KT6V
+	6x5o7FdBZQ+l3XlZnhuAV3bDQFeSB9lTYukL/6Kl8MHTEaDXxAh2jMw9XkRP0Plf
+	zHdTCeueVxye9aidcxcx1FUlyiUnCOW58pdpsRvWcOpPrcJP8ofc9AQ1Zy2FQTsQ
+	vAPKumXcbcYJg51FKHf4fqlJRqpOj2Pde7GvqwjW3q+3P+AQpNhLsOogZhhOY+HY
+	iTZs0ylXQPp3qkUTiVBXRc2JtmOqVgHGUVFZTAcg7kxuMrnQ==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpxydba4k-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 17:33:08 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cbedbd182f5so1066146a12.1
+        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 10:33:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789493477; x=1790098277; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ybh+8iD5mGNcd8ks8NS+pX/Np+RtyJxn1trRvhxScPk=;
-        b=CJqWvuh/GZHITGkwwN1wlA/gXya0cBi6C0thJSOcBJcPo6268fvWrxtTe1yvEEahjC
-         afJJgvv3SMj7mZx0vWibFbS3vGoRFuZgumC6s34WxzDqUJnsvGpr8wmmu3fRbk/L9wVf
-         5TvYuHNUGxeJK8HxOGUmNE6smHZ63hQl9f+EsDiHq00R7IUIpMgRh+Ul2BofEJDrswrZ
-         q6j82SwlJjhK7omnW9RFbF8MX6GngyVBNNP9HF62wRyUH6v4Xy6Dflr2kBEKLA3cCIvk
-         kVKp7E0JxVcI+P2EzxQuwdl75isUmSkxR5VbFsu68mIzB9/uGaK1dyDy/xupBfL1NQon
-         wBrQ==
+        d=oss.qualcomm.com; s=google; t=1789493588; x=1790098388; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=JcXOtDItZ2KP0yTfGCEEsbPPFeDcbTN97h6/R+twec4=;
+        b=W2r3lgSsbibVx9NYbSZe+ryV0FW3f33s9hNi/KYNzzkD1I5LIaxfvDDVRUgv7O+wSv
+         QhcgRQsMybHVANROuD8gR7GT0UHPB3pjUTHqKbUSFZeLfW0w35/vaX/u9si7/9DSrE84
+         snrAFjg+CRVl3jaFxQsmbaHkyNlE8XOEJnLYO2WCkOkMQ/F3m913FnQxptSfKQ3QhGW/
+         w4H9/CRj2euBLkvI+N/R90LjLV3zYEVKjB37JYBMOMSkYwCbREIUyBjVmVO7Il6J5i+V
+         0X4OpW3DWNzLrwUUrM43Dn3luN9yexbHYNHv/OVVU03Ux0wHjlRCC96cGAbhknlqoKaV
+         DStg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789493477; x=1790098277;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20260707; t=1789493588; x=1790098388;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=Ybh+8iD5mGNcd8ks8NS+pX/Np+RtyJxn1trRvhxScPk=;
-        b=Z7gmuuIwTJqR68B9CJTawDB7FJR2IbkLTaXBmJ3sshePzn19W5SCxW/i5IzUolRAdj
-         TP+QFysLbzAjvlLjpSzG0joZ+LTRHe6wDcJW8bwn7ylkdSL8wrNco6tMC06n06x67lm/
-         7mRhkU70SiTREpv0IUcWOpJJrDyZ5dTpzUjYaWWqN/z6RI10YnB2j92h0YLFeqGUvf4o
-         7Er4Os08JfNENXvfOyp8IuJvGek+Jf6CR1DkzFpqtVAbBtHIVS3C9mrS5J1GrOFSrcMP
-         mSRpXgr0RvmRIogWfHGaVRVnrprAQAfsArr8b06gjyL6x5tziaDC0bJOSFQFUi3ZB8EW
-         E4KQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwE799mQeSPl272m4FVMd6Pf4R6XuWe50ziyRx6mpgDgcyYNfQfmk4neyYiIoGcGW0DrEzYVeDV0Odc@vger.kernel.org
-X-Gm-Message-State: AFuF++nSXcXegZ2Riy4jyXoW1o4q6qPab55IrkawbGAu4IYxn2i/Czr+
-	JUoVBVNQbhVYgjDJmnUooTBiWIIJf27AxdlM8lhK4RtlB9VC8rXO46UI
-X-Gm-Gg: AYBFou1fb61EE3VDp6ylbQdVYHz3T+5Kr4hVOOqzqIzDKoUzEZ8nZnNbXPCZ6LpOx8W
-	ScYYZDsXtAzv4JIur2nC4z2cgNyJlGhkgLpl07GIM67VJdunskkqIglo8qu/LXgloTmKhnJoRe1
-	Eqg/u94bAtdWHVHu+6Bd2ns/5LljCTr+t8yYCEkNDcZXFiPzpzKEcH0O6zO9hf1hAKdlom3TXJs
-	UFKjy9dROaWr7KxOS0wNJ3IQSGm/1nwVDt+r+H46Avq/JLMVEAwxQO1iHULCkH7LMg+YZUez2sp
-	tQxxzLC87/pLKZssLq0uDuhQ4hbw9AC69Tn0xZSSEXPyS3hYzckFvALsy7EkYLMNDw5Wh1+0vOa
-	nYeWaduWd9qPyGh2hnLT4OA3GULBG5RKjIkTwhhV4eeRzeixCf+qqgZbGyntLoyuxrEGS3a4/yh
-	tsemVxlIUo0cTGMJmg1udxCNmWLC2ECzQePVx2kdr9ACLd71Bm4LGSIhbc53RdHsVSVJ0pbVYRg
-	FrpxlPmFIZiN5EIgVZ7GlPtD5hYlnWCeKA01KWelXYTNz5A
-X-Received: by 2002:a17:90b:50c8:b0:39d:f773:37b5 with SMTP id 98e67ed59e1d1-39df7733906mr14510340a91.0.1789493472947;
-        Tue, 15 Sep 2026 10:31:12 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfbb55b01sm2153011a91.4.2026.09.15.10.31.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Sep 2026 10:31:12 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <64518f1b-9c17-4fa7-8582-dc399728111a@roeck-us.net>
-Date: Tue, 15 Sep 2026 10:31:10 -0700
+        bh=JcXOtDItZ2KP0yTfGCEEsbPPFeDcbTN97h6/R+twec4=;
+        b=LnkC3qapbLSbl08EeZMLGQKqEQRbjTW7Q8FiID32iblHrgsxh4TcxVSTVTgkPS6Nb1
+         CqfK0QjDtCzc73+NxVjRt8B4D7rlzo9lPvoIB6S+n13QReJyO+rVhNA2mhTiRky+sUtV
+         r4H3YBDtjEdUztCkxYMg56ue6UrlxGQ52Ui1YwiWZoPTxIbKyVyhGnmtvU1b3K7Cjbmq
+         l+mNIFn74psv1MyWFHzrBdHnr82EoQrZCoriu8X91YG/HJPpSDj7AQOjuBtK7UAUpcJg
+         5bxWouWvrWSDNYYCoFFJ9teA3Mpk7O8U8w2KXg9dZJsY/ibo85phkxAgrTBSF+wp0XZp
+         cpdw==
+X-Forwarded-Encrypted: i=1; AKwUvBzCbmGL8Ajf1iC+VUfVIpMGP/abTskCike5nCOTQft0ApvnyHDvY7c94TuqHmN8kBHJ3CUun8YC0GBe@vger.kernel.org
+X-Gm-Message-State: AFuF++kNVplWnutOOAoDZ6F6UdbMW5QEnwK265PElK7B+oEED+B8pdhH
+	w4OxZHy3VzEIOjI7Y0uRS1K99tAgQU+8o8UQ7xV2MSCQzX4GNVqAQS83IVR0h0A0Y/jBDVnb4yc
+	jHMEDVD3PW805MQg9LX1oblg/85tRcNyrHmT9EX3dLA9m2w0DpWvOVNQCNxquwGTP
+X-Gm-Gg: AYBFou2AYWaWZeipv9h/Mkm0FD81T2zZEhrkWYm4gOclPIh49mpzivgvIY1A1zMVTv7
+	vBSHRtly6xxCgh6kFbNIyLPgb5JrJBEJNbfeeWlBFOyjGwLpdAxkaz77BUZkDIYWkbcfAka0TeY
+	+6GLlhwiZE6QcJ2oCRrKH3DUozFiRvokz6ZrqJIYm0eypSUfeZxKDICfg6wL7MTAANOd6ULCRw4
+	gQeDZhlafi0wlc/DrjIlegGo5Dm+iF7Rl8TE8+D7XJCgRfcxyUDHOMzobSgjv1+7ZGBcuelgg4z
+	QOvHa4SsfJi1uGrHXGLmV3DAvhVyypmhwTP5VWp61fuGt1yYCNVsvybQ2YbAey9QFK9umLk2xF9
+	Xm89lqJAvlNmrvzQSMV92IYWZTxXP2IX1cZETUMfnpyBwZ5x+TUNZX/E=
+X-Received: by 2002:a17:902:e544:b0:2d8:d4cf:fe49 with SMTP id d9443c01a7336-2dd7654538dmr59400205ad.15.1789493587928;
+        Tue, 15 Sep 2026 10:33:07 -0700 (PDT)
+X-Received: by 2002:a17:902:e544:b0:2d8:d4cf:fe49 with SMTP id d9443c01a7336-2dd7654538dmr59399835ad.15.1789493587492;
+        Tue, 15 Sep 2026 10:33:07 -0700 (PDT)
+Received: from hu-viveka-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cfd8c84sm71567305ad.62.2026.09.15.10.33.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 10:33:05 -0700 (PDT)
+From: Vivek Aknurwar <vivek.aknurwar@oss.qualcomm.com>
+Subject: [PATCH v3 0/2] clk: qcom: add camera clock controller support for
+ Hawi SoC
+Date: Tue, 15 Sep 2026 10:33:00 -0700
+Message-Id: <20260915-camcc-hawi-v3-0-5b57f45477f1@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] hwmon: (pmbus/tps53679) Fix TPS53676 phase page
- decoding
-To: "Pradhan, Sanman" <sanman.pradhan@hpe.com>,
- Jonathan Corbet <corbet@lwn.net>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Sanman Pradhan <psanman@juniper.net>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>
-References: <20260915164823.160977-1-sanman.pradhan@hpe.com>
- <20260915164823.160977-2-sanman.pradhan@hpe.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260915164823.160977-2-sanman.pradhan@hpe.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEyBqWoC/23OSw7CIBCA4as0rKXhUQp15T2MC6BTS2KLgqKm6
+ d2ldaEmbib5J5kvM6EIwUFE22JCAZKLzo85+KZAttfjEbBrcyNGWE0EUdjqwVrc67vDlQGlJHA
+ DRqB8cA7QuceK7Q+5exevPjxXO9Fl+2Yk499MophgSYSshbLCVnLnYywvN32yfhjKPNCiJfYRm
+ t9HEstCpxpmNG0pVfBHmOf5BeOD6IHtAAAA
+X-Change-ID: 20260508-camcc-hawi-4be887e3beb5
+To: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Jagadeesh Kona <quic_jkona@quicinc.com>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Vivek Aknurwar <vivek.aknurwar@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789493584; l=1643;
+ i=vivek.aknurwar@oss.qualcomm.com; s=20260311; h=from:subject:message-id;
+ bh=6XPX+qIPMVCkTk4wE39/6SN04F3sUwQBUey9+D80NgE=;
+ b=64cP3HCwO5vLFhw3q7l7Qs2dEVSF/HN05MtsfKa1Nr12nCfqYmQgsaIYNWS8TpBsOFhDJxGKN
+ shcvj3auSuUBic9uiqPMVUh/EHc8y+8P+WKgPEsoF3YUQRIkliti1ZF
+X-Developer-Key: i=vivek.aknurwar@oss.qualcomm.com; a=ed25519;
+ pk=WIVIbn3nJR9YRWNRyJiEbvpgoHhNyYrmVqMUXWqAIC0=
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDI1NSBTYWx0ZWRfXzL0YmmC7/QFg
+ g23jZeECwMhsmBeMAt8KnSZHhEynWkuE3eRl4oeBiU5QaZ0kqxyooQ68qU5Npil3smSn8ZXIDG6
+ 4TQGEycMFlXTA19tIHdKLFYphcP+zkQ=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDI1NSBTYWx0ZWRfX/zLgNA/Qt1CD
+ dNk6+mFPGcHKkZJEO42Oi+l/CsjH7NZxT8UPxduGdhSWPA4kebDyPL/FLzmFm8aC0qUE2f4w7nW
+ UffORQDcFnGcizxmCe9XKH4SM5Q42UvEdC+UhJ2AlW5MscHLOYGE1ldjI0TkOHorLg+2NmDTzXX
+ txRX7ljNtepOKzLbbMwtWYYunubiiEmgETW6c64qlrLxQvdz9hB7S4HRB8Noq+mYdSAPNB4I1rt
+ OhtevR+y1Ezu09h5DqWpTSRBheCmeTkuTS5m0XO6LbL+wPWofD3MD8GvOwB5FxK665GeHVqUdV2
+ jbZv41y+B3ZVUw0Mffe6te6tYw5kJoSH8I0nASuI1p6Z4jO2ATm7HCAcunm8nN98czlXwFzZjhK
+ xK9M9Nj8sT8OuPxCNW/HWeDHtAFT17aeX5ugDnz8XE86y6Qe8roP/HvmDGDwMQybJyMI/+fZvBT
+ lKta0YAhwE4rscLYa1g==
+X-Proofpoint-ORIG-GUID: PJTnfe0VVDmU72-9oUFtSeWVfCxWyPuA
+X-Authority-Analysis: v=2.4 cv=LYepeTfi c=1 sm=1 tr=0 ts=6aa98154 cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=0ofaL8MKJGBdPcn-MXwA:9 a=QEXdDO2ut3YA:10
+ a=3WC7DwWrALyhR5TkjVHa:22
+X-Proofpoint-GUID: PJTnfe0VVDmU72-9oUFtSeWVfCxWyPuA
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_04,2026-09-15_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 clxscore=1015 suspectscore=0 adultscore=0 impostorscore=0
+ malwarescore=0 priorityscore=1501 bulkscore=0 phishscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150255
 
-Hi,
+Add support for the camera clock controllers on the upcoming
+Qualcomm Hawi SoC.
 
-On 9/15/26 09:48, Pradhan, Sanman wrote:
-> From: Sanman Pradhan <psanman@juniper.net>
-> 
-> tps53676_identify() reads the USER_DATA_03 phase configuration to count
-> the phases assigned to each channel and derive the number of PMBus pages.
-> In each 16-bit phase descriptor the channel (PAGE) is encoded in bit 4 and
-> the firing order in bits 3:0, but the code tested bit 3 (0x08), which is
-> part of the firing-order field.
-> 
-> TPS53676 supports up to seven phases, so firing-order bit 3 is never set.
-> As a result the existing test classifies every enabled phase as channel A.
-> On a dual-channel configuration the phases assigned to channel B are
-> therefore miscounted as channel A and page 1 is not exposed.
-> 
-> Test the PAGE field (bit 4) instead.
-> 
+Signed-off-by: Vivek Aknurwar <vivek.aknurwar@oss.qualcomm.com>
+---
+Changes in v3:
+- dt-bindings: Add interconnects property (Taniya Das) 
+- clk: camcc-hawi: Add needs_icc/icc_path_index to titan_top GDSCs (Taniya Das)
+- Link to v2: https://lore.kernel.org/r/20260908-camcc-hawi-v2-0-f892ba1d118e@oss.qualcomm.com
 
-tps53676_identify() has a second problem: It does not set the current page
-to 0 for single-page systems. If the BIOS/ROMMON had selected page 1 for
-some reason, the page register is never updated because pmbus_set_page()
-does not set the page number if the number of pages is 1. Please fix that
-as well.
+Changes in v2:
+- dt-bindings: Improved commit message to explain how Hawi's CAMCC
+  block differs from Kaanapali (per maintainer feedback)
+- dt-bindings: Removed #power-domain-cells requirement from the
+  binding; will be sent as a separate patch (per maintainer feedback)
+- dt-bindings: Rebased on top of linux-next tip; added qcom,nord-camcc
+  to the compatible enum alongside the Hawi entries
+- Link to v1: https://lore.kernel.org/r/20260723-camcc-hawi-v1-0-7057658c5c47@oss.qualcomm.com
 
-Thanks,
-Guenter
+---
+Vivek Aknurwar (2):
+      dt-bindings: clock: qcom: Add Hawi CAMCC compatible strings
+      clk: qcom: Add support for the camera clock controller (CAMCC) on Hawi
 
-> Fixes: cb3d37b59012 ("hwmon: (pmbus/tps53679) Add support for TI TPS53676")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sanman Pradhan <psanman@juniper.net>
-> ---
->   drivers/hwmon/pmbus/tps53679.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/hwmon/pmbus/tps53679.c b/drivers/hwmon/pmbus/tps53679.c
-> index fa0fdf1e3e6c9..680339a6b90fe 100644
-> --- a/drivers/hwmon/pmbus/tps53679.c
-> +++ b/drivers/hwmon/pmbus/tps53679.c
-> @@ -188,7 +188,7 @@ static int tps53676_identify(struct i2c_client *client,
->   		return -EIO;
->   	for (i = 0; i < 2 * TPS53676_MAX_PHASES; i += 2) {
->   		if (buf[i + 1] & 0x80) {
-> -			if (buf[i] & 0x08)
-> +			if (buf[i] & BIT(4))
->   				phases_b++;
->   			else
->   				phases_a++;
+ .../bindings/clock/qcom,sm8450-camcc.yaml          |   43 +-
+ drivers/clk/qcom/Kconfig                           |   11 +
+ drivers/clk/qcom/Makefile                          |    1 +
+ drivers/clk/qcom/camcc-hawi.c                      | 2993 ++++++++++++++++++++
+ include/dt-bindings/clock/qcom,hawi-camcc.h        |  165 ++
+ 5 files changed, 3203 insertions(+), 10 deletions(-)
+---
+base-commit: 68142f986ff04b2b70b31db00f719bf690f64a9a
+change-id: 20260508-camcc-hawi-4be887e3beb5
+
+Best regards,
+-- 
+Vivek Aknurwar <vivek.aknurwar@oss.qualcomm.com>
 
