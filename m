@@ -1,309 +1,359 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77A66418346
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 10:09:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E93C94734C5
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 10:10:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789466971; cv=none; b=mJ4W97cCId0dVJ2OIoRZmHsTyTX5+vUT19h9vEBgoIpNJUhQytKftLISoxvN98hMvAS0MpWcygZaxQc2N4zzUzv1J8Q6nMZGEI3yfhqx4bZ3pY+CpCyu5XRhNhkw96cMFFaWrJc9Z7NLGPU72XH+phTzHAyL5ng8RPEeVKQu3f8=
+	t=1789467017; cv=none; b=MFd9QSeQLQnbnKnTaPNa5QbH9Df520wv1R3+RIGxi1USNS7WhX11SDDjQuFQnSEzdgC/OYe7M42j3mJ7jLXk78qppDU6Btctxz1RKPZrrVvPDpi5o3+wr2fMwtaJ1JVYvZ2/gE0ACEIJO30KoXCqTXIkrHFBAoD9YdpEHF6TTGo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789466971; c=relaxed/simple;
-	bh=1mBrGMk3HUwiIsljAmzu72Mm2rJ6jyYvNcsRP6+3Pqk=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=QZmX9/ylIj682ElHo+cq9Lnn3qv7zro6yCxodwDPgI/sL/jYdVyycVh94d4OVOEhN8gcXQ/ZjvA/cSaKVBR+13t3F4lt1saXLkvMg6Y5Lm3hj/hEQnsl86YucTt5pw1PiSkBBUek6j1NAlvoEir3yhIKZ4bq2AwwF2Fgw8Qj2ks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=gwDBZCDH; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1789467017; c=relaxed/simple;
+	bh=m4ZfoAJptkoPa5qCBxHmKKd5+7UnHF4MZ8wJmu4+jEc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=lWAw7FLLwk0xIfKvFHnrdSL4QtD8lzIFw42aeCZ/3pOtJMdPw/kCmqLXz+z/dxzpmT9oMIbSrTwinS2laDBbkOOi5BjOXAdMe6A7YFwD9wpfUFKep7ZsNLlQq8HWfN1K42sts3tRKlBCg9TPeHLg1pQko9u/93nyK7UwAlpzYo0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Zq5RDjRb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DQ4IRjyy; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="gwDBZCDH"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d37b5so19424685e9.2
-        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 03:09:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Zq5RDjRb";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DQ4IRjyy"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F9hESM2833235
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 10:10:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=2eRbsRnTf+q9hGStN6U5gH
+	L2h3pJ3DdvPA9Ak23a+98=; b=Zq5RDjRb6isHbdu3GNqIrLrL88uIf6rnD7Qj1+
+	zV36zfTbu4oouj7Hegxl2vD0NwHEbBWkKYkrnB6FiAsoqxKxCp4E1hNKubbEmjGv
+	3W/05YsdXkfFw3P2GRMNXObYmkgsBMHnQ2shvqKp9qfnI/9lCyl/rjO5UJydZJdM
+	XZzMrNDECjAAhw/+v9C+E5Cco/rRsBWBSkafzdLf3QwDPjtNeoqIUHbFyBrI/24u
+	l/DBf6HBj06mL3XThQQCmkrLv/p12v2DkjWOzlCxizslh9vcUNG6mvFFvM6/kzF2
+	h0zAr9Na8lcKU19qlVS08ZudqpSwobySmeVa8QHpzZhxSZXA==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpxyd99dj-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 10:10:14 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38dbf293831so9604942a91.3
+        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 03:10:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789466966; x=1790071766; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iZGHM22Ck2JSJxxurSXjHFPsuFXdIFhR8GNZX+3HR2Q=;
-        b=gwDBZCDHUCnuzR3AlAfdeie6Q4G5UuP/02rLyl9H336BPmICbMB9UPAr+7sffy9Hcf
-         DHXdz3fmaoKAxzetVa55PWtwILTvvwA63MdfrcUy1cFyQHrnNdG25YhmrfTFwMORcfM7
-         PPuTEmktoLv/qCLeFpnldZtXTLlbkzeeHpexgvlw87pRVDKl6CyEq6Xjf892HSyav90A
-         leucKgL9kU615rNgUzSAfyaovIGL7p5HmJPOjWLq4Cch35gaD/iDD0zqOB4MGZB2McGb
-         u2f4qvUCwX+J/n/xHsWITLTtehy9nsqPFPb7lXsJ+19fFLYgpikQb30pjngnrFyc11Re
-         rHlw==
+        d=oss.qualcomm.com; s=google; t=1789467013; x=1790071813; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=2eRbsRnTf+q9hGStN6U5gHL2h3pJ3DdvPA9Ak23a+98=;
+        b=DQ4IRjyy/oiSQp+5DUD24pTdQi9UmUSEDThxNzUoK7sIBRS0bQjRHtgxNGiTSHr3o4
+         roNYcen2zOQY3ww3yPa7jdzgcgFfao36AC8Vnj9uT+GncZ/0KAGVmQb+l6HK2c6fJQQa
+         8+fvyXAYtfywTvtaHu2xaCAGPq+LtAM/Pi7aSzc+P1bx/kfml/ku8OOSb1Pze2lY/2UT
+         it97FWyIyXggmWTIZ3SeGdLG8ldbwSGdY7K9HnQgb3b9gvBQaX8WoKfDEWcndA2WU9Tn
+         zyqY+GtaZCycT6yTHfcvL3W97Ai8itrYE54Vw40+z00ahlJMO4GlR1HxJ4h4VO6fiHLc
+         Wiuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789466966; x=1790071766;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=iZGHM22Ck2JSJxxurSXjHFPsuFXdIFhR8GNZX+3HR2Q=;
-        b=EIc3iD0GstHZsh7uZnZhSC6mfh0y6aA4thizCly+tnrih/PECDuVHcwCBJOqUoon3a
-         BtKgc3woD6zH3qq1u5rSpCHSsSSwoKDIRnCnwACnc+EUzoLpPikV2ICAGeLC3tvdN0Hf
-         symzOuK+EDjoa/xyiXkds/7PUd68n3UrSBdtwhmpMM1Qu4EMcvXFd5nthr55n4RPtKCR
-         M8tEsBdbiOs7Pko1M+1ZRt9JfIZxdrdg3bU9LIgWZzoW8jbSMfH4AYNTm8FM5+747rp8
-         tOHqvhr9PRMjxCTGezUIqCEkACo8vBkcB4Yy/yAh5Gnb8b/vhiR3u0XFIALYQd+8Adc8
-         Te3w==
-X-Forwarded-Encrypted: i=1; AKwUvBysD3N/IARwb0CqbCrfcx84mqKwh95eW4LWHKC9K6eqCzLtE2PwB4L313P/ZstUEjJFr+Qm6lTgxXFR@vger.kernel.org
-X-Gm-Message-State: AFuF++n6xgOlIRpWZQ/oBgiqdgR5N+bTlYNEC3Injbe/SJ/7VB2AcOaj
-	F9edkkL2CLrr77yJOFsMosXAX1SLh1/Gq/iHoIW8uYV8UEtv2vHFIO8NxyqXh3miSLE=
-X-Gm-Gg: AYBFou1rY1jKScGEQYa8dSFbPD5osTN4VWQ1ec0+y7A13NFJ/u9QlE8P04qHzmeJ1a1
-	9LK6vHK75xxCRFZpk5a+LEnfrhJc2maEp87tawDdnn3FQSSUPbsiudoaQlYSC38tb7zTs2JF3fj
-	apyTXDP0qvzUwvuFb2lyFzALIsq+StrClqtpLjxniIYGVXo3H4EIv6vzPOidbHNS5Kn+8mkB3dL
-	LiNSrTxEns4/lupUfLLXv68TkSI2j+K3F/W2E6LAJGaWp231aiQt6pAKzoIDQY/qZtTiTWcshRG
-	LqxC1LN8P/I5bAZrKQNbuSaHL7fH+ECCUVR002avd7q1frSwMJmFl4cyAw8gsFzskSoIt0wOtJK
-	iRWHS27PixpCZOIlFJ181nEp5vhDMqkNDkzHMvns9+gOvVqUybYdBe61s3SnLGpv74+3ggAby4r
-	kl027L1X7c0+nIGLMRgoGmBNYSzPuTJIdwh56ZKkondkykB3SIOaMmZki130wQZ6r2WWA/FbbN+
-	T+2pLY8QXPJK3Sl2YwV93eQutlc
-X-Received: by 2002:a05:600c:8716:b0:49e:6692:27fd with SMTP id 5b1f17b1804b1-49e7a657f9dmr180400155e9.2.1789466966542;
-        Tue, 15 Sep 2026 03:09:26 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7ef735cesm53989815e9.6.2026.09.15.03.09.25
+        d=1e100.net; s=20260707; t=1789467013; x=1790071813;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=2eRbsRnTf+q9hGStN6U5gHL2h3pJ3DdvPA9Ak23a+98=;
+        b=F1A9dHgGZ2E9nTxmnw2aRYdAyyvZXUE1bhN9u85n6VwpxGbPDRPmAicxVa7tgCZXhr
+         aTPmogcNxglIMtIVMrsl3TBiPgIO88Qo+7Ut89jyXn5mFcv5FZwlhLj227lCJUBqv5P2
+         +/v1W9GVPlpn6I80EwfLu7H75VvKps28n5n/Zy7Czpsouryifh3DbU/IS/kB4VZwnwf2
+         EvP/WD419I+PjrO+HIFJ1/s3hN4oD0Z3wGFy0iU3T+6x+tjyjo9a810BLlm/biHvefd4
+         OioxdJkoeDwdiz8Lcw9xKf0WwjdCciOTbR7A22Kma0nLDg7pu8PBTSOw9Ll97l8YJ4rA
+         Blpw==
+X-Forwarded-Encrypted: i=1; AKwUvByBrExJbuqdmNenWXDPbXkMrK6O8D+1cU6b+K8gLBniWPKmIVA3mFztcHZFKrvVd+3N42Vbg6yQ1Ecs@vger.kernel.org
+X-Gm-Message-State: AFuF++m+q+wR/eaY/O6XqZv2DNcrO2D/6K2OsWwVNiLxhdsmt0uBntOn
+	OpW/J4THQtEV3ya22bfgCfXqZA0Z7F4GMRD6GDtGV5dKkn+2xxvdv4urOLwWXOveft0oRCnkwLN
+	urPEuYpJOG32pOZFJkAK3bUYIp3vgx4ov+vSK5Bs8f6PiASb+XffqkvYL1afYrR+t
+X-Gm-Gg: AYBFou2R/QdKQB5fpaU3Ai4CUegk0hE2IZevm+7jA4FriPdu0Iipo/H1KGxhJp4h0ow
+	VzZxsVKbs0fCB0MJGcKEXL289P4EYgHCxz01ODsPFO1T8xU/Z+AaZLcYKygGnlHqjqFo+WLEI5g
+	dbDU8pzA6ntlCokp5xzDJzrKxHLTX+OIZVzFCF3U0AQ1i85XadGXYTn79KYbBeMpiXNI4rk08iQ
+	CClv7Y1f7J1g3LSQCLj/ap3lkH+s6SzyZfyio/eDPH1zmw9CLs0p+bnN+l7Kvt4amUL84L9kAbq
+	BuSzk+xb3nlAQRLPXcITo3tg4zGBPIpmFZxr6Hz07x+PCSslF/gluDw8KS60uABil+VYApna/GX
+	9gVkbNLsBrOLcpNG4M3FxZfmsaCpr+yXK73jWvW26Wvb9iInpOY7+RU00sTj69y2EOm/Q/U3SqT
+	O+cBAUGuGj1fg=
+X-Received: by 2002:a17:90b:2810:b0:39b:ac66:bbc with SMTP id 98e67ed59e1d1-39e10e2da5cmr411557a91.7.1789467013235;
+        Tue, 15 Sep 2026 03:10:13 -0700 (PDT)
+X-Received: by 2002:a17:90b:2810:b0:39b:ac66:bbc with SMTP id 98e67ed59e1d1-39e10e2da5cmr411457a91.7.1789467012686;
+        Tue, 15 Sep 2026 03:10:12 -0700 (PDT)
+Received: from hu-hangxian-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14382741839sm14244091c88.6.2026.09.15.03.10.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 03:09:26 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Vyacheslav Yurkov via B4 Relay
- <devnull+V.Yurkov.EXT.bruker.com@kernel.org>, Michael Turquette
- <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Brian Masney <bmasney@redhat.com>, Brian Masney
- <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Jyri
- Sarha <jsarha@ti.com>
-Cc: linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, Vyacheslav Yurkov <uvv.mail@gmail.com>,
- Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
-Subject: Re: [PATCH v5 2/2] clk: Add gpio-locked fixed clock driver
-In-Reply-To: <20260915-feature-clock-guard-v5-2-42ab5dc3a6aa@bruker.com>
-References: <20260915-feature-clock-guard-v5-0-42ab5dc3a6aa@bruker.com>
- <20260915-feature-clock-guard-v5-2-42ab5dc3a6aa@bruker.com>
-Date: Tue, 15 Sep 2026 12:09:24 +0200
-Message-ID: <1j33vaesh7.fsf@starbuckisacylon.baylibre.com>
+        Tue, 15 Sep 2026 03:10:12 -0700 (PDT)
+From: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+Subject: [PATCH v16 00/11] media: qcom: camss: Add Kaanapali support
+Date: Tue, 15 Sep 2026 03:09:55 -0700
+Message-Id: <20260915-kaanapali-camss-v16-0-c9f3f6f4180c@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHsZqWoC/3XQzW7CMAwA4Fepcp6Rnd/S095j2iFt0hENWmhKV
+ YR495myiR3KJZKt+PPPVeQ4pJhFVVzFEKeUU99xQPatEM3Od18RUuCEkCgtEkn49r7zR79P0Ph
+ DzuCUczJoHdvWCa46DrFN80J+fD7iIZ7OLI+PpKh9jtD0h0Maq6KL8wgLviUt/netCk4bdIQwE
+ xfkJOG4u0BrtdK1NRSUryZya0WKFNQa9qk7z/BoYQAVcDqMOd3BEgnxdwcyaFun6/qPvA++S3n
+ sh8tymoloGf3lFfgDIJQUdWu23gQs3/ucN6ez39833fCzoBOpJ2SwXIEUQ9JoCmU0htd8Beknx
+ DOtQJqh6GwrrffWbl9C5gk5iSsQnw4arKkhsq4xYQW63W4/wZ70QEwCAAA=
+X-Change-ID: 20260112-kaanapali-camss-73772d44eff7
+To: Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        jeyaprakash.soundrapandian@oss.qualcomm.com,
+        Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>,
+        Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
+        Atiya Kailany <atiya.kailany@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDE0NiBTYWx0ZWRfX7uJuRAAVWFwo
+ JBXuF4X6B+3zuHWnYaW+2NgcYGIxwv9pjzW70eKJJ91rEqS/1SIEy+brFlL2W/tE+zgWtJHvDll
+ +4EoTIMVrCN7niH3RVZimQMrZ4/rdOM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDE0NiBTYWx0ZWRfX8grGXsoOi6GY
+ sUOT78mT+B1hc2B63rJTBbXEZEImi8CuERS/9dpN5BVbBQDwZPGQfR1krpt2uWTHWydOIC1ruwz
+ S8LEt1/MR4OAWi4ACrdl9kZwc4/O8bqn48fDmtqCNs0e94SNrRgn8ANefodXroPgWMsozRCwm+2
+ 19YyRnW+tEfIgyvQTfUrwCSvRg+psDkzzm68g+wmRj4kiAjOWiy7NDHU6l26ICX2feG637jW8Fs
+ 8jaUu566rzR51pnZmxpF3ZS8TfrgXjKBJCwDIR1MBOZSyHvCS+nBBEiYWbGo5fST0myN6rr7QB4
+ GSosmW5n1ZJKtCNNrwI64vuHX+Gh1OUSYSc121qmj1hnIAZxjUKokihP+c+4oYS5Qw5h4ls/ebG
+ 0wyHL8HI5o+LCZUoyBfInezfT95k8v/3QTka+Trf/BPpsoh3yTwsCnL0FBW2wmZ/drn1aeNSOXk
+ jLT3rdpBFhI8EgTWC+w==
+X-Proofpoint-ORIG-GUID: gmLDB2aoeiKLYni3nAFsvGH54oI3vLt5
+X-Authority-Analysis: v=2.4 cv=LYepeTfi c=1 sm=1 tr=0 ts=6aa91986 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=5H4PDbKVDpZU0N7xkpwA:9
+ a=asyBVcYyNHhJ3QFk:21 a=QEXdDO2ut3YA:10 a=iS9zxrgQBfv6-_F4QbHw:22
+ a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-GUID: gmLDB2aoeiKLYni3nAFsvGH54oI3vLt5
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_03,2026-09-14_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 clxscore=1015 suspectscore=0 adultscore=0 impostorscore=0
+ malwarescore=0 priorityscore=1501 bulkscore=0 phishscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150146
 
-On mar. 15 sept. 2026 at 09:27, Vyacheslav Yurkov via B4 Relay <devnull+V.Yurkov.EXT.bruker.com@kernel.org> wrote:
+Add support for the RDI only CAMSS camera driver on Kaanapali. Enabling
+RDI path involves adding the support for a set of CSIPHY, CSID and TFE
+modules, with each TFE having multiple RDI ports. This hardware
+architecture requires 'qdss_debug_xo' clock for CAMNOC to be functional.
 
-> From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
->
-> A gpio-locked clock exposes a clock, which status is determined by a
-> GPIO signal. The common use-case is a FPGA-assisted clocking design
-> where peripheral clocks are generated by FPGA PLLs that are outside
-> CPU control, with clock-valid/PLL-lock status exposed through GPIO signals.
-> Consumers can use the output clock to wait until the input clock is locked
-> and only then initialize dependent peripherals.
->
+Kaanapali camera subsystem provides:
+- 6 x CSIPHY (CSI Physical Layer)
+- 3 x TPG (Test Pattern Generator)
+- 3 x CSID (CSI Decoder)
+- 2 x CSID Lite
+- 3 x VFE (Video Front End), 5 RDI per VFE
+- 2 x VFE Lite, 4 RDI per VFE Lite
 
-We already have gpio gate driver in drivers/clk/clk-gpio.c
+This series has been tested using the following commands with S5KJN5 sensor.
+- media-ctl --reset
+- media-ctl -V '"msm_csiphy2":0[fmt:SGBRG10/4096x3072]'
+- media-ctl -V '"msm_csid0":0[fmt:SGBRG10/4096x3072]'
+- media-ctl -V '"msm_vfe0_rdi0":0[fmt:SGBRG10/4096x3072]'
+- media-ctl -l '"msm_csiphy2":1->"msm_csid0":0[1]'
+- media-ctl -l '"msm_csid0":1->"msm_vfe0_rdi0":0[1]'
+- yavta  --capture=20 -I -n 5 -f SGBRG10P -s 4096x3072 -F  /dev/video0
 
-It would be much better if you could just extend that one that take
-optionally take a clock input like you do here.
+Dependencies:
+- https://lore.kernel.org/all/20260903-x1e-csi2-phy-v17-0-26606fa9a039@linaro.org/
+- https://lore.kernel.org/all/20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v17-0-e2197a3e2551@linaro.org/
 
-> Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
-> ---
->  drivers/clk/Makefile          |   1 +
->  drivers/clk/clk-gpio-locked.c | 169 ++++++++++++++++++++++++++++++++++++++++++
->  2 files changed, 170 insertions(+)
->
-> diff --git a/drivers/clk/Makefile b/drivers/clk/Makefile
-> index b18af485d7f0..b904f292d683 100644
-> --- a/drivers/clk/Makefile
-> +++ b/drivers/clk/Makefile
-> @@ -46,6 +46,7 @@ obj-$(CONFIG_CLK_FD_KUNIT_TEST) += clk-fractional-divider_test.o
->  obj-$(CONFIG_COMMON_CLK)	+= clk-gpio.o
->  ifeq ($(CONFIG_OF), y)
->  obj-$(CONFIG_COMMON_CLK)	+= clk-conf.o
-> +obj-$(CONFIG_COMMON_CLK)	+= clk-gpio-locked.o
->  endif
->  
->  # KUnit specific helpers
-> diff --git a/drivers/clk/clk-gpio-locked.c b/drivers/clk/clk-gpio-locked.c
-> new file mode 100644
-> index 000000000000..b648f8763922
-> --- /dev/null
-> +++ b/drivers/clk/clk-gpio-locked.c
-> @@ -0,0 +1,169 @@
-> +// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +/*
-> + * Clock Controller Guard Driver
-> + *
-> + * Copyright 2026 Bruker Corporation
-> + */
-> +
-> +#include <linux/clk.h>
-> +#include <linux/clk-provider.h>
-> +#include <linux/device.h>
-> +#include <linux/gpio/consumer.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/slab.h>
-> +
-> +/**
-> + * struct gpio_locked_clk_priv - private state for the whole driver
-> + * @dev:		platform device
-> + *
-> + * @input_clk	input clock
-> + * @gpios:		input GPIO descriptor
-> + *
-> + * @output_hw_clk:      output clock HW descriptor
-> + * @output_clock_name:  output clock name
-> + */
-> +struct gpio_locked_clk_priv {
-> +	struct device *dev;
-> +
-> +	struct clk *input_clk;
-> +	struct gpio_desc *gpios;
-> +
-> +	struct clk_hw output_hw_clk;
-> +	const char *output_clock_name;
-> +};
-> +
-> +#define to_gpio_locked_clk_priv(_hw) \
-> +	container_of(_hw, struct gpio_locked_clk_priv, output_hw_clk)
-> +
-> +static int gpio_locked_clk_is_enabled(struct clk_hw *hw)
-> +{
-> +	struct gpio_locked_clk_priv *priv = to_gpio_locked_clk_priv(hw);
-> +
-> +	int data = gpiod_get_value(priv->gpios);
-> +
-> +	if (data < 0) {
-> +		dev_err(priv->dev, "Failed to get data gpio val: %d\n",
-> +				data);
-> +		return data;
-> +	} else if (!data) {
-> +		dev_warn(priv->dev, "GPIO is not ready");
-> +		return -EBUSY;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +/* We can't enable the clock, but the Common Clock Framework calls only
-> + * enable() not is_enabled()
-> + */
-> +static int gpio_locked_clk_enable(struct clk_hw *hw)
-> +{
-> +	return gpio_locked_clk_is_enabled(hw);
-> +}
-> +
-> +/* We have to implement it, but we are not going to control
-> + * parent clock selection
-> + */
-> +static u8 gpio_locked_clk_get_parent(struct clk_hw *hw)
-> +{
-> +	return 0;
-> +}
-> +
-> +static const struct clk_ops gpio_locked_clk_ops = {
-> +	.enable =	gpio_locked_clk_enable,
-> +	.is_enabled =	gpio_locked_clk_is_enabled,
-> +	.get_parent =	gpio_locked_clk_get_parent,
-> +};
-> +
-> +static int gpio_locked_clk_parse_outputs(struct gpio_locked_clk_priv *priv)
-> +{
-> +	struct device *dev = priv->dev;
-> +	struct device_node *np = dev->of_node;
-> +	int ret;
-> +
-> +	of_property_read_string_index(np, "clock-output-names", 0,
-> +		&priv->output_clock_name);
-> +
-> +	if (!priv->output_clock_name)
-> +		priv->output_clock_name = dev_name(priv->dev);
-> +
-> +	priv->output_hw_clk.init =
-> +		CLK_HW_INIT_FW_NAME(priv->output_clock_name,
-> +				    __clk_get_name(priv->input_clk),
-> +				    &gpio_locked_clk_ops, 0);
-> +
-> +	ret = devm_clk_hw_register(dev, &priv->output_hw_clk);
-> +	if (ret) {
-> +		dev_err(dev, "failed to register output clk'%s': %d\n",
-> +			priv->output_clock_name, ret);
-> +		return ret;
-> +	}
-> +
-> +	dev_info(priv->dev, "Output clock '%s' registered\n", priv->output_clock_name);
-> +
-> +	return 0;
-> +}
-> +
-> +static int gpio_locked_clk_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev = &pdev->dev;
-> +	struct gpio_locked_clk_priv *priv;
-> +	int ret;
-> +
-> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-> +	if (!priv)
-> +		return -ENOMEM;
-> +
-> +	priv->dev = dev;
-> +	platform_set_drvdata(pdev, priv);
-> +
-> +	priv->input_clk = devm_clk_get_enabled(priv->dev, NULL);
-> +	if (IS_ERR(priv->input_clk))
-> +		return dev_err_probe(priv->dev, PTR_ERR(priv->input_clk),
-> +				"Failed to get locked fixed clock, not yet ready\n");
+Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+---
+Changes in v16:
+- Remove RBs for binding, CSIPHY and CAMSS DT as tags stale due to
+  split-CSIPHY re-arch - Krzysztof
+- Update CAMSS bindings and driver support for the standalone CSI2 PHY
+  provider and graph-based PHY lookup model - bod
+- Add the CDM IOMMU stream and simplify CAMSS binding example part by
+  removing redundant subnodes - bod
+- Improve commit descriptions for CAMSS compatible, CSID, VFE, TPG
+- Clarify the common-status-offset change with x1e80100 compatibility
+  details and future SoC offset considerations
+- Add Kaanapali camera DT descriptions, including CAMSS, six CSIPHYs,
+  three CCI controllers, camera-control I2C, and MCLK pinctrl states
+- Rename I2C and MCLK pinctrl nodes to include interface identifiers
+- Link to v15: https://lore.kernel.org/r/20260720-kaanapali-camss-v15-0-c0b1c1167c5d@oss.qualcomm.com
 
-In your use case it might be fixed, but nothing says it is in general
+Changes in v15:
+- Add TPG v2.4.0 support
+- Drive the CSIPHY through the standalone phy-qcom-mipi-csi2 DPHY
+  driver, which let CAMSS csiphy_res only carry id, ops and formats
+- Add a preparatory patch parametrising the PHY common status offset
+- Add the mipi_csi2_dphy_3nm_kaanapali config and "qcom,kaanapali-csi2-phy"
+  based on the new split-csiphy arch
+- Link to v14: https://lore.kernel.org/r/20260601-kaanapali-camss-v14-0-e76f26aa6691@oss.qualcomm.com
 
-> +
-> +	priv->gpios = devm_gpiod_get(priv->dev, "locked", GPIOD_ASIS);
-> +	if (IS_ERR(priv->gpios)) {
-> +		dev_err(dev, "failed to get locked gpios: %ld\n",
-> +				PTR_ERR(priv->gpios));
-> +		return PTR_ERR(priv->gpios);
-> +	}
-> +
-> +	ret = gpio_locked_clk_parse_outputs(priv);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = devm_of_clk_add_hw_provider(priv->dev, of_clk_hw_simple_get,
-> +		&priv->output_hw_clk);
-> +	if (ret) {
-> +		dev_err(priv->dev, "failed to register clock provider '%s': %d\n",
-> +			priv->output_clock_name, ret);
-> +		return ret;
-> +	}
-> +
-> +	dev_info(dev, "registered %s gpio locked clock\n",
-> +		 clk_hw_get_name(&priv->output_hw_clk));
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct of_device_id gpio_locked_clk_of_match[] = {
-> +	{ .compatible = "gpio-locked-fixed-clock" },
-> +	{ /* sentinel */ }
-> +};
-> +MODULE_DEVICE_TABLE(of, gpio_locked_clk_of_match);
-> +
-> +static struct platform_driver gpio_locked_clk_driver = {
-> +	.probe  = gpio_locked_clk_probe,
-> +	.driver = {
-> +		.name           = "gpio-locked-fixed-clock",
-> +		.of_match_table = gpio_locked_clk_of_match,
-> +	},
-> +};
-> +module_platform_driver(gpio_locked_clk_driver);
-> +
-> +MODULE_AUTHOR("Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>");
-> +MODULE_DESCRIPTION("GPIO-locked clock driver");
-> +MODULE_LICENSE("Dual BSD/GPL");
->
-> -- 
-> 2.34.1
->
->
+Changes in v14:
+- Define 'CSI2_RX_CFG0_PHY_SEL_BASE_IDX' locally in camss-csid-gen4.c - bod
+- Align csiphy lane registers value capitalization and case rule for 2.4.0
+- Rebase this series due to conflict - bod
+- Link to v13: https://lore.kernel.org/r/20260508-kaanapali-camss-v13-0-2541d8e55651@oss.qualcomm.com
 
-pw-bot: changes-requested
+Changes in v13:
+- Remove prerequisite dependencies that have been merged upstream
+- Remove redundant empty 'regulators' initializers in csid and vfe  - bod
+- Revert binding from full hardware description to CAMSS-only scope for
+  modular and incremental development - bod
+- Rename icc path names and vfe clock names to drop redundancies - Krzysztof
+- Separate port index from VC value in csid_configure_stream(). Previously
+  vc was used as both the loop iterator and the hardware VC, causing
+  misconfiguration on RDI path starting from 1 - bod
+- Link to v12: https://lore.kernel.org/all/20260112-kaanapali-camss-v12-0-15b7af73401e@oss.qualcomm.com/
 
+Changes in v12:
+- Add CSIPHY regulator current due to regulator interface changed - bod
+- Link to v11: https://lore.kernel.org/r/20260112-kaanapali-camss-v11-0-81e4f59a5d08@oss.qualcomm.com
+
+Changes in v11:
+- Rebase this series due to conflict - bod
+- Update binding commit message to align with previous generations
+- Link to v10: https://lore.kernel.org/r/20251211-add-support-for-camss-on-kaanapali-v10-0-39e8874dcd27@oss.qualcomm.com
+
+Changes in v10:
+- Update interconnect and CX domain AXI clock names to be consistent with
+  previous generations - bod
+- Update the struct name for csiphy lane register settings to make it reusable
+  for other compatible chipsets
+- Updated power domain names to IFE for consistency - Krzysztof
+- Add description for acronyms listed in binding commit message - Dmitry
+- Link to v9: https://lore.kernel.org/r/20251208-add-support-for-camss-on-kaanapali-v9-0-3fcd31258415@oss.qualcomm.com
+
+Changes in v9:
+- Updates the names of some of the resources in DT bindings to be consistent
+  with previous generations and improve the commit its message. The name
+  changes are also applied to csiphy and vfe camss resource lists - bod
+- Link to v8: https://lore.kernel.org/r/20251130-add-support-for-camss-on-kaanapali-v8-0-143a8265e6e8@oss.qualcomm.com
+
+Changes in v8:
+- Change csid and vfe driver file names as 'gen4' to reuse for other SOCs - bod
+- Add missing register descriptions to binding and cover letter commit log - bod
+- Link to v7: https://lore.kernel.org/r/20251120-add-support-for-camss-on-kaanapali-v7-0-de27f9a67ce6@oss.qualcomm.com
+
+Changes in v7:
+- Add ICP SYS registers to camss binding - bod
+- Rename 'is_deferred' to 'reg_update_after_csid_config' to do rup/aup
+  after csid config to make it clearer and simplify its call path - bod
+- Remove unnecessary bitwise AND while configuring image address to bus- bod
+- Tidy up a comment and a couple of hex values and csid/vfe - bod
+- Link to v6: https://lore.kernel.org/r/20251113-add-support-for-camss-on-kaanapali-v6-0-1e6038785a8e@oss.qualcomm.com
+
+Changes in v6:
+- Modified the bindings to represent the whole of the camera hardware on
+  KNP than just what is exercised by the CAMSS driver by extending the
+  descriptions and the properties, the regs, clocks, interrupts, power
+  domains, iommus etc. In addition, use the word 'vfe' everywhere in the
+  bindings to be clear that all of those resources are referring to the
+  same front end modules. - Krzysztof/bod
+- Change camss vfe power domain names to align with the binding file
+- Link to v5: https://lore.kernel.org/r/20251030-add-support-for-camss-on-kaanapali-v5-0-f8e12bea3d02@oss.qualcomm.com
+
+Changes in v5:
+- Refine v4 change log - Krzysztof
+- Fix typo by removing redundant numerical version in kaanapali camss binding
+  comment description - Krzysztof
+- Add missing tags that should be posted with v4 revision - Krzysztof/Andi
+- Link to v4: https://lore.kernel.org/r/20251028-add-support-for-camss-on-kaanapali-v4-0-7eb484c89585@oss.qualcomm.com
+
+Changes in v4:
+- Add detailed hardware descriptions and revise message title to follow the
+  standard comment format for kaanapali camss binding file - Krzysztof
+- Format kaanapali camss binding file to keep style consistency, by reverting
+  power domain name from TFE to IFE and keeping clocks name order as last
+  generation - Krzysztof
+- Separate the 1.2 and 0.9 voltage supply DT flags for each CSIPHY to allow
+  for arbitrary board design with common or unique supplies to each of the PHYs
+  in kaanapali camss binding example, based on v2 comments - bod/Vladimir
+- Link to v3: https://lore.kernel.org/r/20251023-add-support-for-camss-on-kaanapali-v3-0-02abc9a107bf@oss.qualcomm.com
+
+Changes in v3:
+- Use the name 'ahb' for 'cam_top_ahb' clock in cci binding file - Vladimir
+- Reduce and simplify CSIPHY supply, port properties in camss bindings - Vladimir
+- Resolve the dependency issues in the camss bindings file using ephemeral
+  DT nodes - Vladimir/Dmitry
+- Update hf mnoc name and bandwidth values for icc module - bod
+- Split CSIPHY status macro changes into a separate patch series - bod
+- Add clear functions for AUP/RUP update in csid and vfe for consistency - bod
+- Clarify why the RUP and AUP register update process is deferred - bod
+- Clarify the necessity to keep NRT clocks for vfe - Vijay
+- Link to v2: https://lore.kernel.org/r/20251014-add-support-for-camss-on-kaanapali-v2-0-f5745ba2dff9@oss.qualcomm.com
+
+Changes in v2:
+- Aggregate CSI2_RX_CFG0_PHY_SEL_BASE_IDX definition into 'camss-csid.h' - bod
+- Remove 'camss-csid-1080.h' and use 'camss-csid-gen3.h' header instead - bod
+- Remove redundant code in 'camss-csid-1080.c' and align the namespaces - bod
+- Slipt 'camnoc_rt_axi' clock in vfe matching list into a single patch - bod
+- Add whole vfe write engine client mappings in comment - bod
+- Remove hardcoded image buffer number but use 'CAMSS_INIT_BUF_COUNT' - bod
+- Remove SoC specific logic for vfe ops->reg_update and add a new variable
+  to determine whether ops->reg_update is deferred or not - bod
+- Add description to explain why 'qdss_debug_xo' should be retained - bod
+- Add the procss node in csiphy register list comment - bod
+- Rename the variable 'cmn_status_offset' to 'common_status_offset' and
+  align this with macro in csiphy register structure to avoid ambiguity - bod
+- Aggregate Kaanapali items into the definition that introduced by
+  'qcom,qcm2290-cci' in cci binding file - Loic
+- Format 'kaanpali-camss.yaml' binding file
+- Link to v1: https://lore.kernel.org/r/20250924-knp-cam-v1-0-b72d6deea054@oss.qualcomm.com
+
+---
+Hangxiang Ma (11):
+      dt-bindings: phy: qcom,x1e80100-csi2-phy: Add Kaanapali CSI2 PHY
+      media: dt-bindings: Add CAMSS device for Kaanapali
+      media: qcom: camss: Add Kaanapali compatible
+      phy: qcom-mipi-csi2: Parametrise the common status register offset
+      media: qcom: camss: csiphy: Add support for v2.4.0 two-phase CSIPHY
+      media: qcom: camss: csid: Add support for CSID Gen4
+      media: qcom: camss: vfe: Add support for VFE Gen4
+      media: qcom: camss: tpg: Add support for v2.4.0 TPG
+      arm64: dts: qcom: kaanapali: Add CAMSS block definitions
+      arm64: dts: qcom: kaanapali: Add CCI controller nodes
+      arm64: dts: qcom: kaanapali: Add camera MCLK pinctrl
+
+ .../bindings/media/qcom,kaanapali-camss.yaml       | 375 +++++++++++
+ .../bindings/phy/qcom,x1e80100-csi2-phy.yaml       |   4 +-
+ arch/arm64/boot/dts/qcom/kaanapali.dtsi            | 731 +++++++++++++++++++++
+ drivers/media/platform/qcom/camss/Makefile         |   2 +
+ .../media/platform/qcom/camss/camss-csid-gen4.c    | 391 +++++++++++
+ drivers/media/platform/qcom/camss/camss-csid.h     |   9 +-
+ drivers/media/platform/qcom/camss/camss-tpg-gen1.c |  27 +-
+ drivers/media/platform/qcom/camss/camss-vfe-gen4.c | 197 ++++++
+ drivers/media/platform/qcom/camss/camss-vfe.c      |   9 +-
+ drivers/media/platform/qcom/camss/camss-vfe.h      |   2 +
+ drivers/media/platform/qcom/camss/camss.c          | 305 +++++++++
+ drivers/media/platform/qcom/camss/camss.h          |   1 +
+ drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c |  32 +-
+ drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c     |   1 +
+ drivers/phy/qualcomm/phy-qcom-mipi-csi2.h          |   2 +
+ 15 files changed, 2073 insertions(+), 15 deletions(-)
+---
+base-commit: 18b0812ddc2be257f730533c2aaa7d21e70a1b10
+change-id: 20260112-kaanapali-camss-73772d44eff7
+prerequisite-change-id: 20250710-x1e-csi2-phy-f6434b651d3a:v17
+prerequisite-patch-id: 4a27a90c3a55c1f9ef46e9b941576309242f75f8
+prerequisite-patch-id: ec5e059c23defd7db6c47bb17d70d01c9c6cc31b
+prerequisite-change-id: 20250313-b4-linux-next-25-03-13-dtsi-x1e80100-camss-1506f74bbd3a:v17
+prerequisite-patch-id: d45e15d2e1db340599d7fa89a4f6f3c31a2c8f82
+prerequisite-patch-id: 750508f9273306112a4b62a0d718336e6a6a2134
+prerequisite-patch-id: 8c9aa7d4d73ca2ad2b5119254308bde07f6586ea
+prerequisite-patch-id: 1f26f64b323c53271adebffd056c248494c266ec
+prerequisite-patch-id: c7fdd1167f4b5e3e32df6adf28203f39bce17051
+
+Best regards,
 -- 
-Jerome
+Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+
