@@ -1,114 +1,161 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B50794611C9
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 08:49:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83F1547A87B
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 08:54:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789462151; cv=none; b=BdlyJbqyv8sVsHLAcBLVNIUtsLT/6twl9ddRZyWOVk3If3JPrdJpTP9NCpBPRwIQ0y18c/iklefh7sAtUjKu31ZJ4WIrCbOw06MF1/vjI+Pzr/Yj2DzfL+sByONtg6hiV1ggT1k4PPrP4n6kSLmxMD2FiyrAQKhtP+ylAflYodk=
+	t=1789462495; cv=none; b=LKdocYcIMTQI8K4vOb6PFOynM5ZLTlOABSie6zd9qKiDJKg6+oOo27LBL7ETg5BbJUbvz7NS1F7pxfNU6YKeUwXz7DCBq//vd+MLYgJAuDBdhlNDlgBlFKeFtWNxZO6Ry11NgT8Iqkkenryfpw0IZUx9Cz+IKY7H/+5tMh9d2zg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789462151; c=relaxed/simple;
-	bh=a2V+I7UeXRDj3lHU2NGFDjdBIe3drc9UQsymhMr1D/4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Vw2XbHaAr1J0ChkzgQ10GtdcUrDkALPNJmZ7HqrMqo2Wq+qGq3lIj04j0tz3H//sJMOGRPFWR5VW++dv2A3PCnsIhmlktcfJtelpI/XTDvKt53rXXm6qyk4wOWwkFcTr7+2ef15VeDqmPtN3N/+G8IBtM7vSl0jop6QQx47JtJM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SSeuqfoh; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789462495; c=relaxed/simple;
+	bh=M/ljnWMF+RaIP4LFU68uWl48kJkEkO9RVnXe5kG5i+E=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=FGJ1n3EziQ3nAqIW8MAQoNuq4vl20lIHNHepm14fC2TAUhTyHUahC/F8zmtJxNnkuJlc8zEHAFwu2Gg7hvOO2Pua+CEwlX+FB+Rt0uL4hBNEHCkEP5FXDeBMShUqQGuTaISZ9itXlKaZ9ZX1j54HQ1+h0jQf/wvFLIeYq180Vt8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PdiRRWjx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SSeuqfoh"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f9f7dbfso5592866b.2
-        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 01:49:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789462148; x=1790066948; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CC6zM5DNH7SSIqqjxl1MzTwo2sU+cNMvlHaMx4m2Zy8=;
-        b=SSeuqfohJURUKjycap9F5z+aJZ7iCSURdtZibOyhO3hvCOFyz41lmLRYwcTVgacVfC
-         LWfwa6nTCLi55gxhj2za/c8l5u7sAb/L124ZcgbJ6+jAVHj1zugpuEtItf8tEzFazhnL
-         2LuEaQn3b6q+6szsI8r6B5dokeyKEebIHpzXikm8+p+xnl324MF1Atz/Mv3MECt6pxZd
-         +SnA3w7DKZQpXGDp7NEATbcX2S01Si2YUc05+61Uk3yfpYyrkGW9vibGEopCr6Iou2aO
-         N3UlDj/4nl1ynntXmx+mXslHCYIyKcm8teM5BuSAMB1pXjK5qJ/9c9KnIu9g1ihIYZWP
-         RV3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789462148; x=1790066948;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CC6zM5DNH7SSIqqjxl1MzTwo2sU+cNMvlHaMx4m2Zy8=;
-        b=HUKNYVcnKLZQKlIE6mzL4o0odtZzAV59rcn6V4Umh02Iday5uVm740Ca6Bf5TnpFZg
-         naGv2OYIlBnSY2QZqKB7GlftqoHMP2EyvUb6rlZyJdWbwysgxfwpmIi+S+zKj33Ne70H
-         b9hKXyCcZR6GpK5oW+U/uyVgPQpdezYejvq9vqGqHfYd1JjJwFhg6NASH50MlCrhlE/W
-         W9E4GSTV6rdd/4vcj3ZTXQrvjksgPDYUe46Go2EKFCFPPST/aW1joC4+50UZXY9+cKVz
-         1IvsYIAVgjb6+XpirRxnFJyZVPdzZeHg0GYhlseHk9qWrg/wBMUwAyKe/m7VXMXTo8SU
-         lOgg==
-X-Forwarded-Encrypted: i=1; AKwUvByO5xuuMKCkGkVVc7lvv9iKl7pUkGsyfg8bTIZaeQhjM60WbEYhS8ErO1/aK64PQChXMkzT8WM53MGX@vger.kernel.org
-X-Gm-Message-State: AFuF++nsOF/s6bvIfaxJZraRqKdwOKJZ8++/3EWDfRfHMJ9EwVweP4Wg
-	SRmvzWZiwfkTsvFsogFGApGKCD/V5pfS2sBsOY2qrXNsi9GONJGZJdB5
-X-Gm-Gg: AYBFou0HZ4wCvgE8YeDLxUlULdCBzzQgU2eXu8enmr9MlW2biMunG1VFb+C1tl9PUZk
-	yfOk0gU56CW+uSkRI7roOVZbaZfmXgr0mTvJBzmZojUy/ljZDX7mGVFt0vWjIccog7maPNs4H/y
-	I90bl+K+3nTpVzMtGjAfhWGj30674gUzwuhR6wUCRtiVntt5aLFFYHexSvviSCBPlFQTve4USkW
-	ELS79gPGvBkus8NmVHGDlOCRdPbPPgP6rss2HZBWxYefHGrIsr7CXjLkvef/RbPPtAY9wxDrco2
-	VAqZkdBh0GDfymZEOh3spSUkR9Gyq9o7vx5aF/JdqEjpUuWiFuYfG8TcQTVSpuim7WsyjqcynBQ
-	402IZOx4kWAxENXkJn3snuOlkTIs1aRnqU7nqU+6mDsZVHrt0+zBVGCp7sWLL6Mi1P2jB2hK4rS
-	Llww0yKPojbAUMwWFw/saIOHS57RVV+5kq//i4/9O7huYK+cDg4fMrAzfgnCXYf7adSZX6PpT2h
-	gkIBb5csnev7xTNcWOtotQEQXrOZjk3
-X-Received: by 2002:a17:907:d25:b0:c29:56d3:65a with SMTP id a640c23a62f3a-c29d792b30emr12532966b.33.1789462147841;
-        Tue, 15 Sep 2026 01:49:07 -0700 (PDT)
-Received: from workstation (161-53-210-87.ftth.glasoperator.nl. [87.210.53.161])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2966067101sm552702966b.35.2026.09.15.01.49.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 01:49:07 -0700 (PDT)
-From: Stanislav Zaikin <zstaseg@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sebastian Reichel <sre@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	Stanislav Zaikin <zstaseg@gmail.com>
-Subject: [PATCH v4 3/3] arm64: dts: qcom: sm7325-xiaomi-taoyao: switch to device-specific pmic-glink compatible
-Date: Tue, 15 Sep 2026 10:49:01 +0200
-Message-ID: <20260915084901.56622-4-zstaseg@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260915084901.56622-1-zstaseg@gmail.com>
-References: <20260915084901.56622-1-zstaseg@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PdiRRWjx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C41291F000FF;
+	Tue, 15 Sep 2026 08:54:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789462494;
+	bh=nhFDk1spMGQrf3O5K/5bVDZ1T+4kcRRIr3mLvyFTDis=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=PdiRRWjxp9Jxxi7zY6LtJWDNdlF+UL2bMU8Cl5+eVt/o9GnvIkyIicv1tOXEPZnkb
+	 6NbAZ/pFMU7cuJ/Z/qIk/qpqEaqcxJMX0opToIYLu68o5L8DFf4Wbccy0YEUm/5BZW
+	 0PHX2t4aYllSMcoCTMalsbJWh+3wErXRg1m0QBYoWdPvtCxhtvMff3XWHr0BnzOBUf
+	 hfR4WxHvxsqG/Cgum2iNFAVIWM5R1dqwibCx/AgdaY0Lw4FFnfRLEX8AyIJQdiW3xX
+	 Pn3qU76cgznh5g5uzdE+ZXTbIdu3uX8YVIdelJGMrV/LdrVBpw1EXHBHDfzc7NBsPj
+	 JSsJReGDImNIw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 09/13] drm/mediatek: mtk_dsi: Add support for SRAM
+ QoS setting
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
+Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260915084148.11385-10-angelogioacchino.delregno@collabora.com>
+References: <20260915084148.11385-1-angelogioacchino.delregno@collabora.com>
+ <20260915084148.11385-10-angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 15 Sep 2026 08:54:53 +0000
+Message-Id: <20260915085453.C41291F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Switch taoyao to "xiaomi,taoyao-pmic-glink" compatible so
-qcom_battmgr can identify the device and apply its taoyao-specific
-battery property mapping, required because its firmware shifts
-battery property IDs relative to the generic sm7325-pmic-glink
-firmware.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] drm/mediatek: dimensional mismatch in DSI QoS threshold calculatio=
+ns
+- [High] drm/mediatek: DSI TX buffer RW times incorrectly based on vertical=
+ resolution
+--
 
-Signed-off-by: Stanislav Zaikin <zstaseg@gmail.com>
----
- arch/arm64/boot/dts/qcom/sm7325-xiaomi-taoyao.dts | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+commit beb6a7b889e54e3fb8cb1cebc84be4316c0c70e3
+Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-diff --git a/arch/arm64/boot/dts/qcom/sm7325-xiaomi-taoyao.dts b/arch/arm64/boot/dts/qcom/sm7325-xiaomi-taoyao.dts
-index 6f8bc65bb99b..bc4dfa49ef38 100644
---- a/arch/arm64/boot/dts/qcom/sm7325-xiaomi-taoyao.dts
-+++ b/arch/arm64/boot/dts/qcom/sm7325-xiaomi-taoyao.dts
-@@ -72,7 +72,7 @@ key-volume-up {
- 	};
- 
- 	pmic-glink {
--		compatible = "qcom,sm7325-pmic-glink",
-+		compatible = "xiaomi,taoyao-pmic-glink",
- 			     "qcom,qcm6490-pmic-glink",
- 			     "qcom,pmic-glink";
- 
--- 
-2.53.0
+drm/mediatek: mtk_dsi: Add support for SRAM QoS setting
 
+Add support for automatically calculating and setting the Quality of Service
+(QoS) parameters and DSI IP SRAM Line Buffering in the newest DSI IPs like
+the one found on MT8196, MT6991 and variants.
+
+> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediate=
+k/mtk_dsi.c
+> index 6e92e4e1586f7..16bf08bee38e3 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
+[ ... ]
+> @@ -771,6 +816,102 @@ static int mtk_dsi_set_dsc_params(struct mtk_dsi *d=
+si)
+>  	return drm_dsc_compute_rc_parameters(dsc);
+>  }
+> =20
+> +static void mtk_dsi_config_hw_buffers(struct mtk_dsi *dsi)
+> +{
+[ ... ]
+> +	/* Read as: [Data rate (MHz)] * [Number of DSI lanes] / [8 buffer block=
+s] */
+> +	tmp =3D (u64)dsi->data_rate * dsi->lanes;
+> +	data_rate_per_buf =3D div_u64(tmp, 8 * buffer_unit * HZ_PER_MHZ);
+> +
+> +	/*
+> +	 * Anti-latency buffer output threshold for absolute timer mode: this
+> +	 * parameter controls the maximum amount of output data that the FIFO
+> +	 * can hold before running out of buffer space.
+> +	 *
+> +	 * The data will therefore be sent either when the DSI IP0s internal
+> +	 * vblank vs bus QoS timer expires or when it reaches the amount of
+> +	 * buffers set in BUF_OUT_VALID_THRESHOLD (regardless of QoS) to avoid
+> +	 * partially, or entirely, losing frame(s).
+> +	 */
+> +	out_valid_thresh =3D MTK_DSI_DEFAULT_QOS_VALID_FIFO_US * data_rate_per_=
+buf;
+> +	out_valid_thresh =3D min(out_valid_thresh, MTK_DSI_MAX_FIFO_BYTES - 1);
+
+[Severity: High]
+Does this code inadvertently compare buffer units against bytes?
+
+In mtk_dsi_config_hw_buffers(), data_rate_per_buf is calculated in
+buffer units. Multiplying it by MTK_DSI_DEFAULT_QOS_VALID_FIFO_US yields
+out_valid_thresh in buffer units. However, it is then capped against
+MTK_DSI_MAX_FIFO_BYTES, which is a byte count. This dimensional mismatch
+writes incorrect configuration values to the DSI QoS hardware registers,
+which could lead to FIFO under-provisioning or values exceeding SRAM capaci=
+ty.
+
+> +	mtk_dsi_mask(dsi, reg_qos[DSI_QOS_BUF_CON1], BUF_OUT_VALID_THRESH, out_=
+valid_thresh);
+> +
+> +	/* Enable ULTRA signal trigger between SOF and VACT */
+> +	mtk_dsi_mask(dsi, data->reg_adv[DSI_VDE], VDE_BLOCK_ULTRA, 0);
+> +
+> +	/* Calculate fill rate with line counter mode for DSI Video Mode */
+> +	if (dsi->format =3D=3D MIPI_DSI_FMT_RGB565)
+> +		dsi_buf_bpp =3D 2;
+> +	else
+> +		dsi_buf_bpp =3D 3;
+> +
+> +	pclk_mhz =3D dsi->vm.pixelclock / HZ_PER_MHZ;
+> +	fill_rate =3D div_u64((u64)pclk_mhz * data->pixels_per_iter * dsi_buf_b=
+pp,
+> +			    buffer_unit);
+> +
+> +	/* Calculate QoS Anti-Latency parameters */
+> +	sodi_hi =3D MTK_DSI_MAX_FIFO_BYTES * num_hw_buffers;
+> +	sodi_hi -=3D (fill_rate - data_rate_per_buf) * 12 / 10;
+
+[Severity: High]
+Is it intentional to subtract buffer units from a value initialized in byte=
+s?
+
+Here in mtk_dsi_config_hw_buffers(), sodi_hi is initialized using
+MTK_DSI_MAX_FIFO_BYTES (in bytes), but the subtracted amount is based on
+fill_rate and data_rate_per_buf, which appear to be in buffer units. This
+mismatch can corrupt the calculation and cause hardware lockups or display
+corruption.
+
+> +	sodi_lo =3D MTK_DSI_DEFAULT_QOS_SODI_LO_OVERHEAD * data_rate_per_buf;
+> +	preultra_hi =3D MTK_DSI_DEFAULT_QOS_PREULTRA_HI_US * data_rate_per_buf;
+> +	preultra_lo =3D MTK_DSI_DEFAULT_QOS_PREULTRA_LO_US * data_rate_per_buf;
+> +	ultra_hi =3D MTK_DSI_DEFAULT_QOS_ULTRA_HI_US * data_rate_per_buf;
+> +	ultra_lo =3D MTK_DSI_DEFAULT_QOS_ULTRA_LO_US * data_rate_per_buf;
+> +	urgent_hi =3D MTK_DSI_DEFAULT_QOS_URGENT_HI_US * data_rate_per_buf;
+> +	urgent_lo =3D MTK_DSI_DEFAULT_QOS_URGENT_LO_US * data_rate_per_buf;
+> +	rw_times =3D dsi->vm.vactive * dsi_buf_bpp;
+> +	rw_times /=3D data->num_burst_lines * data->pixels_per_iter;
+
+[Severity: High]
+Does this calculate the transmission burst times based on the vertical
+resolution instead of the horizontal line width?
+
+In mtk_dsi_config_hw_buffers(), rw_times is calculated using the display's
+vertical active lines (dsi->vm.vactive). This results in computing bytes
+per column instead of bytes per line, which makes the computed line
+transmission burst times incorrect for the DSI SRAM line buffers.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915084148.1138=
+5-1-angelogioacchino.delregno@collabora.com?part=3D9
