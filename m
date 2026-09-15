@@ -1,38 +1,37 @@
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBCC33FD960
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 20:51:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66A613F9A1E
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 20:51:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789505512; cv=none; b=U6UooiRSYmpxqY/wI/K7lOU3Lkb8Cgk2i9rRunRPJ9kLCFjuMyCkKBV/bze4jojhron6oe+Bljn3ETFNSZAUiDZtbu1gDfARzruPFei7qaOgdnFeZfV0rFNzKP9yXXJMQEXBSz1ctk6AqBaJ3QJ7l8GT1pFleBeA9O8ZXXIEccQ=
+	t=1789505517; cv=none; b=G+qmHVp7+0aUutRmVIg4knUel4P637tpSKqq1IzzYxzRmxR9zYhdVFhl9TplKx5NQ+8ZHhuwfZszwzgI0oo0hZhPD7zJ52JoWCqlz8so60PR1R31ghfsmRRgJvmoy9u2RvZu34SiiC+u5EWWY6x+oPq8tdIpj2b8s+5NH2Ejxug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789505512; c=relaxed/simple;
-	bh=iOsH3TYz6JS3VWYGuWs4PQ7kM3vbCVT0+U5Ng8AjGHM=;
+	s=arc-20240116; t=1789505517; c=relaxed/simple;
+	bh=dlVUl7bzR8j4uxgKwkmLFvf4+0M2KU8ullpBi92dtio=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Nw24Im2ARa/2zfpxF5MHPH8cnqFrh89zvmoEzy67zdFG/4LxA/O5dwRFIRHx8Pd4yvzxus79DlXqg3rS1skUVKVrVPwRqi+5sF4/TeA9TrihCJzjfEAwQLndeWa8me9CoBVcm5wybQ/Mjy3sqd9b6v0B9FDcSh011ZMzADqygac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=kXoZYFRB; arc=none smtp.client-ip=213.97.179.56
+	 In-Reply-To:To:Cc; b=ISOao0mC36kIF5agwjXel2Cg8TxzuYFkDqgIamb+dgLMP/Goiu/eEKk7svOTdwAJKszZnMUcPCve7cUbBHD4XeNwXXvJyT7sL60o2OmEyOIyPVm4dUjzvb8iCyWu+oyneHhPTkk/ONYLik987PK4wV8sGuIUpaO7iw+8kXaVVg4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=p/3+iy6R; arc=none smtp.client-ip=213.97.179.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="kXoZYFRB"
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="p/3+iy6R"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
 	s=20170329; h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
 	MIME-Version:Subject:Date:From:From:Reply-To;
-	bh=Ip8Mgu6O241vMEK9gqYh1SWDJL6v4VwwvgEBYTDZPn8=; b=kXoZYFRBI1UGNYbOl0B96rk/9W
-	Tc6W7nmtTVI7KVx+PJqVjvCmaJpXYIXVFvgu4J7x3t/3LqYOJMkK3w37KwUMWAQlXc71MQElCIcmk
-	W6oXaEczBajPEFMDUJ57KVzF3ZbFV9VlUsFUEoiNG6f8OPKO3v94j+LDeEjzPsipN2aJ2B8069Ivw
-	0cWVsrBdJtQkKusbz5m0j1UB8V+E6zn1PbofQl+eLDNeTmakMTuvMFu18wTdTD4UQOcDa30Xlrn30
-	e+LDZYSA9BnyWQ2KGlEG+aWsthx4F5s6bsTAgStIp2sZzAuauj+DMjHbqmUAGwKqBfGg7/sVlKvJa
-	uZivotaQ==;
+	bh=jy41rL2C99WwqbzsGdokIDAJtd++SsNXJlNToXkn2/E=; b=p/3+iy6RKWR4fabVY+veX2qDX5
+	3M6Mi0mDKUOLqJpVxavXxhT5TUBzoqRyOBfPQSvY9OdS4qwKr81ni24bLEnwzYXfgYygDKrEGxJct
+	25nzHXBtAe13aaGZhgGt5jgwgS7x90RNlwXd/UpsHT1dIQLgP/wC2cUGVU53dCEEPhxaF1KqyqXLX
+	u2BmjNKSXeEIUK6BqBQzN0mReXSRbLFLqkHhV0/r29t1bb9OyT7mOQNC4pec9leyev8TTRi6zDXWj
+	X/N9ocs9CoBcGaoE7mgLkJby8uxt66PizPofzNZ6JU07/9Lan+z1NGmfX3bKwLh1cA9885wBBviaY
+	wqxBE33Q==;
 Received: from [179.105.94.163] (helo=[10.0.0.1])
 	by fanzine2.igalia.com with esmtpsa 
 	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1x6a84-002dV8-Bi; Tue, 15 Sep 2026 22:51:48 +0200
+	id 1x6a89-002dV8-2I; Tue, 15 Sep 2026 22:51:53 +0200
 From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Date: Tue, 15 Sep 2026 17:51:26 -0300
-Subject: [PATCH v2 3/4] drm/vc4: Use the reset controller to recover from a
- GPU hang
+Date: Tue, 15 Sep 2026 17:51:27 -0300
+Subject: [PATCH v2 4/4] ARM: dts: bcm2835: Add the V3D reset line
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +40,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260915-vc4-reset-control-v2-3-cb3a25b07822@igalia.com>
+Message-Id: <20260915-vc4-reset-control-v2-4-cb3a25b07822@igalia.com>
 References: <20260915-vc4-reset-control-v2-0-cb3a25b07822@igalia.com>
 In-Reply-To: <20260915-vc4-reset-control-v2-0-cb3a25b07822@igalia.com>
 To: Maxime Ripard <mripard@kernel.org>, 
@@ -58,260 +57,44 @@ Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
  linux-arm-kernel@lists.infradead.org, 
  =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7916; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=iOsH3TYz6JS3VWYGuWs4PQ7kM3vbCVT0+U5Ng8AjGHM=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqqa/QHL9IAt0U5GccT4BeAx90WlwAkpUZ+avX8
- XvIFKZcsSOJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCaqmv0AAKCRA/8w6Kdoj6
- qr/ZB/9OvH9nXxRKn1TuqbSpIGQMirT/x8oRiGVgHiu+KTzufmIuivl4kMUg13QD0HqEo+hKhh3
- LB/w1dDigZwoxgWjgm8IcBjhsJiJ678crc9jLojrnzlwiM8W5wwogQoRXkflxoaaNx6rsZvdz0U
- QTOvKsrN1gRVFYg+fI4Pih/eBS37U//z58fN/+AvhkYSgiJrNhHYELXJdKTUW+ESAZrQrqwtQpo
- lIGur3joD2CxHYdWom3/PksBgvetlKaHMqzLI2Q0QqcXXbWoslyyPpQdDqu9G5tHPIdPA8qL2rP
- 6VedWi0KubeVBGZ81KF7hIzQSGGpakSDsN1EKRhNJ5fJpyZO
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1033; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=dlVUl7bzR8j4uxgKwkmLFvf4+0M2KU8ullpBi92dtio=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqqa/Q000cUx/ZW8mpeb8DDfkPFYfpnTN4W9XSh
+ LhU6EWLAtqJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCaqmv0AAKCRA/8w6Kdoj6
+ qqJeB/oCNt+zDr+CHDkq0/Srg7hMhDTiOysPGHI+za99lJDZgxABoGypT7fK8AxOghIgr6pqnTr
+ Xa0OH1TzG5NWGyhNo2/h4SS0ExyFkj/y8nzmx5lLGRvEfrQVDZGJp2SeRBFa2if/ie7H/3MupzD
+ g2Cbb8ryaLzl3gsNJcC6cACX+bIpSXjXlHrNxhj+n1GEREMQij5jBbLBeprKPXQIIYNFsoyicMa
+ ao/wfPVPBR3aX5oGL1ZbnD3pIZacL7PBzO4f/u5Hs1gairAfoz5/W+VC91PQybMuSjwMs/clFI4
+ JltT9I2ZkdYQCyfOUgl9Jf5Gk5P10y8zlQGGC6jMrE7wlCk6
 X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
  fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 
-vc4_reset() recovers a hung GPU by dropping the runtime PM usage count to
-zero so that the power domain goes down, and then taking it again. Such an
-unconventional approach only works if the driver knows exactly how many
-references it holds, which is why vc4 wrapped every pm_runtime_get_sync()
-call in a private refcount and mutex.
+The PM block exposes a reset line for the V3D block, which the vc4 driver
+uses to reset the GPU when recovering from a hang instead of forcing its
+power domain down. Wire it up in the shared V3D node, covering BCM2835,
+BCM2836 and BCM2837.
 
-Commit 670c672608a1 ("soc: bcm: bcm2835-pm: Add support for power domains
-under a new binding.") exposed a V3D reset line for exactly this reason,
-so that the block can be reset without power-cycling its domain, but the
-vc4 driver never picked it up. Use it now, which removes the need for the
-private refcount and leaves vc4_v3d_pm_get/put() as plain runtime PM
-wrappers.
-
-The reset line is optional, to accommodate older device trees. Device
-trees that do not describe one still get the driver-side recovery in
-vc4_irq_reset(), but the hardware is left untouched. Two in-tree platforms
-use the VC4 V3D block: BCM2835 gains the resets property in the next
-commit, and Cygnus is no worse off than it was, as its V3D node has no
-power domain and the power-cycle only ever gated its clock.
+BCM2711 already describes the same reset line for its V3D node.
 
 Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
+Reviewed-by: Stefan Wahren <wahrenst@gmx.net>
 Signed-off-by: Maíra Canal <mcanal@igalia.com>
 ---
- drivers/gpu/drm/vc4/vc4_drv.h | 13 ++++++++-----
- drivers/gpu/drm/vc4/vc4_gem.c | 40 ++++++++++++++++++++++++----------------
- drivers/gpu/drm/vc4/vc4_irq.c |  7 +++----
- drivers/gpu/drm/vc4/vc4_v3d.c | 36 ++++++++++++------------------------
- 4 files changed, 47 insertions(+), 49 deletions(-)
+ arch/arm/boot/dts/broadcom/bcm2835-common.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/vc4/vc4_drv.h b/drivers/gpu/drm/vc4/vc4_drv.h
-index 649032174dbd..695bc6a29d30 100644
---- a/drivers/gpu/drm/vc4/vc4_drv.h
-+++ b/drivers/gpu/drm/vc4/vc4_drv.h
-@@ -212,14 +212,9 @@ struct vc4_dev {
+diff --git a/arch/arm/boot/dts/broadcom/bcm2835-common.dtsi b/arch/arm/boot/dts/broadcom/bcm2835-common.dtsi
+index 1e76b290510d..39eea8ce1058 100644
+--- a/arch/arm/boot/dts/broadcom/bcm2835-common.dtsi
++++ b/arch/arm/boot/dts/broadcom/bcm2835-common.dtsi
+@@ -139,6 +139,7 @@ v3d: v3d@7ec00000 {
+ 			compatible = "brcm,bcm2835-v3d";
+ 			reg = <0x7ec00000 0x1000>;
+ 			interrupts = <1 10>;
++			resets = <&pm BCM2835_RESET_V3D>;
+ 		};
  
- 	struct work_struct overflow_mem_work;
- 
--	int power_refcount;
--
- 	/* Set to true when the load tracker is active. */
- 	bool load_tracker_enabled;
- 
--	/* Mutex controlling the power refcount. */
--	struct mutex power_lock;
--
- 	struct {
- 		struct timer_list timer;
- 		struct work_struct reset_work;
-@@ -294,6 +289,13 @@ struct vc4_v3d {
- 	struct platform_device *pdev;
- 	void __iomem *regs;
- 	struct clk *clk;
-+
-+	/* Reset line for the V3D block, used to recover from a GPU hang.
-+	 * NULL if the device tree does not describe one, in which case the
-+	 * GPU cannot be reset.
-+	 */
-+	struct reset_control *reset;
-+
- 	struct debugfs_regset32 regset;
- };
- 
-@@ -1056,6 +1058,7 @@ int vc4_v3d_bin_bo_get(struct vc4_dev *vc4, bool *used);
- void vc4_v3d_bin_bo_put(struct vc4_dev *vc4);
- int vc4_v3d_pm_get(struct vc4_dev *vc4);
- void vc4_v3d_pm_put(struct vc4_dev *vc4);
-+void vc4_v3d_init_hw(struct drm_device *dev);
- int vc4_v3d_debugfs_init(struct drm_minor *minor);
- 
- /* vc4_validate.c */
-diff --git a/drivers/gpu/drm/vc4/vc4_gem.c b/drivers/gpu/drm/vc4/vc4_gem.c
-index e231c906709c..3212b9167620 100644
---- a/drivers/gpu/drm/vc4/vc4_gem.c
-+++ b/drivers/gpu/drm/vc4/vc4_gem.c
-@@ -23,7 +23,7 @@
- 
- #include <linux/module.h>
- #include <linux/platform_device.h>
--#include <linux/pm_runtime.h>
-+#include <linux/reset.h>
- #include <linux/device.h>
- #include <linux/io.h>
- #include <linux/sched/signal.h>
-@@ -292,19 +292,22 @@ vc4_save_hang_state(struct drm_device *dev)
- static void
- vc4_reset(struct drm_device *dev)
- {
--	struct vc4_dev *vc4 = to_vc4_dev(dev);
-+	struct vc4_v3d *v3d = to_vc4_dev(dev)->v3d;
-+	int ret;
- 
--	DRM_INFO("Resetting GPU.\n");
-+	vc4_irq_disable(dev);
- 
--	mutex_lock(&vc4->power_lock);
--	if (vc4->power_refcount) {
--		/* Power the device off and back on the by dropping the
--		 * reference on runtime PM.
--		 */
--		pm_runtime_put_sync_suspend(&vc4->v3d->pdev->dev);
--		pm_runtime_get_sync(&vc4->v3d->pdev->dev);
-+	if (v3d->reset) {
-+		drm_info(dev, "Resetting GPU.\n");
-+
-+		ret = reset_control_reset(v3d->reset);
-+		if (ret)
-+			drm_err(dev, "Failed to reset the GPU: %d\n", ret);
-+
-+		vc4_v3d_init_hw(dev);
-+	} else {
-+		drm_info_once(dev, "No reset line; GPU state is not reset.\n");
- 	}
--	mutex_unlock(&vc4->power_lock);
- 
- 	vc4_irq_reset(dev);
- 
-@@ -320,10 +323,19 @@ vc4_reset_work(struct work_struct *work)
- {
- 	struct vc4_dev *vc4 =
- 		container_of(work, struct vc4_dev, hangcheck.reset_work);
-+	int ret;
-+
-+	/* Make sure the device is not suspended during the reset. */
-+	ret = vc4_v3d_pm_get(vc4);
-+	if (ret) {
-+		drm_err(&vc4->base, "Failed to resume V3D for GPU reset: %d\n", ret);
-+		return;
-+	}
- 
- 	vc4_save_hang_state(&vc4->base);
--
- 	vc4_reset(&vc4->base);
-+
-+	vc4_v3d_pm_put(vc4);
- }
- 
- static void
-@@ -1177,10 +1189,6 @@ int vc4_gem_init(struct drm_device *dev)
- 
- 	INIT_WORK(&vc4->job_done_work, vc4_job_done_work);
- 
--	ret = drmm_mutex_init(dev, &vc4->power_lock);
--	if (ret)
--		return ret;
--
- 	INIT_LIST_HEAD(&vc4->purgeable.list);
- 
- 	ret = drmm_mutex_init(dev, &vc4->purgeable.lock);
-diff --git a/drivers/gpu/drm/vc4/vc4_irq.c b/drivers/gpu/drm/vc4/vc4_irq.c
-index 7877d493d80e..3a3ea1e62dcb 100644
---- a/drivers/gpu/drm/vc4/vc4_irq.c
-+++ b/drivers/gpu/drm/vc4/vc4_irq.c
-@@ -336,10 +336,9 @@ void vc4_irq_reset(struct drm_device *dev)
- 	V3D_WRITE(V3D_INTCTL, V3D_DRIVER_IRQS);
- 
- 	/*
--	 * Turn all our interrupts on.  Binner out of memory is the
--	 * only one we expect to trigger at this point, since we've
--	 * just come from poweron and haven't supplied any overflow
--	 * memory yet.
-+	 * Turn all our interrupts on. Binner out of memory is the only
-+	 * one we expect to trigger at this point, since the reset cleared
-+	 * the overflow memory address and none has been supplied yet.
- 	 */
- 	V3D_WRITE(V3D_INTENA, V3D_DRIVER_IRQS);
- 
-diff --git a/drivers/gpu/drm/vc4/vc4_v3d.c b/drivers/gpu/drm/vc4/vc4_v3d.c
-index a86739873e05..b40d98c9d1d2 100644
---- a/drivers/gpu/drm/vc4/vc4_v3d.c
-+++ b/drivers/gpu/drm/vc4/vc4_v3d.c
-@@ -9,6 +9,7 @@
- #include <linux/component.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
-+#include <linux/reset.h>
- 
- #include <drm/drm_print.h>
- 
-@@ -122,29 +123,13 @@ static int vc4_v3d_debugfs_ident(struct seq_file *m, void *unused)
- 	return 0;
- }
- 
--/*
-- * Wraps pm_runtime_get_sync() in a refcount, so that we can reliably
-- * get the pm_runtime refcount to 0 in vc4_reset().
-- */
- int
- vc4_v3d_pm_get(struct vc4_dev *vc4)
- {
- 	if (WARN_ON_ONCE(vc4->gen > VC4_GEN_4))
- 		return -ENODEV;
- 
--	mutex_lock(&vc4->power_lock);
--	if (vc4->power_refcount++ == 0) {
--		int ret = pm_runtime_get_sync(&vc4->v3d->pdev->dev);
--
--		if (ret < 0) {
--			vc4->power_refcount--;
--			mutex_unlock(&vc4->power_lock);
--			return ret;
--		}
--	}
--	mutex_unlock(&vc4->power_lock);
--
--	return 0;
-+	return pm_runtime_resume_and_get(&vc4->v3d->pdev->dev);
- }
- 
- void
-@@ -153,15 +138,10 @@ vc4_v3d_pm_put(struct vc4_dev *vc4)
- 	if (WARN_ON_ONCE(vc4->gen > VC4_GEN_4))
- 		return;
- 
--	mutex_lock(&vc4->power_lock);
--	if (--vc4->power_refcount == 0) {
--		pm_runtime_mark_last_busy(&vc4->v3d->pdev->dev);
--		pm_runtime_put_autosuspend(&vc4->v3d->pdev->dev);
--	}
--	mutex_unlock(&vc4->power_lock);
-+	pm_runtime_put_autosuspend(&vc4->v3d->pdev->dev);
- }
- 
--static void vc4_v3d_init_hw(struct drm_device *dev)
-+void vc4_v3d_init_hw(struct drm_device *dev)
- {
- 	struct vc4_dev *vc4 = to_vc4_dev(dev);
- 
-@@ -447,6 +427,14 @@ static int vc4_v3d_bind(struct device *dev, struct device *master, void *data)
- 	if (IS_ERR(v3d->clk))
- 		return dev_err_probe(dev, PTR_ERR(v3d->clk), "Failed to get V3D clock\n");
- 
-+	v3d->reset = devm_reset_control_get_optional_exclusive(dev, NULL);
-+	if (IS_ERR(v3d->reset))
-+		return dev_err_probe(dev, PTR_ERR(v3d->reset),
-+				     "Failed to get reset control\n");
-+
-+	if (!v3d->reset)
-+		drm_warn(drm, "No V3D reset line in the device tree");
-+
- 	ret = platform_get_irq(pdev, 0);
- 	if (ret < 0)
- 		return ret;
+ 	};
 
 -- 
 2.55.0
