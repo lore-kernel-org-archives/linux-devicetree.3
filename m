@@ -1,144 +1,112 @@
-Received: from mail-ed2-f29.google.com (mail-ed2-f29.google.com [74.125.228.93])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 348C73446CB
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 14:40:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.93
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789483202; cv=pass; b=CPwMdTwaqPzBFYZbCpnMKyB1GEhCJ0xXrzzQk8M4IpA0nOCcb2xtFwEdqlLgUgvM5qY+Z2N9V05mthHjgEc3e6ymHlycspelHL3n7+z3jO+M8w5GAXwYrnN5/cFw++tCMQrHWLYsrc1Lq1AiaAAYtORnCYSmQK8xG9C3fxM086k=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789483202; c=relaxed/simple;
-	bh=bxAXDKKvJla3W1iIKPwj/ImYJtcT6TODMkzHew3uDnc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=HMW5qRCqwH6HcP8SLeSegj6KBpcU8pxijrLQdLhtaKUyd0TcyNvLcHI7dDYPbRNKCKVbqmtdkQf29GdUA2+uIzqkXysmrbn/6dU+0D313bscdEiNSIH0j8rabKafdJcCF802e78Q/P6qkUSdqj2tOTKe0i9HAYBIBKeXnbMnyWs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=HsfwtDDv; arc=pass smtp.client-ip=74.125.228.93
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D913239792A
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 14:45:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789483512; cv=none; b=CsluYvVS8P3qOjKUfWq0ydt8YqMIKTN6nVfGpn+FakgHB7TjVo25tCrvV9OajeHI28CXsX4K3win4Q0y/8/D6yHOinHBn87RspnfuadHaxf343EjKhnEycqethXvzh7zGfH9kbaPr1GdtKLDeicIiITXHiNqxJYW30KxLLFNuNY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789483512; c=relaxed/simple;
+	bh=a2VG0yhNmKZmPGUs9SLVk8lTGA3ncVXeZ8s0CEZQO/A=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=gWyohUIoUPOgf4FAMgXQQBVFycZyUFWXxoWOX7JpRqp7oGINnuUL73gwR0zN6m1W8FLeK8diHUMdaL0SnTAS1vqpN9tW4n3vsBllhs+7mag3Xfcdiomb0Zgh8YUaGIG9y54oedoYBT+b3X9FCi4b0cDDx3JLk5BIZmnUQbNIsSM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fS8080Xz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="HsfwtDDv"
-Received: by mail-ed2-f29.google.com with SMTP id 4fb4d7f45d1cf-6aa0ee64afdso722297a12.0
-        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 07:40:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789483198; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HBn63u3WgbnmYAHDpHJMijYzIKU9UC0O2kUD8lNBrABxEHN2aHtTcjvYHTWTl4Gshj
-         VSTmii8wFhZ2OVkhtvdO5rQJoEvktMbZT6MIALUCyvbIkGxZrexwS0UHgFu5bcATnl0h
-         N0oPjtWWCQDbP1ELBZN/ul8jKTICIrez6ysIVciF7ZoQR9pLePML+ik7E2bphxV3qkut
-         JCEQEfgss+cIA2dhmrmTjHjmuvuNkK79tX0mQrr4cKROXvVCwZbtdaxjyRdEx3GTenEP
-         FJmnHAH7rwIDX4JjydwOsTGcbvu3f2sh4cw5jrWuHcwjIqSNzUFFXLnA2BI5jMAja37r
-         PbWg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=3Xwa5YtOq2I0pAIeBe3GC0dtIeA/uMMyehMpms7xKhI=;
-        fh=lR7czlHmPCHcB8ZRIKt1GFsNVOIyBE6NGa1I/WhZxe0=;
-        b=nCMpU2sTAyqQpQebqytaT/3UlOagCVvRifujSy4NMzAcmsioBKp4sIElLmMzwKjrlf
-         dRYjfKGUwoYRb4BtmfsdRifHn/eg+Lnc+uQI//GMb3GNgjChneiX5w/3oKGkCZmwfuxd
-         IflnCOvU0zjFLG3RpXtArLu3PDPziunu2OGqi2uTAY30EuUSmu5UqUPZYABxRb/6jhTR
-         p/P4H4Wb376nRRXEWQ6GxQfeaet6Z+RyKe7uqvHp+0sCBq59JV+2cSVab7LuxxiqBHZW
-         myQWJP8Jftdz4T+Cp1SIXtBOFvGAGbKzBZ4c3cFbW0cC84h/6YFu3sfTGTjWvBZQA3GG
-         ttwQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789483198; x=1790087998; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3Xwa5YtOq2I0pAIeBe3GC0dtIeA/uMMyehMpms7xKhI=;
-        b=HsfwtDDvtnLaXd4IM5o8j+x+NH3OWLAiok1HXT7Wx6pKsPHwC3EFLXeGfKsjuA2Yo9
-         09hcNWo0ov8EZRG/dc9I7GaCfMVXcABmOV2oqy+lnlrG4rg/pRFeKazbQRCUoozhF6mM
-         fS0pQZOLLqgtI1X2M0On+TKyJqnPHu9BTxM6GVWvwt3Kg4IXnKaZCfN1XqV/MOB5qatw
-         /RxAPExpFX+5NJY7QVEAkux1MRBvb0SvnK/4eefbDL2W+il+C+vDJu8AW+/+MamrDf4W
-         Ug5meXddV3I8wewZDdSVOB367kQSZTvQirq+NGhZGdHkEUr8VwK4bO38o+xW4m0iGtrR
-         kIww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789483198; x=1790087998;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=3Xwa5YtOq2I0pAIeBe3GC0dtIeA/uMMyehMpms7xKhI=;
-        b=DXmpfkFCIIpjt2In75GPfeE4yAT3t5B9cfIVed66GirSco2qq5CXZuzIdT8GtkCF0F
-         yT4uQEnjaMvizQzLBH8UC6CLNqqKpcVw6g920TvRQ2NAWLfaDdZKMxZVnd3CwHCouovV
-         jmLtyjl2c6IM28kMpAHHSDvxnSv9s4XpZVdm9WRmoufa/eRmetVB7kgITxbMwbfTcpji
-         Fur41V1odMz308HnqbVufEK0HR0JceYTHMTp/65IwziT8Gxm1UcldIlCBdtv4rb0d/b5
-         yExjINnNLrBi8wnStGYSpMad4d8loAVxKbYG4MktjvWyAy2pnr+ifL8SsIO/iEgklKtr
-         +TLA==
-X-Forwarded-Encrypted: i=1; AKwUvBxNqPwgaGkKuiWxPNceXx1K8EJli/kjOF8RofSHeiI+HCGz6IZLmG54JQdE7foKLi/WkE8Pob5cjVRw@vger.kernel.org
-X-Gm-Message-State: AFuF++lck4FyUM3i5lh97AIOVfzZRt422GtRN906xtdSJ2nywNiXxvXC
-	DxAa+cl4LnFnTBc3Rxr3lRA2YahX24zTvvStGtNegyPac7L4KFNQJ0LZumHPgn/fwDt77bnvfdI
-	QBZ8JRgz42znFrh9YtN88d9i2qSU3902wvEBPH1lQYA==
-X-Gm-Gg: AYBFou00WBXH1xHcD2FYMUjq/LV8+slh33ZccX8jGvA6uIgF24Bp0BuLK0mlSbne+I6
-	wATPYc1zh5mESHIhIDquk6Otw2gF/zz/Z/7B60a0h056VON8Xu/eGAfH1y3Y/FqK+YRF5TT5BP/
-	J/K+FPrU7Qv4Lf/TqKpwTxtwGIIgDihUFtkl7zVbu7BPj2JTQWLXWkL4EP7EcuYm+hetaeYqabM
-	ufGwBVqhD4y12DU1yxs3LB1lvDjdsi3PVhOJn1fpozTmtFe85v08nNV74e8+BXqeIP7dn3pCLNB
-	MmGBCh8NaAmaSYZ3xWWLwYnxHnbAYOhYbwq4nX0E6ftO984ZFd07IUKVX+RECuszjrr6CakSAyO
-	oKknn3+fNHMEwDQ==
-X-Received: by 2002:a05:6402:20ce:20b0:6aa:1112:62ce with SMTP id
- 4fb4d7f45d1cf-6aa11126963mr2247651a12.17.1789483198039; Tue, 15 Sep 2026
- 07:39:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fS8080Xz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 223A61F000FF;
+	Tue, 15 Sep 2026 14:45:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789483510;
+	bh=NoJQX12deuvftohtf8KBqdUUBQHErDGBMVP5s5VyVRM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=fS8080XziS1Mp+E1ZRtUNaBix/DM5ZP9hJ33KkmtEZzT5ktwWMgck3dn/8f3ZbAAy
+	 iSHXuG3f/VzSwqJSgWYWm9DWN/fkGuJCDLv9cTRR1b544bpNctBOlG5H8rx5vkKm84
+	 orTYTrqfX74Vv2hUyfKrORWOaSWKQ6R36jrg6/0elnKB8iKhcZAQYX+C8Oeaa5Qox9
+	 K9stYKi1YowDzJTMQoek36OyusNC6OSzdGMk5uBy/y1bLd8oPl2/Fh/FNPOtsRjRaL
+	 l6g4jJ0E4XRbiTTLw1Cif2VS2NSxI2M3TltWuWmhQ88qrWLswKmNTzM7qsHdgWiKzZ
+	 IEPiW8tOva0EA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: add Xiaomi Mi 8 (dipper)
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "David Heidelberg" <david@ixit.cz>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260915-dipper-v2-2-cbade54919ee@ixit.cz>
+References: <20260915-dipper-v2-0-cbade54919ee@ixit.cz>
+ <20260915-dipper-v2-2-cbade54919ee@ixit.cz>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 15 Sep 2026 14:45:09 +0000
+Message-Id: <20260915144510.223A61F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260914-exynos850_sram-v4-0-253871de0f61@linaro.org> <20260914-exynos850_sram-v4-1-253871de0f61@linaro.org>
-In-Reply-To: <20260914-exynos850_sram-v4-1-253871de0f61@linaro.org>
-From: Peter Griffin <peter.griffin@linaro.org>
-Date: Tue, 15 Sep 2026 15:39:46 +0100
-X-Gm-Features: AcwNN1UWbY0jLS0AasFyFQBRa0-ZrbV9B9Ct3OZ1vkaXc7hzdPFBJ52yoD3W0ms
-Message-ID: <CADrjBPoEmxv=f9DmRx2Zn9cB40+V9DpruayEHFkAznbNeu7D_Q@mail.gmail.com>
-Subject: Re: [PATCH v4 1/2] dt-bindings: sram: Document samsung,exynos850-acpm-sram
-To: Alexey Klimov <alexey.klimov@linaro.org>
-Cc: Sam Protsenko <semen.protsenko@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Tudor Ambarus <tudor.ambarus@linaro.org>, 
-	linux-samsung-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 14 Sept 2026 at 17:58, Alexey Klimov <alexey.klimov@linaro.org> wrote:
->
-> Document "samsung,exynos850-acpm-sram" which represents an SRAM region used
-> for ACPM communication on Samsung-based SoCs.
->
-> The SRAM is consumed as a whole, is not split up using child nodes and
-> properties related to this are not required, that is why "mmio-sram"
-> compatible can't be used for ACPM purposes because it requires child nodes
-> to be declared, which are not needed and make no sense in case of ACPM.
->
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Reviewed-by: Sam Protsenko <semen.protsenko@linaro.org>
-> Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
-> ---
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] arm64: dts: qcom: missing TrustZone reserved memory redefinition
+--
 
-Reviewed-by: Peter Griffin <peter.griffin@linaro.org>
+commit 02ae202c9e4a6dda959a1b0bd255a44620dacac8
+Author: David Heidelberg <david@ixit.cz>
 
->  Documentation/devicetree/bindings/sram/sram.yaml | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/Documentation/devicetree/bindings/sram/sram.yaml b/Documentation/devicetree/bindings/sram/sram.yaml
-> index b83fc6831947..b9c4d4f3199b 100644
-> --- a/Documentation/devicetree/bindings/sram/sram.yaml
-> +++ b/Documentation/devicetree/bindings/sram/sram.yaml
-> @@ -43,6 +43,7 @@ properties:
->          - qcom,rpm-msg-ram
->          - qcom,shikra-imem
->          - rockchip,rk3288-pmu-sram
-> +        - samsung,exynos850-acpm-sram
->
->    reg:
->      maxItems: 1
-> @@ -159,6 +160,7 @@ if:
->            enum:
->              - qcom,rpm-msg-ram
->              - rockchip,rk3288-pmu-sram
-> +            - samsung,exynos850-acpm-sram
->  then:
->    required:
->      - "#address-cells"
->
-> --
-> 2.51.0
->
+arm64: dts: qcom: add Xiaomi Mi 8 (dipper)
+
+Initial submission for one member of the prime Xiaomi Mi 8 family.
+Mi 8 Pro (equuleus) and Mi 8 Explorer (ursa) are nearly identical.
+Known differences are battery capacity and fingerprint sensor placement.
+
+> diff --git a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-dipper-common.dtsi b/=
+arch/arm64/boot/dts/qcom/sdm845-xiaomi-dipper-common.dtsi
+> new file mode 100644
+> index 0000000000000..eb4243e7f2c07
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-dipper-common.dtsi
+> @@ -0,0 +1,607 @@
+[ ... ]
+> +/delete-node/ &slpi_mem;
+> +/delete-node/ &spss_mem;
+> +/delete-node/ &tz_mem;
+> +/delete-node/ &venus_mem;
+> +/delete-node/ &wlan_msa_mem;
+[ ... ]
+> +	reserved-memory {
+> +		/*
+> +		 * It seems like reserving the old rmtfs_mem region is
+> +		 * also needed to prevent random crashes
+> +		 */
+> +		old-rmtfs@88f00000 {
+> +			reg =3D <0 0x88f00000 0 0x200000>;
+> +			no-map;
+> +		};
+> +
+
+[Severity: High]
+Does this code accidentally leave TrustZone memory unreserved?
+
+By explicitly deleting the default tz_mem node with /delete-node/ &tz_mem; =
+at
+the top of the file but failing to redefine it here in the reserved-memory
+block with device-specific sizes, Linux will map the TrustZone memory space
+as general-purpose System RAM.
+
+When the buddy allocator hands out pages from this unreserved TrustZone
+memory range, the system will experience random hard crashes (Synchronous
+Aborts or Secure Watchdog Bites/XPU violations) when the kernel allocates
+and accesses it.
+
+The workaround of reserving old-rmtfs at 0x88f00000 to mask random crashes
+appears to be a direct symptom of this missing reservation, since that memo=
+ry
+region falls within the unreserved TrustZone space.
+
+> +		adsp_mem: adsp@8c500000 {
+> +			reg =3D <0 0x8c500000 0 0x1e00000>;
+> +			no-map;
+> +		};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-dipper-v2-=
+0-cbade54919ee@ixit.cz?part=3D2
