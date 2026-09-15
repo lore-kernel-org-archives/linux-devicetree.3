@@ -1,466 +1,184 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazolkn19013042.outbound.protection.outlook.com [52.103.14.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE4F14398F2;
-	Tue, 15 Sep 2026 17:28:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.14.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789493288; cv=fail; b=BW9OukwaEPGiGnfPtXPmGi2ujfd6XCnrLwbcuUfChLoES9GqcZTGgpWV6sni7NHcq3QttVxHBqJCSNKClwtbz+h1s/LFLoZl0Msm2RyJYms58RDV6ACRlpg3Up81nSIoNs+HQ2/KiTEmcJK5cbjVjll5eEzulnIJshrqcCel0x8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789493288; c=relaxed/simple;
-	bh=F3uKTxw9Gez1ipEONS2+VscOFVGx1/YXwcuBXyQKVmg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=QWKZXPjcsjn38PvTR5eaOx+FdWlgXCSRKjkxNmlOtgy7XiBxGfC/U6UuPidzn1RZXFIR/S4NxTe0Kl0eImhoVuD2jqL41dWPm3NuoQE+IVPPDfBptLHXeCwQrcHH0FLf3dYHbjj6flt7OtB0gs4f2uQzW8j1Pf0+9U+oaHXM460=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com; spf=pass smtp.mailfrom=hotmail.com; dkim=fail (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b=DDB9ihVI reason="signature verification failed"; arc=fail smtp.client-ip=52.103.14.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47D434BB5BD
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 17:31:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789493480; cv=none; b=eMjPp036g//DlrJQRAOkfwjF+fpTL5seWSlibLt75fqlzhcF5mjQP9YIZRsdolpvZZ2mXpTzURjaiWl7QMgx8dswKdSLBO8vuY7sS7thEQkmDo5xBPlwY+GrCIzfmy3Rdpiyz6LhGZ9fU/34JCwGeMzvMS/HVc2g8Yu/c3S9lb8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789493480; c=relaxed/simple;
+	bh=o9xq46vXu5Tdoa925A4y5EdPo5VNKEplp1aJ/lym32Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kp7GZYt/HE8cu7UBRrNip/OyX0wAjsr3liWwBTSAmWbyj0DeMShT84AENK7nXOQm228CVOMY7E84wIEoXrXmvEowzIuFyUSp2/yflXG1kISvDjvOTj0iQj///8DpUMn9nQ/HyddQtkED51MwbUkXD7uU0v/YaKS0xOsveMzntvk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CJqWvuh/; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b="DDB9ihVI"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xAZ1GvFnzUgF5qdK8uSOFw+srzLyJ7+2r1pCRdILEetITTRsSA7clQHDu436HZBsYdyDpHb5aryZ9wc8xWHrZQk61TH8rXskiTE1kGvD9qCHbCKcXWUEbfg+VenaZ0hIS/fXWRT7WqiONbsBEtPLiojJ8L1FV9346Zvn1UeebDJTeODD8jp2GVu2yU0Z0Q6yHmV5Vh8CJGeucKcZXKQgVLe4QAZls/5yn66nrdlP1p6JIgokq/0rd+boj2yt6yIWIGCpzfQ1FvoEcCPqrMuXCYYUfeWZjT4suFKzVTAOPdb8uNkb5chzU2XkHxEdFarXqIIFnMvaioWU+qGj6mwiJg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=K4mS64McIea7BSRofMSmZtItBDhZP9uh6E7XzTIYQmg=;
- b=Md4ctbMH2KtrIfQAl7eS/IyTB/+4/O5NjQ+GeUXDLVwm9niQcaBdBo7UaFpnhfTbwjBbFGrBBqGYwV1wqyr3el1kK5tERmO3saRbtPnlzodTvCJALj+PIyWeIwzAL+ZtyykFMZCrD5ZdloVBNszQjZpEh2MLfeoTBYMuBef8PYneibLD9nuT7SOZ/wNpXzsUD5ySWtSDqhEnkEA9mz4sEhZIHTWsU2gESfdLCQiMeOHaA9GW3+G9okJ9SopP1MAM7Ak8254FzLfAHmvb77KPRI90PsOQ90OwjMQaoBGIcQVS835NlifJn7XOS4Fwr+ZkOOOF8TUIbBqx2td4T85yHA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=K4mS64McIea7BSRofMSmZtItBDhZP9uh6E7XzTIYQmg=;
- b=DDB9ihVI+OE5rPrRxwJfYItdMOIr2VBlJ9wduIwoYPBgtMBkNsl+cf7ZOzs6d1xECYsVt/j5WrfELXw3z+Zh1MmRGJNPcxLoAw0++ZaxhgnbAUA69Ft33QmHGcyEEQO5R9ingMxnHs2gMnqt7p2wQLCqbAyKy58G2TkqL80kRo9FlHHcOzZoh8+CneGLIMItKLg2tkKKFTJuJU0Br74BaSGfdRTH+g+K+Z/iCw/nVl+9s4Fe/DTkIHDAZR/R4Y8V9SdcobrVf34eSlUjFzVlyT2zlo88DaycZKCwcbnYWk4TeBUgNd681IIaovJUT/nU82IPRoEYFEUlqeCofw8wdg==
-Received: from PH0PR19MB997338.namprd19.prod.outlook.com
- (2603:10b6:510:3b1::18) by SN7PR19MB8142.namprd19.prod.outlook.com
- (2603:10b6:806:260::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Tue, 15 Sep
- 2026 17:28:01 +0000
-Received: from PH0PR19MB997338.namprd19.prod.outlook.com
- ([fe80::fd22:ee23:3e25:3172]) by PH0PR19MB997338.namprd19.prod.outlook.com
- ([fe80::fd22:ee23:3e25:3172%4]) with mapi id 15.21.0428.008; Tue, 15 Sep 2026
- 17:28:01 +0000
-Date: Tue, 15 Sep 2026 12:27:57 -0500
-From: Chris Morgan <macromorgan@hotmail.com>
-To: Kanak Shilledar <kanak.shilledar@axis.com>
-Cc: Henrik Grimler <henrik.grimler@axis.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
-	Joshua Crofts <joshua.crofts1@gmail.com>,
-	Marcelo Schmitt <marcelo.schmitt1@gmail.com>, kernel@axis.com,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 7/8] iio: imu: inv_icm42607: Add accelerometer
- calibbias support
-Message-ID:
- <PH0PR19MB9973387A54F1734E51312C4C92A5BA2@PH0PR19MB997338.namprd19.prod.outlook.com>
-References: <20260901-b4-inv_icm42370p-v3-0-77cc31642115@axis.com>
- <20260901-b4-inv_icm42370p-v3-7-77cc31642115@axis.com>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260901-b4-inv_icm42370p-v3-7-77cc31642115@axis.com>
-X-ClientProxiedBy: SN7PR04CA0076.namprd04.prod.outlook.com
- (2603:10b6:806:121::21) To PH0PR19MB997338.namprd19.prod.outlook.com
- (2603:10b6:510:3b1::18)
-X-Microsoft-Original-Message-ID: <aqmAHZaeZGCwjY3t@wintermute.localhost.fail>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CJqWvuh/"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccafb751so3579982a91.2
+        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 10:31:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789493477; x=1790098277; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ybh+8iD5mGNcd8ks8NS+pX/Np+RtyJxn1trRvhxScPk=;
+        b=CJqWvuh/GZHITGkwwN1wlA/gXya0cBi6C0thJSOcBJcPo6268fvWrxtTe1yvEEahjC
+         afJJgvv3SMj7mZx0vWibFbS3vGoRFuZgumC6s34WxzDqUJnsvGpr8wmmu3fRbk/L9wVf
+         5TvYuHNUGxeJK8HxOGUmNE6smHZ63hQl9f+EsDiHq00R7IUIpMgRh+Ul2BofEJDrswrZ
+         q6j82SwlJjhK7omnW9RFbF8MX6GngyVBNNP9HF62wRyUH6v4Xy6Dflr2kBEKLA3cCIvk
+         kVKp7E0JxVcI+P2EzxQuwdl75isUmSkxR5VbFsu68mIzB9/uGaK1dyDy/xupBfL1NQon
+         wBrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789493477; x=1790098277;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Ybh+8iD5mGNcd8ks8NS+pX/Np+RtyJxn1trRvhxScPk=;
+        b=Z7gmuuIwTJqR68B9CJTawDB7FJR2IbkLTaXBmJ3sshePzn19W5SCxW/i5IzUolRAdj
+         TP+QFysLbzAjvlLjpSzG0joZ+LTRHe6wDcJW8bwn7ylkdSL8wrNco6tMC06n06x67lm/
+         7mRhkU70SiTREpv0IUcWOpJJrDyZ5dTpzUjYaWWqN/z6RI10YnB2j92h0YLFeqGUvf4o
+         7Er4Os08JfNENXvfOyp8IuJvGek+Jf6CR1DkzFpqtVAbBtHIVS3C9mrS5J1GrOFSrcMP
+         mSRpXgr0RvmRIogWfHGaVRVnrprAQAfsArr8b06gjyL6x5tziaDC0bJOSFQFUi3ZB8EW
+         E4KQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwE799mQeSPl272m4FVMd6Pf4R6XuWe50ziyRx6mpgDgcyYNfQfmk4neyYiIoGcGW0DrEzYVeDV0Odc@vger.kernel.org
+X-Gm-Message-State: AFuF++nSXcXegZ2Riy4jyXoW1o4q6qPab55IrkawbGAu4IYxn2i/Czr+
+	JUoVBVNQbhVYgjDJmnUooTBiWIIJf27AxdlM8lhK4RtlB9VC8rXO46UI
+X-Gm-Gg: AYBFou1fb61EE3VDp6ylbQdVYHz3T+5Kr4hVOOqzqIzDKoUzEZ8nZnNbXPCZ6LpOx8W
+	ScYYZDsXtAzv4JIur2nC4z2cgNyJlGhkgLpl07GIM67VJdunskkqIglo8qu/LXgloTmKhnJoRe1
+	Eqg/u94bAtdWHVHu+6Bd2ns/5LljCTr+t8yYCEkNDcZXFiPzpzKEcH0O6zO9hf1hAKdlom3TXJs
+	UFKjy9dROaWr7KxOS0wNJ3IQSGm/1nwVDt+r+H46Avq/JLMVEAwxQO1iHULCkH7LMg+YZUez2sp
+	tQxxzLC87/pLKZssLq0uDuhQ4hbw9AC69Tn0xZSSEXPyS3hYzckFvALsy7EkYLMNDw5Wh1+0vOa
+	nYeWaduWd9qPyGh2hnLT4OA3GULBG5RKjIkTwhhV4eeRzeixCf+qqgZbGyntLoyuxrEGS3a4/yh
+	tsemVxlIUo0cTGMJmg1udxCNmWLC2ECzQePVx2kdr9ACLd71Bm4LGSIhbc53RdHsVSVJ0pbVYRg
+	FrpxlPmFIZiN5EIgVZ7GlPtD5hYlnWCeKA01KWelXYTNz5A
+X-Received: by 2002:a17:90b:50c8:b0:39d:f773:37b5 with SMTP id 98e67ed59e1d1-39df7733906mr14510340a91.0.1789493472947;
+        Tue, 15 Sep 2026 10:31:12 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfbb55b01sm2153011a91.4.2026.09.15.10.31.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 15 Sep 2026 10:31:12 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <64518f1b-9c17-4fa7-8582-dc399728111a@roeck-us.net>
+Date: Tue, 15 Sep 2026 10:31:10 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR19MB997338:EE_|SN7PR19MB8142:EE_
-X-MS-Office365-Filtering-Correlation-Id: 29f69881-fbd4-4d37-15cc-08df134eb11d
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|15080799012|19110799012|23021999003|8060799015|5072599009|6090799003|4140399003|25010399006|51005399006|37011999003|24021099003|41001999006|25031999004|3412199025|4302099013|440099028|1602099012|10035399007|40105399003|2607281247196008;
-X-Microsoft-Antispam-Message-Info:
-	=?iso-8859-1?Q?Eq4el5zbzc8Hkj6FcLd1d2IZy1DwQwz1jQRFPgb7D2Y85/jgHQZLnJ3BQr?=
- =?iso-8859-1?Q?UPF54n6Prn4pYaw+Xvc0CfLXM5c01/xoR4doJBVOn6HRUSiBdhBD+W9QAF?=
- =?iso-8859-1?Q?qqjVgH089cvDW3CtV17J+p2SEDGT3vbo1DMv7WN4Lm22Kl/C0aVV3YbrdO?=
- =?iso-8859-1?Q?sWnqklZtxl85OfhTSGXY8enWHQqDcbdAD5oc2BZ1fq5PqP3VAkh0oSp/7r?=
- =?iso-8859-1?Q?+xaWDZe1RVeoadjoUouIEIaWy2QcdKQAGsv0b8E3qdl+saKbjVHop3ta4G?=
- =?iso-8859-1?Q?WGdwHWQAtzHBkawrk3q4+ztxQvtmEocJCB7JGtPXakQVjV7xM5icp2qKE6?=
- =?iso-8859-1?Q?L6+BqB0GcdfqiKu17lXSwllSR5hWZSJNqkwbN2PPfrQgIxC7OC2uZR53kk?=
- =?iso-8859-1?Q?KRn74VH1bUS/vQJb089p35vsh6YhM+lxfpSPpcWSdYWzahmB1hihi2Yr3X?=
- =?iso-8859-1?Q?Q6c/MsOcmkgogzAxXVlpnIlAUJrm/z/kicPBv8gYL/LSi6ySmCmXQ1Jzuc?=
- =?iso-8859-1?Q?6jrW/o0le56j4iGUb6EZR2SLRDBBeX/WHu4DfFbJocX3gO6HBub+EpkI/8?=
- =?iso-8859-1?Q?O3Ql/VRdWSg7sYI4dWoQ3nOdr5FlVUl0URFxnaLhYkuHWqActS2pr25213?=
- =?iso-8859-1?Q?QQssI3E2BLnD9DfBvMi1xwE8koWdey9ZkZBXFg2UYpppCnJ5KX1RrVexZo?=
- =?iso-8859-1?Q?CWiNsdEd2VcEcCz/g7N9AG7MrAVZ8oxuQSv8wnKIjEz9T22pOo4U0IuOuK?=
- =?iso-8859-1?Q?PvcAd5mVMP3ry5xTwa6Ek7ItoJUq1IWw671wGdLrMi2Tlm5k5OxfeZuNeQ?=
- =?iso-8859-1?Q?ikOfb7f9pUK/ndGvhNpnNtdzalcoBeWkWWD7EIVK8Q6oFK9U58IiEWPBpn?=
- =?iso-8859-1?Q?KuFMyFKBNUOYsIVWaIOgdNYHo0AC0bumfASVIvH30w4WiJ8w2kFAYuwhwJ?=
- =?iso-8859-1?Q?CaY4mVWgDXl+MQ9S0B+buqUHqHcAks/y7D8RbmwyF4k1GwcGNXKOgRVEfv?=
- =?iso-8859-1?Q?B74bt5akOmek3T9BBz8ZKA3+iPvnZEqHmCXdWV9tn9BCleX008l9u8IeTQ?=
- =?iso-8859-1?Q?A2wzmvK0yQpmEzc//qIo09vkx5GdHZq4RNmwnth6lwW4R7Tf0Co46z0n6u?=
- =?iso-8859-1?Q?s5i0WrgDAmQaQkCbvAwFSinj8OC7Q=3D?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?iso-8859-1?Q?4TYqSXVxGRcVcOEV14tgT4KkBWSwDBJZfUovMZlpLlexf9WFg2m0Qx7zwy?=
- =?iso-8859-1?Q?2FHnTiHPToyPDmTphmCVbTLwAQBQ2BvC85WQSQ8wtafhtmt6KjrO0dBegB?=
- =?iso-8859-1?Q?hv/YAWSNZwk90F50LSrvbvED0MNfyhurLP6FLIbFWTIXL8tdR/7KM+cXns?=
- =?iso-8859-1?Q?b3ZyLQl49sdImIle4fpS9yR+Ov6eY1yuNwT8dkWzvJPoc1lKUoA9q6HYMJ?=
- =?iso-8859-1?Q?4/LUnBEtwJMIp2AgObPr25hbyotUd6Ptz2OD48L0ApapTVKgM63NVo8T3D?=
- =?iso-8859-1?Q?4mJ6LJgu6CQ4qbcfF4usF/HX8UOBGkHLeFDiiN9jmfL2ORvrcerPm83UcW?=
- =?iso-8859-1?Q?iA8+yN7J+EdXnxPTmdZw4iut/yH0QB0+0h4njlCwXK5x66NP1FBPhMwZzT?=
- =?iso-8859-1?Q?iQKXIJexUmV+00RAQKjIM10LmWeOmiHBn2RNhiaURDSGzrGd5gXdlVcoz9?=
- =?iso-8859-1?Q?aIZE6r/y389dHmXrSXU+v4AU3Bl5t6LZhqhhaYwNpVeJW/oquOPweFelmI?=
- =?iso-8859-1?Q?vvG0h7R8Jj3iQ99mwQ6lDZTmFMkOpY2Afn8CATUncBOHzG7GpdpSLh99CL?=
- =?iso-8859-1?Q?HNdmAoRebDzeGsiU554fBI+6Wm0/fAcAHOyFp9/GwwdZSiO80jEUFb6raO?=
- =?iso-8859-1?Q?MlXHJk1n1G5/1CB9G5V54vdpF5csoK6rwDRCGkaVpR46v9BshmzI3njZ+K?=
- =?iso-8859-1?Q?P3cF8r6XPPpMxKU0R+ejWfFK1Vm733291zORLqUnvXnrR2L6w2Y/TI7BxZ?=
- =?iso-8859-1?Q?fJ0nLir8ihnga7sfaAzybtPkyZK2CyRi4WmqVAOvbZEdVQs8mD0x0JzTr2?=
- =?iso-8859-1?Q?Wkk4SOz2BFCVh16ImeVdlU90RMFZMz0JEzSlXsJkOsWwU+PlAps1VyJcuj?=
- =?iso-8859-1?Q?ehzMLuMm+QYv6HLVnwU+/xprpuMywCdtTcmhy/3R5zkWrOnpSqXge7kz/0?=
- =?iso-8859-1?Q?r0wMz+hF70zITmSUSgDnsOsmamZPuzhgr2T1IoPyge1JztEUIEi/XBfpe/?=
- =?iso-8859-1?Q?SaVcrhyJ+v72jzMmKY2Q14N8IllbH4oBfw3NXJxrEN2jCEBEIt37gST/ZI?=
- =?iso-8859-1?Q?oWGLcByPPa4dUkL4qLNTkRt412/QtobXZZLm73CS/Sf4t2l3jVzMKN6nI+?=
- =?iso-8859-1?Q?EJeVPqXN5BpC6w2lzDJyxDgrvMx9qQDL2IVfBTjG1Pr6SjibCIqOebywF9?=
- =?iso-8859-1?Q?Y0kWs9iMqgTbSkTPRAyDFUUAbf7tsmYS41EULXPUSBgT1IASHYsRxXB6dh?=
- =?iso-8859-1?Q?Cfye0+rZ42tWL1Tp0dJ9HTA/BvZJOvNv182QvuWCVbf+j8UCroajWbbQ9s?=
- =?iso-8859-1?Q?CxmKOI60ERKYy192nFdCnSdiw68R3nzFDCXZZy8u5n9WAiKmgowx1E+9bJ?=
- =?iso-8859-1?Q?ZlecmlLighKNCvMquB+2w04iR/kimQ1i/qfdAGEYhKhuz6L5rh9uwMQm8s?=
- =?iso-8859-1?Q?8UxL+hVOzwI9jIu0?=
-X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-990eb.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: 29f69881-fbd4-4d37-15cc-08df134eb11d
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR19MB997338.namprd19.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 17:28:01.2701
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR19MB8142
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] hwmon: (pmbus/tps53679) Fix TPS53676 phase page
+ decoding
+To: "Pradhan, Sanman" <sanman.pradhan@hpe.com>,
+ Jonathan Corbet <corbet@lwn.net>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Sanman Pradhan <psanman@juniper.net>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>
+References: <20260915164823.160977-1-sanman.pradhan@hpe.com>
+ <20260915164823.160977-2-sanman.pradhan@hpe.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260915164823.160977-2-sanman.pradhan@hpe.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 01, 2026 at 04:36:00PM +0200, Kanak Shilledar wrote:
-> Expose IIO_CHAN_INFO_CALIBBIAS on the accelerometer channels. The
-> registers are stored in MREG1, which can be accessed by the mreg_read
-> and mreg_write routines. The calibration bias is written to OFFSET_USER4
-> to OFFSET_USER8 registers in MREG1.
+Hi,
+
+On 9/15/26 09:48, Pradhan, Sanman wrote:
+> From: Sanman Pradhan <psanman@juniper.net>
 > 
-> Note: The accelerometer functionality is tested with Invensense,
-> ICM42370-P development board.
+> tps53676_identify() reads the USER_DATA_03 phase configuration to count
+> the phases assigned to each channel and derive the number of PMBus pages.
+> In each 16-bit phase descriptor the channel (PAGE) is encoded in bit 4 and
+> the firing order in bits 3:0, but the code tested bit 3 (0x08), which is
+> part of the firing-order field.
 > 
-> Datasheet: https://www.invensense.tdk.com/en-us/products/3-axis/icm-42370-p
-> Datasheet: https://www.lcsc.com/product-detail/C5129967.html
-> Signed-off-by: Kanak Shilledar <kanak.shilledar@axis.com>
+> TPS53676 supports up to seven phases, so firing-order bit 3 is never set.
+> As a result the existing test classifies every enabled phase as channel A.
+> On a dual-channel configuration the phases assigned to channel B are
+> therefore miscounted as channel A and page 1 is not exposed.
+> 
+> Test the PAGE field (bit 4) instead.
+> 
+
+tps53676_identify() has a second problem: It does not set the current page
+to 0 for single-page systems. If the BIOS/ROMMON had selected page 1 for
+some reason, the page register is never updated because pmbus_set_page()
+does not set the page number if the number of pages is 1. Please fix that
+as well.
+
+Thanks,
+Guenter
+
+> Fixes: cb3d37b59012 ("hwmon: (pmbus/tps53679) Add support for TI TPS53676")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Sanman Pradhan <psanman@juniper.net>
 > ---
->  drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c | 238 +++++++++++++++++++++-
->  1 file changed, 236 insertions(+), 2 deletions(-)
+>   drivers/hwmon/pmbus/tps53679.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
-> index 318373efeb9e..af2ac9d6a47c 100644
-> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
-> @@ -13,6 +13,7 @@
->  #include <linux/pm_runtime.h>
->  #include <linux/regmap.h>
->  #include <linux/types.h>
-> +#include <linux/units.h>
->  
->  #include "inv_icm42607.h"
->  #include "inv_icm42607_temp.h"
-> @@ -22,9 +23,11 @@
->  	.type = IIO_ACCEL,							\
->  	.modified = 1,								\
->  	.channel2 = _modifier,							\
-> -	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),				\
-> +	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |				\
-> +		BIT(IIO_CHAN_INFO_CALIBBIAS),					\
->  	.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),			\
-> -	.info_mask_shared_by_type_available = BIT(IIO_CHAN_INFO_SCALE),		\
-> +	.info_mask_shared_by_type_available = BIT(IIO_CHAN_INFO_SCALE) |	\
-> +		BIT(IIO_CHAN_INFO_CALIBBIAS),					\
->  	.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_SAMP_FREQ),		\
->  	.info_mask_shared_by_all_available = BIT(IIO_CHAN_INFO_SAMP_FREQ),	\
->  	.scan_index = _index,							\
-> @@ -56,6 +59,16 @@ static const struct iio_chan_spec inv_icm42607_accel_channels[] = {
->  	INV_ICM42607_TEMP_CHAN(INV_ICM42607_ACCEL_SCAN_TEMP),
->  };
->  
-> +/*
-> + * Calibration bias values, IIO range format int + micro.
-> + * Value is limited to +/-1g coded on 12 bits signed. Step is 0.5mg.
-> + */
-> +static int inv_icm42607_accel_calibbias[] = {
-> +	-10, 42010, /* Min : -2^11 * 0.0005 * 9.80665	   = -10.042010 m/s²	*/
-> +	  0,  4903, /* Step: 0.5 * 0.00980655		   = 0.004903 m/s²	*/
-> +	 10, 37106, /* Max : (2^11 - 1) * 0.0005 * 9.80665 = 10.037106 m/s²	*/
-> +};
-> +
+> diff --git a/drivers/hwmon/pmbus/tps53679.c b/drivers/hwmon/pmbus/tps53679.c
+> index fa0fdf1e3e6c9..680339a6b90fe 100644
+> --- a/drivers/hwmon/pmbus/tps53679.c
+> +++ b/drivers/hwmon/pmbus/tps53679.c
+> @@ -188,7 +188,7 @@ static int tps53676_identify(struct i2c_client *client,
+>   		return -EIO;
+>   	for (i = 0; i < 2 * TPS53676_MAX_PHASES; i += 2) {
+>   		if (buf[i + 1] & 0x80) {
+> -			if (buf[i] & 0x08)
+> +			if (buf[i] & BIT(4))
+>   				phases_b++;
+>   			else
+>   				phases_a++;
 
-For whatever it's worth, when I read the calibbias values for my board
-from sysfs after applying this patch I get 0.000000 for
-in_accel_x_calibbias (or y or z) and in_accel_calibbias_available gives
-me an -EINVAL.
-
-But the accelerometer still seems to output data corresponding to the
-correct orientation.
-
-Thank you,
-Chris
-
->  static const int inv_icm42607_accel_scale_nano[][2] = {
->  	[INV_ICM42607_ACCEL_FS_16G] = { 0, 4788403 },
->  	[INV_ICM42607_ACCEL_FS_8G] = { 0, 2394202 },
-> @@ -176,6 +189,221 @@ static int inv_icm42607_accel_write_odr(struct iio_dev *indio_dev,
->  	return inv_icm42607_set_sensor_conf(st, &conf, IIO_ACCEL);
->  }
->  
-> +static int inv_icm42607_accel_read_offset(struct inv_icm42607_state *st,
-> +		struct iio_chan_spec const *chan, int *val, int *val2)
-> +{
-> +	struct device *dev = regmap_get_device(st->map);
-> +	u8 buffer_data[2];
-> +	unsigned int reg;
-> +	s16 offset;
-> +	s64 val64;
-> +	s32 bias;
-> +	int ret;
-> +
-> +	if (chan->type != IIO_ACCEL)
-> +		return -EINVAL;
-> +
-> +	switch (chan->channel2) {
-> +	case IIO_MOD_X:
-> +		reg = INV_ICM42607_REG_OFFSET_USER4;
-> +		break;
-> +	case IIO_MOD_Y:
-> +		reg = INV_ICM42607_REG_OFFSET_USER6;
-> +		break;
-> +	case IIO_MOD_Z:
-> +		reg = INV_ICM42607_REG_OFFSET_USER7;
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +
-> +	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev, pm);
-> +	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
-> +	if (ret)
-> +		return ret;
-> +
-> +	guard(mutex)(&st->lock);
-> +
-> +	ret = inv_icm42607_mreg_read(st, INV_ICM42607_MREG1, reg, &buffer_data[0]);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = inv_icm42607_mreg_read(st, INV_ICM42607_MREG1, reg + 1,
-> +				     &buffer_data[1]);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* 12 bits signed value */
-> +	switch (chan->channel2) {
-> +	case IIO_MOD_X:
-> +		offset = sign_extend32(((buffer_data[0] & 0xF0) << 4) | buffer_data[1], 11);
-> +		break;
-> +	case IIO_MOD_Y:
-> +		offset = sign_extend32(((buffer_data[1] & 0x0F) << 8) | buffer_data[0], 11);
-> +		break;
-> +	case IIO_MOD_Z:
-> +		offset = sign_extend32(((buffer_data[0] & 0xF0) << 4) | buffer_data[1], 11);
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +
-> +	/*
-> +	 * Convert raw offset to g then to m/s²
-> +	 * 12 bits signed raw step 0.5mg to g: 5 / 10000
-> +	 * g to m/s²: 9.806650
-> +	 * Result in micro (1000000)
-> +	 * (offset * 5 * 9.806650 * 1000000) / 10000
-> +	 */
-> +	val64 = (s64)offset * 5LL * 9806650LL;
-> +	/* For rounding, add + or - divisor (10000) divided by 2 */
-> +	if (val64 >= 0)
-> +		val64 += 10000LL / 2LL;
-> +	else
-> +		val64 -= 10000LL / 2LL;
-> +
-> +	bias = div_s64(val64, 10000L);
-> +	*val = bias / (long)MEGA;
-> +	*val2 = bias % (long)MEGA;
-> +
-> +	return IIO_VAL_INT_PLUS_MICRO;
-> +}
-> +
-> +static int inv_icm42607_accel_write_offset(struct iio_dev *indio_dev,
-> +					   struct iio_chan_spec const *chan,
-> +					   int val, int val2)
-> +{
-> +	struct inv_icm42607_state *st = iio_device_get_drvdata(indio_dev);
-> +	struct device *dev = regmap_get_device(st->map);
-> +	u8 hi, lo, regval;
-> +	s32 min, max;
-> +	s16 offset;
-> +	s64 val64;
-> +	int ret;
-> +
-> +	if (chan->type != IIO_ACCEL)
-> +		return -EINVAL;
-> +
-> +	/* inv_icm42607_accel_calibbias: min - step - max in micro */
-> +	min = inv_icm42607_accel_calibbias[0] * (long)MEGA -
-> +	      inv_icm42607_accel_calibbias[1];
-> +	max = inv_icm42607_accel_calibbias[4] * (long)MEGA +
-> +	      inv_icm42607_accel_calibbias[5];
-> +
-> +	val64 = (s64)val * (s64)MEGA;
-> +	if (val >= 0)
-> +		val64 += (s64)val2;
-> +	else
-> +		val64 -= (s64)val2;
-> +
-> +	if (val64 < min || val64 > max)
-> +		return -EINVAL;
-> +
-> +	/*
-> +	 * Convert m/s² to g then to raw value
-> +	 * m/s² to g: 1 / 9.806650
-> +	 * g to raw 12 bits signed, step 0.5mg: 10000 / 5
-> +	 * val in micro (1000000)
-> +	 * val * 10000 / (9.806650 * 1000000 * 5)
-> +	 */
-> +	val64 = val64 * 10000LL;
-> +
-> +	/* For rounding, add + or - divisor (9806650 * 5) divided by 2 */
-> +	if (val64 >= 0)
-> +		val64 += 9806650 * 5 / 2;
-> +	else
-> +		val64 -= 9806650 * 5 / 2;
-> +	offset = div_s64(val64, 9806650 * 5);
-> +
-> +	/* Clamp value limited to 12 bits signed */
-> +	if (offset < -2048)
-> +		offset = -2048;
-> +	else if (offset > 2047)
-> +		offset = 2047;
-> +
-> +	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev, pm);
-> +	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
-> +	if (ret)
-> +		return ret;
-> +
-> +	guard(mutex)(&st->lock);
-> +
-> +	switch (chan->channel2) {
-> +	case IIO_MOD_X:
-> +		/* OFFSET_USER4 register is shared */
-> +		ret = inv_icm42607_mreg_read(st, INV_ICM42607_MREG1,
-> +				INV_ICM42607_REG_OFFSET_USER4, &regval);
-> +		if (ret)
-> +			return ret;
-> +
-> +		hi = ((offset & 0xF00) >> 4) | (regval & 0x0F);
-> +		lo = offset & 0xFF;
-> +
-> +		ret = inv_icm42607_mreg_write(st, INV_ICM42607_MREG1,
-> +				INV_ICM42607_REG_OFFSET_USER4, hi);
-> +		if (ret)
-> +			return ret;
-> +
-> +		ret = inv_icm42607_mreg_write(st, INV_ICM42607_MREG1,
-> +					      INV_ICM42607_REG_OFFSET_USER5, lo);
-> +
-> +		if (ret)
-> +			return ret;
-> +		break;
-> +
-> +	case IIO_MOD_Y:
-> +		/* OFFSET_USER7 register is shared */
-> +		ret = inv_icm42607_mreg_read(st, INV_ICM42607_MREG1,
-> +					     INV_ICM42607_REG_OFFSET_USER7,
-> +					     &regval);
-> +		if (ret)
-> +			return ret;
-> +
-> +		lo = offset & 0xFF;
-> +		hi = ((offset & 0xF00) >> 8) | (regval & 0xF0);
-> +
-> +		ret = inv_icm42607_mreg_write(st, INV_ICM42607_MREG1,
-> +					      INV_ICM42607_REG_OFFSET_USER7,
-> +					      hi);
-> +		if (ret)
-> +			return ret;
-> +
-> +		ret = inv_icm42607_mreg_write(st, INV_ICM42607_MREG1,
-> +					      INV_ICM42607_REG_OFFSET_USER6,
-> +					      lo);
-> +		if (ret)
-> +			return ret;
-> +		break;
-> +
-> +	case IIO_MOD_Z:
-> +		/* OFFSET_USER7 register is shared */
-> +		ret = inv_icm42607_mreg_read(st, INV_ICM42607_MREG1,
-> +					     INV_ICM42607_REG_OFFSET_USER7,
-> +					     &regval);
-> +		if (ret)
-> +			return ret;
-> +
-> +		hi = ((offset & 0xF00) >> 4) | (regval & 0x0F);
-> +		lo = offset & 0xFF;
-> +
-> +		ret = inv_icm42607_mreg_write(st, INV_ICM42607_MREG1,
-> +					      INV_ICM42607_REG_OFFSET_USER7, hi);
-> +		if (ret)
-> +			return ret;
-> +
-> +		ret = inv_icm42607_mreg_write(st, INV_ICM42607_MREG1,
-> +					      INV_ICM42607_REG_OFFSET_USER8, lo);
-> +		if (ret)
-> +			return ret;
-> +		break;
-> +
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->  static int inv_icm42607_accel_read_raw(struct iio_dev *indio_dev,
->  				       struct iio_chan_spec const *chan,
->  				       int *val, int *val2, long mask)
-> @@ -207,6 +435,8 @@ static int inv_icm42607_accel_read_raw(struct iio_dev *indio_dev,
->  		return inv_icm42607_accel_read_scale(indio_dev, val, val2);
->  	case IIO_CHAN_INFO_SAMP_FREQ:
->  		return inv_icm42607_accel_read_odr(st, val, val2);
-> +	case IIO_CHAN_INFO_CALIBBIAS:
-> +		return inv_icm42607_accel_read_offset(st, chan, val, val2);
->  	default:
->  		return -EINVAL;
->  	}
-> @@ -250,6 +480,8 @@ static int inv_icm42607_accel_write_raw(struct iio_dev *indio_dev,
->  		return ret;
->  	case IIO_CHAN_INFO_SAMP_FREQ:
->  		return inv_icm42607_accel_write_odr(indio_dev, val, val2);
-> +	case IIO_CHAN_INFO_CALIBBIAS:
-> +		return inv_icm42607_accel_write_offset(indio_dev, chan, val, val2);
->  	default:
->  		return -EINVAL;
->  	}
-> @@ -266,6 +498,8 @@ static int inv_icm42607_accel_write_raw_get_fmt(struct iio_dev *indio_dev,
->  		return IIO_VAL_INT_PLUS_NANO;
->  	case IIO_CHAN_INFO_SAMP_FREQ:
->  		return IIO_VAL_INT_PLUS_MICRO;
-> +	case IIO_CHAN_INFO_CALIBBIAS:
-> +		return IIO_VAL_INT_PLUS_MICRO;
->  	default:
->  		return -EINVAL;
->  	}
-> 
-> -- 
-> 2.43.0
-> 
