@@ -1,133 +1,246 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B84746EF90
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 09:10:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23F3832B137
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 09:11:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789463418; cv=none; b=bdrAM7r4ntwdZcrOfe48rkVs8RrPjGUSZG+uFdwZgzX11PLlkv5s77/GPhzKvW+BzKe/Fh8dR4n23mNXYk6G2HNRjOGTy1D/7Vt1KY4tVrJqbCUOOL850TLboldCvUVlu+GdPzp1X463VcUIkPRrIjzsPyzvMENQh8suKZ2Vy+w=
+	t=1789463476; cv=none; b=BuLlKO4u+dd8zadmtg7YViBAEs2DELZcQdnrCRmgfgdo55hwseVmpBRYDvrd/HywE7zcWiGOArIlTZxK8CH7use+3JpCXe6IZq17FPcoyWu1tvFJqSdXRi168WhV/SkcDJIvgdNdnFWvlZ58bw/Oi83G9jXgrYE3a7+72m6rSNM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789463418; c=relaxed/simple;
-	bh=fvw63ZyHbMNCDUCp1Gx0H2Ltbl78m10g/6U6w2q+a+Q=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=qDDJP0O231VDHJ8/LfyYtC1nk6RuZ1iQ1QhVahoAaN0qfFZ4ExncJOOE8FeOMM0CQNdIi/q6IAZMZ7He4ZKDJnOlD2xHLekAejcUQLksOf7xH4UbCAibJOZiOJ6PVCLA8+l0jgdxmAxrYVZ8S+h6voGMG8zXjT6U0pv7gbq6Hys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=alxTWzoc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789463476; c=relaxed/simple;
+	bh=fQkaQGH966gFPO5U3wwOm+ett7I82/RABfQ7YT2NVGk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HzrwB84YMdRQ1t1EyBDS980vAiAW7UVzk2hxNxpjwU7aio0VkiGWVIxLOR4wf4+6Oilbc43dx1I0xb5/uuPu6aU2T5LpBYr8CIMueD7Cc4cMgOhksdHiHXX708pJcnJYDkwRU9D/f+ljH3iFO6kGuBxmsEVJ2QlMx3ZJWEhX+5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=CnVacH6R; arc=none smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="alxTWzoc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA68F1F000FF;
-	Tue, 15 Sep 2026 09:10:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789463416;
-	bh=xpj5WMQ7dBMU8kwDnpU9Tb8xxmWtV6nLn6xV5U/cpio=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=alxTWzochYmFbNsHf7ZTtZc1WFAwETZqymTr4kFj6UAhbjopHk8D41lSY48walkYW
-	 uhjlCsFdo5wG9SpUB1S7NgyILowxN53ac/bRRn+tkJEZrTPxswLmHK5gTeXwU4Lcr8
-	 Kc5EjWVX9S9QAStpbEb+ab6WGcn3VX1wACf0HXrqKLHKKcQie48uDPRlPsIDfT88VT
-	 QCc6T5olNB8154cHukj6MZChV2l31MlpWFTkPDjPjZGR2FLBZmjY+iB3Sj7UItEprb
-	 ZjaQTwQk+MFnhWaURpbI1c0TT5iDEvWZAjOONrzc8BQ1+sG/3pTRGrzyL9wL8vbi1F
-	 HDk4xaQKcQbgQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 11/13] drm/mediatek: mtk_dsi: Enable PM Runtime on
- probe
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-In-Reply-To: <20260915084148.11385-12-angelogioacchino.delregno@collabora.com>
-References: <20260915084148.11385-1-angelogioacchino.delregno@collabora.com>
- <20260915084148.11385-12-angelogioacchino.delregno@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 09:10:15 +0000
-Message-Id: <20260915091015.DA68F1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="CnVacH6R"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a99cd5115bso4943628a12.3
+        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 02:11:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1789463471; x=1790068271; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4S77UvxmKvQGEySDdGGt+bawAL6b3X54Q38xL2/BalY=;
+        b=CnVacH6R6tI+sMYnpardK/lSWHogum4Dv34ECxiVVx5po07L9D4EHGlJp/3zcgFvLG
+         crl4KhDkiCcvJtAfkuE2Vl6XhKZw2yqv6E2k325vbbHExBtr0RmYVB3zITdX7/7F4XZA
+         apBXWwiyVrkXD9HGkAu/OvXi73naLPF6RxI6Jt5MVzesVQ/izih7kmR3bPgpRKBk+skp
+         28+jfNSoH/kgZJMcV+Futv0Huo3NqzE7hLewDjqvG0kiPmrrP3pbsseSaUCcYAcZ9cRZ
+         G8yQLRRSaqg4Q1kX1qn9jT+jooKw4Obl8NX6guEqWv7SbVrdz6rvvF3yV24eKQ4Rpa50
+         WExw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789463471; x=1790068271;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4S77UvxmKvQGEySDdGGt+bawAL6b3X54Q38xL2/BalY=;
+        b=D6MddrFSOtZIB8qKao+hhdSa+vSy3861nbsdjb/i/Kw4MRbCftNoW8OvNn8JKUrPuE
+         ykk12NJLr2ewilEa0/mtPm7Lb8o3CDDZWq1wps2fBXrdTMPcPJtO1AW7uETsfG6xASf+
+         1AldbJKewPFEvP1Sksr93u7sdMpOE+exLyohsefdlj+OvJNxIwG9ZoQ4dYkObFzR2w86
+         BL87Y0VPNIJvHq3Rvi4U2JI3z0Y398KzuLI+au2yfBXgrsW01kSKu9cTTltZW7bYlpPE
+         NQVMCOj3g08pxsfjAX3yXtRpss38zTSsIWQufHoGByjXTm7l73glZXXXKs+/luf7Cyes
+         wLrw==
+X-Forwarded-Encrypted: i=1; AKwUvBxW5kysg9FeDu65p/iwkKXa0uvoJBtEM3yfU79ACG3i4UZ64NNZhYg1e23rkL7VviRqYp/ymKpKsfPU@vger.kernel.org
+X-Gm-Message-State: AFuF++mVIEtUXgDQKmixKUeDaGM/X96tSdToJmBS6XYgBgtEYqS+3Jxf
+	nETVWrd4Ld60Oi/jm8UQ/1vhHsksMup9Ts3mLC99Wl44ejLdCvhPrnqLfZTjdhEaJe4=
+X-Gm-Gg: AYBFou2PxoJWEONQhuQpqyI+NhUG3f71IFgM20OEOMGtfrYbyQHPd/T8Cjk4tIhRO+S
+	RMVT2NW2WoQ/m9p5MyU/OFkWQXFUrSnGAivg0Mcy42J+8Cj+E8nErRoont3c6pRZ6gy2JVyrvBZ
+	jEIXMys5tq+/H0szWfDIIvosV2MVayL1EXPPZ1I6U45lIXEfxEgWBDmUfSU+MLctPuSPUZqB1HG
+	JuD6Fk+e4ia6ytxJLlXiP53kNoBzK7wMhuD2G+nCej7yMejiLu7esdJcvZoUkvhSwqq03FyKUDE
+	GiKuQg2n2Po+mVFLtG/FpaONgiojuLmI66ZV6vntshEwAUAd5nUU3KQJdO306u+8mkWyr1s0uYT
+	REJCvoVOVISdj52edAbj2M/i8qA73WPGbekVp2BuQesiMqPdYB0wZmqiGKZdBFygiaGfHozdmE7
+	0REtf/TCKWCoVR4tPrFt2JUjyePKByOCCZz3phA5ASuUmCOLFF/9GRVRcp517BNRAUTTZktz7NI
+	alrkl/LEFU=
+X-Received: by 2002:a05:6402:e8b:b0:6a9:d959:c94e with SMTP id 4fb4d7f45d1cf-6a9f63cd955mr3622644a12.25.1789463471264;
+        Tue, 15 Sep 2026 02:11:11 -0700 (PDT)
+Received: from [192.168.0.167] ([109.76.15.202])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9ba8f3ab9sm5100887a12.15.2026.09.15.02.11.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 15 Sep 2026 02:11:10 -0700 (PDT)
+Message-ID: <4b8f4fd6-53e0-4efd-953a-cd8ebad7d479@linaro.org>
+Date: Tue, 15 Sep 2026 10:11:09 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 4/9] media: uapi: Add CAMSS ISP configuration
+ definition
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-hardening@vger.kernel.org
+References: <20260915-camss-isp-ope-v7-0-77b13d131d3d@oss.qualcomm.com>
+ <20260915-camss-isp-ope-v7-4-77b13d131d3d@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20260915-camss-isp-ope-v7-4-77b13d131d3d@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] drm/mediatek: DSI device is never resumed causing bus hangs
---
-
-commit 6c75df0d91773376b0709ec5e7caceb104ea2e16
-Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-
-    drm/mediatek: mtk_dsi: Enable PM Runtime on probe
-   =20
-    Enable PM Runtime at the end of mtk_dsi_probe() so that the
-    mediatek-drm mtk_ddp_comp_power_on() function is able to do
-    pm_runtime_resume_and_get() and, analogously, the function
-    mtk_ddp_comp_power_off() to pm_runtime_put() for the DSI
-    device.
-   =20
-    This makes sure that the power domains for the DSI IP are
-    turned on and off when necessary.
-   =20
-    Reviewed-by: CK Hu <ck.hu@mediatek.com>
-    Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@co=
-llabora.com>
-
->     Enable PM Runtime at the end of mtk_dsi_probe() so that the
->     mediatek-drm mtk_ddp_comp_power_on() function is able to do
->     pm_runtime_resume_and_get() and, analogously, the function
->     mtk_ddp_comp_power_off() to pm_runtime_put() for the DSI
->     device.
-
-[Severity: High]
-Will mtk_ddp_comp_power_on() actually resume the DSI device?
-
-Looking at mtk_crtc_atomic_enable() in drivers/gpu/drm/mediatek/mtk_crtc.c,
-mtk_ddp_comp_power_on() is only called for the first pipeline component:
-
-mtk_crtc_atomic_enable() {
-    ...
-	struct mtk_ddp_comp *comp =3D mtk_crtc->ddp_comp[0];
-    ...
-	ret =3D mtk_ddp_comp_power_on(comp);
-    ...
-}
-
-Because the DSI device is at the end of the pipeline rather than the first
-component, it won't be resumed here.
-
-> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediate=
-k/mtk_dsi.c
-> index 6f176515e2587..4355103725cf6 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-> @@ -1734,6 +1734,10 @@ static int mtk_dsi_probe(struct platform_device *p=
-dev)
->  	if (ret)
->  		return dev_err_probe(&pdev->dev, ret, "Failed to request DSI irq\n");
-> =20
-> +	ret =3D devm_pm_runtime_enable(dev);
-> +	if (ret)
-> +		return ret;
+On 15/09/2026 09:11, Loic Poulain wrote:
+> Add the uapi header qcom-camss-config.h defining the ISP parameter
+> structures used by the CAMSS Offline Processing Engine (OPE) driver.
+> This includes structures for white balance, chroma enhancement and
+> color correction configuration.
+> 
+> The block type enum is shared across CAMSS ISPs so that userspace only
+> has to deal with a single set of block identifiers.
+> 
+> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> ---
+>   include/uapi/linux/qcom-camss-config.h | 212 +++++++++++++++++++++++++++++++++
+>   1 file changed, 212 insertions(+)
+> 
+> diff --git a/include/uapi/linux/qcom-camss-config.h b/include/uapi/linux/qcom-camss-config.h
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..e3d6cc4df7de00345e8142c81392dd42338c6ead
+> --- /dev/null
+> +++ b/include/uapi/linux/qcom-camss-config.h
+> @@ -0,0 +1,212 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only WITH Linux-syscall-note */
+> +/*
+> + * Qualcomm CAMSS ISP Driver - Userspace API
+> + *
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
 > +
+> +#ifndef _UAPI_LINUX_QCOM_CAMSS_CONFIG_H
+> +#define _UAPI_LINUX_QCOM_CAMSS_CONFIG_H
+> +
+> +#include <linux/types.h>
+> +#include <linux/media/v4l2-isp.h>
+> +
+> +/**
+> + * enum camss_params_block_type - CAMSS ISP parameter block identifiers
+> + *
+> + * Each value identifies one ISP processing block.  The value is placed in
+> + * the @type field of &struct v4l2_isp_params_block_header.
+> + *
+> + * @CAMSS_PARAMS_OPE_WB_GAIN: white balance gains and offsets (CLC_WB),
+> + *	&struct camss_params_ope_wb_gain
+> + * @CAMSS_PARAMS_OPE_CHROMA_ENHAN: RGB to YUV colour transfer matrix
+> + *	(CLC_CHROMA_ENHAN), &struct camss_params_ope_chroma_enhan
+> + * @CAMSS_PARAMS_OPE_COLOR_CORRECT: colour correction matrix (CLC_CC),
+> + *	&struct camss_params_ope_color_correct
+> + * @CAMSS_PARAMS_OPE_GAMMA: per-channel gamma correction curves (CLC_GLUT),
+> + *	&struct camss_params_ope_gamma
+> + */
+> +enum camss_params_block_type {
+> +	CAMSS_PARAMS_OPE_WB_GAIN = 1,
+> +	CAMSS_PARAMS_OPE_CHROMA_ENHAN = 2,
+> +	CAMSS_PARAMS_OPE_COLOR_CORRECT = 3,
+> +	CAMSS_PARAMS_OPE_GAMMA = 4,
+> +};
 
-[Severity: High]
-Since PM runtime leaves the device in a suspended state by default, won't t=
-his
-cause bus hangs or system error crashes when accessing hardware registers?
+Most of the OPE specific naming can be dropped, I shared the ICP 
+data-structure analysis already:
 
-Furthermore, DRM atomic helpers call bridge atomic_pre_enable() callbacks
-before CRTC atomic_enable() callbacks. This means mtk_dsi_host_transfer()
-in drivers/gpu/drm/mediatek/mtk_dsi.c will attempt to write to hardware
-registers before any CRTC-level power-on is attempted:
+https://patchwork.linuxtv.org/project/linux-media/patch/20260426000346.1158633-1-bryan.odonoghue@linaro.org/
 
-mtk_dsi_host_transfer() {
-    ...
-	dsi_mode =3D readl(dsi->regs + dsi->driver_data->reg_main[DSI_MODE_CTRL]);
-    ...
-}
+i.e.
+> +struct camss_params_ope_color_correct {
+> +	struct v4l2_isp_params_block_header header;
+> +	__u16 a[3];
+> +	__u16 b[3];
+> +	__u16 c[3];
+> +	__u16 k[3];
+> +	__u16 qfactor;
+> +	__u16 _pad[3];
+> +} __attribute__((aligned(8)));
 
-Will this result in accessing a powered-off PM domain?
+For ICP I have:
 
->  	ret =3D mipi_dsi_host_register(&dsi->host);
->  	if (ret < 0)
->  		return dev_err_probe(dev, ret, "Failed to register DSI host\n");
++struct camss_params_color_correct {
++	struct v4l2_isp_params_block_header header;
++	__u16 a[3];
++	__u16 b[3];
++	__u16 c[3];
++	__u16 k[3];
++	__u16 qfactor;
++	__u16 _pad[3];
++} __attribute__((aligned(8)));
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915084148.1138=
-5-1-angelogioacchino.delregno@collabora.com?part=3D11
+So this data-structure is shared camss_params_ope_color_correct -> 
+camss_params_color_correct
+
+> +/**
+> + * struct camss_params_ope_gamma - per-channel gamma correction curves
+> + *
+> + * Implements the CLC_GLUT pipeline module, applied in the RGB domain.  It
+> + * holds one independent lookup table per colour channel. Each table is a
+> + * direct (not segmented) map of input level to output level.
+> + *
+> + * Each table has @CAMSS_OPE_GAMMA_LUT_SIZE (256) entries of 16-bit unsigned
+> + * output. Each entry holds an X-bit output value depending on internal bus,
+> + * the upper bits are ignored by the hardware.
+> + *
+> + * On Agatti OPE, The module maps a 12-bit input to an 8-bit output, the top
+> + * 8 input bits index the table and the low 4 bits are used to linearly
+> + * interpolate between adjacent entries. Entry i therefore represents the
+> + * output for input level i/255 of full scale.
+> + * Output range: 0x00 = black, 0xFF = white.
+
+That's not specific to Agatti, its hwo the Qcom gamma silicon works right ?
+
+Same RTL synthesised in OPE, IPE and IFE. So you don't need to make this 
+OPE specific commentary.
+
+> + *
+> + * How to fill a curve (same on all three channels for pure luminance
+> + * gamma; different curves per channel additionally shift colour balance):
+> + *
+> + *   Identity (pass-through, gamma 1.0):
+> + *     lut[i] = i;                                // i = 0..255
+> + *
+> + *   Encode with gamma g (e.g. sRGB-like, g = 2.2):
+> + *     lut[i] = round(pow(i / 255.0, 1.0 / g) * 255.0);
+> + *
+> + * @header:  block header; @header.type = CAMSS_PARAMS_OPE_GAMMA
+> + * @glut:    green channel gamma curve
+> + * @blut:    blue  channel gamma curve
+> + * @rlut:    red   channel gamma curve
+> + */
+> +struct camss_params_ope_gamma {
+> +	struct v4l2_isp_params_block_header header;
+> +	__u16 glut[CAMSS_OPE_GAMMA_LUT_SIZE];
+> +	__u16 blut[CAMSS_OPE_GAMMA_LUT_SIZE];
+> +	__u16 rlut[CAMSS_OPE_GAMMA_LUT_SIZE];
+> +} __attribute__((aligned(8)));
+
+For the ICP I have
+
++struct camss_params_glut {
++	struct v4l2_isp_params_block_header header;
++	__u8  instance;
++	__u8  _pad[7];
++	__u16 r[CAMSS_GLUT_LUT_SIZE];
++	__u16 g[CAMSS_GLUT_LUT_SIZE];
++	__u16 b[CAMSS_GLUT_LUT_SIZE];
++} __attribute__((aligned(8)));
+
+So it makes more sense to differentiate the firmware type to the 
+register-mapping type. i.e. the above becomes camss_params_icp_gamma {} 
+whereas your subumitted change would be just camss_params_gamma {}
+
+> +#define CAMSS_PARAMS_OPE_MAX_PAYLOAD		\
+> +	(sizeof(struct camss_params_ope_wb_gain)	+\
+> +	 sizeof(struct camss_params_ope_chroma_enhan)	+\
+> +	 sizeof(struct camss_params_ope_color_correct)	+\
+> +	 sizeof(struct camss_params_ope_gamma))
+> +
+> +#endif /* _UAPI_LINUX_QCOM_CAMSS_CONFIG_H */
+> 
+
