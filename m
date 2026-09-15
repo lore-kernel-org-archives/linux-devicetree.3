@@ -1,172 +1,293 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F39143F929C
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 02:49:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D192B400E11
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 03:10:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789440582; cv=none; b=VYdmvfpvrTapynKhB9wsb715KZ33F8uuH+1euMio7DLBbGusM69Xm8ih8IF9GngyVYhholftjZQ1X2GA7CkD8nHisjrpaHS9ofGDPUkgcbTSGDIqw+K1P9l5bjv7t1zu2mjARhrQK7FcI3+LbZGdYKfDURioybu3mySz49l/cuA=
+	t=1789441847; cv=none; b=YQFrlusX19+h6EuSkbQjpkC7Zy9XY9Z0G7N9UkclL2QaV85x1zn+dSv9tLB7wwPzSQ4Asqou09sEXaVnJ1l1rzgWXKPtd1u2I1Z2aMKu/byq6UhfYKThOTNkAl34GcctXlry7hZzQ/0pYSoxp6wpcHICE9NOBzl6SNo8uBEUsgE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789440582; c=relaxed/simple;
-	bh=dZtJypvCQ3nH/VIpTSnun9IN+DGvbnyN1VglMN3CCUU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dsJgN/TJImtkmEdSTMlOMnK5p2Nvgcx80SnSWJvaS28x0aqIxr/IG8PSlAMLxIiBkcJVJ8fyE8lxBaOFNfb/Pk6BUuM3LSK8rzzVR6yHMkeHVhTwCD/z6XS5ENd2Y0uo7ijjBYkl7SEAiCQjhOgLfg3XlmREgPX3VsoiHOZ5XWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HXuWFaPr; arc=none smtp.client-ip=74.125.224.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789441847; c=relaxed/simple;
+	bh=WDz5ldOwC1ipeFLGJW3j0d9LLVpM+Mtws88tNhcwYoI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=CbKta5BDigYUo8hGL7vKOdttgivKmq1M+wDn6tjtNa0nAycpBq6btSAaKciTotDIBMfKc31hUQBb9SSJBVVsQOnjg+z9mt22nq/HZU1KjpK3TbHNOHxsZNFp4uvwsnYJU9MbWri+e1IRg6/WvKKIi9qiTP86OXJl2nhD9SDUC3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=cCB/464P; arc=none smtp.client-ip=74.125.230.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HXuWFaPr"
-Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66e4ab20a33so2768206d50.1
-        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 19:49:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="cCB/464P"
+Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-52fb76ef19aso30854911cf.2
+        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 20:10:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789440580; x=1790045380; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=98dR90gK+JQcg6XkR8TXqOD8Hf/WJSfb2StQiLmkr9w=;
-        b=HXuWFaPrDFOT61uL3BUEyVPWnZpfYxHhTSSLsjSpuM/avihwogZNbVmFdjqa2pv+W8
-         Bbet+fhjllD3p2jDlDCYZXv5CWo67kqwk1QSVa1MCXaS437lYRAlAifpysFXTtlWY3U/
-         WWzjSlpkzuQ1NXccv3QwZKt0PvufcTc8MqtKYqlumqHjjEC7KbDuyTuUDRKqCe+g/i/u
-         +lguDCciTAYHCikaO2CaczbgsHH/6Idhb9yaVf2ZwhPKyUG80FSf4Q/rfbxFjN+/caLb
-         hx97B59VpTpgjNvD2+BI0e/Wbe3J45bgprXX/Ww18yD7OaOL/LvdCV7hI/vReCBg+nY0
-         1/1w==
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1789441843; x=1790046643; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OreA8W0F8O819M9j39kOjSL4ZJkwhBc9Zj4iMK3ajYI=;
+        b=cCB/464PIWsudLABjHbLiyRZ08CXH8sf2a/V+5d01Xeaai9Sbu2tzpajKMlDmUa/7y
+         zilRl+JMQAT/FC3+QZz9rkbNVR+oQPLWvhmxUtCu2/zhMDuUhvCt6LMA/s8UKgehsZ1B
+         v8j8eKUAb28YmHwiZG7mdK8GcArqcLER+mNRDg47IwMDrTLFr+fpK0y/0wm4K+knHgrS
+         bJS4GcpOxABKT9g7RllS0/RPNG9Zn8vOTT9/VLdvOeW080SzIQ+FNrlfZzdKAMXm5GYu
+         7TLADjXeJuJmBY7Xy5hNFnZT9zEmw2lWDFeMpe21SJ6zKTDfToS4PUUo7BgaQgZNJ8L6
+         5Osg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789440580; x=1790045380;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=98dR90gK+JQcg6XkR8TXqOD8Hf/WJSfb2StQiLmkr9w=;
-        b=XVpwYccAIAespNtfKokjcBTGjcza/xH0NZIrC1rXqpXcS+1v+z63/1gAA8q7aalXNW
-         Lg7AnQadFnIgd+KvpZlgjoJnXBhswxqzG2BYKSbKkcLU9U3/TCxQeoi044NIXWtxzG9D
-         xYLntJpMKjPmcvMrascttXkupWKK7pevHIrozeuVV4u5EutFQCHE8RymcQXCq5cMMkt4
-         OkVsuCzQWoWAiACecYGtqGoIiW9im/mfZwRd9BYY4l1+HCU40EXjx/H/LDpC1/EwT6h0
-         QKjZyWmICr5tkvZ+27pyzTlWZc4bvBDiR3OxO+DcnvQisVELjtRWmQuYtprie0qP/Hxr
-         6J8Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwJcAl8ftJznBzlsIbvUg1UhmNUtIhnU/SF6TElmFo3G6QcCl7yNNSzD1C0A6jZf7NJQkvJykgcuqPH@vger.kernel.org
-X-Gm-Message-State: AFuF++lsHSkz6bB8YnWKabm85zC0osOimmzF7GR78oyQ2yJTsZWnFox1
-	Oh7Tzn6/vHraSMw8rRo8f7zRt7ArfSSNow7h8gvK9+WOSD054/bOtiw8
-X-Gm-Gg: AYBFou19QACiFu6h4PHBCaNmWG/+3sZSb/UPQmjR/ag5W7r+z5D4RHrgTqEEp7wQayP
-	X7syaRFmMm905HbBv2+Y8U64taOrTswafCpgh27efx3pjaIGHy2OzjLxrtK5mkaDPcdBU6IlFIc
-	Pv+grIzyd/vqvXqetFOYQF2ZaYLU3vILho6QNy5tFEoMdw2kK3+T97yHNY4pE9Wpj/DKeKF71Av
-	ugEX3WEBSUtaBLgnZAQWz5HtgxhiaQQqkf1A0OnygF/qXr/x3td+5ykyxlWw17bAs5xO40SQZNo
-	0u52TLLF+OYZT8/+1qLeR9ZWvbHj/acwKr/1m5uoAfHAR6up7Z3VcMUEFhDZRzAEBgvnFL73fDq
-	qUeZiAE2FiNuobkDxnGrdUCnGzQ5Aj2Mw79U+oIhebtKGAEziI5rpK7l1q//DSxv1k05r7a8/s2
-	Vid3q92yM43zk9UCXhwHdoMaaqTIa4K3vYSn2/op+rSkaLwV7VUJijXQ==
-X-Received: by 2002:a05:690e:4882:10b0:66f:c1bc:4086 with SMTP id 956f58d0204a3-6714e07b20bmr1035977d50.73.1789440580062;
-        Mon, 14 Sep 2026 19:49:40 -0700 (PDT)
-Received: from gmail.com ([2600:1700:5431:250::3e])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67125db3a05sm5345430d50.5.2026.09.14.19.49.37
+        d=1e100.net; s=20260707; t=1789441843; x=1790046643;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OreA8W0F8O819M9j39kOjSL4ZJkwhBc9Zj4iMK3ajYI=;
+        b=l4vHdTEa2uIKwq5ZJpVtma236XziT0qvRZn6FrIMjTVtjIZq7TSW05ydr+WKVGQOax
+         vu4G3Ice5UbNF0G4LEuBg2xInD44Et9GjFO7y8chVuXgsm1WS8NISQ7/fpjAnLlNVNF3
+         VBcvuZhRzsGUxGjGh6s9sDGbWbR6F1d/IozF3LAxjk7mkvbTGNwqyAu3y7VrpAAma9aY
+         lH1U+0Fc9ktECF7dYiQWaRak5ZupxsFzGOSdmLKtzLyiqLppSYTWW2ndDmiQBAnnFCV/
+         sEoftcVv9KFNps0JDC0BKQOIzTEqXLsq0DSj4RdHFfu85r/n6YWYpdLYQv28gaIaDun1
+         Ky+Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwXhZ0W7j3vGZgb99pG1Xf8nLQlxxXFJIChACy4zfOFVgCepAw6gTe6vJf1J9BdtoGtckn8FXFtTkbe@vger.kernel.org
+X-Gm-Message-State: AFuF++kgRUEU6L+LFS2+Wdj4wRM+mDh/NADPuABkLtmk2XpkHCJ8YREL
+	Ho4c0xZ5hZGiqDZQGOeZZNocYkN4awiDSW/w8awo5oCIdMCAsKMW/Mq46vU4LX0qYcA=
+X-Gm-Gg: AYBFou3tzIygoxFSwHOa3JbZAt/TGoc/wMROgklhyro5lx8RwjlyKdDo0OemT9vFI5I
+	Do7Wo2w3hlf3g7Z6eGXwYL3FAsjkbHOy6Ck16fVJWKWA2IDcBfrY2TdWrEiApcNX/E+gPOYQ+GI
+	qVOUaVllTG45L9tSsq03LnCRAHp4pOvRxe8yQGFB0c5DNmjy8GK3UiS5j/9g/C5KCQhB4eVhDEF
+	9IYECPXXOnbnJm+fn5+Aoz8w8tCF7oj1yv/dhKWjR4Tncd62I9wKGdTs4LP4yEkRfhUjcBsgO52
+	9mVZSMx+FOsulY0httK6bsC6YiLyhjwDPXSc6gLAvdwIVeCvJxtClcmA6UkmMczYnmTWlDMsznh
+	jTK2In40jOWMpV2wBFLXGq8TBVdkPmZMT1/dgJkyE5kOEGqYjIiO3qozoZOfVC0LgLgbT3atia6
+	B9ELKgMygUCizCVWeJKCyHaOXr11npRXOyPabBZwjiiq6HY8yRz2Lvr38Pm5JGsUswOb9StT/bk
+	7g=
+X-Received: by 2002:a05:622a:1388:b0:531:1c2c:9087 with SMTP id d75a77b69052e-5311c2c94ebmr24380071cf.17.1789441843270;
+        Mon, 14 Sep 2026 20:10:43 -0700 (PDT)
+Received: from zippy.localdomain ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530ce4ec298sm118563841cf.16.2026.09.14.20.10.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 19:49:39 -0700 (PDT)
-Date: Mon, 14 Sep 2026 19:49:36 -0700
-From: Chang Yu <marcus.yu.56@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Chang Yu <marcus.yu.56@gmail.com>, Andy Shevchenko <andy@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Shi Hao <i.shihao.999@gmail.com>,
-	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
-	Joshua Crofts <joshua.crofts1@gmail.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] iio: light: add AS7343 multi-spectral sensor
- driver
-Message-ID: <aqiyQOMGGIzu-91z@gmail.com>
-References: <20260912013912.51887-1-marcus.yu.56@gmail.com>
- <20260912013912.51887-3-marcus.yu.56@gmail.com>
- <aqepkmQS_p6K1Bd6@ashevche-desk.local>
+        Mon, 14 Sep 2026 20:10:42 -0700 (PDT)
+From: Alex Elder <elder@riscstar.com>
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	arnd@arndb.de,
+	gregkh@linuxfoundation.org,
+	bhelgaas@google.com,
+	andersson@kernel.org,
+	konradybcio@kernel.org,
+	abelvesa@kernel.org
+Cc: daniel@riscstar.com,
+	mohdayaa@qti.qualcomm.com,
+	lbiancon@qti.qualcomm.com,
+	devicetree@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 1/3] dt-bindings: misc: introduce pci1179,0220.yaml
+Date: Mon, 14 Sep 2026 22:10:35 -0500
+Message-ID: <20260915031038.1087264-2-elder@riscstar.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260915031038.1087264-1-elder@riscstar.com>
+References: <20260915031038.1087264-1-elder@riscstar.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqepkmQS_p6K1Bd6@ashevche-desk.local>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 14, 2026 at 11:00:18AM +0300, Andy Shevchenko wrote:
-> On Fri, Sep 11, 2026 at 06:39:12PM -0700, Chang Yu wrote:
-> 
-> ...
-> 
-> > +static int as7343_setup_device(struct device *dev, struct as7343_data *data)
-> > +{
-> > +	struct regmap *map = data->regmap;
-> > +	unsigned int val;
-> > +	__le16 step;
-> > +	int ret;
-> > +
-> > +	/* Power on */
-> > +	ret = regmap_set_bits(map, AS7343_ENABLE, AS7343_ENABLE_PON);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	/* Need to set REG_BANK to 1 before we can access ID */
-> > +	ret = regmap_set_bits(map, AS7343_CFG0, AS7343_CFG0_REG_BANK);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	ret = regmap_read(map, AS7343_ID, &val);
-> > +	if (ret)
-> > +		return ret;
-> 
-> > +	if (val != 0x81)
-> > +		dev_info(dev, "Unknown device ID: %x\n", val);
-> 
-> Wouldn't be better to define 0x81 with meaningful name?
-> 
+Define the binding for the Toshiba TC9564 PCI endpoint function device.
+The third downstream PCIe switch port within this chip has an embedded
+PCIe controller, and that implements two of these PCIe functions.
 
-If I remeber correctly Jonathan prefers just putting 0x81 inline. I'm
-OK with either style so I'll defer to the judgement to Jonathan here.
+Co-developed-by: Daniel Thompson <daniel@riscstar.com>
+Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+Signed-off-by: Alex Elder <elder@riscstar.com>
+---
+v2: - Added BAR2 and SRAM to the block diagram
+    - Updated parent addresses in ranges properties
 
-> > +	ret = regmap_clear_bits(map, AS7343_CFG0, AS7343_CFG0_REG_BANK);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	/* Configure the SMUX to readout all channels */
-> > +	ret = regmap_update_bits(map, AS7343_CFG20, AS7343_CFG20_AUTO_SMUX,
-> > +				 FIELD_PREP(AS7343_CFG20_AUTO_SMUX,
-> > +					    AS7343_CFG20_AUTO_SMUX_READOUT_ALL));
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	/* Set 50.1ms integration time and x256 gain for now */
-> > +	step = cpu_to_le16(AS7343_ASTEP_VAL);
-> > +	ret = regmap_bulk_write(map, AS7343_ASTEP, &step, sizeof(step));
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	ret = regmap_write(map, AS7343_ATIME, AS7343_ATIME_VAL);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	return regmap_update_bits(map, AS7343_CFG1, AS7343_CFG1_AGAIN,
-> > +				  FIELD_PREP(AS7343_CFG1_AGAIN,
-> > +					     AS7343_CFG1_AGAIN_X256));
-> > +}
-> 
-> ...
-> 
-> > +static int as7343_suspend(struct device *dev)
-> > +{
-> > +	struct iio_dev *indio_dev = dev_get_drvdata(dev);
-> > +	struct as7343_data *data = iio_priv(indio_dev);
-> > +	struct regmap *map = data->regmap;
-> 
-> > +	return regmap_clear_bits(map, AS7343_ENABLE, AS7343_ENABLE_SP_EN);
-> 
-> Can this mess up the raw read? If so, also needs a mutex to be held.
-> 
+NOTE:
+  Despite being a PCI device, this endpoint function device uses
+  the devicetree "pci-ep-bus" model to represent sub-devices that
+  are accessed via the function's BARs.
 
-People familiar with runtime PM correct me if I'm wrong, but I believe
-PM_RUNTIME_ACQUIRE waits for any ongoing suspend callback to finish
-before returning? If so I think there is no risk of a race here. In
-the case of system suspend, worst case scenario SP_EN gets cleared
-before we read ASTATUS or the data register, which for my use case
-at least is OK since the entire system is suspending anyway.
+ .../bindings/misc/pci1179,0220.yaml           | 154 ++++++++++++++++++
+ MAINTAINERS                                   |   6 +
+ 2 files changed, 160 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/misc/pci1179,0220.yaml
+
+diff --git a/Documentation/devicetree/bindings/misc/pci1179,0220.yaml b/Documentation/devicetree/bindings/misc/pci1179,0220.yaml
+new file mode 100644
+index 0000000000000..fca3d331097de
+--- /dev/null
++++ b/Documentation/devicetree/bindings/misc/pci1179,0220.yaml
+@@ -0,0 +1,154 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/misc/pci1179,0220.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Toshiba TC9564 internal PCI endpoint function
++
++maintainers:
++  - Alex Elder <elder@kernel.org>
++  - Daniel Thompson <danielt@kernel.org>
++
++description: >
++  The Toshiba TC9564 is specialized SoC that implements a PCIe switch
++  as well as an Ethernet AVB/TSN bridge.  In addition to these, the SoC
++  implements other functions, including a reset and clock controller,
++  an address translation unit, and a few other devices.
++
++  The PCI switch has three downstream ports.  The first two are exposed
++  externally, while the third is used by an internal PCIe endpoint.  The
++  internal endpoint implements two PCIe functions, and attached to each
++  of these is a 10 Gbps capable Synopsys Ethernet controller and an
++  interrupt controller that converts internal "wired" interrupts into
++  MSIs delivered to the host.
++
++  PCIe BARs provide access to registers that manage almost all IP blocks.
++  The SoC is modeled using a PCI endpoint bus.  The IP blocks are bound
++  to platform drivers that access the hardware using MMIO through the
++  PCI BARs.
++
++          ------------------------------------
++          |               Host               |
++          -----........---------------...-----
++              |        |             |   |
++              |  PCIe  |             |I2C|
++              |        |             |   |
++    ----------+........+-------------+...+-------------------------------
++    |         |upstream|          |          |       ----------------   |
++    | Toshiba | Port 0 |          |          +-------+ PCIe pwrctrl |   |
++    | TC9564  ----++----          |   I2C    |       ----------------   |
++    |  SoC        ||              |controller|       ----------------   |
++    |             ||              |          +-------+     GPIO     |   |
++    |             ||              |          |       |  controller  |   |
++    |       ------++------        ------------       ----------------   |
++    |       |     US     |                                              |
++    |       |            |    ----------------------------------------  |
++    |       |         DS3+====+          downstream port 3           |  |
++    |       |            |    |--------------------------------------|  |
++    |       |    PCIe    |    |        embedded PCIe endpoint        |  |
++    |       |   switch   |    |~~~~~~~~~~~~~~~~~~~++~~~~~~~~~~~~~~~~~|  |
++    |       |            |    |  PCIe function 0  || PCIe function 1 |  |
++    |       |            |    |-------------------||-----------------|  |
++    |       |            |    | BAR || BAR || BAR || BAR | BAR | BAR |  |
++    |       |            |    |  0  ||  2  ||  4  ||  0  |  2  |  4  |  |
++    |       | DS1    DS2 |    ---.------.------.--++--------------.---  |
++    |       --++------++--       :      :      :                  :     |
++    |         ||      ||         :   ---.--    :.......           :     |
++    |         ||      ||         :   |SRAM|    :      :           :     |
++    |         ||      ||         :   ------    :   ---.---        :     |
++    |         ||      ||         :         ....:   |clock|    ....:     |
++    |         ||      ||         :         :   :   -------    :   :     |
++    |         ||      ||   ------.----    -.-  :             -.-  :     |
++    |         ||      ||   |translate|    |M|  :.......      |M|  :     |
++    |         ||      ||   -----------    |S|  :      :      |S|  :     |
++    |         ||      ||                  |I|  :   ---.---   |I|  :     |
++    |         ||      ||                  |G|  :   |reset|   |G|  :     |
++    |         ||      ||                  |E|  :   -------   |E|  :     |
++    | --------++--  --++--------          |N|  :             |N|  :     |
++    | |downstream|  |downstream|         ------.----        ------.---- |
++    | |  port 1  |  |  port 2  |         | XGMAC 0 |        | XGMAC 1 | |
++    --+..........+--+..........+----------+.......+-----------+.....+----
++                                          |       |           |     |
++                                          |USXGMII|           |SGMII|
++                                          |       |           |     |
++                                        --+.......+--      ---+.....+---
++                                        | Ethernet  |      | Ethernet  |
++                                        |    PHY    |      |    PHY    |
++                                        -------------      -------------
++
++allOf:
++  - $ref: /schemas/pci/pci-ep-bus.yaml
++
++properties:
++  compatible:
++    const: pci1179,0220         # Toshiba TC9654 (a.k.a. Qualcomm QPS615)
++
++  reg:
++    maxItems: 1
++    description: PCI Bus/Device/Function config space address
++
++unevaluatedProperties: false
++
++required:
++  - compatible
++  - reg
++  - '#address-cells'
++  - '#size-cells'
++  - ranges
++
++examples:
++  - |
++    pcie@0,0 {
++        reg = <0x0  0x0>;
++        #address-cells = <3>;
++        #size-cells = <2>;
++        device_type = "pci";
++        ranges = <0x83000000 0x0 0x0  0x0  0x0 0x1fd00000>;
++
++        dev@0,0 {
++            compatible = "pci1179,0220";
++            reg = <0x0 0x0 0x0 0x0 0x0>;
++            #address-cells = <3>;
++            #size-cells = <2>;
++            /* Ranges will be updated dynamically */
++            ranges = <0x0 0x0 0x0  0x83000000 0x0 0x0  0x0 0x4000>,
++                     <0x2 0x0 0x0  0x83000000 0x0 0x4000  0x0 0x80000>,
++                     <0x4 0x0 0x0  0x83000000 0x0 0x84000  0x0 0x200000>;
++
++            pci-ep-bus@0 {
++                compatible = "simple-bus";
++                #address-cells = <1>;
++                #size-cells = <1>;
++                /* Map 0x0-0x3fff to BAR 0 */
++                ranges = <0x0  0x0 0x0 0x0  0x4000>;
++            };
++
++            pci-ep-bus@4 {
++                compatible = "simple-bus";
++                #address-cells = <1>;
++                #size-cells = <1>;
++                /* Map 0x0-0x1fffff to BAR 4 */
++                ranges = <0x0  0x4 0x0 0x0  0x200000>;
++            };
++        };
++
++        dev@0,1 {
++            compatible = "pci1179,0220";
++            reg = <0x100 0x0 0x0 0x0 0x0>;
++            #address-cells = <3>;
++            #size-cells = <2>;
++            /* Ranges will be updated dynamically */
++            ranges = <0x0 0x0 0x0  0x83000100 0x0 0x0  0x0 0x4000>,
++                     <0x2 0x0 0x0  0x83000100 0x0 0x4000  0x0 0x80000>,
++                     <0x4 0x0 0x0  0x83000100 0x0 0x84000  0x0 0x200000>;
++
++            pci-ep-bus@4 {
++                compatible = "simple-bus";
++                #address-cells = <1>;
++                #size-cells = <1>;
++                /* Map 0x0-0x1fffff to BAR 4 */
++                ranges = <0x0  0x4 0x0 0x0  0x200000>;
++            };
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 6096dab7121e8..aa6b805e1ab2b 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -27670,6 +27670,12 @@ F:	Documentation/devicetree/bindings/media/i2c/toshiba,tc358743.txt
+ F:	drivers/media/i2c/tc358743*
+ F:	include/media/i2c/tc358743.h
+ 
++TOSHIBA TC9564 PCI DRIVER
++M:	Alex Elder <elder@kernel.org>
++M:	Daniel Thompson <danielt@kernel.org>
++S:	Maintained
++F:	Documentation/devicetree/bindings/misc/pci1179,0220.yaml
++
+ TOSHIBA WMI HOTKEYS DRIVER
+ M:	Azael Avalos <coproscefalo@gmail.com>
+ L:	platform-driver-x86@vger.kernel.org
+-- 
+2.53.0
 
