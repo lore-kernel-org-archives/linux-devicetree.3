@@ -1,265 +1,427 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-ej2-f2.google.com (mail-ej2-f2.google.com [74.125.228.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80A6A4749DE
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 11:31:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D96BA1C5799
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 11:42:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.130
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789471920; cv=pass; b=kJyjiBVy03DDVWM9qH24IBxaomc1XoHmvmcG8JvuvKCW6X4TEavaipKEDUp0M0XkmGFnsBbOti8rO0Wg9dsReyZf8l8qnRRR/z3vTwEBe3vzPirNeciXGXE5g6jyUctaiIGwqx6nKglwfTbJ5l1ZM8qCh9jLTaZjfY8mg4il5BQ=
+	t=1789472580; cv=pass; b=fcjBKQ/YTNXb4G9fpFEtYPQ0pEhhGa2mnIzvztHk1uoAZEG62XyGOzOyyK82G9n5OXncYiS8H5jtkHekkH7ptIiErJOMQ1sPt4Z6PKJaBFBJib1DWhXx3Ctq2v6bvcSw8fssA7DOeDQTzyvS6NuMCF/PoUBwXAzI9bx3A0hDTg0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789471920; c=relaxed/simple;
-	bh=7NSvUJb+Kkse49Pbvizg9LMzUde+FsfN4VtU0EWT8Rk=;
+	s=arc-20240116; t=1789472580; c=relaxed/simple;
+	bh=77e1MGS6kCVnU1RufO4elxUOHjBahuFZ5h+/Df65DfI=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=paOswGRWkOIU9IhXZsA8Gq6AVt17ZzvPT7n0bpAcdt0pbTeD/vCrPU1E3uPGB550Zdpx51YNw23L02qaAJ9gjn1aHCYZDDkWWipApdsK71yJAZYi3oIp4158kUzGyT0mfy6Jlt/DwxFmXtYUDoQsmgx8/OlRq0bHURQo1vCzTNQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=UbMUTwnA; arc=pass smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
+	 To:Cc:Content-Type; b=VdBTKpEZBqh5ao1UQJLO8B3LdLVelDB+lZ0HNEBKUUr7Ei0WmhGhRT77HJLm7Q6ZJBSgi+kUQEN66oF9+DovVIWbRBbuuILd4imriesvOklAE5JP/UxWfIDnDNsV3/kclRZ91V+gbGFgUc5g0uUmsW4vs1Yuzo3OFhMkHrojrNw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=flw/goM4; arc=pass smtp.client-ip=74.125.228.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="UbMUTwnA"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea34ef3so136658a12.0
-        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 04:31:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789471918; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="flw/goM4"
+Received: by mail-ej2-f2.google.com with SMTP id a640c23a62f3a-c294938a983so233086866b.0
+        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 04:42:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789472575; cv=none;
         d=google.com; s=arc-20260327;
-        b=hVaTmM0hTNYx8P8KOQ6WKqWxn8Rk8ETWFswGAPHm3ewUb0QCNYPaIhdAZOK3ox/1hL
-         +BKIg9utsdWXVzzmnjeau7A0KToFQ9YR8W8cfRcVoVx+P5wJ2lKPDGHDrxTNbP7ex5bP
-         2YEVglAU4J6Y7khj6Eb4dYSVieEyGJhbNJrnEvx/7++tjxG5us0JFKx/FdAW4p1qAZpp
-         lTjEG/MEvauNLEqfozNTOV1884N/RTTBn05kRiwfFetxxDwyqXFhMEjSBxmrgBsIQ+0d
-         A+a0JIJ3ghGvTNle2Vx6OKVFiZe/8/ypwgp34jH/RS1B1texLgMxBdh2IRVXbogp4/bZ
-         aJlQ==
+        b=NTaCiywGwCwgxbN1ScLZ5W4npSgVLrvD1FEFdW+ibmgH9oVHw9tiK2ST+14BYrssQo
+         7KYYZY0DBn6KaF90dWGpZDz9oTUiubtVAM0vvNgvOD94Biqk5IFm5RWx5Lwo3GVUhlYx
+         aO2zu+qO16f3ApxMyeuPUhqcZVTb32r0Q05sQAok8QKeQrT1HDx8VlMGITDrswCeNHp3
+         rlOsNWQqwBQoH3/hb3WeWHs9HXXGjJzT0uAXmQq3qunTLSVdKr9xkXYtBXNLsr76Y/nV
+         fhqy8PQjCPd73qFJ6dwYcyXcCvc/WdBF+tzLmXbCUarzVCEpvhCG5utGSRWSbh0olXHE
+         8xOQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=ZWWxIYlBWABZ3GjM6t1BqbZ6aeOgozwkp5h4xrnqvNE=;
-        fh=OVoi4jxdO5UsGi031TBzw2H5ZP9Xg7ToiK5nV7TVRds=;
-        b=DR13yMwETgGXbEcshROUN7aCePXqeJwej4YnRsVSlaEV//hxfjwz8woWnPlVkK8zxE
-         KnD0XgoDCZKEVekXhC04vuraZ+bTENSFC4dIsFBQ7ZRM7uF34W8IE5OIaIFRn5LdEhY7
-         KCdaqYHnwp75ROze5hkVvZ3O2UhfVjuDl5dkeoYjVkXq6aaFTfOuxAlyfB/YBRGRN67Y
-         IfLlI8+xkTR2iD0DOEQlVJIhJZieA9ylRbLKk61OUz/UxoVrRVxF0jpHWOT2G0lRg3Vy
-         9JD+itHZIdHnrCb+hFgunJToy7Sa6RfvCMaTy7R9usHii7JmuPjkAwU9rHKgWSn+irLG
-         iQ4Q==;
+        bh=sISzfPmgoaQUIHyBbaL9mtqCySms90Uh3lkhXDJB000=;
+        fh=B0RukbScIuGkbXWxiWeYMUXPm1QOrAt70lJciWc9aIo=;
+        b=VI4t4bVDYWGBMfjjD/t9nrst47YNuBptjsUifcwx9Mnl3njQlOoKG9j/vCEBcuhfQu
+         UFP+K9Vywv8MAI7XJ7QC5LXj6fhDYyqq4bEdmpeDTnbXPpK/5coCJmC6pKCWGuqvx3/X
+         aN79nBdFGgZh1adFFF32YnJNB3RRR3/XldEFAAsuK7IHy1MOaj2kABX/4zjNx3lN8Wyf
+         egT2foHieDMjftLjv2R4Va5UWbyXy3CjLjHKyJkimtCCzzrk1RkoJLjqJoOmw7ggVREg
+         yhMDQMi5aBM/hiksIhpow5aNMpg9ZRZ8xic1ZyqY81R+5YCh56ttM1EeGrVbz0cvhaxV
+         /1TA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sartura.hr; s=sartura; t=1789471918; x=1790076718; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789472575; x=1790077375; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ZWWxIYlBWABZ3GjM6t1BqbZ6aeOgozwkp5h4xrnqvNE=;
-        b=UbMUTwnAjvW63PekRfDe+YrHlOXG/WpHXBH9RsoXyln8a/cr65Ni1KUnKejMtD5kNq
-         QDSQ9meR8Blg7pOhoGk/l020BbHFjjtLJZnbrmV8tZFLnzyjrlPe0OKESm1mHrdkV+tn
-         Cw1EjT9LoNC1DbDJznoWPm9I4M45u4o1afWjx+LFpx+m8IvxHIoEtcc9PIOaSx7TXJRv
-         5B0v+WNJrvEzfcoWP3YpCIP36N7xVGpPi9J+VwFlhIJaqTlJwXgFzY+sHnH6V38aZEKa
-         fouJYkI7p2m18RSCb2x+D9qYS40Zt0FAQdQWN7FEy1nIuCHvoKPhhB3OZC9nTtdxyEOv
-         3a4w==
+        bh=sISzfPmgoaQUIHyBbaL9mtqCySms90Uh3lkhXDJB000=;
+        b=flw/goM4CH254An4AqOe5VAybccWqXCz9qcK115/iQf2ZGNoyTQyvqGFYqW9GCvVD2
+         hEpCnk07JZ5RxXaAJWh9WMtR2l8bXv1YMxtEawbelzrUYC/ALYUBy6FQY9L0CfZMAeuu
+         12zpGNgsARfdE2D1xARA3y05K/cekPxzDNggByfeKFT20n72pjtz8KWkL046vaGjJABd
+         EfM5EfqrlgXSMQW+5LQPoia34DEQNlJqyFGZwAsNCboU6p57cQ7VjkKplIgrhyKv3wxg
+         +A4ZJ6y+TmWol0l2ULy8zr9yLBgl3DxQwFI8D0IOpcRyVuNbETjtFhCADzwWEXLiDloE
+         gwIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789471918; x=1790076718;
+        d=1e100.net; s=20260707; t=1789472575; x=1790077375;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZWWxIYlBWABZ3GjM6t1BqbZ6aeOgozwkp5h4xrnqvNE=;
-        b=y2c/ccOdbX+oOd+Pl9o6tg4UaALr8+uLpp9o2nyCpy+QdJl0QbwU9SxW/Il6rIclNV
-         0OwInjZSdk0z31+9km3SHJy+hanSL4ufffIAN/y8XCvccfBZBKCknuh7wMFpgqPGIvAD
-         SoxzUtx8RkVssuPJpu/CCSttZ/9AGGw37kuxz6jSbmptPw3xqrzN4bjNB1xYsF14DWe3
-         81vlfmunX3nlhv6IlMRgiinu16j6aHgxH2AxIaNuV7GniUqPTlWpTuGgz5RzUzbxmSdV
-         xPLlmlM/nHgGwTCsq9DzTT+N4cm7bLcW42P9beIcPh5iEGY3ik41K2hROUuH8U4EzijS
-         qZ6w==
-X-Forwarded-Encrypted: i=1; AKwUvBypmjvzs/CX5IENzotZpLQcrQ4OuIabDI/HvqKiaqpdwTg0+wVFVPsk0ZKeY9MlHJD4bgl2ISUrDaN3@vger.kernel.org
-X-Gm-Message-State: AFuF++lJ+yd0cKr2MmlBLMqdMDiXM4ozqrjIUpFuUjqDZX2c6+xJdISI
-	rDS2o4j9QhxMtiL70UkphcjKRId0gmqc2ttMB57eFcTPwNcKjgO6DgVM5mqR7SV8ZSIMe5L0qiC
-	MWUYKWc1n8N5Y/Ob19gkQ/kTJ9bh+a1fKuS+1AtOh8w==
-X-Gm-Gg: AYBFou2MR30aDD6vJjukfckF8LOVQcfv6KKp++38LNcWvKMgV/+3aBM0rfUibMX9SM2
-	Oag9JkC+YR7sZGT+urikMM/mvO+7BahhaNz9ecojBBwIR4ckDTgp82aDxsaUmy9OqLNHaUi3d9b
-	5KH0ruwJEOEgM4hKBAsb6QchT24cnKP7kRtHNb/mGNua++8/cw2MXcWvuxZ9FI2x1ycMIA5EYt1
-	hEI5RkgdXg2MNKWYMIN7pdwAAHNmCJMO9jsnXnuiFL1k4t6eFaIYRl4TH8rZ7TECpG1dHF84xSK
-	Rza9jHFMC6vypBcoCFC9QUMoPMwfLJ5MaViiitgHJhxIyb6dDdyOEoMzVnSK92p/EYopu6ZkE5x
-	8mKjH56p2KJgXUk4xrYyEygPKtbDLzu1X+2A=
-X-Received: by 2002:a17:903:238b:b0:2d8:d4cc:5bb1 with SMTP id
- d9443c01a7336-2dd83867c8amr12011995ad.17.1789471917503; Tue, 15 Sep 2026
- 04:31:57 -0700 (PDT)
+        bh=sISzfPmgoaQUIHyBbaL9mtqCySms90Uh3lkhXDJB000=;
+        b=OOYhta418Dz6XOYXDzErKYJlzx7kzkdpQ7BtCpmiWvtYvH2MrBotK2DZgB+ggdFtAp
+         lVr5IjEQPIt4eytgWNUaNrHXcrU3fOUQpypSoZjyEVLLMIOXYk8knApK7fSuEMivNcws
+         suyb4CvaVZsU7gqNPdFW5uIRooh/P5dkF9SirCytFj+yY8SN6QZ+Kk/BI/RbbkDeOewU
+         1Oki0U6LJIn7lf/A5dsQlS6eBAbO/YgS0b86quvNs6flMn8CN3hJ7Sh4Pb3Krt46df9l
+         WMFeITtO60KIR4co3RYFlSDWGoM3kqv8rHo56JpUKDT03zD1r1OU+uhBqBmtp8Td/vh0
+         0lkg==
+X-Forwarded-Encrypted: i=1; AKwUvByVQDG/yPLrrQStyeAR3JY0TxFf5KH9CkoQ/Exe7jn/XXnWXoOSVL6EWaNCw5MldX0kXvDrnjY/2+b4@vger.kernel.org
+X-Gm-Message-State: AFuF++kJTJ9Mxq65BuAiEJAz8M2VWknQb8s4mNRDoyUFmJCq6Bci6LS6
+	5OKxeVnMqpPm62UdddXx09qGsEe2yfm34LZ8tNtmObcMAFFcjOkJF7Xy38HMBRpvEeLxqB++tVZ
+	sUMeabxXeLirxXyUoH+JCKrmY2HHCBQU=
+X-Gm-Gg: AYBFou3b0QIs2nqudT0qHXfcNFIoYRAe6MAmzLBNPlJTw/fcCVy8TQX8o3P3nkJlmoJ
+	UuFMwO4c4tzan4q7SXcuJg6yX/M4j2BHHAIffTMOdHbhYy6APq9S9sk9TXq4rjXZAhvWg6iWLSr
+	7OG9Oe7uHkO0XAw/lbBbqHEU0RnoiNzYTfHVLy8MVEPQNqp7uMkT7VkTSnBWfjlOwf9icKZbzRT
+	f0ezi9VnntTRLvV68siPJfKdaygWtyuXFpGyMKUl3oqIP//mjcNZVV+FcMlZjnupqETHWwTwCaQ
+	9GdI/SwEZGuzV2oQLyjwsRUutNoYPqEorDGk4kLcifak7fMIsg6ZxhGw0A==
+X-Received: by 2002:a17:906:7954:b0:c24:b11a:470f with SMTP id
+ a640c23a62f3a-c29b7ff89aemr908365266b.0.1789472574755; Tue, 15 Sep 2026
+ 04:42:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907132617.1198548-1-robert.marko@sartura.hr>
- <20260907132617.1198548-3-robert.marko@sartura.hr> <bfcd57f8-ffca-4a44-a84f-12c46cb9fe76@microchip.com>
-In-Reply-To: <bfcd57f8-ffca-4a44-a84f-12c46cb9fe76@microchip.com>
-From: Robert Marko <robert.marko@sartura.hr>
-Date: Tue, 15 Sep 2026 13:31:46 +0200
-X-Gm-Features: AcwNN1UJvA458C1rRtNt9ddKHsmuV8Z1-WqiLjsIfnIGDe3K05sCIbO51uVztps
-Message-ID: <CA+HBbNFQH-hTnqBOEAau2dP1+zKNsHDBcQA9dC5ofx2U5cbFDw@mail.gmail.com>
-Subject: Re: [PATCH v2 2/6] mmc: sdhci-of-at91: add option to keep clocks enabled
-To: Aubin Constans <aubin.constans@microchip.com>
-Cc: ulfh@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com, 
-	claudiu.beznea@tuxon.dev, adrian.hunter@intel.com, ehristev@kernel.org, 
-	linux-mmc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	luka.perkov@sartura.hr
+References: <20260913185849.907479-10-coiaprant@gmail.com> <178941749179.22033.3182687831989800376@kernel.org>
+In-Reply-To: <178941749179.22033.3182687831989800376@kernel.org>
+From: Coia Prant <coiaprant@gmail.com>
+Date: Tue, 15 Sep 2026 19:42:42 +0800
+X-Gm-Features: AcwNN1XJ2v3mnflu7VzToAP_PI-o155G_VpQm1Am3WUv52DDebpEcVrTsTiWOeY
+Message-ID: <CALj3r0giNFp6CLWW0dAXu=iSkNm2rYZb4=KUfnAbPaFDeYSUPw@mail.gmail.com>
+Subject: Re: [PATCH net-next v5 09/11] net: stmmac: dwmac-rk: add SGMII
+ support for RK3568
+To: netdev-bot+sashiko@kernel.org
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com, 
+	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, heiko@sntech.de, vkoul@kernel.org, 
+	maxime.chevallier@bootlin.com, mcoquelin.stm32@gmail.com, 
+	alexandre.torgue@foss.st.com, prabhakar.mahadev-lad.rj@bp.renesas.com, 
+	romain.gantois@bootlin.com, hkallweit1@gmail.com, neil.armstrong@linaro.org, 
+	linux@armlinux.org.uk, shawn.lin@rock-chips.com, david@ixit.cz, 
+	netdev@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
+	linux-stm32@st-md-mailman.stormreply.com, linux-renesas-soc@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 14, 2026 at 3:46=E2=80=AFPM Aubin Constans
-<aubin.constans@microchip.com> wrote:
+<netdev-bot+sashiko@kernel.org> =E4=BA=8E2026=E5=B9=B49=E6=9C=8815=E6=97=A5=
+=E5=91=A8=E4=BA=8C 04:24=E5=86=99=E9=81=93=EF=BC=9A
 >
-> Hi Robert,
+> Thank you for your contribution! Sashiko AI review found 5 potential
+> issue(s) to consider:
 >
-> On 07/09/2026 15:25, Robert Marko wrote:
-> > sdhci_at91_set_clks_presets() both enables the controller clocks and
-> > programs its capabilities and preset registers. This prevents callers f=
-rom
-> > restoring the registers without changing the clock enable counts.
-> >
-> > Move clock enablement to callers and add a SoC data flag for controller=
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 2 (1) =C2=B7 Low: 3
+>
+> - [Medium] DWMAC_ROCKCHIP gains an unconditional `select
+>   PCS_XPCS_ROCKCHIP` without inheriting the selected symbol's=E2=80=A6
+> - [Medium] For SGMII the driver removes every speed-dependent clock
+>   programming path (rk_gmac_probe() sets plat_dat->set_clk_tx_rate =3D=E2=
+=80=A6
+> - [Low] rk_get_interfaces() (dwmac-rk.c:1570-1571) now sets
+>   PHY_INTERFACE_MODE_SGMII in phylink's supported_interfaces for every=E2=
+=80=A6
+> - [Low] The RK3568 XPCS SoC node added by the series ('arm64: dts:
+>   rockchip: rk3568: add XPCS and fixed-clock nodes') omits properties=E2=
+=80=A6
+> - [Low] rk_select_pcs() (dwmac-rk.c:1268-1275) ignores its `interface`
+>   argument and returns the SGMII XPCS for every interface mode,=E2=80=A6
+>
+> Pre-existing issues:
+> - [Medium] DISCARDED (valid but pre-existing and below the reporting
+>   threshold for pre-existing defects).
+>
+> --
+>
+> net: stmmac: dwmac-rk: add SGMII support for RK3568
+>
+> Adds a set_to_sgmii()/set_to_rmii() pair for rk3568 to program GRF bit 7,
+> wires up pcs_init/pcs_exit/select_pcs so the Rockchip XPCS is used as the
+> PCS, and reorders rk_gmac_powerup() so the clocks are enabled before the
+> interface-specific configuration.
+>
+> Link: https://dl.radxa.com/rock3/docs/hw/datasheet/Rockchip%20RK3568%20TR=
+M%20Part1%20V1.1-20210301.pdf (Page 386)
+>
+> A few questions below.
+>
+> > diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/=
+ethernet/stmicro/stmmac/Kconfig
+> > index ab3c4cf964239..c6559e749c0ce 100644
+> > --- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> > +++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> > @@ -170,6 +170,7 @@ config DWMAC_ROCKCHIP
+> >       default ARCH_ROCKCHIP
+> >       depends on OF && (ARCH_ROCKCHIP || COMPILE_TEST)
+> >       select MFD_SYSCON
+> > +     select PCS_XPCS_ROCKCHIP
+>
+> [Severity: Medium]
+> Does this select produce unmet dependency warnings?  PCS_XPCS_ROCKCHIP in
+> drivers/net/pcs/Kconfig carries three dependency lines:
+>
+>   config PCS_XPCS_ROCKCHIP
+>         tristate "Rockchip XPCS controller support"
+>         default ARCH_ROCKCHIP
+>         depends on OF && (ARCH_ROCKCHIP || COMPILE_TEST)
+>         depends on GENERIC_PHY || COMPILE_TEST
+>         depends on PM_GENERIC_DOMAINS || COMPILE_TEST
+>
+> while DWMAC_ROCKCHIP only has "depends on OF && (ARCH_ROCKCHIP ||
+> COMPILE_TEST)".  ARCH_ROCKCHIP in arch/arm64/Kconfig.platforms selects PM
+> but neither GENERIC_PHY nor PM_GENERIC_DOMAINS, so a config with
+> ARCH_ROCKCHIP=3Dy, COMPILE_TEST=3Dn and GENERIC_PHY=3Dn (or PM_GENERIC_DO=
+MAINS=3Dn)
+> force-enables PCS_XPCS_ROCKCHIP with its own depends unsatisfied:
+>
+>   WARNING: unmet direct dependencies detected for PCS_XPCS_ROCKCHIP
+>
+> pcs-xpcs-rk.o is then built against the phy stubs where devm_phy_get()
+> returns ERR_PTR(-ENOSYS), so the probe cannot succeed.
+>
+> The select is also unconditional, so every Rockchip dwmac build
+> (RK3288/RK3328/RK3399/RK3588 ...) force-enables the RK356x-only XPCS
+> driver.  Would inheriting the constraints, or making the selection
+> conditional, be preferable here?  Note that simply adding the two depends
+> lines to DWMAC_ROCKCHIP would turn off Ethernet on existing RK3288/RK3399
+> configurations, so the choice probably needs to be explicit.
+>
+> The Kconfig change is also not mentioned anywhere in the commit message.
+
+You're right. I'll move the dependencies into PCS_XPCS_ROCKCHIP as
+selects instead of depends on:
+
+    config PCS_XPCS_ROCKCHIP
+        tristate "Rockchip XPCS controller support"
+        default ARCH_ROCKCHIP
+        depends on OF && (ARCH_ROCKCHIP || COMPILE_TEST)
+        select GENERIC_PHY
+        select PM_GENERIC_DOMAINS
+
+This way the symbol pulls in its own dependencies when it is selected
+by DWMAC_ROCKCHIP, so the unconditional select in dwmac-rk does not
+produce an unmet-dependency warning.
+
+> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/n=
+et/ethernet/stmicro/stmmac/dwmac-rk.c
+> > index 8d7042e689261..5d501ed8d1429 100644
+> > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+>
+> [ ... ]
+>
+> > @@ -1208,6 +1237,43 @@ static void rk_phy_powerdown(struct rk_priv_data=
+ *bsp_priv)
+> > +static struct phylink_pcs *rk_select_pcs(struct stmmac_priv *priv,
+> > +                                      phy_interface_t interface)
+> > +{
+> > +     if (!priv->hw->xpcs)
+> > +             return NULL;
+> > +
+> > +     return xpcs_to_phylink_pcs(priv->hw->xpcs);
+> > +}
+>
+> [Severity: Low]
+> Should rk_select_pcs() look at its interface argument?  The mac_select_pc=
 s
-> > that must keep their clocks enabled. Use it in the runtime PM paths whi=
+> contract in include/linux/phylink.h is to return the PCS for the specifie=
+d
+> interface, or NULL when none is required, but this returns the SGMII XPCS
+> for any mode.
+>
+> On an RK3568 port probed as SGMII, rk_get_interfaces() also advertises th=
+e
+> RGMII variants and RMII, and xpcs->pcs.supported_interfaces is non-empty
+> (filled in by xpcs_get_interfaces()).  When phylink validates one of thos=
+e
+> non-SGMII interfaces, phylink_validate_mac_and_pcs() hits:
+>
+>         if (!phy_interface_empty(pcs->supported_interfaces) &&
+>             !test_bit(state->interface, pcs->supported_interfaces)) {
+>                 phylink_err(pl, "MAC returned PCS which does not support =
+%s\n",
+>                             phy_modes(state->interface));
+>                 return -EINVAL;
+>         }
+>
+> Would returning the XPCS only for PHY_INTERFACE_MODE_SGMII and NULL
+> otherwise avoid that error path?
+
+plat_dat->select_pcs is only assigned inside the
+if (phy_interface =3D=3D PHY_INTERFACE_MODE_SGMII) branch of
+rk_gmac_probe(). For RGMII/RMII ports the callback is NULL, so
+stmmac_mac_select_pcs() returns NULL before reaching rk_select_pcs().
+
+On an SGMII port, phylink_validate() is called with
+state->interface =3D PHY_INTERFACE_MODE_SGMII, so only SGMII is
+validated against the PCS. The RGMII/RMII bits in supported_interfaces
+are not iterated in this path.
+
+> > @@ -1379,16 +1450,19 @@ static int rk_gmac_powerup(struct rk_priv_data =
+*bsp_priv)
+> >       if (ret)
+> >               return ret;
+> >
+> > +     ret =3D gmac_clk_enable(bsp_priv, true);
+> > +     if (ret)
+> > +             return ret;
+> > +
+> [Severity: Medium]
+> This isn't a bug introduced by this patch, but now that gmac_clk_enable()
+> is the first resource acquisition in rk_gmac_powerup(), its partial-failu=
+re
+> path becomes more visible.  Do the bulk clocks leak when the clk_phy enab=
 le
-> > keeping register restoration separate from clock enablement.
+> fails?
 >
-> This change has been required for the SAMA7G54 MPU already, and implement=
-ed by
-> two complementary commits:
+> drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c:gmac_clk_enable() {
+>         ...
+>                 ret =3D clk_bulk_prepare_enable(bsp_priv->num_clks,
+>                                               bsp_priv->clks);
+>                 if (ret)
+>                         return ret;
 >
-> https://github.com/linux4microchip/linux/commit/763a3c05c8f9d0feb279c6f30=
-8fa5d48d14e07d3
-> https://github.com/linux4microchip/linux/commit/b5bbc888fb39471d46fe0a4ff=
-28f69533c265dd0
+>                 ret =3D clk_prepare_enable(bsp_priv->clk_phy);
+>                 if (ret)
+>                         return ret;
+>         ...
+> }
 >
-> At least they have been validated by test campaigns.
-> If that existing work seemed OK for you and the LAN969x, then I could squ=
-ash
-> these two commits and submit the result.
+> The second failure returns without calling clk_bulk_disable_unprepare() a=
+nd
+> without setting bsp_priv->clk_enabled, so the later gmac_clk_enable(bsp_p=
+riv,
+> false) in rk_gmac_powerdown() and at the new clk_disable label is a no-op
+> because it is gated on clk_enabled.  This only triggers for integrated-PH=
+Y
+> setups where clk_phy is non-NULL.
 
-Hi Aubin,
-Yeah, I originally used those in our tree as well before trying to
-simplify things for upstreaming.
+This is pre-existing and unrelated to SGMII.
 
-Regards,
-Robert
-
-> >
-> > Signed-off-by: Robert Marko <robert.marko@sartura.hr>
-> >
-> >   drivers/mmc/host/sdhci-of-at91.c | 39 +++++++++++++++++++------------=
--
-> >   1 file changed, 23 insertions(+), 16 deletions(-)
-> >
-> > diff --git a/drivers/mmc/host/sdhci-of-at91.c b/drivers/mmc/host/sdhci-=
-of-at91.c
-> > index 7c4ac65f247d..b7e2a89da348 100644
-> > --- a/drivers/mmc/host/sdhci-of-at91.c
-> > +++ b/drivers/mmc/host/sdhci-of-at91.c
-> > @@ -38,6 +38,7 @@
-> >   struct sdhci_at91_soc_data {
-> >          const struct sdhci_pltfm_data *pdata;
-> >          bool baseclk_is_generated_internally;
-> > +       bool keep_clks_on;
-> >          unsigned int divider_for_baseclk;
-> >   };
-> >
-> > @@ -164,7 +165,7 @@ static const struct of_device_id sdhci_at91_dt_matc=
-h[] =3D {
-> >   };
-> >   MODULE_DEVICE_TABLE(of, sdhci_at91_dt_match);
-> >
-> > -static int sdhci_at91_set_clks_presets(struct device *dev)
-> > +static void sdhci_at91_set_clks_presets(struct device *dev)
-> >   {
-> >          struct sdhci_host *host =3D dev_get_drvdata(dev);
-> >          struct sdhci_pltfm_host *pltfm_host =3D sdhci_priv(host);
-> > @@ -174,7 +175,6 @@ static int sdhci_at91_set_clks_presets(struct devic=
-e *dev)
-> >          unsigned int                    gck_rate, clk_base_rate;
-> >          unsigned int                    preset_div;
-> >
-> > -       clk_prepare_enable(priv->hclock);
-> >          caps0 =3D readl(host->ioaddr + SDHCI_CAPABILITIES);
-> >          caps1 =3D readl(host->ioaddr + SDHCI_CAPABILITIES_1);
-> >
-> > @@ -222,11 +222,6 @@ static int sdhci_at91_set_clks_presets(struct devi=
-ce *dev)
-> >          preset_div =3D DIV_ROUND_UP(gck_rate, 50000000) - 1;
-> >          writew(SDHCI_AT91_PRESET_COMMON_CONF | preset_div,
-> >                 host->ioaddr + SDHCI_PRESET_FOR_DDR50);
-> > -
-> > -       clk_prepare_enable(priv->mainck);
-> > -       clk_prepare_enable(priv->gck);
-> > -
-> > -       return 0;
-> >   }
-> >
-> >   static int sdhci_at91_suspend(struct device *dev)
-> > @@ -254,9 +249,11 @@ static int sdhci_at91_runtime_suspend(struct devic=
-e *dev)
-> >          if (host->tuning_mode !=3D SDHCI_TUNING_MODE_3)
-> >                  mmc_retune_needed(host->mmc);
-> >
-> > -       clk_disable_unprepare(priv->gck);
-> > -       clk_disable_unprepare(priv->hclock);
-> > -       clk_disable_unprepare(priv->mainck);
-> > +       if (!priv->soc_data->keep_clks_on) {
-> > +               clk_disable_unprepare(priv->gck);
-> > +               clk_disable_unprepare(priv->hclock);
-> > +               clk_disable_unprepare(priv->mainck);
-> > +       }
-> >
-> >          return 0;
-> >   }
-> > @@ -269,14 +266,23 @@ static int sdhci_at91_runtime_resume(struct devic=
-e *dev)
-> >          int ret;
-> >
-> >          if (priv->restore_needed) {
-> > -               ret =3D sdhci_at91_set_clks_presets(dev);
-> > -               if (ret)
-> > -                       return ret;
-> > +               if (!priv->soc_data->keep_clks_on)
-> > +                       clk_prepare_enable(priv->hclock);
+> > +     if (bsp_priv->phy_iface =3D=3D PHY_INTERFACE_MODE_SGMII)
+> > +             goto set_mode;
 > > +
-> > +               sdhci_at91_set_clks_presets(dev);
-> > +
-> > +               if (!priv->soc_data->keep_clks_on) {
-> > +                       clk_prepare_enable(priv->mainck);
-> > +                       clk_prepare_enable(priv->gck);
-> > +               }
-> >
-> >                  priv->restore_needed =3D false;
-> >                  goto out;
-> >          }
-> >
-> > +       if (priv->soc_data->keep_clks_on)
-> > +               goto out;
-> > +
-> >          ret =3D clk_prepare_enable(priv->mainck);
-> >          if (ret) {
-> >                  dev_err(dev, "can't enable mainck\n");
-> > @@ -344,9 +350,10 @@ static int sdhci_at91_probe(struct platform_device=
- *pdev)
-> >                  return dev_err_probe(&pdev->dev, PTR_ERR(priv->gck),
-> >                                       "failed to get multclk\n");
-> >
-> > -       ret =3D sdhci_at91_set_clks_presets(&pdev->dev);
-> > -       if (ret)
-> > -               return ret;
-> > +       clk_prepare_enable(priv->hclock);
-> > +       sdhci_at91_set_clks_presets(&pdev->dev);
-> > +       clk_prepare_enable(priv->mainck);
-> > +       clk_prepare_enable(priv->gck);
-> >
-> >          priv->restore_needed =3D false;
-> >
-> > --
-> > 2.55.0
+> >       ret =3D rk_get_phy_intf_sel(bsp_priv->phy_iface);
+> >       if (ret < 0)
+> > -             return ret;
+> > +             goto clk_disable;
 >
+> [ ... ]
+>
+> > @@ -1486,6 +1566,9 @@ static void rk_get_interfaces(struct stmmac_priv =
+*priv, void *bsp_priv,
+> >
+> >       if (rk->supports_rmii)
+> >               __set_bit(PHY_INTERFACE_MODE_RMII, interfaces);
+> > +
+> > +     if (rk->supports_sgmii)
+> > +             __set_bit(PHY_INTERFACE_MODE_SGMII, interfaces);
+> >  }
+> [Severity: Low]
+> Is SGMII safe to advertise on a port that was not probed as SGMII?
+> rk3568_ops populates set_to_sgmii unconditionally, and rk_gmac_setup()
+> derives supports_sgmii from it, so every RK3568 port now advertises SGMII
+> in phylink's supported_interfaces (stmmac_phy_setup() copies the
+> get_interfaces() output verbatim into config->supported_interfaces).
+>
+> All the SGMII setup, though, is keyed off the probe-time DT phy-mode:
+>
+>   - rk_gmac_powerup() writes RK3568_GMAC_MODE_SGMII_QSGMII only in the
+>     "case PHY_INTERFACE_MODE_SGMII:" branch, which runs once at init
+>   - rk_gmac_probe() installs pcs_init/pcs_exit/select_pcs,
+>     default_an_inband and clears set_clk_tx_rate only under
+>     "if (plat_dat->phy_interface =3D=3D PHY_INTERFACE_MODE_SGMII)"
+>
+> So on a port probed as rgmii*/rmii, if phylink later selects SGMII (SFP
+> cage, or a PHY reporting SGMII as its host interface), GRF bit 7 stays
+> cleared by rk3568_set_to_rgmii()/rk3568_set_to_rmii(), plat->select_pcs i=
+s
+> NULL so stmmac_mac_select_pcs() returns NULL and there is no PCS to run
+> autonegotiation.  Before this patch SGMII was not in supported_interfaces
+> and such a configuration was rejected during validation.  Would gating th=
+e
+> __set_bit() on the probe-time interface be closer to what the hardware ca=
+n
+> actually do?
 
+phylink_create() receives the DT phy-mode as iface, and
+phylink_validate() validates that fixed interface, not every bit in
+supported_interfaces. The GRF is programmed from bsp_priv->phy_iface
+in rk_gmac_powerup(), which is also the DT phy-mode. Advertising SGMII
+in supported_interfaces does not change the interface mode at runtime.
 
---=20
-Robert Marko
-Staff Embedded Linux Engineer
-Sartura d.d.
-Lendavska ulica 16a
-10000 Zagreb, Croatia
-Email: robert.marko@sartura.hr
-Web: www.sartura.hr
+> > @@ -1602,6 +1685,17 @@ static int rk_gmac_probe(struct platform_device =
+*pdev)
+> >       plat_dat->suspend =3D rk_gmac_suspend;
+> >       plat_dat->resume =3D rk_gmac_resume;
+> >
+> > +     if (plat_dat->phy_interface =3D=3D PHY_INTERFACE_MODE_SGMII) {
+> > +             /* SGMII clock always runs at 125 MHz */
+> > +             plat_dat->set_clk_tx_rate =3D NULL;
+> > +
+> > +             /* SGMII requires a PCS */
+> > +             plat_dat->default_an_inband =3D true;
+> [Severity: Medium]
+> The commit message says:
+>
+>   "Enable default_an_inband for SGMII and disable the generic stmmac
+>    set_clk_tx_rate callback.  This forces phylink to use in-band mode,
+>    where the PCS is responsible for speed/duplex negotiation."
+>
+> Is "forces" accurate?  default_an_inband is only a default, and the next
+> paragraph of the message says so itself.  In phylink_parse_mode():
+>
+>         if (pl->config->default_an_inband)
+>                 pl->cfg_link_an_mode =3D MLO_AN_INBAND;
+>
+>         dn =3D fwnode_get_named_child_node(fwnode, "fixed-link");
+>         if (dn || fwnode_property_present(fwnode, "fixed-link"))
+>                 pl->cfg_link_an_mode =3D MLO_AN_FIXED;
+>
+> and xpcs_inband_caps() advertises out-of-band as acceptable:
+>
+>         case DW_AN_C37_SGMII:
+>         case DW_AN_C37_1000BASEX:
+>                 return LINK_INBAND_DISABLE | LINK_INBAND_ENABLE;
+>
+> so phylink_pcs_neg_mode() can settle on PHYLINK_PCS_NEG_OUTBAND for a
+> fixed-link node or a PHY without in-band support.  With set_clk_tx_rate s=
+et
+> to NULL, rk3568_ops.set_speed =3D rk_set_clk_mac_speed also becomes
+> unreachable, so a 10/100 Mbps link is brought up with the clocking left a=
+t
+> the 1 Gbps setting and nothing warns or fails.  Would rejecting a
+> non-inband neg_mode (for example in mac_config or pcs_validate), or faili=
+ng
+> probe when a fixed-link node is present for SGMII, match what the message
+> describes?
+
+The v5 commit message already notes that default_an_inband can be
+overridden by a fixed-link node, and that out-of-band SGMII is not
+supported by this driver.
+
+> One more observation on the series rather than on this patch: the new
+> binding Documentation/devicetree/bindings/net/pcs/rockchip,rk3568-xpcs.ya=
+ml
+> lists phys and phy-names in its unconditional required list, but the
+> ethernet-pcs@fda00000 node added to arch/arm64/boot/dts/rockchip/rk3568.d=
+tsi
+> supplies only reg, clocks, clock-names and power-domains.  Only
+> rk3568-photonicat.dts adds them:
+>
+>   &xpcs {
+>         phys =3D <&combphy2 PHY_TYPE_SGMII>;
+>         phy-names =3D "serdes";
+>         status =3D "okay";
+>   };
+>
+> [Severity: Low]
+> Does dtbs_check report "phys is a required property" for the other RK3568
+> board DTBs?  dtschema validates nodes regardless of status =3D "disabled"=
+.
+> The neighbouring sata0 node in the same dtsi does carry phys/phy-names at
+> SoC level, so would moving them into rk3568.dtsi be an option?
+
+As replied earlier, the SerDes connection is board-specific and cannot
+move into the SoC dtsi. dtbs_check skips required-property validation
+for status =3D "disabled" nodes.
