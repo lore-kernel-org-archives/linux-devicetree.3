@@ -1,130 +1,114 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 014524A8A16;
-	Tue, 15 Sep 2026 12:05:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 623794BD0F1
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 12:06:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789473961; cv=none; b=sw1gPWUft/oKDF4Ydag0aBIojfLlxhxjgvYTcu3dAdpr1AsfVsU3be31EIANnQVwuwW3Gyj0x+cxUlXr1LJn4glo0G5VxJpYPXB3J7vYe4psWTULNEayvMwqOvMBZvp+4SPle4fgi27a8RLtblmnEqxmyRWvOwJ3JYgveaCsXN0=
+	t=1789473982; cv=none; b=a9C4a7xf2HGpmyRkwS98TmxLR04XzFWdeXO6t2T24T8HovydkUKRpbNt/54TwIyr+pkA0ic0jOKcbwOCZmKH9CWCXl4tni2E2Q0MSYObZNRh8h2a988IiBWs8uuoF8MjEdwHbPGk23mOMwG5QDDZ9kPiJZUNJpLevv28GG8NcbQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789473961; c=relaxed/simple;
-	bh=N5LBpQSIAUQ/HFSk4lckCaDRGxGChn1gurbecmVvuhA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=T0ozg0oCdmH2hdfAc/7xVuzNZczUMeCNOSpta7ODHG1lUvI5Q0e+poY9WMlhGneibFEKkRtFOp820ogtIvEGFoc6twhoi/LmEO7qaRcfLZUd7quTctuTRWfH4bVw2ZdGCsZSxL4DOnuD0symm6lDnyTI+HaaEjGTMe/G6EJb57w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=bSWXWuXT; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789473982; c=relaxed/simple;
+	bh=Hj2Zin5J2VO9IXv9nBhZkSjQQgD0njm7cQx7g69Yb+k=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=WBAciMI8NrzHJKr8ZOxZz7+9fW2LG1DOnCIn9z+KSjamZadkKibWpyzSkvEeaT11fHjZl2a88DLfIBjjyAZH3frze2TWpuXYxnE2aaOa2ZGlpVMbJl7TBLDJ463zLZGuyX8ylF1hyFoQbD0upfQVyTS5a4GKivG22H3brdEVtic=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HV99G+zP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="bSWXWuXT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Vc
-	gRva2rsU2gA85H2EBlIuCFGwCT8FrfLOtefzUc5O4=; b=bSWXWuXT5EooQanUd4
-	Qm61z43ttG6Wv/+ULHaK2qg65StKxkgjClMxlPmsDJZVOXD4J6l7OdA8iLd//j1C
-	jA41cnxScKOLDgsuJk72760wMy6szUz97z6m/OF1xznPF3ljPXP49qZqt4Zk+rJG
-	siGoumUBcmR+AKPsRqpeJ8D1Y=
-Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
-	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wDnN_cQNKlq1ig+Aw--.34817S5;
-	Tue, 15 Sep 2026 20:03:32 +0800 (CST)
-From: Quchaosheng <quchaosheng000406@163.com>
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: Tony Lindgren <tony@atomide.com>,
-	Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Roger Quadros <rogerq@kernel.org>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-omap@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Quchaosheng <quchaosheng000406@163.com>
-Subject: [PATCH 2/2] ARM: dts: ti/omap: drop unit-address from tpd12s015 endpoints
-Date: Tue, 15 Sep 2026 20:03:27 +0800
-Message-ID: <20260915120327.47114-2-quchaosheng000406@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HV99G+zP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC8DE1F000FF;
+	Tue, 15 Sep 2026 12:06:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789473981;
+	bh=HlwP1awgTjMmTzD3AP9AbrCEvv7z9ImkzPsYVftxlFg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=HV99G+zPk5X8XYbH5rC22+Pz8/OBfE4tP9TFU7XRyrzHzCHYHECKz3wqnqhw4O30m
+	 Mz0+BOmyCRfhndQ0CDQE6DZzCZU8xz+3AWuOk2bCk75T+bw842WoVAapW7dDXDNjfW
+	 OjOUNiWJ/abxWvaGK+7dw2HkrHrYCeME2Rt8IRzNJL6I7oA6vjiuao6FoXLm0Jilmz
+	 nxHJpJ88NFRFXj5A80AaV7WFmOCwUzy2Xiu5UeOfeoFKA3FJBoZzree8iKvX2w1Yuf
+	 hLqrX+4478aWhi/Mq5gMvC/lTHxr12NurSFtB+x2xEYhDBzexJl0Cxhr3N+9nxryRA
+	 neSn36/sB7TQw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] arm64: dts: rockchip: add mipi csi-2 receiver
+ nodes to rk3576
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Amin Gattout" <amin.gattout@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20260915-csi-2-rcv-dts-v2-2-bdaf8141616a@gmail.com>
+References: <20260915-csi-2-rcv-dts-v2-0-bdaf8141616a@gmail.com>
+ <20260915-csi-2-rcv-dts-v2-2-bdaf8141616a@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 15 Sep 2026 12:06:20 +0000
+Message-Id: <20260915120620.EC8DE1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDnN_cQNKlq1ig+Aw--.34817S5
-X-Coremail-Antispam: 1Uf129KBjvJXoW7ury5Zry5Aw18tr45Gry7GFg_yoW8Cry8p3
-	s29F4ktws7GFyFkr4DZw1qgF1qkF4kuF1ayF4UWryUCa13Xw18JF1xtwnakr1UCayfZw4j
-	9rs5WasFqw1DWF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0p_NtxAUUUUU=
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC5BQXjGqpNBQeFQAA3D
 
-Drop the unit-address from the endpoint nodes of the tpd12s015 encoder on
-the am5729-beagleboneai and the am57xx-idk.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] dts: rockchip: rk3576: unresolved phandles to csi_dphy0 and csi_dph=
+y1
+--
 
-The nodes carry a unit-address without a matching reg property, which the
-device tree specification does not allow. A plain endpoint name makes them
-match the schema for this binding.
+commit 74283d225fb35bb3bcff8713830fbb589c7d7648
+Author: Amin Gattout <amin.gattout@gmail.com>
 
-No functional change.
+arm64: dts: rockchip: add mipi csi-2 receiver nodes to rk3576
 
-Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
----
- arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts | 4 ++--
- arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi  | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+This commit adds MIPI CSI-2 receiver nodes for MIPI1 and MIPI3 units to the
+RK3576 device tree. It omits the remaining units because MIPI DCPHY and
+split DPHY modes are not yet supported.
 
-diff --git a/arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts b/arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts
-index 76bfb3647..f40017a0e 100644
---- a/arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts
-+++ b/arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts
-@@ -168,7 +168,7 @@ ports {
- 			port@0 {
- 				reg = <0x0>;
- 
--				hdmi_encoder_in: endpoint@0 {
-+				hdmi_encoder_in: endpoint {
- 					remote-endpoint = <&hdmi_out>;
- 				};
- 			};
-@@ -176,7 +176,7 @@ hdmi_encoder_in: endpoint@0 {
- 			port@1 {
- 				reg = <0x1>;
- 
--				hdmi_encoder_out: endpoint@0 {
-+				hdmi_encoder_out: endpoint {
- 					remote-endpoint = <&hdmi_connector_in>;
- 				};
- 			};
-diff --git a/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi b/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi
-index 5eccff3bb..4e8a5820b 100644
---- a/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi
-+++ b/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi
-@@ -135,7 +135,7 @@ ports {
- 			port@0 {
- 				reg = <0>;
- 
--				tpd12s015_in: endpoint@0 {
-+				tpd12s015_in: endpoint {
- 					remote-endpoint = <&hdmi_out>;
- 				};
- 			};
-@@ -143,7 +143,7 @@ tpd12s015_in: endpoint@0 {
- 			port@1 {
- 				reg = <1>;
- 
--				tpd12s015_out: endpoint@0 {
-+				tpd12s015_out: endpoint {
- 					remote-endpoint = <&hdmi_connector_in>;
- 				};
- 			};
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3576.dtsi b/arch/arm64/boot/d=
+ts/rockchip/rk3576.dtsi
+> index b0c0d3c8b1b14..adec5c762673b 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+> +++ b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+> @@ -1314,6 +1314,58 @@ vdec_mmu: iommu@27b00800 {
+[ ... ]
+> +		csi1: csi@27c90000 {
+> +			compatible =3D "rockchip,rk3576-mipi-csi2", "rockchip,rk3568-mipi-csi=
+2";
+> +			reg =3D <0x0 0x27c90000 0x0 0x10000>;
+> +			interrupts =3D <GIC_SPI 314 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 315 IRQ_TYPE_LEVEL_HIGH>;
+> +			interrupt-names =3D "err1", "err2";
+> +			clocks =3D <&cru PCLK_CSI_HOST_1>;
+> +			phys =3D <&csi_dphy0>;
 
+[Severity: Low]
+Does this introduce an undefined phandle reference to csi_dphy0?
+
+The label csi_dphy0 does not appear to be defined anywhere in rk3576.dtsi or
+its included files, which causes a dtc build failure with a reference to
+non-existent node or label error during make dtbs.
+
+> +			power-domains =3D <&power RK3576_PD_VI>;
+> +			resets =3D <&cru SRST_P_CSI_HOST_1>;
+> +			status =3D "disabled";
+[ ... ]
+> +		csi3: csi@27cb0000 {
+> +			compatible =3D "rockchip,rk3576-mipi-csi2", "rockchip,rk3568-mipi-csi=
+2";
+> +			reg =3D <0x0 0x27cb0000 0x0 0x10000>;
+> +			interrupts =3D <GIC_SPI 383 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 384 IRQ_TYPE_LEVEL_HIGH>;
+> +			interrupt-names =3D "err1", "err2";
+> +			clocks =3D <&cru PCLK_CSI_HOST_3>;
+> +			phys =3D <&csi_dphy1>;
+
+[Severity: Low]
+Does this introduce an undefined phandle reference to csi_dphy1?
+
+Similar to csi_dphy0 above, the label csi_dphy1 is missing from the device
+tree sources, causing dtc to fail with an unresolved reference when building
+the device tree binaries.
+
+> +			power-domains =3D <&power RK3576_PD_VI>;
+> +			resets =3D <&cru SRST_P_CSI_HOST_3>;
+> +			status =3D "disabled";
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-csi-2-rcv-=
+dts-v2-0-bdaf8141616a@gmail.com?part=3D2
