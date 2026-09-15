@@ -1,89 +1,187 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88B2D408602;
-	Tue, 15 Sep 2026 03:26:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7078E3F9A16;
+	Tue, 15 Sep 2026 03:45:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789442776; cv=none; b=V5eT4v/LLbOD2gdWr4cNCQDYKUCpDI5NLJmBKP022RvvsS4FYFORHPT5g2hw9akfpX3Ekr+HbhhcXc2PXX3vdSOiRQeEtS5nbKGn1ahhzDvW+Ls1RwfHnFfi+vGu7qX10QQpFRwmA90S0cXyi+X46p+6yITRI+pn+uxSfh970T0=
+	t=1789443906; cv=none; b=ss4YxsAK/s+uRuCc+53oCja/oQaFcSSOAzswnNINyz5MfiRpiUfGSTxdczide1k8ubXIRJdHEExCtiJ+6fGTpwp11+dboYkV3I4zWPRqvTJMXMu4rhuYqpqisPrEA4TPaC+f/XtDziTP075BXesJeHBfWLDXnPq/qlv8K5C/WyA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789442776; c=relaxed/simple;
-	bh=h5Rj9bqeF5Cdvze9iLmoO6Lm6fm3xpjPLZX/g2PKnmI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=t1FgHRQa4rNWEzo26cZ/ghEq8hLn38dE91YmOMwYudmC/vC6pQLkynIN3JBE/2/kZqTGI8HlAe7oAQfNt+oGvcYkW1wwy5B7xJG+0to7TCd6oICfGq+yXy4b7f0QPcKBWEf3vlrQb8U4rZcoFGyWdO32wzC3bPyZ0L6XRIntx4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=Mxmu37ke; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="Mxmu37ke"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A9C4D10428C;
-	Tue, 15 Sep 2026 05:26:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1789442772;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=Y6tqAcnKMATccMeJAtItTA1TzHzXFuF+as57JTYCMrY=;
-	b=Mxmu37keQlI/dIMcUxL8Din1jzxvVUOgHgmJg9Sv3NJVVH3QNgIaKn/ToCRGFs4tZMcirq
-	SSqSKNPAmzdj5TW9iEXxZOb/r4xgqWy3UL8DEj5KYEFBLrVOr/W/HpaN/idH9X/wwWu9fl
-	uM5wEyx+KIC6Jh9Lxp7a0UUGQsiT4XLZUXQGa/boBGRsu4v5fDSvrpIcmvSnpiQQSZAAES
-	/U9Ev1SDKKuHZY+cdkRzX8avWNq+94c9bMpSX8PnaMG9lOV9CLxUZm3fWPjYkEvzQSu7e5
-	DycDPkfFZ9iJnHdzIQB333vtWGNhuLW7c32N86L6Zlu+3xjzpwXpAUMnfBCKJQ==
-Message-ID: <76db8193-6144-4460-acaa-f3d11fddba44@nabladev.com>
-Date: Tue, 15 Sep 2026 02:10:16 +0200
+	s=arc-20240116; t=1789443906; c=relaxed/simple;
+	bh=21sIjn1CMCwVWRosJesInKPw67AAh9ENicYWDDsZe28=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mIRmRtZ2DpMhhH3HMcf+4ZteBcAnMZYpAAKgcrm8JWW6/8ufCRZMkHi0qs3A7OLzZTv5sa5SspM7wJWBlHWwIVeAfHCDfCei0j89mW1TVJRrf57abuimCQIaA7sPDTlNVSYcYYroLysgAQonaM4J74lpDwoZXrtdpp87JH+x6Nk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; arc=none smtp.client-ip=92.121.34.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id B9E541A00AF;
+	Tue, 15 Sep 2026 05:45:02 +0200 (CEST)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 7D4541A00AC;
+	Tue, 15 Sep 2026 05:45:02 +0200 (CEST)
+Received: from lsv03900.swis.in-blr01.nxp.com (lsv03900.swis.in-blr01.nxp.com [10.12.177.15])
+	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 92049180006C;
+	Tue, 15 Sep 2026 11:44:59 +0800 (+08)
+From: Lakshay Piplani <lakshay.piplani@nxp.com>
+To: alexandre.belloni@bootlin.com,
+	linux-rtc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	wim@linux-watchdog.org,
+	linux-watchdog@vger.kernel.org,
+	linux@roeck-us.net
+Cc: vikash.bansal@nxp.com,
+	priyanka.jain@nxp.com,
+	Lakshay Piplani <lakshay.piplani@nxp.com>
+Subject: [PATCH v7 1/5] dt-bindings: rtc: nxp,pcf85363: add timestamp mode config
+Date: Tue, 15 Sep 2026 09:14:48 +0530
+Message-Id: <20260915034452.4086683-1-lakshay.piplani@nxp.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: soc: xilinx: Document ifm ZynqMP
- VHIP6 EvalBoard
-To: Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org
-Cc: Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260909182641.165383-1-marex@nabladev.com>
- <082df9b0-0517-4580-8ba8-cf6f4d3e0713@amd.com>
- <1c39be54-c931-40a2-a806-fa963b2188ec@nabladev.com>
- <e305b607-76ca-489c-b27f-bf45b6fdb59c@amd.com>
- <7b957072-df73-4fab-91ba-9835285ff8c5@nabladev.com>
- <a0d23fc9-6f7b-4c19-9f6f-9cc0c7cce3f5@amd.com>
- <f80845ae-9ab8-474e-89b2-80ac3fbd184c@nabladev.com>
- <656ae6e2-608a-4839-bcfe-941dfffdca11@amd.com>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <656ae6e2-608a-4839-bcfe-941dfffdca11@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: ClamAV using ClamSMTP
 
-On 9/14/26 8:29 AM, Michal Simek wrote:
+NXP PCF85263/PCF85363 provides three timestamp registers (TSR1-TSR3)
+which latch the current time when a selected event occurs. Add a
+vendor specific property, nxp,timestamp-mode, to select the event
+source for each register.
 
-[...]
->>>>> There will be thousands of similar boards out there and I am 
->>>>> definitely not going to have all of them in the tree.
->>>> Why not ? There are users who benefit from having their board 
->>>> support upstream. This is what other SoC vendors do as well, it does 
->>>> not seem to be a problem, rather it is a good indicator that the SoC 
->>>> has users who care about it and about upstream.
->>>
->>> If there is public documentation about it I don't have any problem 
->>> with it.
->>
->> I do not think there is, but no public documentation is the case with 
->> many boards/DTs that are upstream, and it does not diminish their 
->> usefulness to their users.
->>
->> What do you need to know ?
-> 
-> All these SOC based boards are created not because of hard block (PS 
-> part) but because of programmable logic which is not described in any 
-> upstream project DT. It means no matter what manufacturer has to 
-> maintain PL description separately.
-> 
-> I don't really mind if other maintainers are fine with dealing with 
-> these kind of boards without any public documentation. There is no way 
-> to check if even your description is correct.
-> I am not going to take any responsibility for maintaining them.
-I can help with maintaining this board, it's a non-issue.
+Also introduce a new header 'pcf85363-tsr.h' to expose
+macros for timestamp mode fields, improving readability
+of device tree file.
+
+Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
+Reviewed-by: Rob Herring <robh@kernel.org>
+
+---
+V6 -> V7:
+- No change.
+
+V5 -> V6:
+- No change
+
+V4 -> V5:
+- No change
+
+V3 -> V4:
+- Added Reviewed-by tag in commit message (previously only in changelog) 
+
+V2 -> V3:
+- No changes in v3
+- Added Reviewed-by: Rob Herring <robh@kernel.org>
+
+V1 -> V2:
+- Addressed review comments from Rob Herring:
+  * use $ref: /schemas/types.yaml#/definitions/uint32-array
+  * tuple form with exactly 3 items (TSR1/TSR2/TSR3), per items decimal enums
+  * define 'nxp,timestamp-mode' clearly
+  * drop watchdog related vendor properties
+  * remove watchdog related vendor properties from i2c example
+---
+---
+ .../devicetree/bindings/rtc/nxp,pcf85363.yaml | 23 ++++++++++++++-
+ include/dt-bindings/rtc/pcf85363-tsr.h        | 28 +++++++++++++++++++
+ 2 files changed, 50 insertions(+), 1 deletion(-)
+ create mode 100644 include/dt-bindings/rtc/pcf85363-tsr.h
+
+diff --git a/Documentation/devicetree/bindings/rtc/nxp,pcf85363.yaml b/Documentation/devicetree/bindings/rtc/nxp,pcf85363.yaml
+index 52aa3e2091e9..cf9c155162d6 100644
+--- a/Documentation/devicetree/bindings/rtc/nxp,pcf85363.yaml
++++ b/Documentation/devicetree/bindings/rtc/nxp,pcf85363.yaml
+@@ -4,7 +4,7 @@
+ $id: http://devicetree.org/schemas/rtc/nxp,pcf85363.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+-title: Philips PCF85263/PCF85363 Real Time Clock
++title: NXP PCF85263/PCF85363 Real Time Clock
+ 
+ maintainers:
+   - Alexandre Belloni <alexandre.belloni@bootlin.com>
+@@ -39,6 +39,24 @@ properties:
+   start-year: true
+   wakeup-source: true
+ 
++  nxp,timestamp-mode:
++    $ref: /schemas/types.yaml#/definitions/uint32-array
++    items:
++      - enum: [0, 1, 2] # TSR1: NONE, FE, LE
++        description: TSR1 mode
++      - enum: [0, 1, 2, 3, 4, 5] # TSR2: NONE, FB, LB, LV, FE, LE
++        description: TSR2 mode
++      - enum: [0, 1, 2, 3] # TSR3: NONE, FB, LB, LV
++        description: TSR3 mode
++    description: |
++      Defines timestamp modes for TSR1, TSR2, and TSR3.
++      Use macros from <dt-bindings/rtc/pcf85363-tsr.h>.
++
++      Each value corresponds to a mode constant:
++        - TSR1: NONE, FE, LE
++        - TSR2: NONE, FB, LB, LV, FE, LE
++        - TSR3: NONE, FB, LB, LV
++
+ required:
+   - compatible
+   - reg
+@@ -47,6 +65,7 @@ additionalProperties: false
+ 
+ examples:
+   - |
++    #include <dt-bindings/rtc/pcf85363-tsr.h>
+     i2c {
+         #address-cells = <1>;
+         #size-cells = <0>;
+@@ -56,5 +75,7 @@ examples:
+             reg = <0x51>;
+             #clock-cells = <0>;
+             quartz-load-femtofarads = <12500>;
++            wakeup-source;
++            nxp,timestamp-mode = <PCF85363_TSR1_FE PCF85363_TSR2_LB PCF85363_TSR3_LV>;
+         };
+     };
+diff --git a/include/dt-bindings/rtc/pcf85363-tsr.h b/include/dt-bindings/rtc/pcf85363-tsr.h
+new file mode 100644
+index 000000000000..1fb5b9b3601e
+--- /dev/null
++++ b/include/dt-bindings/rtc/pcf85363-tsr.h
+@@ -0,0 +1,28 @@
++/* SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause */
++/*
++ * Copyright 2025 NXP
++ */
++
++#ifndef _DT_BINDINGS_RTC_PCF85363_TSR_H
++#define _DT_BINDINGS_RTC_PCF85363_TSR_H
++
++/* TSR1 modes */
++#define PCF85363_TSR1_NONE 0x00
++#define PCF85363_TSR1_FE 0x01
++#define PCF85363_TSR1_LE 0x02
++
++/* TSR2 modes */
++#define PCF85363_TSR2_NONE 0x00
++#define PCF85363_TSR2_FB 0x01
++#define PCF85363_TSR2_LB 0x02
++#define PCF85363_TSR2_LV 0x03
++#define PCF85363_TSR2_FE 0x04
++#define PCF85363_TSR2_LE 0x05
++
++/* TSR3 modes */
++#define PCF85363_TSR3_NONE 0x00
++#define PCF85363_TSR3_FB 0x01
++#define PCF85363_TSR3_LB 0x02
++#define PCF85363_TSR3_LV 0x03
++
++#endif /* _DT_BINDINGS_RTC_PCF85363_TSR_H */
+
+base-commit: 704340f1cd0dcef829eb62f5b48ae95a2ce17bdf
+-- 
+2.25.1
+
