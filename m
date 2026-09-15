@@ -1,145 +1,130 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A69745D1BA
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 07:17:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D11A844B69C
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 07:20:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789456671; cv=none; b=XMPGaWxz6MtHTrcViYtmr65jkAy08eGAWnm9zHjWqVjZlL8xIn/D4rzFuyjiGPuR2UsFy1MZisiT83xW/HQItjTEJpeBPEC3vF+B5ot2kthmd5OeFdb/FKe27954DQpvkiPDOB0njHxDr4SaHTM/KKov3eIEfePfSIvM4m8+IhU=
+	t=1789456814; cv=none; b=GObEKVhU28fFT3AveiWLE0PMvySZu+CfnANbsU+xf99cFSpbWAtCSWljI4pMmmNTV1Zgx9Cug+qY7KyvXahtnBxbG0+210vmJWVU41KJI/A5Aa0FP3LBMCBl7G/2QsAEyTY5Vtz6y9kme0VXyTF+82UIRKdnhdot7qutZdSxnLU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789456671; c=relaxed/simple;
-	bh=hAXGf3fwKFEiB3f4/YXlhsIaiotd9AUAeVeNMwuOMCQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=RWpMVCQD2E0hs+664QNBya5z+Dj1tdQ0WGNXfR3Tf/OgUWpUYuXvxzGHMYAVWKhj2U3Qa9CtkYXxO6EIwyzlGapLQtM0jtgZJJgH1CmVJpDhatcE48EWnmbpuSwx7CFE6PKJAQ/mOLmLksnhxCLUhaGTcdAf1geC7Fl5tKoUsNw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UIhqtdmh; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SOUpZoXE; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1789456814; c=relaxed/simple;
+	bh=01ysVpcOE6R2esRBaW2jUf1jKl/VdIRiVfhxn++neYE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XstHYF2ZvYlZ4dynKlGuBtrTApbr3HXzwiEx44WM6e+WfkxgWqOWgFNOEqTO6uHxpBc5oGoAHndbtrjW2W5/irN5NO36RuZ3tJNKIQL8eo9V+pChfWv2Z7jL1UQDsPwNMBuFXtE2d0JhLr4bd4qDWF5a0PNz9mstWOlW+MJCZuw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fNhLWy3I; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=F975oyLN; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UIhqtdmh";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SOUpZoXE"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fNhLWy3I";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="F975oyLN"
 Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F6ZkH53824168
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 07:17:49 GMT
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F6Zd1u3824091
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 07:20:12 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	xlfk++XyU1ksGb867DX9M/DYidhT/J3K0XN0SWFOlDU=; b=UIhqtdmhYfZGZQJA
-	FBERNDICmZ+DiCoaE9/9Ba+de1bRnGJNuXWg2e80AqWSEGjWYed7uG00K43AAi3c
-	f5VZ9xpVDpLt6q4bBxqCA6b6mM2rKD/rC3SY4qVqqoHU6AuSraDcAVinEykwFpSH
-	PsUdmTwe+dW/tGfuInRYMtebxkJCy6ErmQwc1yX1lQlFtkOuZmwlJR1BJecyv75l
-	TMAYbg2dmQP39DS9KpeeNgIGHoTlgEF05UC1HAmh1gmvio/PLtODyk95lK++O9XJ
-	P5K9yzTaDX8zvpgkfGQBT4QdNNiHmBHXybD9Yx37U21U2R4yN2V+MRXZi6A/JNjo
-	imPlwA==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpn41u0tu-1
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=SehUk9k3CRKJXFemuL5gzZ7zkv1/5zSVASo
+	RxDQ27qI=; b=fNhLWy3IXQ6E4lIC3bSqx4X+J76FF6WF61ZA7ngB2xj1xapYeN5
+	BfRVHzDqpfQgf4oQ393ZXCI880pwUOmshrlouW9+aNb9qta+hcTjXaloBnLuxkZR
+	uebiuNr0IxuP2eNegTY1hPir9w7M9mKhdbF6b++sZP8aWWrR7xzTMtpw3yk9GobQ
+	tyFdrJcsmxa506Jrb+jneZvyVq4cYSwIeJ5m9DbjekShQ745+UNTBGIop65sdRCJ
+	Wz2uRhDMLHvZYyAJ77cquzv+UbNu+gXdYP30SQNxe7jlhKXmTIGMk5Gm+RFxOT1J
+	4Vf06pNo3oC+3h/aiB/JFfBFnJleCTklpgw==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpn41u16k-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 07:17:49 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-396901263b6so8196213a91.2
-        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 00:17:49 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 07:20:12 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93a1bffc2eeso578583985a.2
+        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 00:20:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789456669; x=1790061469; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xlfk++XyU1ksGb867DX9M/DYidhT/J3K0XN0SWFOlDU=;
-        b=SOUpZoXE8K2LQQD8p1g91cqWygvVYsUIjbfdWP3cSnfTe4jvZ7sl1Er3b1rRukg6X0
-         FxTHvMUzp3cogkOE8YMU1RmyHeR1SlI6GbGF5HuIgmg+yPFTWxs65+ORaSCRdURpSkzk
-         /KXCEBT5nfnYQZNzxQXSzKNOGLCM98yZB9BvIOog17Hn6uiSbP0al2BSi/0JctAYLPMB
-         WQqB4NkgwTied71qiFEeLE1psh9bYzx3ygaqTRPE6GC87d8qOVgikO9vdNE45IDCeH/O
-         vyrSHt1sGesAqcg/62oXsrj6/dA+otNZiEh9tIFOO1TBb2GClbiRd2R502K8Oy3xlLvG
-         mACQ==
+        d=oss.qualcomm.com; s=google; t=1789456811; x=1790061611; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SehUk9k3CRKJXFemuL5gzZ7zkv1/5zSVASoRxDQ27qI=;
+        b=F975oyLN/5UB/QAj4bxzZyTgH5UupvnHqUgJqVXGwMvjfPfP2WdeffxekculILBdgQ
+         rZ3i0jn+QOrIoUYDNvRUw9i391Qq9klSmdn7Z7NM6t4zWHKJUxtBdELPx4zy2vw7dQjl
+         lrbQqE1LihnrvkchavXBXGo65pQG8DAhHqciOqxOr0BddFnVcVZWLG6NhIZddejxoyGh
+         37CW49h8Pha5Tq07582iO8WL0Q4TE8yBn5C+aHO0WDq1pzKD5ozjMAmvDUjSZlvofLMs
+         VY2TGF1jcG/h6f2S0YM/o6oQGB+tzI+TQDFEuGcVUohjH43lL0CvmV9HWuBist6CP/o9
+         E+tA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789456669; x=1790061469;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xlfk++XyU1ksGb867DX9M/DYidhT/J3K0XN0SWFOlDU=;
-        b=vJDziQGoIUHY3tWc8KvW84ULmao2WSu3+LcU75ppFNFQFyCTFMrivvMO6nqWUhvy+l
-         BvIvOx68Q/0VTFd5HuA8K1cAfQb70oj2Vi9K00fvgz0gaYSQ7n56YLZhd4AWjaI4H8u5
-         IV299/B3OSmYw5dXrQGqwVeD8Ub1Z+mRn+puxYvcTBtNnUozLQgayIQ4JCfi3R/aTNjb
-         N+2fx0PY5zWTMWm/o/t/rH6Za+bd4YKv93zCmEKpo6wyuehQQJPBk6QQCXp5uM+K/7Tw
-         CqguH7M16fVmLuW6vvtnDYYjN1NjNHSMgX20rJ6ZqajYR2dWXWc9cdrV/MXBPB9dK0hQ
-         bapQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxj8Ry3J47xfERqWBaIDFjllMOVnNXRKVHRdSjzrgTisUNnJXT27i1O/diIFL6d3YDO46SyQFkMLPW3@vger.kernel.org
-X-Gm-Message-State: AFuF++kRg9IT/nqX4y24dHXNLcEYexvuOH5RT8xbZevTkGyjcUeD70xU
-	kgz+ukiiT5eKQfGzl5VipA3/et1+rEd+G/tfwAfy5bHyur9dh3ThdZ89Ip2eL/x5wByg6n7wrds
-	76I4UyiQhIL9u1s6WtuyvPmgiZq1gyC9pgsGScNuhdcDNk2ey1YRrUrFC4H+0qRxN
-X-Gm-Gg: AYBFou0HJi9Quea1sWDK5S07Yq6RSEJK2YQ4IpYzY3pjcqshR8GhtijqXY8CZPSAke+
-	mysFjFk3rSN+EGkrS8U8ROumBi2AWrk9ef2gtIkl0KeXBsBk2m3RkU4+pVJbe031qjOOhsC7HQs
-	Vpmdw65FFYdNR9vtUuwGJt1egyGAcC1j3wRAA5sVWvH2EJOMj635CFf3dKdUX3L64RatadKqTGh
-	KAfJUX5cDIUmBZ8Sld9vp6rxh/NripyGLlBTVSttk3ESiBJL5/HZtDIQZDIYrCf9AfMavVri+J+
-	P6lupSwFgIFAe0+j4nkHYN4mfNtSuQbveTxnklsF0s82qHTCk81iuYUEqa7J
-X-Received: by 2002:a17:90b:3e50:b0:39e:2f2:214b with SMTP id 98e67ed59e1d1-39e02f221afmr4277505a91.16.1789456668480;
-        Tue, 15 Sep 2026 00:17:48 -0700 (PDT)
-X-Received: by 2002:a17:90b:3e50:b0:39e:2f2:214b with SMTP id 98e67ed59e1d1-39e02f221afmr4277428a91.16.1789456667863;
-        Tue, 15 Sep 2026 00:17:47 -0700 (PDT)
-Received: from [127.0.1.1] ([2a12:a305:4::30fb])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfdaccc0fsm3447120a91.15.2026.09.15.00.17.39
+        d=1e100.net; s=20260707; t=1789456811; x=1790061611;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SehUk9k3CRKJXFemuL5gzZ7zkv1/5zSVASoRxDQ27qI=;
+        b=z4R8rqW6KJ9M6aGrAyq2AkQF1zuFaw8zu/lTgyoElyV2dk3wehSMRN/yB+mximdr6i
+         n73oZjF3DKH3M49OF+sihAF85UoDiGiKp/bu6kVPTA+5F30DCUGwlMg15CNjE/dw5y5r
+         VOhY+d4980k7KF4abCrckeTSF9vTWUnET2ODqbmh5OFaxaO+JXlnZbs1ryGi89U+MatF
+         r2EqcustgExmXVXrPsurz3eoxnYINphISfN3KWlATPVSVE43llE8Le1PXC5KA5aDf6EQ
+         AbUUPxTeyYhi6Nvb0NsY8osJp+v7uW3T9qrB1QfYVWAVYhfMs3a+fKrkZWWYuo/dL0+h
+         5V9g==
+X-Forwarded-Encrypted: i=1; AKwUvBwTt5mbcj4+9rTaRW3E/7HaxKL04tBqFog3ORYFfRUfqZTGw7A2EA7/pRoXsciXpD3kgIGpUVdngcb0@vger.kernel.org
+X-Gm-Message-State: AFuF++lEOKnX4/o0QHew50xggaG+JwqscbZZ8qGpnR6x1nPYbMnQ0ZNP
+	mX8hhxYq1pJ90Xd4OJvrgf7xX+IwzJYeAjtP9XIRAjyVPDT/0jRNHMHz5DVZHF8VAbHk1A7Ckx0
+	lscgasIEZr1yfpthebQ5tXqeQaUxcjxx93adUU+3Gq3WsVwnF5OwjREXMVhlB+pf8NVQdtFW5
+X-Gm-Gg: AYBFou3N0AqffUs34OyH8tfLg+Jit4KlDWnqnXszJy6P9EiOoDtRc+h3czeH/6XG5oN
+	kHA9BnMiYVd7twb2BWvAkLeuwVqvZc3fYlqzn9ffNs+ybRWSh11OGLpTstj14YgqWZUtSWVleh0
+	Frx1UEO6/7V+9WpKe6LgUVtN54gDkGmNc24RXz8cj95oMNqVMyRzbdT+RiraXhXN+7wW0t9+IRF
+	ReUcMcToGDgVdb1WNmdg8WgqpadVCCQqNqNWTPWQb2IQ+slQpAX8hdTyDSYpKU0f30yD+Zs3Lzk
+	aIUpMYD1En6AtIYDoMdyQ7EVOOt8lPuK5l36RAJCRuDRTsZdYUdfq7+R6YG+kJWdL0ACNHin5m0
+	GSyA9KpMhuNch1gI=
+X-Received: by 2002:a05:620a:458e:b0:936:ea0d:ffc3 with SMTP id af79cd13be357-93a29804733mr928466085a.22.1789456806178;
+        Tue, 15 Sep 2026 00:20:06 -0700 (PDT)
+X-Received: by 2002:a05:620a:458e:b0:936:ea0d:ffc3 with SMTP id af79cd13be357-93a29804733mr928463185a.22.1789456805831;
+        Tue, 15 Sep 2026 00:20:05 -0700 (PDT)
+Received: from quoll ([178.197.219.214])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7d6a9d1dsm52558805e9.10.2026.09.15.00.20.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 00:17:47 -0700 (PDT)
-From: Guodong Xu <guodong.xu@oss.qualcomm.com>
-Date: Tue, 15 Sep 2026 03:15:37 -0400
-Subject: [PATCH v7 11/11] riscv: hwprobe: Introduce rva23u64 base behavior
+        Tue, 15 Sep 2026 00:20:05 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>,
+        devicetree@vger.kernel.org, loongarch@lists.linux.dev,
+        linux-kernel@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH] LoongArch: dts: loongson-2k0500: Drop unsupported bus_id in DWMAC
+Date: Tue, 15 Sep 2026 09:20:01 +0200
+Message-ID: <20260915072000.47367-2-krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-rva23u64-hwprobe-v2-v7-11-aa35ebd9ae96@oss.qualcomm.com>
-References: <20260915-rva23u64-hwprobe-v2-v7-0-aa35ebd9ae96@oss.qualcomm.com>
-In-Reply-To: <20260915-rva23u64-hwprobe-v2-v7-0-aa35ebd9ae96@oss.qualcomm.com>
-To: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
-        Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-        Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
-        Chen Wang <chen.wang@linux.dev>, Inochi Amaoto <inochiama@gmail.com>,
-        Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-doc@vger.kernel.org, linux-riscv@lists.infradead.org,
-        linux-kernel@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>,
-        Conor Dooley <conor@kernel.org>, devicetree@vger.kernel.org,
-        spacemit@lists.linux.dev, sophgo@lists.linux.dev,
-        linux-kselftest@vger.kernel.org, Palmer Dabbelt <palmer@sifive.com>,
-        Andy Chiu <tchiu@tenstorrent.com>, Florian Weimer <fweimer@redhat.com>,
-        Peter Bergner <bergner@oss.tenstorrent.com>,
-        Zihong Yao <zihong.plct@isrc.iscas.ac.cn>,
-        Mark Harris <mark.hsj@gmail.com>,
-        Aurelien Jarno <aurelien@aurel32.net>,
-        Guodong Xu <guodong.xu@oss.qualcomm.com>,
-        Andrew Jones <andrew.jones@oss.qualcomm.com>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5107;
- i=guodong.xu@oss.qualcomm.com; s=default; h=from:subject:message-id;
- bh=hAXGf3fwKFEiB3f4/YXlhsIaiotd9AUAeVeNMwuOMCQ=;
- b=owGbwMvMwCXWtEl1Z3CGpCDjabUkhqwVH7YpVSuJte9Zvqye67H+4vxXO2sv8DXe11vvPKvAz
- K5jldmljlIWBjEuBlkxRZbDR1uyt77yifZ9zvkDZg4rE8gQBi5OAZjI9yBGhifdP94cOHHwtdIF
- NvV1l00OBU1YXDvX8duRD6KLxEN1krgZGR7811SWUZ3wqXElB7PmRZ5JE2Yy20bnNv1eNPOccrF
- 8GBMA
-X-Developer-Key: i=guodong.xu@oss.qualcomm.com; a=openpgp;
- fpr=90B1DC3DF0BD10FD1227BD6344F254AF42F143EE
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDEwMiBTYWx0ZWRfXwx1VOn6gQdLe
- hwbTFmUhHo122mKZ5i8R/ZByEmoVVK0D/xHmV6eLr97K3hAy5p1Q4PTCGeK/9HfTH5FqRmQY+nu
- hTqWsEVOXXyow/iIcLTGzC3VCCOQpLg/Qig64rbrcMKxs8fwEgwGzYdhgE2esrECiF9IedDbQWP
- asaeEJdETv06a87PyCRi4dhamCH5fX1GI6D6+WVuH6EwpIeNEgejyaB4H2wKIH9S61ugK9m7ILI
- FjH5eec89JJprZf6E762eFpqCRjUbYYJ02oZ+1QPIZrVTS0H71ZyAtk1AjyIgwvh4CqzdJXyrfE
- 6MqIb+zIMONDOwbx9mQAlPvTLXHhUa+oNIu0ERnczO46ZA5k/P+O/k+PnaB2NkQJDTOhyotOU/z
- 2ZT+toX/KVhuWep0y2tHstTl9xuWBztUp0BwsvbgIFCVYNVCTISca9Z+tvK7LdX4X9G39Fnn9pl
- SS9mGyyXRbkW0hUgbYg==
-X-Proofpoint-GUID: P_gJxWSDgk2sjb3tLhri1yigMdzwvCY4
-X-Authority-Analysis: v=2.4 cv=cqQOAF4i c=1 sm=1 tr=0 ts=6aa8f11d cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Developer-Signature: v=1; a=openpgp-sha256; l=962; i=krzysztof.kozlowski@oss.qualcomm.com;
+ h=from:subject; bh=01ysVpcOE6R2esRBaW2jUf1jKl/VdIRiVfhxn++neYE=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqqPGg79k/3DTgj9mfp6dZvto3S7TYprOl7QaXG
+ ycXfC0ly0+JAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaqjxoAAKCRDBN2bmhouD
+ 14BJEACIG5O4D6Y/82v5a81YQ+E5215/HHIm2xtpQ7zEcuv0wkf49rvEui48I+d6wIUHtbqWoME
+ 1x/H1ujHXS+Bl/4g+PjOYTj7wMItPe2JEZC/RhVwVeBFE+nqzN8stsDG9ksJqoedmzguawQqlMp
+ y64uLMz4pQniqsbusL/lGrDTGGB4493JCb4b/E4+5pHQwhq7zf38JQg9cSeHNDI+ewKNFR8Rtak
+ oSgO5T0fYElXuJ5eTbx3wC1Y8kn+Vvygi1S48BHMPdeNB2299IEVATm4ylvMQluq7fjUvdO5bfd
+ /0KcxLu5dJcC51w7QMNtNhaZNJxAWR+1Fxi9ist6h2+RHIJJK0NWFiHBdsuLrBtS9SH7yqv+KNU
+ f1/rnLQvRFT+G8sz+egwubfHb31G71Jsli0OvjmdSzFaRWrr+LE7IAb8+1LgYkcmUHwTZG2GkiI
+ 2YqTpfS4w4CM+FI7LzVIwpQCeYirKUurWvHKteGrOz5/5C/duLVuR5BucJuGJ2PsSr20zJg738z
+ 9xT+UTclXxUQ/geoCdgyvY1B4N0tZugc4htwidwnI3zc1uG0+5JfQy3Dl4PaAiZ512TBu5Hylc1
+ DU96VdffdLvZvIFUVe/GHxOj4YlpvO0j8nOAINitd0bg/unplgLS2llB6Ug8aEaCJ8pQFkJmkw8 UsbaXH3rExc4Jcg==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDEwNCBTYWx0ZWRfXwHXbQge/qCyO
+ rQNopSuHsALvIRHB6EP+8raHP/DHnCSlW4Q5ukhjlXNVRxskYMwG5IG9HaWRSWU1gXwF6J03QyR
+ XSU12asTMLvDehOPhK6kQez6Yekftq+vRqZcfS0+TzEB+M7dnVFNIsGHSJryG/utRuJ440KeIL4
+ tnzCoTvp+NRflV4XKp8I0DRHARX30uueb6obNASyWp1WZljZLiR4HcOuOwzw/hRX2fv1QikxoSQ
+ k/nUXu7l8KDfWVqC3akvWEgWNsBjQM7VO5BroxC+EokTvXjZGJ2BPOaNIPmNdS4dmu14H3Xk5tW
+ P0iCvqlASZJn2ZB3cbIGLe6Kd76RAfSuca3o/tQ7PD4nFszKQNOAhUpRvUuZfi0csGdKWxlJXUW
+ 4Kh9e37vRIn/n2jED+kJKkslQyZvj5JoWBGRMxT0v88KHtPj1KpEPUn8q1btv4s/7DYi5BhJThA
+ m3nlogNZ9/KeQv6ZfsA==
+X-Proofpoint-GUID: UD2LZmJ66-abh-ZyCRNdOyGGkDai68px
+X-Authority-Analysis: v=2.4 cv=cqQOAF4i c=1 sm=1 tr=0 ts=6aa8f1ac cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
  a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
  a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
- a=jBCMAwuHs6T3S2td1yAA:9 a=QEXdDO2ut3YA:10 a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-ORIG-GUID: P_gJxWSDgk2sjb3tLhri1yigMdzwvCY4
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDEwMiBTYWx0ZWRfX3KCcs/MzUdSf
- nU1LAtD4qmrOiCmOd9Ns9hFF6L9ePQy4iru6t1PPSbg99roWw9HQIhlcnEIQY26SnFphqpM1VU/
- k51AL3Uk6qUsRpMtmVFOmBxoqNYGtr4=
+ a=RHNxK20dIsJZYvHncwQA:9 a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-ORIG-GUID: UD2LZmJ66-abh-ZyCRNdOyGGkDai68px
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDEwNCBTYWx0ZWRfX6ULjho+H9jTj
+ xwwhDZXBXHIxOtvLHUOAVeU1frFOtKPb5eC3SdM6IWLXLNymUch2U8Yy0CVRZMR242yhMcYQMzU
+ Y6XaOAKNXkJJ+qAk5df+6k5jnALoJ9g=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-15_02,2026-09-14_02,2025-10-01_01
@@ -147,124 +132,38 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  clxscore=1015 adultscore=0 phishscore=0 priorityscore=1501 malwarescore=0
  suspectscore=0 spamscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150102
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150104
 
-Provide a hwprobe base-behavior bit so userspace can check RVA23U64
-support in one call.  Without it, a consumer needs five hwprobe
-calls and four prctl calls, which is error-prone to require of every
-caller.  Most software treats RVA23U64 as a new base anyway, so
-expose it directly.
+There is no "bus_id" property at all defined in the bindings and new DTS
+is not allowed to bring undocumented properties.  Fix dtbs_check
+warning:
 
-Signed-off-by: Andrew Jones <andrew.jones@oss.qualcomm.com>
-Signed-off-by: Guodong Xu <guodong.xu@oss.qualcomm.com>
+  loongson-2k0500-ref.dtb: ethernet@1f020000 (snps,dwmac-3.70a): bus_id: b'\x00\x00\x00\x00' is not of type 'object', 'integer', 'array', 'boolean', 'null'
+
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
-v7: Use riscv_isa_base_available().
-v6: Rebase onto riscv/for-next: define
-    RISCV_HWPROBE_BASE_BEHAVIOR_RVA23U64 in the _BITULL() style of
-    commit 8da45c93dfa9.
-v5: No change.
-v4: No change.
-v3: No change.
-v2:
-- Detect RVA23U64 by reading from the cached hart_isa[].isa_bases
-  bitmap populated by riscv_init_isa_bases() at init time, sharing
-  one source of truth with /proc/cpuinfo.
----
- Documentation/arch/riscv/hwprobe.rst               |  8 ++++++++
- arch/riscv/include/uapi/asm/hwprobe.h              |  3 ++-
- arch/riscv/kernel/sys_hwprobe.c                    | 23 +++++++++++++++-------
- tools/testing/selftests/riscv/hwprobe/which-cpus.c |  2 +-
- 4 files changed, 27 insertions(+), 9 deletions(-)
+ arch/loongarch/boot/dts/loongson-2k0500-ref.dts | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/Documentation/arch/riscv/hwprobe.rst b/Documentation/arch/riscv/hwprobe.rst
-index 32a14331eb9de..dc70470093b1b 100644
---- a/Documentation/arch/riscv/hwprobe.rst
-+++ b/Documentation/arch/riscv/hwprobe.rst
-@@ -67,6 +67,14 @@ * :c:macro:`RISCV_HWPROBE_KEY_BASE_BEHAVIOR`: A bitmask containing the base
-       programs (it may still be executed in userspace via a
-       kernel-controlled mechanism such as the vDSO).
+diff --git a/arch/loongarch/boot/dts/loongson-2k0500-ref.dts b/arch/loongarch/boot/dts/loongson-2k0500-ref.dts
+index 7ace54c84244..d2a3ed9fa578 100644
+--- a/arch/loongarch/boot/dts/loongson-2k0500-ref.dts
++++ b/arch/loongarch/boot/dts/loongson-2k0500-ref.dts
+@@ -73,14 +73,12 @@ &gmac0 {
+ 	status = "okay";
  
-+  * :c:macro:`RISCV_HWPROBE_BASE_BEHAVIOR_RVA23U64`: Support for all mandatory
-+    extensions of RVA23U64, as defined in the RISC-V Profiles specification
-+    starting from commit 0273f3c921b6 ("rva23/rvb23 ratified").
-+
-+    The RVA23U64 base is based upon the IMA base and therefore IMA extension
-+    keys (e.g. :c:macro:`RISCV_HWPROBE_KEY_IMA_EXT_0`:) may be used to probe
-+    optional extensions.
-+
- * :c:macro:`RISCV_HWPROBE_KEY_IMA_EXT_0`: A bitmask containing extensions
-   that are compatible with the :c:macro:`RISCV_HWPROBE_BASE_BEHAVIOR_IMA`:
-   base system behavior.
-diff --git a/arch/riscv/include/uapi/asm/hwprobe.h b/arch/riscv/include/uapi/asm/hwprobe.h
-index 9a121ee3b4369..4f5d51788c416 100644
---- a/arch/riscv/include/uapi/asm/hwprobe.h
-+++ b/arch/riscv/include/uapi/asm/hwprobe.h
-@@ -22,7 +22,8 @@ struct riscv_hwprobe {
- #define RISCV_HWPROBE_KEY_MARCHID	1
- #define RISCV_HWPROBE_KEY_MIMPID	2
- #define RISCV_HWPROBE_KEY_BASE_BEHAVIOR	3
--#define		RISCV_HWPROBE_BASE_BEHAVIOR_IMA	_BITULL(0)
-+#define		RISCV_HWPROBE_BASE_BEHAVIOR_IMA		_BITULL(0)
-+#define		RISCV_HWPROBE_BASE_BEHAVIOR_RVA23U64	_BITULL(1)
- #define RISCV_HWPROBE_KEY_IMA_EXT_0	4
- #define		RISCV_HWPROBE_IMA_FD		_BITULL(0)
- #define		RISCV_HWPROBE_IMA_C		_BITULL(1)
-diff --git a/arch/riscv/kernel/sys_hwprobe.c b/arch/riscv/kernel/sys_hwprobe.c
-index 656cb100ac489..51a85e61088bf 100644
---- a/arch/riscv/kernel/sys_hwprobe.c
-+++ b/arch/riscv/kernel/sys_hwprobe.c
-@@ -223,6 +223,17 @@ static bool hwprobe_ext0_has(const struct cpumask *cpus, u64 ext)
- 	return (pair.value & ext);
- }
+ 	phy-mode = "rgmii-id";
+-	bus_id = <0x0>;
+ };
  
-+static bool hwprobe_has_isa_base(const struct cpumask *cpus, unsigned int base)
-+{
-+	int cpu;
-+
-+	for_each_cpu(cpu, cpus) {
-+		if (!riscv_isa_base_available(hart_isa[cpu].isa_bases, base))
-+			return false;
-+	}
-+	return true;
-+}
-+
- #if defined(CONFIG_RISCV_PROBE_UNALIGNED_ACCESS)
- static u64 hwprobe_misaligned(const struct cpumask *cpus)
- {
-@@ -305,14 +316,12 @@ static void hwprobe_one_pair(struct riscv_hwprobe *pair,
- 	case RISCV_HWPROBE_KEY_MIMPID:
- 		hwprobe_arch_id(pair, cpus);
- 		break;
--	/*
--	 * The kernel already assumes that the base single-letter ISA
--	 * extensions are supported on all harts, and only supports the
--	 * IMA base, so just cheat a bit here and tell that to
--	 * userspace.
--	 */
- 	case RISCV_HWPROBE_KEY_BASE_BEHAVIOR:
--		pair->value = RISCV_HWPROBE_BASE_BEHAVIOR_IMA;
-+		pair->value = 0;
-+		if (hwprobe_has_isa_base(cpus, RISCV_ISA_BASE_IMA))
-+			pair->value |= RISCV_HWPROBE_BASE_BEHAVIOR_IMA;
-+		if (hwprobe_has_isa_base(cpus, RISCV_ISA_BASE_RVA23U64))
-+			pair->value |= RISCV_HWPROBE_BASE_BEHAVIOR_RVA23U64;
- 		break;
+ &gmac1 {
+ 	status = "okay";
  
- 	case RISCV_HWPROBE_KEY_IMA_EXT_0:
-diff --git a/tools/testing/selftests/riscv/hwprobe/which-cpus.c b/tools/testing/selftests/riscv/hwprobe/which-cpus.c
-index 587feb198c049..f8c797b1d0fd9 100644
---- a/tools/testing/selftests/riscv/hwprobe/which-cpus.c
-+++ b/tools/testing/selftests/riscv/hwprobe/which-cpus.c
-@@ -105,7 +105,7 @@ int main(int argc, char **argv)
- 	pairs[0] = (struct riscv_hwprobe){ .key = RISCV_HWPROBE_KEY_BASE_BEHAVIOR, };
- 	rc = riscv_hwprobe(pairs, 1, 0, NULL, 0);
- 	assert(rc == 0 && pairs[0].key == RISCV_HWPROBE_KEY_BASE_BEHAVIOR &&
--	       pairs[0].value == RISCV_HWPROBE_BASE_BEHAVIOR_IMA);
-+	       (pairs[0].value & RISCV_HWPROBE_BASE_BEHAVIOR_IMA));
+ 	phy-mode = "rgmii-id";
+-	bus_id = <0x1>;
+ };
  
- 	pairs[0] = (struct riscv_hwprobe){ .key = RISCV_HWPROBE_KEY_IMA_EXT_0, };
- 	rc = riscv_hwprobe(pairs, 1, 0, NULL, 0);
-
+ &i2c0 {
 -- 
-2.43.0
+2.53.0
 
