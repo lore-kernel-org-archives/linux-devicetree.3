@@ -1,230 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E019E3E63A4
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 15:16:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1B264A263A;
+	Tue, 15 Sep 2026 15:19:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789485419; cv=none; b=d22nyOhraSLNzpsJk7nI1PUYCKeN4DOrkBBWHfqKSy/hxs4tzyVJmiqwRDKTaGBxcGXB2cjOkijC3ZAH0dKMek8V7Ca0q9nn2s76M7fj0aYbgeNvvUQLsZtSAKP6ecuN5SPeqjDHndxqzU58Qxuw71QnqJ6TNbnXU0QUKcOLcCY=
+	t=1789485562; cv=none; b=H69sa8gKY7RV5M1a4/w2HIVkH671ty0uru6sDBNY1NoInQ7avooOXKEua7/cWVkTVUJo4r7rBdwhpIcbBp+3P9p0TZRkq19m3MtSRFg+UQupr90bmIQ2vmQzqFbHs2/cOf1ieKAll44NPuS0DtWHHMUPwNsEWk0m1QjSYt81gu8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789485419; c=relaxed/simple;
-	bh=+dVu5sGWbQKQwOma7Xi4cL5jAvE0AQRc4TSNUprY5+E=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=O2UPNajehqmXidROh7PbLN1kUiLwW1xbP9Pb2AUjcfG2b6aj4oxLjrVDrf+Wb7P6DAIzgLXJK7IfxGb6fzSngxa1DEpMuMH5bCbXtI08ijsTns7/l0gkoTLv2HFyqkauFAqisy5NxRVge3WBVTd9HhHUeNkxqq7xLPowXM6qrRc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IKwXBujt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789485562; c=relaxed/simple;
+	bh=g5HqM7yPLjirh+s3nqf4vMs32yicp0M2q0rb2DGhU0E=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=SkRHtf6aVYOc9h1C7dPWh0JBQzaVC+NE88I8/oshBkIA5yX4Utx+xHAQIh82sXCKD/uJv7a62+2ChlnYhHV5kXNjpNIN0Gom1zW1y605U9v6p+QG7OgXZ/MnEsabSAieSWdv+3lTJp+JMCCa66AIUpQsXWgoMm9sts+ManEsCzQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=NAZwoyib; arc=none smtp.client-ip=188.40.3.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IKwXBujt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96F451F008A7
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 15:16:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789485416;
-	bh=+dVu5sGWbQKQwOma7Xi4cL5jAvE0AQRc4TSNUprY5+E=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=IKwXBujtiq0ha8T8DARsdFuYpzysYWxzbW6bLVocjyfaygL3QUFjlIlnjANxOABKp
-	 Ngl1Etijj2DojJpbizndyMWR3OebPB6Mm+oeCZuWoA7mLvY6pWQnpKPYwhyQseoUKx
-	 BzWGozlyBravBMTPky+8ZB5upHVF3TnIUYsc/U0R9T+pTKzV662v/utcqELTzHan9E
-	 iJJVt+ebOLQ+c5IesLnkKr5OOhxKacD7M4xUU6FsiKzvQQcxI/VlUJ2GXQTcPcf5pF
-	 1FeTNO7ljgNnbFPg8VA0kgD9A/7tE5jofhG44fV502PzyJWVRzwNBzbWhBWtV37KJg
-	 bTn4H+p6ZOjuA==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b89a0e69dfso3546393e87.3
-        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 08:16:56 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxpSgGlvweC4I7n2Ex4xjGb3zI/IRk0vjoCVxOvUms8PumJP9w48aw3umegigEJ5TcUGGQStxGWuHig@vger.kernel.org
-X-Gm-Message-State: AFuF++n7inrDlbc3UEOpY+Vifj8DIMmuoJ9PSylS1AZ8YK+8wU9GPKwo
-	koxlOWIzyrjBeXpLx8yzT9EbATeWCFrfN/sw1YqjMHYcB4uhioPzF/tUHhW3ZqApz6P+JWc1fuK
-	Dv56YNGSdo8f8awKjEQ1EfVbR0SpIK+o=
-X-Received: by 2002:a05:6512:114a:b0:5b5:e53e:5710 with SMTP id
- 2adb3069b0e04-5b8ae662458mr2061203e87.2.1789485414817; Tue, 15 Sep 2026
- 08:16:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="NAZwoyib"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=ew.tq-group.com; s=default2602; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=byMjB5chuhzE/XcjSn+EC4LzxGFkdqkyfUk/oRh+C88=; b=NAZwoyib02g6Xe87lVB6rK/+BY
+	fncpVtWxq8JnwUXuIzpmR2KRqjUZDueWR/ZlCRVgFRtdsyp8nXK++OczllH42rd3wIw3K8Ajp7Vo6
+	4ZrKyIlzfHM59kA9n1LVODiFdhUexNk5F0Wr5eLDzv2X4uQLAB8C1MK6ApWPkdy7jv5hNZSEGGll0
+	iv7L9NiOcr9ypdROKFsdaSIjoSZeGCB8mrETdHjCKTWtuAtRjVSsuLxyk4vQDeg1WU3gLLFhHT88U
+	M0mGO2mtsiFG6usmaaAFOj2AI+x/BYpmuaByFGZgNyF2tBrtxlNWfxj5Cq9b12f1hn+8Cxp2ZEUms
+	Xs7CLAcQ==;
+Received: from sslproxy04.your-server.de ([78.46.152.42])
+	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <nora.schiffer@ew.tq-group.com>)
+	id 1x6USY-000JBD-2W;
+	Tue, 15 Sep 2026 16:48:34 +0200
+Received: from localhost ([127.0.0.1])
+	by sslproxy04.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <nora.schiffer@ew.tq-group.com>)
+	id 1x6USY-000FHM-0M;
+	Tue, 15 Sep 2026 16:48:34 +0200
+Message-ID: <b83958e0b2b1b506b90fd368434dc2e52719a3c1.camel@ew.tq-group.com>
+Subject: Re: [PATCH v2 8/8] leds: pca995x: Add support for group brightness
+ control
+From: Nora Schiffer <nora.schiffer@ew.tq-group.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, robh@kernel.org, linux-leds@vger.kernel.org,
+  lee@kernel.org, conor+dt@kernel.org, linux@ew.tq-group.com
+Date: Tue, 15 Sep 2026 16:48:33 +0200
+In-Reply-To: <20260915143246.CF3C01F000FF@smtp.kernel.org>
+References: 
+	<bd687915af26ccdbfc8cc911eee0787fc8145ae1.1789477502.git.nora.schiffer@ew.tq-group.com>
+	 <bb9d86b8891d58eab135038dfde70ae024f244c1.1789477502.git.nora.schiffer@ew.tq-group.com>
+	 <20260915143246.CF3C01F000FF@smtp.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260509190015.79086-1-jernej.skrabec@siol.net>
- <nIKN_benRn2Bk8SDZrkMCA@gmail.com> <86943057-f5b4-4fae-9172-45f13814494f@kernel.org>
- <0r4us4OeRRWtJhxvps-bZw@gmail.com> <b1f03d81-85db-4303-89ff-64440b6e1890@kernel.org>
- <4709b24a-f421-4c81-a023-c37ea66c88bd@arm.com>
-In-Reply-To: <4709b24a-f421-4c81-a023-c37ea66c88bd@arm.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Tue, 15 Sep 2026 23:16:41 +0800
-X-Gmail-Original-Message-ID: <CAGb2v64d-UOdKkDF9u62NB-a5EsFLQckUH1hoqDbmz7eE7wQiA@mail.gmail.com>
-X-Gm-Features: AcwNN1Ua9fzIlsNRznQ7xIwsHTsfTLXcvWghC51yBM4u0ScR5WKMEqw88iUtY7s
-Message-ID: <CAGb2v64d-UOdKkDF9u62NB-a5EsFLQckUH1hoqDbmz7eE7wQiA@mail.gmail.com>
-Subject: Re: [PATCH v2 7/8] dt-bindings: display: allwinner: Split H616 DE33
- layer reg space
-To: Krzysztof Kozlowski <krzk@kernel.org>, robh@kernel.org, conor+dt@kernel.org
-Cc: Andre Przywara <andre.przywara@arm.com>, =?UTF-8?Q?Jernej_=C5=A0krabec?= <jernej.skrabec@gmail.com>, 
-	samuel@sholland.org, mripard@kernel.org, maarten.lankhorst@linux.intel.com, 
-	tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, krzk+dt@kernel.org, 
-	mturquette@baylibre.com, sboyd@kernel.org, dri-devel@lists.freedesktop.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-clk@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Virus-Scanned: Clear (ClamAV 1.4.3/28124/Tue Sep 15 08:27:28 2026)
 
-On Tue, Jun 16, 2026 at 9:39=E2=80=AFPM Andre Przywara <andre.przywara@arm.=
-com> wrote:
->
-> Hi,
->
-> On 6/16/26 05:51, Krzysztof Kozlowski wrote:
-> > On 15/06/2026 17:47, Jernej =C5=A0krabec wrote:
-> >> Dne ponedeljek, 15. junij 2026 ob 06:28:54 Srednjeevropski poletni =C4=
-=8Das je Krzysztof Kozlowski napisal(a):
-> >>> On 14/06/2026 16:08, Jernej =C5=A0krabec wrote:
-> >>>> Dne ponedeljek, 25. maj 2026 ob 14:10:38 Srednjeevropski poletni =C4=
-=8Das je Krzysztof Kozlowski napisal(a):
-> >>>>> On 24/05/2026 23:33, Chen-Yu Tsai wrote:
-> >>>>>> Hi,
-> >>>>>>
-> >>>>>> (resent from new email)
-> >>>>>>
-> >>>>>> On Thu, May 14, 2026 at 2:04=E2=80=AFPM Krzysztof Kozlowski <krzk@=
-kernel.org> wrote:
-> >>>>>>>
-> >>>>>>> On Sat, May 09, 2026 at 09:00:14PM +0200, Jernej Skrabec wrote:
-> >>>>>>>> From: Jernej Skrabec <jernej.skrabec@gmail.com>
-> >>>>>>>>
-> >>>>>>>> As it turns out, current H616 DE33 binding was written based on
-> >>>>>>>> incomplete understanding of DE33 design. Namely, planes are shar=
-ed
-> >>>>>>>> resource and not tied to specific mixer, which was the case for =
-previous
-> >>>>>>>> generations of Display Engine (DE3 and earlier).
-> >>>>>>>>
-> >>>>>>>> This means that current DE33 binding doesn't properly reflect HW=
- and
-> >>>>>>>> using it would mean that second mixer (used for second display o=
-utput)
-> >>>>>>>> can't be supported.
-> >>>>>>>>
-> >>>>>>>> Remove layer register space, which will be represented with addi=
-tional
-> >>>>>>>> node, and replace it with phandle, which will point to that new,=
- shared
-> >>>>>>>> node. That way, all mixers can share same layers.
-> >>>>>>>>
-> >>>>>>>> There is no user of this binding yet, so changes can be made saf=
-ely,
-> >>>>>>>> without breaking any backward compatibility.
-> >>>>>>>
-> >>>>>>> There is user. git grep gives me:
-> >>>>>>> drivers/gpu/drm/sun4i/sun8i_mixer.c
-> >>>>>>>
-> >>>>>>> which means this is a released ABI. As I understood, the old code=
- was
-> >>>>>>
-> >>>>>> We held off on merging the DT changes so that we could rework this=
-.
-> >>>>>> I can't find the actual request though. It was probably over IRC.
-> >>>>>>
-> >>>>>>> working fine but just did not support all use cases. Why this can=
-not be
-> >>>>>>> kept backwards compatible?
-> >>>>>>
-> >>>>>> AFAIK the "planes" block is shared between two display mixers. As =
-the
-> >>>>>> commit message explains, this prevents using the second mixer, sin=
-ce
-> >>>>>> only one of them can claim and map the register space. And on the =
-H700
-> >>>>>> (which is the same die as the H616 discussed here but with more ex=
-posed
-> >>>>>> interfaces), there could actually be a use case for the second mix=
-er.
-> >>>>>
-> >>>>> It explains why you want to make the changes but not why you cannot=
- keep
-> >>>>> it backwards compatible.
-> >>>>
-> >>>> I guess it can be backward compatible, but I don't think it makes se=
-nse.
-> >>>> Yes, original driver implemented original DT bindings, but there is =
-no node
-> >>>> which uses that binding. If there is no user of that, why would driv=
-er
-> >>>
-> >>> Did you check all out of tree users of the ABI? All vendor kernels,
-> >>> forks and all of them for which the ABI was made for?
-> >>
-> >> Since when do we care about out of tree users? I understand that drive=
-rs
-> >
-> > Since always? That is the meaning of ABI. Otherwise there is no point t=
-o
-> > discuss ABI at all. Why would it exist if you had all DTS inside kernel
-> > always matching the code?
->
-> In general I would agree with Krzysztof, merged binding means we need to
-> stick to it, but in this case I think that would be over the top. As
-> Jernej said, there are no users, since we didn't commit on the DTs, and
-> the DE33 graphics support in the kernel (bindings and code) is
-> incomplete: it's really just the mixer, but no other components (TCON or
-> output PHYs) required. So it never worked as such.
->
-> In hindsight we could say that we should have never merged the bindings
-> without having fully working, reviewed and accepted driver code, for the
-> whole display chain. Which we need to do because we create those
-> bindings based on reverse engineering efforts, not by looking at
-> documentation or design documents (which we don't have).
->
-> >> must support old device tree files. Once they work, compatibility must
-> >> be carried forward. But that's not the case here.
-> >>
-> >> In any case, vendor kernels have completely different DT structure. Th=
-is
-> >> was developed independently from them. Take a look at [1] how BSP DT l=
-ooks
-> >> like, specifically Display Engine node.
-> >>
-> >> Of course there are some distros which grab WIP patches from mailing l=
-ists
-> >> soon after they are available. For example, I know that Armbian carrie=
-d old
-> >> WIP patches which used old ABI. However, such distros generally don't =
-care
-> >> about exact solution and ditch patches as soon as proper solution is m=
-erged
-> >> upstream or even when better WIP patches come around. DT files in such
-> >> distros get updated alongside kernel, they are not hidden in firmware.
-> >>
-> >
-> > I am not talking about BSP. I am talking about out of tree users for
-> > which we defined the ABI and called it that way.
->
-> If you are looking for DT users outside of the Linux kernel, this is the
-> result of a quick check (list of users from ChatGPT, checks by myself
-> with git clone/git grep):
-> Zephyr RTOS: no graphics support
-> FreeBSD: no H616 support
-> OpenBSD: no H616 graphics support
-> NetBSD: no H616 support
-> U-Boot: no H616 graphics support
-> Barebox: no H616 support
-> TF-A: no graphics support
-> OP-TEE: no (Allwinner) graphics support
-> EDK2: no Allwinner support
+On Tue, 2026-09-15 at 14:32 +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [Medium] sysfs: race condition between LED registration and parent attr=
+ibutes creation
+> --
+>=20
+> commit 519bef49574c49d4cda0dcf149ce7b8d6e09657e
+> Author: Nora Schiffer <nora.schiffer@ew.tq-group.com>
+>=20
+> leds: pca995x: Add support for group brightness control
+>=20
+> When LEDs are set to PWM mode with group control enabled, their
+> brightness can control using a global "group PWM" setting, modulating
+> the individual LEDs' brightness with a second PWM running at a different
+> frequency. This patch introduces sysfs attributes to expose group
+> brightness control and clear error flags.
+>=20
+> > diff --git a/drivers/leds/leds-pca995x.c b/drivers/leds/leds-pca995x.c
+> > index 963e453ce117d..33da3cd9cbbbf 100644
+> > --- a/drivers/leds/leds-pca995x.c
+> > +++ b/drivers/leds/leds-pca995x.c
+> [ ... ]
+> > @@ -190,10 +194,41 @@ static ssize_t has_errors_store(struct device *de=
+v, struct device_attribute *att
+> >  	return ret ?: count;
+> >  }
+> > =20
+> > +static ssize_t group_brightness_show(struct device *dev, struct device=
+_attribute *attr, char *buf)
+> > +{
+> [ ... ]
+> > +static ssize_t group_brightness_store(struct device *dev, struct devic=
+e_attribute *attr,
+> > +				       const char *buf, size_t count)
+> > +{
+> [ ... ]
+> >  static DEVICE_ATTR_RW(has_errors);
+> > +static DEVICE_ATTR_RW(group_brightness);
+> > =20
+> >  static struct attribute *pca995x_attrs[] =3D {
+> >  	&dev_attr_has_errors.attr,
+> > +	&dev_attr_group_brightness.attr,
+> >  	NULL,
+> >  };
+>=20
+> [Severity: Medium]
+> Does this attribute registration order create a race condition with users=
+pace?
+>=20
+> Looking at pca995x_probe(), devm_led_classdev_register_ext() is called to
+> register the LEDs, which emits KOBJ_ADD uevents. Later in the function,
+> sysfs_create_groups() is called to create these parent attributes.
+>=20
+> Because the attributes are created after the uevent is emitted, udev rule=
+s
+> triggered by the LED addition might fail to read the new group_brightness
+> attribute because it is not yet created.
+>=20
+> Similarly on device removal, sysfs_remove_groups() is called in
+> pca995x_remove() before the managed devres cleanup unregisters the child
+> LED devices. This causes the attributes to disappear while the LEDs are
+> still registered and potentially active.
+>=20
+> Could we avoid this race during teardown and initialization by using
+> devm_device_add_groups() before registering the LED class devices?
+>=20
+
+Ignoring the fact that devm_device_add_groups() does not exist (and as far =
+as I
+can tell, there is no other generic devm interface for sysfs attributes), u=
+sing
+device_add_groups() instead of sysfs_create_groups() seems nice. There is a=
+lso a
+pre-existing race-condition between LED device registration and initializat=
+ion
+of hardware registers, which I'll fix in v3.
+
+I can also move the creation of the parent device's sysfs attributes, so th=
+e
+attributes are already available when the LED devices are registered.
+
+Best,
+Nora
 
 
-We really need to move forward with this.
-
-Are there any concerns other than backward compatibility?
-
-As Andre already pointed out, there are no other notable projects
-implementing the old, incorrect binding.
-
-Out of tree users such as Armbian are likely cherry-picking WIP patches
-from Jernej's tree or the mailing list, even the current stuff like this
-patch[1], and they can and will continue to do so until the stuff is merged=
-.
-
-
-Thanks
-ChenYu
-
-[1] https://github.com/armbian/build/blob/main/patch/kernel/archive/sunxi-6=
-.18/patches.drm/0036-dt-bindings-display-allwinner-Update-H616-DE33-bindi.p=
-atch
+--=20
+TQ-Systems GmbH | M=C3=BChlstra=C3=9Fe 2, Gut Delling | 82229 Seefeld, Germ=
+any
+Amtsgericht M=C3=BCnchen, HRB 105018
+Gesch=C3=A4ftsf=C3=BChrer: Detlef Schneider, R=C3=BCdiger Stahl, Stefan Sch=
+neider
+https://www.tq-group.com/
