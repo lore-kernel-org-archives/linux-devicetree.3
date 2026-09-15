@@ -1,137 +1,107 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B982248F83F
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 10:59:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6279E488214;
+	Tue, 15 Sep 2026 10:59:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789469946; cv=none; b=blDbek+BT22vNjeHH9Qrwr0GobtH84gAfGAeXdJ5kxGiIxleEKiyczGoahl4W/4bP6D+qq2WQOU+yMgo5V3wXdZxOeXS8e3KQGgkX4xj7UlEg9ULTti24pQ8jhcnp9TLH8gOZnlZ+Y59AZOE0gu5RiA19OI90gxBrO//UBxkR6E=
+	t=1789469956; cv=none; b=ADYr5qnUdSkyIS9naknpakdR8hnN04ZcNs/7tINx181MUI4thPMrJkgKu0ss/dC5Xfo8rjDn88IvrQ5/PW8h7cjZPZ+9Ps6fzxOz4cvUmRLVgA0Dy0dvOsWSvLR2kTaE+D1G0xQQMGavz7LRLvjiApzpDLi2lh17LsLy8Q4ynPc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789469946; c=relaxed/simple;
-	bh=OF6s/8vapHXvidtw33VYXC6IH3wg1QPKzTj+mPuHxvo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jVM/u5AtgwJGCzNnV4D4FXjJbZvOcUc71fTsgoeAxc1zKel7gYUuSoPNCFSLAUgp5KfN7Mz4HlVufbWqpnQPNK8Plxp6pXhSgduvcAw3fuzyvi/2ywgKcHm7uimypx3LcrfkpCnMjRCfVwRSp9QBcGprqnJjH2qLcr/87XBJabY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=LkSfh/M4; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1789469956; c=relaxed/simple;
+	bh=jkHd/+kXnloKIZbvaKAZQT8K+rqModjcKtRFsI/VHcc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=EGTxFZvcBVVFg3CprcxF0YlmUJzyp/e1cutKIMAEAyb2ysMpZAq/tYvD9Xg3F0o21D8NbypRxN0166jXY0zuG8DfWPHm46Ucgj64lDSp7QJBLKep8sVjKBKjRbacvBtN8RlTKi2NXhJKQir3fQR52JQWw5AMZycojQLuh53Boc4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KZ5Dj0xn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="LkSfh/M4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789469943;
-	bh=OF6s/8vapHXvidtw33VYXC6IH3wg1QPKzTj+mPuHxvo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=LkSfh/M4J0abz0GhCV9ib4q2Axf8YD8S3w806jqZ3ZNP0tHdemlV44qBHgUpcKMxq
-	 NeEiI3XFV6Jlam5YBWkUBUAtNXrkTASc/Q3DM4EV2hUFDMEeklt9BTnkMsoq2rQO3E
-	 ReQmZHAjG6m4gP0sjNE7zsFtHCARVVAYhh0/qHJ15aEUirOf2QGacwwEHey/N5RDBL
-	 NLQQp4fiw8aEU480nAA02AUUdqo+PG26X/80bwP93emriesnwj9i8gkMFjdt+hxM8w
-	 hYm2K8hY+5PVQkoSXFeS5qU+romtr1zEOLNCYIvvI4P3GplcLfodpNiwG4DzqAZBkN
-	 S09VZCBRjkBUA==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id AE78217E015A;
-	Tue, 15 Sep 2026 12:59:02 +0200 (CEST)
-Message-ID: <58666d38-f453-4aa7-94d8-0f0370704df4@collabora.com>
-Date: Tue, 15 Sep 2026 12:59:02 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KZ5Dj0xn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F2EA1F000FF;
+	Tue, 15 Sep 2026 10:59:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789469955;
+	bh=sxI8bFXV+UHdLagTpnyMcDcyyC1hidkJMSQa/EzkTtM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=KZ5Dj0xnwDsG9kMXC9tyvvsr16kadAJprAMS4xVKi+SRNQZRukcmkzgP9BjELmoxp
+	 fAaTyzVCf+kLCAvR6EgmCpazuUCuzhDHsz8fV78NnoCdZhSa5496Esu9fZjosNotNk
+	 LHhHyT37ej9yCvDuux4F0CvMrHuyffkPayh2xP2eCeRTHKfHi9zq1AowDTZJJShZh2
+	 3iPE7jE3hwfVIxC592Zry3bVC2R7wqLsfZtASxRuIOA7AEp4WP/Xd0SuSY27RYdnU0
+	 BbJrEAakBoSnHctw3iLK9JPSPMuCMvc3M5k9YDwENPEffw+QMDU7ru9cUj2gRbuenz
+	 1jOrN4xmtlDHw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 5/5] media: imx8-isi: Enable ISI RAW10/12/14 output
+ LSB alignment
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Guoniu Zhou" <guoniu.zhou@oss.nxp.com>
+Cc: devicetree@vger.kernel.org, Frank.Li@kernel.org, robh@kernel.org, imx@lists.linux.dev, media-ci@linuxtv.org, conor+dt@kernel.org
+In-Reply-To: <20260915-isi_imx952-v3-5-3d8ff1363dda@oss.nxp.com>
+References: <20260915-isi_imx952-v3-0-3d8ff1363dda@oss.nxp.com>
+ <20260915-isi_imx952-v3-5-3d8ff1363dda@oss.nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 15 Sep 2026 10:59:14 +0000
+Message-Id: <20260915105914.9F2EA1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] phy: mediatek: Add support for PCI-Express Gen4
- S-PHY
-To: sashiko-reviews@lists.linux.dev
-Cc: vkoul@kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
- neil.armstrong@linaro.org, linux-phy@lists.infradead.org,
- conor+dt@kernel.org, olteanv@gmail.com
-References: <20260915101022.23852-1-angelogioacchino.delregno@collabora.com>
- <20260915101022.23852-3-angelogioacchino.delregno@collabora.com>
- <20260915102629.EFF231F00893@smtp.kernel.org>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20260915102629.EFF231F00893@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 9/15/26 12:26, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] phy: mediatek: endianness bug when reading split NVMEM cells in mtk_pcie_sphy_get_one_cal_para()
-> --
-> 
-> commit ab276d5dc9414b3b5618ea96c84dcc086bdf9036
-> Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> 
-> phy: mediatek: Add support for PCI-Express Gen4 S-PHY
-> 
-> This commit introduces the driver for the PCI-Express Gen4 S-PHY found in
-> recent MediaTek SoCs such as MT6991 and MT8196. It implements the PHY
-> initialization routines and handles reading eFuse calibration data from
-> the NVMEM framework.
-> 
->> diff --git a/drivers/phy/mediatek/phy-mtk-pcie-sphy.c b/drivers/phy/mediatek/phy-mtk-pcie-sphy.c
->> new file mode 100644
->> index 0000000000000..2bf10346ea97a
->> --- /dev/null
->> +++ b/drivers/phy/mediatek/phy-mtk-pcie-sphy.c
-> [ ... ]
->> +static int mtk_pcie_sphy_get_one_cal_para(struct device *dev, const char *name, u8 max_val)
->> +{
->> +	u16 buf;
->> +	u8 tmp;
->> +	int ret;
->> +
->> +	/*
->> +	 * All of the calibrations are always max 8 bits long, but some may
->> +	 * be split between two different 8-bits cells: handle this corner
->> +	 * case by retrying reading as u16.
->> +	 */
->> +	ret = nvmem_cell_read_u8(dev, name, &tmp);
->> +	if (ret == 0)
->> +		buf = tmp;
->> +	else
->> +		ret = nvmem_cell_read_u16(dev, name, &buf);
-> 
-> [Severity: Medium]
-> When an 8-bit (or smaller) NVMEM cell crosses a byte boundary in hardware,
-> the NVMEM core evaluates its length as 2 bytes, causing nvmem_cell_read_u8()
-> to fail with -EINVAL.
-> 
-> Does falling back to nvmem_cell_read_u16() cause an endianness issue here?
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] media: imx8-isi: Unconditional setting of RAW alignment bits may=
+ corrupt non-RAW streams
+--
 
-No, it reads fine.
+commit 24f35e10010e44cf9f1ebb2452592fd2a6c1b167
+Author: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
 
-> 
-> Because the NVMEM core populates the buffer with a direct memory copy, the
-> shifted valid data is placed in the first byte and zeroes in the second byte.
-> On big-endian architectures
+media: imx8-isi: Enable ISI RAW10/12/14 output LSB alignment
 
-But this runs only on LE architectures.
+This commit updates the i.MX8 ISI driver to use the hardware LSB alignment
+capability introduced in i.MX952 for RAW10/12/14 formats. It drops the older
+RAW16 workaround for these newer platforms and updates the alignment bits
+during channel setup.
 
->, interpreting this buffer directly as a native
-> u16 variable evaluates to buf[0] << 8, which effectively multiplies the
-> calibration value by 256. This could lead to spurious -ERANGE failures or
-> incorrect calibration values being written to the PHY.
-> 
-> Would it be safer to use nvmem_cell_read_variable_le_u32() to handle these
-> split cells robustly across different architectures?
-> 
->> +
->> +	if (ret == -ENOENT) {
->> +		dev_info(dev, "No calibration for %s. Using defaults\n", name);
->> +		return -ENOENT;
->> +	} else if (ret)
->> +		return dev_err_probe(dev, ret,
->> +				     "Cannot get calibration data for %s\n", name);
->> +
->> +	if (buf > max_val)
->> +		return dev_err_probe(dev, -ERANGE,
->> +				     "Bad value %u retrieved for %s.\n", buf, name);
->> +
->> +	return buf;
->> +}
-> [ ... ]
-> 
+> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c b/drivers/=
+media/platform/nxp/imx8-isi/imx8-isi-hw.c
+> index 6aa760ce36053..0832b4a110ed2 100644
+> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c
+> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c
+
+[ ... ]
+
+> @@ -357,6 +368,20 @@ static void mxc_isi_channel_set_control(struct mxc_i=
+si_pipe *pipe,
+>  			val |=3D CHNL_CTRL_VC_ID_1(vc >> 2);
+>  	}
+> =20
+> +	if (isi_raw_out_lsb(pdata)) {
+> +		/*
+> +		 * Enable RAW10/12/14 output LSB alignment to match the
+> +		 * V4L2 requirement that RAW formats are LSB-aligned.
+> +		 */
+> +		val |=3D CHNL_CTRL_RAW_OUT_LSB_ALIGN;
+> +
+> +		/*
+> +		 * Align the data selection from pixel link to MSB to
+> +		 * avoid data shift since the data from PL is MSB.
+> +		 */
+> +		val |=3D CHNL_CTRL_RAW_IN_MSB_ALIGN;
+> +	}
+> +
+
+[Severity: Medium]
+When starting a non-RAW stream (such as YUV or RGB) on an i.MX952 platform,
+could setting these alignment bits unconditionally cause data shift or
+corruption for the non-RAW video streams?
+
+It looks like mxc_isi_channel_set_control() applies these bits without
+checking if the currently active format is actually a RAW format. Would it
+make sense to verify the active stream format before enabling these bits?
+
+>  	mxc_isi_write(pipe, CHNL_CTRL, val);
+> =20
+>  	mutex_unlock(&pipe->lock);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-isi_imx952=
+-v3-0-3d8ff1363dda@oss.nxp.com?part=3D5
