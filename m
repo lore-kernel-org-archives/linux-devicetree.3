@@ -1,91 +1,109 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99F804854F2;
-	Tue, 15 Sep 2026 21:56:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E646344C51C;
+	Tue, 15 Sep 2026 21:57:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789509382; cv=none; b=exMe04F3WfwjZE84hB98JTmF+TLLuhWp3u8Y+5FgKgdWYoN90sIyp/qUwCubhfSElAC13pet0s+5znSH4t7isAbzpgLc7Oa6qUXFgM2BDfKJ5RWPv5KXpAX3aR0PUVXiEySUQHe9a4yorTN/xM515yZj3H/h6dbslXa1HEhOhPI=
+	t=1789509478; cv=none; b=GtPaYhKpF7u7Hdp9dAyHHJnBzQZkLNauyv7+byGoYfeOuB6gzoFabx0GGxxpGaPJXMGp843wqVUn11hbV7/7gaSHiIQEuzWjFLeTR8TPgn2+Byi+roIfNZbyxgOI9vmNdVuRmQc2iVzUqi5ki9hav3IS0r0yCsInueA1kjYc6xk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789509382; c=relaxed/simple;
-	bh=BMdPq1/VKXvWkYIWhlSzXEn1BU7p0i34lFV6avR5xRY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CTTqemz2w/vPfnCX0CrpbFHXpweYYVqfVfff1q7eXHCGtbm2mZM5WU0sUITHwB4th3CF8NY0RibAa8/s5IgAlazCQCo1e17CXK/2oD4+1XZ4PAKY4P+Sja7XhHGqjKB9nljFmHHAc1H/PPEQ35jiDILJ4MDXYweb065ouYKhP8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=Dt7jZt3j; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1789509478; c=relaxed/simple;
+	bh=KSRSukBJ7+z5WMKLZHiQkBBo8o2QH2dcCZtfvgcj/xg=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=SOp1n9pZhzRn6Oee/MKnOBvnijnbtAbiGa59pwSteyFSy7Sjpi6LmSM2cp8Jd0oqTnq2gxXIAYxXM6JUA7Y2V+MzPhgYlhNT6yyZGA16rauSHTu05VLoFxyk0gVi2UzzW+V3Rz8bzrNy3SWs4dJHBZw4K5m1TUfsrOBTlAdAZkc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZG9jUqRz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="Dt7jZt3j"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=PzoiITKlBLXLGeAi+rEGF1gOP/gOqIhjg40FFryu9dg=; b=Dt7jZt3jUKrYF/Bw0fRTELgb0P
-	6fc4mYCyF6yEvUxSgYkrD2a7by0LYTtdU52Weo9aVMHP6kC04ezNoZmbET8Wp1jVF/QqX3AsGkR2f
-	ps92mR6CaPMOPQ7pdj9vKxEWxQTBPRDFSCGiDbIPdXKo2FzABqsc1l9IfBJohh+6izAI=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x6b8F-005LpS-5k; Tue, 15 Sep 2026 23:56:03 +0200
-Date: Tue, 15 Sep 2026 23:56:03 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: James Hilliard <james.hilliard1@gmail.com>,
-	Richard Genoud <richard.genoud@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Giuseppe Cavallaro <peppe.cavallaro@st.com>,
-	Jose Abreu <joabreu@synopsys.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Maxime Ripard <mripard@kernel.org>, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [PATCH net-next 1/2] dt-bindings: net: allwinner: add H616 EMAC1
-Message-ID: <7854c5d1-5eec-4d9d-8d52-c597e6fbfcde@lunn.ch>
-References: <20260915-submit-h616-emac1-v1-v1-0-195de0bb1f8a@gmail.com>
- <20260915-submit-h616-emac1-v1-v1-1-195de0bb1f8a@gmail.com>
- <5df35a3e-d2c6-4576-868f-d3194de3deb0@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZG9jUqRz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AC581F000FF;
+	Tue, 15 Sep 2026 21:57:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789509476;
+	bh=+6kruBY6BSoJ8J6yTkBc3PXegyXTnrySEzokuashekU=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=ZG9jUqRz+UhtqswynhPgoVamZxHLGtN85OOaEEyZXlifjFR5oVIVC+jrYGLW44q46
+	 KTOiGeZ4cwSyYMUeD9E2+js8v9KseS9zSfUfVDXJNwxC4RwFxZUmteBY7b8P07eoOx
+	 zxfBve950Vv0mQKOWw22U8RpcE6+3xQVwE2OMAhgZTc0zy7Od2r449Ozfy+E7cTKV5
+	 L7u8zRshh52zJs3Q1BNZnGSRQ4tCkH7TOrxUAjagwXM1iOmdbTGHpk2YPdRI820O8i
+	 BapmzaEifIbLR9WbNwOYkRMjJ7AfXHYj+/AHIxYRbBv6LHE2guLYHQhP5/vR115V8Q
+	 SlTJHfdq/dlrg==
+Date: Tue, 15 Sep 2026 16:57:54 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5df35a3e-d2c6-4576-868f-d3194de3deb0@bootlin.com>
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Conor Dooley <conor+dt@kernel.org>, Takashi Iwai <tiwai@suse.com>, 
+ Bard Liao <yung-chuan.liao@linux.intel.com>, 
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
+ Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ Charles Keepax <ckeepax@opensource.cirrus.com>, 
+ patches@opensource.cirrus.com, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org, 
+ Maciej Strozek <mstrozek@opensource.cirrus.com>, 
+ linux-sound@vger.kernel.org
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+In-Reply-To: <20260915165652.914893-8-srinivas.kandagatla@oss.qualcomm.com>
+References: <20260915165652.914893-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20260915165652.914893-8-srinivas.kandagatla@oss.qualcomm.com>
+Message-Id: <178950938407.3847226.1050939911266528360.robh@kernel.org>
+Subject: Re: [PATCH v3 7/8] dt-bindings: sound: qcom: add Tambora WCD9378
+ SDCA codec
 
-On Tue, Sep 15, 2026 at 10:33:12PM +0200, Maxime Chevallier wrote:
-> Hi James,
-> 
-> On 9/15/26 21:03, James Hilliard wrote:
-> > The H616 secondary EMAC uses a separate system-control clock register
-> > and supports only RMII at 10/100 Mbps. Add its distinct compatible
-> > without an older fallback, since using the primary EMAC clock register
-> > would not work.
-> > 
-> > Constrain the PHY interface mode to RMII, matching the hardware. The
-> > EMAC1 clock register also retains the three-bit TX and five-bit RX delay
-> > chains, so allow the existing Allwinner delay properties for this
-> > compatible.
-> 
-> I don't think there's such a thing as RMII delays. RMII has a single
-> clock, contrary to RGMII that has a TX and a RX clock with a 2ns delay
-> between clock and data.
-> 
-> I think it's just a leftover in this IP from the other variants that
-> can do RGMII ? You should just be able to drop the comment changes here,
-> and same goes for the dwmac patch.
 
-That was my thinking as well.
+On Tue, 15 Sep 2026 17:56:49 +0100, Srinivas Kandagatla wrote:
+> Describe the WCD9378 SoundWire peripheral which is SDCA compatible
+> soundwire device. It provides SDCA SimpleJack for headphone playback
+> headset mic capture and MBHC jack detection.
+> 
+> The same silicon is integrated in two ways and enumerates with the
+> same SoundWire class ID:
+> 
+>   mobile mode: two slaves (tx, rx) on separate SoundWire masters.
+> 
+>   SDCA / compute mode: one aggregated slave on a multi-lane
+>   master.
+> 
+> Note: both of them have different bus toplogies 1 device vs 2 devices.
+> 
+> Currently only compute mode is supported by this bindings, mobile mode
+> will extend this binding as required.
+> 
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+> ---
+>  .../bindings/sound/qcom,wcd9378-sdw.yaml      | 91 +++++++++++++++++++
+>  1 file changed, 91 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
+> 
 
-     Andrew
+My bot found errors running 'make dt_binding_check' on your patch:
+
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.example.dtb: soundwire@7630000: audio-codec@0,3:compatible:0: 'qcom,wcd9378c' does not match '^sdw[0-9a-f]{1}[0-9a-f]{4}[0-9a-f]{4}[0-9a-f]{2}$'
+	from schema $id: http://devicetree.org/schemas/soundwire/soundwire-controller.yaml
+Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.example.dtb: soundwire@7630000: audio-codec@0,3:compatible: ['qcom,wcd9378c', 'sdw20217011000'] is too long
+	from schema $id: http://devicetree.org/schemas/soundwire/soundwire-controller.yaml
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260915165652.914893-8-srinivas.kandagatla@oss.qualcomm.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
