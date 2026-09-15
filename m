@@ -1,71 +1,131 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9920E48595B;
-	Tue, 15 Sep 2026 10:59:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD372485CD2;
+	Tue, 15 Sep 2026 11:00:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789469960; cv=none; b=Cwq9WB3GvqBnA7hBMtBN2uE7mUh7OzUiv/p38eoehgta286F/v1a7YK0nB5uD+dx5d7U9mYl0EvRGk63rPKl0Z5wbyybo8IGjEMDBTJ/0dNLEBRq219mvEY4VzVWcRGFXArVQFMI0kf9Ri+I7OT7109oZ952kcpqQ4ZeXbmd1D4=
+	t=1789470021; cv=none; b=HkR4/QGyqzX1aR7cwmuzpP+KAwiBX/vQ3cpbLjtHBBHUHkRtm1Hqddk+CMNCXCgqHZWSsV8z5cX5fi4QKhcu3NlHA2g7hcRSAoDhj3CIJTIf1TxIMkksLrwnO1SUNgWxq0MspUkPwBcEfqxY40aJKc8YB4I2k+F3lqIPthD9EjA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789469960; c=relaxed/simple;
-	bh=aF+/jWL7BrMSn9ocSSMuGUikdYyJj1a1xjF8QzCB+PY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IIWRLE/hI6+fpscZ9VJqJaU+9b2gid7SnqhG8ZYevzXSbnCHatKCkdxHrHHyjxiJhoVXCm7/Wu4qvEbmsIlAIPcxQj7ECEe1fld+c8N0FbzrVVa7n91ZalSK5GeprrCaR/yuX6q1Msci6Py4hclmeUXmO8k3b+4pz8RyEtAThJ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cBIRcoWg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789470021; c=relaxed/simple;
+	bh=gq39yPKul8KzQJghNgRfsj8RAk+9uIH+BK+ui4PAP3c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VHKWfcFT5hbER5bGRDubmAe+wVv0M70E9LS0TY3OlnSHTGHLwmxEDZJvziNK66j7+kcy2M2SQmAqP777RItlpefFcLyNfxsJaSeLMtbCJJboX8tod3ouJJ7AP/1ha4dTQh+zdmFfURpGXrzIUHJAqDuCK9XBLEdMtAIIB0uCDYE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AdLW3NC8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cBIRcoWg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 476631F000FF;
-	Tue, 15 Sep 2026 10:59:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AdLW3NC8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 512151F000FF;
+	Tue, 15 Sep 2026 11:00:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789469959;
-	bh=TZgoU/EkIjltIePN3q47HP94wUWzM3rxP491tzvod2M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cBIRcoWgAGO+r9TOqkyi7ymLDmu9jNXISWmmt7PhheFUODl3NWT3HBnNMUW0ELorS
-	 P6ewnyxugrAuiJ5hc024YELa/KzZIw3OBASpLtnePzPymssIWE+Cyrl2nPnFWhHT+g
-	 HSsuXv68xCrm10267sNFPLeOnyl5EEUMbv62rg1lBVZ6yHsRUGaj2BdI34tkhhBrXC
-	 +sR2zprnxpub91yc8h41AQsiHaMQRFyYQ7CUJTAsVIgUpe4gVd2SrDjRQjlnhWi0hP
-	 EYSpR0yjpUto1z9zC55ns6Zhdpv9HCARb/q88DUeH9tq+rB4ymDjcKqoxy0PgVMred
-	 tgVghI92fpNUw==
-Date: Tue, 15 Sep 2026 12:59:15 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/5] dt-bindings: arm: qcom: Add more compatible for
- Eliza EVKs and SoMs
-Message-ID: <20260915-meek-beautiful-fulmar-ca97ad@quoll>
-References: <20260914-dts-qcom-eliza-add-ufs-variant-v1-0-78b3249eae61@oss.qualcomm.com>
- <20260914-dts-qcom-eliza-add-ufs-variant-v1-1-78b3249eae61@oss.qualcomm.com>
+	s=k20260515; t=1789470016;
+	bh=yv/QDszGawl9SeGeOroDanInIUFokMkP+QruusrQuOU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=AdLW3NC8ZqCvgOC/cUHmij6jlyskjnp5o58mLjBoCTqJEbFVMAwDXMb7oxwNGT8ju
+	 p3Gd3wEHspY8KTEYJq7APZXfcusyufxRlPrT7W7ruFhQefhXOYUznx1u0tK+1Cjb63
+	 H1x8pKjqFhbocAgZJDqOCeRZ8nnq8NJvJxMS5CZdbehduiOYfh5Yb+uCDcYG/+/8mN
+	 ohopIvtWlmfEBaSw0Ud7UbtxAvqtgowZUM5M8dY+mo6BN8DnR7XwV62IxXAV3wse0t
+	 bbVPYEHuQ4J50DSpvepSTyl6R4fM1ATILL3XCueSunipeW+YCN+JrVSezyWWxu2VSE
+	 wjBjNQs7BS1cA==
+Message-ID: <70ae05a5-2415-4895-bc64-37b3d3ba54ac@kernel.org>
+Date: Tue, 15 Sep 2026 13:00:10 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260914-dts-qcom-eliza-add-ufs-variant-v1-1-78b3249eae61@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5] dt-bindings: net: can: convert ifi_canfd to DT schema
+To: Quchaosheng <quchaosheng000406@163.com>,
+ Marc Kleine-Budde <mkl@pengutronix.de>, Vincent Mailhol
+ <mailhol@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-can@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260914022145.408976-1-quchaosheng000406@163.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260914022145.408976-1-quchaosheng000406@163.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 14, 2026 at 01:44:48PM +0300, Abel Vesa wrote:
-> There are currently two different Eliza CQS SoMs. One comes with eMMC
-> and the other with UFS. So the Eliza CQS EVK can be connected to each
-> one of these SoMs.
+On 14/09/2026 04:21, Quchaosheng wrote:
+> Convert the IFI CAN-FD controller binding from free-form text to DT
+> schema, and reference the common can-controller.yaml schema.
 > 
-> So document the eMMC and UFS compatibles for each type of board and SoM.
+> The driver matches on the "ifi,canfd-1.0" compatible and obtains its
+> interrupt through platform_get_irq(), so interrupts is required.
 > 
-> Neither the CQS SoMs nor their corresponding EVKs have been made publicly
-> available. Therefore, replacing the generic compatible strings with
-> storage-specific ones does not affect any user.
+> The example uses the GIC and irq header defines instead of the raw
+> numbers from the original text, which keeps the values unchanged
+> (GIC_SPI is 0, IRQ_TYPE_NONE is 0 and 1 is IRQ_TYPE_EDGE_RISING). The
+> node name is changed from "canfd" to "can" so that it matches the
+> $nodename pattern required by can-controller.yaml.
 > 
-> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
 > ---
->  Documentation/devicetree/bindings/arm/qcom.yaml | 9 +++++++++
->  1 file changed, 9 insertions(+)
+> v2:
+>  - Correct the description: this is a soft IP block typically synthesised
+>    into an FPGA or CPLD, not a controller found on Renesas SoCs.
+>    Wording now follows the driver's Kconfig entry.
+> 
+> v3:
+>  - Use unevaluatedProperties: false instead of additionalProperties: false.
+>    As can-controller.yaml is referenced through allOf, additionalProperties
+>    would have rejected properties defined by that common schema, such as
+>    termination-gpios and termination-ohms.
+> 
+> v4:
+>  - Use defines instead of raw numbers in the example, and rename the
+>    example node from canfd to can. No functional change.
+> 
+> v5:
+>  - Re-send the patch on its own. The v4 posting accidentally included
+>    unrelated changes to the xilinx-xadc binding and did not remove
+>    ifi_canfd.txt. Only the intended change is present now.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+You send this way too many times. Please slow down.
 
 Best regards,
 Krzysztof
-
