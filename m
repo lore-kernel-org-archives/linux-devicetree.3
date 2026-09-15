@@ -1,121 +1,83 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F72137DEA3;
-	Tue, 15 Sep 2026 14:15:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 185103A63F2;
+	Tue, 15 Sep 2026 14:16:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789481705; cv=none; b=RGk0Bb97dPGp+Ie+c6n2RXEtVL6oK1vqCZTuBK4wyA0kd6jvD6vzS7b3UVPjaJ5U2JmZYaVR9Ldxn9mjfY0yaVJDg25FGnksaOqfxtr256qFhv/up+vUX2Fmu0zc15ZQWmdB/XGfMNhiS+0Xh1DJj9f0uCjgANkUEKdHYzW3mck=
+	t=1789481768; cv=none; b=fSFq91I34Mj1Rl1Bb2WPxY5mkj2p8r+0RJXZZVuVEZpG7EV+LUwGhmLBC3bzjciXrbXd8r4xrtzkLWFDnWenzmrUsUrlDw6Cq4LPjoguJhvrDllS24vog953J3/wfxIoP/dtCff2mpE3WtnxlC3AxisEph+8B847y18jkTvmypo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789481705; c=relaxed/simple;
-	bh=xyEvljz0L0uHlEfkMO/XAAG1yVFqmZQW3RkJEraT2HY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PYMOz6wbGZl6kKDJOXsHpGh2GSuBHwxn5xMtgtt3eola23HabaopAtglW1v23zFSy1e0zS658JIdFICVpthoes4N/IEm4h6z/yWPukUPHQdq7rVu31SWiYUuykdlmJxeW/wJm27se+NWQRY5vqbSHUabEH1FnhaNEFjVz1OhEIQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=U0h7+Wxl; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	s=arc-20240116; t=1789481768; c=relaxed/simple;
+	bh=PTbxpPFOxDQ8xv3WRyCj1KIRouewlTe+7MQl0VvICic=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=HBKcw+5Swrafisz/yAlSGlIFZfjb9bYa2Kw9m/9jizFwllDAaVi1f+j/DoWJgMt2a6zkfwrG9ehaGsAiFc7/uNguAuFlKnVTRse5v9tkoP5122iC53FWtXRXacbIZx0F0DhVa82l8ZnpUZNMZcXOzg42fUQndVtCVcDLploOL00=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=KRUCyAoc; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="U0h7+Wxl"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=ph4eoaSxarsjQv7bGWCkw3EH6rJ8brkR1cdiTpW1F1w=; b=U0h7+WxlnSnbXgdFixqUMGNGqj
-	Jjw9JC2+SiMFZhS4aoQ/9d/log7tdpMkRQq1UOcQ+fJP7bgslfQ9eQOuGs97b4SZOmz4BS5XUDJZS
-	rDLkJbB8FCa20Qq0q3twpoKZymaR474RVPH0IRejAW1LqI8N7nci5/QmrvkyM6vcrd5OU3r/0pvrH
-	8IiJq6j0CuNvK59ni7tTZOgm8GIzN8bLFLSQ2I1MQtq5sps+W9RjGIY6N184cYKP7AuSDEm1WeKWh
-	yHu/fV/qBJPZ4VF+6M8qj2chtMpo5mqoF7qtPSsR+cLxG1Upt6RDOlmX1CzR9sTxM+m9gMD2f9RBE
-	lYYtyIog==;
-Received: from sslproxy04.your-server.de ([78.46.152.42])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <nora.schiffer@ew.tq-group.com>)
-	id 1x6TTJ-0003hT-1j;
-	Tue, 15 Sep 2026 15:45:17 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy04.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <nora.schiffer@ew.tq-group.com>)
-	id 1x6TTI-000FKf-2j;
-	Tue, 15 Sep 2026 15:45:17 +0200
-From: Nora Schiffer <nora.schiffer@ew.tq-group.com>
-To: Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Isai Gaspar <isaiezequiel.gaspar@nxp.com>,
-	linux@ew.tq-group.com,
-	linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Nora Schiffer <nora.schiffer@ew.tq-group.com>
-Subject: [PATCH v2 5/8] leds: pca995x: Make output gain configurable
-Date: Tue, 15 Sep 2026 15:43:53 +0200
-Message-ID: <6b65d783052e84fd00c139a3b3f85b04f680b798.1789477502.git.nora.schiffer@ew.tq-group.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <bd687915af26ccdbfc8cc911eee0787fc8145ae1.1789477502.git.nora.schiffer@ew.tq-group.com>
-References: <bd687915af26ccdbfc8cc911eee0787fc8145ae1.1789477502.git.nora.schiffer@ew.tq-group.com>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="KRUCyAoc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789481764;
+	bh=PTbxpPFOxDQ8xv3WRyCj1KIRouewlTe+7MQl0VvICic=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=KRUCyAocjxgVBz3HulW75LFARuyrG+119/V5KXj4ptEBwVuz+JDHiZet+PUE5I0IQ
+	 qoy7VqAKh+MD6vKt02YWiG+VFikVc68ZjvuDBCMsJoa+vk+Azx+NRdAMf1ZDxvMFCk
+	 1RW4txL2x7YYjWoElHWCLKxAZ5QoWcdaN7Gm80yo6u6PbSoBh+1k2YRqzerZjkZ57V
+	 rcKpYgnNz/DI7qUhMi3jatG4TUpAFf1mthq+htbk8Ia+cv1QKt91/AjAkjS6MERzb8
+	 42k50eoz5tHYt1tdyYmuf1ZL8TZ0SpWy5vYn6PFbarvsPRF0er/Cnwb0IW4jXWWeJf
+	 BrvV6ODCSIQ6w==
+Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id AF8E317E089A;
+	Tue, 15 Sep 2026 16:16:03 +0200 (CEST)
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: Matthias Brugger <matthias.bgg@gmail.com>, 
+ Martino Dell'Ambrogio <tillo@tillo.ch>
+Cc: linux-mediatek@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, kees@kernel.org, tony.luck@intel.com, 
+ gpiccoli@igalia.com
+In-Reply-To: <20260915135722.566918-1-tillo@tillo.ch>
+References: <20260915135722.566918-1-tillo@tillo.ch>
+Subject: Re: [PATCH v4] arm64: dts: mediatek: mt7988a-bananapi-bpi-r4: add
+ ramoops region
+Message-Id: <178948176365.42253.18334352766065751313.b4-ty@b4>
+Date: Tue, 15 Sep 2026 16:16:03 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28124/Tue Sep 15 08:27:28 2026)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
 
-The output gain linearly configures the LED current in 255 levels; the
-absolute current depends on both the gain value and the R_ext resistor
-connected to the LED driver. Make the gain configurable in the Device
-Tree instead of hardcoding it to 128, allowing to adjust the current
-for different hardware designs.
+On Tue, 15 Sep 2026 13:57:22 +0200, Martino Dell'Ambrogio wrote:
+> Reserve 1 MiB of RAM just below the ARM Trusted Firmware secmon region
+> (0x42f00000-0x43000000) for persistent kernel log storage via pstore/ramoops,
+> allowing post-panic console output and oops dumps to be recovered after a
+> reboot. Without it, kernel crash logs on this board are lost when the SoC
+> warm-resets and the on-chip console buffer is reinitialised.
+> 
+> With record-size=128 KiB, console-size=256 KiB, ftrace-size=64 KiB and
+> pmsg-size=64 KiB, ramoops_probe() carves the post-console remainder
+> (640 KiB) into five 128 KiB kmsg records, with the requested ecc-size=16
+> reserving a small Reed-Solomon parity block from each zone's own
+> allocation (per persistent_ram_new()). The ECC lets pstore recover dumps
+> even when the panic path truncates writes mid-record.
+> 
+> [...]
 
-Signed-off-by: Nora Schiffer <nora.schiffer@ew.tq-group.com>
----
+Applied to v7.3-next/dts64, thanks!
 
-v2: Add nxp, vendor prefix
+[1/1] arm64: dts: mediatek: mt7988a-bananapi-bpi-r4: add ramoops region
+      commit: b71dd71f0965358d33a4c5c93789e46795f0f49d
 
- drivers/leds/leds-pca995x.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+Cheers,
+Angelo
 
-diff --git a/drivers/leds/leds-pca995x.c b/drivers/leds/leds-pca995x.c
-index 0c0ea57f3225a..9cd5702573b0d 100644
---- a/drivers/leds/leds-pca995x.c
-+++ b/drivers/leds/leds-pca995x.c
-@@ -127,6 +127,7 @@ static int pca995x_probe(struct i2c_client *client)
- 	struct pca995x_chip *chip;
- 	struct pca995x_led *led;
- 	int i, j, reg, ret;
-+	u32 iref;
- 
- 	chipdef = device_get_match_data(&client->dev);
- 
-@@ -154,6 +155,11 @@ static int pca995x_probe(struct i2c_client *client)
- 
- 	i2c_set_clientdata(client, chip);
- 
-+	if (device_property_read_u32(dev, "nxp,output-gain", &iref))
-+		iref = PCA995X_IREFALL_HALF_CFG;
-+	else if (iref > PCA995X_IREFALL_FULL_CFG)
-+		return dev_err_probe(dev, -EINVAL, "invalid nxp,output-gain\n");
-+
- 	device_for_each_child_node_scoped(dev, child) {
- 		ret = fwnode_property_read_u32(child, "reg", &reg);
- 		if (ret)
-@@ -196,7 +202,7 @@ static int pca995x_probe(struct i2c_client *client)
- 		return ret;
- 
- 	/* IREF Output current value for all LEDn outputs */
--	return regmap_write(chip->regmap, chipdef->irefall, PCA995X_IREFALL_HALF_CFG);
-+	return regmap_write(chip->regmap, chipdef->irefall, iref);
- }
- 
- static const struct i2c_device_id pca995x_id[] = {
--- 
-TQ-Systems GmbH | Mühlstraße 2, Gut Delling | 82229 Seefeld, Germany
-Amtsgericht München, HRB 105018
-Geschäftsführer: Detlef Schneider, Rüdiger Stahl, Stefan Schneider
-https://www.tq-group.com/
+
