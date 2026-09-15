@@ -1,180 +1,134 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mdapi.ch (mail.mdapi.ch [31.3.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B956D4A0F15
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 11:56:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF3134AA57C;
+	Tue, 15 Sep 2026 11:57:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=31.3.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789473410; cv=none; b=TOk1+x9wlmk66+tIYp2eKUvRlFJm6VlBP9iEjMCyU6gPl/FGKqg3k9iAbncg2yEqzIzqnltuU//9TwbN9YtC9z/OwxgUNKGyfuPBF8OzgJgW7y2lyaPSImSvVf2WGnW62Fv3Hky2SeqmijNmViAo0/GGbtqt4mLWMsJ+13ihRs8=
+	t=1789473450; cv=none; b=XGFgmpoC35oOoFhGYnb70RmwJeS47i8dNqc4WdfxN8jm8xIa1M4b8S464FnKFzCpt60fAc1Knl1RIgUhROMJz3IHEnxeQGZnhKsTOm3sA09GE7f5+qbUiOAS2liTwqaY8HkJaKsJuoneATNkO+VXatv62e01j3J/wrviSJnMoks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789473410; c=relaxed/simple;
-	bh=hz7ecKJMlWN4w7YByidxbnhsifV5HkA2kX05eT5H6SA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=JGIc5jTnu24fsmjzagy4ID4d6q7QdNaxQZSg8UaxmLcDaW8I8gHP4GkB6eWcoFCTMS2k4wbKDGNFirbHWQNCCKW/SN/18Dmps+dN+L2YqDWUSozQTKAcDghkvvmvggCJtkWDufx1+BdW1H13Yg2XFNKGyBLs9iOfjHowffAlcpE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rBh/S1C+; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789473450; c=relaxed/simple;
+	bh=2ne5nnvy1AoxPawAFXFaeMiOw5oqhIP7Y/5CTDcjM1s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Nw0IBaifN/jbTa278Ctmn0p/5cg6vNOpF5IZOVh32NtNMMng3HYhJ9RnKRsDm5XUJBdzFgwOGMRRVVYr7ltSXF74bOaKCmCvRXtwn/6tCyVDzeLyFhrwD9j5QE+ltZRXhA2eUP9qswElWsXJ0F6V9E9bEIGzvOaGfHuNJ05CarQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tillo.ch; spf=pass smtp.mailfrom=tillo.ch; dkim=pass (2048-bit key) header.d=tillo.ch header.i=@tillo.ch header.b=gLEEYnnm; arc=none smtp.client-ip=31.3.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tillo.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tillo.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rBh/S1C+"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7355e411so23518485e9.1
-        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 04:56:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789473407; x=1790078207; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MSObQBHAPu0fXn6/uVS83Vw2xOwdtVTcMmwcpXwTo+g=;
-        b=rBh/S1C+njeQtcATYq9sSnfPHPIutabhRLULOnt5CgmCDAkzOebXz3ANXkGCxUXDr9
-         uLJo4rPM9Xi8H3eVqT8Yii2pANjBWFfX90uG7v4OqOYv95ECS1dfVg3DIbyXr9Ffuj4z
-         4jeT41r84bEBP+EtxZZZv3OuJq5s3Ii4/Su7JISa1mwmw/RgiGaPB2zQL1778+I/n31V
-         RDI+RTM66bT/5kGCcuE0zE/I2cAM1kU5uGo/ZQmxZ37zu86KzkWg8tBfTygDtGiLX79B
-         nQEqWoeVbTRuzqhM6B28Mx6Eg/0KZ3ppvHNdagWNv9wjnMVvYSBqAYnml5z2sYIhAYJe
-         DIEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789473407; x=1790078207;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MSObQBHAPu0fXn6/uVS83Vw2xOwdtVTcMmwcpXwTo+g=;
-        b=f0rsohOgyXWTUuyLcS0cmJbOHGmcjFALwVbcC1eZvxvLxw4GWsbzl8iNc548Cox3Jl
-         iq/NYp39qVEtQbtqBSdJ4vksAvfd1RWZW1IOBx98RhT2br7yeeEvt01jNlXTcQaRgTKq
-         ateGCfiaChicMXwH18MeNhCDIcovo5tJuOo+P7XN0IQ+FBcPHYX08qQ1xmjp+mM5lVpO
-         kabWUFnpC9HYPg2ofcDOEUl1fv1vLd+CuLPLd1deC3H6SoMxcDRz72VrEsJbP+PCYY/p
-         qo2pURGkpfesY3Z7+bHjf/0/sDVupTOoucV08kNCJ0bS+391tpq3y5BFfEVv7a5Da5WY
-         zhmg==
-X-Forwarded-Encrypted: i=1; AKwUvBwUifeMmoUv2VDkTdAg6Xoq2XMJNm86hoW4ZdowC5aH49N4JAWMchMD1PqoeiuZGeyuCVypY/Gd+JMN@vger.kernel.org
-X-Gm-Message-State: AFuF++miNuToi/VfPGxkysVsX71Z1+zSCaMS0uC4IiLDDZnJpD+N4rFT
-	dfA1Yv44wlQjctNrFVBVPA0s9kiCcqaCehuWuQ/zfdTr+J7ZGMTnncDMYnL2jQ==
-X-Gm-Gg: AYBFou0hVP6ax/wGikZ5KqkbvTm+YdZwk2yZfHLeSTY4RmV+NtISt4JGAoadXlcxnxO
-	wtr+7cM/5TgrymX93mrrUSAxBj8PjiA2M9KCcVzVbTZrcOuAqLfdvYRiJsmo8biHuubw2I0Qb52
-	xWH83plkBVsYNInNxJG6WaELJpwJQp3utn66LLwMZNaErNv6kyQGYYCRFH7KEBAlEOX3AhomVw0
-	KDtsMlr0isN3Zmucr37E9ygruG2PxX0yHh7iZB2Klw7mT1zIy7wp5BcXbSLWQY/y1kEZn6e+iS4
-	3HY1K6Rj3TEE0sqQbl2BzSbeuu1eRis63NbUOpkqjWt0Y5VPaDmb1LPI7arKVgJ9vZwnTdGbo6q
-	fRiTO13kwlvSgIJorvY8xu4ucun5E6Jc2NhgVgiK0In18tvTUVqJxNLK3h9ZSeFcmm7YZz0HR5I
-	rm7BTko4FuqsGdbS1Sn4fdPQsUMC7eYGrjepoq8UpeahTEyPU9PmvPf3X1q0R5LOiWOeY1+PxLx
-	P96NZKF1iDVfL5776MyHeh57GBGihtTZ9kIrmeeeguCH1vYLU++LUx7LUBULrjSSO8u
-X-Received: by 2002:a05:600c:3487:b0:49d:1cc7:5ec3 with SMTP id 5b1f17b1804b1-49e7a66af92mr186642285e9.9.1789473406677;
-        Tue, 15 Sep 2026 04:56:46 -0700 (PDT)
-Received: from [127.0.1.1] (2a01cb0007c59900d73f8285c1e647ab.ipv6.abo.wanadoo.fr. [2a01:cb00:7c5:9900:d73f:8285:c1e6:47ab])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7ef88754sm63175565e9.13.2026.09.15.04.56.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 04:56:46 -0700 (PDT)
-From: Amin Gattout <amin.gattout@gmail.com>
-Date: Tue, 15 Sep 2026 13:56:41 +0200
-Subject: [PATCH v2 2/2] arm64: dts: rockchip: add mipi csi-2 receiver nodes
- to rk3576
+	dkim=pass (2048-bit key) header.d=tillo.ch header.i=@tillo.ch header.b="gLEEYnnm"
+From: Martino Dell'Ambrogio <tillo@tillo.ch>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tillo.ch; s=mail202603;
+	t=1789473442;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=ix4zUneWseQ7vdoZIO9ZqqK5b1ofsYuNIFP6ohWZvWc=;
+	b=gLEEYnnmonwrqeCPhxqBohgYdJfsQxDIMIemRm5bC7lnm2XjBcNIgyd2xT8FBA+2VWG/oC
+	GK1P6B/d4ZikTPOjmsiElND5nzCDug6W33eAUAe+R1A0pIV3gpwkduAvJ625246EfCILHT
+	fzVhGwNQBOTLexuRjqloMvAXYSE5HyofvAI4w/th18Y0BwEFULwb2gP8vTmoFqZIl7ULLN
+	0P2TSKyhzzjE3DSHDgzJjynbDogW/c8WdrMzWfiF713ethU4b5f8t36AGWlv85QcsY4WqS
+	7VftbrKSwK4JNTmFu18+dFvHzwoSQsFPTHH05okKTPglZzznFR2Y1j27GENClA==
+To: Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	kees@kernel.org,
+	tony.luck@intel.com,
+	gpiccoli@igalia.com
+Subject: [PATCH v4] arm64: dts: mediatek: mt7988a-bananapi-bpi-r4: add ramoops region
+Date: Tue, 15 Sep 2026 13:57:22 +0200
+Message-ID: <20260915135722.566918-1-tillo@tillo.ch>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-csi-2-rcv-dts-v2-2-bdaf8141616a@gmail.com>
-References: <20260915-csi-2-rcv-dts-v2-0-bdaf8141616a@gmail.com>
-In-Reply-To: <20260915-csi-2-rcv-dts-v2-0-bdaf8141616a@gmail.com>
-To: Michael Riesch <michael.riesch@collabora.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Amin Gattout <amin.gattout@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789473404; l=2691;
- i=amin.gattout@gmail.com; s=20260818; h=from:subject:message-id;
- bh=hz7ecKJMlWN4w7YByidxbnhsifV5HkA2kX05eT5H6SA=;
- b=tj68X/IcmWZX/XZiXkGeeRk0CFzYyPr/Y7qcNgyol3bOUZ7O2Jnd8YAYI2xuhQ50+w+iMS1+r
- 8idipYTKQdOAh89PeeC1du381r95I3oTVoV/s0oBkv93JJ63M6jymvM
-X-Developer-Key: i=amin.gattout@gmail.com; a=ed25519;
- pk=MSIqDPkCOkwtyP8Fns1m+KFU9SgqoDl2mpLe18vL+hQ=
 
-The Rockchip RK3576 features five MIPI CSI-2 receiver units:
- - MIPI0: connected to MIPI DCPHY0 (not supported)
- - MIPI1: connected to MIPI DPHY0
- - MIPI2: connected to MIPI DPHY0 lanes 2-3 in split mode (not supported)
- - MIPI3: connected to MIPI DPHY1
- - MIPI4: connected to MIPI DPHY1 lanes 2-3 in split mode (not supported)
+Reserve 1 MiB of RAM just below the ARM Trusted Firmware secmon region
+(0x42f00000-0x43000000) for persistent kernel log storage via pstore/ramoops,
+allowing post-panic console output and oops dumps to be recovered after a
+reboot. Without it, kernel crash logs on this board are lost when the SoC
+warm-resets and the on-chip console buffer is reinitialised.
 
-The PHY to receiver routing is fixed. Only the full/split mode of each
-DPHY is selectable, via SYS_GRF_SOC_CON5 bits 1 and 2, whose reset value
-selects full mode, so no software configuration is required.
+With record-size=128 KiB, console-size=256 KiB, ftrace-size=64 KiB and
+pmsg-size=64 KiB, ramoops_probe() carves the post-console remainder
+(640 KiB) into five 128 KiB kmsg records, with the requested ecc-size=16
+reserving a small Reed-Solomon parity block from each zone's own
+allocation (per persistent_ram_new()). The ECC lets pstore recover dumps
+even when the panic path truncates writes mid-record.
 
-As the MIPI DCPHY as well as the split DPHY mode are not yet supported,
-add only the device tree nodes for the MIPI1 and MIPI3 units.
+The no-map property is required so the reserved region is kept out of the
+kernel linear map. ramoops remaps the carve-out write-combine via
+ioremap_wc(); on arm64, leaving the same physical RAM mapped cacheable in
+the linear map at the same time is an attribute-mismatch and risks losing
+panic data to dirty cache evictions from the linear alias.
 
-Reviewed-by: Michael Riesch <michael.riesch@collabora.com>
-Signed-off-by: Amin Gattout <amin.gattout@gmail.com>
+The carve-out sits immediately below the ATF region already declared at
+0x43000000 in mt7988a.dtsi, so no other reserved-memory child is moved or
+resized. BPI-R4 ships with at least 4 GiB of DRAM starting at 0x40000000,
+so the region is well within installed memory on every variant.
+
+For the carve-out to actually preserve content across a reset, the boot
+loader must also avoid touching this region on warm reset; on standard
+BPI-R4 boards with the stock OpenWrt U-Boot fork this already holds.
+
+Signed-off-by: Martino Dell'Ambrogio <tillo@tillo.ch>
 ---
- arch/arm64/boot/dts/rockchip/rk3576.dtsi | 52 ++++++++++++++++++++++++++++++++
- 1 file changed, 52 insertions(+)
+Changes in v4:
+ - Use a plain reserved-memory node inside the root node instead of the
+   &{/reserved-memory} path reference, as AngeloGioacchino pointed out. dtc
+   merges it with the node from mt7988a.dtsi, so the resulting DTB is
+   identical; this is a syntax change only. Same change made to the BPI-R3
+   patch.
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576.dtsi b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-index b7a527614243..cbf8b70cc15a 100644
---- a/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-@@ -1324,6 +1324,58 @@ vdec_mmu: iommu@27b00800 {
- 			#iommu-cells = <0>;
- 		};
+No rush on my account for the earlier silence - the v2 postings were
+cross-threaded into each other's v1, so they were easy to miss.
+
+For what it is worth, this layout is in use on a BPI-R4 here: the kernel
+brings it up as
+  OF: reserved mem: 0x42f00000..0x42ffffff (1024 KiB) nomap non-reusable
+  pstore: Registered ramoops as persistent store backend
+  ramoops: using 0x100000@0x42f00000, ecc: 16
+(that build carries the same node via the path-reference form, so the DTB is
+the one this patch produces). I have not yet confirmed a panic dump survives
+end to end on it.
+
+v3: https://lore.kernel.org/all/20260915064254.1594808-1-tillo@tillo.ch/
+v2: https://lore.kernel.org/all/20260528123645.2650085-1-tillo@tillo.ch/
+v1: https://lore.kernel.org/all/20260528092807.1936177-1-tillo@tillo.ch/
+
+ .../boot/dts/mediatek/mt7988a-bananapi-bpi-r4.dtsi  | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/mediatek/mt7988a-bananapi-bpi-r4.dtsi b/arch/arm64/boot/dts/mediatek/mt7988a-bananapi-bpi-r4.dtsi
+index 0ff69da..75f5940 100644
+--- a/arch/arm64/boot/dts/mediatek/mt7988a-bananapi-bpi-r4.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt7988a-bananapi-bpi-r4.dtsi
+@@ -66,6 +66,19 @@
+ 		regulator-always-on;
+ 	};
  
-+		csi1: csi@27c90000 {
-+			compatible = "rockchip,rk3576-mipi-csi2", "rockchip,rk3568-mipi-csi2";
-+			reg = <0x0 0x27c90000 0x0 0x10000>;
-+			interrupts = <GIC_SPI 314 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 315 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "err1", "err2";
-+			clocks = <&cru PCLK_CSI_HOST_1>;
-+			phys = <&csi_dphy0>;
-+			power-domains = <&power RK3576_PD_VI>;
-+			resets = <&cru SRST_P_CSI_HOST_1>;
-+			status = "disabled";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				csi1_in: port@0 {
-+					reg = <0>;
-+				};
-+
-+				csi1_out: port@1 {
-+					reg = <1>;
-+				};
-+			};
++	reserved-memory {
++		ramoops@42f00000 {
++			compatible = "ramoops";
++			reg = <0 0x42f00000 0 0x100000>;
++			no-map;
++			record-size = <0x20000>;
++			console-size = <0x40000>;
++			ftrace-size = <0x10000>;
++			pmsg-size = <0x10000>;
++			ecc-size = <16>;
 +		};
++	};
 +
-+		csi3: csi@27cb0000 {
-+			compatible = "rockchip,rk3576-mipi-csi2", "rockchip,rk3568-mipi-csi2";
-+			reg = <0x0 0x27cb0000 0x0 0x10000>;
-+			interrupts = <GIC_SPI 383 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 384 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "err1", "err2";
-+			clocks = <&cru PCLK_CSI_HOST_3>;
-+			phys = <&csi_dphy1>;
-+			power-domains = <&power RK3576_PD_VI>;
-+			resets = <&cru SRST_P_CSI_HOST_3>;
-+			status = "disabled";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				csi3_in: port@0 {
-+					reg = <0>;
-+				};
-+
-+				csi3_out: port@1 {
-+					reg = <1>;
-+				};
-+			};
-+		};
-+
- 		vop: vop@27d00000 {
- 			compatible = "rockchip,rk3576-vop";
- 			reg = <0x0 0x27d00000 0x0 0x3000>, <0x0 0x27d05000 0x0 0x1000>;
-
+ 	/* SFP1 cage (WAN) */
+ 	sfp1: sfp1 {
+ 		compatible = "sff,sfp";
 -- 
-2.43.0
+2.47.3
+
 
