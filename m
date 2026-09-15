@@ -1,272 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 039B43BE14A
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 19:49:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6C0D4499A4
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 19:49:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789501751; cv=none; b=RTykTcVrZzVugyzm9jZZ4vfjHChlh+nHORLqDgLZLnCuvOeN6JB6+f0u5OJRAvTQmwC+Ufx7vXal57kDiKS7l0rs+9bw0kXtGX5yTM15E9jQrLoOTp9ELFjh+fAyAphuqf3SLTcn+e/TgKENZWTKvtLbrJjX+cFASDwJA8wKVM0=
+	t=1789501792; cv=none; b=RP3kFOTbgnPt4v11lkx8z+2QA2WwRWeT+147fGHcbBzlaiGGBVKDxRf9xsNSsZVf3z+UtZ8VE6HmdQuShM+OUL5xK+CInWm09PEsqFJVzCg/8mXbTQGGJTrWFQtupgx6ra5FEGKROW+8OKhlNcXK9DuDNMHNX+xtVglCJeAMI9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789501751; c=relaxed/simple;
-	bh=Qw6JwciWEEnJo9lVHzWWt+SqgnV82j+RyiTt/WbP5ZA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=dz4fuResgAe/OBk421kKHO7HxBUWfpSAH2VxzUAZ50cRANGQK0IpIhr1rNQ1JBbNyB/PBbr6t/iUhuGDBSlNu1yKnUMqfpshUbkimHckzXSAOAzqo/BOjuNVLtc7tY4PhqFzqK4PYFT8YTAw9fn7gM5NhmwMDxfjQZeWhXG+guE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dfmzHZmP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789501792; c=relaxed/simple;
+	bh=Ox+hNbTd7f3+G4o+Sw8Uzx0THm/NdMARd2zaTFBMXU8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=W5wLNInD5Xx5ltRaG+7NZi/LQJr2MFbobU5OHtFQhdWvbYuPXvpW6Y5a4c9wWvsWb6UsVesoAGpzL/0hOtNf7340Win9yVOT+yppZEQi7QxVzmQa/GtvNHavZPqo7PeaQ9O/rqXFrafQjmiJYwmHxRn7CF27VevpUNbO++QZO7g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s0TUYJeq; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dfmzHZmP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 616321F00893;
-	Tue, 15 Sep 2026 19:49:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789501749;
-	bh=QaKoa5e4cEJ0eu+ooLAWLViOTTM2k/kNEkYNy2Sl0jE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dfmzHZmP0fySHvfxb2QBROHYiTjiKFlFtEyVWHcridioYtKflkF/b95t+Fm8SlWvo
-	 N1nFuO3XxuW9kARofTAuhDf+6p+BVx8HPWRmz80NOlBHwm+dCmFYHx0nYc8s+X4Nq0
-	 bXZWG11nmXWN01zRhw/53x/BNPDJvMECTPvMrOiXKefjslxo2xDYl8McSAa8Orx6Cq
-	 RtffESbHXSWB7Qoj52ab2V4JZytiaYlEGl9t9er5b5IiNSCq1vGUlXug/nzVcDgocf
-	 d99+8NZGA2o7LRobKI8WieJZ+RAxxwCUskjPOJl4brxl7BxVqu7hKsYbGCF4wEKLXO
-	 pRV9tkD60HpYQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 11/15] iio: adc: ad4134: Support SPI 4-wire mode
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marcelo Schmitt" <marcelo.schmitt@analog.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <db5578ed11d5ad9f5abb9569d893065dbf79fb13.1789494473.git.marcelo.schmitt@analog.com>
-References: <cover.1789494473.git.marcelo.schmitt@analog.com>
- <db5578ed11d5ad9f5abb9569d893065dbf79fb13.1789494473.git.marcelo.schmitt@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 19:49:08 +0000
-Message-Id: <20260915194909.616321F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s0TUYJeq"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396cccbba91so107971a91.1
+        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 12:49:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789501790; x=1790106590; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8A5+VLIUxly1brCbgDAu6UdvaY0/rGFhneDDaN+WcFg=;
+        b=s0TUYJeqCqxXG9B2wBtLX5teQlFVqBteh46IKtD255/zdKrhQ+Ad2+YuQMA0N5nxir
+         ecdbqJ33HTPMRVzXydNQUZK1H2W9UFr9bX6R65oJkZH+Zeh/RZMb6s6yJG6AeBI7QkWt
+         zzx4/ZtUB4auFsIwEkk83q2vhfVqW16PJcAiTPtEZio+ddg7tOjTTIoMcDxRsoKE13Yo
+         jB12NsttsL5wYhIFrwMbPuXLfMyweIWOK48uYVYREo4MoaaVK9rx6MDkKRZkyHX8BsVg
+         qhymf0Sp4pmpq4XR/cDdGmcCSTOcwjnh9XnhFh78MWHMnYckA7oaMea1WWAVH4e2WeB3
+         cTDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789501790; x=1790106590;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8A5+VLIUxly1brCbgDAu6UdvaY0/rGFhneDDaN+WcFg=;
+        b=RMXGN6gFEFfl8+2qA7rxKtUBSHE3OU9STMiAJjh2/6exV/wBFA5OJKl7erU4doYdXP
+         DRqub+cZcbRcKWyGQ/nNGZqobJxt5gnOcybdYU5bqCZ4aR9ugWJ8dlXuSWPjYa+x04uX
+         WD/TfqT0NqmQI5K3fNxy/s3Fije6VYkI3yaVGNN61EtjyXWw1Dw9PSRSsDtkm3csxsqx
+         SPOFg9eFFIHh6+4Q+gpr9VjyEq1EmNB4/YbDgtFkfODZWNz41Ofaxen84zZuL7/SD9pK
+         jYYCy3ddqROHCdE2na/uMu9cT/aQnJvUn9B1dimFiljMUN7HH3TpX7q2L2t9XNzBplDY
+         FLww==
+X-Forwarded-Encrypted: i=1; AKwUvBx/aokc/es4Xbba5XQvxFgKAZuLBr+lKW5vUckv8jmbw4sUQU7ZHeEKAIBt2AU/pDFGc5P0074dERlX@vger.kernel.org
+X-Gm-Message-State: AFuF++k+W1sgbwYThVhGQpH6iyqGDegDOmyUQcZXUm8t9+S8IGwba24I
+	cojSlb9qPEwoTrwl1/M0FKUK/CesXqADI6NWq0hc0eY1vHn2Q896p1S2wqMzX6Ok
+X-Gm-Gg: AYBFou3X4dG2RdMBL9YQ6g+e7C1N6cOtqF2tvK035qyPkvYvRcCt3OQPITNa27C1PXR
+	K3JEdJx6WSSAt4zcUZXLXMtyVhUCR/aJx6JTmUFP3tdx9sXYxN9kjBekd5udK6qAbZDyNZr4C0c
+	IpDY5ZPLFJxvS5KntqQzVLc8burtbYdboAD6e9yt5X1yCGc8Dvbx6qFepWou4K7irQJt1ICSCF2
+	+9Yb9OmraJbxE/QstGEPqaDHSNvHyy61oLTz0zVnEL+1nYhdace/HuwNlUhLO61Th/CQ6YkIsSG
+	YxkUjSxrKxiR2d0a9Qip3ZgpFueLZ4fErfLkB3P9x4hW/Ta6I9ZjqG7UymkVUyD/hhkI+Izf+Af
+	KLer0YabPfFS7jhDn4bbTGbrvMUYQAcNjfJvjHIPddPT71n6Y4m9yH/TTIorv3gjzglySOdoBJo
+	ICGYSyPsim5ynGN7TCUr4u/U1qcAQpymJf8tiR5BFVybQGeb2sFMKl7/S1CMnhKCfJf59FCdhkN
+	0Yv0PYTK1IV8/yEYaxjBz+mFVlUf+KNlHitmTXiYSGVq9N2IsFTPWM=
+X-Received: by 2002:a17:90b:1f84:b0:39e:1b0c:4773 with SMTP id 98e67ed59e1d1-39e1b0c5c9dmr789092a91.0.1789501790027;
+        Tue, 15 Sep 2026 12:49:50 -0700 (PDT)
+Received: from [192.168.68.67] (104-12-136-65.lightspeed.irvnca.sbcglobal.net. [104.12.136.65])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14395d4cbc9sm821075c88.11.2026.09.15.12.49.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 15 Sep 2026 12:49:49 -0700 (PDT)
+Message-ID: <583fd625-b57f-44be-96c8-94d981c29c79@gmail.com>
+Date: Tue, 15 Sep 2026 12:49:47 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 1/3] dt-bindings: leds: rt8515: Support single-GPIO
+ flash ICs with vin supply
+To: sashiko-reviews@lists.linux.dev
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org,
+ linux-leds@vger.kernel.org, lee@kernel.org, robh@kernel.org
+References: <20260912-expressatt_camera_flash-v7-0-e1fd2edc8d84@gmail.com>
+ <20260912-expressatt_camera_flash-v7-1-e1fd2edc8d84@gmail.com>
+ <20260913024510.485A11F000FF@smtp.kernel.org>
+Content-Language: en-US
+From: Rudraksha Gupta <guptarud@gmail.com>
+In-Reply-To: <20260913024510.485A11F000FF@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] ad4134: ignored mux_state_try_select() errors mask failures and ca=
-use bus contention
-- [High] ad4134: unconditional mux state deselection corrupts multiplexer s=
-emaphores
-- [Medium] ad4134: concurrent regmap accesses corrupt IIO buffer hardware s=
-tate
-- [Medium] ad4134: direct assignment to spi->mode clobbers devicetree SPI f=
-lags
---
 
-commit 9b8961eadc30a7239344b617959f3ffedd9a5a63
-Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
+On 9/12/26 19:45, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] The `oneOf` constraint incorrectly makes `ent-gpios` and `vin-supply` mutually exclusive and strictly requires exactly one to be present, contradicting the claim that `vin-supply` is optional and artificially restricting valid hardware configurations.
+> --
+make ARCH=arm CHECK_DTBS=y DT_SCHEMA_FILES=richtek,rt8515.yaml \
+       qcom/qcom-msm8960-samsung-expressatt.dtb \
+       st/ste-ux500-samsung-codina.dtb \
+       st/ste-ux500-samsung-codina-tmo.dtb \
+       st/ste-ux500-samsung-gavini.dtb \
+       st/ste-ux500-samsung-golden.dtb \
+       st/ste-ux500-samsung-janice.dtb \
+       st/ste-ux500-samsung-kyle.dtb \
+       st/ste-ux500-samsung-skomer.dtb
 
-iio: adc: ad4134: Support SPI 4-wire mode
-   =20
-AD4134 devices can be wired in a few different ways. So far, only minimum
-I/O mode was supported. While minimum I/O mode allows interfacing with
-AD4134 with a reduced number of wires, that wiring configuration is not
-optimal for high-throughput data acquisition.
+all 8 in-tree users of this binding. 0 warnings.
 
-Extend AD4134 support to enable interfacing in SPI 4-wire configuration.
+existing hw passes. Probably not useful to account for hw not in the tree
 
-> diff --git a/drivers/iio/adc/ad4134.c b/drivers/iio/adc/ad4134.c
-> index 0b6843bf8a9e3..cc6bc325f6ee6 100644
-> --- a/drivers/iio/adc/ad4134.c
-> +++ b/drivers/iio/adc/ad4134.c
 
-[ ... ]
 
-> @@ -230,6 +252,85 @@ static const struct regmap_access_table ad4134_regma=
-p_wr_table =3D {
->  	.n_yes_ranges =3D ARRAY_SIZE(ad4134_regmap_wr_range),
->  };
-> =20
-> +/*
-> + * This function controls a multiplexer OUTSIDE OF AD4134 SILICON.
-> + * When AD4134 SDO and DOUT0 pins are multiplexed, this function changes=
- the
-> + * multiplexer state to route SDO to the SPI controller. See AD4134 IIO
-> + * documentation for details.
-> + */
-> +static int ad4134_set_register_access(struct ad4134_state *st)
-> +{
-> +	int ret;
-> +
-> +	guard(mutex)(&st->access_mode_lock);
-> +
-> +	st->spi->mode =3D SPI_MODE_0;
-
-[Severity: Medium]
-Do these direct assignments clear all other SPI flags populated by the SPI
-core from devicetree properties, such as SPI_CS_HIGH, SPI_LSB_FIRST, or
-SPI_3WIRE?
-
-Should this instead use SPI_MODE_X_MASK to safely update only the CPOL/CPHA
-bits?
-
-> +	ret =3D spi_setup(st->spi);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D mux_state_deselect(st->mux_st[AD4134_DOUT0_INPUT]);
-
-[Severity: High]
-Does this unconditionally deselect the DOUT0 multiplexer state without
-verifying it is currently selected?
-
-This could call up() on the semaphore and cause a semaphore count imbalance.
-
-> +	if (ret)
-> +		dev_err(&st->spi->dev, "error on DOUT0 deselect: %d\n", ret);
-> +
-> +	/*
-> +	 * Try to update the multiplexer state to route SDO to the SPI
-> +	 * controller. If the SDO mux state is BUSY (i.e. locked), that means
-> +	 * the desired state is already selected and we should not block here.
-> +	 */
-> +	ret =3D mux_state_try_select(st->mux_st[AD4134_SDO_INPUT]);
-> +	if (ret && ret !=3D -EBUSY)
-> +		return ret;
-
-[Severity: High]
-Is it safe to explicitly ignore the -EBUSY error here?
-
-If the lock is actually held by another driver sharing the multiplexer,
-proceeding could result in doing SPI transfers on a misrouted bus, leading
-to contention and corrupted data transfers.
-
-> +
-> +	return 0;
-> +}
-> +
-> +/*
-> + * This function controls a multiplexer OUTSIDE OF AD4134 SILICON.
-> + * When AD4134 SDO and DOUT0 pins are multiplexed, this function changes=
- the
-> + * multiplexer state to route DOUT0 to the SPI controller. On failure, f=
-all
-> + * back to routing SDO to the controller and return an errno. See AD4134=
- IIO
-> + * documentation for details.
-> + */
-> +static int ad4134_set_sample_access(struct ad4134_state *st)
-> +{
-> +	struct device *dev =3D &st->spi->dev;
-> +	int mux_state_ret, ret;
-> +
-> +	guard(mutex)(&st->access_mode_lock);
-> +
-> +	ret =3D mux_state_deselect(st->mux_st[AD4134_SDO_INPUT]);
-
-[Severity: High]
-Is it safe to manually unlock the devres-managed mux state unconditionally
-here?
-
-The SDO mux is acquired using devm_mux_state_get_selected() during probe,
-which registers a devm cleanup to deselect it on unbind. Manually unlocking
-it could risk a semaphore imbalance when devm cleanup runs.
-
-> +	if (ret)
-> +		dev_err(&st->spi->dev, "error on SDO deselect: %d\n", ret);
-> +
-> +	ret =3D mux_state_try_select(st->mux_st[AD4134_DOUT0_INPUT]);
-> +	if (ret) {
-> +		dev_err(&st->spi->dev, "error on DOUT0 select: %d\n", ret);
-> +		return mux_state_select(st->mux_st[AD4134_SDO_INPUT]);
-> +	}
-
-[Severity: High]
-If DOUT0 selection fails, does returning the success code of the recovery
-function (mux_state_select) swallow the original error code?
-
-This might allow IIO buffer enablement to succeed while the hardware is
-incorrectly routed to SDO, resulting in garbage data.
-
-> +
-> +	/*
-> +	 * Data output on the DOUT lines is sampled on the falling edge
-> +	 * (SPI mode 1).
-> +	 */
-> +	st->spi->mode =3D SPI_MODE_1;
-
-[Severity: Medium]
-Similar to register access mode, does this direct assignment clear all other
-SPI flags, potentially breaking SPI communication on platforms requiring ex=
-tra
-SPI flags?
-
-> +	ret =3D spi_setup(st->spi);
-
-[ ... ]
-
-> @@ -333,9 +434,24 @@ static int ad4134_register_read(struct ad4134_state =
-*st, unsigned int reg,
->  static int ad4134_reg_read(void *context, unsigned int reg, unsigned int=
- *val)
->  {
->  	struct ad4134_state *st =3D context;
-> +	int ret, access_ret;
-> +
-> +	if (reg >=3D AD4134_CH_VREG(0)) {
-> +		if (st->spi_mode =3D=3D AD4134_SPI_MODE_NO_CS)
-> +			return ad4134_data_read(st, reg, val);
-> +
-> +		ret =3D ad4134_set_sample_access(st);
-> +		if (ret)
-> +			return ret;
-> =20
-> -	if (reg >=3D AD4134_CH_VREG(0))
-> -		return ad4134_data_read(st, reg, val);
-> +		ret =3D ad4134_data_read(st, reg, val);
-> +
-> +		access_ret =3D ad4134_set_register_access(st);
-
-[Severity: Medium]
-If a user reads a register via debugfs while the IIO buffer is active, does
-this unconditionally revert the SPI and multiplexer state to register access
-mode?
-
-This could clobber the active IIO buffer's expected hardware state
-(SPI_MODE_1 and DOUT0), causing subsequent trigger handler reads to fail
-or receive garbage.
-
-Also, for standard registers, does ad4134_reg_read() fall through to
-ad4134_register_read(), where SPI transfers are initiated without holding
-access_mode_lock and without verifying the hardware is in register access
-mode?
-
-> +		if (access_ret)
-> +			dev_err(&st->spi->dev, "access mode error: %d\n", access_ret);
-> +
-> +		return ret;
-> +	}
-> =20
->  	return ad4134_register_read(st, reg, val);
->  }
-
-[ ... ]
-
-> @@ -586,15 +717,68 @@ static int ad4134_probe(struct spi_device *spi)
-
-[ ... ]
-
-> +	} else {
-> +		/*
-> +		 * This controls a multiplexer OUTSIDE OF AD4134 SILICON.
-> +		 * See AD4134 IIO documentation for details.
-> +		 */
-> +		st->mux_st[AD4134_SDO_INPUT] =3D devm_mux_state_get_selected(dev, "reg=
-_access");
-
-[Severity: High]
-Does this lock the mux control and tie its unlock to driver unbind, making =
-the
-manual unlock seen in ad4134_set_sample_access() unsafe?
-
-> +		if (IS_ERR(st->mux_st[AD4134_SDO_INPUT]))
-> +			return dev_err_probe(dev, PTR_ERR(st->mux_st[AD4134_SDO_INPUT]),
-> +					     "failed to get reg_access mux-state\n");
-> +
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1789494473.gi=
-t.marcelo.schmitt@analog.com?part=3D11
+>
+> commit 72463777ee1c18e7913b350d5d2ad857810ece89
+> Author: Rudraksha Gupta <guptarud@gmail.com>
+> Subject: dt-bindings: leds: rt8515: Support single-GPIO flash ICs with vin supply
+>
+> This commit adds support for single-channel variants of the RT8515 flash
+> ICs. It makes ent-gpios optional and introduces a vin-supply property,
+> adding a oneOf constraint to manage their presence.
+>
+>> diff --git a/Documentation/devicetree/bindings/leds/richtek,rt8515.yaml b/Documentation/devicetree/bindings/leds/richtek,rt8515.yaml
+>> index 0356371a6b014..ab3c5139132cc 100644
+>> --- a/Documentation/devicetree/bindings/leds/richtek,rt8515.yaml
+>> +++ b/Documentation/devicetree/bindings/leds/richtek,rt8515.yaml
+> [ ... ]
+>
+>> @@ -81,10 +90,15 @@ properties:
+>>   
+>>   required:
+>>     - compatible
+>> -  - ent-gpios
+>>     - enf-gpios
+>>     - led
+>>   
+>> +oneOf:
+>> +  - required:
+>> +      - ent-gpios
+>> +  - required:
+>> +      - vin-supply
+>> +
+> [Severity: Medium]
+> Does this oneOf constraint incorrectly restrict valid hardware configurations?
+>
+> The oneOf constraint strictly requires exactly one of its subschemas to match.
+> If a single-channel IC (which naturally lacks ent-gpios) does not use the
+> explicitly optional vin-supply regulator, zero subschemas will match, causing
+> schema validation to fail.
+>
+> Conversely, if a standard dual-channel IC (which requires ent-gpios) is also
+> powered by a vin-supply regulator, two subschemas will match. This will also
+> fail validation due to the strict exclusivity of oneOf.
+>
+> Should this be modeled differently to allow vin-supply to be truly optional
+> while safely permitting single-channel configurations?
+>
+>>   additionalProperties: false
+>>   
+>>   examples:
