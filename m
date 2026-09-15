@@ -1,389 +1,165 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A86364A8FDD
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 16:32:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6172941DED8;
+	Tue, 15 Sep 2026 16:35:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789489961; cv=none; b=KaVqKIwX9EDAmrchnrwd8x0wcmxyhujnFsrwDQxF0n7NrBvVGivh8YEerP7DrN0xh2mFF+UI5GZgODE9dIHdWH9buNr71gwiKGeAqiD3igFu10xianlBr7Ol/2jz6Pg3g78+1Fga//BizGE1g8uikioDKJUk+2UO+V1T1y96TiE=
+	t=1789490133; cv=none; b=MTT0NbRymbAETudDIJMRJtwyDIZBC2lDAjyf0cfAX3UUDVUyhDbn9gkq45LckFo7fHoi6gwxIJ41U5ssmulVEGRWTLyTnKIQ7EkWtsdQYZOHbK/9afOi4vOnPBCHbwSUMXFzfooByGMEQjND8n1SXblW+PxmCvrClKRpQY+ZNAs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789489961; c=relaxed/simple;
-	bh=p07+JoDPMzKCK5bI4/DCgvQDG0O/5/H3p7uRTKwDuLE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BxLXOxdAcyM1LpplGLLRROMJn1jzsQ94vwpuWORqLLrstSEXwNtEuW10YWikNUL4+SR13rhLySgvZmVA9mPndory1hpNAucrxSsHVE4JmZu+dfN8TLlPAN0xTL+Kx/m2+jqf/WvbR6ERRY/SHViNemYshy9y0BZLGttvvRD+RXc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RhI+QKOO; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BGcHwtT2; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789490133; c=relaxed/simple;
+	bh=6zvquo4pqlbv1m1Jon2ogA4J4zD50ORhxchyV6RIKTc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XWlnyRq3ofu3a3iz6f21y//ipioF4D3pzxJShQQ1Tf9+fOe24cjYLRqPReB2jHDlOryyUrWxiAXctC6PNkSqdvsI592FN4kbUNwovCGFr2BrS8JtnVlSU03h0AtelsbqGFpfszCn6s+tkIuKVEwNNitGOPp6YP3t6uuE2Eb1+As=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ym4xPqjD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RhI+QKOO";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BGcHwtT2"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68FFAxTH3349913
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 16:32:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	n9oYWlzrJjqCCO36W65tOQrn+7qNpv3zTqhfOj70ops=; b=RhI+QKOOWhJYZ6ez
-	2wNM5zf9I/AlSouRjyCx3t/3/igcN4ak4jwVxOHYqrsF0EIvWNVHvvuJKMEQP7xI
-	JAE9WcYaAYHOnC/aOBT9Nqz0TLLrC/b8d/+wJ2qlU50L/zGslJyzN6eu+fgijc9R
-	qYnfgwggNQ+ZnDYngm/+KCOxprWuiAzwTvYokBENeUIIT5pbFuyleLKzwdbpn8uB
-	TOTbSe3MSW/MBhxYHdykdibDZ1ORSX1x58VuXXV+Cvdad9R4GzHafpTIZz1KB60L
-	1Mcuj7fYFsUStmI8NbVIpNxEjatEcreVqhm0oQXlH03Db84s+S9pdDTt6zk6qmdm
-	ekBJ/g==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpx4scb6m-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 16:32:38 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2db87f759c5so79892825ad.1
-        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 09:32:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789489958; x=1790094758; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=n9oYWlzrJjqCCO36W65tOQrn+7qNpv3zTqhfOj70ops=;
-        b=BGcHwtT2Tha7VS9Hy2Mi7xTvYL7jC0w26KQ0BN5U49FHN7+8hNILmQVHM2smpZfAYK
-         +Ke+APQbr+mH1vTLTy7WXLgMrR5D1gO9BojVJkffzYrOxbZyaBThaSI2lR+vjJCbY4VS
-         jeHzsOxdM+JZGU1FsRbRd0En9KQdgaUUjwy7mEQaKDlIq2SgjjUh/NxuMaxs1ACK+aJK
-         lr6qjHKSvJ+tbdPsik9yx+hEovUwepRoSxmVkkKVw396p7TN2oJSilPGEVWMtHfCuIv/
-         MOjEh25e1MiqBLQ25uchfAONOgP7W3He9pyAlcINmzOpjbinAtsYTt7bX+yqAkA6d0E1
-         Z6fQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789489958; x=1790094758;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=n9oYWlzrJjqCCO36W65tOQrn+7qNpv3zTqhfOj70ops=;
-        b=JwlE74AnBEpqAlr8lAcQE4PlUKIcbmaV2ijldA+64tAEroEgSDdvCMgI13XjpxV33h
-         UzN6+bfK953SW6TFuiGzAj6iDFRGl7ojoHgXKyOQrTUFH0JThuNc0LXHYQ6hybnzyXt/
-         nlqzSK86dzlXPL0p9KFmfs0mAuPBvc0rYxDgoIDDuT2DNZlk4Yc0n8Om0aUneipU7L/s
-         2cowcxeI0DUXEBt4Tkp7TrXyoaH+O3IpnN98aAbF/nE8QMrqVdDrVtLLp0Kw9oxOiycP
-         Slguxsr+DnRRx3K4FPXNbTLHymiCf7U7XSJNGwpWJ6xDjGcJmIsNb7fM45BfvY3JzF6S
-         MaAg==
-X-Forwarded-Encrypted: i=1; AKwUvBzVXJkg6YqZEP1WBv+rsFBI1N28jekFDTtj7oIrIGFYKd8D+LVY+IyVll4uaVKOxN/WeoE94gWjEQ61@vger.kernel.org
-X-Gm-Message-State: AFuF++lLE1qMopU793mY3aL/n/jdC6f3Zg+38dp6PItFxZcUUoeMSB+t
-	NrisGEY84WK0kZa2lwx59zg9LW+FH9dgBrYgQ6qvwSi4fnTZYo2Wmcn2rzF7k1WbxGT4sdzaUJO
-	VctTUFTBVXFB+9d2fK0S35HrZtrn6pLhS7zVYmnnk+VJNbSDf45sVcCIXkIk3q7PO
-X-Gm-Gg: AYBFou2qGvMTQnFAQKXB2T+aS74JZ38Y9ngSv0oq3BG1X+f2sGFb8nd0GSr0VpKRyjz
-	gxeIu1WNRLIbgByx+JTlBS+H2GmIDunD0GimnnvWRYpuY88aOAjq9AAl/hygvu+uUAxn6WT6Ep4
-	5JID7s7bAbnPxQxpgl8LK8DdAzxBom373lOsQLaJ4F3jAB/GpnyaskWtLl5VWcJoSB5KRzfT51F
-	dHkAHQAiAaKa239ICgBc8Vae8AssZ3+NY4vO+BULRg+lFZ3+/KLD/hv1oYYoeEqHJ/16CBVPV8q
-	dnyUSEaAMSjgFnuZicrW55OR1JSkTVc66f0hytl3eBrc5XeCYKYmV4oEOkwwsBEsHiKfIbmDY0/
-	RZ1rQ7eVcHMBkRlDOMzMiqE6c0OfkUlwk4UIh6v3X
-X-Received: by 2002:a17:903:f8e:b0:2d8:d4d0:792e with SMTP id d9443c01a7336-2dd6c7630f2mr154440345ad.18.1789489957968;
-        Tue, 15 Sep 2026 09:32:37 -0700 (PDT)
-X-Received: by 2002:a17:903:f8e:b0:2d8:d4d0:792e with SMTP id d9443c01a7336-2dd6c7630f2mr154439665ad.18.1789489957339;
-        Tue, 15 Sep 2026 09:32:37 -0700 (PDT)
-Received: from [192.168.1.5] ([122.169.220.106])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd78bd7654sm16281405ad.43.2026.09.15.09.32.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Sep 2026 09:32:36 -0700 (PDT)
-Message-ID: <075116ba-e22e-4df8-ad16-9d9594d7cd16@oss.qualcomm.com>
-Date: Tue, 15 Sep 2026 22:02:29 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ym4xPqjD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A2C11F000FF;
+	Tue, 15 Sep 2026 16:35:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789490132;
+	bh=Do8mywAmhO0sEAhuzhg9iC1Sa77tKdZ3zERJMncLOdg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ym4xPqjDmT1SgkF0u9fj4CFqq3Vahj01SIaqX1jud1IfH/8oFTfzZRxx6sxlpFuBB
+	 I3g7wqCCfKt2qT4b+zsQDnNUE2fmYtVkWncslpQ7U1Vuq6hq9uBct6o7shznxwbx5p
+	 pknIZQ4Ujz5XX5h6ero2Hm2zrcvsLVnNQWM1OTvey+okeQDjvKjMlcwSVQR0pMml/X
+	 Ir3LOINSZLPFAu3NS0BcEsbTWfgZsutCXwN2KHwSVsFG66PYeNNenEeBJusRADBvlS
+	 dh1UmqQEvT9AWw7Fg6Ck1/Chq2zUCs3PNfAkZtdsw3HX/f315VHi5eI3iy9XY2pxeI
+	 nNz5mZBMoLDRg==
+Date: Tue, 15 Sep 2026 17:35:27 +0100
+From: Conor Dooley <conor@kernel.org>
+To: V.Yurkov.EXT@bruker.com
+Cc: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Brian Masney <bmasney@redhat.com>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Jyri Sarha <jsarha@ti.com>, linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+	Vyacheslav Yurkov <uvv.mail@gmail.com>
+Subject: Re: [PATCH v5 1/2] dt-bindings: clock: gpio-gate-clock: Add a new
+ compatible string
+Message-ID: <20260915-charging-disliking-e8d2bb6bba31@spud>
+References: <20260915-feature-clock-guard-v5-0-42ab5dc3a6aa@bruker.com>
+ <20260915-feature-clock-guard-v5-1-42ab5dc3a6aa@bruker.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 5/5] ASoC: qcom: sc8280xp: Add Nord Ride sound card
- support
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-        Lars-Peter Clausen <lars@metafoo.de>,
-        =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>,
-        Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
-        Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Srinivas Kandagatla <srini@kernel.org>, linux-sound@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org
-References: <20260907-nord-asoc-driver-support-v1-0-997d3b20cf43@oss.qualcomm.com>
- <20260907-nord-asoc-driver-support-v1-5-997d3b20cf43@oss.qualcomm.com>
- <aqF9Pp_U2tAM3xWf@QCOM-aGQu4IUr3Y>
-Content-Language: en-US
-From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-In-Reply-To: <aqF9Pp_U2tAM3xWf@QCOM-aGQu4IUr3Y>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDIzOSBTYWx0ZWRfXyAbH0Vkc70Nx
- 27R3RHmFRZZR4vRtEOMUgMcJaMBqExVN2pIOXzWroOQRsCapOWpABMpo6x817Sv3W6AqwXd3KUK
- SPAqA43Gz2TW7a0RoSpFmN17VRhEF3o=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDIzOSBTYWx0ZWRfX8IHCnJdhUpWn
- t6GMw2muZyNSwy9PENDTjb/ZGwHlY2bvle3hGZPQturw3UZ7y517z+P87yMD3mQ3xwz9+iOa2nt
- pPU/SzgNc8IWw+f75GYYXYvKdK9ZTKj4ysoXCVkMkkbi6i1AblOFPzmm5TLqqBJqcSXmplOlaYW
- DaC6PdKcJbUT0ckcEjUqOvgG8KLe5TWlbQVY2ZKNT5Yjk2MpnIF4vC8zAgq3HbqPapNTj9rZvEW
- 6S8WEzjdnjisjYUoaQD/NQYhZPiK3zjGlPAlf/yvfue2UZrzBRHbPdn2Dq4bn3l9a4GWpDW6o4M
- E0TbcDo35TGMJW3FVJuL5EIKeoq0xzZk0g2n96/F4GPb4gQ5w+l7DHf/SzdEdnzAY0GChyMF+l0
- /ThafO+n44QfUQU2QNg1P0KKPInf10Q22VQ7xxB03V+z70eao2c+kZmTlnjs/3fkpAm+b7ohQFv
- CS4JHPFml5wDA419n0Q==
-X-Authority-Analysis: v=2.4 cv=HsDjiETS c=1 sm=1 tr=0 ts=6aa97326 cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=Ww153nmMuBeTcjqybhOiGw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=NDfCo3GjLwaGllft-sYA:9 a=QEXdDO2ut3YA:10
- a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-GUID: 8owvoSR43hmwsOwGH2D6bz6pqThjeMbb
-X-Proofpoint-ORIG-GUID: 8owvoSR43hmwsOwGH2D6bz6pqThjeMbb
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_04,2026-09-15_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0
- impostorscore=0 suspectscore=0 spamscore=0 malwarescore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150239
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="rKMwTM2hmLv0VoQO"
+Content-Disposition: inline
+In-Reply-To: <20260915-feature-clock-guard-v5-1-42ab5dc3a6aa@bruker.com>
 
+--rKMwTM2hmLv0VoQO
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
+On Tue, Sep 15, 2026 at 09:27:39AM +0000, Vyacheslav Yurkov via B4 Relay wr=
+ote:
+> From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+>=20
+> Extend the binding to be used also for gpio-locked-fixed-clock.
+> A GPIO-locked fixed clock provider exposes a fixed-rate clock whose
+> availability depends on one or more GPIO lock-status signals.
+>=20
+> Some hardware designs provide fixed-frequency clocks generated outside
+> software control, such as by FPGA-resident PLLs. While the clock rate is
+> fixed, a separate GPIO signal indicates whether the clock source is
+> locked and producing a valid output.
+>=20
+> Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
 
-On 9/9/2026 9:07 PM, Shawn Guo wrote:
-> On Mon, Sep 07, 2026 at 11:39:46PM +0530, Mohammad Rafi Shaik wrote:
->> Add support for the Nord Ride sound card by introducing a new
->> compatible string and associated platform private data.
->>
->> Nord uses external audio codecs with interface requirements that
->> differ from the generic SC8280XP platforms. Add a dedicated
->> hw_params callback to configure the appropriate DAI format for
->> playback and capture streams and to program the codec system clock
->> configuration required by the board.
->>
->> The callback configures the PCM1681 playback path to operate in I2S
->> mode and the ADAU1979 capture path to operate in DSP_A mode. For
->> capture, the ADAU1979 system clock is sourced from LRCLK as
->> required by the hardware design.
->>
->> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
->> ---
->>   sound/soc/qcom/sc8280xp.c | 57 +++++++++++++++++++++++++++++++++++++++++++++++
->>   1 file changed, 57 insertions(+)
->>
->> diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
->> index 4d48e1012cd4..4d8eafca4b7f 100644
->> --- a/sound/soc/qcom/sc8280xp.c
->> +++ b/sound/soc/qcom/sc8280xp.c
->> @@ -18,6 +18,7 @@
->>   #include "common.h"
->>   #include "sdw.h"
->>   
->> +#define LRCLK_SYSCLK 1
-> 
-> Rather than open-coding the value, please move
-> 
->    enum adau1977_clk_id;
->    enum adau1977_sysclk_src;
-> 
-> out of sound/soc/codecs/adau1977.h into include/sound/adau1977.h so
-> machine drivers can include them, and write the call as
->
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
+Cheers,
+Conor.
 
-Ack, thanks for pointing this out. I will rework this in the next revision.
+> ---
+>  .../devicetree/bindings/clock/gpio-gate-clock.yaml | 32 ++++++++++++++++=
+++++--
+>  1 file changed, 30 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/clock/gpio-gate-clock.yaml=
+ b/Documentation/devicetree/bindings/clock/gpio-gate-clock.yaml
+> index d09d0e3f0c6e..00cf2ad66dd0 100644
+> --- a/Documentation/devicetree/bindings/clock/gpio-gate-clock.yaml
+> +++ b/Documentation/devicetree/bindings/clock/gpio-gate-clock.yaml
+> @@ -11,7 +11,9 @@ maintainers:
+> =20
+>  properties:
+>    compatible:
+> -    const: gpio-gate-clock
+> +    enum:
+> +      - gpio-gate-clock
+> +      - gpio-locked-fixed-clock
+> =20
+>    clocks:
+>      maxItems: 1
+> @@ -23,10 +25,29 @@ properties:
+>      description: GPIO reference for enabling and disabling the clock.
+>      maxItems: 1
+> =20
+> +  locked-gpios:
+> +    description: GPIO that indicates whether the clock is enabled or dis=
+abled.
+> +    maxItems: 1
+> +
+>  required:
+>    - compatible
+>    - '#clock-cells'
+> -  - enable-gpios
+> +
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          const: gpio-gate-clock
+> +    then:
+> +      required:
+> +        - enable-gpios
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          const: gpio-locked-fixed-clock
+> +    then:
+> +      required:
+> +        - locked-gpios
+> =20
+>  additionalProperties: false
+> =20
+> @@ -40,3 +61,10 @@ examples:
+>          #clock-cells =3D <0>;
+>          enable-gpios =3D <&gpio 1 GPIO_ACTIVE_HIGH>;
+>      };
+> +
+> +    clk_gpio_locked {
+> +        compatible =3D "gpio-locked-fixed-clock";
+> +        #clock-cells =3D <0>;
+> +        clocks =3D <&pll>;
+> +        locked-gpios =3D <&gpio0 4 GPIO_ACTIVE_HIGH>;
+> +    };
+>=20
+> --=20
+> 2.34.1
+>=20
+>=20
 
-There is no need to introduce a new include/sound/adau1977.h header for 
-this. Instead, I will define the required enums locally in the machine 
-driver and use them accordingly.
+--rKMwTM2hmLv0VoQO
+Content-Type: application/pgp-signature; name=signature.asc
 
+-----BEGIN PGP SIGNATURE-----
 
->    snd_soc_component_set_sysclk(codec_dai->component,
->                                 ADAU1977_SYSCLK, ADAU1977_SYSCLK_SRC_LRCLK,
->                                 rate, SND_SOC_CLOCK_IN);
-> 
-> That documents both slots and turns a mix-up into a compile error.
-> 
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqlzzwAKCRB4tDGHoIJi
+0oodAP45t3HC5/ZgqU7guHRctKvX0SWRA0ng/sKM4aIyU7McMwD+OfUJLrMzgDaD
+Az6qTZV0oFrCfkBq6NTlAEL1G/CQ4AM=
+=VO3r
+-----END PGP SIGNATURE-----
 
-ACk, will check and update in next revision,
-
-
->>   #define I2S_MCLKFS 256
->>   
->>   #define I2S_MCLK_RATE(rate) \
->> @@ -72,6 +73,8 @@ struct qcom_snd_soc_common {
->>   	bool mi2s_bclk_enable;
->>   	bool wcd_jack;
->>   	int (*snd_prepare)(struct snd_pcm_substream *substream);
->> +	int (*snd_hw_params)(struct snd_pcm_substream *substream,
->> +			     struct snd_pcm_hw_params *params);
->>   };
->>   
->>   struct sc8280xp_snd_data {
->> @@ -244,6 +247,47 @@ static int sc8280xp_be_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
->>   	return 0;
->>   }
->>   
->> +static int nord_snd_hw_params(struct snd_pcm_substream *substream,
->> +			      struct snd_pcm_hw_params *params)
->> +{
->> +	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
->> +	struct snd_soc_dai *codec_dai = snd_soc_rtd_to_codec(rtd, 0);
->> +	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
->> +	int rate = params_rate(params);
->> +	int ret;
->> +
->> +	switch (cpu_dai->id) {
->> +	case TERTIARY_MI2S_RX:
->> +		ret = snd_soc_dai_set_fmt(codec_dai,
->> +					  SND_SOC_DAIFMT_CBC_CFC |
->> +					  SND_SOC_DAIFMT_NB_NF |
->> +					  SND_SOC_DAIFMT_I2S);
->> +		if (ret && ret != -ENOTSUPP)
->> +			return ret;
->> +
->> +		break;
->> +	case TERTIARY_TDM_TX_7:
->> +		ret = snd_soc_dai_set_fmt(codec_dai,
->> +					  SND_SOC_DAIFMT_CBC_CFC |
->> +					  SND_SOC_DAIFMT_NB_NF |
->> +					  SND_SOC_DAIFMT_DSP_A);
->> +		if (ret && ret != -ENOTSUPP)
->> +			return ret;
->> +
->> +		/* adau1979 MCLK sourced from LRCLK */
-> 
-> The comment says MCLK is sourced from LRCLK, but the adau1977_set_sysclk()
-> call selects the PLL input (ADAU1977_PLL_CLK_S) -- MCLK is the other choice.
-> Something like "PLL clocked from LRCLK, no external MCLK" would match
-> the register write?
-> 
-
-yes your right,
-
-will update the comment something like below.
-
-"adau1979 PLL clock sourced from LRCLK, no external MCLK".
-
-
->> +		ret = snd_soc_component_set_sysclk(codec_dai->component,
->> +						   0, LRCLK_SYSCLK,
->> +						   rate, SND_SOC_CLOCK_IN);
-> 
-> There seems to be two problems, one functional and one cosmetic.
-> 
-> First, I guess this is called too late to have the intended effect. On
-> the ADAU1977 side, set_sysclk() doesn't only pick the clock source, it
-> also computes the rate constraint mask:
-> 
->    } else if (source == ADAU1977_SYSCLK_SRC_LRCLK) {
->            mask = ADAU1977_RATE_CONSTRAINT_MASK_LRCLK;
->    }
->    ...
->    adau1977->constraints.mask = mask;
-> 
-> and that mask is consumed in adau1977_startup():
-> 
->    snd_pcm_hw_constraint_list(substream->runtime, 0,
->            SNDRV_PCM_HW_PARAM_RATE, &adau1977->constraints);
-> 
-> startup() runs before hw_params(), so on the first capture open after
-> boot the mask is still 0 from probe and the rate constraint is not what
-> the LRCLK-sourced configuration requires. Setting the source once from a
-> dai_link init (or from a startup callback) rather than per-hw_params
-> would get the ordering right and also avoid reprogramming the PLL source
-> on every stream open. Could you confirm what the first arecord after
-> ot negotiates? I suspect it only appears to work because the rate you
-> test with is permitted by the unconstrained list anyway.
-> 
-> Second, on the naming. The prototype is
-> 
->    int snd_soc_component_set_sysclk(struct snd_soc_component *component,
->                                     int clk_id, int source,
->                                     unsigned int freq, int dir);
-> 
-> so in the call above the literal 0 is the clk_id (ADAU1977_SYSCLK) and
-> LRCLK_SYSCLK is the source (ADAU1977_SYSCLK_SRC_LRCLK). The macro name
-> reads like a clk_id, which is the slot it is *not* in, while the argument
-> that really is a clk_id is an unexplained 0.
-> 
-
-
-Thanks for pointing this out.
-
-I'll verify the first capture-open behaviour and revisit the 
-initialization sequence.
-
-The current set_sysclk() call is in hw_params() because ADAU1979 is 
-configured with LRCLK as its source, and the LRCLK frequency depends on 
-the selected sample rate rather than being fixed.
-
-I'll investigate whether the source selection can be initialized earlier 
-while maintaining the runtime rate-dependent configuration.
-
-
->> +		if (ret && ret != -ENOTSUPP)
->> +			return ret;
->> +		break;
->> +	default:
->> +		break;
->> +	};
-> 
-> Stray semicolon
->
-
-Will fix in next revision.
-
-
->> +
->> +	return 0;
->> +}
->> +
->>   static int sc8280xp_snd_hw_params(struct snd_pcm_substream *substream,
->>   				  struct snd_pcm_hw_params *params)
->>   {
->> @@ -255,6 +299,12 @@ static int sc8280xp_snd_hw_params(struct snd_pcm_substream *substream,
->>   	int bclk_freq = sc8280xp_get_bclk_freq(params);
->>   	int ret;
->>   
->> +	if (data->priv->snd_hw_params) {
->> +		ret = data->priv->snd_hw_params(substream, params);
->> +		if (ret)
->> +			return ret;
->> +	}
->> +
->>   	switch (cpu_dai->id) {
->>   	case PRIMARY_MI2S_RX ... QUATERNARY_MI2S_TX:
->>   	case QUINARY_MI2S_RX ... QUINARY_MI2S_TX:
->> @@ -461,6 +511,12 @@ static const struct qcom_snd_soc_common kaanapali_priv_data = {
->>   	.wcd_jack = true,
->>   };
->>   
->> +static const struct qcom_snd_soc_common nord_ride_priv_data = {
-> 
-> Again, can we drop "ride" to make it nord specific?
-> 
-
-Ack, will use the qcom,nord-sndcard.
-
-Thanks & Regards,
-Rafi.
-
-> Shawn
-> 
->> +	.driver_name = "nord",
->> +	.mi2s_bclk_enable = true,
->> +	.snd_hw_params = nord_snd_hw_params,
->> +};
->> +
->>   static const struct qcom_snd_soc_common qcs9100_priv_data = {
->>   	.driver_name = "sa8775p",
->>   	.dapm_widgets = sc8280xp_dapm_widgets,
->> @@ -564,6 +620,7 @@ static const struct of_device_id snd_sc8280xp_dt_match[] = {
->>   	{ .compatible = "qcom,hawi-sndcard", .data = &hawi_priv_data },
->>   	{ .compatible = "qcom,kaanapali-sndcard", .data = &kaanapali_priv_data },
->>   	{ .compatible = "qcom,maili-sndcard", .data = &hawi_priv_data },
->> +	{ .compatible = "qcom,nord-ride-sndcard", .data = &nord_ride_priv_data },
->>   	{ .compatible = "qcom,qcm6490-idp-sndcard", .data = &qcm6490_priv_data },
->>   	{ .compatible = "qcom,qcs615-sndcard", .data = &qcs615_priv_data },
->>   	{ .compatible = "qcom,qcs6490-rb3gen2-sndcard", .data = &qcs6490_priv_data },
->>
->> -- 
->> 2.34.1
->>
->>
-
+--rKMwTM2hmLv0VoQO--
