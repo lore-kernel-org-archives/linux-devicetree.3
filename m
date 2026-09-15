@@ -1,178 +1,159 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFF8A3C5536;
-	Tue, 15 Sep 2026 18:25:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29DE23D411D;
+	Tue, 15 Sep 2026 18:25:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789496721; cv=none; b=H9z9+A46kDrNU1dmgQUGEb3e72nXTnSwbP2wJXWBwOdRSsAYSXLIFXv6tgoFqX93e+iG630YEgUW1Nt0P38B8hvWE9wXXMZhZFZESSyxhA8r+F8axzDbqxyu2BRU8ZJ3hVSMoL4R4eL2xt7SYiHTBxq3AQT1HnVY/+0maPBH8Xw=
+	t=1789496722; cv=none; b=hemyV3CPlZb4/BSZbRB2vDUyTOA8yATRIUS+2u8gb6l3zG2XEyY/UCEcNGAeieFpJ3h6OrwRmSuKw1w4iKVIIPYV4W299HRzgC9abnNoT7pw5zvQ/V5NThMc/IYg3SfayejA4w0I6tv6x6GC1ZIPukNQnBcgeJpyX02D8pWHgME=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789496721; c=relaxed/simple;
-	bh=rPLWglI5Wlm9mIFu4gjr7+scAMhxrET8MSmLgiSFf/8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aaAwsf0h4WISv+4rXl0wVGkJDfXc5ZGgCXw/6m7P40gyfbMKAFFvI6nHMAgDJdztsZQO/R7137IGnCM19/fPLE7OGz250h/4w7QfsZGcVT3YBx992VYL4JiLlhCXv/Or+ZSK6F2iPoHueD3/NE1+A0VJyGMgvZ4Y3gd3YFZOgTg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L8f94G9m; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789496722; c=relaxed/simple;
+	bh=4KygqcfVrs2hdSsGjknH09RUdw6BIAr10wrgaE+eipY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=dHT7ImG8Mm/yUvBKNDLsbdnCMdptXpQWfLbIk8VrV3NJIft/sib5MQX+TacA9KSayW/RfRr6vLbbnGDaV5scUZjFEbGc2CVnL7cq7bmAcW7hlZnBtgq72BPp9L6+lgVSe3KfJGZ7AO7TvPfDbeyZcs/mJrmClM08wRPreQf7pP4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=es5cTpx+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L8f94G9m"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 146691F00898;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="es5cTpx+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 977DF1F000FF;
 	Tue, 15 Sep 2026 18:25:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789496719;
-	bh=hTpYvUrNZYIcwT2p8Kp9xxQTu0Fq/HJPfq19mi+/XYs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=L8f94G9mzSlNx9J6peH2jq3tNsTcUAybrSOzdJm5ksOR557E4eGHcMVdBvQoWXcMq
-	 oYUWohx4rX6UR3J8jBc8XVQjQr+ber6bJ2vp50tNPAhHXUhxRHLXdtKpPq0X+kq2PU
-	 gS7xFPkE8iTk1ZUf6F23/XNJ6TOWElkc+PU1etQ49xAX2Mcf5D6gOEjjFrhGeHYmwr
-	 quZO6YQ0w3g8MteVh8aIX9AaqG/9TfYwvtfMkvsA6bgIrhU7eO551to4fm0v6bfd4/
-	 BM4spkKqe45r4JjrhXiFS+HNsR69yIhfKoowbJLuXi0Q2cu8W8a4U8wu0elxPZcyTv
-	 CP6MLWz/FZBtQ==
-Date: Tue, 15 Sep 2026 11:25:18 -0700
-From: Kees Cook <kees@kernel.org>
-To: Bill Wendling <morbo@google.com>
-Cc: linux-kernel@vger.kernel.org, codemender-patching+linux@google.com,
-	Russell King <linux@armlinux.org.uk>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
-	Helge Deller <deller@gmx.de>, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>,
-	H Hartley Sweeten <hsweeten@visionengravers.com>,
-	Tony Luck <tony.luck@intel.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Matthias Schwarzott <zzam@gentoo.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Arend van Spriel <arend.vanspriel@broadcom.com>,
-	Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Sylwester Nawrocki <s.nawrocki@samsung.com>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Anil Gurumurthy <anil.gurumurthy@qlogic.com>,
-	Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>,
-	"Martin K. Petersen" <mkp@kernel.org>,
-	Trond Myklebust <trondmy@kernel.org>,
-	Anna Schumaker <anna@kernel.org>,
-	Mike Marshall <hubcap@omnibond.com>,
-	Martin Brandenburg <martin@omnibond.com>,
-	Jiri Pirko <jiri@resnulli.us>, Simon Horman <horms@kernel.org>,
-	Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Olga Kornievskaia <okorniev@redhat.com>,
-	Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	Kanglong Wang <wangkanglong@loongson.cn>,
-	Tiezhu Yang <yangtiezhu@loongson.cn>,
-	Qiang Ma <maqianga@uniontech.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Ard Biesheuvel <ardb@kernel.org>, Breno Leitao <leitao@debian.org>,
-	Thorsten Blum <blum@kernel.org>,
-	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Lyude Paul <lyude@redhat.com>,
-	Ashutosh Desai <ashutoshdesai993@gmail.com>,
-	Imre Deak <imre.deak@intel.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Johan Hovold <johan@kernel.org>,
-	Johannes Berg <johannes.berg@intel.com>,
-	Miri Korenblit <miriam.rachel.korenblit@intel.com>,
-	Alexander Stein <alexander.stein@ew.tq-group.com>,
-	Cryolitia PukNgae <cryolitia@uniontech.com>,
-	Jiaming Zhang <r772577952@gmail.com>,
-	Will Porter <mrwillporter@gmail.com>,
-	Cen Zhang <zzzccc427@gmail.com>,
-	=?iso-8859-1?Q?C=E1ssio?= Gabriel <cassiogabrielcontato@gmail.com>,
-	Rong Zhang <i@rong.moe>, Arun Raghavan <arunr@valvesoftware.com>,
-	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
-	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
-	linux-edac@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org, linux-input@vger.kernel.org,
-	linux-media@vger.kernel.org, intel-wired-lan@lists.osuosl.org,
-	netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
-	brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com,
-	devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-scsi@vger.kernel.org,
-	linux-nfs@vger.kernel.org, devel@lists.orangefs.org,
-	linux-hardening@vger.kernel.org, linux-sound@vger.kernel.org
-Subject: Re: [PATCH 27/28] drm/xe/pf: Convert strlcat() to seq_buf in
- control_read()
-Message-ID: <202609151115.33A35B7098@keescook>
-References: <20260915081910.4142719-1-morbo@google.com>
- <20260915081910.4142719-28-morbo@google.com>
+	bh=25t3ulDEvIYf7ztVGIG1zbQ3ckY6FOYVO9s2I06Fqbg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=es5cTpx+f/VG4/QxCoK4L1GxL6M9qANcHAOdE3h9BJvUhPuIox/6JmvT9+WoxnGRv
+	 VMz//UE7uS7NOMA/YzfWW4G43z9Aa6xv0WeRi/yUAc94T+AAHiD/TuXJxeCT8s4tjm
+	 ZXu/yf83c4yDO7o4S738IJwUamNpdqvWSfz+doVNpGsFLPObJ4Xk+yE+nYdvzuR3px
+	 iEkkIZeuNFf1HN8mGXYxeWSTDhYp6DX50YbT5bnjRq1SKEeosAm5/OswkBh9QdjtUv
+	 V+Y4RfHlVbDQfTwAxUv/ZsE6/PdPeMHM2KARRlIhLp5L7hSmC4cx1kKCbIB9FTgZ/l
+	 SoPyPBXotymkg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: qcs6490-rb3gen2: add endpoint
+ buses
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Alex Elder" <elder@riscstar.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-pci@vger.kernel.org
+In-Reply-To: <20260915181003.1633543-4-elder@riscstar.com>
+References: <20260915181003.1633543-1-elder@riscstar.com>
+ <20260915181003.1633543-4-elder@riscstar.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 15 Sep 2026 18:25:18 +0000
+Message-Id: <20260915182519.977DF1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915081910.4142719-28-morbo@google.com>
 
-On Tue, Sep 15, 2026 at 08:18:44AM +0000, Bill Wendling wrote:
-> diff --git a/drivers/gpu/drm/xe/xe_gt_sriov_pf_debugfs.c b/drivers/gpu/drm/xe/xe_gt_sriov_pf_debugfs.c
-> index 0f242db775e1..5db7fc067c4d 100644
-> --- a/drivers/gpu/drm/xe/xe_gt_sriov_pf_debugfs.c
-> +++ b/drivers/gpu/drm/xe/xe_gt_sriov_pf_debugfs.c
-> @@ -4,6 +4,7 @@
->   */
->  
->  #include <linux/debugfs.h>
-> +#include <linux/seq_buf.h>
->  
->  #include <drm/drm_print.h>
->  #include <drm/drm_debugfs.h>
-> @@ -663,15 +664,15 @@ static ssize_t control_write(struct file *file, const char __user *buf, size_t c
->  static ssize_t control_read(struct file *file, char __user *buf, size_t count, loff_t *ppos)
->  {
->  	char help[128];
-> +	struct seq_buf s;
->  	size_t n;
->  
-> -	help[0] = '\0';
-> +	seq_buf_init(&s, help, sizeof(help));
->  	for (n = 0; n < ARRAY_SIZE(control_cmds); n++) {
-> -		strlcat(help, control_cmds[n].cmd, sizeof(help));
-> -		strlcat(help, "\n", sizeof(help));
-> +		seq_buf_printf(&s, "%s\n", control_cmds[n].cmd);
->  	}
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] PCI endpoint dynamic ranges update fails due to static node defini=
+tion
+- [Low] dtc warning: pci-ep-bus@4 unit-address lacks reg property
+--
 
-Yay seq_buf! I would tweak the 3 init stack variable lines into just
-using the single DECLARE_SEQ_BUF:
+commit 8f41aa3c7aef831e8b83dd47d6e93a9ac9228f4f
+Author: Alex Elder <elder@riscstar.com>
 
-DECLARE_SEQ_BUF(s, 128);
+arm64: dts: qcom: qcs6490-rb3gen2: add endpoint buses
 
->  
-> -	return simple_read_from_buffer(buf, count, ppos, help, strlen(help));
-> +	return simple_read_from_buffer(buf, count, ppos, help, seq_buf_used(&s));
+The TC9564 SoC incorporates a PCIe switch, which is connected via the second
+PCI segment (0001) on the RB3gen2 platform. The downstream port has an
+embedded PCIe endpoint that implements two PCIe functions, and this patch
+adds the devicetree nodes representing these buses.
 
-seq_buf_used() isn't correct in the case of full-buffer use. e.g. if
-the help buffer ends up filled with 127 chars and a NUL terminator,
-seq_buf_used() returns 128, but you want 127 here. Using strlen() ends up
-being redundant, though. I think we need to add seq_buf_strlen() which
-handles the same logic that seq_buf_str() does.
+> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/bo=
+ot/dts/qcom/qcs6490-rb3gen2.dts
+> index 3bb5fca8e2b13..5b7f5292a8864 100644
+> --- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+> +++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+> @@ -955,11 +955,41 @@ pcie@3,0 {
+>  			bus-range =3D <0x5 0xff>;
+> =20
+>  			dev@0,0 {
+> +				compatible =3D "pci1179,0220";
+>  				reg =3D <0x50000 0x0 0x0 0x0 0x0>;
+> +				#address-cells =3D <3>;
+> +				#size-cells =3D <2>;
+> +				/* Ranges will be updated dynamically */
+> +				ranges =3D <0x0 0x0 0x0  0x83050000 0x0 0x0  0x0 0x4000>,
+> +					 <0x2 0x0 0x0  0x83050000 0x0 0x4000  0x0 0x80000>,
+> +					 <0x4 0x0 0x0  0x83050000 0x0 0x84000  0x0 0x200000>;
 
--Kees
+[Severity: High]
+Will these ranges actually be updated dynamically during boot?
 
--- 
-Kees Cook
+The commit message states the ranges property will be updated dynamically.
+However, the PCI quirk calls of_pci_make_dev_node() which has an early retu=
+rn
+if the device node is already statically defined in the device tree:
+
+    if (pci_device_to_OF_node(pdev))
+        return;
+
+Since dev@0,0 is defined here in the devicetree, it seems they are linked
+during initial PCI enumeration, causing the update to be skipped entirely.
+Furthermore, even if the early return was bypassed, the update uses
+__of_add_property(), which rejects existing properties with -EEXIST.
+
+Could this leave devices on the pci-ep-bus with invalid MMIO addresses mapp=
+ed
+to unassigned PCI regions?
+
+> +
+> +				pci-ep-bus@4 {
+> +					compatible =3D "simple-bus";
+> +					#address-cells =3D <1>;
+> +					#size-cells =3D <1>;
+> +					/* Map 0x0-0x1fffff to BAR 4 */
+> +					ranges =3D <0x0  0x4 0x0 0x0  0x200000>;
+> +				};
+
+[Severity: Low]
+Does this unit address trigger a devicetree compiler warning?
+
+The pci-ep-bus@4 node is assigned a unit address of @4, but it lacks a
+matching reg property. According to the Devicetree specification, if a node
+uses a unit address, it must have a matching reg property.
+
+For simple buses without a reg property, the unit address must match the
+first child address in the ranges property, which is 0x0 here, rather than =
+4.
+
+>  			};
+> =20
+>  			dev@0,1 {
+> +				compatible =3D "pci1179,0220";
+>  				reg =3D <0x50100 0x0 0x0 0x0 0x0>;
+> +				#address-cells =3D <3>;
+> +				#size-cells =3D <2>;
+> +				/* Ranges will be updated dynamically */
+> +				ranges =3D <0x0 0x0 0x0  0x83050100 0x0 0x0  0x0 0x4000>,
+> +					 <0x2 0x0 0x0  0x83050100 0x0 0x4000  0x0 0x80000>,
+> +					 <0x4 0x0 0x0  0x83050100 0x0 0x84000  0x0 0x200000>;
+
+[Severity: High]
+As with dev@0,0 above, it appears this node might also be skipped by
+of_pci_make_dev_node() because it is statically defined. Will this prevent
+the ranges property from being dynamically updated for this second endpoint?
+
+> +
+> +				pci-ep-bus@4 {
+> +					compatible =3D "simple-bus";
+> +					#address-cells =3D <1>;
+> +					#size-cells =3D <1>;
+> +					/* Map 0x0-0x1fffff to BAR 4 */
+> +					ranges =3D <0x0  0x4 0x0 0x0  0x200000>;
+> +				};
+
+[Severity: Low]
+Does this second pci-ep-bus@4 node also trigger a compiler warning for
+missing a reg property while having a unit address?
+
+>  			};
+>  		};
+>  	};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915181003.1633=
+543-1-elder@riscstar.com?part=3D3
