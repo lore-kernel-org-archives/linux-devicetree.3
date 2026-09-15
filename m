@@ -1,690 +1,472 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79C1E471CE0;
-	Tue, 15 Sep 2026 20:20:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09C7635295C;
+	Tue, 15 Sep 2026 20:22:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789503655; cv=none; b=mntQB9TiY5+9+DFJY3noR9J0DlQ1tF+QldcR9uN1hafYZPlDBQdhw1nBiAMssAIPp2eaZDJYdj6JOrtztSgpv2ghAPAVE2dWa3Cu9BxdRoIuR4UJfqDH9+up0Ks5vX4xJqr23isWTMFYMH26t307jG4l1Cfkqm16SHqyDfDhnCo=
+	t=1789503740; cv=none; b=p4lOWVDS5dJ0brxc7Q10IEUTHoGG09QgFsap0pBmyg422NXALY6pAl4DhEDuQpwykHGRVOPj7REmbubRJpAndQ7NI3z8us96HZKzCIWxYo1WJoYM9LwTOR/KkDTjSavIJfny+Py88yEmZiVu+GxwXMwMIG00wPMtlXFC49rZymU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789503655; c=relaxed/simple;
-	bh=BmeNT3JxJk3G1PHKY40iO1F+eYfxoquv8SOJIXEiZcM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=WJbhoeivD1+XZZarNe6LeWWGvyK5wESpAqcCAZOZCQ7Ao3nqkS0CyTzuj46iC0JdRio/unQe9ceXQmWQvEL9LgSQMvqcxJgNflB0qV+9jy7Bek18+3sz6sf07ly/3KCPA/DbJ8IUw2dp3JctsXyiTUOK0jCCltRF73tZk092oA8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=h/PVNReN; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789503740; c=relaxed/simple;
+	bh=nWg+bL6jQTQZEccLBKvYaj9sQSOaC5LEsubZtXHXszM=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=PIh4Jc1S/RlNyjH8PNDffT0A4Xk3IyTl2kmJ64dO29q+jDNH4XR3rcUThKy9kFF31BnsUIOCjg+WRykKA+LeWnRBMLJmmGL8JNDd9DaSj6Toe0t9REpmTrrLxMN3zdDsTuQ9WwX54e7+Edo9mz4C+u5wiWC91WFQdBEi6rn6HZE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=X2gji/Fb; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="h/PVNReN"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3665FC2BCFD;
-	Tue, 15 Sep 2026 20:20:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
-	t=1789503655; bh=BmeNT3JxJk3G1PHKY40iO1F+eYfxoquv8SOJIXEiZcM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=h/PVNReN+u4SkAce+qze9yJUROyDQhZ376dSOxIIS4SrDqMBO0cQfeaJk2rYsTnAj
-	 wdAwwztegXiqhXa54hUxKd8ytVKePYJY6HCZEoiQKmnIGraUYmnQVy+coK1U7qEf95
-	 clUyBEKNtauYN7wVTXZPlbW3ZCPFyX0BuCQzARKg=
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1B14AC88E7D;
-	Tue, 15 Sep 2026 20:20:55 +0000 (UTC)
-From: Richard Leitner <richard.leitner@linux.dev>
-Date: Tue, 15 Sep 2026 22:20:25 +0200
-Subject: [PATCH 3/3] media: i2c: vc-mipi: add Vision Components MIPI Module
- Controller
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="X2gji/Fb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789503739; x=1821039739;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=nWg+bL6jQTQZEccLBKvYaj9sQSOaC5LEsubZtXHXszM=;
+  b=X2gji/FbSojJsdxM3rKVINiIdu+xuX3BXxPTREZPflk4ISZdrZxECIMk
+   4/6IZxTYWmJzDQ4p3cNXd0NdNO7kJ7CRUMLJB8jpnunaGbLlKABr+iBJD
+   R7tn2DGN+sruaTpOR6qNSDj3+J7yMSJiFrGFbAkwCvpRQDIcSnlvPbjTT
+   FjALNFN5MkAEwplKpulwybYpNq41Eu51xBPQHP2IU3OfWu5scJKrBUmFd
+   SIu6KAiPsUpcuiKTONP++G34XHlLWCYQr/4C2ewUMpFaOa2wVT0JAxUwZ
+   YqVhXP2Ls46XuNDvlWPmMC4EnJeC1h79AHvx7QKZvNZs+QD9gGTx0qj+E
+   w==;
+X-CSE-ConnectionGUID: +rRLXDbNTqysoYeZs37ZoQ==
+X-CSE-MsgGUID: SfRcbi0FTB2zp1SvZYDFfg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93579792"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="93579792"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 13:22:18 -0700
+X-CSE-ConnectionGUID: Wt2Ean30TLOkX55O/W2XDQ==
+X-CSE-MsgGUID: 1CPynWXwQlalgnil7lxGUg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="276869115"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 13:22:12 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 15 Sep 2026 23:22:08 +0300 (EEST)
+To: Aleksandrs Vinarskis <alex@vinarskis.com>
+cc: Bjorn Andersson <andersson@kernel.org>, 
+    Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+    Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>, 
+    Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Kees Cook <kees@kernel.org>, 
+    "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+    linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+    LKML <linux-kernel@vger.kernel.org>, platform-driver-x86@vger.kernel.org, 
+    Abel Vesa <abel.vesa@oss.qualcomm.com>, 
+    Tobias Heider <tobias.heider@canonical.com>, 
+    Val Packett <val@packett.cool>, Neil Armstrong <neil.armstrong@linaro.org>, 
+    Stephan Gerhold <stephan.gerhold@linaro.org>, 
+    linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v4 2/3] platform: arm64: dell-xps-ec: new driver
+In-Reply-To: <20260809-dell-xps-9345-ec-v4-2-88306dbbc7aa@vinarskis.com>
+Message-ID: <f6e88a49-6ca7-0210-b7fa-d2f73e81d399@linux.intel.com>
+References: <20260809-dell-xps-9345-ec-v4-0-88306dbbc7aa@vinarskis.com> <20260809-dell-xps-9345-ec-v4-2-88306dbbc7aa@vinarskis.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-vc-mipi-ctrl-v1-3-8a42b693d889@linux.dev>
-References: <20260915-vc-mipi-ctrl-v1-0-8a42b693d889@linux.dev>
-In-Reply-To: <20260915-vc-mipi-ctrl-v1-0-8a42b693d889@linux.dev>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Alexander Stein <alexander.stein@ew.tq-group.com>, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, Richard Leitner <richard.leitner@linux.dev>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789503653; l=18334;
- i=richard.leitner@linux.dev; s=20250225; h=from:subject:message-id;
- bh=BmeNT3JxJk3G1PHKY40iO1F+eYfxoquv8SOJIXEiZcM=;
- b=VJPben/XCjgSeBBnWKKFJgskLt9Bb4Vxldhzn8CIzmFRURje9hunpQf/tL7Qeba41YXJ7KsMY
- Uk9vYyTAIiEDj3fW+5hkksA6MVEaWiZbufwE60IG5e5u4pn672MGVLG
-X-Developer-Key: i=richard.leitner@linux.dev; a=ed25519;
- pk=8hZNyyyQFqZ5ruVJsSGBSPIrmJpfDm5HwHU4QVOP1Pk=
-X-Endpoint-Received: by B4 Relay for richard.leitner@linux.dev/20250225
- with auth_id=350
+Content-Type: text/plain; charset=US-ASCII
 
-Add support for the Vision Components MIPI camera module controller.
-This is basically an FPGA sitting on most of the Vision Components MIPI
-camera modules. It provides three main functions for the attached image
-sensor:
+On Sun, 9 Aug 2026, Aleksandrs Vinarskis wrote:
 
-  - power sequencing and control of the module supply
-  - a fixed clock output used as the sensor input clock
-  - tunneling of I2C traffic between the host and the sensor
+> Introduce EC driver for Dell XPS 13 9345 (codename 'tributo') which may
+> partially of fully compatible with Snapdragon-based Dell Latitude,
+> Inspiron ('thena'). Primary function of this driver is unblock EC's
+> thermal management, specifically to provide it with necessary
+> information to control device fans, peripherals power.
+> 
+> The driver was developed primarily by analyzing ACPI DSDT's _DSM and
+> i2c dumps of communication between SoC and EC. Changes to Windows
+> driver's behavior include increasing temperature feed loop from ~50ms
+> to 100ms here.
+> 
+> While Xps's EC is rather complex and controls practically all device
+> peripherals including touch row's brightness and special keys such as
+> mic mute, these do not go over this particular i2c interface.
+> 
+> Not yet implemented features:
+> - On lid-close IRQ event is registered. Windows performs what to
+>   appears to be thermistor constants readout, though its not obvious
+>   what it used for.
+> - According to ACPI's _DSM there is a method to readout fans' RPM.
+> - Initial thermistor constants were sniffed from Windows, these can be
+>   likely fine tuned for better cooling performance.
+> - There is additional temperature reading that Windows sents to EC but
+>   more rare than others, likely SoC T_j / TZ98 or TZ4. This is the only
+>   thermal zone who's reading can exceed 115C without triggering thermal
+>   shutdown.
+> - Given similarities between 'tributo' and 'thena' platforms, including
+>   EC i2c address, driver can be potentially extended to support both.
+> 
+> Signed-off-by: Aleksandrs Vinarskis <alex@vinarskis.com>
+> ---
+>  MAINTAINERS                          |   1 +
+>  drivers/platform/arm64/Kconfig       |  12 ++
+>  drivers/platform/arm64/Makefile      |   1 +
+>  drivers/platform/arm64/dell-xps-ec.c | 299 +++++++++++++++++++++++++++++++++++
+>  4 files changed, 313 insertions(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 9b238f14f0be..ad5231846493 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -7352,6 +7352,7 @@ DELL XPS EMBEDDED CONTROLLER DRIVER
+>  M:	Aleksandrs Vinarskis <alex@vinarskis.com>
+>  S:	Maintained
+>  F:	Documentation/devicetree/bindings/embedded-controller/dell,xps13-9345-ec.yaml
+> +F:	drivers/platform/arm64/dell-xps-ec.c
+>  
+>  DELTA AHE-50DC FAN CONTROL MODULE DRIVER
+>  M:	Zev Weiss <zev@bewilderbeest.net>
+> diff --git a/drivers/platform/arm64/Kconfig b/drivers/platform/arm64/Kconfig
+> index e32e01b2a9bd..29416f8d7232 100644
+> --- a/drivers/platform/arm64/Kconfig
+> +++ b/drivers/platform/arm64/Kconfig
+> @@ -33,6 +33,18 @@ config EC_ACER_ASPIRE1
+>  	  laptop where this information is not properly exposed via the
+>  	  standard ACPI devices.
+>  
+> +config EC_DELL_XPS
+> +	tristate "Dell XPS 9345 Embedded Controller driver"
+> +	depends on ARCH_QCOM || COMPILE_TEST
+> +	depends on I2C
+> +	depends on IIO
+> +	help
+> +	  Driver for the Embedded Controller in the Qualcomm Snapdragon-based
+> +	  Dell XPS 13 9345, which handles thermal management and fan speed
+> +	  control.
+> +
+> +	  Say M or Y here to include this support.
+> +
+>  config EC_HUAWEI_GAOKUN
+>  	tristate "Huawei Matebook E Go Embedded Controller driver"
+>  	depends on ARCH_QCOM || COMPILE_TEST
+> diff --git a/drivers/platform/arm64/Makefile b/drivers/platform/arm64/Makefile
+> index 7681be4a46e9..669dc9e79afb 100644
+> --- a/drivers/platform/arm64/Makefile
+> +++ b/drivers/platform/arm64/Makefile
+> @@ -6,6 +6,7 @@
+>  #
+>  
+>  obj-$(CONFIG_EC_ACER_ASPIRE1)	+= acer-aspire1-ec.o
+> +obj-$(CONFIG_EC_DELL_XPS)	+= dell-xps-ec.o
+>  obj-$(CONFIG_EC_HUAWEI_GAOKUN)	+= huawei-gaokun-ec.o
+>  obj-$(CONFIG_EC_LENOVO_YOGA_C630) += lenovo-yoga-c630.o
+>  obj-$(CONFIG_EC_LENOVO_THINKPAD_T14S) += lenovo-thinkpad-t14s.o
+> diff --git a/drivers/platform/arm64/dell-xps-ec.c b/drivers/platform/arm64/dell-xps-ec.c
+> new file mode 100644
+> index 000000000000..695a7d01acd6
+> --- /dev/null
+> +++ b/drivers/platform/arm64/dell-xps-ec.c
+> @@ -0,0 +1,299 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (c) 2026, Aleksandrs Vinarskis <alex@vinarskis.com>
+> + */
+> +
+> +#include <linux/array_size.h>
+> +#include <linux/dev_printk.h>
+> +#include <linux/device.h>
+> +#include <linux/devm-helpers.h>
+> +#include <linux/err.h>
+> +#include <linux/i2c.h>
+> +#include <linux/iio/consumer.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/jiffies.h>
+> +#include <linux/module.h>
+> +#include <linux/overflow.h>
+> +#include <linux/pm.h>
+> +#include <linux/types.h>
+> +#include <linux/unaligned.h>
+> +#include <linux/workqueue.h>
+> +
+> +#define DELL_XPS_EC_SUSPEND_CMD		0xb9
+> +#define DELL_XPS_EC_SUSPEND_MSG_LEN	64
+> +
+> +#define DELL_XPS_EC_TEMP_CMD0		0xfb
+> +#define DELL_XPS_EC_TEMP_CMD1		0x20
+> +#define DELL_XPS_EC_TEMP_CMD3		0x02
+> +#define DELL_XPS_EC_TEMP_MSG_LEN	6
+> +#define DELL_XPS_EC_TEMP_POLL_JIFFIES	msecs_to_jiffies(100)
+> +
+> +/*
+> + * Mapping between IIO channel name (as per schematics) and EC command byte
+> + */
+> +struct dell_xps_ec_therm {
+> +	const char *name;
+> +	u8 cmd;
+> +};
+> +
+> +struct dell_xps_ec_data {
+> +	const struct dell_xps_ec_therm *therms;
+> +	unsigned int num_therms;
+> +	const u8 *profile;
+> +	size_t profile_len;
+> +};
+> +
+> +/*
+> + * Format:
+> + * - header/unknown (2 bytes)
+> + * - per-thermistor entries (3 bytes): thermistor_id, param1, param2
+> + */
+> +static const u8 dell_xps13_9345_thermistor_profile[] = {
+> +	0xff, 0x54,
+> +	0x01, 0x00, 0x2b,	/* sys_therm0 */
+> +	0x02, 0x44, 0x2a,	/* sys_therm1 */
+> +	0x03, 0x44, 0x2b,	/* sys_therm2 */
+> +	0x04, 0x44, 0x28,	/* sys_therm3 */
+> +	0x05, 0x55, 0x2a,	/* sys_therm4 */
+> +	0x06, 0x44, 0x26,	/* sys_therm5 */
+> +	0x07, 0x44, 0x2b,	/* sys_therm6 */
+> +};
+> +
+> +static const struct dell_xps_ec_therm dell_xps13_9345_therms[] = {
+> +	/* TODO: 0x01 is sent only occasionally, likely TZ98 or TZ4 */
+> +	{ "sys_therm0", 0x02 },
+> +	{ "sys_therm1", 0x03 },
+> +	{ "sys_therm2", 0x04 },
+> +	{ "sys_therm3", 0x05 },
+> +	{ "sys_therm4", 0x06 },
+> +	{ "sys_therm5", 0x07 },
+> +	{ "sys_therm6", 0x08 },
+> +};
+> +
+> +static const struct dell_xps_ec_data dell_xps13_9345_data = {
+> +	.therms = dell_xps13_9345_therms,
+> +	.num_therms = ARRAY_SIZE(dell_xps13_9345_therms),
+> +	.profile = dell_xps13_9345_thermistor_profile,
+> +	.profile_len = sizeof(dell_xps13_9345_thermistor_profile),
+> +};
+> +
+> +struct dell_xps_ec {
+> +	struct device *dev;
+> +	struct i2c_client *client;
+> +	const struct dell_xps_ec_data *data;
+> +	struct delayed_work temp_work;
+> +	unsigned int num_therms;
+> +	struct iio_channel *therm_channels[] __counted_by(num_therms);
+> +};
+> +
+> +static int dell_xps_ec_suspend_cmd(struct dell_xps_ec *ec, bool suspend)
+> +{
+> +	u8 buf[DELL_XPS_EC_SUSPEND_MSG_LEN] = {};
+> +	int ret;
+> +
+> +	buf[0] = DELL_XPS_EC_SUSPEND_CMD;
+> +	buf[1] = suspend ? 0x01 : 0x00;
+> +	/* bytes 2..63 remain zero */
+> +
+> +	ret = i2c_master_send(ec->client, buf, sizeof(buf));
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	return 0;
+> +}
+> +
+> +static int dell_xps_ec_send_temp(struct dell_xps_ec *ec, u8 cmd_byte,
+> +				 int milli_celsius)
+> +{
+> +	u8 buf[DELL_XPS_EC_TEMP_MSG_LEN];
+> +	u16 deci_celsius;
+> +	int ret;
+> +
+> +	/* Convert millicelsius to decicelsius */
+> +	deci_celsius = milli_celsius / 100;
+> +
+> +	buf[0] = DELL_XPS_EC_TEMP_CMD0;
+> +	buf[1] = DELL_XPS_EC_TEMP_CMD1;
+> +	buf[2] = cmd_byte;
+> +	buf[3] = DELL_XPS_EC_TEMP_CMD3;
+> +	put_unaligned_le16(deci_celsius, &buf[4]);
+> +
+> +	ret = i2c_master_send(ec->client, buf, sizeof(buf));
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	return 0;
+> +}
+> +
+> +static void dell_xps_ec_temp_work_fn(struct work_struct *work)
+> +{
+> +	struct dell_xps_ec *ec = container_of(work, struct dell_xps_ec,
+> +					      temp_work.work);
+> +	const struct dell_xps_ec_therm *therms = ec->data->therms;
+> +	int val, ret;
+> +	unsigned int i;
+> +
+> +	for (i = 0; i < ec->num_therms; i++) {
+> +		if (!ec->therm_channels[i])
+> +			continue;
+> +
+> +		ret = iio_read_channel_processed(ec->therm_channels[i], &val);
+> +		if (ret < 0) {
+> +			dev_err_ratelimited(ec->dev,
+> +					    "Failed to read thermistor %s: %d\n",
+> +					    therms[i].name, ret);
+> +			continue;
+> +		}
+> +
+> +		ret = dell_xps_ec_send_temp(ec, therms[i].cmd, val);
+> +		if (ret < 0) {
+> +			dev_err_ratelimited(ec->dev,
+> +					    "Failed to send temp for %s: %d\n",
+> +					    therms[i].name, ret);
+> +		}
+> +	}
+> +
+> +	schedule_delayed_work(&ec->temp_work, DELL_XPS_EC_TEMP_POLL_JIFFIES);
+> +}
+> +
+> +static irqreturn_t dell_xps_ec_irq_handler(int irq, void *data)
+> +{
+> +	struct dell_xps_ec *ec = data;
+> +
+> +	/*
+> +	 * TODO: IRQ is fired on lid-close. Follow Windows example to read out
+> +	 *       the thermistor thresholds and potentially fan speeds.
+> +	 */
+> +	dev_info_ratelimited(ec->dev, "IRQ triggered! (irq=%d)\n", irq);
+> +
+> +	return IRQ_HANDLED;
+> +}
+> +
+> +static int dell_xps_ec_probe(struct i2c_client *client)
+> +{
+> +	const struct dell_xps_ec_data *data;
+> +	struct device *dev = &client->dev;
+> +	struct dell_xps_ec *ec;
+> +	unsigned int i;
+> +	int ret;
+> +
+> +	data = i2c_get_match_data(client);
+> +	if (!data)
+> +		return dev_err_probe(dev, -ENODEV, "No match data\n");
+> +
+> +	ec = devm_kzalloc(dev, struct_size(ec, therm_channels, data->num_therms),
+> +			  GFP_KERNEL);
+> +	if (!ec)
+> +		return -ENOMEM;
+> +
+> +	ec->dev = dev;
+> +	ec->client = client;
+> +	ec->data = data;
+> +	ec->num_therms = data->num_therms;
+> +	i2c_set_clientdata(client, ec);
+> +
+> +	/* Set default thermistor profile */
+> +	ret = i2c_master_send(client, data->profile, data->profile_len);
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "Failed to set thermistor profile\n");
+> +
+> +	/* Get IIO channels for thermistors */
+> +	for (i = 0; i < ec->num_therms; i++) {
+> +		ec->therm_channels[i] =
+> +			devm_iio_channel_get(dev, data->therms[i].name);
+> +		if (IS_ERR(ec->therm_channels[i])) {
+> +			ret = PTR_ERR(ec->therm_channels[i]);
+> +			ec->therm_channels[i] = NULL;
+> +			if (ret == -EPROBE_DEFER)
+> +				return ret;
+> +			dev_warn(dev, "Thermistor %s not available: %d\n",
+> +				 data->therms[i].name, ret);
+> +		}
+> +	}
+> +
+> +	/* Start periodic temperature reporting */
+> +	ret = devm_delayed_work_autocancel(dev, &ec->temp_work,
+> +					   dell_xps_ec_temp_work_fn);
+> +	if (ret)
+> +		return ret;
+> +	schedule_delayed_work(&ec->temp_work, DELL_XPS_EC_TEMP_POLL_JIFFIES);
+> +	dev_dbg(dev, "Started periodic temperature reporting to EC every %d ms\n",
+> +		jiffies_to_msecs(DELL_XPS_EC_TEMP_POLL_JIFFIES));
+> +
+> +	/* Request IRQ for EC events */
+> +	ret = devm_request_threaded_irq(dev, client->irq, NULL,
+> +					dell_xps_ec_irq_handler,
+> +					IRQF_ONESHOT, dev_name(dev), ec);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to request IRQ\n");
+> +
+> +	return 0;
+> +}
+> +
+> +/*
+> + * Notify EC of suspend
+> + *
+> + * This will:
+> + * - Cut power to display/trackpad/keyboard/touchrow, wake-up source still works
+> + */
+> +static int dell_xps_ec_suspend(struct device *dev)
+> +{
+> +	struct dell_xps_ec *ec = dev_get_drvdata(dev);
+> +
+> +	cancel_delayed_work_sync(&ec->temp_work);
+> +
+> +	return dell_xps_ec_suspend_cmd(ec, true);
 
-The driver registers a regulator for the sensor supply, exposes the
-module clock as a clock provider, and creates a I2C adapter so that the
-downstream sensor can be accessed as a normal I2C device. This is
-modeled after the hardware design, where the FPGA is connected to two
-separate I2C busses. One towards the host, one towards the sensor.
-
-There are known firmware quirks affecting I2C ROM reading with
-auto-increment, as well as multi-byte reads from the sensor. Both are
-handled in this driver.
-
-The initial version of this driver was written by Laurent Pinchart
-<laurent.pinchart@ideasonboard.com>.
-
-Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
----
- MAINTAINERS                 |   1 +
- drivers/media/i2c/Kconfig   |  13 ++
- drivers/media/i2c/Makefile  |   1 +
- drivers/media/i2c/vc-mipi.c | 541 ++++++++++++++++++++++++++++++++++++++++++++
- 4 files changed, 556 insertions(+)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 3ee3fec098831..916cebee2f8b6 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -29112,6 +29112,7 @@ M:	Richard Leitner <richard.leitner@linux.dev>
- L:	linux-media@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml
-+F:	drivers/media/i2c/vc-mipi.c
- 
- VISL VIRTUAL STATELESS DECODER DRIVER
- M:	Daniel Almeida <daniel.almeida@collabora.com>
-diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-index 5c52007f9cbeb..6ec43f06c24d0 100644
---- a/drivers/media/i2c/Kconfig
-+++ b/drivers/media/i2c/Kconfig
-@@ -868,6 +868,19 @@ config VIDEO_VGXY61
- 	  This is a Video4Linux2 sensor driver for the ST VGXY61
- 	  camera sensor.
- 
-+config VIDEO_VC_MIPI
-+	tristate "Vision Components MIPI Module support"
-+	depends on I2C
-+	help
-+	  This is a driver for the camera module controller found in the Vision
-+	  Components MIPI modules.
-+
-+	  The controller manages the power supply, reset signal and I2C
-+	  communication to the actual camera sensor.
-+
-+	  To compile this driver as a module, choose M here: the
-+	  module will be called vc-mipi.
-+
- source "drivers/media/i2c/ccs/Kconfig"
- source "drivers/media/i2c/et8ek8/Kconfig"
- 
-diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
-index d04bd5724552e..c768e63cd2cf1 100644
---- a/drivers/media/i2c/Makefile
-+++ b/drivers/media/i2c/Makefile
-@@ -166,6 +166,7 @@ obj-$(CONFIG_VIDEO_TW9910) += tw9910.o
- obj-$(CONFIG_VIDEO_UDA1342) += uda1342.o
- obj-$(CONFIG_VIDEO_UPD64031A) += upd64031a.o
- obj-$(CONFIG_VIDEO_UPD64083) += upd64083.o
-+obj-$(CONFIG_VIDEO_VC_MIPI) += vc-mipi.o
- obj-$(CONFIG_VIDEO_VD55G1) += vd55g1.o
- obj-$(CONFIG_VIDEO_VD56G3) += vd56g3.o
- obj-$(CONFIG_VIDEO_VGXY61) += vgxy61.o
-diff --git a/drivers/media/i2c/vc-mipi.c b/drivers/media/i2c/vc-mipi.c
-new file mode 100644
-index 0000000000000..1ca7f94c17d3c
---- /dev/null
-+++ b/drivers/media/i2c/vc-mipi.c
-@@ -0,0 +1,541 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Vision Components MIPI Module Controller
-+ *
-+ * Copyright 2021 Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-+ */
-+
-+#include <linux/clk-provider.h>
-+#include <linux/delay.h>
-+#include <linux/err.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/pm.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/regulator/driver.h>
-+#include <linux/regulator/machine.h>
-+
-+#define VC_MIPI_REG_RESET			0x0100
-+#define VC_MIPI_REG_RESET_POWER_DOWN		BIT(1)
-+#define VC_MIPI_REG_RESET_RESET			BIT(0)
-+
-+#define VC_MIPI_REG_STATUS			0x0101
-+#define VC_MIPI_REG_STATUS_OFF			0x00
-+#define VC_MIPI_REG_STATUS_ERROR		0x01
-+#define VC_MIPI_REG_STATUS_ON			0x80
-+
-+#define VC_MIPI_REG_MODE			0x0102
-+#define VC_MIPI_REG_MODE_STREAM_10BIT		0x00
-+#define VC_MIPI_REG_MODE_STREAM_8BIT		0x01
-+#define VC_MIPI_REG_MODE_EXTTRIG_10BIT		0x02
-+#define VC_MIPI_REG_MODE_EXTTRIG_8BIT		0x03
-+#define VC_MIPI_REG_MODE_TESTIMG_10BIT		0xF0
-+#define VC_MIPI_REG_MODE_TESTIMG_8BIT		0xF1
-+
-+#define VC_MIPI_REG_IO				0x0103
-+#define VC_MIPI_REG_IO_XTRIG_ACTIVE_LOW		BIT(6)
-+#define VC_MIPI_REG_IO_FS_ACTIVE_LOW		BIT(5)
-+#define VC_MIPI_REG_IO_FLASH_ACTIVE_LOW		BIT(4)
-+#define VC_MIPI_REG_IO_XTRIG_ENABLE		BIT(3)
-+#define VC_MIPI_REG_IO_EXCHANGE_FLASH_TRIGGER	BIT(2)
-+#define VC_MIPI_REG_IO_FS_ON_TRIGGER_ENABLE	BIT(1)
-+#define VC_MIPI_REG_IO_FLASH_ENABLE		BIT(0)
-+#define VC_MIPI_REG_IO_DEFAULT			VC_MIPI_REG_IO_XTRIG_ENABLE
-+
-+#define VC_MIPI_REG_MODULE_ADDR			0x0104
-+#define VC_MIPI_REG_MODULE_ADDR_DEFAULT		0x10
-+
-+#define VC_MIPI_REG_SENSOR_ADDR			0x0105
-+#define VC_MIPI_REG_SENSOR_ADDR_DEFAULT		0x60
-+
-+#define VC_MIPI_REG_OUTPUT_OVERRIDE		0x0106
-+#define VC_MIPI_REG_OUTPUT_OVERRIDE_TRIGGER_OVR	BIT(5)
-+#define VC_MIPI_REG_OUTPUT_OVERRIDE_FLASH_OVR	BIT(4)
-+#define VC_MIPI_REG_OUTPUT_OVERRIDE_TRIGGER_VAL	BIT(1)
-+#define VC_MIPI_REG_OUTPUT_OVERRIDE_FLASH_VAL	BIT(0)
-+
-+#define VC_MIPI_REG_INPUT			0x0107
-+#define VC_MIPI_REG_INPUT_TRIGGER		BIT(1)
-+#define VC_MIPI_REG_INPUT_FLASH			BIT(0)
-+
-+#define VC_MIPI_REG_EXTTRIG			0x0108
-+#define VC_MIPI_REG_EXTTRIG_DISABLE		0x00
-+#define VC_MIPI_REG_EXTTRIG_ENABLE		BIT(0)
-+
-+#define VC_MIPI_REG_ROM				0x1000
-+
-+struct vc_mipi_ctrl {
-+	struct device *dev;
-+	struct regmap *regmap;
-+	struct regulator *supply;
-+	struct clk_hw *clk_hw;
-+	struct i2c_adapter i2c_tunnel;
-+	bool enabled;
-+};
-+
-+/* -----------------------------------------------------------------------------
-+ * Regulator
-+ */
-+
-+static int vc_mipi_regulator_enable(struct regulator_dev *rdev)
-+{
-+	struct vc_mipi_ctrl *ctrl = rdev_get_drvdata(rdev);
-+	unsigned int val;
-+	int ret;
-+
-+	ret = pm_runtime_resume_and_get(ctrl->dev);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(rdev->regmap, VC_MIPI_REG_RESET, 0);
-+	if (ret < 0)
-+		goto error;
-+
-+	msleep(500);
-+
-+	ret = regmap_read(rdev->regmap, VC_MIPI_REG_STATUS, &val);
-+	if (ret < 0)
-+		goto error;
-+
-+	if (val != VC_MIPI_REG_STATUS_ON) {
-+		dev_err(&rdev->dev, "Sensor failed to initialize (0x%02x)\n",
-+			val);
-+		ret = -EIO;
-+		goto error;
-+	}
-+
-+	ret = regmap_write(rdev->regmap, VC_MIPI_REG_IO,
-+			   (VC_MIPI_REG_IO_DEFAULT | VC_MIPI_REG_IO_FLASH_ENABLE));
-+	if (ret < 0) {
-+		dev_err(&rdev->dev, "Failed to enable flash: %d\n", ret);
-+		goto error;
-+	}
-+
-+	ret = regmap_write(ctrl->regmap, VC_MIPI_REG_EXTTRIG,
-+			   VC_MIPI_REG_EXTTRIG_DISABLE);
-+	if (ret < 0) {
-+		dev_err(&rdev->dev,
-+			"Failed to set up external flash trigger: %d\n", ret);
-+		goto error;
-+	}
-+
-+	ctrl->enabled = true;
-+
-+	return 0;
-+
-+error:
-+	pm_runtime_mark_last_busy(ctrl->dev);
-+	pm_runtime_put_autosuspend(ctrl->dev);
-+	return ret;
-+}
-+
-+static int vc_mipi_regulator_disable(struct regulator_dev *rdev)
-+{
-+	struct vc_mipi_ctrl *ctrl = rdev_get_drvdata(rdev);
-+	int ret;
-+
-+	ret = regmap_write(ctrl->regmap, VC_MIPI_REG_EXTTRIG,
-+			   VC_MIPI_REG_EXTTRIG_DISABLE);
-+	if (ret < 0) {
-+		dev_err(&rdev->dev,
-+			"Failed to set up external flash trigger: %d\n", ret);
-+		goto autosuspend;
-+	}
-+
-+	ret = regmap_write(rdev->regmap, VC_MIPI_REG_IO,
-+			   (VC_MIPI_REG_IO_DEFAULT | VC_MIPI_REG_IO_FLASH_ENABLE));
-+	if (ret < 0) {
-+		dev_err(&rdev->dev, "Failed to disable flash: %d\n", ret);
-+		goto autosuspend;
-+	}
-+
-+	ret = regmap_write(rdev->regmap, VC_MIPI_REG_RESET,
-+			   VC_MIPI_REG_RESET_POWER_DOWN |
-+			   VC_MIPI_REG_RESET_RESET);
-+
-+autosuspend:
-+	pm_runtime_mark_last_busy(ctrl->dev);
-+	pm_runtime_put_autosuspend(ctrl->dev);
-+
-+	ctrl->enabled = false;
-+
-+	return ret;
-+}
-+
-+static int vc_mipi_regulator_is_enabled(struct regulator_dev *rdev)
-+{
-+	struct vc_mipi_ctrl *ctrl = rdev_get_drvdata(rdev);
-+
-+	return ctrl->enabled;
-+}
-+
-+static const struct regulator_ops vc_mipi_regulator_ops = {
-+	.enable = vc_mipi_regulator_enable,
-+	.disable = vc_mipi_regulator_disable,
-+	.is_enabled = vc_mipi_regulator_is_enabled,
-+};
-+
-+static const struct regulator_desc vc_mipi_regulator = {
-+	.name = "vc-mipi",
-+	.ops = &vc_mipi_regulator_ops,
-+	.type = REGULATOR_VOLTAGE,
-+	.owner = THIS_MODULE,
-+};
-+
-+static const struct regulator_init_data vc_mipi_regulator_init_data = {
-+	.constraints = {
-+		.valid_ops_mask = REGULATOR_CHANGE_STATUS,
-+	},
-+};
-+
-+static int vc_mipi_regulator_init(struct vc_mipi_ctrl *ctrl)
-+{
-+	struct regulator_config config = { };
-+	struct regulator_dev *rdev;
-+
-+	config.dev = ctrl->dev;
-+	config.init_data = &vc_mipi_regulator_init_data;
-+	config.driver_data = ctrl;
-+	config.of_node = ctrl->dev->of_node;
-+	config.regmap = ctrl->regmap;
-+
-+	rdev = devm_regulator_register(ctrl->dev, &vc_mipi_regulator, &config);
-+	if (IS_ERR(rdev))
-+		return PTR_ERR(rdev);
-+
-+	return 0;
-+}
-+
-+/* -----------------------------------------------------------------------------
-+ * Clock
-+ */
-+
-+static int vc_mipi_clk_init(struct vc_mipi_ctrl *ctrl)
-+{
-+	char name[20];
-+	u32 freq;
-+	int ret;
-+
-+	ret = of_property_read_u32(ctrl->dev->of_node, "clock-frequency",
-+				   &freq);
-+	if (ret < 0) {
-+		dev_err(ctrl->dev, "Failed to retrieve clock frequency: %d\n",
-+			ret);
-+		return ret;
-+	}
-+
-+	/*
-+	 * As this is an I2C device, the device name will be in the form
-+	 * 'bus-addr', where bus is an integer and addr a 4 characters hex
-+	 * value. 20 bytes should be enough as there shouldn't be more than 100
-+	 * I2C buses.
-+	 */
-+	snprintf(name, sizeof(name), "vc-mipi-%s-clk", dev_name(ctrl->dev));
-+	ctrl->clk_hw = clk_hw_register_fixed_rate(ctrl->dev, name, NULL, 0,
-+						  freq);
-+	if (IS_ERR(ctrl->clk_hw))
-+		return PTR_ERR(ctrl->clk_hw);
-+
-+	ret = devm_of_clk_add_hw_provider(ctrl->dev, of_clk_hw_simple_get,
-+					  ctrl->clk_hw);
-+	if (ret < 0) {
-+		clk_hw_unregister_fixed_rate(ctrl->clk_hw);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static void vc_mipi_clk_cleanup(struct vc_mipi_ctrl *ctrl)
-+{
-+	clk_hw_unregister_fixed_rate(ctrl->clk_hw);
-+}
-+
-+/* -----------------------------------------------------------------------------
-+ * Power management
-+ */
-+
-+static int vc_mipi_power_on(struct device *dev)
-+{
-+	struct vc_mipi_ctrl *ctrl = dev_get_drvdata(dev);
-+	int ret;
-+
-+	ret = regulator_enable(ctrl->supply);
-+	if (ret < 0) {
-+		dev_err(ctrl->dev, "Failed to enable vcc supply: %d\n", ret);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int vc_mipi_power_off(struct device *dev)
-+{
-+	struct vc_mipi_ctrl *ctrl = dev_get_drvdata(dev);
-+
-+	regulator_disable(ctrl->supply);
-+
-+	return 0;
-+}
-+
-+static const struct dev_pm_ops vc_mipi_pm_ops = {
-+	SET_RUNTIME_PM_OPS(vc_mipi_power_off, vc_mipi_power_on, NULL)
-+};
-+
-+/* -----------------------------------------------------------------------------
-+ * I2C Proxy
-+ */
-+
-+static int vc_mipi_i2c_tunnel_xfer(struct i2c_adapter *i2c_adapter, struct i2c_msg *msgs, int num)
-+{
-+	struct i2c_client *i2c = i2c_get_adapdata(i2c_adapter);
-+	struct i2c_adapter *parent = i2c->adapter;
-+	int ret;
-+
-+	i2c_lock_bus(parent, I2C_LOCK_SEGMENT);
-+	ret = __i2c_transfer(i2c->adapter, msgs, num);
-+	i2c_unlock_bus(parent, I2C_LOCK_SEGMENT);
-+
-+	if (ret < 0)
-+		return ret;
-+	if (ret != num)
-+		return -EIO;
-+	return ret;
-+}
-+
-+static u32 vc_mipi_i2c_tunnel_functionality(struct i2c_adapter *i2c_adapter)
-+{
-+	return I2C_FUNC_I2C;
-+}
-+
-+static const struct i2c_algorithm vc_mipi_i2c_tunnel_algorithm = {
-+	.master_xfer   = vc_mipi_i2c_tunnel_xfer,
-+	.functionality = vc_mipi_i2c_tunnel_functionality,
-+};
-+
-+/* Controller firmware had a bug which prevented reading more than one byte
-+ * via I2C from the sensor. This was (according to the vendor) fixed somewhere
-+ * in 2026. Nonetheless we must support also modules running old Firmware.
-+ * Therefore set up the i2c quirks accordingly.
-+ *
-+ * NOTE: This is different from the "I2C reads with address increment return
-+ *       the first byte twice" bug, which affects the controller, not the
-+ *       sensor.
-+ */
-+static const struct i2c_adapter_quirks vc_mipi_i2c_tunnel_quirks = {
-+	.max_read_len = 1,
-+};
-+
-+static struct device_node *vc_mipi_i2c_find_tunnel_bus(struct device *dev)
-+{
-+	struct device_node *child;
-+
-+	for_each_child_of_node(dev->of_node, child) {
-+		u32 addr_cells, size_cells;
-+
-+		if (of_property_read_u32(child, "#address-cells", &addr_cells))
-+			continue;
-+		if (of_property_read_u32(child, "#size-cells", &size_cells))
-+			continue;
-+		if (addr_cells != 1 || size_cells != 0)
-+			continue;
-+
-+		return of_node_get(child);
-+	}
-+
-+	return NULL;
-+}
-+
-+static int vc_mipi_i2c_tunnel_add(struct i2c_client *i2c)
-+{
-+	struct vc_mipi_ctrl *ctrl = i2c_get_clientdata(i2c);
-+	struct i2c_adapter *i2c_adapter = &ctrl->i2c_tunnel;
-+	struct device_node *bus_node;
-+
-+	bus_node = vc_mipi_i2c_find_tunnel_bus(ctrl->dev);
-+	if (!bus_node)
-+		return -EINVAL;
-+
-+	strscpy(i2c_adapter->name, "vc-mipi-i2c", sizeof(i2c_adapter->name));
-+	i2c_adapter->owner       = THIS_MODULE;
-+	i2c_adapter->algo        = &vc_mipi_i2c_tunnel_algorithm;
-+	i2c_adapter->quirks      = &vc_mipi_i2c_tunnel_quirks;
-+	i2c_adapter->dev.parent  = ctrl->dev;
-+	i2c_adapter->dev.of_node = bus_node;
-+
-+	i2c_set_adapdata(i2c_adapter, i2c);
-+	return i2c_add_adapter(&ctrl->i2c_tunnel);
-+}
-+
-+static void vc_mipi_i2c_tunnel_del(struct i2c_client *i2c)
-+{
-+	struct vc_mipi_ctrl *ctrl = i2c_get_clientdata(i2c);
-+
-+	i2c_del_adapter(&ctrl->i2c_tunnel);
-+}
-+
-+/* -----------------------------------------------------------------------------
-+ * Probe & Remove
-+ */
-+
-+/*
-+ * Due to a bug in the firmware, I2C reads with address increment return the
-+ * first byte twice. The dummy byte at the beginning of the ROM descriptor
-+ * works around the issue, at the cost of requiring unaligned accesses.
-+ */
-+struct vc_mipi_descriptor_rom {
-+	u8 dummy;
-+	u8 magic[12];
-+	u8 manufacturer[32];
-+	__le16 mipi_mid;
-+	u8 sensor_manufacturer[8];
-+	u8 sensor_model[16];
-+	__le16 module_id;
-+	__le16 module_rev;
-+} __packed;
-+
-+static int vc_mipi_identify(struct vc_mipi_ctrl *ctrl)
-+{
-+	struct vc_mipi_descriptor_rom rom;
-+	unsigned int addr;
-+	int ret;
-+
-+	ret = regmap_raw_read(ctrl->regmap, VC_MIPI_REG_ROM, &rom, sizeof(rom));
-+	if (ret < 0) {
-+		dev_err(ctrl->dev, "Failed to read ROM: %d\n", ret);
-+		return ret;
-+	}
-+
-+	if (memcmp(&rom.magic, "mipi-module", sizeof(rom.magic))) {
-+		dev_err(ctrl->dev, "Invalid ROM magic value\n");
-+		print_hex_dump(KERN_INFO, "rom: ", DUMP_PREFIX_OFFSET, 16, 1,
-+			       &rom, sizeof(rom), true);
-+		return -EINVAL;
-+	}
-+
-+	ret = regmap_read(ctrl->regmap, VC_MIPI_REG_SENSOR_ADDR, &addr);
-+	if (ret < 0) {
-+		dev_err(ctrl->dev, "Failed to read sensor address: %d\n", ret);
-+		return ret;
-+	}
-+
-+	dev_info(ctrl->dev, "%.8s %.16s (%04x:%04x @0x%02x)\n",
-+		 rom.sensor_manufacturer, rom.sensor_model,
-+		 le16_to_cpu(rom.module_id), le16_to_cpu(rom.module_rev), addr);
-+
-+	return 0;
-+}
-+
-+static const struct regmap_config vc_mipi_regmap_config = {
-+	.reg_bits = 16,
-+	.val_bits = 8,
-+	.cache_type = REGCACHE_NONE,
-+};
-+
-+static int vc_mipi_i2c_probe(struct i2c_client *i2c)
-+{
-+	struct vc_mipi_ctrl *ctrl;
-+	int ret;
-+
-+	ctrl = devm_kzalloc(&i2c->dev, sizeof(*ctrl), GFP_KERNEL);
-+	if (!ctrl)
-+		return -ENOMEM;
-+
-+	ctrl->dev = &i2c->dev;
-+
-+	i2c_set_clientdata(i2c, ctrl);
-+
-+	ctrl->supply = devm_regulator_get(ctrl->dev, "vcc");
-+	if (IS_ERR(ctrl->supply)) {
-+		ret = PTR_ERR(ctrl->supply);
-+		dev_err(ctrl->dev, "Failed to get vcc supply: %d\n", ret);
-+		return ret;
-+	}
-+
-+	ctrl->regmap = devm_regmap_init_i2c(i2c, &vc_mipi_regmap_config);
-+	if (IS_ERR(ctrl->regmap)) {
-+		ret = PTR_ERR(ctrl->regmap);
-+		dev_err(ctrl->dev, "Failed to init regmap: %d\n", ret);
-+		return ret;
-+	}
-+
-+	ret = vc_mipi_power_on(ctrl->dev);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = vc_mipi_identify(ctrl);
-+	if (ret < 0)
-+		goto err_power;
-+
-+	ret = vc_mipi_regulator_init(ctrl);
-+	if (ret < 0) {
-+		dev_err(ctrl->dev, "Failed to register regulator\n");
-+		goto err_power;
-+	}
-+
-+	ret = vc_mipi_clk_init(ctrl);
-+	if (ret < 0) {
-+		dev_err(ctrl->dev, "Failed to register clock\n");
-+		goto err_power;
-+	}
-+
-+	/* Enable runtime PM and turn off the device. */
-+	pm_runtime_set_active(ctrl->dev);
-+	pm_runtime_get_noresume(ctrl->dev);
-+	pm_runtime_enable(ctrl->dev);
-+	pm_runtime_set_autosuspend_delay(ctrl->dev, 1000);
-+	pm_runtime_use_autosuspend(ctrl->dev);
-+	pm_runtime_mark_last_busy(ctrl->dev);
-+	pm_runtime_put_autosuspend(ctrl->dev);
-+
-+	/* As a last step create the proxied downstream I2C adapter */
-+	ret = vc_mipi_i2c_tunnel_add(i2c);
-+	if (ret < 0) {
-+		dev_err(ctrl->dev, "Failed to register i2c tunnel adapter: %d\n", ret);
-+		goto err_power;
-+	}
-+
-+	return 0;
-+
-+err_power:
-+	vc_mipi_power_off(ctrl->dev);
-+	return ret;
-+}
-+
-+static void vc_mipi_i2c_remove(struct i2c_client *i2c)
-+{
-+	struct vc_mipi_ctrl *ctrl = i2c_get_clientdata(i2c);
-+
-+	vc_mipi_i2c_tunnel_del(i2c);
-+
-+	vc_mipi_clk_cleanup(ctrl);
-+
-+	pm_runtime_disable(ctrl->dev);
-+	if (!pm_runtime_status_suspended(ctrl->dev))
-+		vc_mipi_power_off(ctrl->dev);
-+	pm_runtime_set_suspended(ctrl->dev);
-+}
-+
-+static const struct of_device_id vc_mipi_dt_ids[] = {
-+	{ .compatible = "vision-components,mipi-module-controller" },
-+	{},
-+};
-+MODULE_DEVICE_TABLE(of, vc_mipi_dt_ids);
-+
-+static struct i2c_driver vc_mipi_driver = {
-+	.driver = {
-+		.name = "vc-mipi",
-+		.of_match_table = vc_mipi_dt_ids,
-+		.pm = &vc_mipi_pm_ops,
-+	},
-+	.probe = vc_mipi_i2c_probe,
-+	.remove = vc_mipi_i2c_remove,
-+};
-+
-+module_i2c_driver(vc_mipi_driver);
-+
-+MODULE_AUTHOR("Laurent Pinchart <laurent.pinchart@ideasonboard.com>");
-+MODULE_DESCRIPTION("Driver for the Vision Components MIPI Module Controller");
-+MODULE_LICENSE("GPL");
+Sashiko mentions that if suspend fails, the work remains cancelled.
 
 -- 
-2.53.0
+ i.
 
-
+> +}
+> +
+> +/*
+> + * Notify EC of resume
+> + *
+> + * This will undo the suspend actions
+> + * Without the resume signal, device would wake up but be forced back into
+> + * suspend by EC within seconds
+> + */
+> +static int dell_xps_ec_resume(struct device *dev)
+> +{
+> +	struct dell_xps_ec *ec = dev_get_drvdata(dev);
+> +	int ret;
+> +
+> +	ret = dell_xps_ec_suspend_cmd(ec, false);
+> +	if (ret)
+> +		return ret;
+> +
+> +	schedule_delayed_work(&ec->temp_work, DELL_XPS_EC_TEMP_POLL_JIFFIES);
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct of_device_id dell_xps_ec_of_match[] = {
+> +	{ .compatible = "dell,xps13-9345-ec", .data = &dell_xps13_9345_data },
+> +	{}
+> +};
+> +MODULE_DEVICE_TABLE(of, dell_xps_ec_of_match);
+> +
+> +static const struct i2c_device_id dell_xps_ec_i2c_id[] = {
+> +	{ "dell-xps-ec", (kernel_ulong_t)&dell_xps13_9345_data },
+> +	{}
+> +};
+> +MODULE_DEVICE_TABLE(i2c, dell_xps_ec_i2c_id);
+> +
+> +static const struct dev_pm_ops dell_xps_ec_pm_ops = {
+> +	SYSTEM_SLEEP_PM_OPS(dell_xps_ec_suspend, dell_xps_ec_resume)
+> +};
+> +
+> +static struct i2c_driver dell_xps_ec_driver = {
+> +	.driver = {
+> +		.name = "dell-xps-ec",
+> +		.of_match_table = dell_xps_ec_of_match,
+> +		.pm = &dell_xps_ec_pm_ops,
+> +	},
+> +	.probe = dell_xps_ec_probe,
+> +	.id_table = dell_xps_ec_i2c_id,
+> +};
+> +module_i2c_driver(dell_xps_ec_driver);
+> +
+> +MODULE_AUTHOR("Aleksandrs Vinarskis <alex@vinarskis.com>");
+> +MODULE_DESCRIPTION("Dell XPS 13 9345 Embedded Controller");
+> +MODULE_LICENSE("GPL");
+> +MODULE_IMPORT_NS("IIO_CONSUMER");
+> 
+> 
