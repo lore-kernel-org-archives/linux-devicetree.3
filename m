@@ -1,96 +1,104 @@
-Received: from mta0.migadu.com (out-72.mta0.migadu.com [91.218.175.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8567D48551B
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 11:14:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C49D1385D99;
+	Tue, 15 Sep 2026 11:14:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789470846; cv=none; b=Mq/zmJYazKmqksfIVGHQsrEi0rdxn5y8T8JLjJB+/YHehy0xhtwgJIRTPFzlleX0LHiHxoW6j1qI/ADoH7iDMDhFWc44qBVMDCQe2jw+jjAbCvJsNHnhjJctUfmyJ1KW5DAmStcGdUmKDjo6xXnZpkoUYr47qWVR4CT2lpSHzHY=
+	t=1789470848; cv=none; b=K+6ImMeAbgZERpUddN50D0EzeWTpWjKcGm7Bj2yh3bL/QxxTlWd4PVA/O5Hg8OdBnAzU3kkYIpDc55uRQW1txYhqCFqsU6HGfZmOe2U+SPHiQ9ZtrjNMut4fLuV1qK9ybyLxMu6OkdqxJRpa56CYLHv+JjtxwJ/boAUpiB3NZAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789470846; c=relaxed/simple;
-	bh=SAmWWDy6uJ1HUX3PogDksPgipTl5TLTj6F5gv0iM4ZA=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
-	 References:In-Reply-To; b=nU0dtXUvQkH1yHpVYTg5lMLI0HrH4XAog9Lr1b7wcgydLnbd8R3KCqACj/TqekHvtx7z8BHq4It0f4xZIhKCCSsP9lpYcJb/GgAh6vYry1EBHcjfBx1B5xIEjn+z5mlevvFWtVEy5z5kvA9Mm5ALz5M35aGuLV84PDAm/NMEgxI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=DHyOhi7P; arc=none smtp.client-ip=91.218.175.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
+	s=arc-20240116; t=1789470848; c=relaxed/simple;
+	bh=zZekLw5RMVyQsoxrQU2mJkIt4cG75S/ulXfEuGwz8X8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HlBI8aP4dp8WhuwGml1qwGQpiKf2Gh6MAguSy14C4PtlcmCr0YQ82awwIv7h2WoBtpYj/HxnMVmwKxICvow1AoxsJF+kNriJfvy8GRVJTvo3P2Q5e54Ku36CudnxiU8xypE1jte5xY29X+wI0XY4fRfINDpNwfcZC1xLypMLO4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NPIpuyQr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="DHyOhi7P"
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=SAmWWDy6uJ1HUX3PogDksPgipTl5TLTj6F5gv0iM4ZA=;
- c=simple/simple; d=cknow-tech.com;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789470840; v=1; x=1790075640;
- b=DHyOhi7PJBLhTS9eHuo4KzOlzXhO/jSYFSPItE8IeUcLlPIRdFhuMBsKTBL3Lu0oYLj0beR6
- Z3pBn/ZcPmTUWFfRF5ft/ZCwfTB0p6pnZmf1QKkI7bqWcRnPbXslFLk2/Ex363OpXunX9RSxj3L
- LMSsrybnB0+J7xgrowjYCWgIyjk9YzeBvztFQll6sR8mmE1F6S19RxYeY+S0DKRLwal21Dss3Gr
- SyOLH9xyAWkuYk1O81KYvlwAwGjafxxs0esdoJ2thEJvSMJpqEprvTsgqU6S7Z1pY2G9ERRPQoB
- xqFmib2zxVOFO1AiW9Oso9ov/B2SsRs6G32Wk/L5JEJnQ==
-X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 56136512ff7991f7;
-	Tue, 15 Sep 2026 11:13:50 +0000
-X-Mizu-Trace-ID: 56136512ff7991f7
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NPIpuyQr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 530F31F00899;
+	Tue, 15 Sep 2026 11:14:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789470847;
+	bh=HLagQFQZOyEmaZUWnZfwJED805o1ysF8ciaZJE3W+Qc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NPIpuyQrSy7s3haa/uTKou3xO0PdgTpAZXLXx2QJ6mrAyTNjNPCkJZbC/fbYK7ViK
+	 NHlWGIeEFc+e2v2hPm9IdLId37dKNqX18mNA/aRwOMrepWDtCnMr+yoRsWxD0qdQum
+	 PAKa0oHowZvQjNseJ7oexQ7vCIuGFe5Q3kNjL3KqsZmJM2JAnq8Y6xXDAP8fFExVXD
+	 1VIqtkv/mVJNTpdeZxPxrwCTroIOc8TBenqTjeGkNtnDWl2ATNJlgD4MzxJnSc12E7
+	 TEfgCppNOCabcaDhOgc5/1T5RFmGrT5ytPDR4IiJK0bYv38Qbs6MxegTOW6+ewsYep
+	 nuRgswHziZL6Q==
+Date: Tue, 15 Sep 2026 12:14:01 +0100
+From: Lee Jones <lee@kernel.org>
+To: Lakshay Piplani <lakshay.piplani@nxp.com>
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-i3c@lists.infradead.org" <linux-i3c@lists.infradead.org>,
+	"alexandre.belloni@bootlin.com" <alexandre.belloni@bootlin.com>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"robh@kernel.org" <robh@kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"broonie@kernel.org" <broonie@kernel.org>,
+	Frank Li <frank.li@nxp.com>,
+	"lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+	Vikash Bansal <vikash.bansal@nxp.com>,
+	Priyanka Jain <priyanka.jain@nxp.com>,
+	Aman Kumar Pandey <aman.kumarpandey@nxp.com>
+Subject: Re: [PATCH v18 4/8] mfd: p3h2x4x: Add driver for NXP P3H2x4x i3c hub
+ and on-die regulator
+Message-ID: <20260915111401.GD11487@google.com>
+References: <20260903062108.2712296-1-lakshay.piplani@nxp.com>
+ <20260903062108.2712296-5-lakshay.piplani@nxp.com>
+ <AS4PR04MB93625052401AF41C2ACC2D66FBBE2@AS4PR04MB9362.eurprd04.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 15 Sep 2026 13:13:45 +0200
-Message-Id: <DLFUGSHJFYH8.1NFX2YZ9J7EMA@cknow-tech.com>
-To: "Diederik de Haas" <diederik@cknow-tech.com>,
- <sashiko-reviews@lists.linux.dev>
-Cc: <robh@kernel.org>, <conor+dt@kernel.org>, "Heiko Stuebner"
- <heiko@sntech.de>, <devicetree@vger.kernel.org>
-Subject: Re: [PATCH 3/3] arm64: dts: rockchip: Add support for FriendlyElec
- NanoPC-T6 Plus
-From: "Diederik de Haas" <diederik@cknow-tech.com>
-X-Mailer: aerc 0.22.0-9-ge948bb7230f4
-References: <20260907122406.1862398-1-diederik@cknow-tech.com>
- <20260907122406.1862398-4-diederik@cknow-tech.com>
- <20260907123459.B96191F00A3A@smtp.kernel.org>
- <DL959BBXDOAZ.2RNX9SJVZIKPK@cknow-tech.com>
-In-Reply-To: <DL959BBXDOAZ.2RNX9SJVZIKPK@cknow-tech.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <AS4PR04MB93625052401AF41C2ACC2D66FBBE2@AS4PR04MB9362.eurprd04.prod.outlook.com>
 
-On Mon Sep 7, 2026 at 4:12 PM CEST, Diederik de Haas wrote:
-> I have a MT7925 M.2 Wi-Fi+BT card in my NanoPC-T6 Plus and while
-> Wi-Fi looks great (1.4/1.9 Gbps connection), BT has been horrible.
-> Similar story for my BE200 M.2 Wi-Fi+BT card I have in my LTS board.
-> And the most annoying thing: it's behavior is very inconsistent.
+On Fri, 11 Sep 2026, Lakshay Piplani wrote:
 
-FWIW: that was caused by a broken and a severely damaged pigtail.
+> 
+> NXP Public
+> > -----Original Message-----
+> > From: Lakshay Piplani <lakshay.piplani@nxp.com>
+> > Sent: Thursday, September 3, 2026 11:51 AM
+> > To: linux-kernel@vger.kernel.org; linux-i3c@lists.infradead.org;
+> > alexandre.belloni@bootlin.com; krzk+dt@kernel.org; robh@kernel.org;
+> > conor+dt@kernel.org; devicetree@vger.kernel.org; broonie@kernel.org;
+> > lee@kernel.org; Frank Li <frank.li@nxp.com>; lgirdwood@gmail.com
+> > Cc: Vikash Bansal <vikash.bansal@nxp.com>; Priyanka Jain
+> > <priyanka.jain@nxp.com>; Aman Kumar Pandey
+> > <aman.kumarpandey@nxp.com>; Lakshay Piplani <lakshay.piplani@nxp.com>
+> > Subject: [PATCH v18 4/8] mfd: p3h2x4x: Add driver for NXP P3H2x4x i3c hub
+> > and on-die regulator
+> >
+> > From: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
+> >
+> > Add core MFD support for the NXP P3H2x4x
+> > (P3H2440/P3H2441/P3H2840/P3H2841) family of multiport I3C hub devices.
+> > These devices connect to a host via I3C/I2C/SMBus and expose multiple
+> > downstream target ports.
+> >
+> > All variants share the same register interface. The driver reads the target-port
+> > count from DEV_CAPAB and applies the DT configuration, so no per-compatible
+> > driver data is required.
+> >
+> > Signed-off-by: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
+> > Signed-off-by: Vikash Bansal <vikash.bansal@nxp.com>
+> > Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
+> > Reviewed-by: Frank Li <Frank.Li@nxp.com>
+> 
+> Hi Lee,
+> 
+> A gentle follow-up on this MFD patch. Could you please review it when you have a chance?
 
-> My cheapo (cherry) BT keyboard works fine/decent and connecting to my FNB=
-58 USB
-> meter over BT is great. Haven't tried anything useful with that latter on=
-e, but
-> it consistently finds it and when I connect to it, it succeeds. It even s=
-tays
-> connected \o/ :-O
+Don't do that!
 
-And those worked (somewhat) because of close proximity to the chip.
+It was on the list, but since I handle all of my reviews in
+reverse-chronological order, you just put yourself at the back of it.
 
-> All the rest? It either doesn't see it, it can't connect to it, or it
-> connects to it to drop the connection after a few seconds.
-> And after a reboot? No one knows what will happen.
-
-After replacing the pigtails, Wi-Fi works even better and BT works really
-good as well.
-
-> I've had ONE time a stable connection between the MT7925 and my BT speake=
-rs.
-> Only it didn't show as a sink in pipewire/wireplumber so I couldn't actua=
-lly
-> use it. I haven't been able to make a connection since.
-
-Connecting to my BT speaker (thus) works great now too, but it still doesn'=
-t
-show up as a sink in pipewire. But that's either a driver or a pipewire and=
-/or=20
-wireplumber issue. HW if fine :-D
-
-Cheers,
-  Diederik
+-- 
+Lee Jones
