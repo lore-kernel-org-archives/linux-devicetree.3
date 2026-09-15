@@ -1,125 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C80BD47DF87
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 10:26:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEDB147F2EB
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 10:26:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789467992; cv=none; b=d46EFjxCeufHcUuD/TsT5XLY6w5PMkoEC7zBUIB5oHTISjGv7FvQkD20WoAVrwfKsnUEAzXJqCPEtqSSww2Zz7TBXYbrKbBhDZ4H//VIr/AWwcAQaBFRmoMW8jKW+BRlfP2jZJibJfVudoS9YVYDmUW660mgZcvfY/LqI4ldPSY=
+	t=1789468005; cv=none; b=rjqV6S0JvmC1Ox+CiDpBkWBXbBiAk3bhxve1jXhDV89GfGQRewWVZcuaodP7Wk7pxB5DW673gGyoi/spvS8/e/XxLNIxFLEW2WhaasNdunz9FtbEE6HgDqhkTQo8uXO0dyJyjHeZHUu2z7vMscusIrHBJEvP1iEbKKE54fNxS08=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789467992; c=relaxed/simple;
-	bh=8IvcOMIjLjw2IZGAZGFbT1CGYg0ad1z7M/4tGu/j80E=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=YNgfVijgV0cSdD51RQud90yMvMUEb35Vc0FW+dnvky6js+C8CEZe7xfPYMXFKJwRtZS9tXgCdTCS64T7G5cRuy6kQpdgeIVCv6dhp9P3ZkmY9/o1cCbhMXC4HbudvHROXw8nqFU/LL4FWWIF7D1WEIslIg+5TyyWrq+Qi27ojZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HZsCktSR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789468005; c=relaxed/simple;
+	bh=zaYufR9QlUv7eYaLQ+at5yvHX5e6ve5UNDk2t2c25Zo=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YPX4gN2jQQSNJMC9Rozp94vkv+fMfcLxRH3X4ahwvXIQdyCV92rDl91V1jutNMRY0IYXNIh8O3CZ0SstuizSMMIm4TBnoHpebwoQbAG4qhFUXPg+Oe0AXCpZYsGlcph5B2IRjgiyy7zaDLYwRgj/hgN4xKygn9RbE8rpqHtuaZk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=S+4W/IJ+; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HZsCktSR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFF231F00893;
-	Tue, 15 Sep 2026 10:26:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789467990;
-	bh=wwVQ8xxvUDO4a0wOYl6u4/nV7IdmSwXT0cfa77nNaE4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HZsCktSR8LjMEl0e4QAvymEDTjdZsu6cVgyyaKr2QaE0PsVTXwPdnDEXKohFmFa91
-	 KFqW21xsz+AS46v/FznYqcWPdDmFgbS1IYUJI+3kBaPZib1zEaWT1tmYBMXgmvmJiH
-	 MT3AKtiW2cKvb1xXR8Aad1lBnUFcM4GlSyiC3PfY09+8JftKuNhW6I5dt77zdlkU0r
-	 HCSwEX4YwMYP716DDHJCQvv7/e+iU4sF0+JHpo0zcY2pfl/Wv99trjQ9tfWzfP6Da0
-	 E2YGGjNumfkrh5uDs8CROpJXT1uVV26c+M9WDm95jSQPr8d/BwsVtBj/mciC8hy95e
-	 ugO99uOlPSBVA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/2] phy: mediatek: Add support for PCI-Express Gen4
- S-PHY
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: vkoul@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, conor+dt@kernel.org, olteanv@gmail.com
-In-Reply-To: <20260915101022.23852-3-angelogioacchino.delregno@collabora.com>
-References: <20260915101022.23852-1-angelogioacchino.delregno@collabora.com>
- <20260915101022.23852-3-angelogioacchino.delregno@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 10:26:29 +0000
-Message-Id: <20260915102629.EFF231F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="S+4W/IJ+"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4834977ae75so1708583f8f.3
+        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 03:26:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1789468001; x=1790072801; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=f86HyW2q5YFv3zSNeYSruMbybkqwMyCIyR1SdKDqPuk=;
+        b=S+4W/IJ+ueLWsifWIhuuIsVDGcdb5ruvp69ypR4FJSvUe3tnHyKuvpsOSFfn7lPGrm
+         5XZJEyxCLIPt6aSM7vTVXvnhk4MEC35C0YE01cUT1U94FyLJY+ho/TUVsdQnHtzK2IZ2
+         xDnCFpNrqMq3y0AvRTuc61wVMS+5e04rhYDWmccJYO5ydqBI7bgHkOavKSBOi+Kmy4vw
+         FjC10JKSm40W+AQ7NlL2+aASKQUSAwVl0puGc1/0Kck4AoXOT1i/ZvIPwHSrVhRl55ke
+         eKIXY2WETyjO4ZrZonNPzRGs+finlRWPPRNaU+TtW87ZpWOrapOAmK6CazwwbW7n+frg
+         9b6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789468001; x=1790072801;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=f86HyW2q5YFv3zSNeYSruMbybkqwMyCIyR1SdKDqPuk=;
+        b=ZPrFFw5x1SbFzHmNkqSJOfX0Ms+e6hTssDAXq3mW/fK3f2a/gNHgey0ErlD9W9F9TZ
+         lstQgAJrkeGssqPWmm5rSbD1VLDl8naHKU0W0H3ilQ0TZYbFNyRw2jDJnus9k/nVsbVw
+         RtEYd+z4W3Bg/FGFRtf6EpjDjZ+JoOQ9zt/SVmzbUYR0oIKW1HNWupvVfOedo3k6Ge+A
+         P4lyVOozCe6LJYP/VP4/sIEkBY12iA+iDe0mpRmlbX2AsJLk6PD122ISWXlsK4Mclca8
+         SgAOHvXuZw6ZNvXW7W7W/4zesHQTQ+V5JKhJsWCW9YKZsWCJHYpF8sx/1FsVq0s/rKQL
+         cTAg==
+X-Forwarded-Encrypted: i=1; AKwUvByBUHxvuhtPFGuc/K4dbfqfKwRFX7FhbRw1ywv7qXU/8JaddCk4hN/rT5DrVcle6vkY9ABmYgsHXccx@vger.kernel.org
+X-Gm-Message-State: AFuF++mRU+Pi5zsJoYcsCP6H5FsIuVOfoPxcH5vMjEBX7cq+5JmbPv8O
+	7TVLvulTM3vzWwPdIvgkDuTwsbTZ4zQPIHslkM5vSZg4FmY2ad3mqI+eivnJgWpku3k=
+X-Gm-Gg: AYBFou0lm8QjC3nzXrgBxd0Lkbp40/Ip/enRXW0mU3RcbUYKXpuiikEUvVkYXVXd26Q
+	YcjpK/k2jgh7LJtTPQuoIP2oEaIGKaNjIDAFgD4ZWt+Oe0Z0AHMmcmgtF30umwjpbfh+loPh5f0
+	9rgXt8bsKe88h7DITCw087Yr5RqmlDptnWuM+HNr+D3T3EorXOyvSx3JCVhldsSykb4BHpXcU7F
+	CmPgBtkJWLRYdY8PmkrVXfB6OnAaSPS3v2Gbt+U9CQ/ltjENeZ59qTIw86GYyMOM8XyBFaUXM/C
+	EK88UcAIvImtMvfcbevUVNhxJU6hU73G/ecWe5sn7yHFT6t3XiRVMfPZZjQ2Y6yTc23G79q6Fi5
+	xVjvOSddDITu3ztIqeH5liVcXDIECcNAg/eAiTjE+gB6dgcVwK75xfmKDp3I5DpgC9u0dCPFLoa
+	TReD/YId0Qv5PYuTVO/mYxjvc+p5OiFgVKncDsNJ9kcMTaW1MyTCBYC4ZwEoUFPTIhMBQ=
+X-Received: by 2002:a05:6000:41c3:b0:484:3310:710c with SMTP id ffacd0b85a97d-48702b30ad7mr16669938f8f.24.1789468001189;
+        Tue, 15 Sep 2026 03:26:41 -0700 (PDT)
+Received: from localhost ([82.145.119.8])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb34e4b5sm33243901f8f.22.2026.09.15.03.26.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 03:26:40 -0700 (PDT)
+From: Andrea della Porta <andrea.porta@suse.com>
+X-Google-Original-From: Andrea della Porta <aporta@suse.de>
+Date: Tue, 15 Sep 2026 12:30:17 +0200
+To: Angel J <iamanaws@httpd.dev>
+Cc: Andrea della Porta <andrea.porta@suse.com>,
+	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+	"regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-rpi-kernel@lists.infradead.org" <linux-rpi-kernel@lists.infradead.org>,
+	"helgaas@kernel.org" <helgaas@kernel.org>,
+	"robh@kernel.org" <robh@kernel.org>,
+	"florian.fainelli@broadcom.com" <florian.fainelli@broadcom.com>
+Subject: Re: [REGRESSION] PCI: Dynamic OF node creation hangs on invalid
+ bridge configuration
+Message-ID: <aqkeOfsmjJlfTGmn@apocalypse>
+References: <GXe6anuewkS4bLNwca3cYOmUxN9csc0TxLYGSBc1qNRmfrmvFlcmD62wEM23TxfzfuXAv4P3yvUv7pyraleARrL1Na-aN8w-t9uc1Igu8DA=@httpd.dev>
+ <cFJoUZ6c5g5YbFCrwUnx6RlitHRl-0cS2fadDSFJNf9SgLreKutrmZj1r56hFh8ZUAbzvuCqBG4w9ZYAE8xAWP9HnLwbjMOBzac-iMnMMZc=@httpd.dev>
+ <aqfgUUkZYZg6ZABF@apocalypse>
+ <B6jXhRRiVu4TfgjwfVOLgxbh1xIciImKFVMmjkMRoDt5SO7WpM2M3gBqsjtnh3VhYobWdcNfqFrmlCdhqZBqUakSNkTeVNZYJnXLTx55kRI=@httpd.dev>
+ <VaPKN3QbW3sGj8wePAvI_xD3twp_MQE4-4xeSbvgoQPVUnKDWKz0EWT_JiLehpmc6WOsCAoFOPs412Xhtthes_ZtvrgsKB4QB6QPz-XvRb4=@httpd.dev>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <VaPKN3QbW3sGj8wePAvI_xD3twp_MQE4-4xeSbvgoQPVUnKDWKz0EWT_JiLehpmc6WOsCAoFOPs412Xhtthes_ZtvrgsKB4QB6QPz-XvRb4=@httpd.dev>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] phy: mediatek: endianness bug when reading split NVMEM cells in =
-mtk_pcie_sphy_get_one_cal_para()
---
+Hi Angel,
 
-commit ab276d5dc9414b3b5618ea96c84dcc086bdf9036
-Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+On 23:28 Mon 14 Sep     , Angel J wrote:
+> Ok, here it is...
+> 
+> I tested this quirk on Linux 6.18.44 with CONFIG_PCI_DYNAMIC_OF_NODES=y,
+> and it boots without either OF fix. The diff below omits the test logging.
+> 
+> PCI_FIXUP_HEADER runs after the resources have been parsed using the
+> original header type, and changing hdr_type also affects configuration
+> restore. I don't know enough about this part of PCI to judge whether
+> that's safe, so I'll wait for your advice before submitting it as a patch.
 
-phy: mediatek: Add support for PCI-Express Gen4 S-PHY
+Thanks you for your submission!
 
-This commit introduces the driver for the PCI-Express Gen4 S-PHY found in
-recent MediaTek SoCs such as MT6991 and MT8196. It implements the PHY
-initialization routines and handles reading eFuse calibration data from
-the NVMEM framework.
+LGTM. Maybe you can play, if you don't already, with pci=realloc,assign-busses
+kernel cmdline options and writing in remove/rescan under /sys/bus/pci/*
+(watch out: this could kill your system). But better to ask for opinions
+from PCI experts.
 
-> diff --git a/drivers/phy/mediatek/phy-mtk-pcie-sphy.c b/drivers/phy/media=
-tek/phy-mtk-pcie-sphy.c
-> new file mode 100644
-> index 0000000000000..2bf10346ea97a
-> --- /dev/null
-> +++ b/drivers/phy/mediatek/phy-mtk-pcie-sphy.c
-[ ... ]
-> +static int mtk_pcie_sphy_get_one_cal_para(struct device *dev, const char=
- *name, u8 max_val)
+Thanks,
+Andrea
+
+> 
+> Thanks,
+> Angel J
+> 
+> diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+> index de9bbccda..57df88a38 100644
+> --- a/drivers/pci/quirks.c
+> +++ b/drivers/pci/quirks.c
+> @@ -291,6 +291,22 @@ static int __init pci_apply_final_quirks(void)
+>  }
+>  fs_initcall_sync(pci_apply_final_quirks);
+>  
+> 
+> +/*
+> + * On the Dell XPS 8940, 8086:4c43 reports a PCI-to-PCI bridge but has no
+> + * downstream bus. Use host-bridge class and a normal header so that
+> + * pci_is_bridge() does not send it through bridge scanning.
+> + */
+> +static void quirk_intel_4c43_host_bridge(struct pci_dev *dev)
 > +{
-> +	u16 buf;
-> +	u8 tmp;
-> +	int ret;
+> +	if ((dev->class >> 8) != PCI_CLASS_BRIDGE_PCI ||
+> +	    dev->hdr_type != PCI_HEADER_TYPE_BRIDGE)
+> +		return;
 > +
-> +	/*
-> +	 * All of the calibrations are always max 8 bits long, but some may
-> +	 * be split between two different 8-bits cells: handle this corner
-> +	 * case by retrying reading as u16.
-> +	 */
-> +	ret =3D nvmem_cell_read_u8(dev, name, &tmp);
-> +	if (ret =3D=3D 0)
-> +		buf =3D tmp;
-> +	else
-> +		ret =3D nvmem_cell_read_u16(dev, name, &buf);
-
-[Severity: Medium]
-When an 8-bit (or smaller) NVMEM cell crosses a byte boundary in hardware,
-the NVMEM core evaluates its length as 2 bytes, causing nvmem_cell_read_u8()
-to fail with -EINVAL.
-
-Does falling back to nvmem_cell_read_u16() cause an endianness issue here?
-
-Because the NVMEM core populates the buffer with a direct memory copy, the
-shifted valid data is placed in the first byte and zeroes in the second byt=
-e.
-On big-endian architectures, interpreting this buffer directly as a native
-u16 variable evaluates to buf[0] << 8, which effectively multiplies the
-calibration value by 256. This could lead to spurious -ERANGE failures or
-incorrect calibration values being written to the PHY.
-
-Would it be safer to use nvmem_cell_read_variable_le_u32() to handle these
-split cells robustly across different architectures?
-
-> +
-> +	if (ret =3D=3D -ENOENT) {
-> +		dev_info(dev, "No calibration for %s. Using defaults\n", name);
-> +		return -ENOENT;
-> +	} else if (ret)
-> +		return dev_err_probe(dev, ret,
-> +				     "Cannot get calibration data for %s\n", name);
-> +
-> +	if (buf > max_val)
-> +		return dev_err_probe(dev, -ERANGE,
-> +				     "Bad value %u retrieved for %s.\n", buf, name);
-> +
-> +	return buf;
+> +	dev->class = (PCI_CLASS_BRIDGE_HOST << 8) | (dev->class & 0xff);
+> +	dev->hdr_type = PCI_HEADER_TYPE_NORMAL;
 > +}
-[ ... ]
+> +DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x4c43, quirk_intel_4c43_host_bridge);
+> +
+>  /*
+>   * Decoding should be disabled for a PCI device during BAR sizing to avoid
+>   * conflict. But doing so may cause problems on host bridge and perhaps other
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915101022.2385=
-2-1-angelogioacchino.delregno@collabora.com?part=3D2
+
+
