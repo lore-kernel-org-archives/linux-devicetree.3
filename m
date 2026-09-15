@@ -1,314 +1,447 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f68.google.com (mail-ej1-f68.google.com [209.85.218.68])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC56A485939
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 11:22:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789471326; cv=none; b=G3vup0mN7aaOe3BvR2JXF/4Uu+RX44P7j1dWjYsIummZjqXRbp4Tt7sw48cFXV2kd3DgiIlQejXgGsfrbFXUVVienG6FiifpTSvpiXqiok+xfMuFhnbalQDQsqXugyOx73D3lnqMz5res3vabjmw4r1q+LTD5z9zwHtgbkTL0hY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE79147CA87
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 11:22:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.68
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789471326; cv=pass; b=DyLa/0ORDJpN2szb/GVfyhOzXOU/PHdsVbvMtnoMQElcDVRxjxwfFR4L1GTEw/czSybaQrz4j8lAA/JC2zBxSAJAg1McCLSvWdpNlLC6ES9oLcsBszqFg1v6v7gD4djemv9ptNvubDk9Qu/KmSGx2fRXDT09Ui+4ggrPak/GHFc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789471326; c=relaxed/simple;
-	bh=2No5mlpVwB4AdjtOOu0CWZ2jHtiVobkOSNzvHZ2+PWA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CG/egLx09a9lr6XlbQ9MqhYj2H41XASYGKZtVC8lcXlsE+F39XvJ7s84PXu64dNNqRZaBJB6VFqcZlGXa6b1IudmBbD6y1iysSJbS4bxPpbaqOIOfvIQen1+skN4jeAu9CX/OYOh9e7Ti1QhRgKxDXh8eDR2Vvp6VltP6qdeqOQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CnSJ95et; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=I4Jw61CC; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	bh=7IeKCihFwX9toaZ0cOF5/ll+Kqx7H0W8Cpr7TcnnDvg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=LQbcw9A9M4tFAWh09GXNwyL6dhW7O03My3t8euoUvbN1KmQxm5Qs33Z6u/2WjLNmca+d8esRQPpSwo9nXJ4+5g6KJ6YCrwrjVamB5TW2m9VdodvEGMqkWSDdwOKimee7XV8Zk7rODV5hRgpXLH4erIOEeB2BtibkslE2St6zkec=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iYFdV5nx; arc=pass smtp.client-ip=209.85.218.68
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CnSJ95et";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="I4Jw61CC"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F9h2Fo2086719
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 11:22:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	xulq/000/ULLchJIOg/N1wH/ItWptfBKc1m2CXViGcY=; b=CnSJ95etg13x7wJZ
-	X57qFMZAtjLfNbLRotEQKqUUXnXWDLevJUW4el1TB/2Ia/dW0DFg5MR+V5uO7BUD
-	3nN2CrP52hnvHWSz6alG8LV3gLO64CwCyuP3oGIcbMHBKGrVsKm7QrBBVJ6k3p4W
-	eK5mAoWss3S3hKlHKDwHiQ59Y79hqfinK3IsQxdb5IMcIYDcaWR++lDgFhkNYOaH
-	zYSQzL4uDsXXMu0fvpNMAJeReFxQq7J2t6f30ZL7ZK57YjQt8Kt/Nh5cPVwcqz0E
-	ATh5AqeXwKKX6mN0MJi+bEJdRCbhxYyPvVzUDd3aS5C6XTvUSSzUl9nea/1tm3vk
-	R3YzOQ==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gq1qp947g-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 11:22:00 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-39de4a68f7cso3396993a91.1
-        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 04:22:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iYFdV5nx"
+Received: by mail-ej1-f68.google.com with SMTP id a640c23a62f3a-c294ad260fdso114864666b.1
+        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 04:22:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789471318; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bBSW06VnJ2pBjSAYBrsUbronA4KGWWly0Nv+9yCMrAKy0Zsf1ug0by6VIpEY8JdYaQ
+         3P6ITHJkft4gP6v9k89qOrfQlH/VIJvmzLDQ90khFuwc4yV+Vj8T077BuOZ3bRGCJxsc
+         805ebX1/ZndjClqHOJa+8rdHBunRn8S0G0WET4ChevoHFUXHNzbtlphubzbzGCFiQJ4B
+         YvvdNy1R6WkEMjUMlWqdIJUdr49MKxMTUVo0J64OS/FxPTAE/m6v7GTgNquPKvOkhkZd
+         GA3HhEjZHEuIfAP+f02NKTtR6qbMgRf190yr5ithykyqQiU6JAJx1QSta1ZJ0Fj0PRuI
+         fbtQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=pdGNp72dbM+gKLQ/Ct6w0QlgPa1CkJQFFgkxU4ZsWxk=;
+        fh=O7sP7tbkXNeQGeEkSpRriz1lil+H2D6897JAubZPtSs=;
+        b=cv+panEKbnjpE1MbGjBgr4gLxWgnPOUuW503pSQgNoX+IdIw5aqiw8nJANOur0cgdK
+         EZicqrJv4Ys8MCF6JtWp6xVmyZEN3V2gxFfaDaIXMfpRZLll4d8lvEdHytnlVg79b3cq
+         Ya7akjs/MbCuvpjXAcURXNNGJJvDZQLshoZqtR5nAj81Dldd04dxaOMjVy1W5fkbk3lQ
+         MMUFY8ZSkkt7mIWh+SP1Z9OfM+5APirRApDcBK8u1YX5n6y9h91UjmePs2ysHHawqMT1
+         DrWdvEEbkFlENWKbQyjycUwoqrKa0z3TiJe+WxikpvdaOo5Anfm0WMuPb4ENkAM78idb
+         gQgQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789471320; x=1790076120; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xulq/000/ULLchJIOg/N1wH/ItWptfBKc1m2CXViGcY=;
-        b=I4Jw61CCywq2cm2TIrX+ri0H4580lcb9pY6zRj7nW1GcS+TlLsRjJqFWK4QZEgzFOT
-         PyTzSgHEFWtIg0sZIB0OqDsmJQd4XAx3534TufETwBhIPWYKyiNeVWm9houmkDX0xsXT
-         y5qIkwuqYKP248lVnhSpVlH8dYbvwenN7ikgik9a/M0gS0IHvFJI/TqSoszakzmdQB4M
-         gGM24j+ATNYoKFGC5xivNnSY8Cv01aMat7DYNJA34C0JlNozwFhTYHOehg1JRJnqGULK
-         cHxe9KjxOmo15wVs9vr2IhkcseHWKoym8bYOg3EsID8uvgZek7Ja7t4bz8MCQcO2dvXr
-         7GhQ==
+        d=gmail.com; s=20251104; t=1789471318; x=1790076118; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pdGNp72dbM+gKLQ/Ct6w0QlgPa1CkJQFFgkxU4ZsWxk=;
+        b=iYFdV5nxcGf0MXlAK6MIdzuh41gdx6fBuYIPA9qp5JLCnhsKZELMU4oUoxiEsCXNeE
+         dmUXg7wuC4avKUtRPoP4SkOo5kenP7HbHGwRuZNJb338WsDltx2ojrPju5FVR9gq+Q3O
+         RZF/gQRQPyT/EE9rLcnUxKZPCIv5xHahF9Jf4entzH7tlyJvu8kZ3ghkwDQts2VLNWAT
+         2npZMVuRDeOz+HJlDKS3PYTuySlA1ubblYkPFWGyNoHVrMEAgtrADQO6YGaC9pBEjxR2
+         CP7NJvYTOz3RoUzYCo+275VAKDgcIADwxvKyBqX1uj9/JMR+cG5c3WZCf5O8YLgZ5TFv
+         zu8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789471320; x=1790076120;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=xulq/000/ULLchJIOg/N1wH/ItWptfBKc1m2CXViGcY=;
-        b=2QUbMgkpcuZyKQ0Wosj1g7H5iWnP/6M7Zh+832KOZSUHHK0+My9sKtrby3U/tixTNq
-         vJOQrTHlKBdXqUumemj/H4ab7GHMKfJi6hMPKSP0HBgUpJEy18XIclDKkgv/R/l0ZE0a
-         +Pu9N+BEyn6hqf0TcUoaAlssrH4kpV4QshUTGD58tQdl29wrGUcFRsy37JhuiB/nAEF4
-         eeiS5Vcdu4R80uPWEF9FrK3NAGLVX7zfzOMPLWzilBRG2HycI0hiYEUlNi8JVkQKyMZ3
-         lA6BSnnOH7kxNkmD7H/AaTj/lAEKUWDcBUvmpkKbz6uGUFKuTkBitVET0ktfEJHi6tCh
-         RURg==
-X-Forwarded-Encrypted: i=1; AKwUvBwjneZL7NesItWyRUC6VU6L5Te/g3OIa3rMYH9iNVM+WhPGApS4WXnu8Hu4H0bPnVQ+TprwY3Q9oSpC@vger.kernel.org
-X-Gm-Message-State: AFuF++lVxtXraQLoli0pZtr+CTrePRGR9zp/MPaFT4uxVHxF8H/zmgdD
-	u+lRVr9BPnheATr/VIwHTg4pXbHFh0Q3FmkrbTg0HdhxSW1ve2wIUC/0bYLsO4MssaY/oWQnBCE
-	+L5aKxAvQIo1vhZxMVcWQUuTyVjNgxSlTfrQw2V1Bioc7+O32aCtGfn1k1Xb3c6fVGShbaoc7
-X-Gm-Gg: AYBFou0XZTfwNkxOxqmlgqdM0kbGaT1+aMZC0YzD2OabUr1/CTOeyq9XEYy0e8kt5A3
-	GEjLLkJvEjqxI+9vlWn74JlBYNPBhvvv8RJKeRxvkxF4EUSsJnNRNakFC1/Ctg4leJvKcHRtAcs
-	4K5wlJOhG3GyHdkxP92fJc7CLYQ+ur6++q5cQEw5q5AsXPN9EUVSJI/DdtSg55w7d4Uibdyxk7q
-	smdIU0SwbM0JhLUjy37R3k2N5s63rHbWrvV7SLApFvEFaWKMfAIIvuGW7bR5CYizWPxA2vmPm/O
-	m4str60Jv6aorSqlaRpABpY5inaAzmUwZf4+4RTnHDeE+zc7BmWucOKW0ZLIOs+7zrePhaH8CFL
-	s2hod69ECVfu/nvCr60iXJ2JwSA==
-X-Received: by 2002:a17:90b:1c83:b0:39e:27e:21b3 with SMTP id 98e67ed59e1d1-39e027e229fmr5444517a91.9.1789471320098;
-        Tue, 15 Sep 2026 04:22:00 -0700 (PDT)
-X-Received: by 2002:a17:90b:1c83:b0:39e:27e:21b3 with SMTP id 98e67ed59e1d1-39e027e229fmr5444461a91.9.1789471319539;
-        Tue, 15 Sep 2026 04:21:59 -0700 (PDT)
-Received: from hu-mdsor-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4cf31c1sm34002659eec.1.2026.09.15.04.21.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 04:21:59 -0700 (PDT)
-Date: Tue, 15 Sep 2026 16:51:53 +0530
-From: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org,
-        devicetree@vger.kernel.org
-Subject: Re: [PATCH v14 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
- to HDMI driver
-Message-ID: <aqkqUY4BfXo2HuGT@hu-mdsor-hyd.qualcomm.com>
-References: <20260913-lt9611c-v7-v14-0-534b43a07662@oss.qualcomm.com>
- <20260913-lt9611c-v7-v14-2-534b43a07662@oss.qualcomm.com>
- <20260912215110.11BDF1F000FF@smtp.kernel.org>
+        d=1e100.net; s=20260707; t=1789471318; x=1790076118;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pdGNp72dbM+gKLQ/Ct6w0QlgPa1CkJQFFgkxU4ZsWxk=;
+        b=TQbF3XPgjaRNiR7Dv7GoYZw4mA3Z0bqdplesyD4NlDnmvjzsXsdzwxNi0ogmnuCkEN
+         X9yoRFXpZD/QNo9wfWnPuH7UW2bboArmXcEjDf9QlXirfDgMYZc6pHNGJJ25nd2LI2Gg
+         WlBpJ4UgNOvJbCKezj2ZUEyorLlS9qyiZ7gIr/k4HuEZnAwPHkxmgpmKJjC6DGEWbp8/
+         eq4Yb0MRV3QSB6JicaaZISbnFCT1nug4311I0jZzTRdoFUX65Kdxe/BfG41x+5OjfwAg
+         0Aj08lmh0jELHrhw8g5Wrm9EIg5YyrQea2pdSOATbaYWgJYsYbOVZxnnlzM+ISKZDKwF
+         Pnrw==
+X-Forwarded-Encrypted: i=1; AKwUvBxTrIoJMI+lpah7G6dYA4KQayvL2A2l1KM2VAzzMGsxAD9Ccdz6esLR/TbqsEuAxO9g7YUjofYyw2nC@vger.kernel.org
+X-Gm-Message-State: AFuF++lRdQibd9J1U07BOTXy2UkUM0r5TrjnJbPHo3TdjdlSkaR/WMsI
+	Zknun3iqg2JVFS81pvFtrN9Dju4zI5ySM2InFNVwwKmNqzBUuY996RmrJJr+yIT/OL250+8ZAw6
+	3pBNxEfG4ltVA7ccX36USuZocI7QYqjQ=
+X-Gm-Gg: AYBFou00xDLLBnG67ODMqle+u/qvXkVujI7b+dLTX1BBXHoLvnJN336rL+IuW75ZfJR
+	366cZm41rLPHZh/EbwarsF0H88tFqo/0Kbg6YeS2XecmeHKcTmDXJvsnoAoVOA3L5XjaxUMUxFM
+	6VMg9spD2LbCiSDjqzassxllTQhJsM+gn2RgHBJAiROqQKu+0Ibg1W5y11KvJ/yKwZ2i8m5lXz0
+	KVNdygjHiEgV3kQxbr9rE55vv7m/FUxKqv1twApT7I1oyiYdAceSe/zJUhWjeL+qvbj1mCY5jNm
+	Wj50wzVM1eboyzZUim5JIqHAydUT5Vf6tcZSr7Xp6N0mlMBmkgl6pK+t8w==
+X-Received: by 2002:a17:907:3fa0:b0:c1c:4c72:e6df with SMTP id
+ a640c23a62f3a-c29c85ac70amr237889766b.0.1789471318328; Tue, 15 Sep 2026
+ 04:21:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260912215110.11BDF1F000FF@smtp.kernel.org>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDE2NCBTYWx0ZWRfX5qxgD6UCD3tm
- lzUj2yLTw7IZmyF/cw0PTjPsPiQ8LZpIGZWRoPdxApEyQvZw+km9NkMWKVswjSrd1bI+Hb8t0ar
- XbWTZrrUGJjP20ktQD7ScEKGvTiH0YA=
-X-Authority-Analysis: v=2.4 cv=I4Xw19gg c=1 sm=1 tr=0 ts=6aa92a58 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=c92rfblmAAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=Kz8-B0t5AAAA:8
- a=36FZGce6BDuSa-RBUaEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22 a=GvGzcOZaWPEFPQC_NcjD:22 a=RuZk68QooNbwfxovefhk:22
-X-Proofpoint-ORIG-GUID: 5njjcvlePOK9UVfjcjPVSmcr-cz0CXiR
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDE2NCBTYWx0ZWRfXwNnwHX1SgO9T
- WF46Fzet0V3rVCBHApjxkJfCQlUByhDiVAMBOvwhqpT8GMacjZxUz8gk8mWn/UkIlp/kuw8rlCi
- Pe5oMvJdzo3jFusspGZmIrtFQUMfQiKtqNRrZfAVRgja80DH9endWBeOCsBHV7q/SDyHhjQ7cUW
- btDw2EY7N+cVpBUuAOVmqdA8noUJNQpVxREKMiwxbkXcfxJIl7HVmdkVJXV/IUNtTpEUX3UFwnf
- uGJ4EXck1CILCs6weNK1nhr2uchTNCzhkhSsBbSFn1Fv0XKp67nKRq3D8DGXLpmYdj83o3+4qn0
- bnP7ZulLIkuwAUZvuqaCGjKalidLWoC5n/UTgSYSb8k24oI8E6tzOsGdz2wnfNi8F9LU84qXK/y
- HvELyDpkfK9yMx9yhWbFlz2HAfGRVbgxjirt/D0jutsNXaaFVtiIw74mAieNCqLWOUDNp66Bmxc
- bCOhzAc/ddz8v1CBTgg==
-X-Proofpoint-GUID: 5njjcvlePOK9UVfjcjPVSmcr-cz0CXiR
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_03,2026-09-14_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 phishscore=0 clxscore=1015
- priorityscore=1501 bulkscore=0 malwarescore=0 impostorscore=0 adultscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609150164
+References: <20260913185849.907479-8-coiaprant@gmail.com> <178941748759.22033.1861925605437398903@kernel.org>
+In-Reply-To: <178941748759.22033.1861925605437398903@kernel.org>
+From: Coia Prant <coiaprant@gmail.com>
+Date: Tue, 15 Sep 2026 19:21:46 +0800
+X-Gm-Features: AcwNN1WnaaSrttoZlhP6aYkwPAdiDzhJi8AhYAyuZb9mOKnk6eoTSOOLMaHeYwY
+Message-ID: <CALj3r0gm5nKVj3s11q=qpnpu+65DQt2-VmGq7mfQr9-e5054Yg@mail.gmail.com>
+Subject: Re: [PATCH net-next v5 07/11] net: pcs: xpcs: add Rockchip RK3568
+ platform glue driver
+To: netdev-bot+sashiko@kernel.org
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com, 
+	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, heiko@sntech.de, vkoul@kernel.org, 
+	maxime.chevallier@bootlin.com, mcoquelin.stm32@gmail.com, 
+	alexandre.torgue@foss.st.com, prabhakar.mahadev-lad.rj@bp.renesas.com, 
+	romain.gantois@bootlin.com, hkallweit1@gmail.com, neil.armstrong@linaro.org, 
+	linux@armlinux.org.uk, shawn.lin@rock-chips.com, david@ixit.cz, 
+	netdev@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
+	linux-stm32@st-md-mailman.stormreply.com, linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, Sep 12, 2026 at 09:51:09PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 6 potential issue(s) to consider:
-> - [High] The driver fails to invoke the DRM HDMI state helper to flush infoframes to the hardware during a modeset.
-> - [High] Missing polling for flash page program completion before writing the next page.
-> - [High] Hardware reset causes silent desynchronization of the regmap page selector cache, leading to corrupt I2C accesses.
-> - [High] Incorrect interrupt clear sequence inadvertently asserts clear signals for other pending interrupts.
-> - [Medium] The bridge driver completely omits an `atomic_disable` (or `disable`) callback, preventing the hardware from being powered down during DPMS off.
-> - [Low] Data race when accessing `lt9611c->fw_version` concurrently.
+<netdev-bot+sashiko@kernel.org> =E4=BA=8E2026=E5=B9=B49=E6=9C=8815=E6=97=A5=
+=E5=91=A8=E4=BA=8C 04:24=E5=86=99=E9=81=93=EF=BC=9A
+>
+> Thank you for your contribution! Sashiko AI review found 6 potential
+> issue(s) to consider:
+>
+> Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 3 =C2=B7 Low: 2
+>
+> - [High] Incorrect MMD write remapping for MII vendor registers breaks
+>   configuration for ports 1, 2, and 3.
+> - [Medium] The patch silently re-packages the pre-existing generic
+>   Synopsys XPCS platform driver.
+> - [Medium] xpcs_rk_init_clk() (drivers/net/pcs/pcs-xpcs-rk.c:361-362)
+>   computes `pxpcs->eee_mult_fact =3D DIV_ROUND_CLOSEST(100 *=E2=80=A6
+> - [Medium] Acquiring `device_lock()` of another device from within a
+>   probe path causes a lockdep warning (recursive locking).
+> - [Low] Concern that the newly exported xpcs_rk_create()
+>   (include/linux/pcs/pcs-xpcs-rk.h) has no in-tree caller and no Kconfig=
+=E2=80=A6
+> - [Low] The rockchip,rk3568-xpcs binding lists `phys` and `phy-names` in
+>   its `required:` list=E2=80=A6
+>
 > --
-> 
-> commit 00cae86a0097b37f64f26f28bf0a922224a6461d
-> Author: Sunyun Yang <syyang@lontium.com>
-> 
-> drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI to HDMI driver
-> 
-> This commit introduces a DRM bridge driver for the Lontium LT9611C(EX/UXD)
-> MIPI DSI to HDMI converter chips. The driver supports single or dual MIPI DSI
-> inputs, I2S/SPDIF audio, and handles HDMI infoframes alongside I2C-based
-> firmware flashing and power management.
-> 
-> > diff --git a/drivers/gpu/drm/bridge/lontium-lt9611c.c b/drivers/gpu/drm/bridge/lontium-lt9611c.c
-> > new file mode 100644
-> > index 0000000000000..fbd6209287998
-> > --- /dev/null
-> > +++ b/drivers/gpu/drm/bridge/lontium-lt9611c.c
-> [ ... ]
-> > +static int lt9611c_write_data(struct lt9611c *lt9611c, const struct firmware *fw, size_t addr)
-> > +{
-> [ ... ]
-> > +		for (unsigned int i = 0; i < LT_PAGE_SIZE; i++) {
-> > +			size_t index = num * LT_PAGE_SIZE + i;
-> > +			u8 value = (index < size) ? data[index] : 0xff;
-> > +			int ret;
+>
+> net: pcs: xpcs: add Rockchip RK3568 platform glue driver
+>
+> Adds a platform glue driver for the DesignWare XPCS block found on RK3568=
+,
+> exposing the APB3-mapped XPCS registers as a virtual MDIO bus with per-po=
+rt
+> MMD remapping so the generic pcs-xpcs core can create a phylink_pcs.  Als=
+o
+> adds new Kconfig symbols for the generic and Rockchip XPCS glue and an
+> exported xpcs_rk_create() helper for MAC drivers.
+>
+> Link: https://dl.radxa.com/rock3/docs/hw/datasheet/Rockchip%20RK3568%20TR=
+M%20Part2%20V1.1-20210301.pdf (Page 2078)
+>
+> > diff --git a/drivers/net/pcs/Kconfig b/drivers/net/pcs/Kconfig
+> > index e417fd66f660a..080538f193d59 100644
+> > --- a/drivers/net/pcs/Kconfig
+> > +++ b/drivers/net/pcs/Kconfig
+> > @@ -12,6 +12,31 @@ config PCS_XPCS
+> >         This module provides a driver and helper functions for Synopsys
+> >         DesignWare XPCS controllers.
+> >
+> > +if PCS_XPCS
 > > +
-> > +			ret = regmap_write(lt9611c->regmap, 0xe059, value);
-> > +			if (ret < 0) {
-> > +				dev_err(dev, "write error at page %u, index %u\n", num, i);
-> > +				return ret;
-> > +			}
-> > +		}
+> > +config PCS_XPCS_PLATFORM
+> > +     tristate "Generic XPCS controller support"
+> > +     default PCS_XPCS
+> > +     help
+> > +       Generic DWXPCS driver for platforms that don't require any
+> > +       platform specific code to function or is using platform
+> > +       data for setup.
 > > +
-> > +		lt9611c_wren(lt9611c);
-> > +		lt9611c_sram_to_flash(lt9611c, addr);
+> > +       If you have a controller with this interface, say Y or M here.
 > > +
-> > +		addr += LT_PAGE_SIZE;
-> > +	}
+> > +config PCS_XPCS_ROCKCHIP
+> > +     tristate "Rockchip XPCS controller support"
+> > +     default ARCH_ROCKCHIP
+> > +     depends on OF && (ARCH_ROCKCHIP || COMPILE_TEST)
+> > +     depends on GENERIC_PHY || COMPILE_TEST
+> > +     depends on PM_GENERIC_DOMAINS || COMPILE_TEST
+> > +     help
+> > +       Support for XPCS controller on Rockchip RK356x SoC.
 > > +
-> > +	lt9611c_wrdi(lt9611c);
-> 
-> [Severity: High]
-> Does this sequence overwrite the SRAM buffer over I2C while the internal SPI
-> flash controller is still programming the previous page? It appears there is no
-> delay or polling for the flash program command to complete before looping back
-> to write the next page's data to SRAM, which might silently corrupt the flashed
-> firmware.
-Will be fixed in next version.
-> 
-> [ ... ]
-> > +static int lt9611c_firmware_upgrade(struct lt9611c *lt9611c)
-> > +{
-> [ ... ]
-> > +	ret = lt9611c_write_data(lt9611c, fw, 0);
-> > +	if (ret < 0) {
-> > +		dev_err(dev, "failed to write firmware data\n");
-> > +		goto out_unlock;
-> > +	}
+> > +       If you have a Rockchip SoC with this interface, say Y or M here=
+.
 > > +
-> > +	ret = lt9611c_write_crc(lt9611c, fw_crc, FW_SIZE - 1);
-> > +	if (ret < 0) {
-> > +		dev_err(dev, "failed to write firmware crc\n");
-> > +		goto out_unlock;
-> > +	}
+> > +endif # PCS_XPCS
 > > +
-> > +	lt9611c_reset(lt9611c);
-> > +	ret = lt9611c_upgrade_result(lt9611c, fw_crc);
-> 
-> [Severity: High]
-> Could the hard reset immediately following the CRC flash write command abort the
-> final write while it is still in-flight? Polling for completion before resetting
-> might be necessary here as well.
-Will be fixed in next version.
-> 
-> [ ... ]
-> > +static void lt9611c_reset(struct lt9611c *lt9611c)
-> > +{
-> > +	gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
-> > +	usleep_range(10000, 12000);
-> > +
-> > +	gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
-> > +	msleep(400);
-> > +}
-> 
-> [Severity: High]
-> Will the physical reset clear the chip's internal page register back to 0
-> without updating the regmap cache? Regmap's internal cache of the page
-> selector could become desynchronized, causing subsequent register accesses to
-> skip setting the page if it matches the cached value, but occurring on the
-> wrong hardware page. This would affect accesses in probe, firmware_upgrade,
-> and bridge_resume.
-The driver uses REGCACHE_NONE (no cache_type set in regmap_config). With this mode, _regmap_update_bits always performs a real I2C read of the selector register before writing it — there is no cached page state that can become stale. After GPIO reset the chip reverts the page register to 0x00, and regmap reads that back on the next access, correctly detecting the change and re-issuing the page selector write as needed.
-> 
-> [ ... ]
-> > +static irqreturn_t lt9611c_irq_thread_handler(int irq, void *dev_id)
-> > +{
-> [ ... ]
-> > +	if (!(irq_status & BIT(0)))
-> > +		return IRQ_NONE;
-> > +
-> > +	/* Clear interrupt: hardware requires two writes with delay */
-> > +	regmap_write(lt9611c->regmap, 0xe0df, irq_status & BIT(0));
-> > +	usleep_range(10000, 12000);
-> > +	regmap_write(lt9611c->regmap, 0xe0df, irq_status & (~BIT(0)));
-> 
-> [Severity: High]
-> Is the second regmap_write unintentionally asserting clear signals for other
-> pending interrupts? If other interrupts are pending (for example, BIT(1) is set
-> in irq_status), irq_status & (~BIT(0)) will write a 1 to those bits in the
-> clear register. This might permanently assert their clear signals without ever
-> deasserting them.
-Only one HPD interrupt is there.
-> 
-> [ ... ]
-> > +static void lt9611c_bridge_atomic_enable(struct drm_bridge *bridge,
-> > +					 struct drm_atomic_commit *state)
-> > +{
-> [ ... ]
-> > +	mode = &crtc_state->adjusted_mode;
-> > +
-> > +	lt9611c_video_setup(lt9611c, mode);
-> > +}
-> 
-> [Severity: High]
-> Should this enable path invoke drm_atomic_helper_connector_hdmi_update_infoframes
-> to flush the infoframes to the hardware? Without this call, it seems the
-> registered infoframe callbacks are never triggered, preventing AVI and other
-> infoframes from being transmitted during a modeset.
-Will be fixed in next version.
-> 
-> [ ... ]
-> > +static const struct drm_bridge_funcs lt9611c_bridge_funcs = {
-> > +	.attach = lt9611c_bridge_attach,
-> > +	.detect = lt9611c_bridge_detect,
-> > +	.edid_read = lt9611c_bridge_edid_read,
-> > +	.atomic_enable = lt9611c_bridge_atomic_enable,
-> > +	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
-> > +	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
-> > +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
-> 
+> >  config PCS_LYNX
+> >       tristate
+> >       help
+> > diff --git a/drivers/net/pcs/Makefile b/drivers/net/pcs/Makefile
+> > index 4f7920618b900..f9f6cf2578d72 100644
+> > --- a/drivers/net/pcs/Makefile
+> > +++ b/drivers/net/pcs/Makefile
+> > @@ -1,10 +1,11 @@
+> >  # SPDX-License-Identifier: GPL-2.0
+> >  # Makefile for Linux PCS drivers
+> >
+> > -pcs_xpcs-$(CONFIG_PCS_XPCS)  :=3D pcs-xpcs.o pcs-xpcs-plat.o \
+> > -                                pcs-xpcs-nxp.o pcs-xpcs-wx.o
+> > +pcs_xpcs-$(CONFIG_PCS_XPCS)  :=3D pcs-xpcs.o pcs-xpcs-nxp.o pcs-xpcs-w=
+x.o
+> >
+> >  obj-$(CONFIG_PCS_XPCS)               +=3D pcs_xpcs.o
+> > +obj-$(CONFIG_PCS_XPCS_PLATFORM) +=3D pcs-xpcs-plat.o
+> > +obj-$(CONFIG_PCS_XPCS_ROCKCHIP) +=3D pcs-xpcs-rk.o
+>
 > [Severity: Medium]
-> Is the omission of an atomic_disable (or disable) callback intentional? It
-> appears this leaves the bridge permanently active and internal PHYs powered
-> even when the display pipeline is blanked or during DPMS off.
-The chip does support power management via the existing suspend/resume
-callbacks which disable the regulators and assert reset.
-> 
-> [ ... ]
-> > +static ssize_t firmware_store(struct device *dev, struct device_attribute *attr,
-> > +				      const char *buf, size_t len)
+> Should this repackaging of the pre-existing generic platform glue be a
+> separate patch, or at least be described in the commit message?
+>
+> pcs-xpcs-plat.o is moved out of the pcs_xpcs composite object and built a=
+s
+> its own module, and the new PCS_XPCS_PLATFORM tristate makes the snps,dw-=
+xpcs
+> platform glue user-selectable where it was previously unconditional under
+> PCS_XPCS.  So the snps,dw-xpcs platform driver ships in pcs-xpcs-plat.ko
+> instead of pcs_xpcs.ko after this patch.
+>
+> The commit message only describes adding the Rockchip glue driver and doe=
+s
+> not mention this change to existing functionality.  Could the Makefile an=
+d
+> Kconfig refactor be split out with its own rationale?
+
+We have added a default value for existing users when selecting PCS_XPCS.
+
+> > +static int xpcs_rk_serdes_phy_init(struct dw_xpcs_rk *pxpcs)
 > > +{
-> [ ... ]
-> > +	lt9611c_lock(lt9611c);
-> > +	lt9611c->fw_version = lt9611c_read_version(lt9611c);
-> > +	lt9611c_unlock(lt9611c);
-> [ ... ]
-> > +	return len;
-> > +}
+> > +     struct device *dev =3D &pxpcs->pdev->dev;
 > > +
-> > +static ssize_t firmware_show(struct device *dev, struct device_attribute *attr, char *buf)
-> > +{
-> > +	struct lt9611c *lt9611c = dev_get_drvdata(dev);
+> > +     pxpcs->serdes_phy =3D devm_phy_get(dev, "serdes");
+> > +     if (IS_ERR(pxpcs->serdes_phy))
+> > +             return dev_err_probe(dev, PTR_ERR(pxpcs->serdes_phy),
+> > +                                     "Failed to get SerDes PHY\n");
 > > +
-> > +	return sysfs_emit(buf, "0x%04x\n", lt9611c->fw_version);
+> > +     return 0;
 > > +}
-> 
+>
 > [Severity: Low]
-> Could this result in a data race on lt9611c->fw_version? The variable is written
-> under lt9611c_lock in firmware_store(), but it is read here in firmware_show()
-> without any locking.
-Will be fixed in next version.
-> 
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260913-lt9611c-v7-v14-0-534b43a07662@oss.qualcomm.com?part=2
+> xpcs_rk_serdes_phy_init() treats the "serdes" phy as mandatory and fails
+> probe when it cannot be resolved, and the binding added later in this ser=
+ies
+> (Documentation/devicetree/bindings/net/pcs/rockchip,rk3568-xpcs.yaml) lis=
+ts
+> phys and phy-names under required:
+>
+>   required:
+>     - compatible
+>     - reg
+>     ...
+>     - phys
+>     - phy-names
+>     - power-domains
+>
+> The SoC node added in arch/arm64/boot/dts/rockchip/rk3568.dtsi only has:
+>
+>         xpcs: ethernet-pcs@fda00000 {
+>                 compatible =3D "rockchip,rk3568-xpcs";
+>                 #address-cells =3D <1>;
+>                 #size-cells =3D <0>;
+>                 reg =3D <0x0 0xfda00000 0x0 0x200000>;
+>                 clocks =3D <&cru PCLK_XPCS>, <&cru CLK_XPCS_EEE>;
+>                 clock-names =3D "csr", "eee";
+>                 power-domains =3D <&power RK3568_PD_PIPE>;
+>                 status =3D "disabled";
+>
+> CHECK_DTBS validates nodes regardless of status, so does every RK3568 DTB
+> now report missing phys/phy-names for this node?  Only
+> rk3568-photonicat.dts adds them, so a board that just flips this node to
+> status =3D "okay" would also fail probe with "Failed to get SerDes PHY".
+>
+> Should the SoC node carry phys/phy-names, or should the binding not mark
+> them required at the SoC level?
+
+As replied earlier, the SerDes connection is board-specific (some
+boards use combphy1, others combphy2), so phys/phy-names cannot move
+into the SoC dtsi. dtbs_check skips required-property validation for
+status =3D "disabled" nodes, so boards that don't enable XPCS produce no
+warnings.
+
+> > +static int xpcs_rk_init_clk(struct dw_xpcs_rk *pxpcs)
+> > +{
+> [ ... ]
+> > +     /*
+> > +      * Compute the multiplier for the EEE clock so that
+> > +      * clk_eee_period * (mult_fact + 1) falls within 80..120 ns.
+> > +      *
+> > +      * On RK3568, clk_xpcs_eee is muxed between gpll200 (200 MHz, 5 n=
+s)
+> > +      * and cpll125 (125 MHz, 8 ns), selected by CRU_CLKSEL_CON29 bit =
+13.
+> > +      * The reset value is 0 (200 MHz), but derive the value at runtim=
+e to
+> > +      * stay correct if the mux is changed by a board.
+> > +      */
+> > +     pxpcs->eee_mult_fact =3D DIV_ROUND_CLOSEST(100 * clk_get_rate(pxp=
+cs->eee_clk),
+> > +                                              1000000000UL) - 1;
+>
+> [Severity: Medium]
+> Can this value overflow the 4-bit register field it ends up in?
+>
+> For the reset configuration named in the comment (200 MHz, 5 ns) this
+> computes 100 * 200000000 / 1000000000 - 1 =3D 19.  That is passed on
+> unchecked:
+>
+>         xpcs_config_eee_mult_fact(xpcs, pxpcs->eee_mult_fact);
+>
+> and the core programs it in xpcs_config_eee():
+>
+>         drivers/net/pcs/pcs-xpcs.c:
+>                       FIELD_PREP(DW_VR_MII_EEE_MULT_FACT_100NS,
+>                                  xpcs->eee_mult_fact);
+>
+> with
+>
+>         drivers/net/pcs/pcs-xpcs.h:
+>         #define DW_VR_MII_EEE_MULT_FACT_100NS           GENMASK(11, 8)
+>
+> FIELD_PREP on a runtime value does no range check, so 19 (0x13) becomes 3=
+.
+> The hardware is then told the 100 ns reference is 4 EEE clock periods
+> (20 ns) rather than the 80..120 ns the comment and the kernel-doc of
+> xpcs_config_eee_mult_fact() require, which affects all derived LPI timers
+> once EEE is enabled.  Since the field caps the count at 16 periods, is 15
+> the only representable value for a 5 ns clock, and should this be clamped=
+?
+>
+> Two more things about the same expression:
+>
+> - 100 * clk_get_rate() is evaluated in unsigned long, so on 32-bit builds
+>   100 * 200000000 wraps to 2820130816 and yields mult_fact 2.  Would
+>   mul_u64_u32_div() or a u64 intermediate be better here?
+>
+> - If clk_get_rate() returns 0, 0 - 1 stored in a u8 becomes 255, giving
+>   field value 15.  Is a zero rate worth rejecting?
+
+You're right, and this is a real bug. Two problems:
+
+1. 100 * clk_get_rate() overflows unsigned long on 32-bit builds.
+2. DW_VR_MII_EEE_MULT_FACT_100NS is a 4-bit field (GENMASK(11, 8)),
+   so the value is capped at 15. For 200 MHz the formula yields 19,
+   which FIELD_PREP truncates to 3.
+
+It will be fixed in the next version.
+
+> > +struct dw_xpcs *xpcs_rk_create(struct device *dev, struct device_node =
+*np)
+> > +{
+> > +     struct platform_device *pdev;
+> > +     struct device_node *pcs_np;
+> > +     struct dw_xpcs_rk *pxpcs;
+> > +     struct dw_xpcs *xpcs;
+> > +     u32 port;
+> > +
+> > +     if (!of_device_is_available(np))
+> > +             return ERR_PTR(-ENODEV);
+> > +
+> > +     if (of_property_read_u32(np, "reg", &port))
+> > +             return ERR_PTR(-EINVAL);
+> > +
+> > +     if (!xpcs_rk_mdio_addr_validate((int)port))
+> > +             return ERR_PTR(-EINVAL);
+> > +
+> > +     /* The XPCS pdev is attached to the parent node */
+> > +     pcs_np =3D of_get_parent(np);
+> > +     if (!pcs_np)
+> > +             return ERR_PTR(-ENODEV);
+> > +
+> > +     if (!of_device_is_available(pcs_np)) {
+> > +             of_node_put(pcs_np);
+> > +             return ERR_PTR(-ENODEV);
+> > +     }
+> > +
+> > +     if (!of_match_node(xpcs_rk_of_ids, pcs_np)) {
+> > +             of_node_put(pcs_np);
+> > +             return ERR_PTR(-EINVAL);
+> > +     }
+> > +
+> > +     pdev =3D of_find_device_by_node(pcs_np);
+> > +     of_node_put(pcs_np);
+> > +     if (!pdev)
+> > +             return ERR_PTR(-EPROBE_DEFER);
+> > +
+> > +     device_lock(&pdev->dev);
+>
+> [Severity: Medium]
+> xpcs_rk_create() is called from a MAC driver's probe path, which is
+> already running under device_lock() of the MAC device taken by
+> really_probe().  Taking device_lock(&pdev->dev) here nests a second
+> struct device mutex, and since all device mutexes share one lockdep
+> class unless annotated, lockdep will report "possible recursive
+> locking detected" on the first probe.  That is a splat in the logs on
+> any CONFIG_PROVE_LOCKING build, and a panic with panic_on_warn set.
+>
+> Holding the XPCS device's lock across xpcs_create_mdiodev() and
+> device_link_add() is also unusual - device_link_add() does its own
+> locking and the driver core normally expects supplier device locks not
+> to be held by consumers.
+>
+> What race is the lock actually protecting against?  pxpcs and
+> pxpcs->bus are published by xpcs_rk_probe() via dev_set_drvdata() and
+> xpcs_rk_init_bus(), and the !pxpcs || !pxpcs->bus case already returns
+> -EPROBE_DEFER, so the consumer retries later; the device link then
+> keeps the supplier around.  Can the device_lock()/device_unlock() pairs
+> simply be dropped, or is something else needed here (e.g. checking that
+> the supplier is bound) to close the window you had in mind?
+
+Agreed. I'll drop device_lock() and establish the device link first,
+then read platform_get_drvdata(). DL_FLAG_MANAGED keeps the supplier
+bound while the consumer is, so no extra locking is needed. Failure
+paths will call device_link_remove() explicitly, since
+DL_FLAG_AUTOREMOVE_CONSUMER only removes the link when the consumer
+device is released.
+
+> [Severity: High]
+> This block in xpcs_rk_mdio_write_remapping() ignores addr entirely:
+> any write to DW_VR_MII_AN_CTRL, DW_VR_MII_AN_INTR_STS,
+> DW_VR_MII_EEE_MCTRL0, DW_VR_MII_EEE_MCTRL1 or DW_VR_MII_DIG_CTRL2 is
+> routed to ROCKCHIP_MMD_MII, which per the commit message is port 0's
+> MMD (7), regardless of which of the four ports the MDIO address
+> selects.
+>
+> So when the core configures a PCS instance created with addr 1, 2 or 3
+> - xpcs_config_aneg_c37_sgmii() writing DW_VR_MII_AN_CTRL and
+> DW_VR_MII_DIG_CTRL2, xpcs_config_eee() writing DW_VR_MII_EEE_MCTRL0/1,
+> and the interrupt-status clear on DW_VR_MII_AN_INTR_STS - the write
+> lands on port 0 instead.  That has two effects: the intended port is
+> never configured (so its link stays broken), and port 0's
+> auto-negotiation/EEE state is silently clobbered by an unrelated
+> interface, including its pending AN interrupt status.
+>
+> The read path is not symmetric either: xpcs_rk_mdio_read_remapping()
+> remaps per addr with the comment "read remapping to MII is performed by
+> HW", so a write to these registers on port 2 followed by a read back
+> would not return what was written.  Is that asymmetry deliberate?
+>
+> Does the TRM say these vendor registers physically exist only in MMD 7
+> and are shared by all four MII ports?  If so, redirecting writes
+> silently still leaves per-port configuration impossible, and the driver
+> probably needs to say so explicitly (reject the access, or document how
+> the shared block is meant to be programmed) rather than aliasing ports
+> 1..3 onto port 0.  If instead each port has its own copy of these
+> registers, this switch should be dropped so the addr-based mapping
+> below applies.  Which is it?
+
+ROCKCHIP_MMD_MII is a management port. The AN_CTRL / AN_INTR_STS /
+EEE_MCTRL0/1 / DIG_CTRL2 bits are read-only mirrors on ports 1-3, so
+writes can only land in MMD 7. The read path is redirected by hardware
+to the port's mirror, which is why the write path is asymmetric.
+
+On RK3568 there is only one SGMII link, so only one port is active at
+a time and the aliasing is harmless. QSGMII is not supported by this
+driver.
