@@ -1,154 +1,292 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6C0D4499A4
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 19:49:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82CCB44F566
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 19:50:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789501792; cv=none; b=RP3kFOTbgnPt4v11lkx8z+2QA2WwRWeT+147fGHcbBzlaiGGBVKDxRf9xsNSsZVf3z+UtZ8VE6HmdQuShM+OUL5xK+CInWm09PEsqFJVzCg/8mXbTQGGJTrWFQtupgx6ra5FEGKROW+8OKhlNcXK9DuDNMHNX+xtVglCJeAMI9Q=
+	t=1789501842; cv=none; b=RfosLwPoNIw9O91N/0Q7DdW/qkptQVY1CdmhSV8SmJj5LEXF/sJXVsBLbu3p+9odnomvL9cMdmbixTUE3kX5aerFjc8w93LcXfy9cqyKDm/xkohUpzDKwuGwSqyASItVp/ARNQieI8yo8fu8ZpICaKSLYYTtVL3jIcDCtk6oY+4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789501792; c=relaxed/simple;
-	bh=Ox+hNbTd7f3+G4o+Sw8Uzx0THm/NdMARd2zaTFBMXU8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=W5wLNInD5Xx5ltRaG+7NZi/LQJr2MFbobU5OHtFQhdWvbYuPXvpW6Y5a4c9wWvsWb6UsVesoAGpzL/0hOtNf7340Win9yVOT+yppZEQi7QxVzmQa/GtvNHavZPqo7PeaQ9O/rqXFrafQjmiJYwmHxRn7CF27VevpUNbO++QZO7g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s0TUYJeq; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789501842; c=relaxed/simple;
+	bh=bAhNK36CxfZvTkpOYKwzixdJsBgaemS0UcHctdLdZZk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Vzf2GYmqh7pcNxoHYCsY50SdqS9r5DreaVeQLHwGk0QvMIVPE2KB5LIm4zkNrD3Hj06Z1llJD7nCWigVBX2Lv511G9gxZgpgJAUBuIdvvmLGigwjoX5hZ6YR3JwJcl9ASQ/K/TpALgVuApjCYb41m+SvOTflrExaitz2tsgrHIs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RADk6tWx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s0TUYJeq"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396cccbba91so107971a91.1
-        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 12:49:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789501790; x=1790106590; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8A5+VLIUxly1brCbgDAu6UdvaY0/rGFhneDDaN+WcFg=;
-        b=s0TUYJeqCqxXG9B2wBtLX5teQlFVqBteh46IKtD255/zdKrhQ+Ad2+YuQMA0N5nxir
-         ecdbqJ33HTPMRVzXydNQUZK1H2W9UFr9bX6R65oJkZH+Zeh/RZMb6s6yJG6AeBI7QkWt
-         zzx4/ZtUB4auFsIwEkk83q2vhfVqW16PJcAiTPtEZio+ddg7tOjTTIoMcDxRsoKE13Yo
-         jB12NsttsL5wYhIFrwMbPuXLfMyweIWOK48uYVYREo4MoaaVK9rx6MDkKRZkyHX8BsVg
-         qhymf0Sp4pmpq4XR/cDdGmcCSTOcwjnh9XnhFh78MWHMnYckA7oaMea1WWAVH4e2WeB3
-         cTDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789501790; x=1790106590;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8A5+VLIUxly1brCbgDAu6UdvaY0/rGFhneDDaN+WcFg=;
-        b=RMXGN6gFEFfl8+2qA7rxKtUBSHE3OU9STMiAJjh2/6exV/wBFA5OJKl7erU4doYdXP
-         DRqub+cZcbRcKWyGQ/nNGZqobJxt5gnOcybdYU5bqCZ4aR9ugWJ8dlXuSWPjYa+x04uX
-         WD/TfqT0NqmQI5K3fNxy/s3Fije6VYkI3yaVGNN61EtjyXWw1Dw9PSRSsDtkm3csxsqx
-         SPOFg9eFFIHh6+4Q+gpr9VjyEq1EmNB4/YbDgtFkfODZWNz41Ofaxen84zZuL7/SD9pK
-         jYYCy3ddqROHCdE2na/uMu9cT/aQnJvUn9B1dimFiljMUN7HH3TpX7q2L2t9XNzBplDY
-         FLww==
-X-Forwarded-Encrypted: i=1; AKwUvBx/aokc/es4Xbba5XQvxFgKAZuLBr+lKW5vUckv8jmbw4sUQU7ZHeEKAIBt2AU/pDFGc5P0074dERlX@vger.kernel.org
-X-Gm-Message-State: AFuF++k+W1sgbwYThVhGQpH6iyqGDegDOmyUQcZXUm8t9+S8IGwba24I
-	cojSlb9qPEwoTrwl1/M0FKUK/CesXqADI6NWq0hc0eY1vHn2Q896p1S2wqMzX6Ok
-X-Gm-Gg: AYBFou3X4dG2RdMBL9YQ6g+e7C1N6cOtqF2tvK035qyPkvYvRcCt3OQPITNa27C1PXR
-	K3JEdJx6WSSAt4zcUZXLXMtyVhUCR/aJx6JTmUFP3tdx9sXYxN9kjBekd5udK6qAbZDyNZr4C0c
-	IpDY5ZPLFJxvS5KntqQzVLc8burtbYdboAD6e9yt5X1yCGc8Dvbx6qFepWou4K7irQJt1ICSCF2
-	+9Yb9OmraJbxE/QstGEPqaDHSNvHyy61oLTz0zVnEL+1nYhdace/HuwNlUhLO61Th/CQ6YkIsSG
-	YxkUjSxrKxiR2d0a9Qip3ZgpFueLZ4fErfLkB3P9x4hW/Ta6I9ZjqG7UymkVUyD/hhkI+Izf+Af
-	KLer0YabPfFS7jhDn4bbTGbrvMUYQAcNjfJvjHIPddPT71n6Y4m9yH/TTIorv3gjzglySOdoBJo
-	ICGYSyPsim5ynGN7TCUr4u/U1qcAQpymJf8tiR5BFVybQGeb2sFMKl7/S1CMnhKCfJf59FCdhkN
-	0Yv0PYTK1IV8/yEYaxjBz+mFVlUf+KNlHitmTXiYSGVq9N2IsFTPWM=
-X-Received: by 2002:a17:90b:1f84:b0:39e:1b0c:4773 with SMTP id 98e67ed59e1d1-39e1b0c5c9dmr789092a91.0.1789501790027;
-        Tue, 15 Sep 2026 12:49:50 -0700 (PDT)
-Received: from [192.168.68.67] (104-12-136-65.lightspeed.irvnca.sbcglobal.net. [104.12.136.65])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14395d4cbc9sm821075c88.11.2026.09.15.12.49.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Sep 2026 12:49:49 -0700 (PDT)
-Message-ID: <583fd625-b57f-44be-96c8-94d981c29c79@gmail.com>
-Date: Tue, 15 Sep 2026 12:49:47 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RADk6tWx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2050C1F00898;
+	Tue, 15 Sep 2026 19:50:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789501840;
+	bh=HJoAufq/j2bf0UXwY7AUQDQF7Rl/papHOGlWTVzSG28=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=RADk6tWxN+DcTeVbavfkPP1FTb0KXr2LXIMuQNrebqIFu4TmdOHcX2CgFVVo0a8TE
+	 yASZ2JyFujAWu4ZW810SxkG+xR5vTsM8OmknYPLvoB1VP5Sr5lHKzh3OEzO0YVh+mU
+	 Gn3D+NwtTp9rhqHvxjfZtqCWpc0FUFsDRrP3D2B6/V998srgvwiIj0RfQyimDdWqAN
+	 bvsJU29IS94h78rO7wG4bOBlaC4y1E7IFG9fIFNf4/bnFBARpoPWeGeJBOApMwuJ2g
+	 ESnSSejCT3n1M/vlmWCIWneScQTluJmFuBHPnldFJDEDRhvy0Gu1EvCu1E0UgoLG5q
+	 aNh7+cA35f4Ww==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 14/15] iio: adc: ad4134: Support high-speed data
+ capture
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Marcelo Schmitt" <marcelo.schmitt@analog.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <0bf6ca5c7ac264b90429efb2009574db0d0e3315.1789494473.git.marcelo.schmitt@analog.com>
+References: <cover.1789494473.git.marcelo.schmitt@analog.com>
+ <0bf6ca5c7ac264b90429efb2009574db0d0e3315.1789494473.git.marcelo.schmitt@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 15 Sep 2026 19:50:39 +0000
+Message-Id: <20260915195040.2050C1F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 1/3] dt-bindings: leds: rt8515: Support single-GPIO
- flash ICs with vin supply
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org,
- linux-leds@vger.kernel.org, lee@kernel.org, robh@kernel.org
-References: <20260912-expressatt_camera_flash-v7-0-e1fd2edc8d84@gmail.com>
- <20260912-expressatt_camera_flash-v7-1-e1fd2edc8d84@gmail.com>
- <20260913024510.485A11F000FF@smtp.kernel.org>
-Content-Language: en-US
-From: Rudraksha Gupta <guptarud@gmail.com>
-In-Reply-To: <20260913024510.485A11F000FF@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
+Thank you for your contribution! Sashiko AI review found 9 potential issue(=
+s) to consider:
+- [High] iio: adc: ad4134: division by zero panic in probe if optional cloc=
+ks are missing
+- [High] iio: adc: ad4134: incorrect SPI transfer length drops channels in =
+single-lane mode
+- [High] iio: adc: ad4134: data corruption in ad4134_trigger_handler() due =
+to missed increment
+- [High] iio: adc: ad4134: triggered buffer samples dropped due to undersiz=
+ed buffer
+- [Medium] iio: adc: ad4134: loop failure with valid slow clocks in ad4134_=
+update_conversion_rate()
+- [Medium] iio: adc: ad4134: PWM hardware resource leak on driver unbind
+- [Medium] iio: adc: ad4134: LIFO teardown order violation in ad4134_offloa=
+d_buffer_predisable()
+- [Low] iio: adc: ad4134: off-by-one bounds check in in_range() validation
+- [Low] iio: adc: ad4134: data race on odr_hz in ad4134_read_raw()
+--
 
-On 9/12/26 19:45, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] The `oneOf` constraint incorrectly makes `ent-gpios` and `vin-supply` mutually exclusive and strictly requires exactly one to be present, contradicting the claim that `vin-supply` is optional and artificially restricting valid hardware configurations.
-> --
-make ARCH=arm CHECK_DTBS=y DT_SCHEMA_FILES=richtek,rt8515.yaml \
-       qcom/qcom-msm8960-samsung-expressatt.dtb \
-       st/ste-ux500-samsung-codina.dtb \
-       st/ste-ux500-samsung-codina-tmo.dtb \
-       st/ste-ux500-samsung-gavini.dtb \
-       st/ste-ux500-samsung-golden.dtb \
-       st/ste-ux500-samsung-janice.dtb \
-       st/ste-ux500-samsung-kyle.dtb \
-       st/ste-ux500-samsung-skomer.dtb
+commit a29ef6f09380617b32619e37a1eab7692d45d1b3
+Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
 
-all 8 in-tree users of this binding. 0 warnings.
+iio: adc: ad4134: Support high-speed data capture
 
-existing hw passes. Probably not useful to account for hw not in the tree
+This commit adds support for high-speed data capture to the AD4134 driver
+using SPI transfer offloading. It adds PWM triggering for the ADC ODR pin
+and DMA support for higher sample rates.
 
+> diff --git a/drivers/iio/adc/ad4134.c b/drivers/iio/adc/ad4134.c
+> index cc6bc325f6ee6..94d979c61501a 100644
+> --- a/drivers/iio/adc/ad4134.c
+> +++ b/drivers/iio/adc/ad4134.c
+[ ... ]
+> @@ -178,6 +225,14 @@ struct ad4134_state {
+[ ... ]
+>  	/*
+>  	 * DMA (thus cache coherency maintenance) requires the transfer buffers
+>  	 * to live in their own cache lines.
+>  	 */
+>  	union {
+>  		u8 reg[AD4134_SPI_MAX_XFER_LEN];
+>  		u32 scan[ARRAY_SIZE(ad4134_chan_set)];
 
+[Severity: High]
+Will this array be large enough to hold the timestamp channel?
+The size is calculated as 5 elements (20 bytes). However, the timestamp
+channel requires 8 bytes, which would make the total required buffer size
+24 bytes when all channels and the timestamp are active.
 
->
-> commit 72463777ee1c18e7913b350d5d2ad857810ece89
-> Author: Rudraksha Gupta <guptarud@gmail.com>
-> Subject: dt-bindings: leds: rt8515: Support single-GPIO flash ICs with vin supply
->
-> This commit adds support for single-channel variants of the RT8515 flash
-> ICs. It makes ent-gpios optional and introduces a vin-supply property,
-> adding a oneOf constraint to manage their presence.
->
->> diff --git a/Documentation/devicetree/bindings/leds/richtek,rt8515.yaml b/Documentation/devicetree/bindings/leds/richtek,rt8515.yaml
->> index 0356371a6b014..ab3c5139132cc 100644
->> --- a/Documentation/devicetree/bindings/leds/richtek,rt8515.yaml
->> +++ b/Documentation/devicetree/bindings/leds/richtek,rt8515.yaml
-> [ ... ]
->
->> @@ -81,10 +90,15 @@ properties:
->>   
->>   required:
->>     - compatible
->> -  - ent-gpios
->>     - enf-gpios
->>     - led
->>   
->> +oneOf:
->> +  - required:
->> +      - ent-gpios
->> +  - required:
->> +      - vin-supply
->> +
-> [Severity: Medium]
-> Does this oneOf constraint incorrectly restrict valid hardware configurations?
->
-> The oneOf constraint strictly requires exactly one of its subschemas to match.
-> If a single-channel IC (which naturally lacks ent-gpios) does not use the
-> explicitly optional vin-supply regulator, zero subschemas will match, causing
-> schema validation to fail.
->
-> Conversely, if a standard dual-channel IC (which requires ent-gpios) is also
-> powered by a vin-supply regulator, two subschemas will match. This will also
-> fail validation due to the strict exclusivity of oneOf.
->
-> Should this be modeled differently to allow vin-supply to be truly optional
-> while safely permitting single-channel configurations?
->
->>   additionalProperties: false
->>   
->>   examples:
+>  	} rx_buf __aligned(IIO_DMA_MINALIGN);
+>  	u8 tx_buf[AD4134_SPI_MAX_XFER_LEN];
+>  };
+[ ... ]
+> @@ -464,6 +519,91 @@ static const struct regmap_config ad4134_regmap_conf=
+ig =3D {
+> +static int ad4134_update_conversion_rate(struct ad4134_state *st,
+> +					 unsigned int freq_Hz)
+> +{
+> +	struct spi_offload_trigger_config config =3D st->offload_trigger_config;
+> +	struct pwm_waveform odr_wf =3D { };
+> +	u64 offload_period_ns;
+> +	u64 offload_offset_ns;
+> +	u64 odr_high_time_ns;
+> +	unsigned int count;
+> +	u64 target_ns;
+> +	int ret;
+> +
+> +	if (!in_range(freq_Hz, AD4134_MIN_ODR_FREQ_HZ, AD4134_MAX_ODR_FREQ_HZ))
+> +		return -ERANGE;
+
+[Severity: Low]
+Does this accurately validate the frequency upper bound? The in_range()
+macro takes the length of the range as its third parameter. By passing the
+absolute maximum frequency (1496000), it seems to allow frequencies up to
+1496010 Hz rather than capping strictly at 1496000 Hz.
+
+> +
+> +	odr_wf.period_length_ns =3D DIV_ROUND_UP_ULL(NSEC_PER_SEC, freq_Hz);
+> +	/*
+> +	 * Set the PWM duty cycle to keep ODR high for at least minimum required
+> +	 * time. If the rounded PWM's value is less than the minimum required,
+> +	 * increase the target value by 10 and attempt to round the waveform
+> +	 * again, until the minimum (or try count limit) is reached.
+> +	 */
+> +	odr_high_time_ns =3D div64_ul(6ULL * NSEC_PER_SEC, st->sys_clk_hz);
+
+[Severity: High]
+Could this cause a division by zero panic? If the optional xtal and clkin
+clocks are missing in the device tree, ad4134_clock_select() can fall back
+to clk_get_rate(NULL) =3D=3D 0, resulting in st->sys_clk_hz being 0.
+
+> +	target_ns =3D 0;
+> +	count =3D 100;
+> +	do {
+> +		target_ns +=3D 10; /* Increment by PWM duty cycle period */
+> +		odr_wf.duty_length_ns =3D target_ns;
+> +		ret =3D pwm_round_waveform_might_sleep(st->odr_pwm, &odr_wf);
+> +		if (ret)
+> +			return ret;
+> +	} while (count-- && odr_wf.duty_length_ns < odr_high_time_ns);
+
+[Severity: Medium]
+Will this loop artificially fail for valid slow-clock hardware
+configurations? If sys_clk_hz is low (e.g. 2 MHz), odr_high_time_ns will
+exceed 1000 ns. Since this loop starts target_ns at 0 and increments by 10
+for a maximum of 100 iterations, it can never reach a duty cycle above
+1000 ns.
+
+[ ... ]
+> +	ret =3D pwm_set_waveform_might_sleep(st->odr_pwm, &odr_wf, false);
+> +	if (ret)
+> +		return ret;
+
+[Severity: Medium]
+Does this leak the PWM hardware resource on driver unbind?
+The PWM waveform is started here, but it doesn't look like there is a
+cleanup callback registered (e.g. via devm_add_action_or_reset()) to stop
+the waveform when the module is removed or if a later probe step fails.
+
+> +
+> +	st->offload_trigger_config =3D config;
+> +	st->odr_wf =3D odr_wf;
+> +	st->odr_hz =3D DIV_ROUND_UP_ULL(NSEC_PER_SEC, odr_wf.period_length_ns);
+> +
+> +	return 0;
+> +}
+> +
+> +static irqreturn_t ad4134_trigger_handler(int irq, void *p)
+> +{
+> +	struct iio_poll_func *pf =3D p;
+> +	struct iio_dev *indio_dev =3D pf->indio_dev;
+> +	struct ad4134_state *st =3D iio_priv(indio_dev);
+> +	unsigned int i =3D 0;
+> +	int ret;
+> +
+> +	gpiod_set_value_cansleep(st->odr_gpio, 1);
+> +	fsleep(1);
+> +	gpiod_set_value_cansleep(st->odr_gpio, 0);
+> +
+> +	for (unsigned int ch =3D 0; ch < AD4134_NUM_CHANNELS; ch++) {
+> +		ret =3D spi_write_then_read(st->spi, NULL, 0, &st->rx_buf.scan[ch],
+> +					  BITS_TO_BYTES(AD4134_CHAN_PRECISION_BITS));
+> +		if (ret)
+> +			goto err_out;
+> +
+> +		if (test_bit(ch, indio_dev->active_scan_mask) && ch !=3D i)
+> +			memcpy(&st->rx_buf.scan[i++], &st->rx_buf.scan[ch],
+> +			       sizeof(st->rx_buf.scan[ch]));
+
+[Severity: High]
+Can this logic cause channels to overwrite each other? If the test_bit()
+check is true and ch =3D=3D i, the memcpy is avoided but i is never increme=
+nted.
+The next active channel will then overwrite the previous one at index i.
+
+> +	}
+> +
+> +	iio_push_to_buffers_with_ts(indio_dev, &st->rx_buf.scan,
+> +				    sizeof(st->rx_buf.scan), pf->timestamp);
+
+[Severity: High]
+Will samples be dropped when all channels and the timestamp are active?
+sizeof(st->rx_buf.scan) is 20 bytes, but when 4 channels (16 bytes) and the
+timestamp (8 bytes) are active, the IIO core expects 24 bytes and may reject
+the sample with -ENOSPC.
+
+> +
+> +err_out:
+> +	iio_trigger_notify_done(indio_dev->trig);
+> +	return IRQ_HANDLED;
+> +}
+[ ... ]
+> @@ -549,6 +689,44 @@ static int ad4134_read_raw(struct iio_dev *indio_dev,
+[ ... ]
+>  		*val2 =3D AD4134_CHAN_PRECISION_BITS - 1;
+> =20
+>  		return IIO_VAL_FRACTIONAL_LOG2;
+> +	case IIO_CHAN_INFO_SAMP_FREQ:
+> +		*val =3D st->odr_hz;
+> +		return IIO_VAL_INT;
+
+[Severity: Low]
+Is it safe to read st->odr_hz here without claiming direct mode or holding
+st->lock? It appears ad4134_update_conversion_rate() modifies it
+concurrently under the lock, which could result in a data race or a
+torn read.
+
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+[ ... ]
+> @@ -600,6 +778,176 @@ static const struct iio_info ad4134_info =3D {
+[ ... ]
+> +static void ad4134_prepare_offload_msg(struct iio_dev *indio_dev)
+> +{
+> +	struct ad4134_state *st =3D iio_priv(indio_dev);
+> +	unsigned int base_len =3D roundup_pow_of_two(BITS_TO_BYTES(AD4134_CHAN_=
+PRECISION_BITS));
+> +	unsigned int bpw =3D AD4134_CHAN_PRECISION_BITS;
+> +
+> +	st->xfers.cs_off =3D 1;
+> +	st->xfers.bits_per_word =3D bpw;
+> +	st->xfers.len =3D base_len * st->spi->num_rx_lanes;
+
+[Severity: High]
+Could this drop channels when operating in single-lane mode?
+If num_rx_lanes is 1, the transfer length computes to 4 bytes instead of the
+required 16 bytes. However, ad4134_scan_masks forces all 4 channels to be
+read per sample, which might leave the rest of the IIO buffer unpopulated.
+
+> +	if (st->spi->num_rx_lanes > 1)
+> +		st->xfers.multi_lane_mode =3D SPI_MULTI_LANE_MODE_STRIPE;
+> +
+> +	st->xfers.offload_flags =3D SPI_OFFLOAD_XFER_RX_STREAM;
+> +
+> +	spi_message_init_with_transfers(&st->msg, &st->xfers, 1);
+> +}
+[ ... ]
+> +static int ad4134_offload_buffer_predisable(struct iio_dev *indio_dev)
+> +{
+> +	struct ad4134_state *st =3D iio_priv(indio_dev);
+> +	int ret =3D 0;
+> +
+> +	spi_offload_trigger_disable(st->offload, st->offload_trigger);
+> +
+> +	if (st->spi_mode =3D=3D AD4134_SPI_MODE_4_WIRE)
+> +		ret =3D ad4134_set_register_access(st);
+> +
+> +	spi_unoptimize_message(&st->msg);
+> +
+> +	return ret;
+> +}
+
+[Severity: Medium]
+Is this violating LIFO teardown order?
+In ad4134_offload_buffer_postenable(), spi_optimize_message() is called
+before changing access modes, but here ad4134_set_register_access() (which
+alters the SPI mode) is called before spi_unoptimize_message(). Altering the
+mode while a message is actively optimized might cause undefined behavior in
+the SPI controller.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1789494473.gi=
+t.marcelo.schmitt@analog.com?part=3D14
