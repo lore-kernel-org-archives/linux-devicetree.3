@@ -1,127 +1,269 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B411347BDB
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 14:03:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BECC334E74D
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 14:04:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789481019; cv=none; b=tpS1fdsHc986AuDSGp3ZrS4slhaGbeXMpqtf94pXVicA9W8ZVXPbfOepj5kn3mmUjVQNVVx8oKGrfnvfib+hgO+UXIVk4WA1MMIgX89DkofaQ8366KO2tSqEPXEYK633NTaZf/cNB8do5CPM8HB91pXGAN6I7tkIigPiBoN2bU8=
+	t=1789481082; cv=none; b=Dq0FC8ateqgQPByyn8vzy9gpOdhEUkIisiD2i53s8semQhy7aJSpAUTbBe7KpAIEG6uxXom1FgaUuiK/ecIlsgY8Knm7/VFyuj/MntTbTOUwW9JBGgtyeGbAjl6td2sdHPZEOEqdPg7YwXNLopKBh8ZUlkzYlcygLceicoWVS8w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789481019; c=relaxed/simple;
-	bh=kgmN7oW35dKdAA6pVd0Q1hlw7V8667fDcpuURzfwi24=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=TgoaOmdsilIAb4iKw3jVssrnerm2bTMaftpJktafP5WHGp2EXQw55qBBoOSEdCbL5iuBl6TE4m9UV27zewjzYm+nP6sxKJySAFCvNl6+/xFDp5JW/gBO5qFWrV0c0IzRN5pDRzJ/uX5DCYD4wfay0V53kywuNKa7Gf07x27kPOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KSKMrDpK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789481082; c=relaxed/simple;
+	bh=J9OGQHwLd5RQh6VgnwYcZJ1/tJctHZfW70ij/Hm6Nr4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tOjoXtioGDqhFDSKD9D42EUshuiRItK5vVc0MPRRxmppChOPFJOhkTVA9Fxw3XdpzoFPWo9utaga87m1rUM0IbRl+FfaKT+e7lwyPtO5A+K9SkshIucOLGY8HCLI0rf10AXxk8wZmOKhwbD2F84Ho8UI+DOriYtjx1/U5fM5ajo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MhlnMHc9; arc=none smtp.client-ip=74.125.229.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KSKMrDpK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C31661F000FF;
-	Tue, 15 Sep 2026 14:03:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789481018;
-	bh=WNivz6zoRX7tVHZc8jF5TKz+H/N85t38y1JGRxfFgDE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KSKMrDpK7kFHnOElon6p/mKYmWbzd4zizM2T4nD+0HTpOw5g50pLSk4zC5sfSden7
-	 VfOYWwS4JO7OChQX4S15xWSBjDU45IxJ6fx64ua3ceT1ujrVy02rBoF+i2wEtYAMjK
-	 PlFbczmRdKmCGWnpTAmfnR5XG1OhP+vnvE7Ny4W9r+6/tQwLlGyER6seYUZIzpVjNq
-	 la8LS1wWgGsSfWHlLVoSc5Go34nrnqglAELMUvoNfu5csdoB6pYs5lRYtUHePAjkc8
-	 SgVmFnfJHbVW8JiRzt7FxsNnClGLpQN2xgUgnbXz5DE2xccAMsU7nAQFsppF/0221j
-	 BD+bQT48P+6JA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v15 11/16] phy: rockchip: usbdp: Support single-lane DP
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: olteanv@gmail.com, robh@kernel.org, neil.armstrong@linaro.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-phy@lists.infradead.org, vkoul@kernel.org
-In-Reply-To: <20260915-rockchip-usbdp-cleanup-v15-11-80e2c11d1ce8@collabora.com>
-References: <20260915-rockchip-usbdp-cleanup-v15-0-80e2c11d1ce8@collabora.com>
- <20260915-rockchip-usbdp-cleanup-v15-11-80e2c11d1ce8@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 14:03:37 +0000
-Message-Id: <20260915140337.C31661F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MhlnMHc9"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f16c81so378041e87.2
+        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 07:04:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789481078; x=1790085878; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7z0suvtQdygMfp5C2F1T6+DtNCb79uQkob7ja2atco0=;
+        b=MhlnMHc9QqsoRD2RgxoIE1BY0710gtsrrTFU81/08B4zSMs8N5BuWC4zs5+UL4hDsA
+         xKGnO+WIc3IOw0dEFrYDFkPmYEIf99amiuwC2MoqSUCdtHDIZABecQ39/l62CEXwGdLH
+         +x+6XBJjhUWiL4676jm4lRE4rt/VO/GUqN6JMNn4iDZqxq5r54/tqyXuhSMuzpim9D1G
+         IRz7v8b8sQmsM9AxIa8mctFrwAPowfTimGMtt9USiakv+zqlLSqTdOdLyGkvOM/qXPMx
+         ja2ufwGw9Kd9m27cVnPlsdFw58nA2jv/RJizaHBP65XZRfr1KQX9h96krH4Vu+PA/arA
+         kSaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789481078; x=1790085878;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7z0suvtQdygMfp5C2F1T6+DtNCb79uQkob7ja2atco0=;
+        b=D6phyUNqMVUGI7cDK7ehkCjUXQLU9lozmODpjtmOQM76uN/ZQj04Rlws5+altm8aLu
+         mQZtq9xaExaVybNmx+bxG+DtVrGAWJTLu70ZPrI716hvKBUsmkTz9HTlh/5g7ocu2YFV
+         n29nhbgm5DSbBNmmronebcw40kj1xRJ946iSi4/Z+59nEOQlUKazrwtOB/MgPtNG41Jr
+         fITfbbybFJ9n9HdriVwHE6015IF1A7f0cNod+xjNPo9JUHsQ4bPEO8f8FnwGJl3hT3KH
+         dPAOIl8ZCWURiZ2d8yXoU7A0CKQ7S4P+6CoRL7U+ZOGOoVHJlyP8twxXKazrr89ibm+l
+         rt2Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwZlku0GkZNBmAQyHC25kUn37ZaxRnWDGywdaUa7/xBcdXL2xsvQsZNERWyywPW6VX5D9YnxLR4wVV1@vger.kernel.org
+X-Gm-Message-State: AFuF++lN5RMHUPx125m7vrBxdm7x5lBlE0CeY1VhVn8QehYXD9mBHTug
+	UyDsjjgqU97jM3NeoWRBp/gIj4QJbdpYZWEqGu63uIvT4f1GgzOdqH48aSPK2HMPBE5TXA==
+X-Gm-Gg: AYBFou0pd41rSY66aaVgduAArqkpHmwHjT6i3LTevofs5Fl2oWrh2D2/Et/eUyCtBkK
+	LKLUZZvdBX2Ygg+sSSvr2/Ogh4OswPqPFt6MSSv5tM40ktztw0ORyedWO6/AI/glWGzbkvMBQUF
+	6ryKPypUsb1w9x5JtOFTNrko+NNYwf5zqSVAdp+c1Hs8kqne5pm9RvH7bOlO5f8nWsScQ6oIkaD
+	jrvXvXbmLuahomyuA+LErCWyT3KnmgPjfI9D8o9PKLeLIKy2PMZvsxrja+A8rbHUwQahU+SGGVt
+	BWfyl+xl9oOlzcFkN8g3S6iGREWjnc9RjzdsqrM7DxxVtqY0pryJV8724JQUWGkRiWXQHd83RkG
+	PxA2oRibf5YU9hFeecHjOPr88kH6Yn2bu/L52v0VWIblPrF99JTqbQPxYcGece62lrc8TY244vM
+	jNn/d+D+zrO0Jq29rK6gK+pOKdQugn4HD/0WNIsk3hKWzMZakMHAityh4iUQ9npEQmYs6bS/Jz5
+	4KiADPRnkmwUItw
+X-Received: by 2002:a17:907:3ea7:b0:c28:e01d:1d08 with SMTP id a640c23a62f3a-c29d7a166d7mr87629266b.49.1789480709299;
+        Tue, 15 Sep 2026 06:58:29 -0700 (PDT)
+Received: from [10.43.61.105] ([185.94.190.187])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2965c4e3d8sm608169766b.9.2026.09.15.06.58.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 15 Sep 2026 06:58:28 -0700 (PDT)
+Message-ID: <e697d892-fbd2-432a-b71c-8547ead22ea0@gmail.com>
+Date: Tue, 15 Sep 2026 15:58:26 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/2] clk: Add gpio-locked fixed clock driver
+To: Jerome Brunet <jbrunet@baylibre.com>,
+ Vyacheslav Yurkov via B4 Relay <devnull+V.Yurkov.EXT.bruker.com@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Brian Masney <bmasney@redhat.com>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Jyri Sarha <jsarha@ti.com>
+Cc: linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+References: <20260915-feature-clock-guard-v5-0-42ab5dc3a6aa@bruker.com>
+ <20260915-feature-clock-guard-v5-2-42ab5dc3a6aa@bruker.com>
+ <1j33vaesh7.fsf@starbuckisacylon.baylibre.com>
+Content-Language: en-US
+From: Vyacheslav Yurkov <uvv.mail@gmail.com>
+In-Reply-To: <1j33vaesh7.fsf@starbuckisacylon.baylibre.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] phy: rockchip: usbdp: errant DP lane enable in USB-only mode
---
+On 15.09.2026 12:09, Jerome Brunet wrote:
+> On mar. 15 sept. 2026 at 09:27, Vyacheslav Yurkov via B4 Relay <devnull+V.Yurkov.EXT.bruker.com@kernel.org> wrote:
+> 
+>> From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+>>
+>> A gpio-locked clock exposes a clock, which status is determined by a
+>> GPIO signal. The common use-case is a FPGA-assisted clocking design
+>> where peripheral clocks are generated by FPGA PLLs that are outside
+>> CPU control, with clock-valid/PLL-lock status exposed through GPIO signals.
+>> Consumers can use the output clock to wait until the input clock is locked
+>> and only then initialize dependent peripherals.
+>>
+> 
+> We already have gpio gate driver in drivers/clk/clk-gpio.c
+> 
+> It would be much better if you could just extend that one that take
+> optionally take a clock input like you do here.
 
-commit eaea7c0e371c41abc4589c0ac17cb5d7fe7f1179
-Author: Zhang Yubing <yubing.zhang@rock-chips.com>
+It is a bit more than that. The gated clock requires "enable-gpios" 
+property, while gpio-locked clock needs "locked-gpios". Technically I 
+could re-use the "enable-gpios", but that might lead to a confusion, 
+because semantically they are used for different purpose. Do you think 
+the extension of clk-gpio.c would be still better in this case?
 
-phy: rockchip: usbdp: Support single-lane DP
-
-This commit implements support for using just a single DisplayPort line in
-the rockchip usbdp phy driver.
-
-> diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rock=
-chip/phy-rockchip-usbdp.c
-> index b72daf80af15f..4fce9cd664735 100644
-> --- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
-> +++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
-
-[ ... ]
-
-> @@ -1049,18 +1038,17 @@ static int rk_udphy_dp_phy_power_on(struct phy *p=
-hy)
->  static int rk_udphy_dp_phy_power_on(struct phy *phy)
->  {
->  	struct rk_udphy *udphy =3D phy_get_drvdata(phy);
-> -	int ret, dp_lanes;
-> +	int ret;
-> =20
->  	mutex_lock(&udphy->mutex);
-> =20
-> -	dp_lanes =3D rk_udphy_dplane_get(udphy);
-> -	phy_set_bus_width(phy, dp_lanes);
-> +	phy_set_bus_width(phy, udphy->dp_lanes);
-> =20
->  	ret =3D rk_udphy_power_on(udphy, UDPHY_MODE_DP);
->  	if (ret)
->  		goto unlock;
-> =20
-> -	rk_udphy_dplane_enable(udphy, dp_lanes);
-> +	rk_udphy_dplane_enable(udphy, udphy->dp_lanes);
-
-[Severity: Medium]
-Could this unintentionally enable unclocked DP lane drivers on the physical
-pins in USB-only mode?
-
-If the DP controller calls phy_power_on(), rk_udphy_power_on() might detect
-that UDPHY_MODE_DP is not supported in udphy->mode. If it does, it prints a
-message and returns 0 (success) without powering up the DP PLLs. Execution
-then proceeds to this rk_udphy_dplane_enable() call.
-
-Prior to this patch, rk_udphy_dplane_get() returned 0 when DP was disabled,
-which safely disabled the lanes and asserted CMN_DP_CMN_RSTN. Now, since
-rk_udphy_typec_mux_set() unconditionally sets udphy->dp_lanes to 2 or 4 in
-Type-C states (even without DP altmode), a non-zero value is passed here.
-
-Does passing the decoupled udphy->dp_lanes skip asserting the reset and
-erroneously enable unclocked DP lane drivers, potentially causing undefined
-PHY behavior or electrical contention on shared pins?
-
-[ ... ]
-
-> @@ -1356,6 +1345,7 @@ static int rk_udphy_typec_mux_set(struct typec_mux_=
-dev *mux,
->  			udphy->lane_mux_sel[3] =3D PHY_LANE_MUX_DP;
->  		}
->  		mode =3D UDPHY_MODE_DP_USB;
-> +		udphy->dp_lanes =3D 2;
->  		break;
->  	}
-
-[Severity: Medium]
-Does this unconditionally set dp_lanes to 2 for USB-only Type-C states with=
-out
-updating udphy->mode, contributing to the DP lane enable issue mentioned ab=
-ove
-in rk_udphy_dp_phy_power_on()?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-rockchip-u=
-sbdp-cleanup-v15-0-80e2c11d1ce8@collabora.com?part=3D11
+>> Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+>> ---
+>>   drivers/clk/Makefile          |   1 +
+>>   drivers/clk/clk-gpio-locked.c | 169 ++++++++++++++++++++++++++++++++++++++++++
+>>   2 files changed, 170 insertions(+)
+>>
+>> diff --git a/drivers/clk/Makefile b/drivers/clk/Makefile
+>> index b18af485d7f0..b904f292d683 100644
+>> --- a/drivers/clk/Makefile
+>> +++ b/drivers/clk/Makefile
+>> @@ -46,6 +46,7 @@ obj-$(CONFIG_CLK_FD_KUNIT_TEST) += clk-fractional-divider_test.o
+>>   obj-$(CONFIG_COMMON_CLK)	+= clk-gpio.o
+>>   ifeq ($(CONFIG_OF), y)
+>>   obj-$(CONFIG_COMMON_CLK)	+= clk-conf.o
+>> +obj-$(CONFIG_COMMON_CLK)	+= clk-gpio-locked.o
+>>   endif
+>>   
+>>   # KUnit specific helpers
+>> diff --git a/drivers/clk/clk-gpio-locked.c b/drivers/clk/clk-gpio-locked.c
+>> new file mode 100644
+>> index 000000000000..b648f8763922
+>> --- /dev/null
+>> +++ b/drivers/clk/clk-gpio-locked.c
+>> @@ -0,0 +1,169 @@
+>> +// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> +/*
+>> + * Clock Controller Guard Driver
+>> + *
+>> + * Copyright 2026 Bruker Corporation
+>> + */
+>> +
+>> +#include <linux/clk.h>
+>> +#include <linux/clk-provider.h>
+>> +#include <linux/device.h>
+>> +#include <linux/gpio/consumer.h>
+>> +#include <linux/module.h>
+>> +#include <linux/of.h>
+>> +#include <linux/platform_device.h>
+>> +#include <linux/slab.h>
+>> +
+>> +/**
+>> + * struct gpio_locked_clk_priv - private state for the whole driver
+>> + * @dev:		platform device
+>> + *
+>> + * @input_clk	input clock
+>> + * @gpios:		input GPIO descriptor
+>> + *
+>> + * @output_hw_clk:      output clock HW descriptor
+>> + * @output_clock_name:  output clock name
+>> + */
+>> +struct gpio_locked_clk_priv {
+>> +	struct device *dev;
+>> +
+>> +	struct clk *input_clk;
+>> +	struct gpio_desc *gpios;
+>> +
+>> +	struct clk_hw output_hw_clk;
+>> +	const char *output_clock_name;
+>> +};
+>> +
+>> +#define to_gpio_locked_clk_priv(_hw) \
+>> +	container_of(_hw, struct gpio_locked_clk_priv, output_hw_clk)
+>> +
+>> +static int gpio_locked_clk_is_enabled(struct clk_hw *hw)
+>> +{
+>> +	struct gpio_locked_clk_priv *priv = to_gpio_locked_clk_priv(hw);
+>> +
+>> +	int data = gpiod_get_value(priv->gpios);
+>> +
+>> +	if (data < 0) {
+>> +		dev_err(priv->dev, "Failed to get data gpio val: %d\n",
+>> +				data);
+>> +		return data;
+>> +	} else if (!data) {
+>> +		dev_warn(priv->dev, "GPIO is not ready");
+>> +		return -EBUSY;
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +/* We can't enable the clock, but the Common Clock Framework calls only
+>> + * enable() not is_enabled()
+>> + */
+>> +static int gpio_locked_clk_enable(struct clk_hw *hw)
+>> +{
+>> +	return gpio_locked_clk_is_enabled(hw);
+>> +}
+>> +
+>> +/* We have to implement it, but we are not going to control
+>> + * parent clock selection
+>> + */
+>> +static u8 gpio_locked_clk_get_parent(struct clk_hw *hw)
+>> +{
+>> +	return 0;
+>> +}
+>> +
+>> +static const struct clk_ops gpio_locked_clk_ops = {
+>> +	.enable =	gpio_locked_clk_enable,
+>> +	.is_enabled =	gpio_locked_clk_is_enabled,
+>> +	.get_parent =	gpio_locked_clk_get_parent,
+>> +};
+>> +
+>> +static int gpio_locked_clk_parse_outputs(struct gpio_locked_clk_priv *priv)
+>> +{
+>> +	struct device *dev = priv->dev;
+>> +	struct device_node *np = dev->of_node;
+>> +	int ret;
+>> +
+>> +	of_property_read_string_index(np, "clock-output-names", 0,
+>> +		&priv->output_clock_name);
+>> +
+>> +	if (!priv->output_clock_name)
+>> +		priv->output_clock_name = dev_name(priv->dev);
+>> +
+>> +	priv->output_hw_clk.init =
+>> +		CLK_HW_INIT_FW_NAME(priv->output_clock_name,
+>> +				    __clk_get_name(priv->input_clk),
+>> +				    &gpio_locked_clk_ops, 0);
+>> +
+>> +	ret = devm_clk_hw_register(dev, &priv->output_hw_clk);
+>> +	if (ret) {
+>> +		dev_err(dev, "failed to register output clk'%s': %d\n",
+>> +			priv->output_clock_name, ret);
+>> +		return ret;
+>> +	}
+>> +
+>> +	dev_info(priv->dev, "Output clock '%s' registered\n", priv->output_clock_name);
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static int gpio_locked_clk_probe(struct platform_device *pdev)
+>> +{
+>> +	struct device *dev = &pdev->dev;
+>> +	struct gpio_locked_clk_priv *priv;
+>> +	int ret;
+>> +
+>> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+>> +	if (!priv)
+>> +		return -ENOMEM;
+>> +
+>> +	priv->dev = dev;
+>> +	platform_set_drvdata(pdev, priv);
+>> +
+>> +	priv->input_clk = devm_clk_get_enabled(priv->dev, NULL);
+>> +	if (IS_ERR(priv->input_clk))
+>> +		return dev_err_probe(priv->dev, PTR_ERR(priv->input_clk),
+>> +				"Failed to get locked fixed clock, not yet ready\n");
+> 
+> In your use case it might be fixed, but nothing says it is in general
+> 
+Good point, thanks.
