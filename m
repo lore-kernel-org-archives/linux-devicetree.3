@@ -1,243 +1,168 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21F2E3B813C
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 12:54:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3971F25B2F4
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 12:55:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789476844; cv=none; b=WxBrHr81zvEfqRYTdbdIbE0E4ckfSdluz7sDvQYU6xelL8Gthj7g00cg9b5bUkCPkjnB01yvcjnjmxTnb+86duxxyA5dFT527t5vnef96GcOVtgGBAzQQXx13DIprJn5fZmadSrgbyAULPJuF/Q+Nll6shBQgL82G3d8XpzyrHs=
+	t=1789476928; cv=none; b=sPJK1TVpvPOHleD/L8gYmxOI0jc8j9tHC+3d7bvvPxmHjCt6xKea/2fKPiKX2JEvNUCA/LJJd//M+Q6JPFFe+j1hLYdICQxeCuwpgAcMR4aGGiX+sZc9vsq7rct0o3gW5fdc7iv5GZ29961MtYlG3EouZsrlN65d6XvS86H6YZg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789476844; c=relaxed/simple;
-	bh=M0IzIsWiPP1002jx1x32ohvsScyH0p5PmYjJWCPWxCs=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=rWuFWAm6fllqTCBWi+c9bxZZ5J6oK6C+WfgHgqWs8dOkTB6OEJnIurYKjZwlT8xyGvwSNTigjKiKXHL/GkZ0W2APK62Za+fXxtTgpxiSscopOBlQhLZD44EdUdVv0arCx8QyJSw9qaXCDOl4UcX8DjFlEkVcUAU15I/8kKpCwy4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=FiVME32X; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1789476928; c=relaxed/simple;
+	bh=eBuqRI24vD9lYQdJzGI9yYYYHDAzmgfP+d2spgyUCE0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QuSl1V4RIkCyZGhMuDfLEEXkiMVDCNISiEDu725fG8GzuRll/5FmcMrXFVCc1yX5sZ4pSCxbZy9YimkLvn+y9WZAyYegkDNG0NJszWGkhdqiSywYwaNUzdDWaxqQLEdsqrbaA0d0U7mpDoUQy2lk5vrjAqXEDqhcdWy5usZhRrQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PVO+5lEP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XuwkCcdM; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="FiVME32X"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd4ba9f68so3210855e9.1
-        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 05:54:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PVO+5lEP";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XuwkCcdM"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F9guiM275471
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 12:55:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	r4oI1G/Tvwo9Ye+D1/omQonq92SLREOl8PUl+SUaYyg=; b=PVO+5lEPcrUX73k3
+	qJVcygFJF2n6LbU2fBb8YO5youBtQ8EgV4G5/PnY5VtJGH/5lG8u2NzcXdlnxWJk
+	MZoeDcPqNNwygsna3I4NsAoxdmJYetCXTI/fXuGv4BTJmD3cWdkZGSaRPjpd/bSe
+	HqKPZnq12RkGMQmS5PcOdaXkC5TDXyuueVy4h4oenZA+/wT4zdoe7RKAmei27KRw
+	UACC8uhZrtq0dF9+HrKAotgmlcKWaMY1V6f/b054vIsEBuGO6FeCS7i/a9tO5DuD
+	f0df5fL/iBsVcv0hu7PDWvZDbFgzcGafIPTaUumQQWBEEVcMjN1g6XEc9rTsavRX
+	jfoQuw==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpyea1um7-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 12:55:26 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-936aa34873bso787881985a.3
+        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 05:55:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789476839; x=1790081639; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ruipU1u5W9byyxX9qPeGPH+nhoQRgzgXh/OFxRteDPg=;
-        b=FiVME32XVD1iAVGitvogCHAwq/awfFUzLl+DoXa52u4fOQuVTx8ZhEGNI4Xb7ba2da
-         ceMRzg8zkPzVG19uUCv7IAVzfq+2HI3gFKdCAUPLJp+wfWouKTmUNezoFuSTl+ImliKX
-         Xj/00EFOcmMIpXWnJUDN00mtQANb1Q+EKbaQTlp48R2d3PyY7PQejbAwcgw7tGtalX3N
-         SE8sffIsMOWoc1EREk8yQ8Ozzas3X7Mzz2Y2nMaVZuUfh+1LGvZqHMlUYClePVzx7iAz
-         nzcyb0J68+LzrKA+lBqeSlP0Ao0NZVodFRdXYcGwzahnP6ydTZsy9DoY+USM7gE1wGPI
-         J4JA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789476839; x=1790081639;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1789476925; x=1790081725; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ruipU1u5W9byyxX9qPeGPH+nhoQRgzgXh/OFxRteDPg=;
-        b=E2cHxlwA6v1Qqsuofxz6O7UA5xIbMLYRt9/7reFaW5I4Ooas57r5/pE4YwBj5RcDTQ
-         vn7PjlQ0wP7jJPH4SDNyHWrnQLKvgGsd8y4desVZ7DHbTClJqQ6Wb4FSc/al9yL8EcBc
-         Ra+xzRzkL/6wXihkJ3OiF6pLUaVlH2nnRU7Tcd2bOxkMl9tUXDfogV+w3+VTJzvUeGv7
-         RYm6m2sdWO8aZ49YnpLEaH7BoWRDv0g387EBEdktyZ/ATLWFtKaUixbSPIQflUEzlvp2
-         PRX6S3azYGTJvEkpXi8UgRmvQEBtDUmZh4rJqKWlsXjdS4N5YXYtLDvsYZBbI0UOL2Qp
-         6g7Q==
-X-Forwarded-Encrypted: i=1; AKwUvBw8/G9GNeC2PiL2bRScgLZK4sqC+P6dVkUIukHEY5Cks0IGxD8Ni45snOdIJOBscGkJnt3cLUQ4coJn@vger.kernel.org
-X-Gm-Message-State: AFuF++kGQjAZKQTu9jK4HfpJ614MVBOFqWBNUGBDECWTdg1nwv8OpxaZ
-	+K25B1bNU3X+vtWCUI06NT3n3rUS+ceXOk9cHEyunbvDS5YlG0IzFO/CWuAOK9zq1kU=
-X-Gm-Gg: AYBFou2aK6ghjrkEK7nBXyPeoUVTVtEf8tM7wWDqO7YQvOFg22ChdptZYLuJtbWSbHy
-	vagO5FrFcr/bXSTk/1Q2pqAVEbVi88u4G7+bkmDoZsu5SLk2Epw1YBdXcInng8hzYax6nDnDY08
-	csSfHOKzR9xhcKQYROL8F1GqbL+V9jy45sNL4QXQFA6Q5Yz1mXdrBiI2qkf+637xf5yRwxlv6UY
-	PCx+/Ntfti2VyMGZmdKMDc+DeIneWt2Y58fUDsdk6F3q2Sc8LzSF5XwYbia26cb92lTMsAQvK1q
-	+WjrHbI6niPhtGl9bv/EgxC9jz9qZsYtdcGU78vKuSBUbk1/fxT2Wk5j8vo45BypRt6LiDoYFr9
-	DSByPdu/enJ0A7THcJY+w3VhZcILhmXJIPD0sjzjdu0RbTLBb6LPc++JdDLI6IlSGI3iKi4vNHZ
-	MMexwe0YZkSwMWqAGrvRrp4uTv0PM1ynzAo07mPvSBewDj1m4IoqvBR+/KcHImSsRfhQ5Vf6ivN
-	Aeu1/sowcIO9UthGA==
-X-Received: by 2002:a05:600c:1c26:b0:49c:f4ff:e872 with SMTP id 5b1f17b1804b1-49e82213842mr16348805e9.5.1789476839476;
-        Tue, 15 Sep 2026 05:53:59 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7d6a9d1dsm73406825e9.10.2026.09.15.05.53.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 05:53:59 -0700 (PDT)
+        bh=r4oI1G/Tvwo9Ye+D1/omQonq92SLREOl8PUl+SUaYyg=;
+        b=XuwkCcdM1Z+GwiMn1YS6FnO1GeHl1xMqUMcaw4GfSWaL+FM1j9PCwwNZAOfvwqCfaX
+         UUMquYTZK9LsdjpJxQ+RgNOS1eqisOlJfUnnyvLm8HZ1Am1rqPFyRznjeWKrmXoZQquS
+         a7083MbQ/zvsHy/Hg6/1NXc18Wj9yuSKNU9krDTWu8ERa0n9jNIjMTw5DGWr7f+pqW5o
+         q4cKrg1wl2iTt9+fMtWWwdVZVp866gKXbJeavKjza65Yv0mhiA838jBSrb9qX1KXqfiE
+         HnjtZbB8lKnk6NkCRiVYCX1Lv7k6QAt+W0/H2YjPrxh3ExVbvCDJNZ4tPSq2GS0OG2gX
+         0mMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789476925; x=1790081725;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=r4oI1G/Tvwo9Ye+D1/omQonq92SLREOl8PUl+SUaYyg=;
+        b=nub9Dl7+fc+fdlknrdAddCskSPkkYoYRiOFt/RJskYhsjMs4XlQqutCvlToz071WIB
+         JgA2+ppVcDuxHBUCHrj0dJQJdAWpB/I7Hxy83crSCXID6iyJeFm2ryrm1ssoC/WkMAzT
+         WHoQHCXKKZ572Fc3eZ6Z7DdpsYlFGDELcp+uJNrYhgqpBcq4yI+B2lzBJcvjR+QhxB5o
+         GT8Mt5ZSmOYlFEtFrHN/0nBWSvVESH9mRWn3VLeA8fKpqUx2RhoiHkAKahsLarIcwEmU
+         d1qpuMj9lxrN6UnwCP+M/dC06Wza8pbXjDJz1xMCgHUfk03DU9yjXNYJ+tGUidzohPU3
+         ULnw==
+X-Forwarded-Encrypted: i=1; AKwUvBynTudU4he9EeiiVDcLmZfBqP8Hr+dayauuWVi8do+MwkqBgvnDuDBRkscInNaUXj047R9RzhpVKnkZ@vger.kernel.org
+X-Gm-Message-State: AFuF++ksNztXHpXrTfx+C3EoIdvikTSU4u/4mjRpFEZ2fqHD5U09lCwG
+	AwjDIu79glWKHqQIucwE8ooq5YZORblzaLpILzdplangKRlBDDdea+rbeI2Ozi6JXgNIZstXjU4
+	GMhseGbucnmmHhnSxlEr+FBRZl33wvbqSmU0p7WHKOlzuEUTBC85gMvRP105fDniT
+X-Gm-Gg: AYBFou2Q5bjX83h+QXq4V/ivwpv0Jqpdh5TfJqBx5bPPn7uIunpkIl1w9u/3giF8xQq
+	vdVCTCn5Z67GnwVC6TpVll3yv9Mlfjk0PxsyXder4BqD2vo9QYGs6nkEiWDkAh+HkIlrpLo3fL2
+	75i88xzJtREA1Tx4S6XzVb6JiP6yrLjRdCkX3rc2OZDatr/tbuq8YF8w2xGzOBpQOcyg2/UOQ7N
+	z85Ai5NmcbF2u/UHjSER1iXWfoA62jI6GNNq8r1iEB+dWKYn9VOTyg8f2pA7uR/9olM35bGo+Al
+	xneFOme6Vk5cDw0m9rTyU/GL9/qXXEsTJLCF70r4eWBTvG/Qfl2FgqFkfkZtmkOkOSOOzd9Evbg
+	mrXnAan7THIkb131K5RLb/DSynQdnAsYji438JBo=
+X-Received: by 2002:a05:620a:2556:b0:939:13a7:70f0 with SMTP id af79cd13be357-93a40765af3mr102035685a.5.1789476925484;
+        Tue, 15 Sep 2026 05:55:25 -0700 (PDT)
+X-Received: by 2002:a05:620a:2556:b0:939:13a7:70f0 with SMTP id af79cd13be357-93a40765af3mr102029085a.5.1789476924914;
+        Tue, 15 Sep 2026 05:55:24 -0700 (PDT)
+Received: from [10.218.21.154] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-939ecc38105sm1206322785a.4.2026.09.15.05.55.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 15 Sep 2026 05:55:24 -0700 (PDT)
+Message-ID: <9ba16818-ae60-49a3-8444-c1056c03c63a@oss.qualcomm.com>
+Date: Tue, 15 Sep 2026 18:25:16 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 5/6] ASoC: qcom: lpass-va-macro: Add shikra compatible
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+        Srinivas Kandagatla <srini@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260910-add_shikra_support-v2-0-fdd2129c696c@oss.qualcomm.com>
+ <20260910-add_shikra_support-v2-5-fdd2129c696c@oss.qualcomm.com>
+ <8acf2491-01f3-49d0-a357-39592ba991dc@oss.qualcomm.com>
+Content-Language: en-US
+From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+In-Reply-To: <8acf2491-01f3-49d0-a357-39592ba991dc@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v14 07/11] clk: realtek: Add support for mux clock
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Yu-Chun Lin <eleanor.lin@realtek.com>
-Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, 
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
- p.zabel@pengutronix.de, cylee12@realtek.com, afaerber@suse.com, 
- jyanchou@realtek.com, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-realtek-soc@lists.infradead.org, james.tai@realtek.com, 
- cy.huang@realtek.com, stanley_chang@realtek.com, 
- Brian Masney <bmasney@redhat.com>
-In-Reply-To: <20260901072446.2563145-8-eleanor.lin@realtek.com>
-References: <20260901072446.2563145-1-eleanor.lin@realtek.com>
- <20260901072446.2563145-8-eleanor.lin@realtek.com>
-Date: Tue, 15 Sep 2026 14:53:56 +0200
-Message-Id: <178947683646.448573.8652586338644531668.b4-reply@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4922; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=M0IzIsWiPP1002jx1x32ohvsScyH0p5PmYjJWCPWxCs=;
- b=owEBbQKS/ZANAwAKAeb8Dxw38tqFAcsmYgBqqT/kIj2H05/TQ42wyCS3cLOfpVaD8wrOMQ3y+
- Ny8dTCQUReJAjMEAAEKAB0WIQT04VmuGPP1bV8btxvm/A8cN/LahQUCaqk/5AAKCRDm/A8cN/La
- he81D/45r9CNZwZIVBcLR0EH1/ZBwuxMLr2LG9h4TeHpWHTcEMtRCnWHjpnlVR9r/MRkZM/5dxv
- J3ITQ2RCLm0YArSa+h6lzIQPyon1HsMu4WhNvHt3IxjliQ3r9VWrn5hSP8YARJZBP7EddBboad5
- LHVi0mWjIh8j8DsGUMs8ShpLE5W8AOmaR62C9AViwhEznxzyz3w9MCDnq5hgmSzpYVHS3aDat5Q
- d5c/L+INQNYBIEY3DmSfV2CiY50Xg3NZYhEnv0ZjYtOEQ4v/A1VVR7+yZxxA0hRDhEYYLJfqpyL
- 2JGmOm9ST3nEPTB2QVJHrRXFcVWJzrz1S1lkaaczkzQa7w9x/72P0AaFv2JdQ5PDnTgZBelgylG
- DzH1uZXCIkxIsvUwHJMv/iDRwA52DphXgdiXzUZzmNc0FdL0txxPPNJ0eBixDbuMn7T8VMhemIt
- OA3NDET+hDgzz+xCJ7F2sOyLhqpXVl0SB4DL4aaz/MQjDPsr0/XOh0J/9C7tJcCFzn0YmvWdEtp
- /CZi/IbgYuw04Ql+j+Izsr2UmSk005u7rzwGXa2c25RYrUD2FoedEUTwbx6aSzO81pW9e97gooZ
- EriyMjYVl2D+cYSRN1YGN77gxpz/aOvAXq0F6zBCgedZ0Tt4YLY200PqACAI4be+lZE/9S8maXx
- 4xTnCvcV44d+iVA==
-X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
- fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
-
-On 2026-09-01 15:24 +0800, Yu-Chun Lin wrote:
-> From: Cheng-Yu Lee <cylee12@realtek.com>
-> 
-> Add a simple regmap-based clk_ops implementation for Realtek mux clocks.
-> 
-> The implementation supports parent selection and rate determination through
-> regmap-backed register access.
-> 
-> Signed-off-by: Cheng-Yu Lee <cylee12@realtek.com>
-> Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
-> Reviewed-by: Brian Masney <bmasney@redhat.com>
-> Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
-> ---
-> Changes in v14:
-> - Move Reviewed-by tag to the correct position.
-> ---
->  drivers/clk/realtek/Makefile         |  1 +
->  drivers/clk/realtek/clk-regmap-mux.c | 41 ++++++++++++++++++++++++++
->  drivers/clk/realtek/clk-regmap-mux.h | 43 ++++++++++++++++++++++++++++
->  3 files changed, 85 insertions(+)
->  create mode 100644 drivers/clk/realtek/clk-regmap-mux.c
->  create mode 100644 drivers/clk/realtek/clk-regmap-mux.h
-> 
-> diff --git a/drivers/clk/realtek/Makefile b/drivers/clk/realtek/Makefile
-> index 840aff067b61..217ccaf5644a 100644
-> --- a/drivers/clk/realtek/Makefile
-> +++ b/drivers/clk/realtek/Makefile
-> @@ -4,4 +4,5 @@ obj-$(CONFIG_RTK_CLK_COMMON) += clk-rtk.o
->  clk-rtk-y += clk-rtk-common.o
->  clk-rtk-y += clk-pll.o
->  clk-rtk-y += clk-regmap-gate.o
-> +clk-rtk-y += clk-regmap-mux.o
->  clk-rtk-y += freq_table.o
-> diff --git a/drivers/clk/realtek/clk-regmap-mux.c b/drivers/clk/realtek/clk-regmap-mux.c
-> new file mode 100644
-> index 000000000000..1069c95595aa
-> --- /dev/null
-> +++ b/drivers/clk/realtek/clk-regmap-mux.c
-> @@ -0,0 +1,41 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (C) 2017-2026 Realtek Semiconductor Corporation
-> + * Author: Cheng-Yu Lee <cylee12@realtek.com>
-> + */
-> +
-> +#include <linux/clk-provider.h>
-> +#include <linux/export.h>
-> +#include <linux/regmap.h>
-> +#include "clk-regmap-mux.h"
-> +
-> +static u8 rtk_clk_regmap_mux_get_parent(struct clk_hw *hw)
-> +{
-> +	struct rtk_clk_regmap_mux *clkm = to_rtk_clk_regmap_mux(hw);
-> +	unsigned int num_parents = clk_hw_get_num_parents(hw);
-> +	u32 val;
-> +	int ret;
-> +
-> +	ret = regmap_read(clkm->clkr.regmap, clkm->mux_ofs, &val);
-> +	if (ret)
-> +		return 0xff;
-> +
-> +	val = (val >> clkm->shift) & clkm->mask;
-> +
-> +	return val >= num_parents ? 0xff : val;
-
-This is not really useful, the core already rejects val >= num_parent.
-So returning a higher number changes nothing as it stands
-
-> +}
-> +
-> +static int rtk_clk_regmap_mux_set_parent(struct clk_hw *hw, u8 index)
-> +{
-> +	struct rtk_clk_regmap_mux *clkm = to_rtk_clk_regmap_mux(hw);
-> +
-> +	return regmap_update_bits(clkm->clkr.regmap, clkm->mux_ofs,
-> +				  clkm->mask << clkm->shift, (u32)index << clkm->shift);
-> +}
-> +
-> +const struct clk_ops rtk_clk_regmap_mux_ops = {
-> +	.set_parent = rtk_clk_regmap_mux_set_parent,
-> +	.get_parent = rtk_clk_regmap_mux_get_parent,
-> +	.determine_rate = __clk_mux_determine_rate,
-> +};
-> +EXPORT_SYMBOL_NS_GPL(rtk_clk_regmap_mux_ops, "CLK_REALTEK");
-> diff --git a/drivers/clk/realtek/clk-regmap-mux.h b/drivers/clk/realtek/clk-regmap-mux.h
-> new file mode 100644
-> index 000000000000..ad524bb86a19
-> --- /dev/null
-> +++ b/drivers/clk/realtek/clk-regmap-mux.h
-> @@ -0,0 +1,43 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Copyright (C) 2017-2026 Realtek Semiconductor Corporation
-> + * Author: Cheng-Yu Lee <cylee12@realtek.com>
-> + */
-> +
-> +#ifndef __CLK_REALTEK_CLK_REGMAP_MUX_H
-> +#define __CLK_REALTEK_CLK_REGMAP_MUX_H
-> +
-> +#include "clk-rtk-common.h"
-> +
-> +struct rtk_clk_regmap_mux {
-> +	struct rtk_clk_regmap clkr;
-> +	unsigned int mux_ofs;
-> +	unsigned int mask;
-> +	unsigned int shift;
-> +};
-> +
-> +#define __rtk_clk_regmap_mux_hw(_p) __rtk_clk_regmap_hw(&(_p)->clkr)
-> +
-> +#define __RTK_CLK_REGMAP_MUX(_name, _parents, _ops, _flags, _ofs, _sft, _mask) \
-> +	struct rtk_clk_regmap_mux _name = {                                    \
-> +		.clkr.hw.init =                                                \
-> +			CLK_HW_INIT_PARENTS(#_name, _parents, _ops, _flags),   \
-> +		.mux_ofs = _ofs,                                               \
-> +		.shift = _sft,                                                 \
-> +		.mask = _mask,                                                 \
-> +	}
-> +
-> +#define RTK_CLK_REGMAP_MUX(_name, _parents, _flags, _ofs, _sft, _mask)               \
-> +	__RTK_CLK_REGMAP_MUX(_name, _parents, &rtk_clk_regmap_mux_ops, _flags, _ofs, \
-> +			     _sft, _mask)
-> +
-> +static inline struct rtk_clk_regmap_mux *to_rtk_clk_regmap_mux(struct clk_hw *hw)
-> +{
-> +	struct rtk_clk_regmap *clkr = to_rtk_clk_regmap(hw);
-> +
-> +	return container_of(clkr, struct rtk_clk_regmap_mux, clkr);
-> +}
-> +
-> +extern const struct clk_ops rtk_clk_regmap_mux_ops;
-> +
-> +#endif /* __CLK_REALTEK_CLK_REGMAP_MUX_H */
-> -- 
-> 2.43.0
-> 
-> 
+X-Proofpoint-ORIG-GUID: z1o81oqhZCtAO1TIPmFiIr_0IP-zZrQm
+X-Authority-Analysis: v=2.4 cv=cehHPXDM c=1 sm=1 tr=0 ts=6aa9403e cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=xk92F0r0DzOCDTAHD88A:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-GUID: z1o81oqhZCtAO1TIPmFiIr_0IP-zZrQm
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDE4NyBTYWx0ZWRfX05TSNhS1rYEL
+ zxdewzajCxp/qfoL4BuUTUr19hC6nhnidt+/8I+KDYMwGXYPQfgc+CdBakMPBWfdwn5zF+kHCC5
+ 9cbrSi9jQbzlDfRcwoDKpT8fhMGcRjU=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDE4NyBTYWx0ZWRfX4A+hplD00xSB
+ IdFzAyoBouSrJ6gj50tZyKLRqEGhSEH7Io1m3lKzlxAaRrebRk/FYTwP413KLQL9dfyDhzQrQGf
+ 4BNOpkZ2Obt65lgXq3uY+0ARTXsv6MPNAYiVojQQ5sFXzNoVMh1iKU7pTCSV/TAmZevM1jKa56Y
+ Na6xJkgJiC6CI/yIc24BlUnlz3eMF9C6gF5bejQOqNNOUMJ0sWkAob0IqjWPOkUDORsdxGfBHTs
+ 5Ec2ozeppAlV6rHMNSGmT5ye+gU5V42BV3aRnV2cVV5Ve2cVs+mso6wWEz9x/a+P8nc0P8lmOWy
+ kHzLRI65n8X/48C0DwnvFkFGBc6Oqx3GW27tomb9NFlK0sPy1kCsOjbWYH9Xwd2nxQmp6tcD5X4
+ +MHgAqDAJ2Z1AzSIIdhXyYDFlGf2sRVV3CiXWQ2Re5izo2dOLZkZ1PS6oKbJYpewQHSPkpeCf2y
+ POgKjdbKz13f5py6LfA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_03,2026-09-14_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 lowpriorityscore=0 bulkscore=0 clxscore=1015
+ impostorscore=0 spamscore=0 phishscore=0 malwarescore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150187
 
 
+
+On 9/14/2026 5:17 PM, Srinivas Kandagatla wrote:
+> On 9/10/26 10:46 AM, Mohammad Rafi Shaik wrote:
+>> Add shikra specific VA macro data and register programming needed by
+>> the LPASS codec v4.0 implementation.
+>> +static const struct regmap_config va_4_1_regmap_config = {
+>> +	.name = "va_macro",
+>> +	.reg_bits = 32,
+>> +	.val_bits = 32,
+>> +	.reg_stride = 4,
+>> +	.cache_type = REGCACHE_FLAT,
+> 
+> Pl use MAPLE here.
+
+Thanks for the suggestion. I will switch to REGCACHE_MAPLE and update it 
+in the next revision.
+
+> 
+>>   		regmap_update_bits(regmap, CDC_VA_CLK_RST_CTRL_FS_CNT_CONTROL,
+>>   				   CDC_VA_FS_CONTROL_EN | CDC_VA_FS_COUNTER_CLR,
+>>   				   CDC_VA_FS_CONTROL_EN | CDC_VA_FS_COUNTER_CLR);
+>> +
+>> +		if (lpass_macro_get_codec_version() >= LPASS_CODEC_VERSION_4_1)
+> same comment as in 4/5 patch use a flag.
+
+Ack, Will introduce a flag or switch-case mechanism to handle this 
+configuration.
+
+Best Regards,
+Rafi.
