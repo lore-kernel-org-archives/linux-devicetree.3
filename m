@@ -1,62 +1,82 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85AE93B47F4;
-	Tue, 15 Sep 2026 14:26:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56CF7345CBF;
+	Tue, 15 Sep 2026 14:27:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789482387; cv=none; b=Vs9fJ7u5z6n8bKCgOGQ1BOGESFkaPi5SsiWyLYRAaAU1JXVmuvAeEuLhQukowoLMJDOGIoV0XNSSTsLt4bvn1lI1uHX16M21t6aVXCOq0aKn1WoRkf11umRoKTAgB2epn0lRZSipVz6Kendil/0KLsjrbytgwr6ninlTkOBY9OY=
+	t=1789482465; cv=none; b=R8dyaIFirmaDtV8tsGgbyAyDkzndkAU6jDCY1qDN2MqLCTeT7a7s4FbFA9p5lZarprXgNO5v6N9c0Ct8mOkWIo4xSQeYE9NulNTo5X7XsbQzywAwS8wd3iKUW4qAjhWmTNTls1u+icTyqs564OU2Lpi4Ggk7DmDTpEjbfBBc6gQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789482387; c=relaxed/simple;
-	bh=rPmDld2jmo7bJKxls9qy0htl9d02dKpBR/9dbhtS3kM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=LjB+CQFHpG9gwsQxqVOpU2O6spz/3AN9JdHxWVAurYmjYdc1bs0xaVMdv5FCvRJ8Z0QHSpUHtDKiWxvuCUuv04/o05G/BTVvY8eqtge84nMmAjy8xcZL8Z5HW/UcSArk5MJ5MCV6SWl1VLmtGKqoiMw8uJN0fmCVdS428+UOk+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B49EzZ0y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789482465; c=relaxed/simple;
+	bh=cUtPjh0zldewIxNp9mhCQymnBNd/6pG9ZV4jNWg6FW0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DA7HkiARX+tzaPSzuYVnm9SWZgVGeH7Zlv5PNeEwNF4zRT8tdiNCbH61okIP/BoliQhWG+fFzn0bwKmqIw0tkcmvNIinUE19A3d/I+JwOJ6sVZB9nU+4ms4ycR/ckpIbq0F+1VVblTVomG0ESRtjJkA9KZVzRFddo+MPTfSyWEw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SG8RCldo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B49EzZ0y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC0B31F000FF;
-	Tue, 15 Sep 2026 14:26:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SG8RCldo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBE321F000FF;
+	Tue, 15 Sep 2026 14:27:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789482385;
-	bh=rPmDld2jmo7bJKxls9qy0htl9d02dKpBR/9dbhtS3kM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=B49EzZ0y+UqUwzvRQ+JkIuDx9qXrsZbDj3djem4LSA3aX+BAqX4teulgb3w8qkClj
-	 /EUFOA8hvQwqLXLfzFySJdeIMwajZDDwPqroHuwjn+DUmvNzFGwwxhf6InTLEy83WU
-	 UE+HDRZBxZE+TqSPUWgaVbdDeXOOl8OBZRAu5M6V6Yis3MjzE3bJcrJ6M5odzs9BG6
-	 eeABlZ3k9iUI33/ar2dRO7vCR/N0WTzSBcRYLjpNpCPsdJnT8DW5hNaKHEEDgCaPgf
-	 YC+tstUGC0PGKMa22NAlZtu2SVUn07dz1LIadv97O+5eMjwurfx/TaaE+GdWGE3tOj
-	 FUOqezc2HL1qw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 7/8] leds: pca995x: Do not use full on LED mode
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Nora Schiffer" <nora.schiffer@ew.tq-group.com>
-Cc: lee@kernel.org, linux-leds@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <9f44869a2f046f5c5784a8bc9b3e7769436ebdf0.1789477502.git.nora.schiffer@ew.tq-group.com>
-References: <bd687915af26ccdbfc8cc911eee0787fc8145ae1.1789477502.git.nora.schiffer@ew.tq-group.com>
- <9f44869a2f046f5c5784a8bc9b3e7769436ebdf0.1789477502.git.nora.schiffer@ew.tq-group.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 14:26:24 +0000
-Message-Id: <20260915142624.CC0B31F000FF@smtp.kernel.org>
+	s=k20260515; t=1789482464;
+	bh=XeXrCF7kKHtOohfiibEbYIClpgW98Ub/K0LExgNJn5g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SG8RCldowYERNVsQcORu4F/jbaCJPvGuy4+KvfldUJYvNI+EPVc8DCTKwT3TamTB1
+	 bWyLYe2cwlqwyqDpkSxiDinMFp5DPrZvExRCTaXuX672o1XJBbm1aRuxaF/43CSrCk
+	 fNNq7TVtZFd1oaQJ/ZOcfEY6kfRa1ah8x2I4McvXycU2XopABsH+Dznec7kaIrptqd
+	 9XwsELKkqygxDbvf1RUrlhYkK3InOG/Pb3kme6e6SoE/uLOyBbiiZ9mJ88XAAdwAR3
+	 k2JN3YATWJEeN2lHjk3tiJiCv/QHCGphifhPCPhNr5AqpsqddPKYRv+En46Ez/VBXG
+	 dgpV23u6g8ZqQ==
+Date: Tue, 15 Sep 2026 09:27:42 -0500
+From: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/7] dtc: dt-check-style: Improvements for handling
+ continued lines
+Message-ID: <20260915142742.GA1926857-robh@kernel.org>
+References: <20260909-b4-dts-style-checker-continued-lines-v3-0-474bb324ae53@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909-b4-dts-style-checker-continued-lines-v3-0-474bb324ae53@oss.qualcomm.com>
 
-> LEDs in full on mode are unaffected by group dimming. Avoid using it,
-> so group dimming is applied consistently.
->=20
-> This slightly changes the brightness at maximum (from 100% to 255/256
-> duty cycle), which should be imperceptible; arguably it is also more
-> consistent with the other brightness levels, as it will now scale
-> linearly from 0/256 to 255/256 over the whole range.
->=20
-> Signed-off-by: Nora Schiffer <nora.schiffer@ew.tq-group.com>
+On Wed, Sep 09, 2026 at 03:10:34PM +0200, Krzysztof Kozlowski wrote:
+> Changes in v3:
+> - New commit:
+>   "dtc: dt-check-style: Relax property ordering rules (drop alphabetical)"
+> - Improve commit msg of "Unduplicate checks in
+>   check_mixed_indent_chars()" patch.
+> - Link to v2: https://patch.msgid.link/20260909-b4-dts-style-checker-continued-lines-v2-0-c5cb4c9d9b66@oss.qualcomm.com
+> 
+> Changes in v2:
+> 1. Four new commits 1-4
+> 2. Drop last commit
+> v1: https://lore.kernel.org/all/20260906180437.166760-6-krzysztof.kozlowski@oss.qualcomm.com/
+> 
+> Best regards,
+> Krzysztof
+> 
+> ---
+> Krzysztof Kozlowski (7):
+>       dtc: dt-check-style: Handle continued lines in check_hex_case()
+>       dtc: dt-check-style: Handle continued lines in check_line_length()
+>       dtc: dt-check-style: Handle continued lines in check_trailing_whitespace()
+>       dtc: dt-check-style: Unduplicate checks in check_mixed_indent_chars()
+>       dtc: dt-check-style: Right strip whitespaces, leftovers before comments
+>       dtc: dt-check-style: Properly detect comments in multi-line properties
+>       dtc: dt-check-style: Relax property ordering rules (drop alphabetical)
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+Patch 7 doesn't apply.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/bd687915af26ccdbfc8=
-cc911eee0787fc8145ae1.1789477502.git.nora.schiffer@ew.tq-group.com?part=3D7
+> base-commit: 694b801ceb1bea205878f2136e8b25c888e51be7
 
+And I don't have this commit in my tree to resolve the conflicts.
+
+Rob
