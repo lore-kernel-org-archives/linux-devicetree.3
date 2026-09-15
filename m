@@ -1,50 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1F15430CE3;
-	Tue, 15 Sep 2026 17:11:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99C8943846E;
+	Tue, 15 Sep 2026 17:13:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789492284; cv=none; b=cONfoATeKCO3MKgha6L8BER/OCucvvIukEYjzU1XlRepQZcExrDgu/n08IFH+0VrGoAB968x4Y37pL/IG6nB1h4QZ+hWYahrIot7ccyBfiV39akoUCCpBJAmfOBXeu8ofVm87clCWZ71YYgeKhcmKHtsk73PhauyiEN03STzcfI=
+	t=1789492396; cv=none; b=MWOU5o8Xev/2Ob1h9ewXqiW196temh9aYtYgXeWBkCwOeYpfsoo65X6FOzT46OITCAHBsNcj00ChDMUUbGTG1iJ66HG5HmzuElX1n//hMh3ckaFy41w+pj31BNI2yGCNxRwPHeoex6hMt6mM3Q4i/wRYmTZJddzv6ZfahFvIhiE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789492284; c=relaxed/simple;
-	bh=JoFG42xXlFrpOwjPmldOHD33XrAQFsKfPmpd1YYJuYs=;
+	s=arc-20240116; t=1789492396; c=relaxed/simple;
+	bh=ivBonYODbbsrsacrHrcfoJQOLzw23nGRDwkGNZqoBo4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bOh7CAF3bvriZcGga1QeaiM7ZqICVR8s+I2b4PSUjkD5SFy+SQHB/zDS9UVNm8xDq8uY6bTyYZwUs5/swILLxcSauxdrGHc/qDKTxpultTkQ8fHQfRuzoFwAt9p64x16NxLeYi5sMh1MdsA/ZRPDe4XvfSx5S64xaNB+Vu/obb0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ojeqGvK6; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=rcHw+mQP2xxSbrLzj9X/393Wsjm8CwVi5eEZeK/74iIrQAcBdTlBi2RSGTW98hqnaqtafXGinarrZ97kLeFi0FbhbwulZaT3/8K2wYnSe1fkajkgJVc+o4IHM7lPceIDZ7rDnWp+FmJV6xeYWHNtYjMd0rq0yHK2Bf+29tFLtec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OKOnqNmU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ojeqGvK6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6ABE01F000FF;
-	Tue, 15 Sep 2026 17:11:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OKOnqNmU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 260F81F000FF;
+	Tue, 15 Sep 2026 17:13:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789492282;
-	bh=jFlAEYt+vZawiMs/kuFEjFO2eUgqoPaOw/VH8mWz2a0=;
+	s=k20260515; t=1789492394;
+	bh=YJR9aq2r86J30eW8lL/Fjsuscy+SjBA6fWgSJoTL8AQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ojeqGvK6ERFbX9+/AgOUlLMmatDui8nsMLT15ihY+1QCz0PJbUmDcfTqg0xDy3zYw
-	 9syoB+HBWM0IYLroGYvC0H2QWa8ydT9X+50yXhZnZud+l8yrvyKxXIx3uNtv4TAeah
-	 /GSQnZfbfZpx5+k0Qi8kZKUwNMGcMTS1Zs3Kx2IjrebtkUTJsDCrz546FGbWPfysrj
-	 lTVM7AtLnzJySyy8qVjEwlyH7bDo1zSM1SSkO2cZ9OZcemditI3HTMxcjkX4HUxAww
-	 icGv1rheCppF3hJ2iVhuaCGrUvhQn9seKRRhIsu3qZb9oWBYcr/hhGaIWx8O6ckCBw
-	 Xs/P85mUgXAKg==
-Date: Tue, 15 Sep 2026 18:11:17 +0100
+	b=OKOnqNmUUVc6YU90Q7sW0mC92AKXaFVQvfauDuNsQ6qdMUDZisWKNfUtoDsHiI0+l
+	 eG2M47wjWgh0mM8K0aq+F74Ai/vQr7mouMeTdalC7p05GQaq04qSL6tN1GAAfvHNO6
+	 8XnESBkddlGTcnbFYHtzRCI7CyLZraBqgOkTJIqTEADOEnFmXtGm/hz2Ep0Mcn2JaH
+	 7/nrnmaIgyMVLDAfcELr0qkTO+zM9viRTsL5Ob+t9kP+r+7d81fAK3zyXFUVwY9jBD
+	 Ux3yvf6LWDMYREU4qwh3MWyOEnervXSkfvCxLrmflqPxR2ogTn3ZtsCBQJIIm/bo5+
+	 d4VcEfPSn/jkg==
+Date: Tue, 15 Sep 2026 18:13:09 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Chang Yu <marcus.yu.56@gmail.com>,
-	Joshua Crofts <joshua.crofts1@gmail.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+To: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
+Cc: Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Rahul Pathak <rahul@summations.net>,
+	Anup Patel <anup@brainfault.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Shi Hao <i.shihao.999@gmail.com>,
-	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-Subject: Re: [PATCH v2 1/2] dt-bindings: iio: light: add as7343
-Message-ID: <20260915-gleeful-jester-c8114edf28ff@spud>
-References: <20260907210042.32552-1-marcus.yu.56@gmail.com>
- <20260907210042.32552-2-marcus.yu.56@gmail.com>
- <20260908-dinner-shelve-1d61e19ee3b7@spud>
- <20260913014203.2bae2222@jic23-hlaptop>
+	Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, op-tee@lists.trustedfirmware.org,
+	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH RFC 5/5] dt-bindings: tee: add RISC-V RPMI TEE transport
+Message-ID: <20260915-reappear-hatchback-f4c3697a1b4e@spud>
+References: <20260912-rpmi-tee-service-grp-dev-v1-0-1d1d35c2a859@oss.qualcomm.com>
+ <20260912-rpmi-tee-service-grp-dev-v1-5-1d1d35c2a859@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -52,143 +49,145 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="hiBTazCoHelLpgFk"
+	protocol="application/pgp-signature"; boundary="rnRve9bgpYmX7ikw"
 Content-Disposition: inline
-In-Reply-To: <20260913014203.2bae2222@jic23-hlaptop>
+In-Reply-To: <20260912-rpmi-tee-service-grp-dev-v1-5-1d1d35c2a859@oss.qualcomm.com>
 
---hiBTazCoHelLpgFk
+--rnRve9bgpYmX7ikw
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Sun, Sep 13, 2026 at 01:42:03AM +0100, Jonathan Cameron wrote:
-> On Tue, 8 Sep 2026 19:13:55 +0100
-> Conor Dooley <conor@kernel.org> wrote:
+On Sat, Sep 12, 2026 at 03:15:16AM -0700, Amirreza Zarrabi wrote:
+> Add a device-tree binding for the OP-TEE RISC-V transport using the RPMI
+> TEE service group over SBI MPXY.
 >=20
-> > On Mon, Sep 07, 2026 at 02:00:41PM -0700, Chang Yu wrote:
-> > > Add binding for AMS AS7343 which is a 14-channel multi-spectral sensor
-> > > with i2c address of 0x39.
-> > >=20
-> > > The GPIO pin is described as a generic GPIO for now. Binding design f=
-or the
-> > > more advanced measurement/LED synchronization use cases are deferred =
-to
-> > > future patches. =20
-> >=20
-> > Unfortunately, you can't change what you document, so picking something
-> > correct now is needed - even if the driver doesn't use it yet.
+> Describe one mailbox channel per hart and an optional interrupt used as
+> the availability doorbell for asynchronous notifications.
 >=20
-> Definitely needs an outline of how it would be backwards compatible and
-> an explanation of why not now.  Sometimes a portion of the binding is
-> so uncertain that we do kick it back from initial version but we 'must'
-> be sure we can extend the binding to new configurations.  Normally this
-> is one of those we are fairly sure, but not entirely sure cases - or
-> picking between two options where consensus isn't being reached.
+> Add the binding to the existing OP-TEE MAINTAINERS entry.
 >=20
-> Chang Yu: This sort of things needs discussion and is one of the reasons =
-to
-> go slowly.
+> Signed-off-by: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
 
-Ye, I note that there are 2 more versions of this since I left this
-comment, but you seem to be on top of that.
-
-> > > Datasheet: https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7=
-343-14-Channel-Multi-Spectral-Sensor.pdf
-> > > Signed-off-by: Chang Yu <marcus.yu.56@gmail.com>
-> > > ---
-> > > Changes in v2:
-> > >   - Add the LDR, the interrupt pin, and the GPIO pin to the bindings.
-> > >   - Fix node name and unit address mismatch.
-> > >   - Include MAINTAINERS changes.
-> > >=20
-> > >  .../bindings/iio/light/ams,as7343.yaml        | 69 +++++++++++++++++=
-++
-> > >  MAINTAINERS                                   |  6 ++
-> > >  2 files changed, 75 insertions(+)
-> > >  create mode 100644 Documentation/devicetree/bindings/iio/light/ams,a=
-s7343.yaml
-> > >=20
-> > > diff --git a/Documentation/devicetree/bindings/iio/light/ams,as7343.y=
-aml b/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
-> > > new file mode 100644
-> > > index 000000000000..b06d445b92b3
-> > > --- /dev/null
-> > > +++ b/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
-> > > @@ -0,0 +1,69 @@
-> > > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> > > +%YAML 1.2
-> > > +---
-> > > +$id: http://devicetree.org/schemas/iio/light/ams,as7343.yaml#
-> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > +
-> > > +title: AMS AS7343 14-Channel Multi-Spectral Sensor
-> > > +
-> > > +maintainers:
-> > > +  - Chang Yu <marcus.yu.56@gmail.com>
-> > > +
-> > > +description: |
-> > > +  The AMS AS7343 is a 14-channel multi-spectral sensor with i2c addr=
-ess of 0x39.
-> > > +  https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-C=
-hannel-Multi-Spectral-Sensor.pdf
-> > > +
-> > > +properties:
-> > > +  compatible:
-> > > +    enum:
-> > > +      - ams,as7343
-> > > +
-> > > +  reg:
-> > > +    description:
-> > > +      I2C address of the device (0x39).
-> > > +    maxItems: 1
-> > > +
-> > > +  interrupts:
-> > > +    description:
-> > > +      Open drain output active low interrupt pin.
-> > > +    maxItems: 1
-> > > +
-> > > +  vdd-supply: true
-> > > +
-> > > +  ams,led-current-microamp:
-> > > +    description:
-> > > +      The driver current for the external LED connected to the LDR p=
-in.
-> > > +    minimum: 4000
-> > > +    maximum: 258000
-> > > +    multipleOf: 2000
-> > > +    default: 12000 =20
-> >=20
-> > Rather than a custom property, the tsl2772 uses led-max-microamp:
-> > tsl2772.yaml
-> > 46:  led-max-microamp:
-> > 81:                led-max-microamp =3D <100000>;
-> >=20
-> > I wonder if the same should be done here, or if there should be an leds
-> > subnode? Perhaps the IIO folks can comment on that.
->=20
-> I don't think we've ever bothered with a subnode as there only tends
-> to be one of them.  Given the enabling etc is all hardware controlled
-> I'm not sure a more generic LED binding makes sense. I don't know that
-> much about the led bindings though so maybe it is worth doing a subnode
-> just to use the leds/common.yaml definition of led-max-microamp?
-
-Could always just put a ref in to leds/common.yaml and not bother with a
-child node. I'd stick with the additionalProperties: false, since
-there's lots of leds properties that probably don't apply to a device
-like this.
+The clock and (?reset?) bindings for mpxy stuff have both S and M mode
+bindings. How come you only have the S mode one here?
 
 Cheers,
 Conor.
 
---hiBTazCoHelLpgFk
+> ---
+>  .../bindings/tee/riscv,rpmi-mpxy-tee.yaml          | 65 ++++++++++++++++=
+++++++
+>  MAINTAINERS                                        |  1 +
+>  2 files changed, 66 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/tee/riscv,rpmi-mpxy-tee.ya=
+ml b/Documentation/devicetree/bindings/tee/riscv,rpmi-mpxy-tee.yaml
+> new file mode 100644
+> index 000000000000..8f6ff313fd42
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/tee/riscv,rpmi-mpxy-tee.yaml
+> @@ -0,0 +1,65 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +# Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/tee/riscv,rpmi-mpxy-tee.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: RISC-V RPMI TEE service group based message proxy
+> +
+> +maintainers:
+> +  - Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
+> +
+> +description: |
+> +  The RISC-V Platform Management Interface (RPMI) [1] defines a messaging
+> +  protocol which is modular and extensible. The supervisor software can
+> +  send/receive RPMI messages via the SBI MPXY extension [2] or some dedi=
+cated
+> +  supervisor-mode RPMI transport.
+> +
+> +  The RPMI specification [1] defines a TEE service group which is the RI=
+SC-V
+> +  analog of Arm FF-A: OP-TEE and the rich execution environment (REE, i.=
+e.
+> +  Linux) are peer endpoints and the RPMI framework (machine mode firmwar=
+e)
+> +  mediates every message. Entering OP-TEE on a hart runs it on that hart=
+ until
+> +  it responds, so the SBI implementation provides one SBI MPXY channel p=
+er
+> +  hart; all of them are listed, in hart order, on a single node.
+> +
+> +  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> +  References
+> +  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> +
+> +  [1] RISC-V Platform Management Interface (RPMI) v1.0 (or higher)
+> +      https://github.com/riscv-non-isa/riscv-rpmi/releases
+> +
+> +  [2] RISC-V Supervisor Binary Interface (SBI) v3.0 (or higher)
+> +      https://github.com/riscv-non-isa/riscv-sbi-doc/releases
+> +
+> +properties:
+> +  compatible:
+> +    const: riscv,rpmi-mpxy-tee
+> +
+> +  mboxes:
+> +    minItems: 1
+> +    description:
+> +      One SBI MPXY channel implementing the RPMI TEE service group per h=
+art,
+> +      listed in the same order as the CPU nodes.
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +    description:
+> +      Availability doorbell raised by OP-TEE to signal asynchronous
+> +      notifications over the RPMI TEE signal bus. Optional; when absent
+> +      asynchronous notification is disabled.
+> +
+> +required:
+> +  - compatible
+> +  - mboxes
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    tee {
+> +        compatible =3D "riscv,rpmi-mpxy-tee";
+> +        mboxes =3D <&mpxy_mbox 0x10 0x0>, <&mpxy_mbox 0x11 0x0>;
+> +    };
+> +...
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 207a6e2db70c..7d0e550085b2 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -20577,6 +20577,7 @@ M:	Jens Wiklander <jenswi@kernel.org>
+>  L:	op-tee@lists.trustedfirmware.org (moderated for non-subscribers)
+>  S:	Maintained
+>  F:	Documentation/ABI/testing/sysfs-bus-optee-devices
+> +F:	Documentation/devicetree/bindings/tee/riscv,rpmi-mpxy-tee.yaml
+>  F:	drivers/tee/optee/
+> =20
+>  OP-TEE RANDOM NUMBER GENERATOR (RNG) DRIVER
+>=20
+> --=20
+> 2.34.1
+>=20
+
+--rnRve9bgpYmX7ikw
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaql8NQAKCRB4tDGHoIJi
-0jkpAQD4XnALOsGOCfzL84JOorNFWrH1QZUXmcfy0YADuSNd7AEAk3yAMDvYfKC5
-kfWzthG0L0lav+z/eUbqj4riKVRyEAA=
-=Vbb8
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaql8pQAKCRB4tDGHoIJi
+0smFAP0R3vKvUGlmEV4YG9wl6CzD59R3GC/ptm3Ws/6hAwvFEgD/SWG7NL0Hb75u
+DRG3OBY7VmT02Og/lMQzuGAffMPf/QA=
+=mJKu
 -----END PGP SIGNATURE-----
 
---hiBTazCoHelLpgFk--
+--rnRve9bgpYmX7ikw--
