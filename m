@@ -1,78 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88E2B340281;
-	Tue, 15 Sep 2026 10:57:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4737F3D3CFB
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 10:58:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789469843; cv=none; b=WcPSUomL4zveqCJR6QPzqOoW8qvSdtBvpqqpvyChruv9uaHN8OhCzVL38UKWOu5DRtKt7mNEp684dlys3ttUhuvck7hiBQqMu5l6rROwAnKaFfLh2RZX3+R4GB60iWB5ejINr4uQrNUMMp56vqdB2r4Un5WdkzpFl3Oga2qJo3c=
+	t=1789469886; cv=none; b=jtD2o9ZpmG3bxadGTf4oZEco455qArayk3Q1Pyze6PSuwE00L+qmkbwpwBs3vu9pSCIf9gP1EpyWmIchBHSKLzVCWrh0Cevuox6IKvBNarsajQHK3jHw9fPe3Bs4ntsjcnjgyqKmQ/BzY7nh7URbeV7jkSLFPIQJHqYeDTuz8Sk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789469843; c=relaxed/simple;
-	bh=jjcCtZSr49eBUEwrc8c4xNidZjdjTUez9DXiXPHISFA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=leaQg5JBGn6PNcWhxeJ98TpLq7ESH6nhI32LlxRG3P/1YSn6Lzy3s6b+aWLZ0ry0sKSfj1g3q/FFnkexSI6e04z/KlxM/SCjWr26v7ITwSv3hm2FPqhPW5ZQQNbNovrCpgtF64az6PpIe8uX+3AiJREFYPlzSG4L6nkbweUVLv0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RNPi10ut; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789469886; c=relaxed/simple;
+	bh=9Dqd/3myOp0uOV2PXIihuLG0UGPpoBxXIqC+sUB4vUo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=U3xlzcoqw33Aj8t38LSGoRM4e790z5bnkhE2lIZy3/M05AY3f24LQAgGaekrwm3LlJOSAdTO7yL7ri8MGjzH6UxdqFw/neRjdWtEQwv2qENpBS8IxGPRBZ24d5tAFjyMERaNCte2zE6yIsYPx7AI52mpZO24DuC3kxpQRHW8PBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=k3lw390q; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RNPi10ut"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E64271F000FF;
-	Tue, 15 Sep 2026 10:57:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789469842;
-	bh=yLtYDPRPCgy/hdfO4t1Hv6piT3zNknalnjJ6vmaE9bg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RNPi10ut1xVgiT/EBxMlQdfOK+jpX7FuX9G/j/gk2DEZVC8uRhJAFEnBEA3hetWMb
-	 JoBDxwfq7NYlJOjd5pNGCcY+G2DTRNMBCZkyg/yI8mKkadCx9azST1lFOya+L3ND89
-	 FXr46ewBilAYEQTCVx/U+dv/UvJxcxXwXog/Fp/F40OCBm6V20fxM7BZ5nPxu9BK5y
-	 awXTyJhKoR+8VqGpLcHNWB4V41PcWqgflXvoudYdL/EAkQwYenZoaseMzbSLvZ+w39
-	 3HFdRZYYyoxeHSBZpumnyxSMpAtQ5Bx1SB7aQWPUx3GRDWdCgFFLR6bk1VEvEtUG09
-	 qxUQrEuZquPRg==
-Date: Tue, 15 Sep 2026 12:57:18 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Quchaosheng <quchaosheng000406@163.com>
-Cc: Marc Kleine-Budde <mkl@pengutronix.de>, 
-	Vincent Mailhol <mailhol@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-can@vger.kernel.org, 
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] dt-bindings: net: can: holt,hi311x: Convert to DT
- schema
-Message-ID: <20260915-powerful-jackrabbit-of-courtesy-cf5ddc@quoll>
-References: <20260914090440.552884-1-quchaosheng000406@163.com>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="k3lw390q"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789469883;
+	bh=9Dqd/3myOp0uOV2PXIihuLG0UGPpoBxXIqC+sUB4vUo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=k3lw390qlA8dh62t0WimAyIDtFI+jdt/LuX0VsOiqXfFSzkodpqr5G6Lht5+HKuth
+	 kp4pPc2kLGnP/RyfOuXs9x1ztpAb9jZV+gYXA/RAQZssrkxbJAfklb8DHi3mwXpdr8
+	 MT9qLvu6TCoNqfqq+vkMf4WS241psWZpIwQcCKolVdzl8d+TAV+4N1CTqr9zayD8o0
+	 +dE3/2RN+T7Ih0lXe2klHkhnCmUGPwJAbp2Z38LHuA/gw9Wn9v8YTkNUSuNEbYxEns
+	 ydYVn8OPrw95llTMqwr2dtMYYXgAUYaMja+mkrYzPRiL8sWNklx6p5BrmgOiOXTfbH
+	 +vQkQ6VzrEYCg==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 1077B17E089A;
+	Tue, 15 Sep 2026 12:58:03 +0200 (CEST)
+Message-ID: <0255ffba-ce22-4065-a94e-dc2e0e635b62@collabora.com>
+Date: Tue, 15 Sep 2026 12:58:02 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260914090440.552884-1-quchaosheng000406@163.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/2] dt-bindings: phy: Document MT8196 MediaTek
+ PCI-Express Gen4 S-PHY
+To: sashiko-reviews@lists.linux.dev
+Cc: conor+dt@kernel.org, neil.armstrong@linaro.org,
+ devicetree@vger.kernel.org, olteanv@gmail.com, vkoul@kernel.org,
+ linux-phy@lists.infradead.org, robh@kernel.org
+References: <20260915101022.23852-1-angelogioacchino.delregno@collabora.com>
+ <20260915101022.23852-2-angelogioacchino.delregno@collabora.com>
+ <20260915101828.D552F1F000FF@smtp.kernel.org>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20260915101828.D552F1F000FF@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 14, 2026 at 05:04:39PM +0800, Quchaosheng wrote:
-> Convert the Holt HI-311X binding from free-form text to DT schema.
+On 9/15/26 12:18, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] dt-bindings: strict array prevents 1-lane S-PHY nvmem configuration
+> --
 > 
-> Keep the example and the properties as the original text describes them,
-> including clocks as a required property.
+> commit c6841c20d82c1db99761e33c189c44960b8b5284
+> Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 > 
-> Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
-> ---
-> v2:
->  - Keep clocks required and drop the clock-frequency property. The
->    original text lists clocks as required, and clock-frequency is an
->    ACPI-only property of the driver, not part of the DT binding.
+> dt-bindings: phy: Document MT8196 MediaTek PCI-Express Gen4 S-PHY
 > 
->  - Drop the variant-specific handling that v2 introduced. It documented
->    properties the binding never had.
+> This commit adds device tree bindings for the MediaTek PCI-Express Gen4 S-PHY
+> found in newer SoCs like the MT8196. The PHY supports link rates up to 16.0
+> GT/s per lane, up to two lanes, and both Root Complex and End Point modes.
 > 
-> v3:
->  - Rewrite the commit message in imperative mood.
-> ---
-> ---
->  .../bindings/net/can/holt,hi311x.yaml         | 67 +++++++++++++++++++
->  .../bindings/net/can/holt_hi311x.txt          | 23 -------
->  2 files changed, 67 insertions(+), 23 deletions(-)
+>> diff --git a/Documentation/devicetree/bindings/phy/mediatek,mt8196-pcie-sphy.yaml b/Documentation/devicetree/bindings/phy/mediatek,mt8196-pcie-sphy.yaml
+>> new file mode 100644
+>> index 0000000000000..3fd1bfbc3822f
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/phy/mediatek,mt8196-pcie-sphy.yaml
+> [ ... ]
+>> +  nvmem-cell-names:
+>> +    items:
+>> +      - const: int-r
+> [ ... ]
+>> +      - const: tx-lanes-pmos
+>> +      - const: tx-lanes-nmos
+>> +      - const: tx-ln0-rswn
+>> +      - const: tx-ln1-rswn
+>> +      - const: cal-version
+> 
+> [Severity: Medium]
+> Does this rigid array structure prevent valid 1-lane S-PHY configurations from
+> passing schema validation?
+> 
+> Defining a device tree node for a 1-lane PHY typically involves omitting the
+> unused "tx-ln1-rswn" eFuse cell. However, because the items array enforces
+> strict positional constraints, omitting that entry shifts the index of the
+> global "cal-version" cell. This will cause dt_binding_check to fail for
+> legitimate 1-lane configurations.
+> 
+> Could the schema be adjusted to allow the second lane's eFuse cell to be
+> optional without breaking the expected position of "cal-version"? Otherwise,
+> it seems DT authors are forced to either drop calibration entirely or include
+> irrelevant dummy eFuse references.
 
-Isn't this like third version of the same thing in Patchwork?
+In the single lane case, one lane is usually used for USB3, but the calibrations
+are specific to the interface, so the second lane calibration is always present
+even if only one is used.
 
-Best regards,
-Krzysztof
+Besides, this is done on purpose to enforce having all calibration handles in the
+SoC DTSI file, because the second lane being used for this or that is something
+board specific - so this avoids the (too usual) mistake of enabling two-lane PCIe
+on a board while only one lane has calibration (which means none get calibrated).
 
+So yes, it could be done, but it wasn't done on purpose.
+
+In any case, should the need to declare only one lane calibration, it's still
+something that can be done later with an if block.
