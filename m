@@ -1,69 +1,69 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 566384A2A5E
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 21:00:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D275D3ADB92
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 21:00:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789506014; cv=none; b=fLBP0iBitu88hEXInlv7Y+h7S/T8rQEXtt2rvs89/C3SToOS+Kc71Oh1VIGf6I/E8GDsw0jJYWPf0dq2x+IjemRVs8XHzbyFQRWA3aHUM78I7AlvF85w5uWio43AabtIbLUCfLzrZWb9+gA+LM87jPl87esnoPrp+kdYxyQ3sWg=
+	t=1789506028; cv=none; b=rnyI7wpQzVYt82UF59+fYWWONtPOyihhnVVyHUuKmiLbAKZJRe6/QEAGmXOsESSBNvnhfNTiXbAf+Xq6UPS2p94vJnLyMvwkBL0iZh389VYGDzWHDqYNAhgU+b/t30JR+lr8QfDaNTEKA1L/HVlVhfyipEp7fzwFz+lF2xk43WM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789506014; c=relaxed/simple;
-	bh=cBWOFBzMLsYPxfimfbKAlO8qMRXN7yX9hOB3gswKS8U=;
+	s=arc-20240116; t=1789506028; c=relaxed/simple;
+	bh=nFvXJUaWFc6QwU6CBdz4mifcLJAAVpUo92s60EY25OM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=GTqbpxDtG3n7Zhlsis0tCkbPXJY6bXRKFI4SPChT3wKyEUCtOnThhyRtvVNa+qhu+Vuc1M4XOZ4DJRtfzHypi4RgorpxBCM6uCcT6ZZkvNEDshJGyph6DaUycgtA64mYD/ly4Azs/WgGAeJ5A4PdTuor01wDRJDyP8p6+WstP9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G/1C10UI; arc=none smtp.client-ip=74.125.228.12
+	 In-Reply-To:To:Cc; b=CAarEmSf3rVjdye4XHJyuZHwy/lRIFV6TWrNtxnYJuDv3CwBbTYKY6lX32BUDCYrgoyNCh/3FBFPzH9dI/OBP+Gyrb0FYpgZYsNNUaPhjt6NENEq0DtYxZhAGJ0MsiT5/ZwQwaybCDzhj5fy2bl9oTo3fwi2X4PwKsqZ0WuomsQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mIY1yEkZ; arc=none smtp.client-ip=74.125.227.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G/1C10UI"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4ca696d43so38282a12.0
-        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 14:00:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mIY1yEkZ"
+Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2dd89b59dccso229055ad.2
+        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 14:00:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789506012; x=1790110812; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789506026; x=1790110826; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Yglg3Sys5hZqxYUDp81g8N0jGnQoqfRpeFpHtjkozQQ=;
-        b=G/1C10UINK19mu8aOniYEMY+NFWgD6uvFrxIeBqMTqIe4ZYcd9WnT55ihVHuwLBcBC
-         DILj4biEetaG88Mbze81gdoUFspZlxiIlUv2NrNDKBjq7RdyFcel52ukDF7c0/djkhrT
-         O3z7ALfBWXE+MHofaYO24NFDF2kkuONyMgYUhb/kNpq0dxoh+I00PoVarDFnWEixW2hO
-         z3Rbb/49NcVdVEhljZUYPoZpr49hdeoOwjMv8BRWrL4JzsGdc22i8ohQIuVe+fIisL+r
-         29fKI56YFbfJ13st4W7ymFm9OG78xct/2NEWYyIf1g2imu19CWSI78vetO6pEOWiiJ4R
-         WyCA==
+        bh=c10SF/7zsBBaBHTvbD0jmeqK8wv98hcte/XAw0iO1VU=;
+        b=mIY1yEkZToMYoKlaSOM5x92WXu0U4Ob6qwEOg7VJm26Dt9Y6YfENrvPhVwiwy1DyVR
+         UC8OGf3N5fMAqXjQ1UPXaaDwhGXcgv0czt2BM0U9cjejsqwBALhIwOcqUyUJWqZX1qo3
+         vK3G5f22CA0gB+iYz13LLwG12mhwqvBiTMwgFsOMNZnnzmbpA891kz76W+PLFKvHlLpF
+         Q4k8mv4vKXr46DLiDJmII375h26BQ37t6Xy9adqf6OXwZOXOetGTFzly74W3BWN30Ctp
+         81/ZIvS4UPf7TDXCpxiAlg+XojS5Y8d5bIuUrm0Lj4WHPa3N/Pq3SBCx8OioGuoXro5b
+         Qkeg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789506012; x=1790110812;
+        d=1e100.net; s=20260707; t=1789506026; x=1790110826;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Yglg3Sys5hZqxYUDp81g8N0jGnQoqfRpeFpHtjkozQQ=;
-        b=B/dz3b/fFJScVvOYJw2OytM9sa7jsICPUyVQw1WhsUfypW2VogAJNC2arwL059dum0
-         +LyDhQUwlzErKcGjSfxVlzZenBgY/jC5wIc3S3gWPdtzEEh3i/Jk6H9Lv1EvFfx+KLYm
-         f9ADNXueXyLgDFOiQpTYakZ8rZ2cVlpGUWnnqbfe3shT/bZHfoB2WbHKZTMWeZBnfWu3
-         qor4X2Yn/mUIaeNy9gS9iWxQ2T2bHHuRcKSSCgHC7hZOab9wBQsfN/pm8UNGI0E//OgV
-         KuFImHF6cao01a4Q22CRs/DoC03zTaAsbA+CoYzkfqHpyzMARa6xcgNjjDo7Ig14w93h
-         b3pA==
-X-Forwarded-Encrypted: i=1; AKwUvBwtN4dz6fTi4Xjib/COaR715oPQ5Ops0CianK2s2JMl2C5zeP3K559+cFDIhOiw9GEg7evNDOzdZRI/@vger.kernel.org
-X-Gm-Message-State: AFuF++lTKl4AveD7eEBpuK/4TkgV3v5YFmmsHT1/LnjJa9Ccm63AAE/N
-	89RMtYgmQSfPMxJOv0M1HWWlguP7Q4SlgoBuGmTN7YXa3o23NRO2VFMR
-X-Gm-Gg: AYBFou3oO8JrxeBQqWCV1G7DqfLOae9ONQBf2pajC/osJb3lxpdsc2MF5FyfnyY4yjW
-	aomXtJTFiq9gthrzi8P0YZlggYCzwYEfRTd8P5BcaHP0wyyVwzA57NLUYeypcOC6lv7AaeaB8zK
-	nasQCTzIUnTvZwB3vjN+t9xISk+64UfdvSlhzPYmOR0WOgGbbZJr6U8ga7IIYxmmjKJtdMRTLcy
-	nugqNzqmfiA3KK6JUKLG4GbNW3k4RvCOGOsaxFGssDgaMrTB8YPFZcS8mJecGKg8AcJzGtYIzba
-	8eA6bHuHuvLk5G/aIpiGcn5SPpK+9DE3YAEZEFf14mrvrsqiOEYZyW8EUGjzo0Qjc602IcjnM5l
-	82MfNWbfFzuzqM1uF+VZAdU0PVwEviZx2zaHiTW49KyAKcgr3P23VTWGTwCRIuQcf04OXO/Wd0L
-	2gJuDw+FPVDUASX8qPJ1MehtjhiSX4a97qOotnTtOlU1Gx/cIvhWD8MNn4RfUTt9OPMIdNLA8CV
-	WnwfXpz9clCrVBUVeADog==
-X-Received: by 2002:a05:6a20:549d:b0:3c3:7f50:fc39 with SMTP id adf61e73a8af0-3dd5f0808abmr272462637.0.1789506012429;
-        Tue, 15 Sep 2026 14:00:12 -0700 (PDT)
+        bh=c10SF/7zsBBaBHTvbD0jmeqK8wv98hcte/XAw0iO1VU=;
+        b=T7TywgRVtc68rxxnaD2zAmv7C9RuIr+7Aecy38dg743xfmxaZsvxrDCXQKPKVV5DgR
+         hlOXI9GAB6tvjH85R4lQDy6lMV7QyTdeDn43CvnxAsCguBUA+j2TReNiPBvMqGdzSu8p
+         fg4NdtRP0nlhLqWgN7I9Asr5UWdic7WtEdhJdAgE/UF18xdZo1kSxZ41xeQIBpoLrXpn
+         jRW+JtDSd3HkAzMz9k4IWEQ1p7wpVJRO6lGtAPeDVpMAQJhmHX0+9LuswbTH0y1Y+Rkj
+         xZPPp1OdCx7p/7B9o35lzkwt1A80min+XcnZXoP0gEqowucDSL/zNNfgjopFSqm6Wswk
+         XKZQ==
+X-Forwarded-Encrypted: i=1; AKwUvByLVXdLZxnzHy9sVGGHezIJYtWz/71v6ILL5AQ39GMBUrsQTQPfGtHIC0kMeRQAI1Cwuo5WFupKfocJ@vger.kernel.org
+X-Gm-Message-State: AFuF++n6YNVTEv1LI0LEgXYv0yjAGeda11Kvk5NJbEaBWBwexvp20/VD
+	lRqvp8YfWxR305Sp1MqTUCtsFomHYYweQwWHx1v5z/0FtH+9u704s4eE
+X-Gm-Gg: AYBFou3kL6Glm7+yz7Kcf20PWdqVzM7HZ2Kqm7HGiqO3k3M5FC+A91M9E+cB4ZuAVHl
+	LkWLS4dVtyqO6dmddZ3QyOLCAVfFOwynBsQabK6Gvqiwe329tgid3ODlbFeB/KEennfFsEoiTYx
+	0JFjlx/94kbjCk8wdvQq3YZq1EDdo/imFJIptqEfGfm1A4PdY6UaGAGrHQiRs44ekJaoYTh+4CS
+	qBNIZwJCM6KcLiR1tm5+QX1sFK8naYqpL9bDtYF96QycEc932/8pf3+pDb9KccjN6PIL0CwKYTJ
+	EqiyDVywcMC47m797PLxAOl1+UrcW1c8Hcm1QhRKwFzSjFO27iYAOMwdKi/vKLeW4dyEenkzgf4
+	9XeJOPk48U9IEcEqoLtN5PTdeGLwO6AF4MVFrNfn8l1QqqrbZTJDFJAAISTaw6nmC68DKc/G7x6
+	BkmPHno9ZfeYurqQMEYYnWeLo2EwA2Sm3OaOqAleeRznWhJpAqgHmwQsOmx1fXZrZSVoNSZIY/m
+	YJoEhEEUAQ=
+X-Received: by 2002:a17:90b:4c49:b0:39b:3510:4af7 with SMTP id 98e67ed59e1d1-39e1e2655f1mr157584a91.1.1789506026119;
+        Tue, 15 Sep 2026 14:00:26 -0700 (PDT)
 Received: from [10.107.92.252] ([2409:40c2:5413:87f7:9fa7:eb18:a8e7:30a7])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc50abb1483sm465432a12.26.2026.09.15.13.59.59
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc50abb1483sm465432a12.26.2026.09.15.14.00.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 14:00:11 -0700 (PDT)
+        Tue, 15 Sep 2026 14:00:25 -0700 (PDT)
 From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Wed, 16 Sep 2026 02:29:38 +0530
-Subject: [PATCH v2 1/4] dt-bindings: crypto: ti,omap4-des: Remove redundant
- clock properties
+Date: Wed, 16 Sep 2026 02:29:39 +0530
+Subject: [PATCH v2 2/4] ARM: dts: ti: omap: dra7: Remove clocks from crypto
+ nodes
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-ti-dra7-omap-sham-fix-v2-1-4eadb60081e5@gmail.com>
+Message-Id: <20260916-ti-dra7-omap-sham-fix-v2-2-4eadb60081e5@gmail.com>
 References: <20260916-ti-dra7-omap-sham-fix-v2-0-4eadb60081e5@gmail.com>
 In-Reply-To: <20260916-ti-dra7-omap-sham-fix-v2-0-4eadb60081e5@gmail.com>
 To: Aaro Koskinen <aaro.koskinen@iki.fi>, 
@@ -87,62 +87,83 @@ Cc: linux-omap@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org, 
  j.bhargav.u@gmail.com
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789505986; l=1434;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789505986; l=2316;
  i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=cBWOFBzMLsYPxfimfbKAlO8qMRXN7yX9hOB3gswKS8U=;
- b=KUd18yw5fwIIZ/7ECVBLSNjCwhgLFtTHojMC4oxj5+q+01W7orHCMx08MGwoSNxLANFWJmlkT
- fLwWG/npqVqBhSBM5U6Yo0q6F4/kTZpzwZYBAr0xhiXqZJ8GbR+xTsu
+ bh=nFvXJUaWFc6QwU6CBdz4mifcLJAAVpUo92s60EY25OM=;
+ b=CfWKw1q1THlrNfh7dWWm0PgEbxlH8ywWqzQIz8h3CsiuUl7xUDuYrBeLl8FQ1VYpjps62JJPM
+ iHpqQGYWTutAT8aMfSFYoWDNkgMhJXLzVGHCdp7LNlJJQ5dOaWOELdZ
 X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
  pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-The omap-des driver doesn't use the clocks and clock-names properties
-because clock management is entirely handled by the parent ti-sysc
-wrapper. files omap5-l4.dtsi, omap4-l4.dtsi, am4372.dtsi doesn't use
-these properties either.
+The omap-sham, omap4-des and omap2-aes crypto drivers do not use
+"clocks" and "clock-names" properties. Clock management is handled by
+the ti-sysc interconnect parent wrapper. The dt-bindings for
+ti,omap-sham and ti,omap-aes don't define these clock properties. Having
+them in the child nodes causes dtbs_check warnings.
 
-Remove these properties from the binding.
+Remove the "clocks" and "clock-names" properties from the sham, des and
+aes nodes.
 
+Reviewed-by: Andreas Kemnade <andreas@kemnade.info>
 Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
 ---
- Documentation/devicetree/bindings/crypto/ti,omap4-des.yaml | 11 -----------
- 1 file changed, 11 deletions(-)
+ arch/arm/boot/dts/ti/omap/dra7-l4.dtsi | 2 --
+ arch/arm/boot/dts/ti/omap/dra7.dtsi    | 8 --------
+ 2 files changed, 10 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/crypto/ti,omap4-des.yaml b/Documentation/devicetree/bindings/crypto/ti,omap4-des.yaml
-index f02f1e141218..2ed6f77583d4 100644
---- a/Documentation/devicetree/bindings/crypto/ti,omap4-des.yaml
-+++ b/Documentation/devicetree/bindings/crypto/ti,omap4-des.yaml
-@@ -31,13 +31,6 @@ properties:
-       - const: tx
-       - const: rx
+diff --git a/arch/arm/boot/dts/ti/omap/dra7-l4.dtsi b/arch/arm/boot/dts/ti/omap/dra7-l4.dtsi
+index a595745afe59..bca035fd7e62 100644
+--- a/arch/arm/boot/dts/ti/omap/dra7-l4.dtsi
++++ b/arch/arm/boot/dts/ti/omap/dra7-l4.dtsi
+@@ -2086,8 +2086,6 @@ des: des@0 {
+ 				interrupts = <GIC_SPI 77 IRQ_TYPE_LEVEL_HIGH>;
+ 				dmas = <&sdma_xbar 117>, <&sdma_xbar 116>;
+ 				dma-names = "tx", "rx";
+-				clocks = <&l3_iclk_div>;
+-				clock-names = "fck";
+ 			};
+ 		};
  
--  clocks:
--    maxItems: 1
--
--  clock-names:
--    items:
--      - const: fck
--
- dependencies:
-   dmas: [ dma-names ]
+diff --git a/arch/arm/boot/dts/ti/omap/dra7.dtsi b/arch/arm/boot/dts/ti/omap/dra7.dtsi
+index 711ce4c31bb1..0784c6d9cbe4 100644
+--- a/arch/arm/boot/dts/ti/omap/dra7.dtsi
++++ b/arch/arm/boot/dts/ti/omap/dra7.dtsi
+@@ -1012,8 +1012,6 @@ aes1: aes@0 {
+ 				interrupts = <GIC_SPI 80 IRQ_TYPE_LEVEL_HIGH>;
+ 				dmas = <&edma_xbar 111 0>, <&edma_xbar 110 0>;
+ 				dma-names = "tx", "rx";
+-				clocks = <&l3_iclk_div>;
+-				clock-names = "fck";
+ 			};
+ 		};
  
-@@ -45,8 +38,6 @@ required:
-   - compatible
-   - reg
-   - interrupts
--  - clocks
--  - clock-names
+@@ -1043,8 +1041,6 @@ aes2: aes@0 {
+ 				interrupts = <GIC_SPI 59 IRQ_TYPE_LEVEL_HIGH>;
+ 				dmas = <&edma_xbar 114 0>, <&edma_xbar 113 0>;
+ 				dma-names = "tx", "rx";
+-				clocks = <&l3_iclk_div>;
+-				clock-names = "fck";
+ 			};
+ 		};
  
- additionalProperties: false
+@@ -1073,8 +1069,6 @@ sham1: sham@0 {
+ 				interrupts = <GIC_SPI 46 IRQ_TYPE_LEVEL_HIGH>;
+ 				dmas = <&edma_xbar 119 0>;
+ 				dma-names = "rx";
+-				clocks = <&l3_iclk_div>;
+-				clock-names = "fck";
+ 			};
+ 		};
  
-@@ -58,8 +49,6 @@ examples:
-         compatible = "ti,omap4-des";
-         reg = <0x480a5000 0xa0>;
-         interrupts = <GIC_SPI 82 IRQ_TYPE_LEVEL_HIGH>;
--        clocks = <&l3_iclk_div>;
--        clock-names = "fck";
-         dmas = <&sdma 117>, <&sdma 116>;
-         dma-names = "tx", "rx";
-     };
+@@ -1103,8 +1097,6 @@ sham2: sham@0 {
+ 				interrupts = <GIC_SPI 163 IRQ_TYPE_LEVEL_HIGH>;
+ 				dmas = <&edma_xbar 165 0>;
+ 				dma-names = "rx";
+-				clocks = <&l3_iclk_div>;
+-				clock-names = "fck";
+ 			};
+ 		};
+ 
 
 -- 
 2.55.0
