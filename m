@@ -1,44 +1,44 @@
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 039594AA586;
-	Tue, 15 Sep 2026 15:32:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C3814ACC7F;
+	Tue, 15 Sep 2026 15:32:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789486352; cv=none; b=Tm7s8tj0RB3BYgpndcpLIfRbiHPnfw4RKF3x4fMxz4I/XHL1UyCOj9FN3PdywCKSDWVnBLzPfrmek2ziK74DvKUSExeiUqdxThBp008gNFHQbJrhQ5cJZCZsfynEudHQS2YNJl4m0Ki5aw9EACnaipYr7q5sdGspSWnyKC/2/iU=
+	t=1789486356; cv=none; b=LFSb1YmwhzisxIpBf178cGBMFlYooB0TGg46/luyNugzPNsIOg7ORF92FmVylYKSmokkw2BAk/bMA6zdR5ux2DqgnzaPBQL3TF1rk2GHosqTxQE4cJAPtZ+gBWrMk8YpUHyK39UBjrDyJwELQhrnnw5wP9PDO3/nYjvvmBHMjto=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789486352; c=relaxed/simple;
-	bh=pRK4wz+5TKs85uAC9XpsbCkfJ/z8EqTQXaFe7TxEtvI=;
+	s=arc-20240116; t=1789486356; c=relaxed/simple;
+	bh=zjwU0n0UUhU+jGlVxEa7hMZuywsgqWurludawJtAjaA=;
 	h=From:Date:Subject:MIME-Version:Message-Id:In-Reply-To:To:Cc:
-	 Content-Type:References; b=tyhER8FNolUDS/YoP76e7dFojCARCo5IwvGX96Co6Z2HPxyMuNP3uVyplwXwoD3GJy0zq3mqF8V5twYYhIhg659PMwiBERI3kfj76a3QoqfXEgo63dsfIaTZ6JVa/beAVqotAcQQFD4gK1uVmEA3vrFUObUmUdLyaEc8YEy8x/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=Wd08AOwR; arc=none smtp.client-ip=210.118.77.12
+	 Content-Type:References; b=khbOH2cy3JJ0KGEgyiswgYx9I+LDURbd488bxm/p1rg+Du+b7W5lVTi7ayBhRJxtBY9JpE3z6lMZqUpIkfKGd5nQTJ9NLWswjatG4brh0zeqvx4Gak7ILBB9lSBfMduU0irNYG09KCuR3SGg9tEyqlZqeslo8N2zi0DmY6CUyCE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=aooQGV0T; arc=none smtp.client-ip=210.118.77.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="Wd08AOwR"
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20260915153220euoutp024b0df39da8d94f57de13bfae694851a3~ViFiQ9n050392803928euoutp02a;
-	Tue, 15 Sep 2026 15:32:20 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20260915153220euoutp024b0df39da8d94f57de13bfae694851a3~ViFiQ9n050392803928euoutp02a
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="aooQGV0T"
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20260915153228euoutp0155f179673c872409fc2e3b9244f51a99~ViFpAQ_iL0794407944euoutp01R;
+	Tue, 15 Sep 2026 15:32:28 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20260915153228euoutp0155f179673c872409fc2e3b9244f51a99~ViFpAQ_iL0794407944euoutp01R
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1789486340;
-	bh=ejZOLWZBqVvE+aJiQH4w7G9Km7AK2Bodk8g1HgypfSM=;
+	s=mail20170921; t=1789486348;
+	bh=OQcHsNYHyfrJipnWdQ4Q/LMwmJvrymtwU5A2V7mGYwc=;
 	h=From:Date:Subject:In-Reply-To:To:Cc:References:From;
-	b=Wd08AOwR/A+BGb2Pwf6AeDhBuomsub9VgkDTgu5pVaVWEt2cdiEVfIoHt/tM0mgWC
-	 AWxQXzye4LBgqKiXioZxJsIJg+Hi02rW5k96kL+5egu+dDvF4rGkh5nyDEOfaSzOp5
-	 DtVldbkoosB+wmtCs3AXo/7L+9N5578bikgqwTGc=
+	b=aooQGV0Tf0GXM8zCoNpaLOY3QWn2eRkOi4h081keRNiBylB7jL9jPxHtDA9pYG1tx
+	 rZYx7818WeTgpqX6Dq2UwWED13rdnsLCEdnHC86vDGOlVpHYVwd2iGNVN2k/8D2Ydl
+	 wfMDOBS1shgbj/bGpcsUsOhegq5KdkBkTI8HiTiQ=
 Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20260915153220eucas1p1f5b0e03015500d9d66db8993426c8734~ViFh556ML1215512155eucas1p1O;
-	Tue, 15 Sep 2026 15:32:20 +0000 (GMT)
+	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+	20260915153227eucas1p2c51b87dc8da5d9dfacd6db6bb7d6774e~ViFosbQOs0983909839eucas1p2d;
+	Tue, 15 Sep 2026 15:32:27 +0000 (GMT)
 Received: from AMDC4942.eu.corp.samsungelectronics.net (unknown
 	[106.210.136.40]) by eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20260915153218eusmtip1a67d7df51779cea51b9ccba9edfd3c9d~ViFgQLW9c0616306163eusmtip1b;
-	Tue, 15 Sep 2026 15:32:18 +0000 (GMT)
+	20260915153226eusmtip1b8862067e39eb9b8c67522b01c52aff8~ViFnFT_Cd0424304243eusmtip1x;
+	Tue, 15 Sep 2026 15:32:26 +0000 (GMT)
 From: Michal Wilczynski <m.wilczynski@samsung.com>
-Date: Tue, 15 Sep 2026 17:32:12 +0200
-Subject: [PATCH v4 04/20] dt-bindings: soc: starfive: Add
- starfive,jh7110-vout-syscon
+Date: Tue, 15 Sep 2026 17:32:16 +0200
+Subject: [PATCH v4 08/20] drm/bridge: inno-hdmi: Allow the register map to
+ come from a parent
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,7 +46,7 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-jh7110-clean-send-v4-4-f0e4fd6f2cc8@samsung.com>
+Message-Id: <20260915-jh7110-clean-send-v4-8-f0e4fd6f2cc8@samsung.com>
 In-Reply-To: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
 To: Vinod Koul <vkoul@kernel.org>,  Neil Armstrong
 	<neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,  Krzysztof
@@ -77,37 +77,91 @@ Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
 	<u.kleine-koenig@baylibre.com>,  Michal Wilczynski
 	<m.wilczynski@samsung.com>
 X-Mailer: b4 0.15-dev
-X-CMS-MailID: 20260915153220eucas1p1f5b0e03015500d9d66db8993426c8734
+X-CMS-MailID: 20260915153227eucas1p2c51b87dc8da5d9dfacd6db6bb7d6774e
 X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260915153220eucas1p1f5b0e03015500d9d66db8993426c8734
+X-RootMTR: 20260915153227eucas1p2c51b87dc8da5d9dfacd6db6bb7d6774e
 X-EPHeader: CA
-X-CMS-RootMailID: 20260915153220eucas1p1f5b0e03015500d9d66db8993426c8734
+X-CMS-RootMailID: 20260915153227eucas1p2c51b87dc8da5d9dfacd6db6bb7d6774e
 References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
-	<CGME20260915153220eucas1p1f5b0e03015500d9d66db8993426c8734@eucas1p1.samsung.com>
+	<CGME20260915153227eucas1p2c51b87dc8da5d9dfacd6db6bb7d6774e@eucas1p2.samsung.com>
 
-The video output subsystem has its own system controller, documented as
-dom_vout_syscon. Among other things it holds the mux that selects which
-DC8200 output drives the HDMI transmitter, so the HDMI controller needs
-to reach it.
+On some SoCs the HDMI controller does not own its register window. The
+StarFive JH7110 documents one 64 KB block, u0_hdmitx, that holds both
+the controller and the PHY, so the parent device maps it and owns the
+regmap while the two children share it.
 
+Use a regmap supplied by the parent device when there is one, and keep
+mapping our own resource when there is not, so platforms that own their
+register window are unaffected.
+
+Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
 Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
 ---
- .../devicetree/bindings/soc/starfive/starfive,jh7110-syscon.yaml         | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/bridge/inno-hdmi.c | 31 ++++++++++++++++++++++++++++---
+ 1 file changed, 28 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/soc/starfive/starfive,jh7110-syscon.yaml b/Documentation/devicetree/bindings/soc/starfive/starfive,jh7110-syscon.yaml
-index 0039319e91fe6e6aadc4300114626348e4dfb7ce..cf9b657d0e8a3ed5c5688336fee4123e14a2ac58 100644
---- a/Documentation/devicetree/bindings/soc/starfive/starfive,jh7110-syscon.yaml
-+++ b/Documentation/devicetree/bindings/soc/starfive/starfive,jh7110-syscon.yaml
-@@ -24,6 +24,7 @@ properties:
-           - enum:
-               - starfive,jh7110-aon-syscon
-               - starfive,jh7110-stg-syscon
-+              - starfive,jh7110-vout-syscon
-           - const: syscon
+diff --git a/drivers/gpu/drm/bridge/inno-hdmi.c b/drivers/gpu/drm/bridge/inno-hdmi.c
+index 840f1c7bc202951d3dfee3711f61105f328c3326..1264152fb1434acda584e4af3d54e4986b57aa3e 100644
+--- a/drivers/gpu/drm/bridge/inno-hdmi.c
++++ b/drivers/gpu/drm/bridge/inno-hdmi.c
+@@ -397,6 +397,7 @@ struct inno_hdmi {
+ 	struct clk *pclk;
+ 	struct clk *refclk;
+ 	void __iomem *regs;
++	struct regmap *regmap;
+ 	struct regmap *grf;
  
-   reg:
+ 	struct inno_hdmi_i2c *i2c;
+@@ -470,11 +471,25 @@ static int inno_hdmi_find_phy_config(struct inno_hdmi *hdmi,
+ 
+ static inline u8 hdmi_readb(struct inno_hdmi *hdmi, u16 offset)
+ {
++	u32 val;
++
++	if (hdmi->regmap) {
++		if (regmap_read(hdmi->regmap, offset * 4, &val))
++			return 0;
++
++		return val;
++	}
++
+ 	return readl_relaxed(hdmi->regs + (offset) * 0x04);
+ }
+ 
+ static inline void hdmi_writeb(struct inno_hdmi *hdmi, u16 offset, u32 val)
+ {
++	if (hdmi->regmap) {
++		regmap_write(hdmi->regmap, offset * 4, val);
++		return;
++	}
++
+ 	writel_relaxed(val, hdmi->regs + (offset) * 0x04);
+ }
+ 
+@@ -1102,9 +1117,19 @@ struct inno_hdmi *inno_hdmi_probe(struct platform_device *pdev,
+ 	hdmi->dev = dev;
+ 	hdmi->plat_data = plat_data;
+ 
+-	hdmi->regs = devm_platform_ioremap_resource(pdev, 0);
+-	if (IS_ERR(hdmi->regs))
+-		return ERR_CAST(hdmi->regs);
++	/*
++	 * On platforms where the controller shares a register space with
++	 * other blocks, the parent owns the regmap. Fall back to mapping
++	 * our own resource where it does not.
++	 */
++	if (dev->parent)
++		hdmi->regmap = dev_get_regmap(dev->parent, NULL);
++
++	if (!hdmi->regmap) {
++		hdmi->regs = devm_platform_ioremap_resource(pdev, 0);
++		if (IS_ERR(hdmi->regs))
++			return ERR_CAST(hdmi->regs);
++	}
+ 
+ 	hdmi->pclk = devm_clk_get_enabled(hdmi->dev, "pclk");
+ 	if (IS_ERR(hdmi->pclk)) {
 
 -- 
 2.34.1
