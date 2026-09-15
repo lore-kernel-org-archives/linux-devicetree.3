@@ -1,210 +1,179 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f41.google.com (mail-vs2-f41.google.com [74.125.227.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFF694CE66A
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 19:29:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789500564; cv=none; b=KW8S3fuftNm9hhQqRlq1a/RGhIRbDhfdByKEiCV+R1eOwnThcr1gl2U4YDL9x5k1Ci7MCAos3t85eWaXZUQpvwASgZAe/jQBM7EauKho/8U0x/cc3F80bWKBGqYXY+4uT3DnzKEcdmyhLDex4v0y2/uTJfksGur0/Sr6IJmuPVM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789500564; c=relaxed/simple;
-	bh=8gMwPbPMJOZM2SzH6NpnSBih9kGcleO0JLeOjdD9PZU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bDrABFi7rUWsxB6A0uDWEMA1F0SH6eWTmS5LxrC6FdvuLRpS+UNmNP55bLMfeFXmBF21GfFiPd5fpE+pnn8NpyEJYpGwaIYneehv0/99XL3UTCFlngSfkN2p6ufVlkBZH3EYZUcjGErVBlhXvO+0lvCZBTBjkSByXZiGa2xV9ig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UdzZInIJ; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A3653542D4
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 19:30:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789500653; cv=pass; b=p9/Pg76w8exOvL+1yRjZ+TDvAahaBsaGnl15aGEKRh4TkpJtR9dmbG4IMokVrUN+WysjBYWCx0pp2AKh7k9q319PC2bqNMosDEtvwv/lnZ3oIFtOFsnfyaepvo1qniMXLPmm1p/v+PEAPHepLuLQYbx3hV2TsgQ+IXsRvuODGc8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789500653; c=relaxed/simple;
+	bh=RfxsKW+gWzHzPnl0VGV4sp1JrOew5XduTAso8G35GXs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PO6XK3Z2rpMA1H6rvEu882ZnM88avKun2Una91Gj2dirs3UfLwW/FawkJRXqtfGyNLowBJSUuiZ+SjBW6Q2Akf26t4Tf9Xymn72tsJv7Flk4daBA+UXyWqxOz+LaoTUVFTx/bQs1PJbK5WnBKZx1dwv6sTEDXl70S4SxlqohGBE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=mHQpOIQY; arc=pass smtp.client-ip=74.125.227.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UdzZInIJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 206431F000FF;
-	Tue, 15 Sep 2026 19:29:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789500562;
-	bh=uVZ9/NpYUTOpLEif+FVrdj6K2lQJHZSf0W4LmHSzdVM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UdzZInIJfcx1/4IwlFpEryRk1xqfqbNqJf6wVopYOCbR7YEu/om+Z2TIybmYqcLvc
-	 VQiKs7dqlmvquImClfwZvlgESt11hnTnuIxQ4YzNLtkHIgb7rVHP3/DaulKXyxeJgF
-	 J8YHWEagKyRFQAg0cAgAj3HNUOWwBjrlIWrYbUEn183SAHhS2/ag9Sio+9le0xdUko
-	 wSp/oRqcFqIBZCbh9R0KIXDRS+fDq/norR+GBIHWaaCv1SFmDJyI+Q4pJDzoQjBiGp
-	 yCv+bqfFI+Lankr73gBoz3xlCGBVUvQv60/TJl/42NFUDTAw1iAOPE9fFEsq62misT
-	 SEU2yWXgaB6CQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 08/15] iio: adc: ad4134: Support buffered data read
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marcelo Schmitt" <marcelo.schmitt@analog.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <dbc37d95fe7f96bd158d8e3339c41205524ae217.1789494473.git.marcelo.schmitt@analog.com>
-References: <cover.1789494473.git.marcelo.schmitt@analog.com>
- <dbc37d95fe7f96bd158d8e3339c41205524ae217.1789494473.git.marcelo.schmitt@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 19:29:21 +0000
-Message-Id: <20260915192922.206431F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="mHQpOIQY"
+Received: by mail-vs2-f41.google.com with SMTP id 71dfb90a1353d-5c67e4fff62so50698e0c.2
+        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 12:30:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789500649; cv=none;
+        d=google.com; s=arc-20260327;
+        b=r2HRpBEFLg2xV6jVyIWF+CUG7vKvPliqa2xSuQO8XkgMwA4lpWSq9nZCwJSJbDxMBL
+         WeIwUv841LjITDSHFGHhWdDTlujYoa4tb4PpTov6TavnjGGski2D0kQ4CKpgI+nsEyXV
+         aiLvJwdlM46pUI2NE03zJQ4kfp2gizHutK2Evi3e5dDn7+HhIo0YXx8G1QNJtRjhpmdy
+         KZJZu/ecl268CZ4k/p0abUnzeb5NyXVZbq91dszQcE6RB0d/UWdXV1aspH1ZckbuUi8n
+         n/pcQ7WtmH0jvTIMf7a/Ktvj1gdgvF5rMn1a6sDQUZZ/BjBuBXrkaWOkBRtgQGtqaAGC
+         fIog==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=bRLtXj28C7ZetbPCXePmHpMel3/nm53ij0hFxwsbjIQ=;
+        fh=HtXEtgHZMrKoAk0fVys++zjdgy9WjEaN5si4SRzVnvk=;
+        b=E+BeKgpHm5E1Y1486/fdp6HEO4uNbrP/thB7GhzhvBSOhUC8mmGrZ9IB9pRpeTvJCa
+         zJKwosDMqjmyX5s8zPXaOUQ66HTH3WWQwQx0KASG0v3AAV2VFMbKb5uS5HCEaRM42znc
+         jPtLF3kUQr1aWqNQV8N6zOxUCyIeozyqceAnmGskkeg+t8TwfnKj0H2TQRXUN8ev/csu
+         cAnG09DkAkr5SHfKB9kgTYdGWb4gZ7FPQtk3FPDl0T9g2/fprXUB01+N/RF9ZwroK4ea
+         llR66XRsRK9AU7MbZkxt5JzfElBlKUPm2YPJUGdnRU9vQST5HwwCsCS4bUBrb+giWf5s
+         zEhg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789500649; x=1790105449; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bRLtXj28C7ZetbPCXePmHpMel3/nm53ij0hFxwsbjIQ=;
+        b=mHQpOIQYcK/f3LO6suOWFn0Cy720wLrLpDZ76Y2mpOM3+C9DQTQajqMKss2+8vswyu
+         6kP5JbXC/uQnmjFeNyvbn7ykDMjEjp2433FP2tusVe+U1jFmELny3ub1VOqaeQk4+bmw
+         tGfgnCt0FH77KKNFK/CBvajJjeEiwDPenSWUOdNQWc6FxW5qw9OoucUz3vPurhja7+2W
+         SRX2li+U/pB+n68jTLoULDYN4LWrOMyMYUPvz3nmRdNTo7uPdox+mGt4Z2VuXMis+C7M
+         e3WQC4JCEtRXPwtZDWEutENmL8gBQ5snBkXOOLsO675Xs4UrytQv+QbVij8iLiq/Acss
+         xb9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789500649; x=1790105449;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bRLtXj28C7ZetbPCXePmHpMel3/nm53ij0hFxwsbjIQ=;
+        b=bIIbBhIUju4OJmlG9KaazlQb66WE18ukgA8ypAF4vF0O3kTiKIF8BI0aPm2AE6ZrMg
+         vWvGmi5b4trDf9O4YfDClaCDLfOgZcuT2O78Vz9wnIasFwEQ2KZcPQsOF61CNidt0RNR
+         Xutb4Q2vvJMLxBwJM/FBLndjTdVmOspsWP9IXB1cZwRzUfIbnNr6Y9xSdyg5HlzuDksb
+         FQ3VjG3tEHcuOwpFg2uWv2ab4yjbA36o2qyk9YxRfl1hI1LyLNUYwXV0r5gaMzKb4rt5
+         DPzMtfC/J+KWpkYPRJ41sqKIESfAjAdVYjr6nBqmBoqELMJiSHspPppJwWmI9RMYZYiA
+         P+GA==
+X-Forwarded-Encrypted: i=1; AKwUvBykj4orDkz5nuKu2+R7v8Kbjk4xV9oC1Mjlat4fY+Q/ZXsOQ0i/haX02fs8ppZmYMEW/aZsWJ8GypE/@vger.kernel.org
+X-Gm-Message-State: AFuF++lTL2WpJpaO5vdaf50OpoTwGAxlcMPPOacTsTGx11E/JcVZaim3
+	rrrOVrlAbi6QQLEzUB8QbDqVIl15+3NW/fcYzBwN+mC6mPsJ7yllMrhTY3vCKnM0OrZ43mRcdS1
+	1aBoVqGhm6ZKyTGdE00oW6vEDyDlh8hCA4E7pH/U=
+X-Gm-Gg: AYBFou1aCcVeIr7p0qRnRVQXu7l40afzml7IK4kcTYTQZyz3ULNwJTmOtPpGtFjcqlK
+	HTBr8nzpd1Jt66/o1UzXhN19TUmzCYBAI7h5bogmeQGQpsMDcC6yCrZtW8WJxX3CvLVHxe6ShOh
+	dE4AqdQGZ7yd2iQ4eDXfDFJAtxZZiTeUSrUCib/uCMWHcPcjl+cYj920msoy6dhMGU1UpKr1K0b
+	C+s3LjZekLQc/wX13d2PLmbc2l/EUjHwh10sq9TCx/KXVcZvT1mFJDLpCFL6Yxa9KqzLLnspQre
+	Ws62ksyJPbbj1WC+OC6JysaN/302T6Wm5dZBefYS6pg0PdVMvIeEmbQOkKnTNGBkKpSv7MUfs1j
+	2b/fPkQ/q5S4FVo0pkSoPcu1Jr5YOa6Vekk9DDjvZcWCSTIoOL6WgiOR3MIf6CLs=
+X-Received: by 2002:a05:6122:8d4:b0:5c8:3697:9289 with SMTP id
+ 71dfb90a1353d-5c993b49b7cmr4231155e0c.8.1789500648289; Tue, 15 Sep 2026
+ 12:30:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260915081910.4142719-1-morbo@google.com> <20260915081910.4142719-22-morbo@google.com>
+ <202609151147.C5B45CB@keescook>
+In-Reply-To: <202609151147.C5B45CB@keescook>
+From: Bill Wendling <morbo@google.com>
+Date: Tue, 15 Sep 2026 12:30:31 -0700
+X-Gm-Features: AcwNN1W7vYosDgc2DMy2_OinBNj1qeEQ35WOY6PL8-NHlzjaHMOKmE1leyIGWNs
+Message-ID: <CAGG=3QXYtmJqE5oy5ZD0-G0=GNxK71KKYurusNJvLQNqR-o6+A@mail.gmail.com>
+Subject: Re: [PATCH 21/28] NFS: nfsroot: Refactor root_nfs_cat() to use snprintf()
+To: Kees Cook <kees@kernel.org>
+Cc: nikitash.mariiaw@gmail.com, linux-kernel@vger.kernel.org, 
+	codemender-patching+linux@google.com, Russell King <linux@armlinux.org.uk>, 
+	Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, Helge Deller <deller@gmx.de>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>, 
+	H Hartley Sweeten <hsweeten@visionengravers.com>, Tony Luck <tony.luck@intel.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Matthew Brost <matthew.brost@intel.com>, 
+	=?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+	Rodrigo Vivi <rodrigo.vivi@intel.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Matthias Schwarzott <zzam@gentoo.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Tony Nguyen <anthony.l.nguyen@intel.com>, Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Arend van Spriel <arend.vanspriel@broadcom.com>, Rob Herring <robh@kernel.org>, 
+	Saravana Kannan <saravanak@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Sylwester Nawrocki <s.nawrocki@samsung.com>, Peter Griffin <peter.griffin@linaro.org>, 
+	Alim Akhtar <alim.akhtar@samsung.com>, Linus Walleij <linusw@kernel.org>, 
+	Anil Gurumurthy <anil.gurumurthy@qlogic.com>, 
+	Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>, "Martin K. Petersen" <mkp@kernel.org>, 
+	Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
+	Mike Marshall <hubcap@omnibond.com>, Martin Brandenburg <martin@omnibond.com>, Jiri Pirko <jiri@resnulli.us>, 
+	Simon Horman <horms@kernel.org>, Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
+	NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, 
+	Tom Talpey <tom@talpey.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, "Mike Rapoport (Microsoft)" <rppt@kernel.org>, 
+	Kanglong Wang <wangkanglong@loongson.cn>, Tiezhu Yang <yangtiezhu@loongson.cn>, 
+	Qiang Ma <maqianga@uniontech.com>, Randy Dunlap <rdunlap@infradead.org>, 
+	Pengpeng Hou <pengpeng@iscas.ac.cn>, Ard Biesheuvel <ardb@kernel.org>, Breno Leitao <leitao@debian.org>, 
+	Thorsten Blum <blum@kernel.org>, Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Lyude Paul <lyude@redhat.com>, 
+	Ashutosh Desai <ashutoshdesai993@gmail.com>, Imre Deak <imre.deak@intel.com>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Johan Hovold <johan@kernel.org>, 
+	Johannes Berg <johannes.berg@intel.com>, 
+	Miri Korenblit <miriam.rachel.korenblit@intel.com>, 
+	Alexander Stein <alexander.stein@ew.tq-group.com>, 
+	Cryolitia PukNgae <cryolitia@uniontech.com>, Jiaming Zhang <r772577952@gmail.com>, 
+	Will Porter <mrwillporter@gmail.com>, Cen Zhang <zzzccc427@gmail.com>, 
+	=?UTF-8?Q?C=C3=A1ssio_Gabriel?= <cassiogabrielcontato@gmail.com>, 
+	Rong Zhang <i@rong.moe>, Arun Raghavan <arunr@valvesoftware.com>, 
+	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev, 
+	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org, 
+	linux-edac@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	intel-xe@lists.freedesktop.org, linux-input@vger.kernel.org, 
+	linux-media@vger.kernel.org, intel-wired-lan@lists.osuosl.org, 
+	netdev@vger.kernel.org, linux-wireless@vger.kernel.org, 
+	brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com, 
+	devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-scsi@vger.kernel.org, 
+	linux-nfs@vger.kernel.org, devel@lists.orangefs.org, 
+	linux-hardening@vger.kernel.org, linux-sound@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] iio: adc: ad4134: buffer compaction overwrites active channels due=
- to skipped index increment
-- [High] iio: adc: ad4134: undersized scan buffer causes -ENOSPC during tri=
-ggered captures
-- [High] iio: adc: ad4134: data corruption due to concurrent lockless acces=
-s to shared rx_buf union
-- [Medium] iio: adc: ad4134: uninitialized stack memory leak via out-of-bou=
-nds virtual register read
---
+On Tue, Sep 15, 2026 at 11:52=E2=80=AFAM Kees Cook <kees@kernel.org> wrote:
+>
+> On Tue, Sep 15, 2026 at 08:18:38AM +0000, Bill Wendling wrote:
+> >  fs/nfs/nfsroot.c | 11 +++++++----
+> >  1 file changed, 7 insertions(+), 4 deletions(-)
+>
+> This collides with:
+> https://lore.kernel.org/all/27956255dde39f58d73a7b51cb53cbe3d7804f54.1786=
+411026.git.mariianikitash@google.com/
+>
+> > +     ret =3D snprintf(dest + len, destlen - len, "%s%s",
+> > +                    (len && dest[len - 1] !=3D ',') ? "," : "", src);
+>
+> I prefer Mariia's version because this inline ternary is difficult
+> to read.
+>
+Agreed. I was trying to not stomp on her work. Please ignore this patch.
 
-commit 67ed10376d89a2413bb4cf43e7a24f52e73e8a76
-Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
+-bw
 
-iio: adc: ad4134: Support buffered data read
-
-Enable users to run buffered data captures triggered by IIO trigger device.
-Add an IIO timestamp channel so each data scan is provided with measurement
-time information. Require single-read operations to be in IIO device direct
-access mode to prevent buffered and single-shot data captures to disrupt
-each other.
-
-> diff --git a/drivers/iio/adc/ad4134.c b/drivers/iio/adc/ad4134.c
-> index 30c7b1d1bc67c..0b6843bf8a9e3 100644
-> --- a/drivers/iio/adc/ad4134.c
-> +++ b/drivers/iio/adc/ad4134.c
-
-[ ... ]
-
-> @@ -149,7 +161,10 @@ struct ad4134_state {
->  	 * DMA (thus cache coherency maintenance) requires the transfer buffers
->  	 * to live in their own cache lines.
->  	 */
-> -	u8 rx_buf[AD4134_SPI_MAX_XFER_LEN] __aligned(IIO_DMA_MINALIGN);
-> +	union {
-> +		u8 reg[AD4134_SPI_MAX_XFER_LEN];
-> +		u32 scan[ARRAY_SIZE(ad4134_chan_set)];
-
-[Severity: High]
-Does this array size fail to account for the timestamp's alignment padding?
-
-The array is fixed at 20 bytes (5 elements). When all 4 channels and the 64=
--bit
-timestamp are active, the IIO core computes scan_bytes as 24 bytes due to t=
-he
-timestamp's 8-byte alignment requirement (16 bytes data + 8 bytes padding a=
-nd
-timestamp). Passing sizeof(st->rx_buf.scan) to iio_push_to_buffers_with_ts()
-later in the trigger handler will cause the IIO core's safety check to fail,
-aborting the buffer push with -ENOSPC on full-scan captures.
-
-[Severity: High]
-Can concurrent lockless accesses corrupt the rx_buf shared union?
-
-The ad4134_trigger_handler() executes locklessly in a pollfunc context, whi=
-le
-regmap debugfs reads/writes (which do not acquire the IIO direct mode lock)=
- can
-concurrently use st->rx_buf.reg as a DMA buffer. This can result in corrupt=
-ed
-SPI scan data, corrupted regmap read/write data, and potentially invalid
-hardware configurations or ADC samples if debugfs is accessed while a trigg=
-ered
-buffer capture is running.
-
-> +	} rx_buf __aligned(IIO_DMA_MINALIGN);
->  	u8 tx_buf[AD4134_SPI_MAX_XFER_LEN];
->  };
-
-[ ... ]
-
-> @@ -269,8 +284,8 @@ static int ad4134_data_read(struct ad4134_state *st, =
-unsigned int reg,
->  	 * interface. Now we read data from all channels but keep only the bits
->  	 * from the requested one.
->  	 */
-> -	for (i =3D 0; i < ARRAY_SIZE(ad4134_chan_set); i++) {
-> -		ret =3D spi_write_then_read(st->spi, NULL, 0, st->rx_buf,
-> +	for (i =3D 0; i < AD4134_NUM_CHANNELS; i++) {
-> +		ret =3D spi_write_then_read(st->spi, NULL, 0, st->rx_buf.reg,
->  					  BITS_TO_BYTES(AD4134_CHAN_PRECISION_BITS));
->  		if (ret)
->  			return ret;
-> @@ -281,7 +296,7 @@ static int ad4134_data_read(struct ad4134_state *st, =
-unsigned int reg,
->  		 * Clock out data from all channels to avoid that.
->  		 */
->  		if (i =3D=3D AD4134_VREG_CH(reg))
-> -			sample =3D get_unaligned_be24(st->rx_buf);
-> +			sample =3D get_unaligned_be24(st->rx_buf.reg);
->  	}
->  	*val =3D sign_extend32(sample, AD4134_CHAN_PRECISION_BITS - 1);
-
-[Severity: Medium]
-Does this leak uninitialized stack memory if the soft timestamp channel is =
-read
-as a virtual register?
-
-Because ad4134_regmap_config sets max_register to include the soft timestamp
-channel (ARRAY_SIZE(ad4134_chan_set) includes the timestamp, making index 4
-valid), userspace could read virtual register index 4 via regmap debugfs. In
-that case, this loop iterates only up to AD4134_NUM_CHANNELS (indices 0 to =
-3),
-meaning `i =3D=3D AD4134_VREG_CH(reg)` (where AD4134_VREG_CH(reg) would be =
-4) is
-never true. The sample variable is left uninitialized, and an uninitialized
-32-bit stack chunk is processed and returned to userspace.
-
-[ ... ]
-
-> @@ -333,6 +348,37 @@ static const struct regmap_config ad4134_regmap_conf=
-ig =3D {
->  	.max_register =3D AD4134_CH_VREG(ARRAY_SIZE(ad4134_chan_set)),
->  };
-> =20
-> +static irqreturn_t ad4134_trigger_handler(int irq, void *p)
-> +{
-> +	struct iio_poll_func *pf =3D p;
-> +	struct iio_dev *indio_dev =3D pf->indio_dev;
-> +	struct ad4134_state *st =3D iio_priv(indio_dev);
-> +	unsigned int i =3D 0;
-> +	int ret;
-> +
-> +	gpiod_set_value_cansleep(st->odr_gpio, 1);
-> +	fsleep(1);
-> +	gpiod_set_value_cansleep(st->odr_gpio, 0);
-> +
-> +	for (unsigned int ch =3D 0; ch < AD4134_NUM_CHANNELS; ch++) {
-> +		ret =3D spi_write_then_read(st->spi, NULL, 0, &st->rx_buf.scan[ch],
-> +					  BITS_TO_BYTES(AD4134_CHAN_PRECISION_BITS));
-> +		if (ret)
-> +			goto err_out;
-> +
-> +		if (test_bit(ch, indio_dev->active_scan_mask) && ch !=3D i)
-> +			memcpy(&st->rx_buf.scan[i++], &st->rx_buf.scan[ch],
-
-[Severity: High]
-Does this conditional logic permanently corrupt the scan data by overwriting
-active channels?
-
-When the first active channel has the same index as the destination (for ex=
-ample,
-both are 0), the condition `ch !=3D i` evaluates to false, short-circuiting=
- the
-if statement and entirely skipping the post-increment `i++`. The next active
-channel will then overwrite the previous data by being written to scan[0] a=
-gain.
-This triggers on any standard buffered capture involving multiple channels.
-
-> +			       sizeof(st->rx_buf.scan[ch]));
-> +	}
-> +
-> +	iio_push_to_buffers_with_ts(indio_dev, &st->rx_buf.scan,
-> +				    sizeof(st->rx_buf.scan), pf->timestamp);
-> +
-> +err_out:
-> +	iio_trigger_notify_done(indio_dev->trig);
-> +	return IRQ_HANDLED;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1789494473.gi=
-t.marcelo.schmitt@analog.com?part=3D8
+> I was expecting to land hers soon if the NFS folks don't pipe up. It is
+> one of the rare cases of still being open-coded, but the strlen() usage
+> was pre-existing to check for the trailing comma, so it's not a clean
+> seq_buf() conversion candidate...
+>
+> --
+> Kees Cook
