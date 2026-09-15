@@ -1,237 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 565F048F034;
-	Tue, 15 Sep 2026 13:50:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1924A4A0937;
+	Tue, 15 Sep 2026 13:50:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789480206; cv=none; b=BBxlQux7CGVYr9JXLj0Oh6P2+EmzLWobb2XphKEDSguCicCITJvx349hvWFKRZ42oAruM9MrKqX8f4qYbyot78Grjnwui/0df5GRSv3u4+JaPJXe/4E55nzcf7v9T9rwNiIxuXJsrWzTcqB9woA9/mK9NUAm1kq94jZn3duVM94=
+	t=1789480208; cv=none; b=uGYDd3MdKeu+4/w47O0n5xltrax/IqPCCCZM/G0feXq2hf1MiNIzIbAzUyg/WOdQz5DU++nJKAmSzMBa2I4uu8wYvW0eBdEgvM69695iCsfQNak4/nLaZK3fFibE4USYQ7mAI7xnxg1+fvSCpkX2mO88WDnpNgJLOCZn+vz3/JU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789480206; c=relaxed/simple;
-	bh=eWg42BIRG6Bu7tMwowXXZNtB9BK94kzX8yPpptRQstw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KIegeEJJcAhurx+xtmoBJSxDYtzy/0/dogvYuA5um+723pWzqNRlbuTQv4wEqBdaq9KePkC/r9zrGYOB8GHzdq1iGIwdlIwMl/oc6h3U+BAtU7pyhloI4PYC5D00qMTCvXUlE/xw7QShSUikvY9LshDxKOOeO6ZCyIUzqB8VJ0s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gb/dzNSb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789480208; c=relaxed/simple;
+	bh=d5GB825LNqN+zbMxFICV103mC5FpJzqsVDt16HZ9mE0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=VWqkq7ulAPkogum0D3WOUOaB1xRz/VATKHkHDBEks5j1mI8lCxCX5y8c+3T/uLavWi+fEziGwZx3ODQSj8GeDAFx5FjS5f0sT+nblLCYSzRlPLqiLZsU7xdVrzNS9KBdWRRvwvTZr0YPjQNOJy5IkavJ6XDI7e7CLhRuhT0xrh8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=N6yEisZl; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gb/dzNSb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60A9A1F0089B;
-	Tue, 15 Sep 2026 13:50:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789480203;
-	bh=l4w5RKVRlbPa+YGgJMeLimc0pLRtW9x8qCj8U7smlTU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Gb/dzNSbw/E7aSlvr1N/XFmhhZUb9oAxQQgMoR+zT7b3DRRXoqv6cA//+MLnocwRf
-	 ZnFbEGmn58IHs+KhsGBzzuY7Cr8izd2ZDcprXop13uZ6hTdfUBu2orroHjM93tl7CH
-	 w5dcNr/dWfcO5jlsOCwFeiIpHRPrPx4jQpsDlgXWNRgHPK+q363eEIP4E+3i4ukMMN
-	 y96TKlEjVUwzfxGj0i6qottcpkQoVhBklbLfH1gHXRFV0CWTDa7k3PIbUgJjfs+N5K
-	 b6VFZH/TRbFPDcWxiVgn+Qe646lSZLYSKxNP41E3i025Frcx9nsyyguATZBQqwnERl
-	 Ih+v0nupTTdIg==
-Date: Tue, 15 Sep 2026 14:49:59 +0100
-From: Conor Dooley <conor@kernel.org>
-To: rahul sharma <r-sharma3@ti.com>
-Cc: peda@lysator.liu.se, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, vigneshr@ti.com
-Subject: Re: Re: [PATCH 1/2] dt-bindings: mux-controller: ti: add binding for
- event mux router
-Message-ID: <20260915-shredder-liver-219bbc18dd18@spud>
-References: <20260828100615.1700223-1-r-sharma3@ti.com>
- <20260828100615.1700223-2-r-sharma3@ti.com>
- <20260828-goes-scrawny-a5cf40c9514d@spud>
- <bacf61ea-91b1-454c-97aa-8c6e4ca07b16@ti.com>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="N6yEisZl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789480199;
+	bh=d5GB825LNqN+zbMxFICV103mC5FpJzqsVDt16HZ9mE0=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=N6yEisZlWu/cXFKAVU+xyJj64s9r1VTATo45cH/WDBPvmigMRqxB2NPKkVYUgticm
+	 g8zxQRDEaOyvjL5Dh19kyCR5E+nVW8BP9HtD9yI91W/oqR6V/O4fLUG/VsK//TZGjf
+	 3jR5bOBGHBxwc5fD10snhiG7gvqnFZgf9ti1RcRuArMOT3ye+fPEdNpbehA53pONgK
+	 KMzEadNhrw5+RQb4h3Xunj+rYNV0nMBkNs8wh8Hu5yLDNf6yDzakP6rN70Ss4AFMd3
+	 dlk6daToGjZTwhZJU9Ed9HWl1SufdjGakZKIdoV0nI03bgrArtI1dGv1sgCt6LJBEQ
+	 4Tr6ydE5+/UvA==
+Received: from jupiter.universe (unknown [100.64.1.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	(Authenticated sender: sre)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id D49F417E0D69;
+	Tue, 15 Sep 2026 15:49:58 +0200 (CEST)
+Received: by jupiter.universe (Postfix, from userid 1000)
+	id 33B9B48003A; Tue, 15 Sep 2026 15:49:58 +0200 (CEST)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Tue, 15 Sep 2026 15:49:54 +0200
+Subject: [PATCH v15 07/16] phy: rockchip: usbdp: Keep clocks running on PHY
+ re-init
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Q19jdnk1Fmhnoc0H"
-Content-Disposition: inline
-In-Reply-To: <bacf61ea-91b1-454c-97aa-8c6e4ca07b16@ti.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260915-rockchip-usbdp-cleanup-v15-7-80e2c11d1ce8@collabora.com>
+References: <20260915-rockchip-usbdp-cleanup-v15-0-80e2c11d1ce8@collabora.com>
+In-Reply-To: <20260915-rockchip-usbdp-cleanup-v15-0-80e2c11d1ce8@collabora.com>
+To: Vinod Koul <vkoul@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Heiko Stuebner <heiko@sntech.de>, Frank Wang <frank.wang@rock-chips.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Andy Yan <andy.yan@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Yubing Zhang <yubing.zhang@rock-chips.com>, 
+ Alexey Charkov <alchark@flipper.net>, Igor Paunovic <royalnet026@gmail.com>, 
+ linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ kernel@collabora.com, devicetree@vger.kernel.org, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1230;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=d5GB825LNqN+zbMxFICV103mC5FpJzqsVDt16HZ9mE0=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGqpTQX0uKnUDw/lq9s8Z3VY3pqb/JPVrL72+
+ kMbQTa+x8YCJokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqqU0FAAoJENju1/PI
+ O/qak3kP/iQphZ7bvCsVMYnQ6rFYgqlnmOtG19oVQpKsrDUSvkhmFT+vin0YJjyQQ0VFsCE72km
+ NfrGcMifQYnGlkPw+SpYm2qzZSF3tZdNCaS8a07XTcLj7pS170dpiYUuXrfG2/FjMAYA0SP2T5D
+ YhDFWBXoq48j5f07xF5X6Nn53Bd1ltqyFFdDQhLTzP07UR2+plDcK2FRzsaHk1kywi+8xbx0JsS
+ mz0nY/uggZf8irAqbvDHRwq9OGmljcgbJpapUTLUnbhlij0d8MRjH2lNighYdZ0ZwlSteQcD0zs
+ tGJequVGmQnlSW0DTktcbZCsJ2jNC9D6AHeoqSedMBdJ4NeDCAACTcDuab5StWvskqqR1eY3QIM
+ QJpdKJ1bzfXVeZeP45vRGaOAt1DAHYBtN0GnfgebT67ueceXOA6iHjXIqfqImx5EH5eeNjGu9au
+ +oZKsNkwwAJ444bvwF828H5TTbDTcD43ZQ3cd8GsSOOY9b/1U44/J5kBdwzKqi5h08RpuqkLPfk
+ 89TPYJnututwy2HvmbUVGi7XyLqM1khX2WCD8ZMBRGOyWV7HyXLmHVTxOW/4mgzsB3rJ5m27E+J
+ OtWhZZFqpoh0gfzDwYFcZxmGA2/r6EpcFUqNtI6pCyqHlZ2eXEViGcuJjaQxd9qRHjpd45yQk1d
+ f/W4n/ZMIQrHbiSvVQA0uWA==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
---Q19jdnk1Fmhnoc0H
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+When a mode change is required rk_udphy_power_on() disables
+the clocks and then calls rk_udphy_setup(), which then enables
+all the clocks again before continuing with rk_udphy_init().
 
-On Tue, Sep 15, 2026 at 06:10:45PM +0530, rahul sharma wrote:
-> Hi Conor,
->=20
-> Thanks for reviewing.
-> Apologies for the delay in responding.
->=20
-> On 28/08/26 21:57, Conor Dooley wrote:
-> > On Fri, Aug 28, 2026 at 03:36:14PM +0530, Rahul Sharma wrote:
-> > > Add binding for the event mux router of TI's K3 based SoC AM62L.
-> > >=20
-> > > The TI K3 mux routers which route the GPIO input events or Time-Sync
-> > > events b/w peripherals instead of routing to a CPU.
-> > >=20
-> > > Refer Section 10.2 and 10.2.1 of https://www.ti.com/lit/pdf/sprujb4
-> > >=20
-> > > Signed-off-by: Rahul Sharma <r-sharma3@ti.com>
-> > > ---
-> > >   .../mux/ti,am62l-event-mux-router.yaml        | 79 ++++++++++++++++=
-+++
-> > >   1 file changed, 79 insertions(+)
-> > >   create mode 100644 Documentation/devicetree/bindings/mux/ti,am62l-e=
-vent-mux-router.yaml
-> > >=20
-> > > diff --git a/Documentation/devicetree/bindings/mux/ti,am62l-event-mux=
--router.yaml b/Documentation/devicetree/bindings/mux/ti,am62l-event-mux-rou=
-ter.yaml
-> > > new file mode 100644
-> > > index 000000000000..a5ba7f78a156
-> > > --- /dev/null
-> > > +++ b/Documentation/devicetree/bindings/mux/ti,am62l-event-mux-router=
-=2Eyaml
-> > > @@ -0,0 +1,79 @@
-> > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > > +%YAML 1.2
-> > > +---
-> > > +$id: http://devicetree.org/schemas/mux/ti,am62l-event-mux-router.yam=
-l#
-> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > +
-> > > +title: TI Event Multiplexer on K3 SoCs
-> > > +
-> > > +maintainers:
-> > > +  - Rahul Sharma <r-sharma3@ti.com>
-> > > +
-> > > +description:
-> > > +  The TI K3 mux routers routes the GPIO input events or Time
-> > > +  Sync events between peripherals instead of routing to a CPU.
-> > > +
-> > > +allOf:
-> > > +  - $ref: mux-controller.yaml#
-> > > +
-> > > +properties:
-> > > +  compatible:
-> > > +    const: ti,am62l-event-mux-router
-> > > +
-> > > +  reg:
-> > > +    description: Register base address and size.
-> > > +    maxItems: 1
-> > > +
-> > > +  '#mux-control-cells':
-> > > +    const: 1
-> > > +    description:
-> > > +      Number of cells in a mux control specifier. This should be 1.
-> > > +      The cell specifies which mux control to use (0-based index).
-> > > +
-> > > +  ti,reg-mask-val:
-> > > +    $ref: /schemas/types.yaml#/definitions/uint32-matrix
-> > > +    items:
-> > > +      items:
-> > > +        - description: Register offset (relative to reg base)
-> > > +        - description: Bit mask for the mux control bits
-> > > +        - description: Value to write when mux is active (state 1)
-> > > +    minItems: 1
-> > > +    description: |
-> > > +      Array of triplets specifying register offset, mask, and value =
-for each
-> > > +      mux control. Each triplet contains:
-> > > +      - register offset (relative to reg base)
-> > > +      - bit mask for the mux control bits
-> > > +      - value to write when mux is active (state 1)
-> >=20
-> > You have a device-specific compatible, why do you need this? If the
-> > active setting depends on the device or w/e, why can that not come from
-> > a mux-control-cell?
->=20
-> This is a boot-time/board-fixed routing decision, not a runtime-selectable
-> mux that any driver ever calls mux_control_select() on.
+Considering that rk_udphy_init() does assert the reset lines,
+re-enabling the clocks is just delaying things. Avoid it by
+directly calling rk_udphy_init().
 
-2/3 of this property appears to describe the register layout of the
-device, that's not affected by the board or some boot time decision.
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+ drivers/phy/rockchip/phy-rockchip-usbdp.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
->=20
-> Please refer below link for the IP block diagram:
-> https://github.com/lucifer-9852/linux/commit/aed1746e411a9f0ad7824f4e4a71=
-21e6f56a4ef2
->=20
-> For detailed view of IP you can refer Section 10.2 and 10.2.1 of TRM
-> https://www.ti.com/lit/pdf/sprujb4
->=20
-> That's precisely why we added ti,reg-mask-val as a controller-side proper=
-ty
-> rather than sourcing the value from a consumer's mux-control-cell: there =
-is
-> no runtime consumer selecting between states, so the routing has to be fu=
-lly
-> described on the provider.
+diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rockchip/phy-rockchip-usbdp.c
+index ce2b74a28801..925f2d162212 100644
+--- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
++++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
+@@ -986,8 +986,7 @@ static int rk_udphy_power_on(struct rk_udphy *udphy, u8 mode)
+ 		if (udphy->mode == UDPHY_MODE_DP)
+ 			rk_udphy_u3_port_disable(udphy, true);
+ 
+-		rk_udphy_disable(udphy);
+-		ret = rk_udphy_setup(udphy);
++		ret = rk_udphy_init(udphy);
+ 		if (ret)
+ 			return ret;
+ 		udphy->mode_change = false;
 
-Why do you have #mux-control-cells if there are no consumers? I don't
-understand why the GPIO controller or the device that the interrupt is
-being routed to cannot have a mux-controls property that contains the
-"value to write when the mux is active".
+-- 
+2.53.0
 
-Confused,
-Conor.
-
->=20
-> BR,
-> Rahul
->=20
-> >=20
-> > > +
-> > > +  idle-states:
-> > > +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> >=20
-> > This is not needed, you get the type from mux-controller.yaml.
-> >=20
-> > pw-bot: changes-requested
-> >=20
-> > Thanks,
-> > Conor.
-> >=20
-> > > +    description: |
-> > > +      Idle state for each mux control. Each entry corresponds to a m=
-ux control:
-> > > +      - 0: clear masked bits when idle, also refers to inactive state
-> > > +      - 1: set configured value when idle, also refers to active sta=
-te
-> > > +      - MUX_IDLE_AS_IS (-1): keep current state when idle
-> > > +
-> > > +required:
-> > > +  - compatible
-> > > +  - reg
-> > > +  - '#mux-control-cells'
-> > > +  - ti,reg-mask-val
-> > > +  - idle-states
-> > > +
-> > > +additionalProperties: false
-> > > +
-> > > +examples:
-> > > +  - |
-> > > +    #include <dt-bindings/mux/mux.h>
-> > > +
-> > > +    // Example 1: TI AM62L GPIO Mux Router
-> > > +    mux-controller@a00000 {
-> > > +        compatible =3D "ti,am62l-event-mux-router";
-> > > +        reg =3D <0xa00000 0x400>;
-> > > +        #mux-control-cells =3D <1>;
-> > > +
-> > > +        /* Mux Register addresses: 0xa00004 + (J =D7 4) */
-> > > +        /* GPIO0_40 -> BCDMA trigger 15 */
-> > > +        ti,reg-mask-val =3D <0x40 0x000ff 0x00028>;
-> > > +        idle-states =3D <0>;
-> > > +    };
-> > > --=20
-> > > 2.34.1
-> > >=20
->=20
-
---Q19jdnk1Fmhnoc0H
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqlNAwAKCRB4tDGHoIJi
-0sqdAQCdPExIfVDW/cFEP2wmmrdi9m2RKj2qgB83MhEbHbse0QD/cuL0pmFKyGuV
-HFvdSf158Rjh2wi4tT7O3An/GlOzTQA=
-=/tBq
------END PGP SIGNATURE-----
-
---Q19jdnk1Fmhnoc0H--
