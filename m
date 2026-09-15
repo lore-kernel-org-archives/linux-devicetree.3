@@ -1,183 +1,115 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA0B746F489
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 09:28:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0DCB360EF2
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 09:30:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789464510; cv=none; b=V3KxrdjU2Zkbxdrjy+ddgbIQaZpGJmYyE1s65oNfKtHjGtdBwl5vFGThR38a4DLyg12+LqYPvp5+Bg/3zeRbRI+JrsvcJervJJJs4BbBIP8zNPH4yGW26wgs3dEKo6iVs/erzFps/O00WWoa0uqUmFsRhcQF6eyZadsIrfYWwlU=
+	t=1789464608; cv=none; b=ltd9gzuo55Gqzij9HYF46OCy6MnrDSVsYPfvLkcQuG4/9rU7BaHUXM1sM84+cQHizvFmAWdD/7Ak/G26vWXNdc0u0HGfzui2EM/wj5t1WOXDBqK4q2NdfO/7FfsZ+z9ZWAeWBoGQeHBcBWsYoh/uX7tx+WqIhluGYFpLNXaZTpY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789464510; c=relaxed/simple;
-	bh=bXRmq/LkVHl3Wkzce7EKsFKSt2ADGnLeNMNslKPB/Js=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=psDhsS3iBPL1BLWsVafnczurlmxJMFAcEXY76Ubr+0uXjPf3KMIDIpD2GGD0C4pcz2xBnKOLg30eWZdYDCJzHxjPABXKZQnEJMVcMYsYiHz93fJj2CQcDuUVqJn5vxhXVoz4XJZYHHsRS0Z6t03XDueN0ABl054pTpAtxXVuBvA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TsL1ASB1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Nnqr4tx3; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789464608; c=relaxed/simple;
+	bh=mVlouF4HyudmCqzHkO98pWtY+ShdRPNRLuawvSZ+B0Q=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Lm4LBsDpppcyM6R4SPvVlRwWQkxOjsHKmliJ9+1i2+L03QvRU/8sD1oAPD6bApFX/J8KNl6IhoO60xiWRj344ndd+UGft0rw8Y9pPJrGPCPF4ytFXp+JqU2i2q5MKGQeoBsR7ZZez33uJjTgxREhUhrBszZoXESlZvw3J7LAfOE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YO20r4D4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TsL1ASB1";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Nnqr4tx3"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F6Z80t2415179
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 09:28:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	K/fI3x8NiNBLG06L2ufKw48FjISxnkPuNyMTEtA4Tb0=; b=TsL1ASB1A+lZ/1eT
-	LBJ9E2E8PCnI6ZHCD0cHP2aJRS13h7sw/uNwbdc1f/1wdebirFjchywIGCeFXLsf
-	mIReachwmLdmCl4xj3Lf0iZXOk6zV8xvgEUi22eZGWj0half/PFs0+3v8m+wTd+y
-	g16L1O1WbSioFZRS11P6rOT8i9i9aZcBk39wIqbt+y33wD9AUIGXr20/Swa4pB/3
-	4On/NZaNuVDcN8DkmqQkNs9ACsrvirdrGPiO8PF/Dh6UY2K8LkYuRi7GHVnm4DP5
-	AkouD21x/wcssxd+w+0gFo1YoBgUm2yLzxFNoHP+6BTTlYfzCPsD8iWV2/b4Ciz5
-	sw8+UQ==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpxyd943t-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 09:28:25 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-9393ac4961fso488848485a.2
-        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 02:28:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789464505; x=1790069305; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=K/fI3x8NiNBLG06L2ufKw48FjISxnkPuNyMTEtA4Tb0=;
-        b=Nnqr4tx3hNyjnLFzzfaCb9cn8D82rgSgvI6fIxWFpsLFXu8AxUljvnE+7XgW9/TV4N
-         OM9P01TMDTePtTbn2hZ38QOjl9g15LZDfDrtnXcZlHao6HxEDlWAzrGCDUcCr2Uoe4fc
-         temhkhKAyyKEZeY5TohpFI2LHwv0qNLC8f7YBiyBWbJnyGI29lse38VJMnT5JJrxFDlE
-         KfFHor6tjfSv1L/LZM3HaG7Of11uSLQUhdF+qe2mM+6g4ZkTTCKO9dXP9Kl9rbgFg1js
-         5K8ME/s7o1Gfl7Gwm0PZqXat0zxgB92MD4tLOo03XzFyUPkRCwbegD12aL+FwhDm2qtr
-         I02Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789464505; x=1790069305;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=K/fI3x8NiNBLG06L2ufKw48FjISxnkPuNyMTEtA4Tb0=;
-        b=0A1kSgPdV01DMc3VqVl3AoW2eU6VYef44sUV1H6Hdz18flrTmoo1L3vYpyG5vyxP17
-         69U2y6L/wNyn6cod4QzK2PrWi8x+LCXSaD4RTaQcOg2My3N7fZmE3IeRDyr9fYYy7qfV
-         6RAGHGNy3Spflpz+CvDsvw2+tleVVq5AONm0nt3/GYM0XJzJxH31Ls7Rwfc9LSA231rq
-         cYGOhRGsxmoo33kN/NowwXtFfy9syXic+2MyQjJxWCqSDg8Gtkel4iZdPbGaYAN3JmUC
-         JBXSTaAbwhtQCu3lF0y1rxKIYjABuiQKXJOMETaFrq/hNXJ9zloYnMq4jq+Az2XbgqOU
-         KLvQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxQzuKLlA0J3PzuRnvcYLtB10/7DjPJ5IejpVJOObRWfRa0hXwU9XQaema/yiFTZ71lw+EtKy4lgeTb@vger.kernel.org
-X-Gm-Message-State: AFuF++mGOw6UZ2cw/IdXpn07w6A54do4oR97T9ebxRwyFwxiie6JvTe9
-	HCdwj6zg3267UZGSsoXPvgn/l8EWQEejrzmeJ182cTDB7RtYahw2rIbJamTUqPGrEj2tIOdzhv1
-	V5lyjzu3RWZOB44hyFJ7CFo/DKlKKikLQXBsRix+oY2uyL1XlM64o2N5wY1ufZEHM
-X-Gm-Gg: AYBFou3u7+Kumq5UamBJsyZQwsC1ioifsYgnTAX9DWBS6AYXkIgCcJi/FFu3tMs4Xdi
-	C9snvUmsPXvT+h+gvBoESzzlrFirecDor2qJ8wc1b6ZFPCvPc6bH+EX+0T7t9b+7QjQ4wheqmhK
-	+allt2aBtkwPdl8vjvP27d95lweV+btyS52hn6v2E0Hex8RHp16XLVJdJz93rMmD49kpgv2jA/h
-	bW4cQt1KM0omUP0MJZZfrwZMylOL4648fWl3OStKfRPjR3KhVZ++cJQwkQw7sL6JEefRYS2hGvf
-	lyKCjUyKJ/KBYDDkr+wywyTjTZDMa3/m059DEYodESYVYe5qQ/NGnrPjajvzQS462Kl6sO/CP69
-	gOFsQcwbl1L7itfXsd7+xzedolYcmNxW4RZRlaBvUpHbGXUCnEFTdSBAv8TFWYgE=
-X-Received: by 2002:a05:620a:4808:b0:93a:12eb:b632 with SMTP id af79cd13be357-93a297e5c8dmr961288285a.10.1789464504610;
-        Tue, 15 Sep 2026 02:28:24 -0700 (PDT)
-X-Received: by 2002:a05:620a:4808:b0:93a:12eb:b632 with SMTP id af79cd13be357-93a297e5c8dmr961284685a.10.1789464504190;
-        Tue, 15 Sep 2026 02:28:24 -0700 (PDT)
-Received: from yongmou2.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93a3f467566sm18939785a.39.2026.09.15.02.28.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 02:28:23 -0700 (PDT)
-From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Date: Tue, 15 Sep 2026 17:27:50 +0800
-Subject: [PATCH v2 3/3] arm64: dts: qcom: Add INT2 GDSC to Kaanapali DPU
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YO20r4D4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84D891F000FF;
+	Tue, 15 Sep 2026 09:30:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789464605;
+	bh=NBx334q4uaVZQyK98WP76o+yghrpB4+RyFUz1Nxu0Gk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=YO20r4D44eymyQitmZzm0nZsiUWzxk0UIGnBXk7eMgNq2qdiAkzIC448juVYKgvkr
+	 21QFg/0oDZWWZ9ZzMRvyqk7WXwua8/lnSNF9lVdOa4D2Ter/C/8wGAEYnZ5lzM4iDO
+	 0qCDntO9P3yrCme7Z1XI/thL9djToQgQlhitw/BbQOto7CMsV3obYyAAx526+DkcC6
+	 vHU/HI3rmpcd1gTftwpARceZjXG9jYPAODwfbhHqxcl/xSigPI5I7wJE3/pVHXnAKf
+	 UilrvZv2L58CX+z2NrYMiD4nUDJ0KYJuwZ+Vk3ez4LG35OH7n7O6u5i/EAmFE2IwWK
+	 P6rogy3v2inow==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: gpio: Add CAT9532 GPIO
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Alban Bedel" <alban.bedel@lht.dlh.de>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260915092046.931449-2-alban.bedel@lht.dlh.de>
+References: <20260915092046.931449-1-alban.bedel@lht.dlh.de>
+ <20260915092046.931449-2-alban.bedel@lht.dlh.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 15 Sep 2026 09:30:04 +0000
+Message-Id: <20260915093005.84D891F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-msm_gdsc2-v2-3-9157237b8382@oss.qualcomm.com>
-References: <20260915-msm_gdsc2-v2-0-9157237b8382@oss.qualcomm.com>
-In-Reply-To: <20260915-msm_gdsc2-v2-0-9157237b8382@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Krishna Manikandan <quic_mkrishn@quicinc.com>,
-        Abel Vesa <abelvesa@kernel.org>,
-        Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789464471; l=1099;
- i=yongxing.mou@oss.qualcomm.com; s=20250910; h=from:subject:message-id;
- bh=bXRmq/LkVHl3Wkzce7EKsFKSt2ADGnLeNMNslKPB/Js=;
- b=pXi5y4Y0Fm69ZEAcS81pYwIUOtYfvuA2eymuS8KiMJtlmzTHrX7GfKEKbi1NipcnkJiNQqRSw
- vSSUuKpKEFVCyy2NKvGiSs7QgaYWpj+xZScpuo6dRvIffTF/9r+cMi7
-X-Developer-Key: i=yongxing.mou@oss.qualcomm.com; a=ed25519;
- pk=rAy5J1eP+V7OXqH5FJ7ngMCtUrnHhut30ZTldOj52UM=
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDEzNSBTYWx0ZWRfX5eAGOMqgvrBC
- Vv1/qrKr+6lc3XJeno/BrkCY7l+/JJowXtjAnGir3UYOxwzCnOGDe+FweFozDZ3zfBzgG3B3vMC
- P336qST+Q3wikOCKLn0CNYySH34DgaU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDEzNSBTYWx0ZWRfXwOB9HIrLCG2K
- Lq2bfnCkRz78V4I5wPkRYalV9qu/49HACdtCMC6SGLZu0DhUuCKA+HJEauOLN6RWFKZldjwNJ0L
- JJm+Pi4Y7WB2SkTXGRsJdbxIFfelVebxYzQ/2pePfegpbh/pjH4U0PMnqtisnLf+chxtskmEdx/
- GUjs/kNQDu3sf8eb8h0QxvgbzZ9D/LPbiTZtecz+K/WT6DtOXId5w5FMJABtHXQJ8YHLpcARX12
- Wsy2TJDA6XfBwPwJqF4lARWm5LmcB3l+ZoCE0Sq4qVVRevYtw0VR/q/9HduMlFi8e0vVmMaidj1
- g1xmYGTG73au+m7Ofn3AewBL5pdGgR7f5nlhajscAq0J82BscxrYLNnGCLK0RYHvRb6zN3+6gaS
- +c5SiYLhVxkUGX8LNRl+QlN0TB62ZvI7+vdnXyeQGp4RhRczK94NvppIMUtzgWBMlg/Uhw50Fe0
- qgtr1Fh5CsajXBmRlRw==
-X-Proofpoint-ORIG-GUID: 2pwIEV0rrA-JQrZVoajG49fZpUVmIuL3
-X-Authority-Analysis: v=2.4 cv=LYepeTfi c=1 sm=1 tr=0 ts=6aa90fb9 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=aCRQ4ZZDzeq032jGe_cA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-GUID: 2pwIEV0rrA-JQrZVoajG49fZpUVmIuL3
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_02,2026-09-14_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 clxscore=1015 suspectscore=0 adultscore=0 impostorscore=0
- malwarescore=0 priorityscore=1501 bulkscore=0 phishscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150135
 
-The INT2 GDSC on Kaanapali (SM8850) powers a subset of the DPU
-source pipes (VIG2/VIG3/DMA5). Add it as a second power domain of
-the display-controller (DPU) node, alongside the existing MMCX
-performance-state power domain.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] dt-bindings: gpio: fragmenting LED dimmer binding by isolating C=
+AT9532 as pure GPIO
+- [Low] dt-bindings: gpio: redundant ngpios requirement for fixed-pin hardw=
+are
+--
 
-The MDSS node's CORE_GDSC is unaffected, since it continues to power
-the rest of the MDSS hardware on its own.
+commit 5e8f0055659d78276b37db0fd1e766db66fdb2f8
+Author: Alban Bedel <alban.bedel@lht.dlh.de>
 
-Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/kaanapali.dtsi | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+dt-bindings: gpio: Add CAT9532 GPIO
 
-diff --git a/arch/arm64/boot/dts/qcom/kaanapali.dtsi b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
-index ace19b8b12d7..b3e3cd1d311c 100644
---- a/arch/arm64/boot/dts/qcom/kaanapali.dtsi
-+++ b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
-@@ -3619,7 +3619,9 @@ mdss_mdp: display-controller@9801000 {
- 
- 				operating-points-v2 = <&mdp_opp_table>;
- 
--				power-domains = <&rpmhpd RPMHPD_MMCX>;
-+				power-domains = <&rpmhpd RPMHPD_MMCX>,
-+						<&dispcc DISP_CC_MDSS_CORE_INT2_GDSC>;
-+				power-domain-names = "mmcx", "int2";
- 
- 				ports {
- 					#address-cells = <1>;
+This commit adds a devicetree binding document for the CAT9532 LED dimmer
+as a GPIO controller.
 
--- 
-2.43.0
+> diff --git a/Documentation/devicetree/bindings/gpio/onnn,cat9532.yaml b/D=
+ocumentation/devicetree/bindings/gpio/onnn,cat9532.yaml
+> new file mode 100644
+> index 0000000000000..6f3e3d0f4f29b
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/gpio/onnn,cat9532.yaml
+> @@ -0,0 +1,52 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/gpio/onnn,cat9532.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: On Semiconductor CAT9532 LED dimmer as GPIO controller
 
+[Severity: Medium]
+The title explicitly acknowledges the hardware is an LED dimmer, but does
+this binding intentionally strip away all LED functionality by isolating it
+in the GPIO subsystem?
+
+The ON Semiconductor CAT9532 is functionally identical to the NXP PCA9532
+LED dimmer. A comprehensive binding for this hardware family already exists
+in Documentation/devicetree/bindings/leds/nxp,pca953x.yaml, fully supporting
+both its LED and GPIO capabilities.
+
+Could the onnn,cat9532 compatible instead be integrated into the existing
+nxp,pca953x.yaml binding to avoid fragmenting the devicetree representation
+of the hardware?
+
+[ ... ]
+
+> +required:
+> +  - compatible
+> +  - reg
+> +  - gpio-controller
+> +  - "#gpio-cells"
+> +  - ngpios
+
+[Severity: Low]
+Does this erroneously force ngpios to be provided in all devicetree nodes
+using this binding, despite the pin count being fixed?
+
+The CAT9532 hardware inherently possesses exactly 16 pins, and the driver
+implemented in the follow-up patch completely ignores the ngpios property
+from devicetree, instead hardcoding chip->ngpio =3D 16. Making ngpios a
+required property forces devicetree authors to specify redundant, fixed
+hardware parameters.
+
+Could this redundant requirement be removed?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915092046.9314=
+49-1-alban.bedel@lht.dlh.de?part=3D1
