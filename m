@@ -1,64 +1,64 @@
-Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com [209.85.167.177])
+Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A4112C237C
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 01:31:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBCD233939D
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 01:31:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789435888; cv=none; b=RArhagFdSFYChce9LzF6KljueIY51eCe/KgaS/qBBJ7+xBh+yG38IBXAljMXkdHLhqaexrDrvlBTFdpHVSl3nbylypesjiChIXUpsOCyFprtr0UrcR+Pe2igSgbNov6VpGI55OCnHGoTNDrFLC2Tk94UE0CIzdGoaMp/10bzFpE=
+	t=1789435892; cv=none; b=c1ypFWUMoyxgM+ZtI9y9N6NxcwMrcxtk5eI/u9zSZnMHIVGSg1y2yKNmvemtfHeKg6hlotVyYA8fPIUpw8aJ0ED6S7UEDF8AawM5JI4Hr2Qg3/rvt9PHYDlFE2X5JGhvMuKM2MJj3F08+gtnbeq2gy7Ob6JVTLIQWoX2vXDC7f0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789435888; c=relaxed/simple;
-	bh=GNNcznWSFBk9BfsFx6sbFhNnUmqowOVWfdNrSDVGjJ8=;
+	s=arc-20240116; t=1789435892; c=relaxed/simple;
+	bh=7ZuWDTyVtYOS4pkIw5SaiP6xmGSq0q9bUORFGHg+iOE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WtCKQP+SL4+RzWqtOwOdOATPeoMkDhS+kUsZwYpTX9HUgnrWviHosOAgouB1d8v56ptKHHeORSAPSBT3hTFX1hp8P2XSrkAkRxtrd4ojhyhHpjddsK+dhWf51CLt5FK+hs6Cy/G60dYRkxXRjKy7r02oLshoxek3fJr5SmR7e8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sZ7V7MWB; arc=none smtp.client-ip=209.85.167.177
+	 MIME-Version; b=Der7VrRPymoWj3LdZGpYjII8FV+WLRiXg4AqCm5lDo1Ksf+Z7OMd8XR1XmwlTfKw7Q5LP3k7x34uNki7/0RcdgyDmGBWz0KEprbW4rGQigo3w3vEJSMmXOZQ13gpCmpJGVW1Gl9RavMucQfKVrozjsycF7oOzy13LV9Ocvlzr8U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s9qUqobW; arc=none smtp.client-ip=209.85.161.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sZ7V7MWB"
-Received: by mail-oi1-f177.google.com with SMTP id 5614622812f47-4c6006e2428so2480476b6e.0
-        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 18:31:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s9qUqobW"
+Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-6b128dd0cb1so2799416eaf.3
+        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 18:31:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789435885; x=1790040685; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789435889; x=1790040689; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=AOdg97xUtxa8AhSsk3nKT5LmiSCoT1EL2eRC7gkp05s=;
-        b=sZ7V7MWB/4BImsvkc1vj8TO8aAy5NXrsru1D/OLzWA5ifZGdxv/FP5LTfhK1UnlHqi
-         mlA+0pYZzoezC6QSm4PZBs+cGOzllir5+e7jibnM3oBaVO0GCy9WLPpmSS0ccEzgMlBm
-         iLiqTSRysLigy8XZalb5iUDkW81F50Juu/makSdXgA4ip0YtG7HNWkudsuWsDCkUEbUo
-         tnDnRUH4B6inxReshvEi02S5SPwuwllt1syA/7a88QsDBXa2eThw6+jrxYp/QppoKBi2
-         KAcgCe2O8UOZ2Ohc7aCsM/DKj2fL3WdLJWYm+rmfYp2Jpq827VSEuZQHz2KU7BJuM53S
-         TeWg==
+        bh=mca1uOiT/+sfyymmOrDVbqr5tpDJZhJUUk2kbexgAZI=;
+        b=s9qUqobWX7Tv+a104gULBtcbj9SyzpEMYRCn4Bn5Wr3iIWvwaKwkxP3dsBlFurFvr5
+         kajYM/FfMieYbQi7VbF65QKFlTYgKktXfClVBc6MSVQC/O68T+A5tIXTSRnsCxuXnPkz
+         94RO9+AYv0PSZQ1k/vYUI005m9VZyuoahAaVSepxe+/IMDRTtAmMhVe5JJVBaLwcCBel
+         ZocvVUUKz0Trs9+2HCjsp5jMnt8NVE7N/3SXMzBJNgeXrSheXA4pkEAQwipaleRv5fa6
+         xVgz2fdeYGwTtGV+GqACu7L76B+1k+5M3H4sllrUVpVcPML311zittGcYKtZSDpOAzWA
+         C9Bg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789435885; x=1790040685;
+        d=1e100.net; s=20260707; t=1789435889; x=1790040689;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AOdg97xUtxa8AhSsk3nKT5LmiSCoT1EL2eRC7gkp05s=;
-        b=QtvGwHQ5sxYNQENMy9IzjdL9rO8NQV9geL9GWkwixWjlEX64COcrZhgrlRNfXvaJ68
-         rb9nZV7nyDPh2HePjxeM865Gq7+F7WfOZ5kh/6brqIYH9xTRD0lzILkqwDEtG61WNAJu
-         Bmd1V5KGS+A28roQxbRBfgYJXaAfk4TI4nguWg6Q4LhIemm5bAn5b7XPXqPWFyvA5j7h
-         tO4MZOS4N9iIaGUYhr9/l68A7wd5HKgpiOm2qmMqJIVD1aQLfLjdqlVoPb4UcOQpz/za
-         Ngk2a8+b3KJQOYviyj4uKhr4T/7WMVwRQ72Ex85ZbpTeaWJl+Y7S5cBicJG4JtCUjOY+
-         Fhlg==
-X-Forwarded-Encrypted: i=1; AKwUvBxJVPn9+JVoHMANmRZF/RaGpsmgULvC6ZUSanLaMy6l8joTlP9LTwIBTuo40wkN9hjTPAI7cG0zkaAd@vger.kernel.org
-X-Gm-Message-State: AFuF++kVTXhagNDMKlV6xxq32vYKFXAvCKedqfxUdhjUfw5uqFHHW2o4
-	XsRN6NN/J/u4qsk5+zyy0VeB2SUt1QKhw7YY+UyYMqny0FO7zh0Kjyf2
-X-Gm-Gg: AYBFou2xpvX8iwHvYxXdqQzXrp9aNbOqlBn5FmdXURPuGXrY3so33uQFbM52eQlmQhZ
-	ogCqJY6gCcUbuoAyNTBbCaKrKDjPppU4nap3uQtCnlkFKsri/j3RVdYb/qNkKPhAFUUcSd5gWux
-	RHIBBT+omVEnXdwDXZ3hG9sgSTgbUwpUfvYDx0ieYVizQDv0gGiaDJ2yYVbCnFpvgVevbYZtZHa
-	o2QwdamNwl15AKrv0pCrHMXPkQGQ54G1TkihEuCwl8MMvgPMbRTamF5ZRA4H0qIlrpGoBihRIO7
-	JWuttqWqj4Kr0Nh9itdDlSmRD3DcQeEv4TB6sfudYnv33NCof9+clrx4efniEKt7xZAxsItE2xi
-	/uZWaRBklwvywLnw7dBB23LOk8LvyzSBB/MjLKPYdV26tQBzXwk6Uf6c4G06klStScnX2KEPT0f
-	cXx3ARBeKyhJG2Vi40U8j/47IUui4HNZBTsXADLAYnQ32cNwegya6FCmtQmE3TQYxFELIU2SIbd
-	K//wScRZlnUzv/a
-X-Received: by 2002:a05:6820:8119:b0:6ba:3635:7ffd with SMTP id 006d021491bc7-6c543112b4amr3036635eaf.64.1789435885128;
-        Mon, 14 Sep 2026 18:31:25 -0700 (PDT)
+        bh=mca1uOiT/+sfyymmOrDVbqr5tpDJZhJUUk2kbexgAZI=;
+        b=ewRJdDJ6TYBQYOdhzuN5/K1bAYmTlE2hefaWiT+4DENyxtxoom9GOIE06XT/4rghDi
+         SMa+2Fd9873Wv5HtOIDJsTE3EOzdOyZLm2ccCfrP96UqAINqY4QRVjk75ndhtzUG+ckz
+         SNUvVcsLlChFFqv19oYeh2c9ao5SvPMHOkD85sWpVGU040JKtzITPcIp810aFe9lUjzz
+         KXarHBYaWySXcsGmuVUxj4kSitavSvIRD89Vi8N8pBNrzcr7kT8uI2a2egDtGK8kz7tQ
+         0psJOnJC+Az+z8vmVWpnm6S41LQGxfjPrgPSbtwjefxXOdPWKvXpFzH84aIE0hn9vs2I
+         waaA==
+X-Forwarded-Encrypted: i=1; AKwUvByBg/NsXwWf6ehRDaPRohn71sCb5kOCmbKIbI2CciqQJPuHuTpW/MEjfEGOM+DtcQTQLb/rwfW0AL9g@vger.kernel.org
+X-Gm-Message-State: AFuF++k3EV9JucPrAgPYBey7V7p6fL7v/lG4OrAA/tyrUXMARzKhav+j
+	t8wKQpJAKd7/gdbbM+8PsiLefDlDMOlryplxLOnXynMUP0wbb9hRZ7Qy
+X-Gm-Gg: AYBFou1zhJEnaJ0vFxhH3Ok/ieexf6tMRryKF9ynHjOUWtqUSTu6dMObo1KbkQcr5Tp
+	szJG2e3eE2AaTEoZVHB1FrjaPdti3iSFSWi4arJWqrAlEJ4brSj6AAbOxp2dB0vsHvRIDPrSxeB
+	JDyv+gOKkYguCwLNoC7ab7ndyx8eReM/pBC9o/XHaQvfUZGiWv/C+i+n4NWQWnu/qYc4lXRFgC3
+	mtt1aYhNk2Pn2OFkyGPSl1y+6aXtmSGZgTdcm0lg5oIzCtn3fJoQExrkw8uuMfvNjJZMI+2gnos
+	fOxOgsPWV/EADcfc945DUMEBW7/zg5ZHOhizjKSsmTZIUrWzZv6kbee9h636bRhokvfpAdFc3sa
+	EsGzw/ZTqYp8SjWDHKeynqjN2yCEMXXGuG/ZfXW5c2srotspcmi8FpzYzM92ii0mfX9wUFODW2Y
+	CIOss1RYsIQl6QljRi9pOqGyH0PMLLXsRqcPYDwYbJkFnlCk8c6O1Ksu5DcvMZR+ZJMq4Uk7eBx
+	vhZ8Ef3Y/qpzXXV
+X-Received: by 2002:a05:6820:1694:b0:6b7:83d6:2920 with SMTP id 006d021491bc7-6c542342bffmr3288896eaf.35.1789435889379;
+        Mon, 14 Sep 2026 18:31:29 -0700 (PDT)
 Received: from debian.prasanth ([103.183.205.11])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14365a59b18sm27111575c88.2.2026.09.14.18.31.20
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14365a59b18sm27111575c88.2.2026.09.14.18.31.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 18:31:24 -0700 (PDT)
+        Mon, 14 Sep 2026 18:31:28 -0700 (PDT)
 From: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
 To: Joel Stanley <joel@jms.id.au>,
 	Andrew Jeffery <andrew@codeconstruct.com.au>
@@ -72,11 +72,10 @@ Cc: Rob Herring <robh@kernel.org>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-aspeed@lists.ozlabs.org,
 	linux-kernel@vger.kernel.org,
-	Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v5 1/2] dt-bindings: arm: aspeed: Add ASRock Rack B650D4U
-Date: Tue, 15 Sep 2026 07:01:09 +0530
-Message-ID: <20260915013110.4780-2-prasanth.padarthi10@gmail.com>
+	Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
+Subject: [PATCH v5 2/2] ARM: dts: aspeed: Add ASRock Rack B650D4U BMC
+Date: Tue, 15 Sep 2026 07:01:10 +0530
+Message-ID: <20260915013110.4780-3-prasanth.padarthi10@gmail.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260915013110.4780-1-prasanth.padarthi10@gmail.com>
 References: <20260830182036.284736-1-prasanth.padarthi10@gmail.com>
@@ -89,27 +88,162 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add the compatible string for the ASRock Rack B650D4U BMC,
-which is an AST2600-based server motherboard.
+Add the device tree for the ASRock Rack B650D4U BMC, which is
+based on the ASPEED AST2600 SoC.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Describe the BMC memory, SPI NOR flash layout, UART console,
+GPIO line names, video framebuffer memory, I2C EEPROM, and MAC0
+connected to an RTL8211F Ethernet PHY.
+
+Use the EEPROM on I2C7 as the NVMEM provider for the MAC0 address.
+
+Configure MAC0 to use the RTL8211F in RGMII-ID mode.
+
 Signed-off-by: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
 ---
- Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm/boot/dts/aspeed/Makefile             |   1 +
+ .../dts/aspeed/aspeed-bmc-asrock-b650d4u.dts  | 120 ++++++++++++++++++
+ 2 files changed, 121 insertions(+)
+ create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-b650d4u.dts
 
-diff --git a/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml b/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
-index 9ba195b8f22d..4c9e96801c1a 100644
---- a/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
-+++ b/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
-@@ -81,6 +81,7 @@ properties:
-               - ampere,mtmitchell-bmc
-               - aspeed,ast2600-evb
-               - aspeed,ast2600-evb-a1
-+              - asrock,b650d4u-bmc
-               - asus,ast2600-kommando-ipmi-card
-               - asus,x4tf-bmc
-               - facebook,anacapa-bmc
+diff --git a/arch/arm/boot/dts/aspeed/Makefile b/arch/arm/boot/dts/aspeed/Makefile
+index 6b68671f9379..b109491d5c8f 100644
+--- a/arch/arm/boot/dts/aspeed/Makefile
++++ b/arch/arm/boot/dts/aspeed/Makefile
+@@ -10,6 +10,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
+ 	aspeed-bmc-ampere-mtmitchell.dtb \
+ 	aspeed-bmc-arm-stardragon4800-rep2.dtb \
+ 	aspeed-bmc-asrock-altrad8.dtb \
++	aspeed-bmc-asrock-b650d4u.dtb \
+ 	aspeed-bmc-asrock-e3c246d4i.dtb \
+ 	aspeed-bmc-asrock-e3c256d4i.dtb \
+ 	aspeed-bmc-asrock-paul-ipmi-card.dtb \
+diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-b650d4u.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-b650d4u.dts
+new file mode 100644
+index 000000000000..6585bda56a4c
+--- /dev/null
++++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-b650d4u.dts
+@@ -0,0 +1,120 @@
++// SPDX-License-Identifier: GPL-2.0
++/dts-v1/;
++
++#include "aspeed-g6.dtsi"
++
++/ {
++	model = "ASRock Rack B650D4U BMC";
++	compatible = "asrock,b650d4u-bmc", "aspeed,ast2600";
++
++	aliases {
++		serial0 = &uart5;
++	};
++
++	chosen {
++		stdout-path = "serial0:115200n8";
++	};
++
++	memory@80000000 {
++		device_type = "memory";
++		reg = <0x80000000 0x20000000>;
++	};
++
++	reserved-memory {
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges;
++
++		gfx_memory: framebuffer {
++			size = <0x01000000>;
++			alignment = <0x01000000>;
++			compatible = "shared-dma-pool";
++			reusable;
++		};
++	};
++};
++
++&gfx {
++	status = "okay";
++	memory-region = <&gfx_memory>;
++};
++
++&gpio0 {
++	gpio-line-names =
++		/* A0-A7 */	"","","","","","","","",
++		/* B0-B7 */	"","","","","","","","",
++		/* C0-C7 */	"","","","","","","","",
++		/* D0-D7 */	"","","","","","","","",
++		/* E0-E7 */	"","","","","","","","",
++		/* F0-F7 */	"","","","","","button-reset-n","","",
++		/* G0-G7 */	"","","","","","","","",
++		/* H0-H7 */	"","","","","","","","",
++		/* I0-I7 */	"","","","","","","","",
++		/* J0-J7 */	"","","","","","","","",
++		/* K0-K7 */	"","","","","","","","",
++		/* L0-L7 */	"","","","","","","","",
++		/* M0-M7 */	"","","","","","","","",
++		/* N0-N7 */	"","","","","","","","",
++		/* O0-O7 */	"","","","","","","","",
++		/* P0-P3 */	"","","","control-power-n";
++};
++
++&fmc {
++	status = "okay";
++
++	flash@0 {
++		compatible = "jedec,spi-nor";
++		reg = <0>;
++		label = "bmc";
++		m25p,fast-read;
++		spi-max-frequency = <50000000>;
++		spi-rx-bus-width = <4>;
++		status = "okay";
++
++#include "openbmc-flash-layout-64.dtsi"
++	};
++};
++
++&mac0 {
++	status = "okay";
++	phy-mode = "rgmii-id";
++	phy-handle = <&ethphy0>;
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_rgmii1_default>;
++
++	nvmem-cells = <&eth0_macaddress>;
++	nvmem-cell-names = "mac-address";
++};
++
++&mdio0 {
++	status = "okay";
++
++	ethphy0: ethernet-phy@0 {
++		compatible = "ethernet-phy-ieee802.3-c22";
++		reg = <0>;
++	};
++};
++
++&uart5 {
++	status = "okay";
++};
++
++&i2c7 {
++	status = "okay";
++
++	eeprom@57 {
++		compatible = "atmel,24c128";
++		reg = <0x57>;
++		pagesize = <16>;
++
++		nvmem-layout {
++			compatible = "fixed-layout";
++			#address-cells = <1>;
++			#size-cells = <1>;
++
++			eth0_macaddress: macaddress@3f80 {
++				reg = <0x3f80 6>;
++			};
++		};
++	};
++};
 -- 
 2.47.3
 
