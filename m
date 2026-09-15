@@ -1,248 +1,166 @@
-Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1B644AFE25
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 17:13:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAF0E48167F
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 17:20:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789492405; cv=none; b=LO65tRHLFLZJYVPapmCZ7nDG8GsZ7az7bzyIUzabBzEOWI4/371WEaE193D06Vb1+7GA1EeGMbJnpPmnR7Pd9PKe/pa5RQVmApHWUabwZ4mGjxBsrXGjCS6IzBSVOQtGCW/ql/Vc4+31V3UY3r5wn7A1/OOZdj1LLtko+QBYtCg=
+	t=1789492837; cv=none; b=bRIEn0MzdwZ3KbzPorNK54MBBk6iTnDl6AoiGngvD0tZ1YMiGlyBx4cpOswM6tgaBKKAFFib5of7jVch5UYiCrVDeT3Ix85975HLqUuMeBebIKrZrMHiqnNQ5RAXkk+vZ/JrZTAenX0wbyR+QRqyqTepBauRbF/G7TcaS3VKZCY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789492405; c=relaxed/simple;
-	bh=9dqGjDEI4RbdLK6jt6HCd0s+ya3fCD6ApoTxnVl2Ciw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NgUJ3a26YhNHnv4Uz3fAJnZuO4JzDkFzfR4XbF+5Q3X0lDKQJVDRblURwAncqW361VcmRycvQmopeGgTy3Y3TzziKmht/wAWpobfvlgwO20tv+AzqIm2DG9uKgfFFDq15lJugrUDW46Eh+43FbJ+Yu3sUPpvMMeEHLO1SslSqIU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Egl0OnqY; arc=none smtp.client-ip=74.125.230.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789492837; c=relaxed/simple;
+	bh=dbvG9K249lCyefMM14BZFhgNNJ3r5ozhGD93sWzhaiU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TsFHqI0jusrhYVrYUny4dHZfbNvSjs6gz/nbZlbEB5HaD+ByGcT7z2nDegxQchD+PbXofXO4HuB1rpvfARvn6t75t15PKDaLt//Df+sCnQ6oZSPZtbWgsUKnOiz8YDpm6uosiS8oEA+NNp1dRhB9O12Jssfml7poMQatHFM7K5c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ifTziyLK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SVyCOEGJ; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Egl0OnqY"
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff163f65so518551fa.1
-        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 10:13:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ifTziyLK";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SVyCOEGJ"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68FFAeb02836581
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 17:20:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	WH7lCAzw2uCbu1htPtaHlO71VpSzeKajhsaa41t5N44=; b=ifTziyLKh9qzhc1M
+	h8KULEL9XrG6sJ2Rxlru+TfiJczyUGqhJ13qjf7svvEAifWQjljbmR47S2Hs37ba
+	n/gsT3aNTx7fenoFUw7v8edZuhLjxq/u4FzY6RXGs3geaSXMOxDBbFAzIpgimX+J
+	JLOlG0YiSh//NFveu/QvVtQOoYJ0E9JLDWgio2kMxVb6nTyQAlsaEbmHIiyXwzpj
+	NA83F6w9ZAw53xoTmE67j5FTiUasg9hygKStaKkM+nbAbYJiE8NX+O74ah0Hm3sQ
+	aRFUnezZsufP6L4iwstUQISsY+4g1tutYXa8eJeDeCS7WJKNjFjOFZBOQrjxbuJO
+	bodP/Q==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gq1qpb85y-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 17:20:29 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-78a1ec363beso150307137.2
+        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 10:20:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789492400; x=1790097200; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RgfH4fC1RNbYMj7TSVJSUxYa5garvCg3vB3RQ2vnJ3I=;
-        b=Egl0OnqYkB5fE9jobJioPZLB9QdaUloRMx6rPwZLjRcVEKn1HILwXsZ13U+TgAzojV
-         2Am7pvs+kgdnCdxKcpzA1cpucqCGQRXyGMjK3L+LkxAGrib+Q+OvAyGsr6yRDasicTE4
-         eUpkb44J0OLXPjKDqXZOH078vCJnweuqvPwYTMLtDUJRaIEBGppV/NuquaH7PY6ByRma
-         nZi4AHwicCNxwiYkURC1p5tVpRkSuwW+NfzBPigdu4SISg+ELh51zARK/409644F/Es1
-         eZLTXpIMc1J6KczyM9/wnetQ3qSmV1hwX891RXAvLvLuPmaxb+YDgFdgGVDw84Vmdr8c
-         o6FA==
+        d=oss.qualcomm.com; s=google; t=1789492828; x=1790097628; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WH7lCAzw2uCbu1htPtaHlO71VpSzeKajhsaa41t5N44=;
+        b=SVyCOEGJIBDg2XTkofHZXr/BLJBbWVphhtZcmznloxlpAIaslQQotGI56V9N3YYIVq
+         hncVdwhMOEqHKB6KOMAYw09KuAU7kD0RMEiI3G6GGrSrMgnJSnqWU/W6WxjjV65Bsz31
+         iga5A7dTyIz5jTiYZGkY9l2nY9nAd8RLTJq0A0StUzeu1BjiHWi7wcOM6v8nASD5RhGY
+         Zp50FkTh5fR1xOZtuYk7qmmP4OlTzC8AMwMgUhPv6zqoi7YULd65LX27O6ltvCUzSRvB
+         TXm9QvlgwZVeciJ6Cahdt+Ysly2tGjlcqmRWUs+jUwoR9svwaY7dcNMowbIfiZoUFV9R
+         oSVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789492400; x=1790097200;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RgfH4fC1RNbYMj7TSVJSUxYa5garvCg3vB3RQ2vnJ3I=;
-        b=yEfVdZukaq4yUtiH/f7tP+lEwlR8k3CicDi27ZwGB8nGGmp8FcKPAezNt0/+SsWPcp
-         32XdqR7gsd8ZOzgc3r4fyVAJMxvUJTF0D1aWPoR494WS9ynMNEmT3HHxLU1OmVJ6bkU2
-         Rm64FDX9D5iHyRKyh8bUyzcGA+l8z609qw0uZdqpcOo1e8bvWrT1O+yRraeV6OXCW2Od
-         cOb64Otimmlh1MbAtEFWNjHKaR9TyAHviutb5pLcyAEmK1s032JIECYu2WOMCx5dy4Le
-         Tl8WCGsTIeVoFa1/lsgJt9FWUQgPWfi5E9HhEKULx2Cp6EmBCBuwmmu6b3IprOYfA8uA
-         JEFQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxA76ldgN68hO8fgZBSOjs0uXiggqDKv0dFo1YBAOqE0dY8TFPA7rv19Dy/rQFOSazSHjIZdYEKDVtG@vger.kernel.org
-X-Gm-Message-State: AFuF++l1ialjnySHJUrPz3qNm0Usn/7qrKv/poM/ibZhd8d8TtPnQU0y
-	yPBFDgDqAmUmk1Wu/7pNTGnLn+1scnnvLgkcylgvISLUTEMgcBewDoc=
-X-Gm-Gg: AYBFou1ppDBDm5muLjx7A5qD/PHtWGFjZuDdQWM5nHW5uxva2ALt3gKinhfQ7e7us80
-	fYudxlG3Qr7roD4/pZ332v7TjzL8Yl922QvpBq1laI544xFdlr1OYNXRF73kbURuACp8MwU3msx
-	Kwy7BC9OfbQUUUYeD9/Rjf+dRON4IKka206teBmzNMFiD79qc9JYpM9weUCG5+g3EL0mtdR9lv1
-	WKTrl++/sS5KKEEkrxbOKCeXP5B7cqffPf+/l396PbaUNFhOFqns047xGqX/9RLQ4VPKRVdOlsO
-	VunsqC7CSZP0T/gD+WMujkt5Kfsn9h8nKLf991Q8MF0UeNmqZvbAi8eIelwKnGWfJ9gQ1d8plOd
-	Mt+/0PGaq9Z7s/rmMrFBGBHX1/N/sku6Uxr4zOPDJodRqQvgja1RQRROmtDB1zM1HwRlRgtT6oa
-	HXs5LsloscMwrU2s8bm47tJGQTEbL1Dhc4ChaG2kcxo+stqgyLOuqQpGNGz8ZVXMqJIuDd+4gN
-X-Received: by 2002:a05:6512:3ca9:b0:5b6:183c:5c94 with SMTP id 2adb3069b0e04-5b8ae69f54fmr2035444e87.50.1789492400503;
-        Tue, 15 Sep 2026 10:13:20 -0700 (PDT)
-Received: from fedora ([46.8.219.5])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8b57eb908sm91791e87.79.2026.09.15.10.13.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 10:13:20 -0700 (PDT)
-From: Vitaliy Sochnev <sochnev.v.74@gmail.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>
-Cc: Zhang Rui <rui.zhang@intel.com>,
-	Lukasz Luba <lukasz.luba@arm.com>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Vitaliy Sochnev <sochnev.v.74@gmail.com>
-Subject: [PATCH v2 4/4] thermal/drivers/airoha: Register a thermal zone per AN7583 sensor
-Date: Tue, 15 Sep 2026 20:11:31 +0100
-Message-ID: <20260915191131.25214-5-sochnev.v.74@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260915191131.25214-1-sochnev.v.74@gmail.com>
-References: <20260915191131.25214-1-sochnev.v.74@gmail.com>
+        d=1e100.net; s=20260707; t=1789492828; x=1790097628;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WH7lCAzw2uCbu1htPtaHlO71VpSzeKajhsaa41t5N44=;
+        b=Cre95fSzrqXG9PckWgVDaUzlrQnASZFATkOrDmSDTm6cFz718ULXUbxpGG5btWHY+l
+         d+K2nxmhShMQfD0bRN/z3CwgVg0VChk84xcA4eCOMbM66TgNlsjpw1FzsLn/WlJ+y2Xk
+         W/d9MJjFGtIXBykRM6oXRx/OC9yDxJHwqOmuIejZFfkwxEVWQPQPM6IqVD9LIraZIw3J
+         I6lgZET+T5CNbDYaLwSu4D6r6I6VNEcWAmPEgln6ujN3pBRfVj005qAyeYXj0Y1Ch29i
+         b0Vga7xeQR6sU0UVlKJYLzkN4872FpMLC4CNn7xEcHClrr80bBfG1CbOR/NHkEJnODuT
+         NznQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwTecVXZ9yV9KW5+I0Grrxpuj5piiDhVFfZMkkDjdjXhqF5I77nc7xmsMfx6izj23aErrek5AUWQeNq@vger.kernel.org
+X-Gm-Message-State: AFuF++kCb1hRK+qHBVaPFn24qEYVWJfIXFFNQXOBREty2WPqAjHiPX/N
+	WY8Yr/iRjuLOoBjFOp9qkDZnbysRT6BiE2HWAS20n7Apcty1pdEGrL7lMexzGWgExPtQrf1RbUd
+	Mo3oTkuRFFJi4fw9VV57GwP+CCQOdqDZDdTxWhUpzcxqdwV4z1LepR7fUX4R79ses
+X-Gm-Gg: AYBFou1thVtbNvphYxUtzp2D4AseJUH5KjK+EMWO2R4YEPdDUQic7a7q9nFq1hXf4NK
+	5F4QqANmfZUYgkA6OG//D2VhAirQsIV0nRDza4VQb5pa079bgR2eJyQQkAeCrdM3WwOgaUjhmQg
+	zFiKalBhtvOCdupPKVKoPnGHmB+aWPRS753tgYlJ+hK5kd1pTtku/Bn57CFDJu8Wc9u7zaPRwTI
+	kUq7L4yGKrFSG/PGNU7jS3WDqYr50LeEXkSF/5QAKP5KmUtUC64VkEpgxKc3cfVluFQvPtsKFC/
+	fl3qd1ikhU8HoCEBmvMEW9ILVivlhWUu/YJHvaJ//ZjQ5Yi6GCoqp/brYL01mfCk4eCRuFsPQRk
+	8BY13+RBsVyN2fqF7jgrpZQ==
+X-Received: by 2002:a05:6122:4a52:20b0:5c8:356d:c872 with SMTP id 71dfb90a1353d-5c981ebdb36mr3506287e0c.3.1789492828460;
+        Tue, 15 Sep 2026 10:20:28 -0700 (PDT)
+X-Received: by 2002:a05:6122:4a52:20b0:5c8:356d:c872 with SMTP id 71dfb90a1353d-5c981ebdb36mr3506244e0c.3.1789492827984;
+        Tue, 15 Sep 2026 10:20:27 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa1d27ad36sm26023a12.21.2026.09.15.10.20.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 15 Sep 2026 10:20:27 -0700 (PDT)
+Message-ID: <e55093ff-0441-49f0-9d06-6c100c8107aa@oss.qualcomm.com>
+Date: Tue, 15 Sep 2026 19:20:24 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 07/22] thunderbolt: Try reading host DROM from device
+ tree first
+To: Sven Peter <sven@kernel.org>,
+        Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Janne Grunau <j@jannau.net>,
+        Neal Gompa <neal@gompa.dev>, Andreas Noever <andreas.noever@gmail.com>,
+        Mika Westerberg <westeri@kernel.org>,
+        Yehezkel Bernat
+ <YehezkelShB@gmail.com>,
+        Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, asahi@lists.linux.dev,
+        linux-arm-kernel@lists.infradead.org,
+        Joshua Peisach <jpeisach@ubuntu.com>
+References: <20260906-b4-apple-soc-tbt-v2-0-1f80085f93fb@kernel.org>
+ <20260906-b4-apple-soc-tbt-v2-7-1f80085f93fb@kernel.org>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260906-b4-apple-soc-tbt-v2-7-1f80085f93fb@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDI1MyBTYWx0ZWRfX64XT8c4QM7ak
+ 0HSCSmESakxTEd4GoD5XiauDjZedu4ulraxAJhCNkCJbm9Goit6PQx4Kx/JrsH5a4PuaEDVdBk0
+ V6PpsRH3k84YXaq6S/6i5fcyYi6kUJg=
+X-Authority-Analysis: v=2.4 cv=I4Xw19gg c=1 sm=1 tr=0 ts=6aa97e5d cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=VwQbUJbxAAAA:8 a=fxJcL_dCAAAA:8 a=i--5ToJz1EgYGg6QIxYA:9 a=QEXdDO2ut3YA:10
+ a=-aSRE8QhW-JAV6biHavz:22
+X-Proofpoint-ORIG-GUID: OYeBIjda5uqeTpMy5CchW4aQUHkvgJyc
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDI1MyBTYWx0ZWRfX2gozRDbdtrWN
+ CrnUJhwIsrkP5YMLO3WfcnhKIB+SENy0raz4Yk8FB4iPglcrizYM1cv1ftVeffOc+jUX8cfLb56
+ HwoN8zfEICPYdKEAja9itXEmov9ODvyOGJQFw9kx8ce52WGYISM38kwUgaRmIzLPoROn22oeoZ7
+ D2VZGPHh5v9BP4EIZuJJscS8nMYtzEMOT1YjAMJDeoySPI2pNQfzhPeTaUScB7+EPfyI3+ZCyxR
+ RYBzVsIi57dPUR7e4AHDE5eCn2je5RqKusz/MirNwQEj4Vmyx1CgRtfMypeZSecBETHz+tCpg6s
+ P07t473sI+5RJl1YzWfK0cJd/vp8IQ5v9y76eVKSUevx/8YheZBZuAUT2BNsykS9ctcjGwR7YL+
+ Jrv9YBxqi3A8FUM9bnPtbpqsU6t0TnbTqUj2l655dQS8843iLy21uca1KJTe6Tz9X9kAEbIlWPa
+ W0RKnn0xkTKxJuekSCA==
+X-Proofpoint-GUID: OYeBIjda5uqeTpMy5CchW4aQUHkvgJyc
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_04,2026-09-15_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 suspectscore=0 phishscore=0 clxscore=1015
+ priorityscore=1501 bulkscore=0 malwarescore=0 impostorscore=0 adultscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609150253
 
-AN7583 has three temperature sensors and the driver has constants for
-all of them, but it registers one zone and reads only the bandgap sensor.
 
-Register a zone per sensor; the thermal sensor cell selects it. A device
-tree may describe fewer zones than sensors. EN7581 still registers one
-zone.
 
-Idle and with both cores loaded on a Nokia XG-040G-MF:
+On 9/6/26 8:36 PM, Sven Peter wrote:
+> On Apple Silicon SoCs the DROM is provided by a device tree property.
+> Try reading from that property first.
+> 
+> Signed-off-by: Sven Peter <sven@kernel.org>
+> Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
+> ---
 
-  bandgap  56.9 C -> 59.3 C
-  GbE      58.7 C -> 61.5 C
-  CPU      57.0 C -> 61.1 C
+[...]
 
-Signed-off-by: Vitaliy Sochnev <sochnev.v.74@gmail.com>
----
- drivers/thermal/airoha_thermal.c | 64 +++++++++++++++++++++++++-------
- 1 file changed, 51 insertions(+), 13 deletions(-)
+> +static int tb_drom_copy_of_apple(struct tb_switch *sw, u16 *size)
+> +{
+> +	return tb_drom_copy_property(sw, "apple,thunderbolt-drom", size);
+> +}
 
-diff --git a/drivers/thermal/airoha_thermal.c b/drivers/thermal/airoha_thermal.c
-index d7e4a088b7ea..d996ef539fa1 100644
---- a/drivers/thermal/airoha_thermal.c
-+++ b/drivers/thermal/airoha_thermal.c
-@@ -245,6 +245,11 @@ enum airoha_thermal_chip_scu_field {
- 	AIROHA_THERMAL_FIELD_MAX,
- };
- 
-+struct airoha_thermal_zone {
-+	struct airoha_thermal_priv *priv;
-+	int sensor;
-+};
-+
- struct airoha_thermal_priv {
- 	struct regmap *map;
- 	struct regmap *chip_scu;
-@@ -263,6 +268,9 @@ struct airoha_thermal_priv {
- 
- struct airoha_thermal_soc_data {
- 	u32 pllrg_protect;
-+	/* Sensor mux value per zone, NULL without a sensor mux */
-+	const int *sensors;
-+	int num_sensors;
- 
- 	const struct thermal_zone_device_ops *thdev_ops;
- 	int (*probe)(struct platform_device *pdev,
-@@ -348,7 +356,8 @@ static void airoha_set_thermal_mux(struct airoha_thermal_priv *priv,
- 
- static int en7581_thermal_get_temp(struct thermal_zone_device *tz, int *temp)
- {
--	struct airoha_thermal_priv *priv = thermal_zone_device_priv(tz);
-+	struct airoha_thermal_zone *zone = thermal_zone_device_priv(tz);
-+	struct airoha_thermal_priv *priv = zone->priv;
- 	int min_value, max_value, avg_value, value;
- 	int i;
- 
-@@ -374,7 +383,8 @@ static int en7581_thermal_get_temp(struct thermal_zone_device *tz, int *temp)
- static int en7581_thermal_set_trips(struct thermal_zone_device *tz, int low,
- 				    int high)
- {
--	struct airoha_thermal_priv *priv = thermal_zone_device_priv(tz);
-+	struct airoha_thermal_zone *zone = thermal_zone_device_priv(tz);
-+	struct airoha_thermal_priv *priv = zone->priv;
- 	bool enable_monitor = false;
- 
- 	if (high != INT_MAX) {
-@@ -640,8 +650,9 @@ static int an7583_thermal_read_diodes(struct airoha_thermal_priv *priv,
- 
- static int an7583_thermal_get_temp(struct thermal_zone_device *tz, int *temp)
- {
--	struct airoha_thermal_priv *priv = thermal_zone_device_priv(tz);
--	int sensor_idx;
-+	struct airoha_thermal_zone *zone = thermal_zone_device_priv(tz);
-+	struct airoha_thermal_priv *priv = zone->priv;
-+	int sensor_idx = zone->sensor;
- 	int delta_diode, delta_gain;
- 	int coeff, slope, offset;
- 	int tries = AIROHA_THERMAL_MUX_TRIES;
-@@ -649,9 +660,6 @@ static int an7583_thermal_get_temp(struct thermal_zone_device *tz, int *temp)
- 
- 	int diode_zero, diode_d0, diode_d1;
- 
--	/* Always read sensor AN7583_BGP_TEMP_SENSOR */
--	sensor_idx = AN7583_BGP_TEMP_SENSOR;
--
- 	coeff = an7583_thermal_coeff[sensor_idx];
- 	slope = an7583_thermal_slope[sensor_idx];
- 	offset = an7583_thermal_offset[sensor_idx];
-@@ -715,7 +723,7 @@ static int airoha_thermal_probe(struct platform_device *pdev)
- 	const struct airoha_thermal_soc_data *soc_data;
- 	struct airoha_thermal_priv *priv;
- 	struct device *dev = &pdev->dev;
--	int ret;
-+	int ret, i;
- 
- 	soc_data = device_get_match_data(dev);
- 
-@@ -737,11 +745,31 @@ static int airoha_thermal_probe(struct platform_device *pdev)
- 		return ret;
- 
- 	/* register of thermal sensor and get info from DT */
--	priv->tz = devm_thermal_of_zone_register(dev, 0, priv,
--						 soc_data->thdev_ops);
--	if (IS_ERR(priv->tz)) {
--		dev_err(dev, "register thermal zone sensor failed\n");
--		return PTR_ERR(priv->tz);
-+	for (i = 0; i < soc_data->num_sensors; i++) {
-+		struct airoha_thermal_zone *zone;
-+		struct thermal_zone_device *tz;
-+
-+		zone = devm_kzalloc(dev, sizeof(*zone), GFP_KERNEL);
-+		if (!zone)
-+			return -ENOMEM;
-+
-+		zone->priv = priv;
-+		zone->sensor = soc_data->sensors ? soc_data->sensors[i] :
-+						   AIROHA_THERMAL_NO_MUX_SENSOR;
-+
-+		tz = devm_thermal_of_zone_register(dev, i, zone,
-+						   soc_data->thdev_ops);
-+		if (IS_ERR(tz)) {
-+			/* A DT may describe fewer zones than sensors */
-+			if (i && PTR_ERR(tz) == -ENODEV)
-+				continue;
-+
-+			dev_err(dev, "register thermal zone %d failed\n", i);
-+			return PTR_ERR(tz);
-+		}
-+
-+		if (!i)
-+			priv->tz = tz;
- 	}
- 
- 	platform_set_drvdata(pdev, priv);
-@@ -749,7 +777,15 @@ static int airoha_thermal_probe(struct platform_device *pdev)
- 	return soc_data->post_probe ? soc_data->post_probe(pdev) : 0;
- }
- 
-+/* Zone order; the bandgap sensor stays zone 0 */
-+static const int an7583_zone_sensors[AN7583_NUM_SENSOR] = {
-+	AN7583_BGP_TEMP_SENSOR,
-+	AN7583_GBE_TEMP_SENSOR,
-+	AN7583_CPU_TEMP_SENSOR,
-+};
-+
- static const struct airoha_thermal_soc_data en7581_data = {
-+	.num_sensors = 1,
- 	.pllrg_protect = EN7581_SCU_THERMAL_PROTECT_KEY,
- 	.thdev_ops = &en7581_thdev_ops,
- 	.probe = &en7581_thermal_probe,
-@@ -757,6 +793,8 @@ static const struct airoha_thermal_soc_data en7581_data = {
- };
- 
- static const struct airoha_thermal_soc_data an7583_data = {
-+	.sensors = an7583_zone_sensors,
-+	.num_sensors = AN7583_NUM_SENSOR,
- 	.pllrg_protect = AN7583_SCU_THERMAL_PROTECT_KEY,
- 	.thdev_ops = &an7583_tz_ops,
- 	.probe = &an7583_thermal_probe,
--- 
-2.55.0
+I don't know how prevalent this property is in your ecosystem right now,
+but generally I believe this would be more fitting as a vendor-neutral
+property.
 
+Konrad
