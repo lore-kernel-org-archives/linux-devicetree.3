@@ -1,156 +1,77 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D52DB39A078
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 21:06:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BDD8440A25;
+	Tue, 15 Sep 2026 21:47:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789506371; cv=none; b=W8QuSjtCBmEFzYzwQxJhTcwaztl2hItMnOcEdXpqOksIOgDsXfrk19DpOVCTdVpFHRH/iG6IfSXzbmOGDXhMA82LY1Etj1Vl5ZqzgnToDwu9zW0jFRFaaDYyvvetJmAnoDMJJ/RZzoJh8QF6sxR7EpTxFSNCHAawBjV8SdUXIJI=
+	t=1789508822; cv=none; b=EiSSC/Zw9//ZfELiFRuO7vPtQBtgZdjqBfJhA9v0sPDHk37dPtb3O3nN49BBNIdlu/W7ZwxYDzEF94zmyZcYRpfuGY8GJ20swR7n8tvpAaXMN3l/WDNNHktZ8+vpiAPRWVOOL+lm/4xoewq4piaT9iEX1g4f3N573MObIMSDc/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789506371; c=relaxed/simple;
-	bh=aBOJJP6A5C4hrhURb7yE5SYUAJ3oqx3hzU/msHVqdxg=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nfEWu8Y7giDmGPSkVXhQufMrsDKVb26SdGe/ZX0NK9Jgd56gRH+oN3DEU8SCBqZljOPGO75d6PTQnIZyD1inXVXBU7j7oy8DBaTlmFbO4qK05yBWzklBoR5f22XR5cZ/aEOvSWXkpl3O5P+TiLrq8bPFYBWeD2Nxnz5l4HS0HZ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=jSlvK8hI; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789508822; c=relaxed/simple;
+	bh=Hv6ojg66OwiHgnnD2qBgHgsdUiiiCy9oBDzblh90vTE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=QWF6j+UXgRzhsygP0uAhjn5MzUlaEiAIZc384rf3OzWygm0Y1eKs56MdJ9hZ7MdGadDtIrl7YjCK1MKa+rsgZ5Po1UHXi3J1N2bx1xkrka1KT7jViei8fyeeA0/lIUDvadRd0lTOZjFETdxUsZcCYBCOrpmhmo95DbccetrudEs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=au/MnVjb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="jSlvK8hI"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 83893152B;
-	Tue, 15 Sep 2026 14:06:03 -0700 (PDT)
-Received: from ryzen.lan (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CB4CE3F882;
-	Tue, 15 Sep 2026 14:06:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789506367; bh=aBOJJP6A5C4hrhURb7yE5SYUAJ3oqx3hzU/msHVqdxg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=jSlvK8hI/FX84XvakztHpnE/7R0Z6+ZuVc99SRY+6AiDkO249I8rxrCC+H2rkgp/G
-	 oFeKtc80XxfP5T2VAcUkk58Cdnclh9mX7b7FX0ZnGLgL+C0mGjEJdpJa452zNT/nMG
-	 eXdnb6ApIDdvmxTOk9ARS8B1VIHubs4iqIlGsmDU=
-Date: Tue, 15 Sep 2026 23:01:27 +0200
-From: Andre Przywara <andre.przywara@arm.com>
-To: Conor Dooley <conor@kernel.org>
-Cc: sashiko-bot@kernel.org, sashiko-reviews@lists.linux.dev,
- robh@kernel.org, devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev,
- conor+dt@kernel.org
-Subject: Re: [PATCH 2/3] dt-bindings: arm: sunxi: Add two Teclast tablets
-Message-ID: <20260915230127.7aa4386a@ryzen.lan>
-In-Reply-To: <20260915-flip-steadfast-9198d002f381@spud>
-References: <20260914210115.28151-1-andre.przywara@arm.com>
-	<20260914210115.28151-3-andre.przywara@arm.com>
-	<20260914211940.256A11F000FF@smtp.kernel.org>
-	<20260915005122.40ba2d7a@ryzen.lan>
-	<20260915-flip-steadfast-9198d002f381@spud>
-Organization: Arm Ltd.
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.31; x86_64-slackware-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="au/MnVjb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1512F1F000FF;
+	Tue, 15 Sep 2026 21:46:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789508820;
+	bh=reqWTzZzh5f50o4S7TcknAuT+OR9hZ1yDSaNoq4fB2c=;
+	h=From:Subject:Date:To:Cc;
+	b=au/MnVjb3WmJ6ANk+dW5wYjCAttmEyvJiczayoO0Q6YXdWsRizEBPqHsTbS0F9W3M
+	 u0oVZ3Qkr9ux0QzMP9RS6c3v2xwmty+oKA4TKKU2BqsgaCiwbtM2QGfDbOlDjrCzpJ
+	 +cehwlQ+cEqCpFYbogOrxWu19Iym0CVG2CRBoTb4ztPUMO4SQmiEwJdzl1sb8CYK7o
+	 Ez5+tlShdsNpjcB2w1/PC/K/jp1abHn6JQpVG/yUiJRubc2dxkZWnVu1eA2NfKkrFG
+	 VYh8HuHhEHnF3sj+YHXTh6ZnIbc1hG/zNVrGSb++CFzpsHaQCgFJthpDM+Oc9bxnj2
+	 qlI+bGuTmo54g==
+From: Linus Walleij <linusw@kernel.org>
+Subject: [PATCH 0/2] power: supply: Correct AB8505 charger device tree
+Date: Tue, 15 Sep 2026 23:46:53 +0200
+Message-Id: <20260915-ab8500-charger-dt-v1-0-10b7b387e6a6@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MQQqAMAzAviI9W6jTifMr4mFuVXtR6UQE8e8Oj
+ yEkDyRW4QR98YDyJUn2LUNVFhBWvy2MEjODIdOSqyz6qbNEmKUurBhPdC6Y0LSm9h1B7g7lWe7
+ /OYzv+wGrzk9oYwAAAA==
+X-Change-ID: 20260915-ab8500-charger-dt-99c2c4623a80
+To: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
+ Linus Walleij <linusw@kernel.org>
+X-Mailer: b4 0.14.3
 
-On Tue, 15 Sep 2026 17:58:50 +0100
-Conor Dooley <conor@kernel.org> wrote:
+AB8505 retains the USB charger from AB8500 but omits the separate main
+charger block. Its charger node consequently has nine valid interrupts,
+not the fourteen interrupts used by AB8500.
 
-Hi Conor,
+Adjust the binding to describe the variant-specific interrupt sets and
+remove the five nonexistent main-charger interrupts from the AB8505
+device tree. The binding update also limits the autopower_cfg description
+to AB8500, since the corresponding AB8505 register bit is reserved.
 
-> On Tue, Sep 15, 2026 at 12:51:22AM +0200, Andre Przywara wrote:
-> > On Mon, 14 Sep 2026 21:19:39 +0000
-> > sashiko-bot@kernel.org wrote:
-> > 
-> > > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> > > - [High] Missing SoC fallback compatible string 'allwinner,sun50i-a100' for the Teclast P80 tablet breaks CPU frequency scaling.
-> > 
-> > Well, there is more to it. We should rather add the a133 as an explicit
-> > name in the driver, like we did for the H616 family. And the whole OPP
-> > table is still from the old A100 days, it doesn't really cover the A133
-> > or A133P values, which go up to 1.6GHz and 2.0 GHz, respectively.
-> > The bin selection in the driver is also not adequate, the BSP code
-> > seems to use the SID cell at 0x00 to select one of two speed bins, at
-> > least for the A133. The A133P is probably still different.
-> > 
-> > So I'd rather keep the a133 fallback compatible, and adjust the driver.
-> 
-> Can you explain the complaint from Sashiko to me?
-> From where I am sitting, without awareness of allwinner SKUs, it seems
-> like the bot is suggesting that you add a "random" fallback to make a
-> driver probe.
+Assisted-by: LLM
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+---
+Linus Walleij (2):
+      dt-bindings: power: supply: ab8500: Allow AB8505 interrupts
+      ARM: dts: ux500: Drop AB8505 main charger interrupts
 
-Well, this is about the DVFS driver, which doesn't really have a nice
-device to match against. The nodes under /cpus carry the cores, but
-there is no notion of a SoC here, it's just about architectural Arm
-cores. So the solution was to match this against the machine (fallback)
-compatible, which always carries the SoC name. I think other platforms
-do the same.
-And while we have DVFS support for the A133, this only supports the
-"allwinner,sun50i-a100" fallback string, as this was the only chip of
-that "family" at time of upstreaming. The A133 is using the same
-die, it's just a better bin, but there are virtually no A100 devices out
-there, as they were superseded by the A133 very quickly.
+ .../power/supply/stericsson,ab8500-charger.yaml    | 44 ++++++++++++++--------
+ arch/arm/boot/dts/st/ste-ab8505.dtsi               | 14 +------
+ 2 files changed, 30 insertions(+), 28 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260915-ab8500-charger-dt-99c2c4623a80
 
-So what Sashiko (somewhat correctly) mentions is that with that
-a100 fallback string we won't get DVFS support. It feels odd to name
-that tablet A100 when it's clearly not, so I went with the proper SoC
-name.
-We did the same for the H616 family: just adding all the names using
-the same die to the DVFS driver will solve this problem as well, which
-is what I am planning to do - unless people have different opinions.
-
-Hope that helps!
-
-Cheers,
-Andre
-
-
-
-> > 
-> > Cheers,
-> > Andre
-> > 
-> > > --
-> > > 
-> > > commit 582b866f1ad9000afddf47eb7e4c9d37a95dfbc8
-> > > Author: Andre Przywara <andre.przywara@arm.com>
-> > > 
-> > > dt-bindings: arm: sunxi: Add two Teclast tablets
-> > > 
-> > > This commit adds devicetree bindings for the Teclast P80 and P85T tablets.
-> > > The Teclast P80 is based on the Allwinner A133 SoC, and the P85T uses the
-> > > Allwinner A523 SoC.
-> > > 
-> > > > diff --git a/Documentation/devicetree/bindings/arm/sunxi.yaml b/Documentation/devicetree/bindings/arm/sunxi.yaml
-> > > > index f04db28c630ac..28437c47ac01b 100644
-> > > > --- a/Documentation/devicetree/bindings/arm/sunxi.yaml
-> > > > +++ b/Documentation/devicetree/bindings/arm/sunxi.yaml
-> > > > @@ -933,6 +933,16 @@ properties:
-> > > 
-> > > [ ... ]
-> > > 
-> > > > +      - description: Teclast P80 Tablet
-> > > > +        items:
-> > > > +          - const: teclast,p80
-> > > > +          - const: allwinner,sun50i-a133
-> > > 
-> > > [Severity: High]
-> > > Does this strict two-item compatible array omit the necessary fallback string?
-> > > 
-> > > The sun50i-cpufreq-nvmem driver in drivers/cpufreq/sun50i-cpufreq-nvmem.c
-> > > requires allwinner,sun50i-a100 to exist in the root node's compatible array
-> > > to bind via of_machine_device_match(sun50i_cpufreq_match_list).
-> > > 
-> > > Without this fallback string included in the bindings (and subsequently the
-> > > board's Device Tree), cpufreq-dt will not be instantiated. This will cause
-> > > CPU frequency scaling to silently fail on the Teclast P80 tablet, leaving
-> > > the system stuck at the bootloader-configured frequency.
-> > > 
-> > > > +
-> > > > +      - description: Teclast P85T Tablet
-> > > > +        items:
-> > > > +          - const: teclast,p85t
-> > > > +          - const: allwinner,sun55i-a523
-> > > > +
-> > > 
-> > 
+Best regards,
+-- 
+Linus Walleij <linusw@kernel.org>
 
