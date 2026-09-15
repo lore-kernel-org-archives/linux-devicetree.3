@@ -1,120 +1,99 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8C943CC303;
-	Tue, 15 Sep 2026 07:34:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C02EE4457C6
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 07:36:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789457661; cv=none; b=GspY7CiT4TIs+NPNCX6oVPcQ0lfdmL8zlECh/0G6NPSZii69m3vS4wvnd+dccIcs+TBk9ECZ/3HmPATKdXArZRQU3DD0bH/T1KnXqZbM+zQnGK3hA2GB++FZg0CoNhF0Ara0ppeQW0vNNQY3vtiFW2+PLRb+Omqy20go33eRFRw=
+	t=1789457809; cv=none; b=qh3D7oJbX03MqRq73zyexD+Gxa3+n+N3+KqIgHF4YyndJALsN01Czgr1eCu4AXxc1SbGpX6cCbZ5WXBBsf1Xn5TqkvzAa+MvDs1zBLH3e0hNxOBGlyuo5UkVmX6RcOHyPifFi/kYI1w+7sv8g8CJLccfR5fd5XwoP2xNQTkpXf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789457661; c=relaxed/simple;
-	bh=yqXh3wBBDWPC71mN/8FPaKt8dm8okOjefQD0eCpqUxA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bTUsQyr11ctyY9SF9PO1GTJ6EFQzFNcStKY3pqMv0bC5XJn11hII+l25jZYsn4iR3FfAaOcBsWYa9jsqyhjBEKUc8BLd9dzdPfQbSkFYm9U05VCv3nOPnRPkPEKji7LhEiYppZKuRriHivuSmXk7KiHSW3VvX2SneUp4UIS8b08=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=iSVf8EDl; arc=none smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789457809; c=relaxed/simple;
+	bh=oUEQWD59IYJeqmeltamh905cINZJrRvnrE+HF2Fxl7I=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=KXB6HSwpsvHWNlagtkEhT9HZvG5TME96A6Ai5Y3vT22KmE2QnFoaoqwPC2g2psX4MRQ0k2XamH3vSRvUk4f85QSVvW+wPsut9mAVCMaK3xDS18s15h7Ykin/1PoTzCVSMLVg9HoM1bIVfbBPv0OcWLuyBCvnn5NBxYNU4nLZ1mk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=De3Ns3t4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="iSVf8EDl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789457660; x=1820993660;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=yqXh3wBBDWPC71mN/8FPaKt8dm8okOjefQD0eCpqUxA=;
-  b=iSVf8EDlkqKQ0bfQgzRsf0Bw3XgBicw3jyo9V0Xg4Cztkma/J1J2nqNl
-   SGBPx89ZAzd4DaLF8zNr3C8gGNxlN74fppCWdkNl74yV7lrD4BDTr4TgN
-   PY7gUK4BRn1lgloIEIIBU7ODr87XWkBJPEpDldRhOxVzTagwpZXarRe14
-   xO1nyW4N5udQ91cEtM7QJIspfzZEi1rHI2/Eh508EgjuUDnnY7GPCl4WY
-   0DsVOp0gV8o3qjNrMO4+2Irwy0p87ZhP+nD6UmfWtXDv6vHIFtEAz8Zyi
-   7eV/f9vNAQTdrJ2U01AmT9Nf1QcX8NzIobhpyuIthYHw+TUUi8CGqLb8t
-   w==;
-X-CSE-ConnectionGUID: 7ZbaFh0/T1CEzOK1/8qJ8g==
-X-CSE-MsgGUID: 6vwL1LNhSN+fPgEAr03T/g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90019070"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="90019070"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 00:34:12 -0700
-X-CSE-ConnectionGUID: Rb6xTnV3RxuXF+Xgp+x06A==
-X-CSE-MsgGUID: 0U/a7lm6QhCutLRD6UVCEQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="272386890"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.203])
-  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 00:34:08 -0700
-Date: Tue, 15 Sep 2026 10:34:06 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Chang Yu <marcus.yu.56@gmail.com>
-Cc: Andy Shevchenko <andy@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Shi Hao <i.shihao.999@gmail.com>,
-	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
-	Joshua Crofts <joshua.crofts1@gmail.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] iio: light: add AS7343 multi-spectral sensor
- driver
-Message-ID: <aqj07iI_KFTDrjPR@ashevche-desk.local>
-References: <20260912013912.51887-1-marcus.yu.56@gmail.com>
- <20260912013912.51887-3-marcus.yu.56@gmail.com>
- <aqepkmQS_p6K1Bd6@ashevche-desk.local>
- <aqiyQOMGGIzu-91z@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="De3Ns3t4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3C0D1F000FF;
+	Tue, 15 Sep 2026 07:36:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789457807;
+	bh=+h9++YxbdyS915twl25S2oQKGwfAxLEwTBud6HdsXxk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=De3Ns3t4iFogFruK9wvA748v4aakTzN6Fod4dLFQC4Qcs/tzB2MwRLrsB2YNJK/Bq
+	 v5RDS1fE0AJxTyeYZqRk8TY3X5RwI2NcqBfhHmmG4ZjI8wFDK9sjiY6aYE8v79sPbE
+	 uo+U0T4L4sOIaMgUjyJeIlfqfVQo1iRUmkXe5gIAVIedJAnEaeWiLFIGsfwwConAhn
+	 AKWFCnRH/x1BUPRMYc5C64GTeVWoDdPgnHsC1ux7wTvU9LHpJlSiHQ4Sae64ay39GZ
+	 5RU48EFwCyvFN2DBxm6FtjZxXxKrtyu7xDawtgiWJCTPH4ZhFcBIULsfInii01/CGo
+	 NpSR4ve78i1dQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 1/2] dt-bindings: display: Add ITE IT61620 MIPI DSI
+ to HDMI bridge
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Pet Weng" <pet.weng@ite.com.tw>
+Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260915-it61620-0714-v10-1-738e2a662c06@ite.com.tw>
+References: <20260915-it61620-0714-v10-0-738e2a662c06@ite.com.tw>
+ <20260915-it61620-0714-v10-1-738e2a662c06@ite.com.tw>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 15 Sep 2026 07:36:46 +0000
+Message-Id: <20260915073646.A3C0D1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqiyQOMGGIzu-91z@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Sep 14, 2026 at 07:49:36PM -0700, Chang Yu wrote:
-> On Mon, Sep 14, 2026 at 11:00:18AM +0300, Andy Shevchenko wrote:
-> > On Fri, Sep 11, 2026 at 06:39:12PM -0700, Chang Yu wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] dt-bindings: missing maxItems constraint for data-lanes
+--
 
-...
+commit 17bcf4f8b4142033bbe40bc85ad49b91b1b814ab
+Author: Pet Weng <pet.weng@ite.com.tw>
 
-> > > +	if (val != 0x81)
-> > > +		dev_info(dev, "Unknown device ID: %x\n", val);
-> > 
-> > Wouldn't be better to define 0x81 with meaningful name?
-> 
-> If I remeber correctly Jonathan prefers just putting 0x81 inline. I'm
-> OK with either style so I'll defer to the judgement to Jonathan here.
+dt-bindings: display: Add ITE IT61620 MIPI DSI to HDMI bridge
 
-OK!
+This chip receives MIPI DSI input and outputs HDMI, and is commonly
+connected to SoCs via I2C and DSI. IT61620 uses a separate compatible
+string from IT6162 due to architectural differences.
 
-...
+> diff --git a/Documentation/devicetree/bindings/display/bridge/ite,it61620=
+.yaml b/Documentation/devicetree/bindings/display/bridge/ite,it61620.yaml
+> new file mode 100644
+> index 0000000000000..d4f0edeecd0e2
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/bridge/ite,it61620.yaml
 
-> > > +static int as7343_suspend(struct device *dev)
-> > > +{
-> > > +	struct iio_dev *indio_dev = dev_get_drvdata(dev);
-> > > +	struct as7343_data *data = iio_priv(indio_dev);
-> > > +	struct regmap *map = data->regmap;
-> > 
-> > > +	return regmap_clear_bits(map, AS7343_ENABLE, AS7343_ENABLE_SP_EN);
-> > 
-> > Can this mess up the raw read? If so, also needs a mutex to be held.
-> 
-> People familiar with runtime PM correct me if I'm wrong, but I believe
-> PM_RUNTIME_ACQUIRE waits for any ongoing suspend callback to finish
-> before returning? If so I think there is no risk of a race here. In
-> the case of system suspend, worst case scenario SP_EN gets cleared
-> before we read ASTATUS or the data register, which for my use case
-> at least is OK since the entire system is suspending anyway.
+[ ... ]
 
-Yes, if the raw read is guarded. What about _setup()? Is it guaranteed
-to be free from races? If so, we are okay.
+> +  ports:
+> +    $ref: /schemas/graph.yaml#/properties/ports
+> +
+> +    properties:
+> +      port@0:
+> +        $ref: /schemas/graph.yaml#/$defs/port-base
+> +        unevaluatedProperties: false
+> +        description: Input port for MIPI DSI
+> +
+> +        properties:
+> +          endpoint:
+> +            $ref: /schemas/media/video-interfaces.yaml#
+> +            unevaluatedProperties: false
+> +            required:
+> +              - data-lanes
 
--- 
-With Best Regards,
-Andy Shevchenko
+[Severity: Low]
+Should this data-lanes property include a local constraint to enforce the
+hardware limit of 4 lanes?
 
+If a user configures a device tree with 5 to 8 lanes, it seems dt_binding_c=
+heck
+will incorrectly accept it. The endpoint schema inherits the generic limit =
+of 8
+from video-interfaces.yaml without imposing the local hardware limit.
 
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-it61620-07=
+14-v10-0-738e2a662c06@ite.com.tw?part=3D1
