@@ -1,59 +1,60 @@
 Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0CAA3C7DF5
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 13:38:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B25E93BB9F7
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 13:38:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789479495; cv=none; b=NKuAfZH32iYbTnM501ZzOT29gGhPRbBCaHXSZdwcoXPcN2B4xyAwT1inxeol80HoX3lBzUuqTp/9Ef/afnCLd6zFst8KP5O3MLcIDoOn0JF9k+jHgQG7XrVLYYm6r/W9cQ/JKRmY/Wqz45hjABv/dv3O3XPRWmutMc44p4T7YSA=
+	t=1789479496; cv=none; b=VdDu6lYRFJHCMq92OS0MKQRJLkHCoZj2Y5cjgzVslqTjEZ8DaD3V6+170BqEdVt8dess+Iucgfi3e6fJlt/49WkFZKACl1HwhGMLHYz0uMZ3KUt5BhYCLHkpJ7Yr4nhi/HPcll8O1+OSzfMZQaORn3l/54tnyUxrxQmTSwvgdAA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789479495; c=relaxed/simple;
-	bh=AtaDzf3UImxWy0A6KTITx5FzTXa7Y5TeCqtDnbYgS3c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=t05bWZc/wCYKKpCZ95bp3vDszH6TG4R+kqTCGwsUTA4/IKOenMG1qBpbJKb/vMZQEPxuDj48bllassTpqUoEAOyKHmcZ1fnYOE7rE9Rt3d0tzRBiu/6c8vLLe9Ab3KUURivgZ04tjm4hcRw8yYrDFHSEcM00sw8wnWZZBpeLj9s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=LQsSMwsC; arc=none smtp.client-ip=74.125.225.140
+	s=arc-20240116; t=1789479496; c=relaxed/simple;
+	bh=6Lz1w8I4jTEAaYTzPTwMJF/7TY7BvjA3HgkopZ1NJOw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=LwLCnIZGPjSupo3w9MHeN/bXAH/8pwzZhIkNtN7fJ2cO+Q07ov8/sc6YSrWsoMXpwidqpXJ0FVjKb3kfRN06BBSUNXtAGxSOVFm/zHAsPTnOAjylQ/tzjmeLVWDu+tlRq0ARsdmrJiT9vQ9ox6zYeLoEok4nptSy/UJQce+ZCKg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=XD62+2Ry; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="LQsSMwsC"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e6598dd44so13293875e9.1
-        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 06:38:13 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="XD62+2Ry"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b965f447cso26378675e9.3
+        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 06:38:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=konsulko.com; s=google; t=1789479492; x=1790084292; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Os5r6Ci6BDN5PRIg9YmrRBQTuU5253UEvxdJayQcudc=;
-        b=LQsSMwsC13eMjlLlvYHMbBw0i5aoRktHLmnkjcHa9LIOWNZcQ916L+Qe0zTFpTum7t
-         rKzuX7c8fpWSLD3tPvKo9opDVnoNfxWCwxI6KkCbI+EDfk6UR5P0fXzymYD6Xwx5yew+
-         Od6Bjiet7Oc7ATgzY/bgYWPFE00bwJp/bXMwg=
+        d=konsulko.com; s=google; t=1789479493; x=1790084293; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=I9it+H2KzAMUWqwq/e89Zc+T4Ptx2OqaJ7EErcD6+fQ=;
+        b=XD62+2Ry3nLK+Y5it9CMpczWppBrUDeYnz1rWJFVJ/6k15aKXGAUcB/yVGOdbjBtRN
+         LKrJF3p0OF3S28JVG2+GlhDXpZlT/eIZ7aD5yiNk52cqPxE7SFEzr+3M2HawihvICdFQ
+         8+xrrtT59GVkqs35rfM9OdBbPtomWgUALjF1M=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789479492; x=1790084292;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Os5r6Ci6BDN5PRIg9YmrRBQTuU5253UEvxdJayQcudc=;
-        b=iX+Jdxyid6cZPBqauVjYohlTRnd3DCi9v8p3Q0dJFXunZSOeu38eQp2gCwB8E8wQ19
-         mUt8Z21v+mIHaYef9RlgUIW1LRLB/eYZMCykPJ7M9LGl1dYxQEotZtxwLiGWTOLi0K26
-         ScDZ6Mj2J9bfcj0w3w22oZPc1s+FVOkGDAOHSt+RkhLPniAoBKYn0JbX6ICDnRcIDUjv
-         xERblAaCTVvOxGaGHea6GgUOIr6bhvs35h8xd9DeNCcEOhMVJTHuXWomiZ55G1nO984q
-         KXG9/SHFap3WvtvE2nFUlGe+AcBlVTMNKnd5c+gUa9t9F4y5XbwVRvJYoj0K77d1hkbR
-         qWlA==
-X-Gm-Message-State: AFuF++nR/ExZ8dU3enkhC0t/r82a1675O0ee6wVkPLbvUXCpF3B7pMLX
-	hmPLAo1ag0D7oSBCC8pCxtFlWfw/j563/wzjjnGVJ9JUGESJItAN5SeFzVN+vvVBX2Q=
-X-Gm-Gg: AYBFou24kB2RebI0ejZevp4a6dfGMhB/JgcRtn6sXUHVgNkAQ69Qel+eAz9cuFivEdj
-	m5i3d8LEfbTeK03vBUv6EFRM5kj08kQ6RYrRBh/ZOTKaHBQbfROKF5e2AxM3bE2+m7XpqrKBRVZ
-	esDciqFomdcsE9qm5XY/0dIgLDjMMi87CLDPgfSuoaMP8dlgffkRW1VpOF6ycFg6RuMQ59Y4XQ7
-	CvXvJA2EXi6k5E28mseNlCosCq3ey85laCLX+k9pt3+qFRuEJAE3rKpVSjwDSnQHBMH6wKMWmHv
-	fyjd6Rc2ljsNFpcDNj7bNpKOgfkhiR+oqOfE/2ZR02mRP1kWG/fWCEoINwipZTUjLZUFR8DZtA9
-	BZdcx7l6pckRL0+SA0MrfEM1VwHtjjV73REeSn2Kt8p5m1MUJ0sV2C5iPF/c7VgRxnVgeBOBK4I
-	lHSz94h1utuTpDyxj1r0ir41XbqYcf0P7vCabt/+AjxtLXK8UMtKu0ceOpsNYw4UnnBW9IuXIEQ
-	YxHx9QWwBjagzcJ
-X-Received: by 2002:a05:600d:3:b0:49c:cee2:a508 with SMTP id 5b1f17b1804b1-49e7a66b64bmr74231585e9.16.1789479491796;
-        Tue, 15 Sep 2026 06:38:11 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789479493; x=1790084293;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=I9it+H2KzAMUWqwq/e89Zc+T4Ptx2OqaJ7EErcD6+fQ=;
+        b=bpIMNhaZStWx5Gl4XTX/WJQb1QnAYxsx48hzK5GAvjDhSM4ZDi60AUuX9icJWubCE1
+         2QgXhrJmFtILTTbek4jwDAY4S7NbshdprI9/REVt1XZCLxl9eWBAHloFfMFMCH2EKuln
+         dUbSDfFP5ULpR7HI7k4ZifRy1Z/lEMaBXoqIeBz32+8ePYGpQ6HLNJC51d+IYT74Hu7p
+         pQPgqFmCqrWlcFJ1Gb2S6nBUQVtAoOxOR6PGPCIxi0VJg6LKKx+y8cO5n2KJsuuo6pov
+         lZ1Wcgctin3peT4ItH6iJwwwlTPfEmArj8z0hvhFWK7kKf9DXlUnYqBaLR4r9kQlTfgb
+         HDhQ==
+X-Gm-Message-State: AFuF++mNb+lP1JVQ6LurCRmuOlCFS/4+lFlfP4UsPzLeCekivwU+z6QB
+	6B3ocTs9mvByp6itc8Y4G9+9AlAj5Na2bG2JAZRZrmrREtLPlHQE0MFLBIsBk91VUkg=
+X-Gm-Gg: AYBFou22GBrwWB8HVK2DLmbBf9/PiQGnw9Y9IchLSwQu2p9JlNKDZwy3X2IOlG5b/S3
+	nNhZHq68Mg61hLWHkLZmJT2ZBJiJv8/Y7o5TCwcmNr8Y3C/lFgeNt5N/cXxHJBnjFv/oSq9flqH
+	mFV7dfs6qnp6vWs1L3wJFdCr0ucYRuyHtew+P1OLJL9HVeg2INW2MJPoMC+q6h5NkhUejpVQYr1
+	JoeBSw3z3IJiAFW8Plxruh6FRJuAtcVwr3GPLJpP6PhvWvK9ZGB9yz/BLBXLoHXzBrgcQkQxP8R
+	a+iBokHW4pG7w5/yEgmE/piial2IE/kBEYUnJjKgLo+9SMeBN7N6sldjWX+YuS7nTQzWNe6uFbO
+	GbzKtjfaRpr6TXBWWVfL4oe5RHHH5cwT342G1Ed67gnVA//h1AI0Oc5739NKiwqHUwU2aEZ0ukp
+	Knwx6wJNXSUdtTP33rFPqmDeniBRqIJGp3tn4adeEvAaLOXKwAWb6F8oI2bDzdYdrQQSOxvtg2k
+	jTtI5LRKOEscfly
+X-Received: by 2002:a05:600c:3d92:b0:49e:6777:da79 with SMTP id 5b1f17b1804b1-49e7a678649mr96419565e9.26.1789479492758;
+        Tue, 15 Sep 2026 06:38:12 -0700 (PDT)
 Received: from tone.k.g (lan.nucleusys.com. [92.247.61.126])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7d6bf4desm88186235e9.15.2026.09.15.06.38.10
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7d6bf4desm88186235e9.15.2026.09.15.06.38.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 06:38:11 -0700 (PDT)
+        Tue, 15 Sep 2026 06:38:12 -0700 (PDT)
 From: Petko Manolov <petko.manolov@konsulko.com>
 To: linux-kernel@vger.kernel.org
 Cc: devicetree@vger.kernel.org,
@@ -62,37 +63,40 @@ Cc: devicetree@vger.kernel.org,
 	conor+dt@kernel.org,
 	dinguyen@kernel.org,
 	Petko Manolov <petko.manolov@konsulko.com>
-Subject: [PATCH v5 0/3] arm: dts: altera: add Draeger M48 CPU Module
-Date: Tue, 15 Sep 2026 16:38:01 +0300
-Message-ID: <20260915133805.3249587-1-petko.manolov@konsulko.com>
+Subject: [PATCH v5 1/3] dt-bindings: vendor-prefixes: add Draeger AG
+Date: Tue, 15 Sep 2026 16:38:02 +0300
+Message-ID: <20260915133805.3249587-2-petko.manolov@konsulko.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260915133805.3249587-1-petko.manolov@konsulko.com>
+References: <20260915133805.3249587-1-petko.manolov@konsulko.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Adding the device trees for “Dräger M48 on NXP i.MX6 (Q) and Intel/Altera
-SoCFPGA Cyclone V” board variant.  It has both (the SoC and FPGA) on the same
-carrier and they are cross-monitoring each other.
+Add a vendor prefix for Draegar AG, which is Draegerwerk AG & Co. KGaA
 
-This is the SoCFPGA devicetree part.
+Signed-off-by: Petko Manolov <petko.manolov@konsulko.com>
+---
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Petko Manolov (3):
-  dt-bindings: vendor-prefixes: add Draeger AG
-  dt-bindings: arm: altera: add Draeger M48 Module
-  arm: dts: altera: add Draeger M48 CPU Module
-
- .../devicetree/bindings/arm/altera.yaml       |   1 +
- .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
- arch/arm/boot/dts/intel/socfpga/Makefile      |   1 +
- .../socfpga/socfpga_cyclone5_draeger_m48.dts  | 123 ++++++++++++++++++
- 4 files changed, 127 insertions(+)
- create mode 100644 arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
-
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index ba2002969373..276d62b848d5 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -467,6 +467,8 @@ patternProperties:
+     description: DPTechnics
+   "^dptel,.*":
+     description: Guangdong Dapu Telecom Co., Ltd.
++  "^draeger,.*":
++    description: Draegerwerk AG & Co. KGaA
+   "^dragino,.*":
+     description: Dragino Technology Co., Limited
+   "^dream,.*":
 -- 
 2.47.3
 
