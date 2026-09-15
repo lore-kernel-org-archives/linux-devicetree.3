@@ -1,143 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C02338F651
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 07:43:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D67C43F8DE;
+	Tue, 15 Sep 2026 07:46:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789458207; cv=none; b=oJvkvCVNG0MqQ3L6AiGDVeSu/joE/l7l7lxWuevGzAI1+m445+zS8G+0W4TWFbqDg8zf5leiR05kEts0r3IpB8UFKd63k1cWjRinQyEb8kOHGtKRpoEZ979v3Fi8y+PQVQ8TwO3JoQ1Ng6yG0WNpOqueOQf+Hr0cBpbdIrE01Y0=
+	t=1789458370; cv=none; b=Zah4MN7tbwh8UumK8zt21Sb0sp9U/rer4Ac0BkzOFrFAh1AftyK77krmji5aBHfDNJ1YsHR/1JNMoUjLx+dWVq4JX13DFKiueQlg8SnC1VyQ8oBQjb6ugJojxNevETidPbmW7JLiDWK4vj+3JxwpuV9Z7nqYW/aAKKvhK/8KHwc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789458207; c=relaxed/simple;
-	bh=stVV9mCGas8evRyrExND34hSOV/MPhW8WuUFZMU3Fvo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ngIFXwoogsvra+9SoPi+CJA+lybQtZWKg61xwrm/Iy0J756Vj2NE71DPg2yk0jWQe+dXc5oMEMFxeKmt3fpr3KephQdyVyxJJR6waK7Nd6y04m7fV1JeXUOkO7Shp9ePO3OQhwbNoEiXzNstK0k21uhnEcg4YfichgQ7zAZyuP0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IYUew4fh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789458370; c=relaxed/simple;
+	bh=R2xJrxl6upO9LEZweJ/1XyeQgzkDVimk0RD2c0Xhaos=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XnlVYLLxGABqtt61iw+iKoZzb0R2Mza9B1wzefoHzPoSwOagkkWn1nREMRi4UKPjAc1ys5wbjN8tMi9vuab2xhVolNx2bDitwxUmz+sjC7Bn0VeYhJAwry3Lf6TSZZNSlSHOpoWTpa+Gn9Ql4Pjooa4fVuyhyKu75mrSNmp+zV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=RuHpU7fE; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IYUew4fh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8FC41F000FF;
-	Tue, 15 Sep 2026 07:43:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789458203;
-	bh=yCBjEMObcj+R8JeOKa896+VLt619wd5w+eUVXp4WU+I=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IYUew4fhfg1bexZ86XGD4czHZ620Jkkzb+UthJCPpdeP7/KXvX/CF6jmuiHdQX43H
-	 S+TwU/3io2TrvEW7NxZA0cmOgPgd1DmgoDys2f+HhVlP2PnBRH2cAIpLkfwJRQkgm2
-	 jwkunpbdt0aFcOQP2aPwfXGYZ5K8EzKQ7L2kf0AyctOuynmV9Dvp9+xVLzI2m1ZqAT
-	 UU9YYUN1PI6YqAb37tCZ9TCdn2fa6J17tkiZ0KsNwt8v6c/cJGB3xmrvxwANMAcrVM
-	 0fSv/BWjLEV5OatDXH/i5Id25acO2ft1bHiA/nLcUl8xOc7e3aWb/fCoARg3FlrY0W
-	 saMjI9tkpAlFQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 09/11] riscv: cpufeature: Introduce ISA bases bitmap
- and rva23u64 detection
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Guodong Xu" <guodong.xu@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260915-rva23u64-hwprobe-v2-v7-9-aa35ebd9ae96@oss.qualcomm.com>
-References: <20260915-rva23u64-hwprobe-v2-v7-0-aa35ebd9ae96@oss.qualcomm.com>
- <20260915-rva23u64-hwprobe-v2-v7-9-aa35ebd9ae96@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 07:43:23 +0000
-Message-Id: <20260915074323.A8FC41F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="RuHpU7fE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789458366;
+	bh=R2xJrxl6upO9LEZweJ/1XyeQgzkDVimk0RD2c0Xhaos=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=RuHpU7fE5Z3XY4d1RQw7AynI1G6BDoB5xPNNPepviV3HvXt+ms0L31xc6+SHCLzxK
+	 3iRHWRkSFYEfTowlf3WpUsYCHq943JD2sONUO1hchsQvSRXeRQOLwyeaRjXmmcwKeK
+	 lvKFHWIqsyWUAEMvz0NjGq0oTNlLts5iy/XigFtwbrt/jhfrWIH/lP/zuskE79bnAG
+	 hW7dKYFXKbQjRIIr1WoJkGK6o9MeiSO5wrdanTLQ7QT0171MdWICbAN5KtAVQkvRw2
+	 azvGzRVR3aLd6f1gYWkrhED0LRtpdOb8Al3muwKT1CBvuc7+BAkaNlAkNttyau6+1K
+	 cx1vOKlGON/6A==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 80C3417E007B;
+	Tue, 15 Sep 2026 09:46:05 +0200 (CEST)
+Message-ID: <a465210b-cd9c-4c5b-a54d-54d4b62b0706@collabora.com>
+Date: Tue, 15 Sep 2026 09:46:04 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] arm64: dts: mediatek: mt7988a-bananapi-bpi-r4: add
+ ramoops region
+To: Martino Dell'Ambrogio <tillo@tillo.ch>,
+ Matthias Brugger <matthias.bgg@gmail.com>
+Cc: linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, kees@kernel.org,
+ tony.luck@intel.com, gpiccoli@igalia.com
+References: <20260915064254.1594808-1-tillo@tillo.ch>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20260915064254.1594808-1-tillo@tillo.ch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] riscv: RVA23U64 detection incorrectly requires legacy B extension
-- [Medium] riscv: riscv_set_isa_bases couples independent profile evaluatio=
-ns
---
+On 9/15/26 06:42, Martino Dell'Ambrogio wrote:
+> Reserve 1 MiB of RAM just below the ARM Trusted Firmware secmon region
+> (0x42f00000-0x43000000) for persistent kernel log storage via pstore/ramoops,
+> allowing post-panic console output and oops dumps to be recovered after a
+> reboot. Without it, kernel crash logs on this board are lost when the SoC
+> warm-resets and the on-chip console buffer is reinitialised.
+> 
+> With record-size=128 KiB, console-size=256 KiB, ftrace-size=64 KiB and
+> pmsg-size=64 KiB, ramoops_probe() carves the post-console remainder
+> (640 KiB) into five 128 KiB kmsg records, with the requested ecc-size=16
+> reserving a small Reed-Solomon parity block from each zone's own
+> allocation (per persistent_ram_new()). The ECC lets pstore recover dumps
+> even when the panic path truncates writes mid-record.
+> 
+> The no-map property is required so the reserved region is kept out of the
+> kernel linear map. ramoops remaps the carve-out write-combine via
+> ioremap_wc(); on arm64, leaving the same physical RAM mapped cacheable in
+> the linear map at the same time is an attribute-mismatch and risks losing
+> panic data to dirty cache evictions from the linear alias.
+> 
+> The carve-out sits immediately below the ATF region already declared at
+> 0x43000000 in mt7988a.dtsi, so no other reserved-memory child is moved or
+> resized. BPI-R4 ships with at least 4 GiB of DRAM starting at 0x40000000,
+> so the region is well within installed memory on every variant.
+> 
+> For the carve-out to actually preserve content across a reset, the boot
+> loader must also avoid touching this region on warm reset; on standard
+> BPI-R4 boards with the stock OpenWrt U-Boot fork this already holds.
+> 
+> Signed-off-by: Martino Dell'Ambrogio <tillo@tillo.ch>
+> ---
+> Changes in v3:
+>   - Resend; no functional change. Rebased on v7.3-rc3, where the v2 diff
+>     still applies unmodified.
+>   - v2 drew no review comments. It was also sent, in error, as a reply to
+>     the BPI-R3 patch's thread rather than its own, so it is likely to have
+>     been read as a duplicate of that board's patch. This version starts a
+>     fresh thread to avoid repeating that.
+> 
+> The matching BPI-R3 (mt7986a) patch is being resent as v3 at the same time.
+> 
+> v2: https://lore.kernel.org/all/20260528123645.2650085-1-tillo@tillo.ch/
+> v1: https://lore.kernel.org/all/20260528092807.1936177-1-tillo@tillo.ch/
+> 
+>   .../boot/dts/mediatek/mt7988a-bananapi-bpi-r4.dtsi  | 13 +++++++++++++
+>   1 file changed, 13 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/mediatek/mt7988a-bananapi-bpi-r4.dtsi b/arch/arm64/boot/dts/mediatek/mt7988a-bananapi-bpi-r4.dtsi
+> index 0ff69da..6a8dc89 100644
+> --- a/arch/arm64/boot/dts/mediatek/mt7988a-bananapi-bpi-r4.dtsi
+> +++ b/arch/arm64/boot/dts/mediatek/mt7988a-bananapi-bpi-r4.dtsi
+> @@ -80,6 +80,19 @@
+>   	};
+>   };
+>   
+> +&{/reserved-memory} {
 
-commit e0026c8e3b6f0de96cacfa903bced9ce7509616a
-Author: Guodong Xu <guodong.xu@oss.qualcomm.com>
+It's just
 
-riscv: cpufeature: Introduce ISA bases bitmap and rva23u64 detection
+	reserved-memory {
 
-Introduce a per-hart and host-wide bitmap of conformant ISA "bases", comput=
-ed
-at init time by riscv_init_isa_bases(). Register it as an arch_initcall to
-ensure it is evaluated after core_initcall sets up PMLEN features. This all=
-ows
-subsequent consumers like hwprobe and /proc/cpuinfo to read a consistent ca=
-che
-of base profiles.
+Sorry about missing your patch for all this time; the comment applies to both btw.
 
-> diff --git a/arch/riscv/kernel/cpufeature.c b/arch/riscv/kernel/cpufeatur=
-e.c
-> --- a/arch/riscv/kernel/cpufeature.c
-> +++ b/arch/riscv/kernel/cpufeature.c
-[ ... ]
-> +static void riscv_set_isa_bases(unsigned long *bases, const unsigned lon=
-g *isa_bitmap)
-> +{
-> +	const unsigned long *isa =3D isa_bitmap ? isa_bitmap : riscv_isa;
-> +	DECLARE_BITMAP(ext_mask, RISCV_ISA_EXT_MAX) =3D { 0 };
+Cheers,
+Angelo
 
-[Severity: Medium]
-Since ext_mask is initialized once and never cleared, will this cause bits =
-to
-accumulate across independent profile checks?
-
-For example, if a future orthogonal base is added later in this function, it
-would inherit stale bits like RISCV_ISA_EXT_I and could falsely fail the
-bitmap_subset() check.
-
+> +	ramoops@42f00000 {
+> +		compatible = "ramoops";
+> +		reg = <0 0x42f00000 0 0x100000>;
+> +		no-map;
+> +		record-size = <0x20000>;
+> +		console-size = <0x40000>;
+> +		ftrace-size = <0x10000>;
+> +		pmsg-size = <0x10000>;
+> +		ecc-size = <16>;
+> +	};
+> +};
 > +
-> +	/* IMA */
-> +	__set_bit(RISCV_ISA_EXT_I, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_M, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_A, ext_mask);
-> +
-> +	if (!bitmap_subset(ext_mask, isa, RISCV_ISA_EXT_MAX))
-> +		return;
-> +
-> +	set_bit(RISCV_ISA_BASE_IMA, bases);
-> +
-> +	/* RVA23U64 */
-> +
-> +	/* Supm with PMLEN=3D7 */
-> +	if (!riscv_have_user_pmlen(7))
-> +		return;
-
-[Severity: Medium]
-Will this early return prevent subsequent profile checks from being evaluat=
-ed?
-
-If riscv_have_user_pmlen(7) evaluates to false, the function aborts
-completely. This seems like it will inadvertently skip the evaluation of any
-future bases added after RVA23U64.
-
-> +
-> +	__set_bit(RISCV_ISA_EXT_F, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_D, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_C, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_B, ext_mask);
-
-[Severity: High]
-Does this incorrectly require the legacy, unratified 'b' extension for
-RVA23U64 detection?
-
-When the kernel parses a DT containing the mandated individual Zba, Zbb, and
-Zbs extensions but not the legacy 'b' extension, the isa bitmap will not
-contain RISCV_ISA_EXT_B.=20
-
-Consequently, the bitmap_subset() check below will evaluate to false,
-preventing RVA23U64 from being detected on compliant hardware.
-
-> +	__set_bit(RISCV_ISA_EXT_ZICSR, ext_mask);
-[ ... ]
-> +	__set_bit(RISCV_ISA_EXT_SUPM, ext_mask);
-> +
-> +	if (!bitmap_subset(ext_mask, isa, RISCV_ISA_EXT_MAX))
-> +		return;
-> +
-> +	set_bit(RISCV_ISA_BASE_RVA23U64, bases);
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-rva23u64-h=
-wprobe-v2-v7-0-aa35ebd9ae96@oss.qualcomm.com?part=3D9
+>   &cci {
+>   	proc-supply = <&rt5190_buck3>;
+>   };
