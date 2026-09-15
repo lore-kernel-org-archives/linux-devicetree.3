@@ -1,197 +1,154 @@
-Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011000.outbound.protection.outlook.com [40.107.74.0])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50A7A3F4829;
-	Tue, 15 Sep 2026 09:40:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.0
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789465250; cv=fail; b=szHOKvwuyIRNJO1RnS6b410TkHObvTp6qT9WZJcTMstJPTAG25ttjcRcSYLlzLKpEnLukqBh9+jA/Q+4dTGPH81JHl6UFLICIpXWm6Q4/yyx3iM0BD54HDRv9VHEPAxJDsnfgNQhecjmaZX5YSAd+78W5XgHCAwXg/NY53LJMGg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789465250; c=relaxed/simple;
-	bh=z49nVWI8RwpgpFZFUnpIVYnoi7/dlyPR3mRwlODpmXo=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=tl8dA1eDUV3wVGR7f5P5V+35sMvldascsbzPbj5vcuXrUWvtmLqPbG1p8tCzA5jdc+RmBIC6kKhFLPo4s0pSBaLjEASjkrjVZ+PsacwX5PsAqAMzut6TDIIhGcFu4gKL5270cyLSIfTxzUfw6kLPheBv6SgRWiTqOxv7mBB/IFw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=QZ6TIkTQ; arc=fail smtp.client-ip=40.107.74.0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A39147A86D
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 09:43:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789465423; cv=none; b=JMGmSf/auoG8MAcyzes8m7/R15m7gz0BT5PwWCABHGOCtdSBAsRS3nG3dUGjmApuaaWd/FE4oJ/SsDij0CK/APRWh4LGBGDND5w4dMhYwBdHRS1NOxrGzrPamHil6rim2IzMQubNcn8/Pz3yn9z5LnB8dhef3nLd/VYS3rBlQL8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789465423; c=relaxed/simple;
+	bh=/EX3olZnWFFHxmBYff+EBMrpjY35TO2MFvOoVwSbLl0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=UMtQmmsuxRiIGu179T/17nGjhgZR2RLEEP36k5Jt1nmfks42NUly+d15E8+4PZvWZokg6Nsa5a/rAajlxDE8noPqv22rliH/YkAkIyl3QhZLsSHXGXgeYR4zEzOhOuhvODYJyVSc4s/zw/yIisOMVoBQZunKRJGubsnmznp/sT4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KvDtr8kr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="QZ6TIkTQ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Tonbe5IgzbuEfMnzMmVYKNJVkQhBscMX/vWN+S27/lGDdL88TKGFofXVUXO1hcg353xx21tIRa+Bv1Ci+rv6jBNiBpDl2jklSK4Egkx9q9+DBksFGCeg70388srz+bSDW4I/eFWA2DjHlj7SGUXlaHOFz9QlhfojCinkLvDd2G6QTghiO6fvl7q0jwepn3tD4KWXXmD1s0bFhcOR+cIgitU/SAT5Lex6PMOfArCBYjO0rJPw3HeJm80qYuG0nEtymvN2jptb6Wd02jfA0W4+InU//WgjVWCx/HHFkNbV1xUEgdX96B1EiT1THDs/AYz+xrCqb7d9jXyg8RMsJhsUDA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=z49nVWI8RwpgpFZFUnpIVYnoi7/dlyPR3mRwlODpmXo=;
- b=ddJN0lm0aeLXgUI/cbRqz91mXtBWJ7LIq8+3od5fQwpneDvjZ3EGzUiXj/trUdziPse9QJWo5t2QHpL+loD5/dWv90FnMowbAkbVBFaFuJTBZ+9Hvx2euYVWuwopdj0ioOoj5sctC+LMuQzzWMx9SxId/Z6ICJgmDjcQbEooB9qTKG+DxBWFmE829fNb7CQe0al0VgdrGUI/MQ6JyHkzlBukqhy4shQrB7+xTcDNBRx10A7ciRWD6LIX5Q2NBrpHGgt2+ZWx32t9sH/vxZPD7zSqbtNlXdzprUOEb0IF9ihuu9AgiyddH9J+gOv5XiobnOK4c+/PXNWChXWNX6rWyA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z49nVWI8RwpgpFZFUnpIVYnoi7/dlyPR3mRwlODpmXo=;
- b=QZ6TIkTQKWLIDq+0NdhrdRagV/2oYMfJjpDGLjmQogmnLlsKuOGyF45fscWrq0UiQFxP6xSAFji9X1CjhIrTG4aocND0QLPKDu+Y3+aoziOK+/yOHoeHJFHF+HCI3Q84B11gE11K/vH3X/U2phEz1qpsETYK9bKbDDY5EkkQSLU=
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
- by TY4PR01MB14873.jpnprd01.prod.outlook.com (2603:1096:405:261::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Tue, 15 Sep
- 2026 09:40:44 +0000
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.21.0406.007; Tue, 15 Sep 2026
- 09:40:44 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: geert <geert@linux-m68k.org>, Tommaso Merciai
-	<tommaso.merciai.xr@bp.renesas.com>
-CC: Tommaso Merciai <tomm.merciai@gmail.com>, Prabhakar Mahadev Lad
-	<prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	"magnus.damm" <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH v3 1/4] arm64: dts: renesas: r9a08g046: Add USB2.0
- host/phy device nodes
-Thread-Topic: [PATCH v3 1/4] arm64: dts: renesas: r9a08g046: Add USB2.0
- host/phy device nodes
-Thread-Index: AQHdQDj6l7Lj7N0ugkOWB76p/MObILbOXJoAgAEMjLA=
-Date: Tue, 15 Sep 2026 09:40:43 +0000
-Message-ID:
- <TY3PR01MB11346B14A399B17DF3B9A709B86BA2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References: <cover.1788943229.git.tommaso.merciai.xr@bp.renesas.com>
- <0e2d1c3bfad30090784ca52a20f21b001b662527.1788943229.git.tommaso.merciai.xr@bp.renesas.com>
- <CAMuHMdUJ63Bdwx=+6M-4HhsJuY2sqodh5cpxSMZfWpoUAnEhHQ@mail.gmail.com>
-In-Reply-To:
- <CAMuHMdUJ63Bdwx=+6M-4HhsJuY2sqodh5cpxSMZfWpoUAnEhHQ@mail.gmail.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TY4PR01MB14873:EE_
-x-ms-office365-filtering-correlation-id: 666d7e55-907b-4e01-cb3c-08df130d69c8
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|10067099003|4143699003|18002099003|22082099003|56012099006|11063799006|38070700021;
-x-microsoft-antispam-message-info:
- BbiR79AsKKIVEMLqUUpGFsOvkhlQ+y/ySm9FhB8+9/roVz5hUeKnuyytVDzGDG7iEgi31y+dsdheP3vippcq31yPQQqVlAwUlLfbX++h8iFBx3qzH4kNIJGnHL00rKCyCEY3s++kXCV2f7C1FbsYx06Me4B1P9tIozRCU1rMk3TRZLEbyT50nbYmDGaJ2Gierc4I9Xa4B2jM85AXZNK5nuQZcjVdE1pKGcLccWtEKsztsi+dkGign2bSddbwxkHPb1JlZnXXNx6uHkUIzrWPPXc6VUmSuruiHyfwqqNcx6SDpedd4YVO3gXQN5NMnibwAv2JHBSD9WCZKzyIapEErVkljJyXXduh3SGn1d6AqCSfTujL7bGYOshKaI09VfOOkNJ/cwM9+7CK9sK9Fsos6txWpTgbehu9bJxakqumiGGr96NTWdSUjYt+OWI/RVXjaPZxEnazzJbAix8shqJd/TOuWqBQz5cxNPXq2MNibIbJx+AFN2xQY/QfmdkKr9q+kWwsZTiZlj1Ql8cFM6ZIlbBNu7SvY6NkKSWcOxrtG19+ESmf5DaycPt74Z5AiuyHhZpfDPN0SJzrpLesbZ74yV0WmFUtn7atI9pPwPdU3HURMbNyT+8i/6pzelxWsGL+34x/mFZmQulCt7iZp+YrGYwwUTrHrq5QdBGYn0aVziATit38rSdFMz8tsRupeJKBQpFWCnc7L+4Z5XyEpT0R39DAWGvNRDDHaIoq/Ped3yQ=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(10067099003)(4143699003)(18002099003)(22082099003)(56012099006)(11063799006)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?REdLMXNkQVJJM1NDSi8wbTVsZDJ1M1BHeFZtdUlBSEgyU0Q2QUNta28xVGFU?=
- =?utf-8?B?OUswczh5VlB5TXZQdDZCRE02ditjNHZ2Y0hjRE5HbGZuSFZ3b1dTdElHMnps?=
- =?utf-8?B?ZUFQUTZoTVpzNzZXMTdtN2NYYXc3a045dUZpaFRTSW9ERklFRUErUk5GTjFT?=
- =?utf-8?B?RWdBU1BRTnBEa1U5ckxwYUJnNWk3alArNGlLL2w4UGU1cHdlUkRLRjRMUUFL?=
- =?utf-8?B?TW9Ha2NVaVJ5Z3dudzljdG5vbU9XWFBZWFJ0bm5qRnluTnJTdXpKL2ZvMjNo?=
- =?utf-8?B?MllCNGozMThZYWRBcytMYjdwNzJkNjlBL2RuOFFxWjBRTnpHZG9ET25ub0Fu?=
- =?utf-8?B?TEdnSnRFQ0FlNEZQbHRBanZmdmFlVkdwUDlIOUZLMW90L0YvSzBNbUdHZmd2?=
- =?utf-8?B?TXJ1SlFuV2tNblZSSG5vTE1mVWUxSnB1cEw0TFJibE55WWtReTBvQUR6YlhH?=
- =?utf-8?B?KzZxc3daaHpLcUFWVlBWTWpaSXAxNGc2K1BDekJwVytQazNjYU8wYUJidkZs?=
- =?utf-8?B?OEtuMlJNdnpYdGRqTWZQZzJjT1RmYjNSeGRPTGhoeFBvMituR1lwYVpyYXcw?=
- =?utf-8?B?Q3h0cjlIT1dPendXRytCeU51RUs1OWRiWFRYQy9IVXRmSWthc0lpTkU1d1RS?=
- =?utf-8?B?Zm1XOURWYmpWdmw3S05yVm5Kb2ZpQ2UzbzJIc2JLMTJNMWhEWFlrU09kbFJG?=
- =?utf-8?B?RDRVYUVrZE5HUTE1NTFjYjdsTzVOOXBrTjZFRDY0U1VHTUlkbGp0SmtoTUJS?=
- =?utf-8?B?QzFzSUFDSHdMUXl2c2NsVUQ0NTdFTCswM3RLVFNNbW9MdkpVaVgyR0NtRXlL?=
- =?utf-8?B?VldXZjRWWWZLVUNmTDBEZ2gwN0IrRmVvajZKc3lQNzc4VEJua1JTaW5WdXZx?=
- =?utf-8?B?UUFlendqYnJvNnRoclpBaC9JL1k1ckVrejhGQ0xhbC9PSnhyOHMzQkt0a3BQ?=
- =?utf-8?B?elBlTXIxYU5HdnRIUlpldkpKd1lBaXZQU1lUQ0c3N0YzR3VNWHk3aU0yT1Fl?=
- =?utf-8?B?c3RMb1A0NDNGWDQ2bjZYU2lQelBOT25OMlRVWGVVNXdxNHJoMHlXMnZPWG5s?=
- =?utf-8?B?TGdtb04zTk9mY2kvd2g5ejFySXNmRnl2SFJGYWlsbmw2MlVTeDdvcDJnNDJG?=
- =?utf-8?B?aWM1ZEwwTCtzUlhpRnpLRndneTRFdnF2bmQvMCtkRHBCNTV4dkdTdkdkeWw1?=
- =?utf-8?B?T2toaFZvaEppVGE5RWJPaXR2dldieU1wdUJybU0xWVR3ditOSVc0Y0hGdW9M?=
- =?utf-8?B?VHJqTHR4SGRKdjFvN3E2ZzRDbldUejQvd01yZHlIMGUyQUs2eVZWb1JLMWdU?=
- =?utf-8?B?K2lpRkdaL1hqUUJvMHkwRDhtNDJLelpRdkhYeEJYUzU0ZW0vZGdKR1lEMldo?=
- =?utf-8?B?Z2d6Q2x1aTFkdzFkZkZPNlNta2tZbUlFNnlyenFZa0RndDkzcVFiLzZsNmZI?=
- =?utf-8?B?ZVNPNFBhWGh3QTVzSmtnaFlNT3BQc0EzdjdNcTFMMHBJNkFhMlFaK2pLQ2dH?=
- =?utf-8?B?dk5KQjl0UDdPdCtpdUVna1g2R0JLWWZDQlJSeU9iNUQyaHc4N2VMZldXUlVZ?=
- =?utf-8?B?N2oxTnB0eVBad1lRaGloeVNFRmdNTGJRYm5KaSs0dVRQZEtwcWo4Q1A1Z0U4?=
- =?utf-8?B?SUdPV1hOa3ZSems2VG1uak9acHhXOXlWT2ZqdWY3OVpxam81NnVCdTRHM1Fj?=
- =?utf-8?B?aStPZjFGQ2lLVi83L3ZnM3g2blZKNml5NjhERGpaZk1Mc0VKY1F1Q3c0SGFD?=
- =?utf-8?B?dHN4WS9kODVpSkswZk9EL0ZoK2dwdWpWZnh5eE82QWxVUkorRC95RUs5bWtR?=
- =?utf-8?B?YjVCcS9iaXJ3TWFsWW5mSWgrMmFZeFY2dE1sRkZHYWgyNS9pTkJEWnltRldr?=
- =?utf-8?B?SmRJMzZLQjdtNHprZjBOeUJBQmRHTWxvOTVDVTBSNllsaVEzNC92ZG8vU0VJ?=
- =?utf-8?B?ZGVVZUpuMjl1U2taMHNJQXYvNU53QjEwVzJYcC9PdlM4WlNPcVUxODVsUStS?=
- =?utf-8?B?eFU3YW5OcjhQWjVxb05ZZ2E5RGtxTnRKSzNITTZvNktxVzhFQThuUmtEQ0Ji?=
- =?utf-8?B?SGozak15SXJPa2Q2QngvYkNrL004UUlMQk43T3JiL1BPZ2RYNGRMaldRSitS?=
- =?utf-8?B?d1J1TFVEYkgxK2M4TUVYSGdwNHhqVGIrTmdralBra1FvV2d5ejdCWUZXRS9N?=
- =?utf-8?B?ZC9mMEhlMi8wOWRPUUJMak9ldjJkaVZTbk5ya242b2xxRW5XUFlUdng2Zjdq?=
- =?utf-8?B?OVNKcmNIaGdjQlhjK2J5NWZtS2czWkI4QjJWT2U2SHJWNnJJc2hPZWVJRkVo?=
- =?utf-8?B?YmFVVi91L21oUFZpUFUvVDV5NnIyUTBwMEdBMkFoSVYrTGp6Vkhhdz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KvDtr8kr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEAA41F000FF;
+	Tue, 15 Sep 2026 09:43:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789465419;
+	bh=S4LrfRBhWfUz/kSKYhmWJFYC7o0fFuVXM24Pjvl1/yA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=KvDtr8krXYDgwpOGx61+zGbPyiy1YRJRLdVmgZcQ+sl1tf9JcDl69TpGXzq5upAvk
+	 PCX1KXELCAqE21c7C2ubDzYN4SJza3cEUqFrJl2iMYdzFEwiZ0a3UXtt7V6SoBfZ9I
+	 5KqOu1p9GGSsZp0+QdGrAsCbMeXgjeg4oyJxuIG5SLILhM3KolzYHPOl05m4dkXD8A
+	 eEVfjNRIriDutwoWmX2fgseY0p4QVzydhMSBHil84jr/286QKijihdrkebRDALVW77
+	 ctgHGzBAeX7MeQ2z5SmVTIdqH1y9Oip5nPDZKKqBeMgBl4WHqWUWYtFG5ZZGOHmrLC
+	 37Mhip3tmAW+w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 4/6] media: qcom: camss: vfe: Add support for VFE 900
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Wenmeng Liu" <wenmeng.liu@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20260915-nord-v1-4-20db41a7f1ff@oss.qualcomm.com>
+References: <20260915-nord-v1-0-20db41a7f1ff@oss.qualcomm.com>
+ <20260915-nord-v1-4-20db41a7f1ff@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 15 Sep 2026 09:43:38 +0000
+Message-Id: <20260915094338.CEAA41F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 666d7e55-907b-4e01-cb3c-08df130d69c8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Sep 2026 09:40:44.0041
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: JjpnMnRDzchOSg1GduDckizRgUA6RtgsDnljDFD7hsZrM0tb+6gSdyFuvRfrx7+VXQkr/YnhNfqCovZx4D25by5Rp8IhUoShUkPXTfIjx9U=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY4PR01MB14873
 
-SGkgR2VlcnQsDQoNClRoYW5rcyBmb3IgdGhlIGZlZWRiYWNrLg0KDQo+IC0tLS0tT3JpZ2luYWwg
-TWVzc2FnZS0tLS0tDQo+IEZyb206IEdlZXJ0IFV5dHRlcmhvZXZlbiA8Z2VlcnRAbGludXgtbTY4
-ay5vcmc+DQo+IFNlbnQ6IDE0IFNlcHRlbWJlciAyMDI2IDE4OjI5DQo+IFN1YmplY3Q6IFJlOiBb
-UEFUQ0ggdjMgMS80XSBhcm02NDogZHRzOiByZW5lc2FzOiByOWEwOGcwNDY6IEFkZCBVU0IyLjAg
-aG9zdC9waHkgZGV2aWNlIG5vZGVzDQo+IA0KPiBIaSBUb21tYXNvLCBCaWp1LA0KPiANCj4gT24g
-V2VkLCA5IFNlcHQgMjAyNiBhdCAxMDo1NSwgVG9tbWFzbyBNZXJjaWFpIDx0b21tYXNvLm1lcmNp
-YWkueHJAYnAucmVuZXNhcy5jb20+IHdyb3RlOg0KPiA+IEZyb206IEJpanUgRGFzIDxiaWp1LmRh
-cy5qekBicC5yZW5lc2FzLmNvbT4NCj4gPg0KPiA+IEFkZCBVU0IyLjAgZGV2aWNlIG5vZGVzIHRv
-IHRoZSBSWi9HM0wgKHI5YTA4ZzA0NikgU29DIERUU0ksIGNvdmVyaW5nDQo+ID4gdGhlIFVTQiBQ
-SFkgY29udHJvbGxlciwgT0hDSS9FSENJIGhvc3QgY29udHJvbGxlcnMsIGFuZCBVU0IyIFBIWXMg
-Zm9yDQo+ID4gYm90aCBwb3J0cy4NCj4gPg0KPiA+IFNpZ25lZC1vZmYtYnk6IEJpanUgRGFzIDxi
-aWp1LmRhcy5qekBicC5yZW5lc2FzLmNvbT4NCj4gPiBTaWduZWQtb2ZmLWJ5OiBUb21tYXNvIE1l
-cmNpYWkgPHRvbW1hc28ubWVyY2lhaS54ckBicC5yZW5lc2FzLmNvbT4NCj4gDQo+IFRoYW5rcyBm
-b3IgeW91ciBwYXRjaCENCj4gDQo+ID4gLS0tIGEvYXJjaC9hcm02NC9ib290L2R0cy9yZW5lc2Fz
-L3I5YTA4ZzA0Ni5kdHNpDQo+ID4gKysrIGIvYXJjaC9hcm02NC9ib290L2R0cy9yZW5lc2FzL3I5
-YTA4ZzA0Ni5kdHNpDQo+IA0KPiA+ICsgICAgICAgICAgICAgICB1c2IyX3BoeTA6IHVzYi1waHlA
-MTFlMTAyMDAgew0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgIGNvbXBhdGlibGUgPSAicmVu
-ZXNhcyx1c2IyLXBoeS1yOWEwOGcwNDYiOw0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgIHJl
-ZyA9IDwwIDB4MTFlMTAyMDAgMCAweDcwMD47DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAg
-aW50ZXJydXB0cyA9IDxHSUNfU1BJIDExNiBJUlFfVFlQRV9MRVZFTF9ISUdIPjsNCj4gPiArICAg
-ICAgICAgICAgICAgICAgICAgICBjbG9ja3MgPSA8JmNwZyBDUEdfTU9EIFI5QTA4RzA0Nl9VU0Jf
-UENMSz4sDQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPCZjcGcgQ1BHX01P
-RA0KPiA+ICsgUjlBMDhHMDQ2X1VTQl9VMkgwX0hDTEs+Ow0KPiANCj4gTm8gY2xvY2stbmFtZXMs
-IHdoaWxlIG90aGVyIFNvQ3MgdXNpbmcgdGhlIHNhbWUgYmluZGluZ3MgZG8gaGF2ZSBpdD8NCg0K
-T2ssIEkgc2VlIGNsb2NrIG5hbWVzIGZjayBhbmQgdXNiX3gxIGZvciBub24gUlovRzJMIFNvQ3Mu
-DQoNClNoYWxsIHdlIGNyZWF0ZSBhIHBhdGNoIHdpdGggcGNsayBhbmQgaGNsayBmb3IgYWxsIFJa
-L0cyTCBTb0NzIChiaW5kaW5nICsgU29DIERUU0kpPz8NCg0KPiANCj4gPiArICAgICAgICAgICAg
-ICAgICAgICAgICByZXNldHMgPSA8JnBoeXJzdCAwPiwNCj4gPiArICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICA8JmNwZyBSOUEwOEcwNDZfVVNCX1UySDBfSFJFU0VUTj47DQo+ID4gKyAg
-ICAgICAgICAgICAgICAgICAgICAgI3BoeS1jZWxscyA9IDwxPjsNCj4gPiArICAgICAgICAgICAg
-ICAgICAgICAgICBwb3dlci1kb21haW5zID0gPCZjcGc+Ow0KPiA+ICsgICAgICAgICAgICAgICAg
-ICAgICAgIHN0YXR1cyA9ICJkaXNhYmxlZCI7DQo+ID4gKyAgICAgICAgICAgICAgIH07DQo+ID4g
-Kw0KPiA+ICsgICAgICAgICAgICAgICB1c2IyX3BoeTE6IHVzYi1waHlAMTFlOTAyMDAgew0KPiA+
-ICsgICAgICAgICAgICAgICAgICAgICAgIGNvbXBhdGlibGUgPSAicmVuZXNhcyx1c2IyLXBoeS1y
-OWEwOGcwNDYiOw0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgIHJlZyA9IDwwIDB4MTFlOTAy
-MDAgMCAweDcwMD47DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgaW50ZXJydXB0cyA9IDxH
-SUNfU1BJIDEyMSBJUlFfVFlQRV9MRVZFTF9ISUdIPjsNCj4gPiArICAgICAgICAgICAgICAgICAg
-ICAgICBjbG9ja3MgPSA8JmNwZyBDUEdfTU9EIFI5QTA4RzA0Nl9VU0JfUENMSz4sDQo+ID4gKyAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPCZjcGcgQ1BHX01PRA0KPiA+ICsgUjlBMDhH
-MDQ2X1VTQl9VMkgxX0hDTEs+Ow0KPiANCj4gTGlrZXdpc2UuDQo+IA0KPiA+ICsgICAgICAgICAg
-ICAgICAgICAgICAgIHJlc2V0cyA9IDwmcGh5cnN0IDE+LA0KPiA+ICsgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIDwmY3BnIFI5QTA4RzA0Nl9VU0JfVTJIMV9IUkVTRVROPjsNCj4gPiAr
-ICAgICAgICAgICAgICAgICAgICAgICAjcGh5LWNlbGxzID0gPDE+Ow0KPiA+ICsgICAgICAgICAg
-ICAgICAgICAgICAgIHBvd2VyLWRvbWFpbnMgPSA8JmNwZz47DQo+ID4gKyAgICAgICAgICAgICAg
-ICAgICAgICAgc3RhdHVzID0gImRpc2FibGVkIjsNCj4gPiArICAgICAgICAgICAgICAgfTsNCj4g
-PiArDQo+ID4gICAgICAgICAgICAgICAgIHBjaWU6IHBjaWVAMTFlNDAwMDAgew0KPiA+ICAgICAg
-ICAgICAgICAgICAgICAgICAgIHJlZyA9IDwwIDB4MTFlNDAwMDAgMCAweDEwMDAwPjsNCj4gPiAg
-ICAgICAgICAgICAgICAgICAgICAgICByYW5nZXMgPSA8MHgwMjAwMDAwMCAwIDB4MzAwMDAwMDAg
-MCAweDMwMDAwMDAwDQo+ID4gMCAweDA4MDAwMDAwPjsNCj4gDQo+IExvb2tzIGxpa2UgVTJIWzAx
-XV9JTlQgYW5kIFUySFswMV1fV0FLRU9OX0lOVCBhcmUgbWlzc2luZywgYnV0IHRoZXkgYXJlIGFs
-c28gbm90IGxpc3RlZCBpbiB0aGUgRFQNCj4gYmluZGluZ3M/DQoNClRoZXNlIGludGVycnVwdHMg
-YXJlIG5vdCBwYXJ0IG9mIFVDT00gbW9kdWxlLCB0aGF0IGlzIHRoZSByZWFzb24gaXQgaXMgbm90
-IGxpc3RlZCBpbg0KRFQgYmluZGluZ3MuDQoNCkNoZWVycywNCkJpanUNCg==
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] media: camss: incorrect FRAME_INCR address shift for VFE 900
+--
+
+commit dd5f8f2cb07db9a03dde1f94e9ccbfb47aa55597
+Author: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+
+media: qcom: camss: vfe: Add support for VFE 900
+
+This commit introduces support for the VFE 900 hardware variant on the Nord
+platform. It adds a new configuration structure to handle register base
+differences and updates the image address shift in vfe_wm_update().
+
+> diff --git a/drivers/media/platform/qcom/camss/camss-vfe-gen4.c b/drivers=
+/media/platform/qcom/camss/camss-vfe-gen4.c
+> index d73d70898710a..f1429a6d2be54 100644
+> --- a/drivers/media/platform/qcom/camss/camss-vfe-gen4.c
+> +++ b/drivers/media/platform/qcom/camss/camss-vfe-gen4.c
+
+[ ... ]
+
+> @@ -83,18 +147,36 @@
+>   * RDI3			3
+>   * GAMMA		4
+>   * STATES_BE		5
+> + *
+> + * v900 full IFE write master client map: the RDI clients start at 28,
+> + * after the 28 image/stats clients (0-27):
+> + *
+> + * MAIN C0/C1/C2/UV		0-3
+> + * PIXEL_RAW			4
+> + * W_IR				5
+> + * AI_1 C0/C1/C2/UV		6-9
+> + * AI_2 C0/C1/C2/UV		10-13
+> + * HV_DS16 / HV_DS4		14-15
+> + * STATS BG_IR..BLTM		16-27
+> + * RDI0				28
+> + * RDI1				29
+> + * RDI2				30
+> + * ... RDI11			39
+> + *
+> + * v900 IFE Lite matches the generic map above (RDI0 at client 0).
+>   */
+> -#define RDI_WM(n) ((vfe_is_lite(vfe) ? 0x0 : 0x17) + (n))
+> =20
+>  static void vfe_wm_start(struct vfe_device *vfe, u8 wm, struct vfe_line =
+*line)
+>  {
+>  	struct v4l2_pix_format_mplane *pix =3D
+>  		&line->video_out.active_fmt.fmt.pix_mp;
+> =20
+> -	wm =3D RDI_WM(wm);
+> +	wm =3D vfe_gen4_rdi_wm(vfe, wm);
+> =20
+>  	/* no clock gating at bus input */
+> -	writel(WM_CGC_OVERRIDE_ALL, vfe->base + VFE_BUS_WM_CGC_OVERRIDE);
+> +	if (vfe_gen4_get_hw_info(vfe)->has_wm_cgc_override)
+> +		writel(WM_CGC_OVERRIDE_ALL,
+> +		       vfe->base + VFE_BUS_WM_CGC_OVERRIDE);
+> =20
+>  	writel(0x0, vfe->base + VFE_BUS_WM_TEST_BUS_CTRL);
+> =20
+
+[Severity: High]
+Should VFE_BUS_WM_FRAME_INCR also be updated to use the new addr_shift?
+
+Just below this in vfe_wm_start(), the frame increment is still
+hardcoded to shift by 8:
+
+	writel(ALIGN(pix->plane_fmt[0].bytesperline, 16) * pix->height >> 8,
+	       vfe->base + VFE_BUS_WM_FRAME_INCR(wm));
+
+Since VFE 900 uses an addr_shift of 0, leaving this hardcoded shift means
+the frame increment will be 256 times smaller than required. During
+multi-frame captures on VFE 900, will subsequent frames be written to
+incorrect offsets and overwrite previous frame data?
+
+[ ... ]
+
+> @@ -123,15 +205,19 @@ static void vfe_wm_start(struct vfe_device *vfe, u8=
+ wm, struct vfe_line *line)
+> =20
+>  static void vfe_wm_stop(struct vfe_device *vfe, u8 wm)
+>  {
+> -	wm =3D RDI_WM(wm);
+> +	wm =3D vfe_gen4_rdi_wm(vfe, wm);
+>  	writel(0, vfe->base + VFE_BUS_WM_CFG(wm));
+>  }
+> =20
+>  static void vfe_wm_update(struct vfe_device *vfe, u8 wm, u32 addr,
+>  			  struct vfe_line *line)
+>  {
+> -	wm =3D RDI_WM(wm);
+> -	writel(addr >> 8, vfe->base + VFE_BUS_WM_IMAGE_ADDR(wm));
+> +	const struct vfe_gen4_hw_info *hw_info =3D vfe_gen4_get_hw_info(vfe);
+> +
+> +	wm =3D vfe_gen4_rdi_wm(vfe, wm);
+> +
+> +	writel(addr >> hw_info->addr_shift,
+> +	       vfe->base + VFE_BUS_WM_IMAGE_ADDR(wm));
+> =20
+>  	dev_dbg(vfe->camss->dev, "wm:%d, image buf addr:0x%x\n", wm, addr);
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-nord-v1-0-=
+20db41a7f1ff@oss.qualcomm.com?part=3D4
