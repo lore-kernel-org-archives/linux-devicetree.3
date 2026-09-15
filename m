@@ -1,95 +1,109 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 503EB30F526;
-	Tue, 15 Sep 2026 12:52:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CADF23BB115
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 12:52:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789476744; cv=none; b=ly1/W0lo50NeTD4+KSZva4f8VKBrJB4x4k0jgVsc7kOmBcUq2rvU8OKxrFO9G0Lbw8rzMVc6W/bWVFDzblzn1NqNFl8D+C+eckW1Y58URSxKmNwCWjONmJNXdnSYJU3PH0NAr6RxCdmosEPvnXmI+pIpghsYFXEFHXg5XxBcmHo=
+	t=1789476756; cv=none; b=JbqOeDqXOdaZ3zYl051d2IuDEQX9OveB444pHvC7wHBFpQSgbzdnPaUu0D8++vSVQoU4YseI9YU6oIdwnY8ib+cwf7w6UThKvMr0QF6hkUFnsQKBkY09jxlgkcrKa8c9Uapj+We8fm1PnoDhVokmXWswqBXh37sUL3LoNvfTc94=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789476744; c=relaxed/simple;
-	bh=mMLYgR1AXITKQzBrT4eEkFvMzhMMthwpB1/vcGjJY4M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gGglWTCIFrtkaDCL5MdkowffwNZNXZGfX9UsdRsHSyAifzesPtEw6RNxXooenEGeiec3Fez2lrxAOse3cwhnDYdUO5u893CH/I/BIr6ocXcn+mFjT4DKK0OWVhWMMAq5D78m3mrR81X457ziDuewLfu4npbOk5qdLU5lfqdu/D4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=q0IvopDM; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1789476756; c=relaxed/simple;
+	bh=7t0Ob9QL+Lqj43veSyZ1VQ/kSUPHAcWqtSh+yfu47sM=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=dhgLeoK/m6d35sWOjba+TltdMgtTA4dyaDcJw9egOUBtVSwPiYOKdHXUVElj5iWZNskvtoObubEOUMK3eoefKRzu35ZcCt1DEIbchvRFT0HXGxtH1tD/ExIke7UXtDlIGhZj1IBhN5JybXjnUEUQ9G2MY+4WVS4a2ZL9d6XO4vU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e7Dr3foY; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="q0IvopDM"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=aVjmajoWZA+fNP8+N+fthhQUMSTEoLuyXpYERW7m0pg=; b=q0IvopDMkJ3dN7Gs4t40aq3mpl
-	XPPRs92CTFuO6yGa2fPF572OlZdfmhqUdE6L9RlOxJeVUrLR/N46AB0PmdxF+YZ8VDvf+14AYvSVS
-	RyEfrIJqW1H4T8vPoBq6PBIkcy6vJrD/ZLDNSXr+sLJ+nDLR4LFNNk6FI0+PitSeavdw=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x6Sdy-005HDz-UV; Tue, 15 Sep 2026 14:52:14 +0200
-Date: Tue, 15 Sep 2026 14:52:14 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Vasilij Strassheim <v.strassheim@linutronix.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e7Dr3foY"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c294496989aso562172566b.3
+        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 05:52:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789476753; x=1790081553; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mMhbkaK56jStijIJwruuJ1OSsbc7L9grsNYLwWglYKA=;
+        b=e7Dr3foYNUiVKDtNfkO1Jjpqy75RXD9879XNYDTVRebzR6WkMxaGOlwjyLgXcrWwZL
+         aIeaFiA/S+mE6Xfe+0SHz+u+x5rds7bFpOeQtjGyf+R7yMLXjA3zGwaR0lnYrBPbP5hl
+         caQ52KaV1C/rThNHiU4JsApOPmvlR7YIPLnRRV/WJuN10dYimIqUvjzM3Fd33dDFT5RD
+         Z3BXQrONJtWatFbNbilT3+o8MvyThqMdVsGQT9YFBWshwKf5zs24shvbyypTDZCOTbz6
+         3PZEsTrF6y/iGb72h2XPfyEXgKSAjWIaq9x6ltdFRIXSVOGvW9j1UYly7fCw6aFFalYK
+         g+qg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789476753; x=1790081553;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=mMhbkaK56jStijIJwruuJ1OSsbc7L9grsNYLwWglYKA=;
+        b=AXx/k0RkI3QUkbNwLwnW5/rGVSOa8MZ4wdNgv0JIh8OQxr70FbulXTqt7GS+Q19eAV
+         X6IJiV4BX3UHzfkKeUbN0uO6Ty+L06xYMtQN8i4uRaWJIotSty6TpBGDsLZKyAU0DTR1
+         HuhN7Wp3vY/fMDCh8HYeV5aS5+Y493eabNkYQ0i9TOIaDxaQrMkwM2b5nMdkxKwjSZuS
+         BvMxc1d+6A03sWvGjEuil3l4Ru5Q/0Hf8AdVQUVA4ZCNx6hWq1lSnE1/2ho4wHHYlDNv
+         77JXbOpUOn/+p8FGUQx2ri1BgKFbgz379DofIIVq8QE8OxUAJwwgKUDZK4G0V4EJQjJL
+         O3uQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzBgn0TlsPyGbhifRoJCiZV1HEmBKK0OwghMktajzba3+xMBlCBz38PN1E+CArjIpB6WidpJfPF0rYJ@vger.kernel.org
+X-Gm-Message-State: AFuF++lq/19eUR+RDDluuKGp4JH2csFaCfBU0CVJEF/4jWqd0Z1ZkJUh
+	e0TvXewV7JLDlm2BFdp3PEFaguknwUiVzd80bdlF1YkYqLMbIdJURp3k
+X-Gm-Gg: AYBFou3DbetHYnXr8mzIH++M3ImToBRI4t5PduoNlcwhh77A1s+sBXhC2zHB1Fm0thG
+	D2pZYsJ5yLYqeDeta+Y1wLmwL3J1Tz5gXCW0exh69UW0/RbN6TPdgUn37US4ucajnEWTwjGUvXn
+	VouzAmCuQ4Ub/3AT/Or1VPCz5Bzw1GSRjy7mIeY7Yh9mSEoOVxmMLDcgiLfsh8w1HhW/IbkVR1s
+	oQghfqOS94DWvjYeVI2YVRCDKEvxgfdMQmsUhs4IPy6xRSVEW7+SBkbyeoikX27ww7wp4XFRAj5
+	zEeHqdNfivK7O/Tc6asc9Z9Ouj9bbEs9aG3+wjuj2Ibb+KpBi4d17eA3o1DFCBWmf9rqWIM2aC0
+	WpjtIqBPfuSS1BBQedwWT3hAuxB2/fKHH8UXwMjOuZSNRe1npb2be/nUr282Ohj9g5QnqEqaGBR
+	Yedc9PAVURl/4Ebth3ZyoL/cxMRRnDt36FjwSxHZBIezI3QeEnhPijsy/wXwZuNmTeoDjU1Id4W
+	JPW5AiT9PR8C17EgjH5etwv40z5YkkzV4jQhlWVSf2SuNNRBS+s0Mcc67Uj2V0u
+X-Received: by 2002:a17:906:c103:b0:c29:4357:2321 with SMTP id a640c23a62f3a-c29b8600014mr462144366b.1.1789476752775;
+        Tue, 15 Sep 2026 05:52:32 -0700 (PDT)
+Received: from Ansuel-XPS24.localdomain (host-79-26-252-140.retail.telecomitalia.it. [79.26.252.140])
+        by smtp.googlemail.com with ESMTPSA id a640c23a62f3a-c296605b9a6sm587969266b.25.2026.09.15.05.52.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 05:52:32 -0700 (PDT)
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Russell King <linux@armlinux.org.uk>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-	Martin Kaistra <martin.kaistra@linutronix.de>,
-	Benedikt Spranger <b.spranger@linutronix.de>
-Subject: Re: [PATCH net-next v2 4/4] net: dsa: soce: Add basic support for
- SoC-e switch IP cores
-Message-ID: <2346e6ee-4075-4d64-8e3e-8fbd1ce81cd6@lunn.ch>
-References: <20260903-devel-vstrassheim-soce-dsa-ml-v2-0-fb0587cb466b@linutronix.de>
- <20260903-devel-vstrassheim-soce-dsa-ml-v2-4-fb0587cb466b@linutronix.de>
- <3c2c5b39-6a7d-4cb2-af1c-b5015b6bf1e8@lunn.ch>
- <db26d5c9262069a11e5cbe00e176b81e40baebeb.camel@linutronix.de>
- <5c955c96-7883-4e59-97ef-9fc3b63abf58@lunn.ch>
- <ab7e4eeed1b8296188355413cce1aa2b2aa5c670.camel@linutronix.de>
- <b7fdbd43-d069-40e1-aff4-30197371739d@lunn.ch>
- <3007fddf91fb4260538073482f5148ce8ac6a6ba.camel@linutronix.de>
+	Christian Marangi <ansuelsmth@gmail.com>,
+	Felix Fietkau <nbd@nbd.name>,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] clk: en7523: Add support for selecting SCU serdes
+Date: Tue, 15 Sep 2026 14:52:22 +0200
+Message-ID: <20260915125226.20579-1-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3007fddf91fb4260538073482f5148ce8ac6a6ba.camel@linutronix.de>
+Content-Transfer-Encoding: 8bit
 
-> Although mdio-mux-mmioreg might work, I have realized that it is not
-> suitable here.
-> 
-> According to the switch documentation, the bus selector occupies bits
-> 26:16 of the MDIO control register, while bit 0 is the transaction
-> start/busy bit. A partial write might trigger an operation before the
-> other fields have been updated.
+This small series is a split from the Airoha AN7581 USB PHY series [1].
 
-Maybe. I can see at minimum it is a bit messy.  The mux would need to
-write the upper bits, but set the lower start/busy to 0. The MDIO
-driver would then need to read back the register, OR in the bits it
-wants to set, and set the start bit.
+[1] https://lore.kernel.org/all/20260702093812.15918-1-ansuelsmth@gmail.com/
 
-This start bit is pretty common, and generally, writes without it set
-are safe. But you need to test it on this particular hardware.
+Changes v2:
+- Rebase on top of linux-next
+- Add review tag for Documentation patch
 
-> Also accessing this register without checking the controller state
-> could interfere with an active or failed transaction and introduce
-> races (as noted by Netdev-Sashiko).
+Changes v10 (from previous series):
+- Rework if condition and reject #phy-cells for
+  econet,en751221-scu compatible.
 
-The mdio mux framework should take care of all the locking for you.
-Take a look a mdio_mux_read(). It takes the lock of the real MDIO bus
-controller, sets the mux, performs the read, and then releases the
-lock.
+Christian Marangi (2):
+  dt-bindings: clock: airoha: Add PHY binding for Serdes port
+  clk: en7523: Add support for selecting the Serdes port in SCU
 
-The only thing you need to be careful of is write must wait around for
-the write to complete before returning. Some MDIO bus implementations
-don't wait, they leave it running, and do a check the bus is idle
-before doing the next operation.
+ .../bindings/clock/airoha,en7523-scu.yaml     |  24 +-
+ drivers/clk/Kconfig                           |   1 +
+ drivers/clk/clk-en7523.c                      | 218 +++++++++++++++++-
+ include/dt-bindings/soc/airoha,scu-ssr.h      |  11 +
+ 4 files changed, 248 insertions(+), 6 deletions(-)
+ create mode 100644 include/dt-bindings/soc/airoha,scu-ssr.h
 
-       Andrew
+-- 
+2.53.0
+
