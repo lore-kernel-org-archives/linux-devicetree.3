@@ -1,115 +1,88 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0DCB360EF2
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 09:30:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B63C38F651
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 09:31:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789464608; cv=none; b=ltd9gzuo55Gqzij9HYF46OCy6MnrDSVsYPfvLkcQuG4/9rU7BaHUXM1sM84+cQHizvFmAWdD/7Ak/G26vWXNdc0u0HGfzui2EM/wj5t1WOXDBqK4q2NdfO/7FfsZ+z9ZWAeWBoGQeHBcBWsYoh/uX7tx+WqIhluGYFpLNXaZTpY=
+	t=1789464714; cv=none; b=lKOZGH/WsxZoNQqRzjyt1kokTkCQZvH90RscZHltfXjhaAJma1K9zm0TjwKYyli77vGLLZ2Ax1p+D/WWKI6hi9rJSUN4Wpa3c9ml/3PtsWN4Mq3MpNjoaEWb2+kFYn/n3TnBIRHC60OMGI6yVnnQcv7671WRtznE0F9H2xL/Gi8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789464608; c=relaxed/simple;
-	bh=mVlouF4HyudmCqzHkO98pWtY+ShdRPNRLuawvSZ+B0Q=;
+	s=arc-20240116; t=1789464714; c=relaxed/simple;
+	bh=8zp0kk2w4JfRXj8fifwE6fWiosmN7vvdTCQFHLveG1s=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Lm4LBsDpppcyM6R4SPvVlRwWQkxOjsHKmliJ9+1i2+L03QvRU/8sD1oAPD6bApFX/J8KNl6IhoO60xiWRj344ndd+UGft0rw8Y9pPJrGPCPF4ytFXp+JqU2i2q5MKGQeoBsR7ZZez33uJjTgxREhUhrBszZoXESlZvw3J7LAfOE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YO20r4D4; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=eeECyJVfgu3uJiTtCI/mcoenhoMg+WJ6oUoCNBA8MXruNSBNamhntdIN+/w5RpIes1xB09RODYF18vlzBHGPAW3NVYQEWBmzDhhtLwsZipi6l7pF4GW1ea8jK1fvln7eipfc/XWM+vrLNAy2zpUPt+puH+4jTvQYhSF+ufx2w6E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bCySVVGA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YO20r4D4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84D891F000FF;
-	Tue, 15 Sep 2026 09:30:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bCySVVGA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 367111F000FF;
+	Tue, 15 Sep 2026 09:31:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789464605;
-	bh=NBx334q4uaVZQyK98WP76o+yghrpB4+RyFUz1Nxu0Gk=;
+	s=k20260515; t=1789464712;
+	bh=0ErmlG3wWgJcsg5B2K49yl+pXyLIovdx2wAUgMA+ktg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YO20r4D44eymyQitmZzm0nZsiUWzxk0UIGnBXk7eMgNq2qdiAkzIC448juVYKgvkr
-	 21QFg/0oDZWWZ9ZzMRvyqk7WXwua8/lnSNF9lVdOa4D2Ter/C/8wGAEYnZ5lzM4iDO
-	 0qCDntO9P3yrCme7Z1XI/thL9djToQgQlhitw/BbQOto7CMsV3obYyAAx526+DkcC6
-	 vHU/HI3rmpcd1gTftwpARceZjXG9jYPAODwfbhHqxcl/xSigPI5I7wJE3/pVHXnAKf
-	 UilrvZv2L58CX+z2NrYMiD4nUDJ0KYJuwZ+Vk3ez4LG35OH7n7O6u5i/EAmFE2IwWK
-	 P6rogy3v2inow==
+	b=bCySVVGAI/d7GvDUniRxDHPOp8UewtcfSqu9A1QX3AMoxV/psWbdmNd+EQDbDWEXg
+	 JMzSj68hyLvUSP3pU8aGxUiaSsLTNlVEIlfrnCl+GyV7boM3rrNMYR9buvr2HHjGQw
+	 +qnxQlpS7P01Tw51FCOPuWvNaErWoJxyBgoezea8oBreFCa1iARJ1s/oecWSBpMQka
+	 vpC/2IkltjUhEk5VGk5usLFOBzOddAWkRQof7/9e4+CiJT6MUChCjLzKkAImXT8wI1
+	 KQA1egLI3dD9djJ50AWvmTRcD895rCMFtgjmKmxnLOYXd8fBzQatY6feUd9r6MasJE
+	 nL136ERCDsLCA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: gpio: Add CAT9532 GPIO
+Subject: Re: [PATCH 2/2] gpio: Support ON Semi CAT9532
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Alban Bedel" <alban.bedel@lht.dlh.de>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260915092046.931449-2-alban.bedel@lht.dlh.de>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260915092046.931449-3-alban.bedel@lht.dlh.de>
 References: <20260915092046.931449-1-alban.bedel@lht.dlh.de>
- <20260915092046.931449-2-alban.bedel@lht.dlh.de>
+ <20260915092046.931449-3-alban.bedel@lht.dlh.de>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 09:30:04 +0000
-Message-Id: <20260915093005.84D891F000FF@smtp.kernel.org>
+Date: Tue, 15 Sep 2026 09:31:51 +0000
+Message-Id: <20260915093152.367111F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] dt-bindings: gpio: fragmenting LED dimmer binding by isolating C=
-AT9532 as pure GPIO
-- [Low] dt-bindings: gpio: redundant ngpios requirement for fixed-pin hardw=
-are
+- [Low] i2c: i2c_device_id array missing named initializers
 --
 
-commit 5e8f0055659d78276b37db0fd1e766db66fdb2f8
+commit ce4c104d77312ee9164e59bc58ade163f20cd3c0
 Author: Alban Bedel <alban.bedel@lht.dlh.de>
 
-dt-bindings: gpio: Add CAT9532 GPIO
+gpio: Support ON Semi CAT9532
+   =20
+This commit adds support for the CAT9532 LED dimmer from On Semiconductor,
+implementing it as an open-drain GPIO controller driver.
 
-This commit adds a devicetree binding document for the CAT9532 LED dimmer
-as a GPIO controller.
-
-> diff --git a/Documentation/devicetree/bindings/gpio/onnn,cat9532.yaml b/D=
-ocumentation/devicetree/bindings/gpio/onnn,cat9532.yaml
+> diff --git a/drivers/gpio/gpio-cat9532.c b/drivers/gpio/gpio-cat9532.c
 > new file mode 100644
-> index 0000000000000..6f3e3d0f4f29b
+> index 0000000000000..973ff74a15b89
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/gpio/onnn,cat9532.yaml
-> @@ -0,0 +1,52 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/gpio/onnn,cat9532.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: On Semiconductor CAT9532 LED dimmer as GPIO controller
-
-[Severity: Medium]
-The title explicitly acknowledges the hardware is an LED dimmer, but does
-this binding intentionally strip away all LED functionality by isolating it
-in the GPIO subsystem?
-
-The ON Semiconductor CAT9532 is functionally identical to the NXP PCA9532
-LED dimmer. A comprehensive binding for this hardware family already exists
-in Documentation/devicetree/bindings/leds/nxp,pca953x.yaml, fully supporting
-both its LED and GPIO capabilities.
-
-Could the onnn,cat9532 compatible instead be integrated into the existing
-nxp,pca953x.yaml binding to avoid fragmenting the devicetree representation
-of the hardware?
+> +++ b/drivers/gpio/gpio-cat9532.c
 
 [ ... ]
 
-> +required:
-> +  - compatible
-> +  - reg
-> +  - gpio-controller
-> +  - "#gpio-cells"
-> +  - ngpios
+> +static const struct i2c_device_id cat9532_i2c_id[] =3D {
+> +	{ "cat9532" },
 
 [Severity: Low]
-Does this erroneously force ngpios to be provided in all devicetree nodes
-using this binding, despite the pin count being fixed?
+This isn't a bug, but does this array initialization in cat9532_i2c_id
+violate the I2C subsystem rule requiring named initializers for
+struct i2c_device_id?=20
 
-The CAT9532 hardware inherently possesses exactly 16 pins, and the driver
-implemented in the follow-up patch completely ignores the ngpios property
-from devicetree, instead hardcoding chip->ngpio =3D 16. Making ngpios a
-required property forces devicetree authors to specify redundant, fixed
-hardware parameters.
+Using positional initialization like { "cat9532" } instead of
+{ .name =3D "cat9532" } goes against the documented subsystem style guideli=
+nes.
 
-Could this redundant requirement be removed?
+> +	{ },
+> +};
+> +MODULE_DEVICE_TABLE(i2c, cat9532_i2c_id);
+
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915092046.9314=
-49-1-alban.bedel@lht.dlh.de?part=3D1
+49-1-alban.bedel@lht.dlh.de?part=3D2
