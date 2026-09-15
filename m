@@ -1,324 +1,147 @@
-Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com [209.85.160.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AACCB47AF63
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 08:28:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7278349C4A8
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 08:37:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789460906; cv=none; b=EJKI1anBK5RWc8boWuafoYhw4TQOib+f9JZ8etWq6IF2S61UOFkdGbV/HWO74FDbdHxRvDRB05pkIRsEKX7hpwRF9tRXveGWwBcLNY+j5YLgdD6dZssFCoki39pt5uQw3BOD0kNLxm91R8AQJ8hnzIt86n/aUmvVxdjMFCU4Rj0=
+	t=1789461434; cv=none; b=l5cts9hXBf0hVKrOxtEjb8KwuZLGSdyU0ZPgifPHxqZbZtZ0ic8gXFFY3lR5o5U5O6ZsDAOjiKrraqZ4/xglPeHDK2kS+cSUbWrkIb6pdJG5iSrNpXj48fThiHvF5FYmFuDmLBcrNAs9RM2aQGoCoUjXXxJwI9V9DDKnYmfWJ5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789460906; c=relaxed/simple;
-	bh=s/FLNJ19YZGvt5oZ8eTe1yZo+b1FTWb/0ix0hrTXlNc=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=pZCR922hegsLC901vtYOQ9Jqy7ah0+pry/L6fwJZgI40C+4HMK3N8is++jXP8bzVS2wZUDzfVQm6WkcQ+L+a4gUttsK3vlsBxJYNv13MCwX9c/GXN5ryHrH0yjACbiNQ2uTh6FIbbA0fro9PTstBnM+za/jVopEG8RkYeK7a6hU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=XsArAUjp; arc=none smtp.client-ip=209.85.160.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com
+	s=arc-20240116; t=1789461434; c=relaxed/simple;
+	bh=YdR/sKqrRiv7YYNQfguHi7aoV7SCf4GdbKhjott7G9E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rfqC9I+CeY6z0DA23FPzpkp1JCiybaoajGRuhIGkAtEmY5P7w+qawfqcoMQob8CYo9xbP7Ec6a9fr6D40CoRwYq//Aoom6MyKlxkdRrOcyvo584rTGgKNWVLg0zq9KJPEBegBiz0w2humW6YEbgaITAHF7EqUA8mA74zVfI07ko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DFbucj0H; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aYu3d4RB; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="XsArAUjp"
-Received: by mail-oa1-f72.google.com with SMTP id 586e51a60fabf-45eb9967696so1161403fac.1
-        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 01:28:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DFbucj0H";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aYu3d4RB"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F6ZOmS3487172
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 08:37:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=eMrZ14PD1b5lu0Pk+aBr+n+H
+	IHnLdCKjZ3wX7nYZV14=; b=DFbucj0H19FopdNPJhK+wMf9I9uDX/qZL3ZVMjP/
+	GCDqKa/AevPpcGvoOZumXYNpDtueSqkyMb4eXa3UY+PmvRk44t+h/C2J/Nw4bEyc
+	iCRuAyabKGrsRXAOEMxJN8Rdk9ufTGjGKgf9IYwhu41OMRSeQS3VKgcwpNiiovfS
+	JTii++W83AKWuQ0X0Un5HHUihMq5xzU9JOEJQWYVuG0PEXPxIf5a6pLOo1dD1DXw
+	Gp08sY5gDtstyaNdHuevMDCT5xpgpbAExTGvUOYw43kUj2+sEHQyNImMWUvSSDhH
+	LxL/KumD8iYvCMN9QrnUQfxI7xOrYz/g3mX/m/5FVFuCmw==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gq0jerk9t-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 08:37:10 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93a0b66ecd9so342733985a.2
+        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 01:37:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789460901; x=1790065701; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=TmKdBXO38kbe6W228p+vBZ76A7D+nQJddOBfd0uRZ54=;
-        b=XsArAUjpOGeS/vnZ6BL2Dsrkh8i7aZ7/8I/5D2EeRQpr9ZPDV/c34F2tJvpPNm3WHg
-         4+DKmdJ1Tqs/em+uXRI3LFnNCykykjXM8LyqTvyeYsPQ5oAR8N5Is5ONv7VNiG+/8gOM
-         H5takgO9uBC3uz2WzJfhMv4AfAgBlK1bSVAxKms2ETPIFYPzooESnQtMNvKuY/TpvCr5
-         tM3WgxtAnJO1OS9sAQ7twu4xe2qppk+UK4vs8MWjbNQ6H9SGXqrnXUFvvGNfSGv8BfKd
-         nZdCbGNeuSLyA3bFurA3ppi7XdI6XulkU7S4WSlSAxtCKQDAcnuL3tTJDLpxpqPGOP3P
-         zatQ==
+        d=oss.qualcomm.com; s=google; t=1789461430; x=1790066230; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=eMrZ14PD1b5lu0Pk+aBr+n+HIHnLdCKjZ3wX7nYZV14=;
+        b=aYu3d4RBCne6K+j25qtIQm5qroGFty+KHGiTaTby2SLOgi/+R3R2/pWanpOTzpJHsN
+         YYJE51srdTOnoEKth7ciV2lnFnvjH4VYv4ATspUgzAfsZhkIMtR3wJ25lURTiJL/KwWs
+         csglEuFRpY/BfLeBbx2HX4+V6rgGfHasRqPLm7MTnrhq7LworpjXMYDKPU1Kfvs5tq58
+         Y44eNEnKs0Bb21B5uNNzD85FuhZvT6dTl1iDgOdxexfumeeBpjB2xSM17kJTYHXXqKil
+         DJrn0f1mGYYXzX9GAqCcIsj7WcYb8p33lMX9us1MtVU/U9SBWRYq4mYZgBBCLGy+fuEI
+         IqIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789460901; x=1790065701;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
+        d=1e100.net; s=20260707; t=1789461430; x=1790066230;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=TmKdBXO38kbe6W228p+vBZ76A7D+nQJddOBfd0uRZ54=;
-        b=g1Q5yYQeBzY+OwCHQJEZQaWy3Hbysld/4lmsTTNmipMXoseuna2MgcenRS99y0bx+m
-         J1j31Ll4/KV2P+La8NcIPeG/BNZvx8igjvioen94nHamoZZ9XjN9MLaeM3b9gf/nVOqy
-         PUmw48WDN6Jck6jk6axBCLDhIu4YYIWBg0iSdFwdMYFnqMc9rWyJ7TSNGqLAY6ZWfCcR
-         W9aM5H4aZJocv+p/2sZmOjOk6gxAgLayOBatv834rnYVYMhUrWremgSsQIt0Xkl9Mfgp
-         o8JqoVsklrADlPQPr8l7J68iUjt/TMA3OYA2qM0/pzvOtfEEEbzisp8Dc6RYJ1IHrzld
-         L+Cw==
-X-Forwarded-Encrypted: i=1; AKwUvBwnHORv7LTuuh8uMuCFJHOC8qGhF19uD6s17OmD+VBsSVNDP0cytST38yguncfxIPGrPHfR89sTDs3h@vger.kernel.org
-X-Gm-Message-State: AFuF++lFzdAw7k94DSAK4xgYU8GRN2w3rl6D4G2rX2xqVTUE3Grr2OJf
-	DiyshjkV+QLHYb4Ob7QbOlonlvbG47OfxgeCF6XHC/V/2lydeZ9Q2drootYDz0HA4mqegqd8qn+
-	b
-X-Received: from plw16.prod.google.com ([2002:a17:903:45d0:b0:2dd:203e:7d7f])
- (user=morbo job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:e544:b0:2d8:d4cf:fe49
- with SMTP id d9443c01a7336-2dd7654538dmr37587935ad.15.1789460410166; Tue, 15
- Sep 2026 01:20:10 -0700 (PDT)
-Date: Tue, 15 Sep 2026 08:18:35 +0000
-In-Reply-To: <20260915081910.4142719-1-morbo@google.com>
+        bh=eMrZ14PD1b5lu0Pk+aBr+n+HIHnLdCKjZ3wX7nYZV14=;
+        b=GQcObF+clTfop4Emz1M2ymL6pLtDoeMViy0boO7G8T0x5POsUUaqWNlFjzQuaE/anU
+         6ecCV9XZCUAI3kjnmQCv9A/IYeR6qgEyu3rfp62hWPXgyvLd2iGHpwPJTg7zoO4o9l+8
+         Hq+jc1tFRygDbPlvlAXNtYV9vLSTFnyrK5omvFzS/yxWw8bkNwbof6716B7mr9bgysxu
+         KJKHgTJfLOpE7si0FsVqvFyWo+QjJzbrmVDoB4NOfyBeFh3gXcvsQWZBPRtjtcsE70IQ
+         0kTBh4y9mfSLrq6GBbbYWdqQk6ykbMHEAgoHPeEJ75hahiqp+KKfnAEBQ1RJ0653twoA
+         nCog==
+X-Forwarded-Encrypted: i=1; AKwUvByw5HbK58n7j/y91xdRLGqYrsqwzHbE9dtXecXUyxrl1giENm0ivzuYatk9VYH6U2uVGYWUqaqLdrPW@vger.kernel.org
+X-Gm-Message-State: AFuF++mNfL/JaGmPcm4Ukuq0wf3bgO9CisZip41IbByh0I57MTrPu/qj
+	v3N8IOmZZ/tusPv7h0AG8o/+TumKKlokOtsZ4Y1ChIutoBX+nEKWoqTdLvK2Zflo8Fq1ZDXYfcP
+	vEgeAQd0v9GoiLRxdC7zhxa/NsXaL6wc9oshhzChh0ABxOcW1MIsx3q6LhHfiGiW5
+X-Gm-Gg: AYBFou1wo5PtRdrIwPOFlmoYF/laEKniFZXEAjGCnCeTMVfs7TDu3ZgJlc1EWv1KYle
+	WlZNq7f/ltdxF+gGMs4B30cdnk2O8m1tREBe+ehaSGaxYLTnTpt5zYUypYGmMr2FzerQA7MFLdC
+	0idvPl9m45V83kz6niZZHO+p/DI7qfnC1jAv6SS9e+jJSpbrKGxwOQupJGwlUeeqIwk9odYo2Es
+	7yESue2NbkfX6lRnYNfakec3OjX6FGz102vQtgdEGnwhzH1MUy+wL4V2JHEGAaYKmi5HCNgbd4v
+	PYdMxVpxZIi6FjTulRuRsCA/i6wRgD99i3/zkfJuLEceuihBi/WzrSsj9T/ahy8sYIRg7FRU5nn
+	LjKDzWSSNotyY8g==
+X-Received: by 2002:a05:620a:1d0c:b0:939:bc7c:15c8 with SMTP id af79cd13be357-93a29a97b1bmr986442185a.45.1789461429559;
+        Tue, 15 Sep 2026 01:37:09 -0700 (PDT)
+X-Received: by 2002:a05:620a:1d0c:b0:939:bc7c:15c8 with SMTP id af79cd13be357-93a29a97b1bmr986438385a.45.1789461428954;
+        Tue, 15 Sep 2026 01:37:08 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.232])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7d695677sm54843475e9.5.2026.09.15.01.37.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 01:37:07 -0700 (PDT)
+Date: Tue, 15 Sep 2026 11:37:05 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        sashiko-bot <sashiko-bot@kernel.org>
+Subject: Re: [PATCH] arm64: dts: qcom: sm8150: Use SM8150_MSS for the SDHC
+ power domain
+Message-ID: <kn36ymkh6ky3dakcq2hrblnqunwc7i2w3ny7c65tramfpbnomo@gx6e3glriqgw>
+References: <20260915-dts-qcom-sm8150-sdhc-use-mss-for-pd-index-v1-1-c4f3857204fd@oss.qualcomm.com>
+ <158d06a0-2e93-4300-bf96-eb8937ed28af@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260915081910.4142719-1-morbo@google.com>
-X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
-Message-ID: <20260915081910.4142719-19-morbo@google.com>
-Subject: [PATCH 18/28] LoongArch: Refactor bootcmdline_init() to use seq_buf
- instead of strlcat()
-From: Bill Wendling <morbo@google.com>
-To: linux-kernel@vger.kernel.org
-Cc: Bill Wendling <morbo@google.com>, codemender-patching+linux@google.com, 
-	Russell King <linux@armlinux.org.uk>, Huacai Chen <chenhuacai@kernel.org>, 
-	WANG Xuerui <kernel@xen0n.name>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, Helge Deller <deller@gmx.de>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>, 
-	H Hartley Sweeten <hsweeten@visionengravers.com>, Tony Luck <tony.luck@intel.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Matthew Brost <matthew.brost@intel.com>, 
-	"=?UTF-8?q?Thomas=20Hellstr=C3=B6m?=" <thomas.hellstrom@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Matthias Schwarzott <zzam@gentoo.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Tony Nguyen <anthony.l.nguyen@intel.com>, 
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Arend van Spriel <arend.vanspriel@broadcom.com>, Rob Herring <robh@kernel.org>, 
-	Saravana Kannan <saravanak@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Sylwester Nawrocki <s.nawrocki@samsung.com>, Peter Griffin <peter.griffin@linaro.org>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Linus Walleij <linusw@kernel.org>, 
-	Anil Gurumurthy <anil.gurumurthy@qlogic.com>, 
-	Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>, "Martin K. Petersen" <mkp@kernel.org>, 
-	Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
-	Mike Marshall <hubcap@omnibond.com>, Martin Brandenburg <martin@omnibond.com>, Kees Cook <kees@kernel.org>, 
-	Jiri Pirko <jiri@resnulli.us>, Simon Horman <horms@kernel.org>, Chuck Lever <cel@kernel.org>, 
-	Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
-	Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, "Mike Rapoport (Microsoft)" <rppt@kernel.org>, 
-	Kanglong Wang <wangkanglong@loongson.cn>, Tiezhu Yang <yangtiezhu@loongson.cn>, 
-	Qiang Ma <maqianga@uniontech.com>, Randy Dunlap <rdunlap@infradead.org>, 
-	Pengpeng Hou <pengpeng@iscas.ac.cn>, Ard Biesheuvel <ardb@kernel.org>, Breno Leitao <leitao@debian.org>, 
-	Thorsten Blum <blum@kernel.org>, Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Lyude Paul <lyude@redhat.com>, 
-	Ashutosh Desai <ashutoshdesai993@gmail.com>, Imre Deak <imre.deak@intel.com>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Johan Hovold <johan@kernel.org>, 
-	Johannes Berg <johannes.berg@intel.com>, 
-	Miri Korenblit <miriam.rachel.korenblit@intel.com>, 
-	Alexander Stein <alexander.stein@ew.tq-group.com>, 
-	Cryolitia PukNgae <cryolitia@uniontech.com>, Jiaming Zhang <r772577952@gmail.com>, 
-	Will Porter <mrwillporter@gmail.com>, Cen Zhang <zzzccc427@gmail.com>, 
-	"=?UTF-8?q?C=C3=A1ssio=20Gabriel?=" <cassiogabrielcontato@gmail.com>, Rong Zhang <i@rong.moe>, 
-	Arun Raghavan <arunr@valvesoftware.com>, linux-arm-kernel@lists.infradead.org, 
-	loongarch@lists.linux.dev, linux-mips@vger.kernel.org, 
-	linux-parisc@vger.kernel.org, linux-edac@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
-	linux-input@vger.kernel.org, linux-media@vger.kernel.org, 
-	intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org, 
-	linux-wireless@vger.kernel.org, brcm80211@lists.linux.dev, 
-	brcm80211-dev-list.pdl@broadcom.com, devicetree@vger.kernel.org, 
-	linux-samsung-soc@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-scsi@vger.kernel.org, linux-nfs@vger.kernel.org, 
-	devel@lists.orangefs.org, linux-hardening@vger.kernel.org, 
-	linux-sound@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <158d06a0-2e93-4300-bf96-eb8937ed28af@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDEyMiBTYWx0ZWRfX8jJVdvTEdvTz
+ uYDfBkimSQfFHz1KoNsJuJgyRyG2hbgg1rEFqQ0crJ5JtA3ohrsrTX5ojNGfsA+j/c26wcxqAEk
+ TVlOQh+uxBbVZunJFEYgzV+yxxhSXKg=
+X-Authority-Analysis: v=2.4 cv=Kr/YSmWN c=1 sm=1 tr=0 ts=6aa903b6 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=c92rfblmAAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=VEMV0py1LmJu7ly8yMIA:9
+ a=CjuIK1q_8ugA:10 a=IoWCM6iH3mJn3m4BftBB:22 a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-GUID: K24-MKiv9TmulUVNkCPn7V63VGfaRsDF
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDEyMiBTYWx0ZWRfXxepl92FB4NTY
+ yyo4dmmEV5PYpBYGABGObgDh38PtxnuqAK55+VPpIQHvW9sTWsjpqHCRlLpy1WzPp107U4+Bw+r
+ w84wJK7HgHHABcD/SXmmCThhiUTA0AbR5NZS0le5FBLdIc8s1l8nCirycXPtNoKmA1FecDtn2Cj
+ 7uN1WajmpVMQxpc+TQjS7j5Uo7R1ObTuDEZTpihHHQOntc2DM94E0bCtanxvFz8sb6m6oN/q4gs
+ 7Ej5FDBmgj56M/HsQyAqeAAvuDIvUNFtMoMmmB63nViEi7GTZHpbjjsqtPuErQp9MR+58KKqNp6
+ AspgBJ5lYjsrWTTcJdQROwSreMoRiu/1VWgQfq1RniqoBTKcVp0h9QbHyb/G+De2ukihirNSHYJ
+ eBviZ58HIsJOUeyk8m1J8MfTqon5rV+5Pa24Mkq7bc3eqQNPinRSabC0Kdl1kRVdEYW9HfROhh+
+ krLoR6Et0U9krSUtLaw==
+X-Proofpoint-ORIG-GUID: K24-MKiv9TmulUVNkCPn7V63VGfaRsDF
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_02,2026-09-14_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 phishscore=0 bulkscore=0 suspectscore=0
+ priorityscore=1501 impostorscore=0 adultscore=0 lowpriorityscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609150122
 
-bootcmdline_init() uses multiple strlcat() calls to append
-init_command_line or CONFIG_CMDLINE to boot_command_line.
+On 26-09-15 10:13:36, Konrad Dybcio wrote:
+> On 9/15/26 10:02 AM, Abel Vesa wrote:
+> > Replace the raw power-domain index of SDHC2 with the SM8150_MSS binding
+> > constant. This documents the selected RPMh power domain and avoids using
+> > a magic value.
+> > 
+> > Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+> > Link: https://sashiko.dev/#/patchset/20260914-qcom-tie-cx-to-gcc-v4-0-9d5a606ada33@oss.qualcomm.com?part=45
+> > Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> > ---
+> 
+> MSS is the modem power supply, this should be CX
 
-In preparation for removing the deprecated strlcat() API[1], initialize a
-struct seq_buf with the existing contents of boot_command_line and use
-seq_buf_puts() to append the command line fragments.
-
-Link: https://github.com/KSPP/linux/issues/370 [1]
-Cc: codemender-patching+linux@google.com
-Assisted-by: CoPilot:1.0 [shell_command_run, editor_update_file, make_kerne=
-l_build_single_file]
-Signed-off-by: Bill Wendling <morbo@google.com>
----
-Cc: Russell King <linux@armlinux.org.uk>
-Cc: Huacai Chen <chenhuacai@kernel.org>
-Cc: WANG Xuerui <kernel@xen0n.name>
-Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: Helge Deller <deller@gmx.de>
-Cc: Thomas Gleixner <tglx@kernel.org>
-Cc: Ingo Molnar <mingo@redhat.com>
-Cc: Borislav Petkov <bp@alien8.de>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>
-Cc: x86@kernel.org
-Cc: "H. Peter Anvin" <hpa@zytor.com>
-Cc: Ian Abbott <abbotti@mev.co.uk>
-Cc: H Hartley Sweeten <hsweeten@visionengravers.com>
-Cc: Tony Luck <tony.luck@intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: "Thomas Hellstr=C3=B6m" <thomas.hellstrom@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Matthias Schwarzott <zzam@gentoo.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Tony Nguyen <anthony.l.nguyen@intel.com>
-Cc: Przemek Kitszel <przemyslaw.kitszel@intel.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>
-Cc: "David S. Miller" <davem@davemloft.net>
-Cc: Eric Dumazet <edumazet@google.com>
-Cc: Jakub Kicinski <kuba@kernel.org>
-Cc: Paolo Abeni <pabeni@redhat.com>
-Cc: Arend van Spriel <arend.vanspriel@broadcom.com>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Saravana Kannan <saravanak@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Sylwester Nawrocki <s.nawrocki@samsung.com>
-Cc: Peter Griffin <peter.griffin@linaro.org>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>
-Cc: Linus Walleij <linusw@kernel.org>
-Cc: Anil Gurumurthy <anil.gurumurthy@qlogic.com>
-Cc: Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>
-Cc: "Martin K. Petersen" <mkp@kernel.org>
-Cc: Trond Myklebust <trondmy@kernel.org>
-Cc: Anna Schumaker <anna@kernel.org>
-Cc: Mike Marshall <hubcap@omnibond.com>
-Cc: Martin Brandenburg <martin@omnibond.com>
-Cc: Kees Cook <kees@kernel.org>
-Cc: Jiri Pirko <jiri@resnulli.us>
-Cc: Simon Horman <horms@kernel.org>
-Cc: Chuck Lever <cel@kernel.org>
-Cc: Jeff Layton <jlayton@kernel.org>
-Cc: NeilBrown <neil@brown.name>
-Cc: Olga Kornievskaia <okorniev@redhat.com>
-Cc: Dai Ngo <Dai.Ngo@oracle.com>
-Cc: Tom Talpey <tom@talpey.com>
-Cc: Jaroslav Kysela <perex@perex.cz>
-Cc: Takashi Iwai <tiwai@suse.com>
-Cc: Bill Wendling <morbo@google.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Cc: Kanglong Wang <wangkanglong@loongson.cn>
-Cc: Tiezhu Yang <yangtiezhu@loongson.cn>
-Cc: Qiang Ma <maqianga@uniontech.com>
-Cc: Randy Dunlap <rdunlap@infradead.org>
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Cc: Ard Biesheuvel <ardb@kernel.org>
-Cc: Breno Leitao <leitao@debian.org>
-Cc: Thorsten Blum <blum@kernel.org>
-Cc: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Lyude Paul <lyude@redhat.com>
-Cc: Ashutosh Desai <ashutoshdesai993@gmail.com>
-Cc: Imre Deak <imre.deak@intel.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Johan Hovold <johan@kernel.org>
-Cc: Johannes Berg <johannes.berg@intel.com>
-Cc: Miri Korenblit <miriam.rachel.korenblit@intel.com>
-Cc: Alexander Stein <alexander.stein@ew.tq-group.com>
-Cc: Cryolitia PukNgae <cryolitia@uniontech.com>
-Cc: Jiaming Zhang <r772577952@gmail.com>
-Cc: Will Porter <mrwillporter@gmail.com>
-Cc: Cen Zhang <zzzccc427@gmail.com>
-Cc: "C=C3=A1ssio Gabriel" <cassiogabrielcontato@gmail.com>
-Cc: Rong Zhang <i@rong.moe>
-Cc: Arun Raghavan <arunr@valvesoftware.com>
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: loongarch@lists.linux.dev
-Cc: linux-mips@vger.kernel.org
-Cc: linux-parisc@vger.kernel.org
-Cc: linux-edac@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Cc: linux-input@vger.kernel.org
-Cc: linux-media@vger.kernel.org
-Cc: intel-wired-lan@lists.osuosl.org
-Cc: netdev@vger.kernel.org
-Cc: linux-wireless@vger.kernel.org
-Cc: brcm80211@lists.linux.dev
-Cc: brcm80211-dev-list.pdl@broadcom.com
-Cc: devicetree@vger.kernel.org
-Cc: linux-samsung-soc@vger.kernel.org
-Cc: linux-gpio@vger.kernel.org
-Cc: linux-scsi@vger.kernel.org
-Cc: linux-nfs@vger.kernel.org
-Cc: devel@lists.orangefs.org
-Cc: linux-hardening@vger.kernel.org
-Cc: linux-sound@vger.kernel.org
----
- arch/loongarch/kernel/setup.c | 22 +++++++++++++++-------
- 1 file changed, 15 insertions(+), 7 deletions(-)
-
-diff --git a/arch/loongarch/kernel/setup.c b/arch/loongarch/kernel/setup.c
-index 6fa4a22a58fd..826396f141b9 100644
---- a/arch/loongarch/kernel/setup.c
-+++ b/arch/loongarch/kernel/setup.c
-@@ -33,6 +33,7 @@
- #include <linux/of_address.h>
- #include <linux/suspend.h>
- #include <linux/swiotlb.h>
-+#include <linux/seq_buf.h>
-=20
- #include <asm/addrspace.h>
- #include <asm/alternative.h>
-@@ -305,6 +306,8 @@ static void __init fdt_setup(void)
-=20
- static void __init bootcmdline_init(char **cmdline_p)
- {
-+	struct seq_buf s;
-+
- 	/*
- 	 * If CONFIG_CMDLINE_FORCE is enabled then initializing the command line
- 	 * is trivial - we simply use the built-in command line unconditionally &
-@@ -315,6 +318,11 @@ static void __init bootcmdline_init(char **cmdline_p)
- 		goto out;
- 	}
-=20
-+	/* Initialize seq_buf pointing to boot_command_line */
-+	s.buffer =3D boot_command_line;
-+	s.size =3D COMMAND_LINE_SIZE;
-+	s.len =3D strlen(boot_command_line);
-+
- #ifdef CONFIG_OF_FLATTREE
- 	/*
- 	 * If CONFIG_CMDLINE_BOOTLOADER is enabled and we are in FDT-based system=
-,
-@@ -323,11 +331,11 @@ static void __init bootcmdline_init(char **cmdline_p)
- 	 * to boot_command_line.
- 	 */
- 	if (initial_boot_params) {
--		if (boot_command_line[0])
--			strlcat(boot_command_line, " ", COMMAND_LINE_SIZE);
-+		if (s.len)
-+			seq_buf_puts(&s, " ");
-=20
--		if (!strstr(boot_command_line, init_command_line))
--			strlcat(boot_command_line, init_command_line, COMMAND_LINE_SIZE);
-+		if (!strstr(s.buffer, init_command_line))
-+			seq_buf_puts(&s, init_command_line);
-=20
- 		goto out;
- 	}
-@@ -338,14 +346,14 @@ static void __init bootcmdline_init(char **cmdline_p)
- 	 * CONFIG_CMDLINE_EXTEND is enabled.
- 	 */
- 	if (IS_ENABLED(CONFIG_CMDLINE_EXTEND) && CONFIG_CMDLINE[0]) {
--		strlcat(boot_command_line, " ", COMMAND_LINE_SIZE);
--		strlcat(boot_command_line, CONFIG_CMDLINE, COMMAND_LINE_SIZE);
-+		seq_buf_puts(&s, " ");
-+		seq_buf_puts(&s, CONFIG_CMDLINE);
- 	}
-=20
- 	/*
- 	 * Use built-in command line if the bootloader command line is empty.
- 	 */
--	if (IS_ENABLED(CONFIG_CMDLINE_BOOTLOADER) && !boot_command_line[0])
-+	if (IS_ENABLED(CONFIG_CMDLINE_BOOTLOADER) && !s.len)
- 		strscpy(boot_command_line, CONFIG_CMDLINE, COMMAND_LINE_SIZE);
-=20
- out:
---=20
-2.55.0.1032.g73a4cd73de-goog
-
+Correct. I'll respin with CX attached instead.
