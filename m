@@ -1,381 +1,356 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0A7B41E6C5
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 10:16:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789467414; cv=none; b=H7CA2Q0jln83l0px+WB0iUss2kyANC93Uj49QHEAQzUIVm6cwQvmtmvuWMUc6lySihTypelcCFQ6C9e9RTUqopQECDv5aJJoHYzCwlUgOeAMcH7JEY2W+Boa8YChoj9JLh/ZM+NWifCIkWmz3WzqHn3WtGUvLGpsKbvOwPJrFpw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789467414; c=relaxed/simple;
-	bh=1FwB5tZyJGGSqyLOywsTzAnOzt9t56hWh3ovdCCq/wk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZTFkfWSTcGt2Xaw/sqSGrKo6zCFnNhG/2wtD6F8JBDkYJPif/9baXlYkeH741B/wmR7VLQGvKDXL5DZQUFlvaNLTIjCzqnMu9R1M2Ug/ThaNTBqsmMJsnGjzNPILOcBFbB2+r7FdTjSz95JXPJr6mIeMfzTxQ2BhCzNXsOOnqYo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=A8PwoYfp; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D902C41D23E
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 10:17:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789467447; cv=pass; b=BK8Y0/txuoeDYlfdVGFXOvwLl+BOqOH0dKdkRsKR+f2Q/6YOh/Hh5cEVcjOCCRXSVKuNWEPsVuM1zktcAUv8hyARgSUWzs3SDLZ0dokAH6wX+2thH/cyrKfWyBW77wiLzV1PE55vskclyf1ijB83qnPgGPmXtZvum3BM4aQRvVk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789467447; c=relaxed/simple;
+	bh=MSWHoWGIFn+iwFs4suHXdlxtL4JfLcvYlTQxB2Sr6m8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=p9u1NHfX/PL9iK1zQ+/FiI9+gM7R2K7w9zgX4uGGYgOuQOY44YtNLA1KfjdtJQ+EWNX4zQTCcZs9brpFN9OQUAJPI/APttahmI+dehqmUzbx9zciojhmMx0AAr8jQfrOuWvKhQMHZOgqxKtA5Wy2IvnJrZCKlQ0fL59yn4JIJ4w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NwlEfJCk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=H3ipLIAV; arc=pass smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="A8PwoYfp"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 056EF1A083B;
-	Tue, 15 Sep 2026 10:16:44 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id CA9C560498;
-	Tue, 15 Sep 2026 10:16:43 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C375711C7AFBF;
-	Tue, 15 Sep 2026 12:16:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789467402; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=q+B7JEeKkQWiEjxyfdsB3wNauDhWg+dKJy1irQa7BAo=;
-	b=A8PwoYfp9TVmTnUNYpjdFy4ymlll6my+ZazF8Dt8j/gPwB5kFTXkTDkC68aU4e8FnrC6nm
-	XsiFYISohqxcK+mS6QE5vV/lBmRsLdxF2kiXybbVc9Go2UuM0fxQPWcChQiybMS+NoGwaF
-	zhyFTJtxiCUfqhNQrgJL11dRlN/ULRxsGslpT+zsW0h7yBmETEx5RtLqX8c56QyeERj0i5
-	JYQCaYCAhGk/dzm6JiuY5j07X1GX7WUqt98F2YBaXONrLo5+inSdSBs0CB+lqQ7rjSzovi
-	adcu6gglN1nNhNo03Pe08hj1NkMNufHYPwl0PiOMPfFMie8XjadgPl0taaB1DQ==
-Date: Tue, 15 Sep 2026 12:16:35 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Frank Li
- <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 08/15] flattree: Handle unknown tags
-Message-ID: <20260915121635.39f13d34@bootlin.com>
-In-Reply-To: <aqevEJ_VlBxYUp81@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
-	<20260826083146.304291-9-herve.codina@bootlin.com>
-	<aqevEJ_VlBxYUp81@gractus.seuss>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NwlEfJCk";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="H3ipLIAV"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F9hDrW064568
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 10:17:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Y4oAyrq2KtQXNsE5MFIxXDu1u6My17cNb8DrQ/MjMRk=; b=NwlEfJCkHhcoeSOK
+	bmZITvB9u6oxNjBQ7h8OqvduG6KCTuaHaqtd6r7UtHxSq9vvGuJoYmXWue24/YWs
+	MB609WXQEURRd/LJndkTYQ6tbZ9N3xKbp9j4xqrmYqudZRmUR23aOjb1wiSMl9x2
+	WraC9KiG18nhXL5+RWojUvSULL38a1AVIuq5wq4oC2SIwPK/yiuq7QxjLvhDS92V
+	TtLI4pKdvjibQRzT//j2jYyCCunekiY9BJgaAkPJB8tYYO6yH9LJwaixx9l6rHzQ
+	CyuIomy4EwIApyYEM55fZcqdQ+/gbGyH5NI4FWon/jf2iN0qItqpwrYceAbbhvzX
+	5kbpMg==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpn41uwsw-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 10:17:24 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93903622880so152950285a.0
+        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 03:17:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789467443; cv=none;
+        d=google.com; s=arc-20260327;
+        b=kFPxHsU3lWDV3qwJko070wUtH9YvSnwUS8sWXLUyVzQPFuBlEIc/szKjUz1bx0x6we
+         nPMfYqygWWIsVMf13YRcw58bztsqW6r9FZlNQCJ4BAkyDU4wZy5CopCbfI750EZFVM/A
+         D8wRwGb1XY5gc7qmrNQtY7N1Rb0fL0hHyoAy+Non/nw9xIQ3mFrJ8KCBRXywoydQSR5w
+         H3HFrCpkQkPRgyKWmLVQJth6kW79JJUF453wwmMrYX7JS8OhkmoKvTaU2Rta4p2QqwIo
+         /tv5hPHqM7rR/3rNCwY4eN3RYask/3jnbG8usRGzl98OkfIhzRZ9QrYklwcNccgDhyE0
+         X1dw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Y4oAyrq2KtQXNsE5MFIxXDu1u6My17cNb8DrQ/MjMRk=;
+        fh=YNjOel+sIwjZPb1XM6/jlh0z4Eo5XWSGJ8ANbJhGnr4=;
+        b=kVkx5NOY2VEFKIqHFQOuf3uTWqJH8LzIInGjkgC4AkvCcZICvM8xMU6ZGZw8ZE1zt6
+         XhS0VOhD2pWcRUPyYH9ftoAVEpQg5ZW4Jz7JSXzjkdlfo6Dnd4HKLMr3kys2luEh/gQX
+         vQeHV/gWcsMk5AGLR6FxDzv9b00JScxWPzrNO5o/LF1qc8vHGlJ8bhoprvJWI4SlHSyB
+         R5tE9CDuATh1M3o6gw6CGE4ar3G5h/qi6kIER0R1Z7FIIhSebnkMuV3CW1Kly+S5Ft7U
+         GONRvnh+CILHQEv77HCaR8LlqLZeFc8DXQc3PCl77GuW3HMgDESZ7gR+fPBltavOephH
+         k7Lg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789467443; x=1790072243; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Y4oAyrq2KtQXNsE5MFIxXDu1u6My17cNb8DrQ/MjMRk=;
+        b=H3ipLIAVb9IzRYgM2cGeqSsXiywUV7F+0EQQcnxfXaTG8u9q3yh/3LXWL6AOF5+HDu
+         TxIuMi7bL8bQu3YQF1PECEzk6GkFIGJP/gQUx4HunNZpPKdz48tz7IapdjH5zLPXuCOx
+         kPuo32AVU9K+0JMcq0fYeLPMM/0Q8xJeZj7cR09pYBz/1qMlyOpYD+0E61rGjWtSEoFT
+         sHlQpXIVcbzcT57mzuu2y4f7RljAhWf4wMvS8M9jHCoso65+mW3QAUVYt3RU3dKHVl/4
+         Xs86ShJvNR+NGz7XJ6z7Lu0jH/bEegpWKX4boJLuer2N1Utz3yb+EzlZHCBq+kjawNqx
+         zqaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789467443; x=1790072243;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Y4oAyrq2KtQXNsE5MFIxXDu1u6My17cNb8DrQ/MjMRk=;
+        b=0qul6nzTLcdaYlLfooDv2qaQQmWXLmy6XxC9frl+kJojoUhHTTGSi4ytN+y4g5qEJd
+         d9UgPj1rY+rzXD90oQ42ORHaPw/2OvEVTzh9nKH9RFql/1aolxfZf0moembt5S+gT/C3
+         NFrqDCwnAmgIM1zeXSi5X9eX3Mjqbuz0Hs4QZ6AxZHnArvJNhoyWhde5deGEhEFjvYoC
+         8hkktS5JsNfRY8xoPw5JYlm5Gp2ylAWOe40btitF36rYpO9iHyiS0G7heHa4Jl3eEhcG
+         QQkkidAFGukvJDant8G7ZpkgQVY9RxecgCmor5w8vy4R6x9Q/cOSjxEU3xP3wFDjdkpJ
+         rFaA==
+X-Forwarded-Encrypted: i=1; AKwUvBxDyH16QeVfwVACBMjEiR6dZbc1ArfqukSfexcoYClZ9GsT9LdiAzpCKld0b7AbQPQ9mJsREFrpIEZE@vger.kernel.org
+X-Gm-Message-State: AFuF++lHeOc5yq4NSzDT2XxcRoBOuHCuNWyMl6fDjPDh1mAdBoS31JGP
+	oubQX4FKYF9eA882o/ShsadlrDhO8hym4fRVft68bueqhj4Pb+dbzuPIQ/OwL7wDjDFlNV4LvIW
+	qI466hD1DnMAJlPKRELopV1zq+xxaymYK4uSen7j9iXNaTBj54XL8NYUPmkTjOuS/LBM7smvWbl
+	TlmfzVa4mNLr/YMFd7b2LWpuyGbxkgNiiPZNRMw2E=
+X-Gm-Gg: AYBFou0HyvrUqlaSlq5LIX97ZATbAZylklD1Uw3keilFXWlNFxfJ7KQc4fMkDbdA0E2
+	Egf5kgKSrDYm9GSdZiPYc17r83rEEsIOmPXYg+2ubqYaZvadDGjNJfdPloppnmkM3Tzhp2ECXRa
+	laTB4Z0noiDv/uO5jvrL4jPQt5MCBcGRGandiRv1hp/1rxir1VVwUSUFtkplLonG1YFDJCvAJnZ
+	PFuPRueCFGKRJLVHf0m47OXjgphacCCVkYeou29C10wQdDIxs2msV2PE2/XdnuxEBARePSjrY5m
+	L9Vl5/ZkHQXfwr60nkvQfzZV/4xi
+X-Received: by 2002:a05:620a:2b8f:b0:936:d00a:4947 with SMTP id af79cd13be357-93a345745demr388771785a.2.1789467438295;
+        Tue, 15 Sep 2026 03:17:18 -0700 (PDT)
+X-Received: by 2002:a05:620a:2b8f:b0:936:d00a:4947 with SMTP id
+ af79cd13be357-93a345745demr388741685a.2.1789467433112; Tue, 15 Sep 2026
+ 03:17:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20260915-camss-isp-ope-v7-0-77b13d131d3d@oss.qualcomm.com>
+ <20260915-camss-isp-ope-v7-4-77b13d131d3d@oss.qualcomm.com> <4b8f4fd6-53e0-4efd-953a-cd8ebad7d479@linaro.org>
+In-Reply-To: <4b8f4fd6-53e0-4efd-953a-cd8ebad7d479@linaro.org>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Tue, 15 Sep 2026 12:17:00 +0200
+X-Gm-Features: AcwNN1Xege-7rQu-hUK_GBF3L260MNhym32h4wKC90S0C1_dNyEg6Nm0Y0W-5zQ
+Message-ID: <CAFEp6-3bvRtjDhmRy+G3AzP9vL=TrnGpOf1gU-=aQKNcdyzn_w@mail.gmail.com>
+Subject: Re: [PATCH v7 4/9] media: uapi: Add CAMSS ISP configuration definition
+To: "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
+        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-media@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-hardening@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDE0NyBTYWx0ZWRfX0vKFre+xWE86
+ rVzzeG42XWWSDNTxGmFDNRVOZZwii8T5y8Z44JlxP/GuyGogCbDc7QwhiZ+vMbWNcIadk9QH2cA
+ NzNTIPiZy4ByF4+0NmXFWH5S6y1akK5HrKAQgOPQDNOQYlUtO6aNMfLysfQOy5U/Qsp9xfqXLjf
+ mKrWOCR7O999F8v6N6pKdBSoxchOMGoS9VcmONDd790pBLIp66LsC2dgxTrqAXDhhq93VBU1IH2
+ h9I7vv42eB+8SUF9xgV+K7EQYz4TY4f5EJmRwsfeQUxzM5ooW3LBWLlblqVdo7yNpM3mUSK280W
+ 5QAeQcs7ANQg8kEQ7uSwFtWvGBqVzY38+NGvp89EXBzW6OorCeW1N/JAuHCRx3sRl2gd/G1uJqG
+ vA2L1xWpo36xeu7F9BMNfzXhnUVnzFbkg/C7wP4fNdIBJ5h4SXn69iw+5gxxizRl9INADxhjHz7
+ JzsaiMUaisvNRyEbJtA==
+X-Proofpoint-GUID: UkYlxY_2flHJSAfxKWgbi98_1WEMzt6c
+X-Authority-Analysis: v=2.4 cv=cqQOAF4i c=1 sm=1 tr=0 ts=6aa91b34 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=Um2Pa8k9VHT-vaBCBUpS:22 a=xq3W2uTSAAAA:8 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8
+ a=_-fwvmfW1z61RZSq5NcA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+ a=P5L7wpMTXyg1GfFA3Gwx:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: UkYlxY_2flHJSAfxKWgbi98_1WEMzt6c
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDE0NyBTYWx0ZWRfXxSQDBgBNsKxV
+ h7Zsd8IkrMuaKM+NS0CNyx4NT1DyvT9aUZO55ffdQmOSz0dokjd4ckSp+FsYFEQnAPRduq1yVzG
+ F8W/jnqZP1QQ4rZZ2WPsUQFnGwNBXWA=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_03,2026-09-14_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 adultscore=0 phishscore=0 priorityscore=1501 malwarescore=0
+ suspectscore=0 spamscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150147
 
-Hi David,
+Hi Bryan,
 
-On Mon, 14 Sep 2026 18:23:49 +1000
-David Gibson <david@gibson.dropbear.id.au> wrote:
-
-> On Wed, Aug 26, 2026 at 10:31:39AM +0200, Herve Codina wrote:
-> > The structured tag value definition introduced recently gives the
-> > ability to ignore unknown tags without any error when they are read.
-> > 
-> > Handle those structured tag.
-> > 
-> > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> > Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> > Reviewed-by: Frank Li <Frank.Li@nxp.com>
+On Tue, Sep 15, 2026 at 11:11=E2=80=AFAM Bryan O'Donoghue
+<bryan.odonoghue@linaro.org> wrote:
+>
+> On 15/09/2026 09:11, Loic Poulain wrote:
+> > Add the uapi header qcom-camss-config.h defining the ISP parameter
+> > structures used by the CAMSS Offline Processing Engine (OPE) driver.
+> > This includes structures for white balance, chroma enhancement and
+> > color correction configuration.
+> >
+> > The block type enum is shared across CAMSS ISPs so that userspace only
+> > has to deal with a single set of block identifiers.
+> >
+> > Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 > > ---
-> >  flattree.c                                 | 65 ++++++++++++++++++++--
-> >  tests/run_tests.sh                         |  5 ++
-> >  tests/unknown_tags_can_skip.dtb.dts.expect | 19 +++++++
-> >  3 files changed, 84 insertions(+), 5 deletions(-)
-> >  create mode 100644 tests/unknown_tags_can_skip.dtb.dts.expect
-> > 
-> > diff --git a/flattree.c b/flattree.c
-> > index f3b698c1..88dbfa7e 100644
-> > --- a/flattree.c
-> > +++ b/flattree.c
-> > @@ -579,7 +579,8 @@ static void flat_read_chunk(struct inbuf *inb, void *p, int len)
-> >  	if ((inb->ptr + len) > inb->limit)
-> >  		die("Premature end of data parsing flat device tree\n");
-> >  
-> > -	memcpy(p, inb->ptr, len);
-> > +	if (p)
-> > +		memcpy(p, inb->ptr, len);
-> >  
-> >  	inb->ptr += len;
-> >  }
-> > @@ -604,6 +605,61 @@ static void flat_realign(struct inbuf *inb, int align)
-> >  		die("Premature end of data parsing flat device tree\n");
-> >  }
-> >  
-> > +static bool flat_skip_unknown_tag(struct inbuf *inb, uint32_t tag)
-> > +{
-> > +	uint32_t lng;
-> > +
-> > +	if (!(tag & FDT_TAG_STRUCTURED) || !(tag & FDT_TAG_SKIP_SAFE))
-> > +		return false;
-> > +
-> > +	switch (tag & FDT_TAG_DATA_MASK) {
-> > +	case FDT_TAG_DATA_NONE:
-> > +		break;
-> > +
-> > +	case FDT_TAG_DATA_1CELL:
-> > +		flat_read_word(inb);
-> > +		break;
-> > +
-> > +	case FDT_TAG_DATA_2CELLS:
-> > +		flat_read_word(inb);
-> > +		flat_read_word(inb);
-> > +		break;
-> > +
-> > +	case FDT_TAG_DATA_VARLEN:
-> > +		/* Get the length */
-> > +		lng = flat_read_word(inb);  
-> 
-> I think it would be more natural to get the length as a single value,
-> then have a common flat_read_chunk() and flat_realign() to consume it.
-> That's for two reasons:
->  * Assuming we keep this length encoding, getting the final tag size
->    seems like it would make a useful helper function anyway.
->  * Using flat_read_word() is misleading - it implies it's integer data
->    where endianness matters.  In this case it's not - it's just some
->    bytes we're skipping over, we don't know the internal structure.
-
-Well, without the length for all tags (I mean keeping some size encoding
-in the tag value), we can avoid the flat_read_word().
---- 8< ---
-	switch (tag & FDT_TAG_DATA_MASK) {
-	case FDT_TAG_DATA_NONE:
-		lng = 0;
-		break;
-
-	case FDT_TAG_DATA_1CELL:
-		lng = sizeof(uint32_t);
-		break;
-
-	case FDT_TAG_DATA_2CELLS:
-		lng = 2 * sizeof(uint32_t);
-		break;
-
-	case FDT_TAG_DATA_VARLEN:
-		/* Get the length */
-		lng = flat_read_word(inb)
-		break;
-        }
-
-        if (lng) {
-		flat_read_chunk(inb, NULL, lng);
-		flat_realign(inb, sizeof(uint32_t));
-        }
----- 8< ----
-
-Related to a helper, I have introduced one in the addon series where new tags
-are present and these new tags are no more "unknown" tags and flat_read_subbuf()
-has been introduced to parse them. You can see that in the patch 11/74 [0] or
-directly in the final code [1]
-
-[0] https://lore.kernel.org/devicetree-compiler/20260826094950.1088288-12-herve.codina@bootlin.com/
-[1] https://github.com/bootlin/dtc/blob/c68038e0ff4cde5de37a21419df8a082032ef994/flattree.c#L1169
-
-I can see to avoid some more code duplication between functions skipping "unknown" tags
-and function parsing new "known" tags.
-
-> 
-> > +
-> > +		/* Skip the following length bytes */
-> > +		flat_read_chunk(inb, NULL, lng);
-> > +
-> > +		flat_realign(inb, sizeof(uint32_t));
-> > +		break;
-> > +	}
-> > +
-> > +	return true;
-> > +}
-> > +
-> > +static uint32_t flat_read_tag(struct inbuf *inb)
-> > +{
-> > +	uint32_t tag;
-> > +
-> > +	do {
-> > +		tag = flat_read_word(inb);
-> > +		switch (tag) {
-> > +		case FDT_BEGIN_NODE:
-> > +		case FDT_END_NODE:
-> > +		case FDT_PROP:
-> > +		case FDT_NOP:
-> > +		case FDT_END:
-> > +			return tag;
-> > +		default:
-> > +			break;
-> > +		}
-> > +	} while (flat_skip_unknown_tag(inb, tag));  
-> 
-> Having this as a separate function seems odd to me...
-
-Well, this clearly decouples "known" tags from "unknown" tags and keeps the
-function small.
-
-> 
-> > +	die("Cannot skip unknown tag 0x%08x\n", tag);
-> > +}
-> > +
-> >  static const char *flat_read_string(struct inbuf *inb)
-> >  {
-> >  	int len = 0;
-> > @@ -750,7 +806,7 @@ static struct node *unflatten_tree(struct inbuf *dtbuf,
-> >  		struct property *prop;
-> >  		struct node *child;
-> >  
-> > -		val = flat_read_word(dtbuf);
-> > +		val = flat_read_tag(dtbuf);
-> >  		switch (val) {  
-> 
-> 
-> .. rather than having handling unknown tags as part of the default:
-> case here.
-
-Here and probably on some other part if we go in that direction.
-
-Here you have already parsed a FDT_BEGIN_NODE to call unflatten_tree().
-
-Unknown tags should be handle and skipped if possible at lower level to handle
-them everywhere and without code duplication.
-
-flat_read_tag() is this lower level.
-
-> 
-> >  		case FDT_PROP:
-> >  			if (node->children)
-> > @@ -905,14 +961,13 @@ struct dt_info *dt_from_blob(const char *fname)
-> >  
-> >  	reservelist = flat_read_mem_reserve(&memresvbuf);
-> >  
-> > -	val = flat_read_word(&dtbuf);
-> > -
-> > +	val = flat_read_tag(&dtbuf);
-> >  	if (val != FDT_BEGIN_NODE)
-> >  		die("Device tree blob doesn't begin with FDT_BEGIN_NODE (begins with 0x%08x)\n", val);  
-> 
-> Hmm.. doesn't this already need to be fixed to handle NOP tags before
-> the root node?  Logically that change would go before this one.
-
-Oh yes, good catch. I missed that one.
-
-Will be update in next iteration (in offset 0 vs real root node offset part)
-with 2 points:
-  - handle the case here with something like
-    --- 8< ---
-       /* Skip possible FDT_NOP available before the root node */
-       do {
-	  val = flat_read_tag(&dtbuf);
-       } while (tag == FDT_NOP);
-
-       if (val != FDT_BEGIN_NODE)
-	  die("Device tree blob doesn't begin with FDT_BEGIN_NODE (begins with 0x%08x)\n", val);
-       ...
-    --- 8< ---
-
-  - Add a test calling dtc with a "nopulated" dtb
-    This test is really missing. Only functions from libfdt are tested with
-    a nopulated dtb. DTC has to be tested too.
-
-> 
-> >  
-> >  	tree = unflatten_tree(&dtbuf, &strbuf, "", flags);
-> >  
-> > -	val = flat_read_word(&dtbuf);
-> > +	val = flat_read_tag(&dtbuf);
-> >  	if (val != FDT_END)
-> >  		die("Device tree blob doesn't end with FDT_END\n");  
-> 
-> Likewise here for that matter, a NOP should be valid between the last
-> FDT_END_NODE and the FDT_END.
-
-Yes, exactly and this will be taken into account in the next iteration.
-
-> 
-> > diff --git a/tests/run_tests.sh b/tests/run_tests.sh
-> > index f3647e63..8fc23cb7 100755
-> > --- a/tests/run_tests.sh
-> > +++ b/tests/run_tests.sh
-> > @@ -882,6 +882,11 @@ dtc_tests () {
-> >  
-> >      # Tests for overlay/plugin generation
-> >      dtc_overlay_tests
-> > +
-> > +    # Tests with "unknown tags"
-> > +    run_dtc_test -I dtb -O dts -o unknown_tags_can_skip.dtb.dts unknown_tags_can_skip.dtb
-> > +    base_run_test check_diff unknown_tags_can_skip.dtb.dts "$SRCDIR/unknown_tags_can_skip.dtb.dts.expect"  
-> 
-> It's best to avoid tests based on -O dts output unless we're
-> explicitly checking -O dts behaviour: because there are multiple ways
-> to format property values, the exact output isn't really guaranteed.
-
-But at a give version dtc and a given dtb file, there is only one way
-to generate a dts.
-
-If it change because of some modification in dtc, having some changes in
-tests expected value should not be a big deal.
-
-> 
-> What I'd suggest instead is to adjust treegen to generate two dtbs
-> that are identical _except_ for the skippable tag.  Then you can use
-> dtc -I dtb -O dtb, and compare the dtc output (which should strip the
-> tag) against the dtb which was constructed without it in the first
-> place.
-> 
-> Or, rather than explicitly creating two new trees, you could make your
-> skippable tag example identical to test_tree1, except for the
-> additional tag, and re-use one of the other instances of test_tree1 as
-> the "tagless" version.
-
-Why not just one dtb generated to treegen with unknown tags (already available
-unknown_tags_can_skip.dtb)
-
-dtc -I dtb -O dtb -o unknown_tags_can_skip.dtb.dtb unknown_tags_can_skip.dtb
-
-And then
-	base_run_test wrap_fdtdump unknown_tags_can_skip.dtb.dtb unknown_tags_can_skip.dtb.dtb.out
-    	# Remove unneeded comments
-	sed -i '/^\/\/ [^U]/d' unknown_tags_can_skip.dtb.out
-    	base_run_test check_diff unknown_tags_can_skip.dtb.dtb.out "$SRCDIR/unknown_tags_can_skip.dtb.expect"
-
-
-This avoid the need for 2 dtbs generated by treegen and also avoid to compare
-binary files which are difficult to analyze when the comparison detects a problem
-due to something broken by some modifications.
-
-> 
-> 
-> > +    run_wrap_error_test $DTC -I dtb -O dts -o unknown_tags_no_skip.dtb.dts unknown_tags_no_skip.dtb
-> >  }
-> >  
-> >  cmp_tests () {
-> > diff --git a/tests/unknown_tags_can_skip.dtb.dts.expect b/tests/unknown_tags_can_skip.dtb.dts.expect
+> >   include/uapi/linux/qcom-camss-config.h | 212 ++++++++++++++++++++++++=
++++++++++
+> >   1 file changed, 212 insertions(+)
+> >
+> > diff --git a/include/uapi/linux/qcom-camss-config.h b/include/uapi/linu=
+x/qcom-camss-config.h
 > > new file mode 100644
-> > index 00000000..2194025b
+> > index 0000000000000000000000000000000000000000..e3d6cc4df7de00345e8142c=
+81392dd42338c6ead
 > > --- /dev/null
-> > +++ b/tests/unknown_tags_can_skip.dtb.dts.expect
-> > @@ -0,0 +1,19 @@
-> > +/dts-v1/;
+> > +++ b/include/uapi/linux/qcom-camss-config.h
+> > @@ -0,0 +1,212 @@
+> > +/* SPDX-License-Identifier: GPL-2.0-only WITH Linux-syscall-note */
+> > +/*
+> > + * Qualcomm CAMSS ISP Driver - Userspace API
+> > + *
+> > + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> > + */
 > > +
-> > +/ {
-> > +	prop-int = <0x3201>;
-> > +	prop-str = "abcd";
+> > +#ifndef _UAPI_LINUX_QCOM_CAMSS_CONFIG_H
+> > +#define _UAPI_LINUX_QCOM_CAMSS_CONFIG_H
 > > +
-> > +	subnode1 {
-> > +		prop-int = <0x6401 0x6402>;
-> > +	};
+> > +#include <linux/types.h>
+> > +#include <linux/media/v4l2-isp.h>
 > > +
-> > +	subnode2 {
-> > +		prop-int1 = <0x64020 0x64021>;
-> > +		prop-int2 = <0x32022>;
-> > +
-> > +		subsubnode {
-> > +			prop-bool;
-> > +		};
-> > +	};
+> > +/**
+> > + * enum camss_params_block_type - CAMSS ISP parameter block identifier=
+s
+> > + *
+> > + * Each value identifies one ISP processing block.  The value is place=
+d in
+> > + * the @type field of &struct v4l2_isp_params_block_header.
+> > + *
+> > + * @CAMSS_PARAMS_OPE_WB_GAIN: white balance gains and offsets (CLC_WB)=
+,
+> > + *   &struct camss_params_ope_wb_gain
+> > + * @CAMSS_PARAMS_OPE_CHROMA_ENHAN: RGB to YUV colour transfer matrix
+> > + *   (CLC_CHROMA_ENHAN), &struct camss_params_ope_chroma_enhan
+> > + * @CAMSS_PARAMS_OPE_COLOR_CORRECT: colour correction matrix (CLC_CC),
+> > + *   &struct camss_params_ope_color_correct
+> > + * @CAMSS_PARAMS_OPE_GAMMA: per-channel gamma correction curves (CLC_G=
+LUT),
+> > + *   &struct camss_params_ope_gamma
+> > + */
+> > +enum camss_params_block_type {
+> > +     CAMSS_PARAMS_OPE_WB_GAIN =3D 1,
+> > +     CAMSS_PARAMS_OPE_CHROMA_ENHAN =3D 2,
+> > +     CAMSS_PARAMS_OPE_COLOR_CORRECT =3D 3,
+> > +     CAMSS_PARAMS_OPE_GAMMA =3D 4,
 > > +};
-> > -- 
-> > 2.55.0
-> > 
-> >   
-> 
+>
+> Most of the OPE specific naming can be dropped, I shared the ICP
+> data-structure analysis already:
+>
+> https://patchwork.linuxtv.org/project/linux-media/patch/20260426000346.11=
+58633-1-bryan.odonoghue@linaro.org/
 
-Best regards,
-Hervé
+Ok, I thought we agreed on having OPE specific structures, that is why
+I recently moved everything to OPE specific name.
+
+>
+> i.e.
+> > +struct camss_params_ope_color_correct {
+> > +     struct v4l2_isp_params_block_header header;
+> > +     __u16 a[3];
+> > +     __u16 b[3];
+> > +     __u16 c[3];
+> > +     __u16 k[3];
+> > +     __u16 qfactor;
+> > +     __u16 _pad[3];
+> > +} __attribute__((aligned(8)));
+>
+> For ICP I have:
+>
+> +struct camss_params_color_correct {
+> +       struct v4l2_isp_params_block_header header;
+> +       __u16 a[3];
+> +       __u16 b[3];
+> +       __u16 c[3];
+> +       __u16 k[3];
+> +       __u16 qfactor;
+> +       __u16 _pad[3];
+> +} __attribute__((aligned(8)));
+>
+> So this data-structure is shared camss_params_ope_color_correct ->
+> camss_params_color_correct
+
+Ack.
+
+Also, I will remove the _ope_ suffix from the wb_gain and
+color_correct structures. These structures may differ or even be
+absent in the ICP case, but they should remain aligned with the IFE
+implementation since both use the same underlying blocks.
+
+>
+> > +/**
+> > + * struct camss_params_ope_gamma - per-channel gamma correction curves
+> > + *
+> > + * Implements the CLC_GLUT pipeline module, applied in the RGB domain.=
+  It
+> > + * holds one independent lookup table per colour channel. Each table i=
+s a
+> > + * direct (not segmented) map of input level to output level.
+> > + *
+> > + * Each table has @CAMSS_OPE_GAMMA_LUT_SIZE (256) entries of 16-bit un=
+signed
+> > + * output. Each entry holds an X-bit output value depending on interna=
+l bus,
+> > + * the upper bits are ignored by the hardware.
+> > + *
+> > + * On Agatti OPE, The module maps a 12-bit input to an 8-bit output, t=
+he top
+> > + * 8 input bits index the table and the low 4 bits are used to linearl=
+y
+> > + * interpolate between adjacent entries. Entry i therefore represents =
+the
+> > + * output for input level i/255 of full scale.
+> > + * Output range: 0x00 =3D black, 0xFF =3D white.
+>
+> That's not specific to Agatti, its hwo the Qcom gamma silicon works right=
+ ?
+
+Yes, as far as I know. However, we may observe some variation if the
+internal bus width changes.
+Considering the hardware platforms we currently support with OPE, as
+well as the upcoming platforms, I think we can treat this as a generic
+assumption for now.
+
+> Same RTL synthesised in OPE, IPE and IFE. So you don't need to make this
+> OPE specific commentary.
+
+Ack.
+
+>
+> > + *
+> > + * How to fill a curve (same on all three channels for pure luminance
+> > + * gamma; different curves per channel additionally shift colour balan=
+ce):
+> > + *
+> > + *   Identity (pass-through, gamma 1.0):
+> > + *     lut[i] =3D i;                                // i =3D 0..255
+> > + *
+> > + *   Encode with gamma g (e.g. sRGB-like, g =3D 2.2):
+> > + *     lut[i] =3D round(pow(i / 255.0, 1.0 / g) * 255.0);
+> > + *
+> > + * @header:  block header; @header.type =3D CAMSS_PARAMS_OPE_GAMMA
+> > + * @glut:    green channel gamma curve
+> > + * @blut:    blue  channel gamma curve
+> > + * @rlut:    red   channel gamma curve
+> > + */
+> > +struct camss_params_ope_gamma {
+> > +     struct v4l2_isp_params_block_header header;
+> > +     __u16 glut[CAMSS_OPE_GAMMA_LUT_SIZE];
+> > +     __u16 blut[CAMSS_OPE_GAMMA_LUT_SIZE];
+> > +     __u16 rlut[CAMSS_OPE_GAMMA_LUT_SIZE];
+> > +} __attribute__((aligned(8)));
+>
+> For the ICP I have
+>
+> +struct camss_params_glut {
+> +       struct v4l2_isp_params_block_header header;
+> +       __u8  instance;
+> +       __u8  _pad[7];
+> +       __u16 r[CAMSS_GLUT_LUT_SIZE];
+> +       __u16 g[CAMSS_GLUT_LUT_SIZE];
+> +       __u16 b[CAMSS_GLUT_LUT_SIZE];
+> +} __attribute__((aligned(8)));
+>
+> So it makes more sense to differentiate the firmware type to the
+> register-mapping type. i.e. the above becomes camss_params_icp_gamma {}
+> whereas your subumitted change would be just camss_params_gamma {}
+
+ok!
+
+
+
+>
+> > +#define CAMSS_PARAMS_OPE_MAX_PAYLOAD         \
+> > +     (sizeof(struct camss_params_ope_wb_gain)        +\
+> > +      sizeof(struct camss_params_ope_chroma_enhan)   +\
+> > +      sizeof(struct camss_params_ope_color_correct)  +\
+> > +      sizeof(struct camss_params_ope_gamma))
+> > +
+> > +#endif /* _UAPI_LINUX_QCOM_CAMSS_CONFIG_H */
+> >
+>
