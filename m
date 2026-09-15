@@ -1,82 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56CF7345CBF;
-	Tue, 15 Sep 2026 14:27:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E778A3C1D67;
+	Tue, 15 Sep 2026 14:32:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789482465; cv=none; b=R8dyaIFirmaDtV8tsGgbyAyDkzndkAU6jDCY1qDN2MqLCTeT7a7s4FbFA9p5lZarprXgNO5v6N9c0Ct8mOkWIo4xSQeYE9NulNTo5X7XsbQzywAwS8wd3iKUW4qAjhWmTNTls1u+icTyqs564OU2Lpi4Ggk7DmDTpEjbfBBc6gQ=
+	t=1789482749; cv=none; b=CP7wZosmo+WMyGpAp7STzuAGWXKD3zoIZJpCxx2p+38qzsCoJieM7IynvXA5nJMnirZKBhcS/cEVqe1UuPD1gefQcW01rbna8MC325B7uSOT3jhqSDkDJxXK6MYej6OnTGs3q7vlPJHign746rXrhWTSbG2wGgMIE9rQxjzWtE0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789482465; c=relaxed/simple;
-	bh=cUtPjh0zldewIxNp9mhCQymnBNd/6pG9ZV4jNWg6FW0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DA7HkiARX+tzaPSzuYVnm9SWZgVGeH7Zlv5PNeEwNF4zRT8tdiNCbH61okIP/BoliQhWG+fFzn0bwKmqIw0tkcmvNIinUE19A3d/I+JwOJ6sVZB9nU+4ms4ycR/ckpIbq0F+1VVblTVomG0ESRtjJkA9KZVzRFddo+MPTfSyWEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SG8RCldo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789482749; c=relaxed/simple;
+	bh=q79L61CA7e2y8xizqfBNTzm3tp/94ga0fZ23l5wPvDo=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=K53tWCD6cntpZGZoGsFVx9SafUEy0nMcGzI+pYrlclblFKaY9W2NKSgDPm4hsHwoaFMjLMiBjb0n9g8z5qTgcyERSi9Z2J+EcJt8sLeZIgjEInL1rvgYJhql/urchjokfDg6Q+xYPgO6oyaufYOK5d+7rX80zzjLZmTYt/sgciQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bBXPrqtM; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SG8RCldo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBE321F000FF;
-	Tue, 15 Sep 2026 14:27:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789482464;
-	bh=XeXrCF7kKHtOohfiibEbYIClpgW98Ub/K0LExgNJn5g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SG8RCldowYERNVsQcORu4F/jbaCJPvGuy4+KvfldUJYvNI+EPVc8DCTKwT3TamTB1
-	 bWyLYe2cwlqwyqDpkSxiDinMFp5DPrZvExRCTaXuX672o1XJBbm1aRuxaF/43CSrCk
-	 fNNq7TVtZFd1oaQJ/ZOcfEY6kfRa1ah8x2I4McvXycU2XopABsH+Dznec7kaIrptqd
-	 9XwsELKkqygxDbvf1RUrlhYkK3InOG/Pb3kme6e6SoE/uLOyBbiiZ9mJ88XAAdwAR3
-	 k2JN3YATWJEeN2lHjk3tiJiCv/QHCGphifhPCPhNr5AqpsqddPKYRv+En46Ez/VBXG
-	 dgpV23u6g8ZqQ==
-Date: Tue, 15 Sep 2026 09:27:42 -0500
-From: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/7] dtc: dt-check-style: Improvements for handling
- continued lines
-Message-ID: <20260915142742.GA1926857-robh@kernel.org>
-References: <20260909-b4-dts-style-checker-continued-lines-v3-0-474bb324ae53@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bBXPrqtM"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 73582C2BCB8;
+	Tue, 15 Sep 2026 14:32:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789482748;
+	bh=q79L61CA7e2y8xizqfBNTzm3tp/94ga0fZ23l5wPvDo=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=bBXPrqtMnaMUeZ/VLutGvaUzU5WE4E79ADi9qdXVh6WVvMm+dZPLNESrdJNwu20Ii
+	 hoVw+m4lxor1Qwu3sZStSX0K4Y61ufg1eCQu/xN0FMGpe3EiZzCx39gxKtxH2aoxdq
+	 weRseDT46ebpfRiMtIWYVN0S/olm56MbyMaWHs/6L1wcb8/+gqZCKcUCZflPyBcQTr
+	 jARJtTRyToTSYqOghrMHWFMpOOhkFgCW67z8or0I4Bb6gQSGmdsfn47VhDl4ejjXWj
+	 +iVhwahsIKtEE7t0Oms9w9G3HkdPH82MNIbd7KMVuVy6qbGJLKfsBu3kCAZzQ5izf4
+	 DtzrccoEbw+JQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4F692C88E75;
+	Tue, 15 Sep 2026 14:32:28 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Subject: [PATCH v2 0/2] Introduce support for Xiaomi Mi 8
+Date: Tue, 15 Sep 2026 16:32:23 +0200
+Message-Id: <20260915-dipper-v2-0-cbade54919ee@ixit.cz>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909-b4-dts-style-checker-continued-lines-v3-0-474bb324ae53@oss.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/zXMQQ7CIBCF4as0sxYzYLHoynuYLiwMdjYtgYZUG
+ +4u1rj8X16+DRJFpgTXZoNImRPPUw11aMCOj+lJgl1tUKjO2CkUjkOgKIx3Jy+p7fRgoZ5DJM/
+ rDt372iOnZY6v3c3yu/4Ig5c/kaVAQUPrNEoy2vkbr7wc7Rv6UsoHjb5qS5oAAAA=
+X-Change-ID: 20260720-dipper-8fd3f1e475bc
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Tony Luck <tony.luck@intel.com>, 
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1593; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=q79L61CA7e2y8xizqfBNTzm3tp/94ga0fZ23l5wPvDo=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqqVb6LsUVTVE683mcrWSWmXyTRm5z0DXFx6PuW
+ vzBcW+yLC+JAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaqlW+gAKCRBgAj/E00kg
+ cuckEACkt2DxySYgI2eP6FvS2n5LonF9gB5/KkvaIM+qn0yhegFV1qCnf7C9KOGkLGt/IKr7nmd
+ beo1vY1bDagxznjNVPgh8dc+6+NSs9r3Y6snIIC6Ytk3Wqy21UXaaYHjDYl52PQtlPw3T+GoRGO
+ bD1pRaAiJYaTELtLhyLuZcPBTRQQmrkT84ed29reEil14idMCM5KfLlYycz40k9sFfBCEWhZ987
+ BjQWm8qfg7BZuCl1laA5T6q4otK3Yhoa5My06OdbQnf0WCfXtOEgrfuFxLAXKM+MQyZJGivCKBy
+ L45OoKzxXebN6uuF24ktqfvF0BDUXhReoQLDe5AKukv1jdtRv6h0mVXkreiOdm5Mut7dRpcXWkp
+ hXD64Ir7eC1DaVeb9ej/1ZgU/SD7pJ6hKyuM8ZLKCPVfcT1m+7E6420Yz/SE0vHsjfcur1ni+vS
+ fW8o0wvsGNHrmVyIuCD8feHmISeQ4hfkU7GV/P+3T+2yQQQ6ihgO24sX6omtY6QvvHKPQk0cOOa
+ ZhMLvqrNnaoPrGK1k1tqKUAtT/bkuEyu3wfvZDkAteAROkUVE4RiXvaZ/cg0wX4XNJnmt0ipE5i
+ HnnVLyT77vT/FDPReu8fulDjh7qRr2Sz4tldobTzf+kjrl8tfMOeIc1wngu/pRLMFFQI25JD2/d
+ +6g5knRTh6G8UBQ==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-On Wed, Sep 09, 2026 at 03:10:34PM +0200, Krzysztof Kozlowski wrote:
-> Changes in v3:
-> - New commit:
->   "dtc: dt-check-style: Relax property ordering rules (drop alphabetical)"
-> - Improve commit msg of "Unduplicate checks in
->   check_mixed_indent_chars()" patch.
-> - Link to v2: https://patch.msgid.link/20260909-b4-dts-style-checker-continued-lines-v2-0-c5cb4c9d9b66@oss.qualcomm.com
-> 
-> Changes in v2:
-> 1. Four new commits 1-4
-> 2. Drop last commit
-> v1: https://lore.kernel.org/all/20260906180437.166760-6-krzysztof.kozlowski@oss.qualcomm.com/
-> 
-> Best regards,
-> Krzysztof
-> 
-> ---
-> Krzysztof Kozlowski (7):
->       dtc: dt-check-style: Handle continued lines in check_hex_case()
->       dtc: dt-check-style: Handle continued lines in check_line_length()
->       dtc: dt-check-style: Handle continued lines in check_trailing_whitespace()
->       dtc: dt-check-style: Unduplicate checks in check_mixed_indent_chars()
->       dtc: dt-check-style: Right strip whitespaces, leftovers before comments
->       dtc: dt-check-style: Properly detect comments in multi-line properties
->       dtc: dt-check-style: Relax property ordering rules (drop alphabetical)
+Currently only Mi 8 itself is supported, but the
+sdm845-xiaomi-dipper-common should ensure, that other family members
+such as Mi 8 Pro, Mi 8 Explorer will be likely supported too without
+much of additional work. These variants should differ only in the small
+details (such as battery size, fingerprint sensor etc.).
 
-Patch 7 doesn't apply.
+Minimal viable support for xiaomi-dipper. Enough to get basic u-boot and
+Linux functional. More improvements will follow.
 
-> base-commit: 694b801ceb1bea205878f2136e8b25c888e51be7
+The display and touchscreen support are work-in-progress, but waiting
+for other bits to land.
 
-And I don't have this commit in my tree to resolve the conflicts.
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+Changes in v2:
+- Deduplicate simplified xiaomi,dipper compatbile from the dt-binding.
+- Reorder reserved-memory by address.
+- vreg-s4a-1p8 -> regulator-vreg-s4a-1p8. (Konrad)
+- adsp firmware moved to dipper variant (as I cannot test others)
+  (Konrad)
+- Removed Bluetooth path comment. (Konrad)
+- Link to v1: https://patch.msgid.link/20260809-dipper-v1-0-eb4d501e85df@ixit.cz
 
-Rob
+---
+David Heidelberg (2):
+      dt-bindings: arm: qcom: Add Xiaomi Mi 8 family compatibles
+      arm64: dts: qcom: add Xiaomi Mi 8 (dipper)
+
+ Documentation/devicetree/bindings/arm/qcom.yaml    |   9 +
+ arch/arm64/boot/dts/qcom/Makefile                  |   1 +
+ .../boot/dts/qcom/sdm845-xiaomi-dipper-common.dtsi | 607 +++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/sdm845-xiaomi-dipper.dts  |  36 ++
+ 4 files changed, 653 insertions(+)
+---
+base-commit: 7079a12d7506b07fb53b54a664bfad5fa9b16d70
+change-id: 20260720-dipper-8fd3f1e475bc
+
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
+
+
