@@ -1,248 +1,125 @@
-Received: from mail-ed2-f6.google.com (mail-ed2-f6.google.com [74.125.228.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 426DD47ECF6
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 10:26:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.70
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789467982; cv=pass; b=rUi9oR44AhB+AZwYwvwqRejjjfiThud5QY7SnOgCiqwNftBkoj/VEVXRyrI9znnxV/+94jH7eqX34aM/D5379RTI+reHPG0JGPTGoSeygyk0B6bAxrxbNPgAX7IV1updjOXmdK8st7DG1i/alkNBN2d++Gc6IcIPPufDuL3rQsM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789467982; c=relaxed/simple;
-	bh=vZzYcJ1wT8Rd7uAkDW6XfZWMX25LGItG9EqsF3/2Qs0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YQlGXl6mpJOLx2Bs+d0/URWb1FDI5OKBqflVo1TcrwzUkDU3edXUf/yPMikZrhBLE/EisFJPuod0TDhLrem4xVjm5xgXg9NHj1ux25WqC7aZ0m9Y5w6vSG0rLhlKQ5QTLyQpsFdtxCMnZ6kLYyBhByFq84aT5lzbx3Nf03BV6HM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lY7XcFp0; arc=pass smtp.client-ip=74.125.228.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C80BD47DF87
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 10:26:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789467992; cv=none; b=d46EFjxCeufHcUuD/TsT5XLY6w5PMkoEC7zBUIB5oHTISjGv7FvQkD20WoAVrwfKsnUEAzXJqCPEtqSSww2Zz7TBXYbrKbBhDZ4H//VIr/AWwcAQaBFRmoMW8jKW+BRlfP2jZJibJfVudoS9YVYDmUW660mgZcvfY/LqI4ldPSY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789467992; c=relaxed/simple;
+	bh=8IvcOMIjLjw2IZGAZGFbT1CGYg0ad1z7M/4tGu/j80E=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=YNgfVijgV0cSdD51RQud90yMvMUEb35Vc0FW+dnvky6js+C8CEZe7xfPYMXFKJwRtZS9tXgCdTCS64T7G5cRuy6kQpdgeIVCv6dhp9P3ZkmY9/o1cCbhMXC4HbudvHROXw8nqFU/LL4FWWIF7D1WEIslIg+5TyyWrq+Qi27ojZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HZsCktSR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lY7XcFp0"
-Received: by mail-ed2-f6.google.com with SMTP id 4fb4d7f45d1cf-6a5d2b3fbe8so1951747a12.0
-        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 03:26:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789467977; cv=none;
-        d=google.com; s=arc-20260327;
-        b=oBgXC/yP7PKNnH2DF7iVKcCFUUduBfoEK3/0/V+pOkzqdST4iflw7tOAxAdiY7C0Jq
-         qTozdFt7qu2dR5elnNQLJ7gGqqUpYgVXgBRbN58qa/06cN4iYLAefHHjtSWnnWxjhwsp
-         ZRm7v5WqMBOyi2EPOMFzhCNc7UgYsNh2nfPF5LSC1t2sAhv1z/GMkuem4BnqqQfGl4vv
-         I0Vz3FM9TJ4o4j1VOI59mEhdYfXCIWFpu3J3nN0mDYg0IDa5xJT14/iVky736Q7iH2kW
-         H1LGsRJoB+l/MLUixSlWmbIucrjzVa8cLRsDxnVx7qoXq+LB40rOybzkFbF9KbaQ9EuA
-         9TlQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=PDmTn3anCnjZEAou9hrMuvIHzai6E6SOKUBtirHS8WY=;
-        fh=b2tK+2IrfNJoz4nSbm86Xoopw5AXtGORsc+/ZWF+88A=;
-        b=lY99zyG1mPJHDQbE9JYHoQqK6lVgvUqbp5zqCjMnQKrzj0yFfSY0+eAMWkawuqNqP5
-         2870mZLu19fKCR6rqqHZnyGCSsfvWBuNR6w/mMSnlo/XJPvY3oE34UuqKGg9JzB6DULa
-         PsSXxzXsfz52vy2toWfG6MYt3Zj5yTmOddBlcqXvl0tZJpRIiimTr+b1zxqT2yFwbKDq
-         TT6V5sxY7/ezgYxDCoxvt6Hgh1t/FMPEQi/9QMq3Z9hKTDsGK2nAP7exmHfSB93SD0Gs
-         a9QH5QkXCPvne8/+TYh1KIsgVcQ3Qsg0j5Yin0lskT6+5G+DFiEpwhqD9jPrdzcD87WT
-         ETjw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789467977; x=1790072777; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PDmTn3anCnjZEAou9hrMuvIHzai6E6SOKUBtirHS8WY=;
-        b=lY7XcFp0DaklzYdRxlf81uipUv5eTR6q1EHJ6VSQFTIv/YFwkJo5spbxNLcEEOrAOn
-         Jdq7jZj3j3YXu3SqT2BwylXzHoPkV0nSXCMEGcTBNbvbNtKP/gcP4ydsZH5eziyrUHD2
-         9/ZSPcN9sLvbcJ0Y5gYIXFtyLcI9yETUOFYlFj5N5PTScDIb9vZE34ICPeTBg1nI1dAU
-         yEAMMDQifn4uZD1uCdmMP52SDOzuEFyMIfNz/ylvr8rz75e551mGXKDS/seNsuZXqSqg
-         R0yQonNdjUlqjYymQ6VNVlButSe9toe0uVOMTNz1zLsCsEvobzN4BlgFJRji5REYOvmJ
-         NDkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789467977; x=1790072777;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PDmTn3anCnjZEAou9hrMuvIHzai6E6SOKUBtirHS8WY=;
-        b=Qx695loXZkzPnSbXG8zSigZvgeoGu2a/iEE+IBJo45eFFMtMLNXbMt8QuZpU6VHdvO
-         K42ojLC+EgkHUSLr5ZtS3qGEA63Preu0Hj9kyolog8aB3V/e5v24pT5RyIk3A3dY8Dm2
-         5I52nHC8loWTXLlXziYxsDAfBRQv1HciK3meJuOulDSYp3P/D0xQ7dIrCxAvhWJZH583
-         6th3rM1NPCadHmhYdMFcS8HfsAM9ibJFC+GNhjpsTbXvXU8vo1awi+JJ7ryRjMncdvv5
-         uFjpYT6+8idHARWzaHjfaMN2hgidQyBxgS8oj/JLokt5garjEPlK5lKvD08N9P9l4djI
-         Rw/Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxKgPi7YlPNmNtlpgyCgLYWUYhoudJx+7l7+lIvfcjg5BPWNqF/aW5Z4QDIHyeEgD7GgfbrbpQpCdhc@vger.kernel.org
-X-Gm-Message-State: AFuF++n6FPU+qcMwTdTzh1bNo67KmukGANGmmayXFKAOBIWxxWfjoOCD
-	ve2B+fajGjeGFAhjzA0Wo6Xs4C2C3PbgGFW8gdRrmQxP+8ih4Wp7YXgGAj/mp2MElY7329ZZD9J
-	x0teeI/dHu1R9bP0Jch7aR0mp1ciN6x0=
-X-Gm-Gg: AYBFou1MvO8rD6fBngzMhaulPxNHEZidXa9oILEdMUkItvpr/2Jb+uktSFrOsKYCjgl
-	K0HOrCAWpiIyHzPSG1bDXA20/LJU6ntgiVxpF84AhLrVXOoFe9phYmpjlNuW2zBPnQ2qoRjzc1d
-	DrlSMXAqbt0tdNK70GQv+38WPNFj5MDBpUd66AwM4R7TxBnJxaImJDOgLv/xSBo0RqtZiwrIBDd
-	AFa+9zdvMELmrS5EZQNFsw5NyN5XOpYRMpZ6PWmRQFKU79ebPcT8zccVWSQ4epnEUV+juKX9W29
-	yoaGbRy+gvSzSNIiTKUVy8Q+K+zXozSiLcOSBzkG+FrF5SvlMD1TJfQaTw==
-X-Received: by 2002:a17:906:6a01:b0:c26:2205:3df8 with SMTP id
- a640c23a62f3a-c29d7717424mr36060866b.9.1789467977119; Tue, 15 Sep 2026
- 03:26:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HZsCktSR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFF231F00893;
+	Tue, 15 Sep 2026 10:26:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789467990;
+	bh=wwVQ8xxvUDO4a0wOYl6u4/nV7IdmSwXT0cfa77nNaE4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=HZsCktSR8LjMEl0e4QAvymEDTjdZsu6cVgyyaKr2QaE0PsVTXwPdnDEXKohFmFa91
+	 KFqW21xsz+AS46v/FznYqcWPdDmFgbS1IYUJI+3kBaPZib1zEaWT1tmYBMXgmvmJiH
+	 MT3AKtiW2cKvb1xXR8Aad1lBnUFcM4GlSyiC3PfY09+8JftKuNhW6I5dt77zdlkU0r
+	 HCSwEX4YwMYP716DDHJCQvv7/e+iU4sF0+JHpo0zcY2pfl/Wv99trjQ9tfWzfP6Da0
+	 E2YGGjNumfkrh5uDs8CROpJXT1uVV26c+M9WDm95jSQPr8d/BwsVtBj/mciC8hy95e
+	 ugO99uOlPSBVA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/2] phy: mediatek: Add support for PCI-Express Gen4
+ S-PHY
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
+Cc: vkoul@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, conor+dt@kernel.org, olteanv@gmail.com
+In-Reply-To: <20260915101022.23852-3-angelogioacchino.delregno@collabora.com>
+References: <20260915101022.23852-1-angelogioacchino.delregno@collabora.com>
+ <20260915101022.23852-3-angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 15 Sep 2026 10:26:29 +0000
+Message-Id: <20260915102629.EFF231F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260913185849.907479-4-coiaprant@gmail.com> <178941747926.22033.15174869537556409251@kernel.org>
-In-Reply-To: <178941747926.22033.15174869537556409251@kernel.org>
-From: Coia Prant <coiaprant@gmail.com>
-Date: Tue, 15 Sep 2026 18:26:04 +0800
-X-Gm-Features: AcwNN1ULwDCN22NcSTGJGIqUo7wEAVDbHGW4RjkupXf6vRbCRoH1F1Vq6Gp7hg4
-Message-ID: <CALj3r0hg6kchV72wSv0ybPVqG93D4_QnB-diFmW45jLZwoP_cA@mail.gmail.com>
-Subject: Re: [PATCH net-next v5 03/11] phy: rockchip: naneng-combphy: add
- SGMII MAC selection for RK3568
-To: netdev-bot+sashiko@kernel.org
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, heiko@sntech.de, vkoul@kernel.org, 
-	maxime.chevallier@bootlin.com, mcoquelin.stm32@gmail.com, 
-	alexandre.torgue@foss.st.com, prabhakar.mahadev-lad.rj@bp.renesas.com, 
-	romain.gantois@bootlin.com, hkallweit1@gmail.com, neil.armstrong@linaro.org, 
-	linux@armlinux.org.uk, shawn.lin@rock-chips.com, david@ixit.cz, 
-	netdev@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
-	linux-stm32@st-md-mailman.stormreply.com, linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-<netdev-bot+sashiko@kernel.org> =E4=BA=8E2026=E5=B9=B49=E6=9C=8815=E6=97=A5=
-=E5=91=A8=E4=BA=8C 04:24=E5=86=99=E9=81=93=EF=BC=9A
->
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider:
->
-> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 0 =C2=B7 Low: 1
->
-> - [Low] In rk3568_combphy_cfg() (drivers/phy/rockchip/phy-rockchip-
->   naneng-combphy.c:881-882) the newly added write of pipe_sgmii_mac_sel=
-=E2=80=A6
->
-> --
->
-> phy: rockchip: naneng-combphy: add SGMII MAC selection for RK3568
->
-> This adds a "rockchip,sgmii-mac-sel" DT property to pick whether the RK35=
-68
-> SGMII interface is routed to GMAC0 or GMAC1 via PIPE_GRF_XPCS_CON0 bit 1.
-> The value is read in rockchip_combphy_parse_dt() and programmed from the
-> PHY_TYPE_SGMII branch of rk3568_combphy_cfg().
->
-> Link: https://dl.radxa.com/rock3/docs/hw/datasheet/Rockchip%20RK3568%20TR=
-M%20Part1%20V1.1-20210301.pdf (Page 229)
->
-> One question about the commit message wording:
->
->     The hardware reset value is 1 (GMAC1). If the property is set to 0,
->     the driver routes SGMII to GMAC0; if set to 1 (or omitted), it
->     remains at GMAC1.
->
-> Does "or omitted ... it remains at GMAC1" match the code?  The write in
-> rk3568_combphy_cfg() is unconditional, so in the omitted case the driver
-> does not leave the bit alone, it actively programs it to 1.  See the
-> inline comment below.
->
-> > diff --git a/drivers/phy/rockchip/phy-rockchip-naneng-combphy.c b/drive=
-rs/phy/rockchip/phy-rockchip-naneng-combphy.c
-> > index 7843356a4dd47..7b867e7520064 100644
-> > --- a/drivers/phy/rockchip/phy-rockchip-naneng-combphy.c
-> > +++ b/drivers/phy/rockchip/phy-rockchip-naneng-combphy.c
->
-> [ ... ]
->
-> > @@ -375,6 +377,9 @@ static int rockchip_combphy_parse_dt(struct device =
-*dev, struct rockchip_combphy
-> >
-> >       priv->ext_refclk =3D device_property_present(dev, "rockchip,ext-r=
-efclk");
-> >
-> > +     priv->sgmii_mac_sel =3D 1;
-> > +     device_property_read_u32(dev, "rockchip,sgmii-mac-sel", &priv->sg=
-mii_mac_sel);
-> > +
->
-> [Severity: Low]
-> Since device_property_read_u32() leaves the output untouched on failure,
-> rockchip_combphy_parse_dt() ends up with priv->sgmii_mac_sel =3D=3D 1 bot=
-h when
-> the property says 1 and when the property is absent.  Is there a way for =
-the
-> driver to express "leave the bit as firmware left it"?
->
-> Before this patch the kernel never touched PIPE_GRF_XPCS_CON0 bit 1, so a
-> board whose bootloader routed SGMII to GMAC0 kept that routing.  With thi=
-s
-> change, a DT that instantiates the combphy as PHY_TYPE_SGMII but does not
-> carry the new property has the bit re-programmed to GMAC1 on every
-> phy_init().  Can that break such a board's SGMII link?
->
-> >       priv->phy_rst =3D devm_reset_control_get_exclusive(dev, "phy");
-> >       /* fallback to old behaviour */
-> >       if (PTR_ERR(priv->phy_rst) =3D=3D -ENOENT)
-> > @@ -873,6 +878,8 @@ static int rk3568_combphy_cfg(struct rockchip_combp=
-hy_priv *priv)
-> >               break;
-> >
-> >       case PHY_TYPE_SGMII:
-> > +             rockchip_combphy_param_write(priv->pipe_grf, &cfg->pipe_s=
-gmii_mac_sel,
-> > +                                          priv->sgmii_mac_sel > 0);
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] phy: mediatek: endianness bug when reading split NVMEM cells in =
+mtk_pcie_sphy_get_one_cal_para()
+--
 
-The hardware reset value of PIPE_GRF_XPCS_CON0 bit 1 is 1 (GMAC1),
-so programming it to 1 when the property is absent produces the same
-result as leaving it alone =E2=80=94 the bit is already 1 after reset. The
-"remains at GMAC1" wording in the commit message reflects that.
+commit ab276d5dc9414b3b5618ea96c84dcc086bdf9036
+Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-SGMII has never been functional on RK3568 in mainline before this
-series, so there is no existing in-tree or out-of-tree board whose
-SGMII link could be broken by this. A board whose firmware happened to
-route the bit to GMAC0 still cannot use SGMII with a mainline kernel
-before this series, and will need the new property to describe that
-routing once it can.
+phy: mediatek: Add support for PCI-Express Gen4 S-PHY
 
-> [Severity: Low]
-> This write always happens, including in the "property omitted" case, and
-> rockchip_combphy_param_write() sets the write-enable mask along with the
-> value:
->
->         tmp =3D en ? reg->enable : reg->disable;
->         mask =3D GENMASK(reg->bitend, reg->bitstart);
->         val =3D (tmp << reg->bitstart) | (mask << BIT_WRITEABLE_SHIFT);
->
->         return regmap_write(base, reg->offset, val);
->
-> so with priv->sgmii_mac_sel defaulting to 1 the register gets
-> (0x1 << 1) | (GENMASK(1, 1) << 16), i.e. GMAC1 is forced.  Would it be
-> better to only issue this write when the property is actually present?
->
-> A second question: bit 1 of PIPE_GRF_XPCS_CON0 is a single SoC-wide mux,
-> while the property sits on a per-PHY node.  If two combphy instances that
-> share the same rockchip,pipe-grf syscon are both brought up as
-> PHY_TYPE_SGMII with different property values, the last phy_init() wins a=
-nd
-> nothing is reported.  Should conflicting values be rejected or at least
-> warned about?
->
-> >               rockchip_combphy_param_write(priv->pipe_grf, &cfg->pipe_x=
-pcs_phy_ready, true);
-> >               rockchip_combphy_param_write(priv->phy_grf, &cfg->pipe_ph=
-ymode_sel, true);
-> >               rockchip_combphy_param_write(priv->phy_grf, &cfg->pipe_se=
-l_qsgmii, true);
-> > @@ -984,6 +991,7 @@ static const struct rockchip_combphy_grfcfg rk3568_=
-combphy_grfcfgs =3D {
-> >       .con3_for_sata          =3D { 0x000c, 15, 0, 0x00, 0x4407 },
-> >       /* pipe-grf */
-> >       .pipe_con0_for_sata     =3D { 0x0000, 15, 0, 0x00, 0x2220 },
-> > +     .pipe_sgmii_mac_sel     =3D { 0x0040, 1, 1, 0x00, 0x01 },
-> >       .pipe_xpcs_phy_ready    =3D { 0x0040, 2, 2, 0x00, 0x01 },
->
-> For what it is worth, the only in-tree SGMII consumer at the end of this
-> series, rk3568-photonicat.dts, sets rockchip,sgmii-mac-sel =3D <0>
-> explicitly, so no upstream DT changes behaviour today; the concern is abo=
-ut
-> out-of-tree or ported device trees and about the commit message wording.
+This commit introduces the driver for the PCI-Express Gen4 S-PHY found in
+recent MediaTek SoCs such as MT6991 and MT8196. It implements the PHY
+initialization routines and handles reading eFuse calibration data from
+the NVMEM framework.
 
-There is no in-tree case where two combphy instances are both brought
-up as PHY_TYPE_SGMII with different values. This is a single SoC-wide
-mux and only one SGMII link exists on RK3568, so the situation cannot
-arise on real hardware. I'll leave it as is.
+> diff --git a/drivers/phy/mediatek/phy-mtk-pcie-sphy.c b/drivers/phy/media=
+tek/phy-mtk-pcie-sphy.c
+> new file mode 100644
+> index 0000000000000..2bf10346ea97a
+> --- /dev/null
+> +++ b/drivers/phy/mediatek/phy-mtk-pcie-sphy.c
+[ ... ]
+> +static int mtk_pcie_sphy_get_one_cal_para(struct device *dev, const char=
+ *name, u8 max_val)
+> +{
+> +	u16 buf;
+> +	u8 tmp;
+> +	int ret;
+> +
+> +	/*
+> +	 * All of the calibrations are always max 8 bits long, but some may
+> +	 * be split between two different 8-bits cells: handle this corner
+> +	 * case by retrying reading as u16.
+> +	 */
+> +	ret =3D nvmem_cell_read_u8(dev, name, &tmp);
+> +	if (ret =3D=3D 0)
+> +		buf =3D tmp;
+> +	else
+> +		ret =3D nvmem_cell_read_u16(dev, name, &buf);
+
+[Severity: Medium]
+When an 8-bit (or smaller) NVMEM cell crosses a byte boundary in hardware,
+the NVMEM core evaluates its length as 2 bytes, causing nvmem_cell_read_u8()
+to fail with -EINVAL.
+
+Does falling back to nvmem_cell_read_u16() cause an endianness issue here?
+
+Because the NVMEM core populates the buffer with a direct memory copy, the
+shifted valid data is placed in the first byte and zeroes in the second byt=
+e.
+On big-endian architectures, interpreting this buffer directly as a native
+u16 variable evaluates to buf[0] << 8, which effectively multiplies the
+calibration value by 256. This could lead to spurious -ERANGE failures or
+incorrect calibration values being written to the PHY.
+
+Would it be safer to use nvmem_cell_read_variable_le_u32() to handle these
+split cells robustly across different architectures?
+
+> +
+> +	if (ret =3D=3D -ENOENT) {
+> +		dev_info(dev, "No calibration for %s. Using defaults\n", name);
+> +		return -ENOENT;
+> +	} else if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "Cannot get calibration data for %s\n", name);
+> +
+> +	if (buf > max_val)
+> +		return dev_err_probe(dev, -ERANGE,
+> +				     "Bad value %u retrieved for %s.\n", buf, name);
+> +
+> +	return buf;
+> +}
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915101022.2385=
+2-1-angelogioacchino.delregno@collabora.com?part=3D2
