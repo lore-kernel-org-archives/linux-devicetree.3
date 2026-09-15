@@ -1,70 +1,86 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 566544A6CE0
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 12:28:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48F9C3B058F
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 12:34:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789475290; cv=none; b=LBV3iANq5sF7BaNBdB6HV5tNDRlHj7pMu611XVWUDYYmdWY1pdwHiBRRZKeG0Cy+Hz41W2EixA55/KP0NSi8iLMeA61gwzGF+qky35IsvHORI6c2LD8kB4xkrR1g1YX8N54c6qkIvYy92HOLwqGybOpMb2hGeWPTzVOV0LZC8TM=
+	t=1789475651; cv=none; b=Sk3nFu0RLACd5+AwnCaN5KNL4F3klJsHcgBPBJfr/Lf9q963aGC3tXkPtVQ5J1We049kHxetgTUhLLosznktFRXx6lYgEjE9nNau3OC3pFUpYPbkMy0k1Xh3pQzlacTnOs/HdoJvL1JngkZpSzLi9eh/91qXixkJA9/Bc8tLwyQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789475290; c=relaxed/simple;
-	bh=vlomE9OJQnIk/T7WypNFrIF6CUk6qxEOxtOkhtxxUag=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=eneDSO3e+xWR8eIG9cDPzliUARM9tlNlr0uPK533z9/ACQGOaBHrr45TGQeLcvdXogw5+nwDMmAONX4Hz2/Sz27u2Qsyfwm/51PW0vHBgQrr5ntKpowamAjozlg4vuU5rYND/rG8Tg45sCvbR33AFA3pH+KeRd8X8PuO/Yu6rNQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lEEjsgFn; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789475651; c=relaxed/simple;
+	bh=4SkTtHszFYstwmVIzBU0UuKl4Jxbiy3WBXXp0NOB4s4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=nlwoNY0NGw9zyGUYwUDAbUWbhguhNz2BYr9HtHqmmlvw/iOO6mMnJzYvNnL9bMGGMd43HJ/krgeIK49fTx1fXy/Nd8acpwkTkGON7E7ytual3I153g+hKHQAIJEmRRITKyw5GIzNJMm+WQkS7fF5PiGo91+F0HpbFgzq6Azf4po=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dPUVo7Z0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LCNcL/A4; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lEEjsgFn"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e620fa473so18105295e9.1
-        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 05:28:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dPUVo7Z0";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LCNcL/A4"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68FA4Wen3611175
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 12:34:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=5+Q9z1SHFz7rPhcIkD8tCS
+	0dzfm1a6dljgTqC1lcmRI=; b=dPUVo7Z0Txupa5cNN/wz1bJyMhoZ6roC/gIUdp
+	ZWrd0wgkTAzKZ/tL9vULkOSET1ZRwM+mbYVRd//85j8xkvzzkiwPIrbBOueQDJ+t
+	elnXjjPJJiR3K7YIILqg3iELUPca60nPhqaruDfuLX4k75DAyk36t27kdgXbgtrd
+	NFTOR44ZvG6emPl5KVs+7hg8GctJiirQAANWN1Ww7wOhsikC1/1MOAs9fOsOayPm
+	NJ3Y/LxCAP1HDPpnzi3VcW0bIMPnLWiwZ+FThdcjW+z6x/EJNOOofcIRkdm+w+E5
+	dszvhDeFmJ1OMfHQrDSJicAywVoVlDDeC1pHmckEI6zkTJcA==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gq3xtrpna-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 12:34:07 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-86a43fc3527so1329632b3a.1
+        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 05:34:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789475284; x=1790080084; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EETaPt3U6RKbdBRbu2Bk9Q3etPj4cAHdjlyPKaUnyAI=;
-        b=lEEjsgFnwo4xKtnmxZqphydRVSs6Gkl4heUbAtZDzDr/Ql4jvgovZy0+y5N3+UMdad
-         +T1hisiJly960Dy2AsjeZCyw3kQKviNC4bl55ZjvS7sgT3ePQfoKqQTdc900LoLpRN7/
-         9CcuLudBwjeZmgZXVm5og6wdEwy/NjZk7Rjd8CrIykUmlZWDYIoix4cSJTZywOSZbC8b
-         ZNpTQ5+RJMw2InEGyXXMJEe80mXhzQnvq7FWhUegurOZ+0xNd7MJmRlk+9tqHKCqmcwY
-         /xKSuQn0Ik+1ZbswZmjXXqAFSGg5v++Wo9bOvVcdNgv+25sbagGdKSJ3jxxPvxsghQoE
-         ExtQ==
+        d=oss.qualcomm.com; s=google; t=1789475647; x=1790080447; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=5+Q9z1SHFz7rPhcIkD8tCS0dzfm1a6dljgTqC1lcmRI=;
+        b=LCNcL/A4zaU4z+aT/4LFVYGSJuG1ULFLww9IAAxWsIBH/cCMnYK3XwckI/doD48e3N
+         d1XU4Me/YX58dTN2RfmHNsbV1Xha7fjar2NuvAYQDG+Kta6s96x1Ghv82o6HQzk7SaRg
+         iPj+6+Vq+7psqtRjz7iVvyS5nxIwCHe3DzpoSGYQ6RQZFtvamkC/Ae5AUrMLMKOBzsWq
+         aHPvuQ5GJEFe/PbpZy62KYzxJhivtXDnI5UuwRgN32LejeBwWO6TsgMQ/N1CjdrMStrg
+         pQccdRETa80jsxNf3W2qw8qSCNkfPIbjEvNYg/tJi3GdnEfZnDxlq02+fH9IgdWhdPC+
+         oYtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789475284; x=1790080084;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EETaPt3U6RKbdBRbu2Bk9Q3etPj4cAHdjlyPKaUnyAI=;
-        b=RckXW0Pj60z+l4zBjMP16WYmXNH7zbcBB15rO2rc+A1MuAxSHJy9zLJXPd5idEriH3
-         4rta+YdqnL44jFWmjRA25k9BrfxRLEW1SaWCJmuY2QWrcH9xQyceNt2x9IvZc22q3gMb
-         AhB1iQ0X6y/DKOP8XmSNp3S10x20nSWiJj2/rSE8i8w8vKpWLnp86OLdpacUGM028MZ9
-         HBEJC4x1hnLAtugGBw7vPJ6fgqE+HOdJvD968VkJVg7OW9iyrev5rDkYZx1I+SWR0Cp+
-         dU6ytrNB/AAlxEea/rczZj5yhu73Nbyd0IQ2G53qmA7GRW8bm3L4nzqETOtO+yLbBbgv
-         +sNw==
-X-Forwarded-Encrypted: i=1; AKwUvBwDraMn//DaL2tTzr8Y2vKPnDSx28KHce1Sn8UgQIXYzraxjCSHduaVQw1uYOgTWmuyDSDFvOD/4umi@vger.kernel.org
-X-Gm-Message-State: AFuF++mi7RSs0lZizXJCy+kGswtJBUrlcWsB939DQ4nrBhEmx3zZZ/fo
-	vpYQZl1I079bp4f98vDImoq6Lfw7jrTucsPbwsDkQE+/jO2KNn4yA1XU
-X-Gm-Gg: AYBFou02EoInZ26r/OE+nUeZVe4QlMW6RJunh35p3Tyg+zxaNn/qkhmCmWL05N35zJq
-	vjGdOXX5bHRGhu/knwmttz4zNDon9s00LFMQzDYSsgrJTUsx7NfNV+0eHOh4kc67VyRicHCE/Mm
-	DU+OknMQE1Rvj1+j1Zu2pCuQpBQRBD6mpRq37mE5RHZUNBDhVFEsI5eDzUvDC0c1QxQoFZcv7FQ
-	Z8NFaeKS599XJD/T+OThSakRDNZIf0Hbrz2nWrB7XDV74ryVxqojd/XRBwygfnam0QWClz/HRuQ
-	4hlbWl9cRhOintvSTB0mNTvwbnaYHxEI4XqLe4u8vA35ehtiPfcY/26j2cR4UiA6FDH1EeC6mTG
-	oTty9Kh3GGI3ZRs1bsFZky8ZGodMI6b9pqE97bx4gmJw+JU1Rk2AzpovahNkaIKUPQU+OwSCzbA
-	rXz7q4YkBeR0qEjWDVW8sEL+kEjRallbevk4+3qauxrJ56MNneWDIdeI5lrC9BZaHLh9YZkIvNd
-	0RyRairdG0POc+BffmppE/zToROme6lbZjqubmWQGBMLkO+4KwtFnWI722yzU1OXq0gobPGrA24
-	kw==
-X-Received: by 2002:a05:600c:a47:b0:49d:16f1:94a5 with SMTP id 5b1f17b1804b1-49e7a677980mr83684085e9.25.1789475284061;
-        Tue, 15 Sep 2026 05:28:04 -0700 (PDT)
-Received: from [127.0.1.1] (2a01cb0007c59900d73f8285c1e647ab.ipv6.abo.wanadoo.fr. [2a01:cb00:7c5:9900:d73f:8285:c1e6:47ab])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7d6bf4desm83105075e9.15.2026.09.15.05.28.02
+        d=1e100.net; s=20260707; t=1789475647; x=1790080447;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=5+Q9z1SHFz7rPhcIkD8tCS0dzfm1a6dljgTqC1lcmRI=;
+        b=VIe/2HT82r9h7KbbWcVdX98CA9Z4H7/vv/w2wCHdHCXJTlWc/cgEKoUMBZV2nhTcFt
+         gg3je/eNU92xuoBYY5yBg+5RU4iNermf8kC+xq596++PIXMX6SDUONM8LMJYp4cz8CQM
+         orO3ZUvhxBa7rw/oI2RDQsyBtcODrJTjnIIe+VdTuetDTI8UhSqcHTsSLNKf9yrcYQbo
+         aJIIkrn+rfVM3b9WkUSXGbzZO44eAi+St3nluW34Dqnu/nEn09hXcCKDMIjZZxjzCln0
+         EDq4lZeuDOOhVG3/mAx12Axn2f6j2gkTW49mja6SI4+puGpVLXTbjOzahrMNZupafwHv
+         M6Wg==
+X-Forwarded-Encrypted: i=1; AKwUvBy4eo63iI1wthaYvHzsjPynr2fIKGpeE3Z3yRo+MzdE2WdWGMYJpRmD2tLm0HKMAGPY8MVFti6V5JQ/@vger.kernel.org
+X-Gm-Message-State: AFuF++nvDBI9C/qdieI/xXk0UI4TXR0E8euIN+4SiM0/OxermeLPswEQ
+	DRiUnOGtxmmK/K1opDHTfgoOcRmFaKbezGCujo7EHgTJbA4ZhKWNKIFVSzKT7houJS0/nBQqzQ/
+	htAkEMpY9PzZSGZiZ1wW36TeGhI8i2u7UDnUlUJv7mk4/67dc9t9D59KiNYpX2nM0
+X-Gm-Gg: AYBFou1xWtWZXFu8m7WRMf0xHUKM1ilitcKat8GMS5dr8bb5xlOzrV9aSi9kwldwtQb
+	aNXM2VlkjI5GXjNwU/cKv0XXhvrn9X62bM4KD1I6WAEMZC5d2Yi0Srk+l++K91Xch3HSYZ69STp
+	KATjE3WMv25EcjC2yHthYuJS4FXFdrABk1iaErfvucNb6M7lKQzGXFBsaoONbFrqmWldkXTS5Zt
+	okjQeEAtgEVpZe471KaHCXjx5kbeHuFu+TjC1hVewWDLhL5owXxwHepO/NXBQLESBaaLrVB+Hw7
+	vInCKXbU6sALx3EKn3m2G43Jb7WZF3UXgbqVeDLAK4+OLrzPre5qxumzvYPMsqL3R51fLAMhp7z
+	iOz5VMqNDbvOCZxmaWOV09xLhtg==
+X-Received: by 2002:a05:6a00:138c:b0:869:31b1:4ce3 with SMTP id d2e1a72fcca58-87089e0a240mr4394781b3a.9.1789475646776;
+        Tue, 15 Sep 2026 05:34:06 -0700 (PDT)
+X-Received: by 2002:a05:6a00:138c:b0:869:31b1:4ce3 with SMTP id d2e1a72fcca58-87089e0a240mr4394726b3a.9.1789475646256;
+        Tue, 15 Sep 2026 05:34:06 -0700 (PDT)
+Received: from hu-mdsor-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b287c481asm6509975b3a.11.2026.09.15.05.33.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 05:28:03 -0700 (PDT)
-From: Amin Gattout <amin.gattout@gmail.com>
-Date: Tue, 15 Sep 2026 14:27:57 +0200
-Subject: [PATCH 2/3] media: rockchip: rkcif: add support for rk3576 vicap
- mipi capture
+        Tue, 15 Sep 2026 05:34:05 -0700 (PDT)
+From: mohit.dsor@oss.qualcomm.com
+Subject: [PATCH v15 0/2] Subject: Add Lontium LT9611C(EX/UXD) MIPI DSI to
+ HDMI driver
+Date: Tue, 15 Sep 2026 18:03:49 +0530
+Message-Id: <20260915-lt9611c-v7-v15-0-88f9e9387eab@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,383 +88,292 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-vicap-rk3576-v1-2-d3f5eb58a0b5@gmail.com>
-References: <20260915-vicap-rk3576-v1-0-d3f5eb58a0b5@gmail.com>
-In-Reply-To: <20260915-vicap-rk3576-v1-0-d3f5eb58a0b5@gmail.com>
-To: Mehdi Djait <mehdi.djait@linux.intel.com>, 
- Michael Riesch <michael.riesch@collabora.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Amin Gattout <amin.gattout@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789475280; l=13360;
- i=amin.gattout@gmail.com; s=20260818; h=from:subject:message-id;
- bh=vlomE9OJQnIk/T7WypNFrIF6CUk6qxEOxtOkhtxxUag=;
- b=S/OBz99BiiFCNvN3554t3gj79ME9sn4KLLn574TqWC7egGry9vAxiE1fl3jJdgeSb9F1q2Ckb
- IPDqS/uKpNQCZFJXedOlyvZH3CFVMj7yLDVLYsT1YPmGfX49xq/W4xj
-X-Developer-Key: i=amin.gattout@gmail.com; a=ed25519;
- pk=MSIqDPkCOkwtyP8Fns1m+KFU9SgqoDl2mpLe18vL+hQ=
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAC07qWoC/3XQ22rDMAwG4Fcpvl6KJfm4q73H2IWPa0bbbHEaN
+ krefU43aDIWMAIZ+fOPrqykvk2FPe6urE9jW9ruXBuQDzsWDu78mpo21guGHBXX3DTHwSqA0Iy
+ 6yVkrjxF8lpnVB+99yu3nTXt++enLxb+lMMzCPHFoy9D1X7fvRj3P/cKglnA9vNFSkgOhSebw1
+ JWy/7i4Y+hOp30tbPZHsxBwFW00VfDRISifXSa9Idi7YLhYCbYKJJCcVkaqSBsC8CWxDgG8Gil
+ Z7oBUNOi2DFgYuI4BMBteOG2Dl1Zv7QLwblhOawOrYQWIiJ58VHHLoKVh1wZVw6WAJIQhjXLLE
+ AsD/uQQ1ZAkvCDHtVL4jzFN0zf1015DlgIAAA==
+X-Change-ID: 20260708-lt9611c-v7-ff76b2d1bf5f
+To: Sunyun Yang <syyang@lontium.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Robert Foss <rfoss@kernel.org>,
+        Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+        Jonas Karlman <jonas@kwiboo.se>,
+        Jernej Skrabec <jernej.skrabec@gmail.com>,
+        Luca Ceresoli <luca.ceresoli@bootlin.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Mohit Dsor <mohit.dsor@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789475639; l=11899;
+ i=mohit.dsor@oss.qualcomm.com; s=20260808; h=from:subject:message-id;
+ bh=4SkTtHszFYstwmVIzBU0UuKl4Jxbiy3WBXXp0NOB4s4=;
+ b=af1FAIUJpA50YrOZRyaDgU7EQKHQERAhNRciAMmr4MGKbhm0asVlKCgsUG+89a0NVs8GXMG3J
+ Jap4IuuMKevAIVd7mQ+P3k/7f4Jv/0iqAgWZ00wlXJ+uXt13puyiGz1
+X-Developer-Key: i=mohit.dsor@oss.qualcomm.com; a=ed25519;
+ pk=outHVBN53JhozDw1xkj3G1qrqqE5scMBP7M4WL3aHQQ=
+X-Proofpoint-ORIG-GUID: jEEzDO3hDlIcIXMEBUlaFYLE2F9TBLYI
+X-Proofpoint-GUID: jEEzDO3hDlIcIXMEBUlaFYLE2F9TBLYI
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDE4MiBTYWx0ZWRfX2KspskCY8mjQ
+ BGGzpDKjTKgXwegIJr9TCTeTTyCy9r8a54rpArlRONI5jSTXHFASXzYwcCdeVi2qgJEj7OKlfSM
+ +wlV9oIMwjHpNT0a+cr6XVksnKnGd4M=
+X-Authority-Analysis: v=2.4 cv=As97T+9P c=1 sm=1 tr=0 ts=6aa93b3f cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Kz8-B0t5AAAA:8 a=QyXUC8HyAAAA:8
+ a=KKAkSRfTAAAA:8 a=P1BnusSwAAAA:8 a=pGLkceISAAAA:8 a=P-IC7800AAAA:8
+ a=e5mUnYsNAAAA:8 a=sRBEl6AxHTXEX1kRPDUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=OpyuDcXvxspvyRM73sMx:22 a=RuZk68QooNbwfxovefhk:22 a=cvBusfyB2V15izCimMoJ:22
+ a=D0XLA9XvdZm18NrgonBM:22 a=d3PnA9EDa4IxuAV0gXij:22 a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDE4MiBTYWx0ZWRfX6+4eOP3oHm+B
+ iKoZL4pnmdh6ZUV5+zSQVhRAEZYa5J3+eONuNLW3F8jgRLRwNVJG/M2oqNz27ZLprgk/KqX6EPj
+ Utj/2AWE9y0nn4BfImFYg4Hn2KXEYTGZAsqBBLFEMvmmNFeqc8JjpyqcTHeg01NVJrStyLv7TYJ
+ tB0KCqSssPKskaSEdJ3RijSNmKBM7kEH2OB7jb8mJxaXKD56hZ65cJJLzrGpBnU1RGCoMbDR01d
+ yoqdO+/w2Gw5lS3MPF1R1PBYLn1icyJufynfzoYu9Gjs96IqQTnH34In+FTcpWfHZHJBv3s9sNR
+ wfXNLtqLg64LqnwU6FureNo4inhaFGOmsSYXSBGTSPahjIxi0Hp25tJRgnlbnGIgyh2fw8QIjVP
+ r5226YiqChA8GvX3E/W4xDKlgigoy5sXLtgLYT9HAwPyVbH4Om2Q9ko6yNNxOYv0A9tNUB3L1WW
+ xhSRM/Gp4sa4MDLvhiw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_03,2026-09-14_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 malwarescore=0 bulkscore=0 clxscore=1015 impostorscore=0
+ priorityscore=1501 phishscore=0 lowpriorityscore=0 spamscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150182
 
-The RK3576 Video Capture (VICAP) unit features a Digital Video Port
-(DVP) and five MIPI CSI-2 capture interfaces. Compared to the RK3588
-variant, the MIPI register blocks are laid out differently (there is
-no block at offset 0x200), the ID_CTRL0 bit layout has changed, and
-the VC/DT filter has moved from ID_CTRL0 to ID_CTRL1. The capture
-size, which the other variants configure in ID_CTRL1, lives in the
-new ID_SET_SIZE register.
+This series introduces:
+  - A device tree binding YAML file describing the hardware
+  - A new DRM bridge driver implementing the basic functionality
 
-Introduce a mipi_ctrl1 callback and a SET_SIZE register index so that
-each variant can declare what ID_CTRL1 holds and where the capture
-size is configured. The RK3568 and RK3588 variants keep their
-previous behavior.
+  LT9611C(EX/UXD) is an I2C-controlled chip that Receiver signal/dual port
+  mipi dsi and output hdmi, differences in hardware features:
+  - LT9611C: supports 1-port mipi dsi to hdmi 1.4
+  - LT9611EX: supports 2-port mipi dsi to hdmi 1.4
+  - LT9611UXD: supports 2-port mipi dsi to hdmi 1.4/2.0
 
-On the RK3576 the pixel clock of each MIPI port enters the VICAP
-through a dedicated CRU gate (CLK_VICAP_I0CLK to CLK_VICAP_I4CLK),
-so the variant claims these five clocks in addition to aclk, hclk
-and dclk.
+Changes in v15:
+- Fix firmware flash corruption: poll for flash WIP (write-in-progress)
+  bit to clear after each lt9611c_sram_to_flash() call in both
+  lt9611c_write_data() and lt9611c_write_crc(), preventing SRAM from
+  being overwritten while the SPI flash controller is still programming
+- Fix missing infoframe flush during modeset: call
+  drm_atomic_helper_connector_hdmi_update_infoframes() at the end of
+  lt9611c_bridge_atomic_enable() to ensure AVI and other infoframes are
+  transmitted after video setup
+- Fix data race on fw_version: annotate concurrent read in
+  firmware_show() with READ_ONCE and write in firmware_store() with
+  WRITE_ONCE
+- Link to v14: https://lore.kernel.org/dri-devel/20260913-lt9611c-v7-v14-0-534b43a07662@oss.qualcomm.com/
 
-Signed-off-by: Amin Gattout <amin.gattout@gmail.com>
+Changes in v14:
+- Fix device node leak: redirect GPIO and regulator init failure paths
+  to err_put_nodes label instead of returning directly, ensuring
+  dsi0_node and dsi1_node are always released via of_node_put()
+- Link to v13: https://lore.kernel.org/dri-devel/20260909-lt9611c-v7-v13-0-aec234483725@oss.qualcomm.com/
+
+Changes in v13:
+- Fix double-free of dsi0_node/dsi1_node: remove __free(device_node) which
+  is prohibited when mixed with goto; use explicit of_node_put in all exit
+  paths
+- Fix const and named initializers for i2c_device_id table
+- Link to v12: https://lore.kernel.org/lkml/20260903-lt9611c-v7-v12-0-9414d2b3bd6d@oss.qualcomm.com/
+
+Changes in v12:
+- Fix audio deadlock in lt9611c_hdmi_audio_prepare: release mcu_lock before
+  calling drm_atomic_helper_connector_hdmi_update_audio_infoframe which
+  re-enters the driver via lt9611c_hdmi_write_audio_infoframe
+- Move lock acquisition from lt9611c_write_infoframe/lt9611c_clear_infoframe
+  helpers to individual bridge callbacks; add lockdep_assert_held in helpers
+- Remove unused includes: platform_device.h, drm_drv.h, drm_print.h, drm_of.h,
+  unaligned.h
+- Remove DRM_PANEL_BRIDGE from Kconfig (unused)
+- Fix copyright: (c) -> (C) for Qualcomm line
+- Remove dsi0_node, dsi1_node, dsi0, dsi1 from struct lt9611c; make them
+  local to probe using __free(device_node) and local dsi pointer
+- Replace chip_type/max_tmds_rate fields with single cdata pointer in struct
+- Fix sysfs NULL dereference race: move i2c_set_clientdata to top of probe
+- Fix concurrent crc8_populate_msb: move to module_init
+- Fix i2c_device_id: remove vendor prefix (was a workaround for NULL driver_data)
+- Replace timing_data byte array with named struct using __be16 fields
+- Rename page to npages in lt9611c_write_data
+- Move loop-local variables inside loop in lt9611c_write_data
+- Add DRM_BRIDGE_ATTACH_NO_CONNECTOR check in bridge_attach
+- Use sizeof(timing_data) instead of ARRAY_SIZE
+- Move regulator_bulk_enable inside lt9611c_regulator_init
+- Various nits: comment spacing, blank lines, variable initialization
+- Link to v11: https://lore.kernel.org/dri-devel/20260824-lt9611c-v7-v11-0-eb4a79cb597c@oss.qualcomm.com/
+
+Changes in v11:
+- Fix firmware path: use "Lontium/lt9611c_fw.bin" to match linux-firmware layout
+- Link to v10: https://lore.kernel.org/dri-devel/20260808-lt9611c-v7-v10-0-ee90a136d82a@oss.qualcomm.com/
+
+Changes in v10:
+- Fix lt9611c_block_erase: check return value of read_poll_timeout to avoid writing to un-erased flash
+- Fix NULL dereference: check i2c_get_match_data() return value before dereferencing
+- Fix irq handler: return IRQ_NONE when BIT(0) is not set
+- Fix devm_drm_bridge_add: check and propagate error return
+- Fix use-after-free in remove: call disable_irq() before cancel_work_sync()
+- Fix bridge/regulator ordering in remove: use drm_bridge_add/drm_bridge_remove explicitly so bridge is unregistered before regulators are disabled
+- Promote firmware upgrade success log from dev_dbg to dev_info
+- Link to v9: https://lore.kernel.org/lkml/20260804-lt9611c-v7-v9-0-3423a76856d3@oss.qualcomm.com/
+
+Changes in v9:
+- Use regmap_bulk_write for 4-byte header write in read_write_flow
+- Replace while(1) loop with read_poll_timeout in lt9611c_block_erase; read_flash_reg_status now returns unsigned int
+- Fix unchecked regmap_read in lt9611c_upgrade_result; return -EIO on CRC mismatch
+- Add struct lt9611c_chip_data with chip_type and max_tmds_rate; fix i2c_device_id table driver_data to use chip data pointers
+- Use put_unaligned_be16() to replace manual high/low byte splits in lt9611c_video_setup
+- Extract lt9611c_write_infoframe() and lt9611c_clear_infoframe() helpers; consolidate 6 infoframe functions into 2 helpers
+- Remove lt9611c_hdmi_audio_startup and its bridge_funcs entry
+- Remove hpd_enable callback from bridge_funcs
+- Fix scoped_guard(mutex) deadlock in audio_prepare: release lock before calling drm_atomic_helper_connector_hdmi_update_audio_infoframe()
+- Fix probe order: lt9611c_reset() before enable_irq()
+- Fix remove(): remove disable_irq() (IRQ is devm_request_threaded_irq-managed)
+- Fix bridge_suspend() unwind: on regulator_bulk_disable failure, de-assert reset and re-enable IRQ
+- Move devm_drm_bridge_add to after both DSI attaches; remove cancel_work_sync from err_remove_bridge label
+- Move request_firmware outside mcu_lock in lt9611c_firmware_upgrade; lock only wraps hardware access
+- Re-read lt9611c->fw_version after successful firmware_store upgrade
+- Rename ocm_lock to mcu_lock throughout
+- Use goto err_put_dsi1 to eliminate duplicate DSI cleanup in probe error path
+- Fix mcu_lock comment to correctly describe what it protects
+- dt-binding: add if:then: block to disallow port@1 when compatible is lontium,lt9611c
+- Rename sysfs ABI doc to sysfs-driver-lontium; rename sysfs attribute from lt9611c_firmware to firmware
+- Kconfig: add I2C to depends on to satisfy REGMAP_I2C dependency
+- Link to v8: https://lore.kernel.org/lkml/20260728-lt9611c-v7-v8-0-bda216bfaf37@oss.qualcomm.com/
+
+  Changes in v8:
+  - Refactor lt9611c_read_write_flow() to take a struct lt9611c_cmd parameter with an embedded struct lt9611c_cmd_hdr (func,
+  type, seq, sep) and optional data payload, eliminating raw byte arrays at call sites
+  - Add LT9611C_CMD_HDR_SIZE, LT9611C_EDID_BUF_SIZE constants to replace magic numbers
+  - Use container_of_const() in bridge_to_lt9611c_const()
+  - Remove obvious /*read only*/ comment
+  - Use unsigned long cast instead of uintptr_t for chip type initialization
+  - Replace memset + memcpy with memcpy + memset for CRC buffer preparation
+  - Add ABI documentation for lt9611c_firmware sysfs attribute
+  - Fix Kconfig help text to proper prose within line limits
+  - Add disable_irq() before cancel_work_sync() in lt9611c_remove()
+  - Add cancel_work_sync() in lt9611c_bridge_suspend()
+  - Inline lt9611c_gpio_init() into probe
+  - Use of_drm_get_bridge_by_endpoint() instead of drm_of_find_panel_or_bridge() + drm_bridge_get()
+  - Return error if LT9611C (single DSI only) is configured with dual DSI in device tree
+  - Move HPD status read_write_flow call from IRQ handler to lt9611c_hpd_work workqueue
+  - Removed second lt9611_reset call from probe as not needed
+  - Add struct lt9611c_rsp symmetric to struct lt9611c_cmd — both embed struct lt9611c_cmd_hdr
+  - Link to v7: https://lore.kernel.org/lkml/20260716-lt9611c-v7-v7-0-7553a14735fc@oss.qualcomm.com/
+
+  Changes in v7:
+  - Use i2c_get_match_data() for chip type initialization
+  - Implement hdmi_write_hdmi_infoframe/hdmi_clear_hdmi_infoframe
+  - Use drm_atomic_commit in bridge callbacks
+  - Removing redundant lt9611c_reset() call and cleanup in probe error
+    path
+  - Populate bridge.vendor and bridge.product
+  - implement hpd_enable callback
+  - fix DT parsing and bridge refcount
+  - Removed pre_enable and post_disable callbacks, it was affecting hpd
+    as regulator was disabled
+  - Changed reset gpio enablement and lt9611c_reset api.
+  - Link to v6: https://lore.kernel.org/all/20260508134009.4582-1-syyang@lontium.com/
+
+  Changes in v6:
+  - dt-binding:
+   1. sorted the compatible list alphabetically.                     [Dmitry]
+  - Link to v5: https://lore.kernel.org/lkml/20260507024214.97708-1-syyang@lontium.com/
+
+  Changes in v5:
+  - drm/bridge:
+   1. use #define FW_FILE "Lontium/lt9611c_fw.bin" to match linux-firmware    [Dmitry]
+   2. add atomic state management
+  - Link to v4: https://lore.kernel.org/lkml/20260506095100.78998-1-syyang@lontium.com/
+
+  Changes in v4:
+  - dt-binding:
+   1. fix commit message                                                    [Krzysztof]
+  - drm/bridge:
+   1. use lt9611c_fw.bin                                                     [Dmitry]
+   3. use enum lt9611_chip_type
+   4. remove *fw from the lt9611c struct
+   5. use read_poll_timeout and -ETIMEDOUT
+   6. replace mutex_lock with guard(mutex) in some places
+   7. switch to ARRAY_SIZE instead of specifying lengths directly
+   8. use dev_err_probe
+   9. add clear functions for AVI and audio infoframes
+   10. add DRM_BRIDGE_OP_HDMI and remove .hpd_notify
+   11. replace "GPL v2" with "GPL"
+  - Link to v3: https://lore.kernel.org/lkml/20260420061644.1251070-1-syyang@lontium.com/
+
+  Changes in v3:
+  - dt-binding:
+   1. lt9611c(ex/uxd) content merged into lontium,lt9611.yaml
+  - drm/bridge:
+   1. Drop the licence text, only use SPDX header
+   2. Sort the headers
+   3. Use library functions for crc8
+   4. Use paged writes as implemented for LT9611C(EX/UXD)
+   5. Use HDMI audio helpers
+   6. Replace devm_kzalloc with devm_drm_bridge_alloc
+   7. Remove extra kthread
+  - Link to v1: https://lore.kernel.org/lkml/20250903123825.1721443-1-syyang@lontium.com/
+
+  Changes in v2:
+   1. Forget modify code, operation error, Please disregard this submit.
+
+  Changes in v1:
+  - dt-binding:
+   1. Submit the first version of the code.
+  - drm/bridge:
+   1. Submit the first version of the code.
+
+Signed-off-by: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
 ---
- .../platform/rockchip/rkcif/rkcif-capture-mipi.c   | 155 ++++++++++++++++++++-
- .../platform/rockchip/rkcif/rkcif-capture-mipi.h   |   1 +
- .../media/platform/rockchip/rkcif/rkcif-common.h   |   4 +-
- drivers/media/platform/rockchip/rkcif/rkcif-dev.c  |  21 +++
- drivers/media/platform/rockchip/rkcif/rkcif-regs.h |   1 +
- 5 files changed, 180 insertions(+), 2 deletions(-)
+To: Andrzej Hajda <andrzej.hajda@intel.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+To: Robert Foss <rfoss@kernel.org>
+To: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+To: Jonas Karlman <jonas@kwiboo.se>
+To: Jernej Skrabec <jernej.skrabec@gmail.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Vinod Koul <vkoul@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
 
-diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c b/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c
-index bc9518f8db50..53e62d059764 100644
---- a/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c
-+++ b/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c
-@@ -30,6 +30,14 @@
- #define RK3568_MIPI_CTRL0_CROP_EN     BIT(5)
- #define RK3568_MIPI_CTRL0_WRDDR(type) ((type) << 1)
- 
-+#define RK3576_MIPI_CTRL0_HIGH_ALIGN  BIT(11)
-+#define RK3576_MIPI_CTRL0_WRDDR(type) ((type) << 8)
-+#define RK3576_MIPI_CTRL0_PARSE(type) ((type) << 4)
-+#define RK3576_MIPI_CTRL0_DMA_EN      BIT(3)
-+#define RK3576_MIPI_CTRL0_CROP_EN     BIT(1)
-+
-+#define RK3576_MIPI_CTRL1_DT(dt)      ((dt) << 2)
-+
- #define RK3588_MIPI_CTRL0_DMA_EN      BIT(28)
- #define RK3588_MIPI_CTRL0_HIGH_ALIGN  BIT(27)
- #define RK3588_MIPI_CTRL0_WRDDR(type) ((type) << 5)
-@@ -438,6 +446,7 @@ const struct rkcif_mipi_match_data rkcif_rk3568_vicap_mipi_match_data = {
- 			[RKCIF_MIPI_FRAME1_VLW_Y] = 0x38,
- 			[RKCIF_MIPI_FRAME1_VLW_UV] = 0x40,
- 			[RKCIF_MIPI_CROP_START] = 0xbc,
-+			[RKCIF_MIPI_SET_SIZE] = RKCIF_REGISTER_NOTSUPPORTED,
- 		},
- 		[RKCIF_ID1] = {
- 			[RKCIF_MIPI_CTRL0] = 0x08,
-@@ -451,6 +460,7 @@ const struct rkcif_mipi_match_data rkcif_rk3568_vicap_mipi_match_data = {
- 			[RKCIF_MIPI_FRAME1_VLW_Y] = 0x58,
- 			[RKCIF_MIPI_FRAME1_VLW_UV] = 0x60,
- 			[RKCIF_MIPI_CROP_START] = 0xc0,
-+			[RKCIF_MIPI_SET_SIZE] = RKCIF_REGISTER_NOTSUPPORTED,
- 		},
- 		[RKCIF_ID2] = {
- 			[RKCIF_MIPI_CTRL0] = 0x10,
-@@ -464,6 +474,7 @@ const struct rkcif_mipi_match_data rkcif_rk3568_vicap_mipi_match_data = {
- 			[RKCIF_MIPI_FRAME1_VLW_Y] = 0x78,
- 			[RKCIF_MIPI_FRAME1_VLW_UV] = 0x80,
- 			[RKCIF_MIPI_CROP_START] = 0xc4,
-+			[RKCIF_MIPI_SET_SIZE] = RKCIF_REGISTER_NOTSUPPORTED,
- 		},
- 		[RKCIF_ID3] = {
- 			[RKCIF_MIPI_CTRL0] = 0x18,
-@@ -477,6 +488,7 @@ const struct rkcif_mipi_match_data rkcif_rk3568_vicap_mipi_match_data = {
- 			[RKCIF_MIPI_FRAME1_VLW_Y] = 0x98,
- 			[RKCIF_MIPI_FRAME1_VLW_UV] = 0xa0,
- 			[RKCIF_MIPI_CROP_START] = 0xc8,
-+			[RKCIF_MIPI_SET_SIZE] = RKCIF_REGISTER_NOTSUPPORTED,
- 		},
- 	},
- 	.blocks = {
-@@ -486,6 +498,138 @@ const struct rkcif_mipi_match_data rkcif_rk3568_vicap_mipi_match_data = {
- 	},
- };
- 
-+static u32
-+rkcif_rk3576_mipi_ctrl0(struct rkcif_stream *stream,
-+			const struct rkcif_output_fmt *active_out_fmt)
-+{
-+	u32 ctrl0 = RKCIF_MIPI_CTRL0_CAP_EN | RK3576_MIPI_CTRL0_DMA_EN |
-+		    RK3576_MIPI_CTRL0_CROP_EN;
-+
-+	switch (active_out_fmt->mipi.type) {
-+	case RKCIF_MIPI_TYPE_RAW8:
-+		break;
-+	case RKCIF_MIPI_TYPE_RAW10:
-+		ctrl0 |= RK3576_MIPI_CTRL0_PARSE(0x1);
-+		if (!active_out_fmt->mipi.compact)
-+			ctrl0 |= RK3576_MIPI_CTRL0_WRDDR(0x1);
-+		break;
-+	case RKCIF_MIPI_TYPE_RAW12:
-+		ctrl0 |= RK3576_MIPI_CTRL0_PARSE(0x2);
-+		if (!active_out_fmt->mipi.compact)
-+			ctrl0 |= RK3576_MIPI_CTRL0_WRDDR(0x1);
-+		break;
-+	case RKCIF_MIPI_TYPE_RGB888:
-+		ctrl0 |= RK3576_MIPI_CTRL0_PARSE(0x7);
-+		break;
-+	case RKCIF_MIPI_TYPE_YUV422SP:
-+		ctrl0 |= RK3576_MIPI_CTRL0_WRDDR(0x4);
-+		break;
-+	case RKCIF_MIPI_TYPE_YUV420SP:
-+		ctrl0 |= RK3576_MIPI_CTRL0_WRDDR(0x5);
-+		break;
-+	case RKCIF_MIPI_TYPE_YUV400:
-+		ctrl0 |= RK3576_MIPI_CTRL0_WRDDR(0x3);
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	return ctrl0;
-+}
-+
-+static u32
-+rkcif_rk3576_mipi_ctrl1(struct rkcif_stream *stream,
-+			const struct rkcif_output_fmt *active_out_fmt)
-+{
-+	return RK3576_MIPI_CTRL1_DT(active_out_fmt->mipi.dt);
-+}
-+
-+const struct rkcif_mipi_match_data rkcif_rk3576_vicap_mipi_match_data = {
-+	.mipi_num = 5,
-+	.mipi_ctrl0 = rkcif_rk3576_mipi_ctrl0,
-+	.mipi_ctrl1 = rkcif_rk3576_mipi_ctrl1,
-+	.regs = {
-+		[RKCIF_MIPI_CTRL] = 0x20,
-+		[RKCIF_MIPI_INTEN] = 0x74,
-+		[RKCIF_MIPI_INTSTAT] = 0x78,
-+	},
-+	.regs_id = {
-+		[RKCIF_ID0] = {
-+			[RKCIF_MIPI_CTRL0] = 0x00,
-+			[RKCIF_MIPI_CTRL1] = 0x04,
-+			[RKCIF_MIPI_FRAME0_ADDR_Y] = 0x24,
-+			[RKCIF_MIPI_FRAME0_ADDR_UV] = 0x2c,
-+			[RKCIF_MIPI_FRAME0_VLW_Y] = 0x34,
-+			[RKCIF_MIPI_FRAME0_VLW_UV] = RKCIF_REGISTER_NOTSUPPORTED,
-+			[RKCIF_MIPI_FRAME1_ADDR_Y] = 0x28,
-+			[RKCIF_MIPI_FRAME1_ADDR_UV] = 0x30,
-+			[RKCIF_MIPI_FRAME1_VLW_Y] = RKCIF_REGISTER_NOTSUPPORTED,
-+			[RKCIF_MIPI_FRAME1_VLW_UV] = RKCIF_REGISTER_NOTSUPPORTED,
-+			[RKCIF_MIPI_CROP_START] = 0x90,
-+			[RKCIF_MIPI_SET_SIZE] = 0xa0,
-+		},
-+		[RKCIF_ID1] = {
-+			[RKCIF_MIPI_CTRL0] = 0x08,
-+			[RKCIF_MIPI_CTRL1] = 0x0c,
-+			[RKCIF_MIPI_FRAME0_ADDR_Y] = 0x38,
-+			[RKCIF_MIPI_FRAME0_ADDR_UV] = 0x40,
-+			[RKCIF_MIPI_FRAME0_VLW_Y] = 0x48,
-+			[RKCIF_MIPI_FRAME0_VLW_UV] = RKCIF_REGISTER_NOTSUPPORTED,
-+			[RKCIF_MIPI_FRAME1_ADDR_Y] = 0x3c,
-+			[RKCIF_MIPI_FRAME1_ADDR_UV] = 0x44,
-+			[RKCIF_MIPI_FRAME1_VLW_Y] = RKCIF_REGISTER_NOTSUPPORTED,
-+			[RKCIF_MIPI_FRAME1_VLW_UV] = RKCIF_REGISTER_NOTSUPPORTED,
-+			[RKCIF_MIPI_CROP_START] = 0x94,
-+			[RKCIF_MIPI_SET_SIZE] = 0xa4,
-+		},
-+		[RKCIF_ID2] = {
-+			[RKCIF_MIPI_CTRL0] = 0x10,
-+			[RKCIF_MIPI_CTRL1] = 0x14,
-+			[RKCIF_MIPI_FRAME0_ADDR_Y] = 0x4c,
-+			[RKCIF_MIPI_FRAME0_ADDR_UV] = 0x54,
-+			[RKCIF_MIPI_FRAME0_VLW_Y] = 0x5c,
-+			[RKCIF_MIPI_FRAME0_VLW_UV] = RKCIF_REGISTER_NOTSUPPORTED,
-+			[RKCIF_MIPI_FRAME1_ADDR_Y] = 0x50,
-+			[RKCIF_MIPI_FRAME1_ADDR_UV] = 0x58,
-+			[RKCIF_MIPI_FRAME1_VLW_Y] = RKCIF_REGISTER_NOTSUPPORTED,
-+			[RKCIF_MIPI_FRAME1_VLW_UV] = RKCIF_REGISTER_NOTSUPPORTED,
-+			[RKCIF_MIPI_CROP_START] = 0x98,
-+			[RKCIF_MIPI_SET_SIZE] = 0xa8,
-+		},
-+		[RKCIF_ID3] = {
-+			[RKCIF_MIPI_CTRL0] = 0x18,
-+			[RKCIF_MIPI_CTRL1] = 0x1c,
-+			[RKCIF_MIPI_FRAME0_ADDR_Y] = 0x60,
-+			[RKCIF_MIPI_FRAME0_ADDR_UV] = 0x68,
-+			[RKCIF_MIPI_FRAME0_VLW_Y] = 0x70,
-+			[RKCIF_MIPI_FRAME0_VLW_UV] = RKCIF_REGISTER_NOTSUPPORTED,
-+			[RKCIF_MIPI_FRAME1_ADDR_Y] = 0x64,
-+			[RKCIF_MIPI_FRAME1_ADDR_UV] = 0x6c,
-+			[RKCIF_MIPI_FRAME1_VLW_Y] = RKCIF_REGISTER_NOTSUPPORTED,
-+			[RKCIF_MIPI_FRAME1_VLW_UV] = RKCIF_REGISTER_NOTSUPPORTED,
-+			[RKCIF_MIPI_CROP_START] = 0x9c,
-+			[RKCIF_MIPI_SET_SIZE] = 0xac,
-+		},
-+	},
-+	.blocks = {
-+		{
-+			.offset = 0x100,
-+		},
-+		{
-+			.offset = 0x300,
-+		},
-+		{
-+			.offset = 0x400,
-+		},
-+		{
-+			.offset = 0x500,
-+		},
-+		{
-+			.offset = 0x600,
-+		},
-+	},
-+};
-+
- static u32
- rkcif_rk3588_mipi_ctrl0(struct rkcif_stream *stream,
- 			const struct rkcif_output_fmt *active_out_fmt)
-@@ -549,6 +693,7 @@ const struct rkcif_mipi_match_data rkcif_rk3588_vicap_mipi_match_data = {
- 			[RKCIF_MIPI_FRAME1_VLW_Y] = RKCIF_REGISTER_NOTSUPPORTED,
- 			[RKCIF_MIPI_FRAME1_VLW_UV] = RKCIF_REGISTER_NOTSUPPORTED,
- 			[RKCIF_MIPI_CROP_START] = 0x8c,
-+			[RKCIF_MIPI_SET_SIZE] = RKCIF_REGISTER_NOTSUPPORTED,
- 		},
- 		[RKCIF_ID1] = {
- 			[RKCIF_MIPI_CTRL0] = 0x08,
-@@ -562,6 +707,7 @@ const struct rkcif_mipi_match_data rkcif_rk3588_vicap_mipi_match_data = {
- 			[RKCIF_MIPI_FRAME1_VLW_Y] = RKCIF_REGISTER_NOTSUPPORTED,
- 			[RKCIF_MIPI_FRAME1_VLW_UV] = RKCIF_REGISTER_NOTSUPPORTED,
- 			[RKCIF_MIPI_CROP_START] = 0x90,
-+			[RKCIF_MIPI_SET_SIZE] = RKCIF_REGISTER_NOTSUPPORTED,
- 		},
- 		[RKCIF_ID2] = {
- 			[RKCIF_MIPI_CTRL0] = 0x10,
-@@ -575,6 +721,7 @@ const struct rkcif_mipi_match_data rkcif_rk3588_vicap_mipi_match_data = {
- 			[RKCIF_MIPI_FRAME1_VLW_Y] = RKCIF_REGISTER_NOTSUPPORTED,
- 			[RKCIF_MIPI_FRAME1_VLW_UV] = RKCIF_REGISTER_NOTSUPPORTED,
- 			[RKCIF_MIPI_CROP_START] = 0x94,
-+			[RKCIF_MIPI_SET_SIZE] = RKCIF_REGISTER_NOTSUPPORTED,
- 		},
- 		[RKCIF_ID3] = {
- 			[RKCIF_MIPI_CTRL0] = 0x18,
-@@ -588,6 +735,7 @@ const struct rkcif_mipi_match_data rkcif_rk3588_vicap_mipi_match_data = {
- 			[RKCIF_MIPI_FRAME1_VLW_Y] = RKCIF_REGISTER_NOTSUPPORTED,
- 			[RKCIF_MIPI_FRAME1_VLW_UV] = RKCIF_REGISTER_NOTSUPPORTED,
- 			[RKCIF_MIPI_CROP_START] = 0x98,
-+			[RKCIF_MIPI_SET_SIZE] = RKCIF_REGISTER_NOTSUPPORTED,
- 		},
- 	},
- 	.blocks = {
-@@ -741,7 +889,10 @@ static int rkcif_mipi_start_streaming(struct rkcif_stream *stream)
- 	if (match_data->mipi_ctrl0)
- 		ctrl0 = match_data->mipi_ctrl0(stream, active_out_fmt);
- 
--	ctrl1 = RKCIF_XY_COORD(width, height);
-+	if (match_data->mipi_ctrl1)
-+		ctrl1 = match_data->mipi_ctrl1(stream, active_out_fmt);
-+	else
-+		ctrl1 = RKCIF_XY_COORD(width, height);
- 
- 	int_mask |= RKCIF_MIPI_INT_FRAME0_END(stream->id);
- 	int_mask |= RKCIF_MIPI_INT_FRAME1_END(stream->id);
-@@ -759,6 +910,8 @@ static int rkcif_mipi_start_streaming(struct rkcif_stream *stream)
- 	rkcif_mipi_stream_write(stream, RKCIF_MIPI_FRAME0_VLW_UV, vlw);
- 	rkcif_mipi_stream_write(stream, RKCIF_MIPI_FRAME1_VLW_UV, vlw);
- 	rkcif_mipi_stream_write(stream, RKCIF_MIPI_CROP_START, 0x0);
-+	rkcif_mipi_stream_write(stream, RKCIF_MIPI_SET_SIZE,
-+				RKCIF_XY_COORD(width, height));
- 	rkcif_mipi_stream_write(stream, RKCIF_MIPI_CTRL1, ctrl1);
- 	rkcif_mipi_stream_write(stream, RKCIF_MIPI_CTRL0, ctrl0);
- 
-diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.h b/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.h
-index 7edaca44f653..4e17cbc04b76 100644
---- a/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.h
-+++ b/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.h
-@@ -13,6 +13,7 @@
- #include "rkcif-common.h"
- 
- extern const struct rkcif_mipi_match_data rkcif_rk3568_vicap_mipi_match_data;
-+extern const struct rkcif_mipi_match_data rkcif_rk3576_vicap_mipi_match_data;
- extern const struct rkcif_mipi_match_data rkcif_rk3588_vicap_mipi_match_data;
- 
- int rkcif_mipi_register(struct rkcif_device *rkcif);
-diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-common.h b/drivers/media/platform/rockchip/rkcif/rkcif-common.h
-index 4d9211ba9bda..08a213438d34 100644
---- a/drivers/media/platform/rockchip/rkcif/rkcif-common.h
-+++ b/drivers/media/platform/rockchip/rkcif/rkcif-common.h
-@@ -27,7 +27,7 @@
- #include "rkcif-regs.h"
- 
- #define RKCIF_DRIVER_NAME "rockchip-cif"
--#define RKCIF_CLK_MAX	  5
-+#define RKCIF_CLK_MAX	  8
- 
- enum rkcif_format_type {
- 	RKCIF_FMT_TYPE_INVALID,
-@@ -207,6 +207,8 @@ struct rkcif_mipi_match_data {
- 	unsigned int regs_id[RKCIF_ID_MAX][RKCIF_MIPI_ID_REGISTER_MAX];
- 	u32 (*mipi_ctrl0)(struct rkcif_stream *stream,
- 			  const struct rkcif_output_fmt *active_out_fmt);
-+	u32 (*mipi_ctrl1)(struct rkcif_stream *stream,
-+			  const struct rkcif_output_fmt *active_out_fmt);
- 	struct {
- 		unsigned int offset;
- 	} blocks[RKCIF_MIPI_MAX - RKCIF_MIPI_BASE];
-diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-dev.c b/drivers/media/platform/rockchip/rkcif/rkcif-dev.c
-index be3a174b9aab..2a5758776b3e 100644
---- a/drivers/media/platform/rockchip/rkcif/rkcif-dev.c
-+++ b/drivers/media/platform/rockchip/rkcif/rkcif-dev.c
-@@ -53,6 +53,23 @@ static const struct rkcif_match_data rk3568_vicap_match_data = {
- 	.mipi = &rkcif_rk3568_vicap_mipi_match_data,
- };
- 
-+static const char *const rk3576_vicap_clks[] = {
-+	"aclk",
-+	"hclk",
-+	"dclk",
-+	"iclk",
-+	"iclk1",
-+	"iclk2",
-+	"iclk3",
-+	"iclk4",
-+};
-+
-+static const struct rkcif_match_data rk3576_vicap_match_data = {
-+	.clks = rk3576_vicap_clks,
-+	.clks_num = ARRAY_SIZE(rk3576_vicap_clks),
-+	.mipi = &rkcif_rk3576_vicap_mipi_match_data,
-+};
-+
- static const char *const rk3588_vicap_clks[] = {
- 	"aclk",
- 	"hclk",
-@@ -76,6 +93,10 @@ static const struct of_device_id rkcif_plat_of_match[] = {
- 		.compatible = "rockchip,rk3568-vicap",
- 		.data = &rk3568_vicap_match_data,
- 	},
-+	{
-+		.compatible = "rockchip,rk3576-vicap",
-+		.data = &rk3576_vicap_match_data,
-+	},
- 	{
- 		.compatible = "rockchip,rk3588-vicap",
- 		.data = &rk3588_vicap_match_data,
-diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-regs.h b/drivers/media/platform/rockchip/rkcif/rkcif-regs.h
-index 3cf7ee19de30..0460e963b154 100644
---- a/drivers/media/platform/rockchip/rkcif/rkcif-regs.h
-+++ b/drivers/media/platform/rockchip/rkcif/rkcif-regs.h
-@@ -147,6 +147,7 @@ enum rkcif_mipi_id_register_index {
- 	RKCIF_MIPI_FRAME1_VLW_Y,
- 	RKCIF_MIPI_FRAME1_VLW_UV,
- 	RKCIF_MIPI_CROP_START,
-+	RKCIF_MIPI_SET_SIZE,
- 	RKCIF_MIPI_ID_REGISTER_MAX
- };
- 
+---
+Sunyun Yang (2):
+      dt-bindings: bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI to HDMI driver
+      drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI to HDMI driver
 
--- 
-2.43.0
+ Documentation/ABI/testing/sysfs-lontium-firmware   |   10 +
+ .../bindings/display/bridge/lontium,lt9611.yaml    |   18 +-
+ drivers/gpu/drm/bridge/Kconfig                     |   17 +
+ drivers/gpu/drm/bridge/Makefile                    |    1 +
+ drivers/gpu/drm/bridge/lontium-lt9611c.c           | 1319 ++++++++++++++++++++
+ 5 files changed, 1363 insertions(+), 2 deletions(-)
+---
+base-commit: 4c8afdaa990f1a4d49e1dd5a640348ce5451a86a
+change-id: 20260708-lt9611c-v7-ff76b2d1bf5f
+
+Best regards,
+--  
+Mohit Dsor <mohit.dsor@oss.qualcomm.com>
 
