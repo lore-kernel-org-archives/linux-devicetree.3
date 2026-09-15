@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79A14353A6E
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 21:53:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 458993F58E1
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 21:54:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789509216; cv=none; b=DLei0TT7i0LWAtfK8h5st1T9b+cBx325lzBO6Eld2Zv0bloKnzwR/umwjZ0FGhr9bfUwvSM1oGYa4V+Tymgtu8wf3KhMYquH2Rc4I22jDy7Styo/jORvUGByCim+obodezgsR+IN9XnLzd6jx4gFbUMAytCxeSG2ZtMYoJ0fcF4=
+	t=1789509252; cv=none; b=klNetpBlISRsjGyO3WhXKVTBCnaDfKqotxefP7+ok0LvUm64oEosLx6LibVt88U4Mhf+EafLpmGOin1vann4nzgOdraKjEAPebPyC/V6vZEb3vsMYluNwcdNEBrnuNCOwhElHNHOKeZ90noHJrCxdh5kdSgxEdO5u4m08vEUmI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789509216; c=relaxed/simple;
-	bh=7wqPtqr/gxItByFONPhyJp9TPjjog0ZBeu8dQGrQlAo=;
+	s=arc-20240116; t=1789509252; c=relaxed/simple;
+	bh=LXwzAoOtiBj+rZUfu+H0JyRYtFPpw91KKAZE25kuKdk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=fFNvKpYoVPMZ9vpR3t/HMLQMx4d18Guse+5VemUIDfggNlskMpY/W//sh4+ljRWFoWU39mAXpEeNDaziwU4HVmwonJyXlgACLW2ULnNAIpPsccFN0Tk32UzqsSTPhbpVI6ICl9dvNchiR8VL4N1rxzwhEAX8n8O8b52xoy2GRs8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EYz0Iz3f; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=jLOa9Z6TMDxO9womliTi56SyzJEO9h3DlhE+aLrn9zT8YHn9+Xb/lhM7dVqFKYm2vpvGXGcpQUnwgxqwztEZC6JWD/QNGVcyyLyPCybXCEVkiqzz9PSH2kYAz1kL/qTz0V560cMOdEX8tH69mKbYmyiFKWiudryd35TVlLrqt0E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HYsCfjHG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EYz0Iz3f"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E842E1F000FF;
-	Tue, 15 Sep 2026 21:53:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HYsCfjHG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4C991F000FF;
+	Tue, 15 Sep 2026 21:54:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789509215;
-	bh=sxL9HH3HMF17y4EO9z+SK18M9ztakitl3Aygzns/WoA=;
+	s=k20260515; t=1789509250;
+	bh=V+GKwesaYUdjz8FzI5ZgCbS4Z6+MZ7g9fap+5Fq8wXQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=EYz0Iz3fN5i8gBcktFnv77vmY4iJBomKhKnmdRywnyRDiDRs0H03Ye6/jp9aPX9VB
-	 7pYC3GuYBQI3j/OPmrj0VVzkb+kiAip8viwPLCuCH54UMekF0Htlqx2qMiGFRlkVT8
-	 yMDIR8E3b5V7u5TqVaB7WCII4GGIyf7ZLdKip524gSHOGTQ5MLVc9HQVWe7ay9aJRk
-	 9tr0b12MfhvyYgcrQoAM51W7BbE8JZqe3P6jIdxDoYGHMJFqCSKKz8JMDxCGGLJHrS
-	 wesbfkIYtmcNDo/d28/EMqDwDYdZEvVRbzjg3WV8fmw4cPNZmYYLJcQe5zH2MEfDqP
-	 O/ipyRNSW6tkQ==
+	b=HYsCfjHGgycUEJHRRyFRVT52sb41iDKi6uMk7KmMKWJm8rr6JawbzoZBLvSX1lXPa
+	 B9bBba56cwKZIEkJNAvPj6CQs044hnfnkS34kAYA4KmpgK0GrvtuYhtEwabqJmM+eO
+	 bY4beczJbtBDQpmpGaSvhMLiERUe87BvRpHbtN+5/D9Z/heQHAOIsStjYFOvlp3Bm7
+	 hiAzI+Vt5O+BkLCOFuJssUUTfI7w9HmsMDRk1FWhBgf93ZmeuEd+8nkf+jT2eRk3oY
+	 CnDU4PhzYRX7WHkMg73aL0l66uN6ix/X3Ebb42mLu8szpBtXyvcj9YTOTRL48iieiu
+	 AwYY0rStzv+uw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] ARM: dts: ux500: Drop AB8505 main charger
+Subject: Re: [PATCH 1/2] dt-bindings: power: supply: ab8500: Allow AB8505
  interrupts
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Linus Walleij" <linusw@kernel.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260915-ab8500-charger-dt-v1-2-10b7b387e6a6@kernel.org>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260915-ab8500-charger-dt-v1-1-10b7b387e6a6@kernel.org>
 References: <20260915-ab8500-charger-dt-v1-0-10b7b387e6a6@kernel.org>
- <20260915-ab8500-charger-dt-v1-2-10b7b387e6a6@kernel.org>
+ <20260915-ab8500-charger-dt-v1-1-10b7b387e6a6@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 21:53:34 +0000
-Message-Id: <20260915215334.E842E1F000FF@smtp.kernel.org>
+Date: Tue, 15 Sep 2026 21:54:10 +0000
+Message-Id: <20260915215410.A4C991F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,56 +47,66 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] power: ab8500: probe fails due to missing main charger interrupts
+- [High] power: supply: ab8500: fatal probe failure when using 9-interrupt =
+configuration
 --
 
-commit e7da031c5be9d239332af239a1c3e397eaa17b40
+commit 8052a5eb029696fb98fcaf52a7b6b4012177809a
 Author: Linus Walleij <linusw@kernel.org>
 
-ARM: dts: ux500: Drop AB8505 main charger interrupts
+dt-bindings: power: supply: ab8500: Allow AB8505 interrupts
 
-The AB8505 interrupt table explicitly omits the five interrupt
-sources belonging to the AB8500 main charger. Remove these nonexistent
-interrupts from the AB8505 charger node, leaving its nine USB charger
-interrupts.
+AB8505 has no main charger or main-charger interrupts. Permit its
+nine USB charger interrupts as an alternative to the full set of
+fourteen AB8500 interrupts.
 
-> diff --git a/arch/arm/boot/dts/st/ste-ab8505.dtsi b/arch/arm/boot/dts/st/=
-ste-ab8505.dtsi
-> index 131c82508e820..f7208e689d093 100644
-> --- a/arch/arm/boot/dts/st/ste-ab8505.dtsi
-> +++ b/arch/arm/boot/dts/st/ste-ab8505.dtsi
-> @@ -138,12 +138,7 @@ ab8500_btemp {
+> diff --git a/Documentation/devicetree/bindings/power/supply/stericsson,ab=
+8500-charger.yaml b/Documentation/devicetree/bindings/power/supply/stericss=
+on,ab8500-charger.yaml
+> index 4f19744844e9c..437b58e82e9ae 100644
+> --- a/Documentation/devicetree/bindings/power/supply/stericsson,ab8500-ch=
+arger.yaml
+> +++ b/Documentation/devicetree/bindings/power/supply/stericsson,ab8500-ch=
+arger.yaml
+[ ... ]
+>    autopower_cfg:
+>      type: boolean
+> -    description: automatic poweron after powerloss
+> +    description: AB8500 automatic poweron after powerloss
 > =20
->  				ab8500_charger {
->  					compatible =3D "stericsson,ab8500-charger";
-> -					interrupts =3D <10 IRQ_TYPE_LEVEL_HIGH>,
-> -						     <11 IRQ_TYPE_LEVEL_HIGH>,
-> -						     <0 IRQ_TYPE_LEVEL_HIGH>,
-> -						     <107 IRQ_TYPE_LEVEL_HIGH>,
-> -						     <106 IRQ_TYPE_LEVEL_HIGH>,
-> -						     <14 IRQ_TYPE_LEVEL_HIGH>,
-> +					interrupts =3D <14 IRQ_TYPE_LEVEL_HIGH>,
+>    interrupts:
+> +    minItems: 9
+>      maxItems: 14
+> =20
+>    interrupt-names:
 
 [Severity: High]
-Does removing these interrupts cause a probe failure in the ab8500_charger
-driver?
+Does this binding relaxation lead to a fatal probe failure when the
+9-interrupt configuration is used?
 
-Looking at ab8500_charger_probe() in drivers/power/supply/ab8500_charger.c,=
- it
-iterates over a hardcoded array of 14 interrupts:
+During initialization, ab8500_charger_probe() unconditionally loops over the
+statically defined 14-element ab8500_charger_irq array:
 
+drivers/power/supply/ab8500_charger.c:ab8500_charger_probe() {
+    ...
 	for (i =3D 0; i < ARRAY_SIZE(ab8500_charger_irq); i++) {
 		irq =3D platform_get_irq_byname(pdev, ab8500_charger_irq[i].name);
 		if (irq < 0)
 			return irq;
+    ...
+}
 
-Since this patch removes 5 main charger interrupts (including
-"MAIN_CH_UNPLUG_DET") from the device tree, platform_get_irq_byname() will
-return an error (like -ENXIO) for those missing interrupts.
+When the driver attempts to request one of the missing main charger
+interrupts via platform_get_irq_byname(), it will return a negative error
+code and immediately abort the probe.
 
-Will this cause the probe function to immediately abort, completely breaking
-charging functionality on the AB8505 platform?
+This would break battery charging and power management entirely on hardware
+using the 9-interrupt DT configuration.
+
+A later patch in this series, ARM: dts: ux500: Drop AB8505 main charger
+interrupts, applies this 9-interrupt configuration to the DTS without
+updating the driver, which will cause the driver to fail to load on boot.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-ab8500-cha=
-rger-dt-v1-0-10b7b387e6a6@kernel.org?part=3D2
+rger-dt-v1-0-10b7b387e6a6@kernel.org?part=3D1
