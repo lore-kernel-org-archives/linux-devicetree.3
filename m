@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04A49385D64
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 08:57:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0365F35201D
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 08:57:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789462627; cv=none; b=sAat7PUJf9l2DA2oKlMeWbt6YvVrjYVDMNtzNR7nCtYHnu+tarMT6RJqXuYPJ48WAR0ZLUk8JRcyO2BWbZXlE1VzMIAPjsIoqbTgWs7RBiBetUhm3L5OT/As2ILZ6y4WD242DBJxfMHiSH/FcokaLKWDWHQGSdNydVLML8wmgR8=
+	t=1789462628; cv=none; b=N85Ojwz2cwq6lyA26fqvoU0pQJ65qKJ2hGw8czsRto0TkkFzo/0cngmfOoGuzBDGuudOvb4XSxOfnM7XlsQ+1T62HyIzi9XTJUki4g40lhzrnTcaoFvNZ0JoArm3CowNND/80q7qMYAcUo3cOJJ8aDQHkgKf5Xp7KNmhIQHcfVQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789462627; c=relaxed/simple;
-	bh=ozRgD4+sccGInMFNRbW34oDIp+onlvJZ3Pep3pCP/QA=;
+	s=arc-20240116; t=1789462628; c=relaxed/simple;
+	bh=lAueQt378kI6R0A3MP+AJEYAXBeSg/MmlHpVRL3z6AQ=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Jp3txBoJ1sWXiuncPaq2sYo52JWafsFPgVYARqxev3xNzynYOLMkA/vMoK+/iePBFlX3dvtDbRho/fGyecX1YBYcCwMJu0NqBldjNEjzrBE5J0GqLNr5dWp5f3ZygbQ5/j/rOf9gGyJ3Exy2/Uhp4vwKLR/yVwuRKs0h2IEX7AQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=afOQ7FnA; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=lWIUf0JH59OEb530EL6vcrqb/xhjODZbQWoIQDZwJEpVndl6RXuzOOHUpDUfj+UWVEwXzuIDQV0u17kHhxUcvH5pQ3wa5bBg7szM7xtIR65OB2WEtMbrYmUBwZWUjuz4XCWKSZd3m86GuhPo23ZUGKRLb36NkG2O92ozxWL1bWg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n8bN45Sr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="afOQ7FnA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E4421F000FF;
-	Tue, 15 Sep 2026 08:57:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n8bN45Sr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C0451F00893;
+	Tue, 15 Sep 2026 08:57:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789462625;
-	bh=JfTSHi+Nv6zPc8um5FBAk5XspUmAQX4Uqkbl5zoxT10=;
+	s=k20260515; t=1789462626;
+	bh=b/1BTnO4t78KaoVq7MSnPrHktwmGY2LxhAV4pppAx5s=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=afOQ7FnAHNLbffgbW8nPv0GTXFfaqsl5Xl7L9owviAv3N4U1Hb5mF1gqVP8pEb5Uy
-	 xN8MxUH3xYxRlekKZRQGhU3of4XPVXo8mhTmwN5DZULI7kmEtK78H2tFS/YEwqCnvs
-	 6mI9uPxwFe3lJKjzMbITC/Nsvld+WqpQckFsIttMuFbc0qiwMldgxsJ862e7ndjFW+
-	 AzurpUvSiQYoiMzKcw1s3NfcohFRhNJC6GxLgJUVvPPhsohjhbURAaZO44lCYlcmGJ
-	 S+ZVpZS3XR8NYmDalAZBXgFSY3dT9DBEyXwF/XUaaF5QSOfsQujSUpErgVWguXGRW4
-	 qAbTUI49D+s5Q==
+	b=n8bN45SrcnCz5dn8GgMBRs0IEABUj/QBx+qZIjc8RYCD9VQJAQuMhPenIw964cj1T
+	 oYQ72D/iLYplaXc5HCE2N8BrQhpBaj477FSQJzcQdVUsf9YZTRXevTQdWfP2enEq5T
+	 FISkmJGg4J7nzrC7rYkgud55/IDRccns5+9wdFv6C9AP/nFeF/M9vEwueX3HNEMF4d
+	 7L/Tn0X5jCpw/z7bw0Zo5G8xgdOtaWoQCbHgo1Sm1OG9ElUWeU5rt418Gqo9VWUV6D
+	 AXtT7qYGhwDaTGundWXFWP8eA/1N6mpQ8gGMEh7DKdf7waFt8UogWOlbfgfhfqaitm
+	 mtQJY/BEwFYvw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 12/13] dt-bindings: display: mediatek: wdma: Add
- compatibles for more SoCs
+Subject: Re: [PATCH v8 10/13] drm/mediatek: mtk_dsi: Add support for MT8196
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260915084148.11385-13-angelogioacchino.delregno@collabora.com>
+Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260915084148.11385-11-angelogioacchino.delregno@collabora.com>
 References: <20260915084148.11385-1-angelogioacchino.delregno@collabora.com>
- <20260915084148.11385-13-angelogioacchino.delregno@collabora.com>
+ <20260915084148.11385-11-angelogioacchino.delregno@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 08:57:04 +0000
-Message-Id: <20260915085705.3E4421F000FF@smtp.kernel.org>
+Date: Tue, 15 Sep 2026 08:57:05 +0000
+Message-Id: <20260915085706.4C0451F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,62 +46,94 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] dt-bindings: mtk-wdma: incorrect mt8173 fallback for 34-bit IOVA S=
-oCs
+- [Medium] drm/mediatek: Incomplete initialization of DSI QoS parameters (m=
+issing PREURGENT)
 --
 
-commit 9abef195ff9795774aad1384f098d2674d2e411c
+commit 2eeb791791ca07e53d5c59d273b7795e846f2238
 Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-dt-bindings: display: mediatek: wdma: Add compatibles for more SoCs
+drm/mediatek: mtk_dsi: Add support for MT8196
+   =20
+Add support for the new DSI IP found in the Kompanio Ultra MT8196
+SoC and its Dimensity and Genio variants.
 
-This commit adds missing device tree compatible strings for the Write DMA
-hardware in multiple MediaTek SoCs, including MT6893, MT8183, MT8186, MT819=
-2,
-and MT8195. It also specifies that MT6893 is not compatible with MT8173 due
-to its introduction of destination addresses larger than 32 bits.
+Differently from the older DSI IPs, the one from MT8196 requires
+the initialization of all of the QoS parameters and can make use
+of a DSI SRAM reserved buffer (present also on older SoCs but not
+mandatory on those).
 
-> diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,=
-wdma.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,wdm=
-a.yaml
-> --- a/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.ya=
-ml
-> +++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.ya=
-ml
-> @@ -22,11 +22,16 @@ properties:
->    compatible:
->      oneOf:
->        - enum:
-> +          - mediatek,mt6893-disp-wdma
->            - mediatek,mt8173-disp-wdma
->        - items:
->            - enum:
->                - mediatek,mt6795-disp-wdma
->                - mediatek,mt8167-disp-wdma
-> +              - mediatek,mt8183-disp-wdma
-> +              - mediatek,mt8186-disp-wdma
-> +              - mediatek,mt8192-disp-wdma
-> +              - mediatek,mt8195-disp-wdma
->            - const: mediatek,mt8173-disp-wdma
+> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediate=
+k/mtk_dsi.c
+> index 16bf08bee38e3..6f176515e2587 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
+[ ... ]
+> @@ -373,6 +373,59 @@ static const u16 mtk_dsi_regs_mt8186[DSI_ADV_REG_MAX=
+] =3D {
+>  	[DSI_CMDQ] =3D 0xd00,
+>  };
+> =20
+> +static const u16 mtk_dsi_regs_main_v2[DSI_MAIN_REG_MAX] =3D {
+[ ... ]
+> +static const u16 mtk_dsi_regs_qos_v2[DSI_QOS_REG_MAX] =3D {
+> +	[DSI_QOS_BUF_CON0] =3D 0x300,
+> +	[DSI_QOS_BUF_CON1] =3D 0x304,
+> +	[DSI_QOS_TX_BUF_RW_TIMES] =3D 0x310,
+> +	[DSI_QOS_SODI_HIGH] =3D 0x314,
+> +	[DSI_QOS_SODI_LOW] =3D 0x318,
+> +	[DSI_QOS_PREULTRA_HIGH] =3D 0x324,
+> +	[DSI_QOS_PREULTRA_LOW] =3D 0x328,
+> +	[DSI_QOS_ULTRA_HIGH] =3D 0x32c,
+> +	[DSI_QOS_ULTRA_LOW] =3D 0x330,
+> +	[DSI_QOS_URGENT_HIGH] =3D 0x334,
+> +	[DSI_QOS_URGENT_LOW] =3D 0x338,
+> +	[DSI_QOS_PREURGENT_HIGH] =3D 0x33c
+> +};
 
-[Severity: High]
-Does using the mediatek,mt8173-disp-wdma fallback for these newer SoCs risk
-silent DMA memory corruption or IOMMU translation faults when writing to
-addresses above 4GB?
+[Severity: Medium]
+Is the DSI_QOS_PREURGENT_LOW mapping missing from this array?
 
-The WDMA hardware in MT8186, MT8192, and MT8195 uses 34-bit IOVA spaces,
-which is indicated by the IOVA_34_EN flag in their IOMMU platform data.
+The array maps DSI_QOS_PREURGENT_HIGH but completely omits a mapping or enum
+definition for DSI_QOS_PREURGENT_LOW.=20
 
-When the DRM writeback driver configures the WDMA, it will be handed 34-bit
-dma_addr_t addresses. Because the schema specifies the MT8173 fallback, the
-driver binds using the MT8173 match data.
+Additionally, the commit message explicitly states that the MT8196 IP requi=
+res
+the initialization of all of the QoS parameters, but it appears PREURGENT
+is skipped entirely.=20
 
-Since MT8173 only supports 32-bit addresses, its driver data configures
-reg_wdma_dst_addr0_msb =3D 0. This causes the driver to write only the lower
-32 bits of the destination address, silently dropping the upper 2 bits of t=
-he
-34-bit IOVA during normal display writeback operations.
+When the DSI driver probes on SoCs using the new HW buffers and calls
+mtk_dsi_config_hw_buffers(), it programs all other QoS thresholds (SODI,
+PREULTRA, ULTRA, URGENT) but omits PREURGENT:
+
+drivers/gpu/drm/mediatek/mtk_dsi.c:mtk_dsi_config_hw_buffers() {
+    ...
+	/* Write all QoS parameters: Screen On Deep Idle, (pre)Ultra, Urgent, RW t=
+imes */
+	mtk_dsi_mask(dsi, reg_qos[DSI_QOS_SODI_HIGH], BUF_THRESHOLD_PARAM, sodi_hi=
+);
+	mtk_dsi_mask(dsi, reg_qos[DSI_QOS_SODI_LOW], BUF_THRESHOLD_PARAM, sodi_lo);
+	mtk_dsi_mask(dsi, reg_qos[DSI_QOS_PREULTRA_HIGH], BUF_THRESHOLD_PARAM, pre=
+ultra_hi);
+	mtk_dsi_mask(dsi, reg_qos[DSI_QOS_PREULTRA_LOW], BUF_THRESHOLD_PARAM, preu=
+ltra_lo);
+	mtk_dsi_mask(dsi, reg_qos[DSI_QOS_ULTRA_HIGH], BUF_THRESHOLD_PARAM, ultra_=
+hi);
+	mtk_dsi_mask(dsi, reg_qos[DSI_QOS_ULTRA_LOW], BUF_THRESHOLD_PARAM, ultra_l=
+o);
+	mtk_dsi_mask(dsi, reg_qos[DSI_QOS_URGENT_HIGH], BUF_THRESHOLD_PARAM, urgen=
+t_hi);
+	mtk_dsi_mask(dsi, reg_qos[DSI_QOS_URGENT_LOW], BUF_THRESHOLD_PARAM, urgent=
+_lo);
+	writel(rw_times, dsi->regs + reg_qos[DSI_QOS_TX_BUF_RW_TIMES]);
+    ...
+}
+
+Could omitting this parameter lead to suboptimal DSI FIFO scheduling, displ=
+ay
+artifacts, or underflows, since the hardware configuration is left incomple=
+te?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915084148.1138=
-5-1-angelogioacchino.delregno@collabora.com?part=3D12
+5-1-angelogioacchino.delregno@collabora.com?part=3D10
