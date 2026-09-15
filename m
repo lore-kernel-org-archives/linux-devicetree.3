@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45C0E485CD2;
-	Tue, 15 Sep 2026 10:49:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1151480336;
+	Tue, 15 Sep 2026 10:52:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789469377; cv=none; b=c2brIbq3n4ml/QwGsgSllyDM5auLP/xsA9/zf6gSOJspZGPhEaFrszhyrcozxb1qjXlEicvTuo4dtB4nLnJj9SpAiWXtV/cNE6DK4IZYKhoynSaI3kEUA357gtZARSKEFtgrRy5fWsHjbrPapzSMRsI2kp+s0VpmApisCc2YTJo=
+	t=1789469540; cv=none; b=QQ3iEmtCwuL+5gub1ICE6zgxM2KkARNe9/FzAkThaCf3+jttOSbeVY8C2Jf/ygHVQrel0Nq8jPeY4dCtO8fV/v7X9+p/HeNGJTp2AFzW4wzVkLbE88JmI29BZt0NUI+nGMasN76+Yw7cHNY7FtllPsb5vOMaz/EATBbOGK7f+KM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789469377; c=relaxed/simple;
-	bh=774wphgNFyW4INBX/BB4cagaEbxyINTdU2cfoGrqC2w=;
+	s=arc-20240116; t=1789469540; c=relaxed/simple;
+	bh=NtN6Xv0DsdRIobrp9DHovp3Vz8rTqNXVLNmt/YcPx9g=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lgA3aLWaNMNT5lTwwKgmFBFyI466ZVfMOaqZ2RvgP6cAFptNx2plkJtL4awgqb1XRZ+aZ8ESonPjjdC9SH8UnnRZ54tlh/m0XLpW8Z3/52jHj11tS83C8l7xz3O6CWEMoJnfpLFytfXIHQ4EBS0tnK3PLD0Y866PXU+pVBi2rVs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F2DIpqBi; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=hipkjp0BNO3wXUTBXdFz/pr18MyaXOpUHdyjJubcY5c7E+rUSZMEfX9wt3d80+NpA25R8NF1q5yr+2NwDenF6cNQyV4ziFwUfxOFcqbkJxYLNOwWKZDaFRLyQ9Dfz4RNloTKpJ8+r6+vsCByG5G3MQIGuVV1QFX1+npwW3Adq9E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WoyItn08; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F2DIpqBi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFC6F1F00893;
-	Tue, 15 Sep 2026 10:49:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WoyItn08"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C187D1F000FF;
+	Tue, 15 Sep 2026 10:52:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789469376;
-	bh=LvnE+GCpZr1qwdkZzz2J/xPLsAEVgUoXV4kSymGCgoA=;
+	s=k20260515; t=1789469538;
+	bh=kmikUQ3Zsiq+icuznESsAEIuodeMhYfs65QwcUyQTrk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=F2DIpqBiAiZzgzI91muX5bQY4iWjjQT2erv+yupCqFWte44UQyknPiZw9e+LQQCfr
-	 nsKsxzJWwBw9wHAH44btMrWgr58WUpXGaT7pIkk9UY/5O7S7jluvXPvUYQhsauezaZ
-	 b457nbtspH/2KA5/l98cIF24qeRg/Lv+KdcMP2R2kY5j935DuHH3zBHOpMQNVTXgHg
-	 yIe9Y8KbhEr6RpVc8OAcuTnYw/eQW4Q9rUlHs1LQRbr/7qRf2jM9c97YJ09mQcgWZL
-	 yTwT/B7jaynxA2bMUYD2wcCMYpjcJ3nLK85n4q4/tPgXQl5Yj2EFCOOp6LM3HKCyu0
-	 WDHWh8fjw3VjQ==
-Date: Tue, 15 Sep 2026 12:49:32 +0200
+	b=WoyItn08+uAe3O6SlJ6ybgRQZdqCUD71kWH7NiLUCjZwjJAaH0fLwWhgf6g78jnla
+	 MGQs1ZKzJHoA8rmgM1ew2Ax8AwsjaFHRnB8xqe5I1tFXIuEAh18x2o4uTADroEk0f8
+	 K3mUIzoBgtau8DG0yoJUbunnTnsQSvGbTjsxTawfM1sTqBIbBvxXrGHXxv0gwmcjPW
+	 YjXz7UMyKd7Z/nCfvxPJybWiCsbF/iclVz7WiwoybxcI2WMuh9RHdQxwAxatB0kV+7
+	 J0opj+FnGwOmJW3wJNP+PxUZ9ETxAQv8RuOVIT/sVAU3U5SYgML/LW7xRi3ccxfcWM
+	 Hv1b9sz3QjfKQ==
+Date: Tue, 15 Sep 2026 12:52:15 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: genevieve.chan@altera.com
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Dinh Nguyen <dinguyen@kernel.org>, Lothar Rubusch <l.rubusch@gmail.com>, 
-	Ng Tze Yee <tzeyee.ng@altera.com>, Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>, 
-	Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: arm: altera: add Agilex7F SoCDK
- multi-QSPI compatible
-Message-ID: <20260915-therapeutic-jackal-of-temperance-1ae852@quoll>
-References: <20260914025052.14354-1-genevieve.chan@altera.com>
- <20260914025052.14354-2-genevieve.chan@altera.com>
+To: Quchaosheng <quchaosheng000406@163.com>
+Cc: Marc Kleine-Budde <mkl@pengutronix.de>, 
+	Vincent Mailhol <mailhol@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-can@vger.kernel.org, 
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: net: can: holt,hi3110: Convert to DT schema
+Message-ID: <20260915-elastic-chameleon-of-argument-ab5cdb@quoll>
+References: <20260914030215.437602-1-quchaosheng000406@163.com>
+ <20260914030215.437602-3-quchaosheng000406@163.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,19 +45,43 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260914025052.14354-2-genevieve.chan@altera.com>
+In-Reply-To: <20260914030215.437602-3-quchaosheng000406@163.com>
 
-On Mon, Sep 14, 2026 at 10:50:51AM +0800, genevieve.chan@altera.com wrote:
-> From: Genevieve Chan <genevieve.chan@altera.com>
+On Mon, Sep 14, 2026 at 11:02:14AM +0800, Quchaosheng wrote:
+> Convert the Holt HI-311X stand-alone CAN controller binding from
+> free-form text to DT schema, and reference the common can-controller.yaml
+> schema.
 > 
-> Add "intel,socfpga-agilex7f-socdk-multiqspi" for the Agilex7F SoCDK
-> board variant with multi-QSPI flash support.
+> The old text listed clocks as required, but the driver obtains the clock
+> with devm_clk_get_optional() and falls back to the "clock-frequency"
+> property when no clock is provided, so either one of the two must be
+> present and neither is required on its own. This is expressed with an
+> anyOf block, and clock-frequency is documented, as it was previously
+> undocumented.
+> 
+> The maximum supported clock frequency of 40000000 is also documented,
+> as that is the limit the driver enforces.
+> 
+> unevaluatedProperties is used rather than additionalProperties so that
+> properties provided by can-controller.yaml, such as termination-gpios,
+> remain usable.
+> 
+> Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
+> ---
+>  .../bindings/net/can/holt,hi311x.yaml         | 80 +++++++++++++++++++
+>  .../bindings/net/can/holt_hi311x.txt          | 23 ------
+>  2 files changed, 80 insertions(+), 23 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/net/can/holt,hi311x.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/net/can/holt_hi311x.txt
 
-Why is agilex7f the same as agilex?
+I see here four patches clumped in one thread, of which I think I
+responded to v2, but this is still in patchwork. Probably your patches
+are organized in a way confusing the tools.
 
-Your commit msg is pretty redundant, just copies diff instead of
-explaining odd things like why do you have exception from rules in
-writing bindings.
+Please read carefully submitting patches and for example Linaro's guide
+for first time contributions.
+
+I am dropping this entire thread from DT Patchwork.
 
 Best regards,
 Krzysztof
