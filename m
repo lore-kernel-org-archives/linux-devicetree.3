@@ -1,355 +1,200 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4C6248E0F5;
-	Tue, 15 Sep 2026 11:23:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96F634908AF;
+	Tue, 15 Sep 2026 11:25:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789471422; cv=none; b=r9RfRQCFqhMoITxOCpo1A0jwEDOBtxwVDE6vez0BelbeHpMjj7HFlGYWT/IR9LZWQmxrP/BC4Ro2z+stc5WoT0qLCo/RPOD8CHRtTRdyWp6e5Zi8Eq3kyQRF1Qw2HWTjPKqw3bl8ZO+FeAhHqdUOdoV0yRWG9NXhvgEdMfBS3N0=
+	t=1789471507; cv=none; b=GvygBlBAHMbT4UGFSmFjg8itlxtQx7I4gi1pH2HhuMbbAZFK7yyqyxMg2GMSbZRVwTFu1CPqE7axMlxNc5H0lKYydBPq8cYfzkflr7wp9harB0mgMlrorxBv59sLEr6LLc0jlK3wfx4zuzoTF8AYjqhbs2AV034dCAuzvwhAEVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789471422; c=relaxed/simple;
-	bh=ljskRcMdf2XYphYJmHCVJgisZOIL+BdrJ5ob2W9wZ6U=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=tPah0GglblAY136hPpeqTWOc7milaMAWX6I4wOraOv5WTpZiJ9cSppJLd4jYAxWfVeU/ppUc70Xy6U4EXQbYRPlqi49nKhnh8OUo3q1+AlHr8+B6hdW7s8keotuNvUQeGOQXzz/N1H8Fna3Sc9AKsAI78I/HwK05UdJMWtby5lM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=sW5W091j; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=0K9y0T3s; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1789471507; c=relaxed/simple;
+	bh=0ve7/DDdcigv05770gqszO21YREHojJv3JBfh9LpjKU=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=uZHNKjrEu44ztKi2hvGZMlYUm271ahEg7JLj+qsLWAwmqwakoNfpZXv6/tbsW+ZNpc5UptWqdBMczZdqzGOR7HD599M4dt2wIbRvJHc1quf3RAVGrnPKGPAZ24vuERxHNYyqeMCKTk/oilchcEcw/+WaUZU6689GGwwLYid9dQc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=FSRxqY26; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=aSsl2yJ1; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=fM3MazBW; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=mZlA7k8x; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="sW5W091j";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="0K9y0T3s"
-Message-ID: <c863e105257ae512d32e94b56ac081c41c4284f6.camel@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1789471413;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="FSRxqY26";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="aSsl2yJ1";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="fM3MazBW";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="mZlA7k8x"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id D6D911FD70;
+	Tue, 15 Sep 2026 11:24:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789471494; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=P5YjS13qvbadUK35UlDy89MYgOvcwR+tWSGlVIQ/VWc=;
-	b=sW5W091j3UDBScCJhLbxbxDHgvyZTgpww7h/o5pW0b30/ZhQTx9Y+zffkBSE+WffXB8Gkx
-	zuDCyTSUjzsoZHneWFQCxq7vPWfQhurt4o0jOZOJCUWPNr/3PXxhoIJyC33Ko7Pq7W441l
-	SvyhTRGKwqtdPSQFk7oAXgHt+rOW1rbUzLX2KBqLLEg3la88Q8bC/P7XY1849QkQuKvT+W
-	pPaOI8rio+VtlliHY+n+/lLdIr7MzhQz2Lpz2xyPOEZL7QDJBYVFCRacXbm/9wDquSARog
-	pGMgQ2vrc4Y+9eqTSZx8n4MGQf2CzMtV9B/rZ5NSRU3NZP2sh+7PKsjj9sv0fA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1789471413;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
+	bh=psqF+EOKBnDir7oSpdYk0cv/7bWaGxT8GNrr5rPj7yg=;
+	b=FSRxqY266D0vmKnF9nLIRDyWWQM9yhSRf7SWuTSbWdHKmTZfPMBWgLsJq7H8V56FVkky//
+	8MrE9PciUwBdoFcR4M6TLhf0Be1H7UyuT3X6eiMNzlMbbIthbvGQDSnAd0oqm56+IjjTWt
+	ZfmEPFx5zXWF3FpvnKWoZi5XGYuzP5E=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789471494;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=P5YjS13qvbadUK35UlDy89MYgOvcwR+tWSGlVIQ/VWc=;
-	b=0K9y0T3soY9wKIec21PHBPzbPVB2NK6VeAw5DLPr7SUUE5RJEPHvwqfF+gHg6nL0HyGCF3
-	WBlCJOdcf3RrOECQ==
-Subject: Re: [PATCH net-next v2 4/4] net: dsa: soce: Add basic support for
- SoC-e switch IP cores
-From: Vasilij Strassheim <v.strassheim@linutronix.de>
-To: netdev-bot+sashiko@kernel.org
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- andrew@lunn.ch,  olteanv@gmail.com, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org,  pabeni@redhat.com, horms@kernel.org,
- linux@armlinux.org.uk,  devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
- martin.kaistra@linutronix.de, b.spranger@linutronix.de
-Date: Tue, 15 Sep 2026 13:23:32 +0200
-In-Reply-To: <178895594761.219967.4769482322073838475@kernel.org>
-References: 
-	<20260903-devel-vstrassheim-soce-dsa-ml-v2-4-fb0587cb466b@linutronix.de>
-	 <178895594761.219967.4769482322073838475@kernel.org>
-Organization: Linutronix GmbH
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	bh=psqF+EOKBnDir7oSpdYk0cv/7bWaGxT8GNrr5rPj7yg=;
+	b=aSsl2yJ1+boxtQdbyNVNOLHSB2zJu6wAGQi+9pbebbTp2ClXENyw6idF+ycsnZ57BL4LP5
+	ZfcRP6lnX00QOOBw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789471489; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=psqF+EOKBnDir7oSpdYk0cv/7bWaGxT8GNrr5rPj7yg=;
+	b=fM3MazBW+hs/hKtvuJpOhLlGSwWwaQ2djpqh86ob84pD05SZM2CRj5VxxQICSBHMVzGpmM
+	q+b1hMqeOfBJ55X5lnPhdG5/NgEY6B1UbwH5ynoyuWcf7dFOEalvw2kJzBP8r3CSUcnebL
+	CgYXNAhYVAwFaBsCwZ7WQRZMQk8ez5c=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789471489;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=psqF+EOKBnDir7oSpdYk0cv/7bWaGxT8GNrr5rPj7yg=;
+	b=mZlA7k8xRY7/6eU8iSFueII5CBhiyVG2bEJOGnMSAtyaRqGo3EYAuYa/xTgran4MSxXe1Y
+	Y2dwysvA+85ERcBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E1B7713693;
+	Tue, 15 Sep 2026 11:24:46 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 2riGLf4qqWqtagAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 15 Sep 2026 11:24:46 +0000
+Date: Tue, 15 Sep 2026 13:24:46 +0200
+Message-ID: <877bkmn4e9.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Bill Wendling <morbo@google.com>
+Cc: linux-kernel@vger.kernel.org,	Russell King <linux@armlinux.org.uk>,
+	Huacai Chen <chenhuacai@kernel.org>,	WANG Xuerui <kernel@xen0n.name>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,	"James E.J. Bottomley"
+ <James.Bottomley@HansenPartnership.com>,	Helge Deller <deller@gmx.de>,
+	Thomas Gleixner <tglx@kernel.org>,	Ingo Molnar <mingo@redhat.com>,	Borislav
+ Petkov <bp@alien8.de>,	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,	"H. Peter Anvin" <hpa@zytor.com>,	Ian Abbott
+ <abbotti@mev.co.uk>,	H Hartley Sweeten <hsweeten@visionengravers.com>,	Tony
+ Luck <tony.luck@intel.com>,	Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>,	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,	Matthew Brost <matthew.brost@intel.com>,
+	=?ISO-8859-1?Q?=22Thomas_Hellstr=F6m=22?=
+ <thomas.hellstrom@linux.intel.com>,	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,	Matthias Schwarzott
+ <zzam@gentoo.org>,	Mauro Carvalho Chehab <mchehab@kernel.org>,	Tony Nguyen
+ <anthony.l.nguyen@intel.com>,	Przemek Kitszel
+ <przemyslaw.kitszel@intel.com>,	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,	Eric Dumazet
+ <edumazet@google.com>,	Jakub Kicinski <kuba@kernel.org>,	Paolo Abeni
+ <pabeni@redhat.com>,	Arend van Spriel <arend.vanspriel@broadcom.com>,	Rob
+ Herring <robh@kernel.org>,	Saravana Kannan <saravanak@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,	Sylwester Nawrocki
+ <s.nawrocki@samsung.com>,	Peter Griffin <peter.griffin@linaro.org>,	Alim
+ Akhtar <alim.akhtar@samsung.com>,	Linus Walleij <linusw@kernel.org>,	Anil
+ Gurumurthy <anil.gurumurthy@qlogic.com>,	Sudarsana Kalluru
+ <sudarsana.kalluru@qlogic.com>,	"Martin K. Petersen" <mkp@kernel.org>,
+	Trond Myklebust <trondmy@kernel.org>,	Anna Schumaker <anna@kernel.org>,
+	Mike Marshall <hubcap@omnibond.com>,	Martin Brandenburg
+ <martin@omnibond.com>,	Kees Cook <kees@kernel.org>,	Jiri Pirko
+ <jiri@resnulli.us>,	Simon Horman <horms@kernel.org>,	Chuck Lever
+ <cel@kernel.org>,	Jeff Layton <jlayton@kernel.org>,	NeilBrown
+ <neil@brown.name>,	Olga Kornievskaia <okorniev@redhat.com>,	Dai Ngo
+ <Dai.Ngo@oracle.com>,	Tom Talpey <tom@talpey.com>,	Jaroslav Kysela
+ <perex@perex.cz>,	Takashi Iwai <tiwai@suse.com>,	Andrew Morton
+ <akpm@linux-foundation.org>,	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	Kanglong Wang <wangkanglong@loongson.cn>,	Tiezhu Yang
+ <yangtiezhu@loongson.cn>,	Qiang Ma <maqianga@uniontech.com>,	Randy Dunlap
+ <rdunlap@infradead.org>,	Pengpeng Hou <pengpeng@iscas.ac.cn>,	Ard
+ Biesheuvel <ardb@kernel.org>,	Breno Leitao <leitao@debian.org>,	Thorsten
+ Blum <blum@kernel.org>,	Harshit Mogalapalli
+ <harshit.m.mogalapalli@oracle.com>,	Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>,	Lyude Paul <lyude@redhat.com>,	Ashutosh Desai
+ <ashutoshdesai993@gmail.com>,	Imre Deak <imre.deak@intel.com>,	Dmitry
+ Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,	Johan Hovold
+ <johan@kernel.org>,	Johannes Berg <johannes.berg@intel.com>,	Miri Korenblit
+ <miriam.rachel.korenblit@intel.com>,	Alexander Stein
+ <alexander.stein@ew.tq-group.com>,	Cryolitia PukNgae
+ <cryolitia@uniontech.com>,	Jiaming Zhang <r772577952@gmail.com>,	Will
+ Porter <mrwillporter@gmail.com>,	Cen Zhang <zzzccc427@gmail.com>,
+	=?ISO-8859-1?Q?=22C=E1ssio_Gabriel=22?= <cassiogabrielcontato@gmail.com>,
+	Rong Zhang <i@rong.moe>,	Arun Raghavan <arunr@valvesoftware.com>,
+	linux-arm-kernel@lists.infradead.org,	loongarch@lists.linux.dev,
+	linux-mips@vger.kernel.org,	linux-parisc@vger.kernel.org,
+	linux-edac@vger.kernel.org,	dri-devel@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org,	linux-input@vger.kernel.org,
+	linux-media@vger.kernel.org,	intel-wired-lan@lists.osuosl.org,
+	netdev@vger.kernel.org,	linux-wireless@vger.kernel.org,
+	brcm80211@lists.linux.dev,	brcm80211-dev-list.pdl@broadcom.com,
+	devicetree@vger.kernel.org,	linux-samsung-soc@vger.kernel.org,
+	linux-gpio@vger.kernel.org,	linux-scsi@vger.kernel.org,
+	linux-nfs@vger.kernel.org,	devel@lists.orangefs.org,
+	linux-hardening@vger.kernel.org,	linux-sound@vger.kernel.org
+Subject: Re: [PATCH 00/28] Replace remaining strlcat() call sites with snprintf()/seq_buf()
+In-Reply-To: <20260915081910.4142719-1-morbo@google.com>
+References: <20260915081910.4142719-1-morbo@google.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Level: 
+X-Spam-Score: 0.20
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [0.20 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	FORGED_RECIPIENTS(2.00)[m:morbo@google.com,m:linux@armlinux.org.uk,m:kernel@xen0n.name,m:tsbogend@alpha.franken.de,m:James.Bottomley@HansenPartnership.com,m:deller@gmx.de,m:bp@alien8.de,m:hpa@zytor.com,m:hsweeten@visionengravers.com,m:tony.luck@intel.com,m:airlied@gmail.com,m:simona@ffwll.ch,m:matthew.brost@intel.com,m:rodrigo.vivi@intel.com,m:dmitry.torokhov@gmail.com,m:zzam@gentoo.org,m:anthony.l.nguyen@intel.com,m:przemyslaw.kitszel@intel.com,m:davem@davemloft.net,m:edumazet@google.com,m:arend.vanspriel@broadcom.com,m:neil@brown.name,m:rdunlap@infradead.org,m:pengpeng@iscas.ac.cn,m:leitao@debian.org,m:ashutoshdesai993@gmail.com,m:imre.deak@intel.com,m:johannes.berg@intel.com,m:miriam.rachel.korenblit@intel.com,m:alexander.stein@ew.tq-group.com,m:r772577952@gmail.com,m:mrwillporter@gmail.com,m:zzzccc427@gmail.com,m:cassiogabrielcontato@gmail.com,s:brcm80211@lists.linux.dev,s:devel@lists.orangefs.org];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.998];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_SOME(0.00)[];
+	TAGGED_RCPT(0.00)[netdev];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,armlinux.org.uk,kernel.org,xen0n.name,alpha.franken.de,HansenPartnership.com,gmx.de,redhat.com,alien8.de,linux.intel.com,zytor.com,mev.co.uk,visionengravers.com,intel.com,suse.de,gmail.com,ffwll.ch,gentoo.org,lunn.ch,davemloft.net,google.com,broadcom.com,samsung.com,linaro.org,qlogic.com,omnibond.com,resnulli.us,brown.name,oracle.com,talpey.com,perex.cz,suse.com,linux-foundation.org,loongson.cn,uniontech.com,infradead.org,iscas.ac.cn,debian.org,linuxfoundation.org,oss.qualcomm.com,ew.tq-group.com,rong.moe,valvesoftware.com,lists.infradead.org,lists.linux.dev,lists.freedesktop.org,lists.osuosl.org,lists.orangefs.org];
+	R_RATELIMIT(0.00)[to_ip_from(RL638gsp8obb334m9k7xcnfris)];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCPT_COUNT_GT_50(0.00)[110];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid]
 
-On Wed, 2026-09-09 at 12:12 +0000, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential
-> issue(s) to consider:
->=20
-> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 2 =C2=B7 Low: 1
->=20
-> - [Medium] The MDIO master transaction sequence never verifies that the
->   shared controller is idle before programming PARAMS/WRITE and kicking=
-=E2=80=A6
-> - [Medium] soce_setup() arms the switch's "tag all frames" and "DSA
->   custom rules tagging" bits, but the driver provides no .teardown=E2=80=
-=A6
-> - [Low] The compatible string and its binding description declare a
->   register layout with "the core version register at offset 0x00 and=E2=
-=80=A6
->=20
-> --
->=20
-> [ ... ]
->=20
-> > +struct soce_probe_desc {
-> > +	u32 core_version_offset;
-> > +	u32 licensed_features_offset;
-> > +	u32 implemented_features0_offset;
-> > +	u32 mdio_master_offset;
-> > +};
-> > +
-> > +static const struct soce_probe_desc soce_probe_desc_swip_00_04_0c_10 =
-=3D {
-> > +	.core_version_offset		=3D 0x0000,
-> > +	.licensed_features_offset	=3D 0x0004,
-> > +	.implemented_features0_offset	=3D 0x000c,
-> > +	.mdio_master_offset		=3D 0x0200,
-> > +};
->=20
-> [Severity: Low]
-> The compatible name soce,swip-00-04-0c-10 and the binding text describe a
-> register layout with "the core version register at offset 0x00 and featur=
-e
-> identification registers at offsets 0x04, 0x0c, and 0x10", but this
-> descriptor only models 0x00, 0x04 and 0x0c.
->=20
-> Is the 0x10 register meant to be read somewhere?  soce_sw_detect_features=
-()
-> reads only licensed_features_offset and implemented_features0_offset:
->=20
-> 	regval =3D readl(local->base_addr + probe_desc->licensed_features_offset=
-);
-> 	...
-> 	regval =3D readl(local->base_addr +
-> 		       probe_desc->implemented_features0_offset);
->=20
-> The "features0" suffix also suggests a features1 register at 0x10 that is
-> currently ignored.
->=20
-> Going the other way, mdio_master_offset =3D 0x0200 is a register block th=
-e
-> driver depends on for every MDIO transaction, but the binding does not
-> mention it at all.  Should the binding describe that block too, or should
-> the offset list in the compatible description match what the driver
-> actually models?
+On Tue, 15 Sep 2026 10:18:17 +0200,
+Bill Wendling wrote:
+> 
+> strlcat() is deprecated: like strcat(), it requires re-scanning the
+> destination string from the beginning on every call, which is O(n^2)
+> when used to build up a string incrementally, and its truncation
+> behavior is easy to get wrong.
 
-I will remove this abstraction since only one switch register layout is
-currently supported. The MDIO master offset will be removed as well,
-because the MDIO controller will be represented by separate child
-devices with their own compatibles.
+... but what many of your patches do is to replace strlcat() with
+open-codes, which is more error-prone and easier to get wrong than
+a single strlcat() call.
 
-The offsets encoded in soce,swip-00-04-0c-10 describe the complete
-switch identification register layout. The current minimal DSA driver
-only reads the registers and feature fields it needs, so it does not
-access the implemented-features register at 0x10 yet. I would prefer to
-retain this information for future compatible driver extensions that
-may need that register.
+> See:
+> 
+>   https://github.com/KSPP/linux/issues/370
 
->=20
-> [ ... ]
->=20
-> > +static void soce_sw_enable_tagging(struct soce_dsa_local *local)
-> > +{
-> > +	u32 regval;
-> > +
-> > +	regval =3D readl(local->base_addr + SOCE_TAG_ALL_FRAMES_CTRL_OFFSET);
-> > +	regval |=3D SOCE_TAG_ALL_FRAMES_ENABLE;
-> > +	writel(regval, local->base_addr + SOCE_TAG_ALL_FRAMES_CTRL_OFFSET);
-> > +
-> > +	regval =3D readl(local->base_addr + SOCE_CUSTOM_RULES_TAGGING_OFFSET)=
-;
-> > +	regval |=3D SOCE_CUSTOM_RULES_TAGGING_ENABLE;
-> > +	writel(regval, local->base_addr + SOCE_CUSTOM_RULES_TAGGING_OFFSET);
-> > +}
-> > +
-> > +static int soce_setup(struct dsa_switch *ds)
-> > +{
-> > +	struct soce_priv *priv =3D ds->priv;
-> > +
-> > +	soce_sw_enable_tagging(&priv->local);
-> > +
-> > +	return 0;
-> > +}
->=20
-> [ ... ]
->=20
-> > +static const struct dsa_switch_ops soce_switch_ops =3D {
-> > +	.get_tag_protocol	=3D soce_get_tag_protocol,
-> > +	.setup			=3D soce_setup,
-> > +	.phylink_get_caps	=3D soce_phylink_get_caps,
-> > +};
->=20
-> [Severity: Medium]
-> Should there be a .teardown counterpart that clears what soce_setup()
-> armed?
->=20
-> soce_sw_enable_tagging() sets SOCE_TAG_ALL_FRAMES_ENABLE and
-> SOCE_CUSTOM_RULES_TAGGING_ENABLE, and nothing in the driver ever clears
-> them again.  There is no .teardown in soce_switch_ops, and the platform
-> callbacks only unregister:
->=20
-> soce_sw_remove()
-> 	dsa_unregister_switch(priv->ds);
->=20
-> soce_sw_shutdown()
-> 	dsa_switch_shutdown(priv->ds);
->=20
-> After an unbind or rmmod, does the core keep inserting SDSA source-port
-> tags into every frame delivered to the CPU port, with the tagger that
-> would strip them gone?  As described in the commit message, the same bits
-> also keep the user ports in CPU-directed operation:
->=20
->     "Enabling this tagging feature of the switch, places all user ports
->     into CPU-directed operation"
->=20
-> so the switch would also stay locked out of normal port-to-port
-> forwarding after the driver is removed.
+It's clear that strlcat() isn't perfect and sometimes inefficient.
+But blindly deprecating without providing a good alternative doesn't
+sound like a right approach to me.
 
-Yes, I had not considered this use case. The tagging state currently
-remains enabled after unbind or shutdown. In v3, I will add a .teardown
-callback that clears both SOCE_TAG_ALL_FRAMES_ENABLE and
-SOCE_CUSTOM_RULES_TAGGING_ENABLE, returning the switch to an unmanaged
-state.
 
->=20
-> > +static void soce_sw_remove(struct platform_device *pdev)
-> > +{
-> > +	struct soce_priv *priv =3D platform_get_drvdata(pdev);
-> > +
-> > +	if (!priv)
-> > +		return;
-> > +
-> > +	dsa_unregister_switch(priv->ds);
-> > +	platform_set_drvdata(pdev, NULL);
-> > +}
->=20
-> [ ... ]
->=20
-> > diff --git a/drivers/net/dsa/soce/soce_mdio.c b/drivers/net/dsa/soce/so=
-ce_mdio.c
-> > new file mode 100644
-> > index 0000000000000..692dcbe57d1a6
-> > --- /dev/null
-> > +++ b/drivers/net/dsa/soce/soce_mdio.c
->=20
-> [ ... ]
->=20
-> > +static int soce_mdio_read(struct mii_bus *bus, int addr, int reg)
-> > +{
->=20
-> [ ... ]
->=20
-> > +	mutex_lock(&local->mdio_lock);
-> > +	ret =3D local->mdio_ops->phy_read(state->ds, state->mdio_output, addr=
-,
-> > +					reg);
-> > +	mutex_unlock(&local->mdio_lock);
-> > +
-> > +	return ret;
-> > +}
->=20
-> [ ... ]
->=20
-> > +static int soce_mdio_23_02_wait_for_idle(struct dsa_switch *ds)
-> > +{
-> > +	struct soce_priv *priv =3D ds->priv;
-> > +	struct soce_dsa_local *local;
-> > +	void __iomem *ctrl;
-> > +	u32 val;
-> > +
-> > +	local =3D &priv->local;
-> > +	ctrl =3D local->mdio_master_addr + SOCE_MDIO_CTRL_OFFSET;
-> > +
-> > +	return readl_poll_timeout(ctrl, val,
-> > +		!(val & (0x1 << SOCE_MDIO_23_02_CTRL_OPSTATUS_OFFSET)), 10,
-> > +		SOCE_MDIO_TIMEOUT * 1000);
-> > +}
->=20
-> [Severity: Medium]
-> What happens to the hardware state when this poll times out?
->=20
-> On -ETIMEDOUT the OPSTATUS bit is still set, meaning the operation is
-> still in flight, and the callers just propagate the error without abortin=
-g
-> or resetting the master:
->=20
-> 	ret =3D soce_mdio_23_02_wait_for_idle(ds);
-> 	if (ret)
-> 		return ret;
->=20
-> The bus wrappers soce_mdio_read(), soce_mdio_write(), soce_mdio_read_c45(=
-)
-> and soce_mdio_write_c45() then drop mdio_lock unconditionally, so the
-> software lock protecting the shared master is released while the hardware
-> is still busy.
->=20
-> None of the transaction helpers check for idle before programming the
-> registers either.  In soce_mdio_23_02_read_c22():
->=20
-> 	regvalue =3D (regnum << SOCE_MDIO_23_02_CTRL_REGADDRDEVTYPE_OFFSET) +
-> 		   (phy_addr << SOCE_MDIO_23_02_CTRL_PHYADDR_OFFSET);
-> 	writel(regvalue, params);
->=20
-> 	regvalue =3D ((mdio_output << SOCE_MDIO_23_02_CTRL_BUS_OFFSET) + ...
->=20
-> Can the next transaction, possibly issued through a different logical bus
-> sharing the same master, reprogram PARAMS/WRITE and kick CTRL underneath
-> a still-running operation?
->=20
+thanks,
 
-Good point. The current implementation releases the software lock after
-a timeout, allowing a subsequent transaction to overwrite the parameter
-registers while the controller may still be busy.
-
-The hardware documentation exposes no abort or reset mechanism. In v3, I
-will therefore check that the controller is idle before programming any
-transaction register. If OPSTATUS remains set, subsequent accesses will
-time out without modifying the controller state or starting another
-transaction.
-
-> > +int soce_mdio_23_02_read_c45(struct dsa_switch *ds, int mdio_output,
-> > +			     int phy_addr, int devad, int regnum)
-> > +{
->=20
-> [ ... ]
->=20
-> > +	regvalue =3D (devad << SOCE_MDIO_23_02_CTRL_REGADDRDEVTYPE_OFFSET) +
-> > +		   (phy_addr << SOCE_MDIO_23_02_CTRL_PHYADDR_OFFSET);
-> > +	writel(regvalue, params);
-> > +
-> > +	writel(regnum, write_reg);
-> > +
-> > +	/* address cycle */
-> > +	regvalue =3D ((mdio_output << SOCE_MDIO_23_02_CTRL_BUS_OFFSET) +
-> > +		    (0x0 << SOCE_MDIO_23_02_CTRL_TRANSTYPE_OFFSET) +
-> > +		    (0x1 << SOCE_MDIO_23_02_CTRL_CLAUSE_OFFSET) +
-> > +		    (0x1 << SOCE_MDIO_23_02_CTRL_OPSTATUS_OFFSET));
-> > +	writel(regvalue, ctrl);
-> > +
-> > +	ret =3D soce_mdio_23_02_wait_for_idle(ds);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	/* read cycle */
->=20
-> [Severity: Medium]
-> For Clause 45 the address cycle and the data cycle are separate hardware
-> operations.  If the address cycle times out here and is never aborted, ca=
-n
-> a later data cycle land on a stale address, and can the following
->=20
-> 	return readl(read_reg) & 0xffff;
->=20
-> hand the previous transaction's result back to phylib as a valid register
-> value?
->=20
-> Would it make sense to poll for idle before programming PARAMS/WRITE, and
-> to clear or reset the master on the timeout path before releasing
-> mdio_lock?  The same applies to soce_mdio_23_02_write_c22() and
-> soce_mdio_23_02_write_c45(), where a corrupted transaction would write to
-> an unintended PHY register.
->=20
-
-Yes, this will be addressed in v3. All transaction paths will poll for
-idle before modifying PARAMS or WRITE. A failed Clause 45 address cycle
-will return immediately, without starting the data cycle or returning
-stale read data. Subsequent accesses will leave the controller untouched
-while OPSTATUS remains set. The hardware documentation does not describe
-an abort or reset mechanism, so recovery is not available.
-
-> [ ... ]
->=20
-
+Takashi
