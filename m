@@ -1,148 +1,172 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4A7D47FB1A
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 09:57:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7959047DF89
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 09:58:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789466265; cv=none; b=Ag3ZU8C8QXwQkufXTWmyocN0S9cvVMGUVnS6/Nl6UEv0o2xgvElsDMcpsWmvm231aMukF5+tKlv6WocNSAeVDI2Jg3wgEp1he8kHNkxPooZuBcOKeorx0smbTgVORspJk1YcNDjiOQIWgpFG5t5jr7bC/i92votebiZZ/vzLF4Q=
+	t=1789466286; cv=none; b=R2BJx41wQYEFWEzmQnrje0CWkTEH2VAnVkpU6Tv+k2C4DYYtuEHqePdMdpgJUOPgbE5mcgB7LHaQhq6kmHHkn0s3bbLdkKbHZKJd4lc5twynf4GRSnFnXCrbzb+4efCbS7z28yuNxef6iEq2cNt7kcettYvreytUOJVKacv8EyU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789466265; c=relaxed/simple;
-	bh=V/hzdH2QkH3VAqZiBtIzZeWx577pOOceqTjQ9JXOVaE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tENoOFLizHhEdht/F0JCSlo6ooIuSNZ7N+c1vkLjv0qjJRojayzBGkLHFanuCDq7eFBRosAWOGVypVkbsyVq+ojOups8wgu5SnFpPHXscSMjIMNeMKmD3FDUJQFbQPnEFk9gorcy11siMPTvosjStBn06WCUYG2HkqpBHcb0vYI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=W2JYTq7t; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iLjjAFNm; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789466286; c=relaxed/simple;
+	bh=Trb2SHXmeQz6WNLbypoh9yODUxidliRbA6km03ET91k=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Rhhn4+7rZ9p9W+MQhBhc2xNoWLV72lQ9fx8ggmp9ukucS3gfCxd0QLEEZfvVvjSxk2qwHpuwzNQ+DLZjZWFCK+XKkWTEJZ/KBNOQT+RtzGuFo2HkPCWGfJe6aKLkbOscouj65oBXqbyeUrJrMAT5iGqT+B/1nMfnvXRaucvzgwk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oumBPpti; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="W2JYTq7t";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iLjjAFNm"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F9h8XO2086809
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 09:57:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=vHivB0Etmchj894r1qph40xT
-	L7+4vfphDOHMRIbg5ac=; b=W2JYTq7tU/pjhrI/JNfOkqi7Z0iHotWtnxjjGKSy
-	zhRFM7EvImD6HWCVv7sOG2AG3/Mo1TcbchrM2rbOA90KtE7OwDF0miG2euSHvGi4
-	m49goRS3yR/8csREpKa093CtESrgDFhTR42mcpAa11J/bkjwRB9Ab3p67L6ovma8
-	dYuPrDNyK4ogokfm50bCTR4VygnQG7XWxOfe4eyfnllJeck1bNhI4eF6TYVRH1Iq
-	PoHIgy9MMqZ/109bJpNxlDVwuB5mhJgVCgOULiV1mmpkZXqgLPQF66gSbe7uJz3J
-	emwTgKbNCzNzi+XCxHG/oMucb2Tr0oXuXT+uw4eUNExugg==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gq1qp8q1q-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 09:57:43 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-936e393061dso688622985a.2
-        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 02:57:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789466262; x=1790071062; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vHivB0Etmchj894r1qph40xTL7+4vfphDOHMRIbg5ac=;
-        b=iLjjAFNmXz8xu/ggwuL9VQlpugp86hANlu+HRQjCZ85mz2UyYbJT1NkTGZNGOlgeu5
-         g6tWxfekjNqJe2gqR92Az2tNcAZw+FW4Y5kbIz/pJ+rSe22MCCJIUyyVIVCt9r4Vat3K
-         MFlago5GN4AOkkfO/h+voHADxYsx0LM4NHwIRhIta2AELg7sgj7Ygg3a2XW1t7Ay61+H
-         WpqBVF0s+doX0EsgQhE/JOQPNLwVP7I28Al6DWcNIaFueigxCBQ95UyeiSfSOsf9LPVT
-         4K5OJW0V0+nDetg25itgo4KRbg49VO2fmhq6c0pEbVk0xN8NyDF0FhDLRjt1CnklQd+9
-         R+uQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789466262; x=1790071062;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vHivB0Etmchj894r1qph40xTL7+4vfphDOHMRIbg5ac=;
-        b=KHWU+yG0/POVv9z7xaEPN7nnCon3rAXAv1VKLnK4jCrYCxOuSER3FliucZvhKWeFZy
-         rqqtlZuW5o8AvVR+2MENeOSVCiT1rDlpvpgcd1fy947xqXTMLazucQj+qrIxWv0fIIls
-         qVOeL+Yj5hTqPjRgvlq/zJkUtJDNn3j3do5Lt4E+Y3QNYSBR558oQBL6wGSv82bDtd5l
-         YaLBRPJ1NZgNj+nxvK+7rUWPd+hjLu+TcrK7a1/8GUgGjmAYZGANR0//JEQqWSjwzNhX
-         0kp3XCJKomBQGNgoDdv5y4wFhUBxHOYZfkUd853sWPUR8dRftHIIB9p6WDxbmqyWtwhi
-         +bYw==
-X-Forwarded-Encrypted: i=1; AKwUvBwfwoNoSAAPCqx17DrYjb5C4ZQtlVIOEVBAN//puDDjUxDRyoUTRy/+3rACrQa19gnR61Y5iupJ/d30@vger.kernel.org
-X-Gm-Message-State: AFuF++m4L+mVLYRvss28d67nfgjSMwcQ1Yy5GiK1NSbIwa2K+Qqs9rd0
-	ziEEY+8kUJtcbi5+T4eNBF8EfSxMXffoTIO2Wg84AQltXSQJovSwzDd2dz181r7tjEpTzziNbEE
-	Pb0P9+jzEVESLZNBTh7h0Bc9n1ZL1TnzZ3p+JhMQz+ET/yjK0D5k6STrUkyXkrJH/
-X-Gm-Gg: AYBFou2Xh4RP4bz2EA4LJSceWTmjnS46WW9/gOzI9XW334BX6M6lpa6jULeqLl2wAHc
-	dPHxsnpXXQDZ75EcUOdSze1jQp6AeeEM2O90rBZ9TYCKXCrgcQZZ/q3q0fzsLvEjT+9g1BS/BQC
-	Z5umSDD6DzgjW0md6JVL7vBQhXvaSriFy+iWtJ3ZhYHBUfG4nDJ481FtFPqe/OCv1PLThpcQemb
-	XMeR9XY4BOau1BjrrOaNwIar4sHCRYnDUEliRGMicFI3rCSdpnDfimJp8JlD8MP969alCZAugFt
-	K9ltiYZE1GuyepzCZ0rsV9A1BCdx8d6oCorFje5E3KE2ok5vJbN0XnwjaSgzBPUstse2opbmcPo
-	5KDw3gBGRsiaqcQ==
-X-Received: by 2002:a05:620a:258b:b0:939:e5a3:10dd with SMTP id af79cd13be357-93a297cac1dmr896733185a.2.1789466262036;
-        Tue, 15 Sep 2026 02:57:42 -0700 (PDT)
-X-Received: by 2002:a05:620a:258b:b0:939:e5a3:10dd with SMTP id af79cd13be357-93a297cac1dmr896729885a.2.1789466261445;
-        Tue, 15 Sep 2026 02:57:41 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.232])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb35bd1esm33238115f8f.31.2026.09.15.02.57.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 02:57:40 -0700 (PDT)
-Date: Tue, 15 Sep 2026 12:57:38 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Xin Liu <xin.liu@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Yijie Yang <yijie.yang@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, tingwei.zhang@oss.qualcomm.com,
-        jie.gan@oss.qualcomm.com, guodong.xu@oss.qualcomm.com
-Subject: Re: [PATCH v3 1/3] arm64: dts: qcom: purwa-iot-evk: use on-board
- crystal for PS8830 retimers
-Message-ID: <aczv4t7v6rk2cersl44iadrzvbnhyn5aebwn7jcjvo263au62w@2yccbdq4enpr>
-References: <20260914101233.981643-1-xin.liu@oss.qualcomm.com>
- <20260914101233.981643-2-xin.liu@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oumBPpti"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A0BB1F00898
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 09:58:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789466285;
+	bh=ZCWZE6nYnnZ/ZXDZt2kLzP5VUjl1Q/mjEy5qyS28Nqc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=oumBPptigm3xi/2/VSp1AURpUYUYJ/VwAGr488tBAEXZpX0RlwCNAXJnTHUALlx72
+	 X0qVsU3n7Gqbp4Qmb6RUaA1H3TlmupUihRCmtH1ZXfMtr8KLr2o6DftI09bQyiA+fz
+	 14tsfxH3kbS/7sgF3HYP35Osq+aWsDzanxWQjW7rdXZ0kveHqhyLOr80c4buv4w2JN
+	 mRnH5079ZLXePkrjfbG4cv8ZYgibhKKDpYOYYHgqr4raqJdiibWfDG2Uizxes8qeUK
+	 qNTmfLjPvJw+4d5sNXtet21ZAktzxrOUSj2XcKQvBAPv4VO7uB1V2g8DzUwMGJM/Fp
+	 N8A4OYs4iEMAQ==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f1744fso4471952e87.2
+        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 02:58:05 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxx/CkrWKxWnZYSuOX53JjaqONGooEclMQPfcQLpulDs9sx+4Y0ET+yJL9CBZaLt9THYY42cxqchiXx@vger.kernel.org
+X-Gm-Message-State: AFuF++n0xM42WvYtuMz8ROLsrTtvW6TDw+yHaATYWpzeP65Z3YyGdLbF
+	T3HYVMr1tS/qBgqNrBJi5YcOZKOH7+pfLpjtk6HaR1AAHlVlLklyI0f8xw1ZLkzKhKSVdtjS8sy
+	FUCj9diuExxr+m5njs9SwUjZKKT9J1tKZeSY18yUzXA==
+X-Received: by 2002:a05:6512:2287:b0:5b8:b37f:164 with SMTP id
+ 2adb3069b0e04-5b8b37f0300mr491722e87.48.1789466283784; Tue, 15 Sep 2026
+ 02:58:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260914101233.981643-2-xin.liu@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDE0MiBTYWx0ZWRfX1rLX/V+UV4jz
- gTqsp5HFKvS/t30GqI8kVoz1/UMiQ7b4+9OX040tiDRf72WV7A8YkUXZ5PDSogaBN9/ro7azQwO
- 6Coe4o2UCvhkA/EMwN8MJ20pnJxkzT4=
-X-Authority-Analysis: v=2.4 cv=I4Xw19gg c=1 sm=1 tr=0 ts=6aa91697 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=D9jnvxXfBeoGJ7MCLz4A:9 a=CjuIK1q_8ugA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-ORIG-GUID: kmBdGtYmfLWAizp590oPBLE4rOV4gUJa
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDE0MiBTYWx0ZWRfX+JeJRCP2Pyt0
- b0y8lj5aqrV6wasfppkxVpBTNcTPSm46m2OGWslnsXCa+rZJkODuL7XxLVvSs1mG+t8DzmJfj+x
- LGPVJ40N1WzMMCB2yFMONGRkGn7s3pg2KBwkp8bVGDeVt7YLF4As2liKUIG1pPv6ArSHWfxBcnF
- PNGESjCD0OM9+2ZTVRq/2vd5UVGaCUNshn2LGvgo2rdX64z3BvoOZ4Vrvq3ZaqEXtoYZAWlzj8w
- 8GL6WIbCdqrgaLuWf9OJiDX7y8sEns5MdkZAn47PSP3HAmCe9cIG4unTClqW27uLBVQnll1MYuu
- ChMMNIp4vlqU4/TRqEdVC/bwMJNGtswbi4CzlpjaHtdnRX73oQaM8yKjw4JCDq1ghneB6YMbrDJ
- kWsBzwCuR/85LJeeCSJogm0CTvD5VH2BcLOH2Tvcq1+X9pyc8VnWmbpukF+UyQWolKzs2UZZdg4
- VK2iOT0WRusXkih6QhQ==
-X-Proofpoint-GUID: kmBdGtYmfLWAizp590oPBLE4rOV4gUJa
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_03,2026-09-14_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 phishscore=0 clxscore=1015
- priorityscore=1501 bulkscore=0 malwarescore=0 impostorscore=0 adultscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609150142
+References: <20260915092046.931449-1-alban.bedel@lht.dlh.de>
+ <20260915092046.931449-3-alban.bedel@lht.dlh.de> <CAMRc=MfARu1c4Coks-Bn8W4eRueh1oDU47691+NR_o2weKy0BQ@mail.gmail.com>
+In-Reply-To: <CAMRc=MfARu1c4Coks-Bn8W4eRueh1oDU47691+NR_o2weKy0BQ@mail.gmail.com>
+From: Bartosz Golaszewski <brgl@kernel.org>
+Date: Tue, 15 Sep 2026 11:57:51 +0200
+X-Gmail-Original-Message-ID: <CAMRc=MeS9Afk+C249ZXKsjchbgMwt_nzvTyZgYDsZ9+R1hjsqQ@mail.gmail.com>
+X-Gm-Features: AcwNN1UYHJdnR2BKfs8WcM_KjDKlaLv-CNF0gRvZB_uEMMYIBE8TVTdoc3eAUQA
+Message-ID: <CAMRc=MeS9Afk+C249ZXKsjchbgMwt_nzvTyZgYDsZ9+R1hjsqQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] gpio: Support ON Semi CAT9532
+To: Alban Bedel <alban.bedel@lht.dlh.de>
+Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 26-09-14 03:12:28, Xin Liu wrote:
-> On the Purwa IoT EVK, each PS8830 retimer has its own 25 MHz crystal
-> wired to the retimer's XI/XO pins. The reference clock does not come
-> from the PMIC, so the RPMH_RF_CLK4/5 references in the retimer nodes
-> are wrong: they keep those RF clocks enabled for nothing and describe a
-> connection that does not exist on the board.
-> 
-> Remove the stale "Left unused" annotation from the vreg_rtmr0 regulators
-> as the retimer is actively used.
-> 
-> Fixes: 9ed20e877239 ("arm64: dts: qcom: Add base PURWA-IOT-EVK board")
-> Signed-off-by: Xin Liu <xin.liu@oss.qualcomm.com>
+On Tue, Sep 15, 2026 at 11:51=E2=80=AFAM Bartosz Golaszewski <brgl@kernel.o=
+rg> wrote:
+>
+> On Tue, 15 Sep 2026 11:20:46 +0200, Alban Bedel <alban.bedel@lht.dlh.de> =
+said:
+> > Add support for the CAT9532 LED dimmer from On Semiconductor. Altought
+> > marketed as an LED dimmer it is a bit limited in this regard as it
+> > only has 2 PWM for 16 pins. As explained in the datasheet it can also
+> > be used as an open-drain GPIO controller, and that's how it is used on
+> > the hardware I have at hand. This chip doesn't really map to what the
+> > gpio-regmap driver expect so it is implemented as it own driver. This
+> > approch also allow to later add support for the LED dimmer if desired.
+> >
+> > Signed-off-by: Alban Bedel <alban.bedel@lht.dlh.de>
+> > ---
+> >  drivers/gpio/Kconfig        |  10 +++
+> >  drivers/gpio/Makefile       |   1 +
+> >  drivers/gpio/gpio-cat9532.c | 173 ++++++++++++++++++++++++++++++++++++
+> >  3 files changed, 184 insertions(+)
+> >  create mode 100644 drivers/gpio/gpio-cat9532.c
+> >
+> > diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
+> > index a48586bb8edba..05b7af675677b 100644
+> > --- a/drivers/gpio/Kconfig
+> > +++ b/drivers/gpio/Kconfig
+> > @@ -1180,6 +1180,16 @@ config GPIO_ADNP
+> >         enough to represent all pins, but the driver will assume a
+> >         register layout for 64 pins (8 registers).
+> >
+> > +config GPIO_CAT9532
+> > +     tristate "CAT9532 GPIO support"
+> > +     select REGMAP_I2C
+> > +     help
+> > +       GPIO driver for ON Semiconductor CAT9532 LED dimmer.
+> > +       Say yes here to enable the GPIO driver for the CAT9532 chip.
+> > +
+> > +       To compile this driver as a module, choose M here: the module w=
+ill
+> > +       be called gpio-cat9532.
+> > +
+> >  config GPIO_FXL6408
+> >       tristate "FXL6408 I2C GPIO expander"
+> >       select GPIO_REGMAP
+> > diff --git a/drivers/gpio/Makefile b/drivers/gpio/Makefile
+> > index dc9e6d643b5bc..e94d2f57a1f93 100644
+> > --- a/drivers/gpio/Makefile
+> > +++ b/drivers/gpio/Makefile
+> > @@ -51,6 +51,7 @@ obj-$(CONFIG_GPIO_BRCMSTB)          +=3D gpio-brcmstb=
+.o
+> >  obj-$(CONFIG_GPIO_BT8XX)             +=3D gpio-bt8xx.o
+> >  obj-$(CONFIG_GPIO_BY_PINCTRL)                +=3D gpio-by-pinctrl.o
+> >  obj-$(CONFIG_GPIO_CADENCE)           +=3D gpio-cadence.o
+> > +obj-$(CONFIG_GPIO_CAT9532)           +=3D gpio-cat9532.o
+> >  obj-$(CONFIG_GPIO_CGBC)                      +=3D gpio-cgbc.o
+> >  obj-$(CONFIG_GPIO_CLPS711X)          +=3D gpio-clps711x.o
+> >  obj-$(CONFIG_GPIO_SNPS_CREG)         +=3D gpio-creg-snps.o
+> > diff --git a/drivers/gpio/gpio-cat9532.c b/drivers/gpio/gpio-cat9532.c
+> > new file mode 100644
+> > index 0000000000000..973ff74a15b89
+> > --- /dev/null
+> > +++ b/drivers/gpio/gpio-cat9532.c
+> > @@ -0,0 +1,173 @@
+> > +// SPDX-License-Identifier: GPL-2.0-or-later
+> > +#include <linux/gpio/driver.h>
+> > +#include <linux/i2c.h>
+> > +#include <linux/module.h>
+> > +#include <linux/regmap.h>
+> > +#include <linux/spinlock.h>
+> > +
+> > +struct cat9532 {
+> > +     struct regmap *regmap;
+> > +     struct gpio_chip gpio;
+> > +
+> > +     spinlock_t lock;
+> > +     unsigned int direction;
+> > +};
+> > +
+> > +#define CAT9532_REG_INPUT0   0
+> > +#define CAT9532_REG_LS0              6
+> > +
+> > +/* Set output to Hi-Z, LED is OFF */
+> > +#define CAT9532_LED_OUT_HIZ  0
+> > +/* Set output low  */
+> > +#define CAT9532_LED_OUT_LOW  1
+> > +#define CAT9532_LED_OUT_MASK 3
+> > +
+> > +static const struct regmap_config cat9532_regmap_cfg =3D {
+> > +     .reg_bits =3D 8,
+> > +     .val_bits =3D 8,
+> > +     .max_register =3D 9,
+> > +     /*
+> > +      * Auto increment can be enabled by setting bit 4 in the
+> > +      * register address, but we don't really need bulk access.
+> > +      */
+> > +     .use_single_read =3D true,
+> > +     .use_single_write =3D true,
+> > +     .can_sleep =3D true,
+> > +};
+>
+> This looks like it would perfectly fit the gpio-regmap helper and allow f=
+or
+> code reuse. Maybe except for the locally tracked direction. How reliable =
+is it?
+> What if the GPIOs were put into some specific state by the bootloader?
+>
+> Bart
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Ah, nevermind, you commented on not being able to use it. My question
+still stands, how reliable is direction tracking here? Does reading
+back the registers you write in direction setters not give you
+anything?
+
+Bart
