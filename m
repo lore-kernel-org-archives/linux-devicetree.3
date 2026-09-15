@@ -1,87 +1,53 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 392454BD79D
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 15:49:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ED384B66F9
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 15:55:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789487387; cv=none; b=Tg1QwlLqadD/WoiXhHn9pb2tiKUPz0ksvAa9mUh1RHlgCnEujFmJJrH16RtKv069G56tQW0UVqvKieswE7bPBDoafmnFIreQv4FeAZnOzuFDQCAfBM9XkDAiK6BilkFowPY9ikig3QfPxVWn1Qa5WhhEApSORfj+UHs9zEZWk2w=
+	t=1789487723; cv=none; b=aQ7O67EcfclpFFGWMhzDv8X7TzBwLaoV3lPUAguhmtovJJroMXZ5Q//zWk2orEPMRiiQwri+WFW9Rc7+d5OaiD6goNRKfbUOnbHGzLulRWypOcmUjyiUUiA52ccrwTErUVcKw913zoUqKR35oaiUXwAVYEX+NCddrPgeUuf6CPM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789487387; c=relaxed/simple;
-	bh=4ei91b2R3LhpqavB/TmX7B5aep0BPPMa3xpepuWnm3o=;
+	s=arc-20240116; t=1789487723; c=relaxed/simple;
+	bh=+HzaoJJ1ZNqvWhVTWzsvw+MglRBrJ30uE/Z5FYqCy0Q=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lvAhFe62VdrDGoCNYnIgIE2jM5nWED8VVg7bqJj3+YzeRJ5F1NULT3VJfAakye/HfZqugohxkEt+RJIsR8T/rgl2sG5xokdYm0QF+/ZXn1FegcPAAtW3nF7moq0TapqUb8CDyrBhIaZAkWbnrUrkMLbpT1tdSumEosGCXIowYXM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=h6Rg5v5F; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Un9nBENj; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="h6Rg5v5F";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Un9nBENj"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68FFAQoR1014182
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 15:49:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	EaIdKmli7v2LIFD3GMLQcKRecXvx+ZCUfvZafIxPoyo=; b=h6Rg5v5FSw/YNtTU
-	vroXO3zDJH9SA1yOYDyj3IVvfIBTQ9lrDeBr6d0zGrmPT2nAiFPEF/p2VlTOTb4M
-	Cjao1j3rFUPIjobRMHQiAXDxhVtGwVXD2anwGZvxoklUYzWZPUdahvwu2mLWKRM2
-	wGyXwkIUZ8ANcEaTL3+lISNjixWZxrYN+Sn3zoGc3jj0x3iEJTByKMx9PLYeraD3
-	b6nnUhtAV+UgtAdptqN5XW18hhCvbDuHrJZQ0SRXvX0XCdW6FfCLQswuzfEUuS8h
-	L/PCdbqGVNh7JvWG+B5nsxCKtJ1V2bMo1UMvbtkSUr0UzN/I/xgabZjSprGJJZWx
-	UyBrqA==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpyea2r4r-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 15:49:44 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2d6fb956002so57571835ad.1
-        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 08:49:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789487384; x=1790092184; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EaIdKmli7v2LIFD3GMLQcKRecXvx+ZCUfvZafIxPoyo=;
-        b=Un9nBENjl+gtMN8FS8w1CAMgtVO0hPSffRcdY8fonRLBHOdKUQrOXjfEllXyGHwpSf
-         LEcOEv8xvbDpQyN49J3S5K0/qwR+Ovwf861gTxfLDksOFEpjGpMk0zswwDxVD8vTGK1s
-         qzL1MDBoHaHqpeg3sA0XjmTHgansInLhU+oQIFHoUE+2eJtbNqnob049xZcxAwOPeMjH
-         yArR3UmvYhT9voZtkkadG5Oo4PUJJ1FFtM85JCxY4x3nA6Gu2pUzS11y9OydBMPre4Xh
-         JZ3pgkXDnc3tR0J6wYfnoJInHZU1ufDKz/F/P4jP5R9I2T7ig8MkvLOmD+TPRNi2hYmC
-         vNuQ==
+	 In-Reply-To:Content-Type; b=doeN7q7fUCMn/SFQYqwNc6Z+jii+m7GdB/6De7ayEqvtqzIvyOS8rOgOFFB87oyq8j7FXizcFJbVKh9LC1WpdZaqF2S8iNUXKDEfAM2j/sCIsIhIKZBFMWEAo1ZqBMjQseBc+sGQ1rQioM7IARj3da6dmwyFVG59g6/+MIGJXjU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c29d50b7cf9so107719766b.2
+        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 08:55:21 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789487384; x=1790092184;
+        d=1e100.net; s=20260707; t=1789487719; x=1790092519;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=EaIdKmli7v2LIFD3GMLQcKRecXvx+ZCUfvZafIxPoyo=;
-        b=zrs86nbdXybUL3xmV9GAaukpBerfdzSj2P62B1JNa/VZ5wr5lHqbdKxQ+EHEJ30844
-         LYwNAEzYpXwUqsaU3CZQ7WuNxwVd5zz6oDy+ftI/WuCyCR68tlMi4CaXglJHq6x8C+B0
-         Ws7u+4aYS67eRoneVxwVu6qIDbHMg/J+8zfLxiu++ZNJtmHn7CPiU8jXdzOLA9zOLfK9
-         /T2nVGqRHaRw+cIztH9XjU3SiOp3LAyL+JVB+1rnmvNIDkOEgbzOeTX+bSpmAd7PGc/g
-         Yz+6bDzrvfACWiumhJi+EYO9pB4aar1XJQeb53kz1Ki0SgsMU4UVztoJ2+JwAHs5ctSz
-         v00Q==
-X-Forwarded-Encrypted: i=1; AKwUvBw2EzGJi1qrx6UYQnAVq7yMnIVYkLvAhtrV31ASA8nnLKhGLNHUnKVTLtKLmh2tADqG2bFzAsoZI54B@vger.kernel.org
-X-Gm-Message-State: AFuF++n+hy0NoVVYsgRRT9I7xQflETr2ICN8vZ866HJ044OOB2ABisYR
-	sKEJwU+sf7Kc5aqmzvcUH68e2Ne9yqD6CG9VSLmRvcAxQIUIqCCqNdeyq+VqlCIGaZzWyoSRlvd
-	jxzH193G0JkL8vFC1Ri1Rh2gaN17ruNObT2SO0LZrQnUcPDg5IfWElW3UhwQa3WZv
-X-Gm-Gg: AYBFou23SloeSb7vgyzQAAvbOJtkrbAJ2HBkj4scgS6XQEQUE+kEwivnEceNoFaZtE2
-	OUne3AHUvC2wTHdu6bClVneFuo62g4+O/X16IeFbKwn6HcAWK3UVpgt280H9XQW676liaeo6Q7C
-	p8q0LfSq+qUcahk96fUuoykR+yv9I0nPSLXL+4tEmypcOL2h0aLLrJi5WsK/YMxfRJlDc0VAB8+
-	3yvxDnckHCNOfVaoESCshRMXnXzjH/+2zjIxtInWz3UEEZ4y98D5gAEgW0RWNqfNa333Pw8NFTu
-	f4gzNXL7y9JhLTNgB40djA10JB//znFsJUcFLLtpOqKNfE0wJhsyCBKAs7qiLkPhiHA7b3bP6Np
-	Pr7oA4TMQni02rrHafOWZfZrnMKU2TtT9IvhWrpKx
-X-Received: by 2002:a17:90b:2f0d:b0:39d:f024:c7ee with SMTP id 98e67ed59e1d1-39df024cbbfmr14331066a91.25.1789487383596;
-        Tue, 15 Sep 2026 08:49:43 -0700 (PDT)
-X-Received: by 2002:a17:90b:2f0d:b0:39d:f024:c7ee with SMTP id 98e67ed59e1d1-39df024cbbfmr14330999a91.25.1789487383005;
-        Tue, 15 Sep 2026 08:49:43 -0700 (PDT)
-Received: from [192.168.1.5] ([122.169.220.106])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfda7cc42sm6221221a91.9.2026.09.15.08.49.38
+        bh=wp7WIPM4acbNtx/6GioAbRHdq+dUssBIHTJbsJvHyw4=;
+        b=HWz8LAW/YhqBgNTEppqhDtVTKZaGTAh3yl3DHYeVBMQANxZInPJz0XhU1yflyCB6h3
+         V4xPWnNJzJCsNdimauDvgiu/jAW/rSnsmt5ra0c80bhBwIyHrgPvxIbR+gKMFg9VtHhp
+         qkKNBJxw9Hz/ZE4pv89qah4gTl3M2p1pfwVhith4CPjbyyH/jsnXOPxxzsR1OUg7+2M6
+         6NcTGUKXxTxydRB2ERDQwvpJZpicKMx6AmgrimQUJQvgGIWIKagh/vcCijHPeqIOlZEm
+         PxhSc92ZF/B7IBLEztnIFr2Q0bcs+ErDWsrj3pvuwRSqPsEbjASTvVDBSyOl2CxVdOGo
+         rxxQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzOy9jdTXVH2ltyBrAFunYo+97m3T5kk8rCe6In5Ot5NnN92DsU8Yh2HQMI2MiTNO5NcfMtx02JXzkM@vger.kernel.org
+X-Gm-Message-State: AFuF++nBRVzSarAkGC00H82SkowzImql5dvYWe5OHE8isxnwctSbNv+o
+	ifQuTWwWkc+hm2ugeMWEgIVQSOxHOuVUAmy0LZI+L3wRyrsSmSIyfzc9
+X-Gm-Gg: AYBFou0WctsX82eAL4iDQ78Nz4esjeVMWO5phIES9SgI0m/6wnb8W9k7hx+8E5OEF81
+	wPnwDCLBNNSyY8ZXujJ67p/Kh5G3Jguz8Ey5Bl2VvtnCQAZO01qpSiClbzzn4Cd63J1uG+4p9OH
+	CODUn63RXKvOyp6Z+N3OAU0+o52TzBIO75hezGmnIudkJW7NVEH4IJEM36E7cVFIo8BDn9zVRVV
+	KsKbX3p5Ug8HmjeRg59q93oge1X+7APb7K79zq0ReqvA8kc5bmHtU49T0KeK6WEqJFkDqdIXbvC
+	eAalUXU364ke6eVOtg8Onl85LZ5RLjTWcX9o2LAO5gi6uNQYpkA3xuQV4kRb5DBHgaUiIeRr99j
+	h2dB8QKg/ONI2PEW3LdHe0FaiACQcHvL8gStV/wdnoO3A5M0yaNBXJKVpswD6dWkaICYPPgGPX5
+	BwAi7cQJxsI6d4joUfOlzp7f7pSoMEhP+UKEiPxt5DNvj0LuYNecS/qf8LFsl24SptHx32G0ozR
+	5HvBP9GlOw/MpJwBkEV/KIZGoBs6ms=
+X-Received: by 2002:a17:906:4795:b0:c26:2f09:f2d8 with SMTP id a640c23a62f3a-c29d790987bmr118615366b.36.1789487719226;
+        Tue, 15 Sep 2026 08:55:19 -0700 (PDT)
+Received: from [192.168.1.135] ([84.68.183.72])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2966125543sm610972266b.55.2026.09.15.08.55.17
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Sep 2026 08:49:42 -0700 (PDT)
-Message-ID: <bf2a490f-4bbd-4223-9cc7-685e5a90ec9d@oss.qualcomm.com>
-Date: Tue, 15 Sep 2026 21:19:37 +0530
+        Tue, 15 Sep 2026 08:55:18 -0700 (PDT)
+Message-ID: <dbf50a87-cf43-452d-8a82-6d7ee9af02a6@linux.com>
+Date: Tue, 15 Sep 2026 16:55:17 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,88 +55,84 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 9/9] arm64: defconfig: Enable Qualcomm PM4125 and
- WSA885X drivers
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260910231642.1794948-1-mohammad.rafi.shaik@oss.qualcomm.com>
- <20260910231642.1794948-10-mohammad.rafi.shaik@oss.qualcomm.com>
- <20260911-tireless-sincere-flounder-5fdfb0@quoll>
+Subject: Re: [PATCH v2 0/4] amlogic: t7: give the MMC bus pipeline clock real
+ consumers
+To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Jerome Brunet <jbrunet@baylibre.com>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+ Chuan Liu <chuan.liu@amlogic.com>, Jian Hu <jian.hu@amlogic.com>,
+ Ronald Claveau <linux-kernel-dev@aliel.fr>, linux-mmc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260905153234.133217-1-tanure@linux.com>
+ <CAPx+jO8oWZxgkWTv3v5odp8K2oWMY-KhJVR3U+iqY4mQ9LrG9w@mail.gmail.com>
 Content-Language: en-US
-From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-In-Reply-To: <20260911-tireless-sincere-flounder-5fdfb0@quoll>
+From: Lucas Tanure <tanure@linux.com>
+In-Reply-To: <CAPx+jO8oWZxgkWTv3v5odp8K2oWMY-KhJVR3U+iqY4mQ9LrG9w@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: P4OAhNcLp1CLVCXqQ90VE6Y_NXuQh4L3
-X-Authority-Analysis: v=2.4 cv=cehHPXDM c=1 sm=1 tr=0 ts=6aa96918 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=Ww153nmMuBeTcjqybhOiGw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=5zVXc8y5ZMJFenxCD80A:9 a=QEXdDO2ut3YA:10 a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-GUID: P4OAhNcLp1CLVCXqQ90VE6Y_NXuQh4L3
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDIzMSBTYWx0ZWRfX7vDKTeq+855h
- aCI235ji/QmVSlaWMTHLjwVB+ORfDKHf8ts70QpR644Eaje30+7Iq0O4yVCz9hmIWEL7goxjzx2
- 5qouUkQmBkQwUOPozNciIEiNij2Z0oI=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDIzMSBTYWx0ZWRfX1jPV9URVFoi4
- BPE1aEILBRfjCyJsxAZU2kX6PkvpIlNOur1Sx+OtbFQu37zzbb4qtUQh7F+XZif8FRHxWtg/+vY
- Ogoul48NSZ8BprIl/Y6wozOpjjC1ZoP1lrbE+sacB0QDvjC586YpOEl2GO/wHSVUJVS2+/SAVWl
- 3vqx97O9IObv9SfTOQqHdTTR3ijLZ9YeYg6pH7Sj26AbIp+l5im0ysoaetge34AsAm3r6RWoufd
- cgWbACMVyz2S4iV0uIP1JyZWztXLf83i42URKd2ICQswF+KZcbCwS9Q10casl/GMGAFqYER27Vi
- bCDge3ifzCl+9nkSsvGwE5pm8nDhk3c5TYKzLjz66bQdWdYCmzyDca9nOcrkmAXzGuanZ0rAerz
- SvptTuF/CQdH8tGXWlXXfps3xZqStw9gfPcvQ4xY8iB+ezLXIK3AmSbQaKYyX+DIfl0ciRaHx30
- QzSpY7uXj2Zq49iYEHA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_04,2026-09-15_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 lowpriorityscore=0 bulkscore=0 clxscore=1015
- impostorscore=0 spamscore=0 phishscore=0 malwarescore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150231
+Content-Transfer-Encoding: 8bit
 
-
-
-On 9/11/2026 2:26 PM, Krzysztof Kozlowski wrote:
-> On Fri, Sep 11, 2026 at 04:46:42AM +0530, Mohammad Rafi Shaik wrote:
->> Enable the PM4125 and WSA885X I2C codec as modules in
->> arm64 defconfig.
+On 11/09/2026 16:40, Ulf Hansson wrote:
+> On Sat, Sep 5, 2026 at 5:32 PM Lucas Tanure <tanure@linux.com> wrote:
+>>
+>> The previous series for the intermittent boot hangs on the VIM4
+>> marked sys_ampipe_nand as critical. But as Chuan Liu from Amlogic
+>> explained, sys_ampipe_nand clocks a pipeline stage that the
+>> hardware design inserts in the bus path between the SD/eMMC
+>> controllers and the NIC_MATRIX fabric to help timing closure.
+>>
+>> So the clock has real consumers: reference it from the three MMC
+>> controller nodes and drop CLK_IS_CRITICAL instead.
+>>
+>> The series crosses three trees; patch 4 (clk) must only land after
+>> patches 1-3, otherwise the DMA hangs fixed by 43e1705ecab9 come back.
+>>
+>> Changes since v1 [3]:
+>>   - Dropped the Fixes: tag; this series is an improvement and should not
+>>     be picked up by stable (Jerome Brunet)
+>>   - Moved the patch 4 dependency note below the --- so it is not kept
+>>     for posterity (Jerome Brunet)
+>>   - Dropped the e-mail address from the Assisted-by trailer, see
+>>     Documentation/process/coding-assistants.rst (Jerome Brunet)
+>>   - Fixed the space-indented error path added to meson_mmc_probe() in
+>>     patch 2, it did not pass checkpatch
+>>   - Dropped the CLK_PIPELINE() macro from patch 2; has_pipeline_clk is a
+>>     capability flag, not an SD_EMMC_CLOCK register field
+>>
+>> Thanks,
+>> Lucas
+>>
+>> Lucas Tanure (4):
+>>    dt-bindings: mmc: amlogic,meson-gx-mmc: document the T7 pipeline clock
+>>    mmc: meson-gx: enable the bus pipeline clock on T7
+>>    arm64: dts: amlogic: t7: add the pipeline clock to the MMC controllers
+>>    clk: meson: t7: don't mark sys_ampipe_nand as critical
+>>
+>>   .../bindings/mmc/amlogic,meson-gx-mmc.yaml    | 29 ++++++++++++++++++-
+>>   arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi   | 15 ++++++----
+>>   drivers/clk/meson/t7-peripherals.c            | 10 +++----
+>>   drivers/mmc/host/meson-gx-mmc.c               | 20 +++++++++++++
+>>   4 files changed, 62 insertions(+), 12 deletions(-)
+>>
+>> --
+>> 2.55.0
+>>
 > 
-> Why?
+> Patch 1 and patch2 applied for next, thanks!
 > 
-> Same question as usually. I even documented it in maintainer soc
-> profile. Dunno how to improve it more.
-> 
-> Can you tell me?
-> 
+> Kind regards
+> Uffe
+Hi Neil,
 
-I reviewed the guidance in Documentation/process/maintainer-soc.rst and 
-realized that my original commit description did not sufficiently 
-explain why these options should be enabled in arm64_defconfig.
+Any chance you could queue patch 3 for this cycle? Patch 2 is already in
+next, and until the DTS lands the MMC probe fails on T7 with "missing
+pipeline clock".
 
-I will improve the commit message to provide the board-specific 
-justification, for example:
-
-"Qualcomm Shikra CQM and CQS EVK boards use the PM4125 audio codec for 
-headphone playback and capture, and the WSA8855 amplifier for speaker 
-playback. Enable both drivers as modules in arm64_defconfig so that 
-audio functionality is available on these boards with the default arm64 
-configuration."
-
-Thanks for pointing this out.
-
-Best Regards,
-Rafi
-
-
-> Best regards,
-> Krzysztof
-> 
-
+Thanks
+Lucas
