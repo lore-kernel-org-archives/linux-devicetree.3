@@ -1,175 +1,491 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7789E4BE435
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 20:15:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789503360; cv=pass; b=ErJOioqWyxldO37n1YTwnavez1vKEkQJDiatpa8c5luFUoQTIQ/CuNRDFcE8vJs9XwQUN1hqYO+AwmXO/HRlZrlACH57FzZ40OvNG0MSVMHJ20I8OdrfcH4DVMfaAs2eWNeP8aH90vx8ZQdSLRI43KlwgX3VzZ2CP77UT+yN1bs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789503360; c=relaxed/simple;
-	bh=tIo4II1d9ForEs6449DJ6tBTc4LuD50qTRo8+K+5e2M=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Wt/aNyzzY0oDXLEySTbadBhIcB6qxI4+4rW9ua5ucSdseuJjJhuntgzfwMzgRhDYe3AjxpTdGrZsrBBxcCyTt5UH0KTcys353YRVZh6a1QVMfjKGqis+6Y7eUgdesAOWzkvhQzJmp4Xx0y53KJ6Tc5kXEyvAaSlXMaHbtIubqoc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kMFK/xdh; arc=pass smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 374ED3815DF;
+	Tue, 15 Sep 2026 20:17:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789503465; cv=none; b=QrytXbMOiu7kv/GFQugMkYI7eZZ+OAc+amh1fJUoTSvylRFAofrdsUBjkB7+qqKUn0AL7ySrduSCByZDNbBIyD+u7pigT/t4y3ZOHY9cKncVocAVuELnR3Vzeb9z2KV385ghtKyJuBb6r4G7N4SQTbpMCDEW3D9KZ0g6Zos3TvA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789503465; c=relaxed/simple;
+	bh=tIBnQJ0BO7Qlvrn7CSRmnaN0Vxg0LtMKz5BcGOdkNTw=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=SrhjJRAMbPYG6fQwbOqNI/dnXDyrL7/mJmZ/vwKOHSkj1kLOBFJFyKPN5aLchql+UcwXxxdx0FHNbcPK8IMbDAYuhyN50oGnZjVaGnmhg9zvxkmAjyTcNlRtGRJD47zWbBGrvlaJppLFvLj+7Ajmseto0rRYMtBOUh6nm58g4PY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CO8fNCyV; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kMFK/xdh"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a5f3317027so36936a12.3
-        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 13:15:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789503350; cv=none;
-        d=google.com; s=arc-20260327;
-        b=FMD2kUGHxZLUWvMTTy32fw+X72OHuUnK8sedWjF4URlJcziyua2JiU0xYVoRsVLS7L
-         nyeGSVuikhDkKKCzFLA1J5SBguMVC2XL6zwHAllm/usK6ylQFBOVptzDxG6aLHu+dnrP
-         3xdJ8p69Ebza3g3ZN7vdQy+wuk0AqlILUsPrJIb/vTuhB0B2RNDCUwv/cgoSru/AuysE
-         GSV3kMnlG9qFJoW1sDQ/6oQ88Pn13FEnhmQ/C73Hii7OFeUg+z/s00tczBwdoibD96tL
-         nqw2w2wNraFwCnuabVyb5jRgsdr6MsdZ5g3JFnhSlA99N7OUyqrNa85iP/3lWNt5w+QA
-         oGsw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=EMk9jyFcs1z/vsVIU7tgrrT3h1+jFXhNZlrTV/0Lq28=;
-        fh=Hp8d1PnyNehHxh8KzeQOy1/yfnr7oc0smYbqFQBQaHg=;
-        b=cvHpkEfUS0uJ266X1tv7wmmkl4Ehisahvv5gHY6TKsM5fNTrc6/wJKr3Py/jdMoS8c
-         ihj6lP2a7Pmzq9W5NbR9bCGKG5M+H+eQp48lkrf1LgvsVfKRX43MHnkv18xd0bbvrezO
-         RzeHxd/e4jpfvju0ajDyrPXcjRGN6T/2tW8GZQMsiz8vBpKezA+1ZG4qKuwCcZAy7QJP
-         E37WZ6k6D53stoRiRf7gqfr0eQCclW3dwhsHqyhIYdF9il0thu85rhX825xUxxOJ4VPU
-         HS89Erxafc5P76bE2PBKX2f5bPJpq1NJ7NVGVoi1fBjWghrhbZzNuDPLYZVCHeqPoWEX
-         zBkQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789503350; x=1790108150; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EMk9jyFcs1z/vsVIU7tgrrT3h1+jFXhNZlrTV/0Lq28=;
-        b=kMFK/xdhuVPYWFau0SVnAOI0dP1+C/ya4QEGqAnK+/WVuj4My0qAoQvVI+BKoY1ZwI
-         NNABdWF+rnRpE/BFKhqhZ/72374Gy9eqKQpfsepDHKgixJYqiLHKeF7uqSuwRIr+AFw7
-         8JTPpKKSxCJQVvxWu8uSG9skZAQ2M3M9ggXG2ixYT19P0Ks5ehXSvpBZtpa4O59JsnUE
-         AEmjUlBrtixnd++kPKKOnZG0n0ogjzJEPniFUASQttiJrfpK73sW0IsgwVTbUlIwDL83
-         B8pt1JK0UJ20OQjry6Fy4j7Drm8AoJ0UIWSLyNEBfmWDCEDeQ0whVitGHVB5nO2aKI8B
-         vaZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789503350; x=1790108150;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EMk9jyFcs1z/vsVIU7tgrrT3h1+jFXhNZlrTV/0Lq28=;
-        b=tEE7YvcHpPFRZR1X6oKQfK6n26vm2N3q6OYlz/z92YODaep1FGECnC4OUL0RnJkurX
-         f80WDicBZvAMq1vJTqmDEjUH/KHxqymG/C+x6OqJe3OHuqzGuSFZvUqj4kYjOYJ5BuhI
-         UsaTrukOtkbH7QA1WvB+/qenComBg4TeKTSKB5jUbW/DJ8udgnfl1/r6a9HvHB4/+FJs
-         /XtVV75v3FqaUYDSjkfGK5leKFP1xtwFkAUurW563Tir1FZcDp9BPysGCNpb6wHuxqsX
-         Tzrooy4O+VybT08+hXppf2SiyOENn4X334GtlhSN587NKWqMDrF5bmnxcNHVA+YdGjRx
-         1/Rg==
-X-Forwarded-Encrypted: i=1; AKwUvBztH8H9b+/XhaWyASbkKEhTowl3s/MBdSlGT6R5R0EBC2HNI6sLgY9VrOT3jy3aw8sTXtJGNF6ApbVQ@vger.kernel.org
-X-Gm-Message-State: AFuF++nD5vjQ5EwumdYxEBbDHE4N+eWWkTCUZS+aSbNOO/Xoqut9leim
-	/EaIi36BThOgEjioNk28nKSSwbxBGaIthjCATXyZYMeKVPhvXuFfclL4NhnsbgLLFwtSRK40s/3
-	LzbEi65mcc0p80NwiYp0gV8/3Ebd7uoQ=
-X-Gm-Gg: AYBFou1+fowwJaP7sy2UDGEqH2ok3jF3U61YnuoiImU/lJ++hHGAGh9+WG6gk86xh8A
-	fzdSVkJr1p5a8N1Y8xb864zTTxhiMgy9g67NuzC3MyC3qGPBThPz3w4Wm8iJxTqMS6kde53zWsM
-	yAFSlukTuueSdhmrij8eG6IEDQtlotasDh0vPzdbmVHOil5EPzYvtWmZ5pxPa8LukExsSS6vaGO
-	lsdETvVYAzGrBsI5oIoS2miZdUbVu1+9hjya/qBiwBk6arBzUWBYT5syBLm+i5rNhlG9sicIrz3
-	Zz+RASLRiU9zEzQQ7MNZWUCot2p5OrKsw6V+LNShCof4epgNM4MfLrA=
-X-Received: by 2002:a17:907:94c1:b0:c21:7bf1:2c88 with SMTP id
- a640c23a62f3a-c29b86f6a30mr608631966b.2.1789503349926; Tue, 15 Sep 2026
- 13:15:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CO8fNCyV"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789503463; x=1821039463;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=tIBnQJ0BO7Qlvrn7CSRmnaN0Vxg0LtMKz5BcGOdkNTw=;
+  b=CO8fNCyV90Qmevaa7rNcswbXlKDR84TLebvo8dtpmZG8VSdKxNOpGvsv
+   Gmq6tXLNmhefHgB6S0IuiW+Mf0IpYOIGo+QhMMfMMjj+7cuasBWDVBUN3
+   /MkGHzAu0sMv8ik3RMDRteZN9knG+EttwHAzXfSPuRSIoUpT98CJQjfB4
+   MuWFqVbljreuUmoLsQBTQb9QE5QonQ8FGW2snCxNbeVwMeOYfBafk6M8T
+   E4gBa3b4qX09cz2l08i/PGy1sc1bQuEo9vS/WsRwwuyN46Dl81Z+QuuZM
+   9KzoCrwKTpV4vwtIRRDLIE8AxMwfOeWUuHL4RP7JbXlSISZNYnuVY/Bg9
+   w==;
+X-CSE-ConnectionGUID: ZE6Y4MatRs2QGiFlw8Soog==
+X-CSE-MsgGUID: wxL7nkoZQ7iD0zmhWphLSg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93579545"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="93579545"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 13:17:42 -0700
+X-CSE-ConnectionGUID: JxE+dlUoT4eFQDkGRxZYnw==
+X-CSE-MsgGUID: IayFazypQ5WGDk8SzpM7+g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="269433303"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 13:17:34 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 15 Sep 2026 23:17:31 +0300 (EEST)
+To: Aleksandrs Vinarskis <alex@vinarskis.com>
+cc: Bjorn Andersson <andersson@kernel.org>, 
+    Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+    Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>, 
+    =?ISO-8859-15?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+    Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Kees Cook <kees@kernel.org>, 
+    "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+    linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+    linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org, 
+    Abel Vesa <abel.vesa@oss.qualcomm.com>, 
+    Tobias Heider <tobias.heider@canonical.com>, 
+    Val Packett <val@packett.cool>, Neil Armstrong <neil.armstrong@linaro.org>, 
+    Stephan Gerhold <stephan.gerhold@linaro.org>, 
+    linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v4 2/3] platform: arm64: dell-xps-ec: new driver
+In-Reply-To: <20260809-dell-xps-9345-ec-v4-2-88306dbbc7aa@vinarskis.com>
+Message-ID: <7cab6180-d846-74f4-c75d-b553841db9a3@linux.intel.com>
+References: <20260809-dell-xps-9345-ec-v4-0-88306dbbc7aa@vinarskis.com> <20260809-dell-xps-9345-ec-v4-2-88306dbbc7aa@vinarskis.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260911-ti-dra7-omap-sham-fix-v1-0-c430f01b4e13@gmail.com>
- <20260911-ti-dra7-omap-sham-fix-v1-2-c430f01b4e13@gmail.com> <20260911082406.05e2a212@kemnade.info>
-In-Reply-To: <20260911082406.05e2a212@kemnade.info>
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Wed, 16 Sep 2026 01:45:37 +0530
-X-Gm-Features: AcwNN1WHlqVruIX69u_0BS3IFoNFccfPURE_yLQbZJm0y0g2wehRCyWKILewqPs
-Message-ID: <CAOWyW_5s++Sz6EFEX+zGTca_-xZvK29B88UzoEzsaP+QavF6CA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] dt-bindings: crypto: ti,omap-sham: Add OMAP3
- compatible and deprecate ti,hwmods
-To: Andreas Kemnade <andreas@kemnade.info>
-Cc: Aaro Koskinen <aaro.koskinen@iki.fi>, Kevin Hilman <khilman@baylibre.com>, 
-	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, 
-	Animesh Agarwal <animeshagarwal28@gmail.com>, linux-omap@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-crypto@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
 
-On Fri, Sep 11, 2026 at 11:54=E2=80=AFAM Andreas Kemnade <andreas@kemnade.i=
-nfo> wrote:
->
-> On Fri, 11 Sep 2026 03:41:58 +0530
-> Bhargav Joshi <j.bhargav.u@gmail.com> wrote:
->
-> > The OMAP SHAM driver supports OMAP3 SoCs, and "ti,omap3-sham" is
-> > actively used in existing dts. However, it was previously missing from
-> > binding. Add "ti,omap3-sham" to the list of valid compatibles.
-> >
-> > The legacy "ti,hwmods" property is no longer needed as TI OMAP mirgrate=
-d
-> > to "ti-sysc". Mark it as deprecated and remove it from the required
-> > properties.
-> >
-> > Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
->
-> What about also removing ti,hwmods usage while you are deprecating it?
+On Sun, 9 Aug 2026, Aleksandrs Vinarskis wrote:
 
-Omap 4, 5 and dra7 already use ti,sysc wrapper and don't actually use ti,hw=
-mods.
-but legacy omap 2 and 3 still use ti,hwmods but I don't have hardware
-to test changes.
+> Introduce EC driver for Dell XPS 13 9345 (codename 'tributo') which may
+> partially of fully compatible with Snapdragon-based Dell Latitude,
+> Inspiron ('thena'). Primary function of this driver is unblock EC's
+> thermal management, specifically to provide it with necessary
+> information to control device fans, peripherals power.
+> 
+> The driver was developed primarily by analyzing ACPI DSDT's _DSM and
+> i2c dumps of communication between SoC and EC. Changes to Windows
+> driver's behavior include increasing temperature feed loop from ~50ms
+> to 100ms here.
+> 
+> While Xps's EC is rather complex and controls practically all device
+> peripherals including touch row's brightness and special keys such as
+> mic mute, these do not go over this particular i2c interface.
+> 
+> Not yet implemented features:
+> - On lid-close IRQ event is registered. Windows performs what to
+>   appears to be thermistor constants readout, though its not obvious
+>   what it used for.
+> - According to ACPI's _DSM there is a method to readout fans' RPM.
+> - Initial thermistor constants were sniffed from Windows, these can be
+>   likely fine tuned for better cooling performance.
+> - There is additional temperature reading that Windows sents to EC but
+>   more rare than others, likely SoC T_j / TZ98 or TZ4. This is the only
+>   thermal zone who's reading can exceed 115C without triggering thermal
+>   shutdown.
+> - Given similarities between 'tributo' and 'thena' platforms, including
+>   EC i2c address, driver can be potentially extended to support both.
+> 
+> Signed-off-by: Aleksandrs Vinarskis <alex@vinarskis.com>
+> ---
+>  MAINTAINERS                          |   1 +
+>  drivers/platform/arm64/Kconfig       |  12 ++
+>  drivers/platform/arm64/Makefile      |   1 +
+>  drivers/platform/arm64/dell-xps-ec.c | 299 +++++++++++++++++++++++++++++++++++
+>  4 files changed, 313 insertions(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 9b238f14f0be..ad5231846493 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -7352,6 +7352,7 @@ DELL XPS EMBEDDED CONTROLLER DRIVER
+>  M:	Aleksandrs Vinarskis <alex@vinarskis.com>
+>  S:	Maintained
+>  F:	Documentation/devicetree/bindings/embedded-controller/dell,xps13-9345-ec.yaml
+> +F:	drivers/platform/arm64/dell-xps-ec.c
+>  
+>  DELTA AHE-50DC FAN CONTROL MODULE DRIVER
+>  M:	Zev Weiss <zev@bewilderbeest.net>
+> diff --git a/drivers/platform/arm64/Kconfig b/drivers/platform/arm64/Kconfig
+> index e32e01b2a9bd..29416f8d7232 100644
+> --- a/drivers/platform/arm64/Kconfig
+> +++ b/drivers/platform/arm64/Kconfig
+> @@ -33,6 +33,18 @@ config EC_ACER_ASPIRE1
+>  	  laptop where this information is not properly exposed via the
+>  	  standard ACPI devices.
+>  
+> +config EC_DELL_XPS
+> +	tristate "Dell XPS 9345 Embedded Controller driver"
+> +	depends on ARCH_QCOM || COMPILE_TEST
+> +	depends on I2C
+> +	depends on IIO
+> +	help
+> +	  Driver for the Embedded Controller in the Qualcomm Snapdragon-based
+> +	  Dell XPS 13 9345, which handles thermal management and fan speed
+> +	  control.
+> +
+> +	  Say M or Y here to include this support.
+> +
+>  config EC_HUAWEI_GAOKUN
+>  	tristate "Huawei Matebook E Go Embedded Controller driver"
+>  	depends on ARCH_QCOM || COMPILE_TEST
+> diff --git a/drivers/platform/arm64/Makefile b/drivers/platform/arm64/Makefile
+> index 7681be4a46e9..669dc9e79afb 100644
+> --- a/drivers/platform/arm64/Makefile
+> +++ b/drivers/platform/arm64/Makefile
+> @@ -6,6 +6,7 @@
+>  #
+>  
+>  obj-$(CONFIG_EC_ACER_ASPIRE1)	+= acer-aspire1-ec.o
+> +obj-$(CONFIG_EC_DELL_XPS)	+= dell-xps-ec.o
+>  obj-$(CONFIG_EC_HUAWEI_GAOKUN)	+= huawei-gaokun-ec.o
+>  obj-$(CONFIG_EC_LENOVO_YOGA_C630) += lenovo-yoga-c630.o
+>  obj-$(CONFIG_EC_LENOVO_THINKPAD_T14S) += lenovo-thinkpad-t14s.o
+> diff --git a/drivers/platform/arm64/dell-xps-ec.c b/drivers/platform/arm64/dell-xps-ec.c
+> new file mode 100644
+> index 000000000000..695a7d01acd6
+> --- /dev/null
+> +++ b/drivers/platform/arm64/dell-xps-ec.c
+> @@ -0,0 +1,299 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (c) 2026, Aleksandrs Vinarskis <alex@vinarskis.com>
+> + */
+> +
+> +#include <linux/array_size.h>
+> +#include <linux/dev_printk.h>
+> +#include <linux/device.h>
+> +#include <linux/devm-helpers.h>
+> +#include <linux/err.h>
+> +#include <linux/i2c.h>
+> +#include <linux/iio/consumer.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/jiffies.h>
+> +#include <linux/module.h>
+> +#include <linux/overflow.h>
+> +#include <linux/pm.h>
+> +#include <linux/types.h>
+> +#include <linux/unaligned.h>
+> +#include <linux/workqueue.h>
+> +
+> +#define DELL_XPS_EC_SUSPEND_CMD		0xb9
+> +#define DELL_XPS_EC_SUSPEND_MSG_LEN	64
+> +
+> +#define DELL_XPS_EC_TEMP_CMD0		0xfb
+> +#define DELL_XPS_EC_TEMP_CMD1		0x20
+> +#define DELL_XPS_EC_TEMP_CMD3		0x02
+> +#define DELL_XPS_EC_TEMP_MSG_LEN	6
+> +#define DELL_XPS_EC_TEMP_POLL_JIFFIES	msecs_to_jiffies(100)
+> +
+> +/*
+> + * Mapping between IIO channel name (as per schematics) and EC command byte
+> + */
+> +struct dell_xps_ec_therm {
+> +	const char *name;
+> +	u8 cmd;
+> +};
+> +
+> +struct dell_xps_ec_data {
+> +	const struct dell_xps_ec_therm *therms;
+> +	unsigned int num_therms;
+> +	const u8 *profile;
+> +	size_t profile_len;
+> +};
+> +
+> +/*
+> + * Format:
+> + * - header/unknown (2 bytes)
+> + * - per-thermistor entries (3 bytes): thermistor_id, param1, param2
+> + */
+> +static const u8 dell_xps13_9345_thermistor_profile[] = {
+> +	0xff, 0x54,
+> +	0x01, 0x00, 0x2b,	/* sys_therm0 */
+> +	0x02, 0x44, 0x2a,	/* sys_therm1 */
+> +	0x03, 0x44, 0x2b,	/* sys_therm2 */
+> +	0x04, 0x44, 0x28,	/* sys_therm3 */
+> +	0x05, 0x55, 0x2a,	/* sys_therm4 */
+> +	0x06, 0x44, 0x26,	/* sys_therm5 */
+> +	0x07, 0x44, 0x2b,	/* sys_therm6 */
+> +};
+> +
+> +static const struct dell_xps_ec_therm dell_xps13_9345_therms[] = {
+> +	/* TODO: 0x01 is sent only occasionally, likely TZ98 or TZ4 */
+> +	{ "sys_therm0", 0x02 },
+> +	{ "sys_therm1", 0x03 },
+> +	{ "sys_therm2", 0x04 },
+> +	{ "sys_therm3", 0x05 },
+> +	{ "sys_therm4", 0x06 },
+> +	{ "sys_therm5", 0x07 },
+> +	{ "sys_therm6", 0x08 },
 
-Since omap 4,5 etc don't use it,hwmods keeping it in required causes warnin=
-gs,
-Deprecating it and removing it from "required" fixes the warnings for
-modern SoCs without
-breaking the legacy ones.
+I suppose it's intentional that thermistor_id and the values here do not 
+match?
 
-Best Regards,
-Bhargav
+Take the comment with a grain of salt as this was mentioned by sashiko and 
+I don't really believe it when it comes to assuming things like this, so 
+no action is needed if they're correct as is.
 
->
-> Regards,
-> Andreas
-> > ---
-> >  Documentation/devicetree/bindings/crypto/ti,omap-sham.yaml | 3 ++-
-> >  1 file changed, 2 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/Documentation/devicetree/bindings/crypto/ti,omap-sham.yaml=
- b/Documentation/devicetree/bindings/crypto/ti,omap-sham.yaml
-> > index d69b50228009..3ef05890e13a 100644
-> > --- a/Documentation/devicetree/bindings/crypto/ti,omap-sham.yaml
-> > +++ b/Documentation/devicetree/bindings/crypto/ti,omap-sham.yaml
-> > @@ -13,6 +13,7 @@ properties:
-> >    compatible:
-> >      enum:
-> >        - ti,omap2-sham
-> > +      - ti,omap3-sham
-> >        - ti,omap4-sham
-> >        - ti,omap5-sham
-> >
-> > @@ -32,6 +33,7 @@ properties:
-> >      description: Name of the hwmod associated with the SHAM module
-> >      $ref: /schemas/types.yaml#/definitions/string
-> >      enum: [sham]
-> > +    deprecated: true
-> >
-> >  dependencies:
-> >    dmas: [dma-names]
-> > @@ -40,7 +42,6 @@ additionalProperties: false
-> >
-> >  required:
-> >    - compatible
-> > -  - ti,hwmods
-> >    - reg
-> >    - interrupts
-> >
-> >
->
+> +};
+> +
+> +static const struct dell_xps_ec_data dell_xps13_9345_data = {
+> +	.therms = dell_xps13_9345_therms,
+> +	.num_therms = ARRAY_SIZE(dell_xps13_9345_therms),
+> +	.profile = dell_xps13_9345_thermistor_profile,
+> +	.profile_len = sizeof(dell_xps13_9345_thermistor_profile),
+> +};
+> +
+> +struct dell_xps_ec {
+> +	struct device *dev;
+> +	struct i2c_client *client;
+> +	const struct dell_xps_ec_data *data;
+> +	struct delayed_work temp_work;
+> +	unsigned int num_therms;
+> +	struct iio_channel *therm_channels[] __counted_by(num_therms);
+> +};
+> +
+> +static int dell_xps_ec_suspend_cmd(struct dell_xps_ec *ec, bool suspend)
+> +{
+> +	u8 buf[DELL_XPS_EC_SUSPEND_MSG_LEN] = {};
+> +	int ret;
+> +
+> +	buf[0] = DELL_XPS_EC_SUSPEND_CMD;
+> +	buf[1] = suspend ? 0x01 : 0x00;
+> +	/* bytes 2..63 remain zero */
+> +
+> +	ret = i2c_master_send(ec->client, buf, sizeof(buf));
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	return 0;
+> +}
+> +
+> +static int dell_xps_ec_send_temp(struct dell_xps_ec *ec, u8 cmd_byte,
+> +				 int milli_celsius)
+> +{
+> +	u8 buf[DELL_XPS_EC_TEMP_MSG_LEN];
+> +	u16 deci_celsius;
+> +	int ret;
+> +
+> +	/* Convert millicelsius to decicelsius */
+> +	deci_celsius = milli_celsius / 100;
+
+Please use a define from units.h and remove the comment.
+
+> +	buf[0] = DELL_XPS_EC_TEMP_CMD0;
+> +	buf[1] = DELL_XPS_EC_TEMP_CMD1;
+> +	buf[2] = cmd_byte;
+> +	buf[3] = DELL_XPS_EC_TEMP_CMD3;
+> +	put_unaligned_le16(deci_celsius, &buf[4]);
+> +
+> +	ret = i2c_master_send(ec->client, buf, sizeof(buf));
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	return 0;
+> +}
+> +
+> +static void dell_xps_ec_temp_work_fn(struct work_struct *work)
+> +{
+> +	struct dell_xps_ec *ec = container_of(work, struct dell_xps_ec,
+> +					      temp_work.work);
+
+Add include for container_of().
+
+> +	const struct dell_xps_ec_therm *therms = ec->data->therms;
+> +	int val, ret;
+> +	unsigned int i;
+> +
+> +	for (i = 0; i < ec->num_therms; i++) {
+> +		if (!ec->therm_channels[i])
+> +			continue;
+> +
+> +		ret = iio_read_channel_processed(ec->therm_channels[i], &val);
+> +		if (ret < 0) {
+> +			dev_err_ratelimited(ec->dev,
+> +					    "Failed to read thermistor %s: %d\n",
+> +					    therms[i].name, ret);
+> +			continue;
+> +		}
+> +
+> +		ret = dell_xps_ec_send_temp(ec, therms[i].cmd, val);
+> +		if (ret < 0) {
+> +			dev_err_ratelimited(ec->dev,
+> +					    "Failed to send temp for %s: %d\n",
+> +					    therms[i].name, ret);
+> +		}
+> +	}
+> +
+> +	schedule_delayed_work(&ec->temp_work, DELL_XPS_EC_TEMP_POLL_JIFFIES);
+> +}
+> +
+> +static irqreturn_t dell_xps_ec_irq_handler(int irq, void *data)
+> +{
+> +	struct dell_xps_ec *ec = data;
+> +
+> +	/*
+> +	 * TODO: IRQ is fired on lid-close. Follow Windows example to read out
+> +	 *       the thermistor thresholds and potentially fan speeds.
+> +	 */
+> +	dev_info_ratelimited(ec->dev, "IRQ triggered! (irq=%d)\n", irq);
+
+How is this print beneficial to a normal user? Debug level would be more 
+appropriate for something like this if you need to print it at all, there 
+are other ways to track function calls besides printing.
+
+> +	return IRQ_HANDLED;
+> +}
+> +
+> +static int dell_xps_ec_probe(struct i2c_client *client)
+> +{
+> +	const struct dell_xps_ec_data *data;
+> +	struct device *dev = &client->dev;
+> +	struct dell_xps_ec *ec;
+> +	unsigned int i;
+> +	int ret;
+> +
+> +	data = i2c_get_match_data(client);
+> +	if (!data)
+> +		return dev_err_probe(dev, -ENODEV, "No match data\n");
+> +
+> +	ec = devm_kzalloc(dev, struct_size(ec, therm_channels, data->num_therms),
+> +			  GFP_KERNEL);
+> +	if (!ec)
+> +		return -ENOMEM;
+> +
+> +	ec->dev = dev;
+> +	ec->client = client;
+> +	ec->data = data;
+> +	ec->num_therms = data->num_therms;
+> +	i2c_set_clientdata(client, ec);
+> +
+> +	/* Set default thermistor profile */
+> +	ret = i2c_master_send(client, data->profile, data->profile_len);
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "Failed to set thermistor profile\n");
+> +
+> +	/* Get IIO channels for thermistors */
+> +	for (i = 0; i < ec->num_therms; i++) {
+> +		ec->therm_channels[i] =
+> +			devm_iio_channel_get(dev, data->therms[i].name);
+> +		if (IS_ERR(ec->therm_channels[i])) {
+> +			ret = PTR_ERR(ec->therm_channels[i]);
+> +			ec->therm_channels[i] = NULL;
+> +			if (ret == -EPROBE_DEFER)
+> +				return ret;
+> +			dev_warn(dev, "Thermistor %s not available: %d\n",
+> +				 data->therms[i].name, ret);
+> +		}
+> +	}
+> +
+> +	/* Start periodic temperature reporting */
+> +	ret = devm_delayed_work_autocancel(dev, &ec->temp_work,
+> +					   dell_xps_ec_temp_work_fn);
+> +	if (ret)
+> +		return ret;
+> +	schedule_delayed_work(&ec->temp_work, DELL_XPS_EC_TEMP_POLL_JIFFIES);
+> +	dev_dbg(dev, "Started periodic temperature reporting to EC every %d ms\n",
+> +		jiffies_to_msecs(DELL_XPS_EC_TEMP_POLL_JIFFIES));
+> +
+> +	/* Request IRQ for EC events */
+> +	ret = devm_request_threaded_irq(dev, client->irq, NULL,
+> +					dell_xps_ec_irq_handler,
+> +					IRQF_ONESHOT, dev_name(dev), ec);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to request IRQ\n");
+> +
+> +	return 0;
+> +}
+> +
+> +/*
+> + * Notify EC of suspend
+> + *
+> + * This will:
+> + * - Cut power to display/trackpad/keyboard/touchrow, wake-up source still works
+> + */
+> +static int dell_xps_ec_suspend(struct device *dev)
+> +{
+> +	struct dell_xps_ec *ec = dev_get_drvdata(dev);
+> +
+> +	cancel_delayed_work_sync(&ec->temp_work);
+> +
+> +	return dell_xps_ec_suspend_cmd(ec, true);
+> +}
+> +
+> +/*
+> + * Notify EC of resume
+> + *
+> + * This will undo the suspend actions
+> + * Without the resume signal, device would wake up but be forced back into
+> + * suspend by EC within seconds
+
+Please terminate sentences in comments properly with a stop (.).
+
+> + */
+> +static int dell_xps_ec_resume(struct device *dev)
+> +{
+> +	struct dell_xps_ec *ec = dev_get_drvdata(dev);
+> +	int ret;
+> +
+> +	ret = dell_xps_ec_suspend_cmd(ec, false);
+> +	if (ret)
+> +		return ret;
+> +
+> +	schedule_delayed_work(&ec->temp_work, DELL_XPS_EC_TEMP_POLL_JIFFIES);
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct of_device_id dell_xps_ec_of_match[] = {
+> +	{ .compatible = "dell,xps13-9345-ec", .data = &dell_xps13_9345_data },
+> +	{}
+> +};
+> +MODULE_DEVICE_TABLE(of, dell_xps_ec_of_match);
+> +
+> +static const struct i2c_device_id dell_xps_ec_i2c_id[] = {
+> +	{ "dell-xps-ec", (kernel_ulong_t)&dell_xps13_9345_data },
+> +	{}
+> +};
+> +MODULE_DEVICE_TABLE(i2c, dell_xps_ec_i2c_id);
+> +
+> +static const struct dev_pm_ops dell_xps_ec_pm_ops = {
+> +	SYSTEM_SLEEP_PM_OPS(dell_xps_ec_suspend, dell_xps_ec_resume)
+> +};
+> +
+> +static struct i2c_driver dell_xps_ec_driver = {
+> +	.driver = {
+> +		.name = "dell-xps-ec",
+> +		.of_match_table = dell_xps_ec_of_match,
+> +		.pm = &dell_xps_ec_pm_ops,
+> +	},
+> +	.probe = dell_xps_ec_probe,
+> +	.id_table = dell_xps_ec_i2c_id,
+> +};
+> +module_i2c_driver(dell_xps_ec_driver);
+> +
+> +MODULE_AUTHOR("Aleksandrs Vinarskis <alex@vinarskis.com>");
+> +MODULE_DESCRIPTION("Dell XPS 13 9345 Embedded Controller");
+> +MODULE_LICENSE("GPL");
+> +MODULE_IMPORT_NS("IIO_CONSUMER");
+> 
+> 
+
+-- 
+ i.
+
