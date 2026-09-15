@@ -1,87 +1,33 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B26A481A87
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 10:27:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C96A351C20;
+	Tue, 15 Sep 2026 10:28:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789468041; cv=none; b=AysEVYI+xXDvvenhPj4Zp5qgLGjuJvXgTjsQ8oo26TVh0xd4QZqBF1L7m9Kt2ZlrQIHFLskgKr/QLmqHJU6iUrX1C11TF+IE6Znzuzv6gJaXm5quu/fHlfVSe/AKX+Q8jybeEQresVDMQ5Hk/8V/2neiVQCNYOP5VYcnHqZhOF4=
+	t=1789468126; cv=none; b=f8Kk4h+WtOgFQBNRgPMALROInlP5DeQ5snz1TrjYVjCPZlJ9ZILAl7gWyo5k/BIOf9WCacft++UnI/nV8cfnK8PJPrNxfVxHZ8NnpInu+humv4q5eXIj+ZIzWedmHHGYlFwqCauowf6HAHkqTc9Xs54twKpojLd86T3s2sXaHZM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789468041; c=relaxed/simple;
-	bh=ckBmQCsGl4i0H5swMQltGNEvLAQ4QNaTpkBEqzAPUS8=;
+	s=arc-20240116; t=1789468126; c=relaxed/simple;
+	bh=jYUuyaxap45YWktNnApW6hsSz3P+QMWv3MzYTLKhvn4=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eoqJs9vOxPKKZGEX2SKlLTq8YEFily4RshXt7L3MoaqNqwVogkSLYd9VOkrm38t1rQC3GczgjnY1WuG41IjN7nvrcgfSWDKUKklTo71obx7Wgz5Xyt/IkvZ+CAPuzP2pM5yWOP+OXjA92DTK18nHF/HhnpmAIocxJkYQ6xkCgPs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bIwOYd+J; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Dgr8ZzV9; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=dPny5mjrwGHUTsc6aqD5Ue16vdb55/SHegUuchtYlAKCijzkD+oJXDDIsCEk7tBLVLi8WbAHVFlwmZJtBamFdAxY//r6wLeKopBDtZyEde9nV0tGGwRwVsxXTqQcqH/6My/JNgMlDEjz04DVb4BA6isivlieDu0EtiPK3ll8OdM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ofER0sHq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bIwOYd+J";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Dgr8ZzV9"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F9hI1X2833340
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 10:27:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	4B5u4XhHsQDHFwAeN8RPYZsJq7AgzxHPXAAIftTImPI=; b=bIwOYd+JYKFSCYrP
-	nCi/eAq75tXkFs1ZYz/8MAhCy2Nx5mfuB+SFhJqYWAdqO5Ki8XFzECuVfSnWzAuL
-	4thiNLSTzeKsrQH8W8M7dEv7sk3jh/6jCBbsThaG7649O4nEo4YKTFQMFhfbymVa
-	5/Ra+rKB114Ves5BkmJ3Yct/+R9zfzlYATVK366v4VWegslqrg2Cxj3wA/GeutJ+
-	ZWlEWlB1EpGpqgJqPR2SIE7wQw3G1l8luRBwF010kkya2wbCAhYUVOKD4FWDU7b6
-	TfjVDwIpn5KdQCHsae/OHIlHaGMvkewseomzIlAx7Aykto9YgL2jjaR+TswQDBU6
-	VQ6W7A==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpxyd9bfu-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 10:27:18 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93a1de6d5c3so448343285a.3
-        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 03:27:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789468038; x=1790072838; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4B5u4XhHsQDHFwAeN8RPYZsJq7AgzxHPXAAIftTImPI=;
-        b=Dgr8ZzV9IetsU7R6a0WNXXHJDLFPNuXUf56hqinufKd7Fj4bQVaUqhkxKqaKeeDwm8
-         D7s7zM36Md/1AicCh5XM8rMd/9T5Te7bEaZ+Alyt+q78jXxzoB7acYu3mbdHsS7C2afO
-         ru5P9Cv83lFl/6rSk5ARQhX53sUt7XUURFPgKHuwcu81g4hyp0aOgmS5ynw4h3fKRSTq
-         zE7VGBu6crmGGIioOfhQj0fYuhb/737VEBgxke+fDqzpxfvtrPt1eokvCsB3GyfJKKwo
-         E2p5iT7VY2KjNqP42umKhYHIKBp3CAsWGHZbJZ0BVwWwSd974eVZaS4hOFiElzqcoc+g
-         900A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789468038; x=1790072838;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4B5u4XhHsQDHFwAeN8RPYZsJq7AgzxHPXAAIftTImPI=;
-        b=GZe4Rl0Wytc4I52uLBd6YzqVT00SlzAEs9HwX/Nb3lW41qYT1VtxJj+y+c0Qcv+7df
-         bdegzeNhjAikVP2A98YB8Uhsh2AbLGhtXELzW+zJGcWS6DMZBtj9wUhO7FnoUmPHCtjB
-         7v71i1y6WjhPgUv9vGseyp5/m9gVIYiGXkTj+E5wVHW5q0UPOwAhlRk/V19QR10wEmeD
-         p4ZGZh+8RL0XtLahrv7gEs4Kd9PxLP3TF3DU9DCDMvx/PZsc0VGkH7w6Y4IUyIuAybq8
-         CH9FLpLN4/JXnOTIZdWtvVFQ0Mwnbpa62gp0jI93OFCSXvopjCxwPqk+b3C0O/lqtp4k
-         VjcQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxlYeGyAEcg7Eel2qYaSE6GtSHFlRHjTN4szw3vPrThXTWHovdvH66PkifiBgBEU6Cv5u1uv/LmRcCj@vger.kernel.org
-X-Gm-Message-State: AFuF++lBFUN6S26DUX4j6QWvvXh/fe8aHW/A9goNkHK0hHps6ktjE34t
-	kSfNVkjXWIpERkYb608NCZRLFLZuq4ccUwABtz/Dfs+qs/U++c5B6fawijZ+hRjgw+YcyJ9Zlvr
-	bUTRo57frgtkIy4ZoAosYq5Wu49rMsUG556B00EuuP/6MR8WifrH40xZGqdDlU97y
-X-Gm-Gg: AYBFou25+HpQIJ/dNtbgM5U6S/gcSYWSH8Oq+L9Tf5NHjxWYdAgVT4/wkb6PKgYJhYX
-	HA2mPjhQhBn0A+vzLNZoIbIi6Eh4QC2AAavByVxNzdUD8v5/QR28zSymBmh518MHAs6mazn+W8j
-	o8zxGojbCQGdcIxGLks6X4bF3CQ7rlrmEgV3oHHtKSEQhgko5ocNDFtr4pmMAGxjc3DbpEu+DJp
-	QpWX6AieQm2kVCG/+ijUa5duMyF+b7P5mmXIEooCRBSR9qTg99Wx4MWWwvZiy1n1hGFypU1WzWS
-	Dfu7zWIu1md5A8GVhwIz0WUKwBU7fw6Q11kVV8sOzA57oO0X+jtkOY+59Hr9mKLcvLHyjuoEhj5
-	16CRsrRAR9e0nOTpOJj4GlGxoFcKm6n5kJKVvCM/3az0YGTXA1afCFXOcREQ7oHk=
-X-Received: by 2002:a05:620a:2955:b0:939:8bfc:471a with SMTP id af79cd13be357-93a29bb4ca4mr921802285a.49.1789468037819;
-        Tue, 15 Sep 2026 03:27:17 -0700 (PDT)
-X-Received: by 2002:a05:620a:2955:b0:939:8bfc:471a with SMTP id af79cd13be357-93a29bb4ca4mr921797285a.49.1789468037445;
-        Tue, 15 Sep 2026 03:27:17 -0700 (PDT)
-Received: from [192.168.10.107] (146725694.box.freepro.com. [130.180.211.218])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7d6b6261sm71836915e9.14.2026.09.15.03.27.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Sep 2026 03:27:16 -0700 (PDT)
-Message-ID: <0bef7837-9fd7-4401-b6cf-ba744f5beb58@oss.qualcomm.com>
-Date: Tue, 15 Sep 2026 12:27:15 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ofER0sHq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C39DA1F000FF;
+	Tue, 15 Sep 2026 10:28:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789468124;
+	bh=syFNOvFuqCHRPJWBM4ggaf2cVtoimRROGoRy3ic9eLQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ofER0sHqmC2xw3BMJAvR6Ugm28Sbl7XPGrPe0LQKFkO+9yoIcJ2Fhm1wbuRFF3XjP
+	 22DjNGwf6XL3ymWKSS+lNphWBNLffK/0Vw4eXFBTnXVT2hluLouTiB5z5nI0UdCL7d
+	 uHJbkkAswv14AYZAlVmnMS44C8gedUp40oNXK2JdTQjjqmLoN4UQl0Vdkdi3BGgY+C
+	 tWptz8QQxBw/ciR/w7q8mYs6cWcgDGbbM2jm9ZV2UfJTkW3xFAAMnQP9vNiZ6FsEJ0
+	 7kjRaul0nkrCY4yltrlqbZ4F1AntBo6CMaA9u2Y0fUZU1bmPzzTsL4BbM+ac1dfud6
+	 cRGx9nW7HXg1w==
+Message-ID: <f3c9d7aa-f158-42e6-a1a5-b88c28daa941@kernel.org>
+Date: Tue, 15 Sep 2026 12:28:38 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,84 +35,111 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 2/9] soc: qcom: Add QMI TMD support for remote thermal
- mitigation
-To: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Amit Kucheria <amit.kucheria@oss.qualcomm.com>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        "Rafael J. Wysocki"
- <rafael@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-        Manivannan Sadhasivam <mani@kernel.org>, Kees Cook <kees@kernel.org>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
-        cros-qcom-dts-watchers@chromium.org
-Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-pm@vger.kernel.org, linux-hardening@vger.kernel.org,
-        manaf.pallikunhi@oss.qualcomm.com,
-        Casey Connolly <casey.connolly@linaro.org>
-References: <20260809-b4-qmi-tmd-v8-0-b15d47adc379@oss.qualcomm.com>
- <20260809-b4-qmi-tmd-v8-2-b15d47adc379@oss.qualcomm.com>
+Subject: Re: [PATCH 2/7] dt-bindings: leds: pca995x: describe output-gain
+ property
+To: Nora Schiffer <nora.schiffer@ew.tq-group.com>, lee@kernel.org
+Cc: sashiko-reviews@lists.linux.dev, linux-leds@vger.kernel.org,
+ conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
+ linux@ew.tq-group.com
+References: <6d3600f99c77c31166f0b6a5ccfb7f518b53c4c9.1788350618.git.nora.schiffer@ew.tq-group.com>
+ <7f61e7e8781292450f920c49ef8853b802d76ecc.1788350618.git.nora.schiffer@ew.tq-group.com>
+ <20260902123105.11B171F000E9@smtp.kernel.org>
+ <630889485b7be21875c858c705e1c9d828973c67.camel@ew.tq-group.com>
+ <20260903-sophisticated-magic-fennec-7c8aeb@quoll>
+ <31aace01ed19712b2984890adf61144a80cf7f42.camel@ew.tq-group.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-In-Reply-To: <20260809-b4-qmi-tmd-v8-2-b15d47adc379@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDE1MCBTYWx0ZWRfXxEmSX0dBe9Uw
- qZ8g6bdNDaCa4VXCQVrx/sZI8NGJzi2dCGFyVkPXtM4PFNP+csxYhO5u5Fo06T0GFE/eoMWKCa1
- XRUokxUWbnn434hx/1WscEkSSTQrTe0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDE1MCBTYWx0ZWRfX6s8bW43/KtJS
- Zx0WY4Lt1ZE+8/jmfWt44QiPpQBvszKmmLjNaQx8JXldqXTXmKncC7/sEo+VFn/CCyzL3P97fYk
- hTVQ61nuRdSgqN2kVDn+xwfVnpip2Bou3LSTSkkPZSJ3DWMMVUP+b8sY89tWRGDVMWF0cNtNNmX
- cnN9hwb/hHz6UBkZWpKAq1HeiLJf2yoQjKnVNyUyu58s5UK++dbUjsphXCzWnXvIjHaTNUkOs8N
- udELycghHnjeTaCkQb+vgNlSgSKqBDR0CvcrZHHbs7q1B54EcbEmB5NEsRuXnALGYhIsmxmXgTG
- y3dqqUDXlCQGMjQvl7g7ESjaavy7vmufmu8UmMK+RGMRg6uEgbBBW9RoVNCmJtgi/2uLHt0BAd6
- ntumCU6HyokRl7aKxPcK3NN/N5OMPnmnfaDOw/t8g2+icQ5/4jqNen5a6gg9wn3aW+BnGLaps0y
- 6eJbJ+IqZ4PCAoyyRZg==
-X-Proofpoint-ORIG-GUID: W_sX2-KqMCvWM9YGJdJ2pw_SME8LxNPq
-X-Authority-Analysis: v=2.4 cv=LYepeTfi c=1 sm=1 tr=0 ts=6aa91d86 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=uw/3876vWhRnNVL35W6mqQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=Zce52TE6RWQhZkoPOn4A:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-GUID: W_sX2-KqMCvWM9YGJdJ2pw_SME8LxNPq
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_03,2026-09-14_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 clxscore=1015 suspectscore=0 adultscore=0 impostorscore=0
- malwarescore=0 priorityscore=1501 bulkscore=0 phishscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609150150
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <31aace01ed19712b2984890adf61144a80cf7f42.camel@ew.tq-group.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-
-
-Le 09/08/2026 à 14:28, Gaurav Kohli a écrit :
-> From: Casey Connolly <casey.connolly@linaro.org>
+On 14/09/2026 10:23, Nora Schiffer wrote:
+> On Thu, 2026-09-03 at 15:09 +0200, Krzysztof Kozlowski wrote:
+>> On Wed, Sep 02, 2026 at 03:10:09PM +0200, Nora Schiffer wrote:
+>>> On Wed, 2026-09-02 at 12:31 +0000, sashiko-bot@kernel.org wrote:
+>>>> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
+>>>> - [Low] The custom, device-specific property `output-gain` lacks a mandatory vendor prefix.
+>>>
+>>> Probably makes sense to add the vendor prefix, will do in v2.
+>>>
+>>>> - [Low] The `output-gain` property incorrectly exposes a raw hardware register value directly to the Device Tree instead of describing physical units.
+>>>
+>>> According to the datasheet, the LED current is calculated as follows:
+>>>
+>>>     Iled = output_gain * 900mV / Rext / 4
+>>>
+>>> If we want to fully describe the output gain using physical units, something
+>>> like output-current-microamps and external-resistor-ohms would work. There
+>>> wouldn't be a meaningful default for these properties to describe in the binding
+>>> docs however, which is possible for "output-gain" (as the driver just sets that
+>>> to 127.)
+>>
+>> Output current is already there, no? led-max-microamp? So basically you
+>> would be re-describing it... although I understand that for your case
+>> you need two properties (also the resistor) to calculate the value to program.
 > 
-> Add support for Qualcomm Messaging Interface (QMI) based Thermal Mitigation
-> Device (TMD) cooling devices provided by remote subsystems.
+> One other idea I had was to treat the output gain as a single value, but handle
+> the constant factor in the driver, so it defines just the Iled * Rext term with
+> unit microvolts. This could be used in the Device Tree as follows:
 > 
-> On Qualcomm platforms where remote processors expose mitigation controls
-> through the TMD QMI service, client drivers need support to discover the
-> service, register cooling devices for available mitigation endpoints,
-> and forward cooling state updates to remote subsystems.
+>     /* Configure an output current of 15000uA for Rext = 3000Ohm */
+>     nxp,output-gain-microvolts = <(15000 * 3000)>;
 > 
-> Signed-off-by: Casey Connolly <casey.connolly@linaro.org>
-> Co-developed-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-> Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-> Co-developed-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-> Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-Just to clarify I deeply reviewed this patch and made some changes to 
-improve the code. That is the reason why there is a co-dev-b tag but not 
-a r-b tag
+> Two notes regarding this approach:
+> 
+> - These "microvolts" do not correspond to any actual voltage, but the full
+>   "microamps-ohms" seems very verbose.
+> - It is unclear to me whether using physical units actually makes this binding
+>   more generic. I have not worked with other LED drivers, so I don't know how
+>   common the concept of a gain that relates the current with an external
+>   resistor is.
 
-[ ... ]
+
+I think vendor,output-gain in register values is fine in such case.
+
+
+Best regards,
+Krzysztof
