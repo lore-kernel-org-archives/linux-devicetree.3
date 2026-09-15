@@ -1,153 +1,82 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0404A4AE8A4
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 15:57:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EF543C8C46;
+	Tue, 15 Sep 2026 15:59:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789487825; cv=none; b=HgaNm6BkOmnCIWBLU8t/uDRcZ6M00ZUgwUBYd8QTA0JShpl5PPHbU0BfuyzTXmvz8Y4rX+qslzmcr3ec8VQPlRGFdqx8vAmEwuU2wm9M/1JZkE99FsDpFILd8iZyE/i7RLq815tTyOZ+vWwKxINJRoE0p7tgh20rqN1jRywz1Do=
+	t=1789487960; cv=none; b=kpX9FRrVNpWR5NPKJ+27qJBmYCLW/ZLUXegLeWEHv0QI9gN4B/jeEoze0pPmziCw+LhnSGYz2CjPJqb/ORfJKtg0B4k9/kBRDEsTEyqhdn1oWfGQwzt1XcW3YROuQC+2laFlepwzlZ7KMQW9T9OlPMKRZk+DDeBe2OS+nPywu3A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789487825; c=relaxed/simple;
-	bh=4x26x457gvnhdJ7Gy+SKKCxBdq3kPzMDJO6QBnO0dLY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=MfM49hyxOEMFzyQUKTMrVfSm3zRndoZb/7TQRxJ+dOQ9vkzUg8kqi/VlSNGMMVn0OltNyH5ZlUC1TbvUdkd7QJ8H/Ck8EXSclXB2xzZNcGOm1zi1D42CJp47nSYK6nGLhazEAxSEfHcJuSnPyzV5FdkROKX1He0VbqHPbCeaWZ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TsFJoCj1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789487960; c=relaxed/simple;
+	bh=RztqrPkfq1vYHF0aw0ngkLeYAyMTYY8X+P8i99RF7i4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KtL9L7ZXQMiFPEih1tQnVdgg05V1md8MSHkkq5MJ1X3BLcaEqC4E7MehXDc4bsrF//CLNoeCLPoeKGWHVLW2w0Z0ga4z/Z6tk3M6qW7vkZdHNqO51QbYx9ui0YzymarkBqNqoVMEIBA+keLq68x5K9SaHTvOu+Gr9oXHzvmm1c0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=VI76M3Ep; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TsFJoCj1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DA831F000FF;
-	Tue, 15 Sep 2026 15:57:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789487823;
-	bh=qaw1ikUZa8JtPrtYyrwETcHQDGdZMjE5DQMSGz1TPyk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TsFJoCj1QK4tyuhg1s0aVIO0ovxqsDWShBuYmAU6PjRlPo5vanxJIszg3ZAf1Z1iY
-	 wBKjnBukEz0SRcNGJpyfwmX6u2iQrhDqNZJ6uVV8swX2cw8LyzzxhtA5mllbh5q+7r
-	 9dagLKaDqypNa9+RlSmffHnc8/azRX91vQM/5PhvuedWvX417cadH2CLBt8oWACzhP
-	 1ICydyEFZ0dRFlvOmL8fR5Q7YriTBGokVq6t1VFQH7b1grAa74/mYmyF5dS0SewjlU
-	 0ofNP7rD2Q+H1sZBR1gpazqsxZLlIcMA3p6bpiLqrxSL4vbQqqrDGeQ9BQT9VljLxe
-	 JEN7ubmx5EcDA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 net-next] dt-bindings: net: Use consistent
- indentation in the example
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <20260914155645.112508-2-krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260914155645.112508-2-krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 15:57:02 +0000
-Message-Id: <20260915155703.0DA831F000FF@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="VI76M3Ep"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=zoQnvWJcYM6jWh3BQe6fMcD0McD2eFAd0RK9LMhbgHY=; b=VI76M3EpiySAxSb1ktCPMFl917
+	uGZxDz42m2e5P2fP7pidWvO7Wh91SdvBCOljjulFseWXX6tiQ2g6wuDFWE1eo17x9qY//kI7mw8vF
+	8jVzOcZtbAeRN7ai/O5RETKVKDl/HsytB9VartMxeDI4gpXwJ8nD45ynQpdiXx1GGRr4=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x6VYc-005J7m-OU; Tue, 15 Sep 2026 17:58:54 +0200
+Date: Tue, 15 Sep 2026 17:58:54 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
+Cc: Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ryan Chen <ryan_chen@aspeedtech.com>,
+	Billy Tsai <billy_tsai@aspeedtech.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 2/2] ARM: dts: aspeed: Add ASRock Rack B650D4U BMC
+Message-ID: <a132b7f1-67db-4dcb-bf9c-39dbcf7d8e04@lunn.ch>
+References: <20260830182036.284736-1-prasanth.padarthi10@gmail.com>
+ <20260915013110.4780-1-prasanth.padarthi10@gmail.com>
+ <20260915013110.4780-3-prasanth.padarthi10@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915013110.4780-3-prasanth.padarthi10@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Removing the mdio node in the cortina,gemini-ethernet.yaml example =
-leaves dangling phandle references to &phy0 and &phy1, which causes a build=
- failure during dt_binding_check.
---
+> +&mac0 {
+> +	status = "okay";
+> +	phy-mode = "rgmii-id";
+> +	phy-handle = <&ethphy0>;
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pinctrl_rgmii1_default>;
+> +
+> +	nvmem-cells = <&eth0_macaddress>;
+> +	nvmem-cell-names = "mac-address";
+> +};
+> +
+> +&mdio0 {
+> +	status = "okay";
+> +
+> +	ethphy0: ethernet-phy@0 {
+> +		compatible = "ethernet-phy-ieee802.3-c22";
+> +		reg = <0>;
+> +	};
+> +};
 
-commit 31fca947f12eff24c11e065baded031398b74f19
-Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+For these nodes only:
 
-dt-bindings: net: Use consistent indentation in the example
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-Correct indentation in the examples to consistent 2- or 4-spaces
-indentation to fix dt-check-style warnings ("example 0
-[indent-consistent] indent mismatch ...").  Preferred is 4-spaces, but
-re-indenting entire example just for that is too much churn.
-
-In cortina,gemini-ethernet.yaml also drop the wrongly indented mdio bus,
-because it is not necessary for the example.
-
-> diff --git a/Documentation/devicetree/bindings/net/cortina,gemini-etherne=
-t.yaml b/Documentation/devicetree/bindings/net/cortina,gemini-ethernet.yaml
-> index f0b5bea2458d5..da9bc170cd543 100644
-> --- a/Documentation/devicetree/bindings/net/cortina,gemini-ethernet.yaml
-> +++ b/Documentation/devicetree/bindings/net/cortina,gemini-ethernet.yaml
-> @@ -87,18 +87,6 @@ examples:
->      #include <dt-bindings/interrupt-controller/irq.h>
->      #include <dt-bindings/clock/cortina,gemini-clock.h>
->      #include <dt-bindings/reset/cortina,gemini-reset.h>
-> -    mdio0: mdio {
-> -      #address-cells =3D <1>;
-> -      #size-cells =3D <0>;
-> -      phy0: ethernet-phy@1 {
-> -        reg =3D <1>;
-> -        device_type =3D "ethernet-phy";
-> -      };
-> -      phy1: ethernet-phy@3 {
-> -        reg =3D <3>;
-> -        device_type =3D "ethernet-phy";
-> -      };
-> -    };
-> =20
->      ethernet@60000000 {
->          compatible =3D "cortina,gemini-ethernet";
-> @@ -110,28 +98,28 @@ examples:
->          ranges;
-> =20
->          gmac0: ethernet-port@0 {
-> -                compatible =3D "cortina,gemini-ethernet-port";
-> -                reg =3D <0x60008000 0x2000>, /* Port 0 DMA/TOE */
-> -                      <0x6000a000 0x2000>; /* Port 0 GMAC */
-> -                interrupt-parent =3D <&intcon>;
-> -                interrupts =3D <1 IRQ_TYPE_LEVEL_HIGH>;
-> -                resets =3D <&syscon GEMINI_RESET_GMAC0>;
-> -                clocks =3D <&syscon GEMINI_CLK_GATE_GMAC0>;
-> -                clock-names =3D "PCLK";
-> -                phy-mode =3D "rgmii";
-> -                phy-handle =3D <&phy0>;
-> +            compatible =3D "cortina,gemini-ethernet-port";
-> +            reg =3D <0x60008000 0x2000>, /* Port 0 DMA/TOE */
-> +                  <0x6000a000 0x2000>; /* Port 0 GMAC */
-> +            interrupt-parent =3D <&intcon>;
-> +            interrupts =3D <1 IRQ_TYPE_LEVEL_HIGH>;
-> +            resets =3D <&syscon GEMINI_RESET_GMAC0>;
-> +            clocks =3D <&syscon GEMINI_CLK_GATE_GMAC0>;
-> +            clock-names =3D "PCLK";
-> +            phy-mode =3D "rgmii";
-> +            phy-handle =3D <&phy0>;
-
-[Severity: Low]
-Does removing the mdio node leave a dangling phandle reference to &phy0 her=
-e?
-This causes a build failure during dt_binding_check when the Device Tree
-Compiler evaluates the undefined label.
-
->          };
-> =20
->          gmac1: ethernet-port@1 {
-> -                compatible =3D "cortina,gemini-ethernet-port";
-> -                reg =3D <0x6000c000 0x2000>, /* Port 1 DMA/TOE */
-> -                      <0x6000e000 0x2000>; /* Port 1 GMAC */
-> -                interrupt-parent =3D <&intcon>;
-> -                interrupts =3D <2 IRQ_TYPE_LEVEL_HIGH>;
-> -                resets =3D <&syscon GEMINI_RESET_GMAC1>;
-> -                clocks =3D <&syscon GEMINI_CLK_GATE_GMAC1>;
-> -                clock-names =3D "PCLK";
-> -                phy-mode =3D "rgmii";
-> -                phy-handle =3D <&phy1>;
-> +            compatible =3D "cortina,gemini-ethernet-port";
-> +            reg =3D <0x6000c000 0x2000>, /* Port 1 DMA/TOE */
-> +                  <0x6000e000 0x2000>; /* Port 1 GMAC */
-> +            interrupt-parent =3D <&intcon>;
-> +            interrupts =3D <2 IRQ_TYPE_LEVEL_HIGH>;
-> +            resets =3D <&syscon GEMINI_RESET_GMAC1>;
-> +            clocks =3D <&syscon GEMINI_CLK_GATE_GMAC1>;
-> +            clock-names =3D "PCLK";
-> +            phy-mode =3D "rgmii";
-> +            phy-handle =3D <&phy1>;
-
-[Severity: Low]
-And does this similarly leave a dangling reference to the newly removed &ph=
-y1
-label, causing a compilation failure?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914155645.1125=
-08-2-krzysztof.kozlowski@oss.qualcomm.com?part=3D1
+    Andrew
