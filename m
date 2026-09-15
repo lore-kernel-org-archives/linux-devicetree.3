@@ -1,83 +1,67 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1BF644C51C
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 23:21:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29D7F21FF2A;
+	Tue, 15 Sep 2026 23:32:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789514500; cv=none; b=obYlT67DmlQRmUrcVpzzZq0yHXwy8cIarEmAhj9+J6SMyub/llVb0ONacxWFzva8RxmqGf85Q6RCSro/ZvTa7cJGQQRUIECJfY7d1pcLQlUCFrC60gHY+UQVd25Wn/SaheIrLOkYNEUeXZ8M4BKCZAxkyFZDDwmhG8rrwLvuEGE=
+	t=1789515144; cv=none; b=sz480FnzVDjcNJHo7sWT2qNHqMhyUxJGakN6CLUWXvxeGdlfHnj5ZGsfatEAfCxqKXD9tN8dg9LEaQT6dapVMajm/UwfNqhvLr9l3uw+yZe70fkvg3GofGYZMMdp0fTB0G8vmzFLoxGs8w28kGyR/NgttFys8x3LR0IB1AlEVAE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789514500; c=relaxed/simple;
-	bh=SZtGWg3Ry7eshvevu8zXbfCMNZeRuM4HiVhM/tf7/CU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IbQxTssB9pOBRFuMO9PT816uilX+WeCthVpuxZSOZFmsgmAlirVxsU3TBWRruVA5l9jlyd0Et8benrYZ2W2lM9AcgpX0WLiYWA43y8QnUnA9F6RxZn09k7Uv4ME1lfCBwQjzFzQB3JxYZAX/b199GUHQ5uKr1NDBUlg87fuuRQE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ByYElnZP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789515144; c=relaxed/simple;
+	bh=Z2JAWqgXpfwJr7+jDv7IvAocGIyOd7kewy0XNeNLSw8=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=KXlduBayDVdSLybX99udw0ogwA6CiKuiojk3vsiXFKlBlxOWYc2XcLwPvNeScJnUI/4etpsLG0UuEv5YczNbkjNzY5aDmjTvf4dXShFR5YDYO7ZXAvE67kmLdnN1q5ruhRGDc4QCkToiIytBU+j9PbmxCpFvY+asbDwhJOMU298=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hRWTuTyr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ByYElnZP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5214A1F000FF
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 23:21:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hRWTuTyr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A27461F000FF;
+	Tue, 15 Sep 2026 23:32:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789514499;
-	bh=qrd046gS7cRLDO73aara+gm0Ms90pWAUaUxPR7oVCK8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=ByYElnZPNwkrkIgVfbvKkDd4ddxmtdkWYC3DXB/NnbEDK8M3EDbsv3PvqRiiIw3/Z
-	 1auqtIjRNdCYK6eQUw07ks4J4BjW/k129fiH8KLoe9RrtFerRPyMZvQnKAcf0g/Nrb
-	 fjliPa3nViQIXNp3xghjIBS/M1nni0PJ1LfJKnqk2moOFVmbR+sW/DR3GNGta/yyCA
-	 O1aEXZLKiht3gaNqeBo98n+P9drNN2rnLGuYS2AVFXUXDF0iXEa08PQnt9Hmr4FIPE
-	 o02fXkF0syOqfxHciPHE+NjenosGyP91WQYLQi4R3aoZs+CgvUTu4iF0IPpHGNwk8B
-	 sMZn1xccNlZWA==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8b402f4e3so287966e87.2
-        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 16:21:39 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx25DtDdxCLKrFUD5gDnpNFECCs9Y48Ox/s0eomkI4EavIQ87dM9uFezBd5wewT5eRbCV0Zth2dfdss@vger.kernel.org
-X-Gm-Message-State: AFuF++lSxaFmCEXHW44NQeAQeObWUY5jaa+jZxnqPvw0FypS333P3sWh
-	YCSCC+f7oEMoirMHvMlRluVqXYsQf8geFbQrn3Rfqv09IG5N49yKmLvQeovUsVACWujFexNim8f
-	STh/uoMrqVkPHf4QXYK2ufIXTmfgDWWM=
-X-Received: by 2002:a05:6512:3a85:b0:5b6:19fe:a5a9 with SMTP id
- 2adb3069b0e04-5b8b666ac19mr93443e87.26.1789514498067; Tue, 15 Sep 2026
- 16:21:38 -0700 (PDT)
+	s=k20260515; t=1789515143;
+	bh=u7tOSiJtMExOBOyjDsi7xD/TL5u5exguDky+X8Nqm9w=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=hRWTuTyr9GYIjCssj+C3+iBtM0vXALX7+ecOt1iLoawNOq8fqqS0RSiBqgSZ/8rKQ
+	 7PSAqh7IsJz4bS/7kiba7Jp6cJnybKQz0U6NCKtvWr1s+Idf8Twk8uid9L44RKiFKS
+	 /Tev4NbfucxaQtECYpXQsXk/RyEiKrJtNJ6qHyQ2YGvQoUcEjli7+cki8t0ilgy2kl
+	 Bbc8TSFMpwszwIiCMeaA3Egu8b8opjb0jmj6EB9EuBCJY+PZKjoXA4OoIY3kYlu45g
+	 5ZmlttrfHF4AtVHzdUxhdW5M/1sIrRgd+QqWy4F+lqSp0rdRj6FRSgul0RTF7y9plJ
+	 C1sdZ3g4OavGA==
+Date: Tue, 15 Sep 2026 16:32:22 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] dt-bindings: net: nvidia,tegra234-mgbe: Add missing
+ properties
+Message-ID: <20260915163222.79e2d2e8@kernel.org>
+In-Reply-To: <aqKL_UX7bFt4BrYE@orome>
+References: <20260902003004.453960-1-thierry.reding@kernel.org>
+	<aqKL_UX7bFt4BrYE@orome>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914-ks8995-to-ksz8-v14-0-3d72692b3c97@kernel.org>
- <20260914-ks8995-to-ksz8-v14-2-3d72692b3c97@kernel.org> <20260915203532.6631B1F00893@smtp.kernel.org>
-In-Reply-To: <20260915203532.6631B1F00893@smtp.kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 16 Sep 2026 01:21:25 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=JgmFTrEOwfRshC14APnk0iUFZ0CfqijFZ6GTStxQPKA@mail.gmail.com>
-X-Gm-Features: AcwNN1WL3aaCsbfk2k9yU0gijCijANdzYB6oiKYSlFNI_AZuBKzEE9xibKGoZck
-Message-ID: <CAD++jL=JgmFTrEOwfRshC14APnk0iUFZ0CfqijFZ6GTStxQPKA@mail.gmail.com>
-Subject: Re: [PATCH net-next v14 2/4] net: dsa: tag_ks8995: Add the KS8995 tag handling
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 15, 2026 at 10:35=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
-
-> > +     /* Always add a distinct outer tag. The user port removes this fi=
-eld on
-> > +      * egress, so reusing an existing 802.1Q tag would consume that V=
-LAN tag.
-> > +      */
-> > +     skb =3D vlan_insert_tag(skb, KS8995M_STPID(portmask), 0);
+On Thu, 10 Sep 2026 12:53:15 +0200 Thierry Reding wrote:
+> On Wed, Sep 02, 2026 at 02:30:04AM +0200, Thierry Reding wrote:
+> > From: Thierry Reding <treding@nvidia.com>
+> > 
+> > Being a DWMAC derivative, the Tegra234 MGBE supports AXI configuration
+> > nodes named stmmac-axi-config and phandle references to them using the
+> > snps,axi-config property.
+> > 
+> > While at it, add the 10gbase-r PHY mode.
 >
-> [Severity: High]
-> Could this lead to an out-of-bounds read or write if a short packet is se=
-nt?
->
-> If a user with CAP_NET_RAW sends a very short packet (e.g., a 1-byte payl=
-oad)
-> via an AF_PACKET raw socket, it might reach ndo_start_xmit without being
-> padded to 14 bytes because needed_tailroom is not set by the tagger.
+> Any comments on this?
 
-This is getting really fringe.
-
-Who does those things? It's a consumer router chip not a network lab.
-
-Shall I just go on and please the AI as the fringeness increases here?
-
-Yours,
-Linus Walleij
+Looks like DT maintainers are overloaded / AFK / both.
+We only retain outstanding patches for 2 weeks, you'll need 
+to repost this.
