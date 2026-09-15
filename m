@@ -1,88 +1,56 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-05.mail-europe.com (mail-05.mail-europe.com [85.9.206.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B63C38F651
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 09:31:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64E98374E40;
+	Tue, 15 Sep 2026 09:33:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.9.206.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789464714; cv=none; b=lKOZGH/WsxZoNQqRzjyt1kokTkCQZvH90RscZHltfXjhaAJma1K9zm0TjwKYyli77vGLLZ2Ax1p+D/WWKI6hi9rJSUN4Wpa3c9ml/3PtsWN4Mq3MpNjoaEWb2+kFYn/n3TnBIRHC60OMGI6yVnnQcv7671WRtznE0F9H2xL/Gi8=
+	t=1789464817; cv=none; b=JNXunOzXtlTckH3ZQx2Fko0vl/Fb2ZSYC+CHbJHZ+3J4IWAxmBXAU8tKBtrPWRA6MjrcZngPOhaZlGv7iD4O0cvOWUvNlTdovdDuUcIErElUtnnLLYZlL1O0mnCfUMVdhEulqKfF6h8V63oXaj5UZIaMacdJAtWu+aGztn66Bao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789464714; c=relaxed/simple;
-	bh=8zp0kk2w4JfRXj8fifwE6fWiosmN7vvdTCQFHLveG1s=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=eeECyJVfgu3uJiTtCI/mcoenhoMg+WJ6oUoCNBA8MXruNSBNamhntdIN+/w5RpIes1xB09RODYF18vlzBHGPAW3NVYQEWBmzDhhtLwsZipi6l7pF4GW1ea8jK1fvln7eipfc/XWM+vrLNAy2zpUPt+puH+4jTvQYhSF+ufx2w6E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bCySVVGA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789464817; c=relaxed/simple;
+	bh=hXSEs7BTDlc8dKDKpzIizZkxrmFqMoEY8BMFcJ/xLxg=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=HLqKhq1sXZZxbgcmfX/TPFqqYDRSdk4gzR9q7CHuSSAAROyztmUgwyTGI+1xVE9Yq4bMURQ/mrv+dhKEq364nybM8UCAY6Xsf+iBt+Ooxl/WPNvg87WDSCZqVemcf2993u1brgStlLnqyHf+cj41P2A91qpr9IgKsT+a4T1lSgI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=wY1y8xTa; arc=none smtp.client-ip=85.9.206.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bCySVVGA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 367111F000FF;
-	Tue, 15 Sep 2026 09:31:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789464712;
-	bh=0ErmlG3wWgJcsg5B2K49yl+pXyLIovdx2wAUgMA+ktg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bCySVVGAI/d7GvDUniRxDHPOp8UewtcfSqu9A1QX3AMoxV/psWbdmNd+EQDbDWEXg
-	 JMzSj68hyLvUSP3pU8aGxUiaSsLTNlVEIlfrnCl+GyV7boM3rrNMYR9buvr2HHjGQw
-	 +qnxQlpS7P01Tw51FCOPuWvNaErWoJxyBgoezea8oBreFCa1iARJ1s/oecWSBpMQka
-	 vpC/2IkltjUhEk5VGk5usLFOBzOddAWkRQof7/9e4+CiJT6MUChCjLzKkAImXT8wI1
-	 KQA1egLI3dD9djJ50AWvmTRcD895rCMFtgjmKmxnLOYXd8fBzQatY6feUd9r6MasJE
-	 nL136ERCDsLCA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] gpio: Support ON Semi CAT9532
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alban Bedel" <alban.bedel@lht.dlh.de>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260915092046.931449-3-alban.bedel@lht.dlh.de>
-References: <20260915092046.931449-1-alban.bedel@lht.dlh.de>
- <20260915092046.931449-3-alban.bedel@lht.dlh.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 09:31:51 +0000
-Message-Id: <20260915093152.367111F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="wY1y8xTa"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1789464799; x=1789723999;
+	bh=hXSEs7BTDlc8dKDKpzIizZkxrmFqMoEY8BMFcJ/xLxg=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=wY1y8xTaVY9o71t68zZ8xxpnHJIDVB1JeESHBv+1cj7WISv5xrNPHU/dzNiNh6mI8
+	 xtxbiTfFHVa7DJUXy5Ueyoex/ntihHchoHtjhDuihhcHlboLrbQnD5DAXiK/2jn0Us
+	 ayWGOvjJNWs4OHILwjPVjXAmxgfK/9HnvzivI9seOo/T8tPB/Oe/zUDmXcMlwR6HI3
+	 Qu/DN+XQoTr8bFHzKSJTuULS0SNgscpwOf1HZuirbSnVqbJs8UMRxnsTME3p/iieFB
+	 U9ZxR1Z5qpEBA7eL5iio25/sYPfWF+4aLMvasr+m0hhY4Em5u405/lCMmh0f4rwSaI
+	 3oiMy5SbdVyOQ==
+Date: Tue, 15 Sep 2026 09:33:14 +0000
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+From: Roman Vivchar <rva333@protonmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, Heiko Stuebner <heiko@sntech.de>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH] dt-bindings: gpu: arm,mali-utgard: add mt6572
+Message-ID: <qhCDchmGeChGRGsaz37FafYzJowgCzD3tkhtgZCAmpTdTZ7MloVCm3SgJPxz6_rJZJ_HIxpwgQZibP1bkX2tRz-XkcPVwznUO7issd2PYmI=@protonmail.com>
+In-Reply-To: <20260810-6572-dt-mali-v1-1-fb908627bf23@protonmail.com>
+References: <20260810-6572-dt-mali-v1-1-fb908627bf23@protonmail.com>
+Feedback-ID: 173184497:user:proton
+X-Pm-Message-ID: 45b726ba5dba26f46e8487dde82dbede2970503f
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] i2c: i2c_device_id array missing named initializers
---
+Hi Angelo,
 
-commit ce4c104d77312ee9164e59bc58ade163f20cd3c0
-Author: Alban Bedel <alban.bedel@lht.dlh.de>
+Could you take a look at this patch? That's a one line change with a new
+compatible string for mt6572 GPU.
 
-gpio: Support ON Semi CAT9532
-   =20
-This commit adds support for the CAT9532 LED dimmer from On Semiconductor,
-implementing it as an open-drain GPIO controller driver.
-
-> diff --git a/drivers/gpio/gpio-cat9532.c b/drivers/gpio/gpio-cat9532.c
-> new file mode 100644
-> index 0000000000000..973ff74a15b89
-> --- /dev/null
-> +++ b/drivers/gpio/gpio-cat9532.c
-
-[ ... ]
-
-> +static const struct i2c_device_id cat9532_i2c_id[] =3D {
-> +	{ "cat9532" },
-
-[Severity: Low]
-This isn't a bug, but does this array initialization in cat9532_i2c_id
-violate the I2C subsystem rule requiring named initializers for
-struct i2c_device_id?=20
-
-Using positional initialization like { "cat9532" } instead of
-{ .name =3D "cat9532" } goes against the documented subsystem style guideli=
-nes.
-
-> +	{ },
-> +};
-> +MODULE_DEVICE_TABLE(i2c, cat9532_i2c_id);
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915092046.9314=
-49-1-alban.bedel@lht.dlh.de?part=3D2
+Thanks,
+Roman
