@@ -1,94 +1,165 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42B8844C67C;
-	Tue, 15 Sep 2026 20:33:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5F7F4D2ED6
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 20:35:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789504413; cv=none; b=UBDYuUSPFo02WMV8W8NzsPA6c+XaQLp0fJNHb5vWscjuVHyl2lURU91cro4skLNOkSL3oBXs3TPd8619Jx5LhDBEEJc/ZQfls+iweTz6kmOrwSM7ovnUWu2D53af8NCXN4CbLsKJO1WBvWPYZDWQJo9ro8EM0e5xkczHRtjFj/Q=
+	t=1789504535; cv=none; b=IqMrIqdkPk+M2B2yrBpDko73wt6SjH8nrKm+mf5QQd+EWZTqVXG7DFtk8yyiOv5Nq8pyF+htpGYiPkvuX+FHocxDvzuvCAkxi4yrcrGiOeePLUMXBbYZad/T78+L4Lntg1+xsyoxKnJdLaFTHmve+zulwvN9vZbz0F5g2jVfhw0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789504413; c=relaxed/simple;
-	bh=45/eohNmGxzgetiRK5lMcxh9V1IsBJwlnwaJid+CtAE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CKwJ0wpRnKfEihNn3G0ZjNsOfwhe3Hb7lch3BZLJv9Ndwlt3tLzrrOE6aM/Xqm4PVbKzHPXH4rsRMrqbtQ6fT7cEytQ49tg+BTfceypbeaPI3dqfXWmsP8EFz/LW/8eVNkM6rxdSuy1WtIK3BdUBKWYPhWX00BA24tT2NDkpdzA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=jb/LzoNA; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789504535; c=relaxed/simple;
+	bh=8FeujGZAy5NG9rvXpRQeOBroMgguG53H7o9qKQGgOE0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ut8yMl9n0JmgZujuv/UmD8+wvluEXVDceXBicj7f5NMEPpol00gpSZsGygwv/R45fM4z+3pfWM3kpesqJKqp7IM0/SBHbVn1DuoWnyE6qTxJS8rfMKvZv1bEOpqNikZLbtVQXE9Z7JabURj5awkEwJB6DXfJmcH53JIBs3v9rIY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OB+C0R3G; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="jb/LzoNA"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 714E01A07F0;
-	Tue, 15 Sep 2026 20:33:29 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 400E2602B0;
-	Tue, 15 Sep 2026 20:33:29 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8614A11C7AFE5;
-	Tue, 15 Sep 2026 22:33:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789504403; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=EaTBQSFDY9HqCiNlkTKbGEfGfiR2jHJYb7QJIPYFUTU=;
-	b=jb/LzoNA59kiYJnRzas+LoinY1Sw+b4PsE7rgm/n6GJvhG2pg9BnzQ2sLKCzTIcRpQnuAA
-	sA4Jc9hJuw3g/bDDXcCb/voAubto6tXDlnvtwVKMfwXTj4pwh4kXh4VdKoJ+tA9CeUz0ZC
-	AbgcFPqQbmWWkdJ2hWRvBxJUqnfZyak+cOKHTrkm308yid/SB83QA73zL4rn14Ubjz4HUu
-	Ba+WqXLrxosE10orHQzNUG8XMXsJF7Lkb633gTRGy8EfgzQzwyCV6wagjtLXSuiDoIsJX3
-	07g+4RG/qkRjf8a+62XVeiBEb6c8/ku0OM+PIfdNCTPxi0PpEcqVCv6URgfE+g==
-Message-ID: <5df35a3e-d2c6-4576-868f-d3194de3deb0@bootlin.com>
-Date: Tue, 15 Sep 2026 22:33:12 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OB+C0R3G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E3B31F00898;
+	Tue, 15 Sep 2026 20:35:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789504533;
+	bh=4WnBcfCBDi+0y5j3erP/lnFk3lbetujwK60SJejj1mU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=OB+C0R3GFVAk64sYeHYVSJ+9FzurKzdpgcLh+xFXWaTZIlvtZno4SkmKhB6L230nb
+	 SvXqCFjYq+1RmZCpnazeWBMx1/++CYmd0h0yOhVLD4p442fQKCusR9hikSfKDbA+VO
+	 ciKQgTmi3nvIIXp3C62EkY3lQ8/wth4grQjHRO1uKvJMN/nfQSiRLKp//qVeDzGPGH
+	 29jLgn669NLGMLFz66EtFezoIr33ykQmAGHqJoWIYqdMbTZ6f9ALFoe8EaFUsmepgh
+	 JNRBjUOkuvul01wlVDQ64IFowQTEjjW3pzM53uziDMfLp3DQBezp55caEZNpt+oQVn
+	 SYnmPS840OYOA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v14 3/4] net: dsa: microchip: Support Microchip
+ KSZ8995XA / KS8995XA
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Linus Walleij" <linusw@kernel.org>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260914-ks8995-to-ksz8-v14-3-3d72692b3c97@kernel.org>
+References: <20260914-ks8995-to-ksz8-v14-0-3d72692b3c97@kernel.org>
+ <20260914-ks8995-to-ksz8-v14-3-3d72692b3c97@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 15 Sep 2026 20:35:33 +0000
+Message-Id: <20260915203533.7E3B31F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 1/2] dt-bindings: net: allwinner: add H616 EMAC1
-To: James Hilliard <james.hilliard1@gmail.com>,
- Richard Genoud <richard.genoud@bootlin.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Maxime Ripard <mripard@kernel.org>, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com
-References: <20260915-submit-h616-emac1-v1-v1-0-195de0bb1f8a@gmail.com>
- <20260915-submit-h616-emac1-v1-v1-1-195de0bb1f8a@gmail.com>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20260915-submit-h616-emac1-v1-v1-1-195de0bb1f8a@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi James,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] PHY soft reset loop unconditionally includes the MAC-only CPU port=
+, risking a 600ms polling timeout and probe failure.
+- [High] Auto-negotiation enable/disable polarity is inverted for the KSZ89=
+95XA switch.
+--
 
-On 9/15/26 21:03, James Hilliard wrote:
-> The H616 secondary EMAC uses a separate system-control clock register
-> and supports only RMII at 10/100 Mbps. Add its distinct compatible
-> without an older fallback, since using the primary EMAC clock register
-> would not work.
-> 
-> Constrain the PHY interface mode to RMII, matching the hardware. The
-> EMAC1 clock register also retains the three-bit TX and five-bit RX delay
-> chains, so allow the existing Allwinner delay properties for this
-> compatible.
+commit 9246ba5d8ed3da59b20518974c9b8a20afa8511f
+Author: Linus Walleij <linusw@kernel.org>
+Subject: net: dsa: microchip: Support Microchip KSZ8995XA / KS8995XA
 
-I don't think there's such a thing as RMII delays. RMII has a single
-clock, contrary to RGMII that has a TX and a RX clock with a 2ns delay
-between clock and data.
+This commit adds support for the Microchip KSZ8995XA switch to the KSZ
+driver. It updates hardware detection and initialization paths, handling
+specific quirks of this older switch model.
 
-I think it's just a leftover in this IP from the other variants that
-can do RGMII ? You should just be able to drop the comment changes here,
-and same goes for the dwmac patch.
+> diff --git a/drivers/net/dsa/microchip/ksz8.c b/drivers/net/dsa/microchip=
+/ksz8.c
+> --- a/drivers/net/dsa/microchip/ksz8.c
+> +++ b/drivers/net/dsa/microchip/ksz8.c
 
-Maxime
+[ ... ]
 
+> @@ -253,7 +255,35 @@ static int ksz8463_reset_switch(struct ksz_device *d=
+ev)
+> =20
+>  static int ksz8_reset_switch(struct ksz_device *dev)
+>  {
+> -	if (ksz_is_ksz88x3(dev)) {
+> +	if (ksz_is_ksz8995xa(dev)) {
+> +		unsigned int port, reg, val;
+> +		int ret;
+> +
+> +		/* The KSZ8995XA switch itself cannot be reset by software, but
+> +		 * often boot loaders have fun with ports, so reset them. This
+> +		 * reset bit is self-clearing.
+> +		 */
+> +		for (port =3D 0; port < dev->info->port_cnt; port++) {
+> +			ret =3D ksz_prmw8(dev, port, REG_PORT_STATUS_3,
+> +					PORT_PHY_SOFT_RESET,
+> +					PORT_PHY_SOFT_RESET);
+> +			if (ret)
+> +				return ret;
+> +		}
+
+[Severity: High]
+Does this loop unconditionally include the CPU port? In ksz8995xa, the CPU
+port (port 4) does not have an internal PHY, so it lacks this PHY reset
+register. Writing to it might have unintended consequences.
+
+> +
+> +		/* IEEE 802.3 allows up to 500 ms for a PHY reset. */
+> +		for (port =3D 0; port < dev->info->port_cnt; port++) {
+> +			reg =3D dev->dev_ops->get_port_addr(port, REG_PORT_STATUS_3);
+> +			ret =3D regmap_read_poll_timeout(ksz_regmap_8(dev), reg, val,
+> +						       !(val & PORT_PHY_SOFT_RESET),
+> +						       1000, 600000);
+> +			if (ret)
+> +				return ret;
+> +		}
+
+[Severity: High]
+Similarly, polling for the self-clearing bit on the MAC-only CPU port might
+cause an unconditional timeout here. Since the reserved register on the CPU
+port may not behave like a self-clearing PHY register, could this cause the
+switch initialization to hang for 600ms and fail to probe completely?
+
+[ ... ]
+
+> @@ -1307,13 +1377,15 @@ static int ksz8_w_phy_bmcr(struct ksz_device *dev=
+, u16 port, u16 val)
+>  	if (val & BMCR_RESET)
+>  		return 0;
+> =20
+> -	speed =3D 0;
+> -	if (val & KSZ886X_BMCR_HP_MDIX)
+> -		speed |=3D PORT_HP_MDIX;
+> +	if (!ksz_is_ksz8995xa(dev)) {
+> +		speed =3D 0;
+> +		if (val & KSZ886X_BMCR_HP_MDIX)
+> +			speed |=3D PORT_HP_MDIX;
+> =20
+> -	ret =3D ksz_prmw8(dev, port, regs[P_SPEED_STATUS], PORT_HP_MDIX, speed);
+> -	if (ret)
+> -		return ret;
+> +		ret =3D ksz_prmw8(dev, port, regs[P_SPEED_STATUS], PORT_HP_MDIX, speed=
+);
+> +		if (ret)
+> +			return ret;
+> +	}
+> =20
+>  	ctrl =3D 0;
+>  	if (ksz_is_ksz88x3(dev)) {
+
+[Severity: High]
+Are the auto-negotiation enable and disable polarities inverted for the
+KSZ8995XA switch?
+
+In ksz8_w_phy_bmcr, right after this check, the code branches based on
+ksz_is_ksz88x3. The KSZ8995XA falls into the else block which sets the
+PORT_AUTO_NEG_DISABLE bit when auto-negotiation is requested to be disabled.
+
+However, for the older KSZ8995 family, bit 7 is typically an enable bit (li=
+ke
+the KSZ88x3), meaning 1 =3D enable, whereas for KSZ8795 it means 1 =3D disa=
+ble.
+If KSZ8995XA treats it as an enable bit, this logic will disable AN when
+requested to enable, and enable it when requested to disable, potentially
+leading to broken network links.
+
+This same inversion would also affect ksz8_r_phy_bmcr which reads this bit =
+to
+report the link state. Should KSZ8995XA be grouped with the KSZ88X3 logic
+here?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914-ks8995-to-=
+ksz8-v14-0-3d72692b3c97@kernel.org?part=3D3
