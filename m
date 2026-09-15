@@ -1,200 +1,265 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96F634908AF;
-	Tue, 15 Sep 2026 11:25:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789471507; cv=none; b=GvygBlBAHMbT4UGFSmFjg8itlxtQx7I4gi1pH2HhuMbbAZFK7yyqyxMg2GMSbZRVwTFu1CPqE7axMlxNc5H0lKYydBPq8cYfzkflr7wp9harB0mgMlrorxBv59sLEr6LLc0jlK3wfx4zuzoTF8AYjqhbs2AV034dCAuzvwhAEVY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789471507; c=relaxed/simple;
-	bh=0ve7/DDdcigv05770gqszO21YREHojJv3JBfh9LpjKU=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=uZHNKjrEu44ztKi2hvGZMlYUm271ahEg7JLj+qsLWAwmqwakoNfpZXv6/tbsW+ZNpc5UptWqdBMczZdqzGOR7HD599M4dt2wIbRvJHc1quf3RAVGrnPKGPAZ24vuERxHNYyqeMCKTk/oilchcEcw/+WaUZU6689GGwwLYid9dQc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=FSRxqY26; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=aSsl2yJ1; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=fM3MazBW; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=mZlA7k8x; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80A6A4749DE
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 11:31:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789471920; cv=pass; b=kJyjiBVy03DDVWM9qH24IBxaomc1XoHmvmcG8JvuvKCW6X4TEavaipKEDUp0M0XkmGFnsBbOti8rO0Wg9dsReyZf8l8qnRRR/z3vTwEBe3vzPirNeciXGXE5g6jyUctaiIGwqx6nKglwfTbJ5l1ZM8qCh9jLTaZjfY8mg4il5BQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789471920; c=relaxed/simple;
+	bh=7NSvUJb+Kkse49Pbvizg9LMzUde+FsfN4VtU0EWT8Rk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=paOswGRWkOIU9IhXZsA8Gq6AVt17ZzvPT7n0bpAcdt0pbTeD/vCrPU1E3uPGB550Zdpx51YNw23L02qaAJ9gjn1aHCYZDDkWWipApdsK71yJAZYi3oIp4158kUzGyT0mfy6Jlt/DwxFmXtYUDoQsmgx8/OlRq0bHURQo1vCzTNQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=UbMUTwnA; arc=pass smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="FSRxqY26";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="aSsl2yJ1";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="fM3MazBW";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="mZlA7k8x"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id D6D911FD70;
-	Tue, 15 Sep 2026 11:24:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789471494; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=psqF+EOKBnDir7oSpdYk0cv/7bWaGxT8GNrr5rPj7yg=;
-	b=FSRxqY266D0vmKnF9nLIRDyWWQM9yhSRf7SWuTSbWdHKmTZfPMBWgLsJq7H8V56FVkky//
-	8MrE9PciUwBdoFcR4M6TLhf0Be1H7UyuT3X6eiMNzlMbbIthbvGQDSnAd0oqm56+IjjTWt
-	ZfmEPFx5zXWF3FpvnKWoZi5XGYuzP5E=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789471494;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=psqF+EOKBnDir7oSpdYk0cv/7bWaGxT8GNrr5rPj7yg=;
-	b=aSsl2yJ1+boxtQdbyNVNOLHSB2zJu6wAGQi+9pbebbTp2ClXENyw6idF+ycsnZ57BL4LP5
-	ZfcRP6lnX00QOOBw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789471489; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=psqF+EOKBnDir7oSpdYk0cv/7bWaGxT8GNrr5rPj7yg=;
-	b=fM3MazBW+hs/hKtvuJpOhLlGSwWwaQ2djpqh86ob84pD05SZM2CRj5VxxQICSBHMVzGpmM
-	q+b1hMqeOfBJ55X5lnPhdG5/NgEY6B1UbwH5ynoyuWcf7dFOEalvw2kJzBP8r3CSUcnebL
-	CgYXNAhYVAwFaBsCwZ7WQRZMQk8ez5c=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789471489;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=psqF+EOKBnDir7oSpdYk0cv/7bWaGxT8GNrr5rPj7yg=;
-	b=mZlA7k8xRY7/6eU8iSFueII5CBhiyVG2bEJOGnMSAtyaRqGo3EYAuYa/xTgran4MSxXe1Y
-	Y2dwysvA+85ERcBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E1B7713693;
-	Tue, 15 Sep 2026 11:24:46 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 2riGLf4qqWqtagAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 15 Sep 2026 11:24:46 +0000
-Date: Tue, 15 Sep 2026 13:24:46 +0200
-Message-ID: <877bkmn4e9.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Bill Wendling <morbo@google.com>
-Cc: linux-kernel@vger.kernel.org,	Russell King <linux@armlinux.org.uk>,
-	Huacai Chen <chenhuacai@kernel.org>,	WANG Xuerui <kernel@xen0n.name>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,	"James E.J. Bottomley"
- <James.Bottomley@HansenPartnership.com>,	Helge Deller <deller@gmx.de>,
-	Thomas Gleixner <tglx@kernel.org>,	Ingo Molnar <mingo@redhat.com>,	Borislav
- Petkov <bp@alien8.de>,	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,	"H. Peter Anvin" <hpa@zytor.com>,	Ian Abbott
- <abbotti@mev.co.uk>,	H Hartley Sweeten <hsweeten@visionengravers.com>,	Tony
- Luck <tony.luck@intel.com>,	Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>,	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,	Matthew Brost <matthew.brost@intel.com>,
-	=?ISO-8859-1?Q?=22Thomas_Hellstr=F6m=22?=
- <thomas.hellstrom@linux.intel.com>,	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,	Matthias Schwarzott
- <zzam@gentoo.org>,	Mauro Carvalho Chehab <mchehab@kernel.org>,	Tony Nguyen
- <anthony.l.nguyen@intel.com>,	Przemek Kitszel
- <przemyslaw.kitszel@intel.com>,	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,	Eric Dumazet
- <edumazet@google.com>,	Jakub Kicinski <kuba@kernel.org>,	Paolo Abeni
- <pabeni@redhat.com>,	Arend van Spriel <arend.vanspriel@broadcom.com>,	Rob
- Herring <robh@kernel.org>,	Saravana Kannan <saravanak@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,	Sylwester Nawrocki
- <s.nawrocki@samsung.com>,	Peter Griffin <peter.griffin@linaro.org>,	Alim
- Akhtar <alim.akhtar@samsung.com>,	Linus Walleij <linusw@kernel.org>,	Anil
- Gurumurthy <anil.gurumurthy@qlogic.com>,	Sudarsana Kalluru
- <sudarsana.kalluru@qlogic.com>,	"Martin K. Petersen" <mkp@kernel.org>,
-	Trond Myklebust <trondmy@kernel.org>,	Anna Schumaker <anna@kernel.org>,
-	Mike Marshall <hubcap@omnibond.com>,	Martin Brandenburg
- <martin@omnibond.com>,	Kees Cook <kees@kernel.org>,	Jiri Pirko
- <jiri@resnulli.us>,	Simon Horman <horms@kernel.org>,	Chuck Lever
- <cel@kernel.org>,	Jeff Layton <jlayton@kernel.org>,	NeilBrown
- <neil@brown.name>,	Olga Kornievskaia <okorniev@redhat.com>,	Dai Ngo
- <Dai.Ngo@oracle.com>,	Tom Talpey <tom@talpey.com>,	Jaroslav Kysela
- <perex@perex.cz>,	Takashi Iwai <tiwai@suse.com>,	Andrew Morton
- <akpm@linux-foundation.org>,	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	Kanglong Wang <wangkanglong@loongson.cn>,	Tiezhu Yang
- <yangtiezhu@loongson.cn>,	Qiang Ma <maqianga@uniontech.com>,	Randy Dunlap
- <rdunlap@infradead.org>,	Pengpeng Hou <pengpeng@iscas.ac.cn>,	Ard
- Biesheuvel <ardb@kernel.org>,	Breno Leitao <leitao@debian.org>,	Thorsten
- Blum <blum@kernel.org>,	Harshit Mogalapalli
- <harshit.m.mogalapalli@oracle.com>,	Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>,	Lyude Paul <lyude@redhat.com>,	Ashutosh Desai
- <ashutoshdesai993@gmail.com>,	Imre Deak <imre.deak@intel.com>,	Dmitry
- Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,	Johan Hovold
- <johan@kernel.org>,	Johannes Berg <johannes.berg@intel.com>,	Miri Korenblit
- <miriam.rachel.korenblit@intel.com>,	Alexander Stein
- <alexander.stein@ew.tq-group.com>,	Cryolitia PukNgae
- <cryolitia@uniontech.com>,	Jiaming Zhang <r772577952@gmail.com>,	Will
- Porter <mrwillporter@gmail.com>,	Cen Zhang <zzzccc427@gmail.com>,
-	=?ISO-8859-1?Q?=22C=E1ssio_Gabriel=22?= <cassiogabrielcontato@gmail.com>,
-	Rong Zhang <i@rong.moe>,	Arun Raghavan <arunr@valvesoftware.com>,
-	linux-arm-kernel@lists.infradead.org,	loongarch@lists.linux.dev,
-	linux-mips@vger.kernel.org,	linux-parisc@vger.kernel.org,
-	linux-edac@vger.kernel.org,	dri-devel@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org,	linux-input@vger.kernel.org,
-	linux-media@vger.kernel.org,	intel-wired-lan@lists.osuosl.org,
-	netdev@vger.kernel.org,	linux-wireless@vger.kernel.org,
-	brcm80211@lists.linux.dev,	brcm80211-dev-list.pdl@broadcom.com,
-	devicetree@vger.kernel.org,	linux-samsung-soc@vger.kernel.org,
-	linux-gpio@vger.kernel.org,	linux-scsi@vger.kernel.org,
-	linux-nfs@vger.kernel.org,	devel@lists.orangefs.org,
-	linux-hardening@vger.kernel.org,	linux-sound@vger.kernel.org
-Subject: Re: [PATCH 00/28] Replace remaining strlcat() call sites with snprintf()/seq_buf()
-In-Reply-To: <20260915081910.4142719-1-morbo@google.com>
-References: <20260915081910.4142719-1-morbo@google.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="UbMUTwnA"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea34ef3so136658a12.0
+        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 04:31:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789471918; cv=none;
+        d=google.com; s=arc-20260327;
+        b=hVaTmM0hTNYx8P8KOQ6WKqWxn8Rk8ETWFswGAPHm3ewUb0QCNYPaIhdAZOK3ox/1hL
+         +BKIg9utsdWXVzzmnjeau7A0KToFQ9YR8W8cfRcVoVx+P5wJ2lKPDGHDrxTNbP7ex5bP
+         2YEVglAU4J6Y7khj6Eb4dYSVieEyGJhbNJrnEvx/7++tjxG5us0JFKx/FdAW4p1qAZpp
+         lTjEG/MEvauNLEqfozNTOV1884N/RTTBn05kRiwfFetxxDwyqXFhMEjSBxmrgBsIQ+0d
+         A+a0JIJ3ghGvTNle2Vx6OKVFiZe/8/ypwgp34jH/RS1B1texLgMxBdh2IRVXbogp4/bZ
+         aJlQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ZWWxIYlBWABZ3GjM6t1BqbZ6aeOgozwkp5h4xrnqvNE=;
+        fh=OVoi4jxdO5UsGi031TBzw2H5ZP9Xg7ToiK5nV7TVRds=;
+        b=DR13yMwETgGXbEcshROUN7aCePXqeJwej4YnRsVSlaEV//hxfjwz8woWnPlVkK8zxE
+         KnD0XgoDCZKEVekXhC04vuraZ+bTENSFC4dIsFBQ7ZRM7uF34W8IE5OIaIFRn5LdEhY7
+         KCdaqYHnwp75ROze5hkVvZ3O2UhfVjuDl5dkeoYjVkXq6aaFTfOuxAlyfB/YBRGRN67Y
+         IfLlI8+xkTR2iD0DOEQlVJIhJZieA9ylRbLKk61OUz/UxoVrRVxF0jpHWOT2G0lRg3Vy
+         9JD+itHZIdHnrCb+hFgunJToy7Sa6RfvCMaTy7R9usHii7JmuPjkAwU9rHKgWSn+irLG
+         iQ4Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sartura.hr; s=sartura; t=1789471918; x=1790076718; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZWWxIYlBWABZ3GjM6t1BqbZ6aeOgozwkp5h4xrnqvNE=;
+        b=UbMUTwnAjvW63PekRfDe+YrHlOXG/WpHXBH9RsoXyln8a/cr65Ni1KUnKejMtD5kNq
+         QDSQ9meR8Blg7pOhoGk/l020BbHFjjtLJZnbrmV8tZFLnzyjrlPe0OKESm1mHrdkV+tn
+         Cw1EjT9LoNC1DbDJznoWPm9I4M45u4o1afWjx+LFpx+m8IvxHIoEtcc9PIOaSx7TXJRv
+         5B0v+WNJrvEzfcoWP3YpCIP36N7xVGpPi9J+VwFlhIJaqTlJwXgFzY+sHnH6V38aZEKa
+         fouJYkI7p2m18RSCb2x+D9qYS40Zt0FAQdQWN7FEy1nIuCHvoKPhhB3OZC9nTtdxyEOv
+         3a4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789471918; x=1790076718;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZWWxIYlBWABZ3GjM6t1BqbZ6aeOgozwkp5h4xrnqvNE=;
+        b=y2c/ccOdbX+oOd+Pl9o6tg4UaALr8+uLpp9o2nyCpy+QdJl0QbwU9SxW/Il6rIclNV
+         0OwInjZSdk0z31+9km3SHJy+hanSL4ufffIAN/y8XCvccfBZBKCknuh7wMFpgqPGIvAD
+         SoxzUtx8RkVssuPJpu/CCSttZ/9AGGw37kuxz6jSbmptPw3xqrzN4bjNB1xYsF14DWe3
+         81vlfmunX3nlhv6IlMRgiinu16j6aHgxH2AxIaNuV7GniUqPTlWpTuGgz5RzUzbxmSdV
+         xPLlmlM/nHgGwTCsq9DzTT+N4cm7bLcW42P9beIcPh5iEGY3ik41K2hROUuH8U4EzijS
+         qZ6w==
+X-Forwarded-Encrypted: i=1; AKwUvBypmjvzs/CX5IENzotZpLQcrQ4OuIabDI/HvqKiaqpdwTg0+wVFVPsk0ZKeY9MlHJD4bgl2ISUrDaN3@vger.kernel.org
+X-Gm-Message-State: AFuF++lJ+yd0cKr2MmlBLMqdMDiXM4ozqrjIUpFuUjqDZX2c6+xJdISI
+	rDS2o4j9QhxMtiL70UkphcjKRId0gmqc2ttMB57eFcTPwNcKjgO6DgVM5mqR7SV8ZSIMe5L0qiC
+	MWUYKWc1n8N5Y/Ob19gkQ/kTJ9bh+a1fKuS+1AtOh8w==
+X-Gm-Gg: AYBFou2MR30aDD6vJjukfckF8LOVQcfv6KKp++38LNcWvKMgV/+3aBM0rfUibMX9SM2
+	Oag9JkC+YR7sZGT+urikMM/mvO+7BahhaNz9ecojBBwIR4ckDTgp82aDxsaUmy9OqLNHaUi3d9b
+	5KH0ruwJEOEgM4hKBAsb6QchT24cnKP7kRtHNb/mGNua++8/cw2MXcWvuxZ9FI2x1ycMIA5EYt1
+	hEI5RkgdXg2MNKWYMIN7pdwAAHNmCJMO9jsnXnuiFL1k4t6eFaIYRl4TH8rZ7TECpG1dHF84xSK
+	Rza9jHFMC6vypBcoCFC9QUMoPMwfLJ5MaViiitgHJhxIyb6dDdyOEoMzVnSK92p/EYopu6ZkE5x
+	8mKjH56p2KJgXUk4xrYyEygPKtbDLzu1X+2A=
+X-Received: by 2002:a17:903:238b:b0:2d8:d4cc:5bb1 with SMTP id
+ d9443c01a7336-2dd83867c8amr12011995ad.17.1789471917503; Tue, 15 Sep 2026
+ 04:31:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Level: 
-X-Spam-Score: 0.20
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [0.20 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	FORGED_RECIPIENTS(2.00)[m:morbo@google.com,m:linux@armlinux.org.uk,m:kernel@xen0n.name,m:tsbogend@alpha.franken.de,m:James.Bottomley@HansenPartnership.com,m:deller@gmx.de,m:bp@alien8.de,m:hpa@zytor.com,m:hsweeten@visionengravers.com,m:tony.luck@intel.com,m:airlied@gmail.com,m:simona@ffwll.ch,m:matthew.brost@intel.com,m:rodrigo.vivi@intel.com,m:dmitry.torokhov@gmail.com,m:zzam@gentoo.org,m:anthony.l.nguyen@intel.com,m:przemyslaw.kitszel@intel.com,m:davem@davemloft.net,m:edumazet@google.com,m:arend.vanspriel@broadcom.com,m:neil@brown.name,m:rdunlap@infradead.org,m:pengpeng@iscas.ac.cn,m:leitao@debian.org,m:ashutoshdesai993@gmail.com,m:imre.deak@intel.com,m:johannes.berg@intel.com,m:miriam.rachel.korenblit@intel.com,m:alexander.stein@ew.tq-group.com,m:r772577952@gmail.com,m:mrwillporter@gmail.com,m:zzzccc427@gmail.com,m:cassiogabrielcontato@gmail.com,s:brcm80211@lists.linux.dev,s:devel@lists.orangefs.org];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.998];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	TAGGED_RCPT(0.00)[netdev];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,armlinux.org.uk,kernel.org,xen0n.name,alpha.franken.de,HansenPartnership.com,gmx.de,redhat.com,alien8.de,linux.intel.com,zytor.com,mev.co.uk,visionengravers.com,intel.com,suse.de,gmail.com,ffwll.ch,gentoo.org,lunn.ch,davemloft.net,google.com,broadcom.com,samsung.com,linaro.org,qlogic.com,omnibond.com,resnulli.us,brown.name,oracle.com,talpey.com,perex.cz,suse.com,linux-foundation.org,loongson.cn,uniontech.com,infradead.org,iscas.ac.cn,debian.org,linuxfoundation.org,oss.qualcomm.com,ew.tq-group.com,rong.moe,valvesoftware.com,lists.infradead.org,lists.linux.dev,lists.freedesktop.org,lists.osuosl.org,lists.orangefs.org];
-	R_RATELIMIT(0.00)[to_ip_from(RL638gsp8obb334m9k7xcnfris)];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[110];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid]
+MIME-Version: 1.0
+References: <20260907132617.1198548-1-robert.marko@sartura.hr>
+ <20260907132617.1198548-3-robert.marko@sartura.hr> <bfcd57f8-ffca-4a44-a84f-12c46cb9fe76@microchip.com>
+In-Reply-To: <bfcd57f8-ffca-4a44-a84f-12c46cb9fe76@microchip.com>
+From: Robert Marko <robert.marko@sartura.hr>
+Date: Tue, 15 Sep 2026 13:31:46 +0200
+X-Gm-Features: AcwNN1UJvA458C1rRtNt9ddKHsmuV8Z1-WqiLjsIfnIGDe3K05sCIbO51uVztps
+Message-ID: <CA+HBbNFQH-hTnqBOEAau2dP1+zKNsHDBcQA9dC5ofx2U5cbFDw@mail.gmail.com>
+Subject: Re: [PATCH v2 2/6] mmc: sdhci-of-at91: add option to keep clocks enabled
+To: Aubin Constans <aubin.constans@microchip.com>
+Cc: ulfh@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com, 
+	claudiu.beznea@tuxon.dev, adrian.hunter@intel.com, ehristev@kernel.org, 
+	linux-mmc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	luka.perkov@sartura.hr
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 15 Sep 2026 10:18:17 +0200,
-Bill Wendling wrote:
-> 
-> strlcat() is deprecated: like strcat(), it requires re-scanning the
-> destination string from the beginning on every call, which is O(n^2)
-> when used to build up a string incrementally, and its truncation
-> behavior is easy to get wrong.
+On Mon, Sep 14, 2026 at 3:46=E2=80=AFPM Aubin Constans
+<aubin.constans@microchip.com> wrote:
+>
+> Hi Robert,
+>
+> On 07/09/2026 15:25, Robert Marko wrote:
+> > sdhci_at91_set_clks_presets() both enables the controller clocks and
+> > programs its capabilities and preset registers. This prevents callers f=
+rom
+> > restoring the registers without changing the clock enable counts.
+> >
+> > Move clock enablement to callers and add a SoC data flag for controller=
+s
+> > that must keep their clocks enabled. Use it in the runtime PM paths whi=
+le
+> > keeping register restoration separate from clock enablement.
+>
+> This change has been required for the SAMA7G54 MPU already, and implement=
+ed by
+> two complementary commits:
+>
+> https://github.com/linux4microchip/linux/commit/763a3c05c8f9d0feb279c6f30=
+8fa5d48d14e07d3
+> https://github.com/linux4microchip/linux/commit/b5bbc888fb39471d46fe0a4ff=
+28f69533c265dd0
+>
+> At least they have been validated by test campaigns.
+> If that existing work seemed OK for you and the LAN969x, then I could squ=
+ash
+> these two commits and submit the result.
 
-... but what many of your patches do is to replace strlcat() with
-open-codes, which is more error-prone and easier to get wrong than
-a single strlcat() call.
+Hi Aubin,
+Yeah, I originally used those in our tree as well before trying to
+simplify things for upstreaming.
 
-> See:
-> 
->   https://github.com/KSPP/linux/issues/370
+Regards,
+Robert
 
-It's clear that strlcat() isn't perfect and sometimes inefficient.
-But blindly deprecating without providing a good alternative doesn't
-sound like a right approach to me.
+> >
+> > Signed-off-by: Robert Marko <robert.marko@sartura.hr>
+> >
+> >   drivers/mmc/host/sdhci-of-at91.c | 39 +++++++++++++++++++------------=
+-
+> >   1 file changed, 23 insertions(+), 16 deletions(-)
+> >
+> > diff --git a/drivers/mmc/host/sdhci-of-at91.c b/drivers/mmc/host/sdhci-=
+of-at91.c
+> > index 7c4ac65f247d..b7e2a89da348 100644
+> > --- a/drivers/mmc/host/sdhci-of-at91.c
+> > +++ b/drivers/mmc/host/sdhci-of-at91.c
+> > @@ -38,6 +38,7 @@
+> >   struct sdhci_at91_soc_data {
+> >          const struct sdhci_pltfm_data *pdata;
+> >          bool baseclk_is_generated_internally;
+> > +       bool keep_clks_on;
+> >          unsigned int divider_for_baseclk;
+> >   };
+> >
+> > @@ -164,7 +165,7 @@ static const struct of_device_id sdhci_at91_dt_matc=
+h[] =3D {
+> >   };
+> >   MODULE_DEVICE_TABLE(of, sdhci_at91_dt_match);
+> >
+> > -static int sdhci_at91_set_clks_presets(struct device *dev)
+> > +static void sdhci_at91_set_clks_presets(struct device *dev)
+> >   {
+> >          struct sdhci_host *host =3D dev_get_drvdata(dev);
+> >          struct sdhci_pltfm_host *pltfm_host =3D sdhci_priv(host);
+> > @@ -174,7 +175,6 @@ static int sdhci_at91_set_clks_presets(struct devic=
+e *dev)
+> >          unsigned int                    gck_rate, clk_base_rate;
+> >          unsigned int                    preset_div;
+> >
+> > -       clk_prepare_enable(priv->hclock);
+> >          caps0 =3D readl(host->ioaddr + SDHCI_CAPABILITIES);
+> >          caps1 =3D readl(host->ioaddr + SDHCI_CAPABILITIES_1);
+> >
+> > @@ -222,11 +222,6 @@ static int sdhci_at91_set_clks_presets(struct devi=
+ce *dev)
+> >          preset_div =3D DIV_ROUND_UP(gck_rate, 50000000) - 1;
+> >          writew(SDHCI_AT91_PRESET_COMMON_CONF | preset_div,
+> >                 host->ioaddr + SDHCI_PRESET_FOR_DDR50);
+> > -
+> > -       clk_prepare_enable(priv->mainck);
+> > -       clk_prepare_enable(priv->gck);
+> > -
+> > -       return 0;
+> >   }
+> >
+> >   static int sdhci_at91_suspend(struct device *dev)
+> > @@ -254,9 +249,11 @@ static int sdhci_at91_runtime_suspend(struct devic=
+e *dev)
+> >          if (host->tuning_mode !=3D SDHCI_TUNING_MODE_3)
+> >                  mmc_retune_needed(host->mmc);
+> >
+> > -       clk_disable_unprepare(priv->gck);
+> > -       clk_disable_unprepare(priv->hclock);
+> > -       clk_disable_unprepare(priv->mainck);
+> > +       if (!priv->soc_data->keep_clks_on) {
+> > +               clk_disable_unprepare(priv->gck);
+> > +               clk_disable_unprepare(priv->hclock);
+> > +               clk_disable_unprepare(priv->mainck);
+> > +       }
+> >
+> >          return 0;
+> >   }
+> > @@ -269,14 +266,23 @@ static int sdhci_at91_runtime_resume(struct devic=
+e *dev)
+> >          int ret;
+> >
+> >          if (priv->restore_needed) {
+> > -               ret =3D sdhci_at91_set_clks_presets(dev);
+> > -               if (ret)
+> > -                       return ret;
+> > +               if (!priv->soc_data->keep_clks_on)
+> > +                       clk_prepare_enable(priv->hclock);
+> > +
+> > +               sdhci_at91_set_clks_presets(dev);
+> > +
+> > +               if (!priv->soc_data->keep_clks_on) {
+> > +                       clk_prepare_enable(priv->mainck);
+> > +                       clk_prepare_enable(priv->gck);
+> > +               }
+> >
+> >                  priv->restore_needed =3D false;
+> >                  goto out;
+> >          }
+> >
+> > +       if (priv->soc_data->keep_clks_on)
+> > +               goto out;
+> > +
+> >          ret =3D clk_prepare_enable(priv->mainck);
+> >          if (ret) {
+> >                  dev_err(dev, "can't enable mainck\n");
+> > @@ -344,9 +350,10 @@ static int sdhci_at91_probe(struct platform_device=
+ *pdev)
+> >                  return dev_err_probe(&pdev->dev, PTR_ERR(priv->gck),
+> >                                       "failed to get multclk\n");
+> >
+> > -       ret =3D sdhci_at91_set_clks_presets(&pdev->dev);
+> > -       if (ret)
+> > -               return ret;
+> > +       clk_prepare_enable(priv->hclock);
+> > +       sdhci_at91_set_clks_presets(&pdev->dev);
+> > +       clk_prepare_enable(priv->mainck);
+> > +       clk_prepare_enable(priv->gck);
+> >
+> >          priv->restore_needed =3D false;
+> >
+> > --
+> > 2.55.0
+>
 
 
-thanks,
-
-Takashi
+--=20
+Robert Marko
+Staff Embedded Linux Engineer
+Sartura d.d.
+Lendavska ulica 16a
+10000 Zagreb, Croatia
+Email: robert.marko@sartura.hr
+Web: www.sartura.hr
