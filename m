@@ -1,122 +1,272 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 882D43BB4A;
-	Tue, 15 Sep 2026 19:34:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 039B43BE14A
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 19:49:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789500846; cv=none; b=EQh/o7jWlPZfPZ6Mrhd+uHtiirwCPpH7xT+hBcCxHeYoddcQn6HCWb4BbqccT6mFomX1vW1GHoHr5IsDiHcWVSAfO5QIVIyc5WSkKyAxyx17n9jok7DNQQh9YXXuNjjjeNumkSwEkkiLd95LbH/IIzZvNWKS8Vidnyx/+v88WcY=
+	t=1789501751; cv=none; b=RTykTcVrZzVugyzm9jZZ4vfjHChlh+nHORLqDgLZLnCuvOeN6JB6+f0u5OJRAvTQmwC+Ufx7vXal57kDiKS7l0rs+9bw0kXtGX5yTM15E9jQrLoOTp9ELFjh+fAyAphuqf3SLTcn+e/TgKENZWTKvtLbrJjX+cFASDwJA8wKVM0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789500846; c=relaxed/simple;
-	bh=M0fn0wDeDj0PYctfUQQ6Zg5NN2QyXOiqYRG6KHup8hY=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=ix3kfpSgLfLrRFpmB9DzOC9AAy+I71E4ofA4luTIfd06qSmDsu3AdXjGLe8qraS9zasd7ryBmBrF5CwDW3WeWDTU/+/GKdHbAFWaiuVU+baJzeK8Bo0ZCxtHbnGY6FgBMoZHv2q9GcpBMEvcowLvPvzvzwyvS5lcuNwTIDfOOtg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N6qz05IS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789501751; c=relaxed/simple;
+	bh=Qw6JwciWEEnJo9lVHzWWt+SqgnV82j+RyiTt/WbP5ZA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=dz4fuResgAe/OBk421kKHO7HxBUWfpSAH2VxzUAZ50cRANGQK0IpIhr1rNQ1JBbNyB/PBbr6t/iUhuGDBSlNu1yKnUMqfpshUbkimHckzXSAOAzqo/BOjuNVLtc7tY4PhqFzqK4PYFT8YTAw9fn7gM5NhmwMDxfjQZeWhXG+guE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dfmzHZmP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N6qz05IS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAD041F000FF;
-	Tue, 15 Sep 2026 19:34:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dfmzHZmP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 616321F00893;
+	Tue, 15 Sep 2026 19:49:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789500845;
-	bh=L71WPmZxDx8wZZPJ5Om9wyHwxrzK8OZGBKGYPFDIuq8=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=N6qz05ISzNbqHKxG7rvjtaQSslj++v/BoZ7Q0j8MsuuiM+88E4SzEY+zv5Uff8jZq
-	 3zyvRREGfxevKWnjBaT6LCgcFk54wQhh+UBLD8mmrg6TysDAWI/pMHdGRi+aTwdDDW
-	 Ga8PIRrk5vx9RTXEZ/KjK6U/R2WPNS2MQ9GPSHcf2gHr/NP5PUZlEaMaBxi6uxlxqC
-	 +S814POFlQv7maeE15HF7XbEc37aTW5CEfXcD6H5Oupx33Ge0ulCOLR8t7iDd5TnKW
-	 RsOFjguGc+e6+ZsEimsyLLDGuaTYiZg2Xf+21IazwTSB91ehCsl15rXndHPb/LAldf
-	 VR2owqU1a6d4A==
-Date: Tue, 15 Sep 2026 14:34:03 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1789501749;
+	bh=QaKoa5e4cEJ0eu+ooLAWLViOTTM2k/kNEkYNy2Sl0jE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=dfmzHZmP0fySHvfxb2QBROHYiTjiKFlFtEyVWHcridioYtKflkF/b95t+Fm8SlWvo
+	 N1nFuO3XxuW9kARofTAuhDf+6p+BVx8HPWRmz80NOlBHwm+dCmFYHx0nYc8s+X4Nq0
+	 bXZWG11nmXWN01zRhw/53x/BNPDJvMECTPvMrOiXKefjslxo2xDYl8McSAa8Orx6Cq
+	 RtffESbHXSWB7Qoj52ab2V4JZytiaYlEGl9t9er5b5IiNSCq1vGUlXug/nzVcDgocf
+	 d99+8NZGA2o7LRobKI8WieJZ+RAxxwCUskjPOJl4brxl7BxVqu7hKsYbGCF4wEKLXO
+	 pRV9tkD60HpYQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 11/15] iio: adc: ad4134: Support SPI 4-wire mode
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Marcelo Schmitt" <marcelo.schmitt@analog.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <db5578ed11d5ad9f5abb9569d893065dbf79fb13.1789494473.git.marcelo.schmitt@analog.com>
+References: <cover.1789494473.git.marcelo.schmitt@analog.com>
+ <db5578ed11d5ad9f5abb9569d893065dbf79fb13.1789494473.git.marcelo.schmitt@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 15 Sep 2026 19:49:08 +0000
+Message-Id: <20260915194909.616321F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, Abel Vesa <abelvesa@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Maxime Ripard <mripard@kernel.org>, linux-kernel@vger.kernel.org, 
- David Airlie <airlied@gmail.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Simona Vetter <simona@ffwll.ch>, 
- Krishna Manikandan <quic_mkrishn@quicinc.com>, Sean Paul <sean@poorly.run>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Thomas Zimmermann <tzimmermann@suse.de>, 
- Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Conor Dooley <conor+dt@kernel.org>, freedreno@lists.freedesktop.org, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-In-Reply-To: <20260915-msm_gdsc2-v2-1-9157237b8382@oss.qualcomm.com>
-References: <20260915-msm_gdsc2-v2-0-9157237b8382@oss.qualcomm.com>
- <20260915-msm_gdsc2-v2-1-9157237b8382@oss.qualcomm.com>
-Message-Id: <178947727730.1548829.13172666413996021793.robh@kernel.org>
-Subject: Re: [PATCH v2 1/3] dt-bindings: display: msm: Add INT2 GDSC to
- Kaanapali DPU
 
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] ad4134: ignored mux_state_try_select() errors mask failures and ca=
+use bus contention
+- [High] ad4134: unconditional mux state deselection corrupts multiplexer s=
+emaphores
+- [Medium] ad4134: concurrent regmap accesses corrupt IIO buffer hardware s=
+tate
+- [Medium] ad4134: direct assignment to spi->mode clobbers devicetree SPI f=
+lags
+--
 
-On Tue, 15 Sep 2026 17:27:48 +0800, Yongxing Mou wrote:
-> Kaanapali (SM8850) has an additional INT2 GDSC that powers a subset
-> of the DPU source pipes (VIG2/VIG3/DMA5), on top of the CORE_GDSC
-> that powers the rest of the MDSS hardware.
-> 
-> Describe INT2 GDSC as an additional power domain of the DPU device
-> rather than of the whole MDSS, since it only supplies DPU-local
-> source pipes. Restrict the schema change to the Kaanapali DPU
-> compatible via an if/then, so other platforms sharing
-> qcom,sm8650-dpu.yaml (which don't have an INT2 GDSC) keep the
-> existing single power-domain constraint.
-> 
-> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-> ---
->  .../bindings/display/msm/dpu-common.yaml           | 19 ++++++++++++++++--
->  .../bindings/display/msm/qcom,sm8650-dpu.yaml      | 23 ++++++++++++++++++++++
->  2 files changed, 40 insertions(+), 2 deletions(-)
-> 
+commit 9b8961eadc30a7239344b617959f3ffedd9a5a63
+Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
 
-My bot found errors running 'make dt_binding_check' on your patch:
+iio: adc: ad4134: Support SPI 4-wire mode
+   =20
+AD4134 devices can be wired in a few different ways. So far, only minimum
+I/O mode was supported. While minimum I/O mode allows interfacing with
+AD4134 with a reduced number of wires, that wiring configuration is not
+optimal for high-throughput data acquisition.
 
-yamllint warnings/errors:
+Extend AD4134 support to enable interfacing in SPI 4-wire configuration.
 
-dtschema/dtc warnings/errors:
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml: allOf:0:then:properties:power-domain-names: {'minItems': 2, 'maxItems': 2, 'items': [{'const': 'mmcx'}, {'const': 'int2'}]} should not be valid under {'required': ['maxItems']}
-	hint: "maxItems" is not needed with an "items" list
-	from schema $id: http://devicetree.org/meta-schemas/items.yaml
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml: allOf:0:then:properties:power-domain-names: 'oneOf' conditional failed, one must be fixed:
-	False schema does not allow 2
-	[{'const': 'mmcx'}, {'const': 'int2'}] is too long
-	[{'const': 'mmcx'}, {'const': 'int2'}] is too short
-	1 was expected
-	hint: "minItems" is only needed if less than the "items" list length
-	from schema $id: http://devicetree.org/meta-schemas/items.yaml
-Documentation/devicetree/bindings/display/msm/qcom,kaanapali-mdss.example.dtb: display-controller@9801000 (qcom,kaanapali-dpu): power-domains: [[4294967295, 6]] is too short
-	from schema $id: http://devicetree.org/schemas/display/msm/qcom,sm8650-dpu.yaml
-Documentation/devicetree/bindings/display/msm/qcom,kaanapali-mdss.example.dtb: display-controller@9801000 (qcom,kaanapali-dpu): power-domains: [[4294967295, 6]] is too short
-	from schema $id: http://devicetree.org/schemas/display/msm/qcom,sm8650-dpu.yaml
-Documentation/devicetree/bindings/display/msm/qcom,kaanapali-mdss.example.dtb: display-controller@9801000 (qcom,kaanapali-dpu): 'power-domain-names' is a required property
-	from schema $id: http://devicetree.org/schemas/display/msm/qcom,sm8650-dpu.yaml
+> diff --git a/drivers/iio/adc/ad4134.c b/drivers/iio/adc/ad4134.c
+> index 0b6843bf8a9e3..cc6bc325f6ee6 100644
+> --- a/drivers/iio/adc/ad4134.c
+> +++ b/drivers/iio/adc/ad4134.c
 
-doc reference errors (make refcheckdocs):
+[ ... ]
 
-See https://patchwork.kernel.org/project/devicetree/patch/20260915-msm_gdsc2-v2-1-9157237b8382@oss.qualcomm.com
+> @@ -230,6 +252,85 @@ static const struct regmap_access_table ad4134_regma=
+p_wr_table =3D {
+>  	.n_yes_ranges =3D ARRAY_SIZE(ad4134_regmap_wr_range),
+>  };
+> =20
+> +/*
+> + * This function controls a multiplexer OUTSIDE OF AD4134 SILICON.
+> + * When AD4134 SDO and DOUT0 pins are multiplexed, this function changes=
+ the
+> + * multiplexer state to route SDO to the SPI controller. See AD4134 IIO
+> + * documentation for details.
+> + */
+> +static int ad4134_set_register_access(struct ad4134_state *st)
+> +{
+> +	int ret;
+> +
+> +	guard(mutex)(&st->access_mode_lock);
+> +
+> +	st->spi->mode =3D SPI_MODE_0;
 
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
+[Severity: Medium]
+Do these direct assignments clear all other SPI flags populated by the SPI
+core from devicetree properties, such as SPI_CS_HIGH, SPI_LSB_FIRST, or
+SPI_3WIRE?
 
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
+Should this instead use SPI_MODE_X_MASK to safely update only the CPOL/CPHA
+bits?
 
-pip3 install dtschema --upgrade
+> +	ret =3D spi_setup(st->spi);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D mux_state_deselect(st->mux_st[AD4134_DOUT0_INPUT]);
 
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+[Severity: High]
+Does this unconditionally deselect the DOUT0 multiplexer state without
+verifying it is currently selected?
 
+This could call up() on the semaphore and cause a semaphore count imbalance.
+
+> +	if (ret)
+> +		dev_err(&st->spi->dev, "error on DOUT0 deselect: %d\n", ret);
+> +
+> +	/*
+> +	 * Try to update the multiplexer state to route SDO to the SPI
+> +	 * controller. If the SDO mux state is BUSY (i.e. locked), that means
+> +	 * the desired state is already selected and we should not block here.
+> +	 */
+> +	ret =3D mux_state_try_select(st->mux_st[AD4134_SDO_INPUT]);
+> +	if (ret && ret !=3D -EBUSY)
+> +		return ret;
+
+[Severity: High]
+Is it safe to explicitly ignore the -EBUSY error here?
+
+If the lock is actually held by another driver sharing the multiplexer,
+proceeding could result in doing SPI transfers on a misrouted bus, leading
+to contention and corrupted data transfers.
+
+> +
+> +	return 0;
+> +}
+> +
+> +/*
+> + * This function controls a multiplexer OUTSIDE OF AD4134 SILICON.
+> + * When AD4134 SDO and DOUT0 pins are multiplexed, this function changes=
+ the
+> + * multiplexer state to route DOUT0 to the SPI controller. On failure, f=
+all
+> + * back to routing SDO to the controller and return an errno. See AD4134=
+ IIO
+> + * documentation for details.
+> + */
+> +static int ad4134_set_sample_access(struct ad4134_state *st)
+> +{
+> +	struct device *dev =3D &st->spi->dev;
+> +	int mux_state_ret, ret;
+> +
+> +	guard(mutex)(&st->access_mode_lock);
+> +
+> +	ret =3D mux_state_deselect(st->mux_st[AD4134_SDO_INPUT]);
+
+[Severity: High]
+Is it safe to manually unlock the devres-managed mux state unconditionally
+here?
+
+The SDO mux is acquired using devm_mux_state_get_selected() during probe,
+which registers a devm cleanup to deselect it on unbind. Manually unlocking
+it could risk a semaphore imbalance when devm cleanup runs.
+
+> +	if (ret)
+> +		dev_err(&st->spi->dev, "error on SDO deselect: %d\n", ret);
+> +
+> +	ret =3D mux_state_try_select(st->mux_st[AD4134_DOUT0_INPUT]);
+> +	if (ret) {
+> +		dev_err(&st->spi->dev, "error on DOUT0 select: %d\n", ret);
+> +		return mux_state_select(st->mux_st[AD4134_SDO_INPUT]);
+> +	}
+
+[Severity: High]
+If DOUT0 selection fails, does returning the success code of the recovery
+function (mux_state_select) swallow the original error code?
+
+This might allow IIO buffer enablement to succeed while the hardware is
+incorrectly routed to SDO, resulting in garbage data.
+
+> +
+> +	/*
+> +	 * Data output on the DOUT lines is sampled on the falling edge
+> +	 * (SPI mode 1).
+> +	 */
+> +	st->spi->mode =3D SPI_MODE_1;
+
+[Severity: Medium]
+Similar to register access mode, does this direct assignment clear all other
+SPI flags, potentially breaking SPI communication on platforms requiring ex=
+tra
+SPI flags?
+
+> +	ret =3D spi_setup(st->spi);
+
+[ ... ]
+
+> @@ -333,9 +434,24 @@ static int ad4134_register_read(struct ad4134_state =
+*st, unsigned int reg,
+>  static int ad4134_reg_read(void *context, unsigned int reg, unsigned int=
+ *val)
+>  {
+>  	struct ad4134_state *st =3D context;
+> +	int ret, access_ret;
+> +
+> +	if (reg >=3D AD4134_CH_VREG(0)) {
+> +		if (st->spi_mode =3D=3D AD4134_SPI_MODE_NO_CS)
+> +			return ad4134_data_read(st, reg, val);
+> +
+> +		ret =3D ad4134_set_sample_access(st);
+> +		if (ret)
+> +			return ret;
+> =20
+> -	if (reg >=3D AD4134_CH_VREG(0))
+> -		return ad4134_data_read(st, reg, val);
+> +		ret =3D ad4134_data_read(st, reg, val);
+> +
+> +		access_ret =3D ad4134_set_register_access(st);
+
+[Severity: Medium]
+If a user reads a register via debugfs while the IIO buffer is active, does
+this unconditionally revert the SPI and multiplexer state to register access
+mode?
+
+This could clobber the active IIO buffer's expected hardware state
+(SPI_MODE_1 and DOUT0), causing subsequent trigger handler reads to fail
+or receive garbage.
+
+Also, for standard registers, does ad4134_reg_read() fall through to
+ad4134_register_read(), where SPI transfers are initiated without holding
+access_mode_lock and without verifying the hardware is in register access
+mode?
+
+> +		if (access_ret)
+> +			dev_err(&st->spi->dev, "access mode error: %d\n", access_ret);
+> +
+> +		return ret;
+> +	}
+> =20
+>  	return ad4134_register_read(st, reg, val);
+>  }
+
+[ ... ]
+
+> @@ -586,15 +717,68 @@ static int ad4134_probe(struct spi_device *spi)
+
+[ ... ]
+
+> +	} else {
+> +		/*
+> +		 * This controls a multiplexer OUTSIDE OF AD4134 SILICON.
+> +		 * See AD4134 IIO documentation for details.
+> +		 */
+> +		st->mux_st[AD4134_SDO_INPUT] =3D devm_mux_state_get_selected(dev, "reg=
+_access");
+
+[Severity: High]
+Does this lock the mux control and tie its unlock to driver unbind, making =
+the
+manual unlock seen in ad4134_set_sample_access() unsafe?
+
+> +		if (IS_ERR(st->mux_st[AD4134_SDO_INPUT]))
+> +			return dev_err_probe(dev, PTR_ERR(st->mux_st[AD4134_SDO_INPUT]),
+> +					     "failed to get reg_access mux-state\n");
+> +
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1789494473.gi=
+t.marcelo.schmitt@analog.com?part=3D11
