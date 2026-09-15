@@ -1,124 +1,222 @@
-Received: from mail.mdapi.ch (mail.mdapi.ch [31.3.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97A453D8115;
-	Tue, 15 Sep 2026 04:51:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=31.3.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94DF0372045
+	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 05:20:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789447883; cv=none; b=i1uigE3TfBbK26ChpGNr/bPE+y+0gHu3fEnnZp+ewraC2Zavy9mMSm0vTa/8ZbsCtbtzyQ0du1RIlSaJg3AN9yY65qnnt3fRRIz7Z4clPSksXZTrZtnTXzlHJ3BMZ/LutL6BhBQO0SMXkcnKajIUkVZwIlpxL1Dk90sAHrv8b4o=
+	t=1789449644; cv=none; b=KLD3H53Wl/2uf+iJhtb5yDOgI26hIRUtZoXdI8W7h8srBMhH1kwb0bjkMcrrTyRjYtP4823hiWsMcvLXuGUgAC3P7B03qa202zT7EglwT8FSl5R7ula1FhIE0Vj6iXwPBrdq6U19u4t378L4okx2pZzoDi9+rWrOdBgu4kvkD2U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789447883; c=relaxed/simple;
-	bh=fxOKKCUsK9zZzemJd9lkf1QVkybwyZu93u70HP087HA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Hk4lkr2WedA9JfA/0c6xopfQ+qTvd3gn12IQO70upcaAVRIjIAmIHdt3D0Soam2sAEu5snuNG917o9RT51K0l/K/uM34WK+sN+zUQzD5dY+a/XM3uJ+KnYwclXQDYIQIok4pp15XQmFXBXwoeubqt8ratZNH95OMxNesIETHoFo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tillo.ch; spf=pass smtp.mailfrom=tillo.ch; dkim=pass (2048-bit key) header.d=tillo.ch header.i=@tillo.ch header.b=PPSoj7Pg; arc=none smtp.client-ip=31.3.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tillo.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tillo.ch
+	s=arc-20240116; t=1789449644; c=relaxed/simple;
+	bh=vDgOlQv6FzujsfychEOLmAjWb25wMYpKFPP65TROnWk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OpuXrbi4RH/7npKK1jBl+zbPVcKFc/AJd3EpuAhc1D+CZWa62dfOP5umNI7o8kVIuZF9jxZakVmzIf8eI3mgrgfFjv382uBnI1T45bikvFHJAcCzx+NoOppSaAgGO1uDNDechBu4bmssp/kgFfdlWPLi7GqCH1m/aTWzbmKwEAE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HTqL4vbo; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tillo.ch header.i=@tillo.ch header.b="PPSoj7Pg"
-From: Martino Dell'Ambrogio <tillo@tillo.ch>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tillo.ch; s=mail202603;
-	t=1789447378;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=iDBR88Kq1bFU8YSncqnOxECCzfjGRrt18SSlVQzNBnc=;
-	b=PPSoj7PgCTlMLla4350sZgDJzIx+8rTgGOjNPZe/8yjpHw/erLp7sBJIKRyL4Q0DGFFEES
-	EOHypxEvIX9IQLMiyt4D1pNU4m5sUDJm9S4W/mviqw44fezn5wsj/atoTua336GyBgO+Sx
-	3Ke3NU5c08uPO9p0GmAXn1OCT9x+OEVGupg0kPo7RDXGEtsV26T65sB4R5u/n8sJoZM9Dq
-	L4QTolYeMLexySoXGEkLqUzBoI6PZsVqhxG2u7Z3nSwnHU4AApJVk/72Jdj5KPvYm/M7wy
-	Y58qs1XXSkMlQ3h1FetjarEwgC45NJLH870d8KGTSMJtgWLgYL+dWQ0Deh/Kmg==
-To: Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HTqL4vbo"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d91a931f66so16155255ad.0
+        for <devicetree@vger.kernel.org>; Mon, 14 Sep 2026 22:20:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789449642; x=1790054442; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8TVm4cn1wDfmlEj2CvfM5IYkdGS8p7xy0hVf/rLN4x4=;
+        b=HTqL4vbofkz94c0ePl46FkzrlUD2MyivjNG4DLHHd3X3oOkEsBnirj0rvRbOMHXmLj
+         CRPbIE2Jx3s56bI5YuDn7IHy20LOqZqOJbnxxzEschqyGLyflZ00POlrd5BloqJPWe8L
+         LTDNopqkRvf6oX8Vj2Qwm9GgnqaoryqZ6Y2Hq7GgCzb6OB8k57Trt2Nb5yF6Zm/Vvb3k
+         qfNyCKr0b/ICmAbnajWXrlwq34DdUVd+kxxlk1LCIyQrwEd3BjFpRhaEds0lB/1G4zk0
+         56oV0zYfgeDrfQKm0MuHCR1NC7sCO3exYM9D8wHy4OneW/VjUfUWZkwqrzjpXBBr5qaH
+         cPYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789449642; x=1790054442;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8TVm4cn1wDfmlEj2CvfM5IYkdGS8p7xy0hVf/rLN4x4=;
+        b=o4AHp1ZSH53Ut1bCu6ajCwv8IB03vr6m9gLtbmT/Ey3qIJjhz0wjaxUrProc5oriMx
+         m86uClRKg2e+LYF2L7YH9DhnLBkyu5P0Ho+/Ez7QvXjfKM5g03cfvXeZlQshKzNZoBkD
+         BXv3G2SWGQLOdErkH3aWSGlycm912PcONQWHXsIGxn6P52vMBoP31Vfxrp6ajeWZjLOn
+         J+iC9aiqbGkKAr7itBCUCUPpaSPIIcXT1uvgQWL/HlBvdD8H0i/AxPS4EKVpRMAszOuw
+         OV8sRqipbYQYukJdhB+yX2sK2amKdtY0kV5JDGIelUik0wmX7Gi4Dr6qYjSxfciLcHST
+         5y6Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwM5tqCHeSwx+fsEso2bVK7n5vLjtgqja+jJei4IiL+/D2zqsMi4YZPVTqAnmY/+uIn43cgiCNg/5+N@vger.kernel.org
+X-Gm-Message-State: AFuF++nZ/O22ffcamOg13tiUaECFXitHQnqPcM4hx31xL5Jrlrva3+bF
+	ER7G6slLA4tnsfsrYgy8ccL0uEqB/giCyrOx+7tiyCEl8EWOL8hbW1vN
+X-Gm-Gg: AYBFou3V/WyeUezJbC5Wev6RmQBdOpKcfrpymtKWfw1edTino2td7VWb9gIrQ9c1HOL
+	Bxwu3muFWXEagV8ag/wGiDVndz+47ch3YjMOZ864Wm48XhS+G4HUUX2GITtcdsqDYsFCkdObvaZ
+	T2BXlfY5HFOjxFvh3ZuP6KpICd3JDxDmUCS6eFwMhggn1e/bPaWDzDp4uqU22YhBWJ4FjGXiVMS
+	ilQ/MQSOm+cGG1tfRXLWKsLuu7Xc6M0ccrBaSmj5PNPdy1ETEwBjdbgIXD2M0DgZ8MOL/gVT8Xc
+	8opwV38bI4oRlTNwOio2T+eGdNNlGCa04sD0B6q6ueVjCVagUMAnnKHctXNsd2jXPnucdNpLK/r
+	9x7qBFrYa/2BSQ9qCP7GoXp7MCIF63yugsxDzObgpV29rCGaAeCYmtfdllVA+OY+G5J89A0zQNk
+	QPWgPV3k5uDXS8NtyneD6sZ5X8JCYGpmHtBw3z/eXM476AYeEucxKWkY7yKyKoQrPvciY34CaGp
+	AaWX3iBmgNhn/esp/li0yqhNSC2c1ZJMpMEVgZAmVUVlmMhCgdrReWRgm8xhlPxAdwzx0ZM/hOA
+	FQ==
+X-Received: by 2002:a17:903:b8e:b0:2d8:d4d3:3fbb with SMTP id d9443c01a7336-2dd6c73445amr116491865ad.15.1789449641912;
+        Mon, 14 Sep 2026 22:20:41 -0700 (PDT)
+Received: from cs00-MS-7C09.. (2001-b400-e33c-d873-100e-5074-5ce5-37a1.emome-ip6.hinet.net. [2001:b400:e33c:d873:100e:5074:5ce5:37a1])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2ce959b3sm60562575ad.22.2026.09.14.22.20.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 22:20:40 -0700 (PDT)
+From: hsyemail2@gmail.com
+X-Google-Original-From: syhuang3@nuvoton.com
+To: Guenter Roeck <linux@roeck-us.net>,
+	linux-hwmon@vger.kernel.org
+Cc: Sheng-Yuan Huang <syhuang3@nuvoton.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Jean Delvare <jdelvare@suse.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	kees@kernel.org,
-	tony.luck@intel.com,
-	gpiccoli@igalia.com
-Subject: [PATCH v3] arm64: dts: mediatek: mt7988a-bananapi-bpi-r4: add ramoops region
-Date: Tue, 15 Sep 2026 06:42:54 +0200
-Message-ID: <20260915064254.1594808-1-tillo@tillo.ch>
+	linux-doc@vger.kernel.org
+Subject: [PATCH v3] hwmon: (lm75) Add support for Nuvoton NCT7715
+Date: Tue, 15 Sep 2026 13:20:20 +0800
+Message-ID: <20260915052021.6959-1-syhuang3@nuvoton.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Reserve 1 MiB of RAM just below the ARM Trusted Firmware secmon region
-(0x42f00000-0x43000000) for persistent kernel log storage via pstore/ramoops,
-allowing post-panic console output and oops dumps to be recovered after a
-reboot. Without it, kernel crash logs on this board are lost when the SoC
-warm-resets and the on-chip console buffer is reinitialised.
+From: Sheng-Yuan Huang <syhuang3@nuvoton.com>
 
-With record-size=128 KiB, console-size=256 KiB, ftrace-size=64 KiB and
-pmsg-size=64 KiB, ramoops_probe() carves the post-console remainder
-(640 KiB) into five 128 KiB kmsg records, with the requested ecc-size=16
-reserving a small Reed-Solomon parity block from each zone's own
-allocation (per persistent_ram_new()). The ECC lets pstore recover dumps
-even when the panic path truncates writes mid-record.
+The Nuvoton NCT7715 is compatible with the LM75 temperature and
+limit register layout. Its 16-bit configuration register shares the
+TMP112 configuration layout.
 
-The no-map property is required so the reserved region is kept out of the
-kernel linear map. ramoops remaps the carve-out write-combine via
-ioremap_wc(); on arm64, leaving the same physical RAM mapped cacheable in
-the linear map at the same time is an attribute-mismatch and risks losing
-panic data to dirty cache evictions from the linear alias.
-
-The carve-out sits immediately below the ATF region already declared at
-0x43000000 in mt7988a.dtsi, so no other reserved-memory child is moved or
-resized. BPI-R4 ships with at least 4 GiB of DRAM starting at 0x40000000,
-so the region is well within installed memory on every variant.
-
-For the carve-out to actually preserve content across a reset, the boot
-loader must also avoid touching this region on warm reset; on standard
-BPI-R4 boards with the stock OpenWrt U-Boot fork this already holds.
-
-Signed-off-by: Martino Dell'Ambrogio <tillo@tillo.ch>
+Signed-off-by: Sheng-Yuan Huang <syhuang3@nuvoton.com>
 ---
-Changes in v3:
- - Resend; no functional change. Rebased on v7.3-rc3, where the v2 diff
-   still applies unmodified.
- - v2 drew no review comments. It was also sent, in error, as a reply to
-   the BPI-R3 patch's thread rather than its own, so it is likely to have
-   been read as a duplicate of that board's patch. This version starts a
-   fresh thread to avoid repeating that.
+v3:
+- Reuse the existing TMP112 handling for NCT7715 configuration,
+  update intervals, and alarms.
 
-The matching BPI-R3 (mt7986a) patch is being resent as v3 at the same time.
+v2:
+- Use the standard SMBus word representation for the NCT7715
+  configuration register, removing the NCT7715-specific byte swapping
+  and updating its configuration masks accordingly.
+  
+ .../devicetree/bindings/hwmon/lm75.yaml       |  2 ++
+ Documentation/hwmon/lm75.rst                  |  6 ++++++
+ drivers/hwmon/lm75.c                          | 21 ++++++++++++++++++-
+ 3 files changed, 28 insertions(+), 1 deletion(-)
 
-v2: https://lore.kernel.org/all/20260528123645.2650085-1-tillo@tillo.ch/
-v1: https://lore.kernel.org/all/20260528092807.1936177-1-tillo@tillo.ch/
-
- .../boot/dts/mediatek/mt7988a-bananapi-bpi-r4.dtsi  | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/mediatek/mt7988a-bananapi-bpi-r4.dtsi b/arch/arm64/boot/dts/mediatek/mt7988a-bananapi-bpi-r4.dtsi
-index 0ff69da..6a8dc89 100644
---- a/arch/arm64/boot/dts/mediatek/mt7988a-bananapi-bpi-r4.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt7988a-bananapi-bpi-r4.dtsi
-@@ -80,6 +80,19 @@
- 	};
- };
+diff --git a/Documentation/devicetree/bindings/hwmon/lm75.yaml b/Documentation/devicetree/bindings/hwmon/lm75.yaml
+index b48bf3fd721f..d55b8b7e49c5 100644
+--- a/Documentation/devicetree/bindings/hwmon/lm75.yaml
++++ b/Documentation/devicetree/bindings/hwmon/lm75.yaml
+@@ -31,6 +31,7 @@ properties:
+       - nxp,p3t1750
+       - nxp,p3t1755
+       - nxp,pct2075
++      - nuvoton,nct7715
+       - st,stds75
+       - st,stlm75
+       - microchip,tcn75
+@@ -78,6 +79,7 @@ allOf:
+                 - ti,tmp101
+                 - ti,tmp112
+                 - ti,tmp75
++                - nuvoton,nct7715
+     then:
+       properties:
+         interrupts: false
+diff --git a/Documentation/hwmon/lm75.rst b/Documentation/hwmon/lm75.rst
+index ca46754e028b..fac0b8f29ddc 100644
+--- a/Documentation/hwmon/lm75.rst
++++ b/Documentation/hwmon/lm75.rst
+@@ -150,6 +150,12 @@ Supported chips:
  
-+&{/reserved-memory} {
-+	ramoops@42f00000 {
-+		compatible = "ramoops";
-+		reg = <0 0x42f00000 0 0x100000>;
-+		no-map;
-+		record-size = <0x20000>;
-+		console-size = <0x40000>;
-+		ftrace-size = <0x10000>;
-+		pmsg-size = <0x10000>;
-+		ecc-size = <16>;
-+	};
-+};
+                https://ams.com/documents/20143/36005/AS6200_DS000449_4-00.pdf
+ 
++  * Nuvoton NCT7715
 +
- &cci {
- 	proc-supply = <&rt5190_buck3>;
- };
++    Prefix: 'nct7715'
++
++    Addresses scanned: none
++
+ Author: Frodo Looijaard <frodol@dds.nl>
+ 
+ Description
+diff --git a/drivers/hwmon/lm75.c b/drivers/hwmon/lm75.c
+index 2d2d752aeac9..1a98ecb142c9 100644
+--- a/drivers/hwmon/lm75.c
++++ b/drivers/hwmon/lm75.c
+@@ -39,6 +39,7 @@ enum lm75_type {		/* keep sorted in alphabetical order */
+ 	max6626,
+ 	max31725,
+ 	mcp980x,
++	nct7715,
+ 	p3t1750,
+ 	p3t1755,
+ 	pct2075,
+@@ -259,6 +260,16 @@ static const struct lm75_params device_params[] = {
+ 		.sample_times = (unsigned int []){ 30, 60, 120, 240 },
+ 		.resolutions = (u8 []) {9, 10, 11, 12 },
+ 	},
++	[nct7715] = {
++		.config_reg_16bits = true,
++		.set_mask = 0x8060,	/* 12-bit mode, 4 samples / second */
++		.clr_mask = 1 << 7,	/* no one-shot mode */
++		.default_resolution = 12,
++		.default_sample_time = 250,
++		.num_sample_times = 4,
++		.sample_times = (unsigned int []){ 125, 250, 1000, 4000 },
++		.alarm = true,
++	},
+ 	[tmp100] = {
+ 		.set_mask = 3 << 5,	/* 12-bit mode */
+ 		.clr_mask = 1 << 7,	/* not one-shot mode */
+@@ -417,6 +428,7 @@ static int lm75_read(struct device *dev, enum hwmon_sensor_types type,
+ 		if (attr == hwmon_temp_alarm) {
+ 			switch (data->kind) {
+ 			case as6200:
++			case nct7715:
+ 			case tmp112:
+ 				*val = !!(regval & BIT(13)) == !!(regval & BIT(2));
+ 				break;
+@@ -486,6 +498,7 @@ static int lm75_update_interval(struct device *dev, long val)
+ 		if (data->params->resolutions)
+ 			data->resolution = data->params->resolutions[index];
+ 		break;
++	case nct7715:
+ 	case tmp112:
+ 	case as6200:
+ 		err = regmap_update_bits(data->regmap, LM75_REG_CONF,
+@@ -848,6 +861,7 @@ static const struct i2c_device_id lm75_i2c_ids[] = {
+ 	{ .name = "max31725", .driver_data = max31725 },
+ 	{ .name = "max31726", .driver_data = max31725 },
+ 	{ .name = "mcp980x", .driver_data = mcp980x },
++	{ .name = "nct7715", .driver_data = nct7715 },
+ 	{ .name = "p3t1750", .driver_data = p3t1750 },
+ 	{ .name = "p3t1755", .driver_data = p3t1755 },
+ 	{ .name = "pct2075", .driver_data = pct2075 },
+@@ -972,6 +986,10 @@ static const struct of_device_id lm75_of_match[] = {
+ 		.compatible = "nxp,pct2075",
+ 		.data = (void *)pct2075
+ 	},
++	{
++		.compatible = "nuvoton,nct7715",
++		.data = (void *)nct7715
++	},
+ 	{
+ 		.compatible = "st,stds75",
+ 		.data = (void *)stds75
+@@ -1129,7 +1147,8 @@ static int lm75_suspend(struct device *dev)
+ {
+ 	struct lm75_data *data = dev_get_drvdata(dev);
+ 
+-	return regmap_update_bits(data->regmap, LM75_REG_CONF, LM75_SHUTDOWN, LM75_SHUTDOWN);
++	return regmap_update_bits(data->regmap, LM75_REG_CONF,
++				  LM75_SHUTDOWN, LM75_SHUTDOWN);
+ }
+ 
+ static int lm75_resume(struct device *dev)
 -- 
-2.47.3
-
+2.43.0
 
