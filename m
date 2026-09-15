@@ -1,277 +1,100 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8737E4ACC72
-	for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 19:51:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD3B339E9BD;
+	Tue, 15 Sep 2026 19:58:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789501876; cv=none; b=mIYahaafvtIQZ6pb4RYBny2+t9rT3Dt1kucu54qWpYjYEGmGRCY8z3R9Efrsnf38F+z5Yd0p36Rn8IQJjDOuGvATsvhQi+9uTS0XBN99P3Z8WxkG+mmBZuHLxSvwww2ywz1dD2WELeTmEoFXMV9X4agnS16HlluWBOy+FQAf9QM=
+	t=1789502288; cv=none; b=UzLpq+ZtJtn3prcBzFPEqAPa+Jg4kgn8I24hBzEPNe3pfZd6flENK120NgtUX9rBPv3ZOnyefyqqXI6CUoqesFm/2WglmWP4b1/G5W5RQzciJaqGxdMRqFxPp2Nr9xh2RNOPhcRosgENAzK3Oke1TZHa9P7RdjfBZJ7zxOd5g7k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789501876; c=relaxed/simple;
-	bh=0SutQsPaKmuH/BzzQlpsitohyJ4zQTJeSU9h2QbL30Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NZPcJsJcJiY/fwnlyxerueQqPnLHP9cOuXIHNp9EljMZt85b8Jd/Mrg2Txs+1NRvHp3TdRGXu57aQO73je7Y9QUmmq+hLVMUJdxOMyFU/E+ujgquscCjh3/pyS+e665Nquz/nv8C+7brraB1wNyAQeC4rBPUhqI06giA+lzZ9b0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hqo47FZm; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789502288; c=relaxed/simple;
+	bh=tuEsb7t+iPkmurfk4TspyYYvhwvZorPB3oh02pjpuGI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Xr11UjULaJAWjrxFmq+b0TEVkgtat5PWHfve8rPpY0LbsbwTu+R8NG4wwiJ/wbWonx1bJLRC/iObL9pCyHTayln7pfDedyS36SKvoVM9+Xt07l+hGPUn3BWNQl/lLz54CmkOlbllp/XaFp0uPJNWx17lCVtItj8UbU/B2Y33zmk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=bsCxyAg7; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hqo47FZm"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d8fdc579daso1704615ad.1
-        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 12:51:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789501874; x=1790106674; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=meRzmuvuHs1bpyaBL9rOvIRnoaP+Ll3HcV4m+UFLE28=;
-        b=Hqo47FZmBsugrkxHw4neCIWsrQil6FGzg8smscUx6/ZGf2O7xusTVQqPbUbxVxQoxG
-         zCgkNq+TN7YbUQ5xsDWUyhtNR4GXF6DBE7i4F/d1nsN3n7nmhSHQsd6yqSeejEH3XWEL
-         VzQfG2wLZSz6HUyxKxO+7BZgo5Lxes+guF+4p2eIrV1bWVE47lFSOatIQCLxIeMeGgsP
-         kLc5BE/U1NA2vRrLetVwd9CKXtjYemT7hB47CSrtPncJo7yvlTX5cXEdkefWFKHyNJkG
-         cnqyh81y7YZ8GIrrD0XXOnmmLIyi4uEd9vs61kC6NxlxYjCT6XfMBqrbmAZ/AVm3a23+
-         eh8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789501874; x=1790106674;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=meRzmuvuHs1bpyaBL9rOvIRnoaP+Ll3HcV4m+UFLE28=;
-        b=VHQ0RZvXWWqa0YDfiv+gD7StDZxSjZWn0wmk8mDWdS+3XeNOc+C9RWWgZTHY8EFpdZ
-         pVKPj1NlD79w4fmGcSJL0vdIgs4hi39g1YqHx0xINhxScJsuTETNte6oFE5TQjTDE6zV
-         C+AIA8poAbCGJ1W6dppmeYw9EHPtVOfvuiTcHGcgrgOt2RFVMuCa8o3ytwkYKWrjuaLm
-         VMq5LczxNhjSadFmEI7fZ8YPo0padBlBiGAu7YAW2QniPYi4AzBO9jvhpDjB6lMWSx1X
-         WHyMGt2wP2J6kiUDt7kbcEtbnqKuxWGob0tF98gcm9X5RsuVShqWBsV5NV+/gVar7B+q
-         lcPw==
-X-Gm-Message-State: AFuF++mhv+qw/6/yQvAu+Dejo3R4FBPryor8F8y+ejdVRLVufBhMSg/m
-	JQXeLnITHxIEsE+VepJdroL/0Zj8F9CFRC/3fr2vsmbjFIl32ByGOHpA
-X-Gm-Gg: AYBFou2pVd+sfle6vjxprV5dRwpC2V7JYv+WpU9nGcyAYBRkiH7kIXbGUHzhPG72Ls7
-	BBCVMDaI2WIAC/0vUFhPU0nQGwrnVLojvfFg6Q8mS8L1ZN/2gjr0hAVYLbo7Yap+zUz/BFoyfJa
-	gT9FgAZ2ZcaiNcQE2DWmh1khQ+3jCbpbXNOftJQlLPGnstE0QFFDIGbZZHvypgPDDzP5dx6y1jn
-	oLrRlvQRng74F4UiYPdK4+xJMzAikxFtd3r0H6OnurhjPwe3mBlZSKViDtxPBZ5RRtxZmoFueiI
-	Ly0d0RwNEZ6F76RbEq+mHgbm8xCnJLvtliyW/JI0pGZDEiWCnMNV3BjrQXrdFzYyBWqoA9YNzJT
-	UK2FZHSsM8e4JUDA9Dv5rhmlImUDvtBVoArUckZtJHQLL7Zwu9fV+O6hWFPL6eL0Sr+yNlaNxfP
-	A6g0JEpDkMUQvsbdkmZgOVEpntjjcIMDLkIkGqzDSwZkSCiVfaoGm/l01iink0FEGpqPFbL0UCB
-	za74nipdoKhglhb1vMupbiN3I/cJiPEFhEEzq5gDDcFahOX46qDpg==
-X-Received: by 2002:a17:902:c94f:b0:2dd:68a4:170c with SMTP id d9443c01a7336-2dd83851eccmr42584015ad.11.1789501873810;
-        Tue, 15 Sep 2026 12:51:13 -0700 (PDT)
-Received: from [192.168.68.67] (104-12-136-65.lightspeed.irvnca.sbcglobal.net. [104.12.136.65])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5a6a166sm1247306eec.10.2026.09.15.12.51.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Sep 2026 12:51:12 -0700 (PDT)
-Message-ID: <18a2d286-2345-4c0f-925f-125217983d44@gmail.com>
-Date: Tue, 15 Sep 2026 12:51:11 -0700
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="bsCxyAg7"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=3hXn1baUNhRBy6ZdAycWNIKKqnZoz6mdI1Ok9vpRhU4=; b=bsCxyAg7Vr88tUywNVj/X/NAlB
+	F1JWOCIYcR6qiIsC8AWkNSB8NA/itPjfBE1/4jB4GvKFB3rAWKBy2xVvPWncbnN7nMmVrtBtgVTNL
+	CA/a9Nv5jaK4B7zfk+WJ+GIw0jl2CnP3uWHYog6NGsE7EPcy1LVsRk/2SvVeEQoRNaE4=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x6ZHw-005LFQ-Mk; Tue, 15 Sep 2026 21:57:56 +0200
+Date: Tue, 15 Sep 2026 21:57:56 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Francesco Dolcini <francesco.dolcini@toradex.com>
+Cc: Francesco Dolcini <francesco@dolcini.it>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
+	Franz Schnyder <franz.schnyder@toradex.com>
+Subject: Re: [PATCH v2 3/7] arm64: dts: freescale: Add Lino iMX93
+Message-ID: <95dcbf3e-193d-460b-b6b9-cd412394e4c6@lunn.ch>
+References: <20260911091952.96233-1-francesco@dolcini.it>
+ <20260911091952.96233-4-francesco@dolcini.it>
+ <42ed88a6-d208-482b-94aa-2e45b69c173e@lunn.ch>
+ <20260915132806.GA226756@francesco-nb>
+ <100eef7b-e1d6-411b-bac5-98790e8f9ea7@lunn.ch>
+ <aqmG91HwmKe-enfy@francesco-nb>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 2/3] leds: flash: rt8515: Support single-GPIO flash ICs
- with vin supply
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, robh@kernel.org, linux-leds@vger.kernel.org,
- conor+dt@kernel.org, lee@kernel.org
-References: <20260912-expressatt_camera_flash-v7-0-e1fd2edc8d84@gmail.com>
- <20260912-expressatt_camera_flash-v7-2-e1fd2edc8d84@gmail.com>
- <20260913025029.34B121F000FF@smtp.kernel.org>
-Content-Language: en-US
-From: Rudraksha Gupta <guptarud@gmail.com>
-In-Reply-To: <20260913025029.34B121F000FF@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqmG91HwmKe-enfy@francesco-nb>
 
+> Would you mind to articulate in which situation such race condition can
+> happen?
 
-On 9/12/26 19:50, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 4 potential issue(s) to consider:
->
-> New issues:
-> - [High] Regulator is not enabled when requesting maximum torch brightness, preventing the LED from turning on.
-> - [High] Replacing mod_timer with schedule_delayed_work silently drops updates to the strobe timeout and causes premature LED power down.
-> - [Medium] Unbalanced regulator disable due to reliance on the global/physical regulator state instead of the driver's consumer enable count.
->
-> Pre-existing issues:
-> - [Critical] Premature destruction of mutex and cancellation of workqueue during device removal while the LED class device is still registered, leading to a Use-After-Free.
-> --
-1. Max torch regulator [High] - not reachable. The else branch needs
-    brightness >= RT8515_TORCH_MAX (100). expressatt max_brightness is
-    16, ux500 boards reach it but have no vin-supply so rt->reg is NULL.
+Most PHYs have a number of interrupt sources. Taking a random example:
 
-2. schedule_delayed_work [High] - shouldn't matter. max timeout is 250ms
-    on every in-tree board. Imperceptible. Happy to change it though
+/* DM9161 Interrupt Register */
+#define MII_DM9161_INTR_DPLX_CHANGE     0x0010
+#define MII_DM9161_INTR_SPD_CHANGE      0x0008
+#define MII_DM9161_INTR_LINK_CHANGE     0x0004
 
-3. Unbalanced disable [Medium] - was in v2, dropped in v3 at Linus's
-    request. happy to reinstate.
+#define MII_DM9161_INTR_CHANGE  \
+        (MII_DM9161_INTR_DPLX_CHANGE | \
+         MII_DM9161_INTR_SPD_CHANGE | \
+         MII_DM9161_INTR_LINK_CHANGE)
 
-4. remove() UAF [Critical] - pre-existing. not sure if i should address in
-this series.
+and a completely made up example which results in problems...
 
+Three interrupts are enabled. Say the PHY reports a duplex change
+first. That causes the interrupt line to go low, giving a downward
+edge. The interrupt handler fires, and reads the interrupt status
+register. In order the clear the interrupt you need to access another
+register about duplex. Before you do that, the link interrupt fires,
+setting the link bit in the status register. However, there is not
+another edge, because the duplex interrupt has not been cleared
+yet. The PHY driver does clear the duplex interrupt and exits the
+interrupt handler.
 
->
-> commit 6a964f82a818f57f5a1a31366f614609bc9c5008
-> Author: Rudraksha Gupta <guptarud@gmail.com>
->
-> leds: flash: rt8515: Support single-GPIO flash ICs with vin supply
->
-> This commit extends the RT8515 driver to support flash ICs that use
-> only a single GPIO for both flash and torch modes, alongside an
-> optional vin regulator that gates power to the flash IC.
->
->> diff --git a/drivers/leds/flash/leds-rt8515.c b/drivers/leds/flash/leds-rt8515.c
->> index 00904cc90ed6e..541f61e13f018 100644
->> --- a/drivers/leds/flash/leds-rt8515.c
->> +++ b/drivers/leds/flash/leds-rt8515.c
-> [ ... ]
->> @@ -62,27 +66,50 @@ static struct rt8515 *to_rt8515(struct led_classdev_flash *fled)
->>   	return container_of(fled, struct rt8515, fled);
->>   }
->>   
->> -static void rt8515_gpio_led_off(struct rt8515 *rt)
->> +static int rt8515_gpio_led_off(struct rt8515 *rt)
->>   {
->> -	gpiod_set_value(rt->enable_flash, 0);
->> -	gpiod_set_value(rt->enable_torch, 0);
->> +	gpiod_set_value(rt->enable_flash, RT8515_OFF);
->> +	gpiod_set_value(rt->enable_torch, RT8515_OFF);
->> +
->> +	if (!rt->reg)
->> +		return 0;
->> +
->> +	return regulator_is_enabled(rt->reg) > 0 ? regulator_disable(rt->reg) : 0;
-> [Severity: Medium]
-> Since regulator_is_enabled() returns the global physical state rather than
-> the per-consumer enable count, could this lead to an unbalanced disable if
-> the regulator is marked always-on or shared with another consumer?
->
-> Because rt8515_gpio_led_off() is reachable from user-controllable sysfs
-> attributes via rt8515_led_brightness_set(), repeated calls when the driver
-> has not enabled the regulator might cause the regulator core to throw a
-> warning and return -EIO. Should the driver maintain its own boolean state
-> to track whether it has enabled the regulator?
->
->>   }
-> [ ... ]
->> @@ -91,23 +118,37 @@ static int rt8515_led_brightness_set(struct led_classdev *led,
->>   {
->>   	struct led_classdev_flash *fled = lcdev_to_flcdev(led);
->>   	struct rt8515 *rt = to_rt8515(fled);
->> +	int ret = 0;
->>   
->>   	mutex_lock(&rt->lock);
->>   
->>   	if (brightness == LED_OFF) {
->> -		/* Off */
->> -		rt8515_gpio_led_off(rt);
->> +		ret = rt8515_gpio_led_off(rt);
->> +		if (ret)
->> +			goto out;
->>   	} else if (brightness < RT8515_TORCH_MAX) {
->> -		/* Step it up to movie mode brightness using the flash pin */
->> -		rt8515_gpio_brightness_commit(rt->enable_torch, brightness);
->> +		/*
->> +		 * Step it up to movie mode brightness.
->> +		 * If there is no separate torch pin, use the flash pin
->> +		 * for torch as well.
->> +		 */
->> +		ret = rt8515_gpio_brightness_commit(rt,
->> +				rt->enable_torch ?: rt->enable_flash, brightness);
->> +		if (ret)
->> +			goto out;
->>   	} else {
->> -		/* Max torch brightness requested */
->> -		gpiod_set_value(rt->enable_torch, 1);
->> +		/*
->> +		 * Max torch brightness requested.
->> +		 * If there is no separate torch pin, use the flash pin
->> +		 * for torch as well.
->> +		 */
->> +		gpiod_set_value(rt->enable_torch ?: rt->enable_flash, RT8515_ON);
-> [Severity: High]
-> If a transition is made from LED_OFF directly to max torch brightness, the
-> optional vin regulator remains disabled because
-> rt8515_gpio_brightness_commit() is completely bypassed here. Does this mean
-> the max torch state might silently fail to power the IC?
->
->>   	}
->>   
->> +out:
->>   	mutex_unlock(&rt->lock);
->>   
->> -	return 0;
->> +	return ret;
->>   }
->>   
->>   static int rt8515_led_flash_strobe_set(struct led_classdev_flash *fled,
->> @@ -116,27 +157,35 @@ static int rt8515_led_flash_strobe_set(struct led_classdev_flash *fled,
-> [ ... ]
->> -	if (state) {
->> -		/* Enable LED flash mode and set brightness */
->> -		rt8515_gpio_brightness_commit(rt->enable_flash, brightness);
->> -		/* Set timeout */
->> -		mod_timer(&rt->powerdown_timer,
->> -			  jiffies + usecs_to_jiffies(timeout->val));
->> -	} else {
->> -		timer_delete_sync(&rt->powerdown_timer);
->> -		/* Turn the LED off */
->> -		rt8515_gpio_led_off(rt);
->> -	}
->> +	/* Enable LED flash mode and set brightness */
->> +	ret = rt8515_gpio_brightness_commit(rt, rt->enable_flash, brightness);
->> +	if (ret)
->> +		goto out;
->> +
->> +	/* Set timeout */
->> +	schedule_delayed_work(&rt->powerdown_work, usecs_to_jiffies(timeout->val));
-> [Severity: High]
-> Does schedule_delayed_work() correctly handle consecutive flash strobe
-> commands? Unlike mod_timer(), schedule_delayed_work() silently ignores
-> updates if the work is already pending. This could cause consecutive V4L2
-> flash strobes to fail to extend the timeout, shutting down the flash
-> prematurely.
->
-> Additionally, if the delayed work is actively executing and blocked waiting
-> on rt->lock, its pending bit is cleared. In that scenario, could
-> schedule_delayed_work() queue a duplicate instance of the work that
-> immediately shuts down the LED as soon as the lock is released? Would using
-> mod_delayed_work() resolve these state management issues?
->
->>   
->>   	fled->led_cdev.brightness = LED_OFF;
->>   	/* After this the torch LED will be disabled */
->>   
->> +out:
->>   	mutex_unlock(&rt->lock);
->>   
->> -	return 0;
->> +	return ret;
->>   }
-> [ ... ]
->> @@ -327,12 +389,17 @@ static int rt8515_probe(struct platform_device *pdev)
-> [ ... ]
->>   	platform_set_drvdata(pdev, rt);
->>   
->>   	ret = devm_led_classdev_flash_register_ext(dev, fled, &init_data);
-> [Severity: Critical]
-> This is a pre-existing issue, but registering the LED class device via the
-> devm API schedules its sysfs interfaces to be unregistered after
-> rt8515_remove() returns.
->
-> [ ... ]
->> @@ -371,7 +438,7 @@ static void rt8515_remove(struct platform_device *pdev)
->>   	struct rt8515 *rt = platform_get_drvdata(pdev);
->>   
->>   	rt8515_v4l2_flash_release(rt);
->> -	timer_delete_sync(&rt->powerdown_timer);
->> +	cancel_delayed_work_sync(&rt->powerdown_work);
->>   	mutex_destroy(&rt->lock);
-> Because devres destroys the sysfs interfaces after this function returns,
-> could a concurrent user-space write to sysfs (like triggering a flash
-> strobe) occur during this window? This would cause the sysfs handler to
-> attempt to lock the destroyed mutex and queue work on the freed device
-> structure, leading to a use-after-free. Should devm_add_action_or_reset()
-> be used here instead to ensure the work and mutex are only destroyed after
-> the devm-managed LED registration is cleanly torn down?
->
->>   }
+The interrupt line is still low, indicating a link interrupt, but
+without an edge, no interrupt handler is triggered. The interrupt has
+been lost, and the link is reported down, despite being up.
+
+If however you are using level interrupts, as soon as the interrupt
+handler exits, and reenables the interrupt in the parent interrupt
+controller, it fires again, and the link interrupt is handled.
+
+If you have multiple interrupts indicated by a single line, you should
+use level handling in the parent interrupt controller.
+
+	Andrew
