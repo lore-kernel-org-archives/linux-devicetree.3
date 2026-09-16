@@ -1,141 +1,136 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A14BA381E9C
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 09:45:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29EB8494831
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 09:45:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789551914; cv=none; b=XOG4QLnBRgrxrux9/mmnjk5AWN8So9A3lpqLOF5azmrZ88q1XBDHWoPJUOhLeAuwDBb6FUoXWJoMfkXpGRIJcM7pgikAVuSUWTay0COlIfNnjRnFYMHB3+OSpoRxREGw42/KO3kVbHWsi+sLA6GxDgMvSTdOfai5hTe0Tkgaav4=
+	t=1789551915; cv=none; b=D9ZoNlDgmTR7AVgnIKvEpjteTpv+T0r798PQRSjIaNrOmf4tsomDu0dW21H33bRcJkvy9XNttPvjT31nvyCm2VZtUV3J8zFQxqgGRmeB81Qthv6wgjgk0nU77Fhp6hH/HStnnKMu9BsyKfDWj+nzfVlUhkWUBlYdw2DFie7647o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789551914; c=relaxed/simple;
-	bh=MR2n2E+Ve4xO4iUtdmDW34456DHtOWZBko8Pj6o1iIU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=f8anPcvMMu0Mtj8+krPyNRaQT6GXSH8w53jk8Q/6pPFfFDzq3Rg3iNm5Owk2KFhFdgQzGNc3XeKK4yCS3I+l6pam05RlXfNnZSQSdg6bMn/4IK6BMDfjkpG4Qy69xn+ZVBLADuAS+xKiUkgKhvQv3yaAUvGTxmMieikESsz7USI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UZLSb1k0; arc=none smtp.client-ip=74.125.225.140
+	s=arc-20240116; t=1789551915; c=relaxed/simple;
+	bh=CqWKEiOFSeRZMC+xXyG4UP7EGxGz2ADL49iwMl9/wWA=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=apFxCKW4oSdJ68Vum66JsTXP2CytY0Kgwss7uXnk2O8GbSanjCS/mmwbgVMRLvEehIuvDeohBXpCECvTLxwMSD+cDLsmIMDQhyo/8GWhDitDsjyfZQ+ejhcRBqnvfm4ME4fxdk4m1Y9n+4MbV41KNxzXe9tAEuxiI+XoaHrKRq4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mhd59BSm; arc=none smtp.client-ip=74.125.228.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UZLSb1k0"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d37b5so4332875e9.2
-        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 02:45:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mhd59BSm"
+Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469a3490bso686832b3a.3
+        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 02:45:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20251104; t=1789551899; x=1790156699; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mlvIWhHxBEziBE7U0OeSd/0yRYTGHP2RvC97KNNwMIM=;
-        b=UZLSb1k05dP78zdfVGpisY9oAFhpWoCGbeS8KoAGEA8ewUFklmFuh2TSCQwO7D8UiX
-         G6GDeKk1WwAd0xq/l8HCB4qAsyk53jDcjQO7tkLPCSAjCRI7azo7jI+eZBpton19mjBs
-         k9dc+EVMxflSj2ItGCN36FvTK1sbHwUwybI7qBhwinzIsnPRhEMnt6U35OzrEiiKY+De
-         Uz96mnCn32+iEIE6w4l9h6b+lahYa6qJToo4/7RUyKQxFpp2SqcUNBt0upvMeAzgzhil
-         rcUPB7dzG76c7cdorV82MEn0IazAaNEw7NsAIzkw3CHUT+T3+yX1xRXfqCuBQFT97E9u
-         25iA==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SmkBm0qbxpkVGajcugUF9Qtq+Mt2sXz79zpfIKtN2Ss=;
+        b=mhd59BSmeja5+PA+wRTAKTTXhb2o438KlZIMBiqufxQP6K0Cst41jzvKF6sFEvkojm
+         F+xs0pQICUx+kRzIltbzAyqDG+dTpMn094aNswawUkbc4z0nH/FLxJfBjaTtus9MhTzZ
+         rr59YNVEhaMF/4rDvxWb/sHJIRaM8dXztuaw+E/4gPGuzFVFulZHadtOWYGr1Fg/oE3Q
+         K4YKKuq7+ZNIAA7Q1kQAMcas39oi9ydClkkmrShDSD6afPjuEcZ5pBlgsXr3u3/48byJ
+         nZlFOfKofo8xZ2xPDunsPrhECWBhD+schVdHeJWRLkUedNnRJadF4oI2jZ3dWnhq2cf+
+         urQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1789551899; x=1790156699;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mlvIWhHxBEziBE7U0OeSd/0yRYTGHP2RvC97KNNwMIM=;
-        b=D37KsuSXsfXnsZztlvVbXzlavFrQH6wdyWQWYwaUnmrto+MJsCRoBDI3glyaGnKNeb
-         UbkWvpWTVONYw7GKKhBXfhLWtplfvJ1Fcn7/lcnoJhdDLTiumzQpzemtrCTIpF8LfV6k
-         3ToOL+iMWsXjhPLbWFwtdYfjqmK45TFZ+LsoyspNCiizxT8npTcdM5uDpRfb8ITuZ9Ew
-         O8vnYVAtlg0Ov64ub+dS36F8LAo7pp09LtnA0snG4vMfhCOFiqXhQI4HXsZQIdqn+31P
-         o9DudJ4uhU6/h5d+r9mqzr54x5I/KA6FRy7e+eKxuycK4yxoEJx1pxS+S5BEsdxnmEA0
-         54Yg==
-X-Forwarded-Encrypted: i=1; AKwUvBw3UieSzytYepTvI1rfrcqCuZpGyzRc4pi/Br/YsWu+XH9mQqrZuiVwJ2FBepDq59zumbFAEvQOKBBQ@vger.kernel.org
-X-Gm-Message-State: AFuF++l6PeUEJf7s5MD/xZQB/9Zu/xP8CYXmZ7ft/hjjD/Ul6fBhDEs2
-	aZMMFMiVC0jPmF8hIQZqKL/8ogO8wKK804BKQirEFGqi74u3nMy2DbAV
-X-Gm-Gg: AYBFou2UOuRYccJIS5DhixGOz+4idjaXzpgKgSczSObYis0T4QRTd/n/a7hGOofcAwm
-	W8axdmbH27tJ+KzFwy2XLCz4a1D6OrupgNaD1GPqVlzPQtPaWePHAepWrkqLeEkUyvmFV7wGXHS
-	EX9PCeVGSU1wF6ErCUJWle5Ixe3BmnyJK9VrgxWnLV/KbPWtWoo45WwnHQVrt68FpHm0+nzT9Op
-	6+x5EvuAUWYMrU5S2vEyZoQ6MoqwZ9aE6nGTa7gy+xUbuK1aVfvDAlGhfl6ejfupO04TKCDl5JD
-	EjBu6rSVP2j7zS/DFSkrqyHDKeBmCDsiwFVpmwvb6m4DWbx2V0kg8J1GR5wtjdz/02ewfo0spwW
-	Bo/W8senCEndW41B4ggyOlyLjmaz5+mknHj80dQlfIxNDOHXmrLTTlOZGNkteTIoLeEDihF3m7j
-	DYEWV28ah2xAvmc7dtiQmVjrml92yG7qY7S5L4KTjAar0BtIzArDBJQTwHjVKQyjkahkVQ97xlq
-	7JIX3gGz2TYWEnLawazVCoqSBSLiDTEjLpthtiEc+uNRnIEjcQ416bGk5yL+0zl37ItSFdoGVDR
-	AFAS4QOOwKsOzbme62yYHKYDX7fIWGhKje+KoBRz2J1weQyjHcQ4yygTmSU4qTinH4jAIw6MLAh
-	1kRzMINT17G5Yid0KWKT8QrJ45fHJl3s8AW/pGNq4TIwkLQa5DZTguQo4/z78D9q11gzJ9Vjc6u
-	mMRkhu
-X-Received: by 2002:a05:600d:1b:b0:49b:9105:cdaf with SMTP id 5b1f17b1804b1-49f1d516a12mr35131575e9.8.1789551898435;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SmkBm0qbxpkVGajcugUF9Qtq+Mt2sXz79zpfIKtN2Ss=;
+        b=tACJvM1OLzER73/BXg3ottJuBHOmmwsAl7MNh5NGuinH8oE4SXuJqv4qkQWQUIkJp7
+         kGkX4z+d8pqAlsYzuNBXylAhmGDT6eB/7n2dnwf2YsZmKH6ijUkYuwB4S4mdCImL/ePX
+         jS9bM+RoCUid+Xlj20QoCOrzEW+hdLuHEGRsV1Grec/dMZCJGDGicmOeKNDublG/zeEG
+         +BNiPCVrv60eVYQHPv2B/LaQHgrBObA8vdb8vmudxJln/+X15HbZ8TlseUQuC6v1nB6u
+         V7MoHP2AnfAyAJcP1jHH5WPyugKnfowKxMGqdUzzOU431OHiJVtWsukFFYw1F4g48kQu
+         tv7A==
+X-Forwarded-Encrypted: i=1; AKwUvByRZL5/aZ12DvhAMN+Ef5l8fMxkRlijcMrL6Ik+iJCaIviwPwSphsAZIva2i0Y+ghy8FaBEt+E7FGzb@vger.kernel.org
+X-Gm-Message-State: AFuF++me/CWaVRRQOtthCnn1VwyuLKaqSAskF6cLmbayw+mzgGQRael8
+	9ViahM5+RSvGuKuCwk75lsYv1+16Maa0RnBCdIpi+Y1nm2rDlkpsTrtn
+X-Gm-Gg: AYBFou3ZaZNIit3a8ffAiCqfz1DDhl+e02TFRwnQCEwmYlzjbOqYNgPKJyy2/gEs7NG
+	yaH2m29Frb5F2x+hzIwwDrzpLsmGySM6HLtV9iExnJf6lz7kTSEvGUu6MiK4oNdWMCRt9+b2DVS
+	fmsOqzRxQNlXgBBdN4V/Hfs1RIk75kK0knucqB0aH7E5PHHSEbtpE3ekeEFq9cRqLzOz7eeCVca
+	opRptGKUijfi/zKBTqsQ5iZmQW3DFknAyiD8Ln9O/ZLah/syNwD2DM8h6fwzLvohohLOf5kcpH6
+	HcHjKJoNVq+ew3lwLAMVLWQuJ7Apf+VG+h49dk6Lsb7kzJowfo/nW6pd5ub7H4mCa/Hoc/atnkn
+	gWxMH+89whx020SmgklpATKDe/knGG1p8T0rZSTZwvk/8zMzA8MVMFYBt/1JRjICL1cmh6qzFpl
+	tIjug5KjHez/QwiJTDvgeESy/1RCm98q4ihkftUuFEgZ40JhvRBVCioMy7OLELfeuuIXKavQJnn
+	HEnr6r1PUFspu+8UyxBbIDeShSui86pzSJAUh2Nb4l2xvttOwIrGzWYiUmvT1APYxJ4PK+7mZE9
+	PJMBFORqD9s=
+X-Received: by 2002:a05:6a00:f04:b0:84f:3f5e:f072 with SMTP id d2e1a72fcca58-8723b391635mr4037389b3a.10.1789551898837;
         Wed, 16 Sep 2026 02:44:58 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e83b02211sm68509815e9.9.2026.09.16.02.44.57
+Received: from lcwang-Precision-3630-Tower.. (125-227-154-99.hinet-ip.hinet.net. [125.227.154.99])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87201735415sm942890b3a.42.2026.09.16.02.44.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Wed, 16 Sep 2026 02:44:58 -0700 (PDT)
-Date: Wed, 16 Sep 2026 11:44:57 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Kanak Shilledar <Kanak.Shilledar@axis.com>
-Cc: "jic23@kernel.org" <jic23@kernel.org>, "dlechner@baylibre.com"
- <dlechner@baylibre.com>, Henrik Grimler <Henrik.Grimler@axis.com>,
- "nuno.sa@analog.com" <nuno.sa@analog.com>, "jean-baptiste.maneyrol@tdk.com"
- <jean-baptiste.maneyrol@tdk.com>, "robh@kernel.org" <robh@kernel.org>,
- "marcelo.schmitt1@gmail.com" <marcelo.schmitt1@gmail.com>,
- "andy@kernel.org" <andy@kernel.org>, "krzk+dt@kernel.org"
- <krzk+dt@kernel.org>, "macromorgan@hotmail.com" <macromorgan@hotmail.com>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>, Kernel <Kernel@axis.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
-Subject: Re: [PATCH v3 7/8] iio: imu: inv_icm42607: Add accelerometer
- calibbias support
-Message-ID: <20260916114457.000073ba@gmail.com>
-In-Reply-To: <b58448efafcd27ceb2c924139ea97201b349b534.camel@axis.com>
-References: <20260901-b4-inv_icm42370p-v3-0-77cc31642115@axis.com>
-	<20260901-b4-inv_icm42370p-v3-7-77cc31642115@axis.com>
-	<178874609182.3402141.6437933635539106261.b4-review@b4>
-	<b58448efafcd27ceb2c924139ea97201b349b534.camel@axis.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+From: LiangCheng Wang <zaq14760@gmail.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+	Devarsh Thakkar <devarsht@ti.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Wig Cheng <onlywig@gmail.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Sam Ravnborg <sam@ravnborg.org>
+Cc: LiangCheng Wang <zaq14760@gmail.com>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Subject: Re: [PATCH v3 2/2] drm/tiny: add support for PIXPAPER 4.26 monochrome e-ink panel
+Date: Wed, 16 Sep 2026 17:44:52 +0800
+Message-Id: <20260916094453.1062125-1-zaq14760@gmail.com>
+In-Reply-To: <0a13ccb8-8817-4223-a4a2-0de594ac8c71@suse.de>
+References: <20260529-bar-v3-0-5c2ac1c751ee@gmail.com> <20260529-bar-v3-2-5c2ac1c751ee@gmail.com> <2bfb73e6-dca3-4d93-af04-3c644929dd19@ti.com> <20260616083921.4066690-1-zaq14760@gmail.com> <423c3dca-9589-488d-8462-c3d51f05ee4a@ti.com> <20260617020926.114947-1-zaq14760@gmail.com> <8fcfab0f-6b98-478b-be4a-c5b810fb3524@ti.com> <20260731035705.3198816-1-zaq14760@gmail.com> <20260916082924.956116-1-zaq14760@gmail.com> <0a13ccb8-8817-4223-a4a2-0de594ac8c71@suse.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Wed, 16 Sep 2026 09:37:32 +0000
-Kanak Shilledar <Kanak.Shilledar@axis.com> wrote:
+Hi Thomas,
 
-> Hi Jonathan,
-> 
-> On Mon, 2026-09-07 at 02:54 +0100, Jonathan Cameron wrote:
-> > > Expose IIO_CHAN_INFO_CALIBBIAS on the accelerometer channels. The
-> > > registers are stored in MREG1, which can be accessed by the
-> > > mreg_read
-> > > and mreg_write routines. The calibration bias is written to
-> > > OFFSET_USER4
-> > > to OFFSET_USER8 registers in MREG1.
-> > > 
-> > > Note: The accelerometer functionality is tested with Invensense,
-> > > ICM42370-P development board.
-> > > 
-> > > Datasheet:
-> > > https://www.invensense.tdk.com/en-us/products/3-axis/icm-42370-p
-> > > Datasheet: https://www.lcsc.com/product-detail/C5129967.html
-> > > Signed-off-by: Kanak Shilledar <kanak.shilledar@axis.com>  
-> > 
-> > Various things inline.
-> > 
-> > Thanks
-> > 
-> > Jonathan  
-> 
-> I will fix these issues.
-> Thanks and Regards,
-> Kanak Shilledar
-> 
+Thank you for the quick reply.
 
-Hi Kanak,
+> Where exactly are these ssd16xx patches. I cannot find them in the DRM
+> trees. I presume they are not upstream yet?
 
-No need to send a response to a review only saying you'll fix the
-pointed out issues, it generates too much noise on the list. No
-response means you agree with the review and will address it in
-the next version :)
+That is right, they are not upstream. Devarsh posted them on 1 May and
+the series is still at v1 on the list:
 
-Thanks!
+  [PATCH 0/6] Add DRM driver for Solomon SSD16xx e-paper display controllers
+  https://lore.kernel.org/all/20260430183311.2978142-1-devarsht@ti.com/
 
---
-Kind regards,
-Joshua Crofts
+One thing that is easy to miss, and that I should have made clearer in my
+last mail: that v1 series covers the SSD1683 only. The SSD1677, which is
+the controller on the PIXPAPER 4.26m, is not part of it. Devarsh has
+SSD1677 support in a staged branch that he kindly shared with me in July,
+and that is what I tested on the panel:
+
+  https://github.com/devarsht/linux-next/commits/ssd16xx_7_2/
+
+Those SSD1677 patches have not been posted to the list yet, which is why
+the panel support has not had anything to build on so far.
+
+> If there's support for similar ICs, I'd strongly prefer to have the
+> ssd1677 be part of that instead of a stand-alone driver.
+>
+> Once the stand-alone driver is in place, users will rely on it. Then it
+> becomes hard to replace. We had (have?) cases where there are several
+> drivers for the same hardware.
+
+Understood, and thank you for explaining the reasoning - the point about
+users coming to depend on a driver that is then hard to replace makes
+sense, and I would rather not create that problem. I will drop the
+standalone driver and add the PIXPAPER 4.26m to ssd16xx instead, once the
+shared driver is in.
+
+Devarsh, thank you again for sharing the branch, and for making room for
+the panel in your work in the first place. I am glad to keep testing
+SSD1677 on real hardware whenever that is useful to you.
+
+Regards,
+LiangCheng
