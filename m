@@ -1,100 +1,97 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA20D4D37C2;
-	Wed, 16 Sep 2026 17:27:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 512734D0CCB
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 17:31:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789579662; cv=none; b=deHcduhgdjTnI1P0q7IZJolMLp7pwvwrmg8y63Fqx106mTNsGWfWe9iEVU2sMwPAaocJsrctxq3BKeXJmWU+Yb3Nlp8Yj96PJveshx+HnnFERNgpCUzNVss4CSrtz8epW16ZwHP8nG7rVj+M7T32RH5QI6BPpbiMXouWWW4Av4c=
+	t=1789579888; cv=none; b=qcv2lzn1WdwWGHq5L9soCfAJyjqIcsTbwEg5jwVpnz1ArbAK3WbLWlMzAei/kDf8CqcWGtMPVrKP5oQOjCXmJBuLA7tBMKJhZNS41JdUmcfFTKEHq8In1Np1CEldWJkgaGusA5iuEgnBGWn9pM7hAAM3b9A4GviGn2ZcvkwLP3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789579662; c=relaxed/simple;
-	bh=BxO6rgLM9SfX8tEbiU9nwYK0vqz+F0hGK0aWbt8kezo=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=so3UBGt94ZfeUSGN5jM/KrJdpqcwFHY8Bd5KPivcNk4mwIDmjHyaDAYSsix7tHp7eg7f2IcCelHp7fErvS7QUKp/iL0LAlqannNss1Ks4954uHtZELOla6eArcT3s01yQd3e/BcLk+xpvmx9wD7Crchc3eHlGMIsTKBzYvQjeH4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=mSuvysOB; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789579888; c=relaxed/simple;
+	bh=4h7CNgUTqPbXfiRuvyW7wmuQ+iQWLkvSQv8cBspOfWk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gw53iQesdoSn/jey+QyCCn2gHfZDzlytLRsvYpOA+6uBsoml6bi6U7FBkWcvgPIza0i1NsQ04UNUZT63gGWqGLr8R28DvoA6tABCY1cQWfRwwmm+effJtaoEhNtTaT+6MCvZenrKz9N9CrZ1Ua8Eje2DHNCiV0BAnnl71LIrGj4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UAF9f1rQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="mSuvysOB"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id E608E1A08EA;
-	Wed, 16 Sep 2026 17:27:35 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id AFDCD60337;
-	Wed, 16 Sep 2026 17:27:35 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0E4E811C7B00D;
-	Wed, 16 Sep 2026 19:27:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789579654; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=dCA8Ne2C7wLdhEcx1e006q+Jrs7Uu0Is5AQBioqBLFk=;
-	b=mSuvysOByqxjLwQqnHc7+WWWcyfDJDP7JEPeoSW7DjmMC2Jp/Oy/3LTLzTZtj80/zDxGB4
-	RrkHbDqBTDGdt2/hhm6H+I7/2NWWZOsVz0KyKfWeFI55w1rxhCIGBvoy/ghmZHnURbPzZb
-	2JqEixXywVAeVdVoBa/2CnuC1CZ6riAXv/Yh0gw+UKjzCNt5wHibTHPwlqB8IHDpDYR9Nc
-	QEfhIwFjU+jwOrUhrWTlvH2iDFr2v8mm2nN9qGALtLlzSdBakYhh2hab4yjqCtWol5CYDO
-	EsmAWYR8EL6/yp1EkbuQ1R34pYThZ9qSZaA41CDWrCztMfzdbymKfV/Lwa//OQ==
-Date: Wed, 16 Sep 2026 19:27:27 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v3 13/15] tests: Add wip_func utility
-Message-ID: <20260916192727.28850127@bootlin.com>
-In-Reply-To: <aqpoxzD14OQazE1y@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
- <20260826083146.304291-14-herve.codina@bootlin.com>
- <aqpoxzD14OQazE1y@gractus.seuss>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UAF9f1rQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F44F1F008A0
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 17:31:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789579881;
+	bh=4h7CNgUTqPbXfiRuvyW7wmuQ+iQWLkvSQv8cBspOfWk=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=UAF9f1rQ3RvSfZjIEqrlyW9dpvtTHzRlQsqmgoLfqbBKfdJE7bx/9Xbh6u24HkdJ6
+	 MO8I4JRR3WNK8FS95CzQN6qdgKxWqm4/5n9yn7RhbtGg9Ynq0W6S6ZP+pCswZQdkoy
+	 CytIJJ4vLyXKl+QhsSETsZaq3SKk5hFj4HlEy3fyVj16tC3Qv8hXGU6ugvw5Zc1zXV
+	 JU2mqnPMMc8h7dFG+cj+uqqpBCIo0RiVuoTjPGi6knnpN0nt2Ouh5htwMCbducer7F
+	 x/DYblxIKrXDArxzR69SXuBV+0IO5fF8z5yvpuwi42+3gUP4wm7Oki7MUKJz/MVKRP
+	 Awxp3goEzwOHQ==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f1b846so1631122e87.0
+        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 10:31:21 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx2wmkmiRWedQlhxEklC7B9oder/4HLfLOgNWzaPJKvId+nQkvRFvfIOoffXOChnKX8J+lSTWxxFAlC@vger.kernel.org
+X-Gm-Message-State: AFuF++lpRdIrndc2fzqiQ+Y+6OvsdFAaxjMRfYqsV2cWFA7/VI2nRSYQ
+	Tco+bIK+Kf397UD9uyOyIa4V39TZuW19C5iD+uUoqg1GGURTuzxPA6SiqWyKFW8Cl06t689mpI+
+	hARwBf9MWikd5i4/NkMB5sU0cBoIV1XY=
+X-Received: by 2002:a05:6512:39c7:b0:5b5:e86f:3550 with SMTP id
+ 2adb3069b0e04-5b8b65ffbecmr902064e87.9.1789579879753; Wed, 16 Sep 2026
+ 10:31:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+References: <cover.1789538455.git.mazziesaccount@gmail.com> <e3e6ac712519326cc25fcdd0a0c8e3cc42ef55ab.1789538455.git.mazziesaccount@gmail.com>
+In-Reply-To: <e3e6ac712519326cc25fcdd0a0c8e3cc42ef55ab.1789538455.git.mazziesaccount@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 16 Sep 2026 19:31:06 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=vZr+naVBaixNkDbgx4_EpL8MosSyXYb9jg2hgKu+QNg@mail.gmail.com>
+X-Gm-Features: AcwNN1UIPEmUSS-eZ1VYSwu7-QImd7lzaWBhLtT17uVLR3LAyc5U_ziRVEemM5c
+Message-ID: <CAD++jL=vZr+naVBaixNkDbgx4_EpL8MosSyXYb9jg2hgKu+QNg@mail.gmail.com>
+Subject: Re: [PATCH v4 09/10] gpio: bd73800: Support ROHM BD73800 PMIC GPIOs
+To: Matti Vaittinen <mazziesaccount@gmail.com>
+Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>, 
+	Matti Vaittinen <matti.vaittinen@linux.dev>, Lee Jones <lee@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Michael Walle <mwalle@kernel.org>, mfd@lists.linux.dev, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-rtc@vger.kernel.org, Sverdlin@mva-rohm.smtp.subspace.kernel.org, 
+	Alexander <alexander.sverdlin@siemens.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi David,
+On Wed, Sep 16, 2026 at 8:12=E2=80=AFAM Matti Vaittinen
+<matti.vaittinen@linux.dev> wrote:
 
-On Wed, 16 Sep 2026 20:00:40 +1000
-David Gibson <david@gibson.dropbear.id.au> wrote:
+> From: Matti Vaittinen <mazziesaccount@gmail.com>
+>
+> The ROHM BD73800 PMIC has 4 pins (named GPIO1, CLKOUT, FAULT_B and
+> EXTEN_OUT) which might have been set to operate as a GPI or GPO when OTP
+> (One Time Programmable memory) is written at device manufacturing.
+> Support the GPI/GPO use-case via GPIO framework.
+>
+> The default OTP for these pins is to not use any of them as GPI or GPO.
+> (The GPIO1 defaults as an ADC input regardless the naming). Hence the
+> driver assumes none of these pins is a GPI/GPO unless explicitly pointed
+> as GPI or GPO via device tree.
+>
+> Furthermore, pin's direction can't be changed after OTP configuration is
+> done. Also the default drive type for a GPO (CMOS / Open Drain) is set
+> by the OTP configuration. The BD73800 has a set of undocumented test
+> registers which should allow changing the drive type. Access to the test
+> register area or the test registers aren't documented and so this driver
+> does not support configuring the drive type even though it might be
+> doable.
+>
+> Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
+> Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-> On Wed, Aug 26, 2026 at 10:31:44AM +0200, Herve Codina wrote:
-> > wip_func is a test utility allowing to wrap the write inplace functions.
-> > 
-> > It allows to create tests with custom wip write sequence.
-> > 
-> > Also the modified dtb is saved allowing to perform later checks on this
-> > modified dtb.  
-> 
-> It's not clear to me what this is useful for that's not already
-> covered by the existing write-in-place tests (nop_node.c,
-> nop_property.c and setprop_inplace.c).
-> 
+Looks really nice now!
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-Used in tests to check dtb updates when "unknown" tags are involved.
-See '[PATCH v3 14/15] libfdt: Handle unknown tags on dtb modifications' [0]
-or full source at [1].
-
-Depending on modification performed, "unknown" tags must be removed or not
-and the version must be downgrade or not. The test checked for rules defined
-for modification when "unknown" tags are involved (see patch 14/15 commit log)
-
-I don't think that this could be covered in a simple way by existing
-write-in-place tests.
-
-[0] https://lore.kernel.org/devicetree-compiler/20260826083146.304291-15-herve.codina@bootlin.com/
-[1] https://github.com/bootlin/dtc/blob/2653bb9cd4414780c863051467b5e77eea6e5bdd/tests/run_tests.sh#L590
-
-Best regards,
-Hervé
-
+Yours,
+Linus Walleij
