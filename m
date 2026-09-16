@@ -1,245 +1,96 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 374DF48F82E
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 21:24:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 739B94E50AA;
+	Wed, 16 Sep 2026 21:26:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789593846; cv=none; b=J3r2saQAe9g3N88AIv8JQag95I2jFPpQRSv94eV46qT6fGVY8kJvU59/xTY8DEgn7OvJS/REd+UbeTI8hO7/BqiECHhcIdjfH+A87kWmuHEfOUKEgbnELQ1lhMYcMf2BrDzABXlJ9jUxkg624kmG5r9lh6hnAPpUPOg04g4Jbd0=
+	t=1789594029; cv=none; b=CneatjcToZbNq2g5ypw1J//GB2R5TnGOllS5b8gq+km/TMQUEktb2Xl7nob6btFSgJjKHJQa73qNx01sBdPYU1DJwWtZrweWmKGBUde0ZAImUyF4XHBEKsnQ0DwfymJWmWJFkS9dm4YQnnyWKS4lMGue5eWsvdD5obR5I0umvi0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789593846; c=relaxed/simple;
-	bh=gJJWBQeFSX1YsrOWygD+rC9pHJoBZw2+qKeEeFs6RRo=;
+	s=arc-20240116; t=1789594029; c=relaxed/simple;
+	bh=AsQqS9710lfvxj0MAvI/7hzneJ7P3AiAYoBeWGfNftk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iklAIsFTBUbIuvP8JlNYc3P7SGvmMpQUQ3Sbem7JU7bXIoeQ2uB1lMLvWJ3yQGLQXEgyz4PJp0XmxrjraKt5SJi8BEIMNTzQSfbwNikL/Nvk7fnTi7DU+wt+GSqJdP0j7DkvuVCa9H5e8lH8ZfenXtsLQgYV9fJmhdiW49IMKGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=B9zVUleq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RjUXA05P; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=Z5suS7NiCLRVS4J4bgZlu8fg/yOX43wwhPHRfHoKF9QY4Ik5dfaNI7MYjAStaf81bLiQJR6Dw9Q6ctJ9Omx4OBDXvAVvG9TKG2jtbfvyUWDWhvknSr5UvLouNPEtD4Xd2hkCbCkP1bpZ5YJzaMWsJ4mLiwKndAltuz6o7tyKouM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=im9OzdkX; arc=none smtp.client-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="B9zVUleq";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RjUXA05P"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GGtLSE3402936
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 21:23:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	w/qTLVLi8JrEbZ5Wtjo59+5wUP++p74xd9zORAOvt3Q=; b=B9zVUleqVc0IwYvo
-	2kVS9RooIb9ERrcP5PS6AJMR0gaiIevixWLq5qN/3aBKETxjM+rhRBUTzcok5Whb
-	svM4ZTgwJPuPkCaNElgopGA52rcmgpqGQ7XVErtlmAIEq+GzVMbMCz6NH7EA7DIx
-	JFvOfToWEO0K8/39zGLSg9eniwoyvlbxaElKoqjDbAnPej0Q6e50+et7aoofhuox
-	XHRPcOIRMlbXXmowCW3mvxB+TDmnEzDZfJDrqhJKvE0PKJOxQYHIl9qkUCr6fnmg
-	4vxlh7AoQbWeNSsdY4heO8bk0K6uRVpYox3qdPrQXH1kiaweWsoA9yWTsJkLltAR
-	0ei0/Q==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqy2d15sk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 21:23:50 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc4b524ce78so91542a12.2
-        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 14:23:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789593830; x=1790198630; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=w/qTLVLi8JrEbZ5Wtjo59+5wUP++p74xd9zORAOvt3Q=;
-        b=RjUXA05PcrkLXiwLmHcIj1OkpOoedtm849jRtkyDsFjwn9FBHHDmurph5VcZOvzqnh
-         xMtVa3H8ztx+CKXhKa1T9CaLm+73Y+d1FqYSTRxdmkZ22IZ4wGuhqOgH0N1jN1K3aImq
-         mIJklUB2eTTVy/dt13TqNSyoVYQB60dWAEIBq7X7+4jgPxeSqoMSFp4cykPw9ZzyQMHv
-         OOIr3ihTD+lbo+0Cyl6B6pjdjCK28u+RUMizBKTZ/y1Ks+5+ehYf+Z6V0rJc+iKLAsRq
-         SXbC1Q3thNZc7/g9PdK02KjZwDbwUlXs5A2P6VZzId7tA9uYjaFX+mn7qlwZb3BWmtND
-         KcKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789593830; x=1790198630;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=w/qTLVLi8JrEbZ5Wtjo59+5wUP++p74xd9zORAOvt3Q=;
-        b=B3GcRGXkdB8FWNDR/kInsZHm9KOPaWRfNq6NEuDcrjWfzWtqN1Wmc6ekW8XfSj47wu
-         N+TAqoghHyAl8/SqpU3up9mEs/L3qhHgQcvA0W1SK8t9dcKmsQ5cz/iA2aRGFICm8pEd
-         Wn4XewhuGAdlF+w6+T/mNJd7nETbngVKJ3DMsyt8msg8SNIMAIlB9B171uc4GLYle0j4
-         9NdmtcZVpH4DlgJ6u3kehfr85L0ps77zVXruFvAEBCXYwi/CGAKJnlb53GfvRHgsUzzz
-         0PYNV4VDw9LietfMtjTlK5767SbTgdD7T6mtB8JMWjyK7UHIpnr3qzOw0jvVGnBn0gjg
-         uACA==
-X-Forwarded-Encrypted: i=1; AKwUvBxHR/Enh415pkI4/ewHeG2I7UQRMfozz+dFAekhTmLoi5BiSYyc3kMbQJMbaXgyqkGfyPbGyGIT6+Nu@vger.kernel.org
-X-Gm-Message-State: AFuF++nsXcUdeO/+E7WceiQhmIn3aoRZ3vBWU39U8pYC7NFSE+kbd4Ti
-	U7n8W/YdSM7grDiOoK4MRuRWtpQ7JLmG3iKXGKEzFjC4NiTB50SPI3dpVZ3oXZOozzw9xdu+qrN
-	VtniZWURcoV/8QmXsnuYlWU9c8fHGmeo2KOatP/0ep0wSZeVZ4jk9Z5U1hxRk08Q=
-X-Gm-Gg: AYBFou1j6WYCTFxcseM307QPf+Pf8/W9vhO1hQt0/kW66CAsasG0vZprvPT4fhef6VS
-	FLAm4EJRJaOQpVI1tByAXDdd6ZZlFJ8EdM/Qd6j3e30gKaAHKAwPWJ/XvNkKemJSfYPP9SCfUVM
-	ZqXOokCxHNrQoi7vqGj8DqlTAJzFMm6CpuKygMi7XAnbSH600KMi8E91SNwTbKsMWhyIWR2P43w
-	XNrZhzZDAzYbw4K295M0eOvEoc9KGFYqHjZQOIe4Jypdbhn7UtK2PRujxzBgCQAVJ+qMjJm+7U0
-	R4RjeSk2asT7UpGbdJUBUol+qL35wgrnlpxgvXVPWcmVJN9mnEVnR8kz7F/c+3k1UWSMefwkQd4
-	hGptIhb4bkF0YeJGViGz1ZyNmOxq3ufZN
-X-Received: by 2002:a05:6a21:6b10:b0:3da:3bdb:b22a with SMTP id adf61e73a8af0-3dd5f71a912mr10826741637.20.1789593829910;
-        Wed, 16 Sep 2026 14:23:49 -0700 (PDT)
-X-Received: by 2002:a05:6a21:6b10:b0:3da:3bdb:b22a with SMTP id adf61e73a8af0-3dd5f71a912mr10826675637.20.1789593829396;
-        Wed, 16 Sep 2026 14:23:49 -0700 (PDT)
-Received: from [192.168.1.86] ([65.181.15.100])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc50a7a3526sm2253425a12.0.2026.09.16.14.23.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 16 Sep 2026 14:23:48 -0700 (PDT)
-Message-ID: <786a1460-c660-4de7-bb07-debdbd6a4661@oss.qualcomm.com>
-Date: Thu, 17 Sep 2026 07:23:40 +1000
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="im9OzdkX"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4hlX5R3dNfzKnS3;
+	Wed, 16 Sep 2026 23:26:51 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1789594011;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Awx/qSMJsfDp5YFKo98US/4IxChQqsFBIzOvN17lZ2g=;
+	b=im9OzdkXDGajHZYTNlRcWyDBOZJholJgFLe9R9NjoSNZx9LsAyzSKTgO0N4qur+kW7FVMl
+	6uIO5coBY64vQfHI19PRRAz8r9Y61KHNE6QiQXBOcvFp54qBdKnAzCwsSvO8p55VtbradN
+	33PYThsRqzNNfr20VYG5IlfQc6JXCt7rlPbmPNm5xoXzqioeOqJL32KIFHVpUnS/0jiQSX
+	8xpJezTHawYbzcHWLtZRW+GFNgpbWQiqmU8++1MKJIlx9JIC/2D0g2/fomqOwWBXQ7Kslt
+	FsGHAhDPfX4KALihngTSnIZepHa4d+JYfNWSUo4Q47NSqAHusHdRhSPxJ6RU1g==
+Message-ID: <805629d1-ba2b-4e59-8d29-c374528367f9@mailbox.org>
+Date: Wed, 16 Sep 2026 23:26:47 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 1/5] optee: riscv: add RPMI TEE service group
- transport
-To: Trilok Soni <trilokkumar.soni@oss.qualcomm.com>,
-        Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>,
-        Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-        Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-        Rahul Pathak <rahul@summations.net>, Anup Patel <anup@brainfault.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        op-tee@lists.trustedfirmware.org, linux-riscv@lists.infradead.org,
-        devicetree@vger.kernel.org
-References: <20260912-rpmi-tee-service-grp-dev-v1-0-1d1d35c2a859@oss.qualcomm.com>
- <20260912-rpmi-tee-service-grp-dev-v1-1-1d1d35c2a859@oss.qualcomm.com>
- <a9d9aac7-cb2d-46fe-a220-40f61f615b89@oss.qualcomm.com>
+Subject: Re: [PATCH v2] arm64: dts: renesas: sparrow-hawk: Add overlay for
+ WaveShare 2CH CANFD HAT
+To: Rob Herring <robh@kernel.org>, Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Magnus Damm
+ <magnus.damm@gmail.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+References: <20260909151423.28358-1-marek.vasut+renesas@mailbox.org>
+ <CAMuHMdVVcbwz1OK9tL9zn5RR_4YyML6++OUVUgmswPpaxdmRSA@mail.gmail.com>
+ <34f4c088-5268-4add-aef4-33b3d3623c12@mailbox.org>
+ <CAL_JsqK8--7X5g4T05Y6bEGzsxrhTq2QyQRpE5E5uHBot3jLWA@mail.gmail.com>
 Content-Language: en-US
-From: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
-In-Reply-To: <a9d9aac7-cb2d-46fe-a220-40f61f615b89@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: 1TI1oldxPfphUQrvaJ6sw5xZAQidAfSa
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDI5NyBTYWx0ZWRfX6xcfzpw6fNnv
- +i/oHzrJ4RsiOpQqC+BHCRpmJ5w4G6qxU+rfWPe3e2ugwadwFA9mPbG+2RoLmF9PTGM1wJv5cdp
- qA0kxzHaTBdb3YT4cuJ9nEvBnudkc+M=
-X-Authority-Analysis: v=2.4 cv=HbeB3SE8 c=1 sm=1 tr=0 ts=6aab08e6 cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=RYJI0oIToGyOemi2SthaJQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=-u4usqK0Ikitso02ChQA:9 a=QEXdDO2ut3YA:10
- a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-GUID: 1TI1oldxPfphUQrvaJ6sw5xZAQidAfSa
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDI5NyBTYWx0ZWRfX3zXg/af2F7xZ
- 1uthts46f86hnAbFxult82/HPJAMOpradCDbY5N1JmHK6P5pG0OV+auSQ5q+/O+GhIzaOD9YNHn
- 0v2/wCs4OHRDzw1G15NPzb+c4eYHvgT8BGm3+VuGy1t9Z8EZqg8BlQzT49DQvPqQZVKnLjxCvAs
- a4Sm4uvXMiq0qJybByg/8uswiFFPUMk7HGt6HwsawEOUtfVlbBwrQn81LyjTiQIkfckpPY6A2sP
- 92xbLnzA76ivdhFfJRF1WbBo3prDf1kavQHhCZtcAzKbnXTCiWANOxKJvxXaDl+NthVO6j+ArgQ
- kRi03u1ueaGuwqwt+JNx+Af+9GjMpDvXhK0z0071KK/8uivbIJ46CifCos8uWoL4aV1QORyofPf
- K5JLQG/VO7/IYGZOGLv7jB7nA+3GlIAgGYWUob9BfCI199rDB2Ebxzo55ixL648bh8EQrIgetys
- aQGP1dvu8tLyGYyDI5Q==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-16_03,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 priorityscore=1501 bulkscore=0 spamscore=0 adultscore=0
- suspectscore=0 malwarescore=0 phishscore=0 clxscore=1015 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160297
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <CAL_JsqK8--7X5g4T05Y6bEGzsxrhTq2QyQRpE5E5uHBot3jLWA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: h3pk3hdfad8iwfsccm1r6mrg3escspem
+X-MBO-RS-ID: 442b280c29c53d01ed2
 
-Hi Trilok,
-
-On 9/16/2026 3:30 PM, Trilok Soni wrote:
-> On 9/12/2026 3:15 AM, Amirreza Zarrabi wrote:
->> Add an OP-TEE transport for RISC-V using the RPMI TEE service group over
->> the SBI MPXY mailbox framework.
+On 9/16/26 10:49 PM, Rob Herring wrote:
+> On Wed, Sep 9, 2026 at 10:55 AM Marek Vasut <marek.vasut@mailbox.org> wrote:
 >>
->> Request one mailbox channel per hart and use the channel corresponding to
->> the current CPU when issuing a TEE request. Probe the RPMI TEE service
->> group and required memory-sharing capabilities before registering the
->> transport.
+>> On 9/9/26 5:31 PM, Geert Uytterhoeven wrote:
 >>
->> This provides the basic transport and discovery support needed by the
->> following patches.
+>> Hello Geert,
 >>
->> Signed-off-by: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
->> ---
->>  drivers/tee/optee/Makefile                 |   1 +
->>  drivers/tee/optee/core.c                   |   8 +-
->>  drivers/tee/optee/optee_private.h          |  34 ++++
->>  drivers/tee/optee/optee_riscv.c            | 312 +++++++++++++++++++++++++++++
->>  drivers/tee/optee/optee_riscv.h            | 141 +++++++++++++
->>  include/linux/mailbox/riscv-rpmi-message.h |   1 +
->>  6 files changed, 495 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/tee/optee/Makefile b/drivers/tee/optee/Makefile
->> index ad7049c1c107..925b8ec7ef68 100644
->> --- a/drivers/tee/optee/Makefile
->> +++ b/drivers/tee/optee/Makefile
->> @@ -9,6 +9,7 @@ optee-objs += supp.o
->>  optee-objs += device.o
->>  optee-objs += smc_abi.o
->>  optee-objs += ffa_abi.o
->> +optee-$(CONFIG_RISCV_SBI_MPXY_MBOX) += optee_riscv.o
->>  
->>  # for tracing framework to find optee_trace.h
->>  CFLAGS_smc_abi.o := -I$(src)
->> diff --git a/drivers/tee/optee/core.c b/drivers/tee/optee/core.c
->> index a52c1f498b99..63f1725e646e 100644
->> --- a/drivers/tee/optee/core.c
->> +++ b/drivers/tee/optee/core.c
->> @@ -220,6 +220,7 @@ void optee_remove_common(struct optee *optee)
->>  
->>  static int smc_abi_rc;
->>  static int ffa_abi_rc;
->> +static int riscv_abi_rc;
->>  static bool intf_is_regged;
->>  
->>  static int __init optee_core_init(void)
->> @@ -245,9 +246,10 @@ static int __init optee_core_init(void)
->>  
->>  	smc_abi_rc = optee_smc_abi_register();
->>  	ffa_abi_rc = optee_ffa_abi_register();
->> +	riscv_abi_rc = optee_riscv_abi_register();
+>>>> +       /*
+>>>> +        * SPI_1 is operated as GPIO SPI, because MSIOF5 can not be
+>>>> +        * muxed on the pins allocated for SPI_1 on this CANFD HAT.
+>>>> +        */
+>>>> +       spi {   /* SPI_1 */
+>>>
+>>> As this lives at the root node, I'd rather change it back to
+>>> spi-ws-2ch-canfd while applying, if you don't mind?
+>> Please make sure the DT schema check does not complain about it,
+>> otherwise it is fine, thank you.
 > 
-> Isn't it growing rapidly now? We have two register calls for the ARM,
-> one for the RISC-V. One more region specific ISA I am aware of and it
-> may have op-tee support in future? It is time we fix this logic
-> in the better way. 
->
+> It does complain:
 > 
->>  
->> -	/* If both failed there's no point with this module */
->> -	if (smc_abi_rc && ffa_abi_rc) {
->> +	/* If all failed there's no point with this module */
->> +	if (smc_abi_rc && ffa_abi_rc && riscv_abi_rc) {
+>        1 spi-ws-2ch-canfd (spi-gpio): Unevaluated properties are not
+> allowed ('#address-cells', '#size-cells', 'can@0' were unexpected)
+>        1 spi-ws-2ch-canfd (spi-gpio): $nodename:0: 'spi-ws-2ch-canfd'
+> does not match '^spi(@.*|-([0-9]|[1-9][0-9]+))?$'
 > 
-> This is started looking ugly in my opinion. 
+> The 1st warning is a side effect of the 2nd warning.
 > 
->>  		if (IS_REACHABLE(CONFIG_RPMB)) {
->>  			rpmb_interface_unregister(&rpmb_class_intf);
->>  			intf_is_regged = false;
->> @@ -270,6 +272,8 @@ static void __exit optee_core_exit(void)
->>  		optee_smc_abi_unregister();
->>  	if (!ffa_abi_rc)
->>  		optee_ffa_abi_unregister();
->> +	if (!riscv_abi_rc)
->> +		optee_riscv_abi_unregister();
->>  }
->>  module_exit(optee_core_exit);
->>  
->> diff --git a/drivers/tee/optee/optee_private.h b/drivers/tee/optee/optee_private.h
->> index aefe1e6f5689..8d22d65e087b 100644
->> --- a/drivers/tee/optee/optee_private.h
->> +++ b/drivers/tee/optee/optee_private.h
->> @@ -171,6 +171,31 @@ struct optee_ffa {
->>  	struct work_struct notif_work;
->>  };
->>  
->> +/**
->> + * struct optee_riscv - RPMI TEE communication struct
-> 
-> do we need to name it optee_riscv? we don't use optee_arm anywhere in this
-> code I believe. 
-> 
-> More later...
-> 
+> "spi-1" like the comment says if just "spi" does not work.
+Geert send this fix today:
 
-The naming convention, and even the file structure, will change in v2.
-This RFC currently mirrors the _internal_ FF-A implementation, which is neither
-required nor ideal. We are moving away from that structure.
+[PATCH] spi: dt-bindings: Relax node name suffixes again
 
-Best Regards,
-Amir
-
+Maybe that works too ?
