@@ -1,82 +1,114 @@
-Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF3D23E95AE;
-	Wed, 16 Sep 2026 05:31:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58ACB37FF50
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 05:40:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789536669; cv=none; b=N2MPGMa3RDK/Wl7MndtXq9D34G/59il6aiQXe8e/JCnJesxk1A8dOphX6py4AZGcUVxA48DW2O3iXJg8kzTdi2EabftIG6Kd4zIc4VjS0BUUEsgsdDpzPNbgM4af6Jl1cG18bsGRRDpAkS7USAuyCHUIXwXxa+NllGm4zVOCZVU=
+	t=1789537212; cv=none; b=qOfHCTsRVeYzK7XpLtzwoCRHz6ouY9j0ESn+6KUc7qke2Uj7ajMOZULUmXh9OCa3axplzKBkL3DpRBNHOKdmjpO660gWTpq2+nupS4lVuVlpQ4Z9GBadkpMVJq2pXx0Roj6oCdHKIIrxxXs/aT/rt4+b6Um5Z59mYIGn07NtlPw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789536669; c=relaxed/simple;
-	bh=w8T0hgmEG8Qfrn667ljaWu8sAzWzj8Ca/Lo8h8/IWDA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=cah8XKD68xsNwQ0AQ9RAjf6EhccRbt8368Hp/Mu2kwzEQlwuZd95v2AAJV0yl9+GKlt0FOLAYD9BxLzibWPeCldQQuo/tCHvWjpaRR9bDJfsIKxfSEHTBuwRb83708zr4BhgHBOFrpM8kM7i+Rmyh3Y1jzZ02cPws11GGmOfwDA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
-Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Wed, 16 Sep
- 2026 13:30:40 +0800
-Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
- Transport; Wed, 16 Sep 2026 13:30:40 +0800
-From: Ryan Chen <ryan_chen@aspeedtech.com>
-Date: Wed, 16 Sep 2026 13:30:46 +0800
-Subject: [PATCH v3 9/9] MAINTAINERS: Add a reviewer for the Aspeed EDAC
- driver
+	s=arc-20240116; t=1789537212; c=relaxed/simple;
+	bh=mx7mLPsaw7bF5okwV7PIc9RtwDm0H7dwTaaN3r7ig1Y=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=oAExWdgrCp0YoBwBqTcZlOkVscw2w0QV6Fwzt0RCoZfeGBebcRNKlASO+mpYDxP0eRcefBKIe0fiextIilnai9TzZmsKgnx2tOIMGS8MMWdUJ9Hpx4CdYSro4gLMn6VdNvGrTOj+gPPp/l82ISq+HV2YTnptE/i4XroGc8mMZzE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HacZH3z+; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HacZH3z+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AADE81F000FF;
+	Wed, 16 Sep 2026 05:40:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789537211;
+	bh=O3n8Q3qIZ0krQy6rBiVNkMh2kC/miN09qqD/ANWrs7o=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=HacZH3z+xAppQOYxWmYA4bwcaLb+ST1llGH65t+4GY2xA2dBy6fdm/GTcQtVqmkoI
+	 zQlvsNR4aXLrYZ2lDgueE042UyEf5ff6c72CMTI6bjn3zxo30lxX/nrmzGH27uPx/H
+	 m8iGtGCy/LeuRYo/h+sbFEkuGi3tOCSQhL9j/l+CXQL8j3VeeOv/LMjAFklwZQ+RhT
+	 h++xUFBE6W9TqnArqNrkjLf1AmzscDy8ERbBmlF0AJ0yReuT7bhm1FznyJALA5YaZV
+	 tAlnZS9tc3LG9Bb17AewsbJQJmELRYN3TT28gNlwDQTQS8E6RbYUuCcl/nUJ3SfCVa
+	 0QN9bDtxA2+Ng==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 6/9] EDAC/aspeed: Replace regmap with direct register
+ access
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ryan Chen" <ryan_chen@aspeedtech.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260916-edac-v3-6-23e9ed2fbdf9@aspeedtech.com>
+References: <20260916-edac-v3-0-23e9ed2fbdf9@aspeedtech.com>
+ <20260916-edac-v3-6-23e9ed2fbdf9@aspeedtech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 16 Sep 2026 05:40:10 +0000
+Message-Id: <20260916054010.AADE81F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260916-edac-v3-9-23e9ed2fbdf9@aspeedtech.com>
-References: <20260916-edac-v3-0-23e9ed2fbdf9@aspeedtech.com>
-In-Reply-To: <20260916-edac-v3-0-23e9ed2fbdf9@aspeedtech.com>
-To: Stefan Schaeckeler <sschaeck@cisco.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Borislav Petkov <bp@alien8.de>, Tony Luck <tony.luck@intel.com>
-CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
-	<linux-edac@vger.kernel.org>, Borislav Petkov <bp@suse.de>, Ryan Chen
-	<ryan_chen@aspeedtech.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789536639; l=629;
- i=ryan_chen@aspeedtech.com; s=20251126; h=from:subject:message-id;
- bh=w8T0hgmEG8Qfrn667ljaWu8sAzWzj8Ca/Lo8h8/IWDA=;
- b=ldCLmciBR1ODuMPQ0Ij0lrTVtU6qNgoqih4XP2N1MgHt2Z5RuqAs50ybQ1LoKs48sOV2BCf4c
- rYcw5j0WwE7D0tQx8p8goZeRFFmIv7IA4rX6nYccL7snKNwjjMAmZCI
-X-Developer-Key: i=ryan_chen@aspeedtech.com; a=ed25519;
- pk=Xe73xY6tcnkuRjjbVAB/oU30KdB3FvG4nuJuILj7ZVc=
 
-Add myself as a reviewer to be copied on changes to the driver.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] cleanup: mixing goto and scoped_guard() in aspeed_probe()
+--
 
-Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
+commit c14b25ad0230e696e88f285c08700b9c02f83c19
+Author: Ryan Chen <ryan_chen@aspeedtech.com>
 
----
-Changes in v3:
-- New patch.
----
- MAINTAINERS | 1 +
- 1 file changed, 1 insertion(+)
+EDAC/aspeed: Replace regmap with direct register access
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index d413dac5c8b3..5bd0109f0f1e 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -9284,6 +9284,7 @@ F:	drivers/edac/armada_xp_*
- 
- EDAC-AST2500
- M:	Stefan Schaeckeler <sschaeck@cisco.com>
-+R:	Ryan Chen <ryan_chen@aspeedtech.com>
- S:	Supported
- F:	Documentation/devicetree/bindings/edac/aspeed,ast2400-sdram-edac.yaml
- F:	drivers/edac/aspeed_edac.c
+This commit replaces the regmap-based MMIO access in the aspeed-edac driver
+with direct register access using readl()/writel(). It introduces an
+explicit raw spinlock and annotates the register base with __guarded_by()
+to allow compiler-based context analysis checks.
 
--- 
-2.34.1
+> diff --git a/drivers/edac/aspeed_edac.c b/drivers/edac/aspeed_edac.c
+> index 352910e1defc5..26d2c456cc0d6 100644
+> --- a/drivers/edac/aspeed_edac.c
+> +++ b/drivers/edac/aspeed_edac.c
+[ ... ]
+> @@ -274,13 +246,11 @@ static int aspeed_probe(struct platform_device *pde=
+v)
+>  	if (IS_ERR(regs))
+>  		return PTR_ERR(regs);
+> =20
+> -	aspeed_regmap =3D devm_regmap_init(dev, NULL, (__force void *)regs,
+> -					 &aspeed_regmap_config);
+> -	if (IS_ERR(aspeed_regmap))
+> -		return PTR_ERR(aspeed_regmap);
+> +	scoped_guard(raw_spinlock_irqsave, &aspeed_lock)
+> +		aspeed_regs =3D regs;
 
+[Severity: Low]
+Does this mix scope-based cleanup helpers with goto-based error handling in
+the same function? The subsystem cleanup guidelines explicitly forbid mixing
+goto-based error handling with scope-based cleanup helpers (like
+scoped_guard) to prevent ownership confusion and leaks.
+
+Looking further down in aspeed_probe(), the function still relies on goto
+for error cleanup:
+
+> -	/* bail out if ECC mode is not configured */
+> -	regmap_read(aspeed_regmap, ASPEED_MCR_CONF, &reg04);
+> +	reg04 =3D readl(regs + ASPEED_MCR_CONF);
+[ ... ]
+>  	/* register interrupt handler and enable interrupts */
+>  	rc =3D config_irq(mci, pdev);
+>  	if (rc) {
+>  		dev_err(&pdev->dev, "failed setting up irq\n");
+>  		goto probe_exit01;
+>  	}
+> =20
+>  	return 0;
+> =20
+>  probe_exit01:
+>  	edac_mc_del_mc(&pdev->dev);
+>  probe_exit02:
+>  	edac_mc_free(mci);
+>  	return rc;
+>  }
+
+Should this function either be completely converted to scope-based cleanup,
+or stick entirely to goto-based cleanup to avoid this pattern violation?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916-edac-v3-0-=
+23e9ed2fbdf9@aspeedtech.com?part=3D6
