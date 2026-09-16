@@ -1,87 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D36A48FF72
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 17:21:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA20D4D37C2;
+	Wed, 16 Sep 2026 17:27:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789579304; cv=none; b=jyje8a5uUqm5rL4pJPTJdIzh/l/Q1qMFG7c/LNRaBHOdHzr2nibWEq+sCGkBQPf1tOASp6AJOaWlECHtH7cKg9seEKkisj4ffylhJVyrLztOQwj+r+6xpYm1bDDKPAy56bCXW6oEIQbGLCBdG3k8Ot6G+o2ZuUF1RoZ6Kbfph+M=
+	t=1789579662; cv=none; b=deHcduhgdjTnI1P0q7IZJolMLp7pwvwrmg8y63Fqx106mTNsGWfWe9iEVU2sMwPAaocJsrctxq3BKeXJmWU+Yb3Nlp8Yj96PJveshx+HnnFERNgpCUzNVss4CSrtz8epW16ZwHP8nG7rVj+M7T32RH5QI6BPpbiMXouWWW4Av4c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789579304; c=relaxed/simple;
-	bh=+Wm8XztWe9cjSuQsXSOKuMkDzkD1yzW07KRTOyVgie0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AFuvu5/tmwJKBNM+z4mpL/h45P7TRhkEpeE0B7LSEmryPBq/nRsoJi+cKZRc7tK1Nm/4cXwcN6XO0/Suk13ipRH1+6LrmArhyYpScnA25V2116DD4wNn81QGZBaV05GwNtBYH5ribp98TWbKbZ8mt8CSNEYmf0LgjqFlJDehgnA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OtqPa6xW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789579662; c=relaxed/simple;
+	bh=BxO6rgLM9SfX8tEbiU9nwYK0vqz+F0hGK0aWbt8kezo=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=so3UBGt94ZfeUSGN5jM/KrJdpqcwFHY8Bd5KPivcNk4mwIDmjHyaDAYSsix7tHp7eg7f2IcCelHp7fErvS7QUKp/iL0LAlqannNss1Ks4954uHtZELOla6eArcT3s01yQd3e/BcLk+xpvmx9wD7Crchc3eHlGMIsTKBzYvQjeH4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=mSuvysOB; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OtqPa6xW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECFB61F008BD
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 17:21:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789579302;
-	bh=F1UErD4H6r6whOgpoMHeGy/yiV6kGc+XBk8QJER2Od8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=OtqPa6xWTvZHahphsBKsXSM0vVDuwyyQDfeMMeeEdCwWUcXyf9dlKeNLwgs5z44tQ
-	 WrEw0/lFS1kR81AfTFFl8gO2WD8ymB6OULjtt3mMaSrQZ/BLplGiHqg2ZX64o9jZyv
-	 lRQjurrPvX6EHDlo/M7bJ3vybpD2OkTMf18ZzfkBroMKIYFxdFYoOBO4SqZXkxmA+m
-	 5H66Szm6FTlqa6jX0VplbsuV5ZZ89DhiviBw+u3aGEgpG3N7+v+oORv1usu/Fl+caa
-	 0oDpvEUV/RUY8fvpDeaGcVR6CILUMSDmpvRRSbahMAfV/wEskXbF0UkH8q4fFAn5zH
-	 6D4yaBy6bTqaQ==
-Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5b5f21afe8cso2387075e87.1
-        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 10:21:41 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxqAW7NZ3tyJoljkVqzTrcqOe9bSL/DkvQCAuhB+mY8xovFkpEXmomLxN1Xn8eJtdd7DUpJnpT2ZpJy@vger.kernel.org
-X-Gm-Message-State: AFuF++mu4D+JJM4jdIBid1XXx8g4qJbM7HFujrWu+xMPvndrMFhDipoU
-	MPCNGoga2fhOBz5ObKTbvwXWi+afdIdiS5LtzApv/saa3FMnfGkXalC5DHLN3zaFdlI4wZwDTRa
-	keV72uVYTEGY5ZcbuEQr7v+dOGfHHvFM=
-X-Received: by 2002:a05:6512:6883:10b0:5b6:172b:7ba1 with SMTP id
- 2adb3069b0e04-5b8ba5d1a82mr67749e87.9.1789579300578; Wed, 16 Sep 2026
- 10:21:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="mSuvysOB"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id E608E1A08EA;
+	Wed, 16 Sep 2026 17:27:35 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id AFDCD60337;
+	Wed, 16 Sep 2026 17:27:35 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0E4E811C7B00D;
+	Wed, 16 Sep 2026 19:27:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789579654; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=dCA8Ne2C7wLdhEcx1e006q+Jrs7Uu0Is5AQBioqBLFk=;
+	b=mSuvysOByqxjLwQqnHc7+WWWcyfDJDP7JEPeoSW7DjmMC2Jp/Oy/3LTLzTZtj80/zDxGB4
+	RrkHbDqBTDGdt2/hhm6H+I7/2NWWZOsVz0KyKfWeFI55w1rxhCIGBvoy/ghmZHnURbPzZb
+	2JqEixXywVAeVdVoBa/2CnuC1CZ6riAXv/Yh0gw+UKjzCNt5wHibTHPwlqB8IHDpDYR9Nc
+	QEfhIwFjU+jwOrUhrWTlvH2iDFr2v8mm2nN9qGALtLlzSdBakYhh2hab4yjqCtWol5CYDO
+	EsmAWYR8EL6/yp1EkbuQ1R34pYThZ9qSZaA41CDWrCztMfzdbymKfV/Lwa//OQ==
+Date: Wed, 16 Sep 2026 19:27:27 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: David Gibson <david@gibson.dropbear.id.au>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
+ Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
+ <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH v3 13/15] tests: Add wip_func utility
+Message-ID: <20260916192727.28850127@bootlin.com>
+In-Reply-To: <aqpoxzD14OQazE1y@gractus.seuss>
+References: <20260826083146.304291-1-herve.codina@bootlin.com>
+ <20260826083146.304291-14-herve.codina@bootlin.com>
+ <aqpoxzD14OQazE1y@gractus.seuss>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260913123223.99893-2-krzysztof.kozlowski@oss.qualcomm.com>
-In-Reply-To: <20260913123223.99893-2-krzysztof.kozlowski@oss.qualcomm.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 16 Sep 2026 19:21:28 +0200
-X-Gmail-Original-Message-ID: <CAD++jLm2hQ=fHmLGL4KnaK-q2L95tz3P6__qx=dFCUeiMUz9tA@mail.gmail.com>
-X-Gm-Features: AcwNN1WeMHFPjUODWxifW5uhfKTviiZfd6OYXXOq_JHN6cgG4pckjp0gwgbXDp4
-Message-ID: <CAD++jLm2hQ=fHmLGL4KnaK-q2L95tz3P6__qx=dFCUeiMUz9tA@mail.gmail.com>
-Subject: Re: [PATCH] dt-bindings: pinctrl: Use consistent indentation in the example
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Dong Aisheng <aisheng.dong@nxp.com>, 
-	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, NXP S32 Linux Team <s32@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Sean Wang <sean.wang@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Michal Simek <michal.simek@amd.com>, Gary Yang <gary.yang@cixtech.com>, 
-	Fugang Duan <fugang.duan@cixtech.com>, 
-	CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>, 
-	Del Regno <angelogioacchino.delregno@somainline.org>, 
-	Rahul Tanwar <rahul.tanwar@linux.intel.com>, Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>, 
-	Jingyi Wang <jingyi.wang@oss.qualcomm.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Krishna Potthuri <sai.krishna.potthuri@amd.com>, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
-	linux-arm-msm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Sun, Sep 13, 2026 at 2:32=E2=80=AFPM Krzysztof Kozlowski
-<krzysztof.kozlowski@oss.qualcomm.com> wrote:
+Hi David,
 
-> Correct indentation in the examples to consistent 2- or 4-spaces
-> indentation to fix dt-check-style warnings ("example 0
-> [indent-consistent] indent mismatch ...").  Preferred is 4-spaces, but
-> re-indenting entire example just for that is too much churn.
->
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+On Wed, 16 Sep 2026 20:00:40 +1000
+David Gibson <david@gibson.dropbear.id.au> wrote:
 
-Patch applied!
+> On Wed, Aug 26, 2026 at 10:31:44AM +0200, Herve Codina wrote:
+> > wip_func is a test utility allowing to wrap the write inplace functions.
+> > 
+> > It allows to create tests with custom wip write sequence.
+> > 
+> > Also the modified dtb is saved allowing to perform later checks on this
+> > modified dtb.  
+> 
+> It's not clear to me what this is useful for that's not already
+> covered by the existing write-in-place tests (nop_node.c,
+> nop_property.c and setprop_inplace.c).
+> 
 
-Yours,
-Linus Walleij
+Used in tests to check dtb updates when "unknown" tags are involved.
+See '[PATCH v3 14/15] libfdt: Handle unknown tags on dtb modifications' [0]
+or full source at [1].
+
+Depending on modification performed, "unknown" tags must be removed or not
+and the version must be downgrade or not. The test checked for rules defined
+for modification when "unknown" tags are involved (see patch 14/15 commit log)
+
+I don't think that this could be covered in a simple way by existing
+write-in-place tests.
+
+[0] https://lore.kernel.org/devicetree-compiler/20260826083146.304291-15-herve.codina@bootlin.com/
+[1] https://github.com/bootlin/dtc/blob/2653bb9cd4414780c863051467b5e77eea6e5bdd/tests/run_tests.sh#L590
+
+Best regards,
+Hervé
+
