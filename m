@@ -1,122 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 029034D90BA;
-	Wed, 16 Sep 2026 10:17:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2D23485CDA;
+	Wed, 16 Sep 2026 10:20:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789553899; cv=none; b=kdIHw2WbVW9Hpd9gbldTu/II8Oo1zHO40YkH4f7ECmVCNnkFlPwSPkW2gt+5W/PeM+7gzGmX9TbzpY8e3oNzj1jaNrZ5u1FkFyN25Dc32h+77Bceu5xKF6borYe94nszhOBaoFwPYnfrKqhSMQf7vsBXwejNRE1+0984FUY1eNU=
+	t=1789554055; cv=none; b=T/JJqXd14SLHEK9/bvXvjaIeG/NYAdQIEyx7+wuHmPQSSJIq1sUQxMNO+toxnzivOAqDoE7rVjMRbPIK++OcSkoNwM4RoMh6obTe/2icRb+UZVcUbsBNsPAa90hR9t+INtHKR3aZDreuYL0XiNYNMg1QG5Rl3On1iTChQZAMLmA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789553899; c=relaxed/simple;
-	bh=ax4uj8UOnsE1cPq9+/eLDV7vJJ43389NSS08E8JQBEU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FH8XCdgqNXBU0Mg4uQ947I3m6bItbPgxr9A/24+RZ32kFozu8aHHh6ZP0ob55tBYHkzN436y400h+6ZclE1GtPdjjEDmYP1+3Z8cW94kSDm3QcUvBdDhPhejLr+DO9gYt0oHAN2rCXimehRymSSNCJpkHhSBs3IDVwISULlxjIk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cA5yYEp/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789554055; c=relaxed/simple;
+	bh=TdIp7DG+ACmACB9vqF8clHvKQaY4dkde44IUUgk6af0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=d05434gq9uFKHHzfajEU0h5uwFY5gETFZWFXgiu//K2SLIHoxj1vP8+2ZOfqqTdtj7mNV6Pigk2OBFTcDx9faSP8jXOLufVR3F8LO4kPMN7Ck2paCkzIA43wpybA/tw1f19OgAQAinaBrb6k6yzemCrnirg2y34tn6A+ezw5zOM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=o1yobHcj; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cA5yYEp/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 597701F000FF;
-	Wed, 16 Sep 2026 10:17:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789553871;
-	bh=5i5/WSGaiuKb/NU8/OeaPlDjyoesVU6VooXiy/WhqKQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=cA5yYEp/M7JVrnTtNzahnacOweK/ETWPw8SkFokwivHOAKlisRce1Qqq1upr/YjMx
-	 51zyjk5+M8OPD7URLKaqQorvhkPKgPJIU5lJ0tUJLm5ZbnN01V+vkxXtp+oe5DVLOm
-	 AGdOzymgvmXG2+DSXpvbfVDdgv3d3G7i2sqPXrzxEXHNoT54A31BycYbCEffLGMhJ+
-	 H0uQAubu2LhQReXMBLAUxNZd0KVDYLrILBoCHzM4+SSpU+efof/eo9PxOKtHJp2Sio
-	 NB4W1Iov7OPBlylFAcgV6VQrPRF4Lb3ovB9DsAlRH5J1t2NRZ3QjvlyP8v2rpWxdkD
-	 AvAKu23ld8QXA==
-Message-ID: <78a7700d-32f7-4592-8a50-c90175338972@kernel.org>
-Date: Wed, 16 Sep 2026 12:17:42 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="o1yobHcj"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68G93AgZ2823494;
+	Wed, 16 Sep 2026 10:20:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=VhbHHMWfVen
+	Ewg6cXydhdCoNazkq8JLNGuh1Z57Fzlc=; b=o1yobHcjctt3HAnb7HZ+Evu9uC7
+	+yiXFXzoX86UWJr2cVdOiWoK/fv8xr2IZmTB23kO+A3A5AQn4/wX+SsL0GnMWYSA
+	dX1qRiVSril9PfV1Dg4mvs3EvjU5MdssrHA9OwepHINg4ibxC80uKZR4Lh6chHJC
+	WGco6LgpbULWIL4DFIO1D84sLrSgQfZoPcgDhLDqD2Etgtw480T1Z/74MX1jSIHT
+	p4pYvBR8oGkIpuhS+f4dJw5kgZzxob87KSPRljzpLAd6u5n5nLMA+uu9uWOu5FNV
+	qQ3U1UWcRB6i+2jq8X6c7PTbgqxrqMHzC7SbYSbAKlrzQ093QsHrwXqEVxA==
+Received: from aptaippmta01.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com [103.229.16.4])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqfvfja3v-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 16 Sep 2026 10:20:31 +0000 (GMT)
+Received: from pps.filterd (aptaippmta01.qualcomm.com [127.0.0.1])
+	by APTAIPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 68GAKTvZ1172517;
+	Wed, 16 Sep 2026 10:20:29 GMT
+Received: from cse-cd02-lnx.qualcomm.com (smtphost-taiwan.qualcomm.com [10.249.136.33])
+	by APTAIPPMTA01.qualcomm.com (PPS) with ESMTPS id 68GAKSma1172494
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 16 Sep 2026 10:20:28 +0000 (GMT)
+Received: by cse-cd02-lnx.qualcomm.com (Postfix, from userid 4438065)
+	id 661A4492EE; Wed, 16 Sep 2026 18:20:27 +0800 (CST)
+From: Ziyue Zhang <ziyue.zhang@oss.qualcomm.com>
+To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        peter.chen@oss.qualcomm.com, qiang.yu@oss.qualcomm.com,
+        linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Ziyue Zhang <ziyue.zhang@oss.qualcomm.com>
+Subject: [PATCH v2 4/4] arm64: dts: qcom: sa8775p: Add qref and refgen supply for PCIe PHYs
+Date: Wed, 16 Sep 2026 18:20:23 +0800
+Message-ID: <20260916102023.2054761-5-ziyue.zhang@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260916102023.2054761-1-ziyue.zhang@oss.qualcomm.com>
+References: <20260916102023.2054761-1-ziyue.zhang@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v17 0/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Vinod Koul
- <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Suresh Vankadara <svankada@qti.qualcomm.com>,
- Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260903-x1e-csi2-phy-v17-0-26606fa9a039@linaro.org>
- <3a2f535c-7ccb-4b50-a6fc-f73ec02d4acf@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <3a2f535c-7ccb-4b50-a6fc-f73ec02d4acf@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Authority-Analysis: v=2.4 cv=JYkpPkKV c=1 sm=1 tr=0 ts=6aaa6d6f cx=c_pps
+ a=nuhDOHQX5FNHPW3J6Bj6AA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8 a=EM5WzatUieOqsTOJ-ZQA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDEzNSBTYWx0ZWRfX5IrHIktFaUUN
+ 6DUmoU3v+5SLQXwU4mZR0Bab9zLKUrlHksfjF86uOfe2YIRlRTxvGmkyL1/YloBqsSm6seHI46X
+ ArJLM0F3RlyzUJvMbgXxaBLSpSmm0HVikc8hQucRF2+RyVgtuYIl/t0ayx5B+1Pbm7O3SXY3Qy2
+ DZ5Om7ISFlUvScmWJUBagpOvFz2hQRw6ag6KGDefGiPha7e6kXzr/aMaY7Qf7725oSYhZZxIfaL
+ V6FwMf9+9gzUFjpPlq31bVMz7bqdbEZ3BOPYOtE9DnOvyR75NvY/YqF9m4/6hhK2OAr0tUVGNDt
+ jjAy63pHf//FZNXLiVaZuMgjYGiodj30/3y6Z714Cw1bvNzbc2fl4b+2kJJ81nr30hecb0dpevr
+ 7dhrUhMNxa/U9WXPhygTZ32oAnKXPkwPduq9gsIXVlYG9QFBElRAuWEwFfgeNMj/eOPaxgOVRhu
+ uzU/uWf5pv8QTuUCXIw==
+X-Proofpoint-GUID: gMZ5NNgNnqPCj-xhjPGzbEy6aRl7Xpeb
+X-Proofpoint-ORIG-GUID: gMZ5NNgNnqPCj-xhjPGzbEy6aRl7Xpeb
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDEzNSBTYWx0ZWRfXyLw9IhvaeUIu
+ Cu3zcBPPBhoGj1fy23uBcOySyNr5fKVrdJPwfPtMV+aXAi+3EAaBxRiCKtIsHrxonQ5rxLI7nqT
+ dJCWQiwTDucGaAzeUWNhUx4dfwe/aWo=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 phishscore=0 impostorscore=0 priorityscore=1501
+ spamscore=0 malwarescore=0 adultscore=0 clxscore=1015 bulkscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609160135
 
-On 06/09/2026 17:51, Nihal Kumar Gupta wrote:
-> 
-> 
-> On 04-09-2026 02:14, Bryan O'Donoghue wrote:
->> I've retained the callback indirections give us scope to add in another type of
->> future PHY including potentially adding in the 2PH later on.
->>
->> This driver is tested and working on x1e/Hamoa and has been tested as not
->> breaking sc8280xp/Makena and sm8250/Kona.
->>
->> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> 
-> For the series:
-> Tested-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com> # Glymur CRD
+The QMP PCIe PHYs on SA8775p require dedicated qref and refgen voltage
+supplies for stable operation. Without these supplies, the system may
+occasionally crash.
 
-You cannot test a binding, so why replying to cover letter which will
-make this tag 50% applied wrong...
+Add vdda-qref-supply and vdda-refgen-supply in the board files
+(Lemans-EVK and Lemans-RIDE).
 
-Best regards,
-Krzysztof
+Fixes: 94d7d37f6ac3 ("arm64: dts: qcom: lemans-evk: Enable PCIe support")
+Fixes: 76326da895b8 ("arm64: dts: qcom: lemans: Refactor ride/ride-r3 boards based on daughter cards")
+Signed-off-by: Ziyue Zhang <ziyue.zhang@oss.qualcomm.com>
+---
+ arch/arm64/boot/dts/qcom/lemans-evk.dts          | 4 ++++
+ arch/arm64/boot/dts/qcom/lemans-ride-common.dtsi | 4 ++++
+ 2 files changed, 8 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/lemans-evk.dts b/arch/arm64/boot/dts/qcom/lemans-evk.dts
+index a45485b54a5b..11fb11b161fc 100644
+--- a/arch/arm64/boot/dts/qcom/lemans-evk.dts
++++ b/arch/arm64/boot/dts/qcom/lemans-evk.dts
+@@ -851,6 +851,8 @@ &pcie0 {
+ &pcie0_phy {
+ 	vdda-phy-supply = <&vreg_l5a>;
+ 	vdda-pll-supply = <&vreg_l1c>;
++	vdda-qref-supply = <&vreg_l4a>;
++	vdda-refgen-supply = <&vreg_l7a>;
+ 
+ 	status = "okay";
+ };
+@@ -868,6 +870,8 @@ &pcie1 {
+ &pcie1_phy {
+ 	vdda-phy-supply = <&vreg_l5a>;
+ 	vdda-pll-supply = <&vreg_l1c>;
++	vdda-qref-supply = <&vreg_l4a>;
++	vdda-refgen-supply = <&vreg_l7a>;
+ 
+ 	status = "okay";
+ };
+diff --git a/arch/arm64/boot/dts/qcom/lemans-ride-common.dtsi b/arch/arm64/boot/dts/qcom/lemans-ride-common.dtsi
+index 144f117ba511..c312fbd6ac48 100644
+--- a/arch/arm64/boot/dts/qcom/lemans-ride-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/lemans-ride-common.dtsi
+@@ -983,6 +983,8 @@ &pcie1 {
+ &pcie0_phy {
+ 	vdda-phy-supply = <&vreg_l5a>;
+ 	vdda-pll-supply = <&vreg_l1c>;
++	vdda-qref-supply = <&vreg_l4a>;
++	vdda-refgen-supply = <&vreg_l7a>;
+ 
+ 	status = "okay";
+ };
+@@ -990,6 +992,8 @@ &pcie0_phy {
+ &pcie1_phy {
+ 	vdda-phy-supply = <&vreg_l5a>;
+ 	vdda-pll-supply = <&vreg_l1c>;
++	vdda-qref-supply = <&vreg_l4a>;
++	vdda-refgen-supply = <&vreg_l7a>;
+ 
+ 	status = "okay";
+ };
+-- 
+2.43.0
+
