@@ -1,129 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 344FA43E06C
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 09:19:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E002A4A64C0;
+	Wed, 16 Sep 2026 09:22:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789550377; cv=none; b=NVVTjU831/qQQApVqmo4+AUl/Y5RsRYB/53k5iIzoZC/p1qh8J7WRnzV1Hd+utuZllFlKsTuOhgG0U3Y+nO9qGaL3zV3Pes2MrB6BuievuN4AY9McrLkKMEj9N4xkaMumohZxUr40LwQuzZ5q1K+vbbBcSOW5xrffTWZXVZJwFo=
+	t=1789550581; cv=none; b=ULNWX1ejrVZurC6dx0wulAhdBQtCGqbcbAyV+teBXvpPoG4iXAiZm68Wwcdkpk9FBTcJ6ZxGeXIiHnkH3mxIPjyLR60VUh2e38oOjMSRsjBZWuX9a7H+vZGKnXNUGTfW+f4SAWni2m1FQGD/gsIZdvgSRWVBvQuGlsud1x+hGuw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789550377; c=relaxed/simple;
-	bh=HYkFTKOIcZPWcbO0heFyZ+Lm2uiZoFQKgWDsWbHOrt4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=l+ghBu6lxn5ab4b3hYIr/jxDHm1y/Dl67rKvED+unqTlN2aeBk21WVqY58bljTHoZ2xYNmzquELgOI0+TjYpsRNwhTpmMtPBnoT4GgPtSt76BlBrC+c5FZ4mvn1cabhhjUQ4GTBIYT971t5V3MLwnAl+/dcvGN+Cq7vPWwoeEdk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ouK+ERI/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789550581; c=relaxed/simple;
+	bh=x0Bv120PBMqdBL0qiaWthAuVHa6Rz3oJcR+zaqc56rk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UCN86Na8uBoz4OoncxvNGkcz0Ttco2Ybejq49YUIN/V+atMbsEBHfRfgbhaFJzYZaD7xli8USlYTZMyJjLg3fQiq9ElqhKUym02Dxq4nNcyGLaOz6tVK7gUVdTwmhaxAAUoYd+lvPfIxjnEf89fM+7h53uR5biVzXzLQlWjp81Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=T0JrFGj1; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ouK+ERI/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F51F1F0089A;
-	Wed, 16 Sep 2026 09:19:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789550353;
-	bh=BsflloKWgZEFQ5w7+3//h8rzUc99xXWrXVS4DiGojR0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ouK+ERI//4e0tT3/xMDy90m7nTvyLiftUVpa+iOo/o7cH1OCWFi8HAlMH28Ks5qda
-	 sUznNaAlwrBh7H/e3PcwkqaD+QoVIW6/mxRJs5pQAxXc7bz+9h7ortYcZ0FYN4s3ZO
-	 OhC+84V0MxG8tCtXCSvq0usBAcZoitg2O1Q6nLkvsa6M4N4ANoe8mUUkc1PCi2WdOY
-	 2eU8b3X3D0hTbEq4WI3YQ+RHcInEhqCHeh6eGkoXcFde2a9A6kVsJeZnwxYJxlQP/n
-	 V97W8aqy7lxgE+8XVoIcOTMlZ7iSPGGPd2O4NoTCt1YGbNZ8knaxpl6z0RjYF3HOTy
-	 mR7QZRqETeRWg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/4] arm64: dts: qcom: shikra-cqm-evk: Enable display
- and add ili7807s panel
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Nabige Aala" <nabige.aala@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260916-shikra-dt-changes-v4-3-d5d5c3ffe070@oss.qualcomm.com>
-References: <20260916-shikra-dt-changes-v4-0-d5d5c3ffe070@oss.qualcomm.com>
- <20260916-shikra-dt-changes-v4-3-d5d5c3ffe070@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 16 Sep 2026 09:19:13 +0000
-Message-Id: <20260916091913.8F51F1F0089A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="T0JrFGj1"
+Received: from francesco-nb (xcpe-178-82-167-143.dyn.res.sunrise.net [178.82.167.143])
+	by mail11.truemail.it (Postfix) with ESMTPA id 1CB4A22819;
+	Wed, 16 Sep 2026 11:22:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1789550564;
+	bh=BTV5XMyrmHp39LHImMD7jLIBjdgbYzzgBsLUqmjYR3M=; h=From:To:Subject;
+	b=T0JrFGj1/D4bssAaOGqKlJb+MlfTwpU+rmpdeUZaoGgTMQlHtWmIBgKSv6CPgR5pu
+	 CJOcJwIxs9Br5Grbb0Jgo4NsmF8jhNEmC+f3g3WM0fCsiPfH+ObpmpO8wCM4uT1qew
+	 V1rIi407+uL42ECJgC6e5fSOOvfWK4tWxnJJiYriUEeSeQzyrD87kt82LOEx7744rw
+	 JM+KJGHb+fy+2MoqMyzrWct/oZ5HhIfbMh8LNsQS3crESWCXOrgJ1R9ck25n6cXvzg
+	 8VoH2BINXGyYMm0ZbsyNxb306RT3moHfBVGG+6IR+YXarl6NmMqkuF/5DKVMnyqT92
+	 0W8BP2CYLyb/w==
+Date: Wed, 16 Sep 2026 11:22:42 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Francesco Dolcini <francesco@dolcini.it>, Marek Vasut <marex@denx.de>,
+	Stefan Agner <stefan@agner.ch>, David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v4 3/4] ARM: dts: imx6ull-colibri: Set LCDIF bus-width
+Message-ID: <20260916092242.GB277833@francesco-nb>
+References: <20260813092836.38367-1-francesco@dolcini.it>
+ <20260813092836.38367-4-francesco@dolcini.it>
+ <178954813309.214898.9623998050171113140.b4-review@b4>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <178954813309.214898.9623998050171113140.b4-review@b4>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] dts: backlight enable GPIO permanently asserted via pinctrl
---
+Hi Luca,
+thanks for the review.
 
-commit 00c4e0f47a97a648f49ab088ecacedb0603403a5
-Author: Arpit Saini <arpit.saini@oss.qualcomm.com>
+On Wed, Sep 16, 2026 at 10:42:13AM +0200, Luca Ceresoli wrote:
+> > The lcd DPI interface on colibri imx6ull uses a 18-bit width bus, set
+> > the bus-width property accordingly.
+> >
+> > Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+> >
+> > diff --git a/arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi b/arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi
+> > index ec3c1e7301f4..1eb1cf2d7395 100644
+> > --- a/arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi
+> > +++ b/arch/arm/boot/dts/nxp/imx/imx6ull-colibri.dtsi
+> > @@ -229,6 +229,7 @@ &lcdif {
+> >
+> >  	port {
+> >  		lcdif_out: endpoint {
+> > +			bus-width = <18>;
+> 
+> I don't know the hardware in detail, but the datasheet [0] mentions 16, 18
+> and 24 bits, and says "Up to 24-bit color (18-bit recommended)". More
+> details in ection 5.6.1.
+> 
+> This patch would force 18 bits, but "recommended" suggests 24 bits makes
+> sense in some cases, no?
+> 
+> Can you elaborate on this?
 
-arm64: dts: qcom: shikra-cqm-evk: Enable display and add ili7807s panel
+The colibri family standard defines only 18-bit for the parallel RGB
+interface on the edge connector, the additional 6-bit are mapped on
+different pins that are not on fixed position, depend on the actual SoM
+and can also be not present at all. The standard/generic colibri family
+carrier boards can only rely on the 18-bits being available therefore.
 
-This commit enables the Shikra MDSS display subsystem on the Qualcomm Shikra
-CQM EVK board and adds the DLC0697 MIPI DSI display panel node. It also
-pins pm4125_l5 to 1.232V for DSI PHY PLL stability.
+24-bit is possible and makes sense only on a specific combo
+carrier+module, and not as a generic SoM feature. Assuming you would
+have such combo you should just override the property on the carrier
+board dts file deviating from the standard colibri family.
 
-> diff --git a/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts b/arch/arm64/boo=
-t/dts/qcom/shikra-cqm-evk.dts
-> index b112b21b1d79b..d9a0f32ce8d3b 100644
-> --- a/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
-> +++ b/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
-[ ... ]
-> +&mdss_dsi0 {
-> +	vdda-supply =3D <&pm4125_l5>;
-> +
-> +	status =3D "okay";
-> +
-> +	panel@0 {
-> +		compatible =3D "dlc,dlc0697", "ilitek,ili7807s";
-> +		reg =3D <0>;
-> +
-> +		reset-gpios =3D <&tlmm 3 GPIO_ACTIVE_LOW>;
-> +
-> +		vddi-supply =3D <&pm4125_l15>;
-> +		avdd-supply =3D <&vreg_disp_p>;
-> +		avee-supply =3D <&vreg_disp_n>;
-> +
-> +		pinctrl-0 =3D <&panel_rst_n &panel_te_pin &panel_bl_en>;
+let me know if you want such detailed explanation in the commit message
 
-[Severity: Medium]
-Does mapping panel_bl_en in the default pinctrl state bypass the display
-power management sequence?
+Francesco
 
-The device core automatically applies this default state before calling the
-panel's probe function. Since the panel driver (panel-ilitek-ili7807s) does
-not natively acquire this GPIO nor implement runtime power management (PM),
-the driver core will not switch to the sleep pinctrl state during DRM
-unprepare (blanking).
-
-> +		pinctrl-1 =3D <&panel_rst_n_suspend &panel_bl_en_suspend>;
-> +		pinctrl-names =3D "default", "sleep";
-> +
-> +		port {
-> +			panel_in: endpoint {
-> +				remote-endpoint =3D <&mdss_dsi0_out>;
-> +			};
-> +		};
-> +	};
-> +};
-[ ... ]
-> +&tlmm {
-[ ... ]
-> +	panel_bl_en: panel-bl-en-state {
-> +		pins =3D "gpio91";
-> +		function =3D "gpio";
-> +		drive-strength =3D <2>;
-> +		bias-disable;
-> +		output-high;
-> +	};
-
-[Severity: Medium]
-Will this output-high configuration cause the backlight to remain permanent=
-ly
-powered on while the system is awake?=20
-
-Because the panel driver does not toggle this via runtime PM, this could=20
-result in a glowing black screen when the display is conceptually blanked
-(DPMS off), wasting battery power. Could it also turn on the backlight too
-early during boot before the panel driver has cleared the screen, causing
-visual garbage?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916-shikra-dt-=
-changes-v4-0-d5d5c3ffe070@oss.qualcomm.com?part=3D3
