@@ -1,142 +1,176 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D05A486640;
-	Wed, 16 Sep 2026 09:00:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 328643B3888;
+	Wed, 16 Sep 2026 09:01:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789549227; cv=none; b=FBe0LIN0bWf0A53BfxRcS8+k9VtOlfGKxZji9+G/9UTLI0hcNIkhK53xkWsGp2H7aylHhQykj53hiHOVtXIMRwB9u6Pgjz8PUXQ1UFIk1nG5p0sTSROFsIOg0qLhjtD/u+K2CG/2jjnS78J8s7m9jUA03juQ0IH9CTiSuNoFFVA=
+	t=1789549274; cv=none; b=PeuKGbXN7CNUS6RdyDvOSBSGlKGJeg9chIZfyHj4Ks2S4NGsn8W6gYjegFBTidj8/q6hkMc4niOVo/u0GGtOxTlKldiW+JDq2DX0/CJjauhi7PdKuVV/EO7RWwjkzA7wTjLpOIrmT3ZWH5n+LRB37ghvPNUCJ29+BWaVAnb+qms=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789549227; c=relaxed/simple;
-	bh=7hjShUH8oG2qiOcGYyNttSxIxKlulyMkTIff6p+A8No=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Pm7nfTFgVN7Xw4ZsHP4VNls0P2mDxhDjw6SZEpXLfzb7NAfBCwMm0OZH9iSwORkJZY1FVEuj1G9bOecsRD2g8DfSG2WsW6fHKsAV/yDkfARxCOAa5Us7Ua7FfBM060gLgaVoQRh8jr71Ci7cPIBvYgwvOy6no3BTkJI+Ssea1MA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NAU/WoCy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789549274; c=relaxed/simple;
+	bh=49KaUqlPgdGt7QWuQOfO+uCer56makdcKG1KdFpKNzw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pmri0soc2oxPd4FK7q65D/lE0WEqQiKQ8N0jKOBaqnhRP7YCbTJSKQ84xOJLS+/hcL6DPhUgpsq1A78Kjso9sj9BLLHaopSUnSPJI8eX9zPWPsEUsOcvoGrikrJqKK33ebo8ncP6UyoE1wCFU3sUSDhACD5tay95cxhqyKS91do=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AumnpGha; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NAU/WoCy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C7111F00899;
-	Wed, 16 Sep 2026 09:00:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AumnpGha"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5292E1F0089A;
+	Wed, 16 Sep 2026 09:01:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789549211;
-	bh=Ng0BJe/IEPoeGD8s9AGF/YjESKtaslK1oYhKm/z5OrY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NAU/WoCy+PNyHbj+OQ3WPb8JznVEIh0ORecyxVEfiQE+KWyB7zI93UFwrzCAxZPvy
-	 QPzJ6I5qIGgC5OWw3sIspJ632/RpvUZjFj38CSwgHf3u7J7Yd4X+xp/SmClpbxavk7
-	 Kg121fNnqrjkDGtdhcsOrGlOhKXnTWjCemQM744xcmslmWQAyfdo643lBxqZOvufDa
-	 dLCqWHOYaw2ZFmPTxIBXUfcHJdl83r1nRlAgqvAYfP3tagvtelBLFYZAWdo1YLGwNb
-	 BdP3s6ZsX+hVeQ5wCybYdBdSGtOUTGRUIodhS6ST4qTdwC7qaEL6Ti8cpG/yjFGxWC
-	 g2khCgdEq4u3A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 07/10] scsi: ufs: Add NXP S32N79 UFS host controller
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Larisa Grigore" <larisa.grigore@oss.nxp.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org, linux-scsi@vger.kernel.org
-In-Reply-To: <20260916084411.941297-8-larisa.grigore@oss.nxp.com>
-References: <20260916084411.941297-1-larisa.grigore@oss.nxp.com>
- <20260916084411.941297-8-larisa.grigore@oss.nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 16 Sep 2026 09:00:09 +0000
-Message-Id: <20260916090010.6C7111F00899@smtp.kernel.org>
+	s=k20260515; t=1789549268;
+	bh=ndY4ZVKXn4jYxy2ap4ChhJIz6Pf0w0TMQtMwao0c/s4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AumnpGhaRDz4R/OANmzzZG+60wVb7KKHlLqeRbzur2rPpJXJ+bSfzUwzzC5ntEdX/
+	 k2O4TX/o4wTaK24YTKSYeDi6Z1xNup/y0HiQJJ2Kirvk2xH1IykfBjzRH7zSIZhCnx
+	 14SA24CeuBJNR7vqi3LN0PN7V6vbfiG4TeJclZxgNbq67C9nYZtqbsId6UYS/rI812
+	 vxYfu77u3+0mr3rF9Q+LebrLCvhnssBgk+1qvFZ432Xmwj5afxGwOgyvOEKV+f+jSJ
+	 haZpG5Fi0eQOBUyRRKs7NdnL98JJ+LP/kj+7kvjJ+sSbl9do4hVO0z4dIomZJ4r7AG
+	 v1guUypbrXsUQ==
+Date: Wed, 16 Sep 2026 11:01:03 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Zhentao Guo <zhentao.guo@amlogic.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+	Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, linux-arm-kernel@lists.infradead.org, 
+	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v9 3/6] media: dt-bindings: Add Amlogic V4L2 video decoder
+Message-ID: <20260916-fat-enthusiastic-termite-44b2e2@quoll>
+References: <20260914-b4-s4-vdec-upstream-v9-0-72fdb0d71b02@amlogic.com>
+ <20260914-b4-s4-vdec-upstream-v9-3-72fdb0d71b02@amlogic.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260914-b4-s4-vdec-upstream-v9-3-72fdb0d71b02@amlogic.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] pm: positive return in ufs_s32n7_link_startup_notify() causes uncl=
-ocked access
-- [Low] pm: missing pm_sleep_ptr() wrapper for .prepare and .complete callb=
-acks
---
+On Mon, Sep 14, 2026 at 04:10:20PM +0800, Zhentao Guo wrote:
+> Describe the initial support for the V4L2 stateless video decoder
+> driver used with the Amlogic S4 (S805X2) platform.
 
-commit 774c9ff68bb8216bae4f82205ba8ce70b0364e59
-Author: Larisa Grigore <larisa.grigore@oss.nxp.com>
+Drop driver. Describe the hardware instead.
 
-scsi: ufs: Add NXP S32N79 UFS host controller driver
-
-This commit adds support for the UFS host controller on the NXP S32N79 SoC,
-built on the Synopsys DesignWare (DWC) UFS architecture. It implements
-S32N79-specific initialization sequences before link startup and applies
-post-link calibration for HS operation.
-
-> diff --git a/drivers/ufs/host/ufs-nxp-s32n7.c b/drivers/ufs/host/ufs-nxp-=
-s32n7.c
+> 
+> Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
+> ---
+>  .../devicetree/bindings/media/amlogic,s4-vdec.yaml | 114 +++++++++++++++++++++
+>  1 file changed, 114 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
 > new file mode 100644
-> index 0000000000000..4f9a001562024
+> index 000000000000..d350b3e68a38
 > --- /dev/null
-> +++ b/drivers/ufs/host/ufs-nxp-s32n7.c
-
-[ ... ]
-
-> +static int ufs_s32n7_link_startup_notify(struct ufs_hba *hba,
-> +			     enum ufs_notify_change_status status)
-> +{
-> +	int err;
+> +++ b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
+> @@ -0,0 +1,114 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +# Copyright (C) 2025 Amlogic, Inc. All rights reserved
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/amlogic,s4-vdec.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +	if (status =3D=3D PRE_CHANGE) {
-> +		err =3D ufs_s32n7_link_startup_pre_change(hba);
-> +		if (err) {
-> +			dev_err(hba->dev, "MPHY setup failed (%d).\n", err);
-> +			return err;
-> +		}
-> +		return 0;
-> +	}
+> +title: Amlogic Video Decode Accelerator
 > +
-> +	/* POST_CHANGE */
-> +	err =3D ufshcd_dwc_link_is_up(hba);
-> +	if (err) {
-> +		dev_err(hba->dev, "Link is not up.\n");
-> +		return err;
-
-[Severity: High]
-Could this propagate a positive return value on failure?
-
-When ufshcd_dwc_link_is_up() fails, it returns 1. If this positive value is
-returned here, it will propagate up through ufshcd_link_startup() and
-ufshcd_resume() to ufshcd_runtime_resume().
-
-The PM core's rpm_resume() will treat the positive return value as a failur=
-e,
-marking the device as RPM_SUSPENDED, but will propagate the positive 1
-back to callers of pm_runtime_get_sync().
-
-Since callers typically check for failure using a ret < 0 condition, they
-will assume the device successfully resumed and proceed to access unclocked
-or powered-off hardware registers. This can cause a system crash or bus han=
-g.
-
-> +	}
+> +maintainers:
+> +  - Zhentao Guo <zhentao.guo@amlogic.com>
 > +
-> +	err =3D ufs_s32n7_link_startup_post_change(hba);
-
-[ ... ]
-
-> +static const struct dev_pm_ops ufs_s32n7_pm_ops =3D {
-> +	SYSTEM_SLEEP_PM_OPS(ufshcd_system_suspend, ufshcd_system_resume)
-> +	RUNTIME_PM_OPS(ufshcd_runtime_suspend, ufshcd_runtime_resume, NULL)
-> +	.prepare	=3D ufshcd_suspend_prepare,
-> +	.complete	=3D ufshcd_resume_complete,
-
-[Severity: Low]
-Should these sleep callbacks be wrapped with pm_sleep_ptr()?
-
-The power management subsystem guidelines require sleep callbacks like
-.prepare and .complete to be wrapped in pm_sleep_ptr() to prevent them
-from becoming dead code when CONFIG_PM_SLEEP is disabled.
-
-Assigning them unconditionally can cause minor memory bloat and potential
-compiler warnings due to unused symbols being retained.
-
-> +};
+> +description:
+> +  The Video Decoder Accelerator present on Amlogic SOCs.
+> +  It supports stateless h264 decoding.
 > +
-> +static struct platform_driver ufs_s32n7_driver =3D {
+> +properties:
+> +  compatible:
+> +    const: amlogic,s4-vdec
+> +
+> +  reg:
+> +    maxItems: 2
+> +
+> +  reg-names:
+> +    items:
+> +      - const: dos
+> +      - const: dmc
+> +
+> +  interrupts:
+> +    maxItems: 2
+> +
+> +  interrupt-names:
+> +    items:
+> +      - const: core_hvdec
+> +      - const: core_vdec
 
-[ ... ]
+Drop "core_" from both... or rather some consistency would be more
+useful. Below you call them core_v and core_h, but there is also:
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916084411.9412=
-97-1-larisa.grigore@oss.nxp.com?part=3D7
+> +
+> +  clocks:
+> +    items:
+> +      - description: Clock for dos core
+
+core dos?
+
+> +      - description: Clock for vdec core
+> +      - description: Clock for hvdec core
+> +
+> +  clock-names:
+> +    items:
+> +      - const: dos
+> +      - const: core_v
+
+hvdec?
+
+> +      - const: core_h
+
+vdec? to keep the naming and order of interrupts?
+
+> +
+> +  power-domains:
+> +    maxItems: 2
+> +
+> +  power-domain-names:
+> +    items:
+> +      - const: dos_v
+> +      - const: dos_h
+
+So there is also dos variant v and h?
+
+Pretty confusing.
+
+> +
+> +  resets:
+> +    maxItems: 1
+> +
+> +  amlogic,canvas:
+> +    description: Canvas maintains an index-to-physical-address
+> +     mapping table that allows the 16-bit AMRISC decoder core
+> +     to access 32-bit or 64-bit physical address.
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +
+> +  amlogic,secure-monitor:
+> +    description: Used to decrypt and load the signed decoder
+> +     firmware through ARM SMC (Secure Monitor Call).
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - reg-names
+> +  - interrupts
+> +  - clocks
+> +  - clock-names
+> +  - power-domains
+> +  - power-domain-names
+> +  - resets
+> +  - amlogic,canvas
+> +  - amlogic,secure-monitor
+> +
+> +additionalProperties: false
+
+Best regards,
+Krzysztof
+
