@@ -1,175 +1,322 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE1C04F30FA
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 13:38:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8D674A8FF7;
+	Wed, 16 Sep 2026 13:41:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789565918; cv=none; b=hxBONud3siKlvzK/CyOmNW8DDYOARh4BbFhYtMTeZmVReEVwWMc9685tx/aDn8pNCxVaUDsrHJ34+zEvoL7EIqNRY/VrnLkXQAqMvffUGCofQsJTe+KEZrnfCRT7gzR+4Trjqwp2RMab7xsDfm2cI+fRPHl6iskxcUZR1R1LBVg=
+	t=1789566096; cv=none; b=Nnyw//4BHSSrnAcQJXoh5UgDQMtZ0J1JUGpe79fSgLX7BFnxyUjwVBaRcXfp9eeMj8gszFhshghu8QG3xnf/Avhp/+OvtHz6nrRDExjKyi0MHY3LpeqhsPYEkt8GL9VNrUzScUudQ1OqN2ZVm92ZPqoZl/GTRdWx1RobrZHzbKI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789565918; c=relaxed/simple;
-	bh=gr8uD9XWy7EPGvPIwLrmL5ImB5sWtzac4sXA0IvvQd0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=S8ZtZ6P6eVaFwM8g9P67gSjivE+Vvp0n46ZdbYHAOE6vKzKBoPhuSylAOT2MPH8YfT/uoN0u8hBqyj2lFcY4tscS4XXK84vNmGIK+MaY4caDK6fKJT9hKV5QacrcAvCXO9FT6bdlzQ7e/o/7RUW/dnxYsLBqiEREI3G/JE03B7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=F8kSfjgk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TY6GmmXl; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789566096; c=relaxed/simple;
+	bh=Y23TEL4VWjKk050EFd+EMGfECRJpcBc/J1ICpp2a8AI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eHskPlc336nG6v6816cXD+9Kj4DwJHp4QbznZRM/0pAYytbzsV8sSh2orvRI7of9R6P6wYN85kMurXXNH4puz/zGgvO02ZPL52udAITQDa3WzC5lXhPmkPUESsN6bglSYHKrMEcg3fPA/5Qymt/eFfNjZ9sW1e3c98THusfFunU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LEPFaEgt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="F8kSfjgk";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TY6GmmXl"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GCYqh42947126
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 13:38:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=LlhMlNHGEpK0T30X/QJXpo30
-	EE7ZsUpq2JBHpDtamuk=; b=F8kSfjgkXsDY12jEah2EiaQ98LB4kaRz6Sw5gUOD
-	dS3eDgCRFh2ZAlTRJWcgy48XpX9PzIAhjSO7vthSxzPJPWWNFJpzhJp8tEPrxA4h
-	u873Ci8ACv7nlOsU/Dxof+ezLjEs6cWrJdbScBHKoIJkOJCit5ih2E1IKCc9RsrW
-	8tqiyc37ynjhH2V2nkDN0x8QKoLp16aB5CpbzEz3vMKQcbtKTOSim68smku3mpnf
-	Jr2fiDpHVMAZpKyHzvxkPJJzWnXzIRWTLBjtOnE1HQSOL0ConSZU6fnNXNekqQie
-	DQXtDrzY/AfZkQ3j7P/oIsPs9mGOpByYOlSBYjOiyMn6sw==
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqjcktm90-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 13:38:12 +0000 (GMT)
-Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-8076c66efc6so5767645a34.3
-        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 06:38:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789565892; x=1790170692; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=LlhMlNHGEpK0T30X/QJXpo30EE7ZsUpq2JBHpDtamuk=;
-        b=TY6GmmXl6/ib8uv3Ot3V+A7hpe1nV7WaAjtJh2DTJgi+RvnaWH0WhXbxGQs2/W25tl
-         JzL5jE66B1YNrLST1a6g6M7+xRV/1yeZlrRAViRCGHhqlFNsvy7kqRvcPvBNkb6o+BWi
-         3HFnmhYSDZuHra6x94y3aeuI9B7Xwq6SSeOXIR7ijIfJ6yKSEKTcgGvyFUG+w3Yp+i0L
-         ymn3xLJ74biNk9FMxfqL3BchmeYt88DEEtNospknxEGb2o/3H80/5Nqyb8OlivHhGT6e
-         aMn7GmH71Lp04Ya8zDGlEipejxR453DfOAR2COsqbEbNI6r6Yd+87NUzBnlULQs/yRnV
-         UAOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789565892; x=1790170692;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LlhMlNHGEpK0T30X/QJXpo30EE7ZsUpq2JBHpDtamuk=;
-        b=mrjn1M/OJQ7rTqvYtrGGgAcIkBRRgJLUO/bE04UHBbKU61RshAVWO64DS8AemrwUO2
-         50LDdszhE9bpgo0fFZ5m3eAJqJcMLG2NqL78BGSAIdJnbYoB/W1utEkeXfj7MirX909+
-         A3N1rvY7hwWplHEFmGS/8ltlvJMKPoK7B2+Mqw96WB+qN9hiSCYpSYGGg3H67RmUSIIf
-         DQo5rcklPwKIEopuk9doJY3Pj4VidCTqG47VPLbUX4IuWhm4eTi9vukPoi3Hc2fx9j62
-         i/53BpGBO6l+zlTImDGlHGPdpeSR3GZyvm8ZyQ7Z9ywIEmMFVU+3SkKIMVmLSS4++C4S
-         VGtA==
-X-Forwarded-Encrypted: i=1; AKwUvBxOFeuYEIC26gStlFCgM8+nhlnbItBiUCL4vQhkOFMSLQAIqTc79FrX8vlwzGYPleX9/QTLzY2hQpJ0@vger.kernel.org
-X-Gm-Message-State: AFuF++kbnEeN/QeBbpeaMazp3UzlCWN0DFOhmEu28eLjKx+8BQaH4HlU
-	qSN4p78WFF7GKolnNz3G4dtX8wrSzyisDT6/6PZr8tAn/3uMCjMs7PLWclBqrBNUlLvmFJsfHun
-	t7YO6cCsLikEY6tOvw0UHvh0jPVbFHP69rbme2FG+/PLXkFwBPKkDdc3GeEVN5zr9
-X-Gm-Gg: AYBFou0UQKB7YFqv2Anf/83KFV/gyfbqSb8ty30cVIPBXFE+AEZMJnyaGbhQVA7pson
-	FzghdUUoUg9uRZU+rExPFF/fdggG+gCPLLtvimAoii2muKKRevaBMYTV1B5Qc9ClYz8PNYs0mif
-	uznJTYFfZHm74Dgo3iDSTHRjkIm76CA0jz1EpT7Fd3375zH3Gt3e34ryu2u21yeoHgek+YBKRAy
-	RIXW6r1zU4HtgcsMadcKFiIKJCj6Ga7YYLrZNg475rvm3HoJQxfky9p0Z58uwEgLuOn3NDkoS4k
-	ZCVHV/lMRKH+eHMyfKN1Hi7PLJjiuhCj2DqVTcWvmWJJ6k35umhsHablwFMZIJnAv5IsmaU3H2U
-	xe5yyIcDblEWuhYr9BarNZ0bHnQPvr/pWakFWXi5MOA0=
-X-Received: by 2002:a05:6830:410c:b0:7f4:effa:a5ad with SMTP id 46e09a7af769-80b2ec5aac4mr4800112a34.10.1789565891925;
-        Wed, 16 Sep 2026 06:38:11 -0700 (PDT)
-X-Received: by 2002:a05:6830:410c:b0:7f4:effa:a5ad with SMTP id 46e09a7af769-80b2ec5aac4mr4800069a34.10.1789565891485;
-        Wed, 16 Sep 2026 06:38:11 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-80b07ad0302sm2541841a34.25.2026.09.16.06.38.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 06:38:11 -0700 (PDT)
-Date: Wed, 16 Sep 2026 21:38:04 +0800
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
-        Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
-        linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH v2 RESEND 2/2] usb: typec: Add onsemi FUSB15201 driver
-Message-ID: <aqqbvEH0U6LYR8UR@QCOM-aGQu4IUr3Y>
-References: <20260911073414.16711-1-shengchao.guo@oss.qualcomm.com>
- <20260911073414.16711-3-shengchao.guo@oss.qualcomm.com>
- <aqfyPQ8bxxvBEB_3@black.igk.intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LEPFaEgt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 532331F000FF;
+	Wed, 16 Sep 2026 13:41:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789566083;
+	bh=ty9HMdXm16jh0iP7vayc+uF466KQcdah8P1bvXP44aE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=LEPFaEgt6q0wI/3g+F7g5JB59ceU28bS71D9rlo/TgyOvOPdq6tngHXVAp5PIrjfo
+	 PZdeE+4F89B/p8qpwwn4iPGTVxh55iZkfso0rEPHVwYvghgRVy2rlDziRgzyjxEPRJ
+	 BAS09hfxkS8bUzwoyM+Oirvz7l5CuzA0mOhCpY6HIVUNNY4FUZIzCrBeCWgIlQJjYJ
+	 oUSh0WsEDReUhKFzZ1h7gCQVLpxWXu6K6M1nl5IcZJTWiV4p7NzjxjDPa4vYRhKDIF
+	 ARSyizhnC9X1BjGy4CE/XgbZgzNwXJCNNXBV04IT92kX1Bhi2klOUXrVeab/5vHKsH
+	 5w4MU3NXIiOLw==
+Message-ID: <a46e3ea2-8a21-4b9c-a112-99d249f46e99@kernel.org>
+Date: Wed, 16 Sep 2026 15:41:16 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqfyPQ8bxxvBEB_3@black.igk.intel.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDE4MiBTYWx0ZWRfX9nYDvMCvzky/
- aB4bnh6jiUzGvycfa0zce9iQMwU28qFvpJIkTAkm9udADJTl1mcWnRkpPfckiJyOAOJuTZlhOE7
- NTts3f8wMADpvgnIojaKdrrERYAj1EQ=
-X-Authority-Analysis: v=2.4 cv=PsIG/AM3 c=1 sm=1 tr=0 ts=6aaa9bc4 cx=c_pps
- a=OI0sxtj7PyCX9F1bxD/puw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=8alAasM9Vt_m-_31djgA:9 a=CjuIK1q_8ugA:10
- a=Z1Yy7GAxqfX1iEi80vsk:22
-X-Proofpoint-ORIG-GUID: Zb37BePkV6VycmXIiLA5qyzm6Yc91hPp
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDE4MiBTYWx0ZWRfX1k3AqlaXWUGC
- 8EUmrztc4zY17Lx7IfYoNCG6ofKNHHzLDVH+FQGLe960oS1m8FKRwL4f5m00SNASDl4s0vWCl5a
- qvnNN0R3fgX4RDxrXrYKssupWNZLRgzOuzgsxt/11xXFCgrBFyKhCxmC8bg/LWGCwAJh7VJV59N
- ZbDjFQ51OOqQK32yWTAu/h8N//WuLqTnGUY1xnw4PQJcE7PF7S2QKon1nWK6YqB08Khdk7er1kU
- aOZfTYj0vEOXTl8S40gI7KpvTnjfPTxpyu1YjxSu/rVnE7uOMOQv4DTOeCWdZbzwA5F57ryHiKN
- BElrPyy3IDf/EKZt66xVwcGXuDkY3jtySNqmBPZuNWmK7S7S23Wo3WIqShhVnGFQSiYOqyUoVA4
- 54LBsLhaGXCk44phmJGoEdtv1Zs69XGQ8oAjCHoOflN4JFrAGy1NqjmEBmJfaDdoeWM+CnIhDon
- WVF+RKJoOBLBVtUOw3A==
-X-Proofpoint-GUID: Zb37BePkV6VycmXIiLA5qyzm6Yc91hPp
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-16_02,2026-09-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 adultscore=0 priorityscore=1501
- phishscore=0 spamscore=0 clxscore=1015 suspectscore=0 bulkscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609160182
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] dt-bindings: media: i2c: Add
+ vision-components,mipi-module-controller
+To: Richard Leitner <richard.leitner@linux.dev>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Alexander Stein <alexander.stein@ew.tq-group.com>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org
+References: <20260915-vc-mipi-ctrl-v1-0-8a42b693d889@linux.dev>
+ <20260915-vc-mipi-ctrl-v1-2-8a42b693d889@linux.dev>
+ <20260916-daft-relaxed-mouse-9bfaf4@quoll> <aqpC8fxO4F3bFjF4@bombadil>
+ <45fd8255-6ba8-4488-acc8-4f7fc9c85ade@kernel.org> <aqpYqrtKTY20IW_0@bombadil>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <aqpYqrtKTY20IW_0@bombadil>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 14, 2026 at 03:10:21PM +0200, Heikki Krogerus wrote:
-> On Fri, Sep 11, 2026 at 03:34:14PM +0800, Shawn Guo wrote:
-> > The FUSB15201 is a dual-port USB Type-C and Power Delivery controller
-> > which runs the Type-C state machine and the PD policy engine on an
-> > integrated microcontroller. The host only observes the resulting state
-> > and may ask for role swaps, so this is a plain Type-C class driver
-> > rather than a TCPC driven by the Type-C Port Manager.
-> > 
-> > Register a Type-C port for each connector described in firmware, report
-> > attach and detach, orientation, power and data roles and the PD
-> > capability of the partner, and drive the USB role switch of the attached
-> > USB controller so that OTG role switching works. Data and power role
-> > swaps requested through sysfs are forwarded to the controller, which
-> > performs them asynchronously and reports the outcome as a port status
-> > interrupt.
-> > 
-> > The controller exposes a per-port VBUS ADC reading, but the Type-C class
-> > has no VBUS attribute and nothing needs the value, so it is not read.
-> > PD messages, PDOs and alternate modes are not exposed by the hardware at
-> > all. The chip-wide MASTER_RESET command would drop both ports at once
-> > and has no caller, so it is left alone as well.
-> > 
-> > Assisted-by: LLM
-> > Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> > Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+On 16/09/2026 11:01, Richard Leitner wrote:
+> On Wed, Sep 16, 2026 at 10:35:22AM +0200, Krzysztof Kozlowski wrote:
+>> On 16/09/2026 09:33, Richard Leitner wrote:
+>>> Hi Krzysztof,
+>>>
+>>> thanks for the review!
+>>>
+>>> On Wed, Sep 16, 2026 at 09:00:46AM +0200, Krzysztof Kozlowski wrote:
+>>>> On Tue, Sep 15, 2026 at 10:20:24PM +0200, Richard Leitner wrote:
+>>>>> Add bindings for the Vision Components MIPI Camera Module Controller.
+>>>>>
+>>>>> Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
+>>>>> ---
+>>>>>  .../vision-components,mipi-module-controller.yaml  | 92 ++++++++++++++++++++++
+>>>>>  MAINTAINERS                                        |  7 ++
+>>>>>  2 files changed, 99 insertions(+)
+>>>>
+>>>> This fails tests, so a very brief review / a few comments:
+>>>
+>>> Mea culpa, I simply failed to run the dtb check before submitting. Sorry.
+>>> Will not happen again.
+>>>
+>>>>
+>>>>>
+>>>>> diff --git a/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml b/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml
+>>>>> new file mode 100644
+>>>>> index 0000000000000..2a031aea68457
+>>>>> --- /dev/null
+>>>>> +++ b/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml
+>>>>> @@ -0,0 +1,92 @@
+>>>>> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+>>>>> +%YAML 1.2
+>>>>> +---
+>>>>> +$id: http://devicetree.org/schemas/media/i2c/vision-components,mipi-module-controller.yaml#
+>>>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>>>> +
+>>>>> +title: Vision Components MIPI Camera Module Controller
+>>>>> +
+>>>>> +maintainers:
+>>>>> +  - Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+>>>>> +  - Richard Leitner <richard.leitner@linux.dev>
+>>>>> +
+>>>>> +description: |-
+>>>>> +  The MIPI camera module controller is an FPGA-based, I2C-accessible system
+>>>>> +  controller found on MIPI camera modules from Vision Components. It abstracts
+>>>>> +  the camera sensor behind a unified register interface, and controls and
+>>>>> +  sequences the on-board power supplies and clocks.
+>>>>> +
+>>>>> +  The camera sensor abstraction is optional. The controller exposes a tunneled
+>>>>> +  downstream I2C bus used by the attached image sensor. The controller node
+>>>>> +  acts as the upstream device on the host bus, while child node below the
+>>>>> +  controller represent the sensor device reachable through the tunnel.
+>>>>> +
+>>>>> +properties:
+>>>>> +  compatible:
+>>>>> +    const: vision-components,mipi-module-controller
+>>>>
+>>>> There is no model name, no version, nothing identifying it better?
+>>>> Compatible must be specific to the device (see also writing bindings).
+>>>
+>>> There is one FPGA implemenation for all Vision Components MIPI camera
+>>> modules AFAICT. So I have no idea how it could be more specific, TBH...
+>>>
+>>> Adding the FPGA hardware model/type is wrong IMHO as it depends on its
+>>> configuration/firmware, not the hw.
+>>>
+>>> There are different versions of the configuration/firmware. But I think
+>>> this is also not the correct way to distinguish those, or is it?
+>>>
+>>> According to their homepage the vendor calls those modules simply
+>>> "VC MIPI" modules, which implies this FPGA controller is available on it.
+>>> So maybe "vision-components,vc-mipi-controller" would be a better fit?
+>>>
+>>> Do you have any ideas/feedback on how improve this name?
+>>
+>> So there are different modules? I see several different names on:
+>> https://www.mipi-modules.com/en/mipi-camera-modules/
 > 
-> You changed the commit message, and that counts too. This is v3.
+> Yes, there are different modules, but all feature the same controller.
+> Which this is basically the device driver binding for. So the idea is to
+> describe the controller independently from the sensor which is "behind"
+> it.
+> 
+> This works because the controller "soft-core" should be the same on all
+> modules. A downstream implemenation (which I haven't studied in detail)
+> is available at https://github.com/VC-MIPI-modules/vc_mipi_core if that
+> helps?
+> 
+>>
+>>
+>>>
+>>>>
+>>>>> +
+>>>>> +  reg:
+>>>>> +    maxItems: 1
+>>>>> +
+>>>>> +  '#clock-cells':
+>>>>> +    const: 0
+>>>>> +
+>>>>> +  clock-frequency:
+>>>>> +    description: Frequency of the sensor clock provided by the module
+>>>>
+>>>> Drop, implied by the compatible
+>>>>
+>>>
+>>> Do you mean dropping the whole property, or just the "description"?
+>>
+>> I meant entire property, but we keep discussing in Laurent's reply.
+>>
+>>>
+>>>>> +
+>>>>> +  vcc-supply:
+>>>>> +    description: Power supply of the module (3.3V)
+>>>>> +
+>>>>> +  '#address-cells':
+>>>>> +    const: 1
+>>>>> +
+>>>>> +  '#size-cells':
+>>>>> +    const: 0
+>>>>
+>>>> No children allowed, so why these two?
+>>>
+>>> Based on your and the bot feedback I would suggest for v2 to change this
+>>> "generic i2c bus" to a simple "i2c-tunnel" property which has
+>>> "$ref: /schemas/i2c/i2c-controller.yaml".
+>>>
+>>> This would better reflect the actual hardware, as there is only this one,
+>>> in firmware hard-coded I2C downstream bus.
+>>>
+>>> Would this be a sane approach?
+>>
+>> If the underlying I2C bus and sensor are important, then yes. But I have
+>> doubts that you need to describe the sensor if it is truly
+>> unadressable/invisible to the OS.
+> 
+> Yes, the I2C bus and sensor is important. The device driver of the sensor
+> talks (via the tunneled I2C interface) directly to the sensor.
+> 
+> The separate I2C controller/bus description is necessary as the tunneled
+> I2C bus has some quirks unfortunately. Those need to be addressed as 
+> otherwise the sensor drivers do not work.
+> 
+> So the idea is to not have a vc-mipi module binding per "sensor variant"
+> of the camera modules, but provide a common controller driver which
+> provides the I2C bus for the sensor driver.
 
-The resend only removes a Link tag. I did not know that removal/addition
-of tags in commit log counts too.
+Bindings must accurately describe the device and so far - based on the
+website - there is no device as mipi-module-controller alone.
 
-> A
-> few nitpicks below.
+I don't get why you assume that all of the variants are exactly
+identical, thus sensor variant is not applicable.
 
-I will change those as suggested.
+If they are identical in all aspects, then why clock-frequency property?
+That's obviously rhetorical question, because they are not identical in
+all aspects and must produce different clock at least.
 
-Thanks for reviewing, Heikki!
 
-Shawn
+> 
+>>
+>>>
+>>>>
+>>>>> +
+>>>>> +required:
+>>>>> +  - compatible
+>>>>> +  - reg
+>>>>> +  - '#clock-cells'
+>>>>> +  - clock-frequency
+>>>>> +  - vcc-supply
+>>>>> +  - '#address-cells'
+>>>>> +  - '#size-cells'
+>>>>> +
+>>>>> +unevaluatedProperties: false
+>>>>
+>>>> additionalProperties instead, see writing bindings or writing schema.
+>>>> Unless you miss here some other schema $ref.
+>>>>
+>>>>> +
+>>>>> +examples:
+>>>>> +  - |
+>>>>> +    i2c {
+>>>>> +        #address-cells = <1>;
+>>>>> +        #size-cells = <0>;
+>>>>> +
+>>>>> +        vc_mipi_ctrl: controller@10 {
+>>>>> +            compatible = "vision-components,mipi-module-controller";
+>>>>> +            reg = <0x10>;
+>>>>> +            #clock-cells = <0>;
+>>>>> +            clock-frequency = <37125000>;
+>>>>> +            vcc-supply = <&cam_3v3>;
+>>>>> +
+>>>>> +            #address-cells = <1>;
+>>>>> +            #size-cells = <0>;
+>>>>> +
+>>>>> +            i2c@0 {
+>>>>> +                #address-cells = <1>;
+>>>>> +                #size-cells = <0>;
+>>>>> +
+>>>>> +                vc_mipi_sensor: camera@60 {
+>>>>> +                    compatible = "ovti,ov9281";
+>>>>> +                    reg = <0x60>;
+>>>>
+>>>> Why having the child abstraction if it is completely abstracted? I don't
+>>>> fully get the explanation from description. Completely optional means no
+>>>> benefits, no point in it, no?
+>>>
+>>> I will try to improve the description. The idea behind this device
+>>> driver/devicetree node is to not rely on the sensor abstraction from
+>>> vision components, but to use the upstream sensor specific driver.
+>>
+>> You can use driver even without these nodes... but fine, let's assume
+>> you have them, so driver will talk with OV9281 sensor for example?
+> 
+> The vc-mipi driver does not talk to sensor at all. This is done by the
+> dedicated sensor driver. The vc-mipi driver is only controlling the
+> regulator, clock, etc. as described and sets up the "quirk aware"
+> tunneled i2c interface.
+
+I meant, driver for the sensor. So who controls sensor supplies? Not the
+sensor driver? It tells something how the hardware is managed, no?
+> 
+Best regards,
+Krzysztof
