@@ -1,302 +1,155 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EA84381B1D
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 13:57:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 966E84F7979
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 13:59:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789567078; cv=none; b=VQWxfAkjNoI2L5lfLRQiRhUqATDIj4izxZ1rhtF9rpAFFthVw50SHrs1MCjJPA4Mt9LRNVqoPUC0C1n9lsmu3ywnclajX3g5ReGGAS+BsfKs4yqIxX7ItkHnj3aIAxlRMaTaRAVkE6CakxT+sH5js3ij2EGtjg4psNT0Cd83BzM=
+	t=1789567174; cv=none; b=YNza04dnm3TonXujgIRE4Ez+g5mIO4KIue6cM0WPMC0eVR9CyTG0oYZQvpmCp4yHhmZp4n/ugq4xmeghIxEOrhbfQM0N5jp4f3Na9Pn8CuJSimxolPXuKf/qVViubboavn9ddT4nyBaiShuQDnZY8PCTAZeP3REjRGN6Br+SS2E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789567078; c=relaxed/simple;
-	bh=RkjeHSdw7gboKv3TlXd5x7VQ4B/VUIfakNRO8/2kPEY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=XSYILKPLt7zoGnrMrh8q3NInccmtZmdnjcjHao5R7U0wvrazwV7hp5Uf4H6HWKt4vLED9oIiM7cdhS9/lPiCiU6v83LU+r7jnpU8y545iOiICHqfY57AnBaiXgdlAtRdNPG1wV2suN1+Q/9sIwfELbOk8wniq+ybT2F+XGinJus=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=OIhDjWpU; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1789567174; c=relaxed/simple;
+	bh=O4ATV4tEjSWiSuFTbC7ZkIp7EJmcpaPTV5+Vb/a1eTY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uzcx5TV7RFXyF04DAKH/tdFj5pXbttZEY/LLbp8+zYhBcFzhFlsXl3QNl38bTE/TNgnIwdUFeqdiuwfOAB2L9YLgYcWkcir3dTgix+ijudbGXf5fyekbdSPG//Z4p4w4ffahu/hfwCfNPjgduxWD16bh1kqdDEHJo68aGVgRj3Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=klNYYsHp; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HdA4QNE5; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="OIhDjWpU"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e66390995so5852765e9.2
-        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 06:57:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="klNYYsHp";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HdA4QNE5"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GDJLuj2789024
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 13:59:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=PGHhOzUSTVKuhBgrqd1K+wKKiHk9NN49yA/
+	C6cM552A=; b=klNYYsHp6jt7v6zWrUeZ5M7Rvi1TR6d1oTwkBnhQpBoh4V/KQdW
+	S88EEwiVa0SI6LA1cFbA+dy3iLlU58HO05M/9I8ny+j7vtfaXFUpEMe++G8D+dsv
+	zpEsJ07bUWNS06fny0vRUuD5xddKZ+S2/esoO/CfZnBg8pYkw3cal4v3nI8gfMCc
+	INM9Y1vLT4+bh49Bh095DxixBbhVoci+W6kiZePC2Hv1gdERha5WsRfXNgpicIma
+	32TTLGMzHTUYBi36jw1r7+AVR7d95nnSvYMVssbkCtCo+H5wrtWJxpWF8gX7KKzm
+	GJseE0mcSwgQiRNzhkvjV5lKE6h4UQqql3g==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gquw2r52r-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 13:59:31 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc1a439db36so4698017a12.2
+        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 06:59:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789567069; x=1790171869; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=u6NIqxABqSzbjUObGDoPenZLidHkyNOOkWfBJVH3qX0=;
-        b=OIhDjWpUfggO2j59LNvH7ZYL448/O3nyWbtJem84h59UsMLO11KNGK5E4U3m+uL1SS
-         8ac0PeHf8UvWoPuhRKbhJbF62EMyXr8tOrDlRlv0XVMDkhD5PzMtX6rkp9Cvpm5leJ1e
-         uWYWPzDoZuPNwp2OtepztyJW33X/QfGmufkCSUOs/yFDYJViJ610K3NEyk4LvRs9PzDf
-         USnVSedhZP+yX5hkfHqRLU4hCi937750901gdzSJEbgdWk6kuZ4Y5qy8408KIl4Ip3L+
-         nrxWfimda3rWv5ayPa68chCrXurozU0jSRzcXn6WphFMy+5kX3pZfxyAC9UVKiRSmV4P
-         VfxA==
+        d=oss.qualcomm.com; s=google; t=1789567170; x=1790171970; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PGHhOzUSTVKuhBgrqd1K+wKKiHk9NN49yA/C6cM552A=;
+        b=HdA4QNE5CwKGKj9ATi6y1v34qUcffA1wjlsNIcAYXaHCEcmQ3NNgI2tuYEbRKNwVXl
+         FL7zzYiQHI0e4CgYYaitPHN6lB5tl1OG3MJJiC/izVCNDq44E6kh4+eT8MFXAqU5K9h4
+         5Gu/yv/fOiwJCD39m3MYM9yuGJTwNcYZ0QybnN7eJ72h/xTTCguk3clYGeQBRj+QPD+D
+         VDXtLtlpVwvMXVz4lFW0y5HIcFtDD3JWR99MqU5UTqvSO+HLLE1lg5TfE/uUs2F4zGUA
+         +WK2XEN8Dg/PMjhc6e4XrO8glhpzYdGml+ukuddO1KxQMwIqZI1yaR7CWGdZPLBV+SwE
+         y3ww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789567069; x=1790171869;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=u6NIqxABqSzbjUObGDoPenZLidHkyNOOkWfBJVH3qX0=;
-        b=PNENwRHSjlYwzpPMUEIfJ7HCX8p6R93+7w/UyEvOYA35DOHEsCyAcEG4/Ai8JlAVbt
-         qsKurXJelb2OBdRdPturi3nZAj06U/sW+cvEomikQC5vPZN/oI5Gfl0OplbUqqZgwHeF
-         nsZqkS2cvyM+qOmHcEqenkT898k9y/y69R+6tosEopiPGjC8y2NWKe7m8O05EDxnFrA/
-         2M38wCfmxIIgBsJcBH4U4TFbkTOQJU8URv90wxXUdrs4rjNZdZ38Dj6yL/2uG8ykqdU5
-         xm6/6HAq+zSXqM0ifg0dSCeKtV9KJ0+IYr+XgFEtpF0ocMg2c2C4gqFrAZCQnt6I8Wcf
-         l46g==
-X-Forwarded-Encrypted: i=1; AKwUvBwTLDEHWl6tJ+CNBTJM1T0K6xhpEgLKh4OCfLKhKC4Sxat6Y1JWUCmdzE4PrG7VcwUFs8d/gWz1qIwi@vger.kernel.org
-X-Gm-Message-State: AFuF++nX/3//Nn2fmp2I8U0TRRx2GrBwaX8JCqJj9O9Bc1n8XVAWl/p+
-	qFFAOVsHWJPL3xajuJuDCjbVHH7oHyKywG1PI+AaspH1a8yNpcYfuOiyGC5IscUpgQE=
-X-Gm-Gg: AYBFou0tX8OkvuU4DRmqHvjLMcy8eL0uPPE9iCCl3qgSaFc5TRKSvpLNHrKoZomh4mB
-	DmuLEaIReS80q6KKKBjik1R5e5eJrNQYy0LNvK8LKJgGDVO6BavOrlMOie+BDS8CKkQ4ZAsOPrF
-	amg5IYUu7EQbeckbletaowpmZqRzmIcrqRmaJhzIKs2HBcNlC55rYP6/LZZehthsIPxGt66QnIH
-	rXU6wHE5QXaVK+oRcan0hC8vMIEac1h5NyOHhfy6zvVCKWoznp5A+Q5q5wzJbfwzoFMSycsH99U
-	JPKl2oEiNSCZqTQIWVyPy/QzDct3EdDHKDZRORlOWEruMzNE3MPzBFf/wCpPk1r1R7qFVq7Y/qt
-	dBjkYp+daPvX777IwRVUAniz0WV4u49Ds0yYd5449urVjMrDkBzQY/x4wP/dU/d/1b0KkgGxQeF
-	FvzMggdaAuNt5AdNH72VddGOmibSB+pK37i+YiKhQGGAixvw5sJi+Ufie2NrYTQwjPw90+X+HaE
-	PUQ0pAkI4CCPIicjg==
-X-Received: by 2002:a05:600c:1da8:b0:49c:fc6c:be09 with SMTP id 5b1f17b1804b1-49eb7345517mr33097655e9.32.1789567068836;
-        Wed, 16 Sep 2026 06:57:48 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e847fcb7dsm27771135e9.4.2026.09.16.06.57.47
+        d=1e100.net; s=20260707; t=1789567170; x=1790171970;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PGHhOzUSTVKuhBgrqd1K+wKKiHk9NN49yA/C6cM552A=;
+        b=lUuVNENkJGUyCEsPR4UM2U/xRyy0SzlDg3nKsaFrz+mogQigf1wAw8WAVsZ11UGq1/
+         LjQNxKovpuNmJJqvBwRtnVUOmPqTpRVMHm+Qu1Uy2miREonsP4Z6RllaeS9Wiql0wT0m
+         vZlxxZsTrYcsD5OVvheUz0jsMmwRWBTiOZQTwn3QtExzTffsfCOuU8A1sTtnyVfTv6zg
+         b01RYndzxDCOiqp4mcp11fDCvfSKUeL+T6QVFYs6vWdm36nk/Z9nIXntFq2xy1gCPegI
+         mCJwybfbjTuh5qvuWbGSNJ9PW59tgPSXEtTX6yh0E8m3BBsis9YOgaLH8utsHYeB3+v9
+         +Svg==
+X-Forwarded-Encrypted: i=1; AKwUvBxtW3c96Kbv2s0qraI7iEYBEBdatpbKu1Ysv0zcOlZWZ9rKw1BRFMkKIr3bnTQiv/f7ERNKETcf2fak@vger.kernel.org
+X-Gm-Message-State: AFuF++ktvDzSW8dmifhLbyg1S7EumbJUZQFgdTK5P0UT2uoqGpOKlmcE
+	W69Q1rEip65EsxBl4M7C075RfpIOuMoHsNcZWmXVkU8b2hIU0r+uuaPFoT5ydlnn7/IyOBiiPZO
+	a4tY6rOpjJnrZFTQasmKUF8hyQPOWGl+kwcpoAveTnc4d7b9GXUcJ6twHHeguJpZWMEnRZVfp0u
+	o=
+X-Gm-Gg: AYBFou1QMWWrJVfg13pMrPKNzivXHX3HSWVZnfXgDStMzoQt1yhUQSg/hx86tzUq9LW
+	IF2NbraKcKVyGICvWUU3BTcpFW+1c7afHCz4JQN2kebxlYuMTTaDz8PQLr85AfBfCQDovms4Pgc
+	07VNQV0WSexz2gJbgiRrM18ECprmw/l0e5OPLHBgaXlKZqqTrkLwyKy795n1SEf2hL6RJo29UBI
+	M9layAk5EIfenj9B9YeSgsSAEpl1+aRJ4zWKTAgSGQaJvW5FEczWORrE6JeBUZiy1Xz9jFAcW0w
+	1gE6SHPHevFsHayDaBjLXTuutCjZRyhNCHdum5LtlmRw0wwmCA1c8+dGdB1Wv8gVvyjcPIcwO0r
+	HIiapRJWRGtOM/JfcxwNYVW0wxlzvu9e4dyFHXCP7nVVFV0bH9svGTbxK14XR
+X-Received: by 2002:a17:90a:501:b0:39e:25c2:b9e0 with SMTP id 98e67ed59e1d1-39e25c2ba53mr2266360a91.25.1789567170129;
+        Wed, 16 Sep 2026 06:59:30 -0700 (PDT)
+X-Received: by 2002:a17:90a:501:b0:39e:25c2:b9e0 with SMTP id 98e67ed59e1d1-39e25c2ba53mr2266305a91.25.1789567169662;
+        Wed, 16 Sep 2026 06:59:29 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14395d3a31asm6507940c88.9.2026.09.16.06.59.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 06:57:48 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Vyacheslav Yurkov <uvv.mail@gmail.com>, Vyacheslav Yurkov via B4 Relay
- <devnull+V.Yurkov.EXT.bruker.com@kernel.org>, Michael Turquette
- <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Brian Masney <bmasney@redhat.com>, Brian Masney
- <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Jyri
- Sarha <jsarha@ti.com>
-Cc: linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
-Subject: Re: [PATCH v5 2/2] clk: Add gpio-locked fixed clock driver
-In-Reply-To: <e697d892-fbd2-432a-b71c-8547ead22ea0@gmail.com>
-References: <20260915-feature-clock-guard-v5-0-42ab5dc3a6aa@bruker.com>
- <20260915-feature-clock-guard-v5-2-42ab5dc3a6aa@bruker.com>
- <1j33vaesh7.fsf@starbuckisacylon.baylibre.com>
- <e697d892-fbd2-432a-b71c-8547ead22ea0@gmail.com>
-Date: Wed, 16 Sep 2026 15:57:46 +0200
-Message-ID: <1jtsnpcn8l.fsf@starbuckisacylon.baylibre.com>
+        Wed, 16 Sep 2026 06:59:29 -0700 (PDT)
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
+        =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+        linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH v3 0/2] usb: typec: Add onsemi FUSB15201 support
+Date: Wed, 16 Sep 2026 21:59:16 +0800
+Message-ID: <20260916135918.1017527-1-shengchao.guo@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDE4OCBTYWx0ZWRfX2h6SLLc35XtN
+ TGcr5WQkVVE+Q4O3oV18IHGEthYIEC7naVl3B6cN13sQFJwDm6vv3S2InmS2kBbDMhCsvTk3LNR
+ uG/4/Dcv+uzrVyqubwhVXIEKBUpN8ZU=
+X-Proofpoint-GUID: W4vgAVXQCc5A17Zz_vamPeN9z_CujMES
+X-Authority-Analysis: v=2.4 cv=N4m8hG9B c=1 sm=1 tr=0 ts=6aaaa0c3 cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=R9LytnawintqPorzxAkA:9 a=_Vgx9l1VpLgwpw_dHYaR:22
+X-Proofpoint-ORIG-GUID: W4vgAVXQCc5A17Zz_vamPeN9z_CujMES
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDE4OCBTYWx0ZWRfXyyQb3kJmUURA
+ ubfYpiaust5IQOyPTJ6p+RujSJAR7l417DDLA+l34Yw86kPErrpJk0O8Kw7QL1r2sCKgaSF3awI
+ kxTuwGuRWMkbhZGvOMnFhokSfq34RSuqc97pqxVJxQLRHOtxPAys9EMnd/hIF4lHQKUhNRA8JGo
+ tvFfIC+6Jf3iXVP6jG8JNRCmv14U3arCpNBB8Tvev9ttmEu+9aJqBftpIaNX4p2ppCC97BiMhHQ
+ Q/j+Lv/bZrFC7XkdrXLqnXH5gggqnSPtC8B3YL8qF6AC47IJHdVe9nn5hG3l2H8juG86V3ZbaX8
+ 8kw+i1dxLTxvHMqzJ+RH/43St/L/0LdHs1I6RArO6SD7eGbsnWxq7XsegWCuHpWtzu5oxkuCG5d
+ RfeuLT88sFevhggJM1XeX4sesK+2mbWPnkxrj2xbZgbPRXrP80bRP7c0os4rj6zh5l9ztGjNy2G
+ LeUzzvTTWycIc3O6edw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-16_02,2026-09-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 priorityscore=1501 impostorscore=0 suspectscore=0 malwarescore=0
+ lowpriorityscore=0 clxscore=1015 phishscore=0 adultscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160188
 
-On mar. 15 sept. 2026 at 15:58, Vyacheslav Yurkov <uvv.mail@gmail.com> wrote:
+The series adds a driver/binding for onsemi FUSB15201 which can be found
+on Qualcomm Nord reference design boards as a dual-port USB Type-C
+controller.
 
-> On 15.09.2026 12:09, Jerome Brunet wrote:
->> On mar. 15 sept. 2026 at 09:27, Vyacheslav Yurkov via B4 Relay <devnull+V.Yurkov.EXT.bruker.com@kernel.org> wrote:
->> 
->>> From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
->>>
->>> A gpio-locked clock exposes a clock, which status is determined by a
->>> GPIO signal. The common use-case is a FPGA-assisted clocking design
->>> where peripheral clocks are generated by FPGA PLLs that are outside
->>> CPU control, with clock-valid/PLL-lock status exposed through GPIO signals.
->>> Consumers can use the output clock to wait until the input clock is locked
->>> and only then initialize dependent peripherals.
->>>
->> 
->> We already have gpio gate driver in drivers/clk/clk-gpio.c
->> 
->> It would be much better if you could just extend that one that take
->> optionally take a clock input like you do here.
->
-> It is a bit more than that. The gated clock requires "enable-gpios" 
-> property, while gpio-locked clock needs "locked-gpios". Technically I 
-> could re-use the "enable-gpios", but that might lead to a confusion, 
-> because semantically they are used for different purpose. Do you think 
-> the extension of clk-gpio.c would be still better in this case?
+Changes for v3:
+- Address Heikki's review comments (Thanks Heikki!)
+- Link to v2: https://lore.kernel.org/all/20260911073414.16711-1-shengchao.guo@oss.qualcomm.com/
 
-Apologies, I've mis-read you initial submission.
-Basically this is a read-only gate controlled by a gpio.
+Changes for v2:
+- Drop include of <linux/mod_devicetable.h>
+- Link to v1: https://lore.kernel.org/all/20260902045938.184221-1-shengchao.guo@oss.qualcomm.com/
 
-I think it still belongs in clk-gpio with its own ops, along with the
-gate and mux that are already there.
+Shawn Guo (2):
+  dt-bindings: usb: Add onsemi FUSB15201 Type-C and PD controller
+  usb: typec: Add onsemi FUSB15201 driver
 
-enabled-gpio for the pin maybe ?
-
->
->>> Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
->>> ---
->>>   drivers/clk/Makefile          |   1 +
->>>   drivers/clk/clk-gpio-locked.c | 169 ++++++++++++++++++++++++++++++++++++++++++
->>>   2 files changed, 170 insertions(+)
->>>
->>> diff --git a/drivers/clk/Makefile b/drivers/clk/Makefile
->>> index b18af485d7f0..b904f292d683 100644
->>> --- a/drivers/clk/Makefile
->>> +++ b/drivers/clk/Makefile
->>> @@ -46,6 +46,7 @@ obj-$(CONFIG_CLK_FD_KUNIT_TEST) += clk-fractional-divider_test.o
->>>   obj-$(CONFIG_COMMON_CLK)	+= clk-gpio.o
->>>   ifeq ($(CONFIG_OF), y)
->>>   obj-$(CONFIG_COMMON_CLK)	+= clk-conf.o
->>> +obj-$(CONFIG_COMMON_CLK)	+= clk-gpio-locked.o
-
-Drop every reference to locked ... this is very PLL oriented and the
-driver you are proposing is more generic than that
-
-
->>>   endif
->>>   
->>>   # KUnit specific helpers
->>> diff --git a/drivers/clk/clk-gpio-locked.c b/drivers/clk/clk-gpio-locked.c
->>> new file mode 100644
->>> index 000000000000..b648f8763922
->>> --- /dev/null
->>> +++ b/drivers/clk/clk-gpio-locked.c
->>> @@ -0,0 +1,169 @@
->>> +// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->>> +/*
->>> + * Clock Controller Guard Driver
->>> + *
->>> + * Copyright 2026 Bruker Corporation
->>> + */
->>> +
->>> +#include <linux/clk.h>
->>> +#include <linux/clk-provider.h>
->>> +#include <linux/device.h>
->>> +#include <linux/gpio/consumer.h>
->>> +#include <linux/module.h>
->>> +#include <linux/of.h>
->>> +#include <linux/platform_device.h>
->>> +#include <linux/slab.h>
->>> +
->>> +/**
->>> + * struct gpio_locked_clk_priv - private state for the whole driver
->>> + * @dev:		platform device
->>> + *
->>> + * @input_clk	input clock
->>> + * @gpios:		input GPIO descriptor
->>> + *
->>> + * @output_hw_clk:      output clock HW descriptor
->>> + * @output_clock_name:  output clock name
->>> + */
->>> +struct gpio_locked_clk_priv {
->>> +	struct device *dev;
->>> +
->>> +	struct clk *input_clk;
->>> +	struct gpio_desc *gpios;
->>> +
->>> +	struct clk_hw output_hw_clk;
->>> +	const char *output_clock_name;
->>> +};
->>> +
->>> +#define to_gpio_locked_clk_priv(_hw) \
->>> +	container_of(_hw, struct gpio_locked_clk_priv, output_hw_clk)
->>> +
->>> +static int gpio_locked_clk_is_enabled(struct clk_hw *hw)
->>> +{
->>> +	struct gpio_locked_clk_priv *priv = to_gpio_locked_clk_priv(hw);
->>> +
->>> +	int data = gpiod_get_value(priv->gpios);
->>> +
->>> +	if (data < 0) {
->>> +		dev_err(priv->dev, "Failed to get data gpio val: %d\n",
->>> +				data);
->>> +		return data;
->>> +	} else if (!data) {
->>> +		dev_warn(priv->dev, "GPIO is not ready");
->>> +		return -EBUSY;
->>> +	}
->>> +
->>> +	return 0;
->>> +}
->>> +
->>> +/* We can't enable the clock, but the Common Clock Framework calls only
->>> + * enable() not is_enabled()
->>> + */
->>> +static int gpio_locked_clk_enable(struct clk_hw *hw)
->>> +{
->>> +	return gpio_locked_clk_is_enabled(hw);
->>> +}
-
-You need to explain your problem a bit more because this is not OK. Your
-clock should really just provide .is_enabled() AFAICT
-
->>> +
->>> +/* We have to implement it, but we are not going to control
->>> + * parent clock selection
->>> + */
->>> +static u8 gpio_locked_clk_get_parent(struct clk_hw *hw)
->>> +{
->>> +	return 0;
->>> +}
-
-Same, I dont get why you need that. Not needed if there a single parent
-
->>> +
->>> +static const struct clk_ops gpio_locked_clk_ops = {
->>> +	.enable =	gpio_locked_clk_enable,
->>> +	.is_enabled =	gpio_locked_clk_is_enabled,
->>> +	.get_parent =	gpio_locked_clk_get_parent,
->>> +};
->>> +
->>> +static int gpio_locked_clk_parse_outputs(struct gpio_locked_clk_priv *priv)
->>> +{
->>> +	struct device *dev = priv->dev;
->>> +	struct device_node *np = dev->of_node;
->>> +	int ret;
->>> +
->>> +	of_property_read_string_index(np, "clock-output-names", 0,
->>> +		&priv->output_clock_name);
->>> +
->>> +	if (!priv->output_clock_name)
->>> +		priv->output_clock_name = dev_name(priv->dev);
->>> +
->>> +	priv->output_hw_clk.init =
->>> +		CLK_HW_INIT_FW_NAME(priv->output_clock_name,
->>> +				    __clk_get_name(priv->input_clk),
-
-No, just put the name as it is in DT (input?) or go for index 0 possibly
-?
-
-No call to devm_clk_get_enabled() from this driver to its input. A clock
-controller should not do that. The consuming device will get this clock,
-enable it and the enable will trickle down to the provider.
-
-
->>> +				    &gpio_locked_clk_ops, 0);
->>> +
->>> +	ret = devm_clk_hw_register(dev, &priv->output_hw_clk);
->>> +	if (ret) {
->>> +		dev_err(dev, "failed to register output clk'%s': %d\n",
->>> +			priv->output_clock_name, ret);
->>> +		return ret;
->>> +	}
->>> +
->>> +	dev_info(priv->dev, "Output clock '%s' registered\n", priv->output_clock_name);
->>> +
-
-Drop those prints
-
->>> +	return 0;
->>> +}
->>> +
->>> +static int gpio_locked_clk_probe(struct platform_device *pdev)
->>> +{
->>> +	struct device *dev = &pdev->dev;
->>> +	struct gpio_locked_clk_priv *priv;
->>> +	int ret;
->>> +
->>> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
->>> +	if (!priv)
->>> +		return -ENOMEM;
->>> +
->>> +	priv->dev = dev;
->>> +	platform_set_drvdata(pdev, priv);
->>> +
->>> +	priv->input_clk = devm_clk_get_enabled(priv->dev, NULL);
->>> +	if (IS_ERR(priv->input_clk))
->>> +		return dev_err_probe(priv->dev, PTR_ERR(priv->input_clk),
->>> +				"Failed to get locked fixed clock, not yet ready\n");
->> 
->> In your use case it might be fixed, but nothing says it is in general
->> 
-> Good point, thanks.
+ .../bindings/usb/onnn,fusb15201.yaml          | 152 +++++
+ drivers/usb/typec/Kconfig                     |  17 +
+ drivers/usb/typec/Makefile                    |   1 +
+ drivers/usb/typec/fusb15201.c                 | 580 ++++++++++++++++++
+ 4 files changed, 750 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/usb/onnn,fusb15201.yaml
+ create mode 100644 drivers/usb/typec/fusb15201.c
 
 -- 
-Jerome
+2.43.0
+
