@@ -1,190 +1,102 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A8875221EF
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 14:30:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A9F2519925;
+	Wed, 16 Sep 2026 14:31:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789569056; cv=none; b=dG837iu0iNljY7xax1dujdXN7dXqWgGUptvQylepsMrsbO4RbSpHRjRpl8CzsQmMR1qLYIS0mo77fs7P+h1vcZ2KCO39I88XU56VCRRx+cbUG1MASINtuj3pAcD78ZD7fPgwkZlsn6MK4cx7/pOXWJjNTwzXTT+cPAle0NUV4zM=
+	t=1789569077; cv=none; b=JNTyIOQT7BdMNih2SGYgz0eGL5XjtGMm+BEXeUcApm0b28ko9kswhhZ09jQt/Bo7Y7/qvR17rAfGiGGNqrzl2llxgcP8x26TNyILNvW/E4HOjbCMLP5Xj73VRbWNO4VmGPWeSg/8rCwyI+z4Iy/LT/u0gTmonPP+MTvDuZr3/Xc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789569056; c=relaxed/simple;
-	bh=IAkNWSB54cPTRZlp0lr/9fg4h/scqOyu3N98Wh9R+D4=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=MllV8lLReI8X7/9dBZIsG9kTVjWZ3azI90hJd1M/G2tKH6Dx7E5cLTaKdp+3i/s/49+mXNe2XRNnRlXuLsJMHs8dD5Zbg+pj84YrcKeBZ9PtcPI42xudWFtfa9M09inYpJllx8E0jAApV1yV+oTNeAAF6cssXeU3g4Zw8i6PqNA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=PAFHXDga; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789569077; c=relaxed/simple;
+	bh=lX4sBLQWCgzSTEPrUyTPOqD8/ta6vpCp3yXo4tlAwqk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=uSImZDgbBG8DTm62FrnwCKy4JzmFql5oaPSw3jYTkVSTA+GfZstcWnaP6UvD7l6L/pcMKjY8eKQPyQgDNniRTUx3GxbXizmmke1i6cg6U6IrtsUVR51psX9mMtfyAEZYM+VEHnmklgjm7gyeaoJnTorpYHIJf5raGjPB5pBS4d0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cUQdrEG2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="PAFHXDga"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 1B039C5CD63;
-	Wed, 16 Sep 2026 14:31:35 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 1645860337;
-	Wed, 16 Sep 2026 14:30:51 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C273711C7B024;
-	Wed, 16 Sep 2026 16:30:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789569045; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=ifWQ8YaMc5CQm1ni9DW+Z7Yqh55h/cFdZBqgsTVphkY=;
-	b=PAFHXDgagaMbICkI8pF/F5Nz5W1gjfLrs/YkppCqVP1pMYNSPxgzDNoh7q+DYhGicdwrYf
-	PT5MKU1C05LYJEvG7c2FAjeCDXZt49uyTEXYiGNsgQEZUIFo9Gn3dNx1y9W9wkLfU/7aPb
-	vzohVysiTuf4GVtby1VsmN8oKU9d8Q7ZUe89SyFGWHWqfmxt14PRsnXT7ywBVYdGwH5OlH
-	jqCvJ05G71TC8RvUYP+fNsTf78dwavvp6emdYAP1L54EDJ9LaoeEcGMIrOf0hq9e7O2q6s
-	lH0l7yhmzYU7wIfR98nbme6zK7TkBj3xK17AW9YJl4T1VYqxyZnDThae3cpVdw==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cUQdrEG2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 811EF1F000FF;
+	Wed, 16 Sep 2026 14:31:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789569074;
+	bh=MyHBmiyk0d26r4cuOXzwI2x+5zAzBC2ZsrXc1p/R3dI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=cUQdrEG2wlUA2R34kh94j3mMU+jiP46BLyMyA4jn8nIx+pjABby1ANlRGZ3NHFadG
+	 /JlrEqjQeQBuAl5LLffCOvaakJLNBjlU8eSt1J8dOVef97HA2u8ewM8cAh/Mww55Z4
+	 gaSmZhfjYDwZxoiY+3wzTdqoBIR6j0J8Jj2RnQho0nBZFMHmFtUpYIrXPil92nfmp3
+	 TD8F3PWfZXzmssU4c2ldZGOSi19rAI8JdfSMY27YGypVnqlA3UHbDgbYyIucrcQnoy
+	 PIfdQZj7SSGViSDIG6f6wFjb23TsG+mPUnUbyBLP0jJZALs9PgmcYA1P63lByIy8lZ
+	 a31/hTRLAES6g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 12/19] dt-bindings: clock: qcom,rpmcc: Add MSM8952
+ compatible
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Muzaffer Kadir" <muzafferkadir@mainlining.org>
+Cc: linux-input@vger.kernel.org, dri-devel@lists.freedesktop.org, lee@kernel.org, dmitry.torokhov@gmail.com, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, mfd@lists.linux.dev
+In-Reply-To: <20260916-msm8952-initial-support-v2-12-798c2602dde1@mainlining.org>
+References: <20260916-msm8952-initial-support-v2-0-798c2602dde1@mainlining.org>
+ <20260916-msm8952-initial-support-v2-12-798c2602dde1@mainlining.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 16 Sep 2026 14:31:13 +0000
+Message-Id: <20260916143113.811EF1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 16 Sep 2026 16:30:37 +0200
-Message-Id: <DLGTA297W2SP.36MAJCYAC9O2X@bootlin.com>
-Subject: Re: [PATCH v4 2/4] drm: mxsfb: Add optional DPI output bus-width
- configuration
-Cc: "Marek Vasut" <marex@denx.de>, "Stefan Agner" <stefan@agner.ch>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Frank Li" <Frank.Li@nxp.com>,
- "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
- <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Francesco
- Dolcini" <francesco.dolcini@toradex.com>,
- <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <imx@lists.linux.dev>,
- <linux-arm-kernel@lists.infradead.org>, "Alexander Stein"
- <alexander.stein@ew.tq-group.com>
-To: "Francesco Dolcini" <francesco@dolcini.it>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.22.0
-References: <20260813092836.38367-1-francesco@dolcini.it>
- <20260813092836.38367-3-francesco@dolcini.it>
- <178954813309.214898.6895255097019153080.b4-review@b4>
- <20260916091543.GA277833@francesco-nb>
- <DLGP7GKZJBOP.350QK94UOGRYV@bootlin.com>
- <20260916114350.GB284106@francesco-nb>
-In-Reply-To: <20260916114350.GB284106@francesco-nb>
-X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed Sep 16, 2026 at 1:43 PM CEST, Francesco Dolcini wrote:
-> On Wed, Sep 16, 2026 at 01:19:08PM +0200, Luca Ceresoli wrote:
->> On Wed Sep 16, 2026 at 11:15 AM CEST, Francesco Dolcini wrote:
->> > Hello Luca,
->> >
->> > On Wed, Sep 16, 2026 at 10:42:13AM +0200, Luca Ceresoli wrote:
->> >> > LCDIF programs LCD_DATABUS_WIDTH from the selected media bus format=
-. The
->> >> > format reported by the downstream panel or bridge describes the dis=
-play
->> >> > input, but it does not describe how the LCDIF data pins are physica=
-lly
->> >> > wired on the board.
->> >> >
->> >> > These can differ. For example, a 16-bit LCDIF bus can be connected =
-to a
->> >> > 24-bit display by wiring the available color bits to the correspond=
-ing
->> >> > display inputs. In that case, using the display's 24-bit format to
->> >> > configure LCDIF selects the wrong data-bus mode and changes the ass=
-ignment
->> >> > of color bits on the LCD_DATA pins.
->> >> >
->> >> > Read the optional bus-width endpoint property from the LCDIF output=
- port
->> >> > and use it to select the media bus format used to configure LCDIF. =
-This
->> >> > allows the LCDIF bus mode to describe the physical interface
->> >> > independently of the downstream display format.
->> >> >
->> >> > When the optional property is absent, or it has an invalid value, c=
-ontinue
->> >> > using the format reported by the downstream display device, preserv=
-ing
->> >> > the existing behavior. The code is not validating the DT for
->> >> > correctness and just fall back to the previous behavior in case of
->> >> > errors.
->> >>
->> >> Why? Generally speaking errors are better spotted immediately, not ig=
-nored
->> >> silently.
->> >
->> > My understanding is that the C driver code should not validate the DT
->> > and that this is the general recommendation when parsing properties fr=
-om
->> > the DT.
->> >
->> > The DT checker is going to spot errors in the DT even earlier and in a
->> > static way.
->>
->> Drivers typically check for invalid values.
->>
->> And people writing their private dts can do mistakes and not run the sta=
-tic
->> checks. Bad on their side, sure, but having a runtime error would be use=
-ful
->> there.
->
-> Understood. I would personally not do it. I can add the required error
-> checking code. No other DRM maintainer/reviewer commented so far, so I
-> am taking this as a request.
->
-> What should I do in case there is an invalid value? Fail or have a
-> warning message?
-
-Just fail. You are in the probe path, so it's OK.
-
->> Also consider potential regressions. Say someone has an invalid value in
->> their product, say bus-width =3D <15>, which works because the default 1=
-8
->> which gets used as a fallback happens to be the correct value for their
->> hardware. Some years later we implement the new bus-width =3D <15>, and =
-then
->> that user upgrades to a newer kernel and their display won't work becaus=
-e
->> it will start using that incorrect bus-witch =3D <15>. Better stopping t=
-his
->> before it starts, IMO.
->
-> I do not see this situation honestly, if you have a wrong value, e.g. 15
-> bits, before this patch is ignored, and after this patch is also
-> ignored ...
-
-There is no problem with the code in this patch alone.
-
-The problem is when in two years in the future we do implement 15
-bits. (That's an example to explain the principle, I don't expect it to
-happen with this driver.) But imagine in the future we add:
-
-	switch (bus_width) {
-    +	case 15:
-    +		mxsfb->bus_format =3D MEDIA_BUS_FMT_RGB555_1X15;
-    +		break;
-	case 16:
-		mxsfb->bus_format =3D MEDIA_BUS_FMT_RGB565_1X16;
-		break;
-
-At that point the device in the wild with the incorrect 'bus-width =3D <15>=
-'
-will start using RGB555 and fail, because they really have a 18 bit panel
-which worked thanks to the automagic "if DT is wrong, let's go with the
-default". That's a regression for that device.
-
-Reporting an error from day 0 means 'bus-width =3D <15>' will be blocked, t=
-he
-device won't probe and the mistake in the device tree gets fixed before
-shipping.
-
-I hope it's clearer now.
-
-Cheers,
-Luca
-
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] dt-bindings: missing qcom,rpmcc-msm8952 in allOf conditional block
 --
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+
+commit 1a36458fc826545d7c948ae6e71fb8e460a8f8cc
+Author: Muzaffer Kadir <muzafferkadir@mainlining.org>
+
+dt-bindings: clock: qcom,rpmcc: Add MSM8952 compatible
+   =20
+Document the rpmcc found on MSM8952.
+
+> diff --git a/Documentation/devicetree/bindings/clock/qcom,rpmcc.yaml b/Do=
+cumentation/devicetree/bindings/clock/qcom,rpmcc.yaml
+> index 17332aa558862..aa532f208f5af 100644
+> --- a/Documentation/devicetree/bindings/clock/qcom,rpmcc.yaml
+> +++ b/Documentation/devicetree/bindings/clock/qcom,rpmcc.yaml
+> @@ -56,6 +56,11 @@ properties:
+>                - qcom,rpmcc-shikra
+>            - const: qcom,rpmcc-qcm2290
+>            - const: qcom,rpmcc
+> +      - items:
+> +          - enum:
+> +              - qcom,rpmcc-msm8952
+> +          - const: qcom,rpmcc-msm8976
+> +          - const: qcom,rpmcc
+
+[Severity: Low]
+Should qcom,rpmcc-msm8952 also be added to the allOf conditional block furt=
+her
+down in the file?
+
+The new compatible string is defined here, but appears to be missing from t=
+he
+explicit enumeration block under allOf:if:properties:compatible:
+
+Documentation/devicetree/bindings/clock/qcom,rpmcc.yaml:
+          contains:
+            enum:
+              ...
+              - qcom,rpmcc-msm8953
+              - qcom,rpmcc-msm8974
+              - qcom,rpmcc-msm8976
+              - qcom,rpmcc-msm8992
+
+Without it in this block, device tree schema validation for the new compati=
+ble
+string will be incomplete if a node uses it without the fallback string,
+potentially allowing invalid clock configurations (such as the wrong number=
+ or
+names of clocks) to silently pass validation.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916-msm8952-in=
+itial-support-v2-0-798c2602dde1@mainlining.org?part=3D12
