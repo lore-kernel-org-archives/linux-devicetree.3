@@ -1,147 +1,100 @@
-Received: from mail-43171.protonmail.ch (mail-43171.protonmail.ch [185.70.43.171])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 640B3453A52
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 08:09:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4326644780D
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 08:10:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789546203; cv=none; b=UfhQeSZxfxZk2gLOaCZ6ngbEOpbldu/ygZPNjy/ip5PlFZbCLtmM/FBlXJtkAgas/+36lRUtgyWcIMTI/gPcGzYIg/Xn0f0RqidIMNMCXX54JQzaQmP/SClJJqp3/bXCGeUQYttPQGTmgZH7OtiNO2sbHysji2QLMchpcL+BDi4=
+	t=1789546218; cv=none; b=podMSlWydYbWLuWmlnmlxawJvKM2Ys//R02rCgD51LZSzQEiclflIc4hHxi5wdpejjA4nePPtWFRwWmFZdcDp4wnxxi52QdE7UCgQNG4LJcjug430f0ieEb5XBtpKAAsfZ0XKh1V5DH0ULjHjVi4g9TaB4S5KIfwaMOGOFFgJ3E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789546203; c=relaxed/simple;
-	bh=sQZ2tGpTauHPI+0PLoJCQ+hcRZAFe66nXYgu/3AYc4A=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ebady5dtUpdgIzJZJcESdT7dmwjDCx+tX4i8I/j0ILRfA1dAFjYzFCHZ6p1tTAXqkmB1NdP+UinMn/IzShGL1wvNmesBRrTmnCNsEH6FjpmbKPyzNbJpgjNpDWESJ8unvlv0JPwoYgkOBrRYqGSP+QKm1evsyUnCm5rwu259SyA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=M5JiKLIw; arc=none smtp.client-ip=185.70.43.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	s=arc-20240116; t=1789546218; c=relaxed/simple;
+	bh=DsDJ7x0UoAtGrjAMvNfgZlPZ2A70UJOWX8wLAKt8/9k=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=VsO6CFlM3Qt2kWu1EpXgePcgt5HQoaTrGjzeUw8/2o08eR+w5Tb3OWdpUqA+gnMAc76vZ2FSBpXvwHh3VXG4pudzOUZUMbLMgvrATOO/OIX7wjH7V9+DvCYawL/x3M+Y6AV8RVsP0/mwZ9e8OugdmYuq8T3WVYnf3isSeYDLwrQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XicFy3Zi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="M5JiKLIw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1789546176; x=1789805376;
-	bh=j6FuajukEYwiuxHrwNHtWrAIldVALc6XiykYytHuv+Q=;
-	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=M5JiKLIwtOgDpYND8rP7FpgPq/OoRe2DFfoW2LhW4Xtes1G4K8SAQyNwmGogTfpLO
-	 tzeqartJt6LEdSH+dQIPmbyhmny66MS4RexmylWxgZRwp/BroVOyD6s/TYkM1IePVL
-	 aHVF1Ugobl+0RXv/68zTWDMHNWc2JHjg6REx+o/PNLCQJjtNe6iClR1fwjnFF/wM+4
-	 dSsW/bwKgv+TpcVTtyiJts+63dV5t0xH37sJ2CplUiumOEK3xWaPo0pd8xyuCBLtO8
-	 S7A2rbPfp/+6XJsFkhyX/PDixHbCRROgYsN+LKTgesa5Sd9KomM/3KTZbuHGAiDP/3
-	 7rwPvMP+cdmFQ==
-X-Pm-Submission-Id: 4hlBPV6nhXz1DDX8
-From: Esben Haabendal <esben@geanix.com>
-Date: Wed, 16 Sep 2026 10:08:04 +0200
-Subject: [PATCH v9 08/10] iio: accel: mma8452: Allow open drain interrupt
- pin configuration
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XicFy3Zi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2CFA1F000FF;
+	Wed, 16 Sep 2026 08:10:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789546203;
+	bh=8901aF9xyumI4lRUhviu/ge2Iu/+N5ZENhdmSL78qNU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XicFy3ZiyO75GZbXax0AaHXdTVn68PhSplAV64gtyeHbzLGr0VvfIcy2TEUCDzSzX
+	 wuf4M2zWtFNUAiWgAz0+IiO7D09kM7eFcCOU1NZ4JEPXvStHn/TyqnV4Sj3sTGZ/eG
+	 izC0quWTTvLB6Zp9uv/WqeJG0eArQ4fy2gf9Au0lb+dN/8k+V9JNeeQ95UeCoBSyln
+	 nf6qp/YAhSiiCwr8dxe/GiQ61tKC966m9xJT5dj9GyLJ87Cm91Ty7sC5s7yV0fD8jB
+	 TKBtFDCK4672STf6FZXGHqf9Ty5sSn2qqfyWl/PHgMVfL9X3je/wTfm9ao2sa212wC
+	 wFb5MDaNB9RkQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 10/15] dt-bindings: usb: mediatek,mtk-xhci: Switch to
+ ports for USB connections
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Chen-Yu Tsai" <wenst@chromium.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260916075745.3549953-11-wenst@chromium.org>
+References: <20260916075745.3549953-1-wenst@chromium.org>
+ <20260916075745.3549953-11-wenst@chromium.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 16 Sep 2026 08:10:02 +0000
+Message-Id: <20260916081002.C2CFA1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-mma8452-open-drain-v9-8-0dd24fa2f3d7@geanix.com>
-References: <20260916-mma8452-open-drain-v9-0-0dd24fa2f3d7@geanix.com>
-In-Reply-To: <20260916-mma8452-open-drain-v9-0-0dd24fa2f3d7@geanix.com>
-To: Jonathan Cameron <jic23@kernel.org>, 
- Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Martin Kepplinger <martink@posteo.de>, 
- Sean Nyekjaer <sean@geanix.com>, David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, 
- Martin Kepplinger <martin.kepplinger@theobroma-systems.com>, 
- Christoph Muellner <christoph.muellner@theobroma-systems.com>
-Cc: Esben Haabendal <esben@geanix.com>, linux-iio@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Andy Shevchenko <andriy.shevchenko@intel.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789546157; l=2386;
- i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=sQZ2tGpTauHPI+0PLoJCQ+hcRZAFe66nXYgu/3AYc4A=;
- b=jRbTUd9M2+qtV61Y3AnomOn1NGcys2d6lCyppW7SkuoGIfWnUlUZw8M8aoOLOK1l/6n2UCPwW
- 3kUGsDHq5U7Caot0LeVN8+aRt3f7E3QQVRmKduNVKMMEHF4K3hsAFmk
-X-Developer-Key: i=esben@geanix.com; a=ed25519;
- pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 
-When designing systems sharing the interrupt for mma8452 chips, it is
-helpful to be able to configure the irq pin in open-drain mode (default is
-push-pull).
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] dt-bindings: validation failure due to removed 'port' node
+--
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Signed-off-by: Esben Haabendal <esben@geanix.com>
----
- drivers/iio/accel/mma8452.c | 28 ++++++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
+commit 40ec61fbce26b9243d28fee1a4cb89c268bd0a10
+Author: Chen-Yu Tsai <wenst@chromium.org>
 
-diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
-index 223bef4f7baf..5d44f0066b1e 100644
---- a/drivers/iio/accel/mma8452.c
-+++ b/drivers/iio/accel/mma8452.c
-@@ -83,6 +83,8 @@
- #define  MMA8452_CTRL_REG2_RST			BIT(6)
- #define  MMA8452_CTRL_REG2_MODS_SHIFT		3
- #define  MMA8452_CTRL_REG2_MODS_MASK		0x1b
-+#define MMA8452_CTRL_REG3			0x2c
-+#define  MMA8452_CTRL_REG3_PP_OD		BIT(0)
- #define MMA8452_CTRL_REG4			0x2d
- #define MMA8452_CTRL_REG5			0x2e
- #define MMA8452_OFF_X				0x2f
-@@ -135,6 +137,7 @@ struct mma8452_data {
- 	int sleep_val;
- 	u8 ctrl_reg1;
- 	u8 data_cfg;
-+	bool open_drain;
- };
- 
- /**
-@@ -662,6 +665,22 @@ static int mma8452_set_power_mode(struct mma8452_data *data, u8 mode)
- 	return mma8452_change_config(data, MMA8452_CTRL_REG2, reg);
- }
- 
-+static int mma8452_set_interrupt_pin_mode(struct mma8452_data *data)
-+{
-+	int reg;
-+
-+	reg = i2c_smbus_read_byte_data(data->client, MMA8452_CTRL_REG3);
-+	if (reg < 0)
-+		return reg;
-+
-+	if (data->open_drain)
-+		reg |= MMA8452_CTRL_REG3_PP_OD;
-+	else
-+		reg &= ~MMA8452_CTRL_REG3_PP_OD;
-+
-+	return i2c_smbus_write_byte_data(data->client, MMA8452_CTRL_REG3, reg);
-+}
-+
- /* returns >0 if in freefall mode, 0 if not or <0 if an error occurred */
- static int mma8452_freefall_mode_enabled(struct mma8452_data *data)
- {
-@@ -1668,6 +1687,11 @@ static int mma8452_probe(struct i2c_client *client)
- 			goto disable_regulators;
- 	}
- 
-+	data->open_drain = device_property_read_bool(dev, "drive-open-drain");
-+	ret = mma8452_set_interrupt_pin_mode(data);
-+	if (ret)
-+		goto trigger_cleanup;
-+
- 	data->ctrl_reg1 = MMA8452_CTRL_ACTIVE |
- 			  (MMA8452_CTRL_DR_DEFAULT << MMA8452_CTRL_DR_SHIFT);
- 
-@@ -1795,6 +1819,10 @@ static int mma8452_runtime_resume(struct device *dev)
- 		return ret;
- 	}
- 
-+	ret = mma8452_set_interrupt_pin_mode(data);
-+	if (ret)
-+		goto runtime_resume_failed;
-+
- 	ret = mma8452_active(data);
- 	if (ret < 0)
- 		goto runtime_resume_failed;
+dt-bindings: usb: mediatek,mtk-xhci: Switch to ports for USB connections
 
--- 
-2.55.0
+This commit replaces the single port node with a ports sub-node for
+describing USB connections in the MediaTek XHCI binding. It maps port 1 to
+Super Speed and port 2 to High Speed, matching the hardware capabilities.
 
+> diff --git a/Documentation/devicetree/bindings/usb/mediatek,mtk-xhci.yaml=
+ b/Documentation/devicetree/bindings/usb/mediatek,mtk-xhci.yaml
+> index 231e6f35a986f..d6c75bd20b785 100644
+> --- a/Documentation/devicetree/bindings/usb/mediatek,mtk-xhci.yaml
+> +++ b/Documentation/devicetree/bindings/usb/mediatek,mtk-xhci.yaml
+> @@ -107,10 +107,6 @@ properties:
+>        - description: USB3/SS(P) PHY
+>        - description: USB2/HS PHY
+> =20
+> -  port:
+> -    $ref: /schemas/graph.yaml#/properties/port
+> -    description: Super Speed (SS) Output endpoint to a Type-C connector
+> -
+
+[Severity: Medium]
+Will this cause dtbs_check to fail for existing in-tree users?
+
+The mediatek,mtk-xhci binding removes the port property, but there are
+still existing in-tree device trees that use it. For example, in
+arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi under &xhci1:
+
+	port {
+		xhci_ss_ep: endpoint {
+			remote-endpoint =3D <&typec_con_ss>;
+		};
+	};
+
+Because the schema enforces additionalProperties: false, the presence of
+the now-undocumented port node in the DTS causes a validation error when
+running make dtbs_check on ARM64 MediaTek platforms.
+
+Should the port property be kept as deprecated, or should the in-tree
+users be updated at the same time?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916075745.3549=
+953-1-wenst@chromium.org?part=3D10
