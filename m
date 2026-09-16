@@ -1,40 +1,38 @@
 Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F051A4CB8B1
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 10:25:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC05C442FA4
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 10:25:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789554346; cv=none; b=AsyAZjrQddGaxULprl9EbT4uy4Osl7qq3TQI7Mv6PzlED9XNZjOUAUPXzrmF6mvjtctT4wEk9mx3xWgZjFYqTXHA136ZeQERcfwNmiGtsjj6GbiVCPOM1tpjaLjAkjVEmup7ScXMcWJq5bv5kkdauaZeIc4z/EwACdGkOAeaaK0=
+	t=1789554360; cv=none; b=Az7NbmMV2Kny4S6zGT3EPpwXJ1R5ew/Lv1xtUPl1BVP1oOKwM6Kl9gGEOF5hQsAhVnMgic/LE1AZW+oKoiQo0ZeUPpM9apxDlQsKggSbr4QwWym4S/Y79VL8pgyhnZnixRGMxgRoBnfB8Zlhf+8Bpx5ZOY5xxlhkg1eE+ibMu3g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789554346; c=relaxed/simple;
-	bh=xJLIvqr2ozwwZEzDVSIxSiDxISuUPknm5gQlBdpKW5s=;
+	s=arc-20240116; t=1789554360; c=relaxed/simple;
+	bh=1tkIrWwrGFxIur197aiul+BHy4AUIgRUAhXst0EfR3o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=S6iKcDXv/mavfG7UzZHWS7ayTnHV8mHcQKjYhark1e30ViLI5VGNfFAFGOQ3R7DZ592NAFtGG0+UAV+HWH0F3LJs8KQ3UG/YRPH5WzxqsrAWXCL7fpM/M3QpDycETsluh4hnhf46qTtRq5zRUZ2IlDyN4rh+1N5PEyM+KO0BA6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=FXd6Bnvx; arc=none smtp.client-ip=194.117.254.33
+	 MIME-Version; b=G3sKze9STNzSZPjsYWpsQPQex78vCbc3PHQe2LX3xyrYdp16PIRMEH/gm4dWbIH4XryKd5k8jS7ImgFDsclj1HBRJEOLawC2kBN/hTOVqUNFaATOlTwNjriaXjoqf9NeQuwB2bYeDgwWoZaStc/BtWDNvpOhK+KEPqVHHxsdh/s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=ES4eNa75; arc=none smtp.client-ip=194.117.254.33
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="FXd6Bnvx"
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="ES4eNa75"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	sang-engineering.com; h=from:to:cc:subject:date:message-id
 	:in-reply-to:references:mime-version:content-transfer-encoding;
-	 s=k1; bh=kQyC3tYlW47DuY2FSxHyQUL3kUwEOR3KmVDydlsmjJY=; b=FXd6Bn
-	vxfxG/fJASqmBpdigjz2gCOMOS3A3kvx4lhLHXc2XuFpxvb2nUoQ57mIjFw1Qdmz
-	GCHDB0s7oqe5OqU7arEzlkllqpYiuDDBsbTUByxm7tfdRieZEdD27p6cGAOKK05Z
-	mNxKCudJQItHLRxb2o1Ir/l2Bb08XzrjQsn+a8XU/UxD4Ro2LyuWBf50ZYKAV2Mc
-	pXwzWYaZMMrHGNGlMOurW0HesF8+OBnm9IbsdMxFKdIeJ8PJGKGEwDUFCBrxXXQL
-	QOhF9A/ruPU/N87ZCQMXHJzQhuSra0ua6YzDONhHycdDY7IfSlHW9rvVPtVZq+Zh
-	Z0CyQFevwbRVEczQ==
-Received: (qmail 1502903 invoked from network); 16 Sep 2026 12:25:22 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 16 Sep 2026 12:25:22 +0200
-X-UD-Smtp-Session: l3s3148p1@xl62FZdbkoMujnt4
+	 s=k1; bh=xIoZDT04ItzPzCjsOYpDgyIWJ+9SvmCWgY6JUqjGg0M=; b=ES4eNa
+	756RCxsMB9aUAVMC7DSYPR1uF0k28CCuEDjorAfirpKkGPpaywYD3Z6ScBCifxe6
+	IqqF89Sr0OXO8CU0goFEtojGyWW+cP0tYKNWqiRQC85fqOGsm+gBwXWXuKkI0Orl
+	oEmAGWxT9Qesc9hRR+I7YXOFNV+8Met5YKbry1Tza5RA2GP6OUsgHtPbaQF+X2bS
+	Ec2b0riIchz//SobBBA9g39KPnmzbnsiCH8sXvtyVQGPkzdPo5XeqR+VM3I5YR+2
+	NrralugftDqfCNQVAGw/+Qtss2K4/gCca8h4DaOgeDCEtX2kyc7h74QWu3SibIKe
+	K9YrI1NTdVbDiVvQ==
+Received: (qmail 1502933 invoked from network); 16 Sep 2026 12:25:23 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 16 Sep 2026 12:25:23 +0200
+X-UD-Smtp-Session: l3s3148p1@UBXBFZdbnoMujnt4
 From: Wolfram Sang <wsa+renesas@sang-engineering.com>
 To: linux-renesas-soc@vger.kernel.org
 Cc: "Lad Prabhakar" <prabhakar.csengg@gmail.com>,
 	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
 	Miquel Raynal <miquel.raynal@bootlin.com>,
 	Alexandre Belloni <alexandre.belloni@bootlin.com>,
 	Rob Herring <robh@kernel.org>,
@@ -44,9 +42,9 @@ Cc: "Lad Prabhakar" <prabhakar.csengg@gmail.com>,
 	Magnus Damm <magnus.damm@gmail.com>,
 	linux-rtc@vger.kernel.org,
 	devicetree@vger.kernel.org
-Subject: [PATCH v2 2/4] dt-bindings: rtc: rzn1: add SoC names next to their IDs
-Date: Wed, 16 Sep 2026 12:25:17 +0200
-Message-ID: <20260916102520.24288-3-wsa+renesas@sang-engineering.com>
+Subject: [PATCH v2 3/4] dt-bindings: rtc: rzn1: add R-Car Gen5 support
+Date: Wed, 16 Sep 2026 12:25:18 +0200
+Message-ID: <20260916102520.24288-4-wsa+renesas@sang-engineering.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260916102520.24288-1-wsa+renesas@sang-engineering.com>
 References: <20260916102520.24288-1-wsa+renesas@sang-engineering.com>
@@ -58,39 +56,69 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This helps maintaining because the numbers are easy to confuse.
+In general, the RTC on R-Car Gen5 is identical to RZ/T2H. X5H is an
+exception, though, because interrupts are not wired. X5H2 will have them
+wired again.
 
 Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Reviewed-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
 ---
- .../devicetree/bindings/rtc/renesas,rzn1-rtc.yaml      | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ .../bindings/rtc/renesas,rzn1-rtc.yaml        | 22 +++++++++++++++++--
+ 1 file changed, 20 insertions(+), 2 deletions(-)
 
 diff --git a/Documentation/devicetree/bindings/rtc/renesas,rzn1-rtc.yaml b/Documentation/devicetree/bindings/rtc/renesas,rzn1-rtc.yaml
-index e96007981c34..7ea77cd0bee1 100644
+index 7ea77cd0bee1..186d0076590c 100644
 --- a/Documentation/devicetree/bindings/rtc/renesas,rzn1-rtc.yaml
 +++ b/Documentation/devicetree/bindings/rtc/renesas,rzn1-rtc.yaml
-@@ -14,14 +14,14 @@ properties:
-     oneOf:
-       - items:
-           - enum:
--              - renesas,r9a06g032-rtc
--          - const: renesas,rzn1-rtc
-+              - renesas,r9a06g032-rtc # RZ/N1D
-+          - const: renesas,rzn1-rtc   # RZ/N1
+@@ -23,6 +23,11 @@ properties:
+           - const: renesas,r9a09g087-rtc  # RZ/N2H
+           - const: renesas,r9a09g077-rtc  # RZ/T2H
  
--      - const: renesas,r9a09g077-rtc
-+      - const: renesas,r9a09g077-rtc  # RZ/T2H
- 
-       - items:
--          - const: renesas,r9a09g087-rtc
--          - const: renesas,r9a09g077-rtc
-+          - const: renesas,r9a09g087-rtc  # RZ/N2H
-+          - const: renesas,r9a09g077-rtc  # RZ/T2H
- 
++      - items:
++          - enum:
++              - renesas,r8a78000-rtc      # R-Car X5H
++          - const: renesas,rcar-gen5-rtc  # R-Car Gen5
++
    reg:
      maxItems: 1
+ 
+@@ -52,8 +57,6 @@ properties:
+ required:
+   - compatible
+   - reg
+-  - interrupts
+-  - interrupt-names
+   - clocks
+   - clock-names
+   - power-domains
+@@ -68,6 +71,7 @@ allOf:
+             enum:
+               - renesas,r9a09g077-rtc
+               - renesas,r9a09g087-rtc
++              - renesas,rcar-gen5-rtc
+     then:
+       properties:
+         clocks:
+@@ -75,6 +79,20 @@ allOf:
+         clock-names:
+           minItems: 2
+ 
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: renesas,r8a78000-rtc
++    then:
++      properties:
++        interrupts: false
++        interrupt-names: false
++    else:
++      required:
++        - interrupts
++        - interrupt-names
++
+ unevaluatedProperties: false
+ 
+ examples:
 -- 
 2.53.0
 
