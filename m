@@ -1,37 +1,37 @@
-Received: from mail-43170.protonmail.ch (mail-43170.protonmail.ch [185.70.43.170])
+Received: from mail-43172.protonmail.ch (mail-43172.protonmail.ch [185.70.43.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 516CA4503F1;
-	Wed, 16 Sep 2026 08:09:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D4FA45FFA5;
+	Wed, 16 Sep 2026 08:09:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789546191; cv=none; b=ERCfqESv8ENA/J9f7evhPZBpMp95z1rIEeq0Av3klu8hDNreP0qcshDS+l48XP0G0YRhY+oo56VB3KN54kMcY/sGNnEHWih4vtU/ADgPv+coYQqYT/nfUswVr3W73EOHrUM/WaIa785sUDeyxJwJMaOH9EzH77mhAl94CXdCDRA=
+	t=1789546200; cv=none; b=I2+0Tu3ight/rIYdim2PpE3X5GgmjIJ+Tp4PR0906nNEPUcH8M4BGGXNIdZg59pVZHBalYWygoq611L9Hl3O7clGh6zkof0XsFu4ZtuB/2Ggg8UJufmUF4VMRH+b66yFPgPSOHosSc11e6bw0eZS5Aar1k8TraJGe9AoXZGQ+M8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789546191; c=relaxed/simple;
-	bh=5aHhFmRHH7hXWezUncCFq6AliuOuzN9v+On7qJIecuQ=;
+	s=arc-20240116; t=1789546200; c=relaxed/simple;
+	bh=UUIyipSh2UKdcm74j22sAz/1TGUuH6UZ/bs/me2KcbE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=si2ukkPkURYaUxeWIbfO6eAC2mrlVIvlzFNwaQLMP2GXiZTVrBpCjV6wwcGm26Ls4fTRZH3eBXQf1LZw7s96wZWjr17eiq+OECOwtJtXjubPRQ102W/SD7vBEx5KJWP97jjenQifBYnorTguLEDKRmnhl2UzOeM33QayrztHmZ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=mTe40gpC; arc=none smtp.client-ip=185.70.43.170
+	 In-Reply-To:To:Cc; b=qW6/7w650zQKM0+SDuzQqrEuOfFQeq8q5lf4E04e8N9uXrY3kMgzStOYmAC2asN+x7HdAszoahckgEBccXlIJz/S7lo50x8SqQoLlIDlt7L/j4+nMhECwP+2biTgBIbsSkAPndGUoRzNeYSc7Zsh6zYQw86olxrqueVL5hnaOTg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=nxC6Kxvm; arc=none smtp.client-ip=185.70.43.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="mTe40gpC"
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="nxC6Kxvm"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1789546164; x=1789805364;
-	bh=zOE/xhizi9/jAXNjhr878qhJ9pvevPWCdRYDdJUXczg=;
+	s=protonmail; t=1789546178; x=1789805378;
+	bh=tkWYX2wJYQV4g1jzkw2V1G4h4mO9GWQu8Y9s7bT56KY=;
 	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
 	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=mTe40gpCsFwjDlXKk1V4xGvJ6ezlsbvtBUGg1i0rD84HkSwTks3dfv8Bm8hI7PgpG
-	 rvzuQ+/WdRWelFkTM41vb3Z7kRPx3NGAlH56lafHkpX7CI+uBrhbOtrc684IPl4Ngu
-	 j0ynWDjwfTURQgBDmroIFdRRb+X3bkua/pidO/kxe1Zw8O2R1WIuYF8SIN4CYDFAUV
-	 I6gDDEzfOAxXUdNf/MvdWPx5xGAxjY29oOWIh8YzKRTbpcab2xfjo0JwROpa1nbMK5
-	 xTeAp7d6DZeh6gzgGstkuBBeBShxz9G+lhBA8p2Ya/WW/B5SPqRZEAt+EIbDPW+aC+
-	 CsDqwl4RyMZFA==
-X-Pm-Submission-Id: 4hlBPG2rcXz2ScPL
+	b=nxC6Kxvm42CxwP/zKDWIc1zWA0YrKJ5yalTXVCYigOq9GsblHGWC7mVi1HtFEFKcn
+	 gsRXPVc02UmVAzGLczSWsuSsS/c6rsdoAf4iPp1aM6BVykEng9gj4AwlFNqS4eTVgS
+	 dB8CKKZMWALAS7JIPTfxh8XHeZQ6CWlUgoodPG36dAD1rhMXWU63BTRIdeZZFOwk4Y
+	 ccDP+ohMnGFyTfs/zSxX8l/i4Br3Im0MVD01dXejXOWJFiUA0fWYIF0mEaS2tnLFj2
+	 7ZQnGFqORD16k5pusAZdp0zZh2+hKwGG/I9rf7wg0u76J0SREvLHgaY7wjsrcVyDN3
+	 U1mZY3P0sZNDg==
+X-Pm-Submission-Id: 4hlBPY2DSRz1DDXQ
 From: Esben Haabendal <esben@geanix.com>
-Date: Wed, 16 Sep 2026 10:07:58 +0200
-Subject: [PATCH v9 02/10] iio: accel: mma8452: Fix use-after-free bug in
- error error path
+Date: Wed, 16 Sep 2026 10:08:05 +0200
+Subject: [PATCH v9 09/10] iio: accel: mma8452: Use proper error code when
+ missing device model
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,7 +40,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-mma8452-open-drain-v9-2-0dd24fa2f3d7@geanix.com>
+Message-Id: <20260916-mma8452-open-drain-v9-9-0dd24fa2f3d7@geanix.com>
 References: <20260916-mma8452-open-drain-v9-0-0dd24fa2f3d7@geanix.com>
 In-Reply-To: <20260916-mma8452-open-drain-v9-0-0dd24fa2f3d7@geanix.com>
 To: Jonathan Cameron <jic23@kernel.org>, 
@@ -54,51 +54,40 @@ To: Jonathan Cameron <jic23@kernel.org>,
  Christoph Muellner <christoph.muellner@theobroma-systems.com>
 Cc: Esben Haabendal <esben@geanix.com>, linux-iio@vger.kernel.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Joshua Crofts <joshua.crofts1@gmail.com>
+ Joshua Crofts <joshua.crofts1@gmail.com>, 
+ Andy Shevchenko <andriy.shevchenko@intel.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789546157; l=1204;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789546157; l=915;
  i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=5aHhFmRHH7hXWezUncCFq6AliuOuzN9v+On7qJIecuQ=;
- b=AnhOLZlnnsjC9TEsu4H44Gr+JFYy10C6rPUBbLciYyup55qtYEXW6A3S3zMbQ8kWayrSoEFQ/
- fVwVunhD6TUD1/1wwWblD6QQUXkmJ41eBdS6hWMccvYMgm/fGxe+i87
+ bh=UUIyipSh2UKdcm74j22sAz/1TGUuH6UZ/bs/me2KcbE=;
+ b=9Riz1gDWwFndqbCpuFtrXtnfxYq7x/6bSbwOenD1GUcecvMMnYfPuCSyLEyB8swogmi2eBbIF
+ TbRro8cySjNDwMQdjIN87OrHEbkl8r6qjuUEIpHUZ8Uth7wHKC3t4KR
 X-Developer-Key: i=esben@geanix.com; a=ed25519;
  pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 
-If mma8452_probe() fails in iio_device_register() or later, we could end up
-with runtime suspend callback being called with a now freed device pointer.
+Switch -ENODEV error on i2c_get_match_data() failure to -ENODATA to
+satisfy the IIO coding style.
 
-Fixes: 96c0cb2bbfe0 ("iio: mma8452: add support for runtime power management")
-Cc: stable@vger.kernel.org
 Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 Signed-off-by: Esben Haabendal <esben@geanix.com>
 ---
- drivers/iio/accel/mma8452.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/iio/accel/mma8452.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
-index fe62a903f0e2..a937cbd84f30 100644
+index 5d44f0066b1e..5aea6bf3312a 100644
 --- a/drivers/iio/accel/mma8452.c
 +++ b/drivers/iio/accel/mma8452.c
-@@ -1681,7 +1681,7 @@ static int mma8452_probe(struct i2c_client *client)
+@@ -1594,7 +1594,7 @@ static int mma8452_probe(struct i2c_client *client)
  
- 	ret = iio_device_register(indio_dev);
- 	if (ret < 0)
--		goto free_irq;
-+		goto runtime_suspend;
+ 	data->chip_info = i2c_get_match_data(client);
+ 	if (!data->chip_info)
+-		return dev_err_probe(dev, -ENODEV, "unknown device model\n");
++		return dev_err_probe(dev, -ENODATA, "unknown device model\n");
  
- 	ret = mma8452_set_freefall_mode(data, false);
- 	if (ret < 0)
-@@ -1692,6 +1692,10 @@ static int mma8452_probe(struct i2c_client *client)
- unregister_device:
- 	iio_device_unregister(indio_dev);
- 
-+runtime_suspend:
-+	pm_runtime_disable(dev);
-+	pm_runtime_set_suspended(dev);
-+
- free_irq:
- 	if (client->irq)
- 		free_irq(client->irq, indio_dev);
+ 	ret = iio_read_mount_matrix(dev, &data->orientation);
+ 	if (ret)
 
 -- 
 2.55.0
