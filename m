@@ -1,217 +1,161 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E1D43D6477
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 15:36:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A77034C140
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 15:37:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789573009; cv=none; b=Xk0YWS72+/XJ3DkZObdBTu2IqL3VZXuZ+0SbjUbcHjC5+TEkXJq/GlmoU0FGYco8JxF/eaDj/xkxStAx7lKXLAtCWrVD+EbouJUSA0KOS3chQi4dKmy1wiI6WUxbBTbu5SiR7elTyDMjln4oliPVAYs5pXfMVmmDZvvYDrrBBkI=
+	t=1789573029; cv=none; b=X7Rc/ybDacLIDeZgG06hdu3vZVRqyCOlhKq7fBUlEqNcvz6p+Tu8RHVXOMdzEWjLMkKKtTfJdD355BNlBUuEsdjpy2xThFa2EaGQL9MK85/8PidINT7mxqrpgiQPzvae+8TgaToxARzry7YuAhy5HPbPQXZT6vlyqTcfjTzGr6k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789573009; c=relaxed/simple;
-	bh=j9wPV+/EfbcGsOG8JnEPShKnQO6bUkC+qAb7x5D1t28=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
-	 References:In-Reply-To; b=myJky6V1yLg9Rp4dAdwldw0ZaJAp1v8Gp40+1HVzrwFtTYau94Y8/PHDU/uUuNxU5skNwgV1fdtggVgItN4W1A2SPmsU+frRGKrynu4nmKzgG7Po6fd3stHrQBNKCpdySr9HsnqihcJdSXUAzuMeZEJVLdfnXKh7AOhSgnvEon0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=cXHdKIqT; arc=none smtp.client-ip=209.85.221.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1789573029; c=relaxed/simple;
+	bh=ZwkseMV6FbbwphPv0uGrX/aYoUPUYRh5WltUTfvDOZA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rzIAM1ruFrpByeVA20RdER7aEm7nSU6R3+fG4Oh7eyMUuBOYvRyDDMjZDxGlM8DAMydmSu/IlUhj/H4A5nKYTCR2QTDSDacXS16OQzbfhAUv+xfQW4tVyh1//ylL9VBYrxJoTZwN6KLTuPH+DZuygqF7QN+j0c6huzYfci8qp9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=iksRDBTL; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LRxBcsI3; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="cXHdKIqT"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-4843e397f74so1224507f8f.1
-        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 08:36:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="iksRDBTL";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LRxBcsI3"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GFAl9M2405288
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 15:36:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	JdsTIVTs0KYsy94zRrHjZ3fCdvLEW0KfasUbrZWJ/vc=; b=iksRDBTLWdel5adO
+	38M/fUJ5mmG+ZK7EZVBvbaCloehNAPJWOFG3HJI8ZlAtCnB123XaRMGvvBePspvq
+	bJypI2FIjqSRtkNxFUGK2yyLgy8bDTgkmQlE7V6ic9P3GCBE0R4QllPFRVECsxVN
+	CX7D7fP7XRjZQWhwAZ5yxIsp24q3uiE+Ed7/V33aezLDbAfWkt1DBfvVsDEcsGoU
+	Oc2IJMDOMtGxkfvHpXoW3BkVwqMsSVttgQqeuGPB/rt9PHU7FvX5wyWGMW1a7ygo
+	uOyGNFsBXtjK8DgFSQ8pAfycg9pUnU+ji5GN8xjUQOZF4d7PyGKSb6wp4C+DZIhr
+	iMYcLw==
+Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com [209.85.222.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqtn50x9j-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 15:36:58 +0000 (GMT)
+Received: by mail-ua1-f72.google.com with SMTP id a1e0cc1a2514c-9830f2a8195so1035063241.1
+        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 08:36:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789572996; x=1790177796; darn=vger.kernel.org;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:mime-version:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=mqmfs62Il41JZdrK4MnJ9AwZ6UV73Ai2ymy+jYr0F+M=;
-        b=cXHdKIqTKKDEZPyrNZkyvgiKFAbeOrOwxQ1h9eGsmbtiIRAE5DWeCXlqwOEFyKMxSk
-         o/dam5XeR7aby5PHcg+dTTa8vn6Eqfwyt2RiszXBQKWvhcrusjzQWCPRPWLH9mwcTKzg
-         9r8EtLLJuRQl7c/wJIJu6On5nZJ9Bx49Bo6bpQtUlqw6LdlAz0KaZrjkPJs8dpP3u4q0
-         DauvJmQq8tCCBuOffVDHaHUQYj+nheYr902n89G7VshcaKSk6tmMY5aKITenUB4ONAaP
-         0A6w8hAXZeKzIE3DJ45UXQrKnzwPilClxbHUqgadrhF3Q31ParWGnaQffuadxWzQ6h4t
-         NDcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789572996; x=1790177796;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+        d=oss.qualcomm.com; s=google; t=1789573018; x=1790177818; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=mqmfs62Il41JZdrK4MnJ9AwZ6UV73Ai2ymy+jYr0F+M=;
-        b=GM4MgR0QNyTodRSmCZHaoCRHfRBJeZVQgtHII4xbz082oU1AQ9q6BYQVNHJeh1Fhkv
-         8UyqHs25Gnt0/pLIKSHxHv/3FvobodXD5i/6ho8PRYXl5H0H5Fp1kx5GuW3GveQYXN3s
-         HdysTtLfVSbRpybUNp3y+k3wjsPgvKMyHI6YmNMP5RFkzZ1R4dJY44jeBZqMUd8hwSNx
-         mjZtaLg5yMFR9OHvwc4JEBiS55jBCd6PPmmiz/nYK4FDn9+PpE3FIaMwp7eReowULviE
-         JECpCepTcXEjgv+lzctUkA/4mmkPHeT4BqVjkWUmDrYqQxNpgRqrWjPm7XQU6bTo96MW
-         Cc8A==
-X-Forwarded-Encrypted: i=1; AKwUvByhGvWCH5GCicOeFPPORlsmjvOnYTjYzDhDkIkst5n0/T8VR2bt4h7SEvuIy/TXN8rTnC1DTM52dpIJ@vger.kernel.org
-X-Gm-Message-State: AFuF++k8YIkH7TijQyku3S+KhafM9bK8Rb3Wdcbbz88AQXEJbbsTxXXb
-	i/sQ2FjoVkXWkqx5j6EQcLvs9qe+gB05IXNAntUWz+uL19Uc6T06VLEQegILd05ztjs=
-X-Gm-Gg: AYBFou0PyJWBo+IXzAA1yTs3HixmfVnHDVd0r0CLwhYbDMx6zSpwBcgbaXi8VUYTVBm
-	ma8FclgpmEHJKgEYHNltelhuekuog8bOLB2dCSIN3u/c/s8i9MllBFvk523guAwb2Uy+wOmKxvF
-	bGkcMFpYTSlZ1k2x2gZCmMsd9pyelOCRmC5v10FuGauEX+OXEZ0IRU8Y/6TcL/7ByeJn20ERotq
-	JZXKtKx3ZR1gV3agHCDp+E63lcMjsuFcHKYTDB4VmVDqIE1B6HmiiXuNaSrlA59YVP9JGL78ugF
-	yXMlZYLKJ6NwvksCLAP9ouoAUAO/inoPx1+nFLLJSYP+xX2+krE0f0R9WO4rgAXceGQ1AXBiHn0
-	Ft3aOsF/06F30E/0HqdYPR6F2uID+vjDEqfezkDj4y4c/glDlj2VcptgzXCo65IWUSTsaN5Urlv
-	gQHLqLt3EREVyLZnQjUAF/oz8NySG7//zktduqhE57C53DyXRskoQT+rnt5iL9HrH7gw==
-X-Received: by 2002:a05:6000:643:b0:487:955:e6c3 with SMTP id ffacd0b85a97d-48713a887ccmr129202f8f.0.1789572995924;
-        Wed, 16 Sep 2026 08:36:35 -0700 (PDT)
-Received: from localhost ([2001:4091:a245:8029:665d:b7b:5fa4:7ad0])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf27c65sm7915045f8f.21.2026.09.16.08.36.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 08:36:34 -0700 (PDT)
+        bh=JdsTIVTs0KYsy94zRrHjZ3fCdvLEW0KfasUbrZWJ/vc=;
+        b=LRxBcsI38asErWduQHfACnACVkZksER123Z4cVPw+ha65dm6X7AWqEWN35mgtxTe6F
+         IyW0PraqiOyZs2mX9/dgUXzb2qFy6WSGzRD2K3p5PmHtNIMKX55nH7ef0Wv1c+vwDLK6
+         4OH/eelPZtuZJPOjlryj5WV3hQIu1SAdGHVL2yYx32B6I7aj9jlsXfIdJUoAtLjddqzP
+         TEAeZW3KHqLtooINqbWS7zDfad0OD8zluJshEg5jN4yEd1td+g21MszjTL7Xr4pNIT8i
+         h0yftgKKnY2m5rO/t7mBnPmrZHQ5U9D+7ilcBenQ2IHOipE5t7TPlv/KQIUOi2tlgofv
+         U4+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789573018; x=1790177818;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JdsTIVTs0KYsy94zRrHjZ3fCdvLEW0KfasUbrZWJ/vc=;
+        b=G323yK2qbvVJ3O24Twm+wT8nxv3b8CbsJiIjx04JUtobt31OYNoKfG/PoEaPEZOkZ4
+         HNq15WI15AJZk+N3j5CPqoFCJqsW5gYX3dpHJOYA7YV3Z6Lr2g/yxr2SofhAWP7sackR
+         m6vJctA7xbwjL5MxyNwunCnpK8FAnvn9BuLsKxlUCysqjXqeykEHi2c35GC2MmSYDJHx
+         VnZCgoXJmsz1K8H987aJypZ/dUK4nAcgAxiSeiYNOgsjBpWr51nMa0CTjzURbsyhM59r
+         chHOFpowQ+mQmPg8FPDSklP3EByGKJKLng5bmZyymSMOkhO43So0EtVCVK3YIcCN7W4A
+         9aPQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzz1joZTkqtgR98+JvGYFf4eBrAb+iga3D66oWrzFGqNC93RQUeW+RviAysgA2KAYU6boExlJZO4wD1@vger.kernel.org
+X-Gm-Message-State: AFuF++lwK9vk/Jz5K4vBVjWFUUHVU7DLDDcCZJfWY2md9tW5nElLsd6t
+	5k5DBfuOGB+pZmZ/H4TzA3IF4Nd6++oerefMAZMyEby8KRkElJta3a/vOyIfDCefoLrWdsDr/NS
+	WOg4zJNa4XNB1csykDMQMZsavOziYo7wFNfp7EWrDoa2AyixEhwe8DljlXejWqTMR
+X-Gm-Gg: AYBFou1MBQYNVHYtvYrZmmNiOabsa3Iz88r5E6qeDis0Rb6/cTPsFSQXO27C37MC8Ov
+	6sHUQmVHQ+aNSdsCAwI2OjGUhPs5Y+WCGj5Y+tBs4UUEr/YFdfsoSfy+5wyweIsUR/TZp267G+g
+	wL9hQqy/eB8hPG5FyVp37LNvJ09aLWyF8gLgnSWZh/Q0yox+ZQlsNo96MzgiD2SgKXTs3bC0M9z
+	drttpZcEepJbrKNZtYVgl/IYdSzX4RN2m8o/3lnZq5g11Jd1F6wwh8zNLAX7PxJ2SeLbBL+O+uc
+	kZCPYmuDeLHTIozpxH6RuIivucGwrbzoiyeDnvEowBiDoGaNVGTzljn/07Skh4UWv63seZQbzuv
+	owIkn8yCHWTH5segS9lA6NeBehfmxI0uFKAXCJyZWeu9VpalVexW+fE7HCUNAmuw=
+X-Received: by 2002:a05:6122:d24:b0:5c7:fbb5:6ea0 with SMTP id 71dfb90a1353d-5c99ae061c4mr4693031e0c.4.1789573018191;
+        Wed, 16 Sep 2026 08:36:58 -0700 (PDT)
+X-Received: by 2002:a05:6122:d24:b0:5c7:fbb5:6ea0 with SMTP id 71dfb90a1353d-5c99ae061c4mr4692900e0c.4.1789573017750;
+        Wed, 16 Sep 2026 08:36:57 -0700 (PDT)
+Received: from [10.38.244.133] (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9123be95d2esm27183766d6.30.2026.09.16.08.36.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 16 Sep 2026 08:36:57 -0700 (PDT)
+Message-ID: <5f8746bc-392a-42c3-8ca2-07327e5651ea@oss.qualcomm.com>
+Date: Wed, 16 Sep 2026 23:36:50 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=761cd574ee4d3e49f3377936d80d108455a0226c8fe418a7549df126e25d;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Wed, 16 Sep 2026 17:36:26 +0200
-Message-Id: <DLGUOGCLFAI9.2JSS4DCFRYTNI@baylibre.com>
-Subject: Re: [PATCH 1/2] dt-bindings: input: gpio-keys: add pinctrl states
-From: "Markus Schneider-Pargmann" <msp@baylibre.com>
-To: "Krzysztof Kozlowski" <krzk@kernel.org>, "Kendall Willis"
- <k-willis@ti.com>
-Cc: "Dmitry Torokhov" <dmitry.torokhov@gmail.com>, "Rob Herring"
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, <msp@baylibre.com>, <s-kochidanadu@ti.com>,
- <a-kaur@ti.com>, <s-tripathi1@ti.com>, <vishalm@ti.com>,
- <linux-input@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <devicetree@vger.kernel.org>
-X-Mailer: aerc 0.21.0-146-gb5c16ebe1835
-References: <20260912-upstream-gpio-wakeup-v1-0-f0e12484b836@ti.com>
- <20260912-upstream-gpio-wakeup-v1-1-f0e12484b836@ti.com>
- <20260914-unbreakable-competent-beluga-efb5ad@quoll>
- <20260915164819.nlgpuvf37rhzgc66@uda0506412>
- <dec4f6e1-115e-46dd-8fb9-a3c67f1a8811@kernel.org>
- <da881fb0-93da-4d75-88da-8898b2c734eb@kernel.org>
- <20260915174103.ad6tjy6w6s24h2yc@uda0506412>
- <20260916-dancing-loud-guan-fbb1eb@quoll>
-In-Reply-To: <20260916-dancing-loud-guan-fbb1eb@quoll>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 05/13] arm64: dts: qcom: x1e80100: Add CAMSS block
+ definition
+To: Bryan O'Donoghue <bod@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
+References: <20260906-x1e-camss-csi2-phy-dtsi-v6-0-067f2ecc4630@linaro.org>
+ <20260906-x1e-camss-csi2-phy-dtsi-v6-5-067f2ecc4630@linaro.org>
+ <KE4uG1eVJQ53r3OwBVGp0Yl45AtOqMj-yJJmAq67lq7ze23gLlb-2Ci_I0qYx574oG8woS9A13xt2Iu1TkTMZg==@protonmail.internalid>
+ <4c43c80c-d8c3-4738-9a5f-0b3e1c19679d@oss.qualcomm.com>
+ <6ca6cacc-3fcc-4d1d-a6cc-cdc1e9a403ca@kernel.org>
+From: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+In-Reply-To: <6ca6cacc-3fcc-4d1d-a6cc-cdc1e9a403ca@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDIxMiBTYWx0ZWRfXzqZ5DzhuBmh7
+ jxHWftPDgcgP91cVj14rG0m0abfcwz7nlWsl/zRzQDPCqGw3knnPszqAivWCw1blXRfmBGCdnE0
+ 11avSfXwSb1zsiTqWo0DiYFw8fcRhi3/nNAUTXrquWCbp93o/mcMtDRB6ITu52ijZ8nLfMHYlBl
+ /FqtGCMsEAWjsz8pMoud9Jp12pGKdn6kD5V43fZ1hz94FbMYIdRWeioKTFwxvGMuid11lAr4Y56
+ 36Xwi3SiziNXLgQcnbGUaiNGjX2ZIZOlv3Rg5meVN6uPGtX+5CeuEWShtIgzcVyYJVQ39w4Izzo
+ h7ux4nVJE/f33nVYYm1/OPTBTyeX6iyQrbrBNIFh2iiZcJxb3dd1x8olk+JFoUBRGWilBGjpE42
+ IeqBM+o/4lz69qdK3fddtx0sNNQ0TAxFMy16VLMmDJoVohywxhGXU0Il+ms5esYNnSOxUxrFAce
+ x5MTHKI+vYq2tiNqYMA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDIxMiBTYWx0ZWRfX8vJxH+tZXJAA
+ NIvkfxBo99HRUr9cWSOLXH+yfQ8LlMHRYZSJkyfk+3iey4YIw3g5TRp4tNO+rI6a8rlBFbP0ArI
+ iaitZ1ysIxyVr38jpjZVMcWQxgQ2VGM=
+X-Proofpoint-ORIG-GUID: KnIpHeYl1Nwar5i1YjzHKZTHSsfqLWm-
+X-Authority-Analysis: v=2.4 cv=K7O3jCWI c=1 sm=1 tr=0 ts=6aaab79a cx=c_pps
+ a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=8EY4eiAYLadLDWKzreoA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=1WsBpfsz9X-RYQiigVTh:22
+X-Proofpoint-GUID: KnIpHeYl1Nwar5i1YjzHKZTHSsfqLWm-
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-16_02,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 impostorscore=0 phishscore=0 bulkscore=0 priorityscore=1501
+ lowpriorityscore=0 spamscore=0 adultscore=0 suspectscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160212
 
---761cd574ee4d3e49f3377936d80d108455a0226c8fe418a7549df126e25d
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
 
-On Wed Sep 16, 2026 at 9:17 AM CEST, Krzysztof Kozlowski wrote:
-> On Tue, Sep 15, 2026 at 12:41:03PM -0500, Kendall Willis wrote:
->> On 19:07-20260915, Krzysztof Kozlowski wrote:
->> > On 15/09/2026 19:05, Krzysztof Kozlowski wrote:
->> > > On 15/09/2026 18:48, Kendall Willis wrote:
->> > >> On 12:13-20260914, Krzysztof Kozlowski wrote:
->> > >>> On Sat, Sep 12, 2026 at 04:33:53PM -0500, Kendall Willis wrote:
->> > >>>> Document pinctrl properties on the gpio-keys device node. By usin=
-g the
->> > >>>> wakeup pinctrl state, the pins are able to wakeup the system from=
- a
->> > >>>> low-power state. The default pinctrl state describes the default =
-pin
->> > >>>> configuration.
->> > >>>>
->> > >>>> Signed-off-by: Kendall Willis <k-willis@ti.com>
->> > >>>> ---
->> > >>>>  Documentation/devicetree/bindings/input/gpio-keys.yaml | 16 ++++=
-++++++++++++
->> > >>>>  1 file changed, 16 insertions(+)
->> > >>>>
->> > >>>> diff --git a/Documentation/devicetree/bindings/input/gpio-keys.ya=
-ml b/Documentation/devicetree/bindings/input/gpio-keys.yaml
->> > >>>> index cc78c2152921308fe0cad3e29ca78a5fad08f066..b554933e93412d8b6=
-c2ec401dc1e1eeff57d4190 100644
->> > >>>> --- a/Documentation/devicetree/bindings/input/gpio-keys.yaml
->> > >>>> +++ b/Documentation/devicetree/bindings/input/gpio-keys.yaml
->> > >>>> @@ -22,6 +22,22 @@ properties:
->> > >>>> =20
->> > >>>>    poll-interval: true
->> > >>>> =20
->> > >>>> +  pinctrl-0:
->> > >>>> +    description: Default pinctrl state
->> > >>>> +
->> > >>>> +  pinctrl-1:
->> > >>>> +    description: Wakeup pinctrl state
->> > >>>> +
->> > >>>> +  pinctrl-names:
->> > >>>> +    description:
->> > >>>> +      When present should contain at least "default" describing =
-the default pin
->> > >>>> +      states. The second state called "wakeup" describes the pin=
-s in their
->> > >>>> +      wakeup configuration required to exit sleep states.
->> > >>>> +    minItems: 1
->> > >>>> +    items:
->> > >>>> +      - const: default
->> > >>>> +      - const: wakeup
->> > >>>
->> > >>> This will introduce new warnings, which should be being fixed in t=
-his
->> > >>> patchset (e.g. at91-kizbox3-hs.dts).
->> > >>>
->> > >>
->> > >> Will fix the binding to work with current device trees.
->> > >>
->> > >>> But nevertheless, isn't second state the sleep state? How can you
->> > >>> configure pins for the wakeup state - like being in the wakeup? Yo=
-u
->> > >>> configure the pins for given state, which will be a system suspend=
-, so
->> > >>> sleep?
->> > >>>
->> > >>
->> > >> The sleep state usually refers to putting the pins in a state to sa=
-ve
->> > >> power. The wakeup pinctrl state is for putting the pins in a state =
-to
->> > >> allow wakeup from suspend for that device. Both 'sleep' and 'wakeup=
-'
->> > >> are for system suspend, but they fill different functions. The CAN
->> > >> subsystem also uses the 'wakeup' state in addition to the 'sleep' s=
-tate
->> > >> [1].
->> > >=20
->> > > So you mean sleep would be a separate state? But then aren't both
->> > > exactly the same states? IOW, if device is wakeup-source, it will ha=
-ve
->> > > for "sleep" state pin configuration allowing to wakeup.
->>=20
->> The 'sleep' and 'wakeup' pin states are both used for suspend. They
->> would just be used separately since only one could be used at a time.
->> The reason 'wakeup' is separated out is because it is more specific for
->> allowing wakeup from the device.
->
-> If they cannot be used together, then it is the same state.
 
-If I understand this patch correctly, 'sleep' is not relevant here.
-But 'sleep' and 'wakeup' serve different purposes and can be
-used/defined together in a single device in the devicetree:
- - 'sleep' describes the pin state during suspend if wakeup is not
-   enabled by the user or there is no 'wakeup' pin state defined.
- - 'wakeup' describes the pin state during suspend if wakeup is enabled
-   by the user.
-If the user enables wakeup, 'wakeup' is the relevant state and otherwise
-'sleep'. Which one applieas is a runtime decision of the the user.
+On 9/16/2026 10:59 PM, Bryan O'Donoghue wrote:
+> On 08/09/2026 09:46, Wenmeng Liu wrote:
+>>> +                 <&camcc CAM_CC_CPHY_RX_CLK_SRC>,
+>> I think we should remove the SRC clock.
+>>
+>> Thanks,
+> 
+> There's no clock that is derived from this clock, so if we remove it, 
+> what is responsible to switch this on ?
 
-I introduced these two states for m_can for that reason. This was
-discussed here:
-  https://lore.kernel.org/r/DCD1YPX4T779.ADK4JCGW1MU7@baylibre.com
 
-And then reviewed/applied in v10:
-  https://lore.kernel.org/r/175993598226.3512549.5295923279078928995.robh@k=
-ernel.org
+This SRC clock has child clocks such as CSIPHY0/1/2/4. The CAMSS driver 
+never enables this SRC clock directly, and enabling the child clocks 
+will automatically enable the parent through the common clock framework, 
+so the SRC clock can be dropped.
 
-Best
-Markus
-
---761cd574ee4d3e49f3377936d80d108455a0226c8fe418a7549df126e25d
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iKMEABYKAEsWIQSJYVVm/x+5xmOiprOFwVZpkBVKUwUCaqq3ehsUgAAAAAAEAA5t
-YW51MiwyLjUrMS4xMiwyLDIRHG1zcEBiYXlsaWJyZS5jb20ACgkQhcFWaZAVSlM+
-ygD/VE+hJFS+CFW3o1xNzwibjxdZyInzKYw9u2YQjwROYfUA/3CUdbcqbBPrKnV4
-8hCIpecynxuiT0xYshtL2xPQjcQF
-=LpE8
------END PGP SIGNATURE-----
-
---761cd574ee4d3e49f3377936d80d108455a0226c8fe418a7549df126e25d--
+Thanks,
+Wenmeng
