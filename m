@@ -1,103 +1,138 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBB58361965;
-	Wed, 16 Sep 2026 04:51:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 483C43AF64D
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 04:56:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789534269; cv=none; b=ING0iNqALoPGA1+FKb4iByxNB4Xd+AxAvkTFTtNE4dqSa6R5oSJ3JYxHY32/MPMfUSebc92waEL0N/VJTLHj/5UDtvAyPA86sZ45AaFJ23o+8P1ql7lwOfHmmbyc2yerWo2hB2oEQmmJf9NkZ58G74GE0CchA4yf++6lwL9/FEo=
+	t=1789534604; cv=none; b=IxLFuo1jfjl+NOxiaFfOItIizNU+47oprAap876ev+QlPYPJphQckZ2Ls3DQusbsXNA/9bXJbTZqaLAkgFDBpGom15fl7FJkH0bvFbk28oIaa5D7UrDv1I5TN0xNmxWOv9a5ViFEoFHqv1JI2h8Kxx/6ztf+17/ZJqyoMYdff9A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789534269; c=relaxed/simple;
-	bh=0brGLsUCM8OjbH30xJ1GI8+aQZaH1XqCveD1VKrsWZs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=QK/1IiN6TRmzRyZDgYkjiOMHzQbXvH+zw4QtfrG6JCWYNpG70Lrix72+KDUieOisYoL6CYvRt0QgPBQ3hqhm01OQ4wGZYmq+6AbseFafTC6c5jhSOv37MOSJWhZs39cT6KrEXL790cojkTP5OrkF0XgI6zx7vYaeFu0B1/cBwTY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=cozk4Wq4; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789534604; c=relaxed/simple;
+	bh=4K3h3Rw54RjSRFKh9ol4ea6kBKJbtFDgm5hxnraDt+I=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=JXuAJLI5qnWIZkukWu5czf+rpp/+8XabbJ0x/cRmkQYkPYocDHLpqwKHQxdJ+YxGccPTbEeX11mSe6kK7pit5Gb8jDh19SUq9ZmmPNjEYxigOu4/umok4aECqmUQd12oT8TUR4yqsEwKP1053rqyOxUwnV8R6/DBu+boyB1AKzo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uropqguc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="cozk4Wq4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=0brGLsUCM8OjbH30xJ1GI8+aQZaH1XqCveD1VKrsWZs=; b=c
-	ozk4Wq4p0a+DYAskc3v9AeRJoPdFWFJor9rVy8GTBoM2VubqyAPdxTZ6dRvW8RyZ
-	qXdVJoirnouBR8BM6pThOkUfT62bcjnWVEPGMy5OWgP6o852ML5VEF7Mn6bzmsEg
-	Simst3JWQ+tkbh3OetC6/1WiW62pyZkPkW5yxTQPY4=
-Date: Wed, 16 Sep 2026 12:49:46 +0800 (CST)
-From: zl020895  <zl020895@163.com>
-To: "Andy Shevchenko" <andriy.shevchenko@linux.intel.com>
-Cc: longzhao@ambarella.com, "Arnd Bergmann" <arnd@arndb.de>,
-	"Krzysztof Kozlowski" <krzk@kernel.org>,
-	"Alexandre Belloni" <alexandre.belloni@bootlin.com>,
-	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	"Rob Herring" <robh@kernel.org>,
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>,
-	"Conor Dooley" <conor+dt@kernel.org>,
-	"Michael Turquette" <mturquette@baylibre.com>,
-	"Stephen Boyd" <sboyd@kernel.org>,
-	"Jerome Brunet" <jbrunet@baylibre.com>,
-	"Linus Walleij" <linusw@kernel.org>,
-	"Bartosz Golaszewski" <brgl@kernel.org>,
-	"Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
-	"Jiri Slaby" <jirislaby@kernel.org>,
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	"Catalin Marinas" <catalin.marinas@arm.com>,
-	"Will Deacon" <will@kernel.org>, "Lee Jones" <lee@kernel.org>,
-	mfd@lists.linux.dev, devicetree@vger.kernel.org,
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re:Re: [PATCH v7 09/15] gpiolib: regmap: add gpio_regmap_get_chip()
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <aqlknvOejkE5zutq@ashevche-desk.local>
-References: <20260915-cv75-v5-v7-0-3297d3fbc9c0@ambarella.com>
- <20260915-cv75-v5-v7-9-3297d3fbc9c0@ambarella.com>
- <aqlknvOejkE5zutq@ashevche-desk.local>
-X-NTES-SC: AL_Qu2TC/mYu0kj4CiRZekcn0wRhug/UMa4u/sm3YNXc+gGgS7rxD0iflpxF2DKzOe1GTqXuzGSbTdPyMZYULtmDWHgzTizjvt8es72bjBGWA==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uropqguc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAA961F008A0
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 04:56:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789534602;
+	bh=C3tZpMYh27w/dm8oruC2ikSebTIKfee6UIDxXeFEmbY=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=UropqgucTk1RLrJBamQ3AklerGyhVADL72cabcJr+qZiALC9/pt00Six1PqD/aBWp
+	 IjQoI5eEEc9XLBgpC6ZuL9CIe1FxKMhm4kmmiDZ+t8ChixGlHWjVGbFcB5SKFcDO7y
+	 rfKDerJ430tO0RXwSgEXx7sykmqAQu32509yFRqrY47Js4c6V+os/iOcIvCozIlZqM
+	 Fyrw1stapVkSsw2zz3EzIz1adYgf3ei4Xyl+MiIA4wZ3V29U2Dub/L+QSZe5swtJ5e
+	 z7v6TW2YZ62M0k3suNhAi0GKNZHCObVneAyhnTkZ2WmQA8gATF/s1Foe7pHhrroFSx
+	 U8aGmSxEREqQg==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f16c81so493982e87.2
+        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 21:56:42 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxywh+Sml1lwXNuOBYxIVLB+5AYOCC5HQCocxt+skTEcU1Hac6+t85Hr2nWGIrjxG43mpy7EuaO9nzB@vger.kernel.org
+X-Gm-Message-State: AFuF++kRcSnuNtligaYnNi/CawTVg7koW3YC3S2CNFd+K+NhK6YPtu3d
+	SzYJcUhsVL0pdVNnMY6H3U75G2GPcij4sxYFWvUPqeKWHw0TGOdeuZvs+EASb5cJKIwmEHIGWSd
+	PUNdXWY6F1ORxjR2oAvVoS1vm7eIj1nA=
+X-Received: by 2002:a05:6512:b87:b0:5b6:1a7c:fd86 with SMTP id
+ 2adb3069b0e04-5b8b6652ac6mr244953e87.44.1789534601132; Tue, 15 Sep 2026
+ 21:56:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <327d09fc.4043.1a0a88cad9b.Coremail.zl020895@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:iCgvCgD334PqH6pqGGFHAA--.23892W
-X-CM-SenderInfo: d2oqjiqyzvqiywtou0bp/xtbCxgtHuGqqH+vnbAAA3N
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+References: <20260916044119.475666-1-alastair@d-silva.org>
+In-Reply-To: <20260916044119.475666-1-alastair@d-silva.org>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Wed, 16 Sep 2026 12:56:28 +0800
+X-Gmail-Original-Message-ID: <CAGb2v64HZoqBscyKTkTin6DnMv5_kZpBxoS+cm7aYy09pRc7hA@mail.gmail.com>
+X-Gm-Features: AcwNN1UfVwvH_TTNjxWxYFWqmDiwY6R0M22kYyQVnOwJYHGWocQFI_cDBu05Ups
+Message-ID: <CAGb2v64HZoqBscyKTkTin6DnMv5_kZpBxoS+cm7aYy09pRc7hA@mail.gmail.com>
+Subject: Re: [PATCH net-next 0/4] net: Add Allwinner H616/H618 EMAC1 and AC300
+ EPHY support
+To: "Alastair D'Silva" <alastair@d-silva.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
+	Russell King <linux@armlinux.org.uk>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Maxime Chevallier <maxime.chevallier@bootlin.com>, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	James Hilliard <james.hilliard1@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-SGkgQW5keSwgCgpUaGFua3MgZm9yIHRoZSByZXZpZXcuCgpJdCBpc24ndDsgdGhhdCB3YXMgbGVm
-dG92ZXIgZnJvbSBkcm9wcGluZyBnaXJxLiB2OCB3aWxsIHJlc3RvcmUgdGhlCm9yaWdpbmFsIGF0
-dGFjaCBjb2RlLiBUaGUgcmVhbCBhZGRpdGlvbiBpcyBncGlvX3JlZ21hcF9nZXRfY2hpcCgpLCBz
-bwpQTDA2MSBjYW4gY3JlYXRlIGl0cyBpcnEgZG9tYWluIGFmdGVyIHJlZ2lzdGVyLgoKQmVzdCBy
-ZWdhcmRzLApMb25nIFpoYW8KCkF0IDIwMjYtMDktMTUgMjM6MzA6MzgsICJBbmR5IFNoZXZjaGVu
-a28iIDxhbmRyaXkuc2hldmNoZW5rb0BsaW51eC5pbnRlbC5jb20+IHdyb3RlOgo+T24gVHVlLCBT
-ZXAgMTUsIDIwMjYgYXQgMDc6MTU6MzlQTSArMDgwMCwgTG9uZyBaaGFvIHZpYSBCNCBSZWxheSB3
-cm90ZToKPgo+PiBMZXQgZHJpdmVycyB0aGF0IGltcGxlbWVudCBhIGN1c3RvbSBpcnFjaGlwIHJl
-dHJpZXZlIHRoZSBncGlvX2NoaXAKPj4gYWZ0ZXIgcmVnaXN0cmF0aW9uLiBBdHRhY2ggYSBjYWxs
-ZXItcHJvdmlkZWQgaXJxX2RvbWFpbiBvbmx5IHdoZW4gaXQKPj4gaXMgcHJlc2VudC4KPgo+Li4u
-Cj4KPj4gIHN0cnVjdCBncGlvX3JlZ21hcCAqZ3Bpb19yZWdtYXBfcmVnaXN0ZXIoY29uc3Qgc3Ry
-dWN0IGdwaW9fcmVnbWFwX2NvbmZpZyAqY29uZmlnKQo+PiAgewo+PiAtCXN0cnVjdCBpcnFfZG9t
-YWluICppcnFfZG9tYWluOwo+PiAgCXN0cnVjdCBncGlvX3JlZ21hcCAqZ3BpbzsKPj4gIAlzdHJ1
-Y3QgZ3Bpb19jaGlwICpjaGlwOwo+PiAgCWludCByZXQ7Cj4KPj4gICNpZmRlZiBDT05GSUdfUkVH
-TUFQX0lSUQo+PiAgCWlmIChjb25maWctPnJlZ21hcF9pcnFfY2hpcCkgewo+PiArCQlzdHJ1Y3Qg
-aXJxX2RvbWFpbiAqaXJxX2RvbWFpbjsKPj4gKwo+PiAgCQlncGlvLT5yZWdtYXBfaXJxX2xpbmUg
-PSBjb25maWctPnJlZ21hcF9pcnFfbGluZTsKPj4gIAkJcmV0ID0gcmVnbWFwX2FkZF9pcnFfY2hp
-cF9md25vZGUoZGV2X2Z3bm9kZShjb25maWctPnBhcmVudCksIGNvbmZpZy0+cmVnbWFwLAo+PiAg
-CQkJCQkJIGNvbmZpZy0+cmVnbWFwX2lycV9saW5lLCBjb25maWctPnJlZ21hcF9pcnFfZmxhZ3Ms
-Cj4+IEBAIC00MjAsMTIgKzQyNywxNSBAQCBzdHJ1Y3QgZ3Bpb19yZWdtYXAgKmdwaW9fcmVnbWFw
-X3JlZ2lzdGVyKGNvbnN0IHN0cnVjdCBncGlvX3JlZ21hcF9jb25maWcgKmNvbmZpZwo+PiAgCQkJ
-Z290byBlcnJfcmVtb3ZlX2dwaW9jaGlwOwo+PiAgCj4+ICAJCWlycV9kb21haW4gPSByZWdtYXBf
-aXJxX2dldF9kb21haW4oZ3Bpby0+aXJxX2NoaXBfZGF0YSk7Cj4+ICsJCWlmIChpcnFfZG9tYWlu
-KSB7Cj4+ICsJCQlyZXQgPSBncGlvY2hpcF9pcnFjaGlwX2FkZF9kb21haW4oY2hpcCwgaXJxX2Rv
-bWFpbik7Cj4+ICsJCQlpZiAocmV0KQo+PiArCQkJCWdvdG8gZXJyX3JlbW92ZV9ncGlvY2hpcDsK
-Pj4gKwkJfQo+PiAgCX0gZWxzZQo+PiAgI2VuZGlmCj4+IC0JaXJxX2RvbWFpbiA9IGNvbmZpZy0+
-aXJxX2RvbWFpbjsKPj4gLQo+PiAtCWlmIChpcnFfZG9tYWluKSB7Cj4+IC0JCXJldCA9IGdwaW9j
-aGlwX2lycWNoaXBfYWRkX2RvbWFpbihjaGlwLCBpcnFfZG9tYWluKTsKPj4gKwlpZiAoY29uZmln
-LT5pcnFfZG9tYWluKSB7Cj4+ICsJCXJldCA9IGdwaW9jaGlwX2lycWNoaXBfYWRkX2RvbWFpbihj
-aGlwLCBjb25maWctPmlycV9kb21haW4pOwo+PiAgCQlpZiAocmV0KQo+PiAgCQkJZ290byBlcnJf
-cmVtb3ZlX2dwaW9jaGlwOwo+PiAgCX0KPgo+SSBkbyBub3QgdW5kZXJzdGFuZCBob3cgaXQncyBk
-aWZmZXJlbnQgZnJvbSB0aGUgb3JpZ2luYWwgb25lLiBDYW4geW91IGVsYWJvcmF0ZT8KPgo+LS0g
-Cj5XaXRoIEJlc3QgUmVnYXJkcywKPkFuZHkgU2hldmNoZW5rbwo+Cg==
+On Wed, Sep 16, 2026 at 12:41=E2=80=AFPM Alastair D'Silva <alastair@d-silva=
+.org> wrote:
+>
+> This series adds support for the secondary Ethernet MAC controller (EMAC1=
+)
+> and the co-packaged AC300 Fast Ethernet Physical Layer (EPHY) found on
+> Allwinner H616 and H618 SoCs.
+>
+> The Allwinner H616/H618 SoCs feature two EMAC instances: EMAC0 (typically
+> used with an external RGMII Gigabit PHY) and EMAC1 (Fast Ethernet,
+> connected internally to the co-packaged AC300 EPHY). EMAC1 uses a
+> dedicated clock control register in the syscon register space, which is
+> accessed via an offset index in the DT syscon property.
+>
+> The AC300 is an integrated 10/100M (100BASE-TX / 10BASE-T) Fast Ethernet
+> PHY communicating over MDIO at address 16 + phy_addr. It requires
+> retrieving factory bandgap calibration data from the SID nvmem controller=
+,
+> managing internal power rails and clocks, and optimizing transceiver sign=
+al
+> parameters.
+
+There is already a series from James covering the same thing. Please check
+the mailing list and possibly our wiki (linux-sunxi.org) to avoid duplicate
+work and subjecting the maintainers to the same discussions again.
+
+
+ChenYu
+
+> To ensure reliable link establishment and MAC software reset with the
+> internal PHY, dwmac-sun8i is updated to defer MAC software reset until
+> sun8i_dwmac_init() after the internal PHY has powered on and begun
+> clock generation.
+>
+> The series is structured as follows:
+> - Patch 1: DT binding for Allwinner AC300 EPHY.
+> - Patch 2: PHY driver for Allwinner AC300 EPHY.
+> - Patch 3: DT binding update for Allwinner H616 EMAC1 and syscon index.
+> - Patch 4: dwmac-sun8i driver support for H616 EMAC1 clock index and
+>            internal PHY deferred reset.
+>
+> Testing:
+> - Tested on physical Mellow Fly-C5 hardware (Allwinner H618) running
+>   Armbian with sustained 100Mbps full-duplex network traffic (DHCP,
+>   iperf3, NFS rootfs).
+> - Device tree bindings validated with dt_binding_check.
+> - Separate SoC and board DTS additions will be submitted via the
+>   linux-sunxi tree.
+>
+> Alastair D'Silva (4):
+>   dt-bindings: net: phy: Add Allwinner AC300 EPHY binding
+>   net: phy: Add Allwinner AC300 EPHY driver
+>   dt-bindings: net: allwinner,sun8i-a83t-emac: Add Allwinner H616 EMAC1
+>     and syscon index
+>   net: stmmac: dwmac-sun8i: Add Allwinner H616 EMAC clock index and
+>     internal PHY support
+>
+>  .../net/allwinner,sun50i-h618-ac300-ephy.yaml |  79 +++++
+>  .../net/allwinner,sun8i-a83t-emac.yaml        |  14 +-
+>  .../net/ethernet/stmicro/stmmac/dwmac-sun8i.c |  65 +++-
+>  drivers/net/phy/Kconfig                       |   9 +
+>  drivers/net/phy/Makefile                      |   1 +
+>  drivers/net/phy/ac300-phy.c                   | 331 ++++++++++++++++++
+>  6 files changed, 486 insertions(+), 13 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/net/allwinner,sun50=
+i-h618-ac300-ephy.yaml
+>  create mode 100644 drivers/net/phy/ac300-phy.c
+>
+> --
+> 2.53.0
+>
