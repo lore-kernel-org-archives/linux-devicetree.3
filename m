@@ -1,103 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2C791E5B9F;
-	Wed, 16 Sep 2026 11:42:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A8533DA5C7;
+	Wed, 16 Sep 2026 11:44:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789558979; cv=none; b=alA0DRwnWSuL4BFFFVWeiL2epsspaFkuic01vNEKT5HZMXcp4u4CbNt3xzUdEnZpv8R+6IJCIOoVv7sn8p4W0UO1py0de1+sG/kX1pxwsHYFpNr63k4lRuH3OLwIipYASqceZeLY5EUyKqzii2u4B5y50gFCnLl6s3nS+HdVU3o=
+	t=1789559046; cv=none; b=XL0vi3FIMPy4fUY+XOczBOTLHsgb24pl/3OEJJg0+wio+e/jCyM+4ZqwnWtNCywu3Ur7FB9bSQngtl2XqU1mQcSaJTywOBqzIvKkM8IPc8IEx1Nt9GxEZOfluRSujPlBh7mDGSTxOL3taaeha5ySvwmY6Qjky/VzOCk4fAw+bDA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789558979; c=relaxed/simple;
-	bh=2Mw0UYhkPwOelAjKAtaWqRpuJeZGpm+KZh1S53AlCb8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=drJ3Dy8xRXnbgJ7VM1VzIdn5A241EkNQRrX2ICOloC139RuiHfjatiV5Ou5pX2ODvcNLrfz82m618i/72iziHvRUcmavu7C4IX9Kl9H2+U2c+UHfvXplnsVHsx2AmOaNyk0oelipjpWa5yPGy2EgXMT1U5XqxmJxSTszL0c2RRs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kNrE6Yav; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789559046; c=relaxed/simple;
+	bh=6D2RhALlT55aAHSMPinPZ97+aBQfokN4Sc7vz60gKIc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eu75kDKhhvJdd6IxORzJGPFYSGx4IluoKTdOMOf+nTKm+NFc32u7byKifiMSre8VPE/s1+iPfyEUstVjUBGuwInHBeUJfEcaUNOy0/czoNi2MoljQftIQlXu07UtDvmrxYpYm9DUvZDIY3jEi+7QueOOEtPfV87EG2GLjNaHWXg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=iGnsgwB1; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kNrE6Yav"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id BF9DFC2BCB9;
-	Wed, 16 Sep 2026 11:42:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789558978;
-	bh=2Mw0UYhkPwOelAjKAtaWqRpuJeZGpm+KZh1S53AlCb8=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=kNrE6Yav6mYlwEQYXSU9AUQaWn9TGkSwHRPX4vobJoPMw/tmU9Vgkt8BBwsrlDekM
-	 HAgiudLMv+8tslEFlSftOzJLvJ5S0bLCKo4v3pKXspheiznp4tult+7O4ed9456rFR
-	 839zQNR9PvS1Y5Vw7xE2xwuUpGqlkUrEbO6e1XlNrK3j8aEnr8uioH4PuUI+DCgwVr
-	 HLwhPnVedMzWD4J2RTE78oGoUWKlZlsde04kIMJ1giv/nBUEUPxCwufVQQMTYjNgF1
-	 APw1Rc4dv1U1LepuBuU4sG03ZyJEfGCEo/7yJC08CdxIDMqynikpG770sta39u4Voq
-	 Sh4NIfuUI7HFA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9DF81C88E7D;
-	Wed, 16 Sep 2026 11:42:58 +0000 (UTC)
-From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
-Date: Wed, 16 Sep 2026 14:42:35 +0300
-Subject: [PATCH] dt-bindings: iio: adc: mediatek,mt2701-auxadc: add mt6572
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="iGnsgwB1"
+Received: from francesco-nb (xcpe-178-82-167-143.dyn.res.sunrise.net [178.82.167.143])
+	by mail11.truemail.it (Postfix) with ESMTPA id 9B7621F822;
+	Wed, 16 Sep 2026 13:43:51 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1789559032;
+	bh=cUpSAShM1iFVA9tQq7QEj0VN9vBy+vZF0uG3dEujTMA=; h=From:To:Subject;
+	b=iGnsgwB1t8BQiAyma9+PcqCCNUQ9kO/L0seDWZDZH+D/kRhX3fW9nyl42r81Xwv5S
+	 gN7DtrHKezx9zkqKAUoa5LZknZ/J+RlZNghUtueWC0RVf17cR7HlEsLg42SUaPmxTQ
+	 P5w+CKq/cAbAM1d80+SNuHyccsYQCHEYF9IYBlxkgyz/i76jI4qKH6tgNjbP2Yl25Q
+	 KfBTudr6/BAMpKGPLwip98RsojigAteaPIjhQoQ+w+Gl26cO1qOzTput1VECqE4Y0+
+	 8mUFyTlWf5lCARIja/AQi+Bts2B8zln5XJjQj8I+6/Xu1IsgXy63Xc5XWrCG73ggJe
+	 cGenXn2sstU3A==
+Date: Wed, 16 Sep 2026 13:43:50 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Francesco Dolcini <francesco@dolcini.it>, Marek Vasut <marex@denx.de>,
+	Stefan Agner <stefan@agner.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	Alexander Stein <alexander.stein@ew.tq-group.com>
+Subject: Re: [PATCH v4 2/4] drm: mxsfb: Add optional DPI output bus-width
+ configuration
+Message-ID: <20260916114350.GB284106@francesco-nb>
+References: <20260813092836.38367-1-francesco@dolcini.it>
+ <20260813092836.38367-3-francesco@dolcini.it>
+ <178954813309.214898.6895255097019153080.b4-review@b4>
+ <20260916091543.GA277833@francesco-nb>
+ <DLGP7GKZJBOP.350QK94UOGRYV@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-6572-dt-auxadc-v1-1-e8190d614c33@protonmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMMQ6DMAxA0asgz1gKJk0RV0EMIXFadwCUAEJC3
- J1Axzf8f0DiKJygLQ6IvEmSacyoygLc144fRvHZQIqMaiqN5vUm9AvadbfeIRsfSNmhJt1Ajub
- IQfZn2PV/p3X4sVvuC5znBTiodohyAAAA
-X-Change-ID: 20260814-6572-dt-auxadc-e6df20ab3248
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Zhiyong Tao <zhiyong.tao@mediatek.com>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, Roman Vivchar <rva333@protonmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789558977; l=1058;
- i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
- bh=RZDlKUe7DkcNemzM8RoN8vGwJ99E8wZHTiCH/d1P1qc=;
- b=sAqCN+D1D/bp0wpWn6DIoDT5q9AaznJfEIUcDQ7I9fdG5FPPYC5pfDjIC9wSL6V3bOBTnmb/7
- hqK+o78k6yxDozFO2zoTZfpaH3rmXvvXlR9HVzsEf2JetXl9yHjHDHS
-X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
- pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
-X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
- auth_id=777
-X-Original-From: Roman Vivchar <rva333@protonmail.com>
-Reply-To: rva333@protonmail.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DLGP7GKZJBOP.350QK94UOGRYV@bootlin.com>
 
-From: Roman Vivchar <rva333@protonmail.com>
+On Wed, Sep 16, 2026 at 01:19:08PM +0200, Luca Ceresoli wrote:
+> On Wed Sep 16, 2026 at 11:15 AM CEST, Francesco Dolcini wrote:
+> > Hello Luca,
+> >
+> > On Wed, Sep 16, 2026 at 10:42:13AM +0200, Luca Ceresoli wrote:
+> >> > LCDIF programs LCD_DATABUS_WIDTH from the selected media bus format. The
+> >> > format reported by the downstream panel or bridge describes the display
+> >> > input, but it does not describe how the LCDIF data pins are physically
+> >> > wired on the board.
+> >> >
+> >> > These can differ. For example, a 16-bit LCDIF bus can be connected to a
+> >> > 24-bit display by wiring the available color bits to the corresponding
+> >> > display inputs. In that case, using the display's 24-bit format to
+> >> > configure LCDIF selects the wrong data-bus mode and changes the assignment
+> >> > of color bits on the LCD_DATA pins.
+> >> >
+> >> > Read the optional bus-width endpoint property from the LCDIF output port
+> >> > and use it to select the media bus format used to configure LCDIF. This
+> >> > allows the LCDIF bus mode to describe the physical interface
+> >> > independently of the downstream display format.
+> >> >
+> >> > When the optional property is absent, or it has an invalid value, continue
+> >> > using the format reported by the downstream display device, preserving
+> >> > the existing behavior. The code is not validating the DT for
+> >> > correctness and just fall back to the previous behavior in case of
+> >> > errors.
+> >>
+> >> Why? Generally speaking errors are better spotted immediately, not ignored
+> >> silently.
+> >
+> > My understanding is that the C driver code should not validate the DT
+> > and that this is the general recommendation when parsing properties from
+> > the DT.
+> >
+> > The DT checker is going to spot errors in the DT even earlier and in a
+> > static way.
+> 
+> Drivers typically check for invalid values.
+> 
+> And people writing their private dts can do mistakes and not run the static
+> checks. Bad on their side, sure, but having a runtime error would be useful
+> there.
 
-Add a compatible string for the mt6572 AUXADC, that is compatible with
-mt8173 IP.
+Understood. I would personally not do it. I can add the required error
+checking code. No other DRM maintainer/reviewer commented so far, so I
+am taking this as a request.
 
-Signed-off-by: Roman Vivchar <rva333@protonmail.com>
----
- Documentation/devicetree/bindings/iio/adc/mediatek,mt2701-auxadc.yaml | 1 +
- 1 file changed, 1 insertion(+)
+What should I do in case there is an invalid value? Fail or have a
+warning message?
 
-diff --git a/Documentation/devicetree/bindings/iio/adc/mediatek,mt2701-auxadc.yaml b/Documentation/devicetree/bindings/iio/adc/mediatek,mt2701-auxadc.yaml
-index d9e825e5054f..750e1e837fb8 100644
---- a/Documentation/devicetree/bindings/iio/adc/mediatek,mt2701-auxadc.yaml
-+++ b/Documentation/devicetree/bindings/iio/adc/mediatek,mt2701-auxadc.yaml
-@@ -38,6 +38,7 @@ properties:
-           - const: mediatek,mt7986-auxadc
-       - items:
-           - enum:
-+              - mediatek,mt6572-auxadc
-               - mediatek,mt6893-auxadc
-               - mediatek,mt8183-auxadc
-               - mediatek,mt8186-auxadc
+> Also consider potential regressions. Say someone has an invalid value in
+> their product, say bus-width = <15>, which works because the default 18
+> which gets used as a fallback happens to be the correct value for their
+> hardware. Some years later we implement the new bus-width = <15>, and then
+> that user upgrades to a newer kernel and their display won't work because
+> it will start using that incorrect bus-witch = <15>. Better stopping this
+> before it starts, IMO.
 
----
-base-commit: 8cd9520d35a6c38db6567e97dd93b1f11f185dc6
-change-id: 20260814-6572-dt-auxadc-e6df20ab3248
+I do not see this situation honestly, if you have a wrong value, e.g. 15
+bits, before this patch is ignored, and after this patch is also
+ignored ...
 
-Best regards,
---  
-Roman Vivchar <rva333@protonmail.com>
+The default in the code is equivalent to the bus-width property not
+present, and therefore we use whatever is coming from the panel aka the
+next bridge.
 
+Francesco
 
