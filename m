@@ -1,175 +1,246 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0304F4FDE43;
-	Wed, 16 Sep 2026 13:35:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 796362D8385;
+	Wed, 16 Sep 2026 13:37:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789565731; cv=none; b=rzhfJoTvCdDQjz9wDda7PEmicxUf+SqZjsQ3S0Exofx/Q12XxmGxVwe3aoh59U+LNMynCACRdGJ0XcuU6ZSzdzMKaGgMBDim7qQS+SWl9tmcq3guq2mOKH7cKKgZzAk99bgbBjQIgW7FLZMaJ7+rOTYXQZpdK78OsoU0O67p8/g=
+	t=1789565842; cv=none; b=uYJrmW8z62brWlk/KvhcvfqdM6Wc4FvAtg+4gCU4u/d2ts/km/JMoFfRiEDNrWDVR039kRSdJUNjMv9LXAgXDrktL+1Rx/unZ/UA0k2MU5XzG7vy/FJCcoQscqJnMzZD8iL81WBh4Vohqboe3aI85kT2hN/LYwJ0yJX6+FMdsf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789565731; c=relaxed/simple;
-	bh=6cSsG/UzwDbN9PbNWB4YgTd1pn3YEnZfMtaxcaQJ6/c=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=pDFYMj3Ksb+LuEN01gWLRHk83TqAQPPGoAcERcK6whHLAnsxkSMOxr56PFJNjgLa3gjIOOE8WYkuvYNOLaZMokW5Nif0d4yK+9S/iPvR7HaRW2N5RzbWiC/kBKq5V/U75pwT7x8JVmM5oDQk1+q+gldHam41Jly9Fv9axM02WyI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jKYnDYAf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789565842; c=relaxed/simple;
+	bh=T4yi1zdtH5wQhou0VkyVCZDmH8fNbML25GwWlwpzo9I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=czL+RhOsgkZAhADuwBqYKbLA7dp7415T1NxT4S2BXPWz251Im6ddhXqMxzZC0QETG60Y6v9Pv69OshNE9aR2jR52T5Dv0K4c590QKR5ps8h6EusNzlRPF/vRWVDhpgBB9eYW03Vn5lbFDIActkxWwevi1YUP315OvHUVzI3jFJc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=1uylmH4t; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jKYnDYAf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61D721F00899;
-	Wed, 16 Sep 2026 13:35:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789565716;
-	bh=ChLlQzNrhwS4joheCtDQWKWA40+S8/MWPopMbsdf+7Q=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=jKYnDYAfTm+39tFvqVO2fM4ZHAX2IUyiWuzylu6sHn/LOtSfhTx923Sq99iiUOdV2
-	 nRVt0cx8gg8AB9TY9NSoYXXxV1VgjgJE1S+SFfKEVegoQREmFOf9wZ4K6ZtjKzH3fx
-	 vEu2B24b5a0edD7jJtCFCOZLbK+kdfDNVlwaDVCg45bzNOUfrziIOxRsKrvTH82vl2
-	 6k48FZGbOd8XmyxXilhBiLzHRWo7aOcyfRbfSv9dw8JGzhRBXVpTsbfVYsKKFD9ESi
-	 3KZ5kllh4NcOCBuI1/yqNTxEPwd0XgJgcF+XHjGdH+HO8andH0Ez2ATQ1OcLfPcVmv
-	 irDlu1TmzaQYg==
-Subject: Re: [PATCH net-next v4 5/5] net: mdio: realtek-rtl9300: support
- non-default clock frequencies
-From: netdev-bot+sashiko@kernel.org
-To: markus.stockhausen@gmx.de
-Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, chris.packham@alliedtelesis.co.nz, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-Date: Wed, 16 Sep 2026 13:35:14 +0000
-Message-ID: <178956571495.22033.15528886965131071953@kernel.org>
-In-Reply-To: <20260912130451.3757276-6-markus.stockhausen@gmx.de>
-References: <20260912130451.3757276-6-markus.stockhausen@gmx.de>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="1uylmH4t"
+Received: from [10.250.4.187] (unknown [185.153.195.203])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 772025340619;
+	Wed, 16 Sep 2026 15:37:16 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1789565836;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=S6ReNIvSA0S/P1pGDYqpvJ1IETrElri+UcvFiWhfx/c=;
+	b=1uylmH4txcofBEd+SAbSnGotxvD7SmHidgL6H0l9auejD82za5BwsF1WDhOUtls1MM7lQc
+	HvOm+THZjyD15GvFp33aSneD/Csbjh1rwuFGPvAwO+Ig+A9TyMDj484UqOf7vmXomJhvsh
+	MDRc/fCVWKTSldZ4/CtwoygmPY2UMV8=
+Message-ID: <92883780-b753-427c-96ff-91c33a874607@ixit.cz>
+Date: Wed, 16 Sep 2026 15:37:15 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/2] power: supply: qcom_smbx: add SMB5 support
+To: robin@snyders.xyz, Casey Connolly <casey.connolly@linaro.org>,
+ Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Joel Selvaraj <foss@joelselvaraj.com>
+References: <20260820-submit-qcom-smbx-send-v1-v4-0-818dabb2771e@snyders.xyz>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20260820-submit-qcom-smbx-send-v1-v4-0-818dabb2771e@snyders.xyz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider:
+On 20/08/2026 12:03, Robin Snyders via B4 Relay wrote:
+> Add support for the SMB5 charger generation found in PM7250B and
+> PM8150B to the existing qcom_smbx driver.
+> 
+> The series extends the binding and selects register layouts, charger
+> status encodings and electrical limits from per-PMIC match data. Encode
+> PM7250B as PM8150B-compatible in the binding and let the compatible
+> fallback select the shared charge-parameter block, including the +0x08
+> effective input-current status register. Convert the SMB5 0.2 V/A USB
+> current-sense voltage measurement to microamps while leaving the SMB2
+> current reading unchanged.
+> 
+> SMB5 setup suspends USB input and disables charging before configuration.
+> The power-supply registration init callback programs battery limits and
+> completes final input and charging setup before device_add publishes the
+> properties, so public callbacks cannot observe partially initialized
+> hardware. Managed rollback restores the charging state before the USB input
+> state; if charging cannot be restored, USB input remains suspended. Managed
+> teardown cancels status work before unregistering the power supply.
+> 
+> Enable periodic hardware AICL with the downstream twelve-second rerun
+> interval while leaving ADC-based AICL disabled by default. Clear the
+> unsupported HVDCP modes so firmware state cannot raise VBUS, and do not
+> override the firmware recharge policy without a binding input. The
+> dedicated TCPM and VBUS regulator drivers retain ownership of Type-C
+> power-role and VBUS control.
+> 
+> On PM8150B, the SMB5 charger and VBUS regulator use the same DCDC
+> peripheral but do not write the same registers. qcom_smbx only reads
+> 0x1108 and 0x110b there; qcom_usb_vbus-regulator writes 0x1140, 0x1152
+> and 0x1153. The qcom_smbx write to 0x1153 belongs only to the SMB2
+> initialization sequence and is not executed for SMB5. The TCPM port and PD
+> PHY use the separate 0x15xx and 0x17xx peripherals. Patch 2 names the
+> USBIN BC1.2 integration register and SMB2-only OTG definitions explicitly
+> to document this boundary.
+> 
+> Apply the five-patch qcom_smbx Fixes series before this one. This series is
+> based on power-supply for-next (99b38cda3f4c). The b4 dependency metadata
+> records all five prerequisite patch IDs. This ordering preserves the SMB2
+> watchdog, health, overvoltage and float-voltage fixes across the SMB5
+> driver refactoring. The prerequisite series is public at:
+> https://lore.kernel.org/r/20260812-qcom-smbx-fixes-v1-0-eb48246be599@snyders.xyz/
+> 
+> The v3 implementation was tested on a OnePlus 7T Pro (HD1913) with
+> PM8150B. Register reads confirmed 4.40 V, 1.50 A and 500 mA limits. A
+> 180-second guarded charging trace and a subsequent 600-second runtime
+> trace completed with health Good and the input current below its 500 mA
+> limit. After a physical USB-C disconnect and reconnect, USB networking and
+> the charger recovered automatically; a further 60-second trace remained
+> Good and below the input-current limit. The final kernel log had no SMB5
+> warning, error, oops or lockdep report.
+> 
+> The v4 driver was rebuilt and retested on the same device. A 180-second
+> trace and a 600-second, 121-sample guarded trace completed with the charger
+> online, health Good and no guard failure. With a powered USB-C dock, the
+> phone remained the data host and PD power sink; with the dock unpowered, it
+> remained the data host and enabled the VBUS regulator as the power source.
+> The USB 2 and USB 3 hubs, storage and RTL8153 interface enumerated in both
+> connector orientations, and 64 MiB read-only storage reads produced the
+> same hash in all four dock configurations. Reconnecting the phone directly
+> to the PC restored the power-sink/device roles, charging, NCM and SSH
+> without a reboot. Ethernet traffic and visual DisplayPort output were not
+> tested in this run because no Ethernet carrier or display was available.
+> The final kernel log had no SMB5, Type-C or VBUS warning, error, oops or
+> lockdep report.
+> 
+> The driver builds with LLVM W=1 and passes Sparse. The binding passes
+> dt_binding_check, and both patches pass checkpatch --strict. A full LLVM
+> Image, modules and DTBs integration build completed and booted on the test
+> device.
+> 
+> Signed-off-by: Robin Snyders <robin@snyders.xyz>
+> ---
+> Changes in v4:
+> - Make the PM8150B charger, VBUS regulator and TCPM register ownership
+>    explicit, including the shared DCDC peripheral's disjoint accesses.
+> - Rename the USBIN BC1.2 integration register and SMB2-only OTG definitions
+>    to prevent them from being mistaken for SMB5 TCPM/VBUS controls.
+> - Test powered sink/host and unpowered source/host USB-C dock operation in
+>    both connector orientations, including storage I/O and gadget recovery.
+> - Link to v3: https://lore.kernel.org/r/20260813-submit-qcom-smbx-send-v1-v3-0-27be0091d7c7@snyders.xyz
+> 
+> Changes in v3:
+> - Complete SMB5 input and charging setup in the pre-device_add power-supply
+>    registration init callback instead of gating setters on a driver-specific
+>    probe flag.
+> - Register the power supply and initialize managed status work before
+>    requesting IRQs so handlers cannot observe an unassigned power supply.
+> - Let PM7250B match the required PM8150B compatible fallback and remove its
+>    duplicate match-data entry.
+> - Collect the binding Reviewed-by tag.
+> - Link to v2: https://lore.kernel.org/r/20260812-submit-qcom-smbx-send-v1-v2-0-f504b8f9bfad@snyders.xyz
+> 
+> Changes in v2:
+> - Rebase onto power-supply for-next 99b38cda3f4c.
+> - Encode PM7250B with the required PM8150B compatible fallback.
+> - Leave SMB5 Type-C power-role and VBUS control to the TCPM and regulator
+>    drivers.
+> - Preserve the SMB2 3-second AICL interval and use the SMB5 downstream
+>    12-second interval; leave ADC-based AICL disabled by default.
+> - Disable unsupported HVDCP negotiation deterministically.
+> - Do not override the firmware recharge policy without a binding input.
+> - Model PM7250B with PM8150B electrical limits and the +0x08 AICL ICL
+>    status register.
+> - Convert the SMB5 0.2 V/A USB current-sense reading to microamps while
+>    leaving the SMB2 current reading unscaled.
+> - Program battery limits in the pre-device_add registration init callback
+>    and gate setters until probe completes.
+> - Order managed teardown so status work is cancelled before the power
+>    supply is unregistered.
+> - Restore charging before USB input on probe failure, and leave input
+>    suspended if charging restoration fails.
+> - Correct the SMB5 overvoltage register and charger-state decoding.
+> - Avoid repeated error logs when polling a persistent overvoltage state.
+> - Use battery-info property presence when selecting charge targets.
+> - Remove duplicate scaling from the already-prescaled USB voltage reading
+>    and clarify the binding IIO channel descriptions.
+> - Update the binding title, Kconfig prompt and module description for both
+>    charger generations.
+> - Move the five pre-existing SMB2 fixes to a prerequisite Fixes series.
+> - Link to v1: https://lore.kernel.org/r/20260811-submit-qcom-smbx-send-v1-v1-0-feec6cfa123a@snyders.xyz
+> 
+> ---
+> Casey Connolly (2):
+>        dt-bindings: power: supply: qcom,pmi8998-charger: add SMB5 PMICs
+>        power: supply: qcom_smbx: add SMB5 support
+> 
+>   .../power/supply/qcom,pmi8998-charger.yaml         |  17 +-
+>   drivers/power/supply/Kconfig                       |   8 +-
+>   drivers/power/supply/qcom_smbx.c                   | 757 ++++++++++++++++-----
+>   3 files changed, 609 insertions(+), 173 deletions(-)
+> ---
+> base-commit: 99b38cda3f4c486cfbc40f3c8ede1703594e9f13
+> change-id: 20260811-submit-qcom-smbx-send-v1-69acefa61977
+> prerequisite-patch-id: 3d8a9cf43b5e5eac64a60aeec5e9c90880bcf792
+> prerequisite-patch-id: de3e3b494f9644596cfa4cafc362ca0b48288c45
+> prerequisite-patch-id: d5e22a0fe7cd55374f60d7c2cb14ed3df8f94e0b
+> prerequisite-patch-id: 9eafa41402e97d6a3e5369bec46df4e9db3d2af6
+> prerequisite-patch-id: 5638b901cd10773fa9485605f84b25a1dd826a84
+> 
+> Best regards,
 
-Critical: 0 · High: 0 · Medium: 0 · Low: 1
-
-- [Low] otto_emdio_8390_set_bus_frequency() (drivers/net/mdio/mdio-
-  realtek-rtl9300.c:769-806) can reject a frequency taken from a…
-
---
-
-net: mdio: realtek-rtl9300: support non-default clock frequencies
-
-This adds support for selecting the MDC clock frequency of the Realtek
-Otto switch MDIO controllers via the clock-frequency device tree
-property, defaulting to 2.5 MHz. RTL839x is handled specially because
-both of its MDIO buses share one frequency selector field.
-
-> diff --git a/drivers/net/mdio/mdio-realtek-rtl9300.c b/drivers/net/mdio/mdio-realtek-rtl9300.c
-> index 45cbefc52100a..bde0cf5e0b798 100644
-> --- a/drivers/net/mdio/mdio-realtek-rtl9300.c
-> +++ b/drivers/net/mdio/mdio-realtek-rtl9300.c
-
-[ ... ]
-
-> @@ -748,6 +766,60 @@ static int otto_emdio_8380_setup_controller(struct otto_emdio_priv *priv)
->  	return regmap_set_bits(priv->regmap, RTL8380_SMI_GLB_CTRL, RTL8380_SMI_PHY_PATCH_DONE);
->  }
->  
-> +static int otto_emdio_8390_set_bus_frequency(struct mii_bus *bus, u32 freq)
-> +{
-> +	struct otto_emdio_priv *priv = otto_emdio_bus_to_priv(bus);
-> +	u32 mdio_bus, child_freq, val;
-> +	bool freq_set = false;
-> +	int err;
-> +
-> +	/*
-> +	 * RTL839x uses one frequency shared by both MDIO buses. Use the frequency passed by the
-> +	 * caller as fallback, but prefer an explicitly requested frequency from any valid,
-> +	 * available bus. Reject conflicting explicit requests. Only the first call programs the
-> +	 * shared frequency.
-> +	 */
-> +	if (priv->bus[0] || priv->bus[1])
-> +		return 0;
-> +
-> +	for_each_available_child_of_node_scoped(bus->parent->of_node, child) {
-> +		err = of_property_read_u32(child, "reg", &mdio_bus);
-> +		if (err || mdio_bus >= priv->info->num_buses)
-> +			continue;
-> +
-> +		if (of_property_read_u32(child, "clock-frequency", &child_freq))
-> +			continue;
-> +
-> +		if (freq_set && freq != child_freq)
-> +			return -EINVAL;
-> +
-> +		freq = child_freq;
-> +		freq_set = true;
-> +	}
-> +
-> +	if (freq != 1250000 && freq != 2500000 && freq != 5000000)
-> +		return -EINVAL;
-
-[Severity: Low]
-Can the diagnostic printed by the caller name a frequency and a bus that
-were never the ones rejected here?
-
-In otto_emdio_8390_set_bus_frequency() the freq argument is overwritten by
-any sibling child node that carries clock-frequency:
-
-	freq = child_freq;
-	freq_set = true;
-
-and the enum check afterwards then validates that inherited value, but the
-bare -EINVAL carries none of that context back to
-otto_emdio_probe_one().
-
-For a RTL839x mdio-controller node where mdio-bus@0 has no
-clock-frequency and mdio-bus@1 has clock-frequency = <7000000>, probing
-bus 0 defaults freq to 2500000, the loop replaces it with 7000000, the
-enum check fails, and the message reads:
-
-	cannot set frequency 2500000 for MDIO bus 0
-
-2500000 on bus 0 is a legal combination, so would it be clearer to report
-the offending child node and its frequency from inside
-otto_emdio_8390_set_bus_frequency() instead?
-
-The same applies to the conflict path: with mdio-bus@0 = 1250000 and
-mdio-bus@1 = 5000000, the message names bus 0 and 1250000 even though the
-rejected condition is the conflict with mdio-bus@1.
-
-> +
-> +	val = FIELD_PREP(RTL8390_SMI_FREQ_SEL, freq / 2500000);
-> +
-> +	return regmap_update_bits(priv->regmap, RTL8390_SMI_GLB_CTRL, RTL8390_SMI_FREQ_SEL, val);
-> +}
-> +
-
-[ ... ]
-
-> @@ -867,6 +954,13 @@ static int otto_emdio_probe_one(struct device *dev, struct otto_emdio_priv *priv
->  
->  	snprintf(bus->id, MII_BUS_ID_SIZE, "%s-%d", dev_name(dev), mdio_bus);
->  
-> +	if (of_property_read_u32(node, "clock-frequency", &freq))
-> +		freq = 2500000;
-> +	err = priv->info->set_bus_frequency(bus, freq);
-> +	if (err)
-> +		return dev_err_probe(dev, err, "cannot set frequency %u for MDIO bus %d\n",
-> +				     freq, mdio_bus);
-> +
-
-[Severity: Low]
-This is the message referred to above: it always uses the local node's
-freq and mdio_bus, which for the RTL839x callback need not be the value or
-the bus that was actually rejected.
-
->  	err = devm_of_mdiobus_register(dev, bus, node);
->  	if (err)
->  		return dev_err_probe(dev, err, "cannot register MDIO bus\n");
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260912130451.3757276-1-markus.stockhausen%40gmx.de
+Tested-by: David Heidelberg <david@ixit.cz>  # SMB2 (Pixel 3, Mi 8, OP 6 / 6T)
