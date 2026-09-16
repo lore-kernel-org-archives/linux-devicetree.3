@@ -1,143 +1,112 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DC1A511E89;
-	Wed, 16 Sep 2026 14:36:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 719A551FCB6;
+	Wed, 16 Sep 2026 14:37:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789569383; cv=none; b=uQ/kALeNucMf4yBBnlrx21vJeUj31hKkqzJ7sUPbEKgqYwjymGfUPM5Dr+mHsYKdMHkeV5UfyXytUd01P0Kdd+IWqIPwoUVMfOhNLHM/siJUFM5LtlVCzon5u36aV5amCsvJxblOApfIe5bMI4d4Q6iiGLsReJdo9MFUK2vLkbs=
+	t=1789569431; cv=none; b=Eew+XugR0eXqK6Asi52Pdak0VqS098aAHHdghKOum5M0CTdLkcImImnRN1B1jcnRVO18aHbhHho9/LiT5QC4rY6MsIMp9RhjeJugQRmDsOeJMJ9GyU0f68UYWWUoDzf+CnifjTzPH1rDcXA1mE0AEszQFDWZzKcgTE8204d+ZcE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789569383; c=relaxed/simple;
-	bh=lnsiuBxb1FQpxXJWR6gPEUhDTTJH491tjHU0LVsf0Ho=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:Subject:Cc:To:
-	 References:In-Reply-To; b=L3hTUTL8YKhESl8whxZyU6uOEXFn7eZt65YGL2aa24ZVB1i5vevcgttPjNfYwi7S45d2uHz72mrVjlB48Mr1r/zE9Ohqsa3Au9iRE5yx1upCTI8vL1Kp3UKxPBmJJjccahQJ64Zhv6/4D+EvgLt6mKEvHd2wJF1uA9DIaKhTHag=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Ds77EU29; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789569431; c=relaxed/simple;
+	bh=u5YbA0lJn7jafcJOoRIhi8zIOC3l9Ds9QNgAHW2+WSc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=RJwVfmmnglJMj5fMMm4BF7IlQM9q92dFJ3k3Jf2IWaBC+W+ffEI9NFitA7LL8OBOK8meyY9avqpe1PuB8bv/gZunR7jQxDM1mu45sD5GuLsEwGUCACty696Pjd52v+hW3ngwYktBVZe2zdlqp7Cf0mWqC3cShgu9rozORQFn6Ek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MXYDnN82; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Ds77EU29"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 4DFC41A08CA;
-	Wed, 16 Sep 2026 14:36:19 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 0FF2060337;
-	Wed, 16 Sep 2026 14:36:19 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0B9C411C7AFFA;
-	Wed, 16 Sep 2026 16:36:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789569377; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=lnsiuBxb1FQpxXJWR6gPEUhDTTJH491tjHU0LVsf0Ho=;
-	b=Ds77EU29hHqrCKdSyQyb13FI02+4b7AhthNJ8FvUq+cR7psCg0OyhYTZ09yjcOrloJBc2K
-	pFrwDPraez8EI+M+nueYy0ed4J1kpOJmdt6CgB4AkwbTtsoSgQwru87DZ2ldSelp/Lv8bl
-	xFlorn0U/TQc3OgOoeSvLIWx2aWitcdJIq6VI7NJrpuG78Xxh4FJ3qjjM1+2HxtHGeJWMF
-	JuhNDvZHKv8Mf1lcOU//4UL0gpW/j+oEh0Iqdv2JnhX9c4824qn9eAyzzdN9bYIceYD9nV
-	KJBU/6p6qX9sTF9MxfM+rbaiNBWXkWlRo0SLWw0ciNWLPN/g6OFlyTHUtiq+Aw==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MXYDnN82"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9125F1F000FF;
+	Wed, 16 Sep 2026 14:37:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789569430;
+	bh=WmD7+JkdWSw5bXD8OLAxj69nU9CDDrx2HTygqDjUwHo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=MXYDnN82sgfKyS0kVNgDXOfkvg76I+iXYBnnbYS62lYTWaWczLaRP+cNZC0xVJ1IP
+	 skOFzs1/i9uHZ27QZsrbg3SZrbaDX+aYl5CcOI5+lu5sJVBpU66RfNPiAk+Z2/8qYv
+	 Ohvy6pIGr7VG376dHibYR0FxhgQ0K4D+i8pox1ZqDdZJahZ0SKw2n9xXlhvsWW9Uhj
+	 SMJXK3T4e4WDL43JlpmwaLKyAGds4k+sMIAedJSHZMpGpWUIvEYVISFvHph82LfQug
+	 QPHTe+xMqHif9J31QUkXL5IFy5AB86p3XDHn7jXvGcooV5+ihlrdoEhWlUAxcsjpyQ
+	 TLASaUIdo33+w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 19/19] arm64: dts: qcom: generalmobile-shamrock: new
+ device
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Muzaffer Kadir" <muzafferkadir@mainlining.org>
+Cc: robh@kernel.org, linux-clk@vger.kernel.org, linux-input@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, dmitry.torokhov@gmail.com, mfd@lists.linux.dev, lee@kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260916-msm8952-initial-support-v2-19-798c2602dde1@mainlining.org>
+References: <20260916-msm8952-initial-support-v2-0-798c2602dde1@mainlining.org>
+ <20260916-msm8952-initial-support-v2-19-798c2602dde1@mainlining.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 16 Sep 2026 14:37:09 +0000
+Message-Id: <20260916143709.9125F1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 16 Sep 2026 16:36:12 +0200
-Message-Id: <DLGTEC6QXU0E.3MF7Z33ZQD9V0@bootlin.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH v4 2/4] drm: mxsfb: Add optional DPI output bus-width
- configuration
-Cc: "Marek Vasut" <marex@denx.de>, "Stefan Agner" <stefan@agner.ch>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Frank Li" <Frank.Li@nxp.com>,
- "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
- <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Francesco
- Dolcini" <francesco.dolcini@toradex.com>,
- <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <imx@lists.linux.dev>,
- <linux-arm-kernel@lists.infradead.org>, "Alexander Stein"
- <alexander.stein@ew.tq-group.com>
-To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>, "Francesco Dolcini"
- <francesco@dolcini.it>
-X-Mailer: aerc 0.22.0
-References: <20260813092836.38367-1-francesco@dolcini.it>
- <20260813092836.38367-3-francesco@dolcini.it>
- <178954813309.214898.6895255097019153080.b4-review@b4>
- <20260916091543.GA277833@francesco-nb>
- <DLGP7GKZJBOP.350QK94UOGRYV@bootlin.com>
- <20260916114350.GB284106@francesco-nb>
- <DLGTA297W2SP.36MAJCYAC9O2X@bootlin.com>
-In-Reply-To: <DLGTA297W2SP.36MAJCYAC9O2X@bootlin.com>
-X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed Sep 16, 2026 at 4:30 PM CEST, Luca Ceresoli wrote:
-> On Wed Sep 16, 2026 at 1:43 PM CEST, Francesco Dolcini wrote:
->> On Wed, Sep 16, 2026 at 01:19:08PM +0200, Luca Ceresoli wrote:
->>> On Wed Sep 16, 2026 at 11:15 AM CEST, Francesco Dolcini wrote:
->>> > Hello Luca,
->>> >
->>> > On Wed, Sep 16, 2026 at 10:42:13AM +0200, Luca Ceresoli wrote:
->>> >> > LCDIF programs LCD_DATABUS_WIDTH from the selected media bus forma=
-t. The
->>> >> > format reported by the downstream panel or bridge describes the di=
-splay
->>> >> > input, but it does not describe how the LCDIF data pins are physic=
-ally
->>> >> > wired on the board.
->>> >> >
->>> >> > These can differ. For example, a 16-bit LCDIF bus can be connected=
- to a
->>> >> > 24-bit display by wiring the available color bits to the correspon=
-ding
->>> >> > display inputs. In that case, using the display's 24-bit format to
->>> >> > configure LCDIF selects the wrong data-bus mode and changes the as=
-signment
->>> >> > of color bits on the LCD_DATA pins.
->>> >> >
->>> >> > Read the optional bus-width endpoint property from the LCDIF outpu=
-t port
->>> >> > and use it to select the media bus format used to configure LCDIF.=
- This
->>> >> > allows the LCDIF bus mode to describe the physical interface
->>> >> > independently of the downstream display format.
->>> >> >
->>> >> > When the optional property is absent, or it has an invalid value, =
-continue
->>> >> > using the format reported by the downstream display device, preser=
-ving
->>> >> > the existing behavior. The code is not validating the DT for
->>> >> > correctness and just fall back to the previous behavior in case of
->>> >> > errors.
->>> >>
->>> >> Why? Generally speaking errors are better spotted immediately, not i=
-gnored
->>> >> silently.
->>> >
->>> > My understanding is that the C driver code should not validate the DT
->>> > and that this is the general recommendation when parsing properties f=
-rom
->>> > the DT.
->>> >
->>> > The DT checker is going to spot errors in the DT even earlier and in =
-a
->>> > static way.
-
-Ah, I forgot... I fully agree static build-time checks are way better than
-runtime error checking code. But they are not done as a mandatory and
-unconditional step during a build, and so not everybody runs them. Moreover
-checks are added over time, so even if all checks pass today some might
-fail in the future.
-
-As a result there are plenty of devices out there with invalid dtbs, and
-they just work by chance.
-
-It's the hard reality I'm afraid. :(
-
-Luca
-
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] dts: console UART (blsp1_uart2) is left disabled
+- [Medium] dts: TUSB320 interrupt configured as rising edge causes missed e=
+vents
 --
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+
+commit eeb150c49a7166233f7744c010edc1dd2b105149
+Author: Muzaffer Kadir <muzafferkadir@mainlining.org>
+
+arm64: dts: qcom: generalmobile-shamrock: new device
+
+Add General Mobile Shamrock (GM 5 Plus). Shamrock is designed similar to
+L9300. Downstream reference is [1].
+
+Link: https://github.com/Asderdd/android_kernel_generalmobile_shamrock/blob=
+/cm-14.1/arch/arm/boot/dts/qcom/msm8952-l9300.dtsi
+
+> diff --git a/arch/arm64/boot/dts/qcom/msm8952-generalmobile-shamrock.dts =
+b/arch/arm64/boot/dts/qcom/msm8952-generalmobile-shamrock.dts
+> new file mode 100644
+> index 0000000000000..e6c92ebcbf214
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/msm8952-generalmobile-shamrock.dts
+[ ... ]
+> +	aliases {
+> +		mmc0 =3D &sdhc_1; /* SDC1 eMMC slot */
+> +		mmc1 =3D &sdhc_2; /* SDC2 SD card slot */
+> +		serial0 =3D &blsp1_uart2;
+> +	};
+[ ... ]
+> +	chosen {
+> +		stdout-path =3D "serial0:115200n8";
+
+[Severity: Medium]
+Will the kernel be able to probe the UART device intended for the console?
+
+This configures the kernel console to use serial0, which maps to blsp1_uart=
+2.
+However, blsp1_uart2 is left with status =3D "disabled" in the included
+msm8952.dtsi and is never explicitly enabled with status =3D "okay" in this
+board DTS.
+
+Since the driver will not probe, this breaks standard serial output and
+serial debugging.
+
+[ ... ]
+> +	tusb320: tusb320@67 {
+> +		compatible =3D "ti,tusb320";
+> +		reg =3D <0x67>;
+> +		interrupts-extended =3D <&tlmm 45 IRQ_TYPE_EDGE_RISING>;
+
+[Severity: Medium]
+Does this configure the tusb320 interrupt incorrectly for an active-low
+open-drain pin?
+
+Any Type-C event triggers an active-low interrupt from the TUSB320, which
+would be missed by this rising-edge configuration. The INT_N line will rema=
+in
+low indefinitely because the interrupt is never serviced and cleared,
+breaking USB Type-C plug/unplug detection.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916-msm8952-in=
+itial-support-v2-0-798c2602dde1@mainlining.org?part=3D19
