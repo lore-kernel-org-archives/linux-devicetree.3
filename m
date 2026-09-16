@@ -1,156 +1,193 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 450D43E0C59
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 17:59:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC6CB36920F
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 18:01:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789581610; cv=none; b=nW9qUWI5v13eQ9ltXAolLZ51yOqnLz3HzKPY7uSTsk7FxYPb2tMmswNNeSD1M9d3SUsjJ/aYICmXXiwBACug0VgOHx7TZRTZ/RLwQ++43afMB9WyNka4nm+XETsmUXW6VC5jAUhLwQRFTFmE6FJpl7JTFtFfBbNesN+u+vo00Fc=
+	t=1789581696; cv=none; b=p5tnx90h9B0re4rsnBmILrRdMrCHwO6DKRr06HtAc729NgPasONu97Rl7a/Hh/H+TBDySz20HuM/muxAXnlfvi4wsg64MzHItHqAF/sUYBVjsw8d7R1lI8ZT3HGB+kxz36w/rXK0a19Tajv358aFX5HRdEY0q8EfUrbPnaeQ1x8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789581610; c=relaxed/simple;
-	bh=UhfkSWBEIWzdAe0+wWGogj/0ppyAnsI8r+XgL3qtEFM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jh1FKSKI0OS8NLw03ANv9uGCzV79x6hjU/wzP2AJjx5tYX6TE+9sZTrBqhC433qqmKw+0uQ0Hf75Uh7GooL9OuywoE5oKX6OuKKlPUK9S373Stv4P7KiHJIJFDmo4SjwhWgDlxcCfVpJKQ5hK0nooup31/CmZJ0ZMQvSOeyY9Po=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NJxf/+gC; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+	s=arc-20240116; t=1789581696; c=relaxed/simple;
+	bh=FvXp/TdGwtWrHVCk18WSssgM7XRcJZQ54RrQTn3GOvM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=IrfVZgqrClTC8gVUvZ0CFm6X4J0Zj/bQ9ESmJi4VjaU3JSeYwhWhQknV7VjGGdtv8lzvrBNZIQ4a4GMuWSDmiBQRXucr58oOCDA6H9qXRo0vLpeZcNpwTzewMqciVTFfppq+iRyh48ER9p8sZJTaTvRZ85bA85+IS3Mm8XJzrZE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QlGzSugZ; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NJxf/+gC"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4c3304833so842605a12.3
-        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 10:59:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QlGzSugZ"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-399026951a2so140251a91.2
+        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 11:01:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789581588; x=1790186388; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TUanCZUnYDp7fC6sIRvl/mkL+Nam5P8R5i++JsfjtEI=;
-        b=NJxf/+gC9p36SJJ/hKwDKPFkdQLU2JVM2dJEhwQAvUnhuLc3NS4X1H1o3la5ZFhSnQ
-         +mkCxtnlsj8PTFX4c5zHUbETHBB1OnUO29jgWYTCzKphyXwGlbKTo/RTxeG5NXsuorBH
-         ieDjLanFgBqwt9GsLUojowAXQo0ArjoYjfds+zqUyNisJtvjXCVH4MkbZXinrpaGl/uV
-         SnRBlobGN9vP/MMXcHg8Py8LMCqTzlu2jUDS3y+CKzV7KPb0EeXIKndLJDXyVrv7hku+
-         tWtbWBNHG0J61fy8chJ+Cvwh4YN2QWfn5WFWfBu6zf2Kl3GD/RgIX69tsqvom1UYcJKi
-         TZAg==
+        d=gmail.com; s=20251104; t=1789581688; x=1790186488; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ruVPTz3hTy5PAMDzs0VSzntCrCNW8xKkYo6sPASahL0=;
+        b=QlGzSugZtFYgwiwgeVxyTCxXFvrcP70ofdleg0jvaVtMW4EVTXIamGB4ggwQwqy8xA
+         MhNh9ig6IBURkNd5Di4HywX06FpAQpdK+waW5zQrVS9fIziRW9cBhQ2fLW/cAcyEaea6
+         Dqg3qIxth/uG/Bp79LZyz2uPZoCmQMna7Hef1gL6DpfJwbilFUcAQr3f3WvYNp9dDj8R
+         jX+t3QsEu4swNmRXF9ofgxj8rbOh0rzAjLF5+O+0Gyq4HoC6gdAMM1qto6aJTeMc62Ad
+         5NFPnLra58ybv4t9kauLstTpY54ZXkZgZw9HU67Nv2oiLAUahuDqt6vnXpqb49NexdHH
+         ks6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789581588; x=1790186388;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=TUanCZUnYDp7fC6sIRvl/mkL+Nam5P8R5i++JsfjtEI=;
-        b=SMqjPxYlQ1XmCnRkRcL2z0WZO0gM4ktvIPDO9D8lTFsxMiVi1N6auokrcqqOlxLWol
-         ko0arr6dvkXnZJKWGG//yPEL6i7TzZ7oS5E2TPDH3rwGUverXarmsXNh9REb5SxRjy37
-         DK4tN+xsSLwWlOl3/9i796LhsyLVysplh2eFpmWAsews/3Z8fs+7DXlWAk+xinB4gAQH
-         QV6LW8Oj5Yg9QenHYzwmcWmTLDT3pYasCSV4oAdbKMU4oggf7SwAQvtJoFy6xycYuFl+
-         pkjZFDNRh4IpDKd2SI3ztyyi00cGaNrbLyipHX/+PKDunpgzU2ZGizt3eO9/E6PfrV6o
-         fkkg==
-X-Forwarded-Encrypted: i=1; AKwUvBwyZF+DkZ5PfpV/LUny/hLl/dfIHa1KO/BNFOU4Xk7Cp2pADKluDaZKAVMmmoHf0bR17WwwLDdNhdnc@vger.kernel.org
-X-Gm-Message-State: AFuF++mwd4crGDKCvUg6YlmIote6sapsOj4Xg6KuYdYA+nJYxq3MBsjx
-	CWHROWlcYLEumzs4ltIKX31aa1GHVF4SAjz0FGs8GtXkj2/EaOaw++GA+Ih0aQSt
-X-Gm-Gg: AYBFou1uk19NwLfj2mDy0qIpAe6r1v/OM2XEdGUd7SJVFwxs+6rQRpxiZShBpjamTvk
-	MdCjHz/SjzIfyMfHoeydcS5QjG46rN6iBMCspbSTyoxr7DlcbITuyLh45lFm3GkItNa0V0qm/Yn
-	JyYS5rzcl8wSNACwQdhX0fKdhkE1Z/aPbtWI3Mjg2HWP1UaVWteikVas/JnNZCxmnglRYVoBd6O
-	tTdTjPDAgFckBEaVyA9qbq4QB2d/teHXQUy4lcIdDRHWeqKWBZFYG4B3w9sRmtnTk/UgG/h6RP9
-	irvJYBrmIrJb/Sdr3EEKKnLfvxUfioT2wnGfMcSeqrK01BnDW5JAHryg1zKI+uua6MOoxmAXXq8
-	OfLMpdpbt5ed64W16CCRiXgecUPLzPi9rAKnguktRLadLPHoCbc+/NRCA5LzybxCCQMgHMdu8gW
-	6PMrc7RucyKn7fy8JqpXAsvM3ae1+HEMGE1W7dMhQmo5fdu59+qVcPJSpQ94PtJvO9AKgWnyXip
-	Jv5mUu2SZUlybQ/RR/Q/UVxuvxQpDU/G3Zx7mjjoEG+ZqHoOnRxMGhnUac=
-X-Received: by 2002:a05:6300:614a:b0:3d1:8876:fb1e with SMTP id adf61e73a8af0-3dd5f06f373mr8839492637.0.1789581587781;
-        Wed, 16 Sep 2026 10:59:47 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14395cacce6sm7865911c88.1.2026.09.16.10.59.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 16 Sep 2026 10:59:47 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <a335dcbc-6bfa-4ef2-9c7d-4cee985fc3d5@roeck-us.net>
-Date: Wed, 16 Sep 2026 10:59:45 -0700
+        d=1e100.net; s=20260707; t=1789581688; x=1790186488;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ruVPTz3hTy5PAMDzs0VSzntCrCNW8xKkYo6sPASahL0=;
+        b=xFnKG4uitpidgJsbUSyg2xr8aubXexRK/l2Qdm4whya1IyWnFrlA/IFB/MSHDs6Hin
+         fopSs1ohgWBGMk14wW2YzwDmbqpIeWW4nDk0hFp6AdVjeJXc0jjtgqPro14C/3RkRahk
+         9UwprEqO5gBqpS9mRnv73pBTPj+UQ2UyrJvxnSzYw49Q1xMquk8ZrpbOrEtePtm1utmj
+         Yx+fq+BYnMFvKZbYjjyiJDenAwdjAm815RUJPiudy9WK3gO1FAmzEIRr1//ziFJBeAzw
+         5c3ah0oVzxWnMX+wWhiGgw30PN5gKe9XAioVaPVqX5+PMi9KBMnxmXkO63WULqTeVkQg
+         3Z9g==
+X-Forwarded-Encrypted: i=1; AKwUvBwf77Baa778Yq2PLyeM6FJ3zwUrVh+V6Blg0Az0EczwooUO2PCtTa4Dbp1oc3tA0K5Fiq1UqP3EYLKq@vger.kernel.org
+X-Gm-Message-State: AFuF++li9HYbka7zhmo6x7EGsGbuHrXVKkzTmW/gYbfj0QfoUQQqmAkW
+	JaJihc4Iiojb14lppQoPPtLZJLKgLjnLjxz4jOmbPL7Xdlydps1Bh7Gj
+X-Gm-Gg: AYBFou2dG4ZjaqMqjOnEa59hiAwPzE4ZJFMUvRl1uvDSpx5qufSf8O3DcgATkHcyj5O
+	KnoMiF/U0I9W0B3sFoDgbzQ8ZkK1YZAhZmeyW2wNpNENJCVA1Uy1c+VSde9j6mMrmygf+JNm02o
+	whMQEZJKod650i3kjvPX/zNJXrmJSNlnsuomxe58munqmAZB+ruUEBbl9sRj+TyAlD+BObs0o/9
+	ShJ5bKmaLYtaMpGOuTQQxfaJi26qsmmPS0H7YSCemU+7mS3Jj9zFS6e1LS3HCg73ZxOQd+8jDh3
+	Kjh14/27XRii2EnSI5LPmHYWd6wTLelTN4yZ1jamKcRtfU+BKLVhhePD72jzRVRlmgDl9RKZrLI
+	2ZPQBZ9MupZXDAFfKQ8LqogY1Srm+yNOHHzzGFnOENdwbBfBNLfGgon31xIgIi/o5Y+DfjV6UMS
+	ret50cqZZ4mD1Xqu2JJ5nzPhNV2WndGn+kruyGpdZ5adRQKEvHSGpatLvuHlVlZgVRly2QmGuK3
+	T3fau1aFA==
+X-Received: by 2002:a17:90b:2250:b0:39d:e1f2:3400 with SMTP id 98e67ed59e1d1-39e1e5285d8mr5311132a91.5.1789581687601;
+        Wed, 16 Sep 2026 11:01:27 -0700 (PDT)
+Received: from marchy ([2402:1980:e96:7839:ee8e:77ff:fed4:d18b])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e35df479fsm569972a91.6.2026.09.16.11.01.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 11:01:25 -0700 (PDT)
+From: Adam Azuddin <azuddinadam@gmail.com>
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	neil.armstrong@linaro.org,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de
+Cc: jesszhan0024@gmail.com,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	andersson@kernel.org,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Adam Azuddin <azuddinadam@gmail.com>
+Subject: [PATCH 1/2] dt-bindings: display: panel: Add RAiO RA8875 display controller
+Date: Thu, 17 Sep 2026 01:59:41 +0800
+Message-ID: <20260916175942.3186804-2-azuddinadam@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260916175942.3186804-1-azuddinadam@gmail.com>
+References: <20260916175942.3186804-1-azuddinadam@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] hwmon: (pmbus/tps53679) Fix TPS53676 phase page
- decoding
-To: "Pradhan, Sanman" <sanman.pradhan@hpe.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>,
- "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>,
- Sanman Pradhan <psanman@juniper.net>
-References: <c0a3c877-eeab-4cff-ab2a-bb567f0dc3d1@roeck-us.net>
- <20260916174553.643587-1-sanman.pradhan@hpe.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260916174553.643587-1-sanman.pradhan@hpe.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/16/26 10:46, Pradhan, Sanman wrote:
-> From: Sanman Pradhan <psanman@juniper.net>
-> 
-> Thank you for reviewing and applying the patches.
-> 
-> I think tps536c7_identify() has the same single-page PAGE
-> issue you pointed out for tps53676.
-> 
-> I already have a C7 patch that selects page 0 for single-page parts. I
-> can send it on top of your tps53676 fix so the two stay consistent, or
-> fold it into that fix if you prefer.
-> 
+The RA8875 is an SPI-connected TFT display controller by RAiO
+Technology Inc. It supports display resolutions of up to 800x480.
 
-Please send your patch. I didn't have time to write the patch for tps53676,
-so if you have some spare time please go ahead and submit a patch for that
-chip as well.
+Add YAML binding schema for the RA8875 controller, along with
+the raio vendor prefix for RAiO Technology Inc.
 
-Thanks,
-Guenter
+Assisted-by: LLM
+Signed-off-by: Adam Azuddin <azuddinadam@gmail.com>
+---
+ .../bindings/display/panel/raio,ra8875.yaml   | 66 +++++++++++++++++++
+ .../devicetree/bindings/vendor-prefixes.yaml  |  2 +
+ 2 files changed, 68 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml
+
+diff --git a/Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml b/Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml
+new file mode 100644
+index 000000000000..f6f4867495dd
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml
+@@ -0,0 +1,66 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/panel/raio,ra8875.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: RAiO RA8875 Display Controller
++
++maintainers:
++  - Adam Azuddin <azuddinadam@gmail.com>
++
++description: |
++  This binding is for display panels using an RAiO RA8875 controller
++  connected via SPI.
++
++allOf:
++  - $ref: panel-common.yaml#
++  - $ref: /schemas/spi/spi-peripheral-props.yaml#
++
++properties:
++  compatible:
++    const: raio,ra8875
++
++  reg:
++    maxItems: 1
++
++  spi-max-frequency:
++    maximum: 25000000
++
++  display-timings:
++    $ref: /schemas/display/panel/display-timings.yaml#
++
++required:
++  - compatible
++  - reg
++  - display-timings
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    spi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        ra8875: ra8875@0 {
++            compatible = "raio,ra8875";
++            reg = <0>;
++            spi-max-frequency = <16000000>;
++
++            display-timings {
++                native-mode = <&timing0>;
++                timing0: timing0 {
++                    clock-frequency = <25000000>;
++                    hactive = <800>;
++                    vactive = <480>;
++                    hfront-porch = <40>;
++                    hsync-len = <40>;
++                    hback-porch = <40>;
++                    vfront-porch = <10>;
++                    vsync-len = <10>;
++                    vback-porch = <20>;
++                };
++            };
++        };
++    };
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index ba2002969373..99d5113fb035 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -1395,6 +1395,8 @@ patternProperties:
+     description: Radxa
+   "^raidsonic,.*":
+     description: RaidSonic Technology GmbH
++  "^raio,.*":
++    description: RAiO Technology Inc.
+   "^ralink,.*":
+     description: Mediatek/Ralink Technology Corp.
+   "^ramtron,.*":
+-- 
+2.55.0
 
