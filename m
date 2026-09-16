@@ -1,187 +1,157 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C66D94B4032
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 16:07:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 056644AB3CD;
+	Wed, 16 Sep 2026 16:07:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789574850; cv=none; b=iOEG5sxCDHzeoMPKfhDNL/f3eyRVZ5P6tBtR0y/odbW25Yra24hIFZ2AGFV6VNENXXjnIvQl2uvCSKyIVuwtSfNwiQfhdK2lHPt22NEjIp0n8R7DYRjA6XNbBzY0X8COF82FkC91oy2DfSC1etzsDq9uXQPBpx66/rkpF5jpsmc=
+	t=1789574852; cv=none; b=EPNf3vyqQdiKyxzYouUKRDNK+/WKW+6ymo3AJ+vZFQYGCui28fq8INCXCCI27L5oz17Hf2P/dFKxdD0EkIrr8L4xK6Aorb/BTjRTZpZDMpZjR+1kHvIDSpo+yhMZtFpzztczBecT8PVs9peuTdbYW2nCw8mPz+N+riBoSzX91Kg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789574850; c=relaxed/simple;
-	bh=v5T5L+sjj0QEbIFkeomSUY3aW/E3FyLnS4/5K1I+vx8=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
-	 References:In-Reply-To; b=n4dZqGMQ6iA5YoMumoOAL8BDK5SupfeJ2DJIZEFIlB+lj0KsiN6Mstw0ZujJowU6gvhbPBNvAgc9BWNs2cG8Y8nTdp6KxWbC1hvOJ2eXelfQBZEd066FXR0S8XAdUxVGE8cyuVW9i71JjAN5BNJ2twZF12pmhJN0/FnzM80rIpc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=KdpJRtIk; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1789574852; c=relaxed/simple;
+	bh=aGzuLYPDCpXK0M5HfGSJxNfFipimzq4mYLNze+ilki8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=OjYdzFPPRbZtAUo2VvWSI/tcKPB0CefSji7cEk7jnu8S/clPoZUhCF3Bof9o9ZFvq0cyFvXxgwYijf7LWX1Kr3RKDYi/CYn3DxfUDkZ3pcLctUJYJkEd9GQ8uIaly0FGaxQEdYEBprPkRgkGkApX/Z1Va7ZoWYB9jp3u8evgLng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VmI4FiQR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="KdpJRtIk"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e2406so5325665e9.1
-        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 09:07:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789574845; x=1790179645; darn=vger.kernel.org;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:mime-version:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=JT7BltXK/O+RVr7HZDUyFWjcaSBcl/b5sxD3x657pVM=;
-        b=KdpJRtIkWsmGduBP229+G/QeSVDt+NI7V3ncizCkpSkbwFcrGYwLbovgusmwbggBLK
-         slr3Btm0Z18sAsxk9jkRYua4/JNSLPZelAWOQ4vQyxmlVisu5tZIKj0ItP01tF5Luq2u
-         m/D+M57sDzA1AmBQM5WJLU0hvm31H2gOphC3NzIARiFYNXrxvpCltsqsxp0IKRTqQFfS
-         PvScMgzG/WV0ZL4TkVJhVQxy/CgqhX6r5E6hF4TpMbbD+eKqnVBktE/qy+ICf/0RQEsu
-         TRnUYL3DEHXkuGvtNFUf1c2xoWoA42KF2OBqPJfDTms1oZLHn4SKqmbDDo53C/06stOo
-         7l3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789574845; x=1790179645;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=JT7BltXK/O+RVr7HZDUyFWjcaSBcl/b5sxD3x657pVM=;
-        b=UhO3evvIRvYdF7lpRQSjf+HRY7KPfFZEajg1SL7caXafAfXMeHFSaR5dg4WvMrjgdv
-         3yUqylJr0pugTEhXibNqUaXk3IFW9mPrFxL4ulqXVjq+QF7yzINY31m67ILkXHzPPTqM
-         +FQQ9ujyJJqM34ylpwA7J4D5Qd+c6IggLO5b3Mf693kHkgEFUAHuBuGQKn/i52qgtUdN
-         0ODA90h8TCmnRsLOEFtgcyQkjNKiaR6bkQADskFpPse7Rvnf6FhIN6qqe2qzB5ofq40D
-         IWwx6bPxkZpRD5PnJGyMk9o6IZ+LfnpMQEoLYNTbx68YrSQhPVJrqrvfacy56GYJH2rz
-         EyeA==
-X-Forwarded-Encrypted: i=1; AKwUvBwpJCZ7FlRpBOLh048nI8j3EOJKm00nQrdXOB9Y/6UKfFAF7lnQyPzIvKpdCCbyIowO9Z0E++DmatOo@vger.kernel.org
-X-Gm-Message-State: AFuF++nb+0PY6OfF7shjO5aRXD01zvYtOtgjvMQozGWnpBgx6e7257H2
-	iSqYccGRqsBGajffyPLVtPu6+6XaHLSqrIp4Ll0C9c8lDJcIa7Mm2boGJDStcYwSP9w=
-X-Gm-Gg: AYBFou3F42atss4QsKr+GzoNmt0qF4Wr6V3294gplBvjsBLlYy8qYDQX+k3cjCWa5N3
-	ImI7w/lrxq25jEw5jdHn51RI6j6wy+8FYzGx18XlYMfUfs8qV/qnRrXDf9ni2em0Z0QT3uMPoya
-	JuR/CFtYDaB1s32reB1o5EhIvU553HHurrwNnAIEdUj2Y3dr9Ck6n6XkVfrJYouqFpiOPku5ho3
-	ZLRvF4xvliZAAH8DY8XH+J3HiLlDn/VDP8OnnYzfuSpnItqHCNjNzKl9lglBIjhC5f1W7knCxl0
-	ISNL+UOEmLkasB69I6zDdCkFi/hKpoLy6wrsGUFzwbS8ijYZCSpM6gt5o8x/OWAqZzDsw8g9ZM+
-	FuHxJaOco+tVICenhI4hIFgPTpJL78rn2JWEeERkW3b8/DuPLUArfSgLUnEIbHKLc1LRGGJOSHD
-	iCbZCvo/HhGUNj9uD16tWQnz9kDOqbHaxDAS2BHlnbP43vCpUEFnl1DHiyfQ7e0W/H/g==
-X-Received: by 2002:a05:600c:1992:b0:49b:8f5e:51fb with SMTP id 5b1f17b1804b1-49fbd1af43dmr2094185e9.3.1789574844730;
-        Wed, 16 Sep 2026 09:07:24 -0700 (PDT)
-Received: from localhost ([2001:4091:a245:8029:665d:b7b:5fa4:7ad0])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd232b25sm1173905e9.4.2026.09.16.09.07.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 09:07:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VmI4FiQR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 578441F0089C;
+	Wed, 16 Sep 2026 16:07:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789574850;
+	bh=l6UMESz1jbAJCven7/MHBVmDoywo/JuZk2FkkYPxzJo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=VmI4FiQRE84aQvf8JtfzvVpzWaJi84xS/5L4+iHjlGfSVxMaj2Omxlx+N+p8y5MFm
+	 dGB343MoARYULmYXQOnFCjy7nOYR5guNHK3BeiznaWfo6opn84C5H86VBbHaovzZrC
+	 gW/jRzZLz1pYNhOF2JdvzO718A3oTZKDcdGrKa197SSmrTQogWG/7vc5rzylpgkcEQ
+	 V16NkCMTHXMLe7ltnuH+JCtaVU6lgBwTePilI6JnE2e9uIsCy/qPhzguHxmat49AQL
+	 tdvX7+TDrs+6ivvklueqVLITCrEgjEnQ3cXSvmhml9WbTVzILO1clTCpzL6vnZ4LfH
+	 bRxgjORc8iXVw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 1/6] dt-bindings: rtc: Add pinctrl for S35390A
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Markus Probst" <markus.probst@posteo.de>
+Cc: robh@kernel.org, linux-rtc@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, "Alexandre
+ Belloni" <alexandre.belloni@bootlin.com>
+In-Reply-To: <20260916-rtc_s35390a_int1-v9-1-b2567a3e4959@posteo.de>
+References: <20260916-rtc_s35390a_int1-v9-0-b2567a3e4959@posteo.de>
+ <20260916-rtc_s35390a_int1-v9-1-b2567a3e4959@posteo.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 16 Sep 2026 16:07:29 +0000
+Message-Id: <20260916160730.578441F0089C@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=efd0b5b3ebc06a57040b85351ecf90f4d001a63d5dfa687974f195763dd4;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Wed, 16 Sep 2026 18:07:16 +0200
-Message-Id: <DLGVC2B0B20H.12SWQB4JAGCJ0@baylibre.com>
-Subject: Re: [PATCH v8 9/9] arm64: dts: ti: Add wkup R5F nodes to pre-ram
- bootphase
-From: "Markus Schneider-Pargmann" <msp@baylibre.com>
-To: "Francesco Dolcini" <francesco@dolcini.it>, "Markus Schneider-Pargmann"
- <msp@baylibre.com>
-Cc: "Nishanth Menon" <nm@ti.com>, "Vignesh Raghavendra" <vigneshr@ti.com>,
- "Tero Kristo" <kristo@kernel.org>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, "Nathan Chancellor" <nathan@kernel.org>, "Nick
- Desaulniers" <nick.desaulniers+lkml@gmail.com>, "Bill Wendling"
- <morbo@google.com>, "Justin Stitt" <justinstitt@google.com>, "Judith
- Mendez" <jm@ti.com>, "Daniel Schultz" <d.schultz@phytec.de>, "Andrew Davis"
- <afd@ti.com>, "Siddharth Vadapalli" <s-vadapalli@ti.com>, "Paresh Bhagat"
- <p-bhagat@ti.com>, "Bryan Brattlof" <bb@ti.com>, "Jai Luthra"
- <jai.luthra@ideasonboard.com>, "Devarsh Thakkar" <devarsht@ti.com>,
- "Beleswar Padhi" <b-padhi@ti.com>, "Francesco Dolcini"
- <francesco.dolcini@toradex.com>, "Stefano Radaelli"
- <stefano.radaelli21@gmail.com>, "Nick Desaulniers"
- <ndesaulniers@google.com>, "Vishal Mahaveer" <vishalm@ti.com>, "Kevin
- Hilman" <khilman@baylibre.com>, "Sebin Francis" <sebin.francis@ti.com>,
- "Kendall Willis" <k-willis@ti.com>, "Akashdeep Kaur" <a-kaur@ti.com>,
- <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <llvm@lists.linux.dev>, "Hari Nagalla"
- <hnagalla@ti.com>
-X-Mailer: aerc 0.21.0-146-gb5c16ebe1835
-References: <20260903-topic-am62a-ioddr-dt-v6-19-v8-0-74c650dfdea6@baylibre.com> <20260903-topic-am62a-ioddr-dt-v6-19-v8-9-74c650dfdea6@baylibre.com> <20260911052428.GB5377@francesco-nb> <DLGNWF2DSXZI.7WRJZRZLGW8@baylibre.com> <20260916104017.GA284106@francesco-nb>
-In-Reply-To: <20260916104017.GA284106@francesco-nb>
 
---efd0b5b3ebc06a57040b85351ecf90f4d001a63d5dfa687974f195763dd4
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Medium] dt-bindings: missing #clock-cells in required list
+- [Medium] dt-bindings: undocumented clock provider capability
+- [Medium] dt-bindings: missing constraint for pmin2 pin function
+--
 
-Hi Francesco,
+commit ee787a668e377f31a7722c1acf8927b88011aa60
+Author: Markus Probst <markus.probst@posteo.de>
+Subject: dt-bindings: rtc: Add pinctrl for S35390A
 
-On Wed Sep 16, 2026 at 12:40 PM CEST, Francesco Dolcini wrote:
-> On Wed, Sep 16, 2026 at 12:17:42PM +0200, Markus Schneider-Pargmann wrote=
-:
->> Hi Francesco,
->>=20
->> On Fri Sep 11, 2026 at 7:24 AM CEST, Francesco Dolcini wrote:
->> > Hello Markus
->> >
->> > On Thu, Sep 03, 2026 at 02:39:30PM +0200, Markus Schneider-Pargmann (T=
-I) wrote:
->> >> For IO+DDR the wkup_r5fss0_core0 and the
->> >> wkup_r5fss0_core0_lpm_metadata_region need to be accessed before RAM
->> >> setup is done. These are used to read the lpm metadata region in
->> >> which data is stored to resume. This needs to be done before RAM is
->> >> in use to avoid overwriting data.
->> >>=20
->> >> Add the bootph-pre-ram flag to the wkup_r5fss0_core0 node in both
->> >> ipc-firmware dtsi files and to the lpm metadata region nodes of the
->> >> AM62A and AM62P boards.
->> >>=20
->> >> The board level bootph-pre-ram flag of k3-am62d2-evm.dts becomes
->> >> redundant with the dtsi-wide flag and is dropped.
->> >>=20
->> >> Signed-off-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
->> > ...
->> >
->> >> diff --git a/arch/arm64/boot/dts/ti/k3-am62p-verdin.dtsi b/arch/arm64=
-/boot/dts/ti/k3-am62p-verdin.dtsi
->> >> index 45ab9d947b3a..8976c0424cd1 100644
->> >> --- a/arch/arm64/boot/dts/ti/k3-am62p-verdin.dtsi
->> >> +++ b/arch/arm64/boot/dts/ti/k3-am62p-verdin.dtsi
->> >> @@ -184,6 +184,7 @@ wkup_r5fss0_core0_lpm_metadata_region: memory@9ca=
-08000 {
->> >>  			compatible =3D "shared-dma-pool";
->> >>  			reg =3D <0x00 0x9ca08000 0x00 0x1000>;
->> >>  			no-map;
->> >> +			bootph-pre-ram;
->> >>  		};
->> >
->> > verdin-am62p has the various bootph tags only in the U-Boot dtsi
->> > (k3-am62p5-verdin-wifi-dev-u-boot.dtsi) as of now, I am not convinced =
-it
->> > is a good idea to just add this single one here.
->>=20
->> I don't see any bootph-* flags for any of the related memory regions in
->> k3-am62p5-verdin-wifi-dev-u-boot.dtsi. Is it in a different dtsi?
->
-> What I meant is that any bootph- property is in
-> arch/arm/dts/k3-am6p25-verdin-wifi-dev-u-boot.dtsi=20
->
-> And I would not start adding spreading this in 2 different places.
+This commit moves the devicetree bindings for the S-35390A RTC into its own
+schema file. It adds the necessary properties to configure individual pins =
+via
+pinctrl, allowing the interrupt signal to be used for a wakeup alarm.
 
-As I said, there are 72 bootph- properties in am62p related devicetrees
-in the kernel devicetrees. For k3-am62p-verdin*.dts the relevant ones
-are probably:
+> diff --git a/Documentation/devicetree/bindings/rtc/sii,s35390a.yaml b/Doc=
+umentation/devicetree/bindings/rtc/sii,s35390a.yaml
+> new file mode 100644
+> index 0000000000000..f3bf5900fb3ce
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/rtc/sii,s35390a.yaml
+> @@ -0,0 +1,121 @@
 
-      3 arch/arm64/boot/dts/ti/k3-am62p.dtsi
-     14 arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi
-      2 arch/arm64/boot/dts/ti/k3-am62p-j722s-common-mcu.dtsi
-      2 arch/arm64/boot/dts/ti/k3-am62p-j722s-common-wakeup.dtsi
+[ ... ]
 
-Also if I understand correctly, it is preferred to get these bootph-
-tags into the upstream devicetree:
+> +  wakeup-parent: true
+> +
+> +  wakeup-source: true
+> +
+> +  "#clock-cells":
+> +    const: 1
 
-  https://lore.kernel.org/u-boot/20260903144032.GI1764417@bill-the-cat/
+[Severity: Medium]
+The commit message states the change adds pinctrl to allow the interrupt
+signal 1 to be used for a wakeup alarm. However, the schema also introduces
+"#clock-cells" and a "clock" output pin function.
 
-Best
-Markus
+Does this introduce a significant undocumented capability (clock provider
+functionality) which is unstated in the commit description?
 
---efd0b5b3ebc06a57040b85351ecf90f4d001a63d5dfa687974f195763dd4
-Content-Type: application/pgp-signature; name="signature.asc"
+[ ... ]
 
------BEGIN PGP SIGNATURE-----
+> +          function:
+> +            description: |
+> +              Pin function:
+> +              - ignore:  Preserve the previous state.
+> +              - disable: Disable pin output.
+> +              - wakeup:  Output wakes up the system.
+> +              - clock:   Output clock pulse.
+> +              - pmin1:   Minute periodical output with 50% duty.
+> +              - pmin2:   Minute periodical output L for 7.81 ms.
+> +                         Can only be used with pin int1.
+> +            enum:
+> +              - ignore
+> +              - disable
+> +              - wakeup
+> +              - clock
+> +              - pmin1
+> +              - pmin2
 
-iKMEABYKAEsWIQSJYVVm/x+5xmOiprOFwVZpkBVKUwUCaqq+tBsUgAAAAAAEAA5t
-YW51MiwyLjUrMS4xMiwyLDIRHG1zcEBiYXlsaWJyZS5jb20ACgkQhcFWaZAVSlMa
-CwD/UzU/bEn+SvEhbYhrvo356ps/AZUBbSCU7LIcWlv3E5YBAJxIt80j3RbsiuhH
-LWCPbjxjKVKr3P1SKVvEXWAyHpEF
-=8soS
------END PGP SIGNATURE-----
+[Severity: Medium]
+The description for the "pmin2" function explicitly states it can only be u=
+sed
+with pin int1.
 
---efd0b5b3ebc06a57040b85351ecf90f4d001a63d5dfa687974f195763dd4--
+Because there is no conditional allOf/if/then block at the pinmux node level
+linking them, will a device tree incorrectly using pins =3D "int2"; functio=
+n =3D
+"pmin2"; silently pass schema validation despite being an invalid hardware
+configuration?
+
+[ ... ]
+
+> +required:
+> +  - compatible
+> +  - reg
+
+[Severity: Medium]
+According to the dt-bindings subsystem rules, when hardware gains new provi=
+der
+capabilities, the corresponding standard properties must be added to the
+required list with appropriate constraints.
+
+Should "#clock-cells" be added to this required list to prevent incomplete
+device tree nodes from silently passing schema validation?
+
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    i2c {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +
+> +        rtc@30 {
+
+[Severity: Medium]
+According to the dt-bindings subsystem rules, when hardware gains new provi=
+der
+capabilities, the corresponding standard properties must appear in the exam=
+ples.
+
+Should the example device tree node be updated to include the required
+"#clock-cells" property?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916-rtc_s35390=
+a_int1-v9-0-b2567a3e4959@posteo.de?part=3D1
