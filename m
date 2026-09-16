@@ -1,278 +1,134 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 608CF4D0A06;
-	Wed, 16 Sep 2026 10:02:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CACA4CDA08
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 10:04:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789552967; cv=none; b=dJcHNm2S9ul5rfTS4WzmKhNYgYDd6AzFNAu+gsr+NWBG5DMdqK1SsT+q8ImgUbqTGPzD3V/LcfZ/bGoYyBk+7Nb94pi898uZ/DjzQ1a14RhnP3gW5vefIv9klXW2OTEueZXdVaPgZrEd2Jkozt3Mp5s6NaobtVEnnsiPpl+h8ug=
+	t=1789553079; cv=none; b=q0en8pIqauW51yh7edNEJ6T3fYHaLHJEeXLYlA16XtCQ9580OEAURi73Ii4JUmpL4D5mUPkUgLfqw0i3ie4eTgymVMQ5im20IEjKAPcAS/r/hnBFd2LsRRue217Oyx1H+rkGAx0wDz5GOsVx1aYIQtNAc5Mg9Supe0dE0xiayiM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789552967; c=relaxed/simple;
-	bh=XSzOZYLwzuEsFiDdxISYmHRCvWzGXnp6c1pCedwO9gE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fTaSQemQk6bA30FFsmNvCR0cuevqV8Bg5QFopryKLDY0Zd9Hw8RgEHZBDqydUCNn+8EAeNJoEaQwITutPCqRGf7d0ZuZgs/ssMCrfjzHZhQ4SxnTK9JbxoG1VYkOr58ODzqSelj72r8CDDc7VwlovSE+wr+k9o2tAlsAKwAuRHk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au; spf=pass smtp.mailfrom=gandalf.ozlabs.org; dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b=PVyvKcrW; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+	s=arc-20240116; t=1789553079; c=relaxed/simple;
+	bh=0xWacLHVFg8yDFBVQgT0xxVbDKKkqpluoE/q6wHsbhg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=hNC61XBYaQhdabmOONjnDIccm3ouLLz9h7HL++Bh6hTJAlRtJUTNVTu0PqsX6XM8eMjEBaPfrIqV+hK97zvNpna7hXko1bpu0l26zClsd416scsDabk2sM/d9FR0LWksBgQHzuqQLD/XhUlYdl6VLkEzWPqXFVZACcsScgfO6pI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=jXAzjpbn; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b="PVyvKcrW"
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="jXAzjpbn"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350f88so379682f8f.2
+        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 03:04:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202608; t=1789552923;
-	bh=CfDoltNitGaCSwPK2ctQXlNNC5dInhDCbXSmhZuHk8Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=PVyvKcrWadg+EZm4GgrlW34vEAcYPA1sHbstjJ03Ao1k9s1c6y4b0xfttzhoHpAqF
-	 bd7Ut9hmvtDXy1AVHCqi2pUe9CypTlNmxVWGH1Q9scLMVYPfdMvXtuFYVQackiUP4V
-	 7plq7oRyvVXmnfB3Bjj6uoz6jqaDN6lfyve5wc0Gs6pWbrmkjAwstB428HPsZhN6D5
-	 uy/4/OFKpDf0ayBgxDRTR4j/oHJQvq4FxcTh7BlUpTrPRzozv080bWNvAXGEdv1djp
-	 Us6HV9j6AkWTbjlKXg44Ir/f8AAerCMWQs0tB/HCUBzsdem9sCuyJbyL6v7TQff4LM
-	 04ZeVbXNeEhFw==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4hlDvH05ybz4wLn; Wed, 16 Sep 2026 20:02:02 +1000 (AEST)
-Date: Wed, 16 Sep 2026 20:00:40 +1000
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Ayush Singh <ayush@beagleboard.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
-	Hui Pu <hui.pu@gehealthcare.com>,
-	Ian Ray <ian.ray@gehealthcare.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v3 13/15] tests: Add wip_func utility
-Message-ID: <aqpoxzD14OQazE1y@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
- <20260826083146.304291-14-herve.codina@bootlin.com>
+        d=linaro.org; s=google; t=1789553058; x=1790157858; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1+LP4xptQa+2C+BD1oGDKA67ZCLFNM3ainCw+VzoD2s=;
+        b=jXAzjpbn2UlEDALJFMvz9mjxq561naPRSEqqCZISeov/EP/NcBrw0I4C/LA7c5PJ0Z
+         G/8Il8TPEqCAUnSIOfeW4HCVyRC03hnCxErbZDl/KxLmaaOdjJo0w2NfGCeWij3mAnt0
+         U66KXZq8NMJQ4wfo8XXvqzSfp1WlZ5gt6BLJN4pOTdi6meIj8AdVcF6F7GzRwDTlHGB2
+         Y7n6HhFgsDWpq+Z9bz+0Z4Jma5lf8DH47z7fQsQt98Oc08BEuw821WSgCiZ7+2K2ebqe
+         hIyc4kUR6qjTc3FqtQGuBdLE/gimDaKfTr4pH9XURpyUaRtRpsMV7OeVyIRBVTkL2UQ7
+         LOrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789553058; x=1790157858;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1+LP4xptQa+2C+BD1oGDKA67ZCLFNM3ainCw+VzoD2s=;
+        b=HFp9iWsEWgSJeXJ8ZiIhjz5Mu3oJmtUs9ZU8Gx+GedGUbDUmiyqrCvjy1f5F5XXYKv
+         jfxWqZy5htNLEvYwTpbRXJNUtO7AuzJPrQoRW9JVDfT4zYZ6hxzTuuVelbjQf4AyNnCI
+         l6qUxsbpCNEI2NCXs15+YAtHh2GEotAAYkFn7J36XXffvf1+ThrNmG8+lLF976gS6xlw
+         ruMEhSpkv63aqrK0e2KE3gvGR/AKXcu0hb4vJHHl1TmkZGw2w00K4K3ufClTS/hoc4V5
+         ES3M/HurifY1MXSsc+By87NEuR8/m2mO1CDpONCvnIkW5vjaGKHjGNSVZcUIgSDkC5Do
+         a1mQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwVtBE3ZcUE0Ybiev2x/upDgKvRIqdF9ZfGWoSRBMtpgyUcAvsQ0ZfvjXiO6XLalBxRxUqXt7ZOPe+z@vger.kernel.org
+X-Gm-Message-State: AFuF++lZZS7TNCGwMMkQ+yF9wIt0bYbm4jKpW3QPTGCrcLhh9sXEUX8Q
+	mzIITfTmdJB2tO3vdQw3Cr84S5i1JL4KVFoVSy0AwHogP1cil+z1wj3nUygHcFmrrms=
+X-Gm-Gg: AYBFou2t1X4zqqfoksw43c5v7r5z0UDIsApy0WWF30pKv1AtiKa7uSYYbBV7RsjGXHo
+	TnbzxwuspuWQ5HIWZoyIgpqE2ADseLB1QzFfndl8tGb7Z4EkyEk9sjaXWBx7PmGDvjEIZDJTekl
+	YyeMxOggvhWKv/fv+QisuxM9NwxVo540Zn5/XZa7hWd/iI7o3UqROBUHzhZP79JxBu1+NpofLWG
+	ArHRjsh0nFa83tSCJXli4bvbR0P7AI7kuRaz3dadbj5ue/D4Tbeq3ZyDf2ceyEBqJlOfPDJTe0+
+	ez53MUCQfTI1hRMRCjeZaAMs0+s5MZQ3tqdmIks/py42XPBOagPbHmgOsWSxEvhEbzyidlcADpB
+	pxityB1kLKNZPfGPp97GqG39lzoYiaTsJjjS+Oe1BlsBCCXZG97bLC/8N1A4x1t3EJXq7FRcBNk
+	zN3angQDGOoXAOoB+V4VrWISdt1s+erzrZftckmLU2oL1Jdh9iK9AaLNBDgkPU+dQMQYLSki4iA
+	3a2yNi8JARQ
+X-Received: by 2002:a05:600c:3584:b0:49c:ee36:10fc with SMTP id 5b1f17b1804b1-49eac4678b6mr26145655e9.8.1789553057754;
+        Wed, 16 Sep 2026 03:04:17 -0700 (PDT)
+Received: from arrakeen-2.home ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e84805db6sm35844635e9.3.2026.09.16.03.04.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 03:04:17 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+To: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Kevin Hilman <khilman@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Lucas Tanure <tanure@linux.com>
+Cc: Brian Masney <bmasney+clk@redhat.com>, 
+ Chuan Liu <chuan.liu@amlogic.com>, Jian Hu <jian.hu@amlogic.com>, 
+ Ronald Claveau <linux-kernel-dev@aliel.fr>, linux-mmc@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260905153234.133217-1-tanure@linux.com>
+References: <20260905153234.133217-1-tanure@linux.com>
+Subject: Re: (subset) [PATCH v2 0/4] amlogic: t7: give the MMC bus pipeline
+ clock real consumers
+Message-Id: <178955305678.2918771.10810230842213506975.b4-ty@b4>
+Date: Wed, 16 Sep 2026 12:04:16 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="nNKp0wpa/Wf4e7VM"
-Content-Disposition: inline
-In-Reply-To: <20260826083146.304291-14-herve.codina@bootlin.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.1
 
---nNKp0wpa/Wf4e7VM
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi,
 
-On Wed, Aug 26, 2026 at 10:31:44AM +0200, Herve Codina wrote:
-> wip_func is a test utility allowing to wrap the write inplace functions.
->=20
-> It allows to create tests with custom wip write sequence.
->=20
-> Also the modified dtb is saved allowing to perform later checks on this
-> modified dtb.
+On Sat, 05 Sep 2026 16:32:30 +0100, Lucas Tanure wrote:
+> The previous series for the intermittent boot hangs on the VIM4
+> marked sys_ampipe_nand as critical. But as Chuan Liu from Amlogic
+> explained, sys_ampipe_nand clocks a pipeline stage that the
+> hardware design inserts in the bus path between the SD/eMMC
+> controllers and the NIC_MATRIX fabric to help timing closure.
+> 
+> So the clock has real consumers: reference it from the three MMC
+> controller nodes and drop CLK_IS_CRITICAL instead.
+> 
+> [...]
 
-It's not clear to me what this is useful for that's not already
-covered by the existing write-in-place tests (nop_node.c,
-nop_property.c and setprop_inplace.c).
+Thanks, Applied to https://git.kernel.org/pub/scm/linux/kernel/git/amlogic/linux.git (v7.4/arm64-dt)
 
->=20
-> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> ---
->  tests/Makefile.tests |   3 +-
->  tests/meson.build    |   1 +
->  tests/wip_func.c     | 127 +++++++++++++++++++++++++++++++++++++++++++
->  3 files changed, 130 insertions(+), 1 deletion(-)
->  create mode 100644 tests/wip_func.c
->=20
-> diff --git a/tests/Makefile.tests b/tests/Makefile.tests
-> index 0d4d399f..a71c4cbf 100644
-> --- a/tests/Makefile.tests
-> +++ b/tests/Makefile.tests
-> @@ -31,7 +31,8 @@ LIB_TESTS_L =3D get_mem_rsv \
->  	check_path check_header check_full \
->  	fs_tree1 \
->  	truncated_property truncated_string \
-> -	truncated_memrsv unterminated_memrsv
-> +	truncated_memrsv unterminated_memrsv \
-> +	wip_func
->  LIB_TESTS =3D $(LIB_TESTS_L:%=3D$(TESTS_PREFIX)%)
-> =20
->  ifneq ($(STATIC_BUILD),1)
-> diff --git a/tests/meson.build b/tests/meson.build
-> index dae6a941..e7a88936 100644
-> --- a/tests/meson.build
-> +++ b/tests/meson.build
-> @@ -96,6 +96,7 @@ tests =3D [
->    'truncated_string',
->    'unterminated_memrsv',
->    'utilfdt_test',
-> +  'wip_func',
->  ]
-> =20
->  test_deps =3D [testutil_dep, util_dep, libfdt_dep]
-> diff --git a/tests/wip_func.c b/tests/wip_func.c
-> new file mode 100644
-> index 00000000..3becc4f1
-> --- /dev/null
-> +++ b/tests/wip_func.c
-> @@ -0,0 +1,127 @@
-> +// SPDX-License-Identifier: LGPL-2.1-or-later
-> +/*
-> + * libfdt - Flat Device Tree manipulation
-> + *	Wrapper wip functions family
-> + * Copyright (C) 2026 Herve Codina, Bootlin.
-> + */
-> +
-> +#include <inttypes.h>
-> +#include <stdlib.h>
-> +#include <stdio.h>
-> +#include <string.h>
-> +#include <ctype.h>
-> +#include <stdint.h>
-> +#include <errno.h>
-> +
-> +#include <libfdt.h>
-> +
-> +#include "tests.h"
-> +
-> +struct args {
-> +	char *dtb_path;
-> +	enum {
-> +		NOP_NODE,
-> +		NOP_PROP,
-> +		SET_PROP,
-> +	} op;
-> +	char *node_path;
-> +	char *prop_name;
-> +	int index;
-> +	char *value;
-> +};
-> +
-> +const char *usage_txt =3D "Usage:\n"
-> +	"  - wip_func <dtb> nop_node <node_path>\n"
-> +	"  - wip_func <dtb> nop_prop <node_path> <prop_name>\n"
-> +	"  - wip_func <dtb> set_prop <node_path> <prop_name> <index> <str>\n"
-> +	;
-> +
-> +static void parse_args(struct args *args, int argc, char *argv[])
-> +{
-> +	char *endptr;
-> +
-> +	memset(args, 0, sizeof(*args));
-> +
-> +	if (argc < 3)
-> +		goto fail;
-> +
-> +	args->dtb_path =3D argv[1];
-> +
-> +	if (!strcmp(argv[2], "nop_node")) {
-> +		args->op =3D NOP_NODE;
-> +		if (argc !=3D 4)
-> +			goto fail;
-> +		args->node_path =3D argv[3];
-> +	} else if (!strcmp(argv[2], "nop_prop")) {
-> +		args->op =3D NOP_PROP;
-> +		if (argc !=3D 5)
-> +			goto fail;
-> +		args->node_path =3D argv[3];
-> +		args->prop_name =3D argv[4];
-> +	} else if (!strcmp(argv[2], "set_prop")) {
-> +		args->op =3D SET_PROP;
-> +		if (argc !=3D 7)
-> +			goto fail;
-> +		args->node_path =3D argv[3];
-> +		args->prop_name =3D argv[4];
-> +		errno =3D 0;
-> +		args->index =3D strtol(argv[5], &endptr, 0);
-> +		if (*endptr !=3D '\0' || errno)
-> +			goto fail;
-> +		args->value =3D argv[6];
-> +	} else {
-> +		goto fail;
-> +	}
-> +
-> +	return;
-> +
-> +fail:
-> +	CONFIG("%s\n", usage_txt);
-> +}
-> +
-> +int main(int argc, char *argv[])
-> +{
-> +	struct args args;
-> +	void *fdt;
-> +	int node;
-> +	int err;
-> +
-> +	test_init(argc, argv);
-> +
-> +	parse_args(&args, argc, argv);
-> +
-> +	fdt =3D load_blob(args.dtb_path);
-> +
-> +	node =3D fdt_path_offset(fdt, args.node_path);
-> +	if (node < 0)
-> +		FAIL("Fail to get '%s': %s", args.node_path, fdt_strerror(node));
-> +
-> +	switch (args.op) {
-> +	case NOP_NODE:
-> +		err =3D fdt_nop_node(fdt, node);
-> +		if (err)
-> +			FAIL("fdt_nop_node('%s'): %s", args.node_path, fdt_strerror(err));
-> +		break;
-> +
-> +	case NOP_PROP:
-> +		err =3D fdt_nop_property(fdt, node, args.prop_name);
-> +		if (err)
-> +			FAIL("fdt_nop_node('%s', '%s'): %s", args.node_path,
-> +			     args.prop_name, fdt_strerror(err));
-> +		break;
-> +
-> +	case SET_PROP:
-> +		err =3D fdt_setprop_inplace_namelen_partial(fdt, node,
-> +			args.prop_name, strlen(args.prop_name), args.index,
-> +			args.value, strlen(args.value) + 1);
-> +		if (err)
-> +			FAIL("fdt_setprop_inplace_namelen_partial('%s', '%s', %d, \"%s\"): %s=
-",
-> +			     args.node_path, args.prop_name, args.index,
-> +			     args.value, fdt_strerror(err));
-> +		break;
-> +	}
-> +
-> +	save_blob(args.dtb_path, fdt);
-> +
-> +	PASS();
-> +}
-> --=20
-> 2.55.0
->=20
->=20
+[3/4] arm64: dts: amlogic: t7: add the pipeline clock to the MMC controllers
+      https://git.kernel.org/amlogic/c/065957517880dc7053e0723cc9532b6e78c8855c
 
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
+These changes has been applied on the intermediate git tree [1].
 
---nNKp0wpa/Wf4e7VM
-Content-Type: application/pgp-signature; name=signature.asc
+The v7.4/arm64-dt branch will then be sent via a formal Pull Request to the Linux SoC maintainers
+for inclusion in their intermediate git branches in order to be sent to Linus during
+the next merge window, or sooner if it's a set of fixes.
 
------BEGIN PGP SIGNATURE-----
+In the cases of fixes, those will be merged in the current release candidate
+kernel and as soon they appear on the Linux master branch they will be
+backported to the previous Stable and Long-Stable kernels [2].
 
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmqqaMcACgkQzQJF27ox
-2GfQNw//RTnbBmUzvy/7wfrFcY01yeMEArA/sYJq33vM80UxUH/yUT6Q0hf00v8E
-vR0Zdj3iLUGJc31ZlrC1MxYJ9bUWzxNpihOChLnMdK46GtAOot2W9u4G/oHsKmvH
-Jx4ZezhJC0SYTkgl1RkT9ZPEfd396I7faNsqg8aPtk9JnRgSFDLKhiFz1v+Yuzph
-pEaSH/1Sj+H1b0Luz8pNJN1ABbkrhWc3+NKKeTaCXZc/t1zh43bopBjzEpZ8x2Ze
-9DAYzCf6+SqS40OUl2T+WKG+uHP8TYz9+rVsTHbYCSUdYNqhyrzHR8iFoR411jUe
-9aAqat0DgI88GdmkigODOubMozvxwntufQjRQuDo71RtNfc5XXV9jlDGCkXmtT2S
-30yXgGHj4TVZc9OeR8OTkX5BJHmIH+AQ743kMkiVSns9zYhkOkrIlygRd9CspyFy
-Gcq3FPJ0WrO/W2c0BdszmPfHw5vVh+QxtmUGeTTBP6DsA3mxgEd+aTMTNwNbUc5H
-ekvAVULZ9c20wD1vDNJqwR2u8udHkKvKkPwoqLT32SFwqyBg8fiMKtV69wrtSLbE
-Z10KaLL2vb/52LzLe6f8LplkRuqvJvtCC0CHOb3f03iEX27aXaKmUmYsW5w4+mRy
-XF57RIWTw+IusdTwayq36+6PncG7N2bEgG5wLvJeX67YXJ3ETWk=
-=wWHd
------END PGP SIGNATURE-----
+The intermediate git branches are merged daily in the linux-next tree [3],
+people are encouraged testing these pre-release kernels and report issues on the
+relevant mailing-lists.
 
---nNKp0wpa/Wf4e7VM--
+If problems are discovered on those changes, please submit a signed-off-by revert
+patch followed by a corrective changeset.
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/amlogic/linux.git
+[2] https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
+[3] https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+
+-- 
+Neil
+
