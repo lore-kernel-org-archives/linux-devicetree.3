@@ -1,791 +1,2177 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0814A4AA3EF
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 13:59:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AAE8496D5C;
+	Wed, 16 Sep 2026 14:00:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789567186; cv=none; b=OOjStsC1MCq2+g8DWKGkyMpnNFja7yBWtj4X9P6/pj4acj9n4FDRu839bNVLCCvE7+DV2ZmiEKo8nXrNJCV5XsN0CdXHE0AXbzvu68pHTsqMCdInvllYh9xe2q1LtDPLtoV/SmI1CV9oqXGir1jFtiwKp+Xu8h2svRa+KexpRi8=
+	t=1789567265; cv=none; b=t0BndUuVMlyKlN2jWKrGdY12ONjNdASmmBH+Z/fxoVRCCqz4xyYsnczWkw7v9Y4YZgZCv58FXKNFbgK01Kc9hUasAIILcsk2qg8q+HWoZTKP2b8qwF0QtqKs+UUXRLsvuwTIDzUoPwo+k+m06PBYp59F9h6w5WkFLYp5v77NjGk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789567186; c=relaxed/simple;
-	bh=CbaDD12eX5qzwoG2xi/hVuJzZvIBUrLdOGwPPUKARiQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jnWrncw07hkAl3sYs7y8ZGmFeUhHu8YxxmByokPlIirU2ASmxFxyRg/c5QbCPQmTg6kmJ52c/f7GLXt5RrckT4U+VIKB6ilsTXMPjJtIiyIyKNIvEnKfh2DBsFXOHov463ud1xfNx+IearkKPCmBUNfXp4vy1Fvyh/cX76pHQog=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Lm6CN6m7; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Nqoo6Pp1; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789567265; c=relaxed/simple;
+	bh=L+0T923XWLYZMfXQd/JoO/AnRkOpxCphlFbSFIfnC4U=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hg6V6Ve3ijqPzM+hXCbEDkeCsBUfQn/Ao8iTXiH8Fcg3buYYiQ/HgexlgVTQYVCSmJJN/UykHXlbpGktCtE781jXt6DqNAM8fe6I5quKWYgfWkmhfKCAakI0ehhBHU4x/1+KbRI/wFBz+xtWMemDx9b8mUJp3kG+oLxAspyQCqk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=airoha.com; spf=pass smtp.mailfrom=airoha.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=Bk8WRKKf; arc=none smtp.client-ip=60.244.123.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=airoha.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=airoha.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Lm6CN6m7";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Nqoo6Pp1"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GCYXRS3636693
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 13:59:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=YByaDK2ZRHg
-	MzAqJ4LmfXxOBBwJF/5AxYdxl5TXfUtI=; b=Lm6CN6m7cOFJeg53ZSb59E6w/iR
-	h/hK+U+bI3O2ywc9S9VovD5I2kaqa3sfYCkAbxU6V0RX8tFtevrbWDiCKTHMPFNa
-	6Yr1tuS5JkqiiPAXfuTc1R8Rnhm9HxT7+SQvjcqr0PXnFjn7d0n2UOCwjah7Wugl
-	qfWd/Nn3AH9h453oc+po0xO8zr24QOPntwWzs/OnHjO3kpo51o45cQUd/UJcY39S
-	nAJM9hFkCV7I1PbFb49XNihsOxYVY61Dkf23IQ/akPPSbH2fF8b/2dWll/4YDQMh
-	wHOxTxYINHWvm9PSa+VM9w+f2Lgg9asaByTGSs94Y0uB8OaBD9GoO0eBwVQ==
-Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com [209.85.161.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqpu2sh96-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 13:59:40 +0000 (GMT)
-Received: by mail-oo1-f69.google.com with SMTP id 006d021491bc7-6c2549d0cbaso8163688eaf.0
-        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 06:59:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789567179; x=1790171979; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YByaDK2ZRHgMzAqJ4LmfXxOBBwJF/5AxYdxl5TXfUtI=;
-        b=Nqoo6Pp11bUbstsUcCzkL2/DaHKJ0Bi35HkP8HqE0SjkR9CkS1phJ8QN8dcPiN6GfD
-         oecR7bZYx7ltqCHCxZwS4vaHy0VCryvSBMDk3hTV8vuifxqVf3/CEaCp/SJEV7S1SGh+
-         VzC2idtu6qXjjAGn9YE4jSZi7XEKIlo10iWWdxQ/qtYPrTP/pbnGCYnSKIl91yhX3c4i
-         Rcz+pR/vDDJSNk7ilqUnU2I7h8i8fFVWyZ1xaaCj9dax5n/IvynBCAWIlJc67JiHHBDy
-         pCc9R3gOkW+qlw4UJdU4IKQjkAsDNXh5NrowFtzzAMfDjxgSEnZUcv1WTHv5/MmmZ/ko
-         SzFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789567179; x=1790171979;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YByaDK2ZRHgMzAqJ4LmfXxOBBwJF/5AxYdxl5TXfUtI=;
-        b=jbur3VyMrnkCVIdwYwJE9ovYzSvJA+DQCphdiDbFMoZUTaYIqBH7bKtk7yWozG19TV
-         JisLneCIK92ncLgX2jrfkINk1hPJ8JXye+XYHGryQx1gLFJ92+komh6PPK+8qdVgKN7h
-         p7gJnqeAKUM0f6cbBpdJfo8w02f/ZMXpG5pZxCvxkg9SHDTv/QSs9j0IbLl8Crqgw6xe
-         dRERMKc6hlucoa7Qm9a5+R571wBa2GgqM4ztjUM8/StoOmUBe6vWDkf08VlHyHTG5/wy
-         GlAJiObChul8DebcXY8vdAQzYCxLokbyA40pl/01thBJE/dXSoAP5/jkoZSN0VAu6pDT
-         gXCg==
-X-Forwarded-Encrypted: i=1; AKwUvByLm4hrxIBuxdNOqzMMckVqi8pqsUgi5HMLHmRQpwJfAaM6/7d957bfNZ3IQnCAfJOf+bX3JJJuhFnL@vger.kernel.org
-X-Gm-Message-State: AFuF++mkQKC9V+TuwxfavLKKh7KV53wCvhxmg8TlICD6ZCtZMW8zEJJG
-	j+h3LWfo/+Lvfw5BWQe1ljyWUzOrwQ40lDoqFWL0lPqZ4lbug/mRqCE/BsbyHbvW1P20bYmm4VZ
-	69yNw0es5Rs13ftbt6Xp7gYadBoVq9ZvUn3n37kT5ot1uZrU+JuHe92tbO0+hg+n3
-X-Gm-Gg: AYBFou0FkcvKcha6F+mk7zvyXl/7kv4H2maUKq6mVI/jHYVJ4GrbhV4tFy3PuRMzz4D
-	wH/7sFx2RpNPznGmtaTy9uTxYmrLhz5YCcsiDTlfAHxKTgN2OC6dR8u04KD3OUT2KsdWf/60OaA
-	N6gGrj3syzdvIySS80Xe3x+vLsZDPI2pxxw/jprVeCiss5VQ6mNYD2R5XyrWOW6W+OaC6RJWaX7
-	a2rD7//nuILOVOYHgAG00D7we2EsCcyasPLZnbFszRC4MeZxJ2EP4qZcVmNJF8H1MEfEVdAYaS9
-	tf4o1NWk7tqKGLaIcd3NIExV36A+NW5j5F3T3NjqDDf9KatS9zCsBeuBS97C4ZBJivtNtMoZHhT
-	DZcyzC+B3EseeCov+S94rb8htxVMfA3HPdohZiQZwRqxastCnZAgfFezDB5K3
-X-Received: by 2002:a05:6820:3107:b0:6b7:83c5:fe01 with SMTP id 006d021491bc7-6c7d54fe2e5mr2773672eaf.66.1789567178882;
-        Wed, 16 Sep 2026 06:59:38 -0700 (PDT)
-X-Received: by 2002:a05:6820:3107:b0:6b7:83c5:fe01 with SMTP id 006d021491bc7-6c7d54fe2e5mr2773621eaf.66.1789567178225;
-        Wed, 16 Sep 2026 06:59:38 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14395d3a31asm6507940c88.9.2026.09.16.06.59.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 06:59:37 -0700 (PDT)
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
-        =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
-        linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: [PATCH v3 2/2] usb: typec: Add onsemi FUSB15201 driver
-Date: Wed, 16 Sep 2026 21:59:18 +0800
-Message-ID: <20260916135918.1017527-3-shengchao.guo@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260916135918.1017527-1-shengchao.guo@oss.qualcomm.com>
-References: <20260916135918.1017527-1-shengchao.guo@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="Bk8WRKKf"
+X-UUID: 073d4a04b1d711f1b1788b6acf885367-20260916
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:CC:To:From:Date; bh=pjOR1oFLCzuMOYTqkL1rs0ubCcwXcoVXlPw9epewReY=;
+	b=Bk8WRKKfrey/CRkUIgXFKDt3PfLprqtvA1oMuY7q5zVY5wlpCPhZL4yq41lwiWKDIR5dKBSryxt+LefrJV1b67eXxoRbcPaKla/Aye0NDuzjhtpkLkS+kV8mlS4Q5JtmCdcIhsMQ0t7pOg4blQMBaDsM1cwR+C2Qn0W3QRK2+jo=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:e78a4771-f1b2-4763-abc0-f69f4b8e3596,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:9e896428-9ebf-4787-bb42-3cd26eee85aa,B
+	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|136|836|865|888|898,TC:-5,Cont
+	ent:0|15|50|99,EDM:-3|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:
+	-1,COL:1,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 073d4a04b1d711f1b1788b6acf885367-20260916
+Received: from mtkmbs10n2.mediatek.inc [(172.21.101.183)] by mailgw01.mediatek.com
+	(envelope-from <zhengping.zhang@airoha.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 623945504; Wed, 16 Sep 2026 22:00:52 +0800
+Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
+ mtkmbs11n1.mediatek.inc (172.21.101.185) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Wed, 16 Sep 2026 22:00:50 +0800
+Received: from mediatek.com (172.18.153.129) by mtkmbs13n1.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
+ Transport; Wed, 16 Sep 2026 22:00:50 +0800
+Date: Wed, 16 Sep 2026 22:00:50 +0800
+From: Zhengping Zhang <zhengping.zhang@airoha.com>
+To: Christian Marangi <ansuelsmth@gmail.com>
+CC: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, <linux-phy@lists.infradead.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<lei.dong@airoha.com>, <yalei.zang@airoha.com>, <zhengping.zhang@airoha.com>
+Subject: Re: [PATCH v4 3/3] phy: airoha: Add support for Airoha AN7583 USB PHY
+Message-ID: <aqqhErGXHUf7FQMx@mediatek.com>
+References: <20260901123933.15388-1-ansuelsmth@gmail.com>
+ <20260901123933.15388-4-ansuelsmth@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: TcHMF0AvYztDEWF1pwxP5ByWSo5Y1yTY
-X-Authority-Analysis: v=2.4 cv=NelzRGD4 c=1 sm=1 tr=0 ts=6aaaa0cc cx=c_pps
- a=lVi5GcDxkcJcfCmEjVJoaw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
- a=-ozyDiMbBtCkaKFn3fsA:9 a=rBiNkAWo9uy_4UTK5NWh:22
-X-Proofpoint-GUID: TcHMF0AvYztDEWF1pwxP5ByWSo5Y1yTY
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDE4OCBTYWx0ZWRfX9ePiZMmXY9pj
- 8/auwR5z6o64dwI0cA5bJ8A6uKBqJd7GbUOO41WgWz8P6fKXa9INzi3UDXOE6ld0jMTccWjyEtI
- AZT9ptLH+1WDDCeJUwbIgSGFFE3C4CgJ8CHJ4/Uafz4cQTAGEXOHSHDmGRig7liXp4H0WmMBWq3
- ZrZaVUYba7zH+9vSW7eCWeT3rQhoN+orLqI6R2RxSq+1TzBosUx3VP1lONAqDQcHey2fGX5py1t
- khBAtrm/1vSfmVqxWlJqHjhoZT6SsDcoghBo+waSZnlx97bRWG85TLp/uox0p8P6j6+wQQgF2eM
- p6bSq+ip8TPkMfE4bgKonsNTZfGS72qnQiFH8VV1V8EFI3WsBf9ZArwI7D8d7VvxpPMkKctH9Am
- wXGY5nr12WrE2Jciu7b58G7nVveUUuYqLvohEg6Kkx5ynRU8Vgz5ZOGdvUveDDv1IhS7hBnHPRH
- LktpbVIJeyVZSRhlZaw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDE4OCBTYWx0ZWRfX1h2/HnFNmy4W
- wtaoOSzRr8iB3hDUgm01NLBYIDivYowRnpZb03z6JYUPXfTnZQd/fIt2YKwvMiadPtaxfGujiVn
- 4GZn5dhjg9AMKy7quqffl/m43EDqM8k=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-16_02,2026-09-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 impostorscore=0 spamscore=0 clxscore=1015
- bulkscore=0 malwarescore=0 suspectscore=0 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160188
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+In-Reply-To: <20260901123933.15388-4-ansuelsmth@gmail.com>
+X-MTK: N
 
-The FUSB15201 is a dual-port USB Type-C and Power Delivery controller
-which runs the Type-C state machine and the PD policy engine on an
-integrated microcontroller. The host only observes the resulting state
-and may ask for role swaps, so this is a plain Type-C class driver
-rather than a TCPC driven by the Type-C Port Manager.
+Tested-by: Zhengping Zhang <zhengping.zhang@airoha.com>
 
-Register a Type-C port for each connector described in firmware, report
-attach and detach, orientation, power and data roles and the PD
-capability of the partner, and drive the USB role switch of the attached
-USB controller so that OTG role switching works. Data and power role
-swaps requested through sysfs are forwarded to the controller, which
-performs them asynchronously and reports the outcome as a port status
-interrupt.
-
-The controller exposes a per-port VBUS ADC reading, but the Type-C class
-has no VBUS attribute and nothing needs the value, so it is not read.
-PD messages, PDOs and alternate modes are not exposed by the hardware at
-all. The chip-wide MASTER_RESET command would drop both ports at once
-and has no caller, so it is left alone as well.
-
-Assisted-by: LLM
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
----
- drivers/usb/typec/Kconfig     |  17 +
- drivers/usb/typec/Makefile    |   1 +
- drivers/usb/typec/fusb15201.c | 580 ++++++++++++++++++++++++++++++++++
- 3 files changed, 598 insertions(+)
- create mode 100644 drivers/usb/typec/fusb15201.c
-
-diff --git a/drivers/usb/typec/Kconfig b/drivers/usb/typec/Kconfig
-index 2f80c2792dbd..e21854cb89d4 100644
---- a/drivers/usb/typec/Kconfig
-+++ b/drivers/usb/typec/Kconfig
-@@ -64,6 +64,23 @@ config TYPEC_ANX7411
- 	  If you choose to build this driver as a dynamically linked module, the
- 	  module will be called anx7411.ko.
- 
-+config TYPEC_FUSB15201
-+	tristate "onsemi FUSB15201 Type-C and Power Delivery controller driver"
-+	depends on I2C
-+	depends on USB_ROLE_SWITCH
-+	select REGMAP_I2C
-+	help
-+	  Say Y or M here if your system has an onsemi FUSB15201 dual-port USB
-+	  Type-C and Power Delivery controller.
-+
-+	  The FUSB15201 handles Type-C detection and Power Delivery negotiation
-+	  autonomously. This driver reports the resulting state to the Type-C
-+	  class, drives the USB role switch of the attached USB controller, and
-+	  allows data and power role swaps to be requested.
-+
-+	  If you choose to build this driver as a dynamically linked module, the
-+	  module will be called fusb15201.ko.
-+
- config TYPEC_RT1719
- 	tristate "Richtek RT1719 Sink Only Type-C controller driver"
- 	depends on USB_ROLE_SWITCH || !USB_ROLE_SWITCH
-diff --git a/drivers/usb/typec/Makefile b/drivers/usb/typec/Makefile
-index 8a6a1c663eb6..9f3a156d9c9f 100644
---- a/drivers/usb/typec/Makefile
-+++ b/drivers/usb/typec/Makefile
-@@ -7,6 +7,7 @@ obj-$(CONFIG_TYPEC_TCPM)	+= tcpm/
- obj-$(CONFIG_TYPEC_UCSI)	+= ucsi/
- obj-$(CONFIG_TYPEC_TPS6598X)	+= tipd/
- obj-$(CONFIG_TYPEC_ANX7411)	+= anx7411.o
-+obj-$(CONFIG_TYPEC_FUSB15201)	+= fusb15201.o
- obj-$(CONFIG_TYPEC_HD3SS3220)	+= hd3ss3220.o
- obj-$(CONFIG_TYPEC_STUSB160X) 	+= stusb160x.o
- obj-$(CONFIG_TYPEC_RT1719)	+= rt1719.o
-diff --git a/drivers/usb/typec/fusb15201.c b/drivers/usb/typec/fusb15201.c
-new file mode 100644
-index 000000000000..ab3b07368bdf
---- /dev/null
-+++ b/drivers/usb/typec/fusb15201.c
-@@ -0,0 +1,580 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ *
-+ * Driver for the onsemi FUSB15201 dual-port USB Type-C and Power Delivery
-+ * controller.
-+ *
-+ * The FUSB15201 runs the Type-C state machine and the Power Delivery policy
-+ * engine on an integrated microcontroller. The host only observes the
-+ * resulting state and may ask for role swaps, so this is a plain Type-C class
-+ * driver rather than a TCPC on the Type-C Port Manager.
-+ */
-+
-+#include <linux/bits.h>
-+#include <linux/device.h>
-+#include <linux/i2c.h>
-+#include <linux/interrupt.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/property.h>
-+#include <linux/regmap.h>
-+#include <linux/usb/role.h>
-+#include <linux/usb/typec.h>
-+
-+#define FUSB15201_NUM_PORTS		2
-+
-+#define FUSB15201_REG_VENDID		0x00
-+#define FUSB15201_REG_PRODID		0x01
-+#define FUSB15201_REG_DEVID		0x02
-+#define FUSB15201_REG_HWVER		0x03
-+#define FUSB15201_REG_FWVER		0x04
-+
-+#define FUSB15201_VENDID		0xaa
-+#define FUSB15201_PRODID		0x65
-+#define FUSB15201_DEVID			0x01
-+
-+/* Per-port status block, port A at 0x06 and port B at 0x0c */
-+#define FUSB15201_PORT_BASE(p)		(0x06 + (p) * 0x06)
-+#define FUSB15201_REG_STATUS(p)		(FUSB15201_PORT_BASE(p) + 0x02)
-+#define FUSB15201_REG_RESET_STATUS(p)	(FUSB15201_PORT_BASE(p) + 0x03)
-+#define FUSB15201_REG_FAULT_STATUS(p)	(FUSB15201_PORT_BASE(p) + 0x04)
-+
-+#define FUSB15201_STATUS_ATTACHED	BIT(0)
-+#define FUSB15201_STATUS_USBPD		BIT(1)
-+#define FUSB15201_STATUS_CC2		BIT(2)
-+#define FUSB15201_STATUS_DFP		BIT(3)
-+#define FUSB15201_STATUS_SINK		BIT(4)
-+
-+#define FUSB15201_RESET_ERR_RECOVERY	BIT(2)
-+
-+#define FUSB15201_FAULT_VBUS_OVP	BIT(0)
-+#define FUSB15201_FAULT_OTP		BIT(1)
-+#define FUSB15201_FAULT_CC_OVP		BIT(2)
-+#define FUSB15201_FAULT_VCONN_OCP	BIT(3)
-+
-+/* Per-port command block, port A at 0x11 and port B at 0x13 */
-+#define FUSB15201_REG_COMMANDS(p)	(0x11 + (p) * 0x02)
-+#define FUSB15201_REG_INT_MASK(p)	(0x12 + (p) * 0x02)
-+
-+/*
-+ * The swap command bits are named after the role the port is in when the swap
-+ * is requested, not the role it ends up in.
-+ */
-+#define FUSB15201_CMD_UFP_TO_DFP	BIT(4)
-+#define FUSB15201_CMD_DFP_TO_UFP	BIT(5)
-+#define FUSB15201_CMD_SINK_TO_SOURCE	BIT(6)
-+#define FUSB15201_CMD_SOURCE_TO_SINK	BIT(7)
-+
-+#define FUSB15201_REG_MASTER_CONTROL	0x15
-+#define FUSB15201_MASTER_DRP_DISABLE	BIT(1)
-+
-+/* Per-port interrupt status, write one to clear */
-+#define FUSB15201_REG_INTERRUPT(p)	(0x16 + (p))
-+#define FUSB15201_INT_FAULT		BIT(0)
-+#define FUSB15201_INT_RESET_STATUS	BIT(1)
-+#define FUSB15201_INT_PORT_STATUS	BIT(2)
-+#define FUSB15201_INT_ALL		(FUSB15201_INT_FAULT | \
-+					 FUSB15201_INT_RESET_STATUS | \
-+					 FUSB15201_INT_PORT_STATUS)
-+
-+#define FUSB15201_REG_MAX		FUSB15201_REG_INTERRUPT(1)
-+
-+struct fusb15201;
-+
-+struct fusb15201_port {
-+	struct fusb15201 *chip;
-+	unsigned int index;
-+	struct typec_port *port;
-+	struct typec_partner *partner;
-+	struct usb_role_switch *role_sw;
-+	struct typec_capability cap;
-+	unsigned int status;
-+};
-+
-+struct fusb15201 {
-+	struct device *dev;
-+	struct regmap *regmap;
-+	struct mutex lock;	/* serialises access to the shared registers */
-+	struct fusb15201_port ports[FUSB15201_NUM_PORTS];
-+};
-+
-+static enum typec_role fusb15201_default_pwr_role(struct fusb15201_port *port)
-+{
-+	switch (port->cap.type) {
-+	case TYPEC_PORT_SRC:
-+		return TYPEC_SOURCE;
-+	case TYPEC_PORT_SNK:
-+		return TYPEC_SINK;
-+	default:
-+		if (is_source(port->cap.prefer_role))
-+			return TYPEC_SOURCE;
-+		return TYPEC_SINK;
-+	}
-+}
-+
-+static void fusb15201_set_roles(struct fusb15201_port *port,
-+				enum typec_role pwr_role,
-+				enum typec_data_role data_role, bool attached)
-+{
-+	typec_set_pwr_role(port->port, pwr_role);
-+	typec_set_vconn_role(port->port, pwr_role);
-+	typec_set_data_role(port->port, data_role);
-+
-+	if (!port->role_sw)
-+		return;
-+
-+	if (!attached)
-+		usb_role_switch_set_role(port->role_sw, USB_ROLE_NONE);
-+	else if (data_role == TYPEC_HOST)
-+		usb_role_switch_set_role(port->role_sw, USB_ROLE_HOST);
-+	else
-+		usb_role_switch_set_role(port->role_sw, USB_ROLE_DEVICE);
-+}
-+
-+static void fusb15201_hw_update(struct fusb15201_port *port)
-+{
-+	struct fusb15201 *chip = port->chip;
-+	enum typec_data_role data_role = TYPEC_DEVICE;
-+	enum typec_role pwr_role;
-+	unsigned int status;
-+	int ret;
-+
-+	ret = regmap_read(chip->regmap, FUSB15201_REG_STATUS(port->index), &status);
-+	if (ret) {
-+		dev_warn(chip->dev, "port%u: failed to read status: %d\n",
-+			 port->index, ret);
-+		return;
-+	}
-+
-+	if (!(status & FUSB15201_STATUS_ATTACHED)) {
-+		if (port->partner) {
-+			typec_unregister_partner(port->partner);
-+			port->partner = NULL;
-+		}
-+
-+		/*
-+		 * None of the remaining status bits are valid while detached,
-+		 * so fall back to what the port is configured to do.
-+		 */
-+		typec_set_orientation(port->port, TYPEC_ORIENTATION_NONE);
-+		typec_set_pwr_opmode(port->port, TYPEC_PWR_MODE_USB);
-+
-+		pwr_role = fusb15201_default_pwr_role(port);
-+		if (is_source(pwr_role))
-+			data_role = TYPEC_HOST;
-+
-+		fusb15201_set_roles(port, pwr_role, data_role, false);
-+
-+		port->status = status;
-+		return;
-+	}
-+
-+	if (!(port->status & FUSB15201_STATUS_ATTACHED)) {
-+		struct typec_partner_desc desc = {
-+			.usb_pd = !!(status & FUSB15201_STATUS_USBPD),
-+		};
-+
-+		port->partner = typec_register_partner(port->port, &desc);
-+		if (IS_ERR(port->partner)) {
-+			dev_err(chip->dev,
-+				"port%u: failed to register partner: %pe\n",
-+				port->index, port->partner);
-+			port->partner = NULL;
-+		}
-+	}
-+
-+	typec_set_orientation(port->port, status & FUSB15201_STATUS_CC2 ?
-+			      TYPEC_ORIENTATION_REVERSE :
-+			      TYPEC_ORIENTATION_NORMAL);
-+
-+	/*
-+	 * The controller only tells us whether the partner is PD capable. The
-+	 * Type-C current advertisement is not reported, so 1.5A and 3.0A
-+	 * operation cannot be distinguished from the default.
-+	 */
-+	typec_set_pwr_opmode(port->port, status & FUSB15201_STATUS_USBPD ?
-+			     TYPEC_PWR_MODE_PD : TYPEC_PWR_MODE_USB);
-+
-+	pwr_role = status & FUSB15201_STATUS_SINK ? TYPEC_SINK : TYPEC_SOURCE;
-+	data_role = status & FUSB15201_STATUS_DFP ? TYPEC_HOST : TYPEC_DEVICE;
-+	fusb15201_set_roles(port, pwr_role, data_role, true);
-+
-+	port->status = status;
-+}
-+
-+static void fusb15201_report_faults(struct fusb15201_port *port)
-+{
-+	struct fusb15201 *chip = port->chip;
-+	unsigned int fault;
-+	int ret;
-+
-+	ret = regmap_read(chip->regmap, FUSB15201_REG_FAULT_STATUS(port->index), &fault);
-+	if (ret)
-+		return;
-+
-+	/*
-+	 * The controller protects itself, so there is nothing to do here
-+	 * beyond making the fault visible.
-+	 */
-+	if (fault & FUSB15201_FAULT_VBUS_OVP)
-+		dev_warn_ratelimited(chip->dev, "port%u: VBUS overvoltage\n",
-+				     port->index);
-+	if (fault & FUSB15201_FAULT_OTP)
-+		dev_warn_ratelimited(chip->dev, "port%u: over temperature\n",
-+				     port->index);
-+	if (fault & FUSB15201_FAULT_CC_OVP)
-+		dev_warn_ratelimited(chip->dev, "port%u: CC overvoltage\n",
-+				     port->index);
-+	if (fault & FUSB15201_FAULT_VCONN_OCP)
-+		dev_warn_ratelimited(chip->dev, "port%u: VCONN overcurrent\n",
-+				     port->index);
-+}
-+
-+static void fusb15201_report_reset(struct fusb15201_port *port)
-+{
-+	struct fusb15201 *chip = port->chip;
-+	unsigned int reset;
-+	int ret;
-+
-+	ret = regmap_read(chip->regmap, FUSB15201_REG_RESET_STATUS(port->index), &reset);
-+	if (ret)
-+		return;
-+
-+	dev_dbg(chip->dev, "port%u: reset status 0x%02x\n", port->index, reset);
-+
-+	if (reset & FUSB15201_RESET_ERR_RECOVERY)
-+		dev_warn_ratelimited(chip->dev,
-+				     "port%u: entered error recovery\n",
-+				     port->index);
-+}
-+
-+static irqreturn_t fusb15201_irq(int irq, void *data)
-+{
-+	struct fusb15201 *chip = data;
-+	irqreturn_t ret = IRQ_NONE;
-+	unsigned int i;
-+
-+	guard(mutex)(&chip->lock);
-+
-+	for (i = 0; i < FUSB15201_NUM_PORTS; i++) {
-+		struct fusb15201_port *port = &chip->ports[i];
-+		unsigned int pending;
-+
-+		if (!port->port)
-+			continue;
-+
-+		if (regmap_read(chip->regmap, FUSB15201_REG_INTERRUPT(i), &pending))
-+			continue;
-+
-+		pending &= FUSB15201_INT_ALL;
-+		if (!pending)
-+			continue;
-+
-+		/* Write one to clear */
-+		regmap_write(chip->regmap, FUSB15201_REG_INTERRUPT(i), pending);
-+
-+		if (pending & FUSB15201_INT_PORT_STATUS)
-+			fusb15201_hw_update(port);
-+		if (pending & FUSB15201_INT_FAULT)
-+			fusb15201_report_faults(port);
-+		if (pending & FUSB15201_INT_RESET_STATUS)
-+			fusb15201_report_reset(port);
-+
-+		ret = IRQ_HANDLED;
-+	}
-+
-+	return ret;
-+}
-+
-+/*
-+ * Role swaps are asynchronous: the command only asks the controller to start
-+ * the swap, and the outcome arrives later as a port status interrupt.
-+ */
-+static int fusb15201_command(struct fusb15201_port *port, unsigned int cmd)
-+{
-+	struct fusb15201 *chip = port->chip;
-+
-+	guard(mutex)(&chip->lock);
-+
-+	if (!(port->status & FUSB15201_STATUS_ATTACHED))
-+		return -ENOTCONN;
-+
-+	return regmap_write(chip->regmap, FUSB15201_REG_COMMANDS(port->index), cmd);
-+}
-+
-+static int fusb15201_dr_set(struct typec_port *p, enum typec_data_role role)
-+{
-+	struct fusb15201_port *port = typec_get_drvdata(p);
-+	unsigned int cmd = FUSB15201_CMD_DFP_TO_UFP;
-+
-+	if (role == TYPEC_HOST)
-+		cmd = FUSB15201_CMD_UFP_TO_DFP;
-+
-+	return fusb15201_command(port, cmd);
-+}
-+
-+static int fusb15201_pr_set(struct typec_port *p, enum typec_role role)
-+{
-+	struct fusb15201_port *port = typec_get_drvdata(p);
-+	unsigned int cmd = FUSB15201_CMD_SOURCE_TO_SINK;
-+
-+	if (is_source(role))
-+		cmd = FUSB15201_CMD_SINK_TO_SOURCE;
-+
-+	return fusb15201_command(port, cmd);
-+}
-+
-+static const struct typec_operations fusb15201_typec_ops = {
-+	.dr_set = fusb15201_dr_set,
-+	.pr_set = fusb15201_pr_set,
-+};
-+
-+/*
-+ * Nearly every register is either volatile or write-only, and the interrupt
-+ * registers are write-one-to-clear, so the register map is not cached.
-+ */
-+static const struct regmap_config fusb15201_regmap_config = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.max_register = FUSB15201_REG_MAX,
-+};
-+
-+static void fusb15201_unregister_port(void *data)
-+{
-+	struct fusb15201_port *port = data;
-+
-+	if (port->partner)
-+		typec_unregister_partner(port->partner);
-+	typec_unregister_port(port->port);
-+}
-+
-+static void fusb15201_put_role_sw(void *data)
-+{
-+	usb_role_switch_put(data);
-+}
-+
-+static int fusb15201_check_id(struct fusb15201 *chip)
-+{
-+	static const struct {
-+		unsigned int reg;
-+		unsigned int expected;
-+		const char *name;
-+	} ids[] = {
-+		{ FUSB15201_REG_VENDID, FUSB15201_VENDID, "vendor" },
-+		{ FUSB15201_REG_PRODID, FUSB15201_PRODID, "product" },
-+		{ FUSB15201_REG_DEVID, FUSB15201_DEVID, "device" },
-+	};
-+	unsigned int val, hwver, fwver;
-+	int ret, i;
-+
-+	for (i = 0; i < ARRAY_SIZE(ids); i++) {
-+		ret = regmap_read(chip->regmap, ids[i].reg, &val);
-+		if (ret)
-+			return dev_err_probe(chip->dev, ret,
-+					     "failed to read %s id\n",
-+					     ids[i].name);
-+
-+		if (val != ids[i].expected)
-+			return dev_err_probe(chip->dev, -ENODEV,
-+					     "bad %s id 0x%02x, expected 0x%02x\n",
-+					     ids[i].name, val, ids[i].expected);
-+	}
-+
-+	/*
-+	 * The register semantics are defined by the firmware image, so record
-+	 * the versions to make mismatches easier to spot.
-+	 */
-+	if (!regmap_read(chip->regmap, FUSB15201_REG_HWVER, &hwver) &&
-+	    !regmap_read(chip->regmap, FUSB15201_REG_FWVER, &fwver))
-+		dev_dbg(chip->dev, "hardware version %u, firmware version %u\n",
-+			hwver, fwver);
-+
-+	return 0;
-+}
-+
-+static int fusb15201_register_port(struct fusb15201 *chip,
-+				   struct fwnode_handle *fwnode)
-+{
-+	struct fusb15201_port *port;
-+	unsigned int index;
-+	int ret;
-+
-+	ret = fwnode_property_read_u32(fwnode, "reg", &index);
-+	if (ret)
-+		return dev_err_probe(chip->dev, ret,
-+				     "missing reg property of %pfwP\n", fwnode);
-+
-+	if (index >= FUSB15201_NUM_PORTS)
-+		return dev_err_probe(chip->dev, -EINVAL,
-+				     "invalid connector index %u\n", index);
-+
-+	port = &chip->ports[index];
-+	if (port->port)
-+		return dev_err_probe(chip->dev, -EINVAL,
-+				     "duplicate connector for port %u\n", index);
-+
-+	port->chip = chip;
-+	port->index = index;
-+
-+	ret = typec_get_fw_cap(&port->cap, fwnode);
-+	if (ret)
-+		return dev_err_probe(chip->dev, ret,
-+				     "port%u: failed to get capabilities\n",
-+				     index);
-+
-+	port->cap.revision = USB_TYPEC_REV_2_0;
-+	port->cap.orientation_aware = true;
-+	port->cap.driver_data = port;
-+	port->cap.ops = &fusb15201_typec_ops;
-+
-+	port->port = typec_register_port(chip->dev, &port->cap);
-+	if (IS_ERR(port->port)) {
-+		ret = PTR_ERR(port->port);
-+		port->port = NULL;
-+		return dev_err_probe(chip->dev, ret,
-+				     "port%u: failed to register\n", index);
-+	}
-+
-+	ret = devm_add_action_or_reset(chip->dev, fusb15201_unregister_port, port);
-+	if (ret)
-+		return ret;
-+
-+	port->role_sw = fwnode_usb_role_switch_get(fwnode);
-+	if (IS_ERR(port->role_sw))
-+		return dev_err_probe(chip->dev, PTR_ERR(port->role_sw),
-+				     "port%u: failed to get role switch\n",
-+				     index);
-+
-+	if (port->role_sw) {
-+		ret = devm_add_action_or_reset(chip->dev, fusb15201_put_role_sw,
-+					       port->role_sw);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int fusb15201_hw_init(struct fusb15201 *chip)
-+{
-+	bool source_only = true;
-+	unsigned int i;
-+	int ret;
-+
-+	for (i = 0; i < FUSB15201_NUM_PORTS; i++) {
-+		struct fusb15201_port *port = &chip->ports[i];
-+
-+		if (!port->port) {
-+			/* Nothing describes this port, keep it quiet. */
-+			ret = regmap_write(chip->regmap,
-+					   FUSB15201_REG_INT_MASK(i),
-+					   FUSB15201_INT_ALL);
-+			if (ret)
-+				return ret;
-+
-+			continue;
-+		}
-+
-+		if (port->cap.type != TYPEC_PORT_SRC)
-+			source_only = false;
-+
-+		ret = regmap_write(chip->regmap, FUSB15201_REG_INT_MASK(i), 0);
-+		if (ret)
-+			return ret;
-+
-+		/* Discard anything that happened before we got here */
-+		ret = regmap_write(chip->regmap, FUSB15201_REG_INTERRUPT(i),
-+				   FUSB15201_INT_ALL);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	/*
-+	 * Dual role toggling is the only configurable part of the Type-C state
-+	 * machine, and it is chip wide rather than per port, which is why it is
-+	 * set up here instead of from a port_type_set() callback.
-+	 */
-+	ret = regmap_update_bits(chip->regmap, FUSB15201_REG_MASTER_CONTROL,
-+				 FUSB15201_MASTER_DRP_DISABLE,
-+				 source_only ? FUSB15201_MASTER_DRP_DISABLE : 0);
-+	if (ret)
-+		return ret;
-+
-+	/* Seed the Type-C class with the current state before arming the IRQ */
-+	for (i = 0; i < FUSB15201_NUM_PORTS; i++) {
-+		if (chip->ports[i].port)
-+			fusb15201_hw_update(&chip->ports[i]);
-+	}
-+
-+	return 0;
-+}
-+
-+static int fusb15201_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct fusb15201 *chip;
-+	unsigned int nports = 0;
-+	int ret;
-+
-+	chip = devm_kzalloc(dev, sizeof(*chip), GFP_KERNEL);
-+	if (!chip)
-+		return -ENOMEM;
-+
-+	chip->dev = dev;
-+	i2c_set_clientdata(client, chip);
-+
-+	ret = devm_mutex_init(dev, &chip->lock);
-+	if (ret)
-+		return ret;
-+
-+	chip->regmap = devm_regmap_init_i2c(client, &fusb15201_regmap_config);
-+	if (IS_ERR(chip->regmap))
-+		return dev_err_probe(dev, PTR_ERR(chip->regmap),
-+				     "failed to initialise register map\n");
-+
-+	ret = fusb15201_check_id(chip);
-+	if (ret)
-+		return ret;
-+
-+	device_for_each_child_node_scoped(dev, fwnode) {
-+		ret = fusb15201_register_port(chip, fwnode);
-+		if (ret)
-+			return ret;
-+
-+		nports++;
-+	}
-+
-+	if (!nports)
-+		return dev_err_probe(dev, -ENODEV, "no connector described\n");
-+
-+	ret = fusb15201_hw_init(chip);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to initialise\n");
-+
-+	ret = devm_request_threaded_irq(dev, client->irq, NULL, fusb15201_irq,
-+					IRQF_ONESHOT, dev_name(dev), chip);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to request irq\n");
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id fusb15201_of_match[] = {
-+	{ .compatible = "onnn,fusb15201" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, fusb15201_of_match);
-+
-+static struct i2c_driver fusb15201_driver = {
-+	.driver = {
-+		.name = "fusb15201",
-+		.of_match_table = fusb15201_of_match,
-+	},
-+	.probe = fusb15201_probe,
-+};
-+module_i2c_driver(fusb15201_driver);
-+
-+MODULE_AUTHOR("Shawn Guo <shengchao.guo@oss.qualcomm.com>");
-+MODULE_DESCRIPTION("onsemi FUSB15201 Type-C and Power Delivery controller");
-+MODULE_LICENSE("GPL");
--- 
-2.43.0
-
+On Tue, Sep 01, 2026 at 02:39:33PM +0200, Christian Marangi wrote:
+> Add support for USB PHY for Airoha AN7583 SoC, this share some U2 init
+> from AN7581 but use a totally different init phase for PLL and
+> calibration for U3. Also on AN7583 there is a single USB PHY that init 2
+> U2 port and one U3 port. (the USB controller expose 2 hub, one with 2
+> usb 2.0 port and one with one 3.0 port)
+> 
+> A second USB PHY is used for PCIe Gen2 controller and follow the same
+> calibration and setup logic of USB.
+> 
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> ---
+>  drivers/phy/Kconfig                 |    1 +
+>  drivers/phy/Makefile                |    3 +-
+>  drivers/phy/airoha/Kconfig          |   11 +
+>  drivers/phy/airoha/Makefile         |    3 +
+>  drivers/phy/airoha/phy-an7583-usb.c | 2023 +++++++++++++++++++++++++++
+>  5 files changed, 2040 insertions(+), 1 deletion(-)
+>  create mode 100644 drivers/phy/airoha/Kconfig
+>  create mode 100644 drivers/phy/airoha/Makefile
+>  create mode 100644 drivers/phy/airoha/phy-an7583-usb.c
+> 
+> diff --git a/drivers/phy/Kconfig b/drivers/phy/Kconfig
+> index 19f3b7d12b7d..80b7c50fd768 100644
+> --- a/drivers/phy/Kconfig
+> +++ b/drivers/phy/Kconfig
+> @@ -168,6 +168,7 @@ config PHY_XGENE
+>  	help
+>  	  This option enables support for APM X-Gene SoC multi-purpose PHY.
+>  
+> +source "drivers/phy/airoha/Kconfig"
+>  source "drivers/phy/allwinner/Kconfig"
+>  source "drivers/phy/amlogic/Kconfig"
+>  source "drivers/phy/apple/Kconfig"
+> diff --git a/drivers/phy/Makefile b/drivers/phy/Makefile
+> index d7aa516bcc49..0baf0b7fd077 100644
+> --- a/drivers/phy/Makefile
+> +++ b/drivers/phy/Makefile
+> @@ -20,7 +20,8 @@ obj-$(CONFIG_PHY_PISTACHIO_USB)		+= phy-pistachio-usb.o
+>  obj-$(CONFIG_PHY_SNPS_EUSB2)		+= phy-snps-eusb2.o
+>  obj-$(CONFIG_PHY_XGENE)			+= phy-xgene.o
+>  
+> -obj-$(CONFIG_GENERIC_PHY)		+= allwinner/	\
+> +obj-$(CONFIG_GENERIC_PHY)		+= airoha/	\
+> +					   allwinner/	\
+>  					   amlogic/	\
+>  					   apple/	\
+>  					   axiado/	\
+> diff --git a/drivers/phy/airoha/Kconfig b/drivers/phy/airoha/Kconfig
+> new file mode 100644
+> index 000000000000..13e49ff947e3
+> --- /dev/null
+> +++ b/drivers/phy/airoha/Kconfig
+> @@ -0,0 +1,11 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +
+> +config PHY_AIROHA_AN7583_USB
+> +	tristate "Airoha AN7583 USB PHY Driver"
+> +	depends on ARCH_AIROHA || COMPILE_TEST
+> +	depends on OF
+> +	select GENERIC_PHY
+> +	help
+> +	  Say 'Y' here to add support for Airoha AN7583 USB PHY driver.
+> + 	  This driver create the basic PHY instance and provides initialize
+> + 	  callback for USB port.
+> diff --git a/drivers/phy/airoha/Makefile b/drivers/phy/airoha/Makefile
+> new file mode 100644
+> index 000000000000..e484a803505b
+> --- /dev/null
+> +++ b/drivers/phy/airoha/Makefile
+> @@ -0,0 +1,3 @@
+> +# SPDX-License-Identifier: GPL-2.0
+> +
+> +obj-$(CONFIG_PHY_AIROHA_AN7583_USB)	+= phy-an7583-usb.o
+> diff --git a/drivers/phy/airoha/phy-an7583-usb.c b/drivers/phy/airoha/phy-an7583-usb.c
+> new file mode 100644
+> index 000000000000..46b5f09582cf
+> --- /dev/null
+> +++ b/drivers/phy/airoha/phy-an7583-usb.c
+> @@ -0,0 +1,2023 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Author: Christian Marangi <ansuelsmth@gmail.com>
+> + */
+> +
+> +#include <dt-bindings/phy/phy.h>
+> +#include <linux/bitfield.h>
+> +#include <linux/math.h>
+> +#include <linux/module.h>
+> +#include <linux/phy.h>
+> +#include <linux/phy/phy.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/regmap.h>
+> +#include <linux/mfd/syscon.h>
+> +
+> +/* PHY */
+> +#define AIROHA_USB_PHY_FMCR0			0x100
+> +#define   AIROHA_USB_PHY_MONCLK_SEL		GENMASK(27, 26)
+> +#define   AIROHA_USB_PHY_MONCLK_SEL0		FIELD_PREP_CONST(AIROHA_USB_PHY_MONCLK_SEL, 0x0)
+> +#define   AIROHA_USB_PHY_MONCLK_SEL1		FIELD_PREP_CONST(AIROHA_USB_PHY_MONCLK_SEL, 0x1)
+> +#define   AIROHA_USB_PHY_MONCLK_SEL2		FIELD_PREP_CONST(AIROHA_USB_PHY_MONCLK_SEL, 0x2)
+> +#define   AIROHA_USB_PHY_MONCLK_SEL3		FIELD_PREP_CONST(AIROHA_USB_PHY_MONCLK_SEL, 0x3)
+> +#define   AIROHA_USB_PHY_FREQDET_EN		BIT(24)
+> +#define   AIROHA_USB_PHY_CYCLECNT		GENMASK(23, 0)
+> +#define AIROHA_USB_PHY_FMMONR0			0x10c
+> +#define   AIROHA_USB_PHY_USB_FM_OUT		GENMASK(31, 0)
+> +#define AIROHA_USB_PHY_FMMONR1			0x110
+> +#define   AIROHA_USB_PHY_FRCK_EN		BIT(8)
+> +
+> +#define AIROHA_USB_PHY_USBPHYACR2		0x308
+> +#define   AIROHA_USB_PHY_SIFSLV_MAC_BANDGAP_EN	BIT(17)
+> +#define AIROHA_USB_PHY_USBPHYACR4		0x310
+> +#define   AIROHA_USB_PHY_USB20_FS_CR		GENMASK(10, 8)
+> +#define   AIROHA_USB_PHY_USB20_FS_CR_MAX	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_FS_CR, 0x0)
+> +#define   AIROHA_USB_PHY_USB20_FS_CR_NORMAL	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_FS_CR, 0x2)
+> +#define   AIROHA_USB_PHY_USB20_FS_CR_SMALLER	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_FS_CR, 0x4)
+> +#define   AIROHA_USB_PHY_USB20_FS_CR_MIN	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_FS_CR, 0x6)
+> +#define   AIROHA_USB_PHY_USB20_FS_SR		GENMASK(2, 0)
+> +#define   AIROHA_USB_PHY_USB20_FS_SR_MAX	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_FS_SR, 0x0)
+> +#define   AIROHA_USB_PHY_USB20_FS_SR_NORMAL	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_FS_SR, 0x2)
+> +#define   AIROHA_USB_PHY_USB20_FS_SR_SMALLER	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_FS_SR, 0x4)
+> +#define   AIROHA_USB_PHY_USB20_FS_SR_MIN	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_FS_SR, 0x6)
+> +#define AIROHA_USB_PHY_USBPHYACR5		0x314
+> +#define   AIROHA_USB_PHY_USB20_DISC_FIT_EN	BIT(28)
+> +#define   AIROHA_USB_PHY_USB20_HSTX_SRCAL_EN	BIT(15)
+> +#define   AIROHA_USB_PHY_USB20_HSTX_SRCTRL	GENMASK(14, 12)
+> +#define AIROHA_USB_PHY_USBPHYACR6		0x318
+> +#define   AIROHA_USB_PHY_USB20_BC11_SW_EN	BIT(23)
+> +#define   AIROHA_USB_PHY_USB20_HSRX_BIAS_EN_SEL	 GENMASK(10, 9)
+> +#define   AIROHA_USB_PHY_USB20_HSRX_BIAS_EN_SEL_ENPLL \
+> +	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_HSRX_BIAS_EN_SEL, 0x0)
+> +#define   AIROHA_USB_PHY_USB20_HSRX_BIAS_EN_SEL_IDLEB_RCV_EN \
+> +	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_HSRX_BIAS_EN_SEL, 0x1)
+> +#define   AIROHA_USB_PHY_USB20_HSRX_BIAS_EN_SEL_NO_ENPLL_FS_BIAS_EN \
+> +	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_HSRX_BIAS_EN_SEL, 0x2)
+> +#define   AIROHA_USB_PHY_USB20_HSRX_BIAS_EN_SEL_USB20_HSRX_TMODE_EN \
+> +	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_HSRX_BIAS_EN_SEL, 0x3)
+> +#define   AIROHA_USB_PHY_USB20_DISCTH		GENMASK(7, 4)
+> +#define   AIROHA_USB_PHY_USB20_DISCTH_400	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_DISCTH, 0x0)
+> +#define   AIROHA_USB_PHY_USB20_DISCTH_420	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_DISCTH, 0x1)
+> +#define   AIROHA_USB_PHY_USB20_DISCTH_440	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_DISCTH, 0x2)
+> +#define   AIROHA_USB_PHY_USB20_DISCTH_460	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_DISCTH, 0x3)
+> +#define   AIROHA_USB_PHY_USB20_DISCTH_480	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_DISCTH, 0x4)
+> +#define   AIROHA_USB_PHY_USB20_DISCTH_500	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_DISCTH, 0x5)
+> +#define   AIROHA_USB_PHY_USB20_DISCTH_520	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_DISCTH, 0x6)
+> +#define   AIROHA_USB_PHY_USB20_DISCTH_540	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_DISCTH, 0x7)
+> +#define   AIROHA_USB_PHY_USB20_DISCTH_560	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_DISCTH, 0x8)
+> +#define   AIROHA_USB_PHY_USB20_DISCTH_580	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_DISCTH, 0x9)
+> +#define   AIROHA_USB_PHY_USB20_DISCTH_600	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_DISCTH, 0xa)
+> +#define   AIROHA_USB_PHY_USB20_DISCTH_620	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_DISCTH, 0xb)
+> +#define   AIROHA_USB_PHY_USB20_DISCTH_640	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_DISCTH, 0xc)
+> +#define   AIROHA_USB_PHY_USB20_DISCTH_660	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_DISCTH, 0xd)
+> +#define   AIROHA_USB_PHY_USB20_DISCTH_680	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_DISCTH, 0xe)
+> +#define   AIROHA_USB_PHY_USB20_DISCTH_700	FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_DISCTH, 0xf)
+> +#define   AIROHA_USB_PHY_USB20_SQTH		GENMASK(3, 0)
+> +#define   AIROHA_USB_PHY_USB20_SQTH_85		FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_SQTH, 0x0)
+> +#define   AIROHA_USB_PHY_USB20_SQTH_90		FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_SQTH, 0x1)
+> +#define   AIROHA_USB_PHY_USB20_SQTH_95		FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_SQTH, 0x2)
+> +#define   AIROHA_USB_PHY_USB20_SQTH_100		FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_SQTH, 0x3)
+> +#define   AIROHA_USB_PHY_USB20_SQTH_105		FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_SQTH, 0x4)
+> +#define   AIROHA_USB_PHY_USB20_SQTH_110		FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_SQTH, 0x5)
+> +#define   AIROHA_USB_PHY_USB20_SQTH_115		FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_SQTH, 0x6)
+> +#define   AIROHA_USB_PHY_USB20_SQTH_120		FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_SQTH, 0x7)
+> +#define   AIROHA_USB_PHY_USB20_SQTH_125		FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_SQTH, 0x8)
+> +#define   AIROHA_USB_PHY_USB20_SQTH_130		FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_SQTH, 0x9)
+> +#define   AIROHA_USB_PHY_USB20_SQTH_135		FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_SQTH, 0xa)
+> +#define   AIROHA_USB_PHY_USB20_SQTH_140		FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_SQTH, 0xb)
+> +#define   AIROHA_USB_PHY_USB20_SQTH_145		FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_SQTH, 0xc)
+> +#define   AIROHA_USB_PHY_USB20_SQTH_150		FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_SQTH, 0xd)
+> +#define   AIROHA_USB_PHY_USB20_SQTH_155		FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_SQTH, 0xe)
+> +#define   AIROHA_USB_PHY_USB20_SQTH_160		FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_SQTH, 0xf)
+> +
+> +#define AIROHA_USB_PHY_U2PHYACR3		0x31c
+> +#define   AIROHA_USB_PHY_USB20_HSTX_I_EN_MODE	GENMASK(25, 24)
+> +#define   AIROHA_USB_PHY_USB20_HSTX_I_EN_MODE_TOGGLE FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_HSTX_I_EN_MODE, 0x0)
+> +#define   AIROHA_USB_PHY_USB20_HSTX_I_EN_MODE_HS_TERM FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_HSTX_I_EN_MODE, 0x1)
+> +#define   AIROHA_USB_PHY_USB20_HSTX_I_EN_MODE_FORCE_DISABLE FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_HSTX_I_EN_MODE, 0x2)
+> +#define   AIROHA_USB_PHY_USB20_HSTX_I_EN_MODE_FORCE_ENABLE FIELD_PREP_CONST(AIROHA_USB_PHY_USB20_HSTX_I_EN_MODE, 0x3)
+> +#define   AIROHA_USB_PHY_USB20_USB11_TMODE_EN	BIT(19)
+> +#define   AIROHA_USB_PHY_USB20_TMODE_FS_LS_TX_EN BIT(18)
+> +#define   AIROHA_USB_PHY_USB20_PUPD_BIST_EN	BIT(12)
+> +#define AIROHA_USB_PHY_U2PHYDTM0		0x368
+> +#define   AIROHA_USB_PHY_FORCE_XCVRSEL		BIT(19)
+> +#define   AIROHA_USB_PHY_FORCE_SUSPENDDM	BIT(18)
+> +#define   AIROHA_USB_PHY_FORCE_TERMSEL		BIT(17)
+> +#define   AIROHA_USB_PHY_XCVRSEL		GENMASK(5, 4)
+> +#define   AIROHA_USB_PHY_TERMSEL		BIT(2)
+> +#define AIROHA_USB_PHY_U2PHYDTM1		0x36c
+> +#define   AIROHA_USB_PHY_FORCE_IDDIG		BIT(9)
+> +#define   AIROHA_USB_PHY_IDDIG			BIT(1)
+> +
+> +#define AIROHA_USB_PHY_GPIO_CTLD		0x80c
+> +#define   AIROHA_USB_PHY_C60802_GPIO_CTLD	GENMASK(31, 0)
+> +#define     AIROHA_USB_PHY_SSUSB_IP_SW_RST	BIT(31)
+> +#define     AIROHA_USB_PHY_MCU_BUS_CK_GATE_EN	BIT(30)
+> +#define     AIROHA_USB_PHY_FORCE_SSUSB_IP_SW_RST BIT(29)
+> +#define     AIROHA_USB_PHY_SSUSB_SW_RST		BIT(28)
+> +
+> +#define AIROHA_USB_PHY_U3_PHYA_REG0		0xb00
+> +#define   AIROHA_USB_PHY_SSUSB_BG_DIV		GENMASK(29, 28)
+> +#define   AIROHA_USB_PHY_SSUSB_BG_DIV_2		FIELD_PREP_CONST(AIROHA_USB_PHY_SSUSB_BG_DIV, 0x0)
+> +#define   AIROHA_USB_PHY_SSUSB_BG_DIV_4		FIELD_PREP_CONST(AIROHA_USB_PHY_SSUSB_BG_DIV, 0x1)
+> +#define   AIROHA_USB_PHY_SSUSB_BG_DIV_8		FIELD_PREP_CONST(AIROHA_USB_PHY_SSUSB_BG_DIV, 0x2)
+> +#define   AIROHA_USB_PHY_SSUSB_BG_DIV_16	FIELD_PREP_CONST(AIROHA_USB_PHY_SSUSB_BG_DIV, 0x3)
+> +#define AIROHA_USB_PHY_U3_PHYA_REG1		0xb04
+> +#define   AIROHA_USB_PHY_SSUSB_XTAL_TOP_RESERVE	GENMASK(25, 10)
+> +#define AIROHA_USB_PHY_U3_PHYA_REG6		0xb18
+> +#define   AIROHA_USB_PHY_SSUSB_CDR_RESERVE	GENMASK(31, 24)
+> +#define AIROHA_USB_PHY_U3_PHYA_REG8		0xb20
+> +#define   AIROHA_USB_PHY_SSUSB_CDR_RST_DLY	GENMASK(7, 6)
+> +#define   AIROHA_USB_PHY_SSUSB_CDR_RST_DLY_32	FIELD_PREP_CONST(AIROHA_USB_PHY_SSUSB_CDR_RST_DLY, 0x0)
+> +#define   AIROHA_USB_PHY_SSUSB_CDR_RST_DLY_64	FIELD_PREP_CONST(AIROHA_USB_PHY_SSUSB_CDR_RST_DLY, 0x1)
+> +#define   AIROHA_USB_PHY_SSUSB_CDR_RST_DLY_128	FIELD_PREP_CONST(AIROHA_USB_PHY_SSUSB_CDR_RST_DLY, 0x2)
+> +#define   AIROHA_USB_PHY_SSUSB_CDR_RST_DLY_216	FIELD_PREP_CONST(AIROHA_USB_PHY_SSUSB_CDR_RST_DLY, 0x3)
+> +
+> +#define AIROHA_USB_PHY_U3_PHYA_DA_REG19		0xc38
+> +#define   AIROHA_USB_PHY_SSUSB_PLL_SSC_DELTA1_U3 GENMASK(15, 0)
+> +
+> +/* ANA */
+> +#define AIROHA_USB_ANA_RXAFE_RESERVE		0x4
+> +#define   AIROHA_USB_ANA_CDR_PD_10B_EN		BIT(11)
+> +#define   AIROHA_USB_ANA_CDR_PD_EDGE_DIS	BIT(10)
+> +#define AIROHA_USB_ANA_CDR_LPF_BOT_LIM		0x8
+> +#define   AIROHA_USB_ANA_CDR_LPF_KP_GAIN	GENMASK(26, 24)
+> +#define   AIROHA_USB_ANA_CDR_LPF_KI_GAIN	GENMASK(22, 20)
+> +#define AIROHA_USB_ANA_CDR_LPF_MJV_LIM		0xc
+> +#define   AIROHA_USB_ANA_CDR_LPF_RATIO		GENMASK(5, 4)
+> +#define AIROHA_USB_ANA_CDR_PR_CKREF_DIV1	0x18
+> +#define   AIROHA_USB_ANA_CDR_PR_KBAND_DIV	GENMASK(26, 24)
+> +#define   AIROHA_USB_ANA_CDR_PR_DAC_BAND	GENMASK(12, 8)
+> +#define AIROHA_USB_ANA_CDR_PR_KBAND_DIV_PCIE_REG 0x1c
+> +#define   AIROHA_USB_ANA_CDR_PR_XFICK_EN	BIT(30)
+> +#define   AIROHA_USB_ANA_CDR_PR_KBAND_PCIE_MODE	BIT(6)
+> +#define   AIROHA_USB_ANA_CDR_PR_KBAND_DIV_PCIE	GENMASK(5, 0)
+> +#define AIROHA_USB_ANA_CDR_FORCE_IBANDLPF_R_OFF	0x20
+> +#define   AIROHA_USB_ANA_CDR_PHYCK_RSTB		BIT(13)
+> +#define AIROHA_USB_ANA_QP_TX_MODE_16B_EN	0x28
+> +#define   AIROHA_USB_QP_TX_RESERVE		GENMASK(31, 16)
+> +#define     AIROHA_USB_ANA_TX_VLMON_EN		BIT(2)
+> +#define     AIROHA_USB_ANA_TX_RESERVE_8		BIT(8)
+> +#define AIROHA_USB_ANA_RXLBTX_EN		0x2c
+> +#define   AIROHA_USB_ANA_TX_DMEDGEGEN_EN	BIT(27)
+> +#define   AIROHA_USB_ANA_TX_RXDET_METHOD	BIT(25)
+> +#define AIROHA_USB_ANA_SSUSB_BGR_EN		0x30
+> +#define   AIROHA_USB_ANA_BIAS_V2V_CAL		GENMASK(26, 21)
+> +#define   AIROHA_USB_ANA_SSUSB_BG_DIV		GENMASK(3, 2)
+> +#define   AIROHA_USB_ANA_SSUSB_CHPEN		BIT(1)
+> +#define AIROHA_USB_ANA_CLKDRV_IMPSEL		0x34
+> +#define   AIROHA_USB_ANA_PCIE_CLKDRV_AMP	GENMASK(27, 25)
+> +#define   AIROHA_USB_ANA_PCIE_CLKDRV_FORCEIN	GENMASK(24, 23)
+> +#define   AIROHA_USB_ANA_PCIE_CLKDRV_HZ		BIT(14)
+> +#define   AIROHA_USB_ANA_PCIE_CLKDRV_RP		GENMASK(13, 9)
+> +#define   AIROHA_USB_ANA_PCIE_CLKDRV_IMPSEL	GENMASK(4, 0)
+> +#define AIROHA_USB_ANA_TDC_FT_CK_EN		0x38
+> +#define   AIROHA_USB_ANA_PLL_DEBUG_SEL		BIT(19)
+> +#define   AIROHA_USB_ANA_VUSB10_ON		BIT(8)
+> +#define AIROHA_USB_ANA_PLL_IPLL_DIG_PWR_SEL	0x3c
+> +#define   AIROHA_USB_ANA_PLL_PREDIV		GENMASK(26, 25)
+> +#define   AIROHA_USB_ANA_PLL_OSCAL_ENB		BIT(19)
+> +#define   AIROHA_USB_ANA_PLL_MON_LDO_SEL	GENMASK(18, 16)
+> +#define   AIROHA_USB_ANA_PLL_MONVC_EN		BIT(14)
+> +#define   AIROHA_USB_ANA_PLL_LDOLPF_VSEL	GENMASK(6, 5)
+> +#define AIROHA_USB_ANA_PLL_SDM_ORD		0x40
+> +#define   AIROHA_USB_ANA_PLL_SSC_TRI_EN		BIT(4)
+> +#define   AIROHA_USB_ANA_PLL_SSC_PHASE_INI	BIT(3)
+> +
+> +/* PMA */
+> +#define AIROHA_USB_PMA_TX_DA_CTRL_0		0x0
+> +#define   AIROHA_USB_PMA_RXDET_RD_WAIT_TIMER	GENMASK(15, 12)
+> +#define   AIROHA_USB_PMA_RXDET_EN_WINDOW	GENMASK(9, 4)
+> +#define AIROHA_USB_PMA_TX_DA_CTRL_1		0x4
+> +#define   AIROHA_USB_PMA_FORCE_TX_BIT_INVERSE	BIT(7)
+> +#define AIROHA_USB_PMA_TX_DA_CTRL_2		0x8
+> +#define   AIROHA_USB_PMA_FORCE_TX_DEM_SEL	BIT(27)
+> +#define AIROHA_USB_PMA_TX_DA_CTRL_3		0xc
+> +#define   AIROHA_USB_PMA_TX_DATA_RATE_SEL	GENMASK(30, 28)
+> +#define AIROHA_USB_PMA_PON_RXFEDIG_CTRL_0	0x100
+> +#define   AIROHA_USB_PMA_EQ_RX500M_CK_SEL	BIT(12)
+> +#define AIROHA_USB_PMA_PON_RXFEDIG_CTRL_8	0x120
+> +#define   AIROHA_USB_PMA_QP_EQ_EYE_MASK		GENMASK(9, 0)
+> +#define AIROHA_USB_PMA_PON_RXFEDIG_CTRL_10	0x128
+> +#define   AIROHA_USB_PMA_QP_EQ_PIEYE_INI	GENMASK(22, 16)
+> +#define AIROHA_USB_PMA_SS_LCPLL_PWCTL_SETTING_2	0x208
+> +#define   AIROHA_USB_PMA_NCPO_ANA_MSB		GENMASK(17, 16)
+> +#define AIROHA_USB_PMA_SS_LCPLL_TDC_FLT_2	0x230
+> +#define   AIROHA_USB_PMA_LCPLL_NCPO_VALUE	GENMASK(30, 0)
+> +#define AIROHA_USB_PMA_SS_LCPLL_TDC_FLT_5	0x23c
+> +#define   AIROHA_USB_PMA_LCPLL_NCPO_CHG		BIT(24)
+> +#define AIROHA_USB_PMA_SS_LCPLL_TDC_PCW_1	0x248
+> +#define   AIROHA_USB_PMA_LCPLL_PON_HRDDS_PCW_NCPO_GPON GENMASK(30, 0)
+> +#define AIROHA_USB_PMA_INTF_CTRL_5		0x314
+> +#define   AIROHA_USB_PMA_RX_HZ_SEL		BIT(5)
+> +#define   AIROHA_USB_PMA_RX_HZ_FORCE		BIT(4)
+> +#define AIROHA_USB_PMA_INTF_CTRL_6		0x318
+> +#define   AIROHA_USB_PMA_TX_DATA_EN_SEL		BIT(13)
+> +#define   AIROHA_USB_PMA_TX_DATA_EN_FORCE	BIT(12)
+> +#define AIROHA_USB_PMA_INTF_CTRL_7		0x31c
+> +#define   AIROHA_USB_PMA_PLL_EN_SEL		BIT(5)
+> +#define   AIROHA_USB_PMA_PLL_EN_FORCE		BIT(4)
+> +#define AIROHA_USB_PMA_INTF_CTRL_8		0x320
+> +#define   AIROHA_USB_PMA_XTAL_EXT_EN_SEL	BIT(13)
+> +#define   AIROHA_USB_PMA_XTAL_EXT_EN_FORCE	GENMASK(12, 11)
+> +#define   AIROHA_USB_PMA_TX_TERM_SEL_SEL	BIT(7)
+> +#define   AIROHA_USB_PMA_TX_TERM_SEL_FORCE	GENMASK(6, 5)
+> +#define AIROHA_USB_PMA_INTF_STS_9		0x364
+> +#define   AIROHA_USB_PMA_RX_IMP_SEL_SEL		BIT(31)
+> +#define   AIROHA_USB_PMA_RX_IMP_SEL_FORCE	GENMASK(30, 26)
+> +#define   AIROHA_USB_PMA_ADDR_INTF_STS_PLL_VCOCAL GENMASK(23, 16)
+> +#define AIROHA_USB_PMA_PLL_CTRL_0		0x400
+> +#define   AIROHA_USB_PMA_AUTO_INIT		BIT(0)
+> +#define AIROHA_USB_PMA_PLL_CTRL_1		0x404
+> +#define   AIROHA_USB_PMA_PLL_SSC_EN		BIT(30)
+> +#define AIROHA_USB_PMA_PLL_CTRL_2		0x408
+> +#define   AIROHA_USB_PMA_PLL_SDM_IFM_INTF	BIT(30)
+> +#define   AIROHA_USB_PMA_PLL_RICO_SEL_INTF	BIT(29)
+> +#define   AIROHA_USB_PMA_PLL_PHY_CK_EN_INTF	BIT(27)
+> +#define   AIROHA_USB_PMA_PLL_PCK_SEL_INTF	BIT(22)
+> +#define   AIROHA_USB_PMA_PLL_KBAND_PREDIV_INTF	GENMASK(21, 20)
+> +#define   AIROHA_USB_PMA_PLL_IR_INTF		GENMASK(19, 16)
+> +#define   AIROHA_USB_PMA_PLL_ICOIQ_EN_INTF	BIT(14)
+> +#define   AIROHA_USB_PMA_PLL_FBKSEL_INTF	GENMASK(13, 12)
+> +#define   AIROHA_USB_PMA_PLL_BR_INTF		GENMASK(10, 8)
+> +#define   AIROHA_USB_PMA_PLL_BPB_INTF		GENMASK(7, 6)
+> +#define   AIROHA_USB_PMA_PLL_BPA_INTF		GENMASK(4, 2)
+> +#define   AIROHA_USB_PMA_PLL_BC_INTF		GENMASK(1, 0)
+> +#define AIROHA_USB_PMA_PLL_CTRL_3		0x40c
+> +#define   AIROHA_USB_PMA_PLL_SSC_PERIOD_INTF	GENMASK(31, 16)
+> +#define   AIROHA_USB_PMA_PLL_SSC_DELTA_INTF	GENMASK(15, 0)
+> +#define AIROHA_USB_PMA_PLL_CTRL_4		0x410
+> +#define   AIROHA_USB_PMA_PLL_SDM_HREN_INTF	GENMASK(4, 3)
+> +#define   AIROHA_USB_PMA_PLL_ICOLP_EN_INTF	BIT(2)
+> +#define AIROHA_USB_PMA_PLL_CK_CTRL_0		0x414
+> +#define   AIROHA_USB_PMA_PCIE_CLKTX_EN_INTF	BIT(5)
+> +#define   AIROHA_USB_PMA_PCIE_CLKRX_EN_INTF	BIT(4)
+> +#define AIROHA_USB_PMA_PLL_CK_CTRL_1		0x418
+> +#define   AIROHA_USB_PMA_PLL_FORCE_UNSTABLE	BIT(19)
+> +#define   AIROHA_USB_PMA_PLL_FORCE_STABLE	BIT(18)
+> +#define AIROHA_USB_PMA_PLL_CK_CTRL_2		0x41c
+> +#define   AIROHA_USB_PMA_PCIE_MODE_PLL_AUTO_OFF_EN BIT(2)
+> +#define   AIROHA_USB_PMA_PCIE_MODE_PLL_AUTO_ON_EN BIT(1)
+> +#define   AIROHA_USB_PMA_PCIE_MODE_PLL_AUTO_EN	BIT(0)
+> +#define AIROHA_USB_PMA_RX_SYS_CTRL_0		0x600
+> +#define   AIROHA_USB_PMA_ROC_CK_EN		BIT(1)
+> +#define AIROHA_USB_PMA_RX_DLY_0			0x614
+> +#define   AIROHA_USB_PMA_RX_PI_CAL_EN_H_DLY	GENMASK(7, 0)
+> +#define AIROHA_USB_PMA_RX_CTRL_2		0x630
+> +#define   AIROHA_USB_PMA_RX_EQ_EN_H_DLY		GENMASK(28, 16)
+> +#define AIROHA_USB_PMA_RX_CTRL_5		0x63c
+> +#define   AIROHA_USB_PMA_FREDET_CHK_CYCLE	GENMASK(29, 10)
+> +#define AIROHA_USB_PMA_RX_CTRL_6		0x640
+> +#define   AIROHA_USB_PMA_FREDET_GOLDEN_CYCLE	GENMASK(19, 0)
+> +#define AIROHA_USB_PMA_RX_CTRL_7		0x644
+> +#define   AIROHA_USB_PMA_FREDET_TOLERATE_CYCLE	GENMASK(19, 0)
+> +#define AIROHA_USB_PMA_RX_CTRL_10		0x650
+> +#define   AIROHA_USB_PMA_CRSDET_RSTB		BIT(1)
+> +#define AIROHA_USB_PMA_RX_CTRL_11		0x654
+> +#define   AIROHA_USB_PMA_FORCE_SIGDET_5G	BIT(19)
+> +#define AIROHA_USB_PMA_RX_CTRL_26		0x690
+> +#define   AIROHA_USB_PMA_QP_EQ_RETRAIN_ONLY_EN	BIT(26)
+> +#define   AIROHA_USB_PMA_LINK_ERRO_EN		BIT(23)
+> +#define AIROHA_USB_PMA_RX_CTRL_27		0x694
+> +#define   AIROHA_USB_PMA_QP_LINK_ERRO_CNT	GENMASK(31, 0)
+> +#define AIROHA_USB_PMA_RX_CTRL_36		0x6b8
+> +#define   AIROHA_USB_PMA_PCIE_USB_SYSTEM	BIT(26)
+> +#define   AIROHA_USB_PMA_LCK2DATA_DLY_TIME	GENMASK(23, 16)
+> +#define AIROHA_USB_PMA_RX_CTRL_38		0x6C0
+> +#define   AIROHA_USB_PMA_RESERVE_3		GENMASK(31, 24)
+> +#define AIROHA_USB_PMA_RX_CTRL_45		0x6dc
+> +#define   AIROHA_USB_PMA_EQ_EN_DLY		GENMASK(12, 0)
+> +#define AIROHA_USB_PMA_RX_CTRL_46		0x6e0
+> +#define   AIROHA_USB_PMA_PCIE_USB_BYPASS_EQ_P3_TO_P0_EN	BIT(29)
+> +#define   AIROHA_USB_PMA_PCIE_USB_BYPASS_EQ_P2_TO_P0_EN	BIT(28)
+> +#define   AIROHA_USB_PMA_PCIE_USB_BYPASS_EQ_P1_TO_P0_EN	BIT(27)
+> +#define   AIROHA_USB_PMA_REBACK_P0_LCK2REF_EN	BIT(26)
+> +#define AIROHA_USB_PMA_RX_CTRL_49		0x6ec
+> +#define   AIROHA_USB_PMA_LFPS_FINISH_TIME	GENMASK(31, 21)
+> +#define AIROHA_USB_PMA_RX_CTRL_50		0x6f0
+> +#define   AIROHA_USB_PMA_P3_TO_P0_DO_EQ_USB	BIT(28)
+> +#define   AIROHA_USB_PMA_P2_TO_P0_DO_EQ_USB	BIT(27)
+> +#define   AIROHA_USB_PMA_P1_TO_P0_DO_EQ_USB	BIT(26)
+> +#define   AIROHA_USB_PMA_EQ_EN_DLY_SHORT	GENMASK(25, 13)
+> +#define   AIROHA_USB_PMA_RX_EQ_EN_H_DLY_SHORT	GENMASK(12, 0)
+> +
+> +/* DIG */
+> +#define AIROHA_USB_DIG_CK_RST_CTRL_3		0x30c
+> +#define   AIROHA_USB_DIG_NS_CK_DIV_SEL		BIT(25)
+> +#define   AIROHA_USB_DIG_US_CK_DIV_SEL		BIT(24)
+> +#define AIROHA_USB_DIG_MODE_CTRL_0		0x324
+> +#define   AIROHA_USB_DIG_SGMII_AN_EN		BIT(0)
+> +#define AIROHA_USB_DIG_MODE_CTRL_1		0x330
+> +#define   AIROHA_USB_DIG_TPHY_SPEED		GENMASK(3, 2)
+> +#define AIROHA_USB_DIG_CK_RST_CTRL_7		0x340
+> +#define   AIROHA_USB_DIG_MULTI_USB2P5_EN	BIT(26)
+> +#define   AIROHA_USB_DIG_MULTI_USB5_EN		BIT(25)
+> +#define   AIROHA_USB_DIG_MULTI_PHY_USB_EN	BIT(24)
+> +
+> +#define AIROHA_USB_PHY_U2_FM_DET_CYCLE_CNT	1024
+> +#define AIROHA_USB_PHY_REF_CK			20
+> +#define AIROHA_USB_PHY_U2_SR_COEF		28
+> +#define AIROHA_USB_PHY_U2_SR_COEF_DIVISOR	1000
+> +
+> +#define AIROHA_USB_PHY_FREQDET_SLEEP		1000 /* 1ms */
+> +#define AIROHA_USB_PHY_FREQDET_TIMEOUT		(AIROHA_USB_PHY_FREQDET_SLEEP * 10)
+> +
+> +#define AIROHA_USB_PHY_U3_MAX_CALIB_TRY		50
+> +#define AIROHA_USB_PHY_MAX_INSTANCE		3
+> +#define AIROHA_PCIE_PHY_MAX_INSTANCE		1
+> +
+> +struct an7583_usb_phy_instance {
+> +	struct device_node *node;
+> +	u32 type;
+> +
+> +	u32 offset;
+> +	unsigned int monclk_sel;
+> +	struct phy *serdes_phy;
+> +};
+> +
+> +enum an7583_usb_phy_regs {
+> +	AIROHA_USB_PHY_PHY,
+> +	AIROHA_USB_PHY_ANA,
+> +	AIROHA_USB_PHY_PMA,
+> +	AIROHA_USB_PHY_DIG,
+> +
+> +	AIROHA_USB_PHY_REGS_MAX,
+> +};
+> +
+> +struct an7583_usb_phy_priv {
+> +	struct regmap *regs[AIROHA_USB_PHY_REGS_MAX];
+> +
+> +	struct phy *phys[AIROHA_USB_PHY_MAX_INSTANCE];
+> +};
+> +
+> +struct an7583_usb_phy_match_data {
+> +	int max_instance;
+> +	const char * const *regs_name;
+> +	int regs_num;
+> +	int (*parse_ports)(struct device *dev,
+> +			   struct an7583_usb_phy_priv *priv,
+> +			   int index, struct device_node *subnode);
+> +};
+> +
+> +static int an7583_usb_phy_u2_slew_rate_calibration(struct phy *phy)
+> +{
+> +	struct an7583_usb_phy_instance *instance = phy_get_drvdata(phy);
+> +	struct an7583_usb_phy_priv *priv;
+> +	struct device *dev;
+> +	u32 offset, srctrl;
+> +	u32 fm_out = 0;
+> +
+> +	dev = phy->dev.parent;
+> +	priv = dev_get_drvdata(dev);
+> +	offset = instance->offset;
+> +
+> +	/* Enable HS TX SR calibration */
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PHY],
+> +			AIROHA_USB_PHY_USBPHYACR5 + offset,
+> +			AIROHA_USB_PHY_USB20_HSTX_SRCAL_EN);
+> +
+> +	usleep_range(1000, 1500);
+> +
+> +	/* Enable Free run clock */
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PHY],
+> +			AIROHA_USB_PHY_FMMONR1 + offset,
+> +			AIROHA_USB_PHY_FRCK_EN);
+> +
+> +	/* Select Monitor Clock */
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PHY],
+> +			   AIROHA_USB_PHY_FMCR0 + offset,
+> +			   AIROHA_USB_PHY_MONCLK_SEL,
+> +			   FIELD_PREP(AIROHA_USB_PHY_MONCLK_SEL,
+> +				      instance->monclk_sel));
+> +
+> +	/* Set cyclecnt */
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PHY],
+> +			   AIROHA_USB_PHY_FMCR0 + offset,
+> +			   AIROHA_USB_PHY_CYCLECNT,
+> +			   FIELD_PREP(AIROHA_USB_PHY_CYCLECNT,
+> +				      AIROHA_USB_PHY_U2_FM_DET_CYCLE_CNT));
+> +
+> +	/* Enable Frequency meter */
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PHY],
+> +			AIROHA_USB_PHY_FMCR0 + offset,
+> +			AIROHA_USB_PHY_FREQDET_EN);
+> +
+> +	/* Timeout can happen and we will apply workaround at the end */
+> +	regmap_read_poll_timeout(priv->regs[AIROHA_USB_PHY_PHY],
+> +				 AIROHA_USB_PHY_FMMONR0 + offset,
+> +				 fm_out, fm_out, AIROHA_USB_PHY_FREQDET_SLEEP,
+> +				 AIROHA_USB_PHY_FREQDET_TIMEOUT);
+> +
+> +	/* Disable Frequency meter */
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PHY],
+> +			  AIROHA_USB_PHY_FMCR0 + offset,
+> +			  AIROHA_USB_PHY_FREQDET_EN);
+> +
+> +	/* Disable Free run clock */
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PHY],
+> +			  AIROHA_USB_PHY_FMMONR1 + offset,
+> +			  AIROHA_USB_PHY_FRCK_EN);
+> +
+> +	/* Disable HS TX SR calibration */
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PHY],
+> +			  AIROHA_USB_PHY_USBPHYACR5 + offset,
+> +			  AIROHA_USB_PHY_USB20_HSTX_SRCAL_EN);
+> +
+> +	usleep_range(1000, 1500);
+> +
+> +	/* Frequency was not detected, use default SR calibration value */
+> +	if (!fm_out) {
+> +		srctrl = 0x5;
+> +		dev_err(dev, "Frequency not detected, using default SR calibration.\n");
+> +	/* (1024 / FM_OUT) * REF_CK * U2_SR_COEF (round to the nearest digits) */
+> +	} else {
+> +		srctrl = AIROHA_USB_PHY_REF_CK * AIROHA_USB_PHY_U2_SR_COEF;
+> +		srctrl = (srctrl * AIROHA_USB_PHY_U2_FM_DET_CYCLE_CNT) / fm_out;
+> +		srctrl = DIV_ROUND_CLOSEST(srctrl, AIROHA_USB_PHY_U2_SR_COEF_DIVISOR);
+> +		dev_dbg(dev, "SR calibration applied: %x\n", srctrl);
+> +	}
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PHY],
+> +			   AIROHA_USB_PHY_USBPHYACR5 + offset,
+> +			   AIROHA_USB_PHY_USB20_HSTX_SRCTRL,
+> +			   FIELD_PREP(AIROHA_USB_PHY_USB20_HSTX_SRCTRL, srctrl));
+> +
+> +	return 0;
+> +}
+> +
+> +static bool an7583_usb_phy_u3_kband_is_calibrated(struct an7583_usb_phy_priv *priv)
+> +{
+> +	u32 val, res;
+> +
+> +	/* Default ICO setting */
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA],
+> +			  AIROHA_USB_PMA_PLL_CTRL_4,
+> +			  AIROHA_USB_PMA_PLL_ICOLP_EN_INTF);
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
+> +			   AIROHA_USB_ANA_SSUSB_BGR_EN,
+> +			   AIROHA_USB_ANA_BIAS_V2V_CAL,
+> +			   FIELD_PREP(AIROHA_USB_ANA_BIAS_V2V_CAL, 0x15));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
+> +			   AIROHA_USB_ANA_PLL_IPLL_DIG_PWR_SEL,
+> +			   AIROHA_USB_ANA_PLL_OSCAL_ENB |
+> +			   AIROHA_USB_ANA_PLL_LDOLPF_VSEL,
+> +			   AIROHA_USB_ANA_PLL_OSCAL_ENB |
+> +			   FIELD_PREP(AIROHA_USB_ANA_PLL_LDOLPF_VSEL, 0x1));
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA],
+> +			AIROHA_USB_PMA_PLL_CTRL_2,
+> +			AIROHA_USB_PMA_PLL_RICO_SEL_INTF);
+> +
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA],
+> +			  AIROHA_USB_PMA_INTF_CTRL_8,
+> +			  AIROHA_USB_PMA_XTAL_EXT_EN_SEL |
+> +			  AIROHA_USB_PMA_XTAL_EXT_EN_FORCE);
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA],
+> +			AIROHA_USB_PMA_PLL_CTRL_2,
+> +			AIROHA_USB_PMA_PLL_ICOIQ_EN_INTF);
+> +
+> +	/* Read KBand */
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_ANA],
+> +			  AIROHA_USB_ANA_TDC_FT_CK_EN,
+> +			  AIROHA_USB_ANA_PLL_DEBUG_SEL);
+> +
+> +	usleep_range(5000, 6000);
+> +
+> +	regmap_read(priv->regs[AIROHA_USB_PHY_PMA],
+> +		    AIROHA_USB_PMA_INTF_STS_9, &val);
+> +	res = FIELD_GET(AIROHA_USB_PMA_ADDR_INTF_STS_PLL_VCOCAL, val) << 4;
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_ANA],
+> +			AIROHA_USB_ANA_TDC_FT_CK_EN,
+> +			AIROHA_USB_ANA_PLL_DEBUG_SEL);
+> +
+> +	usleep_range(5000, 6000);
+> +
+> +	regmap_read(priv->regs[AIROHA_USB_PHY_PMA],
+> +		    AIROHA_USB_PMA_INTF_STS_9, &val);
+> +	res |= FIELD_GET(AIROHA_USB_PMA_ADDR_INTF_STS_PLL_VCOCAL, val);
+> +
+> +	/*
+> +	 * KBand is calibrated if KBand Code is NOT 0xfff and
+> +	 * KBand Done is set.
+> +	 */
+> +	return res != 0xfff && res & 0x800;
+> +}
+> +
+> +static int an7583_usb_phy_u2_init(struct phy *phy)
+> +{
+> +	struct an7583_usb_phy_instance *instance = phy_get_drvdata(phy);
+> +	struct an7583_usb_phy_priv *priv;
+> +	struct device *dev;
+> +	u32 offset;
+> +
+> +	dev = phy->dev.parent;
+> +	priv = dev_get_drvdata(dev);
+> +	offset = instance->offset;
+> +
+> +	mdelay(1);
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PHY],
+> +			   AIROHA_USB_PHY_USBPHYACR4 + offset,
+> +			   AIROHA_USB_PHY_USB20_FS_CR,
+> +			   AIROHA_USB_PHY_USB20_FS_CR_MIN);
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PHY],
+> +			   AIROHA_USB_PHY_USBPHYACR4 + offset,
+> +			   AIROHA_USB_PHY_USB20_FS_SR,
+> +			   AIROHA_USB_PHY_USB20_FS_SR_NORMAL);
+> +
+> +	/* FIXME: evaluate if needed */
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PHY],
+> +			   AIROHA_USB_PHY_USBPHYACR6 + offset,
+> +			   AIROHA_USB_PHY_USB20_SQTH,
+> +			   AIROHA_USB_PHY_USB20_SQTH_125);
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PHY],
+> +			   AIROHA_USB_PHY_USBPHYACR6 + offset,
+> +			   AIROHA_USB_PHY_USB20_DISCTH,
+> +			   AIROHA_USB_PHY_USB20_DISCTH_580);
+> +
+> +	/* Enable the USB port and then disable after calibration */
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PHY],
+> +			  AIROHA_USB_PHY_USBPHYACR6 + offset,
+> +			  AIROHA_USB_PHY_USB20_BC11_SW_EN);
+> +
+> +	an7583_usb_phy_u2_slew_rate_calibration(phy);
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PHY],
+> +			AIROHA_USB_PHY_USBPHYACR6 + offset,
+> +			AIROHA_USB_PHY_USB20_BC11_SW_EN);
+> +
+> +	usleep_range(1000, 1500);
+> +
+> +	return 0;
+> +}
+> +
+> +static int an7583_usb_phy_eth_init_sgmii(struct an7583_usb_phy_priv *priv)
+> +{
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_27,
+> +			   AIROHA_USB_PMA_QP_LINK_ERRO_CNT,
+> +			   FIELD_PREP(AIROHA_USB_PMA_QP_LINK_ERRO_CNT, 0x100000));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA],
+> +			   AIROHA_USB_PMA_SS_LCPLL_TDC_PCW_1,
+> +			   AIROHA_USB_PMA_LCPLL_PON_HRDDS_PCW_NCPO_GPON,
+> +			   FIELD_PREP(AIROHA_USB_PMA_LCPLL_PON_HRDDS_PCW_NCPO_GPON,
+> +				      0x48000000));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_DIG],
+> +			   AIROHA_USB_DIG_MODE_CTRL_1,
+> +			   AIROHA_USB_DIG_TPHY_SPEED,
+> +			   FIELD_PREP(AIROHA_USB_DIG_TPHY_SPEED, 0x0));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_2,
+> +			   AIROHA_USB_PMA_PLL_PCK_SEL_INTF |
+> +			   AIROHA_USB_PMA_PLL_IR_INTF,
+> +			   AIROHA_USB_PMA_PLL_PCK_SEL_INTF |
+> +			   FIELD_PREP(AIROHA_USB_PMA_PLL_IR_INTF, 0x4));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA],
+> +			   AIROHA_USB_PMA_SS_LCPLL_TDC_FLT_2,
+> +			   AIROHA_USB_PMA_LCPLL_NCPO_VALUE,
+> +			   FIELD_PREP(AIROHA_USB_PMA_LCPLL_NCPO_VALUE, 0x48000000));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
+> +			   AIROHA_USB_ANA_CDR_LPF_MJV_LIM,
+> +			   AIROHA_USB_ANA_CDR_LPF_RATIO,
+> +			   FIELD_PREP(AIROHA_USB_ANA_CDR_LPF_RATIO, 0x2));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
+> +			   AIROHA_USB_ANA_CDR_PR_CKREF_DIV1,
+> +			   AIROHA_USB_ANA_CDR_PR_DAC_BAND,
+> +			   FIELD_PREP(AIROHA_USB_ANA_CDR_PR_DAC_BAND, 0xc));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
+> +			   AIROHA_USB_ANA_CDR_LPF_BOT_LIM,
+> +			   AIROHA_USB_ANA_CDR_LPF_KP_GAIN |
+> +			   AIROHA_USB_ANA_CDR_LPF_KI_GAIN,
+> +			   FIELD_PREP(AIROHA_USB_ANA_CDR_LPF_KP_GAIN, 0x6) |
+> +			   FIELD_PREP(AIROHA_USB_ANA_CDR_LPF_KI_GAIN, 0x6));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_5,
+> +			   AIROHA_USB_PMA_FREDET_CHK_CYCLE,
+> +			   FIELD_PREP(AIROHA_USB_PMA_FREDET_CHK_CYCLE, 0x28));
+> +
+> +	return 0;
+> +}
+> +
+> +static int an7583_usb_phy_eth_init_hsgmii(struct an7583_usb_phy_priv *priv)
+> +{
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA],
+> +			   AIROHA_USB_PMA_SS_LCPLL_TDC_PCW_1,
+> +			   AIROHA_USB_PMA_LCPLL_PON_HRDDS_PCW_NCPO_GPON,
+> +			   FIELD_PREP(AIROHA_USB_PMA_LCPLL_PON_HRDDS_PCW_NCPO_GPON,
+> +				      0x7a000000));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_DIG],
+> +			   AIROHA_USB_DIG_MODE_CTRL_1,
+> +			   AIROHA_USB_DIG_TPHY_SPEED,
+> +			   FIELD_PREP(AIROHA_USB_DIG_TPHY_SPEED, 0x1));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_2,
+> +			   AIROHA_USB_PMA_PLL_PCK_SEL_INTF |
+> +			   AIROHA_USB_PMA_PLL_IR_INTF,
+> +			   AIROHA_USB_PMA_PLL_PCK_SEL_INTF |
+> +			   FIELD_PREP(AIROHA_USB_PMA_PLL_IR_INTF, 0x6));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA],
+> +			   AIROHA_USB_PMA_SS_LCPLL_TDC_FLT_2,
+> +			   AIROHA_USB_PMA_LCPLL_NCPO_VALUE,
+> +			   FIELD_PREP(AIROHA_USB_PMA_LCPLL_NCPO_VALUE, 0x7a000000));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
+> +			   AIROHA_USB_ANA_CDR_LPF_MJV_LIM,
+> +			   AIROHA_USB_ANA_CDR_LPF_RATIO,
+> +			   FIELD_PREP(AIROHA_USB_ANA_CDR_LPF_RATIO, 0x1));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
+> +			   AIROHA_USB_ANA_CDR_PR_CKREF_DIV1,
+> +			   AIROHA_USB_ANA_CDR_PR_DAC_BAND,
+> +			   FIELD_PREP(AIROHA_USB_ANA_CDR_PR_DAC_BAND, 0xf));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
+> +			   AIROHA_USB_ANA_CDR_LPF_BOT_LIM,
+> +			   AIROHA_USB_ANA_CDR_LPF_KP_GAIN |
+> +			   AIROHA_USB_ANA_CDR_LPF_KI_GAIN,
+> +			   FIELD_PREP(AIROHA_USB_ANA_CDR_LPF_KP_GAIN, 0x5) |
+> +			   FIELD_PREP(AIROHA_USB_ANA_CDR_LPF_KI_GAIN, 0x5));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_5,
+> +			   AIROHA_USB_PMA_FREDET_CHK_CYCLE,
+> +			   FIELD_PREP(AIROHA_USB_PMA_FREDET_CHK_CYCLE, 0x10));
+> +
+> +	return 0;
+> +}
+> +
+> +static int an7583_usb_phy_set_mode_eth(struct phy *phy, int submode)
+> +{
+> +	struct an7583_usb_phy_priv *priv = dev_get_drvdata(phy->dev.parent);
+> +
+> +	/* TODO handle efuse */
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_INTF_CTRL_8,
+> +			   AIROHA_USB_PMA_TX_TERM_SEL_SEL |
+> +			   AIROHA_USB_PMA_TX_TERM_SEL_FORCE,
+> +			   AIROHA_USB_PMA_TX_TERM_SEL_SEL |
+> +			   FIELD_PREP(AIROHA_USB_PMA_TX_TERM_SEL_FORCE, 0x1));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_INTF_STS_9,
+> +			   AIROHA_USB_PMA_RX_IMP_SEL_SEL |
+> +			   AIROHA_USB_PMA_RX_IMP_SEL_FORCE,
+> +			   AIROHA_USB_PMA_RX_IMP_SEL_SEL |
+> +			   FIELD_PREP(AIROHA_USB_PMA_RX_IMP_SEL_FORCE, 0x1));
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_26,
+> +			AIROHA_USB_PMA_QP_EQ_RETRAIN_ONLY_EN |
+> +			AIROHA_USB_PMA_LINK_ERRO_EN);
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA], AIROHA_USB_ANA_SSUSB_BGR_EN,
+> +			   AIROHA_USB_ANA_SSUSB_BG_DIV,
+> +			   FIELD_PREP(AIROHA_USB_ANA_SSUSB_BG_DIV, 0x1));
+> +
+> +	/* Digital CLK trigger reverse */
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PON_RXFEDIG_CTRL_0,
+> +			  AIROHA_USB_PMA_EQ_RX500M_CK_SEL);
+> +
+> +	/* Common Setting */
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_DIG], AIROHA_USB_DIG_CK_RST_CTRL_3,
+> +			AIROHA_USB_DIG_NS_CK_DIV_SEL |
+> +			AIROHA_USB_DIG_US_CK_DIV_SEL);
+> +
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_TX_DA_CTRL_1,
+> +			  AIROHA_USB_PMA_FORCE_TX_BIT_INVERSE);
+> +
+> +	/* TODO check they report 0x8400000 */
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_TX_DA_CTRL_2,
+> +			AIROHA_USB_PMA_FORCE_TX_DEM_SEL);
+> +
+> +	/* PLL */
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_2,
+> +			   AIROHA_USB_PMA_PLL_BR_INTF |
+> +			   AIROHA_USB_PMA_PLL_BPB_INTF |
+> +			   AIROHA_USB_PMA_PLL_BPA_INTF |
+> +			   AIROHA_USB_PMA_PLL_BC_INTF,
+> +			   FIELD_PREP(AIROHA_USB_PMA_PLL_BR_INTF, 0x3) |
+> +			   FIELD_PREP(AIROHA_USB_PMA_PLL_BPB_INTF, 0x0) |
+> +			   FIELD_PREP(AIROHA_USB_PMA_PLL_BPA_INTF, 0x5) |
+> +			   FIELD_PREP(AIROHA_USB_PMA_PLL_BC_INTF, 0x1));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
+> +			   AIROHA_USB_ANA_PLL_IPLL_DIG_PWR_SEL,
+> +			   AIROHA_USB_ANA_PLL_PREDIV,
+> +			   FIELD_PREP(AIROHA_USB_ANA_PLL_PREDIV, 0x1));
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_4,
+> +			AIROHA_USB_PMA_PLL_ICOLP_EN_INTF);
+> +
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_DIG], AIROHA_USB_DIG_MODE_CTRL_0,
+> +			  AIROHA_USB_DIG_SGMII_AN_EN);
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_ANA], AIROHA_USB_ANA_RXLBTX_EN,
+> +			AIROHA_USB_ANA_TX_DMEDGEGEN_EN);
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_ANA], AIROHA_USB_ANA_QP_TX_MODE_16B_EN,
+> +			FIELD_PREP(AIROHA_USB_QP_TX_RESERVE,
+> +				   AIROHA_USB_ANA_TX_RESERVE_8 |
+> +				   AIROHA_USB_ANA_TX_VLMON_EN));
+> +
+> +	if (submode == PHY_INTERFACE_MODE_2500BASEX)
+> +		an7583_usb_phy_eth_init_hsgmii(priv);
+> +	else
+> +		an7583_usb_phy_eth_init_sgmii(priv);
+> +
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_SS_LCPLL_TDC_FLT_5,
+> +			  AIROHA_USB_PMA_LCPLL_NCPO_CHG);
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_SS_LCPLL_TDC_FLT_5,
+> +			AIROHA_USB_PMA_LCPLL_NCPO_CHG);
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA],
+> +			   AIROHA_USB_PMA_SS_LCPLL_PWCTL_SETTING_2,
+> +			   AIROHA_USB_PMA_NCPO_ANA_MSB,
+> +			   FIELD_PREP(AIROHA_USB_PMA_NCPO_ANA_MSB, 0x1));
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_ANA],
+> +			AIROHA_USB_ANA_RXAFE_RESERVE,
+> +			AIROHA_USB_ANA_CDR_PD_10B_EN);
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA],
+> +			   AIROHA_USB_PMA_PON_RXFEDIG_CTRL_10,
+> +			   AIROHA_USB_PMA_QP_EQ_PIEYE_INI,
+> +			   FIELD_PREP(AIROHA_USB_PMA_QP_EQ_PIEYE_INI, 0x0));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA],
+> +			   AIROHA_USB_PMA_PON_RXFEDIG_CTRL_8,
+> +			   AIROHA_USB_PMA_QP_EQ_EYE_MASK,
+> +			   FIELD_PREP(AIROHA_USB_PMA_QP_EQ_EYE_MASK, 0x2aa));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_6,
+> +			   AIROHA_USB_PMA_FREDET_GOLDEN_CYCLE,
+> +			   FIELD_PREP(AIROHA_USB_PMA_FREDET_GOLDEN_CYCLE, 0x64));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_7,
+> +			   AIROHA_USB_PMA_FREDET_TOLERATE_CYCLE,
+> +			   FIELD_PREP(AIROHA_USB_PMA_FREDET_TOLERATE_CYCLE, 0x2710));
+> +
+> +	/* PLL auto init */
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_0,
+> +			  AIROHA_USB_PMA_AUTO_INIT);
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_0,
+> +			AIROHA_USB_PMA_AUTO_INIT);
+> +
+> +	usleep_range(100, 200);
+> +
+> +	return 0;
+> +}
+> +
+> +static void an7583_usb_phy_tx_pll_enable(struct an7583_usb_phy_priv *priv)
+> +{
+> +	/* PLL Reset to default */
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_ANA],
+> +			  AIROHA_USB_ANA_PLL_IPLL_DIG_PWR_SEL,
+> +			  AIROHA_USB_ANA_PLL_MON_LDO_SEL |
+> +			  AIROHA_USB_ANA_PLL_MONVC_EN);
+> +
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA],
+> +			  AIROHA_USB_PMA_INTF_CTRL_7,
+> +			  AIROHA_USB_PMA_PLL_EN_SEL |
+> +			  AIROHA_USB_PMA_PLL_EN_FORCE);
+> +
+> +	/* PLL Auto Mode (For PMA) */
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA],
+> +			AIROHA_USB_PMA_PLL_CK_CTRL_1,
+> +			AIROHA_USB_PMA_PLL_FORCE_UNSTABLE);
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA],
+> +			AIROHA_USB_PMA_PLL_CK_CTRL_1,
+> +			AIROHA_USB_PMA_PLL_FORCE_STABLE);
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA],
+> +			  AIROHA_USB_PMA_PLL_CK_CTRL_1,
+> +			  AIROHA_USB_PMA_PLL_FORCE_UNSTABLE);
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA],
+> +			  AIROHA_USB_PMA_PLL_CK_CTRL_1,
+> +			  AIROHA_USB_PMA_PLL_FORCE_STABLE);
+> +
+> +	/* TX Auto Mode */
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_INTF_CTRL_6,
+> +			AIROHA_USB_PMA_TX_DATA_EN_FORCE);
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_INTF_CTRL_6,
+> +			  AIROHA_USB_PMA_TX_DATA_EN_SEL);
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_INTF_CTRL_6,
+> +			  AIROHA_USB_PMA_TX_DATA_EN_FORCE);
+> +}
+> +
+> +static void an7583_usb_phy_kband_calibrate(struct an7583_usb_phy_priv *priv)
+> +{
+> +	/* PLL Disable */
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA],
+> +			   AIROHA_USB_PMA_INTF_CTRL_8,
+> +			   AIROHA_USB_PMA_XTAL_EXT_EN_SEL |
+> +			   AIROHA_USB_PMA_XTAL_EXT_EN_FORCE,
+> +			   AIROHA_USB_PMA_XTAL_EXT_EN_SEL |
+> +			   FIELD_PREP(AIROHA_USB_PMA_XTAL_EXT_EN_FORCE, 0x3));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA],
+> +			   AIROHA_USB_PMA_INTF_CTRL_7,
+> +			   AIROHA_USB_PMA_PLL_EN_SEL |
+> +			   AIROHA_USB_PMA_PLL_EN_FORCE,
+> +			   AIROHA_USB_PMA_PLL_EN_SEL);
+> +
+> +	/* PLL Config for CPR */
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA],
+> +			AIROHA_USB_PMA_PLL_CTRL_4,
+> +			AIROHA_USB_PMA_PLL_ICOLP_EN_INTF);
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
+> +			   AIROHA_USB_ANA_SSUSB_BGR_EN,
+> +			   AIROHA_USB_ANA_BIAS_V2V_CAL,
+> +			   FIELD_PREP(AIROHA_USB_ANA_BIAS_V2V_CAL, 0x0));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
+> +			   AIROHA_USB_ANA_PLL_IPLL_DIG_PWR_SEL,
+> +			   AIROHA_USB_ANA_PLL_OSCAL_ENB |
+> +			   AIROHA_USB_ANA_PLL_LDOLPF_VSEL,
+> +			   FIELD_PREP(AIROHA_USB_ANA_PLL_LDOLPF_VSEL, 0x3));
+> +
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA],
+> +			  AIROHA_USB_PMA_PLL_CTRL_2,
+> +			  AIROHA_USB_PMA_PLL_RICO_SEL_INTF |
+> +			  AIROHA_USB_PMA_PLL_ICOIQ_EN_INTF);
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
+> +			   AIROHA_USB_ANA_PLL_IPLL_DIG_PWR_SEL,
+> +			   AIROHA_USB_ANA_PLL_MON_LDO_SEL |
+> +			   AIROHA_USB_ANA_PLL_MONVC_EN,
+> +			   FIELD_PREP(AIROHA_USB_ANA_PLL_MON_LDO_SEL, 0x3) |
+> +			   AIROHA_USB_ANA_PLL_MONVC_EN);
+> +
+> +	/* PLL Enable */
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA],
+> +			AIROHA_USB_PMA_INTF_CTRL_7,
+> +			AIROHA_USB_PMA_PLL_EN_SEL |
+> +			AIROHA_USB_PMA_PLL_EN_FORCE);
+> +}
+> +
+> +static int an7583_usb_phy_u3_init(struct phy *phy)
+> +{
+> +	struct an7583_usb_phy_priv *priv;
+> +	struct device *dev;
+> +
+> +	dev = phy->dev.parent;
+> +	priv = dev_get_drvdata(dev);
+> +
+> +	/* Digital CLK trigger reverse */
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PON_RXFEDIG_CTRL_0,
+> +			  AIROHA_USB_PMA_EQ_RX500M_CK_SEL);
+> +
+> +	/* RX USB PCIE enable */
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_36,
+> +			AIROHA_USB_PMA_PCIE_USB_SYSTEM);
+> +
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_SYS_CTRL_0,
+> +			  AIROHA_USB_PMA_ROC_CK_EN);
+> +
+> +	/* 50MHz XTAL */
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA], AIROHA_USB_ANA_SSUSB_BGR_EN,
+> +			   AIROHA_USB_ANA_SSUSB_BG_DIV |
+> +			   AIROHA_USB_ANA_SSUSB_CHPEN,
+> +			   FIELD_PREP(AIROHA_USB_ANA_SSUSB_BG_DIV, 0x1) |
+> +			   AIROHA_USB_ANA_SSUSB_CHPEN);
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
+> +			   AIROHA_USB_ANA_PLL_IPLL_DIG_PWR_SEL,
+> +			   AIROHA_USB_ANA_PLL_PREDIV,
+> +			   FIELD_PREP(AIROHA_USB_ANA_PLL_PREDIV, 0x1));
+> +
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_4,
+> +			  AIROHA_USB_PMA_PLL_ICOLP_EN_INTF);
+> +
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_DIG], AIROHA_USB_DIG_CK_RST_CTRL_7,
+> +			  AIROHA_USB_DIG_MULTI_USB2P5_EN |
+> +			  AIROHA_USB_DIG_MULTI_USB5_EN);
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_DIG], AIROHA_USB_DIG_CK_RST_CTRL_7,
+> +			AIROHA_USB_DIG_MULTI_USB2P5_EN |
+> +			AIROHA_USB_DIG_MULTI_USB5_EN |
+> +			AIROHA_USB_DIG_MULTI_PHY_USB_EN);
+> +
+> +	/* PLL */
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_2,
+> +			   AIROHA_USB_PMA_PLL_PHY_CK_EN_INTF |
+> +			   AIROHA_USB_PMA_PLL_PCK_SEL_INTF |
+> +			   AIROHA_USB_PMA_PLL_KBAND_PREDIV_INTF |
+> +			   AIROHA_USB_PMA_PLL_IR_INTF |
+> +			   AIROHA_USB_PMA_PLL_ICOIQ_EN_INTF |
+> +			   AIROHA_USB_PMA_PLL_FBKSEL_INTF |
+> +			   AIROHA_USB_PMA_PLL_BPB_INTF |
+> +			   AIROHA_USB_PMA_PLL_BPA_INTF |
+> +			   AIROHA_USB_PMA_PLL_BC_INTF,
+> +			   AIROHA_USB_PMA_PLL_PHY_CK_EN_INTF |
+> +			   AIROHA_USB_PMA_PLL_PCK_SEL_INTF |
+> +			   FIELD_PREP(AIROHA_USB_PMA_PLL_KBAND_PREDIV_INTF, 0x0) |
+> +			   FIELD_PREP(AIROHA_USB_PMA_PLL_IR_INTF, 0x4) |
+> +			   AIROHA_USB_PMA_PLL_ICOIQ_EN_INTF |
+> +			   FIELD_PREP(AIROHA_USB_PMA_PLL_FBKSEL_INTF, 0x0) |
+> +			   FIELD_PREP(AIROHA_USB_PMA_PLL_BPB_INTF, 0x1) |
+> +			   FIELD_PREP(AIROHA_USB_PMA_PLL_BPA_INTF, 0x5) |
+> +			   FIELD_PREP(AIROHA_USB_PMA_PLL_BC_INTF, 0x3));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_4,
+> +			   AIROHA_USB_PMA_PLL_SDM_HREN_INTF,
+> +			   FIELD_PREP(AIROHA_USB_PMA_PLL_SDM_HREN_INTF, 0x1));
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_2,
+> +			AIROHA_USB_PMA_PLL_SDM_IFM_INTF);
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_3,
+> +			   AIROHA_USB_PMA_PLL_SSC_PERIOD_INTF |
+> +			   AIROHA_USB_PMA_PLL_SSC_DELTA_INTF,
+> +			   FIELD_PREP(AIROHA_USB_PMA_PLL_SSC_PERIOD_INTF, 0x18c) |
+> +			   FIELD_PREP(AIROHA_USB_PMA_PLL_SSC_DELTA_INTF, 0x21e));
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_1,
+> +			AIROHA_USB_PMA_PLL_SSC_EN);
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA],
+> +			   AIROHA_USB_PMA_SS_LCPLL_TDC_PCW_1,
+> +			   AIROHA_USB_PMA_LCPLL_PON_HRDDS_PCW_NCPO_GPON,
+> +			   FIELD_PREP(AIROHA_USB_PMA_LCPLL_PON_HRDDS_PCW_NCPO_GPON,
+> +				      0x48000000));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA],
+> +			   AIROHA_USB_PMA_SS_LCPLL_PWCTL_SETTING_2,
+> +			   AIROHA_USB_PMA_NCPO_ANA_MSB,
+> +			   FIELD_PREP(AIROHA_USB_PMA_NCPO_ANA_MSB, 0x1));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA],
+> +			   AIROHA_USB_PMA_SS_LCPLL_TDC_FLT_2,
+> +			   AIROHA_USB_PMA_LCPLL_NCPO_VALUE,
+> +			   FIELD_PREP(AIROHA_USB_PMA_LCPLL_NCPO_VALUE, 0x48000000));
+> +
+> +	/* RX 5G */
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
+> +			   AIROHA_USB_ANA_CDR_LPF_MJV_LIM,
+> +			   AIROHA_USB_ANA_CDR_LPF_RATIO,
+> +			   FIELD_PREP(AIROHA_USB_ANA_CDR_LPF_RATIO, 0x0));
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_ANA],
+> +			AIROHA_USB_ANA_RXAFE_RESERVE,
+> +			AIROHA_USB_ANA_CDR_PD_10B_EN);
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
+> +			   AIROHA_USB_ANA_CDR_PR_CKREF_DIV1,
+> +			   AIROHA_USB_ANA_CDR_PR_DAC_BAND,
+> +			   FIELD_PREP(AIROHA_USB_ANA_CDR_PR_DAC_BAND, 0xc));
+> +
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_ANA],
+> +			  AIROHA_USB_ANA_CDR_FORCE_IBANDLPF_R_OFF,
+> +			  AIROHA_USB_ANA_CDR_PHYCK_RSTB);
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
+> +			   AIROHA_USB_ANA_CDR_PR_KBAND_DIV_PCIE_REG,
+> +			   AIROHA_USB_ANA_CDR_PR_XFICK_EN |
+> +			   AIROHA_USB_ANA_CDR_PR_KBAND_PCIE_MODE,
+> +			   AIROHA_USB_ANA_CDR_PR_KBAND_PCIE_MODE);
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
+> +			   AIROHA_USB_ANA_CDR_PR_CKREF_DIV1,
+> +			   AIROHA_USB_ANA_CDR_PR_KBAND_DIV,
+> +			   FIELD_PREP(AIROHA_USB_ANA_CDR_PR_KBAND_DIV, 0x3));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
+> +			   AIROHA_USB_ANA_CDR_PR_KBAND_DIV_PCIE_REG,
+> +			   AIROHA_USB_ANA_CDR_PR_KBAND_DIV_PCIE,
+> +			   FIELD_PREP(AIROHA_USB_ANA_CDR_PR_KBAND_DIV_PCIE, 0x19));
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_46,
+> +			AIROHA_USB_PMA_REBACK_P0_LCK2REF_EN);
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_49,
+> +			   AIROHA_USB_PMA_LFPS_FINISH_TIME,
+> +			   FIELD_PREP(AIROHA_USB_PMA_LFPS_FINISH_TIME, 0x1f0));
+> +
+> +	/* EQ all */
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_50,
+> +			  AIROHA_USB_PMA_P3_TO_P0_DO_EQ_USB |
+> +			  AIROHA_USB_PMA_P2_TO_P0_DO_EQ_USB |
+> +			  AIROHA_USB_PMA_P1_TO_P0_DO_EQ_USB);
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_46,
+> +			AIROHA_USB_PMA_PCIE_USB_BYPASS_EQ_P3_TO_P0_EN |
+> +			AIROHA_USB_PMA_PCIE_USB_BYPASS_EQ_P2_TO_P0_EN |
+> +			AIROHA_USB_PMA_PCIE_USB_BYPASS_EQ_P1_TO_P0_EN);
+> +
+> +	/* FIXME: ask Airoha why reserve7 is at 6c4 NOT 6c0 */
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_38,
+> +			  FIELD_PREP(AIROHA_USB_PMA_RESERVE_3, BIT(7)));
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_11,
+> +			AIROHA_USB_PMA_FORCE_SIGDET_5G);
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_36,
+> +			   AIROHA_USB_PMA_LCK2DATA_DLY_TIME,
+> +			   FIELD_PREP(AIROHA_USB_PMA_LCK2DATA_DLY_TIME, 0x2));
+> +
+> +	/* PI Cal */
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_DLY_0,
+> +			   AIROHA_USB_PMA_RX_PI_CAL_EN_H_DLY,
+> +			   FIELD_PREP(AIROHA_USB_PMA_RX_PI_CAL_EN_H_DLY, 0x10));
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_ANA], AIROHA_USB_ANA_PLL_SDM_ORD,
+> +			AIROHA_USB_ANA_PLL_SSC_TRI_EN |
+> +			AIROHA_USB_ANA_PLL_SSC_PHASE_INI);
+> +
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_TX_DA_CTRL_3,
+> +			  AIROHA_USB_PMA_TX_DATA_RATE_SEL);
+> +
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_ANA], AIROHA_USB_ANA_RXAFE_RESERVE,
+> +			  AIROHA_USB_ANA_CDR_PD_EDGE_DIS);
+> +
+> +	/* Common Setting */
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_DIG], AIROHA_USB_DIG_CK_RST_CTRL_3,
+> +			AIROHA_USB_DIG_NS_CK_DIV_SEL |
+> +			AIROHA_USB_DIG_US_CK_DIV_SEL);
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_TX_DA_CTRL_0,
+> +			   AIROHA_USB_PMA_RXDET_RD_WAIT_TIMER |
+> +			   AIROHA_USB_PMA_RXDET_EN_WINDOW,
+> +			   FIELD_PREP(AIROHA_USB_PMA_RXDET_RD_WAIT_TIMER, 0x4) |
+> +			   FIELD_PREP(AIROHA_USB_PMA_RXDET_EN_WINDOW, 0xa));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA], AIROHA_USB_ANA_RXLBTX_EN,
+> +			   AIROHA_USB_ANA_TX_DMEDGEGEN_EN |
+> +			   AIROHA_USB_ANA_TX_RXDET_METHOD,
+> +			   AIROHA_USB_ANA_TX_DMEDGEGEN_EN);
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CK_CTRL_2,
+> +			AIROHA_USB_PMA_PCIE_MODE_PLL_AUTO_OFF_EN |
+> +			AIROHA_USB_PMA_PCIE_MODE_PLL_AUTO_ON_EN |
+> +			AIROHA_USB_PMA_PCIE_MODE_PLL_AUTO_EN);
+> +
+> +	/* RX Speed Up */
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_5,
+> +			   AIROHA_USB_PMA_FREDET_CHK_CYCLE,
+> +			   FIELD_PREP(AIROHA_USB_PMA_FREDET_CHK_CYCLE, 0x28));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_6,
+> +			   AIROHA_USB_PMA_FREDET_GOLDEN_CYCLE,
+> +			   FIELD_PREP(AIROHA_USB_PMA_FREDET_GOLDEN_CYCLE, 0x64));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_7,
+> +			   AIROHA_USB_PMA_FREDET_TOLERATE_CYCLE,
+> +			   FIELD_PREP(AIROHA_USB_PMA_FREDET_TOLERATE_CYCLE, 0x2710));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_2,
+> +			   AIROHA_USB_PMA_RX_EQ_EN_H_DLY,
+> +			   FIELD_PREP(AIROHA_USB_PMA_RX_EQ_EN_H_DLY, 0x9c4));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_45,
+> +			   AIROHA_USB_PMA_EQ_EN_DLY,
+> +			   FIELD_PREP(AIROHA_USB_PMA_EQ_EN_DLY, 0x9c4));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_50,
+> +			   AIROHA_USB_PMA_EQ_EN_DLY_SHORT |
+> +			   AIROHA_USB_PMA_RX_EQ_EN_H_DLY_SHORT,
+> +			   FIELD_PREP(AIROHA_USB_PMA_EQ_EN_DLY_SHORT, 0x9c4) |
+> +			   FIELD_PREP(AIROHA_USB_PMA_RX_EQ_EN_H_DLY_SHORT, 0x9c4));
+> +
+> +	/* TCL avoid LT noice impact */
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_ANA], AIROHA_USB_ANA_QP_TX_MODE_16B_EN,
+> +			AIROHA_USB_ANA_TX_RESERVE_8);
+> +
+> +	/* PLL auto init */
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_0,
+> +			AIROHA_USB_PMA_AUTO_INIT);
+> +
+> +	usleep_range(100, 300);
+> +
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CK_CTRL_2,
+> +			  AIROHA_USB_PMA_PCIE_MODE_PLL_AUTO_EN);
+> +
+> +	if (!an7583_usb_phy_u3_kband_is_calibrated(priv)) {
+> +		int i;
+> +
+> +		/* TX Force Disable */
+> +		regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA],
+> +				   AIROHA_USB_PMA_INTF_CTRL_6,
+> +				   AIROHA_USB_PMA_TX_DATA_EN_SEL |
+> +				   AIROHA_USB_PMA_TX_DATA_EN_FORCE,
+> +				   AIROHA_USB_PMA_TX_DATA_EN_SEL);
+> +
+> +		/* PLL Force Unstable */
+> +		regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA],
+> +				AIROHA_USB_PMA_PLL_CK_CTRL_1,
+> +				AIROHA_USB_PMA_PLL_FORCE_UNSTABLE);
+> +
+> +		for (i = 0; i < AIROHA_USB_PHY_U3_MAX_CALIB_TRY; i++) {
+> +			an7583_usb_phy_kband_calibrate(priv);
+> +
+> +			/* Exit as soon as we manage to calibrate */
+> +			if (an7583_usb_phy_u3_kband_is_calibrated(priv))
+> +				break;
+> +		}
+> +	}
+> +
+> +	an7583_usb_phy_tx_pll_enable(priv);
+> +
+> +	return !an7583_usb_phy_u3_kband_is_calibrated(priv) ? -EINVAL : 0;
+> +}
+> +
+> +static int an7583_usb_phy_pcie_init(struct phy *phy)
+> +{
+> +	struct an7583_usb_phy_priv *priv;
+> +	struct device *dev;
+> +	int i;
+> +
+> +	dev = phy->dev.parent;
+> +	priv = dev_get_drvdata(dev);
+> +
+> +	/* TX Force Disable */
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA],
+> +			   AIROHA_USB_PMA_INTF_CTRL_6,
+> +			   AIROHA_USB_PMA_TX_DATA_EN_SEL |
+> +			   AIROHA_USB_PMA_TX_DATA_EN_FORCE,
+> +			   AIROHA_USB_PMA_TX_DATA_EN_SEL);
+> +
+> +	/* PLL Force Unstable */
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA],
+> +			AIROHA_USB_PMA_PLL_CK_CTRL_1,
+> +			AIROHA_USB_PMA_PLL_FORCE_UNSTABLE);
+> +
+> +	/* PLL Disable */
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_0,
+> +			  AIROHA_USB_PMA_AUTO_INIT);
+> +
+> +	usleep_range(1000, 1500);
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_0,
+> +			AIROHA_USB_PMA_AUTO_INIT);
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA],
+> +			   AIROHA_USB_PMA_INTF_CTRL_7,
+> +			   AIROHA_USB_PMA_PLL_EN_SEL |
+> +			   AIROHA_USB_PMA_PLL_EN_FORCE,
+> +			   AIROHA_USB_PMA_PLL_EN_SEL);
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_36,
+> +			AIROHA_USB_PMA_PCIE_USB_SYSTEM);
+> +
+> +	/* 50MHz XTAL */
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA], AIROHA_USB_ANA_SSUSB_BGR_EN,
+> +			   AIROHA_USB_ANA_SSUSB_BG_DIV,
+> +			   FIELD_PREP(AIROHA_USB_ANA_SSUSB_BG_DIV, 0x1));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
+> +			   AIROHA_USB_ANA_PLL_IPLL_DIG_PWR_SEL,
+> +			   AIROHA_USB_ANA_PLL_PREDIV,
+> +			   FIELD_PREP(AIROHA_USB_ANA_PLL_PREDIV, 0x1));
+> +
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_4,
+> +			  AIROHA_USB_PMA_PLL_ICOLP_EN_INTF);
+> +
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_DIG], AIROHA_USB_DIG_CK_RST_CTRL_7,
+> +			  AIROHA_USB_DIG_MULTI_USB2P5_EN |
+> +			  AIROHA_USB_DIG_MULTI_USB5_EN);
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_DIG], AIROHA_USB_DIG_CK_RST_CTRL_7,
+> +			AIROHA_USB_DIG_MULTI_USB2P5_EN |
+> +			AIROHA_USB_DIG_MULTI_USB5_EN |
+> +			AIROHA_USB_DIG_MULTI_PHY_USB_EN);
+> +
+> +	/* PLL RG */
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_2,
+> +			   AIROHA_USB_PMA_PLL_PHY_CK_EN_INTF |
+> +			   AIROHA_USB_PMA_PLL_PCK_SEL_INTF |
+> +			   AIROHA_USB_PMA_PLL_KBAND_PREDIV_INTF |
+> +			   AIROHA_USB_PMA_PLL_IR_INTF |
+> +			   AIROHA_USB_PMA_PLL_ICOIQ_EN_INTF |
+> +			   AIROHA_USB_PMA_PLL_FBKSEL_INTF |
+> +			   AIROHA_USB_PMA_PLL_BPB_INTF |
+> +			   AIROHA_USB_PMA_PLL_BPA_INTF |
+> +			   AIROHA_USB_PMA_PLL_BC_INTF,
+> +			   AIROHA_USB_PMA_PLL_PCK_SEL_INTF |
+> +			   FIELD_PREP(AIROHA_USB_PMA_PLL_KBAND_PREDIV_INTF, 0x0) |
+> +			   FIELD_PREP(AIROHA_USB_PMA_PLL_IR_INTF, 0x4) |
+> +			   AIROHA_USB_PMA_PLL_ICOIQ_EN_INTF |
+> +			   FIELD_PREP(AIROHA_USB_PMA_PLL_FBKSEL_INTF, 0x0) |
+> +			   FIELD_PREP(AIROHA_USB_PMA_PLL_BPB_INTF, 0x1) |
+> +			   FIELD_PREP(AIROHA_USB_PMA_PLL_BPA_INTF, 0x5) |
+> +			   FIELD_PREP(AIROHA_USB_PMA_PLL_BC_INTF, 0x3));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_4,
+> +			   AIROHA_USB_PMA_PLL_SDM_HREN_INTF,
+> +			   FIELD_PREP(AIROHA_USB_PMA_PLL_SDM_HREN_INTF, 0x1));
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_2,
+> +			AIROHA_USB_PMA_PLL_SDM_IFM_INTF);
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_3,
+> +			   AIROHA_USB_PMA_PLL_SSC_PERIOD_INTF |
+> +			   AIROHA_USB_PMA_PLL_SSC_DELTA_INTF,
+> +			   FIELD_PREP(AIROHA_USB_PMA_PLL_SSC_PERIOD_INTF, 0x91c) |
+> +			   FIELD_PREP(AIROHA_USB_PMA_PLL_SSC_DELTA_INTF, 0x1fd));
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_1,
+> +			AIROHA_USB_PMA_PLL_SSC_EN);
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA],
+> +			   AIROHA_USB_PMA_SS_LCPLL_TDC_PCW_1,
+> +			   AIROHA_USB_PMA_LCPLL_PON_HRDDS_PCW_NCPO_GPON,
+> +			   FIELD_PREP(AIROHA_USB_PMA_LCPLL_PON_HRDDS_PCW_NCPO_GPON,
+> +				      0x48000000));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA],
+> +			   AIROHA_USB_PMA_SS_LCPLL_PWCTL_SETTING_2,
+> +			   AIROHA_USB_PMA_NCPO_ANA_MSB,
+> +			   FIELD_PREP(AIROHA_USB_PMA_NCPO_ANA_MSB, 0x1));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA],
+> +			   AIROHA_USB_PMA_SS_LCPLL_TDC_FLT_2,
+> +			   AIROHA_USB_PMA_LCPLL_NCPO_VALUE,
+> +			   FIELD_PREP(AIROHA_USB_PMA_LCPLL_NCPO_VALUE, 0x48000000));
+> +
+> +	/* RX RG */
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
+> +			   AIROHA_USB_ANA_CDR_LPF_MJV_LIM,
+> +			   AIROHA_USB_ANA_CDR_LPF_RATIO,
+> +			   FIELD_PREP(AIROHA_USB_ANA_CDR_LPF_RATIO, 0x1));
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_ANA],
+> +			AIROHA_USB_ANA_RXAFE_RESERVE,
+> +			AIROHA_USB_ANA_CDR_PD_10B_EN);
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
+> +			   AIROHA_USB_ANA_CDR_PR_CKREF_DIV1,
+> +			   AIROHA_USB_ANA_CDR_PR_DAC_BAND,
+> +			   FIELD_PREP(AIROHA_USB_ANA_CDR_PR_DAC_BAND, 0xc));
+> +
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_ANA],
+> +			  AIROHA_USB_ANA_CDR_FORCE_IBANDLPF_R_OFF,
+> +			  AIROHA_USB_ANA_CDR_PHYCK_RSTB);
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
+> +			   AIROHA_USB_ANA_CDR_PR_KBAND_DIV_PCIE_REG,
+> +			   AIROHA_USB_ANA_CDR_PR_XFICK_EN |
+> +			   AIROHA_USB_ANA_CDR_PR_KBAND_PCIE_MODE,
+> +			   AIROHA_USB_ANA_CDR_PR_KBAND_PCIE_MODE);
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
+> +			   AIROHA_USB_ANA_CDR_PR_CKREF_DIV1,
+> +			   AIROHA_USB_ANA_CDR_PR_KBAND_DIV,
+> +			   FIELD_PREP(AIROHA_USB_ANA_CDR_PR_KBAND_DIV, 0x3));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA],
+> +			   AIROHA_USB_ANA_CDR_PR_KBAND_DIV_PCIE_REG,
+> +			   AIROHA_USB_ANA_CDR_PR_KBAND_DIV_PCIE,
+> +			   FIELD_PREP(AIROHA_USB_ANA_CDR_PR_KBAND_DIV_PCIE, 0x19));
+> +
+> +	/* Init L0/L0S U0/U1 */
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_46,
+> +			AIROHA_USB_PMA_REBACK_P0_LCK2REF_EN |
+> +			AIROHA_USB_PMA_PCIE_USB_BYPASS_EQ_P1_TO_P0_EN);
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_11,
+> +			AIROHA_USB_PMA_FORCE_SIGDET_5G);
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_36,
+> +			   AIROHA_USB_PMA_LCK2DATA_DLY_TIME,
+> +			   FIELD_PREP(AIROHA_USB_PMA_LCK2DATA_DLY_TIME, 0x2));
+> +
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_ANA], AIROHA_USB_ANA_RXAFE_RESERVE,
+> +			  AIROHA_USB_ANA_CDR_PD_EDGE_DIS);
+> +
+> +	/* PI Calibration */
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_DLY_0,
+> +			   AIROHA_USB_PMA_RX_PI_CAL_EN_H_DLY,
+> +			   FIELD_PREP(AIROHA_USB_PMA_RX_PI_CAL_EN_H_DLY, 0x10));
+> +
+> +	/* CRS detect and CLK TRX Control */
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_10,
+> +			AIROHA_USB_PMA_CRSDET_RSTB);
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_ANA], AIROHA_USB_ANA_PLL_SDM_ORD,
+> +			AIROHA_USB_ANA_PLL_SSC_TRI_EN |
+> +			AIROHA_USB_ANA_PLL_SSC_PHASE_INI);
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CK_CTRL_0,
+> +			   AIROHA_USB_PMA_PCIE_CLKTX_EN_INTF |
+> +			   AIROHA_USB_PMA_PCIE_CLKRX_EN_INTF,
+> +			   AIROHA_USB_PMA_PCIE_CLKTX_EN_INTF);
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA], AIROHA_USB_ANA_CLKDRV_IMPSEL,
+> +			   AIROHA_USB_ANA_PCIE_CLKDRV_AMP |
+> +			   AIROHA_USB_ANA_PCIE_CLKDRV_FORCEIN |
+> +			   AIROHA_USB_ANA_PCIE_CLKDRV_HZ |
+> +			   AIROHA_USB_ANA_PCIE_CLKDRV_RP |
+> +			   AIROHA_USB_ANA_PCIE_CLKDRV_IMPSEL,
+> +			   FIELD_PREP(AIROHA_USB_ANA_PCIE_CLKDRV_AMP, 0x4) |
+> +			   FIELD_PREP(AIROHA_USB_ANA_PCIE_CLKDRV_FORCEIN, 0x1) |
+> +			   FIELD_PREP(AIROHA_USB_ANA_PCIE_CLKDRV_RP, 0xc) |
+> +			   FIELD_PREP(AIROHA_USB_ANA_PCIE_CLKDRV_IMPSEL, 0x12));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_TX_DA_CTRL_3,
+> +			   AIROHA_USB_PMA_TX_DATA_RATE_SEL,
+> +			   FIELD_PREP(AIROHA_USB_PMA_TX_DATA_RATE_SEL, 0x1));
+> +
+> +	/* Common Setting */
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_DIG], AIROHA_USB_DIG_CK_RST_CTRL_3,
+> +			AIROHA_USB_DIG_NS_CK_DIV_SEL |
+> +			AIROHA_USB_DIG_US_CK_DIV_SEL);
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_TX_DA_CTRL_0,
+> +			   AIROHA_USB_PMA_RXDET_RD_WAIT_TIMER |
+> +			   AIROHA_USB_PMA_RXDET_EN_WINDOW,
+> +			   FIELD_PREP(AIROHA_USB_PMA_RXDET_RD_WAIT_TIMER, 0x4) |
+> +			   FIELD_PREP(AIROHA_USB_PMA_RXDET_EN_WINDOW, 0xa));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_ANA], AIROHA_USB_ANA_RXLBTX_EN,
+> +			   AIROHA_USB_ANA_TX_DMEDGEGEN_EN |
+> +			   AIROHA_USB_ANA_TX_RXDET_METHOD,
+> +			   AIROHA_USB_ANA_TX_DMEDGEGEN_EN);
+> +
+> +	/* PLL auto ON/OFF at L2/U3 state */
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CK_CTRL_2,
+> +			AIROHA_USB_PMA_PCIE_MODE_PLL_AUTO_OFF_EN |
+> +			AIROHA_USB_PMA_PCIE_MODE_PLL_AUTO_ON_EN |
+> +			AIROHA_USB_PMA_PCIE_MODE_PLL_AUTO_EN);
+> +
+> +	/* RX speed up */
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_5,
+> +			   AIROHA_USB_PMA_FREDET_CHK_CYCLE,
+> +			   FIELD_PREP(AIROHA_USB_PMA_FREDET_CHK_CYCLE, 0x28));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_6,
+> +			   AIROHA_USB_PMA_FREDET_GOLDEN_CYCLE,
+> +			   FIELD_PREP(AIROHA_USB_PMA_FREDET_GOLDEN_CYCLE, 0x64));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_7,
+> +			   AIROHA_USB_PMA_FREDET_TOLERATE_CYCLE,
+> +			   FIELD_PREP(AIROHA_USB_PMA_FREDET_TOLERATE_CYCLE, 0x2710));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_2,
+> +			   AIROHA_USB_PMA_RX_EQ_EN_H_DLY,
+> +			   FIELD_PREP(AIROHA_USB_PMA_RX_EQ_EN_H_DLY, 0x9c4));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_45,
+> +			   AIROHA_USB_PMA_EQ_EN_DLY,
+> +			   FIELD_PREP(AIROHA_USB_PMA_EQ_EN_DLY, 0x9c4));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_RX_CTRL_50,
+> +			   AIROHA_USB_PMA_EQ_EN_DLY_SHORT |
+> +			   AIROHA_USB_PMA_RX_EQ_EN_H_DLY_SHORT,
+> +			   FIELD_PREP(AIROHA_USB_PMA_EQ_EN_DLY_SHORT, 0x9c4) |
+> +			   FIELD_PREP(AIROHA_USB_PMA_RX_EQ_EN_H_DLY_SHORT, 0x9c4));
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_ANA], AIROHA_USB_ANA_QP_TX_MODE_16B_EN,
+> +			AIROHA_USB_ANA_TX_RESERVE_8);
+> +
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PON_RXFEDIG_CTRL_0,
+> +			  AIROHA_USB_PMA_EQ_RX500M_CK_SEL);
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_PLL_CTRL_0,
+> +			AIROHA_USB_PMA_AUTO_INIT);
+> +
+> +	/* Select PLL_EN to Force mode */
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA],
+> +			AIROHA_USB_PMA_INTF_CTRL_7,
+> +			AIROHA_USB_PMA_PLL_EN_SEL |
+> +			AIROHA_USB_PMA_PLL_EN_FORCE);
+> +
+> +	/* Try to calibrate KBand up to AIROHA_USB_PHY_U3_MAX_CALIB_TRY times */
+> +	for (i = 0; i < AIROHA_USB_PHY_U3_MAX_CALIB_TRY; i++) {
+> +		/* Check if KBand is calibrated */
+> +		if (an7583_usb_phy_u3_kband_is_calibrated(priv))
+> +			break;
+> +
+> +		/* Trigger KBand calibration */
+> +		an7583_usb_phy_kband_calibrate(priv);
+> +	}
+> +
+> +	an7583_usb_phy_tx_pll_enable(priv);
+> +
+> +	return !an7583_usb_phy_u3_kband_is_calibrated(priv) ? -EINVAL : 0;
+> +}
+> +
+> +static int an7583_usb_phy_init(struct phy *phy)
+> +{
+> +	struct an7583_usb_phy_instance *instance = phy_get_drvdata(phy);
+> +
+> +	switch (instance->type) {
+> +	case PHY_TYPE_USB2:
+> +		return an7583_usb_phy_u2_init(phy);
+> +	case PHY_TYPE_USB3:
+> +		if (phy_get_mode(phy) == PHY_MODE_ETHERNET)
+> +			return 0;
+> +
+> +		return an7583_usb_phy_u3_init(phy);
+> +	case PHY_TYPE_PCIE:
+> +		if (phy_get_mode(phy) == PHY_MODE_ETHERNET)
+> +			return 0;
+> +
+> +		return an7583_usb_phy_pcie_init(phy);
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static int an7583_usb_phy_exit(struct phy *phy)
+> +{
+> +	return 0;
+> +}
+> +
+> +static int an7583_usb_phy_u2_power_on(struct phy *phy)
+> +{
+> +	struct an7583_usb_phy_instance *instance = phy_get_drvdata(phy);
+> +	struct an7583_usb_phy_priv *priv;
+> +	struct device *dev;
+> +	u32 offset;
+> +
+> +	dev = phy->dev.parent;
+> +	priv = dev_get_drvdata(dev);
+> +	offset = instance->offset;
+> +
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PHY],
+> +			  AIROHA_USB_PHY_USBPHYACR6 + offset,
+> +			  AIROHA_USB_PHY_USB20_BC11_SW_EN);
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PHY],
+> +			AIROHA_USB_PHY_USBPHYACR2 + offset,
+> +			AIROHA_USB_PHY_SIFSLV_MAC_BANDGAP_EN);
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PHY],
+> +			   AIROHA_USB_PHY_U2PHYACR3 + offset,
+> +			   AIROHA_USB_PHY_USB20_HSTX_I_EN_MODE,
+> +			   AIROHA_USB_PHY_USB20_HSTX_I_EN_MODE_TOGGLE);
+> +
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PHY],
+> +			  AIROHA_USB_PHY_U2PHYDTM0 + offset,
+> +			  AIROHA_USB_PHY_FORCE_XCVRSEL |
+> +			  AIROHA_USB_PHY_XCVRSEL);
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PHY],
+> +			   AIROHA_USB_PHY_USBPHYACR6 + offset,
+> +			   AIROHA_USB_PHY_USB20_HSRX_BIAS_EN_SEL,
+> +			   AIROHA_USB_PHY_USB20_HSRX_BIAS_EN_SEL_NO_ENPLL_FS_BIAS_EN);
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PHY],
+> +			AIROHA_USB_PHY_USBPHYACR5 + offset,
+> +			AIROHA_USB_PHY_USB20_DISC_FIT_EN);
+> +
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PHY],
+> +			  AIROHA_USB_PHY_U2PHYDTM0 + offset,
+> +			  AIROHA_USB_PHY_FORCE_SUSPENDDM);
+> +
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PHY],
+> +			  AIROHA_USB_PHY_U2PHYACR3 + offset,
+> +			  AIROHA_USB_PHY_USB20_USB11_TMODE_EN);
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PHY],
+> +			AIROHA_USB_PHY_U2PHYACR3 + offset,
+> +			AIROHA_USB_PHY_USB20_TMODE_FS_LS_TX_EN);
+> +
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PHY],
+> +			  AIROHA_USB_PHY_U2PHYDTM0 + offset,
+> +			  AIROHA_USB_PHY_FORCE_TERMSEL |
+> +			  AIROHA_USB_PHY_TERMSEL);
+> +
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PHY],
+> +			  AIROHA_USB_PHY_U2PHYACR3 + offset,
+> +			  AIROHA_USB_PHY_USB20_PUPD_BIST_EN);
+> +
+> +	return 0;
+> +}
+> +
+> +static int an7583_usb_phy_u3_power_on(struct phy *phy)
+> +{
+> +	struct an7583_usb_phy_priv *priv;
+> +	struct device *dev;
+> +
+> +	dev = phy->dev.parent;
+> +	priv = dev_get_drvdata(dev);
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_ANA], AIROHA_USB_ANA_TDC_FT_CK_EN,
+> +			AIROHA_USB_ANA_VUSB10_ON);
+> +
+> +	usleep_range(1000, 1500);
+> +
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PHY], AIROHA_USB_PHY_GPIO_CTLD,
+> +			  AIROHA_USB_PHY_SSUSB_IP_SW_RST);
+> +
+> +	usleep_range(1000, 1500);
+> +
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PHY], AIROHA_USB_PHY_GPIO_CTLD,
+> +			  AIROHA_USB_PHY_FORCE_SSUSB_IP_SW_RST);
+> +
+> +	usleep_range(1000, 1500);
+> +
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_INTF_CTRL_5,
+> +			  AIROHA_USB_PMA_RX_HZ_FORCE);
+> +
+> +	usleep_range(1000, 1500);
+> +
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_INTF_CTRL_5,
+> +			  AIROHA_USB_PMA_RX_HZ_SEL);
+> +
+> +	return 0;
+> +}
+> +
+> +static int an7583_usb_phy_power_on(struct phy *phy)
+> +{
+> +	struct an7583_usb_phy_instance *instance = phy_get_drvdata(phy);
+> +
+> +	switch (instance->type) {
+> +	case PHY_TYPE_USB2:
+> +		return an7583_usb_phy_u2_power_on(phy);
+> +	case PHY_TYPE_USB3:
+> +		return an7583_usb_phy_u3_power_on(phy);
+> +	case PHY_TYPE_PCIE:
+> +		return 0;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static int an7583_usb_phy_u2_power_off(struct phy *phy)
+> +{
+> +	struct an7583_usb_phy_instance *instance = phy_get_drvdata(phy);
+> +	struct an7583_usb_phy_priv *priv;
+> +	struct device *dev;
+> +	u32 offset;
+> +
+> +	dev = phy->dev.parent;
+> +	priv = dev_get_drvdata(dev);
+> +	offset = instance->offset;
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PHY],
+> +			AIROHA_USB_PHY_U2PHYACR3 + offset,
+> +			AIROHA_USB_PHY_USB20_PUPD_BIST_EN);
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PHY],
+> +			AIROHA_USB_PHY_U2PHYDTM0 + offset,
+> +			AIROHA_USB_PHY_FORCE_TERMSEL |
+> +			AIROHA_USB_PHY_TERMSEL);
+> +
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PHY],
+> +			  AIROHA_USB_PHY_U2PHYACR3 + offset,
+> +			  AIROHA_USB_PHY_USB20_TMODE_FS_LS_TX_EN);
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PHY],
+> +			AIROHA_USB_PHY_U2PHYACR3 + offset,
+> +			AIROHA_USB_PHY_USB20_USB11_TMODE_EN);
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PHY],
+> +			AIROHA_USB_PHY_U2PHYDTM0 + offset,
+> +			AIROHA_USB_PHY_FORCE_SUSPENDDM);
+> +
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PHY],
+> +			  AIROHA_USB_PHY_USBPHYACR5 + offset,
+> +			  AIROHA_USB_PHY_USB20_DISC_FIT_EN);
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PHY],
+> +			   AIROHA_USB_PHY_USBPHYACR6 + offset,
+> +			   AIROHA_USB_PHY_USB20_HSRX_BIAS_EN_SEL,
+> +			   AIROHA_USB_PHY_USB20_HSRX_BIAS_EN_SEL_USB20_HSRX_TMODE_EN);
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PHY],
+> +			   AIROHA_USB_PHY_U2PHYDTM0 + offset,
+> +			   AIROHA_USB_PHY_FORCE_XCVRSEL |
+> +			   AIROHA_USB_PHY_XCVRSEL,
+> +			   AIROHA_USB_PHY_FORCE_XCVRSEL |
+> +			   FIELD_PREP(AIROHA_USB_PHY_XCVRSEL, 0x1));
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PHY],
+> +			   AIROHA_USB_PHY_U2PHYACR3 + offset,
+> +			   AIROHA_USB_PHY_USB20_HSTX_I_EN_MODE,
+> +			   AIROHA_USB_PHY_USB20_HSTX_I_EN_MODE_FORCE_DISABLE);
+> +
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_PHY],
+> +			  AIROHA_USB_PHY_USBPHYACR2 + offset,
+> +			  AIROHA_USB_PHY_SIFSLV_MAC_BANDGAP_EN);
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PHY],
+> +			AIROHA_USB_PHY_USBPHYACR6 + offset,
+> +			AIROHA_USB_PHY_USB20_BC11_SW_EN);
+> +
+> +	return 0;
+> +}
+> +
+> +static int an7583_usb_phy_u3_power_off(struct phy *phy)
+> +{
+> +	struct an7583_usb_phy_priv *priv;
+> +	struct device *dev;
+> +
+> +	dev = phy->dev.parent;
+> +	priv = dev_get_drvdata(dev);
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PHY], AIROHA_USB_PHY_GPIO_CTLD,
+> +			AIROHA_USB_PHY_FORCE_SSUSB_IP_SW_RST);
+> +
+> +	usleep_range(1000, 1500);
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PHY], AIROHA_USB_PHY_GPIO_CTLD,
+> +			AIROHA_USB_PHY_SSUSB_IP_SW_RST);
+> +
+> +	usleep_range(1000, 1500);
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_INTF_CTRL_5,
+> +			AIROHA_USB_PMA_RX_HZ_FORCE);
+> +
+> +	usleep_range(1000, 1500);
+> +
+> +	regmap_set_bits(priv->regs[AIROHA_USB_PHY_PMA], AIROHA_USB_PMA_INTF_CTRL_5,
+> +			AIROHA_USB_PMA_RX_HZ_SEL);
+> +
+> +	usleep_range(1000, 1500);
+> +
+> +	regmap_clear_bits(priv->regs[AIROHA_USB_PHY_ANA], AIROHA_USB_ANA_TDC_FT_CK_EN,
+> +			  AIROHA_USB_ANA_VUSB10_ON);
+> +
+> +	return 0;
+> +}
+> +
+> +static int an7583_usb_phy_power_off(struct phy *phy)
+> +{
+> +	struct an7583_usb_phy_instance *instance = phy_get_drvdata(phy);
+> +
+> +	switch (instance->type) {
+> +	case PHY_TYPE_USB2:
+> +		return an7583_usb_phy_u2_power_off(phy);
+> +	case PHY_TYPE_USB3:
+> +		return an7583_usb_phy_u3_power_off(phy);
+> +	case PHY_TYPE_PCIE:
+> +		return 0;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static int an7583_usb_phy_u2_set_mode(struct phy *phy, enum phy_mode mode)
+> +{
+> +	struct an7583_usb_phy_instance *instance = phy_get_drvdata(phy);
+> +	struct an7583_usb_phy_priv *priv;
+> +	struct device *dev;
+> +	u32 val = 0;
+> +	u32 offset;
+> +
+> +	dev = phy->dev.parent;
+> +	priv = dev_get_drvdata(dev);
+> +	offset = instance->offset;
+> +
+> +	/*
+> +	 * For Device and Host mode, enable force IDDIG.
+> +	 * For Device set IDDIG, for Host clear IDDIG.
+> +	 * For OTG disable force and clear IDDIG bit while at it.
+> +	 */
+> +	switch (mode) {
+> +	case PHY_MODE_USB_DEVICE:
+> +		val |= AIROHA_USB_PHY_IDDIG;
+> +		fallthrough;
+> +	case PHY_MODE_USB_HOST:
+> +		val |= AIROHA_USB_PHY_FORCE_IDDIG;
+> +		break;
+> +	case PHY_MODE_USB_OTG:
+> +		break;
+> +	default:
+> +		return 0;
+> +	}
+> +
+> +	regmap_update_bits(priv->regs[AIROHA_USB_PHY_PHY],
+> +			   AIROHA_USB_PHY_U2PHYDTM1 + offset,
+> +			   AIROHA_USB_PHY_FORCE_IDDIG |
+> +			   AIROHA_USB_PHY_IDDIG, val);
+> +
+> +	return 0;
+> +}
+> +
+> +static int an7583_usb_phy_u3_set_mode(struct phy *phy, enum phy_mode mode,
+> +				      int submode)
+> +{
+> +	struct an7583_usb_phy_instance *instance = phy_get_drvdata(phy);
+> +	int ret;
+> +
+> +	switch (mode) {
+> +	case PHY_MODE_ETHERNET:
+> +		if (submode != PHY_INTERFACE_MODE_SGMII &&
+> +		    submode != PHY_INTERFACE_MODE_1000BASEX &&
+> +		    submode != PHY_INTERFACE_MODE_2500BASEX)
+> +			return -EOPNOTSUPP;
+> +
+> +		break;
+> +	case PHY_MODE_USB_DEVICE_SS:
+> +		break;
+> +	default:
+> +		return -EOPNOTSUPP;
+> +	}
+> +
+> +	ret = phy_set_mode_ext(instance->serdes_phy, mode, submode);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (mode == PHY_MODE_ETHERNET)
+> +		an7583_usb_phy_set_mode_eth(phy, submode);
+> +
+> +	return 0;
+> +}
+> +
+> +static int an7583_usb_phy_pcie_set_mode(struct phy *phy, enum phy_mode mode,
+> +					int submode)
+> +{
+> +	struct an7583_usb_phy_instance *instance = phy_get_drvdata(phy);
+> +	int ret;
+> +
+> +	switch (mode) {
+> +	case PHY_MODE_ETHERNET:
+> +		if (submode != PHY_INTERFACE_MODE_SGMII &&
+> +		    submode != PHY_INTERFACE_MODE_1000BASEX &&
+> +		    submode != PHY_INTERFACE_MODE_2500BASEX)
+> +			return -EOPNOTSUPP;
+> +
+> +		break;
+> +	case PHY_MODE_PCIE:
+> +		break;
+> +	default:
+> +		return -EOPNOTSUPP;
+> +	}
+> +
+> +	ret = phy_set_mode_ext(instance->serdes_phy, mode, submode);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (mode == PHY_MODE_ETHERNET)
+> +		an7583_usb_phy_set_mode_eth(phy, submode);
+> +
+> +	return 0;
+> +}
+> +
+> +static int an7583_usb_phy_set_mode(struct phy *phy, enum phy_mode mode, int submode)
+> +{
+> +	struct an7583_usb_phy_instance *instance = phy_get_drvdata(phy);
+> +
+> +	switch (instance->type) {
+> +	case PHY_TYPE_USB2:
+> +		return an7583_usb_phy_u2_set_mode(phy, mode);
+> +	case PHY_TYPE_USB3:
+> +		return an7583_usb_phy_u3_set_mode(phy, mode, submode);
+> +	case PHY_TYPE_PCIE:
+> +		return an7583_usb_phy_pcie_set_mode(phy, mode, submode);
+> +	default:
+> +		return 0;
+> +	}
+> +}
+> +
+> +static struct phy *an7583_usb_phy_xlate(struct device *dev,
+> +					const struct of_phandle_args *args)
+> +{
+> +	struct an7583_usb_phy_priv *priv = dev_get_drvdata(dev);
+> +	const struct an7583_usb_phy_match_data *data;
+> +	struct device_node *phy_np = args->np;
+> +	struct phy *phy = NULL;
+> +	int type, index;
+> +
+> +	data = of_device_get_match_data(dev);
+> +
+> +	if (args->args_count != 1) {
+> +		dev_err(dev, "invalid number of cells in 'phy' property\n");
+> +		return ERR_PTR(-EINVAL);
+> +	}
+> +
+> +	for (index = 0; index < data->max_instance; index++) {
+> +		if (!priv->phys[index])
+> +			continue;
+> +
+> +		if (phy_np == priv->phys[index]->dev.of_node) {
+> +			phy = priv->phys[index];
+> +			break;
+> +		}
+> +	}
+> +
+> +	if (!phy) {
+> +		dev_err(dev, "failed to find appropriate phy\n");
+> +		return ERR_PTR(-EINVAL);
+> +	}
+> +
+> +	type = args->args[0];
+> +	if (!(type == PHY_TYPE_USB2 || type == PHY_TYPE_USB3 ||
+> +	      type == PHY_TYPE_PCIE)) {
+> +		dev_err(dev, "unsupported device type: %d\n", type);
+> +		return ERR_PTR(-EINVAL);
+> +	}
+> +
+> +	return phy;
+> +}
+> +
+> +static const struct phy_ops airoha_phy = {
+> +	.init		= an7583_usb_phy_init,
+> +	.exit		= an7583_usb_phy_exit,
+> +	.power_on	= an7583_usb_phy_power_on,
+> +	.power_off	= an7583_usb_phy_power_off,
+> +	.set_mode	= an7583_usb_phy_set_mode,
+> +	.owner		= THIS_MODULE,
+> +};
+> +
+> +static const char * const an7583_usb_phy_regs_name[AIROHA_USB_PHY_REGS_MAX] = {
+> +	[AIROHA_USB_PHY_PHY] = "phy",
+> +	[AIROHA_USB_PHY_ANA] = "ana",
+> +	[AIROHA_USB_PHY_PMA] = "pma",
+> +	[AIROHA_USB_PHY_DIG] = "dig",
+> +};
+> +
+> +static const char * const airoha_pcie_phy_regs_name[AIROHA_USB_PHY_REGS_MAX] = {
+> +	[AIROHA_USB_PHY_ANA] = "ana",
+> +	[AIROHA_USB_PHY_PMA] = "pma",
+> +	[AIROHA_USB_PHY_DIG] = "dig",
+> +};
+> +
+> +static int an7583_usb_phy_parse_ports(struct device *dev,
+> +				      struct an7583_usb_phy_priv *priv,
+> +				      int index, struct device_node *subnode)
+> +{
+> +	const struct an7583_usb_phy_match_data *data;
+> +	struct an7583_usb_phy_instance  *instance;
+> +	struct phy *phy;
+> +	int ret;
+> +
+> +	data = of_device_get_match_data(dev);
+> +
+> +	if (index >= data->max_instance)
+> +		return -EINVAL;
+> +
+> +	if (!of_device_is_available(subnode))
+> +		return 0;
+> +
+> +	instance = devm_kzalloc(dev, sizeof(*instance), GFP_KERNEL);
+> +	if (!instance)
+> +		return -ENOMEM;
+> +
+> +	instance->serdes_phy = devm_of_phy_optional_get(dev, subnode, NULL);
+> +	if (IS_ERR(instance->serdes_phy))
+> +		return dev_err_probe(dev, PTR_ERR(instance->serdes_phy), "error on serdes phy for USB 3.0\n");
+> +
+> +	if (!instance->serdes_phy &&
+> +	    !of_property_present(subnode, "airoha,usb2-monitor-clk-sel"))
+> +		return dev_err_probe(dev, -EINVAL, "monitor clock selection or serdes PHY is mandatory for USB PHY\n");
+> +
+> +	if (instance->serdes_phy) {
+> +		instance->type = PHY_TYPE_USB3;
+> +	} else {
+> +		ret = of_property_read_u32(subnode, "airoha,usb2-monitor-clk-sel",
+> +					   &instance->monclk_sel);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret, "failed to parse Monitor clock selection\n");
+> +
+> +		ret = of_property_read_u32(subnode, "reg",
+> +					   &instance->offset);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret, "missing reg for U2 PHY\n");
+> +
+> +		instance->type = PHY_TYPE_USB2;
+> +	}
+> +
+> +	phy = devm_phy_create(dev, subnode, &airoha_phy);
+> +	if (IS_ERR(phy))
+> +		return dev_err_probe(dev, PTR_ERR(phy), "failed to create phy\n");
+> +
+> +	priv->phys[index] = phy;
+> +	phy_set_drvdata(phy, instance);
+> +
+> +	return 0;
+> +}
+> +
+> +static int airoha_pcie_phy_parse_ports(struct device *dev,
+> +				       struct an7583_usb_phy_priv *priv,
+> +				       int index, struct device_node *subnode)
+> +{
+> +	const struct an7583_usb_phy_match_data *data;
+> +	struct an7583_usb_phy_instance  *instance;
+> +	struct phy *phy;
+> +
+> +	data = of_device_get_match_data(dev);
+> +
+> +	if (index >= data->max_instance)
+> +		return -EINVAL;
+> +
+> +	if (!of_device_is_available(subnode))
+> +		return 0;
+> +
+> +	instance = devm_kzalloc(dev, sizeof(*instance), GFP_KERNEL);
+> +	if (!instance)
+> +		return -ENOMEM;
+> +
+> +	instance->serdes_phy = devm_phy_get(dev, NULL);
+> +	if (IS_ERR(instance->serdes_phy))
+> +		return dev_err_probe(dev, PTR_ERR(instance->serdes_phy), "error on serdes phy for PCIe PHY\n");
+> +
+> +	instance->type = PHY_TYPE_PCIE;
+> +
+> +	phy = devm_phy_create(dev, subnode, &airoha_phy);
+> +	if (IS_ERR(phy))
+> +		return dev_err_probe(dev, PTR_ERR(phy), "failed to create phy\n");
+> +
+> +	priv->phys[index] = phy;
+> +	phy_set_drvdata(phy, instance);
+> +
+> +	return 0;
+> +}
+> +
+> +static int an7583_usb_phy_probe(struct platform_device *pdev)
+> +{
+> +	const struct an7583_usb_phy_match_data *data;
+> +	struct phy_provider *phy_provider;
+> +	struct an7583_usb_phy_priv *priv;
+> +	struct device *dev = &pdev->dev;
+> +	struct device_node *child_np;
+> +	int i, ret;
+> +
+> +	data = of_device_get_match_data(dev);
+> +
+> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+> +	if (!priv)
+> +		return -ENOMEM;
+> +
+> +	for (i = 0; i < AIROHA_USB_PHY_REGS_MAX; i++) {
+> +		struct regmap_config conf = {
+> +			.reg_bits = 32,
+> +			.val_bits = 32,
+> +			.reg_stride = 4,
+> +		};
+> +		void *base;
+> +
+> +		if (!data->regs_name[i])
+> +			continue;
+> +
+> +		conf.name = data->regs_name[i];
+> +		base = devm_platform_ioremap_resource_byname(pdev,
+> +							     data->regs_name[i]);
+> +		if (IS_ERR(base))
+> +			return PTR_ERR(base);
+> +
+> +		priv->regs[i] = devm_regmap_init_mmio(dev, base, &conf);
+> +		if (IS_ERR(priv->regs[i]))
+> +			return PTR_ERR(priv->regs[i]);
+> +	}
+> +
+> +	platform_set_drvdata(pdev, priv);
+> +
+> +	if (device_is_compatible(dev, "airoha,an7583-usb-phy")) {
+> +		u8 port;
+> +
+> +		port = 0;
+> +		for_each_child_of_node(dev->of_node, child_np) {
+> +			ret = data->parse_ports(dev, priv, port, child_np);
+> +			if (ret) {
+> +				of_node_put(child_np);
+> +				return ret;
+> +			}
+> +
+> +			port++;
+> +		}
+> +	} else {
+> +		ret = data->parse_ports(dev, priv, 0, dev->of_node);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	phy_provider = devm_of_phy_provider_register(dev, an7583_usb_phy_xlate);
+> +
+> +	return PTR_ERR_OR_ZERO(phy_provider);
+> +}
+> +
+> +static const struct an7583_usb_phy_match_data an7583_usb_phy = {
+> +	.max_instance = AIROHA_USB_PHY_MAX_INSTANCE,
+> +	.regs_name = an7583_usb_phy_regs_name,
+> +	.parse_ports = an7583_usb_phy_parse_ports,
+> +};
+> +
+> +static const struct an7583_usb_phy_match_data an7583_pcie_phy = {
+> +	.max_instance = AIROHA_PCIE_PHY_MAX_INSTANCE,
+> +	.regs_name = airoha_pcie_phy_regs_name,
+> +	.parse_ports = airoha_pcie_phy_parse_ports,
+> +};
+> +
+> +static const struct of_device_id airoha_phy_id_table[] = {
+> +	{ .compatible = "airoha,an7583-usb-phy", .data = &an7583_usb_phy },
+> +	{ .compatible = "airoha,an7583-pcie-gen2-phy", .data = &an7583_pcie_phy },
+> +	{ },
+> +};
+> +MODULE_DEVICE_TABLE(of, airoha_phy_id_table);
+> +
+> +static struct platform_driver an7583_usb_driver = {
+> +	.probe		= an7583_usb_phy_probe,
+> +	.driver		= {
+> +		.name	= "airoha-an7583-usb-phy",
+> +		.of_match_table = airoha_phy_id_table,
+> +	},
+> +};
+> +
+> +module_platform_driver(an7583_usb_driver);
+> +
+> +MODULE_DESCRIPTION("Airoha AN7583 USB PHY driver");
+> +MODULE_AUTHOR("Christian Marangi <ansuelsmth@gmail.com>");
+> +MODULE_LICENSE("GPL");
+> -- 
+> 2.53.0
+> 
