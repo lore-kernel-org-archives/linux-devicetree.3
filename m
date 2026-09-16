@@ -1,171 +1,140 @@
-Received: from smtpbg150.qq.com (smtpbg150.qq.com [18.132.163.193])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f6.google.com (mail-oi2-f6.google.com [74.125.231.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DD5C3515C8;
-	Wed, 16 Sep 2026 03:33:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.132.163.193
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5C0735DA69
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 03:47:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789529599; cv=none; b=h8dFlhbztEmLgqMLXFzEl/c89ux4yKNMh588hFg6hLy7ujN+ToIqGc3MxrzmbFgTf0Vi7VVw5rO9oHVTETtoNqIU3YmFklDcjhM4ppc21ybWrauYpx1/nJPD8Qmv48vIBpoa3V6/ZcmDoYfpn4bFqxF69cUpxaetGvWFsjXdAWk=
+	t=1789530476; cv=none; b=QvQ/0FWo/4Htne1W+plU7EQJBW5KhyCnfi6g4KuySK2ft4qkss3xekT2n0ez477fOAUIOw33TSZHEfGR5nXZE53YXXjnGCSqapd/bI7bSgzPz0vTd86Uq3wW2YfsDiK2qC7frVyNvofipTJkVhvHQ9eZVl+gDApuUCY2Zg9miro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789529599; c=relaxed/simple;
-	bh=GWfqXLYYCHe9VaUeBW4xpD6QKWRpX0SDJV1KO3ZQE2g=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
-	 In-Reply-To:References; b=RQt85aIcS9cK3TbCyb79XImJUCcI9ldYh77uVhwDtW/JQIz5dH86vKl4XSqbBE/98u8D+le/iRAoplzwWMu7mIjOrJCIwUVANyE70xoY7qucT/bleZfZ0kCvl3CknhZd6VEt7xbUs3KKMxEKQmDxcV/UaaGzf5bZ0efAGrNYatY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=nMEBbLr1; arc=none smtp.client-ip=18.132.163.193
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1789530476; c=relaxed/simple;
+	bh=iB6N5HJd5gxJ6JfDRUspRgFcS0Yl2pln4xko2Z2q6Tg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=nF+Pod/58yuW+ZQ96VcR1ELIoPC/cAbajrF85a7J9xOWQbyn6zTddw6dKBuaH7uiJEbsdXa50CvEsKaSVL3tpbnF7u3/sG82P17lnmn65387V88C2zFU583xBlN7m/T7/TeTChj9TWWhO7jRB7hm4XhK4ec0pCzHJLNinfA0+u8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EsmVnMeS; arc=none smtp.client-ip=74.125.231.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="nMEBbLr1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1789529552;
-	bh=jWMvUUzOrPmrKHCXu38aWsr263gil8jmTfO2LCzoeEQ=;
-	h=Mime-Version:Date:Message-Id:To:Subject:From;
-	b=nMEBbLr1lSqjjkOjN0GDEIaeo1h8ETT40AX8ohEpqZBYuv9s+ffx1G9ztkbfogXfE
-	 f/robQAT/SsLDGVulkgYL2JL2l3YO9UyEJEtSD5PjavW1O07hVSbUWFBPR9b3iOCSU
-	 mqiSrZ59eWLCaxzSIdLTgOV5BJskNZQjC4BPu97Q=
-X-QQ-mid: esmtpgz12t1789529551tb0ab28aa
-X-QQ-Originating-IP: p22YVTVAZzBPPbaX54GpBXgf19M7GP9hjLcXXtG9R94=
-Received: from = ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 16 Sep 2026 11:32:27 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 8476099243940458162
-EX-QQ-RecipientCnt: 41
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EsmVnMeS"
+Received: by mail-oi2-f6.google.com with SMTP id 5614622812f47-4b374c2cf2cso925716b6e.1
+        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 20:47:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789530474; x=1790135274; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=KZUnuuFf09iEV4TXLpHshSHcyHegz5o15LfPCufyx+E=;
+        b=EsmVnMeSkuIn2cQw8kSngK7Fxr5+/5ftbyY6uFmZLpzapnaO4Aj0oSEu9oo7MA7nDi
+         sV2mrexiVoZaUs021wWic8bD042D0F2i/QQOVubxTVuM4B5wSwue1GR7IxLNG+pv5Rah
+         U/InkbpCRu2sV4arIOksEvhv9a1mLt4LAP8rF7XLNDH88+WZIpH8FBOLq5i/IpZRhJxz
+         IhOmnLkI7NjnR0qtz/0JJ2mRxqEk7s+BVeW5wk9ovtUR8zHo342IjKnKGRZNLzspRslg
+         5BBQ96sf3xGEYEilPQWWt/NaDOU5IJ/Vdph/Of6i5eTIOBf3TTHNOge7eRn5GYRRP3sx
+         FHVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789530474; x=1790135274;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=KZUnuuFf09iEV4TXLpHshSHcyHegz5o15LfPCufyx+E=;
+        b=XanrkMMIHdtVQSz69fU2+oZetxDEsQOb69Vd3PGlxVSFVtIs49Y0LYbp3hLmvLuFG4
+         PgO+dSNzPI7MpY0/3QJg/10pJ3Ypup3hq3EzElDenVNYcUE5HQXkFLYZa++NkPHDFWF1
+         YlhjoPoDn0mhcWy27MXRHnNGTOQZiU6O1glbMs9m8qtTsq8Vd9nrK92cqt1RekQ+aXjI
+         CGcDK7ShJKrqLXNWJgL6GqIw6HzIQteSxQiMGZZnOYDalmzKq1G6tG6tQ3ByqXefVr2M
+         NG9XdvciFlmPS7v6aQX57Am31Rc5sE7sQXAK5Mtp7lb5AwhgNwPuv85vPBt76FPg7sLv
+         azOw==
+X-Forwarded-Encrypted: i=1; AKwUvByUqzZ7NPw0FOc0Jzo9LofHA439YJhW+7UO3EdT4bvY2HynIEElREZfRsgSgt14T/8sgca6RTbtQz+p@vger.kernel.org
+X-Gm-Message-State: AFuF++kGOgUPSQkxRZ0GHgalHMrOhaR/0jQrh0h8qHldXUNHWE43JNX7
+	zSRYkp3UxcEPBwIpy6aU/H6i8O5/ErCQHC1MUAy3SsJGKsuMeh2KAn2CusWz72vA9rA=
+X-Gm-Gg: AYBFou36bA7z5HEZ0O1ICtfW65xWEbw/56y0qVw2PhebS7aV1Cm/0Id2P1H1T7B7QgB
+	Nj7n8ux5VZSTI4t7MuJ8FOWJ/AVfO1I2Pl633+GpKVvPOpVtwfAP7VArGcAkW5wyYTyQBwA1n48
+	8x6mGgtd614K2jIYbTXfIAIRLXfGHmdfndKgmw0OhTdT9KZJSs95RYpvOXh1buJsIIiC0cbyzZG
+	zdl4Nr+dUkTrWarVyfmPdS7CDn3NECzTrp71U0K04m9i1qwZrRi47V9x4sMOJ57sCui1SBLSHtJ
+	nDniUp3y+rdVgeGqb5F2b0GKdRhf6nf3aQ7cUpfJhr+4rS3Tn3v23xFEJuBuS2LSXF5zdqb1RZ6
+	WMBMTEt++4UAMJBjP9hnZHPwx4xNlIal2Sz+AqybtjtNuCyP/crXAV5I7PGzIvpv2QiVrPt2T5d
+	f2is1KPI2VIhyRmA+FOEnzYY663PBltf59yQY4esOG/8DZTOx1aInUVpE8cHI6G7iP6F4=
+X-Received: by 2002:a05:6808:4fcb:b0:4c2:e38d:4de3 with SMTP id 5614622812f47-4ca4a9047a1mr1733472b6e.17.1789530473675;
+        Tue, 15 Sep 2026 20:47:53 -0700 (PDT)
+Received: from [192.168.18.164] ([2600:8804:5716:d800::b712])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4ca2377aae6sm1446666b6e.7.2026.09.15.20.47.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 20:47:53 -0700 (PDT)
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+Date: Tue, 15 Sep 2026 22:47:50 -0500
+Subject: [PATCH] dt-bindings: input: mediatek,mt6779-keypad: add the MT8173
+ keypad
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=98c1991e3a84cabccc87599576fe5533e92c3b07b62de26e2101639d3652;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Wed, 16 Sep 2026 11:32:24 +0800
-Message-Id: <DLGFA3K9UNL9.AZCYNV8V9WM6@linux.spacemit.com>
-To: "Inochi Amaoto" <inochiama@gmail.com>, "Troy Mitchell"
- <troy.mitchell@linux.spacemit.com>, "Jingoo Han" <jingoohan1@gmail.com>,
- "Manivannan Sadhasivam" <mani@kernel.org>, "Lorenzo Pieralisi"
- <lpieralisi@kernel.org>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, "Rob Herring" <robh@kernel.org>, "Bjorn Helgaas"
- <bhelgaas@google.com>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, "Yixun Lan" <dlan@kernel.org>, "Paul
- Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert
- Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, "Frank Li"
- <Frank.Li@nxp.com>, "Niklas Cassel" <cassel@kernel.org>, "Sherry Sun"
- <sherry.sun@nxp.com>, "Arnd Bergmann" <arnd@arndb.de>, "Christian Bruel"
- <christian.bruel@foss.st.com>, "Krishna Chaitanya Chundru"
- <krishna.chundru@oss.qualcomm.com>, "Senchuan Zhang"
- <zhangsenchuan@eswincomputing.com>, "Alex Elder" <elder@riscstar.com>,
- "Xincheng Zhang" <zhangxincheng@ultrarisc.com>, "Randolph Lin"
- <randolph@andestech.com>, "Siddharth Vadapalli" <s-vadapalli@ti.com>, "Andy
- Shevchenko" <andriy.shevchenko@linux.intel.com>, "Vidya Sagar"
- <vidyas@nvidia.com>, "Neil Armstrong" <neil.armstrong@linaro.org>, "Danilo
- Krummrich" <dakr@kernel.org>,
- =?utf-8?b?VXdlIEtsZWluZS1Lw7ZuaWcgKFRoZSBDYXBhYmxlIEh1Yik=?=
- <u.kleine-koenig@baylibre.com>, "Pengpeng Hou" <pengpeng@iscas.ac.cn>,
- "Anirudh Srinivasan" <asrinivasan@oss.tenstorrent.com>, "Gustavo Pimentel"
- <gustavo.pimentel@synopsys.com>
-Cc: <linux-pci@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
- <spacemit@lists.linux.dev>, "Yixun Lan" <dlan@gentoo.org>, "Longbin Li"
- <looong.bin@gmail.com>
-Subject: Re: [PATCH v5 6/6] PCI: spacemit-k1: Add Spacemit K3 PCIe host
- controller support
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-In-Reply-To: <aqEOHmlKdKqQWYE8@inochi.infowork>
-References: <20260907112606.465778-1-inochiama@gmail.com>
- <20260907112606.465778-7-inochiama@gmail.com>
- <DL940SRP94AG.408BKFWHDVY3@linux.spacemit.com>
- <aqEOHmlKdKqQWYE8@inochi.infowork>
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: ORIMa6fDWtM3Y0v8WL6u2LNJS/BHt5m/1yY0dMtl+5CdqT0GPwbFcQnL
-	lrK8cTgz9sd9WnMtlYNSRbsc2Kg/R1j7ke86BlWAlZK1Dkk4RQY0FaeTvaOewtsaUFuG/Sz
-	0vFBG5f7F1Fa+9FNINBJwpw+B4pknyvzKYTlEYMiJg7/CX6nvqvNK1ca6I/SmuDkrjLrF9Q
-	HNS6O6EexiqhUtceX7j8TklJKsN/icmmcGjlyKvBiL2kuowlAVBXqBwXbZDmFVoYP7KrpES
-	JBu09bmoVed1CKP1vfcRCa3DV3CnEtGT2YbPL0wGEYqTd6DEzjsXaE+5rokSVY5+vACIoem
-	8e5CVBQvuYxjDYTc3GWJU2Fqsk69Mcmb/uQ/zTe5f3iRLLknz9HRNJ+nRPT16ldj0fNGC6c
-	oCYMf+Imk/AWD7FRIj+C8UoxAYE0bNlYQpt+DULeSCjwNvaSJs8leTiTTNRUVTH3dWFgI6+
-	0kRFTi6Jzb7n5N+H2W9w0FzZ+MY9Eo4pRqqcHWt8/hgDi5dEHfUYhi6/AtvnM0uy2ACVta3
-	Fg95AoPsbCpoLyqCAKgJyNi5/FxnnUK/AhHEIX1NNbf4d5fyc8hnnPmZDpILZOLcPFz8eUP
-	UMnrhOXXUsr4gq5Jq1ifOy9A2IKgavwilrQnBM7JDEatf5llK5VIfuej9I6IgVTjC1KW7HF
-	jsbm5AAUrC2jQc/j5ueRdlNyD4hxuzm+jKG79DkUU+o/UHn2fSgnLffwCt1p+hBOdCHJLDZ
-	HT6DCBafxemipoTMLyNJ/+als78ABZoLK/vrTmYscz+Y+AnJxSEgTeHRh9IFBBjpegEnMOU
-	2G2KgeLEWZI/vI8JIGY5Zr3dboviDDdGaynqQBy8CcfZ0HccBiURCKyrMVZEcyKf3I+34Kx
-	3Y+7TdIyiJi6VltYCdhx3r+8EV/4EEVJbkT05hg/SOaa8sU04BA5fKuLf1S0TwaE+lXW+hm
-	8OkCo5+EFFSc9V2vNHlaSEO+MJjua52zCeqOshtufatii0XNxFis0P+sxkGxkyQjH8TFaR3
-	6Y7fCMkt8dPrE1Q4G9bzA4r2QWih4btM5SlTm06e9fbNKYNErA0dCl0sb4OFU3nWX18kCjD
-	w==
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260915-rbrue-suez-upstreaming-mt8173-keypad-v1-1-96c325efacbe@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3Nyw6CMBBG4Vchs3aSFgwXX8W4qPQHJ4baTKlRC
+ e9uw/LbnLNRggoSXaqNFG9J8goF9lTR+HBhBosvptrUrRnsmfWuGZwyfpxjWhVukTDzsva2a/i
+ Jb3SeJ+/HxrYOZuippKJiks+xud72/Q+w0P5JdgAAAA==
+X-Change-ID: 20260914-rbrue-suez-upstreaming-mt8173-keypad-fddc316ae098
+To: Mattijs Korpershoek <mkorpershoek@kernel.org>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, Ryan Brue <ryanbrue.dev@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789530471; l=2015;
+ i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
+ bh=iB6N5HJd5gxJ6JfDRUspRgFcS0Yl2pln4xko2Z2q6Tg=;
+ b=ALF9MhZ4iDbh4vFTTUxFBuixvjgq+QLsNGyPYSFi+QRZHCViQOngwQy98zKiBOP33E4wyYcbz
+ YQjSzhJfhYlCnTGnNHLmhDpo9Ie+KvCnRBPR12NrzDy5tFpdqQ85FYX
+X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
+ pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 
---98c1991e3a84cabccc87599576fe5533e92c3b07b62de26e2101639d3652
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+MT8173's keypad controller is the same block this driver already handles.
+Its register map agrees offset for offset with the MT6779 one -- STA 0x00,
+MEM1..MEM5 0x04..0x14, DEBOUNCE 0x18, SEL 0x20, EN 0x24 -- and
+mt6779-keypad drives it with no code change, so the node only needs the
+fallback compatible in second position. Add the mt8173 string to the
+existing enum, which is what mt6873, mt8183, mt8365 and mt8516 already do.
 
-On Wed, Sep 09, 2026 at 03:51:02PM +0800, Inochi Amaoto wrote:
-> [...]
->
-> > > +static int k3_pcie_parse_port(struct k1_pcie *k1)
-> > > +{
-> > > +	u32 status0, status1, status2;
-> > > +
-> > > +	/* This register require a RAW for cleanup */
-> > > +	status0 =3D readl_relaxed(k1->link + K3_PHY_AHB_IRQSTATUS_INTX);
-> > > +	status1 =3D readl_relaxed(k1->link + INTR_STATUS);
-> > > +	status2 =3D readl_relaxed(k1->link + K3_ADDR_INTR_STATUS1);
-> > > +
-> > > +	writel_relaxed(status0, k1->link + K3_PHY_AHB_IRQSTATUS_INTX);
-> > > +	writel_relaxed(status1, k1->link + INTR_STATUS);
-> > > +	writel_relaxed(status2, k1->link + K3_ADDR_INTR_STATUS1);
-> > > +
-> > > +	return k1_pcie_parse_port(k1);
-> > > +}
-> > > +
-> >
-> > Are these status registers accessible before the controller clocks are =
-enabled
-> > and resets released? k3_pcie_parse_port() runs before dw_pcie_host_init=
-(), which
-> > calls k3_pcie_init() to enable those resources.
-> >
->
-> Yes they can. It is something interesting.
->
-> > The SDK uses the same ordering, but I am not sure whether it relies on =
-firmware
-> > leaving the registers accessible. If so, would it be safer to move this=
- clearing
-> > into k3_pcie_init(), after enabling the resources?
-> >
->
-> In fact, I have no idea about which clock control this MMIO area, if it i=
-s dbi
-> clock (but I guest it is not), it is kind of weird for this clear and sho=
-uld
-> move to the init. Do you have some knowledge on this?
+Verified on an MT8173 board (Amazon Fire HD 10 2017): the volume rocker
+reports through mt6779-keypad with no driver modification.
 
-I checked with our hardware team. PMU AP and PCIECFG share a system clock
-derived from PLL1 /8 or /6.
+Assisted-by: LLM
+Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+---
+This is the binding half only. The board device tree that uses it, an Amazon
+Fire HD 10 (2017), is not upstream yet and comes with the rest of that
+board's nodes later; adding the compatible first keeps that submission from
+carrying a forward reference.
 
-This clock is already available during early boot, before PCIe controller
-initialization. The register accesses in k3_pcie_parse_port() therefore
-do not need to wait for k3_pcie_init(). That resolves my concern about
-the ordering.
+No driver change goes with it. mt6779-keypad matches on the fallback, which
+is how mt8183, mt8365 and mt8516 bind today -- only mt6779 and mt6873 are in
+the driver's own match table.
+---
+ Documentation/devicetree/bindings/input/mediatek,mt6779-keypad.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-                                            - Troy
+diff --git a/Documentation/devicetree/bindings/input/mediatek,mt6779-keypad.yaml b/Documentation/devicetree/bindings/input/mediatek,mt6779-keypad.yaml
+index 914dd3283df3..b45dbf805ac8 100644
+--- a/Documentation/devicetree/bindings/input/mediatek,mt6779-keypad.yaml
++++ b/Documentation/devicetree/bindings/input/mediatek,mt6779-keypad.yaml
+@@ -27,6 +27,7 @@ properties:
+       - items:
+           - enum:
+               - mediatek,mt6873-keypad
++              - mediatek,mt8173-keypad
+               - mediatek,mt8183-keypad
+               - mediatek,mt8365-keypad
+               - mediatek,mt8516-keypad
 
---98c1991e3a84cabccc87599576fe5533e92c3b07b62de26e2101639d3652
-Content-Type: application/pgp-signature; name="signature.asc"
+---
+base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+change-id: 20260914-rbrue-suez-upstreaming-mt8173-keypad-fddc316ae098
 
------BEGIN PGP SIGNATURE-----
+Best regards,
+--  
+Ryan Brue <ryanbrue.dev@gmail.com>
 
-iIMEABYKACsWIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCaqoNyA0caUB0cm95LXku
-b3JnAAoJEJgJ74D5MzQvlUkBANa2w+Z52VSTg6VPhIdnN5L53HC35mTROdqQpRPi
-nqx2AP4rMeIb5iWf85lMB8tpSZ2nnHapBGg95rVgzpbj5/TeBg==
-=gkSx
------END PGP SIGNATURE-----
-
---98c1991e3a84cabccc87599576fe5533e92c3b07b62de26e2101639d3652--
