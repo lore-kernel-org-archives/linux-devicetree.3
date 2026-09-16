@@ -1,111 +1,79 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DCEE37EFF1;
-	Wed, 16 Sep 2026 13:02:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCDDC38DC72;
+	Wed, 16 Sep 2026 13:03:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789563774; cv=none; b=YDDzfVDdgTH3/Vx/WISwjlzk+TlzWQWfiP659VPQlYLIgyooBX4BI5Tozea7uvvI1TwLJtni4F5bzeNpEsV+gC4jp+H1hlhfSSA6EApksAwMNPpUWFkZ2r4274voXbzqcseurd3J1Mlq/1vvoEj/Ubx4xFe+wiZInk/QyWkQA+A=
+	t=1789563805; cv=none; b=jxDqjZ01nu8N76HE/u1Ghp4IaIwc/R5uomCjqLTjOzMk4rDbQkhVuEeNV/FA+rXanF2US3CbOQfysxeK4PWTCwH4zaz9uWr4RxkwNqL85k8r5fhS2hTUMrF5XhDbc3P6fmlo3SRG87gDW3qUqU/scerk3BQa2BQmA8T4Z9REQKY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789563774; c=relaxed/simple;
-	bh=2kjukwKHhvxex4UWdS38ePUoswpvqsSXD+LWBFfMADE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZN9UVETmGfJwi0VzM2v5FJfjS9cj1VxV3NGaWpJlZZVIJ9e8ujcImt7Va8eSlB7D+6gvbMjvr/ynYOmJJzYKgOU/+zLYNpTCx45LhWnS2nW8PNbiDvPHS3ZCFdA4iGQiX988d1Ze/44PApqBKIWLzIGmRigxpR+daX+CguamdBE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=iVO/NUWz; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1789563805; c=relaxed/simple;
+	bh=wwBz8itUmqppSzdhAKrv0IX+biYMVm0EQvyDVo+Ixx8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=K9TQkL1z1S2Mg7z4a4XW7UKDppd+V2RlU7pD6GRYJ4W3udeNh9vI7pWmy+vpJ1QpNywoNOhhH/rypHbaJVIW60WTlwU67f2N17ztaUkhkEpcu6LUAwDDLB43ckBTcbR4AX4PFasV3FTKveRoqmB/IE47yXOXOd2abqSe9DoYfwg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=19SayIr5; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="iVO/NUWz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789563771;
-	bh=2kjukwKHhvxex4UWdS38ePUoswpvqsSXD+LWBFfMADE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=iVO/NUWz7XlEkldHQ8fJFgw516V1fuZCTBhCW4JfIuOvywCJ0tRW1Nm0ssUrJhb/j
-	 c0yx5Tgb6JMAxWh+oxhKXzx8xCWmxKuV33u9LJEgd+Az/BDYjdPTZ4kCOe+UoszWLs
-	 5wOz8P6cd4/reWtT0xj2yidbGolDL7+yMCO0Ov+KkVMBymhxalcZnU8OJEBYq/xdC8
-	 PAR7rQUa5gfh8hVpmFzw5zYIjP5M/z+6aTwAYk3MAYOcZ1kFq8ICPFxtIhE8OQ7y+E
-	 MKTV1gOlQ41eRm0jDEViBii0lnuXRIt3F64Njhg6Kau4svjJ3Uyw9xuTKcTNfKvjZd
-	 iz5wqiM4mPUFg==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id DF03817E03B6;
-	Wed, 16 Sep 2026 15:02:50 +0200 (CEST)
-Message-ID: <bd18c1fc-6ff5-4724-8b20-dbbb716e299e@collabora.com>
-Date: Wed, 16 Sep 2026 15:02:50 +0200
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="19SayIr5"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=oiSfvUAUcmVPBixTSv8CyI5eKdTp2eCY9vSp754uHAQ=; b=19SayIr58yyGer4JWwyFocFp2I
+	ik1oe5Zw2vZVSCVtzpKMKIr2x9lQkofOMQA14UCvsgyDLFQ8DULUWR+3BuAgp/NSNqnsSLDaqBxJs
+	SH9BnF9X0kf0unsGtM+d97uiWSFrQKOzpZlPBO1DEZSHcWopLJV0RVXH1xLKB1p/wFFw=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x6pIC-005TtK-Lm; Wed, 16 Sep 2026 15:03:16 +0200
+Date: Wed, 16 Sep 2026 15:03:16 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Francesco Dolcini <francesco.dolcini@toradex.com>
+Cc: Francesco Dolcini <francesco@dolcini.it>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
+	Franz Schnyder <franz.schnyder@toradex.com>
+Subject: Re: [PATCH v2 3/7] arm64: dts: freescale: Add Lino iMX93
+Message-ID: <27cceddf-8797-4e9e-ab7b-4cddb03d6448@lunn.ch>
+References: <20260911091952.96233-1-francesco@dolcini.it>
+ <20260911091952.96233-4-francesco@dolcini.it>
+ <42ed88a6-d208-482b-94aa-2e45b69c173e@lunn.ch>
+ <20260915132806.GA226756@francesco-nb>
+ <100eef7b-e1d6-411b-bac5-98790e8f9ea7@lunn.ch>
+ <aqmG91HwmKe-enfy@francesco-nb>
+ <95dcbf3e-193d-460b-b6b9-cd412394e4c6@lunn.ch>
+ <20260916055706.GA20310@francesco-nb>
+ <8bb9b763-4553-4263-b0ea-0129f5db0229@lunn.ch>
+ <aqqPBffOWirFXJSw@francesco-nb>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: input: mediatek,mt6779-keypad: add the
- MT8173 keypad
-To: Ryan Brue <ryanbrue.dev@gmail.com>,
- Mattijs Korpershoek <mkorpershoek@kernel.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>
-Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org
-References: <20260915-rbrue-suez-upstreaming-mt8173-keypad-v1-1-96c325efacbe@gmail.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20260915-rbrue-suez-upstreaming-mt8173-keypad-v1-1-96c325efacbe@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqqPBffOWirFXJSw@francesco-nb>
 
-On 9/16/26 05:47, Ryan Brue wrote:
-> MT8173's keypad controller is the same block this driver already handles.
-> Its register map agrees offset for offset with the MT6779 one -- STA 0x00,
-> MEM1..MEM5 0x04..0x14, DEBOUNCE 0x18, SEL 0x20, EN 0x24 -- and
-> mt6779-keypad drives it with no code change, so the node only needs the
-> fallback compatible in second position. Add the mt8173 string to the
-> existing enum, which is what mt6873, mt8183, mt8365 and mt8516 already do.
-> 
-> Verified on an MT8173 board (Amazon Fire HD 10 2017): the volume rocker
-> reports through mt6779-keypad with no driver modification.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+> And again, thanks for the review, I appreciate it. The goal is to have
+> working ethernet with the interrupt, and, **IF** not possible, working
+> ethernet is more important than the interrupt :-)
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Your decision.
 
-> ---
-> This is the binding half only. The board device tree that uses it, an Amazon
-> Fire HD 10 (2017), is not upstream yet and comes with the rest of that
-> board's nodes later; adding the compatible first keeps that submission from
-> carrying a forward reference.
-> 
-> No driver change goes with it. mt6779-keypad matches on the fallback, which
-> is how mt8183, mt8365 and mt8516 bind today -- only mt6779 and mt6873 are in
-> the driver's own match table.
-> ---
->   Documentation/devicetree/bindings/input/mediatek,mt6779-keypad.yaml | 1 +
->   1 file changed, 1 insertion(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/input/mediatek,mt6779-keypad.yaml b/Documentation/devicetree/bindings/input/mediatek,mt6779-keypad.yaml
-> index 914dd3283df3..b45dbf805ac8 100644
-> --- a/Documentation/devicetree/bindings/input/mediatek,mt6779-keypad.yaml
-> +++ b/Documentation/devicetree/bindings/input/mediatek,mt6779-keypad.yaml
-> @@ -27,6 +27,7 @@ properties:
->         - items:
->             - enum:
->                 - mediatek,mt6873-keypad
-> +              - mediatek,mt8173-keypad
->                 - mediatek,mt8183-keypad
->                 - mediatek,mt8365-keypad
->                 - mediatek,mt8516-keypad
-> 
-> ---
-> base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
-> change-id: 20260914-rbrue-suez-upstreaming-mt8173-keypad-fddc316ae098
-> 
-> Best regards,
-> --
-> Ryan Brue <ryanbrue.dev@gmail.com>
+The datasheet says it is active low. Polling will always work.
 
+Generally, users who want fast notification of link down use something
+like Bidirectional Forwarding Detection, which can tell you much
+faster that the link is dead then the PHY itself, which tends to wait
+for 1 second before declaring the link down and changing BMSR.
+
+    Andrew
