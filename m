@@ -1,100 +1,227 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-152.mta0.migadu.com [91.218.175.152])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F8C74432FD
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 07:33:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 151F6447805
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 07:33:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789543997; cv=none; b=WjafNOSy+vlqGyZq9+IjttN9GBrvzZ2EAocr+tt8gCZjkG5wZ86ZvpKbaF5BmlL7HcHENzhkJiUT26pEmNbdVkclla6R+G4R+lg4TjdZJyb6Qzq/srOH3ndn8bVFfOmy/8tkG9W1DbP8AFLqojFL3lfCcxBmcQPlUjVj7mwaR7U=
+	t=1789544037; cv=none; b=flmywMU7GMRjx8IpFGJ/k815edX8nL46X9d2CUZ6B4moznyUJ/Nm7BR2W1SGR2sC0daX86NFn72tKCVDRh24YIg9+WiBUNe1zSCF1gd2P4oqridDXp9uc55JiFDHjaHSKugs/5N3mVBKJ4n8eKGxKJMYMkwaQfMl49RpwZw2oMA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789543997; c=relaxed/simple;
-	bh=rd5sAWS8fPl6tZw0Abc0rw3eZN7dm6UaDYyS9yhj/5Q=;
+	s=arc-20240116; t=1789544037; c=relaxed/simple;
+	bh=D3AZYVFwXkt7bPWVEG/PBf6aO/+18hlPXbGfAJOcu9Q=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=R78hYhn23U/cq07fnIJDIiWAaICAGr65t0Anl5+u2BzuMYqlh+DYf/TcNwIeInuojCJ436d3Gtc8fWmzIjh6zq7/PYvwjxS+7TAYCu5EpOq+uwbBuD8azm5Wx0JtMHg1OUh0HR8/DxTZJwcoPBCqn6uMOPTfu3fllUeyzqxpn7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=F8ZZmtJt; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=s+im7jgfeIM+sC+Or4qCtVGq5Xx2OhSa8SBEDN8mKQqsmTHNuE5X0MlW83+SkOdqmnE+guoghjlqa6iF8IWAwVs+vgYN3LlTR8vUX2W1B2gY/Pqnd3SBSyVKcNjX+7e+Zb0DFlFks9zF8MvFIQ3RkkHeXxtXr1ESMgxDbn48DXI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=raM5XhAV; arc=none smtp.client-ip=91.218.175.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="F8ZZmtJt"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=rd5s
-	AWS8fPl6tZw0Abc0rw3eZN7dm6UaDYyS9yhj/5Q=; b=F8ZZmtJtRFCDzdjSESr+
-	jYd9JsENqBeacg0rEWkqhW35/gl13jCJtpd9GjHvAXJS3Y13uKdTFsUb2J5ipGiY
-	UOw6FnodIn7Qcru5asZyJS/d+d49A/pxlvO7kCmck5OgpxqLv/IzuXONKEyaLioH
-	30dqu69811cQhALo4ebEH4MZp+ggENUG1wnOOQQaOVXattbcRyUactMcLwoxL9HO
-	u1dcz8X4p2Pw7na4A4WN3r6e5c9JYskvBrg+m2zScCWfyLk9+zpFPIjQxIsuR7Qk
-	zsYHLpwfTfN3B0yzzAE/iqqXRfjUoDi26b7zTiYaGU3cvW9Bo9R2JXIw1BsovDdy
-	Zg==
-Received: (qmail 1445549 invoked from network); 16 Sep 2026 09:32:53 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 16 Sep 2026 09:32:53 +0200
-X-UD-Smtp-Session: l3s3148p1@+HvVrJRbvMcujnt4
-Date: Wed, 16 Sep 2026 09:32:52 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Conor Dooley <conor@kernel.org>
-Cc: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>,
-	linux-renesas-soc@vger.kernel.org,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>, linux-rtc@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH 3/6] dt-bindings: rtc: rzn1: interrupts are not required
-Message-ID: <aqpGH_VURXi8y569@ninjato>
-References: <20260914211826.73727-8-wsa+renesas@sang-engineering.com>
- <20260914211826.73727-11-wsa+renesas@sang-engineering.com>
- <CA+V-a8ssNZ4X+e31V59YdqYmoap-S1W3Vfois9oNisVT3izxag@mail.gmail.com>
- <20260915-cultural-patriarch-9ad164b46cba@spud>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="raM5XhAV"
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=D3AZYVFwXkt7bPWVEG/PBf6aO/+18hlPXbGfAJOcu9Q=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789544022; v=1; x=1790148822;
+ b=raM5XhAVIv7hETvmFWax/zdQw1WlFoCUi6rwh3HkCNQ+3F009aGeTRgb4KcNoRmgF/S9p0cO
+ 2ZqGxV6NXEFIUg36ZN04EudkS6sJgDCXA0CF+nWtT4o8Ff1MN/DbRiZWd72hkXuaFFGyZZfV8yZ
+ quovv+2N+GJU/GtQPTfxPB10=
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 78ccef53a41417d8;
+	Wed, 16 Sep 2026 07:33:42 +0000
+X-Mizu-Trace-ID: 78ccef53a41417d8
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 16 Sep 2026 09:33:36 +0200
+From: Richard Leitner <richard.leitner@linux.dev>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Alexander Stein <alexander.stein@ew.tq-group.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org
+Subject: Re: [PATCH 2/3] dt-bindings: media: i2c: Add
+ vision-components,mipi-module-controller
+Message-ID: <aqpC8fxO4F3bFjF4@bombadil>
+References: <20260915-vc-mipi-ctrl-v1-0-8a42b693d889@linux.dev>
+ <20260915-vc-mipi-ctrl-v1-2-8a42b693d889@linux.dev>
+ <20260916-daft-relaxed-mouse-9bfaf4@quoll>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="UdnYYk2FsmUgjAld"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260915-cultural-patriarch-9ad164b46cba@spud>
+In-Reply-To: <20260916-daft-relaxed-mouse-9bfaf4@quoll>
 
---UdnYYk2FsmUgjAld
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi Krzysztof,
 
+thanks for the review!
 
-> > Maybe we can add a conditional schema check for SoCs where
-> > interrupts{-names} are required.
->=20
-> Yeah, I'd prefer this. If all current devices have the interrupt wired,
-> there's little value in permitting them to not be populated and thereby
-> lose the support for alarms.
+On Wed, Sep 16, 2026 at 09:00:46AM +0200, Krzysztof Kozlowski wrote:
+> On Tue, Sep 15, 2026 at 10:20:24PM +0200, Richard Leitner wrote:
+> > Add bindings for the Vision Components MIPI Camera Module Controller.
+> > 
+> > Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
+> > ---
+> >  .../vision-components,mipi-module-controller.yaml  | 92 ++++++++++++++++++++++
+> >  MAINTAINERS                                        |  7 ++
+> >  2 files changed, 99 insertions(+)
+> 
+> This fails tests, so a very brief review / a few comments:
 
-Okay, I will refactor like this.
+Mea culpa, I simply failed to run the dtb check before submitting. Sorry.
+Will not happen again.
 
-Thank you for your comments, everyone!
+> 
+> > 
+> > diff --git a/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml b/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml
+> > new file mode 100644
+> > index 0000000000000..2a031aea68457
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml
+> > @@ -0,0 +1,92 @@
+> > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/media/i2c/vision-components,mipi-module-controller.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Vision Components MIPI Camera Module Controller
+> > +
+> > +maintainers:
+> > +  - Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> > +  - Richard Leitner <richard.leitner@linux.dev>
+> > +
+> > +description: |-
+> > +  The MIPI camera module controller is an FPGA-based, I2C-accessible system
+> > +  controller found on MIPI camera modules from Vision Components. It abstracts
+> > +  the camera sensor behind a unified register interface, and controls and
+> > +  sequences the on-board power supplies and clocks.
+> > +
+> > +  The camera sensor abstraction is optional. The controller exposes a tunneled
+> > +  downstream I2C bus used by the attached image sensor. The controller node
+> > +  acts as the upstream device on the host bus, while child node below the
+> > +  controller represent the sensor device reachable through the tunnel.
+> > +
+> > +properties:
+> > +  compatible:
+> > +    const: vision-components,mipi-module-controller
+> 
+> There is no model name, no version, nothing identifying it better?
+> Compatible must be specific to the device (see also writing bindings).
 
+There is one FPGA implemenation for all Vision Components MIPI camera
+modules AFAICT. So I have no idea how it could be more specific, TBH...
 
---UdnYYk2FsmUgjAld
-Content-Type: application/pgp-signature; name=signature.asc
+Adding the FPGA hardware model/type is wrong IMHO as it depends on its
+configuration/firmware, not the hw.
 
------BEGIN PGP SIGNATURE-----
+There are different versions of the configuration/firmware. But I think
+this is also not the correct way to distinguish those, or is it?
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqqRh8ACgkQFA3kzBSg
-KbZjGg/+OZr+JSK2DNpjhja1RyLpQwEahv2FNl6oxetzONtFdgR/fU44edmzSWSq
-tulIOBbBHBSq+XJokJXwZGm5NtTDivYrQ2/+TevL0Ir1MQ5G3IuFDtWnL91DHzpf
-NhdLe3kvrRHFLc+czNmB2BOiDQ2wSQFDIcJ4o71b3c/wz8WUMYLV5NkCDY5VjJbE
-T42TMBlbVHcrPM3QjcWLY84OjPvIknV1LNXwJ7Nu75nuO/GRF8guFi5ooenPVLZ1
-fDlTonimHk8rSOAbp4j/Yq2MziWsqiOF3XT093WRXEdKETa0ZfbYpLG+ioTRfns3
-lXFYx7sBwmZedtuAWS01PInbCFkYF8rq05b65Pb8XxULwBFp2nIeqJxY0bfktHaY
-NUcSi5IIOycqdR53MVMADhJtezES8zsRzTc9ZY4Tca4KhBrU2Oo0SdoS/RK1tC+W
-LBfryKtY9McPw6VmoMEU+w9Qc9R4a3V7IsSM0uLsR4swQXNZFj0UTEE9wXRqBbzi
-NwWzDzDgGo6En0gkpYASPBCxIT4VxdtXZsdareplaluCrlHuNmhfgIQH/gLFTCpk
-awKQq3JVkaeVXpn/6NBWJEITRurjyKqyIk82xwg42Os+trA90o6fIK5Fzgfpis5m
-rkMSYM4YWtpUikIXaqyq3tMNO8kNA+Ygw2siM9JvZwnQXOks+Gw=
-=A700
------END PGP SIGNATURE-----
+According to their homepage the vendor calls those modules simply
+"VC MIPI" modules, which implies this FPGA controller is available on it.
+So maybe "vision-components,vc-mipi-controller" would be a better fit?
 
---UdnYYk2FsmUgjAld--
+Do you have any ideas/feedback on how improve this name?
+
+> 
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +
+> > +  '#clock-cells':
+> > +    const: 0
+> > +
+> > +  clock-frequency:
+> > +    description: Frequency of the sensor clock provided by the module
+> 
+> Drop, implied by the compatible
+> 
+
+Do you mean dropping the whole property, or just the "description"?
+
+> > +
+> > +  vcc-supply:
+> > +    description: Power supply of the module (3.3V)
+> > +
+> > +  '#address-cells':
+> > +    const: 1
+> > +
+> > +  '#size-cells':
+> > +    const: 0
+> 
+> No children allowed, so why these two?
+
+Based on your and the bot feedback I would suggest for v2 to change this
+"generic i2c bus" to a simple "i2c-tunnel" property which has
+"$ref: /schemas/i2c/i2c-controller.yaml".
+
+This would better reflect the actual hardware, as there is only this one,
+in firmware hard-coded I2C downstream bus.
+
+Would this be a sane approach?
+
+> 
+> > +
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +  - '#clock-cells'
+> > +  - clock-frequency
+> > +  - vcc-supply
+> > +  - '#address-cells'
+> > +  - '#size-cells'
+> > +
+> > +unevaluatedProperties: false
+> 
+> additionalProperties instead, see writing bindings or writing schema.
+> Unless you miss here some other schema $ref.
+> 
+> > +
+> > +examples:
+> > +  - |
+> > +    i2c {
+> > +        #address-cells = <1>;
+> > +        #size-cells = <0>;
+> > +
+> > +        vc_mipi_ctrl: controller@10 {
+> > +            compatible = "vision-components,mipi-module-controller";
+> > +            reg = <0x10>;
+> > +            #clock-cells = <0>;
+> > +            clock-frequency = <37125000>;
+> > +            vcc-supply = <&cam_3v3>;
+> > +
+> > +            #address-cells = <1>;
+> > +            #size-cells = <0>;
+> > +
+> > +            i2c@0 {
+> > +                #address-cells = <1>;
+> > +                #size-cells = <0>;
+> > +
+> > +                vc_mipi_sensor: camera@60 {
+> > +                    compatible = "ovti,ov9281";
+> > +                    reg = <0x60>;
+> 
+> Why having the child abstraction if it is completely abstracted? I don't
+> fully get the explanation from description. Completely optional means no
+> benefits, no point in it, no?
+
+I will try to improve the description. The idea behind this device
+driver/devicetree node is to not rely on the sensor abstraction from
+vision components, but to use the upstream sensor specific driver.
+
+As the tunneled downstream i2c bus needs quirks applied this is modeled
+as a separate bus.
+
+Previous discussions on this approach are available at:
+	https://lore.kernel.org/lkml/20260728092856.GB1494774@killaraus.ideasonboard.com/
+
+Thanks again for your review Krzysztof!
+
+regards;rl
+
+> 
+> Best regards,
+> Krzysztof
+> 
