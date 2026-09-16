@@ -1,192 +1,282 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30ECC3C09ED
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 17:47:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80C4C39023D
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 17:47:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789580872; cv=none; b=IkM8Kuzssk0H2EqIGGy2qJYeOINlRKJYMZ1Kv7xEUTYtP09kc1IYJJoSlvk+Fs/ytrNnlrj26qF9YOX+no19NhaztjpCE2dR1FDwf1c2Nk3CRrJsSZFPbqmE87Ob3Gzmq11q7ipdZW0tHqh75x2rHUrG6vTbtV42wwMOsGTL5gQ=
+	t=1789580886; cv=none; b=rgDbUEN1zQ8qQxFAySMEh4n/VKaKgJc4xHoGGdZMDIxYahJloCRUi38mTrmow3vUFMcXt5Lf79mlPu8vNQrPlETOIfxSOku+12WKnAOZCLYXV2XpU3ONUq0kKaNHAKFtZWXfSsHMndJVELLV3dXQRG1GR5vwItSKBZ1k3UdpodQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789580872; c=relaxed/simple;
-	bh=QGA3lYmdm7Bab4muCyjYdJhQlOfLnweXjdgg8Vzle8Y=;
+	s=arc-20240116; t=1789580886; c=relaxed/simple;
+	bh=GsNMbzdxchKt718uSbxYU2CKO8/9F/5P9f70uux1Qc8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Kf4qfhlooRx2P0QUiQw+sga+HXJVvk8iER+UmJdrOixSoXKNu6x52nibGpNK289ETIsf51D+JckZe7rE+YO9ti0PhoOggYc4HTKbG5ijmDuFcD85xHtaf1FOHBARSj37dYq+jesiePTadtmUekjx5aMEkdp0vVuMwiVUyMGPWLI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FnJoeBrp; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=YkpZE3fkTBqL1puiGGg1XTUfA0Db7Dww6C27T3la8mQSkMVxRCWhnATOEOkJzZKJ4awYFhBLLNCT+h9ecXY26exrWQaZHHYqG0EAcq/tYWCpk3DkiB3CyA/4mBSuvqS/4dfMAPQfHmAPGeEHl7eNfjn5WjvLsNdmQOknbYfES7w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rn1LgACm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FnJoeBrp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBD7E1F000FF;
-	Wed, 16 Sep 2026 17:47:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rn1LgACm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F9081F00899;
+	Wed, 16 Sep 2026 17:47:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789580867;
-	bh=MQVKflcMGYsWPmk+EQh6G18uu6xp/LNwijLHX8j08Fc=;
+	s=k20260515; t=1789580869;
+	bh=SfPo86n5h8xNgXa22f49ZHS0D43MG7TrsTJs3Ms/ORg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FnJoeBrpzwdEOGseASF5pjND2YSZeF2XZ4smy0SVjTf1s26JOykCBmDdR1q/hOEXI
-	 VJmJjX3xjtmtM9XmOxoz15FUToZ3xYRY2qrvJldBirf4K2/+NMMLysZfMD/koAYWt6
-	 VlBO5fwsXqQ1jDeKjiD8jyAYCyDUK6HPVFFGit1bmQZZ2SnlM7TdBD4/p9D7/kP13o
-	 2G+kSUZss1ovit6FuWOkcCI8GY2CoTBcD435rFdaLz3ugQg1uTQkWWnw3nLwZ+9LUe
-	 zrrKgENfnGgSASvdzvQLNMaK44RXQlmfyeNOigfCNiPQury4L9mwdNWi8MZaWNfeNr
-	 SRlL1log5Q00A==
+	b=Rn1LgACmQMRMJe2+k7Xpaq985OQ3Kme7l+lDsUETI8qUqqg1JPK58YKhVo41gToet
+	 CFNfkTUm0hg+RLYR8zZ2D3mTD8eBaUxKteK9pzKO9KlBL5kX3Aorp+3WpmejTsGNmH
+	 m/ZzCcVu/h4j/UGvW+nEADijGOWDEqPmD4jMLFCqHGfTRQdXu0P0K74YLhp21PHNh0
+	 v7p2zl5LCpfklHw4HLCqQ3XA4Y6P2xXWx5K0hrCPrdzE8AGhuUUBCgP9WiJK8fXI8/
+	 oF87wgqPOB9NEbGxgVGicU04KaT1pU2f1iMdT8wJOEJdJxfdmcTaAi6wPKChzwJUOw
+	 c3UWmVmEJPl4g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 net-next 5/7] net: dsa: mediatek: support MDIO switch
- downstream of MMIO switch
+Subject: Re: [PATCH v2 net-next 7/7] net: dsa: mediatek: support EN751221
+ switch
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Caleb James DeLisle" <cjd@cjdns.fr>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260915174643.253660-6-cjd@cjdns.fr>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260915174643.253660-8-cjd@cjdns.fr>
 References: <20260915174643.253660-1-cjd@cjdns.fr>
- <20260915174643.253660-6-cjd@cjdns.fr>
+ <20260915174643.253660-8-cjd@cjdns.fr>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 16 Sep 2026 17:47:46 +0000
-Message-Id: <20260916174746.BBD7E1F000FF@smtp.kernel.org>
+Date: Wed, 16 Sep 2026 17:47:48 +0000
+Message-Id: <20260916174749.2F9081F00899@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
 s) to consider:
-- [Critical] dsa: mt7530: hardware access while in reset causes bus hangs
-- [High] dsa: mt7530: PHYs are permanently masked out due to early MDIO set=
-up
-- [High] dsa: mt7530: PHY interrupts are broken due to late IRQ assignment
-- [Medium] dsa: mt7530: resource leak and silent failure in mt7988_probe()
-- [Medium] dsa: mt7530: data race on static idx in unlocked mt7988_probe()
+- [High] net: dsa: mt7530: race condition in TRGMII inter-switch calibration
+- [High] net: dsa: mt7530: TRGMII execution lacks switch initialization ord=
+ering
+- [High] net: dsa: mt7530: Port 6 forced to TRGMII instead of Port 5 on SoC=
+ switch
+- [High] net: dsa: mt7530: fallback TAP arrays swapped during TRGMII calibr=
+ation
+- [Medium] net: dsa: mt7530: TRGMII calibration clobbers dynamic PMCR setti=
+ngs
+- [Medium] net: dsa: mt7530: immediate PMSR read may cause spurious calibra=
+tion failure
 --
 
-commit b6de045bf619c20c22824d1e2470474ed02da7d7
+commit 62f84243d1eeb88473bd327053e455c0cb300d5e
 Author: Caleb James DeLisle <cjd@cjdns.fr>
-Subject: net: dsa: mediatek: support MDIO switch downstream of MMIO switch
 
-The MT7530 / MT7531 can connect via either MDIO or MMIO. In MMIO mode the
-switch provides its own MDIO bus which connects to its integrated PHYs. This
-commit updates mt7530_setup_mdio() to be called from mt7988_probe() to allow
-downstream switches to register.
+net: dsa: mediatek: support EN751221 switch
 
-> diff --git a/drivers/net/dsa/mt7530-mmio.c b/drivers/net/dsa/mt7530-mmio.c
-> index cf3bdb23a2d54..f387190a95391 100644
-> --- a/drivers/net/dsa/mt7530-mmio.c
-> +++ b/drivers/net/dsa/mt7530-mmio.c
-> @@ -61,7 +61,14 @@ mt7988_probe(struct platform_device *pdev)
->  	if (IS_ERR(priv->regmap))
->  		return PTR_ERR(priv->regmap);
-> =20
-> -	return dsa_register_switch(priv->ds);
-> +	ret =3D dsa_register_switch(priv->ds);
-> +
-> +	if (ret)
-> +		return ret;
-> +
-> +	mt7530_setup_mdio(priv);
+The EcoNet EN751221 has either one, or two, onboard MT7530 switches.
+Every implementation of this SoC has one switch on die with the CPU,
+but some chips - notably those with a "G" in the name, have a second
+MT7530 as an MCM module.
 
-[Severity: Critical]
-Does calling mt7530_setup_mdio() here access the hardware while the chip is
-still held in reset?
-
-If the DSA tree is incomplete, dsa_register_switch() returns 0 without
-executing the switch's setup callback, which is normally responsible for
-deasserting the hardware reset.
-
-When mt7530_setup_mdio() registers the MDIO bus, it immediately triggers
-MDIO read/write operations to probe PHYs. Can this cause invalid data reads
-or fatal AXI bus hangs if the chip is still in reset?
-
-[Severity: Medium]
-Also, if mt7530_setup_mdio() returns an error (such as -ENOMEM or -ENODEV),
-this unconditionally ignores the return value.
-
-Does this allow the driver to bind successfully even if MDIO setup fails, a=
-nd
-leak the successfully registered DSA switch (priv->ds) since
-dsa_unregister_switch() is not called on the error path?
-
-> +
-> +	return 0;
->  }
-> =20
->  static void mt7988_remove(struct platform_device *pdev)
 > diff --git a/drivers/net/dsa/mt7530.c b/drivers/net/dsa/mt7530.c
-> index b152b73315d50..fe93be1ece7d7 100644
+> index fe93be1ece7d7..4f43454083b95 100644
 > --- a/drivers/net/dsa/mt7530.c
 > +++ b/drivers/net/dsa/mt7530.c
 [ ... ]
-> @@ -2414,6 +2414,10 @@ mt7530_setup_mdio(struct mt7530_priv *priv)
->  	static int idx;
->  	int ret =3D 0;
+> @@ -466,6 +476,251 @@ mt7531_pll_setup(struct mt7530_priv *priv)
+[ ... ]
+> +static void
+> +en751221_trgmii_pair_setup(struct mt7530_priv *ext, int ext_port,
+> +			   struct mt7530_priv *ondie, int ondie_port)
+> +{
+[ ... ]
+> +	/* BOTH: Put interfaces in a downed state */
+> +	mcr_down =3D PMCR_IFG_XMIT(PMCR_IFG_XMIT_64) | PMCR_MAC_MODE |
+> +		   MT7530_FORCE_MODE | PMCR_MAC_RX_EN | PMCR_BACKOFF_EN |
+> +		   PMCR_BACKPR_EN | PMCR_FORCE_SPEED_1000 | PMCR_FORCE_FDX;
+> +	regmap_write(ondie->regmap,  MT753X_PMCR_P(ondie_port), mcr_down);
+> +	regmap_write(ext->regmap, MT753X_PMCR_P(ext_port), mcr_down);
+> +	usleep_range(5000, 6000);
+
+[Severity: High]
+Does this sleep window introduce a race condition with the asynchronous phy=
+link
+worker?
+
+The EXT switch asserts control over the ONDIE switch's MAC state during
+calibration, but the 5000us sleep window allows the ONDIE switch's asynchro=
+nous
+phylink worker to overwrite the PMCR register (via mt753x_phylink_mac_link_=
+up())
+and prematurely enable the MAC.
+
+This could lead to MAC state corruption and calibration failure since the S=
+oC
+switch's mac_link_up() can run during this delay, activating TX/RX while the
+TRGMII link is supposed to be in a downed calibration state.
+
+> +
+> +	/* BOTH: Reset TX */
+> +	regmap_set_bits(ext->regmap, MT7530_TRGMII_TXCTRL, TX_RST);
+> +	regmap_set_bits(ondie->regmap, MT7530_TRGMII_TXCTRL, TX_RST);
+
+[Severity: High]
+Does this execution lack switch initialization ordering?
+
+Writes to the SoC switch's TRGMII hardware blocks happen here. If the SoC
+switch hasn't yet initialized its TRGMII clocks via mac_config, these writes
+could be dropped or hang the memory bus.
+
+The EXT switch initiates calibration on the SoC switch (peer) via
+mt753x_phylink_mac_link_up() when its own link comes up, which can happen b=
+efore
+the SoC switch has run mac_config() to enable its TRGMII clocks.
+
+> +	usleep_range(5000, 6000);
+> +	regmap_clear_bits(ext->regmap, MT7530_TRGMII_TXCTRL, TX_RST);
+> +	regmap_clear_bits(ondie->regmap, MT7530_TRGMII_TXCTRL, TX_RST);
+[ ... ]
+> +	/* BOTH: Ports up */
+> +	mcr_up =3D mcr_down | PMCR_MAC_TX_EN | PMCR_FORCE_LNK;
+> +	regmap_write(ondie->regmap, MT753X_PMCR_P(ondie_port), mcr_up);
+> +	regmap_write(ext->regmap, MT753X_PMCR_P(ext_port), mcr_up);
 
 [Severity: Medium]
-Before this patch, mt7530_setup_mdio() was exclusively called from
-mt753x_setup(), which is serialized by the DSA subsystem's dsa2_mutex.
+Will this overwrite and clobber dynamically negotiated PMCR settings?
 
-With the new call path in mt7988_probe() executing concurrently outside of
-dsa2_mutex, can multiple switches probing concurrently race on the lockless
-idx++ increment?
+This uses regmap_write() instead of regmap_update_bits(), completely replac=
+ing
+the PMCR register state and erasing the settings applied earlier by
+mt753x_phylink_mac_link_up().
 
-Could this lead to duplicate MDIO bus IDs and sysfs registration failures
-here?
+Dynamically negotiated MAC flow control (like PMCR_FORCE_TX_FC_EN) and dupl=
+ex
+settings might be silently destroyed when replaced with these hardcoded val=
+ues.
 
-mt7530.c:mt7530_setup_mdio() {
-    ...
-    snprintf(bus->id, MII_BUS_ID_SIZE, KBUILD_MODNAME "-%d", idx++);
-    ...
-}
-
-> +	/* Already done */
-> +	if (priv->child_bus)
-> +		return 0;
-> +
->  	mnp =3D of_get_child_by_name(np, "mdio");
-> =20
->  	if (mnp && !of_device_is_available(mnp))
-> @@ -2438,9 +2442,6 @@ mt7530_setup_mdio(struct mt7530_priv *priv)
->  	bus->parent =3D dev;
->  	bus->phy_mask =3D ~ds->phys_mii_mask;
-
-[Severity: High]
-Since mt7988_probe() calls mt7530_setup_mdio() before the DSA tree is
-completed, is ds->phys_mii_mask initialized at this point?
-
-ds->phys_mii_mask is initialized by dsa_switch_setup() only after the tree
-completes. Does this mean ds->phys_mii_mask is 0 here, causing bus->phy_mask
-to be ~0?
-
-If there are PHYs relying on auto-probing, this mask would cause the MDIO
-core to skip probing them entirely. When the tree eventually completes,
-mt7530_setup_mdio() will return early due to priv->child_bus already being
-set, potentially leaving those PHYs permanently unprobed.
-
-> -	if (priv->irq_domain && !mnp)
-> -		mt7530_setup_mdio_irq(priv);
-> -
->  	priv->child_bus =3D bus;
-> =20
->  	ret =3D devm_of_mdiobus_register(dev, bus, mnp);
 [ ... ]
-> @@ -3285,6 +3287,9 @@ mt753x_setup(struct dsa_switch *ds)
->  	if (ret)
->  		return ret;
-> =20
-> +	if (priv->irq_domain && ds->user_mii_bus)
-> +		mt7530_setup_mdio_irq(priv);
-> +
+> +	en751221_trgmii_calibrate_direction(ondie, ext, default_taps_ondie);
+> +	en751221_trgmii_calibrate_direction(ext, ondie, default_taps_ext);
 
 [Severity: High]
-Does moving the mt7530_setup_mdio_irq() call here populate the IRQs too lat=
-e?
+Are the fallback TAP arrays swapped here during TRGMII calibration?
 
-mt7530_setup_mdio() invokes devm_of_mdiobus_register(), which scans the MDIO
-bus and creates PHY devices. During creation, the PHY framework copies
-bus->irq[addr] into phydev->irq.
+The third argument to en751221_trgmii_calibrate_direction() is used as the
+fallback TAP array for the rx switch (second argument). Passing
+default_taps_ondie when ext is the rx switch incorrectly restores the ondie
+TAPs to the ext switch, and vice versa.
 
-Since bus->irq is populated by mt7530_setup_mdio_irq() only after the PHYs
-are already instantiated, won't the PHYs receive an initial value of 0
-(PHY_POLL), silently breaking interrupt-driven link events?
+If calibration fails on a lane, the wrong switch's default TAPs are restore=
+d,
+potentially leaving the interface permanently broken.
 
->  	/* Initialise the PCS devices */
->  	for (i =3D 0; i < priv->ds->num_ports; i++) {
->  		priv->pcs[i].pcs.ops =3D priv->info->pcs_ops;
+> +
+> +	dev_info(ondie->dev, "TRGMII inter-switch link initialized\n");
+> +}
+> +
+> +static void
+> +mt7530_cal_interswitch_trgmii(struct dsa_port *dp)
+> +{
+[ ... ]
+> +	regmap_read(priv->regmap, MT7530_PMSR_P(dp->index), &pmsr);
+> +
+> +	if (!(pmsr & PMSR_LINK))
+> +		return;
+
+[Severity: Medium]
+Can this immediate PMSR read cause a spurious calibration failure?
+
+mt753x_phylink_mac_link_up() sets PMCR_FORCE_LNK in the MAC control registe=
+r,
+and then immediately calls mt7530_cal_interswitch_trgmii(), which reads the
+PMSR (status) register here.
+
+If the hardware MAC requires any propagation time for the forced link to re=
+flect
+in PMSR, this check will incorrectly evaluate to false and silently abort
+calibration.
+
+[ ... ]
+> +		en751221_trgmii_pair_setup(priv, dp->index, peer,
+> +					   peer_dp->index);
+
+[Severity: High]
+Is it safe to trigger the setup sequence on the peer (SoC) switch without
+verifying if the peer's hardware blocks have been clocked and taken out of =
+reset?
+
+As mentioned earlier, initiating calibration on the peer before the peer has
+fully initialized its TRGMII clocks can cause bus hangs or calibration fail=
+ures.
+
+[ ... ]
+> @@ -2980,6 +3243,44 @@ static void en7528_mac_port_get_caps(struct dsa_sw=
+itch *ds, int port,
+>  	}
+>  }
+> =20
+> +static void en751221_mac_port_get_caps(struct dsa_switch *ds, int port,
+> +				       struct phylink_config *config)
+> +{
+> +	switch (port) {
+[ ... ]
+> +	/* Port 5 is the 1 Gbit/s TRGMII cascade to the external MT7530. */
+> +	case 5:
+> +		__set_bit(PHY_INTERFACE_MODE_TRGMII,
+> +			  config->supported_interfaces);
+> +
+> +		config->mac_capabilities |=3D MAC_1000FD;
+> +		break;
+> +
+> +	/* Port 6 is the 1 Gbit/s CPU link to GDM1. */
+> +	case 6:
+> +		__set_bit(PHY_INTERFACE_MODE_INTERNAL,
+> +			  config->supported_interfaces);
+> +
+> +		config->mac_capabilities |=3D MAC_1000FD;
+> +		break;
+> +	}
+> +}
+
+[Severity: High]
+Is Port 6 erroneously forced to TRGMII instead of Port 5 on the SoC switch?
+
+en751221_mac_port_get_caps() defines Port 5 as TRGMII and Port 6 as INTERNA=
+L.
+However, mt7530_setup_port5() lacks any logic to configure TRGMII clocks,
+falling back to GMAC5 mode.
+
+Conversely, mt7530_setup_port6() applies TRGMII setup for any interface tha=
+t is
+not RGMII:
+
+mt7530_setup_port6()
+    if (interface =3D=3D PHY_INTERFACE_MODE_RGMII) {
+        ...
+        return;
+    }
+    regmap_update_bits(priv->regmap, MT7530_P6ECR, P6_INTF_MODE_MASK,
+                       P6_INTF_MODE(1));
+
+This means PHY_INTERFACE_MODE_INTERNAL on Port 6 is erroneously configured =
+as
+TRGMII. This breaks the internal CPU link (Port 6) and leaves the TRGMII
+cascade link (Port 5) unconfigured.
+
+[ ... ]
+> @@ -3129,6 +3430,9 @@ static void mt753x_phylink_mac_link_up(struct phyli=
+nk_config *config,
+>  	}
+> =20
+>  	regmap_set_bits(priv->regmap, MT753X_PMCR_P(dp->index), mcr);
+> +
+> +	if (interface =3D=3D PHY_INTERFACE_MODE_TRGMII)
+> +		mt7530_cal_interswitch_trgmii(dp);
+>  }
+
+[Severity: High]
+Can the SoC switch's workqueue execution of this regmap_set_bits() silently
+break the EXT switch's calibration sequence?
+
+Since both switches have independent phylink workers and there is no locking
+across switches, the SoC switch will blindly execute this regmap_set_bits()=
+ in
+its own workqueue. This forces PMCR_MAC_TX_EN to 1 while the EXT switch exp=
+ects
+the TRGMII link to be in a downed calibration state.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915174643.2536=
-60-1-cjd@cjdns.fr?part=3D5
+60-1-cjd@cjdns.fr?part=3D7
