@@ -1,245 +1,118 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66EE22C11FA;
-	Wed, 16 Sep 2026 02:00:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFB463A5440
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 02:05:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789524019; cv=none; b=Dd5Bn6qZcsqcWwy7jJkMyd2rkpEtdVE2MvhtPZ+a9DDlVMHNhUg5ySyWKyCUSArV7utecxnSBRrC006p9pgfHSNyLo3S7z/NtOkM43M8gYd3+SocBFDlMI2mOoWNP5uIBaStUBxC3XEBTXO7uGK9SzjBst+W0fm1vuBhcHZw9gU=
+	t=1789524314; cv=none; b=L4InMHCCgfejqi428nTs1HIJbdMYfpw5iNm/zToW14smEJK6EUSGjfXnaQrqD6IqjFAeDjjsvU+e21tQKCdYSpX2XF9ox5pg6TSTb7Sfrv4EF05gR81xdv13gL9J7fzHBhNH2qC8PGZLPna7P7PAMMVrSW9OHaS0BgYB7SBOusw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789524019; c=relaxed/simple;
-	bh=4x1THk5tPNpQ0A2XPcYG+HK3rFk92doOKEFtYCFceHY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oko+KlQNqoxwrW+r+AfF8F4f9ehxt5p3SFJrDHG7vwZtl5u8/k5FYJGBmdbdS/8LbJkSXxdD/ZBxN6YgM0r4LxQt0vL/fy/3VOTPvHLZBjUHhfErNP1wZFmXxz4KGk7ndEZjBJic1Cssr+t6ZkPuCGZLiGJoUjgU09ZS2Tb2Iro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=g7Gmenyv; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789524314; c=relaxed/simple;
+	bh=iMPtRMOLVM/DPir/+ui47qttNQUckPyPNo/s/VRSEsU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=qQ121VkoFxiJS8zAbUrtMcKIoFfTiKHurx42uYnqT/RqMUwFmV/GiG3Cbgsbpcl1nCPe4DUWXumOaxFwYQ97wef27+hovLaDLnCxk37Qib1Ykom9y9zGeHt17zXghtx8uBbmzNXbNH4HOlK4Lf6rJAK1zKtU5lEijSpdGp86l/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PIeAntsK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="g7Gmenyv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=g2
-	CtAMhynmn6DHBR9QDKyNlir7XDVSvCEJcX3emHNPE=; b=g7GmenyvS2UUbanMXu
-	bmSSt5Hqi6TR+v4fch48ihZJmLt2QPzOceJBSR1ZJgK6NIaRi1RNPPeDUCLmfb4V
-	OANbDtOkhmf1L2SZ/Gje2zEWCj3Bfn8u89+Bv4RAMf62RBzaM+ssEJyDlpyF0JjI
-	23kP71Ar3K5ILV36G34TEUDRA=
-Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wCHlXrK96lqbYrfAw--.61328S2;
-	Wed, 16 Sep 2026 09:58:36 +0800 (CST)
-From: Quchaosheng <quchaosheng000406@163.com>
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Roger Quadros <rogerq@kernel.org>,
-	Tony Lindgren <tony@atomide.com>
-Cc: dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-omap@vger.kernel.org,
-	quchaosheng000406@163.com
-Subject: [PATCH v2 1/2] dt-bindings: display: ti,tpd12s015: Convert to DT schema
-Date: Wed, 16 Sep 2026 09:58:32 +0800
-Message-ID: <20260916015833.112753-1-quchaosheng000406@163.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260915120327.47114-1-quchaosheng000406@163.com>
-References: <20260915120327.47114-1-quchaosheng000406@163.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PIeAntsK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 060861F000FF;
+	Wed, 16 Sep 2026 02:05:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789524304;
+	bh=GcVjLlmz5LZsK8LgtK2EAmBn8mosMDq5pnMMvxQJohM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=PIeAntsKYc8yhW0LW4sHL7fmv2j6p+DnvOLQfHYUvjhK0UGTUzoVlxN9Z1SkTwY2/
+	 ZW/bicA0qTasmnm9UEXVDkz+KRSWUQ1uU/eIit3MmmSZ3TIEOk/eOqq5Llj/Q3WKd9
+	 1NoUaB96dOT0IgYCH59YUyoVyeMBx12u3OLoJ21ELplxIeo0F0iypnzrsYZX10ffjx
+	 UQSsm0H/FoBLFbvBXAFy3NtH42n/uewyUnL6GrU6sPWGkXc8lCsDks6lhdWQ0XwoCZ
+	 BUQ/W3/oClZeFdNsJvZ/2i8taZc+QboKqEbcGgvjhricwpwCiD0+G3l2C0EO02D2ZD
+	 1hZPjxk6Io1Yg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/3] arm64: dts: qcom: glymur: Add Asus Zenbook A14
+ (UX3407NA)
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Bjorn Andersson" <bjorn.andersson@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260915-zenbook-dts-v2-2-41de8669a7a8@oss.qualcomm.com>
+References: <20260915-zenbook-dts-v2-0-41de8669a7a8@oss.qualcomm.com>
+ <20260915-zenbook-dts-v2-2-41de8669a7a8@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 16 Sep 2026 02:05:03 +0000
+Message-Id: <20260916020504.060861F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wCHlXrK96lqbYrfAw--.61328S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxGw1fGryrGr4DAr4Utw4xWFg_yoW7Jw4rpF
-	n5Gas7CFy8WFyaqw4xAF1kCa1rAFWkAr40kF1xXFy5AF40qF40yF13Krn8XFy5CFyfZay2
-	qF47Ww17Krn7C3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pE-eOtUUUUU=
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC4ww2q2qp98w6gQAA3x
 
-Convert the TPD12S015 HDMI level shifter binding to DT schema.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] dts: copy-paste error leaves second USB MP PHY and redriver enab=
+led
+--
 
-The TI TPD12S015 is an HDMI companion chip that combines a level shifter
-and ESD protection circuitry. Document the two ports it exposes between
-the HDMI transmitter and the connector.
+commit 0d6d4b3a24e525ee48e9f58d17b7e42d0de45fa5
+Author: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
 
-The tpd12s016 is software compatible with the tpd12s015 and is listed as a
-fallback compatible by am57xx-idk-common.dtsi, so accept it as a fallback
-of "ti,tpd12s015". The driver matches on "ti,tpd12s015" only, so a board
-using the tpd12s016 must list both compatibles.
+arm64: dts: qcom: glymur: Add Asus Zenbook A14 (UX3407NA)
 
-The gpios property takes the three CT CP HPD, LS OE and HPD GPIOs the
-driver obtains through devm_gpiod_get_index().
+This commit adds device tree support for the Asus Zenbook A14 (UX3407NA)
+variant built on the Qualcomm Glymur platform. It introduces the base
+hardware description, including the X2 Elite SoC, storage, display,
+and USB connectivity.
 
-Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
----
-v2:
- - gpios: drop the five-entry variant. The driver obtains three GPIOs
-   through devm_gpiod_get_index() (indices 0, 1 and 2) and never reads a
-   fourth or fifth, and no in-tree board passes more than three. Limit the
-   property to three entries to match.
- - Reword the description: the TPD12S016 can only be used as a fallback of
-   "ti,tpd12s015", because the driver matches on "ti,tpd12s015" alone.
- .../bindings/display/ti/ti,tpd12s015.txt      | 44 ---------
- .../bindings/display/ti/ti,tpd12s015.yaml     | 91 +++++++++++++++++++
- 2 files changed, 91 insertions(+), 44 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
- create mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
+> diff --git a/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a14-ux3407na.dt=
+s b/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a14-ux3407na.dts
+> new file mode 100644
+> index 0000000000000..e96e65a0c5b49
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a14-ux3407na.dts
+[ ... ]
+> +&i2c5 {
+> +	clock-frequency =3D <400000>;
+> +
+> +	status =3D "okay";
+> +
+> +	ptn3222_1: redriver@43 {
+> +		compatible =3D "nxp,ptn3222";
+> +		reg =3D <0x43>;
+> +
+> +		reset-gpios =3D <&tlmm 184 GPIO_ACTIVE_LOW>;
+> +
+> +		vdd3v3-supply =3D <&vreg_l8b0>;
+> +		vdd1v8-supply =3D <&vreg_l15b0>;
+> +
+> +		#phy-cells =3D <0>;
+> +	};
 
-diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
-deleted file mode 100644
-index 26e6d32e3..000000000
---- a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
-+++ /dev/null
-@@ -1,44 +0,0 @@
--TPD12S015 HDMI level shifter and ESD protection chip
--====================================================
--
--Required properties:
--- compatible: "ti,tpd12s015"
--
--Optional properties:
--- gpios: CT CP HPD, LS OE and HPD gpios
--
--Required nodes:
--- Video port 0 for HDMI input
--- Video port 1 for HDMI output
--
--Example
---------
--
--tpd12s015: encoder@1 {
--	compatible = "ti,tpd12s015";
--
--	gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>,	/* 60, CT CP HPD */
--		<&gpio2 9 GPIO_ACTIVE_HIGH>,	/* 41, LS OE */
--		<&gpio2 31 GPIO_ACTIVE_HIGH>;	/* 63, HPD */
--
--	ports {
--		#address-cells = <1>;
--		#size-cells = <0>;
--
--		port@0 {
--			reg = <0>;
--
--			tpd12s015_in: endpoint@0 {
--				remote-endpoint = <&hdmi_out>;
--			};
--		};
--
--		port@1 {
--			reg = <1>;
--
--			tpd12s015_out: endpoint@0 {
--				remote-endpoint = <&hdmi_connector_in>;
--			};
--		};
--	};
--};
-diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
-new file mode 100644
-index 000000000..96b44bd66
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
-@@ -0,0 +1,91 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/ti/ti,tpd12s015.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: TI TPD12S015 HDMI level shifter and ESD protection chip
-+
-+maintainers:
-+  - Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-+
-+description: |
-+  The TPD12S015 is an HDMI companion chip that combines a level shifter and
-+  ESD protection circuitry. It sits between an HDMI transmitter and the HDMI
-+  connector, and provides control over the level shifter enable and the
-+  hot-plug detect signals.
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - const: ti,tpd12s015
-+      - items:
-+          - const: ti,tpd12s016
-+          - const: ti,tpd12s015
-+
-+  gpios:
-+    description:
-+      The CT CP HPD, LS OE and HPD GPIOs, in that order. The first controls
-+      the level shifter, the second enables the level shifter outputs and
-+      the third reads the hot-plug detect line.
-+    minItems: 3
-+    maxItems: 3
-+
-+  ports:
-+    $ref: /schemas/graph.yaml#/properties/ports
-+
-+    properties:
-+      port@0:
-+        $ref: /schemas/graph.yaml#/$defs/port-base
-+        unevaluatedProperties: false
-+        description: HDMI input from the transmitter.
-+
-+      port@1:
-+        $ref: /schemas/graph.yaml#/$defs/port-base
-+        unevaluatedProperties: false
-+        description: HDMI output to the connector.
-+
-+    required:
-+      - port@0
-+      - port@1
-+
-+required:
-+  - compatible
-+  - ports
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    encoder1 {
-+        compatible = "ti,tpd12s015";
-+
-+        gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>,    /* 60, CT CP HPD */
-+                <&gpio2 9 GPIO_ACTIVE_HIGH>,    /* 41, LS OE */
-+                <&gpio2 31 GPIO_ACTIVE_HIGH>;    /* 63, HPD */
-+
-+        ports {
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            port@0 {
-+                reg = <0>;
-+
-+                tpd12s015_in: endpoint {
-+                    remote-endpoint = <&hdmi_out>;
-+                };
-+            };
-+
-+            port@1 {
-+                reg = <1>;
-+
-+                tpd12s015_out: endpoint {
-+                    remote-endpoint = <&hdmi_connector_in>;
-+                };
-+            };
-+        };
-+    };
-+
-+...
--- 
-2.43.0
+[Severity: Medium]
+The commit message explicitly states the device has "one USB Type-A" and
+makes no mention of an SD card reader. Does this hardware actually have a
+second redriver, or is ptn3222_1 a leftover from another model's configurat=
+ion?
 
+If this hardware does not exist on the board, the kernel will attempt to pr=
+obe
+a non-existent I2C redriver which can cause boot probe errors.
+
+[ ... ]
+> +&usb_mp_hsphy1 {
+> +	vdd-supply =3D <&vreg_l2h0>;
+> +	vdda12-supply =3D <&vreg_l4h0>;
+> +
+> +	phys =3D <&ptn3222_1>;
+> +
+> +	status =3D "okay";
+> +};
+
+[Severity: Medium]
+The second Multi-Port PHY is fully enabled here, which directly contradicts
+the commit message's claim of a single Type-A port.=20
+
+Could enabling this second PHY waste power and cause initialization errors =
+by
+attempting to bring up non-existent hardware on the boot path?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915-zenbook-dt=
+s-v2-0-41de8669a7a8@oss.qualcomm.com?part=3D2
