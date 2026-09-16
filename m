@@ -1,188 +1,217 @@
-Received: from mail-ej2-f6.google.com (mail-ej2-f6.google.com [74.125.228.134])
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE87750C294
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 15:30:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.134
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789572634; cv=pass; b=DkE8lHAZJEPgghvLGKBaazNBWEu4LUOOF74DutT5kA/Pasl6daTzvP2oF5rEi+uVq80IQH7VMvxNJSHIyvMRyGGrCUDZcYYO2JG/LtCshgDHr3t0PhMvnVnhhj8Sv0nEW9gblE1t5i3VgW1qzip6zkQazWGSbXKmuYRGz09kXqM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789572634; c=relaxed/simple;
-	bh=O3QLn2CpPoW3DrWyVcpQzdDveriLtVtFogD3GR0l6ko=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YkVhj1M2V8HbJwQHwwEOt80HzTMRpNrHJKa8WsW4rn/QH5GkNpAMUTsBQEE/TGAaNnsSlerxFcNgPgsL5yonGKAsbJ9y1TTKeki/9s0O26kNR7gnoBsZY3bT2xkUHMs6YKIh1g6SFhuxektR6YS8np3jG1OQ+mZ4ofx6iMIkIbA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lXb68Myz; arc=pass smtp.client-ip=74.125.228.134
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E1D43D6477
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 15:36:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789573009; cv=none; b=Xk0YWS72+/XJ3DkZObdBTu2IqL3VZXuZ+0SbjUbcHjC5+TEkXJq/GlmoU0FGYco8JxF/eaDj/xkxStAx7lKXLAtCWrVD+EbouJUSA0KOS3chQi4dKmy1wiI6WUxbBTbu5SiR7elTyDMjln4oliPVAYs5pXfMVmmDZvvYDrrBBkI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789573009; c=relaxed/simple;
+	bh=j9wPV+/EfbcGsOG8JnEPShKnQO6bUkC+qAb7x5D1t28=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
+	 References:In-Reply-To; b=myJky6V1yLg9Rp4dAdwldw0ZaJAp1v8Gp40+1HVzrwFtTYau94Y8/PHDU/uUuNxU5skNwgV1fdtggVgItN4W1A2SPmsU+frRGKrynu4nmKzgG7Po6fd3stHrQBNKCpdySr9HsnqihcJdSXUAzuMeZEJVLdfnXKh7AOhSgnvEon0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=cXHdKIqT; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lXb68Myz"
-Received: by mail-ej2-f6.google.com with SMTP id a640c23a62f3a-c29440ee0e7so299891266b.0
-        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 08:30:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789572628; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rM0axd8QSdPlJURm+1AKvVwEP5JiAf5Lg1j+J3LxSwRqib65hd/nw6/U4fbDPWG6OS
-         l0LQRXvJDSWXOyXmbYvCkMTlvaDF/r4DjfoilGsKhQPSmR6q+U/i/UWw5vYULyoH6esf
-         eMthrpKUMqHf9wc2LwFR3ixGhL5EuJqYQ5NMSA+hZX8kxw7ExiEdJMQOIzTFurF6bgwE
-         YhDfd3cLR+aIbRD4Q212Qjey+ucBYlE2ezOOM7pVD9hJbRvTtKsTp7yTI+RBrg5vfQ6+
-         NwIffiK8TsM2Sdnb8NIF0Wj3Ggo/AeXZ9MT3HwL4qHm7yI05WvHPSyqJAfeF+MCsCSX8
-         oFjQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=3iZhP1DReptHMS9Q1/qn9BvRZUgDeQPXvK/H8HNEb5g=;
-        fh=4nXj6kn3mmZtuMBMudISXllqIQu4SUz+oNhCLAyuGo8=;
-        b=jnmcv338rYlohL5UCUwtv6PA8lxeZ/vJPNYvrNIfdRiAEN4d2JbJHqOPUixf4cAyJz
-         OQGhsUookCPt2tuwnHa9nLqIusl517Rp8/7BwhDQKsGMWyggxfBcmV1yT58/SWSNpSPs
-         7D3aGLTRCzC3tLHMCzwBKqcrW2LwXHI7gGRGMl+XeFoZLzuu/JWxV3Ji1ruXOdcqGmiD
-         5aMosh515dj7Lt+0oLxP6u8yVWJwPHqurAcvtOALceKrej8tKwO8niOWxtkN2uRYmcsH
-         rSIf50GxKMkMgIZC8U06czkG3G0p9a7X8gcYM9by8Ybjh8HyI2/NUJvJJJuY+u5/QbK/
-         zPTQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="cXHdKIqT"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-4843e397f74so1224507f8f.1
+        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 08:36:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789572628; x=1790177428; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3iZhP1DReptHMS9Q1/qn9BvRZUgDeQPXvK/H8HNEb5g=;
-        b=lXb68MyzqMQFzdVyfKZcX59SOBDq9BWVhJABddx6JiJogkkAn4HkfJnPDuP2Y1AY6+
-         CTTvuok73zJZs6jgzbpRqRgQ1b+VQpAIcOUBnq7Dd/ubbB/VSL3nWNaEMGBH4jFwYXe8
-         MXZtG6RyD56+RomFJ80+W2kfXR4MbQ0rG7udXgW+5Vps2uDNj3qd3MgtFAZItM3J63Xt
-         ROrBtTlQETtXQeE4qTCGWJ1PhYwzDQLkP12W4dGhMd9SImyMjm1AGj7opFchIlBNT5Qp
-         A5Exhs1UKxu36WUtLeQhC3Gcq67DjnHPWNtWbQAq8Aluqm0BjdL8lYDf8QhdkJbJpVnc
-         xgUg==
+        d=baylibre.com; s=google; t=1789572996; x=1790177796; darn=vger.kernel.org;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-type:mime-version:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=mqmfs62Il41JZdrK4MnJ9AwZ6UV73Ai2ymy+jYr0F+M=;
+        b=cXHdKIqTKKDEZPyrNZkyvgiKFAbeOrOwxQ1h9eGsmbtiIRAE5DWeCXlqwOEFyKMxSk
+         o/dam5XeR7aby5PHcg+dTTa8vn6Eqfwyt2RiszXBQKWvhcrusjzQWCPRPWLH9mwcTKzg
+         9r8EtLLJuRQl7c/wJIJu6On5nZJ9Bx49Bo6bpQtUlqw6LdlAz0KaZrjkPJs8dpP3u4q0
+         DauvJmQq8tCCBuOffVDHaHUQYj+nheYr902n89G7VshcaKSk6tmMY5aKITenUB4ONAaP
+         0A6w8hAXZeKzIE3DJ45UXQrKnzwPilClxbHUqgadrhF3Q31ParWGnaQffuadxWzQ6h4t
+         NDcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789572628; x=1790177428;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3iZhP1DReptHMS9Q1/qn9BvRZUgDeQPXvK/H8HNEb5g=;
-        b=eexYp5w1rGYBOnh0yxrkx3xLxiftR3QIcu+lkJw4PG7wyi7XVrqZzDLCKh2HqQ06Tc
-         Z1WV2687bkcd2fLjp6v3hDYJ3naKYOfOtRk2IvhmK8977e1/di+wMeMJyFV7U6WmnA5r
-         npB3TMBieYoKS+KMgsxuwuCOv/vhykUYR/Y7+2o4r7RNaAa1+9+RIlN5YjbpOgw+UZ87
-         aC97TAM9CW+6ih9y4b3zw4PxI6oGDTFfMxUJmvpbt31dPvdfev3gEylswHwoLnomGiUE
-         aOg4PkXetSAB8UDx2ar/qCwy6KfU35VuuIxh3YtHIQU81ow0P3Mq6sS1WGtUPh0Pf5+r
-         p3qw==
-X-Forwarded-Encrypted: i=1; AKwUvBzBms1f7ZxtKhMrtcL+dJT1RKu4PKs9jcFGYFr+HFvjMs1bIvTSpWhjads0HiSKyEGsbwiZ2s8rbFBK@vger.kernel.org
-X-Gm-Message-State: AFuF++nYRtYpVKqYa3US7zvexEv1agVuNOTcgUK3xsotmhygK1OVz8wb
-	b/vkKsP8AhzVRdOxo9D5FlQHV5cYgg0VFyK3gzN/MB1k2ihrNNgeoszAXqrGgxIUI12AYE2LyfE
-	B6gR0jSstNySDWv0s3sKTQrsM9gcs954=
-X-Gm-Gg: AYBFou2kLPt6uTU0K2ywfSULMjCuyiiTo0xye84lceaiQ0EuWbkpWtE7oZjz4QciyFA
-	KTtE54FejNuNPFlKAR7oPfhCC4VEUU5BloCVzckGEj69OcV/U47aGOOU6hL1pjGLGFbW16Ij2RW
-	RtQ1GED186dhX8sXEzT3UqufMNRxUKI5RI7wvdlvI2FRNG6MAFZDM6jsljFDT4c6Irs5xw8Sw+w
-	DI0Vop55sRH8oZUSN4Uk+oxffZIFnWJf27WErbEi8B6jWW8Rk2NPrl9dFvnllbQ6zj6s9mQmzKS
-	nD8On98KYu7RDHPl2e6xF5/LJBPefJ7P26kuDxDq2JghAJ1stdYKXGRoTg==
-X-Received: by 2002:a17:907:c49a:b0:c25:8e53:45ca with SMTP id
- a640c23a62f3a-c29e52bf59bmr425926066b.21.1789572627794; Wed, 16 Sep 2026
- 08:30:27 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789572996; x=1790177796;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-type:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=mqmfs62Il41JZdrK4MnJ9AwZ6UV73Ai2ymy+jYr0F+M=;
+        b=GM4MgR0QNyTodRSmCZHaoCRHfRBJeZVQgtHII4xbz082oU1AQ9q6BYQVNHJeh1Fhkv
+         8UyqHs25Gnt0/pLIKSHxHv/3FvobodXD5i/6ho8PRYXl5H0H5Fp1kx5GuW3GveQYXN3s
+         HdysTtLfVSbRpybUNp3y+k3wjsPgvKMyHI6YmNMP5RFkzZ1R4dJY44jeBZqMUd8hwSNx
+         mjZtaLg5yMFR9OHvwc4JEBiS55jBCd6PPmmiz/nYK4FDn9+PpE3FIaMwp7eReowULviE
+         JECpCepTcXEjgv+lzctUkA/4mmkPHeT4BqVjkWUmDrYqQxNpgRqrWjPm7XQU6bTo96MW
+         Cc8A==
+X-Forwarded-Encrypted: i=1; AKwUvByhGvWCH5GCicOeFPPORlsmjvOnYTjYzDhDkIkst5n0/T8VR2bt4h7SEvuIy/TXN8rTnC1DTM52dpIJ@vger.kernel.org
+X-Gm-Message-State: AFuF++k8YIkH7TijQyku3S+KhafM9bK8Rb3Wdcbbz88AQXEJbbsTxXXb
+	i/sQ2FjoVkXWkqx5j6EQcLvs9qe+gB05IXNAntUWz+uL19Uc6T06VLEQegILd05ztjs=
+X-Gm-Gg: AYBFou0PyJWBo+IXzAA1yTs3HixmfVnHDVd0r0CLwhYbDMx6zSpwBcgbaXi8VUYTVBm
+	ma8FclgpmEHJKgEYHNltelhuekuog8bOLB2dCSIN3u/c/s8i9MllBFvk523guAwb2Uy+wOmKxvF
+	bGkcMFpYTSlZ1k2x2gZCmMsd9pyelOCRmC5v10FuGauEX+OXEZ0IRU8Y/6TcL/7ByeJn20ERotq
+	JZXKtKx3ZR1gV3agHCDp+E63lcMjsuFcHKYTDB4VmVDqIE1B6HmiiXuNaSrlA59YVP9JGL78ugF
+	yXMlZYLKJ6NwvksCLAP9ouoAUAO/inoPx1+nFLLJSYP+xX2+krE0f0R9WO4rgAXceGQ1AXBiHn0
+	Ft3aOsF/06F30E/0HqdYPR6F2uID+vjDEqfezkDj4y4c/glDlj2VcptgzXCo65IWUSTsaN5Urlv
+	gQHLqLt3EREVyLZnQjUAF/oz8NySG7//zktduqhE57C53DyXRskoQT+rnt5iL9HrH7gw==
+X-Received: by 2002:a05:6000:643:b0:487:955:e6c3 with SMTP id ffacd0b85a97d-48713a887ccmr129202f8f.0.1789572995924;
+        Wed, 16 Sep 2026 08:36:35 -0700 (PDT)
+Received: from localhost ([2001:4091:a245:8029:665d:b7b:5fa4:7ad0])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf27c65sm7915045f8f.21.2026.09.16.08.36.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 08:36:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260915123802.1561724-1-coiaprant@gmail.com> <20260915123802.1561724-6-coiaprant@gmail.com>
- <20260916145017.00DBA1F000FF@smtp.kernel.org>
-In-Reply-To: <20260916145017.00DBA1F000FF@smtp.kernel.org>
-From: Coia Prant <coiaprant@gmail.com>
-Date: Wed, 16 Sep 2026 23:30:16 +0800
-X-Gm-Features: AcwNN1VAHr5mQCG8cyXXjxTi5LTBgNFWZMnSTKdoeh45_aT0Zqjxqq28yQF9Z9M
-Message-ID: <CALj3r0hA00u7E-N8o+rkMae_8wHt9s=EfAcHO8TE=ERHKmmYWw@mail.gmail.com>
-Subject: Re: [PATCH net-next v6 05/11] arm64: dts: rockchip: rk3568: add XPCS
- and fixed-clock nodes
-To: sashiko-reviews@lists.linux.dev
-Cc: vkoul@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org, 
-	wsa+renesas@sang-engineering.com, olteanv@gmail.com, 
-	devicetree@vger.kernel.org, robh@kernel.org, linux-phy@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=761cd574ee4d3e49f3377936d80d108455a0226c8fe418a7549df126e25d;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Wed, 16 Sep 2026 17:36:26 +0200
+Message-Id: <DLGUOGCLFAI9.2JSS4DCFRYTNI@baylibre.com>
+Subject: Re: [PATCH 1/2] dt-bindings: input: gpio-keys: add pinctrl states
+From: "Markus Schneider-Pargmann" <msp@baylibre.com>
+To: "Krzysztof Kozlowski" <krzk@kernel.org>, "Kendall Willis"
+ <k-willis@ti.com>
+Cc: "Dmitry Torokhov" <dmitry.torokhov@gmail.com>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, <msp@baylibre.com>, <s-kochidanadu@ti.com>,
+ <a-kaur@ti.com>, <s-tripathi1@ti.com>, <vishalm@ti.com>,
+ <linux-input@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <devicetree@vger.kernel.org>
+X-Mailer: aerc 0.21.0-146-gb5c16ebe1835
+References: <20260912-upstream-gpio-wakeup-v1-0-f0e12484b836@ti.com>
+ <20260912-upstream-gpio-wakeup-v1-1-f0e12484b836@ti.com>
+ <20260914-unbreakable-competent-beluga-efb5ad@quoll>
+ <20260915164819.nlgpuvf37rhzgc66@uda0506412>
+ <dec4f6e1-115e-46dd-8fb9-a3c67f1a8811@kernel.org>
+ <da881fb0-93da-4d75-88da-8898b2c734eb@kernel.org>
+ <20260915174103.ad6tjy6w6s24h2yc@uda0506412>
+ <20260916-dancing-loud-guan-fbb1eb@quoll>
+In-Reply-To: <20260916-dancing-loud-guan-fbb1eb@quoll>
+
+--761cd574ee4d3e49f3377936d80d108455a0226c8fe418a7549df126e25d
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-<sashiko-bot@kernel.org> =E4=BA=8E2026=E5=B9=B49=E6=9C=8816=E6=97=A5=E5=91=
-=A8=E4=B8=89 22:50=E5=86=99=E9=81=93=EF=BC=9A
+On Wed Sep 16, 2026 at 9:17 AM CEST, Krzysztof Kozlowski wrote:
+> On Tue, Sep 15, 2026 at 12:41:03PM -0500, Kendall Willis wrote:
+>> On 19:07-20260915, Krzysztof Kozlowski wrote:
+>> > On 15/09/2026 19:05, Krzysztof Kozlowski wrote:
+>> > > On 15/09/2026 18:48, Kendall Willis wrote:
+>> > >> On 12:13-20260914, Krzysztof Kozlowski wrote:
+>> > >>> On Sat, Sep 12, 2026 at 04:33:53PM -0500, Kendall Willis wrote:
+>> > >>>> Document pinctrl properties on the gpio-keys device node. By usin=
+g the
+>> > >>>> wakeup pinctrl state, the pins are able to wakeup the system from=
+ a
+>> > >>>> low-power state. The default pinctrl state describes the default =
+pin
+>> > >>>> configuration.
+>> > >>>>
+>> > >>>> Signed-off-by: Kendall Willis <k-willis@ti.com>
+>> > >>>> ---
+>> > >>>>  Documentation/devicetree/bindings/input/gpio-keys.yaml | 16 ++++=
+++++++++++++
+>> > >>>>  1 file changed, 16 insertions(+)
+>> > >>>>
+>> > >>>> diff --git a/Documentation/devicetree/bindings/input/gpio-keys.ya=
+ml b/Documentation/devicetree/bindings/input/gpio-keys.yaml
+>> > >>>> index cc78c2152921308fe0cad3e29ca78a5fad08f066..b554933e93412d8b6=
+c2ec401dc1e1eeff57d4190 100644
+>> > >>>> --- a/Documentation/devicetree/bindings/input/gpio-keys.yaml
+>> > >>>> +++ b/Documentation/devicetree/bindings/input/gpio-keys.yaml
+>> > >>>> @@ -22,6 +22,22 @@ properties:
+>> > >>>> =20
+>> > >>>>    poll-interval: true
+>> > >>>> =20
+>> > >>>> +  pinctrl-0:
+>> > >>>> +    description: Default pinctrl state
+>> > >>>> +
+>> > >>>> +  pinctrl-1:
+>> > >>>> +    description: Wakeup pinctrl state
+>> > >>>> +
+>> > >>>> +  pinctrl-names:
+>> > >>>> +    description:
+>> > >>>> +      When present should contain at least "default" describing =
+the default pin
+>> > >>>> +      states. The second state called "wakeup" describes the pin=
+s in their
+>> > >>>> +      wakeup configuration required to exit sleep states.
+>> > >>>> +    minItems: 1
+>> > >>>> +    items:
+>> > >>>> +      - const: default
+>> > >>>> +      - const: wakeup
+>> > >>>
+>> > >>> This will introduce new warnings, which should be being fixed in t=
+his
+>> > >>> patchset (e.g. at91-kizbox3-hs.dts).
+>> > >>>
+>> > >>
+>> > >> Will fix the binding to work with current device trees.
+>> > >>
+>> > >>> But nevertheless, isn't second state the sleep state? How can you
+>> > >>> configure pins for the wakeup state - like being in the wakeup? Yo=
+u
+>> > >>> configure the pins for given state, which will be a system suspend=
+, so
+>> > >>> sleep?
+>> > >>>
+>> > >>
+>> > >> The sleep state usually refers to putting the pins in a state to sa=
+ve
+>> > >> power. The wakeup pinctrl state is for putting the pins in a state =
+to
+>> > >> allow wakeup from suspend for that device. Both 'sleep' and 'wakeup=
+'
+>> > >> are for system suspend, but they fill different functions. The CAN
+>> > >> subsystem also uses the 'wakeup' state in addition to the 'sleep' s=
+tate
+>> > >> [1].
+>> > >=20
+>> > > So you mean sleep would be a separate state? But then aren't both
+>> > > exactly the same states? IOW, if device is wakeup-source, it will ha=
+ve
+>> > > for "sleep" state pin configuration allowing to wakeup.
+>>=20
+>> The 'sleep' and 'wakeup' pin states are both used for suspend. They
+>> would just be used separately since only one could be used at a time.
+>> The reason 'wakeup' is separated out is because it is more specific for
+>> allowing wakeup from the device.
 >
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [Medium] dts: incorrect fixed-clock modeling for XPCS generated clock
-> --
->
-> commit 18edca8a678c045ba2fe3270b1f3ca0505b94baa
-> Author: Coia Prant <coiaprant@gmail.com>
->
-> arm64: dts: rockchip: rk3568: add XPCS and fixed-clock nodes
->
-> This commit adds the DesignWare XPCS node and its sub-nodes for the RK356=
-8
-> SoC, mapping it to the APB3 bus. It also adds two fixed-clock nodes to
-> provide reference clocks for the GMACs when operating with XPCS.
->
-> > diff --git a/arch/arm64/boot/dts/rockchip/rk3568.dtsi b/arch/arm64/boot=
-/dts/rockchip/rk3568.dtsi
-> > index 3bc653f027f1f..227d03e336043 100644
-> > --- a/arch/arm64/boot/dts/rockchip/rk3568.dtsi
-> > +++ b/arch/arm64/boot/dts/rockchip/rk3568.dtsi
-> [ ... ]
-> > +     clk_gmac0_xpcs_mii: clock-xpcs-gmac0 {
-> > +             compatible =3D "fixed-clock";
-> > +             clock-frequency =3D <125000000>;
-> > +             clock-output-names =3D "clk_gmac0_xpcs_mii";
-> > +             #clock-cells =3D <0>;
-> > +     };
->
-> [Severity: Medium]
-> Does modeling the XPCS-generated clock as an independent fixed-clock bypa=
-ss
-> power management and dependency tracking?
->
-> Because the clock framework has no dependency link to the XPCS power doma=
-in
-> (RK3568_PD_PIPE), it seems it will switch the GMAC to this clock even if =
-the
-> XPCS block has not yet probed and is still power-gated.
->
-> When the GMAC device uses this via assigned-clocks, the driver core switc=
-hes
-> the parent clock before the GMAC probe function is executed. If XPCS is
-> absent or uninitialized, could switching to this unpowered clock hang the
-> system at boot time?
->
-> Would it be safer to have the XPCS or SerDes node itself act as the clock
-> provider so the clock framework properly tracks power domain lifecycles?
->
-> > +
-> > +     clk_gmac1_xpcs_mii: clock-xpcs-gmac1 {
-> > +             compatible =3D "fixed-clock";
-> > +             clock-frequency =3D <125000000>;
-> > +             clock-output-names =3D "clk_gmac1_xpcs_mii";
-> > +             #clock-cells =3D <0>;
-> > +     };
->
-> [Severity: Medium]
-> Is this second XPCS-generated MAC clock subject to the same decoupling fr=
-om
-> the XPCS power domain as the first clock?
->
-> --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915123802.15=
-61724-1-coiaprant@gmail.com?part=3D5
+> If they cannot be used together, then it is the same state.
 
-Thanks for the review.
+If I understand this patch correctly, 'sleep' is not relevant here.
+But 'sleep' and 'wakeup' serve different purposes and can be
+used/defined together in a single device in the devicetree:
+ - 'sleep' describes the pin state during suspend if wakeup is not
+   enabled by the user or there is no 'wakeup' pin state defined.
+ - 'wakeup' describes the pin state during suspend if wakeup is enabled
+   by the user.
+If the user enables wakeup, 'wakeup' is the relevant state and otherwise
+'sleep'. Which one applieas is a runtime decision of the the user.
 
-The dependency is enforced by EPROBE_DEFER instead. If the XPCS has not
-probed yet, pxpcs->bus is NULL, xpcs_rk_create() returns -EPROBE_DEFER,
-rk_pcs_init() propagates it, and the GMAC probe fails and retries. The
-GMAC cannot reach a state where it uses the XPCS clock while the XPCS
-is unpowered.
+I introduced these two states for m_can for that reason. This was
+discussed here:
+  https://lore.kernel.org/r/DCD1YPX4T779.ADK4JCGW1MU7@baylibre.com
 
-On the assigned-clock-parents path: fixed-clock has no provider driver,
-so the clock framework registers it during early init. Switching the
-parent to it only updates the CCF parent pointer and does not touch any
-hardware. The actual clk_prepare_enable() happens in the GMAC probe,
-by which time the XPCS is ready.
+And then reviewed/applied in v10:
+  https://lore.kernel.org/r/175993598226.3512549.5295923279078928995.robh@k=
+ernel.org
 
-Making XPCS a clock provider would require a clock controller driver
-for a block that has no controllable clock output. fixed-clock is the
-correct description for a fixed 125 MHz output.
+Best
+Markus
 
-Thanks,
-Coia
+--761cd574ee4d3e49f3377936d80d108455a0226c8fe418a7549df126e25d
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iKMEABYKAEsWIQSJYVVm/x+5xmOiprOFwVZpkBVKUwUCaqq3ehsUgAAAAAAEAA5t
+YW51MiwyLjUrMS4xMiwyLDIRHG1zcEBiYXlsaWJyZS5jb20ACgkQhcFWaZAVSlM+
+ygD/VE+hJFS+CFW3o1xNzwibjxdZyInzKYw9u2YQjwROYfUA/3CUdbcqbBPrKnV4
+8hCIpecynxuiT0xYshtL2xPQjcQF
+=LpE8
+-----END PGP SIGNATURE-----
+
+--761cd574ee4d3e49f3377936d80d108455a0226c8fe418a7549df126e25d--
