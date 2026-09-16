@@ -1,103 +1,111 @@
-Received: from mail-oo2-f5.google.com (mail-oo2-f5.google.com [74.125.231.133])
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 051323DC4D8
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 05:55:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7427E3E16B9;
+	Wed, 16 Sep 2026 05:57:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789538111; cv=none; b=AEESLtOdfIcYb3k7HbtafJYsHVD7oYnCfMMTxY47WFG50I/hUNyLYhM2YaP1mbdhiSlDVZo2ODCQQkYZPmEcEAvKKEuyLUyjgsf4YmAzDIqPYsO4zLSa/K8/HwuMrxJjqWF4nuL8M57pTKKNCuzo6V//iPSpAqCmqJrPSoigk3M=
+	t=1789538238; cv=none; b=YQGHh5hs2/d89rgzag02CxaFwZlnVwSSG9iXrRRnV+1P6LGAZHgNwUuuW2rYb9u/x+LkFJlCoEDpgjaXIAqUn6AyTGKOD8VXIBwbZa3FHEQVWKv1/hRnr0i5WKdypN6YwRjXhhvszNuNP25Zjhb+VpDKkmfvtv5VcUjdOV+e8wE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789538111; c=relaxed/simple;
-	bh=JWWAPKswe9q6Q9rRu4uHaMyOLQMOHOHGC34gBz7wUMk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Wz+mrFefrWOm/C5IC40JQh8C0cevxtp9FFuZifNVYje/G1D5+3w0Up/aIkFQYeePqMR2bs6oB/tzomxZLf/+hD35WD8cGiRfeYm3EKxvWhgTC5S+cHYc0a2hQkhOMSbbebhZLRNup6jXaGAKGU4xNCkIC3V+SFF9MJsUVD6cyZ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WT5s+uWQ; arc=none smtp.client-ip=74.125.231.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789538238; c=relaxed/simple;
+	bh=NKEOLgYM1d/tM4cL9HDDE/AU3aDhCHRPLf/wza+LUkY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eV4qdYpMXwf2/idESy8wfUpyRqX3hr//OBLsy6IMV+WfFZQuaoerUc0B2d0TyhOBYRETsSoBSM7QP4P9kcZb+s7U//DY/t6ZIUq3BSDdJ3FSe8PabldObILP9HI/KW00VHCOMIJ4sCkYTo9/hJkTwy5+lspfde/rvFzoozjMTDY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=fx9Qj3JZ; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WT5s+uWQ"
-Received: by mail-oo2-f5.google.com with SMTP id 46e09a7af769-7f748fe2947so2254713a34.0
-        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 22:55:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789538109; x=1790142909; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MqFU5BpLPG1Ad79y0zq7m4k9RGfhTKwi6mVEHKHgkMk=;
-        b=WT5s+uWQ8yhFW4GKyGzc1gE+2OW6sK12rALqMj9Iohnm/qdXfxUNGmV1+34zi9sf9N
-         kK8c9dmxNwGpZbZ1rH7UoHLjz8rkzs/UwABII3XT5xc8/ylxqrN82kmAooKKYjVYyo/U
-         8fhP5WuGK72jbLLG21o8dirPzUfaqAN/pmA3mCaNL1+ZUgr9Ho41gtrFIQMpIhmsJw68
-         DchcETbQNl+w+KZ2kmYmJEnWSOl26DJLDJaehHcqtPjh+9/QKvuIAKQzLm/mLlEHipQy
-         6w7Nd3DmWvAu5pcqScm7IHm7ZNMo+ZecALQVZHM+ntOuD+/iXLBN8NPRIHEAeCh9c9to
-         mBqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789538109; x=1790142909;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MqFU5BpLPG1Ad79y0zq7m4k9RGfhTKwi6mVEHKHgkMk=;
-        b=SfG9rTAYNs+cJycYe9DjNWVPOgMTcJJ4qv67Ud3b4D/c7hKkwzTged0iYoHe2GiO7g
-         v4cUuRBAsqxWLJwH37+ol79S9vyZ0cEu4GNDfTYzjdLi9K5w6os2BM9yyFPp6AR8vqpa
-         mvwJHVu+xHqdpQwA6bGJ88CeJa7I4SE4JZ0OlhU28XCCkyOKoFh1SRB6WCF5pfpE/oHY
-         THfmRLk7CRU7LbvqM9PZm9kRQkVKAiW4USjjdwKLEBFq2Lu/oulWyt9KaeXdDd1/na8d
-         r3S876HEkJFc8+F8qgoXowgR3gpn22ws4IcAMtpzhS2RRuljDga/2eCaSuWfrwp2AK9p
-         EuNg==
-X-Forwarded-Encrypted: i=1; AKwUvBz0MfrD5zbZNPy0ffM1i0DCA+TBR5yj6U0adTlXOM4hyLk3FR1XaqnqV333TjdwZWf1ZLCxEdsQ+Pn8@vger.kernel.org
-X-Gm-Message-State: AFuF++mz0kXIVI9GsfFwZlmOnqX8kU2jFj9hGUh9SVgAXKr4j6miTfQs
-	jzfLIWvb4T4ic1zjMaHLam7Cq8UAfxNLNkrSGruKduwjfOuxQte8NMvg
-X-Gm-Gg: AYBFou1SgKyIT1unGn7xdFjSkxvaugvcvtY2hPFfv//2izAoN3ZBoNakGJxkPlPA3Vd
-	NbBTohI+1B+Wxot6anQIxUOjYDbc8bq43e7SXied1XCUA5/mc3ZvMRIjI2FL/0F9EHeQ+MqL6Am
-	APdJ1IdktHMUv+rj6fkf9OuIN+isoyGz4FbP06sHkJnssfyRR231J8F3jkXp5IROQtDIZyQe3tU
-	kkyKEGgwLaY2yQGMx9vtGt1nyoUs5lTIeEMOpkR3iTtG2SSwpr8iNnWyb8JYxYCVMhPm3W6afiO
-	swDwFzThkPvVYNDMxrqZFY5xii4RHrbeueK1ImgyDMR07Z8ZcLdWDBxuRm5+o4NVxiddBWBoxxi
-	ETOD+E6RBHnRHH/ZoMjvt/pM/qP/Ae9K2rLZ832V3u+crwyLi4tRirSGKWeQRWhZ83LwLvr+Qa3
-	fMMdDij/3+kS7b1m+V/USR6Wo1OPsPKMBguQbgsgaayWq7LEijOZyVL1begt4XVzYIDPI8lHPpO
-	E/C17x7tv8cW6lc
-X-Received: by 2002:a05:6820:188e:b0:6b3:f4b8:bb86 with SMTP id 006d021491bc7-6c7d1bc852cmr1410414eaf.22.1789538108821;
-        Tue, 15 Sep 2026 22:55:08 -0700 (PDT)
-Received: from ?IPV6:2600:8804:5716:d800::b712? ([2600:8804:5716:d800::b712])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6c7a78ac1c6sm1949699eaf.13.2026.09.15.22.55.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Sep 2026 22:55:07 -0700 (PDT)
-Message-ID: <b9a58aac-4a49-43ed-93f9-32c295609312@gmail.com>
-Date: Wed, 16 Sep 2026 00:55:05 -0500
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="fx9Qj3JZ"
+Received: from francesco-nb (xcpe-178-82-167-143.dyn.res.sunrise.net [178.82.167.143])
+	by mail11.truemail.it (Postfix) with ESMTPA id 0ED471FC29;
+	Wed, 16 Sep 2026 07:57:11 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1789538231;
+	bh=I+tkhFfWBsJlP15FZEQQsLoKTghh1QY7GM+Pdd6KOXw=; h=From:To:Subject;
+	b=fx9Qj3JZ2EMKzxNkjNReNY44VYRgPYzHAHBCHTH6s1fnwISrik4vk57VVsohipOia
+	 dpj8A7BVuE6jSnPeL50iZRrViP+bpLASPYVBs2dceMgORVJJerYBOpgY0J7BfaRCjv
+	 2CJqhgSgotHJmdUvRy4zKpWYUdwD51So/ALnBUNcwgZ+zSs4947ApkcuKjkmpk8qtL
+	 JJFicrOGLAd8pa0GK3uTfgFIvabqMkt4m6UESgc87jII3t9mEkCgZM/g/8menIiTO8
+	 b0hOKS2o4gNRlbTJQYYgUdrhtB+FOdTJ1NE4oXKcyMHbpCsutI07YePPnud51g7oZT
+	 6qfMbGg45nwSA==
+Date: Wed, 16 Sep 2026 07:57:06 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
+	Francesco Dolcini <francesco@dolcini.it>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
+	Franz Schnyder <franz.schnyder@toradex.com>
+Subject: Re: [PATCH v2 3/7] arm64: dts: freescale: Add Lino iMX93
+Message-ID: <20260916055706.GA20310@francesco-nb>
+References: <20260911091952.96233-1-francesco@dolcini.it>
+ <20260911091952.96233-4-francesco@dolcini.it>
+ <42ed88a6-d208-482b-94aa-2e45b69c173e@lunn.ch>
+ <20260915132806.GA226756@francesco-nb>
+ <100eef7b-e1d6-411b-bac5-98790e8f9ea7@lunn.ch>
+ <aqmG91HwmKe-enfy@francesco-nb>
+ <95dcbf3e-193d-460b-b6b9-cd412394e4c6@lunn.ch>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] drivers: gpu: drm: panel: Add BOE NT51021 driver
-To: Nickolay Goppen <setotau@mainlining.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Alexey Minnekhanov <alexeymin@minlexx.ru>,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-References: <20260913-qcom-novatek-nt51021-panels-v3-0-266bc5d7e8c9@mainlining.org>
- <20260913-qcom-novatek-nt51021-panels-v3-2-266bc5d7e8c9@mainlining.org>
-Content-Language: en-US
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-In-Reply-To: <20260913-qcom-novatek-nt51021-panels-v3-2-266bc5d7e8c9@mainlining.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <95dcbf3e-193d-460b-b6b9-cd412394e4c6@lunn.ch>
 
-Not sure if I was supposed to reply with the trailer again, but to the 
-individual patch, or if I should leave it since I already messed it up 
-in the thread, so I hope I'm not doing this wrong:
+Hello Andrew,
+thanks a lot for the detailed explanation.
 
-Tested-by: Ryan Brue <ryanbrue.dev@gmail.com> # Amazon Fire HD 10 
-(2017), boe,tv101wum-nm0
+On Tue, Sep 15, 2026 at 09:57:56PM +0200, Andrew Lunn wrote:
+> > Would you mind to articulate in which situation such race condition can
+> > happen?
+> 
+> Most PHYs have a number of interrupt sources. Taking a random example:
+> 
+> /* DM9161 Interrupt Register */
 
-Best regards,
-Ryan
+...
+
+> The interrupt line is still low, indicating a link interrupt, but
+> without an edge, no interrupt handler is triggered. The interrupt has
+> been lost, and the link is reported down, despite being up.
+> 
+> If however you are using level interrupts, as soon as the interrupt
+> handler exits, and reenables the interrupt in the parent interrupt
+> controller, it fires again, and the link interrupt is handled.
+> 
+> If you have multiple interrupts indicated by a single line, you should
+> use level handling in the parent interrupt controller.
+
+I looked into the specific ethernet phy used here, TI DP83867, and
+I would say that the falling edge interrupt should be safe on this
+specific board/phy.
+
+There is a single ISR register, and it's a single read/clear atomic
+operation (MII_DP83867_ISR 0x13, dp83867_ack_interrupt).  This is done
+before doing any access to any other register, so the interrupt will
+just fires again if anything happen. I do not see the race condition window.
+
+I know it is not conclusive, but we have multiple boards with the
+same edge interrupt configuration and the same ethernet phy (the
+interrupt is wired directly to a TI SoC, that supports only edge
+interrupt, not to a gpio expander) and we never had any failure. Our
+test coverage is quite good IMO, commit 91a7cda1f4b8 ("net: phy: Fix
+race condition on link status change") is something I did because our
+testing had some sporadic failures for a different race condition.
+
+What do you think? *IF* my reasoning is correct I would suggest to keep
+the code as it is now.
+
+Francesco
+
