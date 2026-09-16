@@ -1,88 +1,87 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C11DD42F708
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 20:46:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E86E43F089
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 20:46:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789591617; cv=none; b=n5Gb5C5P1962JrbQOv0UK5SKDD4WiW7PoEbgRxA0klyW1OLwguci4feBANJKvMTg4P0nGIZs4/kqhwvkati5d5nuyj7SLuZaqwEYW+t6UfsamITC/dEi2wlqOA1l7IYubMq6ic2a4gH2HKP5cxLi5c462diKRAdAyhexoPGkZI0=
+	t=1789591619; cv=none; b=EiiYBbS6GKf9QFc7jYqDUfSn1j71O1P7qQRJtUNkgTJUEyo8XIOu2zMOQ+nHWZv70VfvoR8qOdml473XcB/6w/jQPlVPlEADAQWWf0PVQ/lUZv5uFXcTuWFvVsfJSYZgSr36g9+Sl215yj3YfXq55lURLr9wgobW6DJijxtdXbo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789591617; c=relaxed/simple;
-	bh=NEusXuICV9Epshdd6Pdkkas8eIUI83cgzBxWfSGQQns=;
+	s=arc-20240116; t=1789591619; c=relaxed/simple;
+	bh=+39inuOtk6dvWrV4F97ZO+lWq6rs7jFZ3XYSkUU3Fnc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LAH+vKtZtaOCpHY0QTtwh/zz5WjVaHNBODwSfbke6pyE47KsM2syTm64kv9ZhHQhDSWEs31u66NZz0LkZStw5Ox7ACd1z/yErH1RKpwHaQ5TqYavJsEmynjeG6K6UUo+kbypr3tnr7FSljDfSSvVWwtJkrXoOWUdk0V2yMu2gcw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FGkxKHRq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YmlL2z0O; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:To:Cc; b=qymBfx5tTAPeKuJ08eXj/0zeOqsumTxWwGOUJqbQU4JM4CCGv9m2Iq/9ar00TW0t9iAnldgDAM41iXZKwuOCTU0hKUB0JLtMZrCBHqfPdsrMkKGEhGbifXu1SXAlwiszrU95z79taJSb5HsUtxrPWd+jwiZ8RdY4gez1zYt9I3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bX9DUS2G; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EjRbgx8f; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FGkxKHRq";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YmlL2z0O"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GH6YpC3559773
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 20:46:46 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bX9DUS2G";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EjRbgx8f"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GGtJ1M3402909
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 20:46:44 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	zP+Gzl4ru1gJNt1ar6U9V5ebCT/YgufB5EK5poCLhpw=; b=FGkxKHRqdkxCE3fW
-	zl2QlsrkmFR1lZZFof2rb0NcGJBVUnjO9epOivpV8+eWyH9zPzERqgnFxD17h8VX
-	iYgnYzci4wkQsb+4jposJL06jHvBaex1vK6mhQWjvgHbRJW3k4B8MSteNjUEpwDI
-	hf3mHqzaf+MVJHDIaw9JPaUG8QsUyVQ6w5j5dKwx8kggdcDNa4kE8wD1Wav/R29B
-	DNokNgcwKCHOaPNaLpgTNYaVlssI9Q+637MCBBEshYyuNB9o+guxbBcGTDFkXkaL
-	UQqu/0hxrg4HldK7149K+j5P+fmL8WWn/9Ygffv+60+vJHJjUP2hvtjcO9xCt1zR
-	mvfGKA==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqy7h8v78-1
+	V54WJAF4OpAFQCcXdZBPujT7oaJ8xChgOl60kdfl5GU=; b=bX9DUS2GlI05Y86Q
+	kdhui64lbpu1Zs+aZ1wn10HsmoC8AtwiDUkUoYoGtrMukztcxO/8hl5cJ9Jki8vT
+	EWt0aKr26djOKX0tmcenInvAylVk3B5jY1cugcEb2AbKDZQqM1WN5syWxVrxxs9O
+	i0wlkmRzNpHDKijVjinWZCzje+9eNFGTaIRfGgsO061Aig9QCbFhmLuzFbaLw46T
+	3K8de543CQWFc/zbwTi8FGcWX7SBqevVV9UBzINXEv9087o+faYbv0RP1B3lEsQa
+	q95NG2gtWPMOkevhDQT3T+i26W5Mn7aEwX0hCt0hT/ArQ6q5/z65V6wzxGRcjdba
+	l6z26g==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqy2d11vw-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 20:46:46 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-532862dbdceso1084581cf.0
-        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 13:46:46 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 20:46:44 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-939a6937513so11027185a.3
+        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 13:46:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789591606; x=1790196406; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1789591603; x=1790196403; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=zP+Gzl4ru1gJNt1ar6U9V5ebCT/YgufB5EK5poCLhpw=;
-        b=YmlL2z0OqTKHxQAk1gf65NI3vxNpe5brrbf1xywzMyWy9zOYk+k6IqgbOJShhIOezx
-         8/CC9DbkJvRLTcI5hGMYiTjqs36bNL1WMmAkN8gvOF7ew9ZcUE9Sg+hDf7mZ8G9DEUNS
-         R7RYleHhHooU/ZP315IqNC+BcknF4HFhpIXohsIY74a1pjcvYdX11EZ7Op6WC0tks4co
-         iiNhUbiVtlUN+RFhXihq0pFJBrhzcWcQ0yh4g6LTgoDPw5zJKlaGHeRKFbxq5rm/SU62
-         NmATRfici2TZtKUzj15RWt4+hxhO/xLBc/9JQEJ29+L/ixFHu4BDPFPYeRrBljH2JO7h
-         +Q2w==
+        bh=V54WJAF4OpAFQCcXdZBPujT7oaJ8xChgOl60kdfl5GU=;
+        b=EjRbgx8fnltiR5TqLZPSBo0PBd4YI1KfOX8hYBBG9b+q20gpTdYVByXlXRBe26VyBq
+         dmuvkmkrlMyPZUxwF6288WaUPLz3eHnyQmKo+SbE1vSgzSisskVlD3n0WqlAocEHiwUg
+         NWHgzGuvJQ5kEeRJ0iLZyZz5DlEnn7CroYALn8YKQG3dHt4lkCHSItGOP6VWTtFaRR5a
+         lJ+zBRY/H4hw5+oSVT3IpIQqdeyQlg22isa1KIJN68RC0Ayf5NfnKAzsQ4xC47Bt7tio
+         W3GCOH7Vebl7W0WVjauH4SobYxTy148zOldbqHIo3ZynrkJP/uLr1oYmdRIqufTqHN4B
+         Khnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789591606; x=1790196406;
+        d=1e100.net; s=20260707; t=1789591603; x=1790196403;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=zP+Gzl4ru1gJNt1ar6U9V5ebCT/YgufB5EK5poCLhpw=;
-        b=bii73gCDNHoJ8Hi6sgg9GOgyEuR9w0jaTwTlLnT6gZoDZW1XZNXBA3t1DwrvjMYHxm
-         9XqpHdVFR4eZ1FVdmaKVHKqZru1dCX+aY8PQ3DTQOfYUoccbzo+cQlJFsK479bxGpR/N
-         4e3B9YG61TD5EkYjk2DF8j+hUjhkQuq2bS9GgJFFc04m1FnuTyuDPBsmOKw6mOl/dgSS
-         xeiCdXYZ/U7slPKpQ6PsuoHl5rW6MkMBLo6ePT4YV76Td+WTd7Vo3A2pd+y964qloCc8
-         LNV/983AaGr6AREBUMpG7zEnUkWNsVxMfF8xb/hcl56zYET8D/d9WnOpSArkGIdj+MEW
-         FNsA==
-X-Forwarded-Encrypted: i=1; AKwUvBwL1kb7Ms1YwzLOKyOQP4zAGH+npbeV7Xld/jcUdPQ0Jaxahkp8tO5uRuOHNNBNYlabwHyf0eicvRm/@vger.kernel.org
-X-Gm-Message-State: AFuF++llC7M3HcYEWii3nzbA0uTPkXBtG+JcyPqjX6rFpjvrdFAjHKvA
-	aeRA41jZNTu8aU1A0pb6kSJfnew57JXCZ+wyaVLDslF4dLtk4FcGGFI96S11WIPxUWvYF0OtFVZ
-	sNlQX2xyo/BHUNS4goJUdjvoOkALCoJml75rYH7x73you9zAnCGd6fM79SIJgWllaQc+JoA2K
-X-Gm-Gg: AYBFou1MRANb8L1U2TuKTKiKN9XEF9iMSUqrAKUfwIEwHrR+isGbn2EpSjhLZafcxKZ
-	lBhxVO5o7dPJws2W4bb7M9jr27tRg+VU9zfl4zKm/Me4cAY0BQZcDXxOS3fOI60fVtD0NDzb4lW
-	DrxLl6NLvj8PZW+Eed3kJ6ZEqndFwwr2ianNWUzP9+uim1qH2Pkn17V3vRTHoD+4k64wvzRNldh
-	tA89AhX7F8kleaTlDxsHzcsrnMGXdNq17xYyruI/ACsgnGoJ7fKx5IRfDhkgL7c/J/1SG8gU0CH
-	yKoi9Rqol3rOXM7TNkm7PPcVG0dV6MLCnrJ8BJcIVWiAJnuKb7NrXl/JP7B6bACe29F6/swk4db
-	14Z2zOPZyYpqbrJ/nFIOg9s8=
-X-Received: by 2002:a05:622a:151:b0:530:f1d2:f39e with SMTP id d75a77b69052e-5327ef109e7mr69027801cf.40.1789591605633;
-        Wed, 16 Sep 2026 13:46:45 -0700 (PDT)
-X-Received: by 2002:a05:622a:151:b0:530:f1d2:f39e with SMTP id d75a77b69052e-5327ef109e7mr69027291cf.40.1789591605137;
-        Wed, 16 Sep 2026 13:46:45 -0700 (PDT)
-Received: from [127.0.1.1] ([178.197.219.214])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf1fa7dsm9857077f8f.8.2026.09.16.13.46.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        bh=V54WJAF4OpAFQCcXdZBPujT7oaJ8xChgOl60kdfl5GU=;
+        b=JgFC2ZFqyghQKwLms5Jx3jOQh5S6YpvcRWnpOX73fWOKtLggys8XVFpFyvq0c6vjc8
+         FmtsModP8cQ+x0djgbscbUCFqsxSrPFNxuFubVQFh1tPXeu+Jf4ehTFWuLHmJqZ7Reyd
+         p6ZiBxNIJ/YXfHREAwbgsAADR2UPtyVpW2Mnk2So5ICxYoKcuCr8iL+/yfZyoCyYnY7t
+         P+M8+P2EaGd3whEvtfuiidia4q0/H0cqkt424OQaIhbHMsmWBf0flgF5ZjUAU4mDtlhM
+         +wJdsKDvuvQn/MsA3gCIn9lBOXZ7sBX5Y95t6yKON5oYvz8j/13bRntQbofa09kcP6Jq
+         qq2A==
+X-Forwarded-Encrypted: i=1; AKwUvBy0E2xukyaxb/NfhWzkUmGAsK7SFD2CGS4qHgeshDBFL0ZfTPEPbh2ShRmrUKOvrYJvJOFdH6ouOmV8@vger.kernel.org
+X-Gm-Message-State: AFuF++kGJhzA8amtgLbEb8K0FaSwPBhXyVoNHufREeqgSTEw/tYv0bws
+	MYkVILc8X9rTXr7IfbnxMpag5gOoOQEWL5OXa8IaKtelbknt+Vrfpfv8o2hddBDG88ZLwyleUM/
+	9FEMGdGFa3nwbyeie0xRX71CUVobmfIoiEMQlSqsetfJtefF9DTvGz4SvA0ra7zqo46/txUy5
+X-Gm-Gg: AYBFou3xrWtAx54RXvbVcXiqdvmSNsQoloQ0ULjONAFuuiZnzQ+NubI9SLiJva3fbLa
+	Bo1b5Fc2yznh876yu2AW2dry2cuvBdb1ejCHm1Njqv2Q/BcP9uTev4zrW94Qhr5E9HTpnJldpUe
+	zMF2R1ATA4gQOT3z3kBbXw61ss+8cEyZOgXia1yzct/Q0TPiS0ZQV3BuO/mN8ECoe6BjqrwRnhY
+	ZagBT5VwfzaI86wng99M64OctNtfVlp/0gU6kBUYI+UkOY186wC/uD8DMzXFCTzbwdCmIOHFxa3
+	DzXJKnyFkn0cNqg5+/I3tPCBU7qf+jgmyZcBfOFW65fKbWUxY7yl/z6+WWjG3ENTDnxa6cwt0EQ
+	pNVmDI6w+m4cjUFmPPTpl9Wk=
+X-Received: by 2002:a05:620a:4888:b0:937:3aae:1385 with SMTP id af79cd13be357-93bb76e453cmr671861785a.11.1789591603047;
         Wed, 16 Sep 2026 13:46:43 -0700 (PDT)
+X-Received: by 2002:a05:620a:4888:b0:937:3aae:1385 with SMTP id af79cd13be357-93bb76e453cmr671855685a.11.1789591602580;
+        Wed, 16 Sep 2026 13:46:42 -0700 (PDT)
+Received: from [127.0.1.1] ([178.197.219.214])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf1fa7dsm9857077f8f.8.2026.09.16.13.46.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 13:46:41 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Date: Wed, 16 Sep 2026 22:46:33 +0200
-Subject: [PATCH 2/3] arm64: dts: qcom: Suppress a few intentional redundant
- whitespaces
+Date: Wed, 16 Sep 2026 22:46:32 +0200
+Subject: [PATCH 1/3] dtc: dt-check-style: Introduce way to disable checks
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -91,7 +90,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-b4-dts-style-checker-suppress-v1-2-81b86685d068@oss.qualcomm.com>
+Message-Id: <20260916-b4-dts-style-checker-suppress-v1-1-81b86685d068@oss.qualcomm.com>
 References: <20260916-b4-dts-style-checker-suppress-v1-0-81b86685d068@oss.qualcomm.com>
 In-Reply-To: <20260916-b4-dts-style-checker-suppress-v1-0-81b86685d068@oss.qualcomm.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -107,142 +106,392 @@ Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
         linux-samsung-soc@vger.kernel.org,
         Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3910;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=12124;
  i=krzysztof.kozlowski@oss.qualcomm.com; h=from:subject:message-id;
- bh=NEusXuICV9Epshdd6Pdkkas8eIUI83cgzBxWfSGQQns=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqqwAsVybke5T91kM1TocXoFt05g3wt+bikxgUG
- w+wM22d1WKJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaqsALAAKCRDBN2bmhouD
- 1+lOD/9TFBqkLUx+ePlnMqvDYZKE28RQugErzOJgTzp1O32YJZrIzFPBcM446BJGdLR7zIOsOyJ
- jiMu9DVpm1SsTAlUX7FdNyFRtx3j1yts/ZIrRd3+3ec/9F9o5U3fJW2TVGlHLTPBJNG9abphIm3
- F57hiSEdrx3nJM1vWMgkalBI3CLkTzE69NbxHrfLOHfoJHJZdNR17MqK3C+9KbVg8dnoULT5K/J
- ZLpFa11hAVy+dvLo3yiPhy/ftAafocA+tY//qkMH78zlyeDBTzlIqV69N9kV9FXWnk2ITHaBTVD
- ykces68TVXSqRQbe2jvoS4+DkwgqDfRYdpopg/meFoqA/2G2Yx5+8rk/x84pPbbFF6mQv/HcvS3
- pyDWrFjzMpTuJ2yGeQOu45tfq+EgUXLt+ZNXBy5EKrljKX0Ch7cU7J1YsV+v0mE8r6NoVdf7oT6
- Uo1UPJZ01bDpReL2Ae8brH464IniDAFDiUuu9tc1LIGiPbGEK8ZG3aDEa3M8QzZ07gcJ0APFBO0
- 3szZUGdX6V/GIIEDlrP3zxpRacohiXUoiGgJQ2ko9kXLM4M1ttYQUWXWhHHLMMpiykv90kTK7z9
- QVEgjm7XIvJqxW8klT+fVtZQ+ttzcS7lkRT0bVSsdrz2KZkBfFJ8ndTgHwhfTmVJGaf3GDQ3AJu
- gTjh9HR2CZ4rEww==
+ bh=+39inuOtk6dvWrV4F97ZO+lWq6rs7jFZ3XYSkUU3Fnc=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqqwArlUKzY+H14ISF+z0eYpd51l7pctWiN7s5v
+ 6eHTfQRa2qJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaqsAKwAKCRDBN2bmhouD
+ 13RZD/0d3+cV8drCD4DEHLJYopCkMUyaCCSHYuNoBs/OL96OafohnyVrYTuP9FabCI9znb0k0b0
+ Ps1M2xBPSI8Ir7zIo856Adrpk4F1k6eejLJKX+r+2wEoS9uJ4NSwNZC7dcbDQkdlyNYrY7UhuZn
+ IBHkoladbBDfL4NYFr9vvqrwW4/VbY7Ej324lQacI/WJ5tiHESeSaCqFw+vzcHnOVaCNMQ1mgQU
+ EKOUE/+wu8ZLMixCum0rweC4O3+M7K0MUXVH4Tx3IzI6yJaUheED6PnM6bCkYSPjKbTwhbiXSuX
+ ltdnkR8w9/0/SEFxR3jq5EO4/AHExLTE3ivPcTBYtodpizfOsePrtiG1djvVvONk4E8inyCH8Qb
+ Kt5HKKzlrWN778o9l+rKB1SVqy6/wylm0/I1JEFrXCPAfXsEoif4ef0svul38ox3lvW24RG50zp
+ Ou7qhlNZzfKkKjh9/RJ944IulgoO9wmQA3OaugNWDSqKs93mbhlWwS+PALRn61gFiTGkf1xKp3B
+ ope0VmJb7A9c29XrC2k2oa3MpEsSMfZ+cYD5kp9i8vb5MZrVH1kw0+ZVqPnNuWt8gRhhoHCbPWw
+ JlGZfHLogvDqm3sMPAOOEZv3MZXCfKFS+1KT+ivFRUT1F+v160yzOmF0Ekzn32c8BVw9goL3v1s
+ ZcDYInCXHgTFj+Q==
 X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDI4OCBTYWx0ZWRfX7MDFQzDZJGnr
- U8zgf0DsU9qiNKN3waO/q1DwMjQrKKjbrJd2IUxzu28X+fFD+0Xw9Ud9Bss0kSA0wXvLChIX4Tf
- 5/YKNhYs2jZ4AByZw7W+lJHJ0fdVyB+uwfneH7EmHcWX+gMk2mI+24RS6Lbb6ooxGiydHLM5wpM
- 3r92QOEPzx0wJOpMxJIzAECi184mM046RI3pHZkiBTTn1UT4olAoMr/6jZ3hbIgB5ndEBZ3HJjC
- Wtk8Ci+GsYflhBjc5OCe+5d9rZjyKTwGPpQKQhgrNtDbEaj4QkuV3Pui5x1Ilfr12msZWHFO+A1
- LuhQR7xybupCGc6ZAvVHc2yvpnPdk80UXEzA4CkOPwYckvxAAkDWduUq2Rh1rNUReKrm3pjyBnB
- zYkmV2nkiO2oSQ8Tpt8KhxV86TwE81ld/r8INRiBJnQX6grdSEcLydIHrW4B8d+PiFLx3i48Ynz
- y7slC61+A6bzzisuBoA==
-X-Authority-Analysis: v=2.4 cv=L8aI0OT8 c=1 sm=1 tr=0 ts=6aab0036 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
+X-Proofpoint-ORIG-GUID: vB8IN4uBPs-I7mKrMvQvOPc_dfvd3iLR
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDI4OCBTYWx0ZWRfX3phtXxvs9BxM
+ /h1bHGBJKhSjJIACeDEdYOUvT1OO7rzrFm3Ax9y2KyXoF8lz5wPpAxW5K6Tqrrk7g9DPx99d9Un
+ NHoBzFzhWAPMaxCkO2XI8SU0pQy+dho=
+X-Authority-Analysis: v=2.4 cv=HbeB3SE8 c=1 sm=1 tr=0 ts=6aab0034 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=I0iP3be13vs9ipy7py4A:9 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-GUID: HY9aNNd7hPCXM2Hqdejqw2C_IMlIQ5Qr
-X-Proofpoint-ORIG-GUID: HY9aNNd7hPCXM2Hqdejqw2C_IMlIQ5Qr
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDI4OCBTYWx0ZWRfX2cMYGtnFY8R+
- z9Ld2yp/oVAJnJXgA3hsbpg6+KU3wBMisAMVLtGzWoxvV7HzH6yGBPYTG+8OCzLNuUNuCl0Uymj
- l4feN9NED8JACENR1Cc84Z8FFZ57Y4g=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=bBYTsk_4rKjt0MGUfhwA:9 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-GUID: vB8IN4uBPs-I7mKrMvQvOPc_dfvd3iLR
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDI4OCBTYWx0ZWRfX/9CM1Y+PdvDK
+ nUMiCs/nPuQeECjBFx6wxsIPcPTa7fg77CDTb9rrXfzCoPN0/qaodOTa6AM21vnM0fO9Tclunj8
+ +q9YmxkEyuYV43NewIHi6pspHOl319RMgC9Swtt5BxBY3qeMQ30KIPN4XPsgtFb93fkMDZure4X
+ otGGLsDoCp6BeBs+s1B6NR6nCbhf+7UtXIYGlRFghmxHzlpoVfavPwOQcRLUUWd+LOrueyrU1f6
+ 6Wu0+rI34sNZoN2zyxcLtlvZ7GlTEB13T4W6KDAceh4b0m5C3LdDnUXOCI2HUaDnO1nT//9ebGa
+ H08FIn1Pyce4XEzMLwmkF93q4SFO/Sdm5zqlcJL6NNSqtr0qRUgTKwXnIWHO5Inh3xH4FFt1YZw
+ frrp7KRZHXhxxHO4N0uZF0lzksh7qN7btm2Sd7iXkyWLfURyn/EJv8bZVQOU483UIo5xqIZ5rm5
+ I0ABJWNVStrT3tPdlKA==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-16_03,2026-09-16_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 impostorscore=0 spamscore=0 phishscore=0 bulkscore=0
- clxscore=1015 suspectscore=0 adultscore=0 priorityscore=1501 malwarescore=0
+ impostorscore=0 priorityscore=1501 bulkscore=0 spamscore=0 adultscore=0
+ suspectscore=0 malwarescore=0 phishscore=0 clxscore=1015 lowpriorityscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160288
 
-Ignore redundant whitespaces in a few places to suppress warnings from
-`dt-check-style --mode relaxed` like:
+There is a lot of old DTS code, predating stricter DTS Coding Style,
+which is not worth fixing, because of impact on backporting changes.
+There are also patterns which violate strict rules but make code a bit
+more readable.
 
-  sc7280-herobrine.dtsi:357: [redundant-whitespace] extra whitespace after :
+Introduce shellcheck-style way of disabling specific rules in comments
+in DTS:
+  /* dt-check-style disable=RULE,RULE... */
+e.g.
+  /* dt-check-style disable=redundant-whitespace-strict */
+
+which can be placed in :
+1. Top-level comment block of a file: applies to entire DTS file,
+2. Before new node: applies to that node only,
+3. Before a property: applies to that property only.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi | 6 ++++++
- arch/arm64/boot/dts/qcom/sm8750.dtsi           | 4 ++++
- 2 files changed, 10 insertions(+)
+ scripts/dtc/dt-check-style                         | 97 +++++++++++++++++++++-
+ scripts/dtc/dt-style-selftest/bad/dts-suppress.dts | 52 ++++++++++++
+ .../expected/dts-suppress.dts.txt                  |  8 ++
+ .../dt-style-selftest/good/dts-suppress-file.dts   | 51 ++++++++++++
+ .../good/dts-suppress-nodes-properties.dts         | 49 +++++++++++
+ 5 files changed, 256 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi b/arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi
-index 58ea0532c0fb..21179ca1219b 100644
---- a/arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc7280-herobrine.dtsi
-@@ -354,11 +354,13 @@ keyboard_backlight: led-0 {
- pp1256_s8b: &vreg_s8b_1p256 {};
+diff --git a/scripts/dtc/dt-check-style b/scripts/dtc/dt-check-style
+index b8c40873905c..96f9c10a70b0 100755
+--- a/scripts/dtc/dt-check-style
++++ b/scripts/dtc/dt-check-style
+@@ -54,6 +54,8 @@ re_cpp_directive = re.compile(
+ re_dtc_directive = re.compile(
+     r'^/(dts-v1|include)/')
  
- pp1800_l18b_s0: &vreg_l18b_1p8 {};
-+/* dt-check-style disable=redundant-whitespace */
- pp1800_l18b:    &vreg_l18b_1p8 {};
++re_check_disable = re.compile(r'\*\s*dt-check-style\s+disable=(\S+)')
++
+ # label: name@addr {  -- label and addr optional; name can be "/"
+ # Per the DT spec a node name may start with a digit (e.g. 1wire@...).
+ # The address part is captured loosely (any non-space, non-brace run) so
+@@ -342,6 +344,94 @@ class Rule:
+         self.applies_to = applies_to   # input types this rule covers
  
- vreg_l19b_s0: &vreg_l19b_1p8 {};
  
- pp1800_alc5682: &vreg_l2c_1p8 {};
-+/* dt-check-style disable=redundant-whitespace */
- pp1800_l2c:     &vreg_l2c_1p8 {};
++class Suppressions:
++    """Parse ``/* dt-check-style disable=RULE,RULE,RULE`` comments.
++
++    Returns a dict mapping line numbers (1-based) to sets of suppressed
++    rule names.  Three scopes are recognised:
++
++    - **File-level**: the disable comment appears in the top comments of
++      the block (every line before it is blank or a comment -- no code,
++      no preprocessor directives).  The listed rules are suppressed for
++      *every* line in the block.
++
++    - **Node-level**: the disable comment immediately precedes a
++      NODE_OPEN (only blank/comment lines may appear between them).  The
++      listed rules are suppressed for all lines from the opening brace to
++      the matching closing brace, inclusive (nested children included).
++
++    - **Property-level**: the disable comment immediately precedes a
++      PROPERTY line.  The listed rules are suppressed for that property
++      line and all its continuation lines.
++
++    A disable comment that is not in the top comments and whose next
++    non-comment/non-blank line is neither NODE_OPEN nor PROPERTY is
++    silently ignored.
++    """
++
++    def __init__(self, lines):
++        self.__COMMENT_LIKE = (LineType.BLANK, LineType.COMMENT,
++                             LineType.COMMENT_START, LineType.COMMENT_BODY,
++                             LineType.COMMENT_END)
++        self.__suppressed = {}
++
++        for i, dl in enumerate(lines):
++            if dl.linetype not in (LineType.COMMENT, LineType.COMMENT_START, LineType.COMMENT_BODY):
++                continue
++            m = re_check_disable.search(dl.stripped)
++            if not m:
++                continue
++            rules = {r for r in m.group(1).split(',') if r}
++            if not rules:
++                continue
++
++            # File-level: every line before this one is blank or a comment.
++            if all(lines[j].linetype in self.__COMMENT_LIKE for j in range(i)):
++                self._suppress_range(lines, 0, len(lines) - 1, rules)
++                continue
++
++            # Find the next non-comment/non-blank line after the disable comment.
++            next_idx = next(
++                (j for j in range(i + 1, len(lines))
++                if lines[j].linetype not in self.__COMMENT_LIKE),
++                None)
++            if next_idx is None:
++                continue
++
++            nxt = lines[next_idx]
++            if nxt.linetype == LineType.NODE_OPEN:
++                # Node-level: suppress from NODE_OPEN to its matching NODE_CLOSE.
++                node_depth = nxt.depth
++                end_idx = len(lines) - 1
++                for j in range(next_idx + 1, len(lines)):
++                    if (lines[j].linetype == LineType.NODE_CLOSE and
++                            lines[j].depth == node_depth):
++                        end_idx = j
++                        break
++                self._suppress_range(lines, next_idx, end_idx, rules)
++            elif nxt.linetype == LineType.PROPERTY:
++                # Property-level: suppress the property and its continuations.
++                self._add(nxt.lineno, rules)
++                for cont in nxt.continuations:
++                    self._add(cont.lineno, rules)
++
++
++    def _add(self, lineno, rules):
++        self.__suppressed.setdefault(lineno, set()).update(rules)
++
++
++    def _suppress_range(self, lines, start_idx, end_idx, rules):
++        for i in range(start_idx, min(end_idx + 1, len(lines))):
++            dl = lines[i]
++            self._add(dl.lineno, rules)
++            for cont in dl.continuations:
++                self._add(cont.lineno, rules)
++
++
++    def is_suppressed(self, rule_name, lineno):
++        return rule_name in self.__suppressed.get(lineno, set())
++
++
+ # --- individual rule check functions --------------------------------------
  
- vreg_l4c: &vreg_l4c_1p8_3p0 {};
-@@ -368,14 +370,17 @@ keyboard_backlight: led-0 {
- pp3000_l7c: &vreg_l7c_3p0 {};
  
- pp1800_prox: &vreg_l8c_1p8 {};
-+/* dt-check-style disable=redundant-whitespace */
- pp1800_l8c:  &vreg_l8c_1p8 {};
+@@ -642,6 +732,9 @@ def check_line_length(ctx):
+     """Lines must not exceed 80 columns; tabs count as 8 (see
+     _display_col)."""
+     for dl in ctx.lines:
++        # Ignore suppression rules, which can go longer than 80
++        if re_check_disable.search(dl.stripped):
++            continue
+         yield from _check_line_length(dl)
+         for cont in dl.continuations:
+             yield from _check_line_length(cont)
+@@ -1180,10 +1273,12 @@ def check_block(text, mode, file_type):
+     lines = classify_lines(text)
+     ctx = Ctx(lines, text, mode, file_type)
+     rules = select_rules(mode, file_type)
++    suppressions = Suppressions(lines)
+     findings = []
+     for r in rules:
+         for lineno, msg in r.check(ctx):
+-            findings.append((lineno, r.name, msg))
++            if not suppressions.is_suppressed(r.name, lineno):
++                findings.append((lineno, r.name, msg))
+     findings.sort(key=lambda t: (t[0], t[1]))
+     return findings
  
- pp2950_l9c: &vreg_l9c_2p96 {};
- 
-+/* dt-check-style disable=redundant-whitespace */
- pp1800_lcm:  &vreg_l12c_1p8 {};
- pp1800_mipi: &vreg_l12c_1p8 {};
- pp1800_l12c: &vreg_l12c_1p8 {};
- 
-+/* dt-check-style disable=redundant-whitespace */
- pp3300_lcm:  &vreg_l13c_3p0 {};
- pp3300_mipi: &vreg_l13c_3p0 {};
- pp3300_l13c: &vreg_l13c_3p0 {};
-@@ -384,6 +389,7 @@ keyboard_backlight: led-0 {
- 
- vreg_edp_bl: &ppvar_sys {};
- 
-+/* dt-check-style disable=redundant-whitespace */
- ts_avdd:      &pp3300_left_in_mlb {};
- vreg_edp_3p3: &pp3300_left_in_mlb {};
- 
-diff --git a/arch/arm64/boot/dts/qcom/sm8750.dtsi b/arch/arm64/boot/dts/qcom/sm8750.dtsi
-index ed3d29e13021..afeb6e57e0aa 100644
---- a/arch/arm64/boot/dts/qcom/sm8750.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8750.dtsi
-@@ -2480,6 +2480,7 @@ swr3: soundwire@6ab0000 {
- 			qcom,din-ports = <4>;
- 			qcom,dout-ports = <9>;
- 
+diff --git a/scripts/dtc/dt-style-selftest/bad/dts-suppress.dts b/scripts/dtc/dt-style-selftest/bad/dts-suppress.dts
+new file mode 100644
+index 000000000000..1602dc74776c
+--- /dev/null
++++ b/scripts/dtc/dt-style-selftest/bad/dts-suppress.dts
+@@ -0,0 +1,52 @@
++// SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++/dts-v1/;
++
++/ {
++	#address-cells = <1>;
++	#size-cells = <1>;
++
++	memory@a0000000 {
++		device_type = "memory";
++		reg = <0x0 0xa0000000 0x0 0x0>;
++	};
++
++	/* Wrong rule suppressed */
++	/* dt-check-style disable=child-address-order */
++	a55-pmu {
++		compatible = "example,pmu";
++	};
++
++	soc@0 {
++		compatible = "simple-bus";
++		ranges = <0 0 0 0xc0000000>;
++
++		#address-cells = <1>;
++		#size-cells = <1>;
++
++		/* Should not affect the node after this one */
++		/* dt-check-style disable=hex-case */
++		interrupt-controller@10000 {
++			compatible = "example,intc";
++			reg = <0x10000 0x1000>;
++			/* Wrong rule suppressed */
++			/* dt-check-style disable=continuation-alignment */
++			interrupts =  <1 2 3>;
++		};
++
++		serial@30000 {
++			compatible = "example,serial";
++			/* dt-check-style disable=continuation-alignment */
++			reg =  <0x30000 0xDEAD>,
++				<0x30000 0xDEAD>;
++			/* Ignored suppression not followed by node open or property */
++			/* dt-check-style disable=child-address-order */
++		};
++
++		/* Wrong rule suppressed */
++		/* dt-check-style disable=child-name-order */
++		serial@20000 {
++			compatible  = "example,serial";
++			reg = <0x20000 0x1000>;
++		};
++	};
++};
+diff --git a/scripts/dtc/dt-style-selftest/expected/dts-suppress.dts.txt b/scripts/dtc/dt-style-selftest/expected/dts-suppress.dts.txt
+new file mode 100644
+index 000000000000..8d1e7ee4db27
+--- /dev/null
++++ b/scripts/dtc/dt-style-selftest/expected/dts-suppress.dts.txt
+@@ -0,0 +1,8 @@
++# mode=strict
++bad/dts-suppress.dts:15: [child-name-order] child node 'a55-pmu' out of name order
++bad/dts-suppress.dts:33: [redundant-whitespace-strict] extra whitespace after =
++bad/dts-suppress.dts:39: [hex-case] hex literal '0xDEAD' must be lowercase
++bad/dts-suppress.dts:39: [redundant-whitespace-strict] extra whitespace after =
++bad/dts-suppress.dts:40: [hex-case] hex literal '0xDEAD' must be lowercase
++bad/dts-suppress.dts:47: [child-address-order] child node @20000 out of address order
++bad/dts-suppress.dts:48: [redundant-whitespace-strict] extra whitespace before =
+diff --git a/scripts/dtc/dt-style-selftest/good/dts-suppress-file.dts b/scripts/dtc/dt-style-selftest/good/dts-suppress-file.dts
+new file mode 100644
+index 000000000000..8c3220ed27c7
+--- /dev/null
++++ b/scripts/dtc/dt-style-selftest/good/dts-suppress-file.dts
+@@ -0,0 +1,51 @@
++// SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++/* dt-check-style disable=redundant-whitespace-strict */
++/*
++ * Here goes reason
++ * dt-check-style disable=continuation-alignment
++ */
++/dts-v1/;
++
++/ {
++	#address-cells = <1>;
++	#size-cells = <1>;
++
++	memory@a0000000 {
++		device_type = "memory";
++		reg = <0x0 0xa0000000 0x0 0x0>;
++	};
++
++	/* dt-check-style disable=child-name-order */
++	a55-pmu {
++		compatible = "example,pmu";
++	};
++
++	soc@0 {
++		compatible = "simple-bus";
++		ranges = <0 0 0 0xc0000000>;
++
++		#address-cells = <1>;
++		#size-cells = <1>;
++
++		interrupt-controller@10000 {
++			compatible = "example,intc";
++			reg = <0x10000 0x1000>;
++			interrupts =  <1 2 3>;
++		};
++
++		/* dt-check-style disable=hex-case */
++		serial@30000 {
++			compatible = "example,serial";
++			reg =  <0x30000 0xDEAD>,
++				<0x30000 0xDEAD>;
++		};
++
++		/* dt-check-style disable=child-address-order */
++		serial@20000 {
++			compatible  = "example,serial";
++			/* Redundant rule disable should be ignored */
++			/* dt-check-style disable=hex-case */
++			reg = <0x20000 0x1000>;
++		};
++	};
++};
+diff --git a/scripts/dtc/dt-style-selftest/good/dts-suppress-nodes-properties.dts b/scripts/dtc/dt-style-selftest/good/dts-suppress-nodes-properties.dts
+new file mode 100644
+index 000000000000..e65b152cfa1e
+--- /dev/null
++++ b/scripts/dtc/dt-style-selftest/good/dts-suppress-nodes-properties.dts
+@@ -0,0 +1,49 @@
++// SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++/dts-v1/;
++
++/ {
++	#address-cells = <1>;
++	#size-cells = <1>;
++
++	memory@a0000000 {
++		device_type = "memory";
++		reg = <0x0 0xa0000000 0x0 0x0>;
++	};
++
++	/* dt-check-style disable=child-name-order */
++	a55-pmu {
++		compatible = "example,pmu";
++	};
++
++	soc@0 {
++		compatible = "simple-bus";
++		ranges = <0 0 0 0xc0000000>;
++
++		#address-cells = <1>;
++		#size-cells = <1>;
++
++		interrupt-controller@10000 {
++			compatible = "example,intc";
++			reg = <0x10000 0x1000>;
 +			/* dt-check-style disable=redundant-whitespace-strict */
- 			qcom,ports-sinterval =		/bits/ 16 <0x07 0x1f 0x3f 0x07 0x1f 0x3f 0x18f 0x18f 0x18f 0x0f 0x0f 0xff 0x31f>;
- 			qcom,ports-offset1 =		/bits/ 8 <0x01 0x03 0x05 0x02 0x04 0x15 0x00 0x00 0x00 0x06 0x0d 0xff 0x00>;
- 			qcom,ports-offset2 =		/bits/ 8 <0xff 0x07 0x1f 0xff 0x07 0x1f 0xff 0xff 0xff 0xff 0xff 0xff 0xff>;
-@@ -2527,6 +2528,7 @@ swr1: soundwire@6ad0000 {
- 			qcom,din-ports = <1>;
- 			qcom,dout-ports = <11>;
- 
++			interrupts =  <1 2 3>;
++		};
++
++		/* dt-check-style disable=hex-case */
++		serial@30000 {
++			compatible = "example,serial";
++			/* dt-check-style disable=continuation-alignment,redundant-whitespace-strict */
++			reg =  <0x30000 0xDEAD>,
++				<0x30000 0xDEAD>;
++		};
++
++		/* dt-check-style disable=child-address-order */
++		serial@20000 {
 +			/* dt-check-style disable=redundant-whitespace-strict */
- 			qcom,ports-sinterval =		/bits/ 16 <0x03 0x3f 0x1f 0x07 0x00 0x18f 0xff 0xff 0x31 0xff 0xff 0xff>;
- 			qcom,ports-offset1 =		/bits/ 8 <0x00 0x00 0x0b 0x01 0x00 0x00 0xff 0xff 0x00 0xff 0xff 0xff>;
- 			qcom,ports-offset2 =		/bits/ 8 <0x00 0x00 0x0b 0x00 0x00 0x00 0xff 0xff 0x00 0xff 0xff 0xff>;
-@@ -2591,6 +2593,7 @@ swr0: soundwire@6b10000 {
- 			qcom,din-ports = <4>;
- 			qcom,dout-ports = <9>;
- 
-+			/* dt-check-style disable=redundant-whitespace-strict */
- 			qcom,ports-sinterval =		/bits/ 16 <0x07 0x1f 0x3f 0x07 0x1f 0x3f 0x18f 0x18f 0x18f 0x0f 0x0f 0xff 0x31f>;
- 			qcom,ports-offset1 =		/bits/ 8 <0x01 0x03 0x05 0x02 0x04 0x15 0x00 0x00 0x00 0x06 0x0d 0xff 0x00>;
- 			qcom,ports-offset2 =		/bits/ 8 <0xff 0x07 0x1f 0xff 0x07 0x1f 0xff 0xff 0xff 0xff 0xff 0xff 0xff>;
-@@ -2644,6 +2647,7 @@ swr2: soundwire@7630000 {
- 			qcom,din-ports = <4>;
- 			qcom,dout-ports = <0>;
- 
-+			/* dt-check-style disable=redundant-whitespace-strict */
- 			qcom,ports-sinterval-low =	/bits/ 8 <0x01 0x01 0x03 0x03>;
- 			qcom,ports-offset1 =		/bits/ 8 <0x00 0x00 0x01 0x01>;
- 			qcom,ports-offset2 =		/bits/ 8 <0x00 0x00 0x00 0x00>;
++			compatible  = "example,serial";
++			/* Redundant rule disable should be ignored */
++			/* dt-check-style disable=hex-case */
++			reg = <0x20000 0x1000>;
++		};
++	};
++};
 
 -- 
 2.53.0
