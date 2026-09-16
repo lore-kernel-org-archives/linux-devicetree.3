@@ -1,299 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 271A238888E
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 09:29:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73CEF43E06C
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 09:30:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789551002; cv=none; b=kR5EBhIWJDVt/fOLZRxGGsdgj3QzkgKumQAPyXKYYIjkdgDc0qpRUSIsM2tWCuB8UMckX7DQ5j6EA9iP0XWUmg6M8andJBrBE/LGfyuNRuWCq2/rDQUvUYUMKigT6zlID1bVTaUWxTrEtPeQs/FZ2OtHMguHNe1HXkIGK9DS3Ik=
+	t=1789551011; cv=none; b=J0DFjqc3RxetBB+Od4CO6q5jz6IXeEjjT1wGayUtraGxg6XQNS3+ZQL4xApxWVxsq8+4s4HRytqNpqD/CUIjl0PoW42/TARBKqG5PVkq/Ek9UBIzzHlZT0HnrEGPGZqtU5oZw+NyVXA/kCM3N6sgcfPsEg44AvACH89ASibGZ/o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789551002; c=relaxed/simple;
-	bh=KcHEfI9rixpKBPc2Zf2uhft6io/djkgQNFyeA0Lvo8Q=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=K4Mxh6HNlTGjrXuq0dS94no4CS6n1XQI5iH8qNlGYBGYzImhh2DmYsld7ru6qea30b0hcyBCj8h2YI4nJ6wSOc9hCLSv7GAvz5BBX3og9/S5Pr+S57ysPo2iubZqEGR8iTZ0KZDoYEHWXdrQWbZRtldQYUw6c6H1kkH069YMRLs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RXGN6Q6O; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789551011; c=relaxed/simple;
+	bh=g/iC+DIqI1xrZJ0xCTu4BStW2wCcnb3D4yhvlUsffN0=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qlLwywzJDNRtST9cHdsw+bturiWg0m7f55fx6jys1MbQQG184MxYtlxZqonnttXgR1LIoBniZOz0PjLTvDH9Sfq+EbqydZ9r9IEFtx/7evU1F5jAHS+XQbRGjoTRgwqthMGRC8c5l8gd7i5pAx7VWZSr/4dMpmPwPrr/mbUuKAs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TqKxl7Lr; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RXGN6Q6O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8ED81F00901
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 09:29:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789550993;
-	bh=HbNOQo+fITL/YezhDRnlIYKOUp70KJL8OxpPSgtnAR4=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=RXGN6Q6OG3ZqmOA+EqOmYMjzyXsouT9/duqse6VVDy6txHKqr4rsi+IwqT7Nbrz47
-	 k8Z51jWHxL/XUhmUR7t+S3foO9mlS/tSggJOpQVFfcHqXbWS8CpBwCWxmcACeDF2aj
-	 BxpkRO7bmpj1nhb4WegvhExiNrSZqAnhu0H3xjIBcZ2dzHV6+ceLNSmsoGa/aEjwKD
-	 OgoAUxAUzLHvJjUOF9Tbh1Ox/3/knMWDyVQT600LmsSKHRFcZZFAgL1BSh+RJrSl7I
-	 om2+u+TJVVTY7GeNqPDsgFptzqcmTTynlhkkxA1JfsslXkuVOGr50PDDnKikS1vCh1
-	 Dazs1KLksmMIA==
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a30521ef15so5273571fa.0
-        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 02:29:53 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw9/YYrkXcZ5oW1ilif6Mp32RUZXgRLlMp767nBW+vOfJ/UH6k63CbS7YHpQDYSqcsbP+jpVKGROKu6@vger.kernel.org
-X-Gm-Message-State: AFuF++kPdhlG5QnzkkeLRZDVAMIselBLowONp32BmyouMrLNjPkCFqiw
-	RQKNTmsCKf6VWCUOlZ0CoDoCvsDHP4e8LjvMyFD3fDzarU1iu/QrFse2yHkxr6CMHKd2SX/nZGU
-	aSP73bPIeujP0FogDLzEFT5hJjOsUia7eYR5z2oHMeQ==
-X-Received: by 2002:a05:651c:2107:b0:3a5:a106:ee0 with SMTP id
- 38308e7fff4ca-3a5dca17909mr3885151fa.24.1789550992173; Wed, 16 Sep 2026
- 02:29:52 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 16 Sep 2026 04:29:50 -0500
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 16 Sep 2026 04:29:50 -0500
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260914-arm-psci-system_reset2-vendor-reboots-v25-4-4aaf5c09b5c2@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TqKxl7Lr"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so3311625e9.0
+        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 02:29:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789550994; x=1790155794; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=drCB0bFzLSt3iJv3AQNAxjZ5jc1SFYIJv68Mmbr8obI=;
+        b=TqKxl7LrugOFrQrgr8bdk88+4lv6xwiasJTOfStkN5VPSjnmIzv6T/HIKUKB391l8m
+         aP0WS6ji1Q/XPsOSzWynGbp6G3Sqk/TrqGdPwxlP+NPP7z04EpDLifyTLmNpyKjPitul
+         EB9Rkfwh8ymrL4n1jIueyXuEuicoczUb6JmVVr6Ywn6sjH6iyLNAuPuGHRMBurrKQw1r
+         4ZrPpvellJRfv8uBz/Hvs87/BfLCOS4sganTG4pAUCnUPLSPyjBBFaxLvBqNXUXAURG3
+         7JEvragE67izv0WU4XGTUcfR1iYvN1W8CdmHmjmDSfZR8IAkAZA9Dx4kydTrt7X1fSg9
+         yxqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789550994; x=1790155794;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=drCB0bFzLSt3iJv3AQNAxjZ5jc1SFYIJv68Mmbr8obI=;
+        b=Ppkga5+jpRecCFSNKmaW9pQRg0HDM+2ULnUsDI3n7zxPNbAmJoEeMZiY4lLtMl4YqA
+         rl21xrLd9Mz5OnpuHEcWHqtDnSQBrq9B4creDTECR2mjXW3SRBV7zRoFiuZq2Vh2Xnox
+         KXFn/LFzKrmCP792Pj5Q8akd6KbLOLRy27rvB350hqKwFR0PJF5RezDxE+wzGJJMh4Vy
+         c+JZpmi7w5PvKYNpW0YEDZBKA6/ol1pk2S8Swldkh/sF2Qgt008aVgXcfBC3y//jk75i
+         hhx9DP+uGdWQ25yHfxzzcR3HgWoU7ag7sKAG84q2EmpLqmOWwf6UU8ezLCLWtdlHlnjG
+         uuow==
+X-Forwarded-Encrypted: i=1; AKwUvBzQK9PSWtzT7OSkwKFmzAMH2XvEcM6fKwugwIJPr02dFM08/O2Ew6jC5+30Dro3KKTik6ufZNsIZntx@vger.kernel.org
+X-Gm-Message-State: AFuF++nsHvFj1VhkA8FTwR8cDg5d88X2JKEdupxghmVmE/FaOmGBN5Xm
+	NgzD6hG7w1ABTHQ9i47xxZ7qEB2rI3/uDzMsMjpWv6UJ/z/2KugmWIZl
+X-Gm-Gg: AYBFou1nG/QpuT9HzIQJdAd5BF1hUWeC0Svf4G7uXpEm8cP4IEOJGJgEXGjm9eBtMCd
+	ZPSsJQL3Fp3chg6Mfb19DQGFIoc6QB7TT7TrQKuqFp6GOAoLURqWoLXbhek11r02QQRlUUgFBNX
+	zZvRzhHaHcBnTMJ21rWVmjjdjWIDTJITpXlGQocCYu3pMjQ2Tlo+n8kkiIpJewlITOO8D+NR6p1
+	Od4g7Jr1xCAKYFJzh43zuqovp7qjZ852Ccr+zngyHbhEUgQeE7VJOfTCIda4hFJaJWHDud7a61B
+	u5ZOJUZsTv0cf5/DMQ9v//S3sFvaTDJzTxdkG6lzxhB874BEXohvhbW58mI2wpuBAUsoCFa4BfM
+	aIKUU1QuyFYjkDAZEQJ6qjp/qjYpIJMbh7sImY1DYxOmpGKlRH1HFFw3bRZ8M1r4ckmsrn8cvVP
+	kfjjsHRUcHHG45JZ35Ax2eULG9IcCzD6nkzCuO7j9Bf9av3lPh8gNdYJ9zcw9FtOQCEcV7BTeO5
+	gRSnmlW+5oX/Jvg0MmAiJsbO06tVcQS2SLU
+X-Received: by 2002:a05:600c:4709:b0:493:f5bf:4dc6 with SMTP id 5b1f17b1804b1-49eac46374bmr21150555e9.7.1789550993497;
+        Wed, 16 Sep 2026 02:29:53 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e83db9102sm64812065e9.12.2026.09.16.02.29.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 02:29:53 -0700 (PDT)
+Date: Wed, 16 Sep 2026 10:29:51 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Kees Cook <kees@kernel.org>
+Cc: Bill Wendling <morbo@google.com>, linux-kernel@vger.kernel.org,
+ codemender-patching+linux@google.com, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
+ <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, Andrew
+ Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo
+ Abeni <pabeni@redhat.com>, Peter Griffin <peter.griffin@linaro.org>, Linus
+ Walleij <linusw@kernel.org>, "Martin K. Petersen" <mkp@kernel.org>, Trond
+ Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, Jiri
+ Pirko <jiri@resnulli.us>, Simon Horman <horms@kernel.org>, Chuck Lever
+ <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, NeilBrown
+ <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo
+ <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>, Jaroslav Kysela
+ <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Andrew Morton
+ <akpm@linux-foundation.org>, "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+ Kanglong Wang <wangkanglong@loongson.cn>, Tiezhu Yang
+ <yangtiezhu@loongson.cn>, Qiang Ma <maqianga@uniontech.com>, Randy Dunlap
+ <rdunlap@infradead.org>, Pengpeng Hou <pengpeng@iscas.ac.cn>, Ard
+ Biesheuvel <ardb@kernel.org>, Breno Leitao <leitao@debian.org>, Thorsten
+ Blum <blum@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Johan Hovold
+ <johan@kernel.org>, Cen Zhang <zzzccc427@gmail.com>, =?UTF-8?B?Q8Ohc3Np?=
+ =?UTF-8?B?bw==?= Gabriel <cassiogabrielcontato@gmail.com>, Rong Zhang
+ <i@rong.moe>, linux-input@vger.kernel.org, linux-media@vger.kernel.org,
+ netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
+ devel@lists.orangefs.org, linux-hardening@vger.kernel.org,
+ linux-sound@vger.kernel.org
+Subject: Re: [PATCH 01/28] ALSA: ac97: Refactor snd_ac97_get_name() to use
+ snprintf()
+Message-ID: <20260916102532.4b881a25@pumpkin>
+In-Reply-To: <202609151134.361FEA04@keescook>
+References: <20260915081910.4142719-1-morbo@google.com>
+	<20260915081910.4142719-2-morbo@google.com>
+	<202609151134.361FEA04@keescook>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914-arm-psci-system_reset2-vendor-reboots-v25-0-4aaf5c09b5c2@oss.qualcomm.com>
- <20260914-arm-psci-system_reset2-vendor-reboots-v25-4-4aaf5c09b5c2@oss.qualcomm.com>
-Date: Wed, 16 Sep 2026 04:29:50 -0500
-X-Gmail-Original-Message-ID: <CAMRc=MdCWHQZ+CgW05jYA1GGJdMUwKJEBAiAvRCvx=UqvjLiUg@mail.gmail.com>
-X-Gm-Features: AcwNN1XQMfOQSPN80c7M_tcu2-hP7ZzKFwZrSM1EUb4ujYz2zvehzw9bQteJEXc
-Message-ID: <CAMRc=MdCWHQZ+CgW05jYA1GGJdMUwKJEBAiAvRCvx=UqvjLiUg@mail.gmail.com>
-Subject: Re: [PATCH v25 04/10] firmware: psci: Add support for PSCI auxiliary devices
-To: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>, Andre Draszik <andre.draszik@linaro.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	mfd@lists.linux.dev, Srinivas Kandagatla <srini@kernel.org>, 
-	Ulf Hansson <ulf.hansson@oss.qualcomm.com>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Bjorn Andersson <andersson@kernel.org>, Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Souvik Chakravarty <Souvik.Chakravarty@arm.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Andy Yan <andy.yan@rock-chips.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
-	Mark Rutland <mark.rutland@arm.com>, Conor Dooley <conor+dt@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, John Stultz <john.stultz@linaro.org>, 
-	Moritz Fischer <moritz.fischer@ettus.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Christian Loehle <christian.loehle@arm.com>, 
-	Lee Jones <lee@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
-	Pavan Kondeti <pavan.kondeti@oss.qualcomm.com>, Abel Vesa <abelvesa@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Sudeep Holla <sudeep.holla@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Mon, 14 Sep 2026 16:59:08 +0200, Shivendra Pratap
-<shivendra.pratap@oss.qualcomm.com> said:
-> PSCI has multiple kernel consumers, such as cpuidle-psci-domain.
-> Currently, both the PSCI core driver and cpuidle-psci-domain bind
-> directly to the same PSCI node "arm,psci-1.0". Additional consumers, if
-> introduced, would also need to bind in the same way, leading to multiple
-> drivers attached to a single device node.
->
-> Introduce a PSCI auxiliary-device provider that binds to "arm,psci-1.0"
-> and registers PSCI child devices on the auxiliary bus. As the first
-> user, register cpuidle-psci-domain as an auxiliary device.
->
-> Update cpuidle-psci-domain to probe as an auxiliary driver and use
-> the PSCI device node for power-domain traversal.
->
-> Suggested-by: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-> Suggested-by: Lee Jones <lee@kernel.org>
-> Suggested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> Signed-off-by: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-> ---
->  MAINTAINERS                           |  1 +
->  drivers/cpuidle/Kconfig.arm           |  1 +
->  drivers/cpuidle/cpuidle-psci-domain.c | 31 +++++++++++++++-----------
->  drivers/firmware/psci/Kconfig         | 14 ++++++++++++
->  drivers/firmware/psci/Makefile        |  1 +
->  drivers/firmware/psci/psci-devices.c  | 41 +++++++++++++++++++++++++++++++++++
->  6 files changed, 76 insertions(+), 13 deletions(-)
->
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 207a6e2db70c..9c0334ee2ed2 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -21932,6 +21932,7 @@ L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
->  S:	Maintained
->  F:	Documentation/devicetree/bindings/arm/psci.yaml
->  F:	drivers/firmware/psci/
-> +F:	drivers/firmware/psci/psci-devices.c
->  F:	include/linux/psci.h
->  F:	include/uapi/linux/psci.h
->
-> diff --git a/drivers/cpuidle/Kconfig.arm b/drivers/cpuidle/Kconfig.arm
-> index b88b01aa5829..f22e18b05053 100644
-> --- a/drivers/cpuidle/Kconfig.arm
-> +++ b/drivers/cpuidle/Kconfig.arm
-> @@ -36,6 +36,7 @@ config ARM_PSCI_CPUIDLE_DOMAIN
->  	bool "PSCI CPU idle Domain"
->  	depends on ARM_PSCI_CPUIDLE
->  	depends on PM_GENERIC_DOMAINS_OF
-> +	depends on ARM_PSCI_DEVICES
->  	select DT_IDLE_GENPD
->  	default y
->  	help
-> diff --git a/drivers/cpuidle/cpuidle-psci-domain.c b/drivers/cpuidle/cpuidle-psci-domain.c
-> index b9e4ad7d43a3..0ce6a83f6588 100644
-> --- a/drivers/cpuidle/cpuidle-psci-domain.c
-> +++ b/drivers/cpuidle/cpuidle-psci-domain.c
-> @@ -9,10 +9,11 @@
->
->  #define pr_fmt(fmt) "CPUidle PSCI: " fmt
->
-> +#include <linux/auxiliary_bus.h>
->  #include <linux/cpu.h>
->  #include <linux/device.h>
->  #include <linux/kernel.h>
-> -#include <linux/platform_device.h>
-> +#include <linux/module.h>
->  #include <linux/pm_domain.h>
->  #include <linux/pm_runtime.h>
->  #include <linux/psci.h>
-> @@ -122,14 +123,10 @@ static void psci_pd_remove(void)
->  	}
->  }
->
-> -static const struct of_device_id psci_of_match[] = {
-> -	{ .compatible = "arm,psci-1.0" },
-> -	{}
-> -};
-> -
-> -static int psci_cpuidle_domain_probe(struct platform_device *pdev)
-> +static int psci_cpuidle_domain_probe(struct auxiliary_device *auxdev,
-> +				     const struct auxiliary_device_id *id)
->  {
-> -	struct device_node *np = pdev->dev.of_node;
-> +	struct device_node *np = auxdev->dev.of_node;
->  	bool use_osi = psci_has_osi_support();
->  	int ret = 0, pd_count = 0;
->
-> @@ -177,16 +174,24 @@ static int psci_cpuidle_domain_probe(struct platform_device *pdev)
->  	return ret;
->  }
->
-> -static struct platform_driver psci_cpuidle_domain_driver = {
-> -	.probe  = psci_cpuidle_domain_probe,
-> +static const struct auxiliary_device_id psci_cpuidle_domain_id_table[] = {
-> +	{ .name = "arm-psci.psci-cpuidle-domain" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(auxiliary, psci_cpuidle_domain_id_table);
-> +
-> +static struct auxiliary_driver psci_cpuidle_domain_driver = {
-> +	.probe = psci_cpuidle_domain_probe,
->  	.driver = {
-> -		.name = "psci-cpuidle-domain",
-> -		.of_match_table = psci_of_match,
-> +		.suppress_bind_attrs = true,
->  	},
-> +	.id_table = psci_cpuidle_domain_id_table,
->  };
->
->  static int __init psci_idle_init_domains(void)
->  {
-> -	return platform_driver_register(&psci_cpuidle_domain_driver);
-> +	return __auxiliary_driver_register(&psci_cpuidle_domain_driver,
-> +					   THIS_MODULE,
-> +					   "psci-cpuidle-domain");
->  }
->  core_initcall(psci_idle_init_domains);
-> diff --git a/drivers/firmware/psci/Kconfig b/drivers/firmware/psci/Kconfig
-> index 97944168b5e6..68e381f1a618 100644
-> --- a/drivers/firmware/psci/Kconfig
-> +++ b/drivers/firmware/psci/Kconfig
-> @@ -2,6 +2,20 @@
->  config ARM_PSCI_FW
->  	bool
->
-> +config ARM_PSCI_DEVICES
-> +	bool "PSCI auxiliary device support"
-> +	depends on ARM_PSCI_FW
-> +	depends on OF
-> +	select AUXILIARY_BUS
-> +	default y
-> +	help
-> +	  Say Y here to enable auxiliary device support for PSCI.
-> +
-> +	  This creates auxiliary devices for PSCI functionality implemented
-> +	  outside the core PSCI firmware driver. These devices allow PSCI
-> +	  child drivers to bind through the auxiliary bus while sharing the
-> +	  PSCI firmware device as their parent.
-> +
->  config ARM_PSCI_CHECKER
->  	bool "ARM PSCI checker"
->  	depends on ARM_PSCI_FW && HOTPLUG_CPU && CPU_IDLE && !TORTURE_TEST
-> diff --git a/drivers/firmware/psci/Makefile b/drivers/firmware/psci/Makefile
-> index 1956b882470f..8e75a0ed6f74 100644
-> --- a/drivers/firmware/psci/Makefile
-> +++ b/drivers/firmware/psci/Makefile
-> @@ -1,4 +1,5 @@
->  # SPDX-License-Identifier: GPL-2.0
->  #
->  obj-$(CONFIG_ARM_PSCI_FW)	+= psci.o
-> +obj-$(CONFIG_ARM_PSCI_DEVICES)	+= psci-devices.o
->  obj-$(CONFIG_ARM_PSCI_CHECKER)	+= psci_checker.o
-> diff --git a/drivers/firmware/psci/psci-devices.c b/drivers/firmware/psci/psci-devices.c
-> new file mode 100644
-> index 000000000000..f1eca61e3269
-> --- /dev/null
-> +++ b/drivers/firmware/psci/psci-devices.c
-> @@ -0,0 +1,41 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +
-> +#include <linux/auxiliary_bus.h>
-> +#include <linux/init.h>
+On Tue, 15 Sep 2026 11:39:34 -0700
+Kees Cook <kees@kernel.org> wrote:
 
-I think you need module.h not init.h.
+(I've just juked a lot of the 'reply to' list - too long to gmail.)
 
-> +#include <linux/of.h>
-> +#include <linux/platform_device.h>
-> +
-> +static int arm_psci_probe(struct platform_device *pdev)
-> +{
-> +	struct auxiliary_device *auxdev;
-> +
-> +	auxdev = __devm_auxiliary_device_create(&pdev->dev, "arm-psci",
-> +						"psci-cpuidle-domain", NULL, 0);
-> +	if (!auxdev)
-> +		return -ENOMEM;
-> +
-> +	return 0;
-> +}
+> On Tue, Sep 15, 2026 at 08:18:18AM +0000, Bill Wendling wrote:
+> > --- a/sound/pci/ac97/ac97_codec.c
+> > +++ b/sound/pci/ac97/ac97_codec.c
+> > @@ -1850,10 +1850,12 @@ void snd_ac97_get_name(struct snd_ac97 *ac97, unsigned int id, char *name,
+> >  
+> >  	pid = look_for_codec_id(snd_ac97_codec_ids, id);
+> >  	if (pid) {
+> > -		strlcat(name, " ", maxlen);
+> > -		strlcat(name, pid->name, maxlen);
+> > +		int l = strlen(name);
+> > +
+> >  		if (pid->mask != 0xffffffff)
+> > -			sprintf(name + strlen(name), " rev %u", id & ~pid->mask);
+> > +			snprintf(name + l, maxlen - l, " %s rev %u", pid->name, id & ~pid->mask);
+> > +		else
+> > +			snprintf(name + l, maxlen - l, " %s", pid->name);
+> >  		if (ac97 && pid->patch) {
+> >  			if ((modem && (pid->flags & AC97_MODEM_PATCH)) ||
+> >  			    (! modem && ! (pid->flags & AC97_MODEM_PATCH)))
+> > @@ -1861,6 +1863,7 @@ void snd_ac97_get_name(struct snd_ac97 *ac97, unsigned int id, char *name,
+> >  		}
+> >  	} else {
+> >  		int l = strlen(name);
+> > +
+> >  		snprintf(name + l, maxlen - l, " id %x", id & 0xff);
+> >  	}
+> >  }  
+> 
+> I'd rather not open-code the length math here. Can't we use seq_buf()
+> instead?
+> 
 
-I would prefer you to move the code between the patches a bit. This patch
-should already be introducing the full, future-proof infrastructure for
-registering multiple auxiliary devices, so maybe add a static table with device
-info? Then in patch 10/10 you'd just extend it for reboot modes.
+Or just use the length returned by the strscpy() call that wrote the initial
+part of name[].
+The return the name length so the callers don't have to use strcat()
+themselves.
+Replacing strlcat() with strlen() and a copy is just pointless.
 
-I'd also not add any ifdef guards here and lesses the build-time dependencies.
-You can register the device alright, it just won't get probed if the reboot-mode
-support is not there.
-
-Bart
-
-> +
-> +static const struct of_device_id arm_psci_of_match[] = {
-> +	{ .compatible = "arm,psci-1.0" },
-> +	{ }
-> +};
-> +
-> +static struct platform_driver arm_psci_driver = {
-> +	.probe = arm_psci_probe,
-> +	.driver = {
-> +		.name = "arm-psci",
-> +		.of_match_table = arm_psci_of_match,
-> +		.suppress_bind_attrs = true,
-> +	},
-> +};
-> +
-> +static int __init arm_psci_init(void)
-> +{
-> +	return platform_driver_register(&arm_psci_driver);
-> +}
-> +core_initcall(arm_psci_init);
->
-> --
-> 2.34.1
->
->
+David
