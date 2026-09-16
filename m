@@ -1,227 +1,212 @@
-Received: from mta0.migadu.com (out-152.mta0.migadu.com [91.218.175.152])
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 151F6447805
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 07:33:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.152
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789544037; cv=none; b=flmywMU7GMRjx8IpFGJ/k815edX8nL46X9d2CUZ6B4moznyUJ/Nm7BR2W1SGR2sC0daX86NFn72tKCVDRh24YIg9+WiBUNe1zSCF1gd2P4oqridDXp9uc55JiFDHjaHSKugs/5N3mVBKJ4n8eKGxKJMYMkwaQfMl49RpwZw2oMA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789544037; c=relaxed/simple;
-	bh=D3AZYVFwXkt7bPWVEG/PBf6aO/+18hlPXbGfAJOcu9Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s+im7jgfeIM+sC+Or4qCtVGq5Xx2OhSa8SBEDN8mKQqsmTHNuE5X0MlW83+SkOdqmnE+guoghjlqa6iF8IWAwVs+vgYN3LlTR8vUX2W1B2gY/Pqnd3SBSyVKcNjX+7e+Zb0DFlFks9zF8MvFIQ3RkkHeXxtXr1ESMgxDbn48DXI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=raM5XhAV; arc=none smtp.client-ip=91.218.175.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 422224503EA
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 07:36:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789544216; cv=pass; b=hMHFklsJ88S1fIHuxaZzwNJs1DHFSxzneewHutym/BCMbTyTK0q4rr7kkePaM6teNd/g8LXnPuOQFfiZSgu5L3YS2t0I4GCSQI8hRrTaHW4efkbcko22xWRQXe+N7O+BdHt1oMBEwLfOCGlxfRG/m4bb8ZVvOcNMxznIbz8a1vQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789544216; c=relaxed/simple;
+	bh=cJJs34fb2h99W/KbF5DWHeZGBBI0ty2ys0AP2AMX3NA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=bDCdvvGs5jBVy1O2t47/VxPcgktm7ncBDF4+pcc8J85xBhGCfqF+39dVb8Ux6LoOWlnsiywYBu8qqX/ZsQEnUQyNOAm5ZxZC+gUebnQag1odOl1yu29O+VCdX2p6f2q7j8RBnwwkPKNyef/CKa9TE7odNrPqUA6A0T2nrz2mKZY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Sa4wcHW8; arc=pass smtp.client-ip=74.125.227.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="raM5XhAV"
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=D3AZYVFwXkt7bPWVEG/PBf6aO/+18hlPXbGfAJOcu9Q=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789544022; v=1; x=1790148822;
- b=raM5XhAVIv7hETvmFWax/zdQw1WlFoCUi6rwh3HkCNQ+3F009aGeTRgb4KcNoRmgF/S9p0cO
- 2ZqGxV6NXEFIUg36ZN04EudkS6sJgDCXA0CF+nWtT4o8Ff1MN/DbRiZWd72hkXuaFFGyZZfV8yZ
- quovv+2N+GJU/GtQPTfxPB10=
-X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 78ccef53a41417d8;
-	Wed, 16 Sep 2026 07:33:42 +0000
-X-Mizu-Trace-ID: 78ccef53a41417d8
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 16 Sep 2026 09:33:36 +0200
-From: Richard Leitner <richard.leitner@linux.dev>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Alexander Stein <alexander.stein@ew.tq-group.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org
-Subject: Re: [PATCH 2/3] dt-bindings: media: i2c: Add
- vision-components,mipi-module-controller
-Message-ID: <aqpC8fxO4F3bFjF4@bombadil>
-References: <20260915-vc-mipi-ctrl-v1-0-8a42b693d889@linux.dev>
- <20260915-vc-mipi-ctrl-v1-2-8a42b693d889@linux.dev>
- <20260916-daft-relaxed-mouse-9bfaf4@quoll>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Sa4wcHW8"
+Received: by mail-vs2-f12.google.com with SMTP id ada2fe7eead31-78a4c5c582eso183605137.3
+        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 00:36:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789544205; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rj4xopvKNwJPVsVybt3jRG/iv7AIdTTNvdjUVFSTKWfpCypiuwXALZZTolbo9+V9Xr
+         7HYmYvd+FjwXFp/2nAee6KoUoA1UMKGa0iKzb0xjyNXVWbrBlUdvqtG7Dc47nFOu0JBe
+         AhhyvmYav9Qj/pc1faFZ+AQegN0GQ/R4yW6f0lX1Hdg3n9GDzmwzw+2sSXVke7FHOA8n
+         HdFkvNsysa/9juSRvFIgHH+TwzuJDO6TDtcHPF64p5wBopfw16QXTlFCkGV0LJqBdxgk
+         GUlfd/AArTdOozhOWYxgTvY1eQDs6MzcI+A+uc3irPXa+yqSKCuJnDV961XCdyMvPa7M
+         sAwQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=dFdl8Va7Swxkjw5uQRSJKt+eRYekF3RPnToHL1YscsE=;
+        fh=m4yqDS3jcDAQfYvA/E6a2v/MdVegK1nR3flfrZRBqSA=;
+        b=sqpRWU5brlF7nH7eVuEPLnLnat00+38el0cp0qho8msckJXFLPzxpU8I96PIzOZNpJ
+         UPOLJQ/oNI/s7AQXfRN8emwcW+kRo+UxN62jueveNQgo97ytiX8/z2vZRP/oeIeLYeOc
+         YbkJPhA5yYKmdoSrjcTbOrT+mB7HrLMYYIJ105gPptYlms7P8R7uNNoKevHHsL1Vw1tw
+         XQKzDzwVWrqfwYSQZzLF7tjlzwMzHAZZm2/X5jeZ7vnQcXTxugeSMgQ4/Cc3IfQpGiGE
+         zH9sk5QLMf4e65eh0W+k3NGxP68z5GfY9f9gWoFNkDBH/a6BWeAQOuPRiQ9J8RJBneGx
+         81CQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789544205; x=1790149005; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dFdl8Va7Swxkjw5uQRSJKt+eRYekF3RPnToHL1YscsE=;
+        b=Sa4wcHW8Ujg/+h7/w82w3fECg5FqooFAgohduku4IsAGiXjmM8365hyh0E0X9e986u
+         cu9h49eFoKjB7jTcls3mqrXanekPLEi1miKYfbqiQZKKWDF/PaB9WtSpbBQDXTDvK/2Y
+         HQ4K3ebtXEs40F6Z5a26MvqqIPuCM+9HsY3Aq4xmQrtSJpoZUwrzE+dcg4alotEd7fkv
+         88DYGFqXIwZn+BKmaLmy81jAqOsKLRuOmk2sK4GysH6Lth75hJL6v1xZ8qsR3ghAFSCk
+         qqrAcVJbF81jNnLY9qJSv4iGVZnpbgZWmHW918nB5tYHiQNkSd+4K+1HurNqi0IHoBzV
+         i7lg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789544205; x=1790149005;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dFdl8Va7Swxkjw5uQRSJKt+eRYekF3RPnToHL1YscsE=;
+        b=n5Azv/EHzqbjgC3o2KjUub9q+T+7UYATbh7QUDCdUogiycaSb9LjmaSqDaDS8LngXy
+         z4GbmSlwvKtNTLrWFZlbw3I9VhacXlNsits3MFXTKFIKDznLTXtClgh6538Pa2/+9OcM
+         6O7kYzyW/s3VC0LKaUqynx6iiXIF0omM+M+urTQVm4ZfqMWDZxU4Y6cn5IO419ZTrK4W
+         opgfybBcqCJqAwKyq3T/7ynfq91aLtsSYfilY+wUbwCtx2T4nUtX8Cd2NzJRUAICeZTI
+         EhqtKdB4MhPHgefjr6mBGVeTO5CmlBxpf2sLuUog5+y35/mI8MF4f5Bu+tr8KwGXxk7v
+         2rDg==
+X-Forwarded-Encrypted: i=1; AKwUvBwIxm7lslgU1FSVAcQ2y6mlxEGNS/PKQ4mQlEM26mhKgZcnQuzFXqQSUuyZEuPcpxSPDf/rChPJngWT@vger.kernel.org
+X-Gm-Message-State: AFuF++lJ7SWSJXp7RZlYijLj376T1ZJu807jZwfBj5vUGkNpCKD+L73T
+	XEF52DtTgSbpY3HWyb0ZpZ442Kp3ZbsXzcGkwTkFfHjVvTyEYdMgS0MePrn4huaqFnLDgGhAkZB
+	oupc9reeZ2/W259a1ygeEaRoa3C2hlMg=
+X-Gm-Gg: AYBFou1oRP1FEQRwq9qQ8BPPXyN/kNuovWr0XLT7GdCfGEm5CPNddscQNjiDQcssmBq
+	4IWSxEunVV916wIC/FxQ8EewuDKI6Naj/huQXHTWlvIo3xy29K7acl2aFUeOIyv0Ab9pk0GdJlB
+	QLkPNXVA7PL8b7BszsrpJtCF20ELm98H5PYSgg0GUxDpNeqlxKhynrKJDdYClNFFFVGbfmfUIen
+	xqP/5phkOlhN7AY1xZlcoN64YFEx0HyYYAytP9ZKJ2s5brSbQIs232a/gNU+OHWj1BNJRT1WPNd
+	UP/aN5exsOW9GiWtMSry33KhBSR1SJ+/el0VzEwTxnPUAV0J4X3SYVR0j9njxMccrYNt4Cpx+kj
+	LsuKFnoGUFjyx/lTuP8Bpbg7Q1tskP2mZZBffcnJe4Vtk9F3+YDdwa4WQQN3PJ8QT2QBaO1T9bg
+	mxNl8EEJrcKrwZ0rzY9qyvfm22G6QqW5ocODYF+ylhr9DL5BhgCduvUGqq
+X-Received: by 2002:a05:6102:4bc2:b0:79d:c493:f1d3 with SMTP id
+ ada2fe7eead31-7a026c4142dmr757332137.7.1789544205003; Wed, 16 Sep 2026
+ 00:36:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260916-daft-relaxed-mouse-9bfaf4@quoll>
+References: <20260915-submit-h616-emac1-v1-v2-0-322b32e40eb9@gmail.com>
+ <20260915-submit-h616-emac1-v1-v2-1-322b32e40eb9@gmail.com> <14e61e7a-29ad-4cc6-8993-dea7a8d7c846@arm.com>
+In-Reply-To: <14e61e7a-29ad-4cc6-8993-dea7a8d7c846@arm.com>
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Wed, 16 Sep 2026 01:36:34 -0600
+X-Gm-Features: AcwNN1WscQQGHuBz-gQadqFD8U_llvHSSS-ajPx5e079eC1kBH6r8x1MbCO5ieo
+Message-ID: <CADvTj4qtuV_JEW5Byix86eQZJBsc_dmPR75ypVWn4xjem9rpAw@mail.gmail.com>
+Subject: Re: [PATCH net-next v2 1/2] dt-bindings: net: allwinner: add H616 EMAC1
+To: Andre Przywara <andre.przywara@arm.com>
+Cc: Richard Genoud <richard.genoud@bootlin.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
+	Jose Abreu <joabreu@synopsys.com>, Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Maxime Ripard <mripard@kernel.org>, netdev@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-stm32@st-md-mailman.stormreply.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Krzysztof,
+On Wed, Sep 16, 2026 at 1:26=E2=80=AFAM Andre Przywara <andre.przywara@arm.=
+com> wrote:
+>
+> Hi,
+>
+> On 9/16/26 05:07, James Hilliard wrote:
+> > The H616 secondary EMAC uses a separate system-control clock register
+> > and supports only RMII at 10/100 Mbps. Add its distinct compatible
+> > without an older fallback, since using the primary EMAC clock register
+> > would not work.
+> >
+> > Constrain the PHY interface mode to RMII, matching the hardware.
+> >
+> > Signed-off-by: Richard Genoud <richard.genoud@bootlin.com>
+>
+> Where does this come from? If Richard is the author, then please reflect
+> this in the patch (git commit --amend --author ...), so a From: line
+> appears in the body of the email.
+> If not, it's unclear why this line is here.
 
-thanks for the review!
+This was loosely based off of a patch he wrote I guess, although it has
+diverged a good bit so maybe should just drop it, idk.
 
-On Wed, Sep 16, 2026 at 09:00:46AM +0200, Krzysztof Kozlowski wrote:
-> On Tue, Sep 15, 2026 at 10:20:24PM +0200, Richard Leitner wrote:
-> > Add bindings for the Vision Components MIPI Camera Module Controller.
-> > 
-> > Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
+>
+> The actual patch looks good to me:
+>
+> Reviewed-by: Andre Przywara <andre.przywara@arm.com>
+>
+> Cheers,
+> Andre
+>
+> > Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 > > ---
-> >  .../vision-components,mipi-module-controller.yaml  | 92 ++++++++++++++++++++++
-> >  MAINTAINERS                                        |  7 ++
-> >  2 files changed, 99 insertions(+)
-> 
-> This fails tests, so a very brief review / a few comments:
-
-Mea culpa, I simply failed to run the dtb check before submitting. Sorry.
-Will not happen again.
-
-> 
-> > 
-> > diff --git a/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml b/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml
-> > new file mode 100644
-> > index 0000000000000..2a031aea68457
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml
-> > @@ -0,0 +1,92 @@
-> > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/media/i2c/vision-components,mipi-module-controller.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> >   .../devicetree/bindings/net/allwinner,sun8i-a83t-emac.yaml  | 13 ++++=
++++++++++
+> >   Documentation/devicetree/bindings/net/snps,dwmac.yaml       |  2 ++
+> >   2 files changed, 15 insertions(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/net/allwinner,sun8i-a83t=
+-emac.yaml b/Documentation/devicetree/bindings/net/allwinner,sun8i-a83t-ema=
+c.yaml
+> > index 323a669fa982..2cae0133b3cd 100644
+> > --- a/Documentation/devicetree/bindings/net/allwinner,sun8i-a83t-emac.y=
+aml
+> > +++ b/Documentation/devicetree/bindings/net/allwinner,sun8i-a83t-emac.y=
+aml
+> > @@ -21,6 +21,7 @@ select:
+> >             - allwinner,sun8i-r40-gmac
+> >             - allwinner,sun8i-v3s-emac
+> >             - allwinner,sun50i-a64-emac
+> > +          - allwinner,sun50i-h616-emac1
+> >             - allwinner,sun55i-a523-gmac200
+> >     required:
+> >       - compatible
+> > @@ -33,6 +34,7 @@ properties:
+> >         - const: allwinner,sun8i-r40-gmac
+> >         - const: allwinner,sun8i-v3s-emac
+> >         - const: allwinner,sun50i-a64-emac
+> > +      - const: allwinner,sun50i-h616-emac1
+> >         - items:
+> >             - enum:
+> >                 - allwinner,sun20i-d1-emac
+> > @@ -91,6 +93,17 @@ required:
+> >
+> >   allOf:
+> >     - $ref: snps,dwmac.yaml#
+> > +  - if:
+> > +      properties:
+> > +        compatible:
+> > +          contains:
+> > +            const: allwinner,sun50i-h616-emac1
 > > +
-> > +title: Vision Components MIPI Camera Module Controller
+> > +    then:
+> > +      properties:
+> > +        phy-mode:
+> > +          const: rmii
 > > +
-> > +maintainers:
-> > +  - Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> > +  - Richard Leitner <richard.leitner@linux.dev>
-> > +
-> > +description: |-
-> > +  The MIPI camera module controller is an FPGA-based, I2C-accessible system
-> > +  controller found on MIPI camera modules from Vision Components. It abstracts
-> > +  the camera sensor behind a unified register interface, and controls and
-> > +  sequences the on-board power supplies and clocks.
-> > +
-> > +  The camera sensor abstraction is optional. The controller exposes a tunneled
-> > +  downstream I2C bus used by the attached image sensor. The controller node
-> > +  acts as the upstream device on the host bus, while child node below the
-> > +  controller represent the sensor device reachable through the tunnel.
-> > +
-> > +properties:
-> > +  compatible:
-> > +    const: vision-components,mipi-module-controller
-> 
-> There is no model name, no version, nothing identifying it better?
-> Compatible must be specific to the device (see also writing bindings).
-
-There is one FPGA implemenation for all Vision Components MIPI camera
-modules AFAICT. So I have no idea how it could be more specific, TBH...
-
-Adding the FPGA hardware model/type is wrong IMHO as it depends on its
-configuration/firmware, not the hw.
-
-There are different versions of the configuration/firmware. But I think
-this is also not the correct way to distinguish those, or is it?
-
-According to their homepage the vendor calls those modules simply
-"VC MIPI" modules, which implies this FPGA controller is available on it.
-So maybe "vision-components,vc-mipi-controller" would be a better fit?
-
-Do you have any ideas/feedback on how improve this name?
-
-> 
-> > +
-> > +  reg:
-> > +    maxItems: 1
-> > +
-> > +  '#clock-cells':
-> > +    const: 0
-> > +
-> > +  clock-frequency:
-> > +    description: Frequency of the sensor clock provided by the module
-> 
-> Drop, implied by the compatible
-> 
-
-Do you mean dropping the whole property, or just the "description"?
-
-> > +
-> > +  vcc-supply:
-> > +    description: Power supply of the module (3.3V)
-> > +
-> > +  '#address-cells':
-> > +    const: 1
-> > +
-> > +  '#size-cells':
-> > +    const: 0
-> 
-> No children allowed, so why these two?
-
-Based on your and the bot feedback I would suggest for v2 to change this
-"generic i2c bus" to a simple "i2c-tunnel" property which has
-"$ref: /schemas/i2c/i2c-controller.yaml".
-
-This would better reflect the actual hardware, as there is only this one,
-in firmware hard-coded I2C downstream bus.
-
-Would this be a sane approach?
-
-> 
-> > +
-> > +required:
-> > +  - compatible
-> > +  - reg
-> > +  - '#clock-cells'
-> > +  - clock-frequency
-> > +  - vcc-supply
-> > +  - '#address-cells'
-> > +  - '#size-cells'
-> > +
-> > +unevaluatedProperties: false
-> 
-> additionalProperties instead, see writing bindings or writing schema.
-> Unless you miss here some other schema $ref.
-> 
-> > +
-> > +examples:
-> > +  - |
-> > +    i2c {
-> > +        #address-cells = <1>;
-> > +        #size-cells = <0>;
-> > +
-> > +        vc_mipi_ctrl: controller@10 {
-> > +            compatible = "vision-components,mipi-module-controller";
-> > +            reg = <0x10>;
-> > +            #clock-cells = <0>;
-> > +            clock-frequency = <37125000>;
-> > +            vcc-supply = <&cam_3v3>;
-> > +
-> > +            #address-cells = <1>;
-> > +            #size-cells = <0>;
-> > +
-> > +            i2c@0 {
-> > +                #address-cells = <1>;
-> > +                #size-cells = <0>;
-> > +
-> > +                vc_mipi_sensor: camera@60 {
-> > +                    compatible = "ovti,ov9281";
-> > +                    reg = <0x60>;
-> 
-> Why having the child abstraction if it is completely abstracted? I don't
-> fully get the explanation from description. Completely optional means no
-> benefits, no point in it, no?
-
-I will try to improve the description. The idea behind this device
-driver/devicetree node is to not rely on the sensor abstraction from
-vision components, but to use the upstream sensor specific driver.
-
-As the tunneled downstream i2c bus needs quirks applied this is modeled
-as a separate bus.
-
-Previous discussions on this approach are available at:
-	https://lore.kernel.org/lkml/20260728092856.GB1494774@killaraus.ideasonboard.com/
-
-Thanks again for your review Krzysztof!
-
-regards;rl
-
-> 
-> Best regards,
-> Krzysztof
-> 
+> >     - if:
+> >         properties:
+> >           compatible:
+> > diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Do=
+cumentation/devicetree/bindings/net/snps,dwmac.yaml
+> > index 2ed4564ae99d..b20149c3e850 100644
+> > --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> > +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+> > @@ -57,6 +57,7 @@ properties:
+> >           - allwinner,sun8i-r40-gmac
+> >           - allwinner,sun8i-v3s-emac
+> >           - allwinner,sun50i-a64-emac
+> > +        - allwinner,sun50i-h616-emac1
+> >           - amlogic,meson6-dwmac
+> >           - amlogic,meson8b-dwmac
+> >           - amlogic,meson8m2-dwmac
+> > @@ -623,6 +624,7 @@ allOf:
+> >                   - allwinner,sun8i-r40-gmac
+> >                   - allwinner,sun8i-v3s-emac
+> >                   - allwinner,sun50i-a64-emac
+> > +                - allwinner,sun50i-h616-emac1
+> >                   - loongson,ls2k-dwmac
+> >                   - loongson,ls7a-dwmac
+> >                   - ingenic,jz4775-mac
+> >
+>
