@@ -1,75 +1,71 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAA193DDB0A;
-	Wed, 16 Sep 2026 20:37:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEE5F446073
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 20:43:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789591037; cv=none; b=mkEUGPWlvSiK3p0LWMoGEXny8wL13KvnejVtXh8JGVCaOMclTNNjZjPWglUsrxUoPVOt7A+SXbYu4ftbx4Svb+QBibvg+8D0P85Z7MIq0epG5AfGNSDa0OlqraBFqcz19DJni67TsuKzpzmnUYFzipI46B9m/IfxZTW5YNSIZds=
+	t=1789591428; cv=none; b=XFe37oxkY/dHmstjSHjAlorTzbbuzGTYEaDcpXalcnY3X9C5tP6Wv0hzO6GSpiMSu2vE60jlPLTxQynRxYuaPaRO7a1putrH05dJG9EXLqDOKtqFyT6fg3L4fVCh8QUve6d9z9wgm7uYzMSTf4eEk311hv7MhOuVwS6Zrm+qgrs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789591037; c=relaxed/simple;
-	bh=pWP9pkOjKfVjpz6OztSz6zIOaZB/RmuwzEKNO7a84R4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SOSlye0Jab54BvH8n7KNAwDg53G4d5KY4uh15TaFB5RmDKM69DY2aqsoEZbBH6wm89x5b/jXYbMahadytGPxIyp6jVqhSM1JhMd/9imXO5LnDRYynVMDXxBhOQLGxaF0sy5bP1CkVjA89rsLGg8HgZYvl5OKj1R+gCw5kHJoLMU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uh5q2N24; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789591428; c=relaxed/simple;
+	bh=vlKw8zEtmmpXHVJ2WbaEoKFzRUul9RS/PINyb7V/eQQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZF+JSHNKhW1jgNTD8bW5VkmB22Y3rJ/YURRDIicIvXxJodfT6udsDTDhckA7Q//Otztz2eeox+ehDrOYbZGyO3ElgD+3wixcHyDUHWq4/NjQLwWO23f50AXhYKl7JISwLnodKVplbmP0vitpD63tkNw+u7Yu86JR/lGhPCW/AdA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cFyJIRmT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uh5q2N24"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C23B21F0089A;
-	Wed, 16 Sep 2026 20:37:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cFyJIRmT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD3801F00898
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 20:43:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789591023;
-	bh=6Q+WxJ3NRja0iBPcIiZmImtHqJDLGM4eQtUUFwXaPYY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Uh5q2N24aFNHTWnB3epmA4lJx/1BpqXxOK7L4BmjoHwTjr7WZBrDuBJbcer01hS7d
-	 fcM/NqYm6+/NvJjcYh1n7uKGG6InZ0Hh0O9mHIBH8b0ZfYQMY64iHK1rzezMZw9mrm
-	 ApKQvd4tcoBWBbvvSJpg7xSdTXor2cYCPgsd2jYXwfhFsNZv9B7lrFQAkhsc2MdS2X
-	 mrG4ReyXYbmKH4HQkNLS0WuU3QTC2ldbvUqwGv+XZlVqBCIZEYf+gzh0kQ8YrYsDSS
-	 qc7cWFEDnQLb9VisRvMzpLvgb7scq20xovhWsQVBFT6AWbmB4vmljcUiYO+ZKcIRrq
-	 0FOGWqpT6HbWA==
-Date: Wed, 16 Sep 2026 15:37:01 -0500
-From: Rob Herring <robh@kernel.org>
-To: Lucas Tanure <tanure@linux.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Chuan Liu <chuan.liu@amlogic.com>, Jian Hu <jian.hu@amlogic.com>,
-	Ronald Claveau <linux-kernel-dev@aliel.fr>,
-	linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] dt-bindings: mmc: amlogic,meson-gx-mmc: document
- the T7 pipeline clock
-Message-ID: <20260916203701.GA1463751-robh@kernel.org>
-References: <20260905153234.133217-1-tanure@linux.com>
- <20260905153234.133217-2-tanure@linux.com>
+	s=k20260515; t=1789591421;
+	bh=vlKw8zEtmmpXHVJ2WbaEoKFzRUul9RS/PINyb7V/eQQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=cFyJIRmT3405pihywetpV9hmvKAv22KhfLKYeOpuckrVAnCfD+gwgdUyz8+3eLPkg
+	 p3fk4D8iomhYvtCPucqpn3f1wluyTkmYUKZh469vairyUZMyoDxwWu1ys8/fO3xZRG
+	 ZN28cx+9w+nSKa/dUp+Y+NaxGjZoKGJc9DJoeRiNhJzlDJZcSrLrPVZKHVohcH47Ba
+	 8Ya0PIkUcARM1z6JZ6DylcBQjOQdzYatQzvHBYYogUZWZtGdkvfTYtJA+JGX/QhEvW
+	 SdSVsqCx0FkHajBuqXYSwR+Bz/d/6CkT+MZHZRevR/0qJPEpfwnhoXQvjAE2og77Lw
+	 Q0iZecZOkIBgA==
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f9f7dbfso22554466b.2
+        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 13:43:41 -0700 (PDT)
+X-Gm-Message-State: AFuF++m9qP6FPWbzOKb5ryAEo0B6EsU1G8rI8+aFJlH9Fkm8PyuEVEeD
+	CGaborXGgxQyALvFe+tuZ0nhDBsI6J2gc62rUot5jTzTnYUD6QbgSk4nRjuJdsPMz+NgH4VTO89
+	WqEakV+SqE6ZHGMw3dxwihtC/cf8pKw==
+X-Received: by 2002:a17:907:c78d:b0:c29:43fd:e43b with SMTP id
+ a640c23a62f3a-c29e5392d7amr305474666b.28.1789591420459; Wed, 16 Sep 2026
+ 13:43:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260905153234.133217-2-tanure@linux.com>
+References: <20260720-qm_smmu-v1-0-3689fbd8b516@nxp.com> <20260720-qm_smmu-v1-2-3689fbd8b516@nxp.com>
+ <20260720212401.C2BD31F000E9@smtp.kernel.org>
+In-Reply-To: <20260720212401.C2BD31F000E9@smtp.kernel.org>
+From: Rob Herring <robh@kernel.org>
+Date: Wed, 16 Sep 2026 15:43:28 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqJkL57yUCF41BJvsoJkhhRb8xnukdtxe61fXB1r_7gK_Q@mail.gmail.com>
+X-Gm-Features: AcwNN1WDsCQvtNQUN8sanOdeWarRT8BUGDlcRUxPHV8tyHR0Hu5vmuAcP9BJDpw
+Message-ID: <CAL_JsqJkL57yUCF41BJvsoJkhhRb8xnukdtxe61fXB1r_7gK_Q@mail.gmail.com>
+Subject: Re: [PATCH 2/2] arm64: dts: imx8qm-ss-conn: Add HSIC usb@5b0e0000 node
+To: sashiko-reviews@lists.linux.dev, frank.li@oss.nxp.com, frank.li@kernel.org
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, imx@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, Sep 05, 2026 at 04:32:31PM +0100, Lucas Tanure wrote:
-> The SD/eMMC controllers of the T7 SoC are physically far from the
-> NIC_MATRIX bus fabric, so the hardware design inserts a pipeline stage
-> in the middle of the bus path to help timing closure. This stage is fed
-> by its own gate clock and, when that clock is disabled, a controller
-> that starts a DMA transfer can never complete it.
-> 
-> Allow a fourth clock entry, named "pipeline", and require it for the
-> amlogic,t7-mmc compatible. The other controllers of this family keep
-> the existing three clocks.
+On Mon, Jul 20, 2026 at 4:24=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
+>
+> Thank you for your contribution! Sashiko AI review found 3 potential issu=
+e(s) to consider:
+> - [High] The `usbphynop2` node requests the wrong power domain (`IMX_SC_R=
+_USB_0_PHY` instead of `IMX_SC_R_USB_1_PHY`).
+> - [Medium] The `usbh1` node is enabled by default (missing `status =3D "d=
+isabled";`), violating SoC `.dtsi` practices and causing unconditional prob=
+ing.
+> - [Low] Missing required `#phy-cells` property in the `usbphynop2` node.
 
-Did the SD controller not work without this clock? If it did, then this 
-is an ABI break which is evident by the current warning in linux-next.
+This reported issue is now a warning in linux-next. Maybe the other 2
+issues are valid too?
 
 Rob
