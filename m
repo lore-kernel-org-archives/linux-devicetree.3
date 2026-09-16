@@ -1,128 +1,113 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D47A363C46
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 14:59:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A67C371053;
+	Wed, 16 Sep 2026 14:59:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789570779; cv=none; b=HHZ1YegO/jAVsn+soP3UquSeUrOmpVbtD3g5d+mb5bJhjNNcuvGLoPgyHXHftUU372Dw6LqVQDRmdxbKDzkc7EmXiLRRp6R3xA6DaA4XxF9G3dOHmp1LGwqomyrtr0HPVYNV9R5nL5nQNFI4TRD6lPz6BaR6I+06bKw35u08ao0=
+	t=1789570787; cv=none; b=GyL1GRUbHUKa9ruOgYK9JkO5Gwn066GjD7pIqEyjqSUGxqXlYMjAlY3rwehyTFySEPag7GFJl8RMrt8BcAKDRCNvg9zDZJ7q13gxYRF7AyTMHiVpz2n7qaIwuhVM8Ui7zb8zF+fhf5m7tYK0DgV8/qFIFpmj/CZIOJ5kAFymEY0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789570779; c=relaxed/simple;
-	bh=4Jl2TkRe7Npn73HaXfPcA4VVvCfEz91QC5XBElprxe4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KRNBJv/9r8dv7ohfG6pDYj1O8bOkLPh2ko2N37GjqFSjIBglQhCJC4fvcZzF4gz6BwW8iUWuJQX2Yq1CUeyEpj9O1elgEV9lWDXI37+/6vrSS4y8pCHy+z6Ma3iOdp5eu1cfWoJZWmvjLuo4AarC1PtOQQL3qcZoEUN3sUiKP/Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mgTrxaY6; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789570787; c=relaxed/simple;
+	bh=r8tNnnYMIrMCABSCSfdF+QISFTBQ7YAlC/+y2GB71/k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Lt7Wx0oYMwCfGF6EyyT7D0lYg+UIGHlTaeA5GLjPmZe6AWQSIl2qiGdn1WrgV0FddgqaWn7LMfy3Fj7ssSMrGZ3qSNUUcKnlzrkWoSkYH9wy5Wi2qImcjPuuSP5xv5wmlT4cgeu1wki6QoPBdwqkX1DsfmT3MijHb/5IN46qQGs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eii+J7Ud; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mgTrxaY6"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccd5cef0so722844a91.0
-        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 07:59:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789570776; x=1790175576; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=3xRnvj52pHagz8sqiex+4Km8FuQRJvZZV/xhDBA7TFQ=;
-        b=mgTrxaY6AZiWnAmxzZcwig+v8VuOj+GoOmPuCoYjuUhhq5IIL+2Z66c0z8BGUyNlpS
-         GC0E03q1m8DB/5qMetvoQ7lBrq82C9MkIPbwq6tLTioTeM0gs2wCRe8D1abga00n8eBQ
-         znI5azqw95s170A3Lu6JWplgLcGwNxrw7TYFGUhAyOPjUqAZyO78aFCeUuJAJOEv55Bt
-         K7daPg6vZj6QLju39pd63nVDsSdqvfvrfYnF7nleEQAjVGcebVQYb9YSfeBZ7k68hurj
-         /8rIDxaLgHq4o5iMCc9wq8Fs0If1RRvtUwp/ZViZYfo7zAcb7dRpvVjL+u6g5hZjqu78
-         RfcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789570776; x=1790175576;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3xRnvj52pHagz8sqiex+4Km8FuQRJvZZV/xhDBA7TFQ=;
-        b=l4znSFViVCvZpU9RtqjP5bca93jOneMILLzx26pOqf3tGy3pQwU++TnD5vePvxhg5P
-         vMv9a10MTWIGRkk040ITDbfkCoMhvIvg7NV7r48rTgsuARyevbDZq6q7BvgTVaATrs5K
-         Dlsigf1siU3CjTlxv9AL7zh1Z04kiWtTHH9D90owgKfLJyqKpzTaunXM/52uDIWLfE9S
-         VgI9dumuqy6KYc9JewQY74Vbo2j0zqg+1MHripD4ATj4vCnHd5HaLPE9MWwRoLpE5bBo
-         Iz6onNLu1blvVEM1Po+OTpYucb3dEu9vvIO10C2ThsyWuV7xqLrOOop+vr/CSBg68u6A
-         TkHw==
-X-Forwarded-Encrypted: i=1; AKwUvByyO3rBk+EcQsOYB4GUfBfK6AfieDLDFmngHbGXN5E4Xjygjt72F5rNJqmrQRbCnXX0itSyAmpqwa1u@vger.kernel.org
-X-Gm-Message-State: AFuF++nL/ZWG8/HNguR9zjJWKYGIAVV1US7jmq2Ts7Auw0r7KKAzu7ty
-	Ntc0Pj2g6zw5RGsHPAwHJYOq9PZSpVg8fpnqjQZKNL8jMwFq2fwQBO9K
-X-Gm-Gg: AYBFou1n0OIHVTvz47tdx8GD3SzuV4Zqa3GePPAh2raGtIJTgJKjF2M6nncFVRtUfW4
-	CpSH8r9aFWaTbfCax/0HO9HEMWKnUGJ+7tTtSSIhg2g6W0I0eOJY2qYTuMrqVsL1CCt2oQ4Cu29
-	e6H4Gbp9aQymggrXbg/ZFM4kZ5PlVbW1DfalB4Y25Prim9LQj0UJ1oBuSF0XKJx2ueLVUtSS2uz
-	AL7Kmlokh68TNbIsl3JYTnlX6mZ0ak7MFnocmFhDR0qBcEEmDuwfDrEon/0UueBjBsodKLwLLlD
-	aXVqbBrh2m9wn9PrbjshJrxBNchZ19SalQxP5Na7b2T7y8HlE/w6DHZGjMYcepX5mY4D4g4Db/M
-	NrM62pKZm3uDmWpn4+3ehcNJc5O6a24XC2BDUfAtmwBsK94RKslXtljjevy6zx6uQx0aaN1f+QM
-	2afm4PYO7XGZ3eKiKZ47QOJO+dZqSX9CC2LyructkWJ7a20iHAzZAAEALFX0s3vN9Jz0EZjkwgB
-	vioVYcawHv8
-X-Received: by 2002:a17:90b:582b:b0:39d:c3bb:98e7 with SMTP id 98e67ed59e1d1-39e1e2eb37cmr7040268a91.6.1789570775729;
-        Wed, 16 Sep 2026 07:59:35 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1bbdfd89sm5159630a91.9.2026.09.16.07.59.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 07:59:35 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Wed, 16 Sep 2026 07:59:34 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: "Pradhan, Sanman" <sanman.pradhan@hpe.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Sanman Pradhan <psanman@juniper.net>,
-	Senthil Muniyappan <smuniyappan@juniper.net>,
-	Vaibhav Agarwal <avaibhav@juniper.net>
-Subject: Re: [PATCH v2 3/3] hwmon: (pmbus/tps53679) Add support for TPS536C7
-Message-ID: <7c73bd97-a3c5-4485-8f16-57b128aab7c2@roeck-us.net>
-References: <20260915164823.160977-1-sanman.pradhan@hpe.com>
- <20260915164823.160977-4-sanman.pradhan@hpe.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eii+J7Ud"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED0E61F000FF;
+	Wed, 16 Sep 2026 14:59:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789570785;
+	bh=2oMofVJ/mbzB5hAG5XkfLdTnP1RP/kHpEHbDFQBjue0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=eii+J7UdNTiTC+PEkBCirGOKfRBj8mwTjEnhcquFP0zkLTp+UqhZoSvLpVC6HGNrZ
+	 jJJQB0Nut+9K72eR8eCadG3TZ+jPUquH4VnzN4vDkSO5r6Vcto6i2MHGT39Pk2R/qI
+	 TZ5z8MOUiAzTxNl+hAc548k0P9QzaRITS/7QVJDrD5Z+VsHEeS/DEONxaP1bCJZHMc
+	 xRDBNMZwmkEgstdL9t3n/WmWX9zVORdMXDQT902hEDicKjQ1LyZ8ec8KzsWayVusSC
+	 NXqgFNTA/z92CmLBNXkzg1HmqnKKU+hMXW8bGoLnZpNAdynVGy+dh8uz/cGW3ktw+T
+	 6i8AEsd8i0yzQ==
+Message-ID: <6ca6cacc-3fcc-4d1d-a6cc-cdc1e9a403ca@kernel.org>
+Date: Wed, 16 Sep 2026 15:59:41 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915164823.160977-4-sanman.pradhan@hpe.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 05/13] arm64: dts: qcom: x1e80100: Add CAMSS block
+ definition
+To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
+References: <20260906-x1e-camss-csi2-phy-dtsi-v6-0-067f2ecc4630@linaro.org>
+ <20260906-x1e-camss-csi2-phy-dtsi-v6-5-067f2ecc4630@linaro.org>
+ <KE4uG1eVJQ53r3OwBVGp0Yl45AtOqMj-yJJmAq67lq7ze23gLlb-2Ci_I0qYx574oG8woS9A13xt2Iu1TkTMZg==@protonmail.internalid>
+ <4c43c80c-d8c3-4738-9a5f-0b3e1c19679d@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <4c43c80c-d8c3-4738-9a5f-0b3e1c19679d@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 15, 2026 at 04:48:46PM +0000, Pradhan, Sanman wrote:
-> From: Sanman Pradhan <psanman@juniper.net>
+On 08/09/2026 09:46, Wenmeng Liu wrote:
+>> +				 <&camcc CAM_CC_CPHY_RX_CLK_SRC>,
+> I think we should remove the SRC clock.
 > 
-> TPS536C7 is a dual-channel D-CAP+ step-down controller whose channels are
-> distributed across a configurable number of phases (N+M, up to 12 total).
-> Whether channel B (PMBus page 1) exists depends on the phase configuration
-> register, so the page count is derived at probe time.
-> 
-> Factor the TPS53676 phase-map parsing into a shared helper and reuse it
-> for TPS536C7. Only aggregate per-channel telemetry is exposed: leave
-> info->phases[] unset so the PMBus core never programs the PHASE selector
-> on every read (and because TPS536C7 can place up to 12 phases on channel
-> A, exceeding PMBUS_PHASES). Report VOUT in linear format like TPS53676.
-> 
-> Since the core never programs PHASE, set it to 0xff on each populated
-> page so READ_IOUT reports the aggregate channel current, and verify it
-> (PHASE can be write-protected). Fail identification if aggregate
-> selection cannot be established, since otherwise a single phase current
-> could be reported as the channel total.
-> 
-> A configuration with no channel-A phase is rejected with -EOPNOTSUPP:
-> the PMBus core models pages as the contiguous range 0..pages-1 and
-> cannot represent a channel-A-absent topology.
-> 
-> On the tested TPS536C7 (device ID 54 49 53 6c 70 00, CAPABILITY 0xd0),
-> block reads of IC_DEVICE_ID and USER_DATA_03 return -EBADMSG with PEC
-> enabled, while retrying those two reads without PEC returns the expected
-> 6- and 24-byte payloads. Standard byte/word telemetry keeps using PEC,
-> so only those two identification reads fall back to no-PEC.
-> 
-> Co-developed-by: Senthil Muniyappan <smuniyappan@juniper.net>
-> Co-developed-by: Vaibhav Agarwal <avaibhav@juniper.net>
-> Signed-off-by: Sanman Pradhan <psanman@juniper.net>
+> Thanks,
 
-Applied.
+There's no clock that is derived from this clock, so if we remove it, 
+what is responsible to switch this on ?
 
-Thanks,
-Guenter
+---
+bod
