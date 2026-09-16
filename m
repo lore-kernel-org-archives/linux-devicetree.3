@@ -1,181 +1,76 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7F503546D6;
-	Wed, 16 Sep 2026 14:49:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ED763115AE;
+	Wed, 16 Sep 2026 14:50:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789570168; cv=none; b=cpoKGcGwZfZ6BEgTQkZYTpfaHXjlXn9i61whVdiPfG0UVZbbXzRDuNgaAdESWMK9OcL8kYanFJW2vo0D+9jFfbGOW7WfQo+JWpAu+xFOVUGsQzfoSuGS2u4UGCBIUVqaKNgYsFXZgILAmp4lE/DOHqe72lAGEmpWa08oUfTDKd0=
+	t=1789570215; cv=none; b=OnU7ihyE+6jXtOHVkpDGdaz//wbVl4aqCWZ9FDYGlLTkwSqvvESZzjhjwtuRDJFM+vvBX3/GnS0OZ1O2Q1zZypRI/uASPF2RxEnhLKT4Pq9hKviWcm26Uu+uUjMVeJUunnSTM6hV6IcSLh0UGVPp/ROqRxDnjPES5SQ4yM1wvp8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789570168; c=relaxed/simple;
-	bh=kKf8q40ivlUve7sk8VUJ8prieyyC82f9wIB0uY5g3v4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ahTlH5x0ly1Gr8go4lIR1KA0AtMpdbzwgysku4GhB7FjLQ5MOwMtf46Wngv8HIkF4hBdc+iglgwOL6TEjEb3hbJzeiqfyJrdX4PWwuQtjN/dL+3s6hj6tAnSgp2y8D8kFVGB7SNntn3V6s/6c0NQYA51A2RXB7l2Ra+zg9TJrtw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n3J6kFAc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789570215; c=relaxed/simple;
+	bh=T5oJQRvlKGIT5Z+xpOUQyew7rmZYZtulwLyGUmPxkbA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YF+QsaKnKrSaa+6jTpoT2f8FsIYYxeWvohlBHte+vJxAhoE2vxP1YOetYHzbg2VqU1g5iYqU02BZ0zV2okmWNh/D9Ecw+ec+jXsdj1SyBbguHPQgHOKiIn3JJsrtGzJwptAf05gYLRMoQIhM0G4NAOtgv1rcsFQW8pL84Ahij3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=2iqH+ziL; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n3J6kFAc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E67BA1F00898;
-	Wed, 16 Sep 2026 14:49:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789570166;
-	bh=uihw067Bjjkxp+tfN4OE3iIGmuUHKnGVX8YN0FWRMbo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=n3J6kFAcDjpT+D2Od4dyZNn95WhwUA7DSNsPtz6Zt64NhkXMUeEUSD4ZXdHpP/SFh
-	 Lr0NXeiTKM0BYpSVcvB7sUjdv/mc4gV8cJv2jgP1FjNnljpEKjiEwVReomTYyv9hAj
-	 xq3uFLSo4HuFWmc9pCwHBqHFLjjviBcIrJJdJq2hjrz0UtHc59whjOjdh2jx0h16bF
-	 +UtC+sdPFXMxYNp7FDotv9XLtovltrwxKNdnjeP7no0QPomTmJx4dyG0K8lfmbrZZg
-	 Hd9c5gxr9rIn0gJxHXLo4H/arO7jRCzkQxvjxGTME3lyuN3i40anjKbzdV++n7dDwE
-	 7Z9XdrRT2emSg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 17/19] arm64: dts: qcom: Add initial support for
- MSM8952
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Muzaffer Kadir" <muzafferkadir@mainlining.org>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org, mfd@lists.linux.dev, lee@kernel.org, dmitry.torokhov@gmail.com, linux-clk@vger.kernel.org, linux-input@vger.kernel.org
-In-Reply-To: <20260916-msm8952-initial-support-v2-17-798c2602dde1@mainlining.org>
-References: <20260916-msm8952-initial-support-v2-0-798c2602dde1@mainlining.org>
- <20260916-msm8952-initial-support-v2-17-798c2602dde1@mainlining.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 16 Sep 2026 14:49:25 +0000
-Message-Id: <20260916144925.E67BA1F00898@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="2iqH+ziL"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=lGQP+UWUC6IA+x0OfkhU76QWikjYeprvqcMNeO6W3jM=; b=2iqH+ziL6DOHx27n8oKGzt+bMN
+	E3EvR7lKy/+6Bl/eI6pBGWSL5sVW1hmN6pKtXWiuP7C44euWLzIZZa/ow7qoDSdLAeySKEVpORbZ+
+	En1TlJV7qo5Wnrck/0zJISOQ4eg7VB+Atq6WCeZ0pIswCobSGx/aKOIccymUC5i7RPyE=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x6qxR-005UoK-NO; Wed, 16 Sep 2026 16:49:57 +0200
+Date: Wed, 16 Sep 2026 16:49:57 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Alastair D'Silva <alastair@d-silva.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>
+Subject: Re: [PATCH net-next 1/4] dt-bindings: net: phy: Add Allwinner AC300
+ EPHY binding
+Message-ID: <dbf2768d-1c83-4524-98c4-156ce4d16bb2@lunn.ch>
+References: <20260916044119.475666-1-alastair@d-silva.org>
+ <20260916044119.475666-2-alastair@d-silva.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916044119.475666-2-alastair@d-silva.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] dt-bindings: msm8952: truncated GIC memory map breaks virtualizati=
-on and GICC_DIR
-- [High] dt-bindings: msm8952: cpu cooling maps bound to hot trips bypass t=
-hrottling
---
+> +properties:
+> +  compatible:
+> +    items:
+> +      - const: ethernet-phy-id0044.1400
+> +      - const: allwinner,sun50i-h618-ac300-ephy
 
-commit 73b8bd2eec3d6e15eddbef720325773b07756c99
-Author: Muzaffer Kadir <muzafferkadir@mainlining.org>
+PHYs don't have compatibles which are vendor strings, only IDs or
+c22/c45. PHYs get probed by ID, not these strings.
 
-arm64: dts: qcom: Add initial support for MSM8952
+    Andrew
 
-This commit adds initial support for the MSM8952 SoC. It introduces the
-device tree source file covering core components like CPUs, RPM, MDSS,
-USB, pinctrl, and basic thermal zones.
-
-Link: https://github.com/Asderdd/android_kernel_generalmobile_shamrock/blob=
-/cm-14.1/arch/arm/boot/dts/qcom/msm8952.dtsi
-Link: https://android.googlesource.com/kernel/msm.git/+/refs/tags/android-w=
-ear-7.0.0_r0.3/arch/arm/boot/dts/qcom/msm8952.dtsi
-Link: https://android.googlesource.com/kernel/msm.git/+/refs/tags/android-w=
-ear-7.0.0_r0.3/drivers/thermal/msm-tsens.c#1621
-
-> diff --git a/arch/arm64/boot/dts/qcom/msm8952.dtsi b/arch/arm64/boot/dts/=
-qcom/msm8952.dtsi
-> new file mode 100644
-> index 0000000000000..a73032f75a8b7
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/msm8952.dtsi
-[ ... ]
-> +		intc: interrupt-controller@b000000 {
-> +			compatible =3D "qcom,msm-qgic2";
-> +			interrupt-controller;
-> +			#interrupt-cells =3D <3>;
-> +			reg =3D <0x0b000000 0x1000>,
-> +			      <0x0b002000 0x1000>;
-> +		};
-
-[Severity: High]
-Does this node omit the GICH and GICV mappings along with the maintenance
-interrupt?=20
-
-Additionally, the CPU interface size at 0x0b002000 appears to be truncated =
-to
-0x1000 instead of 0x2000. Mapping only 0x1000 bytes for the CPU interface
-prevents access to the GICC_DIR register, which breaks interrupt deactivati=
-on
-if the kernel uses EOI mode 1.=20
-
-Without the 0x2000-sized CPU interface mapping and the missing GICH/GICV
-regions and maintenance interrupt, KVM initialization will fail and guest V=
-Ms
-cannot run.
-
-[ ... ]
-> +		cpu4-thermal {
-> +			polling-delay-passive =3D <250>;
-> +
-> +			thermal-sensors =3D <&tsens 5>;
-> +
-> +			cooling-maps {
-> +				map0 {
-> +					trip =3D <&cpu4_alert1>;
-> +					cooling-device =3D <&cpu4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-> +				};
-> +			};
-> +
-> +			trips {
-> +				cpu4_alert0: trip-point0 {
-> +					temperature =3D <75000>;
-> +					hysteresis =3D <2000>;
-> +					type =3D "passive";
-> +				};
-> +
-> +				cpu4_alert1: trip-point1 {
-> +					temperature =3D <85000>;
-> +					hysteresis =3D <2000>;
-> +					type =3D "hot";
-> +				};
-
-[Severity: High]
-Are these cooling maps binding to the correct trip points?=20
-
-The cooling device is bound to cpu4_alert1, which is a hot trip point. The
-kernel thermal governors (like step_wise or power_allocator) explicitly ign=
-ore
-THERMAL_TRIP_HOT trips for cooling device actuation. Cooling maps must be
-bound to passive or active trips to invoke throttling.=20
-
-By binding to a hot trip instead of the alert0 passive trip, the CPUs will
-never be thermally throttled, allowing the system to overheat until it hits
-the critical trip and forcefully shuts down.
-
-[ ... ]
-> +		cpu0-3-thermal {
-> +			polling-delay-passive =3D <250>;
-> +
-> +			thermal-sensors =3D <&tsens 9>;
-> +
-> +			cooling-maps {
-> +				map0 {
-> +					trip =3D <&cpu0_alert1>;
-> +					cooling-device =3D <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +							 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +							 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +							 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-> +				};
-> +			};
-> +
-> +			trips {
-> +				cpu0_alert0: trip-point0 {
-> +					temperature =3D <75000>;
-> +					hysteresis =3D <2000>;
-> +					type =3D "passive";
-> +				};
-> +
-> +				cpu0_alert1: trip-point1 {
-> +					temperature =3D <85000>;
-> +					hysteresis =3D <2000>;
-> +					type =3D "hot";
-> +				};
-
-[Severity: High]
-Does this face the same throttling issue as cpu4-thermal?=20
-
-Binding the cpu0-3 cluster to the cpu0_alert1 hot trip point will also bypa=
-ss
-thermal throttling for these CPUs, resulting in unmanaged heating until a
-critical thermal shutdown is triggered.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916-msm8952-in=
-itial-support-v2-0-798c2602dde1@mainlining.org?part=3D17
+---
+pw-bot: cr
