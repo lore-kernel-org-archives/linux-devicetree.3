@@ -1,124 +1,124 @@
-Received: from mail-pz2-f17.google.com (mail-pz2-f17.google.com [74.125.228.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32592448BB7
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 08:29:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A1B046C4BE;
+	Wed, 16 Sep 2026 08:30:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789547372; cv=none; b=ZHv96nHUlb2+ZOQT7OZnS3I/c5Go2grjAjE2ch6/ozQbG0BQgUnxktnfLrj4KXe85BwTzbwVLHF7QHxr4ii+J3qO5twUTXSzXQqf7W6UXMLBTOd57OeHpPWp5arTqKYQs55SjMFYfTdmmF/VnQ0qbvPOEZBwI2ZpY2RdnCUtjyw=
+	t=1789547446; cv=none; b=CfrXzH6jEYodi/EfxAzYV2HMuEmf3i13KTwbj7Kb13ag3ri1AzgAwBYN1Xs9J9XLyILNn9GZjNzjy9T/wyzCDEFXsPJFcLLjNisCj910XaIvn9MS40oxaRSdvZ/tmV45hC0dBfwT1NPBzEZDfOF2YyseglBn2dRy/Z7yRlrAWsE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789547372; c=relaxed/simple;
-	bh=mgP0U5nmhxHVOFGKUcGuCWBysre1xc+hrQKissKOZMk=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=IXjnzBiYB0ICVTh0M8LAy+FVHmEzcxzY/wd8xk1dPMpKhzlXHfDY/iRC8qM12E4S4dnRAZTDHnPoAo3OnJXr6TKfkirr0SeO10N7LlIJuqPPLjH1q5lVwZNX0Hkm7ZVUqMIqXGx2k0I9C2eF+G/wJr2/zsg4ecs6MSzYT3UAzAc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Mw5c6vA3; arc=none smtp.client-ip=74.125.228.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789547446; c=relaxed/simple;
+	bh=0RASedDWwlI2SgHiB5qjGhFXOk3xb3b6bJovfCgQmPM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hadZFBJRXcyG4v6J2yaooFl7uakB8p7RZ4o+a/VCjy4Y4LFJNkj/s/IEKSoYH3/L33JhACY7GI2ytOWYODeKZoaJGq1yll/qtpj98hHqUzGyvnLx49pGURHfG2kvSwE+PBzmGWo2b+xwUVvckd3rImE4xYdSZ9rDcnN8GUq/l4E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lIRRsRp2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Mw5c6vA3"
-Received: by mail-pz2-f17.google.com with SMTP id 41be03b00d2f7-cc4c3304784so499738a12.3
-        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 01:29:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789547370; x=1790152170; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=idOsVahZustf70E3vcAEJkdJDD+K7D4L7o1uL+BpNms=;
-        b=Mw5c6vA3WYZFKuuhLcTK1nxO3K3AouqKATKiEjpd6F6SNM1eu+4SClqtgxbmPuS5ix
-         7kG+zxqWjpdtusAxrH4R8enOCC9KLNYztXfzQBwe5gDzHjVGsahs4hB5zsqqxJm6fqEx
-         ctxCd6I7mtZunoB5dhigv/BuSUS6KHFkzup7XyJiTqriLzHomH5ZffTGojHSj6LFbwk0
-         05swiVCDrWizP6r8EJzy809jA+zEMN7IipQdBzhDRNrKIYJYEXpL3norJfDo6maStoVq
-         b55nU2OnrBq3g6ZJJw1aaLd3zvk0nq+MpkWotMNOJUkE0x1w9luX+ingp9KHbmgulRln
-         b3eA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789547370; x=1790152170;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=idOsVahZustf70E3vcAEJkdJDD+K7D4L7o1uL+BpNms=;
-        b=rqoY1CeN/osTMQZjAmFaJ62kpl7ENEKicIKWCK4Xaf67TgOjzLfnVU+vlTNjeCFgyX
-         1fI91Bd7P1QAP0wtBE9ou6Vi7rtaAjhnHhNhYUtoIeVogqtMsXcqIh+LPkCNOl3tA7Cf
-         OgT283GJxoGUcgWM8kVI8iXUr4oF5EOzERfqTI5AquhjEvJHZzOqJCpqIVweWKhn0dN9
-         ackzJF3m+yXdBnsp2w03fTe56NBcK1rTx6WM3l7bQ6vuzYcTX7zPI1EP4aELfy0rweIR
-         SPYbBR0B8HYdXxqEIPJ4xxtTS3P6dgUWZsJEIAcf3Wx16C3bv2aj3TVNoCC45rpjCo2a
-         o5xg==
-X-Forwarded-Encrypted: i=1; AKwUvBzvYOCgemdqFNgvPz8qcWbjioUt+6DrV46DCz4CHSmbnyOXGuKKdNK0ARgopPplWz0NfoA4/pBBoDth@vger.kernel.org
-X-Gm-Message-State: AFuF++kBMeJ18IcBBDDnFShLgAnWqa8RWrREe6rVDeBgNUNyGAqd9JmI
-	1x+7xfdIBzSfg3lUklRvbHfKy0SiAyW0eugcpeaaViC7N4p1DSKSKj+S
-X-Gm-Gg: AYBFou0zdrTYx6o0P5D8G3e3uXlb6ECZWjb4Z+IwHnRw3RwmqWXcB+/iegn6jPrb0ty
-	xFCjzjZGPtnD5Mw3Jepmf0PSw7FkGNFt/+ElPnaJQQihMvwPIlclgwn0/CkmhNu5tavJSUJPRu1
-	DomwxWno0RRxYq9onHXy7roa6vBQ7UlhLgtB8ARJfkhRtPiKe9Mf8Gmo5PnCEPzvGlCb+5HJx6G
-	fyZTxmzVjhu8Ju2v7gL8H/y7z/CJn5tNSxDBWvm1Uj9K4tNYHKwCdQ5yvCFeGcJl4G4c2Y0BMXn
-	dZ5ysfPr53KLfy4Z10pjKSZzQDCKWlUWbR3h0Bv5qnNdTAhTUSeXB9wF7KiXBW6BRU+VN3J935l
-	xJXaK+GB+mnH/USi41jFqDb1oDTstGQa0arGFSSS18/AUaN2pi3bPmzqLsbQ3tcFJaB+slxxMBG
-	BifWHaNDORX4au9snpfDxoUsf9zH55BtPlBMgae7nJWShkIxio8SGKp7h1UEBK/yImO8D/pcG/K
-	EyBcipeBTCde1BVKIvLd+aubTHUqKNOzrIGTVkv0CBQxovWFdcGCeYXVqtliQ9OrRgM9XPCOtz4
-	RWHq4XL33Is=
-X-Received: by 2002:a05:6a20:7d9d:b0:3da:34a7:6444 with SMTP id adf61e73a8af0-3dd5f7ad642mr4109891637.26.1789547370506;
-        Wed, 16 Sep 2026 01:29:30 -0700 (PDT)
-Received: from lcwang-Precision-3630-Tower.. (125-227-154-99.hinet-ip.hinet.net. [125.227.154.99])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc50aba9dbbsm1157594a12.24.2026.09.16.01.29.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 01:29:29 -0700 (PDT)
-From: LiangCheng Wang <zaq14760@gmail.com>
-To: Devarsh Thakkar <devarsht@ti.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Wig Cheng <onlywig@gmail.com>
-Cc: LiangCheng Wang <zaq14760@gmail.com>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Subject: Re: [PATCH v3 2/2] drm/tiny: add support for PIXPAPER 4.26 monochrome e-ink panel
-Date: Wed, 16 Sep 2026 16:29:24 +0800
-Message-Id: <20260916082924.956116-1-zaq14760@gmail.com>
-In-Reply-To: <20260731035705.3198816-1-zaq14760@gmail.com>
-References: <20260529-bar-v3-0-5c2ac1c751ee@gmail.com> <20260529-bar-v3-2-5c2ac1c751ee@gmail.com> <2bfb73e6-dca3-4d93-af04-3c644929dd19@ti.com> <20260616083921.4066690-1-zaq14760@gmail.com> <423c3dca-9589-488d-8462-c3d51f05ee4a@ti.com> <20260617020926.114947-1-zaq14760@gmail.com> <8fcfab0f-6b98-478b-be4a-c5b810fb3524@ti.com> <20260731035705.3198816-1-zaq14760@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lIRRsRp2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E30A61F00898;
+	Wed, 16 Sep 2026 08:30:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789547445;
+	bh=wn03PZHuEHQX1wNu1gA3FGObpFQjvyAUzJkSV3Kpeng=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=lIRRsRp2LqPQJQ3qbRudANGHGglAVjwHAS1JLrr8yUmz/UzCg+hQxqsBVogq6uOYq
+	 GIKgEj5QLGciMgNzlKu/vJGmu547TgPxskGWiwlf3FT1xyV7C74ZzogxrDcWWhlubA
+	 x9RNcrD25E9RzbbkS5zA8CrhTFO/TrJFlmGkegatird6noeNhJs/AnpaVHtv0Ef9bS
+	 qK7nMra6d1X0f7wNdrNACuXVmFyPIj41cLcFa7Ozk9eN926CWA1tsPNuPUk7gBNqDy
+	 aXBoaQhPluxJ2Az+MTYLwvnkgriHmT++dgfzFK1umyES1ditHTL59wM4St42WiTFz1
+	 gd7YdlHEt94xQ==
+Message-ID: <9610bd5c-077a-4fa9-a157-5539ce9d8a42@kernel.org>
+Date: Wed, 16 Sep 2026 10:30:38 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] dt-bindings: media: i2c: Add
+ vision-components,mipi-module-controller
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Richard Leitner <richard.leitner@linux.dev>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Alexander Stein <alexander.stein@ew.tq-group.com>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org
+References: <20260915-vc-mipi-ctrl-v1-0-8a42b693d889@linux.dev>
+ <20260915-vc-mipi-ctrl-v1-2-8a42b693d889@linux.dev>
+ <20260916-daft-relaxed-mouse-9bfaf4@quoll> <aqpC8fxO4F3bFjF4@bombadil>
+ <20260916074553.GB3871857@killaraus.ideasonboard.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260916074553.GB3871857@killaraus.ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Devarsh, Thomas,
+On 16/09/2026 09:45, Laurent Pinchart wrote:
+>>>> +
+>>>> +  reg:
+>>>> +    maxItems: 1
+>>>> +
+>>>> +  '#clock-cells':
+>>>> +    const: 0
+>>>> +
+>>>> +  clock-frequency:
+>>>> +    description: Frequency of the sensor clock provided by the module
+>>>
+>>> Drop, implied by the compatible
+>>
+>> Do you mean dropping the whole property, or just the "description"?
+> 
+> Different modules have different clock frequencies, don't they ? The
+> property seems needed.
 
-Sorry to come back to this thread after a quiet spell, and apologies in
-advance if I have missed something obvious.
+Yes, that would be fine with assumption there is no actual sensor
+described. If there is a sensor in DT, that one will have a proper
+driver binding and asking for frequency?
 
-Devarsh, the three fixes from my July testing on the PIXPAPER 4.26m are
-still available:
-
-  https://lore.kernel.org/all/20260731-ssd16xx-pixpaper-rpi5-v1-0-18ffc0dbf59a@gmail.com/
-
-I am happy to rebase them, reshape them into whatever form fits your
-series best, or retest on a newer kernel - whatever is most convenient
-for you. There is no hurry at all from my side; please just let me know
-if anything would be useful, and thank you again for making room for the
-panel in your work.
-
-Thomas, may I ask your advice on how best to handle the panel support in
-the meantime? The PIXPAPER 4.26m is the only SSD16xx hardware I have, so
-everything I can contribute is limited to this one panel, and its support
-has been on hold since June waiting for the shared driver.
-
-I wondered whether it might be acceptable to merge the standalone
-PIXPAPER driver as an interim step, on the understanding that I convert
-the panel over to ssd16xx and remove the standalone driver once the
-shared driver lands. I realise that is not ideal, and I may well be
-missing a better option - if you would prefer to wait for the shared
-driver, I am perfectly happy to do that instead. I would rather follow
-your judgement than guess.
-
-Thank you both for the review time so far.
-
-Regards,
-LiangCheng
+Best regards,
+Krzysztof
