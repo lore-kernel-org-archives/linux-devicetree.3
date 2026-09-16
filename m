@@ -1,129 +1,121 @@
-Received: from mta0.migadu.com (out-200.mta0.migadu.com [91.218.175.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4527A3E7174
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 06:13:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 536C53EB102;
+	Wed, 16 Sep 2026 06:13:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789539182; cv=none; b=pFfoK5kjH5oa0AExgpQZnpqeK/aeq1uIF/t+LYEWmt1bLp+SHfeOuVtHa+qOdEsh5ieB3Qr6Tr/x4/fnWCdugosR9o69w1PIARJ0PU1beggJtaF+w+FGG2XECRzyFNz5vfVnvg+kueG8PMuCOdZp+ukDjernLVKjhf2mvJW5Jhw=
+	t=1789539216; cv=none; b=pYq3YpcnWxVYTa2sZYKc3jsLetm0iXnjjstt+yOAqb87TJ4/0HfUKoUOTm5lAZST8CrW4fqzMbeu6uJTrOWIXY9BhCAslstI2S3/eYHQXmwKudIouLCdfCG+WA6p74DXwVKDb+RV5/3Wz+WYyrdQ/94lDMPwmza4+5uduXMJdEY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789539182; c=relaxed/simple;
-	bh=oI6jcWCD8TyMR1NvHzCU9RzXsy5dY9606WpYMP/nRCo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DmQ7zqvesYC4cgO24E1iE/ewoFcMGZ/XV4eY+FWPaHwZwj2LCNeTG71ejOLSMXBmh45d2ssXdYe5eXioEj3rcKeXWd3KehVwMZyeHmIBXWiBI1tvrB8Uo9oUnNEx5Bg4KpOa++yPX2NpdTr1f6ta3olUcsHbW9c4118OOQ8rgHI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=rTBSXlxD; arc=none smtp.client-ip=91.218.175.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789539216; c=relaxed/simple;
+	bh=T6dhrdNCwfAw/HealKK0LiFCTWJTHvtOTrDStaCxiOg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DcRKi9ZlOLnj9EfLoH+gd9SGfp4Njf+zPw3BkNzfucmjot/qa38u9K/QKnq2v71LPhezDGD4s9tgFe4n1IFY8xh7ncUi3sUU349uFlsp7J0AMRxWaC0ookiaUA1g9XHGV+07I+R529/n3sDjIB4P5O7Q11FaDzHkMkCinEY51IE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jGiIdh8j; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="rTBSXlxD"
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=oI6jcWCD8TyMR1NvHzCU9RzXsy5dY9606WpYMP/nRCo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789539179; v=1; x=1790143979;
- b=rTBSXlxDvsBqUYLnTNMfNVEHTXhKGHxfUAgi7m3Ek+qUHb9wMUk3KcZJbckYDFCk8MblFehx
- 3jFXUAgfch8GA2BXDFLHYOcgFgGKeW36ul/mGOECRWVlV/WQtMz8advMAzeOwYh5p7BUzhbidWX
- jpCSjim67SuZVpICN1dpuVk4=
-X-Envelope-To: devicetree@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 96fcc20599bce933;
-	Wed, 16 Sep 2026 06:12:58 +0000
-X-Mizu-Trace-ID: 96fcc20599bce933
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 16 Sep 2026 09:12:50 +0300
-From: Matti Vaittinen <matti.vaittinen@linux.dev>
-To: Matti Vaittinen <mazziesaccount@gmail.com>,
-	Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
-	Matti Vaittinen <matti.vaittinen@linux.dev>
-Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Michael Walle <mwalle@kernel.org>, mfd@lists.linux.dev,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-rtc@vger.kernel.org, Sverdlin@mva-rohm,
-	Alexander <alexander.sverdlin@siemens.com>
-Subject: [PATCH v4 10/10] MAINTAINERS: Add ROHM BD73800 PMIC files
-Message-ID: <078e51b1a71ca5d823c81cde8d3bde358742b2c9.1789538455.git.mazziesaccount@gmail.com>
-Reply-To: Matti Vaittinen <mazziesaccount@gmail.com>
-References: <cover.1789538455.git.mazziesaccount@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jGiIdh8j"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 583DE1F000FF;
+	Wed, 16 Sep 2026 06:13:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789539215;
+	bh=nPQ+SPnLhTuHcF+yZ9MBJCNwFbi4iGTYsbjMp/LctXk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=jGiIdh8jAz+HJEIdKmY4JOmnR8ieKwt442ZiB5eTYHeiD1G8M4UupUG7/mjsj3XXU
+	 MaDy6nBC+3UnxTxldC0xrEWPLlMpopnIXRRS1AGMLMZBqJXvPbHlQuzEK6g00Bsjs+
+	 laQZMyMN5br3huAy55RIL90Xe2d8XeiV+K0cgU0W3uGy45YVrKvdIaHjebIKsmBKgC
+	 tXVHD0JOcQxN40TnmKBr9+I0vFSQ8DrobODS3K4daEPm+/Wmj+/ndt5T9s1+56QIr0
+	 7cp9xsaon4uibZ4a/zpOBxAbd1DX5DUYYlTVgH1oRmEbmjcw3QF0HvycocZ+Mt9ERg
+	 NWnBBB45cTeqA==
+Message-ID: <e061856c-f630-4978-b991-ea19cd23999b@kernel.org>
+Date: Wed, 16 Sep 2026 08:13:29 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="SbEvGAB+GKChB7iR"
-Content-Disposition: inline
-In-Reply-To: <cover.1789538455.git.mazziesaccount@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] dt-bindings: display: panel: mipi-dbi-spi: add
+ sitronix,st7789v-tft28
+To: Frese <freseenzo@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Noralf_Tr=C3=B8nnes?=
+ <noralf@tronnes.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260911203342.76692-1-freseenzo@gmail.com>
+ <20260913-easygoing-chubby-sidewinder-67beb9@quoll>
+ <f8fbfb26a60bd664bb4c436acfa541b5e4976916.camel@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <f8fbfb26a60bd664bb4c436acfa541b5e4976916.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
---SbEvGAB+GKChB7iR
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 13/09/2026 22:42, Frese wrote:
+> Hi Krzysztof,
+> 
+> Thanks for the review, this is one of my first kernel contributions,
+> so please bear with me.
+> 
+> This panel is a generic hobbyist module, wired via jumpers to a stock
+> Raspberry Pi 4B, not soldered onto any fixed product like
+> saef,sftc154b (Anbernic RG-Nano) or shineworld,lh133k (LXA boards).
+> Mainline has no Raspberry Pi overlay tree, so there's no in-tree
+> consumer to add. I noticed sainsmart18 currently has no in-tree
+> consumer either, though it was added as part of the original binding's
+> example, so I'm not sure that's a strong precedent. Would a
+> documentation example, or an out-of-tree overlay demonstrating the
+> tested wiring, be an acceptable alternative here?
+> 
+> Vendor prefix was already fixed in v2 (sitronix,st7789v-tft28) —
+> sorry the subject change broke Patchwork's series detection.
 
-=46rom: Matti Vaittinen <mazziesaccount@gmail.com>
+We usually do not document bindings for hardware just because it exists.
+Binding needs a user and one patch means there is no user.
 
-Add the undersigned as a maintainer for the ROHM BD73800 PMIC related
-files.
-
-Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
-Reviewed-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
-
----
-Revision history:
- v1 =3D> :
-  - No changes
----
- MAINTAINERS | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 3a19da74d00c..b0925fa212cc 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -23821,6 +23821,7 @@ F:	drivers/clk/clk-bd718x7.c
- F:	drivers/gpio/gpio-bd71815.c
- F:	drivers/gpio/gpio-bd71828.c
- F:	drivers/gpio/gpio-bd72720.c
-+F:	drivers/gpio/gpio-bd73800.c
- F:	drivers/mfd/rohm-bd71828.c
- F:	drivers/mfd/rohm-bd718x7.c
- F:	drivers/mfd/rohm-bd9576.c
-@@ -23840,6 +23841,7 @@ F:	include/linux/mfd/rohm-bd71815.h
- F:	include/linux/mfd/rohm-bd71828.h
- F:	include/linux/mfd/rohm-bd718x7.h
- F:	include/linux/mfd/rohm-bd72720.h
-+F:	include/linux/mfd/rohm-bd73800.h
- F:	include/linux/mfd/rohm-bd957x.h
- F:	include/linux/mfd/rohm-bd96801.h
- F:	include/linux/mfd/rohm-bd96802.h
---=20
-2.55.0
-
-
---SbEvGAB+GKChB7iR
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCgAdFiEEIx+f8wZb28fLKEhTeFA3/03aocUFAmqqM2IACgkQeFA3/03a
-ocUlPgf/UQtEHmpliQhUmYPnZV6kHQcYRZWQcuWpDMSNJt8M7evnNQYXhFcFtpeW
-FCGQUzkzPrOtKQUj6T3tvikw5duc5K1mBuczaAIt29RJ8H7uGBz8kjNAPsQobMa4
-rD6xam7h3MHtOhXNDb2zQTcqi7ml0IrRQiaqGRyL0MQtVqA3bT8NegCDH8UEmwQn
-xL3zLiQ+/gV36zrfgPBUSM5MQYuQCN0Rfo/ISVG2Q0fdxOGigMzBAzPeQjjNx1bO
-RCBOkDPvlfLxTFQqEVkusNpWkXgVkeBIPFf2EgjAGZCYo7nllPKSY3RFMDvb+mXU
-q0IL7vs2YtmhrrxCGBO8VpuwMg3uLg==
-=UR3U
------END PGP SIGNATURE-----
-
---SbEvGAB+GKChB7iR--
+Best regards,
+Krzysztof
