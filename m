@@ -1,97 +1,82 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BC59409275
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 20:20:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55CF9456287;
+	Wed, 16 Sep 2026 20:20:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789590043; cv=none; b=GsonupmTOTtf2zjw9KqeIdaTFngmZgt8aFeqEgFnE9pZD+j0SwcblNxgWtiIztua/QErFAr5Sy1t0Qh+vnBgH8ekPbx2Yc+qzjzqPOKe38rBevjeKHiOXghNsNKv+XExrtpPPPzzfIEeCRnNf0+MUAdskFUSbcoUgK2QjVzdfUo=
+	t=1789590071; cv=none; b=Hyfd8SnxobOM59PehsBBeeKd7Q/cvGRhb8FX9D/eAud44uNBy8XFEnfmyfpo5cY3DJv/TdO/OsNJapdhPWYulNb1VZ3DgVDTOT7mbVtgc34KUUFChoq+utwIpgy6pQx+WnxccXX6gQUTzpilM9BUIdEUHFMjELE0bYvUZIYv954=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789590043; c=relaxed/simple;
-	bh=/5aPPmzZcqO7daE9ZDR8dZpFB7Gpdur+nEBeNOPSsFw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=FbRWO1kvnhz1StqmUmlpfEPRerZs+2wEOjTm9x4y1w4h6K/GJnQQppllWtaCvjsbMdL+wbUetP3Rs6hCp4kyYO2UL4HuYySPGwlSfmx7Qz7cQJxtp9bEgUfEMDepS0UvY1ZmkPtPnqGaAmS41esCBhQlThqsVK3JW4vRdBLB4qU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hF5i5Ua5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789590071; c=relaxed/simple;
+	bh=+m0a54FZfvugrElKZTtAn5ayVVRuVQnKs26vNaDrX4c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TKD6TYuKDJEPALoEKN3GZ4iWr7eWsaB8J5XahPrVEsLVdloruOvk2aXQ0bKtdq2TxRbI9jLTSHj/wieJThTPzvxEwHtyag+t6dG9bm+/7hTkpTZ283F41smNtysDr2i4WgStSq9r6Xk/k7JdEBY8DI4VDXUKulI6b6hGgvx9CkA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qg0W61qb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hF5i5Ua5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AB7F1F000FF;
-	Wed, 16 Sep 2026 20:20:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qg0W61qb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 940141F000FF;
+	Wed, 16 Sep 2026 20:20:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789590039;
-	bh=HwlXFQMUL8uqq+2NqtOpEncI/dQitj61X2ZFTb15hRs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hF5i5Ua5ji6ZTs0G7JMb1FYvOmKxIyO2bfd5JFYBrKqahfkDBKDAr7sbzu6OUxx6Q
-	 48WbYjXdLcOgsEoUIEDBPmuWpzl5E9jX+GarNh0qmxuhSQg904sgYfQEQJDuhCl/BI
-	 zbPRWLpJNB+NHPvKcnCU/GjiQp3sEvCNipX/YBcT91nyEu2SlHbAsUaIS898qPg536
-	 ZAkvIUY531DDaehzYNqymKhKeJWtNX7yAbqCWoCPzJQX4b0WBrrodKhBtOUR9VkArl
-	 WxeXm0Xa3pUWb8TUQEdakWx8gfsPXsSUFHEE1BmSSTIayuthZ1mjsrNmnZp88JvFz4
-	 /PmbwDal0Op4g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] dt-bindings: axis-fifo: Added missing binding
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Daniel Matyas" <matyasdaniel005@gmail.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260916201253.483877-1-matyasdaniel005@gmail.com>
-References: <20260916201253.483877-1-matyasdaniel005@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 16 Sep 2026 20:20:38 +0000
-Message-Id: <20260916202039.1AB7F1F000FF@smtp.kernel.org>
+	s=k20260515; t=1789590055;
+	bh=SQeI/VDfR5tYFTqV051ErdqYf/V0bL/cD3Mwtz9zqsQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Qg0W61qbZZFZPoMvz7qNJ+kxUMT5wxe8iPh5q9o75QeaIT7VUiw5tOHVFJs42KxGL
+	 nsFM1lj6muLqiVUoH4K4DcTassbEKsnkrgRQH1ynhIjiGSLAfM/ifcCsEM+EsCDaXT
+	 Oxe9Oc3XVInlbDrwouwnnXyRuwsabH/n1ZgX79in/phKKoQPYWJfkKVZfWxhDaDvEx
+	 ajWji40Z5KD4+Z7tq2zHIPoEt62yRGjJdAe/GYOmoAUWgsdIZlwqdiTNa/r5ce8IWd
+	 8QPWgtLvvlPBzkLi2FFgizFjkAJWZApYKaZFuu63ixvG6qSJ9QUgDXnSGGtkUyGuiW
+	 WhKKPcawl5dFw==
+Date: Wed, 16 Sep 2026 15:20:53 -0500
+From: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 0/7] dtc: dt-check-style: Improvements for handling
+ continued lines
+Message-ID: <20260916202053.GD1926857-robh@kernel.org>
+References: <20260915-b4-dts-style-checker-continued-lines-v4-0-5b8e09b11ef2@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915-b4-dts-style-checker-continued-lines-v4-0-5b8e09b11ef2@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] dt-bindings: axis-fifo: typo in compatible string causes schema val=
-idation failure
-- [Low] dt-bindings: axis-fifo: duplicate binding due to undeleted text file
---
+On Tue, Sep 15, 2026 at 07:03:44PM +0200, Krzysztof Kozlowski wrote:
+> Changes in v4:
+> - Rebase - drop WIP patch used as a base by mistake.
+> - Link to v3: https://patch.msgid.link/20260909-b4-dts-style-checker-continued-lines-v3-0-474bb324ae53@oss.qualcomm.com
+> 
+> Changes in v3:
+> - New commit:
+>   "dtc: dt-check-style: Relax property ordering rules (drop alphabetical)"
+> - Improve commit msg of "Unduplicate checks in
+>   check_mixed_indent_chars()" patch.
+> - Link to v2: https://patch.msgid.link/20260909-b4-dts-style-checker-continued-lines-v2-0-c5cb4c9d9b66@oss.qualcomm.com
+> 
+> Changes in v2:
+> 1. Four new commits 1-4
+> 2. Drop last commit
+> v1: https://lore.kernel.org/all/20260906180437.166760-6-krzysztof.kozlowski@oss.qualcomm.com/
+> 
+> Best regards,
+> Krzysztof
+> 
+> ---
+> Krzysztof Kozlowski (7):
+>       dtc: dt-check-style: Handle continued lines in check_hex_case()
+>       dtc: dt-check-style: Handle continued lines in check_line_length()
+>       dtc: dt-check-style: Handle continued lines in check_trailing_whitespace()
+>       dtc: dt-check-style: Unduplicate checks in check_mixed_indent_chars()
+>       dtc: dt-check-style: Right strip whitespaces, leftovers before comments
+>       dtc: dt-check-style: Properly detect comments in multi-line properties
+>       dtc: dt-check-style: Relax property ordering rules (drop alphabetical)
 
-commit 568433c34dce8d35f577a763a1632c2b7df8dc0b
-Author: Daniel Matyas <matyasdaniel005@gmail.com>
+Applied, thanks!
 
-dt-bindings: axis-fifo: Added missing binding
-   =20
-drivers/staging/axis-fifo/axis-fifo.txt file described how the
-devicetree of the driver should look like. Convert it to .yaml file.
-Issue found by checkpatch.
-
-> drivers/staging/axis-fifo/axis-fifo.txt file described how the
-> devicetree of the driver should look like. Convert it to .yaml file.
-
-[Severity: Low]
-Does this commit leave a duplicate binding in the tree?
-
-The commit message mentions converting the axis-fifo.txt file to .yaml,
-but the patch does not appear to delete drivers/staging/axis-fifo/axis-fifo=
-.txt.
-
-> diff --git a/Documentation/devicetree/bindings/axis-fifo/xlnx,axi-fifo-mm=
--s.yaml b/Documentation/devicetree/bindings/axis-fifo/xlnx,axi-fifo-mm-s.ya=
-ml
-> new file mode 100644
-> index 0000000000000..ef1e6bcf782d7
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/axis-fifo/xlnx,axi-fifo-mm-s.yaml
-[ ... ]
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - xlnx,axis-fifo-mm-s-4.1
-> +      - xlnx,axis-fifo-mm-s-4.2
-> +      - xlnx,axis-fifo-mm-s-4.3
-
-[Severity: Low]
-Are these compatible strings misspelled?
-
-The enum defines xlnx,axis-fifo-mm-s-4.1 with an 's' in axis, but the
-actual compatible string used by the driver, existing device trees, and the
-provided YAML example is xlnx,axi-fifo-mm-s-4.1 without the 's'. This
-could cause a schema validation regression.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916201253.4838=
-77-1-matyasdaniel005@gmail.com?part=3D1
+Rob
