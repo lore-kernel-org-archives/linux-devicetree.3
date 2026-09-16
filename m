@@ -1,72 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A7133DAAC2
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 12:59:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F827345CC9;
+	Wed, 16 Sep 2026 13:01:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789563550; cv=none; b=M/e8g6LOFJE3pi0EEmwDOS4qrk3xvBJhAXUVgLq7lxj8MVUcmbBJFMcj35aRrpxRtcXw2nnMrt/VdbnueuThWrv5BUseWBxuKMxenpcDBfG9AZlllRJVWMKnG99speXP2mrIencpuvd7OdNHC6wyU78kzJS44TNLcdBmDxwnDFQ=
+	t=1789563690; cv=none; b=ZDpIQeAwbt/2llBoq2M7qAfBqZgrZ9MjZS4pf7qfdw8xqCh9XkLx5A5XGjgxKcS4/LCrwoHwhvoId7xifAY26d7dXNRMac9b5hpLXIhdSIiFbSXbcjd0v2l8wPZN7Df3h97pV5tteXLRKud2sHeGZ179hb+4zAJe33C4bQ5yBU0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789563550; c=relaxed/simple;
-	bh=8dbErGSnCsEd7rcmSlNju0QE3rK/px6PY+xQAknLbzE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=p3JFhUfE9uJLe6OzT9T8v7Zon3en0P0QCdKXGsNcCsWLScMMKpmoHcXqMiZUdwIEjRGEtHyZIxFUTz4lJNq2/3XMGExvOvL/Q/kXhDHIsdIvt6fdjHWBc18tBHvwyITUBKst7EEATp//pOPFSdSORdjdWwOg73w76VDDWtABw4s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l/gS9zaE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789563690; c=relaxed/simple;
+	bh=BfWXz0hTyEvZDYQuGgOzHryecYGfoukaVueR1V16vZY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tyY/WuyUrj4cS7cj8UNls7UkTJCFQbb/rxQzI2DI273PxejKbdxSog/9ivPrFlsHoWVhinNEOVtGKB3ybb/oq68wlEaIDy9n8269ka657zm/TzniU89AfmcSqzEK9zjMrmj71d/5HoqSFNtM3yroqRq3EUWSmAm+LdOGrYYMhug=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=QK13jFgv; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l/gS9zaE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D8181F00899
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 12:59:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789563549;
-	bh=8dbErGSnCsEd7rcmSlNju0QE3rK/px6PY+xQAknLbzE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=l/gS9zaEOgAtW9yOtGQayAh6GjiZk1qifHPy8bv6gm1KpfvMZFcn3kywzG0O2XX4O
-	 GoY3NoRk5wuY8us4avEhCMXX9o9B8+BrpZU5UNbN7//QUkiPLwNOutELrGzr58fKCY
-	 8q62zHY21PE7nTiRmM4l/PyMbzM0r5oyOpm/B6tkE0WUm6SOK+RLvEVEvBeLFZB73Y
-	 TYZRKtNSDNRlT8bKTIknu8ulb1kuYW4g7946NUG/g3/Wd3tOSVmGis3lppm3ljrVKj
-	 wmIxQEF91Q1SSU074nuQ5CTpTmhNsDoewDuCdK6vKftbCV3zDzAv85qOSlky26q2is
-	 mO9EWyAOxhKoQ==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f13d7aso1228628e87.1
-        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 05:59:09 -0700 (PDT)
-X-Gm-Message-State: AFuF++k9UyszsNirag2Q3qtNfmlBrBl1Q0hlEQvJ21dsEsY4oTeGSz3+
-	KRzjor/NhkD3PxPuN1RHVVGUqMBaKGfc6Vr0eBu+5lNvMqYXbELKkorJwp9w0pH1TiLZ1nkXXUk
-	YOhL1ptZ6BjX/Gx8A+y0M7l18fvgH6PA=
-X-Received: by 2002:a05:6512:2529:b0:5b8:9ec5:c936 with SMTP id
- 2adb3069b0e04-5b8b6649bebmr704258e87.44.1789563547901; Wed, 16 Sep 2026
- 05:59:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="QK13jFgv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789563687;
+	bh=BfWXz0hTyEvZDYQuGgOzHryecYGfoukaVueR1V16vZY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=QK13jFgvAS8N5Ui3mQo1fEcCOEI31/YaZ3tSMEP+XqTpzZ5Tsb9ekWH9F8ZwIJZEi
+	 90rVcpKWXariDEcFJ5Yu1ThnnTUNBM+p0bcUZvqATr5zhIGDH2FQFlv+9FhKEc2cXs
+	 1WxHw45Egm5d/JRIm4imXp7H6n+/wVOZTxWgp/B93my9IHta6yYkhmoM4F5qRce6yB
+	 fRRPGi1U35uB+FwT1sK3ZPsudOIDEVFOzYThQG8DhXKVdQqv/Yox8MIac3lN+iJ6Jx
+	 Cqq4BIYvev7JgcTxRPudKu47L8pIcb6w9oNvfxOK03MGXbR5jS93RJDJE7jr0+Nx+4
+	 Mp98lkomBXUnA==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id E07C717E087F;
+	Wed, 16 Sep 2026 15:01:26 +0200 (CEST)
+Message-ID: <2554743c-1eaf-4799-b64c-4a384f8ea353@collabora.com>
+Date: Wed, 16 Sep 2026 15:01:26 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915-ab8500-charger-dt-v1-0-10b7b387e6a6@kernel.org>
- <20260915-ab8500-charger-dt-v1-2-10b7b387e6a6@kernel.org> <20260915215334.E842E1F000FF@smtp.kernel.org>
-In-Reply-To: <20260915215334.E842E1F000FF@smtp.kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 16 Sep 2026 14:58:55 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=rHLsoOXnReox236BAg8Uj=orDpJHMgeQ1d5GPA9Y8yg@mail.gmail.com>
-X-Gm-Features: AcwNN1WaHYJri3fGZ7Y8oLRn8ssk7eIp09GroqRW4WwFrVvoxLdzkLzV1fH0QvY
-Message-ID: <CAD++jL=rHLsoOXnReox236BAg8Uj=orDpJHMgeQ1d5GPA9Y8yg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] ARM: dts: ux500: Drop AB8505 main charger interrupts
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: iio: adc: mediatek,mt2701-auxadc: add mt6572
+To: rva333@protonmail.com, Jonathan Cameron <jic23@kernel.org>,
+ David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>, Zhiyong Tao <zhiyong.tao@mediatek.com>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org
+References: <20260916-6572-dt-auxadc-v1-1-e8190d614c33@protonmail.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20260916-6572-dt-auxadc-v1-1-e8190d614c33@protonmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hello Sashiko,
+On 9/16/26 13:42, Roman Vivchar via B4 Relay wrote:
+> From: Roman Vivchar <rva333@protonmail.com>
+> 
+> Add a compatible string for the mt6572 AUXADC, that is compatible with
+> mt8173 IP.
+> 
+> Signed-off-by: Roman Vivchar <rva333@protonmail.com>
 
-On Tue, Sep 15, 2026 at 11:53=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-> Does removing these interrupts cause a probe failure in the ab8500_charge=
-r
-> driver?
+> ---
+>   Documentation/devicetree/bindings/iio/adc/mediatek,mt2701-auxadc.yaml | 1 +
+>   1 file changed, 1 insertion(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/iio/adc/mediatek,mt2701-auxadc.yaml b/Documentation/devicetree/bindings/iio/adc/mediatek,mt2701-auxadc.yaml
+> index d9e825e5054f..750e1e837fb8 100644
+> --- a/Documentation/devicetree/bindings/iio/adc/mediatek,mt2701-auxadc.yaml
+> +++ b/Documentation/devicetree/bindings/iio/adc/mediatek,mt2701-auxadc.yaml
+> @@ -38,6 +38,7 @@ properties:
+>             - const: mediatek,mt7986-auxadc
+>         - items:
+>             - enum:
+> +              - mediatek,mt6572-auxadc
+>                 - mediatek,mt6893-auxadc
+>                 - mediatek,mt8183-auxadc
+>                 - mediatek,mt8186-auxadc
+> 
+> ---
+> base-commit: 8cd9520d35a6c38db6567e97dd93b1f11f185dc6
+> change-id: 20260814-6572-dt-auxadc-e6df20ab3248
+> 
+> Best regards,
+> --
+> Roman Vivchar <rva333@protonmail.com>
 
-It doesn't matter. The hardware description is incorrect, we cannot
-change the physical reality to match what a certain operating
-system expects.
-
-There is a bug in the binding, this fixes it.
-
-Yours,
-Linus Walleij
