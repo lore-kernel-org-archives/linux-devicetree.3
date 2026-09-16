@@ -1,160 +1,204 @@
-Received: from mail-oo2-f42.google.com (mail-oo2-f42.google.com [74.125.231.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CC3C3B9931
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 03:08:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A1F41F09A5;
+	Wed, 16 Sep 2026 03:10:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789528110; cv=none; b=KSuegMttvhpkUDlqyao28TWjYp8KXx6kiXeM2bh8aq7z+iRFRZiGY8dCweLbmt9t1qhe8QtsQU/yYqxOkvcNHtBybwe1weIy38vdPA7u1ndF00SsstEXTKsMZzdZV+GpE0yqmGAfbUIgv8wU5+Dz4m5BkdSTqoqCbxHPJ1If0ZE=
+	t=1789528210; cv=none; b=rhGvdj4jUl6fa4IJ0Ig4KaxK2qXiRnpVxGAXdrLSQDibe49AakxdCvX4EdnaOue9j1lJJUyCZgj7OjGDgCHS+5L1yBRWRJV8KNzAQ1lbegOVuF9ZZd9WyVui4MdXLBJO+Jag+qHGK3cFja64Cnbu4DR47+R5Iu4tLewcWUl4icg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789528110; c=relaxed/simple;
-	bh=BzeM2wwKwRHzaqQoq07OCW4sqSwwDLJ+43BF/yaIJkc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kU2oFSDKRWSOLCa40DA7UgbVbRVoR85oSB8XkaKJ5RpxxOXG+lqte+YkgGtoVbKrVVYLEW+2deD6amBfmL8L0zpI6LNtDmPSymwgHMSgSkFu1mGzuSSmwmRt8TqCLmM7ZFXPyQUDQulzzdt5PG3HwhrIDGK44qP2vOGnL6mBBrs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SB4lTQIq; arc=none smtp.client-ip=74.125.231.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789528210; c=relaxed/simple;
+	bh=A3+/rbsqKR7uyrC+ty6K3ON6HUETkndJj/oAdr+2P1c=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=eiJ+WWaKyvTjaPjpx3IvxoexEXPmBoq76tPJY7iv4OhCZXOlnHU5RY90EJq+ODTFVA5AygOjr5tBupiA7YPBd1HuY229NE5a5AzbKqvlGm+dDF6Tx/wSNH0ad+JyF8JfBu1rUVAh8vPROMr4YmI4Gm8jB6+lpv+UQIHcsq2smTI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SAB+aFfs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SB4lTQIq"
-Received: by mail-oo2-f42.google.com with SMTP id 006d021491bc7-6bff4d6504cso227909eaf.2
-        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 20:08:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789528107; x=1790132907; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AxECogFnkMA6SSiFQYeE519yjpa6TKSl2zEHDB706vw=;
-        b=SB4lTQIqXQ5CbZIroa8E+mHZSiJOCGHcdj35RUrqEpV7lACip7VV1vMAMSxWxVjGsa
-         9EMshe/bNVatZ3a06/8SlLRaT/h91/NjBxfoJdTIJ3Cwy8FoMEkmKS4/GxrqcSK1/1p8
-         prvz02RNGQPLfennL12R0nyELlMqDvHz2Liyswcs76BFTnpzB4UH+t8Q+L5g4H2gaIFz
-         vfAzm8eCcJpiJLTrZmj27FIFF8EK2wNTml05MmUVleORX2jsllhwr3oEPnU5/3fUHfnv
-         fl3Bb7dG6F/rUqJsugQRFdtaXhvES3EJl9TsSt1SewC6YVhAR9fS7kbCgH0AGsCV7Tdd
-         TXZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789528107; x=1790132907;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AxECogFnkMA6SSiFQYeE519yjpa6TKSl2zEHDB706vw=;
-        b=DGFX3igGO9dROeqBSUcH3v0vQ5oO8h8DFA6/I9IieY048092xl/DZjprbboi0NqxuV
-         96YwUco1UkAgmQUBIhCJkkSO13hORZ9cAY4QOPUy5u1Dz8DXEUBspRq9wIr3y045387j
-         REdCLy1ZxCj3E7aNvpeFu+A5oS2KmxuugBFDM88TOwyiP5dPuRLkSiLzvRsdp7HRgx0z
-         jHsrU3KW+d5Q0NtvPvFXhjrMb/DWGHx6J85xMRhiqwIOb/+lBVWuPhQWSd/+/AV0kpur
-         W1FtRjzUKw0H5Fz9bZKvD8IgSmM4WRXSLnBlumbr7ausNQU6QNosAjYg0Xj8oOGJvcol
-         Oswg==
-X-Forwarded-Encrypted: i=1; AKwUvBzBzvcOH8+qcxU5pDWVQ+V3R4X8Vi4GX4txhM0Slb61GFTu8vcnxiPvFZ0nmyDGRxLANkeVS8F2NKtv@vger.kernel.org
-X-Gm-Message-State: AFuF++nL9Nr6dBOEiz8uq7Nrn2GDa+YqvAlhKjNkJ80dFGw+S73GP84E
-	rV+qL0X6EEYz3r9LVhW0vq0vZ0sDNMiIEYskdmClVdhOPLbqEmnqha23
-X-Gm-Gg: AYBFou2EIG7Ek5hvmElrWfC7Mn8GV7Dp3Jt0UE0BHaAPkpfph5gXgcQNrbO7tmsd9Ol
-	PahD8jGhIZmCCin5x8KXaOKpF/fH7M6o8TfQLFf9rBiB4BZzA/wWaiUPlVZjSIZxEYVuesmZRoK
-	ktSIE0c+SjPX14rBphumHCJjYOBhOFQxLoNiV1NSBrkhgUoTgFLyy/O99kbKWo6J/jiQVx0YUSc
-	aTi2cAwiE6fWB4Y5oA64hXZLsve6b/hQYyJmymkSE5uEu8quKgQHFrXAc0/FpBFJbsfjGzWHXzX
-	RRcKCaMGBlzqyPf0Vgn/yRoHVJldNCrOEdNlsdixQ/soYPzDN8RCz5Of3H9IsOmGbLLz/vm6yE/
-	tuNZTj7pYUZnbbmZAcgr2V7PjnmnUYL59+71XUPCkhExDn7vOVyEQ7P4ebJWJDPg+loLPVhyYcW
-	RT2t/j7fzJ0ieuj1sUbFHgPXuwHtMPZ3f36kGbjBg/+wNFyCT4EuH+3KmKJcyrPB32NoYMRSSti
-	DCvCI1k4lKgNfYED9UM18uMHB+cCRGExftJeI7ZEygCNy/AGGPdn8PVOiS0wNjrHe2MVp0M7KaR
-	bfqCXfUI/ugmMtT0cFSq9JWkcVu7esobshkF8pI2wD7N2CGmwAy4MTcQ/Fow1cybmYIuwIzNuBe
-	23ZJNJ0Yr9zL5MAg4OeL9JADM2EjXTvG7
-X-Received: by 2002:a05:6820:f0c:b0:6b1:6636:e919 with SMTP id 006d021491bc7-6c7d1cc53f8mr2704731eaf.11.1789528106832;
-        Tue, 15 Sep 2026 20:08:26 -0700 (PDT)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6c7a677b3bdsm1718078eaf.6.2026.09.15.20.08.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 20:08:26 -0700 (PDT)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Tue, 15 Sep 2026 21:07:41 -0600
-Subject: [PATCH net-next v2 2/2] net: stmmac: sun8i: add support for
- Allwinner H616 EMAC1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SAB+aFfs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C1911F000FF;
+	Wed, 16 Sep 2026 03:10:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789528208;
+	bh=TknKwtlWsFQj7+LwVRSwf0nAlzdsKSg5CHrR34asjXE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=SAB+aFfs7UUn6IS4l0uk73y3qzLmgbVsE4zY1uGJv1NHoNkpGFB994bPt5w961vN4
+	 q8YHjkXHFKNzYu5DBAPccffTbyvTBGUR1t88Lfm7PwvbS4qpf6kvjLAJuIz+g6huLC
+	 +7v9iMCDkBU10ulg1TENm8TZoyJo9w+TZHeIvO39q6SmiNUC0WiQa4yCuecTQncmAc
+	 NESxiLD2L8iEQkaMWFiKw+EoRijVRQMY9r2FzdiTBk4WHvNbVdkJL4NPD7XKXcbOIR
+	 0HZl5TPWqlYCxtyJnsMei5/8DDoyv5WzRghETdx7qT7fiD3GCq/U0PYVg3OmGaC2Rb
+	 2hB7TDuE1/W1g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 2/3] scsi: ufs: spacemit: k3: Add UFS Host Controller
+ driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Yixun Lan" <dlan@kernel.org>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, linux-scsi@vger.kernel.org
+In-Reply-To: <20260916-08-k3-ufs-support-v5-2-1f5d71f1027d@kernel.org>
+References: <20260916-08-k3-ufs-support-v5-0-1f5d71f1027d@kernel.org>
+ <20260916-08-k3-ufs-support-v5-2-1f5d71f1027d@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 16 Sep 2026 03:10:07 +0000
+Message-Id: <20260916031008.5C1911F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-submit-h616-emac1-v1-v2-2-322b32e40eb9@gmail.com>
-References: <20260915-submit-h616-emac1-v1-v2-0-322b32e40eb9@gmail.com>
-In-Reply-To: <20260915-submit-h616-emac1-v1-v2-0-322b32e40eb9@gmail.com>
-To: Richard Genoud <richard.genoud@bootlin.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
- Jose Abreu <joabreu@synopsys.com>, 
- Maxime Chevallier <maxime.chevallier@bootlin.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Maxime Ripard <mripard@kernel.org>, netdev@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
- linux-stm32@st-md-mailman.stormreply.com, 
- James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
 
-The H616 secondary EMAC uses a separate system-control clock register
-and supports only RMII at 10/100 Mbps. It connects internally to the
-co-packaged AC200 or AC300 EPHY and has no external PHY pins.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] scsi: ufs: missing M-PHY attributes configuration for lane 1
+- [Low] scsi: ufs: dead code via unused struct ufs_spacemit_host
+- [Low] scsi: ufs: unused macros and magic numbers in M-PHY config
+--
 
-Add an EMAC1 variant using the dedicated register and enable only RMII.
-Leave PHY initialization to the PHY driver instead of using the H3
-internal-PHY controls. No RX or TX clock delays are configured for this
-RMII-only variant.
+commit 82db4e922a94ed053811c2ea8440617bd6a94d08
+Author: Yixun Lan <dlan@kernel.org>
+Subject: scsi: ufs: spacemit: k3: Add UFS Host Controller driver
 
-Co-developed-by: Richard Genoud <richard.genoud@bootlin.com>
-Signed-off-by: Richard Genoud <richard.genoud@bootlin.com>
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
- drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+This commit adds the UFS Host Controller driver for the SpacemiT K3 SoC.
+The hardware features are compatible with JEDEC UFS 2.2, MIPI UniPro v1.61,=
+=20
+and M-PHY v3.0 standards.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-index 48c52eb96233..e8f86df50060 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-@@ -81,6 +81,13 @@ static const struct reg_field sun8i_syscon_reg_field = {
- 	.msb = 31,
- };
- 
-+/* EMAC1 clock register @ 0x34 in the "system control" address range */
-+static const struct reg_field sun8i_syscon_reg_field_emac1 = {
-+	.reg = 0x34,
-+	.lsb = 0,
-+	.msb = 31,
-+};
-+
- /* EMAC clock register @ 0x164 in the CCU address range */
- static const struct reg_field sun8i_ccu_reg_field = {
- 	.reg = 0x164,
-@@ -143,6 +150,13 @@ static const struct emac_variant emac_variant_h6 = {
- 	.tx_delay_max = 7,
- };
- 
-+static const struct emac_variant emac_variant_h616_emac1 = {
-+	.syscon_field = &sun8i_syscon_reg_field_emac1,
-+	/* The co-packaged AC200/AC300 PHY does not use the H3 PHY controls. */
-+	.soc_has_internal_phy = false,
-+	.support_rmii = true,
-+};
-+
- #define EMAC_BASIC_CTL0 0x00
- #define EMAC_BASIC_CTL1 0x04
- #define EMAC_INT_STA    0x08
-@@ -1278,6 +1292,8 @@ static const struct of_device_id sun8i_dwmac_match[] = {
- 		.data = &emac_variant_a64 },
- 	{ .compatible = "allwinner,sun50i-h6-emac",
- 		.data = &emac_variant_h6 },
-+	{ .compatible = "allwinner,sun50i-h616-emac1",
-+		.data = &emac_variant_h616_emac1 },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, sun8i_dwmac_match);
+> diff --git a/drivers/ufs/host/ufs-spacemit.c b/drivers/ufs/host/ufs-space=
+mit.c
+> index 0000000000000..179e6edb2ac25
+> --- /dev/null
+> +++ b/drivers/ufs/host/ufs-spacemit.c
 
--- 
-2.53.0
+[ ... ]
 
+> +static int ufs_spacemit_uniprov1p6_init(struct ufs_hba *hba)
+> +{
+> +	static const struct ufshcd_dme_attr_val setup_attrs[] =3D {
+> +		{ UIC_ARG_MIB(0x1552), 0x4f }, /* PA_TXHSG1SYNCLENGTH */
+> +		{ UIC_ARG_MIB(0x1553), 0xf }, /* PA_TXHSG1PREPARELENGTH */
+> +		{ UIC_ARG_MIB(0x1554), 0x4f }, /* PA_TXHSG2SYNCLENGTH */
+> +		{ UIC_ARG_MIB(0x1555), 0xf }, /* PA_TXHSG2PREPARELENGTH */
+
+[Severity: Low]
+Is there a reason the raw hex literals are used here instead of the
+macros like PA_TXHSG1SYNCLENGTH and PA_TXHSG1PREPARELENGTH that were
+explicitly defined at the top of the file?
+
+[ ... ]
+
+> +		/* TX HB8_TIME CAP */
+> +		{ UIC_ARG_MIB_SEL(0x000F, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)), 0x64 },
+> +		{ UIC_ARG_MIB_SEL(0x000F, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(1)), 0x64 },
+> +		/* RX HB8_TIME CAP */
+> +		{ UIC_ARG_MIB_SEL(0x0092, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(0)), 0x64 },
+> +		{ UIC_ARG_MIB_SEL(0x0092, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(1)), 0x64 },
+> +		/* TX EQ 3DB */
+> +		{ UIC_ARG_MIB_SEL(0x00CD, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)),  0x5 },
+> +		/* RX garbage cnt =3D 32 SI */
+
+[Severity: High]
+Should the TX EQ 3DB attribute also be configured for lane 1 here? The
+surrounding attributes (like TX/RX HB8_TIME CAP and RX garbage cnt) properly
+target both lanes 0 and 1.=20
+
+If lane 1 is left asymmetrically configured, could this lead to PHY link
+instability, CRC errors, or failure to maintain high-speed gears in a 2-lane
+setup?
+
+> +		{ UIC_ARG_MIB_SEL(0x00F2, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(0)), 0x9F },
+> +		{ UIC_ARG_MIB_SEL(0x00F2, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(1)), 0x9F },
+> +	};
+> +
+> +	return ufs_spacemit_dme_set(hba, setup_attrs, ARRAY_SIZE(setup_attrs));
+> +}
+
+[ ... ]
+
+> +static int ufs_spacemit_link_startup_post_change(struct ufs_hba *hba)
+> +{
+> +	/* Add 0xe8 make UFS2.1 run GEAR3 + 2Lane@409M */
+> +	static const struct ufshcd_dme_attr_val setup_attrs[] =3D {
+> +		{ UIC_ARG_MIB_SEL(0xe8, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)), 0x97 },
+> +		{ UIC_ARG_MIB_SEL(0xe8, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)), 0xd7 },
+> +		{ UIC_ARG_MIB_SEL(0xe8, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)), 0x17 },
+> +		{ UIC_ARG_MIB(DL_AFC0REQTIMEOUTVAL), UFS_DL_AFC0REQTIMEOUTVAL_MAX },
+> +	};
+
+[Severity: High]
+Does this workaround need to be applied to lane 1 as well? The inline comme=
+nt
+explicitly documents this as a "2Lane" workaround, but the configuration is
+only applied to lane 0 via UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0).
+
+[ ... ]
+
+> +static int ufs_spacemit_pwr_change_notify(struct ufs_hba *hba,
+> +					  enum ufs_notify_change_status status,
+> +					  struct ufs_pa_layer_attr *dev_req_params)
+> +{
+> +	struct ufs_spacemit_host *host =3D ufshcd_get_variant(hba);
+> +	int ret =3D 0;
+> +
+> +	if (!dev_req_params) {
+> +		dev_err(hba->dev, "Invalid Parameters\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	switch (status) {
+> +	case PRE_CHANGE:
+> +		break;
+> +	case POST_CHANGE:
+> +		/* Cache the power mode parameters to use internally */
+> +		memcpy(&host->dev_req_params, dev_req_params, sizeof(*dev_req_params));
+
+[Severity: Low]
+Are the cached power mode parameters used elsewhere in the driver? We are
+copying dev_req_params into host->dev_req_params here, but the structure
+field doesn't appear to be read anywhere else.
+
+[ ... ]
+
+> +static int ufs_spacemit_init(struct ufs_hba *hba)
+> +{
+> +	struct device *dev =3D hba->dev;
+> +	struct ufs_spacemit_host *host;
+> +	struct reset_control *rst;
+> +
+> +	host =3D devm_kzalloc(dev, sizeof(*host), GFP_KERNEL);
+> +	if (!host)
+> +		return -ENOMEM;
+
+[Severity: Low]
+Since the ufs_spacemit_host structure is only written to and never read, do
+we need to allocate this memory during initialization, or is there some
+planned functionality missing that was supposed to consume it?
+
+> +
+> +	rst =3D devm_reset_control_get_exclusive_deasserted(dev, NULL);
+
+[ ... ]
+
+> diff --git a/drivers/ufs/host/ufs-spacemit.h b/drivers/ufs/host/ufs-space=
+mit.h
+> index 0000000000000..5e459f6ba243c
+> --- /dev/null
+> +++ b/drivers/ufs/host/ufs-spacemit.h
+
+[ ... ]
+
+> +/* ATOP base*/
+> +#define UFS_ATOP_BASE			0x1C00
+> +
+> +#define UFS_SYSCLK			499
+
+[Severity: Low]
+Is this UFS_SYSCLK macro intended to be used? It doesn't appear to be
+referenced anywhere in the implementation.
+
+> +#define UFS_TX_SYMBO_CLK		0x800
+> +#define UFS_MAX_LINKSTARTUP_TIMER	0xFFFFFFFF
+> +#define UFS_DL_AFC0REQTIMEOUTVAL_MAX	0xFFFF
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916-08-k3-ufs-=
+support-v5-0-1f5d71f1027d@kernel.org?part=3D2
