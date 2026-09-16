@@ -1,220 +1,127 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mta-64-226.siemens.flowmailer.net (mta-64-226.siemens.flowmailer.net [185.136.64.226])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64041368D5A;
-	Wed, 16 Sep 2026 07:45:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1ADB4582E3
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 07:54:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.64.226
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789544769; cv=none; b=X7hH2NSSORuD280xZFqKauX7S/Udvc3vYoJlX9NDIEWYLbCXr9piZRa5DupzudMt242g4MgT46d6qrOY8neMc2fLhWyHbapvK6p4eUBoL2e6KFB/U7QRCADfXM5hON4ekKtG9XrDbxpMzydpllmSjgdiN4KPJkN8Eyof0uyz4WE=
+	t=1789545253; cv=none; b=X42WzshqbPdNFmZ3Iw/OR2hq3uzTFW9phOmZeZr15Kb5WDXTniAvEVP32x5bPHFjIhrXoGNrA4vJ0++KdySNaCGhRkOHm2uwEwZ/takw3202ibGqmMU56DLgYfgM0yBoSrVIzt0YURSBhjFhoMcQMC7IrMT0U8E9mAyE0XFeY7g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789544769; c=relaxed/simple;
-	bh=Nno3OlO3iewCiHcvZdyzepOILM5zdk/EDcFwj2tLg+o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=g3mPd8s8Hq92iuTi3vMSRa/jDdG0OJPHNDOFBsWbTdGXJduYZ7sRxwEhPzj4aP+G4NhSVG0NNe2RUsJb7D5C63EMSVikn9oU1Ydte+Jqduu0Lxc1cPQkevXJpiYtd9JuxteUAmMoMGKj6eQw+GRsuELzI8ATDLUMpK75ScSN+3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=T+JTGWyk; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1789545253; c=relaxed/simple;
+	bh=atKj9yZd7bOuDqF3xDDftWv9MTIMofHbixwNijMpl5E=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=CVaRvBuipPX+1wmgdZcL2Jz7xOs1cvZkPVZiQRviO+criJqDYHKscJgkLwDZS5aMFJ3GaAeRR7lwMpnscHnuIBaCyVzqOapjdKs12MQoojpWQS+ERQ+Jd5K1xz2BnoXd/PC6KlmXTRaNHhYEFGkZY1yZIVWB6p4yW1ig8oA33jc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alessandro.zini@siemens.com header.b=SPdXDaQZ; arc=none smtp.client-ip=185.136.64.226
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="T+JTGWyk"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5F8122EC;
-	Wed, 16 Sep 2026 09:44:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1789544653;
-	bh=Nno3OlO3iewCiHcvZdyzepOILM5zdk/EDcFwj2tLg+o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=T+JTGWykehchs3y3+yhf1UlxD+oxOt8ImsO89QYli5iW7KiUOvyMKsdfStJ7oikBh
-	 OVSEfb/luQSOJG5Zg66itdJZEi2uD6eu0Odod/CDkOSDC4xlucYdx+SU5vEDQLq740
-	 pXlYMHA5vJFroMT7vohxnZwnOaCWnVTxvzwbBJYw=
-Date: Wed, 16 Sep 2026 10:45:53 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Richard Leitner <richard.leitner@linux.dev>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=siemens.com header.i=alessandro.zini@siemens.com header.b="SPdXDaQZ"
+Received: by mta-64-226.siemens.flowmailer.net with ESMTPSA id 20260916075357c2a598dc5d0002076d
+        for <devicetree@vger.kernel.org>;
+        Wed, 16 Sep 2026 09:53:57 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm1;
+ d=siemens.com; i=alessandro.zini@siemens.com;
+ h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc:References:In-Reply-To;
+ bh=VCN4LnshPEHTnJ5tYfUXf9PUwPrJN1QyCFEQkQMpKrg=;
+ b=SPdXDaQZxGW/gA1WT2vgJrloPlHSBS5bTYY0Eoz/ZncSZ6JLTK7Pf6WCknf8E3uV7Yg8le
+ 9nXEWSllJMhF5sppKWs1yW3IQK2w6tNsTo5lkhu0KHD33UOHOjALEUqiRMdNp2hztKKu0YY+
+ h+xS/335qHpxI4hCrqUOzweI84k1tigVmiW963BoOHYfRGIgJ4TScTrePgFVekKuJE3XQma9
+ h/+gs8zGQPbUTZQ0YTXqBwa13TBbJ3hk7M3RXfviod6QNv67nrnuis9GZleH09GV+lDKLrN5
+ M9r1I713U0NKEaxJ1LxcFEhkejOIbw6bCCtKfDGMOHJeMzSB4wqHCvRA==;
+From: Alessandro Zini <alessandro.zini@siemens.com>
+To: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Alexander Stein <alexander.stein@ew.tq-group.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org
-Subject: Re: [PATCH 2/3] dt-bindings: media: i2c: Add
- vision-components,mipi-module-controller
-Message-ID: <20260916074553.GB3871857@killaraus.ideasonboard.com>
-References: <20260915-vc-mipi-ctrl-v1-0-8a42b693d889@linux.dev>
- <20260915-vc-mipi-ctrl-v1-2-8a42b693d889@linux.dev>
- <20260916-daft-relaxed-mouse-9bfaf4@quoll>
- <aqpC8fxO4F3bFjF4@bombadil>
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Alessandro Zini <alessandro.zini@siemens.com>
+Subject: [PATCH net-next v2 2/2] net: ethernet: oa_tc6: add reset-gpios support
+Date: Wed, 16 Sep 2026 09:53:49 +0200
+Message-ID: <20260916075349.21822-3-alessandro.zini@siemens.com>
+In-Reply-To: <20260916075349.21822-1-alessandro.zini@siemens.com>
+References: <20260916075349.21822-1-alessandro.zini@siemens.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <aqpC8fxO4F3bFjF4@bombadil>
+Content-Transfer-Encoding: 8bit
+X-Flowmailer-Platform: Siemens
+Feedback-ID: 519:519-1327013:519-21489:flowmailer
 
-On Wed, Sep 16, 2026 at 09:33:36AM +0200, Richard Leitner wrote:
-> On Wed, Sep 16, 2026 at 09:00:46AM +0200, Krzysztof Kozlowski wrote:
-> > On Tue, Sep 15, 2026 at 10:20:24PM +0200, Richard Leitner wrote:
-> > > Add bindings for the Vision Components MIPI Camera Module Controller.
-> > > 
-> > > Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
-> > > ---
-> > >  .../vision-components,mipi-module-controller.yaml  | 92 ++++++++++++++++++++++
-> > >  MAINTAINERS                                        |  7 ++
-> > >  2 files changed, 99 insertions(+)
-> > 
-> > This fails tests, so a very brief review / a few comments:
-> 
-> Mea culpa, I simply failed to run the dtb check before submitting. Sorry.
-> Will not happen again.
-> 
-> > > diff --git a/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml b/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml
-> > > new file mode 100644
-> > > index 0000000000000..2a031aea68457
-> > > --- /dev/null
-> > > +++ b/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml
-> > > @@ -0,0 +1,92 @@
-> > > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> > > +%YAML 1.2
-> > > +---
-> > > +$id: http://devicetree.org/schemas/media/i2c/vision-components,mipi-module-controller.yaml#
-> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > +
-> > > +title: Vision Components MIPI Camera Module Controller
-> > > +
-> > > +maintainers:
-> > > +  - Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> > > +  - Richard Leitner <richard.leitner@linux.dev>
-> > > +
-> > > +description: |-
-> > > +  The MIPI camera module controller is an FPGA-based, I2C-accessible system
-> > > +  controller found on MIPI camera modules from Vision Components. It abstracts
-> > > +  the camera sensor behind a unified register interface, and controls and
-> > > +  sequences the on-board power supplies and clocks.
-> > > +
-> > > +  The camera sensor abstraction is optional. The controller exposes a tunneled
-> > > +  downstream I2C bus used by the attached image sensor. The controller node
-> > > +  acts as the upstream device on the host bus, while child node below the
-> > > +  controller represent the sensor device reachable through the tunnel.
-> > > +
-> > > +properties:
-> > > +  compatible:
-> > > +    const: vision-components,mipi-module-controller
-> > 
-> > There is no model name, no version, nothing identifying it better?
-> > Compatible must be specific to the device (see also writing bindings).
-> 
-> There is one FPGA implemenation for all Vision Components MIPI camera
-> modules AFAICT. So I have no idea how it could be more specific, TBH...
-> 
-> Adding the FPGA hardware model/type is wrong IMHO as it depends on its
-> configuration/firmware, not the hw.
-> 
-> There are different versions of the configuration/firmware. But I think
-> this is also not the correct way to distinguish those, or is it?
-> 
-> According to their homepage the vendor calls those modules simply
-> "VC MIPI" modules, which implies this FPGA controller is available on it.
-> So maybe "vision-components,vc-mipi-controller" would be a better fit?
-> 
-> Do you have any ideas/feedback on how improve this name?
-> 
-> > > +
-> > > +  reg:
-> > > +    maxItems: 1
-> > > +
-> > > +  '#clock-cells':
-> > > +    const: 0
-> > > +
-> > > +  clock-frequency:
-> > > +    description: Frequency of the sensor clock provided by the module
-> > 
-> > Drop, implied by the compatible
-> 
-> Do you mean dropping the whole property, or just the "description"?
+OPEN Alliance 10BASE-T1x MAC-PHY Serial Interface specification
+(v1.1, Section 8.2) defines an external RESET pin as an optional reset
+source for the MAC-PHY.
 
-Different modules have different clock frequencies, don't they ? The
-property seems needed.
+Add support for an optional reset GPIO in oa_tc6_init(). If specified in
+the device tree, assert the hardware reset line for 10 us and allow 1 ms
+settle time for crystal oscillator startup before performing the initial
+TC6 control protection check and software reset.
 
-> > > +
-> > > +  vcc-supply:
-> > > +    description: Power supply of the module (3.3V)
-> > > +
-> > > +  '#address-cells':
-> > > +    const: 1
-> > > +
-> > > +  '#size-cells':
-> > > +    const: 0
-> > 
-> > No children allowed, so why these two?
-> 
-> Based on your and the bot feedback I would suggest for v2 to change this
-> "generic i2c bus" to a simple "i2c-tunnel" property which has
-> "$ref: /schemas/i2c/i2c-controller.yaml".
-> 
-> This would better reflect the actual hardware, as there is only this one,
-> in firmware hard-coded I2C downstream bus.
-> 
-> Would this be a sane approach?
-> 
-> > > +
-> > > +required:
-> > > +  - compatible
-> > > +  - reg
-> > > +  - '#clock-cells'
-> > > +  - clock-frequency
-> > > +  - vcc-supply
-> > > +  - '#address-cells'
-> > > +  - '#size-cells'
-> > > +
-> > > +unevaluatedProperties: false
-> > 
-> > additionalProperties instead, see writing bindings or writing schema.
-> > Unless you miss here some other schema $ref.
-> > 
-> > > +
-> > > +examples:
-> > > +  - |
-> > > +    i2c {
-> > > +        #address-cells = <1>;
-> > > +        #size-cells = <0>;
-> > > +
-> > > +        vc_mipi_ctrl: controller@10 {
-> > > +            compatible = "vision-components,mipi-module-controller";
-> > > +            reg = <0x10>;
-> > > +            #clock-cells = <0>;
-> > > +            clock-frequency = <37125000>;
-> > > +            vcc-supply = <&cam_3v3>;
-> > > +
-> > > +            #address-cells = <1>;
-> > > +            #size-cells = <0>;
-> > > +
-> > > +            i2c@0 {
-> > > +                #address-cells = <1>;
-> > > +                #size-cells = <0>;
-> > > +
-> > > +                vc_mipi_sensor: camera@60 {
-> > > +                    compatible = "ovti,ov9281";
-> > > +                    reg = <0x60>;
-> > 
-> > Why having the child abstraction if it is completely abstracted? I don't
-> > fully get the explanation from description. Completely optional means no
-> > benefits, no point in it, no?
-> 
-> I will try to improve the description. The idea behind this device
-> driver/devicetree node is to not rely on the sensor abstraction from
-> vision components, but to use the upstream sensor specific driver.
-> 
-> As the tunneled downstream i2c bus needs quirks applied this is modeled
-> as a separate bus.
-> 
-> Previous discussions on this approach are available at:
-> 	https://lore.kernel.org/lkml/20260728092856.GB1494774@killaraus.ideasonboard.com/
-> 
-> Thanks again for your review Krzysztof!
+Suggested-by: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>
+Signed-off-by: Alessandro Zini <alessandro.zini@siemens.com>
+---
+Changes in v2:
+- Moved reset GPIO handling from lan865x.c to common oa_tc6.c as suggested
+  by Parthiban Veerasooran.
 
+ drivers/net/ethernet/oa_tc6.c | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
+
+diff --git a/drivers/net/ethernet/oa_tc6.c b/drivers/net/ethernet/oa_tc6.c
+index 6fcc5f561d560..a697e2cb99cd8 100644
+--- a/drivers/net/ethernet/oa_tc6.c
++++ b/drivers/net/ethernet/oa_tc6.c
+@@ -11,6 +11,8 @@
+ #include <linux/mdio.h>
+ #include <linux/phy.h>
+ #include <linux/oa_tc6.h>
++#include <linux/gpio/consumer.h>
++#include <linux/delay.h>
+ 
+ /* Control command header */
+ #define OA_TC6_CTRL_HEADER_DATA_NOT_CTRL	BIT(31)
+@@ -88,6 +90,7 @@ struct oa_tc6 {
+ 	bool disable_traffic;
+ 	bool prot_ctrl;
+ 	enum oa_tc6_quirk_flag quirk_flags;
++	struct gpio_desc *reset_gpio;
+ };
+ 
+ enum oa_tc6_header_type {
+@@ -1503,6 +1506,24 @@ struct oa_tc6 *oa_tc6_init(struct spi_device *spi, struct net_device *netdev,
+ 	if (!tc6->spi_data_rx_buf)
+ 		return NULL;
+ 
++	tc6->reset_gpio = devm_gpiod_get_optional(&spi->dev, "reset",
++						  GPIOD_OUT_LOW);
++	if (IS_ERR(tc6->reset_gpio)) {
++		dev_err_probe(&spi->dev, PTR_ERR(tc6->reset_gpio),
++			      "Failed to get reset GPIO\n");
++		return NULL;
++	}
++
++	if (tc6->reset_gpio) {
++		/* Assert hardware reset for 10 us (datasheet specifies min 5 us)
++		 * and allow 1 ms settle time for crystal oscillator startup.
++		 */
++		gpiod_set_value_cansleep(tc6->reset_gpio, 1);
++		fsleep(10);
++		gpiod_set_value_cansleep(tc6->reset_gpio, 0);
++		fsleep(1000);
++	}
++
+ 	/* Check the PROTE bit status so that we can reset the device */
+ 	ret = oa_tc6_check_ctrl_protection(tc6);
+ 	if (ret) {
 -- 
-Regards,
+2.55.0
 
-Laurent Pinchart
