@@ -1,341 +1,241 @@
-Received: from fout-a5-smtp.messagingengine.com (fout-a5-smtp.messagingengine.com [103.168.172.148])
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013025.outbound.protection.outlook.com [52.101.72.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75B824A6CC1;
-	Wed, 16 Sep 2026 09:41:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.148
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789551685; cv=none; b=G+qrkhYS9/2nJtwNEtYW+my8dDBLS5EHpVae8HXF6V32WigYDQW0tzkoyHL6+gF451ql8tGWjdTNWBbhAr6xF7W5gP4jmdDVxf5sGBiGveaSJkKOAagjm8EB4tD9FkMlaFxMUwGvNVpDU5GBL4F7jyT5LTRvNAxPLtuyqVjxFac=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789551685; c=relaxed/simple;
-	bh=2w7ACpCdwYnaZ4I4xvZ8Tj2vBn8yUy8LWiytd80jL4A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AE+AVPGJqxdiv4R+DUJ6VZMTBEX0o9aRL1fiKMbPzal8ezX7yOPPfTIBoBx1AGie6bBIyM7VVMKPV1gJ4SuFO3XeZnVpX4JxUDGXteUq7eNnEGD5R/HQP9zPABJksnjVq3nwO4DBdUXfNehh1sUdmeyhd6Ag0AJkmPyWPhy8QdI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=nF15ywYj; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=pUT91mXy; arc=none smtp.client-ip=103.168.172.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA0D94A260F;
+	Wed, 16 Sep 2026 09:42:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.25
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789551744; cv=fail; b=cXpXtLBb0e/qk2TEWj6AdlWdT800k3kunWDbez9h2C9KQBIhSZuRrw3WnJqOHKhG1tvef65z8tkurciNoltTXxohIRDOw8UzTtUm14jNG7dNvRULgFSZEjfUfTA0x/D+xXcdTgLY/oOwSs++6ADDtJEwpcb9loDbFLYMyUta3M4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789551744; c=relaxed/simple;
+	bh=EC8xbnjnauBBkwWsb73aODaTlBS/cneg9CxIlD7rJ7k=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=ZnME6tX0sEVHBO9ThLAXIqeXmzHdnPKUk2j4XJfmKxcUWgw6TlNZ8L4ZipYO6j7HVT+eNiSpRCWKGCPqnpsU1VDtHbXkRD3PpNFvNRF/oerzy6mg4N5T0QZq/ZZMxdDWL5S8hFtUbKbFZZJOC5mh02D+PGl/AKopZEvbTMa/Bes=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com; spf=pass smtp.mailfrom=axis.com; dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b=e38yfRd4; arc=fail smtp.client-ip=52.101.72.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="nF15ywYj";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="pUT91mXy"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.phl.internal (Postfix) with ESMTP id 108CCEC0F1A;
-	Wed, 16 Sep 2026 05:41:11 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-04.internal (MEProxy); Wed, 16 Sep 2026 05:41:11 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1789551671;
-	 x=1789638071; bh=/JcGtibZVIg1ugk9+a0Nc9vldI5Xgow89hIjICGjpv8=; b=
-	nF15ywYj4CgVHjur5OHjiEVAJoPtNJa2t6soqzWdaanxxNFWbA5423lJN/hVppFS
-	RJ/cdLAcvxqBpTGYFXro4Mwwmi1xQfZcS29XUJRezfFtb+aN/3RccYb9rFQYNdpU
-	liyG1lzx7EfWMnR6QHQU3JwnKIdwze3cg5PFgaMmqNz4wypNwfHqdt8U7W/7fPKy
-	dBE10RiNY+uKp6GIALucR/rrs+ObTvneSaz7lZwscYi3oV+DJLf1QCiDH6NHjypL
-	hbEdSmTVqrgAQ4cy3hd0/USsqg0TCyPXq6hM2q3HfdPyeV8e2kEmfpGoys6K19uL
-	jBMGgW/floBWFzi9Z+8qDA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789551671; x=
-	1789638071; bh=/JcGtibZVIg1ugk9+a0Nc9vldI5Xgow89hIjICGjpv8=; b=p
-	UT91mXyElM45QTltR2+FpY3xsw84t1AtK4OusyaoxDP+2NLvT7zsPT5nGNydUNsv
-	HV/lkR0jznlnnkYtutlgGW7BUAcWzVM7cIsX6IIys7j+Ub475I3TFoAnsGhJhsZt
-	d0SULYtw7f+CzR2V24qwBNPMIOl8//ns8d0qaopNS5NjlTzqOGXMZ9jNa/hxz7Ft
-	DD83RDUkQ+RdGwL36erSD6l7pA6x5XKvUqkIRGVyv1/ORpgay5tAhSNal/co7Fwn
-	Tgp15fh4FZkabxPURl9vdw3E9SYi9Kr/zCzjxSLHSvOYtoSE0GKpgWN1aMdj1U4j
-	xICpKXf0K3v8oxZ97VpUA==
-X-ME-Sender: <xms:NmSqasB4KvQszZ7P7N4BeOzJWSpkrgtvWSkc2XpxlGQV2pT-3Bb3DQ>
-    <xme:NmSqanSFuoyH5FLXBVkAHYxdG_57Dygpedq7Y2LwKz3YCKSgczam6NxyNMaZ8CzIc
-    E418aJu1eZ9tvaRvzfCPw6MBfstSaJUVyy7ZUOP6HWgI5JKGqxQ1g3q>
-X-ME-Received: <xmr:NmSqauQp4GiSACApeN1WX9hUxYsq8ZG5tolcYFLux7P30i2PhZKVhvxuIRZPrz9bYa3b9THJWy5J8Y_A60vQ5gJwZ51sacw>
-X-ME-Proxy-Cause: dmFkZTFTX9n2XjUy1Cb0bi/GlIJNxYAMuC6ZgsLrLkxSquQom2bE8MUcubdZ8srtzL6VhW
-    G/2q229ryeqHm3m4gZg81kwnacc9IOaFOKsnjKU3Pm6gEd7562lEMPyb2R/XxlXM52p/l9
-    x+qXVjF9XU4/XJXQtr/dLymMs68zz6psN6zmJWvyqpimOFfj0WdJ9iJcdOPcqWUsKjfdKO
-    x0P4bDrMNRzl01oalYb/whs4lBytohXiitybcHwSZqr+m/YVME/96lqNIHulWW7c5Tq5L/
-    brC9LbQGtJhvNEDjmMql9gyoENR88Vm7t2w1H/7rKOYIaQfZRxcZBZkRB+eh4lHiMe4kda
-    SYir4nfjwj8sUQMYbibLI3u/+1mi6H0Ey+rieQkqsABeX2GbuTrOUssa4+j5FviSzGKbFQ
-    Plf6GGWBh6VG3t5QRlEqdT/36o7HirsOmwVNhWuxmkYqVG6pHKfhlROrUS9WA0PmDTxr77
-    n5dPwHPvZfn7cfRES0HGcItp/ZkOWT21SttgnL1bI5MApXvbskDtzo1PYekxu8g6MQWO2j
-    YVKkv6sdGSTMF6lQNSS59vbOQGxb2UPlbq1EFSHaT2igKEPEyaipNiboHXO92fPI78ojqh
-    3ULR8pw4qQv89+uFQ+SZI54Mf+2lWGjvZyAnAcq7lbvmjcHeQrW/8CpTUpUA
-X-ME-Proxy: <xmx:NmSqalJFX8Vj8-VBMWCR9zHVEOcC6y_R_52GxLozGc3gUDYIj4HMwA>
-    <xmx:NmSqalHvJkGB1VfufMkladGYIKzywIOy2NbXWdPGpN1BBnYhyhJFyA>
-    <xmx:NmSqaiRiOZnJnIQ-Wbgzqk5kiZz60eGv2p4YysMiQSXFOEc1J1kJvA>
-    <xmx:NmSqauUqcZKXxmZM7Y_vRGeyNMXT8KYzYDQVfF4vUyBBhrmDlcUzfg>
-    <xmx:N2SqapoIsLOg-OqhiJ3ovLotMSQX9bWX7ZfIJnW5CIEZPyOlhtKpXT_8>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 16 Sep 2026 05:41:09 -0400 (EDT)
-Date: Wed, 16 Sep 2026 11:41:07 +0200
-From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: paul@pbarker.dev, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, geert+renesas@glider.be, magnus.damm@gmail.com,
-	richardcochran@gmail.com, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
-	vadim.fedorenko@linux.dev, sergei.shtylyov@gmail.com,
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-Subject: Re: [PATCH net-next v4 03/10] net: ethernet: ravb: Simplify gPTP
- start and stop
-Message-ID: <20260916094107.GP1991210@fsdn.se>
-References: <20260909173027.2201560-4-niklas.soderlund+renesas@ragnatech.se>
- <20260915015437.881154-1-kuba@kernel.org>
+	dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b="e38yfRd4"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bCeE6SQ6/Dy4Vzek0QTxyI1Pl6sQ4eqLMViaCCLpw3hWbnCMbsfm1fMJVLxYDdTo3yo6cgbCxC5+nMT+EvMlDL9GHepH2BGl6+0/zi/QqmAgOXVFiQjWInqER8cgget7CWwbwLJh7Imnv25AgYAwtreV0r9w2vOBrYv+hFdgYkPewnjt00Vx338tpnQ7gdmujDGVzapOp8i1ZwFxbKqw4SqNmyacuIeOBpDnjcoHEETXnVpnX18DiIWGcZ48rxeZP5POcNXrfq1rcFnlMTBeJiTIGUqmUwJb9xbuQq02lMYjg5Si4+UzWoSs2OUfKDg6atJWMDBdHhSoyrZMMIBV9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EC8xbnjnauBBkwWsb73aODaTlBS/cneg9CxIlD7rJ7k=;
+ b=TFCId6c7LTmUf1FnV0gIn/F7pMqjTjUg1uKa74iQkdBiEApCaaX2j9XeVKc6y89OsTZ1S+N2PXPcmixUe+QOxfriBLykAYGGcbJZB6VZFw1I9p+5ItApIloIbhG84xHvgSUzcLUTZwZmzwkRdP9MuM4fjrvHaN4zFVxc7NYLBEHwQC4pQ87PA4id7pRFSmVIwC+lVKNamp6HN9qg057sFhF3etw+BYy6yzcRMNjFKBnOew0NIolnJfEOm/7Br4zWO/vD9r/pYXYri23w0FxSjR2H08GSIAjnkJqXmrRJtbmi24GXDyeWTqnFgbLWITf6S0FS+kv9COQzPFABFma5Fw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=axis.com; dmarc=pass action=none header.from=axis.com;
+ dkim=pass header.d=axis.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EC8xbnjnauBBkwWsb73aODaTlBS/cneg9CxIlD7rJ7k=;
+ b=e38yfRd4NNK8cFDr/Kk1YGykx1RB35J6+nIdNMcWhcYNyfiTp1oqULy33AECgiqB7rTZb49RC1Ft8BEUw2xpCwEmAcomcU7Ud0oF1JAlT/F+fCXjAW4CDbyRVjooeSrxl9zC2HuLNoa4V3RR0kBZSZgY9yiroUWdKMvTNuI+5D8=
+Received: from DB3PR0202MB9129.eurprd02.prod.outlook.com
+ (2603:10a6:10:43a::19) by GVX0PF157A2558B.eurprd02.prod.outlook.com
+ (2603:10a6:158:401::b07) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.11; Wed, 16 Sep
+ 2026 09:42:03 +0000
+Received: from DB3PR0202MB9129.eurprd02.prod.outlook.com
+ ([fe80::7510:e8c3:db37:47ff]) by DB3PR0202MB9129.eurprd02.prod.outlook.com
+ ([fe80::7510:e8c3:db37:47ff%5]) with mapi id 15.21.0406.012; Wed, 16 Sep 2026
+ 09:42:03 +0000
+From: Kanak Shilledar <Kanak.Shilledar@axis.com>
+To: "macromorgan@hotmail.com" <macromorgan@hotmail.com>
+CC: "dlechner@baylibre.com" <dlechner@baylibre.com>,
+	"joshua.crofts1@gmail.com" <joshua.crofts1@gmail.com>, Kernel
+	<Kernel@axis.com>, Henrik Grimler <Henrik.Grimler@axis.com>,
+	"nuno.sa@analog.com" <nuno.sa@analog.com>, "jean-baptiste.maneyrol@tdk.com"
+	<jean-baptiste.maneyrol@tdk.com>, "robh@kernel.org" <robh@kernel.org>,
+	"jic23@kernel.org" <jic23@kernel.org>, "andy@kernel.org" <andy@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "linux-iio@vger.kernel.org"
+	<linux-iio@vger.kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"marcelo.schmitt1@gmail.com" <marcelo.schmitt1@gmail.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
+Subject: Re: [PATCH v3 7/8] iio: imu: inv_icm42607: Add accelerometer
+ calibbias support
+Thread-Topic: [PATCH v3 7/8] iio: imu: inv_icm42607: Add accelerometer
+ calibbias support
+Thread-Index: AQHdOh88BMzhlSng1EGhR8lSUpATibbP+tqAgAEQJwA=
+Date: Wed, 16 Sep 2026 09:42:03 +0000
+Message-ID: <e2e6b3b8bcfc841d15241e54eeb18a13ec10994a.camel@axis.com>
+References: <20260901-b4-inv_icm42370p-v3-0-77cc31642115@axis.com>
+	 <20260901-b4-inv_icm42370p-v3-7-77cc31642115@axis.com>
+	 <PH0PR19MB9973387A54F1734E51312C4C92A5BA2@PH0PR19MB997338.namprd19.prod.outlook.com>
+In-Reply-To:
+ <PH0PR19MB9973387A54F1734E51312C4C92A5BA2@PH0PR19MB997338.namprd19.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=axis.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DB3PR0202MB9129:EE_|GVX0PF157A2558B:EE_
+x-ms-office365-filtering-correlation-id: 26b9c7ca-dbdc-447b-9304-08df13d6c380
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|7416014|376014|366016|23010399003|6049299003|4053099003|4013099003|3613699012|38070700021|6133799003|3023799007|22082099003|10067099003|4143699003|56012099006|11063799006|18002099003;
+x-microsoft-antispam-message-info:
+ 8OL7V5igNaK34IooZprglUzYWXwghJvAW8fkMKNXlgV/20Bo5olUnMjbjZEqANJNKiNkPjdDorq701VGvINWlRVytVe8qyrB5y4rfVEtIXsOM8gWVgyg4v6FpNAp7lEzSSjczPB6AnxLp/MhdEYykV3SSd9YkBU+Lo7PJOxmFq5KGVX0Krh/OojP3oDGfYUfyZSqxBlNFELYjAOO7BVRiiKQnsVsp0MUQyPvCxKxru1wg1dumz5iNsU+74iUTUQmdE1eVWiHoT1Yh8zDhgsh9cT8/eX0mnNAVisJqE8Q7yLVTLoXN3tN4DHC7k8hewokpTd2UgDLajcJt7NDLfU7EOPELdd+GRSmPKUaD9UHJVIhZLbxt0/2syFPVPqYidCYWFlpH2CIK45KGXFTBEPQ5njZk2Ca8Fv8b7IlFu0U0KIgWZOeJyIi+q8Y77PF0dU6sSnzcPUmkAI21n0nXmG2og+tA9HaNOFbNqJCHswQVE+Sa80Ocvzt8f+IoxSsO7/DKM7ah7KkRFqO1IZly1MOLgyNY7Eja7XjWySuB+pfFps4wLyNbQrAHXnHZprgIB3aSBNG4ExffsY49NswY4GKhrK0gd4QvVeOLjGT4NkPNtNVc+4eclP0x2gTcoErP/cnizqNGqrKqo/cKqAauG3QjeWRJOhDEixji99kLG23kixAhwnb4biZbPOe79rGyjsqrSnKRn7eiE+LP7hMxqhg2g==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB3PR0202MB9129.eurprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(23010399003)(6049299003)(4053099003)(4013099003)(3613699012)(38070700021)(6133799003)(3023799007)(22082099003)(10067099003)(4143699003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?VTNXaHo4SFZVVGZXaERoRE5RSURxRGNEMk0xYlgrcnp0YTVHbFllTDIybGx3?=
+ =?utf-8?B?VlZxVDBIb09YL05rZE1scWc5dU5pMHRNWWY3VHFsSWVBbHRJM2N0T0tTeDRS?=
+ =?utf-8?B?dFNIT0k4aTVacTFYQlhQZG8yNHNLejRhYzI5dVlURThBZHNIcFpyMEljSmZh?=
+ =?utf-8?B?ZUhyNGQwWFFnTkQ1c0s5V2VBYXQzRXZYNitPY1dtNWZxNmdLNHFrNVVVYmd6?=
+ =?utf-8?B?R1VBNDNUQmhaSkdBZkFwSlF4U3JiR0dvM1pkNlF1YUFlTWZqOXlEYksrYW9J?=
+ =?utf-8?B?eXM4dXp0eHdWSEZVMFhiUkJ4Sm8vWDJuM1NPNko2b3dTZXNPNlFHODhhSm5k?=
+ =?utf-8?B?RXRYRWdteVpxdFc3YnIxclFFMjAwMVpEamZKaVM2aytQNHU4WjdSS2tFMWt0?=
+ =?utf-8?B?enlMbTY2SXE4c3BVT3FBdkNyemZjMU5CZzJ2eGtiRUdDd096TE1WdUhlV0pz?=
+ =?utf-8?B?bkJtY0VmQ1dtdjdacjBDN2I4bDB6V0dVMmlUT3dnRi83eDdMbWMrcExib003?=
+ =?utf-8?B?WG9pN0VtTUoxVmRONFNhTk1qVW1UYVV1TjNkUEF1cEUrYUVkcUhZbC9vWmlC?=
+ =?utf-8?B?QzFCc3NwdXlteE5FLzUxS09qWE0wMTVSRExzYWFEb1V3VUVZT0ovMXQyWUEr?=
+ =?utf-8?B?RUZvWm9FV21LMCttdnB5UXkrdGhxZmJYV3QvZkFFRFF3VW44YllJYlBLSjhY?=
+ =?utf-8?B?bE1EMld4cWdXRDNmMWJPZGNqdm1sbHhmZE1jY2ltSVJJU0pHeGs0ZldpOGRE?=
+ =?utf-8?B?cWl6UmVUT2pHVVY3cU5kNlUwQWNkNWMvY0RaZE1SVkdWdmlhZjlvZXZib2xq?=
+ =?utf-8?B?UHZFZFVvZDhNTWtpL3kxSU0wT1F4RllLb0Jwa0lvNWZtR21NelZab0pQQmsv?=
+ =?utf-8?B?RzlCRzZzUkhpbHE0Rkl3RGREc1dZMXRqbXBVWG1JekgvdUtvUmRWeFJBSmlC?=
+ =?utf-8?B?Umx0RW01VEUyOEZzTjVSWDNlT0ZsaEFwM0FFSVg1K2c3NGkyNGxGT1FqV0NO?=
+ =?utf-8?B?THJYd2VvK1Y3MGJBN0dZUStqbGRTeGZsR09UdWxBVzhSN0R2eWc1TDFibXZi?=
+ =?utf-8?B?NE1sL3JjS1JyS3Nzbk5CS1RuOHpoZ3FaaFBCNTBCejlYdVhmT1oxTGp0V0Rz?=
+ =?utf-8?B?YVNjazVTcmdmaUJRNkRZWmlrVEJyWjU4QkNqYUN1cjNHKzA4S1IwZzZNV0hl?=
+ =?utf-8?B?aURFeGVzLzJSUGJaQS9pQkgyV3p6T2dnc2w1T2tUc1FzUGV3T2QyZ3hxdGJO?=
+ =?utf-8?B?clNhbjZXbWxaVk1zeGVrc3llNlAxM0F4eWJYcG5VbnI2VG04Ynp6VFgycWJm?=
+ =?utf-8?B?RlowSFlid2NnRXEySU5PM1VjQ3NLN096OXp4YnA3TVgveUFFaGhDQytjM0RX?=
+ =?utf-8?B?NEZxaUpnT3UzdmJsZWg5U09EeFh0M1JFMnRkR3dQWnlMUFpSNVVYcm0vc1o1?=
+ =?utf-8?B?VlRwclY1cFRYK2t2RFNGM3owNVVoQVhBMGV4b2ZiK0IyQnJoMCtBRU1hYldD?=
+ =?utf-8?B?SVRsNElqaUZ0Ymx4SkJZSHliUTZDeEZhTy9VTER6OWZEemJmUitVNDRNbGlB?=
+ =?utf-8?B?alBZeFBYb3lXVEJUZXVlOGdNdjArOTY5N2doRlFUSUVIL0prZWowc0NuUGJ3?=
+ =?utf-8?B?SDdnaUYvTHJPRm53QmlDTVdDWGZiZUNpNlNod2V4QzR3K0hQUmtMejRhMTd5?=
+ =?utf-8?B?WjVPUnFidmw0Vk9JaEhDaWM4aitzTkxLdkl5R3VIS2lOdkdkZ0RNTmJKQi9z?=
+ =?utf-8?B?ZVJuSkc0dS9tRWFGaUxNcGFQdmFNVXZ3R3c2YXl0ZVc2dS84OXl6VFdaUCsr?=
+ =?utf-8?B?MWk3eGt6akdmL2l1bHNDMjJleS9CZmdMbjE5Mi9BTWRySFlteitJYmJuejVK?=
+ =?utf-8?B?Y1BTWkZWTFdHSC8vaVdIQm5IdDUyK0lCTU1jUkhmcUxVTkY4T0tVejBoV0ZW?=
+ =?utf-8?B?c2dnNTlVa1RTM1hUaXQ1RytCWG5TUmFEekRYZmI1eXR1bHU5eVZXb2c0TFJa?=
+ =?utf-8?B?bUF4dmd1QTJrc2xrUXlheFFySVk4d3ZHRm5VNDhodU5kTzVMRTdWelZRUmxk?=
+ =?utf-8?B?YkxCQ1krdkJlL2VlUWRtdDQxcjJnMlJ1Y1oxWDN5MVd0YTBTSlZaRmxwRnBk?=
+ =?utf-8?B?OGRMNEhTaUpZN2JDRFNQNTdpcFRUTS9XdW11Q1RSMmJkdzkxUDVOWXNwZ0hW?=
+ =?utf-8?B?QldUdkpqZTNEV3BUcFhNRlNiU2g5Yi9hTHpOSlVjQ3dMMEptWkRPQTZxc3Rl?=
+ =?utf-8?B?TERtQ2tUZCtPRFY1Z3RmUnhVZTVmTXlxWHFVRUREYm9nb1RFRXJmdE5sdTZu?=
+ =?utf-8?B?bTg3eEV3U2RzYlNiakhFOXNUODFXRHZSdnRyRTZYdHluK0ZwanAvZz09?=
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="=-zBSJXs2+PQXrYdZxSZTD"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260915015437.881154-1-kuba@kernel.org>
+X-OriginatorOrg: axis.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DB3PR0202MB9129.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 26b9c7ca-dbdc-447b-9304-08df13d6c380
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Sep 2026 09:42:03.3299
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 78703d3c-b907-432f-b066-88f7af9ca3af
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: dlf87cN93/yd7iy1/YmLRznNK2+WOpTIonAxsJHGJncnrloVM6jUdGLppsriB+by
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVX0PF157A2558B
 
-Hello Jakub,
+--=-zBSJXs2+PQXrYdZxSZTD
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
 
-On 2026-09-14 18:54:37 -0700, Jakub Kicinski wrote:
-> This is an AI-generated review of your patch. The human sending this
-> email has considered the AI review valid, or at least plausible.
-> ---
-> net: ethernet: ravb: Simplify gPTP start and stop
-> 
-> The patch folds the gptp-flag ravb_ptp_init() and ravb_ptp_stop() calls into
-> ravb_dmac_init() and ravb_stop_dma(), and drops the info->gptp part of the
-> two combined gptp/ccc_gac call sites in ravb_open() and ravb_close().  It is
-> described as having no functional change.
-> 
-> A few questions about the resulting start/stop balance below.
-> 
-> > diff --git a/drivers/net/ethernet/renesas/ravb_main.c b/drivers/net/ethernet/renesas/ravb_main.c
-> > index a89f6fe7866fe..2d0022a4f85c3 100644
-> > --- a/drivers/net/ethernet/renesas/ravb_main.c
-> > +++ b/drivers/net/ethernet/renesas/ravb_main.c
-> > @@ -707,7 +707,15 @@ static int ravb_dmac_init(struct net_device *ndev)
-> >  		return error;
-> >  
-> >  	/* Setting the control will start the AVB-DMAC process. */
-> > -	return ravb_set_opmode(ndev, CCC_OPC_OPERATION);
-> > +	error = ravb_set_opmode(ndev, CCC_OPC_OPERATION);
-> > +	if (error)
-> > +		return error;
-> > +
-> > +	/* Initialise PTP Clock driver */
-> > +	if (info->gptp)
-> > +		ravb_ptp_init(ndev, priv->pdev);
-> > +
-> > +	return 0;
-> >  }
-> >  
-> >  static void ravb_get_tx_tstamp(struct net_device *ndev)
-> > @@ -1115,6 +1123,10 @@ static int ravb_stop_dma(struct net_device *ndev)
-> >  			netdev_err(ndev, "failed to stop AXI BUS\n");
-> >  	}
-> >  
-> > +	/* Stop PTP Clock driver */
-> > +	if (info->gptp)
-> > +		ravb_ptp_stop(ndev);
-> > +
-> 
-> [Severity: High]
-> Is the new stop reachable on all exits from ravb_stop_dma()?  It sits after
-> three unconditional error returns earlier in the same function:
-> 
-> 	error = ravb_wait(ndev, TCCR, info->tccr_mask, 0);
-> 	if (error)
-> 		return error;
-> 
-> 	error = ravb_wait(ndev, CSR, CSR_TPO0 | CSR_TPO1 | CSR_TPO2 | CSR_TPO3,
-> 			  0);
-> 	if (error)
-> 		return error;
-> 	...
-> 	error = ravb_wait(ndev, CSR, CSR_RPO, 0);
-> 	if (error)
-> 		return error;
-> 
-> Before this patch, ravb_close(), ravb_set_ringparam(),
-> ravb_tx_timeout_work() and ravb_open()'s unwind all called ravb_ptp_stop()
-> unconditionally before ravb_stop_dma(), so a wait timeout did not affect the
-> unregister.
-> 
-> ravb_close() treats a ravb_stop_dma() failure as non-fatal:
-> 
-> 	/* Set the config mode to stop the AVB-DMAC's processes */
-> 	if (ravb_stop_dma(ndev) < 0)
-> 		netdev_err(ndev,
-> 			   "device will be stopped after h/w processes are done.\n");
-> 
-> and then goes on to free the rings, program CCC_OPC_RESET and drop the
-> runtime-PM reference.  For .gptp devices (ravb_gen2_hw_info,
-> ravb_rzv2m_hw_info) does that leave the PHC registered after ndo_stop has
-> returned success, with the gPTP interrupt enables still set because
-> ravb_ptp_disable()/ravb_ptp_sync_irqs() in ravb_ptp_stop() were skipped?
-> 
-> A subsequent open then runs ravb_dmac_init() -> ravb_ptp_init(), whose
-> 
-> 	WRITE_ONCE(priv->ptp.clock, clock);
-> 
-> overwrites the only handle, while ravb_ptp_stop() only xchg()s the current
-> pointer.  Since ravb_remove() has no independent PTP unregister and ends in
-> free_netdev(), does the stranded registration leave ptp_clock_info pointing
-> into freed netdev private memory, reachable through the surviving
-> /dev/ptpN?
-> 
-> ravb_ptp_stop() looks idempotent (xchg of priv->ptp.clock), so would doing
-> the stop before the fallible ravb_wait() calls, or on all exit paths, keep
-> the old behaviour?
+SGkgQ2hyaXMsCgpPbiBUdWUsIDIwMjYtMDktMTUgYXQgMTI6MjcgLTA1MDAsIENocmlzIE1vcmdh
+biB3cm90ZToKPiBbU29tZSBwZW9wbGUgd2hvIHJlY2VpdmVkIHRoaXMgbWVzc2FnZSBkb24ndCBv
+ZnRlbiBnZXQgZW1haWwgZnJvbQo+IG1hY3JvbW9yZ2FuQGhvdG1haWwuY29tLiBMZWFybiB3aHkg
+dGhpcyBpcyBpbXBvcnRhbnQgYXQKPiBodHRwczovL2FrYS5tcy9MZWFybkFib3V0U2VuZGVySWRl
+bnRpZmljYXRpb27CoF0KPiAKPiBPbiBUdWUsIFNlcCAwMSwgMjAyNiBhdCAwNDozNjowMFBNICsw
+MjAwLCBLYW5hayBTaGlsbGVkYXIgd3JvdGU6Cj4gPiBFeHBvc2UgSUlPX0NIQU5fSU5GT19DQUxJ
+QkJJQVMgb24gdGhlIGFjY2VsZXJvbWV0ZXIgY2hhbm5lbHMuIFRoZQo+ID4gcmVnaXN0ZXJzIGFy
+ZSBzdG9yZWQgaW4gTVJFRzEsIHdoaWNoIGNhbiBiZSBhY2Nlc3NlZCBieSB0aGUKPiA+IG1yZWdf
+cmVhZAo+ID4gYW5kIG1yZWdfd3JpdGUgcm91dGluZXMuIFRoZSBjYWxpYnJhdGlvbiBiaWFzIGlz
+IHdyaXR0ZW4gdG8KPiA+IE9GRlNFVF9VU0VSNAo+ID4gdG8gT0ZGU0VUX1VTRVI4IHJlZ2lzdGVy
+cyBpbiBNUkVHMS4KPiA+IAo+ID4gTm90ZTogVGhlIGFjY2VsZXJvbWV0ZXIgZnVuY3Rpb25hbGl0
+eSBpcyB0ZXN0ZWQgd2l0aCBJbnZlbnNlbnNlLAo+ID4gSUNNNDIzNzAtUCBkZXZlbG9wbWVudCBi
+b2FyZC4KPiA+IAo+ID4gRGF0YXNoZWV0Ogo+ID4gaHR0cHM6Ly93d3cuaW52ZW5zZW5zZS50ZGsu
+Y29tL2VuLXVzL3Byb2R1Y3RzLzMtYXhpcy9pY20tNDIzNzAtcAo+ID4gRGF0YXNoZWV0OiBodHRw
+czovL3d3dy5sY3NjLmNvbS9wcm9kdWN0LWRldGFpbC9DNTEyOTk2Ny5odG1sCj4gPiBTaWduZWQt
+b2ZmLWJ5OiBLYW5hayBTaGlsbGVkYXIgPGthbmFrLnNoaWxsZWRhckBheGlzLmNvbT4KPiA+IC0t
+LQo+ID4gwqBkcml2ZXJzL2lpby9pbXUvaW52X2ljbTQyNjA3L2ludl9pY200MjYwN19hY2NlbC5j
+IHwgMjM4Cj4gPiArKysrKysrKysrKysrKysrKysrKystCj4gPiDCoDEgZmlsZSBjaGFuZ2VkLCAy
+MzYgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKPiA+IAo+ID4gZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvaWlvL2ltdS9pbnZfaWNtNDI2MDcvaW52X2ljbTQyNjA3X2FjY2VsLmMKPiA+IGIvZHJp
+dmVycy9paW8vaW11L2ludl9pY200MjYwNy9pbnZfaWNtNDI2MDdfYWNjZWwuYwo+ID4gaW5kZXgg
+MzE4MzczZWZlYjllLi5hZjJhYzlkNmE0N2MgMTAwNjQ0Cj4gPiAtLS0gYS9kcml2ZXJzL2lpby9p
+bXUvaW52X2ljbTQyNjA3L2ludl9pY200MjYwN19hY2NlbC5jCj4gPiArKysgYi9kcml2ZXJzL2lp
+by9pbXUvaW52X2ljbTQyNjA3L2ludl9pY200MjYwN19hY2NlbC5jCj4gPiBAQCAtMTMsNiArMTMs
+NyBAQAo+ID4gwqAjaW5jbHVkZSA8bGludXgvcG1fcnVudGltZS5oPgo+ID4gwqAjaW5jbHVkZSA8
+bGludXgvcmVnbWFwLmg+Cj4gPiDCoCNpbmNsdWRlIDxsaW51eC90eXBlcy5oPgo+ID4gKyNpbmNs
+dWRlIDxsaW51eC91bml0cy5oPgo+ID4gCj4gPiDCoCNpbmNsdWRlICJpbnZfaWNtNDI2MDcuaCIK
+PiA+IMKgI2luY2x1ZGUgImludl9pY200MjYwN190ZW1wLmgiCj4gPiBAQCAtMjIsOSArMjMsMTEg
+QEAKPiA+IMKgwqDCoMKgwqAgLnR5cGUgPQo+ID4gSUlPX0FDQ0VMLMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgXAo+ID4gwqDCoMKgwqDCoCAubW9kaWZp
+ZWQgPQo+ID4gMSzCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgXAo+ID4gwqDCoMKgwqDCoCAuY2hhbm5lbDIgPQo+ID4gX21vZGlmaWVyLMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIFwKPiA+IC3CoMKgwqDCoCAu
+aW5mb19tYXNrX3NlcGFyYXRlID0KPiA+IEJJVChJSU9fQ0hBTl9JTkZPX1JBVykswqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBcCj4gPiArwqDCoMKg
+wqAgLmluZm9fbWFza19zZXBhcmF0ZSA9IEJJVChJSU9fQ0hBTl9JTkZPX1JBVykKPiA+IHzCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBcCj4gPiArwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgCj4gPiBCSVQoSUlPX0NIQU5fSU5GT19DQUxJQkJJQVMpLMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgIFwKPiA+IMKgwqDCoMKgwqAgLmluZm9fbWFza19zaGFyZWRfYnlfdHlwZSA9Cj4g
+PiBCSVQoSUlPX0NIQU5fSU5GT19TQ0FMRSkswqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgIFwKPiA+IC3CoMKgwqDCoCAuaW5mb19tYXNrX3NoYXJlZF9ieV90eXBlX2F2YWlsYWJs
+ZSA9Cj4gPiBCSVQoSUlPX0NIQU5fSU5GT19TQ0FMRSkswqDCoMKgwqDCoMKgwqDCoCBcCj4gPiAr
+wqDCoMKgwqAgLmluZm9fbWFza19zaGFyZWRfYnlfdHlwZV9hdmFpbGFibGUgPQo+ID4gQklUKElJ
+T19DSEFOX0lORk9fU0NBTEUpIHzCoMKgwqDCoMKgwqDCoCBcCj4gPiArwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgCj4gPiBCSVQoSUlPX0NIQU5fSU5GT19DQUxJQkJJQVMpLMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIFwK
+PiA+IMKgwqDCoMKgwqAgLmluZm9fbWFza19zaGFyZWRfYnlfYWxsID0KPiA+IEJJVChJSU9fQ0hB
+Tl9JTkZPX1NBTVBfRlJFUSkswqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIFwKPiA+IMKg
+wqDCoMKgwqAgLmluZm9fbWFza19zaGFyZWRfYnlfYWxsX2F2YWlsYWJsZSA9Cj4gPiBCSVQoSUlP
+X0NIQU5fSU5GT19TQU1QX0ZSRVEpLMKgwqDCoMKgwqAgXAo+ID4gwqDCoMKgwqDCoCAuc2Nhbl9p
+bmRleCA9Cj4gPiBfaW5kZXgswqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCBcCj4gPiBAQCAtNTYsNiArNTksMTYgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBpaW9fY2hh
+bl9zcGVjCj4gPiBpbnZfaWNtNDI2MDdfYWNjZWxfY2hhbm5lbHNbXSA9IHsKPiA+IMKgwqDCoMKg
+wqAgSU5WX0lDTTQyNjA3X1RFTVBfQ0hBTihJTlZfSUNNNDI2MDdfQUNDRUxfU0NBTl9URU1QKSwK
+PiA+IMKgfTsKPiA+IAo+ID4gKy8qCj4gPiArICogQ2FsaWJyYXRpb24gYmlhcyB2YWx1ZXMsIElJ
+TyByYW5nZSBmb3JtYXQgaW50ICsgbWljcm8uCj4gPiArICogVmFsdWUgaXMgbGltaXRlZCB0byAr
+Ly0xZyBjb2RlZCBvbiAxMiBiaXRzIHNpZ25lZC4gU3RlcCBpcwo+ID4gMC41bWcuCj4gPiArICov
+Cj4gPiArc3RhdGljIGludCBpbnZfaWNtNDI2MDdfYWNjZWxfY2FsaWJiaWFzW10gPSB7Cj4gPiAr
+wqDCoMKgwqAgLTEwLCA0MjAxMCwgLyogTWluIDogLTJeMTEgKiAwLjAwMDUgKiA5LjgwNjY1wqDC
+oMKgwqDCoCA9IC0KPiA+IDEwLjA0MjAxMCBtL3PCssKgwqDCoCAqLwo+ID4gK8KgwqDCoMKgwqDC
+oCAwLMKgIDQ5MDMsIC8qIFN0ZXA6IDAuNSAqIDAuMDA5ODA2NTXCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCA9IDAuMDA0OTAzCj4gPiBtL3PCssKgwqDCoMKgwqAgKi8KPiA+ICvCoMKgwqDCoMKg
+IDEwLCAzNzEwNiwgLyogTWF4IDogKDJeMTEgLSAxKSAqIDAuMDAwNSAqIDkuODA2NjUgPQo+ID4g
+MTAuMDM3MTA2IG0vc8KywqDCoMKgwqAgKi8KPiA+ICt9Owo+ID4gKwo+IAo+IEZvciB3aGF0ZXZl
+ciBpdCdzIHdvcnRoLCB3aGVuIEkgcmVhZCB0aGUgY2FsaWJiaWFzIHZhbHVlcyBmb3IgbXkKPiBi
+b2FyZAo+IGZyb20gc3lzZnMgYWZ0ZXIgYXBwbHlpbmcgdGhpcyBwYXRjaCBJIGdldCAwLjAwMDAw
+MCBmb3IKPiBpbl9hY2NlbF94X2NhbGliYmlhcyAob3IgeSBvciB6KSBhbmQgaW5fYWNjZWxfY2Fs
+aWJiaWFzX2F2YWlsYWJsZQo+IGdpdmVzCj4gbWUgYW4gLUVJTlZBTC4KPiAKPiBCdXQgdGhlIGFj
+Y2VsZXJvbWV0ZXIgc3RpbGwgc2VlbXMgdG8gb3V0cHV0IGRhdGEgY29ycmVzcG9uZGluZyB0byB0
+aGUKPiBjb3JyZWN0IG9yaWVudGF0aW9uLgo+IAo+IFRoYW5rIHlvdSwKPiBDaHJpcwoKVGhhbmtz
+IGZvciB0ZXN0aW5nIHRoZSBwYXRjaC4gSSBoYXZlIGZpeGVkIHRoZQppbl9hY2NlbF9jYWxpYmJp
+YXNfYXZhaWxhYmxlIHJldHVybmluZyAtRUlOVkFMIGFuZCBzaG91bGQgbm90IGJlIGdpdmluZwp0
+aGUgZXJyb3IgaW4gdGhlIHY0LiAKCkJlc3QgUmVnYXJkcywKS2FuYWsgU2hpbGxlZGFyCg==
 
-If any of the stop steps before the gPTP fail the device is borked. I 
-guess the LLM would say the same thing if any other of the calls in the 
-stop chain where reordered too.
 
-> 
-> >  	/* Stop AVB-DMAC process */
-> >  	return ravb_set_opmode(ndev, CCC_OPC_CONFIG);
-> >  }
-> > @@ -1719,9 +1731,7 @@ static int ravb_set_ringparam(struct net_device *ndev,
-> >  
-> >  	if (netif_running(ndev)) {
-> >  		netif_device_detach(ndev);
-> > -		/* Stop PTP Clock driver */
-> > -		if (info->gptp)
-> > -			ravb_ptp_stop(ndev);
-> > +
-> >  		/* Wait for DMA stopping */
-> >  		error = ravb_stop_dma(ndev);
-> >  		if (error) {
-> 
-> [Severity: High]
-> Same question for this call site: with the explicit pre-stop removed, does a
-> ravb_stop_dma() timeout here return with the interface detached and the Gen2
-> gPTP clock still registered?
+--=-zBSJXs2+PQXrYdZxSZTD
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
-Same reply.
+-----BEGIN PGP SIGNATURE-----
 
-> 
-> [ ... ]
-> 
-> > @@ -1961,7 +1967,7 @@ static int ravb_open(struct net_device *ndev)
-> >  	ravb_emac_init(ndev);
-> >  
-> >  	/* Initialise PTP Clock driver */
-> > -	if (info->gptp || info->ccc_gac)
-> > +	if (info->ccc_gac)
-> >  		ravb_ptp_init(ndev, priv->pdev);
-> >  
-> >  	/* PHY control start */
-> > @@ -1974,9 +1980,6 @@ static int ravb_open(struct net_device *ndev)
-> >  	return 0;
-> >  
-> >  out_ptp_stop:
-> > -	/* Stop PTP Clock driver */
-> > -	if (info->gptp || info->ccc_gac)
-> > -		ravb_ptp_stop(ndev);
-> >  	ravb_stop_dma(ndev);
-> >  out_set_reset:
-> >  	ravb_set_opmode(ndev, CCC_OPC_RESET);
-> 
-> [Severity: High]
-> Does this leak the registered PTP clock for info->ccc_gac devices when
-> ravb_open() fails?
+iHUEABYKAB0WIQTOMrdbv2P+LZwbQtLEY9j7t8KaZwUCaqpkagAKCRDEY9j7t8Ka
+Z87PAQCXp8b2MjhwOmdPGK5DbkbUYoAgG+ujfca75ODLFgMV2QD/QAzThPTO4CTY
+dkJYSmobVrsonwzEQZGMqtJoSEm22Ag=
+=2iM4
+-----END PGP SIGNATURE-----
 
-This seems to be a real find, nice. Will fix.
-
-> 
-> ravb_open() still calls ravb_ptp_init() for info->ccc_gac, but the
-> counterpart at out_ptp_stop: is gone, and the relocated teardown in
-> ravb_stop_dma() is gated on:
-> 
-> 	if (info->gptp)
-> 		ravb_ptp_stop(ndev);
-> 
-> info->gptp and info->ccc_gac are mutually exclusive (.gptp in
-> ravb_gen2_hw_info and ravb_rzv2m_hw_info, .ccc_gac in ravb_gen3_hw_info and
-> ravb_gen4_hw_info), so nothing unregisters the clock on this path.
-> 
-> The failure right after the init is a plain software path, ravb_phy_start()
-> -> ravb_phy_init() returns -ENOENT when of_phy_connect() fails, or
-> propagates an of_phy_register_fixed_link() error:
-> 
-> 	error = ravb_phy_init(ndev);
-> 	if (error)
-> 		return error;
-> 
-> Since ndo_open failed, ndo_stop/ravb_close() is never called, so the
-> if (info->ccc_gac) ravb_ptp_stop(ndev); in ravb_close() does not run either.
-> Does that leave /dev/ptpN live on a block that ravb_open() then puts into
-> CCC_OPC_RESET and runtime-suspends, so gettime64/settime64/adjfine perform
-> MMIO with no runtime-PM reference held, and with GIC/GIS enables still set?
-> 
-> And on a later successful open, ravb_ptp_init()'s
-> WRITE_ONCE(priv->ptp.clock, clock) replaces the handle, so the first
-> registration can no longer be reached by ravb_ptp_stop().  With
-> ravb_remove() calling free_netdev() without any PHC unregister, does that
-> become a use-after-free through the surviving PTP chardev?
-> 
-> Would keeping if (info->ccc_gac) ravb_ptp_stop(ndev); at out_ptp_stop:
-> restore the balance?
-> 
-> > @@ -2020,10 +2023,6 @@ static void ravb_tx_timeout_work(struct work_struct *work)
-> >  
-> >  	netif_tx_stop_all_queues(ndev);
-> >  
-> > -	/* Stop PTP Clock driver */
-> > -	if (info->gptp)
-> > -		ravb_ptp_stop(ndev);
-> > -
-> >  	/* Wait for DMA stopping */
-> >  	if (ravb_stop_dma(ndev)) {
-> >  		/* If ravb_stop_dma() fails, the hardware is still operating
-> > @@ -2056,10 +2055,6 @@ static void ravb_tx_timeout_work(struct work_struct *work)
-> >  	ravb_emac_init(ndev);
-> >  
-> >  out:
-> > -	/* Initialise PTP Clock driver */
-> > -	if (info->gptp)
-> > -		ravb_ptp_init(ndev, priv->pdev);
-> > -
-> >  	netif_tx_start_all_queues(ndev);
-> >  
-> >  out_unlock:
-> 
-> [Severity: Medium]
-> Can TX-timeout recovery now resume traffic with the Gen2 gPTP clock left
-> unregistered?
-> 
-> In ravb_stop_dma() the new stop runs just before the fallible final
-> transition:
-> 
-> 	/* Stop PTP Clock driver */
-> 	if (info->gptp)
-> 		ravb_ptp_stop(ndev);
-> 
-> 	/* Stop AVB-DMAC process */
-> 	return ravb_set_opmode(ndev, CCC_OPC_CONFIG);
-> 
-> If that ravb_set_opmode() times out, ravb_tx_timeout_work() takes the
-> "hardware is still operating" branch:
-> 
-> 	if (ravb_stop_dma(ndev)) {
-> 		...
-> 		ravb_rcv_snd_enable(ndev);
-> 		goto out;
-> 	}
-> 	...
-> out:
-> 	netif_tx_start_all_queues(ndev);
-> 
-> With the ravb_ptp_init() at out: removed, RX/TX and the TX queues are
-> re-enabled for .gptp devices while the PHC has been unregistered and the
-> gPTP interrupts cleared.  Previously this path always re-registered the
-> clock when resuming operation.  Does hardware timestamping and /dev/ptpN
-> now stay gone until a full close/open cycle?
-> 
-> [ ... ]
-
--- 
-Kind Regards,
-Niklas Söderlund
+--=-zBSJXs2+PQXrYdZxSZTD--
