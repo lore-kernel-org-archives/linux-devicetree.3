@@ -1,89 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1892950EBE1;
-	Wed, 16 Sep 2026 15:22:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 926395111AD;
+	Wed, 16 Sep 2026 15:22:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789572136; cv=none; b=d0pfVJumYaVOuaFME4P4OptxQZ3vdUbwmdGyszaPP4gzMdB+dR00bxNvgywI0t/iGKBe22vZvuzNJI+jK69GFbGcp6YyOor9nVd9yAk6yGUtfuSTocO1En/avU+ADjXZemLhHuRr2j9Bm2jQa7ZzF36mnL6+1np/ONH21pr+FjY=
+	t=1789572172; cv=none; b=uo8uQUfTXvSJmcv45EktRx6FL26gd6hq1316wPrWGXJX13uZ8MrK6k6A+MVzhBAZjRN/CF/9WkIT+88gCIW8QmGzZb3oIr+JrLGFfEysxYU3tN0zNLg8dJ4XCXJ7nXWAA9kCt/LgwbGwYxS6FjGAcb19h8uIOSg3VpIgU2Mnqmw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789572136; c=relaxed/simple;
-	bh=/74fbriUjnNYQSIL/TkwoUOLa18GcCBPLdSkiQqjEyU=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=Co/dz/o+0E8XQ6+sCKnoiGluPEhocMZ0QGGVanjbqOZoS2dOoPhK6PrMm78c93Ds0tBMuYBSPKQTWAEsCQOBGWwJDdjq9/3nsJzhJB2zS0JDdeum5osjfTcWLgXjdgAxvphuy1TRdibAb7LAxrO2xGPNnJu9DXe6soqB8j8Dnlk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ffuR7+/y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789572172; c=relaxed/simple;
+	bh=jzRtSYoksLHY6s/FW90PYWZcawNIi4SGlE+Jml4M2mM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pxGuYAqRDQJ49TaM+GsVjoHP2smKUhUBCsitHVcezA/AIdigmih43j33jsy/+ELRRjYy2n5fW3qthl0nuhGPPHM+5J/1VICiP4mP8Dydip8Ygkl/8BIG5etFCXX3M/+S1myMQnX96eUNiHYs0NLNw6kWes22P4mpiKhs2f1lypk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HW+/WFw4; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ffuR7+/y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C67061F00898;
-	Wed, 16 Sep 2026 15:22:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789572129;
-	bh=YBWDwJQR8wUTVKxZlLHIc0nrXkBF14Uq3ojJa3l7PDs=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=ffuR7+/yGysUibXuulYHQ0R8B2p31GzrCYIsHW6Vm+ohY7O1YyuMbUogYOyp/QUdw
-	 IpDVRDq1PPqO5NuCdQ1BBRATgbu44wbIB7l94r+0e0mTmfGSA2RVFX3W0PH8Jm43kB
-	 oxltHTOo+tGxZFcY65WEwfx8YRXFczyaZAxgFHnU2qEM7vFckSqrLJvEb/unak0Id/
-	 wcJ8C8rskEi/IryIAJOJ5hHedf6B7CdiVs3cMBOrMz9NP9hauWqQfjxZgMvinuYtu4
-	 nn5374NuW6pu+tpU7F/2ChKgH3au8e59tsV3fgScOB8DwuH9IbREKMrrgwDw+yICDT
-	 Wova5UPIMhUSQ==
-Date: Wed, 16 Sep 2026 10:22:08 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HW+/WFw4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789572169; x=1821108169;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=jzRtSYoksLHY6s/FW90PYWZcawNIi4SGlE+Jml4M2mM=;
+  b=HW+/WFw4E2Yx2rzHESX/UIqf5jTsotuYvKHJFpBS21H8Qoz8K2ZpQe/j
+   yFccjgy0BOOF55ilV3oUMMULwqLJL5CrErNq4bm04PxroRk/aIf+KOUY0
+   yDj6RA+7/o0dsKyJhAviVe+9KtiJJD4og5WrQLn9Yvar2KYgPRGJQX8+f
+   gBsxpzbw90rRgknHP40J0fFGd6IJWERhvY/D5REaJCxlDnWcw4ZEoRGn5
+   KETPDNgpmjOwk8kO+s8/Tehtjx9+LPLgfh5aKUkNmHiQf4iKSKvej+k3u
+   uq8OE1p/lvcaj2Aa4CZQONbNKIJ3iExIu9iwas9vNdbqxhDDR838ll4rd
+   w==;
+X-CSE-ConnectionGUID: LOx5p5ClRP+eFFutuA8MiQ==
+X-CSE-MsgGUID: FFuMj93RR46/xzKBf7gL+g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93823591"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="93823591"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 08:22:46 -0700
+X-CSE-ConnectionGUID: jUjyDGFnTSGVbJFBQu7k7w==
+X-CSE-MsgGUID: ZTsNaIA4R/SiCjJy1MpTYg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="273906164"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.145])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 08:22:43 -0700
+Date: Wed, 16 Sep 2026 18:22:40 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Ariana Lazar <ariana.lazar@microchip.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v6 03/11] iio: dac: mcp47feb02: use field_get() instead
+ of custom dynamic macros
+Message-ID: <aqq0QI6JM8GNBqsq@ashevche-desk.local>
+References: <20260916-mcp47feb02_refactor-v6-0-285464651f89@microchip.com>
+ <20260916-mcp47feb02_refactor-v6-3-285464651f89@microchip.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: pabeni@redhat.com, andrew@lunn.ch, davem@davemloft.net, kuba@kernel.org, 
- conor+dt@kernel.org, linux@armlinux.org.uk, jianmin.wang@motor-comm.com, 
- hkallweit1@gmail.com, Frank.Sae@motor-comm.com, 
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
- ming.xu@motor-comm.com, xiaolin.xu@motor-comm.com, 
- devicetree@vger.kernel.org, jie.han@motor-comm.com, krzk+dt@kernel.org, 
- edumazet@google.com, andrew+netdev@lunn.ch
-To: Kyle Switch <kyle.switch@motor-comm.com>
-In-Reply-To: <20260916105504.3262767-2-kyle.switch@motor-comm.com>
-References: <20260916105504.3262767-1-kyle.switch@motor-comm.com>
- <20260916105504.3262767-2-kyle.switch@motor-comm.com>
-Message-Id: <178957207169.229437.1349790786679674746.robh@kernel.org>
-Subject: Re: [PATCH net-next v19 1/3] dt-bindings: net: Document Motorcomm
- YT8824 PHY package
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916-mcp47feb02_refactor-v6-3-285464651f89@microchip.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
+On Wed, Sep 16, 2026 at 05:16:29PM +0300, Ariana Lazar wrote:
+> Replace manual bit operations which select channel corresponding bits
+> from a control register in mcp47feb02_init_ctrl_regs() with field_get()
+> macro used with masks already defined for regmap operations within the
+> driver.
 
-On Wed, 16 Sep 2026 18:55:02 +0800, Kyle Switch wrote:
-> Motorcomm YT8824 Ethernet PHY is PHY package of 4 PHY-s.
-> 
-> Signed-off-by: Kyle Switch <kyle.switch@motor-comm.com>
-> ---
->  .../bindings/net/motorcomm,yt8824.yaml        | 59 +++++++++++++++++++
->  1 file changed, 59 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
-> 
+> Reported-by: Jonathan Cameron <jic23@kernel.org>
 
-My bot found errors running 'make dt_binding_check' on your patch:
+If it's a fix then better to add a Fixes tag, otherwise I would use Suggested-by.
 
-yamllint warnings/errors:
+> Link: https://lore.kernel.org/all/20260913224339.490d89ba@jic23-hlaptop/
 
-dtschema/dtc warnings/errors:
-Documentation/devicetree/bindings/net/motorcomm,yt8824.example.dtb: ethernet-phy-package@0 (motorcomm,yt8824-package): Unevaluated properties are not allowed ('phy-mode' was unexpected)
-	from schema $id: http://devicetree.org/schemas/net/motorcomm,yt8824.yaml
+Again, if it's a fix, this should be Closes:.
 
-doc reference errors (make refcheckdocs):
+> Signed-off-by: Ariana Lazar <ariana.lazar@microchip.com>
 
-See https://patchwork.kernel.org/project/devicetree/patch/20260916105504.3262767-2-kyle.switch@motor-comm.com
+-- 
+With Best Regards,
+Andy Shevchenko
 
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
 
