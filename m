@@ -1,164 +1,252 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18D1B4D0A1C;
-	Wed, 16 Sep 2026 10:20:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 079DD4DD6E6;
+	Wed, 16 Sep 2026 10:21:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789554074; cv=none; b=qpkm1AbEHy+PIoWyqVhjjJbLO5Cvek6zZbeUtWzmwYyVolQZ/Web9/J4KseEy6fhfYDMGZVYpwITv8b6wjD0uFAGe2+qz1z85nBH63RUPXn+0bOlS+iDULfn5jybposMLLPiSCQzPhfIx+w3SvPXcmQRqJRbzxYPVBDw4QwXZ/A=
+	t=1789554087; cv=none; b=S12UgomjoHpVPCKzPwk7Wm9Y3lVOTJ6pv+0Ds5LWTQEOnnZKK72uhi3ucT3PrsOHD6g0bv0Zc2F42mLDbv4druw2H74AiAPSVG+s5lfminnxBFLN5RRJSkYs1hD09bs0yWu61aTAtn1Us5ZBe+Kt4qVOeOWFMo+XloWnwj17Njc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789554074; c=relaxed/simple;
-	bh=3H1kvCTpdRrnwWoXxomRgkBRVPRn/jgFU8Vnp1ECNq4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FkKvBL939h5p960mH59U/vIPiVnz6eRAow7/kTR6zWAdzq9zpgdPLdwA8NhNQiHlf1BMu658WYofQPhpZqd4mH4dWgn7aiQAGa5zXDIewSNQuKWPPsoW0U/8nHBdhxKpxAS8OScU2X4OOxWKfO372v5bDhKI5jGO3GygIKPDcrk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hZ6R0HwC; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	s=arc-20240116; t=1789554087; c=relaxed/simple;
+	bh=gJnfg39A31FuJpR9qu2Nn5D6Z799oXd02vj22CFcnx8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=OTV1y5ZTSYHGtNw2MAtvMUr1EMlZ/1hO6wJzq41XMvauY4j/2H7mz/peaBYBwpaz+OiP7FsJcIhH0WK5yMv8437pMycWb+IuL3/cVamB5PNkGPl60/iRoa47lJLag4F8ObXo7YZz7wqfC0WZuXiRETK2fiCSoqz3/Ocoq9kyeiY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XQGT5TCp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hZ6R0HwC"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68G9321c1587094;
-	Wed, 16 Sep 2026 10:20:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=Pt6P9PA8gET
-	6YEOYiX9rRnfsnG9rapP6eeXbi6Ywjdg=; b=hZ6R0HwC+iQlEqAVNZsgcQ1r3WV
-	INsBSit4ZmbqHNPigheranbF2969pMROEBI0ixdReqvGoeT5PVUdzZQ0te3ki6YF
-	PtwLQzC01S7WRjmrUDHA2zYXk+uS69ZRp/H+dEQfo9pyf0SO57siLGj9vJPG43RM
-	K21wSy9QUPIk9+xUXXM1hX4I59DMc5Pp278G5V22wbAvMRXrsAesztAUsypK+Gw/
-	9Xu/zvujMINqEMSnZwOPkW2qtkByjHSIvNu+k0JEJimVR4nhLI1skIYObq8hVhhp
-	k25x1CgOLelJIOh+JPkyMY0ZgTnP2DSI5BqGfBquYbgf4+fjkWwycCD/iUw==
-Received: from aptaippmta02.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com [103.229.16.4])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqagekr32-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 16 Sep 2026 10:20:31 +0000 (GMT)
-Received: from pps.filterd (aptaippmta02.qualcomm.com [127.0.0.1])
-	by APTAIPPMTA02.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 68GAKTCW1158171;
-	Wed, 16 Sep 2026 10:20:29 GMT
-Received: from cse-cd02-lnx.qualcomm.com (smtphost-taiwan.qualcomm.com [10.249.136.33])
-	by APTAIPPMTA02.qualcomm.com (PPS) with ESMTPS id 68GAKSEK1158148
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 16 Sep 2026 10:20:28 +0000 (GMT)
-Received: by cse-cd02-lnx.qualcomm.com (Postfix, from userid 4438065)
-	id 574DD48DC8; Wed, 16 Sep 2026 18:20:27 +0800 (CST)
-From: Ziyue Zhang <ziyue.zhang@oss.qualcomm.com>
-To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        peter.chen@oss.qualcomm.com, qiang.yu@oss.qualcomm.com,
-        linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Ziyue Zhang <ziyue.zhang@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v2 1/4] dt-bindings: phy: qcom,sc8280xp-qmp-pcie-phy: Add vdda-refgen and refgen supply properties
-Date: Wed, 16 Sep 2026 18:20:20 +0800
-Message-ID: <20260916102023.2054761-2-ziyue.zhang@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260916102023.2054761-1-ziyue.zhang@oss.qualcomm.com>
-References: <20260916102023.2054761-1-ziyue.zhang@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XQGT5TCp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDDD01F00898;
+	Wed, 16 Sep 2026 10:21:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789554065;
+	bh=TtgBDQ4FNslD4tBVwzjA/MF2dJs29rCfgmcA6BCtIP0=;
+	h=From:Subject:Date:To:Cc;
+	b=XQGT5TCpImNYavut5FCYC/YDZgb0xbSpzgjbHa5lWBWnfIe3TCPnBWwW/63xkxJId
+	 rcns/HpYNSlHWAoN6EHIxEUU9fFwXP2rPtk1aNrQT35Q6grtF4NcQYUw5VPkaP6aYy
+	 k/vP8j+0ZnUsaTOox+gvVRNQ0UjqNWXzkAjm28/9WiOmQ5m/afWgY5tYFA95nO5AYs
+	 uXswoarBzp7F191f8T85Y8IFq6gUC8XQ0WV3zLoSc1sNT5abVt5cIbgsgGldK8kKrz
+	 T9CW+8QqyeeqttKA8DeBG2sxqlKGMz97s9r1CKvYUS5Y3LR6dvpKSTo65Tu5wiKlpO
+	 oqAAXqahOlz7g==
+From: Linus Walleij <linusw@kernel.org>
+Subject: [PATCH net-next v15 0/4] net: dsa: microchip: Add support for
+ KSZ8995XA/KS8995XA
+Date: Wed, 16 Sep 2026 12:20:57 +0200
+Message-Id: <20260916-ks8995-to-ksz8-v15-0-8825ff5fd4be@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDEzNSBTYWx0ZWRfXwmUAvsFOpDce
- wInLiBTc8LI9g3FPb3L2G6jqlrDH4Ux5WMtA+mrDPqMTzsKniFEVusjkZ/sCYUNnIDU1d6Xp6to
- tEcY4Gjhrtv6FqOYimgi318cTPgZgKg=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDEzNSBTYWx0ZWRfX5M8YyGvKiQNJ
- ADbq8zqdLxbA0UFNUwc00OjFdBu7vTaa3ND6jeTc6pGpI7Pi4AccizMKTnre7jFh9fPEYgqiRXc
- ULSHTQOx1P4YMKvacB3wRXHkNkXF2qkSyersRNb6LDwJ5uhMPBfeF8vXfyj8Eg6QIuVl//a+Ohu
- DdoqT7t3KFvw2ZXjp9QCmmi9kZCSAB1lZAYNkiEwdVUEjLEQpFe92pnqwQIrkQs/IZ8W74zGLKA
- mWGc9yzZMF6JQdOg8n0cCYiM/3Zf5dDMhxtQLsjMjkWW8KMYGldWevirdkR3S4ZwUZoQZL0RSEs
- A4iKmSjJ07ygMqV89W2Mdkv/bph6UDJgfkC8+M3mCjowDTJ9mBW1mW/XXMtGLmosHqTdzmRZ6dJ
- lhAgOMrJrosp2EsXs7OpEq1UVkTosJ4ALk8IE4cLs/wdJsps9TV/hp96eGw9dpqXHd5u71AyT5J
- MMpdPesWIjW1LHB5PPA==
-X-Proofpoint-GUID: WFoymBXDo8X0SkOIBH_VG7tGrF44STu9
-X-Proofpoint-ORIG-GUID: WFoymBXDo8X0SkOIBH_VG7tGrF44STu9
-X-Authority-Analysis: v=2.4 cv=PcZqFShd c=1 sm=1 tr=0 ts=6aaa6d6f cx=c_pps
- a=nuhDOHQX5FNHPW3J6Bj6AA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8 a=AF2lrSSGt1_3PscgMUQA:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 suspectscore=0 malwarescore=0 impostorscore=0
- clxscore=1015 lowpriorityscore=0 priorityscore=1501 adultscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160135
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23STW7cMAwF4KsEXtcFKYmS2FXvUWRhSVTipvAUt
+ jNIG8zdKzuLUcvu/Pc92vR7HzZZZ9mGLw/vwyrXeZsvSztB+vQw5OdpeZJxLu3CYMB4IODxZYv
+ MNO6XdvQ7jkjVVs7RBKxDQz9XqfPbmfhtWGQfF3nbh8ePO9tr+i55P/KOZ5/nbb+sv87hVzzFx
+ xj0/4654ghjgAJS3TRRdV9fZF3kx+fL+nSmX03njVHeNE8BTYaSWQIpb3uv59vmM1monpAjV+X
+ d3XuwyrvmBQkdSzUoQXnqvVOemueYJkmOxHv9/r73UXnffGFs3ErJWftw9+E/80PzZqogbfuOp
+ qh8vPtoUfnYfC1YUjIpeNGe755B75+bjyVGpIkxFe0R+gC9AISjQTawsSzJk/6DiH0C64SjgyD
+ gHOJExEUndCVk1EvAs4XZOmMKlGBEJ9g+QdcIjx5aExL6YqF9iE5wfYL+kXg00bbhnk2ymf9u4
+ u12+wMrSMj/FAQAAA==
+X-Change-ID: 20260509-ks8995-to-ksz8-15f3f9c8271f
+To: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com, 
+ Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>, 
+ Simon Horman <horms@kernel.org>, Russell King <linux@armlinux.org.uk>, 
+ Nicolai Buchwitz <nb@tipi-net.de>
+Cc: netdev@vger.kernel.org, Woojung Huh <Woojung.Huh@microchip.com>, 
+ devicetree@vger.kernel.org, Linus Walleij <linusw@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
 
-QCS8300 and SA8775p PCIe PHYs require dedicated vdda-refgen and refgen
-LDO supplies for QREF to provide a stable reference clock. Without these
-supplies, the PCIe PHYs cannot work properly. Mark them as required for
-the affected compatibles even though it breaks ABI.
+This series breaks with the dated attempt to polish the old
+KS8995 driver, and instead implement support for the KS8995XA
+in the KSZ driver, and after that delete the old KS8995 driver.
 
-vdda-refgen-supply is required for all three QCS8300 and SA8775p PHY
-compatibles. refgen-supply is required for QCS8300 only, as a workaround
-for a hardware issue where QREF actually depends on refgen3 rather than
-refgen2 as documented, so the PHY driver votes for refgen3 directly via
-this supply.
+The hardware clearly has the same ancestry, the KSZ8995XA is
+just a rebrand of the much older Micrel KX8995XA switch.
 
-Signed-off-by: Ziyue Zhang <ziyue.zhang@oss.qualcomm.com>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+The old driver identified the shared 0x95/0x0 ID as KS8995MA, but
+this ID cannot distinguish MA from XA. No KS8995MA users are known,
+and KS8995E has no documented SPI management interface. Neither
+variant has been verified with the replacement driver.
+
+Add new compatibles, add special code paths for the KSZ8995XA,
+including support for its two-level DCB priority model, and add a
+new tagger for the special front tag found in the KSZ8995XA.
+
+The patches, including the per-port PHY reset polling, were tested
+with the Actiontec MI424WR rev D (which has the KS8995XA) and
+OpenWrt as userspace.
+
+Assisted-by: LLM
+Signed-off-by: Linus Walleij <linusw@kernel.org>
 ---
- .../phy/qcom,sc8280xp-qmp-pcie-phy.yaml       | 27 +++++++++++++++++++
- 1 file changed, 27 insertions(+)
+Changes in v15:
+- Require a complete, linear Ethernet header before KS8995 TX tag
+  insertion, rejecting truncated frames and pulling fragmented headers.
+  Fringe case, but the AI found it so fixed it up.
+- Link to v14: https://patch.msgid.link/20260914-ks8995-to-ksz8-v14-0-3d72692b3c97@kernel.org
 
-diff --git a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml
-index b353b7bfb839..bd4c98784142 100644
---- a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml
-+++ b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml
-@@ -94,6 +94,11 @@ properties:
- 
-   vdda-qref-supply: true
- 
-+  vdda-refgen-supply: true
-+
-+  # Only required on platforms where the hardware voting doesn't work properly
-+  refgen-supply: true
-+
-   qcom,4ln-config-sel:
-     description: PCIe 4-lane configuration
-     $ref: /schemas/types.yaml#/definitions/phandle-array
-@@ -269,6 +274,28 @@ allOf:
-         "#clock-cells":
-           const: 0
- 
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - qcom,qcs8300-qmp-gen4x2-pcie-phy
-+              - qcom,sa8775p-qmp-gen4x2-pcie-phy
-+              - qcom,sa8775p-qmp-gen4x4-pcie-phy
-+    then:
-+      required:
-+        - vdda-refgen-supply
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - qcom,qcs8300-qmp-gen4x2-pcie-phy
-+    then:
-+      required:
-+        - refgen-supply
-+
- examples:
-   - |
-     #include <dt-bindings/clock/qcom,gcc-sc8280xp.h>
--- 
-2.43.0
+Changes in v14:
+- Add a KS8995 flow dissector using the four-byte in-band RX tag length,
+  keeping the eight-byte TX headroom reservation separate.
+- Link to v13: https://patch.msgid.link/20260913-ks8995-to-ksz8-v13-0-327b16d309eb@kernel.org
+
+Changes in v13:
+- Limit XA apptrust to one selector at a time, since PCP and DSCP results
+  are ORed rather than ordered; reject both-enabled readback as well.
+- Use the XA fast-age control instead of changing the 802.1p priority
+  threshold, and wait for its 800 us cycle before restoring normal ageing.
+- Link to v12: https://patch.msgid.link/20260911-ks8995-to-ksz8-v12-0-5c3422d0d72e@kernel.org
+
+Changes in v12:
+- Program both KSZ8995XA port tag-control bits together, clearing the
+  opposite setting so stale bootloader configuration cannot leave both on.
+- Handle KS8995 receive tags in VLAN metadata as well as in-band,
+  validating the source-port bits before deciding whether to untag.
+- Reserve eight bytes of KS8995 transmit headroom for the switch tag
+  and a hardware-accelerated VLAN tag, avoiding an extra head expansion.
+- Link to v11: https://patch.msgid.link/20260909-ks8995-to-ksz8-v11-0-0e04411a559d@kernel.org
+
+Changes in v11:
+- Drop KSZ8995XA from the three-port binding exception so ports 3 and
+  4 receive generic DSA port validation.
+- Reject invalid KS8995 receive port masks before ilog2() so plain
+  802.1Q frames are dropped safely.
+- Propagate KSZ8995XA PHY reset assertion errors instead of treating
+  a failed write as a completed reset.
+- Do not advertise legacy VLAN behavior for KSZ8995XA, preserving genuine
+  ingress VLAN tags through the DSA receive path.
+- Link to v10: https://patch.msgid.link/20260908-ks8995-to-ksz8-v10-0-7379239eb65f@kernel.org
+
+Changes in v10:
+- Wait for the KSZ8995XA per-port PHY reset bits to clear before
+  continuing setup; verified to work on Actiontec MI424WR rev D
+  hardware.
+- Drop the unreachable KSZ8995XA VLAN filtering check because the
+  restricted switch operations do not expose that callback.
+- Add KSZ8995XA to the binding's Ethernet-port schema exception list.
+- Convert big-endian KS8995 transmit tag fields to host byte order
+  before logging them.
+- Align the KSZ8995XA SPI ID with its DT compatible to restore module
+  autoloading and avoid the SPI registration warning.
+- Link to v9: https://patch.msgid.link/20260906-ks8995-to-ksz8-v9-0-8d8815a91bd8@kernel.org
+
+Changes in v9:
+- Fold the legacy Micrel compatibles into KSZ8995XA support and use an
+  exact tristate dependency to avoid probe races and bisect gaps.
+- Always prepend a distinct KS8995 switch tag to preserve existing VLAN
+  headers and avoid unsafe MAC-header access on direct transmit paths.
+- Rate-limit KS8995 receive untagging errors to avoid log flooding.
+- Link to v8: https://patch.msgid.link/20260831-ks8995-to-ksz8-v8-0-fd1dbb2b76e8@kernel.org
+
+Changes in v8:
+- Add DCB support for the KSZ8995XA two-level priority model and set its
+  internal priority map count to two.
+- Initialize the KSZ8995XA per-port default tags to VID 0 so the tagger can
+  distinguish originally untagged packets from VLAN-tagged frames.
+- Push non-802.1Q hardware-accelerated VLAN tags into the packet before
+  adding the KS8995 tag, so they cannot displace the switch tag from its
+  required offset 12.
+- Account for the discrepancy between the documented and observed
+  KSZ8995XA MTU behavior. Its packet-size control bits use the same
+  polarity as the other KSZ8 switches, while using the opposite polarity
+  documented in the manual makes the switch hang on big packets.
+- Rebased on v7.3-rc1
+- Link to v7: https://patch.msgid.link/20260704-ks8995-to-ksz8-v7-0-2af0eaa545a8@kernel.org
+
+Changes in v7:
+- Rebased on v7.2-rc1
+- Rebased on top of Bastiens cleanups.
+- Rebased and reworked on top of my patch changing the SKB ownership
+  model in the taggers.
+- Drop bogus reset routine, keep per-port reset but use the right
+  defines.
+- Properly implement the 2way queue split support (low/hi prio)
+- Drop bogus surplus ops assignment.
+- Link to v6: https://patch.msgid.link/20260608-ks8995-to-ksz8-v6-0-d91eb43edcc5@kernel.org
+
+Changes in v6:
+- Provide a prompt along with the transition symbol NET_DSA_KS8995
+  so that oldconfig works.
+- Clarify in commit message that the platform data probe path is
+  unused in the kernel and it is fine to delete this mechanism.
+- Link to v5: https://patch.msgid.link/20260604-ks8995-to-ksz8-v5-0-98baeb45e665@kernel.org
+
+Changes in v5:
+- Rebase on net-next again to be sure we apply.
+- Fix the codepath where DCB was set up per-port, damaging KS8995XA
+  port registers.
+- Fix up the transitional symbol NET_DSA_KS8995 to depend on
+  SPI and select both NET_DSA_MICROCHIP_KSZ_COMMON and
+  NET_DSA_MICROCHIP_KSZ_SPI.
+- Link to v4: https://patch.msgid.link/20260603-ks8995-to-ksz8-v4-0-e15149ef21e7@kernel.org
+
+Changes in v4:
+- Create a stub symbol for NET_DSA_KS8995 to phase over users to
+  the new driver.
+- Link to v3: https://patch.msgid.link/20260526-ks8995-to-ksz8-v3-0-c530f651989f@kernel.org
+
+Changes in v3:
+- Rebase on net-next again, moving target!
+- Fix a netdev_info() print in the tagger to be netdev_debug()
+- Add net/dsa/tag_ks8995.c to MAINTAINERS
+- Link to v2: https://patch.msgid.link/20260522-ks8995-to-ksz8-v2-0-5712c0dc9e75@kernel.org
+
+Changes in v2:
+- Avoid trying to configure TOS priority settings (DCB) on the KSZ8995XA.
+  It does have some support for this, but let's add that later.
+- Pick up Krzysztof's ACK on the new DT bindings.
+- Reset the KSZ8995XA by disabling and enabling the switch like the old
+  driver does.
+- Move mutually exclusive Kconfig over to the patch introducing the
+  old Micrel compatibles to the Microchip ksz_spi driver.
+  (this complaint from Sashiko.)
+- Use __be16 instead of u16 when casting into the SKB in the tagger
+  (this complaint from Sashiko.)
+- Do not modify the hdr->h_vlan_TCI if no hardware accelerated tag
+  is detected, it would get nullified. Use whatever the Linux network stack
+  assigned to TCI there.
+  (this complaint from Sashiko.)
+- Avoid dereference of NULL in debug prints in the tagger.
+  (this complaint from Sashiko.)
+- Ignored comment: Sashiko complains about ilog2(0) being potentially
+  undefined but that is clearly defined as 0 in the Linux kernel.
+- Link to v1: https://patch.msgid.link/20260516-ks8995-to-ksz8-v1-0-70d0ef4aa5f4@kernel.org
+
+---
+Linus Walleij (4):
+      dt-bindings: net: dsa: microchip: Add KSZ8995XA
+      net: dsa: tag_ks8995: Add the KS8995 tag handling
+      net: dsa: microchip: Support Microchip KSZ8995XA / KS8995XA
+      net: dsa: ks8995: Delete surplus driver
+
+ .../devicetree/bindings/net/dsa/microchip,ksz.yaml |   1 +
+ MAINTAINERS                                        |   1 +
+ drivers/net/dsa/Kconfig                            |   9 +-
+ drivers/net/dsa/Makefile                           |   1 -
+ drivers/net/dsa/ks8995.c                           | 857 ---------------------
+ drivers/net/dsa/microchip/Kconfig                  |   1 +
+ drivers/net/dsa/microchip/ksz8.c                   | 252 +++++-
+ drivers/net/dsa/microchip/ksz8.h                   |   2 +
+ drivers/net/dsa/microchip/ksz8_reg.h               |   2 +
+ drivers/net/dsa/microchip/ksz_common.c             |  53 +-
+ drivers/net/dsa/microchip/ksz_common.h             |  11 +-
+ drivers/net/dsa/microchip/ksz_dcb.c                |  68 +-
+ drivers/net/dsa/microchip/ksz_spi.c                |  33 +-
+ include/linux/platform_data/microchip-ksz.h        |   1 +
+ include/net/dsa.h                                  |   2 +
+ net/dsa/Kconfig                                    |   6 +
+ net/dsa/Makefile                                   |   1 +
+ net/dsa/tag_ks8995.c                               | 180 +++++
+ 18 files changed, 549 insertions(+), 932 deletions(-)
+---
+base-commit: 17d3afadf539c93def8106bbb83c88274bdc7ab1
+change-id: 20260509-ks8995-to-ksz8-15f3f9c8271f
+
+Best regards,
+--  
+Linus Walleij <linusw@kernel.org>
 
