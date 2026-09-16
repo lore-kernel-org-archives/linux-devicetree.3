@@ -1,232 +1,280 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011038.outbound.protection.outlook.com [52.101.65.38])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8B654A6CE9;
-	Wed, 16 Sep 2026 09:23:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.38
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789550614; cv=fail; b=tQYIjyqONbWm/m1R7up+Q5QAvVLtXr7fMB+1QZT3KHUGm78bVCTjWN80S3E+rEOdmSJ3UlpKypSYFej/fhtxtXXLa5VxV6OhEIWHxGbNNgjQyeWmQFMYo+UfdiMGxR17b9ibgXmQ+TKXfRQgTkBooazaCl5OPSdFOBJ1KBabxrQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789550614; c=relaxed/simple;
-	bh=mVwJ0MA/uRI42LaqUoe5tL0U/CkUXP4P/dzj1eE3+d0=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=Y9SegYxvLPUhH0KJ0RUWrtEjtRYXQyhRab0WSMWlZjsQ1hQC6+zxPEqf7Hw1fDwQQfQLjTS8v6KRQbIcv/KiYLDutyIjEyU3K7Ty5v40jpzL9Ykwc+Fi2iPqJ+ix1Q9luCApfs1ix9Z4aa3Vxx34Jbx+pY0g8yZ0wgXj3VU8g08=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com; spf=pass smtp.mailfrom=axis.com; dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b=K7riUvnO; arc=fail smtp.client-ip=52.101.65.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A3B14A49BE
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 09:23:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789550628; cv=none; b=Oh5bqIYSKOdKaUVbwQj+NH7Eo/lilwrhNtd5xS6HobvfhVLbSzapGzJNz8rIvTd+lBrHlQuljxaeHR6dopfNQasMFWdXeOEsmSuQ/YRb+ImVNlHQvVKyLyukYmNaGEt8TEJHCHQoqz0/nQaYxXFH21muwgfc26Rfti5yH2G4Suo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789550628; c=relaxed/simple;
+	bh=iaLKXS4GLLt0zuJVNlPY5s2ZWcrrZ/oNlHsKvhP4+cA=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dP/bMWHOTmH6xuPZxqLsEumQ4fWkIRPDtJP+O7A7EiwbEbDLhCG2lCaX7Q3P1mPs+NcRXXCTCUGmASAc4h3USqVerE401X3ujFo5XMD20Hx92rEDDN3lVOsTycN72neKbgnkLUx9xYfL77vu2rteiZQ2dPAhHnDQ1M2guhE6dd4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B72l6WtU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b="K7riUvnO"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pItpcqlYfSS4/tzcS2mnriXM/+ffkgSipwa/9IPI1PjKu8H3FfmL9A4T0J4qwcZRCZQaER1gI5d5Ac6OGwsyGli4ZpzkRm44e5JdCUtcj1hSa7kJVnymIe30xKbPEwtrPXNAOYfW4UPBPJ4w6PhPgIvqrixw/PeIR6KdO9jQL4fbBn/Hwz6bg1xU+wXQe+IdZXToSSl6XzPyiL4R6kLF3Akp6gKz3rAt9OG1D1BpevXOhip4VMRwlsDm83UaZ4MpDlZpi6ngHLSXyVt4OPvWS0RKk2rKSicZv27juA5ua/avNjMYudF3XaLx+4l1d7U27lFBKrvqjLjc4HOKE6k5IQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mVwJ0MA/uRI42LaqUoe5tL0U/CkUXP4P/dzj1eE3+d0=;
- b=JWqG63mDdy7dMUPkWLlQKxcKmoJEvb5sp5CYlRQHN9e6z89qbr2KutFbNeuzCi1SkfthUB8l/QM7xaZaIppdBs1rVPtpew85/6PlJjRTxD+naXHFeO0EBHIV6EKXYYZV8Lmj+oDuEDJjMSGC4cV7X+n99k2Y7W598oPz1Cyk2VJIoX+B2mhkiqkqXBxX07xDnXGX96kUWlltWygexwznrawqT1ZrNfusqkvYwxH5wwr5X1xmhoOe5ByEJXRKxAtEO+18syY0S9GQsOMxbe0oOhEHGJKBN8/3fsG8g5sDgW74jXOQImnZYAlFx9EGifLuuWsBI0gSLa2Zf0hyDtP7Lw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=axis.com; dmarc=pass action=none header.from=axis.com;
- dkim=pass header.d=axis.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mVwJ0MA/uRI42LaqUoe5tL0U/CkUXP4P/dzj1eE3+d0=;
- b=K7riUvnOAFXb8JcrX0+zBNbAeWNgxdSxW40o+9Yslwd6Sldt3Mh+HfA0Dx13FSslqANx7HYQ7xYhU+1VxrUWgmLEJQec1x7oqEsAyCRggbx4HOCT0eOZSL9pDfVkC0pa4EvarY39pEILSi0dIWvy/EQb4QBJ5K6iPnbwiB9j2zY=
-Received: from DB3PR0202MB9129.eurprd02.prod.outlook.com
- (2603:10a6:10:43a::19) by VI6PPFCAAB91F31.eurprd02.prod.outlook.com
- (2603:10a6:808:1::31e) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.11; Wed, 16 Sep
- 2026 09:23:10 +0000
-Received: from DB3PR0202MB9129.eurprd02.prod.outlook.com
- ([fe80::7510:e8c3:db37:47ff]) by DB3PR0202MB9129.eurprd02.prod.outlook.com
- ([fe80::7510:e8c3:db37:47ff%5]) with mapi id 15.21.0406.012; Wed, 16 Sep 2026
- 09:23:09 +0000
-From: Kanak Shilledar <Kanak.Shilledar@axis.com>
-To: "jic23@kernel.org" <jic23@kernel.org>, "macromorgan@hotmail.com"
-	<macromorgan@hotmail.com>
-CC: "dlechner@baylibre.com" <dlechner@baylibre.com>,
-	"joshua.crofts1@gmail.com" <joshua.crofts1@gmail.com>, Henrik Grimler
-	<Henrik.Grimler@axis.com>, "nuno.sa@analog.com" <nuno.sa@analog.com>,
-	"jean-baptiste.maneyrol@tdk.com" <jean-baptiste.maneyrol@tdk.com>,
-	"robh@kernel.org" <robh@kernel.org>, "marcelo.schmitt1@gmail.com"
-	<marcelo.schmitt1@gmail.com>, "andy@kernel.org" <andy@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "linux-iio@vger.kernel.org"
-	<linux-iio@vger.kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
-	Kernel <Kernel@axis.com>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>
-Subject: Re: [PATCH v3 3/8] iio: imu: inv_icm42607: Update _odr_to_period_us
- formatting
-Thread-Topic: [PATCH v3 3/8] iio: imu: inv_icm42607: Update _odr_to_period_us
- formatting
-Thread-Index: AQHdOh8+vJmnkD0Wck+bckYe0CECObbCY36AgA2VWgCAAQzZgA==
-Date: Wed, 16 Sep 2026 09:23:09 +0000
-Message-ID: <0eff05d9e2769d44f1cea8c874d2d0e39df1b2e5.camel@axis.com>
-References: <20260901-b4-inv_icm42370p-v3-0-77cc31642115@axis.com>
-	 <20260901-b4-inv_icm42370p-v3-3-77cc31642115@axis.com>
-	 <178874609181.3402141.11177384276502703798.b4-review@b4>
-	 <PH0PR19MB997338A79A8E6DEE464AC775E3A5BA2@PH0PR19MB997338.namprd19.prod.outlook.com>
-In-Reply-To:
- <PH0PR19MB997338A79A8E6DEE464AC775E3A5BA2@PH0PR19MB997338.namprd19.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: yes
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=axis.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DB3PR0202MB9129:EE_|VI6PPFCAAB91F31:EE_
-x-ms-office365-filtering-correlation-id: 0787a173-d578-4ea0-5ae2-08df13d41f8e
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|7416014|376014|366016|23010399003|6049299003|4053099003|3613699012|38070700021|10067099003|56012099006|11063799006|4143699003|22082099003|10063799003|18002099003;
-x-microsoft-antispam-message-info:
- nfeliCy49TM7CnVRvMDb1/cRCesLwFCYtYCdnrmkXPq7jn9hr6U+lg9LavcxN6D8HQuAtkbJqFnKWyvsg3s1QsWeXkob2v2i4rpMASqWzSrGHcnvEPfLh+DBPbtHMUa2ii1zhNEB5+AgSidWVE+siEK0mdoeXl5M2cjzOrlJjWSfTzU12C9xFnzZVOLE3c4meDv6uq6GUYX+RPvvpBwD6wV3FI5f6+Iz4ms6d3AL3lsX4itHLaloJYVAef5Uexg9Ua4QGft05z5YKQoKbL62We9Ys2N3MfxBvHxkmLMXORXdwaiL/v2blG7ORNm1mgZilfIoONiaR3TyjRG/SfYHG3A4ezCiafdTQ8wEUNFVvH6IdwJOOPsCgQULphvSkw16OtqqQ781KxV3lQy7RSxiT6WwbQ8fw0pK/q4K0lNAkxwPPp6Q+hjUorCrBBFBU6EruAVQGUK7swf95T+j6a+94qzpd+5m7Lfc6qaozf76N0jkeZcEtzZkTNRayXyxgSC5cNX2+myL7s1YPbcFNkgueAHP/icq6I+Wp6dwl8bsGnFiw2qHOUxigQtr2HRZYByf0CVYBBYkFFGcVnEfNNHCsIk2bO5jPFE+EbcV/pCvHjZD2HRKKldB1HQOEYEbogqX3N3ddpUiyTfC33kkOQv/FTiWlAMKAD0Qksjj3Kvt0Rr93jTdxrApVZS3SUBH5Qb88/Fgn8paCCSUq1QVx0SaTsZ3K+UaRNmAjRhftHAzSlYAvxbsPWTNS7SG2+YkDvsW
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB3PR0202MB9129.eurprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(23010399003)(6049299003)(4053099003)(3613699012)(38070700021)(10067099003)(56012099006)(11063799006)(4143699003)(22082099003)(10063799003)(18002099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?VmMwNmZPRlY4dzNrWGZ2TFVyRWFGdmkxd2ZUMlBCYnp5dVFLSDMzaENIWFJp?=
- =?utf-8?B?Wm9aNElqY3RZMklOdU9vMkJ2Nkg0dEFIb0JSTWNhSUxwMFZ2QW94c0FLV2FZ?=
- =?utf-8?B?OFRjRFc5clRxaEQwR0wxY1pacTdWcmxONkxTTndhOWE2ZzlPUzF1ZGFUOE5B?=
- =?utf-8?B?dVFGZHpBMStZTzZvUkdYdEdTZTJuWUE1aXh3NUpKWlExTFJsMGVLMmxkdnIv?=
- =?utf-8?B?bkpsVTA1eXdSdnNaajMvRS9mQ3hTUzhjTHRKeVd2U2NCMFRiNFVJcUtoZUo2?=
- =?utf-8?B?UWg1L3JOZFNBVGJMV295SFAyK3NwWERnbUsva080Y3dDUjczamFLRnNwUW5h?=
- =?utf-8?B?NDc4NXhxQjR1K0c0NVNRRUVPV1I2MzBrOG92UXRtWUc1aDFpUk9xMWFkditV?=
- =?utf-8?B?WkN0V3JpSWVZZFFVUENDcEFuNjZ3Q244U1RyQjdUbUhDajBJZlhiSll3TnZs?=
- =?utf-8?B?TzBkL0dUOU1ZOWEvY2Vhek9JY0hJTlUyUU9rSzRFMjMrNys5UUpvZXNmdjYx?=
- =?utf-8?B?aFhEelVKMTdETDR3RWhuUVNSZGE5ak1MeE9maUlzUmZXYUVCaEk1OEJPTVF1?=
- =?utf-8?B?cm9Dd1oveFRSQ0hhQ3dmTTM2Qm51QVNQelpVVmpNcDV4Vkowbm5VUFV4Uklr?=
- =?utf-8?B?OUhka3R5cVRRY1hmMGcreHc2S2gwNThQbkt0QmVoMHZKNnI5ZGdFbWNIOUEx?=
- =?utf-8?B?NTBCQWNBa3hLVGlWazNjN1BLUFNzRzhSMys3ZjRRR0tsMWJ6Z3dZQi9EVHlR?=
- =?utf-8?B?bGZvbXJQNXpxQ0d3UjgrTjhLUkVrM20zMGw4V2VxdldubHk2NVlsVUhFWXBk?=
- =?utf-8?B?ZlNjWFNNSnVzOUROSmdXSm5VbUJHNk8yRnhLdDlMWUh3Nktya0tkUWIxaEFV?=
- =?utf-8?B?Z3dmdFg4ZGs0a2xRNzJWemZ1VERCaUpvTGl2d3ZRWlBLQUZDNDdrQWIxa09U?=
- =?utf-8?B?ZnJiRkduZEhFajhhNjlwamJUQTZBSlEzNzVDNmQ0QVJJUVdSdThZMjUxM29y?=
- =?utf-8?B?QlZ3UUkvVW9SV1N5YlRRc3NJNUpDRkVMR1crM0xFcC8vaG1pa25HRkpYazMx?=
- =?utf-8?B?NUxsZzRCTVZMQWN4R3Z2ZjNvUFAvTEFuVzJOaDZHSXFONkhOTTQ2ZW1UMWdt?=
- =?utf-8?B?R2R4V0FMZWRwaXlFNlRSNi9aMlRiTEtvakZRZHJOUkx5QUNxZXEvaENiNERx?=
- =?utf-8?B?dXJwdEdMVFR6MlNIcUVHbjJxdXhVUHNCVHZTeWFYdkVTRS9NeVZXMHF0M29x?=
- =?utf-8?B?b25TYU1Nd1hoWUZOOStldENFYThqZE12TXpMZDVqeUZXMlZoamNkaXFhbUJT?=
- =?utf-8?B?VDh4a1IrdkkxRFRSYWdEVUdUSlhrb0tvekphMkIzMmZBek02WXd6R2diQWY0?=
- =?utf-8?B?bkhBUHdMNEdNWlcrVmowTDJJSVRwVUJjT08rbnRtU2FJVkxwUktNZCtEaElD?=
- =?utf-8?B?Yk5BaUtMc2RNVVM3bDQzb3ZsR0Q3QzRWMlNSd002WUc3cmhwV09DN0lIUGdC?=
- =?utf-8?B?UzdhZm96ZEZDSThCMHdHakZON2ovaENpNXZQVDgzTng3WVQvbmpIbTI1WHVp?=
- =?utf-8?B?YXpZTDZjUC9xbFYwd3FJUjhBV3BSanplWjQ0SnJVUUdKY2NITWVQV2hscE9E?=
- =?utf-8?B?eWJ4Zk81U3lxLzBHQlNNVlRURVlIY3lERytRODdINUFPQUFOeTlFQ2NzUEJ3?=
- =?utf-8?B?YzRkSzdZSnBmV3lUc2tMcDBsUWx3QlIxSlo0ZUl3WkZ5VmpZVFlWU25hMGlv?=
- =?utf-8?B?WGd0YTFYNllRVXlTYzF6RUtZM2lQclFVU2FCUGk0NzZvcU5UOGNOY0E1RkJy?=
- =?utf-8?B?UHNQMXJPU2poanREais5QkF1b2twWGZwS25IclhsSGhaZkN0TG12UG1yVHZ5?=
- =?utf-8?B?VjNLMUYvZE83cEVPbS9xTVEvcmhIRFhBMnJtWjNrc3FETEFKRGQ1NDVGZXJ1?=
- =?utf-8?B?N1A1eS9TaGdyd2xhT2dKTFpZMm5GRXJndmN4OW03bzgxVGVrYnZ6N29zSUdt?=
- =?utf-8?B?RzRaeGFCZFV2L0Z1QzFZVmVXeTdHdnJqY3RLTVVDYno1L2JKRkV5aXFZZTVk?=
- =?utf-8?B?cVlhTkVYTUNjU0ZMY0ppZFJaOFd1Umd2TjE2VzJ1blhTNzdIWmpHczR1blVM?=
- =?utf-8?B?WnFZU0s1d0RQTkFxaklrTnkzbWUwVG9ZV1VzcXczUUk0WkcvZkg2RVlNME01?=
- =?utf-8?B?RzliV1BPVjB0cnZ0a1d3WkxUeEM5V29yVHlhcnJBWmhQQk1scVZwbUNLSnV0?=
- =?utf-8?B?RXZGZisyMGpoRHdhY1MyTldIaFVhN3RScGxIaWFJL1FiekpGK1VHajdCdWF4?=
- =?utf-8?B?S3M3Wmp3Y2J5dTN1bFlNQ25WUHRCYjRrMEdqcmpzTTM3ZlVaZWh6dz09?=
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="=-c3w1G4RVxugM7B4qQq6A"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B72l6WtU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 911AA1F008A7
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 09:23:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789550609;
+	bh=8y1oxDA3Zy9NWOoBvZCFqDaZfIYjK92V//s3NXF9nW8=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=B72l6WtUyZlmC55w0Cn4FiftTPNmuFNftMahr1iTQQBG4ZVsbSn0gAJNgiTuSQ+LL
+	 s8iSQoFDJrPerRuoITrYSEw5/F4kI8eWfSUtx/N0lhsvuCXAuTBv8dPvsSZHG+E/yj
+	 CXcYrpf2of49P+clI/5/0doxNKm13SRLmF/RPfAg0LDNGqkyorjBFDAThmIC5Mr68u
+	 Kc52OpQzbVKhtWMys5E0Oilcb/8UQienLFHaVvFMO7GIvy2vyq9GdB3nmzcr7YlarR
+	 7KkfKw9o12b7n5hNbcahM/++69+gwUZduQlFLedBB8X9ZtR8gONAaoH2Q1oQSnOgJt
+	 iF9v0mj4TPlKQ==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f15b78so710183e87.2
+        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 02:23:29 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzQ99cSZdkUHcEwY1Lw08OZrHWbFWdLpFRweFFK+LTP1SiQk/3xjmWfM4kzbMEfAINCKt1b/4X4LYcx@vger.kernel.org
+X-Gm-Message-State: AFuF++mOV4TLu8z/QqPu1UmNtAcoB0VstKLr5Rc2IiaxEFtS6K45tRmk
+	viuiWx6LIj5K1mZXeUXmT47r3loKVJLsWUXH1NKQkbTCF0UkavRullRnP0XFWABykkxR1vU5tUT
+	gnEWbhT1h5vQNNW8ozW5SFzghuq7MsYqoxgkST8dXwA==
+X-Received: by 2002:a05:6512:1151:b0:5ae:bd5e:95f7 with SMTP id
+ 2adb3069b0e04-5b8b660ab6bmr1012067e87.4.1789550608110; Wed, 16 Sep 2026
+ 02:23:28 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 16 Sep 2026 04:23:26 -0500
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 16 Sep 2026 04:23:26 -0500
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260914-arm-psci-system_reset2-vendor-reboots-v25-6-4aaf5c09b5c2@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: axis.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DB3PR0202MB9129.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0787a173-d578-4ea0-5ae2-08df13d41f8e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Sep 2026 09:23:09.2674
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 78703d3c-b907-432f-b066-88f7af9ca3af
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: eTLzw5dg/ghVhYcCiwgGqdmG7Jh6wbU8jDOkDPwj8Q3sBH3XLNhFIv8oMpXvfVfT
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI6PPFCAAB91F31
-
---=-c3w1G4RVxugM7B4qQq6A
+References: <20260914-arm-psci-system_reset2-vendor-reboots-v25-0-4aaf5c09b5c2@oss.qualcomm.com>
+ <20260914-arm-psci-system_reset2-vendor-reboots-v25-6-4aaf5c09b5c2@oss.qualcomm.com>
+Date: Wed, 16 Sep 2026 04:23:26 -0500
+X-Gmail-Original-Message-ID: <CAMRc=MdpuRhbCXZd1xkRH4Rs4g=iGRa1oaeN6vcmP3CjcJpydA@mail.gmail.com>
+X-Gm-Features: AcwNN1UsWFiQdwj37p9YrE8LwqI5EWZQm-VOsqh34gtu3xJhOe-g-SrOqENvLgQ
+Message-ID: <CAMRc=MdpuRhbCXZd1xkRH4Rs4g=iGRa1oaeN6vcmP3CjcJpydA@mail.gmail.com>
+Subject: Re: [PATCH v25 06/10] power: reset: Add psci-reboot-mode driver
+To: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>, Andre Draszik <andre.draszik@linaro.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>, linux-pm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	mfd@lists.linux.dev, Srinivas Kandagatla <srini@kernel.org>, 
+	Ulf Hansson <ulf.hansson@oss.qualcomm.com>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Bjorn Andersson <andersson@kernel.org>, Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Souvik Chakravarty <Souvik.Chakravarty@arm.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Andy Yan <andy.yan@rock-chips.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
+	Mark Rutland <mark.rutland@arm.com>, Conor Dooley <conor+dt@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, John Stultz <john.stultz@linaro.org>, 
+	Moritz Fischer <moritz.fischer@ettus.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Daniel Lezcano <daniel.lezcano@kernel.org>, Christian Loehle <christian.loehle@arm.com>, 
+	Lee Jones <lee@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
+	Pavan Kondeti <pavan.kondeti@oss.qualcomm.com>, Abel Vesa <abelvesa@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Sudeep Holla <sudeep.holla@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Chris,
+On Mon, 14 Sep 2026 16:59:10 +0200, Shivendra Pratap
+<shivendra.pratap@oss.qualcomm.com> said:
+> PSCI supports different types of resets like SYSTEM_RESET, SYSTEM_RESET2
+> ARCH WARM reset and SYSTEM_RESET2 vendor-specific resets. Currently
+> there is no common driver that handles all supported psci resets at one
+> place. Additionally, there is no common mechanism to issue the supported
+> psci resets from userspace.
+>
+> Add psci-reboot-mode as an auxiliary device created by the psci-devices
+> driver. Define two types of PSCI resets, predefined-resets and
+> vendor-specific resets.  Predefined-resets are defined by psci driver
+> and vendor-specific resets are defined by SoC vendors, under the
+> psci:reboot-mode node of SoC device tree.
+>
+> Register the driver with the reboot-mode framework to interface these
+> resets to userspace. When userspace initiates a supported command, pass
+> the reset arguments to the PSCI driver to enable command-based reset.
+>
+> This change allows userspace to issue supported PSCI reset commands
+> using the standard reboot system calls while enabling SoC vendors to
+> define their specific resets for PSCI.
+>
+> Suggested-by: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+> Suggested-by: Lee Jones <lee@kernel.org>
+> Suggested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> Signed-off-by: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+> ---
+>  MAINTAINERS                            |   1 +
+>  drivers/firmware/psci/psci-devices.c   |  71 +++++++++++++++++++++-
+>  drivers/power/reset/Kconfig            |  10 ++++
+>  drivers/power/reset/Makefile           |   1 +
+>  drivers/power/reset/psci-reboot-mode.c | 104 +++++++++++++++++++++++++++++++++
+>  5 files changed, 185 insertions(+), 2 deletions(-)
+>
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 9c0334ee2ed2..1c0f111ba197 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -21933,6 +21933,7 @@ S:	Maintained
+>  F:	Documentation/devicetree/bindings/arm/psci.yaml
+>  F:	drivers/firmware/psci/
+>  F:	drivers/firmware/psci/psci-devices.c
+> +F:	drivers/power/reset/psci-reboot-mode.c
+>  F:	include/linux/psci.h
+>  F:	include/uapi/linux/psci.h
+>
+> diff --git a/drivers/firmware/psci/psci-devices.c b/drivers/firmware/psci/psci-devices.c
+> index f1eca61e3269..43e6743202f9 100644
+> --- a/drivers/firmware/psci/psci-devices.c
+> +++ b/drivers/firmware/psci/psci-devices.c
+> @@ -4,19 +4,86 @@
+>   */
+>
+>  #include <linux/auxiliary_bus.h>
+> +#include <linux/device.h>
+>  #include <linux/init.h>
+>  #include <linux/of.h>
+>  #include <linux/platform_device.h>
+> +#include <linux/psci.h>
+> +#include <linux/slab.h>
+> +
+> +static void arm_psci_auxiliary_device_release(struct device *dev)
+> +{
+> +	struct auxiliary_device *auxdev = to_auxiliary_dev(dev);
+> +
+> +	of_node_put(dev->of_node);
+> +	kfree(auxdev);
+> +}
+> +
+> +static struct auxiliary_device *
+> +arm_psci_auxiliary_device_create(struct device *dev, const char *devname,
+> +				 struct device_node *np)
+> +{
+> +	struct auxiliary_device *auxdev;
+> +	int ret;
+> +
+> +	auxdev = kzalloc_obj(*auxdev);
+> +	if (!auxdev)
+> +		return NULL;
+> +
+> +	auxdev->id = 0;
+> +	auxdev->name = devname;
+> +	auxdev->dev.parent = dev;
+> +	auxdev->dev.release = arm_psci_auxiliary_device_release;
+> +
+> +	if (np)
+> +		device_set_node(&auxdev->dev, of_fwnode_handle(of_node_get(np)));
+> +
+> +	ret = auxiliary_device_init(auxdev);
+> +	if (ret) {
+> +		of_node_put(auxdev->dev.of_node);
+> +		kfree(auxdev);
+> +		return NULL;
+> +	}
+> +
+> +	ret = __auxiliary_device_add(auxdev, "arm-psci");
+> +	if (ret) {
+> +		auxiliary_device_uninit(auxdev);
+> +		return NULL;
+> +	}
+> +
+> +	ret = devm_add_action_or_reset(dev, auxiliary_device_destroy, auxdev);
+> +	if (ret)
+> +		return NULL;
+> +
+> +	return auxdev;
+> +}
+>
+>  static int arm_psci_probe(struct platform_device *pdev)
+>  {
+>  	struct auxiliary_device *auxdev;
+> +#ifdef CONFIG_PSCI_REBOOT_MODE
+> +	struct device_node *reboot_mode_np = NULL;
+> +#endif
+>
+> -	auxdev = __devm_auxiliary_device_create(&pdev->dev, "arm-psci",
+> -						"psci-cpuidle-domain", NULL, 0);
+> +	auxdev = arm_psci_auxiliary_device_create(&pdev->dev,
+> +						  "psci-cpuidle-domain",
+> +						  pdev->dev.of_node);
+>  	if (!auxdev)
+>  		return -ENOMEM;
+>
+> +#ifdef CONFIG_PSCI_REBOOT_MODE
+> +	if (psci_has_system_reset2_support())
+> +		reboot_mode_np = of_get_child_by_name(pdev->dev.of_node,
+> +						      "reboot-mode");
+> +
+> +	auxdev = arm_psci_auxiliary_device_create(&pdev->dev,
+> +						  "psci-reboot-mode",
+> +						  reboot_mode_np);
+> +	of_node_put(reboot_mode_np);
+> +	if (!auxdev)
+> +		dev_warn(&pdev->dev, "failed to create PSCI reboot mode device\n");
+> +#endif
+> +
+>  	return 0;
+>  }
+>
+> diff --git a/drivers/power/reset/Kconfig b/drivers/power/reset/Kconfig
+> index bce996bbef28..5c349f41e097 100644
+> --- a/drivers/power/reset/Kconfig
+> +++ b/drivers/power/reset/Kconfig
+> @@ -360,6 +360,16 @@ config NVMEM_REBOOT_MODE
+>  	  then the bootloader can read it and take different
+>  	  action according to the mode.
+>
+> +config PSCI_REBOOT_MODE
+> +	bool "PSCI reboot mode driver"
+> +	depends on ARM_PSCI_DEVICES
+> +	select REBOOT_MODE
 
-On Tue, 2026-09-15 at 12:20 -0500, Chris Morgan wrote:
-> [Some people who received this message don't often get email from
-> macromorgan@hotmail.com. Learn why this is important at
-> https://aka.ms/LearnAboutSenderIdentification=C2=A0]
->=20
-> On Mon, Sep 07, 2026 at 02:54:51AM +0100, Jonathan Cameron wrote:
-> > > Update the function formatting for the
-> > > inv_icm42607_odr_to_period_us
-> > > function. This enhances the readability of the function and drop
-> > > the
-> > > unnecessary comments in the array elements.
-> > The description doesn't mention the change I don't think is
-> > beneficial.=C2=A0 Which makes it even easier to drop that change.
-> >=20
-> > Thanks,
-> >=20
-> > Jonathan
-> >=20
-> > >=20
-> > > Signed-off-by: Kanak Shilledar <kanak.shilledar@axis.com>
-> > >=20
-> > > diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607.h
-> > > b/drivers/iio/imu/inv_icm42607/inv_icm42607.h
-> > > index 4d51b0da1aa1..fa85cf738cc0 100644
-> > > --- a/drivers/iio/imu/inv_icm42607/inv_icm42607.h
-> > > +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607.h
-> > > @@ -62,16 +62,16 @@ enum inv_icm42607_accel_fs {
-> > > =C2=A0/* ODR values=C2=A0 - Note Gyro does not support ODR less than =
-12.5Hz
-> > > */
-> > > =C2=A0enum inv_icm42607_odr {
-> > > =C2=A0=C2=A0=C2=A0 INV_ICM42607_ODR_1600HZ =3D 5,
-> > > -=C2=A0=C2=A0 INV_ICM42607_ODR_800HZ =3D 6,
-> > > -=C2=A0=C2=A0 INV_ICM42607_ODR_400HZ =3D 7,
-> > > -=C2=A0=C2=A0 INV_ICM42607_ODR_200HZ =3D 8,
-> > > -=C2=A0=C2=A0 INV_ICM42607_ODR_100HZ =3D 9,
-> > > -=C2=A0=C2=A0 INV_ICM42607_ODR_50HZ =3D 10,
-> > > -=C2=A0=C2=A0 INV_ICM42607_ODR_25HZ =3D 11,
-> > > -=C2=A0=C2=A0 INV_ICM42607_ODR_12_5HZ =3D 12,
-> > > -=C2=A0=C2=A0 INV_ICM42607_ODR_6_25HZ_LP =3D 13,
-> > > -=C2=A0=C2=A0 INV_ICM42607_ODR_3_125HZ_LP =3D 14,
-> > > -=C2=A0=C2=A0 INV_ICM42607_ODR_1_5625HZ_LP =3D 15,
-> >=20
-> > Why?=C2=A0 We often put all the values when they are mapping to hardwar=
-e
-> > register values simply because it makes them easier to compare to
-> > a datasheet.
-> >=20
-> > --
-> > Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
->=20
-> Just to provide context, the only reason I chose the byte order I did
-> is because that's how the existing icm42600 driver did it. I'm not
-> opposed to changing it especially if it simplifies things or makes
-> sense, but if we're going to do it now's the time (as the only
-> current
-> consumer of this driver is the rk3568 based anbernic-rg-ds and the
-> rk3576 based anbernic-vita-pro).
+Needs: select AUXILIARY_BUS
 
-I have dropped this change in my upcoming v4 of this patchset. It can
-be fixed, but I think it should done be in a separate patch not part of
-this series.
+> +	help
+> +	  Say y here to enable the PSCI reboot mode driver. The driver
+> +	  registers with the reboot-mode framework to configure PSCI
+> +	  reset commands, which are executed by the PSCI driver during
+> +	  psci_sys_reset().
+> +
+>  config POWER_MLXBF
+>  	tristate "Mellanox BlueField power handling driver"
+>  	depends on (GPIO_MLXBF2 || GPIO_MLXBF3) && ACPI
+> diff --git a/drivers/power/reset/Makefile b/drivers/power/reset/Makefile
+> index e31cab4ba78e..45d8aaaffaa1 100644
+> --- a/drivers/power/reset/Makefile
+> +++ b/drivers/power/reset/Makefile
+> @@ -41,5 +41,6 @@ obj-$(CONFIG_REBOOT_MODE) += reboot-mode.o
+>  obj-$(CONFIG_SYSCON_REBOOT_MODE) += syscon-reboot-mode.o
+>  obj-$(CONFIG_POWER_RESET_SC27XX) += sc27xx-poweroff.o
+>  obj-$(CONFIG_NVMEM_REBOOT_MODE) += nvmem-reboot-mode.o
+> +obj-$(CONFIG_PSCI_REBOOT_MODE) += psci-reboot-mode.o
+>  obj-$(CONFIG_POWER_MLXBF) += pwr-mlxbf.o
+>  obj-$(CONFIG_POWER_RESET_QEMU_VIRT_CTRL) += qemu-virt-ctrl.o
+> diff --git a/drivers/power/reset/psci-reboot-mode.c b/drivers/power/reset/psci-reboot-mode.c
+> new file mode 100644
+> index 000000000000..bf2dd6626feb
+> --- /dev/null
+> +++ b/drivers/power/reset/psci-reboot-mode.c
+> @@ -0,0 +1,104 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +#include <linux/array_size.h>
+> +#include <linux/auxiliary_bus.h>
+> +#include <linux/device.h>
 
-Thanks and Regards,
-Kanak Shilledar
+[
 
+> +#include <linux/errno.h>
+> +#include <linux/init.h>
+> +#include <linux/kconfig.h>
 
---=-c3w1G4RVxugM7B4qQq6A
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+]
 
------BEGIN PGP SIGNATURE-----
+Why are you including these?
 
-iHUEABYKAB0WIQTOMrdbv2P+LZwbQtLEY9j7t8KaZwUCaqpf9QAKCRDEY9j7t8Ka
-ZwzdAQCR7aY9mvMJd0YkZ7BAIiAUu4VSdgkikPEIq0vQS7izoQEA2/XAA7XsVfVw
-zveZaFjLa4wWS4pMFFwjfhgxB6zsxAQ=
-=SglO
------END PGP SIGNATURE-----
-
---=-c3w1G4RVxugM7B4qQq6A--
+Bart
