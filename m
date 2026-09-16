@@ -1,137 +1,145 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5865443D51E
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 07:17:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 346EA43DEA4;
+	Wed, 16 Sep 2026 07:17:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789543059; cv=none; b=JPGaqBOJAicnkDbRo6jBWFp4RKRZ+VFeEWASGu80/d/fohMYmRdHkwbwb7iddI/+UOcB80zOOfEFhHhR+Skg1SjgETGzmTu4x24VCmOlyef+BOfg1iG4wZ4EuwNCoYgedRJ1MaPSxZu7V7c5DWKyB1/JCM9TkYtGVqop3BGeB/0=
+	t=1789543061; cv=none; b=jAvsG3kxmcLjX+jmO/J7HN+5Kb7wO6mFAyMxGIF0ruI03eozsyJg5GaCDajWqWnRTKJWFTUg5WvYOrDP1QaIGodJeASUTMOoZ/28Aj1rybzLWdmCFHyossKIAhpq1mglEqRUiD5rwFuYAa2sVpFwJGlu4c7KhrXwDaKdfTThpUk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789543059; c=relaxed/simple;
-	bh=NmfTorG6JVpIJFzytaD6ZeQ9avNSPqXZwe308hn+vMs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=NeHvIHSefINEidN4g2Vgti/hrweAMEPFrG/DU6AHMPEsc+zaTSSlkZiYNYbi3T2jXYwIJguL+up+Vg9FkJohlABNV3S0TPF7fqMrKxAPFz52uqXQMnwu2ZUtUvqEQRQ+Dj6LB9uHn5giyzsguPEWzyex+nIPrsQH/YjtsKVDTIA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k7/Mm7dV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789543061; c=relaxed/simple;
+	bh=TQScnIW64PYSTPMRBWQYz0P422qGpCMWapcTGy9MRUk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OUmR+oZvH6m0qp0Pypz1tL6sKfunYaImsgyBzIcQzheamj5HjfIMMAECira3uUtT0OBXA7D0PauHUefVIxEP4DJQONkokpQbdKeuclJNw43NVR3kN+2E2Tt9nMtzes3opSGOCa1b88QkjZIMKOVUCmObcRLOZdFvkLtQcbydQT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JN4Ej6+R; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k7/Mm7dV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DE1E1F00893;
-	Wed, 16 Sep 2026 07:17:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JN4Ej6+R"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4407D1F000FF;
+	Wed, 16 Sep 2026 07:17:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789543055;
-	bh=hca6qlN0xG1kIjyBog37y2qFhd0a9XvurL53zkwuwi0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=k7/Mm7dVt5zYYTPipOh999z1bV3kgJyZyr7dUj7JJY59Sw/QekkosBvVH2CICd5FW
-	 NMBdpl6ws26ombciDhWU02rTrMEEGV8q+dK6SYvBTcVoHZEZXRswQm+MgqfCzJUoQF
-	 xmL242H7I+KCzAZvgav6AyczM+NtOMtsvAGNX2ahIDki3RdZMu4ckayiAbIXklYmIV
-	 XSlgYXFwOOItL/lJ9PiPQr0cijh3MqLEqhRNluOFnZP8h04NS8S6micmgYDoxRCQCY
-	 WL0Uq6kLlJyZGZxvG/xigZjGAj5FkPE+10OWKZxZ7dLD++MS9Lw0XHtRltUXOkNOV8
-	 2DOGl1vp9rRPQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v19 5/8] regulator: p3h2x4x: Add driver for on-die
- regulators in NXP P3H2x4x i3c hub
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Lakshay Piplani" <lakshay.piplani@nxp.com>
-Cc: linux-i3c@lists.infradead.org, Frank.Li@kernel.org, "Alexandre Belloni" <alexandre.belloni@bootlin.com>, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260916070728.1088801-6-lakshay.piplani@nxp.com>
-References: <20260916070728.1088801-1-lakshay.piplani@nxp.com>
- <20260916070728.1088801-6-lakshay.piplani@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 16 Sep 2026 07:17:34 +0000
-Message-Id: <20260916071734.8DE1E1F00893@smtp.kernel.org>
+	bh=Q0y577wAh41kaq34lv6/ls7nb8OYGlN0LYNbndS0JPs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JN4Ej6+RR/wVhUNUe1kT4SmVWrJns2s6cQ6moA0yeLD9Z1ZUgtIn2vcjZ2b1yoahy
+	 Ddin0SQBxk32wt2xNs9VSNEC8xMtOz3VEpslI6cPhc7JSsLEWABndE97+K72RTWktb
+	 bddB76A5hYEJThTic/65VkZmOH2xEJhmqlJWCY0KIPKZGOa6hccBCx6pNS8i5KWO7g
+	 H8mB1piI97QK2wfy1g3ALoxvXXONleiJZrb5nIlltHwwHxnqHmVcRufaEiYlyfUiQ4
+	 NXSvnSnyfwwNFY5GOXfRVRMXs1B+K9SE0jUVnpPgQab3msu4Mb9+fHgyCRZy9jshGg
+	 GlW5/8RBPaPQA==
+Date: Wed, 16 Sep 2026 09:17:31 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Kendall Willis <k-willis@ti.com>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, msp@baylibre.com, s-kochidanadu@ti.com, a-kaur@ti.com, 
+	s-tripathi1@ti.com, vishalm@ti.com, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: input: gpio-keys: add pinctrl states
+Message-ID: <20260916-dancing-loud-guan-fbb1eb@quoll>
+References: <20260912-upstream-gpio-wakeup-v1-0-f0e12484b836@ti.com>
+ <20260912-upstream-gpio-wakeup-v1-1-f0e12484b836@ti.com>
+ <20260914-unbreakable-competent-beluga-efb5ad@quoll>
+ <20260915164819.nlgpuvf37rhzgc66@uda0506412>
+ <dec4f6e1-115e-46dd-8fb9-a3c67f1a8811@kernel.org>
+ <da881fb0-93da-4d75-88da-8898b2c734eb@kernel.org>
+ <20260915174103.ad6tjy6w6s24h2yc@uda0506412>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260915174103.ad6tjy6w6s24h2yc@uda0506412>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] regulator: p3h2x4x: unused fields and dead code in driver data
-- [Low] mfd: driver-specific header placed in global include/linux/mfd/ dir=
-ectory
---
+On Tue, Sep 15, 2026 at 12:41:03PM -0500, Kendall Willis wrote:
+> On 19:07-20260915, Krzysztof Kozlowski wrote:
+> > On 15/09/2026 19:05, Krzysztof Kozlowski wrote:
+> > > On 15/09/2026 18:48, Kendall Willis wrote:
+> > >> On 12:13-20260914, Krzysztof Kozlowski wrote:
+> > >>> On Sat, Sep 12, 2026 at 04:33:53PM -0500, Kendall Willis wrote:
+> > >>>> Document pinctrl properties on the gpio-keys device node. By using the
+> > >>>> wakeup pinctrl state, the pins are able to wakeup the system from a
+> > >>>> low-power state. The default pinctrl state describes the default pin
+> > >>>> configuration.
+> > >>>>
+> > >>>> Signed-off-by: Kendall Willis <k-willis@ti.com>
+> > >>>> ---
+> > >>>>  Documentation/devicetree/bindings/input/gpio-keys.yaml | 16 ++++++++++++++++
+> > >>>>  1 file changed, 16 insertions(+)
+> > >>>>
+> > >>>> diff --git a/Documentation/devicetree/bindings/input/gpio-keys.yaml b/Documentation/devicetree/bindings/input/gpio-keys.yaml
+> > >>>> index cc78c2152921308fe0cad3e29ca78a5fad08f066..b554933e93412d8b6c2ec401dc1e1eeff57d4190 100644
+> > >>>> --- a/Documentation/devicetree/bindings/input/gpio-keys.yaml
+> > >>>> +++ b/Documentation/devicetree/bindings/input/gpio-keys.yaml
+> > >>>> @@ -22,6 +22,22 @@ properties:
+> > >>>>  
+> > >>>>    poll-interval: true
+> > >>>>  
+> > >>>> +  pinctrl-0:
+> > >>>> +    description: Default pinctrl state
+> > >>>> +
+> > >>>> +  pinctrl-1:
+> > >>>> +    description: Wakeup pinctrl state
+> > >>>> +
+> > >>>> +  pinctrl-names:
+> > >>>> +    description:
+> > >>>> +      When present should contain at least "default" describing the default pin
+> > >>>> +      states. The second state called "wakeup" describes the pins in their
+> > >>>> +      wakeup configuration required to exit sleep states.
+> > >>>> +    minItems: 1
+> > >>>> +    items:
+> > >>>> +      - const: default
+> > >>>> +      - const: wakeup
+> > >>>
+> > >>> This will introduce new warnings, which should be being fixed in this
+> > >>> patchset (e.g. at91-kizbox3-hs.dts).
+> > >>>
+> > >>
+> > >> Will fix the binding to work with current device trees.
+> > >>
+> > >>> But nevertheless, isn't second state the sleep state? How can you
+> > >>> configure pins for the wakeup state - like being in the wakeup? You
+> > >>> configure the pins for given state, which will be a system suspend, so
+> > >>> sleep?
+> > >>>
+> > >>
+> > >> The sleep state usually refers to putting the pins in a state to save
+> > >> power. The wakeup pinctrl state is for putting the pins in a state to
+> > >> allow wakeup from suspend for that device. Both 'sleep' and 'wakeup'
+> > >> are for system suspend, but they fill different functions. The CAN
+> > >> subsystem also uses the 'wakeup' state in addition to the 'sleep' state
+> > >> [1].
+> > > 
+> > > So you mean sleep would be a separate state? But then aren't both
+> > > exactly the same states? IOW, if device is wakeup-source, it will have
+> > > for "sleep" state pin configuration allowing to wakeup.
+> 
+> The 'sleep' and 'wakeup' pin states are both used for suspend. They
+> would just be used separately since only one could be used at a time.
+> The reason 'wakeup' is separated out is because it is more specific for
+> allowing wakeup from the device.
 
-commit 24a75a3dc0fb9f5c1adccf0bcd6a9d774397dc1c
-Author: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
+If they cannot be used together, then it is the same state.
 
-    regulator: p3h2x4x: Add driver for on-die regulators in NXP P3H2x4x i3c=
- hub
+We do not define pinctrl states as XOR of "active-high-drive-str" or
+"active-no-pull-up" or "active-whatever-other-mode", because these are
+defined by the actual values of pincfg of one, single "active" config.
 
-This commit adds a regulator driver for the on-die voltage regulators
-integrated in the NXP P3H2x4x i3c hub family. It registers the regulators
-via the MFD framework and standard regulator APIs.
+> 
+> > 
+> > And about CAN, I see no use of both sleep and wakeup:
+> > git grep pinctrl-names | grep wakeup
+> > 
+> > So if you use existing code as reason for this change, then existing
+> > code tells they are the same.
+> > 
+> 
+> Yes, as of now both are not being used at the same time. I was more
 
-> diff --git a/drivers/regulator/p3h2840_i3c_hub_regulator.c b/drivers/regu=
-lator/p3h2840_i3c_hub_regulator.c
-> new file mode 100644
-> index 0000000000000..244f2a4f70f38
-> --- /dev/null
-> +++ b/drivers/regulator/p3h2840_i3c_hub_regulator.c
-> @@ -0,0 +1,289 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright 2025-2026 NXP
-> + * NXP P3H2X4X regulator driver file contain functions for enable/disabl=
-e regulator
-> + * and voltage set/get.
-> + */
-> +#include <linux/bitfield.h>
-> +#include <linux/cleanup.h>
-> +#include <linux/mfd/p3h2840.h>
-           ^^^^^^^^^^^^^^^^^^^^^^^^^
+Then it is simply sleep.
 
-[Severity: Low]
-Is this driver-specific header used only by the parent and its immediate
-children?
+Best regards,
+Krzysztof
 
-The MFD subsystem guidelines state that driver-specific header files should=
- not
-be placed in the global include/linux/mfd/ directory if they are only used
-by the parent and its immediate children. Could this header be kept local to
-drivers/mfd/ instead?
-
-[ ... ]
-
-> +#define P3H2X4X_VCCIO_LDO_CONF					0x16
-> +#define P3H2X4X_CP0_VCCIO_LDO_VOLTAGE_MASK			GENMASK(1, 0)
-> +#define P3H2X4X_CP0_VCCIO_LDO_VOLTAGE(x)	\
-> +		FIELD_PREP(P3H2X4X_CP0_VCCIO_LDO_VOLTAGE_MASK, x)
-> +#define P3H2X4X_CP1_VCCIO_LDO_VOLTAGE_MASK			GENMASK(3, 2)
-> +#define P3H2X4X_CP1_VCCIO_LDO_VOLTAGE(x)	\
-> +		FIELD_PREP(P3H2X4X_CP1_VCCIO_LDO_VOLTAGE_MASK, x)
-> +#define P3H2X4X_TP0145_VCCIO_LDO_VOLTAGE_MASK			GENMASK(5, 4)
-> +#define P3H2X4X_TP0145_VCCIO_LDO_VOLTAGE(x)	\
-> +		FIELD_PREP(P3H2X4X_TP0145_VCCIO_LDO_VOLTAGE_MASK, x)
-> +#define P3H2X4X_TP2367_VCCIO_LDO_VOLTAGE_MASK			GENMASK(7, 6)
-> +#define P3H2X4X_TP2367_VCCIO_LDO_VOLTAGE(x)	\
-> +		FIELD_PREP(P3H2X4X_TP2367_VCCIO_LDO_VOLTAGE_MASK, x)
-
-[Severity: Low]
-Are the P3H2X4X_*_VCCIO_LDO_VOLTAGE() macros used anywhere?
-
-They appear to be defined using FIELD_PREP but never utilized in the driver
-code, adding unnecessary complexity.
-
-> +#define P3H2X4X_LDO_COUNT					4
-> +#define P3H2X4X_LDO_ENABLE_TIME_US				5000
-> +
-> +struct p3h2x4x_regulator_dev {
-> +	struct regulator_dev *rp3h2x4x_dev[P3H2X4X_LDO_COUNT];
-> +	struct p3h2x4x *p3h2x4x;
-> +	struct regmap *regmap;
-> +};
-
-[Severity: Low]
-Are the rp3h2x4x_dev and regmap fields needed in this structure?
-
-During p3h2x4x_regulator_probe(), these fields are populated but they don't=
- seem
-to be read anywhere on any subsequent execution path. For example, regmap a=
-ccess
-uses rdev->regmap directly from the regulator core. Could they be removed to
-reduce memory overhead and driver data payload complexity?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916070728.1088=
-801-1-lakshay.piplani@nxp.com?part=3D5
