@@ -1,280 +1,132 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A3B14A49BE
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 09:23:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB83948424E
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 09:23:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789550628; cv=none; b=Oh5bqIYSKOdKaUVbwQj+NH7Eo/lilwrhNtd5xS6HobvfhVLbSzapGzJNz8rIvTd+lBrHlQuljxaeHR6dopfNQasMFWdXeOEsmSuQ/YRb+ImVNlHQvVKyLyukYmNaGEt8TEJHCHQoqz0/nQaYxXFH21muwgfc26Rfti5yH2G4Suo=
+	t=1789550642; cv=none; b=e6zYCqI8AROmu6DmNjxWWqot1FT8MzNZyy0dcfbFy+usJTKAXmQ2sw+E0498yu+vZIxjlePv2oS7PbO2ImQ7YmpDPWOl50Sd/0ovt+zURQvwovA5f110LoWMDr0UfnM9R6BTZ7YD0/fBMBbArNvMlUn38bs17lDla3DGzgE0ke8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789550628; c=relaxed/simple;
-	bh=iaLKXS4GLLt0zuJVNlPY5s2ZWcrrZ/oNlHsKvhP4+cA=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=dP/bMWHOTmH6xuPZxqLsEumQ4fWkIRPDtJP+O7A7EiwbEbDLhCG2lCaX7Q3P1mPs+NcRXXCTCUGmASAc4h3USqVerE401X3ujFo5XMD20Hx92rEDDN3lVOsTycN72neKbgnkLUx9xYfL77vu2rteiZQ2dPAhHnDQ1M2guhE6dd4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B72l6WtU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789550642; c=relaxed/simple;
+	bh=pS/tgicH03XqLaNslX+BGWvqZxiu5+ORHezZ7RGsXlE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=At7q6bvAioajm4XYYB2GW3+THy0ePQ8ax/t8nJGFbr1s2lnkB9GkdKHIimPUt7F2RjCYlYZ5aKLEJe4tcgxP+tOL47BF+wWPtCYtcEM5C9t6IIuBUZZRA4FMrP5anIQL3aZIzg81PazFdgLUoyqVOfgDYbGpDvty9sh8FUlOTxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lzJ7Sv/8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B72l6WtU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 911AA1F008A7
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 09:23:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lzJ7Sv/8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAF721F000FF;
+	Wed, 16 Sep 2026 09:23:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789550609;
-	bh=8y1oxDA3Zy9NWOoBvZCFqDaZfIYjK92V//s3NXF9nW8=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=B72l6WtUyZlmC55w0Cn4FiftTPNmuFNftMahr1iTQQBG4ZVsbSn0gAJNgiTuSQ+LL
-	 s8iSQoFDJrPerRuoITrYSEw5/F4kI8eWfSUtx/N0lhsvuCXAuTBv8dPvsSZHG+E/yj
-	 CXcYrpf2of49P+clI/5/0doxNKm13SRLmF/RPfAg0LDNGqkyorjBFDAThmIC5Mr68u
-	 Kc52OpQzbVKhtWMys5E0Oilcb/8UQienLFHaVvFMO7GIvy2vyq9GdB3nmzcr7YlarR
-	 7KkfKw9o12b7n5hNbcahM/++69+gwUZduQlFLedBB8X9ZtR8gONAaoH2Q1oQSnOgJt
-	 iF9v0mj4TPlKQ==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f15b78so710183e87.2
-        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 02:23:29 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzQ99cSZdkUHcEwY1Lw08OZrHWbFWdLpFRweFFK+LTP1SiQk/3xjmWfM4kzbMEfAINCKt1b/4X4LYcx@vger.kernel.org
-X-Gm-Message-State: AFuF++mOV4TLu8z/QqPu1UmNtAcoB0VstKLr5Rc2IiaxEFtS6K45tRmk
-	viuiWx6LIj5K1mZXeUXmT47r3loKVJLsWUXH1NKQkbTCF0UkavRullRnP0XFWABykkxR1vU5tUT
-	gnEWbhT1h5vQNNW8ozW5SFzghuq7MsYqoxgkST8dXwA==
-X-Received: by 2002:a05:6512:1151:b0:5ae:bd5e:95f7 with SMTP id
- 2adb3069b0e04-5b8b660ab6bmr1012067e87.4.1789550608110; Wed, 16 Sep 2026
- 02:23:28 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 16 Sep 2026 04:23:26 -0500
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 16 Sep 2026 04:23:26 -0500
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260914-arm-psci-system_reset2-vendor-reboots-v25-6-4aaf5c09b5c2@oss.qualcomm.com>
+	s=k20260515; t=1789550626;
+	bh=gNZoWaHFW1go3sS19Kd/qH5XjsbUMWAO2WXSK04JdUc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=lzJ7Sv/8ulHHgioubYSAyd8Vg6uV5L7RwZHY7cNahMolxeT0bFRqbpUZfOvBJbiaX
+	 CxQdvVsNArNVf1pXt/j+u3pGm4u7x2VMTDmEL4XujtAuFc5GXw14zyWdq4T9E/Wzsj
+	 GSwezi+Lxaezp7ewTCRqtEx00CTg8L7uslE/XfNY629fvn1zYcxU26mx/ZDCv8jPUY
+	 Uy5bReVrPVoXx8FIZHMrxDLHoxBdP9tF+8Lmo3G7TBD8UML08uNgtym5ve5d0v7Ujt
+	 HCJwf592LF7JEzEdgRlrW5C4a3tLregnYXK95VEn7AnHB+PupivuJhq9rAobnSsU/Z
+	 VFi1wsg3hHcwQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/4] arm64: dts: qcom: shikra-cqs-evk: Enable display
+ and add ili7807s panel
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Nabige Aala" <nabige.aala@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260916-shikra-dt-changes-v4-2-d5d5c3ffe070@oss.qualcomm.com>
+References: <20260916-shikra-dt-changes-v4-0-d5d5c3ffe070@oss.qualcomm.com>
+ <20260916-shikra-dt-changes-v4-2-d5d5c3ffe070@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 16 Sep 2026 09:23:45 +0000
+Message-Id: <20260916092345.EAF721F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260914-arm-psci-system_reset2-vendor-reboots-v25-0-4aaf5c09b5c2@oss.qualcomm.com>
- <20260914-arm-psci-system_reset2-vendor-reboots-v25-6-4aaf5c09b5c2@oss.qualcomm.com>
-Date: Wed, 16 Sep 2026 04:23:26 -0500
-X-Gmail-Original-Message-ID: <CAMRc=MdpuRhbCXZd1xkRH4Rs4g=iGRa1oaeN6vcmP3CjcJpydA@mail.gmail.com>
-X-Gm-Features: AcwNN1UsWFiQdwj37p9YrE8LwqI5EWZQm-VOsqh34gtu3xJhOe-g-SrOqENvLgQ
-Message-ID: <CAMRc=MdpuRhbCXZd1xkRH4Rs4g=iGRa1oaeN6vcmP3CjcJpydA@mail.gmail.com>
-Subject: Re: [PATCH v25 06/10] power: reset: Add psci-reboot-mode driver
-To: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>, Andre Draszik <andre.draszik@linaro.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	mfd@lists.linux.dev, Srinivas Kandagatla <srini@kernel.org>, 
-	Ulf Hansson <ulf.hansson@oss.qualcomm.com>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Bjorn Andersson <andersson@kernel.org>, Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Souvik Chakravarty <Souvik.Chakravarty@arm.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Andy Yan <andy.yan@rock-chips.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
-	Mark Rutland <mark.rutland@arm.com>, Conor Dooley <conor+dt@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, John Stultz <john.stultz@linaro.org>, 
-	Moritz Fischer <moritz.fischer@ettus.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Christian Loehle <christian.loehle@arm.com>, 
-	Lee Jones <lee@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
-	Pavan Kondeti <pavan.kondeti@oss.qualcomm.com>, Abel Vesa <abelvesa@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Sudeep Holla <sudeep.holla@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 14 Sep 2026 16:59:10 +0200, Shivendra Pratap
-<shivendra.pratap@oss.qualcomm.com> said:
-> PSCI supports different types of resets like SYSTEM_RESET, SYSTEM_RESET2
-> ARCH WARM reset and SYSTEM_RESET2 vendor-specific resets. Currently
-> there is no common driver that handles all supported psci resets at one
-> place. Additionally, there is no common mechanism to issue the supported
-> psci resets from userspace.
->
-> Add psci-reboot-mode as an auxiliary device created by the psci-devices
-> driver. Define two types of PSCI resets, predefined-resets and
-> vendor-specific resets.  Predefined-resets are defined by psci driver
-> and vendor-specific resets are defined by SoC vendors, under the
-> psci:reboot-mode node of SoC device tree.
->
-> Register the driver with the reboot-mode framework to interface these
-> resets to userspace. When userspace initiates a supported command, pass
-> the reset arguments to the PSCI driver to enable command-based reset.
->
-> This change allows userspace to issue supported PSCI reset commands
-> using the standard reboot system calls while enabling SoC vendors to
-> define their specific resets for PSCI.
->
-> Suggested-by: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-> Suggested-by: Lee Jones <lee@kernel.org>
-> Suggested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> Signed-off-by: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-> ---
->  MAINTAINERS                            |   1 +
->  drivers/firmware/psci/psci-devices.c   |  71 +++++++++++++++++++++-
->  drivers/power/reset/Kconfig            |  10 ++++
->  drivers/power/reset/Makefile           |   1 +
->  drivers/power/reset/psci-reboot-mode.c | 104 +++++++++++++++++++++++++++++++++
->  5 files changed, 185 insertions(+), 2 deletions(-)
->
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 9c0334ee2ed2..1c0f111ba197 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -21933,6 +21933,7 @@ S:	Maintained
->  F:	Documentation/devicetree/bindings/arm/psci.yaml
->  F:	drivers/firmware/psci/
->  F:	drivers/firmware/psci/psci-devices.c
-> +F:	drivers/power/reset/psci-reboot-mode.c
->  F:	include/linux/psci.h
->  F:	include/uapi/linux/psci.h
->
-> diff --git a/drivers/firmware/psci/psci-devices.c b/drivers/firmware/psci/psci-devices.c
-> index f1eca61e3269..43e6743202f9 100644
-> --- a/drivers/firmware/psci/psci-devices.c
-> +++ b/drivers/firmware/psci/psci-devices.c
-> @@ -4,19 +4,86 @@
->   */
->
->  #include <linux/auxiliary_bus.h>
-> +#include <linux/device.h>
->  #include <linux/init.h>
->  #include <linux/of.h>
->  #include <linux/platform_device.h>
-> +#include <linux/psci.h>
-> +#include <linux/slab.h>
-> +
-> +static void arm_psci_auxiliary_device_release(struct device *dev)
-> +{
-> +	struct auxiliary_device *auxdev = to_auxiliary_dev(dev);
-> +
-> +	of_node_put(dev->of_node);
-> +	kfree(auxdev);
-> +}
-> +
-> +static struct auxiliary_device *
-> +arm_psci_auxiliary_device_create(struct device *dev, const char *devname,
-> +				 struct device_node *np)
-> +{
-> +	struct auxiliary_device *auxdev;
-> +	int ret;
-> +
-> +	auxdev = kzalloc_obj(*auxdev);
-> +	if (!auxdev)
-> +		return NULL;
-> +
-> +	auxdev->id = 0;
-> +	auxdev->name = devname;
-> +	auxdev->dev.parent = dev;
-> +	auxdev->dev.release = arm_psci_auxiliary_device_release;
-> +
-> +	if (np)
-> +		device_set_node(&auxdev->dev, of_fwnode_handle(of_node_get(np)));
-> +
-> +	ret = auxiliary_device_init(auxdev);
-> +	if (ret) {
-> +		of_node_put(auxdev->dev.of_node);
-> +		kfree(auxdev);
-> +		return NULL;
-> +	}
-> +
-> +	ret = __auxiliary_device_add(auxdev, "arm-psci");
-> +	if (ret) {
-> +		auxiliary_device_uninit(auxdev);
-> +		return NULL;
-> +	}
-> +
-> +	ret = devm_add_action_or_reset(dev, auxiliary_device_destroy, auxdev);
-> +	if (ret)
-> +		return NULL;
-> +
-> +	return auxdev;
-> +}
->
->  static int arm_psci_probe(struct platform_device *pdev)
->  {
->  	struct auxiliary_device *auxdev;
-> +#ifdef CONFIG_PSCI_REBOOT_MODE
-> +	struct device_node *reboot_mode_np = NULL;
-> +#endif
->
-> -	auxdev = __devm_auxiliary_device_create(&pdev->dev, "arm-psci",
-> -						"psci-cpuidle-domain", NULL, 0);
-> +	auxdev = arm_psci_auxiliary_device_create(&pdev->dev,
-> +						  "psci-cpuidle-domain",
-> +						  pdev->dev.of_node);
->  	if (!auxdev)
->  		return -ENOMEM;
->
-> +#ifdef CONFIG_PSCI_REBOOT_MODE
-> +	if (psci_has_system_reset2_support())
-> +		reboot_mode_np = of_get_child_by_name(pdev->dev.of_node,
-> +						      "reboot-mode");
-> +
-> +	auxdev = arm_psci_auxiliary_device_create(&pdev->dev,
-> +						  "psci-reboot-mode",
-> +						  reboot_mode_np);
-> +	of_node_put(reboot_mode_np);
-> +	if (!auxdev)
-> +		dev_warn(&pdev->dev, "failed to create PSCI reboot mode device\n");
-> +#endif
-> +
->  	return 0;
->  }
->
-> diff --git a/drivers/power/reset/Kconfig b/drivers/power/reset/Kconfig
-> index bce996bbef28..5c349f41e097 100644
-> --- a/drivers/power/reset/Kconfig
-> +++ b/drivers/power/reset/Kconfig
-> @@ -360,6 +360,16 @@ config NVMEM_REBOOT_MODE
->  	  then the bootloader can read it and take different
->  	  action according to the mode.
->
-> +config PSCI_REBOOT_MODE
-> +	bool "PSCI reboot mode driver"
-> +	depends on ARM_PSCI_DEVICES
-> +	select REBOOT_MODE
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] dts: qcom: backlight left on during screen blanking due to stati=
+c pinctrl
+--
 
-Needs: select AUXILIARY_BUS
+commit 720635a18d3694cb65f6d9de1eaf9550b30b64e1
+Author: Arpit Saini <arpit.saini@oss.qualcomm.com>
 
-> +	help
-> +	  Say y here to enable the PSCI reboot mode driver. The driver
-> +	  registers with the reboot-mode framework to configure PSCI
-> +	  reset commands, which are executed by the PSCI driver during
-> +	  psci_sys_reset().
+arm64: dts: qcom: shikra-cqs-evk: Enable display and add ili7807s panel
+   =20
+Enable the Shikra MDSS display subsystem on the Qualcomm Shikra CQS EVK
+board and add the DLC0697 MIPI DSI display panel node.
+
+> diff --git a/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts b/arch/arm64/boo=
+t/dts/qcom/shikra-cqs-evk.dts
+> index e62ba5aef71ff..a9067b710a224 100644
+> --- a/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts
+> +++ b/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts
+
+[ ... ]
+
+> +&mdss_dsi0 {
+> +	vdda-supply =3D <&pm4125_l5>;
 > +
->  config POWER_MLXBF
->  	tristate "Mellanox BlueField power handling driver"
->  	depends on (GPIO_MLXBF2 || GPIO_MLXBF3) && ACPI
-> diff --git a/drivers/power/reset/Makefile b/drivers/power/reset/Makefile
-> index e31cab4ba78e..45d8aaaffaa1 100644
-> --- a/drivers/power/reset/Makefile
-> +++ b/drivers/power/reset/Makefile
-> @@ -41,5 +41,6 @@ obj-$(CONFIG_REBOOT_MODE) += reboot-mode.o
->  obj-$(CONFIG_SYSCON_REBOOT_MODE) += syscon-reboot-mode.o
->  obj-$(CONFIG_POWER_RESET_SC27XX) += sc27xx-poweroff.o
->  obj-$(CONFIG_NVMEM_REBOOT_MODE) += nvmem-reboot-mode.o
-> +obj-$(CONFIG_PSCI_REBOOT_MODE) += psci-reboot-mode.o
->  obj-$(CONFIG_POWER_MLXBF) += pwr-mlxbf.o
->  obj-$(CONFIG_POWER_RESET_QEMU_VIRT_CTRL) += qemu-virt-ctrl.o
-> diff --git a/drivers/power/reset/psci-reboot-mode.c b/drivers/power/reset/psci-reboot-mode.c
-> new file mode 100644
-> index 000000000000..bf2dd6626feb
-> --- /dev/null
-> +++ b/drivers/power/reset/psci-reboot-mode.c
-> @@ -0,0 +1,104 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
+> +	status =3D "okay";
 > +
-> +#include <linux/array_size.h>
-> +#include <linux/auxiliary_bus.h>
-> +#include <linux/device.h>
+> +	panel@0 {
+> +		compatible =3D "dlc,dlc0697", "ilitek,ili7807s";
+> +		reg =3D <0>;
+> +
+> +		reset-gpios =3D <&tlmm 3 GPIO_ACTIVE_LOW>;
+> +
+> +		vddi-supply =3D <&pm4125_l15>;
+> +		avdd-supply =3D <&vreg_disp_p>;
+> +		avee-supply =3D <&vreg_disp_n>;
+> +
+> +		pinctrl-0 =3D <&panel_rst_n &panel_te_pin &panel_bl_en>;
+> +		pinctrl-1 =3D <&panel_rst_n_suspend &panel_bl_en_suspend>;
+> +		pinctrl-names =3D "default", "sleep";
 
-[
+[Severity: Medium]
+Will this configuration leave the backlight on when the screen is blanked?
 
-> +#include <linux/errno.h>
-> +#include <linux/init.h>
-> +#include <linux/kconfig.h>
+Since the default pinctrl state is applied unconditionally during device
+probe, the backlight enable pin is statically driven high by the
+panel_bl_en node.
 
-]
+The DRM framework does not transition a device's pinctrl to the sleep
+state when a display is blanked at runtime, such as during a screen timeout.
+It typically only engages sleep states during a full system suspend.
 
-Why are you including these?
+This means when the screen is logically blanked, the backlight will remain
+actively driven high, even though the panel's data pipeline may be cut.
 
-Bart
+Could the backlight enable be modeled as a dynamic gpio-backlight device
+node and linked to the panel via a backlight property, or handled via a
+dedicated GPIO property in the panel driver, instead of bypassing DRM
+runtime power management with static pinctrl?
+
+[ ... ]
+
+> +&tlmm {
+
+[ ... ]
+
+> +	panel_bl_en: panel-bl-en-state {
+> +		pins =3D "gpio91";
+> +		function =3D "gpio";
+> +		drive-strength =3D <2>;
+> +		bias-disable;
+> +		output-high;
+> +	};
+> +
+> +	panel_bl_en_suspend: panel-bl-en-suspend-state {
+> +		pins =3D "gpio91";
+> +		function =3D "gpio";
+> +		drive-strength =3D <2>;
+> +		bias-pull-down;
+> +		output-low;
+> +	};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916-shikra-dt-=
+changes-v4-0-d5d5c3ffe070@oss.qualcomm.com?part=3D2
