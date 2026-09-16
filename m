@@ -1,106 +1,140 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D24753B7776;
-	Wed, 16 Sep 2026 09:15:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7294D47DF98;
+	Wed, 16 Sep 2026 09:17:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789550164; cv=none; b=RDaAZ9pLbMkVjjQYEQgAnKh3Fsa9gXKInvZH7ZWc1b3+nVIXnVrqaPbVmOeqDv4CWfpJ5da119ZLVN8E+6cSOAuji89Ct1rsfKT9AybZepu+Ap9q83xR4nuueGs/d/GOsVV5XXzMC0g9YetY0bmrgt+Ve6nSND6uRThn4DaYBiQ=
+	t=1789550274; cv=none; b=b6QzIlyXD8RAXBM9TASaNg/UAnvUM1Hmj6tBXvD4f3bgSDtq7q7fpFx73034Opetp1nbshP7YFRA4BUZBIEi9pre2K9+Hm86DYwpcgo9HgG+xuIhL+3m+YDwDrw1WnCCyWPjQYYk9zZVvT4594EOAa0kHsvUgkfSSkwSy99nk5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789550164; c=relaxed/simple;
-	bh=c34GSgy5JOkK4UMrE2wUaVf4M5Ni7ABqZ5336+rOAaA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mcsMTpMfyEAgFTahl0ZdX92ziRQ10lSfcmdRByvTMkJ4RA8DmQ5GL/ZDa01xxXuXqa7OiqqZE5I6lOeh1LvIJuDMvQbjbriDyy0yQkanxKWWiCZYazEqxJcWTIbrhZeicy1uHDN2BHKLfWYG9bE5LOLuy9WBsUSUlEQMqcKO2lA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=U0/lzjnB; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1789550274; c=relaxed/simple;
+	bh=7SqYTLL/LQu+GVTrCSG2kdGWYFKsSMlVXeHdAYBRRn8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LTVf4G5bZ6nL1nzKgVn+0eWhalDnKATLBiAolMIPGFjpeOuOLfBQkARQIM/LLUw3aobrAy2K6v+kH5q9LEA7zG6/y69Sqy3lLlEQ+m7/V4TCLHhzbQUVzNkxKI1cp/q/Rn7/nk2n5ApOGAzCSH5R49QdE0CsKc0rbsLLpotcLJc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=kExiv4KF; arc=none smtp.client-ip=54.206.34.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="U0/lzjnB"
-Received: from francesco-nb (xcpe-178-82-167-143.dyn.res.sunrise.net [178.82.167.143])
-	by mail11.truemail.it (Postfix) with ESMTPA id 66C7D1FE13;
-	Wed, 16 Sep 2026 11:15:47 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1789550148;
-	bh=Xwi7DtOdh8cz6NAAVdmMuae3cwJa2QJyIgQkDwWYJPI=; h=From:To:Subject;
-	b=U0/lzjnBYBNvqGbteRws8o/FtLbdIxR2H6RirMT7BFLLD33MXiQ21m2FAV2M4/wNK
-	 3mtozjvKrsjY+G4iWWFJ/ktPzPynWGLtNSVrNR5tVdw7Ujgp9vjw/PaPLGLcEtgJSN
-	 K+120Uqucz/5Y9wmumq5QvpCHYYoHNYreYTAtfqCLyar2fFtkqeGT6GSmhPybX5L5k
-	 bA39OFwnOh9Pw6gZF+LwexIacmFc+T8ApCdIa2lTZ5mz2em0v+6DhswgD39qjp9Qiw
-	 R7LulM0HrkY8qBuQ9deqmCQ9FU27//UEWVEVCj4zaD/00hNs/HGDUmkiAOIsI/gsnt
-	 vA2N+KAGn7Npw==
-Date: Wed, 16 Sep 2026 11:15:43 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Francesco Dolcini <francesco@dolcini.it>, Marek Vasut <marex@denx.de>,
-	Stefan Agner <stefan@agner.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	Alexander Stein <alexander.stein@ew.tq-group.com>
-Subject: Re: [PATCH v4 2/4] drm: mxsfb: Add optional DPI output bus-width
- configuration
-Message-ID: <20260916091543.GA277833@francesco-nb>
-References: <20260813092836.38367-1-francesco@dolcini.it>
- <20260813092836.38367-3-francesco@dolcini.it>
- <178954813309.214898.6895255097019153080.b4-review@b4>
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="kExiv4KF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1789550174;
+	bh=n25+JxY9MqK5iOVdfugBMvIEqa68PUtGXL1deEL5seM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:From;
+	b=kExiv4KF+Fy2HutX4CQ6dfnbAq2hSnA4RSHtDFj+niLaiEPeM+Ae7vOjnUoxWNEjs
+	 faV6K2pDU8Xe/Gi3X+5R5TyBpt5skqj0Bqfg4jN5DPjpVEsWafdCET0q2xjcRtssvi
+	 dKUUE04dODVIgf30DhBY3a6OaWuG06bT9r/KO3MI=
+X-QQ-mid: zesmtpgz5t1789550173t40eaadf1
+X-QQ-Originating-IP: +RMT9ucGZ2OPfrEZNM3eoZ2h1QPwNAz8lywMTVvEtt4=
+Received: from [127.0.0.1] ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 16 Sep 2026 17:16:09 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 8074839530638732710
+Message-ID: <67E42B9AD8C47E8D+89af48d1-1b65-4acb-b76c-6c5f205a974f@linux.spacemit.com>
+Date: Wed, 16 Sep 2026 17:16:09 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <178954813309.214898.6895255097019153080.b4-review@b4>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 09/14] gtrace: Add RISC-V Trace ramsink driver
+To: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Paul Walmsley <pjw@kernel.org>, Greg KH <gregkh@linuxfoundation.org>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Ian Rogers <irogers@google.com>
+Cc: Alexandre Ghiti <alex@ghiti.fr>, Peter Zijlstra <peterz@infradead.org>,
+ Ingo Molnar <mingo@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
+ Adrian Hunter <adrian.hunter@intel.com>,
+ Mayuresh Chitale <mchitale@gmail.com>, Anup Patel <anup@brainfault.org>,
+ Atish Patra <atish.patra@linux.dev>,
+ Andrew Jones <andrew.jones@oss.qualcomm.com>,
+ Sunil V L <sunilvl@oss.qualcomm.com>, linux-riscv@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Anup Patel <anup.patel@oss.qualcomm.com>
+References: <20260810152223.3946743-1-mayuresh.chitale@oss.qualcomm.com>
+ <20260810152223.3946743-10-mayuresh.chitale@oss.qualcomm.com>
+From: Zane Leung <liangzhen@linux.spacemit.com>
+In-Reply-To: <20260810152223.3946743-10-mayuresh.chitale@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: OatzRg8pHEjpLcM8pE+CdWI2rV3k1w7+jxq9Z+OcP/42LTf3hPvCI15B
+	kHLrVpoP/9To/53w+HTLPQZRAs2I/SD2pK3/VFhqFdJXPSnMvpGsoYGiVeDQ23dXLtohB4o
+	kdervIELR7ZvUAoc7pDepxiQO3Mc65jaO4dS5drJuUtqJt785Q848FfNflZ2BRnGVUxE4fN
+	59T1ksSWNrxX5C3zdEXpj0ecwfgiEteuSwQQBhqFuW/QRcmnT5my+8pDn9x2st+cv1X6gkU
+	oYwhY5LAfHYVAOE1lOwmpnGECGkkLZLFpWIgyfb6CCRz/828Ry7crT/5coQQZGd+l3d3YGG
+	DUc4qSBDU+oLmoXwFd71ff+RuGYCZT8N7i+sglXhjPEUqgsdTh6t1liLDnqtqEorNVVRZDd
+	r8i3+j2c+iAxMKBx/WF+SdF0U3aLYntQWy4TrJlQT4yFyUJvnQw/t169iBEtM25ZFxO/c5I
+	JVYYGDTYHseP6vSpa7vR0hMPTADrF+KSKqv6Qt1BchR8c7nvUbvuGI7//PwjxxOqpNTNnR4
+	PFOM8Mr9Jenm27luErsLzKoeL6QvmnC8mZefbqLGiyZDbzxLxT5nKG+qr2kANVfvvPvDwfC
+	0xqafKjj901whKLT0l5+0dgrTlWHj4G5tU1AmHWT2JulcaFMLBEtWp5S0xDeJ2Dff1l2Kvu
+	mHwhSSxQPjOp3BTHI64fh9W6g5rQ5hJfw8DUu5q3vAOdemchlFhkJ6bTbq4Z05fNp40TPoc
+	HpOL2CDE39QgiCKqV+okSWAPUlC/0GOOM/9k4XHfREWz12YC3D2EI5PSph979RTIJkFBcxl
+	rnUftD0AXyTz4Z5s3hl/KanFYRrkXVHkaCeArtk13NOacZSvZySiVWkXkQTmvD00TgRdh6s
+	I4RwLIHzC+fuIqocZhoLvZB2A2s5did+IV5AtErcOPwloDgaeieFm9L5SIkyuXgsgm+UUF8
+	vipS+lJFE0MvqRC/vMwFE5SVwN0v55srT/L50XrUsACXHxV6aj14Ru/HEnKet4PgKHvpbyo
+	eqI8u55V5LldPqES07
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-RECHKSPAM: 0
 
-Hello Luca,
+On 8/10/2026 11:22 PM, Mayuresh Chitale wrote:
 
-On Wed, Sep 16, 2026 at 10:42:13AM +0200, Luca Ceresoli wrote:
-> > LCDIF programs LCD_DATABUS_WIDTH from the selected media bus format. The
-> > format reported by the downstream panel or bridge describes the display
-> > input, but it does not describe how the LCDIF data pins are physically
-> > wired on the board.
-> >
-> > These can differ. For example, a 16-bit LCDIF bus can be connected to a
-> > 24-bit display by wiring the available color bits to the corresponding
-> > display inputs. In that case, using the display's 24-bit format to
-> > configure LCDIF selects the wrong data-bus mode and changes the assignment
-> > of color bits on the LCD_DATA pins.
-> >
-> > Read the optional bus-width endpoint property from the LCDIF output port
-> > and use it to select the media bus format used to configure LCDIF. This
-> > allows the LCDIF bus mode to describe the physical interface
-> > independently of the downstream display format.
-> >
-> > When the optional property is absent, or it has an invalid value, continue
-> > using the format reported by the downstream display device, preserving
-> > the existing behavior. The code is not validating the DT for
-> > correctness and just fall back to the previous behavior in case of
-> > errors.
-> 
-> Why? Generally speaking errors are better spotted immediately, not ignored
-> silently.
+> +static size_t rvtrace_ramsink_copyto_auxbuf(struct gtrace_component *comp,
+> +					    struct gtrace_perf_auxbuf *buf,
+> +					    u64 *format)
+> +{
+> +	struct rvtrace_ramsink_priv *priv = dev_get_drvdata(&comp->dev);
+> +	struct trace_buf src, dst;
+> +	u32 wp_low, wp_high;
+> +	size_t bytes = 0;
+> +	bool wrap;
+> +	u64 wp;
+> +
+> +	dst.base = buf->base;
+> +	dst.len = buf->length;
+> +	dst.cur = buf->pos;
+> +	src.base = priv->va;
+> +	src.len = priv->size;
+> +	wp_low = gtrace_read32(comp->pdata, RVTRACE_RAMSINK_WPLOW_OFF);
+> +	wp_high = gtrace_read32(comp->pdata, RVTRACE_RAMSINK_WPHIGH_OFF);
+> +	wp = (u64)(wp_high) << 32 | wp_low;
+> +	wrap = wp & RVTRACE_RAMSINK_WPLOW_WRAP;
+> +	wp &= ~RVTRACE_RAMSINK_WPLOW_WRAP;
+> +	if (wrap) {
+> +		gtrace_write32(comp->pdata, lower_32_bits(priv->start),
+> +				RVTRACE_RAMSINK_WPLOW_OFF);
+> +		gtrace_write32(comp->pdata, upper_32_bits(priv->start),
+> +				RVTRACE_RAMSINK_WPHIGH_OFF);
+> +		src.cur = wp - priv->start;
+> +		priv->prev_wp = priv->start;
+> +		/*
+> +		 * There is no way to tell if trRamWp wrapped around more than once. As a
+> +		 * result priv->prev_wp can't be used and the entire buffer must be copied
+> +		 * even though some data might be duplicated.
+> +		 */
+> +		bytes = priv->size;
+> +	} else {
+> +		src.cur =  priv->prev_wp - priv->start;
+> +		bytes = wp - priv->prev_wp;
+> +		priv->prev_wp = wp;
+> +	}
+> +
+> +	tbuf_to_pbuf_copy(&src, &dst, bytes);
+> +	dev_dbg(&comp->dev, "Copied %zu bytes\n", bytes);
+> +	*format = PERF_AUX_FLAG_GTRACE_FORMAT_ETRACE;
+> +	return bytes;
+> +}
 
-My understanding is that the C driver code should not validate the DT
-and that this is the general recommendation when parsing properties from
-the DT.
+If the discovery of trace parameters is delegated to the user-space decoder according to the cover
 
-The DT checker is going to spot errors in the DT even earlier and in a
-static way.
+letter, why are we explicitly setting PERF_AUX_FLAG_GTRACE_FORMAT_ETRACE here? Taking a step back,
 
-So the decision is to just fall-back to the previous driver behavior
-when this property was not supported at all.
-
-Francesco
+the trace format should be determined by the  trTeControl's traceFormat rather than being hardcoded.
 
