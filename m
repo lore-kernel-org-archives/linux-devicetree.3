@@ -1,152 +1,252 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBD7A372ECD
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 12:29:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 139F84BCADD;
+	Wed, 16 Sep 2026 12:33:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789561801; cv=none; b=bCj6GHNC8hwuui3SU/lYFsrtPwyhFWTsidVAcq3FV637EMfXloX+iDL9fobRfx8PIwQMlkE3LWslbgZbZqo9m/B/QAsQQDfBDzYy9z7M40V3yq7TGujwFriTX2p5/Olm5Gt424W4W787gZui4dByNwPTn1v/LgpyRUctsnHg/JY=
+	t=1789562019; cv=none; b=RDydoVH4j5owdONGa8ul68Iwexd4wugqKCV20csZwZKBKGHjPvjfnQncoL79X+jb80vpoYT8toND1I0FFJ3tYkeFspKIO6iMTwq08GRG4OW9bzd98N+qNfnJZnUEsmTW3yU4bq560seW5F4JCZhZetdr5O78YZtnIr0aIoXfbqw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789561801; c=relaxed/simple;
-	bh=VV/ZxcpkxyDx6mlCeBCzzhp0o6+5/SpiA7NzDJ1JKcw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lSqPtgoxU8io6TO/lHxBAT507c3C9xHoMcB8tHHOeHvU7DK0jrkScu9M+v9464FK6no/e0UBEE9NRgrA5zDkaHFuP3qYpaAFxszXV+LZiRjKbAb/gSTl+M+ueZ7tSpkw0MeyD0LPjJtaKZUi6ITTUoAyls34u5FAApsHBL5SQ3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dP707TW1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VY4kpfSo; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789562019; c=relaxed/simple;
+	bh=DXDx2+TSWEfJmjZydohyLufnt2oHOTUCSroTdLGfutU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=EQMmaeMJtAWxq2W9hlmS/0RYxEF4L7ak44raAeY06lVuOA4lZkrwwDLLB6sKK4ZaDnZbfysBct1Dqt1Gdc7EhRAihLwKJBTRrz/eXzlY0LvR/iAfBNKRG7ef4q8FoIjeDnFQlCqMzyLzAFnOCeKcJsMGGZmd8/JZ02MiSr8Ujhs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=nCDbegk/; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dP707TW1";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VY4kpfSo"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68G92ghW2477689
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 12:29:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	fy4R4SqF8jXijlVWnUPUTEknCsWxR9i03yH4i+tHqNA=; b=dP707TW1UpgrbwTA
-	f85h4lARGOVSNaL6AoGJPaIGSa/dgvtY8P5biUxeEeGinIj7xvmq++s6M+NWSC2D
-	nyCczuBCWqZ1Z+FV56f8gM503+f8YNRRyOz7GP+TTKFI3U2zMlx5tkSwU6RA61An
-	RNHwkh5OmdWq56FmO+D47uqzpXmyfA4xXNpjYq98Aus1UJnp0afeCY2UiAcUQru/
-	1VNaEY1IsmFufkTTeT99e+up2TSu1nmedOFyY50ckVf8HLqzlxlqb6+SGT1ymgvo
-	PZMKossW3z+4YHyus9qFvyhHo9IeYxPgBYmugwzTMI3+i+zL4AQhQDrODl7Kj459
-	Y1XZng==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqjcktbbr-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 12:29:58 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-9349ba88188so104567985a.2
-        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 05:29:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789561798; x=1790166598; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fy4R4SqF8jXijlVWnUPUTEknCsWxR9i03yH4i+tHqNA=;
-        b=VY4kpfSozyowKdF6LHrxHjwUZWwwxQcdmGU3nqq50rRlbkHkXgdk9tlfefZ3BwW6bk
-         JxYJfpLWLDGYGkGx9ifYNDH600l88cbhzE2UwLD33tmS1lQWs1p5Pwyjuox33LjPcaSJ
-         eH8kBlufBq7JBlCA+HF1gtBwe5A7kmCeC0HecCd6HKdYmWQ/JmXtUI4hi/dfOPP6/uEB
-         NcOkxYKAO660gKSezGsyDftxRBruW58sGg/TXHgrqEU2MoqRvhxaNe6osSggUejCykCP
-         GNQe78arA/8hdzbvlLxkLFjD+TunFtLJOLWHb1e4CbJgi2nymWtYwSlb8+LBo8k6VYWv
-         RwnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789561798; x=1790166598;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fy4R4SqF8jXijlVWnUPUTEknCsWxR9i03yH4i+tHqNA=;
-        b=DZf/BIMZuNEf5gDRoQaQWbFiMbxQSiRkXOvwJUR7CCGMVnyp6/BgH3I1TYmvkxFJBK
-         HBBpz9BuZu5lHWXpuulij9nXG57ql1qbyDbMNL/dwTYJFYAg6aR9srSCLrUR1E6ofsZ2
-         hp3xHIbwe+iZ93zPRB0gwWfGfrdHMdMQ1Tc/0YjeWbZ5P3/qBDovrMsfqIvQAM01oFBC
-         L8Iw0YKXuvgfcco7PUACFagpy72gtC3/79IyEvxsVq3WcUIeykNuk5fD9iGo9OMQnZEX
-         OXg/1IGj/PmXWTb1Osc9csBaBQ+2JUusA+KBW6tE1d53KogU2BaK3PAdtLQN6wE4IuM0
-         QeXQ==
-X-Forwarded-Encrypted: i=1; AKwUvBysiuMTvN1zPg+mSIIF7kU1bFyA97YKI63uDiz7O1CBbqeGz7DW5ya3x6safrIfV6nHh/XPfsyWnECD@vger.kernel.org
-X-Gm-Message-State: AFuF++kX5G4FjqNlcooRgFbLbgJEXm1V48Xcp3EJ5d9hGJPPKqB5inW+
-	vq90EUVma1jsdZDkmae91CEIATjvz4rcmY6uElEBT4zIo2ZovLBPR4ABdmWlw1ZMXhocEJjJ0sV
-	eEn/Jtn2hZY+rPmx8e5eAh2wDDGnpMzBTo9k4pDWLeBza+VXY7i/9M6zWmfBqvYD7
-X-Gm-Gg: AYBFou1J3DYKQYIwCqRwPN38Aw22GnLlvilJV2W6Ya/qxCeJQx1rNLnTKBcXHyRyMsQ
-	UbGm82kh9sOUDP3MniRjqcqT4VTr6svbQ/aJx91M9RSH/UOpRyCksVcrqayR8d4FTNVt/ay5Ujq
-	aG7Az6E8GEiaOwo6AOEGEgiqY6tsLUjHbqtJkfl5Q4IjKuBHUE2vMFFHljvF7h2+aXOF/l5Oj4s
-	lAnjZKAZmrVpHuwm4zNQ57f8BLjPvg3wKEG2c9Hc8pPSGNtso06s7k2IKIeUlJo17p4ZG13lUiZ
-	YwlEILaHsrDqMRc8dGpwUT7oD7KATPAYis4y2MELzQXUc5ro7n1PDTTYM8GyEdf8f22DdTCGYd2
-	3j0vEnWjKpJo2Dg7oUgDhiA==
-X-Received: by 2002:a05:620a:700a:b0:939:94c4:b799 with SMTP id af79cd13be357-93bb796fd75mr298860285a.5.1789561797859;
-        Wed, 16 Sep 2026 05:29:57 -0700 (PDT)
-X-Received: by 2002:a05:620a:700a:b0:939:94c4:b799 with SMTP id af79cd13be357-93bb796fd75mr298857285a.5.1789561797372;
-        Wed, 16 Sep 2026 05:29:57 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29de63a7c8sm128217466b.51.2026.09.16.05.29.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 16 Sep 2026 05:29:56 -0700 (PDT)
-Message-ID: <85d212d9-533f-461c-8af2-b8771a4c9b8d@oss.qualcomm.com>
-Date: Wed, 16 Sep 2026 14:29:53 +0200
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="nCDbegk/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=EU
+	fD/+RDbL9LTitXCareY04PQrb+fEVXzAQaIiNK0ak=; b=nCDbegk/BndP/UragS
+	HzKaK9NAwsiXqxcacYYvLHFEAQaOvWcwg2gvaxPKdmfwVry77MzGHtqTdYX98PZS
+	nGeB3XsHvOild1VtP+zCcwZli5hSXO61dShS4DD1kiKnEs/tmMP39zDJS+w/N0Q0
+	kI7amFEFMzdWQfAi2WTS+Wffo=
+Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wA3JL1KjKpqEbZDBA--.13280S2;
+	Wed, 16 Sep 2026 20:32:12 +0800 (CST)
+From: Quchaosheng <quchaosheng000406@163.com>
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Tony Lindgren <tony@atomide.com>
+Cc: dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-omap@vger.kernel.org,
+	quchaosheng000406@163.com
+Subject: [PATCH v3 1/2] dt-bindings: display: ti,tpd12s015: Convert to DT schema
+Date: Wed, 16 Sep 2026 20:32:09 +0800
+Message-ID: <20260916123210.107841-1-quchaosheng000406@163.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260916015833.112753-1-quchaosheng000406@163.com>
+References: <20260916015833.112753-1-quchaosheng000406@163.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] arm64: dts: qcom: glymur: Add Asus Zenbook A14
- (UX3407NA)
-To: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Nicko van Someren <nicko@nicko.org>,
-        Chris Pouliot <chris@pouliot.me>
-References: <20260915-zenbook-dts-v2-0-41de8669a7a8@oss.qualcomm.com>
- <20260915-zenbook-dts-v2-2-41de8669a7a8@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260915-zenbook-dts-v2-2-41de8669a7a8@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDE2NiBTYWx0ZWRfX4RVWGsmgt5sR
- 1BANvoWo4WAOlYAC9IbAwCdhmj2Y2Wkw7VVJ6ZRulECY+koNBU7Lv1QxP+F31w3GL5Zg6qMdrkG
- IgAo8RtJPi0c7ml0yN61f+canIRTczo=
-X-Authority-Analysis: v=2.4 cv=PsIG/AM3 c=1 sm=1 tr=0 ts=6aaa8bc6 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=iJghmAGICTQdFqE060AA:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-ORIG-GUID: PiBISlgeZePIsrTBeD8FQmqdqmqHzcy4
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDE2NiBTYWx0ZWRfXylwp5k/F8tST
- olViubSfHhLFZV48SyU3AvgzEYmvYipFUypAqFN5HNh6N6G19frlKFlcmTRSqddVWITDYMqie8E
- REFB8+GaV6IATZeHdblgb1fe+LKLhbvWMm2QiYDzfXgK8qWN3PNtNt8juJTPgl8R4KfFecdYxiO
- pk03LWUccFsS5/mJewNqfDMCpSWyTJRK6/mAw36VA5rl8xrH9+fbV97bvqk5mzrocjGB0ajbAkN
- Qnkd4p9kxh0NQhS7Loi0qq3e5hNiMd2bII1RBHEGTLxfn/qhmdjHRPQdTMxF3DLLf0owsyxjq9m
- 5vJY3egjcIH4zA0yBaHzMpbPbXbZJ3n9WxKpfkEFU1kdt0FgoK4aQATY8rPcoXE65IjL7wvKreU
- 06EzikCFESbKGQGcN3D/8hbeiPSCucvxSqoME2pDTeXt0SASNoMjH3ASuH+CDmC48SR7Q7Ufm1g
- OQohJAX5mWgsByE8PEQ==
-X-Proofpoint-GUID: PiBISlgeZePIsrTBeD8FQmqdqmqHzcy4
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 adultscore=0 priorityscore=1501
- phishscore=0 spamscore=0 clxscore=1015 suspectscore=0 bulkscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609160166
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wA3JL1KjKpqEbZDBA--.13280S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxtrWfCFyrur1DCFWftF1rXrb_yoW7Ww4UpF
+	s5Gas7uFyvgFyaqw4xAr1kCa1rAaykAF40kF1xXFy5JF48tF40yF13Krn8XFy5CFyfZay2
+	qF47Ww17Krn7u3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEpnQnUUUUU=
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC4wx78GqqjEzR3wAA3q
 
-On 9/16/26 3:54 AM, Bjorn Andersson wrote:
-> UX3407NA is a variant of the Asus Zenbook A14 built on the Qualcomm
-> Glymur platform. It comes with an 18-core X2 Elite SoC, 32GB DDR, and
-> the other typical Glymur platform capabilities.
-> 
-> The Asus Zenbook uses &pcie3b for NVMe storage, the screen is WUXGA
-> OLED, it has two USB Type-C ports, one USB Type-A, and one HDMI port.
-> 
-> Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-> ---
+Convert the TPD12S015 HDMI level shifter binding to DT schema.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+The TI TPD12S015 is an HDMI companion chip that combines a level shifter
+and ESD protection circuitry. Document the two ports it exposes between
+the HDMI transmitter and the connector.
 
-Konrad
+The tpd12s016 is software compatible with the tpd12s015 and is listed as a
+fallback compatible by am57xx-idk-common.dtsi, so accept it as a fallback
+of "ti,tpd12s015". The driver matches on "ti,tpd12s015" only, so a board
+using the tpd12s016 must list both compatibles.
+
+The gpios property takes the three CT CP HPD, LS OE and HPD GPIOs the
+driver obtains through devm_gpiod_get_index(). omap5-igep0050.dts lists the
+DDC SCL and SDA lines as two further entries, so allow up to five entries
+and keep the property description focused on the ones the driver uses.
+
+Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
+---
+v3:
+ - gpios: allow up to five entries. v2 claimed that no in-tree board passes
+   more than three, but omap5-igep0050.dts passes five: the three control/HPD
+   lines plus the DDC SCL and SDA lines. The three-entry limit added in v2
+   therefore broke dtbs_check for that board.
+
+v2:
+ - Reword the description: the TPD12S016 can only be used as a fallback of
+   "ti,tpd12s015", because the driver matches on "ti,tpd12s015" alone.
+
+ .../bindings/display/ti/ti,tpd12s015.txt      | 44 ---------
+ .../bindings/display/ti/ti,tpd12s015.yaml     | 93 +++++++++++++++++++
+ 2 files changed, 93 insertions(+), 44 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
+ create mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
+
+diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
+deleted file mode 100644
+index 26e6d32e3f20..000000000000
+--- a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
++++ /dev/null
+@@ -1,44 +0,0 @@
+-TPD12S015 HDMI level shifter and ESD protection chip
+-====================================================
+-
+-Required properties:
+-- compatible: "ti,tpd12s015"
+-
+-Optional properties:
+-- gpios: CT CP HPD, LS OE and HPD gpios
+-
+-Required nodes:
+-- Video port 0 for HDMI input
+-- Video port 1 for HDMI output
+-
+-Example
+--------
+-
+-tpd12s015: encoder@1 {
+-	compatible = "ti,tpd12s015";
+-
+-	gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>,	/* 60, CT CP HPD */
+-		<&gpio2 9 GPIO_ACTIVE_HIGH>,	/* 41, LS OE */
+-		<&gpio2 31 GPIO_ACTIVE_HIGH>;	/* 63, HPD */
+-
+-	ports {
+-		#address-cells = <1>;
+-		#size-cells = <0>;
+-
+-		port@0 {
+-			reg = <0>;
+-
+-			tpd12s015_in: endpoint@0 {
+-				remote-endpoint = <&hdmi_out>;
+-			};
+-		};
+-
+-		port@1 {
+-			reg = <1>;
+-
+-			tpd12s015_out: endpoint@0 {
+-				remote-endpoint = <&hdmi_connector_in>;
+-			};
+-		};
+-	};
+-};
+diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
+new file mode 100644
+index 000000000000..86f14f6b75c0
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
+@@ -0,0 +1,93 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/ti/ti,tpd12s015.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: TI TPD12S015 HDMI level shifter and ESD protection chip
++
++maintainers:
++  - Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
++
++description: |
++  The TPD12S015 is an HDMI companion chip that combines a level shifter and
++  ESD protection circuitry. It sits between an HDMI transmitter and the HDMI
++  connector, and provides control over the level shifter enable and the
++  hot-plug detect signals.
++
++properties:
++  compatible:
++    oneOf:
++      - const: ti,tpd12s015
++      - items:
++          - const: ti,tpd12s016
++          - const: ti,tpd12s015
++
++  gpios:
++    description:
++      The CT CP HPD, LS OE and HPD GPIOs, in that order. The first controls
++      the level shifter, the second enables the level shifter outputs and
++      the third reads the hot-plug detect line. The first three entries are
++      the only ones the driver uses; additional board-specific signals, such
++      as the DDC SCL and SDA lines, can follow them.
++    minItems: 3
++    maxItems: 5
++
++  ports:
++    $ref: /schemas/graph.yaml#/properties/ports
++
++    properties:
++      port@0:
++        $ref: /schemas/graph.yaml#/$defs/port-base
++        unevaluatedProperties: false
++        description: HDMI input from the transmitter.
++
++      port@1:
++        $ref: /schemas/graph.yaml#/$defs/port-base
++        unevaluatedProperties: false
++        description: HDMI output to the connector.
++
++    required:
++      - port@0
++      - port@1
++
++required:
++  - compatible
++  - ports
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    encoder1 {
++        compatible = "ti,tpd12s015";
++
++        gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>,    /* 60, CT CP HPD */
++                <&gpio2 9 GPIO_ACTIVE_HIGH>,    /* 41, LS OE */
++                <&gpio2 31 GPIO_ACTIVE_HIGH>;    /* 63, HPD */
++
++        ports {
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            port@0 {
++                reg = <0>;
++
++                tpd12s015_in: endpoint {
++                    remote-endpoint = <&hdmi_out>;
++                };
++            };
++
++            port@1 {
++                reg = <1>;
++
++                tpd12s015_out: endpoint {
++                    remote-endpoint = <&hdmi_connector_in>;
++                };
++            };
++        };
++    };
++
++...
+-- 
+2.43.0
+
