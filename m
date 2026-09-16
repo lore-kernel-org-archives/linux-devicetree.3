@@ -1,133 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2062E4AE135;
-	Wed, 16 Sep 2026 22:07:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C393B4908DB;
+	Wed, 16 Sep 2026 22:08:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789596466; cv=none; b=grEWIpeiZpbiSVFJfqGKdYg+SyI8oKz6SUVbYi98yB+jD1ADjv7CopCdVo3bwbe9g1K8mroQiodpjyyQ6t4gA5aTlcfGTFLqUBBWsC1nx20kLB+/Oc6Y1L6SnzkD5Nkcyo/uW7p1nGaikS1NM1RDnGtA5gFDA9NN74iFK0+unL0=
+	t=1789596498; cv=none; b=UCFV103r/qaaAR72rK19cJuRzzYYxHd+IMkPcGa/s+2LQjpMrz0msFnbchqJ3eOJ1UERF4F6CKKN9bFwHi4yhj7FnIRo5w5lhLJrq2Ni9PcK7lrXcRvKD75Sspy/AW6zBcQtkJ3jN5zjxhX9iSBQLwXHGboKPJTPV+bynKcWVM0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789596466; c=relaxed/simple;
-	bh=r/4mJPmvpkVyqlS+cYIm9RB7ZB+wg63qbCevPs4CilA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=kFf+W5yKvNa24mwUK+VNQktbeRQG/ta6oo+GtcKAtIy035nZ6QSTBdXqTXm3T+/KVbKkICAJUK34KiUCqvGnjlIO3itxsn+MRrmHKc9l28yhEHOII61ziv58fE9VY0KLOapvurMvCJVE8D+X7KEbJq7JB3ibmFvRL/5Amp0feo4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dh7WgpO4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789596498; c=relaxed/simple;
+	bh=nxkGyeHtsrQzaOcEkCVLY02vkgpdX290P3BFs1DueJc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Inl2uN0H4cMVJVRC4IRzPUYGPtxPAxPn2twsymCK8nQlQD/mK+reMw3rFtE9gNch3ve5y4mOU2JoD3bFSrjy4O8xJWXbJfmUC7k4fVmSyglV/jtih+Ja6zHkJO4ai6pmTwgkZSpKTc5cWr5i+ibnIQ+RuUfQZtzxBpccFe3q5iE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=Tvn5BVv1; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=GTRVOv6c; arc=none smtp.client-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dh7WgpO4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D73D1F000FF;
-	Wed, 16 Sep 2026 22:07:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789596455;
-	bh=qpobW0ldlnumVACiaPcj06j6cP1uhzx6fkmN8a2srUQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Dh7WgpO4bqEy2D53dzXkBlp+Ue1PRUZLusYeEcFPDAGUG7TrYCY88cmSFkIePaoyc
-	 yQeVUhtBJp2TTqdQ+OgO083tBengSBiWiJeRrKkQ0yCJ6C7HivYKo812hSWVDTUWCx
-	 OBiPPkSlw53xd5IwS7P1s+TrHiMW1DPipagWrhO80Gb0ceaLIYgRTy6L4VfEXS3a6W
-	 Sgj1IHDHNDMk9r9I0r6RnHvEoBLxywcvm7s/UK4d//mL+zc0lXKcvAzwIzuzHpRMQi
-	 p+1dHH1I6CWdMsfHwRF+A9k9SrIzvyL/KXr34EnanrOXnxjaw3VnzzEOFAlBY0gqZ8
-	 qafRDq3h4dUrA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 12/12] PoC: arm64: dts: imx93-11x11-frdm: add
- multiple vdevs
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Francesco Valla" <francesco@valla.it>
-Cc: "Eugenio Perez" <eperezma@redhat.com>, imx@lists.linux.dev, virtualization@lists.linux.dev, Frank.Li@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, "Michael
- S. Tsirkin" <mst@redhat.com>
-In-Reply-To: <20260916-remoteproc_virtio_map-v1-12-dac8c5eb4aa9@valla.it>
-References: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
- <20260916-remoteproc_virtio_map-v1-12-dac8c5eb4aa9@valla.it>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 16 Sep 2026 22:07:34 +0000
-Message-Id: <20260916220735.4D73D1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="Tvn5BVv1";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="GTRVOv6c"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4hlY1255bnzKnRx;
+	Thu, 17 Sep 2026 00:08:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1789596486;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=fiPjcCfrZDpkJa9XggDDghz/xr0MLnU4sclLIpuyUTI=;
+	b=Tvn5BVv1h8c17a+fi2zeZYQeAMX8ihT4R2nuaWZKmho8kAuX9dHwvwQvYZeeSzFAH5baki
+	8eVfL5wBRlETcIqKXRQdxCH/vxrknU9MwDn42BKOMTQmNMgJE0oWOP+kxsH8e3hBKq/brf
+	ELGmNWSlqIV774Q6WzkVoeofRxPI73NMRJsqULVg7elw6ebNU0bd15ZCO+cP0fo8pdvH4y
+	E8NsFNkxqSD/oxMVMQvaNz17zCn3ImYtvps2GVfpkqtxyQnseOIZzotZYz8pI9e/L7clVK
+	ysT3+aptVMPH8u5zTFbrbgC2sw86zwNUillvp6klXMNjALeU8gEF3bnkfQqsDQ==
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1789596485;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=fiPjcCfrZDpkJa9XggDDghz/xr0MLnU4sclLIpuyUTI=;
+	b=GTRVOv6cqtQ1UV+EdzjVKukp2M1CnIycMBElJ6FoxZgjnCA9DiZZetJHxkaLkXs1nn6XIB
+	eG8Ydm1GjP0CXXEE8px/tZIwLLMrQ8aPljMdTS0LO2TOTGr/Y0mOGp3nvsEgzZrEtQLDUc
+	6Bayr39kOIb4tfFT1MclCIivknVKKu5MoGgfYYKKaomyTMir2TGo+Hdb5n03n0ZqAgqa9v
+	tSle3+39nxSZQrUbt08Og16/lWP3Qo/xhVxE76B8QClgZ1pm/JcHU9I3g3dQiKirKpZAhx
+	HNZQ3upOR8bej2dAulFW9x+K+j5GV7UIyYamTa5Wmc9zlDcW5RVzVEj5bvGG6Q==
+To: linux-arm-kernel@lists.infradead.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH] arm64: dts: renesas: ironhide: Align inline ECC carveout sizes with bootloader settings
+Date: Thu, 17 Sep 2026 00:07:45 +0200
+Message-ID: <20260916220801.240796-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: bd14e6954791015599b
+X-MBO-RS-META: dj669y3ffcji7xcyikz3xcy5jjri9fua
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] dts: virtio device nodes are ignored due to missing of_node linkag=
-e in remoteproc
-- [Medium] Process: Patch is a Proof-Of-Concept and not meant for integrati=
-on
---
+The DBSC5 DRAM controller protects DRAM content using inline ECC. The
+current set of carveouts follows SoC documentation, which describes the
+three trailing carveouts as larger than the rest.
 
-commit a7b0e29a0ba6644ce08c06f5c058683c28280b67
-Author: Francesco Valla <francesco@valla.it>
+Both the downstream IPL and mainline U-Boot on RSIP configure the ECC
+carveouts to the same size for all eight carveouts. Align the carveout
+sizes with the controller configuration set by the bootloader.
 
-PoC: arm64: dts: imx93-11x11-frdm: add multiple vdevs
+This makes 1638 MiB of DRAM available for each of the three carveouts,
+which adds up to a total of 4915 MiB of newly accessible DRAM on this
+platform with this fix.
 
-This commit adds rings for multiple vdevs and the required virtio nodes for
-I2C, SPI, and GPIO functionalities to the imx93-11x11-frdm devicetree. It
-also includes example peripherals to demonstrate these virtio interfaces.
+Making this memory available does not pose a danger, since the current
+set of carveouts were carefully set to a larger size to prevent any
+possible issues until a confirmation from the hardware team become
+available, that it is safe to apply these less restrictive settings.
 
->     NOTE: this is a Proof-Of-Concept, not meant to be integrated!
+Fixes: 6fa6ee724d8d ("arm64: dts: renesas: ironhide: Describe inline ECC carveouts")
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+---
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Magnus Damm <magnus.damm@gmail.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org
+---
+ arch/arm64/boot/dts/renesas/r8a78000-ironhide.dts | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-[Severity: Medium]
-Since this patch is explicitly marked as a Proof-Of-Concept and not meant f=
-or
-integration, should it be dropped from the queue to prevent merging unstable
-or incomplete code?
+diff --git a/arch/arm64/boot/dts/renesas/r8a78000-ironhide.dts b/arch/arm64/boot/dts/renesas/r8a78000-ironhide.dts
+index 8e68266bb0ab0..239175c54b937 100644
+--- a/arch/arm64/boot/dts/renesas/r8a78000-ironhide.dts
++++ b/arch/arm64/boot/dts/renesas/r8a78000-ironhide.dts
+@@ -161,18 +161,18 @@ ecc@18cccc0000 {
+ 			no-map;
+ 		};
+ 
+-		ecc@1a66660000 {
+-			reg = <0x1a 0x66660000 0x0 0x999a0000>;
++		ecc@1acccc0000 {
++			reg = <0x1a 0xcccc0000 0x0 0x33340000>;
+ 			no-map;
+ 		};
+ 
+-		ecc@1c66660000 {
+-			reg = <0x1c 0x66660000 0x0 0x999a0000>;
++		ecc@1ccccc0000 {
++			reg = <0x1c 0xcccc0000 0x0 0x33340000>;
+ 			no-map;
+ 		};
+ 
+-		ecc@1e66660000 {
+-			reg = <0x1e 0x66660000 0x0 0x999a0000>;
++		ecc@1ecccc0000 {
++			reg = <0x1e 0xcccc0000 0x0 0x33340000>;
+ 			no-map;
+ 		};
+ 	};
+-- 
+2.53.0
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts b/arch/ar=
-m64/boot/dts/freescale/imx93-11x11-frdm.dts
-> index bd14ba28690c0..dfa3b122ac5f4 100644
-> --- a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
-> @@ -53,6 +53,32 @@ button-k3 {
->  		};
->  	};
-> =20
-> +	gpio-keys-virtio {
-> +		compatible =3D "gpio-keys-polled";
-> +		poll-interval =3D <100>;
-> +
-> +		button-v1 {
-> +			label =3D "Button V1";
-> +			linux,code =3D <BTN_3>;
-> +			gpios =3D <&v_gpio 23 GPIO_ACTIVE_LOW>;
-> +		};
-
-[Severity: High]
-Will the v_gpio phandle fail to resolve because the v_gpio node is not
-recognized as a valid OF GPIO controller by the system?
-
-[ ... ]
-
-> @@ -149,8 +200,67 @@ &cm33 {
->  		 <&mu1 3 1>;
->  	mbox-names =3D "tx", "rx", "rxdb";
->  	memory-region =3D <&vdevbuffer>, <&vdev0vring0>, <&vdev0vring1>,
-> -			<&vdev1vring0>, <&vdev1vring1>, <&rsc_table>;
-> +			<&vdev1vring0>, <&vdev2vring0>, <&vdev2vring1>,
-> +			<&vdev3vring0>, <&vdev4vring0>,
-> +			<&vdev5vring0>, <&vdev5vring1>, <&vdev5vring2>;
->  	status =3D "okay";
-> +
-> +	virtio {
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <0>;
-> +
-> +		vdev@2 {
-> +			reg =3D <2>;
-> +
-> +			v_gpio: gpio {
-> +				compatible =3D "virtio,device29";
-
-[Severity: High]
-Will these virtio subnodes remain unlinked to the actual devices?
-
-virtio_device_of_init() attempts to match devicetree nodes by checking
-dev_of_node(dev->dev.parent). For remoteproc-created virtio devices, the
-parent is the dynamically created rproc-virtio platform device (created in
-rproc_handle_vdev()), which is never assigned an of_node.
-
-Does this result in the devicetree matching failing silently, causing
-dependent peripheral drivers (e.g., gpio-keys) to defer probing indefinitel=
-y?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916-remoteproc=
-_virtio_map-v1-0-dac8c5eb4aa9@valla.it?part=3D12
