@@ -1,72 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A06F4457C7;
-	Wed, 16 Sep 2026 07:32:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F8C74432FD
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 07:33:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789543993; cv=none; b=Pbt7r7lbTZGcaswYSEbCxJmhL1Phw+EvZ7lr4yfFNzwtLgvaSfSZrvQwobV6Wdq6qzCTRKK7OLHcSsX2je/Qsjg9dyjm0dti6FbB3hBytw1A6Mpp8N6o80w0S7UHVVK7MxNbYn+BsrIS2HZxGj59sNKhaGkDwGskF8HL8itRUvM=
+	t=1789543997; cv=none; b=WjafNOSy+vlqGyZq9+IjttN9GBrvzZ2EAocr+tt8gCZjkG5wZ86ZvpKbaF5BmlL7HcHENzhkJiUT26pEmNbdVkclla6R+G4R+lg4TjdZJyb6Qzq/srOH3ndn8bVFfOmy/8tkG9W1DbP8AFLqojFL3lfCcxBmcQPlUjVj7mwaR7U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789543993; c=relaxed/simple;
-	bh=uhEEMSeYIVCrkIn5hi86Xkv5BxenIOVfaRKKVYHvD84=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=bWmo6mi9Lgu7eVs3EtRncVpv0d+R+4FDoTyYx8v6Ki2bv8sqv2lG/rorVyiEx0jK0nWwROVI3xOfLlnPY6PBa0KiCCHFTmZsfyMUiGsfbKZiYth6eWXFDNd01/4GdW0V3r7GcXFS2quhw0DyPg/pgvVxjfGD2vpqkCkAN/Ftvgo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ERhM4IuW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789543997; c=relaxed/simple;
+	bh=rd5sAWS8fPl6tZw0Abc0rw3eZN7dm6UaDYyS9yhj/5Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=R78hYhn23U/cq07fnIJDIiWAaICAGr65t0Anl5+u2BzuMYqlh+DYf/TcNwIeInuojCJ436d3Gtc8fWmzIjh6zq7/PYvwjxS+7TAYCu5EpOq+uwbBuD8azm5Wx0JtMHg1OUh0HR8/DxTZJwcoPBCqn6uMOPTfu3fllUeyzqxpn7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=F8ZZmtJt; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ERhM4IuW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F205D1F000FF;
-	Wed, 16 Sep 2026 07:32:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789543976;
-	bh=uhEEMSeYIVCrkIn5hi86Xkv5BxenIOVfaRKKVYHvD84=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=ERhM4IuWUsUDUCi0mxk+QQ4mrLR+K0U0X3WIVec1LX+IL7ZohUfsPxaA8/Kff+DSB
-	 1qcsKbCRrZoF9P5pNQzA8kZ6WfUNzY8YgjV1Ua5/aqQqcZPKEpFWwn9eUQ0gb8Kxl0
-	 PmPO05XA6tf0yCSo/qmTHuqOllx9qAwbzhcAl0648Z1/1u4PoeQALx3BjXwYpLIiPM
-	 9rcgVPSAXAawae5xybgelL7ZlwwZL078ZeAabYw5ajT95XxqV7ropCyY0SIuEHND5E
-	 fZubQALdBDGLGG22xtIj3p5oUJlMXVRFVkYD/ST0VNbK+NwWtNa4C+w4vzl2luIccZ
-	 YMKu3eeuLqfdw==
-From: Mattijs Korpershoek <mkorpershoek@kernel.org>
-To: Ryan Brue <ryanbrue.dev@gmail.com>, Dmitry Torokhov
- <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>
-Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, Ryan Brue <ryanbrue.dev@gmail.com>
-Subject: Re: [PATCH] dt-bindings: input: mediatek,mt6779-keypad: add the
- MT8173 keypad
-In-Reply-To: <20260915-rbrue-suez-upstreaming-mt8173-keypad-v1-1-96c325efacbe@gmail.com>
-References: <20260915-rbrue-suez-upstreaming-mt8173-keypad-v1-1-96c325efacbe@gmail.com>
-Date: Wed, 16 Sep 2026 09:32:53 +0200
-Message-ID: <xhkdbbj9x1wii.fsf@mkorpers-koolstof.csb>
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="F8ZZmtJt"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=rd5s
+	AWS8fPl6tZw0Abc0rw3eZN7dm6UaDYyS9yhj/5Q=; b=F8ZZmtJtRFCDzdjSESr+
+	jYd9JsENqBeacg0rEWkqhW35/gl13jCJtpd9GjHvAXJS3Y13uKdTFsUb2J5ipGiY
+	UOw6FnodIn7Qcru5asZyJS/d+d49A/pxlvO7kCmck5OgpxqLv/IzuXONKEyaLioH
+	30dqu69811cQhALo4ebEH4MZp+ggENUG1wnOOQQaOVXattbcRyUactMcLwoxL9HO
+	u1dcz8X4p2Pw7na4A4WN3r6e5c9JYskvBrg+m2zScCWfyLk9+zpFPIjQxIsuR7Qk
+	zsYHLpwfTfN3B0yzzAE/iqqXRfjUoDi26b7zTiYaGU3cvW9Bo9R2JXIw1BsovDdy
+	Zg==
+Received: (qmail 1445549 invoked from network); 16 Sep 2026 09:32:53 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 16 Sep 2026 09:32:53 +0200
+X-UD-Smtp-Session: l3s3148p1@+HvVrJRbvMcujnt4
+Date: Wed, 16 Sep 2026 09:32:52 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>,
+	linux-renesas-soc@vger.kernel.org,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>, linux-rtc@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH 3/6] dt-bindings: rtc: rzn1: interrupts are not required
+Message-ID: <aqpGH_VURXi8y569@ninjato>
+References: <20260914211826.73727-8-wsa+renesas@sang-engineering.com>
+ <20260914211826.73727-11-wsa+renesas@sang-engineering.com>
+ <CA+V-a8ssNZ4X+e31V59YdqYmoap-S1W3Vfois9oNisVT3izxag@mail.gmail.com>
+ <20260915-cultural-patriarch-9ad164b46cba@spud>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="UdnYYk2FsmUgjAld"
+Content-Disposition: inline
+In-Reply-To: <20260915-cultural-patriarch-9ad164b46cba@spud>
 
-Hi Ryan,
+--UdnYYk2FsmUgjAld
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for the patch.
 
-On Tue, Sep 15, 2026 at 22:47, Ryan Brue <ryanbrue.dev@gmail.com> wrote:
+> > Maybe we can add a conditional schema check for SoCs where
+> > interrupts{-names} are required.
+>=20
+> Yeah, I'd prefer this. If all current devices have the interrupt wired,
+> there's little value in permitting them to not be populated and thereby
+> lose the support for alarms.
 
-> MT8173's keypad controller is the same block this driver already handles.
-> Its register map agrees offset for offset with the MT6779 one -- STA 0x00,
-> MEM1..MEM5 0x04..0x14, DEBOUNCE 0x18, SEL 0x20, EN 0x24 -- and
-> mt6779-keypad drives it with no code change, so the node only needs the
-> fallback compatible in second position. Add the mt8173 string to the
-> existing enum, which is what mt6873, mt8183, mt8365 and mt8516 already do.
->
-> Verified on an MT8173 board (Amazon Fire HD 10 2017): the volume rocker
-> reports through mt6779-keypad with no driver modification.
->
-> Assisted-by: LLM
-> Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+Okay, I will refactor like this.
 
-Reviewed-by: Mattijs Korpershoek <mkorpershoek@kernel.org>
+Thank you for your comments, everyone!
 
+
+--UdnYYk2FsmUgjAld
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqqRh8ACgkQFA3kzBSg
+KbZjGg/+OZr+JSK2DNpjhja1RyLpQwEahv2FNl6oxetzONtFdgR/fU44edmzSWSq
+tulIOBbBHBSq+XJokJXwZGm5NtTDivYrQ2/+TevL0Ir1MQ5G3IuFDtWnL91DHzpf
+NhdLe3kvrRHFLc+czNmB2BOiDQ2wSQFDIcJ4o71b3c/wz8WUMYLV5NkCDY5VjJbE
+T42TMBlbVHcrPM3QjcWLY84OjPvIknV1LNXwJ7Nu75nuO/GRF8guFi5ooenPVLZ1
+fDlTonimHk8rSOAbp4j/Yq2MziWsqiOF3XT093WRXEdKETa0ZfbYpLG+ioTRfns3
+lXFYx7sBwmZedtuAWS01PInbCFkYF8rq05b65Pb8XxULwBFp2nIeqJxY0bfktHaY
+NUcSi5IIOycqdR53MVMADhJtezES8zsRzTc9ZY4Tca4KhBrU2Oo0SdoS/RK1tC+W
+LBfryKtY9McPw6VmoMEU+w9Qc9R4a3V7IsSM0uLsR4swQXNZFj0UTEE9wXRqBbzi
+NwWzDzDgGo6En0gkpYASPBCxIT4VxdtXZsdareplaluCrlHuNmhfgIQH/gLFTCpk
+awKQq3JVkaeVXpn/6NBWJEITRurjyKqyIk82xwg42Os+trA90o6fIK5Fzgfpis5m
+rkMSYM4YWtpUikIXaqyq3tMNO8kNA+Ygw2siM9JvZwnQXOks+Gw=
+=A700
+-----END PGP SIGNATURE-----
+
+--UdnYYk2FsmUgjAld--
