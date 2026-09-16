@@ -1,85 +1,87 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A3764C33EF
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 17:15:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D36A48FF72
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 17:21:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789578913; cv=none; b=Fuh5MCDQK7X5mtSSOX6L0kMof41mnP2WxgkgnpQx47NBX04yy8nd8d57mvt7R0/N3OGmt6n5XRc86COQqSWzWRze013W4qDJrekFxOOIR7EiBZgWDIevNeQitEXPaVK1V48nIbQ4oIOTBGNES25kJWMd4aSijYSYC+qx7O+3vMs=
+	t=1789579304; cv=none; b=jyje8a5uUqm5rL4pJPTJdIzh/l/Q1qMFG7c/LNRaBHOdHzr2nibWEq+sCGkBQPf1tOASp6AJOaWlECHtH7cKg9seEKkisj4ffylhJVyrLztOQwj+r+6xpYm1bDDKPAy56bCXW6oEIQbGLCBdG3k8Ot6G+o2ZuUF1RoZ6Kbfph+M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789578913; c=relaxed/simple;
-	bh=x+RzZmHnqaIFv/afq4EE1msbYj1HqtHQnuxnErsonnM=;
+	s=arc-20240116; t=1789579304; c=relaxed/simple;
+	bh=+Wm8XztWe9cjSuQsXSOKuMkDzkD1yzW07KRTOyVgie0=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JjKK4/HHprt90d2a43evROm37bXEZlk5dzuTqk30GE3U9ahRfy/7NWWozKYoZm8HH4HIDttcAioDRWYsFj9MrZg+niTfsuoiurIDZ+oFpCIMP/1CYEQOr3nch59USL83892jiwKw2SZt+e7Ds3JINfYa4/2hFo232nz6ukjCWyE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fJWKyUQG; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=AFuvu5/tmwJKBNM+z4mpL/h45P7TRhkEpeE0B7LSEmryPBq/nRsoJi+cKZRc7tK1Nm/4cXwcN6XO0/Suk13ipRH1+6LrmArhyYpScnA25V2116DD4wNn81QGZBaV05GwNtBYH5ribp98TWbKbZ8mt8CSNEYmf0LgjqFlJDehgnA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OtqPa6xW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fJWKyUQG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20B041F008A5
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 17:15:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OtqPa6xW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECFB61F008BD
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 17:21:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789578911;
-	bh=x+RzZmHnqaIFv/afq4EE1msbYj1HqtHQnuxnErsonnM=;
+	s=k20260515; t=1789579302;
+	bh=F1UErD4H6r6whOgpoMHeGy/yiV6kGc+XBk8QJER2Od8=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=fJWKyUQGkPoGP6Y6CKkbMqnqk0M61nrKSbxnHjagrEGHJbkxh2gmxnq+2sBMXzN1Z
-	 Qz2mT0p9yrfu8kVSu40m5cIhXgOSeqCmYnNDCC+rciMkhrLs0p+dcBdoN1vVayVBVt
-	 N+d6tLIHjwuKx2KEFKfarXY6aKGGJQr9I6ZxAlXvUMMZLLUY5kv5hwPIysLW2BsVeg
-	 MGNEuRRKp8UVTSz51bvHgHX3WwwSqqMl3q7XHvNdY/hy9VyasfbQH6PYP0ppfJjeZb
-	 gqM4N2Sy8rxyPTLehUtbIuvkIJakxSI/S6RjBJZmFFESkhSMFGoXksEure1UOiIk8f
-	 Gq8jo4oKDZJDg==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f13d77so1543204e87.0
-        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 10:15:11 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw9aK9XaG/wAPRbx8Q40XjFxL/pOiyxYnUPA68slAnP18iG1aUXL47Nd/8WmPWGUw7znOQy+QW8I/u7@vger.kernel.org
-X-Gm-Message-State: AFuF++l8DeMCeAAn3q+xlxahOomH18nvELR2CsupQxDQafa75dMb7A8e
-	HxUYWHTHZ6AVbKUxr1ZFAQS5dItwe0evZv/6tngvvXuOL8rKMJjo67Lftf8DAut7TVw3MBO7Wbn
-	FzIxHeH3JeH0BObB2dFFXtLahjtCX4vc=
-X-Received: by 2002:a05:6512:4023:b0:5b8:b419:c8ad with SMTP id
- 2adb3069b0e04-5b8b6617917mr991899e87.17.1789578909833; Wed, 16 Sep 2026
- 10:15:09 -0700 (PDT)
+	b=OtqPa6xWTvZHahphsBKsXSM0vVDuwyyQDfeMMeeEdCwWUcXyf9dlKeNLwgs5z44tQ
+	 WrEw0/lFS1kR81AfTFFl8gO2WD8ymB6OULjtt3mMaSrQZ/BLplGiHqg2ZX64o9jZyv
+	 lRQjurrPvX6EHDlo/M7bJ3vybpD2OkTMf18ZzfkBroMKIYFxdFYoOBO4SqZXkxmA+m
+	 5H66Szm6FTlqa6jX0VplbsuV5ZZ89DhiviBw+u3aGEgpG3N7+v+oORv1usu/Fl+caa
+	 0oDpvEUV/RUY8fvpDeaGcVR6CILUMSDmpvRRSbahMAfV/wEskXbF0UkH8q4fFAn5zH
+	 6D4yaBy6bTqaQ==
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5b5f21afe8cso2387075e87.1
+        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 10:21:41 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxqAW7NZ3tyJoljkVqzTrcqOe9bSL/DkvQCAuhB+mY8xovFkpEXmomLxN1Xn8eJtdd7DUpJnpT2ZpJy@vger.kernel.org
+X-Gm-Message-State: AFuF++mu4D+JJM4jdIBid1XXx8g4qJbM7HFujrWu+xMPvndrMFhDipoU
+	MPCNGoga2fhOBz5ObKTbvwXWi+afdIdiS5LtzApv/saa3FMnfGkXalC5DHLN3zaFdlI4wZwDTRa
+	keV72uVYTEGY5ZcbuEQr7v+dOGfHHvFM=
+X-Received: by 2002:a05:6512:6883:10b0:5b6:172b:7ba1 with SMTP id
+ 2adb3069b0e04-5b8ba5d1a82mr67749e87.9.1789579300578; Wed, 16 Sep 2026
+ 10:21:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260910-fw-devlink-nexus-ready-v2-0-17ac82dbe226@toradex.com> <20260910-fw-devlink-nexus-ready-v2-3-17ac82dbe226@toradex.com>
-In-Reply-To: <20260910-fw-devlink-nexus-ready-v2-3-17ac82dbe226@toradex.com>
+References: <20260913123223.99893-2-krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260913123223.99893-2-krzysztof.kozlowski@oss.qualcomm.com>
 From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 16 Sep 2026 19:14:57 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=PV_BEw6pa=M7dDEMNMg2xfbBESGanXE2sajTav5hPBg@mail.gmail.com>
-X-Gm-Features: AcwNN1VY_W0_it0rWdRRWdWtRhIbKagoTA3QAM941QSR0htK7aD0JhAkkSfT2YY
-Message-ID: <CAD++jL=PV_BEw6pa=M7dDEMNMg2xfbBESGanXE2sajTav5hPBg@mail.gmail.com>
-Subject: Re: [PATCH v2 3/7] of: unittest: Test fw_devlink with GPIO nexus maps
-To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	"Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>, Frank Li <Frank.li@oss.nxp.com>, 
-	Kieran Bingham <kieran.bingham@ideasonboard.com>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney@redhat.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>, 
-	Herve Codina <herve.codina@bootlin.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Leonardo Costa <leonardo.costa@toradex.com>, 
-	devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, linux-pwm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+Date: Wed, 16 Sep 2026 19:21:28 +0200
+X-Gmail-Original-Message-ID: <CAD++jLm2hQ=fHmLGL4KnaK-q2L95tz3P6__qx=dFCUeiMUz9tA@mail.gmail.com>
+X-Gm-Features: AcwNN1WeMHFPjUODWxifW5uhfKTviiZfd6OYXXOq_JHN6cgG4pckjp0gwgbXDp4
+Message-ID: <CAD++jLm2hQ=fHmLGL4KnaK-q2L95tz3P6__qx=dFCUeiMUz9tA@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: pinctrl: Use consistent indentation in the example
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Dong Aisheng <aisheng.dong@nxp.com>, 
+	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, NXP S32 Linux Team <s32@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Sean Wang <sean.wang@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Michal Simek <michal.simek@amd.com>, Gary Yang <gary.yang@cixtech.com>, 
+	Fugang Duan <fugang.duan@cixtech.com>, 
+	CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>, 
+	Del Regno <angelogioacchino.delregno@somainline.org>, 
+	Rahul Tanwar <rahul.tanwar@linux.intel.com>, Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>, 
+	Jingyi Wang <jingyi.wang@oss.qualcomm.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Krishna Potthuri <sai.krishna.potthuri@amd.com>, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+	linux-arm-msm@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 10, 2026 at 4:16=E2=80=AFPM Ernest Van Hoecke
-<ernestvanhoecke@gmail.com> wrote:
+On Sun, Sep 13, 2026 at 2:32=E2=80=AFPM Krzysztof Kozlowski
+<krzysztof.kozlowski@oss.qualcomm.com> wrote:
 
-> From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> Correct indentation in the examples to consistent 2- or 4-spaces
+> indentation to fix dt-check-style warnings ("example 0
+> [indent-consistent] indent mismatch ...").  Preferred is 4-spaces, but
+> re-indenting entire example just for that is too much churn.
 >
-> Add OF unit tests that call the fw_devlink add_links operation for GPIOs
-> routed through nexus maps. Verify that each mapped consumer has exactly
-> one link to the final GPIO provider rather than to the nexus.
->
-> Also cover direct references and all GPIO property spellings recognized
-> by fw_devlink, including the deprecated singular and unprefixed forms.
->
-> Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Patch applied!
 
 Yours,
 Linus Walleij
