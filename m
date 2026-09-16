@@ -1,71 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEE5F446073
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 20:43:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 538AE4DA9B7;
+	Wed, 16 Sep 2026 20:45:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789591428; cv=none; b=XFe37oxkY/dHmstjSHjAlorTzbbuzGTYEaDcpXalcnY3X9C5tP6Wv0hzO6GSpiMSu2vE60jlPLTxQynRxYuaPaRO7a1putrH05dJG9EXLqDOKtqFyT6fg3L4fVCh8QUve6d9z9wgm7uYzMSTf4eEk311hv7MhOuVwS6Zrm+qgrs=
+	t=1789591543; cv=none; b=SBaMyy1UBPCAkaPybykU15IBJK+tu74IxVvQQwC+ndLJLRgJkFwCPLoOZw5wh6Y0m9PJ4ybMV1EVzB+G17L9s7WSxSyGNH+Yb/0N2TDZHIzvAJExrg9vPefKWKmhKRAvrTOXlhgvK7A/3ddqzgcKTybjnMLLCXseRLrDfMYgfe8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789591428; c=relaxed/simple;
-	bh=vlKw8zEtmmpXHVJ2WbaEoKFzRUul9RS/PINyb7V/eQQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZF+JSHNKhW1jgNTD8bW5VkmB22Y3rJ/YURRDIicIvXxJodfT6udsDTDhckA7Q//Otztz2eeox+ehDrOYbZGyO3ElgD+3wixcHyDUHWq4/NjQLwWO23f50AXhYKl7JISwLnodKVplbmP0vitpD63tkNw+u7Yu86JR/lGhPCW/AdA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cFyJIRmT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789591543; c=relaxed/simple;
+	bh=9Hhu8R52AM5i0AXYpVtAGkxWyEdJ/yoaL8+LM/k0FGE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=alwXFeBnTAmbaNkjJLdixL3Y+e6quh/LXtt87g2CwwIAbDPYgZz7GLxKmS5x59uUovHJ60tCKTlGlvzU3x1E7wblve2Q9BbCmIh7B0QZyfIxPxk8BkewFmx2BuFRT/lEcUmGkoTTc6rFNOkiKSVwHxhwRZYvwQRt3/wbaeijOZU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=MsM6wl97; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cFyJIRmT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD3801F00898
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 20:43:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789591421;
-	bh=vlKw8zEtmmpXHVJ2WbaEoKFzRUul9RS/PINyb7V/eQQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=cFyJIRmT3405pihywetpV9hmvKAv22KhfLKYeOpuckrVAnCfD+gwgdUyz8+3eLPkg
-	 p3fk4D8iomhYvtCPucqpn3f1wluyTkmYUKZh469vairyUZMyoDxwWu1ys8/fO3xZRG
-	 ZN28cx+9w+nSKa/dUp+Y+NaxGjZoKGJc9DJoeRiNhJzlDJZcSrLrPVZKHVohcH47Ba
-	 8Ya0PIkUcARM1z6JZ6DylcBQjOQdzYatQzvHBYYogUZWZtGdkvfTYtJA+JGX/QhEvW
-	 SdSVsqCx0FkHajBuqXYSwR+Bz/d/6CkT+MZHZRevR/0qJPEpfwnhoXQvjAE2og77Lw
-	 Q0iZecZOkIBgA==
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f9f7dbfso22554466b.2
-        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 13:43:41 -0700 (PDT)
-X-Gm-Message-State: AFuF++m9qP6FPWbzOKb5ryAEo0B6EsU1G8rI8+aFJlH9Fkm8PyuEVEeD
-	CGaborXGgxQyALvFe+tuZ0nhDBsI6J2gc62rUot5jTzTnYUD6QbgSk4nRjuJdsPMz+NgH4VTO89
-	WqEakV+SqE6ZHGMw3dxwihtC/cf8pKw==
-X-Received: by 2002:a17:907:c78d:b0:c29:43fd:e43b with SMTP id
- a640c23a62f3a-c29e5392d7amr305474666b.28.1789591420459; Wed, 16 Sep 2026
- 13:43:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="MsM6wl97"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4278910485C;
+	Wed, 16 Sep 2026 22:45:14 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1789591518; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=r47px2LK1MaSlDpFcSezxdMNmccxTjNecKxUSivvSho=;
+	b=MsM6wl976XxP1ZAiDG1peEfD7V9q9HgKjY9MpQcgPdjTEWDEDgfb/yaUvZMDyIySuLQg3Y
+	thS6aq39W8OW+AiefX7ZW5UNClayP/hs8+3cLzR6AefXSSJ953v1aSoq5dlkYtvvQpWkvm
+	Juo1Y8vksOvSLWY0hxTXdAm1VgNyYJHvLLWOZ10sqFeC4u0FpLHRVw7CWme17JN6U70J21
+	jEaS9JRbmlA8PCGNsBSda5Q3E2pqT/nCwNg4axHbl8HbL+eCAuowPPPNImvSQmvzuvwyvP
+	Qph55c6LGntM2hefCbl7YzF2oorwRV3k56QPp3LTR6dBXhc5CvhEeeckFb0ioQ==
+From: Marek Vasut <marex@nabladev.com>
+To: linux-arm-kernel@lists.infradead.org
+Cc: Marek Vasut <marex@nabladev.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Michal Simek <michal.simek@amd.com>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 1/2] dt-bindings: soc: xilinx: Document ifm ZynqMP VHIP6 EvalBoard
+Date: Wed, 16 Sep 2026 22:44:27 +0200
+Message-ID: <20260916204509.166633-1-marex@nabladev.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260720-qm_smmu-v1-0-3689fbd8b516@nxp.com> <20260720-qm_smmu-v1-2-3689fbd8b516@nxp.com>
- <20260720212401.C2BD31F000E9@smtp.kernel.org>
-In-Reply-To: <20260720212401.C2BD31F000E9@smtp.kernel.org>
-From: Rob Herring <robh@kernel.org>
-Date: Wed, 16 Sep 2026 15:43:28 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqJkL57yUCF41BJvsoJkhhRb8xnukdtxe61fXB1r_7gK_Q@mail.gmail.com>
-X-Gm-Features: AcwNN1WDsCQvtNQUN8sanOdeWarRT8BUGDlcRUxPHV8tyHR0Hu5vmuAcP9BJDpw
-Message-ID: <CAL_JsqJkL57yUCF41BJvsoJkhhRb8xnukdtxe61fXB1r_7gK_Q@mail.gmail.com>
-Subject: Re: [PATCH 2/2] arm64: dts: imx8qm-ss-conn: Add HSIC usb@5b0e0000 node
-To: sashiko-reviews@lists.linux.dev, frank.li@oss.nxp.com, frank.li@kernel.org
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, imx@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, Jul 20, 2026 at 4:24=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
->
-> Thank you for your contribution! Sashiko AI review found 3 potential issu=
-e(s) to consider:
-> - [High] The `usbphynop2` node requests the wrong power domain (`IMX_SC_R=
-_USB_0_PHY` instead of `IMX_SC_R_USB_1_PHY`).
-> - [Medium] The `usbh1` node is enabled by default (missing `status =3D "d=
-isabled";`), violating SoC `.dtsi` practices and causing unconditional prob=
-ing.
-> - [Low] Missing required `#phy-cells` property in the `usbphynop2` node.
+Document ifm ZynqMP VHIP6 EvalBoard reference design binding.
+The board is populated with four ethernet ports, QSPI NOR,
+eMMC, UART and USB host interfaces.
 
-This reported issue is now a warning in linux-next. Maybe the other 2
-issues are valid too?
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Marek Vasut <marex@nabladev.com>
+---
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Michal Simek <michal.simek@amd.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+---
+V2: No change
+V3: Add AB from Krzysztof
+---
+ Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-Rob
+diff --git a/Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml b/Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml
+index c9f99e0df2b35..49ef4e0c68501 100644
+--- a/Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml
++++ b/Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml
+@@ -44,6 +44,11 @@ properties:
+           - const: xlnx,zynq-zed
+           - const: xlnx,zynq-7000
+ 
++      - items:
++          - const: ifm,zynqmp-vhip6-evalboard
++          - const: ifm,zynqmp-vhip6
++          - const: xlnx,zynqmp
++
+       - items:
+           - enum:
+               - xlnx,zynqmp-zc1751
+-- 
+2.53.0
+
