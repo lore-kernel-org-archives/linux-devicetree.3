@@ -1,126 +1,224 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9B5C49CF45;
-	Wed, 16 Sep 2026 09:10:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C6DF4A1E1A;
+	Wed, 16 Sep 2026 09:10:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789549854; cv=none; b=DzhKZj52jHHZWln3WgPHS9ZfszyiJuaFuJiooa4OJhEZOBV9/Ela2BNVlpF21i9TF9VpR2OGuU+bfmmsh9ZqONC1/n1tOV4oeOm9DHB49NVcoy5tfRy6nn/TyCOeaP2lbBAGtz3xyzqccsFXdye2DOA/7dCVzGkmTYT1CFmh6cI=
+	t=1789549857; cv=none; b=t2pYmVCQBQZ0b1HkXtyOHUuSOTFa7EMKIhKe4f+k0Q4Fi8TUCtvTXiHm4VJvPfHta5LsSEqtJ/ipXzcpBi/TvQFc7ZwX8GuUanOuGSOtKNNAU9fVKpOKtf1GPnQyT74Hi0nIQX+mgOuZCteQqOL3u1fI4zf4cP28U76VU8yc7wo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789549854; c=relaxed/simple;
-	bh=GKSilOSfggdM8g6QQVBUfLbmwTwdsDHNdb3vbfuMqoU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jay6jbw/+UiGu7UpHaIZijiBtbM5xgF6xQxXv1LtizKfrAfPupHUXsWrzQs79Osn7gi9+OkZaDHGw4ZAYqRq7Lgbli4ZefuRJh1pM+vfVkYIaA1NCOekSVkPvf9oVGT2Fdp/NViE04JQRyNq2dDCgvA4ltPikAe6wCpRhrLSegA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au; spf=pass smtp.mailfrom=gandalf.ozlabs.org; dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b=ZFoRO0fP; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+	s=arc-20240116; t=1789549857; c=relaxed/simple;
+	bh=oXxDpEB/9kw6vlAtcIElAtpL/R2WeSWPDLT840ATx5g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dn155j58DKOQQ1RFOWe0j/uSto+osizmWiqTrbnwAcUi54dewNqzBDRMqsZs5UkHBxVoltjXSyph7MdEdnE/GE8HFNR6KyoMkDmsTBpC/CyZAtNop2Ls/gpfR68RsEUnpZ/Oiu//ZIgWwmZda6PJxX6iaBHpIwXSGaL+IBkXzQI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Saq6qWL4; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=J+rMaxyF; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Gm0CFI9q; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=WoRkNljy; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b="ZFoRO0fP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202608; t=1789549822;
-	bh=pktJp8dL7X3z00M5ruTC2/04Ix43KOf7Wg32XhKGFlM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ZFoRO0fPE82zDO0AA5XntPSHPUiEtPRLyVq2yURuRxipYLgRgnDqrLfZdJyC18tlo
-	 2QenSr3PzrYAQG+ybVylQ3yNbrC8C4VzNA5McKbsIEAJm7tVRui6mJUntnactskq74
-	 ULp4SN6l5mTUG+muug5pUsTlE+56QWKjuCmE+fvmbhzRFiqQoU3b7eshgfMVOzxBaJ
-	 TvYUkDatCPQdrMZAqZf9ozJ2gcu5heZb0ijfq4BkD8CjRjUNDLPXkNxP/kWo7GFu0r
-	 5hjVvP4mhobwf8U5DErzIdgfM9P+3o5Rm4PJl1z5LoXKxYyxmsAII5EfpyrG2ozmJs
-	 GMDzKjYXil6NQ==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4hlClf40ZNz4wJj; Wed, 16 Sep 2026 19:10:22 +1000 (AEST)
-Date: Wed, 16 Sep 2026 18:27:53 +1000
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Ayush Singh <ayush@beagleboard.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
-	Hui Pu <hui.pu@gehealthcare.com>,
-	Ian Ray <ian.ray@gehealthcare.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 08/15] flattree: Handle unknown tags
-Message-ID: <aqpS_ejYTENzaE6-@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
- <20260826083146.304291-9-herve.codina@bootlin.com>
- <aqevEJ_VlBxYUp81@gractus.seuss>
- <20260915121635.39f13d34@bootlin.com>
- <aqkxacdQHZuhhyxw@gractus.seuss>
- <20260916083130.7b14e90e@bootlin.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Saq6qWL4";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="J+rMaxyF";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Gm0CFI9q";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="WoRkNljy"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 836F421CCD;
+	Wed, 16 Sep 2026 09:10:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789549841; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=z46wx7Hu+65Xvq6ghe0bX58SbvKrXgnXXf6MIrIXc/M=;
+	b=Saq6qWL4CTJ52CWxUM0UH7Fuh9++ZtQeTGalncIbOVnx+1pyYmmRVW5A0GyqcEZZn2XE5E
+	Pv9SRpmHwo2LyhcPfduFmIOZT1ewbvWMirVhz8Bz1sMdOanqBXj2RoXie//kUi9JKBx/qV
+	9mmk6zYv0wKHal4t+ln5O5HIZy8OXok=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789549841;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=z46wx7Hu+65Xvq6ghe0bX58SbvKrXgnXXf6MIrIXc/M=;
+	b=J+rMaxyFO3mXW+fjU4tqTN5SwoHqG/nUWcOm6o4u1S8h9NeiUKrsFjjgT1K48P/sw9vXhb
+	ojjbPoVH0qGRKwDg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789549837; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=z46wx7Hu+65Xvq6ghe0bX58SbvKrXgnXXf6MIrIXc/M=;
+	b=Gm0CFI9q6TYPzUSsyL9N3cDSHD+maeXbgTJ0p/pbDw8p4IwOpt0Alkzc+Cscg1aSFoOySf
+	/laOXpQpxvzoTsFAz88YV6d8XHiKWAGXKQvWnjX4xXNf5PyskauSKuYGoLRDLj8Z1Q2u3x
+	dc/egtvvy/CFPe2XmI/IlwkuUIvWAUs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789549837;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=z46wx7Hu+65Xvq6ghe0bX58SbvKrXgnXXf6MIrIXc/M=;
+	b=WoRkNljyWLwKimx1tvWnBZaq0owaYswYru8hNH45h/hWjnguo6ZqX6x9YtI55Yg07ZrsAu
+	7d/NtpNc985bFgCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EDA3F1348F;
+	Wed, 16 Sep 2026 09:10:36 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 8bs0JgxdqmqTAgAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Wed, 16 Sep 2026 09:10:36 +0000
+Message-ID: <0a13ccb8-8817-4223-a4a2-0de594ac8c71@suse.de>
+Date: Wed, 16 Sep 2026 11:10:36 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6GJWAqC257zHuXPW"
-Content-Disposition: inline
-In-Reply-To: <20260916083130.7b14e90e@bootlin.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] drm/tiny: add support for PIXPAPER 4.26 monochrome
+ e-ink panel
+To: LiangCheng Wang <zaq14760@gmail.com>, Devarsh Thakkar <devarsht@ti.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Wig Cheng <onlywig@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Sam Ravnborg <sam@ravnborg.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+References: <20260529-bar-v3-0-5c2ac1c751ee@gmail.com>
+ <20260529-bar-v3-2-5c2ac1c751ee@gmail.com>
+ <2bfb73e6-dca3-4d93-af04-3c644929dd19@ti.com>
+ <20260616083921.4066690-1-zaq14760@gmail.com>
+ <423c3dca-9589-488d-8462-c3d51f05ee4a@ti.com>
+ <20260617020926.114947-1-zaq14760@gmail.com>
+ <8fcfab0f-6b98-478b-be4a-c5b810fb3524@ti.com>
+ <20260731035705.3198816-1-zaq14760@gmail.com>
+ <20260916082924.956116-1-zaq14760@gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260916082924.956116-1-zaq14760@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Score: -2.80
+X-Spam-Level: 
+X-Spamd-Result: default: False [-2.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	FREEMAIL_TO(0.00)[gmail.com,ti.com,linux.intel.com,kernel.org,ffwll.ch,linaro.org,ravnborg.org];
+	TAGGED_RCPT(0.00)[dt];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_TWELVE(0.00)[16];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,suse.de:mid,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Flag: NO
 
---6GJWAqC257zHuXPW
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+(cc'ing panel maintainers)
 
-On Wed, Sep 16, 2026 at 08:31:30AM +0200, Herve Codina wrote:
-> Hi David,
->=20
-> On Tue, 15 Sep 2026 21:52:24 +1000
-> David Gibson <david@gibson.dropbear.id.au> wrote:
-[snip]
-> > > This avoid the need for 2 dtbs generated by treegen and also avoid to=
- compare
-> > > binary files which are difficult to analyze when the comparison detec=
-ts a problem
-> > > due to something broken by some modifications. =20
-> >=20
-> > We _want_ to understand and test things at the binary byte level.
-> > Debugging differences is a little trickier, but it's really not that
-> > bad - -Odts or fdtdump or dtdiff can be used if/when there's a test
-> > failure.  I really think doing the comparison in binary is preferable
-> > - that's the level at which the behaviour is specified and should be
-> > tested.
->=20
-> Right, will see what I can do. Probably generating using two specific dtbs
-> as suggested in your first proposal.
->=20
-> Worth noting that each time a dtb will change due to, for instance, a new
-> dtb version (or any other header field update), this test will need to be
-> updated. DTC will generate the dtb with new headers value.
+Hi
 
-If you use the default call for the header in treegen, which always
-uses the latest version, then it should be fine.
+Am 16.09.26 um 10:29 schrieb LiangCheng Wang:
+> Hi Devarsh, Thomas,
+>
+> Sorry to come back to this thread after a quiet spell, and apologies in
+> advance if I have missed something obvious.
+>
+> Devarsh, the three fixes from my July testing on the PIXPAPER 4.26m are
+> still available:
+>
+>    https://lore.kernel.org/all/20260731-ssd16xx-pixpaper-rpi5-v1-0-18ffc0dbf59a@gmail.com/
+>
+> I am happy to rebase them, reshape them into whatever form fits your
+> series best, or retest on a newer kernel - whatever is most convenient
+> for you. There is no hurry at all from my side; please just let me know
+> if anything would be useful, and thank you again for making room for the
+> panel in your work.
 
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
+Where exactly are these ssd16xx patches. I cannot find them in the DRM 
+trees. I presume they are not upstream yet?
 
---6GJWAqC257zHuXPW
-Content-Type: application/pgp-signature; name=signature.asc
+>
+> Thomas, may I ask your advice on how best to handle the panel support in
+> the meantime? The PIXPAPER 4.26m is the only SSD16xx hardware I have, so
+> everything I can contribute is limited to this one panel, and its support
+> has been on hold since June waiting for the shared driver.
+>
+> I wondered whether it might be acceptable to merge the standalone
+> PIXPAPER driver as an interim step, on the understanding that I convert
+> the panel over to ssd16xx and remove the standalone driver once the
+> shared driver lands. I realise that is not ideal, and I may well be
+> missing a better option - if you would prefer to wait for the shared
+> driver, I am perfectly happy to do that instead. I would rather follow
+> your judgement than guess.
 
------BEGIN PGP SIGNATURE-----
+If there's support for similar ICs, I'd strongly prefer to have the be 
+ssd1677 part of that instead of a stand-alone driver.
 
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmqqUv0ACgkQzQJF27ox
-2GcV3Q/+M96gs5YbYYewGX9Ulv6mDpBB1fjH499AOfIc+EXJggmkL+kos3EBZ+TD
-BWj8zgb5IUF+iYsEm0IxRyW6kr5WdeN7HO6N0/5KKGLsEeaueCoYzO53rVGOE/vm
-ySyW0+yvNruIislj9GVMlU+B/QiGkJVMevryUNyHA8yGma6CJbYeAMHfbqDBoNkB
-vjXbaSc/LkWWLAGaRUHtkflxDJStdxZUjr3Z3TmOH6ljDLJD90M7qiRyo0en4Ol2
-wLU9H3eqhK2DV62/YPVGzR34Hz3xhPevTOMxoPG+SjUvWD/u6nFbyrW7OzTZQzE2
-PcxPUWuPFeAfoB/fjj1fWO+Jz/GoHKL5p+eL26Z6Uk3B/fbNIFcvgsc1C/b0Oh0N
-N2fLtA1tDUst0ZCYA5OepOlwyuxnR09nmp8y6SaqBHyP+Lh1Yl6TuJSA3hdgZpAS
-IN7QPHO8Q3cyPlg3glGaUmAIYopNSdCm+iAKeWDri4IxvfPKKWD/ujPwNr8xjEAq
-Vk/OWdW5IExqevsmQctfmqqkfUx0W+pT4ZmxJeBsS2fX9YC3NCCfX/i1fKggsNv7
-llgy/Wyq31q/4u1DCwrgJ+TPhptpIQNHbdIExZEfoFTvX3Rj5/w9qZdlBf5mUdLY
-Bl0nqBvlCUgDFdSidpaQyZnSmWi+HHrRiZeDDAMvLP7z5EVqamg=
-=/SJM
------END PGP SIGNATURE-----
+Once the stand-alone driver is in place, users will rely on it. Then it 
+becomes hard to replace. We had (have?) cases where there are several 
+drivers for the same hardware.
 
---6GJWAqC257zHuXPW--
+Best regards
+Thomas
+
+
+>
+> Thank you both for the review time so far.
+>
+> Regards,
+> LiangCheng
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
+
