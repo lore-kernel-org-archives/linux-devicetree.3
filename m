@@ -1,66 +1,180 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 149A041D202;
-	Wed, 16 Sep 2026 19:29:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BC454B1CFC
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 19:42:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789586965; cv=none; b=EsEiBUiWy511+vvXsdKiTN4sfCa58DLYv99dIrukKGcq1mCHUYpgFx+faHqnak2W8xEnrx83mXv0tt8ANBxNLxydUPosL8mbeV15QXLa/RRDXiRwVfYzraHu3Gbmy200htCkNdPQI5U4m8AoiaeKi0Cmty6ixkAivfiMfFdSk2Q=
+	t=1789587746; cv=none; b=Jh6fZ27RF/MIDkNp8POG9v/j1/8tR3n4Ok1xx7395FVRQCviKN/QMLlrDmuz+p+eoGjpa3IbWxgUW0AXziZkGTfdhWAxjKc8i4iXK9reKiK62rgJw6Z/Om9o+xgeNHzbcE9QvdkZ64m7m3XfXiwf9Ny3J6aXtqlf6uBCEnIqHtw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789586965; c=relaxed/simple;
-	bh=yG0Cm/V/grf86TMwpbOVWg7S7XA47jIj27JirMa5NDg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cerwpiwNfX75DR5YBtBpdb26DHXTLeaSY/VnRjIogpmrSp5KJCfDrhis2CHyVeTLZfkHvgWLdXwItHuYxO6ZMPckuPXqKlqAozoLZMlXLt22yDfaaHiCaHklLIEHf3bwKMsQJB2OE9NVT03vrKvAMCBSwxnC6snkgWdfweYAqiw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KePp5etf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789587746; c=relaxed/simple;
+	bh=Dnc237LIK+dq38YOjzWu9j3d1wYHrJ3GApeY3U2aFec=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gb5cgVxJy973O05uWMlpeaKzqdnBQBoT0cQyqtNjAlgg7KgzvGggYZWrN+YKWQaPMomeVQNTCXA38Cd+K/T6GEtnmFmLHwBr+7hGBXEvhsd5r3quHsrpXMssmL8A2qs9H2EiCFb+Lk9MatYug7a0hzsnlKsg4tK1/UyjB/JzUOY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XMmYyhGs; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BLOEBxQK; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KePp5etf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B6341F008BF;
-	Wed, 16 Sep 2026 19:29:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789586941;
-	bh=EKcLKBF7udcuQS69C7kksKs0wpPnH5+LGaowzafr4wY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KePp5etfp5D7M52iJpqHN4zxFC/itUwyFhuf+JRClOouPpoQ/mySD9hWqkLS2DMDZ
-	 UMnlsBTyqBFKjS0csoZvzXcxTlBVnVj9EsbnZC2bFR5fk9ZEytfsk7+S3E3f1cftTa
-	 cr17DDyGHaiGg/SPmEWGM/4AFnkh/EsfFcYx49DnNVsIi3UtsOlfRcJgfjrhHfzmYs
-	 QqO39xXYBvjt6kufGdpnF1gUUXUw75pITPiB2ibUT2OK56vtX/tlaaOI1cOa7SybfZ
-	 wl57QPE8Jg/sxmIZiIPvI9HP6is2mYnKpTxkrIef2A3aVbcxTwXPGxGv+1+W0ZBK8f
-	 pwgY2aepINOUw==
-From: Sasha Levin <sashal@kernel.org>
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Sasha Levin <sashal@kernel.org>,
-	Andrea della Porta <andrea.porta@suse.com>,
-	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
-	"regressions@lists.linux.dev" <regressions@lists.linux.dev>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-rpi-kernel@lists.infradead.org" <linux-rpi-kernel@lists.infradead.org>,
-	"robh@kernel.org" <robh@kernel.org>,
-	"florian.fainelli@broadcom.com" <florian.fainelli@broadcom.com>,
-	Angel J <iamanaws@httpd.dev>
-Subject: Re: [REGRESSION] PCI: Dynamic OF node creation hangs on invalid bridge configuration
-Date: Wed, 16 Sep 2026 15:28:19 -0400
-Message-ID: <daily-reply-20260916-0029-re-pci-dynamic-of-node@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <Tav3crct3HpgoRPBGOe-bfkBEORVT1RkvRbP8B7IXhRvEbUTAi-G6RiSnynkgV2rJ1dOIbCxm-mHUcm1e0MyQG52qswzpxURe4KFJoddhGg=@httpd.dev>
-References: <Tav3crct3HpgoRPBGOe-bfkBEORVT1RkvRbP8B7IXhRvEbUTAi-G6RiSnynkgV2rJ1dOIbCxm-mHUcm1e0MyQG52qswzpxURe4KFJoddhGg=@httpd.dev>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XMmYyhGs";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BLOEBxQK"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GH6WFZ3559722
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 19:42:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	irXsHZsnq2RJrG3HTJ0y9LXBcNkU5BE62K/lbfYKMow=; b=XMmYyhGso8YkV4VM
+	fu/IahjwpGRkRkM6s1OPr+xa83UkQrLKEqEx/ph3PFBDcSAjWEO8o6slxUtSiaIs
+	LmUJjTse1lUlxaO91G/eoVKpOi9qL40qliNU0DH8Qsnu1gyEkz/i/hVb/yYyuV4c
+	3M/b6RjS2gDGHE9hxA3Nn8NHYJ8iua3nRHhWH0gUKDP9dbr2+o7Ng2IAQ2WiuRLx
+	2j+h0k4GlB4yUUQ/FUtpoyhXNbRQZCRoZao7RiEBdDLXGlZsuV1sSpoSTlC5KCFz
+	UNp9MnAiJBGgvxh+xcN4QgntV4qSVVKyupH85DcBHXdrd1Ei/SGTuPLJYgC5wY8X
+	W2zTjA==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqy7h8mgq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 19:42:07 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-396901263b6so79660a91.2
+        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 12:42:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789587727; x=1790192527; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=irXsHZsnq2RJrG3HTJ0y9LXBcNkU5BE62K/lbfYKMow=;
+        b=BLOEBxQK8eDcDB5bj8E7qEakRfrGmLaj5Tkss0+Ezuv74xZ1VqJozyOSLuCBe/Uaet
+         Xb9X9kHktZVQfHV3zKhymG0UACf//G5Oa8+I49cDAKQ+iQpOgJXdrnmvgWjn0Mu1F5SY
+         JxR4/t4epgSYn0ojjG2n5qg9GCkvY4qLdLPIfRo3qYTX6A7zV8HBCCAKh425w5wyYz7u
+         5UQ4RMPNgEUpeZFdD7Xf/JEt1P+rLlxOedWaBSReQ2GPq60XrVYkOmS7X+/xaQnlJPE3
+         qHfhPt/WFK4IMOK9JdprPd0Qs86ynx2mHt15CW93DPNymydGDT61Dzr79UDyeEsDkCDV
+         pU7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789587727; x=1790192527;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=irXsHZsnq2RJrG3HTJ0y9LXBcNkU5BE62K/lbfYKMow=;
+        b=JaAeOj96uu2XfUzMlOdrhmPT15IIPIjlZQOYbwISHNKIUltRMZtYmxt7h2+ExoAO/G
+         Q9bFW0cpq0QXYZrVJzCLICoQElou2Q6KIa094ZyPu/gZ5VUl0I7mpr+sx6Z/dSaP0FUS
+         F4nXlAghyTignbgz1Y84gzInmT+OgnWZWZZ6hiPipuE2Bewv6XAhuzv9Q2g54svs//M5
+         SuYurXdFN5HSMlVcachDI7RWk9cEsRF18mwRuwANwmkKVses2DdYc9sthkqpY+BDii9U
+         xOLkUcD1X+CI5U2A/T1IUDxKW3O0VZaobnoxbIozyLxqT7VimzKqynU06/LMd9+RyhcR
+         lBAg==
+X-Forwarded-Encrypted: i=1; AKwUvBwJcyQLiy1ytGI6JFEA3PbHG546xGgUYnjKnIiC4Mcst9DE2G5a9az7KKYDMy/BLzeDwRq9aDmL65OA@vger.kernel.org
+X-Gm-Message-State: AFuF++lwxXO2jLIczsSQRizzvOfhofaV7h0Jldw+oFaV5XtRJ+YFsElJ
+	/hu58vqOZnpjktmP0SUjGKQyGViUeR3OCUPSME8ILhqXi3VCQmUt+6J2Ovu8PRbDXzWnxgKUCt+
+	FAehkx2Ws64ICON+/3EItYhH1GMkwRhLrKpiMU+clMmpPmZmhIZ3EShnvlg20/Kyd
+X-Gm-Gg: AYBFou2E19U+WGynDyuy3oOvM9xKg8hul2RLJSUXF+iPkL+l1OtvPBu7fLXThKmgffi
+	K1f5n8DM5gLO0AT82xvdEO3x96Ei9oIe6HL+ifRPLpNyYdv/UnzaCUhbn8/zcZTuPiD8zZk8J4D
+	nznKIAW+pEFICM8qmV7yb5jsNBBsJUQ8h5Uwq/CvVKAinBcp/8vWT1JXkMTMEg54KoinRXViQMR
+	n/RFOVLMUYmigepUx4o/81WPC3UgsdozSbabgmBV4ZQsvQUkyt1uHLsXzklUh/Q3iy3hQGIba8c
+	Rzi+9Awh9CWGFjbLvDd4tmlC3eMzk8sEAO7cGJKJim4JKUgX/3Ihbr9SgRyV0Xg8YIub7NRDBP4
+	Z9p4xje27yiQeaSY9uplWeJxK1f+eljsvMGV7SA==
+X-Received: by 2002:a17:90a:d646:b0:39e:3554:4d0c with SMTP id 98e67ed59e1d1-39e35545ae5mr3665568a91.2.1789587726583;
+        Wed, 16 Sep 2026 12:42:06 -0700 (PDT)
+X-Received: by 2002:a17:90a:d646:b0:39e:3554:4d0c with SMTP id 98e67ed59e1d1-39e35545ae5mr3665448a91.2.1789587726046;
+        Wed, 16 Sep 2026 12:42:06 -0700 (PDT)
+Received: from hu-arakshit-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5af6593sm9174704eec.25.2026.09.16.12.41.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 12:42:05 -0700 (PDT)
+Date: Thu, 17 Sep 2026 01:11:57 +0530
+From: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
+To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+        "Martin K. Petersen" <martin.petersen@oracle.com>,
+        Adrian Hunter <adrian.hunter@intel.com>, Ulf Hansson <ulfh@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Neeraj Soni <neeraj.soni@oss.qualcomm.com>,
+        Harshal Dev <harshal.dev@oss.qualcomm.com>,
+        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-scsi@vger.kernel.org, linux-mmc@vger.kernel.org,
+        devicetree@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v12 3/6] mmc: sdhci-msm: Set ICE clk to TURBO at sdhci
+ ICE init
+Message-ID: <aqrxBSw8OupqItDR@hu-arakshit-hyd.qualcomm.com>
+References: <20260824-enable-ice-clock-scaling-v12-0-09271f583dc6@oss.qualcomm.com>
+ <20260824-enable-ice-clock-scaling-v12-3-09271f583dc6@oss.qualcomm.com>
+ <CAPx+jO_Ltc6Q+VdUgOs81azTiM5Vx12GH1z+CXt6NW=M601THQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAPx+jO_Ltc6Q+VdUgOs81azTiM5Vx12GH1z+CXt6NW=M601THQ@mail.gmail.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDI3MiBTYWx0ZWRfX+Lcvjujcehsm
+ GDgpd8m+bYXXKCUy+i4bzeMoD9bte044B72++0vZzsIk8zuVBny6saprEGtwkGN86vj4aQ96dgQ
+ wuEphOepiRTt3dpgsiTSV7Ep61ip7fve30e+v/+MmOHZNXx73cLXkZ21AK8nme47Lu9XNTL2LAa
+ Zrf22w15UE1/L7P/BptSR86aH6oI009bAovQnCtfaDO0ovuck8gAgBtKO0PoHKfs27vk7XLXSLa
+ vgBk7FzVuNz1vIRSem3znooeyGmdFG4JfPDyGf/GopAI2zXRhwof++MCZIEL24/vw1mAj7snCxt
+ En4g6top6NmzMqnXelu5JPwGZ6x8eFaZuB432AGQEzPib4k05YYPyFEMVBXCF9hhODt3mO7+AlW
+ a1t+O9l1UmXBNoK+z0QwIMf6aAokmpQ4qYzEpazWMFhYj2zTae+fV2UfY1hF93BiPDwimFUq7Kb
+ VbMAjDRZ3qtT/ohx42Q==
+X-Authority-Analysis: v=2.4 cv=L8aI0OT8 c=1 sm=1 tr=0 ts=6aaaf10f cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=QyXUC8HyAAAA:8 a=M7-gVhU5_WYnB0XQLAAA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-GUID: _vKpcl-YgxKa89Qev1VNeBPHMX0i4Ay-
+X-Proofpoint-ORIG-GUID: _vKpcl-YgxKa89Qev1VNeBPHMX0i4Ay-
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDI3MiBTYWx0ZWRfX34wilazsSKKa
+ 9pxSf+XujHw2yYYqp0JVIX3rPV+wfxHyGHO5E69jupCbKyZltYwJlvCKyPnCGF0HiqlMog8afA7
+ 4tML/TTBxj735DXcCTdNjcHqQuPg4sM=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-16_03,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 impostorscore=0 spamscore=0 phishscore=0 bulkscore=0
+ clxscore=1015 suspectscore=0 adultscore=0 priorityscore=1501 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160272
 
-> The v2 patch is already in the thread. Is there anything you'd like me
-> to change?
+On Thu, Sep 10, 2026 at 12:17:46PM +0200, Ulf Hansson wrote:
+> On Sun, Aug 23, 2026 at 9:48 PM Abhinaba Rakshit
+> <abhinaba.rakshit@oss.qualcomm.com> wrote:
+> >
+> > MMC controller lacks a clock scaling mechanism, unlike the UFS
+> > controller. By default, the MMC controller is set to TURBO mode
+> > during probe, but the ICE clock remains at XO frequency,
+> > leading to read/write performance degradation on eMMC.
+> >
+> > To address this, set the ICE clock to TURBO during sdhci_msm_ice_init
+> > to align it with the controller clock. This ensures consistent
+> > performance and avoids mismatches between the controller
+> > and ICE clock frequencies.
+> >
+> > For platforms where ICE is represented as a separate device,
+> > use the OPP framework to vote for TURBO mode, maintaining
+> > proper voltage and power domain constraints.
+> >
+> > Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> > Acked-by: Adrian Hunter <adrian.hunter@intel.com>
+> > Reviewed-by: Adrian Hunter <adrian.hunter@intel.com>
+> > Signed-off-by: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
+> 
+> This looks good to me!
+> 
+> Although I have a question - should we never drop the vote? Like at
+> suspend and runtime suspend, at least?
 
-From the stable side, 6.18 is the only active tree that exposes this hang,
-and I would rather carry the real fix than a stable only patch for it. Once
-your v2 is merged, please tag it Cc: stable and it will reach 6.18 through
-the normal queue.
+This point is already discussed with Konrad on earlier patchseries:
+https://lore.kernel.org/all/d1232243-2f23-423b-84ac-4463eac79f9a@oss.qualcomm.com/
 
--- 
-Thanks,
-Sasha
+Since, as the device goes to suspend and power will be turned down,
+PM runtime will drop the votes and hence having it in suspend resume
+is redundent.
+
+Abhinaba Rakshit
