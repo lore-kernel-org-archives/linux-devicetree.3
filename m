@@ -1,156 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-47.mta0.migadu.com [91.218.175.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F7993E51E8;
-	Wed, 16 Sep 2026 06:09:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51C123E7647
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 06:09:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789538968; cv=none; b=FUEpXez2YVpNDf9Sh4RA/SobKjHstav/VOPHADU2CBKqu8dJPLBYdYrS6tl2M+bMsL2lyvZ+ptCjTKr+dgwbCN7VSvPxsMFgsw5jm+mF2lFoRQXj87XlllHlRWmB0xH/UGSJKfSNd+lWNujONeg6zihwoNtg7fX1JllsVv/hoqA=
+	t=1789538985; cv=none; b=Id6d9tN+VwrjprJrKqcoZlccDow8MP0hDojKGbOdw3DGh/sIKNhO24/czIY//jexnVTTaYN9+VfnQvYJV0aMmBdViVJzHhlE/LUK4VvjFog6FLlb/a4bXh4o5Ml2vXI0pKMm/AYxrf3ompXOaAZiDr3jBVoiNzRWPFPKUyTvf6I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789538968; c=relaxed/simple;
-	bh=7whS2PXCb5YOwrICBac2b0SfZwuigdRu2TvmbBtXoME=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=H0U0RaewAQ/9+t1ySgS6VR5pl1kpdqz3+yMpzcHe6Npieoq76DPS82DNePJOHGKz52OJXatDxaJ0P5xdudKOU/g4gSn0Uer7/LkdYjmlT0Oc2FTIQlh1QGFOkc64zIWmarW/1hVFWYOtxmluxo/UeZ3NNf1/oJj9aALkKAMIJ5o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FfjEIMh4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789538985; c=relaxed/simple;
+	bh=1FXPXUrDPcrYPLwRxPXtr4tpEmOLRIi+Rq2mTTRREaU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iNWGjKpM9MuMlfd9eOIHqnxec3AtCOr0NKwWZCaoLP715qUuHfwBYNqn7yuyPA1U6LMbmlqm1yM8sB1e+6SXfg89TVAi8ouhc4LQoHmCRMCqQeZF8yI8cT92sWULE19Q0NN/uudprAnJm+IccCTJLWZEev4LoWFugOTHf1GRBho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=P0LRIIU3; arc=none smtp.client-ip=91.218.175.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FfjEIMh4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BB021F000FF;
-	Wed, 16 Sep 2026 06:09:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789538967;
-	bh=4/FWVBztj5v6fxN0c5tQEmnd0GTURVZu8nKIWolhuQw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=FfjEIMh4U0t8KvVeiRFPlBdw7iX8n0SLHCR+CZsX93DivA/2FyEPGze1qynzP8VgE
-	 tgAfmQKYi9/OKdHb53k2MXM4ePPbPVSh+EC414zXT4IGVsRDBI33SAQjUGXnvn+jz5
-	 WxhqdvkDWkoYGw97SlhpWjcKLm11GDwwZSs7AP5IHzWGt+Z6DZ2sTfMs2iyGG1dgWl
-	 i8SlwO7N/I/9gRNzuXxMWYWXmkXs+35z+xBYoLlQAjEb9Ei/FCtDXdmGFtkK2RFHlS
-	 gHA+FBx5p+0J3cZ6Hk4AOUQkHsuPnki++OU8j05IBXzcEILdXu/A3qVx4SUyJ8DYjr
-	 axn5sXhssmhlw==
-Message-ID: <82b71784-4bb9-4165-a0f0-cf00fedde944@kernel.org>
-Date: Wed, 16 Sep 2026 08:09:20 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="P0LRIIU3"
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=1FXPXUrDPcrYPLwRxPXtr4tpEmOLRIi+Rq2mTTRREaU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789538981; v=1; x=1790143781;
+ b=P0LRIIU32CE79vjascQV+yMYtw82H/b6dQTfZMWX7/K6l+5JSQ9JaZDydMLCVvdjNAIE+kKq
+ 6LZUEeM5G36PWHYACJOahGES010/S5TjcAAW/Iux0fH+oJTZA+3+T9rFwNxsrxyoV7f3gw6gsuv
+ KpXCVlVwm74FZLfdRHZi/0rM=
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 56e648d48c427c41;
+	Wed, 16 Sep 2026 06:09:41 +0000
+X-Mizu-Trace-ID: 56e648d48c427c41
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 16 Sep 2026 09:09:32 +0300
+From: Matti Vaittinen <matti.vaittinen@linux.dev>
+To: Matti Vaittinen <mazziesaccount@gmail.com>,
+	Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
+	Matti Vaittinen <matti.vaittinen@linux.dev>
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Matti Vaittinen <mazziesaccount@gmail.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Michael Walle <mwalle@kernel.org>, mfd@lists.linux.dev,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-rtc@vger.kernel.org, Sverdlin@mva-rohm,
+	Alexander <alexander.sverdlin@siemens.com>
+Subject: [PATCH v4 06/10] rtc: bd70528: Support RTC on ROHM BD73800
+Message-ID: <1ff511f419fcbd72dd241f598127608a6a0c9598.1789538455.git.mazziesaccount@gmail.com>
+Reply-To: Matti Vaittinen <mazziesaccount@gmail.com>
+References: <cover.1789538455.git.mazziesaccount@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] dt-bindings: leds: lacie,netxbig-leds: Convert to DT
- schema
-To: Uday Kiran <challauday369@gmail.com>
-Cc: lee@kernel.org, pavel@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, skhan@linuxfoundation.org, me@brighamcampbell.com,
- linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260901170358.176103-1-challauday369@gmail.com>
- <20260909-arcane-yellow-beluga-5ce6f7@quoll>
- <CAAj-GBkiTvFwx+3htJaKGFCYAC0jGdhyxkfUa8dKWPkYmbGViw@mail.gmail.com>
- <f402d93f-4443-4209-a6c7-5c30e7c8751a@kernel.org>
- <CAAj-GBnyFnVhNpuPTBoQhBZJLUYdXnBcxnEYy8rsYqkqX=UK7g@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <CAAj-GBnyFnVhNpuPTBoQhBZJLUYdXnBcxnEYy8rsYqkqX=UK7g@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="mUgRN4pDP+5ghfak"
+Content-Disposition: inline
+In-Reply-To: <cover.1789538455.git.mazziesaccount@gmail.com>
 
-On 14/09/2026 19:58, Uday Kiran wrote:
-> On Sat, Sep 12, 2026 at 1:20 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
->>
->> On 11/09/2026 16:29, Uday Kiran wrote:
->>>>> +properties:
->>>>> +  compatible:
->>>>> +    const: lacie,netxbig-leds
->>>>> +
->>>>> +  gpio-ext:
->>>>> +    description: Phandle for the gpio-ext bus.
->>>>> +    $ref: /schemas/types.yaml#/definitions/phandle
->>>>> +
->>>>> +  timers:
->>>>> +    description: |
->>>>> +      Timer array. Each timer entry is represented by three integers:
->>>>> +      Mode (gpio-ext bus), delay_on and delay_off.
->>>>> +    $ref: /schemas/types.yaml#/definitions/uint32-array
->>>>> +
->>>>> +patternProperties:
->>>>> +  "^(?!gpio-ext$|pinctrl-[0-9]+$)[a-z][a-z0-9]*(-[a-z0-9]+)+$":
->>>>
->>>> This is an odd pattern. Why is pinctrl an LED? or gpio-ext?
->>>>
->>>> Actually entire pattern is very odd - it has $ in the middle, but then
->>>> followed with other REQUIRED stuff. I am surprised it works, but
->>>> regardless it is absolutely not readable. Looks like a begative pattern,
->>>> but why would you have negative pattern for known properties?
->>>
->>> Thanks for the review Krzysztof.
->>>
->>> The negative lookahead was added because patternProperties matches all top-
->>> level property names that fit the pattern, so excluded known top-level
->>> properties like gpio-ext and pinctrl-*;
->>>
->>> In patch v1, I've used additionalProperties which removes the regex entirely
->>> and allows arbitrary child-node names. But removed and used patternProperties
->>> as per the review feedback.
->>>
->>> Could you please suggest to me which way to proceed? with additionalProperties
->>> or patternProperties
->>
->>
->> The children are leds, so they should use generic node name pattern like
->> "^led-[a-z0-9]+$"
-> 
-> Yes, Krzysztof but the original binding uses blue-power, red-power,
-> blue-sata0, etc.
-> as LED child node names. Would you like me to rename these nodes to
-> led-blue-power, led-red-power, etc. to use the suggested
-> ^led-[a-z0-9]+$ pattern,
-> or should I retain the existing node names and use a more specific
-> pattern for them
-> like "^(blue|red)-(power|sata[0-9]+)$"
+--mUgRN4pDP+5ghfak
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I did not see original binding mentioning any names. Neither in the driver.
+=46rom: Matti Vaittinen <mazziesaccount@gmail.com>
 
-Best regards,
-Krzysztof
+BD73800 contains similar RTC block as BD71828 and BD71815. Only the address
+offsets seem different. Support also BD73800 RTC using the rtc-bd70528.
+
+Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
+Acked-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+
+---
+Revision history:
+ v1 =3D> :
+  - No changes
+---
+ drivers/rtc/rtc-bd70528.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/rtc/rtc-bd70528.c b/drivers/rtc/rtc-bd70528.c
+index 482810b61495..fd415e327ea6 100644
+--- a/drivers/rtc/rtc-bd70528.c
++++ b/drivers/rtc/rtc-bd70528.c
+@@ -8,6 +8,7 @@
+ #include <linux/mfd/rohm-bd71815.h>
+ #include <linux/mfd/rohm-bd71828.h>
+ #include <linux/mfd/rohm-bd72720.h>
++#include <linux/mfd/rohm-bd73800.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/platform_device.h>
+@@ -284,6 +285,12 @@ static int bd70528_probe(struct platform_device *pdev)
+ 		bd_rtc->bd718xx_alm_block_start =3D BD72720_REG_RTC_ALM_START;
+ 		hour_reg =3D BD72720_REG_RTC_HOUR;
+ 		break;
++	case ROHM_CHIP_TYPE_BD73800:
++		bd_rtc->reg_time_start =3D BD73800_REG_RTC_START;
++		bd_rtc->bd718xx_alm_block_start =3D BD73800_REG_RTC_ALM_START;
++		hour_reg =3D BD73800_REG_RTC_HOUR;
++		break;
++
+ 	default:
+ 		dev_err(&pdev->dev, "Unknown chip\n");
+ 		return -ENOENT;
+@@ -344,6 +351,7 @@ static const struct platform_device_id bd718x7_rtc_id[]=
+ =3D {
+ 	{ .name =3D "bd71828-rtc", .driver_data =3D ROHM_CHIP_TYPE_BD71828 },
+ 	{ .name =3D "bd71815-rtc", .driver_data =3D ROHM_CHIP_TYPE_BD71815 },
+ 	{ .name =3D "bd72720-rtc", .driver_data =3D ROHM_CHIP_TYPE_BD72720 },
++	{ .name =3D "bd73800-rtc", .driver_data =3D ROHM_CHIP_TYPE_BD73800 },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(platform, bd718x7_rtc_id);
+--=20
+2.55.0
+
+
+--mUgRN4pDP+5ghfak
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCgAdFiEEIx+f8wZb28fLKEhTeFA3/03aocUFAmqqMpwACgkQeFA3/03a
+ocWHywf/TpnLoThLOPyYyeFOZbqVLZ+ucK3WNz1ae/rLX+DhEKXRo1QVhzEd1MLU
+G7R6rQKd/0TcWu1aWVO/0+Gu7/AmOs1K0JRJToC6zxWekjznVQT3tZ6TOBZqupm0
+rRMq44S0MVjDhDVCRmt8iCTxF2wdsuVUzWQu3TRs3JhH6wi82Zgdz/SSC6xOPQB/
+nl7xJRLCF0JEAu2uJTPokEjZ1kv/xMHjz4W/LKVV2EBhwniv+UYt8+mXwhlJh3ks
+vRNYzlH7NmnaoVZdR8l7QhPHuu0qrFBjhfTajAVA5IczJee3JCQAp8YVZLcH80Qg
+zNUC1C5MxToP6G1mUQNQiv5w/HDoYA==
+=Hs+m
+-----END PGP SIGNATURE-----
+
+--mUgRN4pDP+5ghfak--
