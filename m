@@ -1,205 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9678837204D;
-	Wed, 16 Sep 2026 16:06:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D1BA4B95BD
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 16:06:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789574769; cv=none; b=QVoxJt+XfoH3lLnMN9FlV2i5Ekl+Zms554fVxGicDZ8SKeLmrjy4OvrYdqTsx4+NGalyWh3skY6k6aD+btt36GxHDBBB5/JXGa7unpsXA8FXfq0nW4826nfZNLPt/N+PIPDO1j/CaAIpW3hxCrzBWCIT0O+aP8W/XKZ1XnlccbQ=
+	t=1789574818; cv=none; b=GLndxFB5Sah/aTImog3o2Fqc96fv+0hH4V9epmdP3E2rLxBDE46dAA/m56jS1jjAkrUJJ+H3zkS8iz9KOtg79DsHNHepw/sHlsRvw8Juw6iVUNzfNBm7A7TY2ijjGnhfvdoGi1BnF+RBLmRXk3xdkRDXY4Q9gB8ZQpscFYCA8R4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789574769; c=relaxed/simple;
-	bh=Qj5+127DNCzkqzuGszQrzjZHHjYHFiRkVcP+p8nkCgM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Zz0z7fwbbCROCtojewZAnUqEpdWyzhIY0lDq0uKHJAyESOMgMhDkHX8feidNkK9DzJ+NZTGa+/iUvIf2lzeNmMv0Hn3RGvGqSNLhfnO/96YwCcjsTJ7bFs1glAwcNzzeuNudE+g7R7UfNx+h6FiQfE64y4O8j5KjyuCa3Qs8+NA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NVsZDh9W; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789574818; c=relaxed/simple;
+	bh=Ff4OmfN8CYUiKKRCKdpGJQ+e0RrDjxCspxN0MFTfbAI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Q+Wr+OwBqFFUCh1UZibkdOIlTX5UII0KdA1yOLlESzzA5vOSs/zL3XLIYkQf6W5Fig0nVfc8abYSTJkoiUiKpw2us1pWja3ROpq627PsNJRoS9OChql5jBVaZZCRtP3a+hP/lbvBSNEe873/Fzla6jXeOPOd9xeH7ETcdKXop88=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sBz0CSgW; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NVsZDh9W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 099201F000FF;
-	Wed, 16 Sep 2026 16:06:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789574768;
-	bh=bSsGmSvnVHVpXDKo8RRXMT5lZT++LQtq9ySeurTXxjI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NVsZDh9WkmzuwKmrumd1EVQHYa9Hql/X8kpfqLXCSXw+dlYlIYOykg0O//h02Wrig
-	 P9ulmS6CyKHE1ptwtn20AT5j3eyzo3cJAufJNn4VqWqTlbQZD8L1B9mYbyOHjn6/AO
-	 u7D0r2+sPJtv7lGNZoGlPk9S1R/z8udvEmhi5FaY5qSZS0X1i4tdLwfzLIgAWWiYYN
-	 4SuXCqzrIx61FaUg/BNX6I/zIAt45uZDrZhxecDj26nHwcEBiCO9+HMR1Yr6JPmhsp
-	 MJl3vVXCa9jB68PVlZWlfVB1zI5uV1E2+OoZHNXNz6GfDz7vLAF1z4/SSLA8iBSIDF
-	 SGim6ZmKGoRJQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] dmaengine: fsl-edma: add per-channel IOMMU support
- via iommu-map
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?UGVuZyBGYW4gKE9TUyk=?= <peng.fan@oss.nxp.com>
-Cc: dmaengine@vger.kernel.org, robh@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev, conor+dt@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org
-In-Reply-To: <20260916-edma-iommu-v1-2-e1731968081e@nxp.com>
-References: <20260916-edma-iommu-v1-0-e1731968081e@nxp.com>
- <20260916-edma-iommu-v1-2-e1731968081e@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 16 Sep 2026 16:06:07 +0000
-Message-Id: <20260916160608.099201F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sBz0CSgW"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccff31419so9830365e9.3
+        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 09:06:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789574814; x=1790179614; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=mVlGdYNhNUu9mC7pDXKcspPVWpvSds0uyTHL3WW6nL0=;
+        b=sBz0CSgW85z0vdPAc5UqTbhiAWWjIP97iHQhExnt1/aHMeQ1tl4rEHlrDXkypehnow
+         dfHgXcs2bdsC+4L64pG4MyewlLxKp8VMxdzb478yuCZi69Lww1piETi5hHzFAWNSiFFY
+         8k4GslzwTQEKqvNP/33an/PRzmUm1Aw3PH/uVXOmpFmeI/7m31pkHCQgWEB0Dq2Y3pKT
+         oR7w1Ova/etV/KxCViNUMEzbDVZD8Pvxo3NBuVoIl/tD8+bhJWwDdmOSSowFX2WTWif8
+         RL1Fw4/XYsnsTJ5DiMyVZKhEANuZghlw1Yk9/KkF7QS3DgoNMFpsy2AQlCayiEH5x3jH
+         0pQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789574814; x=1790179614;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=mVlGdYNhNUu9mC7pDXKcspPVWpvSds0uyTHL3WW6nL0=;
+        b=pOzOYmALavfnDUs3xuy32VyisYTnv/JKZTeBEiWds720eFgK0h40HBdXXBzzFlp3j8
+         c9RJB4P3FJJ49P9AWVpVuPtScAX2+c1pAQroNz0O8sBED1f5ST6PXSn9MrZdYEDhjdQo
+         xYROMRZGCs2ihF5TcsVwcntAejGhSTPQmVEocZ7jzvdMyqEnBezDuI3IpoRUoqaQ2NT+
+         zbp4oxe/0OcYOS44Fqf42KCsdYhKPVQFdvJr5obcLFRIVTJSxdsvZ/HUB0E4WQdsk6eQ
+         TjwomJI36wMHbzddYMeKPpYlJ0GJzXzotFb+B3NTXpiJYkJVZLrtBXMKPzaZntmQ4NDL
+         XxCQ==
+X-Gm-Message-State: AFuF++kipJmb+XmsDBvrj89/6jKgBN4tx9LftkAtFt6JA8IPZDPRI4tZ
+	ZIUienOgCFyAPVgQGy0YB4lWuIo/ZMYJFfDGE4ejlIJXQopiUS5WMKVL
+X-Gm-Gg: AYBFou3HWiI/dcnWW9dOVCjIO4QMGyqNnM8+HK5QICcxIcn4dqg13qI7K5w1sdDuuzh
+	9nUsrI7L2Ms/z67Zn5ZWjDi+zvYbTVn0VRhmKc5/CwS/SWMTIZsPcPl2PpPSfnGwrf0Fk9ZG65/
+	9x/f2Cbc0PLPzIqlc0qqK+YgSq0iogaaDuNTxk7yXy2UvJCF5uXKpJvrfq0ffevmK5qnQ7W1HFY
+	iA7vhRPMqsmFIc0gMJyWJ4uHnqv3el2F8yL/mmDQsGvTTDbPBHqruAE35t4LjrwMXnsUQdk3CPy
+	QysZJdFJfgrmxLb6+M9D/FYTydrphYCj7scqNe21zy4oNBvMe1y5isEwNoHuXPowEnIsoL7/9C3
+	H880mQAohaSg/iIYDM9sgP27XQ25PIpL/605W0waHkCsLXZZ+Hbhj+OLmCJyZ9yD0jlwHwuK3ly
+	DUkHcATpfAGjBhBfqeSdrsL2NVegFzmrebpei6YKDvsgElCKGByqzII+VQthJluX4KFp9esSLSn
+	giJYo9QD9d9lJJewf7B/70B4dF/j1YPgLtWDshlEAaaw35OximbdA+72yopuxrI1Tga77TI1zWg
+	w6Csc9ABy/YUzvdVZdmESKKBGPKs
+X-Received: by 2002:a05:600c:4e09:b0:49e:7c83:4733 with SMTP id 5b1f17b1804b1-49eb733ae01mr38851665e9.32.1789574814009;
+        Wed, 16 Sep 2026 09:06:54 -0700 (PDT)
+Received: from [192.168.0.233] (2a02-8388-e6ca-5780-e161-768d-5c97-84d0.cable.dynamic.v6.surfer.at. [2a02:8388:e6ca:5780:e161:768d:5c97:84d0])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e84805db6sm49721625e9.3.2026.09.16.09.06.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 09:06:53 -0700 (PDT)
+From: Andrei Lalaev <andrey.lalaev@gmail.com>
+Date: Wed, 16 Sep 2026 18:06:30 +0200
+Subject: [PATCH] riscv: dts: sophgo: sg2000-milkv-duo-s: reserve memory for
+ RTOS
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260916-milkv-duo-s-rtos-memory-v1-1-6ca72d5a3924@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBBA0auQWTsJUMWUqxgXQAcYpdTMAIEQ7
+ m6V5Vv8v4OSMCmUyQ5CCyuHMSK7JND01dgRsouGPM2L1GYFeh7eC7o5oKJMQdGTD7LhvbJXawy
+ ZW+0g1h+hltf/+fE8rXP9omb67eA4vqhb+xp7AAAA
+X-Change-ID: 20260916-milkv-duo-s-rtos-memory-7a94933e35bd
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Chen Wang <chen.wang@linux.dev>, 
+ Inochi Amaoto <inochiama@gmail.com>
+Cc: devicetree@vger.kernel.org, sophgo@lists.linux.dev, 
+ linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Andrei Lalaev <andrey.lalaev@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789574813; l=1124;
+ i=andrey.lalaev@gmail.com; s=20260901; h=from:subject:message-id;
+ bh=Ff4OmfN8CYUiKKRCKdpGJQ+e0RrDjxCspxN0MFTfbAI=;
+ b=Y+VhV+8jpUiN0h9+sYkxwnw3QWuHK4l02Ho7OkmUrd/LFRd0AdSKS+0TickZEJ4shfLFUJuOO
+ 2S/41WW+AZJAmJBHe42pAAri1S7qWDmjEQaA/IN1xNTw5NGVNWvhX2r
+X-Developer-Key: i=andrey.lalaev@gmail.com; a=ed25519;
+ pk=YHk+K3q98GV/1CigmrEAQ+Vc0o+GlFWt3j94jvrEh6o=
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] dmaengine: fsl-edma: TCD pool mapped to parent device causing IOMM=
-U faults
-- [High] dmaengine: fsl-edma: masking -EPROBE_DEFER in xlate breaks deferre=
-d probe
-- [High] dmaengine: fsl-edma: late modification of dev->bus causes refcount=
- underflow
-- [High] dmaengine: fsl-edma: DMA_MEMCPY channels bypass IOMMU configuration
-- [High] dmaengine: fsl-edma: missing IOMMU configuration in fsl_edma_xlate
-- [High] dmaengine: fsl-edma: dirty srcid state on error path blocks future=
- requests
---
+The FSBL loads the coprocessor firmware into the last 2 MB of RAM.
+Reserve this region to prevent Linux from using it.
 
-commit 94975a647e48c96637ca91c3ba2539ad15656ede
-Author: Peng Fan <peng.fan@nxp.com>
+Signed-off-by: Andrei Lalaev <andrey.lalaev@gmail.com>
+---
+ arch/riscv/boot/dts/sophgo/sg2000-milkv-duo-s.dts | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-dmaengine: fsl-edma: add per-channel IOMMU support via iommu-map
+diff --git a/arch/riscv/boot/dts/sophgo/sg2000-milkv-duo-s.dts b/arch/riscv/boot/dts/sophgo/sg2000-milkv-duo-s.dts
+index 78a257839f6f..693c9fd7b771 100644
+--- a/arch/riscv/boot/dts/sophgo/sg2000-milkv-duo-s.dts
++++ b/arch/riscv/boot/dts/sophgo/sg2000-milkv-duo-s.dts
+@@ -22,6 +22,17 @@ chosen {
+ 		stdout-path = "serial0:115200n8";
+ 	};
+ 
++	reserved-memory {
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges;
++
++		coprocessor_rtos: region@9fe00000 {
++			reg = <0x9fe00000 0x200000>;
++			no-map;
++		};
++	};
++
+ 	wifi_pwrseq: wifi-pwrseq {
+ 		compatible = "mmc-pwrseq-simple";
+ 		reset-gpios = <&porta 15 GPIO_ACTIVE_LOW>;
 
-This patch adds iommu-map support so each eDMA channel can be individually
-mapped to an IOMMU stream ID. At probe time, per-channel devices are
-initialized, and at xlate time the IOMMU domain is configured.
+---
+base-commit: 9b87fdc9af2fbfcdb5c24a64139685ef80f6573f
+change-id: 20260916-milkv-duo-s-rtos-memory-7a94933e35bd
 
-> diff --git a/drivers/dma/fsl-edma-common.c b/drivers/dma/fsl-edma-common.c
-> index bb7531c456dfa..58a92ff4ddbe7 100644
-> --- a/drivers/dma/fsl-edma-common.c
-> +++ b/drivers/dma/fsl-edma-common.c
-> @@ -283,8 +283,10 @@ int fsl_edma_resume(struct dma_chan *chan)
-> =20
->  static void fsl_edma_unprep_slave_dma(struct fsl_edma_chan *fsl_chan)
->  {
-[ ... ]
-> @@ -294,7 +296,7 @@ static void fsl_edma_unprep_slave_dma(struct fsl_edma=
-_chan *fsl_chan)
->  static bool fsl_edma_prep_slave_dma(struct fsl_edma_chan *fsl_chan,
->  				    enum dma_transfer_direction dir)
->  {
-> -	struct device *dev =3D fsl_chan->vchan.chan.device->dev;
-> +	struct device *dev =3D dmaengine_get_dma_device(&fsl_chan->vchan.chan);
->  	enum dma_data_direction dma_dir;
->  	phys_addr_t addr =3D 0;
->  	u32 size =3D 0;
+Best regards,
+--  
+Andrei Lalaev <andrey.lalaev@gmail.com>
 
-[Severity: High]
-Since the new per-channel IOMMU feature maps channel devices differently fr=
-om
-the parent controller, does the hardware TCD pool allocation in
-fsl_edma_alloc_chan_resources() also need to be updated?
-
-It currently maps the TCD pool using the parent controller device:
-
-	fsl_chan->tcd_pool =3D dma_pool_create("tcd_pool", chan->device->dev, ...
-
-If the pool uses the parent device, won't its DMA addresses be invalid in
-the channel's hardware IOMMU domain, causing translation faults when fetchi=
-ng
-the TCDs?
-
-> diff --git a/drivers/dma/fsl-edma-main.c b/drivers/dma/fsl-edma-main.c
-> index d9fb717b5b53c..eabb0086fc9de 100644
-> --- a/drivers/dma/fsl-edma-main.c
-> +++ b/drivers/dma/fsl-edma-main.c
-[ ... ]
-> @@ -332,6 +334,12 @@ static struct dma_chan *fsl_edma3_xlate(struct of_ph=
-andle_args *dma_spec,
->  		fsl_chan->is_remote =3D dma_spec->args[2] & FSL_EDMA_REMOTE;
->  		fsl_chan->is_multi_fifo =3D dma_spec->args[2] & FSL_EDMA_MULTI_FIFO;
-> =20
-> +		if (fsl_edma->has_iommu_map) {
-> +			ret =3D fsl_edma_chan_configure_iommu(fsl_chan);
-> +			if (ret)
-> +				return NULL;
-> +		}
-> +
-
-[Severity: High]
-If fsl_edma_chan_configure_iommu() fails and returns -EPROBE_DEFER because =
-the
-IOMMU driver is not yet probed, this drops the valid error code and returns
-NULL. Will this mislead the core DMA engine (which treats NULL as 'channel =
-not
-found') and break deferred probing for client devices?
-
-[Severity: High]
-If fsl_edma_chan_configure_iommu() fails and returns an error, returning NU=
-LL
-here does not roll back the state assignments made just above
-(e.g., fsl_chan->srcid =3D dma_spec->args[0]). Because the channel wasn't
-successfully allocated, fsl_edma_free_chan_resources() will never be called=
- to
-clear it. Will this leave a dirty srcid state that permanently locks out
-future client requests for this hardware signal due to fsl_edma_srcid_in_us=
-e()?
-
-[Severity: High]
-Because this IOMMU configuration logic is placed exclusively inside the DT
-xlate function, does it completely bypass non-DT channel allocations? If a
-client driver requests a channel for DMA_MEMCPY, memory will be mapped using
-the parent controller device while the channel hardware fetches using its
-hardwired Stream ID. Won't this cause IOMMU translation faults for non-DT
-channels?
-
->  		chan =3D dma_get_slave_channel(chan);
->  		chan->device->privatecnt++;
->  		return chan;
-[ ... ]
-> +static void fsl_edma_init_chan_iommu(struct platform_device *pdev,
-> +				    struct fsl_edma_engine *fsl_edma)
-> +{
-[ ... ]
-> +	for (i =3D 0; i < fsl_edma->n_chans; i++) {
-> +		struct fsl_edma_chan *fsl_chan =3D &fsl_edma->chans[i];
-> +		struct device *dev;
-> +
-> +		if (fsl_edma->chan_masked & BIT(i))
-> +			continue;
-> +
-> +		dev =3D &fsl_chan->vchan.chan.dev->device;
-> +		dev->coherent_dma_mask =3D pdev->dev.coherent_dma_mask;
-> +		dev->dma_mask =3D &dev->coherent_dma_mask;
-> +		dev->bus =3D pdev->dev.bus;
-
-[Severity: High]
-Does this illegally modify the bus type of an already-registered device?
-
-This is executed after dmaenginem_async_device_register() has already called
-device_add(). Since bus_add_device() is never executed, won't device_del()
-invoke bus_remove_device() during driver unbinding or removal, causing a fa=
-tal
-reference count underflow and use-after-free on the global platform_bus_type
-subsystem?
-
-> +	}
-> +
-> +	fsl_edma->has_iommu_map =3D true;
-> +}
-[ ... ]
-> @@ -882,6 +954,8 @@ static int fsl_edma_probe(struct platform_device *pde=
-v)
->  		return dev_err_probe(&pdev->dev, ret,
->  				     "Can't register Freescale eDMA engine.\n");
-> =20
-> +	fsl_edma_init_chan_iommu(pdev, fsl_edma);
-> +
->  	ret =3D devm_of_dma_controller_register(&pdev->dev, np,
->  			drvdata->dmamuxs ? fsl_edma_xlate : fsl_edma3_xlate,
->  			fsl_edma);
-
-[Severity: High]
-Since the per-channel IOMMU configuration was only added to fsl_edma3_xlate=
-(),
-does this entirely omit configuration for hardware variants relying on
-fsl_edma_xlate()? Will controller variants using fsl_edma_xlate bypass the
-IOMMU configuration and cause hardware translation faults?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916-edma-iommu=
--v1-0-e1731968081e@nxp.com?part=3D2
