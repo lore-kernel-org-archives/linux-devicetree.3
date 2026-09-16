@@ -1,152 +1,178 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DDC43AEF54;
-	Wed, 16 Sep 2026 15:20:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C3554C1505
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 15:21:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789572059; cv=none; b=pYI26Z29TnyLLLUniCU+1Y9YAbpQEK75EG6SQ0lC/rBPUned/kjdfeMVpKqmxf7HLgWVd/Ir1Lw+UMv9Q/Mk8lTGXEliVzmbOt2HH+wZF3I7VbliAkQ9+UF5kO7VRr6P13UrYOoWLj0bPTCqC39BMI6LlqAa9CoPrkKwA45XuCk=
+	t=1789572103; cv=none; b=XXMHsjsbNhUwEDKldXzArM+3GM68O/GCJNLiSm0GbHOrPgohZZYnsckjOTvMOEHD0YRdNPyOeJ78+Yuxs1nR6GPzEj6YsxTmbwBnTXHQjch8PStNSbe16wesi3B7jsAc7wTtzEScQsS/xG2QAsfHTI9A8b8FLmOLuVqwHJD2DSw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789572059; c=relaxed/simple;
-	bh=ABPqlFY+qgVQVQriZmgkEfnyudsflUMPcXg+FS+S01s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OUMmFZverZb+L17NmWhMVvZZiVAQHiPO6Rfh42P6SJgcl7KNcJKKHak95RUmSSVfzaLm7rIek309DodCpxudedt0EcgdgQrmC140KgcedSrewwZpkz5rmLqsYTVAEubguTa4kaZWQ5hSOC1IrJMHGBCPs0adda06jCBXieg/c2o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=P9R1Ie7d; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789572103; c=relaxed/simple;
+	bh=eMnpXlTjIXA/5Bug3bPH7S+JX2UlrOarf98qCq5pmGU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=V/7ADQR4A7K/lXPxOm8Ajv1/5JBTRv9KJUu8Are7JZ94GIV8CEG6OSClqfP2ESrw0LCOG09z7sAxRPIxD0XyB8y5xL88X+TSLH8YCm8wSfXaVbPB11TYA3G42Mm1Sz86MSp87Zy4bAjYMyv+B2y84CjSq5+weQFQ95cM2W2QAPo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MZvx2lMX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WUZjothi; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="P9R1Ie7d"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789572055; x=1821108055;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=ABPqlFY+qgVQVQriZmgkEfnyudsflUMPcXg+FS+S01s=;
-  b=P9R1Ie7dh/WuZ/gm4VrKfwWkQjGWNtJaDLJPWL1UMlgR2iVm+wKCmRbQ
-   fgbMCIzChwCNsdz9CEm8vNgB+RBtxuOwcQ+FuyIJrva8kn72p6jWTSh4t
-   zOE3FHoEZ4aD94u9uJf6prRjpm+hgwshy4v8nDzKvEzrnqwfjcrqSocfq
-   8aVQ0UQfYh048ni2IirXb58Ol+1xO90YqGZCk0I0nj7DY69bfvEuGt4P6
-   8LkYGN0z/EXfOowtasDLApIqrwHieDkmsWteEbx5r/NbbRGClayYzVtxf
-   9h5BbOw+ixYyoZSgl1arfiGmHQJru56FDXD57EbbI1HO2JMpMoB+gLqiU
-   A==;
-X-CSE-ConnectionGUID: AxT9WPvfQcGmdQFfABdgLQ==
-X-CSE-MsgGUID: +P4sgKO0Tk+U4oPjYzFuvA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93653712"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="93653712"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 08:20:49 -0700
-X-CSE-ConnectionGUID: JwexR3oJQzatmu4g5LEWDA==
-X-CSE-MsgGUID: vFlYH9tyRkangFMS75Q85w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="296853472"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.145])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 08:20:43 -0700
-Date: Wed, 16 Sep 2026 18:20:40 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: zl020895 <zl020895@163.com>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>, soc@lists.linux.dev,
-	longzhao@ambarella.com,
-	Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Lee Jones <lee@kernel.org>,
-	mfd@lists.linux.dev, devicetree@vger.kernel.org,
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: Re: [PATCH v7 00/15] Ambarella CV75 SoC minimal bring-up
-Message-ID: <aqqzyPR-2JKr-2Me@ashevche-desk.local>
-References: <20260915-cv75-v5-v7-0-3297d3fbc9c0@ambarella.com>
- <CAMRc=McEOcWq8i3B01AR1PnfBzSQaLEaOzE6Qa+QdVXrvS_YrA@mail.gmail.com>
- <CAD++jLnRL_s9zPNkSj2UnHWPx+QHAXV19DA7dEmGZu0AkxxyaA@mail.gmail.com>
- <aqpuMcqbra9i6UDq@ashevche-desk.local>
- <23d61058.962b.1a0a9e0b355.Coremail.zl020895@163.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MZvx2lMX";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WUZjothi"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GFA1xu3165474
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 15:21:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=X/iwvD5G17PVr+CbdCxOfq
+	vRNLDG+jj2+X9T/JU+scs=; b=MZvx2lMXQl4q4P9UsFKlEpIOR0pbOsZToEvO3J
+	uC/fP+LItF8vekJG5emINMRlrjigde8rhMJ5Bjh4fgv9og0qZkWKEhquYDFoo6LH
+	EKa7QSZ1ZQ9aqQFlQgfzbbvAP+i+gOMn2/NedghQ5eEWz22o/b0vwmYlUks4BjVK
+	mg+UbgHdJ3tKPYZ1l+1riKdN5Joo2IP6kPEy02sg9Luvh4ZvoBtn9Ep/NXB003iJ
+	0m66FeAD/iG/m15TS34Wk+2d/YDn18e8Hi8pYF4FI0D0Tc/IxAe1/7n3BqdwqCrk
+	C5Abk6KC3L+vkbWAkHm/69EvfLIHTrkyKJKHiZyllb59LjHA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqdywby2g-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 15:21:38 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-934963b2bc0so1176536785a.3
+        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 08:21:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789572097; x=1790176897; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=X/iwvD5G17PVr+CbdCxOfqvRNLDG+jj2+X9T/JU+scs=;
+        b=WUZjothiTRsN6Bu6zx9AxIq1xYM57u8WI1qNJ3W9g6+Mrb6cYzA0Dtgwr6yH4zzJbu
+         fFsY+AQr2xHYI+qotmE0ZfQesWyMNKP1ffkjbzhyPlCyGgAl40vZ8XoOe5YvIJO4CN6n
+         DrRmeIEmh5drKdM5Lv/y72KatfzNH3qZOTf2Gf+kPvuQztkhnbK13gGDvO1v/TlfRBs0
+         kyoCa99qJ1Mt5m9h41u8YTkO0xXocP7JzPLpaovJ3l0lRE/5uqZZmhV5WipKUn2XoyQ7
+         KgSCSVEWcYrG5RRdqWTA98inyj1Kj9OHddoU7+kB1oc6+ZfKCPPf/JU2qrFA+WtPJY0E
+         rIsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789572097; x=1790176897;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=X/iwvD5G17PVr+CbdCxOfqvRNLDG+jj2+X9T/JU+scs=;
+        b=sr9tGS8fXxRFK0OY52a8K3GHE/z5VWO9ebEhXCIbbbvZgiW9H3EknfD2Yxch2ZvsQG
+         mHz1m+shSeKez9/fjSANak+aUCBIRoXdoz3Xg+c6GZjjOzcZMuwCfm02hvJMUjGMY5NU
+         cL1dLC5oRaLBjEINxqv3SIzZBiiZQyxpXdxZRW1GVlnL0uEJdh3vrnFmdizScqaoY3Ht
+         l4AuXcTxP8L0nw9EBXZYNXChA382EwCmt+IBfYxF5ZRk8Z/c50ZpH18cdujO2VkuEGtK
+         Vy/fc1zvMSvDxbn4V5y+i8ZsMUt8Nm/DKECLw4TtR917t5Sj3Zfv5pSIThOlkhowNCuC
+         V6uA==
+X-Forwarded-Encrypted: i=1; AKwUvByD/CNGZ+uGAM7eFwg1ugnsF1AT7/1N+4Wf5+fmsa7k7D2n4JIBy+buluxV1z8F7oZMjsG7YRyYPGt8@vger.kernel.org
+X-Gm-Message-State: AFuF++mUFi2AD0lXSuEd75lKUvPF7XCtJZ8r9M/tdH+Bsb0D4cquSdP6
+	01YUfItNskQyBlwurA9LVSknObNlIJHpfNV/2itwczoVTMeP/w74puTEkYW6ymxzMwV/Ld7yLSp
+	n4WEDXjmUESmpR3bZmAneMlenKl4V6Lv4kuVc3jgdKoQCp+4vb02VdO9TSWz1JS4A
+X-Gm-Gg: AYBFou1nJ4ncVI7XFGRJpD5ozP3Fd2j2d5b3hgmr8oZasN4tfImYTrkOy4h9+gImZUZ
+	hm65dAgP1vhf/6TMe9AC/qRoxEdhTSi2/IxKbVEgyiV23u6wP02RjkVcXpRUB9k3sZRHg4uEEVz
+	40CyqY4VxZFjlK/mN82aT371r3wCHembTFt9QxNPJKATX+LAcWNtaqTvFPt12eIT8ZNHzSSm5XM
+	r2zGg5trIXvdSfo15T2SkMVgiig/AmejbJQ4qWlVItERW+QEorumTRI7KxgsD//0hq+TMRPZ9FF
+	PI9t0ctDKMYBcu6AZZXjENm+8nqdr+CLiSkMleXPVeOQwizoMACNU28U3wS6hG6X1GcISFg22uw
+	r7VOqtRSYCVzGfRUuGzbgE69NEzU=
+X-Received: by 2002:a05:620a:4804:b0:939:57ca:7e06 with SMTP id af79cd13be357-93bb76bb33fmr394780485a.9.1789572097369;
+        Wed, 16 Sep 2026 08:21:37 -0700 (PDT)
+X-Received: by 2002:a05:620a:4804:b0:939:57ca:7e06 with SMTP id af79cd13be357-93bb76bb33fmr394772785a.9.1789572096782;
+        Wed, 16 Sep 2026 08:21:36 -0700 (PDT)
+Received: from brgl-qcom.local ([90.161.207.100])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e83fca34asm75757245e9.1.2026.09.16.08.21.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 08:21:35 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Date: Wed, 16 Sep 2026 17:21:29 +0200
+Subject: [PATCH] dt-bindings: dma: qcom,gpi: Document the Nord GPI DMA
+ engine
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <23d61058.962b.1a0a9e0b355.Coremail.zl020895@163.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260916-nord-gpi-dt-bindings-v1-1-857bf9e84999@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAPizqmoC/x3MMQqAMAxA0atIZgNtEEGvIg7WpDVLlFZEEO9uc
+ XzD/w8UySoFxuaBLJcW3a3Ctw2s22JJULkayFHvBt+j7ZkxHYp8YlBjtVQwdsE774iJAtT0yBL
+ 1/rfT/L4f0nO2W2YAAAA=
+X-Change-ID: 20260916-nord-gpi-dt-bindings-f4b10102d22b
+To: Shawn Guo <shawnguo@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        Frank Li <Frank.Li@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, brgl@kernel.org
+Cc: linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1094;
+ i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=eMnpXlTjIXA/5Bug3bPH7S+JX2UlrOarf98qCq5pmGU=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqqrP6+Ptmf6Et2sR3y0PlpIOKRf8fs4kjZ5cLX
+ Xf2czGA/JyJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCaqqz+gAKCRAFnS7L/zaE
+ w+/EEACPJIIIzN/WJLGCaf7hl1peL/GNO1BAIBW17GL2UGBDrM6+o0/dov1L3U6ujqad00fd+ME
+ 4GqjnG/gzGCyRv2rbwXMWX2YTFJeRYiyKhKWNnIicLmc3YeH/EEw31jl0Uho92x0IC5YxGTpELK
+ FAVrk1z1mzvJlomFYt9JLumYft7P7fHJ0xvmICcVJpWP4kpafify5V4KjL0Tt3GRL1tfLCupM1Y
+ GS5Ohx2EnqKldzQAQL1P1LfeEi9pCi6ugAemjsaQLI6HK/29GlYuo7JgSB2gSY/reZx/xAxe/DJ
+ ciOnxFkusJBJMKxT9Bh4kKm7EIV3x14gKTUDMfbRd0Q4JXyTQcPoQwYzj3J3OxfcNTiO+N7n8Gh
+ 7zvFVbH2GgV/u2a3DF1IdUApOu3WeQFdMwvSSJLc9Xi1Y1Fa/Uiv0M+Fgpxq2oaBOAsalEnxrIc
+ plDiiDv/UGVNNyAWXue0hnVqCjHOkRfvqVviWKv+cTqcETPk+I5XWG0Msb9GC7MjCCsKl4wmyjW
+ CifWRAFIUNT/BO5rASF/HzamgdQLEsGqntIwUDy9jC0cQmwOQ6QJ1n+LK3DAO61kFmozuZYVSHL
+ Vi/viLOxmV72cKPMNxLFf3QbgCxpUjqB2GEobo6+PPS43oZVrv7fU/u9kdvIthE8K7A08KpDyGq
+ +y5T9efv30j2tYA==
+X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
+ fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
+X-Proofpoint-GUID: vzbBaHQfvWCTtjUJApEOPUDCS6O_UPCr
+X-Authority-Analysis: v=2.4 cv=aJ1lOr9m c=1 sm=1 tr=0 ts=6aaab402 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=BQ2oiuy6hHN+kKmom1QVvA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=niPqjDDPxPU8gPvr_8UA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDIwOCBTYWx0ZWRfX4ePNdNIsbmTZ
+ nacD3Vp1skVT6bVO4wnZ0hv5RHoWQCOtNeBAy+aszs16vLRR2Hqsa+F3I3mTgM4svXvyZTEZqT+
+ hW6vlUmCcfgbDoT0ScZd36v1aqx9NZk+Rc+ODxMSuSP+1Ni14SZvCBEWnBUjJpU2WWaUmwfDgN2
+ KnwIhRLoIvsRIDqcgK3YCmxz5XwIRH7voUPt1eFu3qC98XWGIsl1siNxsDy7Wlv8J46wATxuFyL
+ Rf00UX1QzLhnK+JyD19bUwBuQmPjEmZdNnzHY57BKu1j79WsRI4vhom0C25dVISbNryHXl6IR+U
+ f/KwebhYJYdPXzFNfDdtIEjh/BcfE4Yl9XgQ3gfcyUFmQv+SFGcaWJkfL/KbwawDaCwV8hsZRuh
+ H7XyhaBaIpFJazTDxrwUp3u2qKdNx4Rusw3w/1NxKkHsscpusyPCJwrEnL0QZiGZQLcewzCl5O+
+ pLZyDIIYerckfXa/MBw==
+X-Proofpoint-ORIG-GUID: vzbBaHQfvWCTtjUJApEOPUDCS6O_UPCr
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDIwOCBTYWx0ZWRfX7/bGDwhj1P6w
+ LYpVqdnhdIJbkcXnjdL0y6ry1tA1Cpdbe+zJ9HuULUYxOHrcmaycwAG9DiGrBLBAg2jGLl4aBzO
+ YNWn5x9iuRPhzGrAJKjl+n2EBsbDx5E=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-16_02,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 impostorscore=0 phishscore=0 suspectscore=0 bulkscore=0
+ malwarescore=0 clxscore=1015 priorityscore=1501 spamscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609160208
 
-On Wed, Sep 16, 2026 at 07:01:10PM +0800, zl020895 wrote:
+Add the compatible string for the GPI DMA engine found on the Nord
+family of SoCs.
 
-> ACK: GPIO bits through the GPIO tree, then an IB for the SoC tree.
-> I will keep a unified series for now.
-> 
-> regmap-irq cannot do PL061 type (IS/IBE/IEV, both-edge) plus the
-> AMBA chained demux.
-> 
-> Two options for v8 — Andy, which do you prefer?
->   1) Convert PL061 MMIO to regmap only. Keep the existing gpio_chip
->      and irqchip/girq (double-write stays in the driver). Ambarella
->      layout can be a follow-up on that. No gpio-regmap yet.
-> 
->   2) After (1), also move get/set/direction to gpio-regmap. IRQ
->      would stay a custom PL061 irqchip (not regmap-irq). I am not
->      sure we can avoid a way to get the gpio_chip for
->      gpiochip_*_irq() / the chained handler.
-> 
-> I am leaning to (1) for v8.
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+---
+ Documentation/devicetree/bindings/dma/qcom,gpi.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-I would prefer to see (2) and then we can discuss to roll-back if it looks not
-good enough.
+diff --git a/Documentation/devicetree/bindings/dma/qcom,gpi.yaml b/Documentation/devicetree/bindings/dma/qcom,gpi.yaml
+index 54dca623223d51373a4d54591f3ebbf5e31fca17..ad70717b5b86e600e74d6cfe42015dc03db25ba9 100644
+--- a/Documentation/devicetree/bindings/dma/qcom,gpi.yaml
++++ b/Documentation/devicetree/bindings/dma/qcom,gpi.yaml
+@@ -29,6 +29,7 @@ properties:
+               - qcom,hawi-gpi-dma
+               - qcom,kaanapali-gpi-dma
+               - qcom,milos-gpi-dma
++              - qcom,nord-gpi-dma
+               - qcom,qcm2290-gpi-dma
+               - qcom,qcs8300-gpi-dma
+               - qcom,qdu1000-gpi-dma
 
-Either way your PM runtime support for gpio-regmap is a good change.
+---
+base-commit: e6e35979777d646fe3c7c94dca7dd32fb25d45f4
+change-id: 20260916-nord-gpi-dt-bindings-f4b10102d22b
 
-> 在 2026-09-16 18:23:45，"Andy Shevchenko" <andriy.shevchenko@linux.intel.com> 写道：
-> >On Wed, Sep 16, 2026 at 11:42:56AM +0200, Linus Walleij wrote:
-> >> On Wed, Sep 16, 2026 at 11:14 AM Bartosz Golaszewski <brgl@kernel.org> wrote:
-> >> > On Tue, 15 Sep 2026 13:15:30 +0200, Long Zhao via B4 Relay
-> >> > <devnull+longzhao.ambarella.com@kernel.org> said:
-> >> > > This series adds minimal Ambarella CV75 support for early bring-up with
-> >> > > a serial console: DT bindings, RCT clocks, pinctrl, PL061 GPIO via
-> >> > > gpio-regmap, 8250_dw UART quirks, ARCH_AMBARELLA, CV75 EVK DT, and
-> >> > > MAINTAINERS.
-> >> > >
-> >> > > This is a single unified series. Please apply via the SoC
-> >> > > tree; subsystem maintainers are Cc'd for their pieces.
-> >> >
-> >> > I would prefer to take the GPIO regmap bits through the GPIO tree and provide
-> >> > an immutable branch to the SoC tree as it has potential for conflicts that
-> >> > early into the cycle.
-> >> 
-> >> Queue them up and send us the IB if you think they are ready!
-> >> 
-> >> Long can probably send a PR based on that IB for the rest to the
-> >> SoC tree, a bit tricksy but it works.
-> >
-> >I'm still unsure why we can't use IRQ facility from gpio-regmap.
-> >Can you have a look there?
-> >
-> >With that being said, I'm not sure that the patch that exposing gpio_chip
-> >from gpio-regmap is justified.
-> >
-> >The whole GPIO rework needs a bit more routine work (resplitting, refactoring,
-> >et cetera), so later we may see clearer what's going on.
-
+Best regards,
 -- 
-With Best Regards,
-Andy Shevchenko
-
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
