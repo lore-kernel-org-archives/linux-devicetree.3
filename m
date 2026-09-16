@@ -1,142 +1,79 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C117C313E0D
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 17:10:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCC664A7CBF
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 17:11:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789578634; cv=none; b=mws34jpV1AFhOpnEv3Vgk3zdOk9qmeNEiQMBdZUduJPmgzRG6TYqU9FEjqip8jURu5bcRtB1wJMUxu0Q7UmKxGclLnnQ4MWQ5PvWwga7/MQJkV550IqYGltJrJK9Uxdj1z6Nr91nKZX+L76oWfJSjZ6guqMep337nXYRVq4df3s=
+	t=1789578667; cv=none; b=sqswpx4EpXL9PqxmpMsdw1cYj9olrimp9UFhMT4C04tnKLZbMKuMQ2KsF80aS6MeexINnuLzxytS53rYaYLv7PlSvNvNn1ZacZQgL/s044kAu0UnUxOQ9GWGeTXYlbFlBZf4+R7jAKk7Dq9bl/WKrgIzounBeshBLEPWKN0d9uo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789578634; c=relaxed/simple;
-	bh=i8Tw9+Y0LbLQQkfb0VjBjO33Jh4ZfQKD94u7NvLdVx8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Oevcj/T2+GCqSxKeGnctH99Gpjqh6isDeqKSg5te69V4qd4QWVVHnlSDRx/UmCBc6+Y3qV3DZLu4OUvoEubMSRnr4WE+U/jur3CUixkoZXtUj2j4gUYrHMg5R6zaf2PB3LnguNZXqurMUQJ6DeQWNwFpJOb3OEQYxI7/rabfJaw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com; spf=pass smtp.mailfrom=sifive.com; dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b=I/zvzBTb; arc=none smtp.client-ip=74.125.228.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
+	s=arc-20240116; t=1789578667; c=relaxed/simple;
+	bh=Ljrz3/ym5aL3W5hSXMvMnSrl28+5TPjOO+yW6zlyHRo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=J5TrIumnWz/OSpQBga9aq1IP3fvXBNzoUWwWwbaqTY70o2ODhZJeKB7SGo4Uc8xgKKEFeFQ65BB3P60VtD5kW6DmI7DR4y4q5t0BWFbX+pc22HV06Ud8L2RRiI2jZuNaOtmyQmA6GjRYUcYwUQLd65jDZrDWsoH4Nz6hqMAvecQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bkqqu8zp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b="I/zvzBTb"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469b35601so712952b3a.3
-        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 10:10:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sifive.com; s=google; t=1789578627; x=1790183427; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4QH7TCKimipR8xV32SdX4PILN4e3j5bJ+o9cYY2F4DU=;
-        b=I/zvzBTb7sbhurrPW5561okUsTghPC9kVPuSE7tPT0eu/vA7FoUUPFVFb3NSHth3vp
-         Vqlu7DBQxnLIsmiq/Tm5NeVoIF138k+sKKhUgZp1AZvX4+CfV29HcUPleGItk0+dCW9k
-         pTp5Fgik1hPe/CvV50nLG+ll/TqX7Z4OKEqX1IfXHsinfbRQHsHSYdBplHTSjqAo6xQy
-         fcpayIXMEVymGFpSKYmLNDygvJZA65k83+SsrDSmeJGGOMt+XuXpD7EG39ucajZUE0lg
-         BY2MoICXzutJrTsYbvQAfXTpH7zOtJstOarPH/m3f7BYB/Pqcr86m9ssIrqAwBjjDFos
-         EMUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789578627; x=1790183427;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4QH7TCKimipR8xV32SdX4PILN4e3j5bJ+o9cYY2F4DU=;
-        b=go7jZCcmcoMzzsEbbA7d+zjsN5ysHPnZs9gVcICZNrwR3tGcoYF24AEC2NdGjPmVSa
-         EFIgeacv7ZcbB+9fZx10ni661ujSaYUIT4jCulvGQgAVvVw46Xqmoja4u9pcwDKcZRQw
-         5HcVXlMMkU1qA6Q5ST2MVlN1eohYzdn1jXTBpbHKhur3e1+U7dBEaEiCG1qLTeJ7FLZt
-         9yy8c+SFWvv2cDWgDcHzZkNtyaGTY5FkV71rCEoAzx7vQH5HhBomdYXWIUPDI3M9qzyV
-         TeOkuXfTfRJNvL/6+QprG2+8tjQQl6LmChCWt2WdKPVtux+ppb6ZVgVjJIzgPbEMRPXq
-         RMOw==
-X-Gm-Message-State: AFuF++kPjP48MGJnEa/NSnlZ0ahsl/+s1VioeEuHFoLYVZQJcV7fX6wH
-	t6f7xOmpqHSLuTrTqBhlpnWZ3oMlrW+hBZw/luCtskE5UcHpbTex5Dmn7/5nsYd6tKU=
-X-Gm-Gg: AYBFou3BI/fQ5LbCV2d6rqjhQYLZjHhFzi08MxthmBPWEpFXGaOnzvgDBFMCDC7uKaW
-	dIoRRET8mzChCeLpGroH5xq4pTYtC/qUM2vgIdU6Iayy+gJMl2PratsghMc+daey3gq8zSV/I9q
-	IzQ9clsP2GhR6qRXaMwl8kaVxCu21hCR8I37wuJA/GfnZnhQoJCnWzgtfWWMc65+80ul9CFBY3m
-	fLqNUqZvX5l0osYv1GYWEchDc0nnhEEMcA4mMyEO1OQJAT6mMO9tKxlFb3REz9K9s951gMSfvyJ
-	WNS8rjUzL5pqpWBRp42Qx0jHgmtbptGOamrC2+hxhcgcW8ZoRc1pwqYTulCiQZ7iqtsGcXHRPxc
-	3vMbl1X0A4uHYXO3g+e93A71oPSc2KtQOdIzAxt/ozdWxBRhMMq9WZtmNU5p0w7Im8KDPNwv7Bo
-	lmaKbyv9tYEOgKZwOEayvzaS1RR/nX5xCvj6KwNO69UA4F/M593/wE/y80s52xR8Lf2nnB9oTm5
-	33XVBI9walQ+j1+Y9wy
-X-Received: by 2002:a05:6a00:181b:b0:86d:3958:6b13 with SMTP id d2e1a72fcca58-872391ab57emr6854570b3a.19.1789578626409;
-        Wed, 16 Sep 2026 10:10:26 -0700 (PDT)
-Received: from [100.64.0.1] ([170.85.13.74])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87201d1b275sm1607393b3a.51.2026.09.16.10.10.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 16 Sep 2026 10:10:25 -0700 (PDT)
-Message-ID: <6e4b5c98-7d48-4629-a6a0-4d930327f9a0@sifive.com>
-Date: Wed, 16 Sep 2026 12:10:23 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bkqqu8zp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05DDC1F00898
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 17:10:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789578658;
+	bh=Ljrz3/ym5aL3W5hSXMvMnSrl28+5TPjOO+yW6zlyHRo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=bkqqu8zpSudVqSwPAfClBSGzFquPbiDxvce8sshFCNObsZ20EVP/0+iQzww+yfp8h
+	 Knbx0yTBFbbg49xHF8gW8s+G3B1aFJGWbztT0XAQo30gHGaiqTduMHKVHXb7kB+H6c
+	 mvn+fXe6B9Bz6mDWQt54CzQN3zDlB8QudJtk3YxqvGM41WtbLCgA8GZ3SFkd3DzgTj
+	 cDE5eAQR4RDiHyjmkUOBumOtsbxf0ByycNeNrGtmIcoPk44EridtqKqIQbfeAXkKup
+	 qO7xUIYCvHiXN41Z9HY9sqJ/dg4bKfxhSrL6uuSJx6mY/Bt5IyiN8xytKMeVJebbia
+	 27Eoxxefe5HTw==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b74e0c2e4dso1332933e87.0
+        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 10:10:57 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxJY4xBQwcI+ZcH194NGRpl/QKdxUHbC0jJtZdpruFRMGEH2G9blMN55jl2bsOi2kxvJeFuLNJO9Ii7@vger.kernel.org
+X-Gm-Message-State: AFuF++nk9BegXfeMZ+IdaAXi3/LiauV4gjzw0a6ZG9hlor9T5pqlAM2z
+	Tor/GnzYOxE1lhrVIjLJGyiXC/3dn2HI0ho4Juixt6aCcQ6smxMGWuVECYC3fJ+xAFM1InROKn0
+	B5RkWbA5NKreX1iMyIA6ytlv789e90l4=
+X-Received: by 2002:a05:6512:1329:b0:5b7:65c0:8b92 with SMTP id
+ 2adb3069b0e04-5b8b6624616mr2095448e87.12.1789578656776; Wed, 16 Sep 2026
+ 10:10:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] riscv: dts: sophgo: sg2000-milkv-duo-s: reserve memory
- for RTOS
-To: Andrei Lalaev <andrey.lalaev@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, Chen Wang <chen.wang@linux.dev>,
- Inochi Amaoto <inochiama@gmail.com>
-Cc: devicetree@vger.kernel.org, sophgo@lists.linux.dev,
- linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260916-milkv-duo-s-rtos-memory-v1-1-6ca72d5a3924@gmail.com>
-From: Samuel Holland <samuel.holland@sifive.com>
-Content-Language: en-US
-In-Reply-To: <20260916-milkv-duo-s-rtos-memory-v1-1-6ca72d5a3924@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260910133519.459011-1-andre.przywara@arm.com>
+In-Reply-To: <20260910133519.459011-1-andre.przywara@arm.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 16 Sep 2026 19:10:43 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnR-pyB8ZZXwn0ffDBQ5n3eWoqMnbxH59B1U6oDHDiRTA@mail.gmail.com>
+X-Gm-Features: AcwNN1WMRMLXV0VY47rk_rDL7ZhlcD1BjU6erIZy7wdE15mC-YpMq3fTzq6SO-U
+Message-ID: <CAD++jLnR-pyB8ZZXwn0ffDBQ5n3eWoqMnbxH59B1U6oDHDiRTA@mail.gmail.com>
+Subject: Re: [PATCH 0/7] pinctrl: sunxi: Add Allwinner A733 support
+To: Andre Przywara <andre.przywara@arm.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	Jerome Brunet <jbrunet@baylibre.com>, Yixun Lan <dlan@gentoo.org>, 
+	Enzo Adriano <enzo.adriano.code@gmail.com>, 
+	Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Andrei,
+On Thu, Sep 10, 2026 at 3:35=E2=80=AFPM Andre Przywara <andre.przywara@arm.=
+com> wrote:
 
-On 2026-09-16 11:06 AM, Andrei Lalaev wrote:
-> The FSBL loads the coprocessor firmware into the last 2 MB of RAM.
-> Reserve this region to prevent Linux from using it.
+> more than a year(!) after the RFC, now the first "proper" version of the
+> pinctrl and GPIO IP support for the new Allwinner A733 SoC.
 
-If the FSBL wants to reserve some RAM, it should modify the devicetree at
-runtime to add that reservation. Adding the reservation here creates an
-unnecessary ABI surface between the FSBL and all consumers of the devicetree.
+Perseverance and grit!
 
-Regards,
-Samuel
+Patches applied for 7.4.
 
-> Signed-off-by: Andrei Lalaev <andrey.lalaev@gmail.com>
-> ---
->  arch/riscv/boot/dts/sophgo/sg2000-milkv-duo-s.dts | 11 +++++++++++
->  1 file changed, 11 insertions(+)
-> 
-> diff --git a/arch/riscv/boot/dts/sophgo/sg2000-milkv-duo-s.dts b/arch/riscv/boot/dts/sophgo/sg2000-milkv-duo-s.dts
-> index 78a257839f6f..693c9fd7b771 100644
-> --- a/arch/riscv/boot/dts/sophgo/sg2000-milkv-duo-s.dts
-> +++ b/arch/riscv/boot/dts/sophgo/sg2000-milkv-duo-s.dts
-> @@ -22,6 +22,17 @@ chosen {
->  		stdout-path = "serial0:115200n8";
->  	};
->  
-> +	reserved-memory {
-> +		#address-cells = <1>;
-> +		#size-cells = <1>;
-> +		ranges;
-> +
-> +		coprocessor_rtos: region@9fe00000 {
-> +			reg = <0x9fe00000 0x200000>;
-> +			no-map;
-> +		};
-> +	};
-> +
->  	wifi_pwrseq: wifi-pwrseq {
->  		compatible = "mmc-pwrseq-simple";
->  		reset-gpios = <&porta 15 GPIO_ACTIVE_LOW>;
-> 
-> ---
-> base-commit: 9b87fdc9af2fbfcdb5c24a64139685ef80f6573f
-> change-id: 20260916-milkv-duo-s-rtos-memory-7a94933e35bd
-> 
-> Best regards,
-> --  
-> Andrei Lalaev <andrey.lalaev@gmail.com>
-> 
-> 
-> _______________________________________________
-> linux-riscv mailing list
-> linux-riscv@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-riscv
+Look into Sashikos comments and address with follow-up
+patches if applicable, I'm not a friend of the perpetual back-and-forth
+Sashiko causes and prefer to just apply and fix in-tree.
 
+Yours,
+Linus Walleij
