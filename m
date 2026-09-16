@@ -1,227 +1,919 @@
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 504B1449992;
-	Wed, 16 Sep 2026 20:53:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789592030; cv=fail; b=JzM731VcE02IBM0XRsl4aCuCMHay6DaUvw1nr2MQwre1vdmVYXMhIIWRCRyB2A7vwc45z7NpJhh11h1jGfgMhJV582CdsnK5v8wh///fbLgrw+gadqmwjzgyQN/MNhsrrZpQpbnjN+jXBRFEt0tchMXexZK6L73fUgBIZo2Ph/c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789592030; c=relaxed/simple;
-	bh=hchyQghqAjHbsDwNl5qAnEg/B5SSqwP1Pp2HOElOzws=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lkMMwmFdlN0cjMqG99LWZwVVpJrps1Lgtn/So8hZOuA6SuQCFqb30jNv+zQO//S1y55knmPx3PKOhchRzEU5VoHy8sKAEWBbigJzih4EQkTiKroCA/WEQn5QzIxUHKREoh3lXnbtpa3KIpUfNnU50MrJePOFZJuAO6sls9cpPrA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=GiK3HAWF; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=cqpwqapb; arc=fail smtp.client-ip=148.163.154.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 279784BF93E
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 20:53:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789592039; cv=none; b=tHyTEuznoP/DyT0neS1OofQoWhCHfTFv5q7I9DAMOD5IieJY7TX48l1Z3Z6xZ7qBVmGMi1fu7O0Vi6Mpqgz2KPJrFHCpxggU/VymUHiqz5W8RnflSwE4u0DgcyxtY/fj3zklgf7Tv92xeOpfn1WHDXZKBJIH0WHpTJ4NMdCtfvQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789592039; c=relaxed/simple;
+	bh=1SNfDHMsz6aA22KJ2k3+hGC3C8AmhFB+SUbaeOO4WZ4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=DcTluMMfiUb9gjkyoGly970LJmiT1BZwi/V9QOjnCR5GK3vbmn0kvp9wDmFSsu3IvCuG/+Mk80rT3SFUkNlwt/6WGvGfwvbEUpFCrcwtldDziHjbKfkkgkkDaWqP+V/+4nxt2yx2Dv/71cODWhjm+ajGLozy3ttWUX0fiMsvSdM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S9chrbpS; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="GiK3HAWF";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="cqpwqapb"
-Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GIjIBM3900570;
-	Wed, 16 Sep 2026 15:52:52 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=proofpoint-05-2026; bh=lHYvBiaXUUaCf5u
-	IlhDHTXAjfmYXqL3JSnpJ9dONupU=; b=GiK3HAWFH4PFUzddxeh8rNozap6Vi5n
-	X65OYdzftUjwk+Kpe6zyagj66t+OFY5pJQsIXFHFE+SmEYOBuNB2VeNU9Hq4GhEP
-	lI/DEf0GDJXpWXqEiZ5LfrF7Nmvet8a4P7fZtv/9mfqWnAbzRA/GW4HLaM/rblsG
-	dJpVlXpaBub2SAqd9abG3JWscHpHEfBoCvUBYwOr/Y43UeAInvsXSZ857F0CGWo1
-	sfmy8tW4YCuOjPLXA2RcCnNxV4pCRMuggnaxdLalZ3oixSx+byhWAbRKYz+X9THt
-	4Ztj++1pFM2XvyBxAfUwFAwhIF1HYo5hvmDCFRymZBMi6s9owaX/lgA==
-Received: from ph7pr06cu001.outbound.protection.outlook.com (mail-westus3azon11010056.outbound.protection.outlook.com [52.101.201.56])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4gqqmdcx7w-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 16 Sep 2026 15:52:52 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JxT2CDTCoC6oFuFaPJYstVa/xFTpbo7781/2gOWb1ruiT3+oJgCDQ2pNHG3RL+zGQPUc8HfM6IiBWpRPFPmIjnVh3216MfnhC9DDO4RinKOJEvEaRcZEx1WaYll64H5XC5tLwEQ0cZIMkbZpE1RH1lsk3uacojyIHmdSG9Y4OAaWOee5Wf+VzIAR0Znc8BzH2CPPgfrF+oRnkuywDMpa+8D8z1B+TBecb18A8E0fqvw129oRIhUa7wuAa0yaHCC6ox5nO50RbxCNLPRde26lb8ue/jSULAwyzVOIzv7sFUEeYBfqFSuEJ2qbcuOjIHXGAdGxQoX1RAZT326HwjJREg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lHYvBiaXUUaCf5uIlhDHTXAjfmYXqL3JSnpJ9dONupU=;
- b=p2ssUK3+8Nuq4nhyj5xXYLYqu4gBYXNVtyEJyHYLnzDSlACI3lRsXUrMGu9zVdChl0E/NovUtS8NLv3lghIKxM2FpYdqgs10Aqp1cORbEv2BMQ2HbsYi/3tJR+1InBj+HFUG2gRIAoPqVTvANhfDJJUmzPU8vzF9f7RBPI6iLg+kEZnau/EELOGdIiXilUNrv/EXLoqaSyB+ubpMklCZLbo2QD2+XNp4k66y06vqvJy+0cU/AATvmghjQrJRVqwTbN1UJ9WMVY2Z9PtYbPC2+KLh86OsVl5avyNAcZKTJK/RYeT7JcIz9bbI1a3ZxJ2QUidltVDdxPiIoni/3/hNug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.194) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lHYvBiaXUUaCf5uIlhDHTXAjfmYXqL3JSnpJ9dONupU=;
- b=cqpwqapbNCprOywods6TKatcQ8EoneztvwX0uiUV1xEyVNZhE4ogrgPmozEgAkdLF//6776H7dCG0QvbD25WT9iKZjnmC8IlwGJgtO10IC2M7kdNxh1HbJvPNrE60MHKNkP7VUs6Yp51ERyzSBJ2m+Jn18SY1/CG5jddyW6ua5k=
-Received: from SJ0PR13CA0074.namprd13.prod.outlook.com (2603:10b6:a03:2c4::19)
- by MN6PR10MB7520.namprd10.prod.outlook.com (2603:10b6:208:478::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.5; Wed, 16 Sep
- 2026 20:52:49 +0000
-Received: from SJ5PEPF000001D5.namprd05.prod.outlook.com
- (2603:10b6:a03:2c4:cafe::a0) by SJ0PR13CA0074.outlook.office365.com
- (2603:10b6:a03:2c4::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.7 via Frontend Transport; Wed, 16
- Sep 2026 20:52:46 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
-Received: from lewvzet200.ext.ti.com (198.47.23.194) by
- SJ5PEPF000001D5.mail.protection.outlook.com (10.167.242.57) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 20:52:46 +0000
-Received: from DLEE205.ent.ti.com (157.170.170.85) by lewvzet200.ext.ti.com
- (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 16 Sep
- 2026 15:52:36 -0500
-Received: from DLEE210.ent.ti.com (157.170.170.112) by DLEE205.ent.ti.com
- (157.170.170.85) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 16 Sep
- 2026 15:52:36 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE210.ent.ti.com
- (157.170.170.112) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Wed, 16 Sep 2026 15:52:36 -0500
-Received: from localhost (uda0506412.dhcp.ti.com [128.247.81.196])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68GKqa911706592;
-	Wed, 16 Sep 2026 15:52:36 -0500
-Date: Wed, 16 Sep 2026 15:52:36 -0500
-From: Kendall Willis <k-willis@ti.com>
-To: "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
-CC: Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>,
-        "Tero
- Kristo" <kristo@kernel.org>, Rob Herring <robh@kernel.org>,
-        "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        "Nathan
- Chancellor" <nathan@kernel.org>,
-        Nick Desaulniers
-	<nick.desaulniers+lkml@gmail.com>,
-        Bill Wendling <morbo@google.com>,
-        "Justin
- Stitt" <justinstitt@google.com>, Judith Mendez <jm@ti.com>,
-        Daniel Schultz
-	<d.schultz@phytec.de>, Andrew Davis <afd@ti.com>,
-        Siddharth Vadapalli
-	<s-vadapalli@ti.com>,
-        Paresh Bhagat <p-bhagat@ti.com>, Bryan Brattlof
-	<bb@ti.com>,
-        Jai Luthra <jai.luthra@ideasonboard.com>,
-        Devarsh Thakkar
-	<devarsht@ti.com>, Beleswar Padhi <b-padhi@ti.com>,
-        Francesco Dolcini
-	<francesco.dolcini@toradex.com>,
-        Stefano Radaelli
-	<stefano.radaelli21@gmail.com>,
-        Nick Desaulniers <ndesaulniers@google.com>,
-        Vishal Mahaveer <vishalm@ti.com>, Kevin Hilman <khilman@baylibre.com>,
-        "Sebin
- Francis" <sebin.francis@ti.com>,
-        Akashdeep Kaur <a-kaur@ti.com>, <linux-arm-kernel@lists.infradead.org>,
-        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <llvm@lists.linux.dev>, Hari Nagalla
-	<hnagalla@ti.com>
-Subject: Re: [PATCH v8 0/9] arm64: dts: ti: Split wkup R5F memory region for
- IO+DDR resume
-Message-ID: <20260916205236.hemdlwzjchmf6jm4@uda0506412>
-References: <20260903-topic-am62a-ioddr-dt-v6-19-v8-0-74c650dfdea6@baylibre.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S9chrbpS"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843c3ea1f6so87235f8f.0
+        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 13:53:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789592017; x=1790196817; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Yi5CCoHmGrYmkDOVSDaAc0UmbnKq9uIrfT4OwCZDOHY=;
+        b=S9chrbpSmUo0LR7nBVCRidJFl89Sj9d8HqhmaIVrYU53m8QUUJZbYaJpPmAbh1UDRq
+         4L00aRRBVPMwUbEWpuhQyEuKrWT5A/WfWdynwSCbyHqeJGcRQTekVMruNLHwT2fOAMQV
+         Ub75Ao1lBEj+c9IBdoZHRGQp0gAbnV7yMxsoYrRENWR9m39LJUUKBCYsnKnB6NdrglZ0
+         KMNX9MWi1y8cpfZlVNfiZW1Qzjfs94pUSlU8y3AdADFXMUOU0DlnZNbDqsTfmDatJwSp
+         blBkmQAXIb2k1MNNM13WX3IvBzcSCNG0CrIO0N+c/9l65F0GCgyUCTLFueTq9Ygc+zEN
+         0QjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789592017; x=1790196817;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Yi5CCoHmGrYmkDOVSDaAc0UmbnKq9uIrfT4OwCZDOHY=;
+        b=HpIp/OEO5K+kghEPACUKzr78S9EryFo0AgzFa4Lq6sUGadLZ5UdUNbbXRs38PSMOe7
+         lh97lcUixqT6gYfOPJfc7SCY9nUeP9Nco2QPiq6vs+8TMrGISi/rUPRRFXMSAGhawYuE
+         /eANqTS8Kayyzm8qhL7fBAr1gT3Ld30sVwHgHfhB7KRuUOxbzRqeC3Ho0mCG/l+OIhij
+         j6dJtLRL7W4RmwX4nimvajtkSRdArVLVw75L3+U5P+Md0feXcF0sH/R6FbqaV8P1S68e
+         W+DrfEDie742hzDRB27k9awG8Cy055IB+uSuwmZ6gCwJY+ElHBnFakeP602aWDyKby2R
+         3OoQ==
+X-Forwarded-Encrypted: i=1; AKwUvByEXv+R4GpaUIQ6dU5pdpgLiEEjQodX61xYoPep3MIvVA78HkSWRNqYbcqJpf6WJvGIA4Vl4E1MaJXr@vger.kernel.org
+X-Gm-Message-State: AFuF++l72IiSqnXaKpG1S7kzaf7leFZBL0IRsYJxHqMjlHALzPHA7vAB
+	DB19MD43470V7Q4AqtNdgGO+WOWhSjs9v7ZddI2j/mcHGI8RVaYc+FQP
+X-Gm-Gg: AYBFou1fQdxlGmHh8wdzBZ7Z1HSgYg3y1G+1psSjc2TdDLixkBaaV3rbcy3kHpugOEh
+	LF8xtkEYyWIushIcZJOZdRsp3/xB6l7RvWJjk9DMqDXnUa0vQFSF5BRqEsUfW7mVRLLx4VoU2K9
+	uRTnRmx1RvIQL9ftsXxTHuvkeiaov80vR+f+Q0PXdVH1gWtsDSxm8w36Tpv/P+F60bHV/6lyMx9
+	ZluJjdfb2zPBCESGBimBBAGoxlEKVcuABv7k4W4RWiqJ9EopazURjlKRQiaJqnGKRnMQfJ7Nlmt
+	YHCu6DB9aocHHW9tH/TCnT1rSDDtaB27Qjd6YgOQItcGUAjHa4pf9b2xCXOfm0LgOPSjeWOuR+Y
+	ARZOYRr8z/a/tyocs7aT421atUHZ7aKyiIshB1YTqbmxqkLuM2s5d9LPulHzqzNuBhx6Ij5QqTt
+	VV4UZ301GbcT3rcSZZpwHCS42tTyFN5Ve4vLcAYcgfqRK9dBStsxFTu3cSSVlEMoP1vSrRWg==
+X-Received: by 2002:a5d:5d0a:0:b0:487:ff1:c540 with SMTP id ffacd0b85a97d-4870ff1c628mr3992338f8f.3.1789592016479;
+        Wed, 16 Sep 2026 13:53:36 -0700 (PDT)
+Received: from antoniarch ([78.210.41.3])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bef7678sm11086166f8f.2.2026.09.16.13.53.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 13:53:36 -0700 (PDT)
+From: Antoni Pokusinski <apokusinski01@gmail.com>
+To: alexandre.belloni@bootlin.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: linux-rtc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Antoni Pokusinski <apokusinski01@gmail.com>
+Subject: [PATCH v7 6/9] rtc: abx80x: use regmap instead of I2C specific API
+Date: Wed, 16 Sep 2026 22:51:35 +0200
+Message-ID: <20260916205138.16771-7-apokusinski01@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260916205138.16771-1-apokusinski01@gmail.com>
+References: <20260916205138.16771-1-apokusinski01@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260903-topic-am62a-ioddr-dt-v6-19-v8-0-74c650dfdea6@baylibre.com>
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D5:EE_|MN6PR10MB7520:EE_
-X-MS-Office365-Filtering-Correlation-Id: b6bc6e6d-9090-4c09-5e58-08df14347644
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|82310400026|36860700016|1800799024|23010399003|56012099006|5023799004|18002099003|10067099003|22082099003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	iQOS0K65FvcVXuQ9WVALXmol5wTzVBACrfk2uVFCGHxBLf6gQOMPmDYdiHgWK/JcHRgZBwhr/VqbNsGHipF8edM12Jcpgrg/B/Xtn7vFpb/lsUGncMys7UtaRYnTmClZ9lRCooWGiyB8zsB7miCXbkE7VyE+JtPruf/Zt161wYq7dNYpiv6D6QRcHiAHvQSylLBn+/M/3/nD0c3gQA52JeIzOshlWx0Xo5Rrft+sd1NS1h30agekSXuwcwsg/2gBv1ifKKIFPDYWDJjvGnNRr1kik23qcgY6FwY2OZ9Y56osK9h+XU85cSGinl3sbEvqWjnWUA12hCMKoivooK/o/fTLmDlASErYM2YMbI/HM9PBaPhJ6EKkeiNddcDXhnvn/XXQ64WVXXMcfMQOqgEG8mlpD0CSIgIdexglM+S5g8dTatpL1yG6Bac4gI2bjo6UknpwcdN+CjwbcpG0Q0M97Ckt8VMciZzLAEcn/4NOP13sh/vDXp9yFUFY58duQ6TM4x0XllFXYaln9iDwl2SkAvsyOKgKcrnOA6FhbZLHl9tYjSIRmms60bPOioKlm8Gsdhk3VGUghni43YKwaBHRjIndPbY/z7E5Wl+EpE36z+08dHyJDdXxc8c2DmrwaZrN+Q35lCYtbkdQs1PRy18ae5CVLhnv1Bt+JTMnCtt4cEJ10MAMTkG6PWubPKkVJJqrQjE3K3V9zI3Rtb1fgr+eKg==
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(82310400026)(36860700016)(1800799024)(23010399003)(56012099006)(5023799004)(18002099003)(10067099003)(22082099003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	4lTpa9H2pZMw2wI2erS8Ynj2wwRJNXPuha41OINBQtPd6rcQ6ybYH54WFIN2amgIGrZqTBIEp299VI9XMw+BCNQLff2Gsw2dqLueA2OwZ04BxM0DJjx8RVMxKmm7/tcXWqPaUzUPE3EDWVDcT1AfxbfZ4gnMW7HPPIhCtiwN9h6PcjQGArRKpS7fIr4/6nXLQqO/xrfe7/KEbaqPajTv1IPUDOgCTD8XVctqcfSAJIzRvHrkgoi2OX5duo7HYj5BRclNz7XaYWOlyLFnrdQUTEcKJnvgmRkdz4HPCGpqf8+rWxxZh0xRCgx8VIyrTlQZdrp+pAI7R2wRkMSNSG3ouT7kZ6WC9kf36vXVp2ds+xNxIbB3oeSbC7Emm4bZn2nL/PancJi2I4D6Iq5nGQm9mjtXuoZ783KlY0dQGBneFyG+4sGyGEVobOAIEQZnvw2H
-X-Exchange-RoutingPolicyChecked:
-	0Z9WTldtRhMCyxaPwzPHiY2r6MB8yHtLxyk7HXzjxRfScBX89x7sdTJNsSZKsJIgsh3tqhhg7HH2im1p10v08RhS/cuAum08P9bETz/JR0Vbn1Z4YkWahZuONQ8ovYEn5NlTpbKsqSXASncMcQOhNK9NWCLZx2Hx4Bm7DF2Jb/+4SjywXxZ1CoClve+voPrd3dz6MytAMh+9TeLR/JoTs4ZW6iWe/wRNPTazex/R8Cp3k91CHyVXOVczP7QJhKmWrFnUPnpJ+DW237TCxiphQzbozNSrZYJmJl13+tph/Y/2EWghNVGggDJA+clBixmWvn1qyysmHTlCxVVp0kw5uQ==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 20:52:46.3533
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b6bc6e6d-9090-4c09-5e58-08df14347644
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001D5.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR10MB7520
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDI5MCBTYWx0ZWRfX/wue9ZoPBJ7a
- EsAWd25hTdejZAS3fgnWboTMsdO1z/f2FrGmJoHk8ij86hqtg0j6CJMlqtbx9ptFsQZIsHkvJnn
- Nzf7tXubTCBCoMVR8zP/BKx9qPUGe6f0ZVakKVeYzO/azv5kptES/misvLl9yoGi//rCRiZBkSP
- ImpPJypjD7j4ExsVxWSaf9k9N0ujNDaYF16T5diwUmr2JZJbULv3jStl1pguJndMzUxONn634yd
- RI3r3xCjwntQx12c5rcgrBVllP3iG1zI/rko3SwkFeVGFr6OAgSSX9BwSKZcXEq7fUTQnfftzQt
- tmlUQcuTq30mbzScdUktieTC2xdbd+dfaSYB+Se8/NJEMGnZ1R/wj6oftXdMy4bJqPl3L3o36kN
- VhqWdRCEtzYb67oIlYhUT7mV11C//hrUEECTC1vDSD6OTHn8cKoTVGy/VASZE6lVnKyU0jDE7P9
- 04DSFHVA6Esm+BinEIw==
-X-Authority-Analysis: v=2.4 cv=S6JMU4sP c=1 sm=1 tr=0 ts=6aab01a4 cx=c_pps
- a=wszTalFPv2ofqEyTcV7qHQ==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10
- a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Z8NIEmU8O1QQgoT56wFK:22 a=fPAWb5peG099m5CrUpKH:22 a=VwQbUJbxAAAA:8
- a=sozttTNsAAAA:8 a=IpJZQVW2AAAA:8 a=_OlWVxyZ5w-zuUO0vw0A:9 a=CjuIK1q_8ugA:10
- a=IawgGOuG5U0WyFbmm1f5:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDI5MCBTYWx0ZWRfX8tsCvbzJZgW8
- IJRPhyq6S4LCISzWNIuCGHcd+iGSjcVDR73d/Egqs6453ARrjqLZ3YZzE/Ryxav2ORIV+jbf7k9
- 0l1sDqVTgeKivNilXT+dtgfldTKALS0=
-X-Proofpoint-GUID: g17eH6XFoyVL_RKjXPdHdLtZCBS71Qqi
-X-Proofpoint-ORIG-GUID: g17eH6XFoyVL_RKjXPdHdLtZCBS71Qqi
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-16_03,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 spamscore=0 bulkscore=0 lowpriorityscore=0
- suspectscore=0 malwarescore=0 clxscore=1011 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160290
+Content-Transfer-Encoding: 8bit
 
-On 14:39-20260903, Markus Schneider-Pargmann (TI) wrote:
-> Hi,
-> 
-> Split the firmware memory region in more specific parts so it is better
-> described where which information is stored. Specifically the LPM metadata
-> region is important as bootloader software like U-Boot has to know where
-> that data is to be able to read that data and resume from RAM.
-> 
-> The bindings are already applied. The remaining patches use the new
-> layout for the platforms that are capable to support IO+DDR. For IO+DDR
-> the new layout is necessary as it defines the location of the LPM
-> metadata.
-> 
-> Additionally the two important devicetree nodes for resuming from IO+DDR
-> have the bootph-pre-ram flag added as this data needs to be read before
-> the RAM is in use.
-> 
-> The changes in this series were suggested as part of the IO+DDR u-boot series:
->   https://lore.kernel.org/r/814c211f-a9eb-4311-bb84-165b1a69755f@ti.com
-> 
-> Note that concerns about uboot fixup of memory region fixups were
-> discussed here:
->   https://lore.kernel.org/r/DJD1Y3G9S1SP.2GHOZ5X4RYJFA@baylibre.com
-> 
-> Best
-> Markus
-> 
-> Signed-off-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
+Rework the driver so that it uses regmap_* functions for communication
+with the device instead of the i2c_smbus_* API. This way the support for
+ABX81X RTCs which use SPI can be added later.
 
-For the series,
+Signed-off-by: Antoni Pokusinski <apokusinski01@gmail.com>
+---
+ drivers/rtc/Kconfig      |   1 +
+ drivers/rtc/rtc-abx80x.c | 395 +++++++++++++++++++++------------------
+ 2 files changed, 213 insertions(+), 183 deletions(-)
 
-Reviewed-by: Kendall Willis <k-willis@ti.com>
+diff --git a/drivers/rtc/Kconfig b/drivers/rtc/Kconfig
+index 01def8231873..4d14bcba616e 100644
+--- a/drivers/rtc/Kconfig
++++ b/drivers/rtc/Kconfig
+@@ -215,6 +215,7 @@ config RTC_DRV_ABEOZ9
+ config RTC_DRV_ABX80X
+ 	tristate "Abracon ABx80x"
+ 	select WATCHDOG_CORE if WATCHDOG
++	select REGMAP_I2C
+ 	help
+ 	  If you say yes here you get support for Abracon AB080X and AB180X
+ 	  families of ultra-low-power  battery- and capacitor-backed real-time
+diff --git a/drivers/rtc/rtc-abx80x.c b/drivers/rtc/rtc-abx80x.c
+index 91844c0d9063..d41656a4d518 100644
+--- a/drivers/rtc/rtc-abx80x.c
++++ b/drivers/rtc/rtc-abx80x.c
+@@ -17,6 +17,7 @@
+ #include <linux/module.h>
+ #include <linux/mutex.h>
+ #include <linux/of.h>
++#include <linux/regmap.h>
+ #include <linux/rtc.h>
+ #include <linux/watchdog.h>
+ 
+@@ -132,53 +133,55 @@ static struct abx80x_cap abx80x_caps[] = {
+ 
+ struct abx80x_priv {
+ 	struct rtc_device *rtc;
+-	struct i2c_client *client;
++	struct regmap *regmap;
+ 	struct watchdog_device wdog;
+ 	struct mutex lock;
+ 	int irq;
+ };
+ 
+-static int abx80x_write_config_key(struct i2c_client *client, u8 key)
++static int abx80x_write_config_key(struct device *dev, u8 key)
+ {
+-	if (i2c_smbus_write_byte_data(client, ABX8XX_REG_CFG_KEY, key) < 0) {
+-		dev_err(&client->dev, "Unable to write configuration key\n");
++	struct abx80x_priv *priv = dev_get_drvdata(dev);
++
++	if (regmap_write(priv->regmap, ABX8XX_REG_CFG_KEY, key) < 0) {
++		dev_err(dev, "Unable to write configuration key\n");
+ 		return -EIO;
+ 	}
+ 
+ 	return 0;
+ }
+ 
+-static int abx80x_is_rc_mode(struct i2c_client *client)
++static int abx80x_is_rc_mode(struct device *dev)
+ {
+-	int flags = 0;
++	struct abx80x_priv *priv = dev_get_drvdata(dev);
++	unsigned int flags = 0;
++	int err;
+ 
+-	flags =  i2c_smbus_read_byte_data(client, ABX8XX_REG_OSS);
+-	if (flags < 0) {
+-		dev_err(&client->dev,
+-			"Failed to read autocalibration attribute\n");
+-		return flags;
++	err = regmap_read(priv->regmap, ABX8XX_REG_OSS, &flags);
++	if (err < 0) {
++		dev_err(dev, "Failed to read autocalibration attribute\n");
++		return err;
+ 	}
+ 
+ 	return (flags & ABX8XX_OSS_OMODE) ? 1 : 0;
+ }
+ 
+-static int abx80x_enable_trickle_charger(struct i2c_client *client,
+-					 u8 trickle_cfg)
++static int abx80x_enable_trickle_charger(struct device *dev, u8 trickle_cfg)
+ {
++	struct abx80x_priv *priv = dev_get_drvdata(dev);
+ 	int err;
+ 
+ 	/*
+ 	 * Write the configuration key register to enable access to the Trickle
+ 	 * register
+ 	 */
+-	if (abx80x_write_config_key(client, ABX8XX_CFG_KEY_MISC) < 0)
++	if (abx80x_write_config_key(dev, ABX8XX_CFG_KEY_MISC) < 0)
+ 		return -EIO;
+ 
+-	err = i2c_smbus_write_byte_data(client, ABX8XX_REG_TRICKLE,
+-					ABX8XX_TRICKLE_CHARGE_ENABLE |
+-					trickle_cfg);
++	err = regmap_write(priv->regmap, ABX8XX_REG_TRICKLE,
++			   ABX8XX_TRICKLE_CHARGE_ENABLE | trickle_cfg);
+ 	if (err < 0) {
+-		dev_err(&client->dev, "Unable to write trickle register\n");
++		dev_err(dev, "Unable to write trickle register\n");
+ 		return -EIO;
+ 	}
+ 
+@@ -187,19 +190,20 @@ static int abx80x_enable_trickle_charger(struct i2c_client *client,
+ 
+ static int abx80x_rtc_read_time(struct device *dev, struct rtc_time *tm)
+ {
+-	struct i2c_client *client = to_i2c_client(dev);
++	struct abx80x_priv *priv = dev_get_drvdata(dev);
+ 	unsigned char buf[8];
+-	int err, flags, rc_mode = 0;
++	unsigned int flags;
++	int err, rc_mode = 0;
+ 
+ 	/* Read the Oscillator Failure only in XT mode */
+-	rc_mode = abx80x_is_rc_mode(client);
++	rc_mode = abx80x_is_rc_mode(dev);
+ 	if (rc_mode < 0)
+ 		return rc_mode;
+ 
+ 	if (!rc_mode) {
+-		flags = i2c_smbus_read_byte_data(client, ABX8XX_REG_OSS);
+-		if (flags < 0)
+-			return flags;
++		err = regmap_read(priv->regmap, ABX8XX_REG_OSS, &flags);
++		if (err < 0)
++			return err;
+ 
+ 		if (flags & ABX8XX_OSS_OF) {
+ 			dev_err(dev, "Oscillator failure, data is invalid.\n");
+@@ -207,10 +211,9 @@ static int abx80x_rtc_read_time(struct device *dev, struct rtc_time *tm)
+ 		}
+ 	}
+ 
+-	err = i2c_smbus_read_i2c_block_data(client, ABX8XX_REG_HTH,
+-					    sizeof(buf), buf);
++	err = regmap_bulk_read(priv->regmap, ABX8XX_REG_HTH, buf, sizeof(buf));
+ 	if (err < 0) {
+-		dev_err(&client->dev, "Unable to read date\n");
++		dev_err(dev, "Unable to read date\n");
+ 		return -EIO;
+ 	}
+ 
+@@ -227,10 +230,10 @@ static int abx80x_rtc_read_time(struct device *dev, struct rtc_time *tm)
+ 
+ static int abx80x_rtc_set_time(struct device *dev, struct rtc_time *tm)
+ {
+-	struct i2c_client *client = to_i2c_client(dev);
+-	struct abx80x_priv *priv = i2c_get_clientdata(client);
++	struct abx80x_priv *priv = dev_get_drvdata(dev);
+ 	unsigned char buf[8];
+-	int err, flags;
++	unsigned int flags;
++	int err;
+ 
+ 	if (tm->tm_year < 100)
+ 		return -EINVAL;
+@@ -246,22 +249,22 @@ static int abx80x_rtc_set_time(struct device *dev, struct rtc_time *tm)
+ 
+ 	guard(mutex)(&priv->lock);
+ 
+-	err = i2c_smbus_write_i2c_block_data(client, ABX8XX_REG_HTH,
+-					     sizeof(buf), buf);
++	err = regmap_bulk_write(priv->regmap, ABX8XX_REG_HTH, buf,
++				sizeof(buf));
+ 	if (err < 0) {
+-		dev_err(&client->dev, "Unable to write to date registers\n");
++		dev_err(dev, "Unable to write to date registers\n");
+ 		return -EIO;
+ 	}
+ 
+ 	/* Clear the OF bit of Oscillator Status Register */
+-	flags = i2c_smbus_read_byte_data(client, ABX8XX_REG_OSS);
+-	if (flags < 0)
+-		return flags;
++	err = regmap_read(priv->regmap, ABX8XX_REG_OSS, &flags);
++	if (err < 0)
++		return err;
+ 
+-	err = i2c_smbus_write_byte_data(client, ABX8XX_REG_OSS,
+-					flags & ~ABX8XX_OSS_OF);
++	err = regmap_write(priv->regmap, ABX8XX_REG_OSS,
++			   flags & ~ABX8XX_OSS_OF);
+ 	if (err < 0) {
+-		dev_err(&client->dev, "Unable to write oscillator status register\n");
++		dev_err(dev, "Unable to write oscillator status register\n");
+ 		return err;
+ 	}
+ 
+@@ -270,16 +273,16 @@ static int abx80x_rtc_set_time(struct device *dev, struct rtc_time *tm)
+ 
+ static irqreturn_t abx80x_handle_irq(int irq, void *dev_id)
+ {
+-	struct i2c_client *client = dev_id;
+-	struct abx80x_priv *priv = i2c_get_clientdata(client);
++	struct device *dev = dev_id;
++	struct abx80x_priv *priv = dev_get_drvdata(dev);
+ 	struct rtc_device *rtc = priv->rtc;
+-	unsigned int status_flags_clear;
+-	int status;
++	unsigned int status, status_flags_clear;
++	int err;
+ 
+ 	guard(mutex)(&priv->lock);
+ 
+-	status = i2c_smbus_read_byte_data(client, ABX8XX_REG_STATUS);
+-	if (status < 0)
++	err = regmap_read(priv->regmap, ABX8XX_REG_STATUS, &status);
++	if (err < 0)
+ 		return IRQ_NONE;
+ 
+ 	if (status & ABX8XX_STATUS_AF)
+@@ -290,13 +293,13 @@ static irqreturn_t abx80x_handle_irq(int irq, void *dev_id)
+ 	 * reset kicks in.
+ 	 */
+ 	if (status & ABX8XX_STATUS_WDT)
+-		dev_alert(&client->dev, "watchdog timeout interrupt.\n");
++		dev_alert(dev, "watchdog timeout interrupt.\n");
+ 
+ 	status_flags_clear = status & (ABX8XX_STATUS_AF | ABX8XX_STATUS_WDT);
+ 
+ 	if (status_flags_clear) {
+-		i2c_smbus_write_byte_data(client, ABX8XX_REG_STATUS,
+-					  status & ~status_flags_clear);
++		regmap_write(priv->regmap, ABX8XX_REG_STATUS,
++			     status & ~status_flags_clear);
+ 		return IRQ_HANDLED;
+ 	}
+ 
+@@ -305,25 +308,22 @@ static irqreturn_t abx80x_handle_irq(int irq, void *dev_id)
+ 
+ static int abx80x_read_alarm(struct device *dev, struct rtc_wkalrm *t)
+ {
+-	struct i2c_client *client = to_i2c_client(dev);
+-	struct abx80x_priv *priv = i2c_get_clientdata(client);
++	struct abx80x_priv *priv = dev_get_drvdata(dev);
+ 	unsigned char buf[7];
+ 
+-	int irq_mask, err;
++	unsigned int irq_mask;
++	int err;
+ 
+ 	if (priv->irq <= 0)
+ 		return -EINVAL;
+ 
+-	err = i2c_smbus_read_i2c_block_data(client, ABX8XX_REG_ASC,
+-					    sizeof(buf), buf);
+-	if (err < 0)
++	err = regmap_bulk_read(priv->regmap, ABX8XX_REG_ASC, buf, sizeof(buf));
++	if (err)
+ 		return err;
+-	if (err < ARRAY_SIZE(buf))
+-		return -EIO;
+ 
+-	irq_mask = i2c_smbus_read_byte_data(client, ABX8XX_REG_IRQ);
+-	if (irq_mask < 0)
+-		return irq_mask;
++	err = regmap_read(priv->regmap, ABX8XX_REG_IRQ, &irq_mask);
++	if (err < 0)
++		return err;
+ 
+ 	t->time.tm_sec = bcd2bin(buf[0] & 0x7F);
+ 	t->time.tm_min = bcd2bin(buf[1] & 0x7F);
+@@ -340,8 +340,7 @@ static int abx80x_read_alarm(struct device *dev, struct rtc_wkalrm *t)
+ 
+ static int abx80x_set_alarm(struct device *dev, struct rtc_wkalrm *t)
+ {
+-	struct i2c_client *client = to_i2c_client(dev);
+-	struct abx80x_priv *priv = i2c_get_clientdata(client);
++	struct abx80x_priv *priv = dev_get_drvdata(dev);
+ 	u8 alarm[6];
+ 	int err;
+ 
+@@ -357,17 +356,16 @@ static int abx80x_set_alarm(struct device *dev, struct rtc_wkalrm *t)
+ 
+ 	guard(mutex)(&priv->lock);
+ 
+-	err = i2c_smbus_write_i2c_block_data(client, ABX8XX_REG_AHTH,
+-					     sizeof(alarm), alarm);
++	err = regmap_bulk_write(priv->regmap, ABX8XX_REG_AHTH,
++				alarm, sizeof(alarm));
+ 	if (err < 0) {
+-		dev_err(&client->dev, "Unable to write alarm registers\n");
++		dev_err(dev, "Unable to write alarm registers\n");
+ 		return -EIO;
+ 	}
+ 
+ 	if (t->enabled) {
+-		err = i2c_smbus_write_byte_data(client, ABX8XX_REG_IRQ,
+-						(ABX8XX_IRQ_IM_1_4 |
+-						 ABX8XX_IRQ_AIE));
++		err = regmap_write(priv->regmap, ABX8XX_REG_IRQ,
++				   ABX8XX_IRQ_IM_1_4 | ABX8XX_IRQ_AIE);
+ 		if (err)
+ 			return err;
+ 	}
+@@ -378,9 +376,9 @@ static int abx80x_set_alarm(struct device *dev, struct rtc_wkalrm *t)
+ static int abx80x_rtc_set_autocalibration(struct device *dev,
+ 					  int autocalibration)
+ {
+-	struct i2c_client *client = to_i2c_client(dev);
+-	struct abx80x_priv *priv = i2c_get_clientdata(client);
+-	int retval, flags = 0;
++	struct abx80x_priv *priv = dev_get_drvdata(dev);
++	unsigned int flags = 0;
++	int retval;
+ 
+ 	if ((autocalibration != 0) && (autocalibration != 1024) &&
+ 	    (autocalibration != 512)) {
+@@ -390,9 +388,9 @@ static int abx80x_rtc_set_autocalibration(struct device *dev,
+ 
+ 	guard(mutex)(&priv->lock);
+ 
+-	flags = i2c_smbus_read_byte_data(client, ABX8XX_REG_OSC);
+-	if (flags < 0)
+-		return flags;
++	retval = regmap_read(priv->regmap, ABX8XX_REG_OSC, &flags);
++	if (retval < 0)
++		return retval;
+ 
+ 	if (autocalibration == 0) {
+ 		flags &= ~(ABX8XX_OSC_ACAL_512 | ABX8XX_OSC_ACAL_1024);
+@@ -406,22 +404,23 @@ static int abx80x_rtc_set_autocalibration(struct device *dev,
+ 	}
+ 
+ 	/* Unlock write access to Oscillator Control Register */
+-	if (abx80x_write_config_key(client, ABX8XX_CFG_KEY_OSC) < 0)
++	if (abx80x_write_config_key(dev, ABX8XX_CFG_KEY_OSC) < 0)
+ 		return -EIO;
+ 
+-	retval = i2c_smbus_write_byte_data(client, ABX8XX_REG_OSC, flags);
++	retval = regmap_write(priv->regmap, ABX8XX_REG_OSC, flags);
+ 
+ 	return retval;
+ }
+ 
+ static int abx80x_rtc_get_autocalibration(struct device *dev)
+ {
+-	struct i2c_client *client = to_i2c_client(dev);
+-	int flags = 0, autocalibration;
++	struct abx80x_priv *priv = dev_get_drvdata(dev);
++	unsigned int flags = 0;
++	int autocalibration, err;
+ 
+-	flags =  i2c_smbus_read_byte_data(client, ABX8XX_REG_OSC);
+-	if (flags < 0)
+-		return flags;
++	err = regmap_read(priv->regmap, ABX8XX_REG_OSC, &flags);
++	if (err < 0)
++		return err;
+ 
+ 	if (flags & ABX8XX_OSC_ACAL_512)
+ 		autocalibration = 512;
+@@ -472,9 +471,9 @@ static ssize_t oscillator_store(struct device *dev,
+ 				struct device_attribute *attr,
+ 				const char *buf, size_t count)
+ {
+-	struct i2c_client *client = to_i2c_client(dev->parent);
+-	struct abx80x_priv *priv = i2c_get_clientdata(client);
+-	int retval, flags, rc_mode = 0;
++	struct abx80x_priv *priv = dev_get_drvdata(dev->parent);
++	int retval, rc_mode = 0;
++	unsigned int flags;
+ 
+ 	if (strncmp(buf, "rc", 2) == 0) {
+ 		rc_mode = 1;
+@@ -487,9 +486,9 @@ static ssize_t oscillator_store(struct device *dev,
+ 
+ 	guard(mutex)(&priv->lock);
+ 
+-	flags =  i2c_smbus_read_byte_data(client, ABX8XX_REG_OSC);
+-	if (flags < 0)
+-		return flags;
++	retval = regmap_read(priv->regmap, ABX8XX_REG_OSC, &flags);
++	if (retval < 0)
++		return retval;
+ 
+ 	if (rc_mode == 0)
+ 		flags &= ~(ABX8XX_OSC_OSEL);
+@@ -497,10 +496,10 @@ static ssize_t oscillator_store(struct device *dev,
+ 		flags |= (ABX8XX_OSC_OSEL);
+ 
+ 	/* Unlock write access on Oscillator Control register */
+-	if (abx80x_write_config_key(client, ABX8XX_CFG_KEY_OSC) < 0)
++	if (abx80x_write_config_key(dev->parent, ABX8XX_CFG_KEY_OSC) < 0)
+ 		return -EIO;
+ 
+-	retval = i2c_smbus_write_byte_data(client, ABX8XX_REG_OSC, flags);
++	retval = regmap_write(priv->regmap, ABX8XX_REG_OSC, flags);
+ 	if (retval < 0) {
+ 		dev_err(dev, "Failed to write Oscillator Control register\n");
+ 		return retval;
+@@ -513,9 +512,8 @@ static ssize_t oscillator_show(struct device *dev,
+ 			       struct device_attribute *attr, char *buf)
+ {
+ 	int rc_mode = 0;
+-	struct i2c_client *client = to_i2c_client(dev->parent);
+ 
+-	rc_mode = abx80x_is_rc_mode(client);
++	rc_mode = abx80x_is_rc_mode(dev->parent);
+ 
+ 	if (rc_mode < 0) {
+ 		dev_err(dev, "Failed to read RTC oscillator selection\n");
+@@ -543,33 +541,31 @@ static const struct attribute_group rtc_calib_attr_group = {
+ 
+ static int abx80x_alarm_irq_enable(struct device *dev, unsigned int enabled)
+ {
+-	struct i2c_client *client = to_i2c_client(dev);
+-	struct abx80x_priv *priv = i2c_get_clientdata(client);
++	struct abx80x_priv *priv = dev_get_drvdata(dev);
+ 	int err;
+ 
+ 	guard(mutex)(&priv->lock);
+ 
+ 	if (enabled)
+-		err = i2c_smbus_write_byte_data(client, ABX8XX_REG_IRQ,
+-						(ABX8XX_IRQ_IM_1_4 |
+-						 ABX8XX_IRQ_AIE));
++		err = regmap_write(priv->regmap, ABX8XX_REG_IRQ,
++				   ABX8XX_IRQ_IM_1_4 | ABX8XX_IRQ_AIE);
+ 	else
+-		err = i2c_smbus_write_byte_data(client, ABX8XX_REG_IRQ,
+-						ABX8XX_IRQ_IM_1_4);
++		err = regmap_write(priv->regmap, ABX8XX_REG_IRQ,
++				   ABX8XX_IRQ_IM_1_4);
+ 	return err;
+ }
+ 
+ static int abx80x_ioctl(struct device *dev, unsigned int cmd, unsigned long arg)
+ {
+-	struct i2c_client *client = to_i2c_client(dev);
+-	struct abx80x_priv *priv = i2c_get_clientdata(client);
+-	int status, tmp;
++	struct abx80x_priv *priv = dev_get_drvdata(dev);
++	unsigned int status;
++	int err, tmp;
+ 
+ 	switch (cmd) {
+ 	case RTC_VL_READ:
+-		status = i2c_smbus_read_byte_data(client, ABX8XX_REG_STATUS);
+-		if (status < 0)
+-			return status;
++		err = regmap_read(priv->regmap, ABX8XX_REG_STATUS, &status);
++		if (err < 0)
++			return err;
+ 
+ 		tmp = status & ABX8XX_STATUS_BLF ? RTC_VL_BACKUP_LOW : 0;
+ 
+@@ -577,16 +573,15 @@ static int abx80x_ioctl(struct device *dev, unsigned int cmd, unsigned long arg)
+ 
+ 	case RTC_VL_CLR:
+ 		scoped_guard(mutex, &priv->lock) {
+-			status = i2c_smbus_read_byte_data(client, ABX8XX_REG_STATUS);
+-			if (status < 0)
+-				return status;
++			err = regmap_read(priv->regmap, ABX8XX_REG_STATUS, &status);
++			if (err < 0)
++				return err;
+ 
+ 			status &= ~ABX8XX_STATUS_BLF;
+ 
+-			tmp = i2c_smbus_write_byte_data(client, ABX8XX_REG_STATUS,
+-							status);
+-			if (tmp < 0)
+-				return tmp;
++			err = regmap_write(priv->regmap, ABX8XX_REG_STATUS, status);
++			if (err < 0)
++				return err;
+ 		}
+ 
+ 		return 0;
+@@ -605,9 +600,9 @@ static const struct rtc_class_ops abx80x_rtc_ops = {
+ 	.ioctl		= abx80x_ioctl,
+ };
+ 
+-static int abx80x_dt_trickle_cfg(struct i2c_client *client)
++static int abx80x_dt_trickle_cfg(struct device *dev)
+ {
+-	struct device_node *np = client->dev.of_node;
++	struct device_node *np = dev->of_node;
+ 	const char *diode;
+ 	int trickle_cfg = 0;
+ 	int i, ret;
+@@ -622,7 +617,7 @@ static int abx80x_dt_trickle_cfg(struct i2c_client *client)
+ 	} else if (!strcmp(diode, "schottky")) {
+ 		trickle_cfg |= ABX8XX_TRICKLE_SCHOTTKY_DIODE;
+ 	} else {
+-		dev_dbg(&client->dev, "Invalid tc-diode value: %s\n", diode);
++		dev_dbg(dev, "Invalid tc-diode value: %s\n", diode);
+ 		return -EINVAL;
+ 	}
+ 
+@@ -635,7 +630,7 @@ static int abx80x_dt_trickle_cfg(struct i2c_client *client)
+ 			break;
+ 
+ 	if (i == sizeof(trickle_resistors)) {
+-		dev_dbg(&client->dev, "Invalid tc-resistor value: %u\n", tmp);
++		dev_dbg(dev, "Invalid tc-resistor value: %u\n", tmp);
+ 		return -EINVAL;
+ 	}
+ 
+@@ -662,7 +657,7 @@ static int __abx80x_wdog_set_timeout(struct watchdog_device *wdog,
+ 	 * Writing any timeout to the WDT register resets the watchdog timer.
+ 	 * Writing 0 disables it.
+ 	 */
+-	return i2c_smbus_write_byte_data(priv->client, ABX8XX_REG_WDT, val);
++	return regmap_write(priv->regmap, ABX8XX_REG_WDT, val);
+ }
+ 
+ static int abx80x_wdog_set_timeout(struct watchdog_device *wdog,
+@@ -707,9 +702,11 @@ static const struct watchdog_ops abx80x_wdog_ops = {
+ 	.set_timeout = abx80x_wdog_set_timeout,
+ };
+ 
+-static int abx80x_setup_watchdog(struct abx80x_priv *priv)
++static int abx80x_setup_watchdog(struct device *dev)
+ {
+-	priv->wdog.parent = &priv->client->dev;
++	struct abx80x_priv *priv = dev_get_drvdata(dev);
++
++	priv->wdog.parent = dev;
+ 	priv->wdog.ops = &abx80x_wdog_ops;
+ 	priv->wdog.info = &abx80x_wdog_info;
+ 	priv->wdog.min_timeout = 1;
+@@ -718,10 +715,10 @@ static int abx80x_setup_watchdog(struct abx80x_priv *priv)
+ 
+ 	watchdog_set_drvdata(&priv->wdog, priv);
+ 
+-	return devm_watchdog_register_device(&priv->client->dev, &priv->wdog);
++	return devm_watchdog_register_device(dev, &priv->wdog);
+ }
+ #else
+-static int abx80x_setup_watchdog(struct abx80x_priv *priv)
++static int abx80x_setup_watchdog(struct device *dev)
+ {
+ 	return 0;
+ }
+@@ -733,33 +730,29 @@ static int abx80x_nvmem_xfer(struct abx80x_priv *priv, unsigned int offset,
+ 	int ret;
+ 
+ 	while (bytes) {
+-		u8 extram, reg, len, lower, upper;
++		u8 reg, len, lower, upper;
+ 
+ 		lower = FIELD_GET(NVMEM_ADDR_LOWER, offset);
+ 		upper = FIELD_GET(NVMEM_ADDR_UPPER, offset);
+-		extram = FIELD_PREP(ABX8XX_EXTRAM_XADS, upper);
+ 		reg = ABX8XX_SRAM_BASE + lower;
+ 		len = min(lower + bytes, (size_t)ABX8XX_SRAM_WIN_SIZE) - lower;
+ 		len = min_t(u8, len, I2C_SMBUS_BLOCK_MAX);
+ 
+ 		guard(mutex)(&priv->lock);
+ 
+-		ret = i2c_smbus_write_byte_data(priv->client, ABX8XX_REG_EXTRAM,
+-						extram);
++		ret = regmap_update_bits(priv->regmap, ABX8XX_REG_EXTRAM,
++					 ABX8XX_EXTRAM_XADS, upper);
+ 		if (ret)
+ 			return ret;
+ 
+ 		if (write) {
+-			ret = i2c_smbus_write_i2c_block_data(priv->client, reg,
+-							     len, val);
++			ret = regmap_bulk_write(priv->regmap, reg, val, len);
+ 			if (ret)
+ 				return ret;
+ 		} else {
+-			ret = i2c_smbus_read_i2c_block_data(priv->client, reg,
+-							    len, val);
+-			if (ret <= 0)
+-				return ret ? ret : -EIO;
+-			len = ret;
++			ret = regmap_bulk_read(priv->regmap, reg, val, len);
++			if (ret)
++				return ret;
+ 		}
+ 
+ 		offset += len;
+@@ -795,6 +788,38 @@ static int abx80x_setup_nvmem(struct abx80x_priv *priv)
+ 	return devm_rtc_nvmem_register(priv->rtc, &config);
+ }
+ 
++static const struct regmap_range abx80x_no_read_ranges[] = {
++	regmap_reg_range(0x1e, 0x1e),
++	regmap_reg_range(0x22, 0x25),
++	regmap_reg_range(0x31, 0x3e),
++};
++
++static const struct regmap_range abx80x_no_write_ranges[] = {
++	regmap_reg_range(0x1e, 0x1e),
++	regmap_reg_range(0x22, 0x25),
++	regmap_reg_range(ABX8XX_REG_ID0, ABX8XX_REG_ID0 + 6),
++	regmap_reg_range(0x31, 0x3e),
++};
++
++static const struct regmap_access_table abx80x_read_table = {
++	.no_ranges = abx80x_no_read_ranges,
++	.n_no_ranges = ARRAY_SIZE(abx80x_no_read_ranges),
++};
++
++static const struct regmap_access_table abx80x_write_table = {
++	.no_ranges = abx80x_no_write_ranges,
++	.n_no_ranges = ARRAY_SIZE(abx80x_no_write_ranges),
++};
++
++static const struct regmap_config abx80x_regmap_config_i2c = {
++	.reg_bits = 8,
++	.val_bits = 8,
++	.max_register = ABX8XX_SRAM_BASE + ABX8XX_SRAM_WIN_SIZE - 1,
++
++	.rd_table = &abx80x_read_table,
++	.wr_table = &abx80x_write_table,
++};
++
+ static const struct i2c_device_id abx80x_id[] = {
+ 	{ .name = "abx80x", .driver_data = ABX80X },
+ 	{ .name = "ab0801", .driver_data = AB0801 },
+@@ -812,9 +837,11 @@ MODULE_DEVICE_TABLE(i2c, abx80x_id);
+ 
+ static int abx80x_probe(struct i2c_client *client)
+ {
++	struct regmap *regmap;
+ 	struct device_node *np = client->dev.of_node;
+ 	struct abx80x_priv *priv;
+-	int i, data, err, trickle_cfg = -EINVAL;
++	int i, err, trickle_cfg = -EINVAL;
++	unsigned int data;
+ 	char buf[7];
+ 	unsigned int part = (uintptr_t)i2c_get_match_data(client);
+ 	unsigned int partnumber;
+@@ -826,8 +853,30 @@ static int abx80x_probe(struct i2c_client *client)
+ 	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
+ 		return -ENODEV;
+ 
+-	err = i2c_smbus_read_i2c_block_data(client, ABX8XX_REG_ID0,
+-					    sizeof(buf), buf);
++	regmap = devm_regmap_init_i2c(client, &abx80x_regmap_config_i2c);
++	if (IS_ERR(regmap)) {
++		dev_err(&client->dev, "Unable to allocate regmap\n");
++		return PTR_ERR(regmap);
++	}
++
++	priv = devm_kzalloc(&client->dev, sizeof(*priv), GFP_KERNEL);
++	if (priv == NULL)
++		return -ENOMEM;
++
++	priv->rtc = devm_rtc_allocate_device(&client->dev);
++	if (IS_ERR(priv->rtc))
++		return PTR_ERR(priv->rtc);
++
++	priv->rtc->ops = &abx80x_rtc_ops;
++	priv->irq = client->irq;
++	priv->regmap = regmap;
++	err = devm_mutex_init(&client->dev, &priv->lock);
++	if (err)
++		return err;
++
++	dev_set_drvdata(&client->dev, priv);
++
++	err = regmap_bulk_read(regmap, ABX8XX_REG_ID0, buf, sizeof(buf));
+ 	if (err < 0) {
+ 		dev_err(&client->dev, "Unable to read partnumber\n");
+ 		return -EIO;
+@@ -842,16 +891,14 @@ static int abx80x_probe(struct i2c_client *client)
+ 	dev_info(&client->dev, "model %04x, revision %u.%u, lot %x, wafer %x, uid %x\n",
+ 		 partnumber, majrev, minrev, lot, wafer, uid);
+ 
+-	data = i2c_smbus_read_byte_data(client, ABX8XX_REG_CTRL1);
+-	if (data < 0) {
++	err = regmap_read(regmap, ABX8XX_REG_CTRL1, &data);
++	if (err < 0) {
+ 		dev_err(&client->dev, "Unable to read control register\n");
+ 		return -EIO;
+ 	}
+ 
+-	err = i2c_smbus_write_byte_data(client, ABX8XX_REG_CTRL1,
+-					((data & ~(ABX8XX_CTRL_12_24 |
+-						   ABX8XX_CTRL_ARST)) |
+-					 ABX8XX_CTRL_WRITE));
++	err = regmap_write(regmap, ABX8XX_REG_CTRL1,
++			   (data & ~(ABX8XX_CTRL_12_24 | ABX8XX_CTRL_ARST)) | ABX8XX_CTRL_WRITE);
+ 	if (err < 0) {
+ 		dev_err(&client->dev, "Unable to write control register\n");
+ 		return -EIO;
+@@ -865,15 +912,15 @@ static int abx80x_probe(struct i2c_client *client)
+ 		 * register is set. RV-1805-C3 datasheet indicates that
+ 		 * the bit should be cleared in section 11h - Control2.
+ 		 */
+-		data = i2c_smbus_read_byte_data(client, ABX8XX_REG_CTRL2);
+-		if (data < 0) {
++		err = regmap_read(regmap, ABX8XX_REG_CTRL2, &data);
++		if (err < 0) {
+ 			dev_err(&client->dev,
+ 				"Unable to read control2 register\n");
+ 			return -EIO;
+ 		}
+ 
+-		err = i2c_smbus_write_byte_data(client, ABX8XX_REG_CTRL2,
+-						data & ~ABX8XX_CTRL2_RSVD);
++		err = regmap_write(regmap, ABX8XX_REG_CTRL2,
++				   data & ~ABX8XX_CTRL2_RSVD);
+ 		if (err < 0) {
+ 			dev_err(&client->dev,
+ 				"Unable to write control2 register\n");
+@@ -885,8 +932,8 @@ static int abx80x_probe(struct i2c_client *client)
+ 		 * 10pin package and the EXTI input is not present.
+ 		 * Disable it to avoid leakage.
+ 		 */
+-		data = i2c_smbus_read_byte_data(client, ABX8XX_REG_OUT_CTRL);
+-		if (data < 0) {
++		err = regmap_read(regmap, ABX8XX_REG_OUT_CTRL, &data);
++		if (err < 0) {
+ 			dev_err(&client->dev,
+ 				"Unable to read output control register\n");
+ 			return -EIO;
+@@ -896,11 +943,11 @@ static int abx80x_probe(struct i2c_client *client)
+ 		 * Write the configuration key register to enable access to
+ 		 * the config2 register
+ 		 */
+-		if (abx80x_write_config_key(client, ABX8XX_CFG_KEY_MISC) < 0)
++		if (abx80x_write_config_key(&client->dev, ABX8XX_CFG_KEY_MISC) < 0)
+ 			return -EIO;
+ 
+-		err = i2c_smbus_write_byte_data(client, ABX8XX_REG_OUT_CTRL,
+-						data | ABX8XX_OUT_CTRL_EXDS);
++		err = regmap_write(regmap, ABX8XX_REG_OUT_CTRL,
++				   data | ABX8XX_OUT_CTRL_EXDS);
+ 		if (err < 0) {
+ 			dev_err(&client->dev,
+ 				"Unable to write output control register\n");
+@@ -928,55 +975,37 @@ static int abx80x_probe(struct i2c_client *client)
+ 	}
+ 
+ 	if (np && abx80x_caps[part].has_tc)
+-		trickle_cfg = abx80x_dt_trickle_cfg(client);
++		trickle_cfg = abx80x_dt_trickle_cfg(&client->dev);
+ 
+ 	if (trickle_cfg > 0) {
+ 		dev_info(&client->dev, "Enabling trickle charger: %02x\n",
+ 			 trickle_cfg);
+-		abx80x_enable_trickle_charger(client, trickle_cfg);
++		abx80x_enable_trickle_charger(&client->dev, trickle_cfg);
+ 	}
+ 
+-	err = i2c_smbus_write_byte_data(client, ABX8XX_REG_CD_TIMER_CTL,
+-					BIT(2));
++	err = regmap_write(regmap, ABX8XX_REG_CD_TIMER_CTL, BIT(2));
+ 	if (err)
+ 		return err;
+ 
+-	priv = devm_kzalloc(&client->dev, sizeof(*priv), GFP_KERNEL);
+-	if (priv == NULL)
+-		return -ENOMEM;
+-
+-	priv->rtc = devm_rtc_allocate_device(&client->dev);
+-	if (IS_ERR(priv->rtc))
+-		return PTR_ERR(priv->rtc);
+-
+-	priv->rtc->ops = &abx80x_rtc_ops;
+-	priv->client = client;
+-	priv->irq = client->irq;
+-	err = devm_mutex_init(&client->dev, &priv->lock);
+-	if (err)
+-		return err;
+-
+-	i2c_set_clientdata(client, priv);
+-
+ 	/* Disable unused interrupts */
+-	data = i2c_smbus_read_byte_data(client, ABX8XX_REG_IRQ);
+-	if (data < 0) {
++	err = regmap_read(regmap, ABX8XX_REG_IRQ, &data);
++	if (err < 0) {
+ 		dev_err(&client->dev, "Unable to read irq register\n");
+ 		return -EIO;
+ 	}
+ 
+-	err = i2c_smbus_write_byte_data(client, ABX8XX_REG_IRQ,
+-					data & ~(ABX8XX_IRQ_EX1E |
+-						 ABX8XX_IRQ_EX2E |
+-						 ABX8XX_IRQ_TIE |
+-						 ABX8XX_IRQ_BLIE));
++	err = regmap_write(regmap, ABX8XX_REG_IRQ,
++			   data & ~(ABX8XX_IRQ_EX1E |
++				    ABX8XX_IRQ_EX2E |
++				    ABX8XX_IRQ_TIE |
++				    ABX8XX_IRQ_BLIE));
+ 	if (err < 0) {
+ 		dev_err(&client->dev, "Unable to write irq register\n");
+ 		return -EIO;
+ 	}
+ 
+-	data = i2c_smbus_read_byte_data(client, ABX8XX_REG_OSC);
+-	if (data < 0) {
++	err = regmap_read(regmap, ABX8XX_REG_OSC, &data);
++	if (err < 0) {
+ 		dev_err(&client->dev, "Unable to read Oscillator Control register\n");
+ 		return -EIO;
+ 	}
+@@ -985,16 +1014,16 @@ static int abx80x_probe(struct i2c_client *client)
+ 	if (abx80x_write_config_key(client, ABX8XX_CFG_KEY_OSC) < 0)
+ 		return -EIO;
+ 
+-	err = i2c_smbus_write_byte_data(client, ABX8XX_REG_OSC,
+-					data & ~(ABX8XX_OSC_ACIE |
+-						 ABX8XX_OSC_OFIE));
++	err = regmap_write(regmap, ABX8XX_REG_OSC,
++			   data & ~(ABX8XX_OSC_ACIE |
++				    ABX8XX_OSC_OFIE));
+ 	if (err < 0) {
+ 		dev_err(&client->dev, "Unable to write Oscillator Control register\n");
+ 		return -EIO;
+ 	}
+ 
+ 	if (abx80x_caps[part].has_wdog) {
+-		err = abx80x_setup_watchdog(priv);
++		err = abx80x_setup_watchdog(&client->dev);
+ 		if (err)
+ 			return err;
+ 	}
+@@ -1009,7 +1038,7 @@ static int abx80x_probe(struct i2c_client *client)
+ 						abx80x_handle_irq,
+ 						IRQF_SHARED | IRQF_ONESHOT,
+ 						"abx8xx",
+-						client);
++						&client->dev);
+ 		if (err) {
+ 			dev_err(&client->dev, "unable to request IRQ, alarms disabled\n");
+ 			priv->irq = 0;
+-- 
+2.55.0
 
-Best,
-Kendall
