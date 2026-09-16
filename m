@@ -1,252 +1,216 @@
-Received: from mail-pj1-f99.google.com (mail-pj1-f99.google.com [209.85.216.99])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 339C7364044
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 21:39:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D1F44A1E1B
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 21:41:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789594761; cv=none; b=eg8bfz4xu6RAD+CBTTZHoaODPUbCprsFqg4MXcjAQ642Wcz+GJ+xS/tVQBbVWpGmcahcz1sAXuN5clymLb51kdfgJ/uxcBT6hKe39JTFJNEv69lJ5M4Lwcr234VAE6JtlEe/vtNoIkPq7UQw28QUmDz/S4GrTzpu1CkfpU4TfHA=
+	t=1789594912; cv=none; b=k/Co4GwkAXUWimqzB+IPxtPr6VQcp4LSJlI+29zZW8WQftSAdZElSG5WLhmLlTEZD/Ay00UjKkMpPiCl4fDB3MyAxpSxt/prugRW8mtmuPJD3MVTEkG56KD1hC6J+aDRJe6dqALuBhIMMSKd0h/UcWjWNSVQAJUGu7iuvx9AOkk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789594761; c=relaxed/simple;
-	bh=6IGrQAl6THQdMZ0OzSOP9R6hDqpLqYl8AW7uWawpLIk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YDjAdamum2q3cjvEgQu+6k4ZgandPk2d2x5mxiS8Sc94cxaQF6EcuWYOt0zGTVBiO5o659Aib3jMR4Op/u2WRiMBPNLWytnR6xd08mARU8w7lJQuKYbGmWYa9aE54B/2SFrpGZWoT5u1ny9AhAFdyTY4JB7DkrNoZFfH4K731Z4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=N/W0zq3q; arc=none smtp.client-ip=209.85.216.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1789594912; c=relaxed/simple;
+	bh=IAptJyT5xluEqEiFzVEi/p861VpjcmGoy/sQvXBJe6U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sbwOUSYUih8inHCotl0Ga4W/Dmas1EJdP81gcbNMTZmQ3xxL0nAzAwj5jWEPl4++LWW1+52gibedXQkd77jRgivUbxSGS2FoZW4BJo+UmYkWbpjpLo8UC6p1cUDyDSjs9J3dXUre7DXziOJSoboQbDfk8ZUso6XD+qDb+SjgLR4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JAnzMGfz; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="N/W0zq3q"
-Received: by mail-pj1-f99.google.com with SMTP id 98e67ed59e1d1-39682983a0fso65671a91.3
-        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 14:39:07 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789594743; x=1790199543;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Afgea1rMDN8cidCFHe242ND7VTgX5u5tR2sFDvaggoQ=;
-        b=LVGwziTyblRr8vpbyfgy5P4Be4qx8CtIcD7HAwQXiCTOuqpHmPh6dv4+YJbjP4Qx6Y
-         5AoE8REVeiSe7/5Q0nGKaaLTKEaWWd0RnZQCGnuOaVOL2ZYyvUvcj/fzjW+qmWZsEERC
-         vUkge9xMzntUkglount0I+Gg27S9CIHYwcCkpKlgfgSM98W4MLoyq72ZIn+Ko5BnkoB7
-         TSySlrMUOM2wLsyPmAaepk0EXuTPVSD3TbLEjlta6oFDd6B1lY3MHuxulFK8j5S91n4q
-         HXW1qEcVjWhEvzsFmV41sHBmUHdaszuAKgIqiYGcRU8UXOkU4ZfPKuvbIYcNyWU6DJZD
-         KPNg==
-X-Forwarded-Encrypted: i=1; AKwUvBz0Na7XEcHDdf513MLLI5oDg0SEAs309DbUdwu3KY7TfcIFlCrdqfy8yyryUyj8Yaho/1JJNbWqnV1n@vger.kernel.org
-X-Gm-Message-State: AFuF++mSnuIiUPxW/ELfGmXolqNskCybGLYEC4p1k7SR7AL2qjH/2ZRH
-	GGx720IWmfq+XKW5FsEu+WyxkJxbUObrMi5p0T50aVZd33dtzyAIM5Jw3F+PtQ5O75WOz10sImv
-	NJebHvm1c6P4yzhoJXiCkJHx1wBvt5Wy9wziweK0EAn1WEBOSn+vpIVzFBDYJABRkq/F0KM2CIw
-	g7Yee++u1T1uRgUX3CjfFOoQbJS6nnYN7rU5/yvW/4D6vv863+LESWOVlbllIlZdiZeZOJ5NZvq
-	jEP17uw0GJUv1HbgA==
-X-Gm-Gg: AYBFou0es10sZc1Ca+LJoIHNrg27nnRituYoHqxScNreETgkwTAaPKWbr2rH1E9I5AS
-	Q2kShlih2VzDUmDr4eySlYLlVZmb4c03YCYYRCZUeOhW4yc98bR5f2zRSqoXzj1GizLhb8njngx
-	iJbDJ/aRCCU7M+F/xHflAGqjgf7JAqBvpIJEMxTgBcdsCH4l+ecr7j2XTzcHCzCjy4Kf9nMdwif
-	OmrC6JI54zz0yhCjPqsk4H7Hx6A7a5IJZ3zwY0xuB8pKNyPe1Gl7RJCBWg2oCFk42E87QdUnGan
-	CAwpeziJ3mMcjclKxcOL+Wiz2QaTUFcp523LKhqXYauUAnHxVVUAoqX2s1ZA0k4JneojbDGgGkK
-	+G+qSwmnpET8SiFj/u2PaJiQ/jLrAwKfMC5wb8IJsjE0MVC3rARWhHM/wPuV/g20temostP7HfM
-	g5DmSdHUG5hFzpv3zyJ/8fVr9QmYIEs5PLQT7Y
-X-Received: by 2002:a17:90b:380f:b0:39e:1494:1863 with SMTP id 98e67ed59e1d1-39e1e56b3f6mr9052082a91.25.1789594742891;
-        Wed, 16 Sep 2026 14:39:02 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-98.dlp.protect.broadcom.com. [144.49.247.98])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-39e35d7bc01sm387816a91.1.2026.09.16.14.39.01
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 16 Sep 2026 14:39:02 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-ej1-f70.google.com with SMTP id a640c23a62f3a-c2939e341f7so25158166b.2
-        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 14:39:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JAnzMGfz"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea4bfb6so66047a12.3
+        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 14:41:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1789594740; x=1790199540; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1789594897; x=1790199697; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Afgea1rMDN8cidCFHe242ND7VTgX5u5tR2sFDvaggoQ=;
-        b=N/W0zq3qrbGT885lte208zxIP9lQjreA1HgzQKrKSEimtgPZtTzNyBzW7Q72W+wVAB
-         uuo9wksULcCLrVLLFdXKgyeUZyzy5gfMR4AGMjl90avxE3r91NIw+xqzqnzRsM6XyEs6
-         B3bd+sRFlX6lKqfHYbZ53hWFV4j1xNlYNgLZk=
-X-Forwarded-Encrypted: i=1; AKwUvByRm8LPwc7C6HAOM1gELeIOqsocdvLY9TnCTe1EIObKPxOUn5jem9N5jvhnRqTRcU+B+g+DtPiOjtla@vger.kernel.org
-X-Received: by 2002:a17:906:7944:b0:c29:4d53:787f with SMTP id a640c23a62f3a-c29e532ccedmr314974166b.41.1789594739985;
-        Wed, 16 Sep 2026 14:38:59 -0700 (PDT)
-X-Received: by 2002:a17:906:7944:b0:c29:4d53:787f with SMTP id
- a640c23a62f3a-c29e532ccedmr314970966b.41.1789594739417; Wed, 16 Sep 2026
- 14:38:59 -0700 (PDT)
+        bh=V67/ygqzXBDTg6FpqYWmZblZ2cnQrCYnunNIZXB6fo0=;
+        b=JAnzMGfzr1pYJ8prgYf+WTUz3P97ReGXI+kkUr+abDB35a+oVXrEnS/EDQxJglSQUz
+         Udpq+qn9k2Z7oNXCC7xbYoIeY6HxH6mv0nqWS4j6up/TVfDM9ghv29WT+tcYuFpfcMqd
+         XCGcRHBdTe4QDm3R3nTtL3jllpNrIMWnoLYnNtd7CpVolxbC8401aWHo8p5oRPPPmHsa
+         L+uD4l/irpgw4sgAlE+cbaRj18MW2aud/HBktx4lNZ6QqjeFbDxVcDqe4hr7zjL3OhVd
+         QnQDbpfs6mjic3pb15mkG/NTN71P9fXWwaeqW2stxRuhk4m6ZF+t58u0yall8SGg4gsK
+         c6MA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789594897; x=1790199697;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=V67/ygqzXBDTg6FpqYWmZblZ2cnQrCYnunNIZXB6fo0=;
+        b=TDRv0B7Qo5XCoWgy7OJDsBMtu4KE4kZ3pYaJ1OtOhq7ewKsMSiFh3yMAmsKwXJlUFJ
+         /MuVQWjifJRVANTlNzEG7GHceFmZJx31V6yhopyy4cpOm7enWb4neyrOYVYHhMXUHG+/
+         zEZsZjPzQlVct2b/R7DD4yR+4OVuLBAnT3A9uZ3FwykeGSxH5qkjboFVa2g7Omouy+YE
+         kiMyRIsQ6AOdcXYM8FiHtvKF4YrmpWrpeYWmTdk0sgqHsQP6Ng4z8KGF7nGlZUz69tKN
+         onwv2ew2jZP92dPcYgr1Ogf8xz+9hV3m4p/5NDc2hA7ThnocVDfQCWvSICD9nyiLP1nB
+         oc2Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwxix1UXfHZlnH3HiHgp4J3rRFzqKE0byY9+9MpnGf08nv1qB89LF1BPqnognZw25rLBFScIuOwPCg2@vger.kernel.org
+X-Gm-Message-State: AFuF++kJLHRI2iTAbw51UnAUpalo3K3rPlyPYht61nh4LeWVMkBUIy9f
+	/l3aV3HkxH01IYV+I6n7dsx4zRk0kf+y6ngRvZMlACU22+DmP0//eysy
+X-Gm-Gg: AYBFou3YMY7o5gaBPl6nWxLai9qyKEo012iF9T8HGdqAjFbZwW8ZRu3vnJgXU/gC2LC
+	JrkIOLxYvKZeUXpA8z/OQOn10ADVVWWR3BTkN0Vy97f9NljMnD8pfixdqbRhWBfWx76Qc8dpTR+
+	6xG2JTLWw9nF4PRhUR+bhLijjKMr/iGktqKq0OYg3cRQkg+J55GQM8za70pJg+6qvGguSzlsKZo
+	S2NoS+lgdk6tGwiuNqw5IIlo7KMvG6P3zXCHMTWoA327QTs+qI9dsvWocOIsOflNA28qJGfqljP
+	NYj9e0gBc0rUa2X33XrfagudHR28tLArpeLXWj/PptFQXpk96RSo3UedjqFCYzJheAGxS6blp7j
+	wt6FcfCBne4gqKsbiIj+LAqySM1KK4fWwSLG3SUN8aF9QU6u/wxG0OluJKRvMIOYoYba8oSZc01
+	XSbDlFsNDnM0M9n5jgs9O4yG4YYhkYf2xC9YwIHqik+b+Kljdz/UvFfXm8tWSamnXsL0wBVAYw8
+	hWGax4NugiwxGx+GYaYgbdQJ9xmQQAlz93cTWs+Km03X4zL
+X-Received: by 2002:a17:90b:390d:b0:39d:f66e:1720 with SMTP id 98e67ed59e1d1-39e1e4907e8mr11608231a91.13.1789594897275;
+        Wed, 16 Sep 2026 14:41:37 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5a6a1a5sm10854497eec.5.2026.09.16.14.41.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 16 Sep 2026 14:41:36 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <b155cdd8-54d5-49d9-b276-c24dde766dbe@roeck-us.net>
+Date: Wed, 16 Sep 2026 14:41:35 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260902-bcm2712-iommu-submit-v4-0-9dbb657578c1@reactivated.net>
- <CA+-6iNxpKmqCo+brvnchoEsrmE7nJPqJs_7S0m_HzjooEa+KNg@mail.gmail.com> <3b5830a2-31f8-48bc-a56e-ed70377bbb1b@reactivated.net>
-In-Reply-To: <3b5830a2-31f8-48bc-a56e-ed70377bbb1b@reactivated.net>
-From: Jim Quinlan <james.quinlan@broadcom.com>
-Date: Wed, 16 Sep 2026 17:38:46 -0400
-X-Gm-Features: AcwNN1V6BbzKaHys-1cnOmgsVo924quGZssPhyVNEPoMAKYQVQTp493X9sG9nn0
-Message-ID: <CA+-6iNwejv=uDsTp6cE5oJ7VURHRCUDdQ1tFO8ijUvCxoGMXSA@mail.gmail.com>
-Subject: Re: [PATCH v4 0/5] Add support for Broadcom BCM2712 IOMMU driver
- (Raspberry Pi 5)
-To: Daniel Drake <dan@reactivated.net>
-Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
-	Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, iommu@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	nick.hollinghurst@raspberrypi.com, Jason Gunthorpe <jgg@ziepe.ca>, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="000000000000c89a91065ba07ecd"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] hwmon: (pmbus/tps53679) Select page 0 for single-page
+ TPS53676
+To: "Pradhan, Sanman" <sanman.pradhan@hpe.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>,
+ "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>,
+ Sanman Pradhan <psanman@juniper.net>
+References: <20260916200331.664795-1-sanman.pradhan@hpe.com>
+ <20260916200331.664795-2-sanman.pradhan@hpe.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260916200331.664795-2-sanman.pradhan@hpe.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
---000000000000c89a91065ba07ecd
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Hi,
 
-On Sat, Sep 5, 2026 at 3:25=E2=80=AFPM Daniel Drake <dan@reactivated.net> w=
-rote:
->
-> On 03/09/2026 19:14, Jim Quinlan wrote:
-> > I wish you had kept the dma-iova offset hack but I understand why you
-> > did not.
->
->
-> Well, having an initial iommu driver upstream will provide a good base
-> on top of which we can work on that specific problem. It'll need some
-> consideration/discussion to be done in a way that is not regarded as a
-> hack. I might come back to this later, time permitting.
+On 9/16/26 13:04, Pradhan, Sanman wrote:
+> From: Sanman Pradhan <psanman@juniper.net>
+> 
+> tps53676_identify() derives the number of PMBus pages but does not
+> ensure that page 0 is selected for single-page configurations.
+> pmbus_set_page() does not update the PAGE register when info->pages is
+> 1, so if boot firmware leaves PAGE set to another value subsequent
+> register accesses may target the wrong page.
+> 
+> For single-page devices, select page 0 explicitly and verify that the
+> PAGE register was updated.
+> 
 
-Yes, I plan on submitting an RFC on how to do this, assuming you don't
-solve it first :-).
-FWIW, I had to do the following to get your driver working on our 7712
-PCIe IOMMU:
+Why that complexity ? We don't read back other registers. Why would it be
+necessary or even make sense to do it here ? Following that logic one could
+argue that every single write has to be read back to verify it.
 
-o force the aperture to start at SZ_4G
-o change pt_full_va_prefix() to return SZ_4G (but it should really
-return an offset derived from the dma-ranges prop of the PCIe node)
-o modify bcm2712_iommu_shootdown_range() and
-bcm2712_iommu_sync_range() to subtract SZ_4G from the iova.
+> Fixes: cb3d37b59012 ("hwmon: (pmbus/tps53679) Add support for TI TPS53676")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Sanman Pradhan <psanman@juniper.net>
+> ---
+>   drivers/hwmon/pmbus/tps53679.c | 24 ++++++++++++++++++++++++
+>   1 file changed, 24 insertions(+)
+> 
+> diff --git a/drivers/hwmon/pmbus/tps53679.c b/drivers/hwmon/pmbus/tps53679.c
+> index dcd4250b679d..f38c19b8cc43 100644
+> --- a/drivers/hwmon/pmbus/tps53679.c
+> +++ b/drivers/hwmon/pmbus/tps53679.c
+> @@ -248,6 +248,30 @@ static int tps53676_identify(struct i2c_client *client,
+>   		info->phases[1] = phases_b;
+>   	}
+>   
 
-Regards,
-Jim Quinlan
-Broadcom CM/STB
->
->  > I've built and successfully tested your driver on the> Broadcom
-> sister chip of the RpI 5.  I am mostly interested in the
-> > iommu attached to the PCIe controller.  I tested this by running
-> > multiple tests where 10MiB is sent by a Wifi chip.  Data integrity was
-> > validated of course.
-> >
-> > I did not use the driver code as is.  I tried merely decrementing the
-> > MMMU_PT_PA_BASE value for the 4GB iova-offset required for our
-> > configuration, but that did not work for some reason.  So I just
-> > hacked in some iova conversions and got it working.
->
-> Thanks for the review and testing! I'll send an updated version that
-> removes the blocking domain, hopefully that will be ready for inclusion.
->
-> Daniel
->
+A much simpler
+	} else {
+		/*
+		 * pmbus_set_page() does not update the PAGE register on
+		 * single-page devices, so select page 0 explicitly in case
+		 * the boot firmware left the device on another page.
+		 */
+		ret = i2c_smbus_write_byte_data(client, PMBUS_PAGE, 0);
+		if (ret < 0)
+			return ret;
+	}
 
---000000000000c89a91065ba07ecd
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
+should do the trick. Yes, the write may be unnecessary, but it
+is cheaper than a read followed by an optional write.
 
-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
-P6nIShznyqOL2EoCa0IXujxvXUo0pANFYsDhrCVF5JOVPeEL3Y2m+4flRtOI+YlRQoepb+TEVdkY
-/g1rlWG7GIYrtHxrFFRvn2/Iqqpv/x5kzJgoTYFOyTTGlXIqGkKTqCWFrN09kJWzhhmxhxtJprJs
-KveDLF8yhHSbqmXfKTkT+CIrynXXDro+80qXEXC8CM9W9d+2lDDM+hWTlC6Pt/ikMYf/ZB4K2Nr8
-VFruDYGZfAHhh9/lqK3SpS2Z/8cB88K62U+Eb1yNAgMBAAGjggHeMIIB2jAOBgNVHQ8BAf8EBAMC
-BaAwDAYDVR0TAQH/BAIwADCBkwYIKwYBBQUHAQEEgYYwgYMwRgYIKwYBBQUHMAKGOmh0dHA6Ly9z
-ZWN1cmUuZ2xvYmFsc2lnbi5jb20vY2FjZXJ0L2dzZ2NjcjZzbWltZWNhMjAyMy5jcnQwOQYIKwYB
-BQUHMAGGLWh0dHA6Ly9vY3NwLmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWltZWNhMjAyMzBlBgNV
-HSAEXjBcMAkGB2eBDAEFAwMwCwYJKwYBBAGgMgEoMEIGCisGAQQBoDIKAwIwNDAyBggrBgEFBQcC
-ARYmaHR0cHM6Ly93d3cuZ2xvYmFsc2lnbi5jb20vcmVwb3NpdG9yeS8wQQYDVR0fBDowODA2oDSg
-MoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCUGA1Ud
-EQQeMByBGmphbWVzLnF1aW5sYW5AYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
-A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBQiuRLoBkhIaas+1j3yf23P
-ffVFcjANBgkqhkiG9w0BAQsFAAOCAgEAp1y0fznw9Uo7UzExANVpYjj+OG1c3C7MhWOvAd7LvfPX
-BSFisMaabop5Pyfc/sWzb/jCNfVkkDW5Ij2mzpUsUca2qpILoFhOUT9b0d+nc48MCZ4/Wj6vX5QJ
-i9VdYeuv3DYASZsQdH8iYnV5X5YCYo1AO/pyW+M4gG022Nsji9+3A9zkx8JRPDIXkPaDLrzcGD9L
-rEVIYnnSK9b/4VHzITVgEmSsUTAIzOD6M6TzgrSoJZFmKNMXlAqo+m1nlNyJkM4OyOvaDx5y+2hA
-mp4tzD9gJNU9TzQpQRZFz53+c8BkCpzvcHqT8lMluRlCrIYWqaSOUDHX9HPYvzbtO4iYV+irMdGN
-2PBz6Wtfaoi1xTfFSKK9ON1mvxACK+E4B5gycSoZcOBADTbGXLDMqiygl7Wz0oooAPqZpUnaD1nc
-x/pX7N8Ff6YK+iN3vVah34vLkE1CMFyDQMtyTCzQPW+7XCTxCL9ML3LBAF+eNAtKpPOsrGIdRHy5
-6oQr+2ZquSMvWj447q4v3sk1LHs7ata+sP8/kmcPKn3WPXQ/4xMevqFVyv2VIFrBK9ZnOZ//fz8R
-7SjJ7t2kOITvbWcMkizMc33S9hfmYiXaVTjIi89NiO3EXCJouYShpptgGNG6mpYHcddnfdKiILOS
-06KlKNuHO4IpRmaGrzcDjsUQQSn8amMxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
-VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
-QSAyMDIzAgwHM7pH5w7o7Qb7yXUwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEINtR
-H0fXzjuJv1/9WkfAlJz2Sx6uxhLFaKEvdv980e9YMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
-HAYJKoZIhvcNAQkFMQ8XDTI2MDkxNjIxMzkwMFowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
-ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
-YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBALAEQGzgjnnXqlC/qs8s5XkuCDFevFO5N4GCN2d/
-LUxIbqq1KKugz8m8fbfXp5W7CmGeYJwb6Dq6legV+LpkaYpni7PWnENDV7qGpMjjun6cMcOGtBkC
-c2l96kwNed6Vz1gnKpNMOSAeTi/gEgl7/o+3xFyFD5nJ4ZKtO9EY974mQwR530rSTvpm0fWt685e
-ssySxjvKvDqzdVFu7mKlHxOtTBBH7yRP2azUUyuv3jaNnmVuaAweBPbe/cnfv4r13H01H0/egKb5
-mT20HbPyj1qVARJxGwVXINca8Cxx3BbdRNz/vCv9bgLmzo1H1090nXwXcQQ64uvvs6JnN0IhWro=
---000000000000c89a91065ba07ecd--
+Thanks,
+Guenter
+> +	/*
+> +	 * pmbus_set_page() does not update the PAGE register on single-page
+> +	 * devices, so select page 0 explicitly and verify it in case the
+> +	 * boot firmware left the device on another page.
+> +	 */
+> +	if (info->pages == 1) {
+> +		ret = i2c_smbus_read_byte_data(client, PMBUS_PAGE);
+> +		if (ret < 0)
+> +			return ret;
+> +		if (ret != 0) {
+> +			ret = i2c_smbus_write_byte_data(client, PMBUS_PAGE, 0);
+> +			if (ret < 0)
+> +				return ret;
+> +			ret = i2c_smbus_read_byte_data(client, PMBUS_PAGE);
+> +			if (ret < 0)
+> +				return ret;
+> +			if (ret != 0) {
+> +				dev_err(&client->dev,
+> +					"failed to select page 0\n");
+> +				return -EIO;
+> +			}
+> +		}
+> +	}
+> +
+>   	return 0;
+>   }
+>   
+
