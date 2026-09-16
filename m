@@ -1,67 +1,67 @@
 Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D16743793B0
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 15:06:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B16B380FD8
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 15:14:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789571186; cv=none; b=df+2azIlDkC+Wv/TVolZBxqE0xbD0MHvHty1AuyfqjiouxyvbAoLO6ekJ48zj8Y71EmlnOffuEQ5QlLlkGUMnQgDmkw/M5C2w9+SDD5Ba3aARfHmgiXyjkSirpT7Kxk7qyOaEkZ0lMIRbL7BJ5Ic1c0ysX2Bg6vdd5w9satJOcE=
+	t=1789571661; cv=none; b=HqyO2n1r2z2USWIjasgSxL+KlRdGRFTxdsTDUld3EBUqrkBsiP8W6E6BQQSEUcWFTdTrv0Anm7xSAU1CoNnSEchhOuNkJh0eLNqbvKD/qYajoKR5lKukIQjmHS7va0huDzSuuDLjY9QCW4siebNtYqb6jurbYO2pGofF37CFviU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789571186; c=relaxed/simple;
-	bh=fnE5efAXrYDH63o61zDt3jsPaz4AKBrN/AQ+31gDqD0=;
+	s=arc-20240116; t=1789571661; c=relaxed/simple;
+	bh=I1mUBpETXIszOJUI+4PfxF9aL9vUcBmsZqAXr03BHWM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UpnmJ6w3OUPaDWB28Cz9MdolEkCsjlYZ91bSKsBW/gGlqefKOxSkmBQYJ+hdipY+AaoTrqILyxf9+/Qfg5KHvEIrU1U3oYWGNJYlE6pXcx7e45xoT8hk+Tsi5kqUKAqRzSdeE2s9VgTwDi0hWKkx/RB3+YozS0EnWDr2FTPgnM8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=g8uLxNpD; arc=none smtp.client-ip=74.125.228.76
+	 In-Reply-To:Content-Type; b=jMe73zJKeQQHyYTNqMEY/rtyBcAuTUX2kCyeRoWzm+jXNyOMZy10CIk4uMCK6oO97aIsxf8Tfd5hnYntE8Op23YoRHMQyMoWgCcAyG9MrQQO4z/+YxwTqBbPKXwtm1O3xztacfpioLTd+Cq0uxyJ+IJ7WHPjVhVxjyJJaQN5TJ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=xapfVJko; arc=none smtp.client-ip=74.125.228.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="g8uLxNpD"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a9984f9a59so1531915a12.0
-        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 08:06:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="xapfVJko"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a605844571so1486701a12.3
+        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 08:14:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789571183; x=1790175983; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1789571655; x=1790176455; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:content-language
          :from:references:cc:to:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=a0ZqTXxWmIi8spdoKcHLXhkmgdsqCfsr13D7RbpQDjQ=;
-        b=g8uLxNpDOWf4Ro7imrfuTpkB6KLXSmbO1UOnSXsw2RC6r7A56yhtpHPYkjqEXC7Opn
-         3KbDBbfSVL2DTORigWOSZp9Dw7fkEXdzcpRfuoOr+dWA5+OvWogxcd1nYtK8Z17rTuwk
-         fGls2FrkynG5efUKCsJ4Ksi10mPXB2TZ51lSLT0RrxKdtom1a5WHAhCrH84b4N6+po5j
-         yCelzRRzH/JW5rt0Dkc/Iv8ip6vC+hKSvRMTR8Kyqcp4LXk1uAM7CGQqK1TXnOXRly8D
-         sG27oApa+Ydp/VvAZtMbJw5m9pJR96v+024AMiu7rVjnkBUqfxCNKPKw2vROzGbPYNeZ
-         4TYg==
+        bh=EGiTz7ecYRQ3R9tZPodslfq/Xnj5pm8tXpwlFqHcud4=;
+        b=xapfVJkoYBobjp8XjptcdXGEtHvKOADHSRHD94vwtUKg/bWGND9iUlmGIz2ltM1WQL
+         l2Ck+yJIGOflplDkKbFoADzz4zBA5u36MaWxg4SczCUjMa+YoOv6ZXY5obQbDbqvyNxA
+         prRuMDlyzSk6G0wg7frPgzPd/7FBGet+sf1Hkt/KpqcifO2Snbl3Bls8k6K/wZz9vsmq
+         P7d7ZF5QnUdmo7UkuHQj+dVt+6l9oWqIUIYJUokGnYbKnubcpO/8AEnKu4bytYFvJqdz
+         22Gm+by7e0RP+ToXct3mX7gJHosrj1idA6K52xpsktToH4M36EwhReJt1EfjeA4XrjtU
+         sLvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789571183; x=1790175983;
+        d=1e100.net; s=20260707; t=1789571655; x=1790176455;
         h=content-transfer-encoding:content-type:in-reply-to:content-language
          :from:references:cc:to:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=a0ZqTXxWmIi8spdoKcHLXhkmgdsqCfsr13D7RbpQDjQ=;
-        b=r2Jk6eU35QavQKJWM/stB0ZPENzPEbhAdSJdvsL02B9ASDaFow3H0Teq5oYiWN/pWX
-         QrRRCyFT6pu3Dj06NUI6Jl9OGVDtMWEfd/K62seJf5TsF2j1fsuwttdwo/OtuaZp9ZuG
-         9d+1vhjsJq0fJEcKgKZCWmvceQZaFXBH2xUXmIHyG9Qbn2Nkv8wcAFYd2IbWeK8RVxk2
-         sw4Zy0bDHGMuyFgLdu+LYLyaE/tWRTtBOI+r7YdDM0vu8mctXRhNjZcaNFAwS5POJUII
-         Z6MowDQOlObHTQ//yc3UZ9xmuJhuTCRmCjshxqpM5ynLMEpu0Ps3pcJNbqlBinpBQZV/
-         DydQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy3RuPskjojZMEeSgAOEZA5Qo7AyZPGyDu9Io6S9ashewM893BRwrfvMNHuSN+4P6zNPNbrzH6tAgMI@vger.kernel.org
-X-Gm-Message-State: AFuF++m3hIETXnMLt+WaZCIVnivzpNjhtPpv4ecvRAoTiMQWeeQp0f9R
-	uH3TEgDzDUtJrnnDXnAkOjN4qn3F+TAtDJD/GTainimFp9g7fChw/r/AyvbdFrYAq60=
-X-Gm-Gg: AYBFou0JYXVeYMDMQU26tgepJlGQu5THYTBWfvUmPaOZq6CEl2VLP67u7LlOgW5qI9e
-	mdUqUsoj4PWbngd3qhLyt5fRwKO4roNamV1UhoYCLST3S/PZ9FCEwmG5C2oharuisRX0DnvxfuV
-	3nlUdE/wypFtoF1FBObzK9X0jNTHU3zQvOISPs6Av7WzCN9dLMKuV2cBS5/4maZlj942IWI19K6
-	iO9Z1G47YyfC5Xx6ZCoeYOA7Dt8xarMmcNlVIFL+zDGTDzTivnDLkGniTO2w0U4/dmVUvfqLvZ9
-	oEcMgLX1pP3XzgHnYB1Ped1Ke38neuefdrYY2djBbR+baxCF+c+Obz0dFbfSxD1SBDB4Iv9z4D0
-	UVDWXMCQn7RDPsA6HSSilBnXurvtMo1GDyyD9t82INl4LeLjVKKmvVEVMcag4785rFs6H+TT5Pz
-	f2VrGCfSrEj7lW4J4SNKtp9z8e7J11plrsqSpQl241eWq3kK7/sKrliwcBvXkQn27GQXOsecmJV
-	I8N+r/7RkB1
-X-Received: by 2002:a05:6402:c42:b0:6a9:232b:ec6d with SMTP id 4fb4d7f45d1cf-6aa22479709mr2186159a12.41.1789571182901;
-        Wed, 16 Sep 2026 08:06:22 -0700 (PDT)
+        bh=EGiTz7ecYRQ3R9tZPodslfq/Xnj5pm8tXpwlFqHcud4=;
+        b=Tw/g5c8MDUM1u9CiNxaXz3YUums7Y39PoR08vJ6ByrUC+bJp0Zj+7yhuskDhpQmKcB
+         puYIFIXJuzaOV5G/eMBkiJmvxjeonApYCL2HR1V1UCOiiFSDafPz2dC0Fl4SSn+guESJ
+         j7+2qz93X/IlLP1oQ6j40JNr0l2X4KK5f7+MCvsgJ8C5aHPr3+1haP44AZPn25O8kOlA
+         /vf5WlcBy5B5Iq6kqYJXjBHkgwx2pW+vJnyUHneXBWshYvYW2tqZbV+QWJOTV7DvMEJM
+         hflwZ3yBG3OnnEt06qCNVXpmgoLvDSSoTIR29X1SP238TUNYhmDRZurel2va38YRz1oG
+         MCEQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwkqzYmcG+3zH681DaKyTl/YlqlnKlsnPZn2+so+sgd7WuexX7qR2MGiVnS6yjJomNnM5tp7QM2ZVo/@vger.kernel.org
+X-Gm-Message-State: AFuF++mrBcwvExWdOs9WLCkMW3yoYjWqk0ehAJCqQ2gM8aU8xfaU5QoX
+	DA+ysQKvmNWNVguvVwarsoLL6tGbQOB0B3YPEMcY0dGmXHw/BBqP8BhF4cZ5UeCn3/4=
+X-Gm-Gg: AYBFou3oxxnB8bgqOIWE/0PR3uATC7gX0hsZkpAYEQKTwqn7UyboQGP4dWm0M6aM/RX
+	+ufttiNImCUd1wD4GWhBLu2K5JpgPcmnnWyVq4UsTf0ShNVtnxvQduTzoNOPAMCYWFQK8Z1aGJC
+	Pm10E6EuSCUj2GfsK5PbrLrC8AAp5b2nJWt3CMR4Bs72rHReiSl7NqrSdsG91WOyuGbDIoFaXHD
+	3B2p66bjxHTDFHemICFWitdTI7CP2QozGFQrVaou8E/YkdBxPxU3UiDqw2N6kWTmMSZFA4Q/mKm
+	CWjoVP2R7i/4rnWq08/58KdFGFopDvdwm7f8E0QdOHgv8ufwq+drcwlxcAyq8XNRGlp8cQI2Xdv
+	7vKvJI935IX4+qbib6KGtxs+X7E+Gjt/0EGx4kLEwwzHdCmaxkKe2TilNXOVrerHYISbCgYtd7g
+	F6keXd5GUzQoGgj8vyMJh/Z7Zxs2V25Tz31RilizX/c5oOlaNrmPqlfB9SuTt3P9xb3Zd6h/VCt
+	HnSj7orACVI
+X-Received: by 2002:a05:6402:548d:b0:6a9:a33b:bb8f with SMTP id 4fb4d7f45d1cf-6aa2245f519mr2317168a12.41.1789571654700;
+        Wed, 16 Sep 2026 08:14:14 -0700 (PDT)
 Received: from [192.168.0.167] ([109.76.116.194])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa1d260702sm1876319a12.18.2026.09.16.08.06.20
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa1d2ab4ebsm2002234a12.30.2026.09.16.08.14.12
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 16 Sep 2026 08:06:22 -0700 (PDT)
-Message-ID: <510e12e9-fa79-456b-8215-9f613d6d6e7b@linaro.org>
-Date: Wed, 16 Sep 2026 16:06:20 +0100
+        Wed, 16 Sep 2026 08:14:13 -0700 (PDT)
+Message-ID: <6c084416-39bf-4715-908e-14cb7e89b7d9@linaro.org>
+Date: Wed, 16 Sep 2026 16:14:12 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -86,41 +86,55 @@ References: <20260906-x1e-camss-csi2-phy-dtsi-v6-0-067f2ecc4630@linaro.org>
  <2f950735-91ef-4e43-a5e3-1375585dc43d@oss.qualcomm.com>
  <8c82ffbe-748a-49f2-aa52-eb7a56165c03@kernel.org>
  <6dcb0b11-3490-4254-b86c-a1afbcd3b863@oss.qualcomm.com>
+ <510e12e9-fa79-456b-8215-9f613d6d6e7b@linaro.org>
 From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 Content-Language: en-GB
-In-Reply-To: <6dcb0b11-3490-4254-b86c-a1afbcd3b863@oss.qualcomm.com>
+In-Reply-To: <510e12e9-fa79-456b-8215-9f613d6d6e7b@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 16/09/2026 16:04, Konrad Dybcio wrote:
-> Perhaps moving the endpoint label and definition there too would
-> make sense, i.e.
+On 16/09/2026 16:06, Bryan O'Donoghue wrote:
+> On 16/09/2026 16:04, Konrad Dybcio wrote:
+>> Perhaps moving the endpoint label and definition there too would
+>> make sense, i.e.
+>>
+>> -- hamoa.dtsi
+>> ports {
+>>     #address-cells = <1>;
+>>     #size-cells = <0>;
+>>
+>>     port@0 {
+>>         reg = <0>;
+>>
+>>         camss_csiphy4_inep: endpoint {
+>>         };
+>>     };
+>>
+>>     ...
+>> };
+>>
+>>
+>> -- x1-crd.dtsi
+>> &camss_csiphy4_inep {
+>>     ...
+>> };
 > 
-> -- hamoa.dtsi
-> ports {
-> 	#address-cells = <1>;
-> 	#size-cells = <0>;
+> I don't think I can add the endpoint, my memory is I tried that and the 
+> dtbs_checker spat it back out at me.
 > 
-> 	port@0 {
-> 		reg = <0>;
+> I'll retry though since I may be mis-remembering.
 > 
-> 		camss_csiphy4_inep: endpoint {
-> 		};
-> 	};
-> 
-> 	...
-> };
-> 
-> 
-> -- x1-crd.dtsi
-> &camss_csiphy4_inep {
-> 	...
-> };
+> ---
+> bod
 
-I don't think I can add the endpoint, my memory is I tried that and the 
-dtbs_checker spat it back out at me.
+qcom,x1e80100-camss.yaml
 
-I'll retry though since I may be mis-remembering.
+^port@[0-3]$ → endpoint
+
+required:
+   - data-lanes
+
+So I'll have to leave endpoints out.
 
 ---
 bod
