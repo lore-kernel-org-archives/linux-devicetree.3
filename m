@@ -1,59 +1,190 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 597C351FCBC;
-	Wed, 16 Sep 2026 14:30:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A8875221EF
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 14:30:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789569045; cv=none; b=cW71sFnHd1kiX3sPcURRCsheKqHZ9OWXmyn7kjeGsy6Gh6vgYoG643GgFA1VGnZkAh+UoOvB+t6cebmvISG2S3XO7HAOxt+DE7Id63Bzs/XewNyTT4rbZ+KWX1wMM9faZPaE/yj/XrAWm1kQONskk2CToq1zGDBwPFZ+QsGTpJo=
+	t=1789569056; cv=none; b=dG837iu0iNljY7xax1dujdXN7dXqWgGUptvQylepsMrsbO4RbSpHRjRpl8CzsQmMR1qLYIS0mo77fs7P+h1vcZ2KCO39I88XU56VCRRx+cbUG1MASINtuj3pAcD78ZD7fPgwkZlsn6MK4cx7/pOXWJjNTwzXTT+cPAle0NUV4zM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789569045; c=relaxed/simple;
-	bh=kLwMCAGXyJiEdodJAl6IBtwsslfPPzuY7jdwCWLAbzY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=VQaYjhuU6osqjW/l+E5KH1i4mQVepHHX8St3KknD82WMGG7BZnZaymzCUEQIXacjPOoa9FgfCTVTd0DQxoYYxijJwkp0O/KecXfP6K9s4Nt1NmbnXmYR6ibonku3ItXjrMYAQTl0rsXjRGKhvE1P4ZhaATBARE1/rs7tRTChNiE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bz/ljGC0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789569056; c=relaxed/simple;
+	bh=IAkNWSB54cPTRZlp0lr/9fg4h/scqOyu3N98Wh9R+D4=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=MllV8lLReI8X7/9dBZIsG9kTVjWZ3azI90hJd1M/G2tKH6Dx7E5cLTaKdp+3i/s/49+mXNe2XRNnRlXuLsJMHs8dD5Zbg+pj84YrcKeBZ9PtcPI42xudWFtfa9M09inYpJllx8E0jAApV1yV+oTNeAAF6cssXeU3g4Zw8i6PqNA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=PAFHXDga; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bz/ljGC0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DB101F00899;
-	Wed, 16 Sep 2026 14:30:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789569042;
-	bh=kLwMCAGXyJiEdodJAl6IBtwsslfPPzuY7jdwCWLAbzY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bz/ljGC0/B5Zw5OuR5QucGStoy40aiU8jMlEoQCvpC2pDhYZNf+o/ragcos1Y6f/5
-	 mE3ZVuA94M/YtxQGp9iBDheFyDf23MT1RWg+XfVlq8c8jovVv1KHvIkN6reW1p5++j
-	 ZPHmP4o1jjRoyITK7L+ZojEU/X98uhPFeV6jcP1PTpFtEhEaD6AdBqQatml9G9o/0g
-	 hnVMKnNWL2HKN9PBi9UFq78lND+VOsQKqZR7eiOdV+zPxYkE2+XyHvJTr/gaGFFMU2
-	 dPpUBNe+ApPWqfLNMtVMVYzHsQKeJ3firvfWArMp41R/ki97s69QYpgDNgzjZhxsVA
-	 dPtN4EinnTb+Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 10/19] dt-bindings: display/msm: qcom, mdp5: Add
- MSM8952 compatible
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Muzaffer Kadir" <muzafferkadir@mainlining.org>
-Cc: linux-clk@vger.kernel.org, conor+dt@kernel.org, linux-input@vger.kernel.org, devicetree@vger.kernel.org, lee@kernel.org, dmitry.torokhov@gmail.com, robh@kernel.org, mfd@lists.linux.dev, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260916-msm8952-initial-support-v2-10-798c2602dde1@mainlining.org>
-References: <20260916-msm8952-initial-support-v2-0-798c2602dde1@mainlining.org>
- <20260916-msm8952-initial-support-v2-10-798c2602dde1@mainlining.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 16 Sep 2026 14:30:41 +0000
-Message-Id: <20260916143042.5DB101F00899@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="PAFHXDga"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 1B039C5CD63;
+	Wed, 16 Sep 2026 14:31:35 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 1645860337;
+	Wed, 16 Sep 2026 14:30:51 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C273711C7B024;
+	Wed, 16 Sep 2026 16:30:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789569045; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=ifWQ8YaMc5CQm1ni9DW+Z7Yqh55h/cFdZBqgsTVphkY=;
+	b=PAFHXDgagaMbICkI8pF/F5Nz5W1gjfLrs/YkppCqVP1pMYNSPxgzDNoh7q+DYhGicdwrYf
+	PT5MKU1C05LYJEvG7c2FAjeCDXZt49uyTEXYiGNsgQEZUIFo9Gn3dNx1y9W9wkLfU/7aPb
+	vzohVysiTuf4GVtby1VsmN8oKU9d8Q7ZUe89SyFGWHWqfmxt14PRsnXT7ywBVYdGwH5OlH
+	jqCvJ05G71TC8RvUYP+fNsTf78dwavvp6emdYAP1L54EDJ9LaoeEcGMIrOf0hq9e7O2q6s
+	lH0l7yhmzYU7wIfR98nbme6zK7TkBj3xK17AW9YJl4T1VYqxyZnDThae3cpVdw==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 16 Sep 2026 16:30:37 +0200
+Message-Id: <DLGTA297W2SP.36MAJCYAC9O2X@bootlin.com>
+Subject: Re: [PATCH v4 2/4] drm: mxsfb: Add optional DPI output bus-width
+ configuration
+Cc: "Marek Vasut" <marex@denx.de>, "Stefan Agner" <stefan@agner.ch>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Rob
+ Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, "Frank Li" <Frank.Li@nxp.com>,
+ "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix Kernel Team"
+ <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>, "Francesco
+ Dolcini" <francesco.dolcini@toradex.com>,
+ <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <imx@lists.linux.dev>,
+ <linux-arm-kernel@lists.infradead.org>, "Alexander Stein"
+ <alexander.stein@ew.tq-group.com>
+To: "Francesco Dolcini" <francesco@dolcini.it>, "Luca Ceresoli"
+ <luca.ceresoli@bootlin.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.22.0
+References: <20260813092836.38367-1-francesco@dolcini.it>
+ <20260813092836.38367-3-francesco@dolcini.it>
+ <178954813309.214898.6895255097019153080.b4-review@b4>
+ <20260916091543.GA277833@francesco-nb>
+ <DLGP7GKZJBOP.350QK94UOGRYV@bootlin.com>
+ <20260916114350.GB284106@francesco-nb>
+In-Reply-To: <20260916114350.GB284106@francesco-nb>
+X-Last-TLS-Session-Version: TLSv1.3
 
-> From: Muzaffer Kadir <muzafferkadir@mainlining.org>
->=20
-> Add the compatible for the MDP5 found on MSM8952.
->=20
-> Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
+On Wed Sep 16, 2026 at 1:43 PM CEST, Francesco Dolcini wrote:
+> On Wed, Sep 16, 2026 at 01:19:08PM +0200, Luca Ceresoli wrote:
+>> On Wed Sep 16, 2026 at 11:15 AM CEST, Francesco Dolcini wrote:
+>> > Hello Luca,
+>> >
+>> > On Wed, Sep 16, 2026 at 10:42:13AM +0200, Luca Ceresoli wrote:
+>> >> > LCDIF programs LCD_DATABUS_WIDTH from the selected media bus format=
+. The
+>> >> > format reported by the downstream panel or bridge describes the dis=
+play
+>> >> > input, but it does not describe how the LCDIF data pins are physica=
+lly
+>> >> > wired on the board.
+>> >> >
+>> >> > These can differ. For example, a 16-bit LCDIF bus can be connected =
+to a
+>> >> > 24-bit display by wiring the available color bits to the correspond=
+ing
+>> >> > display inputs. In that case, using the display's 24-bit format to
+>> >> > configure LCDIF selects the wrong data-bus mode and changes the ass=
+ignment
+>> >> > of color bits on the LCD_DATA pins.
+>> >> >
+>> >> > Read the optional bus-width endpoint property from the LCDIF output=
+ port
+>> >> > and use it to select the media bus format used to configure LCDIF. =
+This
+>> >> > allows the LCDIF bus mode to describe the physical interface
+>> >> > independently of the downstream display format.
+>> >> >
+>> >> > When the optional property is absent, or it has an invalid value, c=
+ontinue
+>> >> > using the format reported by the downstream display device, preserv=
+ing
+>> >> > the existing behavior. The code is not validating the DT for
+>> >> > correctness and just fall back to the previous behavior in case of
+>> >> > errors.
+>> >>
+>> >> Why? Generally speaking errors are better spotted immediately, not ig=
+nored
+>> >> silently.
+>> >
+>> > My understanding is that the C driver code should not validate the DT
+>> > and that this is the general recommendation when parsing properties fr=
+om
+>> > the DT.
+>> >
+>> > The DT checker is going to spot errors in the DT even earlier and in a
+>> > static way.
+>>
+>> Drivers typically check for invalid values.
+>>
+>> And people writing their private dts can do mistakes and not run the sta=
+tic
+>> checks. Bad on their side, sure, but having a runtime error would be use=
+ful
+>> there.
+>
+> Understood. I would personally not do it. I can add the required error
+> checking code. No other DRM maintainer/reviewer commented so far, so I
+> am taking this as a request.
+>
+> What should I do in case there is an invalid value? Fail or have a
+> warning message?
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+Just fail. You are in the probe path, so it's OK.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916-msm8952-in=
-itial-support-v2-0-798c2602dde1@mainlining.org?part=3D10
+>> Also consider potential regressions. Say someone has an invalid value in
+>> their product, say bus-width =3D <15>, which works because the default 1=
+8
+>> which gets used as a fallback happens to be the correct value for their
+>> hardware. Some years later we implement the new bus-width =3D <15>, and =
+then
+>> that user upgrades to a newer kernel and their display won't work becaus=
+e
+>> it will start using that incorrect bus-witch =3D <15>. Better stopping t=
+his
+>> before it starts, IMO.
+>
+> I do not see this situation honestly, if you have a wrong value, e.g. 15
+> bits, before this patch is ignored, and after this patch is also
+> ignored ...
 
+There is no problem with the code in this patch alone.
+
+The problem is when in two years in the future we do implement 15
+bits. (That's an example to explain the principle, I don't expect it to
+happen with this driver.) But imagine in the future we add:
+
+	switch (bus_width) {
+    +	case 15:
+    +		mxsfb->bus_format =3D MEDIA_BUS_FMT_RGB555_1X15;
+    +		break;
+	case 16:
+		mxsfb->bus_format =3D MEDIA_BUS_FMT_RGB565_1X16;
+		break;
+
+At that point the device in the wild with the incorrect 'bus-width =3D <15>=
+'
+will start using RGB555 and fail, because they really have a 18 bit panel
+which worked thanks to the automagic "if DT is wrong, let's go with the
+default". That's a regression for that device.
+
+Reporting an error from day 0 means 'bus-width =3D <15>' will be blocked, t=
+he
+device won't probe and the mistake in the device tree gets fixed before
+shipping.
+
+I hope it's clearer now.
+
+Cheers,
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
