@@ -1,193 +1,144 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from out28-97.mail.aliyun.com (out28-97.mail.aliyun.com [115.124.28.97])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A2A74E8E04;
-	Wed, 16 Sep 2026 10:57:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D571B4A92C7;
+	Wed, 16 Sep 2026 11:00:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789556255; cv=none; b=AOPmOlAa9554hq0NKoHKewj2JXsRLK6K3Ee1QqbIZIGt8TkWk6exFTGYP5EZMSia7x7IEep+SfQCUh+vozG9UxAUM5T+b1D9+tYQO19StnNpAzsT1pAKxJWbuEQZCa7Sp5hplekRtJSlBEbeEgo3NDZqA3RPGKSH+Ybkvnw/wKU=
+	t=1789556470; cv=none; b=V+oS4FKvE6z0rJ9IkXLTOUpUlFKChL+sddJm5SuIgct+PIZlvkFfcJ942/DTGAKDKrvlIR4nurDgHvRJcbMRhdEylhQdilSUxVKostbs6wOXekPVb+Q2vmRDuSxO6dzLhsxvYvWZcIDMJidWgeuOHgDmaIPNe9ALx6hYhP5dNlE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789556255; c=relaxed/simple;
-	bh=M3Q8PsaLkKHlvIUr5hlqxV84+L4Iq4K5flIJuMgtdOA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=t0U1BhP9LeZ+3CE8ZjnYGc9R8nICGhggj2T1UT7ssbhSj18Igqch4THgHsIh1b+PjoX/B4ffJRahI41qoMLzyTxGN5cXv0ZMMyFJM5+Ct9Q4qnXKqj8RoTHxzWRZKWjKORriS/P6V88IxvaHBVkP84jTk6WJhoZT72LETeKr3YQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=PV/0fH3I; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="PV/0fH3I"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789556246;
-	bh=M3Q8PsaLkKHlvIUr5hlqxV84+L4Iq4K5flIJuMgtdOA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=PV/0fH3IdcGxbWl15FphMuau4ZVGT+IxC3hWi+8R0uiO9UpOOAf0ZLDvzZzWQSlvK
-	 i3gXWo0G/iipFPEelkQVrryw9kIlUyFTWMtRExKcrxVhwNUq4HCySvdnZtMu8ify0t
-	 M/VbhYT9Tjy7zaZ6dCj3XnnG1cjrcPO2Kn7D88RN1uS8UvFSkvi1U+fjlyclXR/TXl
-	 8Te76d9Rw8JwzYbsmeN3vV5qQalIygyz/ZXKwv50F58Agbwstzs8RulPlUzd7bN72v
-	 DBNSYhl6XU2IZ6+2T9htMgAqRErw8GGrFX1QSs9HSMGIGz7vRiZID5qtCfXXHk6iq8
-	 7J6evp+G2Uxfw==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id E035B17E0420;
-	Wed, 16 Sep 2026 12:57:25 +0200 (CEST)
-Message-ID: <1b7438ba-69c3-4c3d-b79b-2879b90fabc1@collabora.com>
-Date: Wed, 16 Sep 2026 12:57:25 +0200
+	s=arc-20240116; t=1789556470; c=relaxed/simple;
+	bh=Zvl8/4ZZwYZLccVkUB547ZzDDQ1t32sAHwySvAl/eMU=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=jCUxpf0K0cYYfYjQYe+vceJL7lkG855927eWjgVsROoHq7KxN9EDwv6QyiR90peQflgvl7Mdb5BwBrw5xYBhIpUAsDzq7iT1kbQ8AEdRo14tRhvrFD+SbkXJr2XBe7Y2zJE0UZkFgclqL5Wt64VOMm9D9DnM9dhqXaka7tfEHEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com; spf=pass smtp.mailfrom=motor-comm.com; arc=none smtp.client-ip=115.124.28.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.06751054|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.316453-0.0542113-0.629336;FP=13581216796813840310|15|2|17|0|-1|-1|-1;HT=maildocker-contentspam033045220102;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=19;RT=19;SR=0;TI=SMTPD_---.jExZdZ9_1789556112;
+Received: from motor-comm.com(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jExZdZ9_1789556112 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Wed, 16 Sep 2026 18:55:12 +0800
+From: Kyle Switch <kyle.switch@motor-comm.com>
+To: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andrew@lunn.ch,
+	hkallweit1@gmail.com,
+	linux@armlinux.org.uk,
+	Frank.Sae@motor-comm.com,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: ming.xu@motor-comm.com,
+	xiaolin.xu@motor-comm.com,
+	jianmin.wang@motor-comm.com,
+	jie.han@motor-comm.com
+Subject: [PATCH net-next v19 2/3] net: phy: Add support for Template Control register for PMA
+Date: Wed, 16 Sep 2026 18:55:03 +0800
+Message-Id: <20260916105504.3262767-3-kyle.switch@motor-comm.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260916105504.3262767-1-kyle.switch@motor-comm.com>
+References: <20260916105504.3262767-1-kyle.switch@motor-comm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 02/13] drm/mediatek: Implement Display Stream
- Compression support
-To: Nikolai Burov <nikolai.burov@jolla.com>,
- "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>
-Cc: "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "mripard@kernel.org" <mripard@kernel.org>,
- "tzimmermann@suse.de" <tzimmermann@suse.de>,
- "airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.ch"
- <simona@ffwll.ch>, "robh@kernel.org" <robh@kernel.org>,
- "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>,
- "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
- "jitao.shi@mediatek.com" <jitao.shi@mediatek.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "kernel@collabora.com" <kernel@collabora.com>,
- "justin.yeh@mediatek.com" <justin.yeh@mediatek.com>,
- "jason-jh.lin@mediatek.com" <jason-jh.lin@mediatek.com>
-References: <20260915084148.11385-1-angelogioacchino.delregno@collabora.com>
- <20260915084148.11385-3-angelogioacchino.delregno@collabora.com>
- <GV1PR06MB8417DED4A9C82CE84248F5F5E4BA2@GV1PR06MB8417.eurprd06.prod.outlook.com>
- <14b99e0a-e08a-42af-b982-471cae869149@collabora.com>
- <GV1PR06MB841771AF67A658BF71D4F479E4BA2@GV1PR06MB8417.eurprd06.prod.outlook.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <GV1PR06MB841771AF67A658BF71D4F479E4BA2@GV1PR06MB8417.eurprd06.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/15/26 20:51, Nikolai Burov wrote:
-> On 9/15/26 6:05 PM, AngeloGioacchino Del Regno wrote:
-> [...]
->>>> +    ret = drm_dsc_setup_rc_params(dsc, DRM_DSC_1_1_PRE_SCR);
->>>> +    if (ret) {
->>>> +        dev_err(dev, "Cannot find DSC RC params\n");
->>>> +        return ret;
->>>> +    }
->>>
->>> The defaults in MediaTek's downstream driver match DRM_DSC_1_2_444, not
->>> DRM_DSC_1_1_PRE_SCR, and the panel on my test device requires that even
->>> though it uses DSC v1.1. This may be a panel-specific problem, but have
->>> you tested this with any actual panels that need 1_1_PRE_SCR?
->>>
->>
->> My downstream uses 1_1_PRE_SCR... that's why it is like this.
->>
->> I can resolve it like
->>
->>       if (dsc->dsc_version_major == 1 && dsc->dsc_version_minor == 1)
->>           type = DRM_DSC_1_1_PRE_SCR;
->>       else
->>           type = DRM_DSC_1_2_444;
->>
->>       ret = drm_dsc_setup_rc_params(dsc, type);
->>
->> ...that will work, granted that the panel declares the correct DSC version.
->>
-> 
-> Unfortunately not, because DRM_DSC_1_2_444 is also needed for some v1.1
-> panels. From drivers/gpu/drm/drm_dsc_helper.c:
-> 
-> /*
->   * Selected Rate Control Related Parameter Recommended Values from DSC v1.2, v1.2a, v1.2b and
->   * DSC_v1.1_E1 specs.
->   *
->   * Cross-checked against C Model releases: DSC_model_20161212 and 20210623
->   */
-> static const struct rc_parameters_data rc_parameters_1_2_444[] = {
-> ...
-> 
-> I'm pretty sure that my device is not using DSC v1.2.
-> 
-> Since this is definitely panel-specific and there seems to be no good
-> way to detect the required parameters at the moment, this is probably
-> something to fix later.
-> 
+Add support for the 10GBASE-T PMA Template Test Mode register
+field, which allows selecting one of eight test modes (Normal and
+TestMode1..TestMode7) used for PHY validation.
 
-Ok, let's just go with 1_2_444 then - makes sense... that's something
-that must be accounted at the API level, because I know of some panels
-that need the PRE_SCR set... and that's even if they're using v1.2, just
-because - for whatever reason - some of the DSC params are stored in and
-read from an OTP area of the DriverIC (and that would mismatch then with
-the other params that are runtime-programmable from the DrIC view, which
-results in pixel-garbage artifacts).
+Signed-off-by: Kyle Switch <kyle.switch@motor-comm.com>
+---
+ drivers/net/phy/phy-c45.c | 23 +++++++++++++++++++++++
+ include/linux/phy.h       |  1 +
+ include/uapi/linux/mdio.h | 12 ++++++++++++
+ 3 files changed, 36 insertions(+)
 
-Not sure how many panels are doing that, but this is of course not a MTK
-specific thing... I looked around, and apparently there's a mention of
-that in the Intel driver as well - yay I'm not the only one who knows, lol.
+diff --git a/drivers/net/phy/phy-c45.c b/drivers/net/phy/phy-c45.c
+index 870920311f9a..c5f5753f7194 100644
+--- a/drivers/net/phy/phy-c45.c
++++ b/drivers/net/phy/phy-c45.c
+@@ -1408,6 +1408,29 @@ int genphy_c45_fast_retrain(struct phy_device *phydev, bool enable)
+ }
+ EXPORT_SYMBOL_GPL(genphy_c45_fast_retrain);
+ 
++/**
++ * genphy_c45_template_testmode - configure template testmode registers
++ * @phydev: target phy_device struct
++ * @test_mode: testmode includes Normal to Test mode 7
++ *
++ * Description: Set template testmode include Normal to Test mode 7
++ *
++ * Return: 0 on success, or a negative error code on failure (e.g. register
++ * read/write error).
++ */
++int genphy_c45_template_testmode(struct phy_device *phydev, u16 test_mode)
++{
++	u16 ctrl;
++
++	if (test_mode > MDIO_PMA_10GBT_TESTMODE_7)
++		return -EOPNOTSUPP;
++
++	ctrl = FIELD_PREP(MDIO_PMA_10GBT_TESTMODE_MASK, test_mode);
++	return phy_modify_mmd(phydev, MDIO_MMD_PMAPMD, MDIO_PMA_10GBT_TESTMODE,
++			      MDIO_PMA_10GBT_TESTMODE_MASK, ctrl);
++}
++EXPORT_SYMBOL_GPL(genphy_c45_template_testmode);
++
+ /**
+  * genphy_c45_plca_get_cfg - get PLCA configuration from standard registers
+  * @phydev: target phy_device struct
+diff --git a/include/linux/phy.h b/include/linux/phy.h
+index 3d8afe6b7f1c..2db804b8fd4d 100644
+--- a/include/linux/phy.h
++++ b/include/linux/phy.h
+@@ -2357,6 +2357,7 @@ int genphy_c45_loopback(struct phy_device *phydev, bool enable, int speed);
+ int genphy_c45_pma_resume(struct phy_device *phydev);
+ int genphy_c45_pma_suspend(struct phy_device *phydev);
+ int genphy_c45_fast_retrain(struct phy_device *phydev, bool enable);
++int genphy_c45_template_testmode(struct phy_device *phydev, u16 test_mode);
+ int genphy_c45_plca_get_cfg(struct phy_device *phydev,
+ 			    struct phy_plca_cfg *plca_cfg);
+ int genphy_c45_plca_set_cfg(struct phy_device *phydev,
+diff --git a/include/uapi/linux/mdio.h b/include/uapi/linux/mdio.h
+index 06f4bc3c20c7..353ca13c64fc 100644
+--- a/include/uapi/linux/mdio.h
++++ b/include/uapi/linux/mdio.h
+@@ -63,6 +63,7 @@
+ /* Media-dependent registers. */
+ #define MDIO_PMA_10GBT_SWAPPOL	130	/* 10GBASE-T pair swap & polarity */
+ #define MDIO_PMA_10GBT_TXPWR	131	/* 10GBASE-T TX power control */
++#define MDIO_PMA_10GBT_TESTMODE 132 /* Test mode control */
+ #define MDIO_PMA_10GBT_SNR	133	/* 10GBASE-T SNR margin, lane A.
+ 					 * Lanes B-D are numbered 134-136. */
+ #define MDIO_PMA_10GBR_FSRT_CSR	147	/* 10GBASE-R fast retrain status and control */
+@@ -320,6 +321,17 @@
+ /* PMA 10GBASE-R Fast Retrain status and control register. */
+ #define MDIO_PMA_10GBR_FSRT_ENABLE	0x0001	/* Fast retrain enable */
+ 
++/* PMA 10GBASE-T Template Test Mode Register*/
++#define MDIO_PMA_10GBT_TESTMODE_MASK GENMASK(15, 13) /* Template test mode */
++#define MDIO_PMA_10GBT_TESTMODE_NORMAL 0x0 /* Template Normal */
++#define MDIO_PMA_10GBT_TESTMODE_1 0x1 /* Template TestMode1 */
++#define MDIO_PMA_10GBT_TESTMODE_2 0x2 /* Template TestMode2 */
++#define MDIO_PMA_10GBT_TESTMODE_3 0x3 /* Template TestMode3 */
++#define MDIO_PMA_10GBT_TESTMODE_4 0x4 /* Template TestMode4 */
++#define MDIO_PMA_10GBT_TESTMODE_5 0x5 /* Template TestMode5 */
++#define MDIO_PMA_10GBT_TESTMODE_6 0x6 /* Template TestMode6 */
++#define MDIO_PMA_10GBT_TESTMODE_7 0x7 /* Template TestMode7 */
++
+ /* PCS 10GBASE-R/-T status register 1. */
+ #define MDIO_PCS_10GBRT_STAT1_BLKLK	0x0001	/* Block lock attained */
+ 
+-- 
+2.25.1
 
-(And I definitely didn't expect that to be the case anyway).
-
-> [...]
->>> I don't quite understand what is going on here, even in the original
->>> driver before this patch. What is the point of setting VACT_NL twice?
->>> Does mtk_dsi_ps_control() really need to be called in mtk_dsi_poweron()
->>> if mtk_dsi_config_vdo_timing() ends up calling it a second time?
->>
->> I didn't do much research, but MT8173 and 8192 if I remember correctly
->> won't work
->> without this sequence. I saw that 2 years ago or something, so I don't
->> remember
->> all that clearly.
->>
-> 
-> Okay, it's fine to keep it as-is then to avoid breaking older SoCs. One
-> change I would definitely recommend though is to move
-> mtk_dsi_set_dsc_params() to the very beginning of the sequence, maybe
-> even into mtk_dsi_host_attach().
-> 
-> Otherwise some parts of the code might end up relying on unpopulated
-> parameters by accident, and it's harder to debug if they change in the
-> middle of the sequence.
-> 
-
-Honestly, since it works right now, I would be happier to push this upstream
-as-is, and then shuffle things around (for an optimization, or else) after
-the fact.
-
-The point is to have a working baseline upstream, then if needed improve it
-later when further testing can be done - point is that there's a huge set
-of patches that is restructuring everything, so I want to play safe as much
-as I can in this moment - I think (and hope) you understand my feeling here.
-
-> [...]
->> We can always come back to this in the future with a separate patch, and
->> we should
->> do just that, otherwise series versions will never come to an end :-)
->>
-> 
-> Agreed. My work is currently also based on the restructured mediatek-drm
-> driver, but I will try to send follow-up patches for MT6858 support once
-> some of this stuff lands upstream.
-> 
-
-That's... a w e s o m e !
-
-This is a practical test of the restructured code on yet another platform,
-and I'm happier now because it's a different type of device (as in, not a
-laptop and not an aiot board).
-
-Thanks for that, highly appreciated.
-
-Cheers,
-Angelo
