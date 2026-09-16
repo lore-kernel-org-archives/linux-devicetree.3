@@ -1,123 +1,178 @@
-Received: from mail-yx2-f43.google.com (mail-yx2-f43.google.com [74.125.224.171])
+Received: from mail-oo2-f2.google.com (mail-oo2-f2.google.com [74.125.231.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A88A35DA69
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 04:04:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5D6C2E1EFC
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 04:15:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789531475; cv=none; b=LEsg5UV1LH24Pin6iXP4rwgf9T0PYiU85JPFxOWU3Q8L9uVk3rsmGc0iGZRvCrY62ve/uMCCNq/bWTjagmaoDcX0mq9NfkRU6sudIDIelgctKkQQo9Kc6U76B77FG2r2vvfbztrYBPdbcW39y7bVu4NRZC0/xWJseI69o+6Cm2Q=
+	t=1789532132; cv=none; b=Kfn1af0imTZZNucN3AyxhbJcBpRm0lGGIEYeE1oC1HES0138mhTuM1oVVpaO7MTr5+NG69en0oAKaQOx2ns8O11Z4ZI6ZqkYezlmL3edF7DTLYJk+OA32H4hf6cGfHrJPvNZPgbvunNZiOhvM+kY9IZptIyrILu2dHqwbmyvepA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789531475; c=relaxed/simple;
-	bh=pFUGxOy07w0o07fjVXXzMtNN+/VmE3D4fzrpoP43jnM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JNmLkH4ie99yHX3gyJh4RE6SWKO0uyqrOpSfYGLkxubzku86QuDbW7Z+77HtBDP9uFHsJ+iVYJsbZqyT7JrdUyZweU7DXU4M8NAw9l0moqbs2HZScGh63kekD7U/mD9LjSbSTnnXU2BMyitx9P4GWW2E1sKBVugrIvL+p05EZsE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lfeMDP2Z; arc=none smtp.client-ip=74.125.224.171
+	s=arc-20240116; t=1789532132; c=relaxed/simple;
+	bh=1ZhvOrKcGislD+WC+8Q4vWu5z8pTpCo7Q/Gsjhr1d1M=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=nRBt2nldpDUX68f/WttPU6Z3WRU+LbMF/eD5p5HFqVlqwB9nx8bCxmvL8PWk+IdxVJfLumlLTQesk4N0hrnrWGB7aqvjNqJBYDXCoxfcLkGnEP3gQsa8DhTgo66nF91iD/qhaWo+ax0MJU2VJme0doaeKSk2aFndO8AmnJDpZCs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NWkYaUE+; arc=none smtp.client-ip=74.125.231.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lfeMDP2Z"
-Received: by mail-yx2-f43.google.com with SMTP id 956f58d0204a3-66e4ab22370so376187d50.3
-        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 21:04:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NWkYaUE+"
+Received: by mail-oo2-f2.google.com with SMTP id 46e09a7af769-7f9cc0e524aso1743488a34.1
+        for <devicetree@vger.kernel.org>; Tue, 15 Sep 2026 21:15:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789531473; x=1790136273; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=X7b6jjSFuw36SK7ohBBpAIm4B8ggMmh+imIFRF1b+cs=;
-        b=lfeMDP2ZAzCfR0ysSNTzQrs7tQFS61YSzbeQkxI25xGpU33XyJ8JI6+HMhHAo+laZD
-         M8xN1welHtzZGJsu910khF/QUsp1UsnJ12nujIRyB+MtXYI+V9csMJQxkyym9Zf9rIpg
-         mOeeiPZA6BY2zwU296Nhm94F5p6sttFEn8opIhulxwMlt/OWeIpReiWdy9B6EihOEtrU
-         jWFQiCP/rxTv7vloi1X4Ai2CFZjvNYIXVV4S/ZGQSu72Ydrj+KRqloJ7JAizYdze988d
-         jhTZH9KVAKOIh+l9JosUoqOk4V5OGtoLPXYWDHmHmwIjan96unpqFAL8fll2t/ruNq5C
-         +ZOw==
+        d=gmail.com; s=20251104; t=1789532129; x=1790136929; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=geQe/Nt94sgACddk5UkhJlOoq3dCQ3FTfciRXuFH+10=;
+        b=NWkYaUE+2OCiMVIeTvtNWB8v1/a0gGFdFcELxEbDWMEShVrQHwYgVw7ecixMB9ZyFn
+         +3jJ3zI3x+DNmHN6gVAI5i1/5ecMoaXtN7hzobrKZjBtkH52TzWTyri1Dg/dwOLP0c48
+         oIEm/b1DqB+xs7DbwTyqTCk4nKHFlelTuMUC+h+WcweSQ8rUsEp8NhVP9A0qAjNQ5OAM
+         dz/lUOfFPY7Aafdk54I0JqSdLfUi+LlEISEFZDXZB5o2gHEYuNARfNDHjiWGy/piFXl0
+         7EjdiULJQKEok9Ei4R1677UoXQGCmWxWXlEZovvc9iMjW44Z/icOaj/e6jd2oLtn/XkD
+         W92Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789531473; x=1790136273;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=X7b6jjSFuw36SK7ohBBpAIm4B8ggMmh+imIFRF1b+cs=;
-        b=RwyWJJppY8IqojS4dvMVC4uc7jDW46PmeItHYAnmfXjbAz090a/0MtmWI81v7Jkj7Q
-         EH4PPrrCS5GV/+/8+P5RZtYko4bNtwZT66HYw0FJ1qetimeSEcdUCOj7ZOk+vlPmkErN
-         MkG5s8xpFceMGjWVAnkhbdVCvQY7BYXK1MSAP9hwTJ/s0s45FAgUzBXI8GHdZn7ED0md
-         QMDvRAQsejGdCdBn/6T9S8oXocie3JoOuoau5o2AoWwecS4vsMWldIwo6NW2LEiepp6y
-         dWpi84+w6rBM7tVGqHkyHnytRyqUdfyPzkOrHqQgHzNt+hYqrxw2aOiVB5ZKX6LsIBB7
-         rflA==
-X-Forwarded-Encrypted: i=1; AKwUvBwrFliOQKCdV0Nj/aLiIXxs+E8RqIhJLqJu9GGfXWeOAANx0389Svv7T27I4YhCU7Dr0IxLA98ckam+@vger.kernel.org
-X-Gm-Message-State: AFuF++kX7zGeUjUdaCU2oDAtnQ5m7Lb5XDox43RCgBHiEV4ObWC1Hj7n
-	Cnh7bSXqkg2hrERJq8xBTo+tyG21H8TSaN0cWmx4Ss/v6uNYGvbOBqPc
-X-Gm-Gg: AYBFou0MCiodGKZd19/EAcPI/ySuIRDtwmoNTiLgJ6kLraSE8I/s8tCNsvtkFyS4rr0
-	bcf8Ovp5ab8Wyimo2qtF2sQrFWIQwbbA3DITAfRLqN84H7BfoycEP8H6vfSgsObFpW/PYKuht+q
-	CM/KkdaELV2IxgH6GDRtnnplSG4OuWf4rdnNdbP1+A+wgMRS833O1sTeBhQ31ShiPnwS32vAv+g
-	c7wJhZ4vzML0H+1VEVV2tPmP90bQx3t1r4tqhTtdauMBisUXkKekkkzRq6+E71iSpIvdArMFRw4
-	N4gG0+WnnW1TSiO0s4rLD5BwzmnqOPdWu1AnhvR5kMw0z4ECMODfWaR8kaKG4t2j9IVMtxt4acP
-	72AEnI/DVuLMzYEhIE/G7726RKGHAL7k4VIcajy1qLC7ZGOEtTK4inPIbZCvx39OBHik/jaRLVL
-	uwTtDdOUIJ8iVbUa0OKy5VHnYpDZyoKys5vAlOxCde6P3S340CjpnZvPCYdVZWMW1x
-X-Received: by 2002:a05:690e:13cc:b0:670:f5bd:812f with SMTP id 956f58d0204a3-671632ceda8mr325747d50.82.1789531472721;
-        Tue, 15 Sep 2026 21:04:32 -0700 (PDT)
-Received: from gmail.com ([2600:1700:5431:250::3e])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6715f45f803sm831404d50.0.2026.09.15.21.04.30
+        d=1e100.net; s=20260707; t=1789532129; x=1790136929;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=geQe/Nt94sgACddk5UkhJlOoq3dCQ3FTfciRXuFH+10=;
+        b=PuV1Eo5ObZrXNWXbhmtYcyAADOV5xgNzH8W50DTbC8nrRRypSqeVmRy96KsTtALP4t
+         4btqx9YaSXqi7BYNwKgZhXpi7cyNd0LICxy3TklXPyZ7YCOTtJfsGg/wWMOhG6EP5chL
+         Z1Yci1TQBHd017YDG5ucXJaIfGaf+lNddXkrRsuVDe8KynWFWMXX2iuaU3ttdWfHlri7
+         3Y6P+nzeVRAydGO+6ybgH9VKLdi6eC2tZnmOhQI2A2MhinOI8AUlyyi1Oi6jdFR8V8Je
+         CzZqI5Y052LHom+MGG6RRMDb0JbqImeHyoNdxU29jfJzX+e7yAdyW1MizbhayD6VNY3z
+         Ktqg==
+X-Forwarded-Encrypted: i=1; AKwUvByT2YjgLMAGx4pGEAkkkl3i2w0bUYjFEBBM2LSrjmDGWY1AOLDvyBW2e0MfOCfOgqJ20WG44IJgoMdk@vger.kernel.org
+X-Gm-Message-State: AFuF++kuPJkDke89VkKptBgKbtwxkwjBPGrNwqEiVKQD31C8SyIE7T5x
+	SZUGzME0W5DVxlQJMmDRuSBfNWYnHWXYAQ5/5D6qJ2buvfa9sXhButLX
+X-Gm-Gg: AYBFou1YFL12ESzQvWtpWTjFhQiQtLntldVKIn2m95EkjjALoMI4O3NlK2WbZ2RZfIH
+	311tZJQ1HrH4Vlj8Y4NOYehQvg1sqvT6pkbsNmiRcYGiUG+WLKQvTPTRTzKVyehjZwV9C7IdLzK
+	eo8EM3tsXvw0M0zNYnMlKzVhxO9BHavlToYOuOFgv/mqWXGLCSGS5MnHuIOnxQE0KawFipKpLgf
+	785QajH1Q/2J9aypuoqTbJeCYXlspBwgIXH+tglOsLqN55u32I+GSfTnXE1rqfy5QQwqAsVtQX/
+	+JYkIqd1nI5oHBV1ZYCNVTq82ewwjEmfZcnyw/e0FIbIdJgGE01+lbIWgkRVCuy4OFquGnQugCl
+	PjZLJdKefsEOpkpDcqeQ6Q4X/mnJ5X5PlAiuNLJNe72UBEaOp4nMs8XEz17ZxToGjMQSekYckiO
+	4gfqGN3LFZKjl585lus2U0xxOU7fAlQhEV16WLJUFoILqzDUEbvXwAxBf8JKCpLsGv/mocGGguH
+	hurlA==
+X-Received: by 2002:a05:6830:6af7:b0:7f4:eb7e:c8f7 with SMTP id 46e09a7af769-80b2c18158cmr1482766a34.5.1789532129476;
+        Tue, 15 Sep 2026 21:15:29 -0700 (PDT)
+Received: from [192.168.18.164] ([2600:8804:5716:d800::b712])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-80b07ad0373sm1440484a34.26.2026.09.15.21.15.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 21:04:31 -0700 (PDT)
-Date: Tue, 15 Sep 2026 21:04:28 -0700
-From: Chang Yu <marcus.yu.56@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Chang Yu <marcus.yu.56@gmail.com>, Andy Shevchenko <andy@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Shi Hao <i.shihao.999@gmail.com>,
-	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
-	Joshua Crofts <joshua.crofts1@gmail.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] iio: light: add AS7343 multi-spectral sensor
- driver
-Message-ID: <aqoVTHzvDFkfVjcf@gmail.com>
-References: <20260912013912.51887-1-marcus.yu.56@gmail.com>
- <20260912013912.51887-3-marcus.yu.56@gmail.com>
- <aqepkmQS_p6K1Bd6@ashevche-desk.local>
- <aqiyQOMGGIzu-91z@gmail.com>
- <aqj07iI_KFTDrjPR@ashevche-desk.local>
+        Tue, 15 Sep 2026 21:15:29 -0700 (PDT)
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+Subject: [PATCH 0/3] iio: adc: add mt6397 PMIC AUXADC support
+Date: Tue, 15 Sep 2026 23:15:25 -0500
+Message-Id: <20260915-rbrue-suez-upstreaming-mt6397-auxadc-v1-0-d35d2ac3d6f0@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqj07iI_KFTDrjPR@ashevche-desk.local>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3NwQ6CMAyA4VchPdtkqw7FVzEe5ijYA5O0zBAJ7
+ +7C8bv8/wbGKmxwbzZQ/orJJ1f4UwPpHfPIKH01kKPWdf6C+tLCaIV/WGZblOMkecRpac/dFWN
+ ZY58wsCe6OQopOKipWXmQ9dg8nvv+B56DRSV2AAAA
+X-Change-ID: 20260914-rbrue-suez-upstreaming-mt6397-auxadc-5e1228025c50
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Lee Jones <lee@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, mfd@lists.linux.dev, 
+ Roman Vivchar <rva333@protonmail.com>, 
+ Luca Leonardo Scorcia <l.scorcia@gmail.com>, 
+ Ryan Brue <ryanbrue.dev@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789532127; l=3814;
+ i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
+ bh=1ZhvOrKcGislD+WC+8Q4vWu5z8pTpCo7Q/Gsjhr1d1M=;
+ b=hy8S44J3Kt9/i++nBCcDmWUBualfD1ZRDUrk1YbiwxToPcudFRBPrKHFN4YfXcOFs/wkiAGTH
+ L6vgwManOMMAClIr8hluO7RIvzaIEMuHuNUzkqJgQwQVkFxih5p6Zjj
+X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
+ pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 
-On Tue, Sep 15, 2026 at 10:34:06AM +0300, Andy Shevchenko wrote:
-> On Mon, Sep 14, 2026 at 07:49:36PM -0700, Chang Yu wrote:
-> > On Mon, Sep 14, 2026 at 11:00:18AM +0300, Andy Shevchenko wrote:
-> > > On Fri, Sep 11, 2026 at 06:39:12PM -0700, Chang Yu wrote:
-> 
-> ...
-> 
-> > > > +static int as7343_suspend(struct device *dev)
-> > > > +{
-> > > > +	struct iio_dev *indio_dev = dev_get_drvdata(dev);
-> > > > +	struct as7343_data *data = iio_priv(indio_dev);
-> > > > +	struct regmap *map = data->regmap;
-> > > 
-> > > > +	return regmap_clear_bits(map, AS7343_ENABLE, AS7343_ENABLE_SP_EN);
-> > > 
-> > > Can this mess up the raw read? If so, also needs a mutex to be held.
-> > 
-> > People familiar with runtime PM correct me if I'm wrong, but I believe
-> > PM_RUNTIME_ACQUIRE waits for any ongoing suspend callback to finish
-> > before returning? If so I think there is no risk of a race here. In
-> > the case of system suspend, worst case scenario SP_EN gets cleared
-> > before we read ASTATUS or the data register, which for my use case
-> > at least is OK since the entire system is suspending anyway.
-> 
-> Yes, if the raw read is guarded. What about _setup()? Is it guaranteed
-> to be free from races? If so, we are okay.
-> 
-Currently in setup_device() I'm enabling runtime PM before flipping SP_EN
-which is a bit problematic. The fix is simply enable SP_EN first before
-enaling runtime PM like Jonathan has suggested. Then I think we will be OK.
+The MediaTek mt6397 PMIC has a 10-bit AUXADC that nothing in-tree can
+reach. On boards built around it that ADC is the only path to the battery:
+the SoC's AUXADC is wired to board thermistors, and the charger ICs these
+boards use have no ADC at all, so without it there is no pack voltage and
+no state of charge.
+
+Patch 1 adds the compatible to the existing MediaTek PMIC AUXADC schema and
+the header naming the channels, patch 2 the driver, patch 3 the MFD cell
+that instantiates it. The cell comes last so that no commit in between
+registers a child no driver can claim.
+
+The mt6397 is not given mediatek,mt6359-auxadc as a fallback because the
+two are not register compatible; patch 1 has the detail.
+
+Only the two channels a board needs for its pack are described, so patch 1
+ships a header naming them: a channel ID is an index into the driver's array
+and not the PMIC's channel number, as in mt6323-auxadc. The register
+sequences are the ones the vendor kernel's pmic_auxadc.c programs.
+
+One note on patch 3: it adds a cell to mt6397_devs[], which Luca Leonardo
+Scorcia's MT6392 series converts to the MFD_CELL_* macros in its patch
+4/9 [1]. Whichever of the two lands second needs a respin. Mine would
+become a single MFD_CELL_OF(), and I can do a respin if that patch arrives
+first.
+Cc'd Luca.
+
+[1] https://lore.kernel.org/all/20260902193351.185771-5-l.scorcia@gmail.com/
+
+Tested on an Amazon Fire HD 10 (2017), an mt8173 with an mt6397. Both
+channels are exercised: the battery channel by a fuel gauge, which reads 817
+counts, 3830 mV with the pack at rest, and the thermistor channel by an
+ntc-thermistor consuming it.
+
+I have two things in the driver different from the vendor (Amazon
+Fire OS based on a 3.18 kernel). Verified with over 150 interleaved reads
+per setting:
+
+ - Leaving the ISENSE input enabled between reads, as the vendor does,
+   makes no difference to the value, so the driver switches it off again
+   and leaves both ADC input enables clear when idle.
+
+ - The chip's sample accumulator makes no difference at 4, 8, 16 or 31
+   samples and costs no measurable time, so it is left at one. Software
+   averaging helps, but only by about a quarter: 0.92 LSB standard
+   deviation for one conversion against 0.67 for sixteen, where independent
+   samples would have given 0.23. Conversions in a burst are correlated.
+
+The reading was checked against the charger, which regulates the pack to
+a programmed voltage in constant-voltage mode. Over twelve such voltages
+from 3904 to 4080 mV, and charge currents from 111 to 778 mA, the driver's
+reading is a mean of 0.9 mV from the regulated value, well inside
+the charger's regulation tolerance. That also settles reading the chip's
+trimmed result register rather than the raw one - the raw register is
+20.7 mV low at every one of the twelve points.
+
+Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+---
+Ryan Brue (3):
+      dt-bindings: iio: adc: mediatek,mt6359-auxadc: add mt6397 PMIC AUXADC
+      iio: adc: mt6397-auxadc: add mt6397 PMIC AUXADC driver
+      mfd: mt6397-core: Add mt6397 AUXADC support
+
+ .../bindings/iio/adc/mediatek,mt6359-auxadc.yaml   |   1 +
+ MAINTAINERS                                        |   7 +
+ drivers/iio/adc/Kconfig                            |  11 +
+ drivers/iio/adc/Makefile                           |   1 +
+ drivers/iio/adc/mt6397-auxadc.c                    | 340 +++++++++++++++++++++
+ drivers/mfd/mt6397-core.c                          |   3 +
+ .../dt-bindings/iio/adc/mediatek,mt6397-auxadc.h   |   9 +
+ 7 files changed, 372 insertions(+)
+---
+base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+change-id: 20260914-rbrue-suez-upstreaming-mt6397-auxadc-5e1228025c50
+
+Best regards,
+--  
+Ryan Brue <ryanbrue.dev@gmail.com>
+
