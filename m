@@ -1,195 +1,186 @@
-Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C144E46DFF1;
-	Wed, 16 Sep 2026 08:02:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=119.15.109.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 296734582E7
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 08:05:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789545759; cv=none; b=Rdtd3Ilw/zv4Bb/zxNqHv7EiO1UZPDg65Zv2l6iLJLwfbluSqJPzDonXKZjn//PGacsJUhCQavKmMbtO102JeScp1vuTuKpZbmRtD8RF5WLlJ1nu4gALbg8StEy1i2/y7ADjhNrtXZkVCtBW1wuHaagtT5bM6EOF9E4fMdXXxYE=
+	t=1789545935; cv=none; b=oRlORc9Sp6rqUx2kv1UYefMek4DUQTaYq/wa07UtSq8pb5j1oAEv5FPQfZ892+N1q6DJiqTr6XTgliEK+e9KX9XFXll0RzB5SgtqCvKAk9aHt9WmljHnM6pto+tuOoNe3mjHpC8COpuTbOhyXzej1+lgI9x0/xLwCJHKdGZW5hw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789545759; c=relaxed/simple;
-	bh=zPCY6/vUjWDI+sFBANAGcLfIUObtGn4bFnBc8Fjrn40=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=GYoePU85fcVDZCN0m05cdbVe7iQ96bgU3J2DYAzeng9hUGi2VuD+7+MzPMFF69+H/lxParaLpuIRPhq3krsrLKV6NeyFZ7BuNuwJRn54TsSQ53ieuEYu0pkgHSA7xKdyS9vZKlRCOu+3sJpLRyWgyfDZCmg+Os2uHX/RiAAZtpE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org; spf=pass smtp.mailfrom=d-silva.org; dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b=1ti+bg6o; arc=none smtp.client-ip=119.15.109.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
+	s=arc-20240116; t=1789545935; c=relaxed/simple;
+	bh=PcoDdCIrr83oRm7NwUejbqInnkYFw14JsuggRsrAzaw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BcDN70O4bZhhg1AibhRh7g49Dzbz3Kje9HM7SGQnJt3FiaIBkw1WQU34tUtteDi4Celc2ihflzcYCJGlwuaDp7XYwsybSU4wCMrvI0G87cLHPsCcNkxFSI10vWuj+igDcHxfuTxhiOevxHHo8qqC+tkCVq+SeWG6Ki1c1Y9FiPg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RnKS+OX6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WApN8GGP; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b="1ti+bg6o"
-Received: from hawking.lan (ntp.lan [10.0.1.1])
-	by www.nmnhosting.com (Postfix) with ESMTPSA id BD2FE424F0;
-	Wed, 16 Sep 2026 18:02:08 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
-	t=1789545728;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=qySEvs8hSKqFW9xRbMnFJTfjwY1BWKalrlpW2SDfROM=;
-	b=1ti+bg6oQ0pvM5B9lpqBTOzlQQQRN2HUkiO1sKJvUdK+t8WqTnb3l3iXJfbLU31bcj2WU2
-	Q+vZ0sPRUkFymCQciORp9qEReBUuqz64To8pjdEfCMaG8dJHbMjFchecehW1e/ooZz7b8d
-	EhEWI9J7fRcZGo9Q0yEBIrXD+te4Mv4PSKqd+O6OMS0TDYzA7Cgq7gsO1pMsTJ6RAmMS7F
-	6Ogcgssfprnnfu02QKpZBzAaJvdApxWeoWyTF8DUcAQoTZFtXGXW8ZqVqVFnzj/P1mWnbS
-	uOZMKGoJCscQiyeL4ed7T0dEXkNyxbE9JtzuM6bowZicxJ8KgBkl/26c4kC3rw==
-X-GPT-Reason: legitimate; the email is a technical discussion regarding
-	Linux kernel patches (net-next) for Allwinner H616/H618 hardware,
-	which perfectly matches the technical nature of the "alastair@d-silva.org" mailbox;
-	 the sender domain "d-silva.org" aligns with the "From" header,
-	and the content is a detailed, multi-paragraph engineering analysis
-	with no signs of marketing, phishing, or urgency; there are no URLs
-	or suspicious requests for credentials, and the conversation thread
-	follows a standard developer mailing list format.
-Message-ID: <a5fed5614eb09f958772fae636e748069851e059.camel@d-silva.org>
-Subject: Re: [PATCH net-next 0/4] net: Add Allwinner H616/H618 EMAC1 and
- AC300 EPHY support
-From: Alastair D'Silva <alastair@d-silva.org>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>, James Hilliard
-	 <james.hilliard1@gmail.com>, wens@kernel.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, Heiner Kallweit
- <hkallweit1@gmail.com>,  Russell King <linux@armlinux.org.uk>, Alexandre
- Torgue <alexandre.torgue@foss.st.com>, "David S . Miller"	
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski	
- <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring
- <robh@kernel.org>,  Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, 	netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, 	linux-sunxi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, Jernej Skrabec
- <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>
-Date: Wed, 16 Sep 2026 18:02:08 +1000
-In-Reply-To: <3196ccec-7cf3-434b-b7bb-dec64fe29583@bootlin.com>
-References: <20260916044119.475666-1-alastair@d-silva.org>
-	 <CAGb2v64HZoqBscyKTkTin6DnMv5_kZpBxoS+cm7aYy09pRc7hA@mail.gmail.com>
-	 <CADvTj4qRMviM=KXinCKi657pVC_kj7Kt1yizW_EGDu4m7VKQFg@mail.gmail.com>
-	 <2ac659ffa08eeddc6654827f5a8fbd7fe374a128.camel@d-silva.org>
-	 <3196ccec-7cf3-434b-b7bb-dec64fe29583@bootlin.com>
-Autocrypt: addr=alastair@d-silva.org; prefer-encrypt=mutual;
- keydata=mQINBGactvoBEADBFM2HqfQUUM4j40ZQPyYzmnM8S6zrycO0ipDDPMs7nZMzyzGzOdqfS
- VB/tuYvZOOKVWzJuWJ5aT/YyHx54r3L+D5hTkEG0sXPVJky3yTS9sbHEMSLBHb8TVVuhPVPuieV4g
- Nkqg5POMTidk8xAw50WpV++tUlewXVSciehnuCQPXhXMP7FcCh4uO8LdN7E8m7ir1LafKTFfoWPah
- KVT8NGG9r+ucrFcN5F+VnHxTDaI68yRPkNdtUWmp22wIX1KwDCtKFrndYO4p5Hv2hlDKomsuIIHHn
- muQGRwuh0xpf0nVJNF8ETZHMzxQLfo3e/HvxBFOTkwY9w7CuuQFZchbhS0I3PfmGT0+jiNcdfqjDC
- fPPB5uhy+DkR6wO72vuwFYUrpU2mdliDSdKEtWBHulnXMJjpBOXetfIwhI8G2dTVg59lN5i9DvJZc
- 7y1Sp+qfZQ4P9qpYZyQEKR4GNDOdnm6F2LW2cZkcyAU/Ii765zdDMTQMIzZNSxT/FcDd0K1voTNRl
- QHbQw+kmIMhzSv2JefcC9oNbE0XYzcBDNP5T3O/4itOQ90GCKQEPAbIPeBjlQif7kkyvo/H6yv4s9
- duuK7zbJD9AID/+KGLkpU3p68VDB/C2ZSb9rQz3p1CJNSfsX/CPk7sPqA7RKZ4a2B0hSJ2pJCncNZ
- KXtMlkkm/FmewARAQABtCdBbGFzdGFpciBEJ1NpbHZhIDxhbGFzdGFpckBkLXNpbHZhLm9yZz6JAl
- EEEwEKADsWIQTQGemDFwqYyU/dBWv75AdnjVo60gUCZpy2+gIbAwULCQgHAgIiAgYVCgkICwIEFgI
- DAQIeBwIXgAAKCRD75AdnjVo60qHZEACJnLfpS71Hk8bX0CLCNJ5wgqdZD3pBHEdbv9Ux9kRlZp4a
- ZFwlg9ltwBjl2dZP3PLtD9xQdsdYKVippKd5a7ZZC2y81oDaHjeC9LnPYn8+ce3mGE/+gRyoNfToY
- N06DeUNJKSlZ9t11UIqZCgfp12u16/Yrigy8C4ihEeHXlLhNX6JkeJR5gsHXJnC7vSuMZY+Qz2R72
- ZidWg+cd2WDMGop5sbTvc+55q94A7vTMlWzaix5HdbEUA3sd2U0dMBju5QodRGGhDQMcCu64TydRD
- MtMzzOk9ThJ036ze3HASWGOppyQmaw58k+XNzbHlr9Sc1LsFUNF7zpWXac2rzlywbyRAdFIT/TC76
- hy9zOkwIo2nwA/tdIwLx1j0UZPpAMQmcDUvJqZh6sE+fv6HN0yMPr+sSYJmriMt8Z6leCEHQXOHVI
- SI5z5FvV3coMmHYRq6aXpfs/8SLiYgkV3B0HE/E18Y3j1OkeLYoqIH1VfzQZeCSL/S77NYvk60/MV
- 1HFSyqLdUR3uWZI4uZzoEcMoB0GX33uCTp2Ntc00+wSntwekCUQLCMLUb7dZrbpVuobHoWWtkiD2I
- uE5kAiaVwwwzM0BUwiM6VzVoKbeECz93rdsNtwoDqM0NtzoISC46H/BKVQ9mRNXDO4ThEBpJ4H2Tn
- mPNRYYcR0u2mNy1EJII04w==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-9 
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RnKS+OX6";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WApN8GGP"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68G68k042264852
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 08:05:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	tMtG0dE9KOzOS0Ul5d7vnn6cTO8RBI5Lu4clV+yWEr8=; b=RnKS+OX6LY6NAIDV
+	eTAXl2puL2Z+1bukV8UZufyeIOEq3wY96Me19W3U7ezAvYd3PwQYrWqY2mR3oX/d
+	XdWxreS2yeXYCJGP7eoiaWlJzFYojxZNEHyqEhCelupeqTKrc9kw7flPfIAfDSXI
+	E/LX9bGO7fAoofS4Cj531erUqEPL3+J6KWUwg/k+LtOJUCW5zTif4BGNqmT4buYw
+	mUzajS3SKVyg2MWhPs4PHG5+UYkeqiJ6L5CPmuTgVkoY482HktOIELAgyRBNcP3R
+	TrJqfHpTREoqbWnQF224ivLyloMpwQ5G0xt5+JIzcZZsTafrhgCgrXbZ7/sNYFE/
+	LBWBEA==
+Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com [209.85.161.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqftuhqtv-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 08:05:17 +0000 (GMT)
+Received: by mail-oo1-f69.google.com with SMTP id 006d021491bc7-6c21c2859ceso2919141eaf.1
+        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 01:05:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789545916; x=1790150716; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tMtG0dE9KOzOS0Ul5d7vnn6cTO8RBI5Lu4clV+yWEr8=;
+        b=WApN8GGP1xIpF1SAVEpzK5DaDe4ich9pWJfHCXI5KHW/dp7bJfDN5aqZB3OD4rrReK
+         b01uUxGePef/HvT+FCHqzo4ZrWg+a17R8WMdYWSvXKoYKvPheMeMyqwDMzDjg6caZ/n6
+         NTbDhu2MQCKaOtaeq7sd9dv4IRoMUwhgmr8p6sqcQkEX+M+YA2fTQYKUzeLhdXz4INgF
+         EMcYff00LRdRjrjekmG56oNb/0yU45SvkSFONREPV/nG7M/LTcZdFHg6EbCLKrt1Qmn2
+         PABOvUmXSR1TcT3Jz3maLrn/BdikHdc/HZwLSZSQivqLaBSiK3hwkl/PacWt6l7WVpKl
+         5mzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789545916; x=1790150716;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tMtG0dE9KOzOS0Ul5d7vnn6cTO8RBI5Lu4clV+yWEr8=;
+        b=0e8KznY2PIyaEGKnopB8YbIMkMT2rVaHF8btGclXgWXNk3WJ0jn5l2yLkBCOjel9rc
+         CxevzXmDF9TTwEE8mSLvW5AzsKfMQcj8n+LkpkqL1oN+1FDpNfkoqX7GiOPWg+Dm1u22
+         hx0WCVY5eQR8GZ5GeFEA4MrsZmgDglj5X37n3khToUwO3gOw+fiDmNGPrumXYaS+OXBk
+         j2kP6pHS2Su4maqfLj4SQZMGhuTwhD94jBhufK17CALIvDvJb7K1hJiP1qzDSdUEopMS
+         4+xo6leRXNacpNkm81E2GizA4olS5kSjngduusUrVmXNzBIhaQqtQlo2CzB2I6QxwLfe
+         1aSg==
+X-Forwarded-Encrypted: i=1; AKwUvByzjh7sojAZmtpMB7JsAMBacKl/Nx30IjCWaQI86temCpB+4gqJp7ANWr4TSXf5kX3VMZoCSFKg/qVz@vger.kernel.org
+X-Gm-Message-State: AFuF++kCbhqEZLYSprsWMD2D0Luf+jVfhhflUIvNjq58K7R9tPEqA+aB
+	Xsuw19kbIuj8/IBt/9x2Nn2vgil0R8sBbM5ZKttCRPm1KL7mjpgBjXpBqe1t3X3/UR3YT126m7l
+	WfWflNEUlXd0DZHhWJZl/iIP+DTL4ztU4U950jx4kU6br8TYvzocjWGa/ky/tI2/6
+X-Gm-Gg: AYBFou3Xf0kSsYfNnlm3UgDkYZ2NgfbO/w8B0WM6INHJp62TbN1gSvMdCQJ0hcephYb
+	rE8MtucyepOnxNqJiDvuUS2mSbgkSfMK7kYdYRG7SF0wHFoSPnHqm8zWlg7H8tOEakU+EOP8bQ/
+	9ZByih65GfM9DURt62Fe01PtCjgtKN1H6sXqlT635P0sOOUoc9JqxlDBwF2YQl1fLCcSUqELzR8
+	Yfhb+maB4WFVMb4q5u5z/TF5HVbzR1cEYtz2KlTHfAuDww5nxYq2jgp9sq/rSXKo3xvQXjJcSNE
+	M+Lud57I6q0MLicNpTwln2Kppw/CIBKhcww/+AGxO26KtEVDrnPnkzYmGad3xbrFRx+e+U+pWtP
+	XfnS84bmSI/WUtUQISRrsat+86gqjSw==
+X-Received: by 2002:a05:6820:6ad0:b0:6b3:6236:6fa with SMTP id 006d021491bc7-6c7d1cbf597mr1540864eaf.21.1789545916585;
+        Wed, 16 Sep 2026 01:05:16 -0700 (PDT)
+X-Received: by 2002:a05:6820:6ad0:b0:6b3:6236:6fa with SMTP id 006d021491bc7-6c7d1cbf597mr1540838eaf.21.1789545916104;
+        Wed, 16 Sep 2026 01:05:16 -0700 (PDT)
+Received: from [10.218.7.34] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14395bf6e8esm4914471c88.0.2026.09.16.01.05.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 16 Sep 2026 01:05:15 -0700 (PDT)
+Message-ID: <5ff87d08-c263-4b9d-a18d-c8da8fc0de1a@oss.qualcomm.com>
+Date: Wed, 16 Sep 2026 13:35:09 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/2] regulator: qcom-rpmh: Add off-on-delay support
+To: Mark Brown <broonie@kernel.org>,
+        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, robh@kernel.org,
+        Saikiran <bjsaikiran@gmail.com>, monish.chunara@oss.qualcomm.com,
+        nitin.rawat@oss.qualcomm.com,
+        Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+        lgirdwood@gmail.com, andersson@kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        krzk+dt@kernel.org, devicetree@vger.kernel.org,
+        Manivannan Sadhasivam <mani@kernel.org>
+References: <20260127190211.14312-1-bjsaikiran@gmail.com>
+ <20260515111647.qg75thdvcbvvjpoi@hu-kamalw-hyd.qualcomm.com>
+ <06a264d0-6a14-4b71-b783-82b771f04411@oss.qualcomm.com>
+ <oa3okt7mdhoqmrebwim5yswarbcacbmhpwfvqbhtv6ib3cwrwi@ddox6mw3uhmy>
+ <0d4fa333-df22-42b9-b9c2-ccb43ac4fac3@oss.qualcomm.com>
+ <3pybhkqdvve2ct6burnhav3utis6nljz7ncheqcrs7v55ullz4@nek57empeoca>
+ <086f8e7c-0afa-45d5-bdb2-54ac5f79eefa@sirena.org.uk>
+ <xmjovrqonged7m77zlx4gbz6xvfksygbw7g4vgv2stlucvqoy6@uie3qdhdtkoe>
+ <aqg-JSTrbg-xR69l@sirena.org.uk>
+Content-Language: en-US
+From: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+In-Reply-To: <aqg-JSTrbg-xR69l@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDEwNCBTYWx0ZWRfXyw8qjPfCv7LC
+ z6SdbVL1115fgbAdmgMKez52MVqZwmE9jSc52SFn+gq+i/3Oir2bMo9xrGnZIqTFVDzze3xA/U3
+ JbtKO5DzRbIXg0FgiQYmeYOQcWfO7JtszkhEQFHGJnEfjZh6p/jUYcH4r59ndTU1tEyDbse6FTr
+ zl6p3Ci93lnEtnAU3N7Hs/QmuMLlJeuUFY+j6JgfaJ2a7qzMR6pvX+oRg/SuhtFsOhJM6kEsCeE
+ eWpVWm1PB6QGYxpGzOvNLmuLzuH7QZRXsmjbu3DFrq5M8KFRK/oY7ni6EA2iv9uwyKbtBl0NIsb
+ XNTwxISvfzUlWdeZsDgOiPcITxPHU8rrh9986OoF1oq1DtcOIEYXWKySmxRiF4MyW9xvs6AXXi5
+ BXoiM5b/ETCGaZz08cy5o3coqN1FHdUKI1ojEXevArm+GfB2wB3VrKg0sLR9Q7d14271Llk9P4V
+ jgz1neqx9CdBCaoDBBg==
+X-Authority-Analysis: v=2.4 cv=a5ulZkSF c=1 sm=1 tr=0 ts=6aaa4dbd cx=c_pps
+ a=lVi5GcDxkcJcfCmEjVJoaw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=_IcSBqDZdpl3-7frVEAA:9 a=QEXdDO2ut3YA:10 a=rBiNkAWo9uy_4UTK5NWh:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDEwNCBTYWx0ZWRfXwcBn8VKJzI8y
+ CzqPBpGd9DlS6v/dVOmHmjFciMK0zP39oF4joYxSIh9gf9phXwaROXRH+ulzPiAEv31GtwZOqjl
+ ghYDN4Uetdb7We8l+KZ07Ndr3DnboZM=
+X-Proofpoint-GUID: lnDJ0roC363dB-HnJR3ZMJiYco_hOaaf
+X-Proofpoint-ORIG-GUID: lnDJ0roC363dB-HnJR3ZMJiYco_hOaaf
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 clxscore=1015 priorityscore=1501 adultscore=0
+ impostorscore=0 malwarescore=0 lowpriorityscore=0 phishscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160104
 
+Hi Mark,
 
-On Wed, 2026-09-16 at 09:06 +0200, Maxime Chevallier wrote:
-> Hi,
-> On 9/16/26 08:49, Alastair D'Silva wrote:
->=20
-> > There is one subtle timing issue worth highlighting from our
-> > Armbian
-> > testing on the Mellow Fly-C5 (H618):
-> >=20
-> > In James's dwmac patch, setting soc_has_internal_phy =3D false causes
-> > sun8i_dwmac_probe() to fall through to sun8i_dwmac_reset(priv). The
-> > Synopsys EMAC DMA soft reset (EMAC_BASIC_CTL1 bit 0) requires a
-> > running
-> > RMII clock from the PHY to clear.
-> >=20
-> > While this reset succeeds when the PHY driver is built-in and
-> > probes
-> > synchronously, if CONFIG_XPOWERS_ACX00_PHY is built as a module
-> > (=3Dm)
-> > or if the PHY probe defers (-EPROBE_DEFER on
-> > regulator/clock/nvmem),
-> > the PHY is unpowered and not clocking when sun8i_dwmac_probe()
-> > runs.
-> >=20
-> > This causes sun8i_dwmac_reset() to time out after 100ms ("EMAC
-> > reset
-> > timeout"), failing MAC driver probe. In our testing, deferring the
-> > MAC
-> > reset until sun8i_dwmac_init() (which runs upon ndo_open after
-> > phylink
-> > has attached and the PHY is active) avoided this probe failure.
->=20
-> I'm OK with going with James' version, however this seems like a
-> valid
-> point that needs to be figured out.
->=20
-> James, can you add Alastair in CC of your next iterations, and
-> Alastair
-> it would be great if you could give James's patches a test when he
-> submits them :)
->=20
-> There's more stuff in the dwmac part for Alastair's version, some
-> -EPROBEFER handling for clocks, the reset thing as well as the MUX
-> part, for which use-cases is all of that required ?
->=20
-> If that's something that needs to land with proper EMAC1 support,
-> maybe
-> this could be split out from Alastair's work (in individual patches
-> please), and integrated in James's series ?
->=20
-> Maxime
+On 9/15/2026 12:04 AM, Mark Brown wrote:
+> On Wed, Sep 09, 2026 at 02:34:21AM +0530, Kamal Wadhwa wrote:
+> 
+...> 
+>> 3. If we can avoid turning the regulator off itself, so we may not need this delay
+> 
+>> point 3 - We evaluated this for UFS - but the problem is that the issue happens in
+>> the defer probe path, so if we avoid turning off the regulator, it leads to long
+>> error prints appearing for the regulator being left ON. So we couldn't take that
+>> path.
+> 
+> I think Rob might be thinking here of something like the runtime PM
+> autosuspend delay where once the final reference is dropped we wait some
+> time before we actually implement the power off in hardware, thus a
+> quick power cycle would never actually get implemented.  That does sound
+> like a good idea if we've got issues with quick cycling, obviously the
+> actual delay would still be needed but if you've got quick bounces
+> happening routinely then a delay like that would allow you to avoid both
+> power off and ramp delays.
 
-Thanks Maxime. Here is the breakdown of why those pieces were in my
-earlier patch and how they relate to James's series:
+I'm working with Kamal for upstreaming this series.
 
-1. MDIO MUX & H3_EPHY_SELECT:
-   These are NOT needed for James's series.
-   My initial test tree was using the legacy
-   "allwinner,sun8i-h3-mdio-mux" node inherited from older
-   vendor/Armbian DTs. That mux driver attempts to toggle
-   H3_EPHY_SELECT (bit 0 of SYSCON), which on H616 register 0x34 is
-   actually SYSCON_EPIT (interface type), so I had to mask it out.
-   With James's series, there is no fake mdio-mux node (direct MDIO bus
-   with the ethernet-phy-package), which is much cleaner and completely
-   bypasses all H3 mux code.
+If I understand you correctly, instead of the approach in this driver
+change (only setting the existing variable "off_on_delay"), you prefer
+having a sequence somewhat like this:
 
-2. -EPROBE_DEFER handling in get_ephy_nodes():
-   Also NOT needed for H616 EMAC1.
-   get_ephy_nodes() is only called when soc_has_internal_phy =3D true.
-   In James's series, all PHY clocks, regulators, and NVMEM cells are
-   managed inside the PHY package driver
-   (drivers/net/phy/xpowers/ac300.c), where -EPROBE_DEFER is already
-   handled cleanly via dev_err_probe().
-   (The get_ephy_nodes() fix is only relevant as an independent=C2=A0
-   cleanup=C2=A0for legacy H3/V3s platforms).
+1. Regulator (if configured in DT for this new behaviour) gets disable
+   vote from its last enabled consumer
+2. Delay timer is started
+3. If regulator gets enable vote before timer expires (quick bounce),
+   clear timer and return without touching regulator HW
+4. Else, disable regulator when timer expires
 
-3. MAC Soft Reset timing (The one piece that IS needed):
-   This is the one issue that affects James's series.
-   Because emac_variant_h616_emac1 sets soc_has_internal_phy =3D false,
-   sun8i_dwmac_probe() falls through to line 1221:
-       ret =3D sun8i_dwmac_reset(priv);
+Is this what you meant?
 
-   The Allwinner EMAC DMA soft reset (EMAC_BASIC_CTL1 bit 0) requires
-   the RMII clock from the PHY to toggle in order to complete.
-   If CONFIG_XPOWERS_ACX00_PHY is built as a module (=3Dm), or if any of
-   the AC300 package resources defer probe, the PHY is unpowered and
-   not clocking during sun8i_dwmac_probe(). sun8i_dwmac_reset() will
-   time out after 100ms ("EMAC reset timeout"), aborting the MAC probe
-   completely.
-   For EMAC1, skipping sun8i_dwmac_reset() during probe and letting it
-   run in sun8i_dwmac_init() (which runs upon ndo_open after phylink
-   has connected and the PHY is clocked) avoids this probe failure.
+If the above sequence is right, where would you prefer it to be
+implemented, in the regulator core file or our regulator driver file?
 
-James, I'm happy to test your next revision on physical Mellow Fly-C5
-(H618) hardware as both a builtin driver, and a module.
+Thanks,
+Jishnu
 
---=20
-Alastair D'Silva
-0493 18 5566
