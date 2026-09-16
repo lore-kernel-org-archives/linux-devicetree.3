@@ -1,96 +1,240 @@
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 739B94E50AA;
-	Wed, 16 Sep 2026 21:26:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789594029; cv=none; b=CneatjcToZbNq2g5ypw1J//GB2R5TnGOllS5b8gq+km/TMQUEktb2Xl7nob6btFSgJjKHJQa73qNx01sBdPYU1DJwWtZrweWmKGBUde0ZAImUyF4XHBEKsnQ0DwfymJWmWJFkS9dm4YQnnyWKS4lMGue5eWsvdD5obR5I0umvi0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789594029; c=relaxed/simple;
-	bh=AsQqS9710lfvxj0MAvI/7hzneJ7P3AiAYoBeWGfNftk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Z5suS7NiCLRVS4J4bgZlu8fg/yOX43wwhPHRfHoKF9QY4Ik5dfaNI7MYjAStaf81bLiQJR6Dw9Q6ctJ9Omx4OBDXvAVvG9TKG2jtbfvyUWDWhvknSr5UvLouNPEtD4Xd2hkCbCkP1bpZ5YJzaMWsJ4mLiwKndAltuz6o7tyKouM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=im9OzdkX; arc=none smtp.client-ip=80.241.56.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15E25489883;
+	Wed, 16 Sep 2026 21:27:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.56.87.7
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789594060; cv=pass; b=sxe84kyQuEaQbkI3eiCoNKkOkoE50euKcD6b+ZQ3WPXWOrxrM6XElUSJwmdHpOZQDwqZE4iIfVrv+zDW5Ul1Egi2IKEXovS+GV6GGNVXNBUyz++XMnr/qBTo4f19PSiBVXG3Q9Pf4cSvom1CRiYraJ6Kln3K/IIyPUb+NII8ikQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789594060; c=relaxed/simple;
+	bh=sBSOz5pgMUqgONr4Fz29dN7NUC6uaTXwlSKgC8vciFU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=BXQAlguKSMvHWOccFx0475uJsZrwNV6ixPhmC9i7Nf3gT2O4E7s8gRi7FtwYtAGHO9pCX0Y3Sx1GdV3iQNCtcpp6FJMaJb+5FIzzVsVxf+x9NOUoN2aHHq/aQjyl9pSVuY79qgZnnpshEXYmO2pjEUFSR68sxJmaNMasElgoTZk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it; spf=pass smtp.mailfrom=valla.it; dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b=wN8jN+O8; dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b=aGmaix6g; arc=pass smtp.client-ip=185.56.87.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="im9OzdkX"
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4hlX5R3dNfzKnS3;
-	Wed, 16 Sep 2026 23:26:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1789594011;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Awx/qSMJsfDp5YFKo98US/4IxChQqsFBIzOvN17lZ2g=;
-	b=im9OzdkXDGajHZYTNlRcWyDBOZJholJgFLe9R9NjoSNZx9LsAyzSKTgO0N4qur+kW7FVMl
-	6uIO5coBY64vQfHI19PRRAz8r9Y61KHNE6QiQXBOcvFp54qBdKnAzCwsSvO8p55VtbradN
-	33PYThsRqzNNfr20VYG5IlfQc6JXCt7rlPbmPNm5xoXzqioeOqJL32KIFHVpUnS/0jiQSX
-	8xpJezTHawYbzcHWLtZRW+GFNgpbWQiqmU8++1MKJIlx9JIC/2D0g2/fomqOwWBXQ7Kslt
-	FsGHAhDPfX4KALihngTSnIZepHa4d+JYfNWSUo4Q47NSqAHusHdRhSPxJ6RU1g==
-Message-ID: <805629d1-ba2b-4e59-8d29-c374528367f9@mailbox.org>
-Date: Wed, 16 Sep 2026 23:26:47 +0200
+	dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b="wN8jN+O8";
+	dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b="aGmaix6g"
+ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-3zv2.prod.antispam.mailspamprotection.com; s=arckey; t=1789594049;
+	 b=Lnt6R13smeeLiU/36dboG0mh8mVRrzUFJlGQRaY35vP2Nj0rq3JtN5j30w5xRrjEm1NX2t+Cyb
+	  OxtcIE+Zh0u7U8ZyS500vnTkvnvWCEpAp4pOVEXb4qb29aEgOw/RAVLoJ3GbKr5Zuk2kghZYGc
+	  huREMQ9kugB+Wc+9BMksUqFkFf6ZCBAqFCK/bnKBtH0QQHMJsidJTAPB04fUSfVEfckgDsxTAe
+	  XYAkB66v4FYkPWqj8uZXYFCk6CN57SL0xGm/FGuHvJJ2TgOu5YmfLqBNfcekro7xO8hjUwT0p2
+	  I/CGn4QBgGWPX7WsW74ffD3LcZJPw9R+d8hkpkJNdSFbsA==;
+ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-3zv2.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-3zv2.prod.antispam.mailspamprotection.com; s=arckey; t=1789594049;
+	bh=sBSOz5pgMUqgONr4Fz29dN7NUC6uaTXwlSKgC8vciFU=;
+	h=Cc:To:In-Reply-To:References:Message-ID:Content-Transfer-Encoding:
+	  Content-Type:MIME-Version:Subject:Date:From:DKIM-Signature:DKIM-Signature;
+	b=NBdYieMVKp2V1ZwdVT9UlHD3v+UKb81p7MHdwP/YsaldKsqy1309PMmC0ND8FUWXbR25C3KfdB
+	  5sHxuM/uyofoD1bFKaIKzLf+mHJeN2dEZ61ILI/ZZE44wA7qxHM3AdNZibJGGIolKPuhBKc+tw
+	  aDp0rHSQIZvxwqegSAwIwRMyQSUB9jUEIciemZ+wS/VbePjiYFxJalXIXgQ/kR3jVCdxeQD2OW
+	  4BzJN5ld4hD4KHPZCdkM6fiCTAPV+FUS3LwpIijn9xMhjydnHdtydOt+/AeSKmhPNT0zchJZds
+	  DkBeGHlivODdoNQXW4AWxI5lPChhbqKU/bw7KkMFXaPRMQ==;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
+	:Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject
+	:Date:From:Reply-To:List-Unsubscribe;
+	bh=ozCv4HPZuc40czIPmQ+cRqdAb8c6IBZGMNNibW9zglE=; b=wN8jN+O8flsnThcHZrdsvV0WsU
+	GpB27b+UgNTwIVnKQbFKLsZAKzf+1AoWENutMfMgh67qv/4BLTeLjJ4aOO7Y5FWuHEAgznj27I+PB
+	xq0WdGl0sH2HpcwAv2/zSaplTcd19aDnKaH6qNXJemuT+5TK58Gs4GCP9yDS+2I2oa6c=;
+Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
+	by instance-europe-west4-3zv2.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <francesco@valla.it>)
+	id 1x6wuU-00000009sAO-12G2;
+	Wed, 16 Sep 2026 21:11:19 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
+	s=default; h=Cc:To:Subject:Date:From:list-help:list-unsubscribe:
+	list-subscribe:list-post:list-owner:list-archive;
+	bh=ozCv4HPZuc40czIPmQ+cRqdAb8c6IBZGMNNibW9zglE=; b=aGmaix6gZAAhGub8lf8EsCeKgz
+	aJZqRVZw1R2ekRS/uRy12L6rk6A0JPfqMNBFKIQ2WKi05+rEjDr+Ltwh/QrTrrxW4kZwTeGxh0aqx
+	iav5m65OiYJT84NLRuoOJidr7Oja+qxAsWHMQVObM0wr4jF/Uqrn7Z9Ht9+FP0WZud1g=;
+Received: from [95.233.221.121] (port=62880 helo=[192.168.178.175])
+	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <francesco@valla.it>)
+	id 1x6wuP-0000000058P-1pIJ;
+	Wed, 16 Sep 2026 21:11:13 +0000
+From: Francesco Valla <francesco@valla.it>
+Date: Wed, 16 Sep 2026 23:10:53 +0200
+Subject: [PATCH RFC 08/12] dt-bindings: remoteproc: add remoteproc-virtio
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v2] arm64: dts: renesas: sparrow-hawk: Add overlay for
- WaveShare 2CH CANFD HAT
-To: Rob Herring <robh@kernel.org>, Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Magnus Damm
- <magnus.damm@gmail.com>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-References: <20260909151423.28358-1-marek.vasut+renesas@mailbox.org>
- <CAMuHMdVVcbwz1OK9tL9zn5RR_4YyML6++OUVUgmswPpaxdmRSA@mail.gmail.com>
- <34f4c088-5268-4add-aef4-33b3d3623c12@mailbox.org>
- <CAL_JsqK8--7X5g4T05Y6bEGzsxrhTq2QyQRpE5E5uHBot3jLWA@mail.gmail.com>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <CAL_JsqK8--7X5g4T05Y6bEGzsxrhTq2QyQRpE5E5uHBot3jLWA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: h3pk3hdfad8iwfsccm1r6mrg3escspem
-X-MBO-RS-ID: 442b280c29c53d01ed2
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260916-remoteproc_virtio_map-v1-8-dac8c5eb4aa9@valla.it>
+References: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
+In-Reply-To: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>, Kees Cook <kees@kernel.org>, 
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Robin Murphy <robin.murphy@arm.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Peng Fan <peng.fan@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>
+Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, virtualization@lists.linux.dev, 
+ imx@lists.linux.dev, iommu@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, Francesco Valla <francesco@valla.it>
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3369; i=francesco@valla.it;
+ h=from:subject:message-id; bh=sBSOz5pgMUqgONr4Fz29dN7NUC6uaTXwlSKgC8vciFU=;
+ b=owGbwMvMwCX2aH1OUIzHTgbG02pJDFmrWZ9sbJhwKelLrNxuv0dpux/sEX7ya6cD08fllWceq
+ Uz8v4FjbkcpC4MYF4OsmCJLyLob9/bMNf+WtoHxEcwcViaQIQxcnAIwEcvJDH9Fkr0c7UySpbR1
+ cqJP2PrsWXG1MK7NWdjms1Lt/7ZJRTcZGT7Xn9pQNelF0752nzt7UnhCNr5uLowpVojIXx7qfdd
+ Bmx8A
+X-Developer-Key: i=francesco@valla.it; a=openpgp;
+ fpr=CC70CBC9AA13257C6CCED8669601767CA07CA0EA
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - esm19.siteground.biz
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - valla.it
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-SGantispam-id: e08f13cb19b1ceb3d794b2616535f634
+X-AntiAbuse: ID - e08f13cb19b1ceb3d794b2616535f634
+AntiSpam-DLS: false
+AntiSpam-DLSP: 
+AntiSpam-DLSRS: 
+AntiSpam-TS: 1.0
+CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
+CFBL-Feedback-ID: 1x6wuU-00000009sAO-12G2-feedback@antispam.mailspamprotection.com
+Authentication-Results: outgoing.instance-europe-west4-3zv2.prod.antispam.mailspamprotection.com;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
 
-On 9/16/26 10:49 PM, Rob Herring wrote:
-> On Wed, Sep 9, 2026 at 10:55 AM Marek Vasut <marek.vasut@mailbox.org> wrote:
->>
->> On 9/9/26 5:31 PM, Geert Uytterhoeven wrote:
->>
->> Hello Geert,
->>
->>>> +       /*
->>>> +        * SPI_1 is operated as GPIO SPI, because MSIOF5 can not be
->>>> +        * muxed on the pins allocated for SPI_1 on this CANFD HAT.
->>>> +        */
->>>> +       spi {   /* SPI_1 */
->>>
->>> As this lives at the root node, I'd rather change it back to
->>> spi-ws-2ch-canfd while applying, if you don't mind?
->> Please make sure the DT schema check does not complain about it,
->> otherwise it is fine, thank you.
-> 
-> It does complain:
-> 
->        1 spi-ws-2ch-canfd (spi-gpio): Unevaluated properties are not
-> allowed ('#address-cells', '#size-cells', 'can@0' were unexpected)
->        1 spi-ws-2ch-canfd (spi-gpio): $nodename:0: 'spi-ws-2ch-canfd'
-> does not match '^spi(@.*|-([0-9]|[1-9][0-9]+))?$'
-> 
-> The 1st warning is a side effect of the 2nd warning.
-> 
-> "spi-1" like the comment says if just "spi" does not work.
-Geert send this fix today:
+Add a new binding to describe remoteproc-provided virtio devices; while
+these are discovered through a resource table parsed by the remoteproc
+infrastructure at runtime, their description can be needed to probe
+non-discoverable buses (such as I2C) or to link consumers and suppliers.
 
-[PATCH] spi: dt-bindings: Relax node name suffixes again
+Each vdev is described by a dedicated "group" node, which then includes
+a virtio-device node, which binding is already existent and used by
+virtio-mmio. Each vdev shall be stattically linked to a "group" node
+using its index inside the resource table as the reg property of the
+node; this permits to have multiple instances of the same type of
+device.
 
-Maybe that works too ?
+The binding is intended to be generic and adopted by any remoteproc
+provider.
+
+Signed-off-by: Francesco Valla <francesco@valla.it>
+---
+ .../bindings/remoteproc/remoteproc-virtio.yaml     | 89 ++++++++++++++++++++++
+ 1 file changed, 89 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/remoteproc/remoteproc-virtio.yaml b/Documentation/devicetree/bindings/remoteproc/remoteproc-virtio.yaml
+new file mode 100644
+index 000000000000..c4a0d84b1460
+--- /dev/null
++++ b/Documentation/devicetree/bindings/remoteproc/remoteproc-virtio.yaml
+@@ -0,0 +1,89 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/remoteproc/remoteproc-virtio.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Virtio devices over remoteproc
++
++description: |
++  Virtio devices ("vdevs") can be exposed using the remoteproc infrastructure
++  and its resource table. For some of them, a device tree node might be needed
++  to describe remote undiscoverable hardware and/or connect consumers and
++  providers.
++
++maintainers:
++  - Francesco Valla <francesco@valla.it>
++
++properties:
++  virtio:
++    description: Contains a group of Virtio devices exposed by the remoteproc.
++
++    properties:
++      '#address-cells':
++        const: 1
++
++      '#size-cells':
++        const: 0
++
++    patternProperties:
++      "^vdev@[0-9a-f]+$":
++        type: object
++
++        properties:
++          reg:
++            description: Virtio device index inside the resource table.
++            maxItems: 1
++
++        additionalProperties:
++          type: object
++          $ref: /schemas/virtio/virtio-device.yaml
++          maxItems: 1
++
++        required:
++          - reg
++
++    additionalProperties: false
++
++    required:
++      - '#address-cells'
++      - '#size-cells'
++
++additionalProperties: true
++
++examples:
++  - |
++    remoteproc-cm33 {
++      virtio {
++          #address-cells = <1>;
++          #size-cells = <0>;
++
++          vdev@0 {
++              reg = <0>;
++
++              gpio {
++                  compatible = "virtio,device29";
++
++                  gpio-controller;
++                  #gpio-cells = <2>;
++              };
++          };
++
++          vdev@1 {
++              reg = <1>;
++
++              i2c {
++                  compatible = "virtio,device22";
++
++                  #address-cells = <1>;
++                  #size-cells = <0>;
++
++                  eeprom@50 {
++                      compatible = "atmel,24c1025";
++                      reg = <0x50>;
++                  };
++              };
++          };
++      };
++    };
++...
+
+-- 
+2.55.0
+
