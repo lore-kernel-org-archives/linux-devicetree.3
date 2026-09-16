@@ -1,100 +1,82 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4326644780D
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 08:10:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 804F544780D;
+	Wed, 16 Sep 2026 08:11:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789546218; cv=none; b=podMSlWydYbWLuWmlnmlxawJvKM2Ys//R02rCgD51LZSzQEiclflIc4hHxi5wdpejjA4nePPtWFRwWmFZdcDp4wnxxi52QdE7UCgQNG4LJcjug430f0ieEb5XBtpKAAsfZ0XKh1V5DH0ULjHjVi4g9TaB4S5KIfwaMOGOFFgJ3E=
+	t=1789546299; cv=none; b=YIKDQgPbaSJ/NTseaKcg5FUIwJqVcU5/Kq2b6rIEON+gy04Bm/XjDq4cZypKJAECUvPgPGn7j2poWN5xoP1j1MQrxi91tSJ1lml+AID8+obZxVztLjM+mrDR+imXxxMNRZBp31KMbXLO/6o3w2cI9E4n9f2QVxnVDSlTYIVBEsA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789546218; c=relaxed/simple;
-	bh=DsDJ7x0UoAtGrjAMvNfgZlPZ2A70UJOWX8wLAKt8/9k=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=VsO6CFlM3Qt2kWu1EpXgePcgt5HQoaTrGjzeUw8/2o08eR+w5Tb3OWdpUqA+gnMAc76vZ2FSBpXvwHh3VXG4pudzOUZUMbLMgvrATOO/OIX7wjH7V9+DvCYawL/x3M+Y6AV8RVsP0/mwZ9e8OugdmYuq8T3WVYnf3isSeYDLwrQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XicFy3Zi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789546299; c=relaxed/simple;
+	bh=RUejghjPbr02S5+cpPUYLw7IxGapGF+ZUyxVBDBYdFI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pjzBHAdwjX+ndbR9b04IBoJzFikYGIuNUYeSMuj06FrYX0+YxEuMyaNbpPwGRaHiSlUa/d3fHPgPYk+a8DfvUTtUlrHwJ4jnwqQ878leJr4rWRwj7dwjSAkUqFjA8bfWNrCd3sq0XQ4osgfQIYaE+mTiuQxYLuKrN4gdLG7JVXM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iG6Db7E/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XicFy3Zi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2CFA1F000FF;
-	Wed, 16 Sep 2026 08:10:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iG6Db7E/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 168241F00893;
+	Wed, 16 Sep 2026 08:11:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789546203;
-	bh=8901aF9xyumI4lRUhviu/ge2Iu/+N5ZENhdmSL78qNU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=XicFy3ZiyO75GZbXax0AaHXdTVn68PhSplAV64gtyeHbzLGr0VvfIcy2TEUCDzSzX
-	 wuf4M2zWtFNUAiWgAz0+IiO7D09kM7eFcCOU1NZ4JEPXvStHn/TyqnV4Sj3sTGZ/eG
-	 izC0quWTTvLB6Zp9uv/WqeJG0eArQ4fy2gf9Au0lb+dN/8k+V9JNeeQ95UeCoBSyln
-	 nf6qp/YAhSiiCwr8dxe/GiQ61tKC966m9xJT5dj9GyLJ87Cm91Ty7sC5s7yV0fD8jB
-	 TKBtFDCK4672STf6FZXGHqf9Ty5sSn2qqfyWl/PHgMVfL9X3je/wTfm9ao2sa212wC
-	 wFb5MDaNB9RkQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 10/15] dt-bindings: usb: mediatek,mtk-xhci: Switch to
- ports for USB connections
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chen-Yu Tsai" <wenst@chromium.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260916075745.3549953-11-wenst@chromium.org>
-References: <20260916075745.3549953-1-wenst@chromium.org>
- <20260916075745.3549953-11-wenst@chromium.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 16 Sep 2026 08:10:02 +0000
-Message-Id: <20260916081002.C2CFA1F000FF@smtp.kernel.org>
+	s=k20260515; t=1789546285;
+	bh=Y6ZAD0WuakXinu24nKN12JZMCuEpJfsfvTW2eCpYiow=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iG6Db7E/KGtqeR9+2XGzIs8zr6PH3eWyjv7zw/yq4aLeg199mKZytaTW6soPEz20h
+	 Ki38R2Ak6kdU6eHIJ30e75RPXB7V514vHXyHwrTpuk2R5HXvVCCLDnf3MIgUZTFBp5
+	 1BIQlcSvkzchjd/C4jXlGf2mrh9vwuOSCr80OVUELslngZih8/ZSmneOmp3MhZ3QJD
+	 xkYJi2dGoW52AwpV4oTnSrRAhHHFnjXF2rQJAidETgovGN8bM0xqFb/8ijhBkk2g/3
+	 Jb7XgAz224ZgB1XJ1g9nf1YLf7cTnbY0gMOY/XUZxaANCweywcVpqkcn5004o81Xux
+	 CElwEnLQjaqAw==
+Date: Wed, 16 Sep 2026 10:11:22 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: soc@lists.linux.dev, Arnd Bergmann <arnd@arndb.de>, 
+	Liviu Dudau <liviu.dudau@arm.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Ethan Nelson-Moore <enelsonmoore@gmail.com>, devicetree@vger.kernel.org, linux-i2c@vger.kernel.org, 
+	Sudeep Holla <sudeep.holla@kernel.org>, Vladimir Murzin <vladimir.murzin@arm.com>
+Subject: Re: [PATCH v2 12/14] ARM: versatile: remove mps2 support
+Message-ID: <aqpPENWA2jWytxL4@zenone.zhora.eu>
+References: <20260914140821.1805449-1-arnd@kernel.org>
+ <20260914140821.1805449-13-arnd@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260914140821.1805449-13-arnd@kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] dt-bindings: validation failure due to removed 'port' node
---
+Hi Arnd,
 
-commit 40ec61fbce26b9243d28fee1a4cb89c268bd0a10
-Author: Chen-Yu Tsai <wenst@chromium.org>
+On Mon, Sep 14, 2026 at 04:08:14PM +0200, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
+> 
+> The Arm mps2 platform is the reference implementation for Arm
+> microcontrollers and is useful for testing but not expected to be used
+> as a production device.
+> 
+> With all the Cortex-M based products gone, there is no longer a need
+> for a reference platform either, so remove it as well.
+> 
+> Cc: Liviu Dudau <liviu.dudau@arm.com>
+> Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
+> Cc: Linus Walleij <linusw@kernel.org>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: Andi Shyti <andi.shyti@kernel.org>
+> Cc: Ethan Nelson-Moore <enelsonmoore@gmail.com>
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-i2c@vger.kernel.org
+> Acked-by: Sudeep Holla <sudeep.holla@kernel.org>
+> Acked-by: Vladimir Murzin <vladimir.murzin@arm.com>
+> Acked-by: Linus Walleij <linusw@kernel.org>
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
-dt-bindings: usb: mediatek,mtk-xhci: Switch to ports for USB connections
+Acked-by: Andi Shyti <andi.shyti@kernel.org>
 
-This commit replaces the single port node with a ports sub-node for
-describing USB connections in the MediaTek XHCI binding. It maps port 1 to
-Super Speed and port 2 to High Speed, matching the hardware capabilities.
-
-> diff --git a/Documentation/devicetree/bindings/usb/mediatek,mtk-xhci.yaml=
- b/Documentation/devicetree/bindings/usb/mediatek,mtk-xhci.yaml
-> index 231e6f35a986f..d6c75bd20b785 100644
-> --- a/Documentation/devicetree/bindings/usb/mediatek,mtk-xhci.yaml
-> +++ b/Documentation/devicetree/bindings/usb/mediatek,mtk-xhci.yaml
-> @@ -107,10 +107,6 @@ properties:
->        - description: USB3/SS(P) PHY
->        - description: USB2/HS PHY
-> =20
-> -  port:
-> -    $ref: /schemas/graph.yaml#/properties/port
-> -    description: Super Speed (SS) Output endpoint to a Type-C connector
-> -
-
-[Severity: Medium]
-Will this cause dtbs_check to fail for existing in-tree users?
-
-The mediatek,mtk-xhci binding removes the port property, but there are
-still existing in-tree device trees that use it. For example, in
-arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi under &xhci1:
-
-	port {
-		xhci_ss_ep: endpoint {
-			remote-endpoint =3D <&typec_con_ss>;
-		};
-	};
-
-Because the schema enforces additionalProperties: false, the presence of
-the now-undocumented port node in the DTS causes a validation error when
-running make dtbs_check on ARM64 MediaTek platforms.
-
-Should the port property be kept as deprecated, or should the in-tree
-users be updated at the same time?
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916075745.3549=
-953-1-wenst@chromium.org?part=3D10
+Thanks,
+Andi
