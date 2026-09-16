@@ -1,174 +1,271 @@
-Received: from mail-vs2-f41.google.com (mail-vs2-f41.google.com [74.125.227.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.0])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A99E94A387A
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 21:44:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FD14456286;
+	Wed, 16 Sep 2026 21:48:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.56.87.0
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789595075; cv=pass; b=rscsfEC922kxdTQGI+cx/cVOQmm7iqJYoN0NoVhX2+i1QwIx4OTX7QjR1UYp0zkcivNNFTZHkOt5FzVMVaEH8od0qmNe+DZudF8gsJrHdY6EP/5UC0op+nElZVjSzzUzXI7V49etfgEpgSKxf5CyqcBlcGlYZ11Biai0dmy/vu8=
+	t=1789595326; cv=pass; b=GcjkB5dta94NsCk2rrCS4bTrw86RYNY7v/kFLStnIRXlf3iKamgWu9bUqAbcG2hfJjbCY32MspMiHnolbhRspxMcxFUvUctTkI1rckgXlq4ETMD5RpjOtLeinxdZDmsTtq/JngRi3DJv5/UqdMih2NX/BlFH+RcAduT/FHJh66Y=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789595075; c=relaxed/simple;
-	bh=+TMWi8xF1c/GpLGSJWBDMGttEHh102/5Ofx0+5TAWdU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=EbbHeT+/J7J2nYnylXzJtFiEmr5dIs83SUndIvgZgcs1Vnsmwgv4/4tkGjMlkQT4UKwJyVsHyvi864wzEmbLOwBuX/diMmv5SQqUA43VMt6r07xegrPz+IHFIasxJF6WHqX72A2QWYQwt5mdxcGlIDGpcMLEnOqhksEBQCSUkZ8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=PhRvxyDc; arc=pass smtp.client-ip=74.125.227.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1789595326; c=relaxed/simple;
+	bh=5RpInneuPFremFn6IGVocs0wamQaJJ0xuph/2qEoWFA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=WNxGUVDDYHDTYTBmK8DW/WVoz7vwFx6yVOdnjymPoXISTZiVdnLEglsDNfXXvC7DBvrzcRYh6tLtHW2WNTwp9gABMV/hHleWPN7wXHhLw+qOWrF5zHGVSwa9wpoG847cUdndjlXHoh1Qp2WKDQ1dPpNiy39l0TSEYtyj4urCcIU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it; spf=pass smtp.mailfrom=valla.it; dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b=neZsQSh6; dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b=MHHs7zTH; arc=pass smtp.client-ip=185.56.87.0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="PhRvxyDc"
-Received: by mail-vs2-f41.google.com with SMTP id ada2fe7eead31-78564421fdbso63204137.1
-        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 14:44:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789595057; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jCQHRkOAz+HDMc/kT79tXB/mAUMRFTvXh8wssYBCg5JOLyZK8g3EMrTw9plBUjW3O+
-         kVJYdy1GuWpssndF2jQlL4YIZeFwbH2lnaGC4ySg2zwqIKcgCpSiNmR5euCYMQZkSuMp
-         l3x7ztHJGGcBrspl//8eWtW2M7Ls2py/5VOrKtaVIadCupJekvemwnCqLgouGpJYShLH
-         ID7SKlv+4oxtdxfRsnvO1hMntsmmS00zgCm8pHsrLfA5QpnPcrPNuGmGIm6oiPBv7oQ8
-         PoWpZjaWMKhpAhna2VwsSqXmvGrKTyoTcHH0SRSKc8Aw2ugJ4jNSUslrOiW2v+yPSnwU
-         QeeQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=+TMWi8xF1c/GpLGSJWBDMGttEHh102/5Ofx0+5TAWdU=;
-        fh=A5bSuHuk3X6CquSnytNt23OQSNIFa5TRm8tSEhKRC6E=;
-        b=XedpH6/ogwIhLGXP0Al5mfAX5BaYO6DVIrIyDR1jJ9K7lxBlkctu8SWZQzMCHLPXxz
-         reCnDmYLU8q0u6YL0FSNPCgJJiWbpb4zsTH9W4BxdUCdlQLspFK4JwUT9UlKAsbXJs/j
-         SlsnKNaB1nEPcMnBnjjUfDzKYWqWhKyFDA1sEK6xACFvhLExZPKHQQGvnsDjvjb51Z0I
-         Myh30m3dF0T3+FkcV0ase9lpVSErxMCRhFHrmKLRq0S1hssuosuBc5TzQtMAaHfMl98T
-         DrchXRgMgqaUzAu9YeAgHU+5ZjBoxXlP940T5fd4RLUWC7yX7hOycY7okg/7Ot2JUhm/
-         SyrQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789595057; x=1790199857; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+TMWi8xF1c/GpLGSJWBDMGttEHh102/5Ofx0+5TAWdU=;
-        b=PhRvxyDcEKpo82rz7bjO1wDQ8uBdzgmqFw/6qMLJ6ysl579NXOSm57qPRzt39pD3oV
-         RQb6cdMJNN/Ek0B5W2zGNfO0RqIoSKMqtIpUc7eAhIfyNHQGufGBDtCJwInLu+pX9hxn
-         J9cpThCkU1tmfCxsOJRLdZFf8wYm3kRlo/yoPwYzsu2PbhjQqcSKR20KyEdhLP8618yJ
-         5CmZfZeIm2+Na8mFl/ktZ3dXA1iPW6HhEYtD+ujAGpNgWXor7U3Ki4cMIqiM6LMBSHL9
-         ktggN+6MCwK15bvCxc3iBeUikkFZwpbRMOG0Pyt60U5y0YJFcb8fm4EhJ+LQPrX9SbDv
-         Tdmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789595057; x=1790199857;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+TMWi8xF1c/GpLGSJWBDMGttEHh102/5Ofx0+5TAWdU=;
-        b=U+RAB5bkN1MrSzwa7PUeITTQsUOmdFo6kUKaSZx4sqNh8xt08hOjJUjSpi8BPddZ2m
-         ds3uX0Xp8SK8VStRxH66XIpIktJU81XqNMjUiL7DEuy8CXpRogzUsaVMzdt7Y5qdCwYP
-         r73vXDSIVHfWywNALZB44M18m6eF7gfuqY+J65BWPyJpBD5pUm+m/t8o3Mo1d6pFZ2nN
-         SUMsncVL78Xujwl8FVA70j4hlO4VOyNv/YyaxflsESOSA1CJ4zH5iYtwiwy2DzBoC0gk
-         AbCvQBPqfNPjOSeLABoDCt9IIKkUeGi0cxdo89q4o85YIcCsMsykSUOm5vf2hdxGu1qY
-         IYgA==
-X-Forwarded-Encrypted: i=1; AKwUvBzwkuZzsljNScFhqGv4zzB6HP6WD5uGuetcSgCShofrzp88G42G3mxtyeVw5mjQz0aLTcKPpkSMENfC@vger.kernel.org
-X-Gm-Message-State: AFuF++k09faNcrknNK/Fr91Lu9KAaElYyPtRuOGGrvDaBjev1RKdEF0i
-	xnvArkL3R58suTUjBoYYOb/q5og8LPRcwsSd/yy5jjioJV1e13XOXdSDuBmv49SS1yZsh/6T2jF
-	l3+KZ6GjBaRVlokdTqbpbXVMTPmIqlc4fTcuKMso=
-X-Gm-Gg: AYBFou2IOL70DfCgaDsAiyopbDyFyEO/DwUvtcpfFVZ+xX6BdIfLRr56XXeUuevS7rv
-	1h5WlZiFqfIxZ9ibl3a/MV0AikfPp1931ZThWNydKdcacJ38u57FY68k/vPC7y8aOQWZo4tDR84
-	XSvjghZqlmnd0i2MPwK+rmYABPWWnsQxkKyM1aHB1nhRyUI3R7dn9wqIjGQSGrIGEoof7rWkYkj
-	1JfMIn65iNuY1UwOo4h9opW1ecAXavC2P7O6+xo+Kz+sPn4sHx5S1Qb3Ly/1vIqY+EL1UpTeeQe
-	RVt3PbdS9m56zNLOvqX5ZV9Gb7f09GVAM7ln8KK33vcfCFqUOk7JMYsT+Gdc9WUmx5KuXPJOlxa
-	6GsAqvWqw9uLtjXBhYMIP
-X-Received: by 2002:a05:6102:a85:b0:7a2:2a6b:e7b4 with SMTP id
- ada2fe7eead31-7a22a6be8efmr62586137.2.1789595055938; Wed, 16 Sep 2026
- 14:44:15 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b="neZsQSh6";
+	dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b="MHHs7zTH"
+ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-xhtg.prod.antispam.mailspamprotection.com; s=arckey; t=1789595309;
+	 b=LDGPUswdl9gNB3KdJlnSI70l5nrUe7GetenlsR1LU9SdwtgFyS263dLaasshJfJsSQXaiTr/vv
+	  LhZAp3tGCa8XWORYHrCCs1G5U9T1GVKv6IONVjVHKkl7W8Hj+f+gRE4brlUmu2JvgWOaoC5Nde
+	  BqSyADf69affnSUueF7ZSvfrXG6r03NsDVhpciKh2rJNlT8wJHfU48sIb1HmBNCMKzPiOZR/Kk
+	  rR3kSVgd1X7E6JRe6myaAx3SqX9Iz56or5UBmteT9O3QNIu2917GYEdHLkYqxtluk70+UC3RZG
+	  7ZmldXpKJXs0xr/MiupcQgRhwiVNogLtXL+ZMjiQEWp/tA==;
+ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-xhtg.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-xhtg.prod.antispam.mailspamprotection.com; s=arckey; t=1789595309;
+	bh=5RpInneuPFremFn6IGVocs0wamQaJJ0xuph/2qEoWFA=;
+	h=Cc:To:In-Reply-To:References:Message-ID:Content-Transfer-Encoding:
+	  Content-Type:MIME-Version:Subject:Date:From:DKIM-Signature:DKIM-Signature;
+	b=2jtSCVvQVebUbDN0yztK8tsDWtn4xji+GbBuueJOeAkIof746OuFpEvReidx+ULzTbZD0rUU3C
+	  K7LYFMsogvIYyXv4DdTOAsbCytoXQudAvCl5NbW3AbPTrlnYHLd++MO4BJfgjLMc99S7JgoW0C
+	  K/GB+z2TIqvNQvdKNNpc+CtoUoEgKmhGxJGf7jcuXcScBVV80UWGSCVQVEQvSsAnlfFih8hTZG
+	  f7wUGbmy5hiDkWlQd6/gb38YE9jeNcbuLVOUBRBQplFbDb/l4IVRXhykPutviI1HtBX4/w3HL7
+	  xe4/919hWYS0g5Thg/D7Qv/ys77dIsrnOJjjLdb3rKtMMg==;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
+	:Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject
+	:Date:From:Reply-To:List-Unsubscribe;
+	bh=VQVoOO/zbpaeb/l4qLVnNDj9e2y11NOFxhc+SjTbWPc=; b=neZsQSh63xo28iOfbXP/yq0mHn
+	DW1TVqHE+12QbqFJDddwNty3ZIPQUqoc83IqoQN4eRVyPrvZh4/hGV/gnYC1Fld8/A2MD3j39cxwS
+	SXfU1WvYtSUXPpONb1KYaE5pgG3JIH8Z9GMYdxwXAOR0ElqX71p63qP0nP20TdAF/2pY=;
+Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
+	by instance-europe-west4-xhtg.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <francesco@valla.it>)
+	id 1x6xUI-00000003nWX-26tj;
+	Wed, 16 Sep 2026 21:48:19 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
+	s=default; h=Cc:To:Subject:Date:From:list-help:list-unsubscribe:
+	list-subscribe:list-post:list-owner:list-archive;
+	bh=VQVoOO/zbpaeb/l4qLVnNDj9e2y11NOFxhc+SjTbWPc=; b=MHHs7zTH3GK9FTI1K2dcbUyBIT
+	q8tRhi/NJvR6+MO+3GGTVwn4LCZW5XbeJmxYe9D9Lq8vxF5M/fOBQwiVxhs8TsYaaesL89Nn5n5cq
+	JUnxSR/3+Oi+RGCv9er5Z/iFdQTYODXlOtZj2ds900oDRlRCqFN78TDGDtb/7iyCPubM=;
+Received: from [95.233.221.121] (port=62880 helo=[192.168.178.175])
+	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <francesco@valla.it>)
+	id 1x6wuR-0000000058P-2urL;
+	Wed, 16 Sep 2026 21:11:15 +0000
+From: Francesco Valla <francesco@valla.it>
+Date: Wed, 16 Sep 2026 23:10:55 +0200
+Subject: [PATCH RFC 10/12] remoteproc: imx_rproc: always use non-blocking
+ mailboxes
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915081910.4142719-1-morbo@google.com> <20260915081910.4142719-26-morbo@google.com>
- <202609151258.5FC01072@keescook> <20260916010945.GEaqnsWSZ-DTMyTO25@fat_crate.local>
-In-Reply-To: <20260916010945.GEaqnsWSZ-DTMyTO25@fat_crate.local>
-From: Bill Wendling <morbo@google.com>
-Date: Wed, 16 Sep 2026 14:43:59 -0700
-X-Gm-Features: AcwNN1XbboPOY3deKY79Gty15vkSErYIT9HTgeQdVXaDzFhBvm8_kiOA449bIqU
-Message-ID: <CAGG=3QVZRCJ94+DOfSsSDhsrXVYf-ec01NZBy299nYiCAYfXKg@mail.gmail.com>
-Subject: Re: [PATCH 25/28] EDAC/thunderx: Replace strlcat() with seq_buf
-To: Borislav Petkov <bp@alien8.de>
-Cc: Kees Cook <kees@kernel.org>, linux-kernel@vger.kernel.org, 
-	codemender-patching+linux@google.com, Russell King <linux@armlinux.org.uk>, 
-	Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, Helge Deller <deller@gmx.de>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Ian Abbott <abbotti@mev.co.uk>, 
-	H Hartley Sweeten <hsweeten@visionengravers.com>, Tony Luck <tony.luck@intel.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Matthew Brost <matthew.brost@intel.com>, 
-	=?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
-	Rodrigo Vivi <rodrigo.vivi@intel.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	Matthias Schwarzott <zzam@gentoo.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Tony Nguyen <anthony.l.nguyen@intel.com>, Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Arend van Spriel <arend.vanspriel@broadcom.com>, Rob Herring <robh@kernel.org>, 
-	Saravana Kannan <saravanak@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Sylwester Nawrocki <s.nawrocki@samsung.com>, Peter Griffin <peter.griffin@linaro.org>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Linus Walleij <linusw@kernel.org>, 
-	Anil Gurumurthy <anil.gurumurthy@qlogic.com>, 
-	Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>, "Martin K. Petersen" <mkp@kernel.org>, 
-	Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
-	Mike Marshall <hubcap@omnibond.com>, Martin Brandenburg <martin@omnibond.com>, Jiri Pirko <jiri@resnulli.us>, 
-	Simon Horman <horms@kernel.org>, Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
-	NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, 
-	Tom Talpey <tom@talpey.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, "Mike Rapoport (Microsoft)" <rppt@kernel.org>, 
-	Kanglong Wang <wangkanglong@loongson.cn>, Tiezhu Yang <yangtiezhu@loongson.cn>, 
-	Qiang Ma <maqianga@uniontech.com>, Randy Dunlap <rdunlap@infradead.org>, 
-	Pengpeng Hou <pengpeng@iscas.ac.cn>, Ard Biesheuvel <ardb@kernel.org>, Breno Leitao <leitao@debian.org>, 
-	Thorsten Blum <blum@kernel.org>, Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Lyude Paul <lyude@redhat.com>, 
-	Ashutosh Desai <ashutoshdesai993@gmail.com>, Imre Deak <imre.deak@intel.com>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Johan Hovold <johan@kernel.org>, 
-	Johannes Berg <johannes.berg@intel.com>, 
-	Miri Korenblit <miriam.rachel.korenblit@intel.com>, 
-	Alexander Stein <alexander.stein@ew.tq-group.com>, 
-	Cryolitia PukNgae <cryolitia@uniontech.com>, Jiaming Zhang <r772577952@gmail.com>, 
-	Will Porter <mrwillporter@gmail.com>, Cen Zhang <zzzccc427@gmail.com>, 
-	=?UTF-8?Q?C=C3=A1ssio_Gabriel?= <cassiogabrielcontato@gmail.com>, 
-	Rong Zhang <i@rong.moe>, Arun Raghavan <arunr@valvesoftware.com>, 
-	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev, 
-	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org, 
-	linux-edac@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	intel-xe@lists.freedesktop.org, linux-input@vger.kernel.org, 
-	linux-media@vger.kernel.org, intel-wired-lan@lists.osuosl.org, 
-	netdev@vger.kernel.org, linux-wireless@vger.kernel.org, 
-	brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com, 
-	devicetree@vger.kernel.org, linux-samsung-soc@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, linux-scsi@vger.kernel.org, 
-	linux-nfs@vger.kernel.org, devel@lists.orangefs.org, 
-	linux-hardening@vger.kernel.org, linux-sound@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260916-remoteproc_virtio_map-v1-10-dac8c5eb4aa9@valla.it>
+References: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
+In-Reply-To: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>, Kees Cook <kees@kernel.org>, 
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Robin Murphy <robin.murphy@arm.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Peng Fan <peng.fan@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>
+Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, virtualization@lists.linux.dev, 
+ imx@lists.linux.dev, iommu@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, Francesco Valla <francesco@valla.it>
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5141; i=francesco@valla.it;
+ h=from:subject:message-id; bh=5RpInneuPFremFn6IGVocs0wamQaJJ0xuph/2qEoWFA=;
+ b=owGbwMvMwCX2aH1OUIzHTgbG02pJDFmrWZ8wVjamH5pQ1v6rb3vpIv/4BI25fgUp/3Tvq67S2
+ lLyqsWlo5SFQYyLQVZMkSVk3Y17e+aaf0vbwPgIZg4rE8gQBi5OAZjIDn5GhhsL14SeifMKn6y0
+ OHlJ0cy5U06pTpv6Q+yg5L5tIpvvSbsz/HfesCfDI8aMLb7s/dFPPNty3pi8nsi6e+nqVWtrf6V
+ zPWEGAA==
+X-Developer-Key: i=francesco@valla.it; a=openpgp;
+ fpr=CC70CBC9AA13257C6CCED8669601767CA07CA0EA
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - esm19.siteground.biz
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - valla.it
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-SGantispam-id: 34e675cb71f7906ad68cefa10a742871
+X-AntiAbuse: ID - 34e675cb71f7906ad68cefa10a742871
+AntiSpam-DLS: false
+AntiSpam-DLSP: 
+AntiSpam-DLSRS: 
+AntiSpam-TS: 1.0
+CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
+CFBL-Feedback-ID: 1x6xUI-00000003nWX-26tj-feedback@antispam.mailspamprotection.com
+Authentication-Results: outgoing.instance-europe-west4-xhtg.prod.antispam.mailspamprotection.com;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
 
-On Tue, Sep 15, 2026 at 6:11=E2=80=AFPM Borislav Petkov <bp@alien8.de> wrot=
-e:
->
-> On Tue, Sep 15, 2026 at 01:00:00PM -0700, Kees Cook wrote:
-> > Seems like seq_buf would be better her? But yes, at the very least, thi=
-s
-> > needs to be scnprintf, not snprintf (or add the checks as you have
-> > here).
-> >
-> > The rest of the seq_buf conversions look right.
->
-> This driver has been an orphan for a while now (we just made it official)=
- so
-> I'd prefer it if we don't do anything here.
->
-I'll remove those changes from future emails.
+Blocking mailboxes may lead to sleep during the kick operation, which
+conflicts with some virtio devices (e.g.: virtio-can) that kicks their
+virtqueues with spinlock(s) held.
 
-> And yes, that mega CC list is just gross.
->
-Apologies. :-(
+Align to the behavior of all the other remoteproc drivers that use a
+mailbox to perform the kick (i.e.: omap, st, stm32, ti_k3_*, xlnx_r5)
+and move to a non-blocking mailbox here as well.
 
--bw
+As a side effect of this modification, remove the close-reopen action on
+the mailboxes during restart and shutdown.
+
+Signed-off-by: Francesco Valla <francesco@valla.it>
+---
+ drivers/remoteproc/imx_rproc.c | 49 ++++++------------------------------------
+ drivers/remoteproc/imx_rproc.h |  1 -
+ 2 files changed, 6 insertions(+), 44 deletions(-)
+
+diff --git a/drivers/remoteproc/imx_rproc.c b/drivers/remoteproc/imx_rproc.c
+index 745ce52cd822..100440328f92 100644
+--- a/drivers/remoteproc/imx_rproc.c
++++ b/drivers/remoteproc/imx_rproc.c
+@@ -97,7 +97,7 @@ struct imx_rproc_mem {
+ /* Linux has permission to handle the Logical Machine of remote cores */
+ #define IMX_RPROC_FLAGS_SM_LMM_CTRL	BIT(0)
+ 
+-static int imx_rproc_xtr_mbox_init(struct rproc *rproc, bool tx_block);
++static int imx_rproc_xtr_mbox_init(struct rproc *rproc);
+ static void imx_rproc_free_mbox(void *data);
+ 
+ /* Forward declarations for platform operations */
+@@ -444,7 +444,7 @@ static int imx_rproc_start(struct rproc *rproc)
+ 	struct device *dev = priv->dev;
+ 	int ret;
+ 
+-	ret = imx_rproc_xtr_mbox_init(rproc, true);
++	ret = imx_rproc_xtr_mbox_init(rproc);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -712,7 +712,7 @@ static void imx_rproc_kick(struct rproc *rproc, int vqid)
+ 
+ static int imx_rproc_attach(struct rproc *rproc)
+ {
+-	return imx_rproc_xtr_mbox_init(rproc, true);
++	return imx_rproc_xtr_mbox_init(rproc);
+ }
+ 
+ static int imx_rproc_scu_api_detach(struct rproc *rproc)
+@@ -877,7 +877,7 @@ static void imx_rproc_rx_callback(struct mbox_client *cl, void *msg)
+ 	queue_work(priv->workqueue, &priv->rproc_work);
+ }
+ 
+-static int imx_rproc_xtr_mbox_init(struct rproc *rproc, bool tx_block)
++static int imx_rproc_xtr_mbox_init(struct rproc *rproc)
+ {
+ 	struct imx_rproc *priv = rproc->priv;
+ 	struct device *dev = priv->dev;
+@@ -900,7 +900,7 @@ static int imx_rproc_xtr_mbox_init(struct rproc *rproc, bool tx_block)
+ 
+ 	cl = &priv->cl;
+ 	cl->dev = dev;
+-	cl->tx_block = tx_block;
++	cl->tx_block = false;
+ 	cl->tx_tout = 100;
+ 	cl->knows_txdone = false;
+ 	cl->rx_callback = imx_rproc_rx_callback;
+@@ -1223,22 +1223,6 @@ static int imx_rproc_detect_mode(struct imx_rproc *priv)
+ 	return priv->ops->detect_mode(priv->rproc);
+ }
+ 
+-static int imx_rproc_sys_off_handler(struct sys_off_data *data)
+-{
+-	struct rproc *rproc = data->cb_data;
+-	int ret;
+-
+-	imx_rproc_free_mbox(rproc);
+-
+-	ret = imx_rproc_xtr_mbox_init(rproc, false);
+-	if (ret) {
+-		dev_err(&rproc->dev, "Failed to request non-blocking mbox\n");
+-		return NOTIFY_BAD;
+-	}
+-
+-	return NOTIFY_DONE;
+-}
+-
+ static void imx_rproc_destroy_workqueue(void *data)
+ {
+ 	struct workqueue_struct *workqueue = data;
+@@ -1285,7 +1269,7 @@ static int imx_rproc_probe(struct platform_device *pdev)
+ 
+ 	INIT_WORK(&priv->rproc_work, imx_rproc_vq_work);
+ 
+-	ret = imx_rproc_xtr_mbox_init(rproc, true);
++	ret = imx_rproc_xtr_mbox_init(rproc);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -1315,26 +1299,6 @@ static int imx_rproc_probe(struct platform_device *pdev)
+ 	if (rproc->state != RPROC_DETACHED)
+ 		rproc->auto_boot = of_property_read_bool(np, "fsl,auto-boot");
+ 
+-	if (dcfg->flags & IMX_RPROC_NEED_SYSTEM_OFF) {
+-		/*
+-		 * setup mailbox to non-blocking mode in
+-		 * [SYS_OFF_MODE_POWER_OFF_PREPARE, SYS_OFF_MODE_RESTART_PREPARE]
+-		 * phase before invoking [SYS_OFF_MODE_POWER_OFF, SYS_OFF_MODE_RESTART]
+-		 * atomic chain, see kernel/reboot.c.
+-		 */
+-		ret = devm_register_sys_off_handler(dev, SYS_OFF_MODE_POWER_OFF_PREPARE,
+-						    SYS_OFF_PRIO_DEFAULT,
+-						    imx_rproc_sys_off_handler, rproc);
+-		if (ret)
+-			return dev_err_probe(dev, ret, "register power off handler failure\n");
+-
+-		ret = devm_register_sys_off_handler(dev, SYS_OFF_MODE_RESTART_PREPARE,
+-						    SYS_OFF_PRIO_DEFAULT,
+-						    imx_rproc_sys_off_handler, rproc);
+-		if (ret)
+-			return dev_err_probe(dev, ret, "register restart handler failure\n");
+-	}
+-
+ 	pm_runtime_enable(dev);
+ 	ret = pm_runtime_resume_and_get(dev);
+ 	if (ret)
+@@ -1447,7 +1411,6 @@ static const struct imx_rproc_dcfg imx_rproc_cfg_imx8ulp = {
+ static const struct imx_rproc_dcfg imx_rproc_cfg_imx7ulp = {
+ 	.att		= imx_rproc_att_imx7ulp,
+ 	.att_size	= ARRAY_SIZE(imx_rproc_att_imx7ulp),
+-	.flags		= IMX_RPROC_NEED_SYSTEM_OFF,
+ };
+ 
+ static const struct imx_rproc_dcfg imx_rproc_cfg_imx7d = {
+diff --git a/drivers/remoteproc/imx_rproc.h b/drivers/remoteproc/imx_rproc.h
+index 0d7d48352a10..9a1400d0d081 100644
+--- a/drivers/remoteproc/imx_rproc.h
++++ b/drivers/remoteproc/imx_rproc.h
+@@ -16,7 +16,6 @@ struct imx_rproc_att {
+ };
+ 
+ /* dcfg flags */
+-#define IMX_RPROC_NEED_SYSTEM_OFF	BIT(0)
+ #define IMX_RPROC_NEED_CLKS		BIT(1)
+ 
+ struct imx_rproc_plat_ops {
+
+-- 
+2.55.0
+
