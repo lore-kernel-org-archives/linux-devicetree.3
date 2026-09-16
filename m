@@ -1,67 +1,80 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 600CB4E80D0
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 11:35:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA0694EBAED;
+	Wed, 16 Sep 2026 11:40:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789558520; cv=none; b=sSyRooGjuJrbOd4w5KTWbPouSBDQ78qpdaPvvgYMcd2zK5oPhGbpqD2Jnh0rUjG0bYkroctv7cFVmHTn6Fj5K8LxegQTzMHcB/Ed+M9p3rJtTOfQaYeyTx8I8dUNOI0nDlYFcDxQMzBI5le400SirSTsGk24zmg7tegmhgoQ890=
+	t=1789558852; cv=none; b=Ba/hYW9ec767J+VEx1FePcSYVRxJVqOybUB4tYnq4ymzayvQ+VPb54FhDU66D1tRx3jPDYymRMjcZWjLByWjA7WqR2n1i+UPQktF0tKVlAkqNB7S+c29+YtaRFyKv8XzCtNAPmJPIgcIEdaZ3ZowpdCdQVW2kqp4DWv48DPuxKI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789558520; c=relaxed/simple;
-	bh=JxFaW/WYqlOtA984BXiqHodpwCvgbe1pUjpcetQOGtE=;
+	s=arc-20240116; t=1789558852; c=relaxed/simple;
+	bh=glTJkSTkNc083jFc+Ngc15Nh25QEZYf8S7HknBlu1UE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XekV4lrt8E3tjkfGPl6q7GL0nXBNPE65WFU0pqsXRBxWexG7Ec8HJubSTNvDdglwVnbXci6rRqE7FNETyWcHL77hdVANHUSPMBDcTScHpRkcBmVjmSNCGqn8jbx7hSe2W1kp2SoZiyhrl/dsjiTMffP0shCNimUUK1BPQtV893I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=g8w6Whk1; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	 In-Reply-To:Content-Type; b=rTTtCbUNvy5EIAow3QkPgC88J47FVmdDf4BhYJzys5BWXLnYDbt833dkTaQ4X/Tl8CulEmJdcE1NXrg8GeVLGljEPyr+O1sePja/dPICbi/wfQMVrJAMJpohR6Vl/kEDAB2g1Dk/UZih47/FtoXpuiZMh6LxwmhpUbU1DDicrgY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=yPCQ7f7g; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=0m8DXT4c; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=a3CzjK4f; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=k1IyKPLj; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="g8w6Whk1"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254fa650c8so143608866b.0
-        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 04:35:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789558506; x=1790163306; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=I+ON5LylyLSRvB3Oy5FN+PptZ1PxOVJXbkytbHhMasY=;
-        b=g8w6Whk1NXiS+r03W7LHSadISSNNdCcuyP+2QyoIr6Ja+0qXoeDqTvTM8ciHye3ZcZ
-         H7f+LLrv6RoFQ7BQm+hpm1022MYEZn0bJ/3qv6TtC7kBJ45qkX/oaqk92qArVXB97mqh
-         K6hESofwUV3tTZTaX8oNmMqbRsnMSYIyXKagV0doq1ESzmAaPn6S+dUvLbldT1njDdkY
-         3JEY3ZLqwGaZz0gGoAVCb926rv1c8Tq9Dd8yBPiH4bthCmdFA9knY8YsR/kbaGbHRQ/c
-         oocBsfBr6mDjTBmCL5CFgRdBI5KSgQDpZGs97/8yhSavJ+xX0r6Mx8uwdwU+/xeCZl0G
-         9MOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789558506; x=1790163306;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=I+ON5LylyLSRvB3Oy5FN+PptZ1PxOVJXbkytbHhMasY=;
-        b=arqcr9ynZnFJqiGKeQoCuefXrAFar/VsHXl3+zs+L7EaT1rUNAw+4sozj/KKIGI18f
-         jXhuAk6fGAlUayWwVpeyoFalRDzt6O7FACD+5UtrYy0vmvYo4ZPASuBBrz0ws25WifdG
-         qaZZwqnKaKIfoWqeFfQP0jBtQaEevPIrdU/VkvmxPb6vNyNLDiesIhvH8He7q6dxze5p
-         EVPnorJnDvYgFrbt9WlDu9wE47auShR0bARHKpFlDEP2T1HTp4gMcUL8IKx0nWNxeoIo
-         Qn16JfkMZ6RsvOvUPrYJTeV+FQSJ6I4l4vQ+qXtE159RO8WutvtzF1yuvtgMLsFTdOmb
-         H5UQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzjYDorvuj+HzeI26aZKeA6W3eMPvwXof6p2NJOIZkIMI1w0Gp+20c+86MzCUJ6i/7ksXWhYdZ/bM+3@vger.kernel.org
-X-Gm-Message-State: AFuF++nYTy7l9zbF/7pnx7tlIKHAGnLfhQsj9ab+5aMBi03SG2HOVyer
-	aqXCQznxBiClnYaZ6N1At9/fdPl8VE96o/GJeVm5fVcOwA72tC+wqQC2LLYECDGVuts=
-X-Gm-Gg: AYBFou1mSVO+MK6huuqe43wraWYICGaUBqqa0/MKclicOvk4e5RaGVEfrtMCek3sa5A
-	XEPuOn8fReucL+WAWCyLhJCchadianXICR8YvQndxaDlkDQNaHxKjsSJVvBA8bM7l/QALZfdtSP
-	iANgW9Sr7Tnxfib5ze480wI0P6dO+RxjM5wXQqLa3u1R7uMiDXWOMjVRZ4sbjycZgvh+wgIyrG6
-	G5PACmXR0EsMRcfdW+q4HW6uFFVhf5etx+FreNr/qxzYQyEiHJFLh8U/rpV2nBcakxkeTIx6DIF
-	0M9FZsOY6s0axRHt70P+Affid1tnr2dVyPfSeNp33tFRdoxUOuSKyZ1Vd3zKsCbhwl57NsjbQmr
-	OGV1MdyBV1s7ltvG0nxL8dy0jtw/SeOqpkzzyZiB1MG3HmqRqtHQeK3QS5QOIURPjz1woJJSEF9
-	7pUwCID45zbDrVj8h/Nh9yCG7Ta6X4FRNZpmbyS7ZZNbGOOoXFSn8Fq9w57w8av5HuPwVjnkRJK
-	jtCK0vsBdyQno9XnV7rjVE=
-X-Received: by 2002:a17:907:d0b:b0:c25:c54d:d1a2 with SMTP id a640c23a62f3a-c29e5236f43mr142950366b.18.1789558506076;
-        Wed, 16 Sep 2026 04:35:06 -0700 (PDT)
-Received: from [192.168.0.167] ([109.76.116.194])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29de0850ccsm117462366b.8.2026.09.16.04.35.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 16 Sep 2026 04:35:05 -0700 (PDT)
-Message-ID: <92a4b3dd-4661-4a4e-90fd-83249acf0dbe@linaro.org>
-Date: Wed, 16 Sep 2026 12:35:04 +0100
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="yPCQ7f7g";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="0m8DXT4c";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="a3CzjK4f";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="k1IyKPLj"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id D83D521D92;
+	Wed, 16 Sep 2026 11:40:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789558826; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=4ACCVKSOT1L3CY8XolLfX55VUFwK/vZiCkUVPuDdiiM=;
+	b=yPCQ7f7g0Zfwl+BtMonqJwbEy9ve/CxLm2dGq3e8U9DBeEFwcX6OATLHvFzh4HJzkG+JZZ
+	bkVGstIfKz2T+S2GzDb5E5CidQPIpJSZMSzJDKEAWvD3WcmSJy8HckqOo7O8lrPB2QJYSH
+	K7kWGYBD/DMAOHdwyCaYF9QxRaX6zoY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789558826;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=4ACCVKSOT1L3CY8XolLfX55VUFwK/vZiCkUVPuDdiiM=;
+	b=0m8DXT4c4S07Jgs584c92IYC6ruu7436ztco68xzjD3HnelS3o+RrnLAMraS+YSS0nMeCk
+	d9w4MFLHfTeovyCg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789558821; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=4ACCVKSOT1L3CY8XolLfX55VUFwK/vZiCkUVPuDdiiM=;
+	b=a3CzjK4f6Pzl6L6U+1MsfPjlg/SxnuYy1ufdFijvmPcW1LQMkLN8/d9jRoo/5eBGA40+K5
+	p1vQ+6rsTQlQYosdGAJxPiGXTkkjdLgNikWYJOckExnCUkdlGzIDUqjSbQdSRhzKpb9s+e
+	oO50ngeiCC9qu+KomLMUB6Ge56hUW7c=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789558821;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=4ACCVKSOT1L3CY8XolLfX55VUFwK/vZiCkUVPuDdiiM=;
+	b=k1IyKPLjCEiACFOkc9VVYTppBiTo1Nf7SvPcvtMQf8LfKkX/QLVnREoc5PDeoAc+VPSqip
+	t1yRa7QTyRmJfFCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4769A136D1;
+	Wed, 16 Sep 2026 11:40:21 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id pHThNiSAqmrPKAAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Wed, 16 Sep 2026 11:40:21 +0000
+Message-ID: <f4c6feab-b1ec-48df-81a5-888444b243a3@suse.de>
+Date: Wed, 16 Sep 2026 13:40:20 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,99 +82,153 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v17 2/5] phy: core: Add phy_get_by_of_node()
-To: sashiko-reviews@lists.linux.dev
-Cc: vkoul@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org,
- devicetree@vger.kernel.org, linux-phy@lists.infradead.org,
- media-ci@linuxtv.org, robh@kernel.org, linux-clk@vger.kernel.org,
- olteanv@gmail.com
-References: <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v17-0-e2197a3e2551@linaro.org>
- <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v17-2-e2197a3e2551@linaro.org>
- <20260906143127.2B5691F00A3A@smtp.kernel.org>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20260906143127.2B5691F00A3A@smtp.kernel.org>
+Subject: Re: [PATCH v3 2/2] drm/tiny: add support for PIXPAPER 4.26 monochrome
+ e-ink panel
+To: LiangCheng Wang <zaq14760@gmail.com>, Devarsh Thakkar <devarsht@ti.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Wig Cheng <onlywig@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Sam Ravnborg <sam@ravnborg.org>,
+ Javier Martinez Canillas <javierm@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+References: <20260529-bar-v3-0-5c2ac1c751ee@gmail.com>
+ <20260529-bar-v3-2-5c2ac1c751ee@gmail.com>
+ <2bfb73e6-dca3-4d93-af04-3c644929dd19@ti.com>
+ <20260616083921.4066690-1-zaq14760@gmail.com>
+ <423c3dca-9589-488d-8462-c3d51f05ee4a@ti.com>
+ <20260617020926.114947-1-zaq14760@gmail.com>
+ <8fcfab0f-6b98-478b-be4a-c5b810fb3524@ti.com>
+ <20260731035705.3198816-1-zaq14760@gmail.com>
+ <20260916082924.956116-1-zaq14760@gmail.com>
+ <0a13ccb8-8817-4223-a4a2-0de594ac8c71@suse.de>
+ <20260916094453.1062125-1-zaq14760@gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260916094453.1062125-1-zaq14760@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Spam-Score: -2.80
+X-Spam-Level: 
+X-Spamd-Result: default: False [-2.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	FREEMAIL_TO(0.00)[gmail.com,ti.com,linux.intel.com,kernel.org,ffwll.ch,linaro.org,ravnborg.org,redhat.com];
+	TAGGED_RCPT(0.00)[dt];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_TWELVE(0.00)[17];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:helo,suse.de:mid]
+X-Spam-Flag: NO
 
-On 06/09/2026 15:31, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] phy_get_by_of_node() misses the legacy usb-nop-xceiv workaround, causing infinite -EPROBE_DEFER loops.
-> --
-> 
-> commit a021b561c8a9bfb36addca720d49ea935b34a131
-> Author: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> 
-> phy: core: Add phy_get_by_of_node()
-> 
-> This commit introduces phy_get_by_of_node() to allow looking up a phy
-> directly by its device node. It refactors the existing lookup logic in
-> _of_phy_get() into a new shared helper function called
-> _of_phy_get_with_args().
-> 
->> diff --git a/drivers/phy/phy-core.c b/drivers/phy/phy-core.c
->> index 89addd732bff3..490a7cde6d40a 100644
->> --- a/drivers/phy/phy-core.c
->> +++ b/drivers/phy/phy-core.c
-> [ ... ]
->> @@ -1001,6 +1015,41 @@ struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
->>   }
->>   EXPORT_SYMBOL_GPL(devm_of_phy_get_by_index);
->>   
->> +/**
->> + * phy_get_by_of_node() - lookup and obtain a reference to a phy by device_node
->> + * @np: node containing the phy
->> + *
->> + * Returns the phy associated with the device node or ERR_PTR.
->> + */
->> +struct phy *phy_get_by_of_node(struct device_node *np)
->> +{
->> +	struct of_phandle_args args = { .np = np, .args_count = 0 };
->> +	struct phy *phy;
->> +
->> +	if (!np)
->> +		return ERR_PTR(-EINVAL);
->> +
->> +	mutex_lock(&phy_provider_mutex);
->> +
->> +	phy = _of_phy_get_with_args(&args);
-> 
-> [Severity: Medium]
-> Does this new API miss the legacy compatibility check for usb-nop-xceiv?
-> 
-> In _of_phy_get(), there is a workaround that returns -ENODEV if the
-> device is compatible with "usb-nop-xceiv". Because this workaround was
-> left in _of_phy_get() rather than being relocated into the shared
-> _of_phy_get_with_args() helper, phy_get_by_of_node() bypasses it
-> completely.
-> 
-> Could this cause drivers looking up a "usb-nop-xceiv" node via this new
-> API to receive -EPROBE_DEFER instead of -ENODEV, leading to infinite
-> probe deferrals and breaking fallback to the usb-phy subsystem?
+(cc'ing Javier for ssd130x expertise)
 
-I don't agree with this.
+Hi
 
-The compat string workaround should live where it is used, not be pushed 
-down into generic layers where it is not.
+Am 16.09.26 um 11:44 schrieb LiangCheng Wang:
+> Hi Thomas,
+>
+> Thank you for the quick reply.
+>
+>> Where exactly are these ssd16xx patches. I cannot find them in the DRM
+>> trees. I presume they are not upstream yet?
+> That is right, they are not upstream. Devarsh posted them on 1 May and
+> the series is still at v1 on the list:
+>
+>    [PATCH 0/6] Add DRM driver for Solomon SSD16xx e-paper display controllers
+>    https://lore.kernel.org/all/20260430183311.2978142-1-devarsht@ti.com/
+>
+> One thing that is easy to miss, and that I should have made clearer in my
+> last mail: that v1 series covers the SSD1683 only. The SSD1677, which is
+> the controller on the PIXPAPER 4.26m, is not part of it. Devarsh has
+> SSD1677 support in a staged branch that he kindly shared with me in July,
+> and that is what I tested on the panel:
+>
+>    https://github.com/devarsht/linux-next/commits/ssd16xx_7_2/
+>
+> Those SSD1677 patches have not been posted to the list yet, which is why
+> the panel support has not had anything to build on so far.
+>
+>> If there's support for similar ICs, I'd strongly prefer to have the
+>> ssd1677 be part of that instead of a stand-alone driver.
+>>
+>> Once the stand-alone driver is in place, users will rely on it. Then it
+>> becomes hard to replace. We had (have?) cases where there are several
+>> drivers for the same hardware.
+> Understood, and thank you for explaining the reasoning - the point about
+> users coming to depend on a driver that is then hard to replace makes
+> sense, and I would rather not create that problem. I will drop the
+> standalone driver and add the PIXPAPER 4.26m to ssd16xx instead, once the
+> shared driver is in.
 
-No media-graph lookup needs this hack.
-> 
->> +
->> +	if (IS_ERR(phy))
->> +		goto out_unlock;
->> +
->> +	if (!try_module_get(phy->ops->owner)) {
->> +		phy = ERR_PTR(-EPROBE_DEFER);
->> +		goto out_unlock;
->> +	}
->> +
->> +	get_device(&phy->dev);
->> +
->> +out_unlock:
->> +	mutex_unlock(&phy_provider_mutex);
->> +
->> +	return phy;
->> +}
->> +EXPORT_SYMBOL_GPL(phy_get_by_of_node);
-> 
+Oh, I now took a closer look at the ssd16xx driver.  I thought that it 
+would use the panel helpers, but that's not the case. It's a 'regular' 
+DRM driver.
+
+If the ssd16xx does not make progress, we could also try to merge your 
+code as ssd16xx and Devarsh would then add support for additional ICs on 
+top.
+
+There's also the ssd130x driver under solomon/ how does it related to 
+the ssd16xx? Is that similar as well?
+
+Best regards
+Thomas
+
+>
+> Devarsh, thank you again for sharing the branch, and for making room for
+> the panel in your work in the first place. I am glad to keep testing
+> SSD1677 on real hardware whenever that is useful to you.
+>
+> Regards,
+> LiangCheng
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
 
