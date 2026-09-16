@@ -1,79 +1,79 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCDDC38DC72;
-	Wed, 16 Sep 2026 13:03:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89E944E13E9;
+	Wed, 16 Sep 2026 13:04:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789563805; cv=none; b=jxDqjZ01nu8N76HE/u1Ghp4IaIwc/R5uomCjqLTjOzMk4rDbQkhVuEeNV/FA+rXanF2US3CbOQfysxeK4PWTCwH4zaz9uWr4RxkwNqL85k8r5fhS2hTUMrF5XhDbc3P6fmlo3SRG87gDW3qUqU/scerk3BQa2BQmA8T4Z9REQKY=
+	t=1789563890; cv=none; b=YpbT3QuxmKW6TSAi3z3McO/N7MdkHXu7/5ZiP2ocoMr17EpBrN7RuMwnSh7KuhQ5cn13CYtHLKjqKPn7n0+3b8OOhlvkQLJPXe5oWxi46tJDG3dKuNyjHFLkA8F15R0ixOdgDXURWugyfJRqe21voWn7VSXT1o6bwnr4xOdS9bI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789563805; c=relaxed/simple;
-	bh=wwBz8itUmqppSzdhAKrv0IX+biYMVm0EQvyDVo+Ixx8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=K9TQkL1z1S2Mg7z4a4XW7UKDppd+V2RlU7pD6GRYJ4W3udeNh9vI7pWmy+vpJ1QpNywoNOhhH/rypHbaJVIW60WTlwU67f2N17ztaUkhkEpcu6LUAwDDLB43ckBTcbR4AX4PFasV3FTKveRoqmB/IE47yXOXOd2abqSe9DoYfwg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=19SayIr5; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1789563890; c=relaxed/simple;
+	bh=tzgn5QzvgAOKeLXGf261rOeljkROqctlS7y9i8NT/c8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=NTOW8ObG3fiL1YDZ5eOoMw7MVC7AoHdHBOkhV7+9M81Qa83c+y379/HiuKD1ne69vFvqSxJPGGtj5qIFQBH1mwvjDcUf7Sp0TEgFoRNFxpGubuAhNFobAsLuJRaHYGS9qz+GV2kzi5r8piId+dcD37u3OZ42+Dt+PCry3yi0qcM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Gpe3jnNv; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="19SayIr5"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=oiSfvUAUcmVPBixTSv8CyI5eKdTp2eCY9vSp754uHAQ=; b=19SayIr58yyGer4JWwyFocFp2I
-	ik1oe5Zw2vZVSCVtzpKMKIr2x9lQkofOMQA14UCvsgyDLFQ8DULUWR+3BuAgp/NSNqnsSLDaqBxJs
-	SH9BnF9X0kf0unsGtM+d97uiWSFrQKOzpZlPBO1DEZSHcWopLJV0RVXH1xLKB1p/wFFw=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x6pIC-005TtK-Lm; Wed, 16 Sep 2026 15:03:16 +0200
-Date: Wed, 16 Sep 2026 15:03:16 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Francesco Dolcini <francesco.dolcini@toradex.com>
-Cc: Francesco Dolcini <francesco@dolcini.it>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
-	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
-	Franz Schnyder <franz.schnyder@toradex.com>
-Subject: Re: [PATCH v2 3/7] arm64: dts: freescale: Add Lino iMX93
-Message-ID: <27cceddf-8797-4e9e-ab7b-4cddb03d6448@lunn.ch>
-References: <20260911091952.96233-1-francesco@dolcini.it>
- <20260911091952.96233-4-francesco@dolcini.it>
- <42ed88a6-d208-482b-94aa-2e45b69c173e@lunn.ch>
- <20260915132806.GA226756@francesco-nb>
- <100eef7b-e1d6-411b-bac5-98790e8f9ea7@lunn.ch>
- <aqmG91HwmKe-enfy@francesco-nb>
- <95dcbf3e-193d-460b-b6b9-cd412394e4c6@lunn.ch>
- <20260916055706.GA20310@francesco-nb>
- <8bb9b763-4553-4263-b0ea-0129f5db0229@lunn.ch>
- <aqqPBffOWirFXJSw@francesco-nb>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Gpe3jnNv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789563887;
+	bh=tzgn5QzvgAOKeLXGf261rOeljkROqctlS7y9i8NT/c8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=Gpe3jnNvfWdB77XGJ+zQTMyb9U/czO40qvphwhB+wioEsWLYZWZ/HmULQ4ZTOK5i5
+	 JpAMDQXgHsYOHaESuuPrwFAAYn8uLUOUlgro+o9/TnkowC1XqxIDYy8gq/56Kag1QV
+	 GgQOIc0xw7WDGIIDKMSoiQisBjurKEhZxgKA/GRJ29u5+I/SD0mR5TztecOivACHNd
+	 TmkfB5VofSsofq/h++GUCB6jqghVMHy1AgIftZIISS4F8YN18pvHUxUXxTldUvctjT
+	 WfveNFlqLDIMopZUDF6O6Ih/x858NBUKh5hXuI9Tauz9GobM2TiTBgKPKTHZNioLJt
+	 xSedt0Ty0KIMw==
+Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5E70617E03B6;
+	Wed, 16 Sep 2026 15:04:47 +0200 (CEST)
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: Matthias Brugger <matthias.bgg@gmail.com>, 
+ Chen-Yu Tsai <wenst@chromium.org>
+Cc: devicetree@vger.kernel.org, linux-mediatek@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>, YoungJoon Lee <getfeus@gmail.com>
+In-Reply-To: <20260916035953.3111607-1-wenst@chromium.org>
+References: <20260916035953.3111607-1-wenst@chromium.org>
+Subject: Re: [PATCH RESEND v4 1/2] arm64: dts: mediatek: mt8173: Fix
+ MFG_ASYNC power domain clock
+Message-Id: <178956388732.116277.1060079303641396273.b4-ty@b4>
+Date: Wed, 16 Sep 2026 15:04:47 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqqPBffOWirFXJSw@francesco-nb>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
 
-> And again, thanks for the review, I appreciate it. The goal is to have
-> working ethernet with the interrupt, and, **IF** not possible, working
-> ethernet is more important than the interrupt :-)
+On Wed, 16 Sep 2026 11:59:51 +0800, Chen-Yu Tsai wrote:
+> The MFG_ASYNC domain, which is likely associated to the whole MFG block,
+> currently specifies clk26m as its domain clock. This is bogus, since the
+> clock is an external crystal with no controls. Also, the MFG block has
+> a independent CLK_TOP_AXI_MFG_IN_SEL clock, which according to the block
+> diagram, gates access to the hardware registers. Having this one as the
+> domain clock makes much more sense. This also fixes access to the MFGTOP
+> registers.
+> 
+> [...]
 
-Your decision.
+Applied to v7.3-next/dts64, thanks!
 
-The datasheet says it is active low. Polling will always work.
+[1/2] arm64: dts: mediatek: mt8173: Fix MFG_ASYNC power domain clock
+      commit: c9b3c82c9f1f86cdb2449d47e4ca66a19159ee12
+[2/2] arm64: dts: mediatek: mt8173: Add GPU device nodes
+      commit: f0d8c2b05e2d384c0162b41d3728433c1bb23972
 
-Generally, users who want fast notification of link down use something
-like Bidirectional Forwarding Detection, which can tell you much
-faster that the link is dead then the PHY itself, which tends to wait
-for 1 second before declaring the link down and changing BMSR.
+Cheers,
+Angelo
 
-    Andrew
+
