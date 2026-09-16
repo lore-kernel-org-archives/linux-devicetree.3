@@ -1,150 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0B6A4A263F
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 14:10:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A984F221FC6;
+	Wed, 16 Sep 2026 14:19:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789567810; cv=none; b=pwd6puveBOhZAFTA5FwvF1+BH1k3YqDoeuvh5tnKGTgDIXppu6/RyjdCwu9E8wijwzcokQnyk/vKQl5S787QM7Z/FKXH12ZL/E1mFyzYb31kzRZcubl5jV9Y4G482nNZf+jofQHeOBRf+aqD+8AyCIGiV0FqFXVchcvXIn+f+As=
+	t=1789568358; cv=none; b=H6q49rrWxMSeFUj8qZIFtYLzetx8VvDXkUpdXYRnpKa0ibNANZd31xsvXPNWNPwodKcgbLPCBEIgsJWG/w8pzSInqCo4sKMiSJG2SocM8T49XNGyrTWVDd6Hubhke/UFV6D/8c0YLAyaObxqBaP/wHhIJRqTV/G/cunWHM/lWvA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789567810; c=relaxed/simple;
-	bh=bQ48GSGP+uxmZqZiQIWY29WmAcFYg2CEfkgdTaXzA/8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=C3UbOYFSnJ23TrokxNkm2WcOFqOo64pCBuTVahiJSkoN3176Q+4xnN+e1ojQQBoYCAb+12t62Z3ndhjr8dpQPjMW+HUtwTJjwgKLI09k/aWNq3LZK+rypDXUHIk6rR1MIb1xZ+mCWJfB7wYTVjhG0FuLPi1B3DqnOaCA3b7iiQY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DDVFr8V3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789568358; c=relaxed/simple;
+	bh=VOZY+QFz4ZsjIpUzis+4ZEZT0aWP9ydqzPyw7njG/3U=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=PfeTfNx5WyYRX78CQLYuAnWFlZCjcuNJDWaWc+gUVp5wTe/VjhAYvLBAmYG3DrzsfNUVaP/yy8+qOuN8fYvlGhnEkbhmy7TFtC+0YCCX6JVc8eKIV0wonkwetNgl+SAc84Wowl9mVBuHF4Nia9dcFvJUnYlbPEfkwr4z0cWtrqY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=wb6a/tuw; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DDVFr8V3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49BDB1F000FF;
-	Wed, 16 Sep 2026 14:10:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789567808;
-	bh=Eb9RLm0rBUGvePfknQga2L0yRHw9iwQimPXqmSx/NnM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DDVFr8V3RCeW+nYF7TOvX0zP+8TfxC8r5BtLUzzJViwOtpGAKw/l2hI4CFE68uSwO
-	 itZ+aIZBrnAijENxlHNXTp6KeM4EP4W2hasS6NfD8XqTUkBUCQzmzUN2w/6lmFnpfg
-	 7w0cL5A6FmKEA5M7KQNoPvyh88baYYVmv9WTYpUAP9dF20nlJkQJ2Mnno0gLkuqgWD
-	 NIw3HQRRjMryFdZ8xWx+hUFTazQmjHL1D2+Ka35KexF678mjTrV7VYgz8Nzrw2e4Nc
-	 C2vb4eJcu2hrUZRILnO1r7mI1295fF04rNGG2h1ubsItTxnDzX/BY6Yr1Q4zP7aO4/
-	 AGLahz7g2aIYA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] usb: typec: Add onsemi FUSB15201 driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Shawn Guo" <shengchao.guo@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260916135918.1017527-3-shengchao.guo@oss.qualcomm.com>
-References: <20260916135918.1017527-1-shengchao.guo@oss.qualcomm.com>
- <20260916135918.1017527-3-shengchao.guo@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 16 Sep 2026 14:10:07 +0000
-Message-Id: <20260916141008.49BDB1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="wb6a/tuw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1789568355; x=1821104355;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:references:in-reply-to:to:cc;
+  bh=VOZY+QFz4ZsjIpUzis+4ZEZT0aWP9ydqzPyw7njG/3U=;
+  b=wb6a/tuwuOYvd9pwSNzWf0cbo3A2Da42JswQxNV8t8q8O7PT5/hhw9h/
+   5Di3zoI5QMJnoBYlHmciVmSj625q95z4CzCWcAS5c4kHhBi8IaLUEqPtn
+   lXptWrjeFsZQ7lIttKD9E2FkCDky1BOpOTaFEXCusjJDTphXmsUPxDa8Y
+   ELCCV8Bau40QOssj6LaqLkfs59o0BjY/z3WCiGXDQhu1RqUnymowirB8x
+   vY+0oO7E518v5YCfB3Tu/21CXdAPAL8q82YfIoISYfZfXFh3yhDp/AoRL
+   Bp1/iiKeIGwfHTzrqjUJqXVLBZQVi7IyGUkA0vkKBrCrYmH9bheLpPxiY
+   g==;
+X-CSE-ConnectionGUID: ceDk0jBeQo+D85YcNJyfCA==
+X-CSE-MsgGUID: Ar8f7sAiQvWjv6k62LoUlw==
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="73741287"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 07:19:05 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.87.152) by
+ chn-vm-ex2.mchp-main.com (10.10.87.31) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.45; Wed, 16 Sep 2026 07:19:04 -0700
+Received: from [127.0.1.1] (10.10.85.11) by chn-vm-ex03.mchp-main.com
+ (10.10.85.151) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
+ Transport; Wed, 16 Sep 2026 07:19:01 -0700
+From: Ariana Lazar <ariana.lazar@microchip.com>
+Date: Wed, 16 Sep 2026 17:16:28 +0300
+Subject: [PATCH v6 02/11] iio: dac: mcp47feb02: Fix gain field
+ initialization for active channels
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260916-mcp47feb02_refactor-v6-2-285464651f89@microchip.com>
+References: <20260916-mcp47feb02_refactor-v6-0-285464651f89@microchip.com>
+In-Reply-To: <20260916-mcp47feb02_refactor-v6-0-285464651f89@microchip.com>
+To: Jonathan Cameron <jic23@kernel.org>, David Lechner
+	<dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy
+ Shevchenko" <andy@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+CC: <linux-kernel@vger.kernel.org>, <linux-iio@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, Ariana Lazar <ariana.lazar@microchip.com>,
+	Jonathan Cameron <jic23@kernel.org>, <sashiko-bot@kernel.org>,
+	<stable@vger.kernel.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789568335; l=1952;
+ i=ariana.lazar@microchip.com; s=20250825; h=from:subject:message-id;
+ bh=VOZY+QFz4ZsjIpUzis+4ZEZT0aWP9ydqzPyw7njG/3U=;
+ b=ENkUIWDHksVxKd4JSg6T2JwHOjkX8GVDpOpQLnPd1hmLf+OqlEU80IDP+Ox9jPX0F9KTdRMhi
+ e96wkDg29emCVEwjLOlMTy4mESq4vmrL7ikqQSgBdkDF7FV+ZaGq26T
+X-Developer-Key: i=ariana.lazar@microchip.com; a=ed25519;
+ pk=jmvf1fSxcnzZmXfITM3L94IwutM+wqA1POQHiYyD6Dk=
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] usb: typec: fusb15201: unhandled interrupt bits cause interrupt st=
-orm
-- [Medium] usb: typec: fusb15201: data race in probe allows spurious -ENOTC=
-ONN
---
+As per MCP47FXBX48 Datasheet, in the format of the Gain Control and System
+Status Register each DAC channel has one bit to control its gain,
+starting at bit 8, while bits 0-7 contain status or unimplemented bits.
 
-commit d7feaab14acc6ee944a785f261bfb7dd837de605
-Author: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+The previous formula didn't initialize correctly all channels, being
+replaced by using field_get() with the already defined macro used in write
+operations where needed in the rest of the driver implementation.
+DAC_GAIN_MASK(i) extracts the gain control bit for each active channel
+correctly in one step.
 
-usb: typec: Add onsemi FUSB15201 driver
+Fixes: bf394cc80369 ("iio: dac: adding support for Microchip MCP47FEB02")
+Reported-by: sashiko-bot@kernel.org
+Link: https://lore.kernel.org/all/20260804134616.1D8A21F00A3E@smtp.kernel.org/
+Cc: stable@vger.kernel.org
+Signed-off-by: Ariana Lazar <ariana.lazar@microchip.com>
+---
+ drivers/iio/dac/mcp47feb02.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-The FUSB15201 is a dual-port USB Type-C and Power Delivery controller. This
-driver handles Type-C detection, registers a Type-C port for each connector,
-and forwards role swaps to the controller.
+diff --git a/drivers/iio/dac/mcp47feb02.c b/drivers/iio/dac/mcp47feb02.c
+index 6a3875e1d6a2c0cdd146410358130c44b1360f56..fa4bd1df954844da35a8496758489189aeceb60d 100644
+--- a/drivers/iio/dac/mcp47feb02.c
++++ b/drivers/iio/dac/mcp47feb02.c
+@@ -1016,7 +1016,6 @@ static int mcp47feb02_init_ctrl_regs(struct mcp47feb02_data *data)
+ 	if (ret)
+ 		return ret;
+ 
+-	gain_ch = gain_ch & MCP47FEB02_GAIN_BITS_MASK;
+ 	for_each_set_bit(i, &data->active_channels_mask, data->phys_channels) {
+ 		struct device *dev = regmap_get_device(data->regmap);
+ 		unsigned int pd_tmp, dac_val;
+@@ -1027,7 +1026,7 @@ static int mcp47feb02_init_ctrl_regs(struct mcp47feb02_data *data)
+ 		data->chdata[i].dac_data = dac_val;
+ 
+ 		data->chdata[i].ref_mode = (vref_ch >> (2 * i)) & MCP47FEB02_DAC_CTRL_MASK;
+-		data->chdata[i].use_2x_gain = (gain_ch >> i)  & MCP47FEB02_GAIN_BIT_MASK;
++		data->chdata[i].use_2x_gain = field_get(DAC_GAIN_MASK(i), gain_ch);
+ 
+ 		/*
+ 		 * Inform the user that the current voltage reference read from the volatile
 
-> diff --git a/drivers/usb/typec/fusb15201.c b/drivers/usb/typec/fusb15201.c
-> new file mode 100644
-> index 0000000000000..ab3b07368bdf1
-> --- /dev/null
-> +++ b/drivers/usb/typec/fusb15201.c
-[ ... ]
-> +static irqreturn_t fusb15201_irq(int irq, void *data)
-> +{
-[ ... ]
-> +	for (i =3D 0; i < FUSB15201_NUM_PORTS; i++) {
-> +		struct fusb15201_port *port =3D &chip->ports[i];
-> +		unsigned int pending;
-> +
-> +		if (!port->port)
-> +			continue;
-> +
-> +		if (regmap_read(chip->regmap, FUSB15201_REG_INTERRUPT(i), &pending))
-> +			continue;
-> +
-> +		pending &=3D FUSB15201_INT_ALL;
-> +		if (!pending)
-> +			continue;
-> +
-> +		/* Write one to clear */
-> +		regmap_write(chip->regmap, FUSB15201_REG_INTERRUPT(i), pending);
+-- 
+2.43.0
 
-[Severity: High]
-Could masking the pending interrupts before writing back cause an interrupt
-storm?
-
-If the hardware asserts any bit outside of FUSB15201_INT_ALL (such as a
-reserved bit or a new status bit in newer firmware), the driver masks it out
-and writes 0 for that bit, failing to clear it.=20
-
-If only unknown bits are asserted, pending becomes 0, and the handler retur=
-ns
-IRQ_NONE without clearing anything. The unhandled interrupt will then fire
-continuously and lock up the CPU.
-
-[ ... ]
-> +static int fusb15201_hw_init(struct fusb15201 *chip)
-> +{
-[ ... ]
-> +	for (i =3D 0; i < FUSB15201_NUM_PORTS; i++) {
-> +		struct fusb15201_port *port =3D &chip->ports[i];
-[ ... ]
-> +		/* Discard anything that happened before we got here */
-> +		ret =3D regmap_write(chip->regmap, FUSB15201_REG_INTERRUPT(i),
-> +				   FUSB15201_INT_ALL);
-
-[Severity: High]
-Similar to the interrupt handler, this only clears known bits. Will any
-pre-existing unhandled bits remain asserted and immediately trigger an
-interrupt storm once the IRQ is requested?
-
-Should this write a full mask to clear any unexpected bits during
-initialization?
-
-[ ... ]
-> +	/* Seed the Type-C class with the current state before arming the IRQ */
-> +	for (i =3D 0; i < FUSB15201_NUM_PORTS; i++) {
-> +		if (chip->ports[i].port)
-> +			fusb15201_hw_update(&chip->ports[i]);
-> +	}
-> +
-> +	return 0;
-> +}
-
-[Severity: Medium]
-Can this lockless initialization race with sysfs commands?
-
-Because typec_register_port() is called before fusb15201_hw_init() in probe,
-sysfs attributes and uevents are already active. When fusb15201_hw_update()
-is called locklessly here, it invokes typec_register_partner(), which can
-trigger additional uevents before port->status is updated.
-
-If userspace reacts to these uevents and requests a data or power role swap,
-fusb15201_command() will acquire chip->lock and read port->status. Since
-this hardware update does not hold the lock, fusb15201_command() could obse=
-rve
-a stale port->status =3D=3D 0 and spuriously reject the valid swap request =
-with
--ENOTCONN.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916135918.1017=
-527-1-shengchao.guo@oss.qualcomm.com?part=3D2
