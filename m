@@ -1,37 +1,38 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80768468C26;
-	Wed, 16 Sep 2026 11:08:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8E8D4DF4C2;
+	Wed, 16 Sep 2026 11:08:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789556931; cv=none; b=G6vUrjPrMNDQJ4FfyRSmh5wL8Rcvq+3pP0PwEE8ugxzhH2j2lSAAQp/GwzfBpujKDZi0GDlinUoSWqipJKUDWcjP27r8xplYeEMYIJeT8kL9poWSN7BpJNcIH3y0lMGHG8S7d9CpBq55I1kK4JngIipCMRk5Dv/VA99XS8eM17c=
+	t=1789556936; cv=none; b=U7+/t505Ye1RKVCiQywa1OkfUdVEJ2iDf1LPc4bn4teRq1x5fRuwh1vbGeyX0pKJhl8OpjPFfgGyObybii6f9U2Nlk3VAvQpB/2x71cMaHs86mcUUWOPLS71aH2GyPJhlIUrlZM4DcT1/1aT5J7RN5kjCuMJ/tLMmn7DJqsTHpA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789556931; c=relaxed/simple;
-	bh=S18Wt8OCBT/Toj4x1as/oaeMCjT/wxmXL5K5vBQ9i0Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UB7bBo2F1goGgY3ukNCR/n2kavj1HYQj394lZx09aiSp0k50oglQ6B5mYOskgYXc7rAzmA2dpsmetyUP3wLHijWI6OoxVdz22O1gC77/pP0WUShyI5NID/fzF4uvj6h5tGEh1CONmuGjin+GZgkNSMURDNXUDYI94s7VXOQj0d8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=QR4rhSxG; arc=none smtp.client-ip=148.251.105.195
+	s=arc-20240116; t=1789556936; c=relaxed/simple;
+	bh=ul005wTEdPt43cAI+ZA5rO+gbMxkaBWMkfTxjxBofQ0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=U9F2LcsHCzG6OuJiwjI9m3vrukdB5KAd+MBZRSH7oDYx1jqD8b8jBrOrIyMlXXf/c6D1Y9AwryCkCgabkRQe65Jb84PaPAjG+uuFeoMy8UPxs+V6dKr95rMLsSI8gg8pLSWBPdJriBRkW+6eHubc8HQ4IcLCAW0EXsADM9Xxlgg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=XTSPRv/5; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="QR4rhSxG"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="XTSPRv/5"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789556908;
-	bh=S18Wt8OCBT/Toj4x1as/oaeMCjT/wxmXL5K5vBQ9i0Y=;
-	h=From:To:Cc:Subject:Date:From;
-	b=QR4rhSxG3jgjp67LkTy/0VkkL4C0fOL4cy1P+IpKhjzcytnvpSumv4wByq1GBAdHe
-	 0gb1ETXA5zDRyaDVGQxGiLrDQsDSWQg7D+TXpAZ4gRLNxyqCPrMLH3K091gS884Htd
-	 H/Fwe0elHAN40nArALCifeRbXtV6VtBfSjS05ylRWAQLv3XW73/BHf/NP1xJH60XAE
-	 OBU7tJd9GKWMLf7Z/AT3wF2M5QUKFtMD82Q03uNpzNOAdIfqYh4gq0zdUYHC5EYdvi
-	 yJjN7jamVX2NEpah8WV5qbMs0zzfSeau6CqZaF1dE1+iAC6oRZBTJBvxUBAR3XdsM5
-	 gPO5PhnfWIvfQ==
+	s=mail; t=1789556917;
+	bh=ul005wTEdPt43cAI+ZA5rO+gbMxkaBWMkfTxjxBofQ0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=XTSPRv/5hl1diHRRMKyHasCD5ZfWhwYUhcTnME7zw2cgp/SCIedMMw/0uka8z5Nm6
+	 kKzIEiiN5h1aSwFHS3d4J+wLFxU6FGcKTpUoeqeRtIWBTIRr4rY2B8CtSawkAN43Gx
+	 A/grIJl4rwkbtQ/rUrrRthDCA94p7r2PEo/lqi8NoGWKDCIe50iMKMfOgGmwyq/E97
+	 dt/oog7fdMXW39p2uCj6DS2c+CzjHE2VLnvsJCCfnR66liM4zWQa9MdF2BK0zj4bN/
+	 yHAbpp1OEfeJzzYgRdBqK8OXPWXZdLjlmqLSOx5y+X0lAxybm9wHzv9vArANm/QUIC
+	 mQxPNMR5qF6rA==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 242C617E07DB;
-	Wed, 16 Sep 2026 13:08:28 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id B439817E01D1;
+	Wed, 16 Sep 2026 13:08:36 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunkuang.hu@kernel.org
 Cc: p.zabel@pengutronix.de,
@@ -54,10 +55,12 @@ Cc: p.zabel@pengutronix.de,
 	kernel@collabora.com,
 	justin.yeh@mediatek.com,
 	jason-jh.lin@mediatek.com
-Subject: [PATCH v9 00/13] drm/mediatek: Add DSC, WDMA, MT8189/96 DSI support
-Date: Wed, 16 Sep 2026 13:08:12 +0200
-Message-ID: <20260916110825.102631-1-angelogioacchino.delregno@collabora.com>
+Subject: [PATCH v9 09/13] drm/mediatek: mtk_dsi: Add support for SRAM QoS setting
+Date: Wed, 16 Sep 2026 13:08:21 +0200
+Message-ID: <20260916110825.102631-10-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260916110825.102631-1-angelogioacchino.delregno@collabora.com>
+References: <20260916110825.102631-1-angelogioacchino.delregno@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -66,110 +69,236 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Changes in v9:
- - Moved dsi/dsc component discovery in correct mtk_crtc loop (Nikolai)
- - Fixed operator precedence bug due to macro (Nikolai)
- - Added RC_MODEL_SIZE programming (Nikolai)
- - Added SLICE_MODE register programming (Nikolai)
- - Used slice_count param in mtk_dsi to calculate PS_WC (Nikolai)
- - Changed DSC RC params to DRM_DSC_1_2_444 (Nikolai)
+Add support for automatically calculating and setting the Quality
+of Service (QoS) parameters and DSI IP SRAM Line Buffering in the
+newest DSI IPs like the one found on MT8196, MT6991 and variants.
 
-Changes in v8:
- - Fixed offset for LCCON and LD0CON registers in MT8196 register map
+This allows for a small reduction in memory (and display frames)
+latency by limiting transmission bursts to a certain, number of
+bytes, predefined as per the calculations based on the total data
+rate (on all lanes), number of internal DSI IP buffer blocks and
+bytes per pixel.
 
-Changes in v7:
- - Added full drm_dsc header inclusion in mtk_disp_drv.h (CK)
- - Moved CMDMODE_WAIT_DATA_EVERY_LINE_EN to commit [9/12] (CK)
- - Removed constification cleanup from mtk_dsi (CK)
- - Performed cleanups on commit [4/12] (CK)
- - Split maximum link rate parameter moving from MT8189 support (CK)
- - Split SRAM/QoS support from MT8196 support commit (CK)
+Note that the current algorithm does account for different values
+of sram and buffer units but, since this was only tested on the
+MT8196 SoC (which happens to have the same value for buffer and
+sram unit), the same dsi_sram_bytes value was assigned to both
+units: though the algorithm could've been simplified a little by
+making it to assume that they're the same, at the time of writing
+there are a few SoCs out in the wild that have different sizes.
 
-Changes in v6:
- - Fixed .remove function name in wdma (ugh...)
+Until those are implemented though, the platform data struct will
+have only one parameter, assumed to be assigned to both units, in
+order to keep both the structure and the code size smaller.
 
-Changes in v5:
- - Clarified commit description for WDMA binding compatibles addition
-   explaining why Dimensity 1200 is not compatible with MT8173
- - Added missing mediatek,mt8189-dsi compatible in mtk_drm_drv.c
- - Added fix in mtk_dsi for failing device_reset_optional() producing
-   a possible use-after-free issue
+Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+---
+ drivers/gpu/drm/mediatek/mtk_dsi.c | 145 +++++++++++++++++++++++++++++
+ 1 file changed, 145 insertions(+)
 
-Changes in v4:
- - WDMA: Delete the .remove() callback from WDMA as not needed anymore
- - WDMA: Add comments explaining no bus errors will happen if writing
-   to INT_ENABLE, INT_STATUS registers while unpowered or unclocked
- - Return error in mtk_wdma_wb_atomic_check() error conditions, oops!
- - DSC: Fix dsc_pad_num calculation (missing parenthesis...)
- - DSI: Change dsc slice check error to dev_dbg instead to avoid spam
- - DSI: Correctly cleanup dsi->dsc upon component_add failure
- - DSI: Make sure the CKTX_CKL_WC register is correctly programmed in
-   DSI w/DSC case
-
-Changes in v3:
- - Changed mtk_dsi DSC implementation to use a different DSI_PS
-   setting function for compressed or uncompressed, as the dsc one
-   is way simpler than the regular one and becomes way shorter
- - DSC: Fixed missing PPS 19 register write
- - DSI: Anticipated call to devm_pm_runtime_enable() to before
-   registering the DSI Host interface
- - DSI: Anticipated installing IRQ handler before registering the
-   dsi host interface, which wasn't a problem before, but now it
-   would be one because the interrupt is being enabled when binding!
- - DSI: Fixed some possible calculation overflows that may happen in
-   MT8189 and MT8196 because of the higher supported resolutions
- - WDMA: Use devm variant of pm_runtime_enable()
- - Change WDMA interrupt handler to allow signaling WB complete even
-   if there is no specific vblank callback installed to avoid very
-   long timeouts (in any case, WB is complete for real even if there
-   is no vblank_cb, just a bit useless without, but still complete)
- - Fixed WDMA register writes as register id was in function signature
-   for mtk_wdma_ddp_write_dst_addr() but the function itself never
-   used it in DISP_REG_WDMA_DST_ADDRX() macro
-
-Changes in v2:
- - Rebased on next-20260706
-
-This series adds support for:
- - Display Stream Compression (DSC) for DSI and DisplayPort for both
-   legacy (8188/92/95 and others) and for Kompanio Ultra MT8196 SoCs
- - Write DMA (WDMA) Engine (for legacy only at this time) as a step
-   to enable Writeback support (coming later with a restructuring of
-   the entire mediatek-drm driver)
- - Newer MIPI DSI IP revisions, found in MT8189 and MT8196 SoCs
-
-AngeloGioacchino Del Regno (13):
-  dt-bindings: display: mediatek: dsc: Add MT8196 compatible
-  drm/mediatek: Implement Display Stream Compression support
-  dt-bindings: display: mediatek: dsi: Document MT8189 and MT8196
-  drm/mediatek: mtk_dsi: Cleanup encoder if reset fails during bind
-  drm/mediatek: mtk_dsi: Enable interrupt at component bind time
-  drm/mediatek: mtk_dsi: Transfer register offsets to per-SoC const
-  drm/mediatek: mtk_dsi: Move max link rate parameter to platform data
-  drm/mediatek: mtk_dsi: Add support for MT8189
-  drm/mediatek: mtk_dsi: Add support for SRAM QoS setting
-  drm/mediatek: mtk_dsi: Add support for MT8196
-  drm/mediatek: mtk_dsi: Enable PM Runtime on probe
-  dt-bindings: display: mediatek: wdma: Add compatibles for more SoCs
-  drm/mediatek: Add Write DMA (WDMA) Engine for Writeback support
-
- .../display/mediatek/mediatek,dsc.yaml        |   4 +-
- .../display/mediatek/mediatek,dsi.yaml        |   2 +
- .../display/mediatek/mediatek,wdma.yaml       |   5 +
- drivers/gpu/drm/mediatek/Makefile             |   2 +
- drivers/gpu/drm/mediatek/mtk_crtc.c           |  21 +
- drivers/gpu/drm/mediatek/mtk_ddp_comp.c       |  64 +-
- drivers/gpu/drm/mediatek/mtk_ddp_comp.h       |   9 +
- drivers/gpu/drm/mediatek/mtk_disp_drv.h       |  28 +
- drivers/gpu/drm/mediatek/mtk_disp_dsc.c       | 449 ++++++++++
- drivers/gpu/drm/mediatek/mtk_disp_wdma.c      | 628 ++++++++++++++
- drivers/gpu/drm/mediatek/mtk_drm_drv.c        |  10 +
- drivers/gpu/drm/mediatek/mtk_drm_drv.h        |   2 +
- drivers/gpu/drm/mediatek/mtk_dsi.c            | 794 ++++++++++++++----
- 13 files changed, 1830 insertions(+), 188 deletions(-)
- create mode 100644 drivers/gpu/drm/mediatek/mtk_disp_dsc.c
- create mode 100644 drivers/gpu/drm/mediatek/mtk_disp_wdma.c
-
+diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
+index 9d701cadf7ea..64dfc100f033 100644
+--- a/drivers/gpu/drm/mediatek/mtk_dsi.c
++++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
+@@ -52,6 +52,7 @@
+ #define DSI_RESET			BIT(0)
+ #define DSI_EN				BIT(1)
+ #define DPHY_RESET			BIT(2)
++#define CMDMODE_WAIT_DATA_EVERY_LINE_EN	BIT(24)
+ 
+ /* DSI_MODE_CTRL */
+ #define MODE				(3)
+@@ -152,6 +153,18 @@
+ #define FORCE_COMMIT			BIT(0)
+ #define BYPASS_SHADOW			BIT(1)
+ 
++/* DSI_VDE */
++#define VDE_BLOCK_ULTRA			BIT(29)
++
++/* DSI_BUF_CON0 */
++#define DSI_QOS_BUF_EN			BIT(0)
++
++/* DSI_BUF_CON1 */
++#define BUF_OUT_VALID_THRESH		GENMASK(14, 0)
++
++/* DSI_BUF_SODI_HIGH, SODI_LOW and other BUF registers */
++#define BUF_THRESHOLD_PARAM		GENMASK(19, 0)
++
+ /* CMDQ related bits */
+ #define CONFIG				GENMASK(7, 0)
+ #define SHORT_PACKET			0
+@@ -164,6 +177,17 @@
+ 
+ #define NS_TO_CYCLE(n, c)    ((n) / (c) + (((n) % (c)) ? 1 : 0))
+ 
++/* HW QoS and Anti-Latency Buffer related bits */
++#define MTK_DSI_MAX_FIFO_BYTES			1554
++#define MTK_DSI_DEFAULT_QOS_VALID_FIFO_US	25
++#define MTK_DSI_DEFAULT_QOS_SODI_LO_OVERHEAD	(23 + 5)
++#define MTK_DSI_DEFAULT_QOS_PREULTRA_HI_US	36
++#define MTK_DSI_DEFAULT_QOS_PREULTRA_LO_US	35
++#define MTK_DSI_DEFAULT_QOS_ULTRA_HI_US		26
++#define MTK_DSI_DEFAULT_QOS_ULTRA_LO_US		25
++#define MTK_DSI_DEFAULT_QOS_URGENT_LO_US	11
++#define MTK_DSI_DEFAULT_QOS_URGENT_HI_US	12
++
+ #define MTK_DSI_HOST_IS_READ(type) \
+ 	((type == MIPI_DSI_GENERIC_READ_REQUEST_0_PARAM) || \
+ 	(type == MIPI_DSI_GENERIC_READ_REQUEST_1_PARAM) || \
+@@ -206,9 +230,26 @@ enum mtk_dsi_adv_regidx {
+ 	DSI_VM_CMD_CON,
+ 	DSI_SHADOW_DEBUG,
+ 	DSI_CMDQ,
++	DSI_VDE,
+ 	DSI_ADV_REG_MAX
+ };
+ 
++enum mtk_dsi_qos_regidx {
++	DSI_QOS_BUF_CON0,
++	DSI_QOS_BUF_CON1,
++	DSI_QOS_TX_BUF_RW_TIMES,
++	DSI_QOS_SODI_HIGH,
++	DSI_QOS_SODI_LOW,
++	DSI_QOS_PREULTRA_HIGH,
++	DSI_QOS_PREULTRA_LOW,
++	DSI_QOS_ULTRA_HIGH,
++	DSI_QOS_ULTRA_LOW,
++	DSI_QOS_URGENT_HIGH,
++	DSI_QOS_URGENT_LOW,
++	DSI_QOS_PREURGENT_HIGH,
++	DSI_QOS_REG_MAX
++};
++
+ struct mtk_phy_timing {
+ 	u32 lpx;
+ 	u32 da_hs_prepare;
+@@ -233,8 +274,12 @@ struct phy;
+ struct mtk_dsi_driver_data {
+ 	const u16 *reg_main;
+ 	const u16 *reg_adv;
++	const u16 *reg_qos;
+ 
+ 	const u16 max_link_rate_mbps;
++	const u8 dsi_sram_bytes;
++	const u8 pixels_per_iter;
++	const u8 num_burst_lines;
+ 
+ 	bool has_size_ctl;
+ 	bool cmdq_long_packet_ctl;
+@@ -772,6 +817,102 @@ static int mtk_dsi_set_dsc_params(struct mtk_dsi *dsi)
+ 	return drm_dsc_compute_rc_parameters(dsc);
+ }
+ 
++static void mtk_dsi_config_hw_buffers(struct mtk_dsi *dsi)
++{
++	const struct mtk_dsi_driver_data *data = dsi->driver_data;
++	const u16 *reg_qos = data->reg_qos;
++	u32 buffer_unit, sram_unit, num_hw_buffers;
++	u32 preultra_hi, preultra_lo;
++	u32 urgent_hi, urgent_lo;
++	u32 ultra_hi, ultra_lo;
++	u32 sodi_hi, sodi_lo;
++	u32 data_rate_per_buf;
++	u32 out_valid_thresh;
++	u32 dsi_buf_bpp;
++	u32 fill_rate;
++	u32 pclk_mhz;
++	u32 rw_times;
++	u32 val;
++	u64 tmp;
++
++	/*
++	 * At the time of implementing, this was verified only on MT6991/MT8196
++	 * and, for this SoC, the buffer unit is equal to the SRAM bytes.
++	 *
++	 * There are other SoCs already out in the wild that do support the HW
++	 * buffers and that have different sizes, so keep the calculation as-is!
++	 */
++	buffer_unit = data->dsi_sram_bytes;
++	sram_unit = data->dsi_sram_bytes;
++	num_hw_buffers = sram_unit / buffer_unit;
++
++	if (data->support_per_frame_lp)
++		val = CMDMODE_WAIT_DATA_EVERY_LINE_EN;
++	else
++		val = 0;
++
++	mtk_dsi_mask(dsi, data->reg_main[DSI_CON_CTRL],
++		     CMDMODE_WAIT_DATA_EVERY_LINE_EN, val);
++
++	/* Read as: [Data rate (MHz)] * [Number of DSI lanes] / [8 buffer blocks] */
++	tmp = (u64)dsi->data_rate * dsi->lanes;
++	data_rate_per_buf = div_u64(tmp, 8 * buffer_unit * HZ_PER_MHZ);
++
++	/*
++	 * Anti-latency buffer output threshold for absolute timer mode: this
++	 * parameter controls the maximum amount of output data that the FIFO
++	 * can hold before running out of buffer space.
++	 *
++	 * The data will therefore be sent either when the DSI IP0s internal
++	 * vblank vs bus QoS timer expires or when it reaches the amount of
++	 * buffers set in BUF_OUT_VALID_THRESHOLD (regardless of QoS) to avoid
++	 * partially, or entirely, losing frame(s).
++	 */
++	out_valid_thresh = MTK_DSI_DEFAULT_QOS_VALID_FIFO_US * data_rate_per_buf;
++	out_valid_thresh = min(out_valid_thresh, MTK_DSI_MAX_FIFO_BYTES - 1);
++	mtk_dsi_mask(dsi, reg_qos[DSI_QOS_BUF_CON1], BUF_OUT_VALID_THRESH, out_valid_thresh);
++
++	/* Enable ULTRA signal trigger between SOF and VACT */
++	mtk_dsi_mask(dsi, data->reg_adv[DSI_VDE], VDE_BLOCK_ULTRA, 0);
++
++	/* Calculate fill rate with line counter mode for DSI Video Mode */
++	if (dsi->format == MIPI_DSI_FMT_RGB565)
++		dsi_buf_bpp = 2;
++	else
++		dsi_buf_bpp = 3;
++
++	pclk_mhz = dsi->vm.pixelclock / HZ_PER_MHZ;
++	fill_rate = div_u64((u64)pclk_mhz * data->pixels_per_iter * dsi_buf_bpp,
++			    buffer_unit);
++
++	/* Calculate QoS Anti-Latency parameters */
++	sodi_hi = MTK_DSI_MAX_FIFO_BYTES * num_hw_buffers;
++	sodi_hi -= (fill_rate - data_rate_per_buf) * 12 / 10;
++	sodi_lo = MTK_DSI_DEFAULT_QOS_SODI_LO_OVERHEAD * data_rate_per_buf;
++	preultra_hi = MTK_DSI_DEFAULT_QOS_PREULTRA_HI_US * data_rate_per_buf;
++	preultra_lo = MTK_DSI_DEFAULT_QOS_PREULTRA_LO_US * data_rate_per_buf;
++	ultra_hi = MTK_DSI_DEFAULT_QOS_ULTRA_HI_US * data_rate_per_buf;
++	ultra_lo = MTK_DSI_DEFAULT_QOS_ULTRA_LO_US * data_rate_per_buf;
++	urgent_hi = MTK_DSI_DEFAULT_QOS_URGENT_HI_US * data_rate_per_buf;
++	urgent_lo = MTK_DSI_DEFAULT_QOS_URGENT_LO_US * data_rate_per_buf;
++	rw_times = dsi->vm.vactive * dsi_buf_bpp;
++	rw_times /= data->num_burst_lines * data->pixels_per_iter;
++
++	/* Write all QoS parameters: Screen On Deep Idle, (pre)Ultra, Urgent, RW times */
++	mtk_dsi_mask(dsi, reg_qos[DSI_QOS_SODI_HIGH], BUF_THRESHOLD_PARAM, sodi_hi);
++	mtk_dsi_mask(dsi, reg_qos[DSI_QOS_SODI_LOW], BUF_THRESHOLD_PARAM, sodi_lo);
++	mtk_dsi_mask(dsi, reg_qos[DSI_QOS_PREULTRA_HIGH], BUF_THRESHOLD_PARAM, preultra_hi);
++	mtk_dsi_mask(dsi, reg_qos[DSI_QOS_PREULTRA_LOW], BUF_THRESHOLD_PARAM, preultra_lo);
++	mtk_dsi_mask(dsi, reg_qos[DSI_QOS_ULTRA_HIGH], BUF_THRESHOLD_PARAM, ultra_hi);
++	mtk_dsi_mask(dsi, reg_qos[DSI_QOS_ULTRA_LOW], BUF_THRESHOLD_PARAM, ultra_lo);
++	mtk_dsi_mask(dsi, reg_qos[DSI_QOS_URGENT_HIGH], BUF_THRESHOLD_PARAM, urgent_hi);
++	mtk_dsi_mask(dsi, reg_qos[DSI_QOS_URGENT_LOW], BUF_THRESHOLD_PARAM, urgent_lo);
++	writel(rw_times, dsi->regs + reg_qos[DSI_QOS_TX_BUF_RW_TIMES]);
++
++	/* Finally, activate internal line-buffering */
++	mtk_dsi_mask(dsi, reg_qos[DSI_QOS_BUF_CON0], DSI_QOS_BUF_EN, DSI_QOS_BUF_EN);
++}
++
+ static int mtk_dsi_config_vdo_timing(struct mtk_dsi *dsi)
+ {
+ 	const struct mtk_dsi_driver_data *data = dsi->driver_data;
+@@ -957,6 +1098,10 @@ static int mtk_dsi_poweron(struct mtk_dsi *dsi)
+ 	mtk_dsi_reset_engine(dsi);
+ 	mtk_dsi_phy_timconfig(dsi);
+ 
++	/* Setup HW FIFO if DSI supports QoS Anti-Latency buffers */
++	if (data->dsi_sram_bytes && data->reg_qos)
++		mtk_dsi_config_hw_buffers(dsi);
++
+ 	mtk_dsi_ps_control(dsi, true);
+ 	mtk_dsi_set_vm_cmd(dsi);
+ 	ret = mtk_dsi_config_vdo_timing(dsi);
 -- 
 2.55.0
 
