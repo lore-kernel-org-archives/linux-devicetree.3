@@ -1,126 +1,133 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7A544AE13B
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 22:07:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2062E4AE135;
+	Wed, 16 Sep 2026 22:07:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789596445; cv=none; b=dJfQtTqfbIow2NomDYF/BLOOVZG2CmqQbbx84WdfGFqoe01K5YaZrz3MOn3iWg4e7Nh8lXm4+Vud2vA9dvxKXcGQWlj+/D61xlV/1cchaLx5bStFUHg2ItgEG64EMK+iz5eMXKa4kTfrHVdIp/lcX1umTGlRPCTtPKQgWMeeLE0=
+	t=1789596466; cv=none; b=grEWIpeiZpbiSVFJfqGKdYg+SyI8oKz6SUVbYi98yB+jD1ADjv7CopCdVo3bwbe9g1K8mroQiodpjyyQ6t4gA5aTlcfGTFLqUBBWsC1nx20kLB+/Oc6Y1L6SnzkD5Nkcyo/uW7p1nGaikS1NM1RDnGtA5gFDA9NN74iFK0+unL0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789596445; c=relaxed/simple;
-	bh=lt3BikJB93Zkg8UHHA0fVUsHS8vy+oVkjtAS1xezz34=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PJ4HvWh9zYWjS8MJoVsfD4M7eT2DetFK3uPYamgORip1GYspwS/qG0Qb22fE+j5zNy572sBG7l2VwDfcIzQ9BJfLcKNazTI/o0h5IdZUlLZMn2qIhIrykxsbK1v8vLZ0P4Xr+ZgEtH1xThGnzDO9K4HZ0jK71d7YxQKDTLG5MaE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=P8cuQDqc; arc=none smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1789596466; c=relaxed/simple;
+	bh=r/4mJPmvpkVyqlS+cYIm9RB7ZB+wg63qbCevPs4CilA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=kFf+W5yKvNa24mwUK+VNQktbeRQG/ta6oo+GtcKAtIy035nZ6QSTBdXqTXm3T+/KVbKkICAJUK34KiUCqvGnjlIO3itxsn+MRrmHKc9l28yhEHOII61ziv58fE9VY0KLOapvurMvCJVE8D+X7KEbJq7JB3ibmFvRL/5Amp0feo4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dh7WgpO4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="P8cuQDqc"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a996c8adf3so420824a12.1
-        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 15:07:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1789596432; x=1790201232; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bRx2j1EfmgsLJaRhKgwq7WbmeY6pd50RmhdABMQZV3M=;
-        b=P8cuQDqcdLgxvB/k4fnsPuJf6rZeriFLX6hSwdl5x8/MCWrQORfKyhPpas+RhAJZbI
-         82qYEQO3cqMVPVqtGI/g/YMvApkaHIdCddTlbDTUBDUifRUya6Koldaq8D0KyIdERRyS
-         3eFeO0wv30j7EF5wqCliCO8XKwZokGCFhvpE8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789596432; x=1790201232;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bRx2j1EfmgsLJaRhKgwq7WbmeY6pd50RmhdABMQZV3M=;
-        b=jYTjQ5Mftq0RKYTOuRvj7RRD51OJpHzxHrdRl9n6KqKKaMJtinlullnYPPwAHuZsZl
-         iJwPtQL04eGk66mTdnA+0pbQv4asqBTkeY38TiQzsuNgHLFCoXrx8RM/I8HPBAsVtPWn
-         ErQ9UC2hvJC5PXL1g49jVgr7UoVjFY88SD1v5NC84qguO0KPY5ADPxQEyDuJrT01vWI2
-         gs+AeoVsDr4ZOCumSP6FnwNjpM3NhyNglevx8QSuDrutrtb8YEvwa4aj6iNGOsDCMXtL
-         rEDEcbz8q9bBBh2gKYWpwcVSzbowtqbIzHsLFRo8lECfxxPOx8VF009m9qC0rw/ZUG4E
-         MKNg==
-X-Forwarded-Encrypted: i=1; AKwUvBydmqGReker7AjrxuWIb9qHLHJSm5FraqRAEVi4Yc8RWuWJYqhp4b+bGCcO7qu4Vd1OVfjKUtS+Xg84@vger.kernel.org
-X-Gm-Message-State: AFuF++k3MtEjyhfXk5h/f/RvpT/WG/S6D/5xry7Cc4Ifd65nVRnov4Bw
-	SmWWqENnQ4JFofRExWp1RD7D8aO6WtQrqkNSLvUDEsfpMKcJrhNMFvCYRNQSqIGe+HACUAoIvPo
-	vFbE=
-X-Gm-Gg: AYBFou3nbmvAOmcT/W+t/6V+RoDigVNa7UHP8JZWtZUffaOs4tlR4H1XE6103mxwZpc
-	zRHDnnm4y8VsncWOlB3CXMMP6VfJuRzNsoFBtjU5LybCH4Qip8tNMV82Ogl6nFcFKgRHsD9rYQd
-	6qhKRovfP9KQNWcGTWO3cWp+btzG18XAqQ1iQCptBbKrWP1tduGLEpMcYL+SfHidfjiKg++7EVS
-	pcPZto3T/9kdLTtOxzz6iafIMCT3R/hSgGIOOCJd8IhCY0U9JUe6mnC3hY7/YrkNHjo82jfWjrd
-	K9+DxgKzCCBcVoQstU7+W0Ai9lwqyWmIuTkCDMPN3ZOO2L6TIea+M9dA2V2R1nNEnKDVOTEgqB8
-	4a3ntCXN9Y5jEdstQIZdaf8/7cUp8WdAhktLBlIp+KShd79L4J/3ZRGzlNpCgiojt+/10xeKLwH
-	BuB0MogXm8Li6k5jJ2DZllKtCqNcHCSQ2MZTN0+nobLu7d8tPoqA9Yhb3T8KZFyEhU1SqeZwqwd
-	UmkfXye9jFdAG6SjY52DnEeN/2woxMJSYksUGo=
-X-Received: by 2002:a05:6402:a0cf:b0:6a9:cd42:eeae with SMTP id 4fb4d7f45d1cf-6aa224192damr5942733a12.15.1789596432357;
-        Wed, 16 Sep 2026 15:07:12 -0700 (PDT)
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com. [74.125.225.141])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa1cfe037esm2653796a12.1.2026.09.16.15.07.10
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 16 Sep 2026 15:07:11 -0700 (PDT)
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d37b5so1276035e9.2
-        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 15:07:10 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzDsRLZBNHVoLz5m5Q4WUrohE0HK2c190QIoQIXwoRbDz09vHaTC0S3Up0flO5HiSru904PjQf8GAI1@vger.kernel.org
-X-Received: by 2002:a05:600c:3b0c:b0:49f:bc28:e8b1 with SMTP id
- 5b1f17b1804b1-49fbc28e978mr56379705e9.14.1789596429113; Wed, 16 Sep 2026
- 15:07:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dh7WgpO4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D73D1F000FF;
+	Wed, 16 Sep 2026 22:07:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789596455;
+	bh=qpobW0ldlnumVACiaPcj06j6cP1uhzx6fkmN8a2srUQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Dh7WgpO4bqEy2D53dzXkBlp+Ue1PRUZLusYeEcFPDAGUG7TrYCY88cmSFkIePaoyc
+	 yQeVUhtBJp2TTqdQ+OgO083tBengSBiWiJeRrKkQ0yCJ6C7HivYKo812hSWVDTUWCx
+	 OBiPPkSlw53xd5IwS7P1s+TrHiMW1DPipagWrhO80Gb0ceaLIYgRTy6L4VfEXS3a6W
+	 Sgj1IHDHNDMk9r9I0r6RnHvEoBLxywcvm7s/UK4d//mL+zc0lXKcvAzwIzuzHpRMQi
+	 p+1dHH1I6CWdMsfHwRF+A9k9SrIzvyL/KXr34EnanrOXnxjaw3VnzzEOFAlBY0gqZ8
+	 qafRDq3h4dUrA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC 12/12] PoC: arm64: dts: imx93-11x11-frdm: add
+ multiple vdevs
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Francesco Valla" <francesco@valla.it>
+Cc: "Eugenio Perez" <eperezma@redhat.com>, imx@lists.linux.dev, virtualization@lists.linux.dev, Frank.Li@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, "Michael
+ S. Tsirkin" <mst@redhat.com>
+In-Reply-To: <20260916-remoteproc_virtio_map-v1-12-dac8c5eb4aa9@valla.it>
+References: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
+ <20260916-remoteproc_virtio_map-v1-12-dac8c5eb4aa9@valla.it>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 16 Sep 2026 22:07:34 +0000
+Message-Id: <20260916220735.4D73D1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260916155730.2077434-1-vulab@iscas.ac.cn>
-In-Reply-To: <20260916155730.2077434-1-vulab@iscas.ac.cn>
-From: Doug Anderson <dianders@chromium.org>
-Date: Wed, 16 Sep 2026 15:06:57 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=WU7yOQWBW4SEMcHTwXxvNTMqO4P0DABaeQ6mBw7h=+Bw@mail.gmail.com>
-X-Gm-Features: AcwNN1W4bKNukAgg1BwCpMhcUy96SsDz__HwTsvy2JJtukIrTrTDwRV8nOIqNGU
-Message-ID: <CAD=FV=WU7yOQWBW4SEMcHTwXxvNTMqO4P0DABaeQ6mBw7h=+Bw@mail.gmail.com>
-Subject: Re: [PATCH] i2c: of-prober: Fix device node reference leak in i2c_of_probe_simple_enable()
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: andriy.shevchenko@linux.intel.com, angelogioacchino.delregno@collabora.com, 
-	devicetree@vger.kernel.org, linux-i2c@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, wenst@chromium.org, 
-	wsa+renesas@sang-engineering.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] dts: virtio device nodes are ignored due to missing of_node linkag=
+e in remoteproc
+- [Medium] Process: Patch is a Proof-Of-Concept and not meant for integrati=
+on
+--
 
-On Wed, Sep 16, 2026 at 8:58=E2=80=AFAM Wentao Liang <vulab@iscas.ac.cn> wr=
-ote:
->
-> of_get_compatible_child() returns the child node with an incremented
-> reference which the caller must drop with of_node_put(). The error
-> paths release it via the out_put_node label, but the success path
-> returns without doing so, leaking the node reference.
->
-> Release the node before returning success.
->
-> Fixes: 897261149d25 ("i2c: of-prober: Add simple helpers for regulator su=
-pport")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  drivers/i2c/i2c-core-of-prober.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/i2c/i2c-core-of-prober.c b/drivers/i2c/i2c-core-of-p=
-rober.c
-> index 6a82b03809d4..603de487ee2d 100644
-> --- a/drivers/i2c/i2c-core-of-prober.c
-> +++ b/drivers/i2c/i2c-core-of-prober.c
-> @@ -354,6 +354,7 @@ int i2c_of_probe_simple_enable(struct device *dev, st=
-ruct device_node *bus_node,
->         if (ret)
->                 goto out_disable_regulator;
->
-> +       of_node_put(node);
->         return 0;
+commit a7b0e29a0ba6644ce08c06f5c058683c28280b67
+Author: Francesco Valla <francesco@valla.it>
 
-Sure, looks fine. I guess alternatively we could use
-'__free(device_node)' for cleanup, but it doesn't seem critical to me.
+PoC: arm64: dts: imx93-11x11-frdm: add multiple vdevs
 
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
+This commit adds rings for multiple vdevs and the required virtio nodes for
+I2C, SPI, and GPIO functionalities to the imx93-11x11-frdm devicetree. It
+also includes example peripherals to demonstrate these virtio interfaces.
+
+>     NOTE: this is a Proof-Of-Concept, not meant to be integrated!
+
+[Severity: Medium]
+Since this patch is explicitly marked as a Proof-Of-Concept and not meant f=
+or
+integration, should it be dropped from the queue to prevent merging unstable
+or incomplete code?
+
+> diff --git a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts b/arch/ar=
+m64/boot/dts/freescale/imx93-11x11-frdm.dts
+> index bd14ba28690c0..dfa3b122ac5f4 100644
+> --- a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
+> @@ -53,6 +53,32 @@ button-k3 {
+>  		};
+>  	};
+> =20
+> +	gpio-keys-virtio {
+> +		compatible =3D "gpio-keys-polled";
+> +		poll-interval =3D <100>;
+> +
+> +		button-v1 {
+> +			label =3D "Button V1";
+> +			linux,code =3D <BTN_3>;
+> +			gpios =3D <&v_gpio 23 GPIO_ACTIVE_LOW>;
+> +		};
+
+[Severity: High]
+Will the v_gpio phandle fail to resolve because the v_gpio node is not
+recognized as a valid OF GPIO controller by the system?
+
+[ ... ]
+
+> @@ -149,8 +200,67 @@ &cm33 {
+>  		 <&mu1 3 1>;
+>  	mbox-names =3D "tx", "rx", "rxdb";
+>  	memory-region =3D <&vdevbuffer>, <&vdev0vring0>, <&vdev0vring1>,
+> -			<&vdev1vring0>, <&vdev1vring1>, <&rsc_table>;
+> +			<&vdev1vring0>, <&vdev2vring0>, <&vdev2vring1>,
+> +			<&vdev3vring0>, <&vdev4vring0>,
+> +			<&vdev5vring0>, <&vdev5vring1>, <&vdev5vring2>;
+>  	status =3D "okay";
+> +
+> +	virtio {
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <0>;
+> +
+> +		vdev@2 {
+> +			reg =3D <2>;
+> +
+> +			v_gpio: gpio {
+> +				compatible =3D "virtio,device29";
+
+[Severity: High]
+Will these virtio subnodes remain unlinked to the actual devices?
+
+virtio_device_of_init() attempts to match devicetree nodes by checking
+dev_of_node(dev->dev.parent). For remoteproc-created virtio devices, the
+parent is the dynamically created rproc-virtio platform device (created in
+rproc_handle_vdev()), which is never assigned an of_node.
+
+Does this result in the devicetree matching failing silently, causing
+dependent peripheral drivers (e.g., gpio-keys) to defer probing indefinitel=
+y?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916-remoteproc=
+_virtio_map-v1-0-dac8c5eb4aa9@valla.it?part=3D12
