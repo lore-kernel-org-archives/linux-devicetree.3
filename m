@@ -1,213 +1,136 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0B254F796D
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 13:27:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D7BC4EE859
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 13:28:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789565223; cv=none; b=GLW3q9xpmKc792jbacCts56gyOHFSYsxD97jxh1MxSR2TpqAI7p+k3TrNwQqFffqYWJsOjxlfUR9WSgEXcfomQPQZd2ekajGfN6lQoR9tDGrca79DC2+0WYVACf+Ti+x4cL6Y/Az7pCH8GqFyI92wPudNxl85PajzlusJLXevP8=
+	t=1789565336; cv=none; b=ZoQW0scRku5TKKZFi0rpX++4nZRg2D3Ue7LmaL4o+WSgsMlyvEGYPQ3Tkvjz9bX+BWjWeaoQjq8QAfLBeDhKTsTjtKHS+y8IGEMhAWXo6RiLiOSIkqBOAxLS22OgPfYwFE7LjZTUC1vGImDGXd95jYqSffpi+wmTWVNYfaw8UmA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789565223; c=relaxed/simple;
-	bh=0MVH1UVmAUe5/J+L/Yf6YJo56Lmvi/jOR7Pmv6KXqjQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fqqx0KJcDI6slDvSiy33whEJEqyK+u/Ya81N+By9/AMOaa+TcrCWdqM2IkSGAHqX616KVUBErDGtrZFl9iK7ijgfnyDygcEUs/ohKBXX2ISrCi2PJBSP3fuiFEfBSAARLcD59ujC0Hz3kqtyoXY5mIIcRs0A7FV8wwtBxxO5IH4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mdcQP4VE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Dztp3BoI; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789565336; c=relaxed/simple;
+	bh=TqbeODdYQEEftgsPxXsYkF97yhYGAJosPirzjv//pFQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Oot4QvJbTs/n7vv2RBQwGMxxNg9BejyMjwCG5egZAlIGIcTc0CPs83Ox/ZCyMHE84SEVAD4rhQc5fSyHFJ73PpTsJUOwq3Unt8e/sxhHedMV70zHOzgF/qPsBsBdyzB4zFohKQUcYWosx0OyLYGiIiHZhZhiMAySVbicKVSD5L8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SriF5u9c; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mdcQP4VE";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Dztp3BoI"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GCYYap3636724
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 13:26:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	4MESC1KI0wX6qjB4s98iNgVKHGPJ6KH1ZIsZM1iGaT8=; b=mdcQP4VEcQ2YZ7in
-	MjoGc0dkFhF7e1Dv5zwqOWromheFG07ioVoo3k3geil4jNO5TfeAxx8TGU5y1HZu
-	2S5kA45hKqN3uVlAdvWOEDA9DjRfgC6bS+2GETOVdeEYfGkhVvztUVhxSV+chKEq
-	aE7jNidhypXHnk9ChR+Bu4Va2f6K2fHY5rC9SO2LtcKQxPTGELynf+pImUOz6ax6
-	uNenbmdMs/6J1dZVR4GqsvozYFJAuUc8Sds+eikKm5BkiFd4w4eGhgRT7Amyf28w
-	uZnLSRZUXZZfz03+eOW7zJDFQeoF0qViAU0pyjG4nYDMV2oVbJNslXVNQqbJtX/Q
-	KZejwQ==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqpu2sd96-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 13:26:59 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-86261e66700so5262539b3a.3
-        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 06:26:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SriF5u9c"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e6af07e08so467555e9.1
+        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 06:28:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789565219; x=1790170019; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4MESC1KI0wX6qjB4s98iNgVKHGPJ6KH1ZIsZM1iGaT8=;
-        b=Dztp3BoIeZHfvXudcOEYSml0sUt+Zg6opESAKOF4Oq8OZsq825TGe1UWtZUb7/PNkA
-         xBLwNguHSEkw3CYkoQmITvC4QqMg0KC3xdYPexA7YAVYUAMQfv5YBomYZAOVQTK7Nr5L
-         K+aEvjGjQi2sh21RAWxXV6voNu7E+JJvLaYjbCxcbpDXdFjFnNiCZjPQf0+IhNQQZp2P
-         n9kbkTXnG+B8NSoCHgeSeB6VPx5/qZEmIefy8XRi2hxe1SiVXJhZxGjUS4voNd+7KFIK
-         aBIcR2+x0oFGJcUsouMhbHKvW7cqbYt3z3gTvNXiIfYF72tbhh7APK1qxDhCFIax12zv
-         gDcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789565219; x=1790170019;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789565333; x=1790170133; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4MESC1KI0wX6qjB4s98iNgVKHGPJ6KH1ZIsZM1iGaT8=;
-        b=PFxIEZrteCJbrfizfQEPXcI/ge+RrwJqDSxjQ5dfCHa3JGhyp7Qhc4kSM/l3O+KZLU
-         oXQWgpVX6Zzf/J3ei2B4D9yrNl9w1hi8zJWLMfYjVYUofzBiBFeMiJ81Z4pVYdiCc1oW
-         p5Olys68giwd9/YwmQqgoiPwCq9Cs5AI5jc+LZMIUPVZ4ESbe4iorp3aDplnA5R0Jo/q
-         G/EXGHN/MZJpET4hwZq2mOXyo6t2dHyavgXnG5OmryJThNCJVgL7TaqdjXcgrs636hR4
-         jWwPZXHPs+TM2bdEkqI7f3qC9k+Je4XaTDror93nZnGM2Gv1W4CyL7mtSv+ae/WrCDHW
-         /zag==
-X-Forwarded-Encrypted: i=1; AKwUvByNAj/q9v56W2li+YA9U/lEv/aZLPFvV/lRwWh8B0tGHnjraja8TW2FJdMyOdU7XJE9rc8mrYsEXaOW@vger.kernel.org
-X-Gm-Message-State: AFuF++mvGry64yRX5QhECyjWsvxn9OOSg17I4WJAPKRRCNO2v1S4f9eC
-	WYJTTmz0IX7/QUovnhorC0OEQtutrRY2Bal5r/9LOAP08yJ79WDJ/0akKzOPW52PHDJi85GmQax
-	ga4MAhMboRrnvmAk2o6Vp0KdtBrAVw94neeqtARFRzczVQ6P39EMdE3cmaNWuVRvA
-X-Gm-Gg: AYBFou2dWWyFITSkHNxHaTm6JfrY/tn/9z7ClTZu8gjBigGED2UkUojahmmMoBTaOWJ
-	8EUbWj+gHtuewy+2ZPPav+zamng3GWuHOimX85JnrSKCif+PSuguDhKrlOKCO3SNMz+9DazLQCr
-	R1zdBp0dwDE+CC/XUq9OI4uvrBIa5dTanSzNw665wY/IxI7bkoMoIlLiQrYQqZVs/gEgwNAY1yI
-	hYBXf//f74KfB+YwY+Ouv82HZX/WyRyUYjlfLyx1zZmLKqCIJD0DWaKtTyKlkv3Hz17FXM0G4Op
-	/FgpHjUuD4WiqVWnmkoYocslhFCosNXsGVLerXlVSIpzeYISrA4NTRsV+dJTvEa+c0/2SGmf3zB
-	mEd3RXnLO43C2bBMjBMzywNYpZgGqO6Im
-X-Received: by 2002:a05:6a00:3c86:b0:86d:c2d4:f3c0 with SMTP id d2e1a72fcca58-872376bd23bmr5119019b3a.9.1789565218617;
-        Wed, 16 Sep 2026 06:26:58 -0700 (PDT)
-X-Received: by 2002:a05:6a00:3c86:b0:86d:c2d4:f3c0 with SMTP id d2e1a72fcca58-872376bd23bmr5118933b3a.9.1789565218017;
-        Wed, 16 Sep 2026 06:26:58 -0700 (PDT)
-Received: from [10.92.206.34] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87201d17e76sm1241562b3a.49.2026.09.16.06.26.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 16 Sep 2026 06:26:57 -0700 (PDT)
-Message-ID: <5f862178-ba18-4b27-b5db-1732d57d7b47@oss.qualcomm.com>
-Date: Wed, 16 Sep 2026 18:56:50 +0530
+        bh=TqbeODdYQEEftgsPxXsYkF97yhYGAJosPirzjv//pFQ=;
+        b=SriF5u9c3M1yb4t2l0x9yA3RoFsu3Vst90q9fR5CzgrcSm+f6B4+JUdAqc7x96bTgL
+         CyO8ie0Zzaizi1UAoyc7uo20C8BjH7pQS/5JkPsZdFmmtT77upCXbaWFeNGDWR3/B1jQ
+         rMT6g9DXhRShNlVFmSOK6+TgqeMYJF+7dvaGDX57R/xL2Z009KCxCGyTtn57/0XKDN3g
+         qbD3dulK479ejAT1VxqfFvLpmzb4EI8jnkFCKAmI207Zke2+/3NR1vR1I6+a9senxIHG
+         jAotvyloepLXY2BOs+4qAW0EDVxRkGfYX9sL/GfcidJ1YcMN+sFw3p3JBj0apE3M+B2p
+         ykZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789565333; x=1790170133;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TqbeODdYQEEftgsPxXsYkF97yhYGAJosPirzjv//pFQ=;
+        b=tsn4Qnf93W/98OQsIu+0NiT99VLAjgy3+ljr+U3NTNbh4TW8SXBqAo3VtrBqUBz/gI
+         J6dpJOl8Rm61KZjzKnHOKtqznAPAyaiz8wnGtQnU3Y5788mdbdC8sgbicdrXL0wOfwfs
+         504r4cmNperVb8eDn5/6dimqwq5/M/ch9TYMa3CC5HIMC3eD4eCGlmZL9j6Fufszr6BD
+         +lZhpU9DwIo/OLia9yOxfoPQXRQXEuUT7oLTjlc3Zp3DXXoyLZB+EyKeb/AJVDxSURlG
+         qocYlL3jAAg5yOwcQtrbk7oX21or3v9CMv5eHAjluSfQXRodLWLY7ddcbFNnO1Wcs78f
+         aG3g==
+X-Forwarded-Encrypted: i=1; AKwUvBx/WhAoqt7Ji9gVySWUBsxAu2lbs5d26c/k5oLUaoo2bNJDv0D/q0fibB2mqkBMk/qUn4ZBuAxWr8cV@vger.kernel.org
+X-Gm-Message-State: AFuF++nVnCmR31xpom/yW8fjVhUsBB6xuHW0qrQij8So7rgHQdiq4rrK
+	zKdoIh0e9q77LkNWMzkUXKCgrqoaYN+iB45WEqRKu4GqFq6UuqCmsG6k
+X-Gm-Gg: AYBFou1SwMQLNjZ/Woy9VfefcMdVWwUQAdIswx/+cqp3T7qmuoH/foLloUBXgZL555p
+	INam0P7VSPvIdq2ndOcRwy5tNGWKgcg6H7z4YdNglT56UhQnV/+Cs0K/6D2FXXPUKFGzuJT1ouN
+	cO5Om5jYcU4hV40jIhmW90TMBEybbFfmO8UY5c1+hsuCX/nO7ia5bdfRkBTiORahwpm0LiiskE3
+	RtxtexNpgEcCtzoom9vwFad3wpG9iWPbBKND04aaqLQhLLENbcKtQ+mxEJS23J1fSLw2/K3lTJ9
+	h5XIWRtd5kFeqayCajlg1Q62f76r7m3jVtz0LZEs24H7Uins+skentPCHfEUypssqaV+lkkdGET
+	TsqosXCcl3t3+PLuvC4Mbh1ORIxqqhTQAsW4MeWnHYl8TEL3OxxAttXoMmogmN08vuG8dC0guqY
+	AJTJopEvqR+zeeUinJE0y0Jaw1mUDy8rmBXqUkrN+vrbG41Fj1E5g3qcPBOt/Ea/P7cDK/hCIdm
+	3G++W75xYJ1IPdTlw6+V1Et9mGu9Nw8O8lHTkMKF57oYy31LyHKmx9nFeWAkScO6fm6z2C31lha
+	4PU=
+X-Received: by 2002:a05:600c:4e89:b0:49e:745d:5768 with SMTP id 5b1f17b1804b1-49eac4112e9mr27160505e9.0.1789565332521;
+        Wed, 16 Sep 2026 06:28:52 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME (20014C4E1B8E02001A623C292D45A2B3.dsl.pool.telekom.hu. [2001:4c4e:1b8e:200:1a62:3c29:2d45:a2b3])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e847da0cdsm594135e9.2.2026.09.16.06.28.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 06:28:52 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Jiaxing Hu <gahing@gahingwoo.com>
+Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Oded Gabbay <ogabbay@kernel.org>,
+	Elaine Zhang <zhangqing@rock-chips.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	Sidong Yang <sidong.yang@furiosa.ai>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+	Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+	Diederik de Haas <diederik@cknow-tech.com>,
+	Alexey Charkov <alchark@flipper.net>,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	iommu@lists.linux.dev,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Igor Paunovic <royalnet026@gmail.com>
+Subject: Re: [PATCH v13 03/14] accel/rocket: wait for a running IRQ handler before resetting a core
+Date: Wed, 16 Sep 2026 15:28:24 +0200
+Message-ID: <20260916132824.13527-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260915104328.45901-4-gahing@gahingwoo.com>
+References: <20260915104328.45901-1-gahing@gahingwoo.com> <20260915104328.45901-4-gahing@gahingwoo.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/5] phy: qcom: qmp-pcie: Add Nord Gen5x16 PCIe
- multi-PHY support
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Bjorn Helgaas
- <bhelgaas@google.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Maxime Chevallier <maxime.chevallier@bootlin.com>,
-        Philipp Zabel <p.zabel@pengutronix.de>, linux-arm-msm@vger.kernel.org,
-        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org
-References: <20260909-nord-v3-0-b0a82721c547@oss.qualcomm.com>
- <20260909-nord-v3-5-b0a82721c547@oss.qualcomm.com>
- <aqJFo3beKde404qd@QCOM-aGQu4IUr3Y>
-Content-Language: en-US
-From: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-In-Reply-To: <aqJFo3beKde404qd@QCOM-aGQu4IUr3Y>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: uOD8qIih1HsEZKPhAWfhW4yLvmvdYfLc
-X-Authority-Analysis: v=2.4 cv=NelzRGD4 c=1 sm=1 tr=0 ts=6aaa9923 cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=L3-XMscUPCAweoWNVT8A:9 a=QEXdDO2ut3YA:10 a=zc0IvFSfCIW2DFIPzwfm:22
-X-Proofpoint-GUID: uOD8qIih1HsEZKPhAWfhW4yLvmvdYfLc
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDE3OSBTYWx0ZWRfX+VQwSZhTRZg8
- OxtoVeRMO/04h7BYCeEAC1s9REoEEhiEkyva5L84yJSy3AtUUSdlonlc8vDcWBWUbB+ePypf59W
- hhp73BuVZfw6j9I3llxthhlujzBtTeupDsREuk2GYyWy3e8RR0wuygnkp81TXQByxC+Yn6fSRMe
- wwARnLlNssWi47uR+iKGf+w8sSqC+UZeSPxHnGg2+5PV3yVmEfycfpEUCU3PgyaEUWOxy0ty4rX
- VpiBWpo8fYstAzqNb/ie6W1iORiJSXxNKWKuM9tXlHZ6FfY4cH6KpFZQCfjjD74w5nXE7kmFJFG
- NUVMD+1U+EleQfLxzETGRGfpD7BZ/HDflTwDNoknQeMrxmRofp7ckoYU/hMZWGcnvTkXgdEsZrP
- 44uriQnSOSS6pD9y4B0Ag3Mm00kxDbA6hiClMESI+3JgXjR4lPWJRmWU4Fn4XGUzozTIV7O3Ky7
- 4XGFpfkgLbJzFgvPh0w==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDE3OSBTYWx0ZWRfX7gcULddLrofX
- ZaP5d+T51HEqJw/CAOd+5euYwCtBSSFfCAv0+dpGIVQLgxEP/MjBvumTNr+xs3h3i90LUcmmBqE
- 2f3sb7YeHUPdXIVVWRVZRcmCaCums9w=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-16_02,2026-09-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 impostorscore=0 spamscore=0 clxscore=1015
- bulkscore=0 malwarescore=0 suspectscore=0 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160179
+Content-Transfer-Encoding: 8bit
 
+Hi Jiaxing,
 
+Thanks for flagging the job_lock change in the cover. I re-ran the
+same protocol today on v13 as posted, 2+3 and 2+3+4, three runs each,
+same board, base and config as on 12 September (JOB_TIMEOUT_MS=2,
+PROVE_LOCKING, DEBUG_ATOMIC_SLEEP): 73 induced resets with nothing
+from the driver beyond the timeout message itself, no MMU faults, no
+lockdep report or warning, and lockdep still armed at the end on both
+kernels. Of the 126 inferences scored, 118 matched the CPU reference
+within 1 on all 48 channels, and 8 missed on all 48 with the channels
+the scorer prints reading 0x80; in the two runs traced with the
+kprobe, those 5 results sit exactly where the 5 -ECANCELED completions
+do.
 
-On 9/10/2026 11:22 AM, Shawn Guo wrote:
->> const struct qmp_phy_cfg *cfg = qmp->cfg;
->>  
->> -	reset_control_bulk_assert(qmp->cfg->num_nocsr_resets, qmp->nocsr_resets);
->> +	if (qmp->nocsr_resets)
->> +		reset_control_bulk_assert(qmp->cfg->num_nocsr_resets, qmp->nocsr_resets);
->> +	if (qmp->resets)
->> +		reset_control_bulk_assert(cfg->num_resets, qmp->resets);
->>  
->>  	clk_bulk_disable_unprepare(qmp->cfg->num_clks, qmp->clks);
->>  	regulator_bulk_disable(cfg->num_vregs, qmp->vregs);
->> @@ -335,6 +1067,20 @@ static int qmp_pcie_power_on(struct phy *phy)
->>  		goto err_disable_pipe_clk;
->>  	}
->>  
->> +	if (!qmp->skip_init) {
->> +		qmp_pcie_init_port_registers(qmp);
-> Have we tested the patch on Glymur? As Glymur's cfgs have either .pll_tbls
-> nor .tbls, so skip_init is unconditionally false for Glymur. Is it
-> intentional to run qmp_pcie_init_port_registers() on Glymur?
-Thanks for the catch, I will test for glymur before posting next series.
->
->> +
->> +		for (i = 0; i < cfg->num_regs; i++) {
->> +			qphy_clrbits(qmp->base[i] + offs->pcs,
->> +				     cfg->regs[QPHY_PCS_SW_RESET], SW_RESET);
->> +			qphy_setbits(qmp->base[i] + offs->pcs,
->> +				     cfg->regs[QPHY_PCS_START_CONTROL],
->> +				     SERDES_START | PCS_START);
->> +		}
->> +
->> +		usleep_range(2000, 2500);
->> +	}
->> +
->>  	for (i = 0; i < cfg->num_regs; i++) {
->>  		status = qmp->base[i] + offs->pcs + cfg->regs[QPHY_PCS_STATUS];
->>  		ret = readl_poll_timeout(status, val, !(val & cfg->phy_status), 200,
->> @@ -357,9 +1103,36 @@ static int qmp_pcie_power_on(struct phy *phy)
->>  static int qmp_pcie_power_off(struct phy *phy)
->>  {
->>  	struct qmp_pcie *qmp = phy_get_drvdata(phy);
->> +	const struct qmp_phy_cfg *cfg = qmp->cfg;
->> +	const struct qmp_pcie_offsets *offs = cfg->offsets;
->> +	int i;
->>  
->>  	clk_bulk_disable_unprepare(qmp->cfg->num_pipe_clks, qmp->pipe_clks);
->>  
->> +	/*
->> +	 * While powering off the PHY, only nocsr_resets needs to be checked.
->> +	 * This way, no matter whether the PHY settings were initially
->> +	 * programmed by the bootloader or the PHY driver itself, we can
->> +	 * reuse them the next time the PHY is powered on.
->> +	 */
->> +	if (cfg->pll_tbls && !qmp->nocsr_resets) {
-> Every cfg in the file (Glymur and all seven Nord ones) declares
-> nocsr_reset_list, and qmp_pcie_reset_init() only leaves qmp->nocsr_resets
-> NULL when num_nocsr_resets == 0. So the condition is always false, no?
-Thats true for current targets, but on future targets it might not be true.
-I will remove the check here for now, in future if we have any target with
-nocsr then
-we can add it back.
+The limits are those of my 12 September mail (all resets on core 0,
+one client), plus one more: the model is a single 1x1 convolution,
+which Mesa submits as a one-task job (one completion interrupt per
+good inference), so hw_submit() never ran from the IRQ thread, which
+the race you describe needs. So this shows the lock adds no lockdep
+report or hang on this path, not that it closes the race. On that
+basis the tag stands for the v13 form of 3/14, with the same comment:
 
-Ack for rest of the comments.
+Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588, three cores, induced reset, JOB_TIMEOUT_MS=2
 
-- Krishna Chaitanya.
+If 4/14 changes shape in v14, I will re-run that arm. The scripts and
+the tallies were prepared with an LLM assistant; every number above
+was counted from the raw files of each run (scorer output, kernel and
+serial logs, kprobe trace), not from the scripts' summaries.
 
+Regards,
+Igor
