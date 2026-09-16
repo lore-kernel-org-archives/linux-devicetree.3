@@ -1,119 +1,170 @@
-Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24B293ED5B9
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 06:55:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 935B03EF66B;
+	Wed, 16 Sep 2026 07:00:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789541739; cv=none; b=uegR8jeaM2yZvvwTALjYhZnZaeqvEMPJi5lzskBmliOhyg8mzfI+5/yF0Ctc40LgrnP0VBVUzgAwWNT7JnQjCF6tVSIwewocCTr2OP8MKDEhI7jALMkF3d+KMomPx4+5ATMVeG8qyRrBYZBxRZTPVMoY+MChG333thVF5ckIzPI=
+	t=1789542051; cv=none; b=q4qmYHf29x56/Lo0VJ1rng6dMNuEDU/O4tU4Cmbj1+FcG4hd5Rk/s2QmYVxzwaWYe63CziIH2Uszha9TemKYtq7IkfQ488/IBCUnP3jWyhWCr/r/GjnHMuHYPjEd3XPpkRo1SzzcyTMh4s3yDSKbinuNmsJstpPWCG1UeNhCFq0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789541739; c=relaxed/simple;
-	bh=JTJ88IGbzVBPXF6knhuLYB1+SszOHaf+na+fa/yh0/Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=Ghmv3YXaCzI5i9JuBkQ4GNGmKbApSxYB5dhivk9zIFcLgZEaerwotIca1au5eUXIIXRCaGAu3ExWzN/GMyma3vrQpLonTWSf4Q1tPd7GqhG6T9KqatyXqdSt4eh4eNPcFrzx4bP8MLqAGC8BCxMjjZkD2VKOEvl4u5MZMuN2gtQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=sN29VXdR; arc=none smtp.client-ip=203.254.224.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1789542051; c=relaxed/simple;
+	bh=XXt/qwAoj1t7ccosJHSNNE4Gha6I7iVikWuRABYWWHA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=d/Ijpwl/BduwHlTAHrhXflfoT8zEF0WI0kuT1yC3IDrjfDN9hu7j8ioOY8rzt4IrWgqQ597UAyAAgOldNw9OCZHirSgE2d8DA6vk5J1/yotkI9OKpJ4odJVxPCxidNeZvkLP/j3/yzQ+EeczUv29/iBUncsxka62/mO+v2OXlIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RP4WARjx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="sN29VXdR"
-Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
-	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20260916065534epoutp02dee64f47c948bc465e3f57af57c6d8ef~Vurn-QNRf0115601156epoutp02e
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 06:55:34 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20260916065534epoutp02dee64f47c948bc465e3f57af57c6d8ef~Vurn-QNRf0115601156epoutp02e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1789541735;
-	bh=Dmq9AZ1vIHHYBfJ/kR1wgFXYb1HSX0N4D1w5gRdEoaA=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=sN29VXdR2j2bHvRXpPTbj65RGugMMyVibw4Cu63eA28RRhMrNqI0nPBPvmSnvDR5x
-	 gP6nnnf8gREha+A1Ic3cb+oXm+ZsDuAs4r29tPDWqiGZ/cwIwQd1+NbHqICNrggcYE
-	 wcMP9LcNSs4xbG6HRoWfXxv9I4rIQan2LaNPgUSs=
-Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
-	epcas5p3.samsung.com (KnoxPortal) with ESMTPS id
-	20260916065534epcas5p3a129d4f73b4e4d18ce8fb3af12881fb3~VurnU534m1719117191epcas5p3p;
-	Wed, 16 Sep 2026 06:55:34 +0000 (GMT)
-Received: from epcas5p4.samsung.com (unknown [182.195.38.86]) by
-	epsnrtp03.localdomain (Postfix) with ESMTP id 4hl8m50R9Bz3hhT7; Wed, 16 Sep
-	2026 06:55:33 +0000 (GMT)
-Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas5p3.samsung.com (KnoxPortal) with ESMTPA id
-	20260916065532epcas5p3bac23ebb76d7f13815042d4e89821649~Vurln5I_T1987819878epcas5p3u;
-	Wed, 16 Sep 2026 06:55:32 +0000 (GMT)
-Received: from [107.122.5.126] (unknown [107.122.5.126]) by
-	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20260916065529epsmtip129833710e6fe28286b722fa81fb5efef~Vuri6XZjm1077810778epsmtip18;
-	Wed, 16 Sep 2026 06:55:29 +0000 (GMT)
-Message-ID: <0faf2d75-3b0c-4b89-ab89-d5f93eb26821@samsung.com>
-Date: Wed, 16 Sep 2026 12:25:21 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RP4WARjx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 199611F000FF;
+	Wed, 16 Sep 2026 07:00:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789542050;
+	bh=VjyJ3QHfl2rO9pAu/Qmpoe/bIC8oEq7hAxTnd1ZvaN4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RP4WARjxtQ69HDtiE8hQUy0gl4gsh99I3K7YK9iH2WZjj3+pvDNLRZ0cxd70zfexm
+	 1dgdbtAqj+XV1YALD7B3d6ELuE+nzjHzxyQlLVdTf9XBfyQxYdFJOOLVhkb2AtkAUp
+	 aE801UddQBWATlihnprKpwwLfTUcUGfQuK65w9HomeQx+UzJKrM+u+j8m9OD7UhA24
+	 qDR9i1mBit2t7LejFGjROCHn2YiPhOYMCqofoMMIGHNAhlwMqEap/jimVqycS0roES
+	 h4RwiztqfAwKAxjOOMFzNU3oRoqsqygw67epnofyWOoTLGVEw6XlJN6kQp6kK2VhmQ
+	 B2S1zr4wvGVfg==
+Date: Wed, 16 Sep 2026 09:00:46 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Richard Leitner <richard.leitner@linux.dev>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Alexander Stein <alexander.stein@ew.tq-group.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org
+Subject: Re: [PATCH 2/3] dt-bindings: media: i2c: Add
+ vision-components,mipi-module-controller
+Message-ID: <20260916-daft-relaxed-mouse-9bfaf4@quoll>
+References: <20260915-vc-mipi-ctrl-v1-0-8a42b693d889@linux.dev>
+ <20260915-vc-mipi-ctrl-v1-2-8a42b693d889@linux.dev>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] usb: dwc3: Add Exynos8855 to the generic platform
- driver
-To: Krzysztof Kozlowski <krzk@kernel.org>, peter.griffin@linaro.org,
-	alim.akhtar@samsung.com, gregkh@linuxfoundation.org, robh@kernel.org,
-	conor+dt@kernel.org, Thinh.Nguyen@synopsys.com,
-	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
-	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: jh0801.jung@samsung.com, dh10.jung@samsung.com, akash.m5@samsung.com,
-	hongpooh.kim@samsung.com, eomji.oh@samsung.com, shijie.cai@samsung.com,
-	muhammed.ali@samsung.com, thiagu.r@samsung.com
-Content-Language: en-US
-From: Selvarasu Ganesan <selvarasu.g@samsung.com>
-In-Reply-To: <9969f6d6-71ee-4c22-9b37-a0f6bac97169@kernel.org>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20260916065532epcas5p3bac23ebb76d7f13815042d4e89821649
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-542,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20260903071322epcas5p2a40e3299b0954dd880c9b3651555760c
-References: <20260903071250.3421499-1-selvarasu.g@samsung.com>
-	<CGME20260903071322epcas5p2a40e3299b0954dd880c9b3651555760c@epcas5p2.samsung.com>
-	<20260903071250.3421499-4-selvarasu.g@samsung.com>
-	<9969f6d6-71ee-4c22-9b37-a0f6bac97169@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260915-vc-mipi-ctrl-v1-2-8a42b693d889@linux.dev>
 
+On Tue, Sep 15, 2026 at 10:20:24PM +0200, Richard Leitner wrote:
+> Add bindings for the Vision Components MIPI Camera Module Controller.
+> 
+> Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
+> ---
+>  .../vision-components,mipi-module-controller.yaml  | 92 ++++++++++++++++++++++
+>  MAINTAINERS                                        |  7 ++
+>  2 files changed, 99 insertions(+)
 
-On 9/5/2026 12:49 PM, Krzysztof Kozlowski wrote:
-> On 03/09/2026 09:12, Selvarasu Ganesan wrote:
->> Add the "samsung,snps-dwc3" compatible string to dwc3-generic-plat so
->> the Exynos8855 USB3 DWC3 controller can probe through the generic DWC3
->> platform glue.
->>
->> The "samsung,snps-dwc3" string is used as a generic fallback to support
->> any Exynos SoC that utilizes a flattened model instantiation. This
->> fallback allows multiple Exynos SoCs to be supported by the generic
->> platform driver simply by adding the fallback compatible to their
->> respective device tree nodes.
->>
->> Co-developed-by: Muhammed Ali <muhammed.ali@samsung.com>
->> Signed-off-by: Muhammed Ali <muhammed.ali@samsung.com>
->> Signed-off-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
->> ---
->>   drivers/usb/dwc3/dwc3-generic-plat.c | 1 +
->>   1 file changed, 1 insertion(+)
->>
->> diff --git a/drivers/usb/dwc3/dwc3-generic-plat.c b/drivers/usb/dwc3/dwc3-generic-plat.c
->> index ca69ac0eb07c..33a76c37d15d 100644
->> --- a/drivers/usb/dwc3/dwc3-generic-plat.c
->> +++ b/drivers/usb/dwc3/dwc3-generic-plat.c
->> @@ -237,6 +237,7 @@ static const struct of_device_id dwc3_generic_of_match[] = {
->>   	{ .compatible = "fsl,ls1028a-dwc3", &fsl_ls1028_dwc3},
->>   	{ .compatible = "eswin,eic7700-dwc3", &eic7700_dwc3},
->>   	{ .compatible = "starfive,jhb100-dwc3", },
->> +	{ .compatible = "samsung,snps-dwc3", },
-> Why not in alphabetical order?
+This fails tests, so a very brief review / a few comments:
 
-You're right, it's not in alphabetical order. I'll fix this in the next 
-version.
+> 
+> diff --git a/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml b/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml
+> new file mode 100644
+> index 0000000000000..2a031aea68457
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/i2c/vision-components,mipi-module-controller.yaml
+> @@ -0,0 +1,92 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/i2c/vision-components,mipi-module-controller.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Vision Components MIPI Camera Module Controller
+> +
+> +maintainers:
+> +  - Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> +  - Richard Leitner <richard.leitner@linux.dev>
+> +
+> +description: |-
+> +  The MIPI camera module controller is an FPGA-based, I2C-accessible system
+> +  controller found on MIPI camera modules from Vision Components. It abstracts
+> +  the camera sensor behind a unified register interface, and controls and
+> +  sequences the on-board power supplies and clocks.
+> +
+> +  The camera sensor abstraction is optional. The controller exposes a tunneled
+> +  downstream I2C bus used by the attached image sensor. The controller node
+> +  acts as the upstream device on the host bus, while child node below the
+> +  controller represent the sensor device reachable through the tunnel.
+> +
+> +properties:
+> +  compatible:
+> +    const: vision-components,mipi-module-controller
 
-Thanks,
-Selva
->
-> Best regards,
-> Krzysztof
+There is no model name, no version, nothing identifying it better?
+Compatible must be specific to the device (see also writing bindings).
+
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  '#clock-cells':
+> +    const: 0
+> +
+> +  clock-frequency:
+> +    description: Frequency of the sensor clock provided by the module
+
+Drop, implied by the compatible
+
+> +
+> +  vcc-supply:
+> +    description: Power supply of the module (3.3V)
+> +
+> +  '#address-cells':
+> +    const: 1
+> +
+> +  '#size-cells':
+> +    const: 0
+
+No children allowed, so why these two?
+
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - '#clock-cells'
+> +  - clock-frequency
+> +  - vcc-supply
+> +  - '#address-cells'
+> +  - '#size-cells'
+> +
+> +unevaluatedProperties: false
+
+additionalProperties instead, see writing bindings or writing schema.
+Unless you miss here some other schema $ref.
+
+> +
+> +examples:
+> +  - |
+> +    i2c {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        vc_mipi_ctrl: controller@10 {
+> +            compatible = "vision-components,mipi-module-controller";
+> +            reg = <0x10>;
+> +            #clock-cells = <0>;
+> +            clock-frequency = <37125000>;
+> +            vcc-supply = <&cam_3v3>;
+> +
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +
+> +            i2c@0 {
+> +                #address-cells = <1>;
+> +                #size-cells = <0>;
+> +
+> +                vc_mipi_sensor: camera@60 {
+> +                    compatible = "ovti,ov9281";
+> +                    reg = <0x60>;
+
+Why having the child abstraction if it is completely abstracted? I don't
+fully get the explanation from description. Completely optional means no
+benefits, no point in it, no?
+
+Best regards,
+Krzysztof
+
