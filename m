@@ -1,240 +1,173 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0D344AA018
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 10:12:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789553567; cv=pass; b=H9f0/qoHlFeVbnAlILMJp0FZEZqgl7/ZR4fFF4dvSEZVMibta0b6Ja1Jny3PwbrrE3RUfnFvJZS/83Cee1uVcpZ90M18cKVh6xEQyUPjAGx77QGBlAOvcYpoQvR9illWTuA3UGnto3gT0a00cvE79YkE8IgLHgcJuO0kjLjpN8Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789553567; c=relaxed/simple;
-	bh=FcMZAWu6Pl4djj9zhAk6RGVFzPCsFGY0WGARMV3Tby8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gT01ZTmMCyqLvlE8k9Y8smIABAQkbFyVjcE4gxqW7jNS1ysaKyZirmaRuT7u2lD2L/ceZKbrzPWJh7tmiTfY3Gcv72YonnKlhJMSp8dJXBRta1RaQLw+bVbaZnGZsPaFx7lYII2spty25e0lwppQnnfPUC/kvpJdgSxLkGD75AI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org; spf=none smtp.mailfrom=brainfault.org; dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b=oT2Dsa4y; arc=pass smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D893049DBBA
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 10:17:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789553890; cv=none; b=mlk40F8LFGSKwA0OrQ6bdLpRCBe/OTbju6w9e7Sg6KKKtrQIRYAzchZtnRDog/Jk2dsfw5mLkN38Sv86EFDE3hfXYMYbk75DGU2Bch0oCzZuOua3JY2mTQgJuVDhket0GeSTp7xFpdTXzUe37taQCEx8gnOzbSrOX7q+3gdb/CA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789553890; c=relaxed/simple;
+	bh=7Cq8nxsPwCV0b+/Bf6nn+CaY0kXsOKQSTGyZuumBOZk=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=oEUsxttLEKfSivwk4qiS78ZeVstmgFH0o/CPUfh1hK7sYdb6j4rnWRuREwT7Yps6tSuuwMdwSrf+UQDUuFR9Qe6w7wTXkZXR2GrXd9H8cVMBgpBHB8L0j8g63EPVpOSapjKpkTuPS8u8y9dc6FIGwHlKj/00PvEjq+KLahrFPDM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=inB+YBwi; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b="oT2Dsa4y"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d822dso5608705e9.2
-        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 03:12:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789553550; cv=none;
-        d=google.com; s=arc-20260327;
-        b=M6DlAbqN98RoPjhOp4XQLQVLRk8SfAgGoPfVdnesXKhJiilfNCFAAZBRAF4WkRTG4m
-         4uDSks/UNuP+AoCDyxDWljUiqijI5rVGVbEURcvqEVdomm6efv3t/8xyc0nB/iHuh363
-         CjX8rd6ilwbAIi4v5LT6dYfG14MZcocGRswNUlO+dSB59Piw7a2hXUToX55bgN1q3Q58
-         z0InxCeizHlmcys4jxg1bO6fBrIXf83l3wNjt88Bro4JJkD2Coov5PJ/fKBS3yCbN8AZ
-         OeXQVqKwu0JGfapdLxHHnbaTum4R30n8YHRnHaO/H0H8UGLwmbHcE0bXlOTrdOhT5/kt
-         KgAg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=VMvnu6Q+bhTIDoi1lbqTiSXnAgA138OR2uRiPsRsuJs=;
-        fh=TlfHv7ZvHKf4oMBZLS+mRS2r7rT8SWG7Py/YD5cp/vw=;
-        b=IkWwouslQIurLI0qscnSl+rPCIud/ik9YT0uCEVcY3/HY7k1H/A9hFg685WylPMtxA
-         d5dO+pOZwc06vTK8EFw765Dy4wfx2aMcN3p5oFcHAKop3l1djzjsagi7T7+e+LxykLmt
-         ppy0qxkgHgXWZgSF3byWqyP7ZdXqZeyB3Tb7UwLpSn0kSMq/o4MmBSdgL09VnqR6MBDS
-         wkKczKuXsH4RD30Q24Pk8JywJjUosuA394UoIjD/WvTpv2ZnYQkVFJQbUVFHl6XxnMQ8
-         RQt1TlSmfMI2sZKdGlbhQgmGgwpfdaVug942gW3PeqNY4oCRiRqeWYI/HDjWQGz5j7VC
-         vDuA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="inB+YBwi"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b965f447cso6495865e9.3
+        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 03:17:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=brainfault.org; s=google; t=1789553550; x=1790158350; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VMvnu6Q+bhTIDoi1lbqTiSXnAgA138OR2uRiPsRsuJs=;
-        b=oT2Dsa4yx3+dHLscDy3ZY+lSwK7V6pmb0dHhdUF8HM+3ZVgBjSm5S+jBPGPziqCFvh
-         nefhVwCCwfX/abaqccUI2fEOs62vVSyIU6nn1+ms3l+bt5g1ibRnxAgSeK718Ck8Fe7A
-         5OGxkQkrTHvP3DNmZ5Z1xXI63GelHMN+F7SD9DMmRqHEecivXvoHF9FqoYfGquN6YSQ+
-         ji9SE1sUqEF+s29lfcSPXjYKJFxngsIEyWEs6xvc/RsO4+7MisNtv2/6/k+2d05fAGzQ
-         fbGs4NaaYgXRtpxSV3JrrrWq4gVs/T0OOCDTUbgyBq4y+1OLUhZEOq8taGzt0eC7nWt1
-         WAIg==
+        d=baylibre.com; s=google; t=1789553870; x=1790158670; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:mime-version:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=t3hmWtdZP0Fd0Xr4e68FJlMw+IYfmh5JRzNHS/YOcT0=;
+        b=inB+YBwimVypoLoHc43poUT3h4Dxyb+xvHcOUYc1wR9PGeMdqjfGeVRwTWfCAcmake
+         wnY5wevQ2/3C6IbFxByj2msYxX6tnxoLa4pSXS9RkqMO0SZHBq3sjraHFEtruujEWQV/
+         9McSBbp/g2YZ4kjA3OrIj24uP59TlH1bEtSIbONm3p0xZkZfls/7N9D1Td7yIK4XmpwR
+         3qhnkVzzIWP8WEteRzbbrD/q8z12rSTUV5r/idKY2qLD1lx84g3K1dPS2fDli/v/vGIk
+         b0TFib6HIIZqh5AtRbLArQ+roChCF9E2nh/gIXs72Cdd6IZcYKRZkLatLRLoHigdaUPx
+         tofw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789553550; x=1790158350;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VMvnu6Q+bhTIDoi1lbqTiSXnAgA138OR2uRiPsRsuJs=;
-        b=tW6u7P15l7gdR2Bl2BNqFywCYcPfBs0UUqVDlMlmCpsCvcYocrIjloNms3D7dzRNOX
-         fjbBUTzFkfvaInFDhGBe8JPNFnTLTE4bHWYlTTymX0vA4fzzkzy4xMqY07XJ/a11rlVI
-         JWkR/EfwvjMCHs7gvPn/Cw3Tt0kY/JSsL2w6pwprhjq5guX7909xErokjwTIDjaPef+3
-         2dzLJcPURzRQqIg8YHSLWNehvGA8vTH3Q3ubBmm/EI2TeDXVYD9Br9weD9kcI7KI/G6z
-         FMACgusvVLsnUtH3wF+0cQN4ohQbIopYz51rEo5UggLUIskgSJMCxozzFeoIEWMSgwo5
-         9qtQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxMvYJQLQ1OUyBzk6WqpAoqxKChmOHBXYrV/OxpY6w6skkFmFQRiW1qDCIKSH66PKsOHSJJyxeqkbs0@vger.kernel.org
-X-Gm-Message-State: AFuF++mWQVs0sArajqVx+iqjd3ba4gjWZaN8gtUn8nFaeATCZG2H05Uw
-	s0Lh263zwyT39lvX3nu0d9u8lNi5DvIRc3DtMZUcmdtX35awaS9Ybn3hj7I7uTBZC0zsAWAsp/U
-	EEsGNW1yY3+QbLeR5wBnGhVhINVOjnlwqduPNz4ah3A==
-X-Gm-Gg: AYBFou1rvpJbiGRVhT/dD0AMovbo3dLm2gVBZimuWdWQfk75hS2/3iFmmz47QJph6H4
-	1TeV5FkJP++ly8pQL7zt3iX0L1RXNEl+opI66BJzuiLfqus+7MiDWH1G6cz8EGi7Ila8A32Os/w
-	Xv6WDovvR30mbyfSjrcmXOuTHO9VDU+uC54FW++31o+FMCrESS0oaIqas7TeuoCEwezHbuqXo33
-	Gqe/qEA6/KN4nF45kAB3TEi+ijJroFMN9rW0wUwpNBYWr0XuXB4r7aNP5ygWLa5SQVeBAQd4g1G
-	H85DdE5EEVtlq3XovtNA6zFUsmodqlH7Zr1gYdHbkOtD5cOBXLbT3fAm/logC8CxcUNtiGRQ5Gi
-	Hchm+SC8kFcrfB8lGD4ABE/NPQy2qJTYjmtfH4EdiBRmLBpG5yEPcvoAnLsQQJFBT5RS7W5x1U3
-	0=
-X-Received: by 2002:a05:600c:1986:b0:49c:d019:70c5 with SMTP id
- 5b1f17b1804b1-49ea528e2f5mr24120835e9.0.1789553548884; Wed, 16 Sep 2026
- 03:12:28 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789553870; x=1790158670;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=t3hmWtdZP0Fd0Xr4e68FJlMw+IYfmh5JRzNHS/YOcT0=;
+        b=frsNYl3qjVahK24wJq5O3ei2Uwer7rQylyYVshIMt59YlFNqD9fNe2UeyJwst0uot2
+         d328lRZUxRMu92oF/mlgN9e4cJXfhBTkYBwDapB6umqtNmaTBtugL34Wb66qrMZxYdR7
+         oTdOYZN1jI81EFnGg3ogJmWybq2kH11MNc7vy1rMSp5H1ibI1xoJ2g701ksYEdp4QVHF
+         qBuxrB+yinfCKeDTgGlBEVeoXMESUyR48kMCS0OVHDMDfDxQ9xmvMuXHrKysgewqf99g
+         flZekNiBzwDUK6iPi2X0wgiFZLmWCp0MOkPQyB/GsCo/xNUZeLO+OrvdKF4kaPloJqgu
+         9qjw==
+X-Forwarded-Encrypted: i=1; AKwUvBx7ZZAv/TZCtqUFBxloAxXXjHtl70DG3IAKVUYewHTOt5+OxbCGuXSsuXa4E6QCc+8BhsmBFJmcrXdW@vger.kernel.org
+X-Gm-Message-State: AFuF++k85DEGSf7221xFPoZp6QCAmpubOJ5bwmpMPoxTK1C8nERPVT0S
+	+4lvnxYXiHvAqnwDiRiRb1OE194Wco/LnjdD97f01AFT6V6EYRn58wvSQamnAlEmLkQ=
+X-Gm-Gg: AYBFou3w5P5K3WPvfVQK2VJ8U5dJIVzpUfG0ndeeQ9ymFFftev4XgKrBYT7FI8A5E/O
+	OJirniRZAqWhzsivC0gtcBcWy1lzSG+kcrEPj0X77Bs/yNTaTy4GVIHyo6RI9PEFCGGfAjBWNxU
+	VQ4HibtchY+YnN2sk124vFQbynT9vQoTF34k30H+Tl/QEtSAZT5B47NmxUz5XZUIBYplv3C9UWS
+	NTj0kWN8Ao1iVMTRPq1pM0mTbrrm8Bqk5gwiNR0zOisW8B5Gbtb2hxRMa7vqo9GlhW8zkDv5hjr
+	ZiCFqmhWSPAV3it5nraatoug5HytFtvGnhV2dKgTbi15M0lU0d8aKFxJt6/PkZZsEB3fEzRVrB0
+	+2vs+DrObmcB1DB9o+wwJOhgvKtlddrrk1fYaC31DDAghe6d3zgULOcB2ocORmDRmTnrGc9eZtu
+	cYjjwVcAoK9KwR/kZI3O5dpMmY+xaYu/Z5a3IZDyTP3diUj2ULMD1fac6A58coJkN5/g==
+X-Received: by 2002:a05:600c:4e89:b0:49c:f504:2af5 with SMTP id 5b1f17b1804b1-49eac463892mr21836755e9.1.1789553870070;
+        Wed, 16 Sep 2026 03:17:50 -0700 (PDT)
+Received: from localhost ([2001:4091:a245:8029:665d:b7b:5fa4:7ad0])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf462cesm6129385f8f.37.2026.09.16.03.17.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 03:17:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260912-rpmi-tee-service-grp-dev-v1-0-1d1d35c2a859@oss.qualcomm.com>
- <20260912-rpmi-tee-service-grp-dev-v1-5-1d1d35c2a859@oss.qualcomm.com>
-In-Reply-To: <20260912-rpmi-tee-service-grp-dev-v1-5-1d1d35c2a859@oss.qualcomm.com>
-From: Anup Patel <anup@brainfault.org>
-Date: Wed, 16 Sep 2026 15:42:16 +0530
-X-Gm-Features: AcwNN1XhJcdypVFFKePBGQrRcccPnauqo1pQsJ8HQwZetdLhE4E6-eyGGrD9-yI
-Message-ID: <CAAhSdy3Or_uDWuQniUGguc9AwL8smF6XHhJ0kizFOJKJ0N+9OA@mail.gmail.com>
-Subject: Re: [PATCH RFC 5/5] dt-bindings: tee: add RISC-V RPMI TEE transport
-To: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
-Cc: Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Rahul Pathak <rahul@summations.net>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, op-tee@lists.trustedfirmware.org, 
-	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=4294f4665fca826925ab73fbe6c2302da13aa0714ec0f2a34bb309cea55b;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Wed, 16 Sep 2026 12:17:42 +0200
+Message-Id: <DLGNWF2DSXZI.7WRJZRZLGW8@baylibre.com>
+Cc: "Nishanth Menon" <nm@ti.com>, "Vignesh Raghavendra" <vigneshr@ti.com>,
+ "Tero Kristo" <kristo@kernel.org>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, "Nathan Chancellor" <nathan@kernel.org>, "Nick
+ Desaulniers" <nick.desaulniers+lkml@gmail.com>, "Bill Wendling"
+ <morbo@google.com>, "Justin Stitt" <justinstitt@google.com>, "Judith
+ Mendez" <jm@ti.com>, "Daniel Schultz" <d.schultz@phytec.de>, "Andrew Davis"
+ <afd@ti.com>, "Siddharth Vadapalli" <s-vadapalli@ti.com>, "Paresh Bhagat"
+ <p-bhagat@ti.com>, "Bryan Brattlof" <bb@ti.com>, "Jai Luthra"
+ <jai.luthra@ideasonboard.com>, "Devarsh Thakkar" <devarsht@ti.com>,
+ "Beleswar Padhi" <b-padhi@ti.com>, "Francesco Dolcini"
+ <francesco.dolcini@toradex.com>, "Stefano Radaelli"
+ <stefano.radaelli21@gmail.com>, "Nick Desaulniers"
+ <ndesaulniers@google.com>, "Vishal Mahaveer" <vishalm@ti.com>, "Kevin
+ Hilman" <khilman@baylibre.com>, "Sebin Francis" <sebin.francis@ti.com>,
+ "Kendall Willis" <k-willis@ti.com>, "Akashdeep Kaur" <a-kaur@ti.com>,
+ <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <llvm@lists.linux.dev>, "Hari Nagalla"
+ <hnagalla@ti.com>
+Subject: Re: [PATCH v8 9/9] arm64: dts: ti: Add wkup R5F nodes to pre-ram
+ bootphase
+From: "Markus Schneider-Pargmann" <msp@baylibre.com>
+To: "Francesco Dolcini" <francesco@dolcini.it>, "Markus Schneider-Pargmann
+ (TI)" <msp@baylibre.com>
+X-Mailer: aerc 0.21.0-146-gb5c16ebe1835
+References: <20260903-topic-am62a-ioddr-dt-v6-19-v8-0-74c650dfdea6@baylibre.com> <20260903-topic-am62a-ioddr-dt-v6-19-v8-9-74c650dfdea6@baylibre.com> <20260911052428.GB5377@francesco-nb>
+In-Reply-To: <20260911052428.GB5377@francesco-nb>
+
+--4294f4665fca826925ab73fbe6c2302da13aa0714ec0f2a34bb309cea55b
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-On Sat, Sep 12, 2026 at 3:45=E2=80=AFPM Amirreza Zarrabi
-<amirreza.zarrabi@oss.qualcomm.com> wrote:
+Hi Francesco,
+
+On Fri Sep 11, 2026 at 7:24 AM CEST, Francesco Dolcini wrote:
+> Hello Markus
 >
-> Add a device-tree binding for the OP-TEE RISC-V transport using the RPMI
-> TEE service group over SBI MPXY.
+> On Thu, Sep 03, 2026 at 02:39:30PM +0200, Markus Schneider-Pargmann (TI) =
+wrote:
+>> For IO+DDR the wkup_r5fss0_core0 and the
+>> wkup_r5fss0_core0_lpm_metadata_region need to be accessed before RAM
+>> setup is done. These are used to read the lpm metadata region in
+>> which data is stored to resume. This needs to be done before RAM is
+>> in use to avoid overwriting data.
+>>=20
+>> Add the bootph-pre-ram flag to the wkup_r5fss0_core0 node in both
+>> ipc-firmware dtsi files and to the lpm metadata region nodes of the
+>> AM62A and AM62P boards.
+>>=20
+>> The board level bootph-pre-ram flag of k3-am62d2-evm.dts becomes
+>> redundant with the dtsi-wide flag and is dropped.
+>>=20
+>> Signed-off-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
+> ...
 >
-> Describe one mailbox channel per hart and an optional interrupt used as
-> the availability doorbell for asynchronous notifications.
+>> diff --git a/arch/arm64/boot/dts/ti/k3-am62p-verdin.dtsi b/arch/arm64/bo=
+ot/dts/ti/k3-am62p-verdin.dtsi
+>> index 45ab9d947b3a..8976c0424cd1 100644
+>> --- a/arch/arm64/boot/dts/ti/k3-am62p-verdin.dtsi
+>> +++ b/arch/arm64/boot/dts/ti/k3-am62p-verdin.dtsi
+>> @@ -184,6 +184,7 @@ wkup_r5fss0_core0_lpm_metadata_region: memory@9ca080=
+00 {
+>>  			compatible =3D "shared-dma-pool";
+>>  			reg =3D <0x00 0x9ca08000 0x00 0x1000>;
+>>  			no-map;
+>> +			bootph-pre-ram;
+>>  		};
 >
-> Add the binding to the existing OP-TEE MAINTAINERS entry.
->
-> Signed-off-by: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
-> ---
->  .../bindings/tee/riscv,rpmi-mpxy-tee.yaml          | 65 ++++++++++++++++=
-++++++
->  MAINTAINERS                                        |  1 +
->  2 files changed, 66 insertions(+)
->
-> diff --git a/Documentation/devicetree/bindings/tee/riscv,rpmi-mpxy-tee.ya=
-ml b/Documentation/devicetree/bindings/tee/riscv,rpmi-mpxy-tee.yaml
-> new file mode 100644
-> index 000000000000..8f6ff313fd42
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/tee/riscv,rpmi-mpxy-tee.yaml
-> @@ -0,0 +1,65 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +# Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/tee/riscv,rpmi-mpxy-tee.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: RISC-V RPMI TEE service group based message proxy
-> +
-> +maintainers:
-> +  - Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
-> +
-> +description: |
-> +  The RISC-V Platform Management Interface (RPMI) [1] defines a messagin=
-g
-> +  protocol which is modular and extensible. The supervisor software can
-> +  send/receive RPMI messages via the SBI MPXY extension [2] or some dedi=
-cated
-> +  supervisor-mode RPMI transport.
-> +
-> +  The RPMI specification [1] defines a TEE service group which is the RI=
-SC-V
-> +  analog of Arm FF-A: OP-TEE and the rich execution environment (REE, i.=
-e.
-> +  Linux) are peer endpoints and the RPMI framework (machine mode firmwar=
-e)
-> +  mediates every message. Entering OP-TEE on a hart runs it on that hart=
- until
-> +  it responds, so the SBI implementation provides one SBI MPXY channel p=
-er
-> +  hart; all of them are listed, in hart order, on a single node.
-> +
-> +  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +  References
-> +  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +
-> +  [1] RISC-V Platform Management Interface (RPMI) v1.0 (or higher)
-> +      https://github.com/riscv-non-isa/riscv-rpmi/releases
-> +
-> +  [2] RISC-V Supervisor Binary Interface (SBI) v3.0 (or higher)
-> +      https://github.com/riscv-non-isa/riscv-sbi-doc/releases
-> +
-> +properties:
-> +  compatible:
-> +    const: riscv,rpmi-mpxy-tee
-> +
-> +  mboxes:
-> +    minItems: 1
-> +    description:
-> +      One SBI MPXY channel implementing the RPMI TEE service group per h=
-art,
-> +      listed in the same order as the CPU nodes.
+> verdin-am62p has the various bootph tags only in the U-Boot dtsi
+> (k3-am62p5-verdin-wifi-dev-u-boot.dtsi) as of now, I am not convinced it
+> is a good idea to just add this single one here.
 
-I am not sure why you need separate MPXY channel per hart. The MPXY shared
-memory is already per-hart whereas the MPXY channel will be doman specific
-for TEE.
+I don't see any bootph-* flags for any of the related memory regions in
+k3-am62p5-verdin-wifi-dev-u-boot.dtsi. Is it in a different dtsi?
 
-Also, for this binding refererring to only mailbox channel is
-sufficient. The underlying
-mechanism to send RPMI messages is abstracted away by the mailbox controlle=
-r
-driver.
+In general I am counting 72 bootph-* flags in the upstream devicetrees:
 
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +    description:
-> +      Availability doorbell raised by OP-TEE to signal asynchronous
-> +      notifications over the RPMI TEE signal bus. Optional; when absent
-> +      asynchronous notification is disabled.
-> +
-> +required:
-> +  - compatible
-> +  - mboxes
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    tee {
-> +        compatible =3D "riscv,rpmi-mpxy-tee";
+git grep bootph- | grep 'am62p' | sed 's/:.*//g' | sort | uniq -c
+     38 arch/arm64/boot/dts/ti/k3-am62p5-sk.dts
+      4 arch/arm64/boot/dts/ti/k3-am62p5-var-som.dtsi
+      9 arch/arm64/boot/dts/ti/k3-am62p5-var-som-symphony.dts
+      3 arch/arm64/boot/dts/ti/k3-am62p.dtsi
+     14 arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi
+      2 arch/arm64/boot/dts/ti/k3-am62p-j722s-common-mcu.dtsi
+      2 arch/arm64/boot/dts/ti/k3-am62p-j722s-common-wakeup.dtsi
 
-This must be "riscv,rpmi-tee" based on above comments.
+Best
+Markus
 
-> +        mboxes =3D <&mpxy_mbox 0x10 0x0>, <&mpxy_mbox 0x11 0x0>;
+--4294f4665fca826925ab73fbe6c2302da13aa0714ec0f2a34bb309cea55b
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Like mentioned above, only one mailbox channel is sufficient.
+-----BEGIN PGP SIGNATURE-----
 
-> +    };
-> +...
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 207a6e2db70c..7d0e550085b2 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -20577,6 +20577,7 @@ M:      Jens Wiklander <jenswi@kernel.org>
->  L:     op-tee@lists.trustedfirmware.org (moderated for non-subscribers)
->  S:     Maintained
->  F:     Documentation/ABI/testing/sysfs-bus-optee-devices
-> +F:     Documentation/devicetree/bindings/tee/riscv,rpmi-mpxy-tee.yaml
->  F:     drivers/tee/optee/
->
->  OP-TEE RANDOM NUMBER GENERATOR (RNG) DRIVER
->
-> --
-> 2.34.1
->
+iKMEABYKAEsWIQSJYVVm/x+5xmOiprOFwVZpkBVKUwUCaqpsxhsUgAAAAAAEAA5t
+YW51MiwyLjUrMS4xMiwyLDIRHG1zcEBiYXlsaWJyZS5jb20ACgkQhcFWaZAVSlPF
+ZAD/eDJUC404z4tekZfsmiBsSdeLivl6qN7wKJXrKvbZT8oA+wcDLzFFZE77sGVB
+8TuajZIIVN4aNTNdZ3YIBLPrhFkO
+=F8Zw
+-----END PGP SIGNATURE-----
 
-Regards,
-Anup
+--4294f4665fca826925ab73fbe6c2302da13aa0714ec0f2a34bb309cea55b--
