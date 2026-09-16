@@ -1,181 +1,102 @@
-Received: from ironport.ite.com.tw (unknown [210.202.87.179])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B511E47F2C6;
-	Wed, 16 Sep 2026 09:02:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.202.87.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56AAE3446C7;
+	Wed, 16 Sep 2026 09:05:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789549374; cv=none; b=Lo+5yNwH+9FrZ09TW3n3xKsoPO6VcFvRJScTJavJuLJmCDnUcriDcDS62aM/RrAzduge7DY0zrrFlhYAYpDbVFQlJHcOf02ylgUs0A8Clk0PGkTVYBuv2Z8fsHZxkRhxZRbtNWqZwgg+eea6++GKziJ+me1oHbMeu5o+u0a8+48=
+	t=1789549548; cv=none; b=t7A3FhGoJl2ZZTXjIlLyi2LJ1/UE84c3ePUXakMX778vE1qeF74wZx1+fz65P89VGBTMbQOFkQwSu0WQUS1YqYV5UeZtIsrYarvN66TXMk3pwfaor+oJsvpJi9OmC4VaxWwmytxdPGO26pKysdrYRSno2KbBL366X6iMnC6/ab4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789549374; c=relaxed/simple;
-	bh=zaG7cAtDd51nn3ZmpYXj/O6hmncShQqjM7MyixTdEbo=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=pxz7VPiS6FXXKqtsoVckb4qy7LkCxi9JEC8neOVRM1BY0UtccKbXrL9QHpZcylWGUg+/ACtkbLUO0APGk2nWcz2mXw3ZTS4ZqfKBP84kkYvW81XlovmkDTGADm2WJGSrLUTTDqxqbMmo6IuPf2+M7qvKV3j0dR2omMRXkhb/0lo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw; spf=pass smtp.mailfrom=ite.com.tw; dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b=eEgzME0N; arc=none smtp.client-ip=210.202.87.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
+	s=arc-20240116; t=1789549548; c=relaxed/simple;
+	bh=A8Q0b8L5+BXoHFoNXocjrY2G7gEBMM46smRXxo38cwE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ZxcvF8pQMYGmwd6Oqx6Og9k/P8ABWzbvGFgFN6UxJMd9Sg0zzW/V6V3+aEWv7s+hMqjJ81RZUrSass+dK4i6gbs0ZfbABbbN3PuX7pMDRZHcLEuFOUKdSCtKZ3Y6QitdXvHM57ReOBtVW6765O+Q4RN3H5lh/QwX1MyAmX0laJw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GsaY1eKy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b="eEgzME0N"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=ite.com.tw; s=dkim;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=zaG7cAtDd51nn3ZmpYXj/O6hmncShQqjM7MyixTdEbo=;
-  b=eEgzME0N+sS2APCYwwJtDe0o62TGiuSZ2EvjsA+56K/Tfe6uKt0D1X4i
-   Xjm39EMpoZNMEkaL1m66EAH9UJpbvF6CuEDO7TxU1jFk5pPdwM3OQMF8s
-   jroJZLglAA/M3r6BqRTs6XuTS7LfgBcdZpn322usLT2Js7oM3h/do6G9+
-   k/tSGRsqBxwi78CD8JE0753R23s428OplF16ESVAMdDBu1UkixTv3RczU
-   H5y1y8odMf+HXzsV86iOm3NAMFhpOJYRRHWUQdohLI/wYJH/WOFIH87Jv
-   6yxb2MmmzASmBu2XXa/wAt3NeAj+PO8lSfh08ZWFvSpGFH+U6RL6tNIa3
-   w==;
-X-CSE-ConnectionGUID: 7U6Ze2OUSQeNk8B78tW2tg==
-X-CSE-MsgGUID: A/QY3g5CRiOT4jvPxSJtfg==
-Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
-  by ironport.ite.com.tw with ESMTP; 16 Sep 2026 17:01:08 +0800
-Received: from tpemail1.internal.ite.com.tw (TPEMAIL1.internal.ite.com.tw [192.168.15.58])
-	by mse.ite.com.tw with ESMTP id 68G914hi038153;
-	Wed, 16 Sep 2026 17:01:04 +0800 (+08)
-	(envelope-from Hermes.Wu@ite.com.tw)
-Received: from TPEMAIL1.internal.ite.com.tw (192.168.15.58) by
- TPEMAIL1.internal.ite.com.tw (192.168.15.58) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 16 Sep 2026 17:01:02 +0800
-Received: from TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291]) by
- TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291%3]) with mapi id
- 15.02.2562.046; Wed, 16 Sep 2026 17:01:02 +0800
-From: <Hermes.Wu@ite.com.tw>
-To: <sakari.ailus@iki.fi>
-CC: <mchehab@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-        <conor+dt@kernel.org>, <linux-media@vger.kernel.org>,
-        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH 1/2] dt-bindings: media: add ITE IT6625/IT6626 HDMI bridge
- binding
-Thread-Topic: [PATCH 1/2] dt-bindings: media: add ITE IT6625/IT6626 HDMI
- bridge binding
-Thread-Index: AQHdRblQ4bJksI4QJkm15agGm24I5LbQ55Mg
-Date: Wed, 16 Sep 2026 09:01:02 +0000
-Message-ID: <54d6d950452649fc8c0b53f434fc371b@ite.com.tw>
-References: <20260720-upstream-it6625-it6626-v1-0-475912f74459@ite.com.tw>
- <20260720-upstream-it6625-it6626-v1-1-475912f74459@ite.com.tw>
- <aqpZuwSx3lPXCda6@valkosipuli.retiisi.eu>
-In-Reply-To: <aqpZuwSx3lPXCda6@valkosipuli.retiisi.eu>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-tm-snts-smtp: 87170BE9406EAD0BC13CFF5E1080D4905445F4B1D84DAE39BDCB518A8030F6C22002:8
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GsaY1eKy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40DFE1F000FF;
+	Wed, 16 Sep 2026 09:05:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789549542;
+	bh=1x6SLiEE/4uqWpa1eZRcFuewx1nl4LpxOkOuCze/qJc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=GsaY1eKyKh+OiUEFd6kz5J6dQ5BaNpOyVLqv0fMCww3m2Ec+GSVxRph6hT8RvKHKb
+	 0+d/m9pmxIshJr7zlID7uxxDEXi47WNIv1C9fEIrepKxrph/e0CeJmEm93F7owE2ZS
+	 VckvdHAsps7SGuEQs5rRB1HMkYMowJ582wRXTexmlQb/Eq5ztm34zRI7IDO3NKDbUB
+	 Pt9UZ1Oa34nRr9ux5wk9SBvkkhYH2Rc55I4+Dm2Kh2qxNNn10MovxOV6ztG5BD2XpZ
+	 MqrYQBsi51+Mgq/gU9WYKjiACENjyg/oDSNHpWCHZ5HoDBR34rzBtkTsoFoyCdQ9pz
+	 qi4JZ4g8D8EeA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] serial: 8250_dw: Add capability to skip empty
+ FIFO read
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Moteen Shah" <m-shah@ti.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-serial@vger.kernel.org
+In-Reply-To: <20260916085520.2259420-3-m-shah@ti.com>
+References: <20260916085520.2259420-1-m-shah@ti.com>
+ <20260916085520.2259420-3-m-shah@ti.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 16 Sep 2026 09:05:41 +0000
+Message-Id: <20260916090542.40DFE1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MAIL:mse.ite.com.tw 68G914hi038153
 
-SGkgU2FrYXJpDQoNCj4tLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPkZyb206IFNha2FyaSBB
-aWx1cyA8c2FrYXJpLmFpbHVzQGlraS5maT4gDQo+U2VudDogV2VkbmVzZGF5LCBTZXB0ZW1iZXIg
-MTYsIDIwMjYgNDo1NiBQTQ0KPlRvOiBIZXJtZXMgV3UgKKdkqM6nuykgPEhlcm1lcy5XdUBpdGUu
-Y29tLnR3Pg0KPkNjOiBNYXVybyBDYXJ2YWxobyBDaGVoYWIgPG1jaGVoYWJAa2VybmVsLm9yZz47
-IFJvYiBIZXJyaW5nIDxyb2JoQGtlcm5lbC5vcmc+OyBLcnp5c3p0b2YgS296bG93c2tpIDxrcnpr
-K2R0QGtlcm5lbC5vcmc+OyBDb25vciBEb29sZXkgPGNvbm9yK2R0QGtlcm5lbC5vcmc+OyBsaW51
-eC1tZWRpYUB2Z2VyLmtlcm5lbC5vcmc7IGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnOyBsaW51
-eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnDQo+U3ViamVjdDogUmU6IFtQQVRDSCAxLzJdIGR0LWJp
-bmRpbmdzOiBtZWRpYTogYWRkIElURSBJVDY2MjUvSVQ2NjI2IEhETUkgYnJpZGdlIGJpbmRpbmcN
-Cj4NCj5IaSBIZXJtZXMsDQo+DQo+VGhhbmtzIGZvciB0aGUgc2V0LiBJIGtub3cgdGhlIHNldCBo
-YXMgYmVlbiBtZXJnZWQgYWxyZWFkeSBzbyBjb3VsZCB5b3UgYWRkcmVzcyB0aGUgaXNzdWVzIGlu
-IGZvbGxvdy11cCBwYXRjaGVzLCBwbGVhc2U/DQoNCkkgd2lsbCBkby4gVGhhbmtzIGZvciB0aGUg
-cmV2aWV3Lg0KDQo+T24gTW9uLCBKdWwgMjAsIDIwMjYgYXQgMDM6NTc6NDVQTSArMDgwMCwgSGVy
-bWVzIFd1IHZpYSBCNCBSZWxheSB3cm90ZToNCj4+IEZyb206IEhlcm1lcyBXdSA8SGVybWVzLnd1
-QGl0ZS5jb20udHc+DQo+PiANCj4+IERvY3VtZW50IHRoZSBkZXZpY2V0cmVlIGJpbmRpbmcgZm9y
-IHRoZSBJVEUgSVQ2NjI1L0lUNjYyNiBIRE1JIHRvIE1JUEkgDQo+PiBDU0ktMiBicmlkZ2UuIFRo
-ZSBkZXZpY2UgZXhwb3NlcyB0aHJlZSBncmFwaCBwb3J0czogcG9ydEAwDQo+PiAoTUlQSTApIGFu
-ZCBwb3J0QDEgKE1JUEkxKSBhcmUgdGhlIHR3byBzZWxlY3RhYmxlIENTSS0yIEQtUEhZL0MtUEhZ
-IA0KPj4gb3V0cHV0cywgYW5kIHBvcnRAMiBpcyB0aGUgSERNSSBjb25uZWN0b3IgaW5wdXQuIE9u
-bHkgcG9ydEAwIGlzIA0KPj4gcmVxdWlyZWQsIHNpbmNlIGEgYm9hcmQgb25seSBuZWVkcyB0byB3
-aXJlIHVwIGFzIG1hbnkgb2YgdGhlIGJyaWRnZSdzIA0KPj4gb3V0cHV0cyBhcyBpdCBhY3R1YWxs
-eSB1c2VzLg0KPj4gDQo+PiBTaWduZWQtb2ZmLWJ5OiBIZXJtZXMgV3UgPEhlcm1lcy53dUBpdGUu
-Y29tLnR3Pg0KPj4gLS0tDQo+PiAgLi4uL2RldmljZXRyZWUvYmluZGluZ3MvbWVkaWEvaTJjL2l0
-ZSxpdDY2MjUueWFtbCAgfCAxMzYgDQo+PiArKysrKysrKysrKysrKysrKysrKysNCj4+ICAxIGZp
-bGUgY2hhbmdlZCwgMTM2IGluc2VydGlvbnMoKykNCj4+IA0KPj4gZGlmZiAtLWdpdCANCj4+IGEv
-RG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL21lZGlhL2kyYy9pdGUsaXQ2NjI1Lnlh
-bWwgDQo+PiBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9tZWRpYS9pMmMvaXRl
-LGl0NjYyNS55YW1sDQo+PiBuZXcgZmlsZSBtb2RlIDEwMDY0NA0KPj4gaW5kZXggDQo+PiAwMDAw
-MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwLi4xMDJhZjVkY2IzODBiMGFkMjQ2
-MmMzNzZlNWE4DQo+PiA3YjIyZDcyOTZmMTQNCj4+IC0tLSAvZGV2L251bGwNCj4+ICsrKyBiL0Rv
-Y3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9tZWRpYS9pMmMvaXRlLGl0NjYyNS55YW1s
-DQo+PiBAQCAtMCwwICsxLDEzNiBAQA0KPj4gKyMgU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IChH
-UEwtMi4wLW9ubHkgT1IgQlNELTItQ2xhdXNlKSAlWUFNTCAxLjINCj4+ICstLS0NCj4+ICskaWQ6
-IGh0dHA6Ly9kZXZpY2V0cmVlLm9yZy9zY2hlbWFzL21lZGlhL2kyYy9pdGUsaXQ2NjI1LnlhbWwj
-DQo+PiArJHNjaGVtYTogaHR0cDovL2RldmljZXRyZWUub3JnL21ldGEtc2NoZW1hcy9jb3JlLnlh
-bWwjDQo+PiArDQo+PiArdGl0bGU6IElURSBJVDY2MjUvSVQ2NjI2IEhETUkgdG8gZHVhbCBNSVBJ
-IENTSS0yIGJyaWRnZQ0KPj4gKw0KPj4gK21haW50YWluZXJzOg0KPj4gKyAgLSBIZXJtZXMgV3Ug
-PEhlcm1lcy53dUBpdGUuY29tLnR3Pg0KPj4gKw0KPj4gK2Rlc2NyaXB0aW9uOiB8LQ0KPj4gKyAg
-VGhlIElURSBJVDY2MjUgYW5kIElUNjYyNiBhcmUgSERNSSB0byBNSVBJIENTSS0yIGJyaWRnZSBk
-ZXZpY2VzLg0KPj4gKyAgSVQ2NjI1IHN1cHBvcnRzIGFuIEhETUkgMi4wIGlucHV0IGFuZCBjb252
-ZXJ0cyBpdCB0byBvbmUgb3IgdHdvIA0KPj4gK0QtUEhZIENTSQ0KPj4gKyAgb3V0cHV0cywgd2hp
-bGUgSVQ2NjI2IHN1cHBvcnRzIGFuIEhETUkgMi4xIGlucHV0IGFuZCBjb252ZXJ0cyBpdCB0byAN
-Cj4+ICtvbmUgb3INCj4+ICsgIHR3byBDL0QtUEhZIENTSSBvdXRwdXRzLiBUaGUgYnJpZGdlcyBh
-cmUgcHJvZ3JhbW1hYmxlIHRocm91Z2ggSTJDIA0KPj4gK2FuZA0KPj4gKyAgZXhwb3NlIG9uZSBI
-RE1JIGlucHV0IHBvcnQgYW5kIHR3byBzZWxlY3RhYmxlIENTSS0yIG91dHB1dCBwb3J0cy4gDQo+
-PiArVGhlDQo+PiArICBicmlkZ2UgY2FuIG9wZXJhdGUgaW4gc3BsaXQgbW9kZSBvciBjbG9uZSBt
-b2RlLg0KPj4gKw0KPj4gK3Byb3BlcnRpZXM6DQo+PiArICBjb21wYXRpYmxlOg0KPj4gKyAgICBl
-bnVtOg0KPj4gKyAgICAgIC0gaXRlLGl0NjYyNQ0KPj4gKyAgICAgIC0gaXRlLGl0NjYyNg0KPj4g
-Kw0KPj4gKyAgcmVnOg0KPj4gKyAgICBtYXhJdGVtczogMQ0KPj4gKw0KPj4gKyAgcmVzZXQtZ3Bp
-b3M6DQo+PiArICAgIGRlc2NyaXB0aW9uOg0KPj4gKyAgICAgIEdQSU8gY29ubmVjdGVkIHRvIHRo
-ZSBhY3RpdmUtbG93IHJlc2V0IGxpbmUuDQo+PiArICAgIG1heEl0ZW1zOiAxDQo+PiArDQo+PiAr
-ICBwb3J0czoNCj4+ICsgICAgJHJlZjogL3NjaGVtYXMvZ3JhcGgueWFtbCMvcHJvcGVydGllcy9w
-b3J0cw0KPj4gKyAgICBwcm9wZXJ0aWVzOg0KPj4gKyAgICAgIHBvcnRAMDoNCj4+ICsgICAgICAg
-ICRyZWY6IC9zY2hlbWFzL2dyYXBoLnlhbWwjLyRkZWZzL3BvcnQtYmFzZQ0KPj4gKyAgICAgICAg
-dW5ldmFsdWF0ZWRQcm9wZXJ0aWVzOiBmYWxzZQ0KPj4gKyAgICAgICAgZGVzY3JpcHRpb246IENT
-SS0yIG91dHB1dCBwb3J0IE1JUEkwDQo+PiArDQo+PiArICAgICAgICBwcm9wZXJ0aWVzOg0KPj4g
-KyAgICAgICAgICBlbmRwb2ludDoNCj4+ICsgICAgICAgICAgICAkcmVmOiAvc2NoZW1hcy9tZWRp
-YS92aWRlby1pbnRlcmZhY2VzLnlhbWwjDQo+PiArICAgICAgICAgICAgdW5ldmFsdWF0ZWRQcm9w
-ZXJ0aWVzOiBmYWxzZQ0KPj4gKw0KPj4gKyAgICAgICAgICAgIHByb3BlcnRpZXM6DQo+PiArICAg
-ICAgICAgICAgICBkYXRhLWxhbmVzOg0KPj4gKyAgICAgICAgICAgICAgICBtaW5JdGVtczogMQ0K
-Pj4gKyAgICAgICAgICAgICAgICBtYXhJdGVtczogNA0KPj4gKw0KPj4gKyAgICAgICAgICAgICAg
-YnVzLXR5cGU6DQo+PiArICAgICAgICAgICAgICAgIGVudW06DQo+PiArICAgICAgICAgICAgICAg
-ICAgLSAxICMgTUVESUFfQlVTX1RZUEVfQ1NJMl9DUEhZDQo+PiArICAgICAgICAgICAgICAgICAg
-LSA0ICMgTUVESUFfQlVTX1RZUEVfQ1NJMl9EUEhZDQo+DQo+SWYgYnVzLXR5cGUgaXNuJ3QgcmVx
-dWlyZWQsIGEgZGVmYXVsdCBuZWVkIHRvIGJlIHNwZWNpZmllZC4NCj4NCj4+ICsNCj4+ICsgICAg
-ICAgICAgICAgIGNsb2NrLW5vbmNvbnRpbnVvdXM6IHRydWUNCj4+ICsgICAgICAgICAgICAgIGxp
-bmstZnJlcXVlbmNpZXM6IHRydWUNCj4+ICsNCj4+ICsgICAgICAgICAgICByZXF1aXJlZDoNCj4+
-ICsgICAgICAgICAgICAgIC0gZGF0YS1sYW5lcw0KPj4gKw0KPj4gKyAgICAgIHBvcnRAMToNCj4+
-ICsgICAgICAgICRyZWY6IC9zY2hlbWFzL2dyYXBoLnlhbWwjLyRkZWZzL3BvcnQtYmFzZQ0KPj4g
-KyAgICAgICAgdW5ldmFsdWF0ZWRQcm9wZXJ0aWVzOiBmYWxzZQ0KPj4gKyAgICAgICAgZGVzY3Jp
-cHRpb246IENTSS0yIG91dHB1dCBwb3J0IE1JUEkxDQo+PiArDQo+PiArICAgICAgICBwcm9wZXJ0
-aWVzOg0KPj4gKyAgICAgICAgICBlbmRwb2ludDoNCj4+ICsgICAgICAgICAgICAkcmVmOiAvc2No
-ZW1hcy9tZWRpYS92aWRlby1pbnRlcmZhY2VzLnlhbWwjDQo+PiArICAgICAgICAgICAgdW5ldmFs
-dWF0ZWRQcm9wZXJ0aWVzOiBmYWxzZQ0KPj4gKw0KPj4gKyAgICAgICAgICAgIHByb3BlcnRpZXM6
-DQo+PiArICAgICAgICAgICAgICBkYXRhLWxhbmVzOg0KPj4gKyAgICAgICAgICAgICAgICBtaW5J
-dGVtczogMQ0KPj4gKyAgICAgICAgICAgICAgICBtYXhJdGVtczogNA0KPj4gKw0KPj4gKyAgICAg
-ICAgICAgICAgYnVzLXR5cGU6DQo+PiArICAgICAgICAgICAgICAgIGVudW06DQo+PiArICAgICAg
-ICAgICAgICAgICAgLSAxICMgTUVESUFfQlVTX1RZUEVfQ1NJMl9DUEhZDQo+PiArICAgICAgICAg
-ICAgICAgICAgLSA0ICMgTUVESUFfQlVTX1RZUEVfQ1NJMl9EUEhZDQo+DQo+RGl0dG8uDQo+DQo+
-PiArDQo+PiArICAgICAgICAgICAgICBjbG9jay1ub25jb250aW51b3VzOiB0cnVlDQo+PiArICAg
-ICAgICAgICAgICBsaW5rLWZyZXF1ZW5jaWVzOiB0cnVlDQo+PiArDQo+PiArICAgICAgICAgICAg
-cmVxdWlyZWQ6DQo+PiArICAgICAgICAgICAgICAtIGRhdGEtbGFuZXMNCj4+ICsNCj4+ICsgICAg
-ICBwb3J0QDI6DQo+PiArICAgICAgICAkcmVmOiAvc2NoZW1hcy9ncmFwaC55YW1sIy8kZGVmcy9w
-b3J0LWJhc2UNCj4+ICsgICAgICAgIHVuZXZhbHVhdGVkUHJvcGVydGllczogZmFsc2UNCj4+ICsg
-ICAgICAgIGRlc2NyaXB0aW9uOiBIRE1JIGNvbm5lY3RvciBpbnB1dCBwb3J0DQo+PiArDQo+PiAr
-ICAgICAgICBwcm9wZXJ0aWVzOg0KPj4gKyAgICAgICAgICBlbmRwb2ludDoNCj4+ICsgICAgICAg
-ICAgICAkcmVmOiAvc2NoZW1hcy9ncmFwaC55YW1sIy8kZGVmcy9lbmRwb2ludC1iYXNlDQo+PiAr
-ICAgICAgICAgICAgdW5ldmFsdWF0ZWRQcm9wZXJ0aWVzOiBmYWxzZQ0KPj4gKw0KPj4gKyAgICBy
-ZXF1aXJlZDoNCj4+ICsgICAgICAtIHBvcnRAMA0KPj4gK3JlcXVpcmVkOg0KPj4gKyAgLSBjb21w
-YXRpYmxlDQo+PiArICAtIHJlZw0KPj4gKyAgLSBwb3J0cw0KPj4gKw0KPj4gK2FkZGl0aW9uYWxQ
-cm9wZXJ0aWVzOiBmYWxzZQ0KPj4gKw0KPj4gK2V4YW1wbGVzOg0KPj4gKyAgLSB8DQo+PiArICAg
-ICNpbmNsdWRlIDxkdC1iaW5kaW5ncy9ncGlvL2dwaW8uaD4NCj4+ICsNCj4+ICsgICAgaTJjIHsN
-Cj4+ICsgICAgICAjYWRkcmVzcy1jZWxscyA9IDwxPjsNCj4+ICsgICAgICAjc2l6ZS1jZWxscyA9
-IDwwPjsNCj4+ICsNCj4+ICsgICAgICBoZG1pLWJyaWRnZUA0YyB7DQo+PiArICAgICAgICBjb21w
-YXRpYmxlID0gIml0ZSxpdDY2MjUiOw0KPj4gKyAgICAgICAgcmVnID0gPDB4NGM+Ow0KPj4gKw0K
-Pj4gKyAgICAgICAgcmVzZXQtZ3Bpb3MgPSA8JmdwaW8gMiBHUElPX0FDVElWRV9MT1c+Ow0KPj4g
-Kw0KPj4gKyAgICAgICAgcG9ydHMgew0KPj4gKyAgICAgICAgICAjYWRkcmVzcy1jZWxscyA9IDwx
-PjsNCj4+ICsgICAgICAgICAgI3NpemUtY2VsbHMgPSA8MD47DQo+PiArDQo+PiArICAgICAgICAg
-IHBvcnRAMCB7DQo+PiArICAgICAgICAgICAgcmVnID0gPDA+Ow0KPj4gKyAgICAgICAgICAgIGNz
-aV9vdXQwOiBlbmRwb2ludCB7DQo+PiArICAgICAgICAgICAgICByZW1vdGUtZW5kcG9pbnQgPSA8
-JmNzaTJfcngwPjsNCj4+ICsgICAgICAgICAgICAgIGJ1cy10eXBlID0gPDQ+OyAvKiBNRURJQV9C
-VVNfVFlQRV9DU0kyX0RQSFkgKi8NCj4+ICsgICAgICAgICAgICAgIGRhdGEtbGFuZXMgPSA8MSAy
-IDMgND47DQo+PiArICAgICAgICAgICAgfTsNCj4+ICsgICAgICAgICAgfTsNCj4+ICsgICAgICAg
-IH07DQo+PiArICAgICAgfTsNCj4+ICsgICAgfTsNCj4+IA0KPg0KPi0tDQo+UmVnYXJkcywNCj4N
-Cj5TYWthcmkgQWlsdXMNCj4NCg==
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] tty: serial: 8250: lockless data race on lsr_saved_flags in seri=
+al8250_do_shutdown()
+--
+
+commit 174d9274c3df70fd0549f2a70fbdf6e13b92b8d2
+Author: Moteen Shah <m-shah@ti.com>
+
+serial: 8250_dw: Add capability to skip empty FIFO read
+
+This commit introduces a new UART capability to guard against empty FIFO
+reads during startup and shutdown. This prevents data aborts on the TDA54
+IP block where reading an empty FIFO is fatal.
+
+> diff --git a/drivers/tty/serial/8250/8250_port.c b/drivers/tty/serial/825=
+0/8250_port.c
+> index 38fa45e74a37a..f533310145849 100644
+> --- a/drivers/tty/serial/8250/8250_port.c
+> +++ b/drivers/tty/serial/8250/8250_port.c
+[ ... ]
+> @@ -2455,7 +2460,8 @@ void serial8250_do_shutdown(struct uart_port *port)
+>  	 * Read data port to reset things, and then unlink from
+>  	 * the IRQ chain.
+>  	 */
+> -	serial_port_in(port, UART_RX);
+> +	if (!(up->capabilities & UART_CAP_RXFIFO_EMPTY_READ) || (serial_lsr_in(=
+up) & UART_LSR_DR))
+> +		serial_port_in(port, UART_RX);
+
+[Severity: Medium]
+Does calling serial_lsr_in() here introduce a data race on up->lsr_saved_fl=
+ags?
+
+In serial8250_do_shutdown(), the uart_port_lock is explicitly released
+before reaching this point. Calling serial_lsr_in() locklessly causes a
+read-modify-write operation on the shared lsr_saved_flags state:
+
+drivers/tty/serial/8250/8250.h:serial_lsr_in() {
+	u16 lsr =3D up->lsr_saved_flags;
+
+	lsr |=3D serial_in(up, UART_LSR);
+	up->lsr_saved_flags =3D lsr & up->lsr_save_mask;
+
+	return lsr;
+}
+
+If a console write occurs concurrently (e.g. an asynchronous printk() from
+another CPU), serial8250_console_write() will also invoke serial_lsr_in()
+via wait_for_xmitr() while holding the lock. Can this race corrupt the
+lsr_saved_flags state?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916085520.2259=
+420-1-m-shah@ti.com?part=3D2
