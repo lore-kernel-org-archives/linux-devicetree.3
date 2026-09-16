@@ -1,316 +1,339 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 426B94E80BF;
-	Wed, 16 Sep 2026 10:21:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AF1C4AF665;
+	Wed, 16 Sep 2026 10:21:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789554112; cv=none; b=OsmLvLZc1XJ2dv9bj4F3prYAtC5Yesjrmvro5+d0TgeDT3KCl7bUa3vInAM9Eh38GvzwAh811mHmCDSl9zQ3OyA/PGZITXfVs8WasdFYIiqT8noYI+M1fg3pPFvmzq163zXxgQufWBUHtywdJ1cFYxLeT4abgA6DbAl7/K7s9qs=
+	t=1789554112; cv=none; b=PCsy4V548HXP8ijte+Q+wCGHw52kOPFeIDj2NOVboNn4TChYbIBZyDn43zt+tFKQyA0FUN7JtvJEFe5a38UJypsAlghk8LncSlhCQ7+mztxI2l/NvuHNYqpJ7QGxxRZfQdBczvRE2Rt0idrIYcB+4AHfZ8vWgCSREL6daG9Mjk4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789554112; c=relaxed/simple;
-	bh=n152J+oW0inBpcepl+1yWkdMqbhm6d/xZ403pWrV3Ew=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=T5O3pF5JLmMFyV74eljYMuqeHIHUtIRNdjLbHb5Ur8HW8UXbTj+w1fgnfyVqCIFXUrHfPu6CPtsTDJTz4riNYguiCsOJSKEVGbxJBTJ0DRw12QLuNcLzNN95yjfYigWFbrwHUypn1XfP2Ynm8I/j2mNT643/djgX90tWuR3w7Ec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=iNz56Cnk; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	bh=MonDTbPytzLmWxFK63YU6exNxj2WjCjHahERtcjjU3k=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=nM5xvdToJqI18V1pbtsUINKtc6vrvpDOEurPSb7rWdI7yVAkftvzylmytCjyDIWzLHxZJ3ezYKBuJEWD2cDjGPbYg/H3Ye1I5CLSg8CfuWj1ZgQk8T8m9mgouswMRKfhe6jT05AXhX5n5e7tU0GpfnGX8p3ujH35y8Ow2u+fvJU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZJ6Bu7mA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="iNz56Cnk"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789554094; x=1821090094;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=n152J+oW0inBpcepl+1yWkdMqbhm6d/xZ403pWrV3Ew=;
-  b=iNz56CnkopDNW1QLXWeZ72rrUCZndyI3DOTe7pKnXKArlq1SvHhhffwq
-   ih5iolx4Y9dPQRIttQQeDzwNxngOsAGsGxhurv42Y7XdLuW8T4T9ro37q
-   JBVtwDWAWloAFxI19HdR2ziT4wlnIfTiMB6cVjIDDgYw4Sl6scxJEvjhc
-   fCUNhChcRltb3fEOVf1FvwssKqHVsT0rLj92i/1UceEHHY52x2piUwQZu
-   VwPiPGeicNqEfgMNe3pRySXZ3QQy/nro417nMQDj3Dt/9HBpcIhaoWnld
-   088iFY3lQXOVGtFJ29DjmjWo0WbDizOvLkuPW8H1m8TD14Lr/yHxZzBlT
-   A==;
-X-CSE-ConnectionGUID: vXszHvNLRh+aZdznTx1vVQ==
-X-CSE-MsgGUID: /M0pCoGMRUeYk4eRSvs0rA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89062964"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="89062964"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 03:21:29 -0700
-X-CSE-ConnectionGUID: DcsR/rdNR8SqKlqBIDDynw==
-X-CSE-MsgGUID: 6lqV8nerQouNtUP4U2SofA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="273266901"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.145])
-  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 03:21:24 -0700
-Date: Wed, 16 Sep 2026 13:21:21 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: longzhao@ambarella.com
-Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Long Zhao <zl020895@163.com>,
-	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev,
-	devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 10/15] gpio: pl061: convert to gpio-regmap and a
- custom irqchip
-Message-ID: <aqptoZYyclWSE_-A@ashevche-desk.local>
-References: <20260915-cv75-v5-v7-0-3297d3fbc9c0@ambarella.com>
- <20260915-cv75-v5-v7-10-3297d3fbc9c0@ambarella.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZJ6Bu7mA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75E1A1F00899;
+	Wed, 16 Sep 2026 10:21:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789554074;
+	bh=jrEvQHvjEN2PwmB35CoS2QLXe7RJjBHQnGiMZGTLFjk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=ZJ6Bu7mAfxdOhryiLVd0RKN32AxsmLlSUOq6l+m0vYS/amKtQgvdZdTowA6m62UOE
+	 oqwgsRWxRtJLKO/fbuo9Y88JdI4hmrAQy1dHIPMzpqqXeYokubY2LWfCNoY9LKi0UI
+	 sdhRcz0wlqrIHH+1EtHZbiZt+GM2u0j/PPy+iQgESCWzvOqOaHbnrxPjocCj7kjGPQ
+	 IRqmyPZIXCPoTb3Na2tIJ+nFf+/fWwivQZhT56r86079UhzV7skJVL2Nd2r+lux2av
+	 fhTzR+lnpR+Cw8eJBZOUKrT0kowFMj8pHUS5z9q7PsL06lkBYZfFhJSSMDY4qOkPpx
+	 xvTZa9Evkc+bg==
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 16 Sep 2026 12:20:59 +0200
+Subject: [PATCH net-next v15 2/4] net: dsa: tag_ks8995: Add the KS8995 tag
+ handling
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915-cv75-v5-v7-10-3297d3fbc9c0@ambarella.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260916-ks8995-to-ksz8-v15-2-8825ff5fd4be@kernel.org>
+References: <20260916-ks8995-to-ksz8-v15-0-8825ff5fd4be@kernel.org>
+In-Reply-To: <20260916-ks8995-to-ksz8-v15-0-8825ff5fd4be@kernel.org>
+To: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com, 
+ Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>, 
+ Simon Horman <horms@kernel.org>, Russell King <linux@armlinux.org.uk>, 
+ Nicolai Buchwitz <nb@tipi-net.de>
+Cc: netdev@vger.kernel.org, Woojung Huh <Woojung.Huh@microchip.com>, 
+ devicetree@vger.kernel.org, Linus Walleij <linusw@kernel.org>
+X-Mailer: b4 0.16.0
 
-On Tue, Sep 15, 2026 at 07:15:40PM +0800, Long Zhao via B4 Relay wrote:
-> 
-> Move line get/set/direction onto gpio-regmap. Keep the existing ARM
-> masked data addresses and write-after-direction behaviour.
-> 
-> Do not use gpiochip irqchip setup (girq) or regmap-irq. gpio-regmap
-> owns gpiochip registration, so girq would have to be plumbed through
-> that helper. PL061 IRQ type programming needs IS/IBE/IEV, including
-> both-edge, plus a hardirq chained demux from the parent AMBA IRQ;
-> regmap-irq is a poor fit for that.
-> 
-> Create a linear irq_domain with gpio_chip as host data, attach it with
-> gpiochip_irqchip_add_domain(), and chain the parent IRQ in this driver.
+The KS8995 100Mbit switch can do proper DSA per-port tagging
+with the proper set-up. This adds the code to handle ingress
+and egress KS8995 tags.
 
-Besides some comments below about splitting more of this patch to better
-isolated logical changes, this one can also be split to a few stages. For
-example, one stage is to move to regmap (from direct MMIO access) without
-really switching over to gpio-regmap.
+The tagger is used by the KSZ8995XA support added later in this
+series.
 
-...
+The tag is a modified 0x8100 ethertype tag where a bit in the
+last nibble is set for each target port.
 
-> +#include <linux/err.h>
->  #include <linux/errno.h>
+Always insert a distinct outer switch tag. User ports remove this
+field on egress, so reusing an existing 802.1Q header would consume
+the sender VLAN tag instead of preserving it.
 
-Now errno.h can be removed as basic errno is provided by err.h.
+Push any hardware-accelerated VLAN tag into the packet first. This
+keeps the switch tag at offset 12 while retaining 802.1Q, 802.1ad and
+stacked VLAN headers as inner payload, and avoids relying on a valid
+SKB MAC header in direct transmit paths.
 
-...
+Rate-limit receive untagging errors so repeated failures cannot flood
+the kernel log.
 
-> -#include <linux/irqchip/chained_irq.h>
+Assisted-by: LLM
+Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+---
+ MAINTAINERS          |   1 +
+ include/net/dsa.h    |   2 +
+ net/dsa/Kconfig      |   6 ++
+ net/dsa/Makefile     |   1 +
+ net/dsa/tag_ks8995.c | 180 +++++++++++++++++++++++++++++++++++++++++++++++++++
+ 5 files changed, 190 insertions(+)
 
-> +#include <linux/irqchip/chained_irq.h>
-
-Unneeded churn.
-
-...
-
-> -	if ((trigger & (IRQ_TYPE_LEVEL_HIGH | IRQ_TYPE_LEVEL_LOW)) &&
-> -	    (trigger & (IRQ_TYPE_EDGE_RISING | IRQ_TYPE_EDGE_FALLING)))
-> -	{
-
-> +	if ((trigger & IRQ_TYPE_LEVEL_MASK) && (trigger & IRQ_TYPE_EDGE_BOTH)) {
-
-See below, this belongs to a separate change.
-
-...
-
-> @@ -142,14 +121,19 @@ static int pl061_irq_type(struct irq_data *d, unsigned trigger)
->  		return -EINVAL;
->  	}
->  
-> -
->  	raw_spin_lock_irqsave(&pl061->lock, flags);
-
-Stray change. If required, should be in a separate patch.
-
-...
-
-> -	if (trigger & (IRQ_TYPE_LEVEL_HIGH | IRQ_TYPE_LEVEL_LOW)) {
-> +	if (trigger & IRQ_TYPE_LEVEL_MASK) {
-
-This change should be in a separate patch.
-
-...
-
-> -	writeb(gpiois, pl061->base + GPIOIS);
-> -	writeb(gpioibe, pl061->base + GPIOIBE);
-> -	writeb(gpioiev, pl061->base + GPIOIEV);
-> +	ret = regmap_write(pl061->regmap, regs->is, gpiois);
-> +	if (ret)
-> +		goto out;
-> +	ret = regmap_write(pl061->regmap, regs->ibe, gpioibe);
-> +	if (ret)
-> +		goto out;
-> +	ret = regmap_write(pl061->regmap, regs->iev, gpioiev);
-> +	if (ret)
-> +		goto out;
-> +	if (pl061->data->clear_irq_on_type)
-> +		ret = regmap_write(pl061->regmap, regs->ic, bit);
->  
-> +out:
->  	raw_spin_unlock_irqrestore(&pl061->lock, flags);
-> -
-> -	return 0;
-> +	return ret;
-
-Make an additional patch to move current driver to use cleanup.h, id est
-guard()() and possibly scoped_guard() from there.
-
-Then in this patch those ton's of goto:s should be replaced with simple
-'return ret;'.`
-
->  }
-
-...
-
-> +	if (!regmap_read(pl061->regmap, pl061->data->regs->mis, &mis) && mis) {
-
-Why not handling error properly here?
-
-	ret = regmap_read(...);
-	if (ret)
-		goto out_irq_exit;
-
-> +		pending = mis;
-> +		for_each_set_bit(offset, &pending, pl061->data->ngpio)
-> +			generic_handle_domain_irq(pl061->irq_domain, offset);
->  	}
-
-...
-
-> +static int pl061_irq_domain_map(struct irq_domain *d, unsigned int virq,
-> +				irq_hw_number_t hwirq)
-> +{
-> +	struct gpio_chip *gc = d->host_data;
-> +	struct pl061 *pl061 = pl061_from_gpio_chip(gc);
-> +
-> +	irq_set_chip_data(virq, gc);
-> +	irq_set_chip_and_handler(virq, &pl061_irqchip, handle_bad_irq);
-> +	irq_set_noprobe(virq);
-> +	irq_set_parent(virq, pl061->parent_irq);
-
-
-Is lockdep happy with this?
-
-> +	return 0;
-> +}
-
-...
-
-> +static void pl061_remove_irq(void *data)
-> +{
-> +	struct pl061 *pl061 = data;
-> +
-> +	irq_set_chained_handler_and_data(pl061->parent_irq, NULL, NULL);
-> +
-> +	for (unsigned int i = 0; i < pl061->data->ngpio; i++) {
-
-> +		unsigned int virq = irq_find_mapping(pl061->irq_domain, i);
-
-Split assignment
-
-		unsigned int virq;
-
-		virq = irq_find_mapping(pl061->irq_domain, i);
-		if (virq)
-
-> +		if (virq)
-> +			irq_dispose_mapping(virq);
-> +	}
-> +
-> +	irq_domain_remove(pl061->irq_domain);
-> +}
-
-...
-
->  	struct device *dev = &adev->dev;
-> +	const struct pl061_drvdata *data = id->data;
-
-Split assignment as it is validated later on.
-
-> +	const struct pl061_regs *regs;
-> +	struct gpio_regmap_config config = {};
-> +	struct gpio_regmap *gpio_regmap;
-> +	struct gpio_chip *gc;
->  	struct pl061 *pl061;
-> -	struct gpio_irq_chip *girq;
-> +	void __iomem *base;
->  	int ret, irq;
->  
-> +	if (!data)
-> +		return -EINVAL;
-
--ENODATA?
-
-> +	regs = data->regs;
-
-...
-
-> +	for (offset = 0; offset < pl061->data->ngpio; offset++) {
-> +		if (!(dir & BIT(offset)))
-> +			continue;
-
-for_each_set_bit(), but make sure the type of the variable is unsigned long
-(might require a temporary one).
-
-> +		ret = regmap_read_bypassed(pl061->regmap,
-> +					   BIT(offset + PL061_DATA_OFFSET),
-> +					   &val);
-> +		if (ret)
-> +			return ret;
-> +		pl061->saved_dat |= val;
->  	}
-
-...
-
-> +	for (offset = 0; offset < pl061->data->ngpio; offset++) {
-> +		if (!(dir & BIT(offset)))
-> +			continue;
-
-Ditto.
-
-> +		ret = regmap_write(pl061->regmap,
-> +				   BIT(offset + PL061_DATA_OFFSET),
-> +				   !!(pl061->saved_dat & BIT(offset)) << offset);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	return regcache_sync_region(pl061->regmap, regs->is, regs->ie);
->  }
-
-...
-
-> static const struct amba_id pl061_ids[] = {
->  	{
->  		.id	= 0x00041061,
->  		.mask	= 0x000fffff,
-> +		.data	= (void *)&pl061_arm,
-
-Oh, this is something that needs to be fixed (but it's not your issue).
-Why on earth this is not const?
-
->  	},
->  	{ 0, 0 },
->  };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 0e04d92d1b09..6e0d16e3ee4d 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -17772,6 +17772,7 @@ F:	Documentation/devicetree/bindings/net/dsa/microchip,lan937x.yaml
+ F:	drivers/net/dsa/microchip/*
+ F:	include/linux/dsa/ksz_common.h
+ F:	include/linux/platform_data/microchip-ksz.h
++F:	net/dsa/tag_ks8995.c
+ F:	net/dsa/tag_ksz.c
+ 
+ MICROCHIP LAN743X ETHERNET DRIVER
+diff --git a/include/net/dsa.h b/include/net/dsa.h
+index 7507d632e7c6..5d12191b6f6f 100644
+--- a/include/net/dsa.h
++++ b/include/net/dsa.h
+@@ -61,6 +61,7 @@ struct tc_action;
+ #define DSA_TAG_PROTO_NETC_VALUE		33
+ #define DSA_TAG_PROTO_KSZ8463_VALUE		34
+ #define DSA_TAG_PROTO_MT7628_VALUE		35
++#define DSA_TAG_PROTO_KS8995_VALUE		36
+ 
+ enum dsa_tag_protocol {
+ 	DSA_TAG_PROTO_NONE		= DSA_TAG_PROTO_NONE_VALUE,
+@@ -99,6 +100,7 @@ enum dsa_tag_protocol {
+ 	DSA_TAG_PROTO_NETC		= DSA_TAG_PROTO_NETC_VALUE,
+ 	DSA_TAG_PROTO_KSZ8463		= DSA_TAG_PROTO_KSZ8463_VALUE,
+ 	DSA_TAG_PROTO_MT7628		= DSA_TAG_PROTO_MT7628_VALUE,
++	DSA_TAG_PROTO_KS8995		= DSA_TAG_PROTO_KS8995_VALUE,
+ };
+ 
+ struct dsa_switch;
+diff --git a/net/dsa/Kconfig b/net/dsa/Kconfig
+index 23b4b74004ed..4f44bf3ede23 100644
+--- a/net/dsa/Kconfig
++++ b/net/dsa/Kconfig
+@@ -125,6 +125,12 @@ config NET_DSA_TAG_MXL_GSW1XX
+ 	  Say Y or M if you want to enable support for tagging frames for
+ 	  MaxLinear GSW1xx switches.
+ 
++config NET_DSA_TAG_KS8995
++	tristate "Tag driver for Micrel KS8995 switch"
++	help
++	  Say Y if you want to enable support for tagging frames for the
++	  Micrel KS8995 switch.
++
+ config NET_DSA_TAG_KSZ
+ 	tristate "Tag driver for Microchip 8795/937x/9477/9893 families of switches"
+ 	help
+diff --git a/net/dsa/Makefile b/net/dsa/Makefile
+index d15bcf5c68f0..1f9cc30e9988 100644
+--- a/net/dsa/Makefile
++++ b/net/dsa/Makefile
+@@ -25,6 +25,7 @@ obj-$(CONFIG_NET_DSA_TAG_BRCM_COMMON) += tag_brcm.o
+ obj-$(CONFIG_NET_DSA_TAG_DSA_COMMON) += tag_dsa.o
+ obj-$(CONFIG_NET_DSA_TAG_GSWIP) += tag_gswip.o
+ obj-$(CONFIG_NET_DSA_TAG_HELLCREEK) += tag_hellcreek.o
++obj-$(CONFIG_NET_DSA_TAG_KS8995) += tag_ks8995.o
+ obj-$(CONFIG_NET_DSA_TAG_KSZ) += tag_ksz.o
+ obj-$(CONFIG_NET_DSA_TAG_LAN9303) += tag_lan9303.o
+ obj-$(CONFIG_NET_DSA_TAG_MT7628) += tag_mt7628.o
+diff --git a/net/dsa/tag_ks8995.c b/net/dsa/tag_ks8995.c
+new file mode 100644
+index 000000000000..f011bf01845e
+--- /dev/null
++++ b/net/dsa/tag_ks8995.c
+@@ -0,0 +1,180 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (C) 2026 Linus Walleij <linusw@kernel.org>
++ */
++#include <linux/bitfield.h>
++#include <linux/etherdevice.h>
++#include <linux/log2.h>
++#include <linux/list.h>
++#include <linux/net.h>
++#include <linux/slab.h>
++
++#include "tag.h"
++
++/* The Micrel KS8995XA / Microchip KSZ8995XA Special Tag Packet ID (STPID)
++ * pushes its tag in a modified VLAN (802.1Q) tag.
++ * -----------------------------------------------------------
++ * | MAC DA | MAC SA | 2 bytes tag | 2 bytes TCI | EtherType |
++ * -----------------------------------------------------------
++ * The tag is: 0x8100 |= BIT(port), ports 0,1,2,3
++ */
++
++#define KS8995_NAME "ks8995"
++
++#define KS8995_TAG_LEN		VLAN_HLEN
++/* Reserve room for the switch tag and a hardware-accelerated VLAN tag. */
++#define KS8995_NEEDED_HEADROOM	(KS8995_TAG_LEN + VLAN_HLEN)
++
++#define KS8995M_STPID_STD	GENMASK(15, 4)
++#define KS8995M_STPID_PORTMASK	GENMASK(3, 0)
++#define KS8995M_STPID(portmask)	htons(ETH_P_8021Q | FIELD_PREP(KS8995M_STPID_PORTMASK, portmask))
++
++static struct sk_buff *ks8995_xmit(struct sk_buff *skb, struct net_device *dev)
++{
++	struct vlan_ethhdr *hdr;
++	u16 portmask;
++
++	/* VLAN insertion requires a complete, linear Ethernet header. */
++	if (unlikely(!pskb_may_pull(skb, ETH_HLEN))) {
++		kfree_skb(skb);
++		return NULL;
++	}
++
++	/* Prepare the special KS8995 tags */
++	portmask = dsa_xmit_port_mask(skb, dev);
++
++	/* The switch expects the special tag at offset 12. Move any hardware
++	 * accelerated VLAN tag into the payload so the conduit cannot insert
++	 * it outside the special tag.
++	 */
++	if (unlikely(skb_vlan_tag_present(skb))) {
++		skb = __vlan_hwaccel_push_inside(skb);
++		if (!skb)
++			return NULL;
++	}
++
++	/* Always add a distinct outer tag. The user port removes this field on
++	 * egress, so reusing an existing 802.1Q tag would consume that VLAN tag.
++	 */
++	skb = vlan_insert_tag(skb, KS8995M_STPID(portmask), 0);
++	/* vlan_insert_tag() drops the skb on failure */
++	if (!skb)
++		return NULL;
++	hdr = skb_vlan_eth_hdr(skb);
++	netdev_dbg(dev, "%s: inserted VLAN TAG %04x TCI %04x\n",
++		   __func__, ntohs(hdr->h_vlan_proto),
++		   ntohs(hdr->h_vlan_TCI));
++
++	return skb;
++}
++
++static struct sk_buff *ks8995_rcv(struct sk_buff *skb, struct net_device *dev)
++{
++	int portmask;
++	int port;
++	u16 etype;
++
++	/* The special tag may be in the packet or VLAN metadata. In either
++	 * case, its TPID must retain the source-port bits.
++	 *
++	 * Read the in-band TPID directly because skb->protocol contains
++	 * ETH_P_XDSA.
++	 */
++	if (skb_vlan_tag_present(skb))
++		etype = ntohs(skb->vlan_proto);
++	else
++		etype = ntohs(*(__be16 *)dsa_etype_header_pos_rx(skb));
++	if ((etype & KS8995M_STPID_STD) != ETH_P_8021Q) {
++		netdev_dbg(dev, "%s: dropped ethertype 0x%04x\n",
++			   __func__, etype);
++		kfree_skb(skb);
++		return NULL;
++	}
++
++	portmask = FIELD_GET(KS8995M_STPID_PORTMASK, etype);
++	if (unlikely(!is_power_of_2(portmask))) {
++		netdev_dbg(dev, "%s: dropped invalid port mask 0x%04x\n",
++			   __func__, portmask);
++		kfree_skb(skb);
++		return NULL;
++	}
++	port = ilog2(portmask);
++
++	netdev_dbg(dev, "%s: received ethertype %04x\n",
++		   __func__, etype);
++
++	/* Move an in-band special tag into VLAN metadata. If already
++	 * offloaded, its TPID was validated above.
++	 */
++	if (!skb_vlan_tag_present(skb)) {
++		skb = skb_vlan_untag(skb);
++		if (!skb) {
++			/* skb_vlan_untag drops the skb on failure */
++			if (net_ratelimit())
++				netdev_err(dev, "%s: unable to untag skb\n", __func__);
++			return NULL;
++		}
++	}
++
++	netdev_dbg(dev, "%s: etype %04x portmask %04x (%d)\n",
++		   __func__, etype, portmask, port);
++	skb->dev = dsa_conduit_find_user(dev, 0, port);
++	if (!skb->dev) {
++		kfree_skb(skb);
++		return NULL;
++	}
++
++	/* The special tag's TCI is now in the hardware-accelerated VLAN
++	 * metadata. The switch preserves the TCI of tagged
++	 * frames, but inserts the ingress port's default tag for untagged frames.
++	 * Since the driver programs the default tag to 0, a zero TCI identifies
++	 * an originally untagged frame. Preserve every non-zero TCI as an
++	 * 802.1Q tag, including VID 0 frames with PCP or DEI set.
++	 */
++	if (!skb->vlan_tci) {
++		netdev_dbg(dev, "%s: clear VLAN tag from frame\n", __func__);
++		__vlan_hwaccel_clear_tag(skb);
++	} else {
++		skb->vlan_proto = htons(ETH_P_8021Q);
++		netdev_dbg(dev, "%s: vlan_tci = 0x%04x VLAN frame\n",
++			   __func__, skb->vlan_tci);
++	}
++
++	dsa_default_offload_fwd_mark(skb);
++
++	return skb;
++}
++
++static void ks8995_flow_dissect(const struct sk_buff *skb, __be16 *proto,
++				int *offset)
++{
++	const __be16 *encap_proto;
++	__be16 buffer;
++
++	*proto = 0;
++	*offset = 0;
++
++	/* Extra TX headroom does not increase the in-band RX tag length. */
++	encap_proto = skb_header_pointer(skb, KS8995_TAG_LEN - sizeof(buffer),
++					 sizeof(buffer), &buffer);
++	if (!encap_proto)
++		return;
++
++	*proto = *encap_proto;
++	*offset = KS8995_TAG_LEN;
++}
++
++static const struct dsa_device_ops ks8995_netdev_ops = {
++	.name = KS8995_NAME,
++	.proto	= DSA_TAG_PROTO_KS8995,
++	.xmit = ks8995_xmit,
++	.rcv = ks8995_rcv,
++	.flow_dissect = ks8995_flow_dissect,
++	.needed_headroom = KS8995_NEEDED_HEADROOM,
++};
++
++MODULE_DESCRIPTION("DSA tag driver for Micrel KS8995 family of switches");
++MODULE_LICENSE("GPL");
++MODULE_ALIAS_DSA_TAG_DRIVER(DSA_TAG_PROTO_KS8995, KS8995_NAME);
++
++module_dsa_tag_driver(ks8995_netdev_ops);
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.55.0
 
