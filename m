@@ -1,154 +1,159 @@
-Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.0])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85381494835;
-	Wed, 16 Sep 2026 21:49:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.56.87.0
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789595361; cv=pass; b=afv3w8CGGF0VUGs9reTGRPgVcdpGZcGJo/7lVnlR7bPwTOfMhd0EUc3MvSjlmxgaxfQKJbai/PSg+8ygDJ+42FbmM2Z2HdMFdWn4/7R5X/TRljVJCrbBbx4pCGyaCUXhe9AeOae1dxYOxNJYKgssRgFQL51FQ9wIKmOaLQeFdE8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789595361; c=relaxed/simple;
-	bh=SArq2+UwtiAN8KF2iej4IW97HFnrOvv94ZfX1GMeV2c=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=GpBTOR1EbnqrwgYrpR2BElgCtR2tX9j27JMiCiWuLGtfqFS4m0qlc83TTiX/wBtTwMSQhmWXIYE2zfSBeyMsEiNzNiaWMGrpDc0Jw+x3Zo1avlsazAbfFQTac4sSIXiNfScvQeUUTMErZCmymnaaR6+4am+6D8ofcomHEX5YK/M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it; spf=pass smtp.mailfrom=valla.it; dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b=FtW+62q/; dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b=akkfbjnQ; arc=pass smtp.client-ip=185.56.87.0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C39A4E4335;
+	Wed, 16 Sep 2026 21:52:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789595559; cv=none; b=dP0iCQkEeh/Rqtw3fWIu/JHuyqK1GAugri6KyBN5MbXwMXBYHOhw3tgYjXPH1L/zVUWuXc6tkQF+WgxmSnTky4Xo9/RzIQjPYMwk1H9PlADzNV+Mx1SPHN+lW8SJSaRQ577mxXANrQRXAWv/O5Buww95y9gUPnle2dWbTVe/7Ko=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789595559; c=relaxed/simple;
+	bh=jPKu2Fombip+Gx2QXmAiEbv1qfRPb7QMV4qF/9/nyrY=;
+	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=T6+gfr/9Emib4zn7AG66k42q5bpkIDo9aWgwdIvSU2lFZd3DHwteAx6MUqJeKJ6II1VGBx78oKsMSbqolaNHSiGuchJagoLxdqBLIXbPQ9GMl5DIwH14NwlySwpRZN78EqAU1AGcgkkVBpUrIzmaPvHp1jzy+/QMymBRJdtnd4Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bRhbwbgF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b="FtW+62q/";
-	dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b="akkfbjnQ"
-ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-f940.prod.antispam.mailspamprotection.com; s=arckey; t=1789595358;
-	 b=4qPrUuBZOHBy1+0H704Tk75qpSSNygqYWbv1cHjwpF3oCtS45HVaPDMuis8RdIvYt+ee3gw1P/
-	  3AO7jGnySz5fxnnA6Abm9gXF9YgkxYlvQE9pnEj8AnjIQ/g60zz4I77MnY3PE2mPMV2zuAjmu5
-	  vVeANLbKNy9az2YgolSghr6SACrwMNBU0ME6nASAJpsyDfN8oIGAejon/tDHF4le6qpBzOQnen
-	  LBCe5ft1Iie6/1nBhkmMhTPBhVf9m2rROF74MCnjyyQvVkP5KVBow9UD9VNTbQ6OAfsDuQAn0O
-	  jE7/JzEfY1ja1UblClvfEEOvCgPyvkLxm9PZ9YnhrUk9ww==;
-ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-f940.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-f940.prod.antispam.mailspamprotection.com; s=arckey; t=1789595358;
-	bh=SArq2+UwtiAN8KF2iej4IW97HFnrOvv94ZfX1GMeV2c=;
-	h=Cc:To:In-Reply-To:References:Message-ID:Content-Transfer-Encoding:
-	  Content-Type:MIME-Version:Subject:Date:From:DKIM-Signature:DKIM-Signature;
-	b=SGqwUWTeaXXS61b6eto7qlXVhhSFH1lSPpItnEi9rcjQD/aQL/3/Ay23WVKHKkcKKDGAPMN1Nk
-	  J2/2HioGhw4DZkKn9Fds9LVpsmcW7/EXLPXPgsomiPEkmBqCLWFPq2n6TIY75l2rCy52Cou6So
-	  Tiag41Ap/bhx/D5Wm4erhWT32Pc0d0qqZknr3UBWzhNBlmZKXLS//FsElcOmRjoBpNo7B4z0Pu
-	  /ymJlKtW67j/cIHIZYsMmGX/Z0cvQn+MwEXOflksppfoZ+qkM0zJd/k/Kod45baAYCx0SreQ4C
-	  MbGTidZhj+H144L4uleSCgWsnO5J/MjHsIIbSWgtcmVJEQ==;
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
-	:Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject
-	:Date:From:Reply-To:List-Unsubscribe;
-	bh=/1xXAR7sHjfiShKLvtMcClqJDZUo+C9C2NEO/Y0JRUM=; b=FtW+62q/B07MpuKFw3cIUWNIZh
-	ERM5Bat0OPR9wxXUcUGw3R0dGsgPWOezfexrnyBceyYbMh6E7NqqNqpY3lpLKld9FjhjVbQCJSo19
-	4LvOUp/BbeTapAN84RFpyZxXgCnEI6xjOXWGjRKkv3EOTyhtcMtOxUvQBPRsls7eq+1Q=;
-Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
-	by instance-europe-west4-f940.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <francesco@valla.it>)
-	id 1x6xV9-00000002cjz-1kKn;
-	Wed, 16 Sep 2026 21:49:12 +0000
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
-	s=default; h=Cc:To:Subject:Date:From:list-help:list-unsubscribe:
-	list-subscribe:list-post:list-owner:list-archive;
-	bh=/1xXAR7sHjfiShKLvtMcClqJDZUo+C9C2NEO/Y0JRUM=; b=akkfbjnQKAX39GctHP0syTEnII
-	DLYHpi+xCRoGyRpbvM7sB13vwPQrXehzIp2YtpSBCHtIOIu+7xVLEfyYX80mTiU+GUeDYw7PabRsr
-	KtMW8JOZbi4InQ9KtQj//etRtThJILkS16sOkj3jS8Sia8fkYxykfu5iqGFUs7yjKpp4=;
-Received: from [95.233.221.121] (port=62880 helo=[192.168.178.175])
-	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <francesco@valla.it>)
-	id 1x6wuS-0000000058P-3B0Q;
-	Wed, 16 Sep 2026 21:11:16 +0000
-From: Francesco Valla <francesco@valla.it>
-Date: Wed, 16 Sep 2026 23:10:56 +0200
-Subject: [PATCH RFC 11/12] dt-bindings: remoteproc: imx-rproc: support
- virtio
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bRhbwbgF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2516D1F000FF;
+	Wed, 16 Sep 2026 21:52:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789595545;
+	bh=vG+D5IFPEEJDm9UrHoc/18Q/AggbmyC0XiMDqFxfxco=;
+	h=Date:From:To:Subject:References:In-Reply-To;
+	b=bRhbwbgFMxGBxMuQimwCbEGXvAppYI73YLlTOaPWzroGT6J6wsSkvbvuuePs07vTw
+	 gteMlpMf6ht1als9uaI6HG+FRSfEiqw7+17mt2s9cACf5d8vnBeukIWcu6AWbFKhub
+	 1TyquISC/FkHkURA+Rm/4sqTVac61WcbQ83dKYlAFfXIlRcX17VlnmVNLCvhQt+NW8
+	 DlfVTG1ioh6YnR6ye6YlN9qvotqCtpxAM3+1JaUJfzfGFjxQ+lfUuHknbefY7NlTQi
+	 cDa9FAHZLjnQyCTgZNZoD7kgJOv5XZRrLV/+lBg3gcnJv9J3MI431M8HsEZM4OBE1S
+	 j1hP1RMu3JuIA==
+Date: Wed, 16 Sep 2026 21:52:23 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Alim Akhtar <alim.akhtar@samsung.com>,
+	Avri Altman <avri.altman@sandisk.com>,
+	Bart Van Assche <bvanassche@acm.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	"Martin K. Petersen" <mkp@kernel.org>,
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
+	Jennifer Berringer <jberring@redhat.com>,
+	linux-scsi@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 2/3] scsi: ufs: spacemit: k3: Add UFS Host Controller
+ driver
+Message-ID: <20260916215223-GKA297024@kernel.org>
+References: <20260916-08-k3-ufs-support-v5-0-1f5d71f1027d@kernel.org>
+ <20260916-08-k3-ufs-support-v5-2-1f5d71f1027d@kernel.org>
+ <aqrDMVMMtTfVVu8X@aurel32.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-remoteproc_virtio_map-v1-11-dac8c5eb4aa9@valla.it>
-References: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
-In-Reply-To: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Mathieu Poirier <mathieu.poirier@linaro.org>, Kees Cook <kees@kernel.org>, 
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Robin Murphy <robin.murphy@arm.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Peng Fan <peng.fan@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>
-Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, virtualization@lists.linux.dev, 
- imx@lists.linux.dev, iommu@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, Francesco Valla <francesco@valla.it>
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=884; i=francesco@valla.it;
- h=from:subject:message-id; bh=SArq2+UwtiAN8KF2iej4IW97HFnrOvv94ZfX1GMeV2c=;
- b=owGbwMvMwCX2aH1OUIzHTgbG02pJDFmrWZ/MSVkl8zrTvFOW0TZozZQTHX5Tr3Okt99Tdb57f
- s0JnZ2fO0pZGMS4GGTFFFlC1t24t2eu+be0DYyPYOawMoEMYeDiFICJxC9hZFigZPTpgLCvUXRH
- WHH7rYUSvwtd5q7ZWCf876rHPkMdPjFGht13JldxuRXvP3L6YLFt1pQvnkZZRUwBkqFH/v9mejv
- RgQkA
-X-Developer-Key: i=francesco@valla.it; a=openpgp;
- fpr=CC70CBC9AA13257C6CCED8669601767CA07CA0EA
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - esm19.siteground.biz
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - valla.it
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-SGantispam-id: 3d122d4309c718f4dc86ed172affefd7
-X-AntiAbuse: ID - 3d122d4309c718f4dc86ed172affefd7
-AntiSpam-DLS: false
-AntiSpam-DLSP: 
-AntiSpam-DLSRS: 
-AntiSpam-TS: 1.0
-CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
-CFBL-Feedback-ID: 1x6xV9-00000002cjz-1kKn-feedback@antispam.mailspamprotection.com
-Authentication-Results: outgoing.instance-europe-west4-f940.prod.antispam.mailspamprotection.com;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <aqrDMVMMtTfVVu8X@aurel32.net>
 
-Add support for virtio devices description.
+Hi Aurelien, 
 
-Signed-off-by: Francesco Valla <francesco@valla.it>
----
- Documentation/devicetree/bindings/remoteproc/fsl,imx-rproc.yaml | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+On 18:26 Wed 16 Sep     , Aurelien Jarno wrote:
+> Hi Yixun,
+> 
+> On 2026-09-16 02:59, Yixun Lan wrote:
+> > SpacemiT K3 SoC consist of UFS (Universal Flash Storage) Host Controller
+> > which has features compatible with JEDEC UFS 2.2, MIPI UniPro v1.61 and
+> > M-PHY v3.0 standard.
+> > 
+> > Tested-by: Aurelien Jarno <aurelien@aurel32.net>
+> > Tested-by: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
+> > Signed-off-by: Yixun Lan <dlan@kernel.org>
+> > ---
+> >  drivers/ufs/host/Kconfig        |  12 +
+> >  drivers/ufs/host/Makefile       |   1 +
+> >  drivers/ufs/host/ufs-spacemit.c | 688 ++++++++++++++++++++++++++++++++++++++++
+> >  drivers/ufs/host/ufs-spacemit.h |  79 +++++
+> >  4 files changed, 780 insertions(+)
+> > 
+> > diff --git a/drivers/ufs/host/Kconfig b/drivers/ufs/host/Kconfig
+> > index ff170c0b6da0..6146872fcecc 100644
+> > --- a/drivers/ufs/host/Kconfig
+> > +++ b/drivers/ufs/host/Kconfig
+> > @@ -132,6 +132,18 @@ config SCSI_UFS_VARIABLE_SG_ENTRY_SIZE
+> >  	bool
+> >  	default y if SCSI_UFS_EXYNOS && SCSI_UFS_CRYPTO
+> >  
+> > +config SCSI_UFS_SPACEMIT
+> > +	tristate "SpacemiT UFS controller driver"
+> > +	depends on SCSI_UFSHCD_PLATFORM && (ARCH_SPACEMIT || COMPILE_TEST)
+> > +	help
+> > +	  This selects the SpacemiT specific additions to UFSHCD platform driver.
+> > +	  UFS host on SpacemiT needs some vendor specific configuration before
+> > +	  accessing the hardware which includes PHY configuration and vendor
+> > +	  specific registers.
+> > +
+> > +	  Select this if you have UFS controller on SpacemiT chipset.
+> > +	  If unsure, say N.
+> > +
+> >  config SCSI_UFS_SPRD
+> >  	tristate "Unisoc specific hooks to UFS controller platform driver"
+> >  	depends on SCSI_UFSHCD_PLATFORM && (ARCH_SPRD || COMPILE_TEST)
+> > diff --git a/drivers/ufs/host/Makefile b/drivers/ufs/host/Makefile
+> > index 7d8db67eb23c..a3c447b8fc21 100644
+> > --- a/drivers/ufs/host/Makefile
+> > +++ b/drivers/ufs/host/Makefile
+> > @@ -13,6 +13,7 @@ obj-$(CONFIG_SCSI_UFS_HISI) += ufs-hisi.o
+> >  obj-$(CONFIG_SCSI_UFS_MEDIATEK) += ufs-mediatek.o
+> >  obj-$(CONFIG_SCSI_UFS_RENESAS) += ufs-renesas.o
+> >  obj-$(CONFIG_SCSI_UFS_ROCKCHIP) += ufs-rockchip.o
+> > +obj-$(CONFIG_SCSI_UFS_SPACEMIT) += ufs-spacemit.o
+> >  obj-$(CONFIG_SCSI_UFS_SPRD) += ufs-sprd.o
+> >  obj-$(CONFIG_SCSI_UFS_TI_J721E) += ti-j721e-ufs.o
+> >  obj-$(CONFIG_SCSI_UFS_AMD_VERSAL2) += ufs-amd-versal2.o ufshcd-dwc.o
+> > diff --git a/drivers/ufs/host/ufs-spacemit.c b/drivers/ufs/host/ufs-spacemit.c
+> > new file mode 100644
+> > index 000000000000..179e6edb2ac2
+> > --- /dev/null
+> > +++ b/drivers/ufs/host/ufs-spacemit.c
+> > @@ -0,0 +1,688 @@
+> > +// SPDX-License-Identifier: GPL-2.0-only
+> > +/*
+> > + * Copyright (c) 2026 SpacemiT (Hangzhou) Technology Co. Ltd
+> > + */
+> > +
+> > +
+...
+> > +/*
+> > + * Keep UFS ACLK at a lower parent rate (409.6MHz) for stable init.
+> > + * This mirrors the "ufs-low-aclk-freq" change from the other environment.
+> > + */
+> > +#define UFS_ACLK_LOW_FREQ_HZ		409600000UL
+> 
+> You probably want to rename that to AXI, although here it's not that 
+> important.
+> 
+Ok, will do
 
-diff --git a/Documentation/devicetree/bindings/remoteproc/fsl,imx-rproc.yaml b/Documentation/devicetree/bindings/remoteproc/fsl,imx-rproc.yaml
-index c18f71b64889..32fc415c7028 100644
---- a/Documentation/devicetree/bindings/remoteproc/fsl,imx-rproc.yaml
-+++ b/Documentation/devicetree/bindings/remoteproc/fsl,imx-rproc.yaml
-@@ -92,6 +92,7 @@ required:
-   - compatible
- 
- allOf:
-+  - $ref: remoteproc-virtio.yaml#
-   - if:
-       properties:
-         compatible:
-@@ -118,7 +119,7 @@ allOf:
-       properties:
-         power-domains: false
- 
--additionalProperties: false
-+unevaluatedProperties: false
- 
- examples:
-   - |
+...
+> > +static u32 ufs_spacemit_get_sys1clk_1us(struct ufs_hba *hba)
+> > +{
+> > +	struct ufs_clk_info *clki, *ufs_aclk = NULL;
+> > +	struct list_head *head = &hba->clk_list_head;
+> > +	unsigned long rate_hz = 0;
+> > +
+> > +	if (!list_empty(head)) {
+> > +		list_for_each_entry(clki, head, list) {
+> > +			if (clki->name && !strcmp(clki->name, "aclk") && clki->clk) {
+> 
+> On the other hand, you definitely want to rename this one to "axi" to 
+> match the device tree change. Right now the whole patchset just doesn't 
+> work.
+> 
+Oops, you right, will fix it
 
 -- 
-2.55.0
-
+Yixun Lan (dlan)
