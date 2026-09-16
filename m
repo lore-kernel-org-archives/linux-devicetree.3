@@ -1,85 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48FC14F55B9
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 13:15:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05890388393;
+	Wed, 16 Sep 2026 13:16:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.154
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789564506; cv=none; b=HPUARMbDk7hNcSNadzEFZTShGBikokgQLoYS+oMRPP0cxnohpUYxOlzp6JsflzmtvzTN+LqQTxJgCo7KLPvnCAUPCwHqJNCri0vWjQiStHlhU3mRpCYU8VGA+wm97V3FeUU1MQaMTVLx0XELc/lheP5KE5KY6pj+985kR2k5Qbk=
+	t=1789564612; cv=none; b=EdSUhbs3vrg5BhPcSYtntBhw78ZxGo8sQrF3VyQ6/tpbXB5GFXkMduyvTMFv7V82QNlojoIYEMJH072BrM1v3uYUMWledQC83d7rDPPZhDcPmWa4hOkqgRVAjpeO/EyA7ed6N6gVQBBXHUGS+bDiVbm3POdXOTCmJzelwumWhok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789564506; c=relaxed/simple;
-	bh=oNYnZX2UBCSp/tvXl18XeMRCJO6e6jfLpgd4ZUSJ7jk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ROqZpioPbhLb/Ir6AsFz/PvbUqE8r535Uoi8mnfuNbr/DA3nWt5D9q0j6T2rAPR8r0e3qejwKi1EAnXMDvS2uF1DxqkYap3S6T+FeocRsHxO5WyxmRICGwMb98d6QxAMMg221Ts8pxH/ceYzK1CPsdU6UUBsZpyHVvJ5swa0PBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G6PL8XKO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789564612; c=relaxed/simple;
+	bh=AxW40EfCF8iZErYl8W5+AI0CzKP1ft3cVU4kgfc4iNw=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=awCwM6aC8k22Hu/Uug7Wh7Bc2zrHtnvKqCUVZVMOiWvxu/aOd1+rCfdg715FUqJsxiORKX+UenbTUK06jwM1jsUdz+0H5LDn5xU22qQgLHqSNj5Gy/nyd3VQlPsRcvoB+58QVUpYk6UlAbQwI+71y7TuI2fhhBUvvGKd94SIBIw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=Ap2Qh3ls; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=lEjeA3Ih; arc=none smtp.client-ip=202.12.124.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G6PL8XKO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC1651F008A7
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 13:15:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789564504;
-	bh=oNYnZX2UBCSp/tvXl18XeMRCJO6e6jfLpgd4ZUSJ7jk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=G6PL8XKOrkIn03t8JqQWPJ2NAC39e0Trk2zATbJOoc9TFl6FPoHhuQL4i3yCn4qqo
-	 WgTt7FB712Ztn/32IukjjAUOkuYQTVDgdP6Rwbu++RbkdZtUj37WzBa7msnJxPdaOq
-	 BYt0nVrPYUo0temYhkYJ07JRD8KbZ2W+FzRYcTe2rBb7OZM1iae9Wa6tJYp5QgINdI
-	 buYQlE5FOc/CezkIvqCbymEQ8bqwPaeTTgLKINYVjm8Biulxx1r9VgQ6v3D/TGjzpu
-	 VlXPZWdQRYY4YkRmfPRNi5VHuO+IapyNuWWGv4g/MmbAssdB6mP8tFtNrh5FseFNPm
-	 oWt1eKkIKCk0Q==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b88dc3bc02so959213e87.1
-        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 06:15:04 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz6eFXKf4ha9PvcH8K+iMBBvk1ZX+0uRW35diLWlQvCEZoZVMT9veOsjvHmLEt/0y0wb+fftMyXloEY@vger.kernel.org
-X-Gm-Message-State: AFuF++mnhLQ16S2EwCy12PYnWoU0Y0DPNk9tgOXhR6FyQMoDOi8CXS0x
-	3cvAjvESwUrbPBFzPT2v67KFBOE/F6EppIaMbIxYr1Ht2SptAuPfeL3ekf7uDCWFLZz/0lRUoso
-	sqwolJMWzrnRmxisPb6GCb2bwDtFL0/M=
-X-Received: by 2002:a05:6512:6c8:b0:5b6:1a7c:fd7c with SMTP id
- 2adb3069b0e04-5b8b66528fbmr794684e87.34.1789564503565; Wed, 16 Sep 2026
- 06:15:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="Ap2Qh3ls";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="lEjeA3Ih"
+Received: from ams-compute-01.internal (ams-compute-01.internal [10.64.2.61])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 6A1867A0100;
+	Wed, 16 Sep 2026 09:16:48 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-01.internal (MEProxy); Wed, 16 Sep 2026 09:16:50 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1789564607;
+	 x=1789651007; bh=jKavffle4neT9GMaTZ2rSYi6SqO6U6tssCdaO32SjGg=; b=
+	Ap2Qh3lsL4M3EfUXfTW7gVuBEpKnY3dKxMp9Z+iqyQvb4pOksZY6Z58FU6gqKOCJ
+	QWBVy2OkVnPeYuQ6V3xOe2qyL7YbAiIE9rmUMP98oQ2O79qBKDmfru8MbT4RPqLr
+	LyrzLEUUVIWfIY167OqwFgKjiCmpCBBYLvbjfUR8KJJXSW7mCgY9YnQj+cH7Wp3C
+	QkdkZiw0fwch2mBMIYSmWNX2v/ZJ/04OvS582CUIa4JNpje7DoZnQFkxsvFsFWXt
+	t1dVHoHkesB2+v+HfUtw7LiBFyhds3jBlJ2l7hXAn++Qij8jXaPAhEM/CBHKSdTW
+	w/47aBOnx0CmHMdfkwhc6w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789564607; x=
+	1789651007; bh=jKavffle4neT9GMaTZ2rSYi6SqO6U6tssCdaO32SjGg=; b=l
+	EjeA3IhxJxD4GtJ78eF/7QPZTqfE89I0Ik7Up/wEXFwjD7Evb6a1G0CXJbX2/hd0
+	pJPu1JqCjsZO9S3hfux7iJ/dUak3WjYV5z2IVU2dPrtk14UXaFyvxH/FiaDKjdQv
+	aPa5L+T6yQdXMabLfX9t3en+BnnuaDl7Tx0FEnAQWGxuHMFDAai0kB90PRg5mkp2
+	d67UVdhgcZxb7HmjrGIrlUFjJ66bMZxrQ+aKkcTE4QxuboK00cY1O2wErtd1uSD6
+	sWLmynMWKzbRiZVjpX86SJ3sKL+iDAqXdJQmo9m5TfzrFxtWF6vlaR/oPCnpGIRl
+	l1C5ZaBms3TIyPTAvkpAw==
+X-ME-Sender: <xms:uZaqakJGpMtxTFmsF-xLuuL556T16Vyl050-Z0sg_G9xgl7--AklcQ>
+    <xme:uZaqautD07o2FuDoi-W218MTavysMbqcSxLuya3QR2FHZS7yrKnM8cPcTquuqaYG6
+    SDW_oIYKN3bAPm3dsE-nXYRvUb_UHOWsMU0whQWpWei_YTaPkRMwRAv>
+X-ME-Proxy-Cause: dmFkZTFnplgyCo8M36BD8SpLaZmp7STqRcXPok5KtM5tUgC1ZV7i/mvJqoZoGQWaQj7pMw
+    0nWk/oGrv9BgYuiSHl1wpjttdvYQ/Emrd3tM8Q/TAa4EECiIC+uIQb6kmQUm3849C0kuBn
+    o8h981T+Al4QsogzbVxkXZxhOtfKS8sC8+DxyEdhnEQ8RmknuGVsYuIz9DkMGD2N4T7zxS
+    c09z2RVKAeD+VuXdhAJObk+oAxJBBp1o5bXRH23PPvWlLQw176ixJEiA5O838te8cIiRjB
+    OQa+0bLw/hqvqkB5RZsa5cHTrDUpjkgRPQCGH29/Re0FaZgGDkXClrr64kLzWTuVHtzxJ9
+    gd7Qdja1y8K25wWnQQK6ErNwxrFwNmCvvRSlIHTrPN+XHGUOp2nQwOz+5WK6l0Ye2+tXby
+    Ll2U9gqjjb/yn/Jo1ZUpz62Nc+5FXiXb+9GByAeRmxrZowwsLJ2AsTATTJPiqvLoHj5KWF
+    SvH+BRdTbkRPz+pkHDfIpSZvYFqHhqhnD5acBq0cq7cuJzKY5tU5ZwxF2BXfssS0yEaA27
+    DtEra7+7UaGjyabi/du39U+Brvp1woct6HCRh17BHE9NBuEqg9Wy0TGiYU3PIsbq88Y9/n
+    X0y5qNnIsDd8W0xwF4DHegggig6nRRJ1+5EMXvr6h9EWgcnrFNizH6HXuBSQ
+X-ME-Proxy: <xmx:vJaqat7Auk0s5H0fK7GO-3VmhZWjLEW04eSQ_S7LhXnD7H9sSjLlyQ>
+    <xmx:vJaqasiZPEgXcpVlil7GgGazN3xDpPK3DwuWqTB2sFVGI9rTf0wJfw>
+    <xmx:vJaqaogPGc-H5IOzGwSymZ2Hidd3khEc4i1RIbAvb2N4Isgdis7q-w>
+    <xmx:vJaqaslzEbmD73QVkMSNYndfj9ffJAoN5Ib4u2dDgDHIm8OpycAHlQ>
+    <xmx:v5aqamWzwoSqWPMMiWbqSdOCGAl71oBqQ3irNw_rAHx0rWjxgjIWISoM>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id BBF9D32A0084; Wed, 16 Sep 2026 09:16:41 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260903-pci-tc9563-aux-v2-0-34c625b542c1@oss.qualcomm.com> <20260903-pci-tc9563-aux-v2-5-34c625b542c1@oss.qualcomm.com>
-In-Reply-To: <20260903-pci-tc9563-aux-v2-5-34c625b542c1@oss.qualcomm.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 16 Sep 2026 15:14:51 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=bNxOwFVkGjcv+Ux7LbUDD7EwqeMbp1Pvb_p9G4e5XcQ@mail.gmail.com>
-X-Gm-Features: AcwNN1XhOMGQi9DQBoWhea-391wB_SiJ6zDiVvp77goi9CMg6KcYgTlkBlAoV8M
-Message-ID: <CAD++jL=bNxOwFVkGjcv+Ux7LbUDD7EwqeMbp1Pvb_p9G4e5XcQ@mail.gmail.com>
-Subject: Re: [PATCH v2 5/5] arm64: dts: qcom: qcs6490-rb3gen2: enable TC9563
- embedded GPIO controller
-To: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Michael Walle <mwalle@kernel.org>, Alex Elder <elder@riscstar.com>, 
-	Daniel Thompson <daniel@riscstar.com>, linux-pci@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-ThreadId: AcI4sQW32jCJ
+Date: Wed, 16 Sep 2026 15:16:13 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: pankaj.gupta@oss.nxp.com, "Jonathan Corbet" <corbet@lwn.net>,
+ "Shuah Khan" <skhan@linuxfoundation.org>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, "Frank Li" <Frank.Li@nxp.com>,
+ "Sascha Hauer" <s.hauer@pengutronix.de>,
+ "Pengutronix Kernel Team" <kernel@pengutronix.de>,
+ "Fabio Estevam" <festevam@gmail.com>, "Pankaj Gupta" <pankaj.gupta@nxp.com>,
+ "Randy Dunlap" <rdunlap@infradead.org>
+Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org
+Message-Id: <2034fb2f-f169-46a5-85e8-fa723ddb0360@app.fastmail.com>
+In-Reply-To: <20260915-imx-se-if-v51-5-4a7dac612cb5@nxp.com>
+References: <20260915-imx-se-if-v51-0-4a7dac612cb5@nxp.com>
+ <20260915-imx-se-if-v51-5-4a7dac612cb5@nxp.com>
+Subject: Re: [PATCH v51 5/7] firmware: imx: adds miscdev
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 3, 2026 at 9:53=E2=80=AFAM Lorenzo Bianconi
-<lorenzo.bianconi@oss.qualcomm.com> wrote:
-
-> The Toshiba TC9563 PCIe switch embeds a GPIO controller providing 37 GPIO
-> lines.
-> The controller is registered as an auxiliary device by the TC9563 power
-> controller and accessed through the same i2c device.
-> Describe the controller as a "gpio" child node of the switch and use it
-> to control the PERST# reset lines of the two external downstream ports
-> (pcie@1,0 and pcie@2,0), as expected by the TC9563 power controller after
-> switching to the GPIO descriptor API for per-port resets.
+On Mon, Sep 14, 2026, at 21:40, pankaj.gupta@oss.nxp.com wrote:
+> From: Pankaj Gupta <pankaj.gupta@nxp.com>
 >
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+> Adds the driver for communication interface to secure-enclave, that
+> enables exchanging messages with NXP secure enclave HW IP(s)
+> like EdgeLock Enclave, from:
+> - User-Space Applications via character driver.
+>
+> ABI documentation for the NXP secure-enclave driver.
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+I just saw this in linux-next, where it has caused a build failure
+for a missing include of linux/slab.h. I hadn't see the series
+before (even though it is a v51, which seems crazy), but I am
+curious about it now.
 
-Yours,
-Linus Walleij
+> User-space library using this driver:
+> - i.MX Secure Enclave library:
+>   -- URL: https://github.com/nxp-imx/imx-secure-enclave.git,
+> - i.MX Secure Middle-Ware:
+>   -- URL: https://github.com/nxp-imx/imx-smw.git
+
+I assume this will hit the soc tree eventually, so I want to
+make sure the reviews have covered all the important aspects here,
+and I don't see the answers in the cover letter:
+
+- Who has reviewed the user interface from outside of NXP?
+  Since this is not a vendor-independent API, I think we have
+  to be extra careful and make sure this does not duplicate
+  anything that is already in the standard firmware interfaces.
+
+- Why is there a low-level passthrough to the firmware from
+  userspace? This looks rather irregular, since it is the kernel's
+  job to abstract the platform and provide vendor-independent
+  interfaces. In particular the bit about shared memory and
+  the generic send/receiv ioctl look like they should not
+  be there, as those would allow side-channels from userspace.
+
+      Arnd
