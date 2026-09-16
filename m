@@ -1,184 +1,236 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010061.outbound.protection.outlook.com [52.101.69.61])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FF70514751;
-	Wed, 16 Sep 2026 14:39:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.61
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789569573; cv=fail; b=R5/7lLF39QvVVqbLDM67bsVJ9UkYgY6y/hINe5pb2ZJbDl1kb8Cc8n9nQQPMGtz+cAdmFkTz9NB5227dPX3DtQtGCvvcKYAit3cQ7va2V1QIwKGVyx195+iK1r7Wf5IvJoCbBBfBljOOnqKpnUg0ecrQYg2zzSyfcJndjlHDavY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789569573; c=relaxed/simple;
-	bh=Wuaa5AkDAta8/Ul3NtjN5xlUQSFCTZV/7/Jg8rf4Qm8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=V2jxju7sGVIMgqOjE3j3bMAy2UnixFXFloYiRa0abNxqzR7UJnb+GreRIEsW3eIIAk959SdvVB0DXHkkMJ4CdvqFS31kHMS/ieOKUU+L7o+P2m1qOEj5aOGXXynFBgG5KZXV4in+3W/D7LzsrRAvl1+DzbAZL1OZW4T3+rVBa+U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=saDtv7Ce; arc=fail smtp.client-ip=52.101.69.61
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D92137AA83
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 14:40:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789569602; cv=none; b=CPadV+MnvrAdYVA4yMx2znZbL8EX0hkAXN9C0Zt3j+4k4pwSUCI/VrcN1xNtdOgs/Y6NgtpIBqG0s7LYT7JdcIS+7UkwN5F0sSdOyXN9bEFHZnPb2Jl2J/wWjYSF2JyWqHoM+W2sXIMySUxabKzoqHWgn8fNyRuOaAZI/hH75Nk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789569602; c=relaxed/simple;
+	bh=G+np0cc0It8i302KUloDocttjC0x6BgQYbU+cAG/nt0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pBVXNnAfraoUtCqdWh3PdHCkSzhH2h9XakqPZUH7XT5UOxCGos793RwWo5GGD9vH5I8yvkV766RgAZ6DXepkzLS9+08S/nOe/S4LCyIgjbJhW6pU4cTLSpIYuTf5zUspuLtFhb9k/ZfZrw+97qKyYHC9qrgoQk1lBw0La8sZ0ZE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fmbpbGf6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VDZ6k1F3; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="saDtv7Ce"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=neBrsLUWJk7SC4zIFapkOA7rAqWECc4Q17J7hE3xsDl9Wt5HTRlTpI6I2wY1FJCtivMODHSHhASjZRZP7JkXXpvGNEldKv00ENskqSZnsS/u9D1rrA76aE+0FfqI+G+kkC9A0TMAEUqxSP1Lx4WNCVBEiyisQpMNTyRw9rID/ovHf5F4jQg/yDgGEjWLJ5XhkfoOxGbQ2l9yac4gIH1GEF9IsG1p+SCRJqCrTH0oHVZmz37pDxBIgbrok1tRUaLY7AJIfI5Z136gFxhk31b3T4GEzJ07iWVA/obhpGyQGXhzRh9MekRs6y+ZLkgY1zeJX6sA8ENYs4+iM7YazG5QIg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KlgGVtA8L34wEftTlpYt844a7X84eA7HeSvovPfV4CQ=;
- b=Noy0FKK7OwVvyUX51IQJQ3E80Rn8pBDKjG0aASJksD8fE9zBi9UJwkd4XUCXP7iLcLw9VmRQTwQh1CfMvHORe+25rB4fc0FIdwHB5quGvmVN+kjftHQpdEQ1CdfMXNbVkvppw02bKURi3MokoNHm1xjMD1RsCelpuJvrdz5Om1QikvlO9Esa2FIVEM7uQDXt639zg3nTwPOIM/lu/FhbSNHxAWCxwPyd1yxsJlHRd3s6UD3h31ivey9gLha9fx+WnohEGDaVlaCJsFTUErLnpGgn7EEqridQeGcykKOp3NJTVbwIx19d8kw0COhe7C2p4X3CYLa04cj7N7AuJculHw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KlgGVtA8L34wEftTlpYt844a7X84eA7HeSvovPfV4CQ=;
- b=saDtv7CeVhSMe6M1ytxZ2viYLeqgVJ6EXX1r2RWSFmQgd4wNW3GCEdpoZqnovpY3vo6dk3OjpUr0EKHjGXbvyuALq6wnME15IaJbZEfFM8tGNNrm/u9f9ICDf3qFPmLikwP5C3j2MpIfcY/YgV8WSNKalacKR/Kn5m/2KN6qkb2YUpqflaCAj9YLAgdqZUdTOSmGl33yLKD17YRJgta4i6WAKoL7sXvq7mBBu+XpxIeIyQ8BSJCYdSNU1NFTmyWrdQBq2jA9Q3LNC4nSdocZ1XYEnQk83FTpJzi4Rdf30ba4tBIWE2v9on77lMQsiogfjpjE7XcRSSW8IT/BXfaeaA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AM7PR04MB7077.eurprd04.prod.outlook.com (2603:10a6:20b:11c::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
- 2026 14:39:24 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.012; Wed, 16 Sep 2026
- 14:39:24 +0000
-Date: Wed, 16 Sep 2026 09:39:10 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: pankaj.gupta@oss.nxp.com, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Pankaj Gupta <pankaj.gupta@nxp.com>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v51 5/7] firmware: imx: adds miscdev
-Message-ID: <aqqqDnOMmlfqit6u@SMW015318>
-References: <20260915-imx-se-if-v51-0-4a7dac612cb5@nxp.com>
- <20260915-imx-se-if-v51-5-4a7dac612cb5@nxp.com>
- <2034fb2f-f169-46a5-85e8-fa723ddb0360@app.fastmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2034fb2f-f169-46a5-85e8-fa723ddb0360@app.fastmail.com>
-X-ClientProxiedBy: PH7PR17CA0013.namprd17.prod.outlook.com
- (2603:10b6:510:324::6) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fmbpbGf6";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VDZ6k1F3"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GEYe8C2955871
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 14:40:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=0oZAvYtD/3whDsCwaeMTxLwk
+	6ROtRTkdevulCwSPy3w=; b=fmbpbGf6d6GKMkaSfdm+GsDbA4+vxi6oxOUStNxB
+	a5CXoDbNwnIVIK8GjpT78iyZqM1N4LYRmu6tcst4CyETZENTH0+4N/xRBleb5EwC
+	AGPi7jhmo41dPKqiz6110CUg89EZxbrCohzXClrRo/2t6S1gvbbfAkXo/WNzt9LU
+	nPHpuZfiLEUlmZqRZsKR3RGqXv4GDwXR+xv7/ePF2hgy8rfk2adv7LZ3MictB6fm
+	s7fwmr3umQgyGkoo9rwLYOf53q4NPFP83jmYqa6mikJ2aXCYJ+khY4YwuhUVHrAs
+	CsGltqHtTCnW4v87EakeM9UDlzFuXwK3ldiXQUhHExcowA==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gquw2raen-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 14:40:00 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc1bbd7d6e6so4697354a12.3
+        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 07:39:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789569599; x=1790174399; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0oZAvYtD/3whDsCwaeMTxLwk6ROtRTkdevulCwSPy3w=;
+        b=VDZ6k1F3pRgvZpcxW3VFXlXxgzSO81RwsB3R1Pkb7bRtuKO9A4Jgdf074bWJWx0WLL
+         8BeZ/lDtv5Szzk28pIJa9+CZQM0HXY6EgOX6xL7R5wutyXT9hWRK3kgemCyj+/D8FEBy
+         /7OxRCxBXErsHbsYPOZHjomnkjNI8Ihs/g3T5K9Hj0AeGrKELRrbQmLRciemR747dGyw
+         8fPEk/ditzrY7+vgJ0W9KEI/wuY1hJD5AYssZW9DgdqKYD53uIii988pCKFiO4mGacpB
+         XHgrXEua/2mjGG8IKRAferHxEjzpq261IO6BRbYNx+7yHozrhjRx7sAEo9saREpSujq9
+         bUNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789569599; x=1790174399;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0oZAvYtD/3whDsCwaeMTxLwk6ROtRTkdevulCwSPy3w=;
+        b=slNxlIdX1nKVNzNHTAuKC8opAA+Kd1Jqy7Jfa+YkNsqvtg35pCzLPxAdGIZmHraltA
+         ubPhumNA/yOCE0Wup9RTS2LNlpNs/5xhyGLylSLlvpBej8+jaM1rbTl4p1FqU2WcN3ls
+         npyH+HhUnK3A1RpGfKo4mNT61mSQQDzFB3aUhHpCeKNHhVp26BufUY7IdwpiaqRVOpgk
+         X9uA9Y6MmfPaUSWEaS64nvxVYx5D7qoOvlyc6StOcLc5ySNv93TP+/OXMgmBeMgAXQ4B
+         fTFlKzkl1FYoB98O5khXbixxAuBc8jdu4e7Vh9oeYWM6qTkUA7RKEY6p7u5kCHNP4dhY
+         LQ7A==
+X-Forwarded-Encrypted: i=1; AKwUvBwCRrEhjJCPR6CKyxec/XHDvxyPGFyi7viM7sxasgbTyTODx8rt9+gchcoGvthgXkKlESyl+v33BX3U@vger.kernel.org
+X-Gm-Message-State: AFuF++mqx31VksLpwetqSHpn07m7ExxNJmy/vJhSlqe0N/a0Ns8/C3Mw
+	WyB2b1zvxUP3js/zKyMryO8+WaVEsNwcJKnbu0WjAzj7lSqGMNCsY12pILN3sumRMI7DVylydZL
+	FbEX91o0E5+5ROCy4HogvBkJwtHQOMIQckUGhpodNmUgNwxuxSN7NAc5E3nUCq79R
+X-Gm-Gg: AYBFou2t5+yXSAaR1MKbkStUj9mAubxlhPb7cvgBHO5Ao5wlGKAvTNeUEexQ0TqoMOh
+	DNTTcbNntLXd0dJrWs7Tmd5RzgBhmaTrWI6IY1zgz9D5T929VAZKMWclM99huG6m9Np91/9XPfE
+	HP32L4Kn7+WjE4RKBBtEQHY0ISoYJvtOIzc+og3dMfvWngoilL04mEXcQv1IAzdN2610/tF2xFD
+	8r921ttw6Ame1fOYPYvFbnw6tD5w1hwC1ySqKzfmT5mpuFNbCTlg54j6hiEvVLKAck0FtqffdgW
+	g9IlknP805rpJBJ6UbPSM7voUm1yR6kE28eFlahrapXxKfF2jyDfbZ+g+0s7s9+vfzR3g5gnS+5
+	l0F8Rg56/gFZwHsPalLUAMaH2QzN6iK8C3s3g+dfHtws=
+X-Received: by 2002:a05:6a20:1603:b0:3d3:ae1f:d7f5 with SMTP id adf61e73a8af0-3dd5f74d9b2mr7229561637.21.1789569598970;
+        Wed, 16 Sep 2026 07:39:58 -0700 (PDT)
+X-Received: by 2002:a05:6a20:1603:b0:3d3:ae1f:d7f5 with SMTP id adf61e73a8af0-3dd5f74d9b2mr7229498637.21.1789569598494;
+        Wed, 16 Sep 2026 07:39:58 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc50aa9b03asm1782560a12.2.2026.09.16.07.39.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 07:39:58 -0700 (PDT)
+Date: Wed, 16 Sep 2026 22:39:52 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
+        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH 2/5] arm64: dts: qcom: nord: Add the USB controller nodes
+Message-ID: <aqqqOMS6QL3gxF58@QCOM-aGQu4IUr3Y>
+References: <20260911142040.100263-1-shengchao.guo@oss.qualcomm.com>
+ <20260911142040.100263-3-shengchao.guo@oss.qualcomm.com>
+ <f04ee103-ada5-41bc-88e7-7380b2b38e98@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM7PR04MB7077:EE_
-X-MS-Office365-Filtering-Correlation-Id: fa934929-69fa-4e21-d779-08df14004d1c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|376014|7416014|23010399003|1800799024|366016|10067099003|4143699003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	aaLMXoeN7qGmuOoQRcvA+4J6s4n2vNqtYU8F4XxwTY+HFGISC2snHd5SBJRe9y4o1xJZTgepcP9/UUPiMDYYjpwN3paT2b4wjoGk8oDyIVajx1DtCysvqwLN8hy3mSNsAxul2V4e5riK4/3gZASHdSBhJ2fALr/XguJwtUxK25YVTWLYL0Wir4egAxv7M24/dO9d5d2gFDdyZ9IzgJfbKB/XTwVTuH+3ZTS+N4xUIEzUaJd/gRrJaHOg+jIennfqWqr4w/ibI48xvnES5o0p2dNQ7Jq0SmmQCQ+krvzdzob0f6qLWQFtgpftWBp6h2f5cIhiDwSb83mmembTuYi9dwIBX3o/qevmp96QUFuG5rwrJ8ACAJj1IsccD+QqKtbTpoWp/Ata9gv5Lh4x6x7XBBnTur0lRd98BaTHmN7vvKQG8+2P+zbKxN8983XcvVFvdPjCKx9o3kUB7GC/4KtsbG465a94q9juc6BtnnMZgDnuEWvShLaitbZawU1KoisoHG1oiqh5m4USJvH28fRmkrGEXC9ZB1u4ylMf0o10YkHrCIkIh/yotJLKlNE9VWZ3xm3+klnOJdXziM8kTLxj8IFP06bDmcNZ9/ynDLoZyPo3SJ6YNU2r4IW14av+ZqD7EXXzoxrWkUB3ZZ/MOk+lJvSJeBbEYXoECjILQbB2Qfo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(7416014)(23010399003)(1800799024)(366016)(10067099003)(4143699003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?2Ynp58bmFrojSRei40WJ02sndR7unWBx1IXRVmf9wqwT3Pf+mrcnfrkUwSLx?=
- =?us-ascii?Q?CoxY3CbzZrAEqIXF7wWBtSjBHgU4MhTPseRx86/JV0D5clSwUbZeGSvgcpTY?=
- =?us-ascii?Q?VyWirxhZR8Bc+MsS+/hb/lA4isGmYrvI+ijRiuycI3JNB3DF8POt/tBaxBII?=
- =?us-ascii?Q?JTyoP5SicR2iZ8IiQXbcSVoCvso8lZ5rF2AU2ujt4BM6bMbu4OIdwZj5YGid?=
- =?us-ascii?Q?Z4jJHHiUFg40MElULDze3Z2PNJvBNr16W+WD2Ux9+XlEsh8RhMlHN5pAVPkG?=
- =?us-ascii?Q?2Ozib3TsnNTQC2hH3N0kOzGhR+RTKLBtr8co6VcJw0uEa8N0hmxbxevvoT19?=
- =?us-ascii?Q?sBKDgv+NO3rqogBMyMb+2tJtGkRR5QnA3acUfWzM8v4JPZGNhE4Q40dyKe7W?=
- =?us-ascii?Q?0XdLBMZTqXWTMe3FAgm14+hKGuvznua8nDghbnzSBW9lAJVfDnkfp8n+TsLY?=
- =?us-ascii?Q?DvCwRPV0s5lN9MJUFHuLal48jAmPvn7Ubak+QEAuYsT2DpE9r5wOaWTblX6/?=
- =?us-ascii?Q?kdGOonJMxcL+S0HSewHci0vwX/nVJVfcoje68X6xCABxdDkGGS3IGrSmI0uJ?=
- =?us-ascii?Q?angCsAOBEFVyq44IW+TAzDdlGB027aj1gFPYl05nEOdjAXcVdUowLOAnDvNC?=
- =?us-ascii?Q?FGpCkurGtnFJuKoxUQh2rfp9UzLZDaB/AelBRl5Bospg5zCSsXhFk2Ca23/P?=
- =?us-ascii?Q?ODDRclXxmBWrBusH0sSIIUO4bghkD1KUkiBFrhXiMm+XPujwM0SBoUfJg40M?=
- =?us-ascii?Q?Fe2abSMSZ1xA9CdehTmpFLl4WbAu1DxHNCk37T10w26HBRNsy13s64+Hh4de?=
- =?us-ascii?Q?kBbfVSx4oJb1K4QsoWZGwWeXbiuFEpxHDqiR/1p2dY/OkogPBKJsF4al/07p?=
- =?us-ascii?Q?S6vXgYW/wDWGS2tr9RVM1ghMuv4KZCM0y/ygM0KIC6fg8l5AehTBZuFmZN+W?=
- =?us-ascii?Q?iHdtHkYfiGVE0SLdjjk/r10YdejLAIRgfkeNRL7xt8Bud3h4UnDdJhUgYQWv?=
- =?us-ascii?Q?deLN02M+3zYOBtKWVGTaQqH1aEgz1SPmOT0vwzCz7LJ0wBwkm+Hjpp8bwZ+6?=
- =?us-ascii?Q?eERlid2FFCUN+2e3H+2PtOr+kLV2aFePqYxNPiR5HWVOaPYFQjXZOCGFAqyX?=
- =?us-ascii?Q?tYNbAMhgWvZJamGrYWEPUzlOWL0AG+5RBVZqQyoKLltCXVIDAccHkie0/nb4?=
- =?us-ascii?Q?I/QyLW1BDH1vdSJ90hFFA2ea3ir1QjHjXy86J9zBp19J4HfJoSOKUCcLBRYK?=
- =?us-ascii?Q?t8mJHlMg8w8JPbsEtRQRHFeXF+lXTcvbeSptCyj5vQTXyj3/UlxA6S6I+CUQ?=
- =?us-ascii?Q?1fgNkiWrCNYprxJ/S1ds59joOXGxtqpQEBsfnhAh7hY+vrfd1zIuiqfDpoyk?=
- =?us-ascii?Q?/7kb7GyHaUQu+w8NHjgHYqHGl7LFs3ITZkoMg5E8Ep2EjwN+Ascj5pkbA7AK?=
- =?us-ascii?Q?2UdUTNz7CXndOm6iwWigSEeW9iWF8Ve/Rnwjc9XSA9seR6YZiJEfQovUp8cF?=
- =?us-ascii?Q?FRl3uy834lTHo+qQ7MKr1ai8QeaipP/riCrGyzXN4MeD/4TfdUJHo4pdWaWo?=
- =?us-ascii?Q?wyPeFYbP5IvmaG/YrykvmlrNpHZ2qeBpwlxVrNuQnYW7KCnaRtAXCkO9eUJD?=
- =?us-ascii?Q?Wkf/JoXtt05+7NKquumlDcm8Px4RyZsKN80735woioRdD+W4AK+gTJyd/En/?=
- =?us-ascii?Q?J1//SoxXq0KxAOc7pHOZnmdF1XDQFK3tbXADQGD2DXQpkwli1ysG1f9mK+uq?=
- =?us-ascii?Q?QE5IxBeKw2a8TEA5R9Vt9Km8PZE9g2ObWESdQFi3iPEAH0Np+DlR?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fa934929-69fa-4e21-d779-08df14004d1c
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 14:39:23.9613
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TmjHVTPIsynBAg/x5qOyEOeaKbk3Xm45q+BNYSK7NUMDOCVH1i3qh89V1VLSWJxmeHG4BdZIGVUySlEoCEyFtCHObgx6QNx7nq7dbkDf0g1D48pJd/xCUH1H3MiFeemk
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB7077
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f04ee103-ada5-41bc-88e7-7380b2b38e98@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDE5OCBTYWx0ZWRfX3Otd2lH3VtSS
+ bwcopmspz4AI7OMdVwWuqV2Zvg4pogq29ZEKBcKPKY2TXGv/TUjHdPJOREpMbESigbz4JuZkzY7
+ 35UBZAceL8iKhHxsSMsS/HhrV2c5Zpk=
+X-Proofpoint-GUID: todZWOd_k9BDtC0IB44ymy-Xz2RNenNz
+X-Authority-Analysis: v=2.4 cv=N4m8hG9B c=1 sm=1 tr=0 ts=6aaaaa40 cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=SqxCJjNS5mIqFQWAgecA:9 a=CjuIK1q_8ugA:10
+ a=bFCP_H2QrGi7Okbo017w:22
+X-Proofpoint-ORIG-GUID: todZWOd_k9BDtC0IB44ymy-Xz2RNenNz
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDE5OCBTYWx0ZWRfX0BsStiaU9k9d
+ w+UITUJjxN8ZgkXd4A6uJywmWoaOur8aCFPdj8MJujT43x6A6lfXJbZ/V7Nv911oXekO5dfs4pc
+ zOAQ7nfdkBb1bCL6K/YfJtKI2lhmjMwQ6U+KVpBtq4FvlrBtY3ZRAzYnTtJ5V3e7cy7dlx6WG9J
+ zWKwGltuThVrKJh/kJa8ek/dY0b1/uPlvEPSS8gmXraRq65vFOOEVMgT8kke5Rdgw4iuXDRfepW
+ CchzdSGqmk7G7Wa9+5/pd26q4BdzyZ5Qu9TEOlswqGL8mqxKAtHiIKdLYoJJ5Q0cjRLpQsUIM6o
+ q45RKSrsB0fu7Y7V9POwIpwj+E6/t8Zlz8cqyAdzP10pxtrfCXFGY/pf0M1i6CPQoy98DN5KSgy
+ RMi1rPfQ7TaXM+tfXiRzEHni7lOUPppd99Bb+G5TgAFFSxbjvuAb98aNLI3YneT7E/FXAa6hUFG
+ c8trhHj5MSz3DAoK1eA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-16_02,2026-09-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 priorityscore=1501 impostorscore=0 suspectscore=0 malwarescore=0
+ lowpriorityscore=0 clxscore=1015 phishscore=0 adultscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160198
 
-On Wed, Sep 16, 2026 at 03:16:13PM +0200, Arnd Bergmann wrote:
-> On Mon, Sep 14, 2026, at 21:40, pankaj.gupta@oss.nxp.com wrote:
-> > From: Pankaj Gupta <pankaj.gupta@nxp.com>
-> >
-> > Adds the driver for communication interface to secure-enclave, that
-> > enables exchanging messages with NXP secure enclave HW IP(s)
-> > like EdgeLock Enclave, from:
-> > - User-Space Applications via character driver.
-> >
-> > ABI documentation for the NXP secure-enclave driver.
->
-> I just saw this in linux-next, where it has caused a build failure
-> for a missing include of linux/slab.h. I hadn't see the series
-> before (even though it is a v51, which seems crazy), but I am
+On Mon, Sep 14, 2026 at 10:33:06AM +0200, Konrad Dybcio wrote:
+> On 9/11/26 4:20 PM, Shawn Guo wrote:
+> > From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> > 
+> > Add the base nodes for the three DWC3 USB controllers. These carry only
+> > the SoC-invariant properties and are disabled by default. The extension
+> > for the embedded Nord variant and relevant board files will add the
+> > platform resources and enable them.
+> 
+> [...]
+> 
+> > +		usb_2: usb@a200000 {
+> > +			compatible = "qcom,nord-dwc3",
+> > +				     "qcom,snps-dwc3";
+> > +			reg = <0x0 0x0a200000 0x0 0xfc100>;
+> > +
+> > +			interrupts-extended = <&intc GIC_SPI 910 IRQ_TYPE_LEVEL_HIGH>,
+> > +					      <&intc GIC_SPI 907 IRQ_TYPE_LEVEL_HIGH>,
+> > +					      <&pdc 8 IRQ_TYPE_EDGE_BOTH>,
+> > +					      <&pdc 7 IRQ_TYPE_EDGE_BOTH>;
+> > +			interrupt-names = "dwc_usb3",
+> > +					  "pwr_event",
+> > +					  "dp_hs_phy_irq",
+> > +					  "dm_hs_phy_irq";
+> 
+> There's also a hs_phy_irq @ SPI 908
 
-It is in linux-next about v37, but build bot find many problems, I dropped
-it and request to fix it. And sashiko is online recently and also find many
-risk. I request to clean up it, and local AI environment have difference
-with sashiko, so bump to v51.
+You are right! That means the binding for "qcom,nord-dwc3" needs to be
+fixed as well. @Bartosz
 
-I put to linux-next again to make sure that pass all build test.
+> > +
+> > +			iommus = <&apps_smmu_0 0x14e0 0x0>;
+> > +
+> > +			dma-coherent;
+> > +			wakeup-source;
+> > +
+> > +			snps,dis-u1-entry-quirk;
+> > +			snps,dis-u2-entry-quirk;
+> 
+> This is a suspiciously short list of quirks..
 
-Other two problems, need more time to check whole review history. reply
-you later.
+I will double check.
 
-Frank
+Shawn
 
-> curious about it now.
->
-> > User-space library using this driver:
-> > - i.MX Secure Enclave library:
-> >   -- URL: https://github.com/nxp-imx/imx-secure-enclave.git,
-> > - i.MX Secure Middle-Ware:
-> >   -- URL: https://github.com/nxp-imx/imx-smw.git
->
-> I assume this will hit the soc tree eventually, so I want to
-> make sure the reviews have covered all the important aspects here,
-> and I don't see the answers in the cover letter:
->
-> - Who has reviewed the user interface from outside of NXP?
->   Since this is not a vendor-independent API, I think we have
->   to be extra careful and make sure this does not duplicate
->   anything that is already in the standard firmware interfaces.
->
-> - Why is there a low-level passthrough to the firmware from
->   userspace? This looks rather irregular, since it is the kernel's
->   job to abstract the platform and provide vendor-independent
->   interfaces. In particular the bit about shared memory and
->   the generic send/receiv ioctl look like they should not
->   be there, as those would allow side-channels from userspace.
->
->       Arnd
->
+> > +
+> > +			maximum-speed = "high-speed";
+> > +
+> > +			qcom,select-utmi-as-pipe-clk;
+> > +
+> > +			status = "disabled";
+> > +		};
+> > +
+> > +		usb_1: usb@a400000 {
+> > +			compatible = "qcom,nord-dwc3",
+> > +				     "qcom,snps-dwc3";
+> > +			reg = <0x0 0x0a400000 0x0 0xfc100>;
+> > +
+> > +			interrupts-extended = <&intc GIC_SPI 917 IRQ_TYPE_LEVEL_HIGH>,
+> > +					      <&intc GIC_SPI 918 IRQ_TYPE_LEVEL_HIGH>,
+> > +					      <&pdc 13 IRQ_TYPE_EDGE_BOTH>,
+> > +					      <&pdc 12 IRQ_TYPE_EDGE_BOTH>,
+> > +					      <&pdc 41 IRQ_TYPE_LEVEL_HIGH>;
+> > +			interrupt-names = "dwc_usb3",
+> > +					  "pwr_event",
+> > +					  "dp_hs_phy_irq",
+> > +					  "dm_hs_phy_irq",
+> > +					  "ss_phy_irq";
+> 
+> hs_phy_irq @ SPI 919
+> 
+> > +
+> > +			iommus = <&apps_smmu_0 0x15c0 0x0>;
+> > +
+> > +			dma-coherent;
+> > +			wakeup-source;
+> > +
+> > +			snps,dis-u1-entry-quirk;
+> > +			snps,dis-u2-entry-quirk;
+> > +
+> > +			status = "disabled";
+> > +		};
+> > +
+> > +		usb_0: usb@a600000 {
+> > +			compatible = "qcom,nord-dwc3",
+> > +				     "qcom,snps-dwc3";
+> > +			reg = <0x0 0x0a600000 0x0 0xfc100>;
+> > +
+> > +			interrupts-extended = <&intc GIC_SPI 133 IRQ_TYPE_LEVEL_HIGH>,
+> > +					      <&intc GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH>,
+> > +					      <&pdc 14 IRQ_TYPE_EDGE_BOTH>,
+> > +					      <&pdc 15 IRQ_TYPE_EDGE_BOTH>,
+> > +					      <&pdc 17 IRQ_TYPE_LEVEL_HIGH>;
+> > +			interrupt-names = "dwc_usb3",
+> > +					  "pwr_event",
+> > +					  "dp_hs_phy_irq",
+> > +					  "dm_hs_phy_irq",
+> > +					  "ss_phy_irq";
+> 
+> hs_phy_irq @ SPI 131
+> 
+> Konrad
