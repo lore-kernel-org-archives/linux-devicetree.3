@@ -1,96 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9F184FC8C7
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 10:35:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B998361FCE;
+	Wed, 16 Sep 2026 10:38:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789554977; cv=none; b=omO+ooiJpqQfc4q45D7euzhlEed0itResuWYZIjtle+FG5ZtrYZBVFLAgMCNFREk0p93MnYHwVOWTtPQP2WOvsycm3+FkoYi/C2CKaocnnTmP+W5bUurNjJHlmpetavE9Mp5HHkCP+ZOjbjHJmYQt6W0A14W+cekKhrLOk3Yjxg=
+	t=1789555163; cv=none; b=r+R9sD44aSTWyb8i5YabynGLMVXdo4PUxZ0iGMMqKIbEwIylyq9aGF5CtIhZV1JEyxP95YN0aXainBSSR2As4R00ZesWHcdxIhEAvEK7IeX8bDp6dGzlmoEvrFVYlkxVYFE3SGaxJ6HTALOOWD4DyqITdp2wUx9Kn5R3dlg2Gb4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789554977; c=relaxed/simple;
-	bh=0R/xGHBRSJRYPig81vFxIttqbLD5LeANieiE1cXEkS8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=J/FZQbJ9tm+Pmi5UXf0XmCf1j74Ma2u1P1soxmeRke9ISPgLnUGSM7hD276J/BLbCAArQeVpk8I8pc8ruPNa6/7jEX82kUk2hoUX6+mzylKioZS7kYMvtxSYO0ZOlNsfR7nKn1xQt/Xq5RhHrDr67MnkGUcTxRp641OPN34mdAg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rb28TyB3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789555163; c=relaxed/simple;
+	bh=wlK7T+thxGW2u82RLGOMg5hccJ0lex45IGnPBtdSf+0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jyNUzb6+q5eI4BI0b5DGEiPjkcsbmhx/q1VrutLCzY5WgJlAbMoiOufzl42XwKZnRXgSU+46sjGGzpxN9EwwWAIAFnyXhGHQFXGFCuglFbYh39c4PaWgMdvpaD0PGMXd7QER/X3dZPed+oqbfAUAxuN8VQ+/fRq7JhLTS6LOA7Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=XDkcVR4f; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rb28TyB3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 899091F0089C;
-	Wed, 16 Sep 2026 10:35:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789554947;
-	bh=91BCzjqGVJnPpwUhAtCe5GvXB0bZN20yFqXlfeTUMUE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Rb28TyB3fkDJgQcRGuzt+owNvhx3sdsZOQLXOsb47V5k1XXw3t2Gr7ZCXNnPL0P2o
-	 aV8uQBCYHOtLMBsQlIMemiMVuAjrrZhDTI5CNmpVEg8OheRqH9Yb4QJ3+VMXol0oQD
-	 NRqUAuUltme6kF28wwx2tH8sKA+kJOs+Nl6u1lt0QKmb0SucUJEOeLlDPdegN7i0SJ
-	 afVeUa0sXNgTu/jaMTv4A70dE3/NouMakTlteSs7ophwSW2NyE8GlRczB0mL30ZLJS
-	 M2WSQNDZqBqG2nloGtEbsMLrDVNQ8Vkis/rthXAGnPYDqhvpVWSAI/a4dXpKK6x0xF
-	 PE3RR65xXcgHQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/4] phy: qcom: qmp-pcie: Add qref and refgen
- regulator vote for QCS8300 and SA8775p PHY
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ziyue Zhang" <ziyue.zhang@oss.qualcomm.com>
-Cc: linux-phy@lists.infradead.org, vkoul@kernel.org, neil.armstrong@linaro.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, olteanv@gmail.com
-In-Reply-To: <20260916102023.2054761-3-ziyue.zhang@oss.qualcomm.com>
-References: <20260916102023.2054761-1-ziyue.zhang@oss.qualcomm.com>
- <20260916102023.2054761-3-ziyue.zhang@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 16 Sep 2026 10:35:46 +0000
-Message-Id: <20260916103546.899091F0089C@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="XDkcVR4f"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789555129;
+	bh=wlK7T+thxGW2u82RLGOMg5hccJ0lex45IGnPBtdSf+0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=XDkcVR4fSHHhOs1N1vcHFg47P3vFhftFp6pUVCKCejhDlKhHl0YV2j4ccwYKtB78D
+	 VE5OdeUcSdGfZ8Og+BySib3uUH6sJ4QtT6DEv2KTrcmfnHc7BNgVkUvCy2cr9byTyi
+	 nsZbCe+KDJDncoB+lP1hhb9oMqt+XmtKdaYTu+NH3sXM0iF+zp1SFPj0ds+Zrxyefu
+	 QKrNRLv21aRh8WJdFFW4r4now/D/7afQ2a/L6llIqLA+Mb/FXJDSvsEKGvLmm3Sz6C
+	 kVzGcYE93SZ8m844omREpFeZLOn+A/dxODdiOLNCH45wnOJIPf6ABjv5Vo7SvOrK96
+	 DSC0PFNcQM2sA==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id EC37317E0420;
+	Wed, 16 Sep 2026 12:38:48 +0200 (CEST)
+Message-ID: <bcd66bb6-d7f0-4c31-b527-c1b710df3909@collabora.com>
+Date: Wed, 16 Sep 2026 12:38:48 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] phy: mediatek: xsphy: add eUSB2 repeater support for
+ USB2 ports
+To: Julien Massot <julien.massot@collabora.com>, kernel@collabora.com,
+ Chunfeng Yun <chunfeng.yun@mediatek.com>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260826-mtk-usb2-repeater-usb2-v1-0-e8e48e2fd6d8@collabora.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20260826-mtk-usb2-repeater-usb2-v1-0-e8e48e2fd6d8@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] phy: qcom-qmp-pcie: probe failure on SA8775P due to missing refgen=
- supply
---
+On 8/26/26 14:38, Julien Massot wrote:
+> Some USB2 PHY ports are connected to an external eUSB2 repeater chip
+> that sits between the PHY and the USB connector. To support such
+> configurations, this series adds an optional phys property to the
+> MediaTek xsphy port sub-node and integrates the repeater into the USB2
+> PHY init, exit and mode handling.
+> 
+> The binding follows the same pattern as the Synopsys eUSB2 PHY, which
+> already uses a phys property at the sub-node level to reference an
+> external repeater. The driver change similarly manages the repeater PHY
+> alongside the MediaTek USB2 PHY.
+> 
+> Signed-off-by: Julien Massot <julien.massot@collabora.com>
 
-commit 6ebdf3508e888642443e5fd08f439c12e51dcc9d
-Author: Ziyue Zhang <ziyue.zhang@oss.qualcomm.com>
+Series is
 
-phy: qcom: qmp-pcie: Add qref and refgen regulator vote for QCS8300 and SA8=
-775p PHY
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-Adds a new sa8775p_qmp_phy_vreg_l array that includes the refgen supply,
-using it for QCS8300 and SA8775p PCIe PHY configurations to fix
-initialization timeouts.
+Cheers,
+Angelo
 
-> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c b/drivers/phy/qualc=
-omm/phy-qcom-qmp-pcie.c
-> index da83358c97ead..ab81c6e584a84 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c
-> @@ -4094,6 +4094,10 @@ static const char * const sm8550_qmp_phy_vreg_l[] =
-=3D {
->  	"vdda-phy", "vdda-pll", "vdda-qref",
->  };
-> =20
-> +static const char * const sa8775p_qmp_phy_vreg_l[] =3D {
-> +	"vdda-phy", "vdda-pll", "vdda-qref", "vdda-refgen", "refgen",
-> +};
-> +
+> ---
+> Julien Massot (2):
+>        dt-bindings: phy: mediatek,xsphy: add optional repeater phys property
+>        phy: mediatek: xsphy: add optional repeater support for USB2 ports
+> 
+>   .../devicetree/bindings/phy/mediatek,xsphy.yaml    |  5 +++++
+>   drivers/phy/mediatek/phy-mtk-xsphy.c               | 26 ++++++++++++++++++++--
+>   2 files changed, 29 insertions(+), 2 deletions(-)
+> ---
+> base-commit: 917df6be58562d024374b4076e6e7618876a0c4a
+> change-id: 20260826-mtk-usb2-repeater-usb2-7d5bad6afce8
+> 
+> Best regards,
 
-[Severity: High]
-Will this cause a probe failure on SA8775p platforms due to a missing
-refgen supply?
-
-The new sa8775p_qmp_phy_vreg_l array unconditionally includes the "refgen"
-supply, but is applied to both QCS8300 and SA8775p PHY configurations.
-Since the "refgen" supply requirement is a hardware workaround specific
-only to QCS8300, the SA8775p device trees omit the "refgen-supply"
-property.
-
-When devm_regulator_bulk_get() is called for the SA8775p configuration,
-it requires all listed supplies to be present in the device tree. If
-"refgen-supply" is omitted on SA8775p, won't the regulator lookup return
--ENODEV and unconditionally abort the probe?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916102023.2054=
-761-1-ziyue.zhang@oss.qualcomm.com?part=3D2
