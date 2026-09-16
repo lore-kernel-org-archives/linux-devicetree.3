@@ -1,386 +1,144 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F62F18BC3D;
-	Wed, 16 Sep 2026 06:40:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47BE33BE146;
+	Wed, 16 Sep 2026 06:45:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=119.15.109.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789540839; cv=none; b=kgzPhYW9hDczaNJKzcqHjmqlw2KOvcDH359ubKp8V0p1YBG1Qmkz1NIpfSy6uP6lMYjER4Gg4hBQxT0+EKPWfkipTpv2eFgJpjg9+zCqo6IUN5hHwBbSOiOQljYcviOeFu08/fvT4Wns5x4ixEHg8lbi42w8vCfDwklSXmBIe+A=
+	t=1789541118; cv=none; b=k7LUtZxJC9I09oJpCy8Yb0QFfFR8PBmWl9qhOucCYOmveAMqeo5EQKHVn21aAA4Y1eKnoGGERWPopko2iHJ6ufRkrbOjeuyFSmx2633+96UAEtq2CB3MFq3Hn4EgIgHvDMqmNZSwc1MKa1F/YcYImY465+zGsu0EyobaUb91y6g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789540839; c=relaxed/simple;
-	bh=YAV/kewyaNdWKBAHQHg+RtpsAm351nD9dGth/P2j9+0=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cANpMzVisk9tbn7gahXoEFJHHXxygZ9/ewT66KDFR4CqZpMA5u7mKEeiwVusG8qzi2R6XMTXfb6XMmsM58bOclSERiauBh4CAZ60pCj8BU2tCS5rbiyDqWHUOb8o3IA0rf7ggOdDg5065riEsGaR+XOqxdi+4gWgvj24ExAmaIk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=nk/zMUr9; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789541118; c=relaxed/simple;
+	bh=M+Dy4hfdzKr1mC3pzwMJT0ZQBgMsvSHf4Z0mHzxQnL0=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=IVnt+vXHfFMjvY3o6HlBDutKWtSUcldKronLSm1SKZwiYv3qXDyxQANZz8xW1/XCcfRVTr6fjaF7vUyS3Zz7cLO9vm1NgAXdl76aLPHHrXYKelRlRGJw5AOG8sucwc3aMuspUSU1ekT9rBb78FeW92wTQOfDOqwk4xr10pBR5hU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org; spf=pass smtp.mailfrom=d-silva.org; dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b=DnXOpwgv; arc=none smtp.client-ip=119.15.109.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="nk/zMUr9"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id CB1CE4E40663;
-	Wed, 16 Sep 2026 06:31:38 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 8498E60337;
-	Wed, 16 Sep 2026 06:31:38 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 82E2A11C7AFEC;
-	Wed, 16 Sep 2026 08:31:31 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789540297; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=i1kgbghZztbsN2wlKygW1jp9280raQAqeNuOcXI9Or4=;
-	b=nk/zMUr9tSgz8b4Jo2+i0o93GRzbsPCM2CsLiDJXgYq7n6j5jj5nXJuq4YAw8EOwWyWgJ8
-	eHL+9Y4BPCzqfm1t1WRaJ7JcB8QP4VzC8cNsdXqUZ38eufE81sfEjbjSaaWC2L49SpcpF9
-	E5k5cJXG93r0BhM3e5lQZpDd2ebDvjnR9ksWFx8V7b0LHq3vuseOPwvxuTLuGzR8tl/YFH
-	rKS0sWYcTF2wl80rBeZ65rWUW7ZW5cNSzU6gBsmITZuXCVALTDGRxSmYZ6FTkw9F2w/t1L
-	WgbM58+xau6EGaYs4Nub4iiT0LyoM/Ex55w1NAoffB9Su04XlmiHK/TR5HI2rA==
-Date: Wed, 16 Sep 2026 08:31:30 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Frank Li
- <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 08/15] flattree: Handle unknown tags
-Message-ID: <20260916083130.7b14e90e@bootlin.com>
-In-Reply-To: <aqkxacdQHZuhhyxw@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
-	<20260826083146.304291-9-herve.codina@bootlin.com>
-	<aqevEJ_VlBxYUp81@gractus.seuss>
-	<20260915121635.39f13d34@bootlin.com>
-	<aqkxacdQHZuhhyxw@gractus.seuss>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b="DnXOpwgv"
+Received: from hawking.lan (ntp.lan [10.0.1.1])
+	by www.nmnhosting.com (Postfix) with ESMTPSA id 90DC240B5A;
+	Wed, 16 Sep 2026 16:45:06 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
+	t=1789541106;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=M+Dy4hfdzKr1mC3pzwMJT0ZQBgMsvSHf4Z0mHzxQnL0=;
+	b=DnXOpwgviacP2DhK2BYPRRrVyAIkSBt3eDumbyDy01rnRZwe63pGxFi3W4jlRmMeiSnnNf
+	10o9KN5ENRAjkCFq3eDiz2dfrwqhLg0av0ilv1uz7MbEqJb38ejgYcn3DBRvqsGr2GlHTH
+	PU999QCMrh0GHivRTeNnX3J9WG1CI8u6k9WFeaJ58KbpT+rkysguz8bKTgtwvTv76b6Iho
+	vK1vVUKmPV2Lv9PrbPD/u6Gvt83tC5ZsWH0fsYugJfCZzLSoXD8jbTM/UyhFAfODn9r8Ae
+	RJzMAH7c75wK4JH60HGaIShrKtjNjhLQ8bZ9Vz9SkO1llGJfv2nmLFdPzNkxeA==
+X-GPT-Reason: legitimate; the email is a technical discussion regarding
+	a Linux kernel patch (net-next) which perfectly matches the technical
+	content of a developer-focused mailbox; the sender domain (d-silva.org)
+	aligns with the personal mailbox (alastair@d-silva.org), and the
+	content includes a specific code diff and a link to a reputable
+	developer platform (lore.kernel.org); there are no indicators of
+	phishing, urgency, or unsolicited marketing.
+Message-ID: <4404f56f441a4f61e01ebde721ca0220cc96a948.camel@d-silva.org>
+Subject: Re: [PATCH net-next 4/4] net: stmmac: dwmac-sun8i: Add Allwinner
+ H616 EMAC clock index and internal PHY support
+From: Alastair D'Silva <alastair@d-silva.org>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>, Andrew Lunn	
+ <andrew+netdev@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, Russell
+ King	 <linux@armlinux.org.uk>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>,  "David S . Miller"	 <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski	 <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,  Krzysztof
+ Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, James
+ Hilliard	 <james.hilliard1@gmail.com>, richard.genoud@bootlin.com
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland
+ <samuel@sholland.org>
+Date: Wed, 16 Sep 2026 16:45:06 +1000
+In-Reply-To: <579d7650-583e-49bd-aa51-02fc52940ea1@bootlin.com>
+References: <20260916044119.475666-1-alastair@d-silva.org>
+	 <20260916044119.475666-5-alastair@d-silva.org>
+	 <579d7650-583e-49bd-aa51-02fc52940ea1@bootlin.com>
+Autocrypt: addr=alastair@d-silva.org; prefer-encrypt=mutual;
+ keydata=mQINBGactvoBEADBFM2HqfQUUM4j40ZQPyYzmnM8S6zrycO0ipDDPMs7nZMzyzGzOdqfS
+ VB/tuYvZOOKVWzJuWJ5aT/YyHx54r3L+D5hTkEG0sXPVJky3yTS9sbHEMSLBHb8TVVuhPVPuieV4g
+ Nkqg5POMTidk8xAw50WpV++tUlewXVSciehnuCQPXhXMP7FcCh4uO8LdN7E8m7ir1LafKTFfoWPah
+ KVT8NGG9r+ucrFcN5F+VnHxTDaI68yRPkNdtUWmp22wIX1KwDCtKFrndYO4p5Hv2hlDKomsuIIHHn
+ muQGRwuh0xpf0nVJNF8ETZHMzxQLfo3e/HvxBFOTkwY9w7CuuQFZchbhS0I3PfmGT0+jiNcdfqjDC
+ fPPB5uhy+DkR6wO72vuwFYUrpU2mdliDSdKEtWBHulnXMJjpBOXetfIwhI8G2dTVg59lN5i9DvJZc
+ 7y1Sp+qfZQ4P9qpYZyQEKR4GNDOdnm6F2LW2cZkcyAU/Ii765zdDMTQMIzZNSxT/FcDd0K1voTNRl
+ QHbQw+kmIMhzSv2JefcC9oNbE0XYzcBDNP5T3O/4itOQ90GCKQEPAbIPeBjlQif7kkyvo/H6yv4s9
+ duuK7zbJD9AID/+KGLkpU3p68VDB/C2ZSb9rQz3p1CJNSfsX/CPk7sPqA7RKZ4a2B0hSJ2pJCncNZ
+ KXtMlkkm/FmewARAQABtCdBbGFzdGFpciBEJ1NpbHZhIDxhbGFzdGFpckBkLXNpbHZhLm9yZz6JAl
+ EEEwEKADsWIQTQGemDFwqYyU/dBWv75AdnjVo60gUCZpy2+gIbAwULCQgHAgIiAgYVCgkICwIEFgI
+ DAQIeBwIXgAAKCRD75AdnjVo60qHZEACJnLfpS71Hk8bX0CLCNJ5wgqdZD3pBHEdbv9Ux9kRlZp4a
+ ZFwlg9ltwBjl2dZP3PLtD9xQdsdYKVippKd5a7ZZC2y81oDaHjeC9LnPYn8+ce3mGE/+gRyoNfToY
+ N06DeUNJKSlZ9t11UIqZCgfp12u16/Yrigy8C4ihEeHXlLhNX6JkeJR5gsHXJnC7vSuMZY+Qz2R72
+ ZidWg+cd2WDMGop5sbTvc+55q94A7vTMlWzaix5HdbEUA3sd2U0dMBju5QodRGGhDQMcCu64TydRD
+ MtMzzOk9ThJ036ze3HASWGOppyQmaw58k+XNzbHlr9Sc1LsFUNF7zpWXac2rzlywbyRAdFIT/TC76
+ hy9zOkwIo2nwA/tdIwLx1j0UZPpAMQmcDUvJqZh6sE+fv6HN0yMPr+sSYJmriMt8Z6leCEHQXOHVI
+ SI5z5FvV3coMmHYRq6aXpfs/8SLiYgkV3B0HE/E18Y3j1OkeLYoqIH1VfzQZeCSL/S77NYvk60/MV
+ 1HFSyqLdUR3uWZI4uZzoEcMoB0GX33uCTp2Ntc00+wSntwekCUQLCMLUb7dZrbpVuobHoWWtkiD2I
+ uE5kAiaVwwwzM0BUwiM6VzVoKbeECz93rdsNtwoDqM0NtzoISC46H/BKVQ9mRNXDO4ThEBpJ4H2Tn
+ mPNRYYcR0u2mNy1EJII04w==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-9 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi David,
+On Wed, 2026-09-16 at 08:24 +0200, Maxime Chevallier wrote:
+> Hi,
+>=20
+> >=20
+<snip>
 
-On Tue, 15 Sep 2026 21:52:24 +1000
-David Gibson <david@gibson.dropbear.id.au> wrote:
+> > =C2=A0.../net/ethernet/stmicro/stmmac/dwmac-sun8i.c | 65
+> > ++++++++++++++++---
+> > =C2=A01 file changed, 55 insertions(+), 10 deletions(-)
+> >=20
+> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+> > b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+> > index 48c52eb96233..1728893589a6 100644
+> > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+> > @@ -130,6 +130,16 @@ static const struct emac_variant
+> > emac_variant_a64 =3D {
+> > =C2=A0 .tx_delay_max =3D 7,
+> > =C2=A0};
+> > =C2=A0
+> > +static const struct emac_variant emac_variant_h616_internal =3D {
+> > + .syscon_field =3D &sun8i_syscon_reg_field,
+> > + .soc_has_internal_phy =3D true,
+> > + .support_mii =3D true,
+> > + .support_rmii =3D true,
+> > + .support_rgmii =3D true,
+> > + .rx_delay_max =3D 31,
+> > + .tx_delay_max =3D 7,
+> > +};
+> James's series [1] says this SoC only supports RMII (yet includes
+> RGMII timing
+> control), and here for seemingly the same device, there's MII and
+> RGMII
+> support listed.
+>=20
+> [1] : https://lore.kernel.org/r/20260915-submit-h616-emac1-v1-v1-0-
+> 195de0bb1f8a@gmail.com
+>=20
+> Maybe you can coordinate with one another, can we connect that SoC to
+> a non-internal PHY ?
+> If so, can we use MII, RMII and RGMII ? or is it just RMII ?
+>=20
+> Maxime
 
-> On Tue, Sep 15, 2026 at 12:16:35PM +0200, Herve Codina wrote:
-> > Hi David,
-> > 
-> > On Mon, 14 Sep 2026 18:23:49 +1000
-> > David Gibson <david@gibson.dropbear.id.au> wrote:
-> >   
-> > > On Wed, Aug 26, 2026 at 10:31:39AM +0200, Herve Codina wrote:  
-> > > > The structured tag value definition introduced recently gives the
-> > > > ability to ignore unknown tags without any error when they are read.
-> > > > 
-> > > > Handle those structured tag.
-> > > > 
-> > > > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> > > > Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> > > > Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> > > > ---
-> > > >  flattree.c                                 | 65 ++++++++++++++++++++--
-> > > >  tests/run_tests.sh                         |  5 ++
-> > > >  tests/unknown_tags_can_skip.dtb.dts.expect | 19 +++++++
-> > > >  3 files changed, 84 insertions(+), 5 deletions(-)
-> > > >  create mode 100644 tests/unknown_tags_can_skip.dtb.dts.expect
-> > > > 
-> > > > diff --git a/flattree.c b/flattree.c
-> > > > index f3b698c1..88dbfa7e 100644
-> > > > --- a/flattree.c
-> > > > +++ b/flattree.c
-> > > > @@ -579,7 +579,8 @@ static void flat_read_chunk(struct inbuf *inb, void *p, int len)
-> > > >  	if ((inb->ptr + len) > inb->limit)
-> > > >  		die("Premature end of data parsing flat device tree\n");
-> > > >  
-> > > > -	memcpy(p, inb->ptr, len);
-> > > > +	if (p)
-> > > > +		memcpy(p, inb->ptr, len);
-> > > >  
-> > > >  	inb->ptr += len;
-> > > >  }
-> > > > @@ -604,6 +605,61 @@ static void flat_realign(struct inbuf *inb, int align)
-> > > >  		die("Premature end of data parsing flat device tree\n");
-> > > >  }
-> > > >  
-> > > > +static bool flat_skip_unknown_tag(struct inbuf *inb, uint32_t tag)
-> > > > +{
-> > > > +	uint32_t lng;
-> > > > +
-> > > > +	if (!(tag & FDT_TAG_STRUCTURED) || !(tag & FDT_TAG_SKIP_SAFE))
-> > > > +		return false;
-> > > > +
-> > > > +	switch (tag & FDT_TAG_DATA_MASK) {
-> > > > +	case FDT_TAG_DATA_NONE:
-> > > > +		break;
-> > > > +
-> > > > +	case FDT_TAG_DATA_1CELL:
-> > > > +		flat_read_word(inb);
-> > > > +		break;
-> > > > +
-> > > > +	case FDT_TAG_DATA_2CELLS:
-> > > > +		flat_read_word(inb);
-> > > > +		flat_read_word(inb);
-> > > > +		break;
-> > > > +
-> > > > +	case FDT_TAG_DATA_VARLEN:
-> > > > +		/* Get the length */
-> > > > +		lng = flat_read_word(inb);    
-> > > 
-> > > I think it would be more natural to get the length as a single value,
-> > > then have a common flat_read_chunk() and flat_realign() to consume it.
-> > > That's for two reasons:
-> > >  * Assuming we keep this length encoding, getting the final tag size
-> > >    seems like it would make a useful helper function anyway.
-> > >  * Using flat_read_word() is misleading - it implies it's integer data
-> > >    where endianness matters.  In this case it's not - it's just some
-> > >    bytes we're skipping over, we don't know the internal structure.  
-> > 
-> > Well, without the length for all tags (I mean keeping some size encoding
-> > in the tag value), we can avoid the flat_read_word().
-> > --- 8< ---
-> > 	switch (tag & FDT_TAG_DATA_MASK) {
-> > 	case FDT_TAG_DATA_NONE:
-> > 		lng = 0;
-> > 		break;
-> > 
-> > 	case FDT_TAG_DATA_1CELL:
-> > 		lng = sizeof(uint32_t);
-> > 		break;
-> > 
-> > 	case FDT_TAG_DATA_2CELLS:
-> > 		lng = 2 * sizeof(uint32_t);
-> > 		break;
-> > 
-> > 	case FDT_TAG_DATA_VARLEN:
-> > 		/* Get the length */
-> > 		lng = flat_read_word(inb)
-> > 		break;
-> >         }
-> > 
-> >         if (lng) {
-> > 		flat_read_chunk(inb, NULL, lng);
-> > 		flat_realign(inb, sizeof(uint32_t));
-> >         }
-> > ---- 8< ----  
-> 
-> Right, that's exactly what I'm suggesting.
-> 
-> > Related to a helper, I have introduced one in the addon series where new tags
-> > are present and these new tags are no more "unknown" tags and flat_read_subbuf()
-> > has been introduced to parse them. You can see that in the patch 11/74 [0] or
-> > directly in the final code [1]
-> > 
-> > [0] https://lore.kernel.org/devicetree-compiler/20260826094950.1088288-12-herve.codina@bootlin.com/
-> > [1] https://github.com/bootlin/dtc/blob/c68038e0ff4cde5de37a21419df8a082032ef994/flattree.c#L1169
-> > 
-> > I can see to avoid some more code duplication between functions skipping "unknown" tags
-> > and function parsing new "known" tags.  
-> 
-> Uh.. I don't quite see the relevance of that here.  I'm just
-> suggesting the length calculation alone be a helper function.
-> 
+I just double checked, MII & RGMII are bogus.
 
-Ah, okay, I'll introduce and use this small length calculation helper.
+Only EMAC0 can be connected to an external PHY.
 
-> 
-> > > > +
-> > > > +		/* Skip the following length bytes */
-> > > > +		flat_read_chunk(inb, NULL, lng);
-> > > > +
-> > > > +		flat_realign(inb, sizeof(uint32_t));
-> > > > +		break;
-> > > > +	}
-> > > > +
-> > > > +	return true;
-> > > > +}
-> > > > +
-> > > > +static uint32_t flat_read_tag(struct inbuf *inb)
-> > > > +{
-> > > > +	uint32_t tag;
-> > > > +
-> > > > +	do {
-> > > > +		tag = flat_read_word(inb);
-> > > > +		switch (tag) {
-> > > > +		case FDT_BEGIN_NODE:
-> > > > +		case FDT_END_NODE:
-> > > > +		case FDT_PROP:
-> > > > +		case FDT_NOP:
-> > > > +		case FDT_END:
-> > > > +			return tag;
-> > > > +		default:
-> > > > +			break;
-> > > > +		}
-> > > > +	} while (flat_skip_unknown_tag(inb, tag));    
-> > > 
-> > > Having this as a separate function seems odd to me...  
-> > 
-> > Well, this clearly decouples "known" tags from "unknown" tags and keeps the
-> > function small.
-> >   
-> > >   
-> > > > +	die("Cannot skip unknown tag 0x%08x\n", tag);
-> > > > +}
-> > > > +
-> > > >  static const char *flat_read_string(struct inbuf *inb)
-> > > >  {
-> > > >  	int len = 0;
-> > > > @@ -750,7 +806,7 @@ static struct node *unflatten_tree(struct inbuf *dtbuf,
-> > > >  		struct property *prop;
-> > > >  		struct node *child;
-> > > >  
-> > > > -		val = flat_read_word(dtbuf);
-> > > > +		val = flat_read_tag(dtbuf);
-> > > >  		switch (val) {    
-> > > 
-> > > 
-> > > .. rather than having handling unknown tags as part of the default:
-> > > case here.  
-> > 
-> > Here and probably on some other part if we go in that direction.
-> > 
-> > Here you have already parsed a FDT_BEGIN_NODE to call unflatten_tree().
-> > 
-> > Unknown tags should be handle and skipped if possible at lower level to handle
-> > them everywhere and without code duplication.
-> > 
-> > flat_read_tag() is this lower level.
-> >   
-> > >   
-> > > >  		case FDT_PROP:
-> > > >  			if (node->children)
-> > > > @@ -905,14 +961,13 @@ struct dt_info *dt_from_blob(const char *fname)
-> > > >  
-> > > >  	reservelist = flat_read_mem_reserve(&memresvbuf);
-> > > >  
-> > > > -	val = flat_read_word(&dtbuf);
-> > > > -
-> > > > +	val = flat_read_tag(&dtbuf);
-> > > >  	if (val != FDT_BEGIN_NODE)
-> > > >  		die("Device tree blob doesn't begin with FDT_BEGIN_NODE (begins with 0x%08x)\n", val);    
-> > > 
-> > > Hmm.. doesn't this already need to be fixed to handle NOP tags before
-> > > the root node?  Logically that change would go before this one.  
-> > 
-> > Oh yes, good catch. I missed that one.
-> > 
-> > Will be update in next iteration (in offset 0 vs real root node offset part)
-> > with 2 points:
-> >   - handle the case here with something like
-> >     --- 8< ---
-> >        /* Skip possible FDT_NOP available before the root node */
-> >        do {
-> > 	  val = flat_read_tag(&dtbuf);
-> >        } while (tag == FDT_NOP);
-> > 
-> >        if (val != FDT_BEGIN_NODE)
-> > 	  die("Device tree blob doesn't begin with FDT_BEGIN_NODE (begins with 0x%08x)\n", val);
-> >        ...
-> >     --- 8< ---
-> > 
-> >   - Add a test calling dtc with a "nopulated" dtb
-> >     This test is really missing. Only functions from libfdt are tested with
-> >     a nopulated dtb. DTC has to be tested too.  
-> 
-> Sounds good.
-
-Perfect.
-
-> 
-> > >   
-> > > >  
-> > > >  	tree = unflatten_tree(&dtbuf, &strbuf, "", flags);
-> > > >  
-> > > > -	val = flat_read_word(&dtbuf);
-> > > > +	val = flat_read_tag(&dtbuf);
-> > > >  	if (val != FDT_END)
-> > > >  		die("Device tree blob doesn't end with FDT_END\n");    
-> > > 
-> > > Likewise here for that matter, a NOP should be valid between the last
-> > > FDT_END_NODE and the FDT_END.  
-> > 
-> > Yes, exactly and this will be taken into account in the next iteration.  
-> 
-> Great.
-> 
-> > > > diff --git a/tests/run_tests.sh b/tests/run_tests.sh
-> > > > index f3647e63..8fc23cb7 100755
-> > > > --- a/tests/run_tests.sh
-> > > > +++ b/tests/run_tests.sh
-> > > > @@ -882,6 +882,11 @@ dtc_tests () {
-> > > >  
-> > > >      # Tests for overlay/plugin generation
-> > > >      dtc_overlay_tests
-> > > > +
-> > > > +    # Tests with "unknown tags"
-> > > > +    run_dtc_test -I dtb -O dts -o unknown_tags_can_skip.dtb.dts unknown_tags_can_skip.dtb
-> > > > +    base_run_test check_diff unknown_tags_can_skip.dtb.dts "$SRCDIR/unknown_tags_can_skip.dtb.dts.expect"    
-> > > 
-> > > It's best to avoid tests based on -O dts output unless we're
-> > > explicitly checking -O dts behaviour: because there are multiple ways
-> > > to format property values, the exact output isn't really guaranteed.  
-> > 
-> > But at a give version dtc and a given dtb file, there is only one way
-> > to generate a dts.  
-> 
-> Yes, but if we tweak our -Odts formatting decisions, we don't want to
-> have to churn tests that aren't specifically related to -Odts.
-> 
-> > If it change because of some modification in dtc, having some changes in
-> > tests expected value should not be a big deal.  
-> 
-> It's not a huge deal, but it's still preferable to avoid.
-> 
-> > > What I'd suggest instead is to adjust treegen to generate two dtbs
-> > > that are identical _except_ for the skippable tag.  Then you can use
-> > > dtc -I dtb -O dtb, and compare the dtc output (which should strip the
-> > > tag) against the dtb which was constructed without it in the first
-> > > place.
-> > > 
-> > > Or, rather than explicitly creating two new trees, you could make your
-> > > skippable tag example identical to test_tree1, except for the
-> > > additional tag, and re-use one of the other instances of test_tree1 as
-> > > the "tagless" version.  
-> > 
-> > Why not just one dtb generated to treegen with unknown tags (already available
-> > unknown_tags_can_skip.dtb)
-> > 
-> > dtc -I dtb -O dtb -o unknown_tags_can_skip.dtb.dtb unknown_tags_can_skip.dtb
-> > 
-> > And then
-> > 	base_run_test wrap_fdtdump unknown_tags_can_skip.dtb.dtb unknown_tags_can_skip.dtb.dtb.out
-> >     	# Remove unneeded comments
-> > 	sed -i '/^\/\/ [^U]/d' unknown_tags_can_skip.dtb.out
-> >     	base_run_test check_diff unknown_tags_can_skip.dtb.dtb.out "$SRCDIR/unknown_tags_can_skip.dtb.expect"  
-> 
-> I don't like it - the output formatting of fdtdump is even less
-> guaranteed than -Odts.
-> 
-> > This avoid the need for 2 dtbs generated by treegen and also avoid to compare
-> > binary files which are difficult to analyze when the comparison detects a problem
-> > due to something broken by some modifications.  
-> 
-> We _want_ to understand and test things at the binary byte level.
-> Debugging differences is a little trickier, but it's really not that
-> bad - -Odts or fdtdump or dtdiff can be used if/when there's a test
-> failure.  I really think doing the comparison in binary is preferable
-> - that's the level at which the behaviour is specified and should be
-> tested.
-
-Right, will see what I can do. Probably generating using two specific dtbs
-as suggested in your first proposal.
-
-Worth noting that each time a dtb will change due to, for instance, a new
-dtb version (or any other header field update), this test will need to be
-updated. DTC will generate the dtb with new headers value.
-
-Best regards,
-Hervé
+--=20
+Alastair D'Silva
