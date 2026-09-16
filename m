@@ -1,128 +1,154 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+Received: from mail-24427.protonmail.ch (mail-24427.protonmail.ch [109.224.244.27])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B60843A1A27;
-	Wed, 16 Sep 2026 12:33:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E44264968EC
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 12:34:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.27
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789562024; cv=none; b=aFIPsnP8ZVROEoiA8Vmrq21fO6xj2OAeWBZFXWz1Ae+k+nTZwOQdLNTuCCV2jfCDaUxKy921gLnJic0nCSyudTUhMQ8n9pT1Vm3UVq3oL0sVCStfj1GzYWCUBS2Q1jahftuUF4MUykX9cQSJg8Xh9IqFNSV3jseJCVztUNHNgG8=
+	t=1789562063; cv=none; b=L2KtB11S7Lxnq+trT2OTGfudVFwrAm/xWqF2YUg8Nx5QHAj/vH4vUEcRM6yyf0pm3ntruR9VmZFUNQJHKUIrPLIHY1Um+B11snd3W9U80lRK3fc3XQOLOdThbYs1Fwj9AvDOjVH6Lde8VQ1t/VOGWX5zZ+q43ZT68R8/fsJ5Srw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789562024; c=relaxed/simple;
-	bh=qtcFxadVM0GQvkXe3v7puT3ZDqCDXy1QMHJnrRdbz+o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NJICUFz+olU3VQ+dTqGQAmY97bJ5ntU37XFhiKvoq5eoMJDGkO9LLc8WeoOecAWJVA/MobsQm75Dd546AkM8C1COg5zisTv80UiDRnwmcYR7v7I+2+F9o1sOueoOvPQALrj9cUVo7nGLwp6amJFj5Sx/oRYPOr1R0xiUKur4Yqg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=FJZ+1v6q; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789562063; c=relaxed/simple;
+	bh=Afuig7NdFAQ5XnHoQ8HzWcRJNPh6Fl9+Itbf/eok9q4=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=Gesjrot++J+OZfCCWpfmb9bBGCzkijbVzZuuijGy2jSqTE2E1q1VbMr6cZXt3dlDd5vNp6ZPo3dnsNUtgTuf918iK0u8b4SeJQHNaEqe04N/IOiQOIP//Vin4MjLoLbTEGIRwNQycLZOVARQoxCH5poRZipqW+92VzZYOG8Q/TQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=eP2m+BlE; arc=none smtp.client-ip=109.224.244.27
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="FJZ+1v6q"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Yw
-	thTuFCXwhCBJs5emd3GoGmBBNdx1niAg81qBqSATQ=; b=FJZ+1v6qf9fbgWzOIX
-	S1A4zX3b77WP7sEBTYv9OSDrKoN0PUeBJuTmSRxLlLhRxTQJuAxPp70g5UU3OhYd
-	bGhmomt0fOSK22Pch61DaAqtLoFEPtdnrGioRw4bM5mSCOs43vp4epTI+0DdlTt5
-	pk/BvLimCSQzCPBl9il3dTjA4=
-Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wA3JL1KjKpqEbZDBA--.13280S3;
-	Wed, 16 Sep 2026 20:32:13 +0800 (CST)
-From: Quchaosheng <quchaosheng000406@163.com>
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Roger Quadros <rogerq@kernel.org>,
-	Tony Lindgren <tony@atomide.com>
-Cc: dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-omap@vger.kernel.org,
-	quchaosheng000406@163.com
-Subject: [PATCH v3 2/2] ARM: dts: ti/omap: drop unit-address from tpd12s015 endpoints
-Date: Wed, 16 Sep 2026 20:32:10 +0800
-Message-ID: <20260916123210.107841-2-quchaosheng000406@163.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260916123210.107841-1-quchaosheng000406@163.com>
-References: <20260916015833.112753-1-quchaosheng000406@163.com>
- <20260916123210.107841-1-quchaosheng000406@163.com>
+	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="eP2m+BlE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1789562053; x=1789821253;
+	bh=Afuig7NdFAQ5XnHoQ8HzWcRJNPh6Fl9+Itbf/eok9q4=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=eP2m+BlEvnRBrC/brOvZjY6UgP/qCQldM5DvoCG7JLV9JBIvU4ZGAaPX9W2JVoCox
+	 rgezLkqCrnJSjqZ9V9/PyycraBGBY7KiyhbylIKQlwvYxdF7edtQRRBU0FeK/gxRGd
+	 NPVlK5yNhuzmr2cZuPp7vjgLmQoJ6hInKyadsyAiIlVFPdtRu5mqq5DGig4F5Ztv9o
+	 Q7zsNnWcWCaHSobu+fHsW0/3anH/bGqPA5SuJ9Ox326TfjiM6Mi0fKXnC/Y5R6BhhG
+	 feY/S9Z8E/gNX7FsY8aPPeF8tpHV4R4IdMiFByxjbXg1n9DduEx4uHjZYF6daaQyFb
+	 5Azk+iiGN8Htw==
+Date: Wed, 16 Sep 2026 12:34:06 +0000
+To: ricardo@pardini.net, alchark@flipper.net
+From: Ryan Leung <untilscour@protonmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, finley.xiao@rock-chips.com, gregkh@linuxfoundation.org, heiko@sntech.de, krzk+dt@kernel.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, michael@walle.cc, miquel.raynal@bootlin.com, robh@kernel.org, srini@kernel.org, stable@vger.kernel.org, untilscour@protonmail.com
+Subject: Re: Re: [PATCH v2 0/4] nvmem: Derive Rockchip MAC addresses from the OTP CPU ID
+Message-ID: <20260916123355.4507-1-untilscour@protonmail.com>
+Feedback-ID: 184418679:user:proton
+X-Pm-Message-ID: e5075cf7b5d4595542ae7b0ca159d512ead7b50d
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wA3JL1KjKpqEbZDBA--.13280S3
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Kr48Xry8uw43urWxCry8Xwb_yoW8Cr18p3
-	s29F4ktws7GF109F4DZw1q9F1qkF4DuF1ayF4UWryUCa13Xw1rJF1xt3sakr1UCayfZw4j
-	9rs5WasFqw1DWF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pisNVkUUUUU=
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbDAA178GqqjE15RQAA37
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-The endpoint nodes of the tpd12s015 encoder on the am5729-beagleboneai and
-the am57xx-idk carry a unit-address without a matching reg property, which
-the device tree specification does not allow.
+Hi Ricardo, Alexey,
 
-Drop the unit-address so the nodes are named "endpoint".
+> On 02/09/2026 15:07, Alexey Charkov wrote:
+> > Rockchip SoCs are shipped with a unique CPU ID in their internal OTP
+> > memory, and Rockchip bootloaders use it to give boards which have no
+> > dedicated storage for a MAC address a stable one anyway: they hash the =
+CPU
+> > ID and patch the resulting addresses into the device tree they hand ove=
+r.
+> >=20
+> > Kernels started without that fixup, e.g. straight from the SPL in Falco=
+n
+> > mode or by any other loader which does not implement Rockchip's derivat=
+ion,
+> > fall back to random MAC addresses which change on every boot.
+> >=20
+> > Formalize the derivation in the DT binding and add a Linux kernel drive=
+r
+> > implementing it, so that a Linux image can use the same stable addresse=
+s
+> > regardless of the boot flow.
+> >=20
+> > Only RK3576 is wired up here, that being the SoC I can test on. Other
+> > Rockchip SoCs keep the same CPU ID at a different OTP offset - 0x7 rath=
+er
+> > than 0xa on RK3588, for instance - which makes supporting them a two-li=
+ne
+> > addition to the driver's match table plus the layout node.
+> Hi Alexey,
+>=20
+> I went off trying this on RK3588 and - exactly like you said - it=20
+> translates perfectly there, just with a different offset. Thanks!
+>=20
+> Not content, I went for RK356x as well - and that revealed what I think=
+=20
+> is a snag.
+>=20
+> Both RK3576 and RK3588 currently describe their fixed cells as direct=20
+> children of the OTP node -- turns out that is the "legacy" way, which=20
+> works due to 'add_legacy_fixed_of_cells'.
+>=20
+> But RK356x/3528/3562, done more recently [1], use a single=20
+> 'fixed-layout' with child cells; and there can only ever be one layout,=
+=20
+> so we wouldn't be able to use the new layout for those.
+>=20
+> I imagine one way around it would be to allow such fixed cells also=20
+> under the new layout, by delegating to 'nvmem_add_cells_from_dt()' and=20
+> adding patternProperties with '$ref: fixed-cell.yaml' in the binding,=20
+> similar to what fixed-layout.yaml does, but I'm unsure that would be a=20
+> good idea?
+>=20
+> Either way, thanks for this, it really helps with Falcon mode and edk2;=
+=20
+> I can also use it for the fixed-function RTL8125 PCIe NICs I started=20
+> describing [2] (and will eventually send a v5).
+>=20
+> [1] https://lore.kernel.org/all/20260312213019.13965-3-heiko@sntech.de/
+> [2]=20
+> https://lore.kernel.org/linux-rockchip/20260617-rk3588-dts-rtl-eth-descri=
+be-dt-alias-v4-0-2bd38922d129@pardini.net/
+>=20
+> mvg,
+> Ricardo
 
-No functional change.
+What about changing the driver to handle something like:
 
-Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
----
- arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts | 4 ++--
- arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi  | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+=09otp: otp@... {
+=09=09compatible =3D "rockchip,rk3528-otp";
 
-diff --git a/arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts b/arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts
-index 76bfb364777e..f40017a0e414 100644
---- a/arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts
-+++ b/arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts
-@@ -168,7 +168,7 @@ ports {
- 			port@0 {
- 				reg = <0x0>;
- 
--				hdmi_encoder_in: endpoint@0 {
-+				hdmi_encoder_in: endpoint {
- 					remote-endpoint = <&hdmi_out>;
- 				};
- 			};
-@@ -176,7 +176,7 @@ hdmi_encoder_in: endpoint@0 {
- 			port@1 {
- 				reg = <0x1>;
- 
--				hdmi_encoder_out: endpoint@0 {
-+				hdmi_encoder_out: endpoint {
- 					remote-endpoint = <&hdmi_connector_in>;
- 				};
- 			};
-diff --git a/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi b/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi
-index 5eccff3bb4b6..4e8a5820b05c 100644
---- a/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi
-+++ b/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi
-@@ -135,7 +135,7 @@ ports {
- 			port@0 {
- 				reg = <0>;
- 
--				tpd12s015_in: endpoint@0 {
-+				tpd12s015_in: endpoint {
- 					remote-endpoint = <&hdmi_out>;
- 				};
- 			};
-@@ -143,7 +143,7 @@ tpd12s015_in: endpoint@0 {
- 			port@1 {
- 				reg = <1>;
- 
--				tpd12s015_out: endpoint@0 {
-+				tpd12s015_out: endpoint {
- 					remote-endpoint = <&hdmi_connector_in>;
- 				};
- 			};
--- 
-2.43.0
+=09=09#address-cells =3D <1>;
+=09=09#size-cells =3D <1>;
+
+=09=09nvmem-layout {
+=09=09=09compatible =3D "fixed-layout";
+
+=09=09=09#address-cells =3D <1>;
+=09=09=09#size-cells =3D <1>;
+
+=09=09=09otp_id: id@a {
+=09=09=09=09reg =3D <0x0a 0x10>;
+=09=09=09};
+=09=09};
+=09};
+
+=09otp_mac: otp-mac {
+=09=09compatible =3D "rockchip,otp-cpuid-mac";
+
+=09=09nvmem-cells =3D <&otp_id>;
+=09=09nvmem-cell-names =3D "source";
+
+=09=09#address-cells =3D <1>;
+=09=09#size-cells =3D <1>;
+
+=09=09otp_mac_address: mac-address@0 {
+=09=09=09reg =3D <0 0x10>;
+=09=09=09#nvmem-cell-cells =3D <1>;
+=09=09};
+=09};
+
+using devm_nvmem_cell_get("source") to read the otp cell.
+
+Then a match table would not be necessary and it would work with every
+SoC, even those without the fixed-layout nvmem, because of
+add_legacy_fixed_of_cells as you mentioned.
+
+Best regards,
+Ryan
 
