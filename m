@@ -1,98 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 154754D957E
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 18:47:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93CD64BF921;
+	Wed, 16 Sep 2026 19:07:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789584437; cv=none; b=tWn2qkcerqKmYWFsL3Apu2nP7kXUO2XyfTSkWK3GJWqJcc6FGsMo0uyJ/oHQc9sBuXsnFpGBbiRGRDV+GvA349VThXilpMG5Q2hmFy20vVE9NFEhELpcYJBUVFHL7GfhUQeqjQJ8zlUm6e2//i951+TK80ChkU7zaFdzQFCPSsA=
+	t=1789585688; cv=none; b=kd507vsMbNMf0BxilBMZuGht/ayFCQepNAtMM9n+mpDQytLB6phIxmi1S3NjmcDR6wun0B6Q6bWMkNfUUISPR0ZN0iJ1Tn215jYKRMLWoeyVQQRHJFm5wXLUVkrJEa8SrVEqg5e56Ym69V8qf/Uk1FPYEAnMpefTFwiSgmCqBVc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789584437; c=relaxed/simple;
-	bh=eoj5LnlLFnqWGYtoj54g1TPW+Au1tVPd/Qkho3P1fz4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=REhKSfmD9XhkNHABXgIkSC3KX8KmcAVJ547QDOJrRxOW2OLE4q6qEeI+e2UZxWGklo1vfJWjDQ+7cDNHlsPGm0KA96p2UlzyOjofRjK/VCOoJGwknCAm4yAJzTWTuF5Y6QCW0GUTkBlfgFcIos5varLP+amych5BlHBLz35lgPM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FqmJkGWL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789585688; c=relaxed/simple;
+	bh=gu8G4dVWtsCiOpCF0KB7HhZktPSYMCZCLknTTefr//U=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=cCNtnLFcFHYjuMVcFC7Ndy3polF3zxClf8Swg/NkKZujHD0lkA2MEOLv4G5t6EgwHobWwqy3guHiRi7KT0Hk7OoK+IYmPvn4Ttq/r/OyrAzu01Pbs1uPgEvJ8FaouwM6KIIodApcOvXh3TvxiTRRoGszXY8ARiRfzaYP6GLQfYQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=Lb9FlTS2; arc=none smtp.client-ip=130.133.4.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FqmJkGWL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D2381F00893;
-	Wed, 16 Sep 2026 18:47:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789584422;
-	bh=Fw3bbw2C6I5af6YuRppv3mIAN6eKYFCwExa+3Z3rhqo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FqmJkGWL2TO/gcli2jLS451IkTvr2N+u/CV+brPZPdtX1HC/4u1JyU5RJPklj+zrG
-	 6pY7aH8aygG+m9DxGnihdQ5u708zzmZZWu0N6b3jz4RX9j7SsobortMt4XxTo2TVDn
-	 l+z2uMA3zAW9EHsYs3TxFvlqxgWeuCkHOm4xtdWdNn6iWxeVTRQWlGUM3XYBvYp6f0
-	 0KeJ0N59u5EWAScW4+ask8DWDqtFHvbV4CuuQBAjsig47XZv7lEAkFu5FlqGVEMjAh
-	 BwUmJ/xLovy6d8sNcZhLPDCwX80+3NbR5Jd9gZSDQns8gAIhSBfzOtkrfQXHLST8sq
-	 mIYt9L/fdgavw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/3] phy: qcom: qmp-combo: Add USB3+DP PHY support
- for Nord
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Bartosz Golaszewski" <bartosz.golaszewski@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, conor+dt@kernel.org, olteanv@gmail.com, linux-phy@lists.infradead.org
-In-Reply-To: <20260916-nord-usb-phy-v2-3-2c8461bb30e6@oss.qualcomm.com>
-References: <20260916-nord-usb-phy-v2-0-2c8461bb30e6@oss.qualcomm.com>
- <20260916-nord-usb-phy-v2-3-2c8461bb30e6@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
+	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="Lb9FlTS2"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
+	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
+	References; bh=c49o+u2lVVrnBZQ4GHd/1O9S2d4rwlq0WakWbVmbbeA=; t=1789585680;
+	x=1790190480; b=Lb9FlTS2Rj+CLf5KgSngdBEh24EvyqHJSNI0gymDv4hN6ib1PdyQSv7AEOjqf
+	yv3Ah56nD7Hr2mBVUkd0wD1EAQUCGf/Sllj2SY/4J6anhYEpXvkPkQNNDBeYrW9zz1PxPMQrBqBGY
+	xk7/ibi8/WUyPewmg0Wl/BHMngMgDtjo4P+1SKuOlKBftfyQUkAJrhQT8yq5+warlkrdobvd+QM26
+	gMyL1H4AIkmx9hl2IbdrnMhcYZjZgrl4RTQvywOfciBv/4x8pHh8xpTfqAg0zRK07DlZcl3mUJwxF
+	tjg7fDZS6JySsQeQyqFZVVJzPqTP7lRba/wR3YtQlizeHyJ7qA==;
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+          by outpost.zedat.fu-berlin.de (Exim 4.99)
+          with esmtps (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@zedat.fu-berlin.de>)
+          id 1x6uz2-00000001AXT-3NcN; Wed, 16 Sep 2026 21:07:52 +0200
+Received: from p5dc55206.dip0.t-ipconnect.de ([93.197.82.6] helo=suse-laptop.fritz.box)
+          by inpost2.zedat.fu-berlin.de (Exim 4.99)
+          with esmtpsa (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@physik.fu-berlin.de>)
+          id 1x6uz2-000000032vo-2Nro; Wed, 16 Sep 2026 21:07:52 +0200
+Message-ID: <6f21b23babf5a3792b65de7bd1dd010b9c268453.camel@physik.fu-berlin.de>
+Subject: Re: [PATCH] sh: Fix built-in DTB build with generic rule
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+To: Florian Fuchs <fuchsfl@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski
+	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-sh@vger.kernel.org
+Cc: Rich Felker <dalias@libc.org>, Masahiro Yamada <masahiroy@kernel.org>, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Wed, 16 Sep 2026 21:07:51 +0200
+In-Reply-To: <20260711000146.3348854-1-fuchsfl@gmail.com>
+References: <20260711000146.3348854-1-fuchsfl@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 16 Sep 2026 18:47:01 +0000
-Message-Id: <20260916184702.2D2381F00893@smtp.kernel.org>
+User-Agent: Evolution 3.60.2 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-ZEDAT-Hint: PO
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] phy: qcom: mismatch between commit message and nord_usb3_tx_tbl
---
+Hi Florian,
 
-commit 1b7c23f467a9a0ffe85f80b15fdee3ce3ad5c895
-Author: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+On Sat, 2026-07-11 at 02:01 +0200, Florian Fuchs wrote:
+> Commit 21bcc49974c2 ("sh: Migrate to the generic rule for built-in DTB")
+> selected GENERIC_BUILTIN_DTB and renamed the Kconfig symbols, but left
+> arch/sh/boot/dts/Makefile using the old obj-y form. So convert them as
+> well, to fix the build error when using CONFIG_BUILTIN_DTB.
+>=20
+> Fixes: 21bcc49974c2 ("sh: Migrate to the generic rule for built-in DTB")
+> Signed-off-by: Florian Fuchs <fuchsfl@gmail.com>
+> ---
+> The fix is the same like at other places like openrisc or nios.
+> Without that, the build fails, when building with builtin device tree:
+> CONFIG_BUILTIN_DTB=3Dy
+> CONFIG_BUILTIN_DTB_NAME=3D"j2_mimas_v2"
+> with an error like:
+> .builtin-dtbs.S:6: Error: file not found: arch/sh/boot/dts/j2_mimas_v2.dt=
+b
+> ---
+>  arch/sh/boot/dts/Makefile | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/arch/sh/boot/dts/Makefile b/arch/sh/boot/dts/Makefile
+> index d109978a5eb9..16e281b859ae 100644
+> --- a/arch/sh/boot/dts/Makefile
+> +++ b/arch/sh/boot/dts/Makefile
+> @@ -1,2 +1,2 @@
+>  # SPDX-License-Identifier: GPL-2.0-only
+> -obj-$(CONFIG_BUILTIN_DTB) +=3D $(addsuffix .dtb.o, $(CONFIG_BUILTIN_DTB_=
+NAME))
+> +dtb-y +=3D $(addsuffix .dtb, $(CONFIG_BUILTIN_DTB_NAME))
 
-phy: qcom: qmp-combo: Add USB3+DP PHY support for Nord
+Good catch, thanks a lot!
 
-Nord SoC provides two USB3+DP combo PHYs. Their initialisation sequences
-are identical to sm8550, but the sub-blocks are not laid out the same way.
-A dedicated USB3_PCS_AON region at offset 0x1e00 is added, modifying how
-the I/O clamp is driven.
+Reviewed-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
 
-> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qual=
-comm/phy-qcom-qmp-combo.c
-> index a4f130fc33e39..c4e88b0384cb5 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-> @@ -2356,6 +2356,20 @@ static const struct qmp_phy_init_tbl hawi_usb3_pcs=
-_usb_tbl[] =3D {
->  	QMP_PHY_INIT_CFG(QPHY_V10_PCS_USB3_RCVR_DTCT_DLY_U3_H, 0x00),
->  };
-> =20
-> +static const struct qmp_phy_init_tbl nord_usb3_tx_tbl[] =3D {
-> +	QMP_PHY_INIT_CFG(QSERDES_V6_TX_RES_CODE_LANE_TX, 0x00),
-> +	QMP_PHY_INIT_CFG(QSERDES_V6_TX_RES_CODE_LANE_RX, 0x00),
-> +	QMP_PHY_INIT_CFG(QSERDES_V6_TX_RES_CODE_LANE_OFFSET_TX, 0x1f),
-> +	QMP_PHY_INIT_CFG(QSERDES_V6_TX_RES_CODE_LANE_OFFSET_RX, 0x09),
-> +	QMP_PHY_INIT_CFG(QSERDES_V6_TX_LANE_MODE_1, 0xf5),
-> +	QMP_PHY_INIT_CFG(QSERDES_V6_TX_LANE_MODE_3, 0x3f),
-> +	QMP_PHY_INIT_CFG(QSERDES_V6_TX_LANE_MODE_4, 0x3f),
-> +	QMP_PHY_INIT_CFG(QSERDES_V6_TX_LANE_MODE_5, 0x5f),
-> +	QMP_PHY_INIT_CFG(QSERDES_V6_TX_RCV_DETECT_LVL_2, 0x14),
-
-[Severity: Medium]
-The commit message claims that the initialization sequences are identical to
-sm8550. However, this configures QSERDES_V6_TX_RCV_DETECT_LVL_2 to 0x14,
-whereas sm8550 uses 0x12.
-
-Is this an intentional hardware difference for Nord that should be mentioned
-in the commit message, or is it an accidental typo?
-
-> +	QMP_PHY_INIT_CFG_LANE(QSERDES_V6_TX_PI_QEC_CTRL, 0x21, 1),
-> +	QMP_PHY_INIT_CFG_LANE(QSERDES_V6_TX_PI_QEC_CTRL, 0x05, 2),
-> +};
+Adrian
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916-nord-usb-p=
-hy-v2-0-2c8461bb30e6@oss.qualcomm.com?part=3D3
+ .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
