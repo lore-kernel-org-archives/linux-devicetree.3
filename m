@@ -1,219 +1,150 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A2B935A39D
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 00:00:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF58127FD49
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 00:00:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789516843; cv=none; b=UuUoX9v6yTSxt4sQmv7ngSrykfzdnspLl1UhSIiHI61aWsJynf0b8KjNRT6EAoTCJzFgdlkaAqsHsMJBhnVQfto248wk0yVwLB3T+6mM5/hTLUyPjIOP+/UwXZEy67j+nySotTmTN1RFNYSFRhwANqmJ76suS/XFwesMsWEV+JI=
+	t=1789516844; cv=none; b=QCBbjiNKwhjeOYC0GXySWZP6frAHlqGDhF0mXuNRtHlfZm2L26C8Sx3jJUxJC/mySuilQv2h2Nm/KMXX9EdrKMguDK4WXkqnn8rDRMoZZyerq1DMGu7Pv2hrJ2mvBK9XIVDzkBoSKiftXDTMm4Him+KObpdV1JOC7lbkissu/fA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789516843; c=relaxed/simple;
-	bh=k8PMv2pzOYbHFmyIAtduLATxN657zmRfpQqDLwxHUEE=;
+	s=arc-20240116; t=1789516844; c=relaxed/simple;
+	bh=3wcgsSIPtKdHXWEZBHQqaqGTUStJCsYf5A788Y/SvB0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=NBxQsYrYeJDasuO8RDAzdLR4vOxvHwkX/w0j1VKf0epMmMuxHV5NgokAbszYV3EAuh1hhTe/v350izIpF5mycleRD9uW5q+7WVeTqet0v4B8UsR14MsbMt6bwoON5xxH9jHMcewzn73eeyOpZEN7wq4qAc2i+wSQjsvgeCIUDOY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Los1I9B+; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=LDxO7E5wNjVTzYx9dWhH0sdS/BwPl8/8TH/3aLrX1Gk8oUoIsv1ap/T+aGlvFZg1SbAtTZ0XdIfrrBqT2AeE8cEF+Gg2wJ8huNxVKQkwNtvbbdcDx7CvhWukc14NvW0ObGOfPZuxkHAmF9ZK7YpfVG0SpQbjYfhesGn4fqfbrFc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OuFQRsEO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Los1I9B+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C6C91F00898;
-	Wed, 16 Sep 2026 00:00:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OuFQRsEO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 274591F000FF;
+	Wed, 16 Sep 2026 00:00:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789516841;
-	bh=VrYDEjmOiJYWeGTCXbIjNfmcLaq1RBD/meM4NLpkhSE=;
+	s=k20260515; t=1789516842;
+	bh=qgmMiW+rhmiLswBIt2OyLxrRYhfCJbMJ3eZWYCuty+s=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Los1I9B+tYhMtbfU+NkjnTiP45l7Hu0RXlwmONcHVrikt4T2hQLZjcRgq7grDfR7P
-	 Uk4po1+QzG3L92rTVa8vyjYfZdEn5rUpqh4Qj9417nk52GcT3aEZw33HgSx5fPqEij
-	 qzLr7eLkRpPFcVfAAsnyvHpe3iTpZIbiR/1i9PVChw58ZkcF8a43eP9cgaZ9rB9W2z
-	 iu8KpwFsV3862QDkti+jVK05sptzyfbNvbAeEygq5HavWEkl1EgqzKUKdk7uX5XviM
-	 JE7EhIKBpY3D0FmvQqHz1gqgDrXkWpqnVMuXS+Ky2v7sDODLM5XgUNClFGhBNBp1BA
-	 691okz4iAbAhQ==
+	b=OuFQRsEO2aDt7HnzrW/DeA5tQMRdzZAfgFLvRb4Qt9QheLbL3cUJWaHF+hAOQasy1
+	 w3AIZycgViO1sAYWmYo073nREADSxbw16pJkcRyqMxxQlvZDu4I49NQvuAEeg1TGZc
+	 awL69WNXd169EbjBvhgaTet2ZMfMyxCB3i8uFH+f6Kad9xxJ4qNUoRU3xlQ0K9rRaK
+	 zmdMtKCGS9E9elhMPegEkiz4rzBEDegS97igGB8qsTWjkTCKMo4V1JJXLrThCcNQaP
+	 s2jrVBvMjyU6gyDxfoXyRjIEweCSg9LoAwHgdLmgTAobsLwBB/QmIAC2wMcya+Em4k
+	 iExdCePLZgjvA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v9 06/15] dpll: sit9531x: implement input pin
- state on a DPLL
+Subject: Re: [PATCH net-next v9 10/15] dpll: sit9531x: add support to adjust
+ output phase
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Ali Rouhi" <arouhi@sitime.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260915000015.80480-7-arouhi@sitime.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260915000015.80480-11-arouhi@sitime.com>
 References: <20260915000015.80480-1-arouhi@sitime.com>
- <20260915000015.80480-7-arouhi@sitime.com>
+ <20260915000015.80480-11-arouhi@sitime.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 16 Sep 2026 00:00:40 +0000
-Message-Id: <20260916000041.5C6C91F00898@smtp.kernel.org>
+Date: Wed, 16 Sep 2026 00:00:41 +0000
+Message-Id: <20260916000042.274591F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] dpll: sit9531x: software mask corruption on failed priority table =
-writes
-- [Medium] dpll: sit9531x: physical receiver leak on partial disconnect fai=
-lure
-- [Medium] dpll: sit9531x: shadowed priority register read-modify-write haz=
-ard
+- [High] dpll: sit9531x: stale hardware delay causes spurious phase shift o=
+n frequency change
+- [High] dpll: sit9531x: integer overflow in phase_adj cache corrupts phase=
+ on frequency change
 --
 
-commit e8bad210eb8820741e20c84614e6f523002797e2
+commit 71a00c5eb4f21406ee20e81e9a6aad131896b711
 Author: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
 
-dpll: sit9531x: implement input pin state on a DPLL
+dpll: sit9531x: add support to adjust output phase
 
-This patch implements the reporting and setting of input references for a
-DPLL. It introduces mechanisms to rewrite the selection priority table and
-manages enabling or disabling the physical inputs based on membership.
+This commit adds support to shift output in time against others driven by
+the same PLL, allowing adjustment of output phase. It handles coarse and fi=
+ne
+delay steps and folds delays modulo the output period.
 
 > diff --git a/drivers/dpll/sit9531x/core.c b/drivers/dpll/sit9531x/core.c
-> index 6dfb1b31d4913..25418485e9757 100644
+> index bba42fe302a3b..8d857f1a0c890 100644
 > --- a/drivers/dpll/sit9531x/core.c
 > +++ b/drivers/dpll/sit9531x/core.c
-[ ... ]
-> @@ -365,6 +538,90 @@ static void sit9531x_prio_mask_build(struct sit9531x=
-_dev *sitdev, u8 pll_idx,
-[ ... ]
-> +static int sit9531x_prio_table_commit(struct sit9531x_dev *sitdev, u8 pl=
-l_idx,
-> +				      const u8 *srcs)
-> +{
-> +	u8 val, slot, attempt;
-> +	int rc, prg_rc, ho_rc =3D 0;
-> +	u16 reg;
-> +
-> +	rc =3D sit9531x_update_pll_u8(sitdev, pll_idx, SIT9531X_PLL_REG_HO_CTRL,
-> +				    BIT(SIT9531X_PLL_HO_FORCE_BIT),
-> +				    BIT(SIT9531X_PLL_HO_FORCE_BIT));
-> +	if (rc)
-> +		return rc;
-> +
-> +	usleep_range(10000, 12000);
-> +
-> +	for (slot =3D 0; slot < SIT9531X_PRIO_MAX_SLOTS; slot++) {
-> +		reg =3D sit9531x_prio_reg(pll_idx, slot);
-> +
-> +		rc =3D sit9531x_read_u8(sitdev, reg, &val);
-> +		if (rc)
-> +			goto commit;
-> +
-> +		val =3D sit9531x_prio_slot_set(val, slot, srcs[slot]);
-> +
-> +		rc =3D sit9531x_write_u8(sitdev, reg, val);
-> +		if (rc)
-> +			goto commit;
-> +	}
-
-[Severity: Medium]
-Does this read-modify-write sequence run the risk of clobbering unlatched
-shadow registers? Since two slots share one register, if the hardware
-returns the latched active state on read rather than the uncommitted shadow
-state, wouldn't the read for the next slot fetch the old value for the prior
-slot and overwrite the uncommitted write?
-
-> +
-> +commit:
+> @@ -1641,7 +1641,17 @@ int sit9531x_output_freq_set(struct sit9531x_dev *=
+sitdev, u8 out_idx,
+> =20
+>  	sitdev->out[out_idx].freq =3D div64_u64(fvco, divo);
+> =20
+> -	return 0;
 > +	/*
-> +	 * Latch unconditionally: slots written before a failed write are in
-> +	 * the table regardless, so the latch keeps hardware and the mask
-> +	 * rebuild below consistent with what was actually written.
+> +	 * The programmed reset delay counts VCO cycles against the output
+> +	 * period in force when it was written, so a rate change silently
+> +	 * re-times a previously requested phase adjust.  Re-encode the
+> +	 * cached picosecond request against the new rate.
 > +	 */
-> +	prg_rc =3D sit9531x_prio_prg_commit(sitdev);
-> +	if (prg_rc && !rc)
-> +		rc =3D prg_rc;
-> +
-> +	/*
-> +	 * Refresh the mask from the table just written so a get that follows
-> +	 * a set does not have to wait for the next poll.  Slots written
-> +	 * before a failed write are in the table too, so this is closer to
-> +	 * the truth than the pre-write mask either way, and the poll read-back
-> +	 * corrects whatever a partial write left behind.
-> +	 */
-> +	sit9531x_prio_mask_build(sitdev, pll_idx, srcs);
+> +	if (sitdev->out[out_idx].phase_adj)
+> +		rc =3D sit9531x_output_phase_adjust_set(sitdev, out_idx,
+> +						      sitdev->out[out_idx].phase_adj);
 
 [Severity: High]
-If the I2C writes fail and execution jumps to the commit label, is it safe
-to unconditionally rebuild the software mask using the intended srcs array?
-If the mask reflects a successful write but the hardware doesn't, this could
-permanently desynchronize the software state from the hardware and break
-rollback error handling on later pin operations.
+Does this logic fail to clear stale delay registers if the cached offset was
+rounded to exactly one output period?
+
+If a user previously requested a very small negative phase offset (e.g., -1=
+ ps),
+hardware quantization could round the required delay up to exactly one outp=
+ut
+period (t_out_ps). The hardware registers would receive this non-zero physi=
+cal
+delay (which functionally equals 0 degrees), and the driver correctly caches
+phase_adj =3D 0.
+
+However, when the frequency is later changed, sit9531x_output_freq_set() sk=
+ips
+calling sit9531x_output_phase_adjust_set() because phase_adj evaluates to 0.
+Does this leave the hardware delay registers retaining the old t_out_ps del=
+ay,
+which is no longer one full period at the new frequency, resulting in an
+arbitrary and spurious phase shift?
 
 [ ... ]
-> diff --git a/drivers/dpll/sit9531x/dpll.c b/drivers/dpll/sit9531x/dpll.c
-> index b4984335e6bfc..ab9aa7db1839c 100644
-> --- a/drivers/dpll/sit9531x/dpll.c
-> +++ b/drivers/dpll/sit9531x/dpll.c
-[ ... ]
-> @@ -300,8 +335,144 @@ sit9531x_dpll_input_pin_direction_get(const struct =
-dpll_pin *pin,
-> +static int
-> +sit9531x_dpll_input_pin_state_on_dpll_set(const struct dpll_pin *pin,
-> +					  void *pin_priv,
-> +					  const struct dpll_device *dpll,
-> +					  void *dpll_priv,
-> +					  enum dpll_pin_state state,
-> +					  struct netlink_ext_ack *extack)
-> +{
-[ ... ]
-> +	switch (state) {
-> +	case DPLL_PIN_STATE_DISCONNECTED:
-> +		rc =3D sit9531x_input_prio_remove(sitdev, sitdpll->id, hw_src);
-> +		/*
-> +		 * The table write, the latch and the holdover release are
-> +		 * three steps behind one return code, so ask the table what
-> +		 * actually happened rather than reading the errno as "no
-> +		 * change".  A source that is gone from the table has been
-> +		 * released whatever else failed.
-> +		 */
-> +		if (rc && sit9531x_input_prio_present(sitdev, sitdpll->id,
-> +						      hw_src))
-> +			break;
-> +		ref->pll_mask &=3D ~pll_bit;
-> +		if (rc)
-> +			break;
-> +		if (ref->pll_mask)
-> +			rc =3D 0;	/* another DPLL still uses this input */
-> +		else
-> +			rc =3D sit9531x_input_disable(sitdev, dpin->id);
-> +		break;
 
-[Severity: Medium]
-If sit9531x_input_prio_remove() succeeds in updating the hardware table but
-fails a subsequent step (like releasing holdover), returning a non-zero rc,
-doesn't this skip sit9531x_input_disable() and leave the physical receiver
-powered on indefinitely while the software state considers it unused?
-
-> +	case DPLL_PIN_STATE_CONNECTED:
+> @@ -1731,6 +1741,206 @@ int sit9531x_output_freq_get(struct sit9531x_dev =
+*sitdev, u8 out_idx,
 [ ... ]
-> +		break;
-> +	case DPLL_PIN_STATE_SELECTABLE:
-> +		if (!(ref->pll_mask & pll_bit)) {
-> +			rc =3D sit9531x_input_enable(sitdev, dpin->id);
-> +			if (rc)
-> +				break;
-> +		}
-> +		rc =3D sit9531x_input_prio_add(sitdev, sitdpll->id, hw_src);
-> +		if (rc && !sit9531x_input_prio_present(sitdev, sitdpll->id,
-> +						       hw_src)) {
-> +			if (!(ref->pll_mask & pll_bit) && !ref->pll_mask)
-> +				sit9531x_input_disable(sitdev, dpin->id);
-> +			break;
-> +		}
-> +		/*
-> +		 * Claim the input for this DPLL only once it is both enabled
-> +		 * and present in the priority table.  Setting the mask before
-> +		 * prio_add would leak the claim if prio_add failed, keeping the
-> +		 * shared input receiver powered even after every DPLL released
-> +		 * it.
-> +		 */
-> +		ref->pll_mask |=3D pll_bit;
-> +		break;
+> +	/*
+> +	 * Cache what the registers realize, and only once every step has
+> +	 * succeeded: the core drops a repeated request with the same value,
+> +	 * so a cache updated by a failed call would make the retry a no-op.
+> +	 *
+> +	 * Quantizing to whole VCO cycles plus 30 ps steps can land a few
+> +	 * picoseconds past the end of the period, which would wrap the
+> +	 * subtraction below; one period is the most a delay can be.
+> +	 */
+> +	coarse_ps =3D mul_u64_u64_div_u64(coarse, 1000000000000ULL, fvco);
+> +	abs_ps =3D coarse_ps + (u64)fine * SIT9531X_OUT_PRG_FINE_STEP_PS;
+> +	if (abs_ps > t_out_ps)
+> +		abs_ps =3D t_out_ps;
+> +	if (phase_norm_ps < 0)
+> +		sitdev->out[out_idx].phase_adj =3D
+> +			abs_ps ? -(s32)(t_out_ps - abs_ps) : 0;
+> +	else
+> +		sitdev->out[out_idx].phase_adj =3D (s32)abs_ps;
 
 [Severity: High]
-If sit9531x_input_prio_add() encounters an I2C error but the software mask
-was corrupted in sit9531x_prio_table_commit() to look successful, won't
-sit9531x_input_prio_present() incorrectly return true? This would bypass
-the hardware rollback (sit9531x_input_disable) and incorrectly claim the
-receiver in ref->pll_mask.
+Can this downcast to s32 overflow and corrupt the cached phase adjustment?
+
+If a user requests a phase offset near INT_MAX (2,147,483,647 ps) or INT_MI=
+N,
+hardware quantization in 30 ps steps could round the absolute delay (abs_ps)
+up by up to 15 ps, pushing it over the 32-bit signed integer limit (e.g., to
+2,147,483,660).
+
+When caching this value, the direct (s32) cast truncates the upper bits and
+flips the sign (e.g., to -2,147,483,636). When the frequency is later chang=
+ed,
+the driver feeds this corrupted opposite-sign value back into
+sit9531x_output_phase_adjust_set(), programming the hardware with an incorr=
+ect
+physical delay. Should there be saturation bounds checking before this cast?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915000015.8048=
-0-1-arouhi@sitime.com?part=3D6
+0-1-arouhi@sitime.com?part=3D10
