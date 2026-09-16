@@ -1,96 +1,135 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9324F4EA39D
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 11:25:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A55921254B
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 11:28:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789557965; cv=none; b=Gfp4HYvADfly0XmGVLSHqOP31yH6DAx8ZZcjLXVqZaXkTAuN6RvuTf7oYGO2unXbGs0Xd1fnu8N3tnMjDGG964MJrWLFgxEA/T9pBIvmyKbOnSmTlZfaA47mVSLwtMULf1u6+k4j/M/eX83skxQNn9Ru17XQ7Riq+lPlTJq9TsU=
+	t=1789558101; cv=none; b=s8gOavvJypgcqmzAO2afsLSyTHcU/ItQImBdijUVovEFKsa6KYfpcoStD1gqQnlh9C+65+Vkg5IQQwqeZOhV1NTXFIfe6bHBt59Wyk3/Pgh1dczRIVIOGpHiHUM8Er965vIXDoav7sUgxr6jatHwnl2hGgUN3Z10HdJ+NXv6gqc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789557965; c=relaxed/simple;
-	bh=AbguamMgPZYv7LsM+vjS44k49DgTIF2mitGYmGY/fmw=;
+	s=arc-20240116; t=1789558101; c=relaxed/simple;
+	bh=EnArDjv1K/QaAojy6C/8duXvDJXIWv+VzFfz2nhG6n8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bYcRPpC/loKRpqBiaGQK8gIHMTOZPO13k27TNnUbgwLl78FQv5y3DuDDTXUc1E6+6Ulg14gbDPC/Ij+kEs6HJvCWWCNzSbfs0DhyiR84WP9+8vMQ4g0v8eQbgL0PgFoG110THJ1BDAdyYiFFbwOmo7bmPqx+I0yRC9oHWiiAwCM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G5iprS3M; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=dbpw6jJxIrnx18PrrIM22wfAOPlE/nwQ0xtjC/QKZ0ummv/1l1BpJPP8bB6pGCsWWLw2O9iLnS4WaEwTBM1ZrttmdgJ2awh8ULJlwNREVEtrnCyq4frwctPwta2qbFjeDNr1VbSmULkqA9feNRHsH5dS28GpBIxjUY8tIOJ5SNk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fI5XtVNR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G5iprS3M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80C591F000FF;
-	Wed, 16 Sep 2026 11:25:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fI5XtVNR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11B941F000FF;
+	Wed, 16 Sep 2026 11:28:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789557941;
-	bh=R1CEThK9wK5CGIoxflqWp7wKCU6FenNoFhP5SsImQOU=;
+	s=k20260515; t=1789558093;
+	bh=78q69A30pXi9PHO6CW4rE0jmVPL3XptJMQs/3mMa5xc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=G5iprS3M5EPsNjCW0wZTtMIx3xAlI7IO1y6pxI1zAy/+cG1tOwgjUXv2foo1em/EE
-	 XGGNOAyQGoaZ6HmSw+INwUImiJNP2cfE7Xw09Pc4wxWyak3QZWmfjvuqEmxV4jKRrx
-	 3UIAmTL9Zn+WmLnT+C9BMxsYZSvUozfN/vG0uJoLFsX1Q6paFuUwl8Wn76UJf+0JBl
-	 Bd8ENy+teYTWz5FtOhwYNnE7VbJF0NgpthzTcXgrkWlPh8EK4JxwM4eK2OwfyRgJz7
-	 FUssF70yVfilX5x5KfGF5DYJkUFqrjA8qH4xUlFURBquggXA+UeU/f/rVNa4S1vTvb
-	 q9WkvrYprv9JQ==
+	b=fI5XtVNRDd7QpU+qYpnAePk0hlCmrU3Z0cpwfo7Z3n4zlus5Vf+xnWWaEGPpsdvqf
+	 bSiH3AQUfNy9xkOBU3t2LgxpUJk31s7VNgbawF2btdN2ifRu1I6L/+A3bjBXodH4wE
+	 K4FdFE7SECvD/5n1qWFfEl9R5RZbfuR3fHd3hG5nGWZ18LoohdVEHmpuQAz4cxmYvA
+	 hfqCqzMb3GOFsKl9jR0BogjDoWD15/NQvczermZ26tsetg67HklUkNiERnwALvFQuN
+	 O+/S/08+ZbUGzVDQ6cX/loo/LVB/jMXUQHxqftlijXV34VL7Lh+qUzyoXKkJIRtgVN
+	 jxtzA7+vcE6mg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 04/17] iio: adc: adi-axi-adc: Add support for CRC
+Subject: Re: [PATCH v9 11/13] drm/mediatek: mtk_dsi: Enable PM Runtime on
+ probe
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Janani Sunil" <janani.sunil@analog.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260916-ad7768-driver-v8-4-27aa24db5225@analog.com>
-References: <20260916-ad7768-driver-v8-0-27aa24db5225@analog.com>
- <20260916-ad7768-driver-v8-4-27aa24db5225@analog.com>
+To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260916110825.102631-12-angelogioacchino.delregno@collabora.com>
+References: <20260916110825.102631-1-angelogioacchino.delregno@collabora.com>
+ <20260916110825.102631-12-angelogioacchino.delregno@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 16 Sep 2026 11:25:41 +0000
-Message-Id: <20260916112541.80C591F000FF@smtp.kernel.org>
+Date: Wed, 16 Sep 2026 11:28:12 +0000
+Message-Id: <20260916112813.11B941F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] iio: adc: adi-axi-adc: missing CRC callbacks for AD485X and AD40=
-8X backends
+- [High] drm/mediatek: DSI device is perpetually suspended causing external=
+ abort
+- [High] drm/mediatek: mtk_dsi_host_transfer accesses unpowered registers
+- [High] drm/mediatek: DSI IRQ handler accesses unpowered registers
 --
 
-commit f224f9607f0c702705dd0b16aa9e1c0051158452
-Author: Janani Sunil <janani.sunil@analog.com>
+commit 26652cbd743202a1f8035ecf743f6c0b1cf91008
+Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-iio: adc: adi-axi-adc: Add support for CRC
+drm/mediatek: mtk_dsi: Enable PM Runtime on probe
 
-This commit adds support for enabling and disabling Cyclic Redundancy Check
-(CRC) processing in the AXI ADC backend. CRC provides data integrity
-verification for high-speed ADC data streams.
+This commit enables PM runtime at the end of mtk_dsi_probe() for the DSI
+device to ensure power domains are turned on and off when necessary. The
+commit message indicates that mtk_ddp_comp_power_on() and
+mtk_ddp_comp_power_off() will handle the PM runtime resume and put.
 
-> diff --git a/drivers/iio/adc/adi-axi-adc.c b/drivers/iio/adc/adi-axi-adc.c
-> index fc7cc92b35f0a..8b7c45d51dbe8 100644
-> --- a/drivers/iio/adc/adi-axi-adc.c
-> +++ b/drivers/iio/adc/adi-axi-adc.c
+> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediate=
+k/mtk_dsi.c
+> index 3b33419aee2d9..4863d910511e9 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
+> @@ -1735,6 +1735,10 @@ static int mtk_dsi_probe(struct platform_device *p=
+dev)
+>  	if (ret)
+>  		return dev_err_probe(&pdev->dev, ret, "Failed to request DSI irq\n");
+> =20
+> +	ret =3D devm_pm_runtime_enable(dev);
 
-[ ... ]
+[Severity: High]
+Does enabling PM runtime here leave the DSI device perpetually suspended,
+causing an external abort when mtk_dsi_poweron() accesses the registers?
 
-> @@ -644,6 +663,8 @@ static const struct iio_backend_ops adi_axi_adc_ops =
-=3D {
->  	.num_lanes_set =3D axi_adc_num_lanes_set,
->  	.debugfs_reg_access =3D iio_backend_debugfs_ptr(axi_adc_reg_access),
->  	.debugfs_print_chan_status =3D iio_backend_debugfs_ptr(axi_adc_debugfs_=
-print_chan_status),
-> +	.crc_enable =3D axi_adc_crc_enable,
-> +	.crc_disable =3D axi_adc_crc_disable,
->  };
+The commit message assumes mtk_ddp_comp_power_on() will resume the device.
+However, mtk_crtc_atomic_enable() in drivers/gpu/drm/mediatek/mtk_crtc.c
+only calls mtk_ddp_comp_power_on() for comp[0] (typically OVL or RDMA).
 
-[Severity: Medium]
-Are these callbacks also needed in the adi_ad485x_ops and adi_ad408x_ops
-structures?
+Since the DSI component is always at the end of the pipeline, it is never
+passed to this function and remains in the suspended state.
 
-The patch adds crc_enable and crc_disable to the generic adi_axi_adc_ops,
-but omits them from the variant-specific ops structures like adi_ad485x_ops
-and adi_ad408x_ops.=20
+[Severity: High]
+Can mtk_dsi_host_transfer() access unpowered registers when called
+asynchronously?
 
-Since the CRC enable bit is documented earlier in the patch as common to all
-AXI ADC cores, omitting these callbacks might cause iio_backend_crc_enable()
-to incorrectly return -EOPNOTSUPP for the AD485X and AD408X variants.
+This function is an exported MIPI DSI host operation that can be called by
+panel drivers to send commands. With PM runtime enabled, the function
+directly reads hardware registers without wrapping the access in
+pm_runtime_resume_and_get() and pm_runtime_put():
 
-Would it be safer to wire these callbacks up for all backend variants that
-share the ADI_AXI_ADC_CNTRL_3_CRC_EN_MASK bit?
+drivers/gpu/drm/mediatek/mtk_dsi.c:mtk_dsi_host_transfer() {
+    ...
+    dsi_mode =3D readl(dsi->regs + dsi->driver_data->reg_main[DSI_MODE_CTRL=
+]);
+    ...
+}
+
+If the power domain is off, this could lead to a synchronous external abort.
+
+[Severity: High]
+Will the DSI IRQ handler access unpowered registers if an interrupt fires
+while the domain is suspended?
+
+The mtk_dsi_irq() handler directly accesses hardware registers:
+
+drivers/gpu/drm/mediatek/mtk_dsi.c:mtk_dsi_irq() {
+    ...
+    status =3D readl(dsi->regs + reg_main[DSI_INTSTA]) & flag;
+    ...
+}
+
+Since the driver does not appear to call disable_irq() during suspend, a
+pending or spurious interrupt firing while the domain is unpowered could
+cause the handler to access unpowered registers.
+
+Should the handler use pm_runtime_get_if_active() before accessing
+registers, or should the IRQ be disabled during power off?
+
+> +	if (ret)
+> +		return ret;
+> +
+>  	ret =3D mipi_dsi_host_register(&dsi->host);
+>  	if (ret < 0)
+>  		return dev_err_probe(dev, ret, "Failed to register DSI host\n");
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916-ad7768-dri=
-ver-v8-0-27aa24db5225@analog.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916110825.1026=
+31-1-angelogioacchino.delregno@collabora.com?part=3D11
