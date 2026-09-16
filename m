@@ -1,96 +1,95 @@
-Received: from mslow3.mail.gandi.net (mslow3.mail.gandi.net [217.70.178.249])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF61B46EC9E
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 08:45:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.178.249
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E486478847;
+	Wed, 16 Sep 2026 08:46:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789548353; cv=none; b=ElubwfzE6FngWqEnNyFS9jhPWZmqIE76tWDxQl1dv+NFblk21eTbeSrUm7M5cFGlgik6RpgJUrqaYQSWMMOl2l4JhN6928yR+nvIFejRAyXz67OiL360c4MZZadDkjCog1eQJQlCSXxx0oUsON2MCK7QLxXKY+HOpECH8PJzz3o=
+	t=1789548401; cv=none; b=Co+Y9MfNkvFHObP0i6BvSDXYB7OfURc8ZH9dF3Zxrlf1sTchX5TbxcCB7cyIcnREd97Xoi+uNuWgoi7zEE4CLykTfn80UZsBImmxzZOvvUtxeD2QLIotev+/xNcEP78iNKCxPFCgwvNAvrFnI3b1RM/maPHUjCQ9Jq7Bzchwhsw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789548353; c=relaxed/simple;
-	bh=YSgXIzhg++9vDHgCGBKZv9F1BA9wqWdoQTudKaMXtQc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pz0M2Vgs6gCMyI7h86KNiiTIN6hjmJ15zViKSeKakF5kk47QC7Wwk/5KI04pClqxrriLco9tsHwXeDbeYwE8/s0WudiIbeivGBDWXXMD3pQoSnxcmuLW1TKN3erq+D4zlSS+k1XhSWRr+EnXiVE92AVr9G1vkSMo2ojXsCIfaL0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=WUHFBjQY; arc=none smtp.client-ip=217.70.178.249
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
+	s=arc-20240116; t=1789548401; c=relaxed/simple;
+	bh=hiT4Z4U5wc9lMUDgyDFcbK9cMnOXVCnssOREf+uaALE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=rvAx0yEc5L902Caib9QNEataBXvgGlqOkRP7TqBpSQMjdH+qBnHvmX5TtfFMNg+fx9lj/KOY6dapdIR/X3NlAMU0YOkWtXEV/gC4IGXYV7GdPyjOHWxSzagmD74oRpM55kugOJg0kS76wcSGTfluGlAsIVbPDcHiMtPKd90Y1Qk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HKgt/sOA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="WUHFBjQY"
-Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net [217.70.183.196])
-	by mslow3.mail.gandi.net (Postfix) with ESMTP id 7717E582744
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 08:26:38 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 394883E9D6;
-	Wed, 16 Sep 2026 08:26:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
-	s=gm1; t=1789547190; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:  references:references;
-	bh=wRjr34jj7++KZjPe8ph6ml2ioy/xkv6jxMXjHoOskuA=;
-	b=WUHFBjQYRaH7VvjmSJHXVcqSxfBtI5Bbj140enQtxwyYR8kH/LbCr7ORjJlNsSacyrnXjf
-	1HG1H6GQ7uVLD0tfjwt8qm4nc+HgYAnUeFbGjcCWeFNn8m3XCEd4jP6SvquYIhe3utgJPQ
-	xsWJrOcqvvTdJVrpxnMd0udl1eWl7ll5QoQld4IMWR2A5VFT+sLNVIjrOPASlMHUuWII7A
-	swMwtU0oFQF3zOGsOLKRUma4KxnkBOOk7hPjkK/d4zUZChdTOpOyGXOzlDFMkcLb0tmBuL
-	k8aq7GHyB1hpoKy8TOjhCqkjX+1fNbADXIKcvzJYMi29brqQtom81rFlJC60nA==
-Date: Wed, 16 Sep 2026 10:26:28 +0200
-From: Arthur Crepin Leblond <arthur@marmottus.net>
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH net-next v8 3/3] w5100: detect carrier state using link
- status bit and optional interrupt
-Message-ID: <20260916082628.GA100127@marmottus.net>
-Reply-To: arthur@marmottus.net
-References: <20260915-wiznet-link-gpio-v8-0-d173622474cc@marmottus.net>
- <20260915-wiznet-link-gpio-v8-3-d173622474cc@marmottus.net>
- <20260916080754.A4FED1F0089A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HKgt/sOA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7164E1F000FF;
+	Wed, 16 Sep 2026 08:46:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789548399;
+	bh=MqBhuarjAqb9QqIG9sMHe87n2JU863qW/QxC1vvnwjU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=HKgt/sOAE123KfMWWWfp1hVo/njdgPy61cR9psE/xi88kXq4vFiGYsBpAaEQ899q7
+	 n+r+c0r+TdtPEnp7VYprS45Q9AxP6J/dm3lO2gcI9Muh5vraJ4uh5g7ApHBzaOgOSa
+	 hYVk9SRywflxctYijR9STbRVlHAxE4yRNwMw3K1F8rMykQby+jkMZvjMp8R4HFF+SS
+	 /fAY7rk4lYhxCHaxiU6euopxJUlTMOC5qd1pc8j8QEQd0ik7/hMeiJXVXzHJAK9YN0
+	 mjazCzkkkG6AnTe05xXTJORRmVdFoaeArjPEjtpEp8Kiuq2XMAEhsXY54NVUmFSGR6
+	 Mt6ot+AiCyG5g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 2/2] arm64: dts: freescale: imx8mp-verdin-ivy: fix
+ DIGI_1/DIGI_2 gpio-line-names
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Francesco Dolcini" <francesco@dolcini.it>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org, conor+dt@kernel.org, imx@lists.linux.dev
+In-Reply-To: <20260916084025.274229-3-francesco@dolcini.it>
+References: <20260916084025.274229-1-francesco@dolcini.it>
+ <20260916084025.274229-3-francesco@dolcini.it>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 16 Sep 2026 08:46:38 +0000
+Message-Id: <20260916084639.7164E1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20260916080754.A4FED1F0089A@smtp.kernel.org>
-X-GND-Sasl: arthur@marmottus.net
-X-GND-Cause: dmFkZTENTNQvFFcJsQHaRDGFTnpeeaD4kgCqLQhGqd/9+PCmMs/lVpKJwOBpbgVGDbFVSgo6rZnW7nozytMvGg9/A+pP3ZfGdzTPQXC5ljcd99G+mNXL+qRkST/sboCnAE+WvANJ84VrYqEoPsqlCT/lMlCSqN7rginmO7qEQ1dLVHACwwVtsQcOITxq9doXg6+NKl+eC0vvDvVN26O4KmBhrNqqQTRKBdZ/dldKdpkhK8kKvvS1uP/0s4b6NN5N1lFJykjeZmBGa8xcjHL5QG3iAk6U8/s85GX0qEx41w1sq7zE+kMmLyQIIAWJUX2ttu0K7dn2QBPS8ljW6wm7BjP/qVReFi2ZqqAMeR24DKS0ZfvAmMP9MOONW9Jq21n/5UsTr7a8+CrcbYKImJ00/rvXXCqR7TLJPcTVFzaC79PJyDUuzRbcD+OqwWayBF+iSPz0hD08K4cp73YiDvNrJOD4I3S5zWXZ79ibD3cREYUqcxNgEdPXmPa65/WUtDfThuY+qUIa8Au8iZY04Oh944X5KGAdceR+cR28OrSgybYdUF25ZnnAc3Qqc7cnpUR2zHN0ZjGgSg8SVa/+pORkwgWpZoPwihNETYizPnF6acU5eHvS/7vzqZobc3zOjOjbLZd7PuKlBq3AJ1ZUTVcWSKSXuZP9MpzurJ3l3Zxc2A+52o1f/w
-X-GND-State: clean
-X-GND-Score: 0
 
-On Wed, Sep 16, 2026 at 08:07:54AM +0000, sashiko-bot@kernel.org wrote:
->> @@ -820,14 +953,22 @@ void w5100_remove(struct device *dev)
->>  	struct net_device *ndev = dev_get_drvdata(dev);
->>  	struct w5100_priv *priv = netdev_priv(ndev);
->>
->> -	w5100_hw_reset(priv);
->> +	unregister_netdev(ndev);
->> +
->> +	cancel_work_sync(&priv->rx_work);
->> +	cancel_work_sync(&priv->tx_work);
->> +	cancel_work_sync(&priv->setrx_work);
->> +	cancel_work_sync(&priv->restart_work);
->> +
->> +	if (priv->link_irq > 0)
->> +		free_irq(priv->link_irq, ndev);
->> +
->>  	free_irq(priv->irq, ndev);
->
->[Severity: High]
->Does this code introduce a teardown race by canceling the work queues before
->freeing the interrupts?
->
->If the threaded interrupt handler (w5100_interrupt) is running concurrently
->during w5100_remove(), it could queue a new rx_work or tx_work immediately
->after cancel_work_sync() returns.
->
->Later in the teardown, destroy_workqueue() drains and forcibly executes all
->pending works. Since w5100_hw_reset() is called prior to destroy_workqueue(),
->could these newly queued works execute against a reset and uninitialized
->hardware state, potentially causing I/O corruption or kernel crashes?
->
->Should free_irq() be called before cancel_work_sync() to guarantee the
->interrupt handler has completed and no new works will be queued?
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Critical] dts: ABI breakage by renaming gpio-line-names on stable
+--
 
-Good catch and seems like it's the only issue you found! Let's see
-what Clashiko will find. I'll fix that in the next patch.
+commit 48f46109522a45af5619ecce5d2d589d31eef0e0
+Author: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-Arthur
+arm64: dts: freescale: imx8mp-verdin-ivy: fix DIGI_1/DIGI_2 gpio-line-names
+
+This commit renames the gpio3 line names from "DIG_1" and "DIG_2" to
+"DIGI_1" and "DIGI_2" to match the official carrier board datasheet. It
+also CCs stable for backporting.
+
+Link: https://docs.toradex.com/116799-ivy_carrier_board_datasheet.pdf
+
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-verdin-ivy.dtsi b/arch/=
+arm64/boot/dts/freescale/imx8mp-verdin-ivy.dtsi
+> index db1b4ee7728c0..bf021e85cfc94 100644
+> --- a/arch/arm64/boot/dts/freescale/imx8mp-verdin-ivy.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/imx8mp-verdin-ivy.dtsi
+> @@ -333,8 +333,8 @@ &gpio3 {
+>  		"",
+>  		"",
+>  		"",
+> -		"DIG_1", /* SODIMM 56 */
+> -		"DIG_2", /* SODIMM 58 */
+> +		"DIGI_1", /* SODIMM 56 */
+> +		"DIGI_2", /* SODIMM 58 */
+
+[Severity: Critical]
+Does this change break the userspace ABI?
+
+The GPIO line names are exposed to userspace and relied upon by tooling
+(like libgpiod). Because the old names ("DIG_1" and "DIG_2") have been
+present in the kernel for some time, userspace applications may already be
+using them.
+
+Fixing the datasheet discrepancy by renaming established userspace-visible
+names breaks these lookups. Furthermore, backporting this change to stable
+branches will actively break existing production systems.
+
+Is there a way to support the correct names without breaking existing users
+relying on the older strings?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916084025.2742=
+29-1-francesco@dolcini.it?part=3D2
