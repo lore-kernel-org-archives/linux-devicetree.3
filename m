@@ -1,115 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFC33347BC4;
-	Wed, 16 Sep 2026 22:05:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7A544AE13B
+	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 22:07:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789596365; cv=none; b=X6WXVdgULII3kP5B/K3o2EmFP/22XRKHJPyhyuqQfP15sShZi+Se038P4hq3ujx5TrbEivxjYnxMVr4zulj7Zvth/peHgv8zQYR64BFpsaOrQzaAt2gXP73TCKJjZ03qSznERyU19XGdW2haytnbJl4tWs2Y7O2lwZHsOpnxHXs=
+	t=1789596445; cv=none; b=dJfQtTqfbIow2NomDYF/BLOOVZG2CmqQbbx84WdfGFqoe01K5YaZrz3MOn3iWg4e7Nh8lXm4+Vud2vA9dvxKXcGQWlj+/D61xlV/1cchaLx5bStFUHg2ItgEG64EMK+iz5eMXKa4kTfrHVdIp/lcX1umTGlRPCTtPKQgWMeeLE0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789596365; c=relaxed/simple;
-	bh=Xb4MKcnaALu2Rd/YZIsSOYVPfGEWIQJNk4HWg4lMdaw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=N3qqeDi17AbYX8axaJPMbt7tibOhRy/+x/2QYuManFjeFDusTaPk4/4H05reRaK3V84Lkv+q2blsw/7kYDimP/H8U77R6yW9JeQFXw4VCIQtRQYLJ255ibApxQxcxBRYFaHjmSKqohcHTHki5pDws3165YDXSpl/ANSwwZEGBq0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=djcfwnSa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789596445; c=relaxed/simple;
+	bh=lt3BikJB93Zkg8UHHA0fVUsHS8vy+oVkjtAS1xezz34=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PJ4HvWh9zYWjS8MJoVsfD4M7eT2DetFK3uPYamgORip1GYspwS/qG0Qb22fE+j5zNy572sBG7l2VwDfcIzQ9BJfLcKNazTI/o0h5IdZUlLZMn2qIhIrykxsbK1v8vLZ0P4Xr+ZgEtH1xThGnzDO9K4HZ0jK71d7YxQKDTLG5MaE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=P8cuQDqc; arc=none smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="djcfwnSa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A08551F000FF;
-	Wed, 16 Sep 2026 22:05:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789596354;
-	bh=+12P79pT3iD9dGsIfn0ExlhQE/WvzcLpi21fFxB7ZUQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=djcfwnSaNN2sB1JenlgMwVl/UH/ObokPVO9OZdSla0LSlTgmcexdAr0/88piCjcqp
-	 PguO0EV6EjzRb0TuGlu5ACblIXunSSGXH5kCVsAQiBc/h4w1+SxFDXmfXFvMTWv4rO
-	 2wIPdtdNd2o1gi1Ev34JxAuCI1Xk5vGOalqXWRi8bvTFPpNEad3aW0Uv1DQdq9hEn+
-	 Gz/sdiOzJS5pub0t8bjNpuJAJr8iWXzT40ixCuTdMCGu/5wPeVtEoxECpTqzTeIKBg
-	 568Lohg22hj0Y+mNhDghIlRA6BgoGSh5usD2ri7JiC23BBHgchg8ssCHPfTM84HkLl
-	 jNuMJQRD9cWOA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 10/12] remoteproc: imx_rproc: always use
- non-blocking mailboxes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Francesco Valla" <francesco@valla.it>
-Cc: Frank.Li@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, "Michael
- S. Tsirkin" <mst@redhat.com>, virtualization@lists.linux.dev, imx@lists.linux.dev, "Eugenio
- Perez" <eperezma@redhat.com>
-In-Reply-To: <20260916-remoteproc_virtio_map-v1-10-dac8c5eb4aa9@valla.it>
-References: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
- <20260916-remoteproc_virtio_map-v1-10-dac8c5eb4aa9@valla.it>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 16 Sep 2026 22:05:53 +0000
-Message-Id: <20260916220553.A08551F000FF@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="P8cuQDqc"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a996c8adf3so420824a12.1
+        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 15:07:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1789596432; x=1790201232; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bRx2j1EfmgsLJaRhKgwq7WbmeY6pd50RmhdABMQZV3M=;
+        b=P8cuQDqcdLgxvB/k4fnsPuJf6rZeriFLX6hSwdl5x8/MCWrQORfKyhPpas+RhAJZbI
+         82qYEQO3cqMVPVqtGI/g/YMvApkaHIdCddTlbDTUBDUifRUya6Koldaq8D0KyIdERRyS
+         3eFeO0wv30j7EF5wqCliCO8XKwZokGCFhvpE8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789596432; x=1790201232;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bRx2j1EfmgsLJaRhKgwq7WbmeY6pd50RmhdABMQZV3M=;
+        b=jYTjQ5Mftq0RKYTOuRvj7RRD51OJpHzxHrdRl9n6KqKKaMJtinlullnYPPwAHuZsZl
+         iJwPtQL04eGk66mTdnA+0pbQv4asqBTkeY38TiQzsuNgHLFCoXrx8RM/I8HPBAsVtPWn
+         ErQ9UC2hvJC5PXL1g49jVgr7UoVjFY88SD1v5NC84qguO0KPY5ADPxQEyDuJrT01vWI2
+         gs+AeoVsDr4ZOCumSP6FnwNjpM3NhyNglevx8QSuDrutrtb8YEvwa4aj6iNGOsDCMXtL
+         rEDEcbz8q9bBBh2gKYWpwcVSzbowtqbIzHsLFRo8lECfxxPOx8VF009m9qC0rw/ZUG4E
+         MKNg==
+X-Forwarded-Encrypted: i=1; AKwUvBydmqGReker7AjrxuWIb9qHLHJSm5FraqRAEVi4Yc8RWuWJYqhp4b+bGCcO7qu4Vd1OVfjKUtS+Xg84@vger.kernel.org
+X-Gm-Message-State: AFuF++k3MtEjyhfXk5h/f/RvpT/WG/S6D/5xry7Cc4Ifd65nVRnov4Bw
+	SmWWqENnQ4JFofRExWp1RD7D8aO6WtQrqkNSLvUDEsfpMKcJrhNMFvCYRNQSqIGe+HACUAoIvPo
+	vFbE=
+X-Gm-Gg: AYBFou3nbmvAOmcT/W+t/6V+RoDigVNa7UHP8JZWtZUffaOs4tlR4H1XE6103mxwZpc
+	zRHDnnm4y8VsncWOlB3CXMMP6VfJuRzNsoFBtjU5LybCH4Qip8tNMV82Ogl6nFcFKgRHsD9rYQd
+	6qhKRovfP9KQNWcGTWO3cWp+btzG18XAqQ1iQCptBbKrWP1tduGLEpMcYL+SfHidfjiKg++7EVS
+	pcPZto3T/9kdLTtOxzz6iafIMCT3R/hSgGIOOCJd8IhCY0U9JUe6mnC3hY7/YrkNHjo82jfWjrd
+	K9+DxgKzCCBcVoQstU7+W0Ai9lwqyWmIuTkCDMPN3ZOO2L6TIea+M9dA2V2R1nNEnKDVOTEgqB8
+	4a3ntCXN9Y5jEdstQIZdaf8/7cUp8WdAhktLBlIp+KShd79L4J/3ZRGzlNpCgiojt+/10xeKLwH
+	BuB0MogXm8Li6k5jJ2DZllKtCqNcHCSQ2MZTN0+nobLu7d8tPoqA9Yhb3T8KZFyEhU1SqeZwqwd
+	UmkfXye9jFdAG6SjY52DnEeN/2woxMJSYksUGo=
+X-Received: by 2002:a05:6402:a0cf:b0:6a9:cd42:eeae with SMTP id 4fb4d7f45d1cf-6aa224192damr5942733a12.15.1789596432357;
+        Wed, 16 Sep 2026 15:07:12 -0700 (PDT)
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com. [74.125.225.141])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa1cfe037esm2653796a12.1.2026.09.16.15.07.10
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 16 Sep 2026 15:07:11 -0700 (PDT)
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d37b5so1276035e9.2
+        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 15:07:10 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzDsRLZBNHVoLz5m5Q4WUrohE0HK2c190QIoQIXwoRbDz09vHaTC0S3Up0flO5HiSru904PjQf8GAI1@vger.kernel.org
+X-Received: by 2002:a05:600c:3b0c:b0:49f:bc28:e8b1 with SMTP id
+ 5b1f17b1804b1-49fbc28e978mr56379705e9.14.1789596429113; Wed, 16 Sep 2026
+ 15:07:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260916155730.2077434-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260916155730.2077434-1-vulab@iscas.ac.cn>
+From: Doug Anderson <dianders@chromium.org>
+Date: Wed, 16 Sep 2026 15:06:57 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=WU7yOQWBW4SEMcHTwXxvNTMqO4P0DABaeQ6mBw7h=+Bw@mail.gmail.com>
+X-Gm-Features: AcwNN1W4bKNukAgg1BwCpMhcUy96SsDz__HwTsvy2JJtukIrTrTDwRV8nOIqNGU
+Message-ID: <CAD=FV=WU7yOQWBW4SEMcHTwXxvNTMqO4P0DABaeQ6mBw7h=+Bw@mail.gmail.com>
+Subject: Re: [PATCH] i2c: of-prober: Fix device node reference leak in i2c_of_probe_simple_enable()
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: andriy.shevchenko@linux.intel.com, angelogioacchino.delregno@collabora.com, 
+	devicetree@vger.kernel.org, linux-i2c@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, wenst@chromium.org, 
+	wsa+renesas@sang-engineering.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] remoteproc: stack use-after-free in imx_rproc_kick() due to non-bl=
-ocking mailbox
---
+Hi,
 
-commit c47129240ff337ab849e03d40342b679177d2bcf
-Author: Francesco Valla <francesco@valla.it>
+On Wed, Sep 16, 2026 at 8:58=E2=80=AFAM Wentao Liang <vulab@iscas.ac.cn> wr=
+ote:
+>
+> of_get_compatible_child() returns the child node with an incremented
+> reference which the caller must drop with of_node_put(). The error
+> paths release it via the out_put_node label, but the success path
+> returns without doing so, leaking the node reference.
+>
+> Release the node before returning success.
+>
+> Fixes: 897261149d25 ("i2c: of-prober: Add simple helpers for regulator su=
+pport")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>  drivers/i2c/i2c-core-of-prober.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/i2c/i2c-core-of-prober.c b/drivers/i2c/i2c-core-of-p=
+rober.c
+> index 6a82b03809d4..603de487ee2d 100644
+> --- a/drivers/i2c/i2c-core-of-prober.c
+> +++ b/drivers/i2c/i2c-core-of-prober.c
+> @@ -354,6 +354,7 @@ int i2c_of_probe_simple_enable(struct device *dev, st=
+ruct device_node *bus_node,
+>         if (ret)
+>                 goto out_disable_regulator;
+>
+> +       of_node_put(node);
+>         return 0;
 
-remoteproc: imx_rproc: always use non-blocking mailboxes
+Sure, looks fine. I guess alternatively we could use
+'__free(device_node)' for cleanup, but it doesn't seem critical to me.
 
-This commit changes the imx_rproc mailbox to non-blocking mode to prevent
-sleeping during kick operations, aligning the behavior with other remoteproc
-drivers. It also removes the close-reopen action on the mailboxes during
-restart and shutdown.
-
-> diff --git a/drivers/remoteproc/imx_rproc.c b/drivers/remoteproc/imx_rpro=
-c.c
-> index 745ce52cd8226..100440328f92e 100644
-> --- a/drivers/remoteproc/imx_rproc.c
-> +++ b/drivers/remoteproc/imx_rproc.c
-[ ... ]
-> @@ -877,7 +877,7 @@ static void imx_rproc_rx_callback(struct mbox_client =
-*cl, void *msg)
->  	queue_work(priv->workqueue, &priv->rproc_work);
->  }
-> =20
-> -static int imx_rproc_xtr_mbox_init(struct rproc *rproc, bool tx_block)
-> +static int imx_rproc_xtr_mbox_init(struct rproc *rproc)
->  {
->  	struct imx_rproc *priv =3D rproc->priv;
->  	struct device *dev =3D priv->dev;
-> @@ -900,7 +900,7 @@ static int imx_rproc_xtr_mbox_init(struct rproc *rpro=
-c, bool tx_block)
-> =20
->  	cl =3D &priv->cl;
->  	cl->dev =3D dev;
-> -	cl->tx_block =3D tx_block;
-> +	cl->tx_block =3D false;
-
-[Severity: High]
-With the mailbox permanently changed to asynchronous/non-blocking mode,
-mbox_send_message() will now return immediately without waiting for
-transmission to complete.
-
-Does this cause a stack use-after-free when the remote processor is kicked?
-Looking at imx_rproc_kick():
-
-static void imx_rproc_kick(struct rproc *rproc, int vqid)
-{
-	...
-	__u32 mmsg;
-	...
-	mmsg =3D vqid << 16;
-	err =3D mbox_send_message(priv->tx_ch, (void *)&mmsg);
-	...
-}
-
-Because mmsg is allocated on the stack, queuing its pointer for asynchronous
-transmission means the mailbox framework could dereference the pointer and
-read garbage from the destroyed stack frame after imx_rproc_kick() returns.
-This could crash the remote core or disrupt IPC.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916-remoteproc=
-_virtio_map-v1-0-dac8c5eb4aa9@valla.it?part=3D10
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
