@@ -1,133 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 112195013DC
-	for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 10:39:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 806C2509EE9;
+	Wed, 16 Sep 2026 10:40:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789555176; cv=none; b=fVd/EqJwSrRKqTTqGYHqRTG4pxtLHmHz8GV7e9fTntUx7CQ51IWvy5AsHKuTtXDvJad3V27C6rs2J05r864rqKnQkFiKxlBjw4sZVefFpZMtLvlv5zcSlTlIiis+Q59toAuh7Sdbo/Zlb7oBa4SK8LRWrrmIKDzSjVCuDp3jsbg=
+	t=1789555245; cv=none; b=hCWzndwQ2fnwhHDNKtL3GSZ9ZNtSvynIXBmpbc4yOF5vL8r9+hIthBqA8eBNhG4XG6YShaJysiF7fLqNSsKTODnjAHAJD2dq8FYWx1UWH4aCag71y8LegqNIzRWB6PAVFTTm4bJtZBVl9EuhpnifKSoRpTNrqbLHDfCop9eNsDc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789555176; c=relaxed/simple;
-	bh=spCcr8A3J1IHE28rMQSo4+59b+cmb8+5s6mbpo5V+88=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=UvX4iWS5ym9z2nnZVfC4CHcZxVBMtHL36fPTGdcWIjpoxLbrZTo+qVOtcvf1rhSCIzZXRh8pRv/V2kjei9GyCDfJxj/4u3ldY/6Q0KUIcNi4UMxMNnK0HRY7+/ghBWp36tJoWtqSR659PBL83SXfQLoZaOhNhbc0uBzRbvp5FEk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OR2pjRqG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789555245; c=relaxed/simple;
+	bh=bUzQfBbOZx7f9CRQPL7XkxlUw5vcP0mP4sWMPbyYgQk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=me7kXJX/kV1YQcTlczzsQY+KF0eAskG3zcKeFBfUcV03WbRwCfH6RCtMsffFC82eDHETgXE7hkiA/Os1BTn/A5FlLaX+q88wSrxW0oL8wQLTJkzMh3wXpj+67VUZ4/itsvO7KiKIF5eAtDfXgm4xh/iz4eHOZN2KwjYEU58/F+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=t6SCR7lz; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OR2pjRqG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6A781F0089D;
-	Wed, 16 Sep 2026 10:39:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789555160;
-	bh=xXuF4ts6C5rRFSmgXBKj7pP5DmLJ7pInvJEhHuliPdY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OR2pjRqGOi3ZaNc5R3RaqiVDf4toKqbxT2dlhfPm3KdPJV0njjLbgq0rzyBDuDaMw
-	 ajqTRT7M8X4fqOWhPCor/zG6CxYkbbqUsUayNULgT1XcQx7PMfJ9JmfoLwpH+cm3XD
-	 n6jmFNwThsJPLmhYWen3598ejs89RbVL1aCAoftvKkqS6Zv/GlDKVyh4uLverNxT+K
-	 KgRTSUD0/AcI/qZt7mVHu949EOVpZD8u2EsKgq6xAthN577FiEULACLrvszkIJrh4n
-	 NJ6QIYoLeLKQTMEl79IoZi0aNvk/vBtIgxDkPI4+SwdVcyv9xXV4Y2ShgxvBO3PXYd
-	 LJIfmrqF/s0fA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/4] arm64: dts: qcom: qcs8300: Add qref and refgen
- supply for PCIe PHYs
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ziyue Zhang" <ziyue.zhang@oss.qualcomm.com>
-Cc: olteanv@gmail.com, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org
-In-Reply-To: <20260916102023.2054761-4-ziyue.zhang@oss.qualcomm.com>
-References: <20260916102023.2054761-1-ziyue.zhang@oss.qualcomm.com>
- <20260916102023.2054761-4-ziyue.zhang@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 16 Sep 2026 10:39:19 +0000
-Message-Id: <20260916103919.B6A781F0089D@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="t6SCR7lz"
+Received: from francesco-nb (xcpe-178-82-167-143.dyn.res.sunrise.net [178.82.167.143])
+	by mail11.truemail.it (Postfix) with ESMTPA id 80A961FF4C;
+	Wed, 16 Sep 2026 12:40:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1789555222;
+	bh=0WSBopwb4Cb9HOoO/hMWiA+bgd04ZQBQSPMNhoyBkfQ=; h=From:To:Subject;
+	b=t6SCR7lzzUCi5mNNqwzPk74gVaCxDHMnqjLPHLI4Au1//cCfHM8pjZw5XBx/FqBia
+	 QNZm6hJkpTraDX1TCEqO/23QWLUWaEwIMfrjsspW7z9ubI1ALtyjCae1kgpeVslMBj
+	 rJ92jzetF9OpnkOrXX08FCtZg7AdgRDCi28j9/FdHaekVH8WceteXjmY53RpVHLIB7
+	 AarH47CQejXFLprU7RZy2UM1/WOzTf/u5vgo6n1HZgZNTwT4Q5J4j93uo7Quaxa3ws
+	 VVumQuMiH4tD3C8qw5E6U6tv0SZUSJ2bs88zjPUWnxdQVanWU5Fhps8YCzMFWf7LmU
+	 SKWWu/FHoNknQ==
+Date: Wed, 16 Sep 2026 12:40:17 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Markus Schneider-Pargmann <msp@baylibre.com>
+Cc: Francesco Dolcini <francesco@dolcini.it>, Nishanth Menon <nm@ti.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Tero Kristo <kristo@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>, Judith Mendez <jm@ti.com>,
+	Daniel Schultz <d.schultz@phytec.de>, Andrew Davis <afd@ti.com>,
+	Siddharth Vadapalli <s-vadapalli@ti.com>,
+	Paresh Bhagat <p-bhagat@ti.com>, Bryan Brattlof <bb@ti.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	Devarsh Thakkar <devarsht@ti.com>, Beleswar Padhi <b-padhi@ti.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	Stefano Radaelli <stefano.radaelli21@gmail.com>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Vishal Mahaveer <vishalm@ti.com>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Sebin Francis <sebin.francis@ti.com>,
+	Kendall Willis <k-willis@ti.com>, Akashdeep Kaur <a-kaur@ti.com>,
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
+	Hari Nagalla <hnagalla@ti.com>
+Subject: Re: [PATCH v8 9/9] arm64: dts: ti: Add wkup R5F nodes to pre-ram
+ bootphase
+Message-ID: <20260916104017.GA284106@francesco-nb>
+References: <20260903-topic-am62a-ioddr-dt-v6-19-v8-0-74c650dfdea6@baylibre.com>
+ <20260903-topic-am62a-ioddr-dt-v6-19-v8-9-74c650dfdea6@baylibre.com>
+ <20260911052428.GB5377@francesco-nb>
+ <DLGNWF2DSXZI.7WRJZRZLGW8@baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DLGNWF2DSXZI.7WRJZRZLGW8@baylibre.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] pcie: probe failure on SA8775p due to unconditionally required QCS=
-8300 workaround regulator
---
+On Wed, Sep 16, 2026 at 12:17:42PM +0200, Markus Schneider-Pargmann wrote:
+> Hi Francesco,
+> 
+> On Fri Sep 11, 2026 at 7:24 AM CEST, Francesco Dolcini wrote:
+> > Hello Markus
+> >
+> > On Thu, Sep 03, 2026 at 02:39:30PM +0200, Markus Schneider-Pargmann (TI) wrote:
+> >> For IO+DDR the wkup_r5fss0_core0 and the
+> >> wkup_r5fss0_core0_lpm_metadata_region need to be accessed before RAM
+> >> setup is done. These are used to read the lpm metadata region in
+> >> which data is stored to resume. This needs to be done before RAM is
+> >> in use to avoid overwriting data.
+> >> 
+> >> Add the bootph-pre-ram flag to the wkup_r5fss0_core0 node in both
+> >> ipc-firmware dtsi files and to the lpm metadata region nodes of the
+> >> AM62A and AM62P boards.
+> >> 
+> >> The board level bootph-pre-ram flag of k3-am62d2-evm.dts becomes
+> >> redundant with the dtsi-wide flag and is dropped.
+> >> 
+> >> Signed-off-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
+> > ...
+> >
+> >> diff --git a/arch/arm64/boot/dts/ti/k3-am62p-verdin.dtsi b/arch/arm64/boot/dts/ti/k3-am62p-verdin.dtsi
+> >> index 45ab9d947b3a..8976c0424cd1 100644
+> >> --- a/arch/arm64/boot/dts/ti/k3-am62p-verdin.dtsi
+> >> +++ b/arch/arm64/boot/dts/ti/k3-am62p-verdin.dtsi
+> >> @@ -184,6 +184,7 @@ wkup_r5fss0_core0_lpm_metadata_region: memory@9ca08000 {
+> >>  			compatible = "shared-dma-pool";
+> >>  			reg = <0x00 0x9ca08000 0x00 0x1000>;
+> >>  			no-map;
+> >> +			bootph-pre-ram;
+> >>  		};
+> >
+> > verdin-am62p has the various bootph tags only in the U-Boot dtsi
+> > (k3-am62p5-verdin-wifi-dev-u-boot.dtsi) as of now, I am not convinced it
+> > is a good idea to just add this single one here.
+> 
+> I don't see any bootph-* flags for any of the related memory regions in
+> k3-am62p5-verdin-wifi-dev-u-boot.dtsi. Is it in a different dtsi?
 
-commit 1c7a11beac9080a5affb060c2f0b8c2011ce109b
-Author: Ziyue Zhang <ziyue.zhang@oss.qualcomm.com>
-Subject: arm64: dts: qcom: qcs8300: Add qref and refgen supply for PCIe PHYs
+What I meant is that any bootph- property is in
+arch/arm/dts/k3-am6p25-verdin-wifi-dev-u-boot.dtsi 
 
-This commit adds vdda-qref-supply and vdda-refgen-supply to board DTS files=
- and
-refgen-supply to the SoC DTSI for QCS8300 due to hardware requirements for
-stable operation. It also updates the driver to vote for refgen as a
-workaround for a QCS8300 hardware issue.
+And I would not start adding spreading this in 2 different places.
 
-> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c b/drivers/phy/qualc=
-omm/phy-qcom-qmp-pcie.c
-> index da83358c97ead..ab81c6e584a84 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c
-> @@ -4094,6 +4094,10 @@ static const char * const sm8550_qmp_phy_vreg_l[] =
-=3D {
->  	"vdda-phy", "vdda-pll", "vdda-qref",
->  };
-> =20
-> +static const char * const sa8775p_qmp_phy_vreg_l[] =3D {
-> +	"vdda-phy", "vdda-pll", "vdda-qref", "vdda-refgen", "refgen",
-> +};
-> +
+Francesco
 
-[Severity: High]
-Does this unconditionally require the refgen supply for any configuration
-using sa8775p_qmp_phy_vreg_l in drivers/phy/qualcomm/phy-qcom-qmp-pcie.c?
-
-According to the DT bindings, refgen-supply is a hardware workaround requir=
-ed
-only for QCS8300, and SA8775P device trees correctly do not define it.
-
-When qmp_pcie_vreg_init() calls devm_regulator_bulk_get() on SA8775P boards,
-it will fail to find refgen, which will abort the PHY probe and completely =
-break
-PCIe functionality on SA8775P.
-
->  /* list of resets */
->  static const char * const ipq8074_pciephy_reset_l[] =3D {
-[ ... ]
-> @@ -5324,8 +5328,8 @@ static const struct qmp_phy_cfg sa8775p_qmp_gen4x2_=
-pciephy_cfg =3D {
-> =20
->  	.reset_list		=3D sdm845_pciephy_reset_l,
->  	.num_resets		=3D ARRAY_SIZE(sdm845_pciephy_reset_l),
-> -	.vreg_list		=3D qmp_phy_vreg_l,
-> -	.num_vregs		=3D ARRAY_SIZE(qmp_phy_vreg_l),
-> +	.vreg_list		=3D sa8775p_qmp_phy_vreg_l,
-> +	.num_vregs		=3D ARRAY_SIZE(sa8775p_qmp_phy_vreg_l),
-
-[Severity: High]
-Will the sa8775p_qmp_gen4x2_pciephy_cfg configuration incorrectly inherit t=
-he=20
-requirement for the QCS8300-specific refgen supply by using this shared lis=
-t?
-
->  	.regs			=3D pciephy_v5_regs_layout,
-> =20
->  	.pwrdn_ctrl		=3D SW_PWRDN | REFCLK_DRV_DSBL,
-[ ... ]
-> @@ -5365,8 +5369,8 @@ static const struct qmp_phy_cfg sa8775p_qmp_gen4x4_=
-pciephy_cfg =3D {
-> =20
->  	.reset_list		=3D sdm845_pciephy_reset_l,
->  	.num_resets		=3D ARRAY_SIZE(sdm845_pciephy_reset_l),
-> -	.vreg_list		=3D qmp_phy_vreg_l,
-> -	.num_vregs		=3D ARRAY_SIZE(qmp_phy_vreg_l),
-> +	.vreg_list		=3D sa8775p_qmp_phy_vreg_l,
-> +	.num_vregs		=3D ARRAY_SIZE(sa8775p_qmp_phy_vreg_l),
-
-[Severity: High]
-Could the sa8775p_qmp_gen4x4_pciephy_cfg configuration also be affected by
-this requirement through the shared list?
-
->  	.regs			=3D pciephy_v5_regs_layout,
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916102023.2054=
-761-1-ziyue.zhang@oss.qualcomm.com?part=3D3
