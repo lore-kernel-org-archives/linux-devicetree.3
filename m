@@ -1,88 +1,94 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AEC14B95A9;
-	Wed, 16 Sep 2026 15:58:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E79A9463B89;
+	Wed, 16 Sep 2026 16:00:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789574299; cv=none; b=VtfYKg9SVnAg4Z81sqlFMJPdItidQ4/4Px5SaLPjzY7JTIL8rGdxvszitURE5/9SKgDOJ6KNsL1Mh1+2DdJOtfEbRXYLWGZszUSe+xXbmJZE4zODdWWckaYiaOsIWaikBca21j9kkvnbMrVlN6IEdi0iRMQtsMdsnNvEnsAM6b8=
+	t=1789574434; cv=none; b=HRorgyxm0GWXT0wNHRXQPymM2E9EGBZZI6se33lGdHB1lnyg1VWMVXVHXeYlX5mKU1K6w0OeTUe+NZQbvBj56IONbEOOisj9xYp1HBNfo7Yqg3tKzIqpVjILTDTPflmXUBw7EZDfCp5HZv7pchnpU6SkD1JYv94QK8rS8q6Jbes=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789574299; c=relaxed/simple;
-	bh=p9N+srUYbPMnc0pluftk0ipj2NRLcleMzvs5Kew1GNA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=nlSNaVru5s53+DfzguKhGK9TXiFwJfZObPWl0ZLP9fCDcdhi030mxQ2dBaRyLZEzCWytbii7siUmGhhyfqWtmey+bE1HiTCTUOc2cB5BHesVckQEwYPxJzpJ9ahI7QHRv+JC7n3z4Yq+W3ydwJQfJBfG/y5ICp8PTVrlBOgnMB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAD3J0KFvKpqkEBtCA--.21786S2;
-	Wed, 16 Sep 2026 23:57:57 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: andriy.shevchenko@linux.intel.com
-Cc: angelogioacchino.delregno@collabora.com,
-	devicetree@vger.kernel.org,
-	dianders@chromium.org,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	wenst@chromium.org,
-	wsa+renesas@sang-engineering.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] i2c: of-prober: Fix device node reference leak in i2c_of_probe_simple_enable()
-Date: Wed, 16 Sep 2026 15:57:30 +0000
-Message-Id: <20260916155730.2077434-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789574434; c=relaxed/simple;
+	bh=JSJRxy1ff5Wxo8AgsZLPdjck0U4/HiK7NpCm9ikDttc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cTdliBchkftUVNgHwTe7rLCtGP22y8+FW8IXV3wukXbP51Db56vC/zunhR64PZxFBhNo4G55zX5ZMfL6OvhLWb44zJ7WbeFWZNvuGBa0qPQUst7QDwMLY+FvQWcNsttr+KD+fvMpUaJ6BGlVjQS2d3/08FLaKpMNb5CpH5KHf40=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I12MTJOT; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I12MTJOT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C11E41F000FF;
+	Wed, 16 Sep 2026 16:00:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789574427;
+	bh=tXUO3hhV/BcO6ha7fR2Plj/MRzQoCVi1BPi8atnSIQU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=I12MTJOT66US23SmiJO/WTr6I7ThRFkI8hLhlaahj6gJ6L9WhZk3MDfMGc+1jg0kC
+	 WWV7G2wAEngHUTkZsLx/tbAu4Crog7wX7pOvjYxZn6wfnrg9qnIGfoGiPSXAVaUVdK
+	 G+gC+3F73J3d+QyILDA3tHpz9VA/26FaVjDt5dfsaRstHAQ3c4zMpLgajgOqnATwoo
+	 9RJ/37zvHLA9VL5Gq36Ou2VAMG2QXPT6J86+Ywufd44l/7KAtweIWIK1Io1FNh8Y+U
+	 CeCgFEr0ZRCgLtwHKm+OHO3pvOtZc1oTBWvssOUcR6fjUrAENtFIq7FdcZ/V61egvH
+	 70Y6H1+NHUeKA==
+Date: Wed, 16 Sep 2026 11:00:25 -0500
+From: Rob Herring <robh@kernel.org>
+To: Marcelo Schmitt <marcelo.schmitt@analog.com>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux@analog.com, jic23@kernel.org,
+	nuno.sa@analog.com, dlechner@baylibre.com, andy@kernel.org,
+	Michael.Hennerich@analog.com, krzk+dt@kernel.org,
+	conor+dt@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org,
+	marcelo.schmitt1@gmail.com
+Subject: Re: [PATCH v2 09/15] dt-bindings: iio: adc: adi,ad4134: Document SPI
+ connection mode
+Message-ID: <20260916160025.GA382310-robh@kernel.org>
+References: <cover.1789494473.git.marcelo.schmitt@analog.com>
+ <304d10f12a3418fbd5598160609a6eda09ed4100.1789494473.git.marcelo.schmitt@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAD3J0KFvKpqkEBtCA--.21786S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrZFWDZF4fKF45Ar1DuFWDXFb_yoWDXwbEkr
-	1xuasrXrWDCrsxZwsxuFZxZr9xKF1jgay8Jr4xta43J342kF43GFnxAr93Z3yUZF4DKF1D
-	Ww1kur4xu3WfXjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbaxFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
-	Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
-	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
-	jxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
-	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
-	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
-	zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr
-	1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
-	JF4lIxAIcVC2z280aVAFwI0_Cr0_Gr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Cr1j6rxdYx
-	BIdaVFxhVjvjDU0xZFpf9x0JUJWrAUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwUMA2qqpVg55wABsv
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <304d10f12a3418fbd5598160609a6eda09ed4100.1789494473.git.marcelo.schmitt@analog.com>
 
-of_get_compatible_child() returns the child node with an incremented
-reference which the caller must drop with of_node_put(). The error
-paths release it via the out_put_node label, but the success path
-returns without doing so, leaking the node reference.
+On Tue, Sep 15, 2026 at 04:14:44PM -0300, Marcelo Schmitt wrote:
+> Document how AD4134 chips are connected to the host SPI controller
+> according to different wiring configurations.
+> 
+> Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
+> ---
+> Change log v1 -> v2:
+> - Set default for adi,spi-mode property.
+> - Added '#daisy-chained-devices' property.
+> - Documented constraints for adi,spi-mode + #daisy-chained-devices combinations.
+> 
+>  .../bindings/iio/adc/adi,ad4134.yaml          | 51 ++++++++++++++++---
+>  1 file changed, 44 insertions(+), 7 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+> index ea6d7e026419..012e09decf7a 100644
+> --- a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+> +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+> @@ -131,6 +131,26 @@ properties:
+>      enum: [ free-running, gated ]
+>      default: gated
+>  
+> +  adi,spi-mode:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    enum: [ no-cs, 4-wire, one-channel-chain, two-channel-chain ]
+> +    default: no-cs
+> +    description: |
+> +      This property indicates the SPI wiring configuration.
+> +      * no-cs: The datasheet calls this "minimum I/O mode". In this mode, the CS
+> +        line is not used (tied to GND).
+> +      * 4-wire: Specifies a conventional SPI wiring configuration.
 
-Release the node before returning success.
+Absence of this property should be conventional mode.
 
-Fixes: 897261149d25 ("i2c: of-prober: Add simple helpers for regulator support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/i2c/i2c-core-of-prober.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/i2c/i2c-core-of-prober.c b/drivers/i2c/i2c-core-of-prober.c
-index 6a82b03809d4..603de487ee2d 100644
---- a/drivers/i2c/i2c-core-of-prober.c
-+++ b/drivers/i2c/i2c-core-of-prober.c
-@@ -354,6 +354,7 @@ int i2c_of_probe_simple_enable(struct device *dev, struct device_node *bus_node,
- 	if (ret)
- 		goto out_disable_regulator;
- 
-+	of_node_put(node);
- 	return 0;
- 
- out_disable_regulator:
--- 
-2.34.1
-
+> +      * one-channel-chain: In this mode, the DOUT0 line of one chip is connected
+> +        to DOUT2 of the next chip upstream in the chain. Only the data interface
+> +        of the upmost device in the stream is in direct connection with the
+> +        digital host.
+> +      * two-channel-chain: In this mode, the DOUT0 and DOUT1 lines of one chip
+> +        are respectively connected to DOUT2 and DOUT3 of the next chip upstream
+> +        in the chain. Only the data interface of the upmost device in the stream
+> +        is in direct connection with the digital host.
