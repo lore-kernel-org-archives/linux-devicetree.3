@@ -1,71 +1,107 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C41484E4314;
-	Thu, 17 Sep 2026 12:07:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6916C4E06D9;
+	Thu, 17 Sep 2026 12:07:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789646839; cv=none; b=a1Jup0vwIzFsYr4z/J7cdC3/Tk6pNJ/0pvUopPjK7KnXPDzsFXDNDCnJTc1N5NgVI/pG8N2jbQi6YzOrq/g3BeJUd7Ne4hkUqz9oN/xPaD348HS/BKBqhep5E7zl3wYXO/mRGTVU6qHe5NLB2b600FG3hHSM0DWgGv5+zNXJbr0=
+	t=1789646883; cv=none; b=Aqf9CTAJ0nJr0iNeON2EkRvC1RjKeEFwJYiTPG3a5+ObnzQfEHYQzB6F70pw1lEzLhLWjEOUD+Z3v1tEKOzcy9GazCTC4DM8QPQ7mpcc+uFmsfIeUOPth7dNk4eCgyw2xA+t18c+/cz0x67sRZ1aKguP+7wKqgw2pCkzcUuRasA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789646839; c=relaxed/simple;
-	bh=+N/xA6uppH+jcnCFHQTy2mmbhw5VGAyrd3eBpNbthIk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TEelBngQEtwOGZBFMygwKuwD2RMyPxkYb+vpYaugiiDw8GVoiMBmQI4v3WeqOGM+84R8q0xDSu/Ll3VG9h1LYC+zGkF7BjhFGCtiY858nZ6cBRV/GWWIBMVRXeC2G6oWUY5RLA1etlQhY7DvpaegNS0I5XxgnqkvCyzFEMJKE1s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=Cje0W705; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1789646883; c=relaxed/simple;
+	bh=nxSNZhdIMgwAZC7IF+OIrxWertJoTZXLhFAyzs3PCgI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=UQJWRphO7gZWcvZoyTrbIeqBeLrC5Fx4S8D4Vg/yAob9sw9XKnRBhDjoUxoAqi+hegn8O0I8+/Jz4zmA64EwFWnGjihFRgfNhXMatEoCoz8dKE91DvmRWWT449vHWgFASXg0HS99x5qeO08DWidJwJEg62JMMcgQARHdZ8WyOcE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AM82i5C1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="Cje0W705"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=DH0OYKtGSUlylYcDmv61Bdop+K5RL/tkGG+cpn5RDUI=; b=Cje0W705n30oEkgLv9O91hfRxU
-	Kvx1U1ZvIjcrwycRguaBZUmBDmo7+T8hsSLepWkInQtsvMl95IJ+Z58Ieh6xHfdJD87nSH5dSsNQB
-	WjlDxnFHTQbaY0Gqw3ZX4ypNQFZgqj1uVXYeYJLmLxFawhBfhIkSAhc8idYt+S2l0OoM=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x7At7-005fOp-91; Thu, 17 Sep 2026 14:06:49 +0200
-Date: Thu, 17 Sep 2026 14:06:49 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Yoshihisa Yamamoto <yoshihisa.yamamoto.xn@renesas.com>
-Cc: =?iso-8859-1?Q?Cl=E9ment_L=E9ger?= <clement.leger@bootlin.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net v2] net: pcs: rzn1-miic: Reset PRCMD state before
- unprotect sequence
-Message-ID: <f896b55f-ca21-4885-a2f3-5807184cf959@lunn.ch>
-References: <TYCPR01MB748139F059DF2459B9813416A4B92@TYCPR01MB7481.jpnprd01.prod.outlook.com>
- <TYCPR01MB748157ECB6B92D8E3FFD433BA4B82@TYCPR01MB7481.jpnprd01.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AM82i5C1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C4D21F000FF;
+	Thu, 17 Sep 2026 12:07:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789646871;
+	bh=lBfpMv2unqo4FFtUis32HKzFNTyVUo9Jne9hbWifvb0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=AM82i5C1WL8x/+SIRT8qTGTi7ZuBpEQ6AdI9TxXUMMCGvMEB9dHpMOkOAhcMDgkCU
+	 K/3FIYVA8P74RJmpbArFDvPIFoOh9YZzi2yg7EgGbKmhV3hP9YBqWe5QhuVi+hJbva
+	 jR6lscffGN32IuEE9tJz7XC8D+1flkbrg9KrgYE17FkU48PyLv+cfzDVALgNJGAXM+
+	 1t/wJvXcfFM7i0HuISply2Dhw9S4+eKXm69TEM4QbpLcQ2u2XUDar9hiNy9A3iUtrB
+	 uQBHavuE06Ng7hcjGORxO50h/rG6FpqPmJOoyYA+SbJ12oW+FXh9MDaZ6DKhznLKLB
+	 di25p/pdzVTLw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] dt-bindings: arm: vexpress: drop the obsolete hwmon
+ and regulator text files
+Reply-To: sashiko-reviews@lists.linux.dev
+To: Quchaosheng <quchaosheng000406@163.com>
+Cc: linux-hwmon@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260917115818.540344-2-quchaosheng000406@163.com>
+References: <20260917115818.540344-2-quchaosheng000406@163.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 17 Sep 2026 12:07:50 +0000
+Message-Id: <20260917120751.7C4D21F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <TYCPR01MB748157ECB6B92D8E3FFD433BA4B82@TYCPR01MB7481.jpnprd01.prod.outlook.com>
 
-On Thu, Sep 17, 2026 at 02:49:29AM +0000, Yoshihisa Yamamoto wrote:
-> On RZ/T2H MIIC, writing 0x0000 to PRCMD resets the command state
-> machine to the IDLE state.
-> 
-> Reset PRCMD before issuing the unprotect sequence so that it always
-> starts from a known state, regardless of any previous PRCMD activity.
-> 
-> Signed-off-by: Yoshihisa Yamamoto <yoshihisa.yamamoto.xn@renesas.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] dt-bindings: missing required properties regulator-name and regulat=
+or-always-on
+--
 
-Please start a new thread for each version of the patchset. The CI
-system does not always see the patches when linked to an old version.
+commit a3c16ba2973ce68a883eb4ccf0647aefc328d59f
+Author: Quchaosheng <quchaosheng000406@163.com>
 
-       Andrew
+dt-bindings: arm: vexpress: drop the obsolete hwmon and regulator text files
+
+This commit removes obsolete text bindings for Versatile Express hwmon and
+regulator nodes. A note regarding fixed supplies is moved into the existing
+vexpress-config.yaml schema before removing regulator/vexpress.txt entirely.
+
+> diff --git a/Documentation/devicetree/bindings/arm/vexpress-config.yaml b=
+/Documentation/devicetree/bindings/arm/vexpress-config.yaml
+> index 41c53e3acc12c..b04e8e0521815 100644
+> --- a/Documentation/devicetree/bindings/arm/vexpress-config.yaml
+> +++ b/Documentation/devicetree/bindings/arm/vexpress-config.yaml
+> @@ -139,6 +139,10 @@ patternProperties:
+> =20
+>    "^regulator-.+$":
+>      $ref: /schemas/regulator/regulator.yaml#
+> +    description:
+> +      If regulator-min-microvolt and regulator-max-microvolt do not both
+> +      define a range, the supply is treated as fixed and only its voltage
+> +      can be read.
+
+[Severity: Low]
+The commit message states:
+"The regulator node refers to regulator.yaml, which covers the generic
+regulator properties the second file lists, and all 13 in-tree
+arm,vexpress-volt nodes set both of the properties it calls required."
+
+However, the deleted text file Documentation/devicetree/bindings/regulator/=
+vexpress.txt
+explicitly listed these two generic properties under "Required regulator pr=
+operties":
+
+- "regulator-name"
+- "regulator-always-on"
+
+While regulator.yaml defines these properties, it does not enforce them as
+required. By removing the text binding without adding regulator-name and
+regulator-always-on to the required list for the "^regulator-.+$" block her=
+e,
+won't device trees omitting these properties now silently pass schema valid=
+ation?
+
+Should these properties be appended to the required list of this node to
+maintain the strict constraints previously enforced by the deleted text bin=
+ding?
+
+>      properties:
+>        compatible:
+>          const: arm,vexpress-volt
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917115818.5403=
+44-1-quchaosheng000406@163.com?part=3D2
