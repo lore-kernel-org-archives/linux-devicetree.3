@@ -1,87 +1,38 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 164872F7F01
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 09:25:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 629154AAC46;
+	Thu, 17 Sep 2026 09:30:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789637145; cv=none; b=KxmiG74/0+3GpAykeiliHaPXnZFd6iXdFNWsRBmrV49AKPlSV2wtbN8ukGCbal6MV79Piogkf7fbOw2CFFUXDKPFfcAgjBF1NHCCoUnY58eWZIIB6oDOhbsHVGAfRyr3/3xghv2jxCFpeN8UP7gM+A8oh6sTWDs0rimFXin5D0I=
+	t=1789637414; cv=none; b=szP8UBqoQgomhQhcrKmpiMNizBEFNOj75os94028PBpF7vWe9t2TncBmOyo8mi9ac/vvWoHV2zXW2vxj/KgEKDLEjx99fPEmNqxSrBxgpSvyynzJxL+3SSEVVMXPYdmnOadVyNvdypqZaJWHtxJ171ItoboGL0hZMW+7x/fv3ck=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789637145; c=relaxed/simple;
-	bh=wImfqcMzA2hutdV05gMXWCl9C8YAeHAtDEmm3ZgYq3A=;
+	s=arc-20240116; t=1789637414; c=relaxed/simple;
+	bh=wmqQKBrHdUJwjDL+VYRkGeFHQFxO/tU/C6grS/MeU48=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CLbnHtGW6WBVb1n5HUh9PS4KknrSfeGJsRbiXEDRzlFix5i5bMTu7QhGWd/eGIecBJD8VNXiUNfv10KrXkADWNWDDtmL43syWWU98k71v+n7uWF4rTosQEG5NoUQ9ctDkRyBTJUqZ0lMECZu6Bk88UBXuUrFgM8NJYlfRLqBrzc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MGTIZaW4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BPGl4TuS; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=SBv97h1FE5kWdnYl1SS3jOGWBTFCXHT/gVfY+LZpeHbrkYyYYeonYEeGpBOnbito5v62vdynqcfENb9cVv9uDdmNIXMztSgNvG6DdZM4YjZRLt8C0cNrUC4FQ0lpWQQcb1ae6PKKVXyyimI7CWvbI1b/6hsknOqz7oiUD3pp784=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=y8FnOiY2; arc=none smtp.client-ip=54.204.34.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MGTIZaW4";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BPGl4TuS"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68H60J2g3702385
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 09:25:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	bCa418cMIIQpTdgZsvi2uq+5J8yQEDdEU8Wb0WT9txw=; b=MGTIZaW4ENReRMGz
-	JfeWV7Ui92RrfyLqfNhCV83iFmUM9jq44MvA5pZ4wpOREoKyAQVUUoQjPyRYDVLo
-	rZ0+AfsnxlOvk7w7Cll0TQrgkjQsysSWWGfqqGh6lJvN+XrglAGl1lhEc4TCjWDh
-	B9kb6+JG9jTa0aNrGymM4mRTV+KgZKNx96pvK2MK/eZaM6pb/C0buw2lCj1ayCX+
-	dNHv4ya5PCHXrJ7Yss+Xj02VbPRtZEqVX33taoHi5iPT1/AnNWTkBmQ2Yt+5m6yi
-	wo+gqVgN9/+sU30n2iOAt7elaoFGfYFNIR7SlxLj6QjTbh6xqghMv27JDlq8G3hk
-	Bg2H6w==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gr7uc9efd-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 09:25:38 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93a18b457bcso15268485a.0
-        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 02:25:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789637137; x=1790241937; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bCa418cMIIQpTdgZsvi2uq+5J8yQEDdEU8Wb0WT9txw=;
-        b=BPGl4TuSm1k1xwdhTXVybM3J4Zhq8h1ADqje01j6gai3K5VDflOXMFMpi6TVO+NGBq
-         MwtbRxcpvvm2COzm7lPF8ZSGqCHBy4uEfzJl4HwXZOzQsHoBHglrC/aYpAGgMgJVs2lR
-         1hcX4BLrVMvOAE41DS4mXbU/+gX9Ca1wseUgPMAfl6lecLrO4PC+eyXhpOVY6LLfdBQ+
-         /TO1hEa4a8UNRS0o47bTSvYidnC28eolG6A5rtyDfFi0Ha4qoxC03gsbR+C+u36G1K6+
-         Y1HUCrV/cnEHPumgNsecDBYIiuSoyGEJDgDncIXZ5eXzIZuFJb01JyHvT3NYE/pTog4j
-         XWFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789637137; x=1790241937;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bCa418cMIIQpTdgZsvi2uq+5J8yQEDdEU8Wb0WT9txw=;
-        b=XI0L+EUIEL1NKurBYEm7b3LNzPEAXW7xQ5jO7xlNaAe1pCCarbpiIR3jwui0VpJcgs
-         RPRYHSA5P7Nzatoyr606jQQuYnS9klCI8TzJpuhR9z9Nk3BEw8y3FyLSAdi7TpzxADP3
-         f0fjC1ZMaZwc3XJPRj/DjZiP9qF4eNYUjeigtG0Fqw7AOLiawRxHhvXLD2ycpo5mJLXn
-         HKyDgXoX+10hCK7urvtIU3M/LpsDfUzlfvzBBAwJxMfJvr63vND/updx6xZ8N/0c886B
-         LJaKSvIc+jfaok7rz+bgoUGLD7vCLe0vIhtj8Zx1n0dEEDdEIX08GNcnPDTZE/I1x5Mg
-         pBpg==
-X-Forwarded-Encrypted: i=1; AKwUvBzz3F1BU5cFifwInNPjqsfhjSQ62A2Ce0o8aZGEV/ars5uq5Vm2kgaucndet0oGLksI/RKCbzfWIBFg@vger.kernel.org
-X-Gm-Message-State: AFuF++ll5uAYuRvq8XC4f55czVJRRTem5qYOCb1o+HOhgFyKGxIgBqde
-	uC1ScFrps/NcYEyZg22S4khHmRJldnqlUNZ5wfo9fP9UtsvEk4bH9mlsHG7xwOWnTAkYDEdm/4C
-	p09xPASEPmxYyvgztPs1gdZF3jFwABR5bu1/F3aRDToZvyJ4p1PEUoTQmRfRs6Al1
-X-Gm-Gg: AYBFou0ECSboZM9L58tW11V2SohBKP1rd6brLE1+Yr67bFoVQIcqDMP2EQzVqKDOjIv
-	GnqjpyeEoJtH1k/Ytog131FsHoC4PzqHr/pQDDNeMRK6uxRMzymot1fsQaRzo1v3vWmjzoqgJZ5
-	WBq7hzbzgpu1xRzfzuhXV5AOs19AkeTLmXT2t76xBprPQIkW89tUtdWgXlorksdUtkPYWEaFukf
-	2dp5QpAjaNNA4MJSgrAjXNsiruTBgNY69k9UQbgZkMH4iJzwAtruMCFNH/UEitu3ohpyTipNmlQ
-	9zomVM2TpocBBJxaAuLnIUAaYfqAm2youRTZhaNQ/uwU4I4UF5Z0g26rzGdRjCNrqcdm4qVgkk+
-	xRHGumQFhElQwhxjy4nFM4g==
-X-Received: by 2002:a05:620a:6502:b0:931:23a:83ca with SMTP id af79cd13be357-93bd3dfe95cmr24674985a.4.1789637137463;
-        Thu, 17 Sep 2026 02:25:37 -0700 (PDT)
-X-Received: by 2002:a05:620a:6502:b0:931:23a:83ca with SMTP id af79cd13be357-93bd3dfe95cmr24672985a.4.1789637137049;
-        Thu, 17 Sep 2026 02:25:37 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29de4879f1sm268554966b.32.2026.09.17.02.25.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 17 Sep 2026 02:25:35 -0700 (PDT)
-Message-ID: <848a64de-c120-4f61-be03-181d4df92ad6@oss.qualcomm.com>
-Date: Thu, 17 Sep 2026 11:25:33 +0200
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="y8FnOiY2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1789637355;
+	bh=kh9FyDnReQmtz6IMuEQBtcbP+r397Btkd/rmaYc+gLw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:From;
+	b=y8FnOiY2RBpzY37JE5y9OgzVnxfAybp55r0tO+PHwFleJucQF+f1DWvdS3Ow2HRy9
+	 A+Q5sClgfQmo4rViePByOdHzPltih/JyBoPs+2N1ci1sLLL5VGtEhQOZ/Pa68zt8dB
+	 Zke3NjQDB0IdKK63NjVpLrQREAzjUpnBgR+Xa7AM=
+X-QQ-mid: zesmtpgz5t1789637353tb8e1e7ef
+X-QQ-Originating-IP: C98l85GMVeVm74OzyvqEngGdoJc+3+/o61Zp27O1UR4=
+Received: from [127.0.0.1] ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 17 Sep 2026 17:29:09 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 16510952149240529869
+Message-ID: <BA4ECE62CC750889+2da1a0db-8500-4332-8954-e9f126604258@linux.spacemit.com>
+Date: Thu, 17 Sep 2026 17:29:09 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,79 +40,152 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] arm64: dts: qcom: sm7225-fairphone-fp4: Add AW8695
- haptics
-To: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>,
-        Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Luca Weiss <luca.weiss@fairphone.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-References: <20260914-aw8695_haptic_fp4_driver-v1-0-156f7549149a@fairphone.com>
- <20260914-aw8695_haptic_fp4_driver-v1-3-156f7549149a@fairphone.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260914-aw8695_haptic_fp4_driver-v1-3-156f7549149a@fairphone.com>
+Subject: Re: [PATCH v5 07/14] gtrace: Add function to copy into perf AUX
+ buffer
+To: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Paul Walmsley <pjw@kernel.org>, Greg KH <gregkh@linuxfoundation.org>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Ian Rogers <irogers@google.com>
+Cc: Anup Patel <anup.patel@oss.qualcomm.com>, Alexandre Ghiti
+ <alex@ghiti.fr>, Peter Zijlstra <peterz@infradead.org>,
+ Ingo Molnar <mingo@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
+ Adrian Hunter <adrian.hunter@intel.com>,
+ Mayuresh Chitale <mchitale@gmail.com>, Anup Patel <anup@brainfault.org>,
+ Atish Patra <atish.patra@linux.dev>,
+ Andrew Jones <andrew.jones@oss.qualcomm.com>,
+ Sunil V L <sunilvl@oss.qualcomm.com>, linux-riscv@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260810152223.3946743-1-mayuresh.chitale@oss.qualcomm.com>
+ <20260810152223.3946743-8-mayuresh.chitale@oss.qualcomm.com>
+From: Zane Leung <liangzhen@linux.spacemit.com>
+In-Reply-To: <20260810152223.3946743-8-mayuresh.chitale@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDEyOSBTYWx0ZWRfX7bfWGRaC40q1
- xZdilV9xN8nzlJ064z07YgN5N5aCxfzrHPp4a5mIbTPR2ovN6OI5nwz8DgPalutx0Enb7b2E0zf
- SxJrTUoKXtkQaHhDGGMud8knimVz6a0oLqSULVIdUJTK1qkTweynbt/SaqvMz4GNbACO1Iivlfx
- w+sEBRVlxP4arX2ylvvNWYJMosqQXwWJ2y0OM+nVjOE+pP/nnfvpfWBBNCawAHnrc7UMCNZ3n4A
- /QClJCW+r5020BMLT2eKlDakoy5rBHeL+vfCvTdoPqwChclYDVo85/VN7UsuEq6XGes8HcI1bO3
- byNNa9+cz7XUpBDjP5bS9ifkaBjNWeOTIXa0j6pzR1V4aIbEbIXaMWyRo1fQCm8lZL6RKtOtvTB
- pjK13fSBjDkX9tAAMxiWgq2UmFrC0hRygr2CQ/B9/aCPqd0a2VIjkiCRQHCzx1oGhSUwUyYFOur
- EAHc1pa6+R7flBjdZJw==
-X-Proofpoint-GUID: T59zc1Ah4pYHpbAG0lNCO5KljSoxFiZN
-X-Proofpoint-ORIG-GUID: T59zc1Ah4pYHpbAG0lNCO5KljSoxFiZN
-X-Authority-Analysis: v=2.4 cv=F9zC5ahN c=1 sm=1 tr=0 ts=6aabb212 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=6H0WHjuAAAAA:8 a=aHkRhLIturER-sMqCjoA:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22 a=Soq9LBFxuPC4vsCAQt-j:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDEyOSBTYWx0ZWRfX+//24O0jP8zA
- nrPCOZWSI+t+1KcdDU2EpIvejnpjhwxG/lqZ69cjHu5Fz74+V+yLymtgFQMTuuYV6fE0uW1eT/C
- 2uCfZkHW4LhF0Hb85FBkLRpxJjbvwYA=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-17_01,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
- clxscore=1015 impostorscore=0 suspectscore=0 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609170129
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: M7SN0LSU40tUJ2gKkD7ZcfK2Pbm+XSPpWIIIZnp3fWXvPGlLZbsK9IPb
+	jt6fW3eU7YfW8vg3W5BMeTrKHC0MuPN5EYR7jfjoUihxNQBHZf0dEBVlq6Sv/sUsWRgzbpV
+	IvKUbSftPw07P84CNrJP+c7BOe6ijILNNd9Nn4nlabSsVV9NETdY9goR6Z7PRqQjrqzDpIb
+	JX8HGSuME7f7ld/ED2Nelon0iNs9zkWZI1wZPFeJIDQEn0My3qv0GzRfA1dHdT4f7qBgAee
+	eDmttcIziCKP67ZIEdXvRMjU2WjWpm+P+nQya5qwumQMme9hdl1b9VBxiNUVTJFrSrDFHvI
+	CuYRcgjAHVDEwOVdt3job0y8PYOZGh7s8iByIz7ZnIliesgndrSJRSlZ5GgEhSHuxed4ZyL
+	XE77DBU9unxcatusVnMpbwhgGCwgCU0vCGfX6VKrKq3hZLUoTjqYSH2Lk4sIDihkTRW8Ojo
+	yf5FnowVDhAZXLQxws5lhFrMVXPlp97wL8/aDml01XPofHgwqyo55JySFMGI4bgPT40w6fL
+	QfVv3Z9VIkFUueBUQUcocxgjHTEiS2nEJZdTW6aqsxX1tN0tKiyKJpxJhJWpU7K5n/62dm8
+	JTsq98AULHDmfdKyhB/39EL0d6SrDa3E7YR0F8tLZBhmAg+vpdffK7Hns5AUL2qSU4VCIHf
+	ZgAKhgFX2TGyWQ2tZcbQpyDEqj9NCUxg66j6g6J/FpFMsNrWk+zbkkaldx0RSpnF0x9GLZW
+	VGMn7UnfqaUC3dkEPvAr2MAGhLPC6B9h1w+Eiab2DRLrqpD7V7wTCzHI/K1Ew6wL9cS5CGE
+	zd6U1u1vZczI3gshEMcXQfqa2A+Xq8UinclPObTASd97spM5fJSPRLDlufHf0ICz/xU8ODh
+	6yZu02fxUI7qAwP7eJ34EAsfZFTuHKKUH1jBtfckbuPUtn6Z/5CM36YPLp9rpQt0/VMauni
+	kFfFBfxvnAedbGS8hh306jcsTi6yefy8mACTuChqKnN922U8gzjYsXVUYIqBjWtOUZPE5KE
+	4uRSTekA==
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+X-QQ-RECHKSPAM: 0
 
-On 9/14/26 4:37 PM, Griffin Kroah-Hartman wrote:
-> From: Luca Weiss <luca.weiss@fairphone.com>
-> 
-> Add a node for the haptics driver found on the phone.
-> 
-> Co-developed-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
-> Signed-off-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
-> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+On 8/10/2026 11:22 PM, Mayuresh Chitale wrote:
+
+> From: Anup Patel <anup.patel@oss.qualcomm.com>
+>
+> The RISC-V trace ramsink will need a mechanism to copy trace data
+> into the perf AUX buffer. Add gtrace_path_copyto_auxbuf() function
+> and corresponding trace driver callback copyto_auxbuf() for this
+> purpose.
+>
+> Co-developed-by: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
+> Signed-off-by: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
+> Signed-off-by: Anup Patel <anup.patel@oss.qualcomm.com>
 > ---
-
-[...]
-
-> +	aw8695_int_default: aw8695-int-default-state {
-> +		pins = "gpio85";
-> +		function = "gpio";
-> +		drive-strength = <2>;
-> +		bias-pull-up;
-> +	};
+>  drivers/hwtracing/gtrace/gtrace-core.c | 22 ++++++++++++++++++++++
+>  include/linux/gtrace.h                 | 24 ++++++++++++++++++++++++
+>  2 files changed, 46 insertions(+)
+>
+> diff --git a/drivers/hwtracing/gtrace/gtrace-core.c b/drivers/hwtracing/gtrace/gtrace-core.c
+> index 6ff1b3087947..53a3679ba69f 100644
+> --- a/drivers/hwtracing/gtrace/gtrace-core.c
+> +++ b/drivers/hwtracing/gtrace/gtrace-core.c
+> @@ -626,6 +626,28 @@ int gtrace_path_stop(struct gtrace_path *path)
+>  }
+>  EXPORT_SYMBOL_GPL(gtrace_path_stop);
+>  
+> +int gtrace_path_copyto_auxbuf(struct gtrace_path *path,
+> +			      struct gtrace_perf_auxbuf *buf,
+> +			      size_t *bytes_copied, u64 *format)
+> +{
+> +	const struct gtrace_driver *gtdrv;
+> +	struct gtrace_component *comp;
+> +	struct gtrace_path_node *node;
 > +
-> +	aw8695_reset_default: aw8695-reset-default-state {
-> +		pins = "gpio90";
-> +		function = "gpio";
-> +		drive-strength = <2>;
-> +		bias-pull-down;
+> +	list_for_each_entry(node, &path->comp_list, head) {
+> +		comp = node->comp;
+> +		gtdrv = to_gtrace_driver(comp->dev.driver);
+> +		if (!gtdrv->copyto_auxbuf)
+> +			continue;
+> +
+> +		*bytes_copied = gtdrv->copyto_auxbuf(comp, buf, format);
+> +		return 0;
+> +	}
+> +
+> +	return -EOPNOTSUPP;
+> +}
+> +EXPORT_SYMBOL_GPL(gtrace_path_copyto_auxbuf);
 
-Shouldn't this be a pull-up if the reset is active-low?
+Is it really necessary to introduce `gtrace_path_copyto_auxbuf`? The buffer copy logic should be
+exclusive to the sink component.
+A cleaner approach would be to delegate this directly to the sink instance:
+```
+struct gtrace_component *sink = gtrace_path_sink(path);
+size = sink->copyto_auxbuf(sink, &event_data->buf, &format);
+```
 
-Konrad
+> +
+>  struct gtrace_path *gtrace_create_path(struct gtrace_component *source,
+>  				       struct gtrace_component *sink,
+>  				       enum gtrace_component_mode mode)
+> diff --git a/include/linux/gtrace.h b/include/linux/gtrace.h
+> index 78e2ead3db8e..bc82814e2738 100644
+> --- a/include/linux/gtrace.h
+> +++ b/include/linux/gtrace.h
+> @@ -257,9 +257,30 @@ void gtrace_destroy_path(struct gtrace_path *path);
+>  int gtrace_path_start(struct gtrace_path *path);
+>  int gtrace_path_stop(struct gtrace_path *path);
+>  
+> +/**
+> + * struct gtrace_perf_auxbuf - Representation of the perf AUX buffer.
+> + * @length:   Size of the AUX buffer.
+> + * @nr_pages: Number of pages of the AUX buffer.
+> + * @base:     Start address of AUX buffer.
+> + * @pos:      Position in the AUX buffer to commit traced data.
+> + */
+> +struct gtrace_perf_auxbuf {
+> +	size_t length;
+> +	int nr_pages;
+> +	void *base;
+> +	long pos;
+> +};
+> +
+> +int gtrace_path_copyto_auxbuf(struct gtrace_path *path,
+> +			      struct gtrace_perf_auxbuf *buf,
+> +			      size_t *bytes_copied, u64 *format);
+> +
+>  /**
+>   * struct gtrace_driver - Representation of a trace driver.
+>   * @id_table:      Table to match components handled by the driver.
+> + * @copyto_auxbuf: Callback to copy data into perf AUX buffer. The driver
+> + *                 reports the PMU specific trace format of the copied data
+> + *                 via @format (see PERF_AUX_FLAG_PMU_FORMAT_TYPE_MASK).
+>   * @start:         Callback to start tracing.
+>   * @stop:          Callback to stop tracing.
+>   * @probe:         Driver probe() function.
+> @@ -270,6 +291,9 @@ int gtrace_path_stop(struct gtrace_path *path);
+>   */
+>  struct gtrace_driver {
+>  	const struct gtrace_component_id *id_table;
+> +	size_t			(*copyto_auxbuf)(struct gtrace_component *comp,
+> +						 struct gtrace_perf_auxbuf *buf,
+> +						 u64 *format);
+>  	int			(*start)(struct gtrace_component *comp);
+>  	int			(*stop)(struct gtrace_component *comp);
+>  	int			(*probe)(struct gtrace_component *comp);
