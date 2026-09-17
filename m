@@ -1,152 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65E7A3CB57B;
-	Thu, 17 Sep 2026 04:42:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D7683A7843
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 04:47:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789620155; cv=none; b=W523xHE46vj7TOI/Efno5IHmIOqGxeT2yAsxZZwrYFGp4FPo5G1g03sut/mW0iE2/WKeqBuGZD+hWDIGhO6mN9QO13Qk5m4Cw1EN/0+0uIHTfzGDiUOi4R07qB5BP8t46ztRpiMEWxe6hfN83GZGGNHpsJJy7eP7Wi28bLGdIIY=
+	t=1789620457; cv=none; b=G484AyhUDdL0ccrv8lTflb4Enftj3wjz6O3Ri/2jdVU+evZPwHa1UE8V7XE+Yk0VUcoVXhuKFAvxV8fYtcfCx7u5I3DfvCqAuvuUQ6EQ/Tq5C3JkAlnIOWjJRHaFE1slSzwQ2EZubIzTUbMfKsR/CYfaffS6n+bCcwxtOdontYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789620155; c=relaxed/simple;
-	bh=nJx4cBA2E21VCVn14ktGJ3+46jN13gAy4MZOFIxdZik=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=AZ0bzrl376+18+3zwQCSvg+i/FM99Ut6b+1+2yT195RJE7JJdKmok2zCcIjbdpvot3ii4qqTx6w1Hjj9nhXLCWkOPvRRtIORUo5BOnEtIEfbu9schXvAFvKayhhJkxC/fRklu3UzwqvH3cZrmnjkuDaUGkmc9p8Bk6BTWPqAHAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RUcNv8Si; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789620457; c=relaxed/simple;
+	bh=Lrt6YFfTcQjqGuU5FoLFJmGH0jhGaULcXBP69mPmyDI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=t7mmUg4KytvISNOwtKAsZNAA24zF3wjwN9XG0Akdwej+RH5f8ezR8hBmWygetWQg3J3iHP9SvXu+2nRlDjd6aOG12a2fVSvTiC35j8JwzVggNsDuJAmp6FPi+qopoOaUKIrvTm89wKurWfL60adC4WGXY7rkSdQXFQzphRCt5SA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WPdMPb2N; arc=none smtp.client-ip=74.125.230.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RUcNv8Si"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCA291F00899;
-	Thu, 17 Sep 2026 04:42:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789620153;
-	bh=+rxBHgw3vtwYkv7ry0IqYWSazFrhjE9zMz1GfIIqd9Y=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RUcNv8Si4CxwbwUe6IrRTP00355oagn7yCcyRluQrAZigJXHixXj53JgkgCuZogpR
-	 Am5xYX3yQVcrI1kXvEXeVsOVfU6q3zw6w9HIH8JhmQMLVvxvb/kpsp+GBsvx2rupiH
-	 f8nqD/h7MrwfnWiIFYnZeS43pPeJorONwPuA9MkvAEuNHotQ/j5NPjfkQeyvnH3Fk3
-	 UjrdnynHHMr0xH1nd7O2zr/S3drX4eK91y/5czeNBKHfnTxCTinqlFnCOObPG+ksvO
-	 zoo2VKPB8XqCOpvrJJ2btpbbO9QTnjrqq1fBIE++3YDs9zckMlNOkJqALV2O8kJQ3g
-	 xD6eayNlyfj1A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next 1/4] dt-bindings: net: phy: Add Allwinner AC300
- EPHY binding
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?QWxhc3RhaXIgRCdTaWx2YQ==?= <alastair@d-silva.org>
-Cc: linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260916044119.475666-2-alastair@d-silva.org>
-References: <20260916044119.475666-1-alastair@d-silva.org>
- <20260916044119.475666-2-alastair@d-silva.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 04:42:32 +0000
-Message-Id: <20260917044232.DCA291F00899@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WPdMPb2N"
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff148dfdso3097951fa.1
+        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 21:47:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789620453; x=1790225253; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dDYu3bsth7oi/7LPOhDffulZAY7dt7QNkv+9w7yWBC0=;
+        b=WPdMPb2NDyFx/VSYB/zGk1kF7EV/kHr3gS31Q75FBV2ml2PiJZ7G5HKWX2Mb1O+d0Q
+         +UOOxCDJ5mG1+0+PHRnOgZK2SuhZwZaaz+HpZFBzwuMrqcroJoW07iSpp41S5v8f1wGu
+         89FEguVN6c8XaNZpc9YOCwTF9sr0mhQvsXoU2R4soG8YCU2oOpcX9dRLCHLJzMt235lQ
+         QjKV/0Eem2pDaRNS1jMvxq4LG8HBoII7LDLNDsYidKD0B+9FigcsA2YXOAQMkaph7LaD
+         fd75Wv5vKLrFeAslhgfFMbch8txttcKS6OpsJnEX7AiLM0HLrgJNLqWtzss1jPwEfT8+
+         I25w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789620453; x=1790225253;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dDYu3bsth7oi/7LPOhDffulZAY7dt7QNkv+9w7yWBC0=;
+        b=WDZAdFnOdxFOZhg+bWLDgQDtDraonCdgUy+VrKJj8w0Mej5GPqoy/GTzywkwwaQU9g
+         6FdPxsJ+TuQVq4UEsjsPFFN8iCIiFFl9xFla/05inTt8EVdVByIOgZfwqXTYeKCY99m5
+         pZL966Yghi6gJOz9GptIu21mVVZtHSQlPjegOL+UvrjXIqYaURMKoDj5j8TD+acbEf3c
+         3o/AG5oNiSoubUKLThHFeccrmSDBLTuLHwrwwVex+sryVfAez0y8dNfUcqApjhBlv7wp
+         oRlDW3welm7AbzYlbMp2qH+CFDTOI9csU2ArqcBPNak653Wp/o7WNPhWLqfBEA/Vs3EW
+         krCw==
+X-Forwarded-Encrypted: i=1; AKwUvByuTyYxWSR1BXTPcQ0KtwhiFGdiYqMObAW2fVCx/HKKWRn7cQp36qVtbvxpJhn7rSESWhDfQlhOKnix@vger.kernel.org
+X-Gm-Message-State: AFuF++n8G/q4xV9Rg2wHS8Vo3rdQGlg/++98Ten2oRfysRJ2b6+lMNCF
+	LxDFNy4rgS/t76ghixaGkDGTJt3OsM7JFzHcEMV/W8NpHvb6KflWrxDN
+X-Gm-Gg: AYBFou3QfBzKw1/qHrp/OCuv21x++qnxd8Yxvo52hfAVbIf6le//Rru0EbfNlbcWhf2
+	fn9Aa1FU9EmSBGD+dCSyyklr6++/AzStbu/CDqnAgCFoIkH0tgCr8hVm1DNEcVxCAcxlCh78BC8
+	xLFNVBS/eML3YOBAec88M5xlbistEhA8GuklqUhITxysR2e67Wbp2xd7ZEm/KlJoYzJfA38gOQX
+	ynWDfFsy2wtNLu9KczegSzxx9CtUqPDe8MkjDhhmGMkG0qTLHoBT0jXlXUZWkSE/sw/rk9kPYZ8
+	q5/DzxvxhlwOKNfBlJTZAR0fnf2Q8RB1tAJ3ydhezERRruN0YYJqveR6S9wcmehQJ2NMiYuIbym
+	reoPY+/K+a1EcoAidKz8ElUcvPzE/8ZB7HxMyT6F2HX6mtWOCQRSz1XrORz15m6MV2ck7MSS+UB
+	qOrK4svYgBnct+XN6iJsnFYacMyxhfjcnd6UzmFSRVXLIN5nV7gBfisQ+BTjHunAGwmkHzl2hm1
+	FNd0ziN+EOLirU2QSuWcmSgMEoT+W8JMME9ygXvfjstWfpB5DL7Dv4=
+X-Received: by 2002:a05:651c:2107:b0:3a5:a106:ee0 with SMTP id 38308e7fff4ca-3a5dca17909mr10468881fa.24.1789620453050;
+        Wed, 16 Sep 2026 21:47:33 -0700 (PDT)
+Received: from ?IPV6:2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703? ([2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a5dafdc6fcsm11590281fa.33.2026.09.16.21.47.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 16 Sep 2026 21:47:32 -0700 (PDT)
+Message-ID: <f50e6a88-3436-424a-8df7-8d5e01ee531d@gmail.com>
+Date: Thu, 17 Sep 2026 07:47:29 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 09/10] gpio: bd73800: Support ROHM BD73800 PMIC GPIOs
+To: Linus Walleij <linusw@kernel.org>
+Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
+ Matti Vaittinen <matti.vaittinen@linux.dev>, Lee Jones <lee@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Bartosz Golaszewski <brgl@kernel.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Michael Walle <mwalle@kernel.org>, mfd@lists.linux.dev,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-rtc@vger.kernel.org, Sverdlin@mva-rohm.smtp.subspace.kernel.org,
+ Alexander <alexander.sverdlin@siemens.com>
+References: <cover.1789538455.git.mazziesaccount@gmail.com>
+ <e3e6ac712519326cc25fcdd0a0c8e3cc42ef55ab.1789538455.git.mazziesaccount@gmail.com>
+ <CAD++jL=vZr+naVBaixNkDbgx4_EpL8MosSyXYb9jg2hgKu+QNg@mail.gmail.com>
+Content-Language: en-US, en-AU, en-GB, en-BW
+From: Matti Vaittinen <mazziesaccount@gmail.com>
+In-Reply-To: <CAD++jL=vZr+naVBaixNkDbgx4_EpL8MosSyXYb9jg2hgKu+QNg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] dt-bindings: net: phy: conflicting duplicate schema for AC300 EP=
-HY
-- [Low] dt-bindings: net: phy: schema validation failure on 3-item compatib=
-le
---
+On 16/09/2026 20:31, Linus Walleij wrote:
+> On Wed, Sep 16, 2026 at 8:12 AM Matti Vaittinen
+> <matti.vaittinen@linux.dev> wrote:
+> 
+>> From: Matti Vaittinen <mazziesaccount@gmail.com>
+>>
+>> The ROHM BD73800 PMIC has 4 pins (named GPIO1, CLKOUT, FAULT_B and
+>> EXTEN_OUT) which might have been set to operate as a GPI or GPO when OTP
+>> (One Time Programmable memory) is written at device manufacturing.
+>> Support the GPI/GPO use-case via GPIO framework.
+>>
+>> The default OTP for these pins is to not use any of them as GPI or GPO.
+>> (The GPIO1 defaults as an ADC input regardless the naming). Hence the
+>> driver assumes none of these pins is a GPI/GPO unless explicitly pointed
+>> as GPI or GPO via device tree.
+>>
+>> Furthermore, pin's direction can't be changed after OTP configuration is
+>> done. Also the default drive type for a GPO (CMOS / Open Drain) is set
+>> by the OTP configuration. The BD73800 has a set of undocumented test
+>> registers which should allow changing the drive type. Access to the test
+>> register area or the test registers aren't documented and so this driver
+>> does not support configuring the drive type even though it might be
+>> doable.
+>>
+>> Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
+>> Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> 
+> Looks really nice now!
+> Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-commit 78619c40b1c730a8fe995945c43fe97d336ddfb6
-Author: Alastair D'Silva <alastair@d-silva.org>
+Sorry Linus! I dropped your tag from v3 by mistake. I hope you didn't 
+waste too much time re-reviewing this :( Well, thanks anyways and again!
 
-dt-bindings: net: phy: Add Allwinner AC300 EPHY binding
+Yours,
+	-- Matti.
 
-Add device tree binding documentation for the Allwinner AC300
-Fast Ethernet Physical Layer (EPHY) co-packaged on Allwinner
-H616 and H618 SoCs.
+-- 
+Matti Vaittinen
+Linux kernel developer at ROHM Semiconductors
+Oulu Finland
 
-> diff --git a/Documentation/devicetree/bindings/net/allwinner,sun50i-h618-=
-ac300-ephy.yaml b/Documentation/devicetree/bindings/net/allwinner,sun50i-h6=
-18-ac300-ephy.yaml
-> new file mode 100644
-> index 0000000000000..a04416e781382
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/net/allwinner,sun50i-h618-ac300-e=
-phy.yaml
-> @@ -0,0 +1,79 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/net/allwinner,sun50i-h618-ac300-ephy.=
-yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Allwinner AC300 Ethernet PHY
-
-[Severity: Medium]
-Will this binding conflict with the existing x-powers,acx00-ephy-package.ya=
-ml?
-
-The AC300 hardware appears to already be modeled by the ethernet-phy-package
-architecture, which represents its split-address control architecture (where
-control registers sit at base + 16).=20
-
-Introducing a standalone flattened binding seems to attach package-level
-properties directly to the link PHY, potentially fragmenting the device tree
-ABI. This could force drivers to hardcode a + 16 MDIO offset instead of
-relying on the standard package architecture.
-
-> +
-> +maintainers:
-> +  - Alastair D'Silva <alastair@d-silva.org>
-
-[ ... ]
-
-> +properties:
-> +  compatible:
-> +    items:
-> +      - const: ethernet-phy-id0044.1400
-> +      - const: allwinner,sun50i-h618-ac300-ephy
-> +      - const: ethernet-phy-ieee802.3-c22
-
-[Severity: Low]
-Will this compatible string array fail dt_binding_check validation?
-
-The included core ethernet-phy.yaml enforces a oneOf constraint that restri=
-cts
-compatible arrays to a maximum of two elements (such as PHY ID and IEEE
-clause). This block defines a 3-element array, which appears structurally
-invalid under the included constraints.
-
-> +
-> +  reg:
-> +    maxItems: 1
-
-[ ... ]
-
-> +examples:
-> +  - |
-> +    mdio {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        ethernet-phy@0 {
-> +            compatible =3D "ethernet-phy-id0044.1400",
-> +                         "allwinner,sun50i-h618-ac300-ephy",
-> +                         "ethernet-phy-ieee802.3-c22";
-
-[Severity: Low]
-Will this example node fail validation?
-
-This example demonstrates the 3-item list, which will violate the two-eleme=
-nt
-restriction inherited from the base ethernet-phy.yaml schema.
-
-> +            reg =3D <0>;
-> +            clocks =3D <&ccu 81>, <&ac300_pwm_clk>;
-> +            clock-names =3D "ephy", "pwm";
-> +            nvmem-cells =3D <&ephy_calibration>;
-> +            nvmem-cell-names =3D "calibration";
-> +        };
-> +    };
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916044119.4756=
-66-1-alastair@d-silva.org?part=3D1
+~~ When things go utterly wrong vim users can always type :help! ~~
