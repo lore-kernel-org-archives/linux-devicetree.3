@@ -1,233 +1,111 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97CEE509F18
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 17:10:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE39851DAE8;
+	Thu, 17 Sep 2026 17:11:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789665043; cv=none; b=c0MPx0VswAGZfg1CQWVKox3VDFI5cKxyQZwYN9BHnysW/0fSdszB/Ui7PydSeiyCXUPaIBJtSPuUJzGzaVCUUQOqOTtOU1ZcTwe4Yt+kk6InqmNgOyws4t4bi+UUAEyBVG81+32qMnsRane+vi61Bhbx+QEZ/B2KJPZASBhDCEc=
+	t=1789665079; cv=none; b=IBRpzJ7sUrdhx2WlQmmaJ2mBMZ5SkA2eqQ0GfhymD/+rIX0vGsIJ0jwgvOhYbrlBsqxiu4wmiByNAPMXDMP3/8JlGCIHyZWGbDRwKeAZf3BnQ+jI7iF+OwAPccWgLy2YBscq/fxVqU27fsoTw9C6SWemWuFa4LExwCtsBE+VV44=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789665043; c=relaxed/simple;
-	bh=dIYPq5sFKIxLtUGNP/CZRmD+OSboHKnYdjiQqfxygwI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oaJ/97esIRYFt3hUMh1YnBjgI4vEprbifYcTlupblfj7OrN8FIiJo578TNnUtc6dLoGqDHTPR5LHxMejqQTYLkgrW8A0ry/nq+FsqOIX4ejvcdC9jzfLxie4Udr+90NNUyHj74pgW+esq/E3HoAYtVSKaqBRjweHbE46+dOU1Bo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ADMf4+X0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DIJJI/bQ; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789665079; c=relaxed/simple;
+	bh=IdXe7NHfFnhBi6JL3nxqLRFqt/RRWCshiiTNe1qCQ1A=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Jz8KVtCSQCafBM+tzxZRovstYPmgT9TDvhMvFe9lwm0FzCz0+YA9qcEt2XmCRUyxR2fu/jiF7+GxqLBJf2qwML6btnrSymCiqgHTbolOGWdVUfpFZ109Jo/Jes4kXDx0ej5CJuQrVJQVJm1yyClcihrO9pCuSRkzwXsJ1smh1KQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=grPT7ufH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ADMf4+X0";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DIJJI/bQ"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68HH5WdB1765989
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 17:10:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	UOIfBhA40d1n8PGVV7JnUyBrJvf/oegeKL4mbK8Sj08=; b=ADMf4+X0VvIg4+cY
-	qhFgvhbSF2+YOJgeDEkgfW/y63HwFyW4u4joRNohoaYUKHcjP56NMONMo9PKl/Dn
-	btkNJjvOGRR2bIz+jYyJJerhy5I11WW39CxkcAzs5RRsrRWUS95QNE5BqJidIgEA
-	vZIou+/eNHJT5XqVWIETRD4oAbGGwIZRUSLTRRhm3zJP6dJQXQclNGxW8Np3stCI
-	Z8a34uWaEhytiLJZdqAOxjbBv2OlcXEf1xUTkn5eFYeS0f5Tdb9fwcVLJ5kl4s2+
-	M6KBOvQpjwm0buH2Gu6ogijiIy4swqB5cUwJtmigVVBJnzTA/vVXdrL1pYm5Gd4f
-	EBkeNg==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4grcraadj2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 17:10:40 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38ecc48b3c2so2431292a91.1
-        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 10:10:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789665040; x=1790269840; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UOIfBhA40d1n8PGVV7JnUyBrJvf/oegeKL4mbK8Sj08=;
-        b=DIJJI/bQN481uSuoyKlVig2qT5cSU/fJb8y1ZpYRxjbXnb+MV/QJWzIRxNCrgGPHGn
-         M4H83T3EUDJMUpIm1cZj7NXCViYPbgAluNodXV72hTjb5m04kzeEGf9KPK4tJvDh4uK9
-         3z3rIgFMT+NWFBpJvD0I+8oc4GOYbF0ud0Vx+v3QYKUGDFwy9NJPcYOhUDKxu4J8zfrF
-         ShnQ+H+RBiL144sfauKGFOpqvtm6HAFWDT5iLSDqo/xq67aF0jktQsBZxT8F9HH/2729
-         ejrm/ZWSy7FSV+r5EQdBs4HAY6TBe6Tq04kyQCUc9yQ6mW/YK7hJ/zXusS5Numtkv28L
-         cN0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789665040; x=1790269840;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=UOIfBhA40d1n8PGVV7JnUyBrJvf/oegeKL4mbK8Sj08=;
-        b=okw9dNtwFH55/gpJTjqQUbalKAUEdaCM+yBW+MD3//fWCZDwrFhunptHqNONiGvsmz
-         fOpHWA/EerlfqMCtCtx8L7DcFUKtK6hFkPEwmtiLCO/9y72zcSMzntZp5cGQECuuSr5g
-         b7+KVLr8BVyA+4FNrhZNsZJtD7aotS62BGZ1P2Rp6+qe0HGesWex6R5fUFpAY5gCmk42
-         PH3P4BXZaX/LIWzsx7LNl2QrWVYOo51MEG4gMPb6VdYsH064JDa3cqFi5M8CFxDr+jLh
-         B8El+WhPr0RUJ/V1rTAM+SFzGphFmavZJdw9AA0Ft3rXpre5lJBrIfwzg+qV61qkl5NS
-         eYhw==
-X-Forwarded-Encrypted: i=1; AKwUvBwzRPUP6Ymw3nMe/Z3Q9CC5sUDGWN6jtxkxVCfA4+TWw8cLd1bU+jszk79oZFvU82HpSvZ5Grb1QwxC@vger.kernel.org
-X-Gm-Message-State: AFuF++lqp9UY0PsoVFMq6Pzw+Y6Rz1K6O8jxnXYBZ4F+rf7SzuX5aPpa
-	FTSZm5MMClsiRrprXw/d6lCXd+UMzDVoUHleZvcqFLyxzo6KfHQm0e/Vt25iR2UBRZIZtK8/Ik2
-	bjrd49p6anjcZgqrSrs1wCxvXQXcem3f1Bwwkl6LPEElewjOnL1KbogbHhawv7WWE
-X-Gm-Gg: AYBFou0KXI2koZyZYopNSnHZ+eus5gKk041BiVTZ8vJCxOX98DzrHcgXfyGBNO79Al9
-	APwZV2H+45XFHpWVTeV8Q9/y9kBVRJhAdlAXsQexXk2WMqZW1A3GWWIgSc4P1bPKqEVmDcwTxYO
-	LUtrQRqG6emmYJnzKOlnJZhel+bd48gut0/3zDNqVSxkaUv0P7D6SE3ri6vFx5rMyMfJ8WmU2AO
-	7J9czziGteqmfREmsLDNPaFIJGQ2gjF68YQiN91yuVzO59DbSGePz4OSTBIkF6H8LNDckfiWE4m
-	2DN9o7ZrVvx/MUqsZ/YwdZyEcr6uTHuS5GdJrUV/eqXIyoux5oCKeWTbgpnIvQ/ZsZqrUQCmGZ6
-	ccUuBulmH+IyY
-X-Received: by 2002:a17:90b:4f81:b0:39d:febe:7460 with SMTP id 98e67ed59e1d1-39e1e4e354cmr15686545a91.22.1789665039953;
-        Thu, 17 Sep 2026 10:10:39 -0700 (PDT)
-X-Received: by 2002:a17:90b:4f81:b0:39d:febe:7460 with SMTP id 98e67ed59e1d1-39e1e4e354cmr15686474a91.22.1789665039322;
-        Thu, 17 Sep 2026 10:10:39 -0700 (PDT)
-Received: from oss.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e35df479fsm6065347a91.6.2026.09.17.10.10.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 10:10:38 -0700 (PDT)
-Date: Thu, 17 Sep 2026 22:40:29 +0530
-From: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-To: netdev-bot+sashiko@kernel.org
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-        kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org, afd@ti.com, andrew@lunn.ch,
-        hkallweit1@gmail.com, linux@armlinux.org.uk, richardcochran@gmail.com,
-        andersson@kernel.org, konradybcio@kernel.org,
-        alexandre.torgue@foss.st.com, peppe.cavallaro@st.com,
-        joabreu@synopsys.com, maxime.chevallier@bootlin.com,
-        mcoquelin.stm32@gmail.com, netdev@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org,
-        linux-stm32@st-md-mailman.stormreply.com,
-        linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH net-next v2 6/9] net: stmmac: qcom-ethqos: warn about
- legacy RGMII PHY modes
-Message-ID: <aqwfBZmJehXB8d8U@oss.qualcomm.com>
-References: <20260908-shikra_ethernet-v2-6-bbe3389d0652@oss.qualcomm.com>
- <178912591683.219967.17377991068527504766@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="grPT7ufH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AD781F000FF;
+	Thu, 17 Sep 2026 17:11:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789665076;
+	bh=7tu7Osnrha5cZyvzL3BFIoRysU3A7nNkZyxIAQk5XFc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=grPT7ufHljw/Z8TUtfVlYW+dXK7tZMU+ui6uAQDWnrDfwyH67+UKGmWXrGjKWtQqI
+	 ujjTQvLgQmx4qfnVHtjav0roYHy6gWQ2W8bCXMYtFU5qV97ZFWPoQZWCirIg2Ed6HE
+	 MwfhMt0Q8mZFikEU3+ALX4Ir9evXNNQTD6ln840tM+f3gF7xL17nmJ1L8yanodBc21
+	 J5n6JMGqh/IVVTFpeq67pxWVCogGp+rFiK32iAVU/C5h+JKWqo/DfXI05rbfe7eI/3
+	 un+jL4aJXMGy7y1aPU0V0sEe9uqGZk6YkNVKx1gT1qcqYF4VLWYueiJsX9qUkXUK/w
+	 S9+d4irwleI+Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 5/5] riscv_cbqri: Add CBQRI capacity allocation
+ platform driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Drew Fustini" <fustini@kernel.org>
+Cc: linux-kernel@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-rt-devel@lists.linux.dev
+In-Reply-To: <20260917-dfustini-atl-sc-cbqri-dt-v8-5-7964e8d73fe8@kernel.org>
+References: <20260917-dfustini-atl-sc-cbqri-dt-v8-0-7964e8d73fe8@kernel.org>
+ <20260917-dfustini-atl-sc-cbqri-dt-v8-5-7964e8d73fe8@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 17 Sep 2026 17:11:15 +0000
+Message-Id: <20260917171116.1AD781F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <178912591683.219967.17377991068527504766@kernel.org>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDI0NSBTYWx0ZWRfX560lVR1RtN+d
- bfEVOmlvM/ZPMjgqhwZkxZ86CNTaoyzk5VxXgbWyRpy9N6y0J2AeizbiG+1QeIgruZvR3lGBwgB
- PWmADFfABstZOC1O1bxq8rKWN4q9GnI=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDI0NSBTYWx0ZWRfX0JFBg0GZzpCw
- E1lZt41XYJ6mTzseGU6d2oC0SFkGRezQ3uArA2/ayviGfYtqMkmm7fC5fvfBB8YF31plSfpAZxl
- J9tRk1+MsSXOuw4IBzuQqvVVyvdirNHqaipvlDtXoOrzAuEcoOphAPygOippDOZP16QZyJDJMbF
- esFq/Q+TeLcUI+uDVuo0mAi4g388AYGcSD9QmgdEBstohhiz1oWYih8TTEOovXXt5isnTFGWdwQ
- kegNdXMLk8b8hIKBUXXC/AJ6jCHF0kVVGA5GQMtAGMq+29jqD3L60/Z7z1zw2LKzyVBTk+cirh1
- 5tZjidcpTDkQ5CDjroem2MO5QuaGGj1uP7jhKwzWBKADYkJTdzGMjrqfPOE2iVMuhWvrqHiPIo/
- jQtKDMV5fZLrmjbkJV5bsdioZq/W7LmLS/OY/UYXYYMAJJoyxjynA5KuSet0bPskgabnN1jDzDj
- CrPqRbVj2+DF6uiheJQ==
-X-Authority-Analysis: v=2.4 cv=WL/qzXsR c=1 sm=1 tr=0 ts=6aac1f10 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=VwQbUJbxAAAA:8 a=bzSRg-MVb8Bu9kwduOYA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-GUID: SmTJ9tqQ6NcIP9Om3b2gtBOEUcmJUBxK
-X-Proofpoint-ORIG-GUID: SmTJ9tqQ6NcIP9Om3b2gtBOEUcmJUBxK
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-17_04,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 lowpriorityscore=0 clxscore=1015
- malwarescore=0 bulkscore=0 phishscore=0 priorityscore=1501 spamscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609170245
 
-On Fri, Sep 11, 2026 at 11:25:16AM +0000, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider:
-> 
-> Critical: 0 · High: 0 · Medium: 1 · Low: 1
-> 
-> - [Medium] Unactionable boot-time warning on every in-tree qcom ethqos
->   platform: the new dev_warn() in qcom_ethqos_probe() (dwmac-qcom-…
-> - [Low] Commit message / code mismatch: the changelog of "net: stmmac:
->   qcom-ethqos: warn about legacy RGMII PHY modes" states that "existing…
-> 
-> --
-> 
-> net: stmmac: qcom-ethqos: warn about legacy RGMII PHY modes
-> 
-> This adds a probe-time dev_warn() in qcom_ethqos_probe() when the ethernet
-> node uses one of the older RGMII phy-mode values, suggesting a move to
-> "rgmii-id" with PHY-provided delays.  PHY_INTERFACE_MODE_RGMII_ID is split
-> out of the shared case group so that it does not warn.
-> 
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> > index 53fb9de4d92c7..a92bf4a6a2dbd 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> > @@ -764,9 +764,11 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
-> >  	ethqos->phy_mode = plat_dat->phy_interface;
-> >  	switch (ethqos->phy_mode) {
-> >  	case PHY_INTERFACE_MODE_RGMII:
-> > -	case PHY_INTERFACE_MODE_RGMII_ID:
-> >  	case PHY_INTERFACE_MODE_RGMII_RXID:
-> >  	case PHY_INTERFACE_MODE_RGMII_TXID:
-> > +		dev_warn(dev, "legacy RGMII phy-mode detected; consider upgrading to a newer DTB\n");
-> 
-> [Severity: Low]
-> The changelog says:
-> 
->     However, existing DTBs use "rgmii" and "rgmii-txid" and must remain
->     supported for backwards compatibility.
-> 
->     Warn when either of these legacy PHY modes is used [...]
-> 
-> but the warning in qcom_ethqos_probe() is attached to a group of three case
-> labels, so PHY_INTERFACE_MODE_RGMII_RXID also warns.
-> 
-> Is "rgmii-rxid" intended to be declared legacy as well?  The driver does
-> treat these modes differently, for example in ethqos_rgmii_macro_init():
-> 
-> 	if (ethqos->phy_mode == PHY_INTERFACE_MODE_RGMII_TXID)
-> 		phase_shift = 0;
-> 	else
-> 		phase_shift = RGMII_CONFIG2_TX_CLK_PHASE_SHIFT_EN;
-> 
-> so which phy-modes are being deprecated seems worth stating exactly in the
-> commit message.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] cbqri: probe fails for monitoring-only capacity controllers
+--
 
-I will make this clearer in v3 that all non RGMII-ID modes are being
-deprecated.
+commit 8ddfa638686f4f96df4bb905203f8a16edb1ece7
+Author: Drew Fustini <fustini@kernel.org>
 
-> 
-> [Severity: Medium]
-> Is there an upstream DTB that this warning can point people at?  No in-tree
-> device tree for this driver uses "rgmii-id", and this series does not touch
-> arch/ at all, so every in-tree board hits the new warning on each probe:
-> 
->   arch/arm64/boot/dts/qcom/qcs404-evb-4000.dts	phy-mode = "rgmii";
->   arch/arm64/boot/dts/qcom/sa8155p-adp.dts	phy-mode = "rgmii";
->   arch/arm64/boot/dts/qcom/sa8540p-ride.dts	phy-mode = "rgmii-txid";  (both MACs)
-> 
-> The binding example in Documentation/devicetree/bindings/net/qcom,ethqos.yaml
-> also still uses:
-> 
->       phy-mode = "rgmii";
-> 
-> and the binding carries no phy-mode deprecation note, so the documented ABI
-> still recommends what the driver now calls legacy.
-> 
-> Converting those device trees is also the only way the advocated
-> PHY-provided-delay path gets exercised, since ethqos_set_clk_tx_rate() stops
-> doubling the link clock only for PHY_INTERFACE_MODE_RGMII_ID.  Would it make
-> sense to convert the in-tree DTs (and the binding example/text) in the same
-> series, or to hold off on the warning until a migration target exists?
-> 
-> > +		fallthrough;
-> > +	case PHY_INTERFACE_MODE_RGMII_ID:
-> >  		plat_dat->fix_mac_speed = ethqos_fix_mac_speed_rgmii;
-> >  		break;
-> >  	case PHY_INTERFACE_MODE_2500BASEX:
-> 
+riscv_cbqri: Add CBQRI capacity allocation platform driver
 
-The plan is to convert the current DTs to use "rgmii-id" after this
-patch series.
+This commit adds a platform driver for CBQRI capacity controllers
+described in device tree. The driver registers the controller with
+the CBQRI core to expose it through resctrl.
 
-	Ayaan
+> diff --git a/drivers/resctrl/cbqri_capacity.c b/drivers/resctrl/cbqri_cap=
+acity.c
+> new file mode 100644
+> index 0000000000000..0670a676bdb1f
+> --- /dev/null
+> +++ b/drivers/resctrl/cbqri_capacity.c
+> @@ -0,0 +1,127 @@
+[ ... ]
+> +static int cbqri_capacity_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev =3D &pdev->dev;
+> +	struct cbqri_controller_info info =3D {};
+> +	struct device_node *cache_np;
+> +	struct resource *res;
+> +	u32 rcid_count, cache_level;
+> +	int cache_id, cpu, ret;
+> +
+> +	res =3D platform_get_resource(pdev, IORESOURCE_MEM, 0);
+> +	if (!res)
+> +		return -EINVAL;
+> +
+> +	ret =3D of_property_read_u32(dev->of_node, "riscv,cbqri-rcid", &rcid_co=
+unt);
+> +	if (ret) {
+> +		dev_err(dev, "missing riscv,cbqri-rcid\n");
+> +		return ret;
+> +	}
+
+[Severity: Medium]
+Does this unconditionally fail probe for valid monitoring-only capacity
+controllers?
+
+Monitoring-only controllers legitimately omit the riscv,cbqri-rcid property,
+but this unconditional check returns an error if the property is missing.
+
+The core driver riscv_cbqri_register_cc_dt() explicitly supports
+rcid_count =3D=3D 0 for monitoring-only controllers, but making this proper=
+ty
+mandatory here prevents them from being used.
+
+> +
+> +	cache_np =3D of_parse_phandle(dev->of_node, "riscv,cbqri-cache", 0);
+> +	if (!cache_np) {
+> +		dev_err(dev, "missing riscv,cbqri-cache phandle\n");
+> +		return -EINVAL;
+> +	}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917-dfustini-a=
+tl-sc-cbqri-dt-v8-0-7964e8d73fe8@kernel.org?part=3D5
