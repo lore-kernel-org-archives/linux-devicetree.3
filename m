@@ -1,104 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f19.google.com (mail-wr2-f19.google.com [74.125.225.83])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62C0450EBE7;
-	Thu, 17 Sep 2026 13:57:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28C3753FD4C
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 13:58:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.83
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789653468; cv=none; b=jMYuYgco089P3YtDX3ShMf5UUznLX3TZhAUPAMl7lT0IwC/OMxvI5ak1LdGVAaFqzhDmZXvxPyZIFH9TOCH/EVrnwwtvnMYB8PlmzzZOwCjVJP97L/sB5DvN/q+TWPUG5mA7ErodsbVJcLCpYtaKf0FPrGnxYzgxbJ9Ob3Rbp54=
+	t=1789653529; cv=none; b=bKvD8cXi2MbTOATIuhhSn6It+9JuZGm9MyUCvS8liKrXcex1NLjBe2rC4FQlZXq6zkdmEk1RPY+MFCkX6z75zkqq8zv5WsMnf/NU4pU+zHh5qo2nkF4/aZFSqBnlPjB1BZHS1FveGsvmH/upov/L2TvPgQ/osX6jlSLCBgEOXM8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789653468; c=relaxed/simple;
-	bh=RSvQA9mnN8KAm0hg2Ax5JgPW0ESTjOO+F4d5bTTSljc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=heQIVByAkT7+P2e3WUQ07RsDoCVZzQFl0JoHRrnU3VvlInwHuA5WskQG4xCyzXm9+XoaI7e6WexLeyRDc7Jd7cwaiql/4CXvw5smSMbWz96JYOg1VwXlJPiBSDJAHNqGpRb3USlmBCD5znfBRBLqahT7gP2zeuKJhcRuyX9M0mM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c9YlY2Bx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789653529; c=relaxed/simple;
+	bh=ZqiXbA8s5RbN6r1kc2favZDBkjio0ckGcJPsbMrAk4U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=J0M6i3yUFrqRn2b7nQ3Nxxao2QOL04hnBqNe1zsvR+N8tRW2koVWtMKiYvse6abaQBDD69P6uiD70tgKIGtCXo//uf4085z0ELCsyXbfHyJFwQGsQOtIFqTpoLeoqKlm80G54LWHyB7uukYzLlfHDmr+JQPWHIxFjYDoMXeOJRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X7AA/0+K; arc=none smtp.client-ip=74.125.225.83
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c9YlY2Bx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBDEA1F000FF;
-	Thu, 17 Sep 2026 13:57:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789653467;
-	bh=8UAT7IvTcmwi83IUaelNM3GAVNHGJd0wkYM9OiHkrUk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=c9YlY2BxUrYFyKFbPoJz2iX4BndKV7E/rvF0jh8OnnYFRKJBM600B/JwPJqRfm73r
-	 09XUbIkIEAVms8QOq3kQt5wfuTutxH1lbl2QJGdPCA/TwAWPOcRwSFaendhS03rEiV
-	 ojnXHUqspNU9hm/CAjFLgOmaIVVqfo2IWBNu/q5WxPLjvgop4WsL2dmcFQ3Bx8GPtJ
-	 9cwpGKCx8SLcqOO4h5fqedDFOPFb1ynyWTbBZQMSIVrUhZlHVZoqTZBdVyEn9RXyvz
-	 zUHuxXuGcg29zu0IFEbPKa0OQma1wYwOQFZCKNTNwgffv7wHfBv+YF1g3oiLDuLxZK
-	 sTPDqqQcuxCxw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/8] dt-bindings: devfreq: event: rockchip,dfi: add
- clocks to rk3588
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, linux-clk@vger.kernel.org
-In-Reply-To: <20260917-rockchip-dfi-cleanup-v1-2-4f00a97a69a6@collabora.com>
-References: <20260917-rockchip-dfi-cleanup-v1-0-4f00a97a69a6@collabora.com>
- <20260917-rockchip-dfi-cleanup-v1-2-4f00a97a69a6@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 13:57:46 +0000
-Message-Id: <20260917135746.DBDEA1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X7AA/0+K"
+Received: by mail-wr2-f19.google.com with SMTP id ffacd0b85a97d-48583cc7ab1so451530f8f.2
+        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 06:58:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789653526; x=1790258326; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=O5IhnPgW4pLNq49awgTAAmlkGTKl3vSsqH3Qb0oXmSU=;
+        b=X7AA/0+KRBWI2+7IW80qq0e/uJPsnUQRavQTFRdvVqYQTQHuxLjwebcyv0EJ4ruQIC
+         JYBYejAxHAMx0QB3ohpCl7p6vav2CDBuHhZ8n6mOpcyOrNt5YSzBnYV7oJpGsoddTREg
+         ecvLykpidPGwj8/b0BBmTTh8gO1rQ9O5nwC8rAAOmBAu30VZ+3ouhRIoGU9YsAyY0xN+
+         MVdtQxKtwcmrs35CqGPb0xJ0Z28u/q+psk9nhHYUPU614hhczQEpJ35L8dyEAtg2vqeG
+         OYdrvLaZtc5qTuAyifgelNkBgsnRPKYl9AcjOtwfjQuXMu2o3/5RvpGvwEonQpW/Ouzc
+         hGfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789653526; x=1790258326;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=O5IhnPgW4pLNq49awgTAAmlkGTKl3vSsqH3Qb0oXmSU=;
+        b=Kd+zvmqQVmNdJhkTyMdwbHPdJrLcnVMQj/YEFBvCMjHy1NxVMTQJwTizFZ9x1sBN4q
+         NH1jaLYKCn+JTvUF62OgbQDnMNDFyUvoN/j1Sk2gHjyWHm/7kb4eFUbd1YLHh4qsB4FB
+         HYqYospdLxNiulCRtULk++lMRO90OyUMawsY9zqgX/gUyr5x/Z76imznUWTiG1rYRopR
+         EhAnVg9fDGB20ZENstcWxvsumSNQE81/ujro9AyQ/VfCQ/J46QyF928u/DPTBd0If3Y8
+         QZiUeOaP8fHzM7vH8gZY7VSzTHst7eiFLOC5BhZdQlqZu/LCmcVxGKJSICqvoT7KWaxm
+         c5Kg==
+X-Forwarded-Encrypted: i=1; AKwUvBzYu8EpjbDuncPqSpMeA04bCCd6Tu5v/V4J9MIHwtFOrSxgWpPBtNhCHVAuIhAs0B8mDVv1GlmpxgWj@vger.kernel.org
+X-Gm-Message-State: AFuF++mMHVuRGz5xDAm2f2chtMjcHSQhLB24enUgZGQnQItf7unq8zL0
+	aa4Oh2eaRJG5ZcFzUpB4w9L5Gjhp+bxgEjKGUO8xqhwM0pzslNLC5zv9
+X-Gm-Gg: AYBFou3mhh5hjHvokONddou1/oPvBjZyMK3Qz/kqZ6LHDAx+tofbjWoN4Z2GSS2JWvi
+	pRx+vmHXkHAgQfyHjSwWF3BNY5wPaN5kBjXIk6WIGHWImRrzN5iTB9MyLqqWfbLQsSsRywbIDx8
+	14+W/PrsG8ygzOOZXMOmhUtfZ4HwLUv1AeAZBWlnMZMfwfHVoIncaB/lQiXUVWgWrr/bwCoVwOL
+	9NVrM2ziHPHsjIt2Ex2vwWFj0e2+Qv0jNoI090TT5OWK267nBrckVfmW7+R0AzZmsgtOp//mMuy
+	cOhrV2RY8mJVpibx/FLHf3KJv+cJlyQ6zvuG9ehX9KD2plUtWTOxAriU7kji2HSQoKy6s1Uq5P6
+	IGSkuMWMCwH5+1WLVhlpn9YevyZIkwXgIXU2hXgmYPb/fIMNXhKZe6M2cOktKY5TIN+j2lntyOg
+	ThwpV5mI8l0sUSdObQxFgpDfY84M3HCBSyd13aaONuHHfrEffd0GhTyPvsdZHpuC9yxLDkJKchy
+	x6Cud6ov8t8X7KtS4Uei9t3bV/BmgATSasI0kaSNO2s0A==
+X-Received: by 2002:a05:6000:60e:b0:486:e901:e59 with SMTP id ffacd0b85a97d-4870d05a86emr9440738f8f.31.1789653526020;
+        Thu, 17 Sep 2026 06:58:46 -0700 (PDT)
+Received: from zeus.localdomain (212.71.14.70.adsl.dyn.edpnet.net. [212.71.14.70])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf414c3sm12851706f8f.30.2026.09.17.06.58.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 06:58:45 -0700 (PDT)
+From: Sander Speetjens <sander.speetjens@gmail.com>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Jonathan Bell <jonathan@raspberrypi.com>,
+	Stefan Wahren <wahrenst@gmx.net>,
+	linux-rtc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	sander.speetjens@gmail.com
+Subject: [PATCH v3 0/2] Raspberry Pi 5 RTC driver
+Date: Thu, 17 Sep 2026 15:58:39 +0200
+Message-ID: <20260917135841.841680-1-sander.speetjens@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] dt-bindings: devfreq: missing conditional constraints for rk3568-dfi
---
+The Raspberry Pi 5 has a battery-backed RTC located on the DA9091 PMIC accessed via the I2C bus[1].
+Access to the RTC is provided exclusively through the VideoCore firmware
+mailbox interface (not via a direct I2C register interface).
 
-commit 75c6ca72e6782643c9c65600f7fef45a8cfa9e7d
-Author: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+As stated by jamesh on the Rasperry Pi forum [2], "There are no plans to release a public datasheet for the DA9091." So we are stuck with the firmware interface for now. PhilE also states that "The firmware needs full control of the DA9091, sometimes with extremely low latency, otherwise there's a risk the supply could just cut the power."
 
-dt-bindings: devfreq: event: rockchip,dfi: add clocks to rk3588
+This series adds:
+  - a DT property for the charging voltage of the RTC battery
+  - the RTC driver that talks to the firmware
 
-This commit updates the rockchip,dfi device tree binding to document the
-existence of individual channel clocks for the RK3588 DFI hardware. It
-increases the maximum number of clocks from one to four and adds conditional
-schema checks for the RK3399 and new RK3588 variants.
+The driver and binding are based on (and largely taken from) the
+downstream Raspberry Pi kernel. The main changes for upstream are
+the addition of a dt binding property for setting the charging voltage and
+binding the driver from the raspberrypi-firmware driver instead of from
+the DT.
 
-> diff --git a/Documentation/devicetree/bindings/devfreq/event/rockchip,dfi=
-.yaml b/Documentation/devicetree/bindings/devfreq/event/rockchip,dfi.yaml
-> index 50d3fabe958d5..d6e06a9bea19f 100644
-> --- a/Documentation/devicetree/bindings/devfreq/event/rockchip,dfi.yaml
-> +++ b/Documentation/devicetree/bindings/devfreq/event/rockchip,dfi.yaml
-[ ... ]
-> @@ -40,17 +48,50 @@ required:
->    - interrupts
->    - reg
-> =20
-> -if:
-> -  properties:
-> -    compatible:
-> -      contains:
-> -        enum:
-> -          - rockchip,rk3399-dfi
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - rockchip,rk3399-dfi
+The driver supports time read/write, alarm, and optional trickle
+charging voltage configuration via the device-tree.
 
-[Severity: Low]
-Should the rockchip,rk3568-dfi compatible string also be included in this
-enum?
+Testing
+-------
+- Hardware: Raspberry Pi 5 Model B revC
+- Kernel: v7.2
+- dt_binding_check: passed
+- Basic RTC operations (read/write time, alarm) verified
 
-The global schema constraints for clocks and clock-names were relaxed to
-maxItems: 4 earlier in this patch to support the 4-channel rk3588-dfi. By
-only including rk3399-dfi here, the existing rk3568-dfi compatible is omitt=
-ed
-from this strict 1-item limit conditional block.
+[1] https://www.raspberrypi.com/news/introducing-raspberry-pi-5/
+[2] https://forums.raspberrypi.com/viewtopic.php?t=359073
 
-Does this leave rockchip,rk3568-dfi without proper clock constraints, meani=
-ng
-invalid device trees specifying too many clocks or invalid clock-names for
-the rk3568 variant will now silently pass schema validation?
+Sander Speetjens (2):
+  dt-bindings: rtc: Add property for Raspberry Pi 5 RTC
+  rtc: Add Raspberry Pi 5 RTC driver
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917-rockchip-d=
-fi-cleanup-v1-0-4f00a97a69a6@collabora.com?part=3D2
+ .../arm/bcm/raspberrypi,bcm2835-firmware.yaml |   6 +
+ drivers/firmware/raspberrypi.c                |  25 ++
+ drivers/rtc/Kconfig                           |  11 +
+ drivers/rtc/Makefile                          |   1 +
+ drivers/rtc/rtc-raspberrypi.c                 | 272 ++++++++++++++++++
+ 5 files changed, 315 insertions(+)
+ create mode 100644 drivers/rtc/rtc-raspberrypi.c
+
+
+base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+-- 
+2.55.0
+
