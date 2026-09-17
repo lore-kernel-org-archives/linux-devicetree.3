@@ -1,1748 +1,204 @@
-Received: from out28-50.mail.aliyun.com (out28-50.mail.aliyun.com [115.124.28.50])
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010044.outbound.protection.outlook.com [52.101.228.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F7AE51A752;
-	Thu, 17 Sep 2026 13:14:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.50
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789650907; cv=none; b=I2KwOJ8uleKM0UnuVqQ3TdrA6Imj7/IVTg+HfRerpUWXA+qW3hOq5xdCnC9K7TRKo+Ih18aZhleC0A4BuAo0kG0A1/iNT9J81mw7xgj7N/NpGr80GcQk8blXt3grI+9VEsgz60po4oTBmDviHxpDq97UTUCvkQ1jRCBJ1uciIPM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789650907; c=relaxed/simple;
-	bh=68VHzX7MjqjOietjO/X201VeHIrUtmWYS/oQd8tOBFo=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=mcE7R6FiADC++W7uvQCSSX42JWauKH2osoAg76Qk/IXrajixSAOkz2Vp0p2x3dvj3n2rN/teT0Gpbo69DcrcrnX05bj9VQEZQ4DJi1gtKCDnEfskktbTArKoOa7d5tsSVr6OtV8SzhkLEygubxAdvgc1MLcEpKctSYkMtc9SZOY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com; spf=pass smtp.mailfrom=motor-comm.com; arc=none smtp.client-ip=115.124.28.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.06712908|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0108436-0.15722-0.831936;FP=17922455672162110706|15|2|17|0|-1|-1|-1;HT=maildocker-contentspam033037031241;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=19;RT=19;SR=0;TI=SMTPD_---.jG4HK5E_1789650888;
-Received: from motor-comm.com(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jG4HK5E_1789650888 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Thu, 17 Sep 2026 21:14:48 +0800
-From: Kyle Switch <kyle.switch@motor-comm.com>
-To: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andrew@lunn.ch,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	Frank.Sae@motor-comm.com,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: ming.xu@motor-comm.com,
-	xiaolin.xu@motor-comm.com,
-	jianmin.wang@motor-comm.com,
-	jie.han@motor-comm.com
-Subject: [PATCH net-next v20 3/3] net: phy: Add driver for Motorcomm Quad 2.5GbE phy
-Date: Thu, 17 Sep 2026 21:14:41 +0800
-Message-Id: <20260917131441.3428554-4-kyle.switch@motor-comm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260917131441.3428554-1-kyle.switch@motor-comm.com>
-References: <20260917131441.3428554-1-kyle.switch@motor-comm.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 634CE51354A;
+	Thu, 17 Sep 2026 13:16:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789651016; cv=fail; b=JnNv8qXyeBIpDycezw0tF18vmZ0G//bddpq7gJkln7KaFzE8aQk8z0cl/KFWBZ9YtKQeYEyqBeri0V8SPNVwrFWM4UIKS4Yu9EB1yisK2QyFcNkepj8fGW/ZfjZKlInxCG+yvQcU9VBVOyCDEeZ4/myHMHPazpg5Ury+iijJ3tg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789651016; c=relaxed/simple;
+	bh=gW1QMO/haSffdtfmyGa/YEFHUiQSsgG0fS5mjIN/SNQ=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=JtaYrCdU0fr41PqdDgYAHtBwMqzuZzN7RnKEV4wKpleYsNYcWn6pWWyHNwUsnTKNh/oeyIlc3GfrABPbFbz42Vzp9wWYRxV+sVcNpEDXzpNYT45tHrOXnGpuf5NTIDVkpHMp3Y4NdJSxow4DuNlgTT6twJzz1tIhwG8AYGO+mtA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=nRtTiRkA; arc=fail smtp.client-ip=52.101.228.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="nRtTiRkA"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FyAi8/YwA4+AvomxdohVWLNZ2AJtumOtO5dI+a8e+1a5TWJbIsKqe5Y2D7HK8CYLcAg5XHwo5g0cyoEZHVEDjfjiI2eypuu7G3oorZAPop0rOWfqGrhdlB8s5NcZYLUkOuS1crDrPvfUEIcQ5aXPiNaun9FtH01IWrinZioJ1h1DMgeI9+QhJZY9c+WZXgjAIzto7s6pr0L36uuSJNmfIm/77UOkRCi3NsG3dlz6I+4Ooi8RotJDlMMESYJzzMkck0B+dnoBpG5/APopIJHeSIdeuiUdqaA22xTINBGh7n4bd0LXFzdkvN1L9s6zP3k7BhbKd9+yexUVjbu+MaH6Jw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gW1QMO/haSffdtfmyGa/YEFHUiQSsgG0fS5mjIN/SNQ=;
+ b=KxaiDAzznyc8PqFbzZ1rfwVc7nEpC7lz3npYOMBirK92vZ7TgGpzjKwx+7C8rncL+YhZyku1jO9FbCDX4CtrX0iVjWVCMiZmsNnanxvQvWYfYoxUE8p7mQV+h6xXYN7HbVpi+wazBDFpWLCF0pwgAkeFGzs/pyeagx5Pht3mFXbuSqmoPXolBxgcNLZmVffJ9i8D7GYxYe5hWdHaQF7myMBWOlhPVBVAV5ghhJQcR12JbVmQyoi0daiZP5zP1i14u7TGxcL5o8wGPZypespdKbZV8TUVksqgbx3CyXaTuYtkf1Veso6bULneWTTdiMY9teRMahFVjyjbGveeNTQfrg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gW1QMO/haSffdtfmyGa/YEFHUiQSsgG0fS5mjIN/SNQ=;
+ b=nRtTiRkAUmYIhppONqEgNSEYC0kIPD1VjdHI5R+cvrLL68/t5HI8juPg/qst7sRrgoCfsjE3DRPfq2h5h7rCF9ZpbfCwNDEVZ4ZaDZsz+J3C7DzWAMijhhZxfadXzrg1lJZzOg3Cv65fXh8t/8drdZgndh9ksz1IbPgWaxYt0l4=
+Received: from TYCPR01MB11865.jpnprd01.prod.outlook.com (2603:1096:400:38c::6)
+ by TYWPR01MB10347.jpnprd01.prod.outlook.com (2603:1096:400:24b::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.13; Thu, 17 Sep
+ 2026 13:16:50 +0000
+Received: from TYCPR01MB11865.jpnprd01.prod.outlook.com
+ ([fe80::981:1b9:f809:a0c3]) by TYCPR01MB11865.jpnprd01.prod.outlook.com
+ ([fe80::981:1b9:f809:a0c3%5]) with mapi id 15.21.0428.011; Thu, 17 Sep 2026
+ 13:16:50 +0000
+From: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>
+To: geert <geert@linux-m68k.org>
+CC: "magnus.damm" <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Ulf Hansson <ulfh@kernel.org>,
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
+	"linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>, Chris Paterson
+	<Chris.Paterson2@renesas.com>, Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, Prabhakar Mahadev Lad
+	<prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: RE: [PATCH 08/10] arm64: dts: renesas: Add initial SoC DTSI for
+ RZ/G2M v3.0
+Thread-Topic: [PATCH 08/10] arm64: dts: renesas: Add initial SoC DTSI for
+ RZ/G2M v3.0
+Thread-Index: AQHdMX6RNObc7RKd7U2vgGN3+8lz1ra+oVYAgBRIuyA=
+Date: Thu, 17 Sep 2026 13:16:49 +0000
+Message-ID:
+ <TYCPR01MB11865D6BA98CAE7989B4FE27FA2B82@TYCPR01MB11865.jpnprd01.prod.outlook.com>
+References: <20260821150408.73829-1-ayman.chaudhry.kc@renesas.com>
+ <20260821150408.73829-9-ayman.chaudhry.kc@renesas.com>
+ <CAMuHMdWn3BaY3EHeThFo34Z=69OaZb0FQ7Z7Ui9MczDGS4nBGg@mail.gmail.com>
+In-Reply-To:
+ <CAMuHMdWn3BaY3EHeThFo34Z=69OaZb0FQ7Z7Ui9MczDGS4nBGg@mail.gmail.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TYCPR01MB11865:EE_|TYWPR01MB10347:EE_
+x-ms-office365-filtering-correlation-id: e540684c-ddf9-43a6-b10d-08df14bdeeee
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|1800799024|366016|7416014|376014|56012099006|11063799006|10067099003|4143699003|38070700021|18002099003|22082099003;
+x-microsoft-antispam-message-info:
+ sqZ2tgSb1My6WRrhBcaSn3QIqD7Efk6mSwKj7xvFLGV7zuKIFckWjQFsDTYC+zn2b29Ga5e1wFG+voVrBDendJhEjpAeyudh+4cD/SSadeC+aLX0t9WNhsgfsCiXKj3kEXbj+29X9cL55eMhga1/1prhYC+zqKDC22Gi34TUNRRV21jv6Cx50QkJfsEDbMDEKVdtS+BJ8t0IoNRr3w5Zdq1+Id9X9TM1FmLxrGaIAnJyeusi5OVFQmxQxR1cBJt4XvZwmRLXSbfhVvoBnY+S2mnm/AXjqHF69SmLPLGamOIbxEms4bLSPbFZat4V+pkucefAEsgOfU1fVK7l+PmmPxHuv4L3Sm6x4+AaufIHhMd/QY+2vdXt4eA1YnC0gBn/gnxJKYoSpt3lArsQs25wIcg3qgZfhm0wY6eIZ9zCTW+5Du6r2D0INmv+aVAnNff/1k0d6PMfdX+iRBrHVc04aupSp8JNBQrofx5OOq7M2GMJgPq4Om/h/7lss8fVJigo6pWuBMf7QwICDJccM0S/7pW3SmQCxeidq0OnlID19E3mkfebsPvcEVcFwytmOVlnqEfypVipj902zEp2cXs3ANuo3lxu2OVddbVn/9xBCUk+rLYgITau11HwLkO76y9wiTXoSg87rHklA/oOEqN22iPVn+PQMHAeglCHWmViox/Yu+WSittPfihQsLW0lwoD83wcpfVhcooTa2Rt+DRnoxokiy8L9qy23VkIzAz9IPk=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB11865.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(7416014)(376014)(56012099006)(11063799006)(10067099003)(4143699003)(38070700021)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?c0JQdkkvT2NrZnVwNng4L3BiUy85WUZtRVYwSi9hWGZ6MnkrS2ZHTk5DYXdB?=
+ =?utf-8?B?S3Y2SHB0ZENHY1dZUnNnb29NMXFEbmgzS0VEUFlJV2lKMVM3dlg5c0FRN2tZ?=
+ =?utf-8?B?STI1WEZQa3BycHl6RXRxbGNoZkRyMHVJNEpzM09acTBDMmhxaXRRQWExbDVj?=
+ =?utf-8?B?TkZ5VjBZTzRYNGsrZ3ZBTW1takFybHpJYmZoSDdIL3RIQ1BvbXNFcjhkNkNX?=
+ =?utf-8?B?aXAzOHlSazJENGo5MGpwOUdlb1lRZG16RmltZFAvMHJhUUhuQmZoZ2pKV0No?=
+ =?utf-8?B?UVVCVlErdTQ4cVNhMFNLWHdBb2VTeDFMb0poN1BBNm5ndVR5OUtVMERyaW8w?=
+ =?utf-8?B?YkhXU01BQlVwakQrSi9pNEUwTW1NeGFYWXpWZ2o0Sk0wcGY5Q0JidEpvKzly?=
+ =?utf-8?B?UmxoaDV3MnZDbHpGUFExTjBsa0NpaGdYQ1pJMHppZG1WdlcwRjVSVkxiNThm?=
+ =?utf-8?B?c1NJemRySng2MUlDVVIvTkhzTkRMZ0Zpb3VuMDlwQTNubHJBc3EwQm9Mek81?=
+ =?utf-8?B?UlJ2cGZoZk5CVlBUem4yS0pwMDMyMWJzTUh1N09jL3NBaVdSWUVKaXliYUNL?=
+ =?utf-8?B?NFBjeXZwRGtFSjQ1SXg0c05JakkyRmY0cW9NRWlBejhacDdxbVV3RU9sMWJ5?=
+ =?utf-8?B?elIySzlyOEZuRzI1OWo4b1RJYzRHNG1xQmNoNEY1NkJPZzN2QmhYdnhROE9N?=
+ =?utf-8?B?UUlzOURaV2duZ0lSaDRtcVF2N2RwV0lLQXBySEZGUG1JdzBOU3JDQVpYdER5?=
+ =?utf-8?B?a0tkb0ZvUFFsbDZ0MzBsbGdaVWJZczJyUVNLSStObVhtMy95ZGtsLzBTajhE?=
+ =?utf-8?B?cFJLTStENmhvVmZVNUk0MVRjME9QNlJsRlROM3UxaTd6cnR3TnFNUnIrSng4?=
+ =?utf-8?B?MjNGcm8rUkdrQm94aE1Db3FtbWRKd1M1blYxSnh0MCtPY0JiYW9wSzlJbmk0?=
+ =?utf-8?B?aEp3aFo0aDlyWjQrTTNDVURIVTIxSE1FZmx1RUlVbWo2OWdCNXJISkpFNmlW?=
+ =?utf-8?B?N0Jvai9tanAwL1U5R2tXRHlLUzdjV2t4cTVPeDFMbDhUWHFUajVtakZDMUpo?=
+ =?utf-8?B?RXAycFhvdXZQT1RtQ3JBT1hrZU9FclphMWtyNUF2WkhZa3JBdDl3aGtzcTU4?=
+ =?utf-8?B?ZzE2VHl3MStFMUl6UzltUHcvK2htUmVaRXdRVDI4NXU1SEJQNVQ2SndaT0kz?=
+ =?utf-8?B?Q0hOVk5jRWlhWjdxQThGT2wyb1Y2emNGYTFGUUhVby8vN21YMitNcGxNbkxi?=
+ =?utf-8?B?YXcwZ1c5ZVpTbW1oZ2FORFBjZFRoMkVvRmFTb0d0WUlLcUlIOUh2ZUJMUmpU?=
+ =?utf-8?B?cWZJL3IzVnp5WHUxTkM2SEZXVWtkR1JVRTdTZ090ZHp0NE04N0tyYnNLRkpl?=
+ =?utf-8?B?MUhtcXdkZnE3aXFLL21vazRXZlNZVFM1YjdyU0JyalNBc2FKRE1tYTBWTVhM?=
+ =?utf-8?B?QUxRSzlsajdOMnBFL3hjYmNFYXkvZkJGNVlTSC80Wng3am8xd0psWnFpS0hC?=
+ =?utf-8?B?Mk51RzVDZGJpTVNaVjZ5cnl5ZnFGa3ErcTBzUVBGdkcxc1V3UjNJbEZZN01t?=
+ =?utf-8?B?QW90UGN3TmIrM0l3WDBWa2tmOTc1TFlxWHh2OVJOaUhSSGZPeHgyOHJxejRm?=
+ =?utf-8?B?ZjN5dXlsVFp2cWhudXZZenVqZlcyMmlJV2VadzVaSCtlZUh3Y01vTFlGVUY4?=
+ =?utf-8?B?cUMwQTlMUHlNTE0wQWNwbmoyckNKVFBrYTl2bDRsZ0l3a1dQT0dwSDdpOUtp?=
+ =?utf-8?B?eGh5OE1NRkU0VHRudU40bkl4a2o3bGhOSXBPcmk3eGk3MndnVDkzVWZVaUxC?=
+ =?utf-8?B?SUJFZXBIQ2JHeTBuZUhqa3p3bDFZNjhxUlg3RmRQZlBUNkNGd2Rhc2JtT3ZH?=
+ =?utf-8?B?b3F0dHdGYXAwOFJzaVlpYVVuNnNoYWFvMHdhVjhReVljRm9pMlVUdlFXN3JL?=
+ =?utf-8?B?WWkwZVNQRCtHT0cwS3N4V2NVQXB6NHFuU2g2QitaL21yNkQ0YkQzd0d5Ykxx?=
+ =?utf-8?B?YmFzdElRZXBCT3NENkFOTkN0QUIvVExnOTAyMmxhcGhIbndaN0hUOWhyVnJa?=
+ =?utf-8?B?Z0U1eXkxNGVmdmplV1dmS0NNZCs5MzNOb1ZEd2UxeUgwVE9yMW9OM0NIWFpo?=
+ =?utf-8?B?WlErbCtCdytTeFIybTZzL1V5RnlhN2lxOTZVQUZQbXlzUExPb1Rhc3l5Y0pw?=
+ =?utf-8?B?WGpvRE11UEUvc0J4bUNGUDR6NkJhSHNPV2lWUERQMSs2RGNWaUY1VHg3Tjlt?=
+ =?utf-8?B?emdPWTVmbUQ3Wk94YzMwUmNPS0xTZTFqS3kzTHJaajdaTTY5d3c5SDhoN2pJ?=
+ =?utf-8?B?WmF2VmptOVFRVys0cFlDRG0zUW0yMzVmOElWa0EzWWtCcmZ1eCtIV3VqS1hn?=
+ =?utf-8?Q?v3WmScKVf+ej+8Ts=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB11865.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e540684c-ddf9-43a6-b10d-08df14bdeeee
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Sep 2026 13:16:49.9418
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 1663LDQb5AbNuXfED+uxbl+cfZNVag9vG/OI6KWVudbS7+7Ofc071RKIeSV9+vusid3cLSZAwRMsmDsvLGasHUZr8i4ycaYAFEYQF2jZ5D8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB10347
 
-Add support for Motorcomm YT8824 quad-port 2.5G PHY to the existing
-motorcomm driver, using the phy_package helpers for the shared top
-extended register space.
-
-Signed-off-by: Kyle Switch <kyle.switch@motor-comm.com>
----
- drivers/net/phy/Kconfig     |    3 +-
- drivers/net/phy/motorcomm.c | 1575 ++++++++++++++++++++++++++++++++++-
- 2 files changed, 1575 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/net/phy/Kconfig b/drivers/net/phy/Kconfig
-index d3835597e379..996d75afed44 100644
---- a/drivers/net/phy/Kconfig
-+++ b/drivers/net/phy/Kconfig
-@@ -361,9 +361,10 @@ config MICROSEMI_PHY
- 
- config MOTORCOMM_PHY
- 	tristate "Motorcomm PHYs"
-+	select PHY_PACKAGE
- 	help
- 	  Enables support for Motorcomm network PHYs.
--	  Currently supports YT85xx Gigabit Ethernet PHYs.
-+	  Currently supports YT85xx Gigabit Ethernet PHYs and YT8824 4 * 2.5G PHY.
- 
- config NATIONAL_PHY
- 	tristate "National Semiconductor PHYs"
-diff --git a/drivers/net/phy/motorcomm.c b/drivers/net/phy/motorcomm.c
-index 90a4f86f2758..7ab09666ab3f 100644
---- a/drivers/net/phy/motorcomm.c
-+++ b/drivers/net/phy/motorcomm.c
-@@ -1,24 +1,31 @@
- // SPDX-License-Identifier: GPL-2.0+
- /*
-- * Motorcomm 8511/8521/8522/8531/8531S/8821 PHY driver.
-+ * Motorcomm 8511/8521/8522/8531/8531S/8821/8824 PHY driver.
-  *
-  * Author: Peter Geis <pgwipeout@gmail.com>
-  * Author: Frank <Frank.Sae@motor-comm.com>
-+ * Author: Kyle <kyle.switch@motor-comm.com>
-  */
- 
- #include <linux/clk.h>
- #include <linux/etherdevice.h>
- #include <linux/kernel.h>
-+#include <linux/mdio.h>
- #include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/of_net.h>
- #include <linux/phy.h>
- #include <linux/property.h>
- 
-+#include "phylib.h"
-+
- #define PHY_ID_YT8511		0x0000010a
- #define PHY_ID_YT8521		0x0000011a
- #define PHY_ID_YT8522		0x4f51e928
- #define PHY_ID_YT8531		0x4f51e91b
- #define PHY_ID_YT8531S		0x4f51e91a
- #define PHY_ID_YT8821		0x4f51ea19
-+#define PHY_ID_YT8824		0x4f51e8b8
- /* YT8521/YT8531S/YT8821 Register Overview
-  *	UTP Register space	|	FIBER Register space
-  *  ------------------------------------------------------------
-@@ -30,6 +37,18 @@
-  *  ------------------------------------------------------------
-  */
- 
-+/* YT8824 Register Overview
-+ * UTP Register space | USXGMII Register space
-+ *  ------------------------------------------------------------
-+ * | UTP MII		| USXGMII MII		|
-+ * | UTP MMD		|			|
-+ * | UTP Extended	| USXGMII Extended	|
-+ * | UTP Top Extended	| USXGMII Top Extended	|
-+ *  ------------------------------------------------------------
-+ * |   Common Top Extended			|
-+ *  ------------------------------------------------------------
-+ */
-+
- /* 0x10 ~ 0x15 , 0x1E and 0x1F are common MII registers of yt phy */
- 
- /* Specific Function Control Register */
-@@ -381,6 +400,13 @@
- #define YT8821_CHIP_MODE_AUTO_BX2500_SGMII	0
- #define YT8821_CHIP_MODE_FORCE_BX2500		1
- 
-+#define YT8824_RSSR_SPACE_MASK			BIT(0)
-+#define YT8824_RSSR_USXGMII_SPACE		(0x1)
-+#define YT8824_RSSR_UTP_SPACE			(0x0)
-+#define YT8824_SDS_CFG_MIN_PRE_MASK		GENMASK(3, 0)
-+#define YT8824_SDS_EN_FILL_PRE			BIT(13)
-+#define YT8824_SDS_TX_PRE_PADDING		(0x7)
-+
- struct yt8521_priv {
- 	/* combo_advertising is used for case of YT8521 in combo mode,
- 	 * this means that yt8521 may work in utp or fiber mode which depends
-@@ -399,6 +425,12 @@ struct yt8521_priv {
- 	u8 reg_page;
- };
- 
-+struct yt8824_shared_priv {
-+	phy_interface_t interface_mode;
-+	/* shared_lock used to UTPs operation isolation during swap reg space */
-+	struct mutex shared_lock;
-+};
-+
- /**
-  * ytphy_read_ext() - read a PHY's extended register
-  * @phydev: a pointer to a &struct phy_device
-@@ -437,6 +469,78 @@ static int ytphy_read_ext_with_lock(struct phy_device *phydev, u16 regnum)
- 	return ret;
- }
- 
-+/**
-+ * ytphy_read_top_ext() - read a PHY's top extended register for YT8824
-+ * @phydev: a pointer to a &struct phy_device
-+ * @regnum: register number to read
-+ *
-+ * Returns: the value of regnum reg or negative error code
-+ */
-+static int ytphy_read_top_ext(struct phy_device *phydev, u16 regnum)
-+{
-+	int ret;
-+
-+	/*
-+	 * The package base address is used here to read the top ext registers.
-+	 * For example, in internal mode, the top ext address is fixed at 9;
-+	 * for usxgmii, the offset is 4. Instead of using the offset approach
-+	 * a fixed address is used here to avoid situations such as when phy0
-+	 * is not in use, where the top ext register address cannot be obtained
-+	 * correctly.
-+	 */
-+	lockdep_assert_held(&phydev->mdio.bus->mdio_lock);
-+	ret = __phy_package_write(phydev, 0, YTPHY_PAGE_SELECT, regnum);
-+	if (ret < 0)
-+		return ret;
-+
-+	return __phy_package_read(phydev, 0, YTPHY_PAGE_DATA);
-+}
-+
-+/**
-+ * ytphy_write_top_ext() - write a PHY's top extended register for YT8824
-+ * @phydev: a pointer to a &struct phy_device
-+ * @regnum: register number to write
-+ * @val: register val to write
-+ *
-+ * Returns: 0 or negative error code
-+ */
-+static int ytphy_write_top_ext(struct phy_device *phydev, u16 regnum,
-+			       u16 val)
-+{
-+	int ret;
-+
-+	lockdep_assert_held(&phydev->mdio.bus->mdio_lock);
-+	ret = __phy_package_write(phydev, 0, YTPHY_PAGE_SELECT, regnum);
-+	if (ret < 0)
-+		return ret;
-+
-+	return __phy_package_write(phydev, 0, YTPHY_PAGE_DATA, val);
-+}
-+
-+/**
-+ * phy8824_page_write_with_lock() - write page for YT8824
-+ * @phydev: a pointer to a &struct phy_device
-+ * @page: reg page(YT8824_RSSR_USXGMII_SPACE/YT8824_RSSR_UTP_SPACE).
-+ *
-+ * Returns: 0 or negative error code
-+ */
-+static int phy8824_page_write_with_lock(struct phy_device *phydev, int page)
-+{
-+	int ret;
-+
-+	phy_lock_mdio_bus(phydev);
-+	ret = ytphy_read_top_ext(phydev, YT8521_REG_SPACE_SELECT_REG);
-+	if (ret < 0)
-+		goto err;
-+	ret &= ~YT8824_RSSR_SPACE_MASK;
-+	ret |= (page & YT8824_RSSR_SPACE_MASK);
-+	ret = ytphy_write_top_ext(phydev, YT8521_REG_SPACE_SELECT_REG, ret);
-+
-+err:
-+	phy_unlock_mdio_bus(phydev);
-+	return ret;
-+}
-+
- /**
-  * ytphy_write_ext() - write a PHY's extended register
-  * @phydev: a pointer to a &struct phy_device
-@@ -633,6 +737,1036 @@ static int ytphy_set_wol(struct phy_device *phydev, struct ethtool_wolinfo *wol)
- 	return phy_restore_page(phydev, old_page, ret);
- }
- 
-+/**
-+ * yt8824_read_page() - read PHY8824 reg page
-+ * @phydev: a pointer to a &struct phy_device
-+ *
-+ * Returns: current reg space of yt8824 (YT8824_RSSR_USXGMII_SPACE/
-+ * YT8824_RSSR_UTP_SPACE) or negative errno code
-+ */
-+static int yt8824_read_page(struct phy_device *phydev)
-+{
-+	int old_page;
-+
-+	old_page = ytphy_read_top_ext(phydev, YT8521_REG_SPACE_SELECT_REG);
-+	if (old_page < 0)
-+		return old_page;
-+
-+	return old_page & YT8824_RSSR_SPACE_MASK;
-+};
-+
-+/**
-+ * yt8824_write_page() - write reg page
-+ * @phydev: a pointer to a &struct phy_device
-+ * @page: Reg page(YT8824_RSSR_USXGMII_SPACE/YT8824_RSSR_UTP_SPACE) to write.
-+ *
-+ * Returns: 0 or negative errno code
-+ */
-+static int yt8824_write_page(struct phy_device *phydev, int page)
-+{
-+	int old_page;
-+	u16 data;
-+
-+	old_page = ytphy_read_top_ext(phydev, YT8521_REG_SPACE_SELECT_REG);
-+	if (old_page < 0)
-+		return old_page;
-+	data = old_page & (~YT8824_RSSR_SPACE_MASK);
-+	data |= page;
-+
-+	return ytphy_write_top_ext(phydev, YT8521_REG_SPACE_SELECT_REG, data);
-+};
-+
-+/**
-+ * yt8824_utp_set_template_test_mode() - config YT8824 UTP test mode.
-+ * @phydev: a pointer to a &struct phy_device
-+ * @test_mode: template test mode from normal, testmode1 to testmode7
-+ *
-+ * Returns: 0 or negative errno code
-+ */
-+static int yt8824_utp_set_template_test_mode(struct phy_device *phydev,
-+					     u16 test_mode)
-+{
-+	int ret;
-+
-+	ret = phy8824_page_write_with_lock(phydev, YT8824_RSSR_UTP_SPACE);
-+	if (ret < 0)
-+		return ret;
-+
-+	return genphy_c45_template_testmode(phydev, test_mode);
-+}
-+
-+/**
-+ * yt8824_sds_isolate_paged() - enable YT8824 serdes isolate.
-+ * @phydev: a pointer to a &struct phy_device
-+ *
-+ * Returns: 0 or negative errno code
-+ */
-+static int yt8824_sds_isolate_paged(struct phy_device *phydev)
-+{
-+	int old_page = YT8824_RSSR_UTP_SPACE;
-+	int ret = 0;
-+
-+	old_page = phy_select_page(phydev, YT8824_RSSR_USXGMII_SPACE);
-+	if (old_page < 0)
-+		goto err_restore_page;
-+
-+	/* enable sds isolate */
-+	ret = __phy_modify(phydev, MII_BMCR, BMCR_ISOLATE, BMCR_ISOLATE);
-+
-+err_restore_page:
-+	/* restore page, release the lock */
-+	return phy_restore_page(phydev, old_page, ret);
-+}
-+
-+/**
-+ * yt8824_utp_softreset_paged() - config YT8824 UTP softreset.
-+ * @phydev: a pointer to a &struct phy_device
-+ *
-+ * Returns: 0 or negative errno code
-+ */
-+static int yt8824_utp_softreset_paged(struct phy_device *phydev)
-+{
-+	int ret = 0;
-+	int val;
-+
-+	ret = phy8824_page_write_with_lock(phydev, YT8824_RSSR_UTP_SPACE);
-+	if (ret < 0)
-+		return ret;
-+	ret = phy_modify(phydev, MII_BMCR, BMCR_RESET, BMCR_RESET);
-+	if (ret < 0)
-+		return ret;
-+	/* wait until softreset done. */
-+	return phy_read_poll_timeout(phydev, MII_BMCR, val, !(val & BMCR_RESET),
-+				     50000, 600000, true);
-+}
-+
-+/**
-+ * yt8824_sds_isolate_and_softreset_paged() - disable YT8824 serdes isolate
-+ * and sds softreset.
-+ * @phydev: a pointer to a &struct phy_device
-+ *
-+ * Returns: 0 or negative errno code
-+ */
-+static int yt8824_sds_isolate_and_softreset_paged(struct phy_device *phydev)
-+{
-+	int old_page = YT8824_RSSR_UTP_SPACE;
-+	int val = 0;
-+	int ret = -1;
-+
-+	old_page = phy_select_page(phydev, YT8824_RSSR_USXGMII_SPACE);
-+	if (old_page < 0)
-+		goto err_restore_page;
-+
-+	/* sds softreset and disable isolate */
-+	ret = __phy_modify(phydev, MII_BMCR, BMCR_RESET | BMCR_ISOLATE,
-+			   BMCR_RESET & ~BMCR_ISOLATE);
-+	if (ret < 0)
-+		goto err_restore_page;
-+
-+	/* poll while still holding the lock */
-+	ret = read_poll_timeout(__phy_read, val,
-+				(val < 0) || !(val & BMCR_RESET), 50000, 600000,
-+				true, phydev, MII_BMCR);
-+	if (val < 0)
-+		ret = val;
-+
-+err_restore_page:
-+	/* restore page, release the lock */
-+	return phy_restore_page(phydev, old_page, ret);
-+}
-+
-+/**
-+ * yt8824_restore_working_status() - called to do store working status
-+ * @phydev: a pointer to a &struct phy_device
-+ * @ret: operation's return code
-+ *
-+ * Returns: 0 or negative errno code
-+ */
-+static int yt8824_restore_working_status(struct phy_device *phydev, int ret)
-+{
-+	struct yt8824_shared_priv *priv = phy_package_get_priv(phydev);
-+	int r;
-+
-+	/* configure normal test mode */
-+	r = yt8824_utp_set_template_test_mode
-+		(phydev, MDIO_PMA_10GBT_TESTMODE_NORMAL);
-+	if (ret >= 0 && r < 0)
-+		ret = r;
-+	if (priv->interface_mode != PHY_INTERFACE_MODE_INTERNAL) {
-+		/* sds soft reset and disable isolation */
-+		r = yt8824_sds_isolate_and_softreset_paged(phydev);
-+		if (ret >= 0 && r < 0)
-+			ret = r;
-+	}
-+
-+	return ret;
-+}
-+
-+/**
-+ * yt8824_soft_reset() - called to do PHY software reset
-+ * @phydev: a pointer to a &struct phy_device
-+ *
-+ * Returns: 0 or negative errno code
-+ */
-+static int yt8824_soft_reset(struct phy_device *phydev)
-+{
-+	struct yt8824_shared_priv *priv = phy_package_get_priv(phydev);
-+	int ret;
-+
-+	mutex_lock(&priv->shared_lock);
-+	if (priv->interface_mode == PHY_INTERFACE_MODE_INTERNAL) {
-+		/* test mode 1 */
-+		ret = yt8824_utp_set_template_test_mode
-+			(phydev, MDIO_PMA_10GBT_TESTMODE_1);
-+		if (ret < 0)
-+			goto retry;
-+		ret = yt8824_utp_softreset_paged(phydev);
-+		if (ret < 0)
-+			goto retry;
-+		/* normal mode */
-+		ret = yt8824_utp_set_template_test_mode
-+			(phydev, MDIO_PMA_10GBT_TESTMODE_NORMAL);
-+		if (ret < 0)
-+			goto retry;
-+	} else {
-+		/* test mode 1 */
-+		ret = yt8824_utp_set_template_test_mode
-+			(phydev, MDIO_PMA_10GBT_TESTMODE_1);
-+		if (ret < 0)
-+			goto retry;
-+
-+		/* sds isolation */
-+		ret = yt8824_sds_isolate_paged(phydev);
-+		if (ret < 0)
-+			goto retry;
-+
-+		/* utp soft reset */
-+		ret = yt8824_utp_softreset_paged(phydev);
-+		if (ret < 0)
-+			goto retry;
-+
-+		/* normal mode */
-+		ret = yt8824_utp_set_template_test_mode
-+			(phydev, MDIO_PMA_10GBT_TESTMODE_NORMAL);
-+		if (ret < 0)
-+			goto retry;
-+
-+		/* sds soft reset and disable isolation */
-+		ret = yt8824_sds_isolate_and_softreset_paged(phydev);
-+		if (ret < 0)
-+			goto retry;
-+	}
-+	mutex_unlock(&priv->shared_lock);
-+	return ret;
-+retry:
-+	ret = yt8824_restore_working_status(phydev, ret);
-+	mutex_unlock(&priv->shared_lock);
-+
-+	return ret;
-+}
-+
-+/**
-+ * yt8824_extern_config_utp_init_paged() - config external phy8824 utp init
-+ * @phydev: target phy_device struct
-+ *
-+ * Returns: 0 or negative errno code
-+ */
-+static int yt8824_extern_config_utp_init_paged(struct phy_device *phydev)
-+{
-+	int ret = 0;
-+	int val = 0;
-+	int r;
-+
-+	ret = phy8824_page_write_with_lock(phydev, YT8824_RSSR_UTP_SPACE);
-+	if (ret < 0)
-+		return ret;
-+	/* power down */
-+	ret = phy_modify(phydev, MII_BMCR, BMCR_PDOWN, BMCR_PDOWN);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	/* pll calibration */
-+	ret = ytphy_write_ext_with_lock(phydev, 0x0001, 0x0003);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0xa20e, 0x0cba);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0xa20a, 0xc3f1);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0xa20c, 0x1620);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0xa2b6, 0x0a00);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0xa2b6, 0x0e00);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	/* optimization utp */
-+	ret = ytphy_write_ext_with_lock(phydev, 0x0001, 0x0003);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	/* enable nibble */
-+	ret = ytphy_write_ext_with_lock(phydev, 0xa003, 0x0003);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	/* idle err detect enable */
-+	ret = ytphy_write_ext_with_lock(phydev, 0x03d0, 0x5210);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	/* optimized 2.5G long cable performance */
-+	ret = ytphy_write_ext_with_lock(phydev, 0x0372, 0x5038);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0x037c, 0x6068);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0x0388, 0x00a0);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	/* optimized fast retrain */
-+	ret = ytphy_write_ext_with_lock(phydev, 0x0359, 0x2140);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0x000c, 0xc1a0);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	/* 2.5G template tone */
-+	ret = ytphy_write_ext_with_lock(phydev, 0xa2fa, 0x0083);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0x04e2, 0x0149);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	/* optimized 2.5G template */
-+	ret = ytphy_write_ext_with_lock(phydev, 0x047e, 0x3939);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0x047f, 0x3939);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0x0480, 0x3939);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0x0481, 0x3939);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	/* optimized 1000M cable length threshold */
-+	ret = ytphy_write_ext_with_lock(phydev, 0x0336, 0xab0a);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0x0340, 0x301d);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	/* 100M template amplitude */
-+	ret = ytphy_write_ext_with_lock(phydev, 0x046e, 0x4545);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0x046f, 0x4545);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0x0470, 0x4545);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0x0471, 0x4545);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	/* optimized 100M cable length threshold */
-+	ret = ytphy_write_ext_with_lock(phydev, 0x030b, 0xaa1d);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0x071f, 0x0036);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	/* 10M template amplitude */
-+	ret = ytphy_write_ext_with_lock(phydev, 0x046b, 0x1818);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0x046c, 0x1818);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	/* optimized 10M cable length threshold */
-+	ret = ytphy_write_ext_with_lock(phydev, 0x0466, 0x6c6c);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0x0467, 0x6c6c);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0x0468, 0x6c6c);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0x0469, 0x6c6c);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	/* optimize utp 1000M performance */
-+	ret = ytphy_write_ext_with_lock(phydev, 0x034a, 0xff03);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0x00f8, 0xb3ff);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0x0059, 0x4040);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0x032c, 0x5094);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0x032d, 0xd094);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0x032e, 0x5308);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0x0322, 0x6440);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0x04d3, 0x5220);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0x04d2, 0x5220);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	/* optimized EMC CS */
-+	ret = ytphy_write_ext_with_lock(phydev, 0x00c8, 0xffff);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0x00be, 0x6406);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0x037a, 0x40ff);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	/* optimized EMC RE */
-+	ret = ytphy_write_ext_with_lock(phydev, 0x0482, 0xffff);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0xa2d5, 0x1f1f);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0xa2d6, 0x1f1f);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0xa2d7, 0x1f1f);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0xa2d8, 0x1f1f);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0xa218, 0x006e);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0xa01d, 0xfff0);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0xa01e, 0xfff0);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0xa01d, 0xffff);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0xa01e, 0xffff);
-+	if (ret < 0)
-+		goto err_restore;
-+
-+	ret = genphy_c45_template_testmode(phydev, MDIO_PMA_10GBT_TESTMODE_1);
-+	if (ret < 0)
-+		goto err_restore_normal;
-+	/* reset */
-+	ret = phy_modify(phydev, MII_BMCR, BMCR_RESET | BMCR_ANENABLE,
-+			 BMCR_RESET | BMCR_ANENABLE);
-+	if (ret < 0)
-+		goto err_restore_normal;
-+	ret = phy_read_poll_timeout(phydev, MII_BMCR, val, !(val & BMCR_RESET),
-+				    50000, 600000, true);
-+	if (ret < 0)
-+		goto err_restore_normal;
-+
-+	ret = genphy_c45_template_testmode(phydev,
-+					   MDIO_PMA_10GBT_TESTMODE_NORMAL);
-+	if (ret < 0)
-+		goto err_restore_normal;
-+	return 0;
-+
-+err_restore:
-+	r = phy_modify(phydev, MII_BMCR, BMCR_PDOWN, 0);
-+	if (ret >= 0 && r < 0)
-+		ret = r;
-+	return ret;
-+
-+err_restore_normal:
-+	r = genphy_c45_template_testmode(phydev,
-+					 MDIO_PMA_10GBT_TESTMODE_NORMAL);
-+	if (ret >= 0 && r < 0)
-+		ret = r;
-+	r = phy_modify(phydev, MII_BMCR, BMCR_PDOWN, 0);
-+	if (ret >= 0 && r < 0)
-+		ret = r;
-+	return ret;
-+}
-+
-+/**
-+ * yt8824_extern_config_sds_init_paged() - config external phy8824 sds init
-+ * @phydev: target phy_device struct
-+ *
-+ *
-+ * Returns: 0 or negative errno code
-+ */
-+static int yt8824_extern_config_sds_init_paged(struct phy_device *phydev)
-+{
-+	int old_page = YT8824_RSSR_UTP_SPACE;
-+	int val_1, val_2, val_3, tmp;
-+	int ret = -1;
-+	int val;
-+
-+	old_page = phy_select_page(phydev, YT8824_RSSR_USXGMII_SPACE);
-+	if (old_page < 0)
-+		goto err_restore_page;
-+
-+	/* read efuse */
-+	ret = ytphy_read_top_ext(phydev, 0xa13e);
-+	if (ret < 0)
-+		goto err_restore_page;
-+	else
-+		val_1 = ret;
-+
-+	ret = ytphy_read_top_ext(phydev, 0xa13f);
-+	if (ret < 0)
-+		goto err_restore_page;
-+	else
-+		val_2 = ret;
-+
-+	ret = ytphy_read_top_ext(phydev, 0xa140);
-+	if (ret < 0)
-+		goto err_restore_page;
-+	else
-+		val_3 = ret;
-+
-+	/* Serdes optimization */
-+	ret = ytphy_write_ext(phydev, 0x04be, 0x000d);
-+	if (ret < 0)
-+		goto err_restore_page;
-+
-+	ret = ytphy_write_ext(phydev, 0x049f, 0x7ded);
-+	if (ret < 0)
-+		goto err_restore_page;
-+
-+	ret = ytphy_write_ext(phydev, 0x04a9, 0x009f);
-+	if (ret < 0)
-+		goto err_restore_page;
-+
-+	/* analog CDR */
-+	ret = ytphy_write_ext(phydev, 0x0406, 0x0800);
-+	if (ret < 0)
-+		goto err_restore_page;
-+
-+	/* optimized VCO */
-+	ret = ytphy_write_ext(phydev, 0x0438, 0x9024);
-+	if (ret < 0)
-+		goto err_restore_page;
-+
-+	ret = ytphy_write_ext(phydev, 0x0439, 0x00c0);
-+	if (ret < 0)
-+		goto err_restore_page;
-+
-+	/* optimized PLL lock */
-+	ret = ytphy_read_ext(phydev, 0x0429);
-+	if (ret < 0)
-+		goto err_restore_page;
-+
-+	ret &= ~(BIT(13) | BIT(12));
-+	tmp = (val_1 & (BIT(7) | BIT(6))) >> 6;
-+	ret |= (tmp << 12);
-+	ret = ytphy_write_ext(phydev, 0x0429, ret);
-+	if (ret < 0)
-+		goto err_restore_page;
-+
-+	ret = ytphy_read_ext(phydev, 0x0441);
-+	if (ret < 0)
-+		goto err_restore_page;
-+
-+	ret &= ~(BIT(1) | BIT(0));
-+	tmp = (val_1 & (BIT(5) | BIT(4))) >> 4;
-+	ret |= tmp;
-+	ret = ytphy_write_ext(phydev, 0x0441, ret);
-+	if (ret < 0)
-+		goto err_restore_page;
-+
-+	ret = ytphy_read_ext(phydev, 0x042b);
-+	if (ret < 0)
-+		goto err_restore_page;
-+
-+	ret &= ~(BIT(13) | BIT(12));
-+	tmp = (val_3 & (BIT(1) | BIT(0)));
-+	ret |= (tmp << 12);
-+	ret = ytphy_write_ext(phydev, 0x042b, ret);
-+	if (ret < 0)
-+		goto err_restore_page;
-+
-+	ret = ytphy_write_ext(phydev, 0x043a, 0x1006);
-+	if (ret < 0)
-+		goto err_restore_page;
-+
-+	ret = ytphy_write_ext(phydev, 0x042a, 0xf070);
-+	if (ret < 0)
-+		goto err_restore_page;
-+
-+	/* cable length threshold */
-+	ret = ytphy_write_ext(phydev, 0x0491, 0x007f);
-+	if (ret < 0)
-+		goto err_restore_page;
-+
-+	ret = ytphy_write_ext(phydev, 0x0492, 0x7f7f);
-+	if (ret < 0)
-+		goto err_restore_page;
-+
-+	/* Serdes training threshold */
-+	ret = ytphy_write_ext(phydev, 0x0454, 0x0f14);
-+	if (ret < 0)
-+		goto err_restore_page;
-+
-+	ret = ytphy_write_ext(phydev, 0x0497, 0x0a44);
-+	if (ret < 0)
-+		goto err_restore_page;
-+
-+	/* digital eye diagram of SerDes */
-+	ret = ytphy_write_ext(phydev, 0x04cd, 0x0000);
-+	if (ret < 0)
-+		goto err_restore_page;
-+
-+	/* Serdes LDO */
-+	ret = ytphy_read_ext(phydev, 0x04b5);
-+	if (ret < 0)
-+		goto err_restore_page;
-+
-+	ret &= ~(BIT(6) | BIT(5) | BIT(4));
-+	tmp = (val_2 & (BIT(4) | BIT(3) | BIT(2))) >> 2;
-+	ret |= (tmp << 4);
-+	ret = ytphy_write_ext(phydev, 0x04b5, ret);
-+	if (ret < 0)
-+		goto err_restore_page;
-+
-+	ret = ytphy_read_ext(phydev, 0x04b4);
-+	if (ret < 0)
-+		goto err_restore_page;
-+
-+	ret &= ~(BIT(10) | BIT(9) | BIT(8));
-+	tmp = (val_2 & (BIT(7) | BIT(6) | BIT(5))) >> 5;
-+	ret |= (tmp << 8);
-+	ret = ytphy_write_ext(phydev, 0x04b4, ret);
-+	if (ret < 0)
-+		goto err_restore_page;
-+
-+	/* optimized Serdes RX */
-+	ret = ytphy_write_ext(phydev, 0x04af, 0x45e3);
-+	if (ret < 0)
-+		goto err_restore_page;
-+
-+	ret = ytphy_write_ext(phydev, 0x048a, 0x0fff);
-+	if (ret < 0)
-+		goto err_restore_page;
-+
-+	ret = ytphy_write_ext(phydev, 0x0408, 0x7c00);
-+	if (ret < 0)
-+		goto err_restore_page;
-+
-+	ret = ytphy_write_ext(phydev, 0x04d6, 0x007f);
-+	if (ret < 0)
-+		goto err_restore_page;
-+
-+	ret = ytphy_write_ext(phydev, 0x044f, 0xff08);
-+	if (ret < 0)
-+		goto err_restore_page;
-+
-+	/* optimized Serdes TX */
-+	ret = ytphy_write_ext(phydev, 0x048e, 0x7d00);
-+	if (ret < 0)
-+		goto err_restore_page;
-+
-+	ret = ytphy_write_ext(phydev, 0x000d, 0x0606);
-+	if (ret < 0)
-+		goto err_restore_page;
-+
-+	/* Serdes manual config */
-+	ret = ytphy_write_ext(phydev, 0x04b0, 0x0804);
-+	if (ret < 0)
-+		goto err_restore_page;
-+
-+	ret = ytphy_write_ext(phydev, 0x04b1, 0x7074);
-+	if (ret < 0)
-+		goto err_restore_page;
-+
-+	ret = ytphy_write_ext(phydev, 0x04af, 0x45e7);
-+	if (ret < 0)
-+		goto err_restore_page;
-+
-+	/* restart calibration */
-+	ret = ytphy_write_ext(phydev, 0x0003, 0x5603);
-+	if (ret < 0)
-+		goto err_restore_page;
-+
-+	ret = ytphy_write_ext(phydev, 0x0492, 0x7fff);
-+	if (ret < 0)
-+		goto err_restore_page;
-+
-+	ret = ytphy_write_ext(phydev, 0x0492, 0x7f7f);
-+	if (ret < 0)
-+		goto err_restore_page;
-+
-+	ret = ytphy_write_ext(phydev, 0x2000, 0x0040);
-+	if (ret < 0)
-+		goto err_restore_page;
-+
-+	ret = ytphy_write_ext(phydev, 0x2000, 0x0000);
-+	if (ret < 0)
-+		goto err_restore_page;
-+
-+	/* TX preamble padded to 8; RX IPG always > 8 */
-+	ret = __phy_read(phydev, MII_RESV1);
-+	if (ret < 0)
-+		goto err_restore_page;
-+	ret &= ~YT8824_SDS_CFG_MIN_PRE_MASK;
-+	ret |= YT8824_SDS_TX_PRE_PADDING;
-+	ret |= YT8824_SDS_EN_FILL_PRE;
-+	ret = __phy_write(phydev, MII_RESV1, ret);
-+	if (ret < 0)
-+		goto err_restore_page;
-+	/* reset serdes */
-+	ret = __phy_modify(phydev, MII_BMCR, BMCR_RESET | BMCR_ANENABLE,
-+			   BMCR_RESET | BMCR_ANENABLE);
-+	if (ret < 0)
-+		goto err_restore_page;
-+	/* poll while still holding the lock; __phy_read takes no lock */
-+	ret = read_poll_timeout(__phy_read, val,
-+				(val < 0) || !(val & BMCR_RESET), 50000, 600000,
-+				true, phydev, MII_BMCR);
-+	if (val < 0)
-+		ret = val;
-+err_restore_page:
-+	/* restore page, release the lock */
-+	return phy_restore_page(phydev, old_page, ret);
-+}
-+
-+/**
-+ * yt8824_internal_config_init_paged() - config internal phy8824 init
-+ * @phydev: target phy_device struct
-+ *
-+ *
-+ * Returns: 0 or negative errno code
-+ */
-+static int yt8824_internal_config_init_paged(struct phy_device *phydev)
-+{
-+	int ret = 0;
-+	int val = 0;
-+	int r = 0;
-+
-+	ret = phy8824_page_write_with_lock(phydev, YT8824_RSSR_UTP_SPACE);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = ytphy_write_ext_with_lock(phydev, 0x1, 0x3);
-+	if (ret < 0)
-+		return ret;
-+	/* power down */
-+	ret = phy_modify(phydev, MII_BMCR, BMCR_PDOWN, BMCR_PDOWN);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0xa20e, 0xcba);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0xa20a, 0xc3f1);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0xa20c, 0x1620);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0xa2b6, 0xa00);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0xa2b6, 0xe00);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0xa003, 0x3);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0x3d0, 0x5210);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0x372, 0x5038);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0x37c, 0x6068);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0x388, 0xa0);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0x359, 0x2140);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0xa2fa, 0x83);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0x4e2, 0x149);
-+	if (ret < 0)
-+		goto err_restore;
-+	/* 2.5G tempate */
-+	ret = ytphy_write_ext_with_lock(phydev, 0x47e, 0x3939);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0x47f, 0x3939);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0x480, 0x3939);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0x481, 0x3939);
-+	if (ret < 0)
-+		goto err_restore;
-+	/* 1000 cable length threshold */
-+	ret = ytphy_write_ext_with_lock(phydev, 0x336, 0xab0a);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0x340, 0x301d);
-+	if (ret < 0)
-+		goto err_restore;
-+	/* 1000 performance */
-+	ret = ytphy_write_ext_with_lock(phydev, 0x34a, 0xff03);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0xf8, 0xb3ff);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0x32c, 0x5094);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0x32d, 0xd094);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0x32e, 0x5308);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0x322, 0x6440);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0x4d3, 0x5220);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0x4d2, 0x5220);
-+	if (ret < 0)
-+		goto err_restore;
-+	/* 100 tempate */
-+	ret = ytphy_write_ext_with_lock(phydev, 0x46e, 0x4545);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0x46f, 0x4545);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0x470, 0x4545);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0x471, 0x4545);
-+	if (ret < 0)
-+		goto err_restore;
-+	/* 100 cable length threshold */
-+	ret = ytphy_write_ext_with_lock(phydev, 0x30b, 0xaa1d);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0x71f, 0x36);
-+	if (ret < 0)
-+		goto err_restore;
-+	/* 10 tempate */
-+	ret = ytphy_write_ext_with_lock(phydev, 0x46b, 0x1818);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0x46c, 0x1818);
-+	if (ret < 0)
-+		goto err_restore;
-+	/* 10 tempate MAU*/
-+	ret = ytphy_write_ext_with_lock(phydev, 0x466, 0x6c6c);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0x467, 0x6c6c);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0x468, 0x6c6c);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0x469, 0x6c6c);
-+	if (ret < 0)
-+		goto err_restore;
-+	/* EMC CS, Inconsistent with external phy */
-+	ret = ytphy_write_ext_with_lock(phydev, 0xc8, 0xfff);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0xbe, 0x6406);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0x37a, 0x40ff);
-+	if (ret < 0)
-+		goto err_restore;
-+	/* EMC RE*/
-+	ret = ytphy_write_ext_with_lock(phydev, 0x482, 0xffff);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0xa2d5, 0x1f1f);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0xa2d6, 0x1f1f);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0xa2d7, 0x1f1f);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0xa2d8, 0x1f1f);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0xa218, 0x6e);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0xa01d, 0xfff0);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0xa01e, 0xfff0);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0xa01d, 0xffff);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0xa01e, 0xffff);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = ytphy_write_ext_with_lock(phydev, 0xc, 0x41a1);
-+	if (ret < 0)
-+		goto err_restore;
-+	ret = genphy_c45_template_testmode(phydev, MDIO_PMA_10GBT_TESTMODE_1);
-+	if (ret)
-+		goto err_restore_normal;
-+	/* reset */
-+	ret = phy_modify(phydev, MII_BMCR, BMCR_RESET | BMCR_ANENABLE,
-+			 BMCR_RESET | BMCR_ANENABLE);
-+	if (ret < 0)
-+		goto err_restore_normal;
-+	ret = phy_read_poll_timeout(phydev, MII_BMCR, val, !(val & BMCR_RESET),
-+				    50000, 600000, true);
-+	if (ret < 0)
-+		goto err_restore_normal;
-+
-+	ret = genphy_c45_template_testmode(phydev,
-+					   MDIO_PMA_10GBT_TESTMODE_NORMAL);
-+	if (ret < 0)
-+		goto err_restore_normal;
-+
-+	return 0;
-+
-+err_restore:
-+	r = phy_modify(phydev, MII_BMCR, BMCR_PDOWN, 0);
-+	if (ret >= 0 && r < 0)
-+		ret = r;
-+	return ret;
-+
-+err_restore_normal:
-+	r = genphy_c45_template_testmode(phydev,
-+					 MDIO_PMA_10GBT_TESTMODE_NORMAL);
-+	if (ret >= 0 && r < 0)
-+		ret = r;
-+	r = phy_modify(phydev, MII_BMCR, BMCR_PDOWN, 0);
-+	if (ret >= 0 && r < 0)
-+		ret = r;
-+	return ret;
-+}
-+
-+/**
-+ * yt8824_config_init() - phy initializatioin
-+ * @phydev: a pointer to a &struct phy_device
-+ *
-+ * Returns: 0 or negative errno code
-+ */
-+static int yt8824_config_init(struct phy_device *phydev)
-+{
-+	struct yt8824_shared_priv *priv = phy_package_get_priv(phydev);
-+	int ret;
-+
-+	mutex_lock(&priv->shared_lock);
-+	if (priv->interface_mode == PHY_INTERFACE_MODE_INTERNAL) {
-+		ret = yt8824_internal_config_init_paged(phydev);
-+		if (ret < 0)
-+			goto err;
-+	} else {
-+		ret = yt8824_extern_config_sds_init_paged(phydev);
-+		if (ret < 0)
-+			goto err;
-+		ret = yt8824_extern_config_utp_init_paged(phydev);
-+		if (ret < 0)
-+			goto err;
-+	}
-+	mutex_unlock(&priv->shared_lock);
-+	ret = yt8824_soft_reset(phydev);
-+
-+	phydev_dbg(phydev, "%s done, phy addr: %d\n", __func__,
-+		   phydev->mdio.addr);
-+	return ret;
-+err:
-+	mutex_unlock(&priv->shared_lock);
-+	return ret;
-+}
-+
- static int yt8531_set_wol(struct phy_device *phydev,
- 			  struct ethtool_wolinfo *wol)
- {
-@@ -3104,6 +4238,426 @@ static int yt8821_resume(struct phy_device *phydev)
- 	return yt8821_modify_utp_fiber_bmcr(phydev, BMCR_PDOWN, 0);
- }
- 
-+/**
-+ * yt8824_get_features - read mmd register to get 2.5G capability
-+ * @phydev: target phy_device struct
-+ *
-+ * Returns: 0 or negative errno code
-+ */
-+static int yt8824_get_features(struct phy_device *phydev)
-+{
-+	struct yt8824_shared_priv *priv = phy_package_get_priv(phydev);
-+	int ret;
-+
-+	mutex_lock(&priv->shared_lock);
-+	ret = phy8824_page_write_with_lock(phydev, YT8824_RSSR_UTP_SPACE);
-+	if (ret < 0)
-+		goto err;
-+	ret = yt8821_get_features(phydev);
-+
-+err:
-+	mutex_unlock(&priv->shared_lock);
-+	return ret;
-+}
-+
-+/**
-+ * yt8824_aneg_done()  - check negotiation state.
-+ * @phydev: a pointer to a &struct phy_device
-+ *
-+ * Returns: auto-negotiation complete status or negative errno code
-+ */
-+static int yt8824_aneg_done(struct phy_device *phydev)
-+{
-+	struct yt8824_shared_priv *priv = phy_package_get_priv(phydev);
-+	int auto_neg;
-+	int ret;
-+
-+	mutex_lock(&priv->shared_lock);
-+	ret = phy8824_page_write_with_lock(phydev, YT8824_RSSR_UTP_SPACE);
-+	if (ret < 0)
-+		goto err;
-+
-+	ret = phy_read(phydev, MII_BMSR);
-+	if (ret < 0)
-+		goto err;
-+	mutex_unlock(&priv->shared_lock);
-+	auto_neg = !!(ret & BMSR_ANEGCOMPLETE);
-+
-+	phydev_dbg(phydev, "%s, phy addr: %d, auto negotiation done: %d\n",
-+		   __func__, phydev->mdio.addr, auto_neg);
-+	return auto_neg;
-+err:
-+	mutex_unlock(&priv->shared_lock);
-+	return ret;
-+}
-+
-+/**
-+ * yt8824_read_status_paged() -  determines the speed and duplex of one page
-+ * @phydev: a pointer to a &struct phy_device
-+ *
-+ * Returns: 0 or negative errno code
-+ */
-+static int yt8824_read_status_paged(struct phy_device *phydev)
-+{
-+	int link = 0;
-+	int ret = 0;
-+	int val = 0;
-+
-+	ret = phy8824_page_write_with_lock(phydev, YT8824_RSSR_UTP_SPACE);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = genphy_read_status(phydev);
-+	if (ret < 0)
-+		return ret;
-+
-+	if (phydev->autoneg_complete) {
-+		ret = genphy_c45_read_lpa(phydev);
-+		if (ret < 0)
-+			return ret;
-+	}
-+
-+	ret = phy_read(phydev, YTPHY_SPECIFIC_STATUS_REG);
-+	if (ret < 0)
-+		return ret;
-+
-+	val = ret;
-+
-+	link = val & YTPHY_SSR_LINK;
-+	if (link)
-+		yt8821_adjust_status(phydev, val);
-+
-+	if (link) {
-+		if (phydev->link == 0)
-+			phydev_dbg(phydev, "%s, phy addr: %d, link up\n",
-+				   __func__, phydev->mdio.addr);
-+		phydev->link = 1;
-+	} else {
-+		if (phydev->link == 1)
-+			phydev_dbg(phydev, "%s, phy addr: %d, link down\n",
-+				   __func__, phydev->mdio.addr);
-+		phydev->link = 0;
-+	}
-+	phy_resolve_aneg_pause(phydev);
-+	return 0;
-+}
-+
-+/**
-+ * yt8824_read_status() -  determines the negotiated speed and duplex
-+ * @phydev: a pointer to a &struct phy_device
-+ *
-+ * Returns: 0 or negative errno code
-+ */
-+static int yt8824_read_status(struct phy_device *phydev)
-+{
-+	struct yt8824_shared_priv *priv = phy_package_get_priv(phydev);
-+	int ret;
-+
-+	mutex_lock(&priv->shared_lock);
-+	ret = yt8824_read_status_paged(phydev);
-+	mutex_unlock(&priv->shared_lock);
-+
-+	return ret;
-+}
-+
-+/**
-+ * yt8824_utp_power_on(): utp power on.
-+ * @phydev: a pointer to a &struct phy_device
-+ *
-+ * Returns: 0 or negative errno code
-+ */
-+static int yt8824_utp_power_on(struct phy_device *phydev)
-+{
-+	int ret = 0;
-+
-+	ret = phy8824_page_write_with_lock(phydev, YT8824_RSSR_UTP_SPACE);
-+	if (ret < 0)
-+		return ret;
-+
-+	return phy_modify(phydev, MII_BMCR, BMCR_PDOWN | BMCR_ISOLATE, 0x0);
-+}
-+
-+/**
-+ * yt8824_utp_power_down(): utp power down.
-+ * @phydev: a pointer to a &struct phy_device
-+ *
-+ * Returns: 0 or negative errno code
-+ */
-+static int yt8824_utp_power_down(struct phy_device *phydev)
-+{
-+	int ret;
-+
-+	ret = phy8824_page_write_with_lock(phydev, YT8824_RSSR_UTP_SPACE);
-+	if (ret < 0)
-+		return ret;
-+
-+	return phy_modify(phydev, MII_BMCR, BMCR_PDOWN, BMCR_PDOWN);
-+}
-+
-+/**
-+ * yt8824_power_on()  - set utp power on.
-+ * @phydev: a pointer to a &struct phy_device
-+ *
-+ * NOTE: need WA like softreset
-+ *
-+ * Returns: 0 or negative errno code
-+ */
-+static int yt8824_power_on(struct phy_device *phydev)
-+{
-+	struct yt8824_shared_priv *priv = phy_package_get_priv(phydev);
-+	int ret;
-+	int r;
-+
-+	if (priv->interface_mode == PHY_INTERFACE_MODE_INTERNAL) {
-+		/* test mode 1 */
-+		ret = yt8824_utp_set_template_test_mode
-+			(phydev, MDIO_PMA_10GBT_TESTMODE_1);
-+		if (ret < 0)
-+			goto retry;
-+		/* utp power on */
-+		ret = yt8824_utp_power_on(phydev);
-+		if (ret < 0)
-+			goto retry;
-+		/* normal mode */
-+		ret = yt8824_utp_set_template_test_mode
-+			(phydev, MDIO_PMA_10GBT_TESTMODE_NORMAL);
-+		if (ret < 0)
-+			goto retry;
-+	} else {
-+		/* test mode 1 */
-+		ret = yt8824_utp_set_template_test_mode
-+			(phydev, MDIO_PMA_10GBT_TESTMODE_1);
-+		if (ret < 0)
-+			goto retry;
-+
-+		/* sds isolation */
-+		ret = yt8824_sds_isolate_paged(phydev);
-+		if (ret < 0)
-+			goto retry;
-+
-+		/* utp power on */
-+		ret = yt8824_utp_power_on(phydev);
-+		if (ret < 0)
-+			goto retry;
-+
-+		/* normal mode */
-+		ret = yt8824_utp_set_template_test_mode
-+			(phydev, MDIO_PMA_10GBT_TESTMODE_NORMAL);
-+		if (ret < 0)
-+			goto retry;
-+
-+		/* sds soft reset and disable isolation */
-+		ret = yt8824_sds_isolate_and_softreset_paged(phydev);
-+		if (ret < 0)
-+			goto retry;
-+	}
-+	return 0;
-+
-+retry:
-+	/*
-+	 * If the PHY up operation succeeds but the subsequent operation
-+	 * fails, revert to the default state.
-+	 */
-+	r = yt8824_utp_power_down(phydev);
-+	if (ret >= 0 && r < 0)
-+		ret = r;
-+	ret = yt8824_restore_working_status(phydev, ret);
-+	return ret;
-+}
-+
-+/**
-+ * yt8824_resume() - resume the hardware
-+ * @phydev: a pointer to a &struct phy_device
-+ *
-+ * Returns: 0 or negative errno code
-+ */
-+static int yt8824_resume(struct phy_device *phydev)
-+{
-+	struct yt8824_shared_priv *priv = phy_package_get_priv(phydev);
-+	int ret;
-+
-+	mutex_lock(&priv->shared_lock);
-+	ret = yt8824_power_on(phydev);
-+	mutex_unlock(&priv->shared_lock);
-+
-+	return ret;
-+}
-+
-+/**
-+ * yt8824_power_down()  - set utp power down.
-+ * @phydev: a pointer to a &struct phy_device
-+ *
-+ * NOTE: need WA like softreset
-+ *
-+ * Returns: 0 or negative errno code
-+ */
-+static int yt8824_power_down(struct phy_device *phydev)
-+{
-+	struct yt8824_shared_priv *priv = phy_package_get_priv(phydev);
-+	int ret;
-+	int r;
-+
-+	if (priv->interface_mode == PHY_INTERFACE_MODE_INTERNAL) {
-+		/* test mode 1 */
-+		ret = yt8824_utp_set_template_test_mode
-+			(phydev, MDIO_PMA_10GBT_TESTMODE_1);
-+		if (ret < 0)
-+			goto retry;
-+		/* utp power down */
-+		ret = yt8824_utp_power_down(phydev);
-+		if (ret < 0)
-+			goto retry;
-+		/* normal mode */
-+		ret = yt8824_utp_set_template_test_mode
-+			(phydev, MDIO_PMA_10GBT_TESTMODE_NORMAL);
-+		if (ret < 0)
-+			goto retry;
-+	} else {
-+		/* test mode 1 */
-+		ret = yt8824_utp_set_template_test_mode
-+			(phydev, MDIO_PMA_10GBT_TESTMODE_1);
-+		if (ret < 0)
-+			goto retry;
-+
-+		/* sds isolation */
-+		ret = yt8824_sds_isolate_paged(phydev);
-+		if (ret < 0)
-+			goto retry;
-+
-+		/* utp power down */
-+		ret = yt8824_utp_power_down(phydev);
-+		if (ret < 0)
-+			goto retry;
-+
-+		/* normal mode */
-+		ret = yt8824_utp_set_template_test_mode
-+			(phydev, MDIO_PMA_10GBT_TESTMODE_NORMAL);
-+		if (ret < 0)
-+			goto retry;
-+
-+		/* sds soft reset and disable isolation */
-+		ret = yt8824_sds_isolate_and_softreset_paged(phydev);
-+		if (ret < 0)
-+			goto retry;
-+	}
-+	return 0;
-+
-+retry:
-+	/*
-+	 * If the PHY down operation succeeds but the subsequent operation
-+	 * fails, revert to the default state.
-+	 */
-+	r = yt8824_utp_power_on(phydev);
-+	if (ret >= 0 && r < 0)
-+		ret = r;
-+	ret = yt8824_restore_working_status(phydev, ret);
-+	return ret;
-+}
-+
-+/**
-+ * yt8824_suspend() - suspend the hardware
-+ * @phydev: a pointer to a &struct phy_device
-+ *
-+ * Returns: 0 or negative errno code
-+ */
-+static int yt8824_suspend(struct phy_device *phydev)
-+{
-+	struct yt8824_shared_priv *priv = phy_package_get_priv(phydev);
-+	int ret;
-+
-+	mutex_lock(&priv->shared_lock);
-+	ret = yt8824_power_down(phydev);
-+	mutex_unlock(&priv->shared_lock);
-+
-+	return ret;
-+}
-+
-+/**
-+ * yt8824_config_aneg() - config negotiation
-+ * @phydev: a pointer to a &struct phy_device
-+ *
-+ * Returns: 0 or negative errno code
-+ */
-+static int yt8824_config_aneg(struct phy_device *phydev)
-+{
-+	struct yt8824_shared_priv *priv = phy_package_get_priv(phydev);
-+	int phy_ctrl = 0;
-+	int ret;
-+
-+	mutex_lock(&priv->shared_lock);
-+	ret = phy8824_page_write_with_lock(phydev, YT8824_RSSR_UTP_SPACE);
-+	if (ret < 0)
-+		goto err;
-+
-+	if (linkmode_test_bit(ETHTOOL_LINK_MODE_2500baseT_Full_BIT,
-+			      phydev->advertising))
-+		phy_ctrl = MDIO_AN_10GBT_CTRL_ADV2_5G;
-+
-+	ret = phy_modify_mmd_changed(phydev, MDIO_MMD_AN, MDIO_AN_10GBT_CTRL,
-+				     MDIO_AN_10GBT_CTRL_ADV2_5G, phy_ctrl);
-+	if (ret < 0)
-+		goto err;
-+
-+	ret = __genphy_config_aneg(phydev, ret);
-+
-+err:
-+	mutex_unlock(&priv->shared_lock);
-+	return ret;
-+}
-+
-+/**
-+ * yt8824_phy_package_probe_once()  - init phy package for phy8824.
-+ * @phydev: a pointer to a &struct phy_device
-+ *
-+ * Returns: 0 or negative errno code
-+ */
-+static int yt8824_phy_package_probe_once(struct phy_device *phydev)
-+{
-+	struct yt8824_shared_priv *priv = phy_package_get_priv(phydev);
-+	struct device_node *np = phy_package_get_node(phydev);
-+	int res;
-+
-+	if (!priv || !np) {
-+		phydev_err(phydev, "%s: missing shared priv or DT node\n",
-+			   __func__);
-+		return -EINVAL;
-+	}
-+	/* Initialise shared lock for YT8824 */
-+	mutex_init(&priv->shared_lock);
-+	res = of_get_phy_mode(np, &priv->interface_mode);
-+	if (res < 0) {
-+		phydev_warn(phydev, "%s, phy-mode missing in DTS.\n", __func__);
-+		return res;
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * yt8824_probe() - phy8824 probe.
-+ * @phydev: a pointer to a &struct phy_device
-+ *
-+ * Returns: 0 or negative errno code
-+ */
-+static int yt8824_probe(struct phy_device *phydev)
-+{
-+	struct device *dev = &phydev->mdio.dev;
-+	struct yt8824_shared_priv *shared_priv;
-+	int ret;
-+
-+	ret = devm_of_phy_package_join(dev, phydev, sizeof(*shared_priv));
-+	if (ret)
-+		return ret;
-+
-+	if (phy_package_probe_once(phydev)) {
-+		ret = yt8824_phy_package_probe_once(phydev);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
- static struct phy_driver motorcomm_phy_drvs[] = {
- 	{
- 		PHY_ID_MATCH_EXACT(PHY_ID_YT8511),
-@@ -3190,13 +4744,29 @@ static struct phy_driver motorcomm_phy_drvs[] = {
- 		.suspend		= yt8821_suspend,
- 		.resume			= yt8821_resume,
- 	},
-+	{
-+		PHY_ID_MATCH_EXACT(PHY_ID_YT8824),
-+		.name = "YT8824 Quad Ports 2.5Gbps Ethernet",
-+		.get_features = yt8824_get_features,
-+		.read_page = yt8824_read_page,
-+		.write_page = yt8824_write_page,
-+		.probe = yt8824_probe,
-+		.config_aneg = yt8824_config_aneg,
-+		.aneg_done = yt8824_aneg_done,
-+		.config_init = yt8824_config_init,
-+		.read_status = yt8824_read_status,
-+		.soft_reset = yt8824_soft_reset,
-+		.suspend = yt8824_suspend,
-+		.resume = yt8824_resume,
-+	},
- };
- 
- module_phy_driver(motorcomm_phy_drvs);
- 
--MODULE_DESCRIPTION("Motorcomm 8511/8521/8531/8531S/8821 PHY driver");
-+MODULE_DESCRIPTION("Motorcomm 8511/8521/8531/8531S/8821/8824 PHY driver");
- MODULE_AUTHOR("Peter Geis");
- MODULE_AUTHOR("Frank");
-+MODULE_AUTHOR("Kyle");
- MODULE_LICENSE("GPL");
- 
- static const struct mdio_device_id __maybe_unused motorcomm_tbl[] = {
-@@ -3206,6 +4776,7 @@ static const struct mdio_device_id __maybe_unused motorcomm_tbl[] = {
- 	{ PHY_ID_MATCH_EXACT(PHY_ID_YT8531) },
- 	{ PHY_ID_MATCH_EXACT(PHY_ID_YT8531S) },
- 	{ PHY_ID_MATCH_EXACT(PHY_ID_YT8821) },
-+	{ PHY_ID_MATCH_EXACT(PHY_ID_YT8824) },
- 	{ /* sentinel */ }
- };
- 
--- 
-2.25.1
-
+SGkgR2VlcnQsDQoNClRoYW5rcyBmb3IgeW91ciByZXZpZXchDQoNCj4gLS0tLS1PcmlnaW5hbCBN
+ZXNzYWdlLS0tLS0NCj4gRnJvbTogR2VlcnQgVXl0dGVyaG9ldmVuIDxnZWVydEBsaW51eC1tNjhr
+Lm9yZz4NCj4gU2VudDogRnJpZGF5LCBTZXB0ZW1iZXIgNCwgMjAyNiA0OjI5IFBNDQo+IFRvOiBB
+eW1hbiBDaGF1ZGhyeSA8YXltYW4uY2hhdWRocnkua2NAcmVuZXNhcy5jb20+DQo+IENjOiBtYWdu
+dXMuZGFtbSA8bWFnbnVzLmRhbW1AZ21haWwuY29tPjsgUm9iIEhlcnJpbmcNCj4gPHJvYmhAa2Vy
+bmVsLm9yZz47IEtyenlzenRvZiBLb3psb3dza2kgPGtyemsrZHRAa2VybmVsLm9yZz47IENvbm9y
+IERvb2xleQ0KPiA8Y29ub3IrZHRAa2VybmVsLm9yZz47IFN0ZXBoZW4gQm95ZCA8c2JveWRAa2Vy
+bmVsLm9yZz47IEJyaWFuIE1hc25leQ0KPiA8Ym1hc25leStjbGtAcmVkaGF0LmNvbT47IEplcm9t
+ZSBCcnVuZXQgPGpicnVuZXQrY2xrQGJheWxpYnJlLmNvbT47DQo+IFVsZiBIYW5zc29uIDx1bGZo
+QGtlcm5lbC5vcmc+OyBsaW51eC1yZW5lc2FzLXNvY0B2Z2VyLmtlcm5lbC5vcmc7DQo+IGRldmlj
+ZXRyZWVAdmdlci5rZXJuZWwub3JnOyBsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnOyBsaW51
+eC0NCj4gY2xrQHZnZXIua2VybmVsLm9yZzsgbGludXgtcG1Admdlci5rZXJuZWwub3JnOyBDaHJp
+cyBQYXRlcnNvbg0KPiA8Q2hyaXMuUGF0ZXJzb24yQHJlbmVzYXMuY29tPjsgQmlqdSBEYXMgPGJp
+anUuZGFzLmp6QGJwLnJlbmVzYXMuY29tPjsNCj4gRmFicml6aW8gQ2FzdHJvIDxmYWJyaXppby5j
+YXN0cm8uanpAcmVuZXNhcy5jb20+OyBQcmFiaGFrYXIgTWFoYWRldiBMYWQNCj4gPHByYWJoYWth
+ci5tYWhhZGV2LWxhZC5yakBicC5yZW5lc2FzLmNvbT4NCj4gU3ViamVjdDogUmU6IFtQQVRDSCAw
+OC8xMF0gYXJtNjQ6IGR0czogcmVuZXNhczogQWRkIGluaXRpYWwgU29DIERUU0kgZm9yDQo+IFJa
+L0cyTSB2My4wDQo+IA0KPiBPbiBGcmksIDIxIEF1ZyAyMDI2IGF0IDE3OjA2LCBBeW1hbiBDaGF1
+ZGhyeQ0KPiA8YXltYW4uY2hhdWRocnkua2NAcmVuZXNhcy5jb20+IHdyb3RlOg0KPiA+IEFkZCBp
+bml0aWFsIERldmljZSBUcmVlIFNvdXJjZSBJbmNsdWRlIChEVFNJKSBmaWxlIGZvciB0aGUgUmVu
+ZXNhcw0KPiA+IFJaL0cyTSB2My4wIChhLmsuYS4gUjhBNzc0QTMpIFNvQyB3aXRoIGJhc2ljIHN1
+cHBvcnQuDQo+ID4NCj4gPiBTaWduZWQtb2ZmLWJ5OiBBeW1hbiBDaGF1ZGhyeSA8YXltYW4uY2hh
+dWRocnkua2NAcmVuZXNhcy5jb20+DQo+IA0KPiA+IC0tLSAvZGV2L251bGwNCj4gPiArKysgYi9h
+cmNoL2FybTY0L2Jvb3QvZHRzL3JlbmVzYXMvcjhhNzc0YTMuZHRzaQ0KPiA+IEBAIC0wLDAgKzEs
+MzAyIEBADQo+ID4gKy8vIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwtMi4wDQo+IA0KPiBB
+bnkgY2hhbmdlIHdlIGNhbiBnZXQgIkdQTC0yLjAtb25seSBPUiBCU0QtMi1DbGF1c2UiPw0KDQpZ
+ZXMsIEkgd2lsbCB1cGRhdGUgdGhlIGxpY2Vuc2luZyBpbiB2Mi4NCg0KPiANCj4gPiArICAgICAg
+IHNvYyB7DQo+ID4gKyAgICAgICAgICAgICAgIGNvbXBhdGlibGUgPSAic2ltcGxlLWJ1cyI7DQo+
+ID4gKyAgICAgICAgICAgICAgIGJvb3RwaC1hbGw7DQo+ID4gKw0KPiA+ICsgICAgICAgICAgICAg
+ICAjYWRkcmVzcy1jZWxscyA9IDwyPjsNCj4gPiArICAgICAgICAgICAgICAgI3NpemUtY2VsbHMg
+PSA8Mj47DQo+ID4gKyAgICAgICAgICAgICAgIHJhbmdlczsNCj4gPiArDQo+ID4gKyAgICAgICAg
+ICAgICAgIGNwZzogY2xvY2stY29udHJvbGxlckBlNjE1MDAwMCB7DQo+ID4gKyAgICAgICAgICAg
+ICAgICAgICAgICAgY29tcGF0aWJsZSA9ICJyZW5lc2FzLHI4YTc3NGEzLWNwZy1tc3NyIjsNCj4g
+PiArICAgICAgICAgICAgICAgICAgICAgICByZWcgPSA8MCAweGU2MTUwMDAwIDAgMHgwYmIwPjsN
+Cj4gDQo+IE5vIG5lZWQgZm9yIG9kZCBzaXplczogMHgxMDAwLg0KDQpBZ3JlZWQsIEkgd2lsbCB1
+cGRhdGUgdGhlIHNpemUgaW4gdjIuDQoNCj4gDQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAg
+Y2xvY2tzID0gPCZleHRhbF9jbGs+LCA8JmV4dGFscl9jbGs+Ow0KPiA+ICsgICAgICAgICAgICAg
+ICAgICAgICAgIGNsb2NrLW5hbWVzID0gImV4dGFsIiwgImV4dGFsciI7DQo+ID4gKyAgICAgICAg
+ICAgICAgICAgICAgICAgI2Nsb2NrLWNlbGxzID0gPDI+Ow0KPiA+ICsgICAgICAgICAgICAgICAg
+ICAgICAgICNwb3dlci1kb21haW4tY2VsbHMgPSA8MD47DQo+ID4gKyAgICAgICAgICAgICAgICAg
+ICAgICAgI3Jlc2V0LWNlbGxzID0gPDE+Ow0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgIGJv
+b3RwaC1hbGw7DQo+ID4gKyAgICAgICAgICAgICAgIH07DQo+ID4gKw0KPiA+ICsgICAgICAgICAg
+ICAgICByc3Q6IHJlc2V0LWNvbnRyb2xsZXJAZTYxNjAwMDAgew0KPiA+ICsgICAgICAgICAgICAg
+ICAgICAgICAgIGNvbXBhdGlibGUgPSAicmVuZXNhcyxyOGE3NzRhMy1yc3QiOw0KPiA+ICsgICAg
+ICAgICAgICAgICAgICAgICAgIHJlZyA9IDwwIDB4ZTYxNjAwMDAgMCAweDAxOGM+Ow0KPiANCj4g
+MHgyMDANCg0KQWdyZWVkLCBJIHdpbGwgdXBkYXRlIHRoZSBzaXplIGluIHYyLg0KDQpLaW5kIFJl
+Z2FyZHMsDQpBeW1hbg0KDQo+IA0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgIGJvb3RwaC1h
+bGw7DQo+ID4gKyAgICAgICAgICAgICAgIH07DQo+IA0KPiBHcntvZXRqZSxlZXRpbmd9cywNCj4g
+DQo+ICAgICAgICAgICAgICAgICAgICAgICAgIEdlZXJ0DQo+IA0KPiAtLQ0KPiBHZWVydCBVeXR0
+ZXJob2V2ZW4gLS0gVGhlcmUncyBsb3RzIG9mIExpbnV4IGJleW9uZCBpYTMyIC0tIGdlZXJ0QGxp
+bnV4LQ0KPiBtNjhrLm9yZw0KPiANCj4gSW4gcGVyc29uYWwgY29udmVyc2F0aW9ucyB3aXRoIHRl
+Y2huaWNhbCBwZW9wbGUsIEkgY2FsbCBteXNlbGYgYSBoYWNrZXIuIEJ1dA0KPiB3aGVuIEknbSB0
+YWxraW5nIHRvIGpvdXJuYWxpc3RzIEkganVzdCBzYXkgInByb2dyYW1tZXIiIG9yIHNvbWV0aGlu
+ZyBsaWtlIHRoYXQuDQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgLS0gTGludXMg
+VG9ydmFsZHMNCg==
