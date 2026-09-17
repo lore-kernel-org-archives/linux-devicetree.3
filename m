@@ -1,45 +1,97 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0EC4F3BF68F;
-	Thu, 17 Sep 2026 11:15:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789643761; cv=none; b=F9JecTApW76S5/mS9wnHG8U672Vw5K3F/NQgzNSWrT94fUWdD2/OEhvwK0De1G7AHQx0AK5tC5Bh/EGgd5h3wImyTR+OhWMc5az3NwyJqdGXXh24qh/9jacG7ddiKYJkTtRR6vBaWKd5Qo5wijeGeRpwstiKt7Yxpn4mPye0snE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789643761; c=relaxed/simple;
-	bh=uPizAG4nI3FS/QLagOS8il8eqEamlMmxb7OjmTKpqaw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=j7/Z3LIo1urtaGDqOGlWNkpEjymJuttEamTDSX4P1bPiVivTYaDx41DdSZQ06BZL15GB7lIXoA4BDtlusMh9rSQGZTX9B2pdjU9GPeU3TD/8w0ID8d4e7YaCN0fMlz2xS0alV70At2vS+TBZkM1SO6Vebkn4eOdkjA+bi2eVoh0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [223.64.69.112])
-	by gateway (Coremail) with SMTP id _____8BxrtLpy6tqQP8MAA--.38028S3;
-	Thu, 17 Sep 2026 19:15:53 +0800 (CST)
-Received: from kernelserver (unknown [223.64.69.112])
-	by front1 (Coremail) with SMTP id qMiowJDxBc3my6tqOc4hAA--.44812S2;
-	Thu, 17 Sep 2026 19:15:52 +0800 (CST)
-From: Binbin Zhou <zhoubinbin@loongson.cn>
-To: Binbin Zhou <zhoubb.aaron@gmail.com>,
-	Huacai Chen <chenhuacai@loongson.cn>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Yinbo Zhu <zhuyinbo@loongson.cn>,
-	zhanghongchen <zhanghongchen@loongson.cn>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>,
-	Lukasz Luba <lukasz.luba@arm.com>
-Cc: Huacai Chen <chenhuacai@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	Binbin Zhou <zhoubinbin@loongson.cn>
-Subject: [PATCH v5 4/4] thermal/drivers/loongson2: Add support for Loongson-2K0300
-Date: Thu, 17 Sep 2026 19:15:43 +0800
-Message-ID: <6985dce54bb5b87bb232c714d236b7cb82eeb58c.1789546118.git.zhoubinbin@loongson.cn>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <cover.1789546118.git.zhoubinbin@loongson.cn>
-References: <cover.1789546118.git.zhoubinbin@loongson.cn>
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AB3A4BB26D;
+	Thu, 17 Sep 2026 11:16:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789643789; cv=fail; b=Yrsu0S83wNWIH58HMQ9IifWp/Vp6XZARNQaa3lUkJwHgWh955whlmRYxXp/g/6MHEUNriidH8LYAkvY173+BR1zWSCiER6y94i+vVKrm1QmSPUMtQLHEvHQu+e8tCaZi7jzlFN0dldzLt1LDJ1W4aiciFy+KqSmws4CxRez0bJY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789643789; c=relaxed/simple;
+	bh=fSpGbMSUhdBt0g2meAtFps3VWhajXDCqyRCp9i1nGlw=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Po7FuSlWa1J9G5GtA6olOnE3iubZDXiMhk5W540Hl3CdCmAcqrzruzvHa6Mgdtf1xqYGLkhMpPDWVQcOyaohO6I0gcLVfq3ldjfSJxsdVzVZMeSSZdKpv09zWVT2WLHXCLjdoH5VRq4O8SZJJ1xYu7Skn/bLFgcYc3EoyYgofVs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=et3NeRzs; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=ugyLdTdd; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="et3NeRzs";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="ugyLdTdd"
+Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
+	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68H9aQME1070889;
+	Thu, 17 Sep 2026 06:16:14 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=proofpoint-05-2026; bh=y96XFJV+2RJ6e
+	LQ5IuFtifuJt8kY5hFqR269fe4eT9E=; b=et3NeRzsJyu8TDu/GSE3PoYVlTLPC
+	TqaiWunBx+SZbAYiCHcP5/17zfd9ZjDvLfy9jr30SNZlaH0+g+Y1twELwA7Oo6SD
+	UxK87ZPBUFxciij5DW+UxCNNlkMvx1cmjmSuVQAbiwRQZcaZSRInV24Bet85Na/x
+	ZiFRErxkENUxZsSbdK8mF9A5flM1lFA8LpB3G2BEkesGB22lVBy07CdJVCqigxwx
+	NrEKE4XTgEmsn9znZVISnomw+XGBMKQfi2s2kF/n3u5J/vEB3VwekS5eGInUG2Ye
+	GMFmt0WtlFNYEnV2yddj3SICImv9LME6egdg2m3qu68MUu5mas0XOA0PQ==
+Received: from bn8pr05cu002.outbound.protection.outlook.com (mail-eastus2azon11011018.outbound.protection.outlook.com [52.101.57.18])
+	by m0380145.ppops.net (PPS) with ESMTPS id 4grcds0yqe-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 17 Sep 2026 06:16:13 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZwlozS8edAgC7RkdmgzaNafG36zTRHIc87mJu2HmZWc30KgGx2ewUYjMY4IFxFj9wz6FrPGFQYmi1/pUizza7mmp6H9aM6o6pj/Tf6pY2oKZZavoCeyqi5T4964hXbiTeNBc9EX5W4Sp8iUxay6nqILi/tiJ7UcJHMlrT/PGBK/ZHdExFt1akGUNZ1smWND/pFi1pEEbgvKFYumw9bYGx9hCXC/xIP2wM3NDw4hKm4f04z1OHDMfwa0HjMuWc1rwIPurgQCmV4w+lfO9QeP+I6vq8SucUjgYKyHp1aeltNXk6Dk+XjkKQXaHXt+XMfKaIXes/yytGtyiuQclCrPveQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=y96XFJV+2RJ6eLQ5IuFtifuJt8kY5hFqR269fe4eT9E=;
+ b=C608WF6oVgmGfL6PbMQCKxJZ96/DqpLzpfRk7JcOGwbC5/WU/JNAhS4vZ96cncesuS7ATf4xv+/6MIfEd2uIGKWFaS0jeLbs/J4UQaNTasP/qHSIelZtQFZCqBVxTPBSSE3FB1ye7TJ7190xN6o2Scuao+F8Napp1aZ3xKWn7/Bl/n5hGNzIGB8YAXFAf8fLSVAoco9jPWGwvqWttMS1g8AKU9xv5iRgp/jRl2wOKcps/tO0vJ817//BmK26zlbD+rBgYMfBtLKhqIxpWTaKXAS8Kv/1NGjlQP1Hi55OpiLVsK0qnxVYNGV+R27AXbZgcYKnUVqMBdJ0sWFXHZ0Zxw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=y96XFJV+2RJ6eLQ5IuFtifuJt8kY5hFqR269fe4eT9E=;
+ b=ugyLdTdddq8I5NEAZRu6yWA18auQtsNdyb5gDZz4b+IOn65vs0jXLcPcTudacjMOcZUDVRtjj/mTyub3OEM6l/hbjUcf5QjY7F94GzBb3rdVvDq7yHxxyWfQZQXeObYAxY9JkYlCwHfqJeeXNZKqB0XCLS0V6rvjAyaOa95WArs=
+Received: from BY5PR04CA0019.namprd04.prod.outlook.com (2603:10b6:a03:1d0::29)
+ by SJ0PR10MB5567.namprd10.prod.outlook.com (2603:10b6:a03:3dd::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.8; Thu, 17 Sep
+ 2026 11:15:58 +0000
+Received: from SJ1PEPF000037B5.namprd05.prod.outlook.com
+ (2603:10b6:a03:1d0:cafe::a6) by BY5PR04CA0019.outlook.office365.com
+ (2603:10b6:a03:1d0::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.11 via Frontend Transport; Thu,
+ 17 Sep 2026 11:15:58 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
+Received: from lewvzet201.ext.ti.com (198.47.23.195) by
+ SJ1PEPF000037B5.mail.protection.outlook.com (10.167.244.200) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Thu, 17 Sep 2026 11:15:58 +0000
+Received: from DLEE210.ent.ti.com (157.170.170.112) by lewvzet201.ext.ti.com
+ (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 17 Sep
+ 2026 06:15:47 -0500
+Received: from DLEE201.ent.ti.com (157.170.170.76) by DLEE210.ent.ti.com
+ (157.170.170.112) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 17 Sep
+ 2026 06:15:47 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE201.ent.ti.com
+ (157.170.170.76) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Thu, 17 Sep 2026 06:15:47 -0500
+Received: from akashdeep-HP-Z2-Tower-G5-Workstation.dhcp.ti.com (akashdeep-hp-z2-tower-g5-workstation.dhcp.ti.com [10.24.53.39])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68HBFhQv2890813;
+	Thu, 17 Sep 2026 06:15:44 -0500
+From: Akashdeep Kaur <a-kaur@ti.com>
+To: <nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>, <robh@kernel.org>,
+        <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>
+CC: <sebin.francis@ti.com>
+Subject: [PATCH] arm64: dts: ti: k3-pinctrl: Add virtual GPIO select mux macros
+Date: Thu, 17 Sep 2026 16:45:39 +0530
+Message-ID: <20260917111539.3844577-1-a-kaur@ti.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,231 +99,106 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJDxBc3my6tqOc4hAA--.44812S2
-X-CM-SenderInfo: p2kr3uplqex0o6or00hjvr0hdfq/1tbiAgENCGqrWncIxQAAsn
-X-Coremail-Antispam: 1Uk129KBj93XoW3WrW5Kw1UtFyUGw43XrW5urX_yoW3Jr1Dpa
-	y7AFy5KFW8Gr48uw4jyr1DZF4Yvr17tFZxZFs7Kw1ru397t34aqrW7tF1FvrW3CFs8JFy7
-	ZrWqkFWUCa4DX3gCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUBSb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAF
-	wI0_Gr1j6F4UJwAaw2AFwI0_Jrv_JF1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2
-	xF0cIa020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_
-	Jw0_WrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x
-	0EwIxGrwCY1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkE
-	bVWUJVW8JwCFI7km07C267AKxVWUXVWUAwC20s026c02F40E14v26r1j6r18MI8I3I0E74
-	80Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0
-	I7IYx2IY67AKxVW5JVW7JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42
-	xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF
-	7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUxhiSDUUUU
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000037B5:EE_|SJ0PR10MB5567:EE_
+X-MS-Office365-Filtering-Correlation-Id: 994a3170-192b-4b57-13fa-08df14ad0cac
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|376014|36860700016|23010399003|1800799024|13003099007|56012099006|6133799003|18002099003|10067099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	k/KfUSlRcHxdb4FYO3AU7/kvGAF0Xcr39ROQzE1kbPkuQcTFRridrg5e2zInf8jSsPw4GmxJkal/MLOdjDRV9gOrSa8//fHLPHFFkrH6ZkB8CbwtndWGI85BTDuv/T75TmAi0VjgIbfANKvvWbfMTQICZMG4NeYiaJsqlxJJyOemPiYmmmWeD08Z/nKD+hMNqxKo3pvSbZ34FffiSZecUIqdJJG6M+599Nk2IyRhjLePBDjRhX+BUesFOouHgo1YzE4roTHQpGc7qW0gKaSFDdKo7v74uSv5EiyAM0jQIFrpWon3oGf2KflTwpkH6hBU9+8HDepjhmMLtQSrI9BdlRDpr1CFzV7MYVaad/wUsA84DruxRm6daTbWY1UyrPs6qhiVoevYJj5j+rvs41WVz2n9zP6Q2HQ0mON+lJLv8No6nKWBCO5rIjJfKzroPyJJlFYi/RrtZaQn9JdHZ/oBcURNrVd0Ps/azjkhUjEvQjQgGFEY2aMiLzXTsb8J//TDz1DSSj/fdIt4p+9+J8JerZyEQa+ODIPUM4ajy1cOGCSaIu6HF1xwAmdbRwigLcVQuL1yyNWV0QV44ghTE3TC0yfZgBaJjb5RjgVGRidzUaYeVZbg9g6VfHZVCWp+AYcO7ZVsZb8QJ8bDskUG8pbpzg==
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(36860700016)(23010399003)(1800799024)(13003099007)(56012099006)(6133799003)(18002099003)(10067099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	nehpvDMzjqBZq4T62621KI6/F1/gBlNCkXsYRUjzGUjz6Nfo9GqUSzKphrUVklxOI8yxpGGwhn7hmcFa+xNHRFusJN56i34i0dTFbNURRDtsRGLsz1qRWiuF5WSmvmc6aM1FG9HMyezHaabRdOFc9eivEsyCRpCjMPQsMwucPjuHV1AtY83SZXgIYVTGzadW5wSl1a2VrAU+vyAYtJRN3TuKj40ztuJziOaYwqAtmM+DSWfswCYboWxX8NxOv17koVlM9rA7xiVzPMOMIl6swPt0EUNdW4N3PRiG6U4b6FEm5X97IVnVD1VTQ+zhTN+8TLXp2d6abdZNDS4lZ5rx4RQG2oAAu4EtXMX/ohXUXsL8QT4KCOGVc4iDiW5EzqtuhmOgkzLTJs4bo/wKfuu+k4m4EX+dUIy7hX0U7Yoyg75plqtR19UK+wA0suqabXXW
+X-Exchange-RoutingPolicyChecked:
+	D7dmSd1TLIeqfDJtMgcAmLpyWC4gezWm/tt9vSWvBKngUy0worQ/YIOWbfUsDOjjytejex04b4Od86N+mBw3+EZDdxdkl2R6Z9n5FZKQH4fkSWW0SZ0CdloJvep1FBKjlftmwjqWTkSYswN+fK474ISfEBMp1HOkc2b1peb3fwLonuYeFvdAdMgBJYrQ/MRfNNrWzxzogYO1ndk+Fy5XsWQIJS7N5V4CVWFfwTIPuK3wFBBwAZrIhyLeoq9Y7g+5C6RbUKJsY/lGq1XM1aTqScS8GkLMrZ9E4yIUKhhujp81UkL2C6UKmomXSnn/vvJ0/Kf+i5SR2YpsYDiH9K2pHg==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 11:15:58.3059
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 994a3170-192b-4b57-13fa-08df14ad0cac
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF000037B5.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR10MB5567
+X-Authority-Analysis: v=2.4 cv=ZfGIpcVA c=1 sm=1 tr=0 ts=6aabcbfd cx=c_pps
+ a=f2oOq7llzQIcdXl5NAnHtg==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=VdqzKS8jKosA:10 a=s63m1ICgrNkA:10
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=gO1vWkAQAl3rybz1DQOp:22 a=sozttTNsAAAA:8 a=Jz6ueludmhJRmjzU2zEA:9
+X-Proofpoint-ORIG-GUID: m8os_1YEpyDsrHYPgqFnEHAj2Sx89CQN
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDE1NiBTYWx0ZWRfXy4PjeC8raUru
+ 0QPc4jc3UU9yAKhxZ46dsMoFTI/McHOa7DWp/fWTL83bf/hEvP9ehfKodIoPPn/iQz2kg82f0f+
+ GhUfo0AJY2515c1/s9weMTm7OjSdYx4xjjM1iFufyZxnSciNnOqjhSbVG0d5EGoizQEI1a6DLCJ
+ dU4YVKIiGiqtV0pccqdQs/mpYRLs3fSAg0U5S9Czl3KUJ3hrbltb1VU7ZKxC3I2zv28AedJNyKJ
+ MRvVjDrujOw/tAJIZIrzCpzlodaEaPCkkytgV21899y/FXLSJdYk3TwTUONTBrn5Nk3FK+XS77G
+ B7x/hJ1OGxY/beY4puqCihmj2CSKqDgcq1gHBfwaUzGi/UyQOil19raBuFst/3zs+nM18eiIyvA
+ sYzo2+LF+1ZZed/I2YeqCOQ07gosLSgF/8AVTmU1uujZmhnWDGgnzTy/e+qPxcOvYqebyBmCMGX
+ nBtHrDrh6G1v16OifVQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDE1NiBTYWx0ZWRfXx6OyxRlOMYDH
+ LNVdGiSVlztTa3/F1cLC329aJIqsWhtRmmukyzZcLdyRSwN8gYt5oRbF08L5nRZh2A/z2D/V8ih
+ ioS3LVf3glsuJj1X2mD+QILVZc/tMUQ=
+X-Proofpoint-GUID: m8os_1YEpyDsrHYPgqFnEHAj2Sx89CQN
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-17_02,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 impostorscore=0 lowpriorityscore=0
+ clxscore=1011 adultscore=0 suspectscore=0 bulkscore=0 spamscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609170156
 
-The Loongson-2K0300 thermal sensor uses a 10-bit ADC and requires
-per-chip calibration. The calibration offset is stored in the CHIP ID
-registers, which are accessed via syscon. The driver reads this offset
-and applies it when converting the raw ADC value to millicelsius.
+Add virtual GPIO select mux macros to allow users to select GPIO
+controller bank for pins. The two GPIO controller instances in the
+MAIN domain share physical pins, and the vgpio_sel field routes each
+pin to either bank 0 or bank 2, enabling GPIO partitioning between
+software domains as documented in Technical Reference Manual[1]. The
+pad configuration register field description can be referenced at [2].
 
-To handle old fuse versions that cannot be calibrated correctly, the
-driver includes a fallback formula and a validity check. Once invalid
-data is detected, the driver falls back to the old formula for future
-reads and warns the user.
+[1] AM62L TRM (section 10.6): https://www.ti.com/lit/ug/sprujb4a/sprujb4a.pdf
+[2] AM62L TRM (section 14.2.1.2.1): https://www.ti.com/lit/ug/sprujb4a/sprujb4a.pdf
 
-Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
+Signed-off-by: Akashdeep Kaur <a-kaur@ti.com>
 ---
- drivers/thermal/loongson2_thermal.c | 94 ++++++++++++++++++++++++++++-
- 1 file changed, 92 insertions(+), 2 deletions(-)
+ arch/arm64/boot/dts/ti/k3-pinctrl.h | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/thermal/loongson2_thermal.c b/drivers/thermal/loongson2_thermal.c
-index fb4793a9bc55..8930a8a75da7 100644
---- a/drivers/thermal/loongson2_thermal.c
-+++ b/drivers/thermal/loongson2_thermal.c
-@@ -2,9 +2,11 @@
- /*
-  * Author: zhanghongchen <zhanghongchen@loongson.cn>
-  *         Yinbo Zhu <zhuyinbo@loongson.cn>
-+ *         Binbin Zhou <zhoubinbin@loongson.cn>
-  * Copyright (C) 2022-2023 Loongson Technology Corporation Limited
+diff --git a/arch/arm64/boot/dts/ti/k3-pinctrl.h b/arch/arm64/boot/dts/ti/k3-pinctrl.h
+index 4491898d8294..d42c466fcc7b 100644
+--- a/arch/arm64/boot/dts/ti/k3-pinctrl.h
++++ b/arch/arm64/boot/dts/ti/k3-pinctrl.h
+@@ -3,11 +3,12 @@
+  * This header provides constants for pinctrl bindings for TI's K3 SoC
+  * family.
+  *
+- * Copyright (C) 2018-2025 Texas Instruments Incorporated - https://www.ti.com/
++ * Copyright (C) 2018-2026 Texas Instruments Incorporated - https://www.ti.com/
   */
+ #ifndef DTS_ARM64_TI_K3_PINCTRL_H
+ #define DTS_ARM64_TI_K3_PINCTRL_H
  
-+#include <linux/bitfield.h>
- #include <linux/interrupt.h>
- #include <linux/io.h>
- #include <linux/minmax.h>
-@@ -13,6 +15,9 @@
- #include <linux/property.h>
- #include <linux/thermal.h>
- #include <linux/units.h>
-+#include <linux/mfd/syscon.h>
-+#include <linux/regmap.h>
-+#include <linux/syscore_ops.h>
++#define VGPIO_SEL_SHIFT         (4)
+ #define WKUP_LVL_EN_SHIFT	(7)
+ #define WKUP_LVL_POL_SHIFT	(8)
+ #define DEBOUNCE_SHIFT		(11)
+@@ -111,6 +112,9 @@
+ #define PIN_WKUP_EN_LEVEL_HIGH		(WKUP_ENABLE | WKUP_ON_LEVEL | WKUP_LEVEL_HIGH)
+ #define PIN_WKUP_EN			(WKUP_ENABLE | WKUP_ON_EDGE)
  
- #include "thermal_hwmon.h"
- 
-@@ -22,18 +27,34 @@
- #define LOONGSON2_THSENS_CTRL_LOW_REG	0x8
- #define LOONGSON2_THSENS_STATUS_REG	0x10
- #define LOONGSON2_THSENS_OUT_REG	0x14
-+#define LOONGSON2_THSENS_CFG_REG	0x18
- 
- #define LOONGSON2_THSENS_INT_LO		BIT(0)
- #define LOONGSON2_THSENS_INT_HIGH	BIT(1)
- #define LOONGSON2_THSENS_INT_EN		(LOONGSON2_THSENS_INT_LO | \
- 					 LOONGSON2_THSENS_INT_HIGH)
--#define LOONGSON2_THSENS_OUT_MASK	0xFF
-+#define LOONGSON2_THSENS_OUT_8B_MASK	0xFF
-+#define LOONGSON2_THSENS_OUT_11B_MASK	GENMASK(10, 0)
++#define PIN_VGPIO_SEL0                  (0 << VGPIO_SEL_SHIFT)
++#define PIN_VGPIO_SEL2                  (1 << VGPIO_SEL_SHIFT)
 +
-+#define LS2K0300_CHIP_ID0		0x10
-+#define LS2K0300_CHIP_ID1		0x14
-+#define LS2K0300_EXTERN_ID		BIT(4)
-+#define LS2K0300_ID0_VAL_MASK		GENMASK(31, 20)
-+#define LS2K0300_ID1_VAL_MASK		GENMASK(15, 0)
-+
-+#define LS2K0300_COMP_VAL_MASK		GENMASK(14, 0)
-+#define LS2K0300_COMP_SIGN_BIT		BIT(15)
-+
-+#define LS2K0300_LOWEST_VALID_TEMP	(-55000)
-+#define LS2K0300_HIGHEST_VALID_TEMP	(125000)
+ /* Default mux configuration for gpio-ranges to use with pinctrl */
+ #define PIN_GPIO_RANGE_IOPAD	(PIN_INPUT | 7)
  
- /*
-  * This flag is used to indicate the temperature reading
-  * method of the Loongson-2K2000
-  */
- #define LS2K2000_THSENS_OUT_FLAG	BIT(0)
-+#define LS2K0300_CHIP_ID_FLAG		BIT(1)
-+#define LS2K0300_OLD_FUSE_FLAG		BIT(2)
- 
- struct loongson2_thermal_chip_data {
- 	unsigned int thermal_sensor_sel;
-@@ -42,8 +63,11 @@ struct loongson2_thermal_chip_data {
- };
- 
- struct loongson2_thermal_data {
-+	struct device *dev;
- 	void __iomem *ctrl_reg;
- 	void __iomem *temp_reg;
-+	struct regmap *regmap_cfg;
-+	u32 flags;
- 	const struct loongson2_thermal_chip_data *chip_data;
- };
- 
-@@ -71,13 +95,54 @@ static int loongson2_thermal_set(struct loongson2_thermal_data *data,
- 	return 0;
- }
- 
-+static int loongson2_2k0300_get_temp(struct thermal_zone_device *tz, int *temp)
-+{
-+	struct loongson2_thermal_data *tdata = thermal_zone_device_priv(tz);
-+	int calib_data, calib_offset, temp_mc, raw_adc;
-+	u32 chip_id0 = 0, chip_id1 = 0;
-+
-+	writel(0xff03, tdata->ctrl_reg + LOONGSON2_THSENS_CFG_REG);
-+	raw_adc = FIELD_GET(LOONGSON2_THSENS_OUT_11B_MASK,
-+			    readl(tdata->ctrl_reg + LOONGSON2_THSENS_OUT_REG));
-+
-+	if (tdata->flags & LS2K0300_OLD_FUSE_FLAG) {
-+		*temp = raw_adc * 569 - 394700;
-+		return 0;
-+	}
-+
-+	regmap_read(tdata->regmap_cfg, LS2K0300_CHIP_ID0, &chip_id0);
-+	regmap_read(tdata->regmap_cfg, LS2K0300_CHIP_ID1, &chip_id1);
-+
-+	if (chip_id0 & LS2K0300_EXTERN_ID) {
-+		calib_data = FIELD_GET(LS2K0300_ID1_VAL_MASK, chip_id1);
-+		calib_offset = FIELD_GET(LS2K0300_COMP_VAL_MASK, calib_data);
-+		if (calib_data & LS2K0300_COMP_SIGN_BIT)
-+			calib_offset = -calib_offset;
-+	} else {
-+		calib_data = FIELD_GET(LS2K0300_ID0_VAL_MASK, chip_id0);
-+		calib_offset = FIELD_GET(LS2K0300_COMP_VAL_MASK, calib_data);
-+	}
-+
-+	temp_mc = (raw_adc + calib_offset) * 570 - 394700;
-+
-+	/* For old fuse which can not read right thermal data */
-+	if (temp_mc < LS2K0300_LOWEST_VALID_TEMP || temp_mc > LS2K0300_HIGHEST_VALID_TEMP) {
-+		dev_warn_once(tdata->dev, "It's an old fuse, thermal %d is not right\n", temp_mc);
-+		tdata->flags |= LS2K0300_OLD_FUSE_FLAG;
-+		temp_mc = raw_adc * 569 - 394700;
-+	}
-+	*temp = temp_mc;
-+
-+	return 0;
-+}
-+
- static int loongson2_2k1000_get_temp(struct thermal_zone_device *tz, int *temp)
- {
- 	int val;
- 	struct loongson2_thermal_data *data = thermal_zone_device_priv(tz);
- 
- 	val = readl(data->ctrl_reg + LOONGSON2_THSENS_OUT_REG);
--	*temp = ((val & LOONGSON2_THSENS_OUT_MASK) - HECTO) * KILO;
-+	*temp = ((val & LOONGSON2_THSENS_OUT_8B_MASK) - HECTO) * KILO;
- 
- 	return 0;
- }
-@@ -112,6 +177,11 @@ static int loongson2_thermal_set_trips(struct thermal_zone_device *tz, int low,
- 	return loongson2_thermal_set(data, low/MILLI, high/MILLI, true);
- }
- 
-+static const struct thermal_zone_device_ops loongson2_2k0300_of_thermal_ops = {
-+	.get_temp = loongson2_2k0300_get_temp,
-+	.set_trips = loongson2_thermal_set_trips,
-+};
-+
- static const struct thermal_zone_device_ops loongson2_2k1000_of_thermal_ops = {
- 	.get_temp = loongson2_2k1000_get_temp,
- 	.set_trips = loongson2_thermal_set_trips,
-@@ -134,6 +204,8 @@ static int loongson2_thermal_probe(struct platform_device *pdev)
- 		return -ENOMEM;
- 
- 	data->chip_data = device_get_match_data(dev);
-+	data->flags = data->chip_data->flags;
-+	data->dev = dev;
- 
- 	data->ctrl_reg = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(data->ctrl_reg))
-@@ -146,6 +218,14 @@ static int loongson2_thermal_probe(struct platform_device *pdev)
- 			return PTR_ERR(data->temp_reg);
- 	}
- 
-+	/* The chip id register is needed for Loongson-2K0300 */
-+	if (data->chip_data->flags & LS2K0300_CHIP_ID_FLAG) {
-+		data->regmap_cfg =
-+			syscon_regmap_lookup_by_phandle(dev->of_node, "loongson,chipid");
-+		if (IS_ERR(data->regmap_cfg))
-+			return PTR_ERR(data->regmap_cfg);
-+	}
-+
- 	irq = platform_get_irq(pdev, 0);
- 	if (irq < 0)
- 		return irq;
-@@ -178,6 +258,12 @@ static int loongson2_thermal_probe(struct platform_device *pdev)
- 	return 0;
- }
- 
-+static const struct loongson2_thermal_chip_data loongson2_thermal_ls2k0300_data = {
-+	.thermal_sensor_sel = 0,
-+	.flags = LS2K0300_CHIP_ID_FLAG,
-+	.thermal_ops = &loongson2_2k0300_of_thermal_ops,
-+};
-+
- static const struct loongson2_thermal_chip_data loongson2_thermal_ls2k1000_data = {
- 	.thermal_sensor_sel = 0,
- 	.flags = 0,
-@@ -191,6 +277,10 @@ static const struct loongson2_thermal_chip_data loongson2_thermal_ls2k2000_data
- };
- 
- static const struct of_device_id of_loongson2_thermal_match[] = {
-+	{
-+		.compatible = "loongson,ls2k0300-thermal",
-+		.data = &loongson2_thermal_ls2k0300_data,
-+	},
- 	{
- 		.compatible = "loongson,ls2k1000-thermal",
- 		.data = &loongson2_thermal_ls2k1000_data,
 -- 
-2.52.0
+2.34.1
 
