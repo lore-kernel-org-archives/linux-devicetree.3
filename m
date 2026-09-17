@@ -1,133 +1,299 @@
-Received: from mail-wr2-f39.google.com (mail-wr2-f39.google.com [74.125.225.103])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C9374D37BA
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 12:27:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.103
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C61E84F55C7
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 12:29:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789648035; cv=none; b=RNYgor+Gr9BF+Q5NuygToN5KYm1SkOFFo5poF2ys64fOMqRXaM20+NS/2jHdueJtGgRI+wnVletC6DKUN9/qZZM0NjaVO9EXNuro/wgMng95rtXNHcMC1kg1p1TxtXresxqgXUhJW/t+5PbgH+YuAE5HF9cL1Oq+FPgs7y7sZZM=
+	t=1789648218; cv=none; b=FxXoKdnncEZjZF3bSX8eEgTLAIVAarkqQ0qAE8oO3gFFLrrwGQuvnTnhXO82DXJ4COMNDpCgF3BVOneMf2KdchRXCKwRYntzFKWph5uSrSyIOh4fnt3cM1VUvJhpPet9w7QPK3Aw21mUDoDv31QwV61lysTDXym3tqgZ5qlMCWs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789648035; c=relaxed/simple;
-	bh=MP2FNncNzN5nDMuqa8c2mwv9xwXy0f3dmsWdn8BAIb0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IHxFb7YoJXajyVQ6nxIAWQsu9bSI3NbmjYIEdJf4XBpi6sQVIGaPj2f9z2B4k0K7nLkYpnepFxWq80nzo2jBaqDQoUWGMuGfCqOtZvYDVZgbeiyw7v84wLNSuj58SnUlRcsmZN8wDqEdTwtCwAAKG+s87P4pxnFFxlBE48oGHVI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H0W0ljSc; arc=none smtp.client-ip=74.125.225.103
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789648218; c=relaxed/simple;
+	bh=ji4HV5+85PYDxa0NnikFdI1KrRDAyRzLIScLGUCk55s=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=Mw7lmJHmgKEyVnxDZmjfd2sSi4dkRWESSVCHAQS1/fgRWBfp7s45UrBxhVFXrRnvGe4NMyEt8H4orcBnz/txBjKOBRUFDQuXLN1xEJSGplf8gjcdPx39uqoH7+qeb8m/+evVUb6wpsi1FBAuRPvez9e//RQtFp6dFFzRfoeTp24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=pgo6/wH4; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H0W0ljSc"
-Received: by mail-wr2-f39.google.com with SMTP id ffacd0b85a97d-482f633ece3so590300f8f.3
-        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 05:27:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="pgo6/wH4"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e71cdb22bso5843735e9.2
+        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 05:29:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789648029; x=1790252829; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xhI8SzP7IG6+w349oQAHdsKcMYwgaoAFfY9n0UY/I0M=;
-        b=H0W0ljScT/p0ZQlrCpMHadS6P4ijOldNYdJOcOb7FDCpboHp5s7NWqaaCpfN+GNGHN
-         SwEBpDLuD9psw4i2GND+lg1Y5o38fX2Lcluw/77Fw2OTFj5qykBTMLLJo1l7KSyxiEdp
-         Lfr22du+j6gZ9uhLw4SiNg5IYu6s+w6vDQjWK88MPEBb7N6XD/hsFAeG49tdEZjKLKwB
-         9fG2a4wQ/cjd94aT/sYzhxb9lizSnnTkmgRwwV8rduvf1JmVUxKXYtq7y5878KxNfdv9
-         OIYEmX8QzrAlEX8GDbXQuf4mzWBKikftOd5r9veZEznEcVj8pOlDhyIvW5Vw/odLO7yp
-         TuXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789648029; x=1790252829;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=linaro.org; s=google; t=1789648192; x=1790252992; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xhI8SzP7IG6+w349oQAHdsKcMYwgaoAFfY9n0UY/I0M=;
-        b=hwgN8QS63DH+h5z77bwt+cNsGv+WkCnCor9l5NA9wKIvudeXF1429qEh9eqiCD8p5o
-         OocSj0j6WJtGysT2T8Y213GC6zMu/0oCnphNZsT38vfd7NkgbYRa5McTAMXpG0WAhijH
-         N9kcYnoTSwzB/BG2tNvLLmPDIhPcQSTQNudXozPjHKRJdZJnkn/hja6hVMwYTaWwhVxx
-         OCJ/PUxRAq8LJh0+cbfv1F6FsoskYbSXSgOVoApBKfpMd1ABmmEePQVPHh+slYFS5jQb
-         HiKRz248U4NdxWYcCOe0MJnHtjJYeG1Me6bdfqSIH5wpQXirmc/QBkO2sFlRq5VVpqDH
-         mOSw==
-X-Forwarded-Encrypted: i=1; AKwUvBy+wDUbyhSAT1lkayW/u5copxGj433TveH3pSOZm57ct3ydji/AAwmzzq/dks8Ey9otI91hHU2/pb2z@vger.kernel.org
-X-Gm-Message-State: AFuF++lyJ9477wYhrHFIBS9IP9/p/24p4iWvP8juuRcdl0XAFwxQHfP1
-	FuGetIRhgf5zRoYWTk+eSjbrraI6YCZZ+4HFfw8wDONM63YRnHk+ygPK
-X-Gm-Gg: AYBFou2W85J5t6f/Pmf7hofFXI/9qNBAATbAVDJliZOu0A0cSoMyWISQ3PDygZB+f/Z
-	un0Bbf07tPrJoGyskbJztpuekBS80u9b3lwd+qSXfh+nEigXJcl/0PvMhYidwi4+25lXeVi2qUT
-	7fNO1CcUXCSpbz8ajzArpXF6BsjyVaXEpIZ3aj5HeiAfhiUxn0nOL1hlIwDjs38RHiTQMVm4rW3
-	yrrTt5tHfl3p95vrEb9pndQhxEgtaEM1SUatPFzSkDlWE5oVJz43D9CIE3UPCjl8g/J134rN+wU
-	XYEcibfoIcWhLg9H+gjQcTva7sDRBd0l0HTvwCNgM5F+BjhgHgZb5MmZp1l9oyHeGsN7qmOpXob
-	oQ7fqWSA1w7WJexlkgS6SYRLmIo4DSgRG9xsbHII0wznQ/Zy0R/mUG60a54OqoMhbq1EYvlg7nL
-	F+9yuHYkUEITepTVfQ4TuMTZdRL+xCcJ7ybeA6irfFrtcaYUaMUnCz4LAKUR8uDMx4QXZUrgN+M
-	mvblAFIqKTHUjwTknBkk22udfKg0oNa0S7Yi9OR8rHsvUeOZzzhuUoPInWQQeMbY58+itlD0uB7
-	gHQojVdLYc1VoWUvIiNCj8evDUBa
-X-Received: by 2002:a5d:584c:0:b0:487:d79:7cf7 with SMTP id ffacd0b85a97d-4870d797e09mr8077150f8f.52.1789648028528;
-        Thu, 17 Sep 2026 05:27:08 -0700 (PDT)
-Received: from iku.example.org ([2a06:5906:61b:2d00:881:57c7:8b8b:8936])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bef766dsm14780947f8f.4.2026.09.17.05.27.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 05:27:08 -0700 (PDT)
-From: Prabhakar <prabhakar.csengg@gmail.com>
-X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Prabhakar <prabhakar.csengg@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH] arm64: dts: renesas: r9a09g047e57-smarc: Sort nodes alphabetically
-Date: Thu, 17 Sep 2026 13:27:01 +0100
-Message-ID: <20260917122701.160720-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-X-Mailer: git-send-email 2.55.0
+        bh=gC/Ov+71qXFh+qBimBh+DCQrBkKyOWQ85VQeOxH4dWo=;
+        b=pgo6/wH4p8Iy4hDBrBsNwC7Wf5dbv2rQwowqz9+adyxsd91AJF01kQKeWyKuHw+gs9
+         MfJzhOD9eEZ2HTeLqhi1Z0eoXKujJfXYrUfYhnetWkAodO9GoPUXt7250eWwQ9dSHQQ9
+         S+EoReNf8qYkPUsyM0XfUF7H1sOCqE/Omfh/J3ENYTSVByEYubMaz+qIDpciQGa74mcc
+         eSDu15hcNNgV6S9viZ6prvUyouYuAL7iUOuMGgh7xkoyPb8Et7MPr4Dr37ocNvTW/WRq
+         St/k1egfoMDrvNSwuE8aWahukXOoVVjBtvrYh5SFCgnk+bwA871SsNgLGXjcR2f5X4yB
+         +Njw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789648192; x=1790252992;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gC/Ov+71qXFh+qBimBh+DCQrBkKyOWQ85VQeOxH4dWo=;
+        b=n0vcPxQlsU196yHn2ZOreUJhlEEFwR/IvO7uihwcEnkQBHwuP4h3oHhEJjaAkyHBr4
+         HVRkXNY3r3AAoqXZraU1K7JboZsxEIscUEderMGdV2qA6UJRiMGNN3WEKwRcC8URHQdE
+         1aq45eyDyNlHKwJwIt8IjwrYDeq88V4JG2Unku6QOSYevP2hWhvK3GlKCytGcenXl+4n
+         BRYy2OkgiDTnVUH1g+YwOaqr7ozZP9WFT7Yr7XF/d+6AvU065CkER7yWX7KxaHdTowby
+         4HJZfJW1PwOl9OEnTkO/xZ8aZLSp/1hbB+SKP2BLLTuckRKt0D52nv6U7UjeuwvmpIMX
+         MhLQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwrMK1CrFDzcBo/aL3OR8HpxfMMQV09yfV1vqXxi8P8xSYCWQeh461I6vJ1Qxn1FAkjQRqAMfkwRCum@vger.kernel.org
+X-Gm-Message-State: AFuF++mPKO12ePQZhNWxfqlH6VO5xFpbJJUiq8EVtJuWUa2JNDEpenJR
+	6nryfKeubF5+fGMWdveMdZVfQNqZ+XWt/NPoR7STv3ocS4Trs/UCxa6yec21pWOOR28=
+X-Gm-Gg: AYBFou1W7OPkDiEwe627zFyYN/J6frd/xxSGuy79gHz4jkTy+8Z48SdeZdIkFL+nyx+
+	0fbNTY4XhuGScZbdN1aljT0hngx2Pzb8x8sYiECYXea57d0IJcZcZq0Igz0NAC70HOqu0n20Qjc
+	BkYn5jlnqZPho64zURgAr4B5/yeVg9El1d7BNAMKsY1g/ugLhckHFXCrXKPsCjUE1od4Z5JC2zD
+	rBkJzKRxNZk/YwBITPjNPP6V1z3OstqeyMfTJI+mkTit8xZ5CamO8XRJIY/QaJidtQMa+xhNUBf
+	DBn1itquw3y9XEMGdK3EsQy0HscIA9+TECglAdNNa8vhdbZJm5AGajsnwPDmsiv5meVOC0a3Pal
+	AmO9u12+heiDc+Y8YbrJI1mXPXIZD19vi4//0UIfshfUIJhvIy8cZZvhwmVSJCIf7AgIk5oejjZ
+	rVnROUaZUSztpFl7FVL6xj6PqQgdSVD/MJIUxEJbAp4ZZSKYpqVCCYrPdHHlrkK/BQuO1AgILnp
+	va4dGopQvqV7rE0Nh2WZa1wJqPNPaPyuLwbs0pn5P9UHyt6v29cfg==
+X-Received: by 2002:a05:600c:19c6:b0:49e:645e:2616 with SMTP id 5b1f17b1804b1-49eac463955mr74481465e9.5.1789648191941;
+        Thu, 17 Sep 2026 05:29:51 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:b5f0:971e:8fd2:f1c9? ([2a01:e0a:106d:1080:b5f0:971e:8fd2:f1c9])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd2563ccsm89340375e9.13.2026.09.17.05.29.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 17 Sep 2026 05:29:51 -0700 (PDT)
+Message-ID: <a06040ea-4af1-4083-9b69-7f62be7c9bce@linaro.org>
+Date: Thu, 17 Sep 2026 14:29:50 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v18 2/5] phy: core: Add phy_get_by_of_node()
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
+ Todor Tomov <todor.too@gmail.com>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Bryan O'Donoghue <bod@kernel.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>, Felipe Balbi <balbi@ti.com>,
+ Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-phy@lists.infradead.org,
+ Krzysztof Kozlowski <krzk@kernel.org>
+References: <20260917-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v18-0-f85c9103177e@linaro.org>
+ <20260917-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v18-2-f85c9103177e@linaro.org>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260917-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v18-2-f85c9103177e@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+On 9/17/26 13:07, Bryan O'Donoghue wrote:
+> Add new function phy_get_by_of_node() allowing lookup of a phy by
+> device_node. Separates existing logic in _of_phy_get() into an internal
+> helper method _of_phy_get_with_args() to allow for reuse in new method.
+> 
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> ---
+>   drivers/phy/phy-core.c  | 95 +++++++++++++++++++++++++++++++++++++------------
+>   include/linux/phy/phy.h |  6 ++++
+>   2 files changed, 78 insertions(+), 23 deletions(-)
+> 
+> diff --git a/drivers/phy/phy-core.c b/drivers/phy/phy-core.c
+> index 89addd732bff3..490a7cde6d40a 100644
+> --- a/drivers/phy/phy-core.c
+> +++ b/drivers/phy/phy-core.c
+> @@ -606,22 +606,51 @@ int phy_validate(struct phy *phy, enum phy_mode mode, int submode,
+>   }
+>   EXPORT_SYMBOL_GPL(phy_validate);
+>   
+> +/**
+> + * _of_phy_get_with_args() - lookup and obtain a reference to a phy by of_phandle_args
+> + * @args: of_phandle_args to the phy
+> + *
+> + * Returns the phy from the provider's of_xlate, -ENODEV if disabled,
+> + * -EPROBE_DEFER if the provider is not yet registered.
+> + */
+> +static struct phy *_of_phy_get_with_args(struct of_phandle_args *args)
+> +{
+> +	struct phy *phy;
+> +	struct phy_provider *phy_provider;
+> +
+> +	lockdep_assert_held(&phy_provider_mutex);
+> +
+> +	phy_provider = of_phy_provider_lookup(args->np);
+> +	if (IS_ERR(phy_provider) || !try_module_get(phy_provider->owner))
+> +		return ERR_PTR(-EPROBE_DEFER);
+> +
+> +	if (!of_device_is_available(args->np)) {
+> +		dev_warn(phy_provider->dev, "Requested PHY is disabled\n");
+> +		phy = ERR_PTR(-ENODEV);
+> +		goto out_put_module;
+> +	}
+> +
+> +	phy = phy_provider->of_xlate(phy_provider->dev, args);
+> +
+> +out_put_module:
+> +	module_put(phy_provider->owner);
+> +
+> +	return phy;
+> +}
+> +
+>   /**
+>    * _of_phy_get() - lookup and obtain a reference to a phy by phandle
+>    * @np: device_node for which to get the phy
+>    * @index: the index of the phy
+>    *
+> - * Returns the phy associated with the given phandle value,
+> - * after getting a refcount to it or -ENODEV if there is no such phy or
+> - * -EPROBE_DEFER if there is a phandle to the phy, but the device is
+> - * not yet loaded. This function uses of_xlate call back function provided
+> - * while registering the phy_provider to find the phy instance.
+> + * Returns the phy associated with the given phandle value after getting
+> + * a refcount to it; -ENODEV if there is no such phy or the phy is
+> + * disabled; -EPROBE_DEFER if the phy provider is not yet available.
+>    */
 
-Move the sound card node before the vqmmc regulator node to maintain
-alphabetical ordering of the nodes under the root node.
+Why changing the comment here ? You're not supposed to changes the _of_phy_get() behaviour.
 
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
----
- .../boot/dts/renesas/r9a09g047e57-smarc.dts      | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+>   static struct phy *_of_phy_get(struct device_node *np, int index)
+>   {
+>   	int ret;
+> -	struct phy_provider *phy_provider;
+> -	struct phy *phy = NULL;
+> +	struct phy *phy;
+>   	struct of_phandle_args args;
+>   
+>   	lockdep_assert_held(&phy_provider_mutex);
+> @@ -637,22 +666,7 @@ static struct phy *_of_phy_get(struct device_node *np, int index)
+>   		goto out_put_node;
+>   	}
+>   
+> -	phy_provider = of_phy_provider_lookup(args.np);
+> -	if (IS_ERR(phy_provider) || !try_module_get(phy_provider->owner)) {
+> -		phy = ERR_PTR(-EPROBE_DEFER);
+> -		goto out_put_node;
+> -	}
+> -
+> -	if (!of_device_is_available(args.np)) {
+> -		dev_warn(phy_provider->dev, "Requested PHY is disabled\n");
+> -		phy = ERR_PTR(-ENODEV);
+> -		goto out_put_module;
+> -	}
+> -
+> -	phy = phy_provider->of_xlate(phy_provider->dev, &args);
+> -
+> -out_put_module:
+> -	module_put(phy_provider->owner);
+> +	phy = _of_phy_get_with_args(&args);
+>   
+>   out_put_node:
+>   	of_node_put(args.np);
+> @@ -1001,6 +1015,41 @@ struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
+>   }
+>   EXPORT_SYMBOL_GPL(devm_of_phy_get_by_index);
+>   
+> +/**
+> + * phy_get_by_of_node() - lookup and obtain a reference to a phy by device_node
+> + * @np: node containing the phy
+> + *
+> + * Returns the phy associated with the device node or ERR_PTR.
+> + */
+> +struct phy *phy_get_by_of_node(struct device_node *np)
+> +{
+> +	struct of_phandle_args args = { .np = np, .args_count = 0 };
+> +	struct phy *phy;
+> +
+> +	if (!np)
+> +		return ERR_PTR(-EINVAL);
+> +
+> +	mutex_lock(&phy_provider_mutex);
+> +
+> +	phy = _of_phy_get_with_args(&args);
+> +
+> +	if (IS_ERR(phy))
+> +		goto out_unlock;
+> +
+> +	if (!try_module_get(phy->ops->owner)) {
+> +		phy = ERR_PTR(-EPROBE_DEFER);
+> +		goto out_unlock;
+> +	}
+> +
+> +	get_device(&phy->dev);
+> +
+> +out_unlock:
+> +	mutex_unlock(&phy_provider_mutex);
+> +
+> +	return phy;
+> +}
+> +EXPORT_SYMBOL_GPL(phy_get_by_of_node);
+> +
+>   /**
+>    * phy_create() - create a new phy
+>    * @dev: device that is creating the new phy
+> diff --git a/include/linux/phy/phy.h b/include/linux/phy/phy.h
+> index ea47975e288ae..71c2e16397130 100644
+> --- a/include/linux/phy/phy.h
+> +++ b/include/linux/phy/phy.h
+> @@ -284,6 +284,7 @@ struct phy *devm_of_phy_optional_get(struct device *dev, struct device_node *np,
+>   				     const char *con_id);
+>   struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
+>   				     int index);
+> +struct phy *phy_get_by_of_node(struct device_node *np);
+>   void of_phy_put(struct phy *phy);
+>   void phy_put(struct device *dev, struct phy *phy);
+>   void devm_phy_put(struct device *dev, struct phy *phy);
+> @@ -493,6 +494,11 @@ static inline struct phy *devm_of_phy_get_by_index(struct device *dev,
+>   	return ERR_PTR(-ENOSYS);
+>   }
+>   
+> +static inline struct phy *phy_get_by_of_node(struct device_node *np)
+> +{
+> +	return ERR_PTR(-ENOSYS);
+> +}
+> +
+>   static inline void of_phy_put(struct phy *phy)
+>   {
+>   }
+> 
 
-diff --git a/arch/arm64/boot/dts/renesas/r9a09g047e57-smarc.dts b/arch/arm64/boot/dts/renesas/r9a09g047e57-smarc.dts
-index 14f5834082fa..8094599cc8e7 100644
---- a/arch/arm64/boot/dts/renesas/r9a09g047e57-smarc.dts
-+++ b/arch/arm64/boot/dts/renesas/r9a09g047e57-smarc.dts
-@@ -77,6 +77,14 @@ aliases {
- 		mmc1 = &sdhi1;
- 	};
- 
-+	sound_card: sound {
-+		compatible = "audio-graph-card";
-+
-+		label = "snd-rzg3e";
-+
-+		dais = <&rsnd_port0>;	/* DA7212 */
-+	};
-+
- 	vqmmc_sd1_pvdd: regulator-vqmmc-sd1-pvdd {
- 		compatible = "regulator-gpio";
- 		regulator-name = "SD1_PVDD";
-@@ -86,14 +94,6 @@ vqmmc_sd1_pvdd: regulator-vqmmc-sd1-pvdd {
- 		gpios-states = <0>;
- 		states = <3300000 0>, <1800000 1>;
- 	};
--
--	sound_card: sound {
--		compatible = "audio-graph-card";
--
--		label = "snd-rzg3e";
--
--		dais = <&rsnd_port0>;	/* DA7212 */
--	};
- };
- 
- &audio_clkb {
--- 
-2.55.0
+Apart that, looks good:
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
+Thanks,
+Neil
