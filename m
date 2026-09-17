@@ -1,128 +1,280 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-57.mta0.migadu.com [91.218.175.57])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC72938F253
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 07:54:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83E343CB56E
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 07:56:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.57
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789631658; cv=none; b=ta0WNW77drPuHgys8WWOfWnVtfP3dR1vzqoBbDargxsGVW2iXFwrsBSYJwHykKEKctJ4D/NLFtxBYMOw0VOMumEzoe/OCxPe1XADz5HjM8w3Bb7nV70xIMQEAsHUWrlFGS96flbbFr9WomNRPUvUiuyfiyr5RQDf/NaJdYsw10o=
+	t=1789631765; cv=none; b=e0QZtUt3Yw3elXZkzfyHJQeYqq/IPy++k3GSmHhf1QxMq+8EAQC5uyjEf8BTWVE0QbxWT5p3JN15w9t2KBEDpsPXKBRgC47N3A9Os3duCm7WaZpeIFrymo6kdleBfrTgBBVkZ+DmuGXA0cyC9XH5k6Jp7tYY+B02yd/ujNXmtCQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789631658; c=relaxed/simple;
-	bh=uOCuFhVmBofkTWwgfcTvMkb0kujRVDC14LwjWAuu/Y8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QiIWPgV2ksIds4E1ckXlTc+1Lq4BemkrxWEROIcnmB/AoEex5SN/iekJL6WygLXFoQPnDeSlb9k1aA8/P+RcZ8Kq9jqnrE2RLLfQ4sSEQBHN6qK501xJXTJOqpJXtDOL7oFoP4po2OsxDRILydnPUgUPJwL60jrJ16q9OWVEhuU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HwkRdKOw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789631765; c=relaxed/simple;
+	bh=HamL13sGqDhUbkcsggfWZn4XtwRtR+Nb7WNAVRS3KWc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VFTrnHkdoTem7ieJeURO8oCM9oq+cyx/TOYJlouFp6x5rm4TbGZfoK6i8ADijhzVOknwfr1bAP437VRhzsoi8egFDRcSLvvmEiGXG3HNGJCvPjFr0SxrMNSz/QzH5mSOqChMGqrwBH3kcUQMUnom0eVhGQAejy0B7xF3Pn3W7zI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=uwKywFw3; arc=none smtp.client-ip=91.218.175.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HwkRdKOw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C7491F000FF;
-	Thu, 17 Sep 2026 07:54:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789631656;
-	bh=V7C6mvvZaq6HvA04434oNYFc7udbJjolNJZZBkdlXgM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HwkRdKOway2taunOc9Hs5xvKfRBlVvxYtgcO9h56RSmEQlU0VAo82fDviIiTUKB//
-	 iYoGowBiMjjWQmEpcNIIKUEEYy1Tu8OM7ikLspD68uallsc3Lgvffh+ARZ9t5cFG3+
-	 C1ANC0Fbx5ajFPFJX2Y+nVHBsGAkWI6s2ZVXbOsOnwvyGGoJyXLOaz6OcWo7dRPg0Q
-	 xRD+DvtfNqGGIVKafufG4NXqnsonbZzZjc2RW7ZxfEorICtLiJ0nfPwA9ob+V0emyi
-	 LBsuzFxw8VjFwjD2DrKB/d61LFo5+1PY6ZZ+8YvjLpfN8H/Z0wx990/DOpciFfwBxf
-	 M5Q4CLR4N0Mkw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v2 2/2] net: ethernet: oa_tc6: add reset-gpios
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alessandro Zini" <alessandro.zini@siemens.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260916075349.21822-3-alessandro.zini@siemens.com>
-References: <20260916075349.21822-1-alessandro.zini@siemens.com>
- <20260916075349.21822-3-alessandro.zini@siemens.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 07:54:15 +0000
-Message-Id: <20260917075416.1C7491F000FF@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="uwKywFw3"
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=HamL13sGqDhUbkcsggfWZn4XtwRtR+Nb7WNAVRS3KWc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789631760; v=1; x=1790236560;
+ b=uwKywFw3PzGwK+BKHwgZmJzb48/BwrzaW876/sQgqbDaogSWabFol/7ihe2rCABAUO7ZTkqo
+ ukFeOQGxNyvrBkEg9iRMeStOwBmZnVdyvpk3BfgVohQSCp+gCr8oO8f+P7fRfP9A+FogK8/dd+t
+ 6FLCBAp4T5KAe4lPeGjF9qm8=
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f50246a7211157f5;
+	Thu, 17 Sep 2026 07:55:50 +0000
+X-Mizu-Trace-ID: f50246a7211157f5
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 17 Sep 2026 09:55:45 +0200
+From: Richard Leitner <richard.leitner@linux.dev>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Alexander Stein <alexander.stein@ew.tq-group.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org
+Subject: Re: [PATCH 2/3] dt-bindings: media: i2c: Add
+ vision-components,mipi-module-controller
+Message-ID: <aquan_6JiKkEw-Kp@bombadil>
+References: <20260915-vc-mipi-ctrl-v1-0-8a42b693d889@linux.dev>
+ <20260915-vc-mipi-ctrl-v1-2-8a42b693d889@linux.dev>
+ <20260916-daft-relaxed-mouse-9bfaf4@quoll>
+ <aqpC8fxO4F3bFjF4@bombadil>
+ <45fd8255-6ba8-4488-acc8-4f7fc9c85ade@kernel.org>
+ <aqpYqrtKTY20IW_0@bombadil>
+ <a46e3ea2-8a21-4b9c-a112-99d249f46e99@kernel.org>
+ <20260916165244.GB191870@killaraus.ideasonboard.com>
+ <f20daf57-88cf-44e1-a2af-8769d3500176@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <f20daf57-88cf-44e1-a2af-8769d3500176@kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] net: oa_tc6: probe deferral broken by swallowed devm_gpiod_get_opt=
-ional error
---
+On Thu, Sep 17, 2026 at 08:18:23AM +0200, Krzysztof Kozlowski wrote:
+> On 16/09/2026 18:52, Laurent Pinchart wrote:
+> > On Wed, Sep 16, 2026 at 03:41:16PM +0200, Krzysztof Kozlowski wrote:
+> >> On 16/09/2026 11:01, Richard Leitner wrote:
+> >>> On Wed, Sep 16, 2026 at 10:35:22AM +0200, Krzysztof Kozlowski wrote:
+> >>>> On 16/09/2026 09:33, Richard Leitner wrote:
+> >>>>> On Wed, Sep 16, 2026 at 09:00:46AM +0200, Krzysztof Kozlowski wrote:
+> >>>>>> On Tue, Sep 15, 2026 at 10:20:24PM +0200, Richard Leitner wrote:
 
-commit 68c336e363623d8a5b0d1022273415e9f9d3b4a9
-Author: Alessandro Zini <alessandro.zini@siemens.com>
+[...]
 
-net: ethernet: oa_tc6: add reset-gpios support
+> >>>>>>> Add bindings for the Vision Components MIPI Camera Module Controller.
+> >>>>>>> +
+> >>>>>>> +  vcc-supply:
+> >>>>>>> +    description: Power supply of the module (3.3V)
+> >>>>>>> +
+> >>>>>>> +  '#address-cells':
+> >>>>>>> +    const: 1
+> >>>>>>> +
+> >>>>>>> +  '#size-cells':
+> >>>>>>> +    const: 0
+> >>>>>>
+> >>>>>> No children allowed, so why these two?
+> >>>>>
+> >>>>> Based on your and the bot feedback I would suggest for v2 to change this
+> >>>>> "generic i2c bus" to a simple "i2c-tunnel" property which has
+> >>>>> "$ref: /schemas/i2c/i2c-controller.yaml".
+> >>>>>
+> >>>>> This would better reflect the actual hardware, as there is only this one,
+> >>>>> in firmware hard-coded I2C downstream bus.
+> >>>>>
+> >>>>> Would this be a sane approach?
+> >>>>
+> >>>> If the underlying I2C bus and sensor are important, then yes. But I have
+> >>>> doubts that you need to describe the sensor if it is truly
+> >>>> unadressable/invisible to the OS.
+> > 
+> > To be clear, the sensor *is* addressable from the OS. The FPGA sits in
+> > the middle on the I2C bus instead of being a separate I2C device on the
+> > same bus as the sensor, but it forwards all I2C writes addressed to the
+> > sensor onto the backend I2C bus. This is why the DT binding is modelled
+> > with a child I2C bus. The sensor DT node is located on that node, and
+> > uses the regular DT bindings for the sensor.
+> 
+> Thanks, this should be explained in the description of the binding. It
+> does mention "the sensor device reachable through the tunnel" but the
+> rest about optionality of the sensor feels confusing in this case.
 
-Adds support for an optional reset GPIO in oa_tc6_init(). Asserts the hardw=
-are
-reset line if the GPIO is specified in the device tree.
+Thanks Laurent for the additional clarification!
 
-> diff --git a/drivers/net/ethernet/oa_tc6.c b/drivers/net/ethernet/oa_tc6.c
-> index 6fcc5f561d560..a697e2cb99cd8 100644
-> --- a/drivers/net/ethernet/oa_tc6.c
-> +++ b/drivers/net/ethernet/oa_tc6.c
+I will adapt the description accordingly for v2.
 
-[ ... ]
+> 
+> > 
+> >>> Yes, the I2C bus and sensor is important. The device driver of the sensor
+> >>> talks (via the tunneled I2C interface) directly to the sensor.
+> >>>
+> >>> The separate I2C controller/bus description is necessary as the tunneled
+> >>> I2C bus has some quirks unfortunately. Those need to be addressed as 
+> >>> otherwise the sensor drivers do not work.
+> >>>
+> >>> So the idea is to not have a vc-mipi module binding per "sensor variant"
+> >>> of the camera modules, but provide a common controller driver which
+> >>> provides the I2C bus for the sensor driver.
+> >>
+> >> Bindings must accurately describe the device and so far - based on the
+> >> website - there is no device as mipi-module-controller alone.
+> >>
+> >> I don't get why you assume that all of the variants are exactly
+> >> identical, thus sensor variant is not applicable.
+> >>
+> >> If they are identical in all aspects, then why clock-frequency property?
+> >> That's obviously rhetorical question, because they are not identical in
+> >> all aspects and must produce different clock at least.
+> > 
+> > The FPGA has an input clock whose frequency depends on the module. It
+> 
+> There is no "clocks" property in the binding. If there is input, then
+> there is a "clocks".
+> 
+> Then we never describe external oscillators with "clock-frequency"
+> property. ACPI does, but not DT.
 
-> @@ -1503,6 +1506,24 @@ struct oa_tc6 *oa_tc6_init(struct spi_device *spi,=
- struct net_device *netdev,
->  	if (!tc6->spi_data_rx_buf)
->  		return NULL;
-> =20
-> +	tc6->reset_gpio =3D devm_gpiod_get_optional(&spi->dev, "reset",
-> +						  GPIOD_OUT_LOW);
-> +	if (IS_ERR(tc6->reset_gpio)) {
-> +		dev_err_probe(&spi->dev, PTR_ERR(tc6->reset_gpio),
-> +			      "Failed to get reset GPIO\n");
-> +		return NULL;
+So how would that be best solved in DT?
 
-[Severity: High]
-Does returning NULL here break probe deferral?
+Should there be a "fixed-clock" child node for that external oscillator?
+Something like:
 
-If devm_gpiod_get_optional() returns ERR_PTR(-EPROBE_DEFER) because the GPIO
-provider is not yet ready, dev_err_probe() catches and logs it. However, th=
-is
-function then ignores the error code and unconditionally returns NULL.
+vc_mipi_ctrl: controller@10 {
+  ...
 
-Callers of oa_tc6_init() (like lan865x_probe()) treat a NULL return as a
-permanent failure and return -ENODEV:
+  vc_mipi_clk: clock {
+    compatible = "fixed-clock";
+    #clock-cells = <0>;
+    clock-frequency = <37125000>;
+  };
 
-drivers/net/ethernet/microchip/lan865x/lan865x.c:lan865x_probe() {
+  i2c-tunnel {
     ...
-	priv->tc6 =3D oa_tc6_init(spi, netdev, NULL);
-	if (!priv->tc6) {
-		ret =3D -ENODEV;
-		goto free_netdev;
-	}
-    ...
-}
 
-This converts a retryable -EPROBE_DEFER into a fatal -ENODEV, causing a
-permanent initialization failure if the GPIO driver loads after the SPI dri=
-ver.
+    vc_mipi_sensor: camera@60 {
+      ...
 
-Should oa_tc6_init() return an ERR_PTR() instead of NULL on failure, so that
-callers can propagate the exact error code?
+      clocks = <&vc_mipi_clk>;
+      clock-names = "inck";
+    };
+};
 
-> +	}
-> +
-> +	if (tc6->reset_gpio) {
-> +		/* Assert hardware reset for 10 us (datasheet specifies min 5 us)
-> +		 * and allow 1 ms settle time for crystal oscillator startup.
-> +		 */
-> +		gpiod_set_value_cansleep(tc6->reset_gpio, 1);
-> +		fsleep(10);
-> +		gpiod_set_value_cansleep(tc6->reset_gpio, 0);
-> +		fsleep(1000);
-> +	}
-> +
->  	/* Check the PROTE bit status so that we can reset the device */
->  	ret =3D oa_tc6_check_ctrl_protection(tc6);
->  	if (ret) {
+Or should (as discussed in the other branch of this thread) there be a
+separate compatible for every vc-mipi sensor variant board? Then this
+could also be part of the compatible-dependent driver data.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916075349.2182=
-2-1-alessandro.zini@siemens.com?part=3D2
+Or are there any other/better approaches to this?
+
+> 
+> 
+> > uses it for internal purpose, and also to provide a clock to the sensor.
+> > Very roughly speaking, and ignoring power supplies as we focus on the
+> > clocks, the camera module is architectured this way:
+> > 
+> > Connector
+> >    ||                                       +--------+
+> >    || <------------ MIPI CSI-2 ------------ |        |
+> >    ||               +-------+               |        |
+> >    || <--- I2C ---> |       | <--- I2C ---> | Sensor |
+> >    ||               | FPGA  |               |        |
+> >    ||               |       | --- Clock --> |        |
+> >    ||               +-------+               +--------+
+> >                         ^
+> >                         |
+> >                     +-------+
+> >                     | Clock |
+> >                     | Osc.  |
+> >                     +-------+
+> > 
+> > The frequency of the external clock oscillator is what the
+> > clock-frequency models.
+> > 
+> >>>>>>> +
+> >>>>>>> +required:
+> >>>>>>> +  - compatible
+> >>>>>>> +  - reg
+> >>>>>>> +  - '#clock-cells'
+> >>>>>>> +  - clock-frequency
+> >>>>>>> +  - vcc-supply
+> >>>>>>> +  - '#address-cells'
+> >>>>>>> +  - '#size-cells'
+> >>>>>>> +
+> >>>>>>> +unevaluatedProperties: false
+> >>>>>>
+> >>>>>> additionalProperties instead, see writing bindings or writing schema.
+> >>>>>> Unless you miss here some other schema $ref.
+> >>>>>>
+> >>>>>>> +
+> >>>>>>> +examples:
+> >>>>>>> +  - |
+> >>>>>>> +    i2c {
+> >>>>>>> +        #address-cells = <1>;
+> >>>>>>> +        #size-cells = <0>;
+> >>>>>>> +
+> >>>>>>> +        vc_mipi_ctrl: controller@10 {
+> >>>>>>> +            compatible = "vision-components,mipi-module-controller";
+> >>>>>>> +            reg = <0x10>;
+> >>>>>>> +            #clock-cells = <0>;
+> >>>>>>> +            clock-frequency = <37125000>;
+> >>>>>>> +            vcc-supply = <&cam_3v3>;
+> >>>>>>> +
+> >>>>>>> +            #address-cells = <1>;
+> >>>>>>> +            #size-cells = <0>;
+> >>>>>>> +
+> >>>>>>> +            i2c@0 {
+> >>>>>>> +                #address-cells = <1>;
+> >>>>>>> +                #size-cells = <0>;
+> >>>>>>> +
+> >>>>>>> +                vc_mipi_sensor: camera@60 {
+> >>>>>>> +                    compatible = "ovti,ov9281";
+> >>>>>>> +                    reg = <0x60>;
+> >>>>>>
+> >>>>>> Why having the child abstraction if it is completely abstracted? I don't
+> >>>>>> fully get the explanation from description. Completely optional means no
+> >>>>>> benefits, no point in it, no?
+> >>>>>
+> >>>>> I will try to improve the description. The idea behind this device
+> >>>>> driver/devicetree node is to not rely on the sensor abstraction from
+> >>>>> vision components, but to use the upstream sensor specific driver.
+> >>>>
+> >>>> You can use driver even without these nodes... but fine, let's assume
+> >>>> you have them, so driver will talk with OV9281 sensor for example?
+> >>>
+> >>> The vc-mipi driver does not talk to sensor at all. This is done by the
+> >>> dedicated sensor driver. The vc-mipi driver is only controlling the
+> >>> regulator, clock, etc. as described and sets up the "quirk aware"
+> >>> tunneled i2c interface.
+> >>
+> >> I meant, driver for the sensor. So who controls sensor supplies? Not the
+> >> sensor driver? It tells something how the hardware is managed, no?
+> > 
+> > Power supplies are managed in a similar way as the clock in the above
+> > diagram. There's one input supply to the camera module on the connector.
+> > Individual supplies for the sensor are generated from that main supply,
+> > and are controlled by the FPGA which exposes a register over I2C to
+> > enable/disable the supplies from the host (there's a single bit to
+> > enable/disable them all, they can't be controlled individually).
+> > 
+> 
+> Thanks, I see this also shown in the example DTS. I think the sensor
+> node is redundant here, but removing it would require moving all of this
+> to swnodes, so not that much better either. It's fine to keep the sensor
+> subnode for me.
+
+ACK.
+
+Thanks Krzysztof!
+
+regards;rl
+
+> 
+> Best regards,
+> Krzysztof
