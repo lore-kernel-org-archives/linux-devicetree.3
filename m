@@ -1,58 +1,104 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67B8E3C9886;
-	Thu, 17 Sep 2026 19:02:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD1DE3CDBD3;
+	Thu, 17 Sep 2026 19:04:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789671771; cv=none; b=XDFVhH5/vP7VkkwSTyuyC8YU8m+XtbVf3BNQ6CS/glQqemgv/EijnLCqm9HqIP9S315fV0Ad9sDuTcL7IxHc+3HCZBb4/sFAQTVG3sq27/uwlZlQHTU9PSCkZWzerR32ZGK5kvKKI0VzesQU9eygdaqX8Eksc1RF6wDLwxLRDZg=
+	t=1789671849; cv=none; b=sptVEhH8OcU8FOUIaMFec1obKY2dlQAw7r+KZ2PZPcrSpjVpBZWD6dBLfryt4zFjiZ1VznwLZCYWO6YaMA8/JnLvb83MBp5LK7wVGky2bqEQ6JnxTkj11osgG02DgAYHdxBSh8awopvikH+X6WBpubL74zI3nPQ3cV0H1CFIB94=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789671771; c=relaxed/simple;
-	bh=lze+RPk+U6Poc8aKI18GAN3mxw1NYgMwfhGE1coWmwg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=SwuWPSiRkTQBEOc2bHVTzixhEggNOXqj6ELDfxCkdw2eOyHljvcPg8DuBc6t6UJU7ALw0FzWxGhE9sfm07mJn3WZhAfXMVzE5juwOt5X9Yj+baweTWDBr3guMEWbj/O64pRmzIdx9XHTba2MP7NUwK//aLonwACPtzBL97xNlqU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z20L8S5T; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789671849; c=relaxed/simple;
+	bh=tCosBkLYGEEsi74OqSOrc66diUULUxKBq3+Wh50tyjM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CB2CvTaSAO/x5LrFDjnH1sopLgKM3GmFLreCIBTw2jViAsSBGXFODUq8LCyy+2CjiSxt/UoSOd3us1s3VU7j5U7570YepuTATK9Yr6kVQFnZP2IpRVov72gjtM6u138eXkeOQGt9CQ885Rz++u1uMrU4DlNtbbyo1AZNwKQi8/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k48NjLkH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z20L8S5T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E06731F00893;
-	Thu, 17 Sep 2026 19:02:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k48NjLkH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51E801F000FF;
+	Thu, 17 Sep 2026 19:04:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789671770;
-	bh=lze+RPk+U6Poc8aKI18GAN3mxw1NYgMwfhGE1coWmwg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Z20L8S5T7gdAJHTixmsAMpGDCvL0VKnHS2EklEFJcAC3A2PjrFDDnxzEXQiUlNc75
-	 +sHPNrLAw103j6A+Sixdvnvb8CLlVu3P0fn7wyOuGYtTB3GejD5CZQc0YkQk9KP/CA
-	 DIkT+O2J0wdH3VKZRFr0PZnoRTwTgABgXojC4TaLrV1SdJeBB81Bts0nzfcce+wZwS
-	 iASxYMtC1W+cKjNuuy9b4Gk8PtDNJDETdpEQ+N/e4AMoa1Ksze2uuxwUlpn7HUgqUB
-	 gKj9BktoH5VgLg3P6h4PjOPS/1Rs4uyoS+/KX93Rg9L/VrvfZEfwSsLcP6LXSLg460
-	 6nmKe3ik/hG9w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/4] dt-bindings: rtc: rzn1: add R-Car X5H support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wolfram Sang" <wsa+renesas@sang-engineering.com>
-Cc: linux-rtc@vger.kernel.org, "Alexandre Belloni" <alexandre.belloni@bootlin.com>, devicetree@vger.kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com, robh@kernel.org
-In-Reply-To: <20260917185903.61253-9-wsa+renesas@sang-engineering.com>
-References: <20260917185903.61253-6-wsa+renesas@sang-engineering.com>
- <20260917185903.61253-9-wsa+renesas@sang-engineering.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 19:02:49 +0000
-Message-Id: <20260917190249.E06731F00893@smtp.kernel.org>
+	s=k20260515; t=1789671847;
+	bh=gzQp6LW1nXvwBEwBhGNPe+tNOASC0dgPxppHtMaIJkM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=k48NjLkHVhtOalPBGpW0mEiCAI8LrDMLOLiZZXWRnf6WbeYW47QCVsuZaVq3BD6PS
+	 XUj//7Wh+NEwRa44zMB7p+gOfG4tMr0K9Fi+m735eHJ7v8M139VmX1Ri7YIcA5LtVY
+	 ZryHyhQrvuiNZ9NBiopiVKxfWj4eRtwA6+AkAWaHss8V28snEBfZgiA9uQUpOQzN6+
+	 s+JLhtI68GSF75d1C8CD9Hr3S8EOcR+AZuNZPLVqFyJDUEdOmja5kkOxJb6PrtMtNZ
+	 oWIryW6xoOLDS0OV5YGZqloxJtvl0jkE/QfLDaQQM5e6sEcdSvaYVuoEHIJWaEiQwD
+	 oecVv3ZxWaUbA==
+Date: Thu, 17 Sep 2026 14:04:06 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Douglas Anderson <dianders@chromium.org>
+Cc: Jonathan Hunter <jonathanh@nvidia.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Chen-Yu Tsai <wens@kernel.org>, devicetree@vger.kernel.org,
+	Conor Dooley <conor+dt@kernel.org>, Suman Anna <s-anna@ti.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Michal Simek <michal.simek@amd.com>,
+	linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-tegra@vger.kernel.org, Konrad Dybcio <konradybcio@kernel.org>,
+	Sebastian Reichel <sre@kernel.org>, linux-kernel@vger.kernel.org,
+	Lee Jones <lee@kernel.org>, Jassi Brar <jassisinghbrar@gmail.com>,
+	linux-sunxi@lists.linux.dev,
+	Thierry Reding <thierry.reding@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	Jernej Skrabec <jernej.skrabec@gmail.com>
+Subject: Re: [PATCH v2] dt-bindings: mailbox: Delete old 'mailbox.txt'
+ bindings file
+Message-ID: <178967102478.3104808.16225171904149470188.robh@kernel.org>
+References: <20260814124603.v2.1.I8b3ff71c528133e7d6f81fe926fa39e6451d63fd@changeid>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260814124603.v2.1.I8b3ff71c528133e7d6f81fe926fa39e6451d63fd@changeid>
 
-> The RTC on R-Car X5H is a bit special because interrupts are not wired.
-> Future R-Car Gen5 SoCs will have them wired again. So, create a
-> dedicated entry for X5H without interrupts.
->=20
-> Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+On Fri, 14 Aug 2026 12:46:12 -0700, Douglas Anderson wrote:
+> As per mailing-list discussions [1] [2] [3], we want to delete the
+> following old file from the device-tree bindings that live in the
+> Linux kernel git tree:
+> * Documentation/devicetree/bindings/mailbox/mailbox.txt
+> 
+> The old .txt file did have some descriptive text about what some of
+> the properties meant. Those have been added to the dt-schema
+> repository in a pull request [4].
+> 
+> Also remove dangling references to `mailbox.txt` across all remaining
+> device-tree binding documentation files.
+> 
+> Link: https://lore.kernel.org/r/20260722140214.GA548057-robh@kernel.org [1]
+> Link: https://lore.kernel.org/r/dc7a2041-50a4-482e-9930-566bb3fd1e72@kernel.org [2]
+> Link: https://lore.kernel.org/r/CAL_JsqKVjQ2m-dzMUENQry-f_YE9QrYSOKoH9CPj1gjj8XkPRA@mail.gmail.com [3]
+> Link: https://github.com/devicetree-org/dt-schema/pull/202 [4]
+> Cc: Sudeep Holla <sudeep.holla@kernel.org>
+> Cc: Jassi Brar <jassisinghbrar@gmail.com>
+> Cc: Lee Jones <lee@kernel.org>
+> Signed-off-by: Douglas Anderson <dianders@chromium.org>
+> ---
+> - v1: https://lore.kernel.org/r/20260804133801.1.I8b3ff71c528133e7d6f81fe926fa39e6451d63fd@changeid
+> 
+> Changes in v2:
+> - Remove dangling mailbox.txt references as per Sashiko.
+> 
+>  .../firmware/nvidia,tegra186-bpmp.yaml        |  6 +-
+>  .../mailbox/allwinner,sun6i-a31-msgbox.yaml   |  3 -
+>  .../bindings/mailbox/altera-mailbox.txt       | 12 ++--
+>  .../mailbox/hisilicon,hi3660-mailbox.txt      |  2 +-
+>  .../mailbox/hisilicon,hi6220-mailbox.txt      |  2 +-
+>  .../devicetree/bindings/mailbox/mailbox.txt   | 60 -------------------
+>  .../bindings/mailbox/ti,omap-mailbox.yaml     |  3 +-
+>  .../power/reset/xlnx,zynqmp-power.yaml        |  9 +--
+>  .../bindings/soc/qcom/qcom,aoss-qmp.yaml      |  2 +-
+>  9 files changed, 15 insertions(+), 84 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/mailbox/mailbox.txt
+> 
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917185903.6125=
-3-6-wsa+renesas@sang-engineering.com?part=3D3
+Applied, thanks!
 
