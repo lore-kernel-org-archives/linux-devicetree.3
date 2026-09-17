@@ -1,420 +1,314 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f6.google.com (mail-ed2-f6.google.com [74.125.228.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E88B94B0E58;
-	Thu, 17 Sep 2026 20:08:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789675736; cv=none; b=uMtsb7wZYL535nofo61SL5O3CHh8hBNqhPkK5+5FF6Vn88SmDWyAUld8lW5ekz0M9c0B5sAIjAPjW2AzWfDAk8OeXSEMYcolvbg1K2ndMtnsmirXB5dpGIetduoe3hQKKjlpcLOLjW9Rjj+vB0UJic4rgxABiMLXQ75IfDP9Ghc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789675736; c=relaxed/simple;
-	bh=u7QR7V0OJNVy5bFyru3FKBiBQ/5LrouKvLhfgcdaTVs=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=POpePQsevxZ7Yx0imSKL9NlCbEK4PBd363AnQRDooWRtszbFqskOF3hDVMIta/Wf+5fr6vxBaQrYNl7Q90F0szjUPOAISMpeh9W/aN64PTuGgHGcvk3waTckdf0SpD0QdsD3/NCUqBCgMIOLZarHjkPV23o89hc/qD/TxYr5zjM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CBfkFpoj; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 400864D17B3
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 20:15:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.70
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789676156; cv=pass; b=q2ryZoK8UZaS5fJ0hm2Z/BEY7LEneCO/WM2y1v5S1dYhjJ7iDuUZw68QBoIyAbyF6sEZX7WBOUo9rf3Q4iAmF5II6hCLM/1XPmyyg8OQXg6rTE/3AjtXHZpj2eQnbh4frOUu8KM954hy62+A0UJTufAUAjFTE94Dpwf95X72wsI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789676156; c=relaxed/simple;
+	bh=2zAdLw8hI+hvbCzK1kKxzmewyLB7LCVzFQ6WaVowWnc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=kVZvAVqhil4dDVTdnvZoQsTYeHd5Vonzvd9BQi3dflGlw23EWPVIVjIRw8R11WtjbDNYbT7jXR7J/MKDF0josV+ZuJcFGP9DHYZz8UGHQwpX18KtzMVKmMjWfvoW/zQBRff2vBjAPek43SqSrVzVoQBuXg6SNDGCMSeRi9Ae3Nc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h01CHJb1; arc=pass smtp.client-ip=74.125.228.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CBfkFpoj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3AA01F00898;
-	Thu, 17 Sep 2026 20:08:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789675733;
-	bh=+Sn08GwIylBel3Bt292Ry+rmSKZIvt90pd0HLazDIwg=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=CBfkFpojfCOA/ZqX/yy+usiu5XPBwYdX+WZG4cMcRggXFtGqQtv/1eoCJxfNEnFiD
-	 GkxOTJF7CWc2BEDOr1dc/ffYMwhs82I4UoHiYDheiNXmzQTyFdoz001ncEERtJVyAM
-	 OQ3O0KoFMDVTKp6DiQq4QDABn/gMxRr4TSuou7Hq5gUEKmh7ZWvRc8qcu0UcUl4sMG
-	 OKHvAmNtyafxoVNa5bgM3wgtlIZi++Y7Y9mWk8fdiPlLrNEapAafQR6onuQz6Kklmy
-	 nQiepk1EBD/STSiEJAlJSwA+gIqErsJ3uFmIgZgac///2wTQ+LIYnyOvBn6pcTdJ00
-	 S57iR1cYUUOHw==
-Subject: Re: [PATCH net-next v8 3/3] w5100: detect carrier state using link
- status bit and optional interrupt
-From: netdev-bot+sashiko@kernel.org
-To: arthur@marmottus.net
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, arnd@arndb.de, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Thu, 17 Sep 2026 20:08:52 +0000
-Message-ID: <178967573220.22033.14908658366180861063@kernel.org>
-In-Reply-To: <20260915-wiznet-link-gpio-v8-3-d173622474cc@marmottus.net>
-References: <20260915-wiznet-link-gpio-v8-3-d173622474cc@marmottus.net>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h01CHJb1"
+Received: by mail-ed2-f6.google.com with SMTP id 4fb4d7f45d1cf-6a5d5f30dacso14384a12.0
+        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 13:15:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789676150; cv=none;
+        d=google.com; s=arc-20260327;
+        b=IOd7d6H/uyeGYBOoddxHvrckOzGxdZM+hVtiOTwywEHEKux2mxp5eCOtNlMhG6hujy
+         3iPVQy4hu9M2Glal79VwVkfbGZKvjQG23Nq5iHJj6oc8ibngNZd8jkO9h3aPLIPN76Xr
+         e5U5M5Z+PeRZaRMkHDc9qcR5eK/6+AR/NefF8ANVrnPofdvjH5fy57HRnpr799jbtAuW
+         DcZzkSU3kEmmpzqM+cMzPNnCwMkytjicUnIT11Yr4615bDNW5V80yVMD5CzFm+cQmiFm
+         09NU6MN1ja98OqiWyuqqJw0kuv+cLgL+9HP3boUqB5BckB8GaCzlNK3BJljDr93/8+9m
+         jfEg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=zCPgAIlGTr5u1ukHAetOMBXtOrNSCf5qagcxmn2ADog=;
+        fh=XI5FYjdh2gZi45qPnMOpEKAiO5UattufmMqERj8aydg=;
+        b=XVoaeCh8zLSN/6YiRK0tuvhvjMwEpOnoTYPAYeLtjZ4Bl/+cORHdwEpkaEgJXYDWWy
+         Db9LW/G33Li1cMmcjcutc+d4a1N7FUQvYXYXklb5yLmWZtXJV1o8KcG55jEkNgew3584
+         fJdXrpQMQSeRz9gT7aKAyCq2JZapYGyddqcFFShrwx/zkBtFglIIx7YsT0tqDzqkoiIa
+         Vo7QymQkx5Nf/5aAxRCTouaj8lCLYPAYzXgQCCdjcSmBmb4nKKXzExAWymNzcYY65lu+
+         saoZySgq/usUsfQyi1dYwus/JZeohCu6mBxmificRyih72Jk9PEzgrjl/q6nc2rhr0jk
+         Tiqw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789676150; x=1790280950; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zCPgAIlGTr5u1ukHAetOMBXtOrNSCf5qagcxmn2ADog=;
+        b=h01CHJb14DpQ7CXHYZVR9EP4hDn9yBLLagtAWEcMbY3oc4/cexpRW7vkT8TTFKeUft
+         9ryoPI083/IWMHBc8YycRJMP0oVHad9ypMpp/IyLTR6DXoQ7cmYDzyKvsIu2g0ytunvH
+         cuoydnQO6GDPpRXGX4rdJIvYg6gB4t5qQ9OLJuNfDUocSttQia77KSebQKrXMyiBIe4+
+         Ian+N32b9cpJn4mI8snykOFcyz/BQc5DQ3Ej/XyEyi76gP7IleSgaULXjFyr9cHPv3yq
+         FhTUSxtLfOZ5EpMceS+s3gECOgzzbOjkz8pgeR2adqV58Ac90x+pUANLmGdviyMqT84l
+         /VEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789676150; x=1790280950;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zCPgAIlGTr5u1ukHAetOMBXtOrNSCf5qagcxmn2ADog=;
+        b=pUI2JXTyJfg3G+O8iVHwuw6Yck0XwRayDC5wCImpeoe2FbfS4D0TwzdWDhWJWrD8is
+         J65Et559vY/PDYv2ZG+0QPqs50bogl1ajudlKSu0kEy6KlB5yUuqFIuagei6r2SC2R+p
+         hKP141QQKaUyqh1PbRD9vjJ99rHIx7CebbvkRUtWhIRYPggfzG2t2M5e+j+z7rOce6t/
+         fvPDDl89kN1rsKa5/k4pVpAyqhA4PjOVCMIhSz0jTCkGOr8acC3RNYS1QY8wZO64X1C/
+         /vppr+CRmTkj4rSLxkfSoqQsNdfa8iz6hWKweOL6gGh9FSS95XUJ+7WB9EXtdLQ6u7uf
+         ZclQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwcFTNDeMR/1o1WCPSVcZ6LAWP4CZRd1YT8/Eo1U4BWzf9l5/rJ3zUn/bxMccBma3umgjURV7bg0wem@vger.kernel.org
+X-Gm-Message-State: AFuF++ldE5DNhU582c2tZJQDr6W5C4VrO5t04tAI+NgXuQxW6PEdo4mG
+	FIz0yRyrfQqWpB3wxoIdOQfU9DffaOgzr55w9h0usMlbn3f4ZyZjy9yPLYgBqb9h9EXxtRIbL/a
+	kqfokf5g+7OVMW38Cimv8ZuZ0KRzS9Rk=
+X-Gm-Gg: AYBFou3jR59XrTYs8t48QfOyih8IOo7PzI9fX3AzDkc0DHFe6E8oFHxCWQJmJep7MEC
+	I+0uH3zNbEHhNjuJbGHr/iInbbMIsVMRPmnMyojrURrxiPblCQWgvoVvyhStGcFEKt3jA3T4hoI
+	C17fP1Sy/vvCbY8ftes3q63pz6RSgPGwt3n1uM+YzECicl4d+rbrfMZf2/RTbkC7sTrtQOsmEFq
+	Qap7LFBh2MsCRtERJOpCzz9cRY1rseBH+ZkMazAsIh/1OZDyAui3e872sOXC7b19K9gVQgwxNT/
+	jIV2EsOLGktI2nF8xYsWa4vxTw/wgHcUoB68LfX0RKcW8rg6bfAGgwlm+w==
+X-Received: by 2002:a17:907:7b8a:b0:c15:f598:60c0 with SMTP id
+ a640c23a62f3a-c2a1581915cmr30112766b.4.1789676149887; Thu, 17 Sep 2026
+ 13:15:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-
-Thank you for your contribution! Sashiko AI review found 6 potential
-issue(s) to consider:
-
-Critical: 0 · High: 1 · Medium: 5 · Low: 0
-
-- [High] w5100_remove() now calls unregister_netdev() (line 956) *before*
-  draining rx_work/tx_work (lines 958-961) and before…
-- [Medium] The commit message body describes only the link-detection
-  feature plus three restructuring notes (netdev registered last,…
-- [Medium] The patch silently repairs a real, user-visible carrier
-  regression introduced by dacf281771a9 ("w5100: remove unused gpio link…
-- [Medium] In w5100_suspend(), cancel_work_sync(&priv->restart_work)
-  (line 992) runs only *after* netif_carrier_off() (line 986) and…
-- [Medium] The newly added cancel_work_sync(&priv->tx_work) in
-  w5100_remove() (line 959) can cancel a tx_work item that has not…
-- [Medium] w5500_report_carrier_state() deliberately leaves the carrier
-  untouched when the PHYCFGR read fails (state < 0), and there is no…
-
---
-
-w5100: detect carrier state using link status bit and optional interrupt
-
-This adds link detection for the w5500 by reading the Link Status bit of
-PHYCFGR, exposes it through a w5500 specific ethtool get_link callback, and
-optionally requests a second (LINKLED) interrupt to update the carrier
-state.  It also reorders the probe and remove paths and adds work
-cancellation in the stop, suspend and remove paths.
-
-A few questions about the changes below.
-
-The commit message describes the link detection feature plus three
-restructuring notes:
-
-  The carrier state (netif_carrier_on|off) is not called anymore on
-  w5100/w5200 or w5500 without the link irq.
-
-  Make sure that the netdev is registered last in the probe function so
-  no operation can be performed before the probing is finished. dev_name
-  is now used instead of netdev_name.
-
-[Severity: Medium]
-Should the message also mention the teardown changes that apply to all chip
-variants, not just w5500 with a link interrupt?
-
-Specifically, w5100_remove() now calls unregister_netdev() first, adds
-cancel_work_sync() for rx_work and tx_work (which were never drained
-explicitly before), converts the flush_work() of setrx_work/restart_work
-into cancel_work_sync(), and moves w5100_hw_reset() to after free_irq().
-
-w5100_stop() and w5100_suspend() gain cancel_work_sync(&priv->restart_work),
-and w5100_restart() gains an unconditional early return on
-!netif_running(ndev) which changes tx-timeout recovery on w5100/w5200 and
-the MMIO parts that can never have a link interrupt.
-
-These items appear only in the v8 changelog below the --- separator, which
-is dropped when the patch is applied.
-
-> diff --git a/drivers/net/ethernet/wiznet/w5100.c b/drivers/net/ethernet/wiznet/w5100.c
-> index 53d8dc642fbd6..335bafbc9fa46 100644
-> --- a/drivers/net/ethernet/wiznet/w5100.c
-> +++ b/drivers/net/ethernet/wiznet/w5100.c
-
-[ ... ]
-
-> @@ -345,6 +352,67 @@ static void w5500_memory_configure(struct w5100_priv *priv)
->  	}
->  }
->  
-> +static int w5500_get_phycfgr_lnk(struct net_device *ndev)
-> +{
-> +	struct w5100_priv *priv = netdev_priv(ndev);
-> +	int ret = w5100_read(priv, W5500_PHYCFGR);
-> +
-> +	if (ret < 0) {
-> +		netif_err(priv, link, ndev,
-> +			  "failed to read link status: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	return ret & PHYCFGR_LNK;
-> +}
-> +
-> +static void w5500_report_carrier_state(struct net_device *ndev)
-> +{
-> +	struct w5100_priv *priv = netdev_priv(ndev);
-> +	int state;
-> +
-> +	mutex_lock(&priv->link_lock);
-> +
-> +	state = w5500_get_phycfgr_lnk(ndev);
-> +	if (state > 0) {
-> +		netif_info(priv, link, ndev, "link is up\n");
-> +		netif_carrier_on(ndev);
-> +	} else if (state == 0) {
-> +		netif_info(priv, link, ndev, "link is down\n");
-> +		netif_carrier_off(ndev);
-> +	}
-> +
-> +	mutex_unlock(&priv->link_lock);
-> +}
-
-[Severity: Medium]
-Can a single failed PHYCFGR read leave the interface stuck with the carrier
-off while the PHY is linked?
-
-The negative case here intentionally leaves the carrier untouched, and there
-is no retry, delayed re-read or polling fallback.  The previous value at the
-two initial synchronisation points is off: w5100_probe() calls
-netif_carrier_off() before register_netdev(), and w5100_suspend() forces the
-carrier off.
-
-The errors do reach here.  w5500_spi_read() in w5100-spi.c propagates SPI
-failures:
-
-	ret = spi_write_then_read(spi, cmd, sizeof(cmd), &data, 1);
-
-	return ret ? ret : data;
-
-so for example an -ENOMEM from the fallback allocation in
-spi_write_then_read() ends up as a negative return of
-w5500_get_phycfgr_lnk().
-
-The only other refresh comes from LINKLED edges, requested with
-IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING.  If the link is already up and
-stays up, the pin holds a constant level and no further edge is produced.
-
-So if the read in w5100_open() or w5100_resume() fails once, does the carrier
-stay off until the interface is manually taken down and brought back up,
-with linkwatch keeping the qdisc deactivated in the meantime?  Would
-re-arming a delayed PHYCFGR read on read failure address this?
-
-[ ... ]
-
-> @@ -448,12 +516,23 @@ static void w5100_restart(struct net_device *ndev)
->  {
->  	struct w5100_priv *priv = netdev_priv(ndev);
->  
-> +	if (!netif_running(ndev))
-> +		return;
-> +
-> +	if (priv->link_irq > 0)
-> +		disable_irq(priv->link_irq);
-> +
->  	netif_stop_queue(ndev);
->  	w5100_hw_reset(priv);
->  	w5100_hw_start(priv);
->  	ndev->stats.tx_errors++;
->  	netif_trans_update(ndev);
->  	netif_wake_queue(ndev);
-> +
-> +	if (priv->link_irq > 0) {
-> +		w5500_report_carrier_state(ndev);
-> +		enable_irq(priv->link_irq);
-> +	}
->  }
-
-[ ... ]
-
-> @@ -667,13 +752,31 @@ static int w5100_stop(struct net_device *ndev)
->  	struct w5100_priv *priv = netdev_priv(ndev);
->  
->  	netif_info(priv, ifdown, ndev, "shutting down\n");
-> +
-> +	cancel_work_sync(&priv->restart_work);
-> +
-> +	if (priv->link_irq > 0) {
-> +		disable_irq(priv->link_irq);
-> +		mutex_lock(&priv->link_lock);
-> +		netif_carrier_off(ndev);
-> +		mutex_unlock(&priv->link_lock);
-> +	}
-> +
->  	w5100_hw_close(priv);
-> -	netif_carrier_off(ndev);
->  	netif_stop_queue(ndev);
->  	napi_disable(&priv->napi);
->  	return 0;
->  }
-
-[Severity: Medium]
-Making netif_carrier_off() conditional on priv->link_irq here (and the same
-change in w5100_suspend()) looks like it also fixes an existing carrier
-regression.  Should this carry a Fixes: tag for dacf281771a9 ("w5100: remove
-unused gpio link detection")?
-
-dacf281771a9 removed the only netif_carrier_on() calls, which lived in
-w5100_open() and w5100_resume(), but left the unconditional
-netif_carrier_off() in w5100_stop() and w5100_suspend().  On the baseline,
-w5100_open() has no carrier call at all, so:
-
-	ip link set dev eth0 down
-	ip link set dev eth0 up
-
-leaves every w5100/w5200/w5500 reporting no carrier, and linkwatch keeps the
-qdisc deactivated.  A suspend/resume cycle has the same effect.
-
-Without a Fixes: tag this fix will not be picked up for stable, so released
-kernels keep the unusable-after-ifdown/ifup behaviour.
-
-[ ... ]
-
-> @@ -820,14 +953,22 @@ void w5100_remove(struct device *dev)
->  	struct net_device *ndev = dev_get_drvdata(dev);
->  	struct w5100_priv *priv = netdev_priv(ndev);
->  
-> -	w5100_hw_reset(priv);
-> +	unregister_netdev(ndev);
-> +
-> +	cancel_work_sync(&priv->rx_work);
-> +	cancel_work_sync(&priv->tx_work);
-> +	cancel_work_sync(&priv->setrx_work);
-> +	cancel_work_sync(&priv->restart_work);
-> +
-> +	if (priv->link_irq > 0)
-> +		free_irq(priv->link_irq, ndev);
-> +
->  	free_irq(priv->irq, ndev);
-> +	w5100_hw_reset(priv);
-
-[Severity: High]
-Can rx_work still run after unregister_netdev() here and hand an skb to
-netif_rx() with a dangling ndev?
-
-w5100_stop(), which runs from dev_close() inside unregister_netdev(), does
-not cancel or flush rx_work:
-
-	cancel_work_sync(&priv->restart_work);
-	...
-	w5100_hw_close(priv);
-	netif_stop_queue(ndev);
-	napi_disable(&priv->napi);
-
-so an rx_work item queued just before the close can run afterwards:
-
-w5100_rx_work()
-	while ((skb = w5100_rx_skb(priv->ndev)))
-		netif_rx(skb);
-
-	w5100_enable_intr(priv);
-
-netif_rx() takes no device reference, and unregister_netdev() has already
-done flush_all_backlogs() and netdev_run_todo().  If that skb sits in a
-deferred or RPS-remote backlog, is it dereferenced after the free_netdev() a
-few lines below?
-
-The main interrupt is also still registered while the cancel_work_sync()
-calls run:
-
-w5100_interrupt()
-	if (ir & S0_IR_RECV) {
-		w5100_disable_intr(priv);
-
-		if (priv->ops->may_sleep)
-			queue_work(priv->xfer_wq, &priv->rx_work);
-
-so an in-flight handler can re-queue rx_work after the cancellation.  That
-late work then touches chip registers concurrently with the w5100_hw_reset()
-above and calls w5100_enable_intr() after the handler has been freed.
-
-Before this patch, destroy_workqueue() drained rx_work while the netdev was
-still registered and after free_irq(), so neither case could happen.  Would
-freeing and synchronizing both interrupts first, then draining all work they
-can produce, and only then resetting the hardware and
-unregistering/freeing the netdev, be the right order?
-
-[Severity: Medium]
-Does the new cancel_work_sync(&priv->tx_work) leak priv->tx_skb?
-
-w5100_start_tx() takes ownership of the skb and defers the free entirely to
-the work item:
-
-	if (priv->ops->may_sleep) {
-		WARN_ON(priv->tx_skb);
-		priv->tx_skb = skb;
-		queue_work(priv->xfer_wq, &priv->tx_work);
-
-and w5100_tx_work() is the only consumer that clears priv->tx_skb and frees
-it via w5100_tx_skb() -> dev_kfree_skb():
-
-	struct sk_buff *skb = priv->tx_skb;
-
-	priv->tx_skb = NULL;
-
-	if (WARN_ON(!skb))
-		return;
-	w5100_tx_skb(priv->ndev, skb);
-
-If cancel_work_sync() cancels a work item that has not started yet, nothing
-releases priv->tx_skb, and remove() continues to destroy_workqueue() and
-free_netdev() with it still set.  The previous code reached the same state
-through destroy_workqueue(), which drains queued work instead of cancelling
-it, so the skb was always freed.  Would freeing priv->tx_skb explicitly
-after the cancellation, or flushing tx_work instead, be preferable?
-
->  
-> -	flush_work(&priv->setrx_work);
-> -	flush_work(&priv->restart_work);
->  	destroy_workqueue(priv->xfer_wq);
-> +	mutex_destroy(&priv->link_lock);
->  
-> -	unregister_netdev(ndev);
->  	free_netdev(ndev);
->  }
->  EXPORT_SYMBOL_GPL(w5100_remove);
-> @@ -839,9 +980,17 @@ static int w5100_suspend(struct device *dev)
->  	struct w5100_priv *priv = netdev_priv(ndev);
->  
->  	if (netif_running(ndev)) {
-> -		netif_carrier_off(ndev);
-> +		if (priv->link_irq > 0) {
-> +			disable_irq(priv->link_irq);
-> +			mutex_lock(&priv->link_lock);
-> +			netif_carrier_off(ndev);
-> +			mutex_unlock(&priv->link_lock);
-> +		}
-> +
->  		netif_device_detach(ndev);
->  
-> +		cancel_work_sync(&priv->restart_work);
-> +
->  		w5100_hw_close(priv);
->  	}
->  	return 0;
-
-[Severity: Medium]
-Should the cancel_work_sync() come before netif_carrier_off() and
-netif_device_detach() rather than after them, as it does in w5100_stop()?
-
-restart_work can be queued at any time on w5500/SPI:
-
-w5100_tx_timeout()
-	if (priv->ops->may_sleep)
-		schedule_work(&priv->restart_work);
-
-A work item that is pending or already running when suspend starts still
-passes the new guard in w5100_restart(), because netif_running() stays true
-through the suspend callback and the guard does not test
-netif_device_present():
-
-	if (!netif_running(ndev))
-		return;
-
-It then re-runs w5100_hw_reset()/w5100_hw_start(), re-enabling chip
-interrupts and re-opening socket 0, calls netif_wake_queue() which clears the
-__QUEUE_STATE_DRV_XOFF that netif_device_detach() just set, and calls
-w5500_report_carrier_state() which can turn the carrier back on right after
-suspend cleared it.
-
-With the tx queue runnable again and __dev_queue_xmit() not testing
-netif_device_present(), can the stack then reach w5100_start_tx() and issue
-SPI transfers to a chip whose socket w5100_hw_close() has closed, or to an
-already suspended SPI controller?  Would moving the cancellation ahead of the
-state changes, and/or widening the guard in w5100_restart(), close this?
-
->  
-> @@ -857,6 +1006,11 @@ static int w5100_resume(struct device *dev)
->  		w5100_hw_start(priv);
->  
->  		netif_device_attach(ndev);
-> +
-> +		if (priv->link_irq > 0) {
-> +			w5500_report_carrier_state(ndev);
-> +			enable_irq(priv->link_irq);
-> +		}
->  	}
->  	return 0;
->  }
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260915-wiznet-link-gpio-v8-0-d173622474cc%40marmottus.net
+References: <20260915123802.1561724-6-coiaprant@gmail.com> <178967029365.22033.1005706659427633436@kernel.org>
+In-Reply-To: <178967029365.22033.1005706659427633436@kernel.org>
+From: Coia Prant <coiaprant@gmail.com>
+Date: Fri, 18 Sep 2026 04:15:39 +0800
+X-Gm-Features: AcwNN1XbjpFu6nolR2hwxu8hiEjSxd-JBBWVCJNN3qMYqxrhw7mXPkQuGTH5DI8
+Message-ID: <CALj3r0i4Dg2jq_4WPQ6Q4t6gbJd6CTV9Y0iP0GssAwy_AVY0xQ@mail.gmail.com>
+Subject: Re: [PATCH net-next v6 05/11] arm64: dts: rockchip: rk3568: add XPCS
+ and fixed-clock nodes
+To: netdev-bot+sashiko@kernel.org
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com, 
+	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, heiko@sntech.de, vkoul@kernel.org, 
+	maxime.chevallier@bootlin.com, mcoquelin.stm32@gmail.com, 
+	alexandre.torgue@foss.st.com, prabhakar.mahadev-lad.rj@bp.renesas.com, 
+	romain.gantois@bootlin.com, hkallweit1@gmail.com, neil.armstrong@linaro.org, 
+	linux@armlinux.org.uk, shawn.lin@rock-chips.com, david@ixit.cz, 
+	netdev@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
+	linux-stm32@st-md-mailman.stormreply.com, linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<netdev-bot+sashiko@kernel.org> =E4=BA=8E2026=E5=B9=B49=E6=9C=8818=E6=97=A5=
+=E5=91=A8=E4=BA=94 02:38=E5=86=99=E9=81=93=EF=BC=9A
+>
+> Thank you for your contribution! Sashiko AI review found 4 potential
+> issue(s) to consider:
+>
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 2 =C2=B7 Low: 2
+>
+> - [Medium] The new `xpcs: ethernet-pcs@fda00000` node in
+>   arch/arm64/boot/dts/rockchip/rk3568.dtsi (line 113) omits `phys` and=E2=
+=80=A6
+> - [Medium] dts: incorrect fixed-clock modeling for XPCS generated clock
+> - [Low] Concern (invalidated by later patches in the same series):
+>   `compatible =3D "rockchip,rk3568-xpcs"` matches no driver, the `eee`=E2=
+=80=A6
+> - [Low] The commit message states it adds "two fixed-clock nodes
+>   (xpcs_gmac0_clk and xpcs_gmac1_clk)".
+>
+> --
+>
+> arm64: dts: rockchip: rk3568: add XPCS and fixed-clock nodes
+>
+> This adds an ethernet-pcs node at 0xfda00000 for the RK3568 Synopsys
+> DesignWare XPCS, along with four ethernet-pcs-mii child nodes, all disabl=
+ed
+> by default.  It also adds two fixed-clock nodes providing a 125 MHz
+> reference for the GMACs when running through the XPCS.
+>
+> No Link: tags present in the commit header.
+>
+> Two remarks on the changelog first:
+>
+> > Also add two fixed-clock nodes (xpcs_gmac0_clk and xpcs_gmac1_clk)
+> > providing the 125 MHz reference clock for the GMACs when operating
+>
+> [Severity: Low]
+> Could the names here be updated to match the patch?  The nodes added are
+> clock-xpcs-gmac0 and clock-xpcs-gmac1, labelled clk_gmac0_xpcs_mii and
+> clk_gmac1_xpcs_mii, and there are no xpcs_gmac0_clk / xpcs_gmac1_clk
+> identifiers anywhere in the diff.
+>
+> The exact strings matter for anyone cross-checking the reparenting, since
+> clock-output-names has to match the CRU mux parent names in
+> drivers/clk/rockchip/clk-rk3568.c:
+>
+>   PNAME(mux_gmac0_rx_tx_p) =3D { "clk_gmac0_rgmii_speed", "clk_gmac0_rmii=
+_speed", "clk_gmac0_xpcs_mii" };
+>   PNAME(mux_gmac1_rx_tx_p) =3D { "clk_gmac1_rgmii_speed", "clk_gmac1_rmii=
+_speed", "clk_gmac1_xpcs_mii" };
+
+Fixed in v7. The commit message now uses clock-xpcs-gmac0 and
+clock-xpcs-gmac1, and mentions that clock-output-names matches the CRU
+mux parent names in clk-rk3568.c.
+
+> > diff --git a/arch/arm64/boot/dts/rockchip/rk3568.dtsi b/arch/arm64/boot=
+/dts/rockchip/rk3568.dtsi
+> > index 3bc653f027f1f..227d03e336043 100644
+> > --- a/arch/arm64/boot/dts/rockchip/rk3568.dtsi
+> > +++ b/arch/arm64/boot/dts/rockchip/rk3568.dtsi
+> > @@ -110,6 +110,51 @@ sata0: sata@fc000000 {
+> >               status =3D "disabled";
+> >       };
+> >
+> > +     xpcs: ethernet-pcs@fda00000 {
+> > +             compatible =3D "rockchip,rk3568-xpcs";
+> > +             #address-cells =3D <1>;
+> > +             #size-cells =3D <0>;
+> > +             reg =3D <0x0 0xfda00000 0x0 0x200000>;
+> > +             clocks =3D <&cru PCLK_XPCS>, <&cru CLK_XPCS_EEE>;
+> > +             clock-names =3D "csr", "eee";
+> > +             power-domains =3D <&power RK3568_PD_PIPE>;
+> > +             status =3D "disabled";
+>
+> [Severity: Medium]
+> Does this node validate against its own binding?  The schema added earlie=
+r
+> in this series, Documentation/devicetree/bindings/net/pcs/rockchip,rk3568=
+-xpcs.yaml,
+> lists phys and phy-names unconditionally:
+>
+>   required:
+>     - compatible
+>     - reg
+>     - "#address-cells"
+>     - "#size-cells"
+>     - clocks
+>     - clock-names
+>     - phys
+>     - phy-names
+>     - power-domains
+>
+> The node here supplies neither.  At the tip of the series only
+> rk3568-photonicat.dts fills them in via an override:
+>
+>   &xpcs {
+>         phys =3D <&combphy2 PHY_TYPE_SGMII>;
+>         phy-names =3D "serdes";
+>         status =3D "okay";
+>   };
+>
+> Since dt-validate matches by compatible regardless of status, wouldn't
+> every other rk3568 board DTB now report "'phys' is a required property" a=
+nd
+> "'phy-names' is a required property" under make CHECK_DTBS=3Dy?
+>
+> Would it make sense either to drop phys/phy-names from the binding's
+> required list (the SerDes phandle is board specific), or to give the dtsi=
+ a
+> default combphy phandle here, given combphy is an on-SoC block?
+
+dtbs_check only validates required properties for enabled nodes, so the
+disabled XPCS node in rk3568.dtsi does not trigger a validation warning.
+The SerDes link is a board-level design choice (combphy1 on some boards,
+combphy2 on others), so phys/phy-names cannot be provided by the SoC
+dtsi. Boards that enable the XPCS must supply them at the board level,
+as Photonicat does.
+
+> > +
+> > +             xpcs_mii0: ethernet-pcs-mii@0 {
+> > +                     reg =3D <0>;
+> > +                     status =3D "disabled";
+> > +             };
+>
+> [Severity: Low]
+> At this commit alone, compatible "rockchip,rk3568-xpcs" matches no driver=
+,
+> the eee clock, the PD_PIPE power domain and the four MII children have no
+> consumer, the two fixed clocks have no user, and dwmac-rk provides no
+> pcs_init()/select_pcs().
+>
+> Checking the rest of the series, all of those do land: pcs-xpcs-rk.c adds
+>
+>   static const struct of_device_id xpcs_rk_of_ids[] =3D {
+>         { .compatible =3D "rockchip,rk3568-xpcs" },
+>         { /* sentinel */ },
+>   };
+>
+> xpcs_rk_init_clk() consumes both csr and eee, xpcs_rk_serdes_phy_poweron(=
+)
+> consumes the power domain, xpcs_rk_create() reads the child reg and calls
+> xpcs_create_mdiodev(), dwmac-rk sets pcs_init/pcs_exit/select_pcs with
+> rk_pcs_init() parsing pcs-handle, and rk3568-photonicat.dts uses both
+> assigned-clock-parents =3D <&clk_gmac0_xpcs_mii> and pcs-handle =3D <&xpc=
+s_mii0>.
+>
+> So this looks like the usual DT-before-driver split, and the disabled nod=
+e
+> is inert at this commit.  Is that ordering intentional, so that a bisect
+> landing here stays functional?
+
+This is the usual DT-before-driver ordering. The driver lands later in
+the same series, and the node is disabled until a board enables it.
+
+> > +
+> > +     clk_gmac0_xpcs_mii: clock-xpcs-gmac0 {
+> > +             compatible =3D "fixed-clock";
+> > +             clock-frequency =3D <125000000>;
+> > +             clock-output-names =3D "clk_gmac0_xpcs_mii";
+> > +             #clock-cells =3D <0>;
+> > +     };
+>
+> [Severity: Medium]
+> These two are not board oscillators.  Per the changelog the 125 MHz
+> is the MII reference produced by the XPCS/SerDes block itself, i.e. by
+> the very node added above, which lives behind RK3568_PD_PIPE and only
+> runs once that domain is up.  Describing it as a root-level fixed-clock
+> tells the clock framework something different: of_fixed_clk_setup()
+> registers clk_gmac0_xpcs_mii and clk_gmac1_xpcs_mii at of_clk_init()
+> time, unconditionally (the nodes deliberately carry no status), and
+> from then on they always look present, enabled and at rate, with no
+> link to the XPCS provider or to its power domain.
+>
+> Where that bites is the reparenting path this patch exists to serve.
+> A board that sets assigned-clock-parents =3D <&clk_gmac0_xpcs_mii> on
+> the GMAC has it applied by of_clk_set_defaults(), which platform_probe()
+> calls before the GMAC driver's probe() body runs.  So mux_gmac0_rx_tx_p
+> in drivers/clk/rockchip/clk-rk3568.c gets parked on the XPCS leg before
+> dwmac-rk, and therefore before pcs-xpcs-rk and
+> xpcs_rk_serdes_phy_poweron(), has touched PD_PIPE.  Because there is no
+> clock provider/consumer relationship to the xpcs node, there is also
+> nothing for the driver to defer on: -EPROBE_DEFER is not reachable from
+> of_clk_set_defaults(), and the mux is switched regardless of whether
+> the XPCS is powered.  At best the GMAC is briefly clocked from a dead
+> source; at worst a CRU mux switch to a stopped parent is not something
+> I would assume is harmless.
+>
+> Was the intent to have the xpcs node (or the combphy) be the clock
+> provider here, with #clock-cells and an entry in the binding, so the
+> framework tracks the PD_PIPE lifecycle and consumers defer until the
+> source exists?  If instead you have measured that the RK3568 CRU
+> tolerates being parked on the XPCS leg with PD_PIPE gated, could you
+> say so explicitly in the changelog and state what keeps the 125 MHz
+> alive before pcs-xpcs-rk probes?  Modelling a generated on-SoC clock
+> as fixed-clock is the kind of shortcut that tends to be noticed only
+> when probe order changes.
+
+The XPCS block is not a clock controller: it has no register interface
+to configure or control the 125 MHz output, so there is no way to
+implement a proper clock provider for it. fixed-clock is the correct
+description of a fixed-rate on-SoC clock.
+
+On the reparenting concern: the GMAC probe is serialized behind the
+XPCS probe by the EPROBE_DEFER chain. rk_pcs_init() calls
+xpcs_rk_create(), which returns -EPROBE_DEFER until the XPCS device has
+probed and its MDIO bus is up. Until then, the GMAC probe never reaches
+the point where the clock is used, so there is no window where the GMAC
+runs from an unpowered source.
