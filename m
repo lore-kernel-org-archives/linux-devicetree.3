@@ -1,299 +1,186 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5DB448FF74;
-	Thu, 17 Sep 2026 08:43:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24002437130
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 08:43:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789634622; cv=none; b=sKgUmtW70p61Wq8jiSNgvs1xoBvXO4bfqitGAFz1qfAibcxnC8MeDkkl0UGrJdYldnbj9RQYy8yYFpeouyoG6qMK0tG0hwq/fMlKSwfAtUgtrAxGEgtvL2iy1VZkZfEPR8KsscpFsAInGFI1+v9vrU4RS3RRTElFQd6FS2by98w=
+	t=1789634637; cv=none; b=rSmXTjRm+DpcgNMtgHAHJg589e4VomKRp9Yl+ZMaktyONIPW/1wD9EJhCdAl22cOFrouJe+GsXl6DZdqfbFGl+nXmcKpkkiIGqBnDoZcTw55YvSG9Ck+YpYQ6oXBeEoSdv+qy/0XxfyjBiWHIEo+EzlIDS9nM28u1tLJfeeS3Fs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789634622; c=relaxed/simple;
-	bh=p+12XKBNdSjDhIy6E+e9yuG30QEvWnhXl3elNOuNjw4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dJjxNSMOBPhvtPUmugZCb+YJ+8GLMuytt1aFk2VwNHiwvOjTNjZlfIyrlDDPkjFcGDcL30etYYLN2cGQFoz5MVHJgsCDbhcwuVjE//vZZGgiDt+2TuFhpxXM1uh/J62qxaekIjrlsBnEZBhhKzWdcsA3iezbhD/TP22Uu6JOGNE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=RA0Z64r6; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789634637; c=relaxed/simple;
+	bh=Gi67RHtSFidYHgQEMhXHryb6rZaktOxae5usPppBvOA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=tUPj7gsIVFbAGtaywKB4FU+LMSdyk9vvPJVAd9TfUwkZWNX3bAHP5veZrmkVcNmByqhUDaG35r63XDBGDvhGPUMnoEPQc1nwt3UFxYqrYt3q9Pyy9nfWIjoM7h0Wa95iAXNQDZq10Uh51Mrbnpm1gsieR+sa3+NdsZC6HozLxvY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TYa8yE6M; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="RA0Z64r6"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id F281AC5CD6C;
-	Thu, 17 Sep 2026 08:44:12 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 9E64F5FAA3;
-	Thu, 17 Sep 2026 08:43:28 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E1F7711C7B02B;
-	Thu, 17 Sep 2026 10:43:22 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789634607; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=Mg2tLnhtM9MhyKLc8so1gxY18xcOvlKJXGedwmLFfOY=;
-	b=RA0Z64r6KvLuOjdkOdu1Uin9njJO5FBDLcwuBYR16ruDzhrdnAiM4hKwOeE253WpsFlBgh
-	LskHc6N72E6IRA4lZ5fZGOU+Pr3SNHtEwRWzrkbMoYtNl5DQ4G3zpJiF0vUK+4s5vAC0Ph
-	wOgQ4+OeqMYcO7Xwz30gy9M3e2Fhq8f76NqfKixUu0gfc8EiBRwoSEs87mgNQLTZPv5CYd
-	PyonmjqO12pZrB9Up8BkqtONlGGHW54hzdHY1lyDLe0nQkikoageclBoXIYRcSe57BhR2b
-	k8Y9MMc2/IaETGyf2q3NUUlvcupx9uaWUSpW/HkTM9jUpPl5tKlAsdHYMUJowg==
-Date: Thu, 17 Sep 2026 10:43:21 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v3 11/15] libfdt: Introduce fdt_getprop_by_offset_w()
-Message-ID: <20260917104321.11256312@bootlin.com>
-In-Reply-To: <aqtx_MzOsc3q4Gev@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
-	<20260826083146.304291-12-herve.codina@bootlin.com>
-	<aqpnzXyR_k4fs7Jk@gractus.seuss>
-	<20260916124205.28a71859@bootlin.com>
-	<aqtx_MzOsc3q4Gev@gractus.seuss>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TYa8yE6M"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BA6F1F00899;
+	Thu, 17 Sep 2026 08:43:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789634611;
+	bh=vAB+yhr8pkqYa6sTFV1ksyJeSf/VB1oYVxs6XgjqQks=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TYa8yE6Mbz+mi8dLjkoHBC/wxzbO6ObZWpzhVNmtsdhwpFcPijfD2X64Ox/rHnCUP
+	 TaPsJ+zAC2UY3MUzsteMc541Eh8vhSHiacqi80noFGjxzeS5CnKkL4gdFKaoyY6tpd
+	 4BlShdimS+M22f0TQsqlIjg62NT5+b5dXtpoB8QoPa8r/ULRr48cQie0An6RBtWG7U
+	 DRKmpYZJodFZGAuCn2mTmf13G1457WD3qL4lfET2k59HROyV1Wjl8CtrIAwIoyU5Ht
+	 4TUMmUsQAgByq/r/5AqxofWdCq5IdvlquQ5a9U1hSXYDyuOlKYehPhP8nJw2i6Mlnz
+	 PQFwM0FTHf/gg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/4] arm: dts: sunplus: add Tibbo LTPP3G2 board
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Andrew Gaylard" <ag@ffroot.co.za>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260917082632.626614-4-ag@ffroot.co.za>
+References: <20260917082632.626614-1-ag@ffroot.co.za>
+ <20260917082632.626614-4-ag@ffroot.co.za>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 17 Sep 2026 08:43:30 +0000
+Message-Id: <20260917084331.6BA6F1F00899@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, 17 Sep 2026 14:52:28 +1000
-David Gibson <david@gibson.dropbear.id.au> wrote:
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [High] i2c: open-drain bus stuck LOW due to hardware output inversion
+- [Medium] pinctrl: requested RTS output inversion is silently ignored for =
+PMUX pins
+- [Low] dts: hardcoded OS-specific root partition in bootargs
+- [Low] dts: non-generic device tree node names for I2C and LEDs
+- [Low] dts: unused pinctrl definition for UART3 (dead code)
+- [Low] dt-bindings: missing compatible string documentation for tibbo,ltpp=
+3g2
+--
 
-> On Wed, Sep 16, 2026 at 12:42:05PM +0200, Herve Codina wrote:
-> > Hi David,
-> > 
-> > On Wed, 16 Sep 2026 19:56:46 +1000
-> > David Gibson <david@gibson.dropbear.id.au> wrote:
-> >   
-> > > On Wed, Aug 26, 2026 at 10:31:42AM +0200, Herve Codina wrote:  
-> > > > Future operations, such as handling unknown tags on dtb modifications,
-> > > > need to modify properties retrieved by their offset.
-> > > > 
-> > > > fdt_getprop_by_offset() already exists to get a preperty by its offset
-> > > > but the property returned is read-only. A writable returned property is
-> > > > needed.    
-> > > 
-> > > Since we already have fdt_get_property_by_offset_w() this is an
-> > > obvious gap and I'd be happy in principle to apply this independent of
-> > > the rest of the series.  
-> > 
-> > Nice :)
-> >   
-> > >   
-> > > > Fill the lack and introduce fdt_getprop_by_offset_w(), the write enabled
-> > > > variant of fdt_getprop_by_offset().
-> > > > 
-> > > > Add also its related test.
-> > > > 
-> > > > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> > > > ---
-> > > >  libfdt/libfdt.h           |  6 +++
-> > > >  tests/.gitignore          |  1 +
-> > > >  tests/Makefile.tests      |  2 +-
-> > > >  tests/get_prop_offset_w.c | 84 +++++++++++++++++++++++++++++++++++++++
-> > > >  tests/meson.build         |  1 +
-> > > >  tests/run_tests.sh        |  1 +
-> > > >  tests/tests.h             |  1 +
-> > > >  tests/testutils.c         | 18 +++++++++
-> > > >  8 files changed, 113 insertions(+), 1 deletion(-)
-> > > >  create mode 100644 tests/get_prop_offset_w.c
-> > > > 
-> > > > diff --git a/libfdt/libfdt.h b/libfdt/libfdt.h
-> > > > index 7a1915a5..82965e32 100644
-> > > > --- a/libfdt/libfdt.h
-> > > > +++ b/libfdt/libfdt.h
-> > > > @@ -856,6 +856,12 @@ static inline struct fdt_property *fdt_get_property_w(void *fdt, int nodeoffset,
-> > > >  #ifndef SWIG /* This function is not useful in Python */
-> > > >  const void *fdt_getprop_by_offset(const void *fdt, int offset,
-> > > >  				  const char **namep, int *lenp);
-> > > > +static inline void *fdt_getprop_by_offset_w(const void *fdt, int offset,
-> > > > +					    const char **namep, int *lenp)
-> > > > +{
-> > > > +	return (void *)(uintptr_t)fdt_getprop_by_offset(fdt, offset, namep,
-> > > > +							lenp);
-> > > > +}
-> > > >  #endif
-> > > >  
-> > > >  /**
-> > > > diff --git a/tests/.gitignore b/tests/.gitignore
-> > > > index 69693129..1091174a 100644
-> > > > --- a/tests/.gitignore
-> > > > +++ b/tests/.gitignore
-> > > > @@ -30,6 +30,7 @@ tmp.*
-> > > >  /get_phandle
-> > > >  /getprop
-> > > >  /get_prop_offset
-> > > > +/get_prop_offset_w
-> > > >  /incbin
-> > > >  /integer-expressions
-> > > >  /fs_tree1
-> > > > diff --git a/tests/Makefile.tests b/tests/Makefile.tests
-> > > > index 63e201ae..0d4d399f 100644
-> > > > --- a/tests/Makefile.tests
-> > > > +++ b/tests/Makefile.tests
-> > > > @@ -16,7 +16,7 @@ LIB_TESTS_L = get_mem_rsv \
-> > > >  	sw_tree1 sw_states \
-> > > >  	move_and_save mangle-layout nopulate \
-> > > >  	open_pack rw_tree1 rw_oom set_name setprop del_property del_node \
-> > > > -	appendprop1 appendprop2 propname_escapes \
-> > > > +	appendprop1 appendprop2 propname_escapes get_prop_offset_w \
-> > > >  	string_escapes references path-references phandle_format \
-> > > >  	boot-cpuid incbin relref_merge \
-> > > >  	extra-terminating-null \
-> > > > diff --git a/tests/get_prop_offset_w.c b/tests/get_prop_offset_w.c
-> > > > new file mode 100644
-> > > > index 00000000..dbfa5dd7
-> > > > --- /dev/null
-> > > > +++ b/tests/get_prop_offset_w.c
-> > > > @@ -0,0 +1,84 @@
-> > > > +// SPDX-License-Identifier: LGPL-2.1-or-later
-> > > > +/*
-> > > > + * libfdt - Flat Device Tree manipulation
-> > > > + *	Testcase for fdt_getprop_by_offset_w()
-> > > > + * Copyright (C) 2026 Bootlin.
-> > > > + */
-> > > > +
-> > > > +#include <stdlib.h>
-> > > > +#include <stdio.h>
-> > > > +#include <string.h>
-> > > > +#include <stdint.h>
-> > > > +
-> > > > +#include <libfdt.h>
-> > > > +
-> > > > +#include "tests.h"
-> > > > +#include "testdata.h"
-> > > > +
-> > > > +#define SPACE		65536
-> > > > +
-> > > > +int main(int argc, char *argv[])
-> > > > +{
-> > > > +	const void *exp_val;
-> > > > +	const char *name;
-> > > > +	char *modif_val;
-> > > > +	void *propval;
-> > > > +	int proplen;
-> > > > +	int exp_len;
-> > > > +	int poffset;
-> > > > +	void *fdt;
-> > > > +	void *buf;
-> > > > +	int err;
-> > > > +
-> > > > +	test_init(argc, argv);
-> > > > +	fdt = load_blob_arg(argc, argv);
-> > > > +
-> > > > +	buf = xmalloc(SPACE);
-> > > > +
-> > > > +	err = fdt_open_into(fdt, buf, SPACE);    
-> > > 
-> > > You shouldn't need an fdt_open_into().  You're modifying the contents
-> > > of a single property, but not moving tags about or (specifically)
-> > > expanding the tree as a whole.  This is a "write in place" operation
-> > > rather than a "read/write" operation in libfdt terms.  
-> > 
-> > Ok, I will update in the next iteration.
-> >   
-> > >   
-> > > > +	if (err)
-> > > > +		FAIL("fdt_open_into(): %s", fdt_strerror(err));
-> > > > +
-> > > > +	free(fdt);
-> > > > +	fdt = buf;
-> > > > +
-> > > > +	/* Retrieve the offset of the 'prop-str' property */
-> > > > +	poffset = get_poffset(fdt, 0, "prop-str");
-> > > > +	if (poffset < 0)
-> > > > +		FAIL("Property 'prop-str' not found")    
-> > > 
-> > > Introducing get_poffset() seems a bit awkward compared to using an
-> > > fdt_for_each_property_offset() like get_prop_offset.c does.  
-> > 
-> > Ok, will use fdt_for_each_property_offset() directly here and remove
-> > get_poffset() in the next iteration.
-> >   
-> > > > +
-> > > > +	/* Get the property value for modification */
-> > > > +	propval = fdt_getprop_by_offset_w(fdt, poffset, &name, &proplen);
-> > > > +	if (!propval)
-> > > > +		FAIL("fdt_getprop_by_offset_w(%d): %s", poffset,
-> > > > +		     fdt_strerror(proplen));
-> > > > +
-> > > > +	/* Check original values */
-> > > > +	if (strcmp(name, "prop-str"))
-> > > > +		FAIL("Name mismatch : %s instead of prop-str", name);
-> > > > +
-> > > > +	exp_len = strlen(TEST_STRING_1) + 1;
-> > > > +	if (proplen != exp_len)
-> > > > +		FAIL("Original size mismatch on property \"%s\": %d instead of %d",
-> > > > +		     name, proplen, exp_len);
-> > > > +
-> > > > +	exp_val = TEST_STRING_1;
-> > > > +	if (memcmp(exp_val, propval, exp_len))
-> > > > +		FAIL("Original data mismatch on property \"%s\"", name);
-> > > > +    
-> > > 
-> > > You could re-use check_get_prop_offset() from testutils.c to perform
-> > > these tests before invoking fdt_getprop_by_offset_w().  
-> > 
-> > I wanted to test that the value returned by fdt_getprop_by_offset_w() is the
-> > correct one. check_get_prop_offset() calls fdt_getprop_by_offset() and not
-> > fdt_getprop_by_offset_w().  
-> 
-> Ah, fair point.
-> 
-> But.. rather than checking the retreived values the same as
-> get_prop_offset.c, it would be both simpler and more complete to
-> explicitly check that fdt_getprop_by_offset_w() returns the same
-> pointer as fdt_getprop_by_offset().
+commit 10e32790a2e05cfde60226acde658b3dc19b67ab
+Author: Andrew Gaylard <ag@ffroot.co.za>
+Subject: arm: dts: sunplus: add Tibbo LTPP3G2 board
 
-Ok, I will do that.
+This adds a device tree for the Tibbo LTPP3G2 board based on the Sunplus
+SP7021 SoC. The hardware description includes eMMC, SPI, bit-banged I2C
+EEPROM, PWM, a watchdog, RTC, and two GPIO LEDs.
 
-> 
-> > I know it doesn't matter with current implementation
-> > of fdt_getprop_by_offset_w() but I am not supposed to know about this
-> > implementation here in the test. Also, this implementation could change in the
-> > future (not planned on my side).
-> >   
-> > >   
-> > > > +	if (exp_len < 4)
-> > > > +		CONFIG("Property \"%s\" should be at least 4 bytes", name);
-> > > > +
-> > > > +	/* Modify the property value */
-> > > > +	modif_val = xmalloc(proplen);
-> > > > +	memcpy(modif_val, propval, proplen);    
-> > > 
-> > > Why malloc() and memcpy()?  The whole point of
-> > > fdt_getprop_by_offset_w() is that you get a writable pointer into the
-> > > fdt which you can modify in place.  
-> > 
-> > I want to keep the modified value for later comparison.
-> > 
-> > - modif_val : Current property val + modification.
-> > - Update propval: Current property val.
-> > - Check reading the property with check_get_prop_offset() that the
-> >   property has been really updated.
-> > 
-> > If instead I use only propval, I use only one buffer and so
-> > - propval = modified value
-> > - check that get check_get_prop_offset() which will also return the 
-> >   propval buffer matches the propval buffer.  
-> 
-> Ah, missed that, that makes sense.  Personally I'd probably go with a
-> static buffer with the value to write in (and then compare), but
-> either way is fine.
+> diff --git a/arch/arm/boot/dts/sunplus/sunplus-sp7021-ltpp3g2.dts b/arch/=
+arm/boot/dts/sunplus/sunplus-sp7021-ltpp3g2.dts
+> new file mode 100644
+> index 0000000000000..f91b0de79c3d0
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/sunplus/sunplus-sp7021-ltpp3g2.dts
+> @@ -0,0 +1,182 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Device Tree Source for Tibbo LTPP board G2
+> + *
+> + * Copyright (C) 2021 Sunplus Technology Co.
+> + */
+> +
+> +/dts-v1/;
+> +
+> +#include "sunplus-sp7021-achip.dtsi"
+> +
+> +/ {
+> +	compatible =3D "tibbo,ltpp3g2", "sunplus,sp7021";
 
-Will keep malloc()/memcpy().
+[Severity: Low]
+Is the tibbo,ltpp3g2 compatible string documented in the YAML bindings?
+Running dtbs_check will likely fail since this board string does not
+appear to be documented.
 
-The static buffer needs to know about the lengh of data, at least a
-maximum allowed length.
+[ ... ]
 
-Best regards,
-Hervé
+> +	chosen {
+> +		bootargs =3D "console=3DttySUP0,115200 earlycon root=3D/dev/mmcblk0p8 =
+rootwait";
+
+[Severity: Low]
+Does hardcoding root=3D/dev/mmcblk0p8 tie the device tree to a highly speci=
+fic
+OS partitioning scheme? Booting a standard kernel image that expects the ro=
+ot
+filesystem on a different partition will fail to mount root without overrid=
+ing
+bootargs. Could this be removed to better separate the hardware description
+from software configuration?
+
+[ ... ]
+
+> +	i2c_tps: i2c-tps { /* eeprom */
+
+[Severity: Low]
+Does the i2c-tps node name violate standard Devicetree naming schemas?
+Node names should typically be generic, such as i2c.
+
+[ ... ]
+
+> +&leds {
+> +	pinctrl-names =3D "default", "sleep";
+> +	pinctrl-0 =3D <&gpio_leds_pins>;
+> +	pinctrl-1 =3D <&leds_s0_slp>;
+> +	system-led {
+
+[Severity: Low]
+Should this node use a generic name like led-0 to comply with standard
+validation schemas?
+
+[ ... ]
+
+> +&uart3 {
+> +	status =3D "disabled";
+> +};
+
+[Severity: Low]
+Should uart3 claim the pins_uart3 pinctrl configuration here, similar to
+uart1, uart2, and uart4? If a user enables uart3 via an overlay, the
+hardware pins will remain unconfigured.
+
+[ ... ]
+
+> +	pins_i2ctps: pinmux_i2ctps-pins {
+> +		sunplus,pins =3D <
+> +			SPPCTL_IOPAD(1, SPPCTL_PCTL_G_GPIO, 0,
+> +				     SPPCTL_PCTL_L_OUT | SPPCTL_PCTL_L_ONV | SPPCTL_PCTL_L_ODR)
+> +			SPPCTL_IOPAD(2, SPPCTL_PCTL_G_GPIO, 0,
+> +				     SPPCTL_PCTL_L_OUT | SPPCTL_PCTL_L_ONV | SPPCTL_PCTL_L_ODR)
+> +		>;
+> +	};
+
+[Severity: High]
+Will applying SPPCTL_PCTL_L_ONV to these pins break open-drain signaling
+and persistently hold the bus LOW?
+
+When the i2c-gpio driver requests the bus to float HIGH by writing 1, the
+SPPCTL_PCTL_L_ONV configuration bit hardware-inverts this 1 into a 0,
+pulling the open-drain line strongly LOW.
+
+Should SPPCTL_PCTL_L_OU1 be used instead of combining SPPCTL_PCTL_L_OUT
+with SPPCTL_PCTL_L_ONV to set an initial HIGH output without breaking logic?
+
+[ ... ]
+
+> +	/* AP6256 Bluetooth */
+> +	pins_btuart: pinmux_btuart-pins {
+> +		sunplus,pins =3D <
+> +			SPPCTL_IOPAD(40, SPPCTL_PCTL_G_PMUX, MUXF_UA4_RX, 0)
+> +			SPPCTL_IOPAD(41, SPPCTL_PCTL_G_PMUX, MUXF_UA4_TX, 0)
+> +			SPPCTL_IOPAD(56, SPPCTL_PCTL_G_PMUX, MUXF_UA4_RTS, SPPCTL_PCTL_L_ONV)
+
+[Severity: Medium]
+Is the SPPCTL_PCTL_L_ONV inversion request actually taking effect for this
+PMUX pin?
+
+Looking at the SP7021 pinctrl driver in sppctl_dt_node_to_map(), it generat=
+es
+a PIN_MAP_TYPE_MUX_GROUP for SPPCTL_PCTL_G_PMUX pin types and explicitly
+discards configuration bits.
+
+As a result, the requested inversion will be silently ignored, potentially
+causing UART flow control failure if the AP6256 module actually requires an
+inverted signal.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917082632.6266=
+14-1-ag@ffroot.co.za?part=3D3
