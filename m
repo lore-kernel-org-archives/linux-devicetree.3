@@ -1,186 +1,129 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24002437130
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 08:43:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A34AB43B4BF;
+	Thu, 17 Sep 2026 08:43:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789634637; cv=none; b=rSmXTjRm+DpcgNMtgHAHJg589e4VomKRp9Yl+ZMaktyONIPW/1wD9EJhCdAl22cOFrouJe+GsXl6DZdqfbFGl+nXmcKpkkiIGqBnDoZcTw55YvSG9Ck+YpYQ6oXBeEoSdv+qy/0XxfyjBiWHIEo+EzlIDS9nM28u1tLJfeeS3Fs=
+	t=1789634638; cv=none; b=qWQL69vcdDmgIzFr2gkmjPH5LUxO6sHrbrkPmbcpc3cv+VInNCyrQNHIc0B0k/sg5T2HlRzG7dLESUmRFtD4oipSLacAF2mxjvj4wLr/53HMeXxVoI7jIdXEwAEQ059JUsNZY2m0XFkvdFUbJ49R0NyWJLjbamXOp/0qfu/UXps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789634637; c=relaxed/simple;
-	bh=Gi67RHtSFidYHgQEMhXHryb6rZaktOxae5usPppBvOA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=tUPj7gsIVFbAGtaywKB4FU+LMSdyk9vvPJVAd9TfUwkZWNX3bAHP5veZrmkVcNmByqhUDaG35r63XDBGDvhGPUMnoEPQc1nwt3UFxYqrYt3q9Pyy9nfWIjoM7h0Wa95iAXNQDZq10Uh51Mrbnpm1gsieR+sa3+NdsZC6HozLxvY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TYa8yE6M; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789634638; c=relaxed/simple;
+	bh=gabtB3LhvDpwGxM60+CDmRYzOClz8MHrctbfhZ7+Cxo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hZ89OrdRRHvIEg3E22hT1fWCGaT2mJShH673jlJI4qr4BGez8ZKsSkH+Mk0sm9kCQxG1HNMwnGbMmy4czC+zkz/VJwnzKrZp9iBZEkB82DSBupJktmR8Ph5g4LUh3jrOXLyNK0e6JAqIU0W4dS+Lsy6rHkNJ7qGPEAcnLiFgjE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d70TY05y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TYa8yE6M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BA6F1F00899;
-	Thu, 17 Sep 2026 08:43:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d70TY05y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D2EB1F00893;
+	Thu, 17 Sep 2026 08:43:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789634611;
-	bh=vAB+yhr8pkqYa6sTFV1ksyJeSf/VB1oYVxs6XgjqQks=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TYa8yE6Mbz+mi8dLjkoHBC/wxzbO6ObZWpzhVNmtsdhwpFcPijfD2X64Ox/rHnCUP
-	 TaPsJ+zAC2UY3MUzsteMc541Eh8vhSHiacqi80noFGjxzeS5CnKkL4gdFKaoyY6tpd
-	 4BlShdimS+M22f0TQsqlIjg62NT5+b5dXtpoB8QoPa8r/ULRr48cQie0An6RBtWG7U
-	 DRKmpYZJodFZGAuCn2mTmf13G1457WD3qL4lfET2k59HROyV1Wjl8CtrIAwIoyU5Ht
-	 4TUMmUsQAgByq/r/5AqxofWdCq5IdvlquQ5a9U1hSXYDyuOlKYehPhP8nJw2i6Mlnz
-	 PQFwM0FTHf/gg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/4] arm: dts: sunplus: add Tibbo LTPP3G2 board
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Andrew Gaylard" <ag@ffroot.co.za>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260917082632.626614-4-ag@ffroot.co.za>
-References: <20260917082632.626614-1-ag@ffroot.co.za>
- <20260917082632.626614-4-ag@ffroot.co.za>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 08:43:30 +0000
-Message-Id: <20260917084331.6BA6F1F00899@smtp.kernel.org>
+	s=k20260515; t=1789634608;
+	bh=buD3ErXVY00qtOfbbN+g2a6i1tZgMgrKCslFRQUKThs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=d70TY05yyHQ7s2d6aSQmpJlbvfjb565Jt22UNJ1P7e9d3NyE2FF+DoyrPsOggbevm
+	 bJw33nP1ZR/98zM56CUm6S+gL4n4VOlF5ppTlVIZgQalMBgpk3OOgpuShZmz0ZiEI8
+	 GHzVhc6aMEZXhSKfSSpp1JzhE/Wnj793p8O9uiHdX1qBiQV1OT+UXsUqd59S1A/5BC
+	 UfeEdUfm/wup58vramzigPRPAJYE4PscTiIG99QTELI5RipVlkRx3hjja3XsaZKae1
+	 T7tKFlaVdrRDmcbZeVv0X4c0/ZPw0qmevM7HzhewDDvX6uw2vhUD9vFcvdJPeBXLaW
+	 ejh1+7jRDjIVA==
+Date: Thu, 17 Sep 2026 10:43:24 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	linux-input@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH 2/3] Input - aw8695: Add driver for AW8695 haptics
+Message-ID: <20260917-slim-smart-rook-1dc942@quoll>
+References: <20260914-aw8695_haptic_fp4_driver-v1-0-156f7549149a@fairphone.com>
+ <20260914-aw8695_haptic_fp4_driver-v1-2-156f7549149a@fairphone.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260914-aw8695_haptic_fp4_driver-v1-2-156f7549149a@fairphone.com>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] i2c: open-drain bus stuck LOW due to hardware output inversion
-- [Medium] pinctrl: requested RTS output inversion is silently ignored for =
-PMUX pins
-- [Low] dts: hardcoded OS-specific root partition in bootargs
-- [Low] dts: non-generic device tree node names for I2C and LEDs
-- [Low] dts: unused pinctrl definition for UART3 (dead code)
-- [Low] dt-bindings: missing compatible string documentation for tibbo,ltpp=
-3g2
---
+On Mon, Sep 14, 2026 at 04:37:48PM +0200, Griffin Kroah-Hartman wrote:
+> From: Luca Weiss <luca.weiss@fairphone.com>
+> 
+> Add a driver for interfacing with the Awinic AW8695 LRA Haptic Driver.
+> 
+> The chip supports multiple modes of which only RAM mode is implemented.
+> RTP mode would enable a user to "stream" waveform data but to my
+> knowledge no such user space API exists in the kernel yet.
+> 
+> We upload a basic sine wave to the chip and play this on request.
+> 
+> Co-developed-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+> Signed-off-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
 
-commit 10e32790a2e05cfde60226acde658b3dc19b67ab
-Author: Andrew Gaylard <ag@ffroot.co.za>
-Subject: arm: dts: sunplus: add Tibbo LTPP3G2 board
+Your SoB should be the last, after your codev, after author's.
 
-This adds a device tree for the Tibbo LTPP3G2 board based on the Sunplus
-SP7021 SoC. The hardware description includes eMMC, SPI, bit-banged I2C
-EEPROM, PWM, a watchdog, RTC, and two GPIO LEDs.
-
-> diff --git a/arch/arm/boot/dts/sunplus/sunplus-sp7021-ltpp3g2.dts b/arch/=
-arm/boot/dts/sunplus/sunplus-sp7021-ltpp3g2.dts
-> new file mode 100644
-> index 0000000000000..f91b0de79c3d0
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/sunplus/sunplus-sp7021-ltpp3g2.dts
-> @@ -0,0 +1,182 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Device Tree Source for Tibbo LTPP board G2
-> + *
-> + * Copyright (C) 2021 Sunplus Technology Co.
-> + */
+> +static irqreturn_t aw8695_irq(int irq, void *data)
+> +{
+> +	struct aw8695_data *haptics = data;
+> +	struct device *dev = &haptics->client->dev;
+> +	unsigned int read_buf;
+> +	int err;
 > +
-> +/dts-v1/;
+> +	err = regmap_read(haptics->regmap, AW8695_SYSINT_REG, &read_buf);
+> +	if (err) {
+> +		dev_err(dev, "Failed to read SYSINT register: %d\n", err);
+> +		return IRQ_NONE;
+> +	}
+> +	dev_dbg(dev, "Interrupt: SYSINT=0x%x\n", read_buf);
 > +
-> +#include "sunplus-sp7021-achip.dtsi"
+> +	if (read_buf & AW8695_SYSINT_BSTERRI)
+> +		dev_err(dev, "Received boost short circuit protection or over-voltage protection interrupt!\n");
+> +	if (read_buf & AW8695_SYSINT_OVI)
+> +		dev_err(dev, "Received wave data overflow or DPWM DC error interrupt!\n");
+> +	if (read_buf & AW8695_SYSINT_UVLI)
+> +		dev_err(dev, "Received under voltage lock out interrupt!\n");
+> +	if (read_buf & AW8695_SYSINT_OCDI)
+> +		dev_err(dev, "Received over current interrupt!\n");
+> +	if (read_buf & AW8695_SYSINT_OTI)
+> +		dev_err(dev, "Received over temperature interrupt!\n");
 > +
-> +/ {
-> +	compatible =3D "tibbo,ltpp3g2", "sunplus,sp7021";
+> +	if (read_buf & AW8695_SYSINT_DONEI)
+> +		dev_dbg(dev, "Received playback done interrupt\n");
+> +	/* FIFO mode is not (yet) implemented in this driver */
+> +	if (read_buf & AW8695_SYSINT_FF_AEI)
+> +		dev_dbg(dev, "Received FIFO almost empty interrupt\n");
+> +	if (read_buf & AW8695_SYSINT_FF_AFI)
+> +		dev_dbg(dev, "Received FIFO almost full interrupt\n");
+> +
+> +	err = regmap_read(haptics->regmap, AW8695_DBGSTAT_REG, &read_buf);
+> +	if (err) {
+> +		dev_err(dev, "Failed to read DBGSTAT register: %d\n", err);
+> +		return IRQ_NONE;
+> +	}
+> +	dev_dbg(dev, "Interrupt: DBGSTAT=0x%x\n", read_buf);
+> +
+> +	err = regmap_read(haptics->regmap, AW8695_SYSST_REG, &read_buf);
+> +	if (err) {
+> +		dev_err(dev, "Failed to read SYSST register: %d\n", err);
+> +		return IRQ_NONE;
+> +	}
+> +	dev_dbg(dev, "Interrupt: SYSST=0x%x\n", read_buf);
 
-[Severity: Low]
-Is the tibbo,ltpp3g2 compatible string documented in the YAML bindings?
-Running dtbs_check will likely fail since this board string does not
-appear to be documented.
+You should not have three debugs (and possibly +3 more in if()
+conditions) in interrupt handler. In case of irq
+storm this still will overwhelm the log. This should be only one and
+most likely dev_dbg_ratelimited(). Errors should also have ratelimit,
+even if IRQ storm with errors is unlikely or even drop them completely -
+isn't regmap already going to print some errors in such case?
 
-[ ... ]
+> +
+> +	return IRQ_HANDLED;
+> +}
 
-> +	chosen {
-> +		bootargs =3D "console=3DttySUP0,115200 earlycon root=3D/dev/mmcblk0p8 =
-rootwait";
+Best regards,
+Krzysztof
 
-[Severity: Low]
-Does hardcoding root=3D/dev/mmcblk0p8 tie the device tree to a highly speci=
-fic
-OS partitioning scheme? Booting a standard kernel image that expects the ro=
-ot
-filesystem on a different partition will fail to mount root without overrid=
-ing
-bootargs. Could this be removed to better separate the hardware description
-from software configuration?
-
-[ ... ]
-
-> +	i2c_tps: i2c-tps { /* eeprom */
-
-[Severity: Low]
-Does the i2c-tps node name violate standard Devicetree naming schemas?
-Node names should typically be generic, such as i2c.
-
-[ ... ]
-
-> +&leds {
-> +	pinctrl-names =3D "default", "sleep";
-> +	pinctrl-0 =3D <&gpio_leds_pins>;
-> +	pinctrl-1 =3D <&leds_s0_slp>;
-> +	system-led {
-
-[Severity: Low]
-Should this node use a generic name like led-0 to comply with standard
-validation schemas?
-
-[ ... ]
-
-> +&uart3 {
-> +	status =3D "disabled";
-> +};
-
-[Severity: Low]
-Should uart3 claim the pins_uart3 pinctrl configuration here, similar to
-uart1, uart2, and uart4? If a user enables uart3 via an overlay, the
-hardware pins will remain unconfigured.
-
-[ ... ]
-
-> +	pins_i2ctps: pinmux_i2ctps-pins {
-> +		sunplus,pins =3D <
-> +			SPPCTL_IOPAD(1, SPPCTL_PCTL_G_GPIO, 0,
-> +				     SPPCTL_PCTL_L_OUT | SPPCTL_PCTL_L_ONV | SPPCTL_PCTL_L_ODR)
-> +			SPPCTL_IOPAD(2, SPPCTL_PCTL_G_GPIO, 0,
-> +				     SPPCTL_PCTL_L_OUT | SPPCTL_PCTL_L_ONV | SPPCTL_PCTL_L_ODR)
-> +		>;
-> +	};
-
-[Severity: High]
-Will applying SPPCTL_PCTL_L_ONV to these pins break open-drain signaling
-and persistently hold the bus LOW?
-
-When the i2c-gpio driver requests the bus to float HIGH by writing 1, the
-SPPCTL_PCTL_L_ONV configuration bit hardware-inverts this 1 into a 0,
-pulling the open-drain line strongly LOW.
-
-Should SPPCTL_PCTL_L_OU1 be used instead of combining SPPCTL_PCTL_L_OUT
-with SPPCTL_PCTL_L_ONV to set an initial HIGH output without breaking logic?
-
-[ ... ]
-
-> +	/* AP6256 Bluetooth */
-> +	pins_btuart: pinmux_btuart-pins {
-> +		sunplus,pins =3D <
-> +			SPPCTL_IOPAD(40, SPPCTL_PCTL_G_PMUX, MUXF_UA4_RX, 0)
-> +			SPPCTL_IOPAD(41, SPPCTL_PCTL_G_PMUX, MUXF_UA4_TX, 0)
-> +			SPPCTL_IOPAD(56, SPPCTL_PCTL_G_PMUX, MUXF_UA4_RTS, SPPCTL_PCTL_L_ONV)
-
-[Severity: Medium]
-Is the SPPCTL_PCTL_L_ONV inversion request actually taking effect for this
-PMUX pin?
-
-Looking at the SP7021 pinctrl driver in sppctl_dt_node_to_map(), it generat=
-es
-a PIN_MAP_TYPE_MUX_GROUP for SPPCTL_PCTL_G_PMUX pin types and explicitly
-discards configuration bits.
-
-As a result, the requested inversion will be silently ignored, potentially
-causing UART flow control failure if the AP6256 module actually requires an
-inverted signal.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917082632.6266=
-14-1-ag@ffroot.co.za?part=3D3
