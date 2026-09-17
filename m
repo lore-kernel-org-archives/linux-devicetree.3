@@ -1,208 +1,140 @@
-Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39A094D37A2
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 11:08:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.99
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1C51C3DB96F;
+	Thu, 17 Sep 2026 11:12:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789643347; cv=none; b=T6MXa2xhfP+gK+O3hkX6n3iXSET1UD4tyB3qLwPJTNRQQ83ri3ked8s3OOLNRkvRp9BRVMdPZDWp9Ygx8SSN0ngts7ThOdQWxXy5YDYxJ42+0X8j5TPe0MQeb3s8aFvAshs8/s0V1stlILVIKHDVsCHwVNUx+HrpmLSYd/ZdYe4=
+	t=1789643563; cv=none; b=IbvODNLmuhOYYE+x1HA/LZJGo5NaDAkvqLNvYab7v6ioVsNsrmAcAghnz1DkbL8YNdEBmMQ5eo1p+NFLFpY7kqW5oPVAe6okSiGrZ1KFLJW5zRMFGSi1QkN0xkqkrHj8wJEAtOHLRSwlPVUE/Idaewvo+BGLGfmqs0sCO2TcL08=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789643347; c=relaxed/simple;
-	bh=jZig0GPFi4JGT2mSmtHGaqcYKCoZ1vTJV6/UKomI3Ak=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=CUa4C8sxTBr8e0bbsdBEJWDW/GUR5uoGx/iwgIFaKmvrb+T+bFewSEt5IdzSntHz+NJyKX2A2WLtuKtxMlcnH9aimTZwhB++qqKrYm3KAbxUm5BHP617oDs1NTf+yxP7/vc0QhTO1VCTlyKNPr+IL0x7qqcwPBJ01QlfYW8qWXA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ij9YHA3G; arc=none smtp.client-ip=74.125.228.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ij9YHA3G"
-Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6a99cd5115bso1133910a12.3
-        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 04:08:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789643288; x=1790248088; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Gk5CbotewI/hTG+Sbs6BsiiN0sqU8afmxYBSAW5T38Y=;
-        b=ij9YHA3Gc97MLC+ujNE72ZIZ1LAG9jcW3AD8nhOyUEh7qAjvMO3+lIC9svsB3R4tto
-         5mJSgvpPtViE5svCF3b8yykWNLpcL0Hgy09QqIwHpVcYFahstTR3I3yRxpaJ1SeR2stU
-         2q6nbfNqCMH2gXxNrj6x9R0B4O0QZhwoddoe0yHazk5IU5bnZudMJYkVVmyZaS1HzXYh
-         2AjWJs35zsaG2iJSk2oauKXK3mfXagJn1IhKgkkV5j7z4G1dore9egbkUdvlyLJWnKon
-         jD4GFX65jKG51nj2IjOTwATb6t4iFLsKQ9W8cNzMg1JxanZ57rIHTeEEnmrBBiCMZK7Z
-         WRFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789643288; x=1790248088;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Gk5CbotewI/hTG+Sbs6BsiiN0sqU8afmxYBSAW5T38Y=;
-        b=WZobwF/CN/a+5JssP1Hx7NPje+WF+WzbUG+Ee9vEx+tgTr5Hu3dyRBudKxa79LLYFO
-         gO4SU/xtBVZKb5LXteENe+z4ED6wLP8w8eCqm3ERdhUXMwf+BwIuEOhG1KJag8j8HJCS
-         3uwAuMb3T3urM+dVsDKD4vXdT3yYY+dlQ/2RSd8Bj4KJv+WQMWxOov7iJNB52gEu9GO5
-         4SnBHP6X4FFsNyLWwTjjaHtXR7Nf0+kWsZV+H8CsVB6MycJaE+2FygRd0ARNJxUBzCeW
-         EopnU9VS9kDHvp+UaGeBfTRdBwKBEFa32yWIv9kPm/gPFu3gdPQwWVBC/MYUUo6i6YcQ
-         zVSQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxglVkCwSXQ7FYkzPuGNWUIniNtv9IfZ7iu9PRFnu6cZIB0Ov2W5eVeM4UbQk9ve3V2IDbRGKepuPKZ@vger.kernel.org
-X-Gm-Message-State: AFuF++lnZyjXVc0ghNyr2FffKF4lM34jjwTnhvwV9wdMFS1V1g+G4usm
-	+ja7+L7yhly6qDGEN+sFS6/3sFB3pnzBftYvhPzl01m4tVFBG0n3izXVJyhrmd/wUYw=
-X-Gm-Gg: AYBFou0XPH44djgqgq61kWWcYa8PoDpjQsyPDAbJDM+CWCj7oWh9tvDR+rNV1ISa2C4
-	UDlveoUiYFBjLZ9ysbVZUys1A6VaG+j53JO1I2lunS239VCYNFUJqTMo0+nbwkyMAwm0KzCC5mP
-	k4Xn6EUB8sfDXWQat8UQSdzT91KyJmtXsexHU9w45kcyPcJG0MRQOK36UuqBDVKFPWMs4nyeBqi
-	9x87HpzsJAaU+0b3pWZvP62MVpD63lwaXHdix7pajzC5FKdwpticUhwWRuu99zDZZ+E/hz9k6jj
-	PbE+I+VkCerzamaAoEDNS5+4EI+ejazGGY/6h9OvLBdz38+xACpuOYbtxR7j+wlbuMT0v5B1xDf
-	zQBz4B/mIIA1Q3SXUzqARm1fXxZO7kQhtuxhogFgabHQkLD+asL2XewvtEsc3cj41pC9t5pnds/
-	yREf33HZaq61FtIAfoYTZPVUHNF7O8fzDtjvdkNu+WPyvYMagoqMmDC212hBA/F+75oCOc3yBI2
-	ZNI4rUhww==
-X-Received: by 2002:a05:6402:3789:b0:6a9:98de:6d8d with SMTP id 4fb4d7f45d1cf-6aa2245fd0fmr4559524a12.45.1789643288181;
-        Thu, 17 Sep 2026 04:08:08 -0700 (PDT)
-Received: from [192.168.0.35] ([109.76.29.130])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa1d27ad36sm3175656a12.21.2026.09.17.04.08.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 04:08:07 -0700 (PDT)
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Date: Thu, 17 Sep 2026 12:07:56 +0100
-Subject: [PATCH v18 3/5] phy: core: Add devm_phy_get_by_of_node()
+	s=arc-20240116; t=1789643563; c=relaxed/simple;
+	bh=hVaCtHJJXd0vJH8zGDWEhJlcuzNkftLUd4O2rvRFI7U=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=pTgR5pRljCsv4EWges8CEBO3tQTuP0A759UMyk56aS2U2Tdm+2urbErk8K7gF6V5TDpjWITXfB7i07rvKZ6U4FmUfmurYQ7tJjmCLKb12d5Vf94PPDe/M1PkGGeOzPcQ8+SHOij0jzr7Ey5f4PVQ+SVwyhpU7iTFNs9lKq8TGFc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [223.64.69.112])
+	by gateway (Coremail) with SMTP id _____8CxPNIfy6tqAv8MAA--.38060S3;
+	Thu, 17 Sep 2026 19:12:31 +0800 (CST)
+Received: from kernelserver (unknown [223.64.69.112])
+	by front1 (Coremail) with SMTP id qMiowJDxg8wVy6tqD84hAA--.44877S4;
+	Thu, 17 Sep 2026 19:12:31 +0800 (CST)
+From: Binbin Zhou <zhoubinbin@loongson.cn>
+To: Binbin Zhou <zhoubb.aaron@gmail.com>,
+	Huacai Chen <chenhuacai@loongson.cn>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Yinbo Zhu <zhuyinbo@loongson.cn>,
+	zhanghongchen <zhanghongchen@loongson.cn>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>,
+	Lukasz Luba <lukasz.luba@arm.com>
+Cc: Huacai Chen <chenhuacai@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	Binbin Zhou <zhoubinbin@loongson.cn>
+Subject: [PATCH v5 2/4] thermal/drivers/loongson2: Move thermal_ops to chip_data for SoC scalability
+Date: Thu, 17 Sep 2026 19:11:48 +0800
+Message-ID: <393f699bb55341a21e012a266467962679a788d0.1789546118.git.zhoubinbin@loongson.cn>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <cover.1789546118.git.zhoubinbin@loongson.cn>
+References: <cover.1789546118.git.zhoubinbin@loongson.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v18-3-f85c9103177e@linaro.org>
-References: <20260917-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v18-0-f85c9103177e@linaro.org>
-In-Reply-To: <20260917-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v18-0-f85c9103177e@linaro.org>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>, 
- Todor Tomov <todor.too@gmail.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Bryan O'Donoghue <bod@kernel.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Kishon Vijay Abraham I <kishon@kernel.org>, Felipe Balbi <balbi@ti.com>, 
- Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, linux-phy@lists.infradead.org, 
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Krzysztof Kozlowski <krzk@kernel.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3025;
- i=bryan.odonoghue@linaro.org; h=from:subject:message-id;
- bh=jZig0GPFi4JGT2mSmtHGaqcYKCoZ1vTJV6/UKomI3Ak=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqq8oN0qkfPJbt5KiSUYWeyLkllH1amOK1AmkdG
- ghzm8ZiDniJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCaqvKDQAKCRAicTuzoY3I
- OidvD/9Wbx1buQl9vPxQFx4ksC1URoaDw4zXpIA7asxsSY0Tw0FB7Sl/anU/VvUJubBDJQW8Ane
- OM9lxPTn9QeZygPlF0UFlruopLa4p2QorC7tz1yiZYnZFPZRNAQ/1pFRy4VXWdmH8073weEDaKz
- 2REFS3hMUM+aqEtjC6Q2Rg1ss/D758r/32aQPKfhngY+9Fyj9isDEqQthLNyQP3p9u6e30xaXSm
- IQPpt2NqqktI+wV7kP4rmg033OMWYy2vhSGCXRm2mGGiuJWIWK1DNpoRxknFgBsb3TgkSJPQ6ZZ
- 69yh6dvNHE03VdnSFs7vp5AnTncEUMwUnhbhbWCZAWomEBw4BDIreLcvYXV1jgOAl3x7ugNcE5J
- bMRREHchI8l3ToxtZVX+VBSm765mTQYF5uGP5ZJPGbuFN/asLnv4DgTk0extlc3UPTGvyhDaMyN
- u53BR6vWHWfnAiJARCfRMXnzbI+tySPwPxdpbdjvqP6TmqDoXfNlYeJN+qE0oUtRQytpVoBRSN+
- 6K0qWeLXvs/SZeJ9zzO20hwipw73J9zsG9cPwEzqt7JtDugLvKM5LRXpBibQA2qfQNczk5YlZCJ
- aetO79SKbftdOqdNfKQxnwlehGjJ81bzT+Tu9SeVc7l0COOWG+n5ZNwFxGumXtZXGeK0rMwhIvk
- X37/gReJiudbw7w==
-X-Developer-Key: i=bryan.odonoghue@linaro.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJDxg8wVy6tqD84hAA--.44877S4
+X-CM-SenderInfo: p2kr3uplqex0o6or00hjvr0hdfq/1tbiAQENCGqrSnMJZgAAsS
+X-Coremail-Antispam: 1Uk129KBj93XoWxCw13Kr1UCr15GF4rAry3KFX_yoW5XF4rpa
+	y3Aw15KFs7Gr4Duw1qyr18Zr4qyry3ta9xXF4xGw13W398X34agFy8JFy0vFWxCFyrAF1U
+	ZF1DtFWDZF1DW3gCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUBIb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+	xVW8Jr0_Cr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
+	AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
+	tVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7V
+	AKI48JMxkF7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY
+	6r1j6r4UMxCIbckI1I0E14v26r1Y6r17MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7
+	xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xII
+	jxv20xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw2
+	0EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x02
+	67AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0epB3UUUUU==
 
-Add a devm variant of phy_get_by_of_node() to allow for the familiar
-pattern of having devres automatically release resources on the driver's
-exit path.
+In preparation for supporting additional Loongson SoCs, relocate the
+thermal zone device operations pointer (thermal_ops) from the probe
+routine to the per-SoC chip_data structure. This eliminates the need
+to add conditional branches in probe() when a new SoC is introduced;
+instead, the appropriate ops can be statically assigned in the match
+data.
 
-Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+No functional change intended.
+
+Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
 ---
- drivers/phy/phy-core.c  | 36 +++++++++++++++++++++++++++++++++++-
- include/linux/phy/phy.h |  7 +++++++
- 2 files changed, 42 insertions(+), 1 deletion(-)
+ drivers/thermal/loongson2_thermal.c | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/phy/phy-core.c b/drivers/phy/phy-core.c
-index 490a7cde6d40a..10e9323566803 100644
---- a/drivers/phy/phy-core.c
-+++ b/drivers/phy/phy-core.c
-@@ -833,7 +833,7 @@ struct phy *phy_get(struct device *dev, const char *string)
+diff --git a/drivers/thermal/loongson2_thermal.c b/drivers/thermal/loongson2_thermal.c
+index 99b7392fc68f..fb4793a9bc55 100644
+--- a/drivers/thermal/loongson2_thermal.c
++++ b/drivers/thermal/loongson2_thermal.c
+@@ -38,6 +38,7 @@
+ struct loongson2_thermal_chip_data {
+ 	unsigned int thermal_sensor_sel;
+ 	unsigned int flags;
++	const struct thermal_zone_device_ops *thermal_ops;
+ };
  
- 	link = device_link_add(dev, &phy->dev, DL_FLAG_STATELESS);
- 	if (!link)
--		dev_dbg(dev, "failed to create device link to %s\n",
-+		dev_err(dev, "failed to create device link to %s\n",
- 			dev_name(phy->dev.parent));
+ struct loongson2_thermal_data {
+@@ -123,7 +124,6 @@ static const struct thermal_zone_device_ops loongson2_2k2000_of_thermal_ops = {
  
- out_unlock:
-@@ -1050,6 +1050,40 @@ struct phy *phy_get_by_of_node(struct device_node *np)
- }
- EXPORT_SYMBOL_GPL(phy_get_by_of_node);
- 
-+/**
-+ * devm_phy_get_by_of_node() - devm managed lookup and obtain phy reference by device node
-+ * @dev: device requesting the PHY
-+ * @np: device_node of the PHY provider
-+ *
-+ * Returns phy associated with the device_node or ERR_PTR. devres manages
-+ * releasing resources.
-+ */
-+struct phy *devm_phy_get_by_of_node(struct device *dev, struct device_node *np)
-+{
-+	struct phy **ptr, *phy;
-+	struct device_link *link;
-+
-+	ptr = devres_alloc(devm_phy_release, sizeof(*ptr), GFP_KERNEL);
-+	if (!ptr)
-+		return ERR_PTR(-ENOMEM);
-+
-+	phy = phy_get_by_of_node(np);
-+	if (IS_ERR(phy)) {
-+		devres_free(ptr);
-+		return phy;
-+	}
-+
-+	*ptr = phy;
-+	devres_add(dev, ptr);
-+	link = device_link_add(dev, &phy->dev, DL_FLAG_STATELESS);
-+	if (!link)
-+		dev_dbg(dev, "failed to create device link to %s\n",
-+			dev_name(phy->dev.parent));
-+
-+	return phy;
-+}
-+EXPORT_SYMBOL_GPL(devm_phy_get_by_of_node);
-+
- /**
-  * phy_create() - create a new phy
-  * @dev: device that is creating the new phy
-diff --git a/include/linux/phy/phy.h b/include/linux/phy/phy.h
-index 71c2e16397130..14b924a88411f 100644
---- a/include/linux/phy/phy.h
-+++ b/include/linux/phy/phy.h
-@@ -285,6 +285,7 @@ struct phy *devm_of_phy_optional_get(struct device *dev, struct device_node *np,
- struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
- 				     int index);
- struct phy *phy_get_by_of_node(struct device_node *np);
-+struct phy *devm_phy_get_by_of_node(struct device *dev, struct device_node *np);
- void of_phy_put(struct phy *phy);
- void phy_put(struct device *dev, struct phy *phy);
- void devm_phy_put(struct device *dev, struct phy *phy);
-@@ -499,6 +500,12 @@ static inline struct phy *phy_get_by_of_node(struct device_node *np)
- 	return ERR_PTR(-ENOSYS);
- }
- 
-+static inline struct phy *devm_phy_get_by_of_node(struct device *dev,
-+						  struct device_node *np)
-+{
-+	return ERR_PTR(-ENOSYS);
-+}
-+
- static inline void of_phy_put(struct phy *phy)
+ static int loongson2_thermal_probe(struct platform_device *pdev)
  {
- }
-
+-	const struct thermal_zone_device_ops *thermal_ops;
+ 	struct device *dev = &pdev->dev;
+ 	struct loongson2_thermal_data *data;
+ 	struct thermal_zone_device *tzd;
+@@ -144,10 +144,6 @@ static int loongson2_thermal_probe(struct platform_device *pdev)
+ 		data->temp_reg = devm_platform_ioremap_resource(pdev, 1);
+ 		if (IS_ERR(data->temp_reg))
+ 			return PTR_ERR(data->temp_reg);
+-
+-		thermal_ops = &loongson2_2k2000_of_thermal_ops;
+-	} else {
+-		thermal_ops = &loongson2_2k1000_of_thermal_ops;
+ 	}
+ 
+ 	irq = platform_get_irq(pdev, 0);
+@@ -159,7 +155,7 @@ static int loongson2_thermal_probe(struct platform_device *pdev)
+ 	loongson2_thermal_set(data, 0, 0, false);
+ 
+ 	for (i = 0; i <= LOONGSON2_MAX_SENSOR_SEL_NUM; i++) {
+-		tzd = devm_thermal_of_zone_register(dev, i, data, thermal_ops);
++		tzd = devm_thermal_of_zone_register(dev, i, data, data->chip_data->thermal_ops);
+ 		if (!IS_ERR(tzd))
+ 			break;
+ 
+@@ -185,11 +181,13 @@ static int loongson2_thermal_probe(struct platform_device *pdev)
+ static const struct loongson2_thermal_chip_data loongson2_thermal_ls2k1000_data = {
+ 	.thermal_sensor_sel = 0,
+ 	.flags = 0,
++	.thermal_ops = &loongson2_2k1000_of_thermal_ops,
+ };
+ 
+ static const struct loongson2_thermal_chip_data loongson2_thermal_ls2k2000_data = {
+ 	.thermal_sensor_sel = 0,
+ 	.flags = LS2K2000_THSENS_OUT_FLAG,
++	.thermal_ops = &loongson2_2k2000_of_thermal_ops,
+ };
+ 
+ static const struct of_device_id of_loongson2_thermal_match[] = {
 -- 
-2.55.0
+2.52.0
 
