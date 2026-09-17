@@ -1,116 +1,110 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCA893B47CD;
-	Thu, 17 Sep 2026 18:25:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A72BB2E282B;
+	Thu, 17 Sep 2026 18:26:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789669505; cv=none; b=eRXp7EH8x0GMG8/LZvPTg4iyyyPhAhrpOgGagQWrFQ+n6An0onqQOUBLTMkmgRgB3pij8I27TTaSX9adnHBi6O6ghGuSh+K/n5QKTAimClOUEDN8oClucZDCk01N2AIrFFaKEM0Gu9ZgMJyPrcCo7FcEargZrZImroxjErJo1SY=
+	t=1789669607; cv=none; b=BPEtipbXaqmaoej0fq+22xGpu/SY/hcY56JiQWzPsOmeNVWrybQsPm7cL7MreXRPUrBCk4G3LMoFkJMLKday59X0a6W4BYY969I+Vuh49TZo/XCZ9Vut59cBcpS3NoBqMDLU+0NV6Fpz1ec12XQLoI3YeECK3DCLupOcHN/jO6M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789669505; c=relaxed/simple;
-	bh=ZO/LLv1F4qsWP0LvY3Ql73aRnZfWnijTrY43xOOezMQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SFGXCRbiWW9RrBz8SQf06xEJUjvBsqA+8F2x/d9EipIclf/9PYFSYTg4j54iP1TDqssxpIfsE7yBc0ltbQ5V5gn17GVRAs0q2CNTlJ65TAl2IbbTeFGZiQq1iatqx+9RvmOszLu3AGpwr/8vLR43dRgs5+dXrqrq3WqRkAktjCk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MZ9r8Wo9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789669607; c=relaxed/simple;
+	bh=aHBI7nF+t+aC+DF+3+CGv8rvB6sZjdDf8f3c9wIX63U=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Jsj0ZaPPDko8nWPH8HfewnYphx1i7wAdNQSlHf7tcXevzr3MKt4bdzN8k0aB/OruNBrHb+ggY/hZBghTVqSQCfppP8xXq8devbjPjq4IgA7NvULmyqYmszezbAOmORXAtxxpvANthPQJ/RVRJKBX57f/I2EfKBemanXB9kp88vM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DCSW4BD0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MZ9r8Wo9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C8F61F000FF;
-	Thu, 17 Sep 2026 18:24:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DCSW4BD0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA17F1F000FF;
+	Thu, 17 Sep 2026 18:26:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789669504;
-	bh=uIC9yv1bT9lDMQFxFYJMF1/98xeBPL2qzvZkqRSAnng=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=MZ9r8Wo9XPUKQOcLTsflvcgH4EvLgtSvtaVmd4tiTK9TbLYSbYiaQO4b4qUPJryCC
-	 NDKQE0/vQslun7qRMigVXVKG10GNUSx6QpLlJTthJ0LWqY167tFnGGbZ9QIHvjrCli
-	 4iXIBP2PUl6b9l5E5bAwYAXd1XEZ5/MDhKAXzKEQl602NoeRLOlsJmAKOuxE4qWXF/
-	 vnmHMj3FjGCWspO8dqGbYQdgRQC944vQTUYUeOt+zXrfbILizxNjdz4w0FY7DC0mhS
-	 lGnIZ3viYFvFmsbg22cRrsxiHpZDwIt2LSrpMAO+3SuQX2OMJJQ8mR90sslam5A74g
-	 KlEjPnP+JigDw==
-Message-ID: <458017cd-c188-4e41-a93f-bd6bb123179b@kernel.org>
-Date: Thu, 17 Sep 2026 20:24:56 +0200
+	s=k20260515; t=1789669606;
+	bh=+lcRSSuw7U0XGR79cvbwA89+BDIaLiF04KTMF8oiqMo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=DCSW4BD0yR+3Hj6vSfsFonlFJb25XkPZYUb/Da+yLg+fR70Z07np/zuiDHnc+DyOZ
+	 clUe1hToKGXlPmqikay4HYNUsR2tV1W7D5PckZqQ/C1NvQQogZP1me7aBs1MYQXf+h
+	 dNstE/UZDsAwHb+aTAFEIkCNle8Xjq92XuHK1EcMB5HTKvrIDRklTMwpB7snux2tvT
+	 gHoxwpIyb3Nv5kGbfUmLXVP7+eZqGOHvgxsLhbGlNccYhnwayAkYMPhafjKntg3YUQ
+	 e64hNcFpQlB6VHAhC0NWosFMuC4bvDI/Shik62nYqdHJS4zmAJFGfAy63986exJRh/
+	 VC2MHCL0AhQdw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 3/4] arm64: dts: freescale: imx95-15x15-frdm: remove
+ some rmem regions
+Reply-To: sashiko-reviews@lists.linux.dev
+To: Frank.Li@oss.nxp.com
+Cc: Frank.Li@kernel.org, conor+dt@kernel.org, robh@kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org
+In-Reply-To: <20260917-memory-region-name-v4-3-260755920ebf@nxp.com>
+References: <20260917-memory-region-name-v4-0-260755920ebf@nxp.com>
+ <20260917-memory-region-name-v4-3-260755920ebf@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 17 Sep 2026 18:26:45 +0000
+Message-Id: <20260917182645.EA17F1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] dt-bindings: axis-fifo: Added missing binding
-To: Daniel Matyas <matyasdaniel006@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Daniel Matyas <matyasdaniel005@gmail.com>
-Cc: linux-staging@lists.linux.dev, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260917115023.292302-1-matyasdaniel006@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260917115023.292302-1-matyasdaniel006@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 17/09/2026 13:48, Daniel Matyas wrote:
-> From: Daniel Matyas <matyasdaniel005@gmail.com>
-> 
-> drivers/staging/axis-fifo/axis-fifo.txt file described how the
-> devicetree of the driver should look like. Convert it to .yaml file.
-> Issue found by checkpatch.
-> 
-> Signed-off-by: Daniel Matyas <matyasdaniel005@gmail.com>
-> Signed-off-by: Daniel Matyas <matyasdaniel006@gmail.com>
-> ---
-> 
-> Sorry for adding another email. I got locked out of the first one for 30
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] dts: unused vdev1vring reserved memory regions left behind
+--
 
-I already you no and provided previous discussions giving the proper
-reasons.
+commit 12514a7b6ba32d79be71a2b0cfb351fc1fe91f46
+Author: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
 
-Why did you just ignore that?
+arm64: dts: freescale: imx95-15x15-frdm: remove some rmem regions
 
-NAK for this and any other future axis-fifo stuff like this.
+This commit removes several unused remoteproc reserved memory regions from
+the device tree. They will instead be added in a DT overlay.
 
-Best regards,
-Krzysztof
+> diff --git a/arch/arm64/boot/dts/freescale/imx95-15x15-frdm.dts b/arch/ar=
+m64/boot/dts/freescale/imx95-15x15-frdm.dts
+> index 0f43e3be70589..f9b0e266754d6 100644
+> --- a/arch/arm64/boot/dts/freescale/imx95-15x15-frdm.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx95-15x15-frdm.dts
+> @@ -188,16 +188,6 @@ linux_cma: linux,cma {
+>  			linux,cma-default;
+>  		};
+> =20
+> -		vdev0vring0: memory@88000000 {
+> -			reg =3D <0 0x88000000 0 0x8000>;
+> -			no-map;
+> -		};
+> -
+> -		vdev0vring1: memory@88008000 {
+> -			reg =3D <0 0x88008000 0 0x8000>;
+> -			no-map;
+> -		};
+> -
+>  		vdev1vring0: memory@88010000 {
+>  			reg =3D <0 0x88010000 0 0x8000>;
+>  			no-map;
+> @@ -208,17 +198,6 @@ vdev1vring1: memory@88018000 {
+>  			no-map;
+>  		};
+
+[Severity: Low]
+Were vdev1vring0 and vdev1vring1 intentionally left behind? The patch remov=
+es
+vdev0vring0, vdev0vring1, vdevbuffer, and rsc_table, stating these remotepr=
+oc
+regions will be added via overlay. Leaving vdev1vring0 and vdev1vring1 behi=
+nd
+unnecessarily reserves 64KB of physical memory that Linux cannot use.
+
+> =20
+> -		vdevbuffer: memory@88020000 {
+> -			compatible =3D "shared-dma-pool";
+> -			reg =3D <0 0x88020000 0 0x100000>;
+> -			no-map;
+> -		};
+> -
+> -		rsc_table: memory@88220000 {
+> -			reg =3D <0 0x88220000 0 0x1000>;
+> -			no-map;
+> -		};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917-memory-reg=
+ion-name-v4-0-260755920ebf@nxp.com?part=3D3
