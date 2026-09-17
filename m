@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50AE53EC2E6
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 08:10:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 180A63EB7F8;
+	Thu, 17 Sep 2026 08:11:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789632609; cv=none; b=MVIoAt3vfsiy81z52eloqK19sFN+xpWmAzaeCOpOp4AGyK8+Sa/bkaPxGTYJGrBPszhvTcF3hPyOkC/z+KC2R3/s/Cs1l1nFDdBarrRQkl3za2kzf9wego7/0EJmNAgcNN0ol4V5rPiPV62OG5Yaip5MUq5CG1LqHHFR4NPYpOY=
+	t=1789632680; cv=none; b=KCFZaEpCycTfiE4sRIcsoJrveARf82TLDfs2PPTnH6H8R0nVdf9gsc/ffzd5/1vdhQyRpoLbhwbMGSoazR2ZOfc8oDjzhx/j+Cbw6zUiSabYDKRptPBkNH3G8DWljzaCRRKKjhpDwcV8XD/GPeWAvmRyjb26bfFZKxBGZU2mNgE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789632609; c=relaxed/simple;
-	bh=ca5E9e0MExLH6dSG1rQKq5B9WmpPyS1ZmJrX7bVuUHg=;
+	s=arc-20240116; t=1789632680; c=relaxed/simple;
+	bh=C8GOUSGG2p753GU/d8fnijIVm/CIaPQvvAfkuQDpRdg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=SyAKU2ft2RLxueflCVxZVdTQxctVTPCSU/DJ5kMEcbwRXOmiO2F6ItLO275TMF7TxxqlqKssyVz5Yh8ot62G8tX27sjaIid7DLeHS+gDy0HoQwAOXIfM1BdW/NKL9CJJkBX5CTP1aHX2MpvAK5OofGHbghyJmSi5mWyDvghDjTI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D6F6tmnJ; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Z00kKehOLrKQbn17pebXxPZH2l8CSp1wIH8GP5pKoIAuwuVlUgeOmDGuLH72CgGPraav2AyB3uxHB5oqy87z0/BZrTvGv0olEDUQ9qtIs7iheFWQduJOLfrm2psGfyr96U3a2eSugzDimTLtM53qYNxbad0QJLMlDhnWrrcQZKg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OuPPAf/i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D6F6tmnJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1B611F000FF;
-	Thu, 17 Sep 2026 08:10:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OuPPAf/i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 835FA1F000FF;
+	Thu, 17 Sep 2026 08:11:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789632608;
-	bh=NGjTgldjlXcYF+YIbmdSz9TlLg0T9cmtip1P4v1IERY=;
+	s=k20260515; t=1789632678;
+	bh=tjCANDN9Cmup5RNH0pmtUarjfOrz4F1NfcznTrPGBKg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=D6F6tmnJFp0jYOEwLm3XkXBdI0EypIO8kOT4E0hRF122SoJCa7Y6POmmUuxXWAzbl
-	 ttIMzihQaDD5/hnmYhw8FOw59wYKBnMa6tGxzCo12mrToEKaWxmx3/cou7dUF21FwN
-	 8qaVo8uDVmGpLOLvirDH2EhFiBmLLeBkPre1MjV0cvlqTY1naL4/8K3HcO9Q7j86F8
-	 5oom7oGRXtPYckpSl+UhViaXtcc98pKy2agwBY+lZKym3VYpknZQBm0mx6HbTZWEQv
-	 nR6C7Hnf08FiMAHr4i9Z5hibLLhOYpVR97/HJd5isS2L1GRjZxG3rFUPxsWRVoz4AK
-	 MVhPMbuQbigGQ==
+	b=OuPPAf/ixhkMKZtufAwleeFqsXVNLMHJFyK5RB7ugR83JjGPNyP+LML/+1+ptnVeW
+	 RUusJngLCsXHfboW3jAK9VQDYhcMNQZ8hFElaZ1HKw0Pn5/Av1VJ6RDKx2KHdgsq4F
+	 MHrQQBvijWAaPUCSj3lEEYcow1B/XLrll5cKply9Z/iLR+5fLn/9MEFTAqAViwovt8
+	 OC5h7iN/qEkeG8VxOU09eg7KjifBWN4Pc9HV2AZDppnws7CJ7qQ+8OlIgKwFiwxCxF
+	 ig/M9jcIwQuUfuw9PhBiqHkrVJAO5Lwnbyq5s44YDGX7sVygCta/ozB25wuDXeXQH0
+	 zCPITHErJPRBw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/3] pps: clients: gpio: release pins to an inactive
- state on remove and shutdown
+Subject: Re: [PATCH v12 3/6] mfd: khadas-mcu: Add support for VIM4 MCU
+ variant
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Eliav Farber" <farbere@amazon.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260917075611.47881-4-farbere@amazon.com>
-References: <20260916182641.9768-1-farbere@amazon.com>
- <20260917075611.47881-1-farbere@amazon.com>
- <20260917075611.47881-4-farbere@amazon.com>
+To: "Ronald Claveau" <linux-kernel-dev@aliel.fr>
+Cc: neil.armstrong@linaro.org, linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, mfd@lists.linux.dev, robh@kernel.org, lee@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260917-add-mcu-fan-khadas-vim4-v12-3-497cd543a148@aliel.fr>
+References: <20260917-add-mcu-fan-khadas-vim4-v12-0-497cd543a148@aliel.fr>
+ <20260917-add-mcu-fan-khadas-vim4-v12-3-497cd543a148@aliel.fr>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 08:10:07 +0000
-Message-Id: <20260917081007.B1B611F000FF@smtp.kernel.org>
+Date: Thu, 17 Sep 2026 08:11:18 +0000
+Message-Id: <20260917081118.835FA1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,50 +47,58 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] pps: probe failure in pps_gpio_setup() leaves pins in default st=
-ate
+- [Low] mfd: Incorrect writeable registers in VIM4 regmap config
 --
 
-commit c39f475f46d4d918a014f1945bfb60ecc434ce54
-Author: Eliav Farber <farbere@amazon.com>
+commit fc44329d7ee6d12a0077930b2632df3554d1e38f
+Author: Ronald Claveau <linux-kernel-dev@aliel.fr>
 
-pps: clients: gpio: release pins to an inactive state on remove and shutdown
+mfd: khadas-mcu: Add support for VIM4 MCU variant
 
-This commit introduces logic to transition PPS GPIO pins to an "inactive"
-pinctrl state when the driver is unbound, shut down, or fails to probe.
+This commit adds support for the VIM4 MCU variant by refactoring the
+probe function to use per-variant values. It introduces a dedicated=20
+regmap configuration for the VIM4 MCU, with its own volatile and=20
+writeable register checks.
 
-> --- a/drivers/pps/clients/pps-gpio.c
-> +++ b/drivers/pps/clients/pps-gpio.c
+> diff --git a/drivers/mfd/khadas-mcu.c b/drivers/mfd/khadas-mcu.c
+> index 0e74efe14f367..4b37e74e2b04a 100644
+> --- a/drivers/mfd/khadas-mcu.c
+> +++ b/drivers/mfd/khadas-mcu.c
 
 [ ... ]
 
-> @@ -161,11 +224,16 @@ static int pps_gpio_probe(struct platform_device *p=
-dev)
->  	if (ret)
->  		return ret;
+> +static bool khadas_mcu_vim4_reg_writeable(struct device *dev, unsigned i=
+nt reg)
+> +{
+> +	switch (reg) {
+> +	case KHADAS_MCU_VERSION_0_REG:
+> +	case KHADAS_MCU_VERSION_1_REG:
+> +	case KHADAS_MCU_SHUTDOWN_NORMAL_STATUS_REG:
+> +		return false;
+> +	default:
+> +		return true;
 
-[Severity: Medium]
-If pps_gpio_setup() fails here, will this early return bypass the newly
-introduced err_release_pins label? Since the pinctrl "default" state is
-applied by the driver core before probe(), it seems returning directly here
-might leave the hardware pins stuck in the "default" state instead of putti=
-ng
-them into the intended "inactive" state on probe failure.
+[Severity: Low]
+Does this function omit multiple known read-only registers defined for the =
+MCU,
+such as KHADAS_MCU_MAC_0_REG and KHADAS_MCU_USID_0_REG?
 
-Could pps_gpio_get_pins() be moved earlier in the probe sequence so that
-the inactive state is available to be restored consistently across all fail=
-ure
-paths?
+Because this switch defaults to true, any unlisted read-only register is
+incorrectly marked as writeable. Because the regmap uses REGCACHE_MAPLE,
+writing to an omitted read-only register will inappropriately cache the wri=
+tten
+value instead of failing, which could poison the cache for subsequent reads.
 
-> =20
-> +	/* pinctrl setup (optional states) */
-> +	ret =3D pps_gpio_get_pins(dev);
-> +	if (ret)
-> +		return ret;
+Even though the khadas-mcu-user-mem cell isn't instantiated for the VIM4 va=
+riant
+(meaning there is no active code path writing to these registers in normal
+production operation), should these known read-only registers be explicitly
+handled to prevent future caching issues?
+
+> +	}
+> +}
 > +
->  	/* IRQ setup */
->  	ret =3D gpiod_to_irq(data->gpio_pin);
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917075611.4788=
-1-1-farbere@amazon.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917-add-mcu-fa=
+n-khadas-vim4-v12-0-497cd543a148@aliel.fr?part=3D3
