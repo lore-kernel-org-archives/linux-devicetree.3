@@ -1,96 +1,109 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFE2C4E323A
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 15:31:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBF574B44AA;
+	Thu, 17 Sep 2026 15:35:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789659116; cv=none; b=FHnyRoFRKjhJnGK3BbVGaLb/jy5Wde8Ul8a2ZBZbOixG7rI2QdJHNYbA37TRLWYYYGcK6ROE5Gk6/aw2dQReIynJHowADxJS/nd55/3bMi6iRh6+4ehU4jbN7vX04W/O7e+Cg8QUW94+2mJZI+ENtEiFlS4aRv+nPKXPJjAHkHw=
+	t=1789659316; cv=none; b=VoP//a98Dsih2h+akgnw98h7ywh7/kbYDCmMIcHnZxDTGdI8OoSgwwJxOChGuRHrNS6Jt1AKlJWVVH5rF9wPdTJE/BiKtjTl0/5JPzLbMacLOagX5O3wwfL18kXteqmYfgcgvz2FKAZzBoakfTyte/i7Uk3V9f/yTuJlWmSYetw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789659116; c=relaxed/simple;
-	bh=y4rW0+iTuHqQYiPqvhew4HLaTLfoEXjeW9ZziEhZT3M=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=RWrDNOaoKDJb9782lOJE8dc/Oyc1cRNTbebQMof/bbrBzWLcnJhnHnIZMXGlLf0Cw7dP/Y4Ldiv2jg4nyUgyIE6G+JlwJhLnnzl4y83LCtCuEOS5U+XOaMvf2Km/gDcexdRzgSEr8UeF2ms7aKfWW8vqAl6nXutJzhOAgSXUB2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=VV7lnBEb; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789659316; c=relaxed/simple;
+	bh=Dh6tUyQP9xyXhZWsWYa7WA4mu0Sws+dL1p7Kflb1hFk=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=Em68y6F+iLDxZAOSNj9E+Wl6qAGAj2CKRmKrRR6YIoObVDmfINcVDvqOT0Fn6ifbc3aojc5gLoREkAG1Kwz9EplmcnGevmH9IAKy13Ze89EUz9FHdWD7Sg2y5S3mNyMkSC6bWt0MDRzKY/QqjHbLsZKjPak5bvz9urilJJniTbU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nvHb8BnH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="VV7lnBEb"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 6BA741A094C;
-	Thu, 17 Sep 2026 15:31:46 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 348755FAA3;
-	Thu, 17 Sep 2026 15:31:46 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 33CAB11C7B08C;
-	Thu, 17 Sep 2026 17:31:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789659104; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=O/UhMYfdk2U4n2hFq6QKqBP9YQQubGPiuAzVZ40AtnY=;
-	b=VV7lnBEbBtQc754RGNtkKA7EeCaVJLqlaGng8lA/GrVM9zrw0j4DRXIa+E7JiMbnhip5Zy
-	Cs5vT2XdBwJsE8+03hr60NhdfRUjHehiO54hqB+UOReIPC9u4cEiyWlPuqkxu4553b56v3
-	2CAQ9UWfH+VmE2qIcDndOeMoRL8gdUWbyPJg/xoG1Ld5iGNKnA6CocLs+Pi6cechDCKwvt
-	aRK2RIT85js5Lrp/TBVFb5auVQkTIYUfv2nXwLZNtAQuDJxZMDYpZWv+wDuXElsidjZEU5
-	JMy1Ky0/OOW6kes0rtW2LF1YBXsYYuaVc1hbpFHqYv3VMRa1rAKVfxwSSR67sQ==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nvHb8BnH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA7571F000FF;
+	Thu, 17 Sep 2026 15:35:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789659302;
+	bh=byzDL3MM3tw9yBCOxQadk27VtOlUpG08zfgZFmn7Qx4=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=nvHb8BnHVmnWvOPaWQkbtOqXe6xbAv1B7uJUuoCalSS+Qba3wk76RY0ZerNxby6an
+	 bLvpuY9NlPw8aUMhvSt5nMI8G5EmKxxCsXmPplY0DFI44mCa/a1gRta6L+AVUNfdLo
+	 oXLvPZ//YDLxV71wXesQxGrK10oSq7Dxv6laFaE6R+Iju4lkbH0Pqm/l7AfK6Xd8Tx
+	 8AAby4VCZ7A5mzJ7cVtZEEYz2eWQEYRdfWWsbDjCBCQoX8cJ52iuGFJst6VXhS+5H1
+	 r2J1u/qaANTp4Nbiif2sA/uOsSctgGh7sSAULQJUIqh0nMKaigRHZMYuqAMZxBecHi
+	 fF3nEK+Ti+6/A==
+Date: Thu, 17 Sep 2026 10:35:00 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v5 2/4] drm: mxsfb: Add optional DPI output bus-width
- configuration
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Francesco Dolcini <francesco@dolcini.it>
-Cc: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, 
- Francesco Dolcini <francesco.dolcini@toradex.com>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Alexander Stein <alexander.stein@ew.tq-group.com>
-In-Reply-To: <20260917140042.118181-3-francesco@dolcini.it>
-References: <20260917140042.118181-1-francesco@dolcini.it>
- <20260917140042.118181-3-francesco@dolcini.it>
-Date: Thu, 17 Sep 2026 17:31:33 +0200
-Message-Id: <178965909367.1648606.14106712106252415784.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: linux-gpio@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>, 
+ devicetree@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>, 
+ Linus Walleij <linusw@kernel.org>, Fabio Estevam <festevam@gmail.com>, 
+ Takashi Sakamoto <o-takashi@sakamocchi.jp>, linux-kernel@vger.kernel.org, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Rodolfo Giometti <giometti@enneenne.com>
+To: Eliav Farber <farbere@amazon.com>
+In-Reply-To: <20260917075611.47881-3-farbere@amazon.com>
+References: <20260916182641.9768-1-farbere@amazon.com>
+ <20260917075611.47881-1-farbere@amazon.com>
+ <20260917075611.47881-3-farbere@amazon.com>
+Message-Id: <178965920965.2201509.11424324343969407479.robh@kernel.org>
+Subject: Re: [PATCH v3 2/3] dt-bindings: pps: pps-gpio: document optional
+ pinctrl states
 
-On Thu, 17 Sep 2026 16:00:37 +0200, Francesco Dolcini <francesco@dolcini.it> wrote:
-> LCDIF programs LCD_DATABUS_WIDTH from the selected media bus format. The
-> format reported by the downstream panel or bridge describes the display
-> input, but it does not describe how the LCDIF data pins are physically
-> wired on the board.
+
+On Thu, 17 Sep 2026 07:56:10 +0000, Eliav Farber wrote:
+> When the PPS input GPIO is routed through a pin controller, a board may
+> need to mux those pins to a different function while pps-gpio is not
+> driving PPS (for example after the driver is unbound or across a kexec).
 > 
-> These can differ. For example, a 16-bit LCDIF bus can be connected to a
-> 24-bit display by wiring the available color bits to the corresponding
-> display inputs. In that case, using the display's 24-bit format to
-> configure LCDIF selects the wrong data-bus mode and changes the assignment
-> of color bits on the LCD_DATA pins.
+> Document the optional "default" and "inactive" pinctrl-names and show
+> both in the example. The "default" state selects the PPS/GPIO function
+> and is applied by the driver core before probe; the optional "inactive"
+> state, when present, describes the mux to restore when the driver is
+> unbound or the system is shut down. The driver looks the states up by
+> name, so "inactive" may appear in any position; it only requires that a
+> "default" state also exists.
 > 
-> [...]
+> Signed-off-by: Eliav Farber <farbere@amazon.com>
+> ---
+> Changes in v3:
+> - Do not constrain pinctrl-names to a fixed ["default", "inactive"]
+>   tuple. The driver looks the states up by name, so "inactive" may
+>   appear in any position and other states may coexist; only require
+>   (via "contains") that a "default" state exists, and reword the
+>   description accordingly
+> 
+> Changes in v2:
+> - Rename the released state from "idle" to "inactive"
+> 
+>  .../devicetree/bindings/pps/pps-gpio.yaml        | 16 +++++++++++++++-
+>  1 file changed, 15 insertions(+), 1 deletion(-)
+> 
 
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Tested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+My bot found errors running 'make dt_binding_check' on your patch:
 
--- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+Documentation/devicetree/bindings/pps/pps-gpio.example.dtb: pps (pps-gpio): pinctrl-names: ['default', 'inactive'] is too long
+	from schema $id: http://devicetree.org/schemas/pps/pps-gpio.yaml
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260917075611.47881-3-farbere@amazon.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
