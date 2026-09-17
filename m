@@ -1,202 +1,105 @@
-Received: from smtpcmd03116.aruba.it (smtpcmd03116.aruba.it [62.149.158.116])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B5C447142C
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 07:17:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.149.158.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B70A363C48;
+	Thu, 17 Sep 2026 07:20:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789629426; cv=none; b=e1SASwVuyDqAAU6XVVRHzHb3pFqVtB1ShbaLqXxrIN66iipwO3ac1ztERz2min26IDLIdBw6/iQvybmH34tinModvmbue/9WkjRulI82QmS3F0RLzTL6IdgE0vfu+mDlZNfEX7dWNVVd/gu20ECMtX5BmgGX/9T5K33CF8myk4c=
+	t=1789629642; cv=none; b=rf0Lf+6OwzazYO0mFXw4hYERbIrXf8slCCGeDCl2NFd/oA66TDztOjPZAWdQ/2LmUM49A+PPx1JZKV/oqI5+gmdHvrwMZHlwHQjT0+TeQOyP0GhTeZpUj5w3wOj+XjObTWSz4Jd8Iibjx1GPkIoaqGijUJzMqOxm2659nBanvoo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789629426; c=relaxed/simple;
-	bh=+gsryGw/r20fFSejZZzmEhrcFY3p4MApLE+pXLRWKs4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OrzuY7e1W6dCe0UCami+5sYaEK6bsok7R4HfWCjiA0oWM7KPAbmAeitpqnD0jGA/ePrMLu9qzPNC6Vb96LDi3D4zhyIetb7iPFn3eRmHVEyEGxfH9B48qy2jFhJZBMv18feNokLoZoA8a1GEoZARMnv7HPAmh8iZOrE6BHQFfY0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com; spf=pass smtp.mailfrom=enneenne.com; dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b=UawBDCAm; arc=none smtp.client-ip=62.149.158.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enneenne.com
+	s=arc-20240116; t=1789629642; c=relaxed/simple;
+	bh=wx2SyeWf9JRa6cDG3qjLvpIGJJwnS7Rcq5rTMoIyWUg=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WNAKDInTe7QESlSRneVIBhiI0eruQ2NW3nmH4M9PoiNf+FgzYkPuPFho6btA91K3IsgyzMbExTY6U44RQbddxzIsX5Ep3OuG+LHb5m9CglOYPJ+D/cRpWhPhH1/QYbJRmrd8JRMwjnHCqX6bPyy/HXTpXh/7DNuH9dXCXsoJ4+M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=lNMP9y0s; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b="UawBDCAm"
-Received: from [192.168.0.186] ([101.57.122.26])
-	by Aruba SMTP with ESMTPSA
-	id 76JnxtAXKGd7876JnxGCzj; Thu, 17 Sep 2026 09:14:04 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aruba.it; s=a1;
-	t=1789629244; bh=+gsryGw/r20fFSejZZzmEhrcFY3p4MApLE+pXLRWKs4=;
-	h=Date:MIME-Version:Subject:To:From:Content-Type;
-	b=UawBDCAmPc7hwNtL0XqelMUd4zhzYZXkFTSaID2ISH1qq0T4YFjzxizw5OangzLpo
-	 hLtd2QPjjcr7Khfw55Riog/2o3ZWaK6dTzEqkQ2vfiD514R+s0Mk/kcR+b1IFIde5W
-	 2SGn3L4LjaQsNB9K3GQIXZhWV3rIwka3xWsAaThcZSdYTf6+s4wKLE0b+41wGY/EET
-	 Sv/rVtBdYwi6b0L7KU4S7jV9gTqN1HC/RN+tjgHGQ3Y3PZeU7gms6/PoxHs+UCs+d/
-	 X3DVC1XWi0o06xWp6tOW4FbSeJYVjbfbuUfdXGZOdG5sJ+XwCyEw95ffyq4H2ecsHE
-	 GLtMNoXAaJYtQ==
-Message-ID: <1b25ba28-c53e-4425-8165-8205eab60e22@enneenne.com>
-Date: Thu, 17 Sep 2026 09:14:03 +0200
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="lNMP9y0s"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 469D71A091E;
+	Thu, 17 Sep 2026 07:11:58 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 12D5E5FAA3;
+	Thu, 17 Sep 2026 07:11:58 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E779D11C79EF2;
+	Thu, 17 Sep 2026 09:11:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789629116; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=v9SMgrY/6nxdHVGIqM+9vmlR0VE53yEvAwFaJ+/kk44=;
+	b=lNMP9y0sVjOhtTt6UinCCihuLL1n93QUA3hR32zzgX6Q86t1MsbyoXpgSYkulQUYA/qvAM
+	Ic3P7tFZb8QDRAqU8y+ZbHph2YgmDiwiHWmvxwVSd3P03OWS8l0axbmWYvPFeIahmjrUE7
+	tDu7Mal3dzvZsarAjS/bf1HzyGTGGFW9e4lagA+sQQJ1WNZE/I45AFNMK7UeNyNSAw3E6x
+	LJFuTLxqqHvWeSJfFnqy5APiSkdGmqV9p7xKBUCkxbJN2OaP4aRVVdWXRJpyRmBHz19UJb
+	XEK3WRwW65p1XBwUcrLGj+WtxZK9agtS3+mVDJbt0V037CYXEbZ1Wbvvp00L2g==
+Date: Thu, 17 Sep 2026 09:11:52 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: David Gibson <david@gibson.dropbear.id.au>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
+ Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
+ <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Frank Li
+ <Frank.Li@nxp.com>
+Subject: Re: [PATCH v3 08/15] flattree: Handle unknown tags
+Message-ID: <20260917091152.7ad271a8@bootlin.com>
+In-Reply-To: <aqpS_ejYTENzaE6-@gractus.seuss>
+References: <20260826083146.304291-1-herve.codina@bootlin.com>
+	<20260826083146.304291-9-herve.codina@bootlin.com>
+	<aqevEJ_VlBxYUp81@gractus.seuss>
+	<20260915121635.39f13d34@bootlin.com>
+	<aqkxacdQHZuhhyxw@gractus.seuss>
+	<20260916083130.7b14e90e@bootlin.com>
+	<aqpS_ejYTENzaE6-@gractus.seuss>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] pps: clients: gpio: release pins to an inactive
- state on remove and shutdown
-Content-Language: en-US
-To: Eliav Farber <farbere@amazon.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Fabio Estevam <festevam@gmail.com>, Andrew Morton
- <akpm@linux-foundation.org>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
- devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260916134744.46354-1-farbere@amazon.com>
- <20260916182641.9768-1-farbere@amazon.com>
- <20260916182641.9768-3-farbere@amazon.com>
-From: Rodolfo Giometti <giometti@enneenne.com>
-In-Reply-To: <20260916182641.9768-3-farbere@amazon.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4xfFTSlHHow1unu5ybyCLAoKq1GdSRHESb6WKOb4SkPGFtuX/Tqs5SbXiw3KNOeHsKl1bsPRTEUTIGoh0B0CnltegUoYhrf+xKWjEMC8VhR+nry+XArQsX
- 9X01a3VI1uP8enitE2vllHccWE0tRNYD6BQQpd7Bhj0qKda/r36H0161s1nEN/Kz1Jc75TAoDlG1XUVrM/ULYnQUq0yinnj81lti4Tos8Ep+8a5Su5XXmEjW
- j5Clyn6rN0K1euV8MahmtfvumtpYJiBriHynWkQ+ud6Rmfhd6Tyz5p05Q029GZ56AWmlrEwggpRxNUEPhM4tiPtgdHQamX+UPDqWOTNPAvXHWegyGumQMJLV
- F03CSBQLIs4UTVbbxla5DJHEBGGgnKDOG98c+rGL09yZgVYlezl3M/sXYcWpTvpjJILsapF1rJ2EOD4biINMS6CEZaeJXUCySvuQqNLbizIoy6B8cCPMDAbD
- RM2m73Sr3DZLyBSZvT5WW+S/xih8KFNcE2i5rmBuTL8cbAZI9HX5vCfetqvkgV9JZkykC0tywy/F2FDBRxQhA6jpfDOEGiTGPhUHWg==
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 16/09/2026 20:26, Eliav Farber wrote:
-> diff --git a/drivers/pps/clients/pps-gpio.c b/drivers/pps/clients/pps-gpio.c
-> index 73ec2c7335e5..e619c7bb2f78 100644
-> --- a/drivers/pps/clients/pps-gpio.c
-> +++ b/drivers/pps/clients/pps-gpio.c
-> @@ -17,6 +17,7 @@
->  #include <linux/slab.h>
->  #include <linux/pps_kernel.h>
->  #include <linux/gpio/consumer.h>
-> +#include <linux/pinctrl/consumer.h>
->  #include <linux/list.h>
->  #include <linux/property.h>
->  #include <linux/timer.h>
-> @@ -30,6 +31,8 @@ struct pps_gpio_device_data {
->  	struct gpio_desc *gpio_pin;	/* GPIO port descriptors */
->  	struct gpio_desc *echo_pin;
->  	struct timer_list echo_timer;	/* timer to reset echo active state */
-> +	struct pinctrl *pinctrl;	/* pin control handle */
-> +	struct pinctrl_state *pins_inactive;	/* pins released when unbound */
->  	bool assert_falling_edge;
->  	unsigned int echo_active_ms;	/* PPS echo active duration */
->  	unsigned long echo_timeout;	/* timer timeout value in jiffies */
-> @@ -96,6 +99,51 @@ static void pps_gpio_echo_timer_callback(struct timer_list *t)
->  	gpiod_set_value(info->echo_pin, 0);
->  }
->  
-> +/*
-> + * Look up the optional "inactive" pinctrl state: the mux to restore when
-> + * pps-gpio is unbound or the system is shut down. It is only meaningful
-> + * paired with a "default" state, which the driver core applies before probe
-> + * to mux the pins for PPS use. A board that describes neither is unaffected;
-> + * one that describes "inactive" without "default" is rejected, since
-> + * releasing pins that were never put into a defined PPS state is incoherent.
-> + */
-> +static int pps_gpio_get_pins(struct device *dev)
-> +{
-> +	struct pps_gpio_device_data *data = dev_get_drvdata(dev);
-> +	struct pinctrl_state *pins_default;
-> +
-> +	data->pinctrl = devm_pinctrl_get(dev);
-> +	if (IS_ERR(data->pinctrl))
-> +		return dev_err_probe(dev, PTR_ERR(data->pinctrl),
-> +				     "failed to get pinctrl\n");
-> +
-> +	/* The "inactive" state is optional; without it there is nothing to do. */
-> +	data->pins_inactive = pinctrl_lookup_state(data->pinctrl, "inactive");
-> +	if (IS_ERR(data->pins_inactive)) {
-> +		data->pins_inactive = NULL;
-> +		return 0;
-> +	}
-> +
-> +	/* "inactive" requires a "default" state to release back from. */
-> +	pins_default = pinctrl_lookup_state(data->pinctrl, "default");
-> +	if (IS_ERR(pins_default))
-> +		return dev_err_probe(dev, PTR_ERR(pins_default),
-> +				     "\"inactive\" pinctrl state requires a \"default\" state\n");
-> +
-> +	return 0;
-> +}
+On Wed, 16 Sep 2026 18:27:53 +1000
+David Gibson <david@gibson.dropbear.id.au> wrote:
 
-pinctrl_dt_to_map() returns -ENODEV when the node has no pinctrl-0 and
-create_pinctrl() forwards it. So this fails the probe on every pps-gpio
-board that describes no pinctrl at all, which is most of them; your
-setup has one, so the test does not show it. Shouldn't -ENODEV simply
-mean "no pinctrl here, nothing to do"?
+> On Wed, Sep 16, 2026 at 08:31:30AM +0200, Herve Codina wrote:
+> > Hi David,
+> > 
+> > On Tue, 15 Sep 2026 21:52:24 +1000
+> > David Gibson <david@gibson.dropbear.id.au> wrote:  
+> [snip]
+> > > > This avoid the need for 2 dtbs generated by treegen and also avoid to compare
+> > > > binary files which are difficult to analyze when the comparison detects a problem
+> > > > due to something broken by some modifications.    
+> > > 
+> > > We _want_ to understand and test things at the binary byte level.
+> > > Debugging differences is a little trickier, but it's really not that
+> > > bad - -Odts or fdtdump or dtdiff can be used if/when there's a test
+> > > failure.  I really think doing the comparison in binary is preferable
+> > > - that's the level at which the behaviour is specified and should be
+> > > tested.  
+> > 
+> > Right, will see what I can do. Probably generating using two specific dtbs
+> > as suggested in your first proposal.
+> > 
+> > Worth noting that each time a dtb will change due to, for instance, a new
+> > dtb version (or any other header field update), this test will need to be
+> > updated. DTC will generate the dtb with new headers value.  
+> 
+> If you use the default call for the header in treegen, which always
+> uses the latest version, then it should be fine.
+> 
 
-> +
-> +/*
-> + * Release the pins to their "inactive" state, if the board describes one, so
-> + * they are handed back to whatever function uses them while pps-gpio is not
-> + * driving PPS. Boards without an "inactive" state are unaffected.
-> + */
-> +static void pps_gpio_release_pins(struct pps_gpio_device_data *data)
-> +{
-> +	if (data->pins_inactive)
-> +		pinctrl_select_state(data->pinctrl, data->pins_inactive);
-> +}
+Yes indeed. Will give a try.
 
-The return value is the only sign that the mux was not restored, which
-is what the whole series is for. Why drop it?
-
-> +
->  static int pps_gpio_setup(struct device *dev)
->  {
->  	struct pps_gpio_device_data *data = dev_get_drvdata(dev);
-> @@ -161,6 +209,11 @@ static int pps_gpio_probe(struct platform_device *pdev)
->  	if (ret)
->  		return ret;
->  
-> +	/* pinctrl setup (optional states) */
-> +	ret = pps_gpio_get_pins(dev);
-> +	if (ret)
-> +		return ret;
-> +
->  	/* IRQ setup */
->  	ret = gpiod_to_irq(data->gpio_pin);
->  	if (ret < 0) {
-> @@ -216,9 +269,30 @@ static void pps_gpio_remove(struct platform_device *pdev)
->  	timer_delete_sync(&data->echo_timer);
->  	/* reset echo pin in any case */
->  	gpiod_set_value(data->echo_pin, 0);
-> +	/* release the pins last, once nothing can drive them anymore */
-> +	pps_gpio_release_pins(data);
->  	dev_info(&pdev->dev, "removed IRQ %d as PPS source\n", data->irq);
->  }
->  
-> +static void pps_gpio_shutdown(struct platform_device *pdev)
-> +{
-> +	struct pps_gpio_device_data *data = platform_get_drvdata(pdev);
-> +
-> +	/*
-> +	 * Quiesce the hardware before touching the mux: stop the IRQ and the
-> +	 * echo timer first so nothing can drive the pins, then hand them back
-> +	 * to their "inactive" function. The kernel keeps running after
-> +	 * device_shutdown() (for example to load and start a kexec image), so
-> +	 * the pins must not be released while an IRQ or timer callback can
-> +	 * still reach them. The PPS source is left registered; unregistering
-> +	 * it is a remove-time concern and is unnecessary on shutdown.
-> +	 */
-> +	free_irq(data->irq, data);
-> +	timer_delete_sync(&data->echo_timer);
-> +	gpiod_set_value(data->echo_pin, 0);
-> +	pps_gpio_release_pins(data);
-> +}
-> +
->  static const struct of_device_id pps_gpio_dt_ids[] = {
->  	{ .compatible = "pps-gpio", },
->  	{ /* sentinel */ }
-> @@ -228,6 +302,7 @@ MODULE_DEVICE_TABLE(of, pps_gpio_dt_ids);
->  static struct platform_driver pps_gpio_driver = {
->  	.probe		= pps_gpio_probe,
->  	.remove		= pps_gpio_remove,
-> +	.shutdown	= pps_gpio_shutdown,
->  	.driver		= {
->  		.name	= PPS_GPIO_NAME,
->  		.of_match_table	= pps_gpio_dt_ids,
-
-Ciao,
-
-Rodolfo
+Best regards,
+Hervé
