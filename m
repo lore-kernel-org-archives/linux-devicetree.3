@@ -1,127 +1,66 @@
-Received: from mail-vs2-f41.google.com (mail-vs2-f41.google.com [74.125.227.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F1EC36605E
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 08:07:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D91A3612F3;
+	Thu, 17 Sep 2026 08:07:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789632429; cv=none; b=aZWTNLCfuEu1GHdpNJtHZXKDxQOKAqWH/nwo2fyKCi3efBjrZcLLOAU8mp3pO2K1dD1mLbGK7GZI9SDDWO0q3DRI9BGw5FiM+Y4DJvLn9y1wKZoSlwxjvKSrZf86+RzS0NXMZICVpOFtNwxZkhhm+d57wRiu4xQcIttbjgJnghI=
+	t=1789632457; cv=none; b=qRUx493SqcYUqS/x1nzLUhhyRhKaQMweiHKm+IMrvmn3c1W5sXv757GsQMRqOYxWs+EFtdihS+TWMwxxT1IR4Hz1DKBYqFfFG1zh6EPadu73OzpKzDAl209LJdv3Tm0LmHs/AlcngfjNm2SKDp24Q9U/ldRHzSmxzk4peQBvwJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789632429; c=relaxed/simple;
-	bh=qf4Z/Wab6W5GL4Sinbl+uCK7C7f+qmxZxKQBDuJWh9U=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=o7J/8LQ2Nn3YPetP7qhVNJ6Y/cTBQo4iTwNkSqYCoGJ+0PTqWfKh9XPW/w1+vZLVeWTL8NvgXRNDYZ4IR6D7ojgDnWaMCZF2SvWmuP8t5RQUCTe1vSDxlPqmnXmdyOyrle5InWdS4q6SA6kPgDJ0aCmvQrq1Jh0HTer65bvmzpw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs2-f41.google.com with SMTP id 71dfb90a1353d-5c981b0d59cso326034e0c.3
-        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 01:07:07 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789632427; x=1790237227;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=jrUfKqIAU8KdEdqG0jEkfz64jh4Vm1/h0EwrowMtP0c=;
-        b=FiCYZO1VHEIIPy63GYj06t/A6IdmMvNO6W6/X+MFwbZUwqTUOiJT1MpOFeGv3bFsqL
-         sWVKk6yzZ3xdZkXUh6TOG94Gh5ng6++qHZMHDczCeD+TgwSE87+xJHDGShwQL0VJjPhz
-         VRyOVPpeyWFhBv3c3GHkyS+AAwGa8cwieP30ivaGG13Zs6mQwIy/lb7s9s3tS/RKj8rn
-         mvBnxHuRHI8H47l3nkIXaAUeRBeiP6vpfuCeS2nz63RIArSN3gHyeeuK+BaTISoBbip5
-         njuwSP8lMKSSf22OwzUTwmlE9aFNwBhgpghp2ukvhwpXcCZV8393PW57QdaEocyfTv9B
-         ZVJQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxwr+BH8I1dULeW39CtDtThnQYSGjmMyt5o71XLUKAIw2ud+WYNN7QTScdB0qvtH9jYMOHv3wbO6Btm@vger.kernel.org
-X-Gm-Message-State: AFuF++mO1uBf2yrsJCn9pNCAVtW8AFLQzlTxMJBA0CK2+2KY+riRFsVG
-	NUwEzJ2t4l983Rd2VwMFHezz34hQ/KAwcY8bcCsqcdtidQ+2d84/Mwlk+BlP0CP8EcQ=
-X-Gm-Gg: AYBFou2JJyFX7xwHRnkx7zuKyiBKClp+zL9uDkfatRMquiXuG9q6Lu1Nbxb4tWhlqtM
-	v9WgfOmei+CRWokrzTkOeX8T4KmLsODunF9l2FKnRAJTNjVYPeuX5eGMagtl/lmutABrwR5laNr
-	s2Gcx7mw41eoaWJhDzZgSGWWWHTa0NUdglJA97cWj8IEU8xVe9vNlOnrlkF0bfU4C/9km2gREvy
-	wbTvSa5X95EsZCT+L4FEC8P6MYNg+NXYu3pSuR1MJoYQgDgoY1AACAIqyhHey0rNqjBbQ9ko0tX
-	P7a7b5jDcbPZVXEZ12VcZh3bhpnzhEWC/HUSNfatj85SAJFtj9D2W+sxR+P5ObfCzCivsx9TeZt
-	iLbEMieAGixY7rtibiE4uTdPrtgzD+lnSL9/2vV6MmtMlGherPm6Cp3ZpB06DqZGUmQw2Gg9EF/
-	YTnKL5nzFiRoUl1uORBaZ8tAFDK5SaCJqwqBRylvgE8mwEuU575efwLB22u03j7vfQ6czQtb6b/
-	JDTxLZmRaHSAWBkxblMgoUatMSoTZEEXpoC1A==
-X-Received: by 2002:a05:6102:6a8a:b0:79f:d90a:cf65 with SMTP id ada2fe7eead31-7a02dadb9f1mr6749907137.9.1789632426887;
-        Thu, 17 Sep 2026 01:07:06 -0700 (PDT)
-Received: from mail-vs2-f15.google.com (mail-vs2-f15.google.com. [74.125.227.15])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-983234f4b58sm2283821241.3.2026.09.17.01.07.06
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 17 Sep 2026 01:07:06 -0700 (PDT)
-Received: by mail-vs2-f15.google.com with SMTP id 71dfb90a1353d-5c981b0d59cso326024e0c.3
-        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 01:07:06 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz23Dg7/bsNG2G66M1XtgLW/gg5I4Zmg7H7RggL7RMrf9LypZyBSIuxEqW5Ewd/mlh1fCprnD7h68np@vger.kernel.org
-X-Received: by 2002:a05:6102:918:b0:7a1:f951:6653 with SMTP id
- ada2fe7eead31-7a1f9516b82mr1577084137.26.1789632426525; Thu, 17 Sep 2026
- 01:07:06 -0700 (PDT)
+	s=arc-20240116; t=1789632457; c=relaxed/simple;
+	bh=RbbGft3V8Igjyap2JJgMjhfd1vsG/7Rr8CPDW2yMTlI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=RQaogFhuPve/YiXWsYrD8i5iWy1bjQG18O59gG2okoLnxsa9Q18kBKbXqxzfI7hcESyns4pefTbrOuZrAyFKjhTcRrbAHEOQVB/sLAf5JZsZwdtFNm/Ut0cqJVYMiAUc2JFhvStjI7+lfxPFiyc/TqL/EJaMPSP/Ke4n4VTFi3M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FXmOz+MO; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FXmOz+MO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 971BF1F000FF;
+	Thu, 17 Sep 2026 08:07:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789632456;
+	bh=RbbGft3V8Igjyap2JJgMjhfd1vsG/7Rr8CPDW2yMTlI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=FXmOz+MOXp/utC8cN0kFwUYafNgg7gVgjvc6WeDYIUpG2CmqCsAxTwALWKa2Mh9i5
+	 RQuZEFmw1sJloFN+m/ICzWNUs+jRB46SxkCCxYmZiULuWMSfQIqmpJMrFISIo3Ku6A
+	 7o+6KWC4wltV+iWrdS4VE1AZrcII8pjLi/JMkljD7SE8h1/pVux1fK3k7/Cdm86mXx
+	 Ze7aWQoGJVUVx2S+pBkxRCZ0r1XLdoZvr7SpNIdRO1EOJncu05NzOj+UJjZ7oq8BKR
+	 RUkfoYwpbYezYssh/0x7wuErEn9nu8MKeKp3Wcyzgat7k8DzNmLEmuh6T4FLIusTBo
+	 v1mQbJQXDdhxQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v12 2/6] mfd: khadas-mcu: Use MFD_CELL_* macros for cell
+ declarations
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ronald Claveau" <linux-kernel-dev@aliel.fr>
+Cc: lee@kernel.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org, linux-amlogic@lists.infradead.org, mfd@lists.linux.dev, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260917-add-mcu-fan-khadas-vim4-v12-2-497cd543a148@aliel.fr>
+References: <20260917-add-mcu-fan-khadas-vim4-v12-0-497cd543a148@aliel.fr>
+ <20260917-add-mcu-fan-khadas-vim4-v12-2-497cd543a148@aliel.fr>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 17 Sep 2026 08:07:35 +0000
+Message-Id: <20260917080735.971BF1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260917035438.523010-1-marek.vasut+renesas@mailbox.org> <20260917035438.523010-2-marek.vasut+renesas@mailbox.org>
-In-Reply-To: <20260917035438.523010-2-marek.vasut+renesas@mailbox.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 17 Sep 2026 10:06:54 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUKJYtZ=0r2rXbrsTcVyLmVs7m-jGbD2b7CgP_GRMeWdw@mail.gmail.com>
-X-Gm-Features: AcwNN1XfAZfrsW2pvaRzJQf-phJcWcSDCPkogzibQkcINXJ4SIBpgbRww5eIOW0
-Message-ID: <CAMuHMdUKJYtZ=0r2rXbrsTcVyLmVs7m-jGbD2b7CgP_GRMeWdw@mail.gmail.com>
-Subject: Re: [PATCH v4 2/2] gpio: rcar: Add R-Car X5H (R8A78000) support
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-gpio@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-On Thu, 17 Sept 2026 at 05:54, Marek Vasut
-<marek.vasut+renesas@mailbox.org> wrote:
-> R-Car X5H (R8A78000) is the first member of the R-Car Gen5 family.
-> Add support for R-Car X5H, which has slightly different GPIO block
-> register layout compared to previous generations. Introduce offset
-> remap table which performs 1:1 remap for R-Car Gen1..4 and a bit
-> more complex remap for R-Car Gen5.
->
-> The GPIO block register offsets on R-Car Gen5 changed and the change
-> can be divided into five groups, registers which remained at the
-> same offset, INDT register shifted by +0x10, OUTDTSEL register
-> shifted by -0x34, INEN register shifted by -0x38 and the rest of
-> the registers used by the driver shifted by +0x70 .
->
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> ---
-> Cc: Bartosz Golaszewski <brgl@kernel.org>
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Linus Walleij <linusw@kernel.org>
-> Cc: Magnus Damm <magnus.damm@gmail.com>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-gpio@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-renesas-soc@vger.kernel.org
-> ---
-> V2: Rewrite this into a table look up
-> V3: - Use enum gpio_rcar_reg
->     - Drop the IOINTSEL initializer
->     - Drop REG_COUNT
->     - s/int offs/enum gpio_rcar_reg reg/
->     - Make offsetmap into two maps, and static const
->     - Use C99-style initializers
->     - Drop BUILD_BUG_ON
->     - Store a pointer to the offset map table to use in priv
-> V4: Rebase on current next-20260916
+> From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+>=20
+> Convert khadas_mcu_fan_cells[] and khadas_mcu_cells[] to use the
+> MFD_CELL_NAME() helper macro instead of open-coding the struct
+> mfd_cell initialisers. While at it, make both arrays const since
+> they are never modified after initialisation.
+>=20
+> This is a pure cleanup with no functional change, done in
+> preparation for a subsequent patch which will need to attach
+> platform_data to the fan cell.
+>=20
+> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-Gr{oetje,eeting}s,
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917-add-mcu-fa=
+n-khadas-vim4-v12-0-497cd543a148@aliel.fr?part=3D2
 
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
