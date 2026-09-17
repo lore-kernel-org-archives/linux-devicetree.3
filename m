@@ -1,193 +1,127 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA81C448B9D;
-	Thu, 17 Sep 2026 07:05:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4A513A83BF;
+	Thu, 17 Sep 2026 07:10:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789628708; cv=none; b=oY9GqY4MSK6jrAnw25dZ0wJNDQhna6fkkpvXP/5TL/KpbzanThnPxCmeS8eGYo8PMfltL9sg6KeQF/t1TqZqnjvaQHk8dJtVtxcwEWg41LDv9X9S0QOj5HOh2OIybNtzplImI1y3Q/1+trD95Obnw6PwxaUzyJXkn8iLfNL1SdM=
+	t=1789629004; cv=none; b=O/z0ZouVRmolrxTWLw9REACJppFQvoKlZBI80pHUFAJ5od2BzOh6xaIiLH+Fg8Vjr4Bgo3BDmVjjum7yIcWSWzKIXaIvSkeRhW0B8DzhQOfisgv+80SxdXfa6IjMJ0eY3Rg50UupyB+QNVBtpT2FiPMlvHU5GeuL05csGZyWGeQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789628708; c=relaxed/simple;
-	bh=MNnmu76hPgGWj1Vt27yFxuabcyAjQ2ANFyMTfQshGqU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QG7s1sGWIN6obYJOG8EgHgr9iAQi4IzDZtUGtpOPOfh8BpkyR/vPab8/jyJlV/MK2Vao5i+l5mQC3xHGaSPswL3lJAh7yrmzGS1Z+TukewfVFnZ26PVsCESLX+Z2wJun2YFYo+iVBZQK9NTTydYri8RV5EoXtCBWKNkwF8C9iBQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=KJTlULcf; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789629004; c=relaxed/simple;
+	bh=mEsXJXUfeg+J2wdVlTN6mxmLM6jb7gdwBS092oeyO38=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IgB+sfAhkL4qKxxPAQmJOkyWaHiuPaWwD2vLkxx6Lzd2sx9KnvLKj1afhD5gnm0uuc3ptUNriMMSnD6sDLkg4KLjMBfhq4iYXkUsBLAsAUB4Chnp8eOktua4Q5Oj7w+DgChFZh0BQdSYzqHeaWHxNhI420AV4JSyPWeAOrkMDhw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hqs02RGj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="KJTlULcf"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 962C14E40786;
-	Thu, 17 Sep 2026 07:04:59 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 680D45FAA3;
-	Thu, 17 Sep 2026 07:04:59 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 65A3311C79EF2;
-	Thu, 17 Sep 2026 09:04:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789628698; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=E8iXZTQ0Z85lT35CKG6qwvlJKAl7XnP76vVQ48pKXAs=;
-	b=KJTlULcftlmHVGX4Os7GN4Vk+UriSVnXzUw90uaa3P7qK6jec83GB2imdNx0g6vW1Ng7gH
-	i+zOTP/dCBwmxnbAQHNNE3l4m74tyUJhdw/0lFj7h1eFDghsJBkPuFhTL0Q0s/deRCS4N4
-	Vz20BEH7Sf4ZlKFEYNmoRNq9X55j4UJv1HthcTGbo+/+M8JqREKH1bXxO6wQOJzcIM1rft
-	fjU1aQefmAnWUF2CGe8PIinQMiESGXR6mC0JrJdZRNG8qbSoJIsrdM7eZ7tTtTjxgIhle5
-	wi5wnOBhx5z8DWYvbRjDt7XuuElqDY6l9Ew69PdSShhyUk8q6I6NRX9uHpuFHA==
-Date: Thu, 17 Sep 2026 09:04:50 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Frank Li
- <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 06/15] Introduce structured tag value definition
-Message-ID: <20260917090450.770c107a@bootlin.com>
-In-Reply-To: <aqonNkbVqW9tf6Bg@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
-	<20260826083146.304291-7-herve.codina@bootlin.com>
-	<aqI3KnnQnUytqkEc@gractus.seuss>
-	<20260910094126.4bf4cae6@bootlin.com>
-	<aqJ5OhJcv4k-ZAj8@gractus.seuss>
-	<20260911091653.37b22b0f@bootlin.com>
-	<aqS6HmkaVYbrePtN@gractus.seuss>
-	<20260914121937.5b7fa2bb@bootlin.com>
-	<aqonNkbVqW9tf6Bg@gractus.seuss>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hqs02RGj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 515B31F000FF;
+	Thu, 17 Sep 2026 07:10:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789629003;
+	bh=rbz4sBgqfAts7eX1udBwlfoWe0KdCOY5WEmV0mk1Z6M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Hqs02RGjFzhob40I4I0u75rm4iBFm92AjrYKUIrTHn5bYY4DvgK4R4DdtER7Qs2Zz
+	 6pkucpOlySv3U3tgDbrPmzhHFBu9RGxrzXqK/+OKs1qVQ7RCOMvsE0monbKYImOzZR
+	 GB+S8m4hHm8cNtcEeUMqv2PD+bTjPo7yOsA1+5NNQSWXXF/NAFL2MQBLnR80BQkqoL
+	 10jWWMEBjkB5IkbA44Mxp0OWmveDj4NjduB96NJYR+VOmQorU7V7LdxMlSlnYw/ghv
+	 yZvmcxJX7yYC4GxaPgFP3X0YRd9KIFoQ6ilAIw0H9Ymxkzi7NWcaQT8OBc/lr5LZ05
+	 0/9aMwJv+mGJQ==
+Date: Thu, 17 Sep 2026 09:09:59 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>, 
+	Vikash Garodia <vikash.garodia@oss.qualcomm.com>, Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
+	Abhinav Kumar <abhinav.kumar@linux.dev>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Stanimir Varbanov <stanimir.k.varbanov@gmail.com>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Abel Vesa <abelvesa@kernel.org>, linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	iommu@lists.linux.dev, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v11 0/9] media: iris: Add support for glymur platform
+Message-ID: <20260917-dangerous-illegal-honeybee-cf479a@quoll>
+References: <20260917-glymur-v11-0-e0c8bc914742@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260917-glymur-v11-0-e0c8bc914742@oss.qualcomm.com>
 
-Hi David,
-
-On Wed, 16 Sep 2026 15:21:15 +1000
-David Gibson <david@gibson.dropbear.id.au> wrote:
-
-> On Mon, Sep 14, 2026 at 12:19:37PM +0200, Herve Codina wrote:
-> > Hi David,
-> > 
-> > On Sat, 12 Sep 2026 12:34:24 +1000
-> > David Gibson <david@gibson.dropbear.id.au> wrote:
-> > 
-> > ...
-> >   
-> > > > Do you mean that we should avoid the DATA_LEN_ENCODING and always have the
-> > > > 32-bit value right after the tag to give the size for all "skippable" tags?    
-> > > 
-> > > Yes.
-> > >   
-> > 
-> > I did a test using a dts file available in kernel sources. I used (arbitrary
-> > choice) juno.dts [0].
-> > 
-> > Without any new tags, the size of the compiled dtb is 27067 bytes.
-> > 
-> > With new metadata tags identifying phandles in properties (FDT_PROPDATA_PHANDLE),
-> > the size of the dtb becomes 29027 bytes and so 29027 - 27067 = 1960 bytes for
-> > those FDT_PROPDATA_PHANDLE tags (+7.2%).
-> > 
-> > The tags used are composed of:
-> > 32-bit: FDT_PROPDATA_PHANDLE value encoding 1 x 32-bit for data
-> > 32-bit: offset in the property where a phandle is present.
-> > 
-> > Removing the '1 x 32-bit' information from the tag value and adding a 32-bit
-> > 'length' in all cases will lead 3 x 32-bit values for a FDT_PROPDATA_PHANDLE
-> > tag (tag + length + offset) instead of the 2 x 32-bit (tag + offset).
-> > 
-> > Back to juno.dts instead of 1960 bytes, the FDT_PROPDATA_PHANDLE will need
-> > 1960 * 3 / 2 = 2640 bytes (+9.7%). This leads to around +2.5% of the whole
-> > dtb just to have the 32-bit for length. This +2.5% can be easily avoided.
-> > 
-> > Also, I will not be surprised to see more tags in the future adding some more
-> > metadata information and so increasing dtb sizes.
-> > 
-> > Quite often you have mentioned memory constraints system where libfdt should
-> > be as small as possible. On those system, the dtb itself is embedded in the
-> > binary close to libfdt. The size of dtb should be taken into account.  
+On Thu, Sep 17, 2026 at 10:30:19AM +0530, Vishnu Reddy wrote:
+> ---
+> Mukesh Ojha (1):
+>       media: iris: Enable Secure PAS support with IOMMU managed by Linux
 > 
-> Yeah, those proportions are high enough that I think it's worth it.
+> Vishnu Reddy (8):
+>       dt-bindings: media: qcom,glymur-iris: Add glymur video codec
+>       media: iris: Replace enum-indexed clock and power domain tables with per-block structures
+>       media: iris: Add power sequence for glymur
+>       media: iris: Handle CPU_CS_SCIACMDARG3 register write via program bootup registers hook
+>       media: iris: Add support to select core for dual core platforms
+>       media: iris: Add platform data for glymur
+>       arm64: dts: qcom: glymur: Add iris video node
+>       arm64: dts: qcom: glymur-crd: Enable iris video codec node
 > 
-> > If the SAFE_SKIP bit is removed, I even plan to use this now free bit in the
-> > length encoding part:
-> >   0b000: No data
-> >   0b001: 1 fdt32
-> >   0b010: 2 fdt32
-> >   ...
-> >   0b110: 6 fdt32
-> >   0b111: On additional fdt32 to encode the length of data.
-> > 
-> > IHMO, length encoding bits in tag value definition should be kept and used
-> > for all tags where the length is fixed and can be encoded using
-> > these bits.  
-> 
-> Well, I'm convinced we want some sort of compact encoding of the
-> length, but I think we can do better than the current proposal.  It
-> seems implausible to me that we'll need 2^29 different metadata tags,
-> so I think we can spend some more of the tag bits on the length.  How about:
-> 
->    0x80000000		structured tag bit
->    0x7fff0000		tag type
->    0x0000ffff		tag length
-> 
-> So we have up to 2^15 (32k) different structured tags each with a
-> length of [0..65534] bytes (length==65535 reserved for those that need
-> a full 32-bit length word).
-> 
-> I believe that will avoid the extra length word for everything you
-> have currently drafted.
-> 
+>  .../bindings/media/qcom,glymur-iris.yaml           | 218 +++++++++++++++++++++
+>  .../bindings/media/qcom,sm8550-iris.yaml           |   6 +
+>  .../bindings/media/qcom,sm8750-iris.yaml           |   6 +
+>  .../bindings/media/qcom,venus-common.yaml          |  11 +-
+>  arch/arm64/boot/dts/qcom/glymur-crd.dtsi           |  10 +
+>  arch/arm64/boot/dts/qcom/glymur.dtsi               | 120 ++++++++++++
+>  drivers/media/platform/qcom/iris/Makefile          |   1 +
+>  drivers/media/platform/qcom/iris/iris_common.c     |  10 +
+>  drivers/media/platform/qcom/iris/iris_common.h     |   1 +
+>  drivers/media/platform/qcom/iris/iris_core.h       |  32 ++-
+>  drivers/media/platform/qcom/iris/iris_firmware.c   |  69 +++++--
+>  drivers/media/platform/qcom/iris/iris_hfi_common.h |   1 +
+>  .../platform/qcom/iris/iris_hfi_gen2_command.c     |  19 ++
+>  .../platform/qcom/iris/iris_hfi_gen2_defines.h     |   1 +
+>  drivers/media/platform/qcom/iris/iris_instance.h   |   2 +
+>  .../platform/qcom/iris/iris_platform_common.h      |  46 ++---
+>  .../platform/qcom/iris/iris_platform_glymur.c      |  78 ++++++++
+>  .../platform/qcom/iris/iris_platform_glymur.h      |  15 ++
+>  .../platform/qcom/iris/iris_platform_sc7280.h      |  28 ++-
+>  .../platform/qcom/iris/iris_platform_sm8250.h      |  26 ++-
+>  .../platform/qcom/iris/iris_platform_sm8550.h      |  26 ++-
+>  .../platform/qcom/iris/iris_platform_sm8750.h      |  29 ++-
+>  .../media/platform/qcom/iris/iris_platform_vpu2.c  |  20 +-
+>  .../media/platform/qcom/iris/iris_platform_vpu3x.c |  67 ++++---
+>  .../platform/qcom/iris/iris_platform_x1p42100.h    |  27 ++-
+>  drivers/media/platform/qcom/iris/iris_power.c      |  20 +-
+>  drivers/media/platform/qcom/iris/iris_probe.c      | 153 +++++++++++++--
+>  drivers/media/platform/qcom/iris/iris_resources.c  |  81 ++++----
+>  drivers/media/platform/qcom/iris/iris_resources.h  |   8 +-
+>  drivers/media/platform/qcom/iris/iris_utils.c      |  58 ++++--
+>  drivers/media/platform/qcom/iris/iris_utils.h      |   3 +-
+>  drivers/media/platform/qcom/iris/iris_vb2.c        |   4 +
+>  drivers/media/platform/qcom/iris/iris_vidc.c       |   6 +-
+>  drivers/media/platform/qcom/iris/iris_vpu3x.c      | 216 +++++++++++++++++---
+>  drivers/media/platform/qcom/iris/iris_vpu4x.c      | 137 ++-----------
+>  drivers/media/platform/qcom/iris/iris_vpu_common.c | 102 ++--------
+>  drivers/media/platform/qcom/iris/iris_vpu_common.h |   3 +
+>  .../platform/qcom/iris/iris_vpu_register_defines.h |  13 ++
+>  38 files changed, 1229 insertions(+), 444 deletions(-)
+> ---
+> base-commit: 0d9d0dbf2fddcff5859d623e90ca73c4054276e1
+> change-id: 20260917-glymur-627d049900e0
 
-Yes, this will avoid the extra length field. The drawback is the that the
-tag value is no more a well fixed value. Each time we have to check the tag
-value we have to filter out the tag length.
+Look here:
+https://lore.kernel.org/all/20260726-glymur-v10-0-de451559e88b@oss.qualcomm.com/
+change-id: 20260601-glymur-4fcd4d832ecc
 
-For instance:
-- FDT_PROPDATA_PHANDLE
-  fixed data size 4 bytes for offset
-  tag value: 0x80010004
+so now does this work?
+	b4 diff '20260917-glymur-v11-1-e0c8bc914742@oss.qualcomm.com'
 
-- FDT_PROPDATA_PHANDLE_REF
-  data: 4 bytes for offset + N bytes for a string
-  tag value 0x8002ssss with ssss for the size
-
-This will lead to code like this:
-  tag = fdt_next_tag();
-  if (tag == FDT_PROPDATA_PHANDLE)
-    /* Do something */
-     
-  if (TAG_GET_ID(tag) == FDT_PROPDATA_PHANDLE_REF)
-    /* Do something */
-
-Further more, in the code you will both a mix of both construction:
-  while (tag == FDT_NOP || tag == FDT_BEGIN_NODE ||
-         TAG_GET_ID(tag) == FDT_BEGIN_NODE_REF);
- 
-with #define TAG_GET_ID(tag) ((tag) & 0xffff0000)
-
-Also when we write dtbs either in libfdt or dtc, tags value
-have to be built with the length when needed.
-#define TAG_VALUE(tag_id, length) (((tag_id) & 0xffff0000) || \
-                                   ((length) & 0x0000ffff))
-
-I am totally fine with that but we need to have it in mind.
-
-Of course, I can encode FDT_PROPDATA_PHANDLE_REF with 0x8002ffff + length
-field but we lose all the benefits
-
-Ready to see TAG_GET_ID(tag) and TAG_VALUE(tag_id, length) when needed in
-the code?
+No, it does not. You are sending bigger work, multi-version one, part of
+even bigger work, so please get the process working correct to make
+reviews easier.
 
 Best regards,
-Hervé
+Krzysztof
+
