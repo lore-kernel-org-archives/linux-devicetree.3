@@ -1,144 +1,98 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-4319.protonmail.ch (mail-4319.protonmail.ch [185.70.43.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FC94585961;
-	Thu, 17 Sep 2026 14:08:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69415569F1D;
+	Thu, 17 Sep 2026 14:10:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789654130; cv=none; b=o72aK99yrYVDUqxh97Ayr7yz1lpO+9sdMHnu0V2fBxjm9LNYyCgLiy/mo5KqurIrDE32HdVHkNOGX0+NgJeBmXPDEEvNVXFbOZ++YDwTvJ2xLJHfdVkhN6KUTKcIBQQrAERS55s1BRVKwyWAQZd3FLdCgq5+VbTZO0dRJgQPiEE=
+	t=1789654219; cv=none; b=Vn41i6IgobfUsQaBfqdRCi8jmonysA7jijC0QEOCHCrehiomqvLheaJvipjkUf7FLzm+rsLjzGHpH1PsInMU1m4qCozt7TMUP6z70Qv4mbbdIfZXrcQ1iuNZ9l8RCmoNVyfLJt9ygmWWO2mS+YnUnH+WUaEm5kmA2drlvprOM6A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789654130; c=relaxed/simple;
-	bh=t6XrF1X5QM2mzrSJfZxp0KiKTO5w2G6nGOk7OrNjfuc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IY6M9RR76G+RLFHKd618eP3OIkfSvc1C6EPUcMrPBf6HNvQIIjvYsgg4rHUGfBgf/qcoakniEkiUh6wwEwv/Cl3ck05SAIVSFElZVJgNy/ClK9Rfq1KXSMNXUmnN5tj3U6PidJe3jQNc0yz/ISuqr5vZH47OuW2Do/0p/TLik9I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=WC3Jbluy; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1789654219; c=relaxed/simple;
+	bh=U0kQ20G2GyxZdcHxUkGcj/TBXWhOw07BqxWa+U6dizM=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=k/yoa6l2RKgEs5wKC7F9elEf9vhkT3bxlq/H088xZaY2PFePQezlZ+SLYqRinjnLF1LPkGJV3Oc8orRRFQrHD9WqBh5wC1V7WYn3un1Np/SqUNg3+erNyPlI4WfN1UfWCssrSBEphPVZEaxcTerXf89ouJ4qJoiYee3W8b+czu8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=VpH4rEUB; arc=none smtp.client-ip=185.70.43.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="WC3Jbluy"
-Received: from francesco-nb (xcpe-178-82-167-143.dyn.res.sunrise.net [178.82.167.143])
-	by mail11.truemail.it (Postfix) with ESMTPA id DADEA227EA;
-	Thu, 17 Sep 2026 16:08:39 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1789654120;
-	bh=04sGXrdIwPyZcUs1Jy4idOXaBQa8m7ARyP/sXMKY+Ns=; h=From:To:Subject;
-	b=WC3Jbluydah594rbdqN0S7h5hmk27BYCVaKXWLXc4MwHJbWaqWuZ99DmAd6TcDQEv
-	 Qi6K9EaajyTsBzNtbAFBWeJjEGQwsqgy3jjkRN7IoazC/WzjS9yoFDUBBPHcQiTbAN
-	 24bGCyieBr7tmrjAT6FJqo+i3WJE5ZiLgKZB+1bhbzy6vjmL3mWruLcf1jL+iukI8c
-	 uAlwYAV07d7A9iuxUD4+onViwCVUm03Yt/SYhUqOpXD7lYQnuxwhjYXwo+IrmkqbwW
-	 8zU8JXtamiiPZrtTe03/p1AE4p+CNnF6NBLB+cIRK4bQ8Uom1+s+Qb6h8yJfUvjGtI
-	 IcCwwbNwWStVg==
-Date: Thu, 17 Sep 2026 16:08:36 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Frank Li <Frank.li@oss.nxp.com>, Frank Li <Frank.Li@nxp.com>
-Cc: Francesco Dolcini <francesco@dolcini.it>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
-	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
-	Franz Schnyder <franz.schnyder@toradex.com>
-Subject: Re: [PATCH v2 3/7] arm64: dts: freescale: Add Lino iMX93
-Message-ID: <20260917140836.GA119572@francesco-nb>
-References: <20260911091952.96233-1-francesco@dolcini.it>
- <20260911091952.96233-4-francesco@dolcini.it>
- <aqQQjCW1xaGfPdss@SMW015318>
- <20260914054214.GA19835@francesco-nb>
- <aqgEfRl9INLZ-DWM@SMW015318>
- <aqgGgxzqiIbF66DX@francesco-nb>
+	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="VpH4rEUB"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1789654209; x=1789913409;
+	bh=U0kQ20G2GyxZdcHxUkGcj/TBXWhOw07BqxWa+U6dizM=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=VpH4rEUBVwNKZgtPJluSktDjlAEaDfH9VaOD8Ng8JlUBzmMpsjdlGr8CVNiWja20l
+	 gO+htypaYTX/BL0L05eQMXuidQd9iztEmx6LJOJy1jYmXmLXWk6XsV76zS+eCsA9pJ
+	 rzJxATVC1aU0YNUbVeDpfD5H0fQGgkEpzU/7kF+rYpOfCaxw2Cx2aYofu16/UFk3sX
+	 sOd3eseesWQLxg21VH/VbgXWW6C+UF1annJDvjofIez00QrXGyM16DTiOKz5eB+lyb
+	 7iyjkWnxJBtzIq0qxrVqwyrOhob62RKIfxEMdGJS1Rdj8Ig8BJKR/jFpKka0mW9gpZ
+	 peV8noiaE7Cog==
+Date: Thu, 17 Sep 2026 14:10:04 +0000
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+From: Roman Vivchar <rva333@protonmail.com>
+Cc: Chunfeng Yun <chunfeng.yun@mediatek.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] usb: mtu3: introduce platform data
+Message-ID: <W3RQEXxvwip3Mexf-O8unMK1o-0tjlq2OUYD6DJVSdy9d6JmV0JJsp6RmWGcecqc8KGiLlxpuP-vE2u03s29zsytiROc17Vp_EoVQdjqyIg=@protonmail.com>
+In-Reply-To: <b3b2f2ae-1eb1-4d3d-9f4b-4de3868802f1@collabora.com>
+References: <20260917-6595-mtu3-v1-0-a2ba7c230d68@protonmail.com> <20260917-6595-mtu3-v1-2-a2ba7c230d68@protonmail.com> <b3b2f2ae-1eb1-4d3d-9f4b-4de3868802f1@collabora.com>
+Feedback-ID: 173184497:user:proton
+X-Pm-Message-ID: 2e9365794284a1e4314c717f619a219150d8bd88
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqgGgxzqiIbF66DX@francesco-nb>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hello Frank,
+Hi Angelo,
 
-On Mon, Sep 14, 2026 at 04:36:51PM +0200, Francesco Dolcini wrote:
-> On Mon, Sep 14, 2026 at 09:28:13AM -0500, Frank Li wrote:
-> > On Mon, Sep 14, 2026 at 07:42:14AM +0200, Francesco Dolcini wrote:
-> > > Hello Frank,
-> > >
-> > > On Fri, Sep 11, 2026 at 09:30:36AM -0500, Frank Li wrote:
-> > > > On Fri, Sep 11, 2026 at 11:19:46AM +0200, Francesco Dolcini wrote:
-> > > > > From: Francesco Dolcini <francesco.dolcini@toradex.com>
-> > > > >
-> > > > > Add support for the Lino iMX93 SoM, its Verdin adapter and development
-> > > > > carrier board.
-> > > > >
-> > > > > The SoM is available in two variants, with i.MX91 or i.MX93 SoC, using
-> > > > > the same PCB (the two chips are pin to pin compatible), to avoid
-> > > > > duplication create a common dtsi to share commonalities.
-> > > > >
-> > > > > Link: https://www.toradex.com/computer-on-modules/lino-arm-family/nxp-imx93
-> > > > > Link: https://www.toradex.com/accessories/lino-verdin-adapter
-> > > > > Link: https://www.toradex.com/products/carrier-board/verdin-development-board-kit
-> > > > > Co-developed-by: Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
-> > > > > Signed-off-by: Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
-> > > > > Co-developed-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-> > > > > Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-> > > > > Co-developed-by: Franz Schnyder <franz.schnyder@toradex.com>
-> > > > > Signed-off-by: Franz Schnyder <franz.schnyder@toradex.com>
-> > > > > Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
-> > >
-> > > ...
-> > >
-> > > > > +&gpio1 {
-> > > > > +	gpio-line-names =
-> > > > > +		"LINO_P18",
-> > > > > +		"LINO_P16",
-> > > > > +		"PMIC_I2C_SCL",
-> > > > > +		"PMIC_I2C_SDA",
-> > > > > +		"",
-> > > > > +		"",
-> > > > > +		"",
-> > > > > +		"",
-> > > > > +		"",
-> > > > > +		"",
-> > > > > +		"LINO_P65", /* 10 */
-> > > > > +		"LINO_S18",
-> > > > > +		"LINO_S24",
-> > > > > +		"LINO_S20",
-> > > > > +		"LINO_S22",
-> > > > > +		"";
-> > > >
-> > > > Can you wrap to 4 names pre line
-> > > >
-> > > > 	gpio-line-names = "LINO_P18", "LINO_P16", "PMIC_I2C_SCL", "PMIC_I2C_SDA",
-> > > > 			  "", "", "", "",
-> > > >
-> > > > Reduce LOC, and easy to locate number, such gpio 13,  second of 3rd line
-> > >
-> > > I already replied on the v1 that I disagree on your request.
-> > 
-> > Your v2 sent too quick before I read v1.
-> > 
-> > > To me it is
-> > > just more readable the way it is now and I do not see minimizing the
-> > > lines of code something that is bringing any kind of benefit on its own.
-> > 
-> > The major concern is that it makes code read harder and lost focus by long
-> > lines.
-> 
-> Understood, we do disagree on this.
-> 
-> > > Is this blocking this from being picked up?
-> > > Is there any other concern on this series?
-> 
-> Can you answer these two questions?
+On Thursday, September 17th, 2026 at 4:41 PM, AngeloGioacchino Del Regno <a=
+ngelogioacchino.delregno@collabora.com> wrote:
 
-Please let me know if it is a requirement to have the gpio line names
-wrapped with 4 elements per row or not. I am waiting on your answer on
-this.
+> On 9/17/26 09:32, Roman Vivchar via B4 Relay wrote:
+> > From: Roman Vivchar <rva333@protonmail.com>
+> >
+>=20
+> That's good, but the commit title doesn't explain anything.
+>=20
+> usb: mtu3: Add SoC platform data for FIFO slots ?
+>=20
+> ...or anything else that actually explains what you're doing.
 
-Thanks,
-Francesco
+Ack.
 
+>=20
+> > Some SoCs, such as mt6595, require specific quirks for the MTU3 to
+> > function properly.
+> >
+> > The mt6595 IP block doesn't support multiple slots for the FIFO,
+> > resulting FIFO wrap.
+> >
+> > Fix this by adding platform data with a field to handle FIFO limitation=
+.
+>=20
+> Well, also say that this commit brings no functional differences for the
+> currently supported SoCs :-)
+
+Indeed. Will do.
+
+...
+
+> > +=09unsigned single_slot:1;
+>=20
+> unsigned fifo_single_slot:1 ?
+>=20
+> ...or you can bring the entire pdata structure in there for easy future e=
+xtension.
+> Your choice.
+
+I don't think it's worth pulling 4 or 8 bytes just for one flag. Let it
+be a bitfield for now.
+
+Other comments will be fixed in v2.
+
+Best regards,
+Roman
