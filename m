@@ -1,181 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E005B225403
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 00:08:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8D7130E0FC;
+	Thu, 17 Sep 2026 00:26:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789603718; cv=none; b=U8+l3KX3FcNAgMdN8JAaDTRROqzh1sX/yq5EvFJDQlaYJ8Jgn/vADeD0GNua2TK56Qnkpt7p1a8maL6KRcM5eXwfyk06y9PmQ+uqqeP9F+N4wMiDZZMqNhZLaFa9uZ4jZ1K7fTNzfkSOLTwegDdxPNNYkZDGstXWleTthjKW5ss=
+	t=1789604765; cv=none; b=oiBT+iN1RqPywgAgs4NO+eOCWptIWfqlmBZBklVSH+gifCQMglQbHcqnHT8SDCDVc3BU7+u9aYx6KwwZiOTNxk9YT6XrDI2K3GNt+N8OK2xJGbgAj5zzGQTUjEm8KJvGuysOS2PjXgXWL/iPd5oYrUNQJ80hbDc7D9D+QACjB24=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789603718; c=relaxed/simple;
-	bh=pRAk7foY/DUGjEbnQZoFLzbD9g4nCnqGCV5/GSBSOfM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=l42mV7EqEyrwosSCa3IS2d58+LRUR7hcXeKCcZw8WBWVp/d0p/cOX3SU+3ckCxy43IxO5A3Vi5B31Np3gD/hXRYrPZnllgOwNeLDDx4gQVTXhc/A7sqpuja75D/ntJdp3KSY00XbvxtF2m4/UD31Dm+bxTgk/LuTXS515th+m5U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RQoKq/YM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789604765; c=relaxed/simple;
+	bh=iSibOD/T/kchhH6oVB2brO1ndKCNXB6kk0oHOL7Qmqk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WJ0KeqgQ6OG7+SRY7K7qR0lJu42Pgwjj+DZ3kJz518PyIVdvAjk4hubr74eTK+DLEe0bxzKe16rs6GINqEyFpxj6Hy3LclEgw3GDHt59Zcf9bDkzD9C5/PviHoM/1teKriu0wNVABPsyld86ksnAMH8ca0Qo4ukQmCQIpbuMwbE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=LVcM73Ee; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=EZqcg+WQ; arc=none smtp.client-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RQoKq/YM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 613251F000FF;
-	Thu, 17 Sep 2026 00:08:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789603714;
-	bh=MMxh5Y2XGIBli5WDqvkQ78g//L7qYT0cVlHqUzTO6h8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RQoKq/YMv2cOCHvZyScKI2OESrMTyhzR6fnoT4JwMBRC53LrbPBss/pOyTjFH+dPe
-	 Sn4WwSnyypS2gK2KsYDqeQFJnp8Lpa5mtnxP7BuB8hmdl/nZ+GLnV2Ke+mmqCUDBs7
-	 vlnoR+qazYcXZyn4iuam1Mua74C4NG1JNTlP1RFoZ0b4XqPl1dn8t6sqLGKOjcm/oj
-	 vMJuT1QrTcWesM202nk+p5sUdz4bCRd+f+Q12WFw4dUNPwo0UpDiL9zb/nDN9ARhM5
-	 ZKBONLQ3cY02Uj1Dnvtq676QKUcblF46aQM5owoNpPoYiPixXlRmVXhCGmJe6LKtJU
-	 1GO2/k4WO1Nbg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v18 2/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?QnJ5YW4gTydEb25vZ2h1ZQ==?= <bryan.odonoghue@linaro.org>
-Cc: vkoul@kernel.org, olteanv@gmail.com, conor+dt@kernel.org, robh@kernel.org, linux-phy@lists.infradead.org, media-ci@linuxtv.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org
-In-Reply-To: <20260917-x1e-csi2-phy-v18-2-6515b5255fa9@linaro.org>
-References: <20260917-x1e-csi2-phy-v18-0-6515b5255fa9@linaro.org>
- <20260917-x1e-csi2-phy-v18-2-6515b5255fa9@linaro.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 00:08:33 +0000
-Message-Id: <20260917000834.613251F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="LVcM73Ee";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="EZqcg+WQ"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hlc481rMBzKmTs;
+	Thu, 17 Sep 2026 02:26:00 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1789604760;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=y2bda2hrUG6hQ7CFdDx3ecwHTadsaa86mvc+4OAGxTA=;
+	b=LVcM73Eem2G3RPSRFOEqsWTEPHOi5cBm7PAXLHakvQqkNTiq+EdUGpMCoYQ8aAA+aoXKEj
+	KUVgL4F3O7MjinVZsWkuMcnMXmlMV1MFof4PMyXghZQ+hfXrMd2hQXJy0JaIy+4afJZY7/
+	u5ySArX3tSW0rkeV5f02M1KHSnHv6ByLtKSVwj8z5MO6Fgg0Gm8+6BKwxZvYS6w0vf0Kpg
+	SIex5ASPOayKrj0gKEbLbUC8AnRw0ODhhQGZ0HMTveazTa+eE8ltHm5eIxqXAiaGbQl5Ai
+	dALrODv/HBBesxezlmJDKpV+qcocr1Fq/AjSEMHaqNbhvZRkYbRIn+DbGR8ueg==
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1789604758;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=y2bda2hrUG6hQ7CFdDx3ecwHTadsaa86mvc+4OAGxTA=;
+	b=EZqcg+WQUyvUtdv/nHiupPdm/deT8EPGSs5rb7EK478h7iEZo2IneHSf81b1gRbdFUWVDt
+	lN42hhGn/nZ1lI6jD2DWY1VngW2vqwrnzW/G5s2yDpuvHo4cdBLD+DnArJmBc6nTMhhr4T
+	UiWjkk+LLpg2n8VN7Nlq3CP2CuhWzblpWFLhlmx0cgFVQmg91EZXq00X0g77+7Ai8lJzaC
+	tygj3XrXsgCdhH7cAo2ljESfYJWBILVp7GbRqkM0YmIPZnCkm+ZceUcR2kBg6ibwemoC5U
+	OHxUOO2KJ4Shk2MGMmOVSvAppndUOUPsBLaIXQg+RAjJrJkLxK50JsIbn9KMAA==
+To: linux-arm-kernel@lists.infradead.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org
+Subject: [PATCH] media: dt-bindings: raspberrypi,pispbe: Fix example indent
+Date: Thu, 17 Sep 2026 02:25:18 +0200
+Message-ID: <20260917002554.362516-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: 5qp9m4k81hdz7qiox1nruwzn77rx3jcs
+X-MBO-RS-ID: 08714f8258e988e5b26
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Medium] phy: mipi-csi2: valid settle_cnt of 0 is incorrectly treated as =
-an error
-- [Low] phy: mipi-csi2: missing bitmask on hardware version read
-- [Low] phy: mipi-csi2: unused clk_names array and incomplete clock validat=
-ion
---
+Fix two spaces before { in example. No functional change.
 
-commit 96f989cd7293176051d565c67a575abc0e3f18e1
-Author: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+DT checker reports this as follows:
+"
+./Documentation/devicetree/bindings/media/raspberrypi,pispbe.yaml:56: example 0 [redundant-whitespace] extra whitespace before {
+"
 
-phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+---
+Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-media@vger.kernel.org
+Cc: linux-rpi-kernel@lists.infradead.org
+---
+ Documentation/devicetree/bindings/media/raspberrypi,pispbe.yaml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-This commit adds a new MIPI CSI2 DPHY driver for Qualcomm platforms,
-supporting the "qcom,x1e80100-csi2-phy" device. It imports existing
-CAMSS CSI PHY initialization sequences to configure data and clock lanes.
+diff --git a/Documentation/devicetree/bindings/media/raspberrypi,pispbe.yaml b/Documentation/devicetree/bindings/media/raspberrypi,pispbe.yaml
+index 1fc62a1d8edaf..5c0f2f7b1d957 100644
+--- a/Documentation/devicetree/bindings/media/raspberrypi,pispbe.yaml
++++ b/Documentation/devicetree/bindings/media/raspberrypi,pispbe.yaml
+@@ -53,7 +53,7 @@ examples:
+         #address-cells = <2>;
+         #size-cells = <2>;
+ 
+-        isp@880000  {
++        isp@880000 {
+              compatible = "brcm,bcm2712-pispbe", "raspberrypi,pispbe";
+              reg = <0x10 0x00880000 0x0 0x4000>;
+              interrupts = <GIC_SPI 72 IRQ_TYPE_LEVEL_HIGH>;
+-- 
+2.53.0
 
-> diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c b/drivers=
-/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
-> index 0000000000000..966d79c98f9b2 100644
-> --- /dev/null
-> +++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
-> @@ -0,0 +1,385 @@
-[ ... ]
-> +static void phy_qcom_mipi_csi2_hw_version_read(struct mipi_csi2phy_devic=
-e *csi2phy)
-> +{
-> +	const struct mipi_csi2phy_device_regs *regs =3D csi2phy_dev_to_regs(csi=
-2phy);
-> +	u32 tmp;
-> +
-> +	writel(CSIPHY_3PH_CMN_CSI_COMMON_CTRL6_SHOW_REV_ID, csi2phy->base +
-> +	       CSIPHY_3PH_CMN_CSI_COMMON_CTRLn(regs->common_regs_offset, 6));
-> +
-> +	tmp =3D readl_relaxed(csi2phy->base +
-> +			    CSIPHY_3PH_CMN_CSI_COMMON_STATUSn(regs->common_regs_offset, 12));
-> +	csi2phy->hw_version =3D tmp;
-
-[Severity: Low]
-Does this read allow non-version bits to corrupt the final hardware version
-value?
-
-The subsequent reads for bytes 1-3 apply a bitmask (e.g., & 0xFF00) to
-discard garbage in the upper bits, but this first read assigns the value
-directly. Could stray bits in the higher registers from offset 12 corrupt
-the assembled version string?
-
-[ ... ]
-> +static u8 phy_qcom_mipi_csi2_settle_cnt_calc(s64 link_freq, u32 timer_cl=
-k_rate)
-> +{
-> +	u32 t_hs_prepare_max_ps;
-> +	u32 timer_period_ps;
-> +	u32 t_hs_settle_ps;
-> +	u8 settle_cnt;
-> +	u32 ui_ps;
-> +
-> +	ui_ps =3D div64_u64(PSEC_PER_SEC, link_freq);
-> +	ui_ps /=3D 2;
-> +	t_hs_prepare_max_ps =3D 85000 + 6 * ui_ps;
-> +	t_hs_settle_ps =3D t_hs_prepare_max_ps;
-> +
-> +	timer_period_ps =3D div_u64(PSEC_PER_SEC, timer_clk_rate);
-> +
-> +	if ((t_hs_settle_ps / timer_period_ps) < 6)
-> +		return 0;
-> +
-> +	settle_cnt =3D t_hs_settle_ps / timer_period_ps - 6;
-> +
-> +	return settle_cnt;
-> +}
-[ ... ]
-> +static int phy_qcom_mipi_csi2_lanes_enable(struct mipi_csi2phy_device *c=
-si2phy,
-> +					   struct mipi_csi2phy_stream_cfg *cfg)
-> +{
-> +	const struct mipi_csi2phy_device_regs *regs =3D csi2phy_dev_to_regs(csi=
-2phy);
-> +	struct mipi_csi2phy_lanes_cfg *lane_cfg =3D &cfg->lane_cfg;
-> +	u8 settle_cnt;
-> +	u8 val;
-> +	int i;
-> +
-> +	if (cfg->link_freq <=3D 0)
-> +		return -EINVAL;
-> +
-> +	settle_cnt =3D phy_qcom_mipi_csi2_settle_cnt_calc(cfg->link_freq, csi2p=
-hy->timer_clk_rate);
-> +	if (!settle_cnt)
-> +		return -ENODEV;
-
-[Severity: Medium]
-Will this erroneously reject valid hardware configurations?
-
-The calculation in phy_qcom_mipi_csi2_settle_cnt_calc() evaluates to 0 when
-the ratio is exactly 6, but it also returns 0 when the ratio is less than 6
-to indicate an error.
-
-Since phy_qcom_mipi_csi2_lanes_enable() checks if (!settle_cnt), does this
-overlap cause a valid configuration to be spuriously rejected as an error?
-
-> diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c b/drivers/phy=
-/qualcomm/phy-qcom-mipi-csi2-core.c
-> index 0000000000000..c0a4fa20eaf0c 100644
-> --- /dev/null
-> +++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c
-> @@ -0,0 +1,463 @@
-[ ... ]
-> +static int phy_qcom_mipi_csi2_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	for (i =3D 0; i < num_clk; i++) {
-> +		if (!csi2phy->clks[i].id)
-> +			return dev_err_probe(dev, -EINVAL, "Missing clock-names\n");
-> +
-> +		if (!strcmp(csi2phy->clks[i].id, "timer")) {
-> +			csi2phy->timer_clk =3D csi2phy->clks[i].clk;
-> +			break;
-> +		}
-> +	}
-
-[Severity: Low]
-Does this loop exit early upon finding the timer clock, failing to validate
-the remaining dynamically loaded clocks?
-
-Because devm_clk_bulk_get_all() does not use the carefully defined
-soc_cfg->clk_names array, breaking early here appears to bypass expected
-clock validation. Would the driver blindly accept misnamed clocks instead of
-enforcing the expected platform clock list?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917-x1e-csi2-p=
-hy-v18-0-6515b5255fa9@linaro.org?part=3D2
