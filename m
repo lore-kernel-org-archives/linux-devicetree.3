@@ -1,79 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FA2F48FF77;
-	Thu, 17 Sep 2026 08:39:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5995D4908A2;
+	Thu, 17 Sep 2026 08:39:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789634354; cv=none; b=aZGNRkf8WMcVgyiyTiiSJLz5/05xlZCz2Lk/AL9iOrcPeE96OGcEKibtiODcNCPfRqK1IwvM2iJ+sxmZ6/+vjgycbB+YwcmlZuFVuc5JHWplo6xAY5D1JmF8tHkFZqumVhp+85mQ/aKJRxueSAdbFQh/WcoebCy/c5Nf3T3Q3GE=
+	t=1789634369; cv=none; b=gMYrBa7KizHcwBLGWAWm8JqoA5IlvMg61mby9r7mhxBQU1/B3SYo5sOKOAv6NiNSyM53CKZBfOjQqDNGhFxxDHVp741/K9tC0lMxwDp40LuBR0sAFF4O4JORyJNWzGClG0cOqoHzDNfKFOmbcUlUpvIfvxwRoU056wA1A3npwEA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789634354; c=relaxed/simple;
-	bh=GynwFI5vip7Kr6umZm873EPrEE38lvHB75YMQiazVS8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qMTj01Axo2l1ZHb6vUwP0M4nYRrfE0Kr4EbDTaYehU3yLPKqeQLISS4tN36ueF7RIFb86sCpNSsnk1x3m6wqxpYzACjDg/ObFKmur2sD+b6yGACDeYzfxLMny55yhN6gjhO9kh3OeGo9FzvdSm9cF9wsZNdEuVixf4GyCyAEmKM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZGOGmkLC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789634369; c=relaxed/simple;
+	bh=VOIt5Ueo84n51MFKJuHQvwxVAUjNMQhMgUwGhvuj4U0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=oX3DpDLutkQFHTuTu6Bo1gjwgXCFdZ668Bu8QQzWS6cxyshkUVmzr1LLCRaGSmJhu58HzPevYjPTRCKfKc9xZgAicoGVe+fdM660CV5nab+17SVT2VuP/289wBHckG0EYLsHEnldVPRV1gCgGjwdCJHGLngxF4AKctCZy9MzGGE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=op4rD8uE; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZGOGmkLC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CE921F000FF;
-	Thu, 17 Sep 2026 08:38:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789634335;
-	bh=23XbxxprwWAPo80YX3fykLj/tp02PZCODbSLdyrtjZg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZGOGmkLCTT7Bs5w8cPdOHQn1CdbXRD2L8uTmHCuTN2MDz8opdkBmptV09MIQeDuAK
-	 lIvvFuu8+EKC0IuI8HTBEapSViryR+G1F/9xkidm43ayb0oz70WllhQe/3inBJQVrp
-	 DSIZ+JnzOoQXHjNDjY+eFJd5JpJhYQ2343mhmEiMSS/RRdyPgLetKFkIvF6tXoH62B
-	 Srch9mvOtOZVvXZ2wL0qy/TVJzCm/TKQ3tBjdrQcAyRAjXSSzvPdMlwblznmujK2Tk
-	 m7z+oyCxrdDkx/ZcfhDgGa1EzKtEbsZNkE999EeG0V6wbxBcZX+QmcxTb7mq7IwGcJ
-	 GHE5aPTT/uSew==
-Date: Thu, 17 Sep 2026 10:38:51 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	linux-input@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: input: Add compatibility for Awinic
- AW8695
-Message-ID: <20260917-dancing-stork-from-shambhala-ff49ab@quoll>
-References: <20260914-aw8695_haptic_fp4_driver-v1-0-156f7549149a@fairphone.com>
- <20260914-aw8695_haptic_fp4_driver-v1-1-156f7549149a@fairphone.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="op4rD8uE"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 9323EC2BCB9;
+	Thu, 17 Sep 2026 08:39:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789634368;
+	bh=VOIt5Ueo84n51MFKJuHQvwxVAUjNMQhMgUwGhvuj4U0=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=op4rD8uEUK/AzE43MHX1I9PC4JU96Ro7LGZYPP2WsNqMVftFZdPt+OQEzHiQVfe0F
+	 CCf3ZZupv+nE+xTjsVSShPRWfRhDp2vqQ7HZxYtWtoBJFIifPR/T2DA54k2oByeEtt
+	 GrP6hnPAAyPe95qwfwBmkE/mfG+JNQ7Q4eP1eWcMz7HgPFtEUmcNlxDaaGZpXAWpTl
+	 +aFhRQ/5kbGY+arZ2I41sRCmK4IYPkPT4J0dqx6Ru0lz/sNWqiAlPO6qXXMDLRSN5M
+	 HaF8eunC1qG16QPm4khVdyF16nQdDNYmm+0Tz/BjGk0rqkqp9kZsSDBOMZoUNZeCcJ
+	 BdoImS9cS5Qsw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6E17BC88E72;
+	Thu, 17 Sep 2026 08:39:28 +0000 (UTC)
+From: Jian Hu via B4 Relay <devnull+jian.hu.amlogic.com@kernel.org>
+Date: Thu, 17 Sep 2026 16:39:09 +0800
+Subject: [PATCH v3] dt-bindings: clock: Add Amlogic A9 SCMI clock
+ controller
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260914-aw8695_haptic_fp4_driver-v1-1-156f7549149a@fairphone.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260917-a9_scmi-v3-1-5ad843766774@amlogic.com>
+X-B4-Tracking: v=1; b=H4sIACynq2oC/2XMQQrCMBCF4auUWRuZJrW0rryHFJmmYztgGkkkK
+ CV3N3br8n88vg0iB+EI52qDwEmi+LWEOVRgF1pnVjKVBo26xRaNov4WrRPVkG5MPWI3cQfl/Qx
+ 8l/cuXYfSi8SXD58dTvq3/htJq1qZExLbnsYa6ULu4WexR+sdDDnnL5hzRWqgAAAA
+X-Change-ID: 20260603-a9_scmi-4a2431b08de8
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>, 
+ Jian Hu <jian.hu@amlogic.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789634366; l=2919;
+ i=jian.hu@amlogic.com; s=20260415; h=from:subject:message-id;
+ bh=WQM5jl9E8gItT5ANuR7GZhx7n8JoVv2XfXGNwu6d1P4=;
+ b=i/KIdVkG2b96oq/izhj1bcE1ZkVA1v5Ve8xYqMnFWGApZWJaIXYUIAbiX6LELtXvgkzAxlzDX
+ L0FTn9MOAM2BdQSkxT50WnOFjr2jpeoR5t4ILIqtXG035TmpkTXEIIK
+X-Developer-Key: i=jian.hu@amlogic.com; a=ed25519;
+ pk=zHUE+rNtH9z+Sb8au1/elWknjFQmy5QDVkBoxleuOIA=
+X-Endpoint-Received: by B4 Relay for jian.hu@amlogic.com/20260415 with
+ auth_id=735
+X-Original-From: Jian Hu <jian.hu@amlogic.com>
+Reply-To: jian.hu@amlogic.com
 
-On Mon, Sep 14, 2026 at 04:37:47PM +0200, Griffin Kroah-Hartman wrote:
-> Add the AW8695 haptic driver to the binding documentation for the
-> AW86927 and AW86938, as this binding needs the same properties.
-> 
-> They are not compatible though, because the chip identification works
-> differently compared to the 86927/86938
-> 
-> Signed-off-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
-> ---
->  Documentation/devicetree/bindings/input/awinic,aw86927.yaml | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/input/awinic,aw86927.yaml b/Documentation/devicetree/bindings/input/awinic,aw86927.yaml
-> index bd74b81488f61d72b675b5701b321b30b3430be0..d9da85499cda4d62f14f36f1ce77627e37e348d7 100644
-> --- a/Documentation/devicetree/bindings/input/awinic,aw86927.yaml
-> +++ b/Documentation/devicetree/bindings/input/awinic,aw86927.yaml
-> @@ -17,6 +17,7 @@ properties:
->            - enum:
->                - awinic,aw86938
->            - const: awinic,aw86927
-> +      - const: awinic,aw8695
+From: Jian Hu <jian.hu@amlogic.com>
 
-This should be combined with the first item (const for aw86927) and turned into enum.
+Add the SCMI clock controller dt-bindings for the Amlogic A9 SoC family.
+
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Jian Hu <jian.hu@amlogic.com>
+---
+Changes in v3:
+- Add Conor Dooley's Acked-by tag.
+- Link to v2: https://lore.kernel.org/r/20260603-a9_scmi-v2-1-350aec9ab10a@amlogic.com
+
+Changes in v2:
+- Split the A9 clock driver and send the SCMI clock separately.
+  The A9 PLL introduces several new features, and the Meson PLL framework
+  needs to be refactored to support them. Since this work requires more
+  time and there is no hard dependency between the different A9 clock
+  controllers, split out the A9 clock driver and submit it separately to
+  ease review.
+- Link to v1: https://lore.kernel.org/all/20260511-b4-a9_clk-v1-1-41cb4071b7c9@amlogic.com/
+---
+ include/dt-bindings/clock/amlogic,a9-scmi-clkc.h | 51 ++++++++++++++++++++++++
+ 1 file changed, 51 insertions(+)
+
+diff --git a/include/dt-bindings/clock/amlogic,a9-scmi-clkc.h b/include/dt-bindings/clock/amlogic,a9-scmi-clkc.h
+new file mode 100644
+index 000000000000..d543db9fe035
+--- /dev/null
++++ b/include/dt-bindings/clock/amlogic,a9-scmi-clkc.h
+@@ -0,0 +1,51 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++/*
++ * Copyright (C) 2026 Amlogic, Inc. All rights reserved.
++ */
++
++#ifndef __AMLOGIC_A9_SCMI_CLKC_H
++#define __AMLOGIC_A9_SCMI_CLKC_H
++
++#define CLKID_GP0_PLL_OSC			0
++#define CLKID_GP1_PLL_OSC			1
++#define CLKID_HIFI_PLL_OSC			2
++#define CLKID_GP2_PLL_OSC			3
++#define CLKID_MCLK_PLL_OSC			4
++#define CLKID_FIXED_PLL				5
++#define CLKID_FCLK_50M_PREDIV			6
++#define CLKID_FCLK_50M_DIV			7
++#define CLKID_FCLK_50M				8
++#define CLKID_FCLK_DIV2_DIV			9
++#define CLKID_FCLK_DIV2				10
++#define CLKID_FCLK_DIV2P5_DIV			11
++#define CLKID_FCLK_DIV2P5			12
++#define CLKID_FCLK_DIV3_DIV			13
++#define CLKID_FCLK_DIV3				14
++#define CLKID_FCLK_DIV4_DIV			15
++#define CLKID_FCLK_DIV4				16
++#define CLKID_FCLK_DIV5_DIV			17
++#define CLKID_FCLK_DIV5				18
++#define CLKID_FCLK_DIV7_DIV			19
++#define CLKID_FCLK_DIV7				20
++#define CLKID_SYS_CLK				21
++#define CLKID_SYS_AO_SYS			22
++#define CLKID_SYS_MMC_APB			23
++#define CLKID_SYS_CPU_APB			24
++#define CLKID_SYS_GIC				25
++#define CLKID_AXI_CLK				26
++#define CLKID_AXI_SYS_NIC			27
++#define CLKID_AXI_RAMA				28
++#define CLKID_CPU_CLK				29
++#define CLKID_A78_CLK				30
++#define CLKID_DSU_CLK				31
++#define CLKID_ACLKM				32
++#define CLKID_GP1_PLL				33
++#define CLKID_GP2_PLL				34
++#define CLKID_SYS_PLL_DIV16			35
++#define CLKID_CPU_CLK_DIV16			36
++#define CLKID_A78_CLK_DIV16			37
++#define CLKID_DSU_CLK_DIV16			38
++#define CLKID_GIC_CLK				39
++#define CLKID_RTC				40
++
++#endif /* __AMLOGIC_A9_SCMI_CLKC_H */
+
+---
+base-commit: 43e1705ecab981c66baee89041e6f728c0436f19
+change-id: 20260603-a9_scmi-4a2431b08de8
 
 Best regards,
-Krzysztof
+-- 
+Jian Hu <jian.hu@amlogic.com>
+
 
