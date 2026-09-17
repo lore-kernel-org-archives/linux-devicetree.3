@@ -1,136 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B2A756329A;
-	Thu, 17 Sep 2026 14:08:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FC94585961;
+	Thu, 17 Sep 2026 14:08:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789654085; cv=none; b=WiQehSY5xI3WWmcwg293ILXSv5UcvOuhhdq/pYuPFcKHpobvnLc8Y32JgRYG3iW6Km6Q3l5fUwMSYO+MOcn+G+dOxjsVDBB7dRVPf8POyeZMdanJNsGwgXIk2Dt0l47876S0xwrUf3ey4U1oFghd1oztYiswJH3imCTSFguo7aA=
+	t=1789654130; cv=none; b=o72aK99yrYVDUqxh97Ayr7yz1lpO+9sdMHnu0V2fBxjm9LNYyCgLiy/mo5KqurIrDE32HdVHkNOGX0+NgJeBmXPDEEvNVXFbOZ++YDwTvJ2xLJHfdVkhN6KUTKcIBQQrAERS55s1BRVKwyWAQZd3FLdCgq5+VbTZO0dRJgQPiEE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789654085; c=relaxed/simple;
-	bh=YTdhMdJzY4ydQAK8RKlhvMFELRRpmXAqtNhRAIPv/GQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=qt1OI8HUBZE/6/RY4wSBfqMULBpXSUPfADDTNvLVyUjTlWxoGeDeJ24gFA9BNavahhH34NSoz1+isPwtow9tFGdyZ+zScRqM1saV0H+eWB0NaboHFaRWfEv7Va5SP+KG7eNFA+iYYZx1ySk9G4HZgp/2m6hTF/+yEnQEIQ3kMdQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Exy+OuPG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789654130; c=relaxed/simple;
+	bh=t6XrF1X5QM2mzrSJfZxp0KiKTO5w2G6nGOk7OrNjfuc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IY6M9RR76G+RLFHKd618eP3OIkfSvc1C6EPUcMrPBf6HNvQIIjvYsgg4rHUGfBgf/qcoakniEkiUh6wwEwv/Cl3ck05SAIVSFElZVJgNy/ClK9Rfq1KXSMNXUmnN5tj3U6PidJe3jQNc0yz/ISuqr5vZH47OuW2Do/0p/TLik9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=WC3Jbluy; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Exy+OuPG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0C651F00893;
-	Thu, 17 Sep 2026 14:07:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789654079;
-	bh=/s2CueMCsjQaX0fqgZ5Of3hQBkzdN60bvadbT5rcLbU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Exy+OuPGm13Ya8cRvoXFKunEjMUSRwtEEXp4Hzd93REQYlpJGYJtQPeE96+arQhY4
-	 CTWi4EXTkmXFffVtXlDM/+3wifwi3GNstS+1f9VHr2t/I/s5oxu54k4S/Ys/Sc4lLr
-	 ttVcnpofg4DMA+kMfbBMCeWPXnUXCebO0WAjM4D8YrLnKVJ/+94RNFQsRZ61/1gAQL
-	 isOhxtoWA9jOwZ8FbOdKaiCmKZPvzDvR3MCY3aDxim4DJ5BnaKSKsCYlyeBQEmPThp
-	 zjZY1yQ/fYVnEmSvQB7G0U17JV9GQnYILSkmDGWte0W86VcuR6h8ffzo64wlMFkb7h
-	 gF9zC0d92ZyMw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 2/2] clk: qcom: Add LPASS VA CSR heartbeat pulse
- clock
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sarath Ganapathiraju" <sarath.ganapathiraju@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260917-master-v8-2-823d2c5d090a@oss.qualcomm.com>
-References: <20260917-master-v8-0-823d2c5d090a@oss.qualcomm.com>
- <20260917-master-v8-2-823d2c5d090a@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 14:07:58 +0000
-Message-Id: <20260917140758.A0C651F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="WC3Jbluy"
+Received: from francesco-nb (xcpe-178-82-167-143.dyn.res.sunrise.net [178.82.167.143])
+	by mail11.truemail.it (Postfix) with ESMTPA id DADEA227EA;
+	Thu, 17 Sep 2026 16:08:39 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1789654120;
+	bh=04sGXrdIwPyZcUs1Jy4idOXaBQa8m7ARyP/sXMKY+Ns=; h=From:To:Subject;
+	b=WC3Jbluydah594rbdqN0S7h5hmk27BYCVaKXWLXc4MwHJbWaqWuZ99DmAd6TcDQEv
+	 Qi6K9EaajyTsBzNtbAFBWeJjEGQwsqgy3jjkRN7IoazC/WzjS9yoFDUBBPHcQiTbAN
+	 24bGCyieBr7tmrjAT6FJqo+i3WJE5ZiLgKZB+1bhbzy6vjmL3mWruLcf1jL+iukI8c
+	 uAlwYAV07d7A9iuxUD4+onViwCVUm03Yt/SYhUqOpXD7lYQnuxwhjYXwo+IrmkqbwW
+	 8zU8JXtamiiPZrtTe03/p1AE4p+CNnF6NBLB+cIRK4bQ8Uom1+s+Qb6h8yJfUvjGtI
+	 IcCwwbNwWStVg==
+Date: Thu, 17 Sep 2026 16:08:36 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Frank Li <Frank.li@oss.nxp.com>, Frank Li <Frank.Li@nxp.com>
+Cc: Francesco Dolcini <francesco@dolcini.it>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
+	Franz Schnyder <franz.schnyder@toradex.com>
+Subject: Re: [PATCH v2 3/7] arm64: dts: freescale: Add Lino iMX93
+Message-ID: <20260917140836.GA119572@francesco-nb>
+References: <20260911091952.96233-1-francesco@dolcini.it>
+ <20260911091952.96233-4-francesco@dolcini.it>
+ <aqQQjCW1xaGfPdss@SMW015318>
+ <20260914054214.GA19835@francesco-nb>
+ <aqgEfRl9INLZ-DWM@SMW015318>
+ <aqgGgxzqiIbF66DX@francesco-nb>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqgGgxzqiIbF66DX@francesco-nb>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] clk: qcom: lpass: missing pm_clk callbacks causes unclocked hardwa=
-re access
-- [Medium] clk: qcom: lpass: async pm_runtime_put() races with devres pm_ru=
-ntime_disable()
---
+Hello Frank,
 
-commit 5684759a56eb84ac05a7585939de6fdaa87b92de
-Author: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
+On Mon, Sep 14, 2026 at 04:36:51PM +0200, Francesco Dolcini wrote:
+> On Mon, Sep 14, 2026 at 09:28:13AM -0500, Frank Li wrote:
+> > On Mon, Sep 14, 2026 at 07:42:14AM +0200, Francesco Dolcini wrote:
+> > > Hello Frank,
+> > >
+> > > On Fri, Sep 11, 2026 at 09:30:36AM -0500, Frank Li wrote:
+> > > > On Fri, Sep 11, 2026 at 11:19:46AM +0200, Francesco Dolcini wrote:
+> > > > > From: Francesco Dolcini <francesco.dolcini@toradex.com>
+> > > > >
+> > > > > Add support for the Lino iMX93 SoM, its Verdin adapter and development
+> > > > > carrier board.
+> > > > >
+> > > > > The SoM is available in two variants, with i.MX91 or i.MX93 SoC, using
+> > > > > the same PCB (the two chips are pin to pin compatible), to avoid
+> > > > > duplication create a common dtsi to share commonalities.
+> > > > >
+> > > > > Link: https://www.toradex.com/computer-on-modules/lino-arm-family/nxp-imx93
+> > > > > Link: https://www.toradex.com/accessories/lino-verdin-adapter
+> > > > > Link: https://www.toradex.com/products/carrier-board/verdin-development-board-kit
+> > > > > Co-developed-by: Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
+> > > > > Signed-off-by: Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
+> > > > > Co-developed-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> > > > > Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> > > > > Co-developed-by: Franz Schnyder <franz.schnyder@toradex.com>
+> > > > > Signed-off-by: Franz Schnyder <franz.schnyder@toradex.com>
+> > > > > Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+> > >
+> > > ...
+> > >
+> > > > > +&gpio1 {
+> > > > > +	gpio-line-names =
+> > > > > +		"LINO_P18",
+> > > > > +		"LINO_P16",
+> > > > > +		"PMIC_I2C_SCL",
+> > > > > +		"PMIC_I2C_SDA",
+> > > > > +		"",
+> > > > > +		"",
+> > > > > +		"",
+> > > > > +		"",
+> > > > > +		"",
+> > > > > +		"",
+> > > > > +		"LINO_P65", /* 10 */
+> > > > > +		"LINO_S18",
+> > > > > +		"LINO_S24",
+> > > > > +		"LINO_S20",
+> > > > > +		"LINO_S22",
+> > > > > +		"";
+> > > >
+> > > > Can you wrap to 4 names pre line
+> > > >
+> > > > 	gpio-line-names = "LINO_P18", "LINO_P16", "PMIC_I2C_SCL", "PMIC_I2C_SDA",
+> > > > 			  "", "", "", "",
+> > > >
+> > > > Reduce LOC, and easy to locate number, such gpio 13,  second of 3rd line
+> > >
+> > > I already replied on the v1 that I disagree on your request.
+> > 
+> > Your v2 sent too quick before I read v1.
+> > 
+> > > To me it is
+> > > just more readable the way it is now and I do not see minimizing the
+> > > lines of code something that is bringing any kind of benefit on its own.
+> > 
+> > The major concern is that it makes code read harder and lost focus by long
+> > lines.
+> 
+> Understood, we do disagree on this.
+> 
+> > > Is this blocking this from being picked up?
+> > > Is there any other concern on this series?
+> 
+> Can you answer these two questions?
 
-clk: qcom: Add LPASS VA CSR heartbeat pulse clock
+Please let me know if it is a requirement to have the gpio line names
+wrapped with 4 elements per row or not. I am waiting on your answer on
+this.
 
-The HeartBeat Pulse, also known as RateGen Pulse, synchronizes the
-start of DMAs and Codec Interfaces for the audio usecases and can
-serve as a periodic wakeup source for the DSP. Add the LPASS VA CSR
-driver that models the rate generator as a clock provider so it is
-enabled and disabled automatically alongside the other clocks during
-runtime PM resume and suspend. Attach the DT vote clocks to runtime PM
-and resume the device before programming the rate generator registers,
-so register accesses happen only after the LPASS votes are active.
+Thanks,
+Francesco
 
-> diff --git a/drivers/clk/qcom/lpass-va-csr.c b/drivers/clk/qcom/lpass-va-=
-csr.c
-> new file mode 100644
-> index 0000000000000..3c87c3319f156
-> --- /dev/null
-> +++ b/drivers/clk/qcom/lpass-va-csr.c
-
-[ ... ]
-
-> +	ret =3D devm_of_clk_add_hw_provider(dev, of_clk_hw_simple_get, &csr->hb=
-.hw);
-> +	if (ret)
-> +		goto err_pm_runtime_put;
-> +
-> +	pm_runtime_put(dev);
-> +
-> +	return 0;
-> +
-> +err_pm_runtime_put:
-> +	pm_runtime_put(dev);
-> +
-> +	return ret;
-> +}
-
-[Severity: Medium]
-Will this asynchronous pm_runtime_put() race with the devres cleanup?
-
-When probe fails, err_pm_runtime_put calls pm_runtime_put(), which queues an
-asynchronous suspend. The probe function also uses devm_pm_runtime_enable(),
-which queues a devres cleanup action that calls pm_runtime_disable() on
-failure.
-
-After the function returns, devres cleanup will invoke pm_runtime_disable(),
-cancelling the pending asynchronous suspend request. This leaves the device
-permanently active and its vote clocks enabled.
-
-Could pm_runtime_put_sync() be used here instead to ensure the suspend
-completes synchronously before devres cleanup?
-
-[ ... ]
-
-> +static struct platform_driver lpass_va_csr_driver =3D {
-> +	.driver =3D {
-> +		.name =3D "qcom-lpass-va-csr",
-> +		.of_match_table =3D lpass_va_csr_dt_match,
-> +	},
-> +	.probe =3D lpass_va_csr_probe,
-> +};
-
-[Severity: High]
-Does this driver need a dev_pm_ops structure assigned to handle the PM clock
-callbacks?
-
-The driver registers DT vote clocks using of_pm_clk_add_clks(), relying on =
-the
-PM framework to enable them during runtime resume. Without assigning a
-dev_pm_ops structure mapped to pm_clk_suspend and pm_clk_resume in the
-platform_driver, pm_runtime_resume_and_get() sets the device state to active
-but leaves the clocks physically disabled.
-
-Will the subsequent regmap_write() attempts in probe try to access unclocked
-hardware registers and trigger a synchronous external abort on Qualcomm
-platforms?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917-master-v8-=
-0-823d2c5d090a@oss.qualcomm.com?part=3D2
