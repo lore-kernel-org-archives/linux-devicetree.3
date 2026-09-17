@@ -1,196 +1,107 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-oi2-f0.google.com (mail-oi2-f0.google.com [74.125.231.192])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D206149EC46
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 21:02:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F41449B44C
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 21:06:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.192
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789678970; cv=none; b=J2QzFu2fv38sq+Yqu7wAiJoq9htKcsTtR1TrmkTjF/XJ8y7yNuXPg4xk6Q+d/bHC+u+Tm94ouckBOLvWWCJoDlj4tR6Ntt5fGnWpRtu3rB02sxWTddoxBXfN5aFiNRyOIxK7xvFWSBq273sJkNTeKQv8oOX5Qf6HFo485PtUy1k=
+	t=1789679210; cv=none; b=pQPV8JXForlE/5J3ujIDGTILZgTUs/CinDEG4iATtEkWXbk2Vx1/pzzviF0K3yqQ+HyOrM5FMqwIHm/hHsGA6DW3p0/OsbZpBuPc4O28eHY9iyipylFWvtmMAKdaWQ2WaIh3JOvqeu04pmARbz/XGPOG0LXpJxZm3hHoFIvnDpc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789678970; c=relaxed/simple;
-	bh=TZWXiYpGe3PgSXyHXeQpQDxriAYLZIkbRgm507qkSqQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=J4bXhCWvLatRYyXvxB5v/Xe5SPWFzr0Kdcslt/FIefW9hdMc4wLEA++XgYDy+IRgsnnR9WUTelGHVB5c0u5qeNZyRRqsT1K2yTrNWbHq7p5iLW3HK/IGDcpX/clIrpD52suwvFrcKb15AMa5UJjP1s8YrhQLXfaePUJlk6I4E9k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=lGuRQtB8; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1789679210; c=relaxed/simple;
+	bh=HvdkJ/FnzyzxhIRWpbHKeoBcBq03AZPrsWZYmOz5CAs=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=fgE3idMvSHTHzMicMlC4xuYACv42ZybwfHRntp5ggN8yl0m5cXLGr78jcHQg1lup86HeG2dndyZsTJDPwerkcljs8yktaU7cm0biZcUzbkFLZVDvNrAaUN9g/7DljUSexhLxyx3q4djPvrne5/9fLWMgwKbBZkcuw+VyHcRoxUc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lBoZp6Rj; arc=none smtp.client-ip=74.125.231.192
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="lGuRQtB8"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ce364488dso235165e9.0
-        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 14:02:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lBoZp6Rj"
+Received: by mail-oi2-f0.google.com with SMTP id 5614622812f47-4a4492f5cd1so20276b6e.1
+        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 14:06:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789678966; x=1790283766; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OrTs8R98RYpxja2qfNL5l+wSlcq0HfU9S2hHFoYZzL8=;
-        b=lGuRQtB8bziadpmIUSknGxFc4zk/X7BMDPdxDRipeKfokNmsuroEBXw0PrqR/KLUKg
-         wYU1fpPykgfoskWZ70dRDdRasd1OgfbZGkSEvkD/vMcnUQ0rPVxWzCakcyZBbm4V3KVi
-         9PGZCPOd8J8hFivbEcAdh8zz6FWPoAGh8X+y0YbesOSdWbepxRQyehE3JHkTvpvLEgBW
-         MVkkyiGWvp3/OwMGpptzU+ax88S+jug6Mp8uBGMfYmU9lma3BlZ64H8A5mOYnN0XpvJA
-         9c7Qz3vkji9bA8IbQ433sHfyEBwZ99+wh62N4K8wYchAHVzP0vG71z+C6kWMp4VKwTwn
-         3gAg==
+        d=gmail.com; s=20251104; t=1789679207; x=1790284007; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UhGqQvEgqcceDfwacv9AFFFJVljDY2FHfHQZ/xmKpow=;
+        b=lBoZp6RjM/W3pmMw9EnkPietdw9V5oyHAbw2RFTBbE8VwDTG3lUNSNhJ+BSC1qWI26
+         YYPCU4zo2lojubhabEmZbNuz2fDSYlyhRg3y4HuNt9Vng8o4jcQV0y9V1enmTKTIbIpv
+         smxoZBNVWMRbFVHnE3vLVyqtikfxsY34Tdw+CPNPX0K10yfKqc+wJoc8j3LnzvYfnLjT
+         75awwiBDm2DfsLz8O867Rv8O/QGdwCQs1lHgyr29JXfz6BB64pZEGJZfqlKXZnI9zTsM
+         5T4OeItRruo9VYdSd+F8Kt1pjpZ0c6QlR2RO/RMtxyXyCd5t74r6rA58Bc36ozz52EZ0
+         Pe6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789678966; x=1790283766;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OrTs8R98RYpxja2qfNL5l+wSlcq0HfU9S2hHFoYZzL8=;
-        b=NeW5BbEK8aCDvXnb2IXO8++NLeoXi3lTFJM2JP0FdS7DJN5BK00L3+OIhufSjeM/Da
-         S0dOwtx6jsSmdzmI6mntDTs7BWVbpTXMQfvzA1p085csFGlZXxHap/F+7BnBcfEzI0DK
-         miH65lZStmtRNn5Rzz8c8UXC2memqCWtYp7XQDYtSIj/NVx2g+pg85q3aLOxPQfnlkz9
-         VtXMr5XLQICwwnpDZtx/KkaTiGqQAoX3S3dyIHGOQaCOLgzroo4lsziCHZhYxL2cNWqB
-         mm5pqnhKiuUMX15LfkTQKYUAUbZIHZMBlzY9aX4Pw13HSz49LWYW8+FKJ732f1YTxvJe
-         1rKw==
-X-Forwarded-Encrypted: i=1; AKwUvBxrlQOPXhgZn8PMqGSh3Tl9r2ue/0N1FcgcTWeBXTnfun4ISoeGzdIM7cXtkNuizIaLMV6k8ihUUdGK@vger.kernel.org
-X-Gm-Message-State: AFuF++kDxVozioIXLDzDxQaOsYaVqcfcmxxZxinWWMEGFBxqYd4rkj5x
-	4WwPY3+r6UfNxw+YswL95/vDjKp0SQEORE8E+uV+sNRI7oKFkwBp3jlR4ljCtAJhbPk=
-X-Gm-Gg: AYBFou260l79rSi4xPlHJHgz8BbhWREPEQX8gWfQfxYkaNn7vHu57ylDJF8zRBOVa7h
-	2IVnE6UenRACZx3kmLEv/2QxyLSDW+NYtP3xjqSzm87/GVgWp/j2rGtM+piQ8JehTCtYlVhjGBY
-	kvqzHG7jsTSeccc1ADbPq/Ajl+3u69s8Oq+gqP8QrrgZilDfZe8XH14dpINzT+riwFzfhmP/Jhq
-	Bvuq0njomXbe+4tbBkRRpJl7EqWWAz3rLiRjGRr4Qt7rR2ZuG7mmcyrsdLd84WyWWwIoe3MymTY
-	UYL6gIhb5NhlOO1lPYz/qIFL1BHNm71bOBDVL82m9ALKTapwHQB0kW5gsQhWynYLMh2WrfMCDel
-	gZPRglwKDaVU52zKy3gezB5KNGRXBk9rxq4lgTAMJnmKAqZdKDCihrv4VlFSsEkvQZTQzWT8AKZ
-	z+5RwoZTe634Lsg+pidjt5s0k2qo+CqdjX+1bYD3vwDKptKgGqo3DaJgNcEbBDgMgHnXEjkLWJt
-	hgA
-X-Received: by 2002:a05:600c:1d06:b0:49e:8222:3451 with SMTP id 5b1f17b1804b1-49fc5001358mr4202515e9.14.1789678966047;
-        Thu, 17 Sep 2026 14:02:46 -0700 (PDT)
-Received: from [127.0.1.1] ([151.42.87.32])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc5755c40sm3106095e9.3.2026.09.17.14.02.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 14:02:45 -0700 (PDT)
-From: Valerio Setti <vsetti@baylibre.com>
-Date: Thu, 17 Sep 2026 23:02:36 +0200
-Subject: [PATCH v2 6/6] arm64: dts: amlogic: gx: add AUDIN node
+        d=1e100.net; s=20260707; t=1789679207; x=1790284007;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UhGqQvEgqcceDfwacv9AFFFJVljDY2FHfHQZ/xmKpow=;
+        b=r0S2yV21E/mvfR0l7B7uoCzHfL9X4J79qlHX9/0vZXk5fYOHQiWw0uw8ITnGqB1tu9
+         gw5xZPvKsxZdQzsucyIKGhvarTB62fYs4S6uVuqY7rphx9+W9T6bhbe8qoh2pLtga6W8
+         wvH5GZD7Ts2n1BL6HW3v64YwKxm9clDe1KMe9qYSkK5nCVvmeM3asVo39DDYxpSEPt98
+         qAgZsJIW+cEXhTUQkrKEt3BuqZfpsYs3/4nVAgPEaOo6Ir4E5+X4C2jdSMmO8OVCrlaM
+         YCPZSQz7eQp4+hCF7mJsZfamVH+eED32ll/co3yfmpN/oX8ICT8QO7ZFSogK2tpso/M9
+         qAaw==
+X-Forwarded-Encrypted: i=1; AKwUvBwXWYk33dHBl5AK8+QpPoeajxCITppBUp7uKQ31D9rKyDDrWNp0N4kyL+2Nxk9WrIdZ2ObGqiWhky9I@vger.kernel.org
+X-Gm-Message-State: AFuF++mTaE5d130YXpG2GTdy+6EvrQZI8pWs6oHeefvefgLnxeBZ/ZIi
+	ClQ3XgVzA5DxR+qVIVMljK7BVxbdvceOlF+k9XYmBVygmKpaNj6ZCW5q
+X-Gm-Gg: AYBFou1JceU4TJVdPExZFMHJZux3GrzD6sBN+an1qzl7E+1x7jrDmWo899fIPTeUtTP
+	1rRmOVTwMuC4qjAKhQiM3rUqhZKzkKaYAsypqxV4Df3yErzizkAY7F/9U8HcUuZC/HvFDD4x6Ji
+	HWb5ioQcAToJw9435IMVt6P6sI6A61xE0EMG6bxXFGmcIjYEoM2YWWpEoPuHSBoeo1RjK79zNpf
+	YWVTNyF/ThJDXVx5S956W7vjHuA3CAxd3tSACOM2PyKesnz6/dg2+PMDzakS43bMDLghSm7rKO1
+	JHk0x4kCcyVDP8iKp71iUSMwWqBxROuydhPqvlv2kmQEq630m5W+jTukPWnkUY29na8xWu1hC+j
+	9ZIAndUHbNr3a/LwKGYtTYwgxDZlklY32sPV2SvxliFfNoqjE2ekL0wb+T79I3wkL5percvZaq5
+	/ZD1Mpf39fEopYBYOqdR8Ms6YCVrf+aLtjUhMwWKHhvjdGvTfIYW/dK3ZkgPhEkT3rEaNIU3PoM
+	vcij2yzqAWtp30=
+X-Received: by 2002:a05:6808:c175:b0:49b:33c8:4b75 with SMTP id 5614622812f47-4ccf6a67699mr616748b6e.5.1789679207257;
+        Thu, 17 Sep 2026 14:06:47 -0700 (PDT)
+Received: from ?IPV6:2600:8804:5716:d800::b712? ([2600:8804:5716:d800::b712])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4cb6cd41d0asm3431836b6e.10.2026.09.17.14.06.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 17 Sep 2026 14:06:45 -0700 (PDT)
+Message-ID: <bc93ea43-0650-4a3f-919d-6e0272d24073@gmail.com>
+Date: Thu, 17 Sep 2026 16:06:43 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-audin-v2-6-38de4bc1de34@baylibre.com>
-References: <20260917-audin-v2-0-38de4bc1de34@baylibre.com>
-In-Reply-To: <20260917-audin-v2-0-38de4bc1de34@baylibre.com>
-To: Jerome Brunet <jbrunet@baylibre.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Valerio Setti <vsetti@baylibre.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3080; i=vsetti@baylibre.com;
- h=from:subject:message-id; bh=TZWXiYpGe3PgSXyHXeQpQDxriAYLZIkbRgm507qkSqQ=;
- b=owGbwMvMwCV2z3ty7kUrRgbG02pJDFlrQvNmvF8unFH9eH6EzySORvUZecWKr2zfpoin7n3IZ
- Pr0cfujjlIWBjEuBlkxRRaW6fd+F5SqPTROOFkAM4eVCWQIAxenAExkUTIjw8en9zJ2svh/+rbU
- ff5ZllW67KenBohvO8zx3b2e5fi9Un6G/9GnGbPtczkErYJuBjNXp/QLT67Xi2s6cP1A6E+3vFf
- OrAA=
-X-Developer-Key: i=vsetti@baylibre.com; a=openpgp;
- fpr=0497DEFB707526E13360C970DE4B936DD13A0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] iio: adc: mt6397-auxadc: add mt6397 PMIC AUXADC
+ driver
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Lee Jones <lee@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ mfd@lists.linux.dev, Roman Vivchar <rva333@protonmail.com>,
+ Luca Leonardo Scorcia <l.scorcia@gmail.com>
+References: <20260915-rbrue-suez-upstreaming-mt6397-auxadc-v1-0-d35d2ac3d6f0@gmail.com>
+ <20260915-rbrue-suez-upstreaming-mt6397-auxadc-v1-2-d35d2ac3d6f0@gmail.com>
+ <aqpnpT6hU5Z0s1TZ@ashevche-desk.local>
+ <71a6ed12-f089-404a-85ec-546e03b4db3e@gmail.com>
+Content-Language: en-US
+In-Reply-To: <71a6ed12-f089-404a-85ec-546e03b4db3e@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-AUDIN provides audio input support to Amlogic Meson GXBB/GXL platforms.
+On 9/17/26 4:01 PM, Ryan Brue wrote:
+> On 9/16/26 4:55 AM, Andy Shevchenko wrote:
+>> Why not add this device support into that driver?
+> Please see [1].
+>
+My apologies for double-replying, I forgot my link here.
 
-What's missing after this to get capture support working is to connect a
-capture capable codec to the SoC. For example to test these changes an
-NXP SGTL5000 chip has been connected to an OdroidC2 (Meson GXBB) board
-using a custom hat board.
+[1] 
+https://lore.kernel.org/all/2d1b80f2-53f6-4ed6-81bf-e35c0a9efb26@gmail.com/
 
-The following additions/overlay are required on top of
-'amlogic/meson-gxbb-odroidc2.dts' to make that hat board to work:
-
-    &sound {
-            audio-routing = "AUDIN I2S Formatter", "AIU I2S Encoder Capture";
-
-            dai-link-1 {
-                    codec-1 {
-                            sound-dai = <&sgtl5000>;
-                    };
-            };
-
-            dai-link-3 {
-                    sound-dai = <&audin 0>;
-            };
-    };
-
-    &audin {
-            status = "okay";
-    };
-
-Then, from userspace:
-
-    $ amixer sset 'AUDIN FIFO0 SRC SEL' 'I2S'
-    $ arecord -l  # find the "FIFO Capture" device
-    $ arecord -D hw:0,<N> -f S16_LE -r 48000 -c 2 /tmp/in.wav
-
-Signed-off-by: Valerio Setti <vsetti@baylibre.com>
----
- arch/arm64/boot/dts/amlogic/meson-gx.dtsi   | 9 +++++++++
- arch/arm64/boot/dts/amlogic/meson-gxbb.dtsi | 6 ++++++
- arch/arm64/boot/dts/amlogic/meson-gxl.dtsi  | 6 ++++++
- 3 files changed, 21 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/amlogic/meson-gx.dtsi b/arch/arm64/boot/dts/amlogic/meson-gx.dtsi
-index c1d8e81d95cb..54b6cc0bb8ff 100644
---- a/arch/arm64/boot/dts/amlogic/meson-gx.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/meson-gx.dtsi
-@@ -436,6 +436,15 @@ watchdog@98d0 {
- 				reg = <0x0 0x098d0 0x0 0x10>;
- 				clocks = <&xtal>;
- 			};
-+
-+			audin: audio-controller@a000 {
-+				compatible = "amlogic,gx-audin";
-+				reg = <0x0 0xa000 0x0 0x148>;
-+				interrupts = <GIC_SPI 7 IRQ_TYPE_EDGE_RISING>;
-+				sound-name-prefix = "AUDIN";
-+				#sound-dai-cells = <1>;
-+				status = "disabled";
-+			};
- 		};
- 
- 		gic: interrupt-controller@c4301000 {
-diff --git a/arch/arm64/boot/dts/amlogic/meson-gxbb.dtsi b/arch/arm64/boot/dts/amlogic/meson-gxbb.dtsi
-index a9c830a570cc..7ad69992a226 100644
---- a/arch/arm64/boot/dts/amlogic/meson-gxbb.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/meson-gxbb.dtsi
-@@ -84,6 +84,12 @@ &aiu {
- 	resets = <&reset RESET_AIU>;
- };
- 
-+&audin {
-+	compatible = "amlogic,gxbb-audin", "amlogic,gx-audin";
-+	clocks = <&clkc CLKID_I2S_SPDIF>;
-+	resets = <&reset RESET_AUDIN>;
-+};
-+
- &aobus {
- 	pinctrl_aobus: pinctrl@14 {
- 		compatible = "amlogic,meson-gxbb-aobus-pinctrl";
-diff --git a/arch/arm64/boot/dts/amlogic/meson-gxl.dtsi b/arch/arm64/boot/dts/amlogic/meson-gxl.dtsi
-index d5e0f72892f8..9181eba81eb7 100644
---- a/arch/arm64/boot/dts/amlogic/meson-gxl.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/meson-gxl.dtsi
-@@ -100,6 +100,12 @@ &aiu {
- 	resets = <&reset RESET_AIU>;
- };
- 
-+&audin {
-+	compatible = "amlogic,gxl-audin", "amlogic,gx-audin";
-+	clocks = <&clkc CLKID_I2S_SPDIF>;
-+	resets = <&reset RESET_AUDIN>;
-+};
-+
- &apb {
- 	usb2_phy0: phy@78000 {
- 		compatible = "amlogic,meson-gxl-usb2-phy";
-
--- 
-2.47.3
-
+Best regards,
+Ryan
