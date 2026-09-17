@@ -1,108 +1,85 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D4F24AF67F
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 12:52:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E7AC2EEE83;
+	Thu, 17 Sep 2026 12:52:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789649562; cv=none; b=rmBmftHg94eMiDv1zuELGbYxFQCJdZnki0cfCfdFRct9iq0VodCDMGL9kthdIGk05mE3m2sNwF2un2QWxw2+rIJctynyr5ck6QfHsursE3tzTsTWYqULEhedaCnvUkMcZgY9m2yjLQa+SAt0WPjtDLBqqT6qBVcShtj0UNE5Ppk=
+	t=1789649577; cv=none; b=T/GND6CBIO1XY1dsoJ75bSfKn46oR84Uox6OfX+AOn6mIqAMpLRta3LEGeOVFv4akzB38nKk/6daXuf1IComNxUk+DYiqdY22BCpf+rHnizPcBBLtMuTkQo2hZ8fuqIElAZaGJX2iqaxZl3Eie+rATx8KF6THo8YjL7pZzxBATc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789649562; c=relaxed/simple;
-	bh=Nv/AeZqB1i7T4EDS33Kmpqyp4PSKWKVwoi9VnEv7Mpc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ZmWbjesX8Z+AtT/MeDVyqKO0Cv3SBQ+XjEHbgUD9N8hB3EnW1S55HmXVrcBvagFuJhzWfj+DUK+kDC3iqbN5PawPY0vPlGmeUrFOXklOXYHdrz9firwRUgzR5Nlh1iFPO7gFjoKEbDLydE0ifXPp9p55ubtmxRybeYqpuvH2+Fo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QcPkDlLb; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QcPkDlLb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80DD31F00893;
-	Thu, 17 Sep 2026 12:52:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789649547;
-	bh=8oXOl5GgdOqpWulbJgaUMuKKXzbgT7prJLQrKiHc/gc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=QcPkDlLbnc1I8KoHqpY8t1m6Ro3Lgk1BYe7pPYt2+0M8R5FJHjBT/yWgmGH6nCvBM
-	 qEsqatnOlSItX52iyLHhwPkv422boJdywn2YlUm44k/MjOUg7H0pstUqhP4FbsqPYv
-	 ZopTMvvupiPmbmGYS+UZkF1TZZGUiBKvEw1zmt0itGuN4PvOvPamL2wcB1aIylDZU2
-	 y06nITlXYk6GbwSWe80fy3756eJCe+nEgaGzAkUxnoeTgtljYneCociWC/ezXl0csy
-	 364SMQpj3kizZdc0dIRT/kvAsBpMg0qInfhIvD3/IhRvuwhzON5vf0PFsQfeX6pnm/
-	 CHUlw2agnTeEg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] of: unittest: Fix overlay node reference leak in
- of_notify()
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wentao Liang" <vulab@iscas.ac.cn>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260917124457.2151809-1-vulab@iscas.ac.cn>
-References: <20260917124457.2151809-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 12:52:27 +0000
-Message-Id: <20260917125227.80DD31F00893@smtp.kernel.org>
+	s=arc-20240116; t=1789649577; c=relaxed/simple;
+	bh=cUUcSkpLQfkqTIXsfKOqlPC6VTrxEGX1glFEmPP+NRo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=HJaei8zeCRd6RngIuP2qJNbkJeHbCbTnOhPj96F5ZYkeUgjUNYtQbvdM8x6Czvul5YEqJVH5x6jKlZorTQzXrRLuZHQWAGI4NXxlynWeXXxGt/zvaXM3PlDBZsJnpNBP8w+WWVu65ZdkXns7iazHteuQosZOL7jd3nAbYwZr6X8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAB3pkCW4qtqsOaACA--.3033S2;
+	Thu, 17 Sep 2026 20:52:39 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: devicetree@vger.kernel.org
+Cc: f.fainelli@gmail.com,
+	frowand.list@gmail.com,
+	jim2101024@gmail.com,
+	linux-kernel@vger.kernel.org,
+	robh@kernel.org,
+	saravanak@kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] of: unittest: Fix np reference leak in of_unittest_dma_ranges_one()
+Date: Thu, 17 Sep 2026 12:52:38 +0000
+Message-Id: <20260917125238.2152144-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAB3pkCW4qtqsOaACA--.3033S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7Jr15Xr4fWr1ftF15JF4UCFg_yoW3uFb_Ga
+	4DZr93Wr18CF1Uu34fJFZ3ZF92y3WUWrW8XrnIyanakrWjvF1jgr1Y9r95Ja45Z3yY9F9F
+	yrs8ur18twsFgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbqkYjsxI4VWDJwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
+	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
+	Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
+	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7MxkF
+	7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr
+	1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_Jrv_JF1lx2IqxVAqx4xG
+	67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MI
+	IYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E
+	14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr
+	1j6F4UJwCI42IY6I8E87Iv6xkF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07j8
+	jjgUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwINA2qrrRmjJQAAs4
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] of: double-free of overlay device node in of_notify()
---
+When the bogus device allocation fails the function returns early and
+never drops the reference obtained from of_find_node_by_path(). Add the
+missing of_node_put() so the node reference is not leaked.
 
-commit 2fb07d7f45ad569912e3b48cd4b44d5fe901b5ee
-Author: Wentao Liang <vulab@iscas.ac.cn>
+Fixes: a8d61a9112ad ("of: unittest: fix warning on PowerPC frame size warning")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/of/unittest.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-of: unittest: Fix overlay node reference leak in of_notify()
+diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
+index d1a88a043300..226debdaa5c1 100644
+--- a/drivers/of/unittest.c
++++ b/drivers/of/unittest.c
+@@ -1141,6 +1141,7 @@ static void __init of_unittest_dma_ranges_one(const char *path,
+ 		if (!dev_bogus) {
+ 			unittest(0, "kzalloc() failed\n");
+ 			kfree(map);
++			of_node_put(np);
+ 			return;
+ 		}
+ 
+-- 
+2.34.1
 
-of_notify() takes a reference on nd->overlay but only drops it in the
-default branch of the action switch. The PRE_APPLY, POST_APPLY,
-PRE_REMOVE and POST_REMOVE branches return without dropping it, so the
-reference is leaked on every notification. Move the of_node_put() to the
-common exit path.
-
-> The PRE_APPLY, POST_APPLY,
-> PRE_REMOVE and POST_REMOVE branches return without dropping it, so the
-> reference is leaked on every notification.
-
-Is this description accurate?
-
-Looking at of_find_node_by_name(), it explicitly consumes and drops the
-reference count of its from argument. Since these branches all call
-of_find_node_by_name(nd->overlay, ...), they appear to naturally drop the
-reference on nd->overlay.
-
-Could the commit message be clarified to explain what exactly is leaking?
-
-> diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
-> index e255f54f4d760..3202781998808 100644
-> --- a/drivers/of/unittest.c
-> +++ b/drivers/of/unittest.c
-> @@ -3460,11 +3460,12 @@ static int of_notify(struct notifier_block *nb, u=
-nsigned long action,
->  		break;
-> =20
->  	default:			/* should not happen */
-> -		of_node_put(nd->overlay);
->  		ret =3D -EINVAL;
->  		break;
->  	}
-> =20
-> +	of_node_put(nd->overlay);
-
-[Severity: High]
-Does moving this of_node_put() into the common exit path cause a double-free
-of nd->overlay?
-
-Since the non-default branches already consume the reference via
-of_find_node_by_name(nd->overlay, ...):
-
-	case OF_OVERLAY_PRE_APPLY:
-		found =3D of_find_node_by_name(nd->overlay, "test-unittest16");
-
-will this unconditional put at the end of the function result in a second,
-unbalanced put on all valid notification paths, potentially leading to a
-use-after-free during the OF unittests?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917124457.2151=
-809-1-vulab@iscas.ac.cn?part=3D1
