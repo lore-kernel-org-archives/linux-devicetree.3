@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D51754AAC44
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 23:11:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C930845198C
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 23:11:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789686696; cv=none; b=mRXP5gLOxFdHIHBz3G/d9pbvHHP2oPscwo5x2rnWzIeV6Ji2r/DbHYErjwvEmko3Izpy5wPCwupkL94dT8OnqdXwC54F/u0r/fx3jTwoXkihmAXlSZfOStvkh7cMH9NsKp/CJznDKF4Y/XLxzsjd+9Z6yUp19X6JmyojBazy4jQ=
+	t=1789686703; cv=none; b=j965a4lACrtnxyBlMYMZ5KCNCVH5cl9QPU8kKpbdwoktEZOUO2Dcfqyv8Jdn6roBWvEMmHfcnS7h2m1n6jqtx/+YRVFcCK04e0q84XaUsupc6ODD2Bzec7psbpfjsdZB/NDl+8Z7K4PYNd7kWA2jvvYvVCHoz9ne6ezTI3etBvI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789686696; c=relaxed/simple;
-	bh=PyvNlzkDiYDjdwZZIn+UX7a9VrzB/M1E4IBC+pCuSlc=;
+	s=arc-20240116; t=1789686703; c=relaxed/simple;
+	bh=ysHLLbreF7CrpJIQViuFSVkQVfy2CDuCDGokncvOFFU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=h5HnFCvanojrV8KmXUcVdSOiEQJRjjVoLTxWkCW2Fb0k+tLvOcOc7D5bxLGPqqvfRBukbh/QuO4qSv5v3f3b6q9gTGrEjQxshL++ayXiOrEifP2P0MmVwgpXx02Y9aL2MDlv1EF42sxA7OFt7zMTrtIGWP9cd7GftfJChwtL0lk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GX/O99J+; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=vD5LVK/ygQSEUcEKVoTFRUa3dYuySw13kZWj3Ybmj9MVf0ft/uDkKFcXY2kM4nndgqtDbQIz41o6LMYEfR20ma0NKepEy2BM+lZxkV40wsIOcnv6sZjy4cZLCjZJtdk1Kviro5Mm0MsnzDZ+nlz5rr1mQKdxWTksMzlxbr0ddV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fw5fi52b; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GX/O99J+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C0C71F00893;
-	Thu, 17 Sep 2026 23:11:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fw5fi52b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22CEC1F000FF;
+	Thu, 17 Sep 2026 23:11:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789686682;
-	bh=2Visb+e2y2ldOS4sGcvQpnf5FV/4FOuloI1LlFRPRKQ=;
+	s=k20260515; t=1789686693;
+	bh=S94S40mYVq4FjAtfrUNxQpVQ46f4isUvunqSPPASTgk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=GX/O99J+JpQhHLwo2b78gWXJ0uGeo4vuF9QDOEQKvd6ss9Ob1dOSin2e0uOowLn7r
-	 3ZWyPI/GHxIhLA50awF9sRKxOqF1JXDfHGpTKx8PSe4cunpV3JFhTo/9OkqpQKbM9b
-	 9UhCyq20vj4XVLVlwo3aWQ5Xe/vN3xDrbKZ1kfL+x1A/DRTeIrjxsQ1/yMe8GlOCj/
-	 j0iuoSVk4GybZFqlHZSZkOQGdvvGZoSEa8dNEbL8kM/X0pHY0uvSSmdWm9tP78wYzY
-	 k6LE37hyDR1dshCxh1Qw4ij3lP3+vsn4JcMubG10mFOTw/CvFKbTg/uD5TRdsevwul
-	 /OWA9CzYadACw==
+	b=Fw5fi52bHASgIXNyCNhc4MaI7qAF9HJ5NJtfQ8Uj5u/2W/2I3fSTYCxO4wGXqNcZB
+	 oucuRzvSbx0R0jjq+/+H6mUc+Rk3HEWlqRgqY0bgjrrZ/K6ny0msWsgPHkLOgwXjWn
+	 PkM5XccyfbmMf9njn1ao509s0fndj0VX7yAq9aTh0NAhXQpQ42Xnsr42yZQrK+CGJM
+	 iKK/Rmpd6Ti+GRzo48VmhuFczeaAIE/ZHGEpjof7bkcBawhwO6/d1yA+1rScWDOg90
+	 q5ATQnwbjMudVYrFGn8McbRWhnaHFSYAMkXXriWCrBgxSI3018B1F8BK1yxMnAxQvR
+	 KzcswnavKLUMA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 08/19] crypto: cmh - add AES skcipher/aead/cmac
+Subject: Re: [PATCH v5 04/19] crypto: cmh - add SHA-2/SHA-3/SHAKE ahash
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Alex Ousherovitch" <aousherovitch@rambus.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260917225929.2494111-9-aousherovitch@rambus.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260917225929.2494111-5-aousherovitch@rambus.com>
 References: <20260917225929.2494111-1-aousherovitch@rambus.com>
- <20260917225929.2494111-9-aousherovitch@rambus.com>
+ <20260917225929.2494111-5-aousherovitch@rambus.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 23:11:21 +0000
-Message-Id: <20260917231122.5C0C71F00893@smtp.kernel.org>
+Date: Thu, 17 Sep 2026 23:11:32 +0000
+Message-Id: <20260917231133.22CEC1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,109 +46,118 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] crypto: cmh: unbounded memory leak and TFM bricking in cmac(aes) A=
-F_ALG path
+- [Medium] crypto: cmh: ahash rejects valid large scatterlists
 --
 
-commit a4044451c1e906d90442c0bef45c7be8c8846c42
+commit 75a869d1380414cdb3e2f319fd8862f445b10395
 Author: Alex Ousherovitch <aousherovitch@rambus.com>
+Date:   Thu Sep 17 22:59:13 2026 +0000
 
-crypto: cmh - add AES skcipher/aead/cmac
+    crypto: cmh - add SHA-2/SHA-3/SHAKE ahash
 
-This commit registers AES algorithms (skcipher, aead, cmac) using the CMH
-AES core. It handles associated data, payloads, and authentication tags
-for AEAD and supports 128, 192, and 256-bit keys.
+This commit registers ahash algorithms for the SHA-2, SHA-3, and SHAKE
+families using the CMH hash core. It implements incremental update/finup and
+export/import for request cloning, relying on the crypto API's partial block
+buffering.
 
-> diff --git a/drivers/crypto/cmh/cmh_aes_cmac.c b/drivers/crypto/cmh/cmh_a=
-es_cmac.c
+> diff --git a/drivers/crypto/cmh/cmh_hash.c b/drivers/crypto/cmh/cmh_hash.c
+> new file mode 100644
+> index 0000000000000..1acc8bdab3522
 > --- /dev/null
-> +++ b/drivers/crypto/cmh/cmh_aes_cmac.c
-
+> +++ b/drivers/crypto/cmh/cmh_hash.c
 [ ... ]
-
-> +static int cmh_aes_cmac_init(struct ahash_request *req)
+> +static int cmh_hash_update(struct ahash_request *req)
 > +{
-> +	struct cmh_aes_cmac_reqctx *rctx =3D ahash_request_ctx(req);
+> +	struct cmh_hash_reqctx *rctx =3D ahash_request_ctx(req);
+> +	const struct cmh_hash_alg_info *info =3D rctx->info;
+> +	struct vcq_cmd cmds[CMH_HASH_MAX_PAYLOAD];
+> +	struct core_dispatch d;
+> +	u32 block_size =3D info->block_size;
+> +	u32 full_len;
+> +	u32 idx;
+> +	int ret;
+> +	gfp_t gfp;
 > +
-> +	memset(rctx, 0, sizeof(*rctx));
-> +	INIT_LIST_HEAD(&rctx->chunks);
-> +	return 0;
-> +}
+> +	if (rctx->error)
+> +		return rctx->error;
+> +
+> +	if (!req->nbytes)
+> +		return 0;
+> +
+> +	/*
+> +	 * block_size is not always a power of two (SHA-3 rates: 144/136/
+> +	 * 104/72), so use modulo -- round_down() would corrupt the split.
+> +	 */
+> +	rctx->update_remainder =3D req->nbytes % block_size;
+> +	full_len =3D req->nbytes - rctx->update_remainder;
+> +
+> +	gfp =3D req->base.flags & CRYPTO_TFM_REQ_MAY_SLEEP ?
+> +	      GFP_KERNEL : GFP_ATOMIC;
+> +
+> +	/*
+> +	 * Reject a single update whose linearisation would exceed the largest
+> +	 * kmalloc: return a permanent -EMSGSIZE ("message too long") rather
+> +	 * than a transient -ENOMEM the client would keep retrying.
+> +	 */
+> +	if (full_len > KMALLOC_MAX_SIZE)
+> +		return -EMSGSIZE;
+> +
+> +	/*
+> +	 * Linearise the block-aligned prefix from the scatterlist.
+> +	 * __GFP_NOWARN keeps a borderline-large (but sub-cap) request from
+> +	 * splatting the page allocator if it still cannot be satisfied.
+> +	 */
+> +	rctx->data_buf =3D kmalloc(full_len, gfp | __GFP_NOWARN);
 
-[Severity: High]
-Does this unconditionally wipe the request context? If the request already
-has chunks attached to rctx->chunks, it looks like they will be permanently
-orphaned and leaked. For example, if a user repeatedly resets an active
-request via the AF_ALG interface, this might permanently consume the quota
-until the transform is bricked.
+[Severity: Medium]
+Since the Linux crypto API contract permits arbitrary-sized inputs via
+scatterlists, is it okay to impose an allocation limit here?
+
+A caller submitting an update with a large nbytes could be rejected with
+-EMSGSIZE or fail with -ENOMEM due to physical memory fragmentation. Could
+this code process the scatterlist in smaller chunks instead of attempting
+to linearise the entire payload into a single physically contiguous buffer?
 
 [ ... ]
-
-> +static int cmh_aes_cmac_final(struct ahash_request *req)
+> +static int cmh_hash_finup(struct ahash_request *req)
 > +{
-[ ... ]
-> +	if (ret) {
-> +		/*
-> +		 * Synchronous rejection (e.g. -EAGAIN: CMQ full, no backlog).
-> +		 * Free only the per-submit transients and keep the accumulated
-> +		 * chunks intact so the caller can retry the identical final().
-> +		 * If no retry comes, cra_exit reclaims the orphaned chunks; the
-> +		 * per-tfm buffered-byte cap bounds how much stays pinned.
-> +		 */
-> +		if (rctx->total_len > 0 && !cmh_dma_map_error(rctx->in_dma))
-> +			cmh_dma_unmap_single(rctx->in_dma, rctx->total_len,
-> +					     DMA_TO_DEVICE);
-> +		cmh_dma_unmap_single(rctx->tag_dma, AES_CMAC_DIGEST_SIZE,
-> +				     DMA_FROM_DEVICE);
-> +		kfree(rctx->tag_buf);
-> +		rctx->tag_buf =3D NULL;
-> +		kfree_sensitive(rctx->buf);
-> +		rctx->buf =3D NULL;
-> +		/* Keep chunks + total_len so the retry rebuilds the buffer. */
-> +		return ret;
+> +	struct cmh_hash_reqctx *rctx =3D ahash_request_ctx(req);
+> +	u32 data_len =3D req->nbytes;
+> +	u8 *data_buf =3D NULL;
+> +	gfp_t gfp;
+> +
+> +	if (rctx->error)
+> +		return rctx->error;
+> +
+> +	if (data_len =3D=3D 0)
+> +		return cmh_hash_submit_final(req, NULL, 0);
+> +
+> +	/* Reject an oversized linearisation with a permanent -EMSGSIZE. */
+> +	if (data_len > KMALLOC_MAX_SIZE)
+> +		return -EMSGSIZE;
+> +
+> +	gfp =3D req->base.flags & CRYPTO_TFM_REQ_MAY_SLEEP ?
+> +	      GFP_KERNEL : GFP_ATOMIC;
+> +
+> +	data_buf =3D kmalloc(data_len, gfp | __GFP_NOWARN);
 
-[Severity: High]
-Is there a risk of leaking these accumulated chunks on a synchronous error?
-The comment mentions keeping them so the caller can retry, but if the caller
-ultimately drops the request instead of retrying, these chunks appear to be
-left orphaned.
+[Severity: Medium]
+Does this code also need to process the scatterlist in chunks?
 
-[ ... ]
+Similar to cmh_hash_update(), attempting to allocate a contiguous buffer for
+the entire finalization payload restricts the maximum input size and violat=
+es
+the ahash scatterlist API contract.
 
-> +static int cmh_aes_cmac_import(struct ahash_request *req, const void *in)
-> +{
-[ ... ]
-> +	if (state->total_len) {
-> +		chunk =3D kmalloc(sizeof(*chunk) + state->total_len,
-> +				req->base.flags & CRYPTO_TFM_REQ_MAY_SLEEP ?
-> +				GFP_KERNEL : GFP_ATOMIC);
-> +		if (!chunk)
-> +			return -ENOMEM;
-> +		chunk->len =3D state->total_len;
-> +		memcpy(chunk->data, state->data, state->total_len);
-> +		spin_lock_bh(&tctx->chunk_lock);
-> +		list_add_tail(&chunk->list, &rctx->chunks);
-> +		list_add_tail(&chunk->tfm_node, &tctx->all_chunks);
-> +		tctx->tfm_buffered +=3D chunk->len;
-> +		spin_unlock_bh(&tctx->chunk_lock);
-> +		rctx->total_len =3D state->total_len;
-> +	}
-> +	return 0;
+> +	if (!data_buf)
+> +		return -ENOMEM;
+> +
+> +	scatterwalk_map_and_copy(data_buf, req->src, 0, data_len, 0);
+> +
+> +	return cmh_hash_submit_final(req, data_buf, data_len);
 > +}
-
-[Severity: High]
-Can an unprivileged user bypass the CMH_AES_CMAC_TFM_MAX_BUFFERED quota
-here?
-
-The cmac(aes) driver imposes a 16MB limit on tctx->tfm_buffered during
-updates. However, this import function allocates memory and adds to
-tctx->tfm_buffered without checking that limit.
-
-If a user creates an ahash socket via AF_ALG, clones the socket repeatedly
-with accept() (which triggers import()), and closes the child socket, could
-this lead to unbounded kernel memory allocation and an OOM denial of servic=
-e?
+> +
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917225929.2494=
-111-1-aousherovitch@rambus.com?part=3D8
+111-1-aousherovitch@rambus.com?part=3D4
