@@ -1,231 +1,322 @@
-Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023096.outbound.protection.outlook.com [40.107.44.96])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 409F3419304;
-	Thu, 17 Sep 2026 06:07:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.44.96
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789625270; cv=fail; b=sRdyUc0KFE2zFVBZANz7Afwaqso7HO3We7Jbet0Q+NWEINvMWkAP1ABDOPvwmDT8BEsj/ntnkALL77szXYKmqqQQmfDh1E1DpfTcKRxUezc8La/xC1kVxXqRE+Plm+bYQBnqxAt3mrjHwCd7Duj6qg5QUGkWux2CWSHyihaKfN0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789625270; c=relaxed/simple;
-	bh=OOf2kLI6KtR1ueq5gKMNiN7Sv6HinQHnwdsXTDbQS3Y=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=JVqBhLoNx4ETSZeAqiAF+U0ffbJTFwdgGK0gVhUd+zpF5tmuvazkPpk7++r+GbCELigNTRWXQOdcweIt057vZmLJVsOPgKUJS6dFK9Ma9aTmqoNiBd51+WLc7HY0OJYeWTsLcRPgSHhX35tjtaohXuR19KP6IU9FxoWthtdFWHM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=C5KzEO6C; arc=fail smtp.client-ip=40.107.44.96
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7D4F35C686
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 06:10:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789625404; cv=none; b=ct7/yXxg5Y3gF6HiZhppWhafWgxyXuDKrfGAmdYwh3mkJAMbEoRBhMcvX0D643VnkzrKe/aD/xCS545Fhbz+1wQtvluiQbRqiTltDybetxv2u4AQxfREDM2nL+gPGRUNEONNsQXKuPBgUvumZr+4U6SrqQNHDBf9fZp32WghelU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789625404; c=relaxed/simple;
+	bh=gSgYMnuRUQemwYMm3QW+ALY8D/T4sdah7EsE+5pEX7U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sCwpukntUxUKrHUbHm7gqmTz2WQjiYIFKc3GhZg8+CpW31xAb7OTWgUYYg52CV0u7MDRZnrQ/nyFv1f5P0YmkhHrvkvbzjAGsKSNhSKki9rFmSFZlQu9255/TifCQ4eO3aNJKlZ0mLTr0IQ0rkpEMyli57rnEQHKSCjwm8FYvpQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IQGxNRsm; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="C5KzEO6C"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=b8AYptPE5yGo9mVcxvxKqxPtsnBHcQbgeAMQ4i5F460Ew6agWXMYE7W8OSac2ZRA9Kf0ivtqYu+FZL7FcHKYjYEG+tZKBWfVOkJ6Zy0UwxnArKkjCQ2ExduDPN0M8voC94O+HOKgzNqYST0/wBebZcBW7qLIEZXbI5jlgnftzb6nI0yCVU2OqQS6OLgWoK5Oz4+o06CH9cogUrmna8pZ0X2l8QINc5SyQLMGm0k25f23vB4dUEnXwNFiD5EOCmJ+iPlsp5IJhvJwWHuUd/+UMnZJZN1VL+IExmtFT5WUjf2/D7RW45TYZhEHf5DtGTH/ef3FVrhXTBTKdKvSpqKW9g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5WGWVZIJTN73nnAt2fmct3ewzAbNCg3VBnXJnDiYAtg=;
- b=wZo4mpT8fyzpiCLHHDyhu8dYPg9qR2pUl+kHTNpZE0oklNdkRn9X0L08gb9RScuVViyn0UQAqwvvgcNjukDN4cD5b5UI2uLAmyZdsCH8RMIXRp9mcNDjJl5QUQcI+C54p9zGqLTN6a5esDeHkup1XNivYGoX0rxBYSMwO8KBzgRvJHBQz3KsP8GWp+AbSt9C76hqrNBJ8G8dtmu5biVNHcG3cSz67g5DAjECjYqIFZlEiEF+9kObU7E7b7UVbs4HnmDiLqyV6KQnm+dMbtSfkzF7U156QGm/DvZXsJuF9pzmf5OZACJ19rg66f2Ei5k+UhXlpy6jU58hEN6YLbwHSQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
- dkim=pass header.d=amlogic.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5WGWVZIJTN73nnAt2fmct3ewzAbNCg3VBnXJnDiYAtg=;
- b=C5KzEO6C2dN7GLpDCCt4lmyy/WMa0evRxLk1QMw394scukkJKFtHqBDI9gb08zkLafgYXOL9cjYMum7VIEeI7UJqI/8XSh5LiMW53tAL3cK9kCcd9LBe9fLkVMOY/qRLZApa4GDcN6pP2gxthXh4u9rJbZGn7kh4plyeqKj5Qrg3kSuSDxw5jYvL+2qYabw7E8KgYBJmCdEkQxGxGiE6ygumi+p8dtpyv/3fqkpxJVdAC/jDnUdGsruSAiBwR37Cf0Y8VEgBspXfmm+/GHSHT/IPs1k6pS9wsuhmm0to+wU2M85C83iJ9NwAolYWzaVrJfbxs8sAov4M+ABdomhi3A==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amlogic.com;
-Received: from KL1PR03MB5521.apcprd03.prod.outlook.com (2603:1096:820:51::12)
- by SEYPR03MB8226.apcprd03.prod.outlook.com (2603:1096:101:1a6::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.12; Thu, 17 Sep
- 2026 06:07:42 +0000
-Received: from KL1PR03MB5521.apcprd03.prod.outlook.com
- ([fe80::f12b:85e:f95c:191e]) by KL1PR03MB5521.apcprd03.prod.outlook.com
- ([fe80::f12b:85e:f95c:191e%3]) with mapi id 15.21.0428.011; Thu, 17 Sep 2026
- 06:07:42 +0000
-Message-ID: <7afbc566-ba8a-4b73-831b-7c596c95ea90@amlogic.com>
-Date: Thu, 17 Sep 2026 14:07:38 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 3/6] media: dt-bindings: Add Amlogic V4L2 video decoder
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260914-b4-s4-vdec-upstream-v9-0-72fdb0d71b02@amlogic.com>
- <20260914-b4-s4-vdec-upstream-v9-3-72fdb0d71b02@amlogic.com>
- <20260916-fat-enthusiastic-termite-44b2e2@quoll>
- <37bbcf5c-644a-4388-ba8b-11608f444ae3@amlogic.com>
- <05189f26-1d24-47a7-abef-ea4c25d2964f@kernel.org>
-From: Zhentao Guo <zhentao.guo@amlogic.com>
-In-Reply-To: <05189f26-1d24-47a7-abef-ea4c25d2964f@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SEWP216CA0118.KORP216.PROD.OUTLOOK.COM
- (2603:1096:101:2b9::16) To KL1PR03MB5521.apcprd03.prod.outlook.com
- (2603:1096:820:51::12)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IQGxNRsm"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e2406so2005495e9.1
+        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 23:10:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789625401; x=1790230201; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ewebXkNrJWhfTTXHIqMmBOFdCxAPRqRh9LeTiOeGWGE=;
+        b=IQGxNRsmCJrhWAyCKcvLJvRVnp/Vr1OtDBl1RMlWUfjVXP50g6Wcc2LDzhWklBaskl
+         UGnNOzP5WRsJKvStgcOI3wOYQ1y3fmdKaeWpkf6pQhZ4f58LnR4hrtWbkI+fYwZ0kqbj
+         aeRG91Gjwb0B3RDamGNdy6/3FYAcjDsZF2hyi0bZa+qDU//fZDa226GXvCpb5PaJ6hzi
+         b60qDxDnNsMVSMop1TYaRE001zcwxkh+zazZ3aO7tTmj1aOjo9fuSNbRe39m4LrWF1tq
+         NsIC+6XRs08f40fMqthAAvXx+xnzxCZnf7AyuQ+A+dVy12bdVOPgrS3RWe/1NOHV9YNC
+         lWFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789625401; x=1790230201;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ewebXkNrJWhfTTXHIqMmBOFdCxAPRqRh9LeTiOeGWGE=;
+        b=eu2tZrDvYGObu0JMOFyRbhJSrKhvrXuPbDPi/ykB2G/HBS36kGE6ogfUR4qiLOutGC
+         9NbW1ZTfuVa/bqHaOaaYrwBd8BNemkAjMw/RBrkRPJrlJQVQBvHneitB98flDnbnnwcC
+         sJg4apXNXLA68r001YzJA+lnm1PSWv1wyr2RTWhFAUwWB2iN4D39utPnDw1urgQRT1nS
+         vG19hOpWBLA5FUIYI0+/dV8Ii1ihh7QkbxFT3BSbxLTXZCDwft8J3HO1OIva7JALbejB
+         AJxNmZwml3DFBdGUFyppTTjGD668uq7sWBqSJxix1gf+2YFzkU1MGDzauXY5YGdBzeLN
+         8Qpg==
+X-Gm-Message-State: AFuF++kWwnWfaKxAtuZQXeWOm+wSY+n06XSZFb/Sjr4FTLI6mAvLWRHQ
+	hV0LlrxeB/qReSxF+Xe858aldqWNxp7CDKZ6+l3c1B3CaFHaR27q9mxh
+X-Gm-Gg: AYBFou3kdijEPR8I2viQGsszT/TjWXmVmc/n0d8klZAl64K58uFHH4seB6TPfwzhSob
+	e8K2shC8nPLhHudXVIVN6KKBHxtQPrspxb0zhqrhFD4g3fn6H9+T5OUwEjBoqYIH0/U9zoStMEg
+	vdRYJq+AQp53VRGjvigyT4Tq21MZTj/9H4qCsSPGb4e7DrkBXiIqgauXF0g/GFco3+ST2lZBFip
+	w0weQaS7e09M94wuzzEhik4IFIwS9NnOK2AELaN0JmS093JRkoX2K01+rA+fXZ+4Gr7WlwSnbEN
+	wLTGC55WpYi0vyOfIVKSl31vTHxGehnUAxRtEZHFyAz29WzjIKnV9M5bybI6QOA3Hd6fA7q5UJh
+	rTO7gSZAFx9GhkbZAFJRyeWKLu4UdyppFAz5GprUhLkq6om4uxwEF/zsYhCroHO64BIoAMQxzME
+	CyHS2GaroT63UPrLd9u8F5Y1RpqBwsf7YPccUrbzv2DJIhQWGugszB/FAsXxwGISP0qOOS
+X-Received: by 2002:a05:600d:849b:10b0:49e:6581:7baf with SMTP id 5b1f17b1804b1-49fbd1af3c8mr19275045e9.2.1789625400878;
+        Wed, 16 Sep 2026 23:10:00 -0700 (PDT)
+Received: from omermac ([82.222.238.173])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd247809sm81090045e9.11.2026.09.16.23.09.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 23:10:00 -0700 (PDT)
+From: Omer PALA <palaomer100@gmail.com>
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] dt-bindings: misc: add  xlnx,axi-fifo-mm-s
+Date: Thu, 17 Sep 2026 09:09:48 +0300
+Message-ID: <20260917060948.14700-1-palaomer100@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: KL1PR03MB5521:EE_|SEYPR03MB8226:EE_
-X-MS-Office365-Filtering-Correlation-Id: f35e8e1d-aceb-4313-c4db-08df1481fbed
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|7416014|1800799024|366016|22082099003|18002099003|3023799007|11063799006|4143699003|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	lxdjPyx8aUB5nYtvumhy4EC1d5xBPcJEsGr3iQD7LrKAFPyEQhPFvKJYhb3IQoxMhDUVu05zoavqQb7jM2mf3v43DzDENu2bWS1pS+SME7PtUbIHnE4sWDZNsfVoXPZvy0zpTFBCWEFpRsBDe5KWg4H934g3lG8CwVl1hMdQRXGkviXQ+e1wjaypgdH2S9wN0ADMYT22m3Hxb/X1UMc3o96h+uJEYGguoS9lV5+onrBCh9TLAQMlwZjAnh9o9hk+K8T+YiUP0b3qswX0m9EBuNk7PCTk6dnVLR+h7FGjkaVA/yDy7saFrc0uivzHr0UBo8qrjGKw0/upBmbwbfbty+7CfmxFAqwVZUibTLQ88vwWoEmoo0JMFNJah1pH793mHSnOzsJktA6spx36e0+FAHEtiqtywqhIUmhEqt6qi6pxe8YjTlNh1dxUHGn+5ptvtryLrvH5Of/vsUl5gM1Ez/+X5S3o64xXhIvwagCZ+Pw0Zd76pQ3+zIw8FMXTiVHf0Qb4UsQnmsQJ2KczugGVu/s9+zSgfLgm05fdOEgUY0AOX2QMaVH46zNi4MAuLxgiddpue9lo4B218JRazbyl3XTQFCvT6NyF5KdQgvYCfBYK2QMv46LhN6KkJrJWOEih
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB5521.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(1800799024)(366016)(22082099003)(18002099003)(3023799007)(11063799006)(4143699003)(10067099003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WUtnamtOS1drZWJ4cmNkUjQydittaS84YWl3N0Fzd2l6NFhpZ3RScTdsckJM?=
- =?utf-8?B?RmRseDJTU0kyWCtjZlpjZTNNTDk1L0FZNkhycTQyMGhMMFNJd0M3bkt1L3dW?=
- =?utf-8?B?dTBKSjNoSTA2Q0FPTm9hbDlQdXh3ZmJRT1FzQTdjeVJka3hsSUFsYjBiQjdv?=
- =?utf-8?B?UWFjeVkwS3dXU081Snp2alA0Q0xLS2xlVG9ickFLd3Q1Lzh1Qkd6REJNLzJF?=
- =?utf-8?B?VTV3dy9CWG9MWFJra3pQY3NjN2xYaWpLdkNDOHppVGhDc1JxZFJ5Ymc4bkF0?=
- =?utf-8?B?eTltb0pNempqUmdFeXl6YjE5eitVZnZaS0hOZE56Y0twMSs3clVLeG1QSTZi?=
- =?utf-8?B?TWlHRWo5KzRXUkRiMW9CV1dBRDBJOTRIQXNOd0Q2R1NoMGNFdWtxdVRIbzkv?=
- =?utf-8?B?bVRaL0NORTdVQkczWHZJWXNQY2daWUEvWHVySXVBWG5JL0x3MmpycVo3WC80?=
- =?utf-8?B?Z2RRdXI2Um80YXNtQ0RJeWV5V1EvWXdpWjM1a3c0MlgwU015S0Q2dUdkL1Fr?=
- =?utf-8?B?dmpPd2pGVkhGZXlhWWJzMW1wdlpWU0lxZnhIMGZEa1lheStsRW40dU5pNjFu?=
- =?utf-8?B?YUpvam5FWnliRjhJY2ZtT0RZbEVTZmRiSmlCVzV6dUpmRGtISy9waUh3UDgx?=
- =?utf-8?B?b0U2a2ZnMHB4QnduWU8wVHlxS1hPMTk5YWlXUGw3bUtPQjY2Q3d2SC9nMVp0?=
- =?utf-8?B?QjNsUVJGWUg5VHdsZDJrelFQZnBad20zT0lSbUhKeU5SczhYS1QxTWVKUEJK?=
- =?utf-8?B?MW9TZDU1RzRPZ0x4SkhzS0ZmbXR3ZTd6WXZFb3B3WXVJWjN1VGxYNHpkMTBF?=
- =?utf-8?B?cVdCTkVhZ0FXREZoem9aM3BLQkxJWWh5eU5mTDhRSFJieGczMU1NaUw4RFJs?=
- =?utf-8?B?eXZadE05NGZPNjRSTktuQnZhOHdPdGhLdGk0clBaWkFjbmJzTkpQcFQ2c2ZK?=
- =?utf-8?B?TkFiZDNzM2JwWS9vNy96WGdReVQ5QUlRU2tKTnhvK2kvOVZ3R2o1dlYxQTZL?=
- =?utf-8?B?YW9sS2pyc1RPRzIvQ0JlTnNpMW1aOWc5ck9jSWtXdnhlM20yNzJoa2c0dlYw?=
- =?utf-8?B?cDdlQ2NkdC96Z0F5VWtZZFZGNnRlMTdtUEZGT3BPUHVOVzlWcGJnanJDb2N2?=
- =?utf-8?B?N1JxeG1jM0hjSXZFV2ZXRmZpZ2xQdVpjK1pPcHk5bVFDYkNnTzV4OVZWRmxr?=
- =?utf-8?B?VlpjY2g1SEpZUlhEaW9BUndhR0RMQkpPSENRZTVKT29Tdkkyc0tVTWd2OVF6?=
- =?utf-8?B?L3VVVXEwSERYQ0dZQU15K2dKVHM3ZmJpMnpJWEwrNllSb1NxK25BdHVUR2ZU?=
- =?utf-8?B?dUZKWVJPb0RjcE9LYVMzTS8zd2xYQ3JSVDlNdm1LN0o5VmtkRkRpM3VSbDJy?=
- =?utf-8?B?UzNyTnh6TUlzdERPVml0cGRBUkZQZEpuZEdTclpuNVlVcmpLTitJbzNpeWZw?=
- =?utf-8?B?M2VBNTlPUDhZeGhOcElBUnlaRk1BdE54YUNaZzlxeDdEanVFaXNGaVhqNFlF?=
- =?utf-8?B?TkJTcFNxNXZlV0psY1lWQkQyVUk5UFZSYSs1U0dVRWdTd2x2QXZiNTRxbFJF?=
- =?utf-8?B?TExSZnpCZ0N0bmUxVUdremZQVzhITW5kNWhGaDBNMDF3S2J5ejd1cDAyQWky?=
- =?utf-8?B?azZUSk1yUS9EOVVzNUNTRzcwOUNQU1RHK3VCdkdJc1B5bjN0OGcwdVN4aDFS?=
- =?utf-8?B?S1JnS1pnUGtXY1JRWk52TW5ObndwMTZDRXVXWkNDSWhWMjE5RFM1U3FBUEU5?=
- =?utf-8?B?dDRybjI5UnNZdS9TRHc2U01rV1l6d2NBNTA3Rzh6K0g3bm1BRDhhQ0xGZ05n?=
- =?utf-8?B?emxkb2JxS0N2WVh3d0JMcGtLdnliTU5LdUlXYk9pTlRTV2tsaFArZzRDR1h4?=
- =?utf-8?B?bHJpZjU3T3M2TDN5ZExReStLeTlXUG80VHVyUVRLSWhoTHN1UnZLQ1JlUlNQ?=
- =?utf-8?B?UjIxVmhoMnRRcklBTUl1SUY2dSsvQ1VUZUFHcldCSlpONTY1NFZmUXJQSmdY?=
- =?utf-8?B?RlNYRVJ5NUhZYnlhaDhPZGQ0MTRXU2RqSXhKdkhneEorK2JNZmVNN2pVODZC?=
- =?utf-8?B?NUV2THYvcHd3a1ZFeEVlVG0xcVJIU3lnMWpRam44bUp6VzBmemc5ZzBvRW1Z?=
- =?utf-8?B?UndDS2JUdnA5S28rMENJSTlZaElvRmFsdzFDWHpjd2hBTS9zWXdpRnN0RzFI?=
- =?utf-8?B?Q3ppempYcEZIdXpiYkxwQTFBUHhxMGRaVGZOTGUxQUV2MVYzUEQvOXp6eUJh?=
- =?utf-8?B?ZW96VDhGOU9nVzE0UnozWXZJS0haci81Q2x6SE95K0Y0eHo2VUZEY2F4VTcw?=
- =?utf-8?B?bGxXTW9sV3dmL2d3bm9GRXN6WVNiRUIxYklGT2dGR1J3YmowNU0wdz09?=
-X-OriginatorOrg: amlogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f35e8e1d-aceb-4313-c4db-08df1481fbed
-X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB5521.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 06:07:42.3190
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xAued8UDzdPh7pzkpUPVtwL16fv95sjStpT2HHfQWl+/enZt4yJll1ixE349ig9w9V4GXL+B66PKR9fHDQyZ3w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR03MB8226
+Content-Transfer-Encoding: 8bit
 
+Add Device Tree binding documentation for the Xilinx AXI FIFO
+Memory Mapped Stream IP core, covering compatible strings
+from version 4.1 through 4.3.
 
-> On 17/09/2026 05:07, Zhentao Guo wrote:
->> Hi Krzysztof,
->>
->>> On Mon, Sep 14, 2026 at 04:10:20PM +0800, Zhentao Guo wrote:
->>>> Describe the initial support for the V4L2 stateless video decoder
->>>> driver used with the Amlogic S4 (S805X2) platform.
->>> Drop driver. Describe the hardware instead.
->> OK，got it.
->>>> Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
->>>> ---
->>>>    .../devicetree/bindings/media/amlogic,s4-vdec.yaml | 114 +++++++++++++++++++++
->>>>    1 file changed, 114 insertions(+)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
->>>> new file mode 100644
->>>> index 000000000000..d350b3e68a38
->>>> --- /dev/null
->>>> +++ b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
->>>> @@ -0,0 +1,114 @@
->>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->>>> +# Copyright (C) 2025 Amlogic, Inc. All rights reserved
->>>> +%YAML 1.2
->>>> +---
->>>> +$id: http://devicetree.org/schemas/media/amlogic,s4-vdec.yaml#
->>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>>> +
->>>> +title: Amlogic Video Decode Accelerator
->>>> +
->>>> +maintainers:
->>>> +  - Zhentao Guo <zhentao.guo@amlogic.com>
->>>> +
->>>> +description:
->>>> +  The Video Decoder Accelerator present on Amlogic SOCs.
->>>> +  It supports stateless h264 decoding.
->>>> +
->>>> +properties:
->>>> +  compatible:
->>>> +    const: amlogic,s4-vdec
->>>> +
->>>> +  reg:
->>>> +    maxItems: 2
->>>> +
->>>> +  reg-names:
->>>> +    items:
->>>> +      - const: dos
->>>> +      - const: dmc
->>>> +
->>>> +  interrupts:
->>>> +    maxItems: 2
->>>> +
->>>> +  interrupt-names:
->>>> +    items:
->>>> +      - const: core_hvdec
->>>> +      - const: core_vdec
->>> Drop "core_" from both... or rather some consistency would be more
->>> useful. Below you call them core_v and core_h, but there is also:
->>>
->>>> +
->>>> +  clocks:
->>>> +    items:
->>>> +      - description: Clock for dos core
->>> core dos?
->> To explain this, I would like to show you the structure diagram of the
->> Amlogic hardware decoder IP:
->>
->> +-----------+------------------------+
->> |           |                        |
->> |           |        vdec            |
->> |           |                        |
->> |    dos    +------------------------+
->> |           |                        |
->> |           |        hvdec           |
->> |           |                        |
->> +-----------+------------------------+
->>
->> The IP consists of three cores. Dos core is in the front of the IP,
->> which controls the rest two cores. The actual hardware decoding is
->> handled by the two cores vdec and hvdec.
->>
->> Each of the three cores has its own independent clock source.
-> So everything could be called consistently "dos", "vdec" and "hvdec" in
-> all properties (clocks, interrupts etC).
-Got it, thanks!
->
-> Best regards,
-> Krzysztof
+Signed-off-by: Omer PALA <palaomer100@gmail.com>
+---
+ .../bindings/misc/xlnx,axi-fifo-mm-s.yaml     | 228 ++++++++++++++++++
+ 1 file changed, 228 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
 
-BRs
-
-Zhentao
+diff --git a/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml b/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
+new file mode 100644
+index 000000000..f53b353cc
+--- /dev/null
++++ b/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
+@@ -0,0 +1,228 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/misc/xlnx,axi-fifo-mm-s.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Xilinx AXI-Stream FIFO IP core
++
++maintainers:
++  - Omer PALA <palaomer100@gmail.com>
++
++description: |
++  The Xilinx AXI-Stream FIFO IP core has read and write AXI-Stream FIFOs,
++  the contents of which can be accessed from the AXI4 memory-mapped
++  interface. This is useful for transferring data from a processor into
++  the FPGA fabric.
++
++  See Xilinx PG080 for IP details.
++
++  The Linux driver currently supports only store-forward mode with a
++  32-bit AXI4-Lite interface. Cut-through mode and full AXI4 (non-lite)
++  are not supported.
++
++properties:
++  compatible:
++    enum:
++      - xlnx,axi-fifo-mm-s-4.1
++      - xlnx,axi-fifo-mm-s-4.2
++      - xlnx,axi-fifo-mm-s-4.3
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  interrupt-names:
++    items:
++      - const: interrupt
++
++  xlnx,axi-str-rxd-protocol:
++    $ref: /schemas/types.yaml#/definitions/string
++    const: XIL_AXI_STREAM_ETH_DATA
++    description: Protocol of the receive data AXI-Stream interface.
++
++  xlnx,axi-str-rxd-tdata-width:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    const: 32
++    description: Width of the receive data AXI-Stream TDATA bus in bits.
++
++  xlnx,axi-str-txc-protocol:
++    $ref: /schemas/types.yaml#/definitions/string
++    const: XIL_AXI_STREAM_ETH_CTRL
++    description: Protocol of the transmit control AXI-Stream interface.
++
++  xlnx,axi-str-txc-tdata-width:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    const: 32
++    description: Width of the transmit control AXI-Stream TDATA bus in bits.
++
++  xlnx,axi-str-txd-protocol:
++    $ref: /schemas/types.yaml#/definitions/string
++    const: XIL_AXI_STREAM_ETH_DATA
++    description: Protocol of the transmit data AXI-Stream interface.
++
++  xlnx,axi-str-txd-tdata-width:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    const: 32
++    description: Width of the transmit data AXI-Stream TDATA bus in bits.
++
++  xlnx,axis-tdest-width:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: AXI-Stream TDEST width. Ignored by the driver.
++
++  xlnx,axis-tid-width:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: AXI-Stream TID width. Ignored by the driver.
++
++  xlnx,axis-tuser-width:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: AXI-Stream TUSER width. Ignored by the driver.
++
++  xlnx,data-interface-type:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    const: 0
++    description: |
++      Memory-mapped data interface type. Only AXI4-Lite (0) is supported.
++
++  xlnx,has-axis-tdest:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    const: 0
++    description: TDEST support. Not supported by the driver.
++
++  xlnx,has-axis-tid:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    const: 0
++    description: TID support. Not supported by the driver.
++
++  xlnx,has-axis-tkeep:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    const: 0
++    description: TKEEP support. Not supported by the driver.
++
++  xlnx,has-axis-tstrb:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    const: 0
++    description: TSTRB support. Not supported by the driver.
++
++  xlnx,has-axis-tuser:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    const: 0
++    description: TUSER support. Not supported by the driver.
++
++  xlnx,rx-fifo-depth:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: Depth of the receive FIFO in words.
++
++  xlnx,rx-fifo-pe-threshold:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: Receive FIFO programmable empty interrupt threshold.
++
++  xlnx,rx-fifo-pf-threshold:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: Receive FIFO programmable full interrupt threshold.
++
++  xlnx,s-axi-id-width:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: Width of the AXI4 slave interface ID bus.
++
++  xlnx,s-axi4-data-width:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    const: 32
++    description: Width of the AXI4 slave data bus in bits.
++
++  xlnx,select-xpm:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    const: 0
++    description: Whether Xilinx Parameterized Macros are used for the FIFOs.
++
++  xlnx,tx-fifo-depth:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: Depth of the transmit FIFO in words.
++
++  xlnx,tx-fifo-pe-threshold:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: Transmit FIFO programmable empty interrupt threshold.
++
++  xlnx,tx-fifo-pf-threshold:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: Transmit FIFO programmable full interrupt threshold.
++
++  xlnx,use-rx-cut-through:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    const: 0
++    description: Receive cut-through mode. Not supported by the driver.
++
++  xlnx,use-rx-data:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    enum: [0, 1]
++    description: Set to 1 if the receive FIFO is enabled, 0 otherwise.
++
++  xlnx,use-tx-ctrl:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    const: 0
++    description: Transmit control interface. Not supported by the driver.
++
++  xlnx,use-tx-cut-through:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    const: 0
++    description: Transmit cut-through mode. Not supported by the driver.
++
++  xlnx,use-tx-data:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    enum: [0, 1]
++    description: Set to 1 if the transmit FIFO is enabled, 0 otherwise.
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - xlnx,axi-str-rxd-tdata-width
++  - xlnx,axi-str-txd-tdata-width
++  - xlnx,rx-fifo-depth
++  - xlnx,tx-fifo-depth
++  - xlnx,use-rx-data
++  - xlnx,use-tx-data
++
++additionalProperties: false
++
++examples:
++  - |
++    axi_fifo_mm_s@43c00000 {
++        compatible = "xlnx,axi-fifo-mm-s-4.1";
++        reg = <0x43c00000 0x10000>;
++        interrupt-parent = <&intc>;
++        interrupts = <0 29 4>;
++        interrupt-names = "interrupt";
++        xlnx,axi-str-rxd-protocol = "XIL_AXI_STREAM_ETH_DATA";
++        xlnx,axi-str-rxd-tdata-width = <0x20>;
++        xlnx,axi-str-txc-protocol = "XIL_AXI_STREAM_ETH_CTRL";
++        xlnx,axi-str-txc-tdata-width = <0x20>;
++        xlnx,axi-str-txd-protocol = "XIL_AXI_STREAM_ETH_DATA";
++        xlnx,axi-str-txd-tdata-width = <0x20>;
++        xlnx,axis-tdest-width = <0x4>;
++        xlnx,axis-tid-width = <0x4>;
++        xlnx,axis-tuser-width = <0x4>;
++        xlnx,data-interface-type = <0x0>;
++        xlnx,has-axis-tdest = <0x0>;
++        xlnx,has-axis-tid = <0x0>;
++        xlnx,has-axis-tkeep = <0x0>;
++        xlnx,has-axis-tstrb = <0x0>;
++        xlnx,has-axis-tuser = <0x0>;
++        xlnx,rx-fifo-depth = <0x200>;
++        xlnx,rx-fifo-pe-threshold = <0x2>;
++        xlnx,rx-fifo-pf-threshold = <0x1fb>;
++        xlnx,s-axi-id-width = <0x4>;
++        xlnx,s-axi4-data-width = <0x20>;
++        xlnx,select-xpm = <0x0>;
++        xlnx,tx-fifo-depth = <0x8000>;
++        xlnx,tx-fifo-pe-threshold = <0x200>;
++        xlnx,tx-fifo-pf-threshold = <0x7ffb>;
++        xlnx,use-rx-cut-through = <0x0>;
++        xlnx,use-rx-data = <0x0>;
++        xlnx,use-tx-ctrl = <0x0>;
++        xlnx,use-tx-cut-through = <0x0>;
++        xlnx,use-tx-data = <0x1>;
++    };
++...
+-- 
+2.55.0
 
