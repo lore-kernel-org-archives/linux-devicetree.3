@@ -1,114 +1,112 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1EE137CD4E
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 23:08:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FC8649A3CF
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 23:10:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789686503; cv=none; b=p+keaXskTOXnB0mzmnfTFBuZGnU5+LXX/GEQ9ohPwcvwWPqqqrOFp+BtQT+uLTJPxhh1VAwkFOQ+9YVgpjyo8auI5AaMYul++0tp/fvKBzbEX+sbwB7os2hcjDWnM9wmmsJhk+3pPjAlnIqXNUp27F+1b+1URopqgsv/MhpN6Y0=
+	t=1789686649; cv=none; b=k/BFsEB+zBkPRYQAh9NzofdifOTbRBvCSBBc0VkcTAuEqM2yw3vU+NQlKEoso+tPUqIDltkxdwPOEEdyg+nqBnVyRo6Mb52eqF/xkC2dZU9SUy1aj1wEe6avQRGd5dOCDM0wejdIQPbnJdMG4lVKrFotlY/sKQZ7dlKvDr4AU3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789686503; c=relaxed/simple;
-	bh=MvJT9Kb6eHvL+2eNRpu+At6i9LsAKCWBO5nihlKsm4Q=;
+	s=arc-20240116; t=1789686649; c=relaxed/simple;
+	bh=JsJqylgnbUjR5Dl/m1HrePP6RvduBYEKCeqv6SusPG0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jirYxr9Raf69cwQXHbW0LFe1zYFY0dshVrHxphN/aCbFEN6sAmdJJ1IU88FJUkbntu4wsd6Eds2mYPVPeYa0eIcQrGpegRsyWPXZdAbFVd9Oi2oVZTmd+vt1/UJSdefKasdcCd8jjCwbQXNPXEmf2qQiMNLDnRzVrR0uczLxADY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WjIIdWC8; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=UlVxekhEx+e3GhaWtvG08hTLg5gswQWjV3IhGC1nrhzs+ZyeSFSWKY1RNi3y78qo1UJ3SL7MlpIJLiIj0HaMkuBOJt6eXxT8N7y2WNlXcrzgZ09+wH2m8Yv6Ui6fQxf8bMFrBKzoPd58TSAMLVreMNyvZCS10geGhSLmkwpDguU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FchU2aWX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WjIIdWC8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 500301F000FF;
-	Thu, 17 Sep 2026 23:08:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FchU2aWX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0F0D1F000FF;
+	Thu, 17 Sep 2026 23:10:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789686498;
-	bh=EWyzJ1fCk4xVCcL7o49PtUSB/c3zF4lww77vmzZhwek=;
+	s=k20260515; t=1789686640;
+	bh=qvyweFDovdyew8/eIRYoX6gFrUZANwO7ZK8V0ObHTUc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WjIIdWC8KqurTLv9zWonJDtNKcyyQ1x1j2A2LyjLx+lJDP7iWZFLHgZoMKTZne6T0
-	 Z2xEcQ1rfwaUvumkyxQh3+ej9aSyJPiyxT4yAwxoDD6HpfIxj6cMolVMDW1XTkCHsr
-	 PxA6+OHM/+qaXeR+uF3XXx7GWbnfwwzt3A4OhO9CLXK9BHloxI/TpsptBOYbO7XZnX
-	 cSd5p5V1rmyeQhc/ZVk2wRrKqJZzqzupqWQk9glH8Ucnw5Gu8Cleq/eeOMsV1vebiu
-	 CgL4Jcy5ovCPCY5rvqrN2FANnXhi/e0ldcFicNnRMjTTjEgUFsWMlyFqfpuP5yIYXr
-	 mqQ3EQkFnbabw==
+	b=FchU2aWXxZT/fOqVH6MBtwT8p7VkenCEKfr4lazszDW88u+Gd2CxD73cmH7MccImO
+	 +cPg6nTjMdi5PH0iXW1nKQ1juBlyw1aX3DHYayBhSXdp+X7t5GNxf2W4Z+YXBPi6m7
+	 vB5W8x5V4j0dRlXkiAp4AMrsQWzRHGWt37VSXSYGpqONXv+vIqOU5REO/6PMFjSDeG
+	 9R2iu4o+raywdCahXzE35QIphn4SOa6vsCLLSHXFMCG06LPdb/590j/u62uYt5/Dm3
+	 yQocglt8vJuUOxrLdHP2cmTfllAjrj7D3K2otW65XfKjw0TXAgCLGGHYLAq5OHVz/k
+	 tDhCxQ5sdvhwg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 01/19] dt-bindings: crypto: add Rambus CryptoManager
- Hub
+Subject: Re: [PATCH v5 12/19] crypto: cmh - add RSA akcipher
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Alex Ousherovitch" <aousherovitch@rambus.com>
 Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260917225929.2494111-2-aousherovitch@rambus.com>
+In-Reply-To: <20260917225929.2494111-13-aousherovitch@rambus.com>
 References: <20260917225929.2494111-1-aousherovitch@rambus.com>
- <20260917225929.2494111-2-aousherovitch@rambus.com>
+ <20260917225929.2494111-13-aousherovitch@rambus.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 23:08:17 +0000
-Message-Id: <20260917230818.500301F000FF@smtp.kernel.org>
+Date: Thu, 17 Sep 2026 23:10:39 +0000
+Message-Id: <20260917231039.E0F0D1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] dt-bindings: unsatisfiable 'not: {}' compatible schema rule
-- [Low] dt-bindings: missing mandatory 'examples' schema section
+- [Medium] crypto: cmh: partial tfm state corruption on set_pub_key failure
 --
 
-commit 3ce20b70e7ce37fd253621a799e998d6f340d240
+commit 245d9a370fc37764e90c38f7f7cb69490074e21e
 Author: Alex Ousherovitch <aousherovitch@rambus.com>
 
-dt-bindings: crypto: add Rambus CryptoManager Hub
+crypto: cmh - add RSA akcipher
 
-Add device tree binding schema for the Rambus CryptoManager Hub (CMH)
-hardware crypto accelerator.  The binding describes the parent
-SoC-level node with its SIC register region and one queue@N child
-node per mailbox the host owns, each carrying a reg (mailbox instance
-index), an optional interrupt, VCQ ring geometry (rambus,num-slots /
-rambus,slot-stride-bytes) and a rambus,cores affinity list.  Which
-crypto cores are present is discovered from the SIC CORE_ENABLE
-register at probe, not described in the device tree.
+This commit registers the RSA akcipher algorithm using the CMH PKE core,
+supporting encryption, decryption, signing, and verification operations
+for multiple key sizes.
 
-> diff --git a/Documentation/devicetree/bindings/crypto/rambus,cmh-v1030.ya=
-ml b/Documentation/devicetree/bindings/crypto/rambus,cmh-v1030.yaml
+> diff --git a/drivers/crypto/cmh/cmh_pke_rsa.c b/drivers/crypto/cmh/cmh_pk=
+e_rsa.c
 > new file mode 100644
-> index 0000000000000..a0df35bdc371d
+> index 0000000000000..251ae8275865d
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/crypto/rambus,cmh-v1030.yaml
+> +++ b/drivers/crypto/cmh/cmh_pke_rsa.c
 [ ... ]
-> +properties:
-> +  compatible:
-> +    items:
-> +      - not: {}
-> +        description: SoC-specific compatible, e.g. vendor,soc-cmh
-> +      - const: rambus,cmh-v1030
+> +static int cmh_rsa_set_pub_key(struct crypto_akcipher *tfm,
+> +			       const void *key, unsigned int keylen)
+> +{
+> +	struct cmh_rsa_tfm_ctx *ctx =3D cmh_rsa_ctx(tfm);
+> +	struct rsa_key rsa =3D {};
+> +	u32 bits;
+> +	int ret;
+> +
+> +	/*
+> +	 * Re-keying: release any private-key state (and its persistent DMA
+> +	 * mapping) left by a prior set_priv_key so it is not leaked until
+> +	 * exit_tfm and cannot be mistaken for the new public key.
+> +	 */
+> +	cmh_key_destroy(&ctx->key);
+> +
+> +	ret =3D rsa_parse_pub_key(&rsa, key, keylen);
+> +	if (ret)
+> +		return ret;
 
 [Severity: Medium]
-In JSON Schema, {} is an empty schema that matches any value. Therefore,
-the not: {} constraint in properties.compatible matches nothing and
-evaluates to false for all inputs.
+Does this leave the transform in a partially corrupted state if parsing fai=
+ls?
 
-Any device tree that supplies a valid 2-element compatible string (e.g.,
-"vendor,soc-cmh", "rambus,cmh-v1030") will unconditionally fail validation
-via dt_binding_check.
+If cmh_rsa_set_pub_key() is called after a key pair has already been
+configured, the private key is destroyed early. If rsa_parse_pub_key() then
+fails, the function returns without updating or clearing the existing public
+key.
 
-Could this compatible constraint be modified so valid inputs can pass?
+Userspace could potentially trigger this via the AF_ALG socket interface by
+passing malformed key material. This would leave the transform in an
+inconsistent state where encryption still works using the old public key, b=
+ut
+decryption fails.
 
-[ ... ]
-> +required:
-> +  - compatible
-> +  - reg
-> +  - "#address-cells"
-> +  - "#size-cells"
-> +
-> +additionalProperties: false
+Should the old private key be preserved until the new public key is fully
+validated, or should the entire transform state be wiped on error?
 
-[Severity: Low]
-This schema definition completely omits the required examples section
-at the end of the file.
-
-Without an example, the kernel's dt_binding_check machinery cannot properly
-validate the schema's internal logic against a simulated valid device tree
-node. This effectively hides the not: {} bug from automated testing.
-
-Can an examples section be included to enable proper schema testing?
+The same pattern also appears in cmh_rsa_set_priv_key() where the old priva=
+te
+key could be left active while the public key is freed on a failure during
+key material setup.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917225929.2494=
-111-1-aousherovitch@rambus.com?part=3D1
+111-1-aousherovitch@rambus.com?part=3D12
