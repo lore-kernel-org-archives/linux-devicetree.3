@@ -1,314 +1,145 @@
-Received: from mail-ed2-f6.google.com (mail-ed2-f6.google.com [74.125.228.70])
+Received: from mail-oa2-f10.google.com (mail-oa2-f10.google.com [74.125.231.74])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 400864D17B3
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 20:15:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.70
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789676156; cv=pass; b=q2ryZoK8UZaS5fJ0hm2Z/BEY7LEneCO/WM2y1v5S1dYhjJ7iDuUZw68QBoIyAbyF6sEZX7WBOUo9rf3Q4iAmF5II6hCLM/1XPmyyg8OQXg6rTE/3AjtXHZpj2eQnbh4frOUu8KM954hy62+A0UJTufAUAjFTE94Dpwf95X72wsI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789676156; c=relaxed/simple;
-	bh=2zAdLw8hI+hvbCzK1kKxzmewyLB7LCVzFQ6WaVowWnc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kVZvAVqhil4dDVTdnvZoQsTYeHd5Vonzvd9BQi3dflGlw23EWPVIVjIRw8R11WtjbDNYbT7jXR7J/MKDF0josV+ZuJcFGP9DHYZz8UGHQwpX18KtzMVKmMjWfvoW/zQBRff2vBjAPek43SqSrVzVoQBuXg6SNDGCMSeRi9Ae3Nc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h01CHJb1; arc=pass smtp.client-ip=74.125.228.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 153262E282B
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 20:24:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.74
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789676653; cv=none; b=Sq8KVQ6nNdmWsrXeAxS/jVjD0sQK/ZDfv4dHswJOq6x6GGREy/ndVCJiNUj84F7RfLchh+EyRWhy4f0E2XJW7YFc9rlovbWYQ8cvoRaynqqS6Jo2umW/FOI4vFJ4HpiwEXus3qRHntujssERaHHY25BLh0XB6CuXjQITHc2wEeE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789676653; c=relaxed/simple;
+	bh=Yshl8u41lsc1ZIeHhJ2AbGKqFXfjn1ErfK+AnH2JZhU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Yo+lGA24ZWhd23uVBNjMGcjBAu6HbNpEyByfuStxoOZLeGdWwkM5sV8XIioN/NNdYkfiNemNrQp3bBSVg7m68HImwIK1uMRqOyhelpqUzs6uLbqUfqNSB/6W55F1VlEgZA3rnTlpSfhs/Op9tspWQfBD6nZXD/oFUtHyWGRlLgQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SlHyg/tC; arc=none smtp.client-ip=74.125.231.74
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h01CHJb1"
-Received: by mail-ed2-f6.google.com with SMTP id 4fb4d7f45d1cf-6a5d5f30dacso14384a12.0
-        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 13:15:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789676150; cv=none;
-        d=google.com; s=arc-20260327;
-        b=IOd7d6H/uyeGYBOoddxHvrckOzGxdZM+hVtiOTwywEHEKux2mxp5eCOtNlMhG6hujy
-         3iPVQy4hu9M2Glal79VwVkfbGZKvjQG23Nq5iHJj6oc8ibngNZd8jkO9h3aPLIPN76Xr
-         e5U5M5Z+PeRZaRMkHDc9qcR5eK/6+AR/NefF8ANVrnPofdvjH5fy57HRnpr799jbtAuW
-         DcZzkSU3kEmmpzqM+cMzPNnCwMkytjicUnIT11Yr4615bDNW5V80yVMD5CzFm+cQmiFm
-         09NU6MN1ja98OqiWyuqqJw0kuv+cLgL+9HP3boUqB5BckB8GaCzlNK3BJljDr93/8+9m
-         jfEg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=zCPgAIlGTr5u1ukHAetOMBXtOrNSCf5qagcxmn2ADog=;
-        fh=XI5FYjdh2gZi45qPnMOpEKAiO5UattufmMqERj8aydg=;
-        b=XVoaeCh8zLSN/6YiRK0tuvhvjMwEpOnoTYPAYeLtjZ4Bl/+cORHdwEpkaEgJXYDWWy
-         Db9LW/G33Li1cMmcjcutc+d4a1N7FUQvYXYXklb5yLmWZtXJV1o8KcG55jEkNgew3584
-         fJdXrpQMQSeRz9gT7aKAyCq2JZapYGyddqcFFShrwx/zkBtFglIIx7YsT0tqDzqkoiIa
-         Vo7QymQkx5Nf/5aAxRCTouaj8lCLYPAYzXgQCCdjcSmBmb4nKKXzExAWymNzcYY65lu+
-         saoZySgq/usUsfQyi1dYwus/JZeohCu6mBxmificRyih72Jk9PEzgrjl/q6nc2rhr0jk
-         Tiqw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SlHyg/tC"
+Received: by mail-oa2-f10.google.com with SMTP id 586e51a60fabf-46adea418f3so14718fac.1
+        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 13:24:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789676150; x=1790280950; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zCPgAIlGTr5u1ukHAetOMBXtOrNSCf5qagcxmn2ADog=;
-        b=h01CHJb14DpQ7CXHYZVR9EP4hDn9yBLLagtAWEcMbY3oc4/cexpRW7vkT8TTFKeUft
-         9ryoPI083/IWMHBc8YycRJMP0oVHad9ypMpp/IyLTR6DXoQ7cmYDzyKvsIu2g0ytunvH
-         cuoydnQO6GDPpRXGX4rdJIvYg6gB4t5qQ9OLJuNfDUocSttQia77KSebQKrXMyiBIe4+
-         Ian+N32b9cpJn4mI8snykOFcyz/BQc5DQ3Ej/XyEyi76gP7IleSgaULXjFyr9cHPv3yq
-         FhTUSxtLfOZ5EpMceS+s3gECOgzzbOjkz8pgeR2adqV58Ac90x+pUANLmGdviyMqT84l
-         /VEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789676150; x=1790280950;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1789676648; x=1790281448; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=zCPgAIlGTr5u1ukHAetOMBXtOrNSCf5qagcxmn2ADog=;
-        b=pUI2JXTyJfg3G+O8iVHwuw6Yck0XwRayDC5wCImpeoe2FbfS4D0TwzdWDhWJWrD8is
-         J65Et559vY/PDYv2ZG+0QPqs50bogl1ajudlKSu0kEy6KlB5yUuqFIuagei6r2SC2R+p
-         hKP141QQKaUyqh1PbRD9vjJ99rHIx7CebbvkRUtWhIRYPggfzG2t2M5e+j+z7rOce6t/
-         fvPDDl89kN1rsKa5/k4pVpAyqhA4PjOVCMIhSz0jTCkGOr8acC3RNYS1QY8wZO64X1C/
-         /vppr+CRmTkj4rSLxkfSoqQsNdfa8iz6hWKweOL6gGh9FSS95XUJ+7WB9EXtdLQ6u7uf
-         ZclQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwcFTNDeMR/1o1WCPSVcZ6LAWP4CZRd1YT8/Eo1U4BWzf9l5/rJ3zUn/bxMccBma3umgjURV7bg0wem@vger.kernel.org
-X-Gm-Message-State: AFuF++ldE5DNhU582c2tZJQDr6W5C4VrO5t04tAI+NgXuQxW6PEdo4mG
-	FIz0yRyrfQqWpB3wxoIdOQfU9DffaOgzr55w9h0usMlbn3f4ZyZjy9yPLYgBqb9h9EXxtRIbL/a
-	kqfokf5g+7OVMW38Cimv8ZuZ0KRzS9Rk=
-X-Gm-Gg: AYBFou3jR59XrTYs8t48QfOyih8IOo7PzI9fX3AzDkc0DHFe6E8oFHxCWQJmJep7MEC
-	I+0uH3zNbEHhNjuJbGHr/iInbbMIsVMRPmnMyojrURrxiPblCQWgvoVvyhStGcFEKt3jA3T4hoI
-	C17fP1Sy/vvCbY8ftes3q63pz6RSgPGwt3n1uM+YzECicl4d+rbrfMZf2/RTbkC7sTrtQOsmEFq
-	Qap7LFBh2MsCRtERJOpCzz9cRY1rseBH+ZkMazAsIh/1OZDyAui3e872sOXC7b19K9gVQgwxNT/
-	jIV2EsOLGktI2nF8xYsWa4vxTw/wgHcUoB68LfX0RKcW8rg6bfAGgwlm+w==
-X-Received: by 2002:a17:907:7b8a:b0:c15:f598:60c0 with SMTP id
- a640c23a62f3a-c2a1581915cmr30112766b.4.1789676149887; Thu, 17 Sep 2026
- 13:15:49 -0700 (PDT)
+        bh=7itKtlTYX9R4u2oxxBvlnWOsxUd+L61slFivLar7yO0=;
+        b=SlHyg/tCnjBT4bNqKfdctuUKg3PNK4VRwtv+XOKJb+p/MiBn9JHL57ngJEyl94zd6W
+         SkYQ770KtLFlHptt0zVrylWjVMouOMemyiSlnzx+6E+Xv4emRQWKXfeY9U7IvVEz8g6M
+         fMur1/WOEpk88HV3+5OXMUr3LZ5HivlAGRRV4POo9ccopM7YPON0EzscapHZRrBukins
+         SIHL0Ac13Dgevq9U8rzWw4OYYKx3s5Wq93dOkSrTUEXBwq9+Z2S4YWpu3BQDaJa4jBCg
+         /Y8iUPGJWrjgubjUzpl7I8wVq0U0EHszkk+KPzcJ3I36bG+5qUW5okRPN9IgSbN5UlNw
+         QAgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789676648; x=1790281448;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7itKtlTYX9R4u2oxxBvlnWOsxUd+L61slFivLar7yO0=;
+        b=2KpFeeYH8G4xANgCEtHxz7B9NBBiMwMtier6K9qG5ZiasqMsV6AvhfSjVU/tF6fSDf
+         NVol4cDZwM6j9VquS3CZgVwgJjJCfTM14Z4Ydikrhrli1RfSWFpWQRP9x4LK3IlC6dDk
+         TvbgZraYl9MgLpEXJODY6pKUuS0APiN285bX+ViXCcYvygdFaO1DQnnfFppHCyPp8Vh9
+         hEfUoIVj7KxjKmVWq3x8BL8NraNz3y3STl57ER0O6Td2PA5/meUfbDP9WiPR0UBYnD8/
+         RAfIlKyOndrgO8lp9Eoh5tB+X4BkV7HMef3eNiZLMFhwOhbCELxqSfI9vRTuxGyJkZvh
+         +njw==
+X-Forwarded-Encrypted: i=1; AKwUvBwNaXcHMOei3/yXbtHrCopMNOU4HquhvYAGcQeAa/kgmtmLWqjJVKOlGpVPBV5zDnA6+o+95VXyuJEP@vger.kernel.org
+X-Gm-Message-State: AFuF++mbCY2kldkEAwMwvKRUGp2ko2rJGfVmH9aX251950S5e9dUMDsI
+	wdLPit/j1mgHxaA8jGOznOU+6579LxD22VV02+nMfwRKYbpSDGlXunbC
+X-Gm-Gg: AYBFou3jFsiYLXCvEvRnMWSG3FadmFD87dg3hVac4+JcVnQBiDcbKzDkLELp6xviTy5
+	++VTWINv5282bC84raZyRYFFk6eneNy0ObdwvYJ6we3OwaBVIlLM6NohNp1Rh/CGae8MxMGZ+tW
+	zcp0byyv/Lft13vcgLnmZC3BPpwe/NT9qlSQZIEH9SGdkud7JgClqXJZf1os4aTz0pwfWSGLcI7
+	vbmylbqEOJys8MgMLiNHrXzi0Z6Y2wvzWvh0MY835O1HIHQwzq3yWqmt8uOpuzwCNc/nolLeq4/
+	NkWV670h5Bsz8C/q4NHyawnaCZmXRyp+N0I2uKpQstW7U+oBBF21lZnS+yAV6cyrWy7P1i9efGr
+	R6TXR8IBhy3nALXlpYGTh3zwkRroNIoq90hlTHDSOv1l6MVFIrJL5/DEQrezjmPWu03/eqc63y/
+	69fTNJixQtVxMXN5Iyjs/Qm6o2yIPqbuahNClvTzwzxHrNmp0OjMKyL+2QiLfzvoS99VSeIVDxI
+	qvnNC/zTtx3fM0=
+X-Received: by 2002:a05:6820:2219:b0:6b3:5475:4861 with SMTP id 006d021491bc7-6ca9aa3fb5dmr186014eaf.18.1789676648385;
+        Thu, 17 Sep 2026 13:24:08 -0700 (PDT)
+Received: from ?IPV6:2600:8804:5716:d800::b712? ([2600:8804:5716:d800::b712])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6c8f5cf48besm3802412eaf.4.2026.09.17.13.24.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 17 Sep 2026 13:24:07 -0700 (PDT)
+Message-ID: <2d1b80f2-53f6-4ed6-81bf-e35c0a9efb26@gmail.com>
+Date: Thu, 17 Sep 2026 15:24:05 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915123802.1561724-6-coiaprant@gmail.com> <178967029365.22033.1005706659427633436@kernel.org>
-In-Reply-To: <178967029365.22033.1005706659427633436@kernel.org>
-From: Coia Prant <coiaprant@gmail.com>
-Date: Fri, 18 Sep 2026 04:15:39 +0800
-X-Gm-Features: AcwNN1XbjpFu6nolR2hwxu8hiEjSxd-JBBWVCJNN3qMYqxrhw7mXPkQuGTH5DI8
-Message-ID: <CALj3r0i4Dg2jq_4WPQ6Q4t6gbJd6CTV9Y0iP0GssAwy_AVY0xQ@mail.gmail.com>
-Subject: Re: [PATCH net-next v6 05/11] arm64: dts: rockchip: rk3568: add XPCS
- and fixed-clock nodes
-To: netdev-bot+sashiko@kernel.org
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, heiko@sntech.de, vkoul@kernel.org, 
-	maxime.chevallier@bootlin.com, mcoquelin.stm32@gmail.com, 
-	alexandre.torgue@foss.st.com, prabhakar.mahadev-lad.rj@bp.renesas.com, 
-	romain.gantois@bootlin.com, hkallweit1@gmail.com, neil.armstrong@linaro.org, 
-	linux@armlinux.org.uk, shawn.lin@rock-chips.com, david@ixit.cz, 
-	netdev@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
-	linux-stm32@st-md-mailman.stormreply.com, linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] iio: adc: add mt6397 PMIC AUXADC support
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Lee Jones <lee@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ mfd@lists.linux.dev, Roman Vivchar <rva333@protonmail.com>,
+ Luca Leonardo Scorcia <l.scorcia@gmail.com>
+References: <20260915-rbrue-suez-upstreaming-mt6397-auxadc-v1-0-d35d2ac3d6f0@gmail.com>
+ <aqpmgliQW7FW53o5@ashevche-desk.local>
+Content-Language: en-US
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+In-Reply-To: <aqpmgliQW7FW53o5@ashevche-desk.local>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-<netdev-bot+sashiko@kernel.org> =E4=BA=8E2026=E5=B9=B49=E6=9C=8818=E6=97=A5=
-=E5=91=A8=E4=BA=94 02:38=E5=86=99=E9=81=93=EF=BC=9A
->
-> Thank you for your contribution! Sashiko AI review found 4 potential
-> issue(s) to consider:
->
-> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 2 =C2=B7 Low: 2
->
-> - [Medium] The new `xpcs: ethernet-pcs@fda00000` node in
->   arch/arm64/boot/dts/rockchip/rk3568.dtsi (line 113) omits `phys` and=E2=
-=80=A6
-> - [Medium] dts: incorrect fixed-clock modeling for XPCS generated clock
-> - [Low] Concern (invalidated by later patches in the same series):
->   `compatible =3D "rockchip,rk3568-xpcs"` matches no driver, the `eee`=E2=
-=80=A6
-> - [Low] The commit message states it adds "two fixed-clock nodes
->   (xpcs_gmac0_clk and xpcs_gmac1_clk)".
->
-> --
->
-> arm64: dts: rockchip: rk3568: add XPCS and fixed-clock nodes
->
-> This adds an ethernet-pcs node at 0xfda00000 for the RK3568 Synopsys
-> DesignWare XPCS, along with four ethernet-pcs-mii child nodes, all disabl=
-ed
-> by default.  It also adds two fixed-clock nodes providing a 125 MHz
-> reference for the GMACs when running through the XPCS.
->
-> No Link: tags present in the commit header.
->
-> Two remarks on the changelog first:
->
-> > Also add two fixed-clock nodes (xpcs_gmac0_clk and xpcs_gmac1_clk)
-> > providing the 125 MHz reference clock for the GMACs when operating
->
-> [Severity: Low]
-> Could the names here be updated to match the patch?  The nodes added are
-> clock-xpcs-gmac0 and clock-xpcs-gmac1, labelled clk_gmac0_xpcs_mii and
-> clk_gmac1_xpcs_mii, and there are no xpcs_gmac0_clk / xpcs_gmac1_clk
-> identifiers anywhere in the diff.
->
-> The exact strings matter for anyone cross-checking the reparenting, since
-> clock-output-names has to match the CRU mux parent names in
-> drivers/clk/rockchip/clk-rk3568.c:
->
->   PNAME(mux_gmac0_rx_tx_p) =3D { "clk_gmac0_rgmii_speed", "clk_gmac0_rmii=
-_speed", "clk_gmac0_xpcs_mii" };
->   PNAME(mux_gmac1_rx_tx_p) =3D { "clk_gmac1_rgmii_speed", "clk_gmac1_rmii=
-_speed", "clk_gmac1_xpcs_mii" };
+On 9/16/26 4:50 AM, Andy Shevchenko wrote:
+> On Tue, Sep 15, 2026 at 11:15:25PM -0500, Ryan Brue wrote:
+>> The MediaTek mt6397 PMIC has a 10-bit AUXADC that nothing in-tree can
+>> reach. On boards built around it that ADC is the only path to the battery:
+>> the SoC's AUXADC is wired to board thermistors, and the charger ICs these
+>> boards use have no ADC at all, so without it there is no pack voltage and
+>> no state of charge.
+> This doesn't explain why a brand new driver? Perhaps we have existing code that
+> may be updated to support this device?
+I considered adding mt6397 support to either mt6323-auxadc or 
+mt6359-auxadc, and both had problems.
 
-Fixed in v7. The commit message now uses clock-xpcs-gmac0 and
-clock-xpcs-gmac1, and mentions that clock-output-names matches the CRU
-mux parent names in clk-rk3568.c.
+Both mt6323-auxadc and mt6359-auxadc select channels through a request 
+register (1 bit per channel), while mt6397 uses a 4-bit numeric field 
+CHSEL in CON1 (10:7), and then pulses a START bit (CON1 bit 0). That was 
+the biggest reason I made the new driver.
 
-> > diff --git a/arch/arm64/boot/dts/rockchip/rk3568.dtsi b/arch/arm64/boot=
-/dts/rockchip/rk3568.dtsi
-> > index 3bc653f027f1f..227d03e336043 100644
-> > --- a/arch/arm64/boot/dts/rockchip/rk3568.dtsi
-> > +++ b/arch/arm64/boot/dts/rockchip/rk3568.dtsi
-> > @@ -110,6 +110,51 @@ sata0: sata@fc000000 {
-> >               status =3D "disabled";
-> >       };
-> >
-> > +     xpcs: ethernet-pcs@fda00000 {
-> > +             compatible =3D "rockchip,rk3568-xpcs";
-> > +             #address-cells =3D <1>;
-> > +             #size-cells =3D <0>;
-> > +             reg =3D <0x0 0xfda00000 0x0 0x200000>;
-> > +             clocks =3D <&cru PCLK_XPCS>, <&cru CLK_XPCS_EEE>;
-> > +             clock-names =3D "csr", "eee";
-> > +             power-domains =3D <&power RK3568_PD_PIPE>;
-> > +             status =3D "disabled";
->
-> [Severity: Medium]
-> Does this node validate against its own binding?  The schema added earlie=
-r
-> in this series, Documentation/devicetree/bindings/net/pcs/rockchip,rk3568=
--xpcs.yaml,
-> lists phys and phy-names unconditionally:
->
->   required:
->     - compatible
->     - reg
->     - "#address-cells"
->     - "#size-cells"
->     - clocks
->     - clock-names
->     - phys
->     - phy-names
->     - power-domains
->
-> The node here supplies neither.  At the tip of the series only
-> rk3568-photonicat.dts fills them in via an override:
->
->   &xpcs {
->         phys =3D <&combphy2 PHY_TYPE_SGMII>;
->         phy-names =3D "serdes";
->         status =3D "okay";
->   };
->
-> Since dt-validate matches by compatible regardless of status, wouldn't
-> every other rk3568 board DTB now report "'phys' is a required property" a=
-nd
-> "'phy-names' is a required property" under make CHECK_DTBS=3Dy?
->
-> Would it make sense either to drop phys/phy-names from the binding's
-> required list (the SerDes phandle is board specific), or to give the dtsi=
- a
-> default combphy phandle here, given combphy is an on-SoC block?
+For mt6323-auxadc, which is the closest I could find to the mt6397 
+(CON0..CON27), it has 13 more registers than the mt6397 (CON0..CON14). 
+It uses CON22 for its request register, and reads the result value from 
+the same register as the ready bit. We don't do that - the mt6397 has a 
+factory calibrated value for each channel at 0x16 higher than the raw 
+value. mt6323 also has a 1800 mV / 15 bit scale / resolution while we 
+have 1200 mV / 10 bits. We also have some per-channel preparation that 
+we have to do before the burst, that the mt6323 doesn't have to do.
 
-dtbs_check only validates required properties for enabled nodes, so the
-disabled XPCS node in rk3568.dtsi does not trigger a validation warning.
-The SerDes link is a board-level design choice (combphy1 on some boards,
-combphy2 on others), so phys/phy-names cannot be provided by the SoC
-dtsi. Boards that enable the XPCS must supply them at the board level,
-as Photonicat does.
+For mt6359-auxadc, it has a more generic framework for describing the 
+AUXADC, but it assumes requests are channel-per-bit, and so we would 
+have to basically ignore req_idx, req_mask, rdy_idx, and rdy_mask.
 
-> > +
-> > +             xpcs_mii0: ethernet-pcs-mii@0 {
-> > +                     reg =3D <0>;
-> > +                     status =3D "disabled";
-> > +             };
->
-> [Severity: Low]
-> At this commit alone, compatible "rockchip,rk3568-xpcs" matches no driver=
-,
-> the eee clock, the PD_PIPE power domain and the four MII children have no
-> consumer, the two fixed clocks have no user, and dwmac-rk provides no
-> pcs_init()/select_pcs().
->
-> Checking the rest of the series, all of those do land: pcs-xpcs-rk.c adds
->
->   static const struct of_device_id xpcs_rk_of_ids[] =3D {
->         { .compatible =3D "rockchip,rk3568-xpcs" },
->         { /* sentinel */ },
->   };
->
-> xpcs_rk_init_clk() consumes both csr and eee, xpcs_rk_serdes_phy_poweron(=
-)
-> consumes the power domain, xpcs_rk_create() reads the child reg and calls
-> xpcs_create_mdiodev(), dwmac-rk sets pcs_init/pcs_exit/select_pcs with
-> rk_pcs_init() parsing pcs-handle, and rk3568-photonicat.dts uses both
-> assigned-clock-parents =3D <&clk_gmac0_xpcs_mii> and pcs-handle =3D <&xpc=
-s_mii0>.
->
-> So this looks like the usual DT-before-driver split, and the disabled nod=
-e
-> is inert at this commit.  Is that ordering intentional, so that a bisect
-> landing here stays functional?
+We also have our own software sampling, which the vendor does too 
+(Amazon Fire OS based on Linux 3.18). We'd have to have our own sampling 
+callback to do it.
 
-This is the usual DT-before-driver ordering. The driver lands later in
-the same series, and the node is disabled until a board enables it.
+I drafted two other versions of these patches adding mt6397 support to 
+both of those drivers, but the differences meant I had to add a lot of 
+extra boilerplate to each driver and to me it didn't make sense.
 
-> > +
-> > +     clk_gmac0_xpcs_mii: clock-xpcs-gmac0 {
-> > +             compatible =3D "fixed-clock";
-> > +             clock-frequency =3D <125000000>;
-> > +             clock-output-names =3D "clk_gmac0_xpcs_mii";
-> > +             #clock-cells =3D <0>;
-> > +     };
->
-> [Severity: Medium]
-> These two are not board oscillators.  Per the changelog the 125 MHz
-> is the MII reference produced by the XPCS/SerDes block itself, i.e. by
-> the very node added above, which lives behind RK3568_PD_PIPE and only
-> runs once that domain is up.  Describing it as a root-level fixed-clock
-> tells the clock framework something different: of_fixed_clk_setup()
-> registers clk_gmac0_xpcs_mii and clk_gmac1_xpcs_mii at of_clk_init()
-> time, unconditionally (the nodes deliberately carry no status), and
-> from then on they always look present, enabled and at rate, with no
-> link to the XPCS provider or to its power domain.
->
-> Where that bites is the reparenting path this patch exists to serve.
-> A board that sets assigned-clock-parents =3D <&clk_gmac0_xpcs_mii> on
-> the GMAC has it applied by of_clk_set_defaults(), which platform_probe()
-> calls before the GMAC driver's probe() body runs.  So mux_gmac0_rx_tx_p
-> in drivers/clk/rockchip/clk-rk3568.c gets parked on the XPCS leg before
-> dwmac-rk, and therefore before pcs-xpcs-rk and
-> xpcs_rk_serdes_phy_poweron(), has touched PD_PIPE.  Because there is no
-> clock provider/consumer relationship to the xpcs node, there is also
-> nothing for the driver to defer on: -EPROBE_DEFER is not reachable from
-> of_clk_set_defaults(), and the mux is switched regardless of whether
-> the XPCS is powered.  At best the GMAC is briefly clocked from a dead
-> source; at worst a CRU mux switch to a stopped parent is not something
-> I would assume is harmless.
->
-> Was the intent to have the xpcs node (or the combphy) be the clock
-> provider here, with #clock-cells and an entry in the binding, so the
-> framework tracks the PD_PIPE lifecycle and consumers defer until the
-> source exists?  If instead you have measured that the RK3568 CRU
-> tolerates being parked on the XPCS leg with PD_PIPE gated, could you
-> say so explicitly in the changelog and state what keeps the 125 MHz
-> alive before pcs-xpcs-rk probes?  Modelling a generated on-SoC clock
-> as fixed-clock is the kind of shortcut that tends to be noticed only
-> when probe order changes.
+In v2 I will add the justification to the cover letter and commits for 
+why I chose a new driver.
 
-The XPCS block is not a clock controller: it has no register interface
-to configure or control the 125 MHz output, so there is no way to
-implement a proper clock provider for it. fixed-clock is the correct
-description of a fixed-rate on-SoC clock.
+If you'd like me to instead send the exploratory patches I made adapting 
+mt6323-auxadc or mt6359-auxadc, let me know. I'm fine if it ends up 
+seeming like we should adapt one of the existing drivers, but I think 
+the mechanism for controlling this AUXADC is unique and merits its own 
+driver.
 
-On the reparenting concern: the GMAC probe is serialized behind the
-XPCS probe by the EPROBE_DEFER chain. rk_pcs_init() calls
-xpcs_rk_create(), which returns -EPROBE_DEFER until the XPCS device has
-probed and its MDIO bus is up. Until then, the GMAC probe never reaches
-the point where the clock is used, so there is no window where the GMAC
-runs from an unpowered source.
+Thanks again for the review, I am going through each one, and sorry for 
+the delay. I'm rather new to kernel development.
+
+Best regards,
+Ryan
