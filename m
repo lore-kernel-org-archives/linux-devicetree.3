@@ -1,102 +1,61 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C80BE4BD7B0;
-	Thu, 17 Sep 2026 10:13:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83F5D4BF928;
+	Thu, 17 Sep 2026 10:14:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789640026; cv=none; b=F08Lb6jwJHs/NmzUoPTQlsLoIEEgRpkd+8ptoBfQFC7iiMYLV7fifH7IUuerLAMki0DW4lsG/5XbYQ0KUKfO0pFVJgmhaEAnyi6NOeGJRFQ/dQx3jma0Ye3y10IFRBfQ5ghSFQWpsC7DTSQ8SOpPtsKJrA4hrxFl3lttiLvCItg=
+	t=1789640098; cv=none; b=KxncPEa8pAhsTiCV09Cj4Hip/KfwRnHIzXpp6TtPhOVWmrp9ywst/WA7yMW6Oh6NyWwqvcs6R1xiFh86JC16cGYU8fnRN/XjKF+gPOI836lVNVBWSkDa+hmY+I0qi/YcvCw9G3kfsmOEGxV+I43Uhw5AGSJGIvi5IQGealbJ/Hw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789640026; c=relaxed/simple;
-	bh=yuErPhKSr7sh5YlKsqXl4PXpDwrpX1j/k8mQCU+N3A8=;
+	s=arc-20240116; t=1789640098; c=relaxed/simple;
+	bh=1fm/d1aRnwpTbGxkYjOMLQ4BF8Pg5rVXwMoLdO0HfTM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KdZ92b5LB0nLiQbaPacmZc4uf+nrZ70CxHa7yKX5daBaICLlHC9LY3rSTUzXnaPWF81JipMCqhBtgZxACutGkxS042yOpMTyyqEEVtdHv5dasAGQs1SZ50H093V+ic3pnshmcQk52FlsIx/rXU4QoPTjOSiUUxTn4A3B9NA5AY8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qr1rZaJu; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=B0ss0ZbAMBDHnCk8/eRh+sUGvjgYKfUm9EhTfc4ExTYN9z+Q/5b2bV44EdzpUpHV2bihfppGbTTsha/7YoE3qBrmDBBtXwSqWQjaU8STEGHkhYQfh7O+Obvdvxa9/NauV/Q47Pne3MwFrS631zJKgkPF6ceLlRsq03A+94CGbbg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=L5YAVrBy; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qr1rZaJu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E6DC1F000FF;
-	Thu, 17 Sep 2026 10:13:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789640016;
-	bh=H81DEbDxFcyHG7e2r8ZlV1Yo/9mUgbCnoe7Jl41GgiQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Qr1rZaJu3Bk1xtTc/RgIPugDRauTakW8fofbeDzRR+WI9A2hZpFhIhn5ypFHvZTz+
-	 1W3Vp/pHSLtwb8+WkRAe/5aPDSHoUJfWc7MhpcCfa+PoyWEsCMxGx6j/kNRIymqmMD
-	 6CPJeW4gN2pqPmB7GNuU/UKBi1iZjUUxFz7UhUwneYQcCggGVGNxFoBvRxXZIJroyq
-	 xOnn4hCq1b53aIHz0To0sXz9FuJLy3sSY9RLQFx3T9qwD1RaIOGKS2HdXnbdZqqs+s
-	 LhnUGVnA4wQhFi1NEbfub0IexGnfzcamvXkanrf7SYTNYIbLZOxNB4GGZ7sXRBNuCC
-	 jaoqPEWjWX+1A==
-Date: Thu, 17 Sep 2026 12:13:32 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>, 
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/6] dt-bindings: media: Add bindings for qcom,nord-camss
-Message-ID: <20260917-active-strong-emu-bf8fbd@quoll>
-References: <20260915-nord-v1-0-20db41a7f1ff@oss.qualcomm.com>
- <20260915-nord-v1-1-20db41a7f1ff@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="L5YAVrBy"
+Received: from francesco-nb (xcpe-178-82-167-143.dyn.res.sunrise.net [178.82.167.143])
+	by mail11.truemail.it (Postfix) with ESMTPA id 2ABB01FE13;
+	Thu, 17 Sep 2026 12:14:47 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1789640087;
+	bh=nGPRaq4S9vBbBXygDE+rIZJwB2PXwdT9MJwWrz7C/kg=; h=From:To:Subject;
+	b=L5YAVrBy9vjQK79Gcib6ggUlUrgChHV4fbdQYS/TYijiWzWWXK330qxETGm7RjHLw
+	 EGOg9v+Xpp0BPGr39yYAw6UWI9fmaXt0wMhRau8GLwNAkfRzdfBLEay+V2+C/PUPa5
+	 8/xaXTJJWwZXs46VI0syXJrFobp7khqPbwHmhJI8d0I4vXGe5MYqNtViwx8KkHmOCn
+	 wYA4RN7BbO0OPcr8zV/czEGeHyu93zbia7Otyfo/cZHyS1S3VgPbeD4dpKeplbJgpI
+	 hxlfkQT97EoN3Ebk7XpGWM36RdnYYtP0/dwEn9q6w73dOk52dSzhWWskZ0ckQQYnXr
+	 +gL2ZacWde6Bg==
+Date: Thu, 17 Sep 2026 12:14:39 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Francesco Dolcini <francesco@dolcini.it>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v1 0/2] arm64: dts: freescale: Add Toradex OSM iMX95
+Message-ID: <20260917101439.GA67500@francesco-nb>
+References: <20260917094217.59508-1-francesco@dolcini.it>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260915-nord-v1-1-20db41a7f1ff@oss.qualcomm.com>
+In-Reply-To: <20260917094217.59508-1-francesco@dolcini.it>
 
-On Tue, Sep 15, 2026 at 05:34:11PM +0800, Wenmeng Liu wrote:
-> Add bindings for the camera subsystem (CAMSS) on the Qualcomm Nord
-> platform.
+On Thu, Sep 17, 2026 at 11:42:13AM +0200, Francesco Dolcini wrote:
+> From: Francesco Dolcini <francesco.dolcini@toradex.com>
 > 
-> The Nord platform provides:
-> - 3 x TPG (Test Pattern Generator)
-> - 3 x CSID (CSI Decoder)
-> - 10 x CSID Lite
-> - 3 x VFE (Video Front End)
-> - 10 x VFE Lite
-> 
-> Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
-> ---
->  .../devicetree/bindings/media/qcom,nord-camss.yaml | 393 +++++++++++++++++++++
->  1 file changed, 393 insertions(+)
+> This patch series adds support for the Toradex OSM iMX95 SoM and its OSM
+> Development Board.
 
-A nit, subject: drop second/last, redundant "bindings for". The
-"dt-bindings" prefix is already stating that these are bindings.
-See also:
-https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
-
-...
-
-> +        description:
-> +          Input port for receiving CSI data.
-> +
-> +        properties:
-> +          endpoint:
-> +            $ref: video-interfaces.yaml#
-> +            unevaluatedProperties: false
-> +
-> +            properties:
-> +              data-lanes:
-> +                minItems: 1
-> +                maxItems: 4
-> +
-> +              bus-type:
-> +                enum:
-> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
-> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
-> +
-> +            required:
-> +              - data-lanes
-> +
-
-Missing supplies, altough maybe this is related to some other ongoing
-work, so would be useful to see explanation in commit msg.
-
-Best regards,
-Krzysztof
-
+please ignore, I'll send a v2 shortly :-/
