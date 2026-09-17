@@ -1,37 +1,36 @@
 Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBCC621254B;
-	Thu, 17 Sep 2026 12:51:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52C2F4FDE61;
+	Thu, 17 Sep 2026 12:51:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789649516; cv=none; b=qAVxInZaD3bi+5S0pQxo+aG0Xi3aHEZEg+JsyPG9RiZtZFrOZEed2plq/TNSl1IfnPy//HTstR/usP0tREJwWGNn7eJoYQnQr/Ml5ict2OcerFmFry/FPz5+mwpwehAbXnFVs1QJReMBUFze+XjyXkK3NFSPyL5ULTKNgUO38wg=
+	t=1789649520; cv=none; b=DcNgHlhz9RFtOoCXEcVK1z8w9FbmNmK0nvei3bmWye7h+p2My8UZ66Vtcq7Ae52dSLe5O/x4p7RO7EKF3b3syY6WvKd2xCia7p2GWRYvXjtETBwyaMuqc3NHR9mvylzdWsrbo4bx+nFwpogaNPEzcLO5WJIPkXCc0jp9QwBp5fI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789649516; c=relaxed/simple;
-	bh=mrTB1LmsmAc8ZgfJPlblJeFyOy7amRAcdDErDv0bjPo=;
+	s=arc-20240116; t=1789649520; c=relaxed/simple;
+	bh=x8NEKtFdLRC+MuRJnahM8czimw+tZNpnYl/kkgWz68w=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=o3DjPbnakx3/+5edFmfBEXi1VWsXVvwWeOQm7m9KQqQNSsrFMbRmBcUAk0WXNjUf1h+WDcZ+ZabS58lgMBIjII87Dqa27rcHTVxVFnOXaOQ/J03/JOENXbZE6TyCKBtqfR4Xe5HC/NF1Z6taoRtm25vmWXCl6bjRiBn7bM/Q+Ms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=bjCNbwJ6; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=S1sj6Hzk; arc=none smtp.client-ip=5.75.144.95
+	 In-Reply-To:To:Cc; b=DNrCg4M+VBxabt3BZHZAkJJDJ2/GlRI6fh3at2ANgn8IEg066ujNHgBm2jGqulEuHNaaYce4TX6K+cXqIJm2RfgB3r1bd1wtHe7BEmJN6FGKIEeBd9B1CZQz32Ks/zeThPYk29mnbFe2UYchVLBvPVSX47YV/oDYWruTbITbLkQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=JwUcMar2; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=1zWkS9L1; arc=none smtp.client-ip=5.75.144.95
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="bjCNbwJ6";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="S1sj6Hzk"
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="JwUcMar2";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="1zWkS9L1"
 DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=To:Message-Id:Subject:Date:From; t=1789649490; bh=HQqFrcyVByninqC2k5tKSdW
-	i1Wj8ZnUSQzwicAMA28E=; b=bjCNbwJ68P1t+wrpBz7rE/ynQxy3zCKHWQAcRVdEJVuD9nL7Il
-	M3YcnBKm9xGZM78gwEzaI4oMEHZ8hICYqhMRRHnLmleX2/HRBgF4t5aZpDfCAxpvLH53cdIIwk8
-	/6+3hX4c87cbdXL8eZOCPvN1Ma5hTt3XMgYiMdlP2PozmMGrbM1FFdBSLa1p3R2I7UCe7exGbpS
-	Qug0gjem9pCgJ8nqKkszESWcnkA10Sfj/jFaJL/R6g5asJMNlRMF9hIQ97s8RX8GCf2Mn6bdGn1
-	fYW4Smdi3vAOinMtejBNuUNKDwMVBM6ah21W7YpnNY1t+0hNOCfn33/O+388rac5yHw==;
+	h=To:Message-Id:Subject:Date:From; t=1789649487; bh=4CLuglWww/cpnE9iMVkbWNW
+	wDdhMcYkMOkDQE39kjT8=; b=JwUcMar2nbwhjP9o2iVvJsFUae4FRG2nh4H1umpSKuGuWa3jAA
+	NnZsUncmc/1bvPA4opiDWiQSGHJzuToQF7bZopYfRqCVAkJCVaw78XdlSI/6F5FB2Cf1JXOtrE0
+	KnAj93lW34/s2Gkfs9o5UjZ7wtzs+swbpNg+ifpz482klkQCM9GW98d15l2YLaW0jgxlOiJgEhh
+	N+IByxvcqGScHgvv/dMI1Ap1NwBv/Q9++edllTcPRic2sX3heyU3d7DhPzhtytR7pbh0agLxX/a
+	EeXcR3Zh1gxQ/yyfLlYz1gc7tdRx0OqYo5yJxhPF5XbdoxvkW4Q+FOC99wO9/rgEIxA==;
 DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=To:Message-Id:Subject:Date:From; t=1789649490; bh=HQqFrcyVByninqC2k5tKSdW
-	i1Wj8ZnUSQzwicAMA28E=; b=S1sj6HzkqNHx6mL7S9CTJ4ti0fFKxEZ6vA/8LEB/QK+9jhr5W5
-	LfxLVGf2FF3zt3FD79I6pMT3YPDBF4zeGOBw==;
+	h=To:Message-Id:Subject:Date:From; t=1789649487; bh=4CLuglWww/cpnE9iMVkbWNW
+	wDdhMcYkMOkDQE39kjT8=; b=1zWkS9L1PSKJlaS/vFXPP2pIVDzFNP3Cr/DxtQJIzNoUT+64aG
+	MZU994hzyLSP5ydS9NLXIr2HMCb21Sw6OJCQ==;
 From: Nickolay Goppen <setotau@mainlining.org>
-Date: Thu, 17 Sep 2026 15:51:22 +0300
-Subject: [PATCH v4 3/3] MAINTAINERS: Add myself and Ryan Brue as
- maintainers of NT51021 panel driver
+Date: Thu, 17 Sep 2026 15:51:20 +0300
+Subject: [PATCH v4 1/3] dt-bindings: display: panel: Add Novatek NT51021
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,7 +39,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-qcom-novatek-nt51021-panels-v4-3-30afbc35d70c@mainlining.org>
+Message-Id: <20260917-qcom-novatek-nt51021-panels-v4-1-30afbc35d70c@mainlining.org>
 References: <20260917-qcom-novatek-nt51021-panels-v4-0-30afbc35d70c@mainlining.org>
 In-Reply-To: <20260917-qcom-novatek-nt51021-panels-v4-0-30afbc35d70c@mainlining.org>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -56,39 +55,129 @@ Cc: Nickolay Goppen <setotau@mainlining.org>,
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Ryan Brue <ryanbrue.dev@gmail.com>, 
  Alexey Minnekhanov <alexeymin@minlexx.ru>, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789649485; l=813;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789649485; l=3534;
  i=setotau@mainlining.org; s=20250815; h=from:subject:message-id;
- bh=mrTB1LmsmAc8ZgfJPlblJeFyOy7amRAcdDErDv0bjPo=;
- b=XJG5fwDNqb3oqRKq80kWerbR148kMKw/HbkR21vvC8jsWTY/JWaFlUZ5FygjPSCUqnEb4O/Du
- koy2gKp20YhDifBBC16lxETOzC2qSEGDdQ3V2yVAoHOOuOvI0YdYhee
+ bh=x8NEKtFdLRC+MuRJnahM8czimw+tZNpnYl/kkgWz68w=;
+ b=6NTWr4+56WUkrYFqCqZYlmkrrLwJsXMmGybON1kmhDeKnQ6zhR2RyhFrxjn/GS1vueiZ3JTpE
+ +2jH1csFubYDWx3MTblGjlAxgvGU0fxL39FhDjDvegzQcREBmNlCnNT
 X-Developer-Key: i=setotau@mainlining.org; a=ed25519;
  pk=Og7YO6LfW+M2QfcJfjaUaXc8oOr5zoK8+4AtX5ICr4o=
 
+Novatek NT51021 is a display driver IC that can drive DSI panel. It
+is also present in the BOE TV101WUM-NX0 video mode panel, which is a WUXGA
+panel with a resolution of 1200x1920 and 10.1 inches size. It is found in
+Xiaomi Mi Pad 4 Plus. Also it's present in the BOE-TV080WUM-NX2 video mode
+panel, which also has a resolution of 1200x1920, but 8 inches size. It is
+found in Xiaomi Mi Pad 4. And also it's present in the BOE-TV101WUM-NM0.
+It's found in Amazon Fire HD 10 (2017).
+
+Add the bindings for display driver for the IC, with support added
+for this BOE TV101WUM-NX0 and TV080WUM-NX2 WUXGA video mode panels.
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Co-developed-by: Ryan Brue <ryanbrue.dev@gmail.com>
+Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
 Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
 ---
- MAINTAINERS | 7 +++++++
- 1 file changed, 7 insertions(+)
+ .../bindings/display/panel/novatek,nt51021.yaml    | 87 ++++++++++++++++++++++
+ 1 file changed, 87 insertions(+)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 7291238bc09f..743c785b4558 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -8354,6 +8354,13 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/display/panel/novatek,nt37801.yaml
- F:	drivers/gpu/drm/panel/panel-novatek-nt37801.c
- 
-+DRM DRIVER FOR NOVATEK NT51021 PANELS
-+M:	Ryan Brue <ryanbrue.dev@gmail.com>
-+M:	Nickolay Goppen <setotau@mainlining.org>
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml
-+F:	drivers/gpu/drm/panel/panel-novatek-nt51021.c
+diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml
+new file mode 100644
+index 000000000000..7754a8cb1e5c
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml
+@@ -0,0 +1,87 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/panel/novatek,nt51021.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
- DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS
- M:	Lyude Paul <lyude@redhat.com>
- M:	Danilo Krummrich <dakr@kernel.org>
++title: Novatek NT51021 based DSI display Panels
++
++maintainers:
++  - Nickolay Goppen <setotau@mainlining.org>
++
++description:
++  The NT51021 IC from Novatek is a generic DSI Panel IC used to drive dsi
++  panels.
++  Right now, support is added only for a BOE WUXGA LCD display panels with a
++  resolution of 1200x1920. They are video mode DSI panels.
++
++allOf:
++  - $ref: panel-common.yaml#
++
++properties:
++  compatible:
++    items:
++      - enum:
++          - boe,tv101wum-nm0
++          - boe,tv101wum-nx0
++          - boe,tv080wum-nx2
++      - const: novatek,nt51021
++
++  reg:
++    maxItems: 1
++
++  reset-gpios:
++    maxItems: 1
++    description: phandle of gpio for reset line - This should be 8mA, gpio
++      can be configured using mux, pinctrl, pinctrl-names (active low)
++
++  vdd-supply:
++    description: phandle of the regulator that provides the supply voltage
++      for digital circuits
++
++  avdd-supply:
++    description: phandle of the regulator that provides the supply voltage
++      for analog circuits
++
++  havdd-supply:
++    description: phandle of the regulator that provides the supply voltage
++      for analog circuits
++
++required:
++  - compatible
++  - reg
++  - vdd-supply
++  - avdd-supply
++  - havdd-supply
++  - reset-gpios
++  - port
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    dsi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        panel@0 {
++            compatible = "boe,tv101wum-nx0", "novatek,nt51021";
++            reg = <0>;
++            vdd-supply = <&lcd_pwr>;
++            avdd-supply = <&lcd_pwr>;
++            havdd-supply = <&lcd_pwr>;
++
++            backlight = <&i2c_backlight>;
++            reset-gpios = <&tlmm 62 GPIO_ACTIVE_LOW>;
++
++            port {
++                panel_in: endpoint {
++                    remote-endpoint = <&dsi0_out>;
++                };
++            };
++        };
++    };
++
++...
 
 -- 
 2.55.0
