@@ -1,106 +1,60 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6950F35C699;
-	Thu, 17 Sep 2026 06:31:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42FAA3E763E;
+	Thu, 17 Sep 2026 06:31:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789626666; cv=none; b=NimM57o8VR7WdnalAO+TKUEqmu9aB/b22nizFHf8dPoa67LhFEmXaX92RcVZGeMR05FDJjqZuwx2SK9SjtYqAdSZqW9QKJ/iWDyqtwMqsYlXbSuBQztlZtikkWSqRdMEfiiipEsZswnS3Soxcoe9HmJODQQzNVx/g+ry5g9Tg5M=
+	t=1789626689; cv=none; b=jUZygO5sNf5iqZjJgnViv4Czie+jweaVKPG8XAHG6fw5LOZnpdyueM33frq+xyPWSc+hQtWcJ8FAwZX5/awhfkghp0N2RSUCAfB3QcSwj2NJuSxXyM5acIlW7f+ohaSoi+yGtmzV1s1USWG6A7wNpH+hoB7PFVEhJmloc6ojo9k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789626666; c=relaxed/simple;
-	bh=tTVM1jLfRNY37fl5JvEzSfDoHNbkv1u/f/ZS0UGevr0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Tv7C4D8HkB8NMW0sfxDNlErd4w3lmjoqxZcukQhVxDWH5qPiisN8abRK7fof1eMrqys0lAnHrSA+ugL4+8V4pt8QoLmuJIIQtOZsWNTEsaBODHZ6J/cgAYnA6QbEECKGr1QL29C2B0sgbQZqHlNGCQvgE23Yvnsbs73stcYLKdg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P7CoEPiG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789626689; c=relaxed/simple;
+	bh=Sk/57kb7RmANQmy2O+QwacqKPo7ny2IZ0B+uQcPlEgI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=K2ERsWySs7XJlOZUCV1YdivHMGt4Qln+WeNEafh0NiyPEZss0uviuKpDCXQbPuNDo0/K7EM16RW4VBw0nnZv7N/iOdxQ2pqWT47QKgZLHG9ZsRLGIyq9bdJfK3XtjpLiYWuLz/pA+0XM1SNuJwGAju7IPCibTRPf3crtezNHeBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SrcqrxaU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P7CoEPiG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B4C11F000FF;
-	Thu, 17 Sep 2026 06:31:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789626665;
-	bh=lZ0P7JoG/WX4jFFjip5SEmtVz8eifXIGiKCOcQKKBOc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=P7CoEPiG2h+BsAnh1drpXOUaFrA7WVKnHJ74S/VavvrfPm7iZ2Ki1WqNXIjsWIe9g
-	 UXRnnFOX/VyHwGnWN6aqZf1mY9jAyvsT2fW4dRt8wgrorT1hPQaDf3O8jmMZFw2SNg
-	 Yys9kbQQu7NPjOfQxRA2dgTCSkmfkp2eqDuN0vEwGZHtx7X1bsTkcuTSsPwWXQu9vj
-	 XBVbTzaU4UjIf7g0GwakPHfJxEVX+Y2DOKhO2WiSVHHYnAcvQgizbj4NATEuQ91bZm
-	 ugWkepQ3nZYcZDI51dSDHMXnkkRUU3nzprVDwUxltnhvrN+NrlerWmOIKMvQDxkKRB
-	 TiXe4ZZ7bw6Uw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/3] dt-bindings: phy: ti,tcan104x-can: Document
- Microchip ATA6563
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marek Vasut" <marex@nabladev.com>
-Cc: conor+dt@kernel.org, "Vincent Mailhol" <mailhol@kernel.org>, "Marc
- Kleine-Budde" <mkl@pengutronix.de>, linux-can@vger.kernel.org, "Oleksij
- Rempel" <o.rempel@pengutronix.de>, robh@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev, "Oliver
- Hartkopp" <socketcan@hartkopp.net>, devicetree@vger.kernel.org
-In-Reply-To: <20260917062543.534416-1-marex@nabladev.com>
-References: <20260917062543.534416-1-marex@nabladev.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 06:31:03 +0000
-Message-Id: <20260917063104.7B4C11F000FF@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SrcqrxaU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32C391F000FF;
+	Thu, 17 Sep 2026 06:31:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789626687;
+	bh=LRZFpBmKzdvQFotG14/xqZFJJfu+lgfxfJ5Gp1u/q4o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SrcqrxaUSLXSwHNFSg+FFq5tYcTinU3DBBNJRp2B0sb3KSuUOMbt+HwdqwcS8K4dT
+	 Dd/N9krJx3NvppgIMPAJ4M8xqrjElOHD4HNLjXxD2N8V4bT6ET9jsTIdJO5TCigxYd
+	 Qd+dnk8/SIArTSpuFBtk6YtLvFXq5GC6VhA6cMQg=
+Date: Thu, 17 Sep 2026 07:29:32 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Daniel Matyas <matyasdaniel005@gmail.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-staging@lists.linux.dev
+Subject: Re: [PATCH] dt-bindings: axis-fifo: Added missing binding
+Message-ID: <2026091716-clash-hyperlink-297a@gregkh>
+References: <20260916201253.483877-1-matyasdaniel005@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916201253.483877-1-matyasdaniel005@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] dt-bindings: phy: incomplete schema validation for microchip,ata=
-6563
---
+On Wed, Sep 16, 2026 at 11:11:50PM +0300, Daniel Matyas wrote:
+> drivers/staging/axis-fifo/axis-fifo.txt file described how the
+> devicetree of the driver should look like. Convert it to .yaml file.
+> Issue found by checkpatch.
+> 
+> Signed-off-by: Daniel Matyas <matyasdaniel005@gmail.com>
+> ---
+>  .../axis-fifo/xlnx,axi-fifo-mm-s.yaml         | 257 ++++++++++++++++++
+>  1 file changed, 257 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/axis-fifo/xlnx,axi-fifo-mm-s.yaml
 
-commit e1e7d148b2a5e6742f485d13055f3692d10dbf6a
-Author: Marek Vasut <marex@nabladev.com>
+This doesn't delete a file, so is it really a "conversion"?
 
-dt-bindings: phy: ti,tcan104x-can: Document Microchip ATA6563
+thanks,
 
-Microchip ATA6563 is High-Speed CAN Transceiver with Standby Mode.
-It is pin-compatible with TI TCAN1042 and has a compatible programming
-model, therefore use ti,tcan1042 as fallback compatible.
-
-> diff --git a/Documentation/devicetree/bindings/phy/ti,tcan104x-can.yaml b=
-/Documentation/devicetree/bindings/phy/ti,tcan104x-can.yaml
-> index 9f5c37ca6496a..75c276548e122 100644
-> --- a/Documentation/devicetree/bindings/phy/ti,tcan104x-can.yaml
-> +++ b/Documentation/devicetree/bindings/phy/ti,tcan104x-can.yaml
-> @@ -18,6 +18,7 @@ properties:
->        - items:
->            - enum:
->                - microchip,ata6561
-> +              - microchip,ata6563
->                - ti,tcan1051
->            - const: ti,tcan1042
-
-[Severity: Medium]
-Will this compatible string bypass the constraints enforced in the allOf bl=
-ock
-below?
-
-Since microchip,ata6563 is defined as an array item here, the compatible
-property will be an array at runtime (e.g. ["microchip,ata6563",
-"ti,tcan1042"]).
-
-Looking at the allOf conditional block for ti,tcan1042:
-
-allOf:
-  - if:
-      properties:
-        compatible:
-          enum:
-            - nxp,tjr1443
-            - ti,tcan1042
-            - ti,tcan1043
-
-This block uses an exact enum match. In JSON Schema, an array value will not
-match this enum of single strings.=20
-
-Does this need to use contains: enum or contains: const to properly apply
-constraints (like #phy-cells: const: 0) when a fallback array is used?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917062543.5344=
-16-1-marex@nabladev.com?part=3D1
+greg k-h
