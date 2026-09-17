@@ -1,509 +1,139 @@
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2131.outbound.protection.partner.outlook.cn [139.219.17.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FB1C221DAE;
-	Thu, 17 Sep 2026 03:38:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789616344; cv=fail; b=flKHODOC2sHdaD32zAdno32aNrJU5ShHTL++c4XgENOgIeJdlw7NRzgXpmE/+vpv/lqmNoi62WttoZpjWXHbnvEYiNvuhvhpgcfJLUaXF0wUpQIV/AxLXwaQhm1RFOoyX5txstXTOhHGC8B770T8SCREdikvAJTNOp5RN3mztIc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789616344; c=relaxed/simple;
-	bh=kh0fIOgaOV8+uBmjPOhXpwJEDd+Pvb2JXVW9pg7aVtY=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=o7hWdUobDWs4loQGXsAoN58gxOyxYu6BEDXVCxzi+DgPjy5W6Y9mEdqPa3FNbUOTx3zF3UxIZ++WiFJ17a2Qahx2ckIcDvQeHXDU+mhSoABC09TDZKSHwSA95zyYUrmhddAnrJjpUUxYW33S3upS/Y/w4a4hpzkKPxF4n6tTF28=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ou/ubX20hI2gzNnGzyHvR6E9LmL5KLeg3rGUqCXCDUcZjLuV7f+KY8Cxp8qL1/i0OL52j67/vV66M+BGPxl5vxX3lPqT1LNq2C+++MiOe2xsbf+5Fe6aFpZXhgPuYQMHF5QYkmpaGbrtNbHq4DNAnhCN12ymEBR6TDjVFarXOqFwSX5Zjt49czYfu611IyIY1GGqmJHr22X+g6yNvMlDp6AgyQmcc2EHc59MH2+NL2eO7Axxp2GPF8RgjLPZFUnXQkXMt64ijonbBCEAFOeGKy5DGXMtM4y6vi1iAzhsGP9vHru2QUBXr91cMhVw0fgF+C+jqn2fNeK3lipFHrEO2w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Z/refKaCC6xtvm+pu+7iacmEhgN1u74BeLLhBlyWypg=;
- b=bs79uQLzSo8iTlq/0QFQUwZmzdZ/N8BPmfv1KD9UBX5tPb4g1eeqXxghS4mV1mTHh/QXXGB2eE+1o6lrHJoB113wzv+c4EenS0tIl5Mq/zMOjC1/u6xBd/O/4ETi8s5Fw+6qxauPRc2rylYn3mFaP6eYccCqm6BZNSdZipoDXci3BI7X8Rn/vBikuHn2VbBpYTu10rC/648Ki2+ATY+oA+EFEAvuFLEPpGNTik6e4fPkmeNLuFvRn0Wy520ojzgPNl4cgQoM6YvlxI9M7cD74lyxBJHEm67iSC4EG8agYyxRVqyyWCN6grwUC0AWJyPp7dSKrGrmOm5ZEDYgWCXfCg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Received: from NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:7::10) by NT0PR01MB1037.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:6::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.12; Thu, 17 Sep
- 2026 03:23:57 +0000
-Received: from NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn
- ([fe80::be4a:d29e:5188:b37e]) by
- NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn ([fe80::be4a:d29e:5188:b37e%3])
- with mapi id 15.21.0428.009; Thu, 17 Sep 2026 03:23:57 +0000
-From: Hal Feng <hal.feng@starfivetech.com>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>, Michael Turquette
-	<mturquette@baylibre.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Stephen Boyd
-	<sboyd@kernel.org>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt
-	<palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti
-	<alex@ghiti.fr>, Philipp Zabel <p.zabel@pengutronix.de>, Emil Renner Berthing
-	<kernel@esmil.dk>, Kees Cook <kees@kernel.org>, "Gustavo A . R . Silva"
-	<gustavoars@kernel.org>, Richard Cochran <richardcochran@gmail.com>
-CC: "linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
-	"linux-hardening@vger.kernel.org" <linux-hardening@vger.kernel.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>
-Subject: RE: [PATCH v3 06/22] clk: starfive: Add JHB100 System-0 clock
- generator driver
-Thread-Topic: [PATCH v3 06/22] clk: starfive: Add JHB100 System-0 clock
- generator driver
-Thread-Index: AQHdJmAKH+uB2bFZvEWNz4Ntj/CabbbSVL3g
-Date: Thu, 17 Sep 2026 03:23:57 +0000
-Message-ID:
- <NT0PR01MB110298F21FF8FC06DB4EAE34E6B82@NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn>
-References: <20260807112923.191627-1-changhuang.liang@starfivetech.com>
- <20260807112923.191627-7-changhuang.liang@starfivetech.com>
-In-Reply-To: <20260807112923.191627-7-changhuang.liang@starfivetech.com>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: NT0PR01MB1102:EE_|NT0PR01MB1037:EE_
-x-ms-office365-filtering-correlation-id: 66269a11-72b8-4f7e-5b3d-08df146b1c00
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|7416014|1800799024|366016|23010399003|921020|38070700021|22082099003|18002099003|3023799007|56012099006|4143699003|10067099003;
-x-microsoft-antispam-message-info:
- MAfu6c0G1NEgfiUeVRQ+6RocEzjjIR4FAA558Np82eofyHqrk+myNSTktfR6vHEkYisLmcmg9trIfyrkmfin4dn5W/ZMA69GolT/OQQ7GxD0OheByXRjO3cPYFuYJmP06kY2NX4pbGDdXIGwAy8mY9cl7xFrjZVuenoTOcqV+8ZWlUIxmEPPG8q3qZqKsuyn5sw+zJb3eqk3OA9l+STukCv3FCBauWpx6QCKIE9xynYucfoTcJ0nmIKu/gFL1m/Mf3uN+hfuFKq2Ymv+fXzOmk+wjN26/N5xqsSbXlH0WsNydWxwENA+p14OR4aPhlKRmOkMgW7JwaKI22J1s2v+fUu14+holh85Xq0nqbNFrE2f/x9e0HEAId5F96Gru8as5efhVL/+DZh6kx+U+SJVJTuVZ/5JxSx56cb7AQfY0bSt21SmqUB8vx8Et6KdSfD/bK91BqBlO96/ETGJ2wRxUoP8ZMjorlvetkkrx+u+e6A5w6oDwEiHTlhh+lLqngftS8ubsBNMomUyeXuHx/DVTEZvWHW8LYbUB2Jyk4i1MwzI113M3swLsVs7Ws5qQ/GsjMC/NIpuVoLrBY/imIUIGA==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(921020)(38070700021)(22082099003)(18002099003)(3023799007)(56012099006)(4143699003)(10067099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?vvjGzC5g+7EjO1Z9w39tdQ0qF5Cf9wQ/9QeOcyMjbCUF73382p+vwGLXPUjo?=
- =?us-ascii?Q?dLw4nuytXVp5CeP+JPZsdYb3BujegBH0Tuz19JkgXf62KsnMfulYC2i+h1xa?=
- =?us-ascii?Q?u8XB6soRzKpkGcYJMQAOy8ve2b8UsodQzdSe9K0/+eNjaJ6D4QU5fKCS0mVV?=
- =?us-ascii?Q?F6BcL0hFLcxTPB756x1Lw88OTN+xQ8lh/7MFl+e5RXtBdv12xKkPfsnBPKUi?=
- =?us-ascii?Q?iKEAhCixMw8jU7roaQO4Kl0L5himaBk3FHRxAlEaJ6PHP/vn4uBpeg3RxrQO?=
- =?us-ascii?Q?hFY/EFLQtB490rBsUUhWMxgA7Zn7XxlGcMTgApD/HFvywql3mnv09WPLSpvz?=
- =?us-ascii?Q?gZ8+28/2MlzL7DXSiOYqUX4S7fPIscFkX4uRgzdj6BXcIc7XvwAJZ9Z7cLyb?=
- =?us-ascii?Q?sNRpeHYZZhlXpVHl9AnwGINJN6u2HAjdq4VsvdtqAl9knspItDrv+1aW1LyP?=
- =?us-ascii?Q?OhzEKGtWkjyR/orOdlK8LBdK4KCZr9VQI6/OApeQPX9FjT+jt1vYOaQT1kW3?=
- =?us-ascii?Q?4jH8on/jAF0EcZl87Ib9ky8nXZ4WPSolkgQUhIbtVmR4HE/7btJkLjafSnHb?=
- =?us-ascii?Q?FbtIGneBOhHdr8MQPAUO+cGTbMlIQovVVRYu8dyFk4EN3uuS6RFcIDcoHKfY?=
- =?us-ascii?Q?z5TkoCG1y1u7F4QV1zOa+85G/4HZnMDTzA9F3Q7qy9BC2CG4ZBq9XxRTD3nh?=
- =?us-ascii?Q?D85M5T6T0MDOY3txRAAHdU15Cco+JyU5T5IA4aYLKRiExgTQpMkd3mfEOsU3?=
- =?us-ascii?Q?SHTt9uBE1pgymCmPDUYE0T1+qsOnYy7jqGsB/q5vLS41IzC75eJs1qsCVgqS?=
- =?us-ascii?Q?hBl75YIhObHu7nTn4otJlC0OPcOPK2o/PW4gcbp1PQH71lIRC/bjszm5WhFW?=
- =?us-ascii?Q?12wP7LMlWw4cbJUwjqCuSVhTE6Y4SfqaWuFQlf+gQMxSouuDGxCp250hg/x7?=
- =?us-ascii?Q?McV017QEMZvdKefuV8DXO/y7EF34+/gNs5qtHgDkuCS7FDsZJ00VYLFUuGsU?=
- =?us-ascii?Q?EZ/GjHmjLEdeCHbagDQYDQjHcsOI+UJIMiKG2TEU57cEs3mrJlS3SYXwrHUI?=
- =?us-ascii?Q?8Iv9+dRqBxEE0ZKdxjCgQzB6jqkk/2PWQIWFG0HJo/se9nq+A69/FM9Xv/PO?=
- =?us-ascii?Q?hXmiMXkbUpEDoNyZ0QpWN28miromw4Nb+sCaDbXHnpeq84UJ2LMdzJF9sM4B?=
- =?us-ascii?Q?hBeBol8ACjW4QCKpnWsIRT+wkzDckDeK240Cc94WToYWjkoADD57N4hQgHRf?=
- =?us-ascii?Q?kYarDfMMxJSqUDAmmqZ8Gs6zl+s1vFup9guP67j9cQu/FS/JYsNECkSdEFF7?=
- =?us-ascii?Q?Kf9l1ZchTm6qF/WyD+vNzHY04gLlArK3KybbjFrIGXgbY6CzrkTFqe6Z9ulL?=
- =?us-ascii?Q?QbLb1gbYeWH7SilhjVK8+aIGTnNWMEi2SSoYQ7KjktwtM0GsXzk22bxBWzuk?=
- =?us-ascii?Q?wwACc8nSl2dKic2Hys8a/fygAAGcazbDTi6bhCeoOKcqcFkdh+Qo/R9JhmtN?=
- =?us-ascii?Q?ib+uEBdLWNkdTulDv6h+dJex9fFIq7VhzGZebYC97mFn+ajKOmirKHJtKgt5?=
- =?us-ascii?Q?tkG94hdnEv++GGuY8XBeoIMIDGH5AVoY/aZDvRUwg17AY1StS2YufjPowIg0?=
- =?us-ascii?Q?o5/hHZyqXTyzfqKfsjT7Nk1doyJz+4OUbNMRaIY7biYomNuW+CKR9qQZooEa?=
- =?us-ascii?Q?l4DweZ5TGvIwwqmlU4xIry0PeQVlkW35FxdE45/P7k1wiToYF3O0Gb2kDBVb?=
- =?us-ascii?Q?rtNfhomX+g=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 835543AAF7D
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 03:41:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789616506; cv=none; b=oOupsdCVrkJRLGO/NZJv9xQ3joMmZtNDvkY8qvcL29n7nmDzYUciOzCzG570BfdPSZkU38BehGF3eW1MHyZNCU3jvET8khvENzi6payJol4CHa7KjPwPNmQjjn8tZZspq3F3lIlad8YUndAXH1V2QMDnNfhQTXXxQHBCXt73ea4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789616506; c=relaxed/simple;
+	bh=4XhJsmVizhzHozwZPuPySnL45oeWWBP+08eCboV7Wms=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RTH558yD06F5SMlOKRswuojq0V0mkVvYgu9xti20P0IUZNrv9ibg/5G51pPBYcd5aed/f7jsbIHSe/VSINJPEdzx7iSvt4LUjZnJdRGRDrizLhKi0N17JvdUZidf6eg/3Y7hMnC9jarvqmVoDw4xdPCTWGCUfoOqDCsQfSF83Gs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NzC194yH; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NbLberWq; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NzC194yH";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NbLberWq"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68H0wIDA3238492
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 03:41:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=B5C8wjP4LGLq/ehI6YaOhoiR
+	mBukehjstLcbOo1B3qM=; b=NzC194yHrdG/MscmREOBfbUZ903PjJFPlId0LMff
+	8LF7xeLYFhyMg8L9w8CLKaR+2cERYqDWwH+C196qRU8pHzBZVJhhwzpd9mwH/n/l
+	t6jTQje1Z8NMCeZTrx5UXR7VaeJanhYmwnvfWfQFSNQPyfeplHymxCpdk92Oi5iA
+	X1KA89i6kUS3t9mCtzBYai3aseimxWYadyXtiPzl6bdT9dvjAWS17aakMMKI6o8E
+	AXAy+ENC/VZ5nDE3g1BxNmEWPFKZLagcPnDotRnMhsoK6xCLtNfjoSbBfwYNQ92z
+	3L11sFXAbM8EXoKx2kYheR0IR0mhgOgjoIoBOxCJGYCQzQ==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqyga22qn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 03:41:42 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2dd1631d291so5823815ad.1
+        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 20:41:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789616502; x=1790221302; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=B5C8wjP4LGLq/ehI6YaOhoiRmBukehjstLcbOo1B3qM=;
+        b=NbLberWqtJYKv+HqLZDItfWUd2V26KJB0AtdtCCBn1r3yaBgGem2qM2t/fCTwIkTCa
+         ntF1dZVhi527FRuxJJtuCSMPg779A137rh5sUhq6tE2zFe4gLtHvbJ0CAtsylk48e0Xk
+         CAx+85fNOksVC2P9UjLbTSi/ui/JYdIBYVdsXBuIs9aEiK0hKm9T1uzDN5sX2wq2eUrY
+         08H37RqOQqOavR0UOkSMreQYGb3rdcWar5CTDvxaCY5N2uCyfMO7IxQSCABA4rA1BDG8
+         L5qm1hNfeYH+cw4B6pVjKTmRlO3sBS6IvzlZUTCov27+rBemdgSFACMDR3i7zN+YbFjX
+         KCWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789616502; x=1790221302;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=B5C8wjP4LGLq/ehI6YaOhoiRmBukehjstLcbOo1B3qM=;
+        b=bBHnOGci7y2KuwehJ/Ld3zARccI7sspuFFgx7UYazHZ+ocs8VOYSrf/n34YApHAIIC
+         irXOUFl9P5q1LgenLvtSRAKYtlQECEnrWogBT9KoYqmd/OZ93BMaRHKO2Rnp0VyVUN73
+         sBUDsAeC+60DCvIaCjWi5SWYNaeodhrBO8/KBjPQKHUz2mBhC2ALXRSG7Vywhl+nMlxA
+         FfnJ/MhC3pMY9r4BtHHi8pmUwFphPBVnryOzaNsHLMpXAKJCNbxjpmHQHaDg4AOHqtGF
+         LcPrJ/pZhzmtIp8czmiqhuSBSACJYMkFWTbEA2DR9+J0THOKVkkvIIB3cQ+Fg9ai9CQ5
+         JCIw==
+X-Forwarded-Encrypted: i=1; AKwUvBxKHBjlclK1DMpY9gMTEP3P1Lkd0hf7I0s9IYbdLUqqa4lzPHwFYSWmvLBZcEWwCoENjmYpvxDvdhBg@vger.kernel.org
+X-Gm-Message-State: AFuF++mbJDC8WhEkevMJHP6Nx4VP6oefOmpxp0+yhjlJdp4AdUGr4jzF
+	S1+Ynbj3aBnEHdEGYkOd75XuL9TWPv0DlYU7svSo5DM29jDzZvHdqprFP4Pn6oSk73x7KBDrET0
+	kzkaD6AU0M0bZkNLhgsss7UT1rrV7+27ieg4wPpKCcfKhx9A3qGxzECcCW4eovdrbHLw8rI8cWH
+	g=
+X-Gm-Gg: AYBFou2BuFYgIVAXZ41pxw2yzprjaKtPPZtfG8HC5aI/ktrNCSxCvMKDi4L/lem9JcM
+	nDBs89LRWCGcejUo0MRtwKDcbKi0ScOc+T+IDvoa89DVZ8HLm6/uEgO0Z58JbvzgtdxZPpn+eMj
+	wTzM6uBXey6YNqV865BIh4HSW4Mlk1RJWGJx3VyOgm73xqOtyVrSLgboW9fkBYn+ybPpTX2qeJO
+	MqKzlx5SfLCUEKaJCEU1+YygmaTydLW0xU6lx6FosUVfpEJ7PjQLuLe2Atd9tZUnWuXDLGUQh4b
+	uR+3UqQj1Bm29r+8mHtQy5RBDKY66AFMaVGctIWPCzo8xoAB0LKNNaobbAG2cyXdBKlJqcrS+VO
+	1xPlP7ERbs4yKMN2NtwXCqO9+iURZCMPkILQvZv8EK1E=
+X-Received: by 2002:a17:902:cf03:b0:2db:31d5:1448 with SMTP id d9443c01a7336-2dd8e77cddcmr113408575ad.22.1789616501738;
+        Wed, 16 Sep 2026 20:41:41 -0700 (PDT)
+X-Received: by 2002:a17:902:cf03:b0:2db:31d5:1448 with SMTP id d9443c01a7336-2dd8e77cddcmr113408045ad.22.1789616501347;
+        Wed, 16 Sep 2026 20:41:41 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5aee8b0sm22826369eec.23.2026.09.16.20.41.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 20:41:41 -0700 (PDT)
+Date: Thu, 17 Sep 2026 11:41:35 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Shawn Guo <shawnguo@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        Frank Li <Frank.Li@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, brgl@kernel.org,
+        linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: dma: qcom,gpi: Document the Nord GPI DMA
+ engine
+Message-ID: <aqthb96f2zj_dlK5@QCOM-aGQu4IUr3Y>
+References: <20260916-nord-gpi-dt-bindings-v1-1-857bf9e84999@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-Network-Message-Id: 66269a11-72b8-4f7e-5b3d-08df146b1c00
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Sep 2026 03:23:57.3357
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Mnx+pKa5/jKKxRR+gTickI/rE8NVTbw0XbbdBxwTx1QeVdi4dMMfi8Z8+2bFazo2KueoFvo8ck2Ck/+kyWcO2FAr7IntFe2rwBNv3BxpH6Q=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: NT0PR01MB1037
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916-nord-gpi-dt-bindings-v1-1-857bf9e84999@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: pRFY4t6qRHvJOOkJkCqfvnn02qicyybk
+X-Proofpoint-GUID: pRFY4t6qRHvJOOkJkCqfvnn02qicyybk
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDA0MyBTYWx0ZWRfXxBWqLdDfKZbQ
+ 1siRZVUYBle01SnxiIh386yITjZSM12vJPxrgnzUGydbdSEnUKE+ayS4lxdFGe7+UFBLgyzeom6
+ 7VGI8CffpbaZ345V2LUPW4w1YbLnoGE=
+X-Authority-Analysis: v=2.4 cv=I9fw19gg c=1 sm=1 tr=0 ts=6aab6176 cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=yOFVgSGORKUhaciPrRkA:9 a=CjuIK1q_8ugA:10
+ a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDA0MyBTYWx0ZWRfX8fLv5J5QoW4I
+ Fv8SEhQZDpKnaqRxXM6Qh66bDta6jOUJugs60l9PvXPLr85SJWweN7Hxq4LAUJRgNRKZaktcs3s
+ zV5zjwkJ38t1dJuwRc8l5E0joKr/QCddRAc9joibXWm2gI3SabiEkqFpEg2nYiO7M6A6N9w5AJN
+ bGtsgXgou1u8UACv4TCghAoP7TXebNdc4OmO8R299FX8xeLCHHTBWH2bZUlepUWr+SG7DGvJuvx
+ SXmJ1KuJbnxVdO7zgQBrgIZQgjLHJMXhcbNeWA7pzEh+H9zu/V94JUHTk68qhi4c9Eu8XFvdlbv
+ AJ3dMemdXFZSX/9s2KcmRYBOLuy6eshAbbM3k5eyWL6tOR/eDFAPoT9T96s9thWnO01GmYFa6RO
+ 06k06iiUj98dGretPH/Q/JzX3Ck9b77SheVUl8kpZf2AnrLvu7kf2XYZzfNgCy45A2yHfHYzYYZ
+ DS3NlJbM0TySGzdF3mQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-16_03,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 lowpriorityscore=0 priorityscore=1501
+ adultscore=0 clxscore=1015 bulkscore=0 phishscore=0 suspectscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609170043
 
-> On 26.08.07 19:29, Changhuang Liang wrote:
-> Add support for JHB100 System-0 clock generator (SYS0CRG).
->=20
-> The StarFive JHB100 SoC has multiple CRGs with similar probe flows, so a
-> generic starfive_crg_probe() function is introduced to facilitate the
-> registration process of other CRGs in the future.
->=20
-> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
-> ---
->  MAINTAINERS                                   |   7 +
->  drivers/clk/starfive/Kconfig                  |  11 ++
->  drivers/clk/starfive/Makefile                 |   2 +
->  drivers/clk/starfive/clk-starfive-common.c    | 142 ++++++++++++++++-
->  drivers/clk/starfive/clk-starfive-common.h    |  12 ++
->  .../clk/starfive/clk-starfive-jhb100-sys0.c   | 150 ++++++++++++++++++
->  6 files changed, 321 insertions(+), 3 deletions(-)  create mode 100644
-> drivers/clk/starfive/clk-starfive-jhb100-sys0.c
->=20
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index ce97de46e610..c48b56d0ab94 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -26069,6 +26069,13 @@ F:
-> 	Documentation/devicetree/bindings/phy/starfive,jh7110-usb-phy.yaml
->  F:	drivers/phy/starfive/phy-jh7110-pcie.c
->  F:	drivers/phy/starfive/phy-jh7110-usb.c
->=20
-> +STARFIVE JHB100 CLOCK DRIVERS
-> +M:	Changhuang Liang <changhuang.liang@starfivetech.com>
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/clock/starfive,jhb1*.yaml
-> +F:	drivers/clk/starfive/clk-starfive-jhb1*
-> +F:	include/dt-bindings/clock/starfive,jhb1*.h
-> +
->  STARFIVE JHB100 DEVICETREES
->  M:	Changhuang Liang <changhuang.liang@starfivetech.com>
->  L:	linux-riscv@lists.infradead.org
-> diff --git a/drivers/clk/starfive/Kconfig b/drivers/clk/starfive/Kconfig =
-index
-> ff8eace36e64..7926e02ccd7d 100644
-> --- a/drivers/clk/starfive/Kconfig
-> +++ b/drivers/clk/starfive/Kconfig
-> @@ -72,3 +72,14 @@ config CLK_STARFIVE_JH7110_VOUT
->  	help
->  	  Say yes here to support the Video-Output clock controller
->  	  on the StarFive JH7110 SoC.
-> +
-> +config CLK_STARFIVE_JHB100_SYS0
-> +	bool "StarFive JHB100 system-0 clock support"
-> +	depends on ARCH_STARFIVE || COMPILE_TEST
-> +	select AUXILIARY_BUS
-> +	select CLK_STARFIVE_COMMON
-> +	select RESET_STARFIVE_JHB100 if RESET_CONTROLLER
-> +	default ARCH_STARFIVE
-> +	help
-> +	  Say yes here to support the system-0 clock controller on the
-> +	  StarFive JHB100 SoC.
-> diff --git a/drivers/clk/starfive/Makefile b/drivers/clk/starfive/Makefil=
-e index
-> 012f7ee83f8e..2c5e66d1d44e 100644
-> --- a/drivers/clk/starfive/Makefile
-> +++ b/drivers/clk/starfive/Makefile
-> @@ -10,3 +10,5 @@ obj-$(CONFIG_CLK_STARFIVE_JH7110_AON)	+=3D
-> clk-starfive-jh7110-aon.o
->  obj-$(CONFIG_CLK_STARFIVE_JH7110_STG)	+=3D clk-starfive-jh7110-stg.o
->  obj-$(CONFIG_CLK_STARFIVE_JH7110_ISP)	+=3D clk-starfive-jh7110-isp.o
->  obj-$(CONFIG_CLK_STARFIVE_JH7110_VOUT)	+=3D clk-starfive-jh7110-vout.o
-> +
-> +obj-$(CONFIG_CLK_STARFIVE_JHB100_SYS0)		+=3D
-> clk-starfive-jhb100-sys0.o
-> diff --git a/drivers/clk/starfive/clk-starfive-common.c
-> b/drivers/clk/starfive/clk-starfive-common.c
-> index 9c0eb7a50d1e..1b5e56af4138 100644
-> --- a/drivers/clk/starfive/clk-starfive-common.c
-> +++ b/drivers/clk/starfive/clk-starfive-common.c
-> @@ -9,6 +9,8 @@
->  #include <linux/debugfs.h>
->  #include <linux/device.h>
->  #include <linux/io.h>
-> +#include <linux/pm_runtime.h>
-> +#include <soc/starfive/reset-starfive-common.h>
->=20
->  #include "clk-starfive-common.h"
->=20
-> @@ -331,9 +333,143 @@ struct clk_hw *starfive_clk_get(struct
-> of_phandle_args *clkspec, void *data)
->  	struct starfive_clk_priv *priv =3D data;
->  	unsigned int idx =3D clkspec->args[0];
->=20
-> -	if (idx < priv->num_reg)
-> -		return &priv->reg[idx].hw;
-> +	if (idx >=3D priv->num_reg)
-> +		return ERR_PTR(-EINVAL);
->=20
-> -	return ERR_PTR(-EINVAL);
-> +	/* Index space is sparse: reject holes that were never registered. */
-> +	if (priv->info && !priv->info->clk_data[idx].name)
-> +		return ERR_PTR(-ENOENT);
-> +
-> +	return &priv->reg[idx].hw;
->  }
->  EXPORT_SYMBOL_GPL(starfive_clk_get);
-> +
-> +static void starfive_reset_unregister_adev(void *_adev) {
-> +	struct auxiliary_device *adev =3D _adev;
-> +
-> +	auxiliary_device_delete(adev);
-> +	auxiliary_device_uninit(adev);
-> +}
-> +
-> +static void starfive_reset_adev_release(struct device *dev) {
-> +	struct auxiliary_device *adev =3D to_auxiliary_dev(dev);
-> +	struct starfive_reset_adev *rdev =3D to_starfive_reset_adev(adev);
-> +
-> +	kfree(rdev);
-> +}
-> +
-> +static int starfive_reset_controller_register(struct starfive_clk_priv *=
-priv,
-> +					      const char *adev_name,
-> +					      u32 adev_id)
-> +{
-> +	struct starfive_reset_adev *rdev;
-> +	struct auxiliary_device *adev;
-> +	int ret;
-> +
-> +	rdev =3D kzalloc_obj(*rdev);
-> +	if (!rdev)
-> +		return -ENOMEM;
-> +
-> +	rdev->base =3D priv->base;
-> +
-> +	adev =3D &rdev->adev;
-> +	adev->name =3D adev_name;
-> +	adev->dev.parent =3D priv->dev;
-> +	adev->dev.release =3D starfive_reset_adev_release;
-> +	adev->id =3D adev_id;
-> +
-> +	ret =3D auxiliary_device_init(adev);
-> +	if (ret) {
-> +		kfree(rdev);
-> +		return ret;
-> +	}
-> +
-> +	ret =3D auxiliary_device_add(adev);
-> +	if (ret) {
-> +		auxiliary_device_uninit(adev);
-> +		return ret;
-> +	}
-> +
-> +	return devm_add_action_or_reset(priv->dev,
-> +					starfive_reset_unregister_adev, adev); }
+On Wed, Sep 16, 2026 at 05:21:29PM +0200, Bartosz Golaszewski wrote:
+> Add the compatible string for the GPI DMA engine found on the Nord
+> family of SoCs.
+> 
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-You add starfive_reset_controller_register() but a most similiar jh7110_res=
-et_controller_register()
-remains in drivers/clk/starfive/clk-starfive-jh7110-sys.c. Can we merge the=
-m?
-
-> +
-> +int starfive_crg_probe(struct platform_device *pdev) {
-=20
-This function name is too generic and we know not all starfive SoCs use it =
-to probe.
-
-> +	const struct starfive_crg_domain_info *info;
-> +	struct starfive_clk_priv *priv;
-> +	unsigned int idx;
-> +	int ret;
-> +
-> +	info =3D of_device_get_match_data(&pdev->dev);
-> +	if (!info)
-> +		return -ENODEV;
-> +
-> +	priv =3D devm_kzalloc(&pdev->dev, struct_size(priv, reg, info->num_clk)=
-,
-> +			    GFP_KERNEL);
-> +	if (!priv)
-> +		return -ENOMEM;
-> +
-> +	spin_lock_init(&priv->rmw_lock);
-> +	priv->info =3D info;
-> +	priv->num_reg =3D info->num_clk;
-> +	priv->dev =3D &pdev->dev;
-> +	priv->base =3D devm_platform_ioremap_resource(pdev, 0);
-> +	if (IS_ERR(priv->base))
-> +		return PTR_ERR(priv->base);
-> +
-> +	if (info->power_domain) {
-> +		ret =3D devm_pm_runtime_enable(priv->dev);
-> +		if (ret)
-> +			return dev_err_probe(priv->dev, ret,
-> +					     "failed to enable runtime PM\n");
-> +	}
-> +
-> +	for (idx =3D 0; idx < info->num_clk; idx++) {
-> +		u32 max =3D info->clk_data[idx].max;
-> +		struct clk_parent_data parents[4] =3D {};
-> +		struct clk_init_data init =3D {
-> +			.name =3D info->clk_data[idx].name,
-> +			.ops =3D starfive_clk_ops(max),
-> +			.parent_data =3D parents,
-> +			.num_parents =3D
-> +				((max & STARFIVE_CLK_MUX_MASK) >>
-> STARFIVE_CLK_MUX_SHIFT) + 1,
-> +			.flags =3D info->clk_data[idx].flags,
-> +		};
-> +		struct starfive_clk *clk =3D &priv->reg[idx];
-> +		unsigned int i;
-> +
-> +		if (!init.name)
-> +			continue;
-> +
-> +		for (i =3D 0; i < init.num_parents; i++) {
-> +			unsigned int pidx =3D info->clk_data[idx].parents[i];
-> +
-> +			if (pidx < info->num_clk) {
-> +				parents[i].hw =3D &priv->reg[pidx].hw;
-> +			} else {
-> +				if (pidx - info->num_clk >=3D info->num_ext_clk)
-> +					return -EINVAL;
-> +
-> +				parents[i].fw_name =3D info->ext_clk[pidx - info->num_clk];
-> +			}
-> +		}
-> +
-> +		clk->hw.init =3D &init;
-> +		clk->idx =3D idx;
-> +		clk->max_div =3D max & STARFIVE_CLK_DIV_MASK;
-> +
-> +		ret =3D devm_clk_hw_register(&pdev->dev, &clk->hw);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	ret =3D devm_of_clk_add_hw_provider(&pdev->dev, starfive_clk_get, priv)=
-;
-> +	if (ret)
-> +		return ret;
-> +
-> +	return starfive_reset_controller_register(priv, info->rst_name, 0); }
-> +EXPORT_SYMBOL_GPL(starfive_crg_probe);
-> diff --git a/drivers/clk/starfive/clk-starfive-common.h
-> b/drivers/clk/starfive/clk-starfive-common.h
-> index a03824e9e75f..4cd4357f8366 100644
-> --- a/drivers/clk/starfive/clk-starfive-common.h
-> +++ b/drivers/clk/starfive/clk-starfive-common.h
-> @@ -5,6 +5,7 @@
->  #include <linux/bits.h>
->  #include <linux/clk-provider.h>
->  #include <linux/device.h>
-> +#include <linux/platform_device.h>
->  #include <linux/spinlock.h>
->=20
->  /* register fields */
-> @@ -109,6 +110,15 @@ struct starfive_clk {
->  	unsigned int max_div;
->  };
->=20
-> +struct starfive_crg_domain_info {
-> +	const struct starfive_clk_data *clk_data;
-> +	unsigned int num_clk;
-> +	const char * const *ext_clk;
-> +	unsigned int num_ext_clk;
-> +	const char *rst_name;
-> +	bool power_domain;
-> +};
-
-Is the starfive_crg_domain_info struct introduced only for JHB100? Could we=
- also use it for JH7110?
-
-Best regards,
-Hal
-
-> +
->  struct starfive_clk_priv {
->  	/* protect clk enable and set rate/parent from happening at the same
-> time */
->  	spinlock_t rmw_lock;
-> @@ -116,6 +126,7 @@ struct starfive_clk_priv {
->  	void __iomem *base;
->  	struct clk *original_clk;
->  	struct notifier_block pll_clk_nb;
-> +	const struct starfive_crg_domain_info *info;
->  	struct clk_hw *pll[3];
->  	unsigned int num_reg;
->  	struct starfive_clk reg[] __counted_by(num_reg); @@ -123,5 +134,6
-> @@ struct starfive_clk_priv {
->=20
->  const struct clk_ops *starfive_clk_ops(u32 max);  struct clk_hw
-> *starfive_clk_get(struct of_phandle_args *clkspec, void *data);
-> +int starfive_crg_probe(struct platform_device *pdev);
->=20
->  #endif
-> diff --git a/drivers/clk/starfive/clk-starfive-jhb100-sys0.c
-> b/drivers/clk/starfive/clk-starfive-jhb100-sys0.c
-> new file mode 100644
-> index 000000000000..eb3cd33e2309
-> --- /dev/null
-> +++ b/drivers/clk/starfive/clk-starfive-jhb100-sys0.c
-> @@ -0,0 +1,150 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * StarFive JHB100 System-0 Clock Driver
-> + *
-> + * Copyright (C) 2024 StarFive Technology Co., Ltd.
-> + *
-> + * Author: Changhuang Liang <changhuang.liang@starfivetech.com>
-> + *
-> + */
-> +
-> +#include <dt-bindings/clock/starfive,jhb100-crg.h>
-> +#include <linux/init.h>
-> +#include <linux/platform_device.h>
-> +
-> +#include "clk-starfive-common.h"
-> +
-> +#define JHB100_SYS0CLK_NUM_CLKS
-> 	(JHB100_SYS0CLK_GPU1_NCNOC_INIT + 1)
-> +
-> +/* external clocks */
-> +#define JHB100_SYS0CLK_OSC			(JHB100_SYS0CLK_NUM_CLKS +
-> 0)
-> +#define JHB100_SYS0CLK_PLL0			(JHB100_SYS0CLK_NUM_CLKS +
-> 1)
-> +#define JHB100_SYS0CLK_PLL1			(JHB100_SYS0CLK_NUM_CLKS +
-> 2)
-> +#define JHB100_SYS0CLK_PLL2			(JHB100_SYS0CLK_NUM_CLKS +
-> 3)
-> +
-> +static const char * const jhb100_sys0_ext_clk[] =3D {
-> +	"osc",
-> +	"pll0",
-> +	"pll1",
-> +	"pll2",
-> +};
-> +
-> +static const struct starfive_clk_data jhb100_sys0crg_clk_data[] =3D {
-> +	/* bmcpcierp */
-> +	STARFIVE__DIV(JHB100_SYS0CLK_BMCPCIERP_NCNOC_MAIN,
-> "bmcpcierp_ncnoc_main", 6,
-> +		      JHB100_SYS0CLK_PLL0),
-> +	STARFIVE__DIV(JHB100_SYS0CLK_BMCPCIERP_NCNOC_CFG,
-> "bmcpcierp_ncnoc_cfg", 12,
-> +		      JHB100_SYS0CLK_PLL1),
-> +	STARFIVE__DIV(JHB100_SYS0CLK_PCIE_REF_CML, "pcie_ref_cml", 24,
-...
-> +	/* gpu1 */
-> +	STARFIVE__DIV(JHB100_SYS0CLK_GPU1_NCNOC_INIT,
-> "gpu1_ncnoc_init", 10,
-> +		      JHB100_SYS0CLK_PLL0),
-> +};
-> +
-> +static const struct starfive_crg_domain_info jhb100_sys0crg_info =3D {
-> +	.clk_data	=3D jhb100_sys0crg_clk_data,
-> +	.num_clk	=3D ARRAY_SIZE(jhb100_sys0crg_clk_data),
-> +	.ext_clk	=3D jhb100_sys0_ext_clk,
-> +	.num_ext_clk	=3D ARRAY_SIZE(jhb100_sys0_ext_clk),
-> +	.rst_name	=3D "jhb100-r-sys0",
-> +	.power_domain	=3D false,
-> +};
-> +
-> +static const struct of_device_id jhb100_sys0crg_match[] =3D {
-> +	{
-> +		.compatible =3D "starfive,jhb100-sys0crg",
-> +		.data =3D &jhb100_sys0crg_info,
-> +	},
-> +	{ /* sentinel */ }
-> +};
-> +
-> +static struct platform_driver jhb100_sys0crg_driver =3D {
-> +	.probe =3D starfive_crg_probe,
-> +	.driver =3D {
-> +		.name =3D "clk-starfive-jhb100-sys0",
-> +		.of_match_table =3D jhb100_sys0crg_match,
-> +		.suppress_bind_attrs =3D true,
-> +	},
-> +};
-> +builtin_platform_driver(jhb100_sys0crg_driver);
-> --
-> 2.25.1
+Reviewed-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
