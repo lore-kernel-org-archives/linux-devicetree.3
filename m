@@ -1,234 +1,337 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E10C554090
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 16:32:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E831753D9EB;
+	Thu, 17 Sep 2026 16:40:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789662729; cv=none; b=T5zPLQeIHMSJch3T5kjxT/tDztrZjRbUTXVvbHBRAdiHR5AIpDtfwdCbe6rLFeaREJBgkcKc7lRWUxuzis9WktVBjtvu+5fhh+E8+yEt58TQRsS+BPw+R9OOAuTSBAyy5AqgfxH2MEduaHPXMSGXCgcGCMuWyAka7iyTofkibw8=
+	t=1789663248; cv=none; b=I/Kl9uVj5uArQu0+lDoYxGMPTpzSpjkP7//xMzG1sT+XwOGzZgh7w5lCi9Rgj9IDIbB8i5puDXEdxCCW/aT3otBpcuqz3t+QQdJ+fduPULMS+kbWHz7DUvQgC1c8ivCNyWgV67LaDaHXO68EItwp7WyE7Q7EOaMk28rsnqa8Wag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789662729; c=relaxed/simple;
-	bh=bVHUXHUOUexMnPvGq2onJmA5oGKTIVSb8tJKzygO4/M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=skcn6WSPZ5FJz67vSk6r/u2rp6L4hSdx41yDqcMG1z6h3yM5W9whFsYTUtZe32ELntU/HN2000SM4lxuD/EbKXsUzKd2+f4+GjkUt0Qbd+fNxRcOsHfUokV1enQ6fxKOZAq1b1hKCpqT080mxXWDm07YEu941YLRar0fV5w6JMY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=moTb35UO; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
+	s=arc-20240116; t=1789663248; c=relaxed/simple;
+	bh=nn4VnW8HdtQRUDDovrWAE/S1RfM0Cjd7Q4YUU1ZXS/c=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=CGopP7U9gxNYYZcjVh55a33dn+GcyvWYCpQn/EBvxEuuU4beeSgTWq0RiwC0kmZ03DgLDZ5NhlApDiV12wOeuYgKHgCQ5DmcixxXou+jUbdn2CgO7hKGOG/fUoyvkaw6k0xTr5OZ/ftw0rbLWcUQdITyJ5yc7H/I/B2qgIAEPpE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JXooMIC0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="moTb35UO"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350faaso667750f8f.0
-        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 09:32:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=konsulko.com; s=google; t=1789662726; x=1790267526; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pRGmy+CD/OZqkunxYFlKpBWDzUnxWp+wru3td2Hvozs=;
-        b=moTb35UOORPHc4OW1jgyZHA5D7MsPFNIMZfbV2d/0YkXDZKj21/ISzeozJ2W0D7w7O
-         MkFyCQBNyTD3C7yUvPDLUtKWD9qfnm+LYVa5D4YEaIM9Fc1cn2m2Mqmg3rh7pOX5PLNK
-         jDYI31HfSrdKsvXrdvnV49+VxpefBCprFKepU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789662726; x=1790267526;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pRGmy+CD/OZqkunxYFlKpBWDzUnxWp+wru3td2Hvozs=;
-        b=fgWXXFlLqnFG3OOtPscpugZoDC9ZcUKWEu6toyG6hH3HX7cuTAhwJLxeFeqTsuT4zU
-         YwDBCln0QFEKkcNNT6JcxaitXHpUP0r/ESHvL/5BcC6I0KdQNFRlqqPsscx4IYiXOO6t
-         dfbPIwdoIhZH0kzuDSV5q1mhyScZJSZjJUPRadVdKEWS2tfEt5qA8LnCZ9Ya77/ZAnZc
-         0kWj5R3NDSlPSbtnZaC07GepayxjrGtWsTyQJa9rvzCPZFgddL7gkTlUPD9Gmjjb3Grl
-         TP0b+J7OwYGzDvw5djITmYu7gm3sJnHOp4y7kVjJv3oboJ/96gat3bNxdy1vEEKzHmF7
-         tJRQ==
-X-Gm-Message-State: AFuF++mDF8rkoLAwJ7aSXkcugvE/c6IRXbQzX7jeUPo86HVp2J21bGk3
-	7/Nlo4S+SuQPzUsccLXvDWqMGMTWBq+ewE3/XFIZlwEpMtWs9Djlek5vdbdzuUqHarU=
-X-Gm-Gg: AYBFou3akF6rOSxPhSQXINw/5rGel16wa4tXoqA8C0B+VJaGj3xD/zqWYNT1bSxYlFG
-	hNGH+ntBtMu47EL37rk6q5/D8FY4WFJtGtQDihZ/qUf/vf2JQ+34V0WoQMr1L+Cgzjg1EPYdkqo
-	GPCXskez/grCH6HvFUOp3Iu6agZtU+4r+VE4cnaCJeL1VC7eRCq451dmldUkT+sBiZ1Ym2t+d9A
-	lqwin+P1WpW1s+5gXq2XGIzlvg23BoWhBozfzBTSYxEOPvMyW1EEJlwLwe9+kqnydoIzgKjcWJp
-	IUqXx4rxJj4R4tXNngh07Rz4rAs1+iZgkcs3oC7BMfI+Vxwjr6Hha4j5AAng2Pu7e7/A/qmOHxS
-	WBREtC3h0Ea1HHWQFzUZw/8jq+x96ZtJUTirL5x4kkaodOy/oq9muykH/Y3IlmpXPXygZwZR8Hw
-	EAvHzOnFm8kdOyw7EcpybfdZeNSWMowu+ApFGESq9O794tDSvhUm79c+kUF75SSK3N+UnwSNgNV
-	maEjRJ5hyMyj4eb
-X-Received: by 2002:a05:6000:41d3:b0:487:ff2:14f5 with SMTP id ffacd0b85a97d-4870ff21542mr7461497f8f.4.1789662725767;
-        Thu, 17 Sep 2026 09:32:05 -0700 (PDT)
-Received: from tone.k.g (lan.nucleusys.com. [92.247.61.126])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf418dcsm16842652f8f.35.2026.09.17.09.32.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 09:32:05 -0700 (PDT)
-From: Petko Manolov <petko.manolov@konsulko.com>
-To: linux-kernel@vger.kernel.org
-Cc: devicetree@vger.kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	dinguyen@kernel.org,
-	arnemaximilian.richter@draeger.com,
-	martynas.grybauskas@draeger.com,
-	Petko Manolov <petko.manolov@konsulko.com>
-Subject: [PATCH v6 3/3] arm: dts: altera: add Draeger M48 CPU Module
-Date: Thu, 17 Sep 2026 19:31:56 +0300
-Message-ID: <20260917163157.1380860-4-petko.manolov@konsulko.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260917163157.1380860-1-petko.manolov@konsulko.com>
-References: <20260917163157.1380860-1-petko.manolov@konsulko.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JXooMIC0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08CB71F00898;
+	Thu, 17 Sep 2026 16:40:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789663246;
+	bh=5U9ledxyFp3rMGOuV0SDZ9V7Vdf3W4owWUjMLDfdTJg=;
+	h=From:Subject:Date:To:Cc;
+	b=JXooMIC0psb4X1vPO9CqwTl0cgv9LGpFHCb436WAWMSEoi+rLu5kYgQS+4fq+FSO0
+	 EYqBubql20WcTJkkcgVz+da2BtR1ukaS2QxI6pKaPrlwA3acMv5ZREkYgZD+TfwAXG
+	 +DsTcIhRbCZYbT89DlfAMbut6FPc9vL73s+XjDSjN58LWzF7LyQf4YXx0Ir6g01Dif
+	 4nkEu1mRmJbiqKk50vBE0Ko5k3S87tn+37OakcFBu/C+9t87rUIGu4UDhr3mr86HOx
+	 iafhPuGVEurmsGqmXp3UGdYVuF5/5lUoMiipeSyremW3KXOhBYlDozRFEpYw5h9xU2
+	 kRgT7QrD3RMKA==
+From: Drew Fustini <fustini@kernel.org>
+Subject: [PATCH v8 0/5] riscv: Add initial CBQRI resctrl support
+Date: Thu, 17 Sep 2026 09:39:36 -0700
+Message-Id: <20260917-dfustini-atl-sc-cbqri-dt-v8-0-7964e8d73fe8@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMgXrGoC/33QwU7DMAwG4FeZcibIcdKk2Yn3QBzaxNkCUwtJV
+ 4GmvjtpEVpRRY+Wfn+/7BvLlCJldjzcWKIx5th3ZagfDsydm+5EPPoyMwTUoAVwH655iF3kzXD
+ h2XHXfqTI/cCVAFcTGiG8Z2X9PVGInwv9/PIz52v7Sm6YvTlxjnno09fSPYo591tj/68ZBQdOx
+ jbGoAxNC09vlDq6PPbpxOaeEVcSqh0Ji4ShBmWDt4DtRpJrqd6RZJGcdUIqDCRd2EjqLhnQO5J
+ arqtciYLwWm2kaiWJveuqIrXQkCHrrETaSHol4d7HdZGMQ2yh8kqL7Z/MXbIgdiQz/6lBKytfV
+ xrxjzRN0zeVoaZrjwIAAA==
+X-Change-ID: 20260610-dfustini-atl-sc-cbqri-dt-410c8e2711dd
+To: Adrien Ricciardi <aricciardi@baylibre.com>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Atish Kumar Patra <atishp@rivosinc.com>, 
+ Atish Patra <atish.patra@linux.dev>, Babu Moger <babu.moger@amd.com>, 
+ Ben Horgan <ben.horgan@arm.com>, Borislav Petkov <bp@alien8.de>, 
+ Chen Pei <cp0613@linux.alibaba.com>, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, 
+ Dave Martin <Dave.Martin@arm.com>, Fenghua Yu <fenghuay@nvidia.com>, 
+ Gong Shuai <gong.shuai@sanechips.com.cn>, Gong Shuai <gsh517@gmail.com>, 
+ guo.wenjia23@zte.com.cn, James Morse <james.morse@arm.com>, 
+ =?utf-8?q?Kornel_Dul=C4=99ba?= <mindal@semihalf.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn, 
+ Liu Zhiwei <zhiwei_liu@linux.alibaba.com>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>, 
+ Peter Newman <peternewman@google.com>, 
+ =?utf-8?q?Radim_Kr=C4=8Dm=C3=A1=C5=99?= <rkrcmar@ventanamicro.com>, 
+ Reinette Chatre <reinette.chatre@intel.com>, Rob Herring <robh@kernel.org>, 
+ Samuel Holland <samuel.holland@sifive.com>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+ Tony Luck <tony.luck@intel.com>, Vasudevan Srinivasan <vasu@rivosinc.com>, 
+ Ved Shanbhogue <ved@rivosinc.com>, Weiwei Li <liwei1518@gmail.com>, 
+ yunhui cui <cuiyunhui@bytedance.com>, 
+ Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>, 
+ Drew Fustini <fustini@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ x86@kernel.org, devicetree@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
+ linux-doc@vger.kernel.org
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=10666; i=fustini@kernel.org;
+ h=from:subject:message-id; bh=nn4VnW8HdtQRUDDovrWAE/S1RfM0Cjd7Q4YUU1ZXS/c=;
+ b=owGbwMvMwCV2+43O4ZsaG3kYT6slMWStkWAULbH33qY1Iyjmg8WrxqyXiyqcc26uWPjzd7Dxl
+ B9sIt+WdZSyMIhxMciKKbJs+pB3YYlX6NcF819sg5nDygQyhIGLUwAmcsGckeF4dMFE2U+VbmH+
+ h1VPK05ruRGdevZg6JW91lauP31j+RsZ/jtmnGr4osnBeXre9NXPrp/fqHwmRfrojOR1vBtZvxY
+ b2fABAA==
+X-Developer-Key: i=fustini@kernel.org; a=openpgp;
+ fpr=1B6F948213EA489734F3997035D5CD577C1E6010
 
-Draeger M48 CPU Module that is built around Altera SoCFPGA.
+This series adds initial RISC-V QoS support through the CBQRI
+controller interface [1] integrated with resctrl [2], plus a DT-based
+platform driver for cache controllers. It builds on the Ssqosid
+extension [3] (srmcfg CSR) support that landed in v7.3 merge window.
+It has been tested on both the Tenstorrent Ascalon Shared Cache
+controller and a QEMU implementation [4].
 
-Signed-off-by: Petko Manolov <petko.manolov@konsulko.com>
+  qemu-system-riscv64 -M virt,aia=aplic-imsic -nographic -m 1G -smp 8 \
+      -kernel arch/riscv/boot/Image \
+      -append "root=/dev/vda ro console=ttyS0 rootwait" \
+      -drive if=none,file=rootfs.ext2,format=raw,id=hd0 \
+      -device virtio-blk-device,drive=hd0 \
+      -device riscv.cbqri.capacity,max_mcids=256,max_rcids=64,ncblks=16,mmio_base=0x04820000
+
+Cache allocation can be exercised on the booted system. Mount resctrl
+and read the default schemata. The L2 controller has 16 capacity
+blocks, so the default capacity bitmask (CBM) is 0xffff:
+
+  # mount -t resctrl resctrl /sys/fs/resctrl
+  # cat /sys/fs/resctrl/schemata
+  L2:0=ffff
+
+Write a narrower CBM to a new control group and read it back to confirm
+the L2 controller applied it:
+
+  # mkdir /sys/fs/resctrl/group0
+  # echo "L2:0=ff" > /sys/fs/resctrl/group0/schemata
+  # cat /sys/fs/resctrl/group0/schemata
+  L2:0=ff
+
+Note that this series only implements support for resctrl L2 and L3
+cache resources using CBQRI capacity allocation control. cc_block_mask
+maps onto resctrl's existing cbm schema. However, cc_cunits is not
+supported as there is no existing equivalent for capacity units in the
+resctrl schemata.
+
+I had previously been iterating on an RFC series [5] that did a full
+implementation of CBQRI including capacity monitoring, bandwidth
+allocation and monitoring. The bandwidth controls for CBQRI do not fit
+well into resctrl's existing throttle-based MB schemata. I believe that
+the path forward is Reinette's generic schema description proof of
+concept [6]. My plan is to rebase the full support of CBQRI onto the
+generic schema once it is ready.
+
+This series is based on v7.3-rc1.
+
+[1] https://github.com/riscv-non-isa/riscv-cbqri/releases/tag/v1.0
+[2] https://docs.kernel.org/filesystems/resctrl.html
+[3] https://github.com/riscv/riscv-ssqosid/releases/tag/v1.0
+[4] https://github.com/tt-fustini/qemu/tree/riscv-cbqri-cache
+[5] https://lore.kernel.org/linux-riscv/20260601-ssqosid-cbqri-rqsc-v7-0-v6-16-baf00f50028a@kernel.org/
+[6] https://lore.kernel.org/all/d258a32f-12d5-464d-abe9-4720fb3e44b3@intel.com/
+
+Changes in v8:
+--------------
+- Write cc_block_mask and cc_cunits only after the BUSY bit in
+  cc_alloc_ctl reads 0. A controller that timed out on a previous
+  operation and then recovered could otherwise apply the previous mask
+  to the new RCID.
+
+- Reword the cache allocation patch to say that controllers at one
+  cache level must report the same number of capacity blocks, since
+  resctrl exposes a single capacity mask per resource. No code change.
+
+- Sashiko review of v7:
+  https://sashiko.dev/#/patchset/20260901-dfustini-atl-sc-cbqri-dt-v7-0-ca2935d85622@kernel.org
+
+- Link to v7:
+  https://patch.msgid.link/20260901-dfustini-atl-sc-cbqri-dt-v7-0-ca2935d85622@kernel.org
+
+Changes in v7:
+--------------
+- Drop the three Ssqosid patches (dt-bindings description, extension
+  detection, and srmcfg CSR support). They are in mainline as of the
+  v7.3 merge window, so this revision is just the CBQRI driver, the
+  resctrl glue, and the CBQRI binding.
+
+- Rebase from next-20260713 onto v7.3-rc1. The five remaining patches
+  are otherwise unchanged from v6.
+
+- Sashiko review of v6:
+  https://sashiko.dev/#/patchset/20260729-dfustini-atl-sc-cbqri-dt-v6-0-7c22b05d461b@kernel.org
+
+- Link to v6:
+  https://patch.msgid.link/20260729-dfustini-atl-sc-cbqri-dt-v6-0-7c22b05d461b@kernel.org
+
+Changes in v6:
+--------------
+- Introduce the RISCV_CBQRI Kconfig if/endif block in the patch that
+  adds the RISCV_CBQRI_CAPACITY option it guards, rather than as an
+  empty block in an earlier patch.
+
+- Note in cbqri_probe_cc() that the 32 capacity block limit comes from
+  resctrl representing the CBM as a u32.
+
+- Sashiko review of v5:
+  https://sashiko.dev/#/message/20260714-dfustini-atl-sc-cbqri-dt-v5-0-b0ae7e9c932e@kernel.org
+
+- Link to v5:
+  https://patch.msgid.link/20260714-dfustini-atl-sc-cbqri-dt-v5-0-b0ae7e9c932e@kernel.org
+
+Changes in v5:
+--------------
+- Resolve control domain membership from each CPU's cache id in
+  cacheinfo at hotplug, instead of a CPU mask captured at probe.
+
+- Add and remove control domains on the ctrl_domains RCU list
+  following the documented traversal rules.
+
+- Restructure cbqri_resctrl_pick_caches() to select one controller per
+  cache level, which removes the separate dropped[] array and the
+  overloaded NULL controller pointer.
+
+- Initialize the control domain's resource id.
+
+- Drop the inaccurate comment above the stubbed resctrl_arch_*()
+  operations.
+
+- Sashiko review of v4:
+  https://sashiko.dev/#/patchset/20260706-dfustini-atl-sc-cbqri-dt-v4-0-e75c20201d64@kernel.org
+
+- Link to v4:
+  https://patch.msgid.link/20260706-dfustini-atl-sc-cbqri-dt-v4-0-e75c20201d64@kernel.org
+
+Changes in v4:
+--------------
+- Register the srmcfg PM notifier even if cpuhp_setup_state() fails in
+  riscv_srmcfg_init(). The early return on failure had skipped it,
+  dropping the srmcfg restore across suspend and resume.
+
+- Make RISCV_CBQRI a user-selectable option that depends on
+  RISCV_ISA_SSQOSID, instead of being selected unconditionally.
+
+- Bound the per-domain control value init by the domain's own
+  controller's RCID count rather than the resource wide count.
+
+- Drop only the affected cache level when capacity controllers at the
+  same level report mismatched capabilities, rather than aborting the
+  whole resctrl setup.
+
+- Use guard(mutex) instead of lock/unlock for cbqri_controllers_lock.
+
+- Read the CBQRI control registers into low and high halves so the
+  access order is explicit and comment on torn reads.
+
+- Clarify in cbqri_resctrl_pick_caches() that the first matching leaf is
+  correct for a unified shared cache.
+
+- Link to v3:
+  https://patch.msgid.link/20260628-dfustini-atl-sc-cbqri-dt-v3-0-c9c1342fe3cf@kernel.org
+
+- Sashiko review of v3:
+  https://sashiko.dev/#/patchset/20260628-dfustini-atl-sc-cbqri-dt-v3-0-c9c1342fe3cf@kernel.org
+
+Changes in v3:
+--------------
+- riscv,cbqri.yaml:
+  - Require a device-specific compatible so a bare generic compatible
+    is no longer valid on its own.
+  - Rename node name from cache-controller@ to qos-controller@
+  - Rename compatible from tenstorrent,ascalon-sc-cbqri to
+    tenstorrent,ascalon-shared-cache-controller
+
+- Take cbqri_controllers_lock in cbqri_attach_cpu_to_all_ctrls() so a
+  controller probed after boot can't corrupt the cbqri_controllers list.
+
+- Revise comment above riscv_srmcfg_reset_cache() to clarify that the
+  teardown callback is not relied on. The cpuhp startup callback re-arms
+  the per-cpu sentinel, which forces the csr write on a re-onlined CPU.
+
+- Drop the memory fences around the srmcfg CSR write on context switch.
+  Ssqosid does not require the ordering. The brief tagging inaccuracy at
+  the switch boundary is acceptable for QoS.
+
+- Access the CBQRI controller registers with 32-bit reads and writes.
+  The spec only guarantees single-copy atomicity for 4-byte accesses.
+  This also removes the dependency on native 64-bit MMIO.
+
+- Program cc_cunits to 0 before a config limit operation on controllers
+  that support capacity units, so a stale unit limit does not constrain
+  block-mask allocation.
+
+- Link to v2:
+  https://patch.msgid.link/20260624-dfustini-atl-sc-cbqri-dt-v2-0-2f8049fd902b@kernel.org
+
+- Sashiko review of v2:
+  https://sashiko.dev/#/patchset/20260624-dfustini-atl-sc-cbqri-dt-v2-0-2f8049fd902b@kernel.org
+
+Changes in v2:
+--------------
+The changes in this revision address the Sashiko review of v1.
+
+- Restore the srmcfg CSR for the current task on CPU_PM_EXIT and
+  CPU_PM_ENTER_FAILED, so it is not left configured incorrectly until
+  the next context switch.
+
+- Serialize the cbqri_controllers list insert and the boot time walk
+  with a mutex, so an asynchronous driver probe cannot corrupt the list.
+
+- Skip a controller at an unsupported cache level instead of aborting
+  resctrl setup, so valid L2 and L3 controllers still register.
+
+- RISCV_ISA_SSQOSID selects ARCH_HAS_CPU_RESCTRL and RISCV_CBQRI
+  together, so no intermediate commit enables RESCTRL_FS without the
+  CBQRI resctrl glue.
+
+- Rename the RISCV_CBQRI_DRIVER to RISCV_CBQRI, since it builds the
+  CBQRI core ops and resctrl integration rather than a driver.
+
+- Drop the RISCV_CBQRI_DRIVER_DEBUG Kconfig option and rely on dynamic
+  debug to control the pr_debug() output.
+
+- Note: Sashiko flagged the lack of suspend/resume state restore. I will
+  not fix that as register state is only lost when the power domain is
+  gated, which offlines the harts sharing the cache. resctrl reprograms
+  the default capacity mask through the normal control domain online
+  path on resume.
+
+- Link to v1:
+  https://lore.kernel.org/all/20260619-dfustini-atl-sc-cbqri-dt-v1-0-e79a7723fab0@kernel.org/
+
+- Sashiko review of v1:
+  https://sashiko.dev/#/patchset/20260619-dfustini-atl-sc-cbqri-dt-v1-0-e79a7723fab0@kernel.org
+
 ---
- arch/arm/boot/dts/intel/socfpga/Makefile      |   1 +
- .../socfpga/socfpga_cyclone5_draeger_m48.dts  | 123 ++++++++++++++++++
- 2 files changed, 124 insertions(+)
- create mode 100644 arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
+Drew Fustini (5):
+      riscv_cbqri: Add capacity controller probe and allocation device ops
+      riscv_cbqri: resctrl: Add cache allocation via capacity block mask
+      riscv_cbqri: Make RESCTRL_FS available on RISC-V
+      dt-bindings: riscv: Add binding for CBQRI controllers
+      riscv_cbqri: Add CBQRI capacity allocation platform driver
 
-diff --git a/arch/arm/boot/dts/intel/socfpga/Makefile b/arch/arm/boot/dts/intel/socfpga/Makefile
-index 8df0976da01c..cdcea11abdfa 100644
---- a/arch/arm/boot/dts/intel/socfpga/Makefile
-+++ b/arch/arm/boot/dts/intel/socfpga/Makefile
-@@ -11,6 +11,7 @@ dtb-$(CONFIG_ARCH_INTEL_SOCFPGA) += \
- 	socfpga_arria10_mercury_aa1_st1_emmc.dtb \
- 	socfpga_arria10_mercury_aa1_st1_qspi.dtb \
- 	socfpga_arria10_mercury_aa1_st1_sdmmc.dtb \
-+	socfpga_cyclone5_draeger_m48.dtb \
- 	socfpga_cyclone5_mercury_sa1_pe1_emmc.dtb \
- 	socfpga_cyclone5_mercury_sa1_pe1_qspi.dtb \
- 	socfpga_cyclone5_mercury_sa1_pe1_sdmmc.dtb \
-diff --git a/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
-new file mode 100644
-index 000000000000..dae809c02adb
---- /dev/null
-+++ b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
-@@ -0,0 +1,123 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ *  (C) Copyright 2020 Draeger and Licensors, info@draeger.com
-+ */
-+#include "socfpga_cyclone5.dtsi"
-+
-+/ {
-+	model = "Draeger M48 Cyclone V SoC";
-+	compatible = "draeger,m48", "altr,socfpga-cyclone5", "altr,socfpga";
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	memory@0 {
-+		name = "memory";
-+		device_type = "memory";
-+		reg = <0x0 0x40000000>;
-+	};
-+
-+	aliases {
-+		/* this allow the ethaddr uboot environmnet variable contents
-+		 * to be added to the gmac0 device tree blob.
-+		 */
-+		ethernet0 = &gmac0;
-+	};
-+
-+	soc {
-+		gpio3: gpio@ff202000 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			compatible = "snps,dw-apb-gpio";
-+			reg = <0xff202000 0x20>;
-+
-+			portd: gpio-controller@0 {
-+				compatible = "snps,dw-apb-gpio-port";
-+				gpio-controller;
-+				#gpio-cells = <2>;
-+				snps,nr-gpios = <2>;
-+				reg = <0>;
-+			};
-+		};
-+
-+		gpio4: gpio@ff202020 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			compatible = "snps,dw-apb-gpio";
-+			reg = <0xff202020 0x20>;
-+
-+			porte: gpio-controller@0 {
-+				compatible = "snps,dw-apb-gpio-port";
-+				gpio-controller;
-+				#gpio-cells = <2>;
-+				snps,nr-gpios = <2>;
-+				reg = <0>;
-+			};
-+		};
-+	};
-+};
-+
-+&gmac0 {
-+	status = "okay";
-+	phy-mode = "rgmii-id";
-+	rxc-skew-ps = <1860>;
-+	rxd0-skew-ps = <0>;
-+	rxd1-skew-ps = <0>;
-+	rxd2-skew-ps = <0>;
-+	rxd3-skew-ps = <0>;
-+	rxdv-skew-ps = <0>;
-+	txc-skew-ps = <900>;
-+	txd0-skew-ps = <0>;
-+	txd1-skew-ps = <0>;
-+	txd2-skew-ps = <0>;
-+	txd3-skew-ps = <0>;
-+	txen-skew-ps = <0>;
-+};
-+
-+&gpio0 {
-+	status = "okay";
-+};
-+
-+&gpio1 {
-+	status = "okay";
-+};
-+
-+&gpio2 {
-+	status = "okay";
-+};
-+
-+&i2c0 {
-+	status = "okay";
-+	clock-frequency = <100000>;
-+
-+	eeprom_mac: eeprom@50 {
-+		compatible = "atmel,24c08";
-+		reg = <0x50>;
-+		pagesize = <16>;
-+	};
-+};
-+
-+&mmc0 {
-+	status = "okay";
-+};
-+
-+&qspi {
-+	status = "okay";
-+
-+	flash: flash@0 {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		compatible = "micron,n25q256a", "jedec,spi-nor";
-+		reg = <0>;
-+
-+		/* chip select */
-+		spi-max-frequency = <100000000>;
-+		m25p,fast-read;
-+		cdns,read-delay = <4>;
-+		cdns,tshsl-ns = <50>;
-+		cdns,tsd2d-ns = <50>;
-+		cdns,tchsh-ns = <4>;
-+		cdns,tslch-ns = <4>;
-+	};
-+};
--- 
-2.47.3
+ .../devicetree/bindings/riscv/riscv,cbqri.yaml     |  97 +++
+ MAINTAINERS                                        |   7 +
+ arch/riscv/include/asm/resctrl.h                   | 147 ++++
+ drivers/resctrl/Kconfig                            |  30 +
+ drivers/resctrl/Makefile                           |   5 +
+ drivers/resctrl/cbqri_capacity.c                   | 127 ++++
+ drivers/resctrl/cbqri_devices.c                    | 556 +++++++++++++++
+ drivers/resctrl/cbqri_internal.h                   | 122 ++++
+ drivers/resctrl/cbqri_resctrl.c                    | 785 +++++++++++++++++++++
+ include/linux/riscv_cbqri.h                        |  45 ++
+ 10 files changed, 1921 insertions(+)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260610-dfustini-atl-sc-cbqri-dt-410c8e2711dd
+
+Best regards,
+--  
+Drew Fustini <fustini@kernel.org>
 
