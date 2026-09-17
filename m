@@ -1,67 +1,114 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CFB34A6CE6;
-	Thu, 17 Sep 2026 23:07:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1EE137CD4E
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 23:08:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789686480; cv=none; b=D/88P3n/ci5HYCOdO7dMu+GQnxvF2piCnhqB5sTxpbAzzCf1wrGgm4V3cYEX9YzexYW8bV43Cye+Ks7bwsVceWPPeIWsKgRQfHme9vWG4Xvyc61zEx0h+dRarkDn1CVUKfvtGxabklOmR/m4vc/CA7/XhvsOm0bBjuOkI1+v8lI=
+	t=1789686503; cv=none; b=p+keaXskTOXnB0mzmnfTFBuZGnU5+LXX/GEQ9ohPwcvwWPqqqrOFp+BtQT+uLTJPxhh1VAwkFOQ+9YVgpjyo8auI5AaMYul++0tp/fvKBzbEX+sbwB7os2hcjDWnM9wmmsJhk+3pPjAlnIqXNUp27F+1b+1URopqgsv/MhpN6Y0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789686480; c=relaxed/simple;
-	bh=HgbxNXZ+ZrVfVFhmLqoXXzrswSxEJUgNjmg4qaS4DSc=;
+	s=arc-20240116; t=1789686503; c=relaxed/simple;
+	bh=MvJT9Kb6eHvL+2eNRpu+At6i9LsAKCWBO5nihlKsm4Q=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=OD8SkWVwB8IzVX4wOQlJ7rk3YGYheoGyMOCtxRMGp21U4aqJ0GnelUBjowN0Q/hBc0NeyQHTtZJZwvYVl0nOy/BKgFRQ8J3llznByGya5VXwWgcLKB0IlXsOLtLj+iCCT9Uj/6S0Mjy5qsH1mDjAhBGCaL6Fx1zmPrHNrlLvCqM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YW5be2ze; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=jirYxr9Raf69cwQXHbW0LFe1zYFY0dshVrHxphN/aCbFEN6sAmdJJ1IU88FJUkbntu4wsd6Eds2mYPVPeYa0eIcQrGpegRsyWPXZdAbFVd9Oi2oVZTmd+vt1/UJSdefKasdcCd8jjCwbQXNPXEmf2qQiMNLDnRzVrR0uczLxADY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WjIIdWC8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YW5be2ze"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C82E1F000FF;
-	Thu, 17 Sep 2026 23:07:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WjIIdWC8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 500301F000FF;
+	Thu, 17 Sep 2026 23:08:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789686472;
-	bh=HgbxNXZ+ZrVfVFhmLqoXXzrswSxEJUgNjmg4qaS4DSc=;
+	s=k20260515; t=1789686498;
+	bh=EWyzJ1fCk4xVCcL7o49PtUSB/c3zF4lww77vmzZhwek=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YW5be2zezlrZbz3y15bZ4+C60z6jkoCNi7A/r9/QUxplh5MlgghBYG29/rXJpZmn0
-	 8qyR8aMWra0CwMY9lqJMxZiJgsjm/zwui11GGFl6z7DjDga8tAMqPeDTkzNDcDUBof
-	 wD4ZoYR6DHX+mo0D3qjq3NLQvDhcO6jYtqK0arnDSkq/ZLt1mz5dVKksHNBOiNh4rI
-	 UyykfPA20J0IMY9KGnc3y8hsL8IsmhyrVLsX4wjuwbvMKKn3eqLAKLftct27Lh0To0
-	 Dwxx+8irzKENHf/c65+Uj/oQ21mY/DatnaeYVkK8oCpHv4KL06sub3ylzZ6vbuARLl
-	 dmrOloDSgm2Wg==
+	b=WjIIdWC8KqurTLv9zWonJDtNKcyyQ1x1j2A2LyjLx+lJDP7iWZFLHgZoMKTZne6T0
+	 Z2xEcQ1rfwaUvumkyxQh3+ej9aSyJPiyxT4yAwxoDD6HpfIxj6cMolVMDW1XTkCHsr
+	 PxA6+OHM/+qaXeR+uF3XXx7GWbnfwwzt3A4OhO9CLXK9BHloxI/TpsptBOYbO7XZnX
+	 cSd5p5V1rmyeQhc/ZVk2wRrKqJZzqzupqWQk9glH8Ucnw5Gu8Cleq/eeOMsV1vebiu
+	 CgL4Jcy5ovCPCY5rvqrN2FANnXhi/e0ldcFicNnRMjTTjEgUFsWMlyFqfpuP5yIYXr
+	 mqQ3EQkFnbabw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/9] ASoC: ab8500: Skip digital microphone support on
- AB8505
+Subject: Re: [PATCH v5 01/19] dt-bindings: crypto: add Rambus CryptoManager
+ Hub
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Linus Walleij" <linusw@kernel.org>
-Cc: devicetree@vger.kernel.org, mfd@lists.linux.dev, robh@kernel.org, lee@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260918-ux500-simple-sound-v2-4-88d29416e3c3@kernel.org>
-References: <20260918-ux500-simple-sound-v2-0-88d29416e3c3@kernel.org>
- <20260918-ux500-simple-sound-v2-4-88d29416e3c3@kernel.org>
+To: "Alex Ousherovitch" <aousherovitch@rambus.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260917225929.2494111-2-aousherovitch@rambus.com>
+References: <20260917225929.2494111-1-aousherovitch@rambus.com>
+ <20260917225929.2494111-2-aousherovitch@rambus.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 23:07:52 +0000
-Message-Id: <20260917230752.8C82E1F000FF@smtp.kernel.org>
+Date: Thu, 17 Sep 2026 23:08:17 +0000
+Message-Id: <20260917230818.500301F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-> The AB8505 does not have the digital microphone interface, its six
-> input pins or the VDMIC regulator found in AB8500. The shared codec
-> driver nevertheless creates the entire AB8500 DMIC DAPM graph. When an
-> AB8505 sound card binds, the regulator widget requests the nonexistent
-> V-DMIC supply and falls back to a dummy regulator.
->=20
-> Split the digital microphone widgets and routes from the common codec
-> graph and add them only when the parent MFD is an actual AB8500. This
-> also removes the DMIC4-only AD_OUT4 path from AB8505.
->=20
-> Fixes: 679d7abdc754 ("ASoC: codecs: Add AB8500 codec-driver")
-> Assisted-by: LLM
-> Signed-off-by: Linus Walleij <linusw@kernel.org>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] dt-bindings: unsatisfiable 'not: {}' compatible schema rule
+- [Low] dt-bindings: missing mandatory 'examples' schema section
+--
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+commit 3ce20b70e7ce37fd253621a799e998d6f340d240
+Author: Alex Ousherovitch <aousherovitch@rambus.com>
+
+dt-bindings: crypto: add Rambus CryptoManager Hub
+
+Add device tree binding schema for the Rambus CryptoManager Hub (CMH)
+hardware crypto accelerator.  The binding describes the parent
+SoC-level node with its SIC register region and one queue@N child
+node per mailbox the host owns, each carrying a reg (mailbox instance
+index), an optional interrupt, VCQ ring geometry (rambus,num-slots /
+rambus,slot-stride-bytes) and a rambus,cores affinity list.  Which
+crypto cores are present is discovered from the SIC CORE_ENABLE
+register at probe, not described in the device tree.
+
+> diff --git a/Documentation/devicetree/bindings/crypto/rambus,cmh-v1030.ya=
+ml b/Documentation/devicetree/bindings/crypto/rambus,cmh-v1030.yaml
+> new file mode 100644
+> index 0000000000000..a0df35bdc371d
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/crypto/rambus,cmh-v1030.yaml
+[ ... ]
+> +properties:
+> +  compatible:
+> +    items:
+> +      - not: {}
+> +        description: SoC-specific compatible, e.g. vendor,soc-cmh
+> +      - const: rambus,cmh-v1030
+
+[Severity: Medium]
+In JSON Schema, {} is an empty schema that matches any value. Therefore,
+the not: {} constraint in properties.compatible matches nothing and
+evaluates to false for all inputs.
+
+Any device tree that supplies a valid 2-element compatible string (e.g.,
+"vendor,soc-cmh", "rambus,cmh-v1030") will unconditionally fail validation
+via dt_binding_check.
+
+Could this compatible constraint be modified so valid inputs can pass?
+
+[ ... ]
+> +required:
+> +  - compatible
+> +  - reg
+> +  - "#address-cells"
+> +  - "#size-cells"
+> +
+> +additionalProperties: false
+
+[Severity: Low]
+This schema definition completely omits the required examples section
+at the end of the file.
+
+Without an example, the kernel's dt_binding_check machinery cannot properly
+validate the schema's internal logic against a simulated valid device tree
+node. This effectively hides the not: {} bug from automated testing.
+
+Can an examples section be included to enable proper schema testing?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918-ux500-simp=
-le-sound-v2-0-88d29416e3c3@kernel.org?part=3D4
-
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917225929.2494=
+111-1-aousherovitch@rambus.com?part=3D1
