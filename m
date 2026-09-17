@@ -1,87 +1,49 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F31C4B2CAD
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 09:53:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5F7A13790B
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 09:55:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789638843; cv=none; b=HkZWx+ByfyGO3VJqh6sWApFOogSzyIj0elcJPCuvavJWlgRiu75NWvDhvGlFnleSHAb5lOCnjrIPpuPyORiBHODSKKu+0NSR10St6GAT73gvIXZYf92Gg6PcEeKkmZoCGBoUyDvsPJc8rz9slP18eReCz+kmMpCPKraddUlGBik=
+	t=1789638974; cv=none; b=bdkOhafThPTZFRlqFCH814+5SGrh8cZng8OXHgHs9UdO69XxPOq2y3sauWSi1TNXZMU9d64GUlGxRmUSCl9Q7bbQnLV8Anx1tJsFG6VKgSvepBDxyQ9g9vQ4R1DjEMbxKq388+EVsXWxOrnF+26esewxOj+oDv7AACm/J30GRJo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789638843; c=relaxed/simple;
-	bh=Cve130myEL9inyJHbquCFXzlJXeFLlPCSP2ZaBXKxNY=;
+	s=arc-20240116; t=1789638974; c=relaxed/simple;
+	bh=E0gDaNKBp/QpVdGPBH3q0Mcn3vBgtp2MxiJhRDcKw/g=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CYD/6s9kRe0zCyERrHw8wTXLjwo4cuzDwiZp48qbYyYXcNseFPGElLonsKS5GJjB6CrCTk9+NjWF8GkIkxCsBgXQtC7kSU/0+qJqbYRdB4ne0wXOIFe/HJwNmv/T4ZbV82zV+cLLF7NbpJTvj8YJwPX5WIfYzIb2gRH5xObTAm0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ejIHOTYX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VCHGC3W+; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=AshjX6os92hprGoLAQ3aQUwt5e7mcPgKggksD3GXy6bxqYtdbYcJ0WXav7CWo64AC1Xkm7fkGkHov5Pxh6uZf2Y0g1LxQGK0S7+iYLLWJn+hUZn7+k0xgHE9LZ2+0DvUf7v007FSXDvKqFbWDrxzKvAI0B5v9zRzwqrcYt1jVmU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Vc2ain+8; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ejIHOTYX";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VCHGC3W+"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68H9a3cw4187018
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 09:53:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	D7idV/SmHuaFlrgRp6yA6OaUWlWvXCzc//paIK5S5A8=; b=ejIHOTYXd+7K/NKL
-	fmqCwe0oAAkmWpSrf1jb+S9hKpG/SVZYu3Rc5ZJdbURb71uvDdLtk3ZYHf90bL9b
-	EJoLe2RkjC1DcT3lKSWJUZ0W+WawpExtxQi9yZQMQPrzaonEkbkAJBp5byR6m7nb
-	ePfzvRaGN0An3EEJl/4365aruYCgb0BftO5i23kjrw0oZfUyCpp4dI5JssvBd31E
-	jG6daaGGnuPHV/TuiOzt2rvQNUed5dZLk/cmUJQ4N3fYk06yxh6MuSDxeTHd+h8T
-	yc7A6bP+X9J3V0IQY5vj/5/9VpqPgz+dMaEZcKN8cblAx20YhqMf/dxY0jRvfcyl
-	tGc6cA==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gr7uc9j4c-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 09:53:47 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93821883e26so25281485a.2
-        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 02:53:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789638826; x=1790243626; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=D7idV/SmHuaFlrgRp6yA6OaUWlWvXCzc//paIK5S5A8=;
-        b=VCHGC3W+SHpUaE0QU6E+1D9Apqkn3JFrCI/5Skh/B0vT0sY5Hgq/2UKzPD/MkqzI/G
-         jeSoCtLZUzZQlXQkhQea5Xo8MXr/sFxbV6p+dlTGyEWVeK2DoItJNArpmdbAmPCiSr2D
-         Dcx7CfinEAC6/seCzBlrGBc8uWOQDdMf+MR0qFDV+mUYM9KnumDDe9RSBSxIruhcBEHg
-         RspsoIRx/1EVXCnpIGLR2tBcaigWynjvcNb4tI++lcMtu8qyDP3mpqmt/BeflYq65xr6
-         UFlw6qtTe/Ja341K9QlNwQvoqO5LOtmcd/n/Xp8v9zHafM1LEZOxRNkYqsJNmkMfCPOg
-         RmGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789638826; x=1790243626;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=D7idV/SmHuaFlrgRp6yA6OaUWlWvXCzc//paIK5S5A8=;
-        b=s4NBAWhikeqc6ffJSpkoQJLGgzRmCgRErtS8recjDZGLnPvODxZ9xHPo9y4QKJFi4F
-         hqGXUQvcPfm3hJfjiqlEJaeYS14PZdpNVyErSTUEx/hVEA0PHMsBMvZlNxVr9r4iJC5I
-         uZtjaozS6PEng9NjGaS17jK1gHJI3lbZM1Mf5WalAOX65nXvQ0jz+Zdyf88kdglEjdZj
-         bmm8cmKHY1FXLfxaEoBQVvtUBC9I324FI8GR0wIepwvnIBu++Voom8TAzaM4BAshlhFv
-         sDSok+9++SeRLkFne0PatY6TNPYCc2nfXepEgWh2EdQoDfyMgRwlDM6UEof9Rjixq6hg
-         o/fg==
-X-Forwarded-Encrypted: i=1; AKwUvBx5Lu8moY9E0UNSqzgEwTOwkPj/0n6jNP7feF9Reo9lrwXO0PmY5Xg5CZ5IAZBkrBgLUA7dPqMbmcqm@vger.kernel.org
-X-Gm-Message-State: AFuF++nkVDSELjmOw/54mmp1kg8ZJEqL9BqibxWQAn9P3MC8Y3nz3Co7
-	K0cgUichl1y/ayrCxIm0fNXQxWrHnkukiWxmVFc3TxaoNfMYQQ3zjZWkL8SodI0GOvtCcfpdp01
-	YNGjnkokMn4+ad9WURgLLXtbYGdWLt3HOqpD6eCqELNQp9bb/JxwwUnDLASO5iNLa
-X-Gm-Gg: AYBFou3IqnX1SGbdvVmDrtKKYD0ClkyGacaHCaB0DQ2aCExaGTV0opnaQgWWRjjFI2a
-	2t8QwitHJjNW1+ZNr+FIj2B6ghL9CV9owtvUl54IYZSJItQn5LTNcTXsSyfob2pZc1HNRKKjEPX
-	5ZQveQi2H3ZT2mxe1NtcsLWz9JTMdQlpZe2mDbv3TkNfjEo6T7qE93DVFP39eFM+UrH7srv9+9b
-	/7q0GlL/xikP9NctUfDjSTg0RF5xsEd8NiOnqnvNsNAZyG8SE7BOgT9oReZUiKI86vN98GVLdhq
-	3/fs1nyM4kJB+gaTtCkgATBL2CdPFo24JHwXEO/83g572TknR1v08rE+crP2UlbyrPljzzkThlD
-	U0JOVBqGEYS4K0O8+nghPkA==
-X-Received: by 2002:a05:6214:508e:b0:912:3128:bbef with SMTP id 6a1803df08f44-9124ff4e920mr3296146d6.0.1789638826419;
-        Thu, 17 Sep 2026 02:53:46 -0700 (PDT)
-X-Received: by 2002:a05:6214:508e:b0:912:3128:bbef with SMTP id 6a1803df08f44-9124ff4e920mr3295926d6.0.1789638826034;
-        Thu, 17 Sep 2026 02:53:46 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29de602065sm254533866b.47.2026.09.17.02.53.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 17 Sep 2026 02:53:45 -0700 (PDT)
-Message-ID: <d8ae41d9-2312-4232-ab60-2f061ac5fdeb@oss.qualcomm.com>
-Date: Thu, 17 Sep 2026 11:53:42 +0200
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Vc2ain+8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789638952;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=i5UbXnm5mXzyvFuRwrWE9rE40MOY3Phh4TEL38fRFww=;
+	b=Vc2ain+8bc91kehpEAS+2uVoGpNtWmw2NkLZwnefyYm14SZL6OaYxr1PmdVB+g7EhQ6aKP
+	kTYb4RsxobX8NLJcDYXBIOP+5sfmPHpWSdPrmk0G2shMS3IkY3ilNvH/Qh7r2oOf12pU+c
+	PS5gMcIvvwNJlf8N1I72PcO6gjJ/kSY=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-528-VAZGBbhAMdas7eUvSAsOSA-1; Thu,
+ 17 Sep 2026 05:55:48 -0400
+X-MC-Unique: VAZGBbhAMdas7eUvSAsOSA-1
+X-Mimecast-MFC-AGG-ID: VAZGBbhAMdas7eUvSAsOSA_1789638946
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A7C441828ACB;
+	Thu, 17 Sep 2026 09:55:46 +0000 (UTC)
+Received: from [100.90.87.156] (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id E308519AC044;
+	Thu, 17 Sep 2026 09:55:42 +0000 (UTC)
+Message-ID: <bde28182-fab2-4ae1-b5f8-d425c2d0aeee@redhat.com>
+Date: Thu, 17 Sep 2026 11:55:41 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,65 +51,186 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 1/2] arm64: dts: qcom: sdm845-google: Add dual front
- IMX355 cameras
-To: david@ixit.cz, Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: Petr Hodina <petr.hodina@protonmail.com>,
-        Richard Acayan <mailingradian@gmail.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
-References: <20260917-pixel3-camera-v10-0-df631279b39d@ixit.cz>
- <20260917-pixel3-camera-v10-1-df631279b39d@ixit.cz>
+Subject: Re: [PATCH net-next v9 10/15] dpll: sit9531x: add support to adjust
+ output phase
+To: Ali Rouhi <arouhi@sitime.com>, "jiri@resnulli.us" <jiri@resnulli.us>
+Cc: "vadim.fedorenko@linux.dev" <vadim.fedorenko@linux.dev>,
+ "arkadiusz.kubalewski@intel.com" <arkadiusz.kubalewski@intel.com>,
+ "robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
+ <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
+ "cjubran@nvidia.com" <cjubran@nvidia.com>,
+ "pabeni@redhat.com" <pabeni@redhat.com>,
+ "Oleg.Zadorozhnyi@devoxsoftware.com" <Oleg.Zadorozhnyi@devoxsoftware.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20260915000015.80480-1-arouhi@sitime.com>
+ <20260915000015.80480-11-arouhi@sitime.com>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260917-pixel3-camera-v10-1-df631279b39d@ixit.cz>
-Content-Type: text/plain; charset=UTF-8
+From: Ivan Vecera <ivecera@redhat.com>
+In-Reply-To: <20260915000015.80480-11-arouhi@sitime.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDEzNSBTYWx0ZWRfX2J1YQNpCB2pk
- BKV3I/HsPFKrYtyDZ6EOLN8RoGlAfea1Wi1bcLo15mXKumca7+PX5khpa3jfQwWsRKytMNCvlxt
- kvcn81Lp5IbD031SlS0bp2WXOEr3RCBjwbfs7cKidpQEzIhXUrklCrQEG/HhI+mtbxGQsjzK92e
- RKRXNpYw9jhCCVqvoUF6AlDQXOHrTkW3g1dwxvBwpes3jJ2u6T1MbGBHPLzJ1D4cZ4bBdyxpTNV
- Zg4LgGfSTHuFANa8XwvxqGPWcWG30D3L4jYy+CiRAhd+oFgO31vpuW6Li7rSd3lAbm1wYoNBToa
- bTlbjOYRQDGLvQPzMBiro9PC+WS8zjyfEgQBGhAGlNHil0c9JXbpHwoIHxkwh+B+YiOWntE5uCt
- b4K56/k/HCivi4izg5WQlkIZK8n7i6C21XhwrlPohBjsmQW3yxlSOkHdAc4oxy+KGflUfIzoVZ9
- iAMk3uEpp1mfb/IAndA==
-X-Proofpoint-GUID: 216LRTwc0kx7ll1aiBq3ak7XvwQg1deW
-X-Proofpoint-ORIG-GUID: 216LRTwc0kx7ll1aiBq3ak7XvwQg1deW
-X-Authority-Analysis: v=2.4 cv=F9zC5ahN c=1 sm=1 tr=0 ts=6aabb8ab cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=uxpBaPyPSpK-buiB_gcA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDEzNSBTYWx0ZWRfX4I0TG9phDvhA
- AZeFhuZxyhGVozxNk4WLCxS0LSrLzxFM7qq/HkpKqlTEvczKrAYl1hZDeacZkTkaw4hFgCJQ4Qv
- 7SOswmzmMNQgARYLH/6u4lnROcqVxH0=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-17_02,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
- clxscore=1015 impostorscore=0 suspectscore=0 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609170135
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-On 9/17/26 11:46 AM, David Heidelberg via B4 Relay wrote:
-> From: David Heidelberg <david@ixit.cz>
+
+
+On 9/15/26 2:00 AM, Ali Rouhi wrote:
+> From: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
 > 
-> The Pixel 3 features two front-facing Sony IMX355 sensors with
-> different focal lengths (standard and wide-angle).
+> Shift an output in time against the others driven by the same PLL.  The
+> device has a coarse delay counted in VCO cycles and a three-bit fine field
+> in fixed thirty-picosecond steps, so a requested offset is split between
+> the two and what the core reads back is what the registers hold rather
+> than what was asked for.
 > 
-> Sensors are connected via CSIPHY port 1 and 2 and controlled over CCI
-> I2C1, using MCLK2 as the clock source.
+> Delay only ever advances, so an offset larger than one output period is
+> folded back into a single period -- for a periodic signal that is the same
+> phase.  The write takes effect in the programming state, which is left
+> with the loops re-locked even when a write inside it failed.
 > 
-> This enables support for the dual front camera configuration.
-> 
-> Signed-off-by: David Heidelberg <david@ixit.cz>
+> Signed-off-by: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
+> Assisted-by: Claude:claude-4-opus [chat]
+> Signed-off-by: Ali Rouhi <arouhi@sitime.com>
 > ---
+>   drivers/dpll/sit9531x/core.c | 212 ++++++++++++++++++++++++++++++++++-
+>   drivers/dpll/sit9531x/core.h |   4 +
+>   drivers/dpll/sit9531x/dpll.c |  56 +++++++++
+>   drivers/dpll/sit9531x/regs.h |  27 +++++
+>   4 files changed, 298 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/dpll/sit9531x/core.c b/drivers/dpll/sit9531x/core.c
+> index bba42fe302a3..8d857f1a0c89 100644
+> --- a/drivers/dpll/sit9531x/core.c
+> +++ b/drivers/dpll/sit9531x/core.c
+> @@ -1641,7 +1641,17 @@ int sit9531x_output_freq_set(struct sit9531x_dev *sitdev, u8 out_idx,
+> 
+>          sitdev->out[out_idx].freq = div64_u64(fvco, divo);
+> 
+> -       return 0;
+> +       /*
+> +        * The programmed reset delay counts VCO cycles against the output
+> +        * period in force when it was written, so a rate change silently
+> +        * re-times a previously requested phase adjust.  Re-encode the
+> +        * cached picosecond request against the new rate.
+> +        */
+> +       if (sitdev->out[out_idx].phase_adj)
+> +               rc = sit9531x_output_phase_adjust_set(sitdev, out_idx,
+> +                                                     sitdev->out[out_idx].phase_adj);
+> +
+> +       return rc;
+>   }
+> 
+>   /*
+> @@ -1731,6 +1741,206 @@ int sit9531x_output_freq_get(struct sit9531x_dev *sitdev, u8 out_idx,
+>    * output period, which is identical for a periodic signal.
+>    */
+> 
+> +int sit9531x_output_phase_adjust_set(struct sit9531x_dev *sitdev,
+> +                                    u8 out_idx, s32 phase_ps)
+> +{
+> +       const struct sit9531x_chip_info *info = sitdev->info;
+> +       u64 abs_ps, fvco, coarse, coarse_ps, rem_ps, t_out_ps;
+> +       s64 phase_norm_ps = 0;
+> +       u8 page, base, prog6_val, fine = 0;
+> +       u8 old_bytes[5], new_bytes[5], i;
+> +       u8 pll_idx, slot;
+> +       u64 freq;
+> +       int rc, ret, rb_rc;
+> +
+> +       lockdep_assert_held(&sitdev->multiop_lock);
+> +
+> +       if (out_idx >= info->num_outputs)
+> +               return -EINVAL;
+> +
+> +       pll_idx = sitdev->out[out_idx].pll_idx;
+> +       if (pll_idx >= SIT9531X_NUM_PLLS)
+> +               return -EINVAL;
+> +
+> +       freq = sitdev->out[out_idx].freq;
+> +       if (!freq) {
+> +               /*
+> +                * The cache is only seeded by a DT frequency list or an
+> +                * earlier get/set; a board without supported-frequencies-hz
+> +                * would otherwise get -EINVAL on every phase request forever.
+> +                * Read the effective rate back from the divider chain.
+> +                */
+> +               rc = sit9531x_output_freq_get(sitdev, out_idx, &freq);
+> +               if (rc)
+> +                       return rc;
+> +               if (!freq)
+> +                       return -EINVAL;
+> +       }
+> +
+> +       rc = sit9531x_get_fvco(sitdev, pll_idx, &fvco);
+> +       if (rc)
+> +               return rc == -ENODATA ? -ENODEV : rc;
+> +
+> +       t_out_ps = div64_u64(1000000000000ULL, freq);
+> +       if (!t_out_ps)
+> +               return -EINVAL;
+> +
+> +       /*
+> +        * Convert to unsigned absolute delay.  Both signs are folded modulo one
+> +        * period: positive delays wrap naturally, negative delays are rendered as
+> +        * T_out - |phase|.
+> +        */
+> +       if (phase_ps == 0) {
+> +               abs_ps = 0;
+> +       } else if (phase_ps > 0) {
+> +               abs_ps = (u64)phase_ps;
+> +               div64_u64_rem(abs_ps, t_out_ps, &abs_ps);
+> +               phase_norm_ps = abs_ps;
+> +       } else {
+> +               u64 advance = (u64)(-(s64)phase_ps);
+> +
+> +               /*
+> +                * div64_u64_rem() rather than the % operator: a 64-bit
+> +                * modulo has no compiler helper on 32-bit targets and
+> +                * leaves the module with an undefined __umoddi3.
+> +                */
+> +               div64_u64_rem(advance, t_out_ps, &advance);
+> +               phase_norm_ps = -(s64)advance;
+> +               abs_ps = (advance == 0) ? 0 : (t_out_ps - advance);
+> +       }
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+This if-else branches could be reduced to:
 
-Konrad
+<snip>
+         abs_ps = abs(phase_ps); /* Safe. INT_MIN is not possible here*/
+
+         div64_u64_rem(abs_ps, t_out_ps, &abs_ps);
+
+         phase_norm_ps = phase_ps < 0 ? -(s64)abs_ps : (s64)abs_ps;
+         abs_ps = phase_ps < 0 && abs_ps ? t_out_ps - abs_ps : abs_ps;
+</snip>
+
+> +
+> +       /*
+> +        * coarse_cycles = abs_ps * Fvco / 1e12 ps/s.
+> +        * mul_u64_u64_div_u64() avoids overflow when abs_ps approaches
+> +        * one second of 1 PPS wrap-around.
+> +        */
+> +       coarse = mul_u64_u64_div_u64(abs_ps, fvco, 1000000000000ULL);
+> +       if (coarse >= (1ULL << SIT9531X_OUT_PRG_COARSE_BITS))
+> +               return -ERANGE;
+> +
+> +       /* Fine delay = round((abs_ps - coarse * vco_period_ps) / 30 ps) */
+> +       coarse_ps = mul_u64_u64_div_u64(coarse, 1000000000000ULL, fvco);
+> +       rem_ps = (abs_ps > coarse_ps) ? (abs_ps - coarse_ps) : 0;
+> +       if (rem_ps) {
+> +               u64 steps;
+> +
+> +               steps = div64_u64(rem_ps + SIT9531X_OUT_PRG_FINE_STEP_PS / 2,
+> +                                 SIT9531X_OUT_PRG_FINE_STEP_PS);
+> +               if (steps > SIT9531X_OUT_PRG_FINE_MAX)
+> +                       steps = SIT9531X_OUT_PRG_FINE_MAX;
+> +               fine = (u8)steps;
+> +       }
+
+Also this whole block can be skipped (and set coarse to 0) in case of
+abs_ps == 0 to avoid expensive divisions.
+
+Thanks,
+Ivan
+
