@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AB1C4B8289;
-	Thu, 17 Sep 2026 14:14:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 788B3525A9C;
+	Thu, 17 Sep 2026 14:14:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789654449; cv=none; b=PgBRYbMZWZUvsy3AcgczquLLsBULVcwfxfVT9Rh+nRrSe/zgs4VpjVvFi8rkanQDuC+rODx2N346rPw2nSXTEYC9EvDV0BLuFE/5bm5nIYMQcq7IvJf0aGCe16qCNKAiZ/d9OtoYa+Sg1wtjXJgmR36Y8ZPNmG3wcsr49HRH5co=
+	t=1789654464; cv=none; b=eMNn1G+Im21E1OSXnw+Iayk3TEqs4ocKvRSoNAlX/ie+frcTtjWw74n1UaX4NQz3R8yApvExF2mA3/BMLelkcjyBytJfJKn46Yjda3//kKLqKIqD7IxOzefq369lerNA5i+LIj9iPYnHzcMhdhaIclptZDg243gLGWbKdlfeih0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789654449; c=relaxed/simple;
-	bh=FCDbgDvc516Qse1f2QiZwe1OgQOGRb1nnve2eiKd1ww=;
+	s=arc-20240116; t=1789654464; c=relaxed/simple;
+	bh=ualloNXpBkU9Y2ruJR0cC5jQAFpoDDe+FOsyWW+G/1k=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Iukw7AJWBhhYQH3YJ807IDXPGWFMKJePhwDo627iRwAg2TnqlEDnDg5ehvMAaQ36NH/EfoaE/3c8AHUHhJQcGxS3udoZU6IR91a2sdLRjiMbkDkD7ELxY1PXSrvKtuwjLeUikytURLAyRwtBtQmlhRJ7wdx79Xo/wx1L6hBS8gY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FWimDGj3; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=aI14s/+8zcBPuL1E1vQ0eH/hWgujYmdkgxLXolivD/0c7n2IRUhCX86OnxQAKpvqqWPmWkV1nUIrtwV4altwPWUXLnVByoXyLTIx7rrvCx+CZQfNaozaBtBjYpdxTwX4n7bM5AcNYe53Q0g8ChX2f8I7ehm/osJJI9Xczekhz5k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f7CgFAxt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FWimDGj3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E97B01F000FF;
-	Thu, 17 Sep 2026 14:14:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f7CgFAxt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D34001F000FF;
+	Thu, 17 Sep 2026 14:14:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789654447;
-	bh=cpwZ9carUYtl87VKALOi7gLN5i+7uaZp55JKc1ylHqI=;
+	s=k20260515; t=1789654463;
+	bh=RT/K/a7xRVIApAqjBWqUg4uP8xWehNdxGj2yv3lLUhE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FWimDGj3Mx5W9TD/hfp/qATVSfi72A/d+7Xkxxo/Cwu+q+JfXjXa2MPgGS3hflzEb
-	 6iyIQ/YF36036EhgWODUTrqudd6whdOjnwlzDLuCcAau3332JNSbmZB8KefIvuON2L
-	 ZeAKJdCv0JVeTHWLHoe4n2cty5U5IvBrn+mtfFeITSBBWzjKUl74CRtHcs8kyt0U1e
-	 /0YmInYBoZe+T3sUVGM/ZNKo8U3WrSwxj0wDEgyOy2A90IOd1fIBToVPvXFqM6Y1sf
-	 I40iNqF0s4IjAJwjamVXHxEHWyR5eNKIZtLKpUfp/koF90ItWFR3kk/X9e3zDSpbPE
-	 snxWJKWCVz5hA==
+	b=f7CgFAxtkYGG8Y77nIAwIqq5M03G/TfFVzUHbLaxfmG44JiWQ5F/4ShBcbRsy/DXg
+	 jSxULVk5Zex/aPDPVOJ1KytjdVK/7he9hYuYRaD+virKTAZgk9o9K3Ctw5Ov7axuCU
+	 wU3+iPGMiDlpXmYCHXhRH2F7IrQou1ePqDI370v+4upUxjn/nflY4+RL4yAL293vRV
+	 M3TwqoG8XIPFS+hmmURBQkRT68Qzywj+6EaD9ppv9l9f4DDMIgLZv07sYUPpYsDeQU
+	 zUwUcBriFi+D6DdH0J6aItHiA58ua2WslQO1pDJKkrv0FSZ2Nd/nFhS0ECdtr7GDzk
+	 5ynRk9lChOS3g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 1/4] dt-bindings: lcdif: Add endpoint bus-width
- property
+Subject: Re: [PATCH] dt-bindings: serial: renesas,hscif: Increase number of
+ DMA channels to 6
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Francesco Dolcini" <francesco@dolcini.it>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, Frank.Li@kernel.org, robh@kernel.org, conor+dt@kernel.org, imx@lists.linux.dev
-In-Reply-To: <20260917140042.118181-2-francesco@dolcini.it>
-References: <20260917140042.118181-1-francesco@dolcini.it>
- <20260917140042.118181-2-francesco@dolcini.it>
+To: "Geert Uytterhoeven" <geert@linux-m68k.org>
+Cc: wsa+renesas@sang-engineering.com, linux-serial@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <a08834717c1df2c8974cb0b8300a20cc33c426fa.1789653869.git.geert@linux-m68k.org>
+References: <a08834717c1df2c8974cb0b8300a20cc33c426fa.1789653869.git.geert@linux-m68k.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 14:14:06 +0000
-Message-Id: <20260917141406.E97B01F000FF@smtp.kernel.org>
+Date: Thu, 17 Sep 2026 14:14:22 +0000
+Message-Id: <20260917141422.D34001F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,62 +46,58 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] dt-bindings: fsl,lcdif: endpoint constraints bypassed for unit-addr=
-essed endpoints
+- [Medium] dt-bindings: serial: renesas,hscif: global DMA maxItems relaxati=
+on permits invalid configurations
 --
 
-commit fb72496bb41dc4492a1048af127118bf41d36a4a
-Author: Francesco Dolcini <francesco.dolcini@toradex.com>
+commit 5201605fb4ecc80faa0e010c992a164bfb0972af
+Author: Geert Uytterhoeven <geert@linux-m68k.org>
 
-dt-bindings: lcdif: Add endpoint bus-width property
+dt-bindings: serial: renesas,hscif: Increase number of DMA channels to 6
 
-The DPI output of the LCD interface can be configured with a bus width
-of 16, 18, or 24 bits. Introduce a bus-width property to the output
-endpoint, specifying the number of parallel RGB bits connected.
+This commit increases the maximum number of DMA channels for HSCIF serial
+interfaces from 4 to 6. This change is intended to support the R-Car X5H
+hardware, which has interfaces wired to three DMACs.
 
-> diff --git a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml b/D=
-ocumentation/devicetree/bindings/display/fsl,lcdif.yaml
-> index 2dd0411ec6516..89cea0c14cf1d 100644
-> --- a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
-> +++ b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
-> @@ -68,9 +68,19 @@ properties:
->      maxItems: 1
+> diff --git a/Documentation/devicetree/bindings/serial/renesas,hscif.yaml =
+b/Documentation/devicetree/bindings/serial/renesas,hscif.yaml
+> index 4b3f98a46cd9d..409cab32de3d8 100644
+> --- a/Documentation/devicetree/bindings/serial/renesas,hscif.yaml
+> +++ b/Documentation/devicetree/bindings/serial/renesas,hscif.yaml
+> @@ -97,14 +97,14 @@ properties:
 > =20
->    port:
-> -    $ref: /schemas/graph.yaml#/properties/port
-> +    $ref: /schemas/graph.yaml#/$defs/port-base
-> +    unevaluatedProperties: false
->      description: The LCDIF output port
+>    dmas:
+>      minItems: 2
+> -    maxItems: 4
+> +    maxItems: 6
+
+[Severity: Medium]
+Does this global change to maxItems permit invalid configurations for older
+hardware generations?
+
+By globally increasing the maximum allowed items from 4 to 6 to support Gen5
+hardware, the schema will now incorrectly pass validation for Gen1-Gen4 nod=
+es
+that specify 5 or 6 DMA channels, despite those SoCs only supporting up to =
+4.
+
+Should an if:then conditional block be used instead to enforce maxItems: 4
+for earlier generations, or to allow 6 only for Gen5 hardware?
+
+>      description:
+>        Must contain a list of pairs of references to DMA specifiers, one =
+for
+>        transmission, and one for reception.
 > =20
-> +    properties:
-> +      endpoint:
+>    dma-names:
+>      minItems: 2
+> -    maxItems: 4
+> +    maxItems: 6
 
-[Severity: Low]
-Does restricting this to the literal 'endpoint' key bypass validation for
-unit-addressed endpoints?
-
-Existing in-tree device trees, such as arch/arm64/boot/dts/freescale/imx93.=
-dtsi,
-define unit-addressed endpoints under the lcdif port:
-
-		lcdif_to_ldb: endpoint@1 {
-			reg =3D <1>;
-
-Because this uses the literal 'endpoint' key rather than a pattern property
-like "^endpoint(@[0-9a-f]+)?$", multi-endpoint configurations will fail
-to match this rule.
-
-This causes device tree validation to silently bypass the bus-width enum
-constraints and other video-interfaces.yaml rules for those configurations.
-
-> +        $ref: /schemas/media/video-interfaces.yaml
-> +        unevaluatedProperties: false
-> +
-> +        properties:
-> +          bus-width:
-> +            enum: [ 16, 18, 24 ]
-> +
+[Severity: Medium]
+Does this also weaken the schema validation for dma-names on older hardware
+generations in the same way?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917140042.1181=
-81-1-francesco@dolcini.it?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/a08834717c1df2c8974=
+cb0b8300a20cc33c426fa.1789653869.git.geert@linux-m68k.org?part=3D1
