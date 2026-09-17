@@ -1,162 +1,209 @@
-Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011049.outbound.protection.outlook.com [40.107.74.49])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 675F139F190;
-	Thu, 17 Sep 2026 02:49:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789613402; cv=fail; b=rvvms7O7joVRaVT7kO5/QpbjLVXI/O2NZ6eQtH5cFeUP+IiOM1hwmOmAgC4Brt1MnJyw5H5qISub+QR+lIWE2WBDQBtPsl0cv1gl+sOCdIeeFj+5rbsE1UtZ8u8dN9KbUymWHPgozFzoBSYvUBMbJtZ+jrHsvLAYlJiDZd8ev8g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789613402; c=relaxed/simple;
-	bh=qPxWsCMhOTEOA/afsFjVKEELsfbX36hpqjntXeNSsZg=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=GsEBF2lZ6EFC+jVt6XJDFG03/vnyPpTVZ23asbM99hwIcgXJhLkdqlYYJiG4ssn8MoTA4TNFXCS4Pz9vbuPK0AS8nMXzATg4/6TLuvegzL9fPycUfp5o0gJc8huM2DcmUtYHm8EGdOGQHitrUzv9/EoqmRZGS35DOY0N9tRub9s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=WYwl3hhT; arc=fail smtp.client-ip=40.107.74.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1B17369D5E;
+	Thu, 17 Sep 2026 02:53:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789613633; cv=none; b=GjE3ZSAhL3ANsvmzpCSc4C7FJnRLqa9s1urGzpbK5PhaAfsD3Q8/FdsNLLXCsS5x767p2h2aAZipR4yQxvLSy72j41spiJqVzR+Ouihp34/KJ7ByFHmFoVnd3eYf5jV3QlDj4tV2nM+9xR/DpJ94UExOOXsYT5T48YtBx8Gpl1Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789613633; c=relaxed/simple;
+	bh=mj+9ZApnWyAqhPIPtqG/CskZDsRzRfpDp2LpPNOO6yA=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=seiyPxZhsXAow5t4Iyt/zC52kLcO15KH2ld3Kth9WEym0/FIVRCw5ofmEAJOkjZGHV/ed1nfvD8A/+adHyFwXXTNGdVRrPfhsRE45uS/hA2561rl63wcnswtau+XDlT10Cq3Lh9vaubjOSJ7VPDk00yvuJ2vYejsC4n7lOmsh5E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mt5V0ITn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="WYwl3hhT"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tVCsaT+n/c6QDqdW7r2sp2G0EOe0wD9/f/UjQ7NhX9i6HcgFE5mb/xM6pC55WqvHjTEmN0WGo068n9CRaC46yWkKC+iWuSFYZ3AKFLD5W0whWyfJ4iSid8bu4iCIBZiLG4tWPWW46wMyucKNebP2wJKLLdm6fVZQ5B7ZPftbZDDaNdl7Rzc7qFvS1LsrvPCx1vSWOJWG4RWP8Oh6rcQGMi6ndQT4LqzJ3CAZmK7UjTClJdtXniEuKnd4dG7RlXbRNMT5WeDC/wH2ZuwDMZtLLERqU8orp4KaYQv+ib6XslX6/rrwZfPcUk3c8HMRqQfyDjlz6lGOb+WrAc/KvybhsA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qPxWsCMhOTEOA/afsFjVKEELsfbX36hpqjntXeNSsZg=;
- b=cOBmoupR/iJHcvcjlaJQxhlVfQ/y6jJxYQ8pr+M7H3w0m+5FWVbOUsu2fkTKQmO1KhejFK47KbymBGY4gMX6T7AVdevSpZdbpgs7kf8ZoE5npXo4Ug++6O/0ghZ9N0OicL62pkBbMrOH1sjjq1bd3+Bl5H1sz/vQdQmUUwFVGHQqA/Wnkl6vNA+AEgUZSy/0D/FGYQYPTU2+RvEmtUSPLYuXFZ6XD+pQ14kUrfZuqTRWCX7omPopX0BHtVDSlppVD4+ObZuh0IKB89qWrLYrhy61xmRA/XnvmcmMlqmFwCeeyKoRy1OteWQZXabbQvP3/5bUJ5/n+eY9g6AQC8DNPg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qPxWsCMhOTEOA/afsFjVKEELsfbX36hpqjntXeNSsZg=;
- b=WYwl3hhTa0OGZ09rvCYT3PXTWchkg34qo0b0zKmK0tefCbi1PONrpjzLD4F+rmDhcSBPIFo2z0HSXheXxZzubw4Zr5zp/GUpqJMHeMP7VzuYQRLDwn7gZdjw4NnJmMsqcbHKonIN56dP0f+L8ud/rU4VxTJez3egl0iwBo8KTvs=
-Received: from TYCPR01MB7481.jpnprd01.prod.outlook.com (2603:1096:400:f4::5)
- by TYRPR01MB15821.jpnprd01.prod.outlook.com (2603:1096:405:2ce::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.11; Thu, 17 Sep
- 2026 02:49:30 +0000
-Received: from TYCPR01MB7481.jpnprd01.prod.outlook.com
- ([fe80::8071:f03b:77d1:aeaf]) by TYCPR01MB7481.jpnprd01.prod.outlook.com
- ([fe80::8071:f03b:77d1:aeaf%7]) with mapi id 15.21.0428.009; Thu, 17 Sep 2026
- 02:49:29 +0000
-From: Yoshihisa Yamamoto <yoshihisa.yamamoto.xn@renesas.com>
-To: =?utf-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@bootlin.com>, Andrew Lunn
-	<andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, Russell King
-	<linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>
-CC: Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: [PATCH net v2] net: pcs: rzn1-miic: Reset PRCMD state before
- unprotect sequence
-Thread-Topic: [PATCH net v2] net: pcs: rzn1-miic: Reset PRCMD state before
- unprotect sequence
-Thread-Index: AQHdRk8pQQg5yBPFg0i+b+y+ykWM9Q==
-Date: Thu, 17 Sep 2026 02:49:29 +0000
-Message-ID:
- <TYCPR01MB748157ECB6B92D8E3FFD433BA4B82@TYCPR01MB7481.jpnprd01.prod.outlook.com>
-References:
- <TYCPR01MB748139F059DF2459B9813416A4B92@TYCPR01MB7481.jpnprd01.prod.outlook.com>
-In-Reply-To:
- <TYCPR01MB748139F059DF2459B9813416A4B92@TYCPR01MB7481.jpnprd01.prod.outlook.com>
-Accept-Language: ja-JP, en-US
-Content-Language: ja-JP
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TYCPR01MB7481:EE_|TYRPR01MB15821:EE_
-x-ms-office365-filtering-correlation-id: c0876fb9-8795-4785-ac1a-08df14664b95
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|376014|366016|7416014|23010399003|10067099003|22082099003|18002099003|56012099006|11063799006|38070700021;
-x-microsoft-antispam-message-info:
- 3tIEw1G/O05J0OusRoz1Rlbw1//chiJlE9VMMoEHxy8GxGQUQwUoRIT0WYGKzL8uhS3YUy8IFar/+CsvnJhaWG5OLoMGKs9tnHjOZ0pg8IV1I3P8wE+0/Uv5U+8mUqieq5zhwHHmn1Ib5o4rZo4W1EGgt7wSlOhYX+LMINrhM9zNcjXRFN2aosdYUSTaIXwkQX6TUlKM76nMk5uWQ3INWv7zG/quHnl4MZT1udrl9Mn6P4hK6YQpGLYIZZh5ab1GtUgz36s0Gr+eU/u21ZdnEymlIoAJNAmpiELya3yQEW1nufh0m0tDmDFiKw3qttGnz/k98jyIX+dQO7qKuU2L3Cz+rcxnENx29YLVs+2t9sIbLVSpsKKbXSYc5jKKjqFY11xi5B6E0gFyewiGyGUVtOD0sL/I1x4NDVbR4hfCI6SpkcyNkDIbmkYGZigCCqGHsl5LSJsT0+1BAgjLk+EiyhA0eXJphWpuJG8iSQtg8e3dq4XS5uFJHCsDCHztnpI1YmcjYn39c8gPMqnwXPWOVz4ZSzCkNnucbRpreF0IVcgelWxEEIzgTZuVUWmQSG9jsVzEjrzrV2xGFIz7MPz37SfHP7UvCIu/eYL0tFF8IDFB3d5I5C3Vfub6hw2xKZazINvWKorXcvbhaiNHKl3IkAtW+T5679hzqFgeab9jCbNnMRTxb/FLh9/ePEtHF1PIphoODXkON44J4lA5KULTGXEBI15G27wqkzt9gs4IKKI=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:ja;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB7481.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(7416014)(23010399003)(10067099003)(22082099003)(18002099003)(56012099006)(11063799006)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?R0tGMEorbmhxVW44NTNCNGU1K3VtZFQwZzZpS0g0ajBteWJnRXZtSC9NR1pw?=
- =?utf-8?B?bzRQT0l3ZHRzSjc3WGtWMCtzWWs2N2NCaURzVU9GUjJ6QlFXb2lYaThtQ29R?=
- =?utf-8?B?Q3RvcVVDRllscU85amJjS1hURDNvM0J0M0p0WXJjd3ZmTUFuWXV5a2xJUnZn?=
- =?utf-8?B?L0JxakFqRHZYRkxuL1NwbzJkcnMyOUZwRFNWMFhxSldTcHZuS1FMTDNDdlF5?=
- =?utf-8?B?dWUrY0JaVVlTWFZqRnR5ZkJseU81YTJHaVMzTnJQdzVTSzVZMVBudUg4dm41?=
- =?utf-8?B?YWNMcmYrSEU3Y2tHTXh0blI4T0xVdGp0RHZYRlMyUHJRRHhKbS8rd1ViaTRw?=
- =?utf-8?B?cFZ1ZkxMeVIxRnBwQlQyL2VuVlZ1bWNFQVZRR2ozQ1ZEdXg1b1BWd2FodmNY?=
- =?utf-8?B?NTBSbVFnUTkvSnFUOE5mR1ViUzhCVmNIMXlwU3lVdU9uY2QrL1J4TnNFcUlI?=
- =?utf-8?B?b0lBVGpRRW1iMG9VSHh3eHBsVVljZ2dKMVp5YkhKMmsvSm1rSHBrZ29NTXBh?=
- =?utf-8?B?WUF0S3NFK2tVTWhVZ0pGRW1MdXhJbmY2NHBMQm9JL1JkZmJvYU5DdWxGOHZS?=
- =?utf-8?B?djkwWTI3U3B2QWF1dnNZNHZNajV2Z0p1U0hLTHFoOHJmMlU1V01ZaGNLZmxF?=
- =?utf-8?B?NklKUEFLMW9PSzM4NWhobXpoemZuOXM3TWYvWmNYeWdrT1IyeDhjZVNZOU1w?=
- =?utf-8?B?a0lSZHdHb0wrdGlPdHc5VkRkMWlPUUczaEl2bGNPSUtnT2o5RUU4ZSt6Wmd3?=
- =?utf-8?B?QjdiU2xTMS9zT3FST2tBeUF1cVdCZWowWkZoUGZwZWxWZ2FSRkcrcnRyQWVv?=
- =?utf-8?B?enhmZ2lmL0ovdDUyKzJzODg4TXhHemRXdGFxUWNhNGdQWU51WkZodW1mV0Qx?=
- =?utf-8?B?aW9SSzhVUHdHNUdCQ1ZORTNEN3kvSHcvTlNuMHFsdmVrcU0zanNuMWlIcXZ6?=
- =?utf-8?B?RFl1VzY0bUJDTEZzbzMvYzU3YjVsZU0xU0NTclZ3VW1JemlHZzBEclJFQlNh?=
- =?utf-8?B?OC9aeEFxRlp6SWVWakozQnFkVnpwNFc0RTFYNU9tRDlRSXp1ckZualNYSUNr?=
- =?utf-8?B?dTM2aU02bFFyNk5aQXViSFVVL25jZnpyczNEVlNGQTZaWXBYUUI4NzlrM1VE?=
- =?utf-8?B?SGFVUTBJZkpwd2xTM2tITkRCM3hLeWF3cmlaQzFUZnFXSk95SHl2bG5tbHZ3?=
- =?utf-8?B?ZlRBSzFRQ1NPWGtDTVFRckV5T0s1eFY1bStYRlpiS1JyajBudkdIdzJTUFlK?=
- =?utf-8?B?N3J0WUV3cnBkQXAzZUtDL2xQcCtvUWJiV1M1Z1hCcDRqOFZSU0JsQVNZYmRq?=
- =?utf-8?B?OUpoNGRuWVoyVEUvNzgvN3F5QUFVdE5PV0E3aERiWk80OHZaYlFkSXBzYWNo?=
- =?utf-8?B?enJhaWhRdHorbGw4ZnlUdWZIazdGNzY2Y2s0c1hQTE9hTzEwQndodHNNRW5L?=
- =?utf-8?B?VkkyQW9lODFZR0puOE8wUmRGZDBFSlV0YnpnZGtweElDTnNYeHBPb0ZlSlZM?=
- =?utf-8?B?Z05tME5xRVJrRVNzUUNFTjM0RnBjOFY3MjZURmtGdlRwWmNnOENaRU1XVllN?=
- =?utf-8?B?UWtsdm92c2s0REJnNVErSTFFaXlRSEN4Z3hHTlhJSHRIRVpJblU0LzZESDBi?=
- =?utf-8?B?L2ZFRmNHYkNoRm9LRzJza0MzaFphUEdTMUlrM2J3L0NtUW9TdnJiN1QrOU45?=
- =?utf-8?B?czk3UE5aNDJYWWcyMzhtT3creVU5Y3JsajVKS0NCRHJqelg4b2pGaitrdHFy?=
- =?utf-8?B?MXNoVit6SDhUMnpPSUpOd2pQcTcwV3hrSUhVbWFWK3o1eSsrL0hQMWp4V3Q1?=
- =?utf-8?B?SkpPaEdFaVpsSjdjK1d2TGZsOS9idUt2bXNVdXlvNjlhUlRXenMrK0NQY2U5?=
- =?utf-8?B?MjlRUmJ6M09nNGxvZURhUkhnZE5oUXRrVDlKRlNZbEQ2b2FuTUhhVSs2Yi9X?=
- =?utf-8?B?Zkptam1vRTZ0N3FHckowUXpHYk92WkdQeDVDWnhOc2xJOUp5cjBTVGxhblpQ?=
- =?utf-8?B?RzRyalRPd0xFVW40WGZwTHNhVnFoOVp3NElJQjUxMkRsNWdKcmdVbDJ4eDhy?=
- =?utf-8?B?YStqd28za2RJZWU5V0NBYlVZVEUzaGJveHZ5MEk0cGZVOFloOTlDNEMrNy9W?=
- =?utf-8?B?MS9pd3pSV0hhSDFzQUFCNjRyN1Q2WmlpU2pQRExVK29uWHhyVEJUUWQyT2dv?=
- =?utf-8?B?c2VRUXpkQWREVXE2ZDRxeWJkYW4wT0tyNjgzUHUrWFRVZk13dWR2ZUg5bURz?=
- =?utf-8?B?c2cwQ0F3VEpiczFKM09zbXNvZlAwVWN5NXBNaVhScncxN0ZQbGhCVVpnMDUz?=
- =?utf-8?B?OTdDdGpicFltRS9SWkZwOFEyK1prTWN3ZXBtR0xaTXJOUFBiTUdrbDlnZUJS?=
- =?utf-8?Q?qGi2BTAlSL/L6us0=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mt5V0ITn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 862931F000FF;
+	Thu, 17 Sep 2026 02:53:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789613627;
+	bh=nJW8sToy+Vm9YERDVYBr4q9QXJkQsXqSFm6+U6QtoVE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=mt5V0ITn63VkHHJr+9WQ82sjjEFBYCEi+d1F4YPSitcCX9l7+5V5Q4nHjhTiuhmW1
+	 PBeZW0krzbml5rXbOnZkvaTM28wusnxID8jlCggDZm3ZXL9fB3ZQqyx8E8UFdvz1gG
+	 Vgqok6k3KarUcIu0XXwi0wBxLfMnjB/njv77Fd1EHbe5iyANWUSt5WWcHIHa4hlTT2
+	 vf3kVqnGlJu5vZHjhQW17APTk7mqyxS9X0wvAWLo1sbXI0kdGjEi/m2QJr0ZrpWHYY
+	 MiBUTmVr4eLbiWUgN1OH3b7NSE1pouqJFRxzmLW84SUdIuHVZdyPCLTzUtsWR0EWa9
+	 I8VK3h2n3Igkg==
+Date: Thu, 17 Sep 2026 03:53:38 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Marek Vasut
+ <marex@nabladev.com>, <linux-iio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ Cheick Traore <cheick.traore-ext@st.com>, Olivier Moysan
+ <olivier.moysan@foss.st.com>
+Subject: Re: [PATCH 1/8] dt-bindings: iio: adc: stm32-adc: add support for
+ stm32mp23 and stm32mp25
+Message-ID: <20260917035338.2ef5ded6@jic23-hlaptop>
+In-Reply-To: <6e28ede2-686c-4972-8a15-348ae090cec8@foss.st.com>
+References: <20260911-adc-stm32mp25-v1-v1-0-cef26eecdef2@foss.st.com>
+	<20260911-adc-stm32mp25-v1-v1-1-cef26eecdef2@foss.st.com>
+	<20260913040801.30e07d4c@jic23-hlaptop>
+	<6e28ede2-686c-4972-8a15-348ae090cec8@foss.st.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB7481.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c0876fb9-8795-4785-ac1a-08df14664b95
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Sep 2026 02:49:29.6449
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: GUaovxwkVhGooVZQQAQpnW1tk07Fh2kh1HuZ5lF2PWYh/b/h/xQnW9qDDYTtPO60zZGAGMVkJ++7KLpbFu5Of5ttFIGWTYZn4jNb0KSTA8zk7lMD0deb1ruFzg8OKPGJ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYRPR01MB15821
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-T24gUlovVDJIIE1JSUMsIHdyaXRpbmcgMHgwMDAwIHRvIFBSQ01EIHJlc2V0cyB0aGUgY29tbWFu
-ZCBzdGF0ZQ0KbWFjaGluZSB0byB0aGUgSURMRSBzdGF0ZS4NCg0KUmVzZXQgUFJDTUQgYmVmb3Jl
-IGlzc3VpbmcgdGhlIHVucHJvdGVjdCBzZXF1ZW5jZSBzbyB0aGF0IGl0IGFsd2F5cw0Kc3RhcnRz
-IGZyb20gYSBrbm93biBzdGF0ZSwgcmVnYXJkbGVzcyBvZiBhbnkgcHJldmlvdXMgUFJDTUQgYWN0
-aXZpdHkuDQoNClNpZ25lZC1vZmYtYnk6IFlvc2hpaGlzYSBZYW1hbW90byA8eW9zaGloaXNhLnlh
-bWFtb3RvLnhuQHJlbmVzYXMuY29tPg0KLS0tDQoNCnYyOg0KLSBGaXggaW5kZW50YXRpb24NCg0K
-IGRyaXZlcnMvbmV0L3Bjcy9wY3MtcnpuMS1taWljLmMgfCAzICsrKw0KIDEgZmlsZSBjaGFuZ2Vk
-LCAzIGluc2VydGlvbnMoKykNCg0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvbmV0L3Bjcy9wY3Mtcnpu
-MS1taWljLmMgYi9kcml2ZXJzL25ldC9wY3MvcGNzLXJ6bjEtbWlpYy5jDQppbmRleCAyYjcyZmE5
-OGQuLjgxODc1NmJiOCAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvbmV0L3Bjcy9wY3MtcnpuMS1taWlj
-LmMNCisrKyBiL2RyaXZlcnMvbmV0L3Bjcy9wY3MtcnpuMS1taWljLmMNCkBAIC0yNzAsNiArMjcw
-LDkgQEAgc3RhdGljIHN0cnVjdCBtaWljX3BvcnQgKnBoeWxpbmtfcGNzX3RvX21paWNfcG9ydChz
-dHJ1Y3QgcGh5bGlua19wY3MgKnBjcykNCiANCiBzdGF0aWMgdm9pZCBtaWljX3VubG9ja19yZWdz
-KHN0cnVjdCBtaWljICptaWljKQ0KIHsNCisJLyogUmVzZXQgUFJDTUQgc3RhdGUgYmVmb3JlIHVu
-cHJvdGVjdCBzZXF1ZW5jZSAqLw0KKwl3cml0ZWwoMHgwMDAwLCBtaWljLT5iYXNlICsgTUlJQ19Q
-UkNNRCk7DQorDQogCS8qIFVucHJvdGVjdCByZWdpc3RlciB3cml0ZXMgKi8NCiAJd3JpdGVsKDB4
-MDBBNSwgbWlpYy0+YmFzZSArIE1JSUNfUFJDTUQpOw0KIAl3cml0ZWwoMHgwMDAxLCBtaWljLT5i
-YXNlICsgTUlJQ19QUkNNRCk7DQotLSANCjIuMzQuMQ0K
+On Tue, 15 Sep 2026 09:49:01 +0200
+Fabrice Gasnier <fabrice.gasnier@foss.st.com> wrote:
+
+> On 9/13/26 05:08, Jonathan Cameron wrote:
+> > On Fri, 11 Sep 2026 17:51:23 +0200
+> > Fabrice Gasnier <fabrice.gasnier@foss.st.com> wrote:
+> >   
+> >> Add stm32mp23 and stm32mp25 compatibles. Three ADCs can be found on
+> >> these SoCs, split into two blocks:
+> >> - ADC12 are tightly coupled (common registers).
+> >> - ADC3 is managed independently.
+> >> Each ADC is a 12-bits successive approximation analog-to-digital converter,
+> >> with up to 20 multiplexed channels that can be configured as single ended
+> >> or differential.
+> >>
+> >> New property "st,adc-trigger-sel " allow to make the difference between
+> >> the ADCs and to apply the correct trigger configuration.
+> >>
+> >> STM32 ADC may be in a power domain: allow a single 'power-domains'.
+> >>
+> >> Restrict the last channel (19), as it is wired directly to ADC Vref+.
+> >> It's meaningless to have direct measurement. Internal Vref with
+> >> calibration data from bsec (nvmem) must be used instead e.g. vrefint.
+> >> Restrict deprecated properties (st,adc-channels, st,adc-diff-channels,
+> >> st,min-sample-time-nsecs).
+> >>
+> >> Co-developed-by: Cheick Traore <cheick.traore-ext@st.com>
+> >> Signed-off-by: Cheick Traore <cheick.traore-ext@st.com>
+> >> Co-developed-by: Olivier Moysan <olivier.moysan@foss.st.com>
+> >> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+> >> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>  
+> > 
+> > Hi Fabrice, all,
+> >   
+> >> ---
+> >>  .../devicetree/bindings/iio/adc/st,stm32-adc.yaml  | 106 ++++++++++++++++++---
+> >>  1 file changed, 94 insertions(+), 12 deletions(-)
+> >>
+> >> diff --git a/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml b/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml
+> >> index c4c4575d3fa9..0e0ceaa3d8d6 100644
+> >> --- a/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml
+> >> +++ b/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml
+> >> @@ -23,11 +23,18 @@ maintainers:
+> >>  
+> >>  properties:
+> >>    compatible:
+> >> -    enum:
+> >> -      - st,stm32f4-adc-core
+> >> -      - st,stm32h7-adc-core
+> >> -      - st,stm32mp1-adc-core
+> >> -      - st,stm32mp13-adc-core
+> >> +    oneOf:
+> >> +      - items:
+> >> +          - enum:
+> >> +              - st,stm32f4-adc-core
+> >> +              - st,stm32h7-adc-core
+> >> +              - st,stm32mp1-adc-core
+> >> +              - st,stm32mp13-adc-core
+> >> +      - items:
+> >> +          - enum:
+> >> +              - st,stm32mp23-adc-core
+> >> +              - st,stm32mp25-adc-core
+> >> +          - const: st,stm32-adc-core  
+> > 
+> > What is this?  Given these all vary in features
+> > why would we fallback to a generic match for
+> > these new compatibles?  
+> 
+> Hi Jonathan, all
+> 
+> Ack, I'll drop it in v2,
+> 
+> > 
+> > 
+> >   
+> >>  additionalProperties: false
+> >>  
+> >>  required:
+> >> @@ -239,11 +276,18 @@ patternProperties:
+> >>  
+> >>      properties:
+> >>        compatible:
+> >> -        enum:
+> >> -          - st,stm32f4-adc
+> >> -          - st,stm32h7-adc
+> >> -          - st,stm32mp1-adc
+> >> -          - st,stm32mp13-adc
+> >> +        oneOf:
+> >> +          - items:
+> >> +              - enum:
+> >> +                  - st,stm32f4-adc
+> >> +                  - st,stm32h7-adc
+> >> +                  - st,stm32mp1-adc
+> >> +                  - st,stm32mp13-adc
+> >> +          - items:
+> >> +              - enum:
+> >> +                  - st,stm32mp23-adc
+> >> +                  - st,stm32mp25-adc
+> >> +              - const: st,stm32-adc  
+> > 
+> > Similar to above, what is this?  
+> 
+> same,
+> 
+> > 
+> >   
+> >> @@ -344,6 +388,12 @@ patternProperties:
+> >>          items:
+> >>            - const: vrefint
+> >>  
+> >> +      st,adc-trigger-sel:
+> >> +        description: Selects the HW trigger configuration available on this ADC
+> >> +        $ref: /schemas/types.yaml#/definitions/uint32
+> >> +        enum: [0, 1]  
+> > 
+> > Magic value that is meaningless to see in a dts.  If they
+> > are effectively not compatible, give them different compatibles and
+> > drop this property.  I'm unconvinced this property is more
+> > useful than that given just how opaque the description is.  
+> 
+> That's exactly what I was wondering about. As you suggest, I can remove
+> this property, and introduce dedicated compatibles in V2, to clearly
+> identify the differences.
+> 
+> Need to distinguish:
+> - ADC12 are tightly coupled (common registers).
+> - ADC3 is managed independently.
+> Triggers are different between them. The purpose of st,adc-trigger-sel
+> was to identify that.
+> 
+> Also MP23 and MP25 are also different (trigger list). Combining this
+> would lead to introduce four compatibles, I'm thinking of:
+> - st,stm32mp23-adc12
+> - st,stm32mp23-adc3
+> - st,stm32mp25-adc12
+> - st,stm32mp25-adc3
+> 
+Naming wise, I wonder if it looks too much like adc twelve?
+Not sure how to avoid that cleanly as adc1-2 seems odd too.
+
+> I plan to update it in v2.
+> 
+> Thanks,
+> Fabrice
+> 
+> > 
+> > 
+> >   
+> 
+
