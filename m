@@ -1,58 +1,168 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFE604A2046
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 10:31:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5EFC43BDB0
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 10:39:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789641106; cv=none; b=QaMy+9AeSqSvarU/niKEYxT2MdO0i80kQ6QW/ERRxYgg0GLw7IIDZQBR/zB4PJ9Mm+vZKDvCtZZWs/FRhzyld3qWsvRK2PuPFpBkbZBJlhcdjVzZqn7AZoPam9t4XL5eS2sWeQWJcrog5/6tr2iELUvLr/9aLNDZF/dgeoDupZE=
+	t=1789641575; cv=none; b=XOhzxYwRAQORxEJzV2hJyHrBaMixIU4l/W4uXpDm3Xd6Vb3wM+Z5WaHlwCsP7uEvN2xPaXA+yxkSte0jV4PBcE8dpJ6CI5ul02Jmi1X48f64Dp0wqinvq8h5aBaNPfMlA6kv6vJEdjM0W5+MwuLf9OTKewRkUaUjpdvVWkFssGo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789641106; c=relaxed/simple;
-	bh=nKduFl9ZJXhBa9pNRDmt/jbOnVpKwbjnYA6GXOT5cgs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gUSwcdmTWaV0o3vYifFsWFKmuQhKE2EcOc0twlxHdR/mRGbalpppS4kSHAuMIt6PuUB+gDYcY+3PXWxlaNDU7guXihiWrZauRTnfp4hga/JxowqfsklC7eqIVkUm3z3cV9XgM5u+Wvi7/GrW79yAcABODpZPUl1D4dPvEemnPKE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=mT0XoDki; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1789641575; c=relaxed/simple;
+	bh=ofwXWJWBXMr3tmKuOZyLyGNqmZJNvgOJaDeOa13forM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hmi4Eu6qRVEwELbPBV6oQ9iUm9hhmTCukYHaFHSKtFzEQu8+mfQMlpXD6QoO2r/Q4//pNvMzRPXQXpsUo3CIW5FJYHk1xqKengzsXBvt9zk3KyY2FAjG/BZroRUQs6vcCWCnQevbbAC0dnhZrtiCZsXDXjOfYCpt5AgaLFx+tuk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=F/z+JypH; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RU6nw+yN; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="mT0XoDki"
-Received: from francesco-nb (xcpe-178-82-167-143.dyn.res.sunrise.net [178.82.167.143])
-	by mail11.truemail.it (Postfix) with ESMTPA id 6921221CA0;
-	Thu, 17 Sep 2026 12:31:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1789641096;
-	bh=nKduFl9ZJXhBa9pNRDmt/jbOnVpKwbjnYA6GXOT5cgs=; h=From:To:Subject;
-	b=mT0XoDkiQUI6id+q8ZAvCNA4rwzkHKqjVccL/Gi8bXWPidIPLJtbDbjsVE9R1mtAH
-	 Hmp9iv0j8aWnAc+Z6Gbpm/bpSm9PfUYGx9BEe/iTxC+BGfwSE0+/jCnOc2pAIp1yEZ
-	 TaxHcst9iqUxUOCftU1bIQ5XVaM0BA8CEOOXfr3pSuy11GoE3LMQty7l0J6Y9QyCEj
-	 +YHLULcJpqYaBxuoM/0HuhLpCKiu3CHd6HymawUWa3FYzlaSaLv/tzKyZudc+ONKg7
-	 kE9HZ+4ITJxhvE9a6vxaPaq0qvKtrhHIT/YjQTCQUG8IJGf3u/geVWZW5z8ueygv24
-	 /EurbbzJKUTmA==
-Date: Thu, 17 Sep 2026 12:31:32 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: sashiko-reviews@lists.linux.dev
-Cc: Francesco Dolcini <francesco@dolcini.it>, robh@kernel.org,
-	imx@lists.linux.dev, Frank.Li@kernel.org,
-	devicetree@vger.kernel.org, conor+dt@kernel.org
-Subject: Re: [PATCH v2 2/2] arm64: dts: freescale: Add Toradex OSM iMX95
-Message-ID: <20260917103132.GA72106@francesco-nb>
-References: <20260917102011.69071-1-francesco@dolcini.it>
- <20260917102011.69071-3-francesco@dolcini.it>
- <20260917102836.C2BB31F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="F/z+JypH";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RU6nw+yN"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68H9Zv6R1390226
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 10:39:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	d9OY8rG8gt4nvi+fBrJ5jn/PKlAD8DibY7OqcJSVZtU=; b=F/z+JypHZbiBUNH+
+	7xM5PWPBSNeUAKSretbcx6AcqbWQfotx//f+rJTQThwcVzOROL7HKJ/Wy+MmRWhO
+	VfdnEF0aJKtht5sVY4oaV5DFdM3a7oRNR4xo7QCdmIbR4yK+UvtOlAsl2k5oJWW4
+	ZGcQFuvcB+6QxLs+CicYNen3c3ikU9r35hDjCJbEms5BAK49Zlipb30JkUTsUF1K
+	57PVbZx7btPTepeoytCqI3Wy+9QmDnyu2EXIrxDfkRrnegA9GruiYh3nnN074Em3
+	0TszsOAo5fcAw/MG0mhuBjILWs7L4b3Kqp9kZ3lDHAYk8phdyU8UrpL6F/BUGVex
+	3da00Q==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqy2d3xx1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 10:39:24 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38f283baf1fso965970a91.3
+        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 03:39:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789641564; x=1790246364; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=d9OY8rG8gt4nvi+fBrJ5jn/PKlAD8DibY7OqcJSVZtU=;
+        b=RU6nw+yNFNCEYO5H7dBdN0299ZEpy2CymJpp0wV+pOzGAZUNZI9UheJTLLShDL9325
+         d/GeNoiWpnysitRELxiKXeNPYSkF2zSfv3gOBBvqdnQJiI45h1jyF/C3TLgT8eMteHOT
+         t3R+TqsykHCRjP4x/uyZdYICasUDXJNetYPlOwbz1D0hG0T45oAZEuXgmyRdow9+HLtm
+         Pu8AwSFJ6DWMtw8GJQFO3JgsE+vQQDljIvs2JEccx+OnSJNm68Ktl+zAsAm4nJS8URiR
+         sLUFHMjn6c00bjPFPHYc+UEHP/nDeWj2QsyqdDHONB9v6ObjM38isrWOnHd1ZPahr8Za
+         WefA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789641564; x=1790246364;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=d9OY8rG8gt4nvi+fBrJ5jn/PKlAD8DibY7OqcJSVZtU=;
+        b=i69MWMhvjj5SPBLxyxG+KmGPOwvmZTjLDska5MHtoiVAUj5taLBpuuPzmDVvHx53h/
+         4RxQu0Ekb1Cnh118MezHaASdQF+3if1VbbKT6VESzHt6w4TqOurkxUoQ46fzAcsYwJhu
+         AWZXKw+V0tX5Zs73CMhD+KdAsNzdSF+Rv8JttFxet7dKjwUHm/++JAg+O/cougQdgSZX
+         ukhwoUdlZ7M4x4RkK9H1+HnU/FaUAQHpXJV4D+7cVJKTvvJ5W4bpRbx9vjVtVSDil6q6
+         c1Yv9OIwL/NX312PNJhbveb9rw9bYiVwnU+hIbCmGhq6sCz6V8xqUUbNtdwkPLx34NUX
+         i/XA==
+X-Forwarded-Encrypted: i=1; AKwUvByokFzRAgT+yKrKOwiul8EHixhzBvb6/wqE4j0fe7KVRKYUW3pGoZ1Kz/83wmomHDhwIjLFMHyMvCjs@vger.kernel.org
+X-Gm-Message-State: AFuF++nvMdFvG7zMrqRf0Go0P+GhCLCmiQlYyUCdVcaT8W2cYtb92A2h
+	hWgqEj80yZH/r5vt6QKcuRGzEiXCEhpjfJypvUsXjJ6rgQVLgGADmmp7i3irkjlw9sbTn4xebFc
+	pSgUYjiiOk3TMJilWmim/18Z6X0QdqIP41h8IsFWmsaxAdtiFFq7lytQj5TX597uG
+X-Gm-Gg: AYBFou3mhytcwwa/IvoLBqyK1W7C3z5xtXdAfOgpQXmZnRsYJxigPHeL+WPxjac07JH
+	IIInWQ5tPkF48sG/oB2Xfkm7bsvHHQ+Jrde4zux35mqYm2JDoNEW1fA00L+Be59JgooFEs89iAG
+	i+5ZbdMackYL+nFGdTUYxesHBzSxCeaMJmjaFr3gnNF9SGgmfFjofLHFVcqrahtRERgF6XuZ32j
+	QuKjt0KKCdjdCTSR0wjRKj2XvzikoCbVX804KQHMcj41iICv0YlCKyOJsv0ZnHwpZbGnSwVmwgV
+	jqiYAte9U/ipr9+s4CRCFdybONBtAhBCvfZarwyLJU+pbBUz5bq9X2HW/9ahJ8PPEd3OaB09vZC
+	93/7E6n6lscSagJTtISStjLTwBx+zTt8YONk=
+X-Received: by 2002:a17:90b:4c88:b0:39d:fd82:de0c with SMTP id 98e67ed59e1d1-39e1e278ae9mr13850757a91.2.1789641563744;
+        Thu, 17 Sep 2026 03:39:23 -0700 (PDT)
+X-Received: by 2002:a17:90b:4c88:b0:39d:fd82:de0c with SMTP id 98e67ed59e1d1-39e1e278ae9mr13850676a91.2.1789641563112;
+        Thu, 17 Sep 2026 03:39:23 -0700 (PDT)
+Received: from [192.168.0.173] ([183.83.137.165])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14395d3a31asm11898175c88.9.2026.09.17.03.39.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 17 Sep 2026 03:39:22 -0700 (PDT)
+Message-ID: <1e68976b-67a0-45f4-a846-0b07964e6434@oss.qualcomm.com>
+Date: Thu, 17 Sep 2026 16:09:15 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917102836.C2BB31F00893@smtp.kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 0/4] media: qcom: Add support for the iris codec on
+ shikra
+To: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab
+ <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
+        Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+References: <20260722-shikra_vpu-v5-0-3d80babd4672@oss.qualcomm.com>
+Content-Language: en-US
+From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+In-Reply-To: <20260722-shikra_vpu-v5-0-3d80babd4672@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: qsjS7tCJykwobxGV8I1V6WhpOubz69Wq
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDE0NyBTYWx0ZWRfX1/2YfqBmOR8i
+ b4+FwtJYgSvB4873fmgzhAjE441ohNinGVT+LyhU3O+Eq7e0frapmJf4BbISzBf5TDWEgTMIDIl
+ AaXCVbtIz38ihT9c8CMpg8GUJ1nxSl8=
+X-Authority-Analysis: v=2.4 cv=HbeB3SE8 c=1 sm=1 tr=0 ts=6aabc35c cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=/MhRiX8TZM4BB34AAREmLw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=Q6wxVgh2rZIxxIaB2AUA:9 a=QEXdDO2ut3YA:10 a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-GUID: qsjS7tCJykwobxGV8I1V6WhpOubz69Wq
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDE0NyBTYWx0ZWRfX2zfeMCqyOThs
+ PP0y+LQ3BgZyZPveTKrnVImyci0+J5K/LzgDwNeIwoZiGbBr1fZ/yJcLXsSWkUl1zBxMiGnLqHi
+ /XoWhcfOG/cp+M7mIl9Wvhq0B7vilgSFGHuSCLLrAiRas0PTWe4Ool3L4kWDPT6ZIpiT9+l7jZG
+ LC4xS7v0MAbmrYXdeeytfNMYuLhfgxhWqY64WYBgwJcxbR8v1CviT0r4Ath0Yrrs9BlfKhuzboQ
+ o18WtL8O+5fydiYPuY0fBl9VewzCtSm6hbG4ONgF24ae53SnD7+cf4P4dlkwC9TAtjccgTA05Hm
+ 0X9AhusCTPQhO+GXPuN9SeWhdiddP0Pe97MJECjKrAkpzv617saaLaeX29mMUX0tUFcL4UNxbW5
+ kWL2T+vulxBBkI/vKRK/qIU8lgovZeXFtabnVO+RIZrdbaBViuXiMHNVK0wM339VyLa0XeuSRup
+ ucif2rBGYarg4lIwJNA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-17_02,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 priorityscore=1501 bulkscore=0 spamscore=0 adultscore=0
+ suspectscore=0 malwarescore=0 phishscore=0 clxscore=1015 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609170147
 
-On Thu, Sep 17, 2026 at 10:28:36AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] dts: incorrect ALSA sound card name due to copy-paste error
 
-This is correct. The audio sound card on the OSM dev board is the verdin-wm8904.
+On 7/22/2026 7:11 PM, Vikash Garodia wrote:
+> Vikash Garodia (4):
+>        dt-bindings: media: qcom,venus-common: Add IOMMU IOVA reservation region
+>        dt-bindings: media: qcom,qcm2290-venus: document shikra venus compatible
+>        arm64: dts: qcom: shikra: Add Iris video codec node
+>        arm64: dts: qcom: shikra-evk: Enable Iris core
+> 
+>   .../bindings/media/qcom,qcm2290-venus.yaml         | 26 +++++---
+>   .../bindings/media/qcom,venus-common.yaml          |  5 +-
+>   arch/arm64/boot/dts/qcom/shikra-evk.dtsi           |  6 ++
+>   arch/arm64/boot/dts/qcom/shikra.dtsi               | 71 ++++++++++++++++++++++
+>   4 files changed, 100 insertions(+), 8 deletions(-)
 
+Hello Bryan,
+Could you please update when we can expect the binding patch to be applied ?
 
+#1 patch in this series can be dropped once you apply the 600MB iova fix 
+in iris/venus driver.
+
+Once the #2 binding is applied, i will reach out to DT maintainers to 
+apply the DTS.
+
+Regards,
+Vikash
