@@ -1,113 +1,111 @@
-Received: from mail.fris.de (mail.fris.de [116.203.77.234])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D3D94848A3;
-	Thu, 17 Sep 2026 15:38:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.203.77.234
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9696F45000
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 15:41:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789659526; cv=none; b=bLqqs2Wd51K2kYNNTTdfmaLHqPUVdRJUlVc4SbvWgJL1RQqliuuSzKrlLg13HCGZrMSbBaHRbRAjyuL17WHzpvX0je7VMPlOB6Ctw7x3U1B4iisOlYjg8AZylK9T5XnBdCgOm814RoP2/uRcgh6iSE4vUIWbFGnJh7ADMaWOFU8=
+	t=1789659712; cv=none; b=U7b+tEcxz3fB1ZhDiRWsT/yqD4jYwaFAuOOde4lYDd1IPY2csL2S0z8OAJYa1+kLrb6Q6yWstC3pHf0vR8NEwcl7Z0vxGD0MPQTF0iTZ6VYos5Z6eDHarE/Wsglhmg1P6sSgq2VdNLMVaDHBcFvCqRpr3tHHwO4sGDSSJzg3qTI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789659526; c=relaxed/simple;
-	bh=JqILw5+znBbGw5CVGtBPKKBSQx9ykwRrOqYgKUsFV2k=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=PptJ8gER6uNi/a1RhA4nRoaM4WwZf692y9G8Fo9g2QES+A00hGdk72uCOdr4TeDIhZnFymmrD3ZBXMNYRDTZX/iIuqT+49Me1GLyJUCp+fpNIPEx+4AmeHt2/e2p+siMe+7u58t+FEMH5Zz76Uq6boenJ7/0qzk7cZgAZhY0RG4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=yTWxLlYw; arc=none smtp.client-ip=116.203.77.234
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fris.de
+	s=arc-20240116; t=1789659712; c=relaxed/simple;
+	bh=UDNJflXLP21/068t+43/BbPA9K4CsGbb7V6J7alYdPE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=U6WJU7ooeX+QJ4Z5lSR2iPibs11SA7NPE4JYXtkLGC6kdBNWwQ0ksLKl1hEb4VQHkSpKPKSbJQPlKxWRqJGXDlpNu4t/op5VoOvU+6eYCwT6OQMVD78sDj9baTQfiBSHQ9YNSZztliVYgylz5xk3w1Ge8yXvnBWdOXQhbk0b9rI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mDmxqEIF; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="yTWxLlYw"
-From: Frieder Schrempf <frieder@fris.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fris.de; s=mail;
-	t=1789659510;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+ZwHurz3qFcCVqb+Po4Y9Ihna8FWaKNv9CmUUvvsfgU=;
-	b=yTWxLlYw1KqUHOP5FcIkQPRUYyLClpMooyMYFjHeTr9ZApu9jZrr2J4LkSH2rIWiGugFZc
-	s58U4d/dTKkB0uANlthpON4LpCTf65fAdV3oLnZ68EQpGJCbzB35zXjK/lYwnVivhJztns
-	FiQemcCx89E9Z7u9y8L5bI2L+PWyaNMM3vzX8ZXhD5+nKmfrIZFVf5OiREhYfyi0VoG8V5
-	KMlLkGczxO5ldu2OPhgG6AynJ6ucozkcPIkpwRMqZ9c8whqwPDy5JdHYPfRoUcL00iuTL0
-	2jUZdB497MXZwjqjy3YzLxNj0HQxY2oswi+QvxAcIOybihZHGE1T+ztutmx0lQ==
-Date: Thu, 17 Sep 2026 17:37:37 +0200
-Subject: [PATCH 3/3] spi: dw: Use the rx-sample-delay-ns value parsed by
- the core
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mDmxqEIF"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912df756so7346985e9.3
+        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 08:41:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789659700; x=1790264500; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3hYwC+8YXd3ZBbv37u4GOv6TST5pjo7r9wcpsmJejTU=;
+        b=mDmxqEIF4De/VITkdJXDLYvMIChy7s7owOJatQnZ8Y16IzNKxVFtmtUc5JqvjMnMhI
+         /R/qA8Z7j2TSlGmWiaFDsHQ/V3gZKGKB/AZm+SL3LuD4fgW/b5kghbQap59A/uGO9Elz
+         1NiS6Q4FSTpf2ow6Mul3nZPVvrFa1EiZKA87734AjdpwQISGbj/k6rUaQ7ubKaV+9O8M
+         ucFqlKMhi9iDdCRllLhvDo5lFvbwhL8VJDOa73AiJmf7OZ4qNZa9jrYqaACzo+5qiISo
+         sf59D2nGiV49zwIFdVGXg2JoC+0O9niQp6DsJHHrE9A+ZA/e3+t7e1vY8XIJhZDCyg0C
+         Ks2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789659700; x=1790264500;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3hYwC+8YXd3ZBbv37u4GOv6TST5pjo7r9wcpsmJejTU=;
+        b=axlFC5kXbwwRvitQ+TywB4YywB4UHJloEIP5HDtvLWR/sXfZsp82SQfuzHGIdNOVGV
+         jzts//vH08TjvuaJnEx4JzrJILKbWj8CEhC34gsDd1/npYhhJUm90C5ukHns4XNVlvhU
+         zyLkUocNAa2NTApCIr9B6iP35HeRYSA55WuIOqqQ+If4dIEBE3b+Co3r5H20oRctbhc5
+         wV+H0ncVHiFNBQOltlYdVJJOPPiIU9bB/NF3s6UuyczpwWCKNgqxZOwrWaJUcQYjaBmv
+         NNHaC2Qz1HDw0Qob1QBMvohw6SkkK43k94w5ETL4miJby/2uMX6EPMh701y0U+lSfQn2
+         Aa8g==
+X-Forwarded-Encrypted: i=1; AKwUvBzhxweXyg08NzJmHCrUY5UXV3WxJk4WfslixdB9zL3tYbpxGZr6L9NK41Lq5XxKAf1nx7uOEYCU+RqX@vger.kernel.org
+X-Gm-Message-State: AFuF++nTOH0XeGWf/eBHmnVQqqmZNy0cv1aplwVg8uyfiyu+5/MJWt4W
+	oc+zMfNhj4ZdUoX5hZ9wI9AxPww4N6MkyxT9q4veG/MfDdiHxfYOl/9v
+X-Gm-Gg: AYBFou1/mVZ2ureqmM9dW/lNO1E4m8u8Ww+JvroRtR+WoawTbEV+PqUHZOMgYWyddWb
+	d2YLw3P+aC2gQiBsHgy6p8F6V+Ex64HAe+P7YOfgX2oemz0+wgpb8DnkDkVG1yjRJPC7aZsY5lJ
+	m2mzcTLsrLtSBCZ1DQrOkpsLVWh4UAeHEqLce/dWP4VlBmsdJqptj6UYsu19RpWuLJqHMs8LcMg
+	XubDGdC4vIDcNo6qT1kjJdhcpmuyEwQCq6shwjS6fnO8foJ6kksZLey4CgVTIFHHcTk4LDhMb9u
+	9mKRdNox5E6dABaS7Xzkz+ZzpsmAZ00SggflSlk6hmFnqjfZthE+xg9dCV6y3i/ciHH5N8/by2A
+	pDjwxgtsl8qmeCAiCBUghjSGXpThfjqROA0zQus4p2EtkVmxlXJ+I5NyemAheCCz3aDe4/2Gby6
+	VfSb7oJWBBSA4YRQwTtPrid3a+zA3HxDJTO6h1ZVfkJknEoBijgwACR0PHI37LKVUfcZsv2a+TH
+	JQsuRRPWX6Uj6/jxUws0Aaj7nblgKxyzANm56DWFbB1yRg9BvGrC3CDye8t82lF9Rla6/4/kxc/
+	Uygyu0KI3f4wNycJ1DxUJA==
+X-Received: by 2002:a05:600c:6298:b0:49d:16df:8521 with SMTP id 5b1f17b1804b1-49eb73143bcmr86991055e9.4.1789659700261;
+        Thu, 17 Sep 2026 08:41:40 -0700 (PDT)
+Received: from Lord-Beerus.station ([31.27.155.43])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd227141sm100124235e9.2.2026.09.17.08.41.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 08:41:39 -0700 (PDT)
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
+To: Frank Li <Frank.Li@nxp.com>,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Cc: pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Subject: [PATCH v2 0/3] arm64: dts: imx8mm-var-dart: update SoM support
+Date: Thu, 17 Sep 2026 17:41:27 +0200
+Message-ID: <cover.1789659585.git.stefano.r@variscite.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-spi-sample-delay-cleanup-v1-3-0e4eddbfb1ce@kontron.de>
-References: <20260917-spi-sample-delay-cleanup-v1-0-0e4eddbfb1ce@kontron.de>
-In-Reply-To: <20260917-spi-sample-delay-cleanup-v1-0-0e4eddbfb1ce@kontron.de>
-To: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, 
- Frieder Schrempf <frieder.schrempf@kontron.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1983;
- i=frieder.schrempf@kontron.de; h=from:subject:message-id;
- bh=dNE9qYNVl7I4xsD6/HfPBsDDqC3FezGj/mUMdwpPGY0=;
- b=owGbwMvMwCWWWSatKlDTJMZ4Wi2JIWsNZ2n38cNpBqmnf871Cvpyc+LkRdM0tEI1V/7dt/Nrz
- YTo2jv6HaUsDGJcDLJiiixS/Bavbc1ifeSPVUfBzGFlAhnCwMUpABMJNWH4n/jzkvLpB5Zqr6w/
- K7fE702Rle0XZ5pnmP0n4+mfQ07zZRgZjocbPvq0dSF/julNJZdDFblbuK06knonCSzdmrOwwVG
- LFQA=
-X-Developer-Key: i=frieder.schrempf@kontron.de; a=openpgp;
- fpr=1A0F38EB3D365D4C1FC67B5A69761B25107C8216
+Content-Transfer-Encoding: 8bit
 
-From: Frieder Schrempf <frieder.schrempf@kontron.de>
+This series updates the Variscite DART-MX8M-MINI SoM device tree to
+better reflect the currently supported hardware configuration.
 
-The core now parses the "rx-sample-delay-ns" peripheral property into
-spi_device.rx_sample_delay_ns, so drop the private copy of that parsing.
+The changes configure SAI3 in synchronous RX mode, add TPM support,
+and increase the Ethernet PHY reset deassert delay to improve PHY
+detection reliability.
 
-The controller-wide default is deliberately left alone. It is read from
-the *controller* node into dws->def_rx_sample_dly_ns, which is a
-different node and none of the core's business when it parses properties
-of a peripheral.
+v1->v2:
+ - Add tpm pinctrl
+ - Add comment on tpm reset line
 
-One corner case changes: the peripheral value is now treated as unset
-when it is zero, whereas before an absent property could be told apart
-from an explicit "rx-sample-delay-ns = <0>", the latter overriding a
-non-zero controller default with no delay at all. There are two users of
-the property in the whole tree and neither does this, and zero means the
-same as unset for every other user of the new field.
+Stefano Radaelli (3):
+  arm64: dts: imx8mm-var-dart: configure SAI3 synchronous RX mode
+  arm64: dts: imx8mm-var-dart: add TPM support
+  arm64: dts: imx8mm-var-dart: increase PHY reset deassert delay
 
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
----
- drivers/spi/spi-dw-core.c | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
+ .../boot/dts/freescale/imx8mm-var-dart.dtsi   | 21 ++++++++++++++++---
+ 1 file changed, 18 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/spi/spi-dw-core.c b/drivers/spi/spi-dw-core.c
-index 206d3f9dd83d..b86b607cc817 100644
---- a/drivers/spi/spi-dw-core.c
-+++ b/drivers/spi/spi-dw-core.c
-@@ -1104,12 +1104,13 @@ static int dw_spi_setup(struct spi_device *spi)
- 		if (!chip)
- 			return -ENOMEM;
- 		spi_set_ctldata(spi, chip);
--		/* Get specific / default rx-sample-delay */
--		if (device_property_read_u32(&spi->dev,
--					     "rx-sample-delay-ns",
--					     &rx_sample_dly_ns) != 0)
--			/* Use default controller value */
--			rx_sample_dly_ns = dws->def_rx_sample_dly_ns;
-+		/*
-+		 * Use the per-device value the core parsed from the peripheral
-+		 * node, and fall back to the controller-wide default when the
-+		 * device does not ask for a delay of its own.
-+		 */
-+		rx_sample_dly_ns = spi->rx_sample_delay_ns ?:
-+				   dws->def_rx_sample_dly_ns;
- 		chip->rx_sample_dly = DIV_ROUND_CLOSEST(rx_sample_dly_ns,
- 							NSEC_PER_SEC /
- 							dws->max_freq);
 
+base-commit: 46d8fa682d263271f3ef7bf95166b124c19d6c62
 -- 
-2.55.0
+2.47.3
 
