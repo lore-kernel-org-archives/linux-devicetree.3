@@ -1,368 +1,396 @@
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010042.outbound.protection.outlook.com [40.93.198.42])
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2132.outbound.protection.partner.outlook.cn [139.219.17.132])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD5244AAC5D;
-	Thu, 17 Sep 2026 09:16:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E21A3EF66B;
+	Thu, 17 Sep 2026 09:20:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.132
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789636606; cv=fail; b=WsYVoAYBj2vWWKRWv9vGfaJyZ/cCXhDPz5r4/4JPoJva8Kzb+w3g2U3K67Pz1uLkVJ81UqJffI2lqyvWstthvRcv/tls+0yvAnIzIqXJSeG3wGcLFC6sszU7B9LCQHmv9rtHGzsn6LdQMRmd5qrisgzcAcPi7wVKJ1nrAfjtOL4=
+	t=1789636853; cv=fail; b=UJ+sNBE4RcweVNV+J++pt6KMxJ3yeRNCNA1NTl+3vy+CfGPwAoZLrv+hcPrq/PKgCBVyvtsoI9GWTCyKnpNG04tQx6toCqiCv/Rcc45G8XjycJ/4/Yid6rojdYuZ1LYFitzYczxTs6HNl+lz4B+YZod9pKCLtXAP33LTDrFBQ4I=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789636606; c=relaxed/simple;
-	bh=I7YZ/arKozETNmRbapi4EKldm74H1xywoGEbBIL4Z74=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=luKxfAnDP7TBBmzfaMgtK+++Ju1y62f4c0Z1ifJMMegzsPxWjD8zIr3tw98Er/ttm/Bu77vlJJXKtZDwmkhmWHrv/Cmd9rQh6xpZ7qcZf34lb3iFlsiMtQT1Wc3aqRCy1rzsPK73JS/t3GB+fk7zre/krHRcm1IsCW3teRnKIN4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=fwO0pxqS; arc=fail smtp.client-ip=40.93.198.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="fwO0pxqS"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nzjlot+q1BnfepwVb9k7qtMIMpWXTL24DuvRf34ixhN59HdcyOQJO1d18Fzfy4/hdn/HOju66ZiOlYdded2SbnDom30bu1zG1U5Eebkt7lFveLO1X4MzmeGY5OrY1hCLc2EVifH78xa/aX8UDmiH32gDtnyTuIOEEFimEypfzpBLEbrrWQ/5Y4FbOQDwKC1qdz0/PPWEpDyjoCK7r+8OU7gSTwpHvSDHGR6dSTKCMAVb8H5Na1DQ5xBpSraYLX4IfHzNyUlzjHouZcLjBKrCeK06hILyXIGw0fMfCo9vm0BIV4M1c46hN8Xp/21QU7ZeIUTUgEHA59LgUY8c0dwxNg==
+	s=arc-20240116; t=1789636853; c=relaxed/simple;
+	bh=jyqRjloP3DLqjtDswO+z4tUUYu5Xeskp/19F2alg7s0=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=jcIgDPNgDHF8p0aN42GKxsFmH0zkReg5ZFhw9afelbl26yFGczpTAQkhmPF5Wqvjx88v3wxID9INvEonY4ZO3BcW1kKOUnFHHP0MLvbNIl+auzl4aZUdUiQYWrmJ4GFgdlmizfJSWb4XXqTNb6MeRPPTWB9SxXKn9yK4dmNAXso=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.132
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=W7JrE9SwdPJFbviZY/Wj3Qgr4ZANwt/9Gt5CqblkjAU20AXESR1WRfXtOuDfolZaSS/U1YPenmi72bVfjdJ+oFd3fxQTv7uHtiKwHvbwM/J32l9Q3MnbnzDzLCU20lxVWHPOW805ASnF3KyWsc552jOQg/pdPU7l6ezvcX50aQR++wqopy+YB/9OIKP4/6fIQTBa0LuOoGRCyRDrgB2sQeAOrEyUe4K1jhRn44g4Qf/Up09utF/M1+nGr0pjWH4qHHsg2Ag7fBHG1VvooXjJQQphfBtOrshkDJIh6ZeqU0hq3ebqfCnBYZ6RYqUnAjSXhqSMUIfxWTdvnWxbFM6n0A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
+ s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yWYha9MDveFQrkgFSqHxgWEymSFlEcATu9AEhSh4j3c=;
- b=xfMx+5PHql3rhNRkReuLLZxAA9ligPfmZJssZGl91gUZcIbAR1qVU5zm4Kq1yGuE8AtkjJzQ4PHIQg4XJ69PD8I9EBXH65BDLD3pshOxxpi8D2lGKOoubyO8aivq01SKSrhoUjmsaXR5a+n8E7F84/Ux56FYqPu20v9wzrYc8s6AOn1aIhrUdbhJdNsWZ6JAa1tWvc1XEWnTXtZFZQ0wLtI1c9CMywoghf2s7tHkjtwTb4Wns7x/mEtPJxFx8kZxJ2Q5oahbXmyawdgTGeQqVo1bu8W6o+fZSi5s2arXAuRcfAnufkZa05Q5j0R6p3Am3C1/sa5D4RWHmo9ZPLhE2g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yWYha9MDveFQrkgFSqHxgWEymSFlEcATu9AEhSh4j3c=;
- b=fwO0pxqSb+nLtlJ9TmNQ+k7Zty8QomPM3q2rluN1RVJ/pnPkQWuK4f4t0Fo+LkZyQiDIKb34Ppw02f8CBstC3mbq2eWHKAoG3ZRjODo21gS9Mf9LdyyFq+mBlpz5fcRGToN5XWK6wnpVrJejyKwxjr2YYcQ0wsaKsd/94XMPOTfO3c+S8y7HpnQmWFmElFR4nesTryFDEzrYb9Xc4ZlwzASgD/77EaZZDovZPLmWX7qPm0vYrqmiKHN+ABccJpshSnXM6cBRPjJ85IWvhA7xMrOij2uBCuij2NBrx6mVs4J4HbuoWgKmMz5dtsprMWk3+L8L9dJMwhhEUfLzWDPUPQ==
-Received: from YQZPR01CA0003.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c01:85::7)
- by SN7PR12MB8147.namprd12.prod.outlook.com (2603:10b6:806:32e::5) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=nxTfuxKOzBUycuL6ZVv4D6v+eeZnC979O1TthdnxqMw=;
+ b=U9F4XHEiTybZ0GGrFaCGzC29YhwZP7nEgpcoL4gbKCXvrT9k9CGOhg9EjM4FUemj9hImnYq7TQXabrfogmjQ+Nt4KJmA+h5DgveFSaN9NJolN0gOQtPSaPpIT01VX8XoAF04AfLcFBibUveJN2EhQdOR9d2/KwPJBCQ7lzVzn9GnezxJElGNKZKcUtrV3qxFvplXea0eZ28/1WQYUUaweqX2pfL812pUspKyT28vKIgsnJ0Ih6OPgakkA5UYs5ktuvdc89gPfcv8ygSakhd1LOdEo4AN3WOu5/GNdffDPvyCcM6U2jkfkfq2NcPAIrIg2/elOTvZhoJPDnd3+ZJwtg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Received: from NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:7::10) by NT0PR01MB1232.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:11::10) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.12; Thu, 17 Sep
- 2026 09:16:37 +0000
-Received: from BN2PEPF0000A992.namprd04.prod.outlook.com
- (2603:10b6:c01:85:cafe::92) by YQZPR01CA0003.outlook.office365.com
- (2603:10b6:c01:85::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.12 via Frontend Transport; Thu,
- 17 Sep 2026 09:16:37 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- BN2PEPF0000A992.mail.protection.outlook.com (10.167.248.134) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Thu, 17 Sep 2026 09:16:37 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 17 Sep
- 2026 02:16:16 -0700
-Received: from [127.0.1.1] (10.126.230.37) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 17 Sep
- 2026 02:16:14 -0700
-From: Jon Hunter <jonathanh@nvidia.com>
-Date: Thu, 17 Sep 2026 10:16:03 +0100
-Subject: [PATCH v2 3/3] soc/tegra: fuse: Add Tegra264 support
+ 2026 06:48:05 +0000
+Received: from NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn
+ ([fe80::be4a:d29e:5188:b37e]) by
+ NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn ([fe80::be4a:d29e:5188:b37e%3])
+ with mapi id 15.21.0428.011; Thu, 17 Sep 2026 06:48:05 +0000
+From: Hal Feng <hal.feng@starfivetech.com>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>, Michael Turquette
+	<mturquette@baylibre.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Stephen Boyd
+	<sboyd@kernel.org>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt
+	<palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti
+	<alex@ghiti.fr>, Philipp Zabel <p.zabel@pengutronix.de>, Emil Renner Berthing
+	<kernel@esmil.dk>, Kees Cook <kees@kernel.org>, "Gustavo A . R . Silva"
+	<gustavoars@kernel.org>, Richard Cochran <richardcochran@gmail.com>
+CC: "linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
+	"linux-hardening@vger.kernel.org" <linux-hardening@vger.kernel.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>
+Subject: RE: [PATCH v3 21/22] reset: starfive: Add StarFive JHB100 reset
+ driver
+Thread-Topic: [PATCH v3 21/22] reset: starfive: Add StarFive JHB100 reset
+ driver
+Thread-Index: AQHdJmAZtVTBvzQQZk6B6MFz6FOdgLbSjkyA
+Date: Thu, 17 Sep 2026 06:48:05 +0000
+Message-ID:
+ <NT0PR01MB110298B34F8DFB2791A129FCE6B82@NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn>
+References: <20260807112923.191627-1-changhuang.liang@starfivetech.com>
+ <20260807112923.191627-22-changhuang.liang@starfivetech.com>
+In-Reply-To: <20260807112923.191627-22-changhuang.liang@starfivetech.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: NT0PR01MB1102:EE_|NT0PR01MB1232:EE_
+x-ms-office365-filtering-correlation-id: 88be15f9-1281-4e3d-1fe5-08df1487a08e
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|7416014|1800799024|366016|23010399003|921020|38070700021|22082099003|18002099003|56012099006|4143699003|10067099003;
+x-microsoft-antispam-message-info:
+ yPziQVRT0Heq39+R1QCRihgwOw8kioQm4deFHeOgHW3xnCHm+6QU3rDiWzeNewNHJRbICM9cS5W12pkSTrIz7BqNQ1WBj5zxlqY38EqK0sW127eKnlATN9l/hv8aduEg5YBmoIkEfZMJ9fjb2w1lNvakStj4caXlqA4ULKlk7ZqjR52s5fclf++MIkubVmK7Ls5JUhncWY5db9Mh5YAzJUgUBP4tvV8MOaxNqPxxM4r6yti674Q0J2p3a5e6ccbT+T7DN8OdL37q6WOQ2LJO3/fJDOrONSlJOEWF1YPSYuzMsmgUX5CBBadZItQgdM9aGLhxbG6N5v6pBkpiiovWF2qncKLRh9O5UzmvIaKQCkiRki4MtSuJbLFLF2+ft6iI2r+ZNhH3mKkiYDqdQO1oIFBG4HcpyjWLs4w4YZl6PIu0dghL22qLrgwfhrr7xU0NnETMnRSGElNZ1lXsdm1wiWpoYtcJzRenxa2lxWBeqa7QHbr5DCH3BLIPRvSPP7uMAZL7DjGEDiWKCnAqpayndgWobtbw2N8PgkOKFzm0Py7ZjVZ/w7kqrqwW1dLcz7OziJHTuMTxLRVdIV/Pd+aYLw==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(921020)(38070700021)(22082099003)(18002099003)(56012099006)(4143699003)(10067099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?Z1X0tjk51R6DjEvjPqCFWOOKTONoLRmPD65fR27LV40ybUYZfkHBP671Hzr+?=
+ =?us-ascii?Q?l3Fb98gEbLpWjWdAErU9KcXqUEqP7efLovjzhoETwCBAVSgso5bOU7QtNcOa?=
+ =?us-ascii?Q?VAcZ7RMmUbBCwP54/+Gi0DUQufbj0jVSnBUycHpk1xtdb3+uLXehMq9LkyCL?=
+ =?us-ascii?Q?bFerDLL5wlVSugsq6o2mBly8WcLETDEQyqZLaHxzhfOvcf/Jb4b5MLiI73qr?=
+ =?us-ascii?Q?UVQdyDiuErl6/oemJcpHDv3PFiKwqKAl1SWBT4oJPqb3u5xIKCWJooENy+CT?=
+ =?us-ascii?Q?pxMvgM0B5A7/SzGdRqTbE2kgkXfKBUZkBI7zyAM2mL90p9QLr79nTziADuID?=
+ =?us-ascii?Q?ClvaFT+Dp0X+S/OI9PT49jp43VRj85bv/H4asIEj4+QV2AKxJOrhgnhY9FYF?=
+ =?us-ascii?Q?KuJV63titkwCblufgFrEjxuA2om/fQAlEhgXjumwwCS70w6nbKgQYdSMnYv1?=
+ =?us-ascii?Q?p/oj62FvWiBQ5YrTBh7FG7mX3gucslgXiwhGZs267SqGjvhvUb+kA0ca/546?=
+ =?us-ascii?Q?b3wH589YoElx8khleEvj674cJQgpHnYSEcig7KtqT9hC5bf+HPw8kdJ5DnbN?=
+ =?us-ascii?Q?ytoCqzUOGdSJg7DqW4BF8xBexioldIsP+lUnqWvqZxkhB1mwuDUdGqF5g8xa?=
+ =?us-ascii?Q?qqLWWRQbOW0H/hBvPXK2R7W/FCVMykrA3fyhIev/quyw/CLq47oLw5m4yLMY?=
+ =?us-ascii?Q?z3QyAbw9uM0qd3/+d63uusF/GsvXm3pXyHGKjI+IXpbd8GMvlQcgkr4wFXU/?=
+ =?us-ascii?Q?FoDQxVnne0ohZN+2snvgsk6qmcqzYrAqvz42WJThdMoFwTg9BbtDcD1EBhRB?=
+ =?us-ascii?Q?TmnIwytAaGPSEeYmQkDjXgfcABXuxBt6TotVJ6WwHK5ZIh9SIIV4clX2gIQm?=
+ =?us-ascii?Q?P0WkyDTCaL790kRdRasPYEMOGOJZXzQR2cd46ZKVQU+NRNvsaezBKGac5kkI?=
+ =?us-ascii?Q?IfeOb3R1WJ+t5Ac2C8W1KEQOEpKIcEEkpdaJ9cTKBbsd+8YdV5XfdXLXQQQE?=
+ =?us-ascii?Q?tMNPjDrGPRY8QcFafAZtFlEpvECsEzNveUEi8IM7jpPj+pmgr3sUtX9ye/UJ?=
+ =?us-ascii?Q?n6m8ZFFkJnp0+dQH1+k5BsXach9DVQXdlExI2wptcGLJ5PomnHg1YzRJ/kIG?=
+ =?us-ascii?Q?0KFQ+aK6hjMV/J9CvgJjVmZKebMfNPMY+mYyIkRonEdux4ecZtv+b9EJoaeE?=
+ =?us-ascii?Q?CSLsrdn0chCck0Vufr7ZSpO4Vr4K9S6v9OGfLBYkwaE7Ii6BMnG7ZcE7q5Rq?=
+ =?us-ascii?Q?QmJ1NKDCWFD9akc9fOL6BOHNyOO8oeWjOpB7OEeOKKhFxJBkYUsUTdxBmlCc?=
+ =?us-ascii?Q?76ymbhv322a9N0AfKBQu5PB9FZtH1jsNoR5iGg4NBjaSRtsinhCXNOWFZtkF?=
+ =?us-ascii?Q?N9Av3oMBwCQ9O0sFMh/DK6FZTbf9HywdR9qHRF+FmaNiHq+5AzLeljx9zvv2?=
+ =?us-ascii?Q?H43pbJw49gsCF9D9YeNomH8WYHu0h4F5KakefO1E611a5XxwSrtV1OsJnML/?=
+ =?us-ascii?Q?Zpd8mkDRvCGIDDx/hWcT8bjhb6ukRb1Fb/87gdLPkLi2Ksj4Dk/JD3eofLc1?=
+ =?us-ascii?Q?hCBEX605ItrTFKXoNP/d893+6KkgunWkMKVRHbI6xWHXuQzH5F9cNdq8NhIm?=
+ =?us-ascii?Q?4lOXF7M9BpB5ryEo9XTVvSvAdISG/1FnwcLGfJHMS3dU9HtXGwg9gLeq0fHe?=
+ =?us-ascii?Q?vT4RVJwhEX2XeIp/txr+DZmq3guWfqN0W0Y0kbVTsV3bffm/avcRg3DHN7Hs?=
+ =?us-ascii?Q?k8XRU8V1rQ=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260917-tegra-tegra264-fuse-v2-3-4936068c2168@nvidia.com>
-References: <20260917-tegra-tegra264-fuse-v2-0-4936068c2168@nvidia.com>
-In-Reply-To: <20260917-tegra-tegra264-fuse-v2-0-4936068c2168@nvidia.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Thierry Reding
-	<thierry.reding@kernel.org>
-CC: Thierry Reding <thierry.reding@gmail.com>, <devicetree@vger.kernel.org>,
-	<linux-tegra@vger.kernel.org>, <linux-kernel@vger.kernel.org>, Jon Hunter
-	<jonathanh@nvidia.com>
-X-Mailer: b4 0.14.2
-X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000A992:EE_|SN7PR12MB8147:EE_
-X-MS-Office365-Filtering-Correlation-Id: eb3d52fa-0485-4cc8-5500-08df149c606c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|23010399003|36860700016|82310400026|22082099003|18002099003|11063799006|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	Cnj0QIJsVutOFm/SsvqcT3syI2vOa/5OSzH5erusmfiaXGTjAnhhLNrJ2mSlTVJrE3+SH/+pzngLkYfhX2lsChuLh7zyBN1Sd2JrIXx/OlBzaQIR04tFu2IoGui6dm+1q+IJJfTXbCy/MTqxKnFrX4rMWxzEQbBSRPJM9S287DkBSIFarHmK+yzmvk2B7aNpXQa3kaqSz5o/KV3Bp+O9kdbQ19TtUL88XDeaQ4Zw/nnXKsSAR6d5nvD2S3yVISJshOJh+89CYIs382l/F0+ob1xQch3H0pORRi1XnhDN+h4GYf/W5Qi21PcYNEj9S1U8o1nIdBqd4MWJqfV3cHa9/CtCzcpKOig+jc9fkkTwrBIivFMWLvKY+LA+Sg3DjzwNPPXg+6l9Uam+GbZgY6BzrQV5FZRpKP4MgxXsYLWx6s6AZukFZQhyNCqd30U6C1yNhScSoU3ACz399yFJo+luiQZaKgt6Va3TLZaqbqPQUalNGaIrqtpKcS3ux1BiIaSoJk6FEkPCU9vYKAz8z6dZZx9rLS87u7lXBVRqSlJ1n0XvNOYyybt6iZpdZ/jMjggqp+BOxeKEHqpBIrFYuFhjTiY2Bm5EVyh5SjmCvPapPN0msg/GmFtGQgm5Hv4LJv77qxEVks693nO6USWqplrjkh//tWnSxmnMoklGHp2x1zviSw8IfUfIQhEaN/5BAgzLNz12jDNdYMsFl2MSowHf9Q==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(36860700016)(82310400026)(22082099003)(18002099003)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	m5/Rd7gpy8ZtgH3mYRfi4ZcaLGPWWqdKCi8WNMZndb9bHvv4EAjhjZm00PmuEqr6RxH+B2WqPqJKlQisn08rmEr/LRE1jkS/sFdKcJ22dc4BOSk+LQUUGLc8SoeCGD5ussN4hVfbfbGXrAwybTqlHb+tWXKdHtDLQXwRH23hSBoJX2AdEvOv2gy5jOn4GfoDJ/RDrAmyKaIVc9jwMbBGh4pfoKSXE4EbDNnwz8GTkrV4NjVhFBceArdtBklVGV4EHW/K52zkbfxAAjAos6lKd3RW3E/OpVxZ2gN5H+PeHAhwYiqluK8P0/iJzJAqr9L8Imp7dCzS1cXlhJvdkbT/rY6Iv+z86cqwZPx2azK5cujSTb2w+I2gTwBmNmxpcUbSVIT2dXa6EIL3IvLdSiyMc/rWB2yrjdnlmbnIE6H4A+BOXQLGSr55ZdxFdbW/UDJR
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 09:16:37.3166
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-Network-Message-Id: 88be15f9-1281-4e3d-1fe5-08df1487a08e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Sep 2026 06:48:05.5662
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: eb3d52fa-0485-4cc8-5500-08df149c606c
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF0000A992.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8147
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 8XaPnogvZvdWLmmz1e2fQpw7qKWMS5oZfgZ8OTuiieS965VHobTUIHjH0XW4ga+PotIX36jclrFT8iPX+19EUtGTRbhOfa+E62j7IC4P0YU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: NT0PR01MB1232
 
-Add the fuse SoC data for the Tegra264 device which defines the address
-range and keepouts for the fuse registers.
+> On 26.08.07 19:29, Changhuang Liang wrote:
+> Add auxiliary reset driver to support StarFive JHB100 SoC.
+> The StarFive JHB100 SoC has discontiguous reset IDs. A new function
+> reset_starfive_register_with_info() is introduced to support both contigu=
+ous
+> and discontiguous hardware designs.
+>=20
+> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+> ---
+>  MAINTAINERS                                   |   6 +
+>  drivers/reset/starfive/Kconfig                |   9 +
+>  drivers/reset/starfive/Makefile               |   1 +
+>  .../reset/starfive/reset-starfive-common.c    |  99 +++++-
+>  .../reset/starfive/reset-starfive-common.h    |  19 ++
+>  .../reset/starfive/reset-starfive-jhb100.c    | 302 ++++++++++++++++++
+>  6 files changed, 425 insertions(+), 11 deletions(-)  create mode 100644
+> drivers/reset/starfive/reset-starfive-jhb100.c
+>=20
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index c48b56d0ab94..709600e80951 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -26088,6 +26088,12 @@ S:	Supported
+>  F:
+> 	Documentation/devicetree/bindings/interrupt-controller/starfive,jhb100
+> -intc.yaml
+>  F:	drivers/irqchip/irq-starfive-jhb100-intc.c
+>=20
+> +STARFIVE JHB100 RESET CONTROLLER DRIVERS
+> +M:	Changhuang Liang <changhuang.liang@starfivetech.com>
+> +S:	Maintained
 
-Signed-off-by: Jon Hunter <jonathanh@nvidia.com>
----
- drivers/soc/tegra/fuse/fuse-tegra.c   |  11 ++-
- drivers/soc/tegra/fuse/fuse-tegra30.c | 168 +++++++++++++++++++++++++++++++++-
- drivers/soc/tegra/fuse/fuse.h         |   7 +-
- 3 files changed, 183 insertions(+), 3 deletions(-)
+'Supported' is better.
 
-diff --git a/drivers/soc/tegra/fuse/fuse-tegra.c b/drivers/soc/tegra/fuse/fuse-tegra.c
-index 39654964c35c3e59e142f74b09fc60cb3515c78a..b8c8ccf80056cbf13318f7ad06de6c658f52ad41 100644
---- a/drivers/soc/tegra/fuse/fuse-tegra.c
-+++ b/drivers/soc/tegra/fuse/fuse-tegra.c
-@@ -65,6 +65,9 @@ static struct tegra_fuse *fuse = &(struct tegra_fuse) {
- };
- 
- static const struct of_device_id tegra_fuse_match[] = {
-+#ifdef CONFIG_ARCH_TEGRA_264_SOC
-+	{ .compatible = "nvidia,tegra264-efuse", .data = &tegra264_fuse_soc },
-+#endif
- #ifdef CONFIG_ARCH_TEGRA_234_SOC
- 	{ .compatible = "nvidia,tegra234-efuse", .data = &tegra234_fuse_soc },
- #endif
-@@ -175,6 +178,11 @@ static int tegra_fuse_probe(struct platform_device *pdev)
- 		case TEGRA241:
- 			fuse->soc = &tegra241_fuse_soc;
- 			break;
-+#endif
-+#if defined(CONFIG_ARCH_TEGRA_264_SOC)
-+		case TEGRA264:
-+			fuse->soc = &tegra264_fuse_soc;
-+			break;
- #endif
- 		default:
- 			return dev_err_probe(&pdev->dev, -EINVAL, "Unsupported SoC: %02x\n", chip);
-@@ -413,7 +421,8 @@ const struct attribute_group tegra_soc_attr_group = {
- 
- #if IS_ENABLED(CONFIG_ARCH_TEGRA_194_SOC) || \
-     IS_ENABLED(CONFIG_ARCH_TEGRA_234_SOC) || \
--    IS_ENABLED(CONFIG_ARCH_TEGRA_241_SOC)
-+    IS_ENABLED(CONFIG_ARCH_TEGRA_241_SOC) || \
-+    IS_ENABLED(CONFIG_ARCH_TEGRA_264_SOC)
- static ssize_t platform_show(struct device *dev, struct device_attribute *attr,
- 			     char *buf)
- {
-diff --git a/drivers/soc/tegra/fuse/fuse-tegra30.c b/drivers/soc/tegra/fuse/fuse-tegra30.c
-index 2fad8b13a3b9615b46187ecfc6f975dd8e0f6e80..623848116b693b2a4c6669538f096b99943f420a 100644
---- a/drivers/soc/tegra/fuse/fuse-tegra30.c
-+++ b/drivers/soc/tegra/fuse/fuse-tegra30.c
-@@ -39,7 +39,8 @@
-     defined(CONFIG_ARCH_TEGRA_186_SOC) || \
-     defined(CONFIG_ARCH_TEGRA_194_SOC) || \
-     defined(CONFIG_ARCH_TEGRA_234_SOC) || \
--    defined(CONFIG_ARCH_TEGRA_241_SOC)
-+    defined(CONFIG_ARCH_TEGRA_241_SOC) || \
-+    defined(CONFIG_ARCH_TEGRA_264_SOC)
- static u32 tegra30_fuse_read_early(struct tegra_fuse *fuse, unsigned int offset)
- {
- 	if (WARN_ON(!fuse->base))
-@@ -802,3 +803,168 @@ const struct tegra_fuse_soc tegra241_fuse_soc = {
- 	.soc_attr_group = &tegra194_soc_attr_group,
- };
- #endif
-+
-+#ifdef CONFIG_ARCH_TEGRA_264_SOC
-+static const struct nvmem_keepout tegra264_fuse_keepouts[] = {
-+	{ .start = 0x0019c, .end = 0x001a0 },
-+	{ .start = 0x00308, .end = 0x00310 },
-+	{ .start = 0x0032c, .end = 0x00334 },
-+	{ .start = 0x00350, .end = 0x00354 },
-+	{ .start = 0x00494, .end = 0x0049c },
-+	{ .start = 0x0078c, .end = 0x00790 },
-+	{ .start = 0x007a0, .end = 0x007a8 },
-+	{ .start = 0x007dc, .end = 0x007e4 },
-+	{ .start = 0x008d8, .end = 0x008dc },
-+	{ .start = 0x0096c, .end = 0x00970 },
-+	{ .start = 0x00974, .end = 0x0097c },
-+	{ .start = 0x009f4, .end = 0x009f8 },
-+	{ .start = 0x00a14, .end = 0x00a20 },
-+	{ .start = 0x00a44, .end = 0x00a4c },
-+	{ .start = 0x00a50, .end = 0x00a58 },
-+	{ .start = 0x00a5c, .end = 0x00a64 },
-+	{ .start = 0x00a68, .end = 0x00a70 },
-+	{ .start = 0x00acc, .end = 0x00ad0 },
-+	{ .start = 0x00b0c, .end = 0x00b18 },
-+	{ .start = 0x00c80, .end = 0x00c8c },
-+	{ .start = 0x00dac, .end = 0x00db4 },
-+	{ .start = 0x00db8, .end = 0x00dbc },
-+	{ .start = 0x00e0c, .end = 0x00e10 },
-+	{ .start = 0x00fd0, .end = 0x01f00 },
-+	{ .start = 0x01f1c, .end = 0x10064 },
-+	{ .start = 0x10084, .end = 0x100a0 },
-+	{ .start = 0x100a4, .end = 0x1019c },
-+	{ .start = 0x101a0, .end = 0x101cc },
-+	{ .start = 0x101d0, .end = 0x10308 },
-+	{ .start = 0x10310, .end = 0x1055c },
-+	{ .start = 0x1057c, .end = 0x106b0 },
-+	{ .start = 0x106b4, .end = 0x11008 },
-+	{ .start = 0x1100c, .end = 0x11018 },
-+	{ .start = 0x11020, .end = 0x110b8 },
-+	{ .start = 0x110c4, .end = 0x110c8 },
-+	{ .start = 0x110e8, .end = 0x110ec },
-+	{ .start = 0x110f0, .end = 0x11124 },
-+	{ .start = 0x11128, .end = 0x11168 },
-+	{ .start = 0x1116c, .end = 0x111b8 },
-+	{ .start = 0x111bc, .end = 0x111e4 },
-+	{ .start = 0x111e8, .end = 0x111ec },
-+	{ .start = 0x111f0, .end = 0x1121c },
-+	{ .start = 0x11250, .end = 0x1133c },
-+	{ .start = 0x11340, .end = 0x113c8 },
-+	{ .start = 0x113d0, .end = 0x11420 },
-+	{ .start = 0x11430, .end = 0x11440 },
-+	{ .start = 0x11444, .end = 0x11468 },
-+	{ .start = 0x1146c, .end = 0x114a8 },
-+	{ .start = 0x114ac, .end = 0x115cc },
-+	{ .start = 0x115d0, .end = 0x115dc },
-+	{ .start = 0x115e0, .end = 0x116b4 },
-+	{ .start = 0x116bc, .end = 0x11740 },
-+	{ .start = 0x11744, .end = 0x117b8 },
-+	{ .start = 0x117bc, .end = 0x11810 },
-+	{ .start = 0x11814, .end = 0x11850 },
-+	{ .start = 0x11858, .end = 0x118a0 },
-+	{ .start = 0x118ac, .end = 0x11b48 },
-+	{ .start = 0x11b50, .end = 0x11b5c },
-+	{ .start = 0x11b60, .end = 0x11bf8 },
-+	{ .start = 0x11bfc, .end = 0x11c18 },
-+	{ .start = 0x11c40, .end = 0x12000 },
-+	{ .start = 0x12004, .end = 0x12010 },
-+	{ .start = 0x12014, .end = 0x120fc },
-+	{ .start = 0x1211c, .end = 0x12120 },
-+	{ .start = 0x12124, .end = 0x12144 },
-+	{ .start = 0x1214c, .end = 0x12300 },
-+	{ .start = 0x12308, .end = 0x1236c },
-+	{ .start = 0x12370, .end = 0x126ac },
-+	{ .start = 0x126b0, .end = 0x12c60 },
-+	{ .start = 0x12c64, .end = 0x12d94 },
-+	{ .start = 0x12da4, .end = 0x13004 },
-+	{ .start = 0x13008, .end = 0x1300c },
-+	{ .start = 0x13010, .end = 0x13014 },
-+	{ .start = 0x13018, .end = 0x13020 },
-+	{ .start = 0x13064, .end = 0x13084 },
-+	{ .start = 0x130a0, .end = 0x130a4 },
-+	{ .start = 0x130b8, .end = 0x130c4 },
-+	{ .start = 0x130c8, .end = 0x130e8 },
-+	{ .start = 0x130ec, .end = 0x130f0 },
-+	{ .start = 0x130fc, .end = 0x1311c },
-+	{ .start = 0x13120, .end = 0x13128 },
-+	{ .start = 0x13144, .end = 0x1314c },
-+	{ .start = 0x13168, .end = 0x1316c },
-+	{ .start = 0x1319c, .end = 0x131a0 },
-+	{ .start = 0x131ac, .end = 0x131c0 },
-+	{ .start = 0x131cc, .end = 0x131d0 },
-+	{ .start = 0x131e4, .end = 0x131e8 },
-+	{ .start = 0x131ec, .end = 0x131f0 },
-+	{ .start = 0x1321c, .end = 0x13250 },
-+	{ .start = 0x132f0, .end = 0x13310 },
-+	{ .start = 0x1332c, .end = 0x13334 },
-+	{ .start = 0x1333c, .end = 0x13344 },
-+	{ .start = 0x13350, .end = 0x13354 },
-+	{ .start = 0x1336c, .end = 0x13370 },
-+	{ .start = 0x133ac, .end = 0x133b0 },
-+	{ .start = 0x133c8, .end = 0x133d0 },
-+	{ .start = 0x13420, .end = 0x13430 },
-+	{ .start = 0x13440, .end = 0x13444 },
-+	{ .start = 0x13468, .end = 0x13470 },
-+	{ .start = 0x13494, .end = 0x1349c },
-+	{ .start = 0x134a8, .end = 0x134ac },
-+	{ .start = 0x13544, .end = 0x1354c },
-+	{ .start = 0x1355c, .end = 0x1357c },
-+	{ .start = 0x135cc, .end = 0x135e0 },
-+	{ .start = 0x135e4, .end = 0x13608 },
-+	{ .start = 0x1360c, .end = 0x13620 },
-+	{ .start = 0x136ac, .end = 0x136bc },
-+	{ .start = 0x136c0, .end = 0x136c8 },
-+	{ .start = 0x13714, .end = 0x13718 },
-+	{ .start = 0x13724, .end = 0x13728 },
-+	{ .start = 0x1372c, .end = 0x13730 },
-+	{ .start = 0x13734, .end = 0x1373c },
-+	{ .start = 0x13740, .end = 0x13744 },
-+	{ .start = 0x13754, .end = 0x13758 },
-+	{ .start = 0x13760, .end = 0x13784 },
-+	{ .start = 0x1378c, .end = 0x13790 },
-+	{ .start = 0x137a0, .end = 0x137a8 },
-+	{ .start = 0x137b8, .end = 0x137bc },
-+	{ .start = 0x137dc, .end = 0x137e4 },
-+	{ .start = 0x137ec, .end = 0x137f0 },
-+	{ .start = 0x13800, .end = 0x13818 },
-+	{ .start = 0x13820, .end = 0x13828 },
-+	{ .start = 0x13830, .end = 0x13858 },
-+	{ .start = 0x138a0, .end = 0x138b0 },
-+	{ .start = 0x138d0, .end = 0x138dc },
-+	{ .start = 0x1396c, .end = 0x13970 },
-+	{ .start = 0x13974, .end = 0x1397c },
-+	{ .start = 0x139f4, .end = 0x139f8 },
-+	{ .start = 0x13a14, .end = 0x13a20 },
-+	{ .start = 0x13a44, .end = 0x13a4c },
-+	{ .start = 0x13a50, .end = 0x13a58 },
-+	{ .start = 0x13a5c, .end = 0x13a64 },
-+	{ .start = 0x13a68, .end = 0x13a70 },
-+	{ .start = 0x13acc, .end = 0x13ad8 },
-+	{ .start = 0x13b0c, .end = 0x13b18 },
-+	{ .start = 0x13b48, .end = 0x13b50 },
-+	{ .start = 0x13b5c, .end = 0x13b60 },
-+	{ .start = 0x13bf8, .end = 0x13bfc },
-+	{ .start = 0x13c18, .end = 0x13c40 },
-+	{ .start = 0x13c60, .end = 0x13c64 },
-+	{ .start = 0x13c74, .end = 0x13c8c },
-+	{ .start = 0x13d94, .end = 0x13da4 },
-+	{ .start = 0x13dac, .end = 0x13db4 },
-+	{ .start = 0x13db8, .end = 0x13dbc },
-+	{ .start = 0x13df4, .end = 0x13e04 },
-+	{ .start = 0x13e0c, .end = 0x13e10 },
-+};
-+
-+static const struct tegra_fuse_info tegra264_fuse_info = {
-+	.read = tegra30_fuse_read,
-+	.size = 0x13eb8,
-+};
-+
-+const struct tegra_fuse_soc tegra264_fuse_soc = {
-+	.init = tegra30_fuse_init,
-+	.info = &tegra264_fuse_info,
-+	.keepouts = tegra264_fuse_keepouts,
-+	.num_keepouts = ARRAY_SIZE(tegra264_fuse_keepouts),
-+	.soc_attr_group = &tegra194_soc_attr_group,
-+	.clk_suspend_on = false,
-+};
-+#endif
-diff --git a/drivers/soc/tegra/fuse/fuse.h b/drivers/soc/tegra/fuse/fuse.h
-index 9fee6ad6ad9e98852c9d47079cdf49433e55fdb7..0fb97508db0a56c742cca6f7d1175b714aa7099c 100644
---- a/drivers/soc/tegra/fuse/fuse.h
-+++ b/drivers/soc/tegra/fuse/fuse.h
-@@ -125,7 +125,8 @@ extern const struct tegra_fuse_soc tegra186_fuse_soc;
- 
- #if IS_ENABLED(CONFIG_ARCH_TEGRA_194_SOC) || \
-     IS_ENABLED(CONFIG_ARCH_TEGRA_234_SOC) || \
--    IS_ENABLED(CONFIG_ARCH_TEGRA_241_SOC)
-+    IS_ENABLED(CONFIG_ARCH_TEGRA_241_SOC) || \
-+    IS_ENABLED(CONFIG_ARCH_TEGRA_264_SOC)
- extern const struct attribute_group tegra194_soc_attr_group;
- #endif
- 
-@@ -141,4 +142,8 @@ extern const struct tegra_fuse_soc tegra234_fuse_soc;
- extern const struct tegra_fuse_soc tegra241_fuse_soc;
- #endif
- 
-+#ifdef CONFIG_ARCH_TEGRA_264_SOC
-+extern const struct tegra_fuse_soc tegra264_fuse_soc;
-+#endif
-+
- #endif
+> +F:	drivers/reset/starfive/reset-starfive-jhb1*
+> +F:	include/dt-bindings/reset/starfive,jhb1*.h
+> +
+>  STATIC BRANCH/CALL
+>  M:	Peter Zijlstra <peterz@infradead.org>
+>  M:	Josh Poimboeuf <jpoimboe@kernel.org>
+> diff --git a/drivers/reset/starfive/Kconfig b/drivers/reset/starfive/Kcon=
+fig
+> index 29fbcf1a7d83..ce00495be6ad 100644
+> --- a/drivers/reset/starfive/Kconfig
+> +++ b/drivers/reset/starfive/Kconfig
+> @@ -19,3 +19,12 @@ config RESET_STARFIVE_JH7110
+>  	default ARCH_STARFIVE
+>  	help
+>  	  This enables the reset controller driver for the StarFive JH7110 SoC.
+> +
+> +config RESET_STARFIVE_JHB100
+> +	bool "StarFive JHB100 Reset Driver"
+> +	depends on CLK_STARFIVE_COMMON || COMPILE_TEST
+> +	select AUXILIARY_BUS
+> +	select RESET_STARFIVE_COMMON
+> +	default ARCH_STARFIVE
+> +	help
+> +	  This enables the reset controller driver for the StarFive JHB100 SoC.
+> diff --git a/drivers/reset/starfive/Makefile b/drivers/reset/starfive/Mak=
+efile
+> index 582e4c160bd4..217002302a9f 100644
+> --- a/drivers/reset/starfive/Makefile
+> +++ b/drivers/reset/starfive/Makefile
+> @@ -3,3 +3,4 @@ obj-$(CONFIG_RESET_STARFIVE_COMMON)		+=3D
+> reset-starfive-common.o
+>=20
+>  obj-$(CONFIG_RESET_STARFIVE_JH7100)		+=3D reset-starfive-jh7100.o
+>  obj-$(CONFIG_RESET_STARFIVE_JH7110)		+=3D reset-starfive-jh7110.o
+> +obj-$(CONFIG_RESET_STARFIVE_JHB100)		+=3D reset-starfive-jhb100.o
+> diff --git a/drivers/reset/starfive/reset-starfive-common.c
+> b/drivers/reset/starfive/reset-starfive-common.c
+> index 772bdf6763d1..86dbb33bb216 100644
+> --- a/drivers/reset/starfive/reset-starfive-common.c
+> +++ b/drivers/reset/starfive/reset-starfive-common.c
+> @@ -14,6 +14,8 @@
+>=20
+>  #include "reset-starfive-common.h"
+>=20
+> +#define STARFIVE_RESET_ID_INVALID	ULONG_MAX
+> +
+>  struct starfive_reset {
+>  	struct reset_controller_dev rcdev;
+>  	/* protect registers against concurrent read-modify-write */ @@ -21,6
+> +23,11 @@ struct starfive_reset {
+>  	void __iomem *assert;
+>  	void __iomem *status;
+>  	const u32 *asserted;
+> +
+> +	/* Only exists in reset controllers that use the
+> +	 * reset_starfive_register_with_info helper.
+> +	 */
+> +	const struct starfive_reset_info *info;
+>  };
+>=20
+>  static inline struct starfive_reset *
+> @@ -29,19 +36,40 @@ starfive_reset_from(struct reset_controller_dev
+> *rcdev)
+>  	return container_of(rcdev, struct starfive_reset, rcdev);  }
+>=20
+> +static unsigned long
+> +starfive_reset_id_to_hw_id(const struct starfive_reset_map *map, unsigne=
+d
+> int nr_resets,
+> +			   unsigned long reset_id)
+> +{
+> +	for (u32 i =3D 0; i < nr_resets; i++) {
+> +		if (map[i].reset_id =3D=3D reset_id)
+> +			return map[i].hw_id;
+> +	}
+> +
+> +	return STARFIVE_RESET_ID_INVALID;
+> +}
+> +
+>  static int starfive_reset_update(struct reset_controller_dev *rcdev,
+>  				 unsigned long id, bool assert)
+>  {
+>  	struct starfive_reset *data =3D starfive_reset_from(rcdev);
+> -	unsigned long offset =3D id / 32;
+> -	u32 mask =3D BIT(id % 32);
+> -	void __iomem *reg_assert =3D data->assert + offset * sizeof(u32);
+> -	void __iomem *reg_status =3D data->status + offset * sizeof(u32);
+> -	u32 done =3D data->asserted ? data->asserted[offset] & mask : 0;
+> -	u32 value;
+> -	unsigned long flags;
+> +	unsigned long offset, flags;
+> +	void __iomem *reg_assert;
+> +	void __iomem *reg_status;
+> +	u32 mask, done, value;
+>  	int ret;
+>=20
+> +	if (data->info && data->info->discontiguous) {
+> +		id =3D starfive_reset_id_to_hw_id(data->info->map,
+> data->info->nr_resets, id);
+> +		if (id =3D=3D STARFIVE_RESET_ID_INVALID)
+> +			return -EINVAL;
+> +	}
+> +
+> +	offset =3D id / 32;
+> +	mask =3D BIT(id % 32);
+> +	reg_assert =3D data->assert + offset * sizeof(u32);
+> +	reg_status =3D data->status + offset * sizeof(u32);
+> +	done =3D data->asserted ? data->asserted[offset] & mask : 0;
+> +
+>  	if (!assert)
+>  		done ^=3D mask;
+>=20
+> @@ -89,10 +117,20 @@ static int starfive_reset_status(struct
+> reset_controller_dev *rcdev,
+>  				 unsigned long id)
+>  {
+>  	struct starfive_reset *data =3D starfive_reset_from(rcdev);
+> -	unsigned long offset =3D id / 32;
+> -	u32 mask =3D BIT(id % 32);
+> -	void __iomem *reg_status =3D data->status + offset * sizeof(u32);
+> -	u32 value =3D readl(reg_status);
+> +	void __iomem *reg_status;
+> +	unsigned long offset;
+> +	u32 mask, value;
+> +
+> +	if (data->info && data->info->discontiguous) {
+> +		id =3D starfive_reset_id_to_hw_id(data->info->map,
+> data->info->nr_resets, id);
+> +		if (id =3D=3D STARFIVE_RESET_ID_INVALID)
+> +			return -EINVAL;
+> +	}
+> +
+> +	offset =3D id / 32;
+> +	mask =3D BIT(id % 32);
+> +	reg_status =3D data->status + offset * sizeof(u32);
+> +	value =3D readl(reg_status);
+>=20
+>  	if (!data->asserted)
+>  		return !(value & mask);
+> @@ -132,3 +170,42 @@ int reset_starfive_register(struct device *dev, stru=
+ct
+> device_node *of_node,
+>  	return devm_reset_controller_register(dev, &data->rcdev);  }
+> EXPORT_SYMBOL_GPL(reset_starfive_register);
+> +
+> +int reset_starfive_register_with_info(struct device *dev, struct device_=
+node
 
--- 
-2.43.0
+Also, you add reset_starfive_register_with_info() but a very similar reset_=
+starfive_register()
+still remains. I think we can merge them.
 
+Best regards,
+Hal
+
+> *of_node,
+> +				      void __iomem *assert, void __iomem *status,
+> +				      const u32 *asserted,
+> +				      const struct starfive_reset_info *info,
+> +				      struct module *owner)
+> +{
+> +	struct starfive_reset *data;
+> +	int ret;
+> +
+> +	data =3D devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
+> +	if (!data)
+> +		return -ENOMEM;
+> +
+> +	data->rcdev.ops =3D &starfive_reset_ops;
+> +	data->rcdev.owner =3D owner;
+> +	data->rcdev.nr_resets =3D info->nr_resets;
+> +	data->rcdev.dev =3D dev;
+> +	data->rcdev.of_node =3D of_node;
+> +
+> +	spin_lock_init(&data->lock);
+> +	data->assert =3D assert;
+> +	data->status =3D status;
+> +	data->asserted =3D asserted;
+> +	data->info =3D info;
+> +
+> +	if (info->discontiguous && (!info->map || !info->nr_resets))
+> +		return dev_err_probe(dev, -EINVAL,
+> +				     "discontiguous controller without a valid ID
+> map\n");
+> +
+> +	ret =3D devm_reset_controller_register(dev, &data->rcdev);
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "Failed to register reset
+> +controller");
+> +
+> +	dev_info(dev, "Registered %u resets", data->rcdev.nr_resets);
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_GPL(reset_starfive_register_with_info);
+> diff --git a/drivers/reset/starfive/reset-starfive-common.h
+> b/drivers/reset/starfive/reset-starfive-common.h
+> index 83461b22ee55..0d4e634de58e 100644
+> --- a/drivers/reset/starfive/reset-starfive-common.h
+> +++ b/drivers/reset/starfive/reset-starfive-common.h
+> @@ -6,9 +6,28 @@
+>  #ifndef __RESET_STARFIVE_COMMON_H
+>  #define __RESET_STARFIVE_COMMON_H
+>=20
+> +struct starfive_reset_map {
+> +	unsigned long reset_id;
+> +	unsigned long hw_id;
+> +};
+> +
+> +struct starfive_reset_info {
+> +	unsigned int nr_resets;
+> +	unsigned int assert_offset;
+> +	unsigned int status_offset;
+> +	bool discontiguous;
+> +	const struct starfive_reset_map *map;
+> +};
+> +
+>  int reset_starfive_register(struct device *dev, struct device_node *of_n=
+ode,
+>  			    void __iomem *assert, void __iomem *status,
+>  			    const u32 *asserted, unsigned int nr_resets,
+>  			    struct module *owner);
+>=20
+> +int reset_starfive_register_with_info(struct device *dev, struct device_=
+node
+> *of_node,
+> +				      void __iomem *assert, void __iomem *status,
+> +				      const u32 *asserted,
+> +				      const struct starfive_reset_info *info,
+> +				      struct module *owner);
+> +
+>  #endif /* __RESET_STARFIVE_COMMON_H */
+...
