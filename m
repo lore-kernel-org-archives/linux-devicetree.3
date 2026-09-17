@@ -1,103 +1,103 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD1DE3CDBD3;
-	Thu, 17 Sep 2026 19:04:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D05B33B9922;
+	Thu, 17 Sep 2026 19:05:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789671849; cv=none; b=sptVEhH8OcU8FOUIaMFec1obKY2dlQAw7r+KZ2PZPcrSpjVpBZWD6dBLfryt4zFjiZ1VznwLZCYWO6YaMA8/JnLvb83MBp5LK7wVGky2bqEQ6JnxTkj11osgG02DgAYHdxBSh8awopvikH+X6WBpubL74zI3nPQ3cV0H1CFIB94=
+	t=1789671955; cv=none; b=iEV8UV5ic3WG1afOe5jhF/M9bvNt/djT2KvCDFm/rDzIbz/IxFRxuFTpfXa3NBJSfzzF6dwnhKKYv4frpGfiRbOjbh40Jbvs2gMC6cSaW1JcgJruJiqtKR9TinlgzVm1WqDUYiCIY2qGbPaFth5CLutJlTjM2RonicLogttBT4w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789671849; c=relaxed/simple;
-	bh=tCosBkLYGEEsi74OqSOrc66diUULUxKBq3+Wh50tyjM=;
+	s=arc-20240116; t=1789671955; c=relaxed/simple;
+	bh=iWss4BA5cY0gBqeP9AXZVn8nZYhA8v2LXLeKSLy+YM0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CB2CvTaSAO/x5LrFDjnH1sopLgKM3GmFLreCIBTw2jViAsSBGXFODUq8LCyy+2CjiSxt/UoSOd3us1s3VU7j5U7570YepuTATK9Yr6kVQFnZP2IpRVov72gjtM6u138eXkeOQGt9CQ885Rz++u1uMrU4DlNtbbyo1AZNwKQi8/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k48NjLkH; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=c6mIPJRjR1vmId4nLrTOZTdHcW45tg65m4pQmeo7Bms4x40soi1SntviZ8Ud2yL7LopElEFrp3fXfbh29Q20ZoeVLYfE+oyS0m0xagZncVOyL9OJ9cGm/xFqEFMytwh6Z5Ppa+WQPDo7V84zOKEaMXi8k9AjsP+n7YzwUGhHTzI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DqgSU13c; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k48NjLkH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51E801F000FF;
-	Thu, 17 Sep 2026 19:04:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DqgSU13c"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 705E11F000FF;
+	Thu, 17 Sep 2026 19:05:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789671847;
-	bh=gzQp6LW1nXvwBEwBhGNPe+tNOASC0dgPxppHtMaIJkM=;
+	s=k20260515; t=1789671953;
+	bh=6TZ37CAeePpQmRnllKX+Aqan/MVjgNrMVatDTqYQR4g=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=k48NjLkHVhtOalPBGpW0mEiCAI8LrDMLOLiZZXWRnf6WbeYW47QCVsuZaVq3BD6PS
-	 XUj//7Wh+NEwRa44zMB7p+gOfG4tMr0K9Fi+m735eHJ7v8M139VmX1Ri7YIcA5LtVY
-	 ZryHyhQrvuiNZ9NBiopiVKxfWj4eRtwA6+AkAWaHss8V28snEBfZgiA9uQUpOQzN6+
-	 s+JLhtI68GSF75d1C8CD9Hr3S8EOcR+AZuNZPLVqFyJDUEdOmja5kkOxJb6PrtMtNZ
-	 oWIryW6xoOLDS0OV5YGZqloxJtvl0jkE/QfLDaQQM5e6sEcdSvaYVuoEHIJWaEiQwD
-	 oecVv3ZxWaUbA==
-Date: Thu, 17 Sep 2026 14:04:06 -0500
+	b=DqgSU13cs2hUNnUswA+a/YC5PVQuD4vlgIxaMcPlUA1b5++RNmOEH5FnXcRfzmeWe
+	 he+GgrzYfnHcHFN0SEPhTNpqL48btmCtZ8Gfhale8oVjwWDa31rVm1iOnI0GgeFqay
+	 Tb+WBQmqC1nQQb0S2DImU083AqZiOntcnOXb/CZ+8O8h3Ylq4JHa2StyDi+Be7RZQ9
+	 2qAYHdPOd+T26zRfoCBhNpzJCutYfDpGnCyPv5laNJfnqU4e/xdhMbN/8rtiZ9AsSE
+	 WeaTRt5fVOzRAjNVJGSWFu3uG5kuIKXQhhP7Potf9lNCKplq5AEo7bP8Jw698Q+Ogo
+	 S2wiw7tOD7b6w==
+Date: Thu, 17 Sep 2026 14:05:51 -0500
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Douglas Anderson <dianders@chromium.org>
-Cc: Jonathan Hunter <jonathanh@nvidia.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>, devicetree@vger.kernel.org,
-	Conor Dooley <conor+dt@kernel.org>, Suman Anna <s-anna@ti.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Michal Simek <michal.simek@amd.com>,
-	linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-tegra@vger.kernel.org, Konrad Dybcio <konradybcio@kernel.org>,
-	Sebastian Reichel <sre@kernel.org>, linux-kernel@vger.kernel.org,
-	Lee Jones <lee@kernel.org>, Jassi Brar <jassisinghbrar@gmail.com>,
-	linux-sunxi@lists.linux.dev,
-	Thierry Reding <thierry.reding@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	Jernej Skrabec <jernej.skrabec@gmail.com>
-Subject: Re: [PATCH v2] dt-bindings: mailbox: Delete old 'mailbox.txt'
- bindings file
-Message-ID: <178967102478.3104808.16225171904149470188.robh@kernel.org>
-References: <20260814124603.v2.1.I8b3ff71c528133e7d6f81fe926fa39e6451d63fd@changeid>
+To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	Saravana Kannan <saravanak@kernel.org>
+Subject: Re: [PATCH v3] of: property: add i2c-parent to fw_devlink supplier
+ bindings
+Message-ID: <178967195044.3153967.12195554835318788893.robh@kernel.org>
+References: <20260815-b4-of-property-add-i2c-parent-v3-1-c22588b6482a@nexthop.ai>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260814124603.v2.1.I8b3ff71c528133e7d6f81fe926fa39e6451d63fd@changeid>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260815-b4-of-property-add-i2c-parent-v3-1-c22588b6482a@nexthop.ai>
 
 
-On Fri, 14 Aug 2026 12:46:12 -0700, Douglas Anderson wrote:
-> As per mailing-list discussions [1] [2] [3], we want to delete the
-> following old file from the device-tree bindings that live in the
-> Linux kernel git tree:
-> * Documentation/devicetree/bindings/mailbox/mailbox.txt
+On Sat, 15 Aug 2026 20:33:13 -0700, Abdurrahman Hussain wrote:
+> Platform-device i2c muxes (i2c-mux-reg, i2c-mux-gpio, ...) reference
+> the bus they multiplex with an i2c-parent phandle and hold a reference
+> on that adapter from probe until remove. Unlike muxes that are clients
+> on the parent bus, they live outside the adapter's device hierarchy,
+> so nothing orders their teardown against it: if the adapter's device
+> is unbound first — e.g. while reverting a device-tree overlay whose
+> changeset attached the mux nodes before the controller nodes —
+> i2c_del_adapter() blocks forever in
+> wait_for_completion(&adap->dev_released), waiting for a reference that
+> is only dropped later in the same teardown sequence.
 > 
-> The old .txt file did have some descriptive text about what some of
-> the properties meant. Those have been added to the dt-schema
-> repository in a pull request [4].
+> Teach fw_devlink about i2c-parent so the core creates the
+> corresponding device links: consumers are unbound before the parent
+> adapter's device, and probe ordering no longer needs -EPROBE_DEFER.
 > 
-> Also remove dangling references to `mailbox.txt` across all remaining
-> device-tree binding documentation files.
+> A plain DEFINE_SIMPLE_PROP() cannot be used because the property has
+> two incompatible layouts: the i2c mux bindings hold a list of bare
+> phandles (i2c-demux-pinctrl takes several), while toshiba,tc9563 holds
+> a single phandle followed by an i2c slave-address cell. The two forms
+> are indistinguishable in the flattened tree, and a 0-cell parse of the
+> tc9563 form would read the slave address as a phandle, linking the
+> consumer to whatever node happens to carry that phandle value. Use a
+> custom parser that only takes entry 0 for toshiba,tc9563 nodes.
 > 
-> Link: https://lore.kernel.org/r/20260722140214.GA548057-robh@kernel.org [1]
-> Link: https://lore.kernel.org/r/dc7a2041-50a4-482e-9930-566bb3fd1e72@kernel.org [2]
-> Link: https://lore.kernel.org/r/CAL_JsqKVjQ2m-dzMUENQry-f_YE9QrYSOKoH9CPj1gjj8XkPRA@mail.gmail.com [3]
-> Link: https://github.com/devicetree-org/dt-schema/pull/202 [4]
-> Cc: Sudeep Holla <sudeep.holla@kernel.org>
-> Cc: Jassi Brar <jassisinghbrar@gmail.com>
-> Cc: Lee Jones <lee@kernel.org>
-> Signed-off-by: Douglas Anderson <dianders@chromium.org>
+> Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
 > ---
-> - v1: https://lore.kernel.org/r/20260804133801.1.I8b3ff71c528133e7d6f81fe926fa39e6451d63fd@changeid
+> Changes in v3:
+> - Fix the tc9563 compatible check: match "pci1179,0623" (the actual
+>   binding compatible) instead of "toshiba,tc9563", which never matched
+>   and let the bare-phandle parser misread the i2c slave-address cell as
+>   a phandle (Sashiko AI review)
+> - Link to v2: https://patch.msgid.link/20260815-b4-of-property-add-i2c-parent-v2-1-239c6da9e097@nexthop.ai
 > 
 > Changes in v2:
-> - Remove dangling mailbox.txt references as per Sashiko.
+> - Use a custom parser instead of DEFINE_SIMPLE_PROP: toshiba,tc9563 puts
+>   an i2c slave-address cell after the phandle, which a 0-cell parse
+>   would misread as a phandle (Sashiko AI review, Rob). Kept the full
+>   phandle-list parse for other users since i2c-demux-pinctrl takes
+>   several parents; only tc9563 is limited to entry 0
+> - Move the Signed-off-by into the commit message proper; v1 had it below
+>   the '---' cutter line where it would be dropped on apply
+> - Link to v1: https://patch.msgid.link/20260813-b4-of-property-add-i2c-parent-v1-1-a2487e920ce1@nexthop.ai
 > 
->  .../firmware/nvidia,tegra186-bpmp.yaml        |  6 +-
->  .../mailbox/allwinner,sun6i-a31-msgbox.yaml   |  3 -
->  .../bindings/mailbox/altera-mailbox.txt       | 12 ++--
->  .../mailbox/hisilicon,hi3660-mailbox.txt      |  2 +-
->  .../mailbox/hisilicon,hi6220-mailbox.txt      |  2 +-
->  .../devicetree/bindings/mailbox/mailbox.txt   | 60 -------------------
->  .../bindings/mailbox/ti,omap-mailbox.yaml     |  3 +-
->  .../power/reset/xlnx,zynqmp-power.yaml        |  9 +--
->  .../bindings/soc/qcom/qcom,aoss-qmp.yaml      |  2 +-
->  9 files changed, 15 insertions(+), 84 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/mailbox/mailbox.txt
+> To: Rob Herring <robh@kernel.org>
+> To: Saravana Kannan <saravanak@kernel.org>
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> ---
+>  drivers/of/property.c | 17 +++++++++++++++++
+>  1 file changed, 17 insertions(+)
 > 
 
 Applied, thanks!
