@@ -1,76 +1,75 @@
 Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD9F0356771
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 22:10:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8215249B47C
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 22:11:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789683056; cv=none; b=e2FleYJ4Pg9wdqG8QqQqR/jvCrs8U6IYS5LIu9T/OF0IpAQQgdosKS+R7az6P7sIfEdUfrft5i+j3bHeiG6644Be/QkT3mgo/yoFXJVza7tJWzIKV+MjNCi2e9Zd8tpqLJ/M6uLL6fFrIhLIhk42pJaORpkZJRwuJ6dDNouIex4=
+	t=1789683106; cv=none; b=UmGKLBggBPhiJWVyU/ljmtQFutxKLJLv7neGg6bGut+vAdpahkC4ifK4Nn2Kmlvk4UwVBk2sSESz5CY6q4DZUeyzQsC0Un0l05Bi/1GaQ9xXwNQ2Y60WHvLfjmWZ9MCb6TzSc5qNN9635i7gdz+s2j6g/6essavN6F33f0eEZws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789683056; c=relaxed/simple;
-	bh=EIOooAgRXTXYR3nUPe7+qWA3VnGSbF7f3BmKeOhOlR4=;
+	s=arc-20240116; t=1789683106; c=relaxed/simple;
+	bh=jOlxdf/m6Y+j1QfMQQ12WJCRFexc8gkPxAks8z8FOGM=;
 	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=H5EYMPJVR882qGcWnOgnLKNpg2wb+cCxNm4Sri2Y+cVDl0Stak/oadnYnL6gpy5N3ZKQk4ALVJoEj7EZ1OaI00Ixg4Z7DWuIUXiOym3XpGXoz26bHU0Ocs9GgaE/S4IXq1zfjUFtSIGfjvaHiBqfaP0Ti3ix2Ub+xg9t7WwxrsY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=conchuod.ie; spf=pass smtp.mailfrom=conchuod.ie; dkim=pass (2048-bit key) header.d=conchuod.ie header.i=@conchuod.ie header.b=cWqqr2Ze; arc=none smtp.client-ip=74.125.228.140
+	 MIME-Version:Content-Type; b=mQfpxYR0B7sJj1FfMVxAorJPRjUZFqqHW7kYsdGZMksufZ5Fig5OsM2JmMbX1ltckJ8wgh//VjZ7wcNa58mOGtNuKfeQzoiGp2PZ9qbyYsCK11rY9kO7N8w6xoeKZpG6MgoiTWR80rBhahtDL47CBb4tEuermPYvmrAwfubR64k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=conchuod.ie; spf=pass smtp.mailfrom=conchuod.ie; dkim=pass (2048-bit key) header.d=conchuod.ie header.i=@conchuod.ie header.b=dIcanz0T; arc=none smtp.client-ip=74.125.228.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=conchuod.ie
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=conchuod.ie
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=conchuod.ie header.i=@conchuod.ie header.b="cWqqr2Ze"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f70553dso16053566b.0
-        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 15:10:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=conchuod.ie header.i=@conchuod.ie header.b="dIcanz0T"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254fa663c1so14996366b.0
+        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 15:11:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=conchuod.ie; s=google; t=1789683052; x=1790287852; darn=vger.kernel.org;
+        d=conchuod.ie; s=google; t=1789683101; x=1790287901; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:message-id
          :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=4MdRysMZonNBikWS5TQbdWBsvJt0hCvhc9Psf0kfFPA=;
-        b=cWqqr2Zehd91I8SRp8ZWnt8nKP+KdLwI+4gf5UFOGCyS6MpCNkxt8ZhMJhOvv/Ad8D
-         Zu72/HiBiA9TpsCS7PwdQaoJke4ffo2PdDVlH20LWroLPhQxy49Z+85584l8rRC7KvSk
-         uL9gfDNtlFA4kuoK41Kd9lT1Cvqd9IuP/Vk6GWo1dliV/eG+PAwa+MllWH49DX6FpZJL
-         Lh+sjG0bHrAmTUIhjMB0NvDfofF6LKPR2ju1ta/gyKwWYydbW6u4STkQaE0Vr0WDgksx
-         DE352RHudZ0ijuhv6oQgG2Y5pPbdRU/Y91qY2l9/8ESAKOmFa+JDwr0GEJfAf8jQeMtv
-         kKxw==
+        bh=Mb7i+gbo6kzJmT1apFAi0LX87LEqLWxo+73kgMMvIAM=;
+        b=dIcanz0TCelQJY9YfrgzqE6S0EG+I8klaUHjbnbKO0kVa9rCRhtiMil9QXmkgR8flg
+         I61DS+fsVbBQ/qlHuyhIUh/XRtdKZlFx9v5+bcI6bIWO1kWDMNTcna6aJdUT1M6zmEGQ
+         hkeu7PU12e5fdypgpz3ySKbR6MTTul6uQ+BMmMO1N/CtSKDvCvD4u/YS05EyrK+X63U7
+         ppkbzDhHFLiFxx2iXuqNza5GREU3ySppgxjMjQUQw7wR6WcqfV8o+/ckrm7kzJjMJLTW
+         huansbpLWzcqGuXcW6VIL8yFO6cLGYCnDGbrrUx1N6xxC2ro3e3f/hs20DePPbX2H9sC
+         n/Jg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789683052; x=1790287852;
+        d=1e100.net; s=20260707; t=1789683101; x=1790287901;
         h=content-transfer-encoding:content-type:mime-version:message-id
          :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=4MdRysMZonNBikWS5TQbdWBsvJt0hCvhc9Psf0kfFPA=;
-        b=KVufwwprlMAdtRFUKUawM08zwywlrX40RK5B/p6VfrLEomh0wzSPbe0gOhsRtdSWBI
-         YT2srguhT/IkwkV77JH/8QdWYAiHnKInUFAeGJ8lJHa8znoSsbiWzuTEi0YPjEmSd2Dd
-         Ir+aEdtlY3vr46xDppjDlJboVLXnsatyODdDmqWEhqh7rcVWBW63gnNL6xpM0JCXQ11/
-         xhX23q6gndFuQP56845ObvAFXfUGjmFg2Te4j1N0W79H3Ei44taQLfei32oLDMChkykr
-         jYKOI9C/KS0yjYfGy+3kJaUlTubW/7IYsAPJ+liAbeH8gTsb1EvKVXuq36C5cz0l5iza
-         WSNg==
-X-Forwarded-Encrypted: i=1; AKwUvByg8VXqqEaKCqJ9hsbXxHyb/y83zTFZBuQinYxjCltt2JC1WGdmXnmM8KKO2oVmMCK4EMjBd7PH0Ef4@vger.kernel.org
-X-Gm-Message-State: AFuF++lO3pID6nxFcfMvNDxuzRJ5hoiELVuBAFNMeedS5qX6QsqiuoUV
-	L034C+ErmsZxKTlPADBWAPz3cLg3pg9hputWcfIS/TNVi1fWkVxS0RYkgAciA97zSbQ=
-X-Gm-Gg: AYBFou0DXl75oR8bzEssHfcEX9sY4rmc7UDsSyaSuURzpMxdFJu3nhdLh3f5TzlWUlq
-	MIcvUhx9srTd13jaAs9EWcrs7m3rHW8gaqn6hbjMRse4dZPeyLuhJ/SMCoZ21xaCaikJxdiSSNt
-	vP4Wl85X9Y2MNxyGEhr5aZUnaq6bOObrBQUxfEb7l3NzsxawZ0ST2WNAKCYQkAo8WFsAZ9W6kqz
-	2gIbrKTOTcGEHUeLls8Op5+o7AWKCN2pHJ8MrFRlx0J4z0DpkpsVgqmYsoJUNMq9Oz4HO4WVFUt
-	yI50NoLAbKXDRhPYDvDFvMHYBBMYPo0Hva7MND0bUT9AwDcGQrOp+sUOvdga7ZmFaqk2iJTBzov
-	wseGix1kXE4FZober1xJkUqmkROMyJt4ly9wXZklPCsVTR77MUbb1yWQMuDB9LPSP41MkkLU7vR
-	xFm/xpNSyklAMd9Cee03RSHZUPHMBDTwrSJWv2ErL7bNx/ybUcgDdnlAxZJafHzJbUl+uIYCcVv
-	mjraM33Dk0PbUF3bfcbvLzXNNpgu+8ZiflggPvZN8zqtwil9Tw=
-X-Received: by 2002:a17:907:9481:b0:c26:1648:a069 with SMTP id a640c23a62f3a-c2a15e529e2mr50347066b.36.1789683051860;
-        Thu, 17 Sep 2026 15:10:51 -0700 (PDT)
+        bh=Mb7i+gbo6kzJmT1apFAi0LX87LEqLWxo+73kgMMvIAM=;
+        b=g9QqQtVACCsv3GtG/tzq5GkiaNxxkiFSIJ5Hd6MsUDCXXPb/g3lKjokvdCzIujYfVw
+         vwKDfEhkbcRRKfbjmK2AD/crzUP4+ZWhoKZ0/poasjM8eAR4rMDLEHwDfa9CeZsw+cT6
+         WbMatwGCkigdu9Pw/ABMHPbTLO8snSLeZOVA7vzDcXRvV8bPRlQGEeMaDLrsHUmd1y9+
+         svEAf8GK8kgLcBGlo4+W+b1Pyxb9HKimSDNeV+OiKfPp+PcNTXBwE3FpAlf2F6Ed1oOH
+         5bDu4EjpPcH8Hv4gYG6c6JordaNugYB+1pWBs0SDEDOMOC5nSbLNZe6u3erQOnSbVrmc
+         qg0Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwPam3ofxUKp5DoDYGfZo/LnJJXKOGT9E1dsyPWdZG2ksSPf9d7YHnQ6vTB2At9JlAOhr6kQFD0AUK1@vger.kernel.org
+X-Gm-Message-State: AFuF++kd6WkfLHjjyCFp+RPsYK4ZWifBcoZR2D0ycA2hJLKEebRMSv7U
+	VNyItyc04wNwp9fSCoDvaNUBbZtvctzbR17NFsVqCtT8egVWDgahB3iQ4HNjSlKKhZE=
+X-Gm-Gg: AYBFou3FNqNQrtXI5XgrFwpIwc2tB2+bhhWSz/xsaXLOkZpcDhwysJwr7GSGobb93Vc
+	mq20cEIbW80K8kdVe/jBA81L5JEdszowtidpwzR3czEh5Byo4mEeUIaSz/nTnlWgFjKMs01Xkar
+	oHt7P6YXOYVW3ZfbxMnZxpqigwyyEdqc/O4WeBJ5U6PSrcm4FuPRqHX6NOu5n7BffnCUGccIl48
+	TboMeJRl8lbfLwHf71f7tWo4/K+RNXti8Q3TLhF9xQDdeqBTQOdo93cQlWkVW4XqnWeeQlXCo01
+	3LsuxtcB4hZ8Z36ycWa67LON6ppV9/Gv8lBDXKantSpAb//ECRQ/UZDxbG1QgTLP090eGkkUhAM
+	OeBQllin1ju/rPFUQfN7207n7qMYQTQmar6u/h/70BxeR2Nyo+8cW86ta7wdwLx6DQsMvVdy93+
+	vBbQ03oObuFLxsPRHAcf20gDAbUrzicKodpzobmzEkPMJ50w3J/ubIbP1KbKt+sC8qyVs5icaFm
+	BxHClC7gtF4JGHhxHWsVqkHbPtqFwor3iiMdQEDC5hE+q/pDj04dBjrMhMVqQ==
+X-Received: by 2002:a17:906:f584:b0:c29:f5d5:5a91 with SMTP id a640c23a62f3a-c2a15810956mr55914166b.27.1789683101299;
+        Thu, 17 Sep 2026 15:11:41 -0700 (PDT)
 Received: from ehlo.thunderbird.net (ip-077-020-009-205.vkd66.pools.vodafone-ip.de. [77.20.9.205])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29de453f04sm349106366b.15.2026.09.17.15.10.50
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29de07ef15sm347128266b.9.2026.09.17.15.11.40
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 17 Sep 2026 15:10:51 -0700 (PDT)
-Date: Fri, 18 Sep 2026 00:10:48 +0200
+        Thu, 17 Sep 2026 15:11:40 -0700 (PDT)
+Date: Fri, 18 Sep 2026 00:11:39 +0200
 From: Conor <mail@conchuod.ie>
-To: rahul sharma <r-sharma3@ti.com>, Conor Dooley <conor@kernel.org>
-CC: peda@lysator.liu.se, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, vigneshr@ti.com
-Subject: =?US-ASCII?Q?Re=3A_Re=3A_Re=3A_=5BPATCH_1/2=5D_dt-bindings=3A_mux-con?=
- =?US-ASCII?Q?troller=3A_ti=3A_add_binding_for_event_mux_router?=
+To: Petko Manolov <petko.manolov@konsulko.com>, Conor Dooley <conor@kernel.org>
+CC: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, dinguyen@kernel.org
+Subject: Re: [PATCH v5 1/3] dt-bindings: vendor-prefixes: add Draeger AG
 User-Agent: K-9 Mail for Android
-In-Reply-To: <62194a7f-5b7e-419a-8235-9eb46f2f2e7d@ti.com>
-References: <20260828100615.1700223-1-r-sharma3@ti.com> <20260828100615.1700223-2-r-sharma3@ti.com> <20260828-goes-scrawny-a5cf40c9514d@spud> <bacf61ea-91b1-454c-97aa-8c6e4ca07b16@ti.com> <20260915-shredder-liver-219bbc18dd18@spud> <62194a7f-5b7e-419a-8235-9eb46f2f2e7d@ti.com>
-Message-ID: <8724E360-7B38-48E2-8A5D-9BBAA69EAD06@conchuod.ie>
+In-Reply-To: <20260917151300.GE4583@cabron.k.g>
+References: <20260915133805.3249587-1-petko.manolov@konsulko.com> <20260915133805.3249587-2-petko.manolov@konsulko.com> <20260915-swore-armadillo-12f821bb00fc@spud> <20260917151300.GE4583@cabron.k.g>
+Message-ID: <B1132C07-1C13-474A-9086-84F6B94E4BF8@conchuod.ie>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -83,208 +82,52 @@ Content-Transfer-Encoding: quoted-printable
 
 
 
-On 17 September 2026 17:44:21 GMT+02:00, rahul sharma <r-sharma3@ti=2Ecom>=
- wrote:
->Hi Conor,
->
->On 15/09/26 19:19, Conor Dooley wrote:
->> On Tue, Sep 15, 2026 at 06:10:45PM +0530, rahul sharma wrote:
->>> Hi Conor,
->>>=20
->>> Thanks for reviewing=2E
->>> Apologies for the delay in responding=2E
->>>=20
->>> On 28/08/26 21:57, Conor Dooley wrote:
->>>> On Fri, Aug 28, 2026 at 03:36:14PM +0530, Rahul Sharma wrote:
->>>>> Add binding for the event mux router of TI's K3 based SoC AM62L=2E
->>>>>=20
->>>>> The TI K3 mux routers which route the GPIO input events or Time-Sync
->>>>> events b/w peripherals instead of routing to a CPU=2E
->>>>>=20
->>>>> Refer Section 10=2E2 and 10=2E2=2E1 of https://www=2Eti=2Ecom/lit/pd=
-f/sprujb4
->>>>>=20
->>>>> Signed-off-by: Rahul Sharma <r-sharma3@ti=2Ecom>
->>>>> ---
->>>>>    =2E=2E=2E/mux/ti,am62l-event-mux-router=2Eyaml        | 79 ++++++=
-+++++++++++++
->>>>>    1 file changed, 79 insertions(+)
->>>>>    create mode 100644 Documentation/devicetree/bindings/mux/ti,am62l=
--event-mux-router=2Eyaml
->>>>>=20
->>>>> diff --git a/Documentation/devicetree/bindings/mux/ti,am62l-event-mu=
-x-router=2Eyaml b/Documentation/devicetree/bindings/mux/ti,am62l-event-mux-=
-router=2Eyaml
->>>>> new file mode 100644
->>>>> index 000000000000=2E=2Ea5ba7f78a156
->>>>> --- /dev/null
->>>>> +++ b/Documentation/devicetree/bindings/mux/ti,am62l-event-mux-route=
-r=2Eyaml
->>>>> @@ -0,0 +1,79 @@
->>>>> +# SPDX-License-Identifier: (GPL-2=2E0-only OR BSD-2-Clause)
->>>>> +%YAML 1=2E2
->>>>> +---
->>>>> +$id: http://devicetree=2Eorg/schemas/mux/ti,am62l-event-mux-router=
-=2Eyaml#
->>>>> +$schema: http://devicetree=2Eorg/meta-schemas/core=2Eyaml#
->>>>> +
->>>>> +title: TI Event Multiplexer on K3 SoCs
->>>>> +
->>>>> +maintainers:
->>>>> +  - Rahul Sharma <r-sharma3@ti=2Ecom>
->>>>> +
->>>>> +description:
->>>>> +  The TI K3 mux routers routes the GPIO input events or Time
->>>>> +  Sync events between peripherals instead of routing to a CPU=2E
->>>>> +
->>>>> +allOf:
->>>>> +  - $ref: mux-controller=2Eyaml#
->>>>> +
->>>>> +properties:
->>>>> +  compatible:
->>>>> +    const: ti,am62l-event-mux-router
->>>>> +
->>>>> +  reg:
->>>>> +    description: Register base address and size=2E
->>>>> +    maxItems: 1
->>>>> +
->>>>> +  '#mux-control-cells':
->>>>> +    const: 1
->>>>> +    description:
->>>>> +      Number of cells in a mux control specifier=2E This should be =
-1=2E
->>>>> +      The cell specifies which mux control to use (0-based index)=
-=2E
->>>>> +
->>>>> +  ti,reg-mask-val:
->>>>> +    $ref: /schemas/types=2Eyaml#/definitions/uint32-matrix
->>>>> +    items:
->>>>> +      items:
->>>>> +        - description: Register offset (relative to reg base)
->>>>> +        - description: Bit mask for the mux control bits
->>>>> +        - description: Value to write when mux is active (state 1)
->>>>> +    minItems: 1
->>>>> +    description: |
->>>>> +      Array of triplets specifying register offset, mask, and value=
- for each
->>>>> +      mux control=2E Each triplet contains:
->>>>> +      - register offset (relative to reg base)
->>>>> +      - bit mask for the mux control bits
->>>>> +      - value to write when mux is active (state 1)
->>>>=20
->>>> You have a device-specific compatible, why do you need this? If the
->>>> active setting depends on the device or w/e, why can that not come fr=
-om
->>>> a mux-control-cell?
->>>=20
->>> This is a boot-time/board-fixed routing decision, not a runtime-select=
-able
->>> mux that any driver ever calls mux_control_select() on=2E
+On 17 September 2026 17:13:00 GMT+02:00, Petko Manolov <petko=2Emanolov@ko=
+nsulko=2Ecom> wrote:
+>On 26-09-15 17:29:29, Conor Dooley wrote:
+>> On Tue, Sep 15, 2026 at 04:38:02PM +0300, Petko Manolov wrote:
+>> > Add a vendor prefix for Draegar AG, which is Draegerwerk AG & Co=2E K=
+GaA
+>> >=20
+>> > Signed-off-by: Petko Manolov <petko=2Emanolov@konsulko=2Ecom>
 >>=20
->> 2/3 of this property appears to describe the register layout of the
->> device, that's not affected by the board or some boot time decision=2E
->>=20
+>> A Link: to their website would be nice=2E
 >
->You are right about the mask element; I will move the mask into the drive=
-r since it is constant across all entries=2E However, the reg-offset must r=
-emain in the DT, as it is specific to each BCDMA channel's trigger line con=
-figuration=2E This allows the DT to define the unique routing offsets requi=
-red for the hardware=2E
+>I assume the link is supposed to go in the commit message, correct?
 
-The reason you cite here for needing reg offset is exactly what using mux-=
-controls from a consumer node provides=2E
+Yes=2E
+
+Thanks,
+Conor=2E
 
 >
->>>=20
->>> Please refer below link for the IP block diagram:
->>> https://github=2Ecom/lucifer-9852/linux/commit/aed1746e411a9f0ad7824f4=
-e4a7121e6f56a4ef2
->>>=20
->>> For detailed view of IP you can refer Section 10=2E2 and 10=2E2=2E1 of=
- TRM
->>> https://www=2Eti=2Ecom/lit/pdf/sprujb4
->>>=20
->>> That's precisely why we added ti,reg-mask-val as a controller-side pro=
-perty
->>> rather than sourcing the value from a consumer's mux-control-cell: the=
-re is
->>> no runtime consumer selecting between states, so the routing has to be=
- fully
->>> described on the provider=2E
->>=20
->> Why do you have #mux-control-cells if there are no consumers? I don't
->> understand why the GPIO controller or the device that the interrupt is
->> being routed to cannot have a mux-controls property that contains the
->> "value to write when the mux is active"=2E
->>=20
 >
->You are correct regarding #mux-control-cells=2E Since, this driver is use=
-d for static routing rather than runtime selection by a consumer, that prop=
-erty is unnecessary=2E I will remove it=2E
-
-I still don't understand this argument, if you have a static configuration=
- just do it the probe of the consumers driver=2E
-Then you get to use standard properties rather than encode the register ma=
-p in the binding=2E=2E=2E
-
+>		Petko
 >
->BR,
->Rahul
 >
->> Confused,
->> Conor=2E
+>> Acked-by: Conor Dooley <conor=2Edooley@microchip=2Ecom>
+>> pw-bot: not-applicable
 >>=20
->>>=20
->>> BR,
->>> Rahul
->>>=20
->>>>=20
->>>>> +
->>>>> +  idle-states:
->>>>> +    $ref: /schemas/types=2Eyaml#/definitions/uint32-array
->>>>=20
->>>> This is not needed, you get the type from mux-controller=2Eyaml=2E
->>>>=20
->>>> pw-bot: changes-requested
->>>>=20
->>>> Thanks,
->>>> Conor=2E
->>>>=20
->>>>> +    description: |
->>>>> +      Idle state for each mux control=2E Each entry corresponds to =
-a mux control:
->>>>> +      - 0: clear masked bits when idle, also refers to inactive sta=
-te
->>>>> +      - 1: set configured value when idle, also refers to active st=
-ate
->>>>> +      - MUX_IDLE_AS_IS (-1): keep current state when idle
->>>>> +
->>>>> +required:
->>>>> +  - compatible
->>>>> +  - reg
->>>>> +  - '#mux-control-cells'
->>>>> +  - ti,reg-mask-val
->>>>> +  - idle-states
->>>>> +
->>>>> +additionalProperties: false
->>>>> +
->>>>> +examples:
->>>>> +  - |
->>>>> +    #include <dt-bindings/mux/mux=2Eh>
->>>>> +
->>>>> +    // Example 1: TI AM62L GPIO Mux Router
->>>>> +    mux-controller@a00000 {
->>>>> +        compatible =3D "ti,am62l-event-mux-router";
->>>>> +        reg =3D <0xa00000 0x400>;
->>>>> +        #mux-control-cells =3D <1>;
->>>>> +
->>>>> +        /* Mux Register addresses: 0xa00004 + (J =C3=97 4) */
->>>>> +        /* GPIO0_40 -> BCDMA trigger 15 */
->>>>> +        ti,reg-mask-val =3D <0x40 0x000ff 0x00028>;
->>>>> +        idle-states =3D <0>;
->>>>> +    };
->>>>> --=20
->>>>> 2=2E34=2E1
->>>>>=20
->>>=20
+>> > ---
+>> >  Documentation/devicetree/bindings/vendor-prefixes=2Eyaml | 2 ++
+>> >  1 file changed, 2 insertions(+)
+>> >=20
+>> > diff --git a/Documentation/devicetree/bindings/vendor-prefixes=2Eyaml=
+ b/Documentation/devicetree/bindings/vendor-prefixes=2Eyaml
+>> > index ba2002969373=2E=2E276d62b848d5 100644
+>> > --- a/Documentation/devicetree/bindings/vendor-prefixes=2Eyaml
+>> > +++ b/Documentation/devicetree/bindings/vendor-prefixes=2Eyaml
+>> > @@ -467,6 +467,8 @@ patternProperties:
+>> >      description: DPTechnics
+>> >    "^dptel,=2E*":
+>> >      description: Guangdong Dapu Telecom Co=2E, Ltd=2E
+>> > +  "^draeger,=2E*":
+>> > +    description: Draegerwerk AG & Co=2E KGaA
+>> >    "^dragino,=2E*":
+>> >      description: Dragino Technology Co=2E, Limited
+>> >    "^dream,=2E*":
+>> > --=20
+>> > 2=2E47=2E3
+>> >=20
+>
 >
