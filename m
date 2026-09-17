@@ -1,61 +1,63 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5198E345EA9
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 08:26:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83F5E43E486
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 08:27:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789633630; cv=none; b=rO6rIXI7aj3jqehja3y5/bLO2O59T6Gr8kpm1RkDwwwYXzPOIwzuslYlB7w74K/AYTRXhE83BN8cnYHWapC9MvxdD8qaa6olVnj/zT4p0rfXF4F6924rQ/1Ln9g9/dKAzFydDYQoq+FkqouQhaDFQPNO/vj3wxXPGf8Obntn0sI=
+	t=1789633632; cv=none; b=p76uhbaodlFj67vOe+sB7nnkCsnh0X7knChYfRbTIqs3JWymwb8EmZQXFEw5MdCs0SjJsq4Ns12e2/ERzUVjduuMZWHgQa3jWtO8GlWDAKSN7rtwaTkuYN9Wy0wo1v/kqD3hWBSCms2K1xO8oxTINRqkwCMxlPuFheL93whSI8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789633630; c=relaxed/simple;
-	bh=mruE3LgZhq7wOba3b7w+a9IFoAX8feY94ivylDxVyMU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lUkHpvzA0JA7ibTfHz1DqMaSn8gU1YqBQkZu96ZH0gS6tsmQ9QAu+H60n3JkJH/MwGIvYXcV+Dt/OhECp72cGZMmYdEN86ZDkXCPJVjDjzxABvv2siR720UyFM4kfCgmwoq5a69E4X/AZYCy9DbDgDPBsjtL9NNSGP0dZtVlduk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ffroot.co.za; spf=none smtp.mailfrom=ffroot.co.za; dkim=pass (2048-bit key) header.d=ffroot-co-za.20251104.gappssmtp.com header.i=@ffroot-co-za.20251104.gappssmtp.com header.b=XOiJ7JzD; arc=none smtp.client-ip=74.125.225.76
+	s=arc-20240116; t=1789633632; c=relaxed/simple;
+	bh=reYmZn6g37x5F5xQdzOt9gcftnkp8Rmaq4aPQ+ap6JM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=NZigkl+awA+RAX5h0qcQqZkq/A/XGOlTbjihIqaclv5rivvfAVUcLjrqB/vlk/5hjgwDSkDFGFMOn/A3XFxDAgGSTjcOLPFCBzqRK+caouM6dyhwNyj65nHhkG81qWNRPLoKBS0sthlPE+b9iQxf8gyzepnaG2ivUXV8X0Mc5nc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ffroot.co.za; spf=none smtp.mailfrom=ffroot.co.za; dkim=pass (2048-bit key) header.d=ffroot-co-za.20251104.gappssmtp.com header.i=@ffroot-co-za.20251104.gappssmtp.com header.b=f8Dp/4jd; arc=none smtp.client-ip=74.125.225.99
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ffroot.co.za
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ffroot.co.za
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ffroot-co-za.20251104.gappssmtp.com header.i=@ffroot-co-za.20251104.gappssmtp.com header.b="XOiJ7JzD"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f62ccdb1so179201f8f.1
-        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 01:26:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ffroot-co-za.20251104.gappssmtp.com header.i=@ffroot-co-za.20251104.gappssmtp.com header.b="f8Dp/4jd"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48437356d60so279682f8f.3
+        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 01:27:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ffroot-co-za.20251104.gappssmtp.com; s=20251104; t=1789633608; x=1790238408; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TosaW+EYUtBmpByGJ+HlREE+xeLu7KYT+QjrxLFrU0s=;
-        b=XOiJ7JzDtu/cY0/N0E0qTbk2vWAAwlqy3o9RPWYy5apl7gCW6nZ+ThagAElypZv7v/
-         q64yTHkLxa42MHPM+pd5H5Qin5D/6iTbhW2f9HCnUHvxG4hVyRaWy9yKFSLHcIMupjlF
-         SHfLZB7QuZNb/qw0hV8RTz5CUD9LygQWHTI4NXjPqshhEdndOWns4b0ukMT7COsYM3kG
-         CAfIekQPWFbqnTzb8pM2x6+MVSuxikncNnCQPwh9LszNjA0hyuYB3KZ9hsSTC7oJJL9V
-         9NKCX5o0wZLqhhEg9G+JzYaMYSXXEqeshjesR0zIbBpSKEk3kjSuy3fQooNAK1hsMvWa
-         yL3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789633608; x=1790238408;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=ffroot-co-za.20251104.gappssmtp.com; s=20251104; t=1789633620; x=1790238420; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=TosaW+EYUtBmpByGJ+HlREE+xeLu7KYT+QjrxLFrU0s=;
-        b=Z200g2ashxYMt2nUf8FvBFbRl3t5o3J5W5Q2RH1LWCA/cdjXji7Uy5H80ImgSIaElN
-         U7xs1okHe7iBGSv41exULKbPNXwdryZ+VLySW97N6/W7x7s4VX2akr/+LAJNJWr6kYXr
-         qmnGdRpuRowtPKdczZwd0zA9XNL+u1Ip4hW6/Y510LvT/pR78uDnzsOgE4hLxkjPVKOs
-         YpKcn30EPThVNYj6DqMAtBNKHzge3y3iTUgAq4gIGqR/XbpDBO4wuoHiKufDONWIMi8h
-         sYz+ZRDhyl2hRLbj/abm/W3hcJyaZlh0Jw/izZRGKaCyBW0aVnE6k2IpPDBo/aQLUuei
-         fe4w==
-X-Gm-Message-State: AFuF++mzGLNtUzyqC497wIasAE1cSBBcSOQnB8N83SE0hs/Tg/YMzKt/
-	QoHdCCMduHQ/ZvUNvk4U6TT7q1/COnoiH/Z71+1aKSh2D5BoU94nU6CocI9ZUjtZGi0=
-X-Gm-Gg: AYBFou2m7fwChM/PNQwoJ+gVGpu7ioVYkfodZPDBsCJ8lX1pjRKog372Iv9xPrThZ0w
-	gdtlHwmJS3Tki5dvkzxHwdEg6fIQjMpsDh4a6+QK5YwWPUENRR6FVKIX1Jz3XCNblMGhVpVu/hR
-	ddCaF9OYwHEKFNVzi9VpGJAuvDZcnvrWJBqspUgn0TTVCx1IOONVbHR55gD37iz+kz8jcBKLugJ
-	9PMgNyQMJ19kB+39XhaHz+n9nwGxtNnKw0ubDQUGXriTmuh07tf+2029k4gg2msxhsnxeD06yL4
-	IKMWj8DpNlc+k4d2tGG4NlY135MYXicrGD9DxtO0irH5GKe5lm4Qs8wzUNmaYX+Wd2Z4vD7ye6A
-	y9y1fpJjXzRgCE+rtGipLOlDEAW4UhMS1iDtPT16xmolOavYQvkWxv4toI5jCYdcDEE+8JobuV1
-	HsN3IZuZezN1LKRBLz9WYdwWpt3NOchLseU2ywHR87Z4Fs+XyKWTNnUQ3tYBLKDvGmhAaSgHiGf
-	iur+yA2/XSgvc3/dY7YvZAfcddZNr/MnsGuJw==
-X-Received: by 2002:a5d:6f06:0:b0:486:fdd6:2677 with SMTP id ffacd0b85a97d-48713c07bd1mr3459940f8f.21.1789633608002;
-        Thu, 17 Sep 2026 01:26:48 -0700 (PDT)
+        bh=GsKXjxj5TCnOfXiRILa1fjUfcKm3nh3qcaT1EI0Ql1I=;
+        b=f8Dp/4jdH6nrRri5TkR9qzNOWfqNFFIgibfYJshBi4a4fvAEssseeUmhNw9GpJhYPV
+         GJzy7gKOoPAWOHZ4dsige/eTFFFBk2ewV8cFungIhdFchDEyTDI9/TB3pjcA8jSw3QoL
+         SeRcs7kuaOzCNgilHkJ7qGmVhilh9uqAmykD+KsrIFpM3ikQ0jfuxOHmn4egnnGaLqWt
+         uKaTE7CaV7fTnb0iyx6GgEuQKWY/2qalKKVQiRjWWlAHk8LmNNv6AZR94Jw33nyvuhzI
+         59HRROtZbutM7yAff7hkVBI4wU0dUqKYIwcdPIRNCf/PnxAq3NXMgZLWiTNBawkNrZ18
+         uRag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789633620; x=1790238420;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GsKXjxj5TCnOfXiRILa1fjUfcKm3nh3qcaT1EI0Ql1I=;
+        b=h6Mij+GlNs9gObrUu7H5VRAFZJS5tHuWp8NYOistPn5GH8Atu8iWRzoidRKmf/UXCV
+         A0L5UTsXkD8cFR0YP8gUEOANFz9xU1UhJFcjqXyldF9y71ZOa7P+wtsj+Ypfnomk2klA
+         ZTW4zRkoHOGwDBoF6yD18/jgI8WLS275zvicMnJoeb+OD3aARjvLHpjeHj49wJOrq0kY
+         sqVo7nGvF1Faot02kRtYW+9gvROY1Yu2uQofE1IqYCKwvlvXOQVcferaO/ANFA5mQZv3
+         McYVY8SOL7sASXAgIVV6fybCPLYQi5L0Tx16l4Ss2+m3C4neJk5NXS+hqCvuVUJIGTL4
+         DboQ==
+X-Gm-Message-State: AFuF++kqcITXo69AFdVcWY+xwqRPqd+WIYiCFXQ7bafrTJ/RKEgq9LM9
+	l3ROxOyvXSMznRikFHVqlB22MpLFh23FPZRBBrtfHLVdDl7w35jXjn1uziQcckT7Dhk=
+X-Gm-Gg: AYBFou1UZaLiA3peyP1iwjsQnSLfDUbyYUOUNC4MucDoVAZ0rijlI9sFRZZ9mUJ42J2
+	2jFJeX67ZFVP0rcg28mLgl/USD/rFF+tRMEHVqOAcMPy7DzOOqQ9nTqSxDoUJMTet9w5qE3JB0T
+	Wrl8w8bJfPdmt0/CqsNjcVbgw45EndMrRRIThUq0k2zRUNHMrdvaBEDDWjykpQ2RYU9SFTM7Vdv
+	JXMM544o+d2WXxfu2xi0wJVl64uQDEc2BUu7IC9uF+Zjc5hG5RBAa9h4E/KbQKUm3lwm1ZhY1Bs
+	YPKaZ+WuhM1js9u1wtJx2BZ54IugeIww8z5qALlR+2lfCYW7Yqaw4iqDjkzxIyGzNPSX9w0DbYc
+	dQP7G6BWtZKfNrJHdeCfomxKjbfplMsjc4HcdG2zaX2P3fF3U88sKcTu9H5QtiNv9t1T6OqVuUX
+	wLZCdJ2O5H5/YBsql9wRayecyr/EtswZ6Gnyelzx3CLS85YZM6SNcagDIPjMvf0XCKxauE79r2v
+	KEOcpoarXIc5Mm06EZGp4SYxqsN4+kYq5MCVYWSxTIizR0=
+X-Received: by 2002:a05:6000:22ca:b0:487:35f:f0f0 with SMTP id ffacd0b85a97d-4870cf3934emr7333896f8f.14.1789633620247;
+        Thu, 17 Sep 2026 01:27:00 -0700 (PDT)
 Received: from dev-ag.figment.co.za ([192.145.132.58])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf342a0sm13420395f8f.24.2026.09.17.01.26.45
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf342a0sm13420395f8f.24.2026.09.17.01.26.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 01:26:47 -0700 (PDT)
+        Thu, 17 Sep 2026 01:26:59 -0700 (PDT)
 From: Andrew Gaylard <ag@ffroot.co.za>
 To: linux-arm-kernel@lists.infradead.org
 Cc: devicetree@vger.kernel.org,
@@ -65,10 +67,12 @@ Cc: devicetree@vger.kernel.org,
 	conor+dt@kernel.org,
 	linux@armlinux.org.uk,
 	Andrew Gaylard <ag@ffroot.co.za>
-Subject: [PATCH v2 0/4] arm: sunplus: add SP7021 LTPP3G2 board support
-Date: Thu, 17 Sep 2026 10:26:28 +0200
-Message-ID: <20260917082632.626614-1-ag@ffroot.co.za>
+Subject: [PATCH 4/4] configs: sp7021: fix defaults and enable existing device drivers
+Date: Thu, 17 Sep 2026 10:26:32 +0200
+Message-ID: <20260917082632.626614-5-ag@ffroot.co.za>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260917082632.626614-1-ag@ffroot.co.za>
+References: <20260917082632.626614-1-ag@ffroot.co.za>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -77,41 +81,114 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Tibbo LTPP3G2 is a board based on the Sunplus SP7021 SoC:
-https://tibbo.com/store/tps/ltpp3g2.html
-It is the platform that underpins Tibbo's IoT products.
+The LTPP3G2 is based on a SP7021 and has a Cortex-A7 CPU, Ethernet,
+eMMC, SPI, EEPROM via I2C via GPIO, watchdog, RTC, NVMEM, and LEDs.
 
-This series adds board support to linux-next:
+Apply these settings:
+- ARM_ERRATA_814220=y	# needed for Cortex-A7
+- SMP is not set        # SMP is not yet implemented for this SoC
+- CGROUP=y
+  SECURITY=y
+  CGROUP_SCHED=y
+  MEMCG=y
+  NET=y
+  UNIX=y
+  INET=y
+  NETDEVICES=y
+  SECURITY=y
+  SECURITY_NETWORK=y    # needed to boot the shipped rootfs
 
- - Patch 1: vendor prefix for Tibbo Technology Inc.
- - Patch 2: device tree nodes for SP7021 peripherals that have upstream
-             drivers (PWM, watchdog, eMMC), plus a label on the
-             gpio-leds node so board DTS files can override it.
- - Patch 3: board DTS for the LTPP3G2, covering eMMC, SPI, RTC,
-             a bit-banged I2C EEPROM, PWM, watchdog, and two GPIO LEDs.
- - Patch 4: sp7021_defconfig updates to enable the drivers used by the
-             LTPP3G2 and correct a few defaults.
+Enable these drivers:
+- SP7021_EMAC
+- SPI_SUNPLUS_SP7021
+- I2C_GPIO
+- EEPROM_AT24
+- MMC_SUNPLUS
+- SUNPLUS_WATCHDOG
+- RTC_DRV_SUNPLUS
+- NVMEM_SUNPLUS_OCOTP
+- LEDS_GPIO
 
-Tested on a LTPP3G2, booting via eMMC, on linux-next-20260915.
+Signed-off-by: Andrew Gaylard <ag@ffroot.co.za>
+---
+ arch/arm/configs/sp7021_defconfig | 33 ++++++++++++++++++++++++++++++-
+ 1 file changed, 32 insertions(+), 1 deletion(-)
 
-Changes in v2:
- - fix issues spotted by sashiko-bot.
-
-Andrew Gaylard (4):
-  dt-bindings: vendor-prefixes: Add Tibbo
-  arm: dts: sunplus: add PWM, watchdog and MMC nodes to SP7021 DTSI
-  arm: dts: sunplus: add Tibbo LTPP3G2 board
-  configs: sp7021: fix defaults and enable existing device drivers
-
- .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
- MAINTAINERS                                   |   6 +
- arch/arm/boot/dts/sunplus/Makefile            |   5 +-
- .../dts/sunplus/sunplus-sp7021-ltpp3g2.dts    | 182 ++++++++++++++++++
- arch/arm/boot/dts/sunplus/sunplus-sp7021.dtsi |  37 +++-
- arch/arm/configs/sp7021_defconfig             |  33 +++-
- 6 files changed, 260 insertions(+), 5 deletions(-)
- create mode 100644 arch/arm/boot/dts/sunplus/sunplus-sp7021-ltpp3g2.dts
-
+diff --git a/arch/arm/configs/sp7021_defconfig b/arch/arm/configs/sp7021_defconfig
+index ec723401b440..e6a2debab8d4 100644
+--- a/arch/arm/configs/sp7021_defconfig
++++ b/arch/arm/configs/sp7021_defconfig
+@@ -1,4 +1,7 @@
+ CONFIG_SYSVIPC=y
++CONFIG_CGROUPS=y
++CONFIG_CGROUP_SCHED=y
++CONFIG_MEMCG=y
+ CONFIG_NO_HZ_IDLE=y
+ CONFIG_HIGH_RES_TIMERS=y
+ CONFIG_PREEMPT=y
+@@ -15,7 +18,8 @@ CONFIG_CC_OPTIMIZE_FOR_SIZE=y
+ CONFIG_PERF_EVENTS=y
+ CONFIG_ARCH_SUNPLUS=y
+ # CONFIG_VDSO is not set
+-CONFIG_SMP=y
++# CONFIG_SMP is not set
++CONFIG_ARM_ERRATA_814220=y
+ CONFIG_THUMB2_KERNEL=y
+ CONFIG_ARCH_FORCE_MAX_ORDER=11
+ CONFIG_VFP=y
+@@ -24,11 +28,16 @@ CONFIG_MODULES=y
+ CONFIG_MODULE_UNLOAD=y
+ CONFIG_MODVERSIONS=y
+ # CONFIG_CORE_DUMP_DEFAULT_ELF_HEADERS is not set
++CONFIG_NET=y
++CONFIG_UNIX=y
++CONFIG_INET=y
+ CONFIG_UEVENT_HELPER=y
+ CONFIG_UEVENT_HELPER_PATH="/sbin/hotplug"
+ CONFIG_DEVTMPFS=y
+ CONFIG_DEVTMPFS_MOUNT=y
+ CONFIG_BLK_DEV_LOOP=y
++CONFIG_NETDEVICES=y
++CONFIG_SP7021_EMAC=y
+ CONFIG_INPUT_SPARSEKMAP=y
+ CONFIG_INPUT_EVDEV=y
+ # CONFIG_INPUT_KEYBOARD is not set
+@@ -36,6 +45,26 @@ CONFIG_INPUT_EVDEV=y
+ # CONFIG_LEGACY_PTYS is not set
+ # CONFIG_HW_RANDOM is not set
+ # CONFIG_HWMON is not set
++CONFIG_SPI=y
++CONFIG_SPI_SUNPLUS_SP7021=y
++CONFIG_I2C=y
++CONFIG_I2C_CHARDEV=y
++CONFIG_I2C_GPIO=y
++CONFIG_EEPROM_AT24=y
++CONFIG_MMC=y
++CONFIG_MMC_SUNPLUS=y
++CONFIG_WATCHDOG=y
++CONFIG_WATCHDOG_SYSFS=y
++CONFIG_SUNPLUS_WATCHDOG=y
++CONFIG_RTC_CLASS=y
++CONFIG_RTC_DRV_SUNPLUS=y
++CONFIG_NVMEM=y
++CONFIG_NVMEM_SUNPLUS_OCOTP=y
++CONFIG_NEW_LEDS=y
++CONFIG_LEDS_CLASS=y
++CONFIG_LEDS_GPIO=y
++CONFIG_LEDS_TRIGGERS=y
++CONFIG_LEDS_TRIGGER_HEARTBEAT=y
+ # CONFIG_IOMMU_SUPPORT is not set
+ CONFIG_RESET_CONTROLLER=y
+ CONFIG_EXT4_FS=y
+@@ -51,6 +80,8 @@ CONFIG_NLS_CODEPAGE_437=y
+ CONFIG_NLS_ASCII=y
+ CONFIG_NLS_ISO8859_1=y
+ CONFIG_NLS_UTF8=y
++CONFIG_SECURITY=y
++CONFIG_SECURITY_NETWORK=y
+ CONFIG_PRINTK_TIME=y
+ CONFIG_DYNAMIC_DEBUG=y
+ CONFIG_MAGIC_SYSRQ=y
 -- 
 2.53.0
 
