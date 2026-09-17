@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBCC34A99DE
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 23:11:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D51754AAC44
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 23:11:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789686685; cv=none; b=S4pNXSbGYgihooUpEqO/riuknhCCaLB3k1E9A0yQZuAlnfT3fllRqeSf8VC+kQHhASAZU/+k1NI0vy0XW3aZZIweUiqkFuONZAQdbARvIuPD8mYgLVJLLoLZyxeW2wda0EIq/fovwYPULgFUB9DQp/J1LNcDEqTXAqPDvlid5qc=
+	t=1789686696; cv=none; b=mRXP5gLOxFdHIHBz3G/d9pbvHHP2oPscwo5x2rnWzIeV6Ji2r/DbHYErjwvEmko3Izpy5wPCwupkL94dT8OnqdXwC54F/u0r/fx3jTwoXkihmAXlSZfOStvkh7cMH9NsKp/CJznDKF4Y/XLxzsjd+9Z6yUp19X6JmyojBazy4jQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789686685; c=relaxed/simple;
-	bh=ckeswvSMGG+Q39wX/I8o7Jj66Enx++1X80HTFg3sceg=;
+	s=arc-20240116; t=1789686696; c=relaxed/simple;
+	bh=PyvNlzkDiYDjdwZZIn+UX7a9VrzB/M1E4IBC+pCuSlc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=KfIdK9oRQdVw6nJ5hHhAmu9tZjM0bYV9ozDa8HcqX3JJCPTH/mIVhNtm39g2xgtmev08NzEbq1lUnCUQcTOoa0Wk6k5DdcaaIBOciybVhUqNmZHeIK/BVKR6obQaBLR3XcUuVMclTrLBGRg46LfrpPaI9p42cvGQ5z86r5FSZJA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=je8d3VZg; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=h5HnFCvanojrV8KmXUcVdSOiEQJRjjVoLTxWkCW2Fb0k+tLvOcOc7D5bxLGPqqvfRBukbh/QuO4qSv5v3f3b6q9gTGrEjQxshL++ayXiOrEifP2P0MmVwgpXx02Y9aL2MDlv1EF42sxA7OFt7zMTrtIGWP9cd7GftfJChwtL0lk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GX/O99J+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="je8d3VZg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7061F1F000FF;
-	Thu, 17 Sep 2026 23:11:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GX/O99J+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C0C71F00893;
+	Thu, 17 Sep 2026 23:11:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789686666;
-	bh=BrVVKv6CXfvkj8yWi7fTS2Nl1HYvRc1qGNYmZ0lfQvY=;
+	s=k20260515; t=1789686682;
+	bh=2Visb+e2y2ldOS4sGcvQpnf5FV/4FOuloI1LlFRPRKQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=je8d3VZgCDGzi4xRvN+nzTGiVYYVqf3z16nNYx7HBfwI8U8racoZVHTCPhuZcCNoE
-	 XsxFzhw3p/nu1ZfGVnRNSmK0ufmu8fBQqz1Ck3CaJJLX+ZJwDwPJhZn78IaOB/OqBa
-	 UHdnEUk83U9YYRTrIPAExnicOBsVi8gGWJvOL346izCTu0qgWBCZXSs5r7+r4WPLPr
-	 MFYmaawrB9cQoUg2JQ3qF8YWNh4Y8xzIfLAFWZNdDl/M70eCvSg4BVWPPEE0S5JKHp
-	 E6MOrOGlfwGhL51YX3rGIeuM+ETG8vftiTNUPIQiL/Yb70ChHlesYcBf0QAtFQzSJX
-	 Tf9u65odeV5Zg==
+	b=GX/O99J+JpQhHLwo2b78gWXJ0uGeo4vuF9QDOEQKvd6ss9Ob1dOSin2e0uOowLn7r
+	 3ZWyPI/GHxIhLA50awF9sRKxOqF1JXDfHGpTKx8PSe4cunpV3JFhTo/9OkqpQKbM9b
+	 9UhCyq20vj4XVLVlwo3aWQ5Xe/vN3xDrbKZ1kfL+x1A/DRTeIrjxsQ1/yMe8GlOCj/
+	 j0iuoSVk4GybZFqlHZSZkOQGdvvGZoSEa8dNEbL8kM/X0pHY0uvSSmdWm9tP78wYzY
+	 k6LE37hyDR1dshCxh1Qw4ij3lP3+vsn4JcMubG10mFOTw/CvFKbTg/uD5TRdsevwul
+	 /OWA9CzYadACw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 10/19] crypto: cmh - add ChaCha20-Poly1305
+Subject: Re: [PATCH v5 08/19] crypto: cmh - add AES skcipher/aead/cmac
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Alex Ousherovitch" <aousherovitch@rambus.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260917225929.2494111-11-aousherovitch@rambus.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260917225929.2494111-9-aousherovitch@rambus.com>
 References: <20260917225929.2494111-1-aousherovitch@rambus.com>
- <20260917225929.2494111-11-aousherovitch@rambus.com>
+ <20260917225929.2494111-9-aousherovitch@rambus.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 23:11:06 +0000
-Message-Id: <20260917231106.7061F1F000FF@smtp.kernel.org>
+Date: Thu, 17 Sep 2026 23:11:21 +0000
+Message-Id: <20260917231122.5C0C71F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,49 +46,76 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] crypto: cmh: missing tfm_buffered increment in cmh_poly_import()=
- causes underflow
+- [High] crypto: cmh: unbounded memory leak and TFM bricking in cmac(aes) A=
+F_ALG path
 --
 
-commit 8e2b87897bac0eee1fd1dfc15026269caab4f233
+commit a4044451c1e906d90442c0bef45c7be8c8846c42
 Author: Alex Ousherovitch <aousherovitch@rambus.com>
-Subject: crypto: cmh - add ChaCha20-Poly1305
 
-This commit registers the ChaCha20-Poly1305 AEAD and ChaCha20 skcipher
-algorithms using the CMH CCP core. It also registers the Poly1305 ahash for
-standalone use.
+crypto: cmh - add AES skcipher/aead/cmac
 
-> diff --git a/drivers/crypto/cmh/cmh_ccp_poly.c b/drivers/crypto/cmh/cmh_c=
-cp_poly.c
-> new file mode 100644
-> index 0000000000000..d8482dd96d12c
+This commit registers AES algorithms (skcipher, aead, cmac) using the CMH
+AES core. It handles associated data, payloads, and authentication tags
+for AEAD and supports 128, 192, and 256-bit keys.
+
+> diff --git a/drivers/crypto/cmh/cmh_aes_cmac.c b/drivers/crypto/cmh/cmh_a=
+es_cmac.c
 > --- /dev/null
-> +++ b/drivers/crypto/cmh/cmh_ccp_poly.c
+> +++ b/drivers/crypto/cmh/cmh_aes_cmac.c
+
 [ ... ]
-> +static void cmh_poly_free_chunks(struct cmh_poly_reqctx *rctx,
-> +				 struct cmh_poly_tfm_ctx *tctx)
+
+> +static int cmh_aes_cmac_init(struct ahash_request *req)
 > +{
-> +	struct cmh_poly_chunk *c, *tmp;
+> +	struct cmh_aes_cmac_reqctx *rctx =3D ahash_request_ctx(req);
 > +
-> +	spin_lock_bh(&tctx->chunk_lock);
-> +	list_for_each_entry_safe(c, tmp, &rctx->chunks, list) {
-> +		list_del(&c->list);
-> +		list_del(&c->tfm_node);
-> +		tctx->tfm_buffered -=3D c->len;
-
-[Severity: Medium]
-Can this subtraction underflow if the chunk was created during an import?
-
-This is where the underflow actually occurs when the request is freed,
-because the corresponding increment was missing in cmh_poly_import.
-
-> +		kfree_sensitive(c);
-> +	}
-> +	spin_unlock_bh(&tctx->chunk_lock);
-> +	rctx->total_len =3D 0;
+> +	memset(rctx, 0, sizeof(*rctx));
+> +	INIT_LIST_HEAD(&rctx->chunks);
+> +	return 0;
 > +}
+
+[Severity: High]
+Does this unconditionally wipe the request context? If the request already
+has chunks attached to rctx->chunks, it looks like they will be permanently
+orphaned and leaked. For example, if a user repeatedly resets an active
+request via the AF_ALG interface, this might permanently consume the quota
+until the transform is bricked.
+
 [ ... ]
-> +static int cmh_poly_import(struct ahash_request *req, const void *in)
+
+> +static int cmh_aes_cmac_final(struct ahash_request *req)
+> +{
+[ ... ]
+> +	if (ret) {
+> +		/*
+> +		 * Synchronous rejection (e.g. -EAGAIN: CMQ full, no backlog).
+> +		 * Free only the per-submit transients and keep the accumulated
+> +		 * chunks intact so the caller can retry the identical final().
+> +		 * If no retry comes, cra_exit reclaims the orphaned chunks; the
+> +		 * per-tfm buffered-byte cap bounds how much stays pinned.
+> +		 */
+> +		if (rctx->total_len > 0 && !cmh_dma_map_error(rctx->in_dma))
+> +			cmh_dma_unmap_single(rctx->in_dma, rctx->total_len,
+> +					     DMA_TO_DEVICE);
+> +		cmh_dma_unmap_single(rctx->tag_dma, AES_CMAC_DIGEST_SIZE,
+> +				     DMA_FROM_DEVICE);
+> +		kfree(rctx->tag_buf);
+> +		rctx->tag_buf =3D NULL;
+> +		kfree_sensitive(rctx->buf);
+> +		rctx->buf =3D NULL;
+> +		/* Keep chunks + total_len so the retry rebuilds the buffer. */
+> +		return ret;
+
+[Severity: High]
+Is there a risk of leaking these accumulated chunks on a synchronous error?
+The comment mentions keeping them so the caller can retry, but if the caller
+ultimately drops the request instead of retrying, these chunks appear to be
+left orphaned.
+
+[ ... ]
+
+> +static int cmh_aes_cmac_import(struct ahash_request *req, const void *in)
 > +{
 [ ... ]
 > +	if (state->total_len) {
@@ -99,31 +126,29 @@ because the corresponding increment was missing in cmh_poly_import.
 > +			return -ENOMEM;
 > +		chunk->len =3D state->total_len;
 > +		memcpy(chunk->data, state->data, state->total_len);
-> +		list_add_tail(&chunk->list, &rctx->chunks);
 > +		spin_lock_bh(&tctx->chunk_lock);
+> +		list_add_tail(&chunk->list, &rctx->chunks);
 > +		list_add_tail(&chunk->tfm_node, &tctx->all_chunks);
+> +		tctx->tfm_buffered +=3D chunk->len;
 > +		spin_unlock_bh(&tctx->chunk_lock);
-
-[Severity: Medium]
-Should tctx->tfm_buffered be incremented here?
-
-Since the newly allocated chunk is being added to the TFM tracking list,
-omitting the increment causes tctx->tfm_buffered to become unbalanced.
-
-When a user creates an AF_ALG hash socket, writes data to it, and clones it
-via accept(), cmh_poly_import is called for the clone. When the sockets are
-closed, cmh_poly_free_chunks will subtract the chunk lengths from
-tctx->tfm_buffered twice (once for the parent, once for the clone).
-
-Because the clone never added its length during import, the counter
-underflows to a massive positive value, permanently breaking the instance by
-causing subsequent update calls to spuriously fail with -ENOMEM.
-
 > +		rctx->total_len =3D state->total_len;
 > +	}
 > +	return 0;
 > +}
 
+[Severity: High]
+Can an unprivileged user bypass the CMH_AES_CMAC_TFM_MAX_BUFFERED quota
+here?
+
+The cmac(aes) driver imposes a 16MB limit on tctx->tfm_buffered during
+updates. However, this import function allocates memory and adds to
+tctx->tfm_buffered without checking that limit.
+
+If a user creates an ahash socket via AF_ALG, clones the socket repeatedly
+with accept() (which triggers import()), and closes the child socket, could
+this lead to unbounded kernel memory allocation and an OOM denial of servic=
+e?
+
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917225929.2494=
-111-1-aousherovitch@rambus.com?part=3D10
+111-1-aousherovitch@rambus.com?part=3D8
