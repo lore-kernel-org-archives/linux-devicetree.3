@@ -1,1300 +1,509 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013007.outbound.protection.outlook.com [40.107.162.7])
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2131.outbound.protection.partner.outlook.cn [139.219.17.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58D992C3244;
-	Thu, 17 Sep 2026 03:33:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FB1C221DAE;
+	Thu, 17 Sep 2026 03:38:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.131
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789616008; cv=fail; b=JmgrGiJOraOr93JEZr99lVrrT0Ev9jGzDMf7tHIiZ32zOxObhKaS14GlP1iVCAFsDz/h+H16JVW7hWFnyts6v5OEzQ9U2GcMlVndfkaBEcqK1JLEzKtioUfxQ9Ip4WSxzS0h8qZDi/51t8KLsO9ZZlC5gxGBwRswOzR0F/bAqBo=
+	t=1789616344; cv=fail; b=flKHODOC2sHdaD32zAdno32aNrJU5ShHTL++c4XgENOgIeJdlw7NRzgXpmE/+vpv/lqmNoi62WttoZpjWXHbnvEYiNvuhvhpgcfJLUaXF0wUpQIV/AxLXwaQhm1RFOoyX5txstXTOhHGC8B770T8SCREdikvAJTNOp5RN3mztIc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789616008; c=relaxed/simple;
-	bh=1M2/io07vNUIUg3S3YITwc9057hNpzEGbkkbOq0BXaY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=b1caJpYwIJjb21BxHc2O+Ql3GAdCU9NMdv1FpQQ53QxJF7gl50diGYEqsY5N2zEd1/frtXqTlGi/u5YNSHIQukh8ssKs7waUssHnh+MVA+R8UJ/CQNP9nC05GojFg6BsdHp5LOpUEWkDISo5X1D9oLNbwJIoyKpp5zde1GsAKtU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=s6XCiBxC; arc=fail smtp.client-ip=40.107.162.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="s6XCiBxC"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cB0CFUveRd5QBV8tqd/5rekeZxLbZ6CoE+1eZxDOlrHN6P5TGENVtfgxXHUZyZ4Exj48ru8alOGIuOSqcfHbKfQNxCWaB0fucQb6gKIJQMCzMGdCDtPSRZp7Ms1zWHVYfNrwNid7FTpVll3CeHGVc9PR2mDKUSAHWyLYUKJAjYcoXt7ywYPRcV5OmEtHmGOOQLq5mmO09zYQDteb4PViDzYdRjeU85UUUPvDScTavhutYfz/cmlymzdNFhx9BfF0aIbU0p07l1a+rKVqtBL7kz9aCyF65yvRmUjzY0CYajawYqLyZeDgYHjnwnJy66ZQ5qjfJlRDkeS7kBZLO1KZUA==
+	s=arc-20240116; t=1789616344; c=relaxed/simple;
+	bh=kh0fIOgaOV8+uBmjPOhXpwJEDd+Pvb2JXVW9pg7aVtY=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=o7hWdUobDWs4loQGXsAoN58gxOyxYu6BEDXVCxzi+DgPjy5W6Y9mEdqPa3FNbUOTx3zF3UxIZ++WiFJ17a2Qahx2ckIcDvQeHXDU+mhSoABC09TDZKSHwSA95zyYUrmhddAnrJjpUUxYW33S3upS/Y/w4a4hpzkKPxF4n6tTF28=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Ou/ubX20hI2gzNnGzyHvR6E9LmL5KLeg3rGUqCXCDUcZjLuV7f+KY8Cxp8qL1/i0OL52j67/vV66M+BGPxl5vxX3lPqT1LNq2C+++MiOe2xsbf+5Fe6aFpZXhgPuYQMHF5QYkmpaGbrtNbHq4DNAnhCN12ymEBR6TDjVFarXOqFwSX5Zjt49czYfu611IyIY1GGqmJHr22X+g6yNvMlDp6AgyQmcc2EHc59MH2+NL2eO7Axxp2GPF8RgjLPZFUnXQkXMt64ijonbBCEAFOeGKy5DGXMtM4y6vi1iAzhsGP9vHru2QUBXr91cMhVw0fgF+C+jqn2fNeK3lipFHrEO2w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
+ s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rJLqkvcKlemqCEwJvgZFvqjWmMXZi0ZULWZiZB4PghA=;
- b=tQf8z8YxhVKrZKpfEZQOmmLNMv/Xl/HRYE0SApDPJqpEqCYYcy0KOpbVYdTgQYgLJNT6FWG5+RLdTgzrlVAExu1HAIz3AKL/FK4kChgI/MbACPqN+pSKRcYmsJu3jMiNr3HGo7bVhTI7+yNWZV0Q0G3pyl5RgF18NCDEGbW2h0UwdDcM/EvJQe0n/FNBI2s2stT5JMAkDdMz4NTNFVjts3W99Xk3zQmTSsgm8xmhORdAqpRZ7HUH5wm4G3+CRlCLoQ+DfL2MdmyfB85F2xAdWN6ilO1PBQbFDF/hXCnwo6mi9Fh95yGT6pTwRHAnqKBeeWdyFSPAozCJVfjY+rLpSw==
+ bh=Z/refKaCC6xtvm+pu+7iacmEhgN1u74BeLLhBlyWypg=;
+ b=bs79uQLzSo8iTlq/0QFQUwZmzdZ/N8BPmfv1KD9UBX5tPb4g1eeqXxghS4mV1mTHh/QXXGB2eE+1o6lrHJoB113wzv+c4EenS0tIl5Mq/zMOjC1/u6xBd/O/4ETi8s5Fw+6qxauPRc2rylYn3mFaP6eYccCqm6BZNSdZipoDXci3BI7X8Rn/vBikuHn2VbBpYTu10rC/648Ki2+ATY+oA+EFEAvuFLEPpGNTik6e4fPkmeNLuFvRn0Wy520ojzgPNl4cgQoM6YvlxI9M7cD74lyxBJHEm67iSC4EG8agYyxRVqyyWCN6grwUC0AWJyPp7dSKrGrmOm5ZEDYgWCXfCg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rJLqkvcKlemqCEwJvgZFvqjWmMXZi0ZULWZiZB4PghA=;
- b=s6XCiBxCv4lF+CF4LxH9GeZSEJqQYr/Qs1XzAWHngaY4AyYIvFMouKDHotzzu4FSdph/uG1dXtgghD5VXyvrL0HWTc8Rr0Vn8vAgTl1LOpF+mN1QTsYrOnD3jSIsWb1ucda/FKe02XyOM4LZvXrd89XQ/TpfMNPx5cSi2d6JoWrBEplShz0auumRIwJ0ViCWLqKkI7bkgebbuZ0YbOhyEzeWpSt+mEnNsGhXN2HunQAi4/tZr4DI1C4pa2KIB/jojRJYEZTi+gAYheebmReFzhvV65Sb1cnYYFUjvdr5rxlhT4VRTpJEPqHt05kGH51HN+u2CC8WQIBv7ne84xsAvA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by GV1PR04MB10679.eurprd04.prod.outlook.com (2603:10a6:150:204::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Thu, 17 Sep
- 2026 03:33:18 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.012; Thu, 17 Sep 2026
- 03:33:18 +0000
-Date: Wed, 16 Sep 2026 22:33:05 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Marek Vasut <marex@nabladev.com>
-Cc: linux-arm-kernel@lists.infradead.org,
-	Aswath Govindraju <a-govindraju@ti.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Marc Kleine-Budde <mkl@pengutronix.de>,
-	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-can@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/3] arm64: dts: imx95: Add support for Data Modul
- i.MX95 eDM SBC
-Message-ID: <aqtfcREBJLMzS0gn@SMW015318>
-References: <20260917024805.517030-1-marex@nabladev.com>
- <20260917024805.517030-3-marex@nabladev.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917024805.517030-3-marex@nabladev.com>
-X-ClientProxiedBy: PH2PEPF0000385F.namprd17.prod.outlook.com
- (2603:10b6:518:1::6d) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Received: from NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:7::10) by NT0PR01MB1037.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:6::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.12; Thu, 17 Sep
+ 2026 03:23:57 +0000
+Received: from NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn
+ ([fe80::be4a:d29e:5188:b37e]) by
+ NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn ([fe80::be4a:d29e:5188:b37e%3])
+ with mapi id 15.21.0428.009; Thu, 17 Sep 2026 03:23:57 +0000
+From: Hal Feng <hal.feng@starfivetech.com>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>, Michael Turquette
+	<mturquette@baylibre.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Stephen Boyd
+	<sboyd@kernel.org>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt
+	<palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti
+	<alex@ghiti.fr>, Philipp Zabel <p.zabel@pengutronix.de>, Emil Renner Berthing
+	<kernel@esmil.dk>, Kees Cook <kees@kernel.org>, "Gustavo A . R . Silva"
+	<gustavoars@kernel.org>, Richard Cochran <richardcochran@gmail.com>
+CC: "linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
+	"linux-hardening@vger.kernel.org" <linux-hardening@vger.kernel.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>
+Subject: RE: [PATCH v3 06/22] clk: starfive: Add JHB100 System-0 clock
+ generator driver
+Thread-Topic: [PATCH v3 06/22] clk: starfive: Add JHB100 System-0 clock
+ generator driver
+Thread-Index: AQHdJmAKH+uB2bFZvEWNz4Ntj/CabbbSVL3g
+Date: Thu, 17 Sep 2026 03:23:57 +0000
+Message-ID:
+ <NT0PR01MB110298F21FF8FC06DB4EAE34E6B82@NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn>
+References: <20260807112923.191627-1-changhuang.liang@starfivetech.com>
+ <20260807112923.191627-7-changhuang.liang@starfivetech.com>
+In-Reply-To: <20260807112923.191627-7-changhuang.liang@starfivetech.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: NT0PR01MB1102:EE_|NT0PR01MB1037:EE_
+x-ms-office365-filtering-correlation-id: 66269a11-72b8-4f7e-5b3d-08df146b1c00
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|7416014|1800799024|366016|23010399003|921020|38070700021|22082099003|18002099003|3023799007|56012099006|4143699003|10067099003;
+x-microsoft-antispam-message-info:
+ MAfu6c0G1NEgfiUeVRQ+6RocEzjjIR4FAA558Np82eofyHqrk+myNSTktfR6vHEkYisLmcmg9trIfyrkmfin4dn5W/ZMA69GolT/OQQ7GxD0OheByXRjO3cPYFuYJmP06kY2NX4pbGDdXIGwAy8mY9cl7xFrjZVuenoTOcqV+8ZWlUIxmEPPG8q3qZqKsuyn5sw+zJb3eqk3OA9l+STukCv3FCBauWpx6QCKIE9xynYucfoTcJ0nmIKu/gFL1m/Mf3uN+hfuFKq2Ymv+fXzOmk+wjN26/N5xqsSbXlH0WsNydWxwENA+p14OR4aPhlKRmOkMgW7JwaKI22J1s2v+fUu14+holh85Xq0nqbNFrE2f/x9e0HEAId5F96Gru8as5efhVL/+DZh6kx+U+SJVJTuVZ/5JxSx56cb7AQfY0bSt21SmqUB8vx8Et6KdSfD/bK91BqBlO96/ETGJ2wRxUoP8ZMjorlvetkkrx+u+e6A5w6oDwEiHTlhh+lLqngftS8ubsBNMomUyeXuHx/DVTEZvWHW8LYbUB2Jyk4i1MwzI113M3swLsVs7Ws5qQ/GsjMC/NIpuVoLrBY/imIUIGA==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(921020)(38070700021)(22082099003)(18002099003)(3023799007)(56012099006)(4143699003)(10067099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?vvjGzC5g+7EjO1Z9w39tdQ0qF5Cf9wQ/9QeOcyMjbCUF73382p+vwGLXPUjo?=
+ =?us-ascii?Q?dLw4nuytXVp5CeP+JPZsdYb3BujegBH0Tuz19JkgXf62KsnMfulYC2i+h1xa?=
+ =?us-ascii?Q?u8XB6soRzKpkGcYJMQAOy8ve2b8UsodQzdSe9K0/+eNjaJ6D4QU5fKCS0mVV?=
+ =?us-ascii?Q?F6BcL0hFLcxTPB756x1Lw88OTN+xQ8lh/7MFl+e5RXtBdv12xKkPfsnBPKUi?=
+ =?us-ascii?Q?iKEAhCixMw8jU7roaQO4Kl0L5himaBk3FHRxAlEaJ6PHP/vn4uBpeg3RxrQO?=
+ =?us-ascii?Q?hFY/EFLQtB490rBsUUhWMxgA7Zn7XxlGcMTgApD/HFvywql3mnv09WPLSpvz?=
+ =?us-ascii?Q?gZ8+28/2MlzL7DXSiOYqUX4S7fPIscFkX4uRgzdj6BXcIc7XvwAJZ9Z7cLyb?=
+ =?us-ascii?Q?sNRpeHYZZhlXpVHl9AnwGINJN6u2HAjdq4VsvdtqAl9knspItDrv+1aW1LyP?=
+ =?us-ascii?Q?OhzEKGtWkjyR/orOdlK8LBdK4KCZr9VQI6/OApeQPX9FjT+jt1vYOaQT1kW3?=
+ =?us-ascii?Q?4jH8on/jAF0EcZl87Ib9ky8nXZ4WPSolkgQUhIbtVmR4HE/7btJkLjafSnHb?=
+ =?us-ascii?Q?FbtIGneBOhHdr8MQPAUO+cGTbMlIQovVVRYu8dyFk4EN3uuS6RFcIDcoHKfY?=
+ =?us-ascii?Q?z5TkoCG1y1u7F4QV1zOa+85G/4HZnMDTzA9F3Q7qy9BC2CG4ZBq9XxRTD3nh?=
+ =?us-ascii?Q?D85M5T6T0MDOY3txRAAHdU15Cco+JyU5T5IA4aYLKRiExgTQpMkd3mfEOsU3?=
+ =?us-ascii?Q?SHTt9uBE1pgymCmPDUYE0T1+qsOnYy7jqGsB/q5vLS41IzC75eJs1qsCVgqS?=
+ =?us-ascii?Q?hBl75YIhObHu7nTn4otJlC0OPcOPK2o/PW4gcbp1PQH71lIRC/bjszm5WhFW?=
+ =?us-ascii?Q?12wP7LMlWw4cbJUwjqCuSVhTE6Y4SfqaWuFQlf+gQMxSouuDGxCp250hg/x7?=
+ =?us-ascii?Q?McV017QEMZvdKefuV8DXO/y7EF34+/gNs5qtHgDkuCS7FDsZJ00VYLFUuGsU?=
+ =?us-ascii?Q?EZ/GjHmjLEdeCHbagDQYDQjHcsOI+UJIMiKG2TEU57cEs3mrJlS3SYXwrHUI?=
+ =?us-ascii?Q?8Iv9+dRqBxEE0ZKdxjCgQzB6jqkk/2PWQIWFG0HJo/se9nq+A69/FM9Xv/PO?=
+ =?us-ascii?Q?hXmiMXkbUpEDoNyZ0QpWN28miromw4Nb+sCaDbXHnpeq84UJ2LMdzJF9sM4B?=
+ =?us-ascii?Q?hBeBol8ACjW4QCKpnWsIRT+wkzDckDeK240Cc94WToYWjkoADD57N4hQgHRf?=
+ =?us-ascii?Q?kYarDfMMxJSqUDAmmqZ8Gs6zl+s1vFup9guP67j9cQu/FS/JYsNECkSdEFF7?=
+ =?us-ascii?Q?Kf9l1ZchTm6qF/WyD+vNzHY04gLlArK3KybbjFrIGXgbY6CzrkTFqe6Z9ulL?=
+ =?us-ascii?Q?QbLb1gbYeWH7SilhjVK8+aIGTnNWMEi2SSoYQ7KjktwtM0GsXzk22bxBWzuk?=
+ =?us-ascii?Q?wwACc8nSl2dKic2Hys8a/fygAAGcazbDTi6bhCeoOKcqcFkdh+Qo/R9JhmtN?=
+ =?us-ascii?Q?ib+uEBdLWNkdTulDv6h+dJex9fFIq7VhzGZebYC97mFn+ajKOmirKHJtKgt5?=
+ =?us-ascii?Q?tkG94hdnEv++GGuY8XBeoIMIDGH5AVoY/aZDvRUwg17AY1StS2YufjPowIg0?=
+ =?us-ascii?Q?o5/hHZyqXTyzfqKfsjT7Nk1doyJz+4OUbNMRaIY7biYomNuW+CKR9qQZooEa?=
+ =?us-ascii?Q?l4DweZ5TGvIwwqmlU4xIry0PeQVlkW35FxdE45/P7k1wiToYF3O0Gb2kDBVb?=
+ =?us-ascii?Q?rtNfhomX+g=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GV1PR04MB10679:EE_
-X-MS-Office365-Filtering-Correlation-Id: e5f32a61-77bd-4cc1-0512-08df146c6a36
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|23010399003|366016|376014|1800799024|19092799006|3023799007|10067099003|22082099003|18002099003|4143699003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	B4r22NpQPKkb2+VggZUfKzMZ4/rEI82wO66J9KXMfRPV9p6xs/PZ818mez33C5myQTXLULMsuESqDplc4nj+Ek34JWwB85ctiH6E3s+vVeyZz2AiGCty2w19G3e0HKL6vJ7Xc3hOU2itguvw1BjD/h2jhEYwcho743p5sNOZqMEmuXK5NAOp2l88XWWPp2bfo35CfZc7xTHXn3FBbrNab/2lgxZX4VXVJo5rFLz9e6ZcyOgbqD3GbEfR0irKPcuaJ0MB2rYzDbR9EwP4blE3Ef2C+wvyNJnSet18HQrTG9eFYaYcnSLY57/QmaP0lGVdl33ODTFTbP4V7CCmaK+2bcvWSFlqNjJDZype07R6cCam9zebA8hGc8v/8JL3l93VR6yulgjEuodss1/wiuNDZo1CMbNaB1WqU9y6ffxAR/wvxCJA/+NIX5cQIzpT4WQm/R7lH49FWDRiwvb9PhfMl8gwxqBuI89sMaVUATbWxixnf+7P0+eP2JusHEHQTVFzu3Rx7Dyo6sTyqomPZ99BfEsFxILfx2/Ot/LszcPby/cJ+3dkqYWF+gbhEoYwjYOqGeZG3vSvUHh2uDRvdl/g4jbXwZjN8R9FBOo0va3LZe9c4t+L0paYpgMr3LH7fhbLQK9a29O/2i/YOHnu6l+7escn56KF+8rO+eSRsJydPTk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(366016)(376014)(1800799024)(19092799006)(3023799007)(10067099003)(22082099003)(18002099003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?3lp8AnGLarCXNpyXxyycL/NDuZZ92IjXHvgrv7yBzejUO906yjFRZPQ+q1rv?=
- =?us-ascii?Q?STiHBFUpO/iMoQ73oVNR0Nn1+8y7kKPHwMJKDlxUpPzPi1B7gWFaGKxCluIA?=
- =?us-ascii?Q?YJPiauk2nwddY3daP9gnz76j+HDv/lXspKuyLuWNV8avj1WUfjmSb+0Lg32q?=
- =?us-ascii?Q?tCPidtSn0184HfvJvWKbicbCc/P7X3r9iglli45pE6bkBW+3buzXAlnVHB5A?=
- =?us-ascii?Q?eLJ1y/z0pu2YZW2v37w0mUcc8tJwroTE6gcwwhDBj3dEIFdh7JZ9PIa45ixt?=
- =?us-ascii?Q?VNGmbzV9plWjBENQHw3e+fYReNxXWUU5+yZkq9+VfqoeWgaPLpIT2kwtn3IS?=
- =?us-ascii?Q?aldn4t6oQb40X6GEka5ywlKYjPRSU6eR+0l+T5KYzNvfa0hGQH0RtNzwaLVl?=
- =?us-ascii?Q?aYxT0Qa1Ay/LXHHANTGwLi5wO8/D2FC15/Dc/mjscFcXWswRJ1kafx514JgO?=
- =?us-ascii?Q?nWwt8UH1C3E4HgzbNmKlHrqSbsT0Wgj8fusEa2FBgEbsGUGh1MbmAtoKcInr?=
- =?us-ascii?Q?2n7GFkD+6ctFm6M5lb4EPbdmALD5VI55nqHyiP9aAuqkpE+xk+kvWGgHH5N/?=
- =?us-ascii?Q?l29yYQL2+jC/MhknfoTds6cuEMhjZst5HX+m/ap2RUhhxbImKi7bfMBmcDYu?=
- =?us-ascii?Q?wI9pbxidPNS/cFXvKBSiP/8AKK563STVYflbEaRowW0lUx73WWw2cC5byqEY?=
- =?us-ascii?Q?gH3mT+/PasnYRZUlY9BcCPW8JMpm62EFq2sM86C97B76PhiXWnlv4uCKOJZI?=
- =?us-ascii?Q?2yJwgk145r66hO6NWsdn0i+YDzlaMENGc3I5+eKgaryRD0Wrc817o6+iuZXT?=
- =?us-ascii?Q?AeW3lgqpllIsrCbbfXSs2TGJfriyXn8/UnFsppcED3YCpQ4T5qigB5aEbeJ1?=
- =?us-ascii?Q?VGR366ze6XigBXBEFghBt8AVACOUsnPcQ4+a8uDxhIOVANu+EYnUKwpxKm0m?=
- =?us-ascii?Q?MJ4z/QseT+V6N4HkrtRk5vldYARqGOonFSabf4KHCgEIuPzr/4YshU6p5+xz?=
- =?us-ascii?Q?MJl7krX38xCue+eXPiuGroNSQ/c8fkqJBSpu6lPpqP4wgYT7NjkoBdxDHx/Z?=
- =?us-ascii?Q?k+BnS44J7IAQVlcRuBztNGe3xPqgf6ZoT4DkCI00G77lwZxY9uwM3NFfisbS?=
- =?us-ascii?Q?Pg289Vi+CLTwmzIaNJXfshBrabsstOg4fx6qIFBRgXhIjTGAGuiagZFFE2g0?=
- =?us-ascii?Q?5FXQO77DXKeZAZ8x7ZR7uWHXi5rLIf1cfp0DWhZOo5wbfcHzW0dlTc2DaCbk?=
- =?us-ascii?Q?+oQz/IUjffKUb5bu3PNPZZ8cpVSrYx9jyvnMt/piqPtv83t6RD5OMhnitFGJ?=
- =?us-ascii?Q?0KYgA+AZ0YxeI32YKBMrrpfVgCM3Kz2k3WseKmDfD+cnm0AbGiaeCSsHhbB3?=
- =?us-ascii?Q?10h3BcfuE6EJ3OxwNHUlnUMlNYM8OxNwPRXUA0BX9hmCLtAP5G+38bO474ug?=
- =?us-ascii?Q?RstT2cQ+uP78xzRXkVkPjcuNH+OUY/MbgYmlFsuqOrMfcv23Au3Fn2U3u2ea?=
- =?us-ascii?Q?IyVo3XC4JK0cGm60MG+M85BMcwrJHwlpMBg4BjN2qj3iptkQ7pbB8qvZk5cg?=
- =?us-ascii?Q?y/T7rMfXLqF9ykZb1P9xNSTq/sFKjv2jfT6L7IIvKIIaWHx6/TOJBDSoVund?=
- =?us-ascii?Q?c5yjBySA9lqBmQK+ECA3M4QEClioBRd//mRkisvPGjZktWCe7C2soB6sU6og?=
- =?us-ascii?Q?qlw96csKLDbVUXPetjjl2Xb4mTkJoOtdH6nFGTyz8xB7CwQnxOgBucEkAkYq?=
- =?us-ascii?Q?9/kLPYZU4nGLnKwPkOkPwSKrfy88GNg2nWS+TpHes7m9i0S6jMAI?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e5f32a61-77bd-4cc1-0512-08df146c6a36
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-OriginatorOrg: starfivetech.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 03:33:18.5326
+X-MS-Exchange-CrossTenant-AuthSource: NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-Network-Message-Id: 66269a11-72b8-4f7e-5b3d-08df146b1c00
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Sep 2026 03:23:57.3357
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xq9f0NbPji3o4pmKW/AItB9n8QMNSdsTkCgUwYeuSWKDNnFhZpq+MtgWFrShCXCrU7nwmjX288e5Sg101EzJ111cwLH1+4mKOlZq1TATq5BzW9DmfAB6dtpqZES8bU9/
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB10679
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Mnx+pKa5/jKKxRR+gTickI/rE8NVTbw0XbbdBxwTx1QeVdi4dMMfi8Z8+2bFazo2KueoFvo8ck2Ck/+kyWcO2FAr7IntFe2rwBNv3BxpH6Q=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: NT0PR01MB1037
 
-On Thu, Sep 17, 2026 at 04:47:35AM +0200, Marek Vasut wrote:
-> Add support for Data Modul i.MX95 eDM SBC board. This is an
-> evaluation board for various custom display units. Currently
-> supported are serial console, ethernet, eMMC, SD, SPI NOR,
-> USB host and PCIe.
->
-> Signed-off-by: Marek Vasut <marex@nabladev.com>
+> On 26.08.07 19:29, Changhuang Liang wrote:
+> Add support for JHB100 System-0 clock generator (SYS0CRG).
+>=20
+> The StarFive JHB100 SoC has multiple CRGs with similar probe flows, so a
+> generic starfive_crg_probe() function is introduced to facilitate the
+> registration process of other CRGs in the future.
+>=20
+> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
 > ---
-> Cc: Aswath Govindraju <a-govindraju@ti.com>
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Fabio Estevam <festevam@gmail.com>
-> Cc: Frank Li <Frank.Li@nxp.com>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Marc Kleine-Budde <mkl@pengutronix.de>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: devicetree@vger.kernel.org
-> Cc: imx@lists.linux.dev
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-can@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> ---
-> V2: - Rename PCIE_M2-E_EN to PCIE_M2-M_EN
->     - Fix the PCAL expander GPIO reset
-> V3: - Fix regulator-5p0v node name
->     - Use reset-gpios consistently
-> ---
->  arch/arm64/boot/dts/freescale/Makefile        |    1 +
->  .../freescale/imx95-data-modul-edm-sbc.dts    | 1111 +++++++++++++++++
->  2 files changed, 1112 insertions(+)
->  create mode 100644 arch/arm64/boot/dts/freescale/imx95-data-modul-edm-sbc.dts
->
-> diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-> index 7944e3b325130..8e4c4464788e4 100644
-> --- a/arch/arm64/boot/dts/freescale/Makefile
-> +++ b/arch/arm64/boot/dts/freescale/Makefile
-> @@ -955,6 +955,7 @@ dtb-$(CONFIG_ARCH_MXC) += imx95-19x19-evk-sof.dtb
->  dtb-$(CONFIG_ARCH_MXC) += imx95-19x19-frdm-pro.dtb
->  dtb-$(CONFIG_ARCH_MXC) += imx95-aquila-clover.dtb
->  dtb-$(CONFIG_ARCH_MXC) += imx95-aquila-dev.dtb
-> +dtb-$(CONFIG_ARCH_MXC) += imx95-data-modul-edm-sbc.dtb
->  dtb-$(CONFIG_ARCH_MXC) += imx95-toradex-smarc-dev.dtb
->  dtb-$(CONFIG_ARCH_MXC) += imx95-tqma9596la-mba95xxca.dtb
->  dtb-$(CONFIG_ARCH_MXC) += imx95-tqma9596sa-mb-smarc-2.dtb
-> diff --git a/arch/arm64/boot/dts/freescale/imx95-data-modul-edm-sbc.dts b/arch/arm64/boot/dts/freescale/imx95-data-modul-edm-sbc.dts
+>  MAINTAINERS                                   |   7 +
+>  drivers/clk/starfive/Kconfig                  |  11 ++
+>  drivers/clk/starfive/Makefile                 |   2 +
+>  drivers/clk/starfive/clk-starfive-common.c    | 142 ++++++++++++++++-
+>  drivers/clk/starfive/clk-starfive-common.h    |  12 ++
+>  .../clk/starfive/clk-starfive-jhb100-sys0.c   | 150 ++++++++++++++++++
+>  6 files changed, 321 insertions(+), 3 deletions(-)  create mode 100644
+> drivers/clk/starfive/clk-starfive-jhb100-sys0.c
+>=20
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index ce97de46e610..c48b56d0ab94 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -26069,6 +26069,13 @@ F:
+> 	Documentation/devicetree/bindings/phy/starfive,jh7110-usb-phy.yaml
+>  F:	drivers/phy/starfive/phy-jh7110-pcie.c
+>  F:	drivers/phy/starfive/phy-jh7110-usb.c
+>=20
+> +STARFIVE JHB100 CLOCK DRIVERS
+> +M:	Changhuang Liang <changhuang.liang@starfivetech.com>
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/clock/starfive,jhb1*.yaml
+> +F:	drivers/clk/starfive/clk-starfive-jhb1*
+> +F:	include/dt-bindings/clock/starfive,jhb1*.h
+> +
+>  STARFIVE JHB100 DEVICETREES
+>  M:	Changhuang Liang <changhuang.liang@starfivetech.com>
+>  L:	linux-riscv@lists.infradead.org
+> diff --git a/drivers/clk/starfive/Kconfig b/drivers/clk/starfive/Kconfig =
+index
+> ff8eace36e64..7926e02ccd7d 100644
+> --- a/drivers/clk/starfive/Kconfig
+> +++ b/drivers/clk/starfive/Kconfig
+> @@ -72,3 +72,14 @@ config CLK_STARFIVE_JH7110_VOUT
+>  	help
+>  	  Say yes here to support the Video-Output clock controller
+>  	  on the StarFive JH7110 SoC.
+> +
+> +config CLK_STARFIVE_JHB100_SYS0
+> +	bool "StarFive JHB100 system-0 clock support"
+> +	depends on ARCH_STARFIVE || COMPILE_TEST
+> +	select AUXILIARY_BUS
+> +	select CLK_STARFIVE_COMMON
+> +	select RESET_STARFIVE_JHB100 if RESET_CONTROLLER
+> +	default ARCH_STARFIVE
+> +	help
+> +	  Say yes here to support the system-0 clock controller on the
+> +	  StarFive JHB100 SoC.
+> diff --git a/drivers/clk/starfive/Makefile b/drivers/clk/starfive/Makefil=
+e index
+> 012f7ee83f8e..2c5e66d1d44e 100644
+> --- a/drivers/clk/starfive/Makefile
+> +++ b/drivers/clk/starfive/Makefile
+> @@ -10,3 +10,5 @@ obj-$(CONFIG_CLK_STARFIVE_JH7110_AON)	+=3D
+> clk-starfive-jh7110-aon.o
+>  obj-$(CONFIG_CLK_STARFIVE_JH7110_STG)	+=3D clk-starfive-jh7110-stg.o
+>  obj-$(CONFIG_CLK_STARFIVE_JH7110_ISP)	+=3D clk-starfive-jh7110-isp.o
+>  obj-$(CONFIG_CLK_STARFIVE_JH7110_VOUT)	+=3D clk-starfive-jh7110-vout.o
+> +
+> +obj-$(CONFIG_CLK_STARFIVE_JHB100_SYS0)		+=3D
+> clk-starfive-jhb100-sys0.o
+> diff --git a/drivers/clk/starfive/clk-starfive-common.c
+> b/drivers/clk/starfive/clk-starfive-common.c
+> index 9c0eb7a50d1e..1b5e56af4138 100644
+> --- a/drivers/clk/starfive/clk-starfive-common.c
+> +++ b/drivers/clk/starfive/clk-starfive-common.c
+> @@ -9,6 +9,8 @@
+>  #include <linux/debugfs.h>
+>  #include <linux/device.h>
+>  #include <linux/io.h>
+> +#include <linux/pm_runtime.h>
+> +#include <soc/starfive/reset-starfive-common.h>
+>=20
+>  #include "clk-starfive-common.h"
+>=20
+> @@ -331,9 +333,143 @@ struct clk_hw *starfive_clk_get(struct
+> of_phandle_args *clkspec, void *data)
+>  	struct starfive_clk_priv *priv =3D data;
+>  	unsigned int idx =3D clkspec->args[0];
+>=20
+> -	if (idx < priv->num_reg)
+> -		return &priv->reg[idx].hw;
+> +	if (idx >=3D priv->num_reg)
+> +		return ERR_PTR(-EINVAL);
+>=20
+> -	return ERR_PTR(-EINVAL);
+> +	/* Index space is sparse: reject holes that were never registered. */
+> +	if (priv->info && !priv->info->clk_data[idx].name)
+> +		return ERR_PTR(-ENOENT);
+> +
+> +	return &priv->reg[idx].hw;
+>  }
+>  EXPORT_SYMBOL_GPL(starfive_clk_get);
+> +
+> +static void starfive_reset_unregister_adev(void *_adev) {
+> +	struct auxiliary_device *adev =3D _adev;
+> +
+> +	auxiliary_device_delete(adev);
+> +	auxiliary_device_uninit(adev);
+> +}
+> +
+> +static void starfive_reset_adev_release(struct device *dev) {
+> +	struct auxiliary_device *adev =3D to_auxiliary_dev(dev);
+> +	struct starfive_reset_adev *rdev =3D to_starfive_reset_adev(adev);
+> +
+> +	kfree(rdev);
+> +}
+> +
+> +static int starfive_reset_controller_register(struct starfive_clk_priv *=
+priv,
+> +					      const char *adev_name,
+> +					      u32 adev_id)
+> +{
+> +	struct starfive_reset_adev *rdev;
+> +	struct auxiliary_device *adev;
+> +	int ret;
+> +
+> +	rdev =3D kzalloc_obj(*rdev);
+> +	if (!rdev)
+> +		return -ENOMEM;
+> +
+> +	rdev->base =3D priv->base;
+> +
+> +	adev =3D &rdev->adev;
+> +	adev->name =3D adev_name;
+> +	adev->dev.parent =3D priv->dev;
+> +	adev->dev.release =3D starfive_reset_adev_release;
+> +	adev->id =3D adev_id;
+> +
+> +	ret =3D auxiliary_device_init(adev);
+> +	if (ret) {
+> +		kfree(rdev);
+> +		return ret;
+> +	}
+> +
+> +	ret =3D auxiliary_device_add(adev);
+> +	if (ret) {
+> +		auxiliary_device_uninit(adev);
+> +		return ret;
+> +	}
+> +
+> +	return devm_add_action_or_reset(priv->dev,
+> +					starfive_reset_unregister_adev, adev); }
+
+You add starfive_reset_controller_register() but a most similiar jh7110_res=
+et_controller_register()
+remains in drivers/clk/starfive/clk-starfive-jh7110-sys.c. Can we merge the=
+m?
+
+> +
+> +int starfive_crg_probe(struct platform_device *pdev) {
+=20
+This function name is too generic and we know not all starfive SoCs use it =
+to probe.
+
+> +	const struct starfive_crg_domain_info *info;
+> +	struct starfive_clk_priv *priv;
+> +	unsigned int idx;
+> +	int ret;
+> +
+> +	info =3D of_device_get_match_data(&pdev->dev);
+> +	if (!info)
+> +		return -ENODEV;
+> +
+> +	priv =3D devm_kzalloc(&pdev->dev, struct_size(priv, reg, info->num_clk)=
+,
+> +			    GFP_KERNEL);
+> +	if (!priv)
+> +		return -ENOMEM;
+> +
+> +	spin_lock_init(&priv->rmw_lock);
+> +	priv->info =3D info;
+> +	priv->num_reg =3D info->num_clk;
+> +	priv->dev =3D &pdev->dev;
+> +	priv->base =3D devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(priv->base))
+> +		return PTR_ERR(priv->base);
+> +
+> +	if (info->power_domain) {
+> +		ret =3D devm_pm_runtime_enable(priv->dev);
+> +		if (ret)
+> +			return dev_err_probe(priv->dev, ret,
+> +					     "failed to enable runtime PM\n");
+> +	}
+> +
+> +	for (idx =3D 0; idx < info->num_clk; idx++) {
+> +		u32 max =3D info->clk_data[idx].max;
+> +		struct clk_parent_data parents[4] =3D {};
+> +		struct clk_init_data init =3D {
+> +			.name =3D info->clk_data[idx].name,
+> +			.ops =3D starfive_clk_ops(max),
+> +			.parent_data =3D parents,
+> +			.num_parents =3D
+> +				((max & STARFIVE_CLK_MUX_MASK) >>
+> STARFIVE_CLK_MUX_SHIFT) + 1,
+> +			.flags =3D info->clk_data[idx].flags,
+> +		};
+> +		struct starfive_clk *clk =3D &priv->reg[idx];
+> +		unsigned int i;
+> +
+> +		if (!init.name)
+> +			continue;
+> +
+> +		for (i =3D 0; i < init.num_parents; i++) {
+> +			unsigned int pidx =3D info->clk_data[idx].parents[i];
+> +
+> +			if (pidx < info->num_clk) {
+> +				parents[i].hw =3D &priv->reg[pidx].hw;
+> +			} else {
+> +				if (pidx - info->num_clk >=3D info->num_ext_clk)
+> +					return -EINVAL;
+> +
+> +				parents[i].fw_name =3D info->ext_clk[pidx - info->num_clk];
+> +			}
+> +		}
+> +
+> +		clk->hw.init =3D &init;
+> +		clk->idx =3D idx;
+> +		clk->max_div =3D max & STARFIVE_CLK_DIV_MASK;
+> +
+> +		ret =3D devm_clk_hw_register(&pdev->dev, &clk->hw);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	ret =3D devm_of_clk_add_hw_provider(&pdev->dev, starfive_clk_get, priv)=
+;
+> +	if (ret)
+> +		return ret;
+> +
+> +	return starfive_reset_controller_register(priv, info->rst_name, 0); }
+> +EXPORT_SYMBOL_GPL(starfive_crg_probe);
+> diff --git a/drivers/clk/starfive/clk-starfive-common.h
+> b/drivers/clk/starfive/clk-starfive-common.h
+> index a03824e9e75f..4cd4357f8366 100644
+> --- a/drivers/clk/starfive/clk-starfive-common.h
+> +++ b/drivers/clk/starfive/clk-starfive-common.h
+> @@ -5,6 +5,7 @@
+>  #include <linux/bits.h>
+>  #include <linux/clk-provider.h>
+>  #include <linux/device.h>
+> +#include <linux/platform_device.h>
+>  #include <linux/spinlock.h>
+>=20
+>  /* register fields */
+> @@ -109,6 +110,15 @@ struct starfive_clk {
+>  	unsigned int max_div;
+>  };
+>=20
+> +struct starfive_crg_domain_info {
+> +	const struct starfive_clk_data *clk_data;
+> +	unsigned int num_clk;
+> +	const char * const *ext_clk;
+> +	unsigned int num_ext_clk;
+> +	const char *rst_name;
+> +	bool power_domain;
+> +};
+
+Is the starfive_crg_domain_info struct introduced only for JHB100? Could we=
+ also use it for JH7110?
+
+Best regards,
+Hal
+
+> +
+>  struct starfive_clk_priv {
+>  	/* protect clk enable and set rate/parent from happening at the same
+> time */
+>  	spinlock_t rmw_lock;
+> @@ -116,6 +126,7 @@ struct starfive_clk_priv {
+>  	void __iomem *base;
+>  	struct clk *original_clk;
+>  	struct notifier_block pll_clk_nb;
+> +	const struct starfive_crg_domain_info *info;
+>  	struct clk_hw *pll[3];
+>  	unsigned int num_reg;
+>  	struct starfive_clk reg[] __counted_by(num_reg); @@ -123,5 +134,6
+> @@ struct starfive_clk_priv {
+>=20
+>  const struct clk_ops *starfive_clk_ops(u32 max);  struct clk_hw
+> *starfive_clk_get(struct of_phandle_args *clkspec, void *data);
+> +int starfive_crg_probe(struct platform_device *pdev);
+>=20
+>  #endif
+> diff --git a/drivers/clk/starfive/clk-starfive-jhb100-sys0.c
+> b/drivers/clk/starfive/clk-starfive-jhb100-sys0.c
 > new file mode 100644
-> index 0000000000000..9b9793f254963
+> index 000000000000..eb3cd33e2309
 > --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx95-data-modul-edm-sbc.dts
-> @@ -0,0 +1,1111 @@
-> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+> +++ b/drivers/clk/starfive/clk-starfive-jhb100-sys0.c
+> @@ -0,0 +1,150 @@
+> +// SPDX-License-Identifier: GPL-2.0
 > +/*
-> + * Copyright (C) 2025-2026 Marek Vasut <marex@nabladev.com>
+> + * StarFive JHB100 System-0 Clock Driver
+> + *
+> + * Copyright (C) 2024 StarFive Technology Co., Ltd.
+> + *
+> + * Author: Changhuang Liang <changhuang.liang@starfivetech.com>
+> + *
 > + */
 > +
-> +/dts-v1/;
+> +#include <dt-bindings/clock/starfive,jhb100-crg.h>
+> +#include <linux/init.h>
+> +#include <linux/platform_device.h>
 > +
-> +#include <dt-bindings/i3c/i3c.h>
-> +#include <dt-bindings/leds/common.h>
-> +#include <dt-bindings/pwm/pwm.h>
-> +#include <dt-bindings/usb/pd.h>
-> +#include "imx95.dtsi"
+> +#include "clk-starfive-common.h"
 > +
-> +/ {
-> +	model = "Data Modul i.MX95 eDM SBC";
-> +	compatible = "dmo,imx95-data-modul-edm-sbc", "fsl,imx95";
+> +#define JHB100_SYS0CLK_NUM_CLKS
+> 	(JHB100_SYS0CLK_GPU1_NCNOC_INIT + 1)
 > +
-> +	aliases {
-> +		ethernet0 = &enetc_port0;
-> +		ethernet1 = &enetc_port1;
-> +		gpio0 = &gpio1;
-> +		gpio1 = &gpio2;
-> +		gpio2 = &gpio3;
-> +		gpio3 = &gpio4;
-> +		gpio4 = &gpio5;
-> +		i2c0 = &lpi2c1;
-> +		i2c1 = &lpi2c2;
-> +		i2c2 = &lpi2c5;
-> +		mmc0 = &usdhc1;
-> +		mmc1 = &usdhc2;
-> +		mmc2 = &usdhc3;
-> +		serial0 = &lpuart1;
-> +		serial1 = &lpuart2;
-> +		serial2 = &lpuart5;
-> +		serial3 = &lpuart7;
-> +		serial4 = &lpuart8;
-> +	};
+> +/* external clocks */
+> +#define JHB100_SYS0CLK_OSC			(JHB100_SYS0CLK_NUM_CLKS +
+> 0)
+> +#define JHB100_SYS0CLK_PLL0			(JHB100_SYS0CLK_NUM_CLKS +
+> 1)
+> +#define JHB100_SYS0CLK_PLL1			(JHB100_SYS0CLK_NUM_CLKS +
+> 2)
+> +#define JHB100_SYS0CLK_PLL2			(JHB100_SYS0CLK_NUM_CLKS +
+> 3)
 > +
-> +	chosen {
-> +		stdout-path = &lpuart1;
-> +	};
-> +
-> +	memory@80000000 {
-> +		device_type = "memory";
-> +		reg = <0x0 0x80000000 0 0x80000000>;
-> +	};
-> +
-> +	backlight_dsi: backlight-dsi {
-> +		compatible = "pwm-backlight";
-> +		brightness-levels = <0 1 10 20 30 40 50 60 70 75 80 90 100>;
-> +		default-brightness-level = <7>;
-> +		enable-gpios = <&i2c2_gpio_expander_21 12 GPIO_ACTIVE_HIGH>;
-> +		pwms = <&tpm4 3 5000000 0>;
-> +		/* Disabled by default, unless display board plugged in. */
-> +		status = "disabled";
-> +	};
-> +
-> +	backlight_lvds: backlight-lvds {
-> +		compatible = "pwm-backlight";
-> +		pinctrl-names = "default";
-> +		pinctrl-0 = <&pinctrl_panel_backlight_lvds>;
-> +		brightness-levels = <0 1 10 20 30 40 50 60 70 75 80 90 100>;
-> +		default-brightness-level = <7>;
-> +		enable-gpios = <&gpio2 27 GPIO_ACTIVE_HIGH>;
-> +		pwms = <&tpm3 3 5000000 0>;
-> +		/* Disabled by default, unless display board plugged in. */
-> +		status = "disabled";
-> +	};
-> +
-> +	bt_sco_codec: bt-sco-codec {
-> +		compatible = "linux,bt-sco";
-> +		#sound-dai-cells = <1>;
-> +	};
-> +
-> +	flexcan3_phy: can-phy0 {
-> +		compatible = "microchip,ata6563", "ti,tcan1042";
-> +		#phy-cells = <0>;
-> +		max-bitrate = <5000000>;
-> +		standby-gpios = <&i2c2_gpio_expander_20 15 GPIO_ACTIVE_HIGH>;
-> +	};
-> +
-> +	flexcan5_phy: can-phy1 {
-> +		compatible = "microchip,ata6563", "ti,tcan1042";
-> +		#phy-cells = <0>;
-> +		max-bitrate = <5000000>;
-> +		standby-gpios = <&i2c2_gpio_expander_20 16 GPIO_ACTIVE_HIGH>;
-> +	};
-> +
-> +	led {
-> +		compatible = "gpio-leds";
-> +		pinctrl-0 = <&pinctrl_led>;
-> +		pinctrl-names = "default";
-> +
-> +		led-0 {
-> +			color = <LED_COLOR_ID_GREEN>;
-> +			default-state = "off";
-> +			function = LED_FUNCTION_INDICATOR;
-> +			function-enumerator = <0>;
-> +			gpios = <&gpio5 9 GPIO_ACTIVE_HIGH>;
-> +		};
-> +
-> +		led-1 {
-> +			color = <LED_COLOR_ID_RED>;
-> +			default-state = "off";
-> +			function = LED_FUNCTION_INDICATOR;
-> +			function-enumerator = <0>;
-> +			gpios = <&gpio5 8 GPIO_ACTIVE_HIGH>;
-> +		};
-> +	};
-> +
-> +	reg_1p8v: regulator-1p8v {
-> +		compatible = "regulator-fixed";
-> +		regulator-max-microvolt = <1800000>;
-> +		regulator-min-microvolt = <1800000>;
-> +		regulator-name = "VDD_1V8";
-> +	};
-> +
-> +	/* PF09 SW1, but the PMIC is controlled by CM33 */
-> +	reg_3p3v: regulator-3p3v {
-> +		compatible = "regulator-fixed";
-> +		regulator-max-microvolt = <3300000>;
-> +		regulator-min-microvolt = <3300000>;
-> +		regulator-name = "VDD_3V3";
-> +	};
-> +
-> +	reg_5p0v: regulator-5p0v {
-> +		compatible = "regulator-fixed";
-> +		regulator-max-microvolt = <5000000>;
-> +		regulator-min-microvolt = <5000000>;
-> +		regulator-name = "VDD_5V0";
-> +	};
-> +
-> +	reg_panel_vcc: regulator-panel-vcc {
-> +		compatible = "regulator-fixed";
-> +		regulator-min-microvolt = <3300000>;
-> +		regulator-max-microvolt = <3300000>;
-> +		regulator-name = "PANEL_VCC";
-> +		gpio = <&i2c2_gpio_expander_20 17 0>;
-
-						  ^^^ use predefined macro
-
-use gpios = <...>
-
-Frank
-
-
-> +		/* Disabled by default, unless display board plugged in. */
-> +		status = "disabled";
-> +	};
-> +
-> +	reg_pcie0: regulator-pcie0 {
-> +		compatible = "regulator-fixed";
-> +		regulator-max-microvolt = <3300000>;
-> +		regulator-min-microvolt = <3300000>;
-> +		regulator-name = "PCIE_M2-B_EN";
-> +		gpio = <&i2c2_gpio_expander_20 6 GPIO_ACTIVE_HIGH>;
-> +		enable-active-high;
-> +	};
-> +
-> +	reg_pcie1: regulator-pcie1 {
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "PCIE_M2-M_EN";
-> +		regulator-min-microvolt = <3300000>;
-> +		regulator-max-microvolt = <3300000>;
-> +		gpio = <&i2c2_gpio_expander_21 7 GPIO_ACTIVE_HIGH>;
-> +		enable-active-high;
-> +	};
-> +
-> +	reg_usb2_vbus: regulator-usb2-vbus {
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "USB2_VBUS";
-> +		regulator-min-microvolt = <5000000>;
-> +		regulator-max-microvolt = <5000000>;
-> +		gpio = <&i2c2_gpio_expander_21 16 GPIO_ACTIVE_HIGH>;
-> +		enable-active-high;
-> +	};
-> +
-> +	reg_usdhc2_vmmc: regulator-usdhc2 {
-> +		compatible = "regulator-fixed";
-> +		regulator-min-microvolt = <3300000>;
-> +		regulator-max-microvolt = <3300000>;
-> +		regulator-name = "VDD_SD2_3V3";
-> +	};
-> +
-> +	sound-bt-sco {
-> +		compatible = "simple-audio-card";
-> +		simple-audio-card,bitclock-inversion;
-> +		simple-audio-card,bitclock-master = <&btcpu>;
-> +		simple-audio-card,format = "dsp_a";
-> +		simple-audio-card,frame-master = <&btcpu>;
-> +		simple-audio-card,name = "bt-sco-audio";
-> +
-> +		simple-audio-card,codec {
-> +			sound-dai = <&bt_sco_codec 1>;
-> +		};
-> +
-> +		btcpu: simple-audio-card,cpu {
-> +			dai-tdm-slot-num = <2>;
-> +			dai-tdm-slot-width = <16>;
-> +			sound-dai = <&sai5>;
-> +		};
-> +	};
-> +
-> +	sound-micfil {
-> +		compatible = "fsl,imx-audio-card";
-> +		model = "micfil-audio";
-> +
-> +		pri-dai-link {
-> +			link-name = "micfil hifi";
-> +			format = "i2s";
-> +			cpu {
-> +				sound-dai = <&micfil>;
-> +			};
-> +		};
-> +	};
-> +
-> +	sound-tas2552 {
-> +		compatible = "simple-audio-card";
-> +		simple-audio-card,bitclock-master = <&cpudai>;
-> +		simple-audio-card,format = "i2s";
-> +		simple-audio-card,frame-master = <&cpudai>;
-> +		simple-audio-card,mclk-fs = <256>;
-> +		simple-audio-card,name = "tas2552-audio";
-> +		simple-audio-card,routing = "Speaker", "OUT";
-> +		simple-audio-card,widgets = "Speaker", "Speaker";
-> +
-> +		simple-audio-card,codec {
-> +			sound-dai = <&tas2552>;
-> +		};
-> +
-> +		cpudai: simple-audio-card,cpu {
-> +			sound-dai = <&sai3>;
-> +		};
-> +	};
+> +static const char * const jhb100_sys0_ext_clk[] =3D {
+> +	"osc",
+> +	"pll0",
+> +	"pll1",
+> +	"pll2",
 > +};
 > +
-> +&enetc_port0 {
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_enetc0>;
-> +	phy-handle = <&ethphy0>;
-> +	phy-mode = "rgmii-id";
-> +	status = "okay";
+> +static const struct starfive_clk_data jhb100_sys0crg_clk_data[] =3D {
+> +	/* bmcpcierp */
+> +	STARFIVE__DIV(JHB100_SYS0CLK_BMCPCIERP_NCNOC_MAIN,
+> "bmcpcierp_ncnoc_main", 6,
+> +		      JHB100_SYS0CLK_PLL0),
+> +	STARFIVE__DIV(JHB100_SYS0CLK_BMCPCIERP_NCNOC_CFG,
+> "bmcpcierp_ncnoc_cfg", 12,
+> +		      JHB100_SYS0CLK_PLL1),
+> +	STARFIVE__DIV(JHB100_SYS0CLK_PCIE_REF_CML, "pcie_ref_cml", 24,
+...
+> +	/* gpu1 */
+> +	STARFIVE__DIV(JHB100_SYS0CLK_GPU1_NCNOC_INIT,
+> "gpu1_ncnoc_init", 10,
+> +		      JHB100_SYS0CLK_PLL0),
 > +};
 > +
-> +&enetc_port1 {
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_enetc1>;
-> +	phy-handle = <&ethphy1>;
-> +	phy-mode = "rgmii-id";
-> +	status = "okay";
+> +static const struct starfive_crg_domain_info jhb100_sys0crg_info =3D {
+> +	.clk_data	=3D jhb100_sys0crg_clk_data,
+> +	.num_clk	=3D ARRAY_SIZE(jhb100_sys0crg_clk_data),
+> +	.ext_clk	=3D jhb100_sys0_ext_clk,
+> +	.num_ext_clk	=3D ARRAY_SIZE(jhb100_sys0_ext_clk),
+> +	.rst_name	=3D "jhb100-r-sys0",
+> +	.power_domain	=3D false,
 > +};
 > +
-> +&flexcan3 {
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_flexcan3>;
-> +	phys = <&flexcan3_phy>;
-> +	status = "okay";
+> +static const struct of_device_id jhb100_sys0crg_match[] =3D {
+> +	{
+> +		.compatible =3D "starfive,jhb100-sys0crg",
+> +		.data =3D &jhb100_sys0crg_info,
+> +	},
+> +	{ /* sentinel */ }
 > +};
 > +
-> +&flexcan5 {
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_flexcan5>;
-> +	phys = <&flexcan5_phy>;
-> +	status = "okay";
+> +static struct platform_driver jhb100_sys0crg_driver =3D {
+> +	.probe =3D starfive_crg_probe,
+> +	.driver =3D {
+> +		.name =3D "clk-starfive-jhb100-sys0",
+> +		.of_match_table =3D jhb100_sys0crg_match,
+> +		.suppress_bind_attrs =3D true,
+> +	},
 > +};
-> +
-> +&gpio1 {
-> +	gpio-line-names =
-> +		"", "", "", "",
-> +		"", "BOOT_MODE0", "", "BOOT_MODE1",
-> +		"", "", "SYS_WAKEUP", "BOOT_MODE2",
-> +		"", "BOOT_MODE3", "", "";
-> +	status = "okay";
-> +};
-> +
-> +&gpio5 {
-> +	pcal6524-reset-hog {
-> +		gpio-hog;
-> +		gpios = <10 0>;
-> +		output-high;
-> +		line-name = "IO_XPNDR_RST_1V8";
-> +	};
-> +
-> +	pewake0-hog {
-> +		gpio-hog;
-> +		gpios = <14 0>;
-> +		input;
-> +		line-name = "PCIE_PEWAKE_M2-B";
-> +	};
-> +
-> +	pewake1-hog {
-> +		gpio-hog;
-> +		gpios = <17 0>;
-> +		input;
-> +		line-name = "PCIE_PEWAKE_M2-M";
-> +	};
-> +};
-> +
-> +&i3c2 {	/* Feature connector I2C/I3C */
-> +	i2c-scl-hz = <400000>;
-> +	pinctrl-0 = <&pinctrl_i3c2>;
-> +	pinctrl-names = "default";
-> +	status = "okay";
-> +};
-> +
-> +&lpi2c2 {
-> +	clock-frequency = <400000>;
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_lpi2c2>;
-> +	status = "okay";
-> +
-> +	i2c2_gpio_expander_20: gpio@20 {	/* U12 */
-> +		compatible = "nxp,pcal6524";
-> +		reg = <0x20>;
-> +		#gpio-cells = <2>;
-> +		gpio-controller;
-> +		#interrupt-cells = <2>;
-> +		interrupt-controller;
-> +		interrupts-extended = <&gpio5 11 IRQ_TYPE_LEVEL_HIGH>;
-> +		vcc-supply = <&reg_3p3v>;
-> +		/*
-> +		 * reset-gpios cannot be used because the reset
-> +		 * line is shared by multiple PCAL6524 consumers.
-> +		 */
-> +		gpio-line-names =
-> +			/* Port 0 */
-> +			"UART8_RS232-485_MODE0", "UART8_RS232-485_MODE1",
-> +			"UART8_RS232-485_Term_TX", "UART8_RS232-485_Term_RX",
-> +			"UART8_RS232-485_EN", "VDD_3V3_M2-E_EN",
-> +			"VDD_3V3_M2-B_EN", "M2_I2C_ALERT",
-> +			/* Port 1 */
-> +			"M2-B_FULL_CARD_PWROFF", "M2-B_W_DISABLE1",
-> +			"M2-B_W_DISABLE2", "M2-B_RESET",
-> +			"M2-E_W_DISABLE1", "M2-E_W_DISABLE2",
-> +			"M2-E_SDIO_RESET", "CAN3_STBY",
-> +			/* Port 2 */
-> +			"CAN5_STBY", "V_LCD_EN",
-> +			"V_LCD_SEL_3V3", "V_LCD_SEL_5V0",
-> +			"V_LCD_SEL_12V0", "V_12V0_CC",
-> +			"V_12V0_PG", "AUDIO_EN";
-> +	};
-> +
-> +	i2c2_gpio_expander_21: gpio@21 {	/* U14 */
-> +		compatible = "nxp,pcal6524";
-> +		reg = <0x21>;
-> +		#gpio-cells = <2>;
-> +		gpio-controller;
-> +		#interrupt-cells = <2>;
-> +		interrupt-controller;
-> +		interrupts-extended = <&gpio5 11 IRQ_TYPE_LEVEL_HIGH>;
-> +		vcc-supply = <&reg_3p3v>;
-> +		/*
-> +		 * reset-gpios cannot be used because the reset
-> +		 * line is shared by multiple PCAL6524 consumers.
-> +		 */
-> +		gpio-line-names =
-> +			/* Port 0 */
-> +			"V_BKL_PWM_SEL_5V0", "V_BKL_EN_SEL_5V0",
-> +			"UART7_RS232-485_MODE0", "UART7_RS232-485_MODE1",
-> +			"UART7_RS232-485_Term_TX", "UART7_RS232-485_Term_RX",
-> +			"UART7_RS232-485_EN", "VDD_3V3_M2-M_EN",
-> +			/* Port 1 */
-> +			"TOUCH_INT", "TOUCH_RESET",
-> +			"CAMERA_PWREN", "CAMERA_LED",
-> +			"MIPI_DSI-CSI_BL_EN", "MIPI_DSI-CSI_RESET",
-> +			"MIPI_DSI-CSI_INT", "LVDS_PANEL_GPIO",
-> +			/* Port 2 */
-> +			"USB2_PWR_EN", "USB2_PWR_OC#",
-> +			"VDD_1V2_USB_PG", "PF09_PG",
-> +			"USB_HUB_RESET", "PF09_FS0B",
-> +			"PF53_VDD_ARM_PG", "PF53_VDD_SOC_PG";
-> +
-> +		usb-hub-hog {
-> +			gpio-hog;
-> +			gpios = <20 0>;
-> +			output-high;
-> +			line-name = "USB_HUB_RESET";
-> +		};
-> +	};
-> +
-> +	i2c2_gpio_expander_22: gpio@22 {	/* U13 */
-> +		compatible = "nxp,pcal6524";
-> +		reg = <0x22>;
-> +		#gpio-cells = <2>;
-> +		gpio-controller;
-> +		#interrupt-cells = <2>;
-> +		interrupt-controller;
-> +		interrupts-extended = <&gpio5 11 IRQ_TYPE_LEVEL_HIGH>;
-> +		vcc-supply = <&reg_3p3v>;
-> +		/*
-> +		 * reset-gpios cannot be used because the reset
-> +		 * line is shared by multiple PCAL6524 consumers.
-> +		 */
-> +		gpio-line-names =
-> +			/* Port 0 */
-> +			"eMMC_RESET", "WDOG_IRQ#",
-> +			"FAN_ALERT", "VDD_1V2_ETH_PG",
-> +			"ENET1_RESET", "ENET2_RESET",
-> +			"TPM_IRQ", "TPM_RESET",
-> +			/* Port 1 */
-> +			"FEATURE_CONN_GPIO1", "FEATURE_CONN_GPIO2",
-> +			"FEATURE_CONN_GPIO3", "FEATURE_CONN_GPIO4",
-> +			"FEATURE_CONN_GPIO5", "FEATURE_CONN_GPIO6",
-> +			"", "",
-> +			/* Port 2 */
-> +			"", "", "", "", "", "",
-> +			"UART5_SEL", "EEPROM_WRITE_ENABLE";
-> +	};
-> +
-> +	fan_controller: fan-controller@2f {
-> +		compatible = "microchip,emc2301", "microchip,emc2305";
-> +		reg = <0x2f>;
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +		#pwm-cells = <3>;
-> +
-> +		fan@0 {
-> +			reg = <0x0>;
-> +			pwms = <&fan_controller 26000 0 1>;
-> +			#cooling-cells = <2>;
-> +		};
-> +	};
-> +
-> +	tas2552: audio-codec@40 {
-> +		compatible = "ti,tas2552";
-> +		reg = <0x40>;
-> +		#sound-dai-cells = <0>;
-> +		avdd-supply = <&reg_1p8v>;
-> +		iovdd-supply = <&reg_3p3v>;
-> +		vbat-supply = <&reg_5p0v>;
-> +		enable-gpio = <&i2c2_gpio_expander_20 23 GPIO_ACTIVE_HIGH>;
-> +	};
-> +
-> +	temperature-sensor@43 {
-> +		compatible = "ti,tmp110", "ti,tmp102";
-> +		reg = <0x43>;
-> +	};
-> +};
-> +
-> +&lpi2c5 {
-> +	clock-frequency = <400000>;
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_lpi2c5>;
-> +	status = "okay";
-> +};
-> +
-> +&lpuart1 {	/* A55 Debug */
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_uart1>;
-> +	status = "okay";
-> +};
-> +
-> +&lpuart2 {	/* M33 Debug */
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_uart2>;
-> +	status = "reserved";
-> +};
-> +
-> +&lpuart5 {
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_uart5>;
-> +	uart-has-rtscts;
-> +	status = "okay";
-> +};
-> +
-> +&lpuart7 {
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_uart7>;
-> +	uart-has-rtscts;
-> +	status = "okay";
-> +};
-> +
-> +&lpuart8 {	/* M7 Debug */
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_uart8>;
-> +	uart-has-rtscts;
-> +	status = "okay";
-> +};
-> +
-> +&lpspi1 {
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_lpspi1>;
-> +	cs-gpios = <&gpio1 9 GPIO_ACTIVE_LOW>;
-> +	status = "okay";
-> +
-> +	flash@0 {	/* W25Q128FVSI */
-> +		compatible = "jedec,spi-nor";
-> +		reg = <0>;
-> +		spi-max-frequency = <10000000>;
-> +	};
-> +};
-> +
-> +&lpspi6 {
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_lpspi6>;
-> +	cs-gpios = <&gpio2 0 GPIO_ACTIVE_LOW>;
-> +	status = "okay";
-> +};
-> +
-> +&micfil {
-> +	#sound-dai-cells = <0>;
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_pdm>;
-> +	assigned-clocks = <&scmi_clk IMX95_CLK_AUDIOPLL1_VCO>,
-> +			  <&scmi_clk IMX95_CLK_AUDIOPLL2_VCO>,
-> +			  <&scmi_clk IMX95_CLK_AUDIOPLL1>,
-> +			  <&scmi_clk IMX95_CLK_AUDIOPLL2>,
-> +			  <&scmi_clk IMX95_CLK_PDM>;
-> +	assigned-clock-parents = <0>, <0>, <0>, <0>,
-> +				 <&scmi_clk IMX95_CLK_AUDIOPLL1>;
-> +	assigned-clock-rates = <3932160000>,
-> +			       <3612672000>, <393216000>,
-> +			       <361267200>, <49152000>;
-> +	status = "okay";
-> +};
-> +
-> +&mu7 {
-> +	status = "okay";
-> +};
-> +
-> +&netc_blk_ctrl {
-> +	status = "okay";
-> +};
-> +
-> +&netc_emdio {
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_emdio>;
-> +	status = "okay";
-> +
-> +	ethphy0: ethernet-phy@1 {	/* KSZ9131RNXI U20 */
-> +		compatible = "ethernet-phy-id0022.1640";
-> +		reg = <1>;
-> +		interrupts-extended = <&gpio1 10 IRQ_TYPE_LEVEL_LOW>;
-> +		reset-assert-us = <1000>;
-> +		/* RESET_N signal rise time ~100ms */
-> +		reset-deassert-us = <120000>;
-> +		reset-gpios = <&i2c2_gpio_expander_22 4 GPIO_ACTIVE_HIGH>;
-> +	};
-> +
-> +	ethphy1: ethernet-phy@2 {	/* KSZ9131RNXI U22 */
-> +		compatible = "ethernet-phy-id0022.1640";
-> +		reg = <2>;
-> +		interrupts-extended = <&gpio1 10 IRQ_TYPE_LEVEL_LOW>;
-> +		reset-assert-us = <1000>;
-> +		/* RESET_N signal rise time ~100ms */
-> +		reset-deassert-us = <120000>;
-> +		reset-gpios = <&i2c2_gpio_expander_22 5 GPIO_ACTIVE_HIGH>;
-> +	};
-> +};
-> +
-> +&netc_timer {
-> +	status = "okay";
-> +};
-> +
-> +&netcmix_blk_ctrl {
-> +	status = "okay";
-> +};
-> +
-> +&pcie0 {	/* M.2 Key-B */
-> +	pinctrl-0 = <&pinctrl_pcie0>;
-> +	pinctrl-names = "default";
-> +	reset-gpios = <&gpio5 13 GPIO_ACTIVE_LOW>;
-> +	vpcie-supply = <&reg_pcie0>;
-> +	status = "okay";
-> +};
-> +
-> +&pcie1 {	/* M.2 Key-M */
-> +	pinctrl-0 = <&pinctrl_pcie1>;
-> +	pinctrl-names = "default";
-> +	reset-gpios = <&gpio5 16 GPIO_ACTIVE_LOW>;
-> +	vpcie-supply = <&reg_pcie1>;
-> +	status = "okay";
-> +};
-> +
-> +&sai3 {
-> +	#sound-dai-cells = <0>;
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_sai3>;
-> +	assigned-clocks = <&scmi_clk IMX95_CLK_AUDIOPLL1_VCO>,
-> +			  <&scmi_clk IMX95_CLK_AUDIOPLL2_VCO>,
-> +			  <&scmi_clk IMX95_CLK_AUDIOPLL1>,
-> +			  <&scmi_clk IMX95_CLK_AUDIOPLL2>,
-> +			  <&scmi_clk IMX95_CLK_SAI3>;
-> +	assigned-clock-parents = <0>, <0>, <0>, <0>,
-> +				 <&scmi_clk IMX95_CLK_AUDIOPLL1>;
-> +	assigned-clock-rates = <3932160000>,
-> +			       <3612672000>, <393216000>,
-> +			       <361267200>, <12288000>;
-> +	fsl,sai-mclk-direction-output;
-> +	status = "okay";
-> +};
-> +
-> +&sai4 {
-> +	assigned-clocks = <&scmi_clk IMX95_CLK_AUDIOPLL1_VCO>,
-> +			  <&scmi_clk IMX95_CLK_AUDIOPLL2_VCO>,
-> +			  <&scmi_clk IMX95_CLK_AUDIOPLL1>,
-> +			  <&scmi_clk IMX95_CLK_AUDIOPLL2>,
-> +			  <&scmi_clk IMX95_CLK_SAI4>;
-> +	assigned-clock-parents = <0>, <0>, <0>, <0>, <&scmi_clk IMX95_CLK_AUDIOPLL1>;
-> +	assigned-clock-rates = <3932160000>, <3612672000>, <393216000>, <361267200>, <12288000>;
-> +	#sound-dai-cells = <0>;
-> +	pinctrl-0 = <&pinctrl_sai4>;
-> +	pinctrl-names = "default";
-> +	fsl,sai-mclk-direction-output;
-> +	status = "okay";
-> +};
-> +
-> +&sai5 {
-> +	assigned-clocks = <&scmi_clk IMX95_CLK_AUDIOPLL1_VCO>,
-> +			  <&scmi_clk IMX95_CLK_AUDIOPLL2_VCO>,
-> +			  <&scmi_clk IMX95_CLK_AUDIOPLL1>,
-> +			  <&scmi_clk IMX95_CLK_AUDIOPLL2>,
-> +			  <&scmi_clk IMX95_CLK_SAI5>;
-> +	assigned-clock-parents = <0>, <0>, <0>, <0>, <&scmi_clk IMX95_CLK_AUDIOPLL1>;
-> +	assigned-clock-rates = <3932160000>, <3612672000>, <393216000>, <361267200>, <12288000>;
-> +	#sound-dai-cells = <0>;
-> +	pinctrl-0 = <&pinctrl_sai5>;
-> +	pinctrl-names = "default";
-> +	fsl,sai-mclk-direction-output;
-> +	status = "okay";
-> +};
-> +
-> +&thermal_zones {
-> +	pf09-thermal {
-> +		polling-delay = <2000>;
-> +		polling-delay-passive = <250>;
-> +		thermal-sensors = <&scmi_sensor 2>;
-> +
-> +		trips {
-> +			trip0 {
-> +				hysteresis = <2000>;
-> +				temperature = <140000>;
-> +				type = "passive";
-> +			};
-> +
-> +			trip1 {
-> +				hysteresis = <2000>;
-> +				temperature = <155000>;
-> +				type = "critical";
-> +			};
-> +		};
-> +	};
-> +
-> +	pf53arm-thermal {
-> +		polling-delay = <2000>;
-> +		polling-delay-passive = <250>;
-> +		thermal-sensors = <&scmi_sensor 4>;
-> +
-> +		cooling-maps {
-> +			map0 {
-> +				trip = <&pf5301_alert>;
-> +				cooling-device =
-> +					<&A55_0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +					<&A55_1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +					<&A55_2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +					<&A55_3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +					<&A55_4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-> +					<&A55_5 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-> +			};
-> +		};
-> +
-> +		trips {
-> +			pf5301_alert: trip0 {
-> +				hysteresis = <2000>;
-> +				temperature = <140000>;
-> +				type = "passive";
-> +			};
-> +
-> +			pf5301_crit: trip1 {
-> +				hysteresis = <2000>;
-> +				temperature = <155000>;
-> +				type = "critical";
-> +			};
-> +		};
-> +	};
-> +
-> +	pf53soc-thermal {
-> +		polling-delay = <2000>;
-> +		polling-delay-passive = <250>;
-> +		thermal-sensors = <&scmi_sensor 3>;
-> +
-> +		trips {
-> +			pf5302_alert: trip0 {
-> +				hysteresis = <2000>;
-> +				temperature = <140000>;
-> +				type = "passive";
-> +			};
-> +
-> +			pf5302_crit: trip1 {
-> +				hysteresis = <2000>;
-> +				temperature = <155000>;
-> +				type = "critical";
-> +			};
-> +		};
-> +	};
-> +};
-> +
-> +&tpm3 {
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_tpm3>;
-> +	status = "okay";
-> +};
-> +
-> +&tpm4 {
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_tpm4>;
-> +	status = "okay";
-> +};
-> +
-> +&usb2 {
-> +	dr_mode = "host";
-> +	vbus-supply = <&reg_usb2_vbus>;
-> +	status = "okay";
-> +};
-> +
-> +&usb3 {
-> +	status = "okay";
-> +};
-> +
-> +&usb3_dwc3 {
-> +	dr_mode = "host";
-> +	status = "okay";
-> +};
-> +
-> +&usb3_phy {
-> +	status = "okay";
-> +};
-> +
-> +&usdhc1 {	/* eMMC */
-> +	pinctrl-names = "default", "state_100mhz", "state_200mhz", "sleep";
-> +	pinctrl-0 = <&pinctrl_usdhc1>;
-> +	pinctrl-1 = <&pinctrl_usdhc1_100mhz>;
-> +	pinctrl-2 = <&pinctrl_usdhc1_200mhz>;
-> +	pinctrl-3 = <&pinctrl_usdhc1>;
-> +	bus-width = <8>;
-> +	non-removable;
-> +	no-sdio;
-> +	no-sd;
-> +	status = "okay";
-> +};
-> +
-> +&usdhc2 {	/* SD-Card */
-> +	pinctrl-names = "default", "state_100mhz", "state_200mhz", "sleep";
-> +	pinctrl-0 = <&pinctrl_usdhc2>;
-> +	pinctrl-1 = <&pinctrl_usdhc2_100mhz>;
-> +	pinctrl-2 = <&pinctrl_usdhc2_200mhz>;
-> +	pinctrl-3 = <&pinctrl_usdhc2>;
-> +	cd-gpios = <&gpio3 0 GPIO_ACTIVE_LOW>;
-> +	vmmc-supply = <&reg_usdhc2_vmmc>;
-> +	bus-width = <4>;
-> +	status = "okay";
-> +};
-> +
-> +&usdhc3 {	/* M.2 Key-E */
-> +	pinctrl-names = "default", "state_100mhz", "state_200mhz", "sleep";
-> +	pinctrl-0 = <&pinctrl_usdhc3>;
-> +	pinctrl-1 = <&pinctrl_usdhc3_100mhz>;
-> +	pinctrl-2 = <&pinctrl_usdhc3_200mhz>;
-> +	pinctrl-3 = <&pinctrl_usdhc3>;
-> +	bus-width = <4>;
-> +	status = "okay";
-> +};
-> +
-> +&wdog3 {
-> +	fsl,ext-reset-output;
-> +	status = "okay";
-> +};
-> +
-> +&scmi_iomuxc {
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_hog>;
-> +
-> +	pinctrl_hog: hoggrp {
-> +		fsl,pins = <
-> +			/* PCIe 0 PEWAKE */
-> +			IMX95_PAD_GPIO_IO34__GPIO5_IO_BIT14			0x4000031e
-> +			/* PCIe 1 PEWAKE */
-> +			IMX95_PAD_GPIO_IO37__GPIO5_IO_BIT17			0x4000031e
-> +			/* BOOT_MODE2 */
-> +			IMX95_PAD_SAI1_TXFS__AONMIX_TOP_GPIO1_IO_BIT11		0x4000031e
-> +			/* IO_XPNDR_RST_1V8 shared by multiple expanders */
-> +			IMX95_PAD_XSPI1_SS0_B__GPIO5_IO_BIT10			0x40000b9e
-> +			/* IO_XPNDR_INT_1V8 shared by multiple expanders */
-> +			IMX95_PAD_XSPI1_SS1_B__GPIO5_IO_BIT11			0x40000b9e
-> +		>;
-> +	};
-> +
-> +	pinctrl_emdio: emdiogrp {
-> +		fsl,pins = <
-> +			IMX95_PAD_ENET2_MDC__NETCMIX_TOP_NETC_MDC		0x50e
-> +			IMX95_PAD_ENET2_MDIO__NETCMIX_TOP_NETC_MDIO		0x90e
-> +		>;
-> +	};
-> +
-> +	pinctrl_enetc0: enetc0grp {
-> +		fsl,pins = <
-> +			IMX95_PAD_ENET1_RD0__NETCMIX_TOP_ETH0_RGMII_RD0		0x57e
-> +			IMX95_PAD_ENET1_RD1__NETCMIX_TOP_ETH0_RGMII_RD1		0x57e
-> +			IMX95_PAD_ENET1_RD2__NETCMIX_TOP_ETH0_RGMII_RD2		0x57e
-> +			IMX95_PAD_ENET1_RD3__NETCMIX_TOP_ETH0_RGMII_RD3		0x57e
-> +			IMX95_PAD_ENET1_RXC__NETCMIX_TOP_ETH0_RGMII_RX_CLK	0x58e
-> +			IMX95_PAD_ENET1_RX_CTL__NETCMIX_TOP_ETH0_RGMII_RX_CTL	0x57e
-> +			IMX95_PAD_ENET1_TD0__NETCMIX_TOP_ETH0_RGMII_TD0		0x50e
-> +			IMX95_PAD_ENET1_TD1__NETCMIX_TOP_ETH0_RGMII_TD1		0x50e
-> +			IMX95_PAD_ENET1_TD2__NETCMIX_TOP_ETH0_RGMII_TD2		0x50e
-> +			IMX95_PAD_ENET1_TD3__NETCMIX_TOP_ETH0_RGMII_TD3		0x50e
-> +			IMX95_PAD_ENET1_TXC__NETCMIX_TOP_ETH0_RGMII_TX_CLK	0x58e
-> +			IMX95_PAD_ENET1_TX_CTL__NETCMIX_TOP_ETH0_RGMII_TX_CTL	0x57e
-> +		>;
-> +	};
-> +
-> +	pinctrl_enetc1: enetc1grp {
-> +		fsl,pins = <
-> +			IMX95_PAD_ENET2_RD0__NETCMIX_TOP_ETH1_RGMII_RD0		0x57e
-> +			IMX95_PAD_ENET2_RD1__NETCMIX_TOP_ETH1_RGMII_RD1		0x57e
-> +			IMX95_PAD_ENET2_RD2__NETCMIX_TOP_ETH1_RGMII_RD2		0x57e
-> +			IMX95_PAD_ENET2_RD3__NETCMIX_TOP_ETH1_RGMII_RD3		0x57e
-> +			IMX95_PAD_ENET2_RXC__NETCMIX_TOP_ETH1_RGMII_RX_CLK	0x58e
-> +			IMX95_PAD_ENET2_RX_CTL__NETCMIX_TOP_ETH1_RGMII_RX_CTL	0x57e
-> +			IMX95_PAD_ENET2_TD0__NETCMIX_TOP_ETH1_RGMII_TD0		0x50e
-> +			IMX95_PAD_ENET2_TD1__NETCMIX_TOP_ETH1_RGMII_TD1		0x50e
-> +			IMX95_PAD_ENET2_TD2__NETCMIX_TOP_ETH1_RGMII_TD2		0x50e
-> +			IMX95_PAD_ENET2_TD3__NETCMIX_TOP_ETH1_RGMII_TD3		0x50e
-> +			IMX95_PAD_ENET2_TXC__NETCMIX_TOP_ETH1_RGMII_TX_CLK	0x58e
-> +			IMX95_PAD_ENET2_TX_CTL__NETCMIX_TOP_ETH1_RGMII_TX_CTL	0x57e
-> +		>;
-> +	};
-> +
-> +	pinctrl_flexcan3: flexcan3grp {
-> +		fsl,pins = <
-> +			IMX95_PAD_GPIO_IO28__CAN3_TX				0x39e
-> +			IMX95_PAD_GPIO_IO29__CAN3_RX				0x39e
-> +		>;
-> +	};
-> +
-> +	pinctrl_flexcan5: flexcan5grp {
-> +		fsl,pins = <
-> +			IMX95_PAD_GPIO_IO30__CAN5_TX				0x39e
-> +			IMX95_PAD_GPIO_IO31__CAN5_RX				0x39e
-> +		>;
-> +	};
-> +
-> +	pinctrl_i3c2: i3c2grp {
-> +		fsl,pins = <
-> +			IMX95_PAD_ENET1_MDC__I3C2_SCL				0x40000186
-> +			IMX95_PAD_ENET1_MDIO__I3C2_SDA				0x40000186
-> +		>;
-> +	};
-> +
-> +	pinctrl_led: ledgrp {
-> +		fsl,pins = <
-> +			IMX95_PAD_XSPI1_DQS__GPIO5_IO_BIT8			0x14e
-> +			IMX95_PAD_XSPI1_SCLK__GPIO5_IO_BIT9			0x14e
-> +		>;
-> +	};
-> +
-> +	pinctrl_lpi2c2: lpi2c2grp {
-> +		fsl,pins = <
-> +			IMX95_PAD_I2C2_SCL__AONMIX_TOP_LPI2C2_SCL		0x40000b9e
-> +			IMX95_PAD_I2C2_SDA__AONMIX_TOP_LPI2C2_SDA		0x40000b9e
-> +		>;
-> +	};
-> +
-> +	pinctrl_lpi2c5: lpi2c5grp {
-> +		fsl,pins = <
-> +			IMX95_PAD_GPIO_IO22__LPI2C5_SDA				0x40000b9e
-> +			IMX95_PAD_GPIO_IO23__LPI2C5_SCL				0x40000b9e
-> +		>;
-> +	};
-> +
-> +	pinctrl_lpspi1: lpspi1grp {
-> +		fsl,pins = <
-> +			IMX95_PAD_SAI1_TXC__AONMIX_TOP_LPSPI1_SIN		0x3fe
-> +			IMX95_PAD_SAI1_TXD0__AONMIX_TOP_LPSPI1_SCK		0x3fe
-> +			IMX95_PAD_SAI1_RXD0__AONMIX_TOP_LPSPI1_SOUT		0x3fe
-> +			IMX95_PAD_PDM_BIT_STREAM0__AONMIX_TOP_GPIO1_IO_BIT9	0x3fe
-> +		>;
-> +	};
-> +
-> +	pinctrl_lpspi6: lpspi6grp {
-> +		fsl,pins = <
-> +			IMX95_PAD_GPIO_IO00__GPIO2_IO_BIT0			0x3fe
-> +			IMX95_PAD_GPIO_IO01__LPSPI6_SIN				0x3fe
-> +			IMX95_PAD_GPIO_IO02__LPSPI6_SOUT			0x3fe
-> +			IMX95_PAD_GPIO_IO03__LPSPI6_SCK				0x3fe
-> +		>;
-> +	};
-> +
-> +	pinctrl_pcie0: pcie0grp {
-> +		fsl,pins = <
-> +			IMX95_PAD_GPIO_IO32__HSIOMIX_TOP_PCIE1_CLKREQ_B		0x4000031e
-> +			IMX95_PAD_GPIO_IO33__GPIO5_IO_BIT13			0x31e
-> +		>;
-> +	};
-> +
-> +	pinctrl_pcie1: pcie1grp {
-> +		fsl,pins = <
-> +			IMX95_PAD_GPIO_IO35__HSIOMIX_TOP_PCIE2_CLKREQ_B		0x4000031e
-> +			IMX95_PAD_GPIO_IO36__GPIO5_IO_BIT16			0x31e
-> +		>;
-> +	};
-> +
-> +	pinctrl_panel_backlight_lvds: backlightlvdsgrp {
-> +		fsl,pins = <
-> +			IMX95_PAD_GPIO_IO27__GPIO2_IO_BIT27			0x31e
-> +		>;
-> +	};
-> +
-> +	pinctrl_pdm: pdmgrp {
-> +		fsl,pins = <
-> +			IMX95_PAD_GPIO_IO04__AONMIX_TOP_PDM_CLK			0x31e
-> +			IMX95_PAD_GPIO_IO05__AONMIX_TOP_PDM_BIT_STREAM_BIT0	0x31e
-> +			IMX95_PAD_GPIO_IO06__AONMIX_TOP_PDM_BIT_STREAM_BIT1	0x31e
-> +		>;
-> +	};
-> +
-> +	pinctrl_sai4: sai4grp {
-> +		fsl,pins = <
-> +			IMX95_PAD_XSPI1_DATA0__SAI4_TX_BCLK			0x31e
-> +			IMX95_PAD_XSPI1_DATA1__SAI4_TX_SYNC			0x31e
-> +			IMX95_PAD_XSPI1_DATA2__SAI4_TX_DATA_BIT0		0x31e
-> +			IMX95_PAD_XSPI1_DATA3__SAI4_RX_DATA_BIT0		0x31e
-> +		>;
-> +	};
-> +
-> +	pinctrl_sai5: sai5grp {
-> +		fsl,pins = <
-> +			IMX95_PAD_XSPI1_DATA4__SAI5_TX_DATA_BIT0		0x31e
-> +			IMX95_PAD_XSPI1_DATA5__SAI5_TX_SYNC			0x31e
-> +			IMX95_PAD_XSPI1_DATA6__SAI5_TX_BCLK			0x31e
-> +			IMX95_PAD_XSPI1_DATA7__SAI5_RX_DATA_BIT0		0x31e
-> +		>;
-> +	};
-> +
-> +	pinctrl_sai3: sai3grp {
-> +		fsl,pins = <
-> +			IMX95_PAD_GPIO_IO16__SAI3_TX_BCLK			0x31e
-> +			IMX95_PAD_GPIO_IO17__SAI3_MCLK				0x31e
-> +			IMX95_PAD_GPIO_IO18__SAI3_RX_BCLK			0x31e
-> +			IMX95_PAD_GPIO_IO19__SAI3_RX_SYNC			0x31e
-> +			IMX95_PAD_GPIO_IO20__SAI3_RX_DATA_BIT0			0x31e
-> +			IMX95_PAD_GPIO_IO21__SAI3_TX_DATA_BIT0			0x31e
-> +			IMX95_PAD_GPIO_IO26__SAI3_TX_SYNC			0x31e
-> +		>;
-> +	};
-> +
-> +	pinctrl_tpm3: tpm3grp {
-> +		fsl,pins = <
-> +			IMX95_PAD_GPIO_IO24__TPM3_CH3				0x51e
-> +		>;
-> +	};
-> +
-> +	pinctrl_tpm4: tpm4grp {
-> +		fsl,pins = <
-> +			IMX95_PAD_GPIO_IO25__TPM4_CH3				0x51e
-> +		>;
-> +	};
-> +
-> +	pinctrl_uart1: uart1grp {
-> +		fsl,pins = <
-> +			IMX95_PAD_UART1_RXD__AONMIX_TOP_LPUART1_RX		0x31e
-> +			IMX95_PAD_UART1_TXD__AONMIX_TOP_LPUART1_TX		0x31e
-> +		>;
-> +	};
-> +
-> +	pinctrl_uart2: uart2grp {
-> +		fsl,pins = <
-> +			IMX95_PAD_UART2_RXD__AONMIX_TOP_LPUART2_RX		0x31e
-> +			IMX95_PAD_UART2_TXD__AONMIX_TOP_LPUART2_TX		0x31e
-> +		>;
-> +	};
-> +
-> +	pinctrl_uart5: uart5grp {
-> +		fsl,pins = <
-> +			IMX95_PAD_DAP_TDO_TRACESWO__LPUART5_TX			0x31e
-> +			IMX95_PAD_DAP_TDI__LPUART5_RX				0x31e
-> +			IMX95_PAD_DAP_TMS_SWDIO__LPUART5_RTS_B			0x31e
-> +			IMX95_PAD_DAP_TCLK_SWCLK__LPUART5_CTS_B			0x31e
-> +		>;
-> +	};
-> +
-> +	pinctrl_uart7: uart7grp {
-> +		fsl,pins = <
-> +			IMX95_PAD_GPIO_IO08__LPUART7_TX				0x31e
-> +			IMX95_PAD_GPIO_IO09__LPUART7_RX				0x31e
-> +			IMX95_PAD_GPIO_IO10__LPUART7_CTS_B			0x31e
-> +			IMX95_PAD_GPIO_IO11__LPUART7_RTS_B			0x31e
-> +		>;
-> +	};
-> +
-> +	pinctrl_uart8: uart8grp {
-> +		fsl,pins = <
-> +			IMX95_PAD_GPIO_IO12__LPUART8_TX				0x31e
-> +			IMX95_PAD_GPIO_IO13__LPUART8_RX				0x31e
-> +			IMX95_PAD_GPIO_IO14__LPUART8_CTS_B			0x31e
-> +			IMX95_PAD_GPIO_IO15__LPUART8_RTS_B			0x31e
-> +		>;
-> +	};
-> +
-> +	pinctrl_usdhc1: usdhc1grp {
-> +		fsl,pins = <
-> +			IMX95_PAD_SD1_CLK__USDHC1_CLK				0x158e
-> +			IMX95_PAD_SD1_CMD__USDHC1_CMD				0x138e
-> +			IMX95_PAD_SD1_DATA0__USDHC1_DATA0			0x138e
-> +			IMX95_PAD_SD1_DATA1__USDHC1_DATA1			0x138e
-> +			IMX95_PAD_SD1_DATA2__USDHC1_DATA2			0x138e
-> +			IMX95_PAD_SD1_DATA3__USDHC1_DATA3			0x138e
-> +			IMX95_PAD_SD1_DATA4__USDHC1_DATA4			0x138e
-> +			IMX95_PAD_SD1_DATA5__USDHC1_DATA5			0x138e
-> +			IMX95_PAD_SD1_DATA6__USDHC1_DATA6			0x138e
-> +			IMX95_PAD_SD1_DATA7__USDHC1_DATA7			0x138e
-> +			IMX95_PAD_SD1_STROBE__USDHC1_STROBE			0x158e
-> +		>;
-> +	};
-> +
-> +	pinctrl_usdhc1_100mhz: usdhc1-100mhzgrp {
-> +		fsl,pins = <
-> +			IMX95_PAD_SD1_CLK__USDHC1_CLK				0x158e
-> +			IMX95_PAD_SD1_CMD__USDHC1_CMD				0x138e
-> +			IMX95_PAD_SD1_DATA0__USDHC1_DATA0			0x138e
-> +			IMX95_PAD_SD1_DATA1__USDHC1_DATA1			0x138e
-> +			IMX95_PAD_SD1_DATA2__USDHC1_DATA2			0x138e
-> +			IMX95_PAD_SD1_DATA3__USDHC1_DATA3			0x138e
-> +			IMX95_PAD_SD1_DATA4__USDHC1_DATA4			0x138e
-> +			IMX95_PAD_SD1_DATA5__USDHC1_DATA5			0x138e
-> +			IMX95_PAD_SD1_DATA6__USDHC1_DATA6			0x138e
-> +			IMX95_PAD_SD1_DATA7__USDHC1_DATA7			0x138e
-> +			IMX95_PAD_SD1_STROBE__USDHC1_STROBE			0x158e
-> +		>;
-> +	};
-> +
-> +	pinctrl_usdhc1_200mhz: usdhc1-200mhzgrp {
-> +		fsl,pins = <
-> +			IMX95_PAD_SD1_CLK__USDHC1_CLK				0x15fe
-> +			IMX95_PAD_SD1_CMD__USDHC1_CMD				0x13fe
-> +			IMX95_PAD_SD1_DATA0__USDHC1_DATA0			0x13fe
-> +			IMX95_PAD_SD1_DATA1__USDHC1_DATA1			0x13fe
-> +			IMX95_PAD_SD1_DATA2__USDHC1_DATA2			0x13fe
-> +			IMX95_PAD_SD1_DATA3__USDHC1_DATA3			0x13fe
-> +			IMX95_PAD_SD1_DATA4__USDHC1_DATA4			0x13fe
-> +			IMX95_PAD_SD1_DATA5__USDHC1_DATA5			0x13fe
-> +			IMX95_PAD_SD1_DATA6__USDHC1_DATA6			0x13fe
-> +			IMX95_PAD_SD1_DATA7__USDHC1_DATA7			0x13fe
-> +			IMX95_PAD_SD1_STROBE__USDHC1_STROBE			0x15fe
-> +		>;
-> +	};
-> +
-> +	pinctrl_usdhc2: usdhc2grp {
-> +		fsl,pins = <
-> +			IMX95_PAD_SD2_CLK__USDHC2_CLK				0x158e
-> +			IMX95_PAD_SD2_CMD__USDHC2_CMD				0x138e
-> +			IMX95_PAD_SD2_DATA0__USDHC2_DATA0			0x138e
-> +			IMX95_PAD_SD2_DATA1__USDHC2_DATA1			0x138e
-> +			IMX95_PAD_SD2_DATA2__USDHC2_DATA2			0x138e
-> +			IMX95_PAD_SD2_DATA3__USDHC2_DATA3			0x138e
-> +			IMX95_PAD_SD2_VSELECT__USDHC2_VSELECT			0x51e
-> +			IMX95_PAD_SD2_CD_B__GPIO3_IO_BIT0			0x31e
-> +		>;
-> +	};
-> +
-> +	pinctrl_usdhc2_100mhz: usdhc2-100mhzgrp {
-> +		fsl,pins = <
-> +			IMX95_PAD_SD2_CLK__USDHC2_CLK				0x158e
-> +			IMX95_PAD_SD2_CMD__USDHC2_CMD				0x138e
-> +			IMX95_PAD_SD2_DATA0__USDHC2_DATA0			0x138e
-> +			IMX95_PAD_SD2_DATA1__USDHC2_DATA1			0x138e
-> +			IMX95_PAD_SD2_DATA2__USDHC2_DATA2			0x138e
-> +			IMX95_PAD_SD2_DATA3__USDHC2_DATA3			0x138e
-> +			IMX95_PAD_SD2_VSELECT__USDHC2_VSELECT			0x51e
-> +			IMX95_PAD_SD2_CD_B__GPIO3_IO_BIT0			0x31e
-> +		>;
-> +	};
-> +
-> +	pinctrl_usdhc2_200mhz: usdhc2-200mhzgrp {
-> +		fsl,pins = <
-> +			IMX95_PAD_SD2_CLK__USDHC2_CLK				0x158e
-> +			IMX95_PAD_SD2_CMD__USDHC2_CMD				0x138e
-> +			IMX95_PAD_SD2_DATA0__USDHC2_DATA0			0x138e
-> +			IMX95_PAD_SD2_DATA1__USDHC2_DATA1			0x138e
-> +			IMX95_PAD_SD2_DATA2__USDHC2_DATA2			0x138e
-> +			IMX95_PAD_SD2_DATA3__USDHC2_DATA3			0x138e
-> +			IMX95_PAD_SD2_VSELECT__USDHC2_VSELECT			0x51e
-> +			IMX95_PAD_SD2_CD_B__GPIO3_IO_BIT0			0x31e
-> +		>;
-> +	};
-> +
-> +	pinctrl_usdhc3: usdhc3grp {
-> +		fsl,pins = <
-> +			IMX95_PAD_SD3_CLK__USDHC3_CLK				0x158e
-> +			IMX95_PAD_SD3_CMD__USDHC3_CMD				0x138e
-> +			IMX95_PAD_SD3_DATA0__USDHC3_DATA0			0x138e
-> +			IMX95_PAD_SD3_DATA1__USDHC3_DATA1			0x138e
-> +			IMX95_PAD_SD3_DATA2__USDHC3_DATA2			0x138e
-> +			IMX95_PAD_SD3_DATA3__USDHC3_DATA3			0x138e
-> +		>;
-> +	};
-> +
-> +	pinctrl_usdhc3_100mhz: usdhc3-100mhzgrp {
-> +		fsl,pins = <
-> +			IMX95_PAD_SD3_CLK__USDHC3_CLK				0x158e
-> +			IMX95_PAD_SD3_CMD__USDHC3_CMD				0x138e
-> +			IMX95_PAD_SD3_DATA0__USDHC3_DATA0			0x138e
-> +			IMX95_PAD_SD3_DATA1__USDHC3_DATA1			0x138e
-> +			IMX95_PAD_SD3_DATA2__USDHC3_DATA2			0x138e
-> +			IMX95_PAD_SD3_DATA3__USDHC3_DATA3			0x138e
-> +		>;
-> +	};
-> +
-> +	pinctrl_usdhc3_200mhz: usdhc3-200mhzgrp {
-> +		fsl,pins = <
-> +			IMX95_PAD_SD3_CLK__USDHC3_CLK				0x158e
-> +			IMX95_PAD_SD3_CMD__USDHC3_CMD				0x138e
-> +			IMX95_PAD_SD3_DATA0__USDHC3_DATA0			0x138e
-> +			IMX95_PAD_SD3_DATA1__USDHC3_DATA1			0x138e
-> +			IMX95_PAD_SD3_DATA2__USDHC3_DATA2			0x138e
-> +			IMX95_PAD_SD3_DATA3__USDHC3_DATA3			0x138e
-> +		>;
-> +	};
-> +};
+> +builtin_platform_driver(jhb100_sys0crg_driver);
 > --
-> 2.53.0
->
->
+> 2.25.1
