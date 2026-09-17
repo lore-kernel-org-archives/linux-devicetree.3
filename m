@@ -1,66 +1,148 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE8C94B5CDB;
-	Thu, 17 Sep 2026 10:00:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0592477E4B
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 10:01:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789639235; cv=none; b=qA0n9SupkouBBDHyGgzaQ+I5MszcpN1evLvCDSq+K6V0lF9f4qezlComfz1uNK5WYBnwBz1iIorbaZVr1hNzKfW77sTggqWYl3Bkz+gij8bLf1yOVYZmKgMPnASTP/Y2tHI3rDDxFLNGPS7GsQqMWv1HpzX0DRZ4xXHqdnLHEro=
+	t=1789639302; cv=none; b=Xmn3xWTvePADRng5/19x1R6zwW9ReTJOp65GixXM+W+YJRuGBWusnhbmxG0V4JRvUTpUBn4gF3xXURw6HZ1lN4zEBnTWsEQp3gNhymQr4fT7hQ3r3lSTaqodCJaUTj+MnglaKxYxuWcU+GB7FXyIiJLxTJbK1IW1a1gEakDE4YM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789639235; c=relaxed/simple;
-	bh=+USMjIfNP3uZFioaRcdNSDXepCx2MVhcpY1yM/G+cUg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ahye0pGVh8FYQy37c+eHjg97NwF+bTZ1sv8N+s2wnmAkaLDEmZdaF1Mejsw7oGVNx7ZSg7hdvcs5kwwoLuhyLwbGAkzxolZj58xuK+uybq5uJhOw6JYyqn+GsrgP9dld3FmkxbKwovCUncThkk7/dVWynZKpKK5iPvp1R1Ao0mg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JQTb5ShW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789639302; c=relaxed/simple;
+	bh=pag8GsAuMgV14tGHFakBM/aqsN8ArFfNwacRR04dIPw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=lhdtT+wBzuKHjmc4rzhru4LO1xMHE4oXoDFDTz2LIi+zEzc86shUnKSFoS9iQtnXem4eisgkWz6xu7m5u6m2ymzJwwApajOzaCuegwF3fz7oH7qfqsX354ZJ+ldF0Kl8J5YolmA4bn1L/y7U9DNLIQRlsH2qg3btR/hwlNvo6bA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i5jf63Ff; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JQTb5ShW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B6DA1F000FF;
-	Thu, 17 Sep 2026 10:00:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i5jf63Ff"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB6651F000FF;
+	Thu, 17 Sep 2026 10:01:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789639223;
-	bh=KMtp8Z9WPhLzD88mx0x4QBJhT5sxUdhnq9HfYO1RsoU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JQTb5ShW2EGlCHH0KFxi0QSAJa+kywMbKYFjy4+uQ9QEtddjzlHJARjoBmsTdW7pi
-	 BwinW3XkizbE+K/m3puN4wWvEfL7j/c9w1tj9DHe4ponDn72Bb++zLnscoKq2OGogi
-	 PXdtg1S9ktBP4upgBlSfRiS3wlMnono+5FJVYBHl/bFXmDaJC7HWKaoSNgq6pwWCLo
-	 8yjuE/wzXJoYnfpR3u1Zf46sCbpNcE6iPTka/cKeHbMC5FY76GRIJ4RMjOzg0jhejD
-	 c+UUaca+mgy0LXxnal6q1min858S714FzCh21XZ6bOAsJOXbL4vcV9iJXI08+e5M31
-	 igAUXJOgrLZAw==
-Date: Thu, 17 Sep 2026 12:00:19 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-Subject: Re: [PATCH v7 9/9] arm64: defconfig: Enable CAMSS OPE driver
-Message-ID: <20260917-modern-corgi-of-memory-6d9082@quoll>
-References: <20260915-camss-isp-ope-v7-0-77b13d131d3d@oss.qualcomm.com>
- <20260915-camss-isp-ope-v7-9-77b13d131d3d@oss.qualcomm.com>
+	s=k20260515; t=1789639290;
+	bh=EPDJPdqll4eRzLk2T4CRlSlDKML+Swre/2hqOwAegl0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=i5jf63FfUaHr37xRqP4yfzrctKEwd4rGkAdtr/jz52mLeWPBP9GIqCN0ESdyqH3eb
+	 gd1SSnrhgcXpPtABsn6Sg0tNnRLfFkhB0rYlcpK4RMXWOtJHQNW6DvCgvC177At6Y9
+	 KwRajNQ1qXDgp5n45JKK3/h34ZFV6eNfaufhuD8qo/b/AWeorg+OlbDp2l9OENsSte
+	 JrWbdD0wbpjYai/BL5I1MAnthPjB1VsgM1h3YcKIEP2EGe+aioKks3iZgK7sXijqHW
+	 ncaY39Yy5wM3j/I9UlEofiJiW+55bOV4whh5Vc5HRMiBd5q9u6HUwqyyFGmPzEpk5H
+	 3CbPURDFRtDPA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 1/2] arm64: dts: qcom: sdm845-google: Add dual front
+ IMX355 cameras
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "David Heidelberg" <david@ixit.cz>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260917-pixel3-camera-v10-1-df631279b39d@ixit.cz>
+References: <20260917-pixel3-camera-v10-0-df631279b39d@ixit.cz>
+ <20260917-pixel3-camera-v10-1-df631279b39d@ixit.cz>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 17 Sep 2026 10:01:29 +0000
+Message-Id: <20260917100129.DB6651F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260915-camss-isp-ope-v7-9-77b13d131d3d@oss.qualcomm.com>
 
-On Tue, Sep 15, 2026 at 10:11:12AM +0200, Loic Poulain wrote:
-> From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-> 
-> Add CONFIG_VIDEO_QCOM_CAMSS_OPE=m to enable the Offline Processing Engine
-> driver for Agatti and Shikra platforms (e.g. Arduino UNO Q).
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] arm64: dts: qcom: imx355 probe failure due to MCLK2 pinmux tied to=
+ camss runtime PM
+- [Medium] arm64: dts: qcom: cci1 bus power leak due to typo in sleep pinct=
+rl override
+--
 
-Unfortunately same comment as usually... Samsung Agatti? How anyone
-outside Qualcomm can figure that out?
+commit 2ddcaa50bae24562b4521343bdbdd9cdac1d78ec
+Author: David Heidelberg <david@ixit.cz>
 
+arm64: dts: qcom: sdm845-google: Add dual front IMX355 cameras
+   =20
+The Pixel 3 features two front-facing Sony IMX355 sensors with
+different focal lengths (standard and wide-angle).
+   =20
+Sensors are connected via CSIPHY port 1 and 2 and controlled over CCI
+I2C1, using MCLK2 as the clock source.
 
-Best regards,
-Krzysztof
+> diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/ar=
+m64/boot/dts/qcom/sdm845-google-common.dtsi
+> index f1379857e2742..8b430776e8a54 100644
+> --- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+[ ... ]
+> @@ -351,6 +389,53 @@ vreg_s3c_0p6: smps3 {
+>  	};
+>  };
+> =20
+> +&camss {
+> +	vdda-phy-supply =3D <&vreg_l1a_0p875>;
+> +	vdda-pll-supply =3D <&vreg_l26a_1p2>;
+> +
+> +	/*
+> +	 * MCLK2 (GPIO15) is shared between both front camera sensors.
+> +	 * The clock is generated by CAMCC, therefore the pin is
+> +	 * configured here rather than in individual sensor nodes.
+> +	 */
+> +	pinctrl-0 =3D <&cam_mclk2_default>;
+> +	pinctrl-1 =3D <&cam_mclk2_sleep>;
+> +	pinctrl-names =3D "default", "sleep";
 
+[Severity: High]
+Does assigning the MCLK2 pinmux to the &camss node cause probe failures?
+
+Because camss uses runtime PM, it remains suspended while the sensors probe
+asynchronously over I2C. During their probe routine, the sensors request the
+clock and attempt an I2C read to identify the module.
+
+Since camss is still suspended, MCLK2 will be left in the sleep state. This
+prevents the clock signal from routing to the sensors, causing the I2C chip=
+ ID
+read to fail.
+
+Should this pinctrl be assigned to a node whose lifecycle matches the clock
+or sensor, such as the clock controller (camcc)?
+
+> +
+> +	status =3D "okay";
+[ ... ]
+> +};
+> +
+> +&cci0_sleep {
+> +	/* bus has external pull-up */
+> +	/delete-property/ bias-pull-down;
+> +	bias-disable;
+> +};
+> +
+
+[Severity: Medium]
+Does this override configure the wrong bus?
+
+The fix meant to address power leakage caused by an external pull-up by
+removing the internal bias-pull-down and applying bias-disable during sleep=
+.=20
+However, it targets &cci0_sleep instead of &cci1_sleep.
+
+>  &cci {
+>  	status =3D "okay";
+>  };
+> @@ -358,7 +443,63 @@ &cci {
+>  &cci_i2c1 {
+>  	/* actuator @0c */
+> =20
+> -	/* front camera, imx355 @1a */
+> +	front_cam: camera@10 {
+
+Since the newly added front cameras are connected to cci_i2c1, its sleep st=
+ate
+(cci1_sleep) should be updated to avoid conflicting with the external pull-=
+up.
+
+Because cci0 is unused for cameras on this board, updating &cci0_sleep leav=
+es
+the cci_i2c1 bus with internal pull-downs enabled during sleep, which will =
+fight
+the external pull-up and leak power.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917-pixel3-cam=
+era-v10-0-df631279b39d@ixit.cz?part=3D1
