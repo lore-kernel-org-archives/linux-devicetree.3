@@ -1,62 +1,85 @@
-Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EA4464D9556;
-	Thu, 17 Sep 2026 11:58:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.133.224.34
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED1CA4E06D4;
+	Thu, 17 Sep 2026 11:59:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789646304; cv=none; b=H551ccrjB+WZ068YzLr+QuFerO5SkPdwPDs4YUNFLYRSv87tTRYGIEVkp+OgRvuP+OuGoJpcO9vnZLkUmtBf7iKxbMRJ7uZdsrcG4XRkOWpZ5ZWIQwczaQWUd1+nUBs5gZY1l6btlq0LM3xv9SnPtoIvxF38q8fSbAhxQtaQb6o=
+	t=1789646373; cv=none; b=NbJZA987ZjWU3gHSvFFRXYvwfK8Fl3ckmE6UKrzHOflWMgnG4P0jrXY6jAG0iLrXPKiPm879GVWmDNQ1sahv/wxbykNcKCDRx6obQGq8iZ0mBvNeOdYfbC7SHIdwIIhMKs7iU3bv47O7oMnQIOPvTss/6F4WI1MgJL83utEjqGQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789646304; c=relaxed/simple;
-	bh=mhuNZcGbSmiBOk3nhXyqjRMpYdJx5+fOm6k6FFo8vTc=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=dWgQ1h8RgE6fCzKnEUvUuLknfpAnt1gFtpMHXvB9jIxEM+s/ow3ZFv+Cgmvg8pddxe6LiTqKflqkOLSVA0ztnnK1EgaxVPJ86WI25Ar/yCy4dKFgbWkG7vu/zZdcsQYycs+Ob3FvrxzjB/cnVSAukPYLONtJY3mW9MRZdCgWEhI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk; spf=none smtp.mailfrom=orcam.me.uk; arc=none smtp.client-ip=78.133.224.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
-Received: by angie.orcam.me.uk (Postfix, from userid 500)
-	id 5C37192009D; Thu, 17 Sep 2026 13:50:32 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
-	by angie.orcam.me.uk (Postfix) with ESMTP id 59D6692009C;
-	Thu, 17 Sep 2026 12:50:32 +0100 (BST)
-Date: Thu, 17 Sep 2026 12:50:32 +0100 (BST)
-From: "Maciej W. Rozycki" <macro@orcam.me.uk>
-To: Conor Dooley <conor@kernel.org>
-cc: aleksa.paunovic@htecgroup.com, Rob Herring <robh@kernel.org>, 
-    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-    Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
-    Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-    Alexandre Ghiti <alex@ghiti.fr>, 
-    Djordje Todorovic <djordje.todorovic@htecgroup.com>, 
-    Anup Patel <anup@brainfault.org>, Thomas Gleixner <tglx@kernel.org>, 
-    Radu Rendec <radu@rendec.net>, Inochi Amaoto <inochiama@outlook.com>, 
-    Daniel Lezcano <daniel.lezcano@kernel.org>, devicetree@vger.kernel.org, 
-    linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
-    Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
-Subject: Re: [PATCH 1/9] dt-bindings: vendor-prefixes: Add GlobalFoundries,
- Inc.
-In-Reply-To: <20260915-engulf-backpedal-fef3a5fc2607@spud>
-Message-ID: <alpine.DEB.2.21.2609171247190.15569@angie.orcam.me.uk>
-References: <20260914-p8700-dts-v1-0-3267f14ebce1@htecgroup.com> <20260914-p8700-dts-v1-1-3267f14ebce1@htecgroup.com> <20260915-engulf-backpedal-fef3a5fc2607@spud>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+	s=arc-20240116; t=1789646373; c=relaxed/simple;
+	bh=1AQLc+FuPl+WmSJJkZ9Vb9d3VFCwdlChzaTPcCfb0Tk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cKBtzlaWkFJpOugZhr/S4xFubBXcjAe0zL12G6U4RHiAChXa/F6AFQnlMU9BvsW8QcI5TUOcaXpIP9DmhneEC5my/GC+3TdM4/2TzJwicVvx4QKETvVv/kUjKvC98tsoZGZC2I0/7FMmeTGeZtQLVXEgc7bN9CVxlQlwc1RZ8sw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=GV0ViWIl; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="GV0ViWIl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=DY
+	5hg0oG2n14IkGfO3z7zsyaI7BrSzLCYgqaOw77aLA=; b=GV0ViWIlR1KZyhjXDX
+	eiajrRA7mZJ5YbImyhZfBV+Z+HkmapaALqOa1bRQk3JPmdBIrhCcuG2jvIRmYEv4
+	fT80QRY930isyhI7wxfuUZmVV+GESy62egDlAAFEzSTHrW/hkH09rs9oW+yTszHR
+	LW6mIn8ChgDJtuBX1DgXvbP24=
+Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wAH7aTa1atqD7D0BA--.50575S2;
+	Thu, 17 Sep 2026 19:58:19 +0800 (CST)
+From: Quchaosheng <quchaosheng000406@163.com>
+To: Guenter Roeck <linux@roeck-us.net>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Liviu Dudau <liviu.dudau@arm.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>,
+	linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Quchaosheng <quchaosheng000406@163.com>
+Subject: [PATCH 1/2] hwmon: vexpress: point the DT binding reference at the schema
+Date: Thu, 17 Sep 2026 19:58:17 +0800
+Message-ID: <20260917115818.540344-1-quchaosheng000406@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wAH7aTa1atqD7D0BA--.50575S2
+X-Coremail-Antispam: 1Uf129KBjvdXoW7Gr4fGrW3Wr13Zry7Cry5XFb_yoWkCrgEkF
+	W0qF4vk3yUAFWSgFyUAFWrCrn7Xr4Skr4xCrn7Wrs0y34jqa9xGFykX343Aw1xurW7uw15
+	WrWfJrWDJ3ZFgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRMsjjDUUUUU==
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC5Bsxpmqr1du6BwAA3a
 
-On Tue, 15 Sep 2026, Conor Dooley wrote:
+Documentation/hwmon/vexpress.rst points at
+Documentation/devicetree/bindings/hwmon/vexpress.txt for the device tree
+binding of the arm,vexpress-volt, -amp, -temp, -power and -energy sensors.
 
-> > @@ -1104,7 +1106,7 @@ patternProperties:
-> >    "^minix,.*":
-> >      description: MINIX Technology Ltd.
-> >    "^mips,.*":
-> > -    description: MIPS Technology (deprecated, use 'mti' or 'img')
-> > +    description: MIPS Technology (deprecated, use 'mti', 'img', or 'gf')
-> 
-> This is starting to look a bit hilarious.
+That file only restates the compatibles and the label property, which the
+arm/vexpress-config.yaml schema describes now. Point the reference there.
 
- This should read "MIPS Technologies Inc." FWIW, as that's what the 
-company used to be called (note the plural vs singular).
+Assisted-by: LLM
+Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
+---
+ Documentation/hwmon/vexpress.rst | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-  Maciej
+diff --git a/Documentation/hwmon/vexpress.rst b/Documentation/hwmon/vexpress.rst
+index 7fc99f75b3b1..84b2a33e2d40 100644
+--- a/Documentation/hwmon/vexpress.rst
++++ b/Documentation/hwmon/vexpress.rst
+@@ -38,4 +38,4 @@ via a custom interface, abstracted by the "vexpress_config" API.
+ 
+ As these devices are non-discoverable, they must be described in a Device
+ Tree passed to the kernel. Details of the DT binding for them can be found
+-in Documentation/devicetree/bindings/hwmon/vexpress.txt.
++in Documentation/devicetree/bindings/arm/vexpress-config.yaml.
+-- 
+2.43.0
+
