@@ -1,46 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E3ED3A9627;
-	Thu, 17 Sep 2026 07:38:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D4F62DA76C
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 07:40:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789630704; cv=none; b=sj5+mXA8moIUArq9VVVzcSGDQIC3RDL4KFe+pdBLjesO30DaEY4FVPYLu0WvS4HNH5T8CMM7Ceo8jM3tCL1Kb22RLfqAJOCA08IHgAbdSu7jUR+gt4AyK1nVmXqW/nJHpF4ciKW9Ky/D0pdZ74oT2+0ZdropOsoT075LZaFplTc=
+	t=1789630857; cv=none; b=ifWAYusP8EWrBMj8ddPlo0t83Ma4SNqkCd4iXCWnJS2UQ0q8DByEwo6qS20O7iDlVygU9YVd/ALkjVuC7Nj/vjwAUS2Uf3iD+aTD7W3Yf38EXqJsi9guZQV69v90y60Xwo7xab7wLRT6gvrcFJiVBkbCqICouW14gdyvjXBuVbw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789630704; c=relaxed/simple;
-	bh=EhQKWwBiwSsfT1g/zH4+Lrs/dhW43p18dSx6UZMgXv8=;
+	s=arc-20240116; t=1789630857; c=relaxed/simple;
+	bh=qAhAefdBo1Pc0z5RKc1I4uSQpsMN80Rg707ZECDMJms=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=UdNBCpXlFf1WPT4M2HX5UJOU5uvPVuDgaRhGdCsOTvrzhXnJEEcE7uiT8YESWjhaflsQT20FuRBepN0uAECY/TY9Pjq6wSfF/egJ0MogiXRcvzywma5OjwejNx1SIXxDJcB0CyAHMaTondwtcnL5Vu4vXXHIIVztXe/wXzp+TgM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EQ6ue6/G; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=iC07bvQUYPMpJqu2AkZ49rIvKeTZyV5DkwQYqdIfVAouBW8z07GPyIpa24QA8vWV2LLDP9NmDCSiCRAp6TQ87jSkVL9xcXePaVRSJvy5tSO4Bs9PN3rfbCC84UNIAV60dqtWqubnB6HTCHneBVNlfwKKzW42+uNth7AXOhUbEFI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mur1sKvn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EQ6ue6/G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC4401F00899;
-	Thu, 17 Sep 2026 07:38:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mur1sKvn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA8D21F000FF;
+	Thu, 17 Sep 2026 07:40:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789630702;
-	bh=QWBfoUHT5q4T3RRcSmVDOAAWmNCvNg7PUQ4xMeBt6fA=;
+	s=k20260515; t=1789630856;
+	bh=GYGWNwmhjXTmjZeLjs1N/8v2p7hF8S+a4Q9jgdnaC6w=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=EQ6ue6/G3Ev8km25N93Ji2XarqfvNPrehZdaaloYruMNtp3Y/f97ztiPnZkxMATZx
-	 UEK8Fq6XqRbzStlMJlGr2c5xE5zYPHKk8Kt5U6htxbhfs2ypuKSWljXuu9x8p4pXFI
-	 yGCnMHbMoJ12phk/3wp4HF49n+rzC6gm6l/42japXeyFiwtKZajw2/lhNd+IqNQcpK
-	 Lsx5V214SkDTt0fMoK1C9QXV+qF6O6BEC7pUuvae5h0W58RBELy8ffKBtInpQ48aCQ
-	 jUK0CdT+zZM1gTKLdLF6EFBklSkf5EfvM6zc9bk5122tYalB1Y4oodsAbkrcJeZ8MI
-	 FMkn3iPj2+KvQ==
+	b=mur1sKvn3rcGCw9GMEsuiOgOwezLoNDrGXz0URgux7aOKqqR8xfSy2OsCZdIhtSh6
+	 MFAf72cefh8WkQSVYvKFplZkNt1+0Y4XzO4hg8NmpEy856VMGYmMlMj4X3ZInHou3r
+	 HmJoztzn0fYsXxVJ3HJoMHMiALfp8tG3mbsH4ZF7RL2EaVuQzbq8q3vV3Nwl6IvWWL
+	 s3mdEeT3aULhAbBo4s+jTiNZX19B+fRWUepsmlaoCkIipm+fmgp9Q2rqy+UaoMgKtM
+	 QE3l82NMPqEzzGoFJJjVroXDb5wdnei/qHeicSA/r+lmXXj5oRJX4bVTV8jEoqk4UY
+	 ab8T1cP5xckzg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 19/28] x86/setup: Use snprintf() to concatenate builtin
- and boot command lines
+Subject: Re: [PATCH 1/3] dt-bindings: usb: mtu3: add mt6595
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Bill Wendling" <morbo@google.com>
-Cc: "Chuck Lever" <cel@kernel.org>, robh@kernel.org, linux-scsi@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, "Jeff
- Layton" <jlayton@kernel.org>, linux-input@vger.kernel.org, dmitry.torokhov@gmail.com, dri-devel@lists.freedesktop.org, media-ci@linuxtv.org, intel-xe@lists.freedesktop.org, "Anna
- Schumaker" <anna@kernel.org>
-In-Reply-To: <20260915081910.4142719-20-morbo@google.com>
-References: <20260915081910.4142719-1-morbo@google.com>
- <20260915081910.4142719-20-morbo@google.com>
+To: "Roman Vivchar" <rva333@protonmail.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260917-6595-mtu3-v1-1-a2ba7c230d68@protonmail.com>
+References: <20260917-6595-mtu3-v1-0-a2ba7c230d68@protonmail.com>
+ <20260917-6595-mtu3-v1-1-a2ba7c230d68@protonmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 07:38:21 +0000
-Message-Id: <20260917073821.AC4401F00899@smtp.kernel.org>
+Date: Thu, 17 Sep 2026 07:40:55 +0000
+Message-Id: <20260917074055.DA8D21F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,54 +46,54 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] x86/setup: stack frame size exceeded in setup_arch()
+- [Low] dt-bindings: usb: missing mt6595-xhci compatible string
 --
 
-commit 77de53f82acddaba0d28234aa8f72d7d99b20943
-Author: Bill Wendling <morbo@google.com>
+commit bf0442b1c6b34e3d41069513b9f9734a69cb287d
+Author: Roman Vivchar <rva333@protonmail.com>
 
-x86/setup: Use snprintf() to concatenate builtin and boot command lines
+dt-bindings: usb: mtu3: add mt6595
 
-This commit replaces multiple strlcat() calls with a single snprintf()
-call in setup_arch() to concatenate the builtin and boot command lines.
-It uses a temporary buffer to avoid undefined behavior from overlapping
-source and destination buffers, preparing for the removal of the
-deprecated strlcat() API.
+This commit adds a new compatible string to the device tree bindings for the
+MTU3 IP block found on the MediaTek mt6595 SoC.
 
-Link: https://github.com/KSPP/linux/issues/370 [1]
-
-> diff --git a/arch/x86/kernel/setup.c b/arch/x86/kernel/setup.c
-> --- a/arch/x86/kernel/setup.c
-> +++ b/arch/x86/kernel/setup.c
-> @@ -916,9 +916,11 @@ void __init setup_arch(char **cmdline_p)
->  #else
->  	if (builtin_cmdline[0]) {
->  		/* append boot loader cmdline to builtin */
-> -		strlcat(builtin_cmdline, " ", COMMAND_LINE_SIZE);
-> -		strlcat(builtin_cmdline, boot_command_line, COMMAND_LINE_SIZE);
-> -		strscpy(boot_command_line, builtin_cmdline, COMMAND_LINE_SIZE);
-> +		char tmp[COMMAND_LINE_SIZE];
+> diff --git a/Documentation/devicetree/bindings/usb/mediatek,mtu3.yaml b/D=
+ocumentation/devicetree/bindings/usb/mediatek,mtu3.yaml
+> index 21fc6bbe954f9..4538df164a16d 100644
+> --- a/Documentation/devicetree/bindings/usb/mediatek,mtu3.yaml
+> +++ b/Documentation/devicetree/bindings/usb/mediatek,mtu3.yaml
+> @@ -22,6 +22,7 @@ properties:
+>      items:
+>        - enum:
+>            - mediatek,mt2712-mtu3
+> +          - mediatek,mt6595-mtu3
 
 [Severity: Low]
-Will this unconditionally trigger a -Wframe-larger-than warning during buil=
-d?
+Does this also require a corresponding update to the xHCI binding file?
 
-COMMAND_LINE_SIZE is 2048 on x86_64, which matches the default warning
-threshold for stack frames (CONFIG_FRAME_WARN).=20
+When the mt6595 MTU3 controller is configured in host or OTG mode, it
+instantiates an xHCI child node for host functionality. This requires an
+SoC-specific compatible string in the device tree (e.g.,
+"mediatek,mt6595-xhci").
 
-Combined with the function overhead and other local variables, allocating
-this array directly on the stack will reliably exceed the limit and break
-builds that have CONFIG_WERROR enabled.
+Because this compatible string is missing from the properties:compatible:it=
+ems:enum
+definition within Documentation/devicetree/bindings/usb/mediatek,mtk-xhci.y=
+aml:
 
-> +
-> +		snprintf(tmp, COMMAND_LINE_SIZE, "%s %s", builtin_cmdline, boot_comman=
-d_line);
-> +		strscpy(builtin_cmdline, tmp, COMMAND_LINE_SIZE);
-> +		strscpy(boot_command_line, tmp, COMMAND_LINE_SIZE);
->  	}
->  #endif
->  	builtin_cmdline_added =3D true;
+  compatible:
+    items:
+      - enum:
+          - mediatek,mt2701-xhci
+          - mediatek,mt2712-xhci
+
+will valid mt6595 device tree configurations fail schema validation when
+running dtbs_check?
+
+>            - mediatek,mt8173-mtu3
+>            - mediatek,mt8183-mtu3
+>            - mediatek,mt8186-mtu3
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915081910.4142=
-719-1-morbo@google.com?part=3D19
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917-6595-mtu3-=
+v1-0-a2ba7c230d68@protonmail.com?part=3D1
