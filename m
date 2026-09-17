@@ -1,322 +1,112 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7D4F35C686
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 06:10:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45B3E3CEBA7
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 06:15:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789625404; cv=none; b=ct7/yXxg5Y3gF6HiZhppWhafWgxyXuDKrfGAmdYwh3mkJAMbEoRBhMcvX0D643VnkzrKe/aD/xCS545Fhbz+1wQtvluiQbRqiTltDybetxv2u4AQxfREDM2nL+gPGRUNEONNsQXKuPBgUvumZr+4U6SrqQNHDBf9fZp32WghelU=
+	t=1789625747; cv=none; b=hFEF5ssziD1+itSsYyci3Zym9LXJUDin67cR8EuvcsTm4N/QSUzboQaggrGMzx+N4aoD61u2NacM3WnGcA3boC2+iq/LU2lvPN0raJJL8h0Dy1VJ+XygwXAcUXpmM+t0+xQHB/4kWxsujpQorUmG6q/r6BkhCzD5+X8Mee4G8gg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789625404; c=relaxed/simple;
-	bh=gSgYMnuRUQemwYMm3QW+ALY8D/T4sdah7EsE+5pEX7U=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sCwpukntUxUKrHUbHm7gqmTz2WQjiYIFKc3GhZg8+CpW31xAb7OTWgUYYg52CV0u7MDRZnrQ/nyFv1f5P0YmkhHrvkvbzjAGsKSNhSKki9rFmSFZlQu9255/TifCQ4eO3aNJKlZ0mLTr0IQ0rkpEMyli57rnEQHKSCjwm8FYvpQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IQGxNRsm; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789625747; c=relaxed/simple;
+	bh=L9aLUOU19YeswBvE469xA/m4rOuau8LDsy6MuM4f0hA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=n+78vur3Cdxt2QhjAMCADJmOsYPH1wosG1lxgMOAT5z8dtu7v6O5sVtulVgBgXNK0p2RmK8Ac4UHlprFRuA5RzkxN68zQvHhYpMTGuHanND/XpXxekg4IFq7Qem1OrguoegR3MOX0VsAb4iiKVXGEctjjqYWv2JAL9qQMqe/wnI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CfFSiCAk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IQGxNRsm"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e2406so2005495e9.1
-        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 23:10:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789625401; x=1790230201; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ewebXkNrJWhfTTXHIqMmBOFdCxAPRqRh9LeTiOeGWGE=;
-        b=IQGxNRsmCJrhWAyCKcvLJvRVnp/Vr1OtDBl1RMlWUfjVXP50g6Wcc2LDzhWklBaskl
-         UGnNOzP5WRsJKvStgcOI3wOYQ1y3fmdKaeWpkf6pQhZ4f58LnR4hrtWbkI+fYwZ0kqbj
-         aeRG91Gjwb0B3RDamGNdy6/3FYAcjDsZF2hyi0bZa+qDU//fZDa226GXvCpb5PaJ6hzi
-         b60qDxDnNsMVSMop1TYaRE001zcwxkh+zazZ3aO7tTmj1aOjo9fuSNbRe39m4LrWF1tq
-         NsIC+6XRs08f40fMqthAAvXx+xnzxCZnf7AyuQ+A+dVy12bdVOPgrS3RWe/1NOHV9YNC
-         lWFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789625401; x=1790230201;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ewebXkNrJWhfTTXHIqMmBOFdCxAPRqRh9LeTiOeGWGE=;
-        b=eu2tZrDvYGObu0JMOFyRbhJSrKhvrXuPbDPi/ykB2G/HBS36kGE6ogfUR4qiLOutGC
-         9NbW1ZTfuVa/bqHaOaaYrwBd8BNemkAjMw/RBrkRPJrlJQVQBvHneitB98flDnbnnwcC
-         sJg4apXNXLA68r001YzJA+lnm1PSWv1wyr2RTWhFAUwWB2iN4D39utPnDw1urgQRT1nS
-         vG19hOpWBLA5FUIYI0+/dV8Ii1ihh7QkbxFT3BSbxLTXZCDwft8J3HO1OIva7JALbejB
-         AJxNmZwml3DFBdGUFyppTTjGD668uq7sWBqSJxix1gf+2YFzkU1MGDzauXY5YGdBzeLN
-         8Qpg==
-X-Gm-Message-State: AFuF++kWwnWfaKxAtuZQXeWOm+wSY+n06XSZFb/Sjr4FTLI6mAvLWRHQ
-	hV0LlrxeB/qReSxF+Xe858aldqWNxp7CDKZ6+l3c1B3CaFHaR27q9mxh
-X-Gm-Gg: AYBFou3kdijEPR8I2viQGsszT/TjWXmVmc/n0d8klZAl64K58uFHH4seB6TPfwzhSob
-	e8K2shC8nPLhHudXVIVN6KKBHxtQPrspxb0zhqrhFD4g3fn6H9+T5OUwEjBoqYIH0/U9zoStMEg
-	vdRYJq+AQp53VRGjvigyT4Tq21MZTj/9H4qCsSPGb4e7DrkBXiIqgauXF0g/GFco3+ST2lZBFip
-	w0weQaS7e09M94wuzzEhik4IFIwS9NnOK2AELaN0JmS093JRkoX2K01+rA+fXZ+4Gr7WlwSnbEN
-	wLTGC55WpYi0vyOfIVKSl31vTHxGehnUAxRtEZHFyAz29WzjIKnV9M5bybI6QOA3Hd6fA7q5UJh
-	rTO7gSZAFx9GhkbZAFJRyeWKLu4UdyppFAz5GprUhLkq6om4uxwEF/zsYhCroHO64BIoAMQxzME
-	CyHS2GaroT63UPrLd9u8F5Y1RpqBwsf7YPccUrbzv2DJIhQWGugszB/FAsXxwGISP0qOOS
-X-Received: by 2002:a05:600d:849b:10b0:49e:6581:7baf with SMTP id 5b1f17b1804b1-49fbd1af3c8mr19275045e9.2.1789625400878;
-        Wed, 16 Sep 2026 23:10:00 -0700 (PDT)
-Received: from omermac ([82.222.238.173])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd247809sm81090045e9.11.2026.09.16.23.09.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 23:10:00 -0700 (PDT)
-From: Omer PALA <palaomer100@gmail.com>
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] dt-bindings: misc: add  xlnx,axi-fifo-mm-s
-Date: Thu, 17 Sep 2026 09:09:48 +0300
-Message-ID: <20260917060948.14700-1-palaomer100@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CfFSiCAk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 854E31F000FF;
+	Thu, 17 Sep 2026 06:15:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789625745;
+	bh=Jdvyqe/rylteQhNwUkG4Prjr06J1gufsYLqP2y1WCyo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=CfFSiCAkMbPmkkpVgaRCmsH1E4w7Yrs7Xg1cMozVIizyiwWi2uBU+1PwcaIux4MlQ
+	 LkuNAzGSgsR6SZxn2BqrMK9tIQ1MXgEdqPwJlRB0MX1eQvZkuzLX+XZp/h0ze7ayrx
+	 Cgpvcs+PMBHbiEsK1s4PE418guFklzEWsRhO21rScU/MMa6Kk8dD87wm3lsg3E8ufL
+	 YYqCmlkPDNIsVuYUGJSJQ8boNWiPcwX9Pkcpl+JeF88cNcuP6gUUcnvs68JiYfeMGC
+	 pj0NTyTEK6zpJDb9UyswX+wGFXtBm18D/84xdzCobOsVbseJlfjiGnPk7HlGoV5aD+
+	 Yg/ZMwa68dADw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] dt-bindings: misc: add  xlnx,axi-fifo-mm-s
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Omer PALA" <palaomer100@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260917060948.14700-1-palaomer100@gmail.com>
+References: <20260917060948.14700-1-palaomer100@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 17 Sep 2026 06:15:45 +0000
+Message-Id: <20260917061545.854E31F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Add Device Tree binding documentation for the Xilinx AXI FIFO
-Memory Mapped Stream IP core, covering compatible strings
-from version 4.1 through 4.3.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Low] dt-bindings: duplicate legacy text binding not removed
+- [Low] dt-bindings: misc: xlnx,axi-fifo-mm-s node name contains underscores
+--
 
-Signed-off-by: Omer PALA <palaomer100@gmail.com>
----
- .../bindings/misc/xlnx,axi-fifo-mm-s.yaml     | 228 ++++++++++++++++++
- 1 file changed, 228 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
+commit 1e96a460ceedc5eaed86e4087bdc979b41dd1bd7
+Author: Omer PALA <palaomer100@gmail.com>
 
-diff --git a/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml b/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
-new file mode 100644
-index 000000000..f53b353cc
---- /dev/null
-+++ b/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
-@@ -0,0 +1,228 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/misc/xlnx,axi-fifo-mm-s.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Xilinx AXI-Stream FIFO IP core
-+
-+maintainers:
-+  - Omer PALA <palaomer100@gmail.com>
-+
-+description: |
-+  The Xilinx AXI-Stream FIFO IP core has read and write AXI-Stream FIFOs,
-+  the contents of which can be accessed from the AXI4 memory-mapped
-+  interface. This is useful for transferring data from a processor into
-+  the FPGA fabric.
-+
-+  See Xilinx PG080 for IP details.
-+
-+  The Linux driver currently supports only store-forward mode with a
-+  32-bit AXI4-Lite interface. Cut-through mode and full AXI4 (non-lite)
-+  are not supported.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - xlnx,axi-fifo-mm-s-4.1
-+      - xlnx,axi-fifo-mm-s-4.2
-+      - xlnx,axi-fifo-mm-s-4.3
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  interrupt-names:
-+    items:
-+      - const: interrupt
-+
-+  xlnx,axi-str-rxd-protocol:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    const: XIL_AXI_STREAM_ETH_DATA
-+    description: Protocol of the receive data AXI-Stream interface.
-+
-+  xlnx,axi-str-rxd-tdata-width:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    const: 32
-+    description: Width of the receive data AXI-Stream TDATA bus in bits.
-+
-+  xlnx,axi-str-txc-protocol:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    const: XIL_AXI_STREAM_ETH_CTRL
-+    description: Protocol of the transmit control AXI-Stream interface.
-+
-+  xlnx,axi-str-txc-tdata-width:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    const: 32
-+    description: Width of the transmit control AXI-Stream TDATA bus in bits.
-+
-+  xlnx,axi-str-txd-protocol:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    const: XIL_AXI_STREAM_ETH_DATA
-+    description: Protocol of the transmit data AXI-Stream interface.
-+
-+  xlnx,axi-str-txd-tdata-width:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    const: 32
-+    description: Width of the transmit data AXI-Stream TDATA bus in bits.
-+
-+  xlnx,axis-tdest-width:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: AXI-Stream TDEST width. Ignored by the driver.
-+
-+  xlnx,axis-tid-width:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: AXI-Stream TID width. Ignored by the driver.
-+
-+  xlnx,axis-tuser-width:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: AXI-Stream TUSER width. Ignored by the driver.
-+
-+  xlnx,data-interface-type:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    const: 0
-+    description: |
-+      Memory-mapped data interface type. Only AXI4-Lite (0) is supported.
-+
-+  xlnx,has-axis-tdest:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    const: 0
-+    description: TDEST support. Not supported by the driver.
-+
-+  xlnx,has-axis-tid:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    const: 0
-+    description: TID support. Not supported by the driver.
-+
-+  xlnx,has-axis-tkeep:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    const: 0
-+    description: TKEEP support. Not supported by the driver.
-+
-+  xlnx,has-axis-tstrb:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    const: 0
-+    description: TSTRB support. Not supported by the driver.
-+
-+  xlnx,has-axis-tuser:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    const: 0
-+    description: TUSER support. Not supported by the driver.
-+
-+  xlnx,rx-fifo-depth:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: Depth of the receive FIFO in words.
-+
-+  xlnx,rx-fifo-pe-threshold:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: Receive FIFO programmable empty interrupt threshold.
-+
-+  xlnx,rx-fifo-pf-threshold:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: Receive FIFO programmable full interrupt threshold.
-+
-+  xlnx,s-axi-id-width:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: Width of the AXI4 slave interface ID bus.
-+
-+  xlnx,s-axi4-data-width:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    const: 32
-+    description: Width of the AXI4 slave data bus in bits.
-+
-+  xlnx,select-xpm:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    const: 0
-+    description: Whether Xilinx Parameterized Macros are used for the FIFOs.
-+
-+  xlnx,tx-fifo-depth:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: Depth of the transmit FIFO in words.
-+
-+  xlnx,tx-fifo-pe-threshold:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: Transmit FIFO programmable empty interrupt threshold.
-+
-+  xlnx,tx-fifo-pf-threshold:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: Transmit FIFO programmable full interrupt threshold.
-+
-+  xlnx,use-rx-cut-through:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    const: 0
-+    description: Receive cut-through mode. Not supported by the driver.
-+
-+  xlnx,use-rx-data:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum: [0, 1]
-+    description: Set to 1 if the receive FIFO is enabled, 0 otherwise.
-+
-+  xlnx,use-tx-ctrl:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    const: 0
-+    description: Transmit control interface. Not supported by the driver.
-+
-+  xlnx,use-tx-cut-through:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    const: 0
-+    description: Transmit cut-through mode. Not supported by the driver.
-+
-+  xlnx,use-tx-data:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum: [0, 1]
-+    description: Set to 1 if the transmit FIFO is enabled, 0 otherwise.
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - xlnx,axi-str-rxd-tdata-width
-+  - xlnx,axi-str-txd-tdata-width
-+  - xlnx,rx-fifo-depth
-+  - xlnx,tx-fifo-depth
-+  - xlnx,use-rx-data
-+  - xlnx,use-tx-data
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    axi_fifo_mm_s@43c00000 {
-+        compatible = "xlnx,axi-fifo-mm-s-4.1";
-+        reg = <0x43c00000 0x10000>;
-+        interrupt-parent = <&intc>;
-+        interrupts = <0 29 4>;
-+        interrupt-names = "interrupt";
-+        xlnx,axi-str-rxd-protocol = "XIL_AXI_STREAM_ETH_DATA";
-+        xlnx,axi-str-rxd-tdata-width = <0x20>;
-+        xlnx,axi-str-txc-protocol = "XIL_AXI_STREAM_ETH_CTRL";
-+        xlnx,axi-str-txc-tdata-width = <0x20>;
-+        xlnx,axi-str-txd-protocol = "XIL_AXI_STREAM_ETH_DATA";
-+        xlnx,axi-str-txd-tdata-width = <0x20>;
-+        xlnx,axis-tdest-width = <0x4>;
-+        xlnx,axis-tid-width = <0x4>;
-+        xlnx,axis-tuser-width = <0x4>;
-+        xlnx,data-interface-type = <0x0>;
-+        xlnx,has-axis-tdest = <0x0>;
-+        xlnx,has-axis-tid = <0x0>;
-+        xlnx,has-axis-tkeep = <0x0>;
-+        xlnx,has-axis-tstrb = <0x0>;
-+        xlnx,has-axis-tuser = <0x0>;
-+        xlnx,rx-fifo-depth = <0x200>;
-+        xlnx,rx-fifo-pe-threshold = <0x2>;
-+        xlnx,rx-fifo-pf-threshold = <0x1fb>;
-+        xlnx,s-axi-id-width = <0x4>;
-+        xlnx,s-axi4-data-width = <0x20>;
-+        xlnx,select-xpm = <0x0>;
-+        xlnx,tx-fifo-depth = <0x8000>;
-+        xlnx,tx-fifo-pe-threshold = <0x200>;
-+        xlnx,tx-fifo-pf-threshold = <0x7ffb>;
-+        xlnx,use-rx-cut-through = <0x0>;
-+        xlnx,use-rx-data = <0x0>;
-+        xlnx,use-tx-ctrl = <0x0>;
-+        xlnx,use-tx-cut-through = <0x0>;
-+        xlnx,use-tx-data = <0x1>;
-+    };
-+...
--- 
-2.55.0
+dt-bindings: misc: add xlnx,axi-fifo-mm-s
 
+Add Device Tree binding documentation for the Xilinx AXI FIFO Memory Mapped
+Stream IP core. This commit covers compatible strings from version 4.1
+through 4.3.
+
+> diff --git a/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.ya=
+ml b/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
+> new file mode 100644
+
+[Severity: Low]
+Is the original text binding at drivers/staging/axis-fifo/axis-fifo.txt
+still needed?
+
+Since this new YAML binding covers the same hardware in the core DT bindings
+directory, should the old text binding in the staging directory be removed
+in this patch to prevent documentation duplication?
+
+> index 0000000000000..f53b353ccc2a1
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
+> @@ -0,0 +1,228 @@
+
+[ ... ]
+
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - xlnx,axi-str-rxd-tdata-width
+> +  - xlnx,axi-str-txd-tdata-width
+> +  - xlnx,rx-fifo-depth
+> +  - xlnx,tx-fifo-depth
+> +  - xlnx,use-rx-data
+> +  - xlnx,use-tx-data
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    axi_fifo_mm_s@43c00000 {
+
+[Severity: Low]
+Does this node name violate standard Device Tree naming conventions?
+
+Using underscores typically triggers node_name_chars_strict warnings during
+dt_binding_check validation. Should a generic name with hyphens, like
+fifo@43c00000, be used instead?
+
+> +        compatible =3D "xlnx,axi-fifo-mm-s-4.1";
+> +        reg =3D <0x43c00000 0x10000>;
+> +        interrupt-parent =3D <&intc>;
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917060948.1470=
+0-1-palaomer100@gmail.com?part=3D1
