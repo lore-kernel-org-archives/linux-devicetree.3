@@ -1,148 +1,118 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0592477E4B
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 10:01:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5BBB1F4631;
+	Thu, 17 Sep 2026 10:04:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789639302; cv=none; b=Xmn3xWTvePADRng5/19x1R6zwW9ReTJOp65GixXM+W+YJRuGBWusnhbmxG0V4JRvUTpUBn4gF3xXURw6HZ1lN4zEBnTWsEQp3gNhymQr4fT7hQ3r3lSTaqodCJaUTj+MnglaKxYxuWcU+GB7FXyIiJLxTJbK1IW1a1gEakDE4YM=
+	t=1789639470; cv=none; b=GamU/uujxuHkHgpB2oUd/07NkTJH3/ldRXr0ZS1q5V+4Uz6RQ3nvdBHhpAwqnT17++C8dboLu86HnRjqgqVVyiUi0dO9S20KHY2Tz6QKJSSPwXr17SxP0YCPe4mCuUcJd1f4QQwaOUC8HDeGRxVa3sRw4b9SppbyWUilObVvrK0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789639302; c=relaxed/simple;
-	bh=pag8GsAuMgV14tGHFakBM/aqsN8ArFfNwacRR04dIPw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=lhdtT+wBzuKHjmc4rzhru4LO1xMHE4oXoDFDTz2LIi+zEzc86shUnKSFoS9iQtnXem4eisgkWz6xu7m5u6m2ymzJwwApajOzaCuegwF3fz7oH7qfqsX354ZJ+ldF0Kl8J5YolmA4bn1L/y7U9DNLIQRlsH2qg3btR/hwlNvo6bA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i5jf63Ff; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789639470; c=relaxed/simple;
+	bh=tqUsQnVQ6+0AGejYyjS3eeE+jYuqzZYYt2aVEmhleFk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=biJS5UPZaPbpaKY1L3fgWBv/Hql80NBYbRd6VqFGCDqy3QHzSbcRwZ/prBM8muMh2UJm1DvXo6UItFxKySMDzrf8IGT9hp99sJ8h0ZwfheId6FQTt3TnKIQ817HM7veDTrVy86RVPBv2sfJW6AA02DMvguJLOUX9pXwltE3rSeg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oCWO23E7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i5jf63Ff"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB6651F000FF;
-	Thu, 17 Sep 2026 10:01:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oCWO23E7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C3A81F000FF;
+	Thu, 17 Sep 2026 10:04:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789639290;
-	bh=EPDJPdqll4eRzLk2T4CRlSlDKML+Swre/2hqOwAegl0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=i5jf63FfUaHr37xRqP4yfzrctKEwd4rGkAdtr/jz52mLeWPBP9GIqCN0ESdyqH3eb
-	 gd1SSnrhgcXpPtABsn6Sg0tNnRLfFkhB0rYlcpK4RMXWOtJHQNW6DvCgvC177At6Y9
-	 KwRajNQ1qXDgp5n45JKK3/h34ZFV6eNfaufhuD8qo/b/AWeorg+OlbDp2l9OENsSte
-	 JrWbdD0wbpjYai/BL5I1MAnthPjB1VsgM1h3YcKIEP2EGe+aioKks3iZgK7sXijqHW
-	 ncaY39Yy5wM3j/I9UlEofiJiW+55bOV4whh5Vc5HRMiBd5q9u6HUwqyyFGmPzEpk5H
-	 3CbPURDFRtDPA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 1/2] arm64: dts: qcom: sdm845-google: Add dual front
- IMX355 cameras
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "David Heidelberg" <david@ixit.cz>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260917-pixel3-camera-v10-1-df631279b39d@ixit.cz>
-References: <20260917-pixel3-camera-v10-0-df631279b39d@ixit.cz>
- <20260917-pixel3-camera-v10-1-df631279b39d@ixit.cz>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 10:01:29 +0000
-Message-Id: <20260917100129.DB6651F000FF@smtp.kernel.org>
+	s=k20260515; t=1789639456;
+	bh=9RJR2h0qHtxMiw9TYA3+iKS1eMqprIRMDs4v7Dy4PLg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oCWO23E7KxKz8qfc36onezw+s4uvcvZKbFDjGYlDb9R8zOZq2Hpb9UHIJDysoVhuK
+	 rz5Nsh6zw8RPtmNi4ZbevYC/BPq2HOe2kyarxeIDM6bFM4zfJsOM8CnjwICuA+Vd70
+	 yVM8iugGHOZRDzsjPJG9BEdSgRnrm1F0riet0B7I7FEdjLl3HgAVAtX82w7NXooGoS
+	 CZx/02xumAQgM7OfTNzbyol1MS0eBVrEB278ZG5Y52zpsoTIQUkqVajQ7VwBbqGLqu
+	 rx0/XdbHnk5wOkjOC12XSxkvoM32sXzukSLanuBifqEhpFD9Yd2Ura6A/iAReeFK0K
+	 MV4p5XuYiPHdA==
+Date: Thu, 17 Sep 2026 12:04:12 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Arthur Crepin Leblond <arthur@marmottus.net>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Arnd Bergmann <arnd@arndb.de>, netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v8 2/3] dt-bindings: net: wiznet,w5100: add link
+ status interrupt
+Message-ID: <20260917-sexy-quixotic-ermine-138eab@quoll>
+References: <20260915-wiznet-link-gpio-v8-0-d173622474cc@marmottus.net>
+ <20260915-wiznet-link-gpio-v8-2-d173622474cc@marmottus.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260915-wiznet-link-gpio-v8-2-d173622474cc@marmottus.net>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] arm64: dts: qcom: imx355 probe failure due to MCLK2 pinmux tied to=
- camss runtime PM
-- [Medium] arm64: dts: qcom: cci1 bus power leak due to typo in sleep pinct=
-rl override
---
+On Tue, Sep 15, 2026 at 10:06:03AM +0200, Arthur Crepin Leblond wrote:
+> Add an optional link status interrupt which can be connected to the
+> LINKLED pin on the device to detect link status changes. This second
+> interrupt is only supported on wiznet,w5500.
+> 
+> Signed-off-by: Arthur Crepin Leblond <arthur@marmottus.net>
+> ---
+> v8:
+>  - Remove Krzysztof Kozlowski reviewed-by tag after Sashiko review
+>    changes
+>   - Make the interrupts property conditional
+> 
+> v7:
+>  - No changes
+> 
+> v6:
+>  - Fix DT error: use minItems
+>  - Remove conditional properties
+> 
+> v5:
+>  - Make the DT interrupts property dynamic from the compatible one
+>  - Fix DT bindings errors
+> 
+> v4:
+>  - Update interrupts in DT bindings
+> 
+> v3:
+>  - Fix DT binding errors
+> 
+> v2:
+>  - Convert device tree binding to YAML
+> ---
+>  .../devicetree/bindings/net/wiznet,w5100.yaml      | 38 ++++++++++++++++++----
+>  1 file changed, 31 insertions(+), 7 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/net/wiznet,w5100.yaml b/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
+> index 25098308eb6e..da03f4e07f29 100644
+> --- a/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
+> +++ b/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
+> @@ -12,10 +12,6 @@ maintainers:
+>  description: |
+>    This is a standalone 10/100 MBit Ethernet controller with SPI interface.
+>  
+> -allOf:
+> -  - $ref: /schemas/net/ethernet-controller.yaml#
+> -  - $ref: /schemas/spi/spi-peripheral-props.yaml#
+> -
+>  properties:
+>    compatible:
+>      enum:
+> @@ -24,8 +20,11 @@ properties:
+>        - wiznet,w5500
+>  
+>    interrupts:
+> -    maxItems: 1
 
-commit 2ddcaa50bae24562b4521343bdbdd9cdac1d78ec
-Author: David Heidelberg <david@ixit.cz>
+Broadest constraints always stay here.
 
-arm64: dts: qcom: sdm845-google: Add dual front IMX355 cameras
-   =20
-The Pixel 3 features two front-facing Sony IMX355 sensors with
-different focal lengths (standard and wide-angle).
-   =20
-Sensors are connected via CSIPHY port 1 and 2 and controlled over CCI
-I2C1, using MCLK2 as the clock source.
+I already asked for proper syntax here:
+https://lore.kernel.org/all/688f57cd-a098-4904-b8cd-965470a89386@kernel.org/
 
-> diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/ar=
-m64/boot/dts/qcom/sdm845-google-common.dtsi
-> index f1379857e2742..8b430776e8a54 100644
-> --- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-[ ... ]
-> @@ -351,6 +389,53 @@ vreg_s3c_0p6: smps3 {
->  	};
->  };
-> =20
-> +&camss {
-> +	vdda-phy-supply =3D <&vreg_l1a_0p875>;
-> +	vdda-pll-supply =3D <&vreg_l26a_1p2>;
-> +
-> +	/*
-> +	 * MCLK2 (GPIO15) is shared between both front camera sensors.
-> +	 * The clock is generated by CAMCC, therefore the pin is
-> +	 * configured here rather than in individual sensor nodes.
-> +	 */
-> +	pinctrl-0 =3D <&cam_mclk2_default>;
-> +	pinctrl-1 =3D <&cam_mclk2_sleep>;
-> +	pinctrl-names =3D "default", "sleep";
+https://elixir.bootlin.com/linux/v6.11-rc6/source/Documentation/devicetree/bindings/ufs/qcom,ufs.yaml#L127
 
-[Severity: High]
-Does assigning the MCLK2 pinmux to the &camss node cause probe failures?
+Best regards,
+Krzysztof
 
-Because camss uses runtime PM, it remains suspended while the sensors probe
-asynchronously over I2C. During their probe routine, the sensors request the
-clock and attempt an I2C read to identify the module.
-
-Since camss is still suspended, MCLK2 will be left in the sleep state. This
-prevents the clock signal from routing to the sensors, causing the I2C chip=
- ID
-read to fail.
-
-Should this pinctrl be assigned to a node whose lifecycle matches the clock
-or sensor, such as the clock controller (camcc)?
-
-> +
-> +	status =3D "okay";
-[ ... ]
-> +};
-> +
-> +&cci0_sleep {
-> +	/* bus has external pull-up */
-> +	/delete-property/ bias-pull-down;
-> +	bias-disable;
-> +};
-> +
-
-[Severity: Medium]
-Does this override configure the wrong bus?
-
-The fix meant to address power leakage caused by an external pull-up by
-removing the internal bias-pull-down and applying bias-disable during sleep=
-.=20
-However, it targets &cci0_sleep instead of &cci1_sleep.
-
->  &cci {
->  	status =3D "okay";
->  };
-> @@ -358,7 +443,63 @@ &cci {
->  &cci_i2c1 {
->  	/* actuator @0c */
-> =20
-> -	/* front camera, imx355 @1a */
-> +	front_cam: camera@10 {
-
-Since the newly added front cameras are connected to cci_i2c1, its sleep st=
-ate
-(cci1_sleep) should be updated to avoid conflicting with the external pull-=
-up.
-
-Because cci0 is unused for cameras on this board, updating &cci0_sleep leav=
-es
-the cci_i2c1 bus with internal pull-downs enabled during sleep, which will =
-fight
-the external pull-up and leak power.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917-pixel3-cam=
-era-v10-0-df631279b39d@ixit.cz?part=3D1
