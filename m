@@ -1,136 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68BCD57EDAE;
-	Thu, 17 Sep 2026 14:11:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AB1C4B8289;
+	Thu, 17 Sep 2026 14:14:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789654277; cv=none; b=aEM53Vz0mkZ4kbdJHWXAKwUUTx0nmX1f0abZNcU+tli/luKC/HS8ojhUg1nPjD2b8jFbeZ9kBjhJji3rw5+ntXYSKgZJLD3lhyW1oot8bjDrTrpFGcJeiPkWmqNQ/j1ZTKpGeTm6JpWwgQYgpOwJXc7fAljIUrSc+2qEfIx14Ik=
+	t=1789654449; cv=none; b=PgBRYbMZWZUvsy3AcgczquLLsBULVcwfxfVT9Rh+nRrSe/zgs4VpjVvFi8rkanQDuC+rODx2N346rPw2nSXTEYC9EvDV0BLuFE/5bm5nIYMQcq7IvJf0aGCe16qCNKAiZ/d9OtoYa+Sg1wtjXJgmR36Y8ZPNmG3wcsr49HRH5co=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789654277; c=relaxed/simple;
-	bh=t9na2Pz0dAVUnrX/AQQRGJZ+47XTDd9EiWqk3djAscI=;
+	s=arc-20240116; t=1789654449; c=relaxed/simple;
+	bh=FCDbgDvc516Qse1f2QiZwe1OgQOGRb1nnve2eiKd1ww=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=qutgR28G2m/YuaT8V51ABT/vVY/04oRgbf3zspa2Dfd5hPuztB1hD79HEZ1Gd3qy4Sk2twdc21d4DJiu0zcMkFADdbNOxisyiMwuNsAp3rnlMJQ/luvSAvdA2igosXnlKfT8/KFpcv0642ofq4+qldF8AJug3jldw8LgGTZ26aA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O27fYDs4; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Iukw7AJWBhhYQH3YJ807IDXPGWFMKJePhwDo627iRwAg2TnqlEDnDg5ehvMAaQ36NH/EfoaE/3c8AHUHhJQcGxS3udoZU6IR91a2sdLRjiMbkDkD7ELxY1PXSrvKtuwjLeUikytURLAyRwtBtQmlhRJ7wdx79Xo/wx1L6hBS8gY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FWimDGj3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O27fYDs4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 262FC1F000FF;
-	Thu, 17 Sep 2026 14:11:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FWimDGj3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E97B01F000FF;
+	Thu, 17 Sep 2026 14:14:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789654270;
-	bh=RDBEbZ343eiQ6b96Jzh6LBFtBCiB2Xlm3Jy7KCyBi9I=;
+	s=k20260515; t=1789654447;
+	bh=cpwZ9carUYtl87VKALOi7gLN5i+7uaZp55JKc1ylHqI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=O27fYDs4pOu+DVMEC/cCEdwxR7l2kwOTv+9uaW2TIz00m+co8ucHMoP+ipqQv3esS
-	 8dh8/2FZCJMtjvoUMRv1QtohSWRv4rraUFIwM/WSxE03GeO/eIiW/PPaYwbIZsQmiG
-	 EL5BsdJA4HN4GcG2eMxAELYbI77Jg/no/5+SnI0iF31sUGRGKMtR4/Z5eb85lG/tFQ
-	 AY/fqdRTfPwtoMf6wY90hEEoXTkcC9+gLn6M5k0CEIfJz362C/aShRP8bOeVsfjJr0
-	 OOEzoLlf9ugrXTT6Y0U6CI5AcSFw7Hxnr3znu2gql4jGsCyjgb3DEdqvfsFqKXPMzH
-	 RCpmmW3j/85rQ==
+	b=FWimDGj3Mx5W9TD/hfp/qATVSfi72A/d+7Xkxxo/Cwu+q+JfXjXa2MPgGS3hflzEb
+	 6iyIQ/YF36036EhgWODUTrqudd6whdOjnwlzDLuCcAau3332JNSbmZB8KefIvuON2L
+	 ZeAKJdCv0JVeTHWLHoe4n2cty5U5IvBrn+mtfFeITSBBWzjKUl74CRtHcs8kyt0U1e
+	 /0YmInYBoZe+T3sUVGM/ZNKo8U3WrSwxj0wDEgyOy2A90IOd1fIBToVPvXFqM6Y1sf
+	 I40iNqF0s4IjAJwjamVXHxEHWyR5eNKIZtLKpUfp/koF90ItWFR3kk/X9e3zDSpbPE
+	 snxWJKWCVz5hA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] rtc: Add Raspberry Pi 5 RTC driver
+Subject: Re: [PATCH v5 1/4] dt-bindings: lcdif: Add endpoint bus-width
+ property
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sander Speetjens" <sander.speetjens@gmail.com>
-Cc: robh@kernel.org, "Alexandre Belloni" <alexandre.belloni@bootlin.com>, devicetree@vger.kernel.org, conor+dt@kernel.org, linux-rtc@vger.kernel.org
-In-Reply-To: <20260917135841.841680-3-sander.speetjens@gmail.com>
-References: <20260917135841.841680-1-sander.speetjens@gmail.com>
- <20260917135841.841680-3-sander.speetjens@gmail.com>
+To: "Francesco Dolcini" <francesco@dolcini.it>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, Frank.Li@kernel.org, robh@kernel.org, conor+dt@kernel.org, imx@lists.linux.dev
+In-Reply-To: <20260917140042.118181-2-francesco@dolcini.it>
+References: <20260917140042.118181-1-francesco@dolcini.it>
+ <20260917140042.118181-2-francesco@dolcini.it>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 14:11:09 +0000
-Message-Id: <20260917141110.262FC1F000FF@smtp.kernel.org>
+Date: Thu, 17 Sep 2026 14:14:06 +0000
+Message-Id: <20260917141406.E97B01F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Endianness mismatch in Raspberry Pi firmware mailbox payloads
-- [Low] Kconfig dependency allows built-in RTC driver with modular firmware
+- [Low] dt-bindings: fsl,lcdif: endpoint constraints bypassed for unit-addr=
+essed endpoints
 --
 
-commit b1ad8443ceac920191fe490d4fe9a93bc6d9205a
-Author: Sander Speetjens <sander.speetjens@gmail.com>
+commit fb72496bb41dc4492a1048af127118bf41d36a4a
+Author: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-rtc: Add Raspberry Pi 5 RTC driver
+dt-bindings: lcdif: Add endpoint bus-width property
 
-This commit upstreams the downstream Raspberry Pi 5 RTC driver for the cust=
-om
-DA9091. The driver binds as a child device in the firmware driver probe
-function and uses the firmware mailbox to access the RTC.
+The DPI output of the LCD interface can be configured with a bus width
+of 16, 18, or 24 bits. Introduce a bus-width property to the output
+endpoint, specifying the number of parallel RGB bits connected.
 
-[ ... ]
-> diff --git a/drivers/rtc/Kconfig b/drivers/rtc/Kconfig
-> index 05b9233b94189..1a24655fc2d39 100644
-> --- a/drivers/rtc/Kconfig
-> +++ b/drivers/rtc/Kconfig
-> @@ -1999,6 +1999,17 @@ config RTC_DRV_R7301
->  	   This driver can also be built as a module. If so, the module
->  	   will be called rtc-r7301.
+> diff --git a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml b/D=
+ocumentation/devicetree/bindings/display/fsl,lcdif.yaml
+> index 2dd0411ec6516..89cea0c14cf1d 100644
+> --- a/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> +++ b/Documentation/devicetree/bindings/display/fsl,lcdif.yaml
+> @@ -68,9 +68,19 @@ properties:
+>      maxItems: 1
 > =20
-> +config RTC_DRV_RPI
-> +        tristate "Raspberry Pi RTC"
-> +        depends on ARCH_BRCMSTB || RASPBERRYPI_FIRMWARE || COMPILE_TEST
+>    port:
+> -    $ref: /schemas/graph.yaml#/properties/port
+> +    $ref: /schemas/graph.yaml#/$defs/port-base
+> +    unevaluatedProperties: false
+>      description: The LCDIF output port
+> =20
+> +    properties:
+> +      endpoint:
 
 [Severity: Low]
-Does this dependency allow the RTC driver to be compiled as built-in (=3Dy)
-while RASPBERRYPI_FIRMWARE is compiled as a loadable module (=3Dm)?
+Does restricting this to the literal 'endpoint' key bypass validation for
+unit-addressed endpoints?
 
-If this driver is built-in and the firmware is modular, it looks like the
-unconditional calls to devm_rpi_firmware_get() and rpi_firmware_property()
-in rpi_rtc_probe() will result in a linker error.
+Existing in-tree device trees, such as arch/arm64/boot/dts/freescale/imx93.=
+dtsi,
+define unit-addressed endpoints under the lcdif port:
 
-> +        default ARCH_BRCMSTB
-> +        help
-> +          If you say yes here you get support for the RTC found on
-> +          Raspberry Pi devices.
-[ ... ]
-> diff --git a/drivers/rtc/rtc-raspberrypi.c b/drivers/rtc/rtc-raspberrypi.c
-> new file mode 100644
-> index 0000000000000..0f5c3f8e9731e
-> --- /dev/null
-> +++ b/drivers/rtc/rtc-raspberrypi.c
-[ ... ]
-> +static int rpi_rtc_set_time(struct device *dev, struct rtc_time *tm)
-> +{
-> +	struct rpi_rtc_data *vrtc =3D dev_get_drvdata(dev);
-> +	u32 data[2] =3D {RTC_TIME, rtc_tm_to_time64(tm)};
+		lcdif_to_ldb: endpoint@1 {
+			reg =3D <1>;
 
-[Severity: High]
-Can this payload format cause communication issues on big-endian architectu=
-res?
+Because this uses the literal 'endpoint' key rather than a pattern property
+like "^endpoint(@[0-9a-f]+)?$", multi-endpoint configurations will fail
+to match this rule.
 
-The Raspberry Pi firmware mailbox expects little-endian data. By passing
-a host-endian u32 array directly to rpi_firmware_property(), both the
-register ID (RTC_TIME) and the timestamp payload will be byte-swapped on
-big-endian machines.
+This causes device tree validation to silently bypass the bus-width enum
+constraints and other video-interfaces.yaml rules for those configurations.
 
+> +        $ref: /schemas/media/video-interfaces.yaml
+> +        unevaluatedProperties: false
 > +
-> +	return rpi_firmware_property(vrtc->fw, RPI_FIRMWARE_SET_RTC_REG,
-> +				     &data, sizeof(data));
-> +}
-[ ... ]
-> +static int rpi_rtc_set_charge_voltage(struct device *dev)
-> +{
-> +	struct rpi_rtc_data *vrtc =3D dev_get_drvdata(dev);
-> +	u32 data[2] =3D {RTC_BBAT_CHG_VOLTS, vrtc->bbat_vchg_millivolts * 1000U=
-};
-
-[Severity: High]
-Will this conversion to a host-endian integer cause out-of-spec PMIC
-voltages to be sent on big-endian machines?
-
-Similar to rpi_rtc_set_time(), passing host-endian values to the mailbox
-here will byte-swap the charge voltage target on big-endian systems,
-potentially resulting in hardware misconfiguration.
-
-> +	int err;
+> +        properties:
+> +          bus-width:
+> +            enum: [ 16, 18, 24 ]
 > +
-> +	err =3D rpi_firmware_property(vrtc->fw, RPI_FIRMWARE_SET_RTC_REG,
-> +				    &data, sizeof(data));
-[ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917135841.8416=
-80-1-sander.speetjens@gmail.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917140042.1181=
+81-1-francesco@dolcini.it?part=3D1
