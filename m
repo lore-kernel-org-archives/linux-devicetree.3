@@ -1,131 +1,194 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2094.outbound.protection.partner.outlook.cn [139.219.17.94])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F5A03A7D81
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 03:27:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789615628; cv=none; b=sEf5MWNVlBJVnGJ6c8vMpKX+1bHkZulZq7MV/kR3RVov0wSDV7DTfSYuarAKGn9JuuW5tqaitFCHfXPqNiI+FN5rqntrYM35lRQQfIkGIq+H+2uPzVrYBpoMIJ8C1YgEcWlWw4XFsaygKQ7Vg6PZo6hSQu7pftDa1UlgHd+lh/s=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789615628; c=relaxed/simple;
-	bh=R3FAfBMCy0I3rYNbY7ljz1l5sVG2klBi7lbMe897t6Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QIzjWPPILunkptK7x8eQOyaZXlK9oZ5h405UsuAceNysdvG+bo55B8MgaJ6qNhJIZKGFKSTKUYOFraQacaM93Lm5eo7XqbjvgWjVhQb8RAHAbMXvANUkIdzwYVtNjK1Cl5ZVLunvFFbKsP3+p3Ja/FYGB29BtcVHP2uSslbjV2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DnerzhUF; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DnerzhUF"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7bcb94d3so2420175e9.2
-        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 20:27:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789615623; x=1790220423; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JfZ+gBA8a1DG0OUmX7Tsw/OgchSGtEjjMWjZU8Wx4UA=;
-        b=DnerzhUFn78f74xuOB0DoViVteBgbh8n06A5FDz+rb/nC8CXzZ0J5WdZszzwGBb9FR
-         Z4igT3YBo7FEU8V1Zo9FeDh30EhX+21DF+iB+k44ZLctNmOjVh0LEhEq3RlUlBFmpzDE
-         ba8mAshJPvf64c1ZkemVmexX2rx8O84PiqjiIHnRwjiBB3ahpnl47XbkNvCNeNCQUUIW
-         JTEqcIwhTB2NDGtHoRHtGpXkb6MTJ7otrpLAATahoYZwf1383vgtCBhuRgCFEyrj60JK
-         3InaMerdX8fwhTsXXJTqU7S6GIl7elGUOwc0fctNFd1jrLppBBMzpWwAhlE2leABEpK9
-         eRNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789615623; x=1790220423;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JfZ+gBA8a1DG0OUmX7Tsw/OgchSGtEjjMWjZU8Wx4UA=;
-        b=iM7ECpizM+xgewcTHWqFX0MNoDpUrGTPq/6SlacMLgxg6yNrfSrvgdJl3ECwoLCHqf
-         lOffkCkxwJZ9fagpZ8yx/I+zzJ2RDkxtREhzFhfzrbr2huNyfD/QDoWby+GMG1ynqsje
-         T3/8V+Lf8Hixk7a6gvZm9VNCst0XYi5TMTHmHuFrC74UwosEMe0+L9R4LqN3w0l8AEXp
-         EI7uKGNQr0wvco0Xt4wqnGj6/j6MGwuUKhwU6Qbo6KonZbWU6n7NV8PsByCTunmzdqwt
-         QfYJnmxCfysOgRNG1oYbONNYQGOcjl0TcmpuV5c93BQJsEML/NczJwXHJ+Wk/p6KHy5Y
-         q+OQ==
-X-Forwarded-Encrypted: i=1; AKwUvBysUM2lxeUg0rYeM9A/MSNeVf6DwgzuSVpRnbP5KGfIABODFUQT7zc2ULtYATsKh1LKkFIULtiV40wq@vger.kernel.org
-X-Gm-Message-State: AFuF++mmBfkq6B1jfTjyG1HLejbxTRvabrozzRWOxAUqGrz61kPV/H0p
-	VAu1CGq4/Rz9ngXxXGWUbJuffx06sqSVRwJkgNcOwbnsFyAi00fIQiXI
-X-Gm-Gg: AYBFou2m96ox1YphzchTKEpCHYORlqhxpM4Srq8hCEWiDuMGsoKi8QhQpIYUfcIiXHk
-	jcrxXJL6LkubLjErWjLVcONBDdL0AZxhQ9BZYE/oNmxdv215kWmVx3+1zyFvnR6q9bpAEsc1VV4
-	BYysok6VBCgz58HqofuoPf235dmSBRIu2A3QxCBO8F2jrigemY5GhpP4EYvXv6KoZXQpLywWuTd
-	D52E3jhKux1wC+hQ8kFNoE9hO1dNGLj1xXvd+QKMmTEXpbwxe4QBaLTzt7+gfr+oGv9H8ouc6lj
-	ruwupFmj4FPeNdgbiASGaalLU8EjzvpBHJQmAztasGcRLY6wpUU4jTYEQuyuOzHGMe/N5zOhU7W
-	Dr8RO7HhjVKRcyQ4CYpPOtM8HN0USuA9zhx7RLRhG4OVRU/6GUcN7EHuHhvDx89EspyU6kArYpC
-	rUqN9GmrtN2Sy9+Okn7l4RPpRb6ZOqpoV+baKqHJfmusxl5iCQ+HjeheAlCK2pLpHNvgLy23wL3
-	Lt6b6OH4TPsX9ftRBalsQr3w3iX1O0bkZAadPpIZs1XgKt26niuVOukrEgOHDYJdlyjRLcmo0Xe
-	JC5swWditUcxYw/XZmBSAQdy1pNRoI0goD4vSGpK2NjRd9Ekoew8BGIYQmzLGQudENNV+9bCoXq
-	ibJU=
-X-Received: by 2002:a05:600c:8b78:b0:49c:fc6e:8cb4 with SMTP id 5b1f17b1804b1-49ebb4297c4mr61135065e9.24.1789615622470;
-        Wed, 16 Sep 2026 20:27:02 -0700 (PDT)
-Received: from ?IPV6:2a02:8388:e6ca:5780:b097:7d16:9a11:ca28? (2a02-8388-e6ca-5780-b097-7d16-9a11-ca28.cable.dynamic.v6.surfer.at. [2a02:8388:e6ca:5780:b097:7d16:9a11:ca28])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf418dcsm11432549f8f.35.2026.09.16.20.27.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 16 Sep 2026 20:27:02 -0700 (PDT)
-Message-ID: <e2c853c4-34bd-4f2f-8c8c-a05cc4442a98@gmail.com>
-Date: Thu, 17 Sep 2026 05:27:00 +0200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E7C433CE80;
+	Thu, 17 Sep 2026 03:29:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.94
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789615780; cv=fail; b=nvQ08T7kXgSCjj9Smq0B0QVqbMB9OIC6MqhhmcFE6QhHoOgzQvxSqQvncQfbl3+8mWzRVld5M3+hzjNWqRX39V0L/BmY/ScUPWfTPP9nMMVQgCtnLTPVjVz7DKooYtvAHdjPMiusfWtu78RTEQ3bga1vBns+UF4p76TP+HoyeXI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789615780; c=relaxed/simple;
+	bh=UjjAUIC2sujlyjkQaA4IN8pXo+5xYWtaXsGWVbdtOt0=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=oLba9cf9Xd8c0qoQkWNWinuOCoy32HQuRc9QIDgoBLLfLuVsknIyP/ezSvzj1fSGim0j7jEnXW51dSDn7i3D9ShbhQtfoG73T9bYnltk+lNSxVv2cW8VA8YJrsJdE+/2lSA4ILaQCI3D7DpXhUn0z4X499HJlP/QSz/bvO9Rn9w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.94
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=PBGK246pu4t26mH+i3ni7SW5tLwAEVBcjhmx584Ap+7+alCx8SUpWljCFq0VbhrJW5V0/eMdLBp5rpxefDXXMzbKpYTD8BuvfiS+W6+sp2j2P+flBzB8KQevtP2+501GsdyL7gQ/IhtCXgJ8NOCK3LHy4PVek/rxWtbXriFEj65pGNgf/mjin0xIaWh5e15t+U0r6JimMQ9cjNzhoRIAxtiH+zhJn1POQ4Ur11GqjkpQLjldQ9Cw6s//ZtBQr+QswzMQdPezgv9KqArw49BlZreGFuHjoJ2YMSDdB3wAW7o8YBfUpigq0ZKF1EPXS5Zv+GcfgEJd1jf/9TEWLLaWvA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yhUE2wBAdpCxDowA8LMGsJCj+6KXO8laPHfX+WgM5R8=;
+ b=hjUrXjgbs2HlBcyvXxPOGfHa+pI82ub9eOeKcJ+nmpypHN2AMaxF/xCnqfSDVd6buQmJmqg5bCuiJxYwpyZ3Wf8nOvmPVfY9tz2Qjje9zEfEv3jcHp5NdWgSIHuQHXJ47/StGA0hGUOgaALC+ZlCpba09gbITDYao3SVJkd6rm4naAHD6BeVf011JSRTJHKh1wiFDfdublyoTEawmUefJyuq/D4rwq0+XeK/aFr2OnmCxgzeawpwzLYkRo4vQH7qCguSAtfkEMZG0YnHwFjkTEpDSnXhdgIr4FSw8RAcPXtf2pTIRfy531cJOwbR36gDqTBKbdNlfoX6ED65/Lh7ew==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Received: from NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:7::10) by NT0PR01MB1006.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:7::5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Thu, 17 Sep
+ 2026 03:29:25 +0000
+Received: from NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn
+ ([fe80::be4a:d29e:5188:b37e]) by
+ NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn ([fe80::be4a:d29e:5188:b37e%3])
+ with mapi id 15.21.0428.009; Thu, 17 Sep 2026 03:29:24 +0000
+From: Hal Feng <hal.feng@starfivetech.com>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>, Michael Turquette
+	<mturquette@baylibre.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Stephen Boyd
+	<sboyd@kernel.org>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt
+	<palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti
+	<alex@ghiti.fr>, Philipp Zabel <p.zabel@pengutronix.de>, Emil Renner Berthing
+	<kernel@esmil.dk>, Kees Cook <kees@kernel.org>, "Gustavo A . R . Silva"
+	<gustavoars@kernel.org>, Richard Cochran <richardcochran@gmail.com>
+CC: "linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
+	"linux-hardening@vger.kernel.org" <linux-hardening@vger.kernel.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>
+Subject: RE: [PATCH v3 12/22] clk: starfive: Introduce inverter and divider
+Thread-Topic: [PATCH v3 12/22] clk: starfive: Introduce inverter and divider
+Thread-Index: AQHdJmAQzGtl/CzpbE2DV2ErMGmNbbbSW3sA
+Date: Thu, 17 Sep 2026 03:29:24 +0000
+Message-ID:
+ <NT0PR01MB1102A3B324F14495B35AF310E6B82@NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn>
+References: <20260807112923.191627-1-changhuang.liang@starfivetech.com>
+ <20260807112923.191627-13-changhuang.liang@starfivetech.com>
+In-Reply-To: <20260807112923.191627-13-changhuang.liang@starfivetech.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: NT0PR01MB1102:EE_|NT0PR01MB1006:EE_
+x-ms-office365-filtering-correlation-id: 4f3f89da-9bb0-41d0-64de-08df146bdf37
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|23010399003|366016|7416014|1800799024|10067099003|18002099003|22082099003|56012099006|4143699003|921020|38070700021;
+x-microsoft-antispam-message-info:
+ Fk6je+0tf9zQos4M6eGkOAII7feXXUPM+l9qqS3p181nOWWG0SkvxKNbr6S4hFyyAQjJYxmJNse/NvMj+PsgIuktKAeIRvCmoEriE7OXX6Dd/EZBCVrnaCkzbvuFgu3UnljDG7u7DLYCfaI8/0uU33Pp4a67nYyJFWwIZuyh75nrtlPXSqrwRoPAIPiCt9SyvEvYxodNoog4+JAOzknZBush0QYmFI4rMgMlVE1aq1+63M+mzKfKZulepicNulNZcUs9HssKQHSBy8jjLgkQ8n8MyGKnlJLxUbVM+b2QnXgdJ0Kq985AadqrM3xE6Yxd3bQPywq2PfP9OwOQVP8IYB58zTYYFVFbzM9MSVOlSK7Qo7hhuHkfzB21Nt/T/+llB9mOnPOfymkveaOlXAHY2V2r1mdqTQ8PD9i1f5IzwB3OFzI71Ep3O5WfPN+C/adoheZKan5iML5xJThaf3M+6F2h2Gll7B+2GoFk09Seqerq5sWzErrKOAXn5+V26xnqD+XJn40pkgMvAXtecvcpz2CcjmlM5g6XMM+jNv914CY27wBtCuz/cPEAmUsg5xCscEwSi/VnaSRHOHBm5qv1Ig==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(7416014)(1800799024)(10067099003)(18002099003)(22082099003)(56012099006)(4143699003)(921020)(38070700021);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?vkPAM0xeLiullzfi2EScRkTpTuIV+Fd6lFdUS8PztcH8/bmhSn3xER9ypGuO?=
+ =?us-ascii?Q?+aPlzDvkohuVhaRctQ2T7bAEJ90p4t/7jj+OW7zeNrVIND9UGFPfS/diaWQO?=
+ =?us-ascii?Q?+qQVOdcBpg7GQeNnbh3x9tGVvdF8UXUCocTI44DZl1RNV+kMdofWjtCOW/Ig?=
+ =?us-ascii?Q?I5jC4xiYAHRIffguEyazz5SKdeTW2qBlfGVipEdefwhzMJKqyqJIi/BJFBXB?=
+ =?us-ascii?Q?bT4r+klB1PBYKRXpQb18R52FViUd9nnPJpC2+JVlEhBEhUzzPywaMmGqYq/p?=
+ =?us-ascii?Q?xuQeSvAQFZns2IwOQCW+Qoa3vEvCMnwPaAtfTgEO0aSyMMeORvO9o332Q0en?=
+ =?us-ascii?Q?K/fg6pvuCdPPdaukTTnsrgwwMcylZowyBX9OBmXX94FLOXCkLk5bAZAK1c2b?=
+ =?us-ascii?Q?cQaaCVN195mu2rlEgNAZNMkoWk0bl8oJ4F3phx4zfCxKWwWnNqekH8ELN59P?=
+ =?us-ascii?Q?PP6dPu3lbe3WckPyK9yGRDxoBTdrgqN+v5xdtcPSZ9WEwMUyy1Kjsw0oiH1A?=
+ =?us-ascii?Q?RUXZ7TMUPZJCJ/0FQ7IApHAVmOCz/F8Ayg5Cjs/gLqS8ln3uTxM/7DzI3qwW?=
+ =?us-ascii?Q?JR0X2p2OP7u3RnCwT8Lv/SM8o6UUpN2PJCiCTLon+Had+jKccYYrep1dbGbx?=
+ =?us-ascii?Q?JlfdM3RIgoOLPW9dtdoRW0EmLKLyWBG003LUcFeAtD2Fm/SvaYVZB+9qrooX?=
+ =?us-ascii?Q?6SJNJW1DjS1lb0EKdsghtRPSbeMinZsUgovjJPoB05OThTTqhYkbLvrp7W2G?=
+ =?us-ascii?Q?KlBREsa3yeznHB5UdpsL7EMHEqbxJFtY8pMq+0zwAyqj/io3rwmi4kfC/rAO?=
+ =?us-ascii?Q?Wg9TN8PSNVurZaRSURRyeHMvTn9IogU8ijZD0AM2XDASbtlNnegbg05ulmiP?=
+ =?us-ascii?Q?2eGYVU6xf2lvZFdxrwaFT62AG85LXzEqx7sEqBFnI/Z3zT+Eycqbf549cAHf?=
+ =?us-ascii?Q?CUAdWwHDw2GNpnCfnD0vTm4qm4wGBK1/CiJbhe8iwLxkGlyzjSj07+qaXUKm?=
+ =?us-ascii?Q?fiCLKgJCQoH+qDlo8DaurF4drMJj390niG7+QlSVHRBzbX0SNbVHogwP3YAp?=
+ =?us-ascii?Q?Q8x6eVCmj5J0TCqjyzoM98ppUBdNZsXtr8eto/y0M3rRrNC0Y5iUCAOIl2Ip?=
+ =?us-ascii?Q?6nHJ7/sseH78GzvGw8vTENj09j6EHusY7pDPMk47CAARAcl7GJa5dt69FljK?=
+ =?us-ascii?Q?RCBre+KsMHcUPw9jlBMTwtSss3whe+a6ivMLSOzOHJALv8pBJja/nWjObBgB?=
+ =?us-ascii?Q?IOXI+fd/8L73odTT4UMTKDTKtGeQQvcrccylcTb85nlnhYedUnrXACYGrgw4?=
+ =?us-ascii?Q?0KhS645FYEepP7NsyH/aUahTfn+mdY6mmqa+rM1HMMAVtSwOwbJ26d1tTE4x?=
+ =?us-ascii?Q?p4k4yBfX903eQj3MiEOOcsp7zSrl2nTDjuE+duRjpHm2i3JcxFIbKFTVJqfv?=
+ =?us-ascii?Q?tjIQtNGN6r6AXjz4ZuR6vQoPU/JdI+m3A0w4LnNuj8HwJVOyt3bB0eShPYY3?=
+ =?us-ascii?Q?XgUm65KwPXhjfeP+jz5OIU01LVWeudP1qcKA5Mcfmn5JcrpojJibbC5PKVwN?=
+ =?us-ascii?Q?lvk4tDoSnHFjmb0W8PlcyGhk/MkactZ5X392DdIQG2D1Ca3T2Gn12l2twTqW?=
+ =?us-ascii?Q?/LhX0FdJ3mTSAnn4nYv1QaE6ZXAnfT5xXEPmF4fin3IkCJIR7KsrgxE8iYWl?=
+ =?us-ascii?Q?GJw3jyCp6zYaDB8ZOUgsv8+wNLk53J0mgcozKD8TP4f5pstLv0DJcGlt8JGc?=
+ =?us-ascii?Q?GlIsQz2YZw=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] riscv: dts: sophgo: sg2000-milkv-duo-s: reserve memory
- for RTOS
-To: Inochi Amaoto <inochiama@gmail.com>,
- Samuel Holland <samuel.holland@sifive.com>, Yao Zi <me@ziyao.cc>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, Chen Wang <chen.wang@linux.dev>,
- devicetree@vger.kernel.org, sophgo@lists.linux.dev,
- linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260916-milkv-duo-s-rtos-memory-v1-1-6ca72d5a3924@gmail.com>
- <6e4b5c98-7d48-4629-a6a0-4d930327f9a0@sifive.com>
- <aqtKAuoVSCxcts52@inochi.infowork>
-Content-Language: en-GB
-From: Andrei Lalaev <andrey.lalaev@gmail.com>
-In-Reply-To: <aqtKAuoVSCxcts52@inochi.infowork>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: NT0PR01MB1102.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4f3f89da-9bb0-41d0-64de-08df146bdf37
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Sep 2026 03:29:24.8431
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: xs1CyE2SHmycldhrIHQu4h1RzxzDj8EsC+EXd3lbP+ErQh+VtUXOu9s+cnhJO5luijqYuBabq0/TrjGpdZG4WdPQV3MyPHeWqnZvxzDLVM4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: NT0PR01MB1006
 
-Hi Inochi, Samuel, Yao,
+> On 26.08.07 19:29, Changhuang Liang wrote:=20
+> Introduce inverter and divider for starfive clocks.
 
-On 17.09.26 04:02, Inochi Amaoto wrote:
-> On Wed, Sep 16, 2026 at 12:10:23PM -0500, Samuel Holland wrote:
->> Hi Andrei,
->>
->> On 2026-09-16 11:06 AM, Andrei Lalaev wrote:
->>> The FSBL loads the coprocessor firmware into the last 2 MB of RAM.
->>> Reserve this region to prevent Linux from using it.
->>
->> If the FSBL wants to reserve some RAM, it should modify the devicetree at
->> runtime to add that reservation. Adding the reservation here creates an
->> unnecessary ABI surface between the FSBL and all consumers of the devicetree.
->>
->> Regards,
->> Samuel
->>
-> 
-> This is fair, and the fact is that the current fsbl can disable
-> coprocessor in its configuration. So I will not take this patch
-> and maybe do a cleanup for existed devicetree if I have enough
-> time for it.
+Maybe you mean an inverted divider? Not inverter and divider
 
-I guess you are right. Just thought that it might have been mistakenly
-overlooked for Duo-S because both Duo 64M and Duo 256M have the same
-node in their DTSes.
-If it is okay with you, I will try remove this node from the DTSes for the
-64M/256M variants.
-
-Thank you for the review and sorry for the noise.
-
- 
-> Regards,
-> Inohci
-> 
--- 
 Best regards,
-Andrei Lalaev
+Hal
+
+>=20
+> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+> ---
+>  drivers/clk/starfive/clk-starfive-common.c | 12 ++++++++++++
+> drivers/clk/starfive/clk-starfive-common.h |  8 ++++++++
+>  2 files changed, 20 insertions(+)
+>=20
+> diff --git a/drivers/clk/starfive/clk-starfive-common.c
+> b/drivers/clk/starfive/clk-starfive-common.c
+> index 1b5e56af4138..58ab93d9748b 100644
+> --- a/drivers/clk/starfive/clk-starfive-common.c
+> +++ b/drivers/clk/starfive/clk-starfive-common.c
+> @@ -300,6 +300,15 @@ static const struct clk_ops starfive_clk_inv_ops =3D=
+ {
+>  	.debug_init =3D starfive_clk_debug_init,  };
+>=20
+> +static const struct clk_ops starfive_clk_idiv_ops =3D {
+> +	.get_phase =3D starfive_clk_get_phase,
+> +	.set_phase =3D starfive_clk_set_phase,
+> +	.recalc_rate =3D starfive_clk_recalc_rate,
+> +	.determine_rate =3D starfive_clk_determine_rate,
+> +	.set_rate =3D starfive_clk_set_rate,
+> +	.debug_init =3D starfive_clk_debug_init, };
+> +
+>  const struct clk_ops *starfive_clk_ops(u32 max)  {
+>  	if (max & STARFIVE_CLK_DIV_MASK) {
+> @@ -310,6 +319,9 @@ const struct clk_ops *starfive_clk_ops(u32 max)
+>  		}
+>  		if (max & STARFIVE_CLK_ENABLE)
+>  			return &starfive_clk_gdiv_ops;
+> +		else if (max & STARFIVE_CLK_INVERT)
+> +			return &starfive_clk_idiv_ops;
+> +
+>  		if (max =3D=3D STARFIVE_CLK_FRAC_MAX)
+>  			return &starfive_clk_fdiv_ops;
+>  		return &starfive_clk_div_ops;
+> diff --git a/drivers/clk/starfive/clk-starfive-common.h
+> b/drivers/clk/starfive/clk-starfive-common.h
+> index 4cd4357f8366..fd9d13735896 100644
+> --- a/drivers/clk/starfive/clk-starfive-common.h
+> +++ b/drivers/clk/starfive/clk-starfive-common.h
+> @@ -104,6 +104,14 @@ struct starfive_clk_data {
+>  	.parents =3D { [0] =3D _parent },						\
+>  }
+>=20
+> +#define STARFIVE_IDIV(_idx, _name, _flags, _max, _parent)			\
+> +[_idx] =3D {									\
+> +	.name =3D _name,								\
+> +	.flags =3D _flags,							\
+> +	.max =3D STARFIVE_CLK_INVERT | (_max),					\
+> +	.parents =3D { [0] =3D _parent },						\
+> +}
+> +
+>  struct starfive_clk {
+>  	struct clk_hw hw;
+>  	unsigned int idx;
+> --
+> 2.25.1
+
