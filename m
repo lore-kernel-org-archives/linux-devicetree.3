@@ -1,346 +1,142 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AB0E5AA66F;
-	Thu, 17 Sep 2026 15:02:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C03654E01F9;
+	Thu, 17 Sep 2026 15:03:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789657359; cv=none; b=gAVWEfyfmFlvZwUIzmRvltEjBrMjJVkKDB7cC2U5DbWZzfavKmf10u60Ncw7jUmVI+7ZAuF5qFQMBiGyQQFqHIXQ/0o45sKVvCbvL3/Yvlb+77vBc77nu84luQYY+4U5cXsBhfyOWyY6RzFwnqj3UjeqEbvbGaKffA8BqUPpju8=
+	t=1789657422; cv=none; b=EW76gM2YiGg78QJQcdS+2RlgH9M3ATSQsXzXZW7tZN2NzXiyWhrZDA1SmogD+FJw104KE9UDWrbvpaeqZzDSO9Ko2USmLa+1Sg6w5R4P8MZ+yMwV/b7WrBNYE39ZMv2bV5oPcgF69/aPOczo3KZalU7knvQh9W18GF7pM2DS2lc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789657359; c=relaxed/simple;
-	bh=D4UV4jtkrbeudSFJf50Yj968Ng6RK3L/H77z9dKW5KI=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=nlcLdXTLP0bdJ5E5cnJu54fmpQSDg14DpaUBz46Qe31WTev4fGUO5Yo2uRdispxHqA7WgSMxeFH/NWhJ8z+eg0zBb0baEsWULrnFOiaMonsqoVLk+ueRW1Tj0nsa6ocbOzkPwtIa4VFPn8m8xoz8CRxuetAo7G2ZK2gBfM4VKYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=egGN8BF/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789657422; c=relaxed/simple;
+	bh=SOcP6xOZs3YxL9yQVXYIYPvrJruR5DY4Rqx6o194ZQE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=t5wKDdrOzpu7NAPkQoDIAfDztJ9osmk9OiMapp8eQbdA7I61MF2cXgV6hIL4PlcTJpu51FkZsrdX6rTIOzK1AA/RUYj9hJ8IIlwShMjcCcSxi9LM0Lp1O+cd0IWOq+irTvldI5Slm2QQp0lgnQ59JvvDn/v3XrMOCtDAAjjy6p8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kJ/sL5tp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="egGN8BF/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68C4F1F000FF;
-	Thu, 17 Sep 2026 15:02:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kJ/sL5tp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 905751F00898;
+	Thu, 17 Sep 2026 15:03:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789657322;
-	bh=siVLCPf9p0DYKKUBIgL95NVPIdDHjBjG/65Rszfi3fE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=egGN8BF//xBV45NlsnJyRMixpLIjN2ER99xRVRv1lY0Sld0sj8SfcbtNfMVfB6Ebq
-	 431oGqXWb1GM5QmzIkQ2APjwKMunnd0T3V69Ejq+inup7j2c3ADpT0/IgNPrqcAzqL
-	 DUUiXrDteL4E/6lK/B90e0ex6vqie8weKs7Wrt0iasoDroWkQeCvY2gW7cYAfNScZ3
-	 URlvvdYNYLhPrBu2IiTV+ptO3u/xyEnOdD08DyltLGQyUR3hQApUDFbZJePKStVhSe
-	 yJIObowHrv/1150FoD3av1cEZoU+vrbT20GKhuAuGVn9Y8e2SfIx6nRYqeg/jIBzfk
-	 rWvcYfeATkyOQ==
-Subject: Re: [PATCH net-next v9 15/15] dpll: sit9531x: allow the device tree
- to override two board facts
-From: netdev-bot+sashiko@kernel.org
-To: arouhi@sitime.com
-Cc: jiri@resnulli.us, vadim.fedorenko@linux.dev,
- arkadiusz.kubalewski@intel.com, ivecera@redhat.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, cjubran@nvidia.com,
- pabeni@redhat.com, Oleg.Zadorozhnyi@devoxsoftware.com,
- devicetree@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, kuba@kernel.org
-Date: Thu, 17 Sep 2026 15:02:00 +0000
-Message-ID: <178965732099.22033.18013891704186374305@kernel.org>
-In-Reply-To: <20260915000015.80480-16-arouhi@sitime.com>
-References: <20260915000015.80480-16-arouhi@sitime.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1789657404;
+	bh=c6Xh9/RZRfC8JaJIZ3+JzhDu1OQwyuoUSwvm9vecdts=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=kJ/sL5tpL9e870C4UC4B1yVI+gyStN6BgswvQi68nUIJpAfhibwudS9MzK+IJC94o
+	 bJC4b2Xnu7Bmh38PP4TpoSDb8Aw3GeXxRCLTEQ5DxFiFKozpAA+nJzOSyQF2r+E2BM
+	 qk+NL9oubfK52CthnAsracmR0pZqH7Qyf39YgyrLJDAs034BUAe3UIfbeGPRAen2ro
+	 yoTVMICWaXFHKTu4hW/dsJbmVJqItkLSgSlwmM2TEs4NFhjwqnUpx4KgTQrYVoPzf6
+	 74KMqkGZgYGwwt6MisZkI0IokxhbEcf5H2vfSqUlCOXOv6eFcBkCtAC8rtq8wJMmLZ
+	 PaL4kkf3TM34Q==
+Message-ID: <390980e3-a76c-404e-8adf-7848b31348dc@kernel.org>
+Date: Thu, 17 Sep 2026 16:03:17 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v18 3/5] phy: core: Add devm_phy_get_by_of_node()
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
+ Todor Tomov <todor.too@gmail.com>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>, Felipe Balbi <balbi@ti.com>,
+ Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-phy@lists.infradead.org,
+ Krzysztof Kozlowski <krzk@kernel.org>
+References: <20260917-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v18-0-f85c9103177e@linaro.org>
+ <20260917-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v18-3-f85c9103177e@linaro.org>
+ <9e8ae55f-6d95-48a9-bef1-ab653d0f1c7d@linaro.org>
+ <SoUZjCJ-YIM2awWOFNy8m7tNK98LVdRONkFinJqKo0ba7-47wiomayAV2XSXPcx-ZnE8vWrDtCQwamDdeolRbA==@protonmail.internalid>
+ <37f182ad-a137-4066-9e94-b06be2cd03da@linaro.org>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <37f182ad-a137-4066-9e94-b06be2cd03da@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider:
+On 17/09/2026 14:27, Bryan O'Donoghue wrote:
+> On 17/09/2026 13:32, Neil Armstrong wrote:
+>>> -        dev_dbg(dev, "failed to create device link to %s\n",
+>>> +        dev_err(dev, "failed to create device link to %s\n",
+>>>                dev_name(phy->dev.parent));
+>>
+>> This change belongs in another patch.
+> 
+> Doh Frank gave me a comment on this and I just changed it without
+> realising this isn't in my series at all.
+> 
+> I'll drop this altogether
+> 
+> ---
+> bod
 
-Critical: 0 · High: 1 · Medium: 1 · Low: 1 (1)
+Hmm now I see, there's another device_link_add which does a dev_dbg() on 
+failure, the feedback was to dev_err() with the part I'm adding below...
 
-- [High] The new parse-time band check in sit9531x_parse_board_config()
-  (drivers/dpll/sit9531x/core.c:3912-3921, via sit9531x_fvco_in_band()…
-- [Medium] sit9531x_parse_board_config()
-  (drivers/dpll/sit9531x/core.c:3934-3964) pre-fills out_pll_map[] with…
-- [Low] sit9531x_parse_board_config() reads `sitime,pll-fvco` with a
-  fixed count (device_property_read_u64_array(..., SIT9531X_NUM_PLLS) at…
++	link = device_link_add(dev, &phy->dev, DL_FLAG_STATELESS);
++	if (!link)
++		dev_dbg(dev, "failed to create device link to %s\n",
++			dev_name(phy->dev.parent));
++
 
-Pre-existing issues:
-- [Low] The kernel-doc-style header of sit9531x_get_fvco()
-  (drivers/dpll/sit9531x/core.c:1488-1500) describes the function as…
+device_link_add() will return NULL when the supplier the PHY is a child 
+of the consumer so !link is not an error.
 
---
+---
+bod
 
-dpll: sit9531x: allow the device tree to override two board facts
 
-This adds sit9531x_parse_board_config(), which lets a board state its
-per-PLL VCO frequency via sitime,pll-fvco and its output-to-PLL routing
-via sitime,output-pll-map, both optional, plus a per-PLL band check on
-the supplied Fvco values.  The parser is called from sit9531x_dev_probe()
-just after the reset GPIO is taken.
-
-> diff --git a/drivers/dpll/sit9531x/core.c b/drivers/dpll/sit9531x/core.c
-> index b15859890caa7..51f7d8a4ea445 100644
-> --- a/drivers/dpll/sit9531x/core.c
-> +++ b/drivers/dpll/sit9531x/core.c
-> @@ -3862,6 +3862,108 @@ static u64 sit9531x_derive_clock_id(struct sit9531x_dev *sitdev)
->  	return clkid;
->  }
->  
-> +/*
-> + * Does an Fvco fall in the band the given PLL runs in?
-> + *
-> + * The two bands are disjoint, and which one applies is fixed per PLL, so a
-> + * single envelope from the bottom of the low band to the top of the high
-> + * one would accept both the ~1 GHz gap between them and a rate belonging to
-> + * the other PLL's band.
-> + */
-> +static bool sit9531x_fvco_in_band(u8 pll_idx, u64 fvco)
-> +{
-> +	if (pll_idx == 1 || pll_idx == 3)
-> +		return fvco >= SIT9531X_FVCO_HIGHBAND_MIN &&
-> +		       fvco <= SIT9531X_FVCO_HIGHBAND_MAX;
-> +
-> +	return fvco >= SIT9531X_FVCO_LOWBAND_MIN &&
-> +	       fvco <= SIT9531X_FVCO_LOWBAND_MAX;
-> +}
-> +
-> +/*
-> + * Board-config overrides for fixed efuse/blob routing the chip registers do
-> + * not describe unambiguously.  Absent properties leave pll_fvco[] zeroed
-> + * (derive from DIVN) and out_pll_map_valid false (use the OUT_MAP registers).
-> + */
-> +static void sit9531x_parse_board_config(struct sit9531x_dev *sitdev)
-> +{
-> +	u32 map[SIT9531X_MAX_OUTPUTS];
-> +	int n, i, rc;
-> +
-> +	if (device_property_present(sitdev->dev, "sitime,pll-fvco")) {
-> +		rc = device_property_read_u64_array(sitdev->dev,
-> +						    "sitime,pll-fvco",
-> +						    sitdev->pll_fvco,
-> +						    SIT9531X_NUM_PLLS);
-
-[Severity: Low]
-
-Is an oversized sitime,pll-fvco silently truncated here?  This is a
-fixed-count read and only the return value is checked, so for
-device-tree firmware it reaches of_property_read_u64_array() with
-sz_min = 4 and sz_max = 0, and of_find_property_value_of_size() only
-rejects a too-long property when max is non-zero:
-
-	if (max && prop->length > max)
-		return ERR_PTR(-EOVERFLOW);
-
-A property with five or more cells then returns success, the first four
-are applied and the surplus is dropped without a diagnostic.  A short
-array is correctly rejected with -EOVERFLOW, so only the long case goes
-unreported.  Would device_property_count_u64() plus a count check be
-more consistent with the map path below, which does validate the count,
-and with the comment that mentions guarding against a wrong cell count?
-
-[Severity: Low]
-
-This isn't a bug introduced by this patch, but once pll_fvco[] can be
-populated from DT, the header of sit9531x_get_fvco() no longer describes
-what the function does.  It says:
-
- * Fvco = Fref * DIVN, where DIVN comes from sit9531x_divn_static() and
- * Fref = xtal_freq << doubler.  DIVN is the steady-state Fvco/Fref
- * target programmed by the NVM blob and is authoritative in both
- * free-run and sync modes.
-
-while the first branch of the body returns the override without reading
-DIVN at all:
-
-	if (pll_idx < SIT9531X_NUM_PLLS && sitdev->pll_fvco[pll_idx]) {
-		*fvco = sitdev->pll_fvco[pll_idx];
-		return 0;
-	}
-
-Both the header and that branch predate this commit, which only adds the
-parser that fills pll_fvco[].  Could the header mention the override
-while the surrounding comments are being touched anyway?
-
-> +		if (rc) {
-> +			dev_warn(sitdev->dev,
-> +				 "invalid sitime,pll-fvco (%d), ignoring\n",
-> +				 rc);
-> +			memset(sitdev->pll_fvco, 0, sizeof(sitdev->pll_fvco));
-> +		}
-> +
-> +		/*
-> +		 * The override is used verbatim by the divider math, so an
-> +		 * implausible value (units typo, wrong cell count worked
-> +		 * around with zeros) must not silently misprogram DIVO.
-> +		 * Anything outside both VCO bands is dropped with a warning
-> +		 * rather than trusted.
-> +		 */
-> +		for (i = 0; i < SIT9531X_NUM_PLLS; i++) {
-> +			u64 f = sitdev->pll_fvco[i];
-> +
-> +			if (f && !sit9531x_fvco_in_band(i, f)) {
-> +				dev_warn(sitdev->dev,
-> +					 "PLL%c Fvco override %llu Hz is outside the band that PLL runs in, ignoring\n",
-> +					 'A' + i, f);
-> +				sitdev->pll_fvco[i] = 0;
-> +			}
-> +		}
-> +	}
-
-[Severity: High]
-
-Does this check reject the value in the binding's own example?
-sit9531x_fvco_in_band() fixes PLLA and PLLC to the low band, whose top
-is SIT9531X_FVCO_LOWBAND_MAX (5898240000), and
-Documentation/devicetree/bindings/dpll/sitime,sit95316.yaml has:
-
-            sitime,pll-fvco = /bits/ 64 <6900000000 0 0 0>;
-
-Index 0 is PLLA, so f = 6900000000 fails sit9531x_fvco_in_band(0, f) and
-this loop sets pll_fvco[0] = 0 after only a dev_warn.  A device tree
-copied from the documentation then gets the register-derived path
-instead of the override.
-
-Zeroing the entry does not mean "ignore the property" in the consumers,
-it means "derive from DIVN".  sit9531x_get_fvco() falls through to
-sit9531x_divn_static() and returns -ENODATA when DIVN is unprogrammed,
-and sit9531x_output_divo_calc() turns that into -ENODEV:
-
-	rc = sit9531x_get_fvco(sitdev, pll_idx, &fvco);
-	if (rc)
-		return rc == -ENODATA ? -ENODEV : rc;
-	if (!sitdev->pll_fvco[pll_idx]) {
-		if (fvco < fvco_min)
-			fvco = fvco_min;
-		else if (fvco > fvco_max)
-			fvco = fvco_max;
-	}
-
-So for the documented example the free-run case the commit message
-describes either fails with -ENODEV or falls back to a DIVN-derived rate
-clamped to at most 5.89824 GHz, and DIVO is then computed from
-5.89824e9 rather than 6.9e9 (roughly 17 percent off) while the write is
-reported as success.
-
-The two consumer comments added earlier in the series state the opposite
-intent.  sit9531x_get_fvco() says:
-
-	 * DT board-config override: some configs (e.g. an INTSYNC PLL)
-	 * run a VCO that Fref*DIVN does not reproduce.  When the board
-	 * supplies the measured VCO, use it verbatim.
-
-and sit9531x_output_divo_calc() says the override is the source of truth
-"e.g. a chip variant that runs out of the documented band" and therefore
-skips the band clamp in that case, which after this patch can never
-happen.
-
-Should the band check warn but keep the board value, or should the
-binding example, the per-index schema constraints and those two consumer
-comments be corrected in the same patch?  As it stands the case the
-property exists for is the one case that is dropped.
-
-> +
-> +	if (!device_property_present(sitdev->dev, "sitime,output-pll-map"))
-> +		return;
-> +
-> +	/*
-> +	 * Any 1..MAX_OUTPUTS length is accepted so the 8-output SiT95317 need
-> +	 * not pad to 12; variant detection has not run yet and entries past
-> +	 * the detected num_outputs are never indexed.  Trailing entries of a
-> +	 * short map must read as unmapped rather than 0 (== PLLA), which
-> +	 * would mark unrouted outputs active in sit9531x_out_state_fetch().
-> +	 */
-> +	memset(sitdev->out_pll_map, SIT9531X_OUT_PLL_UNMAPPED,
-> +	       sizeof(sitdev->out_pll_map));
-> +
-> +	n = device_property_count_u32(sitdev->dev, "sitime,output-pll-map");
-> +	if (n <= 0 || n > SIT9531X_MAX_OUTPUTS ||
-> +	    device_property_read_u32_array(sitdev->dev, "sitime,output-pll-map",
-> +					   map, n)) {
-> +		dev_warn(sitdev->dev,
-> +			 "invalid sitime,output-pll-map, ignoring\n");
-> +		return;
-> +	}
-
-[Severity: Medium]
-
-Can a map shorter than the part's output count silently remove DPLL
-output pins?  The only length test is n <= 0 || n > SIT9531X_MAX_OUTPUTS,
-and out_pll_map_valid is then set unconditionally, so entries from n to
-num_outputs - 1 stay at 0xFF and are trusted as real routing
-information.
-
-sit9531x_out_state_fetch() takes the unmapped branch and returns before
-the OUT_MAP_LO/HI scan that would have found the routing:
-
-	if (sitdev->out_pll_map_valid) {
-		u8 m = sitdev->out_pll_map[index];
-
-		if (m < SIT9531X_NUM_PLLS) { ... } else {
-			out->pll_idx = 0;
-			out->routed = false;
-			out->enabled = false;
-		}
-		return 0;
-	}
-
-and sit9531x_dpll_pin_is_registrable() then refuses the pin:
-
-	return sitdev->out[index].pll_idx == sitdpll->id &&
-	       sitdev->out[index].routed;
-
-So an accidentally truncated map (8, or even 1, entry on the 12-output
-SiT95316) drops those pins with no diagnostic, while a bad per-entry
-value below is rejected loudly.
-
-The binding also states a different contract for the same property.
-Documentation/devicetree/bindings/dpll/sitime,sit95316.yaml declares
-minItems: 8 / maxItems: 12, then maxItems: 8 for sitime,sit95317 and
-minItems: 12 for sitime,sit95316, i.e. an exact length per variant,
-while the comment above says any 1..MAX_OUTPUTS length is accepted.  In
-the other direction a 12-entry map on a SiT95317 is accepted and entries
-8..11 are ignored without comment.
-
-Would it work to move the sit9531x_parse_board_config() call after
-sit9531x_match_variant() and require n == info->num_outputs (or warn),
-so the per-variant length the binding specifies can actually be checked?
-
-> +
-> +	/*
-> +	 * The binding allows only 0-3 and 255 per entry.  A stray value
-> +	 * would silently unroute an output (m >= SIT9531X_NUM_PLLS reads
-> +	 * as unmapped in sit9531x_out_state_fetch()), so reject the whole
-> +	 * property loudly instead.
-> +	 */
-> +	for (i = 0; i < n; i++) {
-> +		if (map[i] >= SIT9531X_NUM_PLLS &&
-> +		    map[i] != SIT9531X_OUT_PLL_UNMAPPED) {
-> +			dev_warn(sitdev->dev,
-> +				 "sitime,output-pll-map entry %d is %u (must be 0-3 or 255), ignoring map\n",
-> +				 i, map[i]);
-> +			return;
-> +		}
-> +	}
-> +
-> +	for (i = 0; i < n; i++)
-> +		sitdev->out_pll_map[i] = map[i];
-> +	sitdev->out_pll_map_valid = true;
-> +}
-> +
->  int sit9531x_dev_probe(struct sit9531x_dev *sitdev)
->  {
->  	struct clk *xtal_clk;
-> @@ -3906,6 +4008,8 @@ int sit9531x_dev_probe(struct sit9531x_dev *sitdev)
->  	if (sitdev->reset_gpio)
->  		fsleep(10000);	/* internal boot after release */
->  
-> +	sit9531x_parse_board_config(sitdev);
-> +
->  	rc = sit9531x_read_variant_id(sitdev, &variant_id);
->  	if (rc)
->  		return rc;
-
-Nothing between this call and sit9531x_match_variant() appears to consume
-the parsed data, so is there a reason the parse cannot run after
-sitdev->info is known?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260915000015.80480-1-arouhi%40sitime.com
