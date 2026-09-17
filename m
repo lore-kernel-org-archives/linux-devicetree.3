@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9EFF4A7C82;
-	Thu, 17 Sep 2026 22:21:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AD6D3FA5C4;
+	Thu, 17 Sep 2026 22:22:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789683714; cv=none; b=i4kh41PvLYE0/+lcIiYcnBsplygBXhbDrS6XMhGbrBibFothTW/MezpRxyf5O7ftrHYP/6ywymtLCjM8HMZe3PLzxHUnSkwmfEA8hsE2hSKZAj9YP5GM3XajkiITptcqKTdoGWWvgv8i/T9iXFuyrU8VTFeZggqlAHt4vVxQE20=
+	t=1789683767; cv=none; b=kTp24im1WiFvRx5e01y1uA5u9ROwBQDhBZHTBygzZD3dw5EVQVQTdmWj49o2DLrnWEtLz239/RciilnrTz11jxD2SsHAob6RbfQ4Fsv5E/rPt20yOEFYmbww1PuP/36CZwgjtOSl6cfTcxfrPnyImoAtGMa3PgYVrTQPuhVz/LQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789683714; c=relaxed/simple;
-	bh=J4FC4khpeauWm78bJssX85LNLNuSo8lIcvo7zpH9wM0=;
+	s=arc-20240116; t=1789683767; c=relaxed/simple;
+	bh=fel32Elp4w+xvvI1Jla4p7gSWDbhvqvNnwN03dj/a+Q=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ADlJH2QqORLDDBv8quA4UCdXJ71iP8TDacnnDjPj9oO6CZQPqFl03yJvQjmZI8YJyt7vc7GDh+8gzZNFOMFPQGXxd6AXTZQP29XRORcsjq3a5hSlzs2Fc98A43P8qUVFbs3uy9LI5rzNi3LKM6vdE5n+9fV5YOUtjE61vmSyspQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eO6zGBV8; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=PYProJiBZjlat58f4GWO4lJh8zLTsxo/2mNrSB1PXng3xjNnK6XG/w88Mbo3Ytiqjidvz9D9JqmcqtQZkM+aVPdQgBbJQBng1hU+OoOXGw4yJ2PIwMQFe4IZW7bb89gK96gI/9DBIMgJGDbIKHeQOgiYxpgktueaoUnCMv6+41I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hrwftgOU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eO6zGBV8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 055BE1F000FF;
-	Thu, 17 Sep 2026 22:21:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hrwftgOU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 584DB1F000FF;
+	Thu, 17 Sep 2026 22:22:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789683712;
-	bh=kv24bXbWsAIcA8t1uQLZ3qdBM15Z4Ui+R4ZrwqfmtgA=;
+	s=k20260515; t=1789683765;
+	bh=0izTRMyHu67tgBHjZ97w4u6w8Na+QuU5b2DB+KFQLlg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eO6zGBV8OH2sh+6SoNrW82MS8trZVYCcqbtX0w9WIAxuhO6SmGSW21LqQqQ6zlwOS
-	 zfmTALyq8xRqpdLIbWiW0As3yN4KxsToZpCzPgvSvHEeJAio4E4EOPmezf0UURkzLD
-	 UGw/QMqP9udz7vmkqJLepjNAu6jescjbSduu7rZ12YM7GAUxKuo7OouA5T0mnZr3Et
-	 A0/lR8+afPUcWhWrkNRVOMhVRxekQH/2OFjlhchEq1pm8kItZhsWupGbkede7Bqbpv
-	 JVpSN33zEtu9F1iqTpl9cgnOPfzOeMByIds6HYCd9WPPXTuRGiRqr/mGIhEYcrhjk4
-	 TbcpOafrXFU+A==
-Date: Thu, 17 Sep 2026 17:21:50 -0500
+	b=hrwftgOUqQkjvxhyO/1/4bsGEq5lji1T5FXff1+oLxwSRjLAvJ4+HHUtdpg7bp0xV
+	 xAnRZNUj/uJWgrdCflo9Eh7Qebua7rtb6Y5JDRpL0K/JpYJJ7P8y3DQtgkmtKvrgJx
+	 9froaRYbdmSh0NA5mCzYrMRl2HRK+vXXUqfR8gMQY9Bbjs/VCAdo32Tf5JTNG7pnzE
+	 sUGkZ9Lhp3wdiN6TBODZcVNuaiSP2sLKBYqiGIhELq6n0B0QPZi8FY8LiaAHZJ1mDK
+	 SVr6EfEf9YuoRkp25W8BBv52h+F1D2+/eiW+VvHpmFY1RRuIRsHifMylT5nkiDWrpm
+	 tN7lveyEY/HDA==
+Date: Thu, 17 Sep 2026 17:22:42 -0500
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: linux-pci@vger.kernel.org, Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Anand Moon <linux.amoon@gmail.com>, linux-tegra@vger.kernel.org,
-	Bjorn Helgaas <bhelgaas@google.com>, linux-kernel@vger.kernel.org,
-	Jonathan Hunter <jonathanh@nvidia.com>, devicetree@vger.kernel.org,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+To: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Radu Rendec <radu@rendec.net>, Conor Dooley <conor+dt@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Subject: Re: [PATCH v6] dt-bindings: pci: tegra: Convert to json-schema
-Message-ID: <178968370961.4071859.17924970660402899315.robh@kernel.org>
-References: <20260902142449.735168-1-thierry.reding@kernel.org>
+	Thomas Gleixner <tglx@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: interrupt-controller: chrp,open-pic:
+ Typo s/pci/pic/
+Message-ID: <178968376185.4074993.605406183473325432.robh@kernel.org>
+References: <cover.1788426169.git.geert+renesas@glider.be>
+ <f2cc11922b3e5dd73997ef8c673137951d3fe715.1788426169.git.geert+renesas@glider.be>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,45 +46,18 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260902142449.735168-1-thierry.reding@kernel.org>
+In-Reply-To: <f2cc11922b3e5dd73997ef8c673137951d3fe715.1788426169.git.geert+renesas@glider.be>
 
 
-On Wed, 02 Sep 2026 16:24:49 +0200, Thierry Reding wrote:
-> From: Thierry Reding <treding@nvidia.com>
+On Thu, 03 Sep 2026 11:06:29 +0200, Geert Uytterhoeven wrote:
+> The device_type for an OpenPIC node is "open-pic", not "open-pci".
 > 
-> Convert the Tegra PCIe controller bindings from the free-form text
-> format to json-schema.
-> 
-> Signed-off-by: Thierry Reding <treding@nvidia.com>
+> Fixes: a241f1a1b338b714 ("dt-bindings: interrupt-controller: Convert chrp,open-pic to DT schema")
+> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
 > ---
-> Changes in v6:
-> - add additional constraints for num-lanes and phys properties
-> - reference pci-host-bridge.yaml and drop duplicate properties
-> - reference pci-pci-bridge.yaml and drop duplicate properties
-> - drop Tegra30, Tegra124 and Tegra186 examples
-> - remove unneeded properties from examples
-> - reduce number of ifs
-> 
-> Changes in v5:
-> - drop unneeded quotes
-> 
-> Changes in v4:
-> - remove path references
-> - use dual licensing
-> 
-> Changes in v3:
-> - fixup reference in MAINTAINERS
-> 
-> Changes in v2:
-> - drop description properties where they don't add information
-> - drop redundant $ref properties
-> 
->  .../bindings/pci/nvidia,tegra20-pcie.txt      | 670 ------------------
->  .../bindings/pci/nvidia,tegra20-pcie.yaml     | 532 ++++++++++++++
->  2 files changed, 532 insertions(+), 670 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/pci/nvidia,tegra20-pcie.txt
->  create mode 100644 Documentation/devicetree/bindings/pci/nvidia,tegra20-pcie.yaml
+>  .../devicetree/bindings/interrupt-controller/chrp,open-pic.yaml | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Applied, thanks!
 
