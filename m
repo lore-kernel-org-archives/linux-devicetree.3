@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DD0F3161BF;
-	Thu, 17 Sep 2026 06:37:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 279923A6B67;
+	Thu, 17 Sep 2026 06:38:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789627035; cv=none; b=epExdFOUS1iHNLbGrW37BiczxhshmCpaqCP4+DpO6e7hFKfyqQZKJv5pgF8peAvo+lKKjVGRsa9ZAv8REzx6o3eLDwbnEjnzExo/0i00NjhmVTVIADuDKEhitDaxm/yREDXx+QGL6HMdrET2mzvsmQxkAe4bDS4CXIjdl8zL0x8=
+	t=1789627119; cv=none; b=qUHsuyQAZGoq+W+AiB26cUpFRFH+DWvKPjZz8zwUaJJEpwz0UOlNkFIGLSmdMri9zg3YLhP2IiK/5HikeuK7zFbENdFEE/8lrgz0nFDkzKJgqmUlHWGm+GOOKHUgkEr9ApGRjKtz2Dc3pQSCGHAogKVEdsbA957wOFw8cCslFHw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789627035; c=relaxed/simple;
-	bh=KlwUYid6gINb1QqYtGGyMXHOE2f7iUIvkPxDf0DynR8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=n03kmUV3+Zdx2nPCfnczxzylvdDjPx0UB6zLZZSsGZQpHmDRcWQTO3J8i/xoi9Tm1tluS6FceCEBxXP1g5SL17+U9rKvuHLPFrE5vkoZqTmU1rxSCL8OAJuRnXMysBK6cETsM721xb7bXaYmDkIO/oy8evYgVfOeOW/WdWMGzfg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jzc4g4C2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789627119; c=relaxed/simple;
+	bh=hhGbqVufhLsUZEnBW//RxZ8MFaXiWC8HqspoSuMWRrQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BfKV4dm5ygaPnFNIdsvgFf1gWhIL1bASIXjMwasOYhqVh+VpAkJCDQU8HAvpi6c4CarAU4fNzXXY+Q6V4VBG9NAoHjMWiuZyLRVLP2wm8oamYxBVBfCU5n9F2Tmon8MEnADzbPZnkuDzmv4wv54AJ0MV1gSKWa6hdyWYlCBivq4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=enuMN46R; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jzc4g4C2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 330671F000FF;
-	Thu, 17 Sep 2026 06:37:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="enuMN46R"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02FE41F000FF;
+	Thu, 17 Sep 2026 06:38:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789627033;
-	bh=KlwUYid6gINb1QqYtGGyMXHOE2f7iUIvkPxDf0DynR8=;
-	h=Date:Subject:To:References:From:In-Reply-To;
-	b=Jzc4g4C2yIloOGsLVqllGm4JpQdpNhOoOrldUvBv1UuFwJGrtowtU8oEvOwHZ8ETU
-	 DBpJI5GIQfPx+QoEzRp9UbfPXE0J8CYkefHNYVR6Tiga6ylaACv+D2RRzlljpWbNKk
-	 c5OO2Tp5r2afPwmGqf2slP/bM+ISrRZryklD8CkcfVqLDi+kNuCuxzpvgHoapxFNny
-	 NkXDUBsB83iHarpFZhPn+sRDH/EPCfwIcBLfrYV9NTnV6o5lGCTqa8cAq2nGwf8N7w
-	 uEGtki+ti+CclJVwe5FtgIB4He9ITd+Am3uRRxzQsJoiMUSc5QwUWtc7t86/xzOVPf
-	 hkqtYVcijuOdA==
-Message-ID: <8fbd3526-c472-4f29-acf4-4ed5d3879cdb@kernel.org>
-Date: Thu, 17 Sep 2026 08:37:07 +0200
+	s=k20260515; t=1789627117;
+	bh=9dJ68ZWsqVvUWfJB/scGH7QRIMOzdbiZx78+q89XPkM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=enuMN46RPXgkfy/Uksaq0yvgocL6gqsPWdHqyM01ufoiVoGGNi+drpcchnfu4fAcR
+	 liQnunLzm7dZZyamy3L9BG/5EKCa7BYyv9etGVxbUcOIQ9BgySwMVShjXM2djb/aQs
+	 FEKBpnIK8E5C+AYrTyR0/VQlWVEt1q7ILckSu3JNF/zXB0NywBtgxQRYjViOwczR7W
+	 F8BShz1vts43Ee/6WEOSRH4/7ObR+45H8y1qkhUa1GtF70IrgNmisoyYOTAoSLFPHy
+	 sS7VCv7euUjNljPm6JHqDbZsJfPTi2yk96F3gBl/8RxXpCqHXUtztu8s0ZgAeTNosb
+	 4Ua30bg+fUGPA==
+Message-ID: <d0ba41a2-6d4b-4bba-b147-d287bcd9b179@kernel.org>
+Date: Thu, 17 Sep 2026 08:38:33 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,12 +35,11 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: axis-fifo: Added missing binding
-To: Daniel Matyas <matyasdaniel005@gmail.com>, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, gregkh@linuxfoundation.org,
- linux-staging@lists.linux.dev
-References: <20260916201253.483877-1-matyasdaniel005@gmail.com>
+Subject: Re: [PATCH] dt-bindings: misc: add xlnx,axi-fifo-mm-s
+To: Omer PALA <palaomer100@gmail.com>, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260917060948.14700-1-palaomer100@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -86,21 +85,26 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260916201253.483877-1-matyasdaniel005@gmail.com>
+In-Reply-To: <20260917060948.14700-1-palaomer100@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 16/09/2026 22:11, Daniel Matyas wrote:
-> drivers/staging/axis-fifo/axis-fifo.txt file described how the
-> devicetree of the driver should look like. Convert it to .yaml file.
-> Issue found by checkpatch.
+On 17/09/2026 08:09, Omer PALA wrote:
+> Add Device Tree binding documentation for the Xilinx AXI FIFO
+> Memory Mapped Stream IP core, covering compatible strings
+> from version 4.1 through 4.3.
+> 
+> Signed-off-by: Omer PALA <palaomer100@gmail.com>
+> ---
+>  .../bindings/misc/xlnx,axi-fifo-mm-s.yaml     | 228 ++++++++++++++++++
+>  1 file changed, 228 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
+> 
 
-You could have checked before. Stop fixing things just because
-checkpatch told you something.
+Same day? Are you coordinating this anyhow?
+https://lore.kernel.org/all/20260916201253.483877-1-matyasdaniel005@gmail.com/
 
-https://lore.kernel.org/all/?q=dfn%3Aaxis-fifo.txt
-
-Same answer as usually, so a "no".
+Anyway, same answer.
 
 Best regards,
 Krzysztof
