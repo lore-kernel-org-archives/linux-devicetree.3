@@ -1,179 +1,143 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28C183905E0
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 23:14:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8A1544E66F
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 23:14:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789686884; cv=none; b=lCgpwX7RqPJbpvAYvRyFL8dKJfZ18q+N0E/dOP7LERzDtTYFbNrnoJXIxVafkvY0X5AiEvKs56nVA8I8UdOjTWZyFlNV5kaiTNG5Ejf1uEZvXKul92kbfWaqL0D3ZzrNiwZjU/vJJQQS7cHXdNja5RaCrmUEuNSU10hSormnMCc=
+	t=1789686888; cv=none; b=gXzorLVNs893W4gW/FBVgNYJOUi1E0wiBvYzqknibU4VdECbYLKWbedmhv4mSrio5Icmt7I2nT1RSBKOjWT/46VL3YnM5KnL3BsjWxv2/NRRlK/jjM+C2AmuB3C9lkby4NyJEKkGOWBggJhCY2VbxMhRMEiLAP/eiXEBmRWMOEc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789686884; c=relaxed/simple;
-	bh=x/vq7hNloPAlovp2eaORJSRH6/rCJls6suGNTxSe8TY=;
+	s=arc-20240116; t=1789686888; c=relaxed/simple;
+	bh=mLTaTEtE/ybMJejT9CV6bK0DB4RsE2amj1mh2AiJqT4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=tiHMuy2iuvx1XMn7EWJaH/JKoD1P+clMHhwwrLpLmUEW1l8FNQGiTt09vn9K0jQhkN4iQjP0zq337lAdgVaHbgPJHEK0H1vyMxySwmRMH9xqYnYPT9I7QFzzpcpLYsdcqSZ6PaLYPKFhIAKqRg6g32GT08+TgJuSIpTMoWOK+Jg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X95fzyp6; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=I+Pg2LSOLijmarCdbdTGawpYC+Nq6mW1pMdhDFaSWDH4Xs0tmCnFYoiVNxSFJicvLZxdudqH9ZtmAtoijpvUn8Nmg/HB6Fe/EL009+WWVsU90azxs84g55G1YlQEVG9Ra3thFyb6phYpot/dBiGoY0aEDOQgAQjaV+uzKOSMs0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FUOHDEkQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X95fzyp6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F3061F000FF;
-	Thu, 17 Sep 2026 23:14:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FUOHDEkQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6EB61F00893;
+	Thu, 17 Sep 2026 23:14:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789686876;
-	bh=Q8bLjHf2lKxWtqfnoEC3TP3ZGzqmNs81cMnuI26gKcs=;
+	s=k20260515; t=1789686882;
+	bh=t5rHHyVZbcQfmBUqaNZnrlq8pTdncppF9/0FOf48Mlk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=X95fzyp6m78IAIhhltL8brN/7IJzn2eWSneqcr3rwgwrZWsfTs9DRAJyqDdzNo8Yw
-	 9PLq42utPSb/yOVK47/lUfr0NOhrRTO09QPiRys3ClJgajuDVnEa5CMYzEVjRsvSmY
-	 Ak2OXiMnN1BLxMr6zJ1Oe1ai53oGbnpVv2DKPMDDMGCkqRBBXlZu2sS4s3bqb/T9nM
-	 y6nupUmnIqW81AE9RD8W1nK89JQoGedEqJmjJbGNMppuiEXS0pCqW0H6kOMDlH87Xx
-	 vmIDwZs+oFtrcuhshrcvWdNqq5RSZFPvFwMgbEtz/xZEeiP1AMtzOhTKkR2QnG8MoH
-	 g0itMmPmc7wew==
+	b=FUOHDEkQ6oem/CD8+adCaTkzltCa/mBMXuzD2mZ/1l60BRxC8eUnG/fshDi20Xuki
+	 yjOLEy1MDdRiHDKrfB97BbdMQvFVv4jYUYQrNtPPw1coOkOm6bpSKZB9DFTJWC5dyc
+	 tmQoNqhUX0IWIXKXf1P2nPSzijVuDXaOTAUl9e97qbTTe13/7jSOIvOe1t/onU2v69
+	 ZiLdm4LBmO51CIlURV7vU6IXhl1nPfkXMR2D5xFHQdFG5c/J96mThNR2aOKr86VMk1
+	 y9vi1X0+irBZp5dDZY/cvOoIqx9NgwQnWLRx4RD7S/h0JwVcgSsXcKxTNTg0ugG2lM
+	 ptQEeVbqsmIUQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 05/19] crypto: cmh - add HMAC ahash
+Subject: Re: [PATCH v5 11/19] crypto: cmh - add DRBG hwrng
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Alex Ousherovitch" <aousherovitch@rambus.com>
 Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260917225929.2494111-6-aousherovitch@rambus.com>
+In-Reply-To: <20260917225929.2494111-12-aousherovitch@rambus.com>
 References: <20260917225929.2494111-1-aousherovitch@rambus.com>
- <20260917225929.2494111-6-aousherovitch@rambus.com>
+ <20260917225929.2494111-12-aousherovitch@rambus.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 23:14:35 +0000
-Message-Id: <20260917231436.1F3061F000FF@smtp.kernel.org>
+Date: Thu, 17 Sep 2026 23:14:41 +0000
+Message-Id: <20260917231441.C6EB61F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] crypto: cmh: missing bounds check in cmh_hmac_import allows unboun=
-ded memory allocation
-- [High] crypto: cmh: under-accounting of chunk struct overhead allows extr=
-eme memory exhaustion
-- [Medium] crypto: cmh: freeing millions of chunks under spin_lock_bh can t=
-rigger a softlockup
-- [Medium] crypto: cmh: DMA buffer shares a cache line with CPU-modified va=
-riables
+- [High] rng: DMA use-after-free on module unload due to un-aborted DRBG op=
+eration
+- [Medium] rng: infinite retry loop on fatal hardware error in cmh_rng_read=
+()
+- [Medium] rng: mailbox queue exhaustion from orphaned DRBG requests
 --
 
-commit e7307bc7cf1e65f0adb503e546d45a39b86900bd
+commit 8d9076a5e8784ced0b9563b435b225e28e6737e2
 Author: Alex Ousherovitch <aousherovitch@rambus.com>
 
-crypto: cmh - add HMAC ahash
+crypto: cmh - add DRBG hwrng
 
-This commit registers HMAC ahash algorithms (HMAC-SHA-2 and HMAC-SHA-3) usi=
-ng
-the CMH hash core. It implements a self-contained transaction model using
-accumulated inputs, with a generic software fallback for payloads above 64K=
-B.
+This commit registers the CMH DRBG core as a hardware RNG provider. It adds
+synchronous reads that map DMA buffers and submit VCQ commands through the
+transaction manager to gather entropy from the device.
 
-> diff --git a/drivers/crypto/cmh/cmh_hmac.c b/drivers/crypto/cmh/cmh_hmac.c
+> diff --git a/drivers/crypto/cmh/cmh_rng.c b/drivers/crypto/cmh/cmh_rng.c
 > new file mode 100644
+> index 0000000000000..a73634024e135
 > --- /dev/null
-> +++ b/drivers/crypto/cmh/cmh_hmac.c
+> +++ b/drivers/crypto/cmh/cmh_rng.c
 [ ... ]
-> @@ -136,7 +136,7 @@
-> +/* Per-Request State */
-> +
-> +struct cmh_hmac_chunk {
-> +	struct list_head  list;
-> +	struct list_head  tfm_node; /* per-tfm orphan tracking */
-> +	u32               len;
-> +	u8                data[];
-> +};
-
-[Severity: Medium]
-Does this structure layout place the data buffer on the same cache line as
-the list heads?
-
-Since the data buffer is mapped for DMA, could concurrent list
-modifications in cmh_hmac_update() dirty the cache line while a transfer
-is in progress, potentially violating mapping rules on non-coherent
-architectures?
-
-[ ... ]
-> +static int cmh_hmac_update(struct ahash_request *req)
-> +{
-[ ... ]
-> +	chunk =3D kmalloc(sizeof(*chunk) + req->nbytes,
-> +			req->base.flags & CRYPTO_TFM_REQ_MAY_SLEEP ?
-> +			GFP_KERNEL : GFP_ATOMIC);
-> +	if (!chunk) {
-> +		rctx->error =3D -ENOMEM;
-> +		goto err_free_chunks;
-> +	}
-> +
-> +	chunk->len =3D req->nbytes;
-[ ... ]
-> +	spin_lock_bh(&tctx->chunk_lock);
-> +	if (tctx->tfm_buffered + chunk->len > CMH_HMAC_TFM_MAX_BUFFERED) {
-> +		spin_unlock_bh(&tctx->chunk_lock);
-> +		kfree_sensitive(chunk);
-> +		rctx->error =3D -ENOMEM;
-> +		goto err_free_chunks;
-> +	}
-> +	list_add_tail(&chunk->list, &rctx->chunks);
-> +	list_add_tail(&chunk->tfm_node, &tctx->all_chunks);
-> +	tctx->tfm_buffered +=3D chunk->len;
-> +	spin_unlock_bh(&tctx->chunk_lock);
+> +	/*
+> +	 * Use the noabort variant: if the MBX is occupied by a slow
+> +	 * operation (e.g. SLH-DSA sign at 120 s), we must not issue
+> +	 * MBX_COMMAND_ABORT -- that would kill the unrelated in-flight
+> +	 * VCQ.  On timeout with an in-flight VCQ (-EINPROGRESS), the
+> +	 * orphan callback defers DMA cleanup until the RH fires.
+> +	 */
+> +	ret =3D cmh_tm_submit_sync_noabort(vcq, DRBG_READ_VCQ_CMDS, 1,
+> +					 msecs_to_jiffies(drbg_timeout_ms),
+> +					 cmh_dma_orphan_free, orphan);
 
 [Severity: High]
-Are we only accounting for the payload length here, instead of the full
-size of the allocated struct?
+Could this cause a DMA use-after-free during module unload? Since
+cmh_tm_submit_sync_noabort() leaves the hardware operation running in the
+background, if the cmh module is unloaded, cmh_tm_cleanup() will force-canc=
+el
+the transaction and trigger cmh_dma_orphan_free(). This unmaps and frees the
+DMA buffer while the hardware accelerator is still actively writing to it.
 
-Since the chunk header is 36 bytes (often rounded up to 64 bytes by the
-slab allocator), could repeated 1-byte updates allow pinning roughly 1GB
-of kernel memory per transform socket without exceeding the 16MB budget?
-
-[ ... ]
-> +static int cmh_hmac_import(struct ahash_request *req, const void *in)
-> +{
-[ ... ]
-> +	if (state->total_len) {
-> +		chunk =3D kmalloc(sizeof(*chunk) + state->total_len,
-> +				req->base.flags & CRYPTO_TFM_REQ_MAY_SLEEP ?
-> +				GFP_KERNEL : GFP_ATOMIC);
-> +		if (!chunk)
-> +			return -ENOMEM;
-> +		chunk->len =3D state->total_len;
-> +		memcpy(chunk->data, state->data, state->total_len);
-> +		spin_lock_bh(&tctx->chunk_lock);
-> +		list_add_tail(&chunk->list, &rctx->chunks);
-> +		list_add_tail(&chunk->tfm_node, &tctx->all_chunks);
-> +		tctx->tfm_buffered +=3D chunk->len;
-> +		spin_unlock_bh(&tctx->chunk_lock);
-
-[Severity: High]
-Should we verify if the budget is exceeded before appending the imported
-chunk and adding to tctx->tfm_buffered?
-
-Without a check against CMH_HMAC_TFM_MAX_BUFFERED, could an unprivileged
-user repeatedly call accept() on a socket to clone its state and cause
-unbounded kernel memory allocation?
-
-[ ... ]
-> +static void cmh_hmac_cra_exit(struct crypto_tfm *tfm)
-> +{
-> +	struct cmh_hmac_tfm_ctx *tctx =3D crypto_tfm_ctx(tfm);
-> +	struct cmh_hmac_chunk *chunk, *tmp;
-> +
-> +	/* Free any orphaned chunks (e.g. testmgr export/reimport poison) */
-> +	spin_lock_bh(&tctx->chunk_lock);
-> +	list_for_each_entry_safe(chunk, tmp, &tctx->all_chunks, tfm_node) {
-> +		list_del(&chunk->tfm_node);
-> +		tctx->tfm_buffered -=3D chunk->len;
-> +		kfree_sensitive(chunk);
+> +	if (ret =3D=3D -EINPROGRESS) {
+> +		/*
+> +		 * The orphan callback owns dmabuf and frees it on VCQ
+> +		 * completion.  Return 0 (not -EAGAIN): .read() only runs with
+> +		 * wait=3Dtrue (see the !wait early return above), and the hwrng
+> +		 * core forwards a negative errno straight to a blocking read
+> +		 * whereas a 0 return makes it retry.
+> +		 */
+> +		return 0;
 > +	}
-> +	spin_unlock_bh(&tctx->chunk_lock);
 
 [Severity: Medium]
-Is it safe to free potentially large numbers of chunks while holding the
-spinlock with softirqs disabled?
+Does returning 0 here cause mailbox queue exhaustion? When 0 is returned
+on a timeout, the hwrng core immediately retries the read. Since the
+hardware might be blocked by a slow operation, won't this rapidly submit
+more DRBG requests until the Command Message Queue is completely filled
+with orphaned requests, blocking all other subsystems?
 
-If the 16MB budget contains millions of small chunks (due to the accounting
-size issue mentioned earlier), could this loop take significant CPU time
-and risk triggering a soft or hard lockup panic?
+[ ... ]
+> +		switch (ret) {
+> +		case -EAGAIN:
+> +		case -EBUSY:
+> +		case -ETIMEDOUT:
+> +		case -EIO:
+> +		/*
+> +		 * -ENODEV: the TM is not running -- occurs when the
+> +		 * hwrng kthread (PF_NOFREEZE, not frozen during
+> +		 * suspend) calls .read() while the device is suspended.
+> +		 * Treat as transient: the TM restarts on resume.
+> +		 */
+> +		case -ENODEV:
+> +			dev_dbg_ratelimited(cmh_dev(),
+> +					    "rng: transient DRBG failure (rc=3D%d)\n",
+> +					    ret);
+> +			kfree_sensitive(dmabuf);
+> +			/*
+> +			 * Back off before the hwrng core re-issues the
+> +			 * blocking read: rng_dev_read() loops on a 0 return
+> +			 * with only a conditional need_resched, so a persistent
+> +			 * transient fault would otherwise spin the CPU.
+> +			 */
+> +			msleep(CMH_DRBG_RETRY_BACKOFF_MS);
+> +			return 0;
+
+[Severity: Medium]
+Will this create an infinite retry loop for fatal hardware errors? By
+masking -EIO to 0 and treating it as a transient error, rng_dev_read()
+will retry the read indefinitely if the accelerator encounters a persistent
+failure. Should fatal errors be propagated to break the loop instead of
+returning 0?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917225929.2494=
-111-1-aousherovitch@rambus.com?part=3D5
+111-1-aousherovitch@rambus.com?part=3D11
