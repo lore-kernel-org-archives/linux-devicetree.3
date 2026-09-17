@@ -1,485 +1,106 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2602A424D6A
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 08:25:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFCE443636B
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 08:26:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789633564; cv=none; b=OcSVPhtn5ltBwjvK4w0HBQn4GzmIgZwV10yYyEUgE/b3nE1owSbT9aVodxBb/gigr7s9yQqg2PZYY8E/K9QNs6OZvk7g8I5dWuyDjqHPkDgYUwEQf7/c7fDUkzWudtgsvmL5HACLhUGDqsqJzOV5c/rsyilFmypN7m15qHkJNKU=
+	t=1789633631; cv=none; b=j44OQXSIYqnah2GXZr7IqzXY7QWjJb+zQgwRYGppTa+RpHLqGDze0kOgUUcoNsVTx+Fr2ESYxpX5PaI5m4ofJh5UAYFHW0N9yBBkcl8E2N7shRc/tooDkEfeINQPkWx8WRBI93YyLmVsjH0UcUvk1JrfDz+8cnzwF+Uv3LIg6CU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789633564; c=relaxed/simple;
-	bh=TdVY/83MraaxJ7fAhtV+rF02u2R1xhzNiw62qZDXq1w=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=l7+xP1Wa65KoGZBfsUI5zhtXey28OkTjW/MTPiuRjlUSI5qlBBjSaRRw6ClGEU6wefNT8k8WfOYGgwBBMOEU3XS5Vj9ii6BKBZ+LPBO413mHUg93a+XwY71SSPoj7XgWgOVQ8koQrG933f7UvUe3hqF5RkKvf5OI4Fk2kqRm0Tg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=gprsJ9j2; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1789633631; c=relaxed/simple;
+	bh=flrnI3AHL56kLUxXmCImxFJBTRAPYz1oWnHgpCIY0oU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=py3VUfvQT9PO7dRuZLoliAA/JKvQVR5qLkl+K18sjqlPd8XLYCdjstImvMMOxF3hWcTENbeC1ZXgsh5z3doN5H7IUId1L6S9BrHhGkJvB1qE/G/+xR4qdsmX55ZrZXSpfmvpZGZin3yKnnm2pD+SxewzXbUcNWsL1dixRAQ22ik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ffroot.co.za; spf=none smtp.mailfrom=ffroot.co.za; dkim=pass (2048-bit key) header.d=ffroot-co-za.20251104.gappssmtp.com header.i=@ffroot-co-za.20251104.gappssmtp.com header.b=e5bWZ5UP; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ffroot.co.za
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ffroot.co.za
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="gprsJ9j2"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f55efebso95337666b.1
-        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 01:25:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ffroot-co-za.20251104.gappssmtp.com header.i=@ffroot-co-za.20251104.gappssmtp.com header.b="e5bWZ5UP"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485933b24c3so286211f8f.0
+        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 01:26:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1789633528; x=1790238328; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+        d=ffroot-co-za.20251104.gappssmtp.com; s=20251104; t=1789633611; x=1790238411; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qDd2rqEWIMnT2Qq4JLPJqf7hZzHmYiYKDQFOGmsjm5U=;
-        b=gprsJ9j2EGxzO8xslJKG4+WH6SzlD5OQ+PeCKjabV0ZSIPNTMagR4Tc6Y5RxfGAYbg
-         1NzRO3pUAcbxNOTN0PoDpHNz1U5HOrXTtsFicBi1cNSa0q+0VD37jxIA0gLa5J4KSlVK
-         +c6idgb2qcHDumV/Fu9iW63T6NuI/yjInTVXNXJbAl8Mn0Fd56v858U/iyMt4Giya5lB
-         ngy2IVrOSYr6/l4/0i7soneLCJX9spAcFprbkW7xSWOJaI+WH9JOghJNG8oMEv96YF4K
-         jibAbCJwleECy/4rjXDmROJlyIR8fmgA/dLNaYlpiC50nPQRV0iAk7tc/y94hr2Qhhgr
-         e/PQ==
+        bh=hM97g3YwfaEMx+8bFnA6c/zdlSKLtcHR34v1IQ2hIFE=;
+        b=e5bWZ5UP9qXLe+sgecmpzzoGgTDFUmDSvF9C74n5xlZyIYtgOl/CyNGnAvEBHqKevD
+         tPPzWl9bbPCtyrv5DpHLYhfgDmV+XSNtdYf0RX5TsHrzA1wG0WQY1XeG7InZemmF3xua
+         eGBMEd8q8Sg89wo2ZUAkM01CX75IJrULi3dT02QNQzq0zyA5VM1vI475g7sqXvnhlnA2
+         IaZNlAter+WnZOZqFS1yThBj2wzOmWJ6ptDc5thmG6MM8Ma3sazNK6y/odmg9fJcloos
+         031MdCzLP8/C5JG6Y6A8cgauWdFVb42HKNgEu6TS/dyBi5MC4trtCbnRLrunBvSEb0X2
+         e+ug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789633528; x=1790238328;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qDd2rqEWIMnT2Qq4JLPJqf7hZzHmYiYKDQFOGmsjm5U=;
-        b=yA2GUyg1wDq7EBZbIYFxFhI2EmEKjf0NguSsOSUbfg88Jnuv6ivh2GklJFW2mojFso
-         WNJCDUdl0LrXRqz8Voxwc5aleqqOg8AmQhd6JsHebV90388cWJefm8kiiQILbLtKc75Z
-         iJxFWv8LoM1lvmzFc6u1qPGnGawgAsOaZQ5qyzr9pvPNHZe3JxR/Moz8tFkemGDq3OtL
-         HdJ71EAUNR6zMlQcCPO5Q2wQYMXF2qgHpbdw5UYJH43+x86ZzlRYHkiT3uvDrPin++pV
-         hLgCmr3mEcceHFfv1u3enS580kc/2FqPsoL8nDunLm8T61Nzb6ApjrrjMI8jpsE66jc0
-         HJSA==
-X-Forwarded-Encrypted: i=1; AKwUvBzuiueze66LseE/fL/nZYDlc7ppW0ewDyIlhRYaO7D/8TbALSaRRd+KPObTTT5qSEdOzW5mo4FEEz7W@vger.kernel.org
-X-Gm-Message-State: AFuF++lJrQiFsTk6Ebm6Li0YLVK3FRiMASEgB1gKdAo7s/hLtPw6y6F7
-	9pWdJ0m2qqpJ9PT3U5YaaACfRt/qiJ7hq4RxDQNKu43g366l3y1EV5WzeUTRZzdyiFo=
-X-Gm-Gg: AYBFou3xmN9D+YV2S5NQfCZsto+aiSICfRGoo5WpCnkXXmKKGgWVgb+mTMWh2FALP/f
-	/Xh1EBATw2I0hw/oo693URD0sqM3L8q9Azq345ks8JKt3uzp36aa+np1iroBXo3NX3TvTiqKnvt
-	5DyZv26M1nADn98P/ptMPpJk8OwvLIR/ff4Uy5+DqWn0FqYICPLUiwtqNDHMMDwc05gAo2x3a4t
-	+v7VEFc/ToOLqISFKaxCnPQMyTIh1roDcn5A9Kc+wvm4dTsdbaVfcKqIGxCNV1YisqTMMo6q0pX
-	cDwEXlP0UKp2honK3tqNqxAn6QXkCN2C3rU1UN5QBSEOkYt7oHN+rb0yk3YozB/4pYnHWIHW4QS
-	1QU35oZ0LgzFkt2vnX3jlBPKbufq2DZ1Ddb2LvMrFEgDg+7kMZgm7+tY4Q294DFnht2slNrn+mD
-	cmnvzT4/QvtbalMnpmHAq8K1BIfOc4a2522yT7trvPtd7Bdp7rQ8p/udwJAMgGyUyXfBNiuiPN4
-	Kay9r3/cIZ0iLHwI+PqoHLICYLcD6xW10StQNTjVJtFNPY2NEKV
-X-Received: by 2002:a17:907:d89:b0:c26:3424:f7df with SMTP id a640c23a62f3a-c29e52b4118mr392025966b.30.1789633528080;
-        Thu, 17 Sep 2026 01:25:28 -0700 (PDT)
-Received: from [172.16.220.101] (144-178-202-138.static.ef-service.nl. [144.178.202.138])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29de0851ebsm242943966b.4.2026.09.17.01.25.27
+        d=1e100.net; s=20260707; t=1789633611; x=1790238411;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hM97g3YwfaEMx+8bFnA6c/zdlSKLtcHR34v1IQ2hIFE=;
+        b=izHe4pqe70/5rvoSNViSQkqfvKz6Oe9peiiwgfPQsZEfI5JmgSWYxjWsxwF+1lNCBe
+         Kj8wBW47rXeR6hR46bVxj2eYgAa6q0jhrNqF9Bo7OOoV35wOhEJsatf4EzrY32Qkp4At
+         HFmSJgvENXB3BRQ/pYOfjvrz4cah+iKOCB6uA5G6MNgUQM5Y/dC5nY8KuIl9w4SxRSgN
+         xc34xHlIkRvGNkwfp3tbWgZkL+5vRaRR8hSBDNagvYbL8x+wKWR9GvdVULVYEoEvvcLg
+         oWD/tFefLQV7oqxeFpgqerv0MvthSh0U8gsTjoQEAANVh0MlaehwBCGm8B7HvxeCnA9I
+         82dg==
+X-Gm-Message-State: AFuF++kqLjAgxsGOO++52w7U0GWwm5kp3kzpLnRraTuEdJfADx/6lPab
+	NqDGWEQw+zDZYqzTq6rJWsYE8RAI+sgy6CAHrou9y2/u7IsOaQIB47w2WGOfICofDmI=
+X-Gm-Gg: AYBFou1Z1NJv9YPJ3KZtlc3BgnkhEsAoO2xBZD4tdeIRLStjxjocfiPamoavXsQYLE+
+	COqerMSFHwIcEzVoLt8gO+hqoBawStqHl44hOjBkpfihxSI75jbdv+Hl3gr1p3ESsEvRkdEuO+w
+	jZ/snNfS09JPc1qPdK2Bks3xWP4B4wdmQBSrfk/TXkDMpwDGiFN54kcE7W1FpaaDFKNek1RjPMu
+	qAEFljSozUSSaMHW08pm3Yw5ifh7o4fHoS+EYpymByHT+LxPPSoKwCT/Aquhyosg2VSb7GUiYRh
+	nHZ7lMigOZqRM/YwAGk0PZ1moWFVrdFBPp8tJG8SAsNYHdTNR2f9ewOWIGgHe2KS0JjXhT6mKRy
+	pIRFPOQH27ONJPQqkd9tpt23ey50XLXMGX6iJ/ItnjMfqrPb29CSIrqjMrhNO2fUSYcB2P6kkj6
+	xBEomzjw76n4tB+3o9YKFgUOZNjFiywdFutEVvQDD2DcTgp+vCa2ASE9wIR7c410xHHICyH4N52
+	OutNR5/nfjpZ1kgwPx6OddeSIxnbL+6byK5
+X-Received: by 2002:a05:6000:2312:b0:487:355:4619 with SMTP id ffacd0b85a97d-4870cf273d4mr7343829f8f.4.1789633610892;
+        Thu, 17 Sep 2026 01:26:50 -0700 (PDT)
+Received: from dev-ag.figment.co.za ([192.145.132.58])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf342a0sm13420395f8f.24.2026.09.17.01.26.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 01:25:27 -0700 (PDT)
-From: Luca Weiss <luca.weiss@fairphone.com>
-Date: Thu, 17 Sep 2026 10:25:24 +0200
-Subject: [PATCH v2 2/3] Input: Add driver for ESWIN EPH8621 touchscreen IC
+        Thu, 17 Sep 2026 01:26:50 -0700 (PDT)
+From: Andrew Gaylard <ag@ffroot.co.za>
+To: linux-arm-kernel@lists.infradead.org
+Cc: devicetree@vger.kernel.org,
+	qinjian@cqplus1.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux@armlinux.org.uk,
+	Andrew Gaylard <ag@ffroot.co.za>
+Subject: [PATCH 1/4] dt-bindings: vendor-prefixes: Add Tibbo
+Date: Thu, 17 Sep 2026 10:26:29 +0200
+Message-ID: <20260917082632.626614-2-ag@ffroot.co.za>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260917082632.626614-1-ag@ffroot.co.za>
+References: <20260917082632.626614-1-ag@ffroot.co.za>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-eswin-eph8621-v2-2-f534080a6338@fairphone.com>
-References: <20260917-eswin-eph8621-v2-0-f534080a6338@fairphone.com>
-In-Reply-To: <20260917-eswin-eph8621-v2-0-f534080a6338@fairphone.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Henrik Rydberg <rydberg@bitmath.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
- linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- Luca Weiss <luca.weiss@fairphone.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789633524; l=11037;
- i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
- bh=TdVY/83MraaxJ7fAhtV+rF02u2R1xhzNiw62qZDXq1w=;
- b=2UOJIZ+laWpe3z69dv4+0glRVKsMCHlTwvmgqiM0k6K1BUnzT59ZDERYvBg3XINscJ8/8PU4d
- NrvifQDByOmDRIYX8IFv+aL9tt8CTkcB+9Rj6IAI6LdT+oEnhglTRSs
-X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
- pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
+Content-Transfer-Encoding: 8bit
 
-Add a driver for the ESWIN EPH8621 touchscreens, connected via SPI.
+Add the vendor prefix for Tibbo Technology Inc., manufacturer of the LTPP3G2 board.
 
-The driver this is based on - EPH861X - also supports I2C but this is
-not added the Fairphone (Gen. 6) has the touchscreen connected via SPI.
-
-Assisted-by: Gemini:gemini-3.1-pro
-Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+Signed-off-by: Andrew Gaylard <ag@ffroot.co.za>
 ---
- drivers/input/touchscreen/Kconfig         |  12 ++
- drivers/input/touchscreen/Makefile        |   1 +
- drivers/input/touchscreen/eswin_eph8621.c | 333 ++++++++++++++++++++++++++++++
- 3 files changed, 346 insertions(+)
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/input/touchscreen/Kconfig b/drivers/input/touchscreen/Kconfig
-index 9b9ae8ac3f7f..007b589cef8e 100644
---- a/drivers/input/touchscreen/Kconfig
-+++ b/drivers/input/touchscreen/Kconfig
-@@ -360,6 +360,18 @@ config TOUCHSCREEN_EGALAX_SERIAL
- 	  To compile this driver as a module, choose M here: the
- 	  module will be called egalax_ts_serial.
- 
-+config TOUCHSCREEN_ESWIN_EPH8621
-+	tristate "ESWIN EPH8621 touchscreen"
-+	depends on SPI_MASTER
-+	help
-+	  Say Y here if you have a ESWIN EPH8621 connected to
-+	  your system via SPI.
-+
-+	  If unsure, say N.
-+
-+	  To compile this driver as a module, choose M here: the
-+	  module will be called eswin_eph8621.
-+
- config TOUCHSCREEN_EXC3000
- 	tristate "EETI EXC3000 multi-touch panel support"
- 	depends on I2C
-diff --git a/drivers/input/touchscreen/Makefile b/drivers/input/touchscreen/Makefile
-index bfd9de83389d..4540169d9b54 100644
---- a/drivers/input/touchscreen/Makefile
-+++ b/drivers/input/touchscreen/Makefile
-@@ -42,6 +42,7 @@ obj-$(CONFIG_TOUCHSCREEN_ELAN)		+= elants_i2c.o
- obj-$(CONFIG_TOUCHSCREEN_ELO)		+= elo.o
- obj-$(CONFIG_TOUCHSCREEN_EGALAX)	+= egalax_ts.o
- obj-$(CONFIG_TOUCHSCREEN_EGALAX_SERIAL)	+= egalax_ts_serial.o
-+obj-$(CONFIG_TOUCHSCREEN_ESWIN_EPH8621)	+= eswin_eph8621.o
- obj-$(CONFIG_TOUCHSCREEN_EXC3000)	+= exc3000.o
- obj-$(CONFIG_TOUCHSCREEN_FUJITSU)	+= fujitsu_ts.o
- obj-$(CONFIG_TOUCHSCREEN_GOODIX)	+= goodix_ts.o
-diff --git a/drivers/input/touchscreen/eswin_eph8621.c b/drivers/input/touchscreen/eswin_eph8621.c
-new file mode 100644
-index 000000000000..866cdc7e9334
---- /dev/null
-+++ b/drivers/input/touchscreen/eswin_eph8621.c
-@@ -0,0 +1,333 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * ESWIN EPH8621 series touchscreen driver
-+ *
-+ * Copyright (C) 2026 Luca Weiss <luca.weiss@fairphone.com>
-+ *
-+ * Based on original EPH861X driver by chris.ollerenshaw@eswin.com
-+ */
-+
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/input.h>
-+#include <linux/input/mt.h>
-+#include <linux/input/touchscreen.h>
-+#include <linux/interrupt.h>
-+#include <linux/module.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/sizes.h>
-+#include <linux/spi/spi.h>
-+
-+#define ESWIN_MAX_TOUCHES		10
-+#define ESWIN_COMMS_BUF_SIZE		3072
-+
-+/* TLV Protocol Definitions */
-+#define TLV_HEADER_SIZE			3 /* 1 byte Type + 2 bytes Length */
-+#define TLV_TYPE_FIELD			0
-+#define TLV_LENGTH_FIELD		1
-+
-+#define TLV_REPORT_DATA			0x23
-+#define EVENT_REPORT_TYPE_OFFSET	4
-+#define EVENT_REPORT_TYPE_MASK		0xF0
-+#define EVENT_REPORT_LENGTH_MASK	0x0F
-+
-+/* Event Types */
-+#define CONTACT_TYPE			1
-+#define RELEASE_TYPE			2
-+
-+struct eswin_touch {
-+	struct device *dev;
-+	struct input_dev *input;
-+
-+	struct gpio_desc *reset_gpio;
-+	struct regulator_bulk_data supplies[2];
-+
-+	struct touchscreen_properties prop;
-+
-+	u8 *rx_buf;
-+	u8 *tx_buf;
-+};
-+
-+static int eswin_spi_read(struct eswin_touch *ts, u16 len, u8 *buf)
-+{
-+	struct spi_device *spi = to_spi_device(ts->dev);
-+	struct spi_transfer xfer = {
-+		.tx_buf = ts->tx_buf,
-+		.rx_buf = ts->rx_buf,
-+		.len = len,
-+	};
-+	int error;
-+
-+	if (len > ESWIN_COMMS_BUF_SIZE)
-+		return -EINVAL;
-+
-+	/* ESWIN requires 0xFF dummy bytes clocked out to read data */
-+	memset(ts->tx_buf, 0xFF, len);
-+	error = spi_sync_transfer(spi, &xfer, 1);
-+	if (error)
-+		return error;
-+
-+	if (buf != ts->rx_buf)
-+		memcpy(buf, ts->rx_buf, len);
-+
-+	return 0;
-+}
-+
-+/*
-+ * Core Touch Handling
-+ */
-+static int eswin_comms_two_stage_read(struct eswin_touch *ts, u8 *buf)
-+{
-+	u16 payload_len;
-+	int error;
-+
-+	/* Stage 1: Read 3-byte header */
-+	error = eswin_spi_read(ts, TLV_HEADER_SIZE, buf);
-+	if (error)
-+		return error;
-+
-+	payload_len = buf[TLV_LENGTH_FIELD] | (buf[TLV_LENGTH_FIELD + 1] << 8);
-+	if (payload_len == 0 || payload_len > ESWIN_COMMS_BUF_SIZE - TLV_HEADER_SIZE)
-+		return -EINVAL;
-+
-+	udelay(50);
-+
-+	/* Stage 2: Read full packet (Header + Payload) */
-+	error = eswin_spi_read(ts, payload_len + TLV_HEADER_SIZE, buf);
-+	if (error)
-+		return error;
-+
-+	return payload_len;
-+}
-+
-+static void eswin_report_contact(struct eswin_touch *ts, u8 *payload)
-+{
-+	u8 touch_type = (payload[0] & EVENT_REPORT_TYPE_MASK) >> EVENT_REPORT_TYPE_OFFSET;
-+	u8 slot = payload[1];
-+	u16 x = payload[2] | (payload[3] << 8);
-+	u16 y = payload[4] | (payload[5] << 8);
-+	u8 width = payload[6];
-+	u8 height = payload[7];
-+	bool active = false;
-+
-+	if (slot >= ESWIN_MAX_TOUCHES) {
-+		dev_warn_ratelimited(ts->dev, "Invalid slot ID: %d\n", slot);
-+		return;
-+	}
-+
-+	switch (touch_type) {
-+	case CONTACT_TYPE:
-+		active = true;
-+		break;
-+	case RELEASE_TYPE:
-+		active = false;
-+		break;
-+	default:
-+		dev_warn_ratelimited(ts->dev, "Unhandled touch type: %d\n", touch_type);
-+		return;
-+	}
-+
-+	input_mt_slot(ts->input, slot);
-+	input_mt_report_slot_state(ts->input, MT_TOOL_FINGER, active);
-+
-+	if (active) {
-+		touchscreen_report_pos(ts->input, &ts->prop, x, y, true);
-+		input_report_abs(ts->input, ABS_MT_TOUCH_MAJOR, height);
-+		input_report_abs(ts->input, ABS_MT_TOUCH_MINOR, width);
-+	}
-+}
-+
-+static void eswin_process_report(struct eswin_touch *ts, u8 *buf, unsigned int payload_len)
-+{
-+	u16 total_len = payload_len + TLV_HEADER_SIZE;
-+	u16 offset = TLV_HEADER_SIZE;
-+
-+	if (buf[TLV_TYPE_FIELD] != TLV_REPORT_DATA)
-+		return;
-+
-+	while (offset < total_len) {
-+		u8 ev_len = buf[offset] & EVENT_REPORT_LENGTH_MASK;
-+
-+		/* Event length must cover the 8-byte payload (ev_len is exclusive of the 1-byte header) */
-+		if (ev_len < 7) {
-+			dev_warn_ratelimited(ts->dev, "Malformed event length: %d\n", ev_len);
-+			break;
-+		}
-+
-+		/* Ensure at least 8 bytes remain for a full contact payload */
-+		if (total_len - offset < 8) {
-+			dev_warn_ratelimited(ts->dev, "Truncated touch payload\n");
-+			break;
-+		}
-+
-+		eswin_report_contact(ts, &buf[offset]);
-+		offset += (ev_len + 1);
-+	}
-+
-+	input_mt_sync_frame(ts->input);
-+	input_sync(ts->input);
-+}
-+
-+static irqreturn_t eswin_interrupt(int irq, void *dev_id)
-+{
-+	struct eswin_touch *ts = dev_id;
-+	int payload_len;
-+
-+	payload_len = eswin_comms_two_stage_read(ts, ts->rx_buf);
-+	if (payload_len > 0)
-+		eswin_process_report(ts, ts->rx_buf, payload_len);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static int eswin_power_on(struct eswin_touch *ts)
-+{
-+	int error;
-+
-+	error = regulator_bulk_enable(ARRAY_SIZE(ts->supplies), ts->supplies);
-+	if (error)
-+		return error;
-+
-+	msleep(150);
-+	gpiod_set_value_cansleep(ts->reset_gpio, 0);
-+	msleep(100);
-+
-+	return 0;
-+}
-+
-+static void eswin_power_off(struct eswin_touch *ts)
-+{
-+	gpiod_set_value_cansleep(ts->reset_gpio, 1);
-+	regulator_bulk_disable(ARRAY_SIZE(ts->supplies), ts->supplies);
-+}
-+
-+static void eswin_power_off_act(void *data)
-+{
-+	struct eswin_touch *ts = data;
-+
-+	eswin_power_off(ts);
-+}
-+
-+static int eswin_probe(struct spi_device *spi)
-+{
-+	struct device *dev = &spi->dev;
-+	struct eswin_touch *ts;
-+	int error;
-+
-+	ts = devm_kzalloc(dev, sizeof(*ts), GFP_KERNEL);
-+	if (!ts)
-+		return -ENOMEM;
-+
-+	ts->dev = dev;
-+	spi_set_drvdata(spi, ts);
-+
-+	spi->mode = SPI_MODE_3;
-+	spi->bits_per_word = 8;
-+	error = spi_setup(spi);
-+	if (error)
-+		return dev_err_probe(dev, error, "Failed to setup SPI\n");
-+
-+	ts->rx_buf = devm_kzalloc(dev, ESWIN_COMMS_BUF_SIZE, GFP_KERNEL);
-+	ts->tx_buf = devm_kzalloc(dev, ESWIN_COMMS_BUF_SIZE, GFP_KERNEL);
-+	if (!ts->rx_buf || !ts->tx_buf)
-+		return -ENOMEM;
-+
-+	ts->supplies[0].supply = "vddio";
-+	ts->supplies[1].supply = "avdd";
-+	error = devm_regulator_bulk_get(dev, ARRAY_SIZE(ts->supplies), ts->supplies);
-+	if (error)
-+		return dev_err_probe(dev, error, "Failed to get regulators\n");
-+
-+	ts->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
-+	if (IS_ERR(ts->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(ts->reset_gpio),
-+				     "Failed to request reset GPIO\n");
-+
-+	error = eswin_power_on(ts);
-+	if (error)
-+		return dev_err_probe(dev, error, "Failed to power on\n");
-+
-+	error = devm_add_action_or_reset(dev, eswin_power_off_act, ts);
-+	if (error)
-+		return error;
-+
-+	ts->input = devm_input_allocate_device(dev);
-+	if (!ts->input)
-+		return -ENOMEM;
-+
-+	ts->input->name = "ESWIN Touchscreen";
-+	ts->input->id.bustype = BUS_SPI;
-+
-+	input_set_abs_params(ts->input, ABS_MT_POSITION_X, 0, SZ_64K - 1, 0, 0);
-+	input_set_abs_params(ts->input, ABS_MT_POSITION_Y, 0, SZ_64K - 1, 0, 0);
-+	input_set_abs_params(ts->input, ABS_MT_TOUCH_MAJOR, 0, 255, 0, 0);
-+	input_set_abs_params(ts->input, ABS_MT_TOUCH_MINOR, 0, 255, 0, 0);
-+
-+	touchscreen_parse_properties(ts->input, true, &ts->prop);
-+
-+	error = input_mt_init_slots(ts->input, ESWIN_MAX_TOUCHES, INPUT_MT_DIRECT);
-+	if (error)
-+		return dev_err_probe(dev, error, "Failed to initialize MT slots\n");
-+
-+	error = devm_request_threaded_irq(dev, spi->irq, NULL, eswin_interrupt,
-+					  IRQF_ONESHOT, dev_name(dev), ts);
-+	if (error)
-+		return dev_err_probe(dev, error, "Failed to request IRQ\n");
-+
-+	return input_register_device(ts->input);
-+}
-+
-+static int eswin_suspend(struct device *dev)
-+{
-+	struct spi_device *spi = to_spi_device(dev);
-+	struct eswin_touch *ts = spi_get_drvdata(spi);
-+
-+	disable_irq(spi->irq);
-+	eswin_power_off(ts);
-+
-+	return 0;
-+}
-+
-+static int eswin_resume(struct device *dev)
-+{
-+	struct spi_device *spi = to_spi_device(dev);
-+	struct eswin_touch *ts = spi_get_drvdata(spi);
-+	int error;
-+
-+	error = eswin_power_on(ts);
-+	if (error)
-+		return error;
-+
-+	enable_irq(spi->irq);
-+
-+	return 0;
-+}
-+
-+static DEFINE_SIMPLE_DEV_PM_OPS(eswin_pm_ops, eswin_suspend, eswin_resume);
-+
-+static const struct of_device_id eswin_of_match[] = {
-+	{ .compatible = "eswin,eph8621" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, eswin_of_match);
-+
-+static const struct spi_device_id eswin_spi_id[] = {
-+	{ .name = "eph8621" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(spi, eswin_spi_id);
-+
-+static struct spi_driver eswin_spi_driver = {
-+	.driver = {
-+		.name = "eswin_eph8621",
-+		.of_match_table = eswin_of_match,
-+		.pm = pm_sleep_ptr(&eswin_pm_ops),
-+	},
-+	.probe = eswin_probe,
-+	.id_table = eswin_spi_id,
-+};
-+module_spi_driver(eswin_spi_driver);
-+
-+MODULE_AUTHOR("Luca Weiss <luca.weiss@fairphone.com>");
-+MODULE_DESCRIPTION("ESWIN EPH8621 SPI touchscreen driver");
-+MODULE_LICENSE("GPL");
-
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index 4a5cf436eb14..caf07095144c 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -1724,6 +1724,8 @@ patternProperties:
+     description: Thundercomm Technology Co., Ltd.
+   "^thwc,.*":
+     description: Shenzhen Tong Heng Wei Chuang Technology Co., Ltd.
++  "^tibbo,.*":
++    description: Tibbo Technology Inc.
+   "^ti,.*":
+     description: Texas Instruments
+   "^tianma,.*":
 -- 
-2.55.0
+2.53.0
 
