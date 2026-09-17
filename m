@@ -1,60 +1,122 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 604C14D9F80;
-	Thu, 17 Sep 2026 11:17:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39F59372662;
+	Thu, 17 Sep 2026 11:18:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789643840; cv=none; b=gnD2du8hiY2uBDLaLzsvVRIpkD5Wl92Y4YUwpU0YhEesX/XwFv1rRiXaoeSJmhzbWHXnkGJqPDxzoScQ519BEqZuV/AKp1/z+ZWl98MNMt8GKLudmuCccJxi2O6ZTTlZxMjiFLmL71R/4V9/P9uR1oHNoHSlRXinI1siT+LvCUU=
+	t=1789643931; cv=none; b=jotqP6Xakg3ZSWqSrIZJkQ/0Dmi4gyaKecxVM2DhHvGmC8b2t16FhRR4qdmi5402mb6yRvK+q6sGVp5XOOrWwvICPk26sWLYjE8lK5q03pguxXVPeI+vsH7ew9I0qk/KkIIySbbtKUTlv9zgbOKJab51zjSknPZPTPJWIQHOge0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789643840; c=relaxed/simple;
-	bh=ZtuV/0R7nQvFNR0Ry4E2qtH2PPIf79l77H4ohfCgW/k=;
+	s=arc-20240116; t=1789643931; c=relaxed/simple;
+	bh=6geB9unujGO04rp1fXCf6Tjxeqg+nqKmqElue5xoP0Q=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=lHp0rhO994sYM3S7F3o9nVUWtqFqovKPhiHOicZhaBk8cBrk63WoMmZBH5RnftClC48+0VzE1yMG/wP7byx/4Id073aYpiy3iILsn3Z4FEm2JDg4n7z85xFT75I1a5kObiKMxb788Tb8eaGr2ckrHv6shDnj/JtIJme7wO6d+6o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C6/jC3aI; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=miWxMHz+LK2Bu1JfilqSNgEIx5yjEDmT4ja8h4Al7dteI+vxf9H5HGwQ55iV2gUIAjhWRN5McwxEJ9uOT7KPvyTmp30uxLT3LuXb7fytXE00m1fWEDVWueYoTg7prapBSbf0YVsGsqGcvWBVKaAJ0ke9tHDhHZBDnWtYq9fsVkg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=inCUYLJe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C6/jC3aI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E57581F000FF;
-	Thu, 17 Sep 2026 11:17:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="inCUYLJe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B28E31F000FF;
+	Thu, 17 Sep 2026 11:18:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789643833;
-	bh=ZtuV/0R7nQvFNR0Ry4E2qtH2PPIf79l77H4ohfCgW/k=;
+	s=k20260515; t=1789643925;
+	bh=+DyLswLX2Y42eiWuvsMgtzrRBjaK8b4kmwZ8IlfxW0c=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=C6/jC3aI2AjGSK9msnxQ5CsYD/Sq8p4i4OgcznbNKHrBl+TB3F1sAO/1JI6zjfnIn
-	 C0SvUzxZuoj1irDXNBF1c1RS7HSlpngJgvj3TQ289XbtNM2EdWmIibq6+KYtipSxmf
-	 PzsgrUNIyzqhSngJBsUcMCzoi92dMxC2h2q47m68vzq1al5HbtYWHVg6q8waD6gJeO
-	 ByjTLfZ4zUQ3d2o+6vMvJ/oBaMGNWA9+FX+sG+RECaP22DgxxSSyMJtBPhsxXziKoL
-	 dyuSANpcEFKVzx1MGOYGpkgiHtVtkMcoI9iGwmINFzm13h4zl1+TP/+lJp9PUyKiJW
-	 HkIEU1cuvhwMQ==
+	b=inCUYLJe30um5vnB5LMyRbXRCYS573Z2hCASyaI2oYQpNDtu8lucxVUQHVXogmj5h
+	 eNKo/Aa58kLyGMjimPMM1mwzjK2LpC/ruOZUfu2UrFbRkWNWMBfNvRrK/Jkw0AdxBt
+	 wsqwQ9OpJHatkxK6TbTDMhF2KUfrpVIGlFj64PWkvm6GEcAWwEkp6gE/CNCIOr9I/V
+	 YeLn9qPXyTCVuw7ekGmQGAKdng7OcJw0O3/oqu/o/qzHoJeQ0RawxcMUZngzWD53ey
+	 9Xn6bLZtLnJOO+fLDqyQ4ZsKowep7nfLuc/RcnQAyXhxIA6p3WeSYLJIvz2GP7uRCZ
+	 SCg781dQN6A7A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/4] dt-bindings: rtc: rzn1: drop unneeded
- 'start-year' from example
+Subject: Re: [PATCH v18 2/5] phy: core: Add phy_get_by_of_node()
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wolfram Sang" <wsa+renesas@sang-engineering.com>
-Cc: conor+dt@kernel.org, wsa+renesas@sang-engineering.com, "Alexandre
- Belloni" <alexandre.belloni@bootlin.com>, devicetree@vger.kernel.org, robh@kernel.org, linux-rtc@vger.kernel.org
-In-Reply-To: <20260917111349.52250-2-wsa+renesas@sang-engineering.com>
-References: <20260917111349.52250-1-wsa+renesas@sang-engineering.com>
- <20260917111349.52250-2-wsa+renesas@sang-engineering.com>
+To: =?utf-8?b?QnJ5YW4gTydEb25vZ2h1ZQ==?= <bryan.odonoghue@linaro.org>
+Cc: conor+dt@kernel.org, media-ci@linuxtv.org, devicetree@vger.kernel.org, olteanv@gmail.com, robh@kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, linux-clk@vger.kernel.org, vkoul@kernel.org
+In-Reply-To: <20260917-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v18-2-f85c9103177e@linaro.org>
+References: <20260917-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v18-0-f85c9103177e@linaro.org>
+ <20260917-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v18-2-f85c9103177e@linaro.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 11:17:12 +0000
-Message-Id: <20260917111712.E57581F000FF@smtp.kernel.org>
+Date: Thu, 17 Sep 2026 11:18:44 +0000
+Message-Id: <20260917111844.B28E31F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-> We don't use 'start-year' in upstream DTs because the driver does the
-> right thing by default, ranging from 2000 to 2099. So, drop it from the
-> example, too.
->=20
-> Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] phy: phy_get_by_of_node() bypasses usb-nop-xceiv legacy check
+--
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+commit d8c1cc00496d43b5d8e3b5f03853e461912120c9
+Author: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+phy: core: Add phy_get_by_of_node()
+
+This commit introduces phy_get_by_of_node() to allow PHY lookups by device
+node. It splits the lookup logic from _of_phy_get() into a new internal
+_of_phy_get_with_args() helper.
+
+> diff --git a/drivers/phy/phy-core.c b/drivers/phy/phy-core.c
+> --- a/drivers/phy/phy-core.c
+> +++ b/drivers/phy/phy-core.c
+
+[ ... ]
+
+> @@ -1001,6 +1015,41 @@ struct phy *devm_of_phy_get_by_index(struct device=
+ *dev, struct device_node *np,
+>  }
+>  EXPORT_SYMBOL_GPL(devm_of_phy_get_by_index);
+> =20
+> +/**
+> + * phy_get_by_of_node() - lookup and obtain a reference to a phy by devi=
+ce_node
+> + * @np: node containing the phy
+> + *
+> + * Returns the phy associated with the device node or ERR_PTR.
+> + */
+> +struct phy *phy_get_by_of_node(struct device_node *np)
+> +{
+> +	struct of_phandle_args args =3D { .np =3D np, .args_count =3D 0 };
+> +	struct phy *phy;
+> +
+> +	if (!np)
+> +		return ERR_PTR(-EINVAL);
+> +
+> +	mutex_lock(&phy_provider_mutex);
+> +
+> +	phy =3D _of_phy_get_with_args(&args);
+
+[Severity: Medium]
+Does this bypass the legacy compatibility check for usb-nop-xceiv PHYs?
+
+Looking at the newly introduced helper _of_phy_get_with_args(), it does
+not contain the check for usb-nop-xceiv that remains in _of_phy_get():
+
+drivers/phy/phy-core.c:_of_phy_get() {
+        ...
+        /* This phy type handled by the usb-phy subsystem for now */
+        if (of_device_is_compatible(args.np, "usb-nop-xceiv")) {
+                phy =3D ERR_PTR(-ENODEV);
+                ...
+        }
+        ...
+}
+
+Because phy_get_by_of_node() calls _of_phy_get_with_args() directly,
+if it is called on a device node with the usb-nop-xceiv compatible string,
+it will fail to find the legacy PHY provider and return -EPROBE_DEFER
+instead of -ENODEV.
+
+Could this cause caller drivers to enter infinite probe deferral loops
+since the legacy PHY will never register with this generic framework?
+
+> +
+> +	if (IS_ERR(phy))
+> +		goto out_unlock;
+
+[ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917111349.5225=
-0-1-wsa+renesas@sang-engineering.com?part=3D1
-
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917-b4-linux-n=
+ext-25-03-13-dtsi-x1e80100-camss-v18-0-f85c9103177e@linaro.org?part=3D2
