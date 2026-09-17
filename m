@@ -1,164 +1,138 @@
-Received: from va-2-44.ptr.blmpb.com (va-2-44.ptr.blmpb.com [209.127.231.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DFEC37F742
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 02:26:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A39938B124
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 02:26:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789611974; cv=none; b=iAX3d6pYyMl9bNUdqs9mZW/2e67AldRGmUYcjJCCZ9SWdLWOqGZ9vkfXBDy0Kj9p86PL0+ZWfUwj1YvrYohLKx3g/idokTXyaIece6RqD/qxvjnvUhW7kICiuSX36SPXUp5soRbkP+he0wAIYPI6tqIr9cJfo6S2sb91wBEpBvI=
+	t=1789611976; cv=none; b=YT2+f65b27UPk33aaHg01QU69Z9HvJT9/t5w74NUBEg0RQ+SYW/2V8/1DqGT26Zv8hblcWsHJwDZ9rAK4YwP+sULFirHlmuAaFLiLYniGfWbdMEYXzKJ5AM6Q9WODrhZ4QWi7COLU2qz2wg/wBN6Hrwgu9d9bCrB7FgYGdgCr/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789611974; c=relaxed/simple;
-	bh=KSN16rEHfzku6Exs8W9LY777q733JeEOvEtmXoygkJU=;
-	h=Cc:Subject:References:To:Mime-Version:Date:Message-Id:In-Reply-To:
-	 Content-Type:From; b=JJYLUvLzMOH/7lQSGYCHkcEIDrTKV1UxyBkpiFg6WaZp1K++NzA98QS0tBvEYqjk4u9Kvb682BoDIgoqNOV3tcrChIvk/4r3IkGA/P6yNeYT5czFGHJTidZM9+y0r9Mnm022axh+2PB4cMk2IHEqwCCiXEwGf05CXef4Bb6cgBg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bedmex.com; spf=none smtp.mailfrom=bedmex.com; dkim=pass (2048-bit key) header.d=bedmex-com.20200927.dkim.feishu.cn header.i=@bedmex-com.20200927.dkim.feishu.cn header.b=Mq8hDzWM; arc=none smtp.client-ip=209.127.231.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bedmex.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bedmex.com
+	s=arc-20240116; t=1789611976; c=relaxed/simple;
+	bh=P/IouUy+dJhvec9wA2VeUlpOQ3y7Q+dVNbZj7mcbiTI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=sEPysf/Vz3yDaKf1xf74lCMS/9fzEt3QM0MUOnSP2xvcMnCkBDL+o8/ozz5cjN85Zx1+/ShpZW30ayl6R3Edb1RtFZptx+bvPg5r1r25af+6RsZkcZCZpTNg13ngnV8htp59w241WFueW0bsvz+mBG2H4IolaZnWY3l0jqd+n5I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UZc0QKHV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bedmex-com.20200927.dkim.feishu.cn header.i=@bedmex-com.20200927.dkim.feishu.cn header.b="Mq8hDzWM"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=bedmex-com.20200927.dkim.feishu.cn; t=1789611964;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=U/xau0P0qxfGnCm2fD+HA7kaoUEUyD0MsiRMZUEM8qA=;
- b=Mq8hDzWMhG9vvMys7c2/QNrYpDGEqbUbjEUHxZovVSm54ltM2C2cCgXw4ytuwkLYnJel/Q
- PuzMos+Em37XtQAD6ji1jQEk+n5tKAR2apqG2xmT9wDCtinjXSYF+AeJJjHWuuGNeYYs09
- cbKKdNBbCqHhmiQVjwEiaxFjcuYC4jrJIpbRp6SxX7IDggux7ihYH62woiIPP2kcb5WJdg
- B7KzXEM9qY3giBLj0/IHI3lnFAN/HHcIwvYeXC4lTZMLYudRGbuPY1xC/QKKTOWM4itots
- 1ZiA3ZTx3qvreSyGnYayXgiHdQmHxVwWyK8XjWN/aCCxunUJAyKjqgPtZ4qe3g==
-Cc: <marcel@holtmann.org>, <luiz.dentz@gmail.com>, 
-	<devicetree@vger.kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>, 
-	<conor+dt@kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<zhirunliu@aicsemi.com>, <dijiaxu@aicsemi.com>, <chunqiuliu@aicsemi.com>, 
-	<liheng.wei@bedmex.com>, <yanli.yang@bedmex.com>
-Subject: [RFC PATCH bluetooth-next 2/3] dt-bindings: net: bluetooth: Add AIC8800D80
-References: <178954773705.2.3446471521233620446@bedmex.com>
-Content-Transfer-Encoding: 7bit
-To: <linux-bluetooth@vger.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UZc0QKHV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9099E1F00899;
+	Thu, 17 Sep 2026 02:26:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789611974;
+	bh=viQ7vXOAcSekx8wh0ADDPLnT7tWvkC23owmU2KD40jE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=UZc0QKHVsOXyRlem0GZ1exZk9mfreQE0DUc+n5szzKEOgRHgstTzUY56zFJIoPIsV
+	 O+wKvqQRfSOHtm7pvC90/RUy8BwImqzXQpUK86AYVyURi/yYNiADv6AghXCTpqbFI7
+	 nCCuQO0K1n5LP8DOcDcSy3pUMNlmnvYBfeOvbI939+CU3/U8W57PzOe87xlEkeh4kl
+	 KQ3SecJ6EiVFeQdXyFEOoKHlhaqEawIAOiccfmW16OO62MT0OPlcrpmuWc8Lz3R1Ir
+	 KJowruj2X0d3tqiyeywhi2a7JWaN3zCxazhRPxujbPkHiwUzZYT7F/oho6HRKLVFu4
+	 yXBnahdNrZhFA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 v3 4/5] ASoC: qcom: lpass-va-macro: Add shikra
+ compatible
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mohammad Rafi Shaik" <mohammad.rafi.shaik@oss.qualcomm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260917-add_shikra_support-v3-4-fc0e79c341aa@oss.qualcomm.com>
+References: <20260917-add_shikra_support-v3-0-fc0e79c341aa@oss.qualcomm.com>
+ <20260917-add_shikra_support-v3-4-fc0e79c341aa@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 17 Sep 2026 02:26:14 +0000
+Message-Id: <20260917022614.9099E1F00899@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Original-From: Yanli Yang <yanli.yang@bedmex.com>
-Received: from [127.0.1.1] ([36.141.79.164]) by smtp.feishu.cn with ESMTPS; Thu, 17 Sep 2026 10:26:01 +0800
-Date: Wed, 16 Sep 2026 16:35:39 +0800
-X-Lms-Return-Path: <lba+26aab4fba+75745d+vger.kernel.org+yanli.yang@bedmex.com>
-Message-Id: <178954773705.2.9742714830438825480@bedmex.com>
-In-Reply-To: <178954773705.2.3446471521233620446@bedmex.com>
-Content-Type: text/plain; charset=UTF-8
-From: "Yanli Yang" <yanli.yang@bedmex.com>
 
-Describe the AIC8800D80 Bluetooth SDIO firmware-loading function and
-UART HCI interface. Link the UART node to its SDIO firmware provider
-with the aic,firmware-sdio phandle.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] ASoC: qcom: lpass-va-macro: missing ADPT registers in rw_register =
+whitelist
+- [Medium] ASoC: qcom: lpass-va-macro: missing hardware version cross-check=
+ in probe
+- [Medium] ASoC: qcom: lpass-va-macro: out-of-bounds regmap access on legac=
+y compatibles
+--
 
-The UART interface uses H4 at 1500000 baud with hardware flow control.
-Include an example showing both nodes and their association.
+commit 42f7a2d6f53039bff05f1711df839aaf55658481
+Author: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
 
-Signed-off-by: Zhirun Liu <zhirunliu@aicsemi.com>
-Signed-off-by: Dijia Xu <dijiaxu@aicsemi.com>
-Signed-off-by: Chunqiu Liu <chunqiuliu@aicsemi.com>
-Signed-off-by: Liheng Wei <liheng.wei@bedmex.com>
-Signed-off-by: Yanli Yang <yanli.yang@bedmex.com>
----
- .../net/bluetooth/aic,aic8800d80-bt.yaml      | 87 +++++++++++++++++++
- 1 file changed, 87 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/net/bluetooth/aic,aic8800d80-bt.yaml
+ASoC: qcom: lpass-va-macro: Add shikra compatible
 
-diff --git a/Documentation/devicetree/bindings/net/bluetooth/aic,aic8800d80-bt.yaml b/Documentation/devicetree/bindings/net/bluetooth/aic,aic8800d80-bt.yaml
-new file mode 100644
-index 000000000000..6fabb226cf15
---- /dev/null
-+++ b/Documentation/devicetree/bindings/net/bluetooth/aic,aic8800d80-bt.yaml
-@@ -0,0 +1,87 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/bluetooth/aic,aic8800d80-bt.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: AIC AIC8800D80 Bluetooth
-+
-+maintainers:
-+  - Zhirun Liu <zhirunliu@aicsemi.com>
-+  - Dijia Xu <dijiaxu@aicsemi.com>
-+  - Chunqiu Liu <chunqiuliu@aicsemi.com>
-+  - Liheng Wei <liheng.wei@bedmex.com>
-+  - Yanli Yang <yanli.yang@bedmex.com>
-+
-+description:
-+  The AIC8800D80 is a Wi-Fi and Bluetooth combination chip. The Bluetooth
-+  firmware is loaded through SDIO function 1, while Bluetooth HCI traffic uses
-+  the H4 protocol over a UART interface with hardware flow control.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - aic,aic8800d80-bt
-+      - aic,aic8800d80-bt-sdio
-+
-+  reg:
-+    maxItems: 1
-+
-+  max-speed: true
-+
-+  aic,firmware-sdio:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description:
-+      Phandle to the SDIO function used to load the Bluetooth firmware.
-+
-+required:
-+  - compatible
-+
-+allOf:
-+  - $ref: bluetooth-controller.yaml#
-+  - if:
-+      properties:
-+        compatible:
-+          const: aic,aic8800d80-bt-sdio
-+    then:
-+      properties:
-+        reg:
-+          const: 1
-+        max-speed: false
-+        aic,firmware-sdio: false
-+      required:
-+        - reg
-+    else:
-+      properties:
-+        reg: false
-+        max-speed:
-+          const: 1500000
-+      required:
-+        - max-speed
-+        - aic,firmware-sdio
-+      allOf:
-+        - $ref: /schemas/serial/serial-peripheral-props.yaml#
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    mmc {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        bt_sdio: bluetooth@1 {
-+            compatible = "aic,aic8800d80-bt-sdio";
-+            reg = <1>;
-+        };
-+    };
-+
-+    serial {
-+        uart-has-rtscts;
-+
-+        bluetooth {
-+            compatible = "aic,aic8800d80-bt";
-+            max-speed = <1500000>;
-+            aic,firmware-sdio = <&bt_sdio>;
-+        };
-+    };
--- 
-2.34.1
+Adds shikra specific VA macro data and register programming for the LPASS
+codec v4.1 implementation. It extends the VA macro with four adaptive filter
+(ADPT) blocks and concatenates the new registers with the common defaults at
+probe time.
+
+> The register layout has to be chosen before the regmap exists, i.e.
+> before CDC_VA_TOP_CSR_CORE_ID_* can be read, so it comes from match data;
+> probe then cross checks it against the version reported by the hardware.
+
+[Severity: Medium]
+The commit message states probe cross-checks the version reported by the
+hardware, but does the implementation bypass this check entirely?
+
+Looking at va_macro_probe(), if data->version is provided (which it is
+for shikra_va_data), va_macro_set_lpass_codec_version() is skipped,
+meaning the driver blindly trusts the device tree compatible string
+rather than verifying the hardware CORE_ID_* registers.
+
+> diff --git a/sound/soc/codecs/lpass-va-macro.c b/sound/soc/codecs/lpass-v=
+a-macro.c
+> --- a/sound/soc/codecs/lpass-va-macro.c
+> +++ b/sound/soc/codecs/lpass-va-macro.c
+> @@ -430,6 +601,10 @@ static bool va_is_rw_register(struct device *dev, un=
+signed int reg)
+>  	case CDC_VA_TX3_TX_PATH_SEC4:
+>  	case CDC_VA_TX3_TX_PATH_SEC5:
+>  	case CDC_VA_TX3_TX_PATH_SEC6:
+> +	case CDC_VA_CDC_ADPT0_ADPT_CTRL:
+> +	case CDC_VA_CDC_ADPT1_ADPT_CTRL:
+> +	case CDC_VA_CDC_ADPT2_ADPT_CTRL:
+> +	case CDC_VA_CDC_ADPT3_ADPT_CTRL:
+>  		return true;
+>  	}
+
+[Severity: High]
+Are the other newly added ADPT registers missing from this whitelist?
+
+The va_4_1_defaults array defines 40 new registers (including ADPT_GAIN_0,
+ADPT_GAIN_1, DH_FSM_CTRL, and CUTOFF_FSM_CTRL_0..5 for all 4 decimators),
+but only the 4 ADPT_CTRL registers are returned as true here.
+
+Since va_is_readable_register() falls back to this writable list, the
+remaining 36 registers will be strictly rejected by the regmap subsystem
+and regcache_sync() will silently drop them, leaving the adaptive filters
+unconfigured.
+
+[ ... ]
+
+> @@ -772,6 +974,10 @@ static int va_macro_enable_dec(struct snd_soc_dapm_w=
+idget *w,
+>  		/* Enable TX PGA Mute */
+>  		break;
+>  	case SND_SOC_DAPM_POST_PMU:
+> +		if (va->has_adpt)
+> +			snd_soc_component_update_bits(comp, adpt_ctrl_reg,
+> +						      CDC_VA_ADPT_CTRL_EN_MASK, 0x00);
+> +
+>  		/* Enable TX CLK */
+>  		snd_soc_component_update_bits(comp, tx_vol_ctl_reg,
+
+[Severity: Medium]
+Will this cause an out-of-bounds regmap access on legacy compatibles?
+
+If v4.1 hardware is booted with an older fallback compatible string (e.g.,
+qcom,sm8550-lpass-va-macro), data->regmap_config is NULL. This means regmap
+is initialized using the fallback va_regmap_config which restricts
+max_register to 0x07A8.
+
+However, because data->version is 0 for those older compatibles, dynamic
+hardware detection correctly identifies v4.1 and sets va->has_adpt =3D true.
+During audio playback, this block writes to adpt_ctrl_reg (>0x0800), which
+regmap will reject for exceeding the 0x07A8 maximum limit.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917-add_shikra=
+_support-v3-0-fc0e79c341aa@oss.qualcomm.com?part=3D4
