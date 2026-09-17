@@ -1,104 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D05B33B9922;
-	Thu, 17 Sep 2026 19:05:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B98A44E36F7
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 19:14:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789671955; cv=none; b=iEV8UV5ic3WG1afOe5jhF/M9bvNt/djT2KvCDFm/rDzIbz/IxFRxuFTpfXa3NBJSfzzF6dwnhKKYv4frpGfiRbOjbh40Jbvs2gMC6cSaW1JcgJruJiqtKR9TinlgzVm1WqDUYiCIY2qGbPaFth5CLutJlTjM2RonicLogttBT4w=
+	t=1789672465; cv=none; b=le4iTlVCkQdXOGtXOfLO41wJ8iahAa0+2uml5/AJtEpPsjOmvq5m+Qev+FTS2pIVOEaPfONJ4U5/4J0T1kB9e8tu0BWYXmkctQw4ck3lDZsOxqiMuTAk8toklDM560tmzQzghBzFHtc8ioDe4RioWJ5H9hN9kwEfpYq4Yzk1VvA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789671955; c=relaxed/simple;
-	bh=iWss4BA5cY0gBqeP9AXZVn8nZYhA8v2LXLeKSLy+YM0=;
+	s=arc-20240116; t=1789672465; c=relaxed/simple;
+	bh=PsT9NM7+x95sDVcyjkUlLYsDInNrGTwBFmY0J5z/2I4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=c6mIPJRjR1vmId4nLrTOZTdHcW45tg65m4pQmeo7Bms4x40soi1SntviZ8Ud2yL7LopElEFrp3fXfbh29Q20ZoeVLYfE+oyS0m0xagZncVOyL9OJ9cGm/xFqEFMytwh6Z5Ppa+WQPDo7V84zOKEaMXi8k9AjsP+n7YzwUGhHTzI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DqgSU13c; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Z9kCLTQeUOQWHKKJactdhCcw59YZS1Q4yYLgm9aaVjz7KJSfOgGPCSZTCSIhzO6RbkJ+8Vjdxgb71pDXql1G3vdz2AeY89YVq1pGttmL7fvtv68AxrufZJQrrw7mptZIjGXGBdsHFybyjPK/DTu4/SYI6jZC1DNNt9V/4SAC+KU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xtdox8YV; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DqgSU13c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 705E11F000FF;
-	Thu, 17 Sep 2026 19:05:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789671953;
-	bh=6TZ37CAeePpQmRnllKX+Aqan/MVjgNrMVatDTqYQR4g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DqgSU13cs2hUNnUswA+a/YC5PVQuD4vlgIxaMcPlUA1b5++RNmOEH5FnXcRfzmeWe
-	 he+GgrzYfnHcHFN0SEPhTNpqL48btmCtZ8Gfhale8oVjwWDa31rVm1iOnI0GgeFqay
-	 Tb+WBQmqC1nQQb0S2DImU083AqZiOntcnOXb/CZ+8O8h3Ylq4JHa2StyDi+Be7RZQ9
-	 2qAYHdPOd+T26zRfoCBhNpzJCutYfDpGnCyPv5laNJfnqU4e/xdhMbN/8rtiZ9AsSE
-	 WeaTRt5fVOzRAjNVJGSWFu3uG5kuIKXQhhP7Potf9lNCKplq5AEo7bP8Jw698Q+Ogo
-	 S2wiw7tOD7b6w==
-Date: Thu, 17 Sep 2026 14:05:51 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	Saravana Kannan <saravanak@kernel.org>
-Subject: Re: [PATCH v3] of: property: add i2c-parent to fw_devlink supplier
- bindings
-Message-ID: <178967195044.3153967.12195554835318788893.robh@kernel.org>
-References: <20260815-b4-of-property-add-i2c-parent-v3-1-c22588b6482a@nexthop.ai>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xtdox8YV"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843cedd129so879479f8f.0
+        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 12:14:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789672462; x=1790277262; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dzYLOWyfgGEEFvCR5EarhALHCHgWymVUp+bDyHHXrVg=;
+        b=Xtdox8YVphCU9tC8uIXfwep27Hd/CiWxZq9oeVVAEuH3XORYFK9446jfFoP0IIguPP
+         MeNETngItXMcY4fenbxR3Zl+m/kVo1aqMLQi3amZC00fMbEAQ33nZAj7esgi/DdSPdc8
+         gndx+OEMMtnqpO5zNRckgGXl9q/6RQ/Ds3AgkGLuZs/lxVeT6uReZN/pWCacaoZxNOsH
+         HK6EXmdCs60nPwj7hUMdibRdKEC09SNpuu96Jb0O5093GdMMcGfjbjCZ2+bbjGf3tvtJ
+         46rg3cCzEFJn64xoUGi/C1t7/Uv6Y+bhHmvFuTQ7Xdq5aYjXpPon9EBtVv2TcGy1glK6
+         sc9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789672462; x=1790277262;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dzYLOWyfgGEEFvCR5EarhALHCHgWymVUp+bDyHHXrVg=;
+        b=rcsgRQvDpvrIaa1hTIfbUzVMeWKhCo8SjGyWSeKG3jYCSSZRgXR2C6tfM4vAbvcIq9
+         asOjA1DBw6GRkzRJcz4+46+2E7UfSWXqK1URUoU8CjTqSgiznlKCPR1QJx52RCZ1POBo
+         P49I2Iiq7yXkC553CuSmtoXOlIj3Ld9C9a1FXvtYk1cVSGo4g0GcMjg8S6Lnmp+yUTe0
+         aqtIGanu0VIClH9KRAL+krMiOB4AqbUdQNGMSVmkeC052z1SibJJVYLG6FHTShrG7Mt4
+         s+r38VzLVZONFSu2/bTcHs+7g7lGBuunDYYw6/I8jgd7hvGjycHxSDexulLrWI4um/Ed
+         4K9w==
+X-Forwarded-Encrypted: i=1; AKwUvBydDKpBDf2nNn471mXTwBM7UWe1BWmwf+aVDnMGLKAeQAriqPORkFzS+0b5lfKTfXY/DCy71UbWSdGg@vger.kernel.org
+X-Gm-Message-State: AFuF++k/H/+aS+SfVgOGrlsSe+FiE1FgM6H+jDntclJjuD0HJp28EmYH
+	65kilTLis2D5fd4SK9KgiAArssWtrROo4lkKmugWTuHIdjdSdTNX6CBf
+X-Gm-Gg: AYBFou1O2jNRRVycgm/YxrlYgW8YlM42Dvyw+XR7sf+TY38g4T67tk0Zrk2pYEeWfX2
+	WX5B9pdzVZfwsqITiVPUU/TbjURDDQ1YnQPEGaVYrkbXvnes6YCKH5IiYdfFfJdMjg+8s0zWoGV
+	UHo3/rtztWX5q/wXVU8TRIqTb0/mmRDWYUEhCs7JNrPCrfi4mDT+79wbNNjOFR+FZVxBCaq4Lpc
+	+0q8Mjl339ZAGu/frldDKcdJoswKaPBeSCuQMGwLfU3vIeZZqJrNIBoVphdKiSwvTjEqa425YfK
+	QlBjuStjXdKp7uTFm/gnf5vbvD8rLJh+7PgTRaoGaze2S/uVNxppLXPJbWXM34Alm/NxJsFDfds
+	OQx8Q+dHXVHt3Om3SunPdusbXVcB8VQBf0FOLS/19xqpHZXQLrAi/6f7CsQEk34ZYXcm76X5qXs
+	3swwJURERYNdaPTQc5hiOqcowMzIYJUxSR5mEw/00X94jcVIn2dnQzx7umfHRP1rlkJ3Ej/Spjv
+	ezW1sc9H6hqbhSv2mtvGhRXRpbGt7muGyYrwjCbuph/l7++R1cmsYIGq3WgWMWsQ1txXekSqvIP
+	VKA+J5gyPRsTBt0ha1uM8cl94Q9c
+X-Received: by 2002:a05:6000:25f3:b0:487:f37:7ece with SMTP id ffacd0b85a97d-4870f3780a7mr20918885f8f.0.1789672461701;
+        Thu, 17 Sep 2026 12:14:21 -0700 (PDT)
+Received: from Lord-Beerus.station ([31.27.155.43])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf27ce2sm17755585f8f.20.2026.09.17.12.14.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 12:14:21 -0700 (PDT)
+Date: Thu, 17 Sep 2026 21:14:19 +0200
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: sashiko-reviews@lists.linux.dev, conor+dt@kernel.org, robh@kernel.org,
+	Frank.Li@kernel.org, imx@lists.linux.dev,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] arm64: dts: imx8mm-var-dart: add TPM support
+Message-ID: <aqw8C2YwvXOcRYPV@Lord-Beerus.station>
+References: <cover.1789659585.git.stefano.r@variscite.com>
+ <57aacae2f4f57e877ba32d8082915d6d6bcd3803.1789659585.git.stefano.r@variscite.com>
+ <20260917155033.C43521F00899@smtp.kernel.org>
+ <aqw2zT8W6EvRroWj@SMW015318>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260815-b4-of-property-add-i2c-parent-v3-1-c22588b6482a@nexthop.ai>
+In-Reply-To: <aqw2zT8W6EvRroWj@SMW015318>
 
+On Thu, Sep 17, 2026 at 01:51:57PM -0500, Frank Li wrote:
+> 
+> tpm_tis_core.c have not parser reset-gpios. ref
+> 
+> static int reset_gpio_assert(struct reset_controller_dev *rc, unsigned long id)
+> {
+>         struct reset_gpio_priv *priv = rc_to_reset_gpio(rc);
+> 
+>         return gpiod_set_value_cansleep(priv->reset, 1);
+> }
+> 
+> suppose it should be GPIO_ACTIVE_LOW to assert reset line
+> 
+> Frank
 
-On Sat, 15 Aug 2026 20:33:13 -0700, Abdurrahman Hussain wrote:
-> Platform-device i2c muxes (i2c-mux-reg, i2c-mux-gpio, ...) reference
-> the bus they multiplex with an i2c-parent phandle and hold a reference
-> on that adapter from probe until remove. Unlike muxes that are clients
-> on the parent bus, they live outside the adapter's device hierarchy,
-> so nothing orders their teardown against it: if the adapter's device
-> is unbound first — e.g. while reverting a device-tree overlay whose
-> changeset attached the mux nodes before the controller nodes —
-> i2c_del_adapter() blocks forever in
-> wait_for_completion(&adap->dev_released), waiting for a reference that
-> is only dropped later in the same teardown sequence.
-> 
-> Teach fw_devlink about i2c-parent so the core creates the
-> corresponding device links: consumers are unbound before the parent
-> adapter's device, and probe ordering no longer needs -EPROBE_DEFER.
-> 
-> A plain DEFINE_SIMPLE_PROP() cannot be used because the property has
-> two incompatible layouts: the i2c mux bindings hold a list of bare
-> phandles (i2c-demux-pinctrl takes several), while toshiba,tc9563 holds
-> a single phandle followed by an i2c slave-address cell. The two forms
-> are indistinguishable in the flattened tree, and a 0-cell parse of the
-> tc9563 form would read the slave address as a phandle, linking the
-> consumer to whatever node happens to carry that phandle value. Use a
-> custom parser that only takes entry 0 for toshiba,tc9563 nodes.
-> 
-> Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-> ---
-> Changes in v3:
-> - Fix the tc9563 compatible check: match "pci1179,0623" (the actual
->   binding compatible) instead of "toshiba,tc9563", which never matched
->   and let the bare-phandle parser misread the i2c slave-address cell as
->   a phandle (Sashiko AI review)
-> - Link to v2: https://patch.msgid.link/20260815-b4-of-property-add-i2c-parent-v2-1-239c6da9e097@nexthop.ai
-> 
-> Changes in v2:
-> - Use a custom parser instead of DEFINE_SIMPLE_PROP: toshiba,tc9563 puts
->   an i2c slave-address cell after the phandle, which a 0-cell parse
->   would misread as a phandle (Sashiko AI review, Rob). Kept the full
->   phandle-list parse for other users since i2c-demux-pinctrl takes
->   several parents; only tc9563 is limited to entry 0
-> - Move the Signed-off-by into the commit message proper; v1 had it below
->   the '---' cutter line where it would be dropped on apply
-> - Link to v1: https://patch.msgid.link/20260813-b4-of-property-add-i2c-parent-v1-1-a2487e920ce1@nexthop.ai
-> 
-> To: Rob Herring <robh@kernel.org>
-> To: Saravana Kannan <saravanak@kernel.org>
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> ---
->  drivers/of/property.c | 17 +++++++++++++++++
->  1 file changed, 17 insertions(+)
-> 
+Thanks Frank.
 
-Applied, thanks!
+You're right, tpm_tis_i2c currently does not parse a reset control.
+I have proposed a separate patch to add optional reset support using
+the reset framework:
 
+https://patchwork.kernel.org/project/linux-integrity/patch/20260917124211.136221-1-stefano.r@variscite.com/
+
+Also, the reset line is active-low, so you are right, GPIO_ACTIVE_LOW
+is the correct polarity here.
+
+Would you prefer me to send v3 without the TPM DTS patch for now,
+and add it back once the reset support patch has been accepted?
+
+Best Regards,
+Stefano
