@@ -1,319 +1,140 @@
-Received: from mail-wr2-f31.google.com (mail-wr2-f31.google.com [74.125.225.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F12F641D133
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 08:27:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AFBD43E9FC;
+	Thu, 17 Sep 2026 08:28:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789633643; cv=none; b=GUXb4tecH6/QdeHqUsxkVXFj3lKJCnzRjExZfzryXhrjcruopA3Q8kVxnmgdS2RUBwn779IXGF+rfN4kPCdLBnZHf2kOW0mY/DxKNgg1bTpKamcMtzDcwwqin2vESxoKo30vu2UNf64KHLFWV4mtLjeJv8dusuKfVYGSQlEtQSs=
+	t=1789633711; cv=none; b=n/hWs7gVl0yR6hoLBAnmf4E9lttl/XMdyZeUHL4aafNOMKjUj5kM9f4aKAvCnd/DDTqeKq/SKXPcHx27n6U7rbEy1w8QU0NcQq/PGPCUsao4hdf11x68/hsbGmbImAs7q6WsiBKCbl+bu7angvDJpMssYQdOzR/yEMVaha/cGVE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789633643; c=relaxed/simple;
-	bh=+N2eXqlpo0yUUw1rfeSnauTJiTKsikkjeffJA55HxlU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YTBLeD9CUCAQOYcKprOf1FknFjEo070JM/uoS7Q34ZWenafUcLB3upryWGZ8MxKY7CHBDFcU9njRo0VIg/mWPn6BBXWTQUwLktAKRebMdlDDq7BAXJYR6eRVifHYZazX9E2zTWI0O1OyIAhGBUHrNTihg/eetQndoc1Qgrz/BqY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ffroot.co.za; spf=none smtp.mailfrom=ffroot.co.za; dkim=pass (2048-bit key) header.d=ffroot-co-za.20251104.gappssmtp.com header.i=@ffroot-co-za.20251104.gappssmtp.com header.b=wVv2bAWp; arc=none smtp.client-ip=74.125.225.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ffroot.co.za
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ffroot.co.za
+	s=arc-20240116; t=1789633711; c=relaxed/simple;
+	bh=axzHutLE555LSyAWEFBPIRK2YMhLrmL+Z9OeUzrhmCU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NAt+Bf3jDUCINT2BTNiLQ49dUp/34YCiABEiDvT++z5CccGl3Zx6vkShDZd3SCc3cD+ekSxPB4BWipYlnwrY+wLZw0nhRaqThLm1qmZjZG5/WdfqncpPuWhzydRvfa7VUCQNAm+mFHf0UjNnzzB8WHQzjNbnn+dP2qXj0ZmKm7Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fGBkD9j7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ffroot-co-za.20251104.gappssmtp.com header.i=@ffroot-co-za.20251104.gappssmtp.com header.b="wVv2bAWp"
-Received: by mail-wr2-f31.google.com with SMTP id ffacd0b85a97d-4843c2790ccso320521f8f.1
-        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 01:27:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ffroot-co-za.20251104.gappssmtp.com; s=20251104; t=1789633617; x=1790238417; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NVzlhVqDtol8rVv2t1+SzIHr03mY4iFDGDaAfp4ZAaE=;
-        b=wVv2bAWpf/Uq3dDJB80fIw8+DibzjbRXOt4pcHOJTcdbEAu9hpWRAyp/TGtbTuqWBo
-         mxbZqUHweN2ID2ONfrp6extNZ3vJj0VfB/kyoJe32Umou+Q65Dlp0NGc7XKPxXbTkb+C
-         gNJVaAS07iGm/BhEsFCEV+1CQ/mAFiObQOae5VDpBDDdgYfZqtTmHdsR+JYuf6oM/nk7
-         wY7R7SX9ln7YZwop4DCF9skVXLso4VKZ7IcspOwnInjYVmN+NXTWSvswjXG3fIu/PVTU
-         kh0GCFt0Y0pMGwkRS9Dzh2wpjSTxpoTJQldGL2uApkOJecD2hF+gm8bJqlGbN/9Y3n67
-         BoVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789633617; x=1790238417;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NVzlhVqDtol8rVv2t1+SzIHr03mY4iFDGDaAfp4ZAaE=;
-        b=bWTCZ2xBoAF9Cd6SbPjWSaEjqq4OYuZPuJS6XFkrFepZQDEp1C2uclOEB3qnzkPmIC
-         MuyHdTVnWFhS4TXZyHLdh5Z9IBa8lYN+4YSHL5V1BwGbUq/puvxnHGjZeiKLH8f/SFAK
-         2wWgGliHhi3EyQECAlCS8dW4cp0pwTm0CRR2XQ7aCneE78BcryhoilQKNruVPVyQ87p/
-         OIgq+A6T3+qfYx1KAzt/01sZvvQwoYwC3QPVyugy+uU2FypxP9JJ7VojcXwdNfPizbYE
-         l+kTxUTKPIBw4PeBaD2By6WNynHBX3OAs+hETdTK7g1pieIJ8gwoh/V1m1FrpKHus6sq
-         mevQ==
-X-Gm-Message-State: AFuF++ndclPiLp+TSOJ/Qk9WBOBLk0hCXpQgX5xmkk4La8FLHzDokS6h
-	MLVc2AA+PL1fzvbaFmb+l8MG6JWxsRizb7gBT3R8b4/HEmo0rlOAB8cnWQJ77v8/RnY=
-X-Gm-Gg: AYBFou2bLxXBWWNxOr8oISdfjyipuVpg7hBIPaqU/3U2fwrrWt8FHcwlLVX5inkFwLg
-	iKBqGJgtd8z++a2H3yt45k4WXOp1WmHmRy2or+VxLSaJUXG73IP3bIJnE4c8R/MNoTDpv1G6ybf
-	2NtzXxOrCUmrzt4alYBJygDjVX9xX0YW0JTM+vglFMKRSreYTle05EJKb4heswtYWoCESIhFseA
-	xzXr6xa/D6yBqvz3OlhPFGzX0jfKf1SzT19nGkcdNPVxCD0b/AOq3b9gGrFNJPZ6ad/BdNWnRtU
-	slz2Ty4JDPjqRhBDBjQwsbkZO6gGc4Q4sdhtssx+jFIClkCqaBm8/yK+7ILaeee1bHI94eLSUIk
-	5H9eeA3Lp+vh0JUtMSMXj8It51oeYDLizAAHi4vRyMl2YbMBlEo/N9chwDRccrLtyAOHsEXzJYf
-	z+J/YxXAn7r8qb1GbKp4nNIKlf+MLJ+9nuYYGFwNzdmSZrxnrwr7Unq8PdWpHw0PSem8J/hPLa1
-	UGPzw7CWQlTFTil152dF07orYJQHMEJBsV1
-X-Received: by 2002:a5d:584a:0:b0:486:f4b1:8c4a with SMTP id ffacd0b85a97d-4870ceeed3dmr15292572f8f.10.1789633617074;
-        Thu, 17 Sep 2026 01:26:57 -0700 (PDT)
-Received: from dev-ag.figment.co.za ([192.145.132.58])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf342a0sm13420395f8f.24.2026.09.17.01.26.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 01:26:56 -0700 (PDT)
-From: Andrew Gaylard <ag@ffroot.co.za>
-To: linux-arm-kernel@lists.infradead.org
-Cc: devicetree@vger.kernel.org,
-	qinjian@cqplus1.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	linux@armlinux.org.uk,
-	Andrew Gaylard <ag@ffroot.co.za>
-Subject: [PATCH 3/4] arm: dts: sunplus: add Tibbo LTPP3G2 board
-Date: Thu, 17 Sep 2026 10:26:31 +0200
-Message-ID: <20260917082632.626614-4-ag@ffroot.co.za>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260917082632.626614-1-ag@ffroot.co.za>
-References: <20260917082632.626614-1-ag@ffroot.co.za>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fGBkD9j7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDDE21F000FF;
+	Thu, 17 Sep 2026 08:28:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789633696;
+	bh=HxFSnrfx/wfcdj7ofrIXIYqomqLiNpLmeMH4/OuC+mE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=fGBkD9j7XUq5bhu/uDYf9Cw0b8K088MfEamtW8RRBf4kk998VA/p5lwYc/RctyikF
+	 wXURGyydkFm37zPS/6ri4Da8okQ1hFQAoSL0jmmm2ZwbyyPdM2VXEXpoVrttfPYYli
+	 mnYbFg2HC7Ma9E3wOYXM9KK2aOUO36DBgRCImXy0/KLE0CK4iKluTlu+kYBhlPE5r+
+	 8m9Zg2eYfeW+KEPcrtwetQ+lxvBwbAv74MmbdmfAHeI0fQZ5yXIZ+eA9ASkeZP8nsq
+	 rKm+OBTDAnSBr4m4rYYkV7tAheXe25nRa4aon9ArwR+uEFei2jFAjVdEIcoN4UTSoy
+	 SopplzRryj9zg==
+Message-ID: <0e7f6b13-c604-4853-9b9a-c2b4a669dc0e@kernel.org>
+Date: Thu, 17 Sep 2026 10:28:11 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] dt-bindings: media: i2c: Add
+ vision-components,mipi-module-controller
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Richard Leitner <richard.leitner@linux.dev>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Alexander Stein <alexander.stein@ew.tq-group.com>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org
+References: <20260915-vc-mipi-ctrl-v1-2-8a42b693d889@linux.dev>
+ <20260916-daft-relaxed-mouse-9bfaf4@quoll> <aqpC8fxO4F3bFjF4@bombadil>
+ <45fd8255-6ba8-4488-acc8-4f7fc9c85ade@kernel.org> <aqpYqrtKTY20IW_0@bombadil>
+ <a46e3ea2-8a21-4b9c-a112-99d249f46e99@kernel.org>
+ <20260916165244.GB191870@killaraus.ideasonboard.com>
+ <f20daf57-88cf-44e1-a2af-8769d3500176@kernel.org> <aquan_6JiKkEw-Kp@bombadil>
+ <3dc63afd-ab21-4e3c-b6da-0fb51584ca9a@kernel.org>
+ <20260917081917.GB21347@killaraus.ideasonboard.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260917081917.GB21347@killaraus.ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Add a DTS for the Tibbo LTPP3G2 board, which uses the Sunplus SP7021
-SoC. The initial DTS was provided by Sunplus Technology Co. and has
-been adapted for upstream with permission.
+On 17/09/2026 10:19, Laurent Pinchart wrote:
+>>>>> Connector
+>>>>>    ||                                       +--------+
+>>>>>    || <------------ MIPI CSI-2 ------------ |        |
+>>>>>    ||               +-------+               |        |
+>>>>>    || <--- I2C ---> |       | <--- I2C ---> | Sensor |
+>>>>>    ||               | FPGA  |               |        |
+>>>>>    ||               |       | --- Clock --> |        |
+>>>>>    ||               +-------+               +--------+
+>>>>>                         ^
+>>>>>                         |
+>>>>>                     +-------+
+>>>>>                     | Clock |
+>>>>>                     | Osc.  |
+>>>>>                     +-------+
+>>>>>
+>>>>> The frequency of the external clock oscillator is what the
+>>>>> clock-frequency models.
+>>
+>> ... this sentence confused me. If the oscillator is part of the module,
+>> then clock-frequency property is applicable or it is implied by the
+>> compatible.
+> 
+> Our replies have crossed each other. I should have waited, it would have
+> saved me time writing a long message :-)
+> 
+> Yes, the external oscillator is in the module. That's why I initially
+> proposed using the clock-frequency property. We could still model it as
+> a separate DT node (see my other e-mail), but I think it brings
+> complexity for little gain.
 
-The board features eMMC, SPI, a bit-banged I2C EEPROM (Atmel 24C16),
-PWM output to a buzzer, a watchdog, RTC, and two GPIO LEDs (heartbeat
-and MMC activity).
+Yes, I agree.
 
-Signed-off-by: Andrew Gaylard <ag@ffroot.co.za>
----
- MAINTAINERS                                   |   6 +
- arch/arm/boot/dts/sunplus/Makefile            |   5 +-
- .../dts/sunplus/sunplus-sp7021-ltpp3g2.dts    | 182 ++++++++++++++++++
- 3 files changed, 190 insertions(+), 3 deletions(-)
- create mode 100644 arch/arm/boot/dts/sunplus/sunplus-sp7021-ltpp3g2.dts
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index a53620839407..f54a833484a0 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -3737,6 +3737,12 @@ F:	drivers/reset/reset-sunplus.c
- F:	include/dt-bindings/clock/sunplus,sp7021-clkc.h
- F:	include/dt-bindings/reset/sunplus,sp7021-reset.h
- 
-+ARM/TIBBO LTPP3G2 BOARD
-+M:	Andrew Gaylard <ag@ffroot.co.za>
-+L:	linux-arm-kernel@lists.infradead.org
-+S:	Maintained
-+F:	arch/arm/boot/dts/sunplus/sunplus-sp7021-ltpp3g2.dts
-+
- ARM/Synaptics SoC support
- M:	Jisheng Zhang <jszhang@kernel.org>
- M:	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>
-diff --git a/arch/arm/boot/dts/sunplus/Makefile b/arch/arm/boot/dts/sunplus/Makefile
-index 868f2ea0c127..25ba2e530c35 100644
---- a/arch/arm/boot/dts/sunplus/Makefile
-+++ b/arch/arm/boot/dts/sunplus/Makefile
-@@ -1,5 +1,4 @@
- # SPDX-License-Identifier: GPL-2.0
- dtb-$(CONFIG_SOC_SP7021) += \
--	sunplus-sp7021-demo-v3.dtb
--dtb-$(CONFIG_SOC_SP7021) += \
--	sunplus-sp7021-demo-v3.dtb
-+	sunplus-sp7021-demo-v3.dtb \
-+	sunplus-sp7021-ltpp3g2.dtb
-diff --git a/arch/arm/boot/dts/sunplus/sunplus-sp7021-ltpp3g2.dts b/arch/arm/boot/dts/sunplus/sunplus-sp7021-ltpp3g2.dts
-new file mode 100644
-index 000000000000..f91b0de79c3d
---- /dev/null
-+++ b/arch/arm/boot/dts/sunplus/sunplus-sp7021-ltpp3g2.dts
-@@ -0,0 +1,182 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Device Tree Source for Tibbo LTPP board G2
-+ *
-+ * Copyright (C) 2021 Sunplus Technology Co.
-+ */
-+
-+/dts-v1/;
-+
-+#include "sunplus-sp7021-achip.dtsi"
-+
-+/ {
-+	compatible = "tibbo,ltpp3g2", "sunplus,sp7021";
-+	model = "Tibbo LTPP3G2";
-+
-+	aliases {
-+		serial0 = &uart0;
-+	};
-+
-+	chosen {
-+		bootargs = "console=ttySUP0,115200 earlycon root=/dev/mmcblk0p8 rootwait";
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	memory@0 {
-+		device_type = "memory";
-+		reg = <0x00000000 0x20000000>; /* 512MB */
-+	};
-+
-+	i2c_tps: i2c-tps { /* eeprom */
-+		compatible = "i2c-gpio";
-+		sda-gpios = <&pctl 2 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
-+		scl-gpios = <&pctl 1 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
-+		i2c-gpio,delay-us = <1>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pins_i2ctps>;
-+		eeprom: eeprom@50 {
-+			compatible = "atmel,24c16";
-+			reg = <0x50>;
-+			pagesize = <16>;
-+		};
-+	};
-+};
-+
-+&leds {
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&gpio_leds_pins>;
-+	pinctrl-1 = <&leds_s0_slp>;
-+	system-led {
-+		label = "system-led";
-+		gpios = <&pctl 6 GPIO_ACTIVE_HIGH>;
-+		default-state = "off";
-+		linux,default-trigger = "heartbeat";
-+	};
-+	sg-led {
-+		label = "SG";
-+		gpios = <&pctl 7 GPIO_ACTIVE_HIGH>;
-+		linux,default-trigger = "mmc0";
-+		default-state = "off";
-+	};
-+};
-+
-+&pwm {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pins_pwm>;
-+	status = "okay";
-+};
-+
-+&uart1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pins_uart1>;
-+	status = "disabled";
-+};
-+
-+&uart2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pins_uart2>;
-+	status = "disabled";
-+};
-+
-+&uart3 {
-+	status = "disabled";
-+};
-+
-+&uart4 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pins_btuart &pins_bt_reset>;
-+	status = "disabled";
-+};
-+
-+&mmc0 {
-+	status = "okay";
-+};
-+
-+&wdt {
-+	status = "okay";
-+};
-+
-+&pctl {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pins_gpio_nobinded>;
-+
-+	pins_pwm: pinmux_pwm-pins {
-+		sunplus,pins = <
-+			SPPCTL_IOPAD(48, SPPCTL_PCTL_G_PMUX, MUXF_PWM0, 0)
-+		>;
-+	};
-+
-+	pins_gpio_nobinded: pinmux_gpio_nobinded-pins {
-+		sunplus,pins = <
-+			SPPCTL_IOPAD(30, SPPCTL_PCTL_G_GPIO, 0, 0)   /* was L2SW_LED_FLASH1 */
-+			SPPCTL_IOPAD(39, SPPCTL_PCTL_G_GPIO, 0, 0)   /* was L2SW_LED_ON1  */
-+		>;
-+	};
-+
-+	pins_i2ctps: pinmux_i2ctps-pins {
-+		sunplus,pins = <
-+			SPPCTL_IOPAD(1, SPPCTL_PCTL_G_GPIO, 0,
-+				     SPPCTL_PCTL_L_OUT | SPPCTL_PCTL_L_ONV | SPPCTL_PCTL_L_ODR)
-+			SPPCTL_IOPAD(2, SPPCTL_PCTL_G_GPIO, 0,
-+				     SPPCTL_PCTL_L_OUT | SPPCTL_PCTL_L_ONV | SPPCTL_PCTL_L_ODR)
-+		>;
-+	};
-+
-+	gpio_leds_pins: pinmux_gpio_leds-pins {
-+		sunplus,pins = <
-+			SPPCTL_IOPAD(6, SPPCTL_PCTL_G_GPIO, 0, SPPCTL_PCTL_L_OUT)
-+			SPPCTL_IOPAD(7, SPPCTL_PCTL_G_GPIO, 0, SPPCTL_PCTL_L_OUT)
-+		>;
-+	};
-+
-+	leds_s0_slp: pinmux_user_leds_s0_slp-pins {
-+		sunplus,pins = <
-+			SPPCTL_IOPAD(6, SPPCTL_PCTL_G_GPIO, 0, 0)
-+			SPPCTL_IOPAD(7, SPPCTL_PCTL_G_GPIO, 0, 0)
-+		>;
-+	};
-+
-+	pins_uart1: pinmux_uart1-pins {
-+		sunplus,pins = <
-+			SPPCTL_IOPAD(8, SPPCTL_PCTL_G_PMUX, MUXF_UA1_TX, 0)
-+			SPPCTL_IOPAD(9, SPPCTL_PCTL_G_PMUX, MUXF_UA1_RX, 0)
-+			SPPCTL_IOPAD(10, SPPCTL_PCTL_G_PMUX, MUXF_UA1_RTS, 0)
-+			SPPCTL_IOPAD(11, SPPCTL_PCTL_G_PMUX, MUXF_UA1_CTS, 0)
-+		>;
-+	};
-+
-+	pins_uart2: pinmux_uart2-pins {
-+		sunplus,pins = <
-+			SPPCTL_IOPAD(12, SPPCTL_PCTL_G_PMUX, MUXF_UA2_TX, 0)
-+			SPPCTL_IOPAD(13, SPPCTL_PCTL_G_PMUX, MUXF_UA2_RX, 0)
-+			SPPCTL_IOPAD(14, SPPCTL_PCTL_G_PMUX, MUXF_UA2_RTS, 0)
-+			SPPCTL_IOPAD(15, SPPCTL_PCTL_G_PMUX, MUXF_UA2_CTS, 0)
-+		>;
-+	};
-+
-+	pins_uart3: pinmux_uart3-pins {
-+		sunplus,pins = <
-+			SPPCTL_IOPAD(16, SPPCTL_PCTL_G_PMUX, MUXF_UA3_TX, 0)
-+			SPPCTL_IOPAD(17, SPPCTL_PCTL_G_PMUX, MUXF_UA3_RX, 0)
-+			SPPCTL_IOPAD(18, SPPCTL_PCTL_G_PMUX, MUXF_UA3_RTS, 0)
-+			SPPCTL_IOPAD(19, SPPCTL_PCTL_G_PMUX, MUXF_UA3_CTS, 0)
-+		>;
-+	};
-+
-+	/* AP6256 Bluetooth */
-+	pins_btuart: pinmux_btuart-pins {
-+		sunplus,pins = <
-+			SPPCTL_IOPAD(40, SPPCTL_PCTL_G_PMUX, MUXF_UA4_RX, 0)
-+			SPPCTL_IOPAD(41, SPPCTL_PCTL_G_PMUX, MUXF_UA4_TX, 0)
-+			SPPCTL_IOPAD(56, SPPCTL_PCTL_G_PMUX, MUXF_UA4_RTS, SPPCTL_PCTL_L_ONV)
-+			SPPCTL_IOPAD(49, SPPCTL_PCTL_G_PMUX, MUXF_UA4_CTS, 0)
-+		>;
-+	};
-+
-+	pins_bt_reset: pinmux_bt_reset-pins {
-+		sunplus,pins = < SPPCTL_IOPAD(82, SPPCTL_PCTL_G_GPIO, 0, 0) >;
-+	};
-+
-+};
--- 
-2.53.0
-
+Best regards,
+Krzysztof
