@@ -1,46 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69BFD42C508;
-	Thu, 17 Sep 2026 21:51:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA287446C01;
+	Thu, 17 Sep 2026 21:52:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789681870; cv=none; b=JNdq+0bioJZXNCzbYH+6eALFPVM8x8lrtMEI7MrZmAodTjuczIFFBjhRS/QqSGrK4pydU+Uj3AeG9IlZsWwMul3ABbcKTH+fV1ZKslBUFR4oD7Xb3FvcNIPZF2cDTHuzCi89hgZdWwM1rno/IJAEvLAo3Zsd1rDlrtzBbs8v6DM=
+	t=1789681966; cv=none; b=lCZFWCi7HXhd5FF3UONj7pJ6L+hicoC/77pAg60yfZ46HyUAZvJRuXZa79YnxvsboBXRakj0ND26bm84JuUoZrhcFMqfjDO8kh9MAAHKkE2+8/qtlzf/5V7I4eKPTpTohUJoGujMH6BOECdV0OLzPymI17c6LhQ6rW7g3HUdQOE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789681870; c=relaxed/simple;
-	bh=hxL36TqtOUniTNU8t/bIUxoxNBOZDwazhndcpgC+XEI=;
+	s=arc-20240116; t=1789681966; c=relaxed/simple;
+	bh=u2yAvD7+Su5SOyqCNNtKqQlu7BTllUK6B/JQe4+7fNQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JxmMMCl8HADOx6LjBScBMhAR0O4t3tvvlibG8wlsduanENhtHFh2qMEtZQWAIa6Os3v2DHvllzXFhbO6xv2vtL11CaituRm21+KGg5UMTUHsaMmlBcufpWNIQ0DmE6O6Gq3K4hDHrUrnfo/i9V2rRdDaFBrjJavkAlDam7j3SiI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l8ONJhXH; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=l7gYvscesgBGzKwr5TCFn+PWWFbJH+JRHyWqvoQfuqWs6i9Q81YUmCUNZGBZWMBvqAXLCeqbu+t4JG/3BqbbL6KRjBTducdV+9FvajWAGJXe7G2lnjB/BfqqlvLVGmUcLLexDq5OaUnekLyjHoAqXW4MuEbdAE8zVvWiuK8kXvA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bUA+wEl0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l8ONJhXH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC7CB1F000FF;
-	Thu, 17 Sep 2026 21:51:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bUA+wEl0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4844C1F000FF;
+	Thu, 17 Sep 2026 21:52:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789681869;
-	bh=ADx1gBJd+i0kQFNsWeKzJizPoigYcAbyJ2J0mmsvfAo=;
+	s=k20260515; t=1789681964;
+	bh=ECp8w8b2OljDXSF1jlWE3h9HCxPI21rHDN1xAjfJDmg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=l8ONJhXHxC+X/t24/AiGf5UNJe1DNBUoULGuS5RcwKM9CaNihbEHnweehLB5fAM3a
-	 4pBl12Jdjyg6Cb/ghE1h2ZmpiRB8SvoUiBSYp9RlN+d1CJ1Du7YkkbSVgHDQ9doUwH
-	 wB5BkDlkfq5IeCABocbIr7L4mpnGbaB9c/KatqkYsvLZ4RzVzq3BihUwVnvvWbTyze
-	 D23EfsHIdmp8SaxCz2HsP/9Fxkq4Nq9a/sBoMDMSN8U/GT3nIqvPS4THu454PvmuZG
-	 9XxOdec0CjDIeG8+CzZIO/N/yUseauC0t04877qKYjb8fCxvs8Jc5I/EcBR3xscijt
-	 U5sgNLPBAaUmA==
-Date: Thu, 17 Sep 2026 16:51:07 -0500
-From: Rob Herring <robh@kernel.org>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
+	b=bUA+wEl0N1nWwcg+aV9zYrJc1+Bv4etzZudtTqcfrFQ4OlOoKZdp9XMfP/QGnjkUs
+	 VwdfIgLInT72+jewRq06uPKaLpQHHcQB32Z2UvIRng3Uld/qm4znEPnUHNYjtAt0BF
+	 wH+ien59dTStfzO/UD/Z1TcbuH1qNuRpMVGDBRZGCHFaY0bcDVYD3knH+bms231ZTz
+	 YM9bH0bmuvgdgbj37Bz9JlAux3AnZuPS07wW4IPqFoClPVnxjxMSS8dPN7SQUm4drt
+	 8nAYORquJrFdm0jQO5ljCVpU74SvlHNHaA8my4RbsDE/4orxX1SEoezw50L5VlbC4p
+	 gfBfx7lPYpuvw==
+Date: Thu, 17 Sep 2026 16:52:42 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] dt-bindings: phy: airoha: Document support for
- AN7583 Gen3 PCIe PHY
-Message-ID: <20260917215107.GA3884839-robh@kernel.org>
-References: <20260901125819.20378-1-ansuelsmth@gmail.com>
- <20260901125819.20378-2-ansuelsmth@gmail.com>
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Conor Dooley <conor+dt@kernel.org>, netdev@vger.kernel.org,
+	Eric Dumazet <edumazet@google.com>, devicetree@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
+	"David S. Miller" <davem@davemloft.net>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] dt-bindings: net: nvidia,tegra234-mgbe: Add missing
+ properties
+Message-ID: <178968196203.3977763.9137674744843373634.robh@kernel.org>
+References: <20260902003004.453960-1-thierry.reding@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,64 +49,30 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260901125819.20378-2-ansuelsmth@gmail.com>
+In-Reply-To: <20260902003004.453960-1-thierry.reding@kernel.org>
 
-On Tue, Sep 01, 2026 at 02:58:17PM +0200, Christian Marangi wrote:
-> Document support for AN7583 PCIe PHY used to make the Gen3 PCIe port
-> work. Add the required register to configure the PCIe PHY and provide an
-> example for it.
+
+On Wed, 02 Sep 2026 02:30:04 +0200, Thierry Reding wrote:
+> From: Thierry Reding <treding@nvidia.com>
 > 
-> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> Being a DWMAC derivative, the Tegra234 MGBE supports AXI configuration
+> nodes named stmmac-axi-config and phandle references to them using the
+> snps,axi-config property.
+> 
+> While at it, add the 10gbase-r PHY mode.
+> 
+> Signed-off-by: Thierry Reding <treding@nvidia.com>
 > ---
->  .../phy/airoha,an7583-pcie-gen3-phy.yaml      | 65 +++++++++++++++++++
->  1 file changed, 65 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/phy/airoha,an7583-pcie-gen3-phy.yaml
+> Changes in v2:
+> - move common properties to snps,dwmac-common.yaml
+> - link to v1: https://lore.kernel.org/linux-tegra/20260716212001.989872-1-thierry.reding@kernel.org/
 > 
-> diff --git a/Documentation/devicetree/bindings/phy/airoha,an7583-pcie-gen3-phy.yaml b/Documentation/devicetree/bindings/phy/airoha,an7583-pcie-gen3-phy.yaml
-> new file mode 100644
-> index 000000000000..a8ec5ac781cc
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/phy/airoha,an7583-pcie-gen3-phy.yaml
-> @@ -0,0 +1,65 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/phy/airoha,an7583-pcie-gen3-phy.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Airoha AN7583 PCI-Express PHY
-> +
-> +maintainers:
-> +  - Christian Marangi <ansuelsmth@gmail.com>
-> +
-> +description:
-> +  The PCIe PHY supports physical layer functionality for PCIe Gen2/Gen3 port.
-> +
-> +properties:
-> +  compatible:
-> +    const: airoha,an7583-pcie-gen3-phy
-> +
-> +  reg:
-> +    items:
-> +      - description: PCIE G3 analog base address
-> +      - description: PCIE G3 PMA base address
-> +      - description: PCIE detection time base address
-> +      - description: PCIE Rx AEQ base address
-> +
-> +  reg-names:
-> +    items:
-> +      - const: g3-ana
-> +      - const: g3-pma
-> +      - const: xr-dtime
-> +      - const: rx-aeq
-> +
-> +  phys:
-> +    items:
-> +      - description: phandle to QPHY phy for Gen2 support
+>  .../bindings/net/nvidia,tegra234-mgbe.yaml    |  8 ++-
+>  .../bindings/net/snps,dwmac-common.yaml       | 66 +++++++++++++++++++
+>  .../devicetree/bindings/net/snps,dwmac.yaml   | 52 +--------------
+>  3 files changed, 73 insertions(+), 53 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/net/snps,dwmac-common.yaml
+> 
 
-A phy for the phy... That's kind of odd. It there some reason the gen3 
-and gen2 phys aren't both linked to the PCIe host and controlled from 
-there? Doesn't look like there is any interleaved or cross 
-initialization needed to handle these in one place.
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
-Rob
