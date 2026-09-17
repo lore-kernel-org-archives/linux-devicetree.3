@@ -1,136 +1,82 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3FDF4B8266
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 09:42:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAD024B1CE8;
+	Thu, 17 Sep 2026 09:42:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789638179; cv=none; b=dLgBGQR7npGo0NAJtgwAVwIGnFi5dlXCSr4JAScoBaYCG5u5HJzoPrBqP89pFsTz3atDpHTsEC03k4f8OtDfgxrsoEuEe77aVGeXPl6+H69LQLV7n8q5R74v8VCg3BixiAr7sbE1DKOrnY7cxmoeMY0ZR/X8GN4aOexYmtZekVg=
+	t=1789638197; cv=none; b=d+q44DJZpYRPJAMSsmL5JsOChuE08TH/NNQrdzprwn/J2VkZFUAA7YdchiytsGAebMZjo/BKnIi/+kMUYma83gWioQvGp+2Eo9M2oB7pdYqcMkW/aukDdyqkVfDY12Lc0A0nMU2LhDcAAklZH31Jx6kH+K4q4wc27+UeiojSWJI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789638179; c=relaxed/simple;
-	bh=j5NDkE8H5QhohnuQG9ZL2eFqc/5c+L62c3fdFiXdfcU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WMz6fZKZBRdfo5b5SGBcFOiHS8lLacL9u6yJdlxz66LKuHsooyBPUqetKCNaHn0kyulhgw2XkR9Tq8wxQzdxHazfo0YvYXyGjIuTvdfU89rM2k1rdQwPoZK8pbFn8/+01vutcCnKuk9SGW5YOcf1FIqoWRGlPQkxvaTtq5LaSK0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=gswQu0a5; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789638197; c=relaxed/simple;
+	bh=DaB5zuAPaemeoO6Zw0IM5AV7dY/kS+zsYeI+JxbPowY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Vf0VRr06QDZefYewinguQMr/0nGLb8vQF3st+UUXVjiQgJlYuQ7niJm5HyRFO7u0+YCS6kEGPg3o/VPNEfhcto1dax3M+FmFVuNky53MyDqKv+MDdt5F5nT+3VMf/QgXb0XpvWUsu55h7UK4OWiyW9fbjEuMuQewwwH3jjnlDPQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=EEE1jeZr; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gswQu0a5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789638142;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0g0ZCGxDRRYlZhr9Tvt33jde/X2SUHy/4zlgcs+jS0w=;
-	b=gswQu0a5Xk3fF9Pni6u3BQsnYrGYQc8bVyaKosR2JT74aOOqBsmTT2ZdlrbDJe2w1+UMy7
-	35hdD6xV375sxiKm6pON9Aa9d1Bz5v+kZPM/r0gFvsJbmtdjTEBUXcUv4HGSbOmeTNKYU6
-	HounHX4bmETqay2/gaGjqRz+Z6VV6ts=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-588-WcsIYYDkP9OlvubnoJsHOQ-1; Thu,
- 17 Sep 2026 05:42:15 -0400
-X-MC-Unique: WcsIYYDkP9OlvubnoJsHOQ-1
-X-Mimecast-MFC-AGG-ID: WcsIYYDkP9OlvubnoJsHOQ_1789638134
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 590C41802565;
-	Thu, 17 Sep 2026 09:42:13 +0000 (UTC)
-Received: from [100.90.87.156] (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id D88B5754;
-	Thu, 17 Sep 2026 09:42:09 +0000 (UTC)
-Message-ID: <5757ed06-a14c-4dc5-ada8-3a76129e2d5c@redhat.com>
-Date: Thu, 17 Sep 2026 11:42:08 +0200
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="EEE1jeZr"
+Received: from francesco-nb.. (xcpe-178-82-167-143.dyn.res.sunrise.net [178.82.167.143])
+	by mail11.truemail.it (Postfix) with ESMTPA id AD9B11F8D0;
+	Thu, 17 Sep 2026 11:42:23 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1789638144;
+	bh=GrKwQSnBM5TlJwrXeIy0ESWxGzkPY7jGMX9Hplkjm+I=; h=From:To:Subject;
+	b=EEE1jeZrGpYBbkm7jBaZiYUVn3vsNzRXoUuZhAf67BVk3zc5f9yRT5a8E/Y2PUF/c
+	 he/WR0tgGu6vRr6nutCipM6oltnj0DBJGkCJrWiyKJUdCPNDLZJmBc0nUaT5PKhJwi
+	 gVDukL/i1IFT7q1lcdTTs++m54HtxP9w9geGUHGYbYzhpJaEGnPaisMIoSID4DU1Dm
+	 KiKLuDXtbTJkPWU4duiRl/tO+bgAQrr7aYqW8nAp1SrmH4V/1duZ5+GVwfTkpuBfqX
+	 Vm5Kw+9dztp+nvB6kk0H3WiOybZcPIX12ZTfUIzKANJ7wlOBKb2OtWQ63m6RmdfseZ
+	 JJvaEhK/jFNZg==
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Shawn Guo <shawnguo@kernel.org>
+Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH v1 0/2] arm64: dts: freescale: Add Toradex OSM iMX95
+Date: Thu, 17 Sep 2026 11:42:13 +0200
+Message-ID: <20260917094217.59508-1-francesco@dolcini.it>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v9 04/15] dpll: sit9531x: read DPLL types and pin
- properties from system firmware
-To: Ali Rouhi <arouhi@sitime.com>, "jiri@resnulli.us" <jiri@resnulli.us>
-Cc: "vadim.fedorenko@linux.dev" <vadim.fedorenko@linux.dev>,
- "arkadiusz.kubalewski@intel.com" <arkadiusz.kubalewski@intel.com>,
- "robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
- <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
- "cjubran@nvidia.com" <cjubran@nvidia.com>,
- "pabeni@redhat.com" <pabeni@redhat.com>,
- "Oleg.Zadorozhnyi@devoxsoftware.com" <Oleg.Zadorozhnyi@devoxsoftware.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <20260915000015.80480-1-arouhi@sitime.com>
- <20260915000015.80480-5-arouhi@sitime.com>
-Content-Language: en-US
-From: Ivan Vecera <ivecera@redhat.com>
-In-Reply-To: <20260915000015.80480-5-arouhi@sitime.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+Content-Transfer-Encoding: 8bit
 
+From: Francesco Dolcini <francesco.dolcini@toradex.com>
 
+This patch series adds support for the Toradex OSM iMX95 SoM and its OSM
+Development Board.
 
-On 9/15/26 2:00 AM, Ali Rouhi wrote:
-> From: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
-> 
-> The DPLL core wants a type per device and a property set per pin: a
-> label, the direction, the capabilities, and the frequencies the pin
-> supports.  None of that can be read from the chip -- which frequencies a
-> board actually presents on a given input, and whether an output's
-> embedded sync is wired to be controllable, are board facts -- so they
-> come from the firmware node, with defaults for a node that does not
-> describe them.
-> 
-> Input pins are interleaved P and N lanes of four differential pairs, so a
-> logical index maps to a pair and a lane, and a pair configured
-> single-ended presents two independent inputs where a differential one
-> presents one.  The labels follow from that, and the two extra input
-> positions -- the crystal and the inter-PLL sync net -- are named
-> separately.
-> 
-> Kept in its own file, and introduced before anything is registered, so
-> the registration code that follows has nothing to say about firmware.
-> 
-> Signed-off-by: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
-> Assisted-by: Claude:claude-4-opus [chat]
-> Signed-off-by: Ali Rouhi <arouhi@sitime.com>
-> ---
->   drivers/dpll/sit9531x/Makefile |   2 +-
->   drivers/dpll/sit9531x/core.h   |  72 ++++++
->   drivers/dpll/sit9531x/prop.c   | 437 +++++++++++++++++++++++++++++++++
->   drivers/dpll/sit9531x/prop.h   |  39 +++
->   4 files changed, 549 insertions(+), 1 deletion(-)
->   create mode 100644 drivers/dpll/sit9531x/prop.c
->   create mode 100644 drivers/dpll/sit9531x/prop.h
-> 
-> ...
-> +
-> +               /*
-> +                * Allow phase-adjust over a +/-1 ms window.  The subsystem
-> +                * rejects pin_set(phase-adjust, X) when X falls outside
-> +                * [min, max], so leaving these at 0 silently blocks every
-> +                * netlink call.  1 ms is well beyond the DCO dynamic range
-> +                * but costs nothing.  Only outputs get a range: input pins
-> +                * have no .phase_adjust_set, and advertising one there would
-> +                * promise userspace something every set would refuse.
-> +                */
-> +               props->dpll_props.phase_range.min = -1000000000; /* -1 ms in ps */
-> +               props->dpll_props.phase_range.max =  1000000000; /* +1 ms in ps */
-> +               /*
-> +                * The fine step is 30 ps, but requests are accepted at 1 ps
-> +                * resolution and rounded to the nearest achievable delay, so
-> +                * advertise the request granularity, not the hardware step.
-> +                */
-> +               props->dpll_props.phase_gran = 1;
+The Toradex OSM iMX95 is a SoM compliant with the OSM V1.2 specification
+from SGET, based on the NXP i.MX95 SoC and available in Size L
+(45x45 mm).
 
-What is the real HW granularity? If 30ps then you should announce 30 to
-inform the userspace that this is the step supported by the HW.
+Link: https://www.toradex.com/computer-on-modules/osm-arm-family/nxp-imx95
+Link: https://www.toradex.com/products/carrier-board/osm-development-board
 
-Thanks,
-Ivan
+Antoine Gouby (2):
+  dt-bindings: arm: fsl: Add Toradex OSM iMX95
+  arm64: dts: freescale: Add Toradex OSM iMX95
+
+ .../devicetree/bindings/arm/fsl.yaml          |    6 +
+ arch/arm64/boot/dts/freescale/Makefile        |    1 +
+ .../dts/freescale/imx95-toradex-osm-dev.dts   |  404 +++++++
+ .../boot/dts/freescale/imx95-toradex-osm.dtsi | 1036 +++++++++++++++++
+ 4 files changed, 1447 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/freescale/imx95-toradex-osm-dev.dts
+ create mode 100644 arch/arm64/boot/dts/freescale/imx95-toradex-osm.dtsi
+
+-- 
+2.47.3
 
