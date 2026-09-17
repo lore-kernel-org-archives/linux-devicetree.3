@@ -1,35 +1,42 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65325515968;
-	Thu, 17 Sep 2026 17:20:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B7B23AEF54;
+	Thu, 17 Sep 2026 17:22:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789665602; cv=none; b=YBZsd1HQfQUiAqSZiskxF9AlUrkm/SProx5NmiXJQvN76tFdQrwa/dCUb6raz5Zo3Otm83d53pWf6/dPFoPQcxSbjtim2ITq1vSswFcl2Wo4unk5gEoj+rDX/ZvB3oDxaH7VRFpkHEktjjzGpc+zccERnD3nhz2bupq85DYZhLc=
+	t=1789665739; cv=none; b=dOKtSPCHNrsVqWn7hwkqaIivfIhXnVugS0pcATrsjNv0lZIcFYS3uo77d5xPqVLz62CUPvc3gQR4Q8QJLqR30DvEqUhif+yoOjINGU8XkuM012F2rzgTPqvwcZUMMZGaNn5gFsHgQCBpALJrQ14XTgSfSDfDjPwFXJNH3GFBesA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789665602; c=relaxed/simple;
-	bh=R0ONL2o/LfPVOJgZsq7tuYgG+fCoHJMI9T5qkwLX+Rs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iyCq6BSOOVgTKPSvA/2LSb0XPg/MhJeT0XZx8Y45ZNpkYtIrrHU+KCjIbxd2Na0PRbflDto2gRBZb48YS5tnwuCYFn6khTAJxP7I2bmusRaUpi/qzZ2rmMYSqmaInzj+qYUeaD/6Ab3o4xCT8EzAWuhEtU3SJWcaFRT2KOyS4sA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=hbAntrdX; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1789665739; c=relaxed/simple;
+	bh=i7vxyd+RUUEAWFJj4iedqbpXOAXYL3d7mLXj1p4df0o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=D4tg/TmmhVCrE3U+IrTep7jzF56Z5M9FQMDnzds/HyEw69/5hBQi1le9/QeFMknxW5BzbASzzbAcFBn8JSWn7g+gHQupMZkxs1zdwOwjFvOHUGxy2/mH4zW19YqMKtUja1WPBVkIXeYLjR+htk+SuOKdWkJ6AGNZ1weK3emEv4A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=VOxLMdss; arc=none smtp.client-ip=210.118.77.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="hbAntrdX"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 788A5104A72;
-	Thu, 17 Sep 2026 19:19:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1789665593;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=JbJfZ7HWZXoGV1NUUiVeTQ0E9qnkrZvs/phdAislXR4=;
-	b=hbAntrdXnD7oLB6gg92LCJ86k5Wbk2Tq0YhOe0Mj0XEO0QIBLEg46AO4Zl0Kw0K5AC5Y13
-	m3sIKrLY9wwgQuZhYlUeQYxmKb0QN0xDt3k5ybE7n7QAnrFqWio/o1v4XoZ6OyyYCmf8OC
-	GFEewNIN5aRokImMMrykhdcxaNh1wQI1MYPikq61ZKsBWgmK6Y5Pa1chFj/7vAIpbB/+mt
-	EAGH7Xu79KZniXbwy+NNiOcfILW/3DDwK3TY8lgT09qNDk7rzYIyrGVzx9rSTKVC7krpYi
-	6apakmOj6GhXoSUmnasoUcaBbMLBUOAsueov8jQQlqWhGaVL6fw6pBOW4I3Ldg==
-Message-ID: <384c5f71-d5ab-4990-9567-027605457439@nabladev.com>
-Date: Thu, 17 Sep 2026 19:19:51 +0200
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="VOxLMdss"
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20260917172208euoutp0150132b34809348820d8ba580cbf71ba6~WK399rJ9Y0164201642euoutp01M;
+	Thu, 17 Sep 2026 17:22:08 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20260917172208euoutp0150132b34809348820d8ba580cbf71ba6~WK399rJ9Y0164201642euoutp01M
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1789665728;
+	bh=0WtKtiSzYCp277IiLimE78OZqsRgc7cWGLsFATmTw1E=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=VOxLMdss8ZyVY8BfR85gXrDrglNJ8tt+tRyIRy34jspUqU6Tu6fH7k4IIRxxxXpHz
+	 tavqrMHAweRf1Js/R3ZW2sD9k5Czxee/0C9FYVHtvUe/S5KKtnbQdi/kswqFi00MoB
+	 ulGFKEi5ek5Q3N8AhJ1OxMwZsSONTxYMV+bMrihk=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+	20260917172208eucas1p2a1f43f12fe05dd5a7cb640c4cec85744~WK39uT1rB0077700777eucas1p2z;
+	Thu, 17 Sep 2026 17:22:08 +0000 (GMT)
+Received: from [192.168.1.44] (unknown [106.210.136.40]) by
+	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20260917172206eusmtip266a4da637fbe5ad68f6836811ac14898~WK38DTFaD3000830008eusmtip2I;
+	Thu, 17 Sep 2026 17:22:06 +0000 (GMT)
+Message-ID: <136d6789-2f0c-4a91-ab2d-de3a3f119d5d@samsung.com>
+Date: Thu, 17 Sep 2026 19:22:05 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -37,75 +44,145 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/3] arm64: dts: imx95: Add support for Data Modul
- i.MX95 eDM SBC
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Marc Kleine-Budde <mkl@pengutronix.de>, robh@kernel.org,
- Frank.Li@kernel.org, imx@lists.linux.dev, conor+dt@kernel.org,
- Oliver Hartkopp <socketcan@hartkopp.net>,
- Oleksij Rempel <o.rempel@pengutronix.de>, linux-can@vger.kernel.org,
- Vincent Mailhol <mailhol@kernel.org>, devicetree@vger.kernel.org
-References: <20260917062543.534416-1-marex@nabladev.com>
- <20260917062543.534416-3-marex@nabladev.com>
- <20260917063512.C71F51F000FF@smtp.kernel.org> <aqwbBQUSfd60nVeI@SMW015318>
+Subject: Re: [PATCH v4 00/20] drm: starfive: jh7110: Enable display
+ subsystem
+To: Joshua Peisach <jpeisach@ubuntu.com>, Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss
+	<rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>, Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
+	Yan <andy.yan@rock-chips.com>, Philipp Zabel <p.zabel@pengutronix.de>, Emil
+	Renner Berthing <kernel@esmil.dk>, Hal Feng <hal.feng@starfivetech.com>,
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+	<sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Paul Walmsley
+	<pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Dominique
+	Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>, Jerome
+	Brunet <jbrunet+clk@baylibre.com>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	mfd@lists.linux.dev, linux-clk@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+	linux-riscv@lists.infradead.org, Marek Szyprowski
+	<m.szyprowski@samsung.com>, Maud Spierings <maud_spierings@murena.io>,
+	Graham Markall <hello@big-grey.co.uk>, Icenowy Zheng
+	<zhengxingda@iscas.ac.cn>, Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+	=?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
 Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <aqwbBQUSfd60nVeI@SMW015318>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Michal Wilczynski <m.wilczynski@samsung.com>
+In-Reply-To: <DLGBPXP4F8E0.9X0QMZ9GFQVF@ubuntu.com>
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-CMS-MailID: 20260917172208eucas1p2a1f43f12fe05dd5a7cb640c4cec85744
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260915153213eucas1p148f013af239a334fc78cdc249c0f8a61
+X-EPHeader: CA
+X-CMS-RootMailID: 20260915153213eucas1p148f013af239a334fc78cdc249c0f8a61
+References: <CGME20260915153213eucas1p148f013af239a334fc78cdc249c0f8a61@eucas1p1.samsung.com>
+	<20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
+	<DLGBPXP4F8E0.9X0QMZ9GFQVF@ubuntu.com>
 
-On 9/17/26 6:53 PM, Frank Li wrote:
 
-Hello Frank,
 
-> On Thu, Sep 17, 2026 at 06:35:12AM +0000, sashiko-bot@kernel.org wrote:
->> Thank you for your contribution! Sashiko AI review found 6 potential issue(s) to consider:
->> - [High] dts: pcal6524 interrupt polarity is incorrectly set to LEVEL_HIGH
->> - [Medium] dts: Ethernet PHY reset-gpios configured with wrong polarity
->> - [Medium] dts: eMMC reset GPIO defined but unused in usdhc1
->> - [Medium] dts: reg_panel_vcc regulator missing enable-active-high property
->> - [Medium] dts: M.2 Key-E (usdhc3) slot missing power regulator
->> - [Low] dts: tas2552 codec uses deprecated enable-gpio instead of enable-gpios
-
-[...]
-
->>> +	reg_panel_vcc: regulator-panel-vcc {
->>> +		compatible = "regulator-fixed";
->>> +		regulator-min-microvolt = <3300000>;
->>> +		regulator-max-microvolt = <3300000>;
->>> +		regulator-name = "PANEL_VCC";
->>> +		gpios = <&i2c2_gpio_expander_20 17 0>;
-> 
-> gpio third arg 0, means GPIO_ACTIVE_HIGH
-> 
-> 	so need enable-active-high
-> 
-> if your boards have invertor should use GPIO_ACTIVE_LOW
-
-I already went through all that, please see "Re: [PATCH 3/3] arm64: dts: 
-imx95: Add support for Data Modul i.MX95 eDM SBC" .
-
-[...]
-
->>> +	tas2552: audio-codec@40 {
->>> +		compatible = "ti,tas2552";
->>> +		reg = <0x40>;
->>> +		#sound-dai-cells = <0>;
->>> +		avdd-supply = <&reg_1p8v>;
->>> +		iovdd-supply = <&reg_3p3v>;
->>> +		vbat-supply = <&reg_5p0v>;
->>> +		enable-gpio = <&i2c2_gpio_expander_20 23 GPIO_ACTIVE_HIGH>;
+On 9/16/26 02:45, Joshua Peisach wrote:
+> On Tue Sep 15, 2026 at 11:32 AM EDT, Michal Wilczynski wrote:
 >>
->> [Severity: Low]
->> This isn't a bug, but should tas2552 be using the enable-gpios property name
->> instead of the deprecated enable-gpio? The patch changelog mentions replacing
->> gpio with gpios DT properties.
+>> Testing
+>> =======
+>>
+>> Tested on a VisionFive 2 v1.3B using modetest.
 > 
-> Please fix this one.
+> I.. got nothing. I did have to manually modprobe the modules, but
+> unless I am doing something wrong.. I didn't get anything and modetest
+> just gave -2.
 
-No, this is correct, see
+Hmm have you also changed the DTB not just the kernel and the modules
+(you can also built in everything).
 
-Documentation/devicetree/bindings/sound/ti,tas2552.yaml:  enable-gpio:
+Also note modetest needs -M verisilicon.
 
-[...]
+If that is not it, could you send "dmesg | grep -iE
+'verisilicon|inno|hdmi|vout'" and "ls /sys/class/drm/"?
+
+> 
+>> ---
+>> Michal Wilczynski (20):
+>>       dt-bindings: phy: Add starfive,jh7110-inno-hdmi-phy
+>>       dt-bindings: display: bridge: Add starfive,jh7110-inno-hdmi-controller
+>>       dt-bindings: mfd: Add starfive,jh7110-hdmi-subsystem
+>>       dt-bindings: soc: starfive: Add starfive,jh7110-vout-syscon
+>>       dt-bindings: display: verisilicon: Add starfive,jh7110-dc8200
+>>       dt-bindings: soc: starfive: Add starfive,jh7110-vout-subsystem
+>>       drm/bridge: inno-hdmi: Split probe out of bind
+>>       drm/bridge: inno-hdmi: Allow the register map to come from a parent
+>>       drm/bridge: inno-hdmi: Add .disable platform operation
+>>       drm/bridge: inno-hdmi: Add .mode_valid platform operation
+>>       drm/bridge: inno-hdmi: Make the PHY configuration table optional
+>>       soc: starfive: Add jh7110-hdmi-subsystem driver
+>>       soc: starfive: Add jh7110-vout-subsystem driver
+>>       clk: starfive: jh7110-vout: Allow pixel clock rate propagation
+>>       drm/bridge: starfive: Add JH7110 HDMI controller driver
+>>       phy: Add common Innosilicon HDMI PHY helpers
+>>       phy: rockchip: inno-hdmi: Use the common Innosilicon PHY helpers
+>>       phy: starfive: Add jh7110-inno-hdmi-phy driver
+>>       riscv: dts: starfive: jh7110: Update DT for display subsystem
+>>       MAINTAINERS: Add StarFive JH7110 display subsystem entry
+>>
+>>  .../starfive,jh7110-inno-hdmi-controller.yaml      | 121 +++++
+>>  .../bindings/display/verisilicon,dc.yaml           |   1 +
+>>  .../mfd/starfive,jh7110-hdmi-subsystem.yaml        |  95 ++++
+>>  .../phy/starfive,jh7110-inno-hdmi-phy.yaml         |  49 ++
+>>  .../soc/starfive/starfive,jh7110-syscon.yaml       |   1 +
+>>  .../starfive/starfive,jh7110-vout-subsystem.yaml   | 218 ++++++++
+>>  MAINTAINERS                                        |  13 +
+>>  arch/riscv/boot/dts/starfive/jh7110-common.dtsi    | 121 ++++-
+>>  arch/riscv/boot/dts/starfive/jh7110.dtsi           | 105 +++-
+>>  drivers/clk/starfive/clk-starfive-jh7110-vout.c    |   6 +-
+>>  drivers/gpu/drm/bridge/Kconfig                     |  11 +
+>>  drivers/gpu/drm/bridge/Makefile                    |   1 +
+>>  drivers/gpu/drm/bridge/inno-hdmi.c                 | 112 +++-
+>>  drivers/gpu/drm/bridge/jh7110-inno-hdmi.c          | 297 +++++++++++
+>>  drivers/phy/Kconfig                                |   8 +
+>>  drivers/phy/Makefile                               |   1 +
+>>  drivers/phy/phy-inno-hdmi.c                        | 298 +++++++++++
+>>  drivers/phy/rockchip/Kconfig                       |   1 +
+>>  drivers/phy/rockchip/phy-rockchip-inno-hdmi.c      | 168 +-----
+>>  drivers/phy/starfive/Kconfig                       |  20 +
+>>  drivers/phy/starfive/Makefile                      |   1 +
+>>  drivers/phy/starfive/phy-jh7110-inno-hdmi.c        | 579 +++++++++++++++++++++
+>>  drivers/soc/Kconfig                                |   1 +
+>>  drivers/soc/Makefile                               |   1 +
+>>  drivers/soc/starfive/Kconfig                       |  43 ++
+>>  drivers/soc/starfive/Makefile                      |   3 +
+>>  drivers/soc/starfive/jh7110-hdmi-subsystem.c       |  73 +++
+>>  drivers/soc/starfive/jh7110-vout-subsystem.c       |  82 +++
+>>  include/drm/bridge/inno_hdmi.h                     |  10 +-
+>>  include/linux/phy/inno-hdmi-phy.h                  |  85 +++
+>>  30 files changed, 2337 insertions(+), 188 deletions(-)
+>> ---
+>> base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+>> change-id: 20251031-jh7110-clean-send-7d2242118026
+>>
+>> Best regards,
+> 
+> By the way, something weird happenined while I applied the patches
+> using git am. Somehow, some were out of order. The 10th patch
+> adding .mode_valid tried to be applied before .disable even though
+> in the series, the order is correctly set? git would obviously
+> fail because the .disable entry did not exist in the header, so I had
+> to manually put those in.
+> 
+> I guess it's possible that something went wrong here? I personally
+> pulled the mailbox from the lore.kernel.org mbox.gz file.
+
+I would recommend using b4 shazam instead
+
+> 
+
+Best regards,
+-- 
+Michal Wilczynski <m.wilczynski@samsung.com>
