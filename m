@@ -1,68 +1,67 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30B0B3CF962
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 08:05:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5329D390CAA;
+	Thu, 17 Sep 2026 08:06:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789632352; cv=none; b=VymoEFCLdhN3UPY+tCIm6BmypQM5o2YWjui1nf1GFsNvIak9YBxLEty9jHLTckIAXeUoH6kRPoJJ9pIsY9XwedgpdtLBOlNc0S9wDdawPQEsZ1w2dltKSnzGqDJkC8pPK0mxygEOIwHK2xbtbul6kP1N0ODw7JuT2v04WAq+zhM=
+	t=1789632386; cv=none; b=dsfdCNWSDJ6ZV7z977t1j2LR9Wap8eBnyPOukKDtrVufbdfNHjdxPRzigvKuC11TQ3EgztvnXAbbCdl57IIhribk+G1dBz5kqOgb3IiLB+vQbgX/54CLeAfJJSx+RiAhh7HIYSffrM3OUAJqLzdak6B0apdo61kccDL22+bt5XU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789632352; c=relaxed/simple;
-	bh=2NPqFvaIbfXhcrYnmwB3/i8adug1S0UoVTXp9i1DXj8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aiocDGpeVXEBOptFc/V0eGO1wWgcNzdYS46VsrCgHfwXxV3s2uQMtIgos82J4qnSygZg1OPAHR7IcLrMEMcunjbChRvUOgpnp2f0KBKXq8GWY/6zRuC8VrSo0uJe1PORn0qqlDNvKt1D/gImCVVhSWIfaCGmUgJYAPVQTsHj93Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=okLQjjQS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789632386; c=relaxed/simple;
+	bh=8Gz1O6bHK+/l82isF+y+AHNB5tc3EmVfPqm7/H+Yw3o=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=EyBVlpW7jCuepqt/SUBvlL2TnqCpSw0AVad4wbV3h0JjbpucZ/hpY85HGDrINFh/OojVTuJQGNUr+42O8ayWL3mFqIGB/3qcVB8mE620dE8tff1M6f1qjyNqTr2xHIID4ivGNYy2kwYhCJZRkUuVYtWu/CtVQdKdEAHV+zRfO4I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IF4neACB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="okLQjjQS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEDD31F000FF;
-	Thu, 17 Sep 2026 08:05:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IF4neACB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A4941F000FF;
+	Thu, 17 Sep 2026 08:06:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789632350;
-	bh=cxwNQuo1MwfkPiWaoqYyt95s3x3hs0Jga33AiR0XIrA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=okLQjjQS8e8XfTSw0HqPrQyGitnrCIvyz830zgR6/erIwDab0WsaWMISWK+/ZszYj
-	 N/g0aXJ9D33G0dLmyHzMwKAoY3CoDh0+bx86MdJKXoqeYc6GYpXO6erFukGGAzhmzg
-	 MJ5s8WdmHo19xXQRIQLv3qmMZWpWFdd77SY+3/pB12NETZw/vmqTYOtecIKzr5mFiU
-	 U3ypHdZyRULIzGY4BCdvjAsalplSb5L4JocHc4US1zAevB8qPz95ZbmdVKPsLduXbI
-	 0xM/nblSmwkzHGQvaNa6i5Gx46xysXtunQNB1/ZZBiI6MLz1WrBBko98xxw1eb1Ii1
-	 olKZLsN2rPlnA==
-Date: Thu, 17 Sep 2026 10:05:46 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Leander Kieweg <kieweg.leander@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com, 
-	mripard@kernel.org, tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, u.kleine-koenig@baylibre.com
-Subject: Re: [PATCH v4 1/2] dt-bindings: display: Add GlandaGPU binding
-Message-ID: <20260917-exceptional-artificial-mackerel-0bcad7@quoll>
-References: <20260913205007.118552-1-kieweg.leander@gmail.com>
- <20260913205007.118552-2-kieweg.leander@gmail.com>
+	s=k20260515; t=1789632385;
+	bh=8Gz1O6bHK+/l82isF+y+AHNB5tc3EmVfPqm7/H+Yw3o=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=IF4neACBWwrNk+ePNZLETHyxTyuUnMkvG+G6qraDKU8w+91rG8M+ZXkfD4LVAFq/+
+	 yWt2MG6oW0HHGHkhSiF9ZlmfqlT3iukHkYyzFeJz2w/a6JEgl2pn/rrAwU0KNAR5tA
+	 V0yB2nnm7R/RtS0A0uT6WayAYA4/iUNR4LGH0TR9vj+uBhl//n+jMutVWMR/HO+vBB
+	 TjQydHBxxkpFhnm22B0yWFGN2QwW3NkxnZ5EtoM4+q+/oepTkU3AMZ2woeApaLU3hb
+	 EQh+pF7UsnjPczZIhBa8cjzNW6HBSO8l0MBeYZx4vYTxuqU9HQ0ZzGfHKalIp8wpNU
+	 jp4kKrBwtbwPw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v12 1/6] mfd: khadas-mcu: Add per-variant configuration
+ infrastructure and VIM4 support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ronald Claveau" <linux-kernel-dev@aliel.fr>
+Cc: devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org, conor+dt@kernel.org, robh@kernel.org, lee@kernel.org, mfd@lists.linux.dev, neil.armstrong@linaro.org
+In-Reply-To: <20260917-add-mcu-fan-khadas-vim4-v12-1-497cd543a148@aliel.fr>
+References: <20260917-add-mcu-fan-khadas-vim4-v12-0-497cd543a148@aliel.fr>
+ <20260917-add-mcu-fan-khadas-vim4-v12-1-497cd543a148@aliel.fr>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 17 Sep 2026 08:06:24 +0000
+Message-Id: <20260917080624.9A4941F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260913205007.118552-2-kieweg.leander@gmail.com>
 
-On Sun, Sep 13, 2026 at 10:50:06PM +0200, Leander Kieweg wrote:
-> Add Device Tree binding documentation for GlandaGPU, a custom
-> FPGA-based 2D display controller.
-> 
-> For hardware designs and RTL sources, see:
-> https://github.com/stiangglanda/GlandaGPU
-> 
-> Signed-off-by: Leander Kieweg <kieweg.leander@gmail.com>
-> ---
->  .../bindings/display/kieweg,gpu.yaml          | 55 +++++++++++++++++++
->  .../devicetree/bindings/vendor-prefixes.yaml  |  2 +
->  2 files changed, 57 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/display/kieweg,gpu.yaml
+> From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+>=20
+> Some values change per variant, add the structure to manage it.
+>=20
+> Add VIM4 specific registers done for a subsequent patch, which will use a
+> new compatible especially to get the right regmap config.
+>=20
+> Add an enum khadas_mcu_type used as value to match.
+>=20
+> Also fix a kernel-doc warning for the khadas_mcu struct.
+>=20
+> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-Best regards,
-Krzysztof
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917-add-mcu-fa=
+n-khadas-vim4-v12-0-497cd543a148@aliel.fr?part=3D1
 
