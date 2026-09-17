@@ -1,146 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mta-65-227.siemens.flowmailer.net (mta-65-227.siemens.flowmailer.net [185.136.65.227])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2906466B0B;
-	Thu, 17 Sep 2026 11:03:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD8564D37DB
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 11:05:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.65.227
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789643024; cv=none; b=a6XveOxds5NopBpmKgZ+t9SxAwJPETq+5nhWdLB6qbMVyle4YW3ZU6zGHaR0zNZdEbMgKnxgrgBuSe1ey0ZYZ8xFv3HvMg6ASPkGi+L55y+/ZX5l4cG3f1z6oQdqZtJPzEpRYtY+r6asxNqKwQrg5WG7A6/ryjPnCPFBtNLHkaY=
+	t=1789643143; cv=none; b=JUPjrll6l4zc+hV/6jESMpz3Vpa9zfkOdLTLRVBYVnZb2dUo4zwBsW5J4XjI7inKmhZEhwn05O7tiJEElnRiIwoAlp7flyLysvq1Q5ugkSj3LmhK8r1JRShJxdRCw1KShMIkbCz8EUoOnDlUMpu4Ix8YL4aEjflVhEtj/4ehQnI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789643024; c=relaxed/simple;
-	bh=B3EPNq22paVC95GrvTEhjPzjAzmVfERgKaz6+c8VjFU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=r4JWFfdtHW/AlJS25EbM6s+td4Fy6GiJkA08OYMHmsbpCjidv3GOHVLeSfuZx4wnqOJKdXzilMtsFlOiXxJE07tdy5jQd6PA0k4Hgr8KTgi8ZflMbIA4oaDDcLkAApVX0WRA4QGrzIH804IBQjRhe+OOUesPzqWJeddxQ4b9W9o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LkvqRZqb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789643143; c=relaxed/simple;
+	bh=VHbxP4NKlWOtSD5WkpNSfXYZrPAY10l7ujxqWk8ocaY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=GoXho2COQ/zJORPMU13KkZ37Bju9NchJy83QG1jpr6A6YSOPxYMpVGh1EGsRGFHopLokeZk1QYg/KlwTA66GXtIl8BJCgZY5g/XfVAXtO3HCMTFyCQqXSqHCCH6+XC2LkWIUzf+b6nWwhH3nqRjMGJV/txkl0j3Ai9JWxkYQDto=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b=Cl+yCq84; arc=none smtp.client-ip=185.136.65.227
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LkvqRZqb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F23201F000FF;
-	Thu, 17 Sep 2026 11:03:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789643011;
-	bh=6xubwqBm89bIscoCpTE9eKryxOoykZ6oVcAfHWWFiOg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LkvqRZqbISuKc22SWGZugKvxYnyN60l7njrfD6NnblSZrhDbnxx8AGWzfkNafKOId
-	 QABHPVCzyZLKqbk+1qT/lS3iShvDnuDepBIlQvIJHKZvHCXLL2f4Ow/5HBg6pNOjoI
-	 DUb/wVJXUVviceW7wpn6vbgEYsGFkv7EWhKZ2P568yFiqLDIqjjkkgrmAV7StJ9cBH
-	 noM78uU4lwshlLuLHiYqtScdVt4cDpTXEf/cSnZhnx676c2RFKYhhxcQZQmMu0pxqK
-	 tentrXwCVUOeYSaNPqztUHztlRcKbWkEpvXuupqGOn3pEPy5Ne31GmNH99Sxhot9kg
-	 BFn1uamErQJww==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] platform: arm64: Add a driver for the EC found on
- ASUS Glymur machines
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Konrad Dybcio" <konradybcio@kernel.org>
-Cc: conor+dt@kernel.org, robh@kernel.org, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260917-topic-asus_ec-v1-2-373516d347ae@oss.qualcomm.com>
-References: <20260917-topic-asus_ec-v1-0-373516d347ae@oss.qualcomm.com>
- <20260917-topic-asus_ec-v1-2-373516d347ae@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 11:03:30 +0000
-Message-Id: <20260917110330.F23201F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="Cl+yCq84"
+Received: by mta-65-227.siemens.flowmailer.net with ESMTPSA id 202609171105203a2bf6d3c40002079c
+        for <devicetree@vger.kernel.org>;
+        Thu, 17 Sep 2026 13:05:20 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm1;
+ d=siemens.com; i=alexander.sverdlin@siemens.com;
+ h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc:References:In-Reply-To;
+ bh=MvfE6RVo7N77d1jPZq+4yUexpW1TVNW5JhHuRAUTj6k=;
+ b=Cl+yCq84xzgJwvOh7DKuyayhyAWyV3Lca8I0hMx1xhKhUMS+cugBPqqs4Id6FYQeEbGTr4
+ 91VN9z3PsTacSI3BXRxftiLdwsGqf3LkKzaM1A8Hs9NSqpqD7FPuzo0PF914Nb6otaIfJeuI
+ 3mSaITvNIs0gjXKh+ATZ9SGYXWoB15+ByGhG4bpyqEJR0vsAi5tPWGEqT5/ZmDGkWzRATegV
+ SZb/ySc2vfkPR7tjkoq59meiV4HdpxjqxZfZrnt3hOLeAFdU9a7rlZ/P495eUD3YY39GNpxf
+ IKcKz2agBIYW/eccWHWIJQLdpCZmNGU8UwweyU3ejP32XH5NkpdK4FeA==;
+From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
+To: dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org
+Cc: Frank Bodammer <frank.bodammer@siemens.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thierry Reding <thierry.reding@gmail.com>,
+	Sam Ravnborg <sam@ravnborg.org>,
+	linux-kernel@vger.kernel.org,
+	Alexander Sverdlin <alexander.sverdlin@siemens.com>
+Subject: [PATCH 2/2] drm/panel: simple: Add support for Truly TFT320240-229-E panel
+Date: Thu, 17 Sep 2026 13:05:15 +0200
+Message-ID: <20260917110517.1053556-3-alexander.sverdlin@siemens.com>
+In-Reply-To: <20260917110517.1053556-1-alexander.sverdlin@siemens.com>
+References: <20260917110517.1053556-1-alexander.sverdlin@siemens.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Flowmailer-Platform: Siemens
+Feedback-ID: 519:519-456497:519-21489:flowmailer
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Low] hwmon: registering device outside drivers/hwmon/ violates subsystem=
- layering
-- [Low] i2c: i2c_device_id array uses positional initializer instead of nam=
-ed
-- [Low] kconfig: unnecessary depends on INPUT for EC_ASUS_GLYMUR config
---
+From: Frank Bodammer <frank.bodammer@siemens.com>
 
-commit 48807c08f64129a6603cbfbeafcd0f00c0ee954d
-Author: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-platform: arm64: Add a driver for the EC found on ASUS Glymur machines
+Add display mode and panel descriptor for the Truly TFT320240-229-E
+LCD panel.
+Register the panel in the of_device_id table with the compatible
+string "truly,tft320240-229-e".
 
-This commit introduces a driver to communicate with the custom Embedded
-Controller found on ASUS Zenbook A14 and A16 laptops based on Qualcomm
-Snapdragon X2 Elite processors. It enables capabilities like fan speed
-monitoring, keyboard backlight control, and receiving various sideband even=
-ts.
+Signed-off-by: Frank Bodammer <frank.bodammer@siemens.com>
+Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+---
+ drivers/gpu/drm/panel/panel-simple.c | 29 ++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
 
-> diff --git a/drivers/platform/arm64/Kconfig b/drivers/platform/arm64/Kcon=
-fig
-> --- a/drivers/platform/arm64/Kconfig
-> +++ b/drivers/platform/arm64/Kconfig
-[ ... ]
-> +config EC_ASUS_GLYMUR
-> +	tristate "ASUS Zenbook A16 (Qualcomm) Embedded Controller driver"
-> +	depends on ARCH_QCOM || COMPILE_TEST
-> +	depends on I2C
-> +	depends on HWMON
-> +	depends on INPUT
+diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
+index c95964ba25a95..bd7f6eaeb0deb 100644
+--- a/drivers/gpu/drm/panel/panel-simple.c
++++ b/drivers/gpu/drm/panel/panel-simple.c
+@@ -5114,6 +5114,32 @@ static const struct panel_desc tpk_f10a_0102 = {
+ 	},
+ };
+ 
++static const struct drm_display_mode truly_tft320240_229_e_mode = {
++	.clock = 6410,
++	.hdisplay = 320,
++	.hsync_start = 320 + 8,
++	.hsync_end = 320 + 8 + 39,
++	.htotal = 320 + 8 + 39 + 4,
++	.vdisplay = 240,
++	.vsync_start = 240 + 8,
++	.vsync_end = 240 + 8 + 8,
++	.vtotal = 240 + 8 + 8 + 4,
++	.flags = DRM_MODE_FLAG_NVSYNC | DRM_MODE_FLAG_NHSYNC,
++};
++
++static const struct panel_desc truly_tft320240_229_e = {
++	.modes = &truly_tft320240_229_e_mode,
++	.num_modes = 1,
++	.bpc = 8,
++	.size = {
++		.width = 70,
++		.height = 53,
++	},
++	.bus_format = MEDIA_BUS_FMT_RGB888_1X24,
++	.bus_flags = DRM_BUS_FLAG_DE_HIGH,
++	.connector_type = DRM_MODE_CONNECTOR_DPI,
++};
++
+ static const struct display_timing urt_umsh_8596md_timing = {
+ 	.pixelclock = { 33260000, 33260000, 33260000 },
+ 	.hactive = { 800, 800, 800 },
+@@ -6167,6 +6193,9 @@ static const struct of_device_id platform_of_match[] = {
+ 	}, {
+ 		.compatible = "tpk,f10a-0102",
+ 		.data = &tpk_f10a_0102,
++	}, {
++		.compatible = "truly,tft320240-229-e",
++		.data = &truly_tft320240_229_e,
+ 	}, {
+ 		.compatible = "urt,umsh-8596md-t",
+ 		.data = &urt_umsh_8596md_parallel,
+-- 
+2.55.0
 
-[Severity: Low]
-Does this driver actually depend on the input subsystem?
-
-Looking at asus-glymur-ec.c, it does not include linux/input.h, register any
-input devices, or call any input APIs. Is it possible to drop this dead
-dependency to prevent unnecessarily restricting the build target?
-
-> +	depends on PM
-> +	depends on THERMAL || THERMAL=3Dn
-> +	select NEW_LEDS
-
-[ ... ]
-
-> diff --git a/drivers/platform/arm64/asus-glymur-ec.c b/drivers/platform/a=
-rm64/asus-glymur-ec.c
-> --- /dev/null
-> +++ b/drivers/platform/arm64/asus-glymur-ec.c
-[ ... ]
-> +static int asus_glymur_ec_probe(struct i2c_client *client)
-> +{
-[ ... ]
-> +	ec->hwmon_dev =3D devm_hwmon_device_register_with_info(dev,
-> +							     "asus_glymur_ec",
-> +							     ec,
-> +							     &asus_ec_hwmon_chip_info,
-> +							     NULL);
-
-[Severity: Low]
-Does registering the hardware monitoring device directly from the platform
-directory bypass the hwmon subsystem layering rules?
-
-According to the subsystem guidelines, if a chip's main functionality is not
-hardware monitoring, its hwmon features should be implemented as an auxilia=
-ry
-device driver residing inside drivers/hwmon/.
-
-> +	if (IS_ERR(ec->hwmon_dev))
-> +		return dev_err_probe(dev, PTR_ERR(ec->hwmon_dev),
-> +				     "Failed to register hwmon\n");
-> +
-> +	return 0;
-> +}
-[ ... ]
-> +static const struct of_device_id asus_glymur_ec_of_match[] =3D {
-> +	{ .compatible =3D "asus,zenbook-a14-ux3407na-ec" },
-> +	{ .compatible =3D "asus,zenbook-a16-ux3607oa-ec" },
-> +	{}
-> +};
-> +MODULE_DEVICE_TABLE(of, asus_glymur_ec_of_match);
-> +
-> +static const struct i2c_device_id asus_glymur_ec_id[] =3D {
-> +	{ "asus-glymur-ec" },
-
-[Severity: Low]
-Is it possible to use named initializers for this i2c_device_id array?
-
-The I2C subsystem guidelines require initialized arrays of this type to use=
- the
-named format (e.g. { .name =3D "asus-glymur-ec" }) rather than a positional
-initializer.
-
-> +	{}
-> +};
-> +MODULE_DEVICE_TABLE(i2c, asus_glymur_ec_id);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917-topic-asus=
-_ec-v1-0-373516d347ae@oss.qualcomm.com?part=3D2
