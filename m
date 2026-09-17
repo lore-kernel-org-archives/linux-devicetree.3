@@ -1,84 +1,131 @@
-Received: from sm24.hosting.reg.ru (sm24.hosting.reg.ru [31.31.198.150])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCD8A51DAFE;
-	Thu, 17 Sep 2026 16:44:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=31.31.198.150
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0CC251EE0F
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 16:47:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789663470; cv=none; b=ZcSRzfaINfe4aU0gv3bT7JOshC5C29OM1XF7EhXsgfJMCzco6FVh0Ec0t0HZVBJ3ddNJj4AJ34faseTZQ+arxrNs9fAxu5XrBUJIZATwMmP5Svn77h7gN24b2H4HGyyZga0pOLG6jZx0crRQQelg2CwgDAdik+wUzFPqFRiGv0g=
+	t=1789663653; cv=none; b=YCTBZ0ctWQG9acwqAOgxNM7V8t1qQaFFNHSJzyNRTjnIMdIzKiXggZO12pS0RBaaKFsvbfnc9Ufot86bpkVkS8Tn+rtoNMVgNvxigHFRdygYMVNDMWLVD91jgXy6RABaAT450xh0a5Td24fDLy5IdRCbMnXUjxQWK91ClNAFfRc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789663470; c=relaxed/simple;
-	bh=XB/w2KjdN0WT16TajgKPI5CXgOF71xFdtBEERo7qQug=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=MJ+QRlSKl8V7dn/prdn2TIKuA5JLrO8n7r6eqzVEy4znEnNsVuFCRtm6jsaQuQsXHS2x9A0CJViNTCZbM/OvVMwPQXxhIFyiZ1bMXs92ePXQqgWrzqCGv3l9CEVS2kbErsSnkt+qvr8Fm92ozeurShC6xzt1zC9MNDPukYW9Pj8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=minlexx.ru; spf=none smtp.mailfrom=minlexx.ru; dkim=pass (1024-bit key) header.d=minlexx.ru header.i=@minlexx.ru header.b=PoyvFpYf; arc=none smtp.client-ip=31.31.198.150
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=minlexx.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=minlexx.ru
+	s=arc-20240116; t=1789663653; c=relaxed/simple;
+	bh=55CtH0fbZAzikPsEz6XWao1uKzcG+VvgI4ZlHllnCxc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=SKdwZkd2p22wR8sVPUB6EZn5iN9aQq9o+1GYLyPR8YXc3KOqIEC7KPC3mlKbADdDb9JG/DRsrw74ph8d6bmpBKwvkdZmr6UjiMczGW6YHaBlfo16vnPKFGHlF/LuGJxUyRp5cY+5oWGAevqExkDJcgOZ/QZ2I+qMGZI2A0t0cT4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jFg0+ET1; arc=none smtp.client-ip=74.125.229.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=minlexx.ru header.i=@minlexx.ru header.b="PoyvFpYf"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=minlexx.ru;
-	s=dkim; h=Cc:To:In-Reply-To:References:Message-Id:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:Subject:Date:From:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=/jYqEZuD4kf4ItHTv1lpi1LyvDnC63rE7RQMViuw13M=; b=PoyvFpYf2UQeVOovH1gAFrgzFs
-	/aoWP9VKNm2T1VXgD4KKqHECl9/G+sem9GfEJ7QWF/Y6qnju1iugM/gwhVIFNe3bKjyf8qV0kWv+H
-	3MISOunogeShgNzwvOzra8ff+At/VV4nI/oTYNbFDryaLT5CkiAlDTL+vii86KK1OrEU=;
-Received: 
-	by sm24.hosting.reg.ru with esmtpsa (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(envelope-from <alexeymin@minlexx.ru>)
-	id 1x7FDl-0000000Bw3I-2i0X;
-	Thu, 17 Sep 2026 19:44:26 +0300
-From: Alexey Minnekhanov <alexeymin@minlexx.ru>
-Date: Thu, 17 Sep 2026 19:43:11 +0300
-Subject: [PATCH v2 9/9] MAINTAINERS: Add Alexey Minnekhanov as maintainer
- for NT36672A panel
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jFg0+ET1"
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f13d76so1104415e87.3
+        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 09:47:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789663650; x=1790268450; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SvabIRYgCeoTg/LgMnCJum3NjuE2OsiV7HRI/rmr7nA=;
+        b=jFg0+ET1kT3JKd24nHSS+Yjm83qCojRCbeKfmWBXqLb7dNZNpgZD7yiS88kxcNLmtN
+         kKWrA/NhsZpkY3nuaxFIQafiqdudAlY1/7z3L8ff148HIQ7AkCGOKPf7FhtTfmFxHsr7
+         sBHkycn41DA6T4VGKuNW9AQr1HOp2AIkePQcqSGmagy88LeOLS9n/ZCseYzO7chhZ1ep
+         mGrFplfOACVl/ZfuEqUcOijvmtY6N+nBDHFyjPpEE+w/80zhjF8BqBC0lWvd4mS36f/l
+         QNvw5hR/cyBUnOZ7xajbgkkHHCAL6MXRKKUMmZgL5D3iryd1A6uGPSEew99hl1gj260+
+         U+5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789663650; x=1790268450;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SvabIRYgCeoTg/LgMnCJum3NjuE2OsiV7HRI/rmr7nA=;
+        b=OchxJNndMojz/EQZVSlASHGCl27CuJ13fCwBsUhu/H8MZAclaEbFbsC060S6vvsGjY
+         c81ALlpDYdRw9K6noUGmOZwAvcOlydQuefH/G3hI2XjswlDfVHvKpE13Hwx3cYSiSomG
+         NyBtZnXamvtchsObw8bF/DMMxf+9IcQvRxmikA0/MChQbOHRuum8KUTwkUl+8r6yyiZo
+         pJ5mP8PZqyVeuLIE27KQf+N9LMpwcjDU6e1pj5vT1CZBk2RsIRmDZ0fTlC3ZGohYGQsn
+         8AV3O2y4FFic7hOHCgud0aq2dN7TkVuLMz10I76ZjoBUe+dPvlG+zQ0Bhs+q5tIH+XRp
+         Ef0Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwwXgyF/w9P3fc8Rk6Ggvl3qADSeJIkInfkFxYoAwMKSPHfpisY2lZhvOY2Sok/izu0fFR57cUdDJ4Z@vger.kernel.org
+X-Gm-Message-State: AFuF++mTyElJ6/l8HBidAEN0ZbTZdTS/1cfj8kaPtj3meXdlMpa8o/AN
+	i9sLxSsqBd3V0lu8cU2ZoI/FAaPXqm+pq+ozi4Hyz2V4rouiEELEG8/XHFe0u9tb
+X-Gm-Gg: AYBFou27CkMXRkLizougm78RtO2mnyZiShKM/hV6BTNAdyQOl6NuwLVyUnQKRFC+nbH
+	GtoE/4Wzy7vQxzBZiSGD1uEiKZF4BKYddqoFaZQ5sFctokQeRUkP8MMEiNckBICAj0D3ICC9O/V
+	1JxviuXZcQcgzaQOfrFxqvg1nFx49RqgrpQhkrHYSkGUe4pwvwmriTNLyR+kRoxL2EGaEGb+gmz
+	Lo605fARN0iZa5x8pdAQQFJT2l0UuoaNT+FL/VVyaOPSW0JJxkyMLCoVyovIKJ8hp8Ltq50FsJB
+	vkSiFkAPUsgRKjjrnkDLs/WXSdLGxvik2rwCTY1NjyLfJM2BI7uZUD4v6SCgr8Iw3vaDcyrf3ZU
+	KGgzHjb+TcCJQ68NTZSn/rBD9+I1OHkPbH1EPQLRkjE83KT4+/1JUW7o1leJbSptuPkKKO4Boju
+	0yjv5/+HYPP7hoIjTsebjxV0nNiS0B2IbfCsDAaW+dkIYMfqp4cIBScy+VClgZd6+ZeGjJfHXXd
+	Q//lg==
+X-Received: by 2002:a05:600c:4e46:b0:49b:8f18:714a with SMTP id 5b1f17b1804b1-49eac467939mr79863725e9.12.1789657786255;
+        Thu, 17 Sep 2026 08:09:46 -0700 (PDT)
+Received: from chicken.. ([2a02:2f02:5101:7300:44c:8311:3d26:e514])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbbcf5277sm96906755e9.3.2026.09.17.08.09.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 08:09:45 -0700 (PDT)
+From: Daniel Matyas <matyasdaniel006@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Daniel Matyas <matyasdaniel006@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Daniel Matyas <matyasdaniel005@gmail.com>,
+	linux-staging@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] dt-bindings: axis-fifo: Added missing binding
+Date: Thu, 17 Sep 2026 18:09:37 +0300
+Message-ID: <20260917150939.477489-1-matyasdaniel006@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <2026091743-sanding-shallow-2472@gregkh>
+References: 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-nt36672a-panels-v2-9-f8de8be5b86f@minlexx.ru>
-References: <20260917-nt36672a-panels-v2-0-f8de8be5b86f@minlexx.ru>
-In-Reply-To: <20260917-nt36672a-panels-v2-0-f8de8be5b86f@minlexx.ru>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: David Heidelberg <david@ixit.cz>, Joel Selvaraj <foss@joelselvaraj.com>, 
- Chintan Patel <chintanlike@gmail.com>, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- phone-devel@vger.kernel.org, Alexey Minnekhanov <alexeymin@minlexx.ru>
-X-Mailer: b4 0.16.0
+Content-Transfer-Encoding: 8bit
 
-List myself as maintainer of Novatek NT36672A panels driver
-to keep a close eye on it.
+On Thu, 17 Sep 2026 12:58:14 +0100 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
 
-Signed-off-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
----
- MAINTAINERS | 1 +
- 1 file changed, 1 insertion(+)
+> On Thu, Sep 17, 2026 at 02:48:48PM +0300, Daniel Matyas wrote:
+> > From: Daniel Matyas <matyasdaniel005@gmail.com>
+> > 
+> > drivers/staging/axis-fifo/axis-fifo.txt file described how the
+> > devicetree of the driver should look like. Convert it to .yaml file.
+> > Issue found by checkpatch.
+> > 
+> > Signed-off-by: Daniel Matyas <matyasdaniel005@gmail.com>
+> > Signed-off-by: Daniel Matyas <matyasdaniel006@gmail.com>
+> 
+> Why twice?
+> 
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 6e50747a621c2..80a065264aa86 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -8393,6 +8393,7 @@ F:	drivers/gpu/drm/panel/panel-novatek-nt36532.c
- 
- DRM DRIVER FOR NOVATEK NT36672A PANELS
- M:	Sumit Semwal <sumit.semwal@linaro.org>
-+M:	Alexey Minnekhanov <alexeymin@minlexx.ru>
- S:	Maintained
- T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
- F:	Documentation/devicetree/bindings/display/panel/novatek,nt36672a.yaml
+Lost access to the first email temporarily. Should I just remove the original email?
 
--- 
-2.55.0
+> > ---
+> > 
+> > Sorry for adding another email. I got locked out of the first one for 30
+> > days...
+> > 
+> > v2: Corrected syntax errors in compatible:
+> > 	xlnx,axis-fifo-mm-s-4.1 -> xlnx,axi-fifo-mm-s-4.1
+> > 	xlnx,axis-fifo-mm-s-4.2 -> xlnx,axi-fifo-mm-s-4.2
+> > 	xlnx,axis-fifo-mm-s-4.3 -> xlnx,axi-fifo-mm-s-4.3
+> > 
+> >  .../axis-fifo/xlnx,axi-fifo-mm-s.yaml         | 257 ++++++++++++++++++
+> >  1 file changed, 257 insertions(+)
+> >  create mode 100644 Documentation/devicetree/bindings/axis-fifo/xlnx,axi-fifo-mm-s.yaml
+> 
+> staging drivers need to be stand-alone, in the drivers/staging/
+> directory, please keep these files there.
+> 
+> thanks,
+> 
+> greg k-h
 
+Does this mean that the staging drivers do not need a devicetree? Should I just
+drop this patch entirely?
+
+Thank you,
+
+Daniel M
+
+Sent using hkml (https://github.com/sjp38/hackermail)
