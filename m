@@ -1,110 +1,170 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-43171.protonmail.ch (mail-43171.protonmail.ch [185.70.43.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 279923A6B67;
-	Thu, 17 Sep 2026 06:38:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 026634349BE
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 06:40:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789627119; cv=none; b=qUHsuyQAZGoq+W+AiB26cUpFRFH+DWvKPjZz8zwUaJJEpwz0UOlNkFIGLSmdMri9zg3YLhP2IiK/5HikeuK7zFbENdFEE/8lrgz0nFDkzKJgqmUlHWGm+GOOKHUgkEr9ApGRjKtz2Dc3pQSCGHAogKVEdsbA957wOFw8cCslFHw=
+	t=1789627214; cv=none; b=AxcVCg6URWEUxZldQks3WZdR05PRHruMIxLfmBATf69EaH2x+zFH4OxL0LXcCdhHQyzqZ7FtYmqfhXJPVIJz7aQW/Ck0YFmg+dbn0Jb8B2frgqQEyEnFvx8c7p5pst1djcEGeHoAXqnB4lpNoM3127Q1Tb4DICr3wT9RpyQu8Zg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789627119; c=relaxed/simple;
-	bh=hhGbqVufhLsUZEnBW//RxZ8MFaXiWC8HqspoSuMWRrQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BfKV4dm5ygaPnFNIdsvgFf1gWhIL1bASIXjMwasOYhqVh+VpAkJCDQU8HAvpi6c4CarAU4fNzXXY+Q6V4VBG9NAoHjMWiuZyLRVLP2wm8oamYxBVBfCU5n9F2Tmon8MEnADzbPZnkuDzmv4wv54AJ0MV1gSKWa6hdyWYlCBivq4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=enuMN46R; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789627214; c=relaxed/simple;
+	bh=f1QRepBbWZ/l8660Nq06d26o8HeFv0/fKHJXcSIt6GI=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=hMhTSNcFgLs2zOgsuGKsGHmcwCH3qQaYRcgOui7MEZoSwvwM7gHJq6bPErugKeTWKqksp7yd6FaEGWUcf74PZ9ZpBv+Q23sCKeDnEkBI8LS6BxsBOkHCYe0P9PA7yhNXiBGLUwjiNb3Ps77VKDmiLg54BMfLE9OTQrdvp4D7Yuc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=u7btnMhk; arc=none smtp.client-ip=185.70.43.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="enuMN46R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02FE41F000FF;
-	Thu, 17 Sep 2026 06:38:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789627117;
-	bh=9dJ68ZWsqVvUWfJB/scGH7QRIMOzdbiZx78+q89XPkM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=enuMN46RPXgkfy/Uksaq0yvgocL6gqsPWdHqyM01ufoiVoGGNi+drpcchnfu4fAcR
-	 liQnunLzm7dZZyamy3L9BG/5EKCa7BYyv9etGVxbUcOIQ9BgySwMVShjXM2djb/aQs
-	 FEKBpnIK8E5C+AYrTyR0/VQlWVEt1q7ILckSu3JNF/zXB0NywBtgxQRYjViOwczR7W
-	 F8BShz1vts43Ee/6WEOSRH4/7ObR+45H8y1qkhUa1GtF70IrgNmisoyYOTAoSLFPHy
-	 sS7VCv7euUjNljPm6JHqDbZsJfPTi2yk96F3gBl/8RxXpCqHXUtztu8s0ZgAeTNosb
-	 4Ua30bg+fUGPA==
-Message-ID: <d0ba41a2-6d4b-4bba-b147-d287bcd9b179@kernel.org>
-Date: Thu, 17 Sep 2026 08:38:33 +0200
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="u7btnMhk"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail; t=1789627208; x=1789886408;
+	bh=7IMNOjt0Ppv/0nXgXbNNXUVyv/GVippRssUgg0KAhJg=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=u7btnMhk20zG/gaqDh4pRNnp/JvZ1PV3OekOxwfvgyBQFEPeYYvRw6t/WPOLpK381
+	 ze8i/TViXAV4VqpPGpS4Fkg7ufdN0T7vEbW/XtNH5CuhAPiv+7UlRfnS4su/PGhNeo
+	 Aw+OWm4zV4UJP+S/K2D35OjRXWr+vj7SygvPbN9To1UkHVR3RxdAuhEPwq/sjjs1ug
+	 qzscl9oZPOA61XWBJ9yVW3o//HxMuzNfIP1/Fu6tNPBkMEG4zBcrhi4xGtF27MsW2O
+	 dFn+FW6Ovr/1kRit8n2Hld7bjq1haCib3cFBHRurCaQdeNHTywSvH+dPEi+VB7llp3
+	 iO0lbGqsAbvUg==
+X-Pm-Submission-Id: 4hlmMp5NLYz1DDrw
+From: Esben Haabendal <esben@geanix.com>
+To: <sashiko-reviews@lists.linux.dev>
+Cc: <robh@kernel.org>,  <conor+dt@kernel.org>,  <devicetree@vger.kernel.org>
+Subject: Re: [PATCH v9 10/10] iio: accel: mma8452: Support interrupt sharing
+In-Reply-To: <20260916083119.03A8F1F000FF@smtp.kernel.org>
+References: <20260916-mma8452-open-drain-v9-0-0dd24fa2f3d7@geanix.com>
+	<20260916-mma8452-open-drain-v9-10-0dd24fa2f3d7@geanix.com>
+	<l9LG3al0xmawstyXcDwD8OhOBMwn13q6oz0NvCPy4kL0lA4DX5biMlUWcvt9Wwu1AiyugOvUZgQfnFJ4dvuvbA==@protonmail.internalid>
+	<20260916083119.03A8F1F000FF@smtp.kernel.org>
+Date: Thu, 17 Sep 2026 08:40:06 +0200
+Message-ID: <87se38754p.fsf@geanix.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: misc: add xlnx,axi-fifo-mm-s
-To: Omer PALA <palaomer100@gmail.com>, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260917060948.14700-1-palaomer100@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260917060948.14700-1-palaomer100@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-On 17/09/2026 08:09, Omer PALA wrote:
-> Add Device Tree binding documentation for the Xilinx AXI FIFO
-> Memory Mapped Stream IP core, covering compatible strings
-> from version 4.1 through 4.3.
-> 
-> Signed-off-by: Omer PALA <palaomer100@gmail.com>
-> ---
->  .../bindings/misc/xlnx,axi-fifo-mm-s.yaml     | 228 ++++++++++++++++++
->  1 file changed, 228 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
-> 
+<sashiko-bot@kernel.org> writes:
 
-Same day? Are you coordinating this anyhow?
-https://lore.kernel.org/all/20260916201253.483877-1-matyasdaniel005@gmail.com/
+> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
+> - [Critical] iio: accel: mma8452: Interrupt storm livelock when IRQ fires during RPM_SUSPENDING
+> - [High] iio: accel: mma8452: Invalid I2C access during system suspend due to mishandled -EINVAL
+> - [Medium] iio: accel: mma8452: Race condition in probe error path due to pm_runtime_disable() before free_irq()
+> --
+>
+> commit bf19c63685f6fff116a3a5358196fd66dff6090a
+> Author: Esben Haabendal <esben@geanix.com>
+>
+> iio: accel: mma8452: Support interrupt sharing
+>
+> This commit adds support for shared interrupts to the mma8452 driver. It
+> modifies the interrupt handler to check the runtime PM status and ignores
+> the interrupt if the device is suspended. It also updates the runtime
+> suspend and resume paths to properly disable and restore interrupt sources.
+>
+>> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
+>> index 5aea6bf3312af..2a980c0c2e03a 100644
+>> --- a/drivers/iio/accel/mma8452.c
+>> +++ b/drivers/iio/accel/mma8452.c
+>
+> [ ... ]
+>
+>> @@ -1086,15 +1088,28 @@ static irqreturn_t mma8452_interrupt(int irq, void *p)
+>>  {
+>>  	struct iio_dev *indio_dev = p;
+>>  	struct mma8452_data *data = iio_priv(indio_dev);
+>> +	struct device *dev = &data->client->dev;
+>>  	irqreturn_t ret = IRQ_NONE;
+>> +	int pm_status;
+>>  	int src;
+>>
+>> +	pm_status = pm_runtime_get_if_active(dev);
+>> +	if (pm_status == 0)
+>> +		return IRQ_NONE; /* device is powered down */
+>
+> [Severity: Critical]
+> If the device asserts its level-triggered interrupt when the PM core is
+> transitioning the device to RPM_SUSPENDING (e.g., when the autosuspend
+> timer expires), pm_runtime_get_if_active() will return 0.
+>
+> Does returning IRQ_NONE without clearing the hardware interrupt here cause
+> a permanent interrupt storm? Since the IRQ line is shared and unmasked upon
+> return, the still-asserted hardware interrupt might immediately re-trigger
+> the handler, potentially starving the worker thread that executes
+> mma8452_runtime_suspend() and hard-locking the system.
 
-Anyway, same answer.
+This should be handled by the disable of all interrupt sources (clearing
+CTRL_REG4) in mma8452_runtime_suspend().
 
-Best regards,
-Krzysztof
+> [Severity: High]
+> During system suspend, pm_runtime_force_suspend() disables runtime PM,
+> which increments the disable depth. If a shared interrupt fires during this
+> window, pm_runtime_get_if_active() returns -EINVAL.
+>
+> Since this check only catches pm_status == 0, does this allow the handler
+> to proceed and perform I2C reads on unpowered hardware? Per subsystem
+> guidelines, should this check for pm_status <= 0 instead?
+
+If we bail out on pm_status <= 0, the driver would not work on systems
+with CONFIG_PM not enabled.
+
+In order to handle the difference betwen the different reasons for
+-EINVAL, it would seem like we would need some #ifdef CONFIG_PM in here.
+Do we really want to do that?
+
+>> +
+>> +	/*
+>> +	 * pm_status is now 1 or -EINVAL. If pm_status==1, runtime PM is enabled
+>> +	 * and device is RPM_ACTIVE. If pm_status==-EINVAL, runtime PM is
+>> +	 * disabled (e.g. CONFIG_PM not enabled), and we can/must assume device
+>> +	 * is active.
+>> +	 */
+>> +
+>>  	src = i2c_smbus_read_byte_data(data->client, MMA8452_INT_SRC);
+>
+> [ ... ]
+>
+>> @@ -1771,11 +1790,12 @@ static void mma8452_remove(struct i2c_client *client)
+>>
+>>  	iio_device_unregister(indio_dev);
+>>
+>> -	pm_runtime_disable(dev);
+>> -	pm_runtime_set_suspended(dev);
+>> -
+>>  	if (client->irq)
+>>  		free_irq(client->irq, indio_dev);
+>> +	/* No irq will fire beyond this point */
+>> +
+>> +	pm_runtime_disable(dev);
+>> +	pm_runtime_set_suspended(dev);
+>
+> [Severity: Medium]
+> This correctly fixes the race in mma8452_remove() by moving free_irq()
+> before pm_runtime_disable(), but does the same race still exist in the
+> mma8452_probe() error path?
+>
+> If mma8452_probe() fails after pm_runtime_enable(), it jumps to the
+> runtime_suspend label:
+>
+>   mma8452_probe() {
+>       /* ... */
+>   runtime_suspend:
+>       pm_runtime_disable(dev);
+>       pm_runtime_set_suspended(dev);
+>
+>   free_irq:
+>       if (client->irq)
+>           free_irq(client->irq, indio_dev);
+>       /* ... */
+>   }
+>
+> If a shared interrupt fires between pm_runtime_disable() and free_irq(),
+> could the handler attempt to access unpowered hardware?
+
+I will apply the same reordering in mma8452_probe().
+
+/Esben
