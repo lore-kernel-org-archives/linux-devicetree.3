@@ -1,408 +1,485 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D7404A2621;
-	Thu, 17 Sep 2026 12:24:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 427474E2342
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 12:25:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789647885; cv=none; b=Ji0VPtooZX7bkH+q4d4fhyHmGKrjWKvjyFhec7Jdnjc0JCf2uyciOOc8WLcXokmhBwMSzfZRflXRTe8Xm0fqzXdCKp4APZLrgmS5/+uc205zEcu2lb/rLtUrgteEsIt0fNwLS9g/6wluEPydRtyWzJb3Z9p0hor1CbvSv7DCQrY=
+	t=1789647925; cv=none; b=C4Woo7cTRTmMS+S+inpigbhP4G3tBkQ9galQeyKlcSZAd1b80j6MaaYcy6yjLH6eFJQWkYx0bH2M13FdOMdYD7WgdJkxyDSmpSbIl0v71KWK0U3/w6M/kiC+zaKx9c8QJFq9LkvAX4AhuHW4mKr10AHWefCzoCrrcTE96PJttHw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789647885; c=relaxed/simple;
-	bh=sq/OIQZ8Y+FiicMVNYCfF3nklWb6bLTU6PnU8h07U5o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ERvCuHWwe1EoEJgHAEqfFpSNHREa6YD8DItCJUz3sYjynEzPdIqArVLvLlhWaDx01y+IOhOjPt48b9j3dQ1oXeGX7z+Q4g0K0j2BhDy3CBgAZzSj/xedN9Ysix0grr1XZ7AQ3vRzWWvabJASDetyKjumKZ9WEpXcGBpT6spqqQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mYIgPzsM; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789647925; c=relaxed/simple;
+	bh=lENgwXy7qwW05ty0HlDPN/CGtkvBF50e1IFqw3md9Ag=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=RoUKYq2+nch4aX3cvBahZ+4VaNWK9EgKvBa7GgqbdRykNJE4I80ZMxbqAR5xutWdxObSr0VXTGkSB/niJz67gZfVkqbM9Oud5yerbuoomVKxe3G1kutfwWLJjJr4AZB0WNOCFgWQFqWFkmHIcCCSu6ikwr8mGIKcJQ/6RSI9AlU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TWMt3737; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mYIgPzsM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789647881; x=1821183881;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=sq/OIQZ8Y+FiicMVNYCfF3nklWb6bLTU6PnU8h07U5o=;
-  b=mYIgPzsMEHx8l83xJsEymBzyrZCS2Wdhgn3rCkZNe2IrsHvO5jkkv1rU
-   7ARsw1JL4sXp1UBbZaJvYDPvp7A57dE66z5Ru5aav+V0F3q56SWP1lvND
-   NrhL5E7Tk2XYL5oWTD2oHBx1dx5l+mLFtGmQoRbKi3dUdazwlqRjIcfjQ
-   AmeEraCQ94I+fihi7bSNmQIbZ34OotWM4+3XbnTqJ6qVrx5KlhYi2eRpP
-   65JejZTB6/cnhPIzu+wwm72DH2NDrc/MwBOgctAUUTpt6y4lV/UMR1kuZ
-   LM3Z9pJNT9F6qT7GyejPJS40IozWNYRr2mG5fTex33HZ6d376xm9c3RNG
-   Q==;
-X-CSE-ConnectionGUID: NPvPeJ9eSZS5DtF0zJXxAw==
-X-CSE-MsgGUID: 0VLat/sPTK2omiyOaTSCrA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="101407213"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="101407213"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 05:24:35 -0700
-X-CSE-ConnectionGUID: KcN01iaQT6GVoPxb26RArw==
-X-CSE-MsgGUID: ysCKns8ETAK9mdjgCa0pZQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="1942251"
-Received: from alekseim-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.32])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 05:24:33 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 6ACC511FB34;
-	Thu, 17 Sep 2026 15:24:30 +0300 (EEST)
-Date: Thu, 17 Sep 2026 15:24:30 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Cc: Philippe Baetens <philippebaetens@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TWMt3737"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485933b2522so564485f8f.0
+        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 05:25:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789647916; x=1790252716; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MeIgvphI+LPzS5P0ex7mko96E1kXXs3hCH7XitTslVA=;
+        b=TWMt3737aRM0TuasAdJAhjjxbOs4BmzuMqqp8y2DqNTNW8cwbjqs+2Lp5y1SkpvXL5
+         btDQZ4zPmX3NOr8KYZH6ginSW3aGoy/LhjVqti4L2sQvPgAUEQEcDBdnE4wzByNWYjAH
+         Xjk4SGkCkq6JLAEq2i5/6X4UF/ZPdXge8vkbH+wcBTr+BfKfRe2HVeLn7ZrOw8/34ch3
+         /MTOav9/dMe+v88cOZu8CFO8Be5GqEKScUeo659vCIg2Nh9VbFM1lL20hgqgxLS6gj+V
+         6KvdB6bltFYmxMOJy+MnAqQ4aOQwdIXAvj1z78ZZtvCQuh7x7SSPwyOmcfY3YPuiTBTu
+         xqVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789647916; x=1790252716;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MeIgvphI+LPzS5P0ex7mko96E1kXXs3hCH7XitTslVA=;
+        b=MGNVX6K1SOfznKCUTEveCyKGODZ9nXDDxcXI8aHk5VAcoBhXO7+BFmy6LjnrJYw2MS
+         QHwPIqZfjfbaxk4MC55QfeiDoArtAvL6B7HdR9gytj0x4qmdptAI9EIrdiXWHP7Dx1Q5
+         uDVNQisI6AleJ8O7Ws/9VWCVWzYmOGFTl6Wv6Ko4I6PXfxMasavuYC0mGgHAyDVjXvYW
+         F8N5SLF98ojQWe6GdOzbzMmyBrSP/sWj9DAuG3N5rq3AK274UmwuuSMQOrpRbWoYsJkB
+         apTqeypiB8DdNEp2TFo8+WyWWC/95XalGvKu3AvoUy7KCcVdh/c0Il5okpkfcw0kgYyj
+         J+aw==
+X-Forwarded-Encrypted: i=1; AKwUvBwc/zfj70RGHQh90s4Y1SGxqrvihQpy5JxN47h8a0PWtyuooQA8kIgDr0VfDSJlPqAPBGgxk4zhU/8K@vger.kernel.org
+X-Gm-Message-State: AFuF++lkOKYq8HEADR8FQdlV+uX2mwd2OsOwu/nVMA6eEFkmwAShiXoM
+	fPne0XEaaQiX3B6nHjPr/nGDVulPIQ+2aJrS3lJgdf+SSXAoySRMsK/7
+X-Gm-Gg: AYBFou3IcjTenj5IbYSNnkiyGGbzf7pfwYznddOrNgAn/+69ZSvGeF3OfCXaRNTZaeM
+	8aRqyywJqD/cuKEJHDCKC6+WNRJLB9oVF/O6D3EhiRvfBY2f+33QLMB4rdHzJUfmhwiAU8iKlvc
+	sGD0PtXpntrmM41qDNPEa4KYUISJbuC1JCvoWnXGLydc+G9oWEcq4e3ojTAjRddxFAkvqo9OeSE
+	1Aj5m3oAtLZW4KuA/rfXEdNe+beeja2p0KpdXoKDNWgcktBCqjjEjq/OPN3CuOAAxne4WyAFeP1
+	8hWegbqi3hlIB5NAjCV47j+eVd3sAxKAB8QY6ErskSScirVSMsIRwt6QuaO9eVIoCULT+YNQLaA
+	Fr3H6djIOxKa85Cdz09DxUJLUe1uYiPZSTH8IdZ55DYdhn9Hx0xllBh6uGaTMhi29uOP/5+pFwW
+	VtvylFpITErlE4Q5ajsVBDgxn1/dlsPu8faSrvOb2tRIEH+bMCtaBLLrNElGQ4BR/YmKLke8VUn
+	TQc7fcdkH4yfmE93Iq/ieaw7+DFbefSbDdAZKr/Z3JKyXg=
+X-Received: by 2002:a05:6000:1a86:b0:487:10b5:a88a with SMTP id ffacd0b85a97d-48710b5a941mr11468742f8f.9.1789647915655;
+        Thu, 17 Sep 2026 05:25:15 -0700 (PDT)
+Received: from zeus.localdomain (212.71.14.70.adsl.dyn.edpnet.net. [212.71.14.70])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf27ce2sm15276567f8f.20.2026.09.17.05.25.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 05:25:15 -0700 (PDT)
+From: Sander Speetjens <sander.speetjens@gmail.com>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>,
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v11 2/2] media: i2c: Add driver for AMS-OSRAM Mira220
-Message-ID: <aqvb_n-aPcXLnEa7@kekkonen.localdomain>
-References: <20260731-mira220-v11-0-1295fe17021d@ideasonboard.com>
- <20260731-mira220-v11-2-1295fe17021d@ideasonboard.com>
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Jonathan Bell <jonathan@raspberrypi.com>,
+	Stefan Wahren <wahrenst@gmx.net>,
+	linux-rtc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	sander.speetjens@gmail.com,
+	Dom Cobley <popcornmix@gmail.com>
+Subject: [PATCH v2 2/2] rtc: Add Raspberry Pi 5 RTC driver
+Date: Thu, 17 Sep 2026 14:21:44 +0200
+Message-ID: <20260917122144.703221-3-sander.speetjens@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260917122144.703221-1-sander.speetjens@gmail.com>
+References: <20260917122144.703221-1-sander.speetjens@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260731-mira220-v11-2-1295fe17021d@ideasonboard.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Jacopo,
+Upstreaming the downstream Raspberry Pi 5 RTC driver.
+This driver supports the custom DA9091, which is accessed through the firmware mailbox.
 
-Just a few comments...
+V1 -> V2:
+Instead of the original driver, which was directly bound to the device tree. This driver is bound to the Raspberry Pi firmware device by creating a child device in the firmware driver probe function. The child device is then bound to this driver, which uses the firmware mailbox to access the RTC.
 
-On Fri, Jul 31, 2026 at 05:28:20PM +0200, Jacopo Mondi wrote:
-> From: Philippe Baetens <philippebaetens@gmail.com>
-> 
-> Add a V4L2 subdev driver for driver for the AMS-OSRAM Mira220 image
-> sensor.
-> 
-> Mira220 is a global shutter image sensor with a resolution of 1600x1400
-> pixels.
-> 
-> The driver implements support for mono and RGB 12, 10 and 8 bits
-> formats. The output data-rate per lane is 1500Mbit/s, with a maximum
-> frame rate up to 90 fps.
-> 
-> Signed-off-by: Philippe Baetens <philippebaetens@gmail.com>
+A couple of minor changes have been made to the driver since it was originally written, including:
+- Checking if the model is a Raspberry Pi 5, as the RTC is only present on that model.
+- Using the new devm_rpi_firmware_get() and devm_init_wakeup() helper to get the firmware device and avoid leaking memory.
+- Using millivolts instead of microvolts for the trickle charge voltage, to match the RTC standard.
+- Instead of setting the trickle charge voltage to 0 to disable trickle charging, the property is now optional. If the property is not present, trickle charging is disabled, per the RTC standard.
+- Renaming the driver dt match compatible to "raspberrypi,firmware-rtc" to match the other firmware bindings.
+- Renaming the driver name to "raspberrypi-rtc" to match the other firmware drivers.
 
-Should there be Co-developed-by: tag here?
+Signed-off-by: Jonathan Bell <jonathan@raspberrypi.com>
+Signed-off-by: Dom Cobley <popcornmix@gmail.com>
+Signed-off-by: Sander Speetjens <sander.speetjens@gmail.com>
+---
+ drivers/firmware/raspberrypi.c |  19 +++
+ drivers/rtc/Kconfig            |  11 ++
+ drivers/rtc/Makefile           |   1 +
+ drivers/rtc/rtc-raspberrypi.c  | 277 +++++++++++++++++++++++++++++++++
+ 4 files changed, 308 insertions(+)
+ create mode 100644 drivers/rtc/rtc-raspberrypi.c
 
-> Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-> Reviewed-by: Jai Luthra <jai.luthra@ideasonboard.com>
-> 
-
-...
-
-> +/* Initialize control handlers */
-> +static int mira220_init_controls(struct mira220 *mira220)
-> +{
-> +	struct i2c_client *client = v4l2_get_subdevdata(&mira220->sd);
-> +	struct v4l2_ctrl_handler *ctrl_hdlr;
-> +	struct v4l2_fwnode_device_properties props;
-> +	struct v4l2_ctrl *link_freq;
-> +	struct v4l2_ctrl *hblank;
-> +	u32 max_exposure = 0;
-> +	u32 min_vblank;
-> +	u32 hblank_val;
-> +	int ret;
-> +
-> +	ctrl_hdlr = &mira220->ctrl_handler;
-> +	ret = v4l2_ctrl_handler_init(ctrl_hdlr, 12);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* By default, PIXEL_RATE is read only */
-> +	v4l2_ctrl_new_std(ctrl_hdlr, &mira220_ctrl_ops, V4L2_CID_PIXEL_RATE,
-> +			  MIRA220_PIXEL_RATE, MIRA220_PIXEL_RATE, 1,
-> +			  MIRA220_PIXEL_RATE);
-> +
-> +	min_vblank = mira220_calc_min_vblank(mira220);
-> +	mira220->vblank = v4l2_ctrl_new_std(ctrl_hdlr, &mira220_ctrl_ops,
-> +					    V4L2_CID_VBLANK,
-> +					    min_vblank, MIRA220_MAX_VBLANK, 1,
-> +					    min_vblank);
-> +
-> +	link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr, NULL, V4L2_CID_LINK_FREQ,
-> +					   0, 0, &mira220_link_freqs[0]);
-> +
-> +	/*
-> +	 * Scale hblank according to the number of enabled data lanes to match
-> +	 * row_length.
-> +	 */
-> +	hblank_val = MIRA220_LLP_1600x1400_304 * (2 / mira220->lanes)
-> +		   - MIRA220_PIXEL_ARRAY_WIDTH;
-> +	hblank = v4l2_ctrl_new_std(ctrl_hdlr, NULL, V4L2_CID_HBLANK, hblank_val,
-> +				   hblank_val, 1, hblank_val);
-> +
-> +	/* Max exposure is determined by vblank + vsize and Tglob. */
-> +	max_exposure = mira220_calc_exposure(mira220,
-> +					     MIRA220_PIXEL_ARRAY_HEIGHT,
-> +					     min_vblank);
-> +	mira220->exposure = v4l2_ctrl_new_std(ctrl_hdlr, &mira220_ctrl_ops,
-> +					      V4L2_CID_EXPOSURE,
-> +					      MIRA220_EXPOSURE_MIN,
-> +					      max_exposure, 1,
-> +					      MIRA220_DEFAULT_EXPOSURE);
-> +
-> +	v4l2_ctrl_new_std(ctrl_hdlr, NULL, V4L2_CID_ANALOGUE_GAIN,
-> +			  MIRA220_ANALOG_GAIN_MIN, MIRA220_ANALOG_GAIN_MAX,
-> +			  MIRA220_ANALOG_GAIN_STEP,
-> +			  MIRA220_ANALOG_GAIN_DEFAULT);
-> +
-> +	mira220->hflip = v4l2_ctrl_new_std(ctrl_hdlr, &mira220_ctrl_ops,
-> +					   V4L2_CID_HFLIP, 0, 1, 1, 0);
-> +
-> +	mira220->vflip = v4l2_ctrl_new_std(ctrl_hdlr, &mira220_ctrl_ops,
-> +					   V4L2_CID_VFLIP, 0, 1, 1, 0);
-> +
-> +	v4l2_ctrl_new_std_menu_items(ctrl_hdlr, &mira220_ctrl_ops,
-> +				     V4L2_CID_TEST_PATTERN,
-> +				     ARRAY_SIZE(mira220_test_pattern_menu) - 1,
-> +				     0, 0, mira220_test_pattern_menu);
-> +
-> +	v4l2_fwnode_device_parse(&client->dev, &props);
-> +	v4l2_ctrl_new_fwnode_properties(ctrl_hdlr, &mira220_ctrl_ops,
-> +					&props);
-> +
-> +	if (ctrl_hdlr->error) {
-> +		ret = ctrl_hdlr->error;
-> +		goto error;
-> +	}
-> +
-> +	mira220->vflip->flags |= V4L2_CTRL_FLAG_MODIFY_LAYOUT;
-> +	mira220->hflip->flags |= V4L2_CTRL_FLAG_MODIFY_LAYOUT;
-> +	link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-> +	hblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-> +
-> +	mira220->sd.ctrl_handler = ctrl_hdlr;
-> +
-> +	return 0;
-> +
-> +error:
-> +	v4l2_ctrl_handler_free(ctrl_hdlr);
-> +	return ret;
-
-You can return ctrl_hdlr->error here and omit assigning ret.
-
-> +}
-> +
-> +static int mira220_parse_endpoint(struct device *dev, struct mira220 *mira220)
-> +{
-> +	struct fwnode_handle *endpoint __free(fwnode_handle) = NULL;
-> +	struct v4l2_fwnode_endpoint ep_cfg = {
-> +		.bus_type = V4L2_MBUS_CSI2_DPHY
-> +	};
-> +	unsigned long bitmap;
-> +
-> +	endpoint = fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 0, 0);
-> +	if (v4l2_fwnode_endpoint_alloc_parse(endpoint, &ep_cfg))
-> +		return dev_err_probe(dev, -EINVAL, "Failed to parse endpoint\n");
-> +
-> +	/* Non-continuous mode not implemented. */
-> +	if (ep_cfg.bus.mipi_csi2.flags & V4L2_MBUS_CSI2_NONCONTINUOUS_CLOCK) {
-> +		v4l2_fwnode_endpoint_free(&ep_cfg);
-
-I recall I've commented about this before -- please do switch to goto-based
-error handling when you need to unwind something in more than one case.
-
-These probably apply to the mira016 driver, too. How much do these two have
-in common btw.?
-
-> +		return dev_err_probe(dev, -EINVAL,
-> +				     "clock non-continuous mode not supported\n");
-> +	}
-> +
-> +	/*
-> +	 * Link frequencies: the driver supports a single link frequency,
-> +	 * no need to check bitmap after this call.
-> +	 */
-> +	if (v4l2_link_freq_to_bitmap(dev, ep_cfg.link_frequencies,
-> +				     ep_cfg.nr_of_link_frequencies,
-> +				     mira220_link_freqs,
-> +				     ARRAY_SIZE(mira220_link_freqs),
-> +				     &bitmap)) {
-> +		v4l2_fwnode_endpoint_free(&ep_cfg);
-> +		return -EINVAL;
-> +	}
-> +
-> +	/* Check the number of MIPI CSI2 data lanes */
-> +	if (ep_cfg.bus.mipi_csi2.num_data_lanes != 1 &&
-> +	    ep_cfg.bus.mipi_csi2.num_data_lanes != 2) {
-> +		v4l2_fwnode_endpoint_free(&ep_cfg);
-> +		return dev_err_probe(dev, -EINVAL,
-> +				     "%u data lanes are not supported\n",
-> +				      ep_cfg.bus.mipi_csi2.num_data_lanes);
-> +	}
-> +
-> +	mira220->lanes = ep_cfg.bus.mipi_csi2.num_data_lanes;
-> +	v4l2_fwnode_endpoint_free(&ep_cfg);
-> +
-> +	return 0;
-> +}
-> +
-> +static int mira220_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev = &client->dev;
-> +	struct mira220 *mira220;
-> +	int ret;
-> +
-> +	mira220 = devm_kzalloc(&client->dev, sizeof(*mira220), GFP_KERNEL);
-> +	if (!mira220)
-> +		return -ENOMEM;
-> +
-> +	v4l2_i2c_subdev_init(&mira220->sd, client, &mira220_subdev_ops);
-> +	mira220->sd.internal_ops = &mira220_internal_ops;
-> +
-> +	ret = mira220_parse_endpoint(dev, mira220);
-> +	if (ret)
-> +		return ret;
-> +
-> +	mira220->regmap = devm_cci_regmap_init_i2c(client, 16);
-> +	if (IS_ERR(mira220->regmap))
-> +		return dev_err_probe(dev, PTR_ERR(mira220->regmap),
-> +				     "failed to initialize CCI\n");
-> +
-> +	/* Get system clock (xclk) */
-> +	mira220->xclk = devm_v4l2_sensor_clk_get(dev, NULL);
-> +	if (IS_ERR(mira220->xclk))
-> +		return dev_err_probe(dev, PTR_ERR(mira220->xclk),
-> +				     "failed to get xclk\n");
-> +
-> +	mira220->xclk_freq = clk_get_rate(mira220->xclk);
-> +	if (mira220->xclk_freq != MIRA220_SUPPORTED_XCLK_FREQ) {
-> +		dev_err(dev, "xclk frequency not supported: %d Hz\n",
-> +			mira220->xclk_freq);
-> +		return -EINVAL;
-> +	}
-> +
-> +	ret = mira220_get_regulators(mira220);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to get regulators\n");
-> +
-> +	mira220->reset_gpio = devm_gpiod_get_optional(dev, "reset",
-> +						      GPIOD_OUT_HIGH);
-> +	if (IS_ERR(mira220->reset_gpio))
-> +		return dev_err_probe(dev, PTR_ERR(mira220->reset_gpio),
-> +				     "failed to get reset gpio\n");
-> +
-> +	ret = mira220_power_on(dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Enable runtime PM and power on the device */
-> +	pm_runtime_set_active(dev);
-> +	pm_runtime_enable(dev);
-> +
-> +	ret = mira220_identify_module(mira220);
-> +	if (ret)
-> +		goto error_power_off;
-> +
-> +	ret = mira220_init_controls(mira220);
-> +	if (ret)
-> +		goto error_power_off;
-> +
-> +	/* Initialize subdev */
-> +	mira220->sd.internal_ops = &mira220_internal_ops;
-> +	mira220->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
-> +	mira220->sd.entity.function = MEDIA_ENT_F_CAM_SENSOR;
-> +
-> +	/* Initialize source pads */
-> +	mira220->pad.flags = MEDIA_PAD_FL_SOURCE;
-> +
-> +	ret = media_entity_pads_init(&mira220->sd.entity, 1, &mira220->pad);
-> +	if (ret) {
-> +		dev_err_probe(dev, ret, "failed to init entity pads\n");
-> +		goto error_handler_free;
-> +	}
-> +
-> +	mira220->sd.state_lock = mira220->ctrl_handler.lock;
-> +	ret = v4l2_subdev_init_finalize(&mira220->sd);
-> +	if (ret < 0) {
-> +		dev_err_probe(dev, ret, "subdev init error\n");
-> +		goto error_media_entity;
-> +	}
-> +
-> +	ret = v4l2_async_register_subdev_sensor(&mira220->sd);
-> +	if (ret < 0) {
-> +		dev_err_probe(dev, ret,
-> +			      "failed to register sensor sub-device\n");
-> +		goto error_subdev_cleanup;
-> +	}
-> +
-> +	pm_runtime_set_autosuspend_delay(dev, 1000);
-> +	pm_runtime_use_autosuspend(dev);
-> +	pm_runtime_idle(dev);
-> +
-> +	return 0;
-> +
-> +error_subdev_cleanup:
-> +	v4l2_subdev_cleanup(&mira220->sd);
-> +error_media_entity:
-> +	media_entity_cleanup(&mira220->sd.entity);
-> +error_handler_free:
-> +	v4l2_ctrl_handler_free(mira220->sd.ctrl_handler);
-> +error_power_off:
-> +	pm_runtime_disable(dev);
-> +	mira220_power_off(dev);
-> +	pm_runtime_set_suspended(dev);
-> +	return ret;
-> +}
-> +
-> +static void mira220_remove(struct i2c_client *client)
-> +{
-> +	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-> +	struct mira220 *mira220 = to_mira220(sd);
-> +
-> +	v4l2_async_unregister_subdev(sd);
-> +	v4l2_subdev_cleanup(&mira220->sd);
-> +	media_entity_cleanup(&sd->entity);
-> +
-> +	v4l2_ctrl_handler_free(mira220->sd.ctrl_handler);
-> +
-> +	pm_runtime_disable(&client->dev);
-> +	if (!pm_runtime_status_suspended(&client->dev))
-> +		mira220_power_off(&client->dev);
-> +	pm_runtime_set_suspended(&client->dev);
-
-This needs to be conditional to the device not being suspended.
-
-> +}
-> +
-> +static const struct dev_pm_ops mira220_pm_ops = {
-> +	SET_RUNTIME_PM_OPS(mira220_power_off, mira220_power_on, NULL)
-> +};
-> +
-> +static const struct of_device_id mira220_dt_ids[] = {
-> +	{ .compatible = "ams,mira220" },
-> +	{ /* sentinel */ }
-> +};
-> +MODULE_DEVICE_TABLE(of, mira220_dt_ids);
-> +
-> +static struct i2c_driver mira220_i2c_driver = {
-> +	.driver = {
-> +		.name = "mira220",
-> +		.of_match_table	= mira220_dt_ids,
-> +		.pm = pm_ptr(&mira220_pm_ops),
-> +	},
-> +	.probe = mira220_probe,
-> +	.remove = mira220_remove,
-> +};
-> +
-> +module_i2c_driver(mira220_i2c_driver);
-> +
-> +MODULE_AUTHOR("Philippe Baetens <philippe.baetens@ams-osram.com>");
-> +MODULE_DESCRIPTION("ams MIRA220 sensor driver");
-> +MODULE_LICENSE("GPL");
-> 
-
+diff --git a/drivers/firmware/raspberrypi.c b/drivers/firmware/raspberrypi.c
+index 0aa322e9a2e7..b284c689f782 100644
+--- a/drivers/firmware/raspberrypi.c
++++ b/drivers/firmware/raspberrypi.c
+@@ -24,6 +24,7 @@
+ 
+ static struct platform_device *rpi_hwmon;
+ static struct platform_device *rpi_clk;
++static struct platform_device *rpi_rtc;
+ 
+ struct rpi_firmware {
+ 	struct mbox_client cl;
+@@ -231,6 +232,21 @@ static void rpi_register_clk_driver(struct device *dev)
+ 						-1, NULL, 0);
+ }
+ 
++static void rpi_register_rtc_driver(struct device *dev)
++{
++	struct device_node *firmware;
++
++	firmware = of_get_compatible_child(dev->of_node,
++					   "raspberrypi,firmware-rtc");
++	if (firmware) {
++		of_node_put(firmware);
++		return;
++	}
++
++	rpi_rtc = platform_device_register_data(dev, "raspberrypi-rtc",
++						-1, NULL, 0);
++}
++
+ unsigned int rpi_firmware_clk_get_max_rate(struct rpi_firmware *fw, unsigned int id)
+ {
+ 	struct rpi_firmware_clk_rate_request msg =
+@@ -305,6 +321,7 @@ static int rpi_firmware_probe(struct platform_device *pdev)
+ 	rpi_firmware_print_firmware_revision(fw);
+ 	rpi_register_hwmon_driver(dev, fw);
+ 	rpi_register_clk_driver(dev);
++	rpi_register_rtc_driver(dev);
+ 
+ 	return 0;
+ }
+@@ -327,6 +344,8 @@ static void rpi_firmware_remove(struct platform_device *pdev)
+ 	rpi_hwmon = NULL;
+ 	platform_device_unregister(rpi_clk);
+ 	rpi_clk = NULL;
++	platform_device_unregister(rpi_rtc);
++	rpi_rtc = NULL;
+ 
+ 	rpi_firmware_put(fw);
+ }
+diff --git a/drivers/rtc/Kconfig b/drivers/rtc/Kconfig
+index 05b9233b9418..382973d46e06 100644
+--- a/drivers/rtc/Kconfig
++++ b/drivers/rtc/Kconfig
+@@ -1999,6 +1999,17 @@ config RTC_DRV_R7301
+ 	   This driver can also be built as a module. If so, the module
+ 	   will be called rtc-r7301.
+ 
++config RTC_DRV_RPI
++        tristate "Raspberry Pi RTC"
++        depends on ARCH_BRCMSTB || COMPILE_TEST
++        default ARCH_BRCMSTB
++        help
++          If you say yes here you get support for the RTC found on
++          Raspberry Pi devices.
++
++          This driver can also be built as a module. If so, the module
++          will be called rtc-rpi.
++
+ config RTC_DRV_STM32
+ 	tristate "STM32 RTC"
+ 	select REGMAP_MMIO
+diff --git a/drivers/rtc/Makefile b/drivers/rtc/Makefile
+index 0347645b021f..46f1a0fc2416 100644
+--- a/drivers/rtc/Makefile
++++ b/drivers/rtc/Makefile
+@@ -144,6 +144,7 @@ obj-$(CONFIG_RTC_DRV_PS3)	+= rtc-ps3.o
+ obj-$(CONFIG_RTC_DRV_PXA)	+= rtc-pxa.o
+ obj-$(CONFIG_RTC_DRV_R7301)	+= rtc-r7301.o
+ obj-$(CONFIG_RTC_DRV_R9701)	+= rtc-r9701.o
++obj-$(CONFIG_RTC_DRV_RPI)	+= rtc-raspberrypi.o
+ obj-$(CONFIG_RTC_DRV_RC5T583)	+= rtc-rc5t583.o
+ obj-$(CONFIG_RTC_DRV_RC5T619)	+= rtc-rc5t619.o
+ obj-$(CONFIG_RTC_DRV_RK808)	+= rtc-rk808.o
+diff --git a/drivers/rtc/rtc-raspberrypi.c b/drivers/rtc/rtc-raspberrypi.c
+new file mode 100644
+index 000000000000..af775ae55a87
+--- /dev/null
++++ b/drivers/rtc/rtc-raspberrypi.c
+@@ -0,0 +1,277 @@
++// SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
++/**
++ * rtc-rpi.c
++ *
++ * RTC driver using firmware mailbox
++ * Supports battery backed RTC and wake alarms
++ *
++ * Based on rtc-meson-vrtc by Neil Armstrong
++ *
++ * Copyright (c) 2023, Raspberry Pi Ltd.
++ */
++
++#include <linux/module.h>
++#include <linux/platform_device.h>
++#include <linux/rtc.h>
++#include <linux/of.h>
++#include <soc/bcm2835/raspberrypi-firmware.h>
++
++struct rpi_rtc_data {
++	struct rtc_device *rtc;
++	struct rpi_firmware *fw;
++	u32 bbat_vchg_millivolts;
++};
++
++#define RPI_FIRMWARE_GET_RTC_REG 0x00030087
++#define RPI_FIRMWARE_SET_RTC_REG 0x00038087
++
++enum {
++	RTC_TIME,
++	RTC_ALARM,
++	RTC_ALARM_PENDING,
++	RTC_ALARM_ENABLE,
++	RTC_BBAT_CHG_VOLTS,
++	RTC_BBAT_CHG_VOLTS_MIN,
++	RTC_BBAT_CHG_VOLTS_MAX,
++	RTC_BBAT_VOLTS
++};
++
++static int rpi_rtc_read_time(struct device *dev, struct rtc_time *tm)
++{
++	struct rpi_rtc_data *vrtc = dev_get_drvdata(dev);
++	u32 data[2] = {RTC_TIME};
++	int err;
++
++	err = rpi_firmware_property(vrtc->fw, RPI_FIRMWARE_GET_RTC_REG,
++				    &data, sizeof(data));
++	rtc_time64_to_tm(data[1], tm);
++	return err;
++}
++
++static int rpi_rtc_set_time(struct device *dev, struct rtc_time *tm)
++{
++	struct rpi_rtc_data *vrtc = dev_get_drvdata(dev);
++	u32 data[2] = {RTC_TIME, rtc_tm_to_time64(tm)};
++
++	return rpi_firmware_property(vrtc->fw, RPI_FIRMWARE_SET_RTC_REG,
++				     &data, sizeof(data));
++}
++
++static int rpi_rtc_alarm_irq_is_enabled(struct device *dev, unsigned char *enabled)
++{
++	struct rpi_rtc_data *vrtc = dev_get_drvdata(dev);
++	u32 data[2] = {RTC_ALARM_ENABLE};
++	s32 err = 0;
++
++	err = rpi_firmware_property(vrtc->fw, RPI_FIRMWARE_GET_RTC_REG,
++				    &data, sizeof(data));
++	*enabled = data[1] & 0x1;
++	return err;
++}
++
++static int rpi_rtc_alarm_irq_enable(struct device *dev, unsigned int enabled)
++{
++	struct rpi_rtc_data *vrtc = dev_get_drvdata(dev);
++	u32 data[2] = {RTC_ALARM_ENABLE, enabled};
++
++	return rpi_firmware_property(vrtc->fw, RPI_FIRMWARE_SET_RTC_REG,
++				     &data, sizeof(data));
++}
++
++static int rpi_rtc_alarm_clear_pending(struct device *dev)
++{
++	struct rpi_rtc_data *vrtc = dev_get_drvdata(dev);
++	u32 data[2] = {RTC_ALARM_PENDING, 1};
++
++	return rpi_firmware_property(vrtc->fw, RPI_FIRMWARE_SET_RTC_REG,
++				     &data, sizeof(data));
++}
++
++static int rpi_rtc_read_alarm(struct device *dev, struct rtc_wkalrm *alarm)
++{
++	struct rpi_rtc_data *vrtc = dev_get_drvdata(dev);
++	u32 data[2] = {RTC_ALARM};
++	s32 err = 0;
++
++	err = rpi_rtc_alarm_irq_is_enabled(dev, &alarm->enabled);
++	if (!err)
++		err = rpi_firmware_property(vrtc->fw, RPI_FIRMWARE_GET_RTC_REG,
++					    &data, sizeof(data));
++	rtc_time64_to_tm(data[1], &alarm->time);
++
++	return err;
++}
++
++static int rpi_rtc_set_alarm(struct device *dev, struct rtc_wkalrm *alarm)
++{
++	struct rpi_rtc_data *vrtc = dev_get_drvdata(dev);
++	u32 data[2] = {RTC_ALARM, rtc_tm_to_time64(&alarm->time)};
++	int err;
++
++	err = rpi_firmware_property(vrtc->fw, RPI_FIRMWARE_SET_RTC_REG,
++				    &data, sizeof(data));
++
++	if (err == 0)
++		err = rpi_rtc_alarm_irq_enable(dev, alarm->enabled);
++
++	return err;
++}
++
++static const struct rtc_class_ops rpi_rtc_ops = {
++	.read_time = rpi_rtc_read_time,
++	.set_time = rpi_rtc_set_time,
++	.read_alarm = rpi_rtc_read_alarm,
++	.set_alarm = rpi_rtc_set_alarm,
++	.alarm_irq_enable = rpi_rtc_alarm_irq_enable,
++};
++
++static int rpi_rtc_set_charge_voltage(struct device *dev)
++{
++	struct rpi_rtc_data *vrtc = dev_get_drvdata(dev);
++	u32 data[2] = {RTC_BBAT_CHG_VOLTS, vrtc->bbat_vchg_millivolts * 1000U};
++	int err;
++
++	err = rpi_firmware_property(vrtc->fw, RPI_FIRMWARE_SET_RTC_REG,
++				    &data, sizeof(data));
++
++	if (err)
++		dev_err(dev, "failed to set trickle charge voltage to %umV: %d\n",
++			vrtc->bbat_vchg_millivolts, err);
++	else if (vrtc->bbat_vchg_millivolts)
++		dev_info(dev, "trickle charging enabled at %umV\n",
++			 vrtc->bbat_vchg_millivolts);
++
++	return err;
++}
++
++static ssize_t rpi_rtc_print_uint_reg(struct device *dev, char *buf, u32 reg)
++{
++	struct rpi_rtc_data *vrtc = dev_get_drvdata(dev->parent);
++	u32 data[2] = {reg, 0};
++	int ret = 0;
++
++	ret = rpi_firmware_property(vrtc->fw, RPI_FIRMWARE_GET_RTC_REG,
++				    &data, sizeof(data));
++	if (ret < 0)
++		return ret;
++
++	return sprintf(buf, "%u\n", data[1]);
++}
++
++static ssize_t charging_voltage_show(struct device *dev,
++				     struct device_attribute *attr,
++				     char *buf)
++{
++	return rpi_rtc_print_uint_reg(dev, buf, RTC_BBAT_CHG_VOLTS);
++}
++static DEVICE_ATTR_RO(charging_voltage);
++
++static ssize_t charging_voltage_min_show(struct device *dev,
++					 struct device_attribute *attr,
++					 char *buf)
++{
++	return rpi_rtc_print_uint_reg(dev, buf, RTC_BBAT_CHG_VOLTS_MIN);
++}
++static DEVICE_ATTR_RO(charging_voltage_min);
++
++static ssize_t charging_voltage_max_show(struct device *dev,
++					 struct device_attribute *attr,
++					 char *buf)
++{
++	return rpi_rtc_print_uint_reg(dev, buf, RTC_BBAT_CHG_VOLTS_MAX);
++}
++static DEVICE_ATTR_RO(charging_voltage_max);
++
++static ssize_t battery_voltage_show(struct device *dev,
++				    struct device_attribute *attr,
++				    char *buf)
++{
++	return rpi_rtc_print_uint_reg(dev, buf, RTC_BBAT_VOLTS);
++}
++static DEVICE_ATTR_RO(battery_voltage);
++
++static struct attribute *rpi_rtc_attrs[] = {
++	&dev_attr_charging_voltage.attr,
++	&dev_attr_charging_voltage_min.attr,
++	&dev_attr_charging_voltage_max.attr,
++	&dev_attr_battery_voltage.attr,
++	NULL
++};
++
++static const struct attribute_group rpi_rtc_sysfs_files = {
++	.attrs = rpi_rtc_attrs,
++};
++
++static int rpi_rtc_probe(struct platform_device *pdev)
++{
++	struct rpi_rtc_data *vrtc;
++	struct device *dev = &pdev->dev;
++	struct rpi_firmware *firmware;
++	int ret;
++
++	// Check if our model is a Raspberry Pi 5, as the RTC is only present on that model.
++	const char *model = of_get_property(of_root, "model", NULL);
++	if (!model || strncmp(model, "Raspberry Pi 5", 14) != 0) {
++		dev_err(dev, "RTC is only available on Raspberry Pi 5\n");
++		return -ENODEV;
++	}
++
++	// Get the firmware device from the parent device
++	firmware = devm_rpi_firmware_get(dev, dev->parent->of_node);
++
++	if (!firmware)
++		return -EPROBE_DEFER;
++
++	vrtc = devm_kzalloc(dev, sizeof(*vrtc), GFP_KERNEL);
++	if (!vrtc)
++		return -ENOMEM;
++
++	vrtc->fw = firmware;
++
++	devm_device_init_wakeup(dev);
++
++	platform_set_drvdata(pdev, vrtc);
++
++	vrtc->rtc = devm_rtc_allocate_device(dev);
++	if (IS_ERR(vrtc->rtc))
++		return PTR_ERR(vrtc->rtc);
++
++	vrtc->rtc->range_max = U32_MAX;           /* 2106-02-07 */
++
++	set_bit(RTC_FEATURE_ALARM_WAKEUP_ONLY, vrtc->rtc->features);
++	clear_bit(RTC_FEATURE_UPDATE_INTERRUPT, vrtc->rtc->features);
++
++	vrtc->rtc->ops = &rpi_rtc_ops;
++	ret = rtc_add_group(vrtc->rtc, &rpi_rtc_sysfs_files);
++	if (ret)
++		return ret;
++
++	rpi_rtc_alarm_clear_pending(dev);
++
++	vrtc->bbat_vchg_millivolts = 0;
++	of_property_read_u32(dev->parent->of_node, "trickle-charge-millivolt",
++			&vrtc->bbat_vchg_millivolts);
++
++	rpi_rtc_set_charge_voltage(dev);
++
++	return devm_rtc_register_device(vrtc->rtc);
++}
++
++static const struct of_device_id rpi_rtc_dt_match[] = {
++	{ .compatible = "raspberrypi,firmware-rtc"},
++	{},
++};
++MODULE_DEVICE_TABLE(of, rpi_rtc_dt_match);
++
++static struct platform_driver rpi_rtc_driver = {
++	.probe = rpi_rtc_probe,
++	.driver = {
++		.name = "raspberrypi-rtc",
++		.of_match_table = rpi_rtc_dt_match,
++	},
++};
++
++module_platform_driver(rpi_rtc_driver);
++
++MODULE_DESCRIPTION("Raspberry Pi RTC driver");
++MODULE_LICENSE("GPL");
 -- 
-Kind regards,
+2.55.0
 
-Sakari Ailus
