@@ -1,251 +1,152 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 080264E0B88
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 20:38:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E11284A4EF4;
+	Thu, 17 Sep 2026 20:39:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789677516; cv=none; b=rxxNtH7pbmmovwZylN4uPli/kk7mZn9t9BVgHzQzHUDwrgA3gTXB37bZ1N5H9u5FfaeKvvPfYawvgeyHbEknNWNsqhGhENz+AOp7O+UznFTFoFDKidCWcuANKbAT7iCxqlkjvLTYHr5N95qNbc7OMciVzeMPdXTpVdy0tQsgZrI=
+	t=1789677582; cv=none; b=BCs0UDAlUdVRhLbTFjVylBLeWBoWjyGFlB18hpxv6qnWnCHH7riGuCCzD+19PAqj/9YtMcL69oN/COv5tvaZWwSX6SpglFFfIZ4W9Bce84sbv3Y19uhmD9U3ovQQyMNAidarpzvguCnYQkiy2PIpyRS75rypzORBpkAKUJpkNN8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789677516; c=relaxed/simple;
-	bh=Wi5x/Ouh/PeM1Z3PGzen1AuGIANL006sy5SnhuPr6aY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=P1Y0+y9Wgy7EF6ArTR8831qVLDz4sic0ErYgT/RvEecdaeyL7Y8ljEH15DXwQ2ggjMzwJTfWKDQtH3o2/ElgIP0leIGCK3l8oZen4AwGvog4MG+Z4DlTW89c4+tlA1O9cr4Iv+JqrWjrt1AsXYMx7aTqxbjSTMHrlDU/xGfuO2o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bDMSa4iS; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=a/1E+sad; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789677582; c=relaxed/simple;
+	bh=cg7BCvR1cLAHYckn6sXbcMfbGYSZh3IvF6MOBd1cfDA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lLI6mMLARbQ0pg4EXcmdj4gvAMMwTxPTFUzDSHBkH4oCQAs8iCIPmpcaNehN3jQKBflwIud0DSIF1BVgWBfcnCR6Sq90hyAU5ZIkXahdVWJ+bueFTN2OSNwvYu2I7oqJEUfcDXNP+lzwirFJmnHzoPQJJGhBFPj7WlvzEwQws2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZKbdwe4H; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bDMSa4iS";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="a/1E+sad"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68HH5Hr91007115
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 20:38:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	8YpNY/Bau2C9H4OXWV+XfoUZdnr4CV3FIhXIPLaLRpw=; b=bDMSa4iSiT8ItOZL
-	qDlgE27bojSoam9G3l2wvgy1LHpWPkfn/+L27JL7XSP8tIMNBAM+VShnfQHvx7Sx
-	HklycHyYEAS+3ywN8aA4DhZgIuPY9gcZiWa+ZsZWTxoYqwzkYWakBN/wBGvr3ExG
-	UXvuMj/DMufQL1miacolNxE7jnHau+Fc4lsKaoVMm8hC1WEMYUL4bDNwOx/mmfIM
-	WFqRC3Nxyqq5aUKNEqWDCMW9/M2bY8K7PCsh1b3z0cIefy6TcappZDautpQo2jPe
-	GeupFN0+uoSdyO2Obeczcr4nrwTxCH7Z/yd85WiPhbNaIMSqp7chdUYyaDhQP7Yx
-	j0JWsg==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4grjttscs0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 20:38:34 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc4b524ce78so861365a12.2
-        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 13:38:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789677513; x=1790282313; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8YpNY/Bau2C9H4OXWV+XfoUZdnr4CV3FIhXIPLaLRpw=;
-        b=a/1E+sadoxy9zywO9bH+nyv5JAK7j0m7ajPQ3EImaMKr0LhrWztcYBbpbaG6HvdCIa
-         A5vtG55/vZXkv/BqwITrfkr/kLYvceIfpZpRLmsM7y4OXJ4qxrL5qnIF+VlID7hSErUV
-         B9uzZ8omnrE7jznMkG6GhN4NxmqziGED95xZXPG7LMa7NLj2qJHKQZUSNFvNgxN5/Hwd
-         FOhvsPN+QSLTujMhw+ar+bO6tP0/7yNjRrfhknKZ+UFr581WgzJ9UrUHg7xI7nHG+fLd
-         AEXJLIB9BSlVdj28kfu6x3HqUGMm0PazZaOVAo4CyYiMn2Kg6MHHe68XG5WWJjKKCvcJ
-         aRjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789677513; x=1790282313;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8YpNY/Bau2C9H4OXWV+XfoUZdnr4CV3FIhXIPLaLRpw=;
-        b=inH5IO02Rx/ZwLrWix4GOhNwyTQZOXNREtxkdfdu9//pdzLGYUmSzI+UCoXoG+jtdU
-         v2jZSoZ18g8Xotw9RokZEogXhrIjKXqfbhc/ofcS0FNYdSNsSl7x9HKERD9L/mTE5GQf
-         o6Qdts8Ld0VMi4rD0KQRiSaUSi9VSHbMSZgc3xnQmcUQ4g8nDL5GJtX+3nlBeXCUwhIj
-         7Fcj2doQvU+gXPTictxJC22/tkXVWgGJkD+7P7+Oz2YxqOO64WFzQTn4Z41j+ywz0e4c
-         zMIgCYqClQsPH63Keez6nLh8ZjSk80lMW75ERTlqcW96yyE0kTHflvUuzHhkujlNYX6H
-         XFOQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxCN6SrGG0KHe1GRzeE5LEYoVtNdmeYT3yvMwmvtYT+jVGRp9hVHq0mZ7hDavMPRHV1H3SRaI33jO6C@vger.kernel.org
-X-Gm-Message-State: AFuF++l3zPfYmo4drSU4uP/cMUKZa5IuR6SV12uJUgaIMk/EJVvVMplu
-	YpQljU0ejz/6VHFVln8Pim8n6s7SkJItw+xyhENss/q6sSiCirMmY4m3tQUpjUIljb1Hhod/fO6
-	+lGzAIzwaYNmkn5EakzJHEoKC08BGUYZnWVZsk8CmwE2o4dw10lcUPn3i6anPMbYu
-X-Gm-Gg: AYBFou0QXq8VqV0VllackDGBIQlMkVEtUQSkjnCIScwpYtLTRH5xglJF01kD55KPd4H
-	82o3lPsT5nmLuu2WNRzzFLDIpeefNuyQeOgqm7fN7VK37nBSgLrPieUAD0tlHxsSYtJbG+FGHdf
-	YXKKEkCkRE6B+GyyytiZ9p6JtBElUn413zoH2rRBf+TRaovb1umFf28/6U4KsYZr0mNuY0Lrn/Q
-	5hZi9mtS80yY2H6Czf/Ir6CY72WC/QKrX/PEAqGBGrIPTs5h6J/Ls09rsqna5fq/UIQwusRXc0h
-	lb5IaLln80rivqVPiZTLQvtD2g9D9THvdYjw3qEYfRBgkNoQrpFlxZk3pp322nL8Iz7XfuFpNyr
-	gCBCiHFuwdVE2SpMEufa1aJMwMjx+Zig2o+KJd6W7i6Xl5Lbw/TXngQ==
-X-Received: by 2002:a05:6a20:4306:b0:3d3:adbf:777d with SMTP id adf61e73a8af0-3dd8c4cc8b8mr304665637.25.1789677513439;
-        Thu, 17 Sep 2026 13:38:33 -0700 (PDT)
-X-Received: by 2002:a05:6a20:4306:b0:3d3:adbf:777d with SMTP id adf61e73a8af0-3dd8c4cc8b8mr304613637.25.1789677512941;
-        Thu, 17 Sep 2026 13:38:32 -0700 (PDT)
-Received: from [10.73.236.146] (pat_11.qualcomm.com. [192.35.156.11])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c00ede586sm14590388eec.10.2026.09.17.13.38.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 17 Sep 2026 13:38:32 -0700 (PDT)
-Message-ID: <71568eb6-8123-4ed3-a2d3-4e33e4880bf4@oss.qualcomm.com>
-Date: Thu, 17 Sep 2026 13:38:31 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZKbdwe4H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 568831F000FF;
+	Thu, 17 Sep 2026 20:39:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789677580;
+	bh=8F8vuRKsQlvpmUswJ4XE1PgRyZZ1pDeb65uVpTL9SmQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZKbdwe4HeSL1dEjr23I2q7ywMJ/zdRa72oxd6e64/QZrrH6SDT2P6G8nibieI8Mr/
+	 kltPQzLqUhcR+tAqEJoJAp0LqkGqwCBAunK170nxqB4YywJNC8Tr7XwjTOXsegw1wK
+	 68t1GV9KHLrwX/xe70h9zSI6Opm5D/xjZDgB7x+nG2Vd7yPnvrAIOKFfBoTh6ZS6dk
+	 XH6dUOYQSjCKmhywFppM0yQKzUX+KFpcGkrJlmWF+xvZOsqasCqHL85oxWYWg+Phog
+	 jNnGHuX7nNkVWu/OMvd8G+/0c6FrXO1LOCL2MF9qxGjbfchcXkVNHjzEzjaEMzE9+5
+	 nNQKKpmAAk2bg==
+Date: Thu, 17 Sep 2026 15:39:38 -0500
+From: Rob Herring <robh@kernel.org>
+To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+Cc: Saravana Kannan <saravanak@kernel.org>,
+	Frank Rowand <frowand.list@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Grant Likely <grant.likely@secretlab.ca>,
+	Grant Likely <grant.likely@linaro.org>,
+	Pantelis Antoniou <pantelis.antoniou@konsulko.com>,
+	David Daney <david.daney@cavium.com>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Sashiko AI <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v7 00/10] of: teach overlay code to keep /aliases in sync
+Message-ID: <20260917203938.GA3480871-robh@kernel.org>
+References: <20260831-nh-of-alias-overlay-v7-0-02754604805a@nexthop.ai>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 1/5] optee: riscv: add RPMI TEE service group
- transport
-To: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>,
-        Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>,
-        Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-        Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-        Rahul Pathak <rahul@summations.net>, Anup Patel <anup@brainfault.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        op-tee@lists.trustedfirmware.org, linux-riscv@lists.infradead.org,
-        devicetree@vger.kernel.org
-References: <20260912-rpmi-tee-service-grp-dev-v1-0-1d1d35c2a859@oss.qualcomm.com>
- <20260912-rpmi-tee-service-grp-dev-v1-1-1d1d35c2a859@oss.qualcomm.com>
- <a9d9aac7-cb2d-46fe-a220-40f61f615b89@oss.qualcomm.com>
- <786a1460-c660-4de7-bb07-debdbd6a4661@oss.qualcomm.com>
-Content-Language: en-US
-From: Trilok Soni <trilokkumar.soni@oss.qualcomm.com>
-In-Reply-To: <786a1460-c660-4de7-bb07-debdbd6a4661@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDI5NSBTYWx0ZWRfX96ogYEGpmiqn
- 1VcpXNJGeUSEdJvsYyMS3Hq7xrkc62GHSYaQQSrE5tD9WM9Go8eLnTpsNVeZRW15CNS2cDQcJUL
- DNDOymw12tmzJ/JgHqYw2sHa4bwIAe7LlZe3DAKLxYl7HNOnDMVrdoKvi5+lh6D9QpYvRwKSPkf
- cMUqBnLY2dcImU9kPRRCo2NkwbmRQWFY7xg2GD5tKNKw3xKupqac1GdwTTYzrcN0UZMwAPpEUCj
- EGxpYL9rdVD5VmQo4soFdX3DuyMWiKMfXm9iQ3cXXmPvXsHtj3lJujtpQm+AuH9doi9r2pRvl1n
- 6h6eCr/hF2iEc5XOH7Fk/D9LibYRYtZUacuAls0LpnwWhq8q9E5ICuF7Ngj7EW0jsTe0bHJb5tr
- BROzRWZF6ok8t6Pa2LvmAdVIcHv8BOpXrVXVrwqaamMggEiFbb5iOTUBnJt9RimA77c56kJhFaL
- VY/gxMJWTx4DPzSO31A==
-X-Proofpoint-ORIG-GUID: suhHHk-jme79O24l9Dxme3cxMK5paqF-
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDI5NSBTYWx0ZWRfX6ep9dmNlM7My
- +eLlw7p4G0AQafwJ6pvFsYyTa6SJT/zK8mUcP754bbLMa1VSHDOGd04+y5Ygru57l/I9OfD7tEF
- JUcDohQNlklpc0+JsePO7TD2eMjqcvw=
-X-Authority-Analysis: v=2.4 cv=IP2XmQvG c=1 sm=1 tr=0 ts=6aac4fca cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=ZdW6uxA9NKXbfdqeeS2OGA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=5Hg3Q6Ij0jR0fJQLcq8A:9 a=QEXdDO2ut3YA:10
- a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-GUID: suhHHk-jme79O24l9Dxme3cxMK5paqF-
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-17_04,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 priorityscore=1501 suspectscore=0 malwarescore=0
- adultscore=0 lowpriorityscore=0 impostorscore=0 spamscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609170295
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260831-nh-of-alias-overlay-v7-0-02754604805a@nexthop.ai>
 
-On 9/16/2026 2:23 PM, Amirreza Zarrabi wrote:
-> Hi Trilok,
+On Mon, Aug 31, 2026 at 06:29:18PM -0700, Abdurrahman Hussain wrote:
+> /aliases entries added by a device-tree overlay are stored in the live
+> tree but never enter the global aliases_lookup list that of_alias_scan()
+> builds at boot. As a result, of_alias_get_id() returns -ENODEV for
+> aliases declared inside overlays, and any driver that relies on
+> alias-based numbering (i2c-xiic, spi, tty, mmc, ...) silently loses its
+> pinned id and falls back to auto-assignment.
 > 
-> On 9/16/2026 3:30 PM, Trilok Soni wrote:
->> On 9/12/2026 3:15 AM, Amirreza Zarrabi wrote:
->>> Add an OP-TEE transport for RISC-V using the RPMI TEE service group over
->>> the SBI MPXY mailbox framework.
->>>
->>> Request one mailbox channel per hart and use the channel corresponding to
->>> the current CPU when issuing a TEE request. Probe the RPMI TEE service
->>> group and required memory-sharing capabilities before registering the
->>> transport.
->>>
->>> This provides the basic transport and discovery support needed by the
->>> following patches.
->>>
->>> Signed-off-by: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
->>> ---
->>>  drivers/tee/optee/Makefile                 |   1 +
->>>  drivers/tee/optee/core.c                   |   8 +-
->>>  drivers/tee/optee/optee_private.h          |  34 ++++
->>>  drivers/tee/optee/optee_riscv.c            | 312 +++++++++++++++++++++++++++++
->>>  drivers/tee/optee/optee_riscv.h            | 141 +++++++++++++
->>>  include/linux/mailbox/riscv-rpmi-message.h |   1 +
->>>  6 files changed, 495 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/drivers/tee/optee/Makefile b/drivers/tee/optee/Makefile
->>> index ad7049c1c107..925b8ec7ef68 100644
->>> --- a/drivers/tee/optee/Makefile
->>> +++ b/drivers/tee/optee/Makefile
->>> @@ -9,6 +9,7 @@ optee-objs += supp.o
->>>  optee-objs += device.o
->>>  optee-objs += smc_abi.o
->>>  optee-objs += ffa_abi.o
->>> +optee-$(CONFIG_RISCV_SBI_MPXY_MBOX) += optee_riscv.o
->>>  
->>>  # for tracing framework to find optee_trace.h
->>>  CFLAGS_smc_abi.o := -I$(src)
->>> diff --git a/drivers/tee/optee/core.c b/drivers/tee/optee/core.c
->>> index a52c1f498b99..63f1725e646e 100644
->>> --- a/drivers/tee/optee/core.c
->>> +++ b/drivers/tee/optee/core.c
->>> @@ -220,6 +220,7 @@ void optee_remove_common(struct optee *optee)
->>>  
->>>  static int smc_abi_rc;
->>>  static int ffa_abi_rc;
->>> +static int riscv_abi_rc;
->>>  static bool intf_is_regged;
->>>  
->>>  static int __init optee_core_init(void)
->>> @@ -245,9 +246,10 @@ static int __init optee_core_init(void)
->>>  
->>>  	smc_abi_rc = optee_smc_abi_register();
->>>  	ffa_abi_rc = optee_ffa_abi_register();
->>> +	riscv_abi_rc = optee_riscv_abi_register();
->>
->> Isn't it growing rapidly now? We have two register calls for the ARM,
->> one for the RISC-V. One more region specific ISA I am aware of and it
->> may have op-tee support in future? It is time we fix this logic
->> in the better way. 
->>
->>
->>>  
->>> -	/* If both failed there's no point with this module */
->>> -	if (smc_abi_rc && ffa_abi_rc) {
->>> +	/* If all failed there's no point with this module */
->>> +	if (smc_abi_rc && ffa_abi_rc && riscv_abi_rc) {
->>
->> This is started looking ugly in my opinion. 
->>
->>>  		if (IS_REACHABLE(CONFIG_RPMB)) {
->>>  			rpmb_interface_unregister(&rpmb_class_intf);
->>>  			intf_is_regged = false;
->>> @@ -270,6 +272,8 @@ static void __exit optee_core_exit(void)
->>>  		optee_smc_abi_unregister();
->>>  	if (!ffa_abi_rc)
->>>  		optee_ffa_abi_unregister();
->>> +	if (!riscv_abi_rc)
->>> +		optee_riscv_abi_unregister();
->>>  }
->>>  module_exit(optee_core_exit);
->>>  
->>> diff --git a/drivers/tee/optee/optee_private.h b/drivers/tee/optee/optee_private.h
->>> index aefe1e6f5689..8d22d65e087b 100644
->>> --- a/drivers/tee/optee/optee_private.h
->>> +++ b/drivers/tee/optee/optee_private.h
->>> @@ -171,6 +171,31 @@ struct optee_ffa {
->>>  	struct work_struct notif_work;
->>>  };
->>>  
->>> +/**
->>> + * struct optee_riscv - RPMI TEE communication struct
->>
->> do we need to name it optee_riscv? we don't use optee_arm anywhere in this
->> code I believe. 
->>
->> More later...
->>
+> The gap has been public since 2015 [1] and reproduces trivially: apply
+> an overlay that declares e.g. `i2c99 = &foo;`, ask
+> of_alias_get_id(foo, "i2c") -> -ENODEV.
 > 
-> The naming convention, and even the file structure, will change in v2.
-> This RFC currently mirrors the _internal_ FF-A implementation, which is neither
-> required nor ideal. We are moving away from that structure.
+> The core fix (patch 2) is a reconfig notifier that mirrors /aliases
+> property changes into aliases_lookup. Patch 1 prepares the alias path
+> lookup for /aliases becoming dynamic. Patches 3, 8 and 9 are the
+> overlay-code changes the use case needs; patches 4-7 fix pre-existing
+> bugs on paths the series exercises. Patch 10 adds a
+> unittest.
+> 
+> Prior art
+> ---------
+> 
+> Geert Uytterhoeven posted a 3-patch RFC in June 2015 [1] with the same
+> alias-tracking design shape. Grant Likely reviewed positively; merge
+> was gated on missing unittests and an object-lifetime concern the
+> author self-flagged, and the series was never reposted as non-RFC. Ten
+> years later, drivers/of/overlay.c still contains zero references to
+> aliases, of_alias_scan, or aliases_lookup.
 
-Thanks. 
+There was another posting in 2024 of Geert's patches and AFAICT my
+comment there[1] still applies. To repeat, what happens if the alias 
+number already got used because the subsystems can pick any of the 
+numbers without an alias. The only way I see to solve that is make 
+possible alias numbers and dynamic numbers non-overlapping or only allow 
+alias names that are not present in the base DT to be used/honored in 
+overlays.
 
-I also don't like the growing registration calls and complicated "&&" checks
-above. 
 
----Trilok Soni
+> Series contents
+> ---------------
+> Patch 1 makes of_find_node_opts_by_path() hold a reference on
+> of_aliases across the alias walk (the walk itself stays lock-free, as
+> does the pointer load: of_aliases always holds a reference on the
+> node it points to) and validates alias values before dereferencing
+> them.
+> 
+> Patch 2 adds a reconfig notifier that mirrors /aliases property
+> changes into aliases_lookup. It also refactors of_alias_scan()'s
+> per-property body into a helper of_alias_create() shared by the
+> boot-time scan and the runtime notifier. A one-bit `owned` flag on
+> struct alias_prop distinguishes kmalloc'd (overlay-time) entries
+> (kstrdup'd alias name, of_node_get'd target) from memblock-backed
+> (boot-time) ones so the remove path can't kfree the wrong storage.
+> The notifier keys off structural properties of the target node
+> (name + root-parent) rather than the of_aliases global, so overlays
+> that create /aliases from scratch on a system without a boot-time
+> aliases node are covered too. All aliases_lookup readers and writers
+> serialize on a dedicated aliases_mutex.
+> 
+> Patch 3 fixes find_target() so an overlay applied with a non-NULL
+> target base can still reach the DT root via target-path="/foo". The
+> current code unconditionally concatenates base + target-path via
+> "%pOF%s", so target-path="/aliases" resolves to "<base>/aliases" and
+> target-path="/" produces "<base>/" (never a valid node). After this
+> patch, an empty target-path continues to mean "the target base
+> itself" — preserving the shape used by drivers/misc/lan966x_pci.c,
+> the only in-tree caller of of_overlay_fdt_apply() that passes a
+> non-NULL base — while any non-empty target-path is looked up
+> absolutely.
+> 
+> Patch 4 fixes a pre-existing double-free in add_changeset_property():
+> a property freed on the of_changeset_add_property() error path stayed
+> linked in the target node's deadprops list and was freed again at
+> node release.
+> 
+> Patch 5 fixes a pre-existing NULL dereference in
+> of_overlay_fdt_apply()'s idr_alloc() error path (negative id stored,
+> list_del() on an uninitialized list head) by only treating a positive
+> id as registered in free_overlay_changeset().
+> 
+> Patch 6 fixes a pre-existing reference leak in
+> init_overlay_changeset(): on a mid-loop failure, the target and
+> overlay references of the fragments initialized so far were never
+> dropped because ovcs->count was still 0 when free_overlay_changeset()
+> ran its cleanup loop.
+> 
+> Patch 7 fixes pre-existing "//" result paths from
+> dup_and_fixup_symbol_prop() when a fragment targets the root node.
 
+Fixes should come first in a series. Then I can apply them if ready even 
+if the feature patches are not ready.
+
+Rob
+
+[1] https://lore.kernel.org/all/CAL_Jsq+72Q6LyOj1va_qcyCVkSRwqGNvBFfB9NNOgYXasAFYJQ@mail.gmail.com/
