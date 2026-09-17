@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53A2453D9FD
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 16:41:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE6574FDA46
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 16:43:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789663267; cv=none; b=qLkp2Ok4X93/QTEQrcxrKQQJEPWHFEsJvqt7zTHPSgu8cgiCrqh8xHdjHENIBSj1SabCPi/8Snqn+bruwzk4NKopL7094QCLKJb1v9Y6WWiQaAfhXsHW7weI8Gq0mdeErJpnztjiAOZ33fQaiZZSzm2SyYCFJxlqGyKIyvws2Wk=
+	t=1789663384; cv=none; b=uRD9zXdbaKAln/ZotZJQbN+bcDauhF8xB5cJzZUKUNs2AsUOdkYLECMm2qaiNcOTrG3/3a8yDgVplkXpZ4Q+U9/umCU8oeNg7qZDLKerFRIsW/p1tYIorlehgleWBVI27UrLn95CsfMYrHzoUxYVl6UpDqdZ1xW7pHXdOnAIIXA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789663267; c=relaxed/simple;
-	bh=dkxIfvSOpXei6rLHe/512kj1Pgx7kjeyjIJczmiajug=;
+	s=arc-20240116; t=1789663384; c=relaxed/simple;
+	bh=NQRc2H0SMv6k7mAi6iiGzQFZlFsO9E7NdDVaN97xlVA=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=DdhILBWNnm2H/cwi6dkxHHccrTo2S0xyV1vPszbyoP2n4AdUSVICvCmEy1er19Tw6I5GYgmrEcU8W7XFK+5jO6pM3/DwH0kju++9NZWhLGm+7V9CQby9fHZLy3lZoDlxYRxbnkbOzb2M+FITAmh0s97BiSd2r81EvVpzQr36Cjs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bjXClibt; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Ipu6hC7H5+hn2xpOBA8YIDmbcF76e2mpLMaVHtwYM6fQUaxUDftZ4vGr4I6rzHylD5lSeBCZtHhzkXIbeUr8tlzyAqjk+3a2zSb8VGO/h9pKYVMeSaBdOeRq/qtVdFaaIlRCMmtMSKq+qvXDTi9RdF1IWIKdLzzpxqqZCc3C9PA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RohZd+rn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bjXClibt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB3EA1F00893;
-	Thu, 17 Sep 2026 16:41:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RohZd+rn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B1DA1F00898;
+	Thu, 17 Sep 2026 16:43:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789663266;
-	bh=xv3REVQsijSXmT85oNFSHU/h4k9lCwacLK1WUX48fN8=;
+	s=k20260515; t=1789663382;
+	bh=bVkTo18e6bMog8Ht4pm984OKtDxgBK7QOTNXHKB23BA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bjXClibtYrDwAKUWW07dMoFc4m3SsXEy6b3c9IJOnjeKAbCAftEuAp2ckk7kP+2xP
-	 hKKSNoywu3+jYOKBUHJZkLw09QIdg6g0kIfbFYdFvKtnliNVaW6bDya/N7kEd9NQ02
-	 KgJQ/P/7+1zB1qJt33qStKxuj3on6wnCFdGYiGY6XAcTFDm3+MWHDk3C6v5gzJsqrK
-	 T5owxPbMF3cI2SkA49PaS18VBzVxfFjkNh4JCy8X204wv7VfvTK8FWE0DJN9PGVz1n
-	 QBMFi+6Ico6xUubkz2t6VQDVnFLAm+A/jIbViTLphmc+9J1way79u/SMiT6zw4Pa+N
-	 UIfqQ+tOagaIg==
+	b=RohZd+rnOmnCMJWeZwvxVAM483gVGsJgDrCC0vPzzs8Ctxq8DLzalTgJEVSuqtyFy
+	 Nw91dA3uhUVbWUedti+gnryvUiZ9XqrujSntrH6mX7igDkgyYwjIEM60KgR/szIGoW
+	 jfgXzmdKPJnLB6a0IUcePzfLNfdtZZPf9GXEcKrMnplttGHbP/u9PTkQ7eQt8dBSLJ
+	 Umi5dgQ0Mhwnep2MFHOBXr9Ui3Uy2IQy/fStLmmtaOlIUvH9de7PlexNLJufkD1oey
+	 3V4Obbvq4jgnwsVSTVyUhHLyaHfPJhtZxTFpSzWr+BCJLbC0SiwUK+SqhY2hFsWT2F
+	 BaWJfZt28XVGQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/6] dt-bindings: interrupt-controller:
- thead,c900-aclint-sswi: Add SpacemiT K3
+Subject: Re: [PATCH v6 3/3] arm: dts: altera: add Draeger M48 CPU Module
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Junhui Liu" <junhui.liu@pigmoral.tech>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260918-k3-aclint-v3-3-cf4fd4050e14@pigmoral.tech>
-References: <20260918-k3-aclint-v3-0-cf4fd4050e14@pigmoral.tech>
- <20260918-k3-aclint-v3-3-cf4fd4050e14@pigmoral.tech>
+To: "Petko Manolov" <petko.manolov@konsulko.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260917163157.1380860-4-petko.manolov@konsulko.com>
+References: <20260917163157.1380860-1-petko.manolov@konsulko.com>
+ <20260917163157.1380860-4-petko.manolov@konsulko.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 16:41:05 +0000
-Message-Id: <20260917164105.DB3EA1F00893@smtp.kernel.org>
+Date: Thu, 17 Sep 2026 16:43:01 +0000
+Message-Id: <20260917164302.5B1DA1F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,53 +46,82 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] dt-bindings: missing SpacemiT K3 in text description of supported v=
-ariants
+- [High] arm: dts: out-of-bounds I/O access due to dw-apb-gpio size mismatch
 --
 
-commit e153d8cef506aa80d048bbfcecc93b53a351d62b
-Author: Junhui Liu <junhui.liu@pigmoral.tech>
+commit 3b5d14b4fd8ed90306ed124677b8ae6312b78a2f
+Author: Petko Manolov <petko.manolov@konsulko.com>
 
-dt-bindings: interrupt-controller: thead,c900-aclint-sswi: Add SpacemiT K3
+arm: dts: altera: add Draeger M48 CPU Module
 
-This commit adds support for the SpacemiT K3 ACLINT SSWI. It updates the
-compatible strings list to include spacemit,k3-aclint-sswi.
+This commit adds a new device tree for the Draeger M48 CPU Module. The modu=
+le
+is built around the Altera SoCFPGA Cyclone V.
 
-> diff --git a/Documentation/devicetree/bindings/interrupt-controller/thead=
-,c900-aclint-sswi.yaml b/Documentation/devicetree/bindings/interrupt-contro=
-ller/thead,c900-aclint-sswi.yaml
-> index d02c6886283af..0b34ed5b4639d 100644
-> --- a/Documentation/devicetree/bindings/interrupt-controller/thead,c900-a=
-clint-sswi.yaml
-> +++ b/Documentation/devicetree/bindings/interrupt-controller/thead,c900-a=
-clint-sswi.yaml
-> @@ -24,12 +24,13 @@ description:
-
-[Severity: Low]
-Does the text description of supported variants need to be updated to match
-the new compatible string?
-
-Looking at the full description block in
-Documentation/devicetree/bindings/interrupt-controller/thead,c900-aclint-ss=
-wi.yaml:
-
-  Following variants of the SSWI ACLINT supported, using dedicated
-  compatible string
-  - THEAD C900
-  - MIPS P8700
-
-Should the SpacemiT K3 variant be added to this list so the documentation
-stays in sync with the new schema properties?
-
->  properties:
->    compatible:
->      oneOf:
-> +      - enum:
-> +          - mips,p8700-aclint-sswi
-> +          - spacemit,k3-aclint-sswi
+> diff --git a/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48=
+.dts b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
+> new file mode 100644
+> index 0000000000000..dae809c02adb8
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
 
 [ ... ]
 
+> +	soc {
+> +		gpio3: gpio@ff202000 {
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +			compatible =3D "snps,dw-apb-gpio";
+> +			reg =3D <0xff202000 0x20>;
+
+[Severity: High]
+Does this compatible string cause an out-of-bounds I/O read regression duri=
+ng
+probe?
+
+The gpio3 node specifies a register window of 0x20 bytes. However, the
+snps,dw-apb-gpio driver unconditionally accesses the GPIO_EXT_PORTA register
+at offset 0x50 during initialization in dwapb_gpio_add_port() and during
+system suspend in dwapb_gpio_suspend().
+
+Accessing offset 0x50 from the 0xff202000 base address falls outside this
+allocated 0x20 byte window. On an FPGA memory-mapped bus, accessing unmapped
+or unpopulated physical memory can cause a synchronous external abort, lead=
+ing
+to a kernel panic at probe time.
+
+Should this node use a different compatible string, such as altr,pio-1.0,
+which fits the exactly 0x20 byte register window?
+
+> +
+> +			portd: gpio-controller@0 {
+> +				compatible =3D "snps,dw-apb-gpio-port";
+> +				gpio-controller;
+> +				#gpio-cells =3D <2>;
+> +				snps,nr-gpios =3D <2>;
+> +				reg =3D <0>;
+> +			};
+> +		};
+> +
+> +		gpio4: gpio@ff202020 {
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +			compatible =3D "snps,dw-apb-gpio";
+> +			reg =3D <0xff202020 0x20>;
+
+[Severity: High]
+Similarly, does this compatible string cause an out-of-bounds I/O access he=
+re?
+
+Because gpio4 is placed immediately after gpio3 and also specifies a 0x20
+byte window, the 0x50 offset accessed by the snps,dw-apb-gpio driver falls
+outside the bounds of the gpio4 window as well.
+
+> +
+> +			porte: gpio-controller@0 {
+> +				compatible =3D "snps,dw-apb-gpio-port";
+> +				gpio-controller;
+
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918-k3-aclint-=
-v3-0-cf4fd4050e14@pigmoral.tech?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917163157.1380=
+860-1-petko.manolov@konsulko.com?part=3D3
