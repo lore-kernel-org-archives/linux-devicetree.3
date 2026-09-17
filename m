@@ -1,87 +1,71 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEF6A4DA9AB
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 12:06:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C41484E4314;
+	Thu, 17 Sep 2026 12:07:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789646801; cv=none; b=HLpGVXlPwNZpa+9bGw8RvPxLoH2acmK3ro3S8mukEh9eQSLGZqHoCf0agjIuggd4WeZvT/FmmQePYn+hq8BlKgbZ4BumGP659on44y11wpz52HS9h2GQOH56aE0JVFQmx5E0aXTqhuMck4RExqDlJMKj+oA6rnrH9K28Nowk+Mk=
+	t=1789646839; cv=none; b=a1Jup0vwIzFsYr4z/J7cdC3/Tk6pNJ/0pvUopPjK7KnXPDzsFXDNDCnJTc1N5NgVI/pG8N2jbQi6YzOrq/g3BeJUd7Ne4hkUqz9oN/xPaD348HS/BKBqhep5E7zl3wYXO/mRGTVU6qHe5NLB2b600FG3hHSM0DWgGv5+zNXJbr0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789646801; c=relaxed/simple;
-	bh=PNmgRKxHN0vI51fxRq3mWkvuejosp+5v1D9KhX/74y8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=sF3p0/MBmIvENoJ0sjc/QIT9DSbidTJlyys4W0u0nrnrnyvGhGyKN4kCs98foAT7c2Yxbm1P8ReepL9H+3A2G5DICwgWIoyvY7yIqQlm//LOQ0R49cvy9v/jyyBc0hXXW9Yl446XWQ6HhqWDRcCYDn9tHMgk8W5b49TgZK7SWbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jbxJbGnZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789646839; c=relaxed/simple;
+	bh=+N/xA6uppH+jcnCFHQTy2mmbhw5VGAyrd3eBpNbthIk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TEelBngQEtwOGZBFMygwKuwD2RMyPxkYb+vpYaugiiDw8GVoiMBmQI4v3WeqOGM+84R8q0xDSu/Ll3VG9h1LYC+zGkF7BjhFGCtiY858nZ6cBRV/GWWIBMVRXeC2G6oWUY5RLA1etlQhY7DvpaegNS0I5XxgnqkvCyzFEMJKE1s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=Cje0W705; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jbxJbGnZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A67FD1F00899;
-	Thu, 17 Sep 2026 12:06:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789646789;
-	bh=taGSk/awfNnfy47em1nCem60hxqEp6X/YsVds/pUQs0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jbxJbGnZhyNI2DF5s4qj6fuL9YYUdk5XO5mqqGVpxPfV8Hxh4pcb5gAIE/xtygRT5
-	 x1wa5BYwoBR3Oz4BeyWi1PI+TZMAhGi3lBx5sExDhGQHtjLd4Zcc+aYYUx5RaxZtLr
-	 HPcU1VYn4boJ1IXzF7SBpbmsZoPloE1IJZqnEYUimoc2HG41tXtzE4qVXtCGGSS9hK
-	 xu8xlHMgkqjcRM0Ti/XMf4GEeUXDXjH4kRZtMUltBhfZW5g+9MfAHgclzz6pKgCL2v
-	 AVjBwKyYEEKtxR+AUArEoDUiNFHcxZL+SesbBYr3TT/O72RuFuFlHb9ixm93COBOFI
-	 iAccjNkDkq2JA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 18/18] arm64: dts: qcom: kodiak: Fix PCIe WAKE# GPIO
- polarity
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Krishna Chaitanya Chundru" <krishna.chundru@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260917-root_port-v2-18-0d627d0856d5@oss.qualcomm.com>
-References: <20260917-root_port-v2-0-0d627d0856d5@oss.qualcomm.com>
- <20260917-root_port-v2-18-0d627d0856d5@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 12:06:29 +0000
-Message-Id: <20260917120629.A67FD1F00899@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="Cje0W705"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=DH0OYKtGSUlylYcDmv61Bdop+K5RL/tkGG+cpn5RDUI=; b=Cje0W705n30oEkgLv9O91hfRxU
+	Kvx1U1ZvIjcrwycRguaBZUmBDmo7+T8hsSLepWkInQtsvMl95IJ+Z58Ieh6xHfdJD87nSH5dSsNQB
+	WjlDxnFHTQbaY0Gqw3ZX4ypNQFZgqj1uVXYeYJLmLxFawhBfhIkSAhc8idYt+S2l0OoM=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x7At7-005fOp-91; Thu, 17 Sep 2026 14:06:49 +0200
+Date: Thu, 17 Sep 2026 14:06:49 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Yoshihisa Yamamoto <yoshihisa.yamamoto.xn@renesas.com>
+Cc: =?iso-8859-1?Q?Cl=E9ment_L=E9ger?= <clement.leger@bootlin.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net v2] net: pcs: rzn1-miic: Reset PRCMD state before
+ unprotect sequence
+Message-ID: <f896b55f-ca21-4885-a2f3-5807184cf959@lunn.ch>
+References: <TYCPR01MB748139F059DF2459B9813416A4B92@TYCPR01MB7481.jpnprd01.prod.outlook.com>
+ <TYCPR01MB748157ECB6B92D8E3FFD433BA4B82@TYCPR01MB7481.jpnprd01.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <TYCPR01MB748157ECB6B92D8E3FFD433BA4B82@TYCPR01MB7481.jpnprd01.prod.outlook.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] dts: undocumented addition of wake-gpios property to pcie1_port0
---
+On Thu, Sep 17, 2026 at 02:49:29AM +0000, Yoshihisa Yamamoto wrote:
+> On RZ/T2H MIIC, writing 0x0000 to PRCMD resets the command state
+> machine to the IDLE state.
+> 
+> Reset PRCMD before issuing the unprotect sequence so that it always
+> starts from a known state, regardless of any previous PRCMD activity.
+> 
+> Signed-off-by: Yoshihisa Yamamoto <yoshihisa.yamamoto.xn@renesas.com>
 
-commit 6e97f1471613f8cea666aa46eb12ba3627dc0138
-Author: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+Please start a new thread for each version of the patchset. The CI
+system does not always see the patches when linked to an old version.
 
-arm64: dts: qcom: kodiak: Fix PCIe WAKE# GPIO polarity
-
-This commit updates the polarity of the PCIe WAKE# GPIO across several
-Qualcomm device trees to match the active-low requirement defined in the
-PCIe Base Specification.
-
-> diff --git a/arch/arm64/boot/dts/qcom/qcm6490-particle-tachyon.dts b/arch=
-/arm64/boot/dts/qcom/qcm6490-particle-tachyon.dts
-> index 5bb33a8a98304..509fc4941a029 100644
-> --- a/arch/arm64/boot/dts/qcom/qcm6490-particle-tachyon.dts
-> +++ b/arch/arm64/boot/dts/qcom/qcm6490-particle-tachyon.dts
-[ ... ]
-> @@ -579,6 +579,7 @@ &pcie1_phy {
-> =20
->  &pcie1_port0 {
->  	reset-gpios =3D <&tlmm 2 GPIO_ACTIVE_LOW>;
-> +	wake-gpios =3D <&tlmm 3 GPIO_ACTIVE_LOW>;
->  };
-
-[Severity: Medium]
-The commit message states the intent is to fix the polarity of existing
-wake-gpios properties by changing GPIO_ACTIVE_HIGH to GPIO_ACTIVE_LOW.
-However, for &pcie1_port0 in this file, the wake-gpios property did not
-exist previously and is being newly added.
-
-Is this an accidental inclusion, or should the commit message be updated
-to clarify that wake functionality is also being added for pcie1_port0
-on this board?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917-root_port-=
-v2-0-0d627d0856d5@oss.qualcomm.com?part=3D18
+       Andrew
