@@ -1,98 +1,73 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDFBE4156FB
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 21:07:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B230D4854E1
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 21:15:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789679281; cv=none; b=joeNoJyFNKscIdsojcHug0qGCMDUDfgEmZ91VmViSdENSa0ZnyerPhnKoa20fmj+HahWFr+mdLWG1yKS1djw0i8d0G5kpeu6u1xSbaHljojzmAS50cbAFq8xfLe6Y3w7oU45vr2ifBN+JftlHhLIZSexBCFuxAMBp2Iugin2+lg=
+	t=1789679724; cv=none; b=qaLfljaZ13Ij8Te3Mqa6hkBGEPLOD92OLS5hESnjTIXIZiZ3+6Dlb2EbQ+Q6QBcx2M3IuDHdtV/p5VWK2SAWWcE2ADd0eibnJym5FY6Ed0IwSiA7zLye7hVJLJzJdICc1p8NCg125zZMbNmkZLSzRugYcJEVWjBmzdSOIfLQ/IA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789679281; c=relaxed/simple;
-	bh=93gE8kbYkPhD312DDkjXwXXms8KyYITmoX3vA3WWl/g=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=erKDQtT+r1s0Ybbsk4qn0TxPrIGMW52UCnIYQkVXhigmwLPBpJ/X23Shi+GjAQ+LU8bwJTWQw69EGu1hvDgeKd0U25uf/hVaVrzWfhz26KceRnxFq7p2VFfsvALjs5t+saZYISbh2KZkDj0tCVwNBTDGX/q/ecJmE4jQvUFxCoI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NeV0RjzS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789679724; c=relaxed/simple;
+	bh=ojkgX1nspCMPdymsx+evHfxf1O3aHgw+gXlsdj87X6U=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qHbZN7kEFeYpQDMoA2cNkOixg7lMiUnM1K8bJ1HJIRtniabu1D0k3U9xyltnnmoDMuzQGdo/Y4dVt/5dRbapzMaV/q+1g61wk9ZE5EOIkDvFMG6EAUD15TGGzJqXEzF9ngaWysRJE3E13661l5qJtstpha+4goOHZOAavRXqtBg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VZ+1NesM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NeV0RjzS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AAFB1F000FF;
-	Thu, 17 Sep 2026 21:07:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VZ+1NesM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D8E81F0089D
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 21:15:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789679279;
-	bh=NycZ8xxpD+szQ7fNi7KljyQrNuf5boM7D+dveD4mur4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NeV0RjzS52eehgjyzMGadUy/ACSYbYistaZ0vSbJ8o5cQfc5p1f2m2evBGODU8Gud
-	 Pxxm56jzOpMlAazAPbT9fWVwK2cD5zYiYwyx6Vg7L0KS4wvnUtIU5ykNVBLPt3mqO1
-	 5Ec4yNPCSPF7KBL4RN/JCJWG3xaOKvMBaedHppu0IEPRpyRaIYcXdmff1t1p+aI3x6
-	 WNUgJv53fSjw6GtzwijWsWoibOG88tB0KaDLjASWvuSuYaGxbMYHKD5QSwTzNg+Ys9
-	 n0/3YbuFE/v6hg1HhrbQQda3YF/P1B4sdsUHpXVXgeDqF96l4YgGvwAw/I5UfL/jBz
-	 Zt9FEBfw4mFXw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/6] ASoC: dt-bindings: amlogic,gx-audin: add schema
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Valerio Setti" <vsetti@baylibre.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, neil.armstrong@linaro.org, linux-amlogic@lists.infradead.org
-In-Reply-To: <20260917-audin-v2-1-38de4bc1de34@baylibre.com>
-References: <20260917-audin-v2-0-38de4bc1de34@baylibre.com>
- <20260917-audin-v2-1-38de4bc1de34@baylibre.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 21:07:58 +0000
-Message-Id: <20260917210759.0AAFB1F000FF@smtp.kernel.org>
+	s=k20260515; t=1789679723;
+	bh=K90pTk13k05ePY/n1kZ8tY0YMwNaVlZEhLkDT7Q1q2U=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=VZ+1NesMej6r2LCg9BBVBSc8avCCOnwAZsb4TxhoXvMPVMTTyUPuQaWzFKtsH/UZj
+	 7FwYW9uuaiR6+v3t46LgsXi3QGIQ7JpxBJZZj5Ag1dBhlvfAUajEpezllITmMOfa9R
+	 ytDzal12HKJbVHR1Cltar/KEUy/GAjVvDFcpPXaqAhJRm54xJ+K85OR5JCXpDWSoBp
+	 p/r6kBp72+aHVHy83cR9kdy/1n5ITAm/onawJ6Wy5Ubih0wUfRA5gmfyCz9JGA1flh
+	 nhdP1iZxAyOd3RtDMhR07mlk0fmpSirzEni9u+XGCKGjjAlhm2JUsrg8uxOPxOJeDo
+	 XBO5dMnZedJfg==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b88dc3bc02so55662e87.1
+        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 14:15:23 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzZl+pePQYr7jSuWC9mi1f5PbyygANNXGdKg0Oee5tGpmW++4s3y0s8/8WrfOq8QB+jkF8SeHrxAY6y@vger.kernel.org
+X-Gm-Message-State: AFuF++naoLullaUuakftdUUkGTThkJGNAVtHSB/Ek4OOJv8BtS47hWOG
+	ifdtHaNWtkICb24jFQ1jBjllX0XiQOAJ6SumyQaSJf9lBkhg0dLndxnuh297kyBwQczq2gYxux9
+	cDMZF4nMWmcVveWelln4qSS9TV3pHpDk=
+X-Received: by 2002:a05:6512:31c2:b0:5ae:b91d:b2ec with SMTP id
+ 2adb3069b0e04-5b8c18137ebmr53644e87.3.1789679722005; Thu, 17 Sep 2026
+ 14:15:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260916-ks8995-to-ksz8-v15-1-8825ff5fd4be@kernel.org> <178965134577.22033.16045801715665480170@kernel.org>
+In-Reply-To: <178965134577.22033.16045801715665480170@kernel.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 17 Sep 2026 23:15:08 +0200
+X-Gmail-Original-Message-ID: <CAD++jLn+Ap3E18C_N0cmn4W+-gyNMh2qioijS8EBcyzYsP=W-w@mail.gmail.com>
+X-Gm-Features: AcwNN1UzTAYPKQLw7ECwF_lD00TrsbMLJtzSjQJXu2i_h7_bzAZUxDUmLcoOJY0
+Message-ID: <CAD++jLn+Ap3E18C_N0cmn4W+-gyNMh2qioijS8EBcyzYsP=W-w@mail.gmail.com>
+Subject: Re: [PATCH net-next v15 1/4] dt-bindings: net: dsa: microchip: Add KSZ8995XA
+To: netdev-bot+sashiko@kernel.org
+Cc: woojung.huh@microchip.com, UNGLinuxDriver@microchip.com, andrew@lunn.ch, 
+	olteanv@gmail.com, davem@davemloft.net, edumazet@google.com, kuba@kernel.org, 
+	pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	marex@denx.de, horms@kernel.org, linux@armlinux.org.uk, nb@tipi-net.de, 
+	netdev@vger.kernel.org, devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] dt-bindings: amlogic,gx-audin: missing const constraint for #sound-=
-dai-cells
---
+On Thu, Sep 17, 2026 at 3:22=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wro=
+te:
 
-commit 1813eec5eb42b623e2aae169825ca6cb3dcd09e8
-Author: Valerio Setti <vsetti@baylibre.com>
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 0 =C2=B7 Low: 1
+>
+> - [Low] Concern (validated as a FALSE POSITIVE, retained only because
+>   requires_validation=3Dtrue): the new compatible `microchip,ksz8995xa`=
+=E2=80=A6
 
-ASoC: dt-bindings: amlogic,gx-audin: add schema
+OK so a non-issue, that's an OK then I guess.
 
-AUDIN provides I2S audio input support to the Meson GX platforms
-(GXBB/GXL).
-
-> diff --git a/Documentation/devicetree/bindings/sound/amlogic,gx-audin.yam=
-l b/Documentation/devicetree/bindings/sound/amlogic,gx-audin.yaml
-> new file mode 100644
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/amlogic,gx-audin.yaml
-[ ... ]
-> +allOf:
-> +  - $ref: dai-common.yaml#
-> +
-> +properties:
-> +  compatible:
-
-[Severity: Low]
-Should #sound-dai-cells be explicitly defined here with a const constraint?
-
-The binding requires #sound-dai-cells below, but fails to define it in the
-properties block with a const constraint. Relying on dai-common.yaml, which
-only defines it as true (unconstrained), allows invalid configurations with
-incorrect cell counts (e.g., <0> or <2>) to silently pass validation.
-
-> +    items:
-> +      - enum:
-> +          - amlogic,gxbb-audin
-> +          - amlogic,gxl-audin
-> +      - const: amlogic,gx-audin
-[ ... ]
-> +required:
-> +  - compatible
-> +  - reg
-> +  - resets
-> +  - interrupts
-> +  - clocks
-> +  - "#sound-dai-cells"
-> +
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917-audin-v2-0=
--38de4bc1de34@baylibre.com?part=3D1
+Yours,
+Linus Walleij
