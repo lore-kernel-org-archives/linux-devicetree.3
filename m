@@ -1,170 +1,113 @@
-Received: from mail-43171.protonmail.ch (mail-43171.protonmail.ch [185.70.43.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 026634349BE
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 06:40:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789627214; cv=none; b=AxcVCg6URWEUxZldQks3WZdR05PRHruMIxLfmBATf69EaH2x+zFH4OxL0LXcCdhHQyzqZ7FtYmqfhXJPVIJz7aQW/Ck0YFmg+dbn0Jb8B2frgqQEyEnFvx8c7p5pst1djcEGeHoAXqnB4lpNoM3127Q1Tb4DICr3wT9RpyQu8Zg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789627214; c=relaxed/simple;
-	bh=f1QRepBbWZ/l8660Nq06d26o8HeFv0/fKHJXcSIt6GI=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=hMhTSNcFgLs2zOgsuGKsGHmcwCH3qQaYRcgOui7MEZoSwvwM7gHJq6bPErugKeTWKqksp7yd6FaEGWUcf74PZ9ZpBv+Q23sCKeDnEkBI8LS6BxsBOkHCYe0P9PA7yhNXiBGLUwjiNb3Ps77VKDmiLg54BMfLE9OTQrdvp4D7Yuc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=u7btnMhk; arc=none smtp.client-ip=185.70.43.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90ED04432E4
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 06:43:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789627404; cv=pass; b=mQB1oB+JQF5ecBLrPJztU1YbYPTeddvM8+RD1Uk7czaQc0ykgAneVpH6S2ZGOxf/KLlD8Qm5eYmhueoQuUD3ach8GBjMKX5AzB4NbrtTeOs+R6UTEyDLVnpYSMy2Tc0aJ3BxMQwZ8w85WakC2N22aQpqfsmU3QTORzpWsxb1qlw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789627404; c=relaxed/simple;
+	bh=iF9IC0Ww9P1PQeAOVHIvIeKZQhHeM7arIW5mQv7Oi6E=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QYimxxWg1u3lIjI9LinwG5cRd9KdFkE8ruCTWConf0BcfXyC/0X+xQL+JDDDlfH3TXKiCv080LUYFswYF7dQujPiYgP+hq01VXk7dLB/Petiu7m1iOJvewoLTPN72XQG+ZPNR8ROWgEZuKUZYQ16uwAtoahMwWBUFu1m8rXCYgY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iCrgmO7O; arc=pass smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="u7btnMhk"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1789627208; x=1789886408;
-	bh=7IMNOjt0Ppv/0nXgXbNNXUVyv/GVippRssUgg0KAhJg=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=u7btnMhk20zG/gaqDh4pRNnp/JvZ1PV3OekOxwfvgyBQFEPeYYvRw6t/WPOLpK381
-	 ze8i/TViXAV4VqpPGpS4Fkg7ufdN0T7vEbW/XtNH5CuhAPiv+7UlRfnS4su/PGhNeo
-	 Aw+OWm4zV4UJP+S/K2D35OjRXWr+vj7SygvPbN9To1UkHVR3RxdAuhEPwq/sjjs1ug
-	 qzscl9oZPOA61XWBJ9yVW3o//HxMuzNfIP1/Fu6tNPBkMEG4zBcrhi4xGtF27MsW2O
-	 dFn+FW6Ovr/1kRit8n2Hld7bjq1haCib3cFBHRurCaQdeNHTywSvH+dPEi+VB7llp3
-	 iO0lbGqsAbvUg==
-X-Pm-Submission-Id: 4hlmMp5NLYz1DDrw
-From: Esben Haabendal <esben@geanix.com>
-To: <sashiko-reviews@lists.linux.dev>
-Cc: <robh@kernel.org>,  <conor+dt@kernel.org>,  <devicetree@vger.kernel.org>
-Subject: Re: [PATCH v9 10/10] iio: accel: mma8452: Support interrupt sharing
-In-Reply-To: <20260916083119.03A8F1F000FF@smtp.kernel.org>
-References: <20260916-mma8452-open-drain-v9-0-0dd24fa2f3d7@geanix.com>
-	<20260916-mma8452-open-drain-v9-10-0dd24fa2f3d7@geanix.com>
-	<l9LG3al0xmawstyXcDwD8OhOBMwn13q6oz0NvCPy4kL0lA4DX5biMlUWcvt9Wwu1AiyugOvUZgQfnFJ4dvuvbA==@protonmail.internalid>
-	<20260916083119.03A8F1F000FF@smtp.kernel.org>
-Date: Thu, 17 Sep 2026 08:40:06 +0200
-Message-ID: <87se38754p.fsf@geanix.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iCrgmO7O"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-52fb767d286so3904601cf.2
+        for <devicetree@vger.kernel.org>; Wed, 16 Sep 2026 23:43:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789627398; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ggcaVAIiTX/L9yOkD1Y4NMK++EaixLzbRiCxYkSLKtUciU1ESdVFdhqRxT8rQ3JUMo
+         FAHFhEJT0V0tU4yn6Dii8295sKx7nm97foJVmczgy1y5ZhUv6pTFwyAqUZNRwHKHr69f
+         ir8SmZ/k/98en9/OCEQjqC7m6dVt3T8wN8zHq5aSs+4PxaPUR4Og0PMjM5CKXY7hrv4r
+         nUhy3RE1mo0ZxbN6Zgrv6AIGuq4yz+HYONlJwq/n2CW9MRIH2PCFUc00ZMJpF4LklhDy
+         X8Tgj89toKgL2l1zJFyod+ipv11Dpbp7mSzwE97olkkMrHQA3IahU1zUaRIRc2Wk610o
+         uSeQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=iF9IC0Ww9P1PQeAOVHIvIeKZQhHeM7arIW5mQv7Oi6E=;
+        fh=sL7RRuGQoX3eEN1/2+3vBOllZk6fKB9TrONamy+kLt8=;
+        b=sLepR1eOOuT1gnBfNMCjUsOsDM2uCql5PzOwCAfT+gT9KT1Yd7zoRjMnncERXauaxv
+         RYpOTIyjXl2eBb/3OA5CTL977z0BdNcdi6fvn+kzY6jeyze4p8lEcyfrN5rb8r80javZ
+         c0+Mik5+nAFoA88bxbAIoU/5EMK6CIDQnb7zAS43dp0UGF+IoaCEXWLsFz3mjg7gW+MQ
+         kV583jOTPCEHLRWAwWV0+a/O+KgSdd2e+uAehM/9NFMirYbAYuahogh5mdewPfZ7GK8O
+         ar4cjFTfhkxjkVyILDry79IIQ/g87xzqKc2cBOrT0r/j1B9d0CAdWvgT7KXWa+aK3iJJ
+         WoYw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789627398; x=1790232198; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iF9IC0Ww9P1PQeAOVHIvIeKZQhHeM7arIW5mQv7Oi6E=;
+        b=iCrgmO7OPliEQzqBbml3sQiFH/C+xCYALws4iKaOXNhOtOr/zh3gi0W1CO4QxiANez
+         D3wO3I8MigUbUwtp7E9unoRqQbF/9k6bmm0g2hNfwma1ZvLF6tvrqgX7fbbqDnaAVOMl
+         x9EOnUTH/xmnfzTD4TOhQHVBtBSRgDCNwC1tNMRbe0dGe6SvBRujz3m98w9EKvlvvTMl
+         b5yjOuaEF/Hkc1JCrUXfpucbppO/KXqnme2jSBORk4kNnrLc3icdpdo2p99w5OVwXkSN
+         KdKdeC9UZn9o6zi52ADGdw6XaalLYRuYYEkGjrub8GZkYOJpXsdRAbQX2iCWqk35Xlwy
+         s1kA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789627398; x=1790232198;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=iF9IC0Ww9P1PQeAOVHIvIeKZQhHeM7arIW5mQv7Oi6E=;
+        b=Ra8Meb9OmYXHngaCveLYc/qDbWfEGepZdwGoUHJdf07FdS4Zqvs5ELHUw+KhHo+Umt
+         UC8TqYAr7sfJSUXzFiJG63z9YHhdxOC/ggjiSTXhDpU68cd4pgbk2/nJikZhcNGa6SBC
+         NQBshMKZR/flmVotwTc1HE6XUr4QJKf/wOzeSiOzynKmrWIakxNFkZJkX6gzcdXDcq9N
+         JnLmaAhOYYnyTGOiSGIZ+dpsNCIX8SS07P1FjwfwasNy3UKWtBOwrfVUSeXALA96qp0Y
+         /nJCuA4cFC9FRGwuPKmkyDh2j9iYCNTTZuiUsMk1xgO5b1qhyN63pRSbNYTiNpBP7JWw
+         sw+Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzzPmrva2XgoO30ZPLIkowjj9GGPmAI6XidLi1f528AGrQITr8zKlKhjOVp9ZHbF/CMW+kY5eT44aqb@vger.kernel.org
+X-Gm-Message-State: AFuF++kqJMovJ3fu1ZIRY+r0Y1tJOKBSEFDas+uFhPilSh0Ct9Tdtpth
+	NFUIkXRInWzrdmpjFAuTWyyAIxkrtJ8ygk73HBbgT3FCCMu4vY/PxwOaP8vT6kC3HYFmY2MPUSj
+	s3RtSkue4uLiFBE28QhXh6V/i9uueOVE=
+X-Gm-Gg: AYBFou2qaQBRBAT02svppyznHjnSAHBamFdwlEx8xVsu1HR9lk9aHQBhGB+qzhiZa+Z
+	TtWUjOoiX/cPLV2WWAAC8tT1Kofmc8/K5qkKyWWsXufPgFSemPQ5411hmuFJE4D3S1ovknRB8CU
+	1jAEhgIAs7Rp6lMyZHmxIekvkkxwNvzTUiQGtPvDBGZ+jmtEhGAG7/RGBB+aBQ3+zcSX6aKU1P6
+	Zq8ks5g8TLphL2mZMNeoFLW9Gh5xNvDH/7dIKBUi1cHXwzRsnKVBgxkfskAAUPZ3poRkAXfCK1o
+	WzYpmvLR/E8ysD4LmSxzHjiMjUGRHCW/LSP55kS2XPIA2welVsphj9do
+X-Received: by 2002:a05:622a:58cc:b0:530:feae:130a with SMTP id
+ d75a77b69052e-5327ed75c74mr102732471cf.11.1789627398229; Wed, 16 Sep 2026
+ 23:43:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20260917060948.14700-1-palaomer100@gmail.com> <d0ba41a2-6d4b-4bba-b147-d287bcd9b179@kernel.org>
+In-Reply-To: <d0ba41a2-6d4b-4bba-b147-d287bcd9b179@kernel.org>
+From: =?UTF-8?Q?=C3=96mer_PALA?= <palaomer100@gmail.com>
+Date: Thu, 17 Sep 2026 09:42:56 +0300
+X-Gm-Features: AcwNN1W5u0fdpGa4ENT0dZ7irXfB5ehQ6MdwksADrwwfNdm6bS_Me35uFnyAKQw
+Message-ID: <CAKhZXnp_oYvhmcjv0piYC5MpmH2Lqsy_Z3-ofzKPX_iRxnP3EA@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: misc: add xlnx,axi-fifo-mm-s
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-<sashiko-bot@kernel.org> writes:
+Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>
+> Same day? Are you coordinating this anyhow?
+> https://lore.kernel.org/all/20260916201253.483877-1-matyasdaniel005@gmail.com/
+>
+> Anyway, same answer.
+>
+> Best regards,
+> Krzysztof
 
-> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
-> - [Critical] iio: accel: mma8452: Interrupt storm livelock when IRQ fires during RPM_SUSPENDING
-> - [High] iio: accel: mma8452: Invalid I2C access during system suspend due to mishandled -EINVAL
-> - [Medium] iio: accel: mma8452: Race condition in probe error path due to pm_runtime_disable() before free_irq()
-> --
->
-> commit bf19c63685f6fff116a3a5358196fd66dff6090a
-> Author: Esben Haabendal <esben@geanix.com>
->
-> iio: accel: mma8452: Support interrupt sharing
->
-> This commit adds support for shared interrupts to the mma8452 driver. It
-> modifies the interrupt handler to check the runtime PM status and ignores
-> the interrupt if the device is suspended. It also updates the runtime
-> suspend and resume paths to properly disable and restore interrupt sources.
->
->> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
->> index 5aea6bf3312af..2a980c0c2e03a 100644
->> --- a/drivers/iio/accel/mma8452.c
->> +++ b/drivers/iio/accel/mma8452.c
->
-> [ ... ]
->
->> @@ -1086,15 +1088,28 @@ static irqreturn_t mma8452_interrupt(int irq, void *p)
->>  {
->>  	struct iio_dev *indio_dev = p;
->>  	struct mma8452_data *data = iio_priv(indio_dev);
->> +	struct device *dev = &data->client->dev;
->>  	irqreturn_t ret = IRQ_NONE;
->> +	int pm_status;
->>  	int src;
->>
->> +	pm_status = pm_runtime_get_if_active(dev);
->> +	if (pm_status == 0)
->> +		return IRQ_NONE; /* device is powered down */
->
-> [Severity: Critical]
-> If the device asserts its level-triggered interrupt when the PM core is
-> transitioning the device to RPM_SUSPENDING (e.g., when the autosuspend
-> timer expires), pm_runtime_get_if_active() will return 0.
->
-> Does returning IRQ_NONE without clearing the hardware interrupt here cause
-> a permanent interrupt storm? Since the IRQ line is shared and unmasked upon
-> return, the still-asserted hardware interrupt might immediately re-trigger
-> the handler, potentially starving the worker thread that executes
-> mma8452_runtime_suspend() and hard-locking the system.
+Oh, i didn't look up archives.
 
-This should be handled by the disable of all interrupt sources (clearing
-CTRL_REG4) in mma8452_runtime_suspend().
+Sorry for wasting your time.
 
-> [Severity: High]
-> During system suspend, pm_runtime_force_suspend() disables runtime PM,
-> which increments the disable depth. If a shared interrupt fires during this
-> window, pm_runtime_get_if_active() returns -EINVAL.
->
-> Since this check only catches pm_status == 0, does this allow the handler
-> to proceed and perform I2C reads on unpowered hardware? Per subsystem
-> guidelines, should this check for pm_status <= 0 instead?
+You can drop my patch.
 
-If we bail out on pm_status <= 0, the driver would not work on systems
-with CONFIG_PM not enabled.
-
-In order to handle the difference betwen the different reasons for
--EINVAL, it would seem like we would need some #ifdef CONFIG_PM in here.
-Do we really want to do that?
-
->> +
->> +	/*
->> +	 * pm_status is now 1 or -EINVAL. If pm_status==1, runtime PM is enabled
->> +	 * and device is RPM_ACTIVE. If pm_status==-EINVAL, runtime PM is
->> +	 * disabled (e.g. CONFIG_PM not enabled), and we can/must assume device
->> +	 * is active.
->> +	 */
->> +
->>  	src = i2c_smbus_read_byte_data(data->client, MMA8452_INT_SRC);
->
-> [ ... ]
->
->> @@ -1771,11 +1790,12 @@ static void mma8452_remove(struct i2c_client *client)
->>
->>  	iio_device_unregister(indio_dev);
->>
->> -	pm_runtime_disable(dev);
->> -	pm_runtime_set_suspended(dev);
->> -
->>  	if (client->irq)
->>  		free_irq(client->irq, indio_dev);
->> +	/* No irq will fire beyond this point */
->> +
->> +	pm_runtime_disable(dev);
->> +	pm_runtime_set_suspended(dev);
->
-> [Severity: Medium]
-> This correctly fixes the race in mma8452_remove() by moving free_irq()
-> before pm_runtime_disable(), but does the same race still exist in the
-> mma8452_probe() error path?
->
-> If mma8452_probe() fails after pm_runtime_enable(), it jumps to the
-> runtime_suspend label:
->
->   mma8452_probe() {
->       /* ... */
->   runtime_suspend:
->       pm_runtime_disable(dev);
->       pm_runtime_set_suspended(dev);
->
->   free_irq:
->       if (client->irq)
->           free_irq(client->irq, indio_dev);
->       /* ... */
->   }
->
-> If a shared interrupt fires between pm_runtime_disable() and free_irq(),
-> could the handler attempt to access unpowered hardware?
-
-I will apply the same reordering in mma8452_probe().
-
-/Esben
+Best Regards
+Omer PALA
