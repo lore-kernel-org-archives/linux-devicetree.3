@@ -1,152 +1,273 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E11284A4EF4;
-	Thu, 17 Sep 2026 20:39:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC4084F3EDC
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 20:44:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789677582; cv=none; b=BCs0UDAlUdVRhLbTFjVylBLeWBoWjyGFlB18hpxv6qnWnCHH7riGuCCzD+19PAqj/9YtMcL69oN/COv5tvaZWwSX6SpglFFfIZ4W9Bce84sbv3Y19uhmD9U3ovQQyMNAidarpzvguCnYQkiy2PIpyRS75rypzORBpkAKUJpkNN8=
+	t=1789677854; cv=none; b=PeIWSS/asfiVBiAyoCYg6llx7eIi0AyLYGFZCy9AoeeggRdUPnDiRT0O7sPoi6ocYuiFlEzdgRRDZCZ6L3wsGqLbQ7of3Ll15rZey4+f/mikwJl3ebTtWV0VvMqJZ4UOj5FfrqMckjDggCpOoaZCjnPfj4pFMX4WR87WFvCzVLo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789677582; c=relaxed/simple;
-	bh=cg7BCvR1cLAHYckn6sXbcMfbGYSZh3IvF6MOBd1cfDA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lLI6mMLARbQ0pg4EXcmdj4gvAMMwTxPTFUzDSHBkH4oCQAs8iCIPmpcaNehN3jQKBflwIud0DSIF1BVgWBfcnCR6Sq90hyAU5ZIkXahdVWJ+bueFTN2OSNwvYu2I7oqJEUfcDXNP+lzwirFJmnHzoPQJJGhBFPj7WlvzEwQws2o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZKbdwe4H; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789677854; c=relaxed/simple;
+	bh=7n3EKdPTyeJ3fng5n2NU2Jsl5vOG5evW8rwiIQjnCNs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jm2mQkap65DAJF7TQDp1T2UVX/qjAqwBl/Wlv8tKq/xu8dpW7e8rbrvmPjkt9wiYO2HTw4MLdfMs3Kway2jQgr7pho2O//heKIIeOvBJbhbvDxQ2r+hVfF4mpcxPapn1VEhJUWedoIocMpYnmXnDjD4gNk9nzZ0iCaUdYfmSA7E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SqsecCjF; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZKbdwe4H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 568831F000FF;
-	Thu, 17 Sep 2026 20:39:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789677580;
-	bh=8F8vuRKsQlvpmUswJ4XE1PgRyZZ1pDeb65uVpTL9SmQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZKbdwe4HeSL1dEjr23I2q7ywMJ/zdRa72oxd6e64/QZrrH6SDT2P6G8nibieI8Mr/
-	 kltPQzLqUhcR+tAqEJoJAp0LqkGqwCBAunK170nxqB4YywJNC8Tr7XwjTOXsegw1wK
-	 68t1GV9KHLrwX/xe70h9zSI6Opm5D/xjZDgB7x+nG2Vd7yPnvrAIOKFfBoTh6ZS6dk
-	 XH6dUOYQSjCKmhywFppM0yQKzUX+KFpcGkrJlmWF+xvZOsqasCqHL85oxWYWg+Phog
-	 jNnGHuX7nNkVWu/OMvd8G+/0c6FrXO1LOCL2MF9qxGjbfchcXkVNHjzEzjaEMzE9+5
-	 nNQKKpmAAk2bg==
-Date: Thu, 17 Sep 2026 15:39:38 -0500
-From: Rob Herring <robh@kernel.org>
-To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Cc: Saravana Kannan <saravanak@kernel.org>,
-	Frank Rowand <frowand.list@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Grant Likely <grant.likely@secretlab.ca>,
-	Grant Likely <grant.likely@linaro.org>,
-	Pantelis Antoniou <pantelis.antoniou@konsulko.com>,
-	David Daney <david.daney@cavium.com>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Sashiko AI <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v7 00/10] of: teach overlay code to keep /aliases in sync
-Message-ID: <20260917203938.GA3480871-robh@kernel.org>
-References: <20260831-nh-of-alias-overlay-v7-0-02754604805a@nexthop.ai>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SqsecCjF"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so364465e9.0
+        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 13:44:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789677843; x=1790282643; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+azRImqFeLmJHvmrcTLLoRlF37aB5bzWoKnNKv00IsU=;
+        b=SqsecCjFYdzat9lXBaSRN/dnAvBIjPWnCPaZJViG9/0Lkrm28KsJgDfT4mTwTKd9hZ
+         a8fENg3OLgivOZgJ9y7YenF7SGVqQHBXiCKjwjlSZugWdobEvgcnWd73vhT2dUeKnte3
+         0Z3sByn+zZqN1ure9VtMPAjd2IbXfLw8drLw/Yb/ma7atOU6mOXmtvvZW5JxJJ3Pf87A
+         6rNHTz+G/o9V7Ixfw6sEHlo+gSYF2YSQs5Vb2lmf8Y16vBgIc7Z+2FODo/2nmt4rz6qH
+         cVwJgWHR/jsNDBkHh1UFGMB7D/aX1KA5DFDv2XESdoTPaWjNwJU6+FOaqdvgcfIZTOWj
+         EeNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789677843; x=1790282643;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+azRImqFeLmJHvmrcTLLoRlF37aB5bzWoKnNKv00IsU=;
+        b=TB2gbywT7OgCG+oGqdfeBrqdP3kmMvXxo0xC6vBa1lhCtrFY5TSWbRccqhgk8hddfy
+         XZIJ/OInxvbAMAtOQdHV+Ku2KCxmHCmsYXjvn4amEJQ+YwbHx8UKIkcREr/4yP0AD06L
+         6X5YqEI5MN1RYLMV9HUjTHBwHW+bNOYWuSGfbTndicMFx9IhG91+sToMYcftHzLmZy7s
+         VSj5tXRBND+G96DCjZHUQTsXyaebKIok9oH3690mobPkqLNvhsXjve2cxEjpS2fg9iuK
+         mrBU9gWl3z5+t/QmhIA5++cFHbPz4OptCFYPk4Ua+WunxMNenDYGD6pQiVDIEofnKPlP
+         snQQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxy94jmYxGBxoCixGL9EAiUsutML4Z5R6F5kdezRqJUBnV3GV7g11uu5ISPCd6xPc5iSg4CWk0ndKK8@vger.kernel.org
+X-Gm-Message-State: AFuF++nQIZcIk2dnaBH98dgKQbY5yBHJSoM4TFxFw1s8OXvO5WLpZzBe
+	ifMLiXk+1aSnB1nD2fnkBz/nDrvGGNSzgb0XRvMBZ39zf62KFCrBSg6d
+X-Gm-Gg: AYBFou3D4TIWxzouKCY2Gg3oULd590xHFRmo1FpwZpS+gZk6rlisFmhhnyrvg2wn8Jf
+	uwo1bLgw+njc2J1MGbmii9Z07Rk86CWFUKCU0HgXpBrHxigdeyqxCL/oCN30nqdfu4YCTnoyfXA
+	48zcAw6cuFxvotK69BUh3Cx0Ge6MWzLthw0zxJklm1Kn5vragoXKP/IU1XDS0EPaehIUzu4Q2jG
+	7DpPxJESKnktDcVxvkFIuNaZDmg1hL2waV8DcSQ6V7MpB79n/9rvUsLprq6AVIhFLIBVcLPZGn0
+	7NOHn60vrcYRowEP+/ceiKYtrZ78anXwVyzrarGfXsYSP5b3r69pVCkwqIkIKG6/noiB+2SXZHV
+	Yn8VCjhtbrtKY2QgF2ThYyInozyfWLDRoEr7prMnmwL0ExAX+bw3rb2TN4CSNs3yi6K6plnnTh/
+	i9qAAhvslLT6RjuPAhAYUO8sggjvlD00C9kAHE2p5llbfK/fS2ytIWuiYcbxPbihmzUDBAATz0o
+	zWYbSEeGQV23G3go7Q7kjSdB1aAIud6xMvGLr8ubd7CdH0C5Q==
+X-Received: by 2002:a05:600c:4f09:b0:493:aa0a:45ad with SMTP id 5b1f17b1804b1-49fc56692c6mr1407605e9.2.1789677843097;
+        Thu, 17 Sep 2026 13:44:03 -0700 (PDT)
+Received: from localhost.localdomain ([82.77.79.112])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49fbd227141sm122333395e9.2.2026.09.17.13.44.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 13:44:02 -0700 (PDT)
+From: Eduard Bostina <egbostina@gmail.com>
+To: Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	Eduard Bostina <egbostina@gmail.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
+	Rob Herring <robh@kernel.org>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v3] dt-bindings: net: wireless: Convert WL1251 to DT schema
+Date: Thu, 17 Sep 2026 20:43:54 +0000
+Message-ID: <20260917204354.3017427-1-egbostina@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260831-nh-of-alias-overlay-v7-0-02754604805a@nexthop.ai>
 
-On Mon, Aug 31, 2026 at 06:29:18PM -0700, Abdurrahman Hussain wrote:
-> /aliases entries added by a device-tree overlay are stored in the live
-> tree but never enter the global aliases_lookup list that of_alias_scan()
-> builds at boot. As a result, of_alias_get_id() returns -ENODEV for
-> aliases declared inside overlays, and any driver that relies on
-> alias-based numbering (i2c-xiic, spi, tty, mmc, ...) silently loses its
-> pinned id and falls back to auto-assignment.
-> 
-> The gap has been public since 2015 [1] and reproduces trivially: apply
-> an overlay that declares e.g. `i2c99 = &foo;`, ask
-> of_alias_get_id(foo, "i2c") -> -ENODEV.
-> 
-> The core fix (patch 2) is a reconfig notifier that mirrors /aliases
-> property changes into aliases_lookup. Patch 1 prepares the alias path
-> lookup for /aliases becoming dynamic. Patches 3, 8 and 9 are the
-> overlay-code changes the use case needs; patches 4-7 fix pre-existing
-> bugs on paths the series exercises. Patch 10 adds a
-> unittest.
-> 
-> Prior art
-> ---------
-> 
-> Geert Uytterhoeven posted a 3-patch RFC in June 2015 [1] with the same
-> alias-tracking design shape. Grant Likely reviewed positively; merge
-> was gated on missing unittests and an object-lifetime concern the
-> author self-flagged, and the series was never reposted as non-RFC. Ten
-> years later, drivers/of/overlay.c still contains zero references to
-> aliases, of_alias_scan, or aliases_lookup.
+Convert the Texas Instruments WL1251 Wireless LAN Controller bindings to DT
+schema.
 
-There was another posting in 2024 of Geert's patches and AFAICT my
-comment there[1] still applies. To repeat, what happens if the alias 
-number already got used because the subsystems can pick any of the 
-numbers without an alias. The only way I see to solve that is make 
-possible alias numbers and dynamic numbers non-overlapping or only allow 
-alias names that are not present in the base DT to be used/honored in 
-overlays.
+During the conversion, the following updates were made:
+- Added the 'clocks' property. It was missing from the txt binding but
+  is used in device trees (omap3-n900.dts).
+- Added 'spi-cpol' and 'spi-cpha'. These were present in the original
+  txt binding's example but missing from its property list.
+- 'vio-supply' and 'spi-max-frequency' are no longer required. The txt
+  binding listed them as required, but they are only applicable when
+  the chip is connected via SPI.
 
+Signed-off-by: Eduard Bostina <egbostina@gmail.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+Changes in v3:
+- Rename the example WLAN node from wl1251@0 to the generic node name
+  wifi@0, as requested in review.
 
-> Series contents
-> ---------------
-> Patch 1 makes of_find_node_opts_by_path() hold a reference on
-> of_aliases across the alias walk (the walk itself stays lock-free, as
-> does the pointer load: of_aliases always holds a reference on the
-> node it points to) and validates alias values before dereferencing
-> them.
-> 
-> Patch 2 adds a reconfig notifier that mirrors /aliases property
-> changes into aliases_lookup. It also refactors of_alias_scan()'s
-> per-property body into a helper of_alias_create() shared by the
-> boot-time scan and the runtime notifier. A one-bit `owned` flag on
-> struct alias_prop distinguishes kmalloc'd (overlay-time) entries
-> (kstrdup'd alias name, of_node_get'd target) from memblock-backed
-> (boot-time) ones so the remove path can't kfree the wrong storage.
-> The notifier keys off structural properties of the target node
-> (name + root-parent) rather than the of_aliases global, so overlays
-> that create /aliases from scratch on a system without a boot-time
-> aliases node are covered too. All aliases_lookup readers and writers
-> serialize on a dedicated aliases_mutex.
-> 
-> Patch 3 fixes find_target() so an overlay applied with a non-NULL
-> target base can still reach the DT root via target-path="/foo". The
-> current code unconditionally concatenates base + target-path via
-> "%pOF%s", so target-path="/aliases" resolves to "<base>/aliases" and
-> target-path="/" produces "<base>/" (never a valid node). After this
-> patch, an empty target-path continues to mean "the target base
-> itself" — preserving the shape used by drivers/misc/lan966x_pci.c,
-> the only in-tree caller of of_overlay_fdt_apply() that passes a
-> non-NULL base — while any non-empty target-path is looked up
-> absolutely.
-> 
-> Patch 4 fixes a pre-existing double-free in add_changeset_property():
-> a property freed on the of_changeset_add_property() error path stayed
-> linked in the target node's deadprops list and was freed again at
-> node release.
-> 
-> Patch 5 fixes a pre-existing NULL dereference in
-> of_overlay_fdt_apply()'s idr_alloc() error path (negative id stored,
-> list_del() on an uninitialized list head) by only treating a positive
-> id as registered in free_overlay_changeset().
-> 
-> Patch 6 fixes a pre-existing reference leak in
-> init_overlay_changeset(): on a mid-loop failure, the target and
-> overlay references of the fragments initialized so far were never
-> dropped because ovcs->count was still 0 when free_overlay_changeset()
-> ran its cleanup loop.
-> 
-> Patch 7 fixes pre-existing "//" result paths from
-> dup_and_fixup_symbol_prop() when a fragment targets the root node.
+Link to v2: https://lore.kernel.org/all/20260905201108.415713-1-egbostina@gmail.com/
+Link to v1: https://lore.kernel.org/all/20260815083326.2146602-1-egbostina@gmail.com/
 
-Fixes should come first in a series. Then I can apply them if ready even 
-if the feature patches are not ready.
+ .../bindings/net/wireless/ti,wl1251.txt       | 64 --------------
+ .../bindings/net/wireless/ti,wl1251.yaml      | 85 +++++++++++++++++++
+ 2 files changed, 85 insertions(+), 64 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/net/wireless/ti,wl1251.txt
+ create mode 100644 Documentation/devicetree/bindings/net/wireless/ti,wl1251.yaml
 
-Rob
+diff --git a/Documentation/devicetree/bindings/net/wireless/ti,wl1251.txt b/Documentation/devicetree/bindings/net/wireless/ti,wl1251.txt
+deleted file mode 100644
+index 88fd28d15eac..000000000000
+--- a/Documentation/devicetree/bindings/net/wireless/ti,wl1251.txt
++++ /dev/null
+@@ -1,64 +0,0 @@
+-* Texas Instruments wl1251 wireless lan controller
+-
+-The wl1251 chip can be connected via SPI or via SDIO. This
+-document describes the binding for the SPI connected chip.
+-
+-Required properties:
+-- compatible :        Should be "ti,wl1251"
+-- reg :               Chip select address of device
+-- spi-max-frequency : Maximum SPI clocking speed of device in Hz
+-- interrupts :        Should contain interrupt line
+-- vio-supply :        phandle to regulator providing VIO
+-
+-Optional properties:
+-- ti,wl1251-has-eeprom : boolean, the wl1251 has an eeprom connected, which
+-                         provides configuration data (calibration, MAC, ...)
+-- ti,power-gpio :	 GPIO connected to chip's PMEN pin if operated in
+-			 SPI mode
+-- Please consult Documentation/devicetree/bindings/spi/spi-bus.txt
+-  for optional SPI connection related properties,
+-
+-Examples:
+-
+-&spi1 {
+-	wl1251@0 {
+-		compatible = "ti,wl1251";
+-
+-		reg = <0>;
+-		spi-max-frequency = <48000000>;
+-		spi-cpol;
+-		spi-cpha;
+-
+-		interrupt-parent = <&gpio2>;
+-		interrupts = <10 IRQ_TYPE_NONE>; /* gpio line 42 */
+-
+-		vio-supply = <&vio>;
+-		ti,power-gpio = <&gpio3 23 GPIO_ACTIVE_HIGH>; /* 87 */
+-	};
+-};
+-
+-&mmc3 {
+-	vmmc-supply = <&wlan_en>;
+-
+-	bus-width = <4>;
+-	non-removable;
+-	ti,non-removable;
+-	cap-power-off-card;
+-
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&mmc3_pins>;
+-
+-	#address-cells = <1>;
+-	#size-cells = <0>;
+-
+-	wlan: wifi@1 {
+-		compatible = "ti,wl1251";
+-
+-		reg = <1>;
+-
+-		interrupt-parent = <&gpio1>;
+-		interrupts = <21 IRQ_TYPE_LEVEL_HIGH>;	/* GPIO_21 */
+-
+-		ti,wl1251-has-eeprom;
+-	};
+-};
+diff --git a/Documentation/devicetree/bindings/net/wireless/ti,wl1251.yaml b/Documentation/devicetree/bindings/net/wireless/ti,wl1251.yaml
+new file mode 100644
+index 000000000000..6ce82c4a2c0b
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/wireless/ti,wl1251.yaml
+@@ -0,0 +1,85 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/wireless/ti,wl1251.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Texas Instruments WL1251 Wireless LAN Controller
++
++maintainers:
++  - Eduard Bostina <egbostina@gmail.com>
++
++properties:
++  compatible:
++    const: ti,wl1251
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  vio-supply:
++    description:
++      Phandle to the regulator providing VIO. Required when connected via SPI.
++
++  ti,power-gpio:
++    maxItems: 1
++    description:
++      GPIO connected to chip's PMEN pin if operated in SPI mode.
++
++  ti,wl1251-has-eeprom:
++    type: boolean
++    description:
++      The wl1251 has an EEPROM connected, which provides configuration
++      data (calibration, MAC, ...).
++
++  clocks:
++    maxItems: 1
++
++  spi-max-frequency: true
++  spi-cpol: true
++  spi-cpha: true
++
++required:
++  - compatible
++  - reg
++  - interrupts
++
++allOf:
++  - $ref: /schemas/spi/spi-peripheral-props.yaml#
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++    #include <dt-bindings/gpio/gpio.h>
++    spi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++        wifi@0 {
++            compatible = "ti,wl1251";
++            reg = <0>;
++            spi-max-frequency = <48000000>;
++            spi-cpol;
++            spi-cpha;
++            interrupt-parent = <&gpio2>;
++            interrupts = <10 IRQ_TYPE_NONE>;
++            vio-supply = <&vio>;
++            ti,power-gpio = <&gpio3 23 GPIO_ACTIVE_HIGH>;
++        };
++    };
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++    mmc {
++        #address-cells = <1>;
++        #size-cells = <0>;
++        wifi@1 {
++            compatible = "ti,wl1251";
++            reg = <1>;
++            interrupt-parent = <&gpio1>;
++            interrupts = <21 IRQ_TYPE_LEVEL_HIGH>;
++            ti,wl1251-has-eeprom;
++        };
++    };
+-- 
+2.43.0
 
-[1] https://lore.kernel.org/all/CAL_Jsq+72Q6LyOj1va_qcyCVkSRwqGNvBFfB9NNOgYXasAFYJQ@mail.gmail.com/
