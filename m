@@ -1,90 +1,118 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FC8A4FB9A6;
-	Thu, 17 Sep 2026 13:05:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE4E0511E8F
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 13:06:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789650370; cv=none; b=YbkDm7U8aVuhtNxug4UBzUF3JkDkVDONtP6YfG6Jwaec5PTWifQb5TQ6P9PmwjJ5O3x1NlD7AqtCqoiJX+Z8Q8LKXcwaTMbD1rjqZzdUG8Y0WJx2ma/s/jU/rK69d95TM7Y98TVXwsVlTnd6rg+wz6B9pABkxgCxK6YvjaLW7/8=
+	t=1789650390; cv=none; b=k9RnACBsg80K6OVRtXsFpwQphtobuKyUg1qPfyWKQdMCpGv7c5Yxvj9HQhsBFxZznSZ7pa/lwoybYZxmdOwfcR+nB5+tCrlN4kYecvSONchWb1UgWIdGJgW2R6gtHieElj5WXiMzSs2dYOwH/gmFy3k256uHuH46nO8vCAi8B2c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789650370; c=relaxed/simple;
-	bh=oezo/SszkwE+zd4QWtRoMT8kUkoRl08sTrTSZxrGGac=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=J6+rXXBQmLZBR2JxShr3ZwyvXJeQslb7NCwD3kQNh9pdnv5tR0oKGzHTP5c8eKntNq9u+c3qAqR8CUL9U/fSCzwJt+2bSfUJIUKjidtDXLl3+G3LLlACH8s1ynDm2H6EseKGatD8ceNlEIMU9edaRCPdJsoPKdpOqjbiHgol2Ao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowADnF0Kz5atqHxmBCA--.3307S2;
-	Thu, 17 Sep 2026 21:05:55 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: devicetree@vger.kernel.org
-Cc: grant.likely@linaro.org,
-	linux-kernel@vger.kernel.org,
-	robh@kernel.org,
-	saravanak@kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] of: unittest: Fix pdev reference leaks in of_unittest_platform_populate()
-Date: Thu, 17 Sep 2026 13:05:55 +0000
-Message-Id: <20260917130555.2152765-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789650390; c=relaxed/simple;
+	bh=FjiOi/LWCw112tSQalEnC178/ETX0Easoaw+fa4aJYI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Kv41+bFDfhg9LeznblvtQC7T9bjv5psuCrF3Co0HI4Lj5U01WD8LZtoQBUtGAiiwi0MDGrdlzNt44Z4vQaYzyEjA/JAmlbKUx2GBdzD/LESVDG8YIJQk+qg7WJJa9La7ao3lk6ssoiZ2mcBT+T+9Ft5f7f5p1iWH1Co5pCJCak4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=kKlz4JYm; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=Tguo721q; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="kKlz4JYm";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="Tguo721q"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=From:To:Subject:Date:Message-ID; t=1789650366; bh=/89Pt9jfecmobhleE2QqkQL
+	/53slzWSbnYjmKx8md1s=; b=kKlz4JYmN1tAnl6AcXGI8RJLKwMIe9dbodtgrI42M50pBPtkt5
+	7bPlCp2ZaM6JsQeasBwY3fdxQUj3JQpVMRC3IQInHb1J7WjCM41UMK/O1dT3KKY0aEkyQ3nG0jP
+	W1EPPayGmJDJWJ056LgZ+slxqgYy/QFGp3YosZc2P0xqhBAkeyM4o9hp7FRmY7BUga7RM2DC4dH
+	7WFvMaKYanKgMqpdhRdxxRdn2Wi01rts1D4GlGQfcB9DV+gWj4QaczD4Rkd9jkRa6ssrFl1VayP
+	pFIGpOmuOtSW6LPsK4Sk9O2o918Lb7mCuYO6swGKHtE9eqyYOe5KQ4tKrQfcV0BmuVA==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=From:To:Subject:Date:Message-ID; t=1789650366; bh=/89Pt9jfecmobhleE2QqkQL
+	/53slzWSbnYjmKx8md1s=; b=Tguo721q8+vFl2tbEFSJfi5MwIopaMqhY+ossRwseds0htqIiQ
+	3WQL09XRU5XlPGM9SRjpa6ErBv2byGhB3wBw==;
+Message-ID: <0a6d59c7-006c-4cb9-98ff-e8d859489bc4@mainlining.org>
+Date: Thu, 17 Sep 2026 16:06:06 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowADnF0Kz5atqHxmBCA--.3307S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Zw1UAFW8CF1xCFy8AFykAFb_yoW8JF4Dpr
-	W7KFWa9rn5GF47taykuFyUZFyIyanxK395GryUJ3ZY9an3Aa43AryUXay0gFn8XFWxWayY
-	yFnrtrWDJa9FvrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBFb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
-	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
-	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
-	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7MxkF
-	7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr
-	1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
-	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2I
-	x0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAI
-	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6x
-	kF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07b818PUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAANA2qrrJquywADsT
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/3] drivers: gpu: drm: panel: Add BOE NT51021 driver
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org, robh@kernel.org,
+ devicetree@vger.kernel.org
+References: <20260917-qcom-novatek-nt51021-panels-v4-0-30afbc35d70c@mainlining.org>
+ <20260917-qcom-novatek-nt51021-panels-v4-2-30afbc35d70c@mainlining.org>
+ <20260917130132.CEE401F00893@smtp.kernel.org>
+Content-Language: ru-RU, en-US
+From: Nickolay Goppen <setotau@mainlining.org>
+In-Reply-To: <20260917130132.CEE401F00893@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The platform devices obtained with of_find_device_by_node() are never
-released, and the second lookup overwrites the first one, losing its
-reference as well. Drop each reference once the device has been used.
 
-Fixes: 82c0f5897a87 ("of: selftest: add deferred probe interrupt test")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/of/unittest.c | 2 ++
- 1 file changed, 2 insertions(+)
+17.09.2026 16:01, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [High] drm: panel: novatek-nt51021: UAF and crash due to premature devm_drm_panel_add()
+> --
+>
+> commit 32c00aa725aa38b42eafcacc07a8f05495f7ed3d
+> Author: Nickolay Goppen <setotau@mainlining.org>
+>
+>      drivers: gpu: drm: panel: Add BOE NT51021 driver
+>      
+>      Add driver for BOE NT51021-based 8-inch and 10-inch DSI video mode
+>      panels used in Xiaomi Mi Pad 4, Mi Pad 4 Plus (xiaomi-clover)
+>      and Amazon Fire HD 10 (2017) (amazon-suez) tablets.
+>
+>> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt51021.c b/drivers/gpu/drm/panel/panel-novatek-nt51021.c
+>> new file mode 100644
+>> index 0000000000000..94e7d6aaf0cb9
+>> --- /dev/null
+>> +++ b/drivers/gpu/drm/panel/panel-novatek-nt51021.c
+> [ ... ]
+>
+>> +static int nt51021_novatek_probe(struct mipi_dsi_device *dsi)
+>> +{
+>> +	struct device *dev = &dsi->dev;
+> [ ... ]
+>
+>> +	ctx->panel.prepare_prev_first = true;
+>> +
+>> +	ret = drm_panel_of_backlight(&ctx->panel);
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret, "Failed to get backlight\n");
+>> +
+>> +	ret = devm_drm_panel_add(dev, &ctx->panel);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	return devm_mipi_dsi_attach(dev, dsi);
+> [Severity: High]
+> Can this sequence lead to a use-after-free or kernel crash?
+>
+> By calling devm_drm_panel_add() before devm_mipi_dsi_attach(), the panel is
+> published globally before DSI attachment completes.
+>
+> If a DRM consumer discovers the panel via of_drm_find_panel() during this
+> window, it takes a reference on the panel. If devm_mipi_dsi_attach() then
+> fails, the probe function returns an error and devres cleans up the allocated
+> GPIO and regulator resources. However, the panel memory remains allocated
+> because of the consumer's reference.
+>
+> When the consumer later calls drm_panel_prepare(), the panel driver will
+> dereference the freed GPIO and regulator pointers, causing a use-after-free.
+>
+> Additionally, if a consumer calls drm_panel_prepare() before mipi_dsi_attach()
+> completes, it will trigger DSI commands on an unattached device, crashing the
+> DSI host.
+>
+> Should devm_mipi_dsi_attach() be called before devm_drm_panel_add() to prevent
+> this race window?
+Other drivers do the same sequence of add and attach functions as I did.
+>> +}
 
-diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
-index 4a8af9b992c4..e6e938bcb100 100644
---- a/drivers/of/unittest.c
-+++ b/drivers/of/unittest.c
-@@ -1946,6 +1946,7 @@ static void __init of_unittest_platform_populate(void)
- 		unittest(irq == -EPROBE_DEFER,
- 			 "device deferred probe failed - %d\n", irq);
- 		of_node_put(np);
-+		platform_device_put(pdev);
- 
- 		/* Test that a parsing failure does not return -EPROBE_DEFER */
- 		np = of_find_node_by_path("/testcase-data/testcase-device2");
-@@ -1964,6 +1965,7 @@ static void __init of_unittest_platform_populate(void)
- 			 "device parsing error failed - %d\n", irq);
- 	}
- 	of_node_put(np);
-+	platform_device_put(pdev);
- 
- 	np = of_find_node_by_path("/testcase-data/platform-tests");
- 	unittest(np, "No testcase data in device tree\n");
 -- 
-2.34.1
+Best regards,
+Nickolay
 
