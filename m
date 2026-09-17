@@ -1,174 +1,89 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net [217.70.183.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15BC04E56C4;
-	Thu, 17 Sep 2026 11:59:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE3623B059A;
+	Thu, 17 Sep 2026 12:03:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789646373; cv=none; b=U5y0adUL6Q0E7q57NdAzy2a4Z3wf7qn+pay1gzpV5wJKgOGRnWzJ/rerkkAxCQXFJUepEYbBJWA+uO5kJA8Z7AZxyx/XxspPmbHzKkvK0tQ+f8enAbAQUaIOUyEz1GyMynvl7DpeaPbUhM6dgAGBbldk9tO2TdIq+hc/XmYY4z8=
+	t=1789646605; cv=none; b=f350TSn7xt2mLq1lsOtY7V0o5whrmSiNU6VzZgHOH/TnjR4GIX/pTiyDl1oQkRGnsIFaqeTvFAEwUeLSp0uSuQVXRswSlys3TJUDhwEJduZP9Z+IqW3dqDvTWULCX+Z0FCk/2RYskEVko9FCjX707npk7y5gStU5Z1oh66yRbAA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789646373; c=relaxed/simple;
-	bh=gUkQ+9IGUGG1i4SnzJhYF9d8+2RaoXLErEXCtwLWoQU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XMkmVbF8PT3sc6DhK/g8Ek1CAqpHEq8wHHYmWS8J+xrURO1H3Ki25ltNNATs6H+Nv47rACgw0rtxf0aUF13DuK4Yecgdl0YbEobaMY1FDpA8oEVk6Fhm/wjyL0dW/RIUK8HWDVtJyLDTknIk81vMYLE/1/INQwAwC3B5RdtnUyM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=NPyzQKNH; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789646605; c=relaxed/simple;
+	bh=BsD/oXPvJ9qiCd47GmEAFtdS4HDZS1QcBU785pbxG6Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WCn54QjWjbtnsZQEYYpEgrL7xI1+d00/IXI3IHCoy1kLHItcQ3ECIA79TW9oqU9J7ijzbjj/J0H/36u3DA6IDpXuKGJ2wmOo9Nfk5igyDgNogOf0MgMsNNCk2QypZRG2M0QjAa5JzngWDSceBcHHm6PRbDaCX9C8Xa+8Y4zFOQo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=jSGEPlfN; arc=none smtp.client-ip=217.70.183.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="NPyzQKNH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=a9
-	Hpv1AbfVJns/FHuM8559htjAcFjZ3OJ+nD3pxVXaA=; b=NPyzQKNHVKpmq3WyOd
-	SIHqPpMSkJ4HJi20l11XGE5APPd3WMbblOEh2it7xsju7nVKOi5UPBHjIBo6dwFS
-	ntDDLoxf4l1Bk9ZU7l/He6BjoNDbEe8w1qmutRac3ZSLu41zkVhOKkELNDUBVPxM
-	AYfSLr3EHUTrtAK9e6ikRmglM=
-Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
-	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wAH7aTa1atqD7D0BA--.50575S3;
-	Thu, 17 Sep 2026 19:58:20 +0800 (CST)
-From: Quchaosheng <quchaosheng000406@163.com>
-To: Guenter Roeck <linux@roeck-us.net>,
+	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="jSGEPlfN"
+Received: by mail.gandi.net (Postfix) with ESMTPSA id A081A1F6AA;
+	Thu, 17 Sep 2026 12:02:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
+	s=gm1; t=1789646581; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:in-reply-to:in-reply-to:  references:references;
+	bh=0UviFIQs9+PaJGUtdP+dHhsObrBaIMQoQVmAHi4xLjQ=;
+	b=jSGEPlfNhF0tQ0MbNQuEXI6eIjC9ujUAKLh3/C5hu00E4n9kVAQWdeqi6dtoGB4M7fw0Ju
+	FOkFyz6A/TDiXEiiRwMKC+J3WnO0Rr+lL3+HU2pM1OxR3UGk2vnIhSoceILr3uAMklGxEB
+	vqnwYNRpw3rrm0VtQpUoDr5tBvye/Iemh4oce82PCbrsfvudBSAndhmKCX42kXRKpRp6xM
+	lDKJEvMeHpOFty0SR2sHpMLUIttpDCwyE0lhyiSvZJRhBAM5xfXMyK7p89usL3G+Mjk+Nn
+	3iFo9e4JHZ4By3AYT+b3rYIYIYCJjmv2Yogd0DdTQ4ZiFDmTs9HCbNoAfS6Iug==
+Date: Thu, 17 Sep 2026 14:02:58 +0200
+From: Arthur Crepin Leblond <arthur@marmottus.net>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Liviu Dudau <liviu.dudau@arm.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>,
-	linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Quchaosheng <quchaosheng000406@163.com>
-Subject: [PATCH 2/2] dt-bindings: arm: vexpress: drop the obsolete hwmon and regulator text files
-Date: Thu, 17 Sep 2026 19:58:18 +0800
-Message-ID: <20260917115818.540344-2-quchaosheng000406@163.com>
-X-Mailer: git-send-email 2.43.0
+	Conor Dooley <conor+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v8 2/3] dt-bindings: net: wiznet,w5100: add link
+ status interrupt
+Message-ID: <20260917120258.GA466094@marmottus.net>
+Reply-To: arthur@marmottus.net
+References: <20260915-wiznet-link-gpio-v8-0-d173622474cc@marmottus.net>
+ <20260915-wiznet-link-gpio-v8-2-d173622474cc@marmottus.net>
+ <20260917-sexy-quixotic-ermine-138eab@quoll>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wAH7aTa1atqD7D0BA--.50575S3
-X-Coremail-Antispam: 1Uf129KBjvJXoWxZw4fXr13GFyftr1fZryrZwb_yoWruFWkpF
-	43Zrn7CF48JFyxJ3y5t3WIkw45Xr15C392kr1DArW8Xa15Aasxtrnakr1rAFyUArWkJayU
-	trWUur1rtF17Z3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pE_HUJUUUUU=
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbDABwyp2qr1dwYNwAA3u
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20260917-sexy-quixotic-ermine-138eab@quoll>
+X-GND-Sasl: arthur@marmottus.net
+X-GND-Score: -100
+X-GND-Cause: dmFkZTGIJwiaWl1piAoCNeWJuVGMQtjUlwewHYjAE3CJ3m35a5w4FYzN5Isi4LGGsmhP8DegaTz9xzdw75z/Ukwh7+9rPTNmpSfif79tCji2Er7lgktID0C3vpp4uK2Tv/dbqyM5zx6cXgfL9hCNvrSrNGjolYLkaPDmEqLHcZTiMg7rd+0mUP4LQjf3B0Z5Vmnfohwmay93//xqBIb4wVumw6OByH0g6eoXmDkvctVmxD1J3XGHzhqNE8sdskJnplOSgrTkwPiv3IRpTt9HVF04zaj1ofU0u5Vc4g9WvYG/+Xby6FQdwUdTrBJkb6E30l2AH0TUrCCJ41J4eX7Yaj5gajcWPv3q/ZPIcVlrtY1y4GGbiktv1TugsJ0dvV/hjGiaNvkCh+n1oTzEwosJWq5tpBAsWxcbUXYUPfw5CgHEIjiuiF9tzFnWWWlDwlcrHDogZTaDpiVADiPxqjRLoJiXvhRJHW1arM2J6U8945ACk32A9GHa1q02X4mDXX/KPTh6ggnpaPenFEF0LY60adMkCNHM8QrIHFlFapu9f9AXn8XqmQhmGQa+FF1shCprsLAQt8Go5I07ZsIQYP+ylgZoEQV+4RAt8KbDEn//+k/6bc8JiEu3V1zgnjYvDOR6c5bonYP4u83EkXO9SPyn9LvZCG3bNR7GPyM9lvxf64Qk9aEesQ
+X-GND-State: clean
 
-Documentation/devicetree/bindings/hwmon/vexpress.txt describes the
-arm,vexpress-volt, -amp, -temp, -power and -energy sensors, and
-Documentation/devicetree/bindings/regulator/vexpress.txt describes the
-arm,vexpress-volt regulator.
+On Thu, Sep 17, 2026 at 12:04:12PM +0200, Krzysztof Kozlowski wrote:
+>>  properties:
+>>    compatible:
+>>      enum:
+>> @@ -24,8 +20,11 @@ properties:
+>>        - wiznet,w5500
+>>
+>>    interrupts:
+>> -    maxItems: 1
+>
+>Broadest constraints always stay here.
+>
+>I already asked for proper syntax here:
+>https://lore.kernel.org/all/688f57cd-a098-4904-b8cd-965470a89386@kernel.org/
+>
+>https://elixir.bootlin.com/linux/v6.11-rc6/source/Documentation/devicetree/bindings/ufs/qcom,ufs.yaml#L127
+>
+>Best regards,
+>Krzysztof
+>
 
-Both restate what arm/vexpress-config.yaml already documents: the same
-compatibles, the arm,vexpress-sysreg,func property and the label property.
-The regulator node refers to regulator.yaml, which covers the generic
-regulator properties the second file lists, and all 13 in-tree
-arm,vexpress-volt nodes set both of the properties it calls required.
+Oh, my bad again... I'll fix it.
 
-One sentence in the regulator file is not a restatement: it says that a
-supply without regulator-min-microvolt and regulator-max-microvolt is
-treated as fixed. vexpress_regulator_probe() implements that by selecting
-vexpress_regulator_ops_ro when the two properties do not both define a
-range. Move the note into the regulator node description in the schema,
-so that removing the file does not lose it.
+Thanks again for your review.
 
-Nothing else refers to the two files. Remove them.
-
-Assisted-by: LLM
-Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
----
- .../bindings/arm/vexpress-config.yaml         |  4 +++
- .../devicetree/bindings/hwmon/vexpress.txt    | 23 -------------
- .../bindings/regulator/vexpress.txt           | 32 -------------------
- 3 files changed, 4 insertions(+), 55 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/hwmon/vexpress.txt
- delete mode 100644 Documentation/devicetree/bindings/regulator/vexpress.txt
-
-diff --git a/Documentation/devicetree/bindings/arm/vexpress-config.yaml b/Documentation/devicetree/bindings/arm/vexpress-config.yaml
-index 41c53e3acc12..b04e8e052181 100644
---- a/Documentation/devicetree/bindings/arm/vexpress-config.yaml
-+++ b/Documentation/devicetree/bindings/arm/vexpress-config.yaml
-@@ -139,6 +139,10 @@ patternProperties:
- 
-   "^regulator-.+$":
-     $ref: /schemas/regulator/regulator.yaml#
-+    description:
-+      If regulator-min-microvolt and regulator-max-microvolt do not both
-+      define a range, the supply is treated as fixed and only its voltage
-+      can be read.
-     properties:
-       compatible:
-         const: arm,vexpress-volt
-diff --git a/Documentation/devicetree/bindings/hwmon/vexpress.txt b/Documentation/devicetree/bindings/hwmon/vexpress.txt
-deleted file mode 100644
-index 4a4df4ffc460..000000000000
---- a/Documentation/devicetree/bindings/hwmon/vexpress.txt
-+++ /dev/null
-@@ -1,23 +0,0 @@
--Versatile Express hwmon sensors
---------------------------------
--
--Requires node properties:
--- "compatible" value : one of
--	"arm,vexpress-volt"
--	"arm,vexpress-amp"
--	"arm,vexpress-temp"
--	"arm,vexpress-power"
--	"arm,vexpress-energy"
--- "arm,vexpress-sysreg,func" when controlled via vexpress-sysreg
--  (see Documentation/devicetree/bindings/arm/vexpress-config.yaml
--  for more details)
--
--Optional node properties:
--- label : string describing the monitored value
--
--Example:
--	energy@0 {
--		compatible = "arm,vexpress-energy";
--		arm,vexpress-sysreg,func = <13 0>;
--		label = "A15 Jcore";
--	};
-diff --git a/Documentation/devicetree/bindings/regulator/vexpress.txt b/Documentation/devicetree/bindings/regulator/vexpress.txt
-deleted file mode 100644
-index 1c2e92c7831e..000000000000
---- a/Documentation/devicetree/bindings/regulator/vexpress.txt
-+++ /dev/null
-@@ -1,32 +0,0 @@
--Versatile Express voltage regulators
--------------------------------------
--
--Requires node properties:
--- "compatible" value: "arm,vexpress-volt"
--- "arm,vexpress-sysreg,func" when controlled via vexpress-sysreg
--  (see Documentation/devicetree/bindings/arm/vexpress-config.yaml
--  for more details)
--
--Required regulator properties:
--- "regulator-name"
--- "regulator-always-on"
--
--Optional regulator properties:
--- "regulator-min-microvolt"
--- "regulator-max-microvolt"
--
--See Documentation/devicetree/bindings/regulator/regulator.txt
--for more details about the regulator properties.
--
--When no "regulator-[min|max]-microvolt" properties are defined,
--the device is treated as fixed (or rather "read-only") regulator.
--
--Example:
--	volt@0 {
--		compatible = "arm,vexpress-volt";
--		arm,vexpress-sysreg,func = <2 0>;
--		regulator-name = "Cores";
--		regulator-min-microvolt = <800000>;
--		regulator-max-microvolt = <1050000>;
--		regulator-always-on;
--	};
--- 
-2.43.0
-
+Arthur
