@@ -1,253 +1,174 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from sender6-op-o15.zoho.com (sender6-op-o15.zoho.com [165.173.180.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEB0D5172FB;
-	Thu, 17 Sep 2026 16:27:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE34A502D6A;
+	Thu, 17 Sep 2026 16:30:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.15
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789662477; cv=fail; b=t6knkvXx2MKHRDIe7glSvPcbkG6u2kYH5UqlpX+PiAyblAFPb0vKReIHU27DSpihPl84RgIFCq0ri0uxp04OHQ1G/u2srUZQ4+GDjOiSpDbcKwSSKzELbeTVyXmXgczLL5uz04bPMYsSjkT+D3x3QuxJXWcenk6xmSB4p770wUQ=
+	t=1789662654; cv=pass; b=kS8h/HnNsZNI7ZGwmeDGwXPJ/AIu5hHfaxM/M8od6RPmMKJ3H/0nS2PwNk6MSO/6pUP6VZxVQRMs4HCy2Ze0Rpxvp/HFKejdEnuDfYEhiahzgflqLgZ7LLuCz6xungyiizbgMA4kZd2wVAIw+1+3r9KmnGEQ8G5ketwbStq5kWs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789662477; c=relaxed/simple;
-	bh=GB2I1AMPdBB7e2hEP2HwEzlqO6/52jswQI6TRq67SF0=;
-	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=NHcPkSjl00vA4KcIgA1s2WbYfIYyNOZ1kFH411Y06FXOyDc8PBK+NMGVn0ze833PcVVnCMLJ0bweMcQU0+oyMA+0diak6FrX3fUGPhzkBzJyT7KXuPs6OEspebkelXXqd5jqB+yTRy/5J+B1FPX33QfEHW8KeuxiBEpabcabdlA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QX0bERGr; arc=fail smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789662654; c=relaxed/simple;
+	bh=gv83lzPH/UASiArxljeWMd10mEFfxrk/uqeeiNEdhqk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=raVog+LWHOrcQrPeB6XEEbk1NfhCh+9Ro8Xm1HaTyrfGvtVnvFeu8eWGlC+PMMgvmlAooJVFC+jnPeRbwK3hoFts7RYs3qBS/CbkuCF+B4pl1CkFQNvD7cItRN29lHo3uKgJYaoe6V47YyezBgbuYaiyD+yEvOCqbyF0akf56tc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech; spf=pass smtp.mailfrom=pigmoral.tech; dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b=UjeJhHtu; arc=pass smtp.client-ip=165.173.180.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QX0bERGr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789662475; x=1821198475;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=GB2I1AMPdBB7e2hEP2HwEzlqO6/52jswQI6TRq67SF0=;
-  b=QX0bERGraWmBo54Cfjyf6VbnKoIVH43i+yrUwnpL/6b1cKAwd2bzO1XY
-   Yx2kou8LrPOb/7UnyQ9iuxuX52Yi0pYQh23F2prWqsQbskhOIu6U0HWfd
-   +DPUHjgAxDo0yeEzzrj/lO2hMVO6NgBx9xjSTM77ox03JKBALuEtnTiZO
-   5nmLLYtpkgMxtKfrmzfbLJAHGWGEPDFPdoybwMKAyvM8IjtNG8AIR6E1d
-   6EtjxjSKj+Q2y/rcS0vXnj7zF2fYPz4oZsS0SKAk8J1RjrviIMEK5i50J
-   HD9XFCTtKw0Qzwe7RO4faZkweW9UM5Rx1BzIGU7ew/hWoza9AKqtijim0
-   Q==;
-X-CSE-ConnectionGUID: +271DNUMTeOwXQ/gmOlsWQ==
-X-CSE-MsgGUID: GQiFb4L/TIahN9J45qC4mw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93934373"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="93934373"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 09:27:53 -0700
-X-CSE-ConnectionGUID: 9P4CVzcLQtqKEpz9qhaHsg==
-X-CSE-MsgGUID: DFgGfH3CQFCJinlrkkGyCg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="269622971"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
-  by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 09:27:52 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 17 Sep 2026 09:27:51 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Thu, 17 Sep 2026 09:27:51 -0700
-Received: from BN1PR04CU002.outbound.protection.outlook.com (52.101.56.45) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 17 Sep 2026 09:27:50 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jbntUTQzORYgKGcn5QtA5xEDC1tVqvfu3YJvLb+rx4JSMp0eR35shOOoKr73xfpJwH2s435+5uWVCLUbrloCa9Cf0eAVBJK8QCOxqPakDrpcrMcGqkJ59RT0wt0pE2EKF56R1Ws1rohf1laolUDtq/Qcid5RY+hOXcwSjU6QVbXkU3IzWyWgbs7ib3EQM0mPXusQ30b55S1yVT8Tw+mnSHiVe3t4lyvkoiBdQht6JHudln67oHfUNmxr3NHu6dEjC0ntHlDT3awpN/kAO2ejoCTC5DQ9A6hVD4fEK3d7Q2J9YObEJPfbXjH6nEM5JejNWfES/9CL6LMG4GOMf2enJw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ImjZqqW1PcF7f0tYmMp6W/cpGGZGyMAjlsm5dv6F4p8=;
- b=H1RyXvPVjiZI8uVhp0KJKeuubB+Qwtc2tJncrWvpiYqSCkfSC688rpv9FcpwWWsN/r3lWrCa5N0ERw72kNfuTQ1YO7sxLFWAysLmq7TJXn5TcFEogjicFco5weg8Dfr6kB78YkiEGIAlj6DYWm+t1Nl/VH2nBjkH1q0WlHryzGCk1asHtja1s6F/LgprDCVrFzZcMys9Wwf9/Wt21VUBr0tLheSIN9RVVXV4CcAq9b4Ui69YZynErvuDTa8rbM8e/Pht86EBkwv+LfOSuJxiasHnL8WHk9/YRFJMAcQhDeNDY9k49XJD6fswDqos4ZkfRjpcoUNAxDEAfzxwfqOFhQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SJ2PR11MB8370.namprd11.prod.outlook.com (2603:10b6:a03:540::20)
- by CY5PR11MB6438.namprd11.prod.outlook.com (2603:10b6:930:35::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Thu, 17 Sep
- 2026 16:27:47 +0000
-Received: from SJ2PR11MB8370.namprd11.prod.outlook.com
- ([fe80::b6cf:ce77:3cdf:7cc]) by SJ2PR11MB8370.namprd11.prod.outlook.com
- ([fe80::b6cf:ce77:3cdf:7cc%5]) with mapi id 15.21.0428.011; Thu, 17 Sep 2026
- 16:27:46 +0000
-Message-ID: <76048b44-8faf-4fc1-a265-478ad83ff7b8@intel.com>
-Date: Thu, 17 Sep 2026 09:27:42 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 2/5] riscv_cbqri: resctrl: Add cache allocation via
- capacity block mask
-To: Drew Fustini <fustini@kernel.org>
-CC: Adrien Ricciardi <aricciardi@baylibre.com>, Alexandre Ghiti
-	<alex@ghiti.fr>, Atish Kumar Patra <atishp@rivosinc.com>, Atish Patra
-	<atish.patra@linux.dev>, Babu Moger <babu.moger@amd.com>, Ben Horgan
-	<ben.horgan@arm.com>, Borislav Petkov <bp@alien8.de>, Chen Pei
-	<cp0613@linux.alibaba.com>, Conor Dooley <conor.dooley@microchip.com>, "Conor
- Dooley" <conor+dt@kernel.org>, Dave Hansen <dave.hansen@linux.intel.com>,
-	"Dave Martin" <Dave.Martin@arm.com>, Fenghua Yu <fenghuay@nvidia.com>, Gong
- Shuai <gong.shuai@sanechips.com.cn>, Gong Shuai <gsh517@gmail.com>,
-	<guo.wenjia23@zte.com.cn>, James Morse <james.morse@arm.com>,
-	=?UTF-8?Q?Kornel_Dul=C4=99ba?= <mindal@semihalf.com>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, <liu.qingtao2@zte.com.cn>, Liu Zhiwei
-	<zhiwei_liu@linux.alibaba.com>, Palmer Dabbelt <palmer@dabbelt.com>, "Paul
- Walmsley" <pjw@kernel.org>, Peter Newman <peternewman@google.com>,
-	=?UTF-8?B?UmFkaW0gS3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>, Rob Herring
-	<robh@kernel.org>, Samuel Holland <samuel.holland@sifive.com>, "Sebastian
- Andrzej Siewior" <bigeasy@linutronix.de>, Tony Luck <tony.luck@intel.com>,
-	Vasudevan Srinivasan <vasu@rivosinc.com>, Ved Shanbhogue <ved@rivosinc.com>,
-	Weiwei Li <liwei1518@gmail.com>, yunhui cui <cuiyunhui@bytedance.com>,
-	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>,
-	<linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
-	<x86@kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-rt-devel@lists.linux.dev>, <linux-doc@vger.kernel.org>
-References: <20260901-dfustini-atl-sc-cbqri-dt-v7-0-ca2935d85622@kernel.org>
- <20260901-dfustini-atl-sc-cbqri-dt-v7-2-ca2935d85622@kernel.org>
- <8230dae2-2cb0-4b46-8cec-dc4e281d4e4a@intel.com> <aqwS7qgGNkSHxoSz@gen8>
-From: Reinette Chatre <reinette.chatre@intel.com>
-Content-Language: en-US
-In-Reply-To: <aqwS7qgGNkSHxoSz@gen8>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR03CA0218.namprd03.prod.outlook.com
- (2603:10b6:303:b9::13) To SJ2PR11MB8370.namprd11.prod.outlook.com
- (2603:10b6:a03:540::20)
+	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b="UjeJhHtu"
+ARC-Seal: i=1; a=rsa-sha256; t=1789662622; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=QdK3lySSkHvOh+Irr5hdBuwBB+STL9GNdtMEy/IW06mZ1HFt2R2E3lUVIfaLZnR8jLLET59wERXYM6i88x9hMcQXx/raV1YajCSuNnPl5ntOM7ayLOfFMLO21sqg+/qafIHaKKLIs2+RAoYdmxisd/YjBIyWZNzJoNn/XhHcdM8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1789662622; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=E2GkpMw+FYHy3VZ0eQhxmXfdLjU5pCd1Kr/tYxquyh8=; 
+	b=iBoj5TiUiPoZQ+pbc8qJ+qa5ZFXsANVASwc0vTVK7fZmugha8xOAKVd0XJpbEO6W4BC+8HgLXn5gtAPiQd1kAd9mT7jmmk3v+H0DQ8XujQArmKq4gXa8uV9wbWUZ/aLqrgbHOLWOZRP6mV3e9Ou9f0k9uQW+43agaiM5HqpvIgc=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=pigmoral.tech;
+	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
+	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789662622;
+	s=zmail; d=pigmoral.tech; i=junhui.liu@pigmoral.tech;
+	h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+	bh=E2GkpMw+FYHy3VZ0eQhxmXfdLjU5pCd1Kr/tYxquyh8=;
+	b=UjeJhHtuGFc7VL1u4Qa7yGmbJNh5QsDDJ8sBtWOHa+XuOddmixgiS6F71adeTG+H
+	hFg7qIQEehiAO2PBr9/cTPXPf7gY5Y0MyqQCMQ8WGAr6s3BU0pRhZFw1/kwggh/CL4n
+	LoMaBe3W/NgZYpc3xpFBoS9rpmMiAT9j+lmjkyhU=
+Received: by smtp.zohomail.com with SMTPS id 1789662621373924.8262476048936;
+	Thu, 17 Sep 2026 09:30:21 -0700 (PDT)
+From: Junhui Liu <junhui.liu@pigmoral.tech>
+Subject: [PATCH v3 0/6] spacemit: k3: Replace bad CLINT node with ACLINT
+ nodes
+Date: Fri, 18 Sep 2026 00:29:32 +0800
+Message-Id: <20260918-k3-aclint-v3-0-cf4fd4050e14@pigmoral.tech>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR11MB8370:EE_|CY5PR11MB6438:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8f74f804-7d89-464e-b965-08df14d89b84
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|7416014|23010399003|1800799024|3023799007|18002099003|6133799003|22082099003|4143699003|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: MkslSndxo7BneS16HCsQxJSZtWJycLDmJgAcED8BuX1zRDt8T7MMlC1QnOj1lH4Ntmv3EeftgnBzbEsBG3Qmg7EsT7VzJxD5lnlQa12yKhdKD53cQfy5H9QHjdSk2RQSduZY1nTOGKElktl6jlDtWmi06HsGeulm6QgWS5evzsndOq5LN1GbAINouEORXn5hktiejofgMbV6wBgRhF1n56NTqSVZmAIuYU1cM8c6w3dNiBAaL2U+oqIT19+GDmIH3K0OINUXEpNuSRy5NHscuojAtYhIoNxK7k8oprnzENesWWKd4Clrw3VHZJlqGgOiSyXUvJkFfMNf/FscJX9oaa67qNh61hIO+zODZYZWPwcovfW71bjYnwoL392MYxkzY3T7v2z8FGjyvouKTn75HcpMsJYHPH+FPI0Oanb3XvVaMgPPvs7FRmJbJ8obxIVTVbir2z7rVGGd1ISXeQE5WGkK/2bPfNsxITf8Y5qf8I+1NWj7m1RILGK9GWJPzFmbGim6f2CCXO2yqh/nFJAkito+Qow/1GxfYndzZgDwKDSz3WSDc3kDS1SoifImQjymi6lI8L9X4J/euTARLktfnWjl8lTKMSMF3RkvkhhONIBMqbGfnauoUbC8NSleAzNvZIRp0mP2fGRnJf+vaMaNtFGiqKkt2weG7G5VcrOrus0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB8370.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(7416014)(23010399003)(1800799024)(3023799007)(18002099003)(6133799003)(22082099003)(4143699003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bFdDUjhhUkMzemwyUTd4ZjZNQncxSTJsZGVYNHlUNDlYTTJHT2FKQlAwMy8z?=
- =?utf-8?B?SGRmVjRXOWxmTitURy9FTDlFWHRweDdTbUdiRkFGVkkzY0I5ZVhLL2RnWmxi?=
- =?utf-8?B?LzNLQmxXK0lPK0puRGtRSW1OR3lWQjdYcGVMdEdlQzVHK0lTd0pNT1cwZXVy?=
- =?utf-8?B?dHZ4MVVPMXlTNFVDeTFJWUI3dGR3cFhwZzJnVGIwY3VFNVR5YVBxK2Q5ZWc5?=
- =?utf-8?B?UXg1MXJjNzhsQmdzczBCcVdTMCtGb0l4dzN4M05aV240SXJ0QXRKUFl5Q1lm?=
- =?utf-8?B?bGl5NVFXUEh1QStiQzRZc3FhOTI5cHI3eXdKaGtudnNCMVAzNjZXK1B1UE90?=
- =?utf-8?B?Um1OQjVlK0dkY1d0KzF2RkF0b1RLK0gwZExxd3p5ajJLdnJWcmkwRHZTdmtm?=
- =?utf-8?B?K1ZFNnYrbEJ2dlpVdlVsVVRrL2FydW5tb3lJbDRBK0pJbDBic2VrL0hRRjNi?=
- =?utf-8?B?NkQ5VzFnV3ZFYzZ0NGJTQWR0WS9xeVRBT05lVi8rbmNjaitVTjhMTUU0S2Fp?=
- =?utf-8?B?WDdJWkF1bzJIemxsYWdsVGJwaTQ4a0grbCttSmtvOTRRTHBYMTRPNHU1ZER5?=
- =?utf-8?B?ZVBLeHlVRkhKMGZ3SE5vUFRuaGc3dDlEYXdQckh6cHRnVFR6eXpWN1BvWm5z?=
- =?utf-8?B?S24rUkpnN1F4V3ZJNm5DSGhRMzd3U2xwaERqZitCdDVuemN0eEVVdTNSRGNP?=
- =?utf-8?B?RzN0dURjTEJFYTdwbTFGT3YxSmN2NS9MZ0dWUm5JRU5PNm5md0RzNnByU3Mv?=
- =?utf-8?B?NFhteVg3SmwyR0VNRWdoUktGOGxrTDN0SmlXVzBEZmRwdG96QndRWmhUU21P?=
- =?utf-8?B?Ujc1bERESHNlSUg4bVNXMUw1bEk1b2plOGxJb09zcndzbDlMSXJyUE94OC94?=
- =?utf-8?B?aUg4Ty83YzlFa3g1NXhzWE5oVUk5RGxQcmxKM3AxTUNKTm9zSHkwQktLMHdZ?=
- =?utf-8?B?ZWl5czIvZHR5d2gxYnRwdjZmM21PbHdUOEZjUkhxcTkxc1hlV3Z3VjRVTWxX?=
- =?utf-8?B?a1BWclFWV3dINzVRKzVqQzRrRUUrbDlLVzBXUnFRQ29jbXN2SmxTWnY1MEl5?=
- =?utf-8?B?RG1RbDBxSnQwK3R1VkdvcmtXaGREVVBPdlhqYUdFckhsR2ZtUWpXZkRrTUJo?=
- =?utf-8?B?bTdXOU9ZZXJPYjNjUUI4ZHV2UzBVTDdKc1RiQVJLalA5RnFaSUxYTlhsNU00?=
- =?utf-8?B?bENFS1d4RTBHNEljbnRiRHpsbjNuRUdGVW9iYWRFZ2U0OG50Nm0xM3dGc09Z?=
- =?utf-8?B?Vk91eGV0RkFEc2JtNmlqTExkVFVRR3RRWXBwd2Q3RjZYK2ZDdHhYdGR1bWdn?=
- =?utf-8?B?bmo3NzJnNmprZmN2amxVdmlPd1UwVU9EZ0R4bmoxOWcxM3NTL0pndlBxSCtm?=
- =?utf-8?B?TFoyVHg4WnRxY2FtTDRqZHJ3U2pkcGtnclRrUWJyMWpqWFd1RUdUek83MVly?=
- =?utf-8?B?NjJLN0MzTUVwTUdtaU9GQjVUdlhqQndKdDFFM2QvTS9qSkRMaVA1OFVoZm1q?=
- =?utf-8?B?Y09OOVVoNDhsUHlJOHhHbkNoSit1TGtXZjVWWnVETWtwaDZKejF5SFhxYXRn?=
- =?utf-8?B?cmpZN2RvZnI2Qjk5UHFxRHdERkJIVFBKdzF4Rm9qUmtaS2p3RUEwVmRXSjhT?=
- =?utf-8?B?bkFtbFIrVktUSWVnODkzS2QrWCtWQ0srWW16b0ttZ0xITytOMURqclRSY1hj?=
- =?utf-8?B?bTRrUkd1UE9NSDlLU1M3WTZLajl4MlpNVTZSZGlwTjRrY0lETTN6anBza0hU?=
- =?utf-8?B?WHVkUzdSYW9yZERhR0FyeW16ZDNkSldBcEtXUUEwQ0hlUzZzZzAyYWVYemY1?=
- =?utf-8?B?YU54RzhzazRkTFVEWkluOFB2c1RKRldDK29SNUUwejI3ekY2WmpnczJReHpK?=
- =?utf-8?B?d1VaYUJ4Q3dORkl5UTdudVBZNDlQVTlRYkVrOWcreEpBWEI3bHNwcysydlJ4?=
- =?utf-8?B?VTRyMXBONGFOanlxc20xSFg1dDFObHlCYzlBUG9DUlBLc0N3eGxVNWZvZ0Rv?=
- =?utf-8?B?anF0djVlNkk3Y2J3V1FQVkgycTNkL055VkNKZmlpQy83TFE4YXJ2NFFzczlY?=
- =?utf-8?B?UGhpTDg2SDIxZU1yeXBuUFFkSkIrUnpEdDdKRFRjWGUyUWZQUDFqZEtSNmZR?=
- =?utf-8?B?eVFJalE1VE5zdDRMMCtITW5xVmVadkJqMXZ4UUtaMFRQUjg1SC9YR0YyTmRk?=
- =?utf-8?B?OVk5ZFlRQW03NlFTbGxjeW0xbEwwaWJpOHNSUkNRdEtiR1J0UCtZTDB0SFRh?=
- =?utf-8?B?Q0haUWJKbDUreit0QWVZRkFJeEk1eHZMQjFFSC9zMG1yMmtjR2tTMkNvdUx4?=
- =?utf-8?B?eTJiVURveVRzbSs5bWt4SUYxYlE0clJOZ0k5ajRRd1RGcGVCTTNMTWpGWTBU?=
- =?utf-8?Q?xhKJM+/6kY5DLIZQ=3D?=
-X-Exchange-RoutingPolicyChecked: c+RxvqfQE0MluzTK/4tHugXsycJONjMQ2HWez/L7vL3XhirlfnNOYcPjIkN+qdujhbIcY3/PYH/d4JFVQJtAhOyQ37MtVe3bCeh7XraDH9fsFwlqhXxde/k6hOYYoU5xr4fUvNJQn5u9keKO8crt5FtJLyheRwVfiURsKDtUzndUko8hKKs6HNCexH4QutJrlsgychOr12Ykt9a2huHADoeXWHlfjTuxJV3gzXeQSjE9JLq27sdUL5z9Y8BMRhX1Dqn9uY/8xQuXRr7FXhrqD1cP+9pgoXEcz7+dwAHODlk9wobMM6+0Kt6+UgLnqwEKzSADbvActYZcbc+TDfPfnw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8f74f804-7d89-464e-b965-08df14d89b84
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB8370.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 16:27:46.7445
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HNhtBK3fhgDR3612C7MfW6XkqA6Siy+nQHbNOM07sHaFiu9Dfh2b/ESqFXXAw/4Jp8VdVyyTw+z9lq68kJc+KWX60v20bAewqhm7giIpVXA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR11MB6438
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22Nyw6CMBQFf4V0bQ1tebSu/A/jopRbuIpAWiQaw
+ r/b4sJoXE5yZs5CPDgETw7JQhzM6HHoA4hdQkyr+wYo1oEJT3mRllzRq6DadNhPVGVGq1pYyaQ
+ lYT86sPjYWqfzm/29uoCZYiAuWvTT4J7b2czi7l93ZjSlGqyUBctqofPjiM1tcLrbT2BaEtsz/
+ 9gq/bJ5sEslGOSVkYWuf+11XV/bYDHk9gAAAA==
+X-Change-ID: 20260729-k3-aclint-94ca9d3f818f
+To: Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
+ Inochi Amaoto <inochiama@outlook.com>, Radu Rendec <radu@rendec.net>, 
+ Paul Walmsley <pjw@kernel.org>, Samuel Holland <samuel.holland@sifive.com>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Anup Patel <anup@brainfault.org>, 
+ Guodong Xu <docular.xu@gmail.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
+ Conor Dooley <conor.dooley@microchip.com>, Bo Gan <ganboing@gmail.com>, 
+ Junhui Liu <junhui.liu@pigmoral.tech>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4567;
+ i=junhui.liu@pigmoral.tech; h=from:subject:message-id;
+ bh=gv83lzPH/UASiArxljeWMd10mEFfxrk/uqeeiNEdhqk=;
+ b=owGbwMvMwCWWvDb1VEXc8j+Mp9WSGLLWiNYt3XdmXr6WaJzD3PtiFjIS6TdKtG8utTtkFywnt
+ uld3oPKjlIWBjEuBlkxRRYuf/F/1jo8344ItN6HmcPKBDKEgYtTACbC/J2RYWuAYNLF3t1xG/4K
+ FS5bZDzd4vnPNRUMNq0eDyR6/vd0JDEyzJu4L+3zlO1/fGcJ3ZmTL6HJnXVqnfSWR+99twdsYZk
+ XxgUA
+X-Developer-Key: i=junhui.liu@pigmoral.tech; a=openpgp;
+ fpr=15B30CC69C4BF0CC3C08F85A2A90CDC122DF37BF
+X-ZohoMailClient: External
 
-Hi Drew,
+When testing OpenSBI with the upstream Device Tree, the CLINT controller
+failed to function properly with the irqchip.riscv_imsic_noipi boot
+parameter:
 
-On 9/17/26 9:18 AM, Drew Fustini wrote:
-> On Thu, Sep 17, 2026 at 08:37:43AM -0700, Reinette Chatre wrote:
->> On 9/1/26 3:31 PM, Drew Fustini wrote:
->>> resctrl exposes a single cap set per rid, so when more than one capacity
->>> controller backs a cache level they must agree on those caps. A level
->>> whose controllers disagree is left unexposed. Other levels are
->>> unaffected.
->> If I understand correctly, while attempting to translate to resctrl terms,
->> this means that a cache resource with several domains may support different
->> capacity masks in the domains?
-> 
-> Yes, each capacity controller reports its own number of capacity blocks,
-> so two controllers backing the same cache level can have different
-> maximum capacity masks.
+  Platform IPI Device         : aclint-mswi
+  Platform Timer Device       : aclint-mtimer @ 24000000Hz
+  
+  Domain0 Region03            : 0x00000000e081c000-0x00000000e081ffff M: (I,R,W) S/U: ()
+  
+  [    0.091014] smp: Bringing up secondary CPUs ...
+  [   10.104917] CPU1 failed to report alive state
+  [   20.118689] CPU2 failed to report alive state
+  [   30.132288] CPU3 failed to report alive state
+  [   40.145953] CPU4 failed to report alive state
+  [   50.159604] CPU5 failed to report alive state
+  [   60.173212] CPU6 failed to report alive state
+  [   70.186981] CPU7 failed to report alive state
+  [   70.191411] smp: Brought up 1 node, 1 CPU
 
-Thank you.
+Through exploring and testing, I discovered that the K3 actually
+provides all three complete ACLINT components, and subsequent
+confirmation with the vendor yielded the following information:
 
-> 
->> I believe the "single cap set per rid" you refer to is
->> /sys/fs/resctrl/info/L3/cbm_mask and /sys/fs/resctrl/info/L2/cbm_mask that
->> exposes a single capacity bitmask representing the maximum allocation.
->>
->> As you know, resctrl is in the process of changing the way in which schema
->> formats are described. The most recent PoC [1] added new bitmap description
->> files but it kept a single value "max" file to describe the highest allocation
->> possible for a bitmap schema.
->>
->> To support asymmetrical cache instances it looks like changing the interface
->> to describe the maximum per domain (instead of one global value) could address
->> the gap?
->>
->> For example, if there is a hypothetical system with two L2 cache instances, one
->> with a 0xFF max CBM and the other with a 0XF max CBM then resctrl could expose it
->> as:
->>
->> 	# cat /sys/fs/resctrl/info/L2/schemata/L2/max
->> 	0=ff;1=f
->>
->> The schemata file currently and will continue to display the allocations per domain.
->>
->> resctrl will need more changes to support different CBM per domain internally and
->> until then all these CBMs will be the same, but adding this change to user interface now
->> may set resctrl up to support these systems in the future?
-> 
-> I think that would be a good change to the generic schema rfc as a max
-> per domain would be helpful for CBQRI. The hardware I am working with
+The ACLINT register space is mapped at two base addresses: a secure
+window at 0xf1810000 and a non-secure window at 0xe0810000. The
+secure window exposes all three components, while the non-secure
+window only exposes SSWI; the MSWI and MTIMER offsets are reserved
+there:
 
-Will do.
++---------+--------+-----------------------+-----------------------+
+| Offset  | Module | Secure Window         | Non-Secure Window     |
++---------+--------+-----------------------+-----------------------+
+| +0x0000 | MSWI   | 0xf1810000-0xf1813fff | 0xe0810000-0xe0813fff |
+|         |        |                       | (Reserved)            |
++---------+--------+-----------------------+-----------------------+
+| +0x4000 | MTIMER | 0xf1814000-0xf181bfff | 0xe0814000-0xe081bfff |
+|         |        |                       | (Reserved)            |
++---------+--------+-----------------------+-----------------------+
+| +0xc000 | SSWI   | 0xf181c000-0xf181ffff | 0xe081c000-0xe081ffff |
++---------+--------+-----------------------+-----------------------+
 
-> right now (Tenstorrent Ascalon) does not have two controllers at one
-> level, but I think it is reasonable to assume other RISC-V platforms may
-> do that in the future.
+MSWI and MTIMER reside in the secure ACLINT space, which is only
+accessible through the secure window; their offsets in the non-secure
+window are reserved. SSWI resides in the non-secure ACLINT space,
+which is aliased in both windows. However, depending on the eFuse
+configuration, the whole non-secure window can be inaccessible, while
+the secure window remains available.
 
-Looking at this patch more it seems the controllers could also differ in
-CDP ("supports_alloc_at_code") support. Supporting that in resctrl is a
-different story. 
-> BTW, I have been meaning to send v8 with some unrelated minor
-> improvements based on sashiko comments in v7. I will go ahead and send
-> right now in case you are looking at the rest of the series.
-That is fine. I just started looking at v7 and will switch to v8 instead.
+Taking these constraints into account, we use the secure window
+(0xf1810000-0xf181ffff) consistently for all three ACLINT components,
+as it is accessible regardless of the eFuse configuration. OpenSBI
+protects the MSWI and MTIMER ranges from Supervisor-mode access via PMP,
+leaving the SSWI range available to S-mode.
 
-Thank you.
+Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
+---
+Changes in v3:
+- Correct the accessibility description of secure and non-secure windows
+- Drop spacemit,k3-clint from sifive,clint.yaml entirely
+- Move SSWI to its secure-window alias
+- Link to v2: https://patch.msgid.link/20260909-k3-aclint-v2-0-7931e5bc86ad@pigmoral.tech
 
-Reinette
+Changes in v2:
+- Drop the generic riscv,aclint-* fallback compatibles and use only
+  SpacemiT K3-specific compatibles.
+- Match spacemit,k3-aclint-sswi directly in the SSWI driver.
+- Squash the ACLINT MSWI and MTIMER DT additions into the patch that
+  replaces the incorrect CLINT node.
+- Link to v1: https://patch.msgid.link/20260729-k3-aclint-v1-0-aef88614d3a5@pigmoral.tech
 
+---
+Junhui Liu (6):
+      dt-bindings: timer: thead,c900-aclint-mtimer: Add SpacemiT K3
+      dt-bindings: interrupt-controller: thead,c900-aclint-mswi: Add SpacemiT K3
+      dt-bindings: interrupt-controller: thead,c900-aclint-sswi: Add SpacemiT K3
+      dt-bindings: timer: sifive,clint: Remove spacemit,k3-clint
+      irqchip/aclint-sswi: Add support for SpacemiT K3
+      riscv: dts: spacemit: k3: Replace incorrect CLINT node with ACLINT nodes
+
+ .../thead,c900-aclint-mswi.yaml                    |  1 +
+ .../thead,c900-aclint-sswi.yaml                    |  5 ++-
+ .../devicetree/bindings/timer/sifive,clint.yaml    |  1 -
+ .../bindings/timer/thead,c900-aclint-mtimer.yaml   |  1 +
+ arch/riscv/boot/dts/spacemit/k3.dtsi               | 43 +++++++++++++++-------
+ drivers/irqchip/irq-aclint-sswi.c                  |  1 +
+ 6 files changed, 36 insertions(+), 16 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260729-k3-aclint-94ca9d3f818f
+
+Best regards,
+--  
+Junhui Liu <junhui.liu@pigmoral.tech>
 
