@@ -1,96 +1,120 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2FDA466B0B
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 11:00:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB2174BE437
+	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 11:00:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789642864; cv=none; b=iBNnoTQhxeoVd4aOOFzBelvDm0XvPzIJOR4aiWOF/OEgRzO6KkMVFXDIAGWS3bSq4UDtf6GS5nYVbN9xRdycqv6Y45WbynzRdtYQMYvCpU0pYgHtmGHHNSAlmE3HrysGKuXJchit0gADwwoJfWwPmRXE40PJqyJWPZHQWwrqhvU=
+	t=1789642867; cv=none; b=HScPI+/bNfcFHYMRpi0kDL1aYm+zoJMW9lcJqgTsbTowWhAnZurbvGpZTKQSKsz3dSDl4QsoOLCObvVR0ji+WUJNHNcas/LnC9IaAQg2EMHGKiO6xB4i1Y7eFMK4ur1iysZv62U3KA4DT3dXLTFWVyCKPMNpoPUoFKwm2pX3Ny8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789642864; c=relaxed/simple;
-	bh=8DZjTA+0D8XoZA8tul4LzzNhX3/tVK+q7i6N1jGj0s0=;
+	s=arc-20240116; t=1789642867; c=relaxed/simple;
+	bh=WIQdzmrovqnICXFlcgwBQTpxotHwpqiO6qN5FrCt5qo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=pKjponv0q+jOcF580b3OebRiNfuY803bR8+ZIGRiwPyYi9M1cABAMMDJaKNYkMIRQ1yppFYMcj+bpBcFkiNlZ/PaGJb4NriN4sJvybRSn+hsVR/TLnhvJuNxzg7RoPaQDFeDXMsiZLxiWEfxBc79Bl3/aaQ26LyQxxPBo/dc1w0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KKCN6ptL; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=QK5+ig1g63mBKRJEIVpdrQomwYqQDuAlHuOZIxAaLZX7K6Tx8deNUSlCmRGdgksL/fqB44UVZBToqE9RN9R0yN1rn3O/PoTcwRMzW3NLE7T1Cl6Usoc3FSsJZNjRu6MPmDoHey0hMcy/wzgKA/iVMNqKaSxv7OFCdMTqgW+i0M4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nwufuXat; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KKCN6ptL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5185A1F000FF;
-	Thu, 17 Sep 2026 11:00:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nwufuXat"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 190D61F00893;
+	Thu, 17 Sep 2026 11:00:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789642854;
-	bh=3ZT3WJBwjd6hmlc7jLiobs5bHhmP6T/lmSqHkfx/rgA=;
+	s=k20260515; t=1789642855;
+	bh=C0mEoG8ujq3c0SSgXNt5AbiZ+zoK0bpWmBinZuGxnC8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KKCN6ptLGjitN/OamjfjNhn1O6mBA43UvNBINVj5fL5lzb3D4cY/ekIUSeZgLxL6j
-	 OyIE12jPyJvYxscnICc9ur5r/QwPWtn07qPwUkq6gE1kSXMrRnLfWrBF3XKI/v69VB
-	 /X60cNDSSQ+fKcN0I9sHgtqetuheN2/ggA6zCeSDhAyZ4U9QDBG9y1XR2Z/vSdKByt
-	 myFyVorsAgRnJ0C86gAHIG8NUWfxnPxhZSL5cXSwsJus5K56JSuIzzlD7uQ3z23dJU
-	 hqkR0Ob3guUrY5DfNJT8wjuIws+wDuu+VSIchORt5N568ooJkz0UmWGUnioXxrM+aF
-	 L3VVuPYb3UxjA==
+	b=nwufuXatdQdpV1pwNFglSpA8TNmLAMYzbHSpjdFJr60fK2bGpBwI08yJzfaPt1eEh
+	 Oecsj8s/YYZ/Lj0tI48/yQ2wRlWTFXlhganFVdbYaZdJgIBNjDExKYLBtWMkJFsOdE
+	 WHy8BZQUPyVoFLw7IOFrd3BcuDItNcEAIE6bOXaWur5z5R2YxuonCaW1xfOl/XrqSO
+	 ArBYaMF647msDZ+fcRG099O5N+3v83vdykg7awPEPagsgukfMPma5RS1NBdKl7rUpY
+	 pffQ240ICMUqKbNfxqepMeSZnLtnXY3mwI3nsWKQD+DJdH3mUJXWu6kvWdu3zfyVkl
+	 625zP3QUBc9yw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v19 2/3] net: phy: Add support for Template
- Control register for PMA
+Subject: Re: [PATCH net-next v19 1/3] dt-bindings: net: Document Motorcomm
+ YT8824 PHY package
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Kyle Switch" <kyle.switch@motor-comm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260916105504.3262767-3-kyle.switch@motor-comm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260916105504.3262767-2-kyle.switch@motor-comm.com>
 References: <20260916105504.3262767-1-kyle.switch@motor-comm.com>
- <20260916105504.3262767-3-kyle.switch@motor-comm.com>
+ <20260916105504.3262767-2-kyle.switch@motor-comm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 11:00:53 +0000
-Message-Id: <20260917110054.5185A1F000FF@smtp.kernel.org>
+Date: Thu, 17 Sep 2026 11:00:54 +0000
+Message-Id: <20260917110055.190D61F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] uapi: use of kernel-internal GENMASK in UAPI header
+- [Low] dt-bindings: net: motorcomm,yt8824: missing phy-mode property defin=
+ition
+- [Low] dt-bindings: net: motorcomm,yt8824: unit address vs reg mismatch in=
+ example
 --
 
-commit ccf2fd652b5c489e327ab08ec390f834e2c1b18b
+commit 27c278ec90007d3b5c93bdcce12996609edd6cb2
 Author: Kyle Switch <kyle.switch@motor-comm.com>
 
-net: phy: Add support for Template Control register for PMA
+dt-bindings: net: Document Motorcomm YT8824 PHY package
 
-This patch adds support for the 10GBASE-T PMA Template Test Mode register
-field. It introduces standard MDIO macros and helper functions to select
-one of eight test modes used for PHY validation.
+Motorcomm YT8824 Ethernet PHY is a PHY package of 4 PHYs.
 
-> diff --git a/include/uapi/linux/mdio.h b/include/uapi/linux/mdio.h
-> index 06f4bc3c20c71..353ca13c64fca 100644
-> --- a/include/uapi/linux/mdio.h
-> +++ b/include/uapi/linux/mdio.h
-
+> diff --git a/Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml =
+b/Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
+> new file mode 100644
+> index 0000000000000..93e9f765404a3
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
+> @@ -0,0 +1,59 @@
 [ ... ]
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - motorcomm,yt8824-package
+> +
+> +required:
+> +  - compatible
+> +  - phy-mode
 
-> @@ -320,6 +321,17 @@
->  /* PMA 10GBASE-R Fast Retrain status and control register. */
->  #define MDIO_PMA_10GBR_FSRT_ENABLE	0x0001	/* Fast retrain enable */
-> =20
-> +/* PMA 10GBASE-T Template Test Mode Register*/
-> +#define MDIO_PMA_10GBT_TESTMODE_MASK GENMASK(15, 13) /* Template test mo=
-de */
+[Severity: Low]
+Will this fail `make dt_binding_check`?
 
-[Severity: Medium]
-Will this macro break compilation for userspace applications?
+It looks like phy-mode is mandated as required here, but there is no
+accompanying definition for it in the properties block. Because
+`unevaluatedProperties: false` is set below, using this undeclared property
+in the example will trigger a schema evaluation error.
 
-GENMASK is a kernel-internal macro defined in <linux/bits.h> and is not
-exported to userspace. Any userspace program attempting to include this UAPI
-header and use MDIO_PMA_10GBT_TESTMODE_MASK will fail to compile due to an
-undefined macro.
+> +  - reg
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    mdio {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +
+> +        ethernet-phy-package@0 {
+> +            #address-cells =3D <1>;
+> +            #size-cells =3D <0>;
+> +            compatible =3D "motorcomm,yt8824-package";
+> +            reg =3D <9>;
 
-Could this be changed to use __GENMASK() or a hardcoded hexadecimal value
-instead to ensure it is safe for userspace consumption?
+[Severity: Low]
+Is this unit address intentional?
 
-> +#define MDIO_PMA_10GBT_TESTMODE_NORMAL 0x0 /* Template Normal */
-> +#define MDIO_PMA_10GBT_TESTMODE_1 0x1 /* Template TestMode1 */
-> +#define MDIO_PMA_10GBT_TESTMODE_2 0x2 /* Template TestMode2 */
+The example's node uses a unit address of @0, but the reg property is set to
+9, which conflicts directly and will cause the Device Tree compiler to emit
+a `unit_address_vs_reg` warning.
 
-[ ... ]
+> +
+> +            phy-mode =3D "internal";
+> +
+> +            ethernet-phy@4 {
+> +                reg =3D <4>;
+> +            };
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916105504.3262=
-767-1-kyle.switch@motor-comm.com?part=3D2
+767-1-kyle.switch@motor-comm.com?part=3D1
