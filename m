@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA86F515967
-	for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 16:55:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB5D24F93C0;
+	Thu, 17 Sep 2026 16:57:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789664106; cv=none; b=tOx/xH37oOWeSJpeSITdrL7eBcTwOzJbfY2RC96XeLBCbzl8TAunJlhOfDw7+blKM2hi4R7jkptmh4gBFXysPTplh1QCzv/s4/Sooeba5YAe0nGKP0oHetyclUQN9Ps4YPdASG+aRhFxAXXiQJhT2YbC1z5a+7PWXQro4ghD7O4=
+	t=1789664264; cv=none; b=e7q1+hQiFy5H3bx4n/x0xy3hkN5J6Anw3MWMaFwhA0ZkobAlxLBOWH2syX+kZiLh+gw20IhipY4QOwrDHdFWI5iIrKdwfAw9qHP/84JQ4r08OUMWOyxFGBh8xa+6iFNNeSHMmsAmpeEgkTSyrVcAyzmIbR5y0/qp89iqXPI5O14=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789664106; c=relaxed/simple;
-	bh=fBf74C73MIUC8YdSArDBlEUCkhjS2WHp2awQQW/hEZE=;
+	s=arc-20240116; t=1789664264; c=relaxed/simple;
+	bh=B3L9UpHoXcugN4pOHbftcrWm91hFHUBy6z+pwFBCiMg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=a9me0yVfvlqNrl/89+HzT7f6t7lLowLcxJvnE8oy/1FsvCDqxzDBrUdqQ++kizx6g1h0HPxnh/H+3UDZKOVaKl5ymDA1rV7bwe6kIMBYTcuvv2STTMsv8Mw/O/2aKmJ4vPwif94Z3rxerXakZCx8yzXp5rlE3IUpm5g66E+DazQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HngNrs3+; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=XiAFF4mGUcUf09bpqNI/IfGSQIaPZ2L9RHa9kD2GB8yz0L6mxxIXIDLv7+mzt7buHbyej1F+o752yB40sYOVW+ct88rsuDdjXjTQ5Hf3+yUJm+z3UQlA7b0QOfw6ZtQaHZjE0ZNPUE44ijPjVzOQzdYOtK4oVP52iyuUAcMbFuY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NCbvTMIb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HngNrs3+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F10AF1F00893;
-	Thu, 17 Sep 2026 16:55:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NCbvTMIb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 390201F000FF;
+	Thu, 17 Sep 2026 16:57:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789664105;
-	bh=hdMWxFaReQNrBONPks9rCkvr9HbAFCBDYi2fYllmLK0=;
+	s=k20260515; t=1789664263;
+	bh=WTHGYau84w7vw3YMl4OjEoYJpFQd/6G7nW3gRxw5Xho=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HngNrs3+7AqsdPTj2xsxgPM08gtyUtsRMirNbMtGLWHLN2yU6zwxXmPum8C96E4em
-	 q8vfWkIMYGC+o1XaKXppPbG/KIQsmLdwRZMvaCFKDtAdzfqqW0sozBlgmvS184PqpQ
-	 A0M9dIZ+yQFrPLJZ3YH0n+72oyvpY0cBiheLI0rMQtqbEwk70G2CbdTkegfo6fUVDR
-	 I57Abrmwi/lKV0AFVYUq3g0jqw7KMVzE56lIWCs+PtUQiNr+2hFFHaIymlHKvMNix/
-	 ACckVQSLxCfAiWSwKUHPfr/KJr5ZvPxzcC/kOmZfC/EYvWWOP4s5LSPIR/qt3K3nNN
-	 MZTZ4sXQLBE3w==
+	b=NCbvTMIbR1zxj6v7W2WmNt6fFAyBliACrLBGksoRCO5auTTSpfpBc6Tr3CQuHfx75
+	 apyKlBmxT4K+3yOw9rfFVfdmrFy+3wWnaANn2m02kHuW9VgW4D0sC4QOEaQJ9QHO47
+	 TbeJ9Kblu6+wZjTq8POU2wuwJvt1vA3CDbHi8P/ORhb1sfKpzBO0ikZKdOzot4Ceh4
+	 LxP3JZKSovqPEHyzDqeST0cPI532z5CYIvTvQCdtMA41a80KHEPlq+iOdEGEou2Rl8
+	 v91ZRyuxznUJI93NsZ+dCGXLnHGJqb2Wc8UVNExBo3G24xDPbytF/yrL9bGHuJSBtQ
+	 D2LFrKhCb3NCw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 6/9] drm/panel: novatek-nt36672a: Add 3 panels used
- in Xiaomi phones
+Subject: Re: [PATCH v8 2/5] riscv_cbqri: resctrl: Add cache allocation via
+ capacity block mask
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alexey Minnekhanov" <alexeymin@minlexx.ru>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260917-nt36672a-panels-v2-6-f8de8be5b86f@minlexx.ru>
-References: <20260917-nt36672a-panels-v2-0-f8de8be5b86f@minlexx.ru>
- <20260917-nt36672a-panels-v2-6-f8de8be5b86f@minlexx.ru>
+To: "Drew Fustini" <fustini@kernel.org>
+Cc: robh@kernel.org, conor+dt@kernel.org, linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260917-dfustini-atl-sc-cbqri-dt-v8-2-7964e8d73fe8@kernel.org>
+References: <20260917-dfustini-atl-sc-cbqri-dt-v8-0-7964e8d73fe8@kernel.org>
+ <20260917-dfustini-atl-sc-cbqri-dt-v8-2-7964e8d73fe8@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Sep 2026 16:55:04 +0000
-Message-Id: <20260917165504.F10AF1F00893@smtp.kernel.org>
+Date: Thu, 17 Sep 2026 16:57:42 +0000
+Message-Id: <20260917165743.390201F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,56 +47,64 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] drm/panel: nt36672a: skipped power-down sequence on partial comm=
-and failure
+- [Medium] cbqri: late-registered capacity controllers bypass capability ag=
+reement check
 --
 
-commit dfbf7416bcb60d153c91f5ee831680912a52282d
-Author: Alexey Minnekhanov <alexeymin@minlexx.ru>
+commit d3ff1ae1d79d6e8e4041b4efbc3516187f2222a6
+Author: Drew Fustini <fustini@kernel.org>
 
-drm/panel: novatek-nt36672a: Add 3 panels used in Xiaomi phones
+riscv_cbqri: resctrl: Add cache allocation via capacity block mask
 
-This commit adds support for 3 DSI video mode panels used in Xiaomi Redmi
-Note 6 Pro and Note 7, which share the Novatek NT36672A controller. The
-panels use a common initialization and de-initialization sequence with
-minor variations.
+This commit wires up CBQRI capacity controllers into resctrl for L2 and
+L3 resources. It manages control domains during CPU hotplug and requires
+all controllers at the same cache level to report identical capabilities.
 
-> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c b/drivers/gpu=
-/drm/panel/panel-novatek-nt36672a.c
-> index a445c8067aa5f..d356348d39608 100644
-> --- a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-> +++ b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+> diff --git a/drivers/resctrl/cbqri_resctrl.c b/drivers/resctrl/cbqri_resc=
+trl.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/resctrl/cbqri_resctrl.c
+
 [ ... ]
-> +static void lavender_tulip_deinit_cmds(struct mipi_dsi_multi_context *ds=
-i_ctx)
+
+> +static int cbqri_attach_cpu_to_all_ctrls(unsigned int cpu)
 > +{
-> +	dsi_ctx->dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
+> +	static const u32 levels[] =3D { 2, 3 };
+> +	struct cbqri_controller *ctrl, *c;
+> +	struct cbqri_resctrl_res *hw_res;
+> +	struct rdt_ctrl_domain *d;
+
+[ ... ]
+
+> +		d =3D cbqri_find_ctrl_domain(&hw_res->resctrl_res.ctrl_domains,
+> +					   ci->id);
+> +		if (d) {
+> +			cpumask_set_cpu(cpu, &d->hdr.cpu_mask);
+> +			continue;
+> +		}
 > +
-> +	mipi_dsi_dcs_set_display_off_multi(dsi_ctx);
-> +	mipi_dsi_msleep(dsi_ctx, 20);
-> +	mipi_dsi_dcs_enter_sleep_mode_multi(dsi_ctx);
-> +	mipi_dsi_msleep(dsi_ctx, 120);
+> +		d =3D cbqri_create_ctrl_domain(ctrl, &hw_res->resctrl_res, cpu,
+> +					     ci->id);
 
 [Severity: Medium]
-Does this sequence introduce a regression by skipping the hardware power-do=
-wn
-commands if the initial display-off command fails?
+Does this bypass the capability agreement check for dynamically registered
+controllers?
 
-If mipi_dsi_dcs_set_display_off_multi() encounters an error, it sets
-dsi_ctx->accum_err. Because accum_err is not reset to 0 before the following
-commands, mipi_dsi_msleep() and mipi_dsi_dcs_enter_sleep_mode_multi() will
-immediately return without executing.
+If a CBQRI capacity controller is registered late (for instance, via a DT
+overlay) and its CPU is subsequently onlined,
+cbqri_attach_cpu_to_all_ctrls() will discover the controller backing the
+new CPU and create a domain for it.
 
-Bypassing the panel's sleep sequence and mandatory delays before cutting
-regulator power can cause visual artifacts like flashes or fading, and might
-violate hardware power sequencing requirements.
+However, I don't see a call to cbqri_cc_caps_agree(hw_res->ctrl, ctrl)
+before creation to verify that the late controller's capabilities match.
+If the new controller has capabilities (like block mask size or RCID count)
+that differ from the boot-time selected controller, will this group
+mismatched controllers into the same resctrl resource?
 
-Should we reset dsi_ctx->accum_err to 0 after the display-off command to
-ensure the sleep mode and delay commands still execute, similar to what is
-already done in tianma_fhd_video_send_deinit_cmds()?
-
-> +}
+Could this cause capacity configuration operations to fail gracefully with
+-EIO when hardware limits are exceeded, or otherwise abort CPU hotplug?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917-nt36672a-p=
-anels-v2-0-f8de8be5b86f@minlexx.ru?part=3D6
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260917-dfustini-a=
+tl-sc-cbqri-dt-v8-0-7964e8d73fe8@kernel.org?part=3D2
