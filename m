@@ -1,46 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8697499F25;
-	Fri, 18 Sep 2026 11:35:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A45B4DE70B;
+	Fri, 18 Sep 2026 11:38:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789731340; cv=none; b=i6t9QE1p0UvewBrzeUyLD5G3b1YZ2gTdtArnCEmEZBoch7EeAJF8CM6Qt+kVLD7E5TTyKemMFTdQ8aqZAqDYCbNyihOFx5E2Cpw/wskfeMHIQjDKgv4GlzpQOIYEWrUJvoDHW5ShdTyDDmfvuIEGQfJm8yhErS6DLGTPmUFNBMI=
+	t=1789731490; cv=none; b=Ma7RfYMGLw3fdI2hvlBJjR5IkHniL6YXFLVUz5i1BiDwdoXToLKUMo3WFpC/PhRfK9+khGBLP0wQScy7R24qSwENPIQv2+pAGkq8ov+YeYzLhlMwxuZKk6cEY7XD5v/gtm0ih1T5X5Jn2+d2E/0T4F7JdNTdD1DKFHqFmArfn3U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789731340; c=relaxed/simple;
-	bh=toJmEXNWLM3GB1lXX0xzB7u1NVNbQnWAt22LnWkn1yM=;
+	s=arc-20240116; t=1789731490; c=relaxed/simple;
+	bh=NhcpE0x86WaY3L19vDcMfmEYtxxZPDkTvFPvMJ1x3ds=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CDN6ubmj4v6TrbvGWpfXeH6qu4k5l+G62OAvBedK3HEUxIR2elmDDQ0Owj0w3wb3oAXLq2P/vihsl28mG1ic7lz+Mu8O7d1J2jERjlsWomFm8lkK2ukBiUmRj+lPxhZDE2ViZcx4i1shlmdYzrHadZBUjOoHWeohh6KXXSRSuN4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JgVpfAR1; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ff5yjAjQBd+XHFZon5hf6v+mvCU02yKj6KWy8madCAZB3UYEaRxN6cxvk/0qIPD5W/yTgpFP+FC9TlOdMwWqGdvSyJpdYT8XHsoUGqziG3O+SeNILzckHx+UpzSNvL85omv22ScfpymWoFXLiCLxNzo2hU3+Q+T12mMRR0/Kn4k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YFvekzFV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JgVpfAR1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D3EF1F000FF;
-	Fri, 18 Sep 2026 11:35:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YFvekzFV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C05A1F00898;
+	Fri, 18 Sep 2026 11:38:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789731339;
-	bh=0mbDCG9aoxrBG/Rn3UOI+IN8mXXmMTsan8LmCVnyhlc=;
+	s=k20260515; t=1789731489;
+	bh=NhcpE0x86WaY3L19vDcMfmEYtxxZPDkTvFPvMJ1x3ds=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JgVpfAR1Pqq6gjrlfoEHy9DBjiLn0poxCwOCknZGxSgkKFxdl4H/X2eH0k2jmTPmG
-	 dlPh86By85g8S73BRseKuRzFdDkc8A6MqNyDqro+gsUCe+2j1RjNYD3s65vJvJhhWo
-	 gXAcozrmB7+PGCRzD6TAd7G0qcOVqJikw5eQ0loL+BVVImmriQkOwHmzPWJ1dVmK83
-	 rAih7yhFPc4Ea/gxXQwp4LTx2R4pzjjlHO7Xbna+tgIf39GyvH5FOqGJt/Mget6Xmh
-	 bbepNYNMPem04b/btmnqFD7XxBL9Sx6TIL/y3VDzSqjsnhgo2z+WxRYR+ucBDKOVr9
-	 SsoB6UVFJHQiA==
-Date: Fri, 18 Sep 2026 13:35:35 +0200
+	b=YFvekzFV/BhGm83OLudte0Mksm9JDZLcIOjq9OxmVjcT5wRz9Gr7dEpgfBQxFXHHu
+	 NJpg7mWtiAOAaTsyL1N9IMfz7leMvwd00DogqrXlXIxIJhQxEkAXVcZeI8u2It+uPd
+	 bIfSdZA/Q87xj1eB0Zrd19PJlzE80Ilj4w579X3lfnsz+4lGix2AUm548CqsQp+/0K
+	 sunL6xZCuKn65mLdFWStJQnyRpIVjsJSvtlzonPrtlWt1Xsm/kQSseldoQ/FDxCFsp
+	 yrRi2991ROKw7vDljvclqiWfYtZ08G/UEwkLtUXdudUxs16r6LeF63B47pseb2AXJo
+	 2sD7FFeiT5r4w==
+Date: Fri, 18 Sep 2026 13:38:05 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, 
+To: Paul Elder <paul.elder+renesas@ideasonboard.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Hans de Goede <hansg@kernel.org>, Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, 
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Guenter Roeck <linux@roeck-us.net>, 
-	Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org, linux-hwmon@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH 2/3] platform: arm64: Add a driver for the EC found on
- ASUS Glymur machines
-Message-ID: <20260918-calm-gainful-turkey-8ba016@quoll>
-References: <20260917-topic-asus_ec-v1-0-373516d347ae@oss.qualcomm.com>
- <20260917-topic-asus_ec-v1-2-373516d347ae@oss.qualcomm.com>
+	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-pm@vger.kernel.org, linux-media@vger.kernel.org
+Subject: Re: [PATCH 01/10] dt-bindings: clock: renesas,r8a78000-cpg: Add
+ CPG_SGD4_VIO_DP_{TX,OTHER}
+Message-ID: <20260918-masked-tidy-sheep-b326d4@quoll>
+References: <20260917-epaul-v7-3-rc1-x5h-vsp-fcp-v1-0-4c72d4e086dd@ideasonboard.com>
+ <20260917-epaul-v7-3-rc1-x5h-vsp-fcp-v1-1-4c72d4e086dd@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,26 +51,12 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260917-topic-asus_ec-v1-2-373516d347ae@oss.qualcomm.com>
+In-Reply-To: <20260917-epaul-v7-3-rc1-x5h-vsp-fcp-v1-1-4c72d4e086dd@ideasonboard.com>
 
-On Thu, Sep 17, 2026 at 12:54:57PM +0200, Konrad Dybcio wrote:
-> +static int asus_glymur_ec_resume(struct device *dev)
-> +{
-> +	return asus_glymur_ec_modern_standby(dev_get_drvdata(dev),
-> +					     ASUS_QCOM_EC_MODERN_STANDBY_EXIT);
-> +}
-> +
-> +static DEFINE_SIMPLE_DEV_PM_OPS(asus_glymur_ec_pm_ops,
-> +				asus_glymur_ec_suspend,
-> +				asus_glymur_ec_resume);
-> +
-> +static const struct of_device_id asus_glymur_ec_of_match[] = {
-> +	{ .compatible = "asus,zenbook-a14-ux3407na-ec" },
-> +	{ .compatible = "asus,zenbook-a16-ux3607oa-ec" },
+On Thu, Sep 17, 2026 at 09:04:40PM +0900, Paul Elder wrote:
+> Add preliminary clocks for testing:
 
-Does this mean devices are compatible? If so should be expressed in the
-bindings. If not, should be expressed in bindings commit msg, see
-writing bindings docs.
+What is a preliminary clock?
 
 Best regards,
 Krzysztof
