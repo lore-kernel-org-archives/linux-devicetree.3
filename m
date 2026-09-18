@@ -1,117 +1,152 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4D9B445ADD
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 18:02:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8E2E51DAE5
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 18:04:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789754534; cv=none; b=ldbY1qv7Zi+p3t49wGn4gBRPF5C18KPqJSqiw51CldQz/mi81+IkTv2sXJTSWBF9wBElOMwCpGewn3aHCUYK/LfLkdPckfbLV3SSqZcjxozOa2WAvSmPZY1bt8hZdQm6JNHZJ95X9RV9USJdJ6iul5wsrIIMbHZUb7ajzcm54yk=
+	t=1789754643; cv=none; b=CJX/j7HlVkwFLotIYsBB+yfpFyCX9j+eUwznjgSVNQcfZY0fLgwxkS4UUEei1Ui05+BMZWbJGZG4oVjkIYGQV+bCHBiXSl7UBxhY+ghWFE9458LLUZ8w+CKJWI0M928ZuxGIl6s4ZsUgex6Dlw53HWe5PCTS6tfrgat6vm62gcI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789754534; c=relaxed/simple;
-	bh=5DC/PGTyQh++nRiYa95j8LoWPmmoPRjMmUPS9SI3KDM=;
+	s=arc-20240116; t=1789754643; c=relaxed/simple;
+	bh=2JBs3gZjKBjiG4M8/behSVC3couDOcgrbVtbCahVAuQ=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Ew7mxTFnCAeLJa3sW4EPzRXSJYH3dosQEXfGmWJ1/jW0cMqRF2YHeDFC/I+jBQVH8XGDsgiLweXKtpWulk2oRYDHuhjkiiBYby5yDn3KHGmrMaZyjO05McyjWFmu7/f14T7zZGgSzOiG1zZfEl46QKhzmeUiIbZN3wgmEmhGnw8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nXiblg9i; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=SujazE6G5Hagdquvq+n1d24oUMpdgcaiAFBN5mKRvx2FQdF3wBrNLpfjL3EuNwnTm5WRD7rlVhT7oGOqRHSj9NChECq5g2K3mhzvyph6f2YAT/RN7/s4htF2DSBLigi7/5125fPK99dYloMaJXOsuULex1KtMo47IHx9c4dLSnI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m9fjjik/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nXiblg9i"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78E901F000FF;
-	Fri, 18 Sep 2026 18:02:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m9fjjik/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81A1D1F000FF;
+	Fri, 18 Sep 2026 18:03:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789754532;
-	bh=MIJDZ+cNcMBagRDBy1aKvcx6Qyva/8SUjMr7VxYnqJ8=;
+	s=k20260515; t=1789754638;
+	bh=s+x1IPk3AWyvH4YHoX99jdBITFypxN8koV2wYdoKFu0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nXiblg9iR6dgU9sqMlXRSpax0Z7ZDH24G2bALH/YKRmEe7ME/sUIDqrqs1068t7LC
-	 OzrXVRHD2h9OXLZptff1w4odyhHlmhmD48Fwu1iFl7rTwZQht+Z1YJMlS3oCVQpve/
-	 kSaxOwspuPVOT/KCqJXRarMR/O89260JMdgVcd2apSRlrK7lQTRVMxocCJ+sZWtB8W
-	 11FVpHfIaNo33WgslBfXKTc97KzGq5FB+vCcjrN9xcrGFVMVS5WovsIdjaIdJtp/vn
-	 KCj3lgpBxc8yPPuqUP+3b1vH6A0LyJ0BuL7+rUWNTo+XFKkdQ+rn/eVamShN9creom
-	 KFFiQEv66qxFQ==
+	b=m9fjjik/RQVQTb4VApNZjH3ZHN0l4oepG0HSW8d+1bctKusXy92Wa9c7XWU1qVzZV
+	 DaApvebw3vE1ko7NCkPr8UVjbzXrhmCo5CjGZIeb2I4/AONnl3LQ6O3o/WFWDBAk/K
+	 EXmdXX1FHaChMJa6pUiuz+w+S+aNEr+Ps8L9VgIQAELfJz9rtjiB/gmiJkWUFCS7QS
+	 WMDHltUA/Hi+kp0xlYfOP1f3vSm96DM1eNyWRCSaYBjL+P2zuIxyfVpCcj9bZ0nWCh
+	 /HGhsr4NJN10eTDoWGFNSm+rF7UY/C7A/2CXiAgONNViDCTCZalf5wWgmp+A9W/70L
+	 IigREl+heJFUg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] dt-bindings: iio: adc: Add dt binding to xlnx,xadc
+Subject: Re: [PATCH 3/4] soc: mediatek: mt8167-mmsys: add routes for all
+ display paths
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Omer PALA" <palaomer100@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260918174809.17502-1-palaomer100@gmail.com>
-References: <20260918145804.26957-1-palaomer100@gmail.com>
- <20260918174809.17502-1-palaomer100@gmail.com>
+To: "Luca Leonardo Scorcia" <l.scorcia@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org
+In-Reply-To: <20260918175736.355305-4-l.scorcia@gmail.com>
+References: <20260918175736.355305-1-l.scorcia@gmail.com>
+ <20260918175736.355305-4-l.scorcia@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 18:02:12 +0000
-Message-Id: <20260918180212.78E901F000FF@smtp.kernel.org>
+Date: Fri, 18 Sep 2026 18:03:58 +0000
+Message-Id: <20260918180358.81A1D1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Low] dt-bindings: iio: conflicting constraints when xlnx,external-mux is=
- omitted
+- [High] mmsys: incorrect register for OVL0 to WDMA0 routing
+- [High] mmsys: missing SEL_IN routes for DITHER to UFOE and WDMA0
+- [High] mmsys: incorrect tuple for RDMA1 to DSI0 SEL_IN routing
 --
 
-commit 650a4d99eb23987562466c53ef3d4d648db29eba
-Author: Omer PALA <palaomer100@gmail.com>
+commit 2f4bc4d4c245498df33e07567c376707ba880cbe
+Author: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Subject: soc: mediatek: mt8167-mmsys: add routes for all display paths
 
-dt-bindings: iio: adc: Add dt binding to xlnx,xadc
+The commit adds support for additional routes in the mt8167 display output
+pipeline, aligning with the SoC data sheet and Android sources.
 
-Add yaml devicetree binding for xlnx,zynq-xadc-1.00.a,
-xlnx,axi-xadc-1.00.a and xlnx,system-management-wiz-1.3 from
-xilinx-xadc.txt file.
-
-> diff --git a/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml b/D=
-ocumentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
-> new file mode 100644
-> index 0000000000000..f9b717c297158
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
+> diff --git a/drivers/soc/mediatek/mt8167-mmsys.h b/drivers/soc/mediatek/m=
+t8167-mmsys.h
+> index 001379373507a..aab1774152c57 100644
+> --- a/drivers/soc/mediatek/mt8167-mmsys.h
+> +++ b/drivers/soc/mediatek/mt8167-mmsys.h
 
 [ ... ]
 
-> +allOf:
-> +  - if:
-> +      properties:
-> +        xlnx,external-mux:
-> +          const: none
-> +    then:
-> +      properties:
-> +        xlnx,external-mux-channel: false
+>  static const struct mtk_mmsys_routes mt8167_mmsys_routing_table[] =3D {
+> +	/* OVL0<->COLOR0 */
+>  	MMSYS_ROUTE(OVL, 0, COLOR, 0,
+> -		    MT8167_DISP_REG_CONFIG_DISP_OVL0_MOUT_EN, OVL0_MOUT_EN_COLOR0,
+> -		    OVL0_MOUT_EN_COLOR0),
+> +		    MT8167_DISP_REG_CONFIG_DISP_OVL0_MOUT_EN, MT8167_OVL0_MOUT_EN_MASK,
+> +		    MT8167_OVL0_MOUT_EN_COLOR0),
+> +	MMSYS_ROUTE(OVL, 0, COLOR, 0,
+> +		    MT8167_DISP_REG_CONFIG_DISP_COLOR0_SEL_IN, MT8167_COLOR0_SEL_IN_MA=
+SK,
+> +		    MT8167_COLOR0_SEL_IN_OVL0),
 > +
-> +  - if:
-> +      properties:
-> +        xlnx,external-mux:
-> +          const: single
+> +	/* OVL0<->WDMA0 */
+> +	MMSYS_ROUTE(OVL, 0, WDMA, 0,
+> +		    MT8167_DISP_REG_CONFIG_DISP_OVL0_MOUT_EN, MT8167_OVL0_MOUT_EN_MASK,
+> +		    MT8167_OVL0_MOUT_EN_WDMA0),
+> +	MMSYS_ROUTE(OVL, 0, WDMA, 0,
+> +		    MT8167_DISP_REG_CONFIG_DISP_COLOR0_SEL_IN, MT8167_COLOR0_SEL_IN_MA=
+SK,
+> +		    MT8167_WDMA0_SEL_IN_OVL0),
 
-[Severity: Low]
-Is there a potential conflict here if the xlnx,external-mux property is
-omitted?
+[Severity: High]
+Does this route mistakenly use MT8167_DISP_REG_CONFIG_DISP_COLOR0_SEL_IN
+instead of MT8167_DISP_REG_CONFIG_DISP_WDMA0_SEL_IN?
 
-Looking at JSON schema semantics, missing properties evaluate to true when
-checked against a const. Because the if block doesn't specify
-required: [xlnx,external-mux], all three of the conditional branches (none,
-single, and dual) might trigger simultaneously if a valid device tree
-omits the property.
+By targeting the COLOR0 input selection register, this configuration might
+corrupt COLOR0's input selection and fail to properly configure WDMA0's inp=
+ut
+selection when establishing a route between OVL0 and WDMA0.
 
-> +    then:
-> +      properties:
-> +        xlnx,external-mux-channel:
-> +          minimum: 0
-> +          maximum: 16
-> +      required:
-> +        - xlnx,external-mux-channel
+> +
+> +	/* DITHER0 outputs */
+>  	MMSYS_ROUTE(DITHER, 0, RDMA, 0,
+>  		    MT8167_DISP_REG_CONFIG_DISP_DITHER_MOUT_EN, MT8167_DITHER_MOUT_EN_=
+MASK,
+>  		    MT8167_DITHER_MOUT_EN_RDMA0),
+> -	MMSYS_ROUTE(OVL, 0, COLOR, 0,
+> -		    MT8167_DISP_REG_CONFIG_DISP_COLOR0_SEL_IN, COLOR0_SEL_IN_OVL0,
+> -		    COLOR0_SEL_IN_OVL0),
+> -	MMSYS_ROUTE(RDMA, 0, DSI, 0,
+> +	MMSYS_ROUTE(DITHER, 0, UFOE, 0,
+> +		    MT8167_DISP_REG_CONFIG_DISP_DITHER_MOUT_EN, MT8167_DITHER_MOUT_EN_=
+MASK,
+> +		    MT8167_DITHER_MOUT_EN_UFOE),
+> +	MMSYS_ROUTE(DITHER, 0, WDMA, 0,
+> +		    MT8167_DISP_REG_CONFIG_DISP_DITHER_MOUT_EN, MT8167_DITHER_MOUT_EN_=
+MASK,
+> +		    MT8167_DITHER_MOUT_EN_WDMA0),
 
-[Severity: Low]
-When the xlnx,external-mux property is omitted, will this 'then' block
-trigger alongside the 'none' block?
+[Severity: High]
+Are there missing SEL_IN routes for DITHER to UFOE and WDMA0 here?
 
-If both trigger, this block explicitly requires xlnx,external-mux-channel
-while the 'none' block simultaneously forbids it. This could cause valid
-device trees that rely on the default value to fail dtbs_check validation.
+The patch defines MT8167_UFOE_SEL_IN_DITHER and MT8167_WDMA0_SEL_IN_DITHER
+constants and sets up the source output (MOUT_EN) routes above, but appears=
+ to
+omit the MMSYS_ROUTE entries to configure the destination input multiplexer=
+s.
+Without these, UFOE and WDMA0 might not switch their inputs to accept DITHE=
+R0.
 
-Should these 'if' blocks include a required list for the xlnx,external-mux
-property to prevent them from evaluating to true when the property is
-missing?
+[ ... ]
+
+> +	/* RDMA1<->DSI0 */
+> +	MMSYS_ROUTE(RDMA, 1, DSI, 0,
+> +		    MT8167_DISP_REG_CONFIG_DISP_RDMA1_SOUT_SEL_IN, MT8167_RDMA1_SOUT_M=
+ASK,
+> +		    MT8167_RDMA1_SOUT_DSI0),
+> +	MMSYS_ROUTE(RDMA, 1, DPI, 0,
+> +		    MT8167_DISP_REG_CONFIG_DISP_DSI0_SEL_IN, MT8167_DSI0_SEL_IN_MASK,
+> +		    MT8167_DPI0_SEL_IN_RDMA1),
+
+[Severity: High]
+Should this tuple be (RDMA, 1, DSI, 0) instead of (RDMA, 1, DPI, 0)?
+
+Because the destination is specified as DPI instead of DSI, this route
+appears to be applied at the wrong time (when routing to DPI0) and missed
+when routing to DSI0. This could leave the RDMA1 to DSI0 route unconfigured
+and mistakenly corrupt the DSI0 input selection register when routing to DP=
+I0.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918174809.1750=
-2-1-palaomer100@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918175736.3553=
+05-1-l.scorcia@gmail.com?part=3D3
