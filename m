@@ -1,150 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CECAC4A0921;
-	Fri, 18 Sep 2026 08:40:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A7BA498907
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 08:41:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789720819; cv=none; b=oynzi43jKcNxLWT/4Y91AuftYGuA4L8TXhm99O3app3EKt3xWFrWStBfAZN+pTBvvc8jw57yFo4kt5eoLEYC01bVs/vWa4BfRG2UyXimZyofyMhUtDRMZxmhzGNfdg7WhPDYWJlRXEL2U11VFjgHpR5U7ucnfLDjKIK/+zHpDzE=
+	t=1789720877; cv=none; b=CysxVCGF5oeL/SHvoDOYadowuhEPohbuYG1ilXT7TmSC3n2tiY+ojIWkreQT60DigLX3bQzMbqgDhcyOgzzlPQav72wBfed9cELXdZEMLsjKtwqOgs2Qu3RfotM+7Pvn08LsFwZrk6+7+0eKbZ/74U+Y4bniOaFfetxONFoNroQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789720819; c=relaxed/simple;
-	bh=/cN8uyQZ9nDnHW8G5wdiabquj0TfX4E7hMc2JFryRE4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WVgMP587gkqA3pgGCfMtlez6P7otSVo0iiyFPfw2EEJzQkhz5v760LrMbTtOFbTQ39unvxpBd90rupgHq1WerfczFr0T9DaZhmPsvz823dZxFAIzW7oOTj3V0zP4ElTX2nIL/ZgsxfzxVCKhY+GOQgWNQ2lDs5iyDl+EfCf7tf8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NbsGideP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789720877; c=relaxed/simple;
+	bh=wrkRKuHru9tDnAksOKICjvX2eXVZPnIV0pkf0wg10Ao=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Uc1Wg7BQ9ZS3yzGTK0487Dyi1WGBeYvu5MzuBhAvK0RB6rieV2ALURoP05fxcSM+/fBCB/kCfGLJ4xNdWul0myjkghtFq0fbhvjltOMfyPSWRCSSCSp9jgbY0sLYf45ZOMeXJOomc52tSKTFUhki7G7ZEaObOaM9gVbMcr+fQwc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hg/jOWHP; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NbsGideP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A94751F000FF;
-	Fri, 18 Sep 2026 08:40:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789720818;
-	bh=gUKkL/xmF5f394jyQDECLCZfFEXGSwufYWfevSsRYy0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=NbsGidePkrOEfa1hkwsufe7o/scVFbF32GHeCoZVuyKYNLxpCAWwvIB1k+nJWMHTd
-	 FMhRjiJnhSWFTMqF3wJfJty+HC2KTs+bXP9OFKkrbZvoU8InwXGO9LpyR3po/1uVNO
-	 tyy3N2IVQWuuG4z2pjHcWd5pgD4sNO8QZksLlBBGbNqS0dDICDhp4FXKUpcNZHzkfK
-	 DTec91szBuv97WarSiFKeSP0hWkXZcTSRropMi1PTDuiCRbdXppp7O8hLs2Bcniwh+
-	 VK1g772ZrgqwoqXeSqyFMGccuQVb/Owu/iKCe0rI3x2nSFqEq8eDH4kno2EeTYtTd4
-	 hsKaTXtLEOHpQ==
-Message-ID: <0fd3e0a5-33f7-4bc6-9146-dcaf035c3ef5@kernel.org>
-Date: Fri, 18 Sep 2026 10:40:11 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hg/jOWHP"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747ed9866so4150575ad.2
+        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 01:41:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789720876; x=1790325676; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GxDmGUi2C59ZkDrEBuMyQkkkrDWgX+iuYFMfWFNId3U=;
+        b=hg/jOWHPlkv4fYETiJx+uSqvxJOYvUBk8L3ZNm0Qm5jVa3Az7SxZnV018vVEMxB9vk
+         qmY6gQqU6WWpy/qd9DpKsIAUBhSwkNh7vhDGrYwnbLrgePitxgPFib29lbHjt3eULWV1
+         +LQHOatYT1wcTLM+6koOOlssHLx8+bqr5y/Zy0KF5jhg7KuI9m15V+01svN/9YNIyw83
+         +efVVmQZsXGo53yXtSjzta4kt7Sjz9tis6kGfcechcKLgofgxOsvjC9ygIHpnfk3PCKv
+         lwZekC4mEpq6Wc1uTqMmhzG+NDBX9kDuGPbJSxvJsVzzVSh1K02BgWyhYNnq2LElZEfw
+         SZ0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789720876; x=1790325676;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GxDmGUi2C59ZkDrEBuMyQkkkrDWgX+iuYFMfWFNId3U=;
+        b=g6g3gjOMn5tBdkRWo/5bByV7TohY5fJL8RKdWhO0QPiUGzCTKuYN4nYhAtQILXfyL5
+         Qzeb1uK3UCtwORe2o+vGz8HDHP4L4osjnFUJXfb0PEVqH8ZkfI2L7cKtuQuWMaAt8g51
+         LTFfE0DIcGO2uB9UxRx7M+zkvyNiz0NxfI6MYcUu+7Bd6WboQ8s9CkfgsRG1ixQ3b9++
+         eEcYpOqdHvpGzWAPuRVNJWf76lVPzOnEgXrbUpBVd/dJsQECBsGGAlBRCORhwAgfi7yA
+         o8x2DZ+TxJv5dmDRbVDSUkqNqSw93UA7IWXdgqGKxd2SXKZFsmysKaLj3m/rF8F4626c
+         fG/w==
+X-Forwarded-Encrypted: i=1; AKwUvBxLDmipQtPM1zz3hvzeaeae370iGshGeQRkLl4CuxSMiYG8s7vbR318b3mWqpNN3RQBnDrMoif2RTyQ@vger.kernel.org
+X-Gm-Message-State: AFuF++mmTCKKHuaX17G3U6Yvm6r7GNGtRBefCeZtiP0IgqjZj6W/jjLS
+	EDsQvcAdGH3I3ZySfn6pmXEj/4nxDOyr2GrxulAUd7kxV/UqmmcVAhIb
+X-Gm-Gg: AYBFou3RWWCs1rtyPYTSy+Z1obvl69dtxm8ZwbaSV6LBuoyc7owzvoNA2zlw0c15B/r
+	oRmgY9PWpBhx1SWeTOkMQPbzh3GZUOoFzpWXzDuMuNYttJyZljHpXJLxAt6+gswSfxRluogAKus
+	nJdcC6oe/xs0awvC6+BLnv03pqroRnqviEHisA1GERmA6Nilg5wai5hkE95IcVne6tuiDtp9FPN
+	h6/LwhqozYrMJFbYPtcP1kPhlejsUQDSktnWMWM/7EEJ2yMcccKR4l+WjK5DUiCwNiXF4EaS9hC
+	0PPdMA/cSotUemd2Q/Ggui1E/cxJJ8+lWhcO/NHVLsdF0dnAu6K017dn+9atZmPfxqMlg4VK4Ib
+	NVzIMqQ4Da1h213a7rWxecs4064IyHo1wXWikExuzsdcacouc/W3JJDNjMhWSwu696Wm9G4KoC2
+	53vyIBxZnSx+NFJs6OQOSMJ47kg7zhV1G4J0wSDsX7Zq0B1GC0FDCHWI3JGA3g47jAIPH+HNYGH
+	rMtB2kw/BtgfhRBv+qmi0AVsDVWCTaBZQwOIxRNUbE/txf/+/m/aZNGz8XjSiQaGs/TPak+TEBb
+	fA==
+X-Received: by 2002:a17:90b:574e:b0:39e:1fb6:9659 with SMTP id 98e67ed59e1d1-39e54f0772fmr4397778a91.22.1789720875692;
+        Fri, 18 Sep 2026 01:41:15 -0700 (PDT)
+Received: from cs00-MS-7C09.. (2001-b400-e35f-d966-bfea-f724-5ada-7374.emome-ip6.hinet.net. [2001:b400:e35f:d966:bfea:f724:5ada:7374])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e5a50d332sm2093716a91.9.2026.09.18.01.41.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 01:41:15 -0700 (PDT)
+From: hsyemail2@gmail.com
+X-Google-Original-From: syhuang3@nuvoton.com
+To: Guenter Roeck <linux@roeck-us.net>,
+	linux-hwmon@vger.kernel.org
+Cc: Sheng-Yuan Huang <syhuang3@nuvoton.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jean Delvare <jdelvare@suse.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 1/2] dt-bindings: hwmon: lm75: Add Nuvoton NCT7715
+Date: Fri, 18 Sep 2026 16:40:40 +0800
+Message-ID: <20260918084042.19541-2-syhuang3@nuvoton.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260918084042.19541-1-syhuang3@nuvoton.com>
+References: <20260918084042.19541-1-syhuang3@nuvoton.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: arm: qcom: Add Xiaomi Mi 8 family
- compatibles
-To: David Heidelberg <david@ixit.cz>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
- Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli"
- <gpiccoli@igalia.com>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- phone-devel@vger.kernel.org
-References: <20260915-dipper-v2-0-cbade54919ee@ixit.cz>
- <20260915-dipper-v2-1-cbade54919ee@ixit.cz>
- <20260917-heavenly-weasel-of-criticism-1add6b@quoll>
- <b324f0b8-0875-457f-936c-89b858d082fa@ixit.cz>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <b324f0b8-0875-457f-936c-89b858d082fa@ixit.cz>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 17/09/2026 12:25, David Heidelberg wrote:
-> On 17/09/2026 12:21, Krzysztof Kozlowski wrote:
->> On Tue, Sep 15, 2026 at 04:32:24PM +0200, David Heidelberg wrote:
->>> +      - description: Xiaomi Mi 8 family
->>> +        items:
->>> +          - enum:
->>> +              - xiaomi,dipper
->>> +              - xiaomi,equuleus
->>> +              - xiaomi,ursa
->>> +          - const: xiaomi,dipper-common
->>
->> We do not make "common" compatibles.
->> git grep common -- Documentation/devicetree/bindings/arm/qcom.yaml
-> 
-> TBH I have mental issue with calling it xiaomi,dipper-dipper
-> 
-> All three devices are branded as own devices, just based on 99.9% same base.
-> 
-> I'm not aware of any internal name which group these devices.
-> 
-> I could call it like xiaomi,common, but there is the polaris and beryllium, 
-> which aren't "that common" with these three.
-> 
-> Do you have idea what to do in this situation?
+From: Sheng-Yuan Huang <syhuang3@nuvoton.com>
 
-Just don't use "common" or "generic" or anything close to it, because it
-confuses future contributors thinking "common" compatible is allowed.
-It's not.
+Add the Nuvoton NCT7715 compatible to the LM75 hwmon binding.
 
-Except above, the actual names of compatibles are irrelevant, they just
-need to uniquely identify the device. Personally, I would not use
-nicknames at all for devices because they tell me nothing. Maybe they
-tell to you because you read internal source code, but not to me.
+The NCT7715 supports an ALERT output, so permit the optional
+interrupts property for this compatible.
 
-And if you google for Xiaomi Dipper, you will find first forks of code,
-so again not source information but derivative. Only fifth result is
-gsmarena website, but weirdly it does not have even "dipper" text
-mentioned. So basically using such names is counter productive to me,
-confusing and bringing downstream - postmarketos or lineageos -
-practices to upstream. Basically downstream forks create some codename
-and you push it to the usptream. You can, but I don't find it useful.
+Signed-off-by: Sheng-Yuan Huang <syhuang3@nuvoton.com>
+---
+v4:
+- Split the devicetree binding changes into a separate patch.
+- Allow interrupts for the Nuvoton NCT7715 compatible.  
 
-I would use proper model names, e.g. "xiaomi,mi-8" for final
-compatibles. Codename for family is fine, because simply there is no
-product which we could identify as common base...
+ Documentation/devicetree/bindings/hwmon/lm75.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
+diff --git a/Documentation/devicetree/bindings/hwmon/lm75.yaml b/Documentation/devicetree/bindings/hwmon/lm75.yaml
+index b48bf3fd721f..d55b8b7e49c5 100644
+--- a/Documentation/devicetree/bindings/hwmon/lm75.yaml
++++ b/Documentation/devicetree/bindings/hwmon/lm75.yaml
+@@ -31,6 +31,7 @@ properties:
+       - nxp,p3t1750
+       - nxp,p3t1755
+       - nxp,pct2075
++      - nuvoton,nct7715
+       - st,stds75
+       - st,stlm75
+       - microchip,tcn75
+@@ -78,6 +79,7 @@ allOf:
+                 - ti,tmp101
+                 - ti,tmp112
+                 - ti,tmp75
++                - nuvoton,nct7715
+     then:
+       properties:
+         interrupts: false
+-- 
+2.43.0
 
-Best regards,
-Krzysztof
