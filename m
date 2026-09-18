@@ -1,147 +1,128 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53025175A64
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 00:45:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DF402E06E6
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 00:45:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789692324; cv=none; b=ukyt1R4+l44+bW3FOVEQuHDnhdksfTrbAhuGIYVsfgSL5Iod67Klx8uJo++I+gYPMmFuFUXm0/oS3IA9Vw1q3DeYNOxO5ux9xhHvMEWiOoauTIvy4Y+SsS/1QjWpcDsMvMXbuF/1Mg/o9H4y9kmiDWDrqB+kmEwo6foBITs38w0=
+	t=1789692324; cv=none; b=KCV3SppRWL/1vzZ+cUrpyIPGYiF575crdMiqbITE8f6kcbISATRG/HYUxeV0jLZGHSBT8kYs7pPyKTDFe4r7+uWP3qSyZhFXqkgRxMktv6BEXsstZ4dou/l8M7yN2WeC3qWLgmQyDO7gtPa4WU+iXfrrWLYhDCMRSVN9yTjVy78=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789692324; c=relaxed/simple;
-	bh=fof9TctqWK3exOzoPAy/2oeZxLno/qEj/oOvhVvK/98=;
+	bh=8Rr/LZPjQNWK26R3u9OdMlu9QyLXd1bgrkYBRlPeVt8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Y5PLq1PoP/AZ5kaZmJVdesQ/2NOLcEXNTCCo7ZKq1Hkr1IzZnMCFCyXuBL+QGxdU1nPJiZKCDOVUMRp/Sft+J8n+FW0cx+20OWKoOe/0Fb82XQceZdAbmYj88yYGDAz7zHNZ13xWsT0MCxr8/7qDfTJU8C4vnyj0guqsVGBimZE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aRRF2zK2; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=gcBRimV2GFmCmQpn72E1G3ALfUNEVH3k9FLxUNWktAoPrsPxGQYuzJcv5OL8TC1uFCIhNKYHtijoJV+ufw+1lJoqItXQWpSnXH54qCKJdhQsT7ergQNNtJLXqoHFzRFQMk3oROyk5JWHOyVL+ynGYnZDyu5pedG6Ez8yC2gYKBw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dGr8ea3s; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aRRF2zK2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B5DF1F00893;
-	Fri, 18 Sep 2026 00:45:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dGr8ea3s"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EE001F000FF;
+	Fri, 18 Sep 2026 00:45:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789692321;
-	bh=Va87/TGLRy0EXD8hgYCIy6y3c4fULbE4u7+35V8fwik=;
+	s=k20260515; t=1789692322;
+	bh=pRm7V98PvwW9xLiOlvimzvDvfSy9/QSFtEIoTpgQEXE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=aRRF2zK2Ro1BfTCjebErmHtxSQlh19/086AD0H6PztuqiRlpRLU1iIMPUXA+JeId9
-	 BQxfj8gktI+SO1LmwYcCFJb9ZBcdN7nBzQY5QZWqt7c//NQ2IQ0psTcG61gVJPlEfh
-	 Dv37Fl/rELpwBemgb3h7HXXjz7yLDAJ7M61Yhvo0y1MExSOK5/H3MsmQXO340cQcuc
-	 ca56n/TFEV4zo87KoJMCIdO4R+l/t89njM16wTdpNGzaWaWlQmXeQEVhWmUeS9LZZx
-	 R2M9G+s7EKJfltTZAvZDWxpolYlGBSMnxVXjuA6bscnj3WfIcJGpXH21KKWvNCahji
-	 aEqMgutRLrubA==
+	b=dGr8ea3s5kMSRR9u2yTDtrdEb8cvZ2iNaC5VPg2RMT9r4TANGGMgkNMXZm3cz239v
+	 YQ/DXrw37Y1scCCAsHvks44i8MS8WM1Y3UalHHs1SnGKIi7HNFX5opB3D9D4LPg3J3
+	 brzzABFbuxWqFFI50EPTxX/3Q/koEKxL2Wn9NNdJVeekT6Rpu5XNsQbmJzI7NDrXdU
+	 n9znjsjvB2OtsAH6vc7yTP7uyrZqeTFXIKntMko5cS2UJr1Icp0GoT8IxnvUwKJ4AW
+	 oIgX2COLL6kf6DRj3pEffELruN6Brw2icCB0wdYRcXL8yzVg4PeYXrVS1qvafG/58j
+	 pVPvDehp4xSjA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v16 02/12] net: phylink: introduce internal
- phylink PCS handling
+Subject: Re: [PATCH net-next v16 03/12] net: pcs: implement Firmware node
+ support for PCS driver
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Christian Marangi" <ansuelsmth@gmail.com>
 Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260916235200.20712-3-ansuelsmth@gmail.com>
+In-Reply-To: <20260916235200.20712-4-ansuelsmth@gmail.com>
 References: <20260916235200.20712-1-ansuelsmth@gmail.com>
- <20260916235200.20712-3-ansuelsmth@gmail.com>
+ <20260916235200.20712-4-ansuelsmth@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 00:45:20 +0000
-Message-Id: <20260918004521.4B5DF1F00893@smtp.kernel.org>
+Date: Fri, 18 Sep 2026 00:45:21 +0000
+Message-Id: <20260918004522.0EE001F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] net: phylink_validate_mac_and_pcs() fails to return error when r=
-equired PCS is missing
-- [Medium] net: phylink_create() unsafely expands MAC supported interfaces =
-with generic PCS capabilities
+- [High] net: pcs: fwnode_pcs_get clobbers xlate errors breaking probe defe=
+rral
 --
 
-commit 5b275072f20518c6dfff0e7c6d9837800cd61c3e
+commit d550ff71d0bd4e8598c8df7253dec52309a1c719
 Author: Christian Marangi <ansuelsmth@gmail.com>
 
-net: phylink: introduce internal phylink PCS handling
+net: pcs: implement Firmware node support for PCS driver
 
-This commit introduces internal handling of PCS for phylink, moving the PCS
-selection logic entirely to phylink using the supported_interface value in
-the PCS struct. This provides an alternative to the .mac_select_pcs callbac=
-k.
+Implements the foundation of Firmware node support for PCS drivers. This
+provides a simple Provider API where a PCS driver can expose multiple PCS
+with a fwnode_xlate function.
 
-> diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-> index d67a5184c524f..417d2f1e54b72 100644
-> --- a/drivers/net/phy/phylink.c
-> +++ b/drivers/net/phy/phylink.c
-> @@ -530,6 +549,21 @@ static int phylink_validate_mac_and_pcs(struct phyli=
-nk *pl,
->  		pcs =3D pl->mac_ops->mac_select_pcs(pl->config, state->interface);
->  		if (IS_ERR(pcs))
->  			return PTR_ERR(pcs);
-> +	/*
-> +	 * Find a PCS in available PCS list for the requested interface.
-> +	 *
-> +	 * Skip searching if the MAC doesn't require a dedicated PCS for
-> +	 * the requested interface.
-> +	 */
-> +	} else if (test_bit(state->interface, pl->config->pcs_interfaces)) {
-> +		struct phylink_pcs *tmp;
-> +
-> +		list_for_each_entry(tmp, &pl->pcs_list, list) {
-> +			if (!phylink_validate_pcs_interface(tmp, state->interface)) {
-> +				pcs =3D tmp;
-> +				break;
-> +			}
-> +		}
->  	}
-> =20
->  	if (pcs) {
-
-[Severity: Medium]
-If the requested interface requires a dedicated PCS (the pcs_interfaces bit
-is set), but the loop finishes without finding a matching PCS in the
-pcs_list, pcs will remain NULL. Should this code return an error here
-rather than falling through?
-
-If it doesn't return an error, phylink might falsely advertise unsupported
-link modes during auto-negotiation, and later phylink_major_config() could
-attempt to configure this mode, fail to find the required PCS, and fatally
-abort configuration.
+> diff --git a/drivers/net/pcs/pcs.c b/drivers/net/pcs/pcs.c
+> new file mode 100644
+> index 0000000000000..39550d9a12a2a
+> --- /dev/null
+> +++ b/drivers/net/pcs/pcs.c
 
 [ ... ]
 
-> @@ -2031,16 +2150,31 @@ struct phylink *phylink_create(struct phylink_con=
-fig *config,
->  	__set_bit(PHYLINK_DISABLE_STOPPED, &pl->phylink_disable_state);
->  	timer_setup(&pl->link_poll, phylink_fixed_poll, 0);
-> =20
-> +	/* Fill the PCS list with available PCS from phylink config */
-> +	ret =3D phylink_fill_available_pcs(pl, config);
-> +	if (ret < 0)
-> +		goto free_pl;
+> +static struct phylink_pcs *
+> +__fwnode_pcs_get_from_pcsspec_provider(struct fwnode_reference_args *pcs=
+spec,
+> +				       struct fwnode_pcs_provider *provider)
+> +{
+> +	if (provider->fwnode !=3D pcsspec->fwnode)
+> +		return ERR_PTR(-EINVAL);
 > +
-> +	/* Link available PCS to phylink */
-> +	list_for_each_entry(pcs, &pl->pcs_list, list)
-> +		pcs->phylink =3D pl;
+> +	return provider->fwnode_xlate(pcsspec, provider->data);
+> +}
 > +
->  	phy_interface_copy(pl->supported_interfaces,
->  			   pl->config->supported_interfaces);
-> =20
-> +	/* Update supported interfaces */
-> +	list_for_each_entry(pcs, &pl->pcs_list, list)
-> +		phy_interface_or(pl->supported_interfaces,
-> +				 pl->supported_interfaces,
-> +				 pcs->supported_interfaces);
+> +static struct phylink_pcs *
+> +fwnode_pcs_get_from_pcsspec(struct fwnode_reference_args *pcsspec)
+> +{
+> +	struct fwnode_pcs_provider *provider;
+> +	struct phylink_pcs *pcs =3D NULL;
 > +
+> +	if (!pcsspec)
+> +		return ERR_PTR(-EINVAL);
+> +
+> +	mutex_lock(&fwnode_pcs_mutex);
+> +	list_for_each_entry(provider, &fwnode_pcs_providers, link) {
+> +		pcs =3D __fwnode_pcs_get_from_pcsspec_provider(pcsspec, provider);
+> +		if (!IS_ERR(pcs))
+> +			break;
+> +	}
 
-[Severity: Medium]
-Does this safely handle MAC capabilities, or could it incorrectly expand
-the MAC's supported interfaces with generic PCS capabilities?
+[Severity: High]
+Does this loop clobber errors returned by the matching provider's xlate
+function?
 
-Generic PCS blocks often support interface modes that the specific MAC or
-board trace routing does not. By ORing in all interfaces supported by the
-attached PCS modules, this might cause phylink_validate() to incorrectly
-accept unsupported interface modes (since MAC drivers often only check
-speed/duplex in their mac_capabilities).
+Looking at __fwnode_pcs_get_from_pcsspec_provider(), it returns -EINVAL if
+the fwnode doesn't match, or the result of fwnode_xlate() if it does. If
+fwnode_xlate() returns an error like -EPROBE_DEFER, !IS_ERR(pcs) evaluates
+to false, causing the loop to continue.
 
->  	linkmode_fill(pl->supported);
->  	linkmode_copy(pl->link_config.advertising, pl->supported);
->  	phylink_validate(pl, pl->supported, &pl->link_config);
+The original error is then overwritten by -EINVAL from subsequent
+non-matching providers. Should the loop break if the provider matches the
+fwnode, regardless of whether the returned pcs is an error?
+
+> +	mutex_unlock(&fwnode_pcs_mutex);
+> +
+> +	return !IS_ERR_OR_NULL(pcs) ? pcs : ERR_PTR(-ENODEV);
+
+[Severity: High]
+Does this unconditional return of -ENODEV squash probe deferrals?
+
+If pcs holds an error pointer (like -EPROBE_DEFER) at the end of the loop,
+this statement masks the original error code by always returning -ENODEV.
+
+This breaks module load ordering and prevents MAC drivers from correctly
+deferring probe until their PCS is ready.
+
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916235200.2071=
-2-1-ansuelsmth@gmail.com?part=3D2
+2-1-ansuelsmth@gmail.com?part=3D3
