@@ -1,33 +1,33 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CFB4F4EB859;
-	Fri, 18 Sep 2026 16:21:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28D55513548;
+	Fri, 18 Sep 2026 16:22:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789748505; cv=none; b=Zr2btw2ZTPpbIbNUAuEPQgbNJYR167DCK/bTh849Rtbilat5oO9sd5a/qXD8LVgVbpk1TxRVElfmAinBgcbaYdyZvtUyi4rYwR5V+qL+VD7NGZC8EHj96hirtOcGvN5mDE7e/RDavts7zytyDa99CyTab/J3wiTUZCfHxQ8GcFg=
+	t=1789748573; cv=none; b=GhjS8olEhQQJcw2GiSFXJaOGHXpZrrFfabBCmeMGkM2JBcEuUzIFTMVOCDLIOBDSrIXF6cmW4qZOAFmEfomo2YMeVvf7J+gTLQIA7reDnlB4t74+cr/dUsVeXH+r8dcFE/0p3I2DUyYtRpENTtBQEyWBr9UT+uZoUf1OIMcRqds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789748505; c=relaxed/simple;
-	bh=/OybNd89mEkvshGFEDppqY+8tuTPGqXqbXHfup9KH90=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gNpkuJFJvgvp6ujZT7frT06BbTGpDTwlUcWZnllBt57HvD1/GrkHu0iqTQTREZS+EyGr2GXprKQqY/xoQpzkoMhgfirJkeTzxUffx4OqzPi+mZQRzQFHAdc+0uycOwc1D5/4AHVoU16U81OhDKPl/XTl0OfMO4005iC7UDLyNU4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=fJwZQlJs; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789748573; c=relaxed/simple;
+	bh=JDQ+0Gqq6WM4dMOdPsbqnatpjmO1zhCNNnL8myXw6VU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=pEuchNr/2vk0UdiBS3jy84Pq/K5jZ/ukhzON46+cI2zSGz/cHfZ2DqcF25Hr4CpjvZjEOmKWWl+p0nzqgkFXaewU1C+NuA2MA+QSTffL4fXE8rNvyOl/2JbU/2Iw7NxMBqB8zOHSBGgWCJM5DXQ4drQqw+/+O+cehkulAoYQQpw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NLDStvTm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="fJwZQlJs"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8B4C3168F;
-	Fri, 18 Sep 2026 09:21:35 -0700 (PDT)
-Received: from [100.72.146.165] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 128D83F86C;
-	Fri, 18 Sep 2026 09:21:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789748499; bh=/OybNd89mEkvshGFEDppqY+8tuTPGqXqbXHfup9KH90=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=fJwZQlJsnMiSfZIlOizxrilzkBZz7exxuPyeBUE+ppFFDfzYKFNi6vcVdg+lyNtDa
-	 KmdZYJm5DOOZgCpSlpQZrgeFfKD+1C4gfdJFiZiSRhVNwLNf0ci9EguPOdEhr3PaSb
-	 nbk7+IZRhRJYbwXBiBuQS9kJ/054i+iRniIaE4AE=
-Message-ID: <efa6f286-ea5d-4a94-9fb8-65ece584532c@arm.com>
-Date: Fri, 18 Sep 2026 18:21:34 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NLDStvTm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E731D1F000FF;
+	Fri, 18 Sep 2026 16:22:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789748563;
+	bh=XjS/yR5ZDGuvdSng7HzHCJ0ithorUF2UJTwkVe8gYNU=;
+	h=Date:Subject:To:References:From:In-Reply-To;
+	b=NLDStvTmeSHRp1VIgnLnn59EWb123XQd+LTx12RFl7fRrkCdd1QOye2u+9RJCfY7e
+	 429G8ZM2IJ7V6fpPcZNCbLUsbrAz+obFuMJQ35Fl1JWTeDSxdB/mlrS8C2aLpvgasG
+	 ZD9wV0lA4BhiuOCIjva2j/GsZVMaO4dC4lFiPaTTRs+lOPPYQKb28h0PcOB1r7iHPn
+	 ExPDEWvek/mlgd8zz9SnS1TowU1l4oY3KO9pnJrUhM2Dg2m25x3dhjL6CaGVpYgAwb
+	 HKVL6LtQWMkIWkbiep/jqerOY2Aiklsh36wZgpyegp76COFTl7M3L3k20nprV/Uhjz
+	 0l9n5jF3ro5pg==
+Message-ID: <02d94760-6e5e-40cf-9354-63b9bca5d682@kernel.org>
+Date: Fri, 18 Sep 2026 11:22:41 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,86 +35,53 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/8] firmware: smccc: Add support for Live Firmware
- Activation (LFA)
-To: Mark Rutland <mark.rutland@arm.com>
-Cc: Sudeep Holla <sudeep.holla@kernel.org>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Salman Nabi
- <salman.nabi@arm.com>, Vedashree Vidwans <vvidwans@nvidia.com>,
- Trilok Soni <trilokkumar.soni@oss.qualcomm.com>,
- Nirmoy Das <nirmoyd@nvidia.com>, vsethi@nvidia.com,
- Varun Wadekar <vwadekar@nvidia.com>, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
+Subject: Re: [PATCH v7 0/2] arm64: dts: intel: agilex5: enable USB3.1 on SoCDK
+Content-Language: en-US
+To: adrian.ho.yin.ng@altera.com, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, devicetree@vger.kernel.org
-References: <20260706134455.132091-1-andre.przywara@arm.com>
- <20260706134455.132091-3-andre.przywara@arm.com>
- <20260717-bipedal-courageous-alpaca-4fb54d@sudeepholla>
- <84f0862c-5333-4d53-b882-79b8e4c362ed@arm.com> <aq1KjzpIGuSpsPWx@J2N7QTR9R3>
-Content-Language: en-GB
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <aq1KjzpIGuSpsPWx@J2N7QTR9R3>
+ <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <cover.1789114403.git.adrian.ho.yin.ng@altera.com>
+From: Dinh Nguyen <dinguyen@kernel.org>
+In-Reply-To: <cover.1789114403.git.adrian.ho.yin.ng@altera.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Mark,
 
-On 9/18/26 16:28, Mark Rutland wrote:
-> On Fri, Sep 18, 2026 at 11:13:19AM +0200, Andre Przywara wrote:
->> On 7/17/26 11:03, Sudeep Holla wrote:
->>> On Mon, Jul 06, 2026 at 03:44:42PM +0200, Andre Przywara wrote:
-> 
->>>> +/* A list of known GUIDs, to be shown in the "name" sysfs file. */
->>>> +static const struct fw_image_uuid {
->>>> +	const char *name;
->>>> +	const char *uuid;
->>>> +} fw_images_uuids[] = {
->>>> +	{
->>>> +		.name = "TF-A BL31 runtime",
->>>
->>> This doesn't make any sense to me. Why do you want kernel to assign
->>> some random name base on UUID. Userspace is well place to deal with
->>> UUID and give it any fancy name it wants.
->>
->> Well, the whole interface is quite usable without any accompanying user
->> space tools, so just from the shell, but then identifying  firmware
->> components by their GUID becomes a major pain and leaves users completely
->> clueless.
->> And while we indeed will never be able to fully catch up with all the
->> firmwares out there, especially not with vendor specific ones, there are
->> some standard firmware components that I think warrant some name.
->> TF-A BL31 above (and TF-RMM) are good examples: these GUID is already in the
->> mainline repository, and since BL31 is also an LFA agent, it's quite likely
->> we encounter this component. Even when vendors typically use downstream TF-A
->> ports, those GUIDs would stay the same.
->> So yes, it's more opportunistic than complete, but I think it would help to
->> identify at least those well-known firmwares. Anything not named then would
->> use the GUID, and can indeed be resolved by (a yet-to-be-written) userspace
->> component.
-> 
-> Sudeep is right; this is not a good idea.
-> 
-> Remove the table and just expose the UUID of the image. Users can map
-> that to a string in userspace if they need/want, and that'll work
-> regardless of the vintage of kernel they're using.
-> 
-> I appreciate it might seem helpful to expose a name where we know it,
-> but overall it creates more problems, including (but not limited to)
-> compatibility issues, needless busywork to add entries (and arguments
-> about what is approriate to add), political issues when some project
-> naming changes, etc.
 
-Fair enough, and honestly I was expecting something like this. I just 
-wanted to offer some compensation for the spec forcing me to put GUIDs 
-on you.
-By now I can remember that the TF-RMM GUID starts with "6c", I guess 
-that needs to suffice now ;-)
-
-Cheers,
-Andre
-
-> I am not going to Ack this with the name present, and I suspect neither
-> will Sudeep.
+On 9/11/26 04:09, adrian.ho.yin.ng@altera.com wrote:
+> From: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
 > 
-> Mark.
+> Add the Agilex5 USB3.1 DWC3 controller node and enable it in host mode on
+> the SoCDK board. Place the controller under a simple-bus with a 40-bit
+> dma-ranges window so the DMA/IOMMU stack respects the interconnect address
+> width when SMMU is enabled.
+> 
+> The SoCDK daughter card only exposes the USB3.1 interface, so the unused
+> USB0 (DWC2) board enablement is removed in a follow-up patch.
+> 
+> This DTS series is posted separately from the USB bindings/driver series
+> ("[PATCH v7 0/2] usb: dwc3: add Altera Agilex5 DWC3 support"). Depends on
+> compatible "altr,agilex5-dwc3" from that series:
+> https://lore.kernel.org/all/cover.1789114385.git.adrian.ho.yin.ng@altera.com/
+> 
+> ---
+> changelog:
+> v6->v7:
+> * Split out of the USB series into a standalone DTS posting.
+> 
+> USB v7 series:
+> https://lore.kernel.org/all/cover.1789114385.git.adrian.ho.yin.ng@altera.com/
+> 
+> Previous combined series (v6):
+> https://lore.kernel.org/all/cover.1788886615.git.adrian.ho.yin.ng@altera.com/
+> ---
+> 
+> Adrian Ng Ho Yin (2):
+>    arm64: dts: intel: agilex5: add USB3.1 controller node
+>    arm64: dts: intel: agilex5: remove usb0 in Agilex5 SoCDK
+> 
+Applied!
 
+Thanks,
+Dinh
