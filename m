@@ -1,631 +1,156 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0AB544F93AE;
-	Fri, 18 Sep 2026 15:24:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2EFB4FC347
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 15:26:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789745057; cv=none; b=eRYku3TFwfpbqbVS+IT4NTooKfcSh52XUm+CDv006az/tYs4peLfH26R1ehKo7jwBh8ZRk3MzkERcLaMcnvbCCtOfj/j8DhJ7kqCdxGnoWEvJ3Fj9xFiUIoGp7vwuhXrfmk9Fu3SnjNZHzfYtLvtlxOcHevCqAiNjg6brDNFU7o=
+	t=1789745170; cv=none; b=Tvq6KhEcFvWok7CyEV9XucFT2wvYuBBSHPlQrOs4fQH9xf0rILAi6bRJnxsd0dUFogyxV8otJbPYaRHZ9grtKr+ri1HlUmL7lCkdPP01EYTw8F4EfldiTpxlFuvI3PkP8LqgXZTYPXuQhbMsgiMO26KfjFuBvyTGfgxuPjKXtHo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789745057; c=relaxed/simple;
-	bh=QEXJlDyXgTRNfVdIg/gcujnPjsSNgQiBcl0rt6qSV00=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=U/qvKUv3hSiUSPHJ9WS2uifyehMdua7ISPWwlyX7uThzP1bWooANcQBpMfVEJnpVyUH09BLXRwZeroX0zGuqqWZC2F/UmipoRtXVWnyKTCxrr+sZnCs4QZw99X0IyrBMY2V5bS3fV2UI6S8b9ulwrOUFlVsniyIjvpmXmUH49Zo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=LUToO6mp; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789745170; c=relaxed/simple;
+	bh=S4BbbDlFMvSPl2ab6YtXb/KsV0JNn8z1b6pr9Asc0Ds=;
+	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=JhnxYPWmQskkLSYLCmSTQH44nkz+QFuXE3v4XchGiHPuvHWtRxvwu4qOEiXqN5gTO7aad4j0VKOMw5EvrjJYCvxog0v/ilS+gia12HnAQUBgyW10nT2efplF1msOiwynrBoWwby9QBJiZc5XlCUdprMZ95bTpCnEqj2bJDOGzgk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=srIiNcV1; arc=none smtp.client-ip=74.125.228.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="LUToO6mp"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C9FD4168F;
-	Fri, 18 Sep 2026 08:24:10 -0700 (PDT)
-Received: from J2N7QTR9R3 (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E7E983F7B4;
-	Fri, 18 Sep 2026 08:24:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789745054; bh=QEXJlDyXgTRNfVdIg/gcujnPjsSNgQiBcl0rt6qSV00=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=LUToO6mp3W4N1KlcxlP+mPUgIjMhAvfzvmzPpM1xE4XZ5vX8PMOX8Nsznc7gKHzZY
-	 Q+iYMWHWb9xPbN/NpO+mdfBVOgiFihOmdstvAgzBxOKr/X2uwt7/70ulA5GQ1qbxTz
-	 MV4R04acYq3ybAqiwyZIuk5Lko1s5S1P2aImmShc=
-Date: Fri, 18 Sep 2026 16:24:09 +0100
-From: Mark Rutland <mark.rutland@arm.com>
-To: Andre Przywara <andre.przywara@arm.com>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Salman Nabi <salman.nabi@arm.com>,
-	Vedashree Vidwans <vvidwans@nvidia.com>,
-	Trilok Soni <trilokkumar.soni@oss.qualcomm.com>,
-	Nirmoy Das <nirmoyd@nvidia.com>, vsethi@nvidia.com,
-	Varun Wadekar <vwadekar@nvidia.com>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH v4 2/8] firmware: smccc: Add support for Live Firmware
- Activation (LFA)
-Message-ID: <aq1XmaBemuGybxp2@J2N7QTR9R3>
-References: <20260918141112.2115555-1-andre.przywara@arm.com>
- <20260918141112.2115555-3-andre.przywara@arm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="srIiNcV1"
+Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6aa053900f5so1525047a12.1
+        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 08:26:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789745166; x=1790349966; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:to:from:subject:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=S4BbbDlFMvSPl2ab6YtXb/KsV0JNn8z1b6pr9Asc0Ds=;
+        b=srIiNcV1+31jY3wY5Zs5IYPLeYz9lw0Ixf6yqZAcU9auUHyoYPk44X+k+GgwoMw1eg
+         KFHwAdkBYIbhjwTAnejc/qh0YmrOgBXIzJc9/0h2jo9OCStsX49YsYPfzstwawsr0l0L
+         jJ/th+JYr6zLIWgymC+2fkJdbMtsVqkNHLgD6GalEYkZcWeZAFI8v7bGm10fycOTUwhX
+         L7lSqs2QI7oJprUuQfgM5Z+aGdcsGlB9fWCrvQ/Qsco/dZi4tZCwQlxvYYCJ3tZ+2lsc
+         WpTWMF/7u55nBfg8RP1jWklCf8G9J2rmM3BtfVMPpbpiyCPLQIbXzqb65WD/q6PSSUa1
+         B1Fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789745166; x=1790349966;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=S4BbbDlFMvSPl2ab6YtXb/KsV0JNn8z1b6pr9Asc0Ds=;
+        b=fUscUgmo27kfTHTcS1sqfcpe09eTptTCG9h3LAL1SUHavm82bjL+vfMaG29zsOIgBr
+         I+e/rRLSOM/9HjdD0Q5Q86swJr7wDeJNJctZ+ONvJnr5c6qENV7BzuH1M2f0ymFS0jIl
+         OcXlplp0bHBwp8+lJXYRbDXhmu1uezSoj/g8lzEpUlZktzsnlOsh1LLnQqKx4J326fmQ
+         4VVrKXihHLrT2mO8dTFlvzjIBkCqOWFlQ5D/5Oq8Uct/WvVBa9Otgb2dGZsVNqSx/dsX
+         LSnbwpl3FCS2eFl9pQWKpH4B7EGCC7FKlrqMe/z9IH/roGlGFiMQygRvWy/USJJ7uabW
+         5sog==
+X-Forwarded-Encrypted: i=1; AKwUvBytNXhr8eiEPrco7J5mrpSzsG9b4SY/e3jSXU5xMPtFxQ0XU8/FEQUiGZ0dcMO6bGf6XLEKgvhJyns5@vger.kernel.org
+X-Gm-Message-State: AFuF++k0mTEHfmrS4/8ZH1hPk/L2eSrQOVldDnrXMz2DKvKZu9CRRPnu
+	bg6kInNUm5wF2nmD9nNLLyr2fyPAdintrCPOfeHy2x0tHMZWNX0xVbyD
+X-Gm-Gg: AYBFou3XwQ1SlPDqBNQKZgUEQqBl4vTtDalfcr113ka2Li86qtTtYN2FedeMAvrqbGP
+	w0/bziaIjNOmI0K8p/A0b66de3RRrNcxpQQb4uFWBVZMuBO7YoRGPmkHfsbTi8opCCioUtNAnYc
+	/sS2MgOdK8NhgjzXHQulcVUsQAHimGglR63dKhyRW/KACJ6vmZkKNnFFyFVeVfNvkSeEmvweFUH
+	E165VvE6EYwe7Sof0Cj/Kxbgs5uyEQuTPM/JdhTe6AlkvF+oCUP3l0W0j4uJNJTbPpB9Mg7WfwX
+	rz7agv6efuYWA0qAAjhperoGZ6XsBkwJz+zEYakiFRIBmb5OBUiNhtQYpe8DSIeSE/TFh7+76w3
+	YZD5wkjoSC7LB/oN2oZw4P0M1A364J51/jplqgTdQy+U+zBRE0qV/h2IoyqYpPq5nd1uT3ReGHA
+	Xm4HQk3xbihdAESB2rtS3PF/RY7b7ldt01K0NLCbOklf6ZSwBroqs2Clr3Q3zhY6qMe1tbleO77
+	hLQpfUDR/j6ynqMOYN53n7ltUAn5qWOwMWBbAYYYYJDqnXOUDne++RZf/+qi/d9VErgj8r86rhI
+	T48/3Q==
+X-Received: by 2002:a05:6402:a0d7:b0:69c:6547:518b with SMTP id 4fb4d7f45d1cf-6aa577f4a28mr1746463a12.12.1789745165596;
+        Fri, 18 Sep 2026 08:26:05 -0700 (PDT)
+Received: from ?IPv6:2001:818:ea56:d000:56e0:ceba:7da4:6673? ([2001:818:ea56:d000:56e0:ceba:7da4:6673])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa67c6d71fsm35507a12.2.2026.09.18.08.26.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 08:26:05 -0700 (PDT)
+Message-ID: <9fc012985151b1b79b5d6e3f16738397ac9f837f.camel@gmail.com>
+Subject: Re: [PATCH v2 0/6] iio: adc: ade9000: add ADE9430 support
+From: Nuno =?ISO-8859-1?Q?S=E1?= <noname.nuno@gmail.com>
+To: Antoniu Miclaus <antoniu.miclaus@analog.com>, Nuno =?ISO-8859-1?Q?S=E1?=
+	 <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>, 
+ Jonathan Cameron	 <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Rob Herring	 <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley	 <conor+dt@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan	 <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, Marcelo Schmitt
+ <marcelo.schmitt@analog.com>, Joshua Crofts <joshua.crofts1@gmail.com>,
+ Radu Sabau	 <radu.sabau@analog.com>, Salih Erim <salih.erim@amd.com>,
+ Jishnu Prakash	 <jishnu.prakash@oss.qualcomm.com>, Jakub Szczudlo
+ <jakubszczudlo40@gmail.com>, 	linux-iio@vger.kernel.org, linux@analog.com,
+ devicetree@vger.kernel.org, 	linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org
+Date: Fri, 18 Sep 2026 16:27:30 +0100
+In-Reply-To: <20260918073537.1572-1-antoniu.miclaus@analog.com>
+References: <20260918073537.1572-1-antoniu.miclaus@analog.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918141112.2115555-3-andre.przywara@arm.com>
 
-Hi Andre,
-
-I have a bunch of comments below. Most of those are on the structure of
-the kernel code; I haven't looked at LFA itself in detail, and so I
-don't know how much sense that makes.
-
-On Fri, Sep 18, 2026 at 04:11:05PM +0200, Andre Przywara wrote:
-> From: Salman Nabi <salman.nabi@arm.com>
-> 
-> The Arm Live Firmware Activation (LFA) is a specification [1] to describe
-> activating firmware components without a reboot. Those components
-> (like TF-A's BL31, EDK-II, TF-RMM, secure paylods) would be updated the
-> usual way: via fwupd, FF-A or other secure storage methods, or via some
-> IMPDEF Out-Of-Bound method. The user can then activate this new firmware,
-> at system runtime, without requiring a reboot.
-> The specification covers the SMCCC interface to list and query available
-> components and eventually trigger the activation.
-
-It'd be helpful to have a few basic concepts covered here or in the
-code. For example, I have no idea what a "rendezvous" is, and it's not
-at all obvious from the code.
-
-> Add a new directory under /sys/firmware to present firmware components
-> capable of live activation. Each of them is a directory under lfa/,
-> and is identified via its GUID.
-
-Nit: it's a UUID, not a GUID. Please use the term "UUID" consistently.
-
-[...]
-
-> +/* LFA return values */
-> +#define LFA_SUCCESS			0
-> +#define LFA_NOT_SUPPORTED		1
-> +#define LFA_BUSY			2
-> +#define LFA_AUTH_ERROR			3
-> +#define LFA_NO_MEMORY			4
-> +#define LFA_CRITICAL_ERROR		5
-> +#define LFA_DEVICE_ERROR		6
-> +#define LFA_WRONG_STATE			7
-> +#define LFA_INVALID_PARAMETERS		8
-> +#define LFA_COMPONENT_WRONG_STATE	9
-> +#define LFA_INVALID_ADDRESS		10
-> +#define LFA_ACTIVATION_FAILED		11
-
-The spec has these as negative values, e.g. LFA_NOT_SUPPORTED is '-1'.
-
-Other SMCCC specs (e.g. PSCI, FFA) follow that convention, and we match
-that exactly in the Linux definitions, e.g.
-
-| #define PSCI_RET_NOT_SUPPORTED                        -1
-
-... and:
-
-| #define FFA_RET_NOT_SUPPORTED      (-1)
-
-Please do the same here. Match the spec, and update the code
-accordingly. Doing differently is needlessly confusing and will lead to
-bugs.
-
-> +
-> +#define LFA_ERROR_STRING(name) \
-> +	[name] = #name
-> +
-> +static const char * const lfa_error_strings[] = {
-> +	LFA_ERROR_STRING(LFA_SUCCESS),
-> +	LFA_ERROR_STRING(LFA_NOT_SUPPORTED),
-> +	LFA_ERROR_STRING(LFA_BUSY),
-> +	LFA_ERROR_STRING(LFA_AUTH_ERROR),
-> +	LFA_ERROR_STRING(LFA_NO_MEMORY),
-> +	LFA_ERROR_STRING(LFA_CRITICAL_ERROR),
-> +	LFA_ERROR_STRING(LFA_DEVICE_ERROR),
-> +	LFA_ERROR_STRING(LFA_WRONG_STATE),
-> +	LFA_ERROR_STRING(LFA_INVALID_PARAMETERS),
-> +	LFA_ERROR_STRING(LFA_COMPONENT_WRONG_STATE),
-> +	LFA_ERROR_STRING(LFA_INVALID_ADDRESS),
-> +	LFA_ERROR_STRING(LFA_ACTIVATION_FAILED)
-> +};
-
-If you really need this, you can use a switch statement instead of an
-array.
-
-> +
-> +static const char *lfa_error_string(long error)
-> +{
-> +	if (error > 0)
-> +		return lfa_error_strings[LFA_SUCCESS];
-> +
-> +	error = -error;
-> +	if (error < ARRAY_SIZE(lfa_error_strings))
-> +		return lfa_error_strings[error];
-> +
-> +	return lfa_error_strings[LFA_DEVICE_ERROR];
-> +}
-
-Why map unknown errors to "LFA_DEVICE_ERROR" ?
-
-Use a switch statement. Map unkown values to something like
-"<UNKNOWN>". When you log a string, also log the numeric value in case
-we don't have a string for that value e.g
-
-	pr_info("LFA_FOO returned %d (%s), err, lfa_error_string(err));
-
-> +
-> +static const int lfa_error_map[] = {
-> +	[LFA_SUCCESS]			= 0,
-> +	[LFA_NOT_SUPPORTED]		= -EOPNOTSUPP,
-> +	[LFA_BUSY]			= -EBUSY,
-> +	[LFA_AUTH_ERROR]		= -EPERM,
-> +	[LFA_NO_MEMORY]			= -ENOMEM,
-> +	[LFA_CRITICAL_ERROR]		= -EACCES,
-> +	[LFA_DEVICE_ERROR]		= -EIO,
-> +	[LFA_WRONG_STATE]		= -EPROTO,
-> +	[LFA_INVALID_PARAMETERS]	= -EINVAL,
-> +	[LFA_COMPONENT_WRONG_STATE]	= -EPROTO,
-> +	[LFA_INVALID_ADDRESS]		= -ENXIO,
-> +	[LFA_ACTIVATION_FAILED]		= -EIO,
-> +};
->
-> +static int lfa_to_linux_errno(long lfa_error)
-> +{
-> +	if (lfa_error > 0)
-> +		return -EINVAL;
-> +
-> +	if (-lfa_error > LFA_ACTIVATION_FAILED)
-> +		return -EINVAL;
-> +
-> +	return lfa_error_map[-lfa_error];
-> +}
-
-Please use a switch statement as with psci_to_linux_errno(). 
-
-That will handle negative values fine, and we can remove the unnecessary
-negation I complained about above.
-
-By construction that'll avoid a bunch of potential problems with using
-an array (e.g. going out-of-bounds, failing to update bouns checks,
-values in gaps being mapped to 0).
-
-e.g. 
-
-| static int lfa_to_linux_errono(long lfa_errno)
-| {
-| 	switch (lfa_errno) {
-| 	case LFA_SUCCESS:
-| 		return 0;
-| 	case LFA_NOT_SUPPORTED:
-| 		return -EOPNOTSUPP;
-| 	...
-| 	default:
-| 		return -EINVAL;
-| 	}
-| }
-
-> +
-> +enum image_attr_names {
-> +	LFA_ATTR_NAME,
-> +	LFA_ATTR_CURRENT_VERSION,
-> +	LFA_ATTR_PENDING_VERSION,
-> +	LFA_ATTR_ACT_CAPABLE,
-> +	LFA_ATTR_ACT_PENDING,
-> +	LFA_ATTR_MAY_RESET_CPU,
-> +	LFA_ATTR_CPU_RENDEZVOUS,
-> +	LFA_ATTR_FORCE_CPU_RENDEZVOUS,
-> +	LFA_ATTR_ACTIVATE,
-> +	LFA_ATTR_CANCEL,
-> +	LFA_ATTR_NR_IMAGES
-> +};
-> +
-> +struct fw_image {
-> +	struct kobject kobj;
-> +	const char *image_name;
-> +	int fw_seq_id;
-> +	u64 current_version;
-> +	u64 pending_version;
-> +	bool activation_capable;
-> +	bool activation_pending;
-> +	bool may_reset_cpu;
-> +	bool cpu_rendezvous;
-> +	bool cpu_rendezvous_forced;
-> +	bool use_cpu_rendezvous;
-> +	struct kobj_attribute image_attrs[LFA_ATTR_NR_IMAGES];
-> +};
-> +
-> +static struct fw_image *kobj_to_fw_image(struct kobject *kobj)
-> +{
-> +	return container_of(kobj, struct fw_image, kobj);
-> +}
-> +
-> +/* A UUID split over two 64-bit registers */
-> +struct uuid_regs {
-> +	u64 uuid_lo;
-> +	u64 uuid_hi;
-> +};
-> +
-> +/* A list of known GUIDs, to be shown in the "name" sysfs file. */
-> +static const struct fw_image_uuid {
-> +	const char *name;
-> +	const char *uuid;
-> +} fw_images_uuids[] = {
-> +	{
-> +		.name = "TF-A BL31 runtime",
-> +		.uuid = "47d4086d-4cfe-9846-9b95-2950cbbd5a00",
-> +	},
-> +	{
-> +		.name = "BL33 non-secure payload",
-> +		.uuid = "d6d0eea7-fcea-d54b-9782-9934f234b6e4",
-> +	},
-> +	{
-> +		.name = "TF-RMM",
-> +		.uuid = "6c0762a6-12f2-4b56-92cb-ba8f633606d9",
-> +	},
-> +};
-
-As commented before, this has to go.
-
-[...]
-
-> +static void remove_invalid_fw_images(struct work_struct *work)
-> +{
-> +	struct kobject *kobj, *tmp;
-> +	struct list_head images_to_delete = LIST_HEAD_INIT(images_to_delete);
-> +
-> +	/*
-> +	 * Remove firmware images including directories that are no longer
-> +	 * present in the LFA agent after updating the existing ones.
-> +	 * Delete list images before calling kobject_del() and kobject_put() on
-> +	 * them. Kobject_del() uses kset->list_lock itself which can cause lock
-> +	 * recursion, and kobject_put() may sleep.
-> +	 */
-
-This is quite hard to parse.
-
-In particular, the sentence starting "Delete list images" doesn't make
-sense to me -- I think you're saying place those entries into "delete
-list", but "Delete" at the start of the sentence reads as a verb.
-
-> +	spin_lock(&lfa_kset->list_lock);
-> +	list_for_each_entry_safe(kobj, tmp, &lfa_kset->list, entry) {
-> +		struct fw_image *image = kobj_to_fw_image(kobj);
-> +
-> +		if (image->fw_seq_id == -1)
-> +			list_move_tail(&kobj->entry, &images_to_delete);
-> +	}
-> +	spin_unlock(&lfa_kset->list_lock);
-> +
-> +	/*
-> +	 * Now safely remove the sysfs kobjects for the deleted list items
-> +	 */
-
-Likewise, this comment is confusing.
-
-> +	list_for_each_entry_safe(kobj, tmp, &images_to_delete, entry) {
-> +		struct fw_image *image = kobj_to_fw_image(kobj);
-> +
-> +		delete_fw_image_node(image);
-> +	}
-> +}
-> +
-> +static void set_image_flags(struct fw_image *image, int seq_id,
-> +			    u32 image_flags, u64 reg_current_ver,
-> +			    u64 reg_pending_ver)
-> +{
-> +	image->fw_seq_id = seq_id;
-> +	image->current_version = reg_current_ver;
-> +	image->pending_version = reg_pending_ver;
-> +	image->activation_capable = !!(image_flags & BIT(0));
-> +	image->activation_pending = !!(image_flags & BIT(1));
-> +	image->may_reset_cpu = !!(image_flags & BIT(2));
-> +	/* cpu_rendezvous_optional bit has inverse logic in the spec */
-> +	image->cpu_rendezvous = !(image_flags & BIT(3));
-> +}
-> +
-> +static unsigned long get_nr_lfa_components(void)
-> +{
-> +	struct arm_smccc_1_2_regs reg = { 0 };
-
-Please use 'regs' to match the 'arm_smccc_1_2_regs' name.
-
-Likewise for other instances.
-
-> +
-> +	reg.a0 = ARM_SMCCC_LFA_GET_INFO;
-> +	reg.a1 = 0; /* lfa_info_selector = 0 */
-> +
-> +	arm_smccc_1_2_invoke(&reg, &reg);
-> +	if (reg.a0 != LFA_SUCCESS)
-> +		return reg.a0;
-> +
-> +	return reg.a1;
-> +}
-> +
-> +static const char *get_image_name(const struct fw_image *image)
-> +{
-> +	if (image->image_name && image->image_name[0] != '\0')
-> +		return image->image_name;
-> +
-> +	return kobject_name(&image->kobj);
-> +}
-
-As before, please just use the UUID.
-
-I *assume* that we cannot have more than one image for a given
-component, and hence we cannot have two entries for the same UUID? Is
-that mandated by the LFA spec?
-
-> +
-> +static int lfa_cancel(void *data)
-> +{
-> +	struct fw_image *image = data;
-> +	struct arm_smccc_1_2_regs reg = { 0 };
-> +
-> +	reg.a0 = ARM_SMCCC_LFA_CANCEL;
-> +	reg.a1 = image->fw_seq_id;
-> +	arm_smccc_1_2_invoke(&reg, &reg);
-> +
-> +	/*
-> +	 * When firmware activation is called with "skip_cpu_rendezvous=1",
-> +	 * LFA_CANCEL can fail with LFA_BUSY if the activation could not be
-> +	 * cancelled.
-> +	 */
-> +	if (reg.a0 == LFA_SUCCESS) {
-> +		pr_info("Activation cancelled for image %s\n",
-> +			get_image_name(image));
-> +	} else {
-> +		pr_err("Activation not cancelled for image %s: %s\n",
-> +		       get_image_name(image), lfa_error_string(reg.a0));
-> +		return -EINVAL;
-> +	}
-> +
-> +	return reg.a0;
-> +}
-> +
-> +/*
-> + * Try a single activation call. The smc_lock writer lock must be held,
-> + * and it must be called from inside stop_machine() when CPU rendezvous is
-> + * required.
-> + * Returns a Linux error code, not an LFA one.
-> + */
-> +static int _lfa_activate(void *data)
-> +{
-> +	struct fw_image *image = data;
-> +	struct arm_smccc_1_2_regs reg = { 0 }, res;
-
-Elsewhere you used the same strucutre for input and output; why do you
-need separate structures here?
-
-> +
-> +	reg.a0 = ARM_SMCCC_LFA_ACTIVATE;
-> +	reg.a1 = image->fw_seq_id;
-> +	/*
-> +	 * As we do not support updates requiring a CPU reset (yet),
-> +	 * we pass 0 in reg.a3 and reg.a4, holding the entry point and
-> +	 * context ID respectively.
-> +	 * Use the cached value of the rendezvous status, to be consistent
-> +	 * with how we were called (via stop_machine() or not).
-> +	 */
-> +	reg.a2 = !image->use_cpu_rendezvous;
-
-It is odd to have this comment in the middle of the set of parameters.
-
-It'd be nicer to have:
-
-	struct arm_smccc_1_2_regs regs = {
-		/*
-		 * One comment block for all the params.
-		 */
-		.a0 = ARM_SMCCC_LFA_ACTIVATE,
-		.a1 = image->fw_seq_id,
-		.a2 = !image->use_cpu_rendezvous,
-		.a3 = 0, // entry point
-		.a4 = 0, // context id
-	};
-
-> +	arm_smccc_1_2_invoke(&reg, &res);
-> +
-> +	if ((long)res.a0 < 0)
-> +		return lfa_to_linux_errno((long)res.a0);
-> +
-> +	if (res.a1 & LFA_ACTIVATE_CALL_AGAIN)
-> +		return -EAGAIN;
-> +
-> +	return 0;
-> +}
-> +
-> +static int activate_fw_image(struct fw_image *image)
-> +{
-> +	int ret;
-> +
-> +retry:
-> +	/*
-> +	 * cpu_rendezvous_forced is set by the administrator, via sysfs,
-> +	 * cpu_rendezvous is dictated by each firmware component.
-> +	 */
-> +	image->use_cpu_rendezvous = image->cpu_rendezvous_forced ||
-> +				    image->cpu_rendezvous;
-> +	if (image->use_cpu_rendezvous)
-> +		ret = stop_machine(call_lfa_activate, image, cpu_online_mask);
-
-What prevents cpu_online_mask changing under your feet here?
-
-This looks odd given call_lfa_activate() doesn't seem to distinguish
-secondaries from one another. Does LFA expect all callers to pass the
-exact same arguments for a "rendezvous"?
-
-
-> +	else
-> +		ret = call_lfa_activate(image);
-> +
-> +	if (!ret) {
-> +		update_fw_images_tree();
-> +
-> +		return 0;
-> +	}
-
-Odd whitespace here. There doesn't need to be a blank line before the
-return.
-
-> +
-> +	/* SMC returned with call_again flag set, or with LFA_BUSY */
-> +	if (ret == -EAGAIN || ret == -EBUSY)
-> +		goto retry;
-
-Should this be a do { ... } while (...) loop?
-
-> +
-> +	lfa_cancel(image);
-> +
-> +	pr_err("LFA_ACTIVATE for image %s failed\n", get_image_name(image));
-> +
-> +	return ret;
-> +}
-> +
-> +static int prime_fw_image(struct fw_image *image)
-> +{
-> +	struct arm_smccc_1_2_regs reg = { 0 }, res;
-
-Do you need separate input and output strutctures?
-
-> +	int ret;
-> +
-> +	if (image->may_reset_cpu) {
-> +		pr_err("CPU reset not supported by kernel driver\n");
-> +
-> +		return -EINVAL;
-> +	}
-
-Unnecessary newline again.
-
-> +
-> +	reg.a0 = ARM_SMCCC_LFA_PRIME;
-> +retry:
-> +	/*
-> +	 * LFA_PRIME will return 1 in reg.a1 if the firmware priming
-> +	 * is still in progress. In that case LFA_PRIME will need to
-> +	 * be called again.
-> +	 * reg.a1 will become 0 once the prime process completes.
-> +	 */
-> +	reg.a1 = image->fw_seq_id;
-> +	arm_smccc_1_2_invoke(&reg, &res);
-> +	if ((long)res.a0 < 0) {
-> +		pr_err("LFA_PRIME for image %s failed: %s\n",
-> +		       get_image_name(image),
-> +		       lfa_error_string((long)res.a0));
-> +
-> +		return lfa_to_linux_errno((long)res.a0);
-> +	}
-> +
-> +	if (res.a1 & LFA_PRIME_CALL_AGAIN)
-> +		goto retry;
-
-Should this be a loop?
-
-> +
-> +	return 0;
-> +}
-
-[...]
-
-> +static ssize_t current_version_show(struct kobject *kobj,
-> +				    struct kobj_attribute *attr, char *buf)
-> +{
-> +	struct fw_image *image = kobj_to_fw_image(kobj);
-> +	u32 maj, min;
-> +
-> +	maj = image->current_version >> 32;
-> +	min = image->current_version & 0xffffffff;
-> +
-
-You can use upper_32_bits() and lower_32_bits() here.
-
-> +	return sysfs_emit(buf, "%u.%u\n", maj, min);
-> +}
-> +
-> +static ssize_t pending_version_show(struct kobject *kobj,
-> +				    struct kobj_attribute *attr, char *buf)
-> +{
-> +	struct fw_image *image = kobj_to_fw_image(kobj);
-> +	struct arm_smccc_1_2_regs reg = { 0 };
-> +
-> +	/*
-> +	 * Similar to activation pending, this value can change following an
-> +	 * update, we need to retrieve fresh info instead of stale information.
-> +	 */
-> +	reg.a0 = ARM_SMCCC_LFA_GET_INVENTORY;
-> +	reg.a1 = image->fw_seq_id;
-> +	arm_smccc_1_2_invoke(&reg, &reg);
-> +	if (reg.a0 == LFA_SUCCESS) {
-> +		if (reg.a5 != 0 && image->activation_pending) {
-> +			u32 maj, min;
-> +
-> +			image->pending_version = reg.a5;
-> +			maj = reg.a5 >> 32;
-> +			min = reg.a5 & 0xffffffff;
-
-You could use upper_32_bits() and lower_32_bits() here.
-
-> +
-> +			return sysfs_emit(buf, "%u.%u\n", maj, min);
-> +		}
-> +	}
-> +
-> +	return sysfs_emit(buf, "N/A\n");
-
-Why a string rather than an error code?
-
-[...]
-
-> +static int lfa_smccc_probe(struct arm_smccc_device *sdev)
-> +{
-> +	struct arm_smccc_1_2_regs reg = { 0 };
-> +	int err;
-> +
-> +	reg.a0 = ARM_SMCCC_LFA_GET_VERSION;
-> +	arm_smccc_1_2_invoke(&reg, &reg);
-> +	if ((s32)reg.a0 == -LFA_NOT_SUPPORTED)
-> +		return -ENODEV;
-> +
-> +	pr_info("Live Firmware Activation: detected v%ld.%ld\n",
-> +		reg.a0 >> 16, reg.a0 & 0xffff);
-
-You can use upper_16_bits() and lower_16_bits().
-
-> +
-> +	fw_images_update_wq = alloc_workqueue("fw_images_update_wq",
-> +					      WQ_UNBOUND | WQ_MEM_RECLAIM, 1);
-> +	if (!fw_images_update_wq) {
-> +		pr_err("Live Firmware Activation: Failed to allocate workqueue.\n");
-> +
-> +		return -ENOMEM;
-> +	}
-> +	INIT_WORK(&fw_images_update_work, remove_invalid_fw_images);
-> +
-> +	init_image_default_attrs();
-> +	lfa_kset = kset_create_and_add("lfa", NULL, firmware_kobj);
-> +	if (!lfa_kset) {
-> +		destroy_workqueue(fw_images_update_wq);
-> +
-> +		return -ENOMEM;
-> +	}
-> +
-> +	err = update_fw_images_tree();
-> +	if (err != 0) {
-> +		kset_unregister(lfa_kset);
-> +		destroy_workqueue(fw_images_update_wq);
-> +	}
-> +
-> +	return err;
-> +}
-
-There was an interrupt in the binding, not detected or used here. What's
-going on?
-
-Mark.
+On Fri, 2026-09-18 at 10:35 +0300, Antoniu Miclaus wrote:
+> The ADE9430 is a polyphase energy metering device from the same family as
+> the ADE9000. It is register-compatible with the ADE9000 but omits the
+> on-chip dip/swell detection and has no on-chip digital integrator; it
+> relies on an external analog integrator for Rogowski coil current sensors=
+.
+>=20
+> This series adds ADE9430 support to the existing ade9000 driver, reusing
+> the dip/swell-less channel table introduced for the ADE9078 and adding a
+> matching chip_info for the ADE9430 full-scale codes. A precursor patch
+> gates the DICOEFF register write behind a has_digital_integrator chip_inf=
+o
+> flag so it is skipped on parts without an on-chip digital integrator.
+>=20
+> Patches 1 and 2 are standalone fixes carried with this series. Patch 1
+> corrects the ADE9000 full-scale RMS/PCF codes to the same family-A values
+> the ADE9430 uses. Patch 2 fixes the DIPC event never being handled or
+> cleared, found by the sashiko review of v1. Both carry Fixes: tags and ca=
+n
+> be applied independently of the rest of the series.
+>=20
+> Changes in v2:
+> - new patch: fix the DIPC event never being handled or cleared, found by
+> =C2=A0 the sashiko review of v1 (patch 2).
+> - new precursor patch: gate the DICOEFF write behind a has_digital_integr=
+ator
+> =C2=A0 chip_info flag, split out of the ADE9430 support patch.
+> - reuse ade9078_channels for the ADE9430 instead of adding a duplicate
+> =C2=A0 channel table.
+> - reword the documentation intro to "The supported parts are..." so it do=
+es
+> =C2=A0 not need updating for each new part.
+>=20
+> v1:
+> https://lore.kernel.org/linux-iio/20260907101623.8730-1-antoniu.miclaus@a=
+nalog.com/
+>=20
+> Antoniu Miclaus (6):
+> =C2=A0 iio: adc: ade9000: fix ADE9000 full-scale RMS and PCF codes
+> =C2=A0 iio: adc: ade9000: fix DIPC event never being handled or cleared
+> =C2=A0 dt-bindings: iio: adc: adi,ade9000: add adi,ade9430 compatible
+> =C2=A0 iio: adc: ade9000: gate the DICOEFF write behind a chip_info flag
+> =C2=A0 iio: adc: ade9000: add support for ADE9430
+> =C2=A0 docs: iio: ade9000: document ADE9430 support
+>=20
+> =C2=A0.../bindings/iio/adc/adi,ade9000.yaml=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 | 22 ++++++-----
+> =C2=A0Documentation/iio/ade9000.rst=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 36 +++++++++=
+--------
+> =C2=A0drivers/iio/adc/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 |=C2=A0 1 +
+> =C2=A0drivers/iio/adc/ade9000.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 | 39 ++++++++++++++++---
+> =C2=A04 files changed, 67 insertions(+), 31 deletions(-)
+>=20
+>=20
+> base-commit: edb91bc566576f6664a3efbad6bd4205aa1d5259
+
+LGTM
+
+Reviewed-by: Nuno S=C3=A1 <nuno.sa@analog.com>
