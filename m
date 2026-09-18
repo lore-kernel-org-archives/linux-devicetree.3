@@ -1,87 +1,45 @@
-Received: from mail-qk2-f42.google.com (mail-qk2-f42.google.com [74.125.230.234])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40BBB50276E
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 15:27:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.234
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFC9B38D3FE;
+	Fri, 18 Sep 2026 15:28:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789745234; cv=none; b=Tzz2R6VC2c4nN52SBNv77hmFjzReqphb3XQanXJ2f9kFm0EYUCFvqiixEnCgIihemgiaQCuynGKrYw/7HEhgBE6vJ8XKGMcQtrote1EU3v/BMAu/bBiOrAaIFvjAhO7pe5dK2rPzWoNGn1p2Zio2yH7sxVQTQTI/fTsGs1hdUOk=
+	t=1789745319; cv=none; b=HugzTVoMMb8wLPoJpvRq5Mhtn4j7xJz3nOTGRu8ETHuSIZmB+BehcVTWDlxvyn6hQN/fRrgXVxTYhqFU5s9ORPG5Azf1eQwvbkB+bgNIUXMDg9sCz+T6P447Am+Vwm6hBRMCeQp/IotvMg2tFOIKR1bX/2AHYZgAMGG6oxAoobE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789745234; c=relaxed/simple;
-	bh=Yrg8axLPLWORg699bra798c8gsnBqtweBph1kEWPw3s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KPDW6B2yUZQPTzmIuVDI9KCsHKYkU/Z8zgY71dNEXq5fDnri08wTWoECbPOdYNPpTA6y7vdJsqrdq19S8i2HQvxk38qalDbeYvienuFSkAaPcdfdvUfFrzFHEnQOevZqL/+95m17BfhIHbmC2sfUsxtPtb+WTJShmEHY6p5siKA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=RS+Df+lP; arc=none smtp.client-ip=74.125.230.234
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1789745319; c=relaxed/simple;
+	bh=ngmES3BBLORNxEz8n977DCLtmYVSg69M3kgrGcvdz2g=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mBqzjtnBfjLYszXGcqXrykT0n9OnA3HmHPySilRXlpYRGJJU+V+ajMsy/jY06OKG+TB/CzvvVsQla8OgHL0lYbKTbmZzHIYA/YD4BczIvoEcw3Whiyd1NWt+wi8gfCzxGu4IGRRgoBg280ZONY95h6AgE8Wf0fNeZ8kcscxjoVk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=pass smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=E6tJ35Nq; arc=none smtp.client-ip=5.135.140.105
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="RS+Df+lP"
-Received: by mail-qk2-f42.google.com with SMTP id d75a77b69052e-5329fc7e0bcso9918741cf.1
-        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 08:27:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1789745228; x=1790350028; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TOeSHivgGtBKP6OSBvHEzAeHzrnxsuhi0YKgz/54Wow=;
-        b=RS+Df+lPU0Bch51mpyx2zIXy1mn308spz/kJd19Z3NzjbJs/ig8NhFZHaNN6C0p51c
-         ky+XAYBIab87qUWlDoSudil7ChLeFbmpr/J5UZXXJMIrYW2HFOaXLDZK6vY89yIeZpvn
-         lu8Yx/7YYsDzu9/ixJMhdG4dfea6njc8JQGY72MBWupNmxWQ1b2FaEOqnE07yR2EFRMa
-         YwizgoVt6FpYq+/KcSvSmt9aBtE2JZA1yu5Zay/Nkt4wEfTRJhG9wq4cIxhopjdWHjtk
-         YIptxyQcaNiqeZNKhzh2/4g7DrhbvnVaSHJjF0IJXMtHGNw5p7Tl/Q5y/hR2HpkLX8lX
-         3p5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789745228; x=1790350028;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TOeSHivgGtBKP6OSBvHEzAeHzrnxsuhi0YKgz/54Wow=;
-        b=jx94PNjGKIWvZOB8QQN7b9SDAf+aWvx2UFo+k5IwngYbt0SNiM9I1NSG+X3KFzWSPa
-         PlNkRlf8PfgaE2gghqyZxMH+v73h1v7uw8WhJZvVgfOJ3e5dSI22vL55INUAt9xfz88v
-         8FOXyl6tYHPIcyPRwrBhBx1o6ZdizOfrroWkEWuUeDuq7JUMeWldxLtemFAhFr2TWj58
-         8zJUU/6wq4rYZ4REA0iwX4/gYG5ISqbMRgUUIUXCrQnvW0fHIdqtD9l9l0fnOz0k3eeJ
-         jhNOzu6hzFbl/ZjOjg55Vpusllme3gt48wImAJnv6uwsAFrMa0e05MBM8A9silNJB7wZ
-         JOUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzo/AWaRP5T+xNGN+JP752FdnQw8FuryLc/Mb0NNqjNCitsDnmaMvt0oaOwgnM5sQZy1RRDUPNAoXH7@vger.kernel.org
-X-Gm-Message-State: AFuF++lcT+otZMpZtUa6o7JN80zmAMZZPubGVPG/TeBkPDwohx/uX76g
-	T+YnbE+3kj/Pt/+z/0MEZHb4pfzR78pcjPURPszLYVbkAuGWUCCBPgY9IxcodU7m9ms=
-X-Gm-Gg: AYBFou1cnYDwppUZxvMp0BuGCRsfW7+lpwEFmrGkuogUS9lf+B8q9ihxc49G2tr48KP
-	j9jMJEAd71WFz7n1x+Es2kQZkOlIlR3cJ8JG4p/eUFc5VbG6dgs6Me31emmgbSQjiVGwpiGelIH
-	WiK2+yB6u2EU7qfLv2Yyf4JLaYVFn+Ybyte/RL0m/ufZg6ic9CSIIlkIgN0LjA7hVpNUh+mc/iY
-	xfEgrjA9nHi+ewoAC7D5szxo/+Ci/bz6BXUEzNXSAyMY/e1JSOp62YszSgpm1Ceh9Q1JneUrSEd
-	elzSEEB8BDL/Bk+lt7Cf+mvQcqBeDY/QeWlNY8eiX4ca/Os9TylrnVFPOnMlQ6123YQ5tll+O/a
-	PJp52/GNk361U5PSNnnzNiGtdpFLwJBme1ZOeDYx3fEgOzij1a5dmYHgYNnf80b3R0aZYw13+Pg
-	p5tGBov8SECa6OX663CeKz5/lgjyS4QUGgdSJdUYP9jSiQPcudQLMm8LzanuQiToIV8Th1dEdZE
-	Ywx
-X-Received: by 2002:a05:622a:30a:b0:532:84d3:ac7 with SMTP id d75a77b69052e-5329e47ff64mr49202771cf.41.1789745227649;
-        Fri, 18 Sep 2026 08:27:07 -0700 (PDT)
-Received: from zippy.localdomain ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91257f326d8sm15099766d6.6.2026.09.18.08.27.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 08:27:07 -0700 (PDT)
-From: Alex Elder <elder@riscstar.com>
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	arnd@arndb.de,
-	gregkh@linuxfoundation.org,
-	bhelgaas@google.com,
-	andersson@kernel.org,
-	konradybcio@kernel.org,
-	abelvesa@kernel.org
-Cc: daniel@riscstar.com,
-	mohd.anwar@oss.qualcomm.com,
-	lorenzo.bianconi@oss.qualcomm.com,
+	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="E6tJ35Nq"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CAA864E0526;
+	Fri, 18 Sep 2026 17:28:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1789745309; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=0Y9J5x0tYH+0hJYFkpp+HLGTvqzSO32qI3TlQ/QV85o=;
+	b=E6tJ35Nq9qwYkHaEqZVHc2gBjfod0K2buyZuZkzK+LuvP98NuXzJkEBgq7WSjBI88vsan8
+	nKvMwa5bQl4wcw12qsTUqG8l+4Rb8uNiHJjGpKKoBLuopxtdY0j4SQ63XOIEUyBKGah2wu
+	3A5svhKGTMkt7JgZy9LMqnhF9A7TNmrorHu7ZPm0KxaXOwJ1N4TbT4yCyasy53S/ZvNl9a
+	+pceUULsLrWYnlPC6SjWYcrvL17AoxKsTYBO7QB4yzDUzQ7OMDz1NfL2xzxXgDWx1Ouwog
+	5EJ+P+Z3jHMX9ypqaJ6P2P8CDG4bJP6YFgeNMwV7CmZQSiBGBKm+6p5zw2qAnA==
+From: Caleb James DeLisle <cjd@cjdns.fr>
+To: linux-mips@vger.kernel.org
+Cc: conor+dt@kernel.org,
+	daniel.lezcano@kernel.org,
 	devicetree@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 3/3] arm64: dts: qcom: qcs6490-rb3gen2: add endpoint buses
-Date: Fri, 18 Sep 2026 10:26:58 -0500
-Message-ID: <20260918152659.413268-4-elder@riscstar.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260918152659.413268-1-elder@riscstar.com>
-References: <20260918152659.413268-1-elder@riscstar.com>
+	krzk+dt@kernel.org,
+	linux-kernel@vger.kernel.org,
+	naseefkm@gmail.com,
+	robh@kernel.org,
+	tglx@kernel.org,
+	grandmaster@al2klimov.de,
+	Caleb James DeLisle <cjd@cjdns.fr>
+Subject: [PATCH v8 0/5] clocksource/timer-econet-en751221: Support irq number per timer
+Date: Fri, 18 Sep 2026 15:28:17 +0000
+Message-Id: <20260918152822.343811-1-cjd@cjdns.fr>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,75 +47,76 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-The TC9564 SoC incorporates a PCIe switch, which is connected via
-the second PCI segment (0001) on the RB3gen2 platform.  The third
-downstream port of that switch (pcie@3,0) has an embedded PCIe
-endpoint that implements two PCIe functions.
+This timer appears on both the EcoNet EN751221 (34Kc) and on the
+EN751627 / EN7528 (1004Kc) SoCs. On the 34Kc the interrupt controller
+uses a percpu interrupt while on the others it uses an individual
+IRQ number for each CPU timer. Add support for EN751627 and EN7528.
+Add support for IRQ number for each CPU timer under the
+econet,en751627-timer compatible.
 
-The SoC implements other peripherals, and they will be accessed via
-PCI endpoint bus.  Define the devicetree nodes representing these
-buses, including the mapping of each BAR's address range to its
-local address space.
+Changes since v7:
+* Use %zd for logging with ARRAY_SIZE to avoid compiler errors if
+test-compiling on 64 bit.
 
-The endpoint's ranges property must be defined, but it will be
-updated dynamically to include all BARs.  As a result of this update,
-the parent address portion of each range will reflect the specific
-address assigned to the BAR.
+Changes since v6:
+* Rebase to tip/timers/core (base-commit below)
 
-Co-developed-by: Daniel Thompson <daniel@riscstar.com>
-Signed-off-by: Daniel Thompson <daniel@riscstar.com>
-Signed-off-by: Alex Elder <elder@riscstar.com>
----
- arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts | 30 ++++++++++++++++++++
- 1 file changed, 30 insertions(+)
+Changes since v5:
+* Integrate patch fix refcount leak from:
+Link: https://lore.kernel.org/linux-mips/20260526184105.18962-3-grandmaster@al2klimov.de/
+* NULL econet_timer.membase after unmapping
+* NULL check dev->event_handler in case clockevents_config_and_register
+  failed to fully register.
+* v5: https://lore.kernel.org/linux-mips/20260516233943.49502-1-cjd@cjdns.fr/
 
-diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-index 3bb5fca8e2b13..5b7f5292a8864 100644
---- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-+++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-@@ -955,11 +955,41 @@ pcie@3,0 {
- 			bus-range = <0x5 0xff>;
- 
- 			dev@0,0 {
-+				compatible = "pci1179,0220";
- 				reg = <0x50000 0x0 0x0 0x0 0x0>;
-+				#address-cells = <3>;
-+				#size-cells = <2>;
-+				/* Ranges will be updated dynamically */
-+				ranges = <0x0 0x0 0x0  0x83050000 0x0 0x0  0x0 0x4000>,
-+					 <0x2 0x0 0x0  0x83050000 0x0 0x4000  0x0 0x80000>,
-+					 <0x4 0x0 0x0  0x83050000 0x0 0x84000  0x0 0x200000>;
-+
-+				pci-ep-bus@4 {
-+					compatible = "simple-bus";
-+					#address-cells = <1>;
-+					#size-cells = <1>;
-+					/* Map 0x0-0x1fffff to BAR 4 */
-+					ranges = <0x0  0x4 0x0 0x0  0x200000>;
-+				};
- 			};
- 
- 			dev@0,1 {
-+				compatible = "pci1179,0220";
- 				reg = <0x50100 0x0 0x0 0x0 0x0>;
-+				#address-cells = <3>;
-+				#size-cells = <2>;
-+				/* Ranges will be updated dynamically */
-+				ranges = <0x0 0x0 0x0  0x83050100 0x0 0x0  0x0 0x4000>,
-+					 <0x2 0x0 0x0  0x83050100 0x0 0x4000  0x0 0x80000>,
-+					 <0x4 0x0 0x0  0x83050100 0x0 0x84000  0x0 0x200000>;
-+
-+				pci-ep-bus@4 {
-+					compatible = "simple-bus";
-+					#address-cells = <1>;
-+					#size-cells = <1>;
-+					/* Map 0x0-0x1fffff to BAR 4 */
-+					ranges = <0x0  0x4 0x0 0x0  0x200000>;
-+				};
- 			};
- 		};
- 	};
+Changes from v4:
+* Fixed incorrect compatible in DT schema
+* Bracing in out_irq_free if statement
+* I did not move cpuhp_setup_state past the point of no return
+* v4: https://lore.kernel.org/linux-mips/20260516215720.4160831-1-cjd@cjdns.fr
+
+Changes from v3:
+* off-by-one in out_irq_free
+* Gracefully fail if too many address resources are provided in the DT
+* Allow fewer actual timers than num_possible_cpus, as long as they
+never start
+* v3: https://lore.kernel.org/linux-mips/20260516182648.3987792-1-cjd@cjdns.fr
+
+v3 note:
+
+I decided to take this patchset in a slightly different direction from
+v2. There is a certain amount of initialization that once it has run,
+it cannot be reverted in case of error. The original driver init was a
+mixture of revertible and non-revertible code which made it too easy
+for code which is designed with best practices in mind to in fact
+introduce a bug. Therefore I start by making the init process more
+legible but without any business logic changes, then fix a race
+condition by keeping IRQ disabled until after cevt is setup, then
+finally add non-percpu IRQ support.
+
+* v2: https://lore.kernel.org/linux-mips/20260514000601.3430262-1-cjd@cjdns.fr
+
+Changes from v1:
+* Split changes over 3 refactoring patches + main patch
+* Remove driver discussion from dt commit message
+* v1: https://lore.kernel.org/linux-mips/20260416175101.958073-1-cjd@cjdns.fr/
+
+
+Alexander A. Klimov (1):
+  clocksource/timer-econet-en751221: fix refcount leak
+
+Caleb James DeLisle (4):
+  dt-bindings: timer: econet: Update EN751627 for multi-IRQ
+  clocksource/timer-econet-en751221: Init teardown on error if possible
+  clocksource/timer-econet-en751221: Disable IRQ until cevt registered
+  clocksource/timer-econet-en751221: Support EN751627 without percpu IRQ
+
+ .../bindings/timer/econet,en751221-timer.yaml |  31 +--
+ drivers/clocksource/timer-econet-en751221.c   | 181 ++++++++++++++----
+ 2 files changed, 159 insertions(+), 53 deletions(-)
+
 -- 
-2.53.0
+2.39.5
 
