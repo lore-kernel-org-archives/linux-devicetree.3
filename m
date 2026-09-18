@@ -1,231 +1,181 @@
-Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AB22397341
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 14:07:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5555B502562
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 14:07:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789740424; cv=none; b=YNvn34BlFe82jzlsUDuUEwEKZKC8jI6w/kQ0LtrOF05kZTXjD7/V2OgGXAEgfr2DRaVPMlmMMa70LZTmKaODRugux/RUakwcw+w7UsNoCyPdcmO2jxWdhprU4aShErAeQ5iBmd3i8Rqeqsdm/PMU7DdDGrez8OgGIex3DmWnOQo=
+	t=1789740461; cv=none; b=ib+QYnJQ1DmihwmOgCYm8DaNcmUPQZ3BB99WuQWQCrIyIQ+cNCLKObHUPWswA2orXRDLvIUMslqGC1fmkkT8DoDUpXzi97yoAil9KNVpO6WLB2JbVPnoed2TaHZxW+okDjUrhrxFJB5FGp74P51L1W+QE1GcyNQBOgykdkDb34Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789740424; c=relaxed/simple;
-	bh=rd7gj1zXN/3rpk3xfVsvYTIz6ugycXx27jtR2oCkAMU=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=h/NoscyxPFxAvvT54OWfKZ+eW7rTtbJkmWDf1RLWp027CHSwnV/DkHr73VcYOopkrZmOUFzxFuwabdxxrfFmKLK5DV3kjQKdyqb9M6CayC/88Vj5Q7/jQwqJRQ/hmw2PKmbuM6Yr96H0ji3Hv+PLq3qa6sSsqrxRp+AVekHWdew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=ZwhAmNZd; arc=none smtp.client-ip=74.125.228.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1789740461; c=relaxed/simple;
+	bh=3f7P41kZuJLz/72fPf813J7c5MZjKD7bctr36hQLj/c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aGnf26c58YnOUVvuSAoOzjTfrJs1AKvIiF3ikqmnLnsfwVF/6lWgqfiNaHDZI34htI33Pt6AAbpTFlvcFR4923/CB/UG4LPmBZHXlRmTfRQEeamcf3y6D6kIkEHf/2f1zlp3ApWqEwGFL9H7A9Wvr7fJ1tUc5ZU5LJsNZUGSEmE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WMOQPdXU; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Zb9WHzCR; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="ZwhAmNZd"
-Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6a6063d7daaso1044057a12.1
-        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 07:07:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WMOQPdXU";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Zb9WHzCR"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68IDOYFF882165
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 14:07:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	WoRk/8yWkpKqL8CHZGOuAy5VV6tTJ5O+1xBRTJDGdmk=; b=WMOQPdXUV75fMI5a
+	/FKBNIVXm/duznxKIXaK/+/2ZYn6PGbDtcoV/Vf0zQUV5WMdOoNufFuv/PyCfRPk
+	ECUEabzSJOuUDmHIUaGwW9kNT6JXqWOZqJ6FYS7M5ETYrxcC/tjh6jVUuUxxJ5HC
+	guH+iK3QNWDuy0B1IEXxO9ALflg5eDUmXD0Wk3KcUPosGL8NVE6fm9DCsPxeP07T
+	BlCDvUf5aFCk1eQ1WoRJJarxOfUjmi2L0aYHKwS45Lp8wUfRe8tlfmUx3YMFr/ip
+	0xpqb8sjNzHfIlRzXogjMNQ5N0q4rItiaHixaW8vJuJzzZBYqgKLftZ0F4ffkWvA
+	zE215A==
+Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4grwxrt90r-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 14:07:38 +0000 (GMT)
+Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-98066bba118so32283241.0
+        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 07:07:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1789740419; x=1790345219; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=d+yltdctt5ruCa6iMGQXqYgwXkTVwncfcwBwCdKyoY4=;
-        b=ZwhAmNZdU3JQaD52s3Oe2rKHYClHHOMX1Qsfqa6pEy5GG1PPWQDEsvSRggOnuCztPz
-         Lr1ZdytPUUoJKNGttvUEHltPveZOZHLkozBDba08tQSd221XfwqkCEH7Et89yRfuKuSM
-         3KAALHcLIE1tPSdUXzCRmHTdsY/F8K0k2q84DKF+UOei/D3nQdlzmZd4sF0QETVkeZy/
-         nJMFu9onZviL8CCUu2jkXmveWYpGrOLcNGd7jHqUGHtas8IWltKJn9ka7FFOtSm4eqIV
-         WQslVcZF4xm5ztDzHLze1n240fIHtuAAoET4yWKTE0f4Agr3b4m4VlUrbkaqTeAqzLZx
-         hXuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789740419; x=1790345219;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1789740452; x=1790345252; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=d+yltdctt5ruCa6iMGQXqYgwXkTVwncfcwBwCdKyoY4=;
-        b=pH5CR25NIAjxIB73JCmrmEyOYjvaMJGRhuiz74rjYfySea250AkmLO9SpQUeUDIkZw
-         jFJwch9xl94pCgvldnq+7TGgAp4odgsmx6Kl+0/lOUpn0TlEU/0gGMpuqzUmmhg7kVpZ
-         j7BssDWZosMLqTDXdpqqUYf4r2n39dOmq64rNzxNcmv8Ck4fsYSi42+CQjh/jQfYFxO8
-         EE2I5IkbjWNahiclwhh0NFqQrjqFWNTPEEeeR5APKTC3PXYfOiHoWm0EUq2iWq3Ymvrf
-         NN664NMfdSve59l5tn9HoDCoiOJltBjO7iJdff5ZIx9/n4hr+TzQAfG/xzLIwQw/oos3
-         49WQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw+5NqKLlTuKS3v3XsU4D3vn+5t1DlbeCxTwdocrX6CsexOrat5TXpzezkf+IVXniPWgLZ0jG8iLHWy@vger.kernel.org
-X-Gm-Message-State: AFuF++mMlaKd3e5OoY3PMQjc4qGX0zi269nsc+Nfc/ssxV2ByA4ibRlv
-	BuceJM5axXZuGJ3c9RIye1JMfAl3wRdHwYirsvy4FrPd8XN+tmvfN041KYKQVFre7LM=
-X-Gm-Gg: AYBFou3a5BBYzoIv8QITA78XpZg4g7jWrY7Xj1V3jL4JB8vJdT/T4RGhj/bIKxew7sl
-	aULgNRDX5Xp6Ord/bMTgRB8qAo2Z6n4bNacqBXOwYPLFleNFadnJ1jZZmKJUHRlv0WhoadPX0wU
-	t3+mJfmufJDA8Djh72tlkE1mprqZOd0QkcYorPJfond2OcS/RJnY0UHCxBIb8kpFMaFu7MN4iH+
-	iDd5r31Q1eGJOAN+TrihtkBotOMMSNGVPyu+ZAIp4HKo4epFmV8qIoiRfu/EQ7DGvf5nrKvxomm
-	MbDvYjYWA1BJlNiTotuVVABfYr+w14UDtTJoK48jWt33jR+hWvBpK9fbcDK5DTO1jOEgyaos0EN
-	VOSDVsBg7Shuewl9OvfeZSfSldtXwz74k765qwuDwrp/+lFRyOUeC/7UJd8Wodu90gV0HNiKJIo
-	4h95sOqV8hRxjrHClmvuf/slrrTTT43OGVigbX5QDJK+JS/N6FlF3xJdY9YOVy2UxctFO795N0w
-	RjkXzw2yTJ6k5Qu2KDSO+Lgxmg5gzmV7nL2jNZvC6TmWs9g2qZJjw==
-X-Received: by 2002:a05:6402:4290:b0:6a8:6390:945f with SMTP id 4fb4d7f45d1cf-6aa5798614emr3549288a12.10.1789740419612;
-        Fri, 18 Sep 2026 07:06:59 -0700 (PDT)
-Received: from localhost (144-178-202-138.static.ef-service.nl. [144.178.202.138])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa59753cc1sm944353a12.21.2026.09.18.07.06.58
+        bh=WoRk/8yWkpKqL8CHZGOuAy5VV6tTJ5O+1xBRTJDGdmk=;
+        b=Zb9WHzCRUVWA7QIyguNuwvptvzfMO+Le773mSTbFVUyTc0+sC1aiDw3wlLK8JzcEdX
+         ytt+ySpfnW5b7EGtGmf3dNHqIW6JLJNKy91I8BX9WoeHrV/95Lh+/KXaG2gVgsTWRD8k
+         rHjLqjrraUwJ3yIqDww4KUWyBv2yV6qKDIgy9o+UYvk+v0EqZr0yWLF1uMg1Ubz3x6Z6
+         E1c7D2pk+ZwHT6OU1o5mDv4P46TYzNRZ2dyjBbLftKQTFsAGFCpUz5a55ncmfzDSEPl6
+         UM6MtmEI/OBUuKyD9REbjYO8DQezXGi8bolFYrynUYe7WvWdG3iTzgJ6OFm1CaAjVTUS
+         /mIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789740452; x=1790345252;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WoRk/8yWkpKqL8CHZGOuAy5VV6tTJ5O+1xBRTJDGdmk=;
+        b=ma6EXU9t8f3tjV6gccX/U0jmcXI3m9XjnCp+OeJd8HeX+TVcFhVZYUd+5OxIanhkBJ
+         29eRNt5BQ0M97RwUiaHiOZyi/oExP1AJFr79BjFXiTvhiUJcLc7WaMQmc8pGbLx8CLmG
+         H7BzhPP1SnL3Anph947AW50++QL5orwMTzBeo+kgonzNBbpxapQWuzjsS5CHYSIKu48G
+         CQz3YLmpIjqap5d1AfePZauSlyVlNa5Ni9mA7SVzaGBnRuILcPrkP/fLnJ7C5lz4jYhE
+         7FBJ6poM6x1n5AQXOC4RkeVuYLy7inI0U4YzO+cWRXcva6QVDGWUb0YzIfeuoQJFRUt3
+         ikHA==
+X-Forwarded-Encrypted: i=1; AKwUvBzC1MrcjlY/9xOYQVwK9kJMv92IM0sIAz6LPoS+JEe+27O7sJflQvtUN1xwlauw4xeRQnA8IJgNP1xx@vger.kernel.org
+X-Gm-Message-State: AFuF++mLOAsKHD22v2T3OTrKMY0j1iUuOh3THMcvuLaLr3S102oCdLzL
+	VC52M4Edld3DkdjqjsfLNg0/jUSVByWM04FBaQLFvzL0Lvlx2a8ddC2TD0noquQj1RaVTpM1sZB
+	g69jl7EougXePxQtqBIUfUCdP6KaLWVZ4+JDZHyvRjHJNhwBe+h/6FYVvwWtsX3sn21f/Jq4R
+X-Gm-Gg: AYBFou3wKsXTyO4FCXduKDPePfPMAR8DASB62GbT+8Mmw6or+TRCBdBCYxzxOG2jDKw
+	CWMlKe7jgrQzy0puGuOl0rFbwWAUvdw+rDsbsQ595REIH9QihhIugvXzyCx3YACz5uJHY8CRCnt
+	rY5+97tbE34dCkG68bmqRGrfFWJvP+mV398A+lbnQl4beW25+B0H2XRbG2jgBxZ4D7zJB2oNOZz
+	Y+OBtIoIiJu0sILN3fmT90h9lnl+SvzVlvu6r2TpHHMoZ3f6uBPgmpAwzAOqVZLBLlBSOJFoBD0
+	RcOla+dsimBpUA/1Y3Ubhu06oa0yjmD0rIq75OtWhB+2qQV1GnN8GzXaIVAV63/ST6iiaJvr0Zm
+	H/vkHQ1/yZ2CgeAbh5xgWTlobjUIoCfrxYJweWKzlLriLCDnz7NVFCZ3rVCYM9Hw=
+X-Received: by 2002:a05:6102:8007:b0:785:c39b:6a1 with SMTP id ada2fe7eead31-7a55a31d735mr909163137.6.1789740452432;
+        Fri, 18 Sep 2026 07:07:32 -0700 (PDT)
+X-Received: by 2002:a05:6102:8007:b0:785:c39b:6a1 with SMTP id ada2fe7eead31-7a55a31d735mr909091137.6.1789740451952;
+        Fri, 18 Sep 2026 07:07:31 -0700 (PDT)
+Received: from ?IPV6:2a05:6e02:1041:c10:82ae:cd75:d970:e66f? ([2a05:6e02:1041:c10:82ae:cd75:d970:e66f])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc471b9a2sm34176095e9.0.2026.09.18.07.07.30
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 18 Sep 2026 07:06:58 -0700 (PDT)
+        Fri, 18 Sep 2026 07:07:31 -0700 (PDT)
+Message-ID: <560064b6-73ca-4895-8415-b252b6824147@oss.qualcomm.com>
+Date: Fri, 18 Sep 2026 16:07:30 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 18 Sep 2026 16:06:57 +0200
-Message-Id: <DLII11BAGLSU.OV8H9AA3AWN2@fairphone.com>
-Cc: "Liam Girdwood" <lgirdwood@gmail.com>, "Mark Brown"
- <broonie@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "Konrad Dybcio" <konradybcio@kernel.org>,
- <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
- "Krzysztof Kozlowski" <krzk@kernel.org>, <linux-arm-msm@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>
-Subject: Re: [PATCH 4/4] arm64: dts: qcom: sm7225-fairphone-fp4: Add parent
- supply for regulators
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Bjorn Andersson" <andersson@kernel.org>, "Luca Weiss"
- <luca.weiss@fairphone.com>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3-dirty
-References: <20260901-fp4-regulator-supply-v1-0-68288ab70aee@fairphone.com>
- <20260901-fp4-regulator-supply-v1-4-68288ab70aee@fairphone.com>
- <apmLYmMgGZVhqU8o@baldur>
-In-Reply-To: <apmLYmMgGZVhqU8o@baldur>
-
-Hi Bjorn,
-
-On Thu Sep 3, 2026 at 5:01 PM CEST, Bjorn Andersson wrote:
-> On Tue, Sep 01, 2026 at 10:58:59AM +0200, Luca Weiss wrote:
->> Add the vdd-*-supply properties to the rpmh-regulators nodes, so that
->> the parent regulators can be enabled when needed.
->>=20
->
-> https://docs.kernel.org/process/submitting-patches.html#describe-your-cha=
-nges
-> starts with "Describe your problem.". Is there an actual problem observed=
-?
-
-No, this was noticed just in 'code', that other (also rpmh) devices have
-the -supply properties, but not this device.
-
-> I've been told that rpmh will have your back here, so you should not
-> need to explicitly vote for these resources from Linux.
-
-Then, this change still makes
-/sys/kernel/debug/regulator/regulator_summary have a nice hierachy of
-regulators and not all of them parented to regulator-dummy.
-
-Shall I send a v2 with this justification in the commit message? Or is
-it okay to pick it up as-is?
-
-Regards
-Luca
-
->
-> Regards,
-> Bjorn
->
->> The regulators s4a and s6a are a bit special. They feed back into
->> PM6350, but are not modelled as regulators (or anything else?), so they
->> also can't be added as vdd-*-supply. It would seem to be possible to add
->> them with their "Default on booting voltage" from the PM6350 Data Sheet
->> in the dts, but I'm not sure this is desired.
->>=20
->> And document what the "missing" regulators are used for.
->>=20
->> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
->> ---
->>  arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts | 46 ++++++++++++++++=
-+++++++
->>  1 file changed, 46 insertions(+)
->>=20
->> diff --git a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts b/arch/ar=
-m64/boot/dts/qcom/sm7225-fairphone-fp4.dts
->> index 5d20ad93b0c5..a1556d802a8b 100644
->> --- a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
->> +++ b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
->> @@ -78,6 +78,17 @@ lcdb_dummy: regulator-lcdb-dummy {
->>  		regulator-max-microvolt =3D <5500000>;
->>  	};
->> =20
->> +	vph_pwr: regulator-vph-pwr {
->> +		compatible =3D "regulator-fixed";
->> +
->> +		regulator-name =3D "vph_pwr";
->> +		regulator-min-microvolt =3D <3700000>;
->> +		regulator-max-microvolt =3D <3700000>;
->> +
->> +		regulator-always-on;
->> +		regulator-boot-on;
->> +	};
->> +
->>  	reserved-memory {
->>  		/*
->>  		 * The rmtfs memory region in downstream is 'dynamically allocated'
->> @@ -296,6 +307,15 @@ &adsp {
->>  &apps_rsc {
->>  	regulators-0 {
->>  		compatible =3D "qcom,pm6350-rpmh-regulators";
->> +
->> +		vdd-l2-l5-l7-supply =3D <&vreg_s2a>;
->> +		vdd-l3-l6-l8-l9-l10-supply =3D <&vreg_bob>;
->> +		vdd-l11-supply =3D <&vreg_s2a>;
->> +		vdd-l12-l14-supply =3D <&vreg_s2a>;
->> +		vdd-l15-l19-l22-supply =3D <&vreg_s8e>;
->> +		vdd-s1-supply =3D <&vph_pwr>;
->> +		vdd-s2-supply =3D <&vph_pwr>;
->> +
->>  		qcom,pmic-id =3D "a";
->> =20
->>  		vreg_s1a: smps1 {
->> @@ -310,6 +330,14 @@ vreg_s2a: smps2 {
->>  			regulator-max-microvolt =3D <2048000>;
->>  		};
->> =20
->> +		/*
->> +		 * s3a (smps3) is gfx.lvl
->> +		 * s4a (smps4) is supply for vdd-l4 & vdd-l13
->> +		 * s5a (smps5) is mx.lvl
->> +		 * s6a (smps6) is supply for vdd-l16 & vdd-l18-l20-l21
->> +		 * l1a (ldo1) is lcx.lvl
->> +		 */
->> +
->>  		vreg_l2a: ldo2 {
->>  			regulator-name =3D "vreg_l2a";
->>  			regulator-min-microvolt =3D <1503000>;
->> @@ -408,6 +436,8 @@ vreg_l16a: ldo16 {
->>  			regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
->>  		};
->> =20
->> +		/* l17a (ldo17) is lmx.lvl */
->> +
->>  		vreg_l18a: ldo18 {
->>  			regulator-name =3D "vreg_l18a";
->>  			regulator-min-microvolt =3D <788000>;
->> @@ -446,8 +476,24 @@ vreg_l22a: ldo22 {
->> =20
->>  	regulators-1 {
->>  		compatible =3D "qcom,pm6150l-rpmh-regulators";
->> +
->> +		vdd-bob-supply =3D <&vph_pwr>;
->> +		vdd-l1-l8-supply =3D <&vreg_s2a>;
->> +		vdd-l2-l3-supply =3D <&vreg_s8e>;
->> +		vdd-l4-l5-l6-supply =3D <&vreg_bob>;
->> +		vdd-l7-l11-supply =3D <&vreg_bob>;
->> +		vdd-l9-l10-supply =3D <&vreg_bob>;
->> +		vdd-s8-supply =3D <&vph_pwr>;
->> +
->>  		qcom,pmic-id =3D "e";
->> =20
->> +		/*
->> +		 * s1e-s2e (smps1-smps2) is cx.lvl
->> +		 * s3e-s4e (smps3-smps4) is VDD_APC1
->> +		 * s5e (smps5) is VDD_APC0
->> +		 * s6e-s7e (smps6-smps7) is mss.lvl
->> +		 */
->> +
->>  		vreg_s8e: smps8 {
->>  			regulator-name =3D "vreg_s8e";
->>  			regulator-min-microvolt =3D <313000>;
->>=20
->> --=20
->> 2.55.0
->>=20
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 0/5] clocksource/timer-econet-en751221: Support irq
+ number per timer
+To: Caleb James DeLisle <cjd@cjdns.fr>, linux-mips@vger.kernel.org
+Cc: conor+dt@kernel.org, daniel.lezcano@kernel.org, devicetree@vger.kernel.org,
+        krzk+dt@kernel.org, linux-kernel@vger.kernel.org, naseefkm@gmail.com,
+        robh@kernel.org, tglx@kernel.org, grandmaster@al2klimov.de
+References: <20260731120246.1296955-1-cjd@cjdns.fr>
+ <4917ef30-0ed9-4c5a-8516-1033b5f02fdc@oss.qualcomm.com>
+ <f98f17aa-0f95-4b03-9f95-385e8af762df@cjdns.fr>
+Content-Language: en-US
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+In-Reply-To: <f98f17aa-0f95-4b03-9f95-385e8af762df@cjdns.fr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=EMWTQFZC c=1 sm=1 tr=0 ts=6aad45aa cx=c_pps
+ a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=6kT6b7zf8N4vtA4OZZIA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=TD8TdBvy0hsOASGTdmB-:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDIwMCBTYWx0ZWRfX1wGpaMJTnuhF
+ nF0XpJFnUS0dhZn4ZcxPCwu06+2QLtZoNO5nyBXNgqlII/GXvGG/BM7EBj+UKHwuEqpCNtcbAOa
+ x8SoXWqUBfFjUuEjNsaBUPHpVV3bTzE7+Y60DO/Y7TycKLxzIAmd2tuTmjbA4TM5b6z8f4vj6FO
+ oICLIlrjzZLsAvdQqBl1ozyjW3dNuejoU6jRMrI4jCi4PXgVYcfusFt21jgM3Jk7SWDOiAstTrV
+ oGiqA5xlNRZ+/RkxKBDvRvgqtWLxSVsQvNX/Q1V5cwzcWG4ez8EtN4WU3LiGaoU6IY+brhQov1N
+ iQv8fRNtZX4cxEiXCaeHYLkM5jjEt5fheFj8hu2u4VtoiXnHUU3StAUL1LF3DGfsaGbz5XSNmLR
+ 9K5BdIspWMS8j0YpUwBz7tVL5+gzVB3mU1qHu4QWjTds3kWuDSISFIxL+eBu63RMHeRG6BHXJXX
+ Sx6OZpphVAOzPHDW8Xg==
+X-Proofpoint-GUID: lvhogxRjsjLQoIX65bq_og0m2F5EpedN
+X-Proofpoint-ORIG-GUID: lvhogxRjsjLQoIX65bq_og0m2F5EpedN
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDIwMCBTYWx0ZWRfX/rbWOgJX9FfR
+ GyjLBLTAyqIJvq4s5R2hOya23qOdBQkiMMbRBokY8iikyF3/QyL400zXst1tnu9WkH2o3w5JDr6
+ Cg4wxMK/j2/Z37QAzImzRYvz832DI0Q=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-18_04,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 priorityscore=1501 lowpriorityscore=0 bulkscore=0 adultscore=0
+ spamscore=0 malwarescore=0 impostorscore=0 phishscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609180200
 
 
+Hi Caleb,
+
+sorry for the delay
+
+On 8/12/26 21:32, Caleb James DeLisle wrote:
+
+>>       |                ^~~~~~~~
+>> /home/dlezcano/Work/src/linux/timers/drivers/clocksource/timer-econet- 
+>> en751221.c:201:17: note: in expansion of macro ‘pr_err’
+>>   201 |                 pr_err("%pOFn: Too many IRQs max %d got %d\n", 
+>> np,
+>>       |                 ^~~~~~
+>> /home/dlezcano/Work/src/linux/timers/include/linux/kern_levels.h:5:25: 
+>> warning: format ‘%d’ expects argument of type ‘int’, but argument 3 
+>> has type ‘long unsigned int’ [-Wformat=]
+>>     5 | #define KERN_SOH        "\001"          /* ASCII Start Of 
+>> Header */
+>>       |                         ^~~~~~
+>> /home/dlezcano/Work/src/linux/timers/include/linux/printk.h:483:25: 
+>> note: in definition of macro ‘printk_index_wrap’
+>>   483 |                 _p_func(_fmt, ##__VA_ARGS__);         \
+>>       |                         ^~~~
+>> /home/dlezcano/Work/src/linux/timers/include/linux/printk.h:554:9: 
+>> note: in expansion of macro ‘printk’
+>>   554 |         printk(KERN_ERR pr_fmt(fmt), ##__VA_ARGS__)
+>>       |         ^~~~~~
+>> /home/dlezcano/Work/src/linux/timers/include/linux/ 
+>> kern_levels.h:11:25: note: in expansion of macro ‘KERN_SOH’
+>>    11 | #define KERN_ERR        KERN_SOH "3"    /* error conditions */
+>>       |                         ^~~~~~~~
+>> /home/dlezcano/Work/src/linux/timers/include/linux/printk.h:554:16: 
+>> note: in expansion of macro ‘KERN_ERR’
+>>   554 |         printk(KERN_ERR pr_fmt(fmt), ##__VA_ARGS__)
+>>       |                ^~~~~~~~
+>> /home/dlezcano/Work/src/linux/timers/drivers/clocksource/timer-econet- 
+>> en751221.c:206:17: note: in expansion of macro ‘pr_err’
+>>   206 |                 pr_err("%pOFn: Too many regs: max %d got 
+>> %d\n", np,
+>>       |                 ^~~~~~
+>>
+> 
+> I gather you must have built this on a 64 bit machine, so the size_t of 
+> ARRAY_SIZE() is a uint64_t (?)
+
+[ ... ]
+
+> Any suggestions would be appreciated.
+   s/%d/%zd/ ?
