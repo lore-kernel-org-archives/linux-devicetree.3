@@ -1,127 +1,63 @@
-Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ECDE39EF2A
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 03:26:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D76853D5C2A;
+	Fri, 18 Sep 2026 03:27:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789702002; cv=none; b=ly3wboH4N/VbHWq5bfeO4EgeQxEdxGmxpCcyHTbcfBZqi9ZYvoH8Qkn/nj5v1a/e6/LcGW+xgtzvm2UyQB7z446gWxMVVNcGWlwrt02jwhxkcIfsipYjhxqTWQAb1YlgNpM6fBrnVetFLl//3AzcZWQoP2v9+u5Qx21ByP8dUwo=
+	t=1789702032; cv=none; b=m4/k85nujjzmIddM1wT0xiSaVhaxNheY0m1lqZ15/HEry0P9mETrbqVuWaSB9yKUELuHBCU+aCQipP9hP67z6ZSeEakm+M1Oeu1ZD2fr9fqD/p5tEQzzJNNyM8uyIkU3nqsMcBLxTRw5ek6ZA1HiIJnFsqXIZ15y/DRyRw9f6WM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789702002; c=relaxed/simple;
-	bh=FVLb/9tqKLCgDSW4Yyg9YW80snztJMnzKO2aSwSdmXw=;
-	h=From:To:Cc:In-Reply-To:Subject:Date:Message-ID:MIME-Version:
-	 Content-Type:References; b=qzgAZ5Us9IVMNEZbVLTPw+W3eyS4w0Six5dUnZj6sFoyA/YSbeWI0Qhi4e2JtH3X8W/m93T6rLKhJr1KKr0NiU3FTri+p1nUFy670D3dCKln57PxG2j+WfPGEN7aQV2zrEbsgY1HiYYc3Vz6AMzk4+jRIx0RmDC7X3aNhO9xvVM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=EQxAx70B; arc=none smtp.client-ip=203.254.224.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1789702032; c=relaxed/simple;
+	bh=IZzVZkmpf6YGNSrZJp/GNzh4MWcArBSwK59OM2gA3cE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=h7X38B91i4P7gA+PB62r8aqVnFjlXwBMpxXaRaU2fPlxz0CWoPudkkofVjvCR3b1KmfhlMKZalXuw4+MzbzlF6C4aq+B55Y/LHuj9cJMIX5YCiVsDw/i94NTIwE+lukWpxAb3kVDJuPt6IZrRblGc9zfQVdQiW107NlRwNpEj5Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LFvkdYAz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="EQxAx70B"
-Received: from epcas5p4.samsung.com (unknown [182.195.41.42])
-	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20260918031915epoutp03aae2b9d001d96d5d0b634b6961f9b4ea~WTBUjJoUZ1336213362epoutp03k
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 03:19:15 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20260918031915epoutp03aae2b9d001d96d5d0b634b6961f9b4ea~WTBUjJoUZ1336213362epoutp03k
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1789701555;
-	bh=HKnmLzLUgthxmMsJgAHHDg791TGmTKkEbBQOle2AQa4=;
-	h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
-	b=EQxAx70BgAMbeQjPN03QPSCdtTJoMWBCiuQaiXLyqB8k2WTR2AJJnHSoUtWNxDFMl
-	 X17swJE/eybHVt50yrWC1p1554LLztXK0LD64x9yq58S6lZJyiDrSPlbcB7dYyxgaV
-	 7e8vTEZO+kKR/OzyFRJ6B0HDF2EyLHZ3OzLc1flQ=
-Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
-	epcas5p4.samsung.com (KnoxPortal) with ESMTPS id
-	20260918031914epcas5p4317137185eac02f3cbd6d83eac1a8a07~WTBT4RTGW0273202732epcas5p4D;
-	Fri, 18 Sep 2026 03:19:14 +0000 (GMT)
-Received: from epcas5p3.samsung.com (unknown [182.195.38.89]) by
-	epsnrtp02.localdomain (Postfix) with ESMTP id 4hmHsY6F4Mz2SSKY; Fri, 18 Sep
-	2026 03:19:13 +0000 (GMT)
-Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
-	20260918031913epcas5p48cf1033745bf88d80a3b0c355cf76310~WTBSQ-IGk0273202732epcas5p4-;
-	Fri, 18 Sep 2026 03:19:13 +0000 (GMT)
-Received: from INBRO002756 (unknown [107.122.3.168]) by epsmtip1.samsung.com
-	(KnoxPortal) with ESMTPA id
-	20260918031910epsmtip13eff1b3e2ad0dd2db9ce3ea5448d3bb8~WTBPgtuoX2962729627epsmtip19;
-	Fri, 18 Sep 2026 03:19:10 +0000 (GMT)
-From: "Alim Akhtar" <alim.akhtar@samsung.com>
-To: "'Selvarasu Ganesan'" <selvarasu.g@samsung.com>, <krzk@kernel.org>,
-	<peter.griffin@linaro.org>, <gregkh@linuxfoundation.org>, <robh@kernel.org>,
-	<conor+dt@kernel.org>, <Thinh.Nguyen@synopsys.com>, <mani@kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-samsung-soc@vger.kernel.org>,
-	<linux-usb@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Cc: <jh0801.jung@samsung.com>, <h10.kim@samsung.com>,
-	<dh10.jung@samsung.com>, <akash.m5@samsung.com>, <hongpooh.kim@samsung.com>,
-	<eomji.oh@samsung.com>, <shijie.cai@samsung.com>,
-	<muhammed.ali@samsung.com>, <thiagu.r@samsung.com>
-In-Reply-To: <20260916122229.2604003-2-selvarasu.g@samsung.com>
-Subject: RE: [PATCH v2 1/3] MAINTAINERS: add Samsung USB DT binding to
- ARM/SAMSUNG entry
-Date: Fri, 18 Sep 2026 08:49:08 +0530
-Message-ID: <058201dd471c$7a543be0$6efcb3a0$@samsung.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LFvkdYAz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D23981F000FF;
+	Fri, 18 Sep 2026 03:27:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789702030;
+	bh=IZzVZkmpf6YGNSrZJp/GNzh4MWcArBSwK59OM2gA3cE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=LFvkdYAzEwqe1WBdjbeXHUdWJB4zjnC1Q+7BF2gPqD/r5HIS8bbBBO5RN+h0oSxTs
+	 aEKp+EPAGUEciaynlp239k8xp7U2vhy8+VWmWq2jT+kS4WB4m4yZfDcsLvkIVDykYl
+	 sI41972G7GuXmhUpExnDZj9pNL9q+KPEOLvYfYCScDAPD2rCfFDDo6zBzradimECgh
+	 RuZgkPP6e2qXGHP1odgYXXC7YpQu5Q1Qpaszb1kwVaaYuto7Z7t3duplAOYb4ldRYK
+	 8+JlQD2UFQ4tHBrlTQx0wMwV0yTq83g7b3L9OxxC3nlOr6B+KmUIBCt/gC2OnP9pyg
+	 VRQ/QVVdo7BLw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 11/11] arm64: dts: renesas: r8a779f0: Describe the PCIe
+ AER interrupts
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Koichiro Den" <den@valinux.co.jp>
+Cc: devicetree@vger.kernel.org, linux-pci@vger.kernel.org, wsa+renesas@sang-engineering.com, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260918032038.2216471-12-den@valinux.co.jp>
+References: <20260918032038.2216471-1-den@valinux.co.jp>
+ <20260918032038.2216471-12-den@valinux.co.jp>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 18 Sep 2026 03:27:09 +0000
+Message-Id: <20260918032709.D23981F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQGcfDqIrCW7OKewQ35ZfbAvR1onfQLSUTwAAgT4kRu3LoX/AA==
-Content-Language: en-us
-X-CMS-MailID: 20260918031913epcas5p48cf1033745bf88d80a3b0c355cf76310
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-543,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20260916122351epcas5p37666f1232d3b2bcc1d02a96ab0df4142
-References: <20260916122229.2604003-1-selvarasu.g@samsung.com>
-	<CGME20260916122351epcas5p37666f1232d3b2bcc1d02a96ab0df4142@epcas5p3.samsung.com>
-	<20260916122229.2604003-2-selvarasu.g@samsung.com>
 
+> The PCIe controllers report Root Port AER notifications through
+> intreq_pci0_lperr (SPI 421) and intreq_pci1_lperr (SPI 428),
+> respectively, separately from the integrated MSI receiver interrupts.
+> Describe these interrupts with the "aer" name so the controller driver
+> can use them for Root Port error reporting.
+>=20
+> Append the new interrupts to preserve the existing interrupt indices.
+>=20
+> Signed-off-by: Koichiro Den <den@valinux.co.jp>
 
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-> -----Original Message-----
-> From: Selvarasu Ganesan <selvarasu.g@samsung.com>
-> Sent: Wednesday, September 16, 2026 5:52 PM
-> To: krzk@kernel.org; peter.griffin@linaro.org; alim.akhtar@samsung.com;
-> gregkh@linuxfoundation.org; robh@kernel.org; conor+dt@kernel.org;
-> Thinh.Nguyen@synopsys.com; mani@kernel.org;
-> selvarasu.g@samsung.com; linux-arm-kernel@lists.infradead.org; linux-
-> samsung-soc@vger.kernel.org; linux-usb@vger.kernel.org;
-> devicetree@vger.kernel.org; linux-kernel@vger.kernel.org
-> Cc: jh0801.jung@samsung.com; h10.kim@samsung.com;
-> dh10.jung@samsung.com; akash.m5@samsung.com;
-> hongpooh.kim@samsung.com; eomji.oh@samsung.com;
-> shijie.cai@samsung.com; muhammed.ali@samsung.com;
-> thiagu.r@samsung.com
-> Subject: [PATCH v2 1/3] MAINTAINERS: add Samsung USB DT binding to
-> ARM/SAMSUNG entry
-> 
-> Add the Samsung USB devicetree binding file path under the existing
-> ARM/Samsung SoC maintainership.
-> 
-> Signed-off-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
-> ---
-Reviewed-by: Alim Akhtar <alim.akhtar@samsung.com>
-
->  MAINTAINERS | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index a53620839407..87a1ab24a375 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -3576,6 +3576,7 @@ F:
-> 	Documentation/devicetree/bindings/arm/samsung/
->  F:	Documentation/devicetree/bindings/hwinfo/samsung,*
->  F:	Documentation/devicetree/bindings/power/pd-samsung.yaml
->  F:	Documentation/devicetree/bindings/soc/samsung/
-> +F:	Documentation/devicetree/bindings/usb/samsung,*
->  F:	arch/arm/boot/dts/samsung/
->  F:	arch/arm/mach-exynos*/
->  F:	arch/arm/mach-s3c/
-> --
-> 2.17.1
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918032038.2216=
+471-1-den@valinux.co.jp?part=3D11
 
