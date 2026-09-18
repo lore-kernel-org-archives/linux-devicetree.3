@@ -1,156 +1,175 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC9D551D533;
-	Fri, 18 Sep 2026 19:24:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4074148F85C
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 19:28:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789759494; cv=none; b=eSgsVWKmXvI8WrjWL3b7hfYw+5bR94VLmKXe22PZrSjfX072wQq1sXBX7zEiUZQ2nirwZn/MUjts8Ls2mkSJcfsTS2fe3QBLjMdsxIlsydyc3jdA+CZa6zKGlloWiIMFpk+8zNoelAYlQDEUNSM941bOfFgIrBXPbWD3T6Bzdfg=
+	t=1789759701; cv=none; b=gR7+n6taaGKfhH5aPjN1ZQEBmdiX00NTNyJNEiOhJOgJecnYMBKPtEsfE3A4aVIuWdhFHXiKUAjh/wyHEorXvU9WEi29YfxURm6uk3TJcmoPQJelwjIXrJ6R35Sz98RsW7F//wJwrwdjaK6W3+PXWKne6+Q7vtY+2pYajVk9Kxs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789759494; c=relaxed/simple;
-	bh=Zd0QGn6EczAAvO+K5gHWq2fXZsgdRYOjqY5dwru86M8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bWJVq0SxfdGwycXs5Z8/qtpzE/GDlP9qepGMzy0xm0T1EbRIQxgTvrrlDzVnHWR5TU5mResJbBDiphDmLUX2hmY/h2q6KXeuDitofL6vEdbfNt/ZwcikWy0qpoZ5txR4BvyNqnAf3FnXA+vfmA5vDdZDwf0nsQ3L4peFUbfkNUY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CHDAEFAY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789759701; c=relaxed/simple;
+	bh=6cv/ICuCuoNPSD/MirgQeB2LbKI1BIr2i738Vj7ApC4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=EKBJm4tSuBA1J5ZCYSDzdOFw4aVCFBicaiTPT3VT6h6XuGJK7eDVuyLDe7Ay8g0bR6pFPKeqwdmnc0BLeFqEbG3SpCErJRSUeW+MAhMZsijD3VNWhKV+QSx8gp9BqeAA/4yrpsYiH5EWhZcQlZoP/SJ1AdusILR+XmjCd7+4Inw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cFIVUzL1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CHDAEFAY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 714661F000FF;
-	Fri, 18 Sep 2026 19:24:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cFIVUzL1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D75EF1F000FF;
+	Fri, 18 Sep 2026 19:28:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789759489;
-	bh=gy1Wl0a02dtKqoPAdsnYPm6lkMH+/UnovXEG/AvYxwk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CHDAEFAYp99cG7ALHJHxabBHBvYu4ZolmiftDgQyss+yGWBLqV6LMkFJYjcXxQzJu
-	 MOZ8u7D0fBuJpAaAZB8myh0eXutu1FOIHkKj3typrQKAe1acMIwHU47CTNmHq67Q+1
-	 gW+ij/xXY4rICSZ9pYarlfCD0dugav+2Rq9O4EeDvWT0zbOXQt8wM4StWno1dcs8Rg
-	 yVsRcV7Ezj1zRAZe7Io36sir3IWZtMcOOcLoTOBIUltZbo/psJU9fdcowX90YiFmQk
-	 gQExKNijGvWdFM8oWzfHTPKlRfVjw3FHrIMT9VfLCAiKkiUBkC8BYd8nfCWau8g75j
-	 LjOCQffvcSW4Q==
-Date: Fri, 18 Sep 2026 14:24:47 -0500
-From: Rob Herring <robh@kernel.org>
-To: Francesco Dolcini <francesco.dolcini@toradex.com>
-Cc: Frank Li <Frank.li@oss.nxp.com>,
-	Ernest Van Hoecke <ernestvanhoecke@gmail.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-Subject: Re: [PATCH 3/6] dt-bindings: connector: Add Toradex camera connector
-Message-ID: <20260918192447.GB1465432-robh@kernel.org>
-References: <20260910-verdin-imx8mp-hmp-camera-ready-v1-0-3c9349ecdb9f@toradex.com>
- <20260910-verdin-imx8mp-hmp-camera-ready-v1-3-3c9349ecdb9f@toradex.com>
- <aqLaLmz7n31P6igy@SMW015318>
- <prwghb3ftrz5xd3hapxtlv2o2gm5xmuapnpz2h7fqulf75phqz@lk4yiaepormb>
- <aqLif2zrrsbYd5sM@SMW015318>
- <aqLk5UAv-j39Jxd3@francesco-nb>
+	s=k20260515; t=1789759694;
+	bh=/vV1h+f0GIlzOKYwhhro9otapnXsv3oWAaxIO2pN9jA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=cFIVUzL1cme/ZIwg1Fwxn4/uwu38DuRrxGRi0fYF4mvrsSbfUic5XqgyjVLCGgsbk
+	 1ZfK39vFrtCzqW4lJMLbncUWqouPOkCRu7pQjqmZorT2Kj8MFgsN/Hb5CzKLS836z6
+	 l96/OWeXDm+0Zu0+GVfUfyahh7tMstLLAoDpzqDeMj94/O0IGw8hfyUlv96vxYSHw6
+	 qRr61EatGpvu5o1o+31eAY+FCipZr8MxfupBwKri9SXozMhex37nBA0JqiEvJiPiqR
+	 AeBzkQasK/zzlYEUSwmuV/U+8nXs0hCK8qbup3Wb9Fc4IisLedYSxTpA9ELEdKiIK0
+	 m7XuPne+Gr6lw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 8/8] iio: osf: add IIO KUnit tests
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jinseob Kim" <kimjinseob88@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <59251baa5b1f53a72ac7a09afc334398e2e84db7.1789753020.git.kimjinseob88@gmail.com>
+References: <cover.1789753020.git.kimjinseob88@gmail.com>
+ <59251baa5b1f53a72ac7a09afc334398e2e84db7.1789753020.git.kimjinseob88@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 18 Sep 2026 19:28:13 +0000
+Message-Id: <20260918192813.D75EF1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqLk5UAv-j39Jxd3@francesco-nb>
 
-On Thu, Sep 10, 2026 at 07:12:05PM +0200, Francesco Dolcini wrote:
-> On Thu, Sep 10, 2026 at 12:01:51PM -0500, Frank Li wrote:
-> > On Thu, Sep 10, 2026 at 06:39:30PM +0200, Ernest Van Hoecke wrote:
-> > > Hi Frank,
-> > >
-> > > Thanks for reviewing this so quickly.
-> > >
-> > > On Thu, Sep 10, 2026 at 11:26:22AM -0500, Frank Li wrote:
-> > > > On Thu, Sep 10, 2026 at 05:37:59PM +0200, Ernest Van Hoecke wrote:
-> > > > > From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-> > > > >
-> > > > > Toradex boards route the sideband signals of their 24-pin camera
-> > > > > connectors to different GPIO controllers. Camera overlays which name
-> > > > > those controllers directly must therefore be duplicated for each host
-> > > > > board.
-> > > > >
-> > > > > Describe reset, power-down, detection and power-control as
-> > > > > connector-local GPIO functions. This lets an accessory overlay remain
-> > > > > independent of the host wiring. MIPI CSI-2, I2C, clocks and supplies
-> > > > > remain described separately because the GPIO nexus does not abstract
-> > > > > them.
-> > > > >
-> > > > > Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-> > > > > ---
-> > > > >  .../connector/toradex,camera-connector.yaml        | 86 ++++++++++++++++++++++
-> > > > >  1 file changed, 86 insertions(+)
-> > > > >
-> > > > > diff --git a/Documentation/devicetree/bindings/connector/toradex,camera-connector.yaml b/Documentation/devicetree/bindings/connector/toradex,camera-connector.yaml
-> > > > > new file mode 100644
-> > > > > index 000000000000..06e6836e1aa6
-> > > > > --- /dev/null
-> > > > > +++ b/Documentation/devicetree/bindings/connector/toradex,camera-connector.yaml
-> > > > > @@ -0,0 +1,86 @@
-> > > > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > > > > +%YAML 1.2
-> > > > > +---
-> > > > > +$id: http://devicetree.org/schemas/connector/toradex,camera-connector.yaml#
-> > > > > +$schema: http://devicetree.org/meta-schemas/base.yaml#
-> > > > > +
-> > > > > +title: Toradex camera connector GPIO nexus
-> > > > > +
-> > > > > +maintainers:
-> > > > > +  - Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-> > > > > +  - Toradex Linux BSP Team <linux-bsp@toradex.com>
-> > > > > +
-> > > > > +description: |
-> > > > > +  Toradex boards provide 24-pin camera connectors carrying MIPI CSI-2, I2C,
-> > > > > +  clock, power, and sideband GPIO signals. This binding describes the sideband
-> > > > > +  signals as a GPIO nexus. The other connector resources remain described by
-> > > > > +  the surrounding board device tree.
-> > > > > +
-> > > > > +  The nexus exposes connector-local GPIO function numbers to camera overlays
-> > > > > +  and maps the functions wired by a carrier board to their GPIO controllers.
-> > > > > +  GPIO specifiers contain a function number followed by standard GPIO flags.
-> > > > > +  A board may omit functions which it does not wire.
-> > > > > +
-> > > > > +  The function numbers are:
-> > > > > +    - 0: Camera reset, connector pin 11
-> > > > > +    - 1: Camera power-down, connector pin 22
-> > > > > +    - 2: Camera identification, connector pin 23
-> > > > > +    - 3: Camera power control, connector pin 24
-> > > > > +
-> > > > > +properties:
-> > > > > +  compatible:
-> > > > > +    const: toradex,camera-connector
-> > > >
-> > > > Name is too generally, suggest use board name, we got similar comments at
-> > > >
-> > > > https://lore.kernel.org/imx/20260629074734.3643227-2-chancel.liu@oss.nxp.com/
-> > >
-> > > I saw that and it made me reconsider this name.
-> > >
-> > > However, I believe that in our case it is specific enough. It is really
-> > > the same on all our carrier boards, and Toradex specific. It's also only
-> > > for cameras, which is more defined than just "io". Curious to see if
-> > > others agree or if we should come up with a name for this.
-> > 
-> > If some days later, you update hardware connector to 30pin from 24pins.
-> 
-> That connector is there since years, not days.
-> 
-> We have multiple cameras, designed to mate with it.
-> 
-> If tomorrow we will define a new camera connector (that is absolutely
-> possible), the new connector will get its name, maybe
-> toradex,camera-connector-v2, or toradex,camera-connector-22pin or
-> whatever that connector would be named, not just in the DT, but also as
-> a product and on the actual HW.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] kthread: UAF in osf_iio_test_producer() on KUnit assertion failure
+- [Medium] mm: missing memory barrier in osf_iio_buffer_lifetime_test() cau=
+ses test timeout
+- [Medium] iio: memory and device leak on KUnit assertion failure
+--
 
-I for one hate 'v2' naming.
+commit 8655dd7dbcb0e7d37056c4f127c9412727c35c55
+Author: Jinseob Kim <kimjinseob88@gmail.com>
 
-I agree the name seems a bit generic, but if you really can't come up 
-with something better, then fine. The next connector name just has to be 
-something different.
+iio: osf: add IIO KUnit tests
 
-Rob
+Add the existing IIO active-scan packing and buffer producer lifetime
+tests. Extend the test build wiring and help text to cover both suites.
+
+> diff --git a/drivers/iio/opensensorfusion/osf_iio_test.c b/drivers/iio/op=
+ensensorfusion/osf_iio_test.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/iio/opensensorfusion/osf_iio_test.c
+[ ... ]
+> +static void osf_iio_check_scan(struct kunit *test, struct iio_dev *indio=
+_dev,
+> +			       const s32 *values, unsigned int channels,
+> +			       unsigned int mask, bool ts)
+> +{
+[ ... ]
+> +	buffer->scan_timestamp =3D ts;
+> +	ret =3D iio_update_buffers(indio_dev, buffer, NULL);
+> +	KUNIT_ASSERT_EQ(test, ret, 0);
+
+[Severity: Medium]
+If this assertion fails, the test function is aborted instantly.
+
+Since IIO devices and buffers are registered manually using
+iio_device_alloc() and iio_device_register(), they require explicit
+unregistration via osf_iio_unregister_sensor().
+
+Will bypassing the explicit cleanup permanently leak the IIO device, kfifo,
+and associated memory? Should KUnit deferred actions (kunit_add_action) be
+used for cleanup instead?
+
+[ ... ]
+> +static int osf_iio_test_producer(void *data)
+> +{
+> +	struct osf_iio_race *race =3D data;
+> +	const s32 values[] =3D { 101, -202, 303 };
+> +
+> +	while (!kthread_should_stop()) {
+> +		osf_iio_push_sample(race->indio_dev, values, ARRAY_SIZE(values));
+
+[Severity: High]
+If a KUNIT_ASSERT_* check fails elsewhere in the test, KUnit will abort the
+test and free the race structure as part of test cleanup.
+
+Because the test aborted, kthread_stop() is never called. Will this leave
+the producer thread running and accessing the freed race memory, causing a
+use-after-free regression?
+
+> +		cond_resched();
+> +	}
+> +	return 0;
+> +}
+[ ... ]
+> +static void osf_iio_expect_quiesce(struct kunit *test, struct osf_iio_ra=
+ce *race)
+> +{
+> +	struct task_struct *config;
+> +	unsigned long waited;
+> +
+> +	config =3D kthread_run(osf_iio_test_configure, race, "osf-cfg-test");
+> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, config);
+
+[Severity: High]
+If this assertion fails, the test aborts without stopping the running
+producer thread. Can this trigger the use-after-free regression mentioned
+above?
+
+[ ... ]
+> +static void osf_iio_buffer_lifetime_test(struct kunit *test)
+> +{
+[ ... ]
+> +	atomic_set(&race->block_store, 1);
+> +	producer =3D kthread_run(osf_iio_test_producer, race, "osf-rx-test");
+> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, producer);
+
+[Severity: Medium]
+If creating the producer thread fails, the test aborts immediately. As with
+the assertion in osf_iio_check_scan(), will this leave the IIO sensor
+permanently registered and cause a memory leak regression?
+
+[ ... ]
+> +	KUNIT_EXPECT_EQ(test, iio_update_buffers(indio_dev, buffer, NULL), 0);
+> +	/* Retain ownership while testing unregister against an admitted push. =
+*/
+> +	get_device(&indio_dev->dev);
+> +	reinit_completion(&race->entered);
+> +	reinit_completion(&race->release);
+> +	reinit_completion(&race->config_started);
+> +	reinit_completion(&race->config_done);
+> +	atomic_set(&race->block_store, 1);
+
+[Severity: Medium]
+Does this code lack a memory barrier before atomic_set(&race->block_store, =
+1)?
+
+The test uses reinit_completion() which performs a relaxed write to x->done,
+followed immediately by the atomic_set().
+
+Could the continuous background producer thread observe block_store =3D=3D =
+1 and
+execute complete() before the delayed reinit_completion() write takes effect
+in the main thread?
+
+If the delayed write overwrites the completion status, will the main thread=
+'s
+subsequent wait_for_completion_timeout() block indefinitely and cause a test
+timeout regression?
+
+> +	KUNIT_EXPECT_NE(test, wait_for_completion_timeout(&race->entered, HZ), =
+0UL);
+> +	race->unregister =3D true;
+> +	osf_iio_expect_quiesce(test, race);
+> +	kthread_stop(producer);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1789753020.gi=
+t.kimjinseob88@gmail.com?part=3D8
