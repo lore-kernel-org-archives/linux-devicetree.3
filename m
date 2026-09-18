@@ -1,110 +1,189 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5124C4F30C3
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 13:28:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 668203B9DA7;
+	Fri, 18 Sep 2026 13:28:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789738088; cv=none; b=HJcVtnlrFl3QhcACPx0S/9OTRR3Is7WSoF7N+wglq6dgSgug2jRZNKLvPC84vVZcSnl55Tnwl62r8Sy3fO2lAyr4oPLMu9MpxxHGMz1FvipzRxdfx3LM51NgfKu1O8Ks11kfSk0XSOLmca33a0OpkS4z0zbztmEMy2aQKeq+08Q=
+	t=1789738120; cv=none; b=ClnPx6Z5BuQbk6qraYFSzAeA5AhvhT/5rjqnBx71PislPkToEQBbKYx6jO4C/vDa8VQbbEOIEDaZPY1dHbMUGvkN+g6hyeB/2C3wxuyLo+cOByFBWwylM33SX4A2MQ/WURVlG1AP/+wXdlUDeKcrjA3s08/Hri26YGzMvb+dtGc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789738088; c=relaxed/simple;
-	bh=Eop3jSxLsjZxZhwIKyqqP96EmgDGgKs+1PzSiuKIJY8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=uvX/UxOHSD87yzY9v+ZLkTSWXEY0UVKAx6vTbx5l+6Pn7zihqPHZ9fC1q8fNa8AAuUavEOKb81SYlrWPIdnqBb8kCrgyDzF3WXtBMLD45kCYNpHFtyGDGdSePIco0976oRMNgaPxR/5l8/eb6dju7Y2clFdAno65ypnohY0h4Eo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OIM9FI8K; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789738120; c=relaxed/simple;
+	bh=YleLy9dsJjhq7c2nL6zzJF1A+Z7obcoDrQWMYbeXFIk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=WemZPMmvhP/a0iBm/5ak+k1tpHEC96BSJ4V+PA01u11FFJyY0HsqnDY83M3PTa4ISDRUIBm17cOxTlMo/TOLMOnJvZESTXEQsYiqHZ8py9TQjyvAj4cffoU3SGb+hy+FW2JIH+3n6Ex+GSZr27E8ZRzcAp6GVlDCCrhCkKHmscU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gQoxSXaq; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OIM9FI8K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B0741F000FF;
-	Fri, 18 Sep 2026 13:28:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789738086;
-	bh=5DIMPnmdVjJBfEojPavAkYIk3SWBbk1lPNi2IA52xUA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OIM9FI8KNS9P0Lupi6XYf52uPF8D9n/v/Z21cxC+Lugyxfi2A2erSbBoCQpghVBxe
-	 YpnHstqQ4XpjA8W+K3zqjZivvgvXZ27aLoKF16/x7iDr1zniYt7EUgS316Y2FgHu9a
-	 MwFuOemsuWZ3nrWMfZoWOMfjyyeWfEn8C2nLoyxuNCrlQM5oyi+l8vx52CPiAehisT
-	 u/IPjfOueu9hCkjSkB9Zi2tMpLWlS4IIGsrJTp5NBZ9f0LpNreEuDPk02udYNp2DMB
-	 GK7ci+zjZNonLe82sRw8sk4k5EAKXl6foqjN3Pac/Dia6f/oPbDcVA8UjPrx0v3m7O
-	 aYyuVlpB+5Uww==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 08/14] arm64: dts: apple: t6030: add avd nodes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sofus Forstreuter" <sofus.c@icloud.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20260918-avd-v1-8-49977931f455@icloud.com>
-References: <20260918-avd-v1-0-49977931f455@icloud.com>
- <20260918-avd-v1-8-49977931f455@icloud.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 13:28:06 +0000
-Message-Id: <20260918132806.9B0741F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gQoxSXaq"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id F1BC9C2BCB8;
+	Fri, 18 Sep 2026 13:28:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789738120;
+	bh=YleLy9dsJjhq7c2nL6zzJF1A+Z7obcoDrQWMYbeXFIk=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=gQoxSXaqWlBzKDqO7K+xVBccCfsTMxTahGsLBidURdOou3wdO5lS9gz2mFdNij31v
+	 qKMGUluuV+NblnXNJZv/CQN9EsFRIhurr/d3ke88cxKWicb5MHMOf9zQaudW/bE73o
+	 /WtIeTcyS7NTGb5LDjrQFnbXfraIl3aiVT2SfSm+9kZd/TcMz/9+cejrGBYRkFBlJc
+	 YDmMJwQQGnIJPJ+33ZtkTyGenVxYceW1SOElZlPtyZWRBjjvNJ+YiLfbNEg8x6RCOR
+	 RvHrLDlm85U18QBjw9/ydq/cJpNrKWROK6EnKU5hznPMSs7kmYP+4XCBS8GlMKgSmq
+	 HxMwPUmNkJhBw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C564BC982D7;
+	Fri, 18 Sep 2026 13:28:39 +0000 (UTC)
+From: Michael Reeves via B4 Relay <devnull+michael.reeves077.gmail.com@kernel.org>
+Subject: [PATCH v3 00/10] Add support for Apple Silicon DockChannel
+ internal keyboards
+Date: Fri, 18 Sep 2026 23:28:30 +1000
+Message-Id: <20260918-apple-mtp-keyboard-final-v3-0-e356464e454b@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6XPwW7DIAwG4FepOM8TkEGbnfYeUw+GmAYthMhE0
+ aoq717oZb1slx1/yf5++yYKcaQi3g83wbTFEvNcQ/dyEH7E+UIQh5qFltpKq3vAZZkI0rrAF11
+ dRh4gxBkn6JV3Bm0Ib8GLur4whfj9oD/PNTssBI5x9mMDE5aVuA0GzgnWkQmfmjr5e9OmQIKRd
+ ug7i+oojx+XhHF69Tk1b4xlzXx9vLSpVv9Ps12/6R+oV6c/IF0hNN6eDBnprHyG9n2/AzzaYlx
+ yAQAA
+X-Change-ID: 20260629-apple-mtp-keyboard-final-91cb5a6ff4fc
+To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
+ Neal Gompa <neal@gompa.dev>, Jassi Brar <jassisinghbrar@gmail.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Hector Martin <marcan@marcan.st>, 
+ Michael Reeves <michael.reeves077@gmail.com>, 
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Jiri Kosina <jikos@kernel.org>, 
+ Benjamin Tissoires <bentiss@kernel.org>
+Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ iommu@lists.linux.dev, linux-input@vger.kernel.org, 
+ Yureka Lilian <yureka@cyberchaos.dev>, Julian Braha <julianbraha@gmail.com>, 
+ Sasha Finkelstein <k@chaosmail.tech>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789738118; l=5610;
+ i=michael.reeves077@gmail.com; s=fedora-20260918;
+ h=from:subject:message-id;
+ bh=YleLy9dsJjhq7c2nL6zzJF1A+Z7obcoDrQWMYbeXFIk=;
+ b=ms7eApJ7nsr0wjgHHtKYCWL3B3/z3GjP5w1ujKulzGNlcSmNoTDNfB1PTg64iK5ob9YyQe/zl
+ 5yYk+rKZGW6B4QPaMW6qZrwgYwWYTUHCZAQ/2llIhbwieBH6uY1QKqW
+X-Developer-Key: i=michael.reeves077@gmail.com; a=ed25519;
+ pk=VJ0TvyQ9TvfzYZa908YSE9kpkjFLLD5luv0bERu+boc=
+X-Endpoint-Received: by B4 Relay for
+ michael.reeves077@gmail.com/fedora-20260918 with auth_id=1035
+X-Original-From: Michael Reeves <michael.reeves077@gmail.com>
+Reply-To: michael.reeves077@gmail.com
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] dt: undocumented compatible string apple,t6030-dart
-- [Low] dt: nodes avd and avd_dart are not sorted by unit address
---
+This series introduces support for the internal keyboards on Apple
+Silicon M2 and M3 MacBook models.
 
-commit 1c295b9d0d2ddda136e588deb146546700501f9d
-Author: Sofus Forstreuter <sofus.c@icloud.com>
+On these platforms, built-in input devices are managed by a dedicated
+coprocessor running an RTKit-based operating system. Communication
+between this coprocessor and the main processor is carried out over a
+low-latency hardware byte FIFO interface called DockChannel.
 
-arm64: dts: apple: t6030: add avd nodes
+To support this input path, the series introduces a few new components:
+- An apple-dockchannel mailbox driver to handle the low-level
+  byte-stream FIFO.
+- A DockChannel HID transport driver (apple-hid) that boots the
+  coprocessor using the RTKit framework and encapsulates the HID
+  protocol over the mailbox.
+- Minor additions to the apple-rtkit and hid-apple drivers to support
+  the TraceKit endpoint and integrate the keyboards into the existing
+  input-quirks framework.
+- Devicetree bindings and DTS updates to describe the nodes on M2 and
+  M3 laptops.
 
-This commit adds the avd and avd_dart nodes to the t6030 device tree.
+The transport driver is based on an original out-of-tree implementation
+by Hector Martin, but it has been significantly rewritten for upstream
+inclusion to use the standard Linux mailbox framework and align better
+with upstream HID design patterns and reduce reliance on hacks.
 
-> diff --git a/arch/arm64/boot/dts/apple/t6030.dtsi b/arch/arm64/boot/dts/a=
-pple/t6030.dtsi
-> index dda9568af11f9..802759a2352fa 100644
-> --- a/arch/arm64/boot/dts/apple/t6030.dtsi
-> +++ b/arch/arm64/boot/dts/apple/t6030.dtsi
-> @@ -361,6 +361,30 @@ pmgr_gfx: power-management@290e80000 {
->  			/* child nodes are added in t6030-pmgr.dtsi */
->  		};
-> =20
-> +		avd: avd@30b080000 {
+While the coprocessor manages both the keyboard and the trackpad, this
+series only enables keyboard support. The keyboard can be initialised
+without loading external firmware, whereas the trackpad requires
+firmware. Trackpad support will be submitted in a subsequent series
+once these base transport layers are established.
 
-[Severity: Low]
-Does this node ordering violate the device tree convention of sorting nodes
-by unit address in ascending numerical order? The avd@30b080000 node is
-placed before the iommu@30b010000 node, which can trigger dtc W=3D1 warnings
-when building the device tree.
+Tested on: MacBook Air M3 (J613).
 
-> +			compatible =3D "apple,t6030-avd", "apple,t8122-avd";
-> +			reg =3D <0x3 0x0b080000 0x0 0x12000>,
-> +			      <0x3 0x0b092000 0x0 0x12000>,
-> +			      <0x3 0x0b0a4000 0x0 0x4000>,
-> +			      <0x3 0x0b100000 0x0 0x10000>;
-> +			reg-names =3D "code", "sram", "mbox", "ctrl";
-> +			interrupt-parent =3D <&aic>;
-> +			interrupts =3D <AIC_IRQ 788 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <AIC_IRQ 789 IRQ_TYPE_LEVEL_HIGH>;
-> +			power-domains =3D <&ps_avd_sys>;
-> +			resets =3D <&ps_avd_sys>;
-> +			iommus =3D <&avd_dart 0>;
-> +		};
-> +
-> +		avd_dart: iommu@30b010000 {
-> +			compatible =3D "apple,t6030-dart", "apple,t8110-dart";
+Signed-off-by: Michael Reeves <michael.reeves077@gmail.com>
 
-[Severity: Low]
-Is the apple,t6030-dart compatible string missing from the dt-bindings
-documentation? Because the schema uses additionalProperties: false, the
-absence of this entry from Documentation/devicetree/bindings/iommu/apple,da=
-rt.yaml
-will cause a standard dtbs_check warning when validating the device tree.
+Changes in v3:
+- Link to v2: https://lore.kernel.org/all/20260918-apple-mtp-keyboard-final-v2-0-a5c685e50b60@gmail.com/
+- Fix failed-probe cleanup and interface publication ordering.
+- Fix report lengths/types and reject replacement descriptors.
+- Terminate serial replies and encode checksums as little endian.
+- Honor HID_QUIRK_IGNORE_SPECIAL_DRIVER.
+- Clarify the DockChannel TX byte register layout.
+- All changes above address Sashiko feedback.
 
-> +			reg =3D <0x3 0x0b010000 0x0 0x4000>;
-> +			#iommu-cells =3D <1>;
-> +			interrupt-parent =3D <&aic>;
-> +			interrupts =3D <AIC_IRQ 795 IRQ_TYPE_LEVEL_HIGH>;
-> +			power-domains =3D <&ps_avd_sys>;
-> +		};
+Changes in v2:
+- Link to v1: https://lore.kernel.org/asahi/20260630-apple-mtp-keyboard-final-v1-0-506d936a1707@gmail.com/
+- Rebase onto latest upstream and add M3 Pro/Max device-tree support.
+- Use an optional STM node to decide whether to wait for device IDs
+  (suggested by Yureka Lilian).
+- Rename bindings to match the t8112 fallback (suggested by Conor Dooley).
+- Fix FIFO MMIO write width (suggested by Yureka Lilian) and run mailbox
+  interrupt handling in the IRQ thread.
+- Remove the duplicate report fixup (suggested by Sasha Finkelstein)
+  and redundant HID dependency (suggested by Julian Braha).
+- Fix teardown and the missing HID stop callback; simplify interface lookup.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918-avd-v1-0-4=
-9977931f455@icloud.com?part=3D8
+---
+Michael Reeves (9):
+      dt-bindings: mailbox: apple: Add M3 ASC mailbox compatibles
+      dt-bindings: mailbox: apple: Add DockChannel mailbox
+      dt-bindings: iommu: apple,dart: Add M3 compatibles
+      dt-bindings: input: apple: Add DockChannel HID transport
+      mailbox: apple: Add DockChannel FIFO controller
+      HID: apple: Add support for DockChannel HID keyboards
+      HID: apple: Add DockChannel HID transport driver
+      arm64: dts: apple: Add MTP DockChannel HID nodes
+      arm64: dts: apple: Enable DockChannel HID on M2 and M3 laptops
+
+Sasha Finkelstein (1):
+      soc: apple: rtkit: Add tracekit endpoint
+
+ .../input/apple,t8112-dockchannel-hid.yaml         |  104 ++
+ .../devicetree/bindings/iommu/apple,dart.yaml      |    6 +-
+ .../devicetree/bindings/mailbox/apple,mailbox.yaml |    3 +
+ .../bindings/mailbox/apple,t8112-dockchannel.yaml  |   77 ++
+ MAINTAINERS                                        |    5 +
+ arch/arm64/boot/dts/apple/t602x-die0.dtsi          |   46 +
+ arch/arm64/boot/dts/apple/t602x-j414-j416.dtsi     |   29 +
+ arch/arm64/boot/dts/apple/t6030.dtsi               |   46 +
+ arch/arm64/boot/dts/apple/t6031-die0.dtsi          |   46 +
+ arch/arm64/boot/dts/apple/t603x-j514-j516.dtsi     |   24 +
+ arch/arm64/boot/dts/apple/t8112-j413.dts           |   24 +
+ arch/arm64/boot/dts/apple/t8112-j415.dts           |   24 +
+ arch/arm64/boot/dts/apple/t8112-j493.dts           |   26 +-
+ arch/arm64/boot/dts/apple/t8112.dtsi               |   46 +
+ arch/arm64/boot/dts/apple/t8122-j504.dts           |   26 +
+ arch/arm64/boot/dts/apple/t8122-j613.dts           |   27 +
+ arch/arm64/boot/dts/apple/t8122-j615.dts           |   27 +
+ arch/arm64/boot/dts/apple/t8122.dtsi               |   47 +
+ drivers/hid/Kconfig                                |    2 +
+ drivers/hid/Makefile                               |    2 +
+ drivers/hid/dockchannel/Kconfig                    |   14 +
+ drivers/hid/dockchannel/Makefile                   |    3 +
+ drivers/hid/dockchannel/apple-hid.c                | 1177 ++++++++++++++++++++
+ drivers/hid/hid-apple.c                            |  118 +-
+ drivers/mailbox/Kconfig                            |   12 +
+ drivers/mailbox/Makefile                           |    2 +
+ drivers/mailbox/apple-dockchannel.c                |  372 +++++++
+ drivers/soc/apple/rtkit.c                          |    2 +
+ include/linux/hid.h                                |    1 +
+ include/linux/mailbox/apple-dockchannel.h          |   29 +
+ 30 files changed, 2319 insertions(+), 48 deletions(-)
+---
+base-commit: 5dd1818b15d98d4a20806cd00b1b40320b06004f
+change-id: 20260629-apple-mtp-keyboard-final-91cb5a6ff4fc
+
+Best regards,
+-- 
+Michael Reeves <michael.reeves077@gmail.com>
+
+
