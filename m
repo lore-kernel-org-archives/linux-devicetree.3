@@ -1,130 +1,147 @@
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D3F14E36E6
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 11:29:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD80C3AAF51
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 11:31:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789731000; cv=none; b=qiHAjjTmu+AW28vxCO77QkrrPS2dAyIbClmTGdppTWsX08gYHE/dZNoiaddn6Qj/Y7hjO/6mAZLfZ6O0hXbGfRitDWd0+qGSbxSQDnNPW3aM2gRpZk3CvHtBYuCPV6kbJ346vMxoC4+ntJmjLStizasXeia/fy+AYhSxDGGZn2c=
+	t=1789731065; cv=none; b=r97C/BJFKvwYBt5esbboL2dMd+MvKBstfUOtz2DQQ5/ga9R9TdqD7ON4nwtf2FtOL9PlUydP2HeIeq2ZbG0HnSe/EQsZZcA051lqVzhFg00liCTbAOnm8JBGyLVZBuzJ57a3RV6h08HKiDkwgh+Ykv645z/mUNh9W6IecA7smDk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789731000; c=relaxed/simple;
-	bh=NHdyr5irXkAWSK7SovevL6gz1Aqt/Mc1x9NZQLzd2j4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nk3fKr8gEKjREHiL2tqV2fj1xSnLqwtLHltbqNFVIZtvihg9t3CVBgtVtBbeD8jAprhvNDXUeZUvnJNX0U3kp5rMFHD8Wt4sRLgdv3DboM/AVWZpH7rCVKX4yh9sy15B0aaMmjwfm7MqQQH9U+DTxdH8jKLRzdHZjUccbT7Dth8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MnkP7CEh; arc=none smtp.client-ip=209.85.208.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789731065; c=relaxed/simple;
+	bh=GcArmRCrOZpELy4TyR6KSE7lMQCZ+2wjNVJyM0Q21YQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pVe3w1BscjuSVv1VbbySRh10l90g8CFOUIoS7ZsIPOPIhvqI3Fskl6fTT3nzo61XUURK5++CEViUiDG8TkqqYrbaU1mHbHpTM7z+G91EJjw3om45R1yDd6UCxZuzoBE/j6yr7wluok657QdusD9UbSMwNCBjC8I0gWxDVm5ZB7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A6+N6bW2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MnkP7CEh"
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6a5e971c970so2202352a12.0
-        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 04:29:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789730989; x=1790335789; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7+UlRdpKqeY/71MgfJXq5xM1feUDii+5U8Wx3BoLhe8=;
-        b=MnkP7CEhHlUeledK+zFMFuPwFEBrH+frGemfVlXjx+b/cikFqSd9Z1MarJr3vT4kwW
-         ULF4NSCv3OGu/sN2wtVQbGRdv0DnAAHCTsb+IzkO/wJTLtsumKDOkrAGgfxM0jBunTyY
-         jwHj9sF8k3kK2q+tvBLIv5m5W/6KMMXvQNAzw7WzgEU6ZQXtNbhfNJ2AwGzfJY+neqH2
-         VmB1kravRsbmcWNBiGI9Qc5FIu6cvyE+bwDaXF3i10f1NdG6OEmRCsa+AUyS5aXXRzK9
-         h4LERPco4Ie1BNlggs74oQp9qE8yx+c929v9Ma49gRrMtPclCxJXOpVRLiltSNCjiLpS
-         2+2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789730989; x=1790335789;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7+UlRdpKqeY/71MgfJXq5xM1feUDii+5U8Wx3BoLhe8=;
-        b=AdTjuIxvunTq5rKjD3jxn0wydr3l4elIT3njVKU00A1WEGJHH+UH/yoZlWxgz2iPoy
-         1O/+D+4vmt90NzR47nm95TAP95ky1UHNrhr41VAU2wiLWmCA1kB3LOHyeRwIbmTjhydk
-         xOUOnsKq8Dx84b779vMzFr6jSjrJMPOmf3gw5VYoNCPHQi9TSo5SbxHB+S1GwhezVaS6
-         00+T1FX7hQTB6LMGKXeqTNWIM7hjdWYnJ8fms5ZUslbfh2RuiYZtU2VL3syi0kzqNxrY
-         pFUcvIsIo+0pvbXVEKadRNSCvFTaQGbiv4HHqjwtuXtmUqte374eV/rJ/dD568l1xYKs
-         tbLg==
-X-Forwarded-Encrypted: i=1; AKwUvBzXoErJ6057PqL/ievdFntSH6ct/3PKPcvJNMtbVlH316CGkC6zpz0TMIqPztfurCBx37tD5lLYGdGi@vger.kernel.org
-X-Gm-Message-State: AFuF++lhClqLuTgv6TPsDj6+2mZI/3wk1x9g95WKICptp8H0EtOJB0ki
-	JzR2cJdGgy+o4hprt6Iza8fKxm+rJ+5kIGuEBGrx15NfOxlm9qlj5rqd
-X-Gm-Gg: AYBFou2G++q+K3TcnKxKujWMDF3u5wxYfmXR9xLP2W8HUjCzTBxS37Wb2w0zIL/6/XQ
-	X2FSglITbkl0bkWLl6J9kSnCs0+rELAFSqR5VexXqWsTGQ/f6fp/ntkrmJ0cpw9kiIkLeflqLv3
-	RkX02Cq60B7N9TilQbgudJugt58werfb2rz7d5oG1Bb23ivjDTSQMk3ftBx/GtWCBoJx85WsPk5
-	A+2tWp1Xgq9p+S5wCwEKbg+iutuBv/z1hFpqKU2vIdW7t8b3vIygOt/ADFEnoXa6hFFIULVoYY3
-	V3YNEBjl4oQnti4kBNPfO5KjTrBJhu/PFPjeHYZlAxYE1eVtLk/4Lh7y4OswEImAC9zQvOM5UnG
-	j2SztNYHEBMANTNDsfmCQ3CKv+rrDtA4C6bMNfW2LrZFbcNI3jxpCImkATQB3xbUpi7PByfKciT
-	KbC3/vyIyEn+iWN8mazlcppyjZZ5l5Hc83Oyu8PCD/WxM2PiIywppquawQQPXTXT8Z7WaENncas
-	A/SEbzXOrvUwAdI6GZTSh1/d4N6/KmyyAk=
-X-Received: by 2002:aa7:c9c1:0:b0:6aa:17:3b6b with SMTP id 4fb4d7f45d1cf-6aa36cce9e7mr3591718a12.0.1789730989123;
-        Fri, 18 Sep 2026 04:29:49 -0700 (PDT)
-Received: from [192.168.1.30] (161-53-210-87.ftth.glasoperator.nl. [87.210.53.161])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa59710fb4sm775318a12.14.2026.09.18.04.29.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 18 Sep 2026 04:29:48 -0700 (PDT)
-Message-ID: <8e7cf0cd-5db8-4565-82e4-932fba96f21e@gmail.com>
-Date: Fri, 18 Sep 2026 13:29:47 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A6+N6bW2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BCB71F00893;
+	Fri, 18 Sep 2026 11:31:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789731064;
+	bh=xku0mQ7DlQYT23dIZk7jLMoqOmM1hgklzsAYADSbmPA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=A6+N6bW2eJ7X4uwztiq31Ufy1pmskigYpnd6qsud3xUqe5gCkkHLsAKZ/duoShy+9
+	 +lhzplWdQKyV5N3f/FaXzTRtHKFDZVaDYyMpuQo3nIb8flk7693fRrBetLN+IQFy4i
+	 kpDnqL+9bVxNWIBVnOztrL0aY+sAyzMM+BjDTFZ0XMcuKgr+CWPGsJQQBDIFcS1Eom
+	 NMyuYaMKjBBf6EsCM/TrTL9wBeKPvH4MLPZkI2vM/YHXSGH0D/s0igK6IN+ZHYrMs7
+	 LG++/dv5USnAKDQxbiCu+g5TlBsGkxVpiwss1ev6VqDrRqjIrqP7fWpHx6Ui7xp287
+	 dXLwbpjP5MtZQ==
+Date: Fri, 18 Sep 2026 13:31:00 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Andrew Gaylard <ag@ffroot.co.za>
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+	qinjian@cqplus1.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	linux@armlinux.org.uk
+Subject: Re: [PATCH 3/4] arm: dts: sunplus: add Tibbo LTPP3G2 board
+Message-ID: <20260918-silent-zircon-cuttlefish-bafcbc@quoll>
+References: <20260917082632.626614-1-ag@ffroot.co.za>
+ <20260917082632.626614-4-ag@ffroot.co.za>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/3] arm64: dts: qcom: sm7325-xiaomi-taoyao: switch to
- device-specific pmic-glink compatible
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Sebastian Reichel <sre@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org
-References: <20260915084901.56622-1-zstaseg@gmail.com>
- <20260915084901.56622-4-zstaseg@gmail.com>
- <6b2c1fa6-5bf2-4c1c-8046-929576ddbc53@oss.qualcomm.com>
-Content-Language: en-US
-From: Stanislav Zaikin <zstaseg@gmail.com>
-In-Reply-To: <6b2c1fa6-5bf2-4c1c-8046-929576ddbc53@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260917082632.626614-4-ag@ffroot.co.za>
 
-On 9/17/26 1:31 PM, Konrad Dybcio wrote:
-> On 9/15/26 10:49 AM, Stanislav Zaikin wrote:
->> Switch taoyao to "xiaomi,taoyao-pmic-glink" compatible so
->> qcom_battmgr can identify the device and apply its taoyao-specific
->> battery property mapping, required because its firmware shifts
->> battery property IDs relative to the generic sm7325-pmic-glink
->> firmware.
->>
->> Signed-off-by: Stanislav Zaikin <zstaseg@gmail.com>
->> ---
->>   arch/arm64/boot/dts/qcom/sm7325-xiaomi-taoyao.dts | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/sm7325-xiaomi-taoyao.dts b/arch/arm64/boot/dts/qcom/sm7325-xiaomi-taoyao.dts
->> index 6f8bc65bb99b..bc4dfa49ef38 100644
->> --- a/arch/arm64/boot/dts/qcom/sm7325-xiaomi-taoyao.dts
->> +++ b/arch/arm64/boot/dts/qcom/sm7325-xiaomi-taoyao.dts
->> @@ -72,7 +72,7 @@ key-volume-up {
->>   	};
->>   
->>   	pmic-glink {
->> -		compatible = "qcom,sm7325-pmic-glink",
->> +		compatible = "xiaomi,taoyao-pmic-glink",
->>   			     "qcom,qcm6490-pmic-glink",
->>   			     "qcom,pmic-glink";
+On Thu, Sep 17, 2026 at 10:26:31AM +0200, Andrew Gaylard wrote:
+> Add a DTS for the Tibbo LTPP3G2 board, which uses the Sunplus SP7021
+> SoC. The initial DTS was provided by Sunplus Technology Co. and has
+> been adapted for upstream with permission.
 > 
-> As krzk points out, this should be a standalone single compatible,
-> because it's neither going to work with qcm6490-pmic-glink nor with
-> qcom,pmic-glink
+> The board features eMMC, SPI, a bit-banged I2C EEPROM (Atmel 24C16),
+> PWM output to a buzzer, a watchdog, RTC, and two GPIO LEDs (heartbeat
+> and MMC activity).
 > 
-> Konrad
+> Signed-off-by: Andrew Gaylard <ag@ffroot.co.za>
+> ---
+>  MAINTAINERS                                   |   6 +
+>  arch/arm/boot/dts/sunplus/Makefile            |   5 +-
+>  .../dts/sunplus/sunplus-sp7021-ltpp3g2.dts    | 182 ++++++++++++++++++
+>  3 files changed, 190 insertions(+), 3 deletions(-)
+>  create mode 100644 arch/arm/boot/dts/sunplus/sunplus-sp7021-ltpp3g2.dts
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index a53620839407..f54a833484a0 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -3737,6 +3737,12 @@ F:	drivers/reset/reset-sunplus.c
+>  F:	include/dt-bindings/clock/sunplus,sp7021-clkc.h
+>  F:	include/dt-bindings/reset/sunplus,sp7021-reset.h
+>  
+> +ARM/TIBBO LTPP3G2 BOARD
+> +M:	Andrew Gaylard <ag@ffroot.co.za>
+> +L:	linux-arm-kernel@lists.infradead.org
+> +S:	Maintained
+> +F:	arch/arm/boot/dts/sunplus/sunplus-sp7021-ltpp3g2.dts
+> +
+>  ARM/Synaptics SoC support
+>  M:	Jisheng Zhang <jszhang@kernel.org>
+>  M:	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>
+> diff --git a/arch/arm/boot/dts/sunplus/Makefile b/arch/arm/boot/dts/sunplus/Makefile
+> index 868f2ea0c127..25ba2e530c35 100644
+> --- a/arch/arm/boot/dts/sunplus/Makefile
+> +++ b/arch/arm/boot/dts/sunplus/Makefile
+> @@ -1,5 +1,4 @@
+>  # SPDX-License-Identifier: GPL-2.0
+>  dtb-$(CONFIG_SOC_SP7021) += \
+> -	sunplus-sp7021-demo-v3.dtb
+> -dtb-$(CONFIG_SOC_SP7021) += \
+> -	sunplus-sp7021-demo-v3.dtb
+> +	sunplus-sp7021-demo-v3.dtb \
+> +	sunplus-sp7021-ltpp3g2.dtb
+> diff --git a/arch/arm/boot/dts/sunplus/sunplus-sp7021-ltpp3g2.dts b/arch/arm/boot/dts/sunplus/sunplus-sp7021-ltpp3g2.dts
+> new file mode 100644
+> index 000000000000..f91b0de79c3d
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/sunplus/sunplus-sp7021-ltpp3g2.dts
+> @@ -0,0 +1,182 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Device Tree Source for Tibbo LTPP board G2
+> + *
+> + * Copyright (C) 2021 Sunplus Technology Co.
+> + */
+> +
+> +/dts-v1/;
+> +
+> +#include "sunplus-sp7021-achip.dtsi"
+> +
+> +/ {
+> +	compatible = "tibbo,ltpp3g2", "sunplus,sp7021";
+> +	model = "Tibbo LTPP3G2";
+> +
+> +	aliases {
+> +		serial0 = &uart0;
+> +	};
+> +
+> +	chosen {
+> +		bootargs = "console=ttySUP0,115200 earlycon root=/dev/mmcblk0p8 rootwait";
 
-Only the battmgr implementation differs but the rest is compatible with 
-qcm6490 (UCSI implementation) and generic pmic-glink (basic 
-communication). So, we should keep all 3 compatibles.
+None of above should be here. earlycon is for debugging. Console is
+below. root - why booting is fixed to mmc? Why none of other boot
+methods are suitable or allowed?
 
--- 
+> +		stdout-path = "serial0:115200n8";
+> +	};
+
+...
+
+> +	pins_btuart: pinmux_btuart-pins {
+> +		sunplus,pins = <
+> +			SPPCTL_IOPAD(40, SPPCTL_PCTL_G_PMUX, MUXF_UA4_RX, 0)
+> +			SPPCTL_IOPAD(41, SPPCTL_PCTL_G_PMUX, MUXF_UA4_TX, 0)
+> +			SPPCTL_IOPAD(56, SPPCTL_PCTL_G_PMUX, MUXF_UA4_RTS, SPPCTL_PCTL_L_ONV)
+> +			SPPCTL_IOPAD(49, SPPCTL_PCTL_G_PMUX, MUXF_UA4_CTS, 0)
+> +		>;
+> +	};
+> +
+> +	pins_bt_reset: pinmux_bt_reset-pins {
+
+Please follow DTS coding style for naming.
+
 Best regards,
-Stanislav
+Krzysztof
 
