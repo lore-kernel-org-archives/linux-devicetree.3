@@ -1,135 +1,222 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f25.google.com (mail-ej2-f25.google.com [74.125.228.153])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A6784F93D8;
-	Fri, 18 Sep 2026 17:23:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA77A4A7CA7
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 17:26:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.153
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789752217; cv=none; b=BJ7ey2ovAE46bCZZMmgx+wzuTVahucFWzpNdbSBbePopxDq4ghRMjkwyi8puYo/O44Q0CXUoYXxDjAALEiKF31ebiAHpZ8Zv9OvghIAYQsfIsn8eiQ3+Q0+Oj13keTs9PTjefEES06KPCPFmPZLKtYbKr0rbC4wxIM9GNfmaW7c=
+	t=1789752413; cv=none; b=X2VKpqgUaCt0XJbOTOdtqNyJT7V/qt/0OtlhnX5zYv0Uq4iE0Mf9v2MK/117ZMWoaOQ0pVAg+Qqa4wk5beZX0TZiWlqC6yBypZydIk07+uo89AJtr+nGfLspPHHlB6F7l3r1EzBC8oOmGa9FiCjOYcO8Sa9dHLHPe1jUxGhthAI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789752217; c=relaxed/simple;
-	bh=4HVxzaIfsH50Tjqhhk4MQQPCUdZvbbsnSooyTXY7uCo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bTh7UFez07w3ZU4LsqUMnbqHPwL0XMzxBMMsZ32GcwZPzA+I7S9AQv3vCYdOUjE+knjjFnzLZLon49I6ZNZTdokBlcbSyJ+SQPa50Gkanux6q9zmhrHVwOCKj3IqfHA7AH3ZLHI37MTVwgpNM+Wnf2mDVVLH+aO16pFHG6rRLOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JYGlFNPf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789752413; c=relaxed/simple;
+	bh=qo8jkdcJFEHFTzGipPaUfZqW7W+79EGKtSF4WXhEUus=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=d8vCh5l060001LzyjyIbPPBtL9dFN9ezAfTXxs5Wdy+Z4ds8zGjNlk/aLhIGbxawhIX6qTzAZG4sK8zBEbs5y+C8GsI7CRAhK9y3EyJkYVEs9gqxyPs7N8xbSyQ1E3iJ5b2Ly1rjmnRea+o/D7Yckke9NnIURDXbXEsQeHP7TyA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ICXVmdJN; arc=none smtp.client-ip=74.125.228.153
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JYGlFNPf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CBEA1F000FF;
-	Fri, 18 Sep 2026 17:23:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789752215;
-	bh=dDqlIERKhP3CVyhjJwbIoqR2cBvYfeSKUJptbflUzQA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JYGlFNPfDXkKs9skhszsZ4ZDGHGyW+DNrsdeS/KtJZ2+8Y85S+KthwOiUt8x/5Y3d
-	 HdSEpgb+4L6xURz7mwXP0g9FH5stZz1LXsjL7ZcWl8rekqWq3CE6tALqjHyA+gzXk4
-	 DP4u2X8JuLDHzX+3SrUyeAlbW1yYh4zmI+jSVtb5gFRGL419jgWw/2W5xMXxD1Y8Xo
-	 +j/KlBYUdWIm8ra5Wya7F1x+6A4V01xMkz3onZMcqpb3fQ8y4o/mGV/0RzJoqrlGuy
-	 hTCj2kpa3+0Fxi8uY9hbo+vNSxYVbRzyJhFnZVo7QEB4cSf8RJmBEyfCw3Aj5S2ZLI
-	 wqwafFDalMEZQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 10/11] media: rcar-fcp: Handle resets
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Paul Elder" <paul.elder+renesas@ideasonboard.com>
-Cc: linux-clk@vger.kernel.org, media-ci@linuxtv.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260919-epaul-v7-3-rc1-x5h-vsp-fcp-v2-10-dbe9236bfd22@ideasonboard.com>
-References: <20260919-epaul-v7-3-rc1-x5h-vsp-fcp-v2-0-dbe9236bfd22@ideasonboard.com>
- <20260919-epaul-v7-3-rc1-x5h-vsp-fcp-v2-10-dbe9236bfd22@ideasonboard.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 17:23:34 +0000
-Message-Id: <20260918172335.7CBEA1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ICXVmdJN"
+Received: by mail-ej2-f25.google.com with SMTP id a640c23a62f3a-c254fa4c24cso163798766b.2
+        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 10:26:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1789752410; x=1790357210; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mkx2G8tVXZT5TMOyj6mqwZ1d2EOEfZ7XnWbPQ3SK7sc=;
+        b=ICXVmdJNUPIDRYVB1DGTXikaoOqvTqJsQLHndy2UEzI0WPYGNmgVjHbDklBKzBK4W6
+         fSVZpWIfOBa/9PA2cEYHbUxy3RvyWZ7Ud/XIyYuHi/H0YX6m/gkljLy2hFDcxorNvZwi
+         M49fGFwXJkToI2vofchSp9kxBmvn9DVWr422Pg18XaOf0yNVZP2Tn3nryj+67fuIi3Z4
+         f5i3KQuJpmxHGXHwzDg6B7OYoDRVmh10ruwX/t9xkUHORPvsZktsXy/ikn1ZaQrmCDYW
+         RN85CFUI96igMvO/Is9AofyFn8SQDP6gJFsoIpNGji+QveBUUaIbpT0h/v6o/FQBsXTu
+         GpKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789752410; x=1790357210;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mkx2G8tVXZT5TMOyj6mqwZ1d2EOEfZ7XnWbPQ3SK7sc=;
+        b=n6ukFGmVcD9pdxyZGPbpueHik0y5VGyeyG4ZG072pwKP2epQ4ulXwA8+Ol2fDcH24c
+         hUU6NLK81lHEHKEzTMeOPyAOWzFLlX0chb7HMCMuext4ktmofXuCaEag5UpVvhHsmQkT
+         xEnXF8rJ+qA49W7TOcWADg6PTzCbKa44Y9t8g12KN7wk7oaYIHZP3SdjeOt2C7ZUNdk4
+         RTKk0CovpxXlfI5fqaCGceEYD+4dK7p8wnEYGTPsz+ovUWFzZVNsJQGe/fne0HqnrRw/
+         LDD4UrspS0FdjZcOBR2mj/jftLYSCHBLtqnkeQHXh6JiPXbAgRbwiPoaO5I1uL7lcIn8
+         g1uw==
+X-Gm-Message-State: AFuF++m/mmJzksYKUrJairgw4ZwEcA7U+O/xuPVmQE+CNTp+3zrqzWZW
+	Ul2SybLnWTxgy9tDGJZfJKqxjpYe8OzIsArTEwK599e2oR9bVs33M9oOmXUg3opSBKI=
+X-Gm-Gg: AYBFou3mmXFfniCn4wVU5XXKBc9R/2BUUny0PAS4cG/YB88mn4D3bLGFCSkduXg1mPW
+	j4JgU9/Xae3oq2StIyl7QJRfo083s5U3cPWhC1g9cOC9zUaPQ1cNXldc+/fbODgCpAkguHNo+RJ
+	uY4yDmoLn6Q5g9Mmhjor+it8kFkv05jy/JtgW+tgNiZW71H6la1SOOiETCePkO3H3T/1kCFlDr/
+	3fDwkanGpKK7RudABdx6PF72mJdrInqHpDRIwZ+p7jclMAG0Y56M1pczvhBow/soeM8pj1pJWzV
+	McVt8LgwCCZwNm9tbfqeHeZ9teeHiHabsj3rJ6wX61Qnev16xB5zjBwIoq2UXIFw+Im6u6pMvBv
+	F7AC8u7XNrBITlTxE0Ayp4NjtEcTHY0LFV6of+SKbjHlFGKWnEuz0SNqeTsEuyI3Y60e5pE5SaW
+	27D+fvj9izXOIysXCn/IMezOAtbWm+7ebd0UsI8l1iSB1VE4RlnODabn7UIjWKm4OQg/CnfKOzh
+	IlAw809be67ZJd3bq5qn8zh3x35luflBnfmgLibYjnZLHt6GHNLmpajwZw//51wIg==
+X-Received: by 2002:a17:907:972a:b0:c29:59ea:5bf9 with SMTP id a640c23a62f3a-c2a1584d0c3mr348855166b.14.1789752409709;
+        Fri, 18 Sep 2026 10:26:49 -0700 (PDT)
+Received: from petegriffin.c.googlers.com (116.118.90.34.bc.googleusercontent.com. [34.90.118.116])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a35701d8bsm902966b.27.2026.09.18.10.26.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 10:26:49 -0700 (PDT)
+From: Peter Griffin <peter.griffin@linaro.org>
+Date: Fri, 18 Sep 2026 17:26:34 +0000
+Subject: [PATCH v3 1/4] dt-bindings: arm: google: Add dt bindings for
+ frankel/blazer/mustang
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260918-contrib-pg-pixel10-initial-dts-v3-1-c94e51140509@linaro.org>
+References: <20260918-contrib-pg-pixel10-initial-dts-v3-0-c94e51140509@linaro.org>
+In-Reply-To: <20260918-contrib-pg-pixel10-initial-dts-v3-0-c94e51140509@linaro.org>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+ Tudor Ambarus <tudor.ambarus@linaro.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ Mark Rutland <mark.rutland@arm.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Linus Walleij <linusw@kernel.org>, Drew Fustini <fustini@kernel.org>, 
+ Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, 
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
+ soc@lists.linux.dev, Douglas Anderson <dianders@chromium.org>, 
+ Juan Yescas <jyescas@google.com>, RD Babiera <rdbabiera@google.com>, 
+ Brian Norris <briannorris@google.com>, 
+ William McVicker <willmcvicker@google.com>, kernel-team@android.com, 
+ linux-serial@vger.kernel.org, Peter Griffin <peter.griffin@linaro.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Brian Norris <briannorris@chromium.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3553;
+ i=peter.griffin@linaro.org; h=from:subject:message-id;
+ bh=qo8jkdcJFEHFTzGipPaUfZqW7W+79EGKtSF4WXhEUus=;
+ b=owEBbQKS/ZANAwAKAc7ouNYCNHK6AcsmYgBqrXRXzv2ubpfgFzjRAOY1RgWBr71XsDwLoS9hx
+ 9EJkqiEJ9SJAjMEAAEKAB0WIQQO/I5vVXh1DVa1SfzO6LjWAjRyugUCaq10VwAKCRDO6LjWAjRy
+ uoxOEACNW73L3XepiEmszEXR+097pW2CyPuEVZUfEl1WFOxXsh2s9eREfKoQrvGdelmSZRGPO3f
+ Fw3a8grTgAuHA5Ffm1J2bFTpozcO6nolBLfQAQbxkO81z1ho4nXHIRPKjfts5/Ll7vfwo8735tp
+ S120by72b/v10A+hPdPTqSKYaCTfq8xmE7XRjAYB6syuE97GssBdyNv5RaUeCxqYksWWQhLzeSd
+ kCzW2mRtVsMHcVe0Pyytdf1k+LQrWMf9TDqZF8lm5kPe02eEv7ASqxzLDbaAoRblPuQ00Y0fU16
+ kEXEZFKABxaOFoR6j+FypBuZ787lHgw5mD/a3SNUK6ItYyE6ZaRmqQ+EBsrfmLDgdVoKQDQidE8
+ QWRUAbY5zT2IQq0irMXNN8yggaBfvOaMnCHrA4IpaT4GvY/SqtM1KAZ8Xbf+Rd3X9xxja6k0Lz7
+ zcv/99P/DEnP56aFQaWi04uhwMn9P8mjUDBAwxxd8X9EALxvRJRHPlz0F3iPL0Wrbfh9eg9e9Ef
+ UTsZYYLhBP3tWluUYOMMaZ8N9lNEk1mWUVQK/WTQTt6C6uc1W5hGg1NP5KnP4YIR0wEVidgSyg8
+ MX3/R6blspUuCSfbbFv9F27lXKp18SH1J4zmtN9ZLwuThYmtPNXDm0a/on/Rvp9maHZ3UGsdoHE
+ vSaPuqr1RVm7YMQ==
+X-Developer-Key: i=peter.griffin@linaro.org; a=openpgp;
+ fpr=0EFC8E6F5578750D56B549FCCEE8B8D6023472BA
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] media: rcar-fcp: hardware access while in reset due to PM ordering
-- [Medium] media: rcar-fcp: missing reset assertion on driver unbind due to=
- async PM
---
+Add binding documentation for Tensor G5 SoC (Laguna) which is referred
+to in code as "lga" and three of the boards that use the Laguna SoC
+Frankel (Pixel 10), Blazer (Pixel 10 Pro) and Mustang (Pixel 10 Pro XL).
 
-commit d0433a4b8db079b09c43d3564a42e501b20457b1
-Author: Paul Elder <paul.elder+renesas@ideasonboard.com>
+Additionally update to use a more efficient and scalable way to express
+the various names a SoC is known by.
 
-media: rcar-fcp: Handle resets
+Co-developed-by: Douglas Anderson <dianders@chromium.org>
+Signed-off-by: Douglas Anderson <dianders@chromium.org>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Brian Norris <briannorris@chromium.org>
+Signed-off-by: Peter Griffin <peter.griffin@linaro.org>
+---
+Changes in v2:
+ * Update ect rule as per Krysztof suggestion
+ * Remove all the pre-production variants (EVT, DVT etc)
+ * The equivalent patch in the previous submission is
+   https://lore.kernel.org/lkml/05c833f0-15bc-4a86-9ac4-daf835fe4393@kernel.org/
+   but this is now almost entirely different diff. I've added the
+   co-developed-by tag as I've kept the more efficient way to express
+   the names a SoC is known by.
+---
+ Documentation/devicetree/bindings/arm/google.yaml | 48 ++++++++++++++---------
+ 1 file changed, 29 insertions(+), 19 deletions(-)
 
-On some versions of the FCP, such as the one on the X5H, reset control
-is required to operate the FCP. Add support for handling resets
-optionally, to continue supporting versions that do not require it.
+diff --git a/Documentation/devicetree/bindings/arm/google.yaml b/Documentation/devicetree/bindings/arm/google.yaml
+index 99961e5282e56..b5977e20f3937 100644
+--- a/Documentation/devicetree/bindings/arm/google.yaml
++++ b/Documentation/devicetree/bindings/arm/google.yaml
+@@ -13,27 +13,16 @@ description: |
+   ARM platforms using SoCs designed by Google branded "Tensor" used in Pixel
+   devices.
+ 
+-  Currently upstream this is devices using "gs101" SoC which is found in Pixel
+-  6, Pixel 6 Pro and Pixel 6a.
+-
+-  Google have a few different names for the SoC:
+-  - Marketing name ("Tensor")
+-  - Codename ("Whitechapel")
+-  - SoC ID ("gs101")
+-  - Die ID ("S5P9845")
+-
+-  Likewise there are a couple of names for the actual device
+-  - Marketing name ("Pixel 6")
+-  - Codename ("Oriole")
+-
+-  Devicetrees should use the lowercased SoC ID and lowercased board codename,
+-  e.g. gs101 and gs101-oriole.
++  Currently upstream this is devices using gs101 SoC which is found in Pixel
++  6, Pixel 6 Pro and Pixel 6a and Laguna SoC canonically referred to as lga
++  found in Pixel 10, Pixel 10 Pro and Pixel 10 Pro XL.
+ 
+ properties:
+   $nodename:
+     const: '/'
+   compatible:
+     oneOf:
++      # Google Tensor G1 AKA gs101 AKA whitechapel AKA Die ID S5P9845 boards
+       - description: Google Pixel 6 or 6 Pro (Oriole or Raven)
+         items:
+           - enum:
+@@ -41,14 +30,35 @@ properties:
+               - google,gs101-raven
+           - const: google,gs101
+ 
+-  # Bootloader requires empty ect node to be present
++      # Google Tensor G5 AKA lga (laguna) SoC and boards
++      - description:
++          Google Pixel 10, 10 Pro, 10 Pro XL (Frankel, Blazer,
++          Mustang).
++        items:
++          - enum:
++              - google,lga-blazer
++              - google,lga-frankel
++              - google,lga-mustang
++          - const: google,lga
++
+   ect:
+     type: object
+     additionalProperties: false
+ 
+-required:
+-  - ect
+-
+ additionalProperties: true
+ 
++allOf:
++  # Bootloader requires empty ect node to be present
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: google,gs101
++    then:
++      required:
++        - ect
++    else:
++      properties:
++        ect: false
++
+ ...
 
-> diff --git a/drivers/media/platform/renesas/rcar-fcp.c b/drivers/media/pl=
-atform/renesas/rcar-fcp.c
-> index dfb0ca93e854d..76d4c250b3081 100644
-> --- a/drivers/media/platform/renesas/rcar-fcp.c
-> +++ b/drivers/media/platform/renesas/rcar-fcp.c
+-- 
+2.55.0.1082.g2b9226bbc0-goog
 
-[ ... ]
-
-> @@ -190,6 +197,24 @@ static void rcar_fcp_remove(struct platform_device *=
-pdev)
->  	pm_runtime_disable(&pdev->dev);
->  }
-
-[Severity: Medium]
-Will this leave the device powered on and out of reset if the driver is
-unbound?
-
-A client driver (like VSP1) calls rcar_fcp_disable(), which performs an
-asynchronous pm_runtime_put(). If the rcar_fcp driver is removed via sysfs
-immediately afterward, rcar_fcp_remove() calls pm_runtime_disable() which
-cancels any pending asynchronous idle/suspend work.
-
-Because rcar_fcp_remove() relies solely on pm_runtime_disable() without a
-synchronous suspend (e.g., via pm_runtime_put_sync() or manually asserting
-the reset), the device is trapped in RPM_ACTIVE and the reset control will =
-be
-released without being asserted.
-
-> +static int fcp_pm_runtime_suspend(struct device *dev)
-> +{
-> +	struct rcar_fcp_device *fcp =3D dev_get_drvdata(dev);
-> +
-> +	return reset_control_assert(fcp->rstc);
-> +}
-> +
-> +static int fcp_pm_runtime_resume(struct device *dev)
-> +{
-> +	struct rcar_fcp_device *fcp =3D dev_get_drvdata(dev);
-> +
-> +	return reset_control_deassert(fcp->rstc);
-> +}
-
-[Severity: High]
-Does tying the reset control to runtime PM here cause the hardware to be
-accessed while still in reset?
-
-The vsp1 driver's PM resume callback (vsp1_pm_runtime_resume) calls
-vsp1_device_init(), which in turn calls vsp1_reset_wpf(). This function
-invokes rcar_fcp_soft_reset(), performing register I/O on the FCP:
-
-drivers/media/platform/renesas/rcar-fcp.c:rcar_fcp_soft_reset() {
-    ...
-	rcar_fcp_write(fcp, RCAR_FCP_REG_RST, RCAR_FCP_REG_RST_SOFTRST);
-	ret =3D readl_poll_timeout(fcp->base + RCAR_FCP_REG_STA, ...);
-    ...
-}
-
-However, vsp1_pm_runtime_resume() only enables the FCP (via
-rcar_fcp_enable()) after calling vsp1_device_init().
-
-Since the FCP is not yet PM-resumed when rcar_fcp_soft_reset() executes, its
-reset control is still asserted. Writing to hardware registers while the
-device is held in reset causes a bus hang or imprecise external abort.
-
-> +
-> +static const struct dev_pm_ops fcp_pm_ops =3D {
-> +	RUNTIME_PM_OPS(fcp_pm_runtime_suspend, fcp_pm_runtime_resume, NULL)
-> +};
-> +
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260919-epaul-v7-3=
--rc1-x5h-vsp-fcp-v2-0-dbe9236bfd22@ideasonboard.com?part=3D10
