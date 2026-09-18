@@ -1,107 +1,70 @@
-Received: from mail-ej2-f29.google.com (mail-ej2-f29.google.com [74.125.228.157])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4C8648E0D2
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 08:37:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.157
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF28A49D596
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 08:38:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789720652; cv=none; b=gUJhr5Fr1pOCbovOOAZ3+DyJlZRxIo7vKAJX20eIPSrud9wxNPt0fHKWhkzYNKfmHOodpe2fP8qtQT0KH7zcs7WfR9ruS/syQyifOltTqj4xIAJQk/+kaNAvVCZez4ZwtDWcaQ76c67MpiFuCUV1UWEm6BNZjWPrEBJ1JBFPsdc=
+	t=1789720686; cv=none; b=PzaZNuZfFRkYt4NHHr2jv+MZNvvWiCZHOc96cB7usMeeVO7wEwZ00vgLgUbIGqp1/NvlLmIubNQrwqAtouyA8H17jc5eE3ugMUxk43Febo3lgcN+KDCt+gvdbTtiObVZ5s2Y+/xf0lqhZGEwtHdCbHE05I6Xp8P9kocL+Be1jJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789720652; c=relaxed/simple;
-	bh=Uxr4WVyD/DNS/detS6ug+v7NOvEjI5JJaJV4V+VWxsU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=am0IELLQjdqJ+e6HE3lYFiGf8zbohkyqCGFE+OGwLECfUReAMIrSdzirYS3qO31rmgyW7gHDghwg9CwyC+/wp3Fd1qqE2xdbjNNXcLbkfS7TJtUBPww7Rj8hrj8jqZiY8GlpinMbFZsQXJY7kPUoNQ6Y3chlEOX3agEhRpFGRYc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=sUyKAVm5; arc=none smtp.client-ip=74.125.228.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1789720686; c=relaxed/simple;
+	bh=nyiGRPw84v9lwfjRJbd1/D/bHlTM+QmFadF6+0EwGrM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=kx8utYgYBIrzz5G1oVdH64OpZEcYC7DYi04Z8pQEU9GSnPegfWj3t93v6SoOOaJTGbd3GHY2qsZOs5Q8pp68aaR15I2L8WgVxinCcYDzvTrKdZu5it/3gssHsYfrwrfW/qEtaAHM/19DMdH+C6o97XAKQrtp7L/9sNjpHIWN4i8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ISxhYBp1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="sUyKAVm5"
-Received: by mail-ej2-f29.google.com with SMTP id a640c23a62f3a-c294496989aso67110966b.3
-        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 01:37:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789720648; x=1790325448; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EsGHbbePiTbUM57NiqY/i+2M/82wdnf8yfJzQr85VmA=;
-        b=sUyKAVm5UpfIhhx75ErJhS6MhdSrfjRXsde0yBrmtZLPEhSOoZwsTSeg2sPetwzmSS
-         zFDuCjaOq2pfNyh0hC1OWHKqPxYyh5Jf53eCycmrOTuDBreFIljsoVmr98FFBpKBftkE
-         dVPzK2Jg0MCAGFcU+cL7kYUvP5E3Re9QxSNA9+P/F4yo5GK53Up9tnhah2OpIna1ZYRX
-         JthbQcFArVC/Pmnc+4ANRjvUekvp65CzP1/3xVZfjXTG85PrTvTmuv6Me7DfQYG3g1S+
-         uXZKj+0eHTvrTYK0NSI0RAkp7P4GsNJNjunmdrh78Gw51scMd6otBM+8jYoCBR08b1yL
-         qXyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789720648; x=1790325448;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EsGHbbePiTbUM57NiqY/i+2M/82wdnf8yfJzQr85VmA=;
-        b=wGB4Cq72chNLt72tWtMQfnfKvy3eZbo2eyoowVqqo35fMUeUfbN1ibA1xWW8Fyl+nv
-         4mRUwQSqQchpX1whrNG46OGGYRkYNyo085yxXjPD2txu6vgMFLaYNZzIrwG3FC+0cXS1
-         cPDKWJ9ADnIFJmp+TqX5ZV/JEdIfHtXNrXwLbB7EP/8tK03iGgkXSLKGfRvsNHhMxUJC
-         lwIuDafkZt1S3gQMkA3OuYNkRKUqgLGLHE/rz5BPwbC2/aFW6+nvOQUqh4OHXibZ20uz
-         oVxUlCiXZubEIrPz/IkS5QAxcRsWCmggziqbi7c8pc6Zpu/N9xYde8Q+8VF2AJwePGlt
-         Uf7Q==
-X-Forwarded-Encrypted: i=1; AKwUvBx3xKW+ztcGP/coJcL8yyR8XdhUK3mbR8THuToo/wGfQsQj9FdqhworwO/5t+iX2Nq1DPm1kDPz49Nh@vger.kernel.org
-X-Gm-Message-State: AFuF++nPkyeh+NuanZk0JlrjWgX0hf+I3opa1KQ0EGgKgmBLb7r1R29l
-	yh7z9dIPGIg7cb2dehoBs1IExUIhFAIOK396zuimXVsuBS7kJJioTzPNkva1BwKtIZA=
-X-Gm-Gg: AYBFou3CeBdxo5E9ZQQcYKd8Q4L4zT6K0L92w+sy7tofTNOlLxNYkCY6k25x0j4Ihyx
-	m+GcIehID3cZQChYAbhEpNRaUtB1G77oA0pdYD+HmsCnCGWziFRzpWNTsOOqvQ3u78lmLvzovB5
-	qw86ykMKZemGwwGaBz9i/NKEsVNLonMeFaE8Myo9VphDJ1756yJY3UOANqe+hh7IvCzVF0P9GWO
-	fg8et0yUqqkr0fdaGFwCjkIEp7nC14ekx5R8vswqq0Thy6fNyms9QEmLDF2yfCYTsUakjF6Pt3A
-	WGsQSlWwndHAYV/VDM1eN4G9HouoegZOS0JsQi63YSs7Ja/o3xVMxmwvpjjkRl0BC6rIkdVdWmC
-	w4EYEh69sGFZesgPZsucsF+9UCZFOUCKgtRTiZXz8d/tZ3Te/pW/RSK0RbqeKnv0u9TKxDN8ct4
-	6FC25PxRbXLddQxUUnXC9pVrhVGOxGsqXElfl6LkKn8JmPaG8yJROfU5M8xs/XrqWabsxpcACcm
-	4PuD/LiRw==
-X-Received: by 2002:a17:907:1c1b:b0:c25:62db:772b with SMTP id a640c23a62f3a-c2a15846850mr191330566b.7.1789720648074;
-        Fri, 18 Sep 2026 01:37:28 -0700 (PDT)
-Received: from [192.168.0.167] ([109.76.4.225])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a1bbc6a06sm32784166b.53.2026.09.18.01.37.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 18 Sep 2026 01:37:27 -0700 (PDT)
-Message-ID: <70284db7-a7d9-48a6-acdd-7a9850cdc7e4@linaro.org>
-Date: Fri, 18 Sep 2026 09:37:25 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ISxhYBp1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B6771F000FF
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 08:38:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789720684;
+	bh=nyiGRPw84v9lwfjRJbd1/D/bHlTM+QmFadF6+0EwGrM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ISxhYBp1XjUPTOU/33vfrOxuZC2d+Q3kQjhykcWkGm0JQKT0adQpFRvlvW8SwS8ZR
+	 2VsPlaocRTemgEkbHMu6GfSY0PrSXICnmxaH260WiYwzLX4WBl7HqEI6eJUJKNR1cN
+	 31JHAu7/BLF1F4DDFSdgmFl7QJ/GezoH1vaQPj52y/ym/5nuQwvnrJsnJP19tYGSeL
+	 QYyHR8eh7dmUX17Vn5O4MKnklpiMijnQhjDCut6yyiDgU7vQYzhCXrI2ggJb4nHiS/
+	 24R/SjHy5h8/uXcQMQCphmykjtct3v5vIuvNRk+81EzT7eDutZOt95kkjGbryp/2i0
+	 9fWtDQbQaNruw==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8c5231570so64218e87.2
+        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 01:38:04 -0700 (PDT)
+X-Gm-Message-State: AFuF++lIMnR00eLYwa10x1m1xoovy8TW3A+ME96jZSGSdWsl8Emg/E1i
+	Xh0wA2T6acLWFNLrGpGxNxvyFj9+Un6/cQtHmE7lvN11n17BPlyO+QtYI3qxxaVcf3CaCLxmlyV
+	mr+fT/PQOgsY6gNiJsfzm8jFCayZuHAA=
+X-Received: by 2002:a05:6512:110a:b0:5ae:b259:75a1 with SMTP id
+ 2adb3069b0e04-5b8c17ee5c7mr468241e87.12.1789720683033; Fri, 18 Sep 2026
+ 01:38:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v19 0/5] Add phy_get_by_of_node and devm helper
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
- Todor Tomov <todor.too@gmail.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Bryan O'Donoghue <bod@kernel.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>, Felipe Balbi <balbi@ti.com>,
- linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linux-phy@lists.infradead.org,
- Krzysztof Kozlowski <krzk@kernel.org>, stable@vger.kernel.org
-References: <20260917-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v19-0-21ad8a76e941@linaro.org>
- <cqoquu7hzclx54km763745dupaxahv7y4xbzq7vxg23isptgqz@j6los24mhnnn>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <cqoquu7hzclx54km763745dupaxahv7y4xbzq7vxg23isptgqz@j6los24mhnnn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260918-ux500-simple-sound-v2-0-88d29416e3c3@kernel.org>
+ <20260918-ux500-simple-sound-v2-7-88d29416e3c3@kernel.org> <20260917230646.AFDD81F000FF@smtp.kernel.org>
+In-Reply-To: <20260917230646.AFDD81F000FF@smtp.kernel.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 18 Sep 2026 10:37:50 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkBKhM9S2bG9ttiA0R7jqriQPH2SHRGvMWq1XzkTMc5zw@mail.gmail.com>
+X-Gm-Features: AcwNN1UCI8p1qU45iM7QZFxLwNfb4MbT_iNZnqOGLT43rWanvJTWkfzEs5ZfrgY
+Message-ID: <CAD++jLkBKhM9S2bG9ttiA0R7jqriQPH2SHRGvMWq1XzkTMc5zw@mail.gmail.com>
+Subject: Re: [PATCH v2 7/9] ARM: dts: ux500: Convert HREF audio to audio-graph-card2
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, 
+	mfd@lists.linux.dev, lee@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 18/09/2026 02:36, Manivannan Sadhasivam wrote:
-> Looks like you completely missed all my comments given in v17 :/
-> 
-> - Mani
+On Fri, Sep 18, 2026 at 1:06=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
 
-oops so I did, my apologies Mani, I will take those in now.
+> Thank you for your contribution! Sashiko AI review found 2 potential issu=
+e(s) to consider:
+> - [High] sound: ux500: hardcoded TDM slots break dynamic channel support
+> - [High] sound: ux500: ABI regression causing loss of DAPM pin switches
 
----
-bod
+Nobody cares.
+
+The old code was not working.
+
+Yours,
+Linus Walleij
