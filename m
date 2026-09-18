@@ -1,123 +1,131 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0EC34A49B2;
-	Thu, 17 Sep 2026 23:29:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A09134388D
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 00:35:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.28.215.223
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789687794; cv=none; b=WrEXTed+Rok3IpN0YI0hpbFbulCSbWFTxBOj7b8gZUaer4h3cQyYbDnBcKlwekTLNQ0dLVkidx1qqlM5PwC2/xn4pRvMRwo7T6fTH9k9HJCi69ikImFTGut6o+fHUaKq65XwmDiMP4AtYMWHrKvOld3RDReMPxOqO8MEe4Vytqw=
+	t=1789691710; cv=none; b=kDN1EsoM1x0vUYLS+UjSD2KzNPSUXci9OF65f/Y2PTSzNiQB5EMqhsW3pIwxPCqmUbFb2f7x265coMPoDtfyMAZjFoEze8Abagbx6RmPejdjz7jf9qYrHi/UqOTD2vjV1iRqqWjrz6dTEhAN5rfqrYFMBubth2HDjGYtyacSF2Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789687794; c=relaxed/simple;
-	bh=+wThaceYaumvqrlLGJjmaCxwCmZqb2Yg8iLHvDJDlWs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DUJ6CYa4EcDNbcYhjJ3Cdnjra1N4jfk/4ScF8DdzydaK24QL0jxrhKpG+zAC/VlUPbkGphfFPb/JihPvQM8SUJrDWzbK05VoLfRzlUKwm4rwaOuXH7QwccSidf6qxdGNemg52c/1ihEIWd8OMhChtiSL11h58RcP5dDq8PIqSH8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=B5p+Xnzi; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1789691710; c=relaxed/simple;
+	bh=8QgXkkNdHre4C26c9GV+NpL0QV5WDefYsihE2tDLo6E=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
+	 References:In-Reply-To; b=K+L0GuJn8jpm9RotxDCxm2/DkSlJ5m5Cv7h7xD0VCi4PWS3Rv0YDGzo1vSuVl5XsofyLFTTDIShRkwP8D8S6Uykeq/olMaOXNIqHUCxEMb/JIp2404elAz5coWEv1adSztG2l2yRhPEnUUQd9x5PGDtVHlpdiEZLidBS5/qMPR4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ubuntu.com; spf=pass smtp.mailfrom=fe-bounces.ubuntu.com; dkim=pass (2048-bit key) header.d=ubuntu.com header.i=@ubuntu.com header.b=g5frHq5i; arc=none smtp.client-ip=149.28.215.223
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ubuntu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.ubuntu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="B5p+Xnzi"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B7772104FC5;
-	Fri, 18 Sep 2026 01:29:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1789687779;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=jb9kTzrVW1dq0qOxk5XiOXPRymJIq91r5cgA7YkMm+E=;
-	b=B5p+Xnzi4qADShABAWEd3PEzfS9gkwIDd+59N4VPaniiqPy/VFxBgd66qYcg6beuNcMME7
-	BIcBBzPE0j/deTNpIB23YuOBllZDNcnCO1SD2MQjGzVcVSseOjaW9IdWKT2ff5HB8e165h
-	e6SZe2d0WHus7klHCkcFDvc1fU7HI0iZPLB/hYeLYxvJAqs2/PZq6HRss3xDgjAECMBFB4
-	1y7r6ot4gs83AX2A0CRRIbNLoPIjy8V2PM0AFpDEGBQikXbufe1YQ6AJ7kMFLyJ/EtCQ7C
-	NttVKw4HqNRWRbThJQ5gyAv0Oe1Uu2QYOpjN5c+DCeHw5fBEto+WaznvKd3Rjg==
-Message-ID: <c1197d8e-add5-48b7-b0ba-a5a91379ab04@nabladev.com>
-Date: Thu, 17 Sep 2026 20:55:56 +0200
+	dkim=pass (2048-bit key) header.d=ubuntu.com header.i=@ubuntu.com header.b="g5frHq5i"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ubuntu.com;
+ h=In-Reply-To: References: Cc: To: From: Subject: Message-Id: Date:
+ Content-Type: Content-Transfer-Encoding: Mime-Version; q=dns/txt;
+ s=fe-953a8a3ca9; t=1789691702;
+ bh=8QgXkkNdHre4C26c9GV+NpL0QV5WDefYsihE2tDLo6E=;
+ b=g5frHq5iolSfhZmMT1S+3FKrIYFMmLUvGiIXBDitA8INAs4gwmSKvWPoJO+WDpb6z8JX4MxqX
+ hxcczVcils9C8wzRGU8weDzfrhV/6NOvJKq6TWVV2HP1FlGb7PMONOJIXrTYJyjBRlcy33F2Gcu
+ f9fpuJ5IzldaEB+PDjBp383WuIYR8RjED63ma3p02k+xy4BebkbufLlmhuqB00NjuBYLiOA/Gqn
+ WaSjR4AbRalGjLvLW88dW2ErzJhCgFGAv00+uf+P/nE8VYe0tOWkpDWw3qtYsA0bqH05odCSCof
+ P7q31N3Tu7847u0RIxS1e/RI8btpQZPsBNctW8nUZ95w==
+X-Forward-Email-ID: 6aac871042fb3e762f6d18f9
+X-Forward-Email-Sender: rfc822; jpeisach@ubuntu.com, smtp.forwardemail.net,
+ 149.28.215.223
+X-Forward-Email-Version: 2.14.2
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/3] arm64: dts: imx95: Add support for Data Modul
- i.MX95 eDM SBC
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Marc Kleine-Budde <mkl@pengutronix.de>, robh@kernel.org,
- Frank.Li@kernel.org, imx@lists.linux.dev, conor+dt@kernel.org,
- Oliver Hartkopp <socketcan@hartkopp.net>,
- Oleksij Rempel <o.rempel@pengutronix.de>, linux-can@vger.kernel.org,
- Vincent Mailhol <mailhol@kernel.org>, devicetree@vger.kernel.org
-References: <20260917062543.534416-1-marex@nabladev.com>
- <20260917062543.534416-3-marex@nabladev.com>
- <20260917063512.C71F51F000FF@smtp.kernel.org> <aqwbBQUSfd60nVeI@SMW015318>
- <384c5f71-d5ab-4990-9567-027605457439@nabladev.com>
- <aqw1agBrSjYoy71_@SMW015318>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <aqw1agBrSjYoy71_@SMW015318>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8; format=Flowed
+Date: Thu, 17 Sep 2026 20:34:18 -0400
+Message-Id: <DLI0QTP0NUHS.DAFYGACKWKWO@ubuntu.com>
+Subject: Re: [PATCH v4 01/20] dt-bindings: phy: Add
+ starfive,jh7110-inno-hdmi-phy
+From: "Joshua Peisach" <jpeisach@ubuntu.com>
+To: "Krzysztof Kozlowski" <krzk@kernel.org>, "Michal Wilczynski"
+ <m.wilczynski@samsung.com>
+Cc: "Vinod Koul" <vkoul@kernel.org>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Andrzej Hajda" <andrzej.hajda@intel.com>, "Robert Foss"
+ <rfoss@kernel.org>, "Laurent Pinchart" <Laurent.pinchart@ideasonboard.com>,
+ "Jonas Karlman" <jonas@kwiboo.se>, "Jernej Skrabec"
+ <jernej.skrabec@gmail.com>, "Luca Ceresoli" <luca.ceresoli@bootlin.com>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "Lee
+ Jones" <lee@kernel.org>, "Andy Yan" <andy.yan@rock-chips.com>, "Philipp
+ Zabel" <p.zabel@pengutronix.de>, "Emil Renner Berthing" <kernel@esmil.dk>,
+ "Hal Feng" <hal.feng@starfivetech.com>, "Michael Turquette"
+ <mturquette@baylibre.com>, "Stephen Boyd" <sboyd@kernel.org>, "Heiko
+ Stuebner" <heiko@sntech.de>, "Paul Walmsley" <pjw@kernel.org>, "Palmer
+ Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
+ "Alexandre Ghiti" <alex@ghiti.fr>, "Dominique Belhachemi" <db@domibel.de>,
+ "Brian Masney" <bmasney+clk@redhat.com>, "Jerome Brunet"
+ <jbrunet+clk@baylibre.com>, <linux-phy@lists.infradead.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <mfd@lists.linux.dev>,
+ <linux-clk@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-rockchip@lists.infradead.org>, <linux-riscv@lists.infradead.org>,
+ "Marek Szyprowski" <m.szyprowski@samsung.com>, "Maud Spierings"
+ <maud_spierings@murena.io>, "Graham Markall" <hello@big-grey.co.uk>,
+ "Icenowy Zheng" <zhengxingda@iscas.ac.cn>, "Chaoyi Chen"
+ <chaoyi.chen@rock-chips.com>, "Joshua Peisach" <jpeisach@ubuntu.com>,
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+X-Mailer: aerc 0.21.0
+References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
+ <CGME20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125@eucas1p2.samsung.com> <20260915-jh7110-clean-send-v4-1-f0e4fd6f2cc8@samsung.com> <20260917-mutant-chamois-of-competence-46ca77@quoll>
+In-Reply-To: <20260917-mutant-chamois-of-competence-46ca77@quoll>
 
-On 9/17/26 8:46 PM, Frank Li wrote:
+On Thu Sep 17, 2026 at 2:51 AM EDT, Krzysztof Kozlowski wrote:
+> On Tue, Sep 15, 2026 at 05:32:09PM +0200, Michal Wilczynski wrote:
+>> Add the dt-binding for the StarFive JH7110 Innosilicon HDMI PHY.
+>>=20
+>> This device is a child of the starfive,jh7110-hdmi-subsystem node. It
+>> functions as both a PHY provider for the controller and as a clock
+>> provider for the variable pixel clock (hdmi_pclk), which it generates
+>> from its refoclk.
+>>=20
+>> Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
+>
+> While I appreciate other people looking at this, I don't think review
+> here applies. It was a blanket tag, given to the entire series, with
+> exception that it is from newbie, thus I want to ask: was this binding
+> REALLY reviewed by Joshua?
+>
+> Are the rest of the patches actually reviewed or just "looks good to
+> me"? I see no comments from Joshua on v3, v2 and v1, which is usual sign
+> of doing review.
+>
+>
+I commented on v3 saying that I would test if I could. I don't just
+throw "Reviewed-by" on everything I look at.
 
-Hello Frank,
+If anything, I've been trying to be more honest in reviews, and only
+review ones that I actually care about[1].
 
-[...]
+If reviewing patches isn't a good way for newbies to start getting
+familiar with the kernel code (especially a NEW driver), then I don't
+know what is.
 
->>>>> +	reg_panel_vcc: regulator-panel-vcc {
->>>>> +		compatible = "regulator-fixed";
->>>>> +		regulator-min-microvolt = <3300000>;
->>>>> +		regulator-max-microvolt = <3300000>;
->>>>> +		regulator-name = "PANEL_VCC";
->>>>> +		gpios = <&i2c2_gpio_expander_20 17 0>;
->>>
->>> gpio third arg 0, means GPIO_ACTIVE_HIGH
->>>
->>> 	so need enable-active-high
->>>
->>> if your boards have invertor should use GPIO_ACTIVE_LOW
->>
->> I already went through all that, please see "Re: [PATCH 3/3] arm64: dts:
->> imx95: Add support for Data Modul i.MX95 eDM SBC" .
-> 
-> at https://lore.kernel.org/imx/f4dbeaac-ab10-4980-9fc5-533907be223c@nabladev.com/
-> 
-> <&i2c2_gpio_expander_20 17 0>;
->                             ^
-> 
-> 0 should use predefine MACRO, after I check 0 means GPIO_ACTIVE_HIGH.
-> 
-> so need enable-active-high for regulator.
+And to be clear, I'm not using a LLM to review. I am using actual
+intelligence. For the JH7110 PR specifically, I did actually go through
+and review each commit, because I wanted to learn what was happening
+and why. Actually, that's why I asked where the data sheet was[2].
 
-This is extended via a DTO, so no, I must not use a macro because I do 
-not know the polarity of this signal, that is why there is 0 here.
+So if you really want to, drop the Reviewed-by tag. And if it makes
+you feel better, I'll leave the series alone.
 
-The enable-active-high DT property must explicitly NOT be here, because 
-the DTO can not remove properties from the base DT. Adding 
-enable-active-high here would make the DTO unable to operate this signal 
-as active-low .
+-Josh
 
->>>>> +	tas2552: audio-codec@40 {
->>>>> +		compatible = "ti,tas2552";
->>>>> +		reg = <0x40>;
->>>>> +		#sound-dai-cells = <0>;
->>>>> +		avdd-supply = <&reg_1p8v>;
->>>>> +		iovdd-supply = <&reg_3p3v>;
->>>>> +		vbat-supply = <&reg_5p0v>;
->>>>> +		enable-gpio = <&i2c2_gpio_expander_20 23 GPIO_ACTIVE_HIGH>;
->>>>
->>>> [Severity: Low]
->>>> This isn't a bug, but should tas2552 be using the enable-gpios property name
->>>> instead of the deprecated enable-gpio? The patch changelog mentions replacing
->>>> gpio with gpios DT properties.
->>>
->>> Please fix this one.
->>
->> No, this is correct, see
->>
->> Documentation/devicetree/bindings/sound/ti,tas2552.yaml:  enable-gpio:
-> 
-> It is fine now, I suggest update bindings to allow both. which convert
-> by Rob at Jan 2026. I think Rob may miss it.
-> 
-> kernel hack code covert -gpio to -gpios
-I'll add that into my todo, but that is a separate fix from this DT.
+[1] I won't be reviewing PRs around devicetree since I'm not confident
+(or frankly, interested) in it at this point. https://lore.kernel.org/all/D=
+L94TU52KBMO.2HAKJMJXV2CPE@ubuntu.com/
+
+[2] Michal giving me the hardware info:
+https://lore.kernel.org/all/071901ef-57f3-456f-af5b-a8c99a0a7dd3@samsung.co=
+m/
