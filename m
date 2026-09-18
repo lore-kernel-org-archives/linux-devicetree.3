@@ -1,190 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ironport.ite.com.tw (219-87-157-213.static.tfn.net.tw [219.87.157.213])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF7FA4AA574;
-	Fri, 18 Sep 2026 11:19:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C061F4ABBA4;
+	Fri, 18 Sep 2026 11:19:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=219.87.157.213
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789730374; cv=none; b=sHnNwLqgKQCzypZSZsEEvIOdmIYTkAJgvZD5nmBRuHjV/7Q6GtKuGtRd52aAB7brM57DIvsHWk6bdl7tDyrG1mJM/ijZgrnO9Z0Gfvt9EYX/6nWayHpiM2MwUwPwyvupev8U7TT3/yX0F5ktwrGviE+kCaLu/FFrHTe6eGUjJAo=
+	t=1789730388; cv=none; b=I2Ajnb8uTvIDshdWqYdXlTLKqwvQDsVY2RzW/5UuT40wG7wj42JmAJ4xfESnTTPzqBEx+3zqy6TRovxlaqVmSdlF/nVC7M7MeWUX5cV+O2b7sBm9ApS7/PPUNgEIc/z80zVJckCmeHKd/GcR93z887gKDIajBxa2tnSC80xv+x0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789730374; c=relaxed/simple;
-	bh=9ccsESYXHvoMwf4HBPfn96X/ssa+CtkaPha9NehXZkY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=KdQvQmuX/+eDz+lmZS4PyKoummk0DeeLlcdMxDoljGeKWRg5/hDWu/lV2c1uorUsyBJnF3GxSphzw8zqFQ8hNVMEe/BHO2JrqnaOeo5oKnHDK5YM0ZfVhbowd/mHWoRcgewLpmI5+yFkdCiHT2l/r0i42vJT4az7bDTCAEVTVy0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J+ZsQOzG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789730388; c=relaxed/simple;
+	bh=T8aUStlEhZh8FYeESGDdwzevaSu3/YhAiBDL7EQ84cg=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=E0yQVYlgYe47jrq3vWhoGcXB8fRubrSTxmNYmDYMI0Puo+cTA+LyW9kLZMHMXAB1RIh6iVKUDgebsNGjtSOzO2xFuv2LmhfLpR86Wl2ckZOSfMazzsbWITaHtQO2sSRO16Xyrd5SvfeqD+YgNU+tiAUdkaVdY/E2gHd0zGEAM2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw; spf=pass smtp.mailfrom=ite.com.tw; dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b=InXx+GTY; arc=none smtp.client-ip=219.87.157.213
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J+ZsQOzG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DDC21F000FF;
-	Fri, 18 Sep 2026 11:19:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789730372;
-	bh=1YlMacjxCYi795BMSTNZ3KiDURvOtdGQRiDhRbWaapU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=J+ZsQOzG6WIcULoJSOEWasxr/rBSjjRYQHKSUY7ucTQmVl16c0f4pdkZZD+bOO2eT
-	 ja7FKP23BiSmLbIG0VZJkt32CGZmu9ltbybN5Hzy1QKx9WxMvdRjZrC81ePzFAwVC+
-	 nsMPIEctLgdenLw3+MGeRCxciu2EHjk3r+n4BHSFYH+mxZ6Xni1aTHG7wL98LsByuu
-	 V+/qmpOkTFe/6K8g62euYhgMaw35c8uLejwdm1OQqoOPWdyjHirROg2wK2/R12oGPD
-	 hfRpFqRCTAPwlskJODiNq7xjZuRzXq9ZVxCsaZ8B3WxvRUx/a/nV4xvntHxB2a4Z+L
-	 rS65D5pIsloQA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 05/10] mailbox: apple: Add DockChannel FIFO
- controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Michael Reeves" <michael.reeves077@gmail.com>
-Cc: linux-input@vger.kernel.org, robh@kernel.org, dmitry.torokhov@gmail.com, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260918-apple-mtp-keyboard-final-v2-5-a5c685e50b60@gmail.com>
-References: <20260918-apple-mtp-keyboard-final-v2-0-a5c685e50b60@gmail.com>
- <20260918-apple-mtp-keyboard-final-v2-5-a5c685e50b60@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 11:19:31 +0000
-Message-Id: <20260918111932.3DDC21F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b="InXx+GTY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=ite.com.tw; s=dkim;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=T8aUStlEhZh8FYeESGDdwzevaSu3/YhAiBDL7EQ84cg=;
+  b=InXx+GTY9nsgvs42wv6aX58nAcZZEkLgFkd6250pLLbAKYRScR0LQuJD
+   Qi0IGBXCBgAgI9cQ7sSLixfdfRDy9g1N9Kye5ZsYzlHeXHo0Q0HM7prXx
+   KbCRIqlPqmocbTabmjmYf5t7IyPIjsUCdpK3jqYLRLGM/u1s+VHik49+J
+   zIEisF3KUdvAODZphx3qKjSNEkKwoNoj4CpAqI+vZ4zgPSVYWg/dCcBTM
+   eZLpby5SQDlihqkVuPSeCQbfoHp7YieuUulxfaeO5cYn/wvkfNN/1wjYl
+   enmFKJexW5pu3W+LRPiNxHJTYXG6UqUrlMa4KTs2CbJEhgLb5YFKAfw+6
+   g==;
+X-CSE-ConnectionGUID: D8BMDDYOSRuQOUtw2FV3iA==
+X-CSE-MsgGUID: HpQARTkrSrOAP3D999ER6A==
+Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
+  by ironport.ite.com.tw with ESMTP; 18 Sep 2026 19:19:42 +0800
+Received: from tpemail1.internal.ite.com.tw (TPEMAIL1.internal.ite.com.tw [192.168.15.58])
+	by mse.ite.com.tw with ESMTP id 68IBJdSM030931;
+	Fri, 18 Sep 2026 19:19:39 +0800 (+08)
+	(envelope-from Hermes.Wu@ite.com.tw)
+Received: from TPEMAIL1.internal.ite.com.tw (192.168.15.58) by
+ TPEMAIL1.internal.ite.com.tw (192.168.15.58) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Fri, 18 Sep 2026 19:19:38 +0800
+Received: from TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291]) by
+ TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291%3]) with mapi id
+ 15.02.2562.046; Fri, 18 Sep 2026 19:19:38 +0800
+From: <Hermes.Wu@ite.com.tw>
+To: <sakari.ailus@linux.intel.com>
+CC: <mchehab@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+        <conor+dt@kernel.org>, <linux-media@vger.kernel.org>,
+        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH 20/21] media: i2c: it6625: use centrally managed active
+ state
+Thread-Topic: [PATCH 20/21] media: i2c: it6625: use centrally managed active
+ state
+Thread-Index: AQHdR1f0JNOGacAb70SRmiTIS7Nox7bUME/g
+Date: Fri, 18 Sep 2026 11:19:38 +0000
+Message-ID: <69a3df11b37f466fbdca8be37a6cc378@ite.com.tw>
+References: <20260918-upstream-it6625-follow-up-patch-v1-0-78d72d7886a5@ite.com.tw>
+ <20260918-upstream-it6625-follow-up-patch-v1-20-78d72d7886a5@ite.com.tw>
+ <aq0RaLPX5o0HU_yC@kekkonen.localdomain>
+In-Reply-To: <aq0RaLPX5o0HU_yC@kekkonen.localdomain>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-tm-snts-smtp: A6A5CD832C23351B08FBA5097B3C255EFD05E60C73A7A85E8E4B88BA57082D192002:8
+Content-Type: text/plain; charset="big5"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MAIL:mse.ite.com.tw 68IBJdSM030931
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] mailbox: apple: interrupt storm if TX FIFO not empty during IRQ_TX
-- [High] mailbox: apple: data corruption due to asymmetric byte lane mappin=
-g on TX
-- [High] mailbox: apple: TOCTOU race clearing IRQ_FLAG loses TX/RX events
---
-
-commit 93fab252e833f92aad9624f1eae3f18e4b2d3e72
-Author: Michael Reeves <michael.reeves077@gmail.com>
-
-mailbox: apple: Add DockChannel FIFO controller
-
-DockChannel is a hardware FIFO used by Apple coprocessors for
-low-latency byte-stream communication with the AP. Add a mailbox
-controller that preallocates RX storage, tracks IRQ enable state
-in software, and reports TX completion from the TX-empty interrupt.
-
-> diff --git a/drivers/mailbox/apple-dockchannel.c b/drivers/mailbox/apple-=
-dockchannel.c
-> index 0000000000000..d0a66e1b786cd
-> --- /dev/null
-> +++ b/drivers/mailbox/apple-dockchannel.c
-[ ... ]
-> +static void apple_dockchannel_irq_enable(struct apple_dockchannel *dc, u=
-32 bits)
-> +{
-> +	/*
-> +	 * IRQ_FLAG is write-to-clear. Clear stale latched flags before
-> +	 * unmasking so the next interrupt reflects current FIFO state.
-> +	 */
-> +	writel_relaxed(bits, dc->irq_base + IRQ_FLAG);
-
-[Severity: High]
-Does clearing IRQ_FLAG unconditionally before unmasking create a TOCTOU race
-that loses events?
-
-For example, in apple_dockchannel_send_data():
-1. apple_dockchannel_write_pending() runs and the coprocessor starts draini=
-ng
-   the FIFO.
-2. The coprocessor drains the TX FIFO and the hardware latches IRQ_TX.
-3. apple_dockchannel_irq_enable(dc, IRQ_TX) unconditionally clears the latc=
-hed
-   IRQ_TX completion flag.
-
-Can this result in permanent loss of TX completion interrupts, or similarly
-swallow RX data interrupts during apple_dockchannel_startup(), leading to a
-channel deadlock?
-
-> +	apple_dockchannel_irq_update(dc, bits, true);
-> +}
-[ ... ]
-> +static void apple_dockchannel_write_pending(struct apple_dockchannel *dc)
-> +{
-> +	size_t left =3D dc->tx_len - dc->tx_pos;
-> +	const u8 *p =3D dc->tx_buf + dc->tx_pos;
-> +
-> +	while (left) {
-> +		size_t avail;
-> +		size_t block;
-> +
-> +		avail =3D readl_relaxed(dc->data_base + DATA_TX_FREE);
-> +		if (!avail)
-> +			break;
-> +
-> +		block =3D min(left, avail);
-> +
-> +		while (block >=3D sizeof(u32)) {
-> +			writel_relaxed(get_unaligned_le32(p),
-> +				       dc->data_base + DATA_TX32);
-> +			p +=3D sizeof(u32);
-> +			left -=3D sizeof(u32);
-> +			block -=3D sizeof(u32);
-> +		}
-> +
-> +		while (block) {
-> +			writel_relaxed(*p++, dc->data_base + DATA_TX8);
-
-[Severity: High]
-Does this place the remainder byte in the wrong byte lane?
-
-The RX path in apple_dockchannel_read() documents that the hardware uses
-bits [15:8] for 8-bit FIFO accesses, shifting the read value by 8:
-
-    *p++ =3D readl_relaxed(dc->data_base + DATA_RX8) >> 8;
-
-Should the TX path also shift the byte << 8 to align with the hardware's
-expected byte lane, avoiding data corruption for unaligned payloads?
-
-> +			left--;
-> +			block--;
-> +		}
-> +	}
-> +
-> +	dc->tx_pos =3D dc->tx_len - left;
-> +}
-[ ... ]
-> +static irqreturn_t apple_dockchannel_irq_thread(int irq, void *data)
-> +{
-> +	struct apple_dockchannel *dc =3D data;
-> +	unsigned long irqflags;
-> +	u32 flags;
-> +	u32 pending;
-> +	bool tx_done =3D false;
-> +
-> +	flags =3D readl_relaxed(dc->irq_base + IRQ_FLAG);
-> +
-> +	spin_lock_irqsave(&dc->lock, irqflags);
-> +
-> +	pending =3D flags & dc->irq_mask & (IRQ_TX | IRQ_RX);
-> +	if (!pending)
-> +		goto out_unlock_none;
-> +
-> +	if (pending & IRQ_TX) {
-> +		if (apple_dockchannel_tx_empty(dc)) {
-> +			apple_dockchannel_irq_disable(dc, IRQ_TX);
-> +			tx_done =3D dc->tx_active;
-> +			dc->tx_active =3D false;
-> +		} else {
-> +			pending &=3D ~IRQ_TX;
-> +		}
-> +	}
-> +
-> +	writel_relaxed(pending, dc->irq_base + IRQ_FLAG);
-
-[Severity: High]
-If IRQ_TX is removed from the pending mask when the FIFO is not empty, does
-it prevent the hardware latch from being cleared?
-
-Since IRQ_FLAG is a write-to-clear register, writing back the modified mask
-with IRQ_TX cleared will fail to clear the IRQ_TX hardware latch. Will this
-cause an infinite interrupt storm upon returning from the handler?
-
-> +
-> +	spin_unlock_irqrestore(&dc->lock, irqflags);
-> +
-> +	if (tx_done)
-> +		mbox_chan_txdone(&dc->chan, 0);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918-apple-mtp-=
-keyboard-final-v2-0-a5c685e50b60@gmail.com?part=3D5
+SGkgU2FrYXJpLA0KDQpUaGFuayB5b3UgZm9yIHRoZSByZXZpZXcuIA0KDQo+IEkgZG9uJ3QgdGhp
+bmsgYWxsIHRoZSBhYm92ZSBpcyByZWxldmFudCBpbiB0aGUgY29tbWl0IG1lc3NhZ2UuDQoNCkFn
+cmVlZCwgdHJpbW1lZC4NCg0KPiBUaGlzIHBhcmFncmFwaCBjb3VsZCBnbyB0byB0aGUgY292ZXIg
+bGV0dGVyLg0KDQpBZ3JlZWQsIG1vdmVkIHRoZSBsb2NrLWF1ZGl0LXRyYWNlIHBhcmFncmFwaCB0
+aGVyZS4NCg0KPiArCS8qDQo+ICsJICogUHJvdGVjdHMgY29uY3VycmVudCBhY2Nlc3MgdG8gdGhl
+IGNoaXAncyByZWdpc3RlcnMgYW5kIHN0YXRlLg0KPiArCSAqIEFsc28gc2hhcmVkIGFzIHNkLnN0
+YXRlX2xvY2sgYW5kIGhkbC5sb2NrIChzZWUNCj4gWy4uLl0NCj4NCj4gVGhpcyBkb2Vzbid0IGhv
+bGQgYW55bW9yZSwgZG9lcyBpdD8gVHlwaWNhbGx5IGRyaXZlcnMgZG8gd2l0aG91dCBzdWNoDQo+
+IGxvY2tzIGFzIHRoZSBzdWJkZXYgc3RhdGUgbG9jayBpcyB1c2VkIGluc3RlYWQgLS0gYXNzaWdu
+aW5nIHlvdXIgb3duIGxvY2sNCj4gYWxzbyBoYXMgdGhlIGVmZmVjdCB0aGUgc2FtZSBsb2NrIGlz
+IHVzZWQgZm9yIHRyeSBzdGF0ZXMsIHRvby4NCg0KWW91J3JlIHJpZ2h0LCBhbmQgb24gcmVmbGVj
+dGlvbiBzaGFyaW5nIGl0IHdhcyB0aGUgd3JvbmcgY2FsbCwgbm90IGp1c3QNCmFuIHVuZGVyLWV4
+cGxhaW5lZCBvbmUuIGl0NjYyNV9sb2NrIGlzIGFuIE1DVS9yZWdpc3RlciBsb2NrOiB0aGUNCmNo
+aXAncyBpbnRlcm5hbCBNQ1UgZmlybXdhcmUgcHJvY2Vzc2VzIG9uZSByZWdpc3Rlci1kcml2ZW4g
+Y29tbWFuZCBhdA0KYSB0aW1lLCBhbmQgc29tZSBjb21tYW5kcyBhcmUgbXVsdGktc3RlcCBJMkMg
+dHJhbnNhY3Rpb25zICh3cml0ZSBhDQpjb25maWcgcmVnaXN0ZXIsIHRoZW4gcG9sbCBSRUdfSE9T
+VF9DVFJMX0lOVC9CX0NPTkZJR19VUERBVEUgdmlhDQppdDY2MjVfd2FpdF9mb3Jfc3RhdHVzKCkp
+IHRoYXQgbXVzdCBub3QgYmUgaW50ZXJsZWF2ZWQgd2l0aCBhbm90aGVyDQpzdWNoIGNvbW1hbmQu
+IFRoYXQncyBhIHJlYWwsIHNlcGFyYXRlIGNvbnN0cmFpbnQsIGJ1dCBpdCBpc24ndCBhDQpyZWFz
+b24gdG8gYWxzbyBtYWtlIGl0IHRoZSBzdWJkZXYgc3RhdGUgbG9jayBvciB0aGUgY29udHJvbCBo
+YW5kbGVyJ3MNCmxvY2sgLS0gbmVpdGhlciB0aGUgcGFkIGZvcm1hdCBub3IgdGhlIGNvbnRyb2wg
+aGFuZGxlciBpcyBjaGlwIHN0YXRlLg0KDQpEcm9wcGVkIGJvdGggYWxpYXNpbmcgYXNzaWdubWVu
+dHMgKHNkLT5zdGF0ZV9sb2NrLCBoZGwtPmxvY2spIGFuZCBsZXQNCnRoZSBjb3JlIGdpdmUgdGhl
+IHN1YmRldiBzdGF0ZSBhbmQgdGhlIGNvbnRyb2wgaGFuZGxlciB0aGVpciBvd24NCmluZGVwZW5k
+ZW50IGxvY2tzLCBsaWtlIG1vc3QgZHJpdmVycyBkby4gaXQ2NjI1X2xvY2sgc3RheXMgZXhhY3Rs
+eQ0Kd2hhdCBpdCBhbHdheXMgd2FzOiBhIHByaXZhdGUgbXV0ZXggdGFrZW4gZXhwbGljaXRseSBh
+cm91bmQgTUNVLw0KcmVnaXN0ZXIgYWNjZXNzLiBUaGF0IGRpZCBtZWFuIHJlLWF1ZGl0aW5nIGV2
+ZXJ5IGNhbGxlciB0aGF0IHVzZWQgdG8NCnJlYWNoIHRoZSBhY3RpdmUgcGFkIGZvcm1hdCB1bmRl
+ciB0aGUgaW1wbGljaXQNCnN0YXRlX2xvY2sgPT0gaXQ2NjI1X2xvY2sgYXNzdW1wdGlvbiAtLSBp
+dDY2MjVfaW5pdGlhbF9zZXR1cCgpLA0KaXQ2NjI1X2NsZWFyX3RpbWluZ3MoKSwgaXQ2NjI1X2xv
+Z19zdGF0dXMoKSwgYW5kDQppdDY2MjVfdXBkYXRlX3RpbWluZ3NfaWZfY2hhbmdlZCgpIG5vdyB0
+YWtlIHRoZSBhY3RpdmUgc3RhdGUncyBsb2NrDQpleHBsaWNpdGx5ICh0aGUgbGFzdCB0d28gYXJl
+bid0IGNvcmUtbG9ja2VkIHRvIGJlZ2luIHdpdGg6DQpWSURJT0NfTE9HX1NUQVRVUyBhbmQgVklE
+SU9DX1NVQkRFVl9TX0RWX1RJTUlOR1MgYXJlbid0IGluDQpzdWJkZXZfaW9jdGxfZ2V0X3N0YXRl
+KCkncyBzd2l0Y2ggaW4gdjRsMi1zdWJkZXYuYyksIG5lc3RpbmcNCml0NjYyNV9sb2NrIGluc2lk
+ZSB3aGVyZSB0aGV5IGFsc28gdG91Y2ggaXQ2NjI1LT50aW1pbmdzLiBUaGUgcnVsZQ0KZ29pbmcg
+Zm9yd2FyZDogYSBzdWJkZXYgc3RhdGUgbG9jaywgd2hlbiBoZWxkLCBpcyBhbHdheXMgdGhlIG91
+dGVyDQpsb2NrOyBpdDY2MjVfbG9jayBuZXN0cyBpbnNpZGUgaXQsIG5ldmVyIHRoZSByZXZlcnNl
+Lg0KDQo+IENvdWxkIHlvdSByZXdvcmsgdGhlIGNvZGUgdG8ga2VlcCB0aGlzIGZvciBhY3RpdmUg
+YW5kIHRyeSBwYXRocz8NCg0KQWdyZWVkLiBNb3ZlZCB0aGUgQUNUSVZFLW9ubHkgaGFyZHdhcmUg
+cHJvZ3JhbW1pbmcgaW50byBpdHMgb3duIGd1YXJkZWQNCmJsb2NrIGFuZCBsZXQgYm90aCBUUlkg
+YW5kIEFDVElWRSBmYWxsIHRocm91Z2ggdG8gb25lIHNoYXJlZCBjb21taXQgdGFpbA0KaW5zdGVh
+ZCBvZiBkdXBsaWNhdGluZyBpdC4NCg0KPiBUaGVyZSBhcmUgYSBmZXcgbGluZXMgbG9uZ2VyIHRo
+YW4gODA7IHBsZWFzZSBzcGxpdCB1bmxlc3MgdGhlcmUncyBhDQo+IHRhbmdpYmxlIHJlYXNvbiB0
+byBkbyBvdGhlcndpc2UuDQoNCkFncmVlZC4gSG9pc3RlZCB0aGUgcmVwZWF0ZWQgaXQ2NjI1X2Zv
+cm1hdHNbaWR4XS5jc2lfZm9ybWF0IGxvb2t1cCBpbnRvDQphIGxvY2FsIHZhcmlhYmxlLCB3aGlj
+aCBnZXRzIHRoZSBpdDY2MjVfc2V0X21pcGlfY29uZmlnX2xvY2tlZCgpIGNhbGwNCihhbmQgdGhl
+IG5laWdoYm9yaW5nIGNvbW1lbnQpIHVuZGVyIDgwIGNvbHVtbnMgd2l0aG91dCBhbiBhd2t3YXJk
+IHdyYXAuDQoNCj4gKwlpZiAoYWN0aXZlKSB7DQo+ICsJCSpmbXQgPSAqdjRsMl9zdWJkZXZfc3Rh
+dGVfZ2V0X2Zvcm1hdChhY3RpdmUsIDApOw0KPiArCQlyZXR1cm4gMDsNCj4gKwl9DQo+DQo+IFRo
+aXMgZnVuY3Rpb24gc2hvdWxkIHdvcmsgdGhlIHNhbWUgd2F5IGluZGVwZW5kZW50bHkgb2Ygd2hl
+dGhlciB0aGUNCj4gc3RhdGUgaXMgYWN0aXZlIG9yIG5vdC4NCg0KQWdyZWVkLiBJIHdhcyBzcGVj
+aWFsLWNhc2luZyBvbiB3aGV0aGVyIHNkLT5hY3RpdmVfc3RhdGUgZXhpc3RlZCB5ZXQsIHRvDQpz
+ZWVkIGEgbmV3IFRSWSBzdGF0ZSBmcm9tIHRoZSBjdXJyZW50IGFjdGl2ZSBmb3JtYXQgaW5zdGVh
+ZCBvZiByZXZlcnRpbmcNCnRvIGJvb3QgZGVmYXVsdHMuIFJld29ya2VkIGl0IHRvIGFsd2F5cyBz
+ZXQgdGhlIHNhbWUgZGVmYXVsdHMgcmVnYXJkbGVzcw0Kb2Ygd2hpY2ggc3RhdGUgaXQncyBpbml0
+aWFsaXppbmcgLS0gaXQ2NjI1LT50aW1pbmdzIGFuZCB0aGUgZGVmYXVsdA0KZm9ybWF0IGluZGV4
+IC0tIGZvbGxvd2luZyB0aGUgc2FtZSB1bmNvbmRpdGlvbmFsLWRlZmF1bHRzIHBhdHRlcm4NCmht
+MTI0Nl9pbml0X3N0YXRlKCkgdXNlcyBmb3IgdGhlIHNhbWUgYWN0aXZlL1RSWSBkaXN0aW5jdGlv
+bi4gVGhlDQpjb3JlIGFscmVhZHkgaG9sZHMgd2hpY2hldmVyIHN0YXRlIGluaXRfc3RhdGUoKSBp
+cyBpbml0aWFsaXppbmcgYmVmb3JlDQpjYWxsaW5nIGluLCBzbyByZWFkaW5nIGl0NjYyNS0+dGlt
+aW5ncyB1bmRlciBhIG5lc3RlZCBpdDY2MjVfbG9jayAoc2VlDQp0aGUgbG9ja2luZyByZXBseSBh
+Ym92ZSkgaXMgc2FmZSB0aGVyZSB0b287IGEgVFJZIHN0YXRlIG9wZW5lZCBhZnRlcg0Kc2lnbmFs
+IGRldGVjdGlvbiBzdGlsbCByZWZsZWN0cyB0aGUgbGl2ZSBkZXRlY3RlZCB3aWR0aC9oZWlnaHQv
+ZmllbGQsDQphbmQgdGhlIGNvZGUgYWx3YXlzIHN0YXJ0cyBmcm9tIHRoZSBkZWZhdWx0IGZvcm1h
+dCBpbmRleCwgc2FtZSBhcw0KaXQ2NjI1X2luaXRfZGF0YSgpIHNlZWRzIGl0IGF0IHByb2JlLg0K
+DQo+IFRoaXMgY29tbWVudCBpcyBoYXJkbHkgdXNlZnVsOyB0aGUgc2FtZSBhcHBsaWVzIHRvIHBy
+ZXR0eSBtdWNoIGFsbA0KPiBkcml2ZXJzIHVzaW5nIHN1Yi1kZXZpY2Ugc3RhdGUgYW5kIFY0TDIg
+Y29udHJvbHMuDQoNCkFncmVlZCwgZHJvcHBlZCBpdC4NCg0KS2luZCByZWdhcmRzLA0KDQpIZXJt
+ZXMNCg==
