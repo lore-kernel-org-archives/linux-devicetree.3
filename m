@@ -1,61 +1,211 @@
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93A7A37268A;
-	Fri, 18 Sep 2026 15:32:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 588C13DCDBB
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 15:33:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=121.127.44.73
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789745542; cv=none; b=PGWh6uKreYJ9Egm891liU6N030OtUyJ+/3xaJNDtN8CvQRoaCvqrGxbXGMqsDjXIUeIhFarRtVhKG73wc6EvduopxsLqaWcs24MdgBlv7/tVlrZJ2zFQRYAodTzVPCQPLGHa7ZgqRz2eWm5sFmH+hiHatfQN6Rch/5pChm2dWz8=
+	t=1789745589; cv=none; b=e6t4isbK2o+Rv9oIK1JhYX75sLVYP+7eePvLgjn7oIUSFJKvwR6WB3wEziM542d2b0swOgf75mW5rE8yQ9KxIngBPTtR2B4BpRy1Q4LvaEhoH7EYxDniiheIb+pV6r6L4WJxImmqehMTEF9yJQsSUtYjTBPn8oeAg8f90dR1BxE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789745542; c=relaxed/simple;
-	bh=bZ8AXXlYD9sXIfdcgepX3Hd3vPbuUeKyv/P+N2vckA0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BHoG+2ZYBe4KUwuH6UOmHFP4LV0udBYs0yAYtbHjd1T49J9yhduDpt1gXuS/+Hg4rCKQOGT2E6lttKAputeiCQq6o93m2SUu1YrKYYtiLAiQABX3VeZqX1w28ZSCwAnH4Dd+FBQe8UxLib5LbiezVofstbAodefJxsOcdrdOxog=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=f0Gt58dK; arc=none smtp.client-ip=5.135.140.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
+	s=arc-20240116; t=1789745589; c=relaxed/simple;
+	bh=L1WiWMmX3DsfOI8wyFB2zH02SO5nVuyZ3sk5usay3Fs=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=IZlyDjBGlud0fMA7C7yTD8orK3HfMugTuaedLa6E2AwIpgczLt7nA06agHjAEHylyHSAUszSN0M0A7rqgIgEQ3Np/vA9YfFxgGBin/g98WBbYy1caCBCHBPMQN9L5qIQjQS6ti5QbWF1hTXaU9o/+ihQIhnJvlEuSB+Aci7vlb4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ubuntu.com; spf=pass smtp.mailfrom=fe-bounces.ubuntu.com; dkim=pass (2048-bit key) header.d=ubuntu.com header.i=@ubuntu.com header.b=iIx8a7Ut; arc=none smtp.client-ip=121.127.44.73
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ubuntu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.ubuntu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="f0Gt58dK"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 413ED4E0A52;
-	Fri, 18 Sep 2026 17:32:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1789745538; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=78Xl4FOWGkjZe5U8AYrjpmnv50fnPoajS40Eazd24No=;
-	b=f0Gt58dKJjzn5H5F7CY7YR+vPs4b8OVJ82qMv1+i9xvlmYhZCbk5qpdleKz4kDly+sfAXv
-	XPmcZ63PTjvGksuMy6PJi0KhNYNyH2vzPShE8q8LSxoWf91/UFbgxpvPPgIYYFgvRuHnZT
-	r/qv6Y9lz1DCnoj3eL1d+krDOg2XVTsySlGVcMb4KcyWTVZ91v+J2gd8USQLeNVEDudkic
-	5WDAFjQxOyF+BIldVEkuVet4ah4yDMj7LREKcVLSD4b+A/5ddFNRvc1tK//qF+KE+b3r5I
-	TIkg+evU7qYGsrEDahdAefUKkyXEB5JVhnecrcpJ3k2g6RY2uO5Q5xPjUNjTgw==
-Message-ID: <d6ef5254-8906-4c5c-9842-5a7402426c7f@cjdns.fr>
-Date: Fri, 18 Sep 2026 17:32:16 +0200
+	dkim=pass (2048-bit key) header.d=ubuntu.com header.i=@ubuntu.com header.b="iIx8a7Ut"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ubuntu.com;
+ h=In-Reply-To: References: To: From: Subject: Cc: Message-Id: Date:
+ Content-Type: Content-Transfer-Encoding: Mime-Version; q=dns/txt;
+ s=fe-953a8a3ca9; t=1789745581;
+ bh=WtQrZyaQlO+mtHmYw2SBSJxPWTjmzlVgI7Rp9b5tPg4=;
+ b=iIx8a7UtQBnm9gk6rLQHK0IUP3MEaoFE5+A0iE1FZueL+yr1EdEjZZG5gNeo72rdjLqA7RPLA
+ DT6Sy8qrFDXjLMYjX/Xz8N3w9KEH5Ud1spbKQL96L2DnXKdsFoxMWc6Np6/PT/+XdET+tivv0Q/
+ ki5rFerHi9c+bb7n8GhL7LV7lTWjOl9ug40MZ3CIyRAZnXY7wHfELQOVFOKgzOszuMctguMgVSp
+ FBwclqPn8c1wAdm3NqBXJBfIOTin6fR/v/gan9uujMT3jhTgYPj/5NWPaUU8mOnmUw0VcRvaCOF
+ DKM6VZyP/9AXqQgCnJWWKSzl2VR9I2Z1yq4OvYs0MJCA==
+X-Forward-Email-ID: 6aad59a12df78bc22ddeff38
+X-Forward-Email-Sender: rfc822; jpeisach@ubuntu.com, smtp.forwardemail.net,
+ 121.127.44.73
+X-Forward-Email-Version: 2.14.2
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH v8 5/5] clocksource/timer-econet-en751221: Support
- EN751627 without percpu IRQ
-To: linux-mips@vger.kernel.org
-Cc: conor+dt@kernel.org, daniel.lezcano@kernel.org,
- devicetree@vger.kernel.org, krzk+dt@kernel.org,
- linux-kernel@vger.kernel.org, naseefkm@gmail.com, robh@kernel.org,
- tglx@kernel.org, grandmaster@al2klimov.de
-References: <20260918152822.343811-1-cjd@cjdns.fr>
- <20260918152822.343811-6-cjd@cjdns.fr>
-Content-Language: en-US
-From: Caleb James DeLisle <cjd@cjdns.fr>
-In-Reply-To: <20260918152822.343811-6-cjd@cjdns.fr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8; format=Flowed
+Date: Fri, 18 Sep 2026 11:32:45 -0400
+Message-Id: <DLIJUQCKB76W.3RHK9KPO5JSOZ@ubuntu.com>
+Cc: <linux-phy@lists.infradead.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <mfd@lists.linux.dev>, <linux-clk@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>,
+ <linux-rockchip@lists.infradead.org>, <linux-riscv@lists.infradead.org>,
+ "Marek Szyprowski" <m.szyprowski@samsung.com>, "Maud Spierings"
+ <maud_spierings@murena.io>, "Graham Markall" <hello@big-grey.co.uk>,
+ "Icenowy Zheng" <zhengxingda@iscas.ac.cn>, "Chaoyi Chen"
+ <chaoyi.chen@rock-chips.com>, =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
+ <u.kleine-koenig@baylibre.com>
+Subject: Re: [PATCH v4 00/20] drm: starfive: jh7110: Enable display
+ subsystem
+From: "Joshua Peisach" <jpeisach@ubuntu.com>
+To: "Michal Wilczynski" <m.wilczynski@samsung.com>, "Joshua Peisach"
+ <jpeisach@ubuntu.com>, "Vinod Koul" <vkoul@kernel.org>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Andrzej Hajda" <andrzej.hajda@intel.com>, "Robert Foss"
+ <rfoss@kernel.org>, "Laurent Pinchart" <Laurent.pinchart@ideasonboard.com>,
+ "Jonas Karlman" <jonas@kwiboo.se>, "Jernej Skrabec"
+ <jernej.skrabec@gmail.com>, "Luca Ceresoli" <luca.ceresoli@bootlin.com>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "Lee
+ Jones" <lee@kernel.org>, "Andy Yan" <andy.yan@rock-chips.com>, "Philipp
+ Zabel" <p.zabel@pengutronix.de>, "Emil Renner Berthing" <kernel@esmil.dk>,
+ "Hal Feng" <hal.feng@starfivetech.com>, "Michael Turquette"
+ <mturquette@baylibre.com>, "Stephen Boyd" <sboyd@kernel.org>, "Heiko
+ Stuebner" <heiko@sntech.de>, "Paul Walmsley" <pjw@kernel.org>, "Palmer
+ Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
+ "Alexandre Ghiti" <alex@ghiti.fr>, "Dominique Belhachemi" <db@domibel.de>,
+ "Brian Masney" <bmasney+clk@redhat.com>, "Jerome Brunet"
+ <jbrunet+clk@baylibre.com>
+X-Mailer: aerc 0.21.0
+References: <CGME20260915153213eucas1p148f013af239a334fc78cdc249c0f8a61@eucas1p1.samsung.com> <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com> <DLGBPXP4F8E0.9X0QMZ9GFQVF@ubuntu.com> <136d6789-2f0c-4a91-ab2d-de3a3f119d5d@samsung.com>
+In-Reply-To: <136d6789-2f0c-4a91-ab2d-de3a3f119d5d@samsung.com>
 
-> +	if (num_irqs > ARRAY_SIZE(econet_timer.irqs)) {
-> +		pr_err("%pOFn: Too many IRQs max %d got %d\n", np,
-> +		       ARRAY_SIZE(econet_timer.irqs), num_irqs);
-> +		return -EINVAL;
-> +	}
+On Thu Sep 17, 2026 at 1:22 PM EDT, Michal Wilczynski wrote:
 >
-Oh no, missed a git command before sending, please disregard :(
+>
+> On 9/16/26 02:45, Joshua Peisach wrote:
+>> On Tue Sep 15, 2026 at 11:32 AM EDT, Michal Wilczynski wrote:
+>>>
+>>> Testing
+>>> =3D=3D=3D=3D=3D=3D=3D
+>>>
+>>> Tested on a VisionFive 2 v1.3B using modetest.
+>>=20
+>> I.. got nothing. I did have to manually modprobe the modules, but
+>> unless I am doing something wrong.. I didn't get anything and modetest
+>> just gave -2.
+>
+> Hmm have you also changed the DTB not just the kernel and the modules
+> (you can also built in everything).
+>
+Yes (I didn't built-in everything, but I did make sure the DTB was
+copied and flash-kernel was run)
+
+> Also note modetest needs -M verisilicon.
+>
+
+"failed to open device 'versilicon' with busid '(null)': No such file
+or directory"
+
+
+> If that is not it, could you send "dmesg | grep -iE
+> 'verisilicon|inno|hdmi|vout'" and "ls /sys/class/drm/"?
+>
+the dmesg output:
+
+[    0.090950] /soc/display-subsystem@29400000/hdmi@29590000/controller: Fi=
+xed dependency cycle(s) with /soc/display-subsystem@29400000/display@294000=
+00
+[    0.091029] /soc/display-subsystem@29400000/display@29400000: Fixed depe=
+ndency cycle(s) with /soc/display-subsystem@29400000/hdmi@29590000/controll=
+er
+[    0.104227] /hdmi-connector: Fixed dependency cycle(s) with /soc/display=
+-subsystem@29400000/hdmi@29590000/controller
+[    0.104272] /soc/display-subsystem@29400000/hdmi@29590000/controller: Fi=
+xed dependency cycle(s) with /hdmi-connector
+
+
+/sys/class/drm only contains the file "version"
+
+-Josh
+
+>>=20
+>>> ---
+>>> Michal Wilczynski (20):
+>>>       dt-bindings: phy: Add starfive,jh7110-inno-hdmi-phy
+>>>       dt-bindings: display: bridge: Add starfive,jh7110-inno-hdmi-contr=
+oller
+>>>       dt-bindings: mfd: Add starfive,jh7110-hdmi-subsystem
+>>>       dt-bindings: soc: starfive: Add starfive,jh7110-vout-syscon
+>>>       dt-bindings: display: verisilicon: Add starfive,jh7110-dc8200
+>>>       dt-bindings: soc: starfive: Add starfive,jh7110-vout-subsystem
+>>>       drm/bridge: inno-hdmi: Split probe out of bind
+>>>       drm/bridge: inno-hdmi: Allow the register map to come from a pare=
+nt
+>>>       drm/bridge: inno-hdmi: Add .disable platform operation
+>>>       drm/bridge: inno-hdmi: Add .mode_valid platform operation
+>>>       drm/bridge: inno-hdmi: Make the PHY configuration table optional
+>>>       soc: starfive: Add jh7110-hdmi-subsystem driver
+>>>       soc: starfive: Add jh7110-vout-subsystem driver
+>>>       clk: starfive: jh7110-vout: Allow pixel clock rate propagation
+>>>       drm/bridge: starfive: Add JH7110 HDMI controller driver
+>>>       phy: Add common Innosilicon HDMI PHY helpers
+>>>       phy: rockchip: inno-hdmi: Use the common Innosilicon PHY helpers
+>>>       phy: starfive: Add jh7110-inno-hdmi-phy driver
+>>>       riscv: dts: starfive: jh7110: Update DT for display subsystem
+>>>       MAINTAINERS: Add StarFive JH7110 display subsystem entry
+>>>
+>>>  .../starfive,jh7110-inno-hdmi-controller.yaml      | 121 +++++
+>>>  .../bindings/display/verisilicon,dc.yaml           |   1 +
+>>>  .../mfd/starfive,jh7110-hdmi-subsystem.yaml        |  95 ++++
+>>>  .../phy/starfive,jh7110-inno-hdmi-phy.yaml         |  49 ++
+>>>  .../soc/starfive/starfive,jh7110-syscon.yaml       |   1 +
+>>>  .../starfive/starfive,jh7110-vout-subsystem.yaml   | 218 ++++++++
+>>>  MAINTAINERS                                        |  13 +
+>>>  arch/riscv/boot/dts/starfive/jh7110-common.dtsi    | 121 ++++-
+>>>  arch/riscv/boot/dts/starfive/jh7110.dtsi           | 105 +++-
+>>>  drivers/clk/starfive/clk-starfive-jh7110-vout.c    |   6 +-
+>>>  drivers/gpu/drm/bridge/Kconfig                     |  11 +
+>>>  drivers/gpu/drm/bridge/Makefile                    |   1 +
+>>>  drivers/gpu/drm/bridge/inno-hdmi.c                 | 112 +++-
+>>>  drivers/gpu/drm/bridge/jh7110-inno-hdmi.c          | 297 +++++++++++
+>>>  drivers/phy/Kconfig                                |   8 +
+>>>  drivers/phy/Makefile                               |   1 +
+>>>  drivers/phy/phy-inno-hdmi.c                        | 298 +++++++++++
+>>>  drivers/phy/rockchip/Kconfig                       |   1 +
+>>>  drivers/phy/rockchip/phy-rockchip-inno-hdmi.c      | 168 +-----
+>>>  drivers/phy/starfive/Kconfig                       |  20 +
+>>>  drivers/phy/starfive/Makefile                      |   1 +
+>>>  drivers/phy/starfive/phy-jh7110-inno-hdmi.c        | 579 +++++++++++++=
+++++++++
+>>>  drivers/soc/Kconfig                                |   1 +
+>>>  drivers/soc/Makefile                               |   1 +
+>>>  drivers/soc/starfive/Kconfig                       |  43 ++
+>>>  drivers/soc/starfive/Makefile                      |   3 +
+>>>  drivers/soc/starfive/jh7110-hdmi-subsystem.c       |  73 +++
+>>>  drivers/soc/starfive/jh7110-vout-subsystem.c       |  82 +++
+>>>  include/drm/bridge/inno_hdmi.h                     |  10 +-
+>>>  include/linux/phy/inno-hdmi-phy.h                  |  85 +++
+>>>  30 files changed, 2337 insertions(+), 188 deletions(-)
+>>> ---
+>>> base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+>>> change-id: 20251031-jh7110-clean-send-7d2242118026
+>>>
+>>> Best regards,
+>>=20
+>> By the way, something weird happenined while I applied the patches
+>> using git am. Somehow, some were out of order. The 10th patch
+>> adding .mode_valid tried to be applied before .disable even though
+>> in the series, the order is correctly set? git would obviously
+>> fail because the .disable entry did not exist in the header, so I had
+>> to manually put those in.
+>>=20
+>> I guess it's possible that something went wrong here? I personally
+>> pulled the mailbox from the lore.kernel.org mbox.gz file.
+>
+> I would recommend using b4 shazam instead
+>
+>>=20
+>
+> Best regards,
+
