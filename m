@@ -1,64 +1,64 @@
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F72D3E49EE
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 03:01:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 978FB3DA5A3
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 03:01:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789700516; cv=none; b=plM+9ZWphDT64xAA4c+c6bepnibXRSUUVwq8imR0/CHt0p3vESyu3sXrPz9fmoPTGGboMz+TKJD3XUnUk6n0POtxwezajjeJ6RSMpuTlp1yew6eNQMNCysNTSZ14tUE2zOk3V1TteNLq7piFdNLKyJNDz2YVa8ASKgs9jVdd7eA=
+	t=1789700520; cv=none; b=t825R5dJ9NXGdwFrZ4xCyGXUyRN1+4ipS5ROA5JUi3zs6jQBzjHTcKilYmRi2PP1/As7VPIb69o3jV4sOIhvm30nqDCVGH/sHkNMFNh7CAhKMPxkPNI7GVHONPBdA1AUnKhq5kmA/qRe8Mx2g0l6rupDVNd8cuK9qCOXMaYGtMY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789700516; c=relaxed/simple;
-	bh=HlGrFMsRs0IybKeXdKiG9q5NJ5arwAx2J4jsvINPDaU=;
+	s=arc-20240116; t=1789700520; c=relaxed/simple;
+	bh=ozasnFIBA+8rSKDPSKbh/3Fbquovn2x4fV8LNqAL7Kg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cc4hiWWjL/+Y6khjeOtFAiXplA3NuFwAFe73D+vug2snvr0GITwKY3mz+s6PCDI29a5ZfkXnYIFIDFsnH9Pk7YsVeRJQYbr6AznlPBxsZWnrKr0JsLaBo+CYoU62R1vR1SuP1ocd/qnN6K/5de4Y713qOVKNIvt8KVc5jamSUNM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DRkiIS+1; arc=none smtp.client-ip=209.85.214.177
+	 MIME-Version; b=DigE3T+Tupa8Eb73nfcAZqFwZlK9aqjZuFtGU/jpaXeh7OI0I5Nj/FsffjRxsNLTgooiFmoiI2ttjZ1Cx4/fKbZAUreltN/jXW57Ht47Au/lDjp+AsTggmz9toy4H0W6PS57OHwULXoE/TaxebXW30MaR/pRYdDs7wRdU1RVZhU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I+PQoGRV; arc=none smtp.client-ip=74.125.227.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DRkiIS+1"
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2db710396ffso11323615ad.1
-        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 20:01:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I+PQoGRV"
+Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-396ccb65437so215669a91.3
+        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 20:01:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789700511; x=1790305311; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789700515; x=1790305315; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=QPg1uLKI5p/H7J2E4b3w0DPqeVInWxkk5y+GYwVR13I=;
-        b=DRkiIS+1AA1E2XXOJGwHEWECM9r16Zcs/SY7sOH7qpRyMQgZn9wowaUdo6Z4v2jRVB
-         8ClCAeoZX1X23Iva2i6zy00DeEXVXFz3JyCnCUShTbbjEEg8p3nBPlOMdO4KL8de0oCJ
-         vswx3kNwfUuLRhsoY8S9hYhD/BS3v02JLxdoBuklZbutVFGJtKMpIXUT8vax6VeFH7CV
-         IXW/2B8JVjXqs5RTTHTwc4O2xOa9y+sruLg9nZDW16m35EWZjvLtPJw8rkXPi/DcK2CX
-         xZcJCz8m4NV9OWgfo1Z67O55FLEc5q7jGRJIS/B6dwAmzJXWIaHEMmI3tQ74YX5T0/Kw
-         Pg+w==
+        bh=0r+H74wyT2+5oikV/msCZxyt9ampGlRBgpuDqDj2ToI=;
+        b=I+PQoGRV1Br3ZLg8K13kEe7VKD07jxw1ByTISEUsh82Mrqyx7hJx21kFQpl91BRPPv
+         0OZIoI9Tn1Do1DSM2uKGzgcHrTBF2UWIKZs6n8GsDK+gpeaaOj7anQ4jNX7ks4T7vDNN
+         Re7fv0YP1yZczHs2WEKjSX8+5R1UFWu2NMnS+P/thhwE98/yFivCglW5Cm9vCoclK/z/
+         etedSCC4/Qjwovlf17SwFRf8kLqkk4BNG+rX1f3UaGWjd9AiVzw79YKgqzwZhOcVJGpG
+         HO9k6oXUq7xlXrESlY7tBkxI7HN4Aml0By9zGdjt0WPser8kqPhOix54oueJ0NcKCDzr
+         tyOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789700511; x=1790305311;
+        d=1e100.net; s=20260707; t=1789700515; x=1790305315;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QPg1uLKI5p/H7J2E4b3w0DPqeVInWxkk5y+GYwVR13I=;
-        b=sio0nej7cGNClUmNynK5pWB3+VEjwkQ8SaXfcXZyivY9uZnhpMo4r63hovLrjYcXSc
-         AGOaVeG0x5eMxN2mGn3SVZuVXe+juzhIWZOUUMi1VFxtOBSyxr+ptOEm70Y3p2OrCn9x
-         SnDfiymdmQ9xZzAPOgpK+v41XaHWx9y4/DMlPf4UQN0RzD34otAL1nzWvsbnbaFKtuS4
-         HkP3Zi3F+NrnSglzlyenGs4haCJ6rldQdI2k74n+qUPhs2iU4KG2NuXQ5EJ8Ijc6KzJg
-         OKituCIUEyzpbACTCA7hJTf99DK+er9FGz39K6BjWnssy4YprtWdi6h7SfeGw8TrTSrH
-         QZVg==
-X-Forwarded-Encrypted: i=1; AKwUvBzQmOp9U8Ssh/xNrmraHPz3JLgo9jYmAKiEbkueBS1O+aA6H807nl0wwfzF8IkqyFxHLFficXW7hbAF@vger.kernel.org
-X-Gm-Message-State: AFuF++kNLMCB98UW0rsmUKVlBZcdmEfJLn8V0r5ioxqx1R732Cm12OqN
-	Z1ZzZnEp6G3LUQw4XVdJZv7CVgYCE4DcNX+cwkZ8dL1RtOJFmN2pK/od
-X-Gm-Gg: AYBFou2VwpwALFhuJkfsGiADHmJoVSp+OXkQGVoEWRIvTaYz8Iaq9dM1SG1I2kh6XpC
-	69S9Ddg9S8uFQc8tWid3KTof0MKG36l6hObsv4VyscQdtuo9P1Ycnpw/SWzljyKAMw6V4uFycw0
-	Ry9+LB79OpPa+9LkXnrUcgn+ZG/CKxTp3cN9Xc7ba+SOiGFM1gDN0yjKyWbE3AqCxCbhLtMCbUp
-	f7bO4XlAT9fNh7OfF1PS9kJ/f8Y56wp//Jl2Wb2SreuhaRijmcR6tN9rQub0H9WgpL3wQVvI2qO
-	uS6A3Rk4GsxMuuHLsm94VDnIe4T5Kw5kEjbHr7aD5ONlFDibnQNaAVsVvdWTX6FN8UcIef3PhcV
-	j5WxgR+EKApUeDCiknpWpRP/NqoqeRF9vi129nPQ1tkGTc9T83RqJmEvcNg1vo19f/n76Vl8L5b
-	HPvSEkVJ04pPO1QxVx61we+WbHqwgjqacOzdwwlwHJaWb9vvfB0M60oPMsIe7n/ozGVGnJnhD1X
-	sQTV4uBxYHllFiHreiRhjL1iv3duLidqc2NAnXNQg23+4tnraRnVwLy5mEqGOC/Io9u/gFsjA==
-X-Received: by 2002:a17:90b:3f0d:b0:39e:2c5c:a689 with SMTP id 98e67ed59e1d1-39e361ab7dbmr7741778a91.30.1789700511242;
-        Thu, 17 Sep 2026 20:01:51 -0700 (PDT)
+        bh=0r+H74wyT2+5oikV/msCZxyt9ampGlRBgpuDqDj2ToI=;
+        b=BpAIrnaDZkE3+befE8/bUxiSG5lFqnfKfqFMtYQ9lemQ2XFaSeMpxyKuDVJBgxnTDl
+         VuP9diGfHqRu+Au9JlHZ7MOO1ZVyczp7+j5H3biLExafiFbysjG2/cq0NcMfOfTGczFS
+         hR3XlcvcRzaWP2yJv02iIbeG6OJpXl25dIyv/dGQaMrpothLpVUue8paHGjkfJKRSwZ5
+         U05JFocUP8fy45ZVYf/WkgdlkNqSzcfPylra9qzJQlN/nf/gR7qIqLrS8Vphk05Vcb2d
+         Uc29jiEIcUz5cLrveAqsHa11cmmJ7HsO8Zz4TBCL79BTxpOxreJwnNUjydBHyGpBetsn
+         ZFYQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxlcQF/Yat5FUW3wz+Hro5ppYCiDan9Y7WHE41AzBAO2k8GOxVuLr61iq+lhD33QPGqbllEfmzFleTM@vger.kernel.org
+X-Gm-Message-State: AFuF++lgLHdUqc0MjY4kaVVisxM57533tgdw/N6diYH6XEHsIiSdwziV
+	vaIJVOu7zjGFa89YXNy+XJ+t69JMGjOXKfyyGNj9ViMM64Zk91sDNtEx
+X-Gm-Gg: AYBFou3/hhHyPt+9gO5XcEVVKXI4+dmm2RPpKc+dXifoPF8+evhn1SMBscAM2yGSv/I
+	Ay3nDQ5HT50cJG3mO1Dj6HHM5QgkUjjwzuW0WhmmwhM4IO1/745FgNiNOT2oETZ3HFzkvLbWClo
+	/T9fsagBAory+wYpzSkMr+S9aV+kk5E+XWmdXvCwb4KXFdGZE+O1lCANDY3pC9fR1KptzA3cnQ6
+	fpLiSqCOFM4Mu//cinor9f312Hrn5FBVBka5XtGnYLaa5waIlEqTXSjI8dCR4edaV/E7ms6J3ZU
+	pQPD2QhIzz7t74uu8ssYVrUtCii9xrXhbwvdyANunUNVD/gF7/rSRGe0mtmG5wlAfnRKutqRL2U
+	ePkBPw4rFWC6+SfrskKsZW3K/76pzcDyr3+Pdo5IwxOj+KQBHObn9j6TKFud9+ns4+WNn4aK2DQ
+	jeb5CONdAcPkSEE8iW83awtXxFTAgqUunDDReZZLSqJrrMOYavkW134HCw3dNiZWxqw6O35vgyB
+	vN/sOcV6NhblwxUeS4PsOxrPGY3cxgOOMWee7ACGP7/F+1l1EsGjFkcWvzMuDI=
+X-Received: by 2002:a17:90b:4b87:b0:39e:345b:3323 with SMTP id 98e67ed59e1d1-39e54fb121dmr2271373a91.22.1789700514999;
+        Thu, 17 Sep 2026 20:01:54 -0700 (PDT)
 Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e362e9402sm7969141a91.15.2026.09.17.20.01.48
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e362e9402sm7969141a91.15.2026.09.17.20.01.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 20:01:50 -0700 (PDT)
+        Thu, 17 Sep 2026 20:01:54 -0700 (PDT)
 From: Joey Lu <a0987203069@gmail.com>
 To: zhengxingda@iscas.ac.cn,
 	maarten.lankhorst@linux.intel.com,
@@ -77,9 +77,9 @@ Cc: ychuang3@nuvoton.com,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Joey Lu <a0987203069@gmail.com>
-Subject: [PATCH v7 5/7] drm/verisilicon: add DCUltraLite chip identity to HWDB
-Date: Fri, 18 Sep 2026 11:01:23 +0800
-Message-ID: <20260918030125.315978-6-a0987203069@gmail.com>
+Subject: [PATCH v7 6/7] drm/verisilicon: extend Kconfig to support ARCH_MA35 platforms
+Date: Fri, 18 Sep 2026 11:01:24 +0800
+Message-ID: <20260918030125.315978-7-a0987203069@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260918030125.315978-1-a0987203069@gmail.com>
 References: <20260918030125.315978-1-a0987203069@gmail.com>
@@ -91,38 +91,28 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Nuvoton MA35D1 chip contains a DCUltraLite display controller with
-model number 0x0 (sic, the model name contains no number either),
-revision 0x5560 and customer ID 0x305.  It has a similar register map
-with DC8000, only one display output and only 32x32 cursor supported.
+Add ARCH_MA35 to the platform dependencies to allow the driver to be
+built for Nuvoton MA35D1.
 
 Signed-off-by: Joey Lu <a0987203069@gmail.com>
 Reviewed-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
 ---
- drivers/gpu/drm/verisilicon/vs_hwdb.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/gpu/drm/verisilicon/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/verisilicon/vs_hwdb.c b/drivers/gpu/drm/verisilicon/vs_hwdb.c
-index 91524d16f7785..7d630a667a3f0 100644
---- a/drivers/gpu/drm/verisilicon/vs_hwdb.c
-+++ b/drivers/gpu/drm/verisilicon/vs_hwdb.c
-@@ -129,6 +129,16 @@ static struct vs_chip_identity vs_chip_identities[] = {
- 		.max_cursor_size = 64,
- 		.formats = &vs_formats_no_yuv444,
- 	},
-+	{
-+		.model = 0x0,		/* DCUltraLite */
-+		.revision = 0x5560,
-+		.customer_id = 0x305,
-+
-+		.generation = VSDC_GEN_DC8000,
-+		.display_count = 1,
-+		.max_cursor_size = 32,
-+		.formats = &vs_formats_no_yuv444,
-+	},
- };
- 
- int vs_fill_chip_identity(struct regmap *regs,
+diff --git a/drivers/gpu/drm/verisilicon/Kconfig b/drivers/gpu/drm/verisilicon/Kconfig
+index 7cce86ec8603c..295d246eb4b40 100644
+--- a/drivers/gpu/drm/verisilicon/Kconfig
++++ b/drivers/gpu/drm/verisilicon/Kconfig
+@@ -2,7 +2,7 @@
+ config DRM_VERISILICON_DC
+ 	tristate "DRM Support for Verisilicon DC-series display controllers"
+ 	depends on DRM && COMMON_CLK
+-	depends on RISCV || COMPILE_TEST
++	depends on RISCV || ARCH_MA35 || COMPILE_TEST
+ 	select DRM_BRIDGE_CONNECTOR
+ 	select DRM_CLIENT_SELECTION
+ 	select DRM_DISPLAY_HELPER
 -- 
 2.43.0
 
