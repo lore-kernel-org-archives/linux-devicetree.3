@@ -1,46 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 562783B2FCC;
-	Fri, 18 Sep 2026 01:50:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71DBC39792C;
+	Fri, 18 Sep 2026 01:50:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789696208; cv=none; b=cXtsU8o1EK1Wu7tFtyNEniXw+RgMf2M1BNQllD2bIer/l9knumsop66TyhlExpoA+v/9I5KeHoKM7oOWHIZpvbUQNFVdg3vb6yq8NjUijyoad28O7XI/O/v4IUAXEKKBh3hIRl4Zmq6j02yqGPejYo3zwZy2uyRZsO7mZU/ui48=
+	t=1789696212; cv=none; b=QXXjLIvwbyouXpuO0z8uFtpImNvH3igVTNmK8LMPhNUN3u233ed8e7iY43XqtjA8KPW1bUb54X7BfD64sClTEYuUkpbm+7F5oj9V3NJrXTvNPuX+lk1zfnYg5jVZkMVp6zjxNptG5TwN6GSHPl42c49iPYXXF1VMj4T7FI0Aqyg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789696208; c=relaxed/simple;
-	bh=x+1tVwXpSU7bYwCOlibIFALsDLth7WpIMQl9PJhDdFI=;
+	s=arc-20240116; t=1789696212; c=relaxed/simple;
+	bh=hk67C+YRbOEMdhKy7zSwjDQVQ6GaMHnC3Ty/C1LIgqc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=a8ZR43KPsfKYH+UmUEAqF4ps699GrGR2OCYwqgNX4JOrrFVZgUfeq2Xu8VhcCsnLqlXWqyok51HCqBxrRhMo7vUtcXQt/i3CZYJhrBAvmcpPQvLcijr8qZhmOoCQviaNYm83rdkGJ/u8LThN47KXYrS1G2jTaO0+qWT0Cb93vKA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O2O1UsLK; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=ZfzVl29RfkWRLKj/1muTve5Vn7WSaslwUeEczdoJ05G+zbt5kvehUZDRDumL1QuCbsTuqF+oKHovJe3zelM2Q7Lfkjo8Kt5uMuRbA4bw6WfYCKZdy2ESHgMCfjGWVqp06L2cAeYFXKaLUtuJ4T2WWZM6Z7ggnPmiCA7GTZmOnRQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kkxYHcuK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O2O1UsLK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8507F1F008A3;
-	Fri, 18 Sep 2026 01:50:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kkxYHcuK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CAC91F0089D;
+	Fri, 18 Sep 2026 01:50:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789696202;
-	bh=gEUVOrbpBu1dM5VeWAospmgxWNDwIPpTDlXrM9WjyNA=;
+	s=k20260515; t=1789696203;
+	bh=Qz5D1LGHK/yzt7thvspvyU2ZMxY4kih9CsRpfbauS3A=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=O2O1UsLKdNLUFOforAPxQ4Wu5uFgVSdTTqf7pRRB0BUTHdpAmsoH6Q9t8J21/mh+v
-	 /pSvB0k4D6d9F2ngOhfxC7jqbTbgi8rndWSgn+vw1Gn+Z8/z+0Y9rvyC5LrVrobljv
-	 NORI7hCoBgrWf/BSo2KO67qOyamaoOTtlIaq/JdbmFjJDUDIsYQI++OZTGQb9uwCSp
-	 0uUQo21PxBiaFg84YWeXolC9zrwtXGwpOc1Smd+gIV9t8x2k91+8/cBFe0pyLTYaXA
-	 hohxs/GxF58dnUl6GsJcUPccNad0e4q47CXRdN244veQbsCNQP0KiPwL2mjhOnFmlB
-	 PiS6Wddk+Ku5g==
+	b=kkxYHcuKe3qDtzM2NAK+swXsLbkjyxBl0ouOs2jZX1yF/nmrbIhjKXk4OBk/+a4Ug
+	 /HYF2ajndVg12mQoxlypoML1hIt+iCqiEuVFhVEyTeLrOTAk5rAK68om5KRpK/4LTH
+	 5YLAUlnExzk2m6aTSejZYx3YvX0y7hhc221c5sh4B87axjIUeyG18r+GOSmR5oRK32
+	 YzDl5qh30z+xkrjbqrAq1ERKOcsrmIOlRiojq63gdHdH161chS2JiRF1PhhRLrINbz
+	 tEwL2aE2qh4ZUeOGooW1U9hvpShS9EskkLnOBSfSf8pMisMKgdxg6Bgcq3cObHLv9H
+	 i527uRM4tYRQw==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Xilin Wu <sophon@radxa.com>
+	Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
 Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] arm64: dts: qcom: sc8280xp: Mark FastRPC context banks as dma-coherent
-Date: Thu, 17 Sep 2026 20:49:50 -0500
-Message-ID: <178969618826.1582337.6658511312541652648.b4-ty@kernel.org>
+Subject: Re: [PATCH] arm64: dts: qcom: talos-evk-som: Add firmware-name to QUPv3 nodes
+Date: Thu, 17 Sep 2026 20:49:51 -0500
+Message-ID: <178969618820.1582337.1328380627869658325.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909-sc8280xp-fastrpc-dma-coherent-v3-1-d38184e8cf9d@radxa.com>
-References: <20260909-sc8280xp-fastrpc-dma-coherent-v3-1-d38184e8cf9d@radxa.com>
+In-Reply-To: <20260805-talos-evk-qupv3-firmware-name-v1-1-3ebd5e5578bd@oss.qualcomm.com>
+References: <20260805-talos-evk-qupv3-firmware-name-v1-1-3ebd5e5578bd@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -51,22 +51,23 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Wed, 09 Sep 2026 16:08:53 +0800, Xilin Wu wrote:
-> The FastRPC context banks are DMA-coherent on SC8280XP. Describe this in
-> the device tree so that the DMA API uses the appropriate coherency
-> attributes for their mappings.
+On Wed, 05 Aug 2026 16:57:23 +0530, Viken Dadhaniya wrote:
+> Traditionally, firmware loading for Serial Engines (SE) in the QUP hardware
+> of Qualcomm SoCs has been managed by TrustZone (TZ). While this approach
+> ensures secure SE assignment and access control, it limits flexibility for
+> developers who need to enable various protocols on different SEs.
 > 
-> When FastRPC allocates shared buffers from the system DMA heap, the
-> missing property can cause intermittent failures while loading DSP
-> libraries. Both fastrpc_test and the QAIRT platform validator can fail
-> with DSP loader errors such as "mmap hdrs failed" and "bad address".
+> Add the firmware-name property to QUPv3 nodes in the device tree to enable
+> firmware loading from the Linux environment. Handle SE assignments and
+> access control permissions directly within Linux, removing the dependency
+> on TrustZone.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: sc8280xp: Mark FastRPC context banks as dma-coherent
-      commit: 3ca6796122d931ed3923884b019b0a32c26cade6
+[1/1] arm64: dts: qcom: talos-evk-som: Add firmware-name to QUPv3 nodes
+      commit: ba8ced74c199337c8a0aff4c606f1066dc464722
 
 Best regards,
 -- 
