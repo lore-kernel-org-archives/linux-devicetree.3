@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5297F502D69
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 15:39:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E45ED50390C;
+	Fri, 18 Sep 2026 15:39:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789745980; cv=none; b=jvG1vc3PejbZrRp3ksRcPM3VutOYz3qooNXiL0b9dWOQTt48ugdh/bjYUbn4LqTB9SLAMohVrYuzoqPrG5Oh+Swo5LLYHcrb9mH8tQfV1ZtEPWS98v+zRyXG6p3BBnixMOd8RPH+SRXGwYzSiQjTNhw8oPIgKXz+H/dIb1R4pZQ=
+	t=1789745978; cv=none; b=gM6iwUW5TXEqalfwEiHwQQfw4u/UAC8tKiV3/ILJQsJwLU5GcXhVwOa8VLGhtQOTLlw+VPHns/4t9gNo4P5XdRnV4R2TFm9tNnGghekcaZJ+/VBibp8oFPZowcPE1q/r1qDGMvoVzQfxH36H9RMafM2oelMCE9nq4hrGcMoBWrg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789745980; c=relaxed/simple;
-	bh=VcOKls1QlnKzSBARwcNn8MAxx1bDPou3NxE/AIX+Z2I=;
+	s=arc-20240116; t=1789745978; c=relaxed/simple;
+	bh=VbFQrttl6wWCnLSauDugqZV0z7asYV0FAk+7m//rqyc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=rgLq0E5ZjdmeIA8OhZlNvWo8863RwpdXGdi/cavpCE3rJtx+6MTZw7kgdKQlEr1wscQ3a57cwrxJSCbU7qQvvzDbJC2yUK/+yN5jtgMsV9qxwpWsTdkU7QA3Com/J031+uht54NKGofo/V6tHuBInov3B10qrVDH0G2YWGKalZI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gaZUi7lK; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=VYZaeWPw6HEuG0Oo/lEaEsHwNW3a9XauyagbTdpVr7I3ZSCAuHwyBqno2io7J4Z3sC6HYOnijCkS2mmy8ICxwlwzIJO7QUVUDilZE1WR8ybgS3Axo1KJnDLXjrgj7UNdS/PpOh33+K1wx63TsyzqrcG4a3QyKvHrwMxVGD1EnYY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ILJ6QFR7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gaZUi7lK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD3931F00898;
-	Fri, 18 Sep 2026 15:39:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ILJ6QFR7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E51901F000FF;
+	Fri, 18 Sep 2026 15:39:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789745967;
-	bh=dcf9UiX9G6cNDUpncIFZu10kMwq8f11+1KpeWdyKpk4=;
+	s=k20260515; t=1789745966;
+	bh=Zd67yz0t4opoZtOCzi4ZtDnSMs+HiY6s7KjTGc+vLFk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gaZUi7lKIaXZ387J4FRYR5eORt+0gMlBG0LnbinGJBzKcUB5DazFxK1aqtU+p3T8a
-	 LMv8wp4jxZMokIRSDp0nvpmNVPe/68hoJLP+CeIfug2FMMEk9aUIRxlYa8H8CPhxMl
-	 R9yZt6JRrX+IZwX2qDfEYDiaY7gjgY3fx3oT1jRYIrY4fswkcpyMuNodZV7PE0P56/
-	 bKBNavxKIELRECWAMTlU7UQWB9wjQvX9qN4iAM9aDaFMotQWo//HM2DgwxrK7oTkFR
-	 wRvMeGcP4rpxLyON/xOrVXw71TzPAPxHb03x1U377GS53gE5jORoere74AC9cYwSnT
-	 Qqan+WpbkUcJA==
+	b=ILJ6QFR79IkwD/s0ca47aQrNFZmKlMqCAX7wsynPY7GAq682IgHccGBRxKtcxpDXX
+	 ngfO4+HxCqbfwRjSGvTH07kNCLjHnbgYHlX4+RBLJykNhRIpt6wi3O4/Aptm+WC14I
+	 GgR/66taCh2fpytJU1KH/WNFrCeUC/fwDy8dP+hzq4GjgRlNJ1P0uNoNjhoQugbaja
+	 tlvKP7Zkxt77MifTtC577/A7SFaDayZWidTJlnK4cIrk2bOj5ykEaWF1PWjm59kUVN
+	 iqJSRd9hXYHjngOFD3z8e0e1/4e0nJbzPMZt/7mFQeHjpYtr5Cjdyh5CF8ORy5XFOq
+	 IME0J6CyIQkEg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 5/5] clocksource/timer-econet-en751221: Support
- EN751627 without percpu IRQ
+Subject: Re: [PATCH v4 3/3] arm64: dts: qcom: qcs6490-rb3gen2: add endpoint
+ buses
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Caleb James DeLisle" <cjd@cjdns.fr>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260918152822.343811-6-cjd@cjdns.fr>
-References: <20260918152822.343811-1-cjd@cjdns.fr>
- <20260918152822.343811-6-cjd@cjdns.fr>
+To: "Alex Elder" <elder@riscstar.com>
+Cc: conor+dt@kernel.org, linux-pci@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260918152659.413268-4-elder@riscstar.com>
+References: <20260918152659.413268-1-elder@riscstar.com>
+ <20260918152659.413268-4-elder@riscstar.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 15:39:26 +0000
-Message-Id: <20260918153926.BD3931F00898@smtp.kernel.org>
+Date: Fri, 18 Sep 2026 15:39:25 +0000
+Message-Id: <20260918153925.E51901F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,108 +47,78 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] timer-econet: interrupt storm on CPU hotplug due to missing teardo=
-wn and this_cpu_ptr()
+- [High] pci: MMIO translation failure due to static dummy ranges bypassing=
+ dynamic update
 --
 
-commit 3aa46ace7764334c9e5c6183c5e2aa48421bd244
-Author: Caleb James DeLisle <cjd@cjdns.fr>
+commit 07e53b54e0b29671e1a08f764661a81fe5484062
+Author: Alex Elder <elder@riscstar.com>
 
-clocksource/timer-econet-en751221: Support EN751627 without percpu IRQ
+arm64: dts: qcom: qcs6490-rb3gen2: add endpoint buses
 
-EN751627 is based on the 1004Kc which uses a different interrupt number
-for each CPU timer. Support both this and the EN751221 which uses a
-single percpu interrupt.
+This commit adds devicetree nodes for a PCIe endpoint and its peripheral
+buses on the QCS6490 RB3gen2 platform. It also defines static ranges for
+the endpoint BARs, with the expectation that these will be updated
+dynamically.
 
-> diff --git a/drivers/clocksource/timer-econet-en751221.c b/drivers/clocks=
-ource/timer-econet-en751221.c
-> --- a/drivers/clocksource/timer-econet-en751221.c
-> +++ b/drivers/clocksource/timer-econet-en751221.c
-[ ... ]
-> @@ -110,7 +131,10 @@ static int cevt_init_cpu(uint cpu)
->  	clockevents_config_and_register(cd, econet_timer.freq_hz,
->  					ECONET_MIN_DELTA, ECONET_MAX_DELTA);
+> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/bo=
+ot/dts/qcom/qcs6490-rb3gen2.dts
+> index 3bb5fca8e2b13..5b7f5292a8864 100644
+> --- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+> +++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+> @@ -955,11 +955,41 @@ pcie@3,0 {
+>  			bus-range =3D <0x5 0xff>;
 > =20
-> -	enable_percpu_irq(cd->irq, IRQ_TYPE_NONE);
-> +	if (econet_timer.is_percpu)
-> +		enable_percpu_irq(cd->irq, IRQ_TYPE_NONE);
-> +	else
-> +		enable_irq(cd->irq);
+>  			dev@0,0 {
+> +				compatible =3D "pci1179,0220";
+>  				reg =3D <0x50000 0x0 0x0 0x0 0x0>;
+> +				#address-cells =3D <3>;
+> +				#size-cells =3D <2>;
+> +				/* Ranges will be updated dynamically */
+> +				ranges =3D <0x0 0x0 0x0  0x83050000 0x0 0x0  0x0 0x4000>,
 
 [Severity: High]
-Will this trigger an unbalanced enable warning when a CPU is brought online?
+Does defining these dummy ranges statically bypass the dynamic update?
 
-Since the timer is not stopped and the IRQ is never disabled when a CPU is
-offlined, calling enable_irq() here operates on an already-enabled IRQ.
+During PCI enumeration, pci_set_of_node() binds existing nodes like dev@0,0
+to the corresponding pci_dev. Later, when the PCI quirk calls
+of_pci_make_dev_node() to dynamically update the ranges,
+of_pci_make_dev_node() checks if (pci_device_to_OF_node(pdev)) and returns
+immediately without calling of_pci_add_properties().
 
-[ ... ]
-> @@ -173,22 +230,32 @@ static int __init timer_init(struct device_node *np)
-[ ... ]
-> -	ret =3D request_percpu_irq(econet_timer.irq, cevt_interrupt, np->name,
-> -				 &econet_timer_pcpu);
-> -
-> -	if (ret < 0) {
-> -		pr_err("%pOFn: IRQ %d setup failed (%d)\n", np,
-> -		       econet_timer.irq, ret);
-> -		goto out_irq_mapping;
-> +	for (i =3D 0; i < num_irqs; i++) {
-> +		irq_set_status_flags(econet_timer.irqs[i], IRQ_NOAUTOEN);
+As a result, the dummy ranges are left intact, which causes child devices
+on the PCI endpoint bus to use these static ranges instead of the actual
+BAR addresses assigned by the PCI core. Will this lead to invalid memory
+accesses or driver probe failures?
+
+> +					 <0x2 0x0 0x0  0x83050000 0x0 0x4000  0x0 0x80000>,
+> +					 <0x4 0x0 0x0  0x83050000 0x0 0x84000  0x0 0x200000>;
 > +
-> +		if (econet_timer.is_percpu)
-> +			ret =3D request_percpu_irq(econet_timer.irqs[i],
-> +						 cevt_interrupt, np->name,
-> +						 &econet_timer_pcpu);
-> +		else
-> +			ret =3D request_irq(econet_timer.irqs[i], cevt_interrupt,
-> +					  IRQF_TIMER | IRQF_NOBALANCING,
-> +					  np->name, NULL);
+> +				pci-ep-bus@4 {
+> +					compatible =3D "simple-bus";
+> +					#address-cells =3D <1>;
+> +					#size-cells =3D <1>;
+> +					/* Map 0x0-0x1fffff to BAR 4 */
+> +					ranges =3D <0x0  0x4 0x0 0x0  0x200000>;
+> +				};
+>  			};
+> =20
+>  			dev@0,1 {
+> +				compatible =3D "pci1179,0220";
+>  				reg =3D <0x50100 0x0 0x0 0x0 0x0>;
+> +				#address-cells =3D <3>;
+> +				#size-cells =3D <2>;
+> +				/* Ranges will be updated dynamically */
+> +				ranges =3D <0x0 0x0 0x0  0x83050100 0x0 0x0  0x0 0x4000>,
 
 [Severity: High]
-Is it safe to pass NULL for dev_id here when setting up migratable standard
-IRQs?
+This appears to have the same issue. Because the dev@0,1 node is already
+present, the dynamic update logic in of_pci_make_dev_node() will bypass it.
 
-When a non-per-cpu IRQ is migrated to another CPU, the handler will incorre=
-ctly
-fetch the timer context of the executing CPU rather than the one that fired:
-
-drivers/clocksource/timer-econet-en751221.c:cevt_interrupt() {
-    struct clock_event_device *dev =3D this_cpu_ptr(&econet_timer_pcpu);
-    ...
-}
-
-Furthermore, is a teardown callback missing when registering the CPU hotplug
-state?
-
-drivers/clocksource/timer-econet-en751221.c:timer_init() {
-    ...
-    ret =3D cpuhp_setup_state(CPUHP_AP_ONLINE_DYN,
-                            "clockevents/econet/timer:starting",
-                            cevt_init_cpu, NULL);
-    ...
-}
-
-Because there is no hotplug teardown callback or set_state_shutdown, the ti=
-mer
-is never stopped when a CPU is offlined.
-
-The standard timer IRQ migrates to an online CPU, where the interrupt handl=
-er
-checks the wrong CPU's timer pending bit and constantly returns IRQ_NONE. S=
-ince
-IRQF_TIMER bypasses the spurious IRQ detector, this sequence appears to cre=
-ate
-an unbreakable interrupt storm that hangs the kernel.
-
-> +
-> +		if (ret < 0) {
-> +			pr_err("%pOFn: IRQ %d setup failed: %pe\n", np,
-> +			       i, ERR_PTR(ret));
-> +			goto out_irq_free;
->  		}
->  	}
-> =20
->  	cevt_init(np);
+Child devices under this node will then attempt to translate MMIO addresses
+using these static dummy ranges instead of the actual BAR addresses assigned
+by the PCI core.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918152822.3438=
-11-1-cjd@cjdns.fr?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918152659.4132=
+68-1-elder@riscstar.com?part=3D3
