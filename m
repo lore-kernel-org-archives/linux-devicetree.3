@@ -1,76 +1,135 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2537B3EEAD2;
-	Fri, 18 Sep 2026 19:09:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3B8B3E51EF
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 19:09:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789758588; cv=none; b=PxYIeUtQEfrbSbb15uylx0FDxhD+m2Vr8qdhsVhmQIFF84KRDnciQS+yiIPql2jZ2zUD2T5U8oFbzTgg1BomswOoLpO/R5U53ZaT+xWC895JIGIpgBV1OWL20cdNs1HP5nO+Pq46lFkkcy5spF3yk7t6TwYFOqOdpbqCRN0W6ac=
+	t=1789758602; cv=none; b=D9OcKI3IQiTpL0d2R9DfxtAtfB9ONJ5UPslEh9RrxRbJztvzk3X7KnaDWGXrZBAHN5mRnDY2l2vv+I7wTJ0AXMUEcTgVjgp/H2jW3zz7gMwugagp3pRLuU4gkzwP+Qj1HKkBH1g2Esu4gLSymg+W9C6TOF8KIcgvWOFoXJlZ4Q0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789758588; c=relaxed/simple;
-	bh=JeWw4ljWH6RYMRbF1Cwhvb8RQP01ze/vWkoN7/R5uHw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=djlTuZacPRjNpKuU6usgvegFlzJ1ln1XBXeEtOm1BRxM9dbZnH9A65WaZ1o5HEwcoDvm9Eo1mTfYwEUwPaz8LEWBRGEknOc23XX1yfztq9BwkDOo8MyUZOuS0fXUhdmnsQPILlS8lFhJturDghqAEUcpXQmd2/KpFa9ec7m3LdY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ych81UVS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789758602; c=relaxed/simple;
+	bh=KdrLgBwU7uj2sUXBv87SAmq+OyoVBck1B3UA03FFKQY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=F1woy0e4k3UCPxKFwUsA2glcmOeA3YYNpUf6Utx0VAwt0RpuhC6SDeSSlIIXegXMUrnnx1EULkqlgOZT98w3b48U4sIJIOwvBWzJgI7LDA7cyjVBPcBCZy6hmIx9e2zRD7ez+knL7oI0Ym9jds8VAhKNfpvF55RjGosPh1Ui9kg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P27YbsTu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ych81UVS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF3371F000FF;
-	Fri, 18 Sep 2026 19:09:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P27YbsTu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 515801F000FF;
+	Fri, 18 Sep 2026 19:09:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789758576;
-	bh=6+b3vy/zVDJuPQul7HVU+SkEXIlPQl6HcBnbqlQGAlE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ych81UVScQe1j+47qrtvRnRz2YOGdDsqmn8FiOhKtJFS61yzwEj6N170Pu02ORAZm
-	 pBW4S7fIribGtdXPzqPazCI34j+xPGmR+vGdX5+RmTWmY2WNQwo8FqmB8j+MOMWgV9
-	 cl9ISdo8cOspVJ2EgJgwR4ba9Fc24ucMSmv116pire8sapCdz02s/tHw2fDfbS9E0G
-	 yYFF0PAKSkN0vic6dY2pE+eGrsxVqOHwcS+Xfzk1a8vU4eQrKjXBt+Xfc2GydiL3xL
-	 z0K3AB/PUfNcgHBOacWG/MSvP6K+Rs7BRjG9nzC/g/lnw9tru/494iazRBVvl7VUh3
-	 xTjb9EL2L6hPg==
-Date: Fri, 18 Sep 2026 14:09:34 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Bhargav Joshi <j.bhargav.u@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>, Dmitry Osipenko <digetx@gmail.com>,
-	Thierry Reding <treding@nvidia.com>, mfd@lists.linux.dev,
-	goledhruva@gmail.com, m-chawdhry@ti.com, devicetree@vger.kernel.org,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Lee Jones <lee@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Thierry Reding <thierry.reding@avionic-design.de>,
-	Laxman Dewangan <ldewangan@nvidia.com>, daniel.baluta@gmail.com,
-	simona.toaca@nxp.com, linux-kernel@vger.kernel.org,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Shree Ramamoorthy <s-ramamoorthy@ti.com>,
-	linux-tegra@vger.kernel.org, Svyatoslav Ryhel <clamor95@gmail.com>
-Subject: Re: [PATCH v2 1/4] dt-bindings: mfd: ti,tps65910: Add wakeup-source
- and GPIO hogs
-Message-ID: <178975857424.1447860.2533900267657270977.robh@kernel.org>
-References: <20260916-ti-tps6586x-v2-0-f12cfdfb446c@gmail.com>
- <20260916-ti-tps6586x-v2-1-f12cfdfb446c@gmail.com>
+	s=k20260515; t=1789758594;
+	bh=c15SYXO8JddCkvWIpSGAmGglA27HmapJz+oadvRClCI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=P27YbsTuFXSDzkJ/Pyp3eUPZUU8kV2rLk0MpKURVdzthX7tsS2okYZYc0ATe0EZaU
+	 aHE9Tn03qvG5my5hBkdtrrfmW/mVk8lhd7OKgpcp4bPMEcQ7F0zpAVnN+uHUzNHiMa
+	 pdn3MRs3rEaMMJfwEzhwkiz8FffyXpIBgS+fpTt/nHUa7YqaEazQ1tJZGCz85mZF9f
+	 C3Baw5xy0vaDe0oio2oPJKi0iO3SR4ZOOpCYDPIBI3hCdmpM6+fi/rQDkPVEz40Gjs
+	 kR1CxI6NDQepPl9Bc2RP5QMCDVVMp3T2xXLoftG2XwiovuFlyb4vSBm6OEgm30rgIg
+	 xKpWE/KMstelw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 7/8] iio: osf: add core KUnit tests
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jinseob Kim" <kimjinseob88@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <6915383a4a73b680e357d1a75106e0cf6e413084.1789753020.git.kimjinseob88@gmail.com>
+References: <cover.1789753020.git.kimjinseob88@gmail.com>
+ <6915383a4a73b680e357d1a75106e0cf6e413084.1789753020.git.kimjinseob88@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 18 Sep 2026 19:09:53 +0000
+Message-Id: <20260918190954.515801F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916-ti-tps6586x-v2-1-f12cfdfb446c@gmail.com>
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] kunit: UAF in osf_session_producer due to missing kthread lifecy=
+cle action
+- [Medium] kunit: mutex re-initialization in osf_test_new_session
+--
 
-On Wed, 16 Sep 2026 18:41:26 +0530, Bhargav Joshi wrote:
-> Device tree validation throws warnings for the TPS65911 PMIC on Tegra
-> boards because wakeup-source and GPIO hog nodes are not documented in
-> the schema, even though the hardware supports them.
-> 
-> Add wakeup-source property and allow child nodes that match the "-hog"
-> pattern.
-> 
-> Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
-> ---
->  Documentation/devicetree/bindings/mfd/ti,tps65910.yaml | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
+commit b82aa72688edb8c728c31226b6fec70af9389122
+Author: Jinseob Kim <kimjinseob88@gmail.com>
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+iio: osf: add core KUnit tests
 
+This commit adds core regression test cases for frame handling, sample-cache
+admission, and other operations for the Open Sensor Fusion IIO device.
+It introduces KUnit configuration and build wiring to exercise these paths.
+
+> diff --git a/drivers/iio/opensensorfusion/osf_core_test.c b/drivers/iio/o=
+pensensorfusion/osf_core_test.c
+> new file mode 100644
+> index 0000000000000..d96753ab2a458
+> --- /dev/null
+> +++ b/drivers/iio/opensensorfusion/osf_core_test.c
+
+[ ... ]
+
+> +static void osf_test_new_session(struct osf_test_context *ctx)
+> +{
+> +	osf_test_cleanup(ctx);
+> +	osf_core_init(&ctx->osf, ctx->dev);
+
+[Severity: Medium]
+Does this code trigger a debugobjects warning by re-initializing an active
+mutex?
+
+osf_core_init() performs the following operations:
+
+drivers/iio/opensensorfusion/osf_core.c:osf_core_init() {
+	*osf =3D (struct osf_device) {
+		.dev =3D dev,
+	};
+	mutex_init(&osf->latest_lock);
+}
+
+By wiping the osf_device structure and calling mutex_init() again on
+latest_lock without first calling mutex_destroy(), this can cause debugobje=
+cts
+to emit an init active warning.
+
+Could a cleanup of the old mutex be added, or the re-initialization avoided?
+
+> +	osf_core_start(&ctx->osf);
+> +	ctx->indio_dev =3D NULL;
+> +	ctx->buffer =3D NULL;
+> +}
+
+[ ... ]
+
+> +static void osf_session_fault_buffer_race_test(struct kunit *test)
+> +{
+> +	struct osf_test_context *ctx =3D test->priv;
+
+[ ... ]
+
+> +	producer =3D kthread_run(osf_session_producer, race, "osf-session-test"=
+);
+> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, producer);
+
+[Severity: Medium]
+Can this kthread leak and cause a use-after-free if the KUnit test is abort=
+ed
+prematurely?
+
+If the test is aborted due to a KUnit timeout or an unhandled signal, the
+manual kthread_stop() at the end of the test will be bypassed. The KUnit
+framework will then free the race structure, but osf_session_producer will
+continue running in the background.
+
+When the background thread subsequently accesses race->rx_lock or race->ctx,
+it will access freed memory and potentially crash the kernel.
+
+Could kunit_add_action() be used to guarantee the termination of the kthread
+during test cleanup?
+
+> +	KUNIT_EXPECT_NE(test, wait_for_completion_timeout(&race->started, HZ), =
+0UL);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1789753020.gi=
+t.kimjinseob88@gmail.com?part=3D7
