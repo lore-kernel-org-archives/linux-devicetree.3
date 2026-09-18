@@ -1,135 +1,126 @@
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E4C140E8D7;
-	Fri, 18 Sep 2026 12:43:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.238.236.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7454336B934;
+	Fri, 18 Sep 2026 12:51:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789735387; cv=none; b=JNEmaYZZAj/93SGveL4SL3aAclkZoJ0UTipeCs3Fw319RPowfCHDDscvuAqd8f19ecbqPp5pMzz6yAsi3pHOdFgEGP51qo+2xXkfLMIOP7I0RBTMCyZKL/sE9L/sYROHUftoFA/JYH9tKm6LEc2JRaq0+efPEbxS8Q0hojiP1TM=
+	t=1789735866; cv=none; b=e116NjS+Lltpb/2h73vR00YKBjhHL+j7IGzjAdQ6jogP1qupLoOC07oUz7ZXUPM0BgxNlcXEOdxmhfq/xetVsaBf4RKbUZokmOdbm/A+TmQcqT7lj1/ihGYyyRs0YCQJVSNUbLAWwSZyMJeMLtOklgiQ101eM+51zCwxdmwK1Mo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789735387; c=relaxed/simple;
-	bh=9Fd/IauTwv+I6tcxCZAWmJnRH9cM8SdbYJ9ZjQhDMG8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JxMvsXuRMoKWEbZ6gTDyFSZJwPGETJCRs/GvzIfdZvkfzszq+NAVtO9aJCoEzGxGAiNR80aP8kBH6mauUoV4zeCsnDOUQLgHny4m+hdddaguoqpPabDKZ0sO/ZvHf2n+Ug1aSWcIcTdMIk8+BISxLhVKc0W4/mYGUidbxIVSryA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info; spf=pass smtp.mailfrom=kemnade.info; dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b=CIzVClh0; arc=none smtp.client-ip=178.238.236.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	s=arc-20240116; t=1789735866; c=relaxed/simple;
+	bh=PRahLbgCtHWClJ87WF7IG8TsO861nb3w+UcRAtpoCA8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VKucJbaT+bVCkt3ddtu6bbPftu+C18lEjmeO18xmEhgDCKaa7ROBh0iJUb86c2/bdmcdEkLY2++350UN/QIGu2QYl0KoIz47Awih61Fd6moxp4tSPiQSiDpr51sLN/f6FKPQJcCYlfcwWk9yBeNzuvJyhMKWsL4WTry0hLqCik0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dnWDyoNw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b="CIzVClh0"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
-	Reply-To:Content-ID:Content-Description;
-	bh=yEhZos8eYIYEnu9oeamuw66fgjpYm7R1b5iyPaCotIM=; t=1789735382; x=1790944982; 
-	b=CIzVClh0L0XK+So/X9y3As2vmU+8Aqoi2T0PEDG58uSnF1wOtkl9qdHDNxVCJimV7xyIn90ACtr
-	Qsb+PVKwa+1QphekFLP1Kd1lQ/YwbwxpbwsayiVN9Ri5U5/BWERi5JocIqIn+Gwg4OHmDw/kerByt
-	eGOmo8yJyiRy1NyNrerO4MDKRgXQR73da46VSEwaMmxccV8nrSmrlCqaS4m4JBoxm4Yyz282YRfeC
-	+YSch30d6IlaHX3yPlYPNLAqsKPRrzk2vpzCBooy6ThKLe9twCxaotvHaETrbrTjqY+oKzyAvipVR
-	nH5s1AbDwb30foVjAA3iqKCGHE8Lh1EmXI2Q==;
-Date: Fri, 18 Sep 2026 14:42:24 +0200
-From: Andreas Kemnade <andreas@kemnade.info>
-To: Bhargav Joshi <j.bhargav.u@gmail.com>
-Cc: Aaro Koskinen <aaro.koskinen@iki.fi>, Kevin Hilman
- <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, Tony Lindgren
- <tony@atomide.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Herbert Xu
- <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>,
- Animesh Agarwal <animeshagarwal28@gmail.com>, linux-omap@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-crypto@vger.kernel.org
-Subject: Re: [PATCH v2 2/4] ARM: dts: ti: omap: dra7: Remove clocks from
- crypto nodes
-Message-ID: <20260918144224.4dfb8515@kemnade.info>
-In-Reply-To: <20260916-ti-dra7-omap-sham-fix-v2-2-4eadb60081e5@gmail.com>
-References: <20260916-ti-dra7-omap-sham-fix-v2-0-4eadb60081e5@gmail.com>
-	<20260916-ti-dra7-omap-sham-fix-v2-2-4eadb60081e5@gmail.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dnWDyoNw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 693121F000FF;
+	Fri, 18 Sep 2026 12:51:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789735865;
+	bh=z1sVU9R9+x4//8cyuQAoI8VIvZltqOe2KgL9ZPE45nc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dnWDyoNwbV68RTnEchceD1+JKKl6RQ3G4EQzo1gFK+DbXTE1Yj64LUOrBpn1DwZal
+	 Ec7iZzPF7AQd/jVK7+0jPLq9iGy6P2kN+fQ3x8Ucsevr/1RXFyG1fXkFmv6/D60OeI
+	 FD0NtWv9YV9veyPlSoPvuOM0E9yfXJIvtx6YdMePDvJqaaFWcHtNKFXI3Rp5Eqg1LO
+	 4OcA6uJ6/P4dhEte2viYxOQ9VkmeCWtFMUurOgpjIIm8QESndV4llUPI4/kKphNgVL
+	 UI4I/GYJ9MhDPXJ4IS4RhQCWajy9OrWln7c5bXx17xymNuMmGcnLJCMAK0s5eEMVnA
+	 MqLOX45h2ncfw==
+Date: Fri, 18 Sep 2026 14:51:02 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Kieran Bingham <kieran.bingham@ideasonboard.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jacopo Mondi <jacopo@jmondi.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Jimmy Su <jimmy.su@intel.com>, 
+	Matthias Fend <matthias.fend@emfend.at>, Mikhail Rudenko <mike.rudenko@gmail.com>, 
+	Daniel Scally <dan.scally@ideasonboard.com>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Michael Riesch <michael.riesch@collabora.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, 
+	Sylvain Petinot <sylvain.petinot@foss.st.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Paul Elder <paul.elder@ideasonboard.com>, Martin Kepplinger <martin.kepplinger@puri.sm>, 
+	Quentin Schulz <quentin.schulz@theobroma-systems.com>, Tommaso Merciai <tomm.merciai@gmail.com>, 
+	Svyatoslav Ryhel <clamor95@gmail.com>, Richard Acayan <mailingradian@gmail.com>, 
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Heiko Stuebner <heiko@sntech.de>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux@ew.tq-group.com, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-arm-msm@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org, 
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+Subject: Re: [PATCH v6 5/6] ARM: tegra: Convert to new media orientation
+ definitions
+Message-ID: <aq0zSBPqnQaG-gJ_@orome>
+References: <20260918-kbingham-orientation-v6-0-5e8b1f01be29@ideasonboard.com>
+ <20260918-kbingham-orientation-v6-5-5e8b1f01be29@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="3nge4cpqtpe6oayt"
+Content-Disposition: inline
+In-Reply-To: <20260918-kbingham-orientation-v6-5-5e8b1f01be29@ideasonboard.com>
 
-On Wed, 16 Sep 2026 02:29:39 +0530
-Bhargav Joshi <j.bhargav.u@gmail.com> wrote:
 
-> The omap-sham, omap4-des and omap2-aes crypto drivers do not use
-> "clocks" and "clock-names" properties. Clock management is handled by
-> the ti-sysc interconnect parent wrapper. The dt-bindings for
-> ti,omap-sham and ti,omap-aes don't define these clock properties. Having
-> them in the child nodes causes dtbs_check warnings.
-> 
-> Remove the "clocks" and "clock-names" properties from the sham, des and
-> aes nodes.
-> 
-> Reviewed-by: Andreas Kemnade <andreas@kemnade.info>
-> Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+--3nge4cpqtpe6oayt
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v6 5/6] ARM: tegra: Convert to new media orientation
+ definitions
+MIME-Version: 1.0
 
-I was a bit too fast here, clocks here are different from what is
-used in the ti-sysc block. So some more thought and argumenting is needed.
-
-Regards,
-Andreas
-
+On Fri, Sep 18, 2026 at 11:44:17AM +0100, Kieran Bingham wrote:
+> From: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+>=20
+> The orientation property for video interface devices now has definitions
+> to prevent hardcoded integer values for the enum options.
+>=20
+> Update the users throughout the nvidia device trees to use the new
+> definitions.
+>=20
+> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> Signed-off-by: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
 > ---
->  arch/arm/boot/dts/ti/omap/dra7-l4.dtsi | 2 --
->  arch/arm/boot/dts/ti/omap/dra7.dtsi    | 8 --------
->  2 files changed, 10 deletions(-)
-> 
-> diff --git a/arch/arm/boot/dts/ti/omap/dra7-l4.dtsi b/arch/arm/boot/dts/ti/omap/dra7-l4.dtsi
-> index a595745afe59..bca035fd7e62 100644
-> --- a/arch/arm/boot/dts/ti/omap/dra7-l4.dtsi
-> +++ b/arch/arm/boot/dts/ti/omap/dra7-l4.dtsi
-> @@ -2086,8 +2086,6 @@ des: des@0 {
->  				interrupts = <GIC_SPI 77 IRQ_TYPE_LEVEL_HIGH>;
->  				dmas = <&sdma_xbar 117>, <&sdma_xbar 116>;
->  				dma-names = "tx", "rx";
-> -				clocks = <&l3_iclk_div>;
-> -				clock-names = "fck";
->  			};
->  		};
->  
-> diff --git a/arch/arm/boot/dts/ti/omap/dra7.dtsi b/arch/arm/boot/dts/ti/omap/dra7.dtsi
-> index 711ce4c31bb1..0784c6d9cbe4 100644
-> --- a/arch/arm/boot/dts/ti/omap/dra7.dtsi
-> +++ b/arch/arm/boot/dts/ti/omap/dra7.dtsi
-> @@ -1012,8 +1012,6 @@ aes1: aes@0 {
->  				interrupts = <GIC_SPI 80 IRQ_TYPE_LEVEL_HIGH>;
->  				dmas = <&edma_xbar 111 0>, <&edma_xbar 110 0>;
->  				dma-names = "tx", "rx";
-> -				clocks = <&l3_iclk_div>;
-> -				clock-names = "fck";
->  			};
->  		};
->  
-> @@ -1043,8 +1041,6 @@ aes2: aes@0 {
->  				interrupts = <GIC_SPI 59 IRQ_TYPE_LEVEL_HIGH>;
->  				dmas = <&edma_xbar 114 0>, <&edma_xbar 113 0>;
->  				dma-names = "tx", "rx";
-> -				clocks = <&l3_iclk_div>;
-> -				clock-names = "fck";
->  			};
->  		};
->  
-> @@ -1073,8 +1069,6 @@ sham1: sham@0 {
->  				interrupts = <GIC_SPI 46 IRQ_TYPE_LEVEL_HIGH>;
->  				dmas = <&edma_xbar 119 0>;
->  				dma-names = "rx";
-> -				clocks = <&l3_iclk_div>;
-> -				clock-names = "fck";
->  			};
->  		};
->  
-> @@ -1103,8 +1097,6 @@ sham2: sham@0 {
->  				interrupts = <GIC_SPI 163 IRQ_TYPE_LEVEL_HIGH>;
->  				dmas = <&edma_xbar 165 0>;
->  				dma-names = "rx";
-> -				clocks = <&l3_iclk_div>;
-> -				clock-names = "fck";
->  			};
->  		};
->  
-> 
+> v2:
+>  - Fix MEDIA_ORIENTATION_REAR to MEDIA_ORIENTATION_BACK
+> ---
+>  arch/arm/boot/dts/nvidia/tegra30-asus-nexus7-grouper-common.dtsi | 3 ++-
+>  arch/arm/boot/dts/nvidia/tegra30-asus-transformer-common.dtsi    | 3 ++-
+>  arch/arm/boot/dts/nvidia/tegra30-lg-p895.dts                     | 4 +++-
+>  arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi                      | 3 ++-
+>  4 files changed, 9 insertions(+), 4 deletions(-)
 
+Looks like the include you're using here is only available in
+linux-next, so this should go through the same tree as the patch that
+adds the include, in which case:
+
+Reviewed-by: Thierry Reding <treding@nvidia.com>
+Acked-by: Thierry Reding <treding@nvidia.com>
+
+--3nge4cpqtpe6oayt
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqtM7YACgkQ3SOs138+
+s6Gr/g//VOXb0tgMpx4OterUqb5K6gB0eoL8pDnZNWXwL0PdFOWg5P/ozvkIHTp6
+SW897Ifdf65UNCGVYXKCqHNBL6DH4Kvn2k/JI0DKerKx0VzQWlm4ojWsr2zBsLvy
+WDV2HeO2XzTiqaJqRGiXkB9GQYAn4asQXoobBSoIuRtm0Yh3w0lnhMYThKasCVxn
+CwbV8yLl5+cOnyp5aIRKBBfqV+C7RDwHzRlaTLWd0+Tha4hjgv5vtsml12jSrdb9
+VCT4xxjfIlt9yCBSpdYEa9LETBXfQRYcb7s9yjO5Koj6rWtd2iLEmoSw/gfi019H
+OAZPFULbLHmFV/QhzS/mPwQH5BPTshApCNBFf/uLtrhM9SsLfOBBUsW8jYJ+gjT3
+rx4ShbEX4bLsIT9POg1riSw+muXyNnnAvy/aG20ZM2Uq88u7eiG2TfnnQq2jujbV
+ZE8b/1r4rk8T5aIjnHsLfrztL8LqguWxb6Ni3YcEgQwheH1vAnOOppETs5a2KqW/
+LZXO3oW3IxH8qfBLTsO2dGvx9rafI3SBkRtE/LyAsV+C35sEODkNC57OswrL0ty0
+DqHxW09drdXNblN7hsWM/j8oD2/M1hEEiaeO9OuH90hWPxNe8m5TdkhFzkF+TLk2
+eTziMaYY4dcUYy81zglhvNT8ERnGG7mhiVXm6vbG4zI1FPJksXg=
+=khTn
+-----END PGP SIGNATURE-----
+
+--3nge4cpqtpe6oayt--
