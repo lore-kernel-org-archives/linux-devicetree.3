@@ -1,256 +1,198 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82FB33D090E
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 02:52:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 913D039DBD4
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 03:01:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789699946; cv=none; b=ebZMrgt0gJ+AAhqwt/cPZYNbqpJsBjcui0oXmXhLVtS4XbNwO9leYVlHBsqh0O0txOEfGporZR5aovw+UelwAi4Gi14pjI6W4oxicflG9G131fxCbP/7B4ZLqMtQw9dFcU+hprOjIzuwDfFIXT8qxrlhsN3AvlGFNBcVnXxgZUM=
+	t=1789700499; cv=none; b=m7Pw81VTG9vQeyaU0ODzILtZ/J/JYonTmj2pPAv0IbGN/mEtVA8YJ6hxNXfqnT9CZyef9LqJTfua9VxEQugKre7oMYolsl/sKrS1tqSjmO0HZFgR65/0UrmAZn//mahCKcBZT5+rJK+gRYP8d9AYd/6mymijwbQQnBB/NJJgMDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789699946; c=relaxed/simple;
-	bh=8XMzSgYJLrTpbS7JYU7EwJNtuwjAEf4lTQgRYszyPVg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Og9jL0xVhXDtCtjbkYznuUUsDPUltOJJmXjsGsClsYl+3TI5y6eoKGDg3nWMQpLU/1wo5KwDzh2NRSPkTFIlTeW6XrpkajF441unX4YzWTVs6ZbY4f6H0V7IAmS7VTQ8/qu2ZFyIGr0n84bQZyXRRl5Os2fj6afMYEeSIWY/TvA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F3yO2jlz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789700499; c=relaxed/simple;
+	bh=KJjFDh/52gu7EfLUhn16FGRvyciUieU+GbnCGuYWSWw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=h7YxTMLqqg13Z2UAXzjtm0R1wZ5AfrcT5rw+ovZM185GzH/9334yHdvi43Rna8eEnE5ruRbynbpyZvR/BxjMUPNkXl3ZGDONti1GU6iKkoYAbh6T0GVXHkDGPm3PZKYzLigDKglgUjftR3h5Dc4dvQiLr4C3tBDuuQojfvUdDbA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E2T3C0Vo; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F3yO2jlz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9855F1F000FF;
-	Fri, 18 Sep 2026 02:52:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789699934;
-	bh=xF1bXWou3rbhYi3+3+xU96VekintK+Av7EP95Qucz7w=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=F3yO2jlztTjjldaWWgxDoGjjDA6ffq3yg5x3+Kl0Hqh7Cun+Lqey9oePtbZz+Szp/
-	 QGgUm0I9HxDCA82M/aAp/AXXVF1eFiSdHbKeTWj5wa+hXDW+PwsG79Turk9piu/DWt
-	 o9z9iTDlonoaJ7wI640I1FWTlxoYZo9LzsN0frW626thv8Q+0YeWk59a33AyuS2yOe
-	 egcSyOhNhuDokQL6bgMFaCQNBvlu/HI87/SBn0960YCHaTjZTF3GSpfo+kqb250fKE
-	 VomJ3y9Lfu4BqT8mhWwnWNUc3e3hdhKEATOyQzlr7azoNFkr/9XHDd8Xi92AE5l+r8
-	 I0Ep8y/S3C7HA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] pmdomain: spacemit: Add power domain driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yixun Lan" <dlan@kernel.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260918-04-k3-pm-support-v1-2-0acd2b36b96f@kernel.org>
-References: <20260918-04-k3-pm-support-v1-0-0acd2b36b96f@kernel.org>
- <20260918-04-k3-pm-support-v1-2-0acd2b36b96f@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 02:52:14 +0000
-Message-Id: <20260918025214.9855F1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E2T3C0Vo"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d8fb334ddcso2234295ad.0
+        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 20:01:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789700494; x=1790305294; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bdKFcHr+t1P8kB1M0oZWW1CebC16dNbe38DihNTmLO8=;
+        b=E2T3C0Vo4zlJnWnIipzBWgiQ60dqwotMTII8X9irh92Ct1rEz1R3zLdTC37+Ua6G8E
+         2ZwqTelF8OzSWktGgThPREH+mOlgo97Oiho9GLJvn3H9sILk0UkXUF5tsugTJ8iCwz9Z
+         VLEYnGletvU41wFckOF7rM7/pdJeesUv4nApcG5Ie09ROi4o8I4GIOpPqpHWOhpMtcbG
+         UsCiLjQgKsJo38O1Sy1j0BbOK/rU/zTt41EVJyS9/U15A2yhFlFvckG8MRA1rIngQ8FH
+         sfRa6Wr0w9rRPWZTiL6XW1KfUEIzIpkL9aDpehg28tf7Fqa1vKJNs8N36IPpOh0adY/l
+         2zhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789700494; x=1790305294;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bdKFcHr+t1P8kB1M0oZWW1CebC16dNbe38DihNTmLO8=;
+        b=Gw+mMlOqU1IZ4WGqs8kYikwL6N290BkFrj2S/kq+0VIPHBYn9qi0FRflPh5lQcq2I5
+         8PB9WAenBAh9UNlmlQOHIamm6XTd98SQ4jqsOiu14XZ5F79NnXW/ckj+CPBhl+X9TIa+
+         kcnXatov3Cyrd5CxRN1/U6AdsfaZF48NnApmc+F3sFoZKawfBt/5tCGFecvfiKcw0YKx
+         x+LUIu9ctVJ19ts5K9ubRbCGZVbGW+EIUOhUdW1vSMRK1q7EbOA3v4TgfNpz5Schys+T
+         62kEWDiEdI6JDaCyW92MMJsD3sd/RqQnp5MX/gHVRkWpOLn9Ou4VNY26PlB/XwmcSv21
+         ilbg==
+X-Forwarded-Encrypted: i=1; AKwUvBzm9j8fy8zZILhDP8RBExsiFAM65m4FhM/7CN2eH/gRifWijpm7QHLN5qTydw6UTj8jN4/w+FD7di0g@vger.kernel.org
+X-Gm-Message-State: AFuF++m4U/9+eCb+1m0gt/sL0eanhPKW8ufM6S2BjDXL/btERgy6talC
+	OIA/NpHriE1ddfZTNQLspRqAIsLEsldnoyuM/yYGiXhVEpHFgr5Ct3aG
+X-Gm-Gg: AYBFou2XAz+p3xyHqMM/KruXVaHfWEM4m8FHRuxMDvP+YfYDXLZQrWLirCQwTMLlrMY
+	3aTMkenbEnZpIEKSr7e+Ayj6V7uiDLQVVUg+VpbYi9gJ8pjUANlonEbF61Kp/x5JdQ85Aq/nXrI
+	hG/oTZ4aBPIEm8HSP+4rt/saAGA73RAotGBsFWJKK/iJ1xcbtM+aJsPj9WqNJ/4T56jfcpbAUVm
+	5mCTA9o3SLk7qlIZGs+OUgGkU8t3eqRNJIBY4G0IZ3JUqAoZagd7hhjkWwt/LTno4BQqpIeiiDQ
+	rmxcUfU9X065dWrHFKSM3OJTm4dLTbNupBTXYSo5yP/JWdDZhAgXNQUSYnevJn5Cyxx3fc86seu
+	TeYkiCQ5PEtAUm/nDYMf6Eo9hDJ5Ikeg1QzFpf43q4Nq2IgGiWC+Lt3x77m/wGy1vrt8R/wP4PT
+	ESwAMDaYkhadEdCES+jHt5hiBPspbLxMxqAblNVsOFe0H9ZeacEY/LceyCQaKRoSbaN0SxnPGR0
+	8IDYQXOPpGuexBW4Q7qvrLyFzG2lLxCg9mFnaMDTgsZVDX6oK0yfex1Lysl7Pk=
+X-Received: by 2002:a17:90b:4c50:b0:39e:4c7e:f03f with SMTP id 98e67ed59e1d1-39e54f6a423mr2356087a91.28.1789700494073;
+        Thu, 17 Sep 2026 20:01:34 -0700 (PDT)
+Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e362e9402sm7969141a91.15.2026.09.17.20.01.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 20:01:32 -0700 (PDT)
+From: Joey Lu <a0987203069@gmail.com>
+To: zhengxingda@iscas.ac.cn,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com,
+	schung@nuvoton.com,
+	yclu4@nuvoton.com,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Joey Lu <a0987203069@gmail.com>
+Subject: [PATCH v7 0/7] drm/verisilicon: add Nuvoton MA35D1 DCU Lite support
+Date: Fri, 18 Sep 2026 11:01:18 +0800
+Message-ID: <20260918030125.315978-1-a0987203069@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] pmdomain: spacemit: missing .remove callback causes UAF on driver =
-unbind
-- [High] pmdomain: spacemit: unchecked pm_genpd_init() return leads to NULL=
- deref panic
-- [High] pmdomain: spacemit: global gpmu assignment races with consumer pro=
-be
-- [Medium] pmdomain: spacemit: uninitialized stack variable used if regmap_=
-read() fails
-- [Low] pmdomain: spacemit: missing architecture dependency in Kconfig
---
+This series adds support for the Verisilicon DCUltraLite display
+controller as integrated in the Nuvoton MA35D1 SoC.
 
-commit af62cacb34c99353b794b2101862dcbbf7c19cfb
-Author: Yixun Lan <dlan@kernel.org>
+The Verisilicon DC driver and its DT binding were originally written by
+Icenowy Zheng <zhengxingda@iscas.ac.cn> for the T-Head TH1520 SoC, which
+carries a DC8200 IP block.  The present series builds on that foundation
+with gratitude to Icenowy for the original work.
 
-    pmdomain: spacemit: Add power domain driver
-   =20
-    SpacemiT's PMU (Power Management Unit) consist of several power domains
-    which can be managed independently, depending on different application
-    scenario, each domain can be powered on/off for saving power.
+The DCUltraLite is a different variant in the DC IP family.  While the two
+IPs share a broadly similar register layout, a number of differences
+prevent the existing driver from working on the MA35D1 without
+modification:
 
-> diff --git a/drivers/pmdomain/spacemit/Kconfig b/drivers/pmdomain/spacemi=
-t/Kconfig
-> new file mode 100644
-> index 0000000000000..4b927beedc7c0
-> --- /dev/null
-> +++ b/drivers/pmdomain/spacemit/Kconfig
-> @@ -0,0 +1,15 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +
-> +menu "SpacemiT PM Domains"
-> +
-> +config SPACEMIT_PM_DOMAINS
-> +	bool "PM Domain driver for SpacemiT SoC"
-> +	depends on PM
-> +	depends on OF
-> +	depends on MFD_SYSCON
+  - No CONFIG_EX commit path: the DC8200 staging registers
+    (FB_CONFIG_EX, FB_TOP_LEFT, FB_BOTTOM_RIGHT, FB_BLEND_CONFIG,
+    PANEL_CONFIG_EX) are absent.  The DCUltraLite uses enable (bit 0) and
+    reset (bit 4) bits in FB_CONFIG for direct framebuffer updates, and
+    requires a per-frame VALID bit toggle (FB_CONFIG bit 3) to latch
+    configuration changes.
 
-[Severity: Low]
-Should this also have a dependency on ARCH_SPACEMIT or COMPILE_TEST?
+  - No PANEL_START register: panel output begins when
+    PANEL_CONFIG.RUNNING is set; the DC8200 multi-display sync start
+    register at 0x1CCC does not exist.
 
-Without it, users configuring kernels for any architecture will be prompted=
-=20
-to build this SoC-specific driver as long as the other dependencies are met.
+  - Different IRQ registers: DISP_IRQ_STA at 0x147C / DISP_IRQ_EN at
+    0x1480, versus the DC8200's TOP_IRQ_ACK at 0x0010 / TOP_IRQ_EN at
+    0x0014.
 
-[ ... ]
+  - Simpler clock topology: the MA35D1 clock controller gates the core,
+    AXI and AHB clocks with a single bit, so the devicetree supplies the
+    same clock phandle for all three; only the pixel clock is distinct.
+    No second output port is present, so no pix1 clock is needed either.
 
-> diff --git a/drivers/pmdomain/spacemit/pm_domains.c b/drivers/pmdomain/sp=
-acemit/pm_domains.c
-> new file mode 100644
-> index 0000000000000..d563e4e4e232e
-> --- /dev/null
-> +++ b/drivers/pmdomain/spacemit/pm_domains.c
-> @@ -0,0 +1,448 @@
+  - Single display output: no per-output indexing beyond index 0 is
+    needed.
 
-[ ... ]
+  - Hardware-discoverable identity: the DCUltraLite exposes chip identity
+    registers whose model field reads 0x0 (revision 0x5560,
+    customer_id 0x305), allowing the existing vs_fill_chip_identity()
+    path to identify the variant purely through register reads.
 
-> +static int spacemit_pd_power_on(struct generic_pm_domain *domain)
-> +{
-> +	struct spacemit_pm_domain *spd =3D container_of(domain, struct spacemit=
-_pm_domain, genpd);
-> +	const struct spacemit_pm_domain_param *p =3D spd->param;
-> +	unsigned int val;
-> +	int ret =3D 0;
-> +
-> +	regmap_read(gpmu->regmap, APMU_POWER_STATUS_REG, &val);
-> +
-> +	if (!p->use_hw && (val & BIT(p->bit_pwr_stat))) {
+Patch 1 adds the nuvoton,ma35d1-dcu compatible to the verisilicon,dc DT
+binding and relaxes the top-level clock/reset item counts so per-variant
+allOf/if blocks can constrain each compatible's actual topology.
 
-[Severity: Medium]
-What happens if regmap_read() fails and returns an error code?
+Patch 2 adds the register-level macros needed by the DC8000 ops.
 
-If regmap_read() fails here, the output parameter val will remain completel=
-y=20
-uninitialized. The uninitialized stack variable will then be evaluated to
-determine the current power state.
+Patches 3-4 introduce the driver changes in two logical steps: the
+vs_dc_funcs hardware ops vtable with DC8200 ops extracted into
+vs_dc8200.c, and the DC8000 ops in vs_dc8000.c.  Patch 5 adds the
+DCUltraLite HWDB entry that gates hardware recognition once all support
+is in place.
 
-Would it be better to check the return value of regmap_read(), or at least
-initialize val to zero?
+Patch 6 adds the Kconfig dependency on ARCH_MA35, placed last because it
+is only meaningful after the HWDB entry is added.
 
-[ ... ]
+Patch 7 fixes a pre-existing DC8200 bug in the primary plane disable
+path that Icenowy spotted while reviewing patch 3.
 
-> +static bool spacemit_pm_get_state(struct spacemit_pmu *pmu,
-> +				  struct spacemit_pm_domain *pd)
-> +{
-> +	const struct spacemit_pm_domain_param *p =3D pd->param;
-> +	u32 reg, bit;
-> +
-> +	regmap_read(pmu->regmap, APMU_POWER_STATUS_REG, &reg);
-> +
-> +	bit =3D p->use_hw ? BIT(pd->param->bit_hw_pwr_stat) :
-> +		BIT(pd->param->bit_pwr_stat);
-> +
-> +	return !!(reg & bit);
-> +}
+All patches have been tested on Nuvoton MA35D1 hardware.
 
-[Severity: Medium]
-Similarly here, if regmap_read() fails, the uninitialized variable reg
-is used to return the power state.
+Changes from v6:
+  - [dt-bindings] Added a "port@1: false" / "required: port@0"
+    restriction to the nuvoton,ma35d1-dcu allOf/if block, since the
+    DCUltraLite only has a single output port.
+  - [driver] Fixed 3 "alignment should match open parenthesis"
+    checkpatch --strict issues introduced by patch 3:
+    vs_crtc_atomic_begin() and vs_crtc_atomic_flush() continuation
+    lines in vs_crtc.c, and vs_dc8200_primary_plane_update_ex()'s
+    continuation line in vs_dc8200.c.
+  - [driver] Added patch 7 to fix the pre-existing DC8200 FB_EN
+    regmap_set_bits()/regmap_clear_bits() bug in
+    vs_dc8200_primary_plane_disable_ex(), carried over unchanged since
+    commit dbf21777caa8 ("drm: verisilicon: add a driver for
+    Verisilicon display controllers").
 
-> +
-> +static int spacemit_pm_add_one_domain(struct spacemit_pmu *pmu, int id,
-> +				      const struct spacemit_pm_domain_param *param)
-> +{
-> +	struct spacemit_pm_domain *pd;
-> +
-> +	pd =3D devm_kzalloc(pmu->dev, sizeof(*pd), GFP_KERNEL);
-> +	if (!pd)
-> +		return -ENOMEM;
-> +
-> +	pd->pm_index        =3D id;
-> +	pd->param           =3D param;
-> +	pd->genpd.name      =3D param->name;
-> +	pd->genpd.power_off =3D spacemit_pd_power_off;
-> +	pd->genpd.power_on  =3D spacemit_pd_power_on;
-> +
-> +	pm_genpd_init(&pd->genpd, NULL, !spacemit_pm_get_state(pmu, pd));
-> +
-> +	pmu->domains[id] =3D pd;
-> +
-> +	return 0;
-> +}
+Joey Lu (7):
+  dt-bindings: display: verisilicon,dc: add support for
+    nuvoton,ma35d1-dcu
+  drm/verisilicon: add register-level macros for DC8000
+  drm/verisilicon: introduce per-variant hardware ops table
+  drm/verisilicon: add DC8000 (DCUltraLite) display controller support
+  drm/verisilicon: add DCUltraLite chip identity to HWDB
+  drm/verisilicon: extend Kconfig to support ARCH_MA35 platforms
+  drm/verisilicon: fix DC8200 primary plane disable clearing FB_EN
 
-[Severity: High]
-Does this code need to check the return value of pm_genpd_init()?
+ .../bindings/display/verisilicon,dc.yaml      |  51 ++++++++
+ drivers/gpu/drm/verisilicon/Kconfig           |   2 +-
+ drivers/gpu/drm/verisilicon/Makefile          |   2 +-
+ drivers/gpu/drm/verisilicon/vs_bridge.c       |  20 +--
+ drivers/gpu/drm/verisilicon/vs_crtc.c         |  38 +++++-
+ drivers/gpu/drm/verisilicon/vs_crtc_regs.h    |   1 +
+ drivers/gpu/drm/verisilicon/vs_dc.c           |   9 +-
+ drivers/gpu/drm/verisilicon/vs_dc.h           |  33 +++++
+ drivers/gpu/drm/verisilicon/vs_dc8000.c       |  92 +++++++++++++
+ drivers/gpu/drm/verisilicon/vs_dc8200.c       | 121 ++++++++++++++++++
+ drivers/gpu/drm/verisilicon/vs_drm.c          |   5 +-
+ drivers/gpu/drm/verisilicon/vs_drm.h          |   8 ++
+ drivers/gpu/drm/verisilicon/vs_hwdb.c         |  14 ++
+ drivers/gpu/drm/verisilicon/vs_hwdb.h         |   6 +
+ .../gpu/drm/verisilicon/vs_primary_plane.c    |  32 +----
+ .../drm/verisilicon/vs_primary_plane_regs.h   |   3 +
+ 16 files changed, 382 insertions(+), 55 deletions(-)
+ create mode 100644 drivers/gpu/drm/verisilicon/vs_dc8000.c
+ create mode 100644 drivers/gpu/drm/verisilicon/vs_dc8200.c
 
-If pm_genpd_init() fails (for example, due to a memory allocation failure=20
-inside genpd_alloc_data()), the failure is ignored and the uninitialized=20
-domain is still stored in the domains array.
+-- 
+2.43.0
 
-> +
-> +static void spacemit_pm_domain_cleanup(struct spacemit_pmu *pmu)
-> +{
-> +	int i;
-> +
-> +	for (i =3D 0; i < pmu->num_domains; i++) {
-> +		if (pmu->domains[i])
-> +			pm_genpd_remove(&pmu->domains[i]->genpd);
-> +	}
-> +}
-
-[Severity: High]
-If a domain previously failed initialization in pm_genpd_init() but was sti=
-ll
-added to the array, will this unconditionally call pm_genpd_remove() on it?
-
-Because pm_genpd_remove() calls list_del(&genpd->gpd_list_node), running it
-on a domain with a zero-filled uninitialized list node will cause an immedi=
-ate
-NULL pointer dereference kernel panic.
-
-[ ... ]
-
-> +	err =3D of_genpd_add_provider_onecell(dev->of_node, &pmu->genpd_data);
-> +	if (err) {
-> +		dev_err(dev, "failed to add provider: %d\n", err);
-> +		goto err_out;
-> +	}
-> +
-> +	gpmu =3D pmu;
-
-[Severity: High]
-Could a consumer device probe race with the global gpmu assignment?
-
-The call to of_genpd_add_provider_onecell() registers the PM domains and ma=
-kes
-them visible to consumers. Once this returns, deferred consumer devices can=
-=20
-immediately probe and attempt to power on the domain by calling=20
-spacemit_pd_power_on(), which dereferences gpmu->regmap.
-
-Since gpmu =3D pmu happens after the provider registration, is there a wind=
-ow=20
-where a concurrent consumer probe could see gpmu as NULL and trigger a
-NULL pointer dereference?
-
-[ ... ]
-
-> +static struct platform_driver spacemit_pm_domain_driver =3D {
-> +	.probe =3D spacemit_pm_domain_probe,
-> +	.driver =3D {
-> +		.name           =3D "spacemit-pm-domain",
-> +		.of_match_table =3D spacemit_pm_domain_dt_match,
-> +	},
-> +};
-
-[Severity: High]
-Is it safe to allow this driver to be unbound without a .remove callback or=
-=20
-setting .suppress_bind_attrs =3D true?
-
-If a root user manually unbinds the driver via sysfs:
-/sys/bus/platform/drivers/spacemit-pm-domain/unbind
-
-All devres managed memory (like the struct spacemit_pm_domain allocations)=
-=20
-will be automatically freed. Because the driver lacks a .remove callback, i=
-t=20
-fails to unregister the PM domains from the generic PM domain framework=20
-(pm_genpd_remove) and the device tree provider list (of_genpd_del_provider)=
-.=20
-
-This leaves the framework with dangling pointers to the freed memory, causi=
-ng a
-use-after-free upon any subsequent access.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918-04-k3-pm-s=
-upport-v1-0-0acd2b36b96f@kernel.org?part=3D2
