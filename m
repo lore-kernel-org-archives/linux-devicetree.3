@@ -1,140 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5574397942
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 07:19:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E35894A2E1A
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 07:25:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789716002; cv=none; b=PRg55O41DfLdnMzyv9PRIzcYbJGCOlD9Xh1NYLkcuoB69HCl9WUuubTcBSM+TNiieWbxTLBgS19Dp/RBKNTy0blBxlYxDcpMhEnPn1QakTzVK7iAYksaLznpspKNY1WxjboK5wCQpVUD/be0EffGDoAWssIO7r9mYQ8bsxQe0NY=
+	t=1789716363; cv=none; b=a4pm/JV/FVNLX+AB2AHWPoEr+PxamgnQmxABKb98r3KGxFUANDJyM9V1+cj7cbJq/TDz3nmldRza6f8Udoc83WSKr+agoAZS4zuuTQX/haijjYX85QflWgW1lSCWEPF3iCAbqPKvSHm/gUyEmpC6ZubhUkjaPJZwcZfUjW1mIGQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789716002; c=relaxed/simple;
-	bh=Q+rjJ5Sk+dp2ICYQxcU/YXqb2MZEqskp3/sW0AnvTMA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Ae0R70WJUxh3xtqOoxhkisuw7Y5fQp5pcNWPOdOr0cZdZ8caGUaH/vWd4HGJevdzNwKddtxlB0f8vEH4EQkZ1CJ6SJE1mUTfHZtH0w54nXPhKSlv+YxfhIm5LlJkw2IxXhPbiqi/R1dW6yyqu7bdx323iZD4wyCp+83uYEvsaQg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dshkosVe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789716363; c=relaxed/simple;
+	bh=EIcHz7r9SwgQ9xfhs7p1tSOdcaWcUCLZ3GAYhdRGBLA=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=DnxTJgCyT15eqdM0GVfAxOqaNfDb/LKG7YwAOYalYEfth1qpHhamG/mtoeyMRQ5g7Zlnj0PMOLtNDfxsraVjpMznlyWCviMtP2lJsP7wi/RxmHkTtbObbsgthbNP7l62OYNBCCU3X7i3JRPiKMN4g7y5j1hE8M9M2lu5BTcx1wA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Ki8zrb7c; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dshkosVe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1628E1F000FF;
-	Fri, 18 Sep 2026 07:19:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789715997;
-	bh=cwoGWBRrHN8uBYJSQHae7XZKhWRBR5aaaLd7if0VBZM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dshkosVekSrIlX3x++ikR39mnOH97U9iF9BjmRb8xfHOcoP9IiP4CF7ally4D1iVF
-	 orI4XB1/WHJi+D6I9Dx2RaBEFazhl7yCMOrAS5FcprD61ZzrLuhrUBG4Mjz/bVRu5o
-	 HUZGn7SF0W0v6rbcyRzFtSOmY4ZcMWQKHNOZ5igkt0hB/BpaehgswOAFMJa3sOMH6V
-	 E5yu4KvSq3TZAItX+Sz+zgpw0nouPclRHpvmqZ+5sSY8cI2MKVOvpKy8SOVcYdLwpr
-	 /AMTqriKV6W8qFF+feMKDXILXwzH8wbPbYfrInCy//5X/S7C6Teo8/e6JHhY3nEf9I
-	 jVB8XkrTOfe6g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 3/3] usb: dwc3-generic: Add Starfive JHB100 USB 2.0
- device controller and adapter
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Minda Chen" <minda.chen@starfivetech.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260918071103.24482-4-minda.chen@starfivetech.com>
-References: <20260918071103.24482-1-minda.chen@starfivetech.com>
- <20260918071103.24482-4-minda.chen@starfivetech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 07:19:56 +0000
-Message-Id: <20260918071957.1628E1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Ki8zrb7c"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e2406so1996115e9.1
+        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 00:25:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1789716343; x=1790321143; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=BVjmlSNqtkbu5Qw02HVgZP7ffavDj/nhKRMIeX7I8Eg=;
+        b=Ki8zrb7cLatx26hYShpaPUZDeaccGs4SjaHvHQlFHpW9j33z3st4ydUsntyEOc+kvm
+         /P02NJgg/xhdkj04sT+4HPsG7UBjXkmqIqZmrzQ+lhuzBryOi06p9HdzecXHEna3gALb
+         XsRZkpZss0wRYbg8EpuUZ3CKnirxwVhh3s1pTNmhWdnmfsusuBCFkKhvHBLNxXL8AU2J
+         FDcamQ6qw/wcsKxSBjddnePPLD9tHyLTmghdT84UdL9tIiifjwuIphMsxYo7UdbULPab
+         rQ4CgYvvkWnciiivJkY5yfCLmhWWjO6fni0WIznuSwyua6M748gGGPiMv4zvfNzbMjBl
+         xFcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789716343; x=1790321143;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=BVjmlSNqtkbu5Qw02HVgZP7ffavDj/nhKRMIeX7I8Eg=;
+        b=oTuI75iLD+hHq6jqnN9mZ5SjugxCNrPQMt9XmOCQJIwCazNNREEndTxTBQ6EOash8L
+         fl9V2rI+y569Xv1XUoLVi1nZXtEE/zLVxLcBXLfliCaiplLYUKik4zRy64IJdmZzO5dS
+         wtC08SMh47F9rt63JRhW57LBrH3SbMPNu/dlF2Ti731rgNLFTvgeKyPZC217qlwnfC1a
+         oSEHK6rFIKuFn79S+TlZH8tPXpoRmBNXYmeiEiVf5MZ8wnMxR90n2BsInUxzmAswdu4b
+         nzDzpZoKUMhEB7w3symwGA7Mg9nrFZj/X3IvuvSsYwCJTcs9eynmtr/whqfHkHs/xUlS
+         4lRA==
+X-Gm-Message-State: AFuF++lReJWL6dP631FVwaLkwgpFsWO/89uetcqaCGKgv6pbCO6N+hjU
+	jqx8/uM7dGwhWxRvDB7pg/X/iKy8y4nlEfd5odHzjGuM8UDM/nFtpjXqw2F62pZsNTV6CzNtihT
+	6Nd0o
+X-Gm-Gg: AYBFou25L/cjuoB0F7wRFzcEiBoTC0q/95ka07xMBkmqZpi5sbdScSnjpdryGwkRCAF
+	VGBQAHVRS4BWoDlYCrpx9V6aUoIAnVor49rgekHigB3wpqmS7g9GdmtjK/9BYmmVJUgoBOQObVw
+	iUZqehVR40YRL1E+NmfuxcZtAdDZm48AIiZN0p+E5d5Y9Z1CzjZ7CYtfuXe1TR3zSmuoTti2N3+
+	TCaRcGZVal63pN9WD5j/0WdQ1w/0xpoj0H2cA9Q8XLy1UnkJDLKRGuCiG5/DtdCX2t+O8vXciRR
+	ht9PDXgXo+CH/rCxU9yRTB32nadgg0TUc6PgA6FdjoM09G3duYtPBOSXBAvAnzMPi16107nTMB9
+	krL9eKqMgT2ujfKYpwmQK2/1ZNhH4KeoiTuGR2JSrBOp59H9JcsdcLRCm3SiMdHBP34ijOejUfd
+	G5MX4ZTPtmLl9xGVJHCiwxZGUpd4xT7vQv/NmVEiWeoI72SrjJr4mysarha8Zo1JsjavHauim/Q
+	2kiKXNfUzDmEG8=
+X-Received: by 2002:a05:600c:1389:b0:49d:2936:8ad1 with SMTP id 5b1f17b1804b1-49fc4f71c7dmr20760355e9.1.1789716343451;
+        Fri, 18 Sep 2026 00:25:43 -0700 (PDT)
+Received: from arrakeen-2.home ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd2160c2sm139523555e9.6.2026.09.18.00.25.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 00:25:43 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: [PATCH 0/3] regulator: add support for the Nexperia NEX10000UB
+ dual output LCD bias power supply
+Date: Fri, 18 Sep 2026 09:25:36 +0200
+Message-Id: <20260918-topic-sm8x50-nex10000ub-v1-0-5afe06bace03@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHDnrGoC/yXMwQ6CMBCE4Vche3aTFoSgr2I4wDLomlhIF0wTw
+ rtbdW7fYf6dDFFhdC12inir6Rwy/KkgefThDtYxm0pXNu7iW17nRYXt1abacUDyLm8buBohfSV
+ 1g+lM+b1ETJp+5Vv3t23DE7J+c3QcHx3GKkV7AAAA
+X-Change-ID: 20260918-topic-sm8x50-nex10000ub-3deca3c56ef4
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Mark Brown <broonie@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1387;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=EIcHz7r9SwgQ9xfhs7p1tSOdcaWcUCLZ3GAYhdRGBLA=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqrOd0mhL6FOYWAWXX8YnrZus06zPjs9OuKc++Ilyk
+ /AcnCqaJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCaqzndAAKCRB33NvayMhJ0d5REA
+ Cut5N7ISVUK4INtGOvm/8PnQBbASXIksVDaZViZ+CpE+FxhHfblqVV6KPuh0YiZeHezMX1tGoEM4Kq
+ Ehp8+iRh9oaUbcI2s3pT/hRzkEDO9coDs+TPCTCBjz9RiAqq+4auYmLXEF9m2dqRFu9WDvmnoNdpRV
+ Otz3G1uKbKcyJS+16qK10AGjViLarj847Cw/dHv+qygQwSgISt9HsDZlaIrxQVhL+xnnOxti4CNVZ0
+ 8YRlDgtXsc9YORMGXfYPqNf3S6t4kOnBwDOHz+NEy/CBqD2atGs8rT3ev53TAVaS5LoBkfmiQ2/wCT
+ TBCEoUjxeojkSU1mEf+g24B3U9W9Psr9AVYvcO1Q8kMCwUSfBgBlIBpLI1eNyhixMiAu5vp/T/7pBu
+ PC5YRNlAUWhsYGr0I2iMIFq5DTsp9BtZ+Y7C6ASi0k9IMr7rKSlt+QBBwznyR8zjqrIYUrJ4oKoSeF
+ 0IuHxwgkJhVDk6xx0IsZ3Dnpjtc5GCstb3s53melskskmJ4h3ULTZ5uIwMm7Y7sLGKSZ9Xcst8SEpM
+ NvPH4sfE/o5ocKZynNu7LHKNSDxYwj3wtsymqa509xmtlWmtoYQ3yRM9pPchTuItsCfm5Lr2t53G5s
+ PusUveg0m0hh3C7EApx1EX82/m8LR9Wnf9L3W0X8ZkDiZa+Yixscp/gD/KmQ==
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] usb: improper handling of optional adapter resource masks legiti=
-mate errors
-- [Low] usb: missing static keyword on jhb100_glue_ops causes namespace pol=
-lution
---
+Document and add regulator support for the Nexperia NEX10000UB dual
+output LCD bias power supply which provides programmable positive
+and negative output voltages mainly for display panels applications.
 
-commit e26d59375d5e4555d239557e241788e437655348
-Author: Minda Chen <minda.chen@starfivetech.com>
+The driver supports setting the output voltage from 4V to 6V in
+100mV steps for each output via the I2C programming interface and
+supports the enable GPIOs for both outputs.
 
-usb: dwc3-generic: Add Starfive JHB100 USB 2.0 device controller and adapter
+Product datashet can be found online at [1].
 
-This patch introduces the Starfive JHB100 USB 2.0 device controller and
-its associated PHY adapter settings to the generic DWC3 driver. It adds
-io memory mappings for the adapter and implements pre-run/stop operations
-to appropriately toggle the adapter port enable bit during gadget enumerati=
-on.
+[1] https://assets.nexperia.com/documents/data-sheet/NEX10000UB.pdf
 
-diff --git a/drivers/usb/dwc3/dwc3-generic-plat.c b/drivers/usb/dwc3/dwc3-g=
-eneric-plat.c
-index ca69ac0eb07ce..e3394205a5197 100644
---- a/drivers/usb/dwc3/dwc3-generic-plat.c
-+++ b/drivers/usb/dwc3/dwc3-generic-plat.c
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+---
+Neil Armstrong (3):
+      dt-bindings: vendor-prefixes: add vendor prefix for Nexperia B.V.
+      regulator: dt-bindings: document the Nexperia NEX10000UB dual output LCD bias power supply
+      regulator: add regulator driver for the Nexperia NEX10000UB
 
-[ ... ]
+ .../bindings/regulator/nexperia,nex10000ub.yaml    |  66 +++++++++
+ .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
+ drivers/regulator/Kconfig                          |   8 ++
+ drivers/regulator/Makefile                         |   1 +
+ drivers/regulator/nex10000ub-regulator.c           | 147 +++++++++++++++++++++
+ 5 files changed, 224 insertions(+)
+---
+base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+change-id: 20260918-topic-sm8x50-nex10000ub-3deca3c56ef4
 
-> +static void dwc3_jhb100_pre_run_stop(struct dwc3 *dwc3, bool start)
-> +{
-> +	struct dwc3_generic *data =3D to_dwc3_generic(dwc3);
-> +	u32	val;
-> +
-> +	if (start) {
-> +		val =3D readl(data->phy_regs);
-> +		val |=3D JHB100_ADAPTER_PORT_EN;
-> +		writel(val, data->phy_regs);
-> +	} else {
-> +		val =3D readl(data->phy_regs);
-> +		val &=3D ~JHB100_ADAPTER_PORT_EN;
-> +		writel(val, data->phy_regs);
-> +	}
-> +}
-> +
-> +struct dwc3_glue_ops jhb100_glue_ops =3D {
+Best regards,
+--  
+Neil Armstrong <neil.armstrong@linaro.org>
 
-[Severity: Low]
-Could this struct be marked static and const?
-
-Since jhb100_glue_ops is only assigned to dwc3g->dwc.glue_ops locally within
-drivers/usb/dwc3/dwc3-generic-plat.c, leaving it globally exposed might lead
-to link-time symbol collisions or sparse warnings.
-
-> +	.pre_run_stop =3D dwc3_jhb100_pre_run_stop,
-> +};
-> +
-> +static int dwc3_jhb100_init(struct dwc3_generic *dwc3g)
-> +{
-> +	struct platform_device *pdev =3D to_platform_device(dwc3g->dev);
-> +
-> +	dwc3g->phy_regs =3D devm_platform_ioremap_resource_byname(pdev, "adapte=
-r");
-> +	if (IS_ERR(dwc3g->phy_regs)) {
-
-[Severity: Medium]
-Will this error handling mask legitimate failures?
-
-The adapter resource appears to be optional here since dwc3_jhb100_init() f=
-alls
-back to generic behavior when it is missing. However, using
-devm_platform_ioremap_resource_byname() on an absent resource will
-unconditionally log an invalid resource error via dev_err_probe(), potentia=
-lly
-spamming the kernel log on platforms where it is intentionally omitted.
-
-Additionally, checking IS_ERR() here will catch all other errors like -ENOM=
-EM
-or -EBUSY and silently downgrade capabilities by returning 0, instead of
-propagating the real failure to the caller.
-
-> +		dwc3g->phy_regs =3D NULL;
-> +		/* Generic bmc USB with PHY*/
-> +		return 0;
-> +	}
-> +
-> +	/* usb device controller with adapter */
-> +	dwc3g->dwc.glue_ops =3D &jhb100_glue_ops;
-> +
-> +	return 0;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918071103.2448=
-2-1-minda.chen@starfivetech.com?part=3D3
