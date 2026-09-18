@@ -1,167 +1,140 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCE66370D69;
-	Fri, 18 Sep 2026 07:19:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5574397942
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 07:19:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789715944; cv=none; b=XJ5f0Ak6MBNUbHxS3abgrEDzOlgiF4ySPeIlS0fJtLQWa+aeMtRH4i13S8iuVkiif7MZLsWnRkpheMl6ia4TETkCtyIKldALRkIE+WkbQ00Nbffmc3vK1lg/ABNAhcrDTeOxLCljmiXEwM/wjkDRYi6AeOldQmIinnYOKdopnZg=
+	t=1789716002; cv=none; b=PRg55O41DfLdnMzyv9PRIzcYbJGCOlD9Xh1NYLkcuoB69HCl9WUuubTcBSM+TNiieWbxTLBgS19Dp/RBKNTy0blBxlYxDcpMhEnPn1QakTzVK7iAYksaLznpspKNY1WxjboK5wCQpVUD/be0EffGDoAWssIO7r9mYQ8bsxQe0NY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789715944; c=relaxed/simple;
-	bh=dfxlF5cxykKt1JLCGAytW/kqApoyMBeXGMrJQ5Ycbg4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JF9qSjGUm0CRimbVk3tcDkDUC3IrMKUu0EIcN5zCr03AY0kIGPXjkD4srS40rhPJyMSCKIRulUvy6MlICEHcR/2J34MSMg4Dc7otBIrmWdcQxScK04LRcIFYN1bDNQfqCfyse6eDQJFxHVgxtBpS8GrX01QjHxWJxbqhtes2Abo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AO5MzpOI; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789716002; c=relaxed/simple;
+	bh=Q+rjJ5Sk+dp2ICYQxcU/YXqb2MZEqskp3/sW0AnvTMA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Ae0R70WJUxh3xtqOoxhkisuw7Y5fQp5pcNWPOdOr0cZdZ8caGUaH/vWd4HGJevdzNwKddtxlB0f8vEH4EQkZ1CJ6SJE1mUTfHZtH0w54nXPhKSlv+YxfhIm5LlJkw2IxXhPbiqi/R1dW6yyqu7bdx323iZD4wyCp+83uYEvsaQg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dshkosVe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AO5MzpOI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789715942; x=1821251942;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=dfxlF5cxykKt1JLCGAytW/kqApoyMBeXGMrJQ5Ycbg4=;
-  b=AO5MzpOIY1iqz4xALzwf6KWEZ1NoI4XqXad2JhZh2a0E8gtsn5V0uk+E
-   KrhHe5HNSjyGtMyoI9gXF58hlNdftOuRFX1gSUN+hKhp1N1ywFYAzA4TP
-   sHiRpffaySWyNTHAsQh8IOV2+0Pp56Emai6jqCd4lV3WK1OZ4sOln4/8m
-   YrjqZjnQXIi9TbPxH1tjxFbWPqqr7kVawGSzwI/HWhtqw5WRziwSd4qJ9
-   zbSn9K59UkTtTc87NJ8b803iqcTXI7bvYgL7ZQuUuHUNg4LDlbwLhYrM8
-   4mHoR/UllDv8w/UUzAAuO9hd9HV56Wx4A5Jy6tEW2/AFz0pg/M1CfRlLH
-   g==;
-X-CSE-ConnectionGUID: RMbQHMX1TCu6yTPjrv8q1Q==
-X-CSE-MsgGUID: T1+/muIFQcuV5b56AUlKtw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89338051"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="89338051"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 00:19:01 -0700
-X-CSE-ConnectionGUID: YVxCbwO2SqqSvBOkmu44aw==
-X-CSE-MsgGUID: FpOe3BXLSpad84ZaQLJXvQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="276224505"
-Received: from carterle-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.170])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 00:18:57 -0700
-Date: Fri, 18 Sep 2026 10:18:51 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Ryan Brue <ryanbrue.dev@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Lee Jones <lee@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, mfd@lists.linux.dev,
-	Roman Vivchar <rva333@protonmail.com>,
-	Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Subject: Re: [PATCH v2 0/3] iio: adc: add mt6397 PMIC AUXADC support
-Message-ID: <aqzl29C_R4zwAnDK@ashevche-desk.local>
-References: <20260917-rbrue-suez-upstreaming-mt6397-auxadc-v2-0-db35882a6080@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dshkosVe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1628E1F000FF;
+	Fri, 18 Sep 2026 07:19:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789715997;
+	bh=cwoGWBRrHN8uBYJSQHae7XZKhWRBR5aaaLd7if0VBZM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=dshkosVekSrIlX3x++ikR39mnOH97U9iF9BjmRb8xfHOcoP9IiP4CF7ally4D1iVF
+	 orI4XB1/WHJi+D6I9Dx2RaBEFazhl7yCMOrAS5FcprD61ZzrLuhrUBG4Mjz/bVRu5o
+	 HUZGn7SF0W0v6rbcyRzFtSOmY4ZcMWQKHNOZ5igkt0hB/BpaehgswOAFMJa3sOMH6V
+	 E5yu4KvSq3TZAItX+Sz+zgpw0nouPclRHpvmqZ+5sSY8cI2MKVOvpKy8SOVcYdLwpr
+	 /AMTqriKV6W8qFF+feMKDXILXwzH8wbPbYfrInCy//5X/S7C6Teo8/e6JHhY3nEf9I
+	 jVB8XkrTOfe6g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 3/3] usb: dwc3-generic: Add Starfive JHB100 USB 2.0
+ device controller and adapter
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Minda Chen" <minda.chen@starfivetech.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260918071103.24482-4-minda.chen@starfivetech.com>
+References: <20260918071103.24482-1-minda.chen@starfivetech.com>
+ <20260918071103.24482-4-minda.chen@starfivetech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 18 Sep 2026 07:19:56 +0000
+Message-Id: <20260918071957.1628E1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917-rbrue-suez-upstreaming-mt6397-auxadc-v2-0-db35882a6080@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Sep 17, 2026 at 09:19:49PM -0500, Ryan Brue wrote:
-> The MediaTek mt6397 PMIC has a 10-bit AUXADC that nothing in-tree can
-> reach. On boards built around it that ADC is the only path to the battery:
-> the SoC's AUXADC is wired to board thermistors, and the charger ICs these
-> boards use have no ADC at all, so without it there is no pack voltage and
-> no state of charge.
-> 
-> Patch 1 adds the compatible to the existing MediaTek PMIC AUXADC schema and
-> the header naming the channels, patch 2 the driver, patch 3 the MFD cell
-> that instantiates it. The cell comes last so that no commit in between
-> registers a child no driver can claim.
-> 
-> The mt6397 is not given mediatek,mt6359-auxadc as a fallback because the
-> two are not register compatible; patch 1 has the detail.
-> 
-> Only the two channels a board needs for its pack are described, so patch 1
-> ships a header naming them: a channel ID is an index into the driver's array
-> and not the PMIC's channel number, as in mt6323-auxadc. The register
-> sequences are the ones the vendor kernel's pmic_auxadc.c programs.
-> 
-> One note on patch 3: it adds a cell to mt6397_devs[], which Luca Leonardo
-> Scorcia's MT6392 series converts to the MFD_CELL_* macros in its patch
-> 4/9 [1]. Whichever of the two lands second needs a respin. Mine would
-> become a single MFD_CELL_OF(), and I can do a respin if that patch arrives
-> first.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] usb: improper handling of optional adapter resource masks legiti=
+mate errors
+- [Low] usb: missing static keyword on jhb100_glue_ops causes namespace pol=
+lution
+--
 
-> Cc'd Luca.
+commit e26d59375d5e4555d239557e241788e437655348
+Author: Minda Chen <minda.chen@starfivetech.com>
 
-Instead of this, just put the real Cc: email tag here
-Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+usb: dwc3-generic: Add Starfive JHB100 USB 2.0 device controller and adapter
 
-> Tested on an Amazon Fire HD 10 (2017), an mt8173 with an mt6397. Both
-> channels are exercised: the battery channel by a fuel gauge, which reads 817
-> counts, 3830 mV with the pack at rest, and the thermistor channel by an
-> ntc-thermistor consuming it.
-> 
-> A new driver was created here, instead of modifying an existing driver such
-> as mt6323-auxadc or mt6359-auxadc, for the following reasons:
-> 
->  - Both mt6323-auxadc and mt6359-auxadc select channels through a request
->    register (1 bit per channel), while mt6397 uses a 4-bit numeric field
->    CHSEL in CON1 (10:7), and then pulses a START bit (CON1 bit 0).
-> 
->  - For mt6323-auxadc, which is the closest I could find to the mt6397
->    (CON0..CON27), it has 13 more registers than the mt6397 (CON0..CON14).
->    It uses CON22 for its request register, and reads the result value
->    from the same register as the ready bit. We don't do that - the mt6397
->    has a factory calibrated value for each channel at 0x16 higher than the
->    raw value. mt6323 also has a 1800 mV / 15 bit scale / resolution while
->    we have 1200 mV / 10 bits. We also have some per-channel preparation
->    that we have to do before the burst, that the mt6323 doesn't have to
->    do.
-> 
->  - For mt6359-auxadc, it has a more generic framework for describing the
->    AUXADC, but it assumes requests are channel-per-bit, and so we would
->    have to basically ignore req_idx, req_mask, rdy_idx, and rdy_mask.
-> 
->  - We also have our own software sampling, which the vendor does too
->    (Amazon Fire OS based on Linux 3.18). We'd have to have our own
->    sampling callback to do it.
-> 
-> I have two things in the driver different from the vendor (Amazon
-> Fire OS based on a 3.18 kernel). Verified with over 150 interleaved reads
-> per setting:
-> 
->  - Leaving the ISENSE input enabled between reads, as the vendor does,
->    makes no difference to the value, so the driver switches it off again
->    and leaves both ADC input enables clear when idle.
-> 
->  - The chip's sample accumulator makes no difference at 4, 8, 16 or 31
->    samples and costs no measurable time, so it is left at one. Software
->    averaging helps, but only by about a quarter: 0.92 LSB standard
->    deviation for one conversion against 0.67 for sixteen, where independent
->    samples would have given 0.23. Conversions in a burst are correlated.
-> 
-> The reading was checked against the charger, which regulates the pack to
-> a programmed voltage in constant-voltage mode. Over twelve such voltages
-> from 3904 to 4080 mV, and charge currents from 111 to 778 mA, the driver's
-> reading is a mean of 0.9 mV from the regulated value, well inside
-> the charger's regulation tolerance. That also settles reading the chip's
-> trimmed result register rather than the raw one - the raw register is
-> 20.7 mV low at every one of the twelve points.
-> 
-> [1] https://lore.kernel.org/all/20260902193351.185771-5-l.scorcia@gmail.com/
+This patch introduces the Starfive JHB100 USB 2.0 device controller and
+its associated PHY adapter settings to the generic DWC3 driver. It adds
+io memory mappings for the adapter and implements pre-run/stop operations
+to appropriately toggle the adapter port enable bit during gadget enumerati=
+on.
 
--- 
-With Best Regards,
-Andy Shevchenko
+diff --git a/drivers/usb/dwc3/dwc3-generic-plat.c b/drivers/usb/dwc3/dwc3-g=
+eneric-plat.c
+index ca69ac0eb07ce..e3394205a5197 100644
+--- a/drivers/usb/dwc3/dwc3-generic-plat.c
++++ b/drivers/usb/dwc3/dwc3-generic-plat.c
 
+[ ... ]
 
+> +static void dwc3_jhb100_pre_run_stop(struct dwc3 *dwc3, bool start)
+> +{
+> +	struct dwc3_generic *data =3D to_dwc3_generic(dwc3);
+> +	u32	val;
+> +
+> +	if (start) {
+> +		val =3D readl(data->phy_regs);
+> +		val |=3D JHB100_ADAPTER_PORT_EN;
+> +		writel(val, data->phy_regs);
+> +	} else {
+> +		val =3D readl(data->phy_regs);
+> +		val &=3D ~JHB100_ADAPTER_PORT_EN;
+> +		writel(val, data->phy_regs);
+> +	}
+> +}
+> +
+> +struct dwc3_glue_ops jhb100_glue_ops =3D {
+
+[Severity: Low]
+Could this struct be marked static and const?
+
+Since jhb100_glue_ops is only assigned to dwc3g->dwc.glue_ops locally within
+drivers/usb/dwc3/dwc3-generic-plat.c, leaving it globally exposed might lead
+to link-time symbol collisions or sparse warnings.
+
+> +	.pre_run_stop =3D dwc3_jhb100_pre_run_stop,
+> +};
+> +
+> +static int dwc3_jhb100_init(struct dwc3_generic *dwc3g)
+> +{
+> +	struct platform_device *pdev =3D to_platform_device(dwc3g->dev);
+> +
+> +	dwc3g->phy_regs =3D devm_platform_ioremap_resource_byname(pdev, "adapte=
+r");
+> +	if (IS_ERR(dwc3g->phy_regs)) {
+
+[Severity: Medium]
+Will this error handling mask legitimate failures?
+
+The adapter resource appears to be optional here since dwc3_jhb100_init() f=
+alls
+back to generic behavior when it is missing. However, using
+devm_platform_ioremap_resource_byname() on an absent resource will
+unconditionally log an invalid resource error via dev_err_probe(), potentia=
+lly
+spamming the kernel log on platforms where it is intentionally omitted.
+
+Additionally, checking IS_ERR() here will catch all other errors like -ENOM=
+EM
+or -EBUSY and silently downgrade capabilities by returning 0, instead of
+propagating the real failure to the caller.
+
+> +		dwc3g->phy_regs =3D NULL;
+> +		/* Generic bmc USB with PHY*/
+> +		return 0;
+> +	}
+> +
+> +	/* usb device controller with adapter */
+> +	dwc3g->dwc.glue_ops =3D &jhb100_glue_ops;
+> +
+> +	return 0;
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918071103.2448=
+2-1-minda.chen@starfivetech.com?part=3D3
