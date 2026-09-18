@@ -1,122 +1,125 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B41E3501F4A
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 14:50:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 541AF498906
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 14:51:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789743051; cv=none; b=BNyBKwrvz2eZk9gcFHjQawmDNE4CsZZ/9tIytyg75VhgtmIgS/Oy9oiLYoS+SPomCKNaHFNwMTXmCDl8ANnL5UmPUIdxhpIhNiEvTgdtoyuSFUWh906XDhfsGmB93zaxrSbkgyD5kQ+2cq8O4Kl2JiYM1lPposWqn6QQqUnd3zs=
+	t=1789743096; cv=none; b=iH/grtSXMklFYvsLmNOkETv5vsfUjhs43WHbbNXwA2/EatKs1kz+ssTgDxL8+Sh52Cf+aYJeYGhHxc4OB1Hxg2KBTvw9tRRGUAxFgHAbssWVpgKaPdMKwqWX+MNfG57rhSVUQyWfkDsm2oj+gUeDO+urOUbXd1ALJePoIiBDSvQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789743051; c=relaxed/simple;
-	bh=3g32ZEKgqgdm0mzzfeeD6m0KdEMdwsvPWO8RE57p70U=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=BKTO1wXefQHPIx4B+FVCL23N0iEFaxmxnm0DFsKJxU9y8xhbXlBKulaYuoQFsRIQ31074Sc80tV/nUz8rubeKgFjN3khP3cttEnqzMFTxnM8kG/GaHzB6oh7o54kOqFvCyDcUY7OYu+rnDNa/J0JIvQJap/TiE2ef8SyWnr+bMY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=A7uI7+nT; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1789743096; c=relaxed/simple;
+	bh=1Gda1l1yg3pluXS3Bu/CFUs4D2C5ZqLM8c3UVMitJBg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=lwlWCgfAtsIcV8aItNWqQz1mrgEbwvD3+NgPvkrAXRv1yijtCOLiN/YOPZ8Bfa9uc/+UIn8Sfrkpq4al3ljcHAAbft9obmgYCall1RE5hS2grGL6Xgp/6gcA2BwHKZ+GJBCBCvlYjn+M4sPBm39XxCtQmsgUd3qS0Kg3+U/fbdU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CsbE37Ak; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="A7uI7+nT"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f8694aeso48045766b.0
-        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 07:50:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1789743041; x=1790347841; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=r59C/B+bGqeFr3iprC+rozYulFppGtTTZNSFZMONdm8=;
-        b=A7uI7+nT5gTJYtUZNUuYVj0NK/8INYXpvT+dj48RmCsB57fE/H/rXc36w5gh5/p22S
-         p+U7aE1ARtIxOHE+TjLcNDwh9HRz30R1WDJV8m4SEgj6xvuSnN+Zet7n1YCLuo6/lLJE
-         odhfsumAtx6xlZH1ZVm7ZJw14YK1AeITvdumui3LFC/QDAlGy4jsev4AD2mQKpO4fAzm
-         BpJYHF1aqFycfttDoX64FQqtf8nSH6Gqcw0HS2/5NrS5HZ3YFH463J8BM1SqmddbbH3o
-         BAtPLeUI1sjVn/3vr8PZISNMnL1EV713XZl2bCoMfttdl7jMlD2T9VTjl8BsYBTwPBUm
-         S9ig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789743041; x=1790347841;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=r59C/B+bGqeFr3iprC+rozYulFppGtTTZNSFZMONdm8=;
-        b=JwJC4fPh3lXuMNg9D7YF+zpY4chlm6eMxzn4F7NiJlkQab2T5pg0+oezelzhHiLEW1
-         i3TeLdkC46Trn1awjH3aEDueXA5Vi4V5atrKi51PMTtozgMXKttZHWXcX96KAXKkBaPy
-         ahXkE10sg28SmMkoe4XZ2xmjjURwuio8QXCwen1Qx2sosXFSAFa8qb6j4bqBvMSohlt0
-         7WgK1sQl45CDNtYOYyJ+i0j8x/qV+rU70Z9UedUfDg8MRDKCJ66HMycF0a9TY1geq7bG
-         1dCnaABPhrOu5EvfoXYSPSeYcXW0zSJlj6F+Cb4TSuEGpSSkr0EjjGvgu63cNzBPUxWL
-         ezbQ==
-X-Forwarded-Encrypted: i=1; AKwUvByYg5/oIkCa4Sj5cCoycSCGJtE15D4KHyVhyi4wMdAxbZphIHyLswDZbh34ztNpY+T2SoLn8ySDAl6B@vger.kernel.org
-X-Gm-Message-State: AFuF++lpGQAGMC8W2wy5Tq/xdn017GRXU15W0EKXU14Ve5+PL5IiY2sA
-	u7O2gMh+xNPyW7S5xY3UjzNLM6EvagMPSDQi1F4f/lQZchPCO9a1megJH+XoRdBPkoM=
-X-Gm-Gg: AYBFou2OAyLDMEB12Q0yTSjd1hIYRPuMvSu/9o1ulYAVdinRl2/dsNKR+GWT1wr7Dwq
-	ZkRg/0gfcBjHUkGbAQ8d5CklvpS+kolDdKoL7w0hbImkLzA/Pm7fC/10E2Wjf0AcYOhKSsmQkdD
-	hcGsD+B0p2lU6BZG8oSdMQ/2uY/Z62LzPCRIawYCMCEeTzVRt9PZcCFMsgJER1Da2+wIa9/6zHl
-	M6hnQR+/mCvx4Jt9u011THYe+eeykkAuIaqwBzTe29kIDws9kYuxor6SbBjlm/4ct0F//ZQKXhw
-	PaVKYizHit5LWUhBMQNKO3TO7r01f5iYUtsHbiDZsInvhFSvBSpeGkiga48sBnlhXr71eWHqiwR
-	mo3r/PuerANKE+nqcXNjOUXd6htwaV9j9LjIszqzh67RIjDC5HSb/rojVA/f2OArME4M6Z6ns7G
-	zdFMw6QEkjIh0M7C/BAawV0d8f9HjMMstzZpkiUETnl1Obsv3Zcv0wjZrq9PTnm6mBJpNN3WNcP
-	6GN9uXzBo3KLHRpUzIqZViI5PUNr3sy1YGiVQNSoBhAVXM68i1J1g==
-X-Received: by 2002:a17:907:d503:b0:c25:f7db:4bec with SMTP id a640c23a62f3a-c2a16597a38mr269720566b.18.1789743040987;
-        Fri, 18 Sep 2026 07:50:40 -0700 (PDT)
-Received: from localhost (144-178-202-138.static.ef-service.nl. [144.178.202.138])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a1bb46f0csm66329766b.32.2026.09.18.07.50.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 18 Sep 2026 07:50:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CsbE37Ak"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 087EA1F000FF;
+	Fri, 18 Sep 2026 14:51:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789743086;
+	bh=z9LZYGN3YMatQEVOW4MX/OzIOZm3uPhV2mvS5GCfi14=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=CsbE37AkdtAD30bL3mdPfer9NGUvdcetWbAddRI4d0KAmfFG3zcxBDUoV9cL0sUmB
+	 WXWnNXahFkVDIgzzUIIQv5Nw2UaH08fgpz8kJPT7wPaZUl8k6MZCsDx6hXd4mT95Bf
+	 N7s0QetpnljOAEsIctGXUgvrtSuhvzayCCvwtUaA2rJ/7YrOJNwNVjg5sE/gBkr5wo
+	 8kDQUcJQgjHMcJcdJvYSo2BwNfTb0y/Xm5J8X9ZQ2OAd42u/r2RZE7jliqYuWYHIsx
+	 J9VQk8/mmLAy+jrUNt4aK1qVcy5SRuPaskAm9nETXbqVf4y2iEeIs2eMWcIiWsaO0j
+	 gO6sFZp2ptYzg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/4] dt-bindings: display: panel: Add Novatek NT37705
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Luca Weiss" <luca.weiss@fairphone.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260918-fp6-panel-v2-1-6695c4008920@fairphone.com>
+References: <20260918-fp6-panel-v2-0-6695c4008920@fairphone.com>
+ <20260918-fp6-panel-v2-1-6695c4008920@fairphone.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 18 Sep 2026 14:51:25 +0000
+Message-Id: <20260918145126.087EA1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 18 Sep 2026 16:50:40 +0200
-Message-Id: <DLIIYI1PL2MG.1UYJFILKBWBEJ@fairphone.com>
-Cc: <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
- <linux-arm-msm@vger.kernel.org>, <linux-pm@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Krzysztof
- Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v2 1/2] dt-bindings: interconnect: OSM L3: Document
- Milos OSM L3 compatible
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Luca Weiss" <luca.weiss@fairphone.com>, "Georgi Djakov"
- <djakov@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Sibi Sankar"
- <sibi.sankar@oss.qualcomm.com>, "Bjorn Andersson" <andersson@kernel.org>,
- "Konrad Dybcio" <konradybcio@kernel.org>, "Alexander Koskovich"
- <akoskovich@pm.me>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3-dirty
-References: <20260717-milos-cpu-opp-v2-0-428813fafd52@fairphone.com>
- <20260717-milos-cpu-opp-v2-1-428813fafd52@fairphone.com>
-In-Reply-To: <20260717-milos-cpu-opp-v2-1-428813fafd52@fairphone.com>
 
-Hi Georgi,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] dt-bindings: loose compatible schema allows undocumented strings=
+ and omits IC fallback
+--
 
-On Fri Jul 17, 2026 at 3:33 PM CEST, Luca Weiss wrote:
-> Document the OSM L3 found in the Qualcomm Milos SoC.
->
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+commit df95ba2aa44d396fccc370e5b084b78edf5052e8
+Author: Luca Weiss <luca.weiss@fairphone.com>
 
-Could you please pick up this patch? Thanks a lot!
+dt-bindings: display: panel: Add Novatek NT37705
 
-Regards
-Luca
+This commit adds a new device tree binding for the Novatek NT37705, a
+display driver IC for AMOLED DSI panels. It also describes the BOE
+BJ631JHM-T71-D900 panel used in the Fairphone Gen. 6.
 
-> ---
->  Documentation/devicetree/bindings/interconnect/qcom,osm-l3.yaml | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/Documentation/devicetree/bindings/interconnect/qcom,osm-l3.y=
-aml b/Documentation/devicetree/bindings/interconnect/qcom,osm-l3.yaml
-> index 41b9f758bf8b..17690ff34489 100644
-> --- a/Documentation/devicetree/bindings/interconnect/qcom,osm-l3.yaml
-> +++ b/Documentation/devicetree/bindings/interconnect/qcom,osm-l3.yaml
-> @@ -29,6 +29,7 @@ properties:
->        - items:
->            - enum:
->                - qcom,eliza-epss-l3
-> +              - qcom,milos-epss-l3
->                - qcom,sa8775p-epss-l3
->                - qcom,sc7280-epss-l3
->                - qcom,sc8280xp-epss-l3
+Link: https://lore.kernel.org/r/81a3c207-4d8f-490f-8e2a-6f3f4c2acd35@kernel=
+.org/
 
+> diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt37=
+705.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt37705.=
+yaml
+> new file mode 100644
+> index 0000000000000..1c796599f6fce
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/panel/novatek,nt37705.yaml
+> @@ -0,0 +1,72 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/panel/novatek,nt37705.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Novatek NT37705-based DSI display panels
+> +
+> +maintainers:
+> +  - Luca Weiss <luca.weiss@fairphone.com>
+> +
+> +description:
+> +  The Novatek NT37705 is a generic DSI Panel IC used to control AMOLED p=
+anels.
+> +
+> +allOf:
+> +  - $ref: panel-common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    contains:
+> +      const: boe,bj631jhm-t71-d900
 
+[Severity: Medium]
+Will this loose containment check in properties.compatible allow undocument=
+ed
+strings to silently pass validation?=20
+
+In dt-schema, the contains keyword only verifies that at least one item
+matches the constraint, without restricting the presence, length, or content
+of additional items in the array. Consequently, a poorly crafted device tree
+node with compatible =3D "undocumented-garbage", "boe,bj631jhm-t71-d900"; w=
+ill
+silently pass validation, defeating strict schema checking.
+
+Specific panel strings should be constrained with an exact match (e.g., con=
+st
+or enum), or an items array if fallbacks are used.
+
+Additionally, standard practice for generic panel ICs is to include a gener=
+ic
+fallback string. Should the novatek,nt37705 fallback be included here?
+For example:=20
+items: [ enum: [ boe,bj631jhm-t71-d900 ], const: novatek,nt37705 ]
+
+The generic string novatek,nt37705 mentioned in the schema description is
+completely missing from the schema definition and the example.
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918-fp6-panel-=
+v2-0-6695c4008920@fairphone.com?part=3D1
