@@ -1,113 +1,110 @@
-Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mta-64-226.siemens.flowmailer.net (mta-64-226.siemens.flowmailer.net [185.136.64.226])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6787938E126
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 22:43:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.99
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789771437; cv=pass; b=A6wUvKtoL5YLpBiRkmE62MmGNlCxi4o1q67HiRkXD/G/hTavAZEEvBk79ayNqi/FS9SuXRfPNmxyQWSNzQ/vvpV9fL8Kn6nfbdHniOUqhFgnd3I8H1Enm51nIIv4OD1E3yetNaE76iqT6AVjJ+j68c/QLzMcSDhFVfUfr4Yq4DA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789771437; c=relaxed/simple;
-	bh=1Onau2nroopvIQasZQPq5eAOthr53QBTDwhTG+pz9gw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tObGCDf5D0xAuIuldlHhON30nBhyNJoWQImOv66IxMzSkQg6h/u9YwcGHhKeEPomj5FNBY7kdUPmS6vJvgzjS2q709uXuz3511ffnuIGDyS+XrQkMKAc7gdbyp5gtsB3e5OTHKmHkLKa426wwjXjyDXMUtb6sBba+HRTG3H1/Xs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hfHUrrzY; arc=pass smtp.client-ip=74.125.228.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2D3A3515DC
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 22:49:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.64.226
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789771799; cv=none; b=plMB36twMVugeIQvmfrNQhGOEEzajKUxzPbPD0fEL295OTQgaTzl0H3EZZKl/lInAoAvK5RcYp2Mxu5TcGI3ycEEU9HZK0NiIudqY7ZWravqRKEZbqPhtHwFXHsSuTHw3oY/FTGhe9w0y5z6yQkBjkYmOiZUg8yOpvq2MfDt+Ek=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789771799; c=relaxed/simple;
+	bh=c9a7BgfKyXpFpPzPymrjIgQx/Q/FQ8LhZrbtEMRk4pA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=J9epF0izjkWaHt8aihtHNpL9x7PwyRuk8AU505q5zJM+omcaWKOMDefYrtEOsjtuj1xqmUnX4qFTSZ9ZNfG1wJOEc8q2dwqk1wgtfnRdN5KgPiF8cpgvUCw7xPc2/ajswl+xyLdYiLG/jVnWduVFprTFyS+F03ESSrUVv6Bgcu4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alessandro.zini@siemens.com header.b=l4T+guds; arc=none smtp.client-ip=185.136.64.226
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hfHUrrzY"
-Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6aa1d00daaaso2152234a12.1
-        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 15:43:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789771434; cv=none;
-        d=google.com; s=arc-20260327;
-        b=L8hNEQEcy2apWm2YyKmhHWudafmEDKF/mroZaxd7fP6CI8OuzM1LP1QS3pkXWcbl/x
-         MtBhyGZoLiDVzcYQ0XEvDYcZHJdMIHSGufcROMrBm6/dzvOdurnoYzAYmZ0okDJTdaDz
-         6owvpKgP+sw0aGljxAAzOCxQnR8YexiTju7ZM2nlQVrvTguSZVdSXlQlsruQgF84aNXB
-         uSZt2aZH8U6hXbgKPM8HVlr+EKcjKqskNzxQheTsxljeicO1CnguuLkYCkU73RJ/pCWt
-         WfleedmlfU5bms1DY0Qa9PSGau9nrHWKn0+lUsJzUAgQx1R6lEm5F2IpCYZKYGJZGSUZ
-         WZfg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=xkCUHEW8BaYz+mvJmpvhPzJPz+lQKTKEiJB6NksDW9o=;
-        fh=Z4LNAXpsTTD0LM1WLb0dlasrI3JpxIGRWvvHIvw2eM8=;
-        b=gv5SVboBjgA3JQXBaUx2P1uXlSwJ7YxlBEkM70yNo1BiReYd+llhKnGaHpFJqss8vk
-         BvnCQZwzI5fLFmhzqExN7uaCI+Uw6q4gnfeIYl/oEn766B8gFyjmVQkZjKWcbtfZpiHQ
-         9XKLxML5hbOUEFbslPBE+a782u4dYYS+63BY6avOQE4n0shIS3ggfH2nHbK+r/tOsEro
-         MD4PCQKkUtgE+GIPshrn6f8yQNxxiayEisOLFC+toWuzUusl3otscmTAxg3W1eq1V9VP
-         /BOHFUwfcO4NVZC3o2z0W679p1hcdGl5/RuYMbiwPLoyQoz1HjoPSbCMnhAnpC6JfZ2S
-         3bWw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789771434; x=1790376234; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xkCUHEW8BaYz+mvJmpvhPzJPz+lQKTKEiJB6NksDW9o=;
-        b=hfHUrrzYUISnGqd4pSpG/SxQFrsQkhzSj2I7VmqFVuLrbGp36Xmb0txB/yVCod1wrx
-         O6L2b8+oa1cf//VK+vOSf5k/voAScvQXUVKd9NGd1E6xfqpgrjz+g5vkp0p1Dt/qPgCk
-         +dtZ/MzQnwW9mazPYr9xol3HZrWXr+oZHpfxo1FIvPcVdv6BMlUBvYUhRT3l3S8dc0V7
-         CsfXRNDVlRFxEjk/iHWyiC+FZ4WVdYbzMY5PsprXr7Zpe7VVVXKysAkenXSOSskiWQLs
-         Itqo5vBJksz+k+E0HiTAZBleBywv1CJ+CDTDkbUYvMpNr4V5ecFI1iMe3UhtDwDJoiN7
-         EFzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789771434; x=1790376234;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=xkCUHEW8BaYz+mvJmpvhPzJPz+lQKTKEiJB6NksDW9o=;
-        b=NvTUTZUtMsNoLqIWKfzGtCZtx4tZOmVWSf/kmav6nMSCjj6fsx9Z3r3BpHShk7E2rQ
-         UqyLAtad4nMVJixQshXaESmtFaoVpcQQcmhvXl2LgfxuSEpwmOYnjaTZ2QawQwlaESe3
-         VoSbBTZlR+cB1kaAaeu6pNvsm1R+GcJbb1dm/N7iF2Y+Za94nuKhSh2vohLUyGOSmI/r
-         gInmwd8euYkNOm2rb5wawN/kpZxL19tleV15GObZATXPvtTCGhkYLyHtG425MJcuopeZ
-         TWTApaeRDnBjf/K/ZEjO0iwy+7Al2IaxD0KG+RA3lhQY9pl0VJECMUbmCHYRSCVVG9rf
-         vFbQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwmWoP0JqA+A2OV5Eec3L8xIpx5ojeyD794L89dJOZ0zq4vQh0zQEL2kJ1CHrM+fhdUVYY2aMq9lwea@vger.kernel.org
-X-Gm-Message-State: AFuF++lJBWRR3s5oOmrNkxyebhWWtBZGDbDrGtiF7Cl+YfDzImdvFECE
-	xZa6XxT9MzmNqIDi8ek3ibFkNx0IB0PPt39QLC9E4f7VNx4eDmrz8LtQLpZU0UD1prKdeKJyNKj
-	/xVKa96qptYMA3UFu1DzAdT4FMdFr8NzX+uJWwxlNNg==
-X-Gm-Gg: AYBFou1v9WPBNdmRvgI8NDzqlCl7pdwacUiP3LjWEcxpNZUY/diDQnN8T6tnO4iERVl
-	C9BaKO1x6KTkiZjhwnbgWvP/Vj3/YLIfCLihBNRo2CXm6E4OhPMP6R850nncosd5/eWps9Hza6O
-	9P143KXRcva4FCyqxYhonVt9hE5c+eVQ9o0urxAWLgqvp9kBfDrb9M1Rr4T1NZIYqMOpbWFg4Az
-	rAr8fIrosPtD/cyhmyeI42+6RrDVxKcL1fIT10lTFFdTOg2OICkeE+39tay5nToFwwGMrbEeEvl
-	oLIUPjpFrehHbwziHHtoLxVWpywP8gtIV+owSpiq/cHnQTDSeJjC1NUV++q5KVv0
-X-Received: by 2002:a17:907:1c0f:b0:c29:d62b:fcfa with SMTP id
- a640c23a62f3a-c2a156590b7mr346464966b.2.1789756176118; Fri, 18 Sep 2026
- 11:29:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=siemens.com header.i=alessandro.zini@siemens.com header.b="l4T+guds"
+Received: by mta-64-226.siemens.flowmailer.net with ESMTPSA id 2026091822494662d927b7c900020740
+        for <devicetree@vger.kernel.org>;
+        Sat, 19 Sep 2026 00:49:46 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm1;
+ d=siemens.com; i=alessandro.zini@siemens.com;
+ h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc;
+ bh=Idf8+02UMvhb6WU2BN5Xp0LSgr1Y02lP+wrZ3oddczE=;
+ b=l4T+gudsDujoJfQUZn5qu24EZvK5Pka46dfYI1uRCxZEf5coILK0Ydh0+HJoQvUXiUOOI7
+ 9IyG97R3HA8kun/fCj9HqJSlexDspsadryMgZcSeb+O7VrI4bLtW5omJHFI1thL5k3nyNhv2
+ 8nCTQvcxmDDltuHxIEuHmrdLLsfFxz6g9AK0pTCSnvKsAehpA/ksX40Fo5KkQMHkdPxdauho
+ JLIhe139xD4aRdMRay8RYN89j2nWOLB2IQvJcvTdD1uVgSvZQ8Qp4Jb+OZgYz81uxBB255M6
+ B8bMQuVDvXoGt5xBr7wTHqUnaWFIrn6evBq0FVgPPkvWtwSUUlYDaOoA==;
+From: Alessandro Zini <alessandro.zini@siemens.com>
+To: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Ciprian Regus <ciprian.regus@analog.com>,
+	Qingfang Deng <qingfang.deng@linux.dev>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Alessandro Zini <alessandro.zini@siemens.com>
+Subject: 
+Date: Sat, 19 Sep 2026 00:49:30 +0200
+Message-ID: <20260918224934.51998-1-alessandro.zini@siemens.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260918175736.355305-1-l.scorcia@gmail.com> <20260918175736.355305-4-l.scorcia@gmail.com>
-In-Reply-To: <20260918175736.355305-4-l.scorcia@gmail.com>
-From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Date: Fri, 18 Sep 2026 20:29:24 +0200
-X-Gm-Features: AcwNN1UQFOY_vCJJJdBRj6O6gZ3zFhbPbxWCZbiFNcjPHyL_aMs2Ld1pz8hUFJk
-Message-ID: <CAORyz2KEfzcJ_2AphkPU6o-YhLAqudCXVdY+LDoynUx_FsTMJg@mail.gmail.com>
-Subject: Re: [PATCH 3/4] soc: mediatek: mt8167-mmsys: add routes for all
- display paths
-To: linux-mediatek@lists.infradead.org
-Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, CK Hu <ck.hu@mediatek.com>, 
-	Jitao shi <jitao.shi@mediatek.com>, dri-devel@lists.freedesktop.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Flowmailer-Platform: Siemens
+Feedback-ID: 519:519-1327013:519-21489:flowmailer
 
-Sashiko found [1] some copy-and-paste errors in this patch that are
-worth correcting. I must have checked it a hundred times but they
-still slipped in.
-I will send a revised v2 after waiting a few days for additional reviews.
-Thank you
+Subject: [PATCH net-next v3 0/4] net: ethernet: oa_tc6: add reset-gpios
+ support
 
-[1] https://sashiko.dev/#/message/20260918175736.355305-4-l.scorcia%40gmail.com
+This series adds optional reset GPIO support for OPEN Alliance 10BASE-T1x
+MAC-PHY devices using the OA TC6 library, and documents the property for
+the two MAC-PHYs currently bound to it.
+
+Patch 1 and 2 document the optional reset-gpios property for the Microchip
+LAN8650/1 and for the ADI ADIN1140/AD3306.
+
+Patch 3 converts oa_tc6_init() to return an ERR_PTR instead of NULL, so
+that -EPROBE_DEFER from the GPIO lookup added in patch 4 reaches the
+driver core instead of being turned into -ENODEV.
+
+Patch 4 implements optional reset GPIO handling in the common oa_tc6
+library. The reset line is requested asserted, kept asserted for 10 us and
+1 ms of settle time is allowed after deassertion for the crystal
+oscillator startup, before the OPEN Alliance TC6 communication is started.
+
+Changes in v3:
+- Picked up Acked-by tag from Krzysztof on patch 1.
+- Added patch 2, documenting the property for adi,ad3306 as well, since
+  the reset handling lives in the common library and the adin1140 driver
+  gets it too.
+- Added patch 3, converting oa_tc6_init() to ERR_PTR, so that
+  -EPROBE_DEFER is not lost.
+- In patch 4, requested the GPIO with GPIOD_OUT_HIGH and dropped the now
+  redundant gpiod_set_value_cansleep() call, as suggested by Qingfang
+  Deng, propagated the dev_err_probe() return value, reworded the comment
+  and sorted the new includes.
+
+Changes in v2:
+- Moved reset-gpios handling from the lan865x driver into the common oa_tc6
+  library (drivers/net/ethernet/oa_tc6.c), so all MAC-PHY devices can make
+  use of it, as suggested by Parthiban Veerasooran.
+
+Alessandro Zini (4):
+  dt-bindings: net: microchip,lan8650: add reset-gpios property
+  dt-bindings: net: adi,ad3306: add reset-gpios property
+  net: ethernet: oa_tc6: return ERR_PTR from oa_tc6_init()
+  net: ethernet: oa_tc6: add reset-gpios support
+
+ .../devicetree/bindings/net/adi,ad3306.yaml   |  5 ++
+ .../bindings/net/microchip,lan8650.yaml       |  5 ++
+ drivers/net/ethernet/adi/adin1140.c           |  4 +-
+ .../net/ethernet/microchip/lan865x/lan865x.c  |  4 +-
+ drivers/net/ethernet/oa_tc6.c                 | 46 +++++++++++++------
+ 5 files changed, 47 insertions(+), 17 deletions(-)
+
 -- 
-Luca Leonardo Scorcia
-l.scorcia@gmail.com
+2.55.0
+
