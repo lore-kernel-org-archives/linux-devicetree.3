@@ -1,64 +1,64 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
+Received: from mail-qk2-f34.google.com (mail-qk2-f34.google.com [74.125.230.226])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFD8E501285
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 15:27:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBFE53B774B
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 15:27:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.226
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789745230; cv=none; b=nYh4lhanAK9kJv82sLIwe38ls8cvzTo2M34et2LaROjNdXll4JUR5++snfomaBrbiilRXynXfZ7Fpq5H7sgXQsL5PraUJrzZbpyR90RKn5LtVkarEQ6pJidFt2r5+CNrUfHmjOpnW3uYWDrZJk0/H/Y1FZ4ONqbJqgLnClxf3JU=
+	t=1789745232; cv=none; b=LfEBS2+YA0rLmakCZ/9JUJNZw3mm+moMb1z9gXSW2zzckEVQhz0yeLVmICpujVdK8l7RD/UEn38+J8VjL49sU/V55qfhpY3rHcpW2PtLm0RurYzUpGVmGt5mnriQJpk445ipnfoiZve8NHgqiNlqTc1dG+M34v12hk5Tk9xPVto=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789745230; c=relaxed/simple;
-	bh=DtwhmvfmmK5pIr/RR1hrMie23QMNX8VOipziXz4rrfQ=;
+	s=arc-20240116; t=1789745232; c=relaxed/simple;
+	bh=COBOR/J1xKvdjdfhzkygn5/MMwImdCVq1tdwr8l5gi4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CDwUKV+XKnmXR9sLXu8R0yCRJgyDXYLtGFdbeWN8ydkfznI6fiG5DI4Hd+Uxq7jtFc+1EEJ/jP3UIIaRiF/TTW6qVsL4p0y/bam0Rp9ii+wnnVLUJrXvgvIkhCr10zXV5TWWwB+Mnnv7FeF2MGk6/Kxbwlr5hbqVrgrTFxgoZdk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=aBbFvpgF; arc=none smtp.client-ip=74.125.230.140
+	 MIME-Version; b=lKlMR7kSUw8hmCZ2wIz/wj5H8tLv84HhyZOHKBYDkTc1vdzszY+zvN3K97Ny0CcWOi4LgMHtykBFFtYjxQa3fQFPxf07e7Ua7RF1ueDN5g369qHBhpqi12suZ1Xgy8joX/EnwF/VaFdNrnW0/evoXz5FLXf9L4oOLFJ/+vb7w9A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=k+dNFuLl; arc=none smtp.client-ip=74.125.230.226
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="aBbFvpgF"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-910537b51a0so7866966d6.3
-        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 08:27:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="k+dNFuLl"
+Received: by mail-qk2-f34.google.com with SMTP id af79cd13be357-939109f067eso83490685a.0
+        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 08:27:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1789745225; x=1790350025; darn=vger.kernel.org;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1789745226; x=1790350026; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Yc71JJZaAOPgE/2sEPFAn2J0YmVKQfWX+0ylD9XYCsk=;
-        b=aBbFvpgFvX/rl5MO6/YG5yp30+HVL644hPLFWGHC6r40PkZpoUdAhowqmonHvfzFhu
-         OtuaN63BIpn9bFL+qlDt4GNhJZtE5ot4gi0V0Pgj5/trxR3i8T12KcFT0BemPPp+PQUF
-         6y5DXd0Xke4wZFs8YJW3nK3GEYgeJvDklKMrj2EUZXd0fWk+xbG3laF4H9xa63WF+xby
-         Pt8yE+4FwOuR7WYWXvylGkvJKOWMzc9vNKbWz6vqP0Xjfqpol6Ph06Dej9YGumF0dFk3
-         0wFOWKyLYIA4H6CzcnnzexDGwIJVJNwVhiAADzWtogXzG+eXY6KHDMAXhtfOU6548dJX
-         6fWA==
+        bh=BnXYtnVnoVw2HAMCABb9i/9BDSRkcXebPIHKXClOGFU=;
+        b=k+dNFuLlfdvprj8gM4eRBgOQRMHYhsrIWb6NfwKcwAJkUTig4/Ishbipb2pNUKfNGF
+         r2BIUxyg91OBLBDv1puBQ0utEYuylT01j8xGvIK7UMHuFx5+vr15zv/8eiimYgvQdbX2
+         1yYx1+C9tuV2LqzxWHutgqJvouElnuYD9NnZNuyffmXNX0kuMeVtUsfsJcz0sS/mBI4h
+         4EzZA8ErHtpwsDOt5yMcsxMN5Hglos/F85l2/0EQeU1+bZEQPi2vJ6WlcbtZ3O+YpG9M
+         631xRn+RKakFWV4J5j51nhzxTy6clZH+Gqw2apJMUH0jeh0L4yEJH1cXBysQ7inmyVCb
+         Ry+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789745225; x=1790350025;
+        d=1e100.net; s=20260707; t=1789745226; x=1790350026;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Yc71JJZaAOPgE/2sEPFAn2J0YmVKQfWX+0ylD9XYCsk=;
-        b=SKh+NnmuRZFXGNZt4nbJt6pv9J6WXLYq87kbuUbisYV8BNSQjZrzjLpb7dm/bPLp0h
-         nyI2JKcIYDOSgTbev5l05ws3D4XuvHw7xYQLirbjIoHvqoDzEWSWnyodbd1UYVTIoAd9
-         xLQ9pcr2KhRZNxlnF4Gs0MYm7CsTByhxJ7Q33JL1fkt5tNO6MYmQ7mIG2wFH3+82UMVW
-         hVzWRcm1GeHhwKCb35aEtGiq0SVT5Taq93RqCUqfqQsAQqJZ1zIw+BQv4FcLQ8GZQ3/D
-         4dSj4GlCuC3/q7F6+uqi13g2kY2ufFYdnNXKrmXE0Y8zkVNTLNFCJm9GbSpKOicKPViM
-         yD6A==
-X-Forwarded-Encrypted: i=1; AKwUvBz6dtQUt6Bzed8WwJ5HYUiXl+ZHmBPO1moE1cc+rxSNXF7yB1+7hHKlAE3LmDRil3vDZ+IFSU7LEPyX@vger.kernel.org
-X-Gm-Message-State: AFuF++lawugZ8+TkK3TFegMBSPlPL4bnoSgFKaF6zw1VQgBX7VbPqWGM
-	gL2vtP3tBOPmUjyrfHOAhuFO3MGL5MwYCQLRqrTztO7oY4I4z8Y0SQ1BT0h0TZ5EtlE=
-X-Gm-Gg: AYBFou2s1xZJJw2JtJ2sLIJjZAEGCKDtn182pOhDkSJvx95hphFsR2dUAbDrnyDkEss
-	8LocYYjg/rOQjqiLSEzfdoqysrxWnq0z9hPqlQ3GNM3GgHujsq3I1fVHSad88b//DivX6RXz4Xh
-	/A7t6HIuM5lJ3xPv8zlVi7LE6CiKxbD8aUT+6Dn7BWM4zeeaXgnKIca/N1dli8IunDJoYMN6NHs
-	wtCh9W7FXIK1/laXOs1mrV2cRoHgEiRr4HvPEQjDj3L8LQf1I1tFA7FR4itmkVuVHGS+R2SttqG
-	um3Cds1bVm4/Dn27o6RM3P/ubrznJWxA3xSBVN06rldKZ+9xFlEqMmtgy+QoGanlU5QYuTR9ye0
-	IFo7FVCCeSiqhb/r6ELRm9u6P4MeffkbGaF8BvIQc4tWzlpLEuS5ssss/CFFfi4+75suq0BHxfN
-	fwtz1O411WKISIzaX2aA2zqR1JUNm/FpELC+5hB6qM89oomwuI2JzMoCb1SduJEyVAIRXLcbY8y
-	xc=
-X-Received: by 2002:a05:6214:80d6:10b0:90e:98c9:548 with SMTP id 6a1803df08f44-91254ba3a7dmr37466856d6.1.1789745225031;
-        Fri, 18 Sep 2026 08:27:05 -0700 (PDT)
+        bh=BnXYtnVnoVw2HAMCABb9i/9BDSRkcXebPIHKXClOGFU=;
+        b=u3yw6EE2IgI07cz8FuClHR8+fE8u+UpHgYw3uLhcazZ2MHhC/uR1S65IegvV0etn9m
+         uHLqw+02kTUw5rGsdSBYMy4Jjs2AAOZjmBQRWNM8MuHU37lWSsF+RK3VICPy+PhuJIwD
+         B/KY+hLZ+a1V0jNmj6F7Kezb4oIBt0Pg/LVdkKoBH2eRBNX8exnxYYkMW2+6/OuPPSGf
+         7HKaKycF6u68Nq7GYrt5f7FISTKRf2g+/UVAW+MfULL/RYIeo56RYDU1IEJxmyGOBQo3
+         fmPFQixs6eTmgTuBBAT1Zrqusc9LhmNbe/t5mrXqnDvNEOXVqmjTgaBddjtjHqGY5JPG
+         L6gA==
+X-Forwarded-Encrypted: i=1; AKwUvBykVMcyZGpXg9Lef/XVDKvrnJahwteLDhY3Bbn73XBFLEpL4hWenx+RVzi+xxVO+j8nyFgtxWqfh3Qr@vger.kernel.org
+X-Gm-Message-State: AFuF++ktMvYcNcA9FYZnmT4MkRSrjaMplcevnZGEDf2bZKzGUhJSfDuG
+	qho9oes42aduw+am94CUJNO1OqkDhLjQPSXL3JMXWFUX1jqZgLOqxdW3lOlmHLOCciI=
+X-Gm-Gg: AYBFou0zzDA9LUePWKMGObC2LxFxg4BDM52p8rEGyIayjYcCMvpUoTEz4adumBgPGYO
+	xYRpVcPEXenPQLEil2e8QhMLKBOUNYaBFbA5QK5S0Ag5igEjS4P/mIV/IvaeR6nthISg6Mws/uU
+	+EM8im540zbXJuOtZbQCKIvdIm7JU+3K3SB3+OKNJSVrfNXwgQSrQnSYvPxX2qswpnYvvgYjYj6
+	2APmhxM8oRprsD1tlVvvmUdUdwNpxT/dnY74JjUBW3siL3wPk/BHMW8d4DAWnt+QMr+XLrrjp9j
+	4NElwzLKLlGhJ6EIkSdtSYm5MhI1wY0Ust19CspfwWrJJfyZu4mR/wEvySYojMg5xGTL3z0gVqQ
+	UDllSkxPGMhUp+kk6eg37zwBbVP69PZzf5S0SDSWktGHHfvMOP0VS5vacIr7n4iv/r2E8b+nJke
+	uwSYI6ygPH/PJ3pmdX9msIAaJcJokDe/Oox1hzwpMuOzVQJmVFCwh49A1TbBZCE8knsCGh6z5V2
+	mY=
+X-Received: by 2002:a05:620a:254a:b0:93b:d79f:d951 with SMTP id af79cd13be357-93bdca433b5mr406199585a.70.1789745226375;
+        Fri, 18 Sep 2026 08:27:06 -0700 (PDT)
 Received: from zippy.localdomain ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91257f326d8sm15099766d6.6.2026.09.18.08.27.03
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91257f326d8sm15099766d6.6.2026.09.18.08.27.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 08:27:04 -0700 (PDT)
+        Fri, 18 Sep 2026 08:27:06 -0700 (PDT)
 From: Alex Elder <elder@riscstar.com>
 To: robh@kernel.org,
 	krzk+dt@kernel.org,
@@ -76,9 +76,9 @@ Cc: daniel@riscstar.com,
 	linux-pci@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 1/3] dt-bindings: misc: introduce pci1179,0220.yaml
-Date: Fri, 18 Sep 2026 10:26:56 -0500
-Message-ID: <20260918152659.413268-2-elder@riscstar.com>
+Subject: [PATCH v4 2/3] misc: tc9564: introduce base PCI driver
+Date: Fri, 18 Sep 2026 10:26:57 -0500
+Message-ID: <20260918152659.413268-3-elder@riscstar.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260918152659.413268-1-elder@riscstar.com>
 References: <20260918152659.413268-1-elder@riscstar.com>
@@ -90,194 +90,189 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Define the binding for the Toshiba TC9564 PCI endpoint function device.
-The third downstream PCIe switch port within this chip has an embedded
-PCIe controller, and that implements two of these PCIe functions.
+The Toshiba TC9564 is small and highly-specialized SoC that implements
+a PCIe switch as well as an Ethernet AVB/TSN bridge.  In addition to
+these, the SoC implements other functions, including a reset and clock
+controller, an address translation unit, and a few other devices.  PCIe
+BARs provide access to registers that manage these IP blocks, and the
+SoC is modeled using a PCI endpoint bus in devicetree.  This allows the
+IP blocks to be bound to platform drivers that do MMIO via the PCI BARs.
 
-Multiple internal components are accessed via PCI function BARs, as
-indicated in the diagram below.  This is facilitated by the use of the
-devicetree pci-ep-bus mechanism, and is demonstrated in the example.
+Create a new PCI driver under drivers/misc that binds with the embedded
+PCI endpoint functions within the TC9564 SoC.  Because these functions
+will use devicetree pci-ep-bus to provide access to other IP blocks
+within the TC9564 chip, the main purpose of this driver is to do basic
+PCI initialization, then call of_platform_default_populate() to scan for
+the any endpoint bus children, and probe all devices defined therein.
+
+Because we're using pci-ep-bus, we need to use the PCI quirks mechanism
+to have of_pci_make_dev_node() be called for each endpoint device in
+pci_bus_add_device() (via pci_fixup_device(pci_fixup_final, dev)).
 
 Co-developed-by: Daniel Thompson <daniel@riscstar.com>
 Signed-off-by: Daniel Thompson <daniel@riscstar.com>
 Signed-off-by: Alex Elder <elder@riscstar.com>
 ---
-v4: - Dropped pci-ep-bus@0 node from the example
+v4: - Refined the definition of the TC9564_PCI Kconfig entry
+    - Now use pci_enable_device() rather than pcim_enable_device()
 
- .../bindings/misc/pci1179,0220.yaml           | 146 ++++++++++++++++++
- MAINTAINERS                                   |   6 +
- 2 files changed, 152 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/misc/pci1179,0220.yaml
+ MAINTAINERS               |  1 +
+ drivers/misc/Kconfig      | 15 +++++++
+ drivers/misc/Makefile     |  1 +
+ drivers/misc/tc9564-pci.c | 84 +++++++++++++++++++++++++++++++++++++++
+ drivers/pci/quirks.c      |  1 +
+ 5 files changed, 102 insertions(+)
+ create mode 100644 drivers/misc/tc9564-pci.c
 
-diff --git a/Documentation/devicetree/bindings/misc/pci1179,0220.yaml b/Documentation/devicetree/bindings/misc/pci1179,0220.yaml
-new file mode 100644
-index 0000000000000..c92c8d3d33f76
---- /dev/null
-+++ b/Documentation/devicetree/bindings/misc/pci1179,0220.yaml
-@@ -0,0 +1,146 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/misc/pci1179,0220.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Toshiba TC9564 internal PCI endpoint function
-+
-+maintainers:
-+  - Alex Elder <elder@kernel.org>
-+  - Daniel Thompson <danielt@kernel.org>
-+
-+description: >
-+  The Toshiba TC9564 is specialized SoC that implements a PCIe switch
-+  as well as an Ethernet AVB/TSN bridge.  In addition to these, the SoC
-+  implements other functions, including a reset and clock controller,
-+  an address translation unit, and a few other devices.
-+
-+  The PCI switch has three downstream ports.  The first two are exposed
-+  externally, while the third is used by an internal PCIe endpoint.  The
-+  internal endpoint implements two PCIe functions, and attached to each
-+  of these is a 10 Gbps capable Synopsys Ethernet controller and an
-+  interrupt controller that converts internal "wired" interrupts into
-+  MSIs delivered to the host.
-+
-+  PCIe BARs provide access to registers that manage almost all IP blocks.
-+  The SoC is modeled using a PCI endpoint bus.  The IP blocks are bound
-+  to platform drivers that access the hardware using MMIO through the
-+  PCI BARs.
-+
-+          ------------------------------------
-+          |               Host               |
-+          -----........---------------...-----
-+              |        |             |   |
-+              |  PCIe  |             |I2C|
-+              |        |             |   |
-+    ----------+........+-------------+...+-------------------------------
-+    |         |upstream|          |          |       ----------------   |
-+    | Toshiba | Port 0 |          |          +-------+ PCIe pwrctrl |   |
-+    | TC9564  ----++----          |   I2C    |       ----------------   |
-+    |  SoC        ||              |controller|       ----------------   |
-+    |             ||              |          +-------+     GPIO     |   |
-+    |             ||              |          |       |  controller  |   |
-+    |       ------++------        ------------       ----------------   |
-+    |       |     US     |                                              |
-+    |       |            |    ----------------------------------------  |
-+    |       |         DS3+====+          downstream port 3           |  |
-+    |       |            |    |--------------------------------------|  |
-+    |       |    PCIe    |    |        embedded PCIe endpoint        |  |
-+    |       |   switch   |    |~~~~~~~~~~~~~~~~~~~++~~~~~~~~~~~~~~~~~|  |
-+    |       |            |    |  PCIe function 0  || PCIe function 1 |  |
-+    |       |            |    |-------------------||-----------------|  |
-+    |       |            |    | BAR || BAR || BAR || BAR | BAR | BAR |  |
-+    |       |            |    |  0  ||  2  ||  4  ||  0  |  2  |  4  |  |
-+    |       | DS1    DS2 |    ---.------.------.--++--------------.---  |
-+    |       --++------++--       :      :      :                  :     |
-+    |         ||      ||         :   ---.--    :.......           :     |
-+    |         ||      ||         :   |SRAM|    :      :           :     |
-+    |         ||      ||         :   ------    :   ---.---        :     |
-+    |         ||      ||         :         ....:   |clock|    ....:     |
-+    |         ||      ||         :         :   :   -------    :   :     |
-+    |         ||      ||   ------.----    -.-  :             -.-  :     |
-+    |         ||      ||   |translate|    |M|  :.......      |M|  :     |
-+    |         ||      ||   -----------    |S|  :      :      |S|  :     |
-+    |         ||      ||                  |I|  :   ---.---   |I|  :     |
-+    |         ||      ||                  |G|  :   |reset|   |G|  :     |
-+    |         ||      ||                  |E|  :   -------   |E|  :     |
-+    | --------++--  --++--------          |N|  :             |N|  :     |
-+    | |downstream|  |downstream|         ------.----        ------.---- |
-+    | |  port 1  |  |  port 2  |         | XGMAC 0 |        | XGMAC 1 | |
-+    --+..........+--+..........+----------+.......+-----------+.....+----
-+                                          |       |           |     |
-+                                          |USXGMII|           |SGMII|
-+                                          |       |           |     |
-+                                        --+.......+--      ---+.....+---
-+                                        | Ethernet  |      | Ethernet  |
-+                                        |    PHY    |      |    PHY    |
-+                                        -------------      -------------
-+
-+allOf:
-+  - $ref: /schemas/pci/pci-ep-bus.yaml
-+
-+properties:
-+  compatible:
-+    const: pci1179,0220         # Toshiba TC9564 (a.k.a. Qualcomm QPS615)
-+
-+  reg:
-+    maxItems: 1
-+    description: PCI Bus/Device/Function config space address
-+
-+unevaluatedProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+  - '#address-cells'
-+  - '#size-cells'
-+  - ranges
-+
-+examples:
-+  - |
-+    pcie@0,0 {
-+        reg = <0x0  0x0>;
-+        #address-cells = <3>;
-+        #size-cells = <2>;
-+        device_type = "pci";
-+        ranges = <0x83000000 0x0 0x0  0x0  0x0 0x1fd00000>;
-+
-+        dev@0,0 {
-+            compatible = "pci1179,0220";
-+            reg = <0x0 0x0 0x0 0x0 0x0>;
-+            #address-cells = <3>;
-+            #size-cells = <2>;
-+            /* Ranges will be updated dynamically */
-+            ranges = <0x0 0x0 0x0  0x83000000 0x0 0x0  0x0 0x4000>,
-+                     <0x2 0x0 0x0  0x83000000 0x0 0x4000  0x0 0x80000>,
-+                     <0x4 0x0 0x0  0x83000000 0x0 0x84000  0x0 0x200000>;
-+
-+            pci-ep-bus@4 {
-+                compatible = "simple-bus";
-+                #address-cells = <1>;
-+                #size-cells = <1>;
-+                /* Map 0x0-0x1fffff to BAR 4 */
-+                ranges = <0x0  0x4 0x0 0x0  0x200000>;
-+            };
-+        };
-+
-+        dev@0,1 {
-+            compatible = "pci1179,0220";
-+            reg = <0x100 0x0 0x0 0x0 0x0>;
-+            #address-cells = <3>;
-+            #size-cells = <2>;
-+            /* Ranges will be updated dynamically */
-+            ranges = <0x0 0x0 0x0  0x83000100 0x0 0x0  0x0 0x4000>,
-+                     <0x2 0x0 0x0  0x83000100 0x0 0x4000  0x0 0x80000>,
-+                     <0x4 0x0 0x0  0x83000100 0x0 0x84000  0x0 0x200000>;
-+
-+            pci-ep-bus@4 {
-+                compatible = "simple-bus";
-+                #address-cells = <1>;
-+                #size-cells = <1>;
-+                /* Map 0x0-0x1fffff to BAR 4 */
-+                ranges = <0x0  0x4 0x0 0x0  0x200000>;
-+            };
-+        };
-+    };
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 6096dab7121e8..aa6b805e1ab2b 100644
+index aa6b805e1ab2b..cf846853fdc79 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -27670,6 +27670,12 @@ F:	Documentation/devicetree/bindings/media/i2c/toshiba,tc358743.txt
- F:	drivers/media/i2c/tc358743*
- F:	include/media/i2c/tc358743.h
+@@ -27675,6 +27675,7 @@ M:	Alex Elder <elder@kernel.org>
+ M:	Daniel Thompson <danielt@kernel.org>
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/misc/pci1179,0220.yaml
++F:	drivers/misc/tc9564-pci.c
  
-+TOSHIBA TC9564 PCI DRIVER
-+M:	Alex Elder <elder@kernel.org>
-+M:	Daniel Thompson <danielt@kernel.org>
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/misc/pci1179,0220.yaml
-+
  TOSHIBA WMI HOTKEYS DRIVER
  M:	Azael Avalos <coproscefalo@gmail.com>
- L:	platform-driver-x86@vger.kernel.org
+diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
+index 7364931dad3a1..9c5b1e9d672e8 100644
+--- a/drivers/misc/Kconfig
++++ b/drivers/misc/Kconfig
+@@ -568,6 +568,21 @@ config MCHP_LAN966X_PCI
+ 	    - lan966x-miim (MDIO_MSCC_MIIM)
+ 	    - lan966x-switch (LAN966X_SWITCH)
+ 
++config TC9564_PCI
++	tristate "Toshiba TC9564 PCI function support"
++	depends on OF
++	depends on PCI
++	select PCI_DYNAMIC_OF_NODES
++	select PCI_QUIRKS
++	default m
++	help
++	  This enables support for two PCI functions implemented by the
++	  embedded PCIe endpoint in the Toshiba TC9564 SoC.  A platform
++	  driver uses a pci-ep-bus node in devicetree to provide MMIO
++	  access to other SoC devices through PCI function BARs.  A PCI
++	  quirk causes the ranges property in the endpoint's devicetree
++	  node to be updated dynamically.
++
+ source "drivers/misc/c2port/Kconfig"
+ source "drivers/misc/eeprom/Kconfig"
+ source "drivers/misc/cb710/Kconfig"
+diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
+index e8d8d5d88c0df..7cc3d615d37a4 100644
+--- a/drivers/misc/Makefile
++++ b/drivers/misc/Makefile
+@@ -71,3 +71,4 @@ obj-y				+= keba/
+ obj-y				+= amd-sbi/
+ obj-$(CONFIG_MISC_RP1)		+= rp1/
+ obj-$(CONFIG_INTEL_SSEI)	+= issei/
++obj-$(CONFIG_TC9564_PCI)	+= tc9564-pci.o
+diff --git a/drivers/misc/tc9564-pci.c b/drivers/misc/tc9564-pci.c
+new file mode 100644
+index 0000000000000..e4d00dfecfca9
+--- /dev/null
++++ b/drivers/misc/tc9564-pci.c
+@@ -0,0 +1,84 @@
++// SPDX-License-Identifier: GPL-2.0
++
++/*
++ * Copyright (C) 2026 by RISCstar Solutions Corporation.  All rights reserved.
++ */
++
++/*
++ * The Toshiba TC9564 implements a PCIe Gen 3 switch that connects an
++ * upstream x4 port to three downstream PCIe ports.  Two of the downstream
++ * ports are external, and the third is internal, implementing a PCIe
++ * endpoint which implements two PCIe functions.  Each PCIe function drives
++ * a Synopsys XGMAC Ethernet interface capable of 10 Gbps operation.
++ *
++ * The TC9564 implements other functionality, including an embedded MCU,
++ * a UART, a GPIO controller, a reset controller, a clock controller, and
++ * interrupt handling.  These features are separate from (and in some
++ * cases used by) both Ethernet XGMACs.  Each Ethernet MAC must be
++ * attached to a working PHY for it to be functional, and for this
++ * reason either of them (or both!) might not be usable/used.
++ *
++ * This PCI driver binds to the Toshiba TC9564 (physical) PCI function
++ * (VID 0x1179, DID 0x0220).
++ */
++
++#include <linux/device.h>
++#include <linux/irqdomain.h>
++#include <linux/of.h>
++#include <linux/of_platform.h>
++#include <linux/pci.h>
++
++static void tc9564_function_remove(struct pci_dev *pdev)
++{
++	of_platform_depopulate(&pdev->dev);
++	pci_clear_master(pdev);
++	pci_disable_device(pdev);
++}
++
++static int
++tc9564_function_probe(struct pci_dev *pdev, const struct pci_device_id *id)
++{
++	struct device *dev = &pdev->dev;
++	struct device_node *np;
++	int ret;
++
++	/* Despite being a PCI device, we require devicetree */
++	np = dev_of_node(dev);
++	if (!np)
++		return dev_err_probe(dev, -EINVAL, "no devicetree node\n");
++
++	ret = pci_enable_device(pdev);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to enable device\n");
++
++	pci_set_master(pdev);
++
++	/* Scan for pci-ep-bus (simple-bus) nodes and probe their sub-devices */
++	ret = of_platform_default_populate(np, NULL, dev);
++	if (ret)
++		goto err_depopulate;
++
++	return 0;
++
++err_depopulate:
++	tc9564_function_remove(pdev);
++
++	return dev_err_probe(dev, ret, "failed to populate platform bus\n");
++}
++
++static const struct pci_device_id tc9564_function_id_table[] = {
++	{ PCI_DEVICE(PCI_VENDOR_ID_TOSHIBA, 0x0220), },
++	{ },
++};
++MODULE_DEVICE_TABLE(pci, tc9564_function_id_table);
++
++static struct pci_driver tc9564_function_driver = {
++	.name		= KBUILD_MODNAME,
++	.id_table	= tc9564_function_id_table,
++	.probe		= tc9564_function_probe,
++	.remove		= tc9564_function_remove,
++};
++module_pci_driver(tc9564_function_driver);
++
++MODULE_DESCRIPTION("Toshiba TC9564 PCIe Embedded Function Driver");
++MODULE_LICENSE("GPL");
+diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+index de9bbccda21fd..54e310c4153df 100644
+--- a/drivers/pci/quirks.c
++++ b/drivers/pci/quirks.c
+@@ -6391,6 +6391,7 @@ DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_XILINX, 0x5020, of_pci_make_dev_node);
+ DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_XILINX, 0x5021, of_pci_make_dev_node);
+ DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_REDHAT, 0x0005, of_pci_make_dev_node);
+ DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_EFAR, 0x9660, of_pci_make_dev_node);
++DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_TOSHIBA, 0x0220, of_pci_make_dev_node);
+ 
+ /*
+  * Devices known to require a longer delay before first config space access
 -- 
 2.53.0
 
