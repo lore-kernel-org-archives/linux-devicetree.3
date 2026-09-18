@@ -1,118 +1,174 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f2.google.com (mail-pj2-f2.google.com [74.125.227.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8288F54704E;
-	Fri, 18 Sep 2026 06:17:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F04239795E
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 06:21:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789712223; cv=none; b=lpwSH6I37jyHKQW+pQUavft8K8DRgh6CxrNkNXo4u6TRo4cqz/mHhGKsVWnyYHA5fJDlfbAjIu+yLwgRr1XPWRi4LlpdqSXQ4ZgV06pUCNSTjwfThWa1ZdQMocZy/yLLwztc9xF0JSQRyyF1YXxqgzIkLjRiizIQw89U/uCq8Ck=
+	t=1789712463; cv=none; b=B58Ip2qeua+55zmzjxQFSuYQLU/jvac9QJt7QTYlHZ91MmhtYeXiPLDohPfwKr/lTx/6OaTA9zZm4KUyIPPW7kWnt9qtNcGdTNPuqxb6++H8InPMO01tSU7VeGMyU/mXoVkVdGsQOiNV1M4BOWTrnAPSaGz1D//hreu5BQp/Ks0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789712223; c=relaxed/simple;
-	bh=GJu74okmXjBhqnTIOGctvx/pb2xEFT1u3IIKkCANtSA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=l7NMWWvjVtOntShw8bcDnb2tyMT6gzpWfydfSIVeJxqm2yRxubJvHoAX77K00wpAQP1avRGN1kD/5FftkGQorQ/3s69e94dxeS5k/37yvtyL1Q19QVqb2xDNZXVad5sT+iw2LaxiR0vQERDc1cHZJNeiwt/oc41xc9jgUpi+FRA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hC+VO2Ft; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789712463; c=relaxed/simple;
+	bh=//hfLy4KXhKQImjLqRGtoddsxb8nUplNRym/SxtSwic=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dzEVrG3m5/bAWI6w4Vnre8Nd+u1cZP2iEf7JE3wUeyndANiiSEhHbUrHnUbVmt4Kem9eFfVZs1/1HC3Gq4NwbHgQnGupYU+8RHw7LtHs4XzFcFh3LP+Kx9dFoArRgJgtFssmpbIJkpe4XN/T1awHysBtql+2sVRjOkR96DL508k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ePtdtg3F; arc=none smtp.client-ip=74.125.227.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hC+VO2Ft"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3305D1F000FF;
-	Fri, 18 Sep 2026 06:17:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789712222;
-	bh=B/13cZeUrOLEzs/U0VXbyufzLI/X+a7vJxST3/Q9H/g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hC+VO2FtDKbfS2UHZn7KsHJfhAMbfycfRebcPAyoit5um1I4sEqs1B3s/d7QsmYOx
-	 /uPdeYvBgduMlrxD/q5Qx/yZmnVjrncmd9Y9Pju17LeWasqH1HIMdlKoWQt5U+07Hz
-	 itUI4J2CpMvUEEBQ/TG3dnLcJuv6Ss41jE5ltAkW2SHN1CaJfJtBo8gwaiEDocZ2u/
-	 4YSO3SLQuAartQeYdD1llGHXlMPFhoAhE1udDqkdlpPAbhR3AS4sCi+2T9sNWXk37m
-	 4u2pFM2ozWD9atAEq6/Rf2uBnfPTpaGO4ftBf4KHUAopzadDfZD5zCYKSdh+cDicgJ
-	 SHLy28DKe56aw==
-Date: Fri, 18 Sep 2026 08:16:58 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Joshua Peisach <jpeisach@ubuntu.com>
-Cc: Michal Wilczynski <m.wilczynski@samsung.com>, 
-	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
-	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Luca Ceresoli <luca.ceresoli@bootlin.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	Lee Jones <lee@kernel.org>, Andy Yan <andy.yan@rock-chips.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>, 
-	Hal Feng <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Dominique Belhachemi <db@domibel.de>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, mfd@lists.linux.dev, linux-clk@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
-	linux-riscv@lists.infradead.org, Marek Szyprowski <m.szyprowski@samsung.com>, 
-	Maud Spierings <maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, 
-	Icenowy Zheng <zhengxingda@iscas.ac.cn>, Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
-	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Subject: Re: [PATCH v4 01/20] dt-bindings: phy: Add
- starfive,jh7110-inno-hdmi-phy
-Message-ID: <20260918-futuristic-mindful-waxbill-21fa2d@quoll>
-References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
- <CGME20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125@eucas1p2.samsung.com>
- <20260915-jh7110-clean-send-v4-1-f0e4fd6f2cc8@samsung.com>
- <20260917-mutant-chamois-of-competence-46ca77@quoll>
- <DLI0QTP0NUHS.DAFYGACKWKWO@ubuntu.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ePtdtg3F"
+Received: by mail-pj2-f2.google.com with SMTP id d9443c01a7336-2db39df9c51so1760195ad.1
+        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 23:21:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789712461; x=1790317261; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=E6nAoxNwBlRXfqDM8NwerdYs9kHcaYf9og/arr7yGEY=;
+        b=ePtdtg3FuZ1CqqkhsQiTA/QpSsu2jXbYIMNjm760lfAvxdBwLW1WTIQI0MyPCp3OO2
+         /C2FwFv7TaVW1LQc5JI7TeKj192I2me2zsFNo0voRCm4yFvWL/M3bVDUmpC4i2p9wZgT
+         mwMKfCZTYMQBPx3AXk9TylflCLYh+itd4g7+o4sJKtUVYmi7asg6wVHgq5bK8rK9Toac
+         ms6yLvaDcKlMTqF4BDkKCQRGmf7ioLuSne45mgCwNcCQQpiS1fxNb2nNYiGaUepRLa+U
+         JlF0uAjyJ8WzKTSvSkI/XtpA0IOUQ0DXxsARZA5dkSOcBbDDXTDVWDPElx1ADHhuzj9E
+         STzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789712461; x=1790317261;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=E6nAoxNwBlRXfqDM8NwerdYs9kHcaYf9og/arr7yGEY=;
+        b=M/nEDXNbI8ABHmsiUuoGVoLoBbCGGGoNCB105f090/2KtOI86UQHs1Ffe8xocBL8V2
+         aUugWxQ/QdEdAD+KsosJ32MBNKzHeuKUH9utF3qLSuLWQK71qXyA+5bSv1NUZJSWsAa+
+         OfaZvr6Aajq8GZUh/ZIyZPGPKNqkB6G0GQlPwqiFky1XTbR8a7/4Zw5RSbf74S8e038A
+         +4uq3bg7hvtI2skW3injZwvkRnhiJys8SSTeghleeD+sDQNjikXeJ0PBAV4mHF3baFq7
+         aAkXSyDJlEtxnSLZKXKYxWm4/UZgM4WvVcCxqFJ7LifQFHriv3jp2JXbIVNBwJNmd9Mo
+         FrCw==
+X-Gm-Message-State: AFuF++nqX0EYMfMEDdpHDkpeReVnLGZKOnFzAmIQJ/nbG5SOsmKdcwcg
+	VtzreyPr0dg0ROvfTCnEEd1YZe7dNZKIBKzLNwcl96sRVVGMbvIHSYlf
+X-Gm-Gg: AYBFou3HDhulR5mYMYcEk5keAkivlsmneRQv4Dwvb00bF0xGZxfiuUDRICfsWXxCWOI
+	XASAKddGQJfdVIpzVffPCdvPhgARgnpXeDau+SnsYVmck7VYBr+9//dxRXwpO/JfeQwE59JkRN0
+	2GwWiGTq4pmG2fWjyZf9Uc5AShKgyjiAE8/TUbsljOq2K5ionoqrxTBHl3054Z6TVLvXgsiBAlG
+	T+iS7RQ6cUS4Zrx+MukKQrdiV2RSal30dIWX2U5t22Pk5NwpfeN7TU51YBslzISHOMC5j+wGtzf
+	rzGvSbO2GtUqCrjSU/W1r6Pdb74GFRjfyDjqioO9HOo14DtizWVVUFo/u1k5FZbzpT7Gx+ptvo2
+	ffmfAPbJcf/F5vbjTsMvo3SqHxrJgPNxaMvp4mmbKLlAnyIMqcaQBVAiQfuphqj7O6hVfgv/CGX
+	mqe+BpMY0zj0yJ8z6LrN9n3Tc2Dxn6sQwNrWb9IncY0KqZH+0dcN5mbRzh8NeaMGSfSg2DxEtLg
+	duM6MyU2p8QVRk+
+X-Received: by 2002:a05:6a20:1609:b0:3bf:7bf7:7913 with SMTP id adf61e73a8af0-3dd8c399f37mr3432890637.14.1789712461102;
+        Thu, 17 Sep 2026 23:21:01 -0700 (PDT)
+Received: from [10.125.112.20] ([122.11.210.25])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc5bc988662sm385602a12.3.2026.09.17.23.20.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 17 Sep 2026 23:21:00 -0700 (PDT)
+Message-ID: <10bc727c-d05d-4c02-bba5-dc72fbf0116d@gmail.com>
+Date: Fri, 18 Sep 2026 14:20:54 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <DLI0QTP0NUHS.DAFYGACKWKWO@ubuntu.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 09/10] of: reserved_mem: mark /memreserve/ entries as
+ MEMBLOCK_NODUMP
+To: Rob Herring <robh@kernel.org>, sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org
+References: <20260902073116.802752-1-chenwandun1@gmail.com>
+ <20260902073116.802752-10-chenwandun1@gmail.com>
+ <20260902090211.9DA891F000E9@smtp.kernel.org>
+ <20260917220750.GA4013814-robh@kernel.org>
+Content-Language: en-US
+From: Wandun <chenwandun1@gmail.com>
+In-Reply-To: <20260917220750.GA4013814-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 17, 2026 at 08:34:18PM -0400, Joshua Peisach wrote:
-> On Thu Sep 17, 2026 at 2:51 AM EDT, Krzysztof Kozlowski wrote:
-> > On Tue, Sep 15, 2026 at 05:32:09PM +0200, Michal Wilczynski wrote:
-> > > Add the dt-binding for the StarFive JH7110 Innosilicon HDMI PHY.
-> > > 
-> > > This device is a child of the starfive,jh7110-hdmi-subsystem node. It
-> > > functions as both a PHY provider for the controller and as a clock
-> > > provider for the variable pixel clock (hdmi_pclk), which it generates
-> > > from its refoclk.
-> > > 
-> > > Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
-> > 
-> > While I appreciate other people looking at this, I don't think review
-> > here applies. It was a blanket tag, given to the entire series, with
-> > exception that it is from newbie, thus I want to ask: was this binding
-> > REALLY reviewed by Joshua?
-> > 
-> > Are the rest of the patches actually reviewed or just "looks good to
-> > me"? I see no comments from Joshua on v3, v2 and v1, which is usual sign
-> > of doing review.
-> > 
-> > 
-> I commented on v3 saying that I would test if I could. I don't just
 
-Testing has nothing to do with reviewing.
 
-> throw "Reviewed-by" on everything I look at.
+On 9/18/26 06:07, Rob Herring wrote:
+> On Wed, Sep 02, 2026 at 09:02:11AM +0000, sashiko-bot@kernel.org wrote:
+>> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+>> - [High] FDT /memreserve/ entries marked as MEMBLOCK_NODUMP can be later freed to the buddy allocator, causing active kernel memory to be silently omitted from crash dumps.
+>> - [Medium] 64-bit FDT reserve entries are checked for overlap in 64-bit space but implicitly truncated to phys_addr_t when marked as NODUMP, potentially corrupting dumpable regions on 32-bit systems.
+>> --
+>>
+>> commit f6e6bcd14fb6f4946f258fc34089bbbdcd52f624
+>> Author: Wandun Chen <chenwandun@lixiang.com>
+>>
+>> of: reserved_mem: mark /memreserve/ entries as MEMBLOCK_NODUMP
+>>
+>> This patch marks /memreserve/ entries in the device tree as MEMBLOCK_NODUMP
+>> so they are excluded from kernel crash dumps. It explicitly leaves regions
+>> that overlap with a dumpable region unmarked.
+>>
+>>> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
+>>> index f29a07e8fb23e..a42cf6eac55b5 100644
+>>> --- a/drivers/of/of_reserved_mem.c
+>>> +++ b/drivers/of/of_reserved_mem.c
+>> [ ... ]
+>>> @@ -251,6 +251,39 @@ static void __init __rmem_check_for_overlap(void)
+>>>  	}
+>>>  }
+>>>  
+>>> +void __init fdt_mark_memreserve_nodump(void)
+>>> +{
+>>> +	u64 base, size;
+>>> +	int n;
+>>> +	const void *fdt = initial_boot_params;
+>>> +
+>>> +	if (!IS_ENABLED(CONFIG_CRASH_DUMP))
+>>> +		return;
+>>> +
+>>> +	if (!fdt)
+>>> +		return;
+>>> +
+>>> +	for (n = 0; ; n++) {
+>>> +		int i;
+>>> +
+>>> +		if (fdt_get_mem_rsv(fdt, n, &base, &size))
+>>> +			break;
+>>> +		if (!size)
+>>> +			break;
+>>> +
+>>> +		for (i = 0; i < reserved_mem_count; i++) {
+>>> +			struct reserved_mem *rmem = &reserved_mem[i];
+>>> +
+>>> +			if (rmem->dumpable &&
+>>> +			    base < (u64)rmem->base + (u64)rmem->size &&
+>>> +			    (u64)rmem->base < base + size)
+>>> +				break;
+>>> +		}
+>>> +		if (i == reserved_mem_count)
+>>> +			memblock_mark_nodump(base, size);
+>>
+>> [Severity: Medium]
+>> Will this corrupt dumpable regions on 32-bit systems?
+>>
+>> base and size are u64, so the overlap check evaluates safely in 64-bit
+>> space. However, memblock_mark_nodump() takes phys_addr_t. On 32-bit
+>> systems, could a 64-bit FDT reserve entry > 4GB correctly pass the overlap
+>> check above, but then get implicitly truncated to a 32-bit address when
+>> passed to memblock_mark_nodump(), incorrectly marking a lower 32-bit
+>> physical address as NODUMP without having checked it for overlap?
 > 
-> If anything, I've been trying to be more honest in reviews, and only
-> review ones that I actually care about[1].
-
-You gave blanket tag for entire series, so I do not get this argument.
-
+> Unlikely. Such a system would probably enable LPAE or equivalent.
+>  
+>> [Severity: High]
+>> Can this cause active kernel memory to be silently omitted from crash dumps?
+>>
+>> If the bootloader specifies a /memreserve/ entry for memory that the kernel
+>> later frees (such as the initrd), this memory is returned to the buddy
+>> allocator.
+>>
+>> Since the MEMBLOCK_NODUMP flag is never cleared, will this cause reused
+>> pages to be incorrectly skipped and omitted from the crash dump later on?
 > 
-> If reviewing patches isn't a good way for newbies to start getting
-> familiar with the kernel code (especially a NEW driver), then I don't
-> know what is.
+> This seems like an issue. Both the FDT and initrd are typically in 
+> /memreserve/ and can be moved.
 
-Writing code and receiving review is something for newbies to start
-with. If you do not know kernel code or bindings, why do you think
-your review is applicable? If I try to review design of a post-tension
-concrete bridge, I would probably learn something. Would my
-review apply? No.
+Thanks for the review, I will fix it in next version.
 
 Best regards,
-Krzysztof
+Wandun>
+> Rob
 
