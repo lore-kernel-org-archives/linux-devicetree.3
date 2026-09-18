@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F2774BE432;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 445D74BFE61;
 	Fri, 18 Sep 2026 08:57:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789721842; cv=none; b=CJtTvhnG/K8fwh5Amprjsh+0f/5NDpceiHbubEU0GaYhhYNrKuuhl4GLSS3ugQ67vWGoHAM45t9U9EBwF+bOHDiPhLDMnQVg5O1xmIsDg22/zArHO4bFDFR+/KTYyNwETnbmHWjoaiAd6nDxhmMwuYMyMgQIezs4NY6EeQ31OE0=
+	t=1789721842; cv=none; b=pkOM5DyNViMCd2zJZrtn5mJs8UUmR3cPU25g0Np4br2gdbTFmUuNt1hfEJAJZIkAdeJGlq23kPs3KfQPuunDMLtGKbQ0XIi4l7uhUS9IyMP5Y4cZ5ucI1GDHCGgmE/TstR1S4o1G3B+g/DqGXA6LfGv9NkcAtb6aS1TN84SujIU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789721842; c=relaxed/simple;
-	bh=gbsjVA9MG1EIAcCdtoq5wj2ddn+k8mHdKgTO1+iB8do=;
+	bh=YqdWcJwtyS3r/Yw9V015tKcD6fJ16mBb6icZQYhusTY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=UOcndE2cI/39QOyRhpymidScNsweFxWSN7rWtmJS4yEsIwpnwQ/s6FuRuds06wkqLI7pmg3eeKwuOY+TCPn65USc5JJmibGKbDAt/RPK+VzIgG7+DjBtRCsKQKh3s7ikTRidyyCemnLogWnwBujwdh7h0UDij+Wh4dWx/l1G/xA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mv9fqwP0; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=mXuKTEgxu0d7BEeg2OOrxuvrxJ7q4FMDQWaWmx56rOe1rnLewFvsQRzD5hIOzrI0E1Lg30Puyt6HyPWui8KJQh9PCWHyU2MWGmGAP91Z2hgQUwxoeO8cro2Exhjb5eefd+xBW4gxoHQzUkLdMWdR9/li3ifEDTbeSGFmuDsMRPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G34zXpEL; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mv9fqwP0"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D3F50C2BD01;
-	Fri, 18 Sep 2026 08:57:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G34zXpEL"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 056A6C2BD00;
+	Fri, 18 Sep 2026 08:57:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789721839;
-	bh=gbsjVA9MG1EIAcCdtoq5wj2ddn+k8mHdKgTO1+iB8do=;
+	s=k20201202; t=1789721840;
+	bh=YqdWcJwtyS3r/Yw9V015tKcD6fJ16mBb6icZQYhusTY=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Mv9fqwP0LZ/qKS5Ksi/PW6FV+OTHLKjLbdOyOikhSeMEkCzs0Tt0aFNFv60Lt846Y
-	 NKhOt56THnM32o7k8aqR0A0iNk2caU3+RItS51KO7jQqM94lqZfydjAi83ULiR2KF0
-	 NWr+vWyASUSGdqNKMRvifSnQzWw9MFnrzwIVqkzQDZUju8aj/CUv5/FfEMJLFyY3Xs
-	 qsguRAZWnZO4SeWuqAUJu4BnI4uwIShb41AQUhLB+xxilRoLara3pSt5C6yTitNZKd
-	 G63PXvA8x5zgmUESG+TL4xtQBJz5cDkfRRbWPADhPMwOy/qJI6pBiKDTg1LFy2r6j9
-	 Iv3SYx+Qv3qcQ==
+	b=G34zXpELhqh0GhbtXT5fFUB6gBIySLUYO4w5ZP9TxA5AtSTVWssK6xKYNEAfP2x43
+	 l1XbVEJ6VZt5zaukE3IJaF/bt+6jaNvlDszj/UH3BCM1dLt9ZTPhOpcxghRMoTobDs
+	 cduiJQ6wFAlU+XFamRl/bAI7smxtBnoQLiFVDHmnVBp0S2ztlEZgfyHnKSa9vAsOJz
+	 2Wuhwt3ksiZ7x1TbBBg6irlC/ciPJ9dH8DXicXrJBGP9XzqnwqjIRQfXsFFW5Yyhfz
+	 OjOjJ41Dl5xAOqXTLFD34wWXRrPRJELeH034CSXhXq9WwuAIT/SWfBoFMg1avOakxx
+	 bi3WO1I20qVKQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C19CCC982D7;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E79DDC88E72;
 	Fri, 18 Sep 2026 08:57:19 +0000 (UTC)
 From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
-Date: Fri, 18 Sep 2026 16:57:21 +0800
-Subject: [PATCH 06/21] media: i2c: it6625: use unsigned int loop indices in
- table lookups
+Date: Fri, 18 Sep 2026 16:57:23 +0800
+Subject: [PATCH 08/21] media: i2c: it6625: make the audio sampling-rate
+ table static const
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-upstream-it6625-follow-up-patch-v1-6-78d72d7886a5@ite.com.tw>
+Message-Id: <20260918-upstream-it6625-follow-up-patch-v1-8-78d72d7886a5@ite.com.tw>
 References: <20260918-upstream-it6625-follow-up-patch-v1-0-78d72d7886a5@ite.com.tw>
 In-Reply-To: <20260918-upstream-it6625-follow-up-patch-v1-0-78d72d7886a5@ite.com.tw>
 To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
@@ -52,11 +52,11 @@ Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
  linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Hermes Wu <Hermes.wu@ite.com.tw>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789721837; l=1788;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789721837; l=1207;
  i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
- bh=5Ctpnc+LLcR3m3GriRx3vFNF83f7OL4HJpZpnaEfXgE=;
- b=Bf3iH9gI31vUxKhbt9d5/ViXQWrtvJGccq+I5WKsqNl+vOvtGdr0McRq9Wgs0HCsKqqJ7tfkx
- cUfShiyMpY2CI6wzGZ8ZdtFmGp+8g+O/uiNhWqFcG4MfT9FupUEHBE1
+ bh=qGU/O647aZTfqdglQzVk6HPtKDWbKwtWWhBds51Ufxk=;
+ b=TfBXu2AxpWb2bsLyWlvInSsVxazGkyNi7inH3WJ6fG0FNMq3IVSihhPEA4UOiuLk/PDqKom8S
+ cd1DTk9Pm5MAACPnNt3OPgoHDeJhQaVk/4vAW9vTbGw5p4VvIrqTrnw
 X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
  pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
 X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
@@ -66,55 +66,41 @@ Reply-To: Hermes.wu@ite.com.tw
 
 From: Hermes Wu <Hermes.wu@ite.com.tw>
 
-it6625_csi_format_idx(), it6625_csi_mbus_code_idx(), and
-it6625_regdump_print() iterate with a plain-signed loop index against
-an unsigned bound. Declare the index as unsigned int directly in the
-for() statement instead.
+s_fsid_map in get_audio_sampling_rate() is a fixed lookup table
+rebuilt on the stack on every call; make it static const so it's
+emitted once as read-only data instead. While touching this
+declaration, move it ahead of the plain int locals per reverse
+fir-tree ordering.
 
 Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
 ---
- drivers/media/i2c/it6625.c | 12 +++---------
- 1 file changed, 3 insertions(+), 9 deletions(-)
+ drivers/media/i2c/it6625.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
-index 97780c3d2d8fd3567ef18b3d2fc46b4e1f0758d7..9077f66187c647f85e41e571ff0d52e5e2ffdfdf 100644
+index 62fabf6169fc24364e484cf573b0fc1af174afbb..9b1d9edca8f383f4f55918bda259a1b053d7f41b 100644
 --- a/drivers/media/i2c/it6625.c
 +++ b/drivers/media/i2c/it6625.c
-@@ -375,9 +375,7 @@ static const struct it6625_format_info {
+@@ -583,9 +583,7 @@ static inline bool audio_present(struct it6625 *it6625)
  
- static inline int it6625_csi_format_idx(u8 csi_format)
+ static int get_audio_sampling_rate(struct it6625 *it6625)
  {
--	int i;
--
--	for (i = 0; i < ARRAY_SIZE(it6625_formats); i++) {
-+	for (unsigned int i = 0; i < ARRAY_SIZE(it6625_formats); i++) {
- 		if (it6625_formats[i].csi_format == csi_format)
- 			return i;
- 	}
-@@ -387,9 +385,7 @@ static inline int it6625_csi_format_idx(u8 csi_format)
+-	int fs_id;
+-	int i, freq = 0;
+-	const struct fs_id_map {
++	static const struct fs_id_map {
+ 		u8 fs_id;
+ 		u32 freq;
+ 	} s_fsid_map[] = {
+@@ -610,6 +608,8 @@ static int get_audio_sampling_rate(struct it6625 *it6625)
+ 		{ AUD1411K, 1411200 },
+ 		{ AUD1536K, 1536000 },
+ 	};
++	int fs_id;
++	int i, freq = 0;
  
- static inline int it6625_csi_mbus_code_idx(u32 mbus_fmt_code)
- {
--	int i;
--
--	for (i = 0; i < ARRAY_SIZE(it6625_formats); i++) {
-+	for (unsigned int i = 0; i < ARRAY_SIZE(it6625_formats); i++) {
- 		if (it6625_formats[i].mbus_fmt_code == mbus_fmt_code)
- 			return i;
- 	}
-@@ -1878,11 +1874,9 @@ static int it6625_v4l2_init_controls(struct v4l2_subdev *sd)
- 
- static void it6625_regdump_print(struct seq_file *s, const u8 *reg_buf)
- {
--	int i;
--
- 	seq_puts(s, "     0x00 0x01 0x02 0x03 0x04 0x05 0x06 0x07 0x08 0x09 0x0A 0x0B 0x0C 0x0D 0x0E 0x0F\n");
- 
--	for (i = 0; i < 256; i++) {
-+	for (unsigned int i = 0; i < 256; i++) {
- 		if (i % 16 == 0)
- 			seq_printf(s, "[%02X] ", i & 0xF0);
- 		seq_printf(s, "0x%02X ", reg_buf[i]);
+ 	if (no_signal(it6625) || !audio_present(it6625))
+ 		return 0;
 
 -- 
 2.34.1
