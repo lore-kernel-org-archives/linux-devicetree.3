@@ -1,99 +1,114 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7110F3A9623
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 13:25:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4675237FF68
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 13:26:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789737936; cv=none; b=XmrESWZPZAixTXxVERrhdABJoDETWxYOXlVXrZMIIz2Nn/Oy4BupxMK49L7/XNRr4rkDDtfXEzDY0Mjnr/jnpX7uuD3ss/3x6zR8s2f+AlGVi7mi8A+QE6lDqbbr9UY3CAPLqCVX2YsBTCi1eOB347NKxQWMZhzLeXDP5sNYC0A=
+	t=1789737972; cv=none; b=MCrp8NJ+zDGztHcTAROXxwQSkloJryO8PFu4jXfJrES3i99JdBWPTPurTPclULLTNMEVtF+wKqSooWahsqd2kYct1J7YuiBbAqcEfUu/imgKLs2ZAYlXduP0U1mVSrEmS5tZ07MFPDSlwiKHDaMhB6xZlrXk4vyc40GKmNPT3SA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789737936; c=relaxed/simple;
-	bh=loLZntxpmWbcP+LTjh/I1/b+pB4lKz9GHwkLgJsTYlQ=;
+	s=arc-20240116; t=1789737972; c=relaxed/simple;
+	bh=Akg3UHI2wwPq7G3HMBSDEB6u5ZX4KBThNeik+q2NV1E=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=RHuz2Rx1di3b5BK0RvTAj+P93tc/0FOYLEob3FFJ2DTocGJQWSdToBHScaxUOD3v4xePiD1dldZKv2Af6JXiNinWapkoR7EtiJU39qS8Io1x7ObnsL15FxH5I5sfe1CUDL9Wt7f9SPz9BXK4MUoCGVLXYr94emURohQcMPhSz7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NxGfCzE6; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=LolLgUlahFaeYJuGikwAN4Q6pOCxnhWVZAgv1MtHc0W1Rr2tSNLP7Av/CdIfNwFY4g6BKTYRvc/P8YMEyEPWf12gofK3zga2nbXHkCMOe0fREABkDRZlnmu7oKyjN1i6hQXPPdEH7hvbr6WDzKUfRYu9tXRXfpR78XEYzUZEdAk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o1nj1x4V; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NxGfCzE6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD2A21F000FF;
-	Fri, 18 Sep 2026 13:25:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o1nj1x4V"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F30E1F000FF;
+	Fri, 18 Sep 2026 13:26:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789737935;
-	bh=sFEDfM15VAueXKfIhimmHajT5vAlBghnOOOusJTeSxE=;
+	s=k20260515; t=1789737970;
+	bh=IbFC2bZN27V5NLKp6j3q0DiSvXA5P8YgfCAmlxfpYtg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NxGfCzE6EetTrRW0tUSECH78Qx2VHOnTgIwp5+fWZ0jOkIUwvtrBV/l+MyumLpczo
-	 V2PVkIbpOQaVEuNMSdld5e2IayChsGqCwlXmUl8/P6i+NwUTcof5bra4sd5HJkbkzX
-	 rIeTPgRxlLKS98qD7GagtMRgPvLu+BTiSgCkL8wj6e3I+Gb3aqUPeHmgzqIp7cl0ZJ
-	 CldC79JN73PFlL5SxDs3ONW5VurTldilDm8v2V5G0vGjpq0ZFfSIT8aULptgoEhr4I
-	 VHSnVgq6qyxC2Cp/7sG78hOrQf4V9oXlHlYtxoGrIqvGzDAYRDw7dNZZP/oxy8KDVk
-	 /VtzQ9RqR6fEg==
+	b=o1nj1x4VRISZY9uuNR2n35+Ij1WAGI3DhtM2GzKI+JgoclVq3BKzYPbrSFlJjbqsN
+	 WiE3e3O8RE7xg1MnD0thlrhkqtY93UQmB0gZG2hM+/PdQOtNsc+VzcvmkciHfVhGGj
+	 7xWwGwpIdnlO9KlJzX8TjiZoG9LjcjNu0otBUP6aPgMPrFbYGGX4GSf3IC3C+VNzah
+	 f1+IzX15uJTOU/NpLc2pYgvVySr4szarEtRWQqFtdlQuXiLVLka9oVW6JKgElm4k8R
+	 XM6xeDUOxWR5WSITmDLk85sgP7hPUAT6dpu/c8L4vn9WR7XiyR4Onb2S48V5/hZPxC
+	 SPqCsOoM4m0NQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 03/14] arm64: dts: apple: t8103: add avd nodes
+Subject: Re: [PATCH 01/14] media: v4l2: Add P210 pixel format
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sofus Forstreuter" <sofus.c@icloud.com>
-Cc: media-ci@linuxtv.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260918-avd-v1-3-49977931f455@icloud.com>
+Cc: devicetree@vger.kernel.org, media-ci@linuxtv.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260918-avd-v1-1-49977931f455@icloud.com>
 References: <20260918-avd-v1-0-49977931f455@icloud.com>
- <20260918-avd-v1-3-49977931f455@icloud.com>
+ <20260918-avd-v1-1-49977931f455@icloud.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 13:25:34 +0000
-Message-Id: <20260918132534.CD2A21F000FF@smtp.kernel.org>
+Date: Fri, 18 Sep 2026 13:26:10 +0000
+Message-Id: <20260918132610.8F30E1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Low] dts: apple: t8103: avd nodes are not sorted by unit-address
+- [Low] media: v4l2: incomplete UAPI documentation for P210 format
+- [Low] media: v4l2: incorrect bits-per-pixel comment for V4L2_PIX_FMT_P210
+- [Low] media: v4l2: reStructuredText underline too short for section title
 --
 
-commit 7d170c5397d0b0258ee0909282aba065f8ee4b9e
+commit babd80a26581f15a410f128ba302cfa3a34c05de
 Author: Sofus Forstreuter <sofus.c@icloud.com>
 
-arm64: dts: apple: t8103: add avd nodes
-   =20
-This commit adds the AVD (Apple Video Decoder) and its associated DART
-IOMMU nodes to the t8103 device tree.
+media: v4l2: Add P210 pixel format
 
-> --- a/arch/arm64/boot/dts/apple/t8103.dtsi
-> +++ b/arch/arm64/boot/dts/apple/t8103.dtsi
+This commit adds support for the P210 pixel format. P210 is a YUV format
+with 10-bits per component with interleaved UV.
+
+> diff --git a/Documentation/userspace-api/media/v4l/pixfmt-yuv-planar.rst =
+b/Documentation/userspace-api/media/v4l/pixfmt-yuv-planar.rst
+> index 0631919bd667b..8509f2415c9b8 100644
+> --- a/Documentation/userspace-api/media/v4l/pixfmt-yuv-planar.rst
+> +++ b/Documentation/userspace-api/media/v4l/pixfmt-yuv-planar.rst
 [ ... ]
-> +		avd: avd@269080000 {
-> +			compatible =3D "apple,t8103-avd";
-> +			reg =3D <0x2 0x69080000 0x0 0xc000>,
-> +			      <0x2 0x6908c000 0x0 0xc000>,
-> +			      <0x2 0x69098000 0x0 0x4000>,
-> +			      <0x2 0x69100000 0x0 0x10000>;
-> +			reg-names =3D "code", "sram", "mbox", "ctrl";
-> +			interrupt-parent =3D <&aic>;
-> +			interrupts =3D <AIC_IRQ 540 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <AIC_IRQ 541 IRQ_TYPE_LEVEL_HIGH>;
-> +			power-domains =3D <&ps_avd_sys>;
-> +			resets =3D <&ps_avd_sys>;
-> +			iommus =3D <&avd_dart 0>;
-> +		};
-> +
-> +		avd_dart: iommu@269010000 {
-> +			compatible =3D "apple,t8103-dart";
+> @@ -834,8 +841,9 @@ number of lines as the luma plane.
+> =20
+>  .. _V4L2_PIX_FMT_P010:
+>  .. _V4L2-PIX-FMT-P010-4L4:
+> +.. _V4L2-PIX-FMT-P210:
+> =20
+> -P010 and tiled P010
+> +P010, tiled P010 and P210
+>  -------------------
 
 [Severity: Low]
-This isn't a functional bug, but are these nodes sorted correctly by their
-unit-address?=20
+Is this underline length still correct? The section title was extended to
+include P210, but the underline remains 19 characters, which might cause a
+Sphinx documentation build warning.
 
-Device tree nodes are typically sorted in ascending order by unit-address
-to maintain readability. Should the avd_dart (iommu@269010000) node be
-placed before the avd (avd@269080000) node in t8103.dtsi?
+> =20
+>  P010 is like NV12 with 10 bits per component, expanded to 16 bits.
 
-> +			reg =3D <0x2 0x69010000 0x0 0x4000>;
-> +			#iommu-cells =3D <1>;
-> +			interrupt-parent =3D <&aic>;
-> +			interrupts =3D <AIC_IRQ 547 IRQ_TYPE_LEVEL_HIGH>;
-> +			power-domains =3D <&ps_avd_sys>;
-> +		};
-> +
+[Severity: Low]
+Does this description need an update to cover P210? The section title now
+includes P210, but the text exclusively describes the 4:2:0 layout of P010
+without clarifying P210's 4:2:2 structure.
+
+> diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev=
+2.h
+> index 5373dba640fae..b5949c378f2eb 100644
+> --- a/include/uapi/linux/videodev2.h
+> +++ b/include/uapi/linux/videodev2.h
+[ ... ]
+> @@ -659,6 +659,7 @@ struct v4l2_pix_format {
+>  #define V4L2_PIX_FMT_NV42    v4l2_fourcc('N', 'V', '4', '2') /* 24  Y/Cr=
+Cb 4:4:4  */
+>  #define V4L2_PIX_FMT_P010    v4l2_fourcc('P', '0', '1', '0') /* 24  Y/Cb=
+Cr 4:2:0 10-bit per component */
+>  #define V4L2_PIX_FMT_P012    v4l2_fourcc('P', '0', '1', '2') /* 24  Y/Cb=
+Cr 4:2:0 12-bit per component */
+> +#define V4L2_PIX_FMT_P210    v4l2_fourcc('P', '2', '1', '0') /* 24  Y/Cb=
+Cr 4:2:2 10-bit per component */
+
+[Severity: Low]
+Is the bits-per-pixel comment accurate here? The comment states "24" average
+bits per pixel, which is correct for 4:2:0 formats like P010, but shouldn't
+a 4:2:2 format like P210 have an average of 32 bits per pixel?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918-avd-v1-0-4=
-9977931f455@icloud.com?part=3D3
+9977931f455@icloud.com?part=3D1
