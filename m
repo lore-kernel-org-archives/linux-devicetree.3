@@ -1,140 +1,73 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B01F4FE2CE
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 14:07:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19DB4352027;
+	Fri, 18 Sep 2026 14:08:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789740467; cv=none; b=r8PJFdQH51ob+IYH76xfjk85Y4ONKy/66tTUF0CTiYg5hUiKDiDcQw/BxAi2ysyNWFPLrkTDZj8kypruGPT5D8QzCnUjAbhw7GPezt1rmaXSVLfH8zRmdjwy83Uq+7uHBAvfqptWbElsAuZNEtUdPUPfVU8HJ6t74YSAds2G9yA=
+	t=1789740484; cv=none; b=MqFaCRq37Wy2sOp042bFYZHKhbr7hpMEnHYIHp3HBJSIwt7g+Ex40rnMl273y7wIA99Nwdo0VmFi2n2AMuqKe7acHsFIw9cY4IT/bc8HEeSs4NMvpwA8pCoDqYI7+pLQHPTWShCeLKWMscosQm4bkUEJM4XLdY9EiyRmkY6iS4g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789740467; c=relaxed/simple;
-	bh=vlSdCUQ+UXUrjpZKGUj/KS/xNilO1ecxEJbZr2xH/6Y=;
+	s=arc-20240116; t=1789740484; c=relaxed/simple;
+	bh=H7Lm5aZFlpWNaJoqdVcvDWcRzm5tQ/Jd6Vf9qNCs9UI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ZX3CJaCTs9Lj0hPNcxc6Qc9EaPjPIx2IWcjkEGRHnvzVY9dfstNC4eszYfSTcODSpsLBlYTzQYDjXxC+SaK/P6KkmH8JxThd8nFyCKwQ0sR9c+1wlv5+YxLkUEy1ebSruesVM/OjnEOOTjfjMlX4+PRYeXzud5lG9/6Fa5kFvZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N6aysnrw; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Dp+XVY96thA8B1g8bhFrSvLemu61ME6z/Me2/D3yFR0DfoNZru7QRh/yoZ7ilXFXG6s0NMKpudfvoCPHC4fZ2FnifVdv/OTn6/Z8Ibobqs5gc+xZClRoTQjwLfTn9Guc6jG5YyhINNTrzfoGKWGzdH3pBzAeCCRqVNYDPB5gyzM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FwwFHOle; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N6aysnrw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 984E21F000FF;
-	Fri, 18 Sep 2026 14:07:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FwwFHOle"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5C1D1F000FF;
+	Fri, 18 Sep 2026 14:08:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789740465;
-	bh=EB9MRWNFsvd4V1N82s0ToYQJrmgozv65UWQ/Tkt4DTw=;
+	s=k20260515; t=1789740482;
+	bh=H7Lm5aZFlpWNaJoqdVcvDWcRzm5tQ/Jd6Vf9qNCs9UI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=N6aysnrw+lxdCpGYly9SesEoIOps0YWjLVIVCzuzjCwpr80JKpL5W8bKwYdFNxgdO
-	 AKyrbvqbHWY5R3DwH5CInJeXM++RqOwOIhrxc6C3k+5qV9B3RoAxEV38UNy4IdSU/j
-	 EAun5dCiv73O4+u1JHul5vIWRp6TzIIX62bYgzRHccmn3nq7Wioh9CWG+1ttkZhDrM
-	 Y2XD6Wbdmq9e/u2HdLx0nnWeyg/BpXbO2JTaNoKV5HeD8VP3jDvtAdFTMNXKjba+sT
-	 6hK6Z38lAt5zBXbA9nVDWYoWt06iXo4CWyTrSzTjL9bwr+eb3b7SnGp7lEXCj8b4u2
-	 dOzyDU7ZAZ1Cg==
+	b=FwwFHOlevWjMt3HjhEzkBGcJv0GA7A+SYdiRpQ3fRg8mT9vlbAx+WKPFU3ltCjPDL
+	 S6CZc73j6l8Bw1JX0Jum+/ZVS0E3yYvOEKHMLke9vACaI4GE9SYoNcL7gUOCLkDTPa
+	 lTwXDyZuOcsyVFoRMjo4zIRjkxkvRcxILuPKp3icBYh2id/98wmF9URRKs/8TXBbOZ
+	 T/edPkHGKbdzRrbiyJyIrUqA3cY2j7ryMkc7SlIGyuA5FjF5yfe12r1LRd+OwXyWyV
+	 dnxVrW9DBr83Vtm4Rxq1zB7iMbMg1SiUTHMcWHFbaZiytwWp5+7Gixpe2jaEjmpXX8
+	 DVa1o3V1yRkog==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/3] ASoC: qcom: q6apm-dai: add SCM buffer assignment
- for mDSP platforms
+Subject: Re: [PATCH v20 4/6] phy: core: Add missing kerneldoc colon in two
+ locations
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ajay Kumar Nandam" <ajay.nandam@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260918-vmid-v3-v3-3-f1cbf47bf173@oss.qualcomm.com>
-References: <20260918-vmid-v3-v3-0-f1cbf47bf173@oss.qualcomm.com>
- <20260918-vmid-v3-v3-3-f1cbf47bf173@oss.qualcomm.com>
+To: =?utf-8?b?QnJ5YW4gTydEb25vZ2h1ZQ==?= <bryan.odonoghue@linaro.org>
+Cc: linux-phy@lists.infradead.org, linux-clk@vger.kernel.org, media-ci@linuxtv.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260918-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v20-4-dc244e124e71@linaro.org>
+References: <20260918-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v20-0-dc244e124e71@linaro.org>
+ <20260918-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v20-4-dc244e124e71@linaro.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 14:07:45 +0000
-Message-Id: <20260918140745.984E21F000FF@smtp.kernel.org>
+Date: Fri, 18 Sep 2026 14:08:01 +0000
+Message-Id: <20260918140801.A5C1D1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] ASoC: qcom: missing SCM memory assignment for compressed streams
-- [Medium] ASoC: qcom: PCM buffer allocation exceeds reserved memory limits
+- [Low] phy: commit message says two locations but modifies three
 --
 
-commit 649b8a689f5d756ca2e792c97278213430b739cd
-Author: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+commit 5a2b69cff2bb3f7d12d886564973ff075c24a850
+Author: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-ASoC: qcom: q6apm-dai: add SCM buffer assignment for mDSP platforms
+phy: core: Add missing kerneldoc colon in two locations
 
-This commit introduces SCM buffer assignment to grant the modem DSP (mDSP)
-access to audio memory regions. It adds logic to dynamically assign the
-control-path carveout and per-stream data-path buffers on platforms where
-the DSP runs in a stage-2 protected context.
+This patch corrects missing colons after "Return" in the kernel doc for the
+phy core.
 
-> diff --git a/sound/soc/qcom/qdsp6/q6apm-dai.c b/sound/soc/qcom/qdsp6/q6ap=
-m-dai.c
-> index 033197bdd8705..8fa8ef774c4bc 100644
-> --- a/sound/soc/qcom/qdsp6/q6apm-dai.c
-> +++ b/sound/soc/qcom/qdsp6/q6apm-dai.c
-[ ... ]
-> @@ -603,6 +708,17 @@ static int q6apm_dai_pcm_new(struct snd_soc_componen=
-t *component, struct snd_soc
->  		if (ret)
->  			return ret;
-> =20
-> +		if (pdata->use_scm_assign) {
-> +			ret =3D q6apm_dai_scm_assign(pdata,
-> +						   substream->dma_buffer.addr,
-> +						   ALIGN(size, PAGE_SIZE));
+> phy: core: Add missing kerneldoc colon in two locations
 
-[Severity: High]
-While SCM assignment is properly handled for PCM streams here, is a similar
-call to q6apm_dai_scm_assign missing for compressed audio streams?
+[Severity: Low]
+This isn't a bug, but the commit subject states that "two locations" are
+being updated, while the patch actually modifies the kerneldoc for three
+distinct functions: _of_phy_get(), of_phy_get(), and phy_get().
 
-In q6apm_dai_compr_open, the driver allocates a DMA buffer for the compress
-stream without calling the SCM assignment function:
-
-	ret =3D snd_dma_alloc_pages(SNDRV_DMA_TYPE_DEV, dev, size,
-				  &prtd->dma_buffer);
-
-If this buffer isn't assigned before exposing it to the hardware, wouldn't
-this cause a stage-2 protection fault when the modem DSP attempts to read
-the compressed audio stream on mDSP platforms?
-
-> +			if (ret) {
-> +				dev_err(component->dev,
-> +					"SCM assign buffer failed: %d\n", ret);
-> +				return ret;
-> +			}
-> +		}
-> +
->  		ret =3D q6apm_dai_memory_map(component, substream, graph_id, is_push_p=
-ull);
-[ ... ]
-> @@ -1029,12 +1157,104 @@ static int q6apm_dai_probe(struct platform_devic=
-e *pdev)
-[ ... ]
-> +			rc =3D devm_add_action_or_reset(dev,
-> +						      q6apm_dai_reserved_mem_release,
-> +						      dev);
-> +			if (rc)
-> +				return rc;
-> +
-> +			pdata->reserved_buf_size =3D
-> +				min_t(size_t, per_stream - POS_BUFFER_BYTES,
-> +				      BUFFER_BYTES_MAX);
-
-[Severity: Medium]
-Does this calculation fail to account for the additional PAGE_SIZE padding
-that is unconditionally added during stream allocation?
-
-In q6apm_dai_pcm_new, the final allocation size includes PAGE_SIZE when the
-reserved memory pool is present:
-
-	if (pdata->has_reserved_mem)
-		size =3D pdata->reserved_buf_size + PAGE_SIZE;
-
-If the reserved pool is tightly sized based on the per_stream limits,
-wouldn't adding PAGE_SIZE to each stream cause the total allocation to
-exceed the memory pool budget? Could this lead to an allocation failure
-when opening the maximum allowed number of concurrent streams?
-
-> +			pdata->has_reserved_mem =3D true;
-> +		}
-> +	}
-> +
->  	dev_set_drvdata(dev, pdata);
+Should the commit message be updated to accurately reflect the three
+locations modified?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918-vmid-v3-v3=
--0-f1cbf47bf173@oss.qualcomm.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918-b4-linux-n=
+ext-25-03-13-dtsi-x1e80100-camss-v20-0-dc244e124e71@linaro.org?part=3D4
