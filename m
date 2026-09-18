@@ -1,70 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF28A49D596
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 08:38:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 045864AA59E;
+	Fri, 18 Sep 2026 08:40:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789720686; cv=none; b=PzaZNuZfFRkYt4NHHr2jv+MZNvvWiCZHOc96cB7usMeeVO7wEwZ00vgLgUbIGqp1/NvlLmIubNQrwqAtouyA8H17jc5eE3ugMUxk43Febo3lgcN+KDCt+gvdbTtiObVZ5s2Y+/xf0lqhZGEwtHdCbHE05I6Xp8P9kocL+Be1jJc=
+	t=1789720814; cv=none; b=hHepHZvBEX3RmLeUtonbzT3j68+31Z/sE0WzH4+jKLeLPicU0PllOxtEo3QLuDXB8uwCunZyPdV4KmWPKitqxlMBojCa0z6Jycn6xfJgDSqBrcYYGUAp8nIZZaFgp3O35ovdjn7mWmb4m4KeM0bQbSYcKznBsXJUAxS5/wHWvFQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789720686; c=relaxed/simple;
-	bh=nyiGRPw84v9lwfjRJbd1/D/bHlTM+QmFadF6+0EwGrM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kx8utYgYBIrzz5G1oVdH64OpZEcYC7DYi04Z8pQEU9GSnPegfWj3t93v6SoOOaJTGbd3GHY2qsZOs5Q8pp68aaR15I2L8WgVxinCcYDzvTrKdZu5it/3gssHsYfrwrfW/qEtaAHM/19DMdH+C6o97XAKQrtp7L/9sNjpHIWN4i8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ISxhYBp1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789720814; c=relaxed/simple;
+	bh=K7V7Ma7lDcEZagFO0P4l8ZEMMVYhIi7YJJM+W80MAcE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cTukQ9bIjqYFeozIfAnzr/K9e//vgA0Pa9E04Exb2jXoGU/iEQDWrWi90n0Ljr71DlX9Vtser5OXQl5p5B/3k9anuPhq9V4z6sSoeeUlW9JxpHKjXlUqkgav0suHQI3DYgoe35AWBG21O2xzBCwydXVtEsMu2HecI3NTWsjwvIk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=cCDMUHNR; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ISxhYBp1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B6771F000FF
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 08:38:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789720684;
-	bh=nyiGRPw84v9lwfjRJbd1/D/bHlTM+QmFadF6+0EwGrM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=ISxhYBp1XjUPTOU/33vfrOxuZC2d+Q3kQjhykcWkGm0JQKT0adQpFRvlvW8SwS8ZR
-	 2VsPlaocRTemgEkbHMu6GfSY0PrSXICnmxaH260WiYwzLX4WBl7HqEI6eJUJKNR1cN
-	 31JHAu7/BLF1F4DDFSdgmFl7QJ/GezoH1vaQPj52y/ym/5nuQwvnrJsnJP19tYGSeL
-	 QYyHR8eh7dmUX17Vn5O4MKnklpiMijnQhjDCut6yyiDgU7vQYzhCXrI2ggJb4nHiS/
-	 24R/SjHy5h8/uXcQMQCphmykjtct3v5vIuvNRk+81EzT7eDutZOt95kkjGbryp/2i0
-	 9fWtDQbQaNruw==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8c5231570so64218e87.2
-        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 01:38:04 -0700 (PDT)
-X-Gm-Message-State: AFuF++lIMnR00eLYwa10x1m1xoovy8TW3A+ME96jZSGSdWsl8Emg/E1i
-	Xh0wA2T6acLWFNLrGpGxNxvyFj9+Un6/cQtHmE7lvN11n17BPlyO+QtYI3qxxaVcf3CaCLxmlyV
-	mr+fT/PQOgsY6gNiJsfzm8jFCayZuHAA=
-X-Received: by 2002:a05:6512:110a:b0:5ae:b259:75a1 with SMTP id
- 2adb3069b0e04-5b8c17ee5c7mr468241e87.12.1789720683033; Fri, 18 Sep 2026
- 01:38:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="cCDMUHNR"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=pG44NYBS23dsJiBqAYC6vGPYrAyk0gnsW/77hlhZNnU=; 
+	b=cCDMUHNRzAGYZ624JK5Dt8ogbNxEHbQUaRyqwPK8m1fFKAh4VUYh/ie0/SWK7WViketGpgqQT4z
+	5VEIjJEkvXA4Gy2akoEGed/ncEDTlIpqD7twG6ofLtdmPt4TqKHCZIpf3RAYdeJ8p3HutThB7GJGW
+	YagWv8y/aAcpJ8b1EwBusDoCCMK7gdDroVlvAb7LGeBNWoi/lbrQQtEfF7Quh3EH8t0gDvrlJdxAU
+	ByvTFOlpkUv44MIgeKqiEUMjGK9z7mNkipdvsPxubEVxtrnrkd32XJ0fu42A0GleK65gYqYZZTYAp
+	smR+BP+wnm5pbipubJhnB1QlB4vIzuTwkuEA==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1x7U8b-0000000FKOE-1ogZ;
+	Fri, 18 Sep 2026 16:40:06 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 18 Sep 2026 18:40:05 +1000
+Date: Fri, 18 Sep 2026 18:40:05 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Pavitrakumar Managutte <pavitrakumarm@vayavyalabs.com>
+Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, robh@kernel.org, krzk@kernel.org,
+	conor+dt@kernel.org, ruud.derwig@gf.com, rbannerm@synopsys.com,
+	manjunath.hadli@vayavyalabs.com, adityak@vayavyalabs.com,
+	navami.telsang@vayavyalabs.com, bhoomikak@vayavyalabs.com,
+	nazim.khan@vayavyalabs.com
+Subject: Re: [PATCH v25 2/4] crypto: spacc - Add SPAcc ahash support
+Message-ID: <aqz45SDR8judkwk5@gondor.apana.org.au>
+References: <20260907155916.999153-1-pavitrakumarm@vayavyalabs.com>
+ <20260907155916.999153-3-pavitrakumarm@vayavyalabs.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260918-ux500-simple-sound-v2-0-88d29416e3c3@kernel.org>
- <20260918-ux500-simple-sound-v2-7-88d29416e3c3@kernel.org> <20260917230646.AFDD81F000FF@smtp.kernel.org>
-In-Reply-To: <20260917230646.AFDD81F000FF@smtp.kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 18 Sep 2026 10:37:50 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkBKhM9S2bG9ttiA0R7jqriQPH2SHRGvMWq1XzkTMc5zw@mail.gmail.com>
-X-Gm-Features: AcwNN1UCI8p1qU45iM7QZFxLwNfb4MbT_iNZnqOGLT43rWanvJTWkfzEs5ZfrgY
-Message-ID: <CAD++jLkBKhM9S2bG9ttiA0R7jqriQPH2SHRGvMWq1XzkTMc5zw@mail.gmail.com>
-Subject: Re: [PATCH v2 7/9] ARM: dts: ux500: Convert HREF audio to audio-graph-card2
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, 
-	mfd@lists.linux.dev, lee@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907155916.999153-3-pavitrakumarm@vayavyalabs.com>
 
-On Fri, Sep 18, 2026 at 1:06=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
+On Mon, Sep 07, 2026 at 09:29:14PM +0530, Pavitrakumar Managutte wrote:
+>
+> +static int spacc_hash_init(struct ahash_request *req)
+> +{
+> +	int rc;
+> +	struct crypto_ahash *tfm        = crypto_ahash_reqtfm(req);
+> +	struct spacc_crypto_ctx *tctx   = crypto_ahash_ctx(tfm);
+> +	struct spacc_crypto_reqctx *ctx = ahash_request_ctx(req);
+> +
+> +	memset(ctx->state_buffer, 0, sizeof(ctx->state_buffer));
+> +
+> +	if (tctx->shash_fb) {
+> +		SHASH_DESC_ON_STACK(desc, tctx->shash_fb);
+> +
+> +		desc->tfm = tctx->shash_fb;
+> +		rc = crypto_shash_init(desc);
+> +		if (!rc)
+> +			rc = crypto_shash_export(desc, ctx->state_buffer);
+> +		shash_desc_zero(desc);
+> +	} else {
+> +		HASH_FBREQ_ON_STACK(fbreq, req);
+> +
+> +		rc = crypto_ahash_init(fbreq);
+> +		if (!rc)
+> +			rc = crypto_ahash_export(fbreq, ctx->state_buffer);
+> +		HASH_REQUEST_ZERO(fbreq);
+> +	}
 
-> Thank you for your contribution! Sashiko AI review found 2 potential issu=
-e(s) to consider:
-> - [High] sound: ux500: hardcoded TDM slots break dynamic channel support
-> - [High] sound: ux500: ABI regression causing loss of DAPM pin switches
+Why do we need two fallback paths? It would appear that you can
+just use the else clause in all cases.
 
-Nobody cares.
+> +static const struct ahash_engine_alg spacc_hash_template = {
+> +	.base = {
+> +		.init     = spacc_hash_init,
+> +		.update   = spacc_hash_update,
+> +		.final    = spacc_hash_final,
+> +		.finup    = spacc_hash_finup,
+> +		.digest   = spacc_hash_digest,
+> +		.setkey   = spacc_hash_setkey,
+> +		.export   = spacc_hash_export,
+> +		.import   = spacc_hash_import,
+> +		.init_tfm = spacc_hash_init_tfm,
+> +		.exit_tfm = spacc_hash_exit_tfm,
+> +
+> +		.halg.base = {
+> +			.cra_priority	= 300,
+> +			.cra_module	= THIS_MODULE,
+> +			.cra_ctxsize	= sizeof(struct spacc_crypto_ctx),
+> +			.cra_reqsize	= sizeof(struct spacc_crypto_reqctx),
+> +			.cra_destroy	= spacc_hash_alg_destroy,
+> +			.cra_flags	= CRYPTO_ALG_TYPE_AHASH    |
+> +					  CRYPTO_ALG_ASYNC
 
-The old code was not working.
+Please use BLOCK_ONLY for all new drivers.  See aspeed for an
+example on how it works.
 
-Yours,
-Linus Walleij
+> +	/*
+> +	 * CMAC/XCBC-AES have a dedicated shash fallback (allocated in
+> +	 * init_tfm).  They must not advertise CRYPTO_ALG_OPTIONAL_KEY or
+> +	 * the crypto API may try to use the generic ahash fallback for them,
+> +	 * which would recurse back into this driver.
+> +	 */
+
+How can it recurse back into the driver? The fallback allocated
+by the API is always synchronous so unless your driver is sync
+(which it is not) it cannot recurse.
+
+> +		salg->alg.hash.base.halg.base.cra_flags =
+> +			CRYPTO_ALG_TYPE_AHASH | CRYPTO_ALG_ASYNC |
+> +			CRYPTO_ALG_NEED_FALLBACK;
+
+There is no need to set NEED_FALLBACK as the API now allocates
+fallbacks for all async drivers.
+
+Cheers,
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
