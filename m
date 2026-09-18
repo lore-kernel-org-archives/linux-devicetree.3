@@ -1,128 +1,109 @@
-Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FE753D7D9F
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 03:37:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A191138A71E
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 03:51:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789702629; cv=none; b=V6HA6xUIz5dLgWGteADoxJluQIGscrAXwBHG04aqomnLQ9VadVfX5saeI5zNguzPkMGhxDm/qBnHRkGZU+Nxogd/ePFngbME9xIjdC2MkPWKn7s3Z2HIIq/UY/p4EdXEFVoKJUVBpin/bQ/cA/3TL5xdnqJwLr+YSdm1SrzFoJs=
+	t=1789703495; cv=none; b=II+OTW5mq9chJofii6c4yGfPUzJuoJIGgXMyz6vEqHuPiHoT+g0zGColaFAQbXrLFzEZ8CLnguiTAQBeU57DVP00aY2DBVn80GrRzP6Dz5VJO4FYBTWsKmypJ3NXad0FzHqMO1Gn8VGAIy+66X7AqoeO/U4AvpZLRnybFcmpnhI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789702629; c=relaxed/simple;
-	bh=TZI0X3+I1L1Wmpg84vIuKoIdqolxovT8iqYRB9KXvp8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=RgbqV32V6qtujrMEHrprTYonVf/9OexscS7w35prNRI+niDpAPPmobkh+Cu2o0bagoUK67NlSGvajXFQZg7bksAJuobIhNsizqZxpNhwsdf9t/u8bDoBvJdfKlUidWT6+yY40qGiVIYz0eN1dpiSmFucGTDYrpDkMQrFbq4MX3s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=TZ7epole; arc=none smtp.client-ip=203.254.224.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1789703495; c=relaxed/simple;
+	bh=7hm+e5haj6Zd35caTcNALHPX1QE1gwXURphY8ZG4f1A=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=TxJXAu9RVHHowL45U5IJZQNEoFAYidUq/3dz7LNUVk0TQjdFVsM5b/eUKt4FIZjhQQMrvqnyUe+7Sg1jJJEYK19XwawOTIAIv1shiRE4Ltu+HVouyKbqJ4mW+kqGewxUdsYTnCsTBpmYofrkCWqPezHDEdvHqKuf+DJaKTHLZXc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E6oHwiAa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="TZ7epole"
-Received: from epcas5p1.samsung.com (unknown [182.195.41.39])
-	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20260918033702epoutp04a5be69b4d1b5752a147ef8735274d8ca~WTQ11QNV51727217272epoutp04c
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 03:37:02 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20260918033702epoutp04a5be69b4d1b5752a147ef8735274d8ca~WTQ11QNV51727217272epoutp04c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1789702622;
-	bh=wVNZNX6eNlyCyjqKZuhGwmsTwuDYuVKLYvCN2QvkmDQ=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=TZ7epoleif9/tjTCcwO93NSveNWPb4CaXuiXxPkjyTfMyLKPfIi3GW7o0WGU20lu3
-	 Kx/Je1eQy2oWYSd9deri3WFiDdKCCi6uGV5DWMsPwy5SMiyA9GpIAZ22FkouOtm1v8
-	 JK+WiKXzaPImGziv4DNIlpUOgAg+8lqHmr71x2eQ=
-Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
-	epcas5p2.samsung.com (KnoxPortal) with ESMTPS id
-	20260918033701epcas5p28c94072e3b67ed14d50879deaf09bbfb~WTQ1SToQ_1503415034epcas5p2S;
-	Fri, 18 Sep 2026 03:37:01 +0000 (GMT)
-Received: from epcas5p4.samsung.com (unknown [182.195.38.92]) by
-	epsnrtp03.localdomain (Postfix) with ESMTP id 4hmJG4309hz3hhT8; Fri, 18 Sep
-	2026 03:37:00 +0000 (GMT)
-Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas5p3.samsung.com (KnoxPortal) with ESMTPA id
-	20260918033659epcas5p3efc91b48516c12b52293604b2c272239~WTQzosaGy1269112691epcas5p3b;
-	Fri, 18 Sep 2026 03:36:59 +0000 (GMT)
-Received: from [107.122.5.126] (unknown [107.122.5.126]) by
-	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20260918033656epsmtip1d0d87fe4e19cc56648a53ea55d7ab60f~WTQw35rEG1575715757epsmtip1V;
-	Fri, 18 Sep 2026 03:36:56 +0000 (GMT)
-Message-ID: <c74dda5e-7fc7-49e8-befc-7def930e8bb3@samsung.com>
-Date: Fri, 18 Sep 2026 09:06:55 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E6oHwiAa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BD961F00898
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 03:51:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789703494;
+	bh=llye9i9aXgouGRcz8NFjZ/wbpgSywkSkAscOcHmbV4s=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=E6oHwiAavZrq0lVaYiw+R7Om1iuRyBJXr60WqVvKcwLqyXQB59AGjyh7SPrh6tefJ
+	 lsSJS7dOT3mOaDd5l4XDlKar5Uv7Z71gasebq36ZHOzMDXja2Ww7UkZeovk3O1yUpT
+	 ppsR34/DYE/TLCIKCi1eHcQje7rOVCtf2xmUIRBS+IGkLa9baLKLHGMDGdqaNphGgx
+	 m7ZfpOjlDkCe8wA1wxZ3JHnG+ZC1Ek+FexhD8jKFz2fAqlpRKilEA0kNqOngdTmTAZ
+	 N2bl9980dwEx1KKtMDhXy16IbKooPv5RcKptngoMVDmV64Li6NPaAWOloALjdToDci
+	 xUkbj5BxDBuVA==
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a5b2864f1cso2736861fa.3
+        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 20:51:34 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxmPrF9hygXLjnIfSjLmazj3TbK0kA0PSM/ldk8RrLkt4CRoji5b1lmkGQmtwzvtfVwncVJs00mHe2b@vger.kernel.org
+X-Gm-Message-State: AFuF++nr4g9fKxsy7mWP8swmH/mdqtM/9CdeGefoKURXF+MPXt1Il8gx
+	9HPNo8+tiNapoOcG+HgLxZayQWmYdWz55iDAMzM007S2H1eU94Ayc/kBRQWKEHmpVe5esRgWDwl
+	V7usw9CBiQUC1ZqHD177a9qg4VJB9Kzg=
+X-Received: by 2002:a2e:a99d:0:b0:3a3:7682:499e with SMTP id
+ 38308e7fff4ca-3a5fc0a7d91mr1738471fa.19.1789703492590; Thu, 17 Sep 2026
+ 20:51:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] dt-bindings: usb: Introduce samsung,snps-dwc3
-To: Alim Akhtar <alim.akhtar@samsung.com>, krzk@kernel.org,
-	peter.griffin@linaro.org, gregkh@linuxfoundation.org, robh@kernel.org,
-	conor+dt@kernel.org, Thinh.Nguyen@synopsys.com, mani@kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
-	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: jh0801.jung@samsung.com, h10.kim@samsung.com, dh10.jung@samsung.com,
-	akash.m5@samsung.com, hongpooh.kim@samsung.com, eomji.oh@samsung.com,
-	shijie.cai@samsung.com, muhammed.ali@samsung.com, thiagu.r@samsung.com
-Content-Language: en-US
-From: Selvarasu Ganesan <selvarasu.g@samsung.com>
-In-Reply-To: <058301dd471d$5d985170$18c8f450$@samsung.com>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20260918033659epcas5p3efc91b48516c12b52293604b2c272239
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-542,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20260916122354epcas5p401fd6470d6cef75951af732b03aa5970
-References: <20260916122229.2604003-1-selvarasu.g@samsung.com>
-	<CGME20260916122354epcas5p401fd6470d6cef75951af732b03aa5970@epcas5p4.samsung.com>
-	<20260916122229.2604003-3-selvarasu.g@samsung.com>
-	<058301dd471d$5d985170$18c8f450$@samsung.com>
+References: <20260917223913.1855301-1-andre.przywara@arm.com> <20260917223913.1855301-3-andre.przywara@arm.com>
+In-Reply-To: <20260917223913.1855301-3-andre.przywara@arm.com>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Fri, 18 Sep 2026 11:51:19 +0800
+X-Gmail-Original-Message-ID: <CAGb2v67XsgfoYrJ6gJ_kshjnbSOOrJt9fK6RE1ErsTuHuVji5w@mail.gmail.com>
+X-Gm-Features: AcwNN1V8Mf2lfwWc7xgI8OxjluEZlzfKO7oVmRLjPeBHxGQzIMFTeAetat816ec
+Message-ID: <CAGb2v67XsgfoYrJ6gJ_kshjnbSOOrJt9fK6RE1ErsTuHuVji5w@mail.gmail.com>
+Subject: Re: [PATCH v2 2/5] clk: sunxi-ng: mp: support clocks with just a
+ shift register
+To: Andre Przywara <andre.przywara@arm.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-
-On 9/18/2026 8:55 AM, Alim Akhtar wrote:
+On Fri, Sep 18, 2026 at 6:39=E2=80=AFAM Andre Przywara <andre.przywara@arm.=
+com> wrote:
 >
->> -----Original Message-----
->> From: Selvarasu Ganesan <selvarasu.g@samsung.com>
->> Sent: Wednesday, September 16, 2026 5:52 PM
->> To: krzk@kernel.org; peter.griffin@linaro.org; alim.akhtar@samsung.com;
->> gregkh@linuxfoundation.org; robh@kernel.org; conor+dt@kernel.org;
->> Thinh.Nguyen@synopsys.com; mani@kernel.org;
->> selvarasu.g@samsung.com; linux-arm-kernel@lists.infradead.org; linux-
->> samsung-soc@vger.kernel.org; linux-usb@vger.kernel.org;
->> devicetree@vger.kernel.org; linux-kernel@vger.kernel.org
->> Cc: jh0801.jung@samsung.com; h10.kim@samsung.com;
->> dh10.jung@samsung.com; akash.m5@samsung.com;
->> hongpooh.kim@samsung.com; eomji.oh@samsung.com;
->> shijie.cai@samsung.com; muhammed.ali@samsung.com;
->> thiagu.r@samsung.com
->> Subject: [PATCH v2 2/3] dt-bindings: usb: Introduce samsung,snps-dwc3
->>
->> Add the Samsung Exynos8855 DWC3 binding using a flattened node
->> representation, where the DWC3 controller is directly addressable rather
->> than nested as a child node of a glue layer.
->>
->> This is the first Samsung Exynos binding using the flattened representation.
->> The existing samsung,exynos-dwc3 binding describes the parent and child
->> representation used by existing Exynos SoCs, which can be migrated to the
->> flattened model.
->>
->> Samsung Exynos SoCs sharing the same flattened model can be added by
->> using the samsung,snps-dwc3 fallback compatible and extending the
->> compatible enum with per SoC clock and property constraints.
->>
->> Co-developed-by: Muhammed Ali <muhammed.ali@samsung.com>
->> Signed-off-by: Muhammed Ali <muhammed.ali@samsung.com>
->> Signed-off-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
->> ---
-> Thanks for using flattened node representation. Are you planning to migrate other existing SoC as well?
+> The "mp" clock models a mod clock with divider and a shift field. At
+> least one clock in the Allwinner A523 features just a power-of-2 divider
+> field, so support an initialisation of the clock without providing an
+> actual divider field.
+
+Please just use the single divider clock type instead. It properly supports
+power-of-2 dividers.
+
+ChenYu
+
+> Add a check whether the "width" field is 0, and skip the divider
+> handling in this case, as the GENMASK macro will not work with a zero
+> length.
 >
-> Reviewed-by: Alim Akhtar <alim.akhtar@samsung.com>
-
-Hi Alim,
-
-Thanks for your comments.
-
-Yes, We are planning to migrate other existing SoCs to the flattened 
-node representation as well.
-
-Thanks,
-Selva
+> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+> ---
+>  drivers/clk/sunxi-ng/ccu_mp.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/clk/sunxi-ng/ccu_mp.c b/drivers/clk/sunxi-ng/ccu_mp.=
+c
+> index 7cdb0eedc69b5..3896cb94bf733 100644
+> --- a/drivers/clk/sunxi-ng/ccu_mp.c
+> +++ b/drivers/clk/sunxi-ng/ccu_mp.c
+> @@ -236,9 +236,11 @@ static int ccu_mp_set_rate(struct clk_hw *hw, unsign=
+ed long rate,
+>         spin_lock_irqsave(cmp->common.lock, flags);
+>
+>         reg =3D readl(cmp->common.base + cmp->common.reg);
+> -       reg &=3D ~GENMASK(cmp->m.width + cmp->m.shift - 1, cmp->m.shift);
+> +       if (cmp->m.width)
+> +               reg &=3D ~GENMASK(cmp->m.width + cmp->m.shift - 1, cmp->m=
+.shift);
+>         reg &=3D ~GENMASK(cmp->p.width + cmp->p.shift - 1, cmp->p.shift);
+> -       reg |=3D (m - cmp->m.offset) << cmp->m.shift;
+> +       if (cmp->m.width)
+> +               reg |=3D (m - cmp->m.offset) << cmp->m.shift;
+>         if (shift)
+>                 reg |=3D ilog2(p) << cmp->p.shift;
+>         else
+> --
+> 2.43.0
+>
