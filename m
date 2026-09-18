@@ -1,214 +1,337 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB26435838F
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 14:58:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 993654F93A1
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 15:02:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789743522; cv=none; b=hlKkc0f/VUYsBkp8whf9Auj+kgNSpo2v7cZ/aPiswG/4ZOWfxkkbDQ6yRWqwEAv3Nez7kJy3buIOYizasQDBXIkJNgZCaF5Q4h9uMS0PKI3/t/UoHL1GlUBOH7Mg3HNK3+s9zt8boS6Y/6CYnJOJG3SjorgkWGf2NlSoQ52xGMw=
+	t=1789743763; cv=none; b=cwAt41bTGENNdRzQvTblVb3L//yTgxqoYG/OspmuoYRS8z7kb70Jshv6tmnretPRPVSk/AXL34NHBLUSNfaAqz/evXIiDEn8Opi2w5CbFP3/nae3Ip4e4lYDWl+GiJg2bYlAeg4As9ei9zsaqEu1IWJpT/3ruyLCyEY9CE+2puc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789743522; c=relaxed/simple;
-	bh=iCGi91y15vORLGHmRL1cXzjrzr2XmNCeQdE7oNRvnHQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=rv5lO0yaTAtggG6ZhR8hB2AP4bLyHjU+mqUkEPKlrRiV2OrV4zheVtvrmJhNMoWH9pLy0ojg5Ebw08b/smUsH5fT2tjCZu4XGpe2TlCj6nuiYwTK77uRU+1xDOa9IdkBGuKWLS/Wtq2VgxCRDduPDzpTNGVj8M4UcEGijOlp2Do=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k6DOMWPf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789743763; c=relaxed/simple;
+	bh=ITubyCmQ0IqICURrqkJRPxQa8V5YyjerEjVQzcuewrM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HDRlZNMQcrkxuj8qzU5GFw9uEeCuvgD3uEuwgLVkXeYZ9U23yzA9HoyZFtZO6lv121aG+4rWFLZuR36ILBFMlEJW0+3u+SX+fddv+q8W+SIt5kfWuc6FCn+z85zjKl/qRXGIjXhXQQYcZDiXhrL39jsGi32bk+Ci1EFt0TiFkcM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FHmETVqr; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k6DOMWPf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A1C31F000FF;
-	Fri, 18 Sep 2026 14:58:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789743520;
-	bh=xhWMCl3OIfIy8+66BHuEFBdt6pFum38XtJWnKUOpPLg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=k6DOMWPfeyxA/imgLdJSn2NgLu6t3jVOvHZkqy44/VakrulhMDmNGkCdj7sXtICyj
-	 VhkaHCHbtezgA5N8n6xd2gBqlOp6nB3uaink9UTxTgT1TYh6X5iQW+XTL4lQ9IYlaK
-	 E4k2WePwnIQ8oiAKIudBut1th8bkjFjOahTFad6q4ZDSJib5mF7NyWfUnOQH6XCHFi
-	 XXe+QDQHqcGpOOctgnZIAZfH0RHBlWWeA61GFy2XMBBSOSVlBkU03nolBVGRwn0xI/
-	 kciolR2jzqd1lKhZb/QQAWQwLZll1MoJFDM5Er1j0yJcO9H0TiT62ExG/96VNB02Tr
-	 tjS8XweOOPHPg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/4] drm/panel: Add driver for Novatek NT37705 panel
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Luca Weiss" <luca.weiss@fairphone.com>
-Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260918-fp6-panel-v2-2-6695c4008920@fairphone.com>
-References: <20260918-fp6-panel-v2-0-6695c4008920@fairphone.com>
- <20260918-fp6-panel-v2-2-6695c4008920@fairphone.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 14:58:39 +0000
-Message-Id: <20260918145840.0A1C31F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FHmETVqr"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747f05ffcso6760665ad.0
+        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 08:02:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789743761; x=1790348561; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LhCDu1m9RcDMKABHVNVaAnRdFOqbBkAGLFS2ulG6C8Y=;
+        b=FHmETVqrApRdb6PN/F/bhE9hB4pgzneIIj78BHwu1wyIUjRhf7QcuZwT7/JzcbT5c4
+         Z4W1IZ1Jy/ZFtAbvpbqWeVLfydmWb37okgZ6YSgo9rmVhtdIbiNKZIhUZOACn10DT5uv
+         ICvNLxRra+HRkCtoPiVix4zJoPCoShGXsNefmbeKmba3nvpPY+4K4/uMW3LpGSl+p726
+         /bmWImkrpYnpo/s6JhLWa3s7yDsAJreX3hz8qIB48J5YDwSpDjZs5zUyp3B6kgALJZZ0
+         JYdYwT8wCIc5DfPCtspUkNHT44mS9MLhiRIo9qLEsbrGJxoJ5GwcFAu4fCZw6Ttd2wWP
+         d3BQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789743761; x=1790348561;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=LhCDu1m9RcDMKABHVNVaAnRdFOqbBkAGLFS2ulG6C8Y=;
+        b=l0tIXLsoybmkVH0R4OF1/CPLZYE1Xf0CvpBGRmREoC2nIv2mQqBPY0a9YXpBYUfLBC
+         OwJLQZ5sGiUqpvMZeuRCkeGotPDg/83DjyxA9VkuIK/pyIQDXMY6juO740+6TYP15OIj
+         /3Zmthhm1R051331zYezDJ+30JRVuARcgGJTZZOnswoGEhtQN5xi/XOiXhxodNRThSo3
+         fMSOr01hjekzsefWmskVALi4ecQPGG30Pzf1Gvt8PuxBc+uRqqdUmi+uVZx69Vib8O8Y
+         bgyhskdXlXb29wFaSpmZtZKGLS1blvgx7OlHrPS7ylMdaBBQZO+SlWdBmvX8c/I3g63X
+         X+ew==
+X-Forwarded-Encrypted: i=1; AKwUvBxoixRosjKxx+FgG7NpjyfZNefovCv5ndLcRhBtRW/WWje7+vlVd2scvmCksAL44WS+vURJAk3p8aoj@vger.kernel.org
+X-Gm-Message-State: AFuF++lgN0NrzrHn/J0crPl21scMTJxvpX0Y3fPN8bQ3BiknYRpfizuo
+	3kWE9UrB1+FOP7bmkkvOJTC4L+sa+whw04IkcpwP/GO97iXCeqgKfXeh
+X-Gm-Gg: AYBFou16IqSdIfQuNy55To5fJ1/IrcXSzH7QSHarRYORqNcsJNHgMYeNV9xssBaFWCF
+	FaYEeoPHdUORsKtNWpdCqC5WRLvgNesxEatFwlPhLn7ZDD4kRdJTfwNIhcCWyZ6q3zKlJXgcK7o
+	N1hHqA5QS2p1g/xgZUCQ1n+Bh2BGr1uyXZ2BnZTz3c8qRP1uqScV+Kyps48o6WkkA+TPsF5ftg0
+	3vsFKaanzUwKlSYJ46T/zAW0la+ocL04xKgenUVZ6smzyNPZmoK2GwFCJVXH1k3jpWIAiZqp60j
+	N7dAra5W7bVmCduzvmMhBQ6mKgkdioOZO2J98wVQct/7F6DGgGOnuYmTICezrFklrzBQzlrJ+XM
+	n7TrBV7Swzr2sJVGYE4LfdX5yI2xoz/2rB0eLsDPH7CmZWxXdU8hSrqnkORyZdq4T2jp1EiXdDx
+	Gxu7EBwsvzO4RlyEB8HuxFELoPAEvrW4cf2rthc+ZECJVl+/onbwqQLijiCVNstRlkwU5fKJwdN
+	HI3Enu5fNkcmcJ7P6FCP8O/lJjxj2PweSrLWxWKNepkNgtfBQiv+jF7AE4=
+X-Received: by 2002:a17:902:c945:b0:2dd:ad74:ac26 with SMTP id d9443c01a7336-2ddb1b9a0fcmr61272835ad.24.1789743760748;
+        Fri, 18 Sep 2026 08:02:40 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddb73db1c5sm9960585ad.4.2026.09.18.08.02.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 18 Sep 2026 08:02:39 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <dbd0a721-898b-4524-a0cd-c9751fd4bd68@roeck-us.net>
+Date: Fri, 18 Sep 2026 08:02:38 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 2/2] hwmon: (pmbus/tda38740) Add driver for Infineon
+ TDA38740/TDA38725
+To: Colin Huang <u8813345@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, colin.huang2@amd.com, linux-doc@vger.kernel.org
+References: <20260918-add-tda38740-and-tda38725-v6-0-a8b11018d850@gmail.com>
+ <20260918-add-tda38740-and-tda38725-v6-2-a8b11018d850@gmail.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260918-add-tda38740-and-tda38725-v6-2-a8b11018d850@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] drm/panel: resource leak on DSI command failure in prepare
-- [High] drm/panel: Use-After-Free of dangling dsi->dsc pointer
-- [Medium] drm/panel: unpowered device access in backlight update
-- [Medium] drm/panel: state corruption of mode_flags on error path
-- [Medium] drm/panel: protocol violation via malformed DCS commands
---
+On 9/18/26 03:23, Colin Huang wrote:
+> Add a PMBus driver for Infineon TDA38740 and TDA38725
+> single-voltage synchronous buck regulators.
+> 
+> Signed-off-by: Colin Huang <u8813345@gmail.com>
 
-commit 8f6434d0603fb1133d406bd15a56e3de3bcce821
-Author: Luca Weiss <luca.weiss@fairphone.com>
+For my reference (waiting for DT patch approval):
 
-drm/panel: Add driver for Novatek NT37705 panel
-   =20
-Add support for the 2484x1116 AMOLED panel from BOE (BJ631JHM-T71-D900)
-bundled with a NT37705 driver IC, as found on the Fairphone (Gen. 6)
-smartphone.
+Reviewed-by: Guenter Roeck <linux@roeck-us.net>
 
-> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt37705.c b/drivers/gpu/=
-drm/panel/panel-novatek-nt37705.c
-> index 0000000000000..27bd8072ccd1b
+> ---
+>   Documentation/hwmon/index.rst    |  1 +
+>   Documentation/hwmon/tda38740.rst | 65 ++++++++++++++++++++++++++++++++++++++++
+>   drivers/hwmon/pmbus/Kconfig      |  9 ++++++
+>   drivers/hwmon/pmbus/Makefile     |  1 +
+>   drivers/hwmon/pmbus/tda38740.c   | 64 +++++++++++++++++++++++++++++++++++++++
+>   5 files changed, 140 insertions(+)
+> 
+> diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.rst
+> index f07977a20271..aeff87b3d46d 100644
+> --- a/Documentation/hwmon/index.rst
+> +++ b/Documentation/hwmon/index.rst
+> @@ -265,6 +265,7 @@ Hardware Monitoring Kernel Drivers
+>      sy7636a-hwmon
+>      tc654
+>      tc74
+> +   tda38740
+>      thmc50
+>      tmp102
+>      tmp103
+> diff --git a/Documentation/hwmon/tda38740.rst b/Documentation/hwmon/tda38740.rst
+> new file mode 100644
+> index 000000000000..55ce12f14914
 > --- /dev/null
-> +++ b/drivers/gpu/drm/panel/panel-novatek-nt37705.c
-> @@ -0,0 +1,413 @@
-[ ... ]
-> +static int nt37705_on(struct nt37705_panel *ctx)
-> +{
-[ ... ]
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x11, 0x00);
-> +	mipi_dsi_msleep(&dsi_ctx, 120);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x29, 0x00);
-
-[Severity: Medium]
-Are these standard zero-parameter DCS commands (Exit Sleep Mode 0x11,
-Display On 0x29) intended to be transmitted with an extra 0x00 padding
-byte?=20
-
-This creates a 1-parameter short write instead of a 0-parameter short
-write, which violates the MIPI DCS specification and could cause panel
-controller misbehavior.
-
-> +	mipi_dsi_msleep(&dsi_ctx, 22);
+> +++ b/Documentation/hwmon/tda38740.rst
+> @@ -0,0 +1,65 @@
+> +.. SPDX-License-Identifier: GPL-2.0-only
 > +
-> +	return dsi_ctx.accum_err;
+> +====================================
+> +Kernel driver tda38740
+> +====================================
+> +
+> +Supported chips:
+> +  * Infineon TDA38740
+> +  * Infineon TDA38725
+> +
+> +    Prefix: 'tda38740'
+> +
+> +    Addresses scanned: -
+> +
+> +    Datasheet:
+> +      https://www.infineon.com/row/public/documents/24/49/infineon-tda38740-tda38725-datasheet-en.pdf
+> +
+> +Author: Colin Huang <u8813345@gmail.com>
+> +
+> +Description
+> +-----------
+> +
+> +The TDA38740 and TDA38725 are single-output synchronous buck regulators with a
+> +PMBus interface. They expose basic voltage, current, power and temperature
+> +telemetry through the standard PMBus hwmon interfaces.
+> +
+> +Sysfs entries
+> +-------------
+> +
+> +======================= =======================================================
+> +curr1_alarm		Input current alarm
+> +curr1_input		Measured input current
+> +curr1_label		"iin"
+> +
+> +curr2_crit		Critical maximum output current
+> +curr2_crit_alarm	Output current critical high alarm
+> +curr2_input		Measured output current
+> +curr2_label		"iout"
+> +
+> +in1_crit		Critical maximum input voltage
+> +in1_crit_alarm		Input voltage critical high alarm
+> +in1_input		Measured input voltage
+> +in1_label		"vin"
+> +
+> +in2_crit		Critical maximum output voltage
+> +in2_crit_alarm		Output voltage critical high alarm
+> +in2_input		Measured output voltage
+> +in2_label		"vout"
+> +in2_lcrit		Critical minimum output voltage
+> +in2_lcrit_alarm		Output voltage critical low alarm
+> +
+> +power1_alarm		Input power alarm
+> +power1_input		Measured input power
+> +power1_label		"pin"
+> +
+> +power2_input		Measured output power
+> +power2_label		"pout"
+> +
+> +temp1_crit		Critical high temperature
+> +temp1_crit_alarm	Chip temperature critical high alarm
+> +temp1_input		Measured temperature
+> +temp1_max		Maximum temperature
+> +temp1_max_alarm		Chip temperature high alarm
+> +======================= =======================================================
+> +
+> diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
+> index bcfdc4ce4c10..e4ca80dd0574 100644
+> --- a/drivers/hwmon/pmbus/Kconfig
+> +++ b/drivers/hwmon/pmbus/Kconfig
+> @@ -763,6 +763,15 @@ config SENSORS_TDA38640_REGULATOR
+>   	  If you say yes here you get regulator support for Infineon
+>   	  TDA38640 as regulator.
+>   
+> +config SENSORS_TDA38740
+> +	tristate "Infineon TDA38725/TDA38740"
+> +	help
+> +	  If you say yes here you get hardware monitoring support for Infineon
+> +	  TDA38725 and TDA38740.
+> +
+> +	  This driver can also be built as a module. If so, the module will
+> +	  be called tda38740.
+> +
+>   config SENSORS_TPS25990
+>   	tristate "TI TPS25990"
+>   	help
+> diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
+> index e288fe72a437..eb06d47816fd 100644
+> --- a/drivers/hwmon/pmbus/Makefile
+> +++ b/drivers/hwmon/pmbus/Makefile
+> @@ -70,6 +70,7 @@ obj-$(CONFIG_SENSORS_STEF48H28)	+= stef48h28.o
+>   obj-$(CONFIG_SENSORS_SQ24860)	+= sq24860.o
+>   obj-$(CONFIG_SENSORS_STPDDC60)	+= stpddc60.o
+>   obj-$(CONFIG_SENSORS_TDA38640)	+= tda38640.o
+> +obj-$(CONFIG_SENSORS_TDA38740)	+= tda38740.o
+>   obj-$(CONFIG_SENSORS_TPS25990)	+= tps25990.o
+>   obj-$(CONFIG_SENSORS_TPS40422)	+= tps40422.o
+>   obj-$(CONFIG_SENSORS_TPS53679)	+= tps53679.o
+> diff --git a/drivers/hwmon/pmbus/tda38740.c b/drivers/hwmon/pmbus/tda38740.c
+> new file mode 100644
+> index 000000000000..067de07ba9fb
+> --- /dev/null
+> +++ b/drivers/hwmon/pmbus/tda38740.c
+> @@ -0,0 +1,64 @@
+> +// SPDX-License-Identifier: GPL-2.0+
+> +/*
+> + * Hardware monitoring driver for Infineon TDA38725/TDA38740
+> + *
+> + * Copyright (c) 2023 9elements GmbH
+> + *
+> + */
+> +
+> +#include <linux/err.h>
+> +#include <linux/i2c.h>
+> +#include <linux/init.h>
+> +#include <linux/kernel.h>
+> +#include <linux/module.h>
+> +#include "pmbus.h"
+> +
+> +static struct pmbus_driver_info tda38740_info = {
+> +	.pages = 1,
+> +	.format[PSC_VOLTAGE_IN] = linear,
+> +	.format[PSC_VOLTAGE_OUT] = linear,
+> +	.format[PSC_CURRENT_OUT] = linear,
+> +	.format[PSC_CURRENT_IN] = linear,
+> +	.format[PSC_POWER] = linear,
+> +	.format[PSC_TEMPERATURE] = linear,
+> +	.func[0] = PMBUS_HAVE_VIN | PMBUS_HAVE_STATUS_INPUT
+> +	    | PMBUS_HAVE_TEMP | PMBUS_HAVE_STATUS_TEMP
+> +	    | PMBUS_HAVE_IIN
+> +	    | PMBUS_HAVE_VOUT | PMBUS_HAVE_STATUS_VOUT
+> +	    | PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_IOUT
+> +	    | PMBUS_HAVE_POUT | PMBUS_HAVE_PIN,
+> +};
+> +
+> +static int tda38740_probe(struct i2c_client *client)
+> +{
+> +	return pmbus_do_probe(client, &tda38740_info);
 > +}
 > +
-> +static int nt37705_off(struct nt37705_panel *ctx)
-> +{
-> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
+> +static const struct i2c_device_id tda38740_id[] = {
+> +	{ .name = "tda38725"},
+> +	{ .name = "tda38740"},
+> +	{}
+> +};
+> +MODULE_DEVICE_TABLE(i2c, tda38740_id);
 > +
-> +	ctx->dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
+> +static const struct of_device_id tda38740_of_match[] = {
+> +	{ .compatible = "infineon,tda38725"},
+> +	{ .compatible = "infineon,tda38740"},
+> +	{}
+> +};
+> +MODULE_DEVICE_TABLE(of, tda38740_of_match);
 > +
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x28, 0x00);
-> +	mipi_dsi_msleep(&dsi_ctx, 20);
-> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x10, 0x00);
-
-[Severity: Medium]
-Similarly, do these zero-parameter DCS commands (Display Off 0x28, Enter
-Sleep Mode 0x10) need the extra 0x00 padding byte?
-
-> +	mipi_dsi_msleep(&dsi_ctx, 120);
+> +static struct i2c_driver tda38740_driver = {
+> +	.driver = {
+> +		.name = "tda38740",
+> +		.of_match_table = tda38740_of_match,
+> +	},
+> +	.probe = tda38740_probe,
+> +	.id_table = tda38740_id,
+> +};
 > +
-> +	return dsi_ctx.accum_err;
-> +}
+> +module_i2c_driver(tda38740_driver);
 > +
-> +static int nt37705_prepare(struct drm_panel *panel)
-> +{
-[ ... ]
-> +	ret =3D mipi_dsi_picture_parameter_set(ctx->dsi, &pps);
-> +	if (ret < 0) {
-> +		dev_err(panel->dev, "failed to transmit PPS: %d\n", ret);
-> +		return ret;
+> +MODULE_DESCRIPTION("PMBus driver for Infineon TDA38725/TDA38740");
+> +MODULE_LICENSE("GPL");
+> +MODULE_IMPORT_NS("PMBUS");
+> 
 
-[Severity: High]
-Does this early return leak resources?=20
-
-If mipi_dsi_picture_parameter_set() fails, the function returns directly
-instead of jumping to a cleanup block to disable the regulators and assert
-the reset GPIO, preventing subsequent recovery or clean shutdown of the
-panel.
-
-> +	}
-> +
-> +	ret =3D mipi_dsi_compression_mode(ctx->dsi, true);
-> +	if (ret < 0) {
-> +		dev_err(dev, "failed to enable compression mode: %d\n", ret);
-> +		return ret;
-
-[Severity: High]
-Similarly, does this early return also bypass resource cleanup?
-
-> +	}
-> +
-> +	msleep(28); /* TODO: Is this panel-dependent? */
-> +
-> +	return 0;
-> +}
-[ ... ]
-> +static int nt37705_bl_update_status(struct backlight_device *bl)
-> +{
-> +	struct mipi_dsi_device *dsi =3D bl_get_data(bl);
-> +	u16 brightness =3D backlight_get_brightness(bl);
-> +	int ret;
-> +
-> +	dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
-> +
-> +	ret =3D mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
-
-[Severity: Medium]
-What happens if userspace modifies the sysfs brightness attribute when the
-display is suspended or turned off?=20
-
-This function appears to unconditionally initiate DSI transactions without
-checking the panel's power state, which could lead to DSI bus timeouts and
-potential system sluggishness depending on the DSI host implementation.
-
-> +	if (ret < 0)
-> +		return ret;
-
-[Severity: Medium]
-If mipi_dsi_dcs_set_display_brightness_large() fails, we take this early
-return path. Does this permanently disable the MIPI_DSI_MODE_LPM flag for
-the DSI device?=20
-
-If so, subsequent commands might be transmitted in the wrong mode,
-potentially breaking display functionality.
-
-> +
-> +	dsi->mode_flags |=3D MIPI_DSI_MODE_LPM;
-> +
-> +	return 0;
-> +}
-[ ... ]
-> +static int nt37705_probe(struct mipi_dsi_device *dsi)
-> +{
-[ ... ]
-> +	/* This panel only supports DSC; unconditionally enable it */
-> +	dsi->dsc =3D &ctx->dsc;
-
-[Severity: High]
-Will this lead to a Use-After-Free on driver unbind?=20
-
-Here we assign a pointer into the devres-managed ctx allocation to the
-longer-lived mipi_dsi_device struct.
-
-[ ... ]
-> +static void nt37705_remove(struct mipi_dsi_device *dsi)
-> +{
-> +	struct nt37705_panel *ctx =3D mipi_dsi_get_drvdata(dsi);
-> +	int ret;
-> +
-> +	ret =3D mipi_dsi_detach(dsi);
-> +	if (ret < 0)
-> +		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
-> +
-> +	drm_panel_remove(&ctx->panel);
-> +}
-
-[Severity: High]
-When nt37705_remove() completes, ctx is freed by devres, leaving dsi->dsc
-as a dangling pointer.=20
-
-If the DSI host accesses dsi->dsc afterwards, this could cause a UAF.
-Should dsi->dsc be set to NULL here?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918-fp6-panel-=
-v2-0-6695c4008920@fairphone.com?part=3D2
