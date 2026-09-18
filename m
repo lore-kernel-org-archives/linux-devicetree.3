@@ -1,48 +1,63 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DD2243499F;
-	Fri, 18 Sep 2026 09:58:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 230ED43636B;
+	Fri, 18 Sep 2026 10:02:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789725534; cv=none; b=inVJjgDTUZvM9D6GuXly7XQsZYjRhRmCNYKau5l5DSllVJqlLB+1yKkdonzykt8fa9J5kmc9V/Z5PgM5lJKZRq2O6YQMBUwI0zYXu9E2q7GrxPMuiSHEp6UFTVyhdWK591hqL4aACRtY+bxD0kU6ojuK5K0bnaC5V8jPoDmdA74=
+	t=1789725727; cv=none; b=mkOZA0NN0doPFp6xRQG6UnP37CzO4K5XfEmoUzby4KswsDg+23IDf0zymXRPsCWijdv2IsCf4uLmx8pkbzYosyAdRZU0zsM23oHA9LoeVfDP5m8jB5SH0YrNAATosbXeVFcZ8SJHKbM9/+mXj/IIfFJv5gz4rQwOLODCtQsexGs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789725534; c=relaxed/simple;
-	bh=JsQggZigR/TcXmnx8/T+7z6r+BTFJnRQcEysKzuQRdc=;
+	s=arc-20240116; t=1789725727; c=relaxed/simple;
+	bh=MjTIy/1+ETtO0uZOFMBhngVP/dUp5evvwxVHEIrK9qM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JXB4D53XFU3V85o+QldPHc0b3Gq1kvVeOMv53pl3n6SS2CuNoTXFzk/ki5n3N6jV8nxffRuq7AT+hpFAgKGoLbw83N7zY1YJh5mmyaNLGdn0QRzQVwfMGs091nrE5ntZ4l3YkjMKbdKJcOKWsVp6bsM3DY4CHvymnc5jp2zAjtw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lzQGaa2w; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=NGLW1p6KU/r6OCeTAuiJyLlJjbdZz+mOKMY3x2Qk0rvU0s21Jce+Y3/bCORHCLyQpauVM/EAb6oHPesrszDh044xg8U0c6WNOUI+QiHdt9xww9Wqe4Pz3wRYzYTNBKCYRr6VQEdNNkHge8AO1ozFQfZL7AglnRFsWcXnNI1lu2I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hr2R9JGF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lzQGaa2w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB91C1F000FF;
-	Fri, 18 Sep 2026 09:58:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hr2R9JGF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 978421F000FF;
+	Fri, 18 Sep 2026 10:02:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789725532;
-	bh=Ln1d4qHa7vdCKllJbzJ0Cgy2Evr00KW99XLnmyu9AZQ=;
+	s=k20260515; t=1789725725;
+	bh=TuKf+se4/WQhc7yjH9EKqYLRLWGTVuMIsQ21THLKRXk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lzQGaa2wc7pzdKv4ZpCrAfV29vqmfnYgdzyKRSmxaEI3AfqMIfSFutWS+AZPvkSF2
-	 GdevVH2V8K7hWaHcSqJB0R8WJs5Xz5mW5ttf0/Id00JR1Y+uo2I6kHaw8Y2J7I2y1i
-	 iapc6g9TCJqF+xSdzEicL/Hw13gqjY7TtT7pd5JqiM4rOIW7P0qrlFGm5eiLghqT4b
-	 Ov3UNovPiZ9GJgafv3w0tWTH+TU0jwaLigTapVYn4gGe4Yv23+pqZQFo6ci5xQgJvQ
-	 MUTb1pXh7zwXzsXY9YgTTr/+tqPq8nZBjFh5YelJfm4W9gKq8N5yRl1AF1ZdM5rzgP
-	 rG2Hz2OWtvtxA==
-Date: Fri, 18 Sep 2026 11:58:48 +0200
+	b=Hr2R9JGF/xDMykb6xXJ/HY2vNaL30WQN270YcxZWsFioZ+5jNX5otawhZ4HtttciR
+	 foJIpz69Ij082Xs1NJZ34AUBeedRwe3iOb+knGoCJHkfWJRFbVtZK7V9FzuqzV/kpR
+	 Zs9tRpThIWo7B2Ywo+nGT37X/h5Qe6+qhJ9DsRG0WYuV8qfgosMzceChbch8Xt5mRz
+	 TFYW5ygTEEzs/JkYfRvRL/iR9Mo16+wyVBi11KB4rifB4Kv1kHU1R9Mg/NGrz3uwvd
+	 UK9Ybbyf9woUgYX0HpulpVpHQCROT1hQ66BlEUPSEKD48YiMruzGl+uhlWOdvmum8P
+	 UNeJMPdCVKuhA==
+Date: Fri, 18 Sep 2026 12:02:02 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Selvarasu Ganesan <selvarasu.g@samsung.com>
-Cc: peter.griffin@linaro.org, alim.akhtar@samsung.com, 
-	gregkh@linuxfoundation.org, robh@kernel.org, conor+dt@kernel.org, Thinh.Nguyen@synopsys.com, 
-	mani@kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-samsung-soc@vger.kernel.org, linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, jh0801.jung@samsung.com, h10.kim@samsung.com, 
-	dh10.jung@samsung.com, akash.m5@samsung.com, hongpooh.kim@samsung.com, 
-	eomji.oh@samsung.com, shijie.cai@samsung.com, muhammed.ali@samsung.com, 
-	thiagu.r@samsung.com
-Subject: Re: [PATCH v2 1/3] MAINTAINERS: add Samsung USB DT binding to
- ARM/SAMSUNG entry
-Message-ID: <20260918-eminent-wooden-shark-97b8be@quoll>
-References: <20260916122229.2604003-1-selvarasu.g@samsung.com>
- <CGME20260916122351epcas5p37666f1232d3b2bcc1d02a96ab0df4142@epcas5p3.samsung.com>
- <20260916122229.2604003-2-selvarasu.g@samsung.com>
+To: Muzaffer Kadir <muzafferkadir@mainlining.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, 
+	Ulf Hansson <ulfh@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	"Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+	Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>, 
+	Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+	Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Robert Marko <robimarko@gmail.com>, 
+	Guru Das Srinagesh <linux@gurudas.dev>, Amit Kucheria <amitk@kernel.org>, 
+	Thara Gopinath <thara.gopinath@gmail.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+	Lukasz Luba <lukasz.luba@arm.com>, Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, 
+	"Guilherme G. Piccoli" <gpiccoli@igalia.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	David Heidelberg <david@ixit.cz>, Dang Huynh <danct12@riseup.net>, phone-devel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org, iommu@lists.linux.dev, 
+	mfd@lists.linux.dev, dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+	linux-pm@vger.kernel.org, linux-input@vger.kernel.org
+Subject: Re: [PATCH v2 01/19] dt-bindings: clock: qcom: Add MSM8952 global
+ clock controller
+Message-ID: <20260918-liberal-significant-crow-f1e66f@quoll>
+References: <20260916-msm8952-initial-support-v2-0-798c2602dde1@mainlining.org>
+ <20260916-msm8952-initial-support-v2-1-798c2602dde1@mainlining.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -51,38 +66,57 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260916122229.2604003-2-selvarasu.g@samsung.com>
+In-Reply-To: <20260916-msm8952-initial-support-v2-1-798c2602dde1@mainlining.org>
 
-On Wed, Sep 16, 2026 at 05:52:27PM +0530, Selvarasu Ganesan wrote:
-> Add the Samsung USB devicetree binding file path under the existing
-> ARM/Samsung SoC maintainership.
+On Wed, Sep 16, 2026 at 05:22:06PM +0300, Muzaffer Kadir wrote:
+> Add a device tree binding to describe clocks, resets and power domains
+> provided by the global clock controller on MSM8952 SoC.
 > 
-> Signed-off-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
+> Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
+
+Please run scripts/checkpatch.pl on the patches and fix reported
+warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
+patches and (probably) fix more warnings. Some warnings can be ignored,
+especially from --strict run, but the code here looks like it needs a
+fix. Feel free to get in touch if the warning is not clear.
+
 > ---
->  MAINTAINERS | 1 +
->  1 file changed, 1 insertion(+)
+>  .../bindings/clock/qcom,gcc-msm8952.yaml           |  56 ++++++
+>  include/dt-bindings/clock/qcom,gcc-msm8952.h       | 217 +++++++++++++++++++++
+>  2 files changed, 273 insertions(+)
 > 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index a53620839407..87a1ab24a375 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -3576,6 +3576,7 @@ F:	Documentation/devicetree/bindings/arm/samsung/
->  F:	Documentation/devicetree/bindings/hwinfo/samsung,*
->  F:	Documentation/devicetree/bindings/power/pd-samsung.yaml
->  F:	Documentation/devicetree/bindings/soc/samsung/
-> +F:	Documentation/devicetree/bindings/usb/samsung,*
+> diff --git a/Documentation/devicetree/bindings/clock/qcom,gcc-msm8952.yaml b/Documentation/devicetree/bindings/clock/qcom,gcc-msm8952.yaml
+> new file mode 100644
+> index 000000000000..274dde633e17
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/clock/qcom,gcc-msm8952.yaml
+> @@ -0,0 +1,56 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/clock/qcom,gcc-msm8952.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm Global Clock & Reset Controller on MSM8952
+> +
+> +maintainers:
+> +  - Muzaffer Kadir <muzafferkadir@mainlining.org>
+> +
+> +description: |
+> +  Qualcomm global clock control module provides the clocks, resets and power
+> +  domains on MSM8952.
+> +
+> +  See also::
 
-I think this is not really needed. First of all, files will be covered
-by N: pattern further in the entry. Second, patches for these should go
-via USB, but listing here the directory could create impression that
-Samsung SoC is responsible.
+git grep "also::" -- Documentation/devicetree/bindings/clock/
 
-This one entry is harmless, but if adding this, then next time we got 15
-more updates for each of Documentation/devicetree/bindings/*/samsung*
-files. Is it worth?
+I asked you month ago here:
+<e3fb3794-ca7a-4794-8036-b69e563aaa57@kernel.org>
+to not work on old forks.
 
-Interested people can add themselves to the bindings maintainers entry,
-that's always welcomed.
+Old fork which you should not use is postmarketos, lineageos, whatever
+Android fork kernel, and whatever other tree which is not upstream from
+kernel.org.
 
 Best regards,
 Krzysztof
