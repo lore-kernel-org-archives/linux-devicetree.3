@@ -1,206 +1,131 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17B8E4FD78E;
-	Fri, 18 Sep 2026 13:41:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09E044F85C5
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 13:42:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789738890; cv=none; b=ZskSem7Ct5hLTZ5ENRyiwSKzByJu6noIzEtHCrLsEs5Fl2NtdDSeg1RqwXyUH9GKaRr4C3LTSMhCFUEEEoXgx/DOUgrxygxX9uvyA3l0n+HD5pvaP6YTnRDcM76k4E4yQB0AlzqiuEztHexO/9enjhJfyH/xiPUb2cAa1BajGE8=
+	t=1789738945; cv=none; b=WM++jp+s62oWC0wauI/zzrWwVaRVrKm9xA662fu3CRIYBRF95wExjghvDqF7nEUbWlAtaBFM5uWmpSIMETepqxO9jhSMBwK+jBSZOdZwInasgP1QHh96omLhzAWfEnvyDAc7z//aZgPt9TEytEyic7guNA/rUNaWbpTTE912xYc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789738890; c=relaxed/simple;
-	bh=dloLV4HYCCPaOV+L/OTMKNKQnETvSaPTpEonVO7Olnk=;
+	s=arc-20240116; t=1789738945; c=relaxed/simple;
+	bh=ih+Qcxpwv5oYveYDb138iYPk/Yl3xtIYuUjhSq8jM08=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=SnNBfqbBftxJUgyYBPFskNgaxj/iGplHJ57dlVEmFgCyDnY8crqMPgnOATiiBlFR77cdXmu6S+XqbfGkHpPHfRguTpv355qydrvyKcaMCiwb60mwhT19GgbWBZTznS3qkBMDv89hEkG0yCVoJhyxTmBrZNKZ9Mnbf1yjojntb2w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bxO1VRkv; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Yt3nKbWQ4/COlXIOGvSkUd4lnd/uU0/6NVEDwuslT2uwASr34ZT3A8yhkd1oNjIcNbfJE/2On0/JU3JOxsklVByJiwP4JLQ0hJUWJiYGL07EmI3kwJLGLD3PcfxvoAsh7wbroX8zFXHbuEbU8SgMo9O2iyg7wZw9dpWwZOzU+Z8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AkPTVrKB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bxO1VRkv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C9621F000FF;
-	Fri, 18 Sep 2026 13:41:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AkPTVrKB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F23A61F000FF;
+	Fri, 18 Sep 2026 13:42:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789738888;
-	bh=HtWjXaiApjcacubTg0mWVUajzAgJSFSfnPWkggT6wDQ=;
+	s=k20260515; t=1789738940;
+	bh=7y36plyxs+tfsBdVyvN3Ye4jmPDivlhIqqaP1RpGZK0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bxO1VRkvsSYBHPuCPRCIASF00lkJiX9gtCAXvU4wH/vhMHu9ucriuiwwwDUjf3t8o
-	 10Pntdq8lXpQK+oSPi3t53btk5lKfnuJjXjpOssUUXdUQhl7qXV7ETmw3NDHndPDRY
-	 BtkQCZTirULN1txga/ThB9O3KvdCQr30Lq2bdQeZTjqGCwFwJFg1uiz2Fe+b902H9a
-	 /JY6zY2mEwF7brPj261Za5STuBggZfSaCN8UDwXkKul7MhoghUm0wunhn5easM5+kX
-	 q0iVKenpGC8oeMuqDss47hECZUMKwyYuKoGopa9aUxQCmqYRv/bf3gXr7Zwxoh1hgL
-	 feJRmwu/4bhLA==
+	b=AkPTVrKBCtYhOcpxA12ixWahjD7os02/eaZY59fKay29NYTwvyJWHIOAMnKff8wrx
+	 /YrE5m/UrvHkqvjI+61UFlzrZM3lGcECCXxSqABdt5ROFCSoOcUFCrv12MVJ/DHRpW
+	 8BaKM1hTN7y1KPsSagFCMbYb8tHOKgr67gQj6Mo90CI6Pi6LozgRsXCUY0CFJMEX2D
+	 rd63ggHf1HCIiIDhzN6cIGy7CMJ7GnRJhrh+lmggZs4vzAZduD7bG4cb7u1GHUmc7r
+	 EO2JY9Rn6gC2OQilG25PXddHcRHkDyaQvOsBsQGlg81kH6mepXiX9kZ7d+PdrmAwHA
+	 R0bsiOUfHM0Fg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 08/10] HID: apple: Add DockChannel HID transport
- driver
+Subject: Re: [PATCH v4 1/8] ASoC: SDCA: allow building without ACPI
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Michael Reeves" <michael.reeves077@gmail.com>
-Cc: conor+dt@kernel.org, dmitry.torokhov@gmail.com, linux-input@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260918-apple-mtp-keyboard-final-v3-8-e356464e454b@gmail.com>
-References: <20260918-apple-mtp-keyboard-final-v3-0-e356464e454b@gmail.com>
- <20260918-apple-mtp-keyboard-final-v3-8-e356464e454b@gmail.com>
+To: "Srinivas Kandagatla" <srinivas.kandagatla@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260918131914.681588-2-srinivas.kandagatla@oss.qualcomm.com>
+References: <20260918131914.681588-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20260918131914.681588-2-srinivas.kandagatla@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 13:41:28 +0000
-Message-Id: <20260918134128.5C9621F000FF@smtp.kernel.org>
+Date: Fri, 18 Sep 2026 13:42:19 +0000
+Message-Id: <20260918134219.F23A61F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] hid: use-after-free in dchid_cmd() if unbound with pending commands
-- [Medium] hid: out-of-bounds read due to using hid_input_report() instead =
-of hid_safe_input_report()
-- [Medium] hid: concurrent command submissions trigger WARN_ON and fail wit=
-h -EBUSY
-- [Medium] hid: race condition between internal STM requests and userspace =
-in dchid_handle_ready()
+- [Medium] ASoC: SDCA: ACPI parser is unconditionally built on non-ACPI pla=
+tforms
 --
 
-commit 9430d372e505704cf501df7e6ffaa4952a5855aa
-Author: Michael Reeves <michael.reeves077@gmail.com>
+commit b342382e9b5b09b26bd417be9cd5ee4c2d90de61
+Author: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
 
-HID: apple: Add DockChannel HID transport driver
+ASoC: SDCA: allow building without ACPI
 
-This commit adds a new HID transport driver for Apple DockChannel. It boots
-the MTP RTKit coprocessor, exchanges HID packets through the DockChannel
-mailbox, and registers child HID interfaces from devicetree.
+This commit drops the ACPI dependency from SND_SOC_SDCA to allow the SDCA
+class driver to be built on non-ACPI platforms. It wraps ACPI-parsing
+implementations in sdca_device.c and sdca_functions.c with
+IS_ENABLED(CONFIG_ACPI) and provides empty stubs when ACPI is off.
 
-> diff --git a/drivers/hid/dockchannel/apple-hid.c b/drivers/hid/dockchanne=
-l/apple-hid.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/hid/dockchannel/apple-hid.c
-[ ... ]
-> +static int dchid_cmd(struct dchid_iface *iface, u32 type, u32 req,
-> +		     void *data, size_t size, void *resp_buf, size_t resp_size)
-> +{
-> +	unsigned long flags;
-> +	int ret;
-> +	int report_id;
-> +	bool timed_out =3D false;
-> +	u32 out_flags;
-> +
-> +	if (size < 1)
-> +		return -EINVAL;
-> +
-> +	report_id =3D *(u8 *)data;
-> +	out_flags =3D FIELD_PREP(FLAGS_GROUP, type) | FIELD_PREP(FLAGS_REQ, req=
-);
-> +
-> +	spin_lock_irqsave(&iface->out_lock, flags);
-> +
-> +	/* Only one command can be in flight per interface */
-> +	if (WARN_ON(iface->out_report !=3D -1)) {
-> +		spin_unlock_irqrestore(&iface->out_lock, flags);
-> +		return -EBUSY;
-> +	}
+> diff --git a/sound/soc/sdca/Kconfig b/sound/soc/sdca/Kconfig
+> index 4c0dcb9ff3b94..72c02943c49ed 100644
+> --- a/sound/soc/sdca/Kconfig
+> +++ b/sound/soc/sdca/Kconfig
+> @@ -3,11 +3,13 @@ menu "SoundWire (SDCA)"
+> =20
+>  config SND_SOC_SDCA
+>  	tristate "SDCA core support"
+> -	depends on ACPI
+>  	select AUXILIARY_BUS
+>  	help
+>  	  This option enables support for the MIPI SoundWire Device
+> -	  Class for Audio (SDCA).
+> +	  Class for Audio (SDCA).  The ACPI/DisCo topology parser is
+> +	  only built when CONFIG_ACPI is enabled; on non-ACPI platforms
+> +	  (e.g. ARM/DT) codec drivers supply the SDCA function data
+> +	  via sdca_class_hw_ops.populate_function.
 
 [Severity: Medium]
-Can this warning be triggered by unprivileged userspace or during normal
-initialization?
+Is this Kconfig help text accurate for SND_SOC_SDCA?
 
-The dchid_cmd() function rejects concurrent commands with a kernel warning
-and returns an error. Since the HID core does not serialize raw_request
-ioctls, concurrent ioctls on the hidraw node can trigger this.
+The text claims the ACPI/DisCo topology parser is only built when CONFIG_AC=
+PI
+is enabled. However, the CONFIG_ACPI guard in sdca_functions.c is closed
+early. When building the kernel with CONFIG_SND_SOC_SDCA=3Dy and CONFIG_ACP=
+I=3Dn,
+the rest of the file's DisCo parsing logic is unconditionally compiled.
 
-Additionally, dchid_open() invokes dchid_start_interface() which calls
-dchid_comm_cmd() on the shared "comm" interface. If multiple child devices
-are opened concurrently, they might race on the shared interface and hit
-this warning. Could the driver wait for the interface to become free or
-queue the commands instead of returning an error?
-
-> +
-> +	iface->out_report =3D report_id;
-> +	iface->out_flags =3D out_flags;
-> +	iface->retcode =3D 0;
-> +	iface->resp_buf =3D resp_buf;
-> +	iface->resp_size =3D resp_size;
-> +	reinit_completion(&iface->out_complete);
-> +
-> +	spin_unlock_irqrestore(&iface->out_lock, flags);
-> +
-> +	ret =3D dchid_send(iface, out_flags, data, size);
-> +	if (ret < 0) {
-> +		spin_lock_irqsave(&iface->out_lock, flags);
-> +		iface->out_report =3D -1;
-> +		iface->resp_buf =3D NULL;
-> +		iface->resp_size =3D 0;
-> +		spin_unlock_irqrestore(&iface->out_lock, flags);
-> +		return ret;
-> +	}
-> +
-> +	if (!wait_for_completion_timeout(&iface->out_complete,
-> +					 msecs_to_jiffies(COMMAND_TIMEOUT_MS))) {
-> +		dev_err(iface->dchid->dev, "command 0x%x to iface %d (%s) timed out\n",
-> +			report_id, iface->index, iface->name);
-> +		timed_out =3D true;
-> +	}
-> +
-> +	spin_lock_irqsave(&iface->out_lock, flags);
-
-[Severity: High]
-Is there a use-after-free risk here if the driver is unbound while commands
-are pending?
-
-A thread blocking in wait_for_completion_timeout() could wake up after
-dchid_remove() returns. The dchid_shutdown() function stops the hardware
-and destroys the HID devices, but does not abort or wait for pending
-commands. After the remove callback returns, devres frees the iface
-structure. When the blocked thread times out, it would access freed memory
-at spin_lock_irqsave(&iface->out_lock, flags).
+Note that the related probe failure where sdca_parse_function() was
+unconditionally called on non-ACPI platforms is resolved in Patch 4 of this
+series, but the dead code and Kconfig discrepancy remains unfixed here.
 
 [ ... ]
-> +static void dchid_handle_ready(struct dchid_dev *dchid, void *data, size=
-_t length)
-> +{
-[ ... ]
-> +	iface =3D dchid->ifaces[index];
-> +	if (!iface)
-> +		return;
-> +
-> +	dev_dbg(dchid->dev, "interface %s is now ready\n", iface->name);
-> +	complete_all(&iface->ready);
-> +
-> +	/* When STM is ready, grab global device info */
-> +	if (!strcmp(iface->name, "stm")) {
-> +		ret =3D dchid_get_report_cmd(iface, STM_REPORT_ID, &dchid->device_id,
+
+> diff --git a/sound/soc/sdca/sdca_functions.c b/sound/soc/sdca/sdca_functi=
+ons.c
+> index f39008ac0e7d3..1eb6418e132dc 100644
+> --- a/sound/soc/sdca/sdca_functions.c
+> +++ b/sound/soc/sdca/sdca_functions.c
+> @@ -25,6 +25,7 @@
+>   */
+>  #define SDCA_PROPERTY_LENGTH 64
+> =20
+> +#if IS_ENABLED(CONFIG_ACPI)
+>  static int patch_sdca_function_type(u32 interface_revision, u32 *functio=
+n_type)
+>  {
+>  	/*
+> @@ -201,6 +202,7 @@ void sdca_lookup_functions(struct sdw_slave *slave)
+>  	acpi_dev_for_each_child(adev, find_sdca_function, &slave->sdca_data);
+>  }
+>  EXPORT_SYMBOL_NS(sdca_lookup_functions, "SND_SOC_SDCA");
+> +#endif
 
 [Severity: Medium]
-Does signaling the completion before internal requests are sent create a
-race condition with userspace?
+Does this #endif prematurely close the CONFIG_ACPI guard?
 
-By calling complete_all(&iface->ready) before fetching the STM report ID,
-any thread waiting in dchid_open() is woken up. A userspace process could
-then immediately issue a synchronous HID request, entering dchid_cmd()
-concurrently while dchid_handle_ready() is issuing its own internal STM
-request via dchid_get_report_cmd(). This would trigger the lock check
-warning in dchid_cmd() and fail with an error.
+By closing the guard here after sdca_lookup_functions(), the remaining
+topology parser logic in this file, including the entry point
+sdca_parse_function() and its helpers, remains unconditionally compiled
+on non-ACPI builds.
 
-Should the completion be signaled only after internal requests are
-finished?
-
-[ ... ]
-> +static void dchid_handle_report(struct dchid_iface *iface, void *data, s=
-ize_t length)
-> +{
-> +	if (!iface->hid || !iface->open)
-> +		return;
-> +
-> +	hid_input_report(iface->hid, HID_INPUT_REPORT, data, length, 1);
-
-[Severity: Medium]
-Does this allow an out-of-bounds read in the HID core?
-
-The raw data is passed to hid_input_report() without specifying its
-allocated bounds. If the device sends a maliciously truncated packet but
-declares a large report size in its descriptor, the core could read past
-the allocated bounds of the buffer.
-
-Should this use hid_safe_input_report() to enforce explicit boundary checks
-based on the allocated buffer size?
-
-> +}
+> =20
+>  struct raw_init_write {
+>  	__le32 addr;
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918-apple-mtp-=
-keyboard-final-v3-0-e356464e454b@gmail.com?part=3D8
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918131914.6815=
+88-1-srinivas.kandagatla@oss.qualcomm.com?part=3D1
