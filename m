@@ -1,131 +1,142 @@
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 779C148A2BF
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 06:25:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7203F48822E;
+	Fri, 18 Sep 2026 06:28:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789712725; cv=none; b=MKhW8WVxl6CfclYC84j5+RDSeq6DSviTWIOm0Cl/R2pxJw29bVUdl4buJfatxkqrJGVcVtNSGzvFPqCAbhRWNLV8rWDLNRepmuqdo1039aKMJpkEo81USgU4yH/+GTrc8EBiNbtl39ROBLbRWHaa1xNMLTQ9Rns0lcoupLWSqY4=
+	t=1789712916; cv=none; b=dQIfZaU9RZ8z3Nb7Mrhvkml3gqCLNv36U/6bFP96cdhoNzXFygx2BJHXR5/voqoNSSgL8odrXWFEez2sVSTMdFqttw5gjKuJ1S43n7vXKMmArvYgA48Nczuk+jLYBZIR4SXx4jSdz1pJBuNst9QlEXFUYr43t07sZHnrbiwks3s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789712725; c=relaxed/simple;
-	bh=oc9sxhWUrwi9Su/8MAtYMSo6TS04FaaDxZwHE3X+zKs=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=F3BDaQQkQAz5ilkctPqAPvg3eVjbXANw3SgD08J4fTtecNeIa7wqqhnTd3RIJrZ8llJAg+RO7Cylr5Ixm3vL1eUzj1jm/A005Bia0VcjteXEb20yHUHSb6/jdOLkd8VExftw6FXRVD1IFQlzjO8vt5egJEDMbZKblAkrep0ZdCc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FJPBN8a7; arc=none smtp.client-ip=74.125.228.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789712916; c=relaxed/simple;
+	bh=b6XkBxPV5Sk+hjlETmNdvsAh0l3GGlqd79jQh+8GRZo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pgkO5GxkfRglxtQTC0n4IC5ak5WByVEFOBuZi8WXHkBT8LJ21YX9c/6LO+1CgCfzmPfod4WDm9wqdCQujXigGHSFOUBxXHj1vLwXPcaY8bXiDI3YMDzeybWvXzs4WkyNmUq2U+zJadYc7lG8+bSNQB7nHCL16tbkSVt2euiRAmg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=c2PMFaP2; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FJPBN8a7"
-Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469e211a0so477034b3a.1
-        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 23:25:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789712724; x=1790317524; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jt5hpx2+UWES+z68ivJ7kyasbH+hZp5tfP7Ph5RVZI8=;
-        b=FJPBN8a7IaXsRtt3254MJHEMNZkTnWRlz3Wif+gA+MT2FnFyPmYTO/6GepU6K1nDq5
-         Vk3Tl6tnXAV5csfX7yzul93DEBllBTerV3GpMxAnHBzBwgZpe+Zpq16mleGt1CI4vqzB
-         Fi9x1WwMLL5l922KMQoXCatWxHD4WRG48PEtNsZKZ8g7guLwB1DY68+OhAw6ZODR0W8h
-         MBLTWZ0bfwfwNi0ViYza1TzOvabruhTvuj3iMVIzEV5kfY7NYOVB+Tj9dtkvnreVLbOd
-         oH0b5KInDBrSYAaXCuB1zZqMh6m++MalqFiPI4RKNMYo4wPD7Vod8rNq+rs6znrZrryD
-         veWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789712724; x=1790317524;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jt5hpx2+UWES+z68ivJ7kyasbH+hZp5tfP7Ph5RVZI8=;
-        b=UO0aQZ+1S+GqPRIV87cDN1KidVAi1BeortBAqdgb9cthKYDUbyrRE+2qcfyIDQaJFV
-         hIMFay/ytr5E5kAp/sUHNRY/oT4dq8lx86i+2VOP3NqEuzhPc74Xz3LmWyf6mis641Ec
-         zQbvdl4Gcod0K6B1IKnTFEV4Vs+kGCrktiTSYl80uLyPWv/eRa5sdYelB+aHyzUc/3ql
-         6cVgkb7QRTEuddootaaP8Pce8lfAV/bJChmwLAMYURLsjCia9NDQbSlr/ZmcWkv/O6rs
-         TlWYZu+KlV4Dcx1Jt1U1ae6G1PDPNukHTwhfmz4/Jr+ysrYPn3abW5WAk1i8FQYyIvho
-         g6Sw==
-X-Forwarded-Encrypted: i=1; AKwUvBxGSlHsTRhKnutB7pqr+RQRxZZPqifLq4wpANyWZw/5pP3wO2HEA2XNLaINpwP+voxY+UNsELtBLOoz@vger.kernel.org
-X-Gm-Message-State: AFuF++n8LOGPrBoH42aK9NyWeiWHcGdhlllhDgscBAYwDiBmcgfgY0bB
-	DeaO/WhJYA1dxuJBkBR8cxf5pnNxkJFFUfMZruOikm5pmkxHqyktoAux
-X-Gm-Gg: AYBFou3adb4SPj8A3FeZPV5NMbeJmB7lqvLqOIKls8qsmeiTJ4fFw/vrEUdeEqgcER0
-	9LTQAo+dgvBsCy3z96qwjXOzLjhkyZSO7/o/HY262FDrINHCcwEaCZ4aEHAVeebsVmus/indDEJ
-	wSqQp1uZo65VVHxbr6BhuhlF0Y5ME7B7XjiXZZT064H94RI+VUxOCZGpxzrCKHP4blgz5wlZ97J
-	VezFB7f04mhxHA7kL4xareqVVS5RgCq8JLX6fdLkVie5tl1ao0HkhwjS8yzLsa8TY/cpYMYK8aT
-	EAkGr7ZbSEh1UtRSOz72/3uUcC2QRxQIW64QDWmFkgMCztKBX5uVlClf6u3/4qZHmRq4OO4jYHL
-	6F/4Lnkt9knNfrxPyoi0kc6LjaFaOrfwqfhO54Uq1eF27f0JLbll4nzqSJp8JAXtMjHb+NQDF0S
-	+jmHsyeEpKVlginB22+nxH3GgZnJ24FtNHGi6iWIP8Z2JwUVmquXGwbsavWtH0olD0MvCJfvbnt
-	xopaUDBkuIbHaJn6TX5gmwPWsoELzlyJLHDTx3m65D1s2G2nbVKeeCUbdcEC6DBGZFEkd13D8YZ
-	gHQH5ZPajpY=
-X-Received: by 2002:a05:6a00:2d26:b0:857:72f8:dc99 with SMTP id d2e1a72fcca58-874dddfd214mr3036061b3a.26.1789712723672;
-        Thu, 17 Sep 2026 23:25:23 -0700 (PDT)
-Received: from lcwang-Precision-3630-Tower.. (125-227-154-99.hinet-ip.hinet.net. [125.227.154.99])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-875dd9e08ecsm311788b3a.53.2026.09.17.23.25.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 23:25:23 -0700 (PDT)
-From: LiangCheng Wang <zaq14760@gmail.com>
-To: Devarsh Thakkar <devarsht@ti.com>,
-	Javier Martinez Canillas <javierm@redhat.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Wig Cheng <onlywig@gmail.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Sam Ravnborg <sam@ravnborg.org>
-Cc: LiangCheng Wang <zaq14760@gmail.com>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Subject: Re: [PATCH v3 2/2] drm/tiny: add support for PIXPAPER 4.26 monochrome e-ink panel
-Date: Fri, 18 Sep 2026 14:25:18 +0800
-Message-Id: <20260918062518.1824876-1-zaq14760@gmail.com>
-In-Reply-To: <1f59a88c-b0b0-43d7-ba2f-4c50aae87ef4@ti.com>
-References: <20260529-bar-v3-0-5c2ac1c751ee@gmail.com> <20260529-bar-v3-2-5c2ac1c751ee@gmail.com> <2bfb73e6-dca3-4d93-af04-3c644929dd19@ti.com> <20260616083921.4066690-1-zaq14760@gmail.com> <423c3dca-9589-488d-8462-c3d51f05ee4a@ti.com> <20260617020926.114947-1-zaq14760@gmail.com> <8fcfab0f-6b98-478b-be4a-c5b810fb3524@ti.com> <20260731035705.3198816-1-zaq14760@gmail.com> <20260916082924.956116-1-zaq14760@gmail.com> <0a13ccb8-8817-4223-a4a2-0de594ac8c71@suse.de> <20260916094453.1062125-1-zaq14760@gmail.com> <f4c6feab-b1ec-48df-81a5-888444b243a3@suse.de> <20260917025644.1262504-1-zaq14760@gmail.com> <CAFOAJEfnDrGTg40h=R0mfZasroPkrSsmbVmmMA91O9uOzu_gYQ@mail.gmail.com> <0259fb51-acb8-4b07-a6d5-2fe25fb0de9c@suse.de> <CAFOAJEe_7Cqo_=NWPGyYBTu3mD3CjPMC92ZZR6qHPjAhQws7pw@mail.gmail.com> <1f59a88c-b0b0-43d7-ba2f-4c50aae87ef4@ti.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="c2PMFaP2"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id AAD3E1A0966;
+	Fri, 18 Sep 2026 06:28:30 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 79C7E60649;
+	Fri, 18 Sep 2026 06:28:30 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D826811C7B021;
+	Fri, 18 Sep 2026 08:28:18 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789712909; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=YaeovCCcKo4LXDy70ugQFFbgV9Ov4ukWmKtdxBtxQ+w=;
+	b=c2PMFaP2a+305bFeri5vtlqTR+1XwXfM/gXP6oKloXDIAu/G/wPE5IQKnaG4aJ8zkXArPV
+	kyhhYv50l773fscKGmHA8H2tJBz3tW6WdrWkoXgq3Y6UGS8iF2wBfCYardyKZczx5DoCX4
+	bdRrfNyr9/dDtpq6jJsyFZ1VkPhW0tE0NjTDYNZ1b733PZR7SBVEMgeeIkGvsNpkn16oWg
+	kPuVjf19HuCUK/f2+bRfy6FU5nwnefwKZG02zWQ4LSuz2zaXR1qiTbTEjsW3ixhtlH46po
+	+olofKih/bQ4WOtvVtPAPjSyEwaVkjjBL/XjxM56BgPgAE7J3i5tBDNdEYD6QA==
+Message-ID: <a5b6164c-776a-432a-906f-b98d67c529db@bootlin.com>
+Date: Fri, 18 Sep 2026 08:28:18 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v3 3/3] net: stmmac: sun8i: add support for
+ Allwinner H616 EMAC1
+To: James Hilliard <james.hilliard1@gmail.com>,
+ Richard Genoud <richard.genoud@bootlin.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Maxime Ripard <mripard@kernel.org>,
+ Alastair D'Silva <alastair@d-silva.org>, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+References: <20260917-submit-h616-emac1-v1-v3-0-62cb8316e19b@gmail.com>
+ <20260917-submit-h616-emac1-v1-v3-3-62cb8316e19b@gmail.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20260917-submit-h616-emac1-v1-v3-3-62cb8316e19b@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Devarsh,
+Hi,
 
-Good to hear from you, and thank you for picking the fixes up.
+On 9/17/26 19:55, James Hilliard wrote:
+> The H616 secondary EMAC uses a separate system-control clock register
+> and supports only RMII at 10/100 Mbps. It connects internally to the
+> co-packaged AC200 or AC300 EPHY and has no external PHY pins.
+> 
+> Add an EMAC1 variant using the dedicated register and enable only RMII.
+> Leave PHY initialization to the PHY driver instead of using the H3
+> internal-PHY controls. No RX or TX clock delays are configured for this
+> RMII-only variant.
+> 
+> Co-developed-by: Richard Genoud <richard.genoud@bootlin.com>
+> Signed-off-by: Richard Genoud <richard.genoud@bootlin.com>
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 
-> Kindly let me know if we are aligned on this.
+Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 
-That all sounds good to me, and I am glad it is moving again.  I will test
-v2 on the PIXPAPER 4.26m as soon as it is out and send a Tested-by.
+Thanks :)
 
-There is one thing worth settling before you post.  Back in July [1] you
-wrote:
+Maxime
 
-  Certainly. I'll exclude the pixpaper-426m support patches from my V2
-  submission so you can handle the review and validation on your end.
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c | 16 ++++++++++++++++
+>  1 file changed, 16 insertions(+)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+> index 4523a14f5e0c..1020168f1c3a 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+> @@ -81,6 +81,13 @@ static const struct reg_field sun8i_syscon_reg_field = {
+>  	.msb = 31,
+>  };
+>  
+> +/* EMAC1 clock register @ 0x34 in the "system control" address range */
+> +static const struct reg_field sun8i_syscon_reg_field_emac1 = {
+> +	.reg = 0x34,
+> +	.lsb = 0,
+> +	.msb = 31,
+> +};
+> +
+>  /* EMAC clock register @ 0x164 in the CCU address range */
+>  static const struct reg_field sun8i_ccu_reg_field = {
+>  	.reg = 0x164,
+> @@ -143,6 +150,13 @@ static const struct emac_variant emac_variant_h6 = {
+>  	.tx_delay_max = 7,
+>  };
+>  
+> +static const struct emac_variant emac_variant_h616_emac1 = {
+> +	.syscon_field = &sun8i_syscon_reg_field_emac1,
+> +	/* The co-packaged AC200/AC300 PHY does not use the H3 PHY controls. */
+> +	.soc_has_internal_phy = false,
+> +	.support_rmii = true,
+> +};
+> +
+>  #define EMAC_BASIC_CTL0 0x00
+>  #define EMAC_BASIC_CTL1 0x04
+>  #define EMAC_INT_STA    0x08
+> @@ -1276,6 +1290,8 @@ static const struct of_device_id sun8i_dwmac_match[] = {
+>  		.data = &emac_variant_a64 },
+>  	{ .compatible = "allwinner,sun50i-h6-emac",
+>  		.data = &emac_variant_h6 },
+> +	{ .compatible = "allwinner,sun50i-h616-emac1",
+> +		.data = &emac_variant_h616_emac1 },
+>  	{ }
+>  };
+>  MODULE_DEVICE_TABLE(of, sun8i_dwmac_match);
+> 
 
-That is still what I would prefer: the 4.26m is the only SSD16xx hardware
-I have, and its binding is already acked, so I am in a good position to
-validate the panel and to look after it afterwards.  Unless you would
-rather it went differently, I will send the panel entry and its binding on
-top of your v2 once it is out.
-
-Please reshape the three fixes however v2 needs - they were written
-against your staging branch and the driver has moved on since.  Two small
-requests from my reply at the time [2]:
-
-  Please keep them as separate commits if you can - git am preserves
-  authorship; if you fold the first one in, a Co-developed-by with my
-  Signed-off-by would be appreciated.
-
-  I maintain the existing PIXPAPER MAINTAINERS entry - would you mind
-  adding me as R: on the SSD16xx one, so I stay on CC and can retest?
-
-[1] https://lore.kernel.org/all/8fcfab0f-6b98-478b-be4a-c5b810fb3524@ti.com/
-[2] https://lore.kernel.org/all/20260731035705.3198816-1-zaq14760@gmail.com/
-
-Regards,
-LiangCheng
