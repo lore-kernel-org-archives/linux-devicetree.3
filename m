@@ -1,111 +1,88 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 664663D9680;
-	Fri, 18 Sep 2026 02:40:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18477397343
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 02:43:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789699256; cv=none; b=kBvSN2+MYKt0qjsCjR+HEZbIwMilgt+xGE869+lbETFZYLQvtUkN+IjpGAJZodlSvoum2x+c1EuD6yYm9ZEWfsaKI7DdXPxKK4YG8Qk9XDBJDColCV8fs2iom1Gwa6pjSuybb2ak+tvolEkSzM3vaMtF94gtdq+tghyFi9TaftE=
+	t=1789699442; cv=none; b=RPu+kqKbWWItUklKBhy1CjpiDIlVpoEeMD+Se9wR4KmxcI4cqcfHfBQzi0Vy/6ML17/zwc0pm7sieNnFi/0cxOfRTk+dGViOo45Mab5GS9Bv7YL3bbWBN1gSDlvu4lChucmEgBEk1IK9n5gdkOkOS0nn+IPmomJ5cs1jA0VVi/c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789699256; c=relaxed/simple;
-	bh=vX1oH9OH1GKzwXjdYNaZSPlTagRimiE4pEJyduCBULA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=omTIARyc91bwF3eWwyhaCWCgFhTiC7vsIBmYf6usVR8QP0sf9cS/Qi9ggJTz8/oS/tMEPvhxnZdYIsxCkOpwczcVxvTrjURsQclUCondUQ26K1Gji/YjcYkxQTOYd95EcimIRA998TttiABZdEwoEzixbDSt0yYLBaUN6J/jD8s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KQdS4Tk1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789699442; c=relaxed/simple;
+	bh=5Or+pqAB9m5OzfsYviMP5IQl0iR5xnzBtnlVVyKRyJI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=PJET7T7zfhGp8U3CSrOluwq2/SNAKDC5bzcYbJ1cm35zU8rrOybgljQnA1pbyLKwLOX4K7YSg9vO453HM/n3v0E4eWJj8q0SIiBC2Xl1US2APUxDh6G//VbUFX1HnxRuVbXLQgW6WbJh86QxzWNwHaR2BBKXfu+OJNIjWzfX4vo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EFSWORPN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KQdS4Tk1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E32D1F00899;
-	Fri, 18 Sep 2026 02:40:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EFSWORPN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7448D1F000FF;
+	Fri, 18 Sep 2026 02:43:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789699242;
-	bh=5IeGjUN7fXw7p9Xz+5Tbudirtuv11NiQpLTAxyNiadk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=KQdS4Tk1uWgHQaFv98UNLA8tQ4F7LMlO26PIbaun98U7pnsFLktqyO4rBxIJGDyi7
-	 VLJ+4vELWdYbwvUuRn95XFscFcCddNGz7Q9TH6y8TvhBIDAO4v04w+fdEAABZh+5Xg
-	 ol5uIEislJNS39VC3A5qrg0dU7zayRb1copPl0FvZrn4yYy9DSIO8/826UikCpcfSH
-	 wwuaoa8X9x0SUGyRTu20Rhz4YuLo2BMVV0zHMxXZYZXLjQGeLwZSxXQseUys67CtkE
-	 S0JUrGA7gjyyOYVf9Xmm6t4GuJ/QmLwrGjwrjgZ/YV/tpKPmqHWP7+MQ4yW7pica5c
-	 6VG2IiVNUzFAQ==
-From: Yixun Lan <dlan@kernel.org>
-Date: Fri, 18 Sep 2026 02:40:15 +0000
-Subject: [PATCH 3/3] dts: riscv: spacemit: Add power domain nodes
+	s=k20260515; t=1789699434;
+	bh=5Or+pqAB9m5OzfsYviMP5IQl0iR5xnzBtnlVVyKRyJI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=EFSWORPNqlrUjIYNpZwgdDf+t22JkqjXC7oKydRAzGfKMsCMU0Z+QM6CE1WGTeo6E
+	 bxXSsGC41oQJbGCuw9ghZojiKlRJyPJq1oCAp3s53fGB9uLbvc3c4TSFlikvOctgiO
+	 nxR+RN+5gX30nXBoWFU4rEz+quM5d4MpCUTo4Rva+SNBoj9MMpbiq4CwkglqPsNqEY
+	 vejRQCtQTWIx6GnRn0qc2YsXDbJF++mS8ZiKuZmJ4y+tMUYSurlm1AELVi9AiynN0X
+	 CCeWvl+SL/H9oVm+EsoQ8erVoRST5UEpSH/3TsiWATBlQnue4yxKcjZQcKjVkY9wg9
+	 0utF3J17ivrvA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: power: spacemit: Add power domain
+ controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Yixun Lan" <dlan@kernel.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260918-04-k3-pm-support-v1-1-0acd2b36b96f@kernel.org>
+References: <20260918-04-k3-pm-support-v1-0-0acd2b36b96f@kernel.org>
+ <20260918-04-k3-pm-support-v1-1-0acd2b36b96f@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 18 Sep 2026 02:43:53 +0000
+Message-Id: <20260918024354.7448D1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-04-k3-pm-support-v1-3-0acd2b36b96f@kernel.org>
-References: <20260918-04-k3-pm-support-v1-0-0acd2b36b96f@kernel.org>
-In-Reply-To: <20260918-04-k3-pm-support-v1-0-0acd2b36b96f@kernel.org>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
-Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
- linux-pm@vger.kernel.org, Yixun Lan <dlan@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1187; i=dlan@kernel.org;
- h=from:subject:message-id; bh=vX1oH9OH1GKzwXjdYNaZSPlTagRimiE4pEJyduCBULA=;
- b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBqrKSYUhRJxzcpB1oSOW2nwIHpBOLxwgymvV4sZ
- Zmsmiq81tqJAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCaqykmBsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDJfFIAAAAAALgAoaXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5
- maWZ0aGhvcnNlbWFuLm5ldEI1QkFCOEM5QzMxQjcxMTU2NzAyMjNEQzMxQUFFQTQ3NTk0REJCRU
- QACgkQMarqR1lNu+1xiA/9Fezfv05YmStKUfOLohH7paXlxs9vU1Fs21qaZNxdYpg8xj7+ZH9g1
- HSn0f6zqSa8EkEOZtHAc19ifc0lLKOhMut2cinhP8QkQMr1qH2NS42Y/RifE+x9TJEsEPbvvUi9
- 3+0ty1MibOUBI9oTdPSi2XROGHD7ydw2VCPZfBsy/BRHp1p71XEDJn9irkGVUbLUyjy+1DpJp/c
- j8472nDjbNDraMwh3HGUEAjSY3gLnV4KbsQyjGoeEdbVv8zLoky0OUljxqMFwllM14Yefac9q48
- 8+Ar6xPGnZjYqFj8TzkzeOjrga06kkeB4JukvLInvhaB6OmOJdEu1MOr6pys9uoSQVuJz2HS2rt
- 4+hyu9VvifpnwZbQh3vb9IgDmDkGolyZM6P4Y4jCObu/jy4/bWeJeQD0htZxOKK45W+D2D4Hp6J
- 1ZaMYo6oQIZynXMlvXqba4nbhLS4yI3njX7ir0NbGnrYTUtkM4hTmzwSzmgqOa/fC+FaS/N6QTn
- rJzCeJUmZiXRD32e7YvdKoTJpnYMIPFV/ttKewnZI8KYU+i0tE3EBuiXdnnmTAMNtBYsywEojIE
- JuxQ3DhZ7dUKxwH5es1ubSTtnj+Pakis3BCgBPb29EQ7+ruhy8SC/MobRyw3UdWP6RhyPiafKzG
- tYR+Af4YQcKAkO/54KJ3BOmMWGeFHQ=
-X-Developer-Key: i=dlan@kernel.org; a=openpgp;
- fpr=50B03A1A5CBCD33576EF8CD7920C0DBCAABEFD55
 
-Populate the power domain device tree nodes for K1/K3 SoC.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] coding_style: incorrect SPDX comment style in C header file
+--
 
-Signed-off-by: Yixun Lan <dlan@kernel.org>
----
- arch/riscv/boot/dts/spacemit/k1.dtsi | 6 ++++++
- arch/riscv/boot/dts/spacemit/k3.dtsi | 6 ++++++
- 2 files changed, 12 insertions(+)
+commit 3ce4bb2badb48920b29e15de6dfdfcdbc013d6c4
+Author: Yixun Lan <dlan@kernel.org>
 
-diff --git a/arch/riscv/boot/dts/spacemit/k1.dtsi b/arch/riscv/boot/dts/spacemit/k1.dtsi
-index 3fabfd34114b..871c913e6fb4 100644
---- a/arch/riscv/boot/dts/spacemit/k1.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k1.dtsi
-@@ -1352,4 +1352,10 @@ emmc: mmc@d4281000 {
- 			};
- 		};
- 	};
-+
-+	pwrc: power-controller {
-+		compatible = "spacemit,k1-power-controller";
-+		spacemit,apmu = <&syscon_apmu>;
-+		#power-domain-cells = <1>;
-+	};
- };
-diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
-index c3f2dce0969c..1bf25a657762 100644
---- a/arch/riscv/boot/dts/spacemit/k3.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
-@@ -1306,4 +1306,10 @@ maplic: interrupt-controller@f1800000 {
- 			status = "reserved";
- 		};
- 	};
-+
-+	pwrc: power-controller {
-+		compatible = "spacemit,k3-power-controller";
-+		spacemit,apmu = <&syscon_apmu>;
-+		#power-domain-cells = <1>;
-+	};
- };
+dt-bindings: power: spacemit: Add power domain controller
 
--- 
-2.55.0
+This commit adds initial power domain driver support for the SpacemiT K1/K3
+SoC. The controller is part of the APMU and manages power across multiple
+power domains, including isolation and power-on sequences.
 
+[ ... ]
+
+> diff --git a/include/dt-bindings/power/spacemit,k3-power.h b/include/dt-b=
+indings/power/spacemit,k3-power.h
+> new file mode 100644
+> index 0000000000000..54b39f2f09364
+> --- /dev/null
+> +++ b/include/dt-bindings/power/spacemit,k3-power.h
+> @@ -0,0 +1,12 @@
+> +// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+
+[Severity: Low]
+This isn't a bug, but should this C header file use block comments (/* ... =
+*/)
+for the SPDX license identifier?
+
+According to the kernel licensing rules in Documentation/process/license-ru=
+les.rst,
+C header files (.h) require block comments, while C++ style line comments (=
+//)
+are reserved for C source files (.c) and Device Tree sources.
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918-04-k3-pm-s=
+upport-v1-0-0acd2b36b96f@kernel.org?part=3D1
