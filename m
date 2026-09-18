@@ -1,164 +1,145 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACD6D374E73;
-	Fri, 18 Sep 2026 06:47:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 861F64908CB
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 06:48:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789714061; cv=none; b=iSeUS80/F0igo/AaWlFuVK2CY+U7EbnpQhM62l0n6tAefcwqFpH6iF0IpC5b3ygGN09dIGTenv1wPXTqa4PA15ki8j+4fT0uM/a4hLwuBN4JxLBWXN5pESA9vtK2Jw2G3U4JbagcyMUaS6+JVevFQ5uIL04Ow7cAr3G8WdLg/zo=
+	t=1789714117; cv=none; b=Nsef6HC4v0PGIoBxQTMtura2GxF1WIratbfiDw5holxREuuQbuCVgHo/5XYrcZFEF3FWfAgD54NVDpMfuda4n6Y4nePToY+yW9VEjBFQKV2yYzxImK7kc7b/+kC9v7M4Y/wgZevQ8erjz9AfbsRKQft4MmKcdo+2agImxhb4Tno=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789714061; c=relaxed/simple;
-	bh=g7ivMlqpgV90jFk2m8nUKBEA2ydpFYXnDGsguWHttL8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BimwKGwgkvgU5/oot/3EDNWBrLRWZtYoK6pLYtNf3iDLDyBrmzsoRv7NZsSVEHQMUrWK/k+ugqf2pOQIr/B+6/HPZ+aTNPl/Vl1RFyfwgNqzs+DrCi5tJo21SaWGCTSwHkiaG1bi/VnKeIJCMYei5vepkAoFcwoKLNBckbWpmoo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ERc0YHty; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789714117; c=relaxed/simple;
+	bh=snDk2QMLQGyl+liNUi1u7MD6ycpi7NLuHIGSEKI/DfI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=jASyvW4rccvwwODWMPCaZaOFcyfM85TOy2tlNe3et4niE5oTpv8MG/rRxeggw+XaYutdNC4UQfj7HfcmrUPtqQocmvvAWxsLYOLr6l1ERseyH+YUG1K4uNoMaXnocqGjbYIcBHg+5YtRMuxBYlK2gvuKPlnL0xYtJZg7DaiNvGY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KhrSYmzz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ERc0YHty"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 646091F000FF;
-	Fri, 18 Sep 2026 06:47:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KhrSYmzz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92E5C1F000FF;
+	Fri, 18 Sep 2026 06:48:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789714060;
-	bh=+BGxWg2fsybWxSlrAfMoRyi3OL6sdFJawHpb1+w2R8c=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ERc0YHtyC9RU8cORTswTDlpfbvAh8G62/IZ7olNQonmoUsc1v8IRiMpD+Bj06dyWq
-	 hHrZRV+LAGgkZ+GZQGKeIsdz7lczX+89k1Y1XnnCfSVNhbAuEXtkZstU7y6gxXDvLi
-	 m4si3tauBnLV85TRk0ZwCN0FRFUkmZXK1m+4nVAW7wBzrTL64RXgaP33t1SVZhAvYK
-	 hoUh45Z2XrvTr6wOAzQqjjoPcO/ojjBHGym6F3gpcUWR5wCF1MCFXKBT8y29IwZ0WK
-	 ZBOIYQb4Adsi3uV77T3EzS+mPjHENHK7URoz7cSK7U0VKmrWUWXTo4p9QnAxB3EaLR
-	 dqT6sX8UvA9sg==
-Message-ID: <f6cb2a51-b385-4203-bd33-4b789cac5616@kernel.org>
-Date: Fri, 18 Sep 2026 08:47:32 +0200
+	s=k20260515; t=1789714111;
+	bh=GQAoX5Z9BzdTGFotXYPxGnl9JY0Zeg8E4UbO5QraDug=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=KhrSYmzzwG3ncrNpgo2HZUXytrGDd3htLYhwUvvTkNzECWLOM69B4uss+2LFgIHFQ
+	 ZW0ScFTs++ThHtr0Cz5IlQ7ijH8B+IV/duGs6UmWWhL/S/tJ2jmYee70ZXrkZTf6jk
+	 LIqSHl7NGRoMdwFooMaJJHHq4BSRtv8JdFwLNThdkMxE3dwpE3zyjgDwW6r7GoXIGP
+	 DkExVHJi8vsc9qsztlEekFyfdXe9EOh8l4xks/fHPW0JJyPp5RxAnpUTGmd7lkX8uS
+	 LM8MdDk+YNsqaQH1WedLx1F49/9zadG9viDqGjZrASaOZLQyhyqdrWJxnu9sujIdTe
+	 czmyzDbbn3Qtw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] irqchip: Add Xilinx Versal NET SMMU CSR
+ interrupt controller driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Tushar Nimkar" <tushar.nimkar@amd.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260918-smmu-changes-v2-v2-2-adda681ab983@amd.com>
+References: <20260918-smmu-changes-v2-v2-0-adda681ab983@amd.com>
+ <20260918-smmu-changes-v2-v2-2-adda681ab983@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 18 Sep 2026 06:48:31 +0000
+Message-Id: <20260918064831.92E5C1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] dt-bindings: media: Add bindings for qcom,nord-camss
-To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260915-nord-v1-0-20db41a7f1ff@oss.qualcomm.com>
- <20260915-nord-v1-1-20db41a7f1ff@oss.qualcomm.com>
- <20260917-active-strong-emu-bf8fbd@quoll>
- <d89a7376-ffab-405a-a3b6-d3633cddd063@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <d89a7376-ffab-405a-a3b6-d3633cddd063@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 17/09/2026 14:37, Wenmeng Liu wrote:
-> Hi Krzysztof,
-> 
-> On 9/17/2026 6:13 PM, Krzysztof Kozlowski wrote:
->> On Tue, Sep 15, 2026 at 05:34:11PM +0800, Wenmeng Liu wrote:
->>> Add bindings for the camera subsystem (CAMSS) on the Qualcomm Nord
->>> platform.
->>>
->>> The Nord platform provides:
->>> - 3 x TPG (Test Pattern Generator)
->>> - 3 x CSID (CSI Decoder)
->>> - 10 x CSID Lite
->>> - 3 x VFE (Video Front End)
->>> - 10 x VFE Lite
->>>
->>> Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
->>> ---
->>>   .../devicetree/bindings/media/qcom,nord-camss.yaml | 393 +++++++++++++++++++++
->>>   1 file changed, 393 insertions(+)
->>
->> A nit, subject: drop second/last, redundant "bindings for". The
->> "dt-bindings" prefix is already stating that these are bindings.
->> See also:
->> https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
->>
-> ACK
-> 
->> ...
->>
->>> +        description:
->>> +          Input port for receiving CSI data.
->>> +
->>> +        properties:
->>> +          endpoint:
->>> +            $ref: video-interfaces.yaml#
->>> +            unevaluatedProperties: false
->>> +
->>> +            properties:
->>> +              data-lanes:
->>> +                minItems: 1
->>> +                maxItems: 4
->>> +
->>> +              bus-type:
->>> +                enum:
->>> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
->>> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
->>> +
->>> +            required:
->>> +              - data-lanes
->>> +
->>
->> Missing supplies, altough maybe this is related to some other ongoing
->> work, so would be useful to see explanation in commit msg.
-> 
-> At the moment, the Nord platform only supports TPG. Perhaps I should 
-> remove this part of the change for now and reintroduce it later when 
-> CSIPHY support is available, once the EVK board is ready.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] irqchip: unrecoverable interrupt storm due to unhandled CMDQ_SYNC
+- [Medium] irqchip: spurious handling of disabled interrupts causes log spam
+--
 
-Hm? So you added hardware for TPG? I do not see how such hardware is
-useful at all, thus I don't think we want the bindings for it. Bring
-real hardware, since the bindings should be complete.
+commit bfa978fa90b50ee4257046a8002784c0f7fc45f7
+Author: Anirudha Sarangi <anirudha.sarangi@amd.com>
 
-Best regards,
-Krzysztof
+irqchip: Add Xilinx Versal NET SMMU CSR interrupt controller driver
+
+The Xilinx Versal NET SoC implements a Control and Status Register (CSR)
+block in front of the ARM SMMUv3 to manage EVENTQ, PRIQ and GLOBAL
+interrupts. This commit adds an irqchip driver to demultiplex these
+interrupts and chain them to the upstream SMMUv3 driver.
+
+> diff --git a/drivers/irqchip/irq-xilinx-smmu-csr.c b/drivers/irqchip/irq-=
+xilinx-smmu-csr.c
+> new file mode 100644
+> index 0000000000000..d9b575c6c58b0
+> --- /dev/null
+> +++ b/drivers/irqchip/irq-xilinx-smmu-csr.c
+[ ... ]
+> +static void xilinx_smmu_csr_irq_handler(struct irq_desc *desc)
+> +{
+> +	struct xilinx_smmu_csr *csr =3D irq_desc_get_handler_data(desc);
+> +	struct irq_chip *chip =3D irq_desc_get_chip(desc);
+> +	u32 status, pending;
+> +
+> +	chained_irq_enter(chip, desc);
+> +
+> +	status =3D readl(csr->base + SMMU_CSR_ISR);
+> +
+> +	/* Only service sources we support; SMMU_CSR_ISR latches raw status */
+> +	pending =3D status & SMMU_INTR_ALL;
+
+[Severity: High]
+If the CMDQ_SYNC interrupt (bit 1) was enabled or asserted by a previous bo=
+ot
+stage like u-boot or kexec, it is filtered out of this pending mask. Because
+it is never cleared or acknowledged, will this cause an interrupt storm on =
+the
+parent GIC line and a system hard lockup?
+
+[Severity: Medium]
+Additionally, since SMMU_CSR_ISR latches the raw status, does masking again=
+st
+SMMU_INTR_ALL instead of a shadow mask of actually enabled interrupts lead =
+to
+processing disabled or unmapped events?=20
+
+> +
+> +	while (pending) {
+> +		irq_hw_number_t hwirq =3D __ffs(pending);
+> +		int ret;
+> +
+> +		ret =3D generic_handle_domain_irq(csr->domain, hwirq);
+> +		if (ret)
+> +			pr_err_ratelimited("xilinx-smmu-csr: Failed to handle domain IRQ %lu:=
+ %d\n",
+> +					   hwirq, ret);
+
+If an unmapped interrupt fires, generic_handle_domain_irq() will fail with
+-EINVAL and log this error. Because the driver cannot ACK an unmapped
+interrupt, the bit remains set in the ISR. Does this result in permanent
+ratelimited log spam and wasted CPU cycles on every subsequent valid
+interrupt?
+
+> +
+> +		pending &=3D ~BIT(hwirq);
+> +	}
+> +
+> +	chained_irq_exit(chip, desc);
+> +}
+[ ... ]
+> +static int __init xilinx_smmu_csr_init(struct device_node *node, struct =
+device_node *parent)
+> +{
+[ ... ]
+> +	/* Start from a known state: all sources disabled, latches cleared. */
+> +	writel(SMMU_INTR_ALL, csr->base + SMMU_CSR_IDR);
+> +	writel(SMMU_INTR_ALL, csr->base + SMMU_CSR_ISR);
+
+[Severity: High]
+SMMU_INTR_ALL omits bit 1 (CMDQ_SYNC). If a prior boot stage left CMDQ_SYNC
+enabled or pending, doesn't writing only SMMU_INTR_ALL fail to disable and
+clear it, setting up the interrupt storm described above?
+
+> +
+> +	csr->domain =3D irq_domain_create_linear(of_fwnode_handle(node), SMMU_C=
+SR_IRQ_NR,
+> +					       &xilinx_smmu_csr_domain_ops,
+> +					       csr);
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918-smmu-chang=
+es-v2-v2-0-adda681ab983@amd.com?part=3D2
