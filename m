@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A5C34B66E7;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 429824BE450;
 	Fri, 18 Sep 2026 08:57:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789721842; cv=none; b=uWNIxzv2JYhFvOEKxsl442FqIA2p8NdCpY5ROHG4QcKz4mSF+Ng6dHP/jwloeyvyvWvTEGvhNWfaGgEIWJaCofdHapVclZTMRvJ70lkGS1xXL985rFTQG5VfzLqMR7go6WoZdqWclErDHnSdfKQFeejzBG6QAwBbXdnnL53Gox0=
+	t=1789721842; cv=none; b=PVMcEhAiiuE0DX3jzFB1SlE/cwo18+FqFj51Z+CU59VNHoOqdJA/TmlSwBk9fTHOpDz0nCI3P01J7XsDdjK4nyIH8Nht3fyFTf4l4LqWrm1qEKHax6l232eGn/PokeIzpyuQFmbPshzzJkpM+0Swd+cKjw5Hjblac++qjlP0AEY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789721842; c=relaxed/simple;
-	bh=lKKBM0Z15+Cg7euZBnlCtVNRM9u1vWlpFXjUS8aHLVc=;
+	bh=x9Ql0bOQJU2VujMLpcb475Eo6gkNPsGLk3Kv6vs/DSc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=rj4Xub/qWjLu55DPSYi7da6uiNQHAR/OKxCQ5UOcc/V1PgXR7YTAxlFETk4grM7m2wTNc0PCDjDiO0QJ5Q5VDAQwX5lS9xpIc9mzcK/+FrRPwjo58oSJ+25LjJS/8M2PdwSWwHHlyRstvI0kes7+hpwaQaD6T0HX7YZLnfpWxAQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qIItvJXH; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=YDdlo614I7sRCUgPn1PJDE9OWnuaYcZXSEEWjPphXitaD1e1dTlcrVQIecNX5kEpxVH8Gt2v64WkcAgilSEacr/HOa2QlgSkH0F4utwJi7n8Zsa0oAZuzZ6MURtzxjyH3+yWydkqWq2PcJTg5Y7R8Qb0mz5WjkSyaNtxd06WORs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BGBn7Aec; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qIItvJXH"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id AFEDCC4AF0D;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BGBn7Aec"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 176B1C2BD05;
 	Fri, 18 Sep 2026 08:57:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1789721840;
-	bh=lKKBM0Z15+Cg7euZBnlCtVNRM9u1vWlpFXjUS8aHLVc=;
+	bh=x9Ql0bOQJU2VujMLpcb475Eo6gkNPsGLk3Kv6vs/DSc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=qIItvJXH4xtvGSrsHpURfQ2k16/srqBTbWY7ZBQT6eoLnY4jqaLarf4OcUUkXhHeo
-	 THQCOmpddwnxdCbrAbju/SEUevACNtsT0hJKdtxXkp04Rt5N2LDVnDaOJsSxzFEJBV
-	 XPSxDX9iryfnVmeyJLlbQLnGqZuBycwFAmF6W/HzVsmA+a/f8o20DUGrEI8uxFWmGg
-	 nUCLSYXxraw07p2PXq7I8kY4P3ejIN3XBBNduKemtmrrGtnQYZ7dQKlFo2YjU1yWlo
-	 xYubegtVZGLVKVOU2exB0UnQzsfqnat+lSAh59GNwECgYFd1kSRrIoyT8VXB7484sc
-	 r2q2j8j1dA3xQ==
+	b=BGBn7AecftPSJNxH5kKTqY+ZvkT76tVKf+JHKUseBCiDmxYeOVGc0gDqVIJ3InJfD
+	 bArXEZrkaj9/9neZiKQY+zO1fVZwPl4r9oPCcfk99YKk+wdXF+edzi0oCMLKEPboWB
+	 wSmEle/b3wH5ER2I1yL2wOGeQZSOE0qRJPNRgQ2+ettk3cP4l3g+pl4tlDJSAKI+vG
+	 gsctVZQqq3ZBSL0jQaPXr8xukScTS17wIiDYNZFbxOCXYhWY30gYld+zMTB3AvgCKF
+	 HretTMrMPeDzdRbHF674QE0BcspYd1wT8k9r/f01uOGwRCLYY8c54ewCmV4HvYntGU
+	 VjhlL88jX60Wg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9FB66C982D9;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 04B79C982DA;
 	Fri, 18 Sep 2026 08:57:20 +0000 (UTC)
 From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
-Date: Fri, 18 Sep 2026 16:57:30 +0800
-Subject: [PATCH 15/21] media: i2c: it6625: use early returns in
- it6625_update_timings_if_changed()
+Date: Fri, 18 Sep 2026 16:57:24 +0800
+Subject: [PATCH 09/21] media: i2c: it6625: tidy CEC buffer init and a
+ continuation line
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-upstream-it6625-follow-up-patch-v1-15-78d72d7886a5@ite.com.tw>
+Message-Id: <20260918-upstream-it6625-follow-up-patch-v1-9-78d72d7886a5@ite.com.tw>
 References: <20260918-upstream-it6625-follow-up-patch-v1-0-78d72d7886a5@ite.com.tw>
 In-Reply-To: <20260918-upstream-it6625-follow-up-patch-v1-0-78d72d7886a5@ite.com.tw>
 To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
@@ -52,11 +52,11 @@ Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
  linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Hermes Wu <Hermes.wu@ite.com.tw>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789721837; l=1398;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789721837; l=1973;
  i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
- bh=nhYLeOnWUfOr4p9kaFWjpJjBGZeXmu4xl/oIvvdqeOc=;
- b=pVtstrPUw4pFLakci5deW/zW81qVnHiqawNZYO6gByOeaIpB71m9q3FtnfSZy60RhvEFlEMfG
- kWtmxo6iHePDMlPA3aGscJHYw318ej/jcBQn1cJx6XgSJfcSljadHgO
+ bh=NnYGUJlmTkGxYwl+rsslEcp8n5vm8G5JSLjxvFJvsgU=;
+ b=4kD8/euat28my7nYzQPmlRvoviWk6fzS2lcv8rAEUThn/3yb6V9bA+QKQ62+EAcX821iZbcKa
+ +ku0+nNYZrbCmlQs1LUeTCXFBctn3OL4cMGCiHMttZcbsAqNNXhrHlP
 X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
  pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
 X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
@@ -66,49 +66,57 @@ Reply-To: Hermes.wu@ite.com.tw
 
 From: Hermes Wu <Hermes.wu@ite.com.tw>
 
-Convert the if/else if/else chain that only ever assigns a single
-ret value to early returns. guard(mutex)(...) is scoped to the whole
-function body, so an early return still unlocks correctly.
+it6625_hpd_delayed_work(): wrap the container_of() assignment after
+'=' instead of splitting the argument list mid-parenthesis.
+
+it6625_cec_adap_enable(): assign the cmds[] buffer at declaration
+instead of two separate statements, matching the pattern already used
+elsewhere in this file.
+
+it6625_cec_adap_log_addr(): add the missing spaces inside the cmds[]
+initializer's braces.
 
 Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
 ---
- drivers/media/i2c/it6625.c | 21 +++++++++------------
- 1 file changed, 9 insertions(+), 12 deletions(-)
+ drivers/media/i2c/it6625.c | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
-index 882eda8b836d655585ba45b0a33d1c068bb3a8ee..db962bc100cad9f4d71fa4156b10ff5b4c952a7c 100644
+index 9b1d9edca8f383f4f55918bda259a1b053d7f41b..bc6b0a9a0bb005b30983a30f8ca685f885ab78c6 100644
 --- a/drivers/media/i2c/it6625.c
 +++ b/drivers/media/i2c/it6625.c
-@@ -1431,20 +1431,17 @@ static int
- it6625_update_timings_if_changed(struct it6625 *it6625,
- 				 const struct v4l2_dv_timings *timings)
+@@ -757,8 +757,8 @@ static void it6625_enable_hpd(struct it6625 *it6625)
+ 
+ static void it6625_hpd_delayed_work(struct work_struct *work)
  {
--	int ret;
--
+-	struct it6625 *it6625 = container_of(work,
+-			struct it6625, hpd_delayed_work.work);
++	struct it6625 *it6625 =
++		container_of(work, struct it6625, hpd_delayed_work.work);
+ 	int val = 0;
+ 
  	guard(mutex)(&it6625->it6625_lock);
--	if (v4l2_match_dv_timings(&it6625->timings, timings, 0, false)) {
--		ret = 0;
--	} else if (!v4l2_valid_dv_timings(timings, it6625_get_timings_cap(it6625),
--					  NULL, NULL)) {
--		ret = -ERANGE;
--	} else {
--		it6625->timings = *timings;
--		ret = 1;
--	}
+@@ -980,10 +980,8 @@ static void it6625_initial_setup(struct it6625 *it6625)
+ static int it6625_cec_adap_enable(struct cec_adapter *adap, bool enable)
+ {
+ 	struct it6625 *it6625 = adap->priv;
+-	u8 cmds[2];
++	u8 cmds[2] = { CMD_SET_CEC_ENABLE, enable ? 1 : 0 };
  
--	return ret;
-+	if (v4l2_match_dv_timings(&it6625->timings, timings, 0, false))
-+		return 0;
-+
-+	if (!v4l2_valid_dv_timings(timings, it6625_get_timings_cap(it6625), NULL, NULL))
-+		return -ERANGE;
-+
-+	it6625->timings = *timings;
-+
-+	return 1;
- }
+-	cmds[0] = CMD_SET_CEC_ENABLE;
+-	cmds[1] = enable ? 1 : 0;
+ 	guard(mutex)(&it6625->it6625_lock);
+ 	it6625_write_command(it6625, cmds, sizeof(cmds));
  
- static int it6625_enum_dv_timings(struct v4l2_subdev *sd,
+@@ -1009,7 +1007,7 @@ static void it6625_cec_reset_la(struct it6625 *it6625, bool keep_enabled)
+ static int it6625_cec_adap_log_addr(struct cec_adapter *adap, u8 log_addr)
+ {
+ 	struct it6625 *it6625 = adap->priv;
+-	u8 cmds[2] = {CMD_SET_CEC_LA, log_addr};
++	u8 cmds[2] = { CMD_SET_CEC_LA, log_addr };
+ 
+ 	dev_dbg(it6625->dev, "%s: la=%d", __func__, log_addr);
+ 
 
 -- 
 2.34.1
