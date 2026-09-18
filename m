@@ -1,109 +1,87 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D0EF4F93D1;
-	Fri, 18 Sep 2026 10:17:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12DF154705D;
+	Fri, 18 Sep 2026 10:19:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789726637; cv=none; b=nTTtNK5tgKR5Kwl1LKDdCvjxv9dOdWxKLbhDo6M2vKHw2731hQzjp6pn1a5BdiqCWWs7GFGrdVSw84lsfiTOSFWkV81Qwin035Zdsgw+9jNzMioUB+LruV9nx9YpEYDXJWCtNEFVZEiv9TdZGmpDwTRqBtQN1P2fIwWOOYwA3fE=
+	t=1789726752; cv=none; b=mTkpKrk1zn+uU7zGmYqlOXaB/RqbxRSNUh33rzBTZtI9Le3BmY5f/3myALk6zXa99S/rWHyVZdsjLsYnTYrwzlvHb3psdEY91Rxt5qNqepyslTg/rrCixz7iq08e5JZlc78DRj0gFzpJtbeoDCyr2AFx0MMzM4VIJNRR3DW1zuc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789726637; c=relaxed/simple;
-	bh=7WGjA4gJlSHK3qsr85o73VSVw/EquT/+tIEId/vHYKc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=X4Lc/H77jub/nh5CnGKVYNdQZjdaLwsard/f5pHQy8l6+21E7B4hCL1ZODoOiIZAy+04a5mi2uqsue3nuNNUakBDz2eErbcR3Cc1IESvmOdpOMVOqjoVJQ1NLGhUqYJiCHgooYdaurPQsLDnQuJuBn9IB2ImmQyCvmJDbW+47Ts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MNXukOiO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789726752; c=relaxed/simple;
+	bh=ReI/5bdtZ2277fpeNjtnStQnH+LxBZibQL7zdu5ONHA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=QGJvH9mGqbHqEuN9N8BPlASfiXb3/s+jjZEX15TbBErgmIAfoW6LNze0qBSzhh5IO5///QQl1sAMybSocVtGR/REFtwrIiA4LZnPR1JbEtxnuIcke4tVSuscJwK5CleWTXsDe8HBpw3Owf+wCRCN2Ijhu6c4ZD/WOocJ4a5dFz8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FIvCn62/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MNXukOiO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68EF31F000FF;
-	Fri, 18 Sep 2026 10:17:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FIvCn62/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B5E71F00893;
+	Fri, 18 Sep 2026 10:19:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789726630;
-	bh=sjD7gXYT9sEFgIeGRllW0SYD6Scu3JJ7NhNsn25KgeM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MNXukOiOm3AOxM//9KfJdpEvdWp/wq592XQxYRB/aoFtqzftWn6hJdXRzeYnCD6BS
-	 fBTKJmzKkNtBaCwpiXDzYLprD35nN66YWtSPIjhQkILjnnoIZpMFooegwvwiR+U5iY
-	 szyMkA7UAZbBzFI+t9WoAbOhe8JrjUhN2SVeZ70Q9FDKZEGbLOret22win++Hz58f9
-	 rbpoem0/n/lktLi36DLiUwm/eGiSVqhVpmr9Sj0a0sl7s12/wmoGBF8tFQD0/MrFzk
-	 dTKnXRxn/WoWnmnUdLuHgGZsKNvitoALfiBfJr5iuK640r26039ObEVu/u0n6dQChj
-	 kyFPSfPVP8P3A==
-Date: Fri, 18 Sep 2026 12:17:06 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Adam Azuddin <azuddinadam@gmail.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
-	tzimmermann@suse.de, jesszhan0024@gmail.com, airlied@gmail.com, simona@ffwll.ch, 
-	andersson@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] drm/tiny: Add RAiO RA8875 display controller driver
-Message-ID: <20260918-agile-cormorant-of-admiration-82ae7c@quoll>
-References: <20260916175942.3186804-1-azuddinadam@gmail.com>
- <20260916180410.3188922-1-azuddinadam@gmail.com>
+	s=k20260515; t=1789726743;
+	bh=eLu0OL+aI6fE/xNf2p/advQtFn+ljCa4K7T0GFa9Qnk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=FIvCn62/tvtpf8fREbg82nY3eokAudGYvNGOwIv18Hx9yQzZXwkflqG2mdPi2J5Y1
+	 dJSvWSmC5VssJWsCVKHBxIWbdwLn/h9K9J7uYjsH8RL5zQHU4EqNLwC02j6DmSG6Rq
+	 RlEJvWETsC3XZi0768E7fhK1A2Z2mAFt/tKCSRtaSGLigw0HY6vSvFw2s7JLjve/vf
+	 2Due+4cn+bGtdhWU6hWRQ3NrKoduw4/eM7572eLbFhez3XMAxFVC/RJfACHtY+BUXf
+	 IXNuil0tVXNkEzHq0BHns/8XhzK+Y4/OpAHDH2LHL5Ab+PFgiUH1ADvpPJNPz83xot
+	 Q9+0/AAf3AzOA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 6/6] dt-bindings: media: i2c: himax,hm1246: Use
+ video-interface-devices
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Kieran Bingham" <kieran.bingham@ideasonboard.com>
+Cc: wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, media-ci@linuxtv.org, imx@lists.linux.dev, conor+dt@kernel.org, robh@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20260918-kbingham-orientation-v5-6-e1a134326988@ideasonboard.com>
+References: <20260918-kbingham-orientation-v5-0-e1a134326988@ideasonboard.com>
+ <20260918-kbingham-orientation-v5-6-e1a134326988@ideasonboard.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 18 Sep 2026 10:19:02 +0000
+Message-Id: <20260918101903.7B5E71F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260916180410.3188922-1-azuddinadam@gmail.com>
 
-On Thu, Sep 17, 2026 at 02:04:10AM +0800, Adam Azuddin wrote:
-> +static const struct drm_connector_helper_funcs ra8875_connector_helper_funcs = {
-> +	.get_modes = ra8875_connector_get_modes
-> +};
-> +
-> +static const struct of_device_id ra8875_of_match[] = {
-> +	{ .compatible = "raio,ra8875" },
-> +	{},
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] dt-bindings: incorrect macro substitution for orientation
+--
 
-Drop ,. Missing space. Please look at other files how this is written,
-because it was a cleanup some time ago.
+commit 009f981811cc18f443edfd8ba45e1a412697cced
+Author: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
 
-> +};
-> +
+dt-bindings: media: i2c: himax,hm1246: Use video-interface-devices
 
-No blank line.
+This commit updates the himax,hm1246 device tree binding example to use
+the new video-interface-devices definitions for the orientation property,
+replacing the previous hardcoded integer values.
 
-> +MODULE_DEVICE_TABLE(of, ra8875_of_match);
+> diff --git a/Documentation/devicetree/bindings/media/i2c/himax,hm1246.yam=
+l b/Documentation/devicetree/bindings/media/i2c/himax,hm1246.yaml
+> index a65488fcc643f..ca5817684e1e2 100644
+> --- a/Documentation/devicetree/bindings/media/i2c/himax,hm1246.yaml
+> +++ b/Documentation/devicetree/bindings/media/i2c/himax,hm1246.yaml
+[ ... ]
+> @@ -103,7 +104,7 @@ examples:
+>              iovdd-supply =3D <&hm1246_iovdd>;
+>              dvdd-supply =3D <&hm1246_dvdd>;
+> =20
+> -            orientation =3D <2>;
+> +            orientation =3D <MEDIA_ORIENTATION_FRONT>;
 
-All ID tables are placed together, just before 'struct xxx_driver'.
+[Severity: Low]
+Does this mistakenly change the orientation value in the example?
 
-> +
-> +static int ra8875_write_reg(struct ra8875_device *ra8875, u8 reg, u8 val)
-> +{
-> +	int ret;
-> +	u8 cmd[2] = { 0x80, reg };
-> +	u8 data[2] = { 0x00, val };
-> +
+In dt-bindings/media/video-interface-devices.h, MEDIA_ORIENTATION_FRONT=20
+is defined as 0, while MEDIA_ORIENTATION_EXTERNAL is defined as 2.
 
-...
+Replacing <2> with <MEDIA_ORIENTATION_FRONT> alters the actual value from
+External (2) to Front (0) in the device tree example. Should this use=20
+<MEDIA_ORIENTATION_EXTERNAL> instead to maintain a direct macro replacement?
 
-> +
-> +static void ra8875_display_off(struct ra8875_device *ra8875)
-> +{
-> +	drm_atomic_helper_shutdown(&ra8875->drm); /* calls pipe_disable above */
-> +}
-> +
-> +static const u32 ra8875_pipe_formats[] = {
-> +	DRM_FORMAT_RGB565,
-> +};
-> +
-> +static const struct drm_simple_display_pipe_funcs ra8875_pipe_funcs = {
-> +	.enable = ra8875_pipe_enable,
-> +	.disable = ra8875_pipe_disable,
-> +	.update = ra8875_pipe_update,
-> +	DRM_GEM_SIMPLE_DISPLAY_PIPE_SHADOW_PLANE_FUNCS,
-> +};
-> +
-> +static const struct spi_device_id ra8875_id[] = { { "ra8875", 0 }, {} };
-
-This is completely misformatted table. Please open other files.
-git grep 'struct spi_device_id'
-
-> +
-> +MODULE_DEVICE_TABLE(spi, ra8875_id);
-
-Best regards,
-Krzysztof
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918-kbingham-o=
+rientation-v5-0-e1a134326988@ideasonboard.com?part=3D6
