@@ -1,63 +1,62 @@
 Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBB0C41B8F2
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 09:55:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EB6C334374
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 09:55:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789725334; cv=none; b=LpTCSNJXjDaexmyKq1Sg28gtv0tc6hItJ/Cp0LHFWJgQMjWFYQPO+m0FwKc626XkcqZMxDXvBakQ2G0R65rA317chyAVkEtaZMLxNxi9X4hjdKCTz1MhsfmciE5q3nYAO8tDvHkQf+ZVa9owzSuhDj/fenNYMiBgor7j/cZBMl8=
+	t=1789725333; cv=none; b=PPxY90536wgy6Mkh1kkevPONWrIGMD1lxdMgI4JzVdBay7HgWEWS7KJx6Wb69uYPH8seJji8BLBZBV0HWfXd0MYvexuZxy2ONm/SoFuzUEuMLcu2OnWt3fLfnoGEZJ8/8r73q+XnYUkR/t59h7VXJoFCX5Yb1v4cBR7UxcSVLa4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789725334; c=relaxed/simple;
-	bh=NyT3bvkYhBzVis/qc4NVpDUc0HxiHbXcgKHaKLAMasY=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=thMrrHkJqKygE2MLT5p/Hy+Futj31SwSCvQU7tl9sLo/sf8QxqqXsvld6CWQiS2LLjf5zYp5PhHTIuJYqjnYnChLpuerLVvmE5VAB8YMtZS2plqqSBiKfVZrkbShZTNSdHUoZFk3xiEW9QnvR3vy1x3BxM0oHQ2vaaPa5YvUZus=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=ICB15+dM; arc=none smtp.client-ip=74.125.225.76
+	s=arc-20240116; t=1789725333; c=relaxed/simple;
+	bh=VP7hHskNoGPpOXNCBkJJtyv8CeQQ6LuIb5tB/rUYKIY=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=YCdjXEuYP6mEVXgRqA3lQVKBQ1jjtJdboX+lOa77Aq0kXoQ+GtFaunHePZ1OU8WCGQS4fxncJdSAXh7akGAxANT43rpGntgUeL+gRwlhD4934S2Ne7ISmjE00jyJhbKkXlhaV84TdI+V5buKkoMe0cmR/UHaDKpu1k/vbAeiu2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=JtJB3pPu; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="ICB15+dM"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485984ebf5cso405799f8f.0
-        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 02:55:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="JtJB3pPu"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f63546c3so395908f8f.1
+        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 02:55:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1789725329; x=1790330129; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=RUWg5GWqhMeDrgGwJjMhc1B+7LHRy8TQo04xcORPTAE=;
-        b=ICB15+dMW8qgOThkSxsnuoekJONG4TpcpLrrqabzQyhY67+KGirTMj/xyuTKbsvmzw
-         2nTT666mqYUWivLtnqIBiKk1mjVqs8hKYmvokDAC30ww7stroOIETdV5mekvKP6e2Enk
-         J6HGGwP1z5xuJXqPlEOutMW4z6hSSY+5vNsufn4lfPHDZsRm7nWtW4WYA/q5t8XpxxFX
-         9dQUo1tqOzEsoXlEfM65y7QECASTu+h9gafAHHlhjxGspKDu9rl+FxxBstwwWL30L1X8
-         iJ4gjx+ejLTGp0qZjLL+IUOb43z92KTTCjXPAnAB+Arqo0rvJ6Y8xu5Vst9RtMO7cnDI
-         fgEg==
+        d=suse.com; s=google; t=1789725326; x=1790330126; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tAZT5ncdu+agHg65mBYy9X51LOw7DQ1MSxf8dHyd0VA=;
+        b=JtJB3pPuLwzcCOL+12ZxVZ5VJQnnX1qngms9gjcJ0AEKWvmJCDhnSA7CdQ2GdH3nVA
+         G7oGVlqQSxZ01kO3TJzbVx0G/j1RX8lBS3HolIpxOenFAJ8Wweq9ygNrIMu0OXr+7vtI
+         EnCPhxp35+xxhNJ/y4tLq8fbM5wZDfdvaHSkGnBTI0at4MXoobdNWrlPQrQsR0t6qKub
+         /U7E6d/A/U7VvRZZTTatWwmF0GIqgkvwGTm48+sKQktp/j/dab616PTrJxbn4mTOLEZp
+         MwLvEU3IVCR5G8F199AmkQm5j/Ytd5Em+TBKX4UEk65dR13oKjExjT5bHHQFYn14EV9p
+         w0Lw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789725329; x=1790330129;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=RUWg5GWqhMeDrgGwJjMhc1B+7LHRy8TQo04xcORPTAE=;
-        b=G2u5RTG32FFkZ4kQrCjJZWlBF0i+PMS/Ypvg4bsgw2ttLvOturjjX8Qzy/lGTEjqxK
-         bw7ewJovI2WfHAKC9lK5HiimeFqfyJpTfg/uBjLn4zfjnDc/PWxRrVbgWQepCaP7XK0t
-         LNDkiBsjBs7Kwvy5SJneOcu+OtBBa/q/cX/YVOgRTiAsdtuxHLl9YW7+wtS172z7F6L3
-         jICgEQIuHzWTASAqjHoMcHck3FmSqKKy1vt7VSp+xgl0+/oIYikhMa8oo+SmSU8886l7
-         cXJtq9iJNdwsosf3ZlpL98qdF6SbiDCoZVAe6S6L7g2MW+DEWKhFasvFbPnbHo7zl8Q+
-         iF6w==
-X-Forwarded-Encrypted: i=1; AKwUvBy7dtNkKo1XPERU28GtyTrTa+zPI9Hd24Wmos5UIJ4/vAfikQyXaNui94Hzh9QTFa+1nCxvBFP3N7ho@vger.kernel.org
-X-Gm-Message-State: AFuF++krguxEET5w8Er9h0AnPz94EBaAq8jFlFiLs0JgejkGnADy47dW
-	/bflQSCUPKV7SSoXyfYmWFi1YR/rIeMaVcJObiyLIkkoZB3zgn94D9nk4Zyi9jJfs7c=
-X-Gm-Gg: AYBFou2WlRY744H9xcR1sCITZmW1Eb53JCb1NKMTTFt+bFmQgPRYy2L0EZMG3DS31kP
-	OL0ze7pTj5WytNKMJzJWJLNH3f/x7Lk74y4sHbNDJ6vUq3XC8v7r1031b8LlnvqjRnop4t8rLLc
-	a4zu7N+ckLQJ4A6mUsOob3LtKPzPgNTL5ior2KGGNzOxxM2kAExlg6k0nBS4lJUrNQ9vgfoX1c/
-	Mm5DubFhjZK7fnOyKW0qezJhbVLkuLEz1SFPi+dDYaWy2+mtfOOYcZoa6wEu4J49Y0Ot2rHPdvQ
-	6cs9vZnkSCyxQC4iVr4cLRPrw2n2pR99dJ9+pjnImXFBrSM/q7DFrQao8XgQlZ3crTw99z4ltKe
-	IzDVP2/NIed5Ub1YihNouWLcwPJPQGAnBa9OMyvJiWoTQYpJMFmqyfYGyzXri5C7DMwgFhuyIj5
-	NFWfGixnh/1V1/Z5M32L0+9kmsFD7SJ24VS/h2dqiz1JuVJQWq05GYmVitqId2dpny7+NGqK0=
-X-Received: by 2002:a05:6000:186b:b0:487:81c:b5e2 with SMTP id ffacd0b85a97d-4871e244c0cmr2606562f8f.5.1789725329175;
-        Fri, 18 Sep 2026 02:55:29 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789725326; x=1790330126;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=tAZT5ncdu+agHg65mBYy9X51LOw7DQ1MSxf8dHyd0VA=;
+        b=vN7eTziMr5Jg7g46H0+sn/lMM2ic+TxLwJs3p6vkKV4ScM4D+/C8Ib1rZCIvX+6Llc
+         Ygc0ZN/0S8/3AGab4Cj6/wtufUz/yIbWIJ6mJMJzs5aQ7A2+zzssqRAIpUORsLfa/+Bp
+         vMWIVEwnTzD/peP4dISskhbcsnqfIGurhRxMPJrB39bA7syBWlhx/f+PFf05rUufiImM
+         4S5ZQ8XURGHyCWzwyTo1mTta7TuG8s0q+QNHhPQGoUDd+2BWe0NWF6RmxeMYcqZrtA09
+         nO9vuPoc8R34Bf8F3EhJ3wz76QEzkQwS9ASXG1sm/wqMqM0Jo4eTZmlCkRvpVZWRqseF
+         7MEQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzac4d6Y+Q4kKnksVVi9j7nX/RZxzgLM4ZHiYle+OitdXUspK0FJ2ipV7xkUq7Fe6tIpoG26R3ZZfff@vger.kernel.org
+X-Gm-Message-State: AFuF++m4w+QR1hI5qAWTpGlvsO4YFEukK+bzWzkOSN5mbpIrpgCRYxVw
+	MGMjNJzDo6s6GlwEt6l9gphOnOSu2XINhg6Uip+cvjHHzoBoB4TX7ybK85GiuC5bAuQ=
+X-Gm-Gg: AYBFou3eWxRKvjygxFo+856h7w2PPHfxnrlSMKAelsAuXZDilZnwttEsxHZzLX9W4pM
+	3umzDiWC+JMihvScbx4h0u3hHEWWFEnEqSVqlQOAdW38CQQGS9aHQ4bYoEytJ6RX6ixkrUeRMpt
+	H36ysTuDRZuK7Zn3kNrYvQOP+h1+Zr2qF+2uLSZa6CaK+99PFFd6KU7s2dP8LVrWb4NM4uo/6js
+	zCOupyu8dNbXj8yMe79l2/AhaHSlfj9+6mCLOk+78g5GMdUl7JYKhWf33jJUjBWclvwERek0A7+
+	ri4fDMgVJA4ADA2hspLdpbdhUxDa6i8j2f8KmLPbNA1sRKriXEe6k5WJW5ZahYH2nx9f3mhQNkf
+	9EZCaG6MpoQyJjoHS2ePzEh8xmAL83mfpKynmxo479VVqU006MSbh8LLL7qTtkToO1OQ6oEoWgL
+	2D2hJ9gTyaFYq1OSV5CkCt+SPoRHiXUuo1/pgEfpUxuMTJUUNkU0Q+4+R6r7f9Obw5GC8BqfZDZ
+	Pp1/u8x
+X-Received: by 2002:a05:6000:186f:b0:487:36a:c870 with SMTP id ffacd0b85a97d-4871e2123damr2944568f8f.11.1789725326057;
+        Fri, 18 Sep 2026 02:55:26 -0700 (PDT)
 Received: from localhost ([195.94.147.179])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4871ff3a928sm3077528f8f.13.2026.09.18.02.55.28
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4872008118dsm3345138f8f.30.2026.09.18.02.55.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 02:55:28 -0700 (PDT)
+        Fri, 18 Sep 2026 02:55:25 -0700 (PDT)
 From: Andrea della Porta <andrea.porta@suse.com>
 To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
 	linux-pwm@vger.kernel.org,
@@ -78,12 +77,10 @@ To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
 	Julian Braha <julianbraha@gmail.com>,
 	"Gary Guo" <gary@garyguo.net>,
 	Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Subject: [PATCH v9 3/3] arm64: dts: broadcom: rpi-5: Add RP1 PWM node
-Date: Fri, 18 Sep 2026 11:59:02 +0200
-Message-ID: <504b6c3403b0cdc1731d3dca735d5a07450e80e2.1789724999.git.andrea.porta@suse.com>
+Subject: [PATCH v9 0/3] Add RP1 PWM controller support
+Date: Fri, 18 Sep 2026 11:58:59 +0200
+Message-ID: <cover.1789724999.git.andrea.porta@suse.com>
 X-Mailer: git-send-email 2.51.0
-In-Reply-To: <cover.1789724999.git.andrea.porta@suse.com>
-References: <cover.1789724999.git.andrea.porta@suse.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -92,72 +89,67 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Stanimir Varbanov <svarbanov@suse.de>
+This patchset adds support for the PWM controller found on the
+Raspberry Pi RP1 southbridge. This is necessary to operate the
+cooling fan connected to one of the PWM channels.
 
-The RP1 chipset used on the Raspberry Pi 5 features an integrated
-PWM controller to drive the cooling fan.
+The tachometer pin for the fan speed is managed by the firmware 
+running on the RP1's M-core. It uses the PHASE2 register
+to report the RPM, which is then exported by this driver via
+a function. A subsequent patch will add a new device and driver
+to read the RPM and export this value via hwmon.
+ 
+Subsequent patches will also add the CPU thermal zone, which
+acts as a consumer of the PWM device.
 
-Add the corresponding DT node for this PWM controller.
+Best regards,
+Andrea
 
-Signed-off-by: Stanimir Varbanov <svarbanov@suse.de>
-Co-developed-by: Andrea della Porta <andrea.porta@suse.com>
-Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
----
- arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts | 12 ++++++++++++
- arch/arm64/boot/dts/broadcom/rp1-common.dtsi     |  9 +++++++++
- 2 files changed, 21 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
-index 0fc57e72632ed..748be8f1ee9e2 100644
---- a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
-+++ b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
-@@ -64,6 +64,12 @@ phy1: ethernet-phy@1 {
- };
- 
- &rp1_gpio {
-+	fan_pwm_default_state: fan-pwm-default-state {
-+		function = "pwm1";
-+		pins = "gpio45";
-+		bias-pull-down;
-+	};
-+
- 	usb_vbus_default_state: usb-vbus-default-state {
- 		function = "vbus1";
- 		groups = "vbus1";
-@@ -94,6 +100,12 @@ &rp1_i2c6 {
- 	pinctrl-names = "default";
- };
- 
-+&rp1_pwm1 {
-+	pinctrl-0 = <&fan_pwm_default_state>;
-+	pinctrl-names = "default";
-+	status = "okay";
-+};
-+
- &rp1_usb0 {
- 	pinctrl-0 = <&usb_vbus_default_state>;
- 	pinctrl-names = "default";
-diff --git a/arch/arm64/boot/dts/broadcom/rp1-common.dtsi b/arch/arm64/boot/dts/broadcom/rp1-common.dtsi
-index 16f5359395835..df4c2d09c8d34 100644
---- a/arch/arm64/boot/dts/broadcom/rp1-common.dtsi
-+++ b/arch/arm64/boot/dts/broadcom/rp1-common.dtsi
-@@ -99,7 +99,16 @@ rp1_i2c6: i2c@40088000 {
- 		clocks = <&rp1_clocks RP1_CLK_SYS>;
- 		i2c-scl-rising-time-ns = <65>;
- 		i2c-scl-falling-time-ns = <100>;
-+		status = "disabled";
-+	};
- 
-+	rp1_pwm1: pwm@4009c000 {
-+		compatible = "raspberrypi,rp1-pwm";
-+		reg = <0x00 0x4009c000  0x0 0x100>;
-+		clocks = <&rp1_clocks RP1_CLK_PWM1>;
-+		assigned-clocks = <&rp1_clocks RP1_CLK_PWM1>;
-+		assigned-clock-rates = <50000000>;
-+		#pwm-cells = <3>;
- 		status = "disabled";
- 	};
- 
+CHANGES in V9:
+
+All changes are in response of Sashiko's review (where applicable),
+see:
+https://lore.kernel.org/all/20260908132302.358D91F00ADB@smtp.kernel.org/#t
+
+- linux/bitfield.h is now explicitly included to avoid compile
+  time issue related to header refactory
+- synchronized the exported function to read the tachometer with
+  respect to both the system PM ops and the driver unbind/unload
+- reworked the error path of all functions using regmap_read. As
+  a consequence, rp1_pwm_apply_config() now returns and int for
+  the error.
+- made u32 cast explicit for the divisor of DIV_ROUND_UP_ULL
+- moved teh struct initializer in rp1_pwm_read_waveform() to the
+  top of the function to avoid overwriting part of the resulting
+  data.
+- dropped suppress_bind_attrs flag and replaced builtin_platform_driver()
+  with module_platform_driver((), since the driver can now be
+  unbound/unloaded.
+
+Link to V8:
+https://lore.kernel.org/all/cover.1788872294.git.andrea.porta@suse.com/
+
+
+Naushir Patuck (2):
+  dt-bindings: pwm: Add Raspberry Pi RP1 PWM controller
+  pwm: rp1: Add RP1 PWM controller driver
+
+Stanimir Varbanov (1):
+  arm64: dts: broadcom: rpi-5: Add RP1 PWM node
+
+ .../bindings/pwm/raspberrypi,rp1-pwm.yaml     |  66 +++
+ .../boot/dts/broadcom/bcm2712-rpi-5-b.dts     |  12 +
+ arch/arm64/boot/dts/broadcom/rp1-common.dtsi  |   9 +
+ drivers/pwm/Kconfig                           |   8 +
+ drivers/pwm/Makefile                          |   1 +
+ drivers/pwm/pwm-rp1.c                         | 499 ++++++++++++++++++
+ include/soc/bcm2835/raspberrypi-pwm-rp1.h     |  10 +
+ 7 files changed, 605 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/pwm/raspberrypi,rp1-pwm.yaml
+ create mode 100644 drivers/pwm/pwm-rp1.c
+ create mode 100644 include/soc/bcm2835/raspberrypi-pwm-rp1.h
+
 -- 
 2.35.3
 
