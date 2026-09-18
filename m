@@ -1,91 +1,276 @@
-Received: from courrier.aliel.fr (courrier.aliel.fr [65.21.61.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-125.mta0.migadu.com [91.218.175.125])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D6B438E126
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 08:47:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.61.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50B474B0E42
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 08:48:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.125
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789721273; cv=none; b=nCrtAEoBWbR0MwzfpLm7XTcke9CtpZvH09qZP6C7ORAbj/Dnq7hKRPUxxMykK2Vnux+mHsT4yVH6+RpOalXjMwflIvLQm+Z3PNaeXlBBQC5Cs7DyNm2tGB4Tc/CmBGZ0yty2scpSvQXEuZuuZIhwluFHiSipFRLM/0hlIqZCj98=
+	t=1789721337; cv=none; b=tpCWHkiyCoh+Y4kSsQsbu7VmillITdul4Hfb4aIvQRHr6GZ9fbvCg5XG8Wf6XSCKCCUsdCofzyS3QOp9XW3Hv8JNX3Uiip3i50wXNJ38QsT02MgyaBHefB79rvu+Aqo1i7DpUqsrAnFcfnuplZVWJxswino2s9NagROcV2XWbdE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789721273; c=relaxed/simple;
-	bh=uzDOTI5KVAzWKNu0eBTWVl0dvaIek3tznA94L1LoMqA=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=K1Hv1LdfaysKJ1bwnWHjS0UF9xTtfQFl4HhOpi4cHBwtbYQCY3bru5/8OGJdjTlOY9+auA1EGDhbY8O1W+GVRHkJyt5g0suVmcqS5UaSJWMqgEjYPQdvaC3XvQ/7rByeTZutOxzlwzFfJytnepQcUrqfMzpsk3KS18x+uaJZDKA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr; spf=pass smtp.mailfrom=aliel.fr; dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b=P8TRtR9Y; arc=none smtp.client-ip=65.21.61.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aliel.fr
+	s=arc-20240116; t=1789721337; c=relaxed/simple;
+	bh=BGRV/j7qC/zFRryyQ69/Qz6UrrritH2vK+O2tUc3+pA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AoQqksCgzY9w7KoDuGP1yhGPLzincl0VwcvT5ovdIlrCSU0T0hnxOJloC9+gcR9FTDjorvDPACR0iIQXCU6Dn7Vg4+83w//hNhowmVzZbnqyiCgOa/dOEVXUjlf48NXlv2KmVcmdNnkc8amTtc6LSIntpO+a2x4GtyqQbd079Y4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=N+eIauUv; arc=none smtp.client-ip=91.218.175.125
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b="P8TRtR9Y"
-Message-ID: <374d55f4-d6fe-4819-adea-cdf87f067e92@aliel.fr>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
-	s=courrier-s1; t=1789721262;
-	bh=uzDOTI5KVAzWKNu0eBTWVl0dvaIek3tznA94L1LoMqA=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=P8TRtR9Yde9QOQE4ih8DvAskLhk5y4qGQiFjytQGZ7ceAoA0LRl59r+IfEoDkIzeJ
-	 /JM5hvKWdPhmEKfyRB7Je/urGx+vfFG3CKwRLdIQJuzeHNOXuT1eRO/2uhV1NiquJt
-	 CQwDyPsvSpJHnBbQzzDqivLooWhZOAeGiMoyG10M=
-Date: Fri, 18 Sep 2026 10:46:15 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="N+eIauUv"
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=BGRV/j7qC/zFRryyQ69/Qz6UrrritH2vK+O2tUc3+pA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789721328; v=1; x=1790326128;
+ b=N+eIauUvk9q0yZwY04e7hswM20JaJhHMg1rsm5Pxz8h9GmWgeU/13NnFpzrfk/AH2+YXEgIk
+ d3p51EiZ3CrKDfboFo/JBI9HuHIizs67n7gGPFEhJikQH8YQ8rYal/OzX4pV1O/sDf8J0JYoltL
+ 0NwFltHidckM8QCMAq/h/144=
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 308a52a5f758be34;
+	Fri, 18 Sep 2026 08:48:48 +0000
+X-Mizu-Trace-ID: 308a52a5f758be34
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 18 Sep 2026 16:48:41 +0800
+From: Baoquan He <baoquan.he@linux.dev>
+To: Wandun <chenwandun1@gmail.com>
+Cc: catalin.marinas@arm.com, will@kernel.org, chenhuacai@kernel.org,
+	pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
+	tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+	dave.hansen@linux.intel.com, x86@kernel.org, robh@kernel.org,
+	saravanak@kernel.org, akpm@linux-foundation.org, rppt@kernel.org,
+	pasha.tatashin@soleen.com, pratyush@kernel.org,
+	m.szyprowski@samsung.com, mark.rutland@arm.com, kernel@xen0n.name,
+	alex@ghiti.fr, hpa@zytor.com, ruirui.yang@linux.dev,
+	robin.murphy@arm.com, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, loongarch@lists.linux.dev,
+	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
+	kexec@lists.infradead.org, linux-mm@kvack.org,
+	iommu@lists.linux.dev
+Subject: Re: [PATCH v6 03/10] crash_core: fold duplicated memblock arch hooks
+ into the weak default
+Message-ID: <aqz66dMlp3NiMifc@fedora>
+References: <20260902073116.802752-1-chenwandun1@gmail.com>
+ <20260902073116.802752-4-chenwandun1@gmail.com>
+ <aqzolBceoRchBdbx@fedora>
+ <c58e9b6a-e421-4265-aa77-48c07a4fb8e4@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
-Subject: Re: [PATCH v12 3/6] mfd: khadas-mcu: Add support for VIM4 MCU variant
-To: sashiko-reviews@lists.linux.dev
-Cc: neil.armstrong@linaro.org, linux-amlogic@lists.infradead.org,
- devicetree@vger.kernel.org, mfd@lists.linux.dev, robh@kernel.org,
- lee@kernel.org, conor+dt@kernel.org
-References: <20260917-add-mcu-fan-khadas-vim4-v12-0-497cd543a148@aliel.fr>
- <20260917-add-mcu-fan-khadas-vim4-v12-3-497cd543a148@aliel.fr>
- <20260917081118.835FA1F000FF@smtp.kernel.org>
-Content-Language: en-US
-In-Reply-To: <20260917081118.835FA1F000FF@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c58e9b6a-e421-4265-aa77-48c07a4fb8e4@gmail.com>
 
-On 9/17/26 10:11 AM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Low] mfd: Incorrect writeable registers in VIM4 regmap config
-> --
+On 09/18/26 at 04:45pm, Wandun wrote:
 > 
-> commit fc44329d7ee6d12a0077930b2632df3554d1e38f
-> Author: Ronald Claveau <linux-kernel-dev@aliel.fr>
 > 
-> mfd: khadas-mcu: Add support for VIM4 MCU variant
+> On 9/18/26 15:30, Baoquan He wrote:
+> > On 09/02/26 at 03:31pm, Wandun Chen wrote:
+> >> From: Wandun Chen <chenwandun@lixiang.com>
+> >>
+> >> arm64, loongarch and riscv open-code the same memblock walk in
+> >> arch_get_system_nr_ranges() and arch_crash_populate_cmem(). Move it into
+> >> the __weak defaults in kernel/crash_core.c and delete the arch copies.
+> >>
+> >> No functional change.
+> > 
+> > In one version, you also tried to remove these functions on x86, I could
+> > remember it wrong. 
 > 
-> This commit adds support for the VIM4 MCU variant by refactoring the
-> probe function to use per-variant values. It introduces a dedicated 
-> regmap configuration for the VIM4 MCU, with its own volatile and 
-> writeable register checks.
+> Yes, the x86 implementation can also remove these functions and use the same
+> approach as arm64, RISC-V, and LoongArch. However since this change would not
+> reduce the vmcore size on x86 at all, I did not include it in the current series.
 > 
->> diff --git a/drivers/mfd/khadas-mcu.c b/drivers/mfd/khadas-mcu.c
->> index 0e74efe14f367..4b37e74e2b04a 100644
->> --- a/drivers/mfd/khadas-mcu.c
->> +++ b/drivers/mfd/khadas-mcu.c
-> 
-> [ ... ]
-> 
->> +static bool khadas_mcu_vim4_reg_writeable(struct device *dev, unsigned int reg)
->> +{
->> +	switch (reg) {
->> +	case KHADAS_MCU_VERSION_0_REG:
->> +	case KHADAS_MCU_VERSION_1_REG:
->> +	case KHADAS_MCU_SHUTDOWN_NORMAL_STATUS_REG:
->> +		return false;
->> +	default:
->> +		return true;
-> 
-> [Severity: Low]
-> Does this function omit multiple known read-only registers defined for the MCU,
-> such as KHADAS_MCU_MAC_0_REG and KHADAS_MCU_USID_0_REG?
-> 
+> I plan to refactor this part on x86 after this series.
 
-Those registers does not exist on VIM4 MCU variant. So it's free to
-ignore in my opinion.
+OK, that's fine. I remember I saw the code, but couldn't find it in this
+patch. Thanks for telling.
 
--- 
-Best regards,
-Ronald
+> 
+> 
+> 
+> > 
+> > Anyway, this looks good to me.
+> > 
+> > Acked-by: Baoquan He <baoquan.he@linux.dev>
+> > 
+> >>
+> >> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
+> >> Tested-by: Meijing Zhao <zhaomeijing@lixiang.com>
+> >> ---
+> >>  arch/arm64/kernel/machine_kexec_file.c     | 29 ----------------------
+> >>  arch/loongarch/kernel/machine_kexec_file.c | 27 --------------------
+> >>  arch/riscv/kernel/machine_kexec_file.c     | 26 -------------------
+> >>  kernel/crash_core.c                        | 25 +++++++++++++++++--
+> >>  4 files changed, 23 insertions(+), 84 deletions(-)
+> >>
+> >> diff --git a/arch/arm64/kernel/machine_kexec_file.c b/arch/arm64/kernel/machine_kexec_file.c
+> >> index 854d872dfd0f..34d944d3f22f 100644
+> >> --- a/arch/arm64/kernel/machine_kexec_file.c
+> >> +++ b/arch/arm64/kernel/machine_kexec_file.c
+> >> @@ -14,7 +14,6 @@
+> >>  #include <linux/kernel.h>
+> >>  #include <linux/kexec.h>
+> >>  #include <linux/libfdt.h>
+> >> -#include <linux/memblock.h>
+> >>  #include <linux/of.h>
+> >>  #include <linux/of_fdt.h>
+> >>  #include <linux/slab.h>
+> >> @@ -39,34 +38,6 @@ int arch_kimage_file_post_load_cleanup(struct kimage *image)
+> >>  	return kexec_image_post_load_cleanup_default(image);
+> >>  }
+> >>  
+> >> -#ifdef CONFIG_CRASH_DUMP
+> >> -unsigned int arch_get_system_nr_ranges(void)
+> >> -{
+> >> -	unsigned int nr_ranges = 2 + crashk_cma_cnt; /* for exclusion of crashkernel region */
+> >> -	phys_addr_t start, end;
+> >> -	u64 i;
+> >> -
+> >> -	for_each_mem_range(i, &start, &end)
+> >> -		nr_ranges++;
+> >> -
+> >> -	return nr_ranges;
+> >> -}
+> >> -
+> >> -int arch_crash_populate_cmem(struct crash_mem *cmem)
+> >> -{
+> >> -	phys_addr_t start, end;
+> >> -	u64 i;
+> >> -
+> >> -	for_each_mem_range(i, &start, &end) {
+> >> -		cmem->ranges[cmem->nr_ranges].start = start;
+> >> -		cmem->ranges[cmem->nr_ranges].end = end - 1;
+> >> -		cmem->nr_ranges++;
+> >> -	}
+> >> -
+> >> -	return 0;
+> >> -}
+> >> -#endif
+> >> -
+> >>  /*
+> >>   * Tries to add the initrd and DTB to the image. If it is not possible to find
+> >>   * valid locations, this function will undo changes to the image and return non
+> >> diff --git a/arch/loongarch/kernel/machine_kexec_file.c b/arch/loongarch/kernel/machine_kexec_file.c
+> >> index 5412aa9f3568..481b8f906a56 100644
+> >> --- a/arch/loongarch/kernel/machine_kexec_file.c
+> >> +++ b/arch/loongarch/kernel/machine_kexec_file.c
+> >> @@ -13,7 +13,6 @@
+> >>  #include <linux/ioport.h>
+> >>  #include <linux/kernel.h>
+> >>  #include <linux/kexec.h>
+> >> -#include <linux/memblock.h>
+> >>  #include <linux/slab.h>
+> >>  #include <linux/string.h>
+> >>  #include <linux/types.h>
+> >> @@ -56,32 +55,6 @@ static void cmdline_add_initrd(struct kimage *image, unsigned long *cmdline_tmpl
+> >>  }
+> >>  
+> >>  #ifdef CONFIG_CRASH_DUMP
+> >> -unsigned int arch_get_system_nr_ranges(void)
+> >> -{
+> >> -	int nr_ranges = 2; /* for exclusion of crashkernel region */
+> >> -	phys_addr_t start, end;
+> >> -	uint64_t i;
+> >> -
+> >> -	for_each_mem_range(i, &start, &end)
+> >> -		nr_ranges++;
+> >> -
+> >> -	return nr_ranges;
+> >> -}
+> >> -
+> >> -int arch_crash_populate_cmem(struct crash_mem *cmem)
+> >> -{
+> >> -	phys_addr_t start, end;
+> >> -	uint64_t i;
+> >> -
+> >> -	for_each_mem_range(i, &start, &end) {
+> >> -		cmem->ranges[cmem->nr_ranges].start = start;
+> >> -		cmem->ranges[cmem->nr_ranges].end = end - 1;
+> >> -		cmem->nr_ranges++;
+> >> -	}
+> >> -
+> >> -	return 0;
+> >> -}
+> >> -
+> >>  /*
+> >>   * Add the "mem=size@start" command line parameter to command line, indicating the
+> >>   * memory region the new kernel can use to boot into.
+> >> diff --git a/arch/riscv/kernel/machine_kexec_file.c b/arch/riscv/kernel/machine_kexec_file.c
+> >> index 808e872f4063..fdc6695e8588 100644
+> >> --- a/arch/riscv/kernel/machine_kexec_file.c
+> >> +++ b/arch/riscv/kernel/machine_kexec_file.c
+> >> @@ -37,32 +37,6 @@ int arch_kimage_file_post_load_cleanup(struct kimage *image)
+> >>  }
+> >>  
+> >>  #ifdef CONFIG_CRASH_DUMP
+> >> -unsigned int arch_get_system_nr_ranges(void)
+> >> -{
+> >> -	unsigned int nr_ranges = 2 + crashk_cma_cnt; /* For exclusion of crashkernel region */
+> >> -	u64 i;
+> >> -	phys_addr_t start, end;
+> >> -
+> >> -	for_each_mem_range(i, &start, &end)
+> >> -		nr_ranges++;
+> >> -
+> >> -	return nr_ranges;
+> >> -}
+> >> -
+> >> -int arch_crash_populate_cmem(struct crash_mem *cmem)
+> >> -{
+> >> -	u64 i;
+> >> -	phys_addr_t start, end;
+> >> -
+> >> -	for_each_mem_range(i, &start, &end) {
+> >> -		cmem->ranges[cmem->nr_ranges].start = start;
+> >> -		cmem->ranges[cmem->nr_ranges].end = end - 1;
+> >> -		cmem->nr_ranges++;
+> >> -	}
+> >> -
+> >> -	return 0;
+> >> -}
+> >> -
+> >>  static char *setup_kdump_cmdline(struct kimage *image, char *cmdline,
+> >>  				 unsigned long cmdline_len)
+> >>  {
+> >> diff --git a/kernel/crash_core.c b/kernel/crash_core.c
+> >> index 2b36aa9fade0..77285ae3ce60 100644
+> >> --- a/kernel/crash_core.c
+> >> +++ b/kernel/crash_core.c
+> >> @@ -281,8 +281,29 @@ static struct crash_mem *alloc_cmem(unsigned int nr_ranges)
+> >>  	return cmem;
+> >>  }
+> >>  
+> >> -unsigned int __weak arch_get_system_nr_ranges(void) { return 0; }
+> >> -int __weak arch_crash_populate_cmem(struct crash_mem *cmem) { return -1; }
+> >> +unsigned int __weak arch_get_system_nr_ranges(void)
+> >> +{
+> >> +	unsigned int nr_ranges = 2 + crashk_cma_cnt; /* crashk_res + crashk_low_res, +CMA splits */
+> >> +	phys_addr_t start, end;
+> >> +	u64 i;
+> >> +
+> >> +	for_each_mem_range(i, &start, &end)
+> >> +		nr_ranges++;
+> >> +	return nr_ranges;
+> >> +}
+> >> +
+> >> +int __weak arch_crash_populate_cmem(struct crash_mem *cmem)
+> >> +{
+> >> +	phys_addr_t start, end;
+> >> +	u64 i;
+> >> +
+> >> +	for_each_mem_range(i, &start, &end) {
+> >> +		cmem->ranges[cmem->nr_ranges].start = start;
+> >> +		cmem->ranges[cmem->nr_ranges].end = end - 1;
+> >> +		cmem->nr_ranges++;
+> >> +	}
+> >> +	return 0;
+> >> +}
+> >>  int __weak arch_crash_exclude_ranges(struct crash_mem *cmem) { return 0; }
+> >>  
+> >>  int __weak arch_crash_exclude_mem_range(struct crash_mem **mem,
+> >> -- 
+> >> 2.43.0
+> >>
+> 
