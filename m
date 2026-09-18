@@ -1,166 +1,131 @@
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09E2E48551F;
-	Fri, 18 Sep 2026 06:22:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 779C148A2BF
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 06:25:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789712540; cv=none; b=Njg+acyX4Z3D6ynfMsmB65Rj/sZq+3ntT68LTOP33ZxdPK9agOtWRCtaYPXYtETdLshNutVeYD7Uvxpy1hVKi0LWNPZCveL0IP5G5/Jtq91LdEp48k+WJ0P0WOgO4ns7LQk2CA2F+scxaT2IlJJmUiJaC584q56ypUjvvGLtHjI=
+	t=1789712725; cv=none; b=MKhW8WVxl6CfclYC84j5+RDSeq6DSviTWIOm0Cl/R2pxJw29bVUdl4buJfatxkqrJGVcVtNSGzvFPqCAbhRWNLV8rWDLNRepmuqdo1039aKMJpkEo81USgU4yH/+GTrc8EBiNbtl39ROBLbRWHaa1xNMLTQ9Rns0lcoupLWSqY4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789712540; c=relaxed/simple;
-	bh=rNMK1oveRj5l3CUKdcVnFNQ6+pbzm/NbL31Ljykro28=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=eCKIoYLpmDwGnnUrk+XOUXTT0wRaKpaeXh299Z2LzsGOpsHSBIrWDctFsQaITfcbrWPU1VCstTt/WZXkwzmsOylfQLeEFSdsvqhR2nkR8VihjvMmj8IMQmM5AfdeMKJDWTTbOafn+58D2k7552Hyu9PkAeiANb6h2V16FBKpnVk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.103.44])
-	by APP-01 (Coremail) with SMTP id qwCowADnuu5y2KxqkbJICA--.14966S2;
-	Fri, 18 Sep 2026 14:21:41 +0800 (CST)
-Message-ID: <b8efa0db854929a353c430f78fffd907bd7ccb65.camel@iscas.ac.cn>
-Subject: Re: [PATCH v4 01/20] dt-bindings: phy: Add
- starfive,jh7110-inno-hdmi-phy
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Krzysztof Kozlowski <krzk@kernel.org>, Joshua Peisach
- <jpeisach@ubuntu.com>
-Cc: Michal Wilczynski <m.wilczynski@samsung.com>, Vinod Koul
- <vkoul@kernel.org>,  Neil Armstrong <neil.armstrong@linaro.org>, Rob
- Herring <robh@kernel.org>, Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, Andrzej Hajda	 <andrzej.hajda@intel.com>,
- Robert Foss <rfoss@kernel.org>, Laurent Pinchart	
- <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
- <luca.ceresoli@bootlin.com>, Maarten Lankhorst	
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
- Yan <andy.yan@rock-chips.com>, Philipp Zabel	 <p.zabel@pengutronix.de>,
- Emil Renner Berthing <kernel@esmil.dk>, Hal Feng	
- <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Paul
- Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
- <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,  Dominique
- Belhachemi	 <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>, Jerome
- Brunet	 <jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, mfd@lists.linux.dev,
- linux-clk@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, 	linux-riscv@lists.infradead.org, Marek
- Szyprowski <m.szyprowski@samsung.com>,  Maud Spierings
- <maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, Chaoyi
- Chen	 <chaoyi.chen@rock-chips.com>, Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?=	
- <u.kleine-koenig@baylibre.com>
-Date: Fri, 18 Sep 2026 14:21:37 +0800
-In-Reply-To: <20260918-futuristic-mindful-waxbill-21fa2d@quoll>
-References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
-	 <CGME20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125@eucas1p2.samsung.com>
-	 <20260915-jh7110-clean-send-v4-1-f0e4fd6f2cc8@samsung.com>
-	 <20260917-mutant-chamois-of-competence-46ca77@quoll>
-	 <DLI0QTP0NUHS.DAFYGACKWKWO@ubuntu.com>
-	 <20260918-futuristic-mindful-waxbill-21fa2d@quoll>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	s=arc-20240116; t=1789712725; c=relaxed/simple;
+	bh=oc9sxhWUrwi9Su/8MAtYMSo6TS04FaaDxZwHE3X+zKs=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=F3BDaQQkQAz5ilkctPqAPvg3eVjbXANw3SgD08J4fTtecNeIa7wqqhnTd3RIJrZ8llJAg+RO7Cylr5Ixm3vL1eUzj1jm/A005Bia0VcjteXEb20yHUHSb6/jdOLkd8VExftw6FXRVD1IFQlzjO8vt5egJEDMbZKblAkrep0ZdCc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FJPBN8a7; arc=none smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FJPBN8a7"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469e211a0so477034b3a.1
+        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 23:25:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789712724; x=1790317524; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jt5hpx2+UWES+z68ivJ7kyasbH+hZp5tfP7Ph5RVZI8=;
+        b=FJPBN8a7IaXsRtt3254MJHEMNZkTnWRlz3Wif+gA+MT2FnFyPmYTO/6GepU6K1nDq5
+         Vk3Tl6tnXAV5csfX7yzul93DEBllBTerV3GpMxAnHBzBwgZpe+Zpq16mleGt1CI4vqzB
+         Fi9x1WwMLL5l922KMQoXCatWxHD4WRG48PEtNsZKZ8g7guLwB1DY68+OhAw6ZODR0W8h
+         MBLTWZ0bfwfwNi0ViYza1TzOvabruhTvuj3iMVIzEV5kfY7NYOVB+Tj9dtkvnreVLbOd
+         oH0b5KInDBrSYAaXCuB1zZqMh6m++MalqFiPI4RKNMYo4wPD7Vod8rNq+rs6znrZrryD
+         veWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789712724; x=1790317524;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jt5hpx2+UWES+z68ivJ7kyasbH+hZp5tfP7Ph5RVZI8=;
+        b=UO0aQZ+1S+GqPRIV87cDN1KidVAi1BeortBAqdgb9cthKYDUbyrRE+2qcfyIDQaJFV
+         hIMFay/ytr5E5kAp/sUHNRY/oT4dq8lx86i+2VOP3NqEuzhPc74Xz3LmWyf6mis641Ec
+         zQbvdl4Gcod0K6B1IKnTFEV4Vs+kGCrktiTSYl80uLyPWv/eRa5sdYelB+aHyzUc/3ql
+         6cVgkb7QRTEuddootaaP8Pce8lfAV/bJChmwLAMYURLsjCia9NDQbSlr/ZmcWkv/O6rs
+         TlWYZu+KlV4Dcx1Jt1U1ae6G1PDPNukHTwhfmz4/Jr+ysrYPn3abW5WAk1i8FQYyIvho
+         g6Sw==
+X-Forwarded-Encrypted: i=1; AKwUvBxGSlHsTRhKnutB7pqr+RQRxZZPqifLq4wpANyWZw/5pP3wO2HEA2XNLaINpwP+voxY+UNsELtBLOoz@vger.kernel.org
+X-Gm-Message-State: AFuF++n8LOGPrBoH42aK9NyWeiWHcGdhlllhDgscBAYwDiBmcgfgY0bB
+	DeaO/WhJYA1dxuJBkBR8cxf5pnNxkJFFUfMZruOikm5pmkxHqyktoAux
+X-Gm-Gg: AYBFou3adb4SPj8A3FeZPV5NMbeJmB7lqvLqOIKls8qsmeiTJ4fFw/vrEUdeEqgcER0
+	9LTQAo+dgvBsCy3z96qwjXOzLjhkyZSO7/o/HY262FDrINHCcwEaCZ4aEHAVeebsVmus/indDEJ
+	wSqQp1uZo65VVHxbr6BhuhlF0Y5ME7B7XjiXZZT064H94RI+VUxOCZGpxzrCKHP4blgz5wlZ97J
+	VezFB7f04mhxHA7kL4xareqVVS5RgCq8JLX6fdLkVie5tl1ao0HkhwjS8yzLsa8TY/cpYMYK8aT
+	EAkGr7ZbSEh1UtRSOz72/3uUcC2QRxQIW64QDWmFkgMCztKBX5uVlClf6u3/4qZHmRq4OO4jYHL
+	6F/4Lnkt9knNfrxPyoi0kc6LjaFaOrfwqfhO54Uq1eF27f0JLbll4nzqSJp8JAXtMjHb+NQDF0S
+	+jmHsyeEpKVlginB22+nxH3GgZnJ24FtNHGi6iWIP8Z2JwUVmquXGwbsavWtH0olD0MvCJfvbnt
+	xopaUDBkuIbHaJn6TX5gmwPWsoELzlyJLHDTx3m65D1s2G2nbVKeeCUbdcEC6DBGZFEkd13D8YZ
+	gHQH5ZPajpY=
+X-Received: by 2002:a05:6a00:2d26:b0:857:72f8:dc99 with SMTP id d2e1a72fcca58-874dddfd214mr3036061b3a.26.1789712723672;
+        Thu, 17 Sep 2026 23:25:23 -0700 (PDT)
+Received: from lcwang-Precision-3630-Tower.. (125-227-154-99.hinet-ip.hinet.net. [125.227.154.99])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-875dd9e08ecsm311788b3a.53.2026.09.17.23.25.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 23:25:23 -0700 (PDT)
+From: LiangCheng Wang <zaq14760@gmail.com>
+To: Devarsh Thakkar <devarsht@ti.com>,
+	Javier Martinez Canillas <javierm@redhat.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Wig Cheng <onlywig@gmail.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Sam Ravnborg <sam@ravnborg.org>
+Cc: LiangCheng Wang <zaq14760@gmail.com>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Subject: Re: [PATCH v3 2/2] drm/tiny: add support for PIXPAPER 4.26 monochrome e-ink panel
+Date: Fri, 18 Sep 2026 14:25:18 +0800
+Message-Id: <20260918062518.1824876-1-zaq14760@gmail.com>
+In-Reply-To: <1f59a88c-b0b0-43d7-ba2f-4c50aae87ef4@ti.com>
+References: <20260529-bar-v3-0-5c2ac1c751ee@gmail.com> <20260529-bar-v3-2-5c2ac1c751ee@gmail.com> <2bfb73e6-dca3-4d93-af04-3c644929dd19@ti.com> <20260616083921.4066690-1-zaq14760@gmail.com> <423c3dca-9589-488d-8462-c3d51f05ee4a@ti.com> <20260617020926.114947-1-zaq14760@gmail.com> <8fcfab0f-6b98-478b-be4a-c5b810fb3524@ti.com> <20260731035705.3198816-1-zaq14760@gmail.com> <20260916082924.956116-1-zaq14760@gmail.com> <0a13ccb8-8817-4223-a4a2-0de594ac8c71@suse.de> <20260916094453.1062125-1-zaq14760@gmail.com> <f4c6feab-b1ec-48df-81a5-888444b243a3@suse.de> <20260917025644.1262504-1-zaq14760@gmail.com> <CAFOAJEfnDrGTg40h=R0mfZasroPkrSsmbVmmMA91O9uOzu_gYQ@mail.gmail.com> <0259fb51-acb8-4b07-a6d5-2fe25fb0de9c@suse.de> <CAFOAJEe_7Cqo_=NWPGyYBTu3mD3CjPMC92ZZR6qHPjAhQws7pw@mail.gmail.com> <1f59a88c-b0b0-43d7-ba2f-4c50aae87ef4@ti.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-CM-TRANSID:qwCowADnuu5y2KxqkbJICA--.14966S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7tw4xKF13WFyUCw1UKF1rWFg_yoW5Jr18pF
-	WDK3ZIkr4DJr1xAwn293WjgryF9w47A34Yqry5Wryjvr98tF1rtr4xGr45u3WDKr4fWr42
-	vF1jk34fu3sYyaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvGb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
-	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
-	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
-	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
-	MxkF7I0En4kS14v26rWY6Fy7MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
-	4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
-	67AKxVWrXVW8Jr1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6x
-	IIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvE
-	x4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa
-	73UjIFyTuYvjxU9PfHDUUUU
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+Content-Transfer-Encoding: 8bit
 
-=E5=9C=A8 2026-09-18=E4=BA=94=E7=9A=84 08:16 +0200=EF=BC=8CKrzysztof Kozlow=
-ski=E5=86=99=E9=81=93=EF=BC=9A
-> On Thu, Sep 17, 2026 at 08:34:18PM -0400, Joshua Peisach wrote:
-> > On Thu Sep 17, 2026 at 2:51 AM EDT, Krzysztof Kozlowski wrote:
-> > > On Tue, Sep 15, 2026 at 05:32:09PM +0200, Michal Wilczynski
-> > > wrote:
-> > > > Add the dt-binding for the StarFive JH7110 Innosilicon HDMI
-> > > > PHY.
-> > > >=20
-> > > > This device is a child of the starfive,jh7110-hdmi-subsystem
-> > > > node. It
-> > > > functions as both a PHY provider for the controller and as a
-> > > > clock
-> > > > provider for the variable pixel clock (hdmi_pclk), which it
-> > > > generates
-> > > > from its refoclk.
-> > > >=20
-> > > > Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
-> > >=20
-> > > While I appreciate other people looking at this, I don't think
-> > > review
-> > > here applies. It was a blanket tag, given to the entire series,
-> > > with
-> > > exception that it is from newbie, thus I want to ask: was this
-> > > binding
-> > > REALLY reviewed by Joshua?
-> > >=20
-> > > Are the rest of the patches actually reviewed or just "looks good
-> > > to
-> > > me"? I see no comments from Joshua on v3, v2 and v1, which is
-> > > usual sign
-> > > of doing review.
-> > >=20
-> > >=20
-> > I commented on v3 saying that I would test if I could. I don't just
->=20
-> Testing has nothing to do with reviewing.
->=20
-> > throw "Reviewed-by" on everything I look at.
-> >=20
-> > If anything, I've been trying to be more honest in reviews, and
-> > only
-> > review ones that I actually care about[1].
->=20
-> You gave blanket tag for entire series, so I do not get this
-> argument.
->=20
-> >=20
-> > If reviewing patches isn't a good way for newbies to start getting
-> > familiar with the kernel code (especially a NEW driver), then I
-> > don't
-> > know what is.
->=20
-> Writing code and receiving review is something for newbies to start
-> with. If you do not know kernel code or bindings, why do you think
-> your review is applicable? If I try to review design of a post-
-> tension
-> concrete bridge, I would probably learn something. Would my
-> review apply? No.
+Hi Devarsh,
 
-My personal thoughts: everyone should be able to send R-b, but the
-effect of the R-b depends on who sent it.
+Good to hear from you, and thank you for picking the fixes up.
 
-In this case, I am okay about adding Joshua's R-b, but I don't
-necessarily think the patchset is reviewed enough because of this R-b.
+> Kindly let me know if we are aligned on this.
 
-Thanks,
-Icenowy
+That all sounds good to me, and I am glad it is moving again.  I will test
+v2 on the PIXPAPER 4.26m as soon as it is out and send a Tested-by.
 
->=20
-> Best regards,
-> Krzysztof
->=20
->=20
-> _______________________________________________
-> linux-riscv mailing list
-> linux-riscv@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-riscv
+There is one thing worth settling before you post.  Back in July [1] you
+wrote:
 
+  Certainly. I'll exclude the pixpaper-426m support patches from my V2
+  submission so you can handle the review and validation on your end.
+
+That is still what I would prefer: the 4.26m is the only SSD16xx hardware
+I have, and its binding is already acked, so I am in a good position to
+validate the panel and to look after it afterwards.  Unless you would
+rather it went differently, I will send the panel entry and its binding on
+top of your v2 once it is out.
+
+Please reshape the three fixes however v2 needs - they were written
+against your staging branch and the driver has moved on since.  Two small
+requests from my reply at the time [2]:
+
+  Please keep them as separate commits if you can - git am preserves
+  authorship; if you fold the first one in, a Co-developed-by with my
+  Signed-off-by would be appreciated.
+
+  I maintain the existing PIXPAPER MAINTAINERS entry - would you mind
+  adding me as R: on the SSD16xx one, so I stay on CC and can retest?
+
+[1] https://lore.kernel.org/all/8fcfab0f-6b98-478b-be4a-c5b810fb3524@ti.com/
+[2] https://lore.kernel.org/all/20260731035705.3198816-1-zaq14760@gmail.com/
+
+Regards,
+LiangCheng
