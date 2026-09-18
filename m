@@ -1,126 +1,61 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A7BA498907
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 08:41:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 389C73CDBAA;
+	Fri, 18 Sep 2026 08:43:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789720877; cv=none; b=CysxVCGF5oeL/SHvoDOYadowuhEPohbuYG1ilXT7TmSC3n2tiY+ojIWkreQT60DigLX3bQzMbqgDhcyOgzzlPQav72wBfed9cELXdZEMLsjKtwqOgs2Qu3RfotM+7Pvn08LsFwZrk6+7+0eKbZ/74U+Y4bniOaFfetxONFoNroQ=
+	t=1789721030; cv=none; b=oMriGZj0MFFdn6mnb4Kz37TUIZoqP+8oOgtr/fGr+b114LUUfB7HtI8NzL9wdZKkmQJu1GZKIkgJ7fAat9v00D8ny5vllOO4uWOJ0DHGSnYpNHKe43B1saUgXeu5X6JfTGQ8uaLfEgHX2f8RGGVV7NMpfcz7y9st2UXbxa9duTs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789720877; c=relaxed/simple;
-	bh=wrkRKuHru9tDnAksOKICjvX2eXVZPnIV0pkf0wg10Ao=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Uc1Wg7BQ9ZS3yzGTK0487Dyi1WGBeYvu5MzuBhAvK0RB6rieV2ALURoP05fxcSM+/fBCB/kCfGLJ4xNdWul0myjkghtFq0fbhvjltOMfyPSWRCSSCSp9jgbY0sLYf45ZOMeXJOomc52tSKTFUhki7G7ZEaObOaM9gVbMcr+fQwc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hg/jOWHP; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789721030; c=relaxed/simple;
+	bh=gQQTKQL6dxbcFSiJfyALXWOOobHnoMTOqFSfNJrzzDc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=LIH3Jhd3Vxk8L3vI93MTxpZGg96GLUjC6+GZpnPYKrR8BCajgCYaNRaaQYiQ1iAW2m0GkFCTC2At/cpmgpwYPXre7Qd5k/i3CySQ3yRs1zrdAOYsDJJcqNAqnmRuGLyW2qTlCZQbJXSnLHxUaCtcjjaMrdXEPRqrnverYgE3qDg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EgI01fe2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hg/jOWHP"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747ed9866so4150575ad.2
-        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 01:41:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789720876; x=1790325676; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GxDmGUi2C59ZkDrEBuMyQkkkrDWgX+iuYFMfWFNId3U=;
-        b=hg/jOWHPlkv4fYETiJx+uSqvxJOYvUBk8L3ZNm0Qm5jVa3Az7SxZnV018vVEMxB9vk
-         qmY6gQqU6WWpy/qd9DpKsIAUBhSwkNh7vhDGrYwnbLrgePitxgPFib29lbHjt3eULWV1
-         +LQHOatYT1wcTLM+6koOOlssHLx8+bqr5y/Zy0KF5jhg7KuI9m15V+01svN/9YNIyw83
-         +efVVmQZsXGo53yXtSjzta4kt7Sjz9tis6kGfcechcKLgofgxOsvjC9ygIHpnfk3PCKv
-         lwZekC4mEpq6Wc1uTqMmhzG+NDBX9kDuGPbJSxvJsVzzVSh1K02BgWyhYNnq2LElZEfw
-         SZ0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789720876; x=1790325676;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GxDmGUi2C59ZkDrEBuMyQkkkrDWgX+iuYFMfWFNId3U=;
-        b=g6g3gjOMn5tBdkRWo/5bByV7TohY5fJL8RKdWhO0QPiUGzCTKuYN4nYhAtQILXfyL5
-         Qzeb1uK3UCtwORe2o+vGz8HDHP4L4osjnFUJXfb0PEVqH8ZkfI2L7cKtuQuWMaAt8g51
-         LTFfE0DIcGO2uB9UxRx7M+zkvyNiz0NxfI6MYcUu+7Bd6WboQ8s9CkfgsRG1ixQ3b9++
-         eEcYpOqdHvpGzWAPuRVNJWf76lVPzOnEgXrbUpBVd/dJsQECBsGGAlBRCORhwAgfi7yA
-         o8x2DZ+TxJv5dmDRbVDSUkqNqSw93UA7IWXdgqGKxd2SXKZFsmysKaLj3m/rF8F4626c
-         fG/w==
-X-Forwarded-Encrypted: i=1; AKwUvBxLDmipQtPM1zz3hvzeaeae370iGshGeQRkLl4CuxSMiYG8s7vbR318b3mWqpNN3RQBnDrMoif2RTyQ@vger.kernel.org
-X-Gm-Message-State: AFuF++mmTCKKHuaX17G3U6Yvm6r7GNGtRBefCeZtiP0IgqjZj6W/jjLS
-	EDsQvcAdGH3I3ZySfn6pmXEj/4nxDOyr2GrxulAUd7kxV/UqmmcVAhIb
-X-Gm-Gg: AYBFou3RWWCs1rtyPYTSy+Z1obvl69dtxm8ZwbaSV6LBuoyc7owzvoNA2zlw0c15B/r
-	oRmgY9PWpBhx1SWeTOkMQPbzh3GZUOoFzpWXzDuMuNYttJyZljHpXJLxAt6+gswSfxRluogAKus
-	nJdcC6oe/xs0awvC6+BLnv03pqroRnqviEHisA1GERmA6Nilg5wai5hkE95IcVne6tuiDtp9FPN
-	h6/LwhqozYrMJFbYPtcP1kPhlejsUQDSktnWMWM/7EEJ2yMcccKR4l+WjK5DUiCwNiXF4EaS9hC
-	0PPdMA/cSotUemd2Q/Ggui1E/cxJJ8+lWhcO/NHVLsdF0dnAu6K017dn+9atZmPfxqMlg4VK4Ib
-	NVzIMqQ4Da1h213a7rWxecs4064IyHo1wXWikExuzsdcacouc/W3JJDNjMhWSwu696Wm9G4KoC2
-	53vyIBxZnSx+NFJs6OQOSMJ47kg7zhV1G4J0wSDsX7Zq0B1GC0FDCHWI3JGA3g47jAIPH+HNYGH
-	rMtB2kw/BtgfhRBv+qmi0AVsDVWCTaBZQwOIxRNUbE/txf/+/m/aZNGz8XjSiQaGs/TPak+TEBb
-	fA==
-X-Received: by 2002:a17:90b:574e:b0:39e:1fb6:9659 with SMTP id 98e67ed59e1d1-39e54f0772fmr4397778a91.22.1789720875692;
-        Fri, 18 Sep 2026 01:41:15 -0700 (PDT)
-Received: from cs00-MS-7C09.. (2001-b400-e35f-d966-bfea-f724-5ada-7374.emome-ip6.hinet.net. [2001:b400:e35f:d966:bfea:f724:5ada:7374])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e5a50d332sm2093716a91.9.2026.09.18.01.41.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 01:41:15 -0700 (PDT)
-From: hsyemail2@gmail.com
-X-Google-Original-From: syhuang3@nuvoton.com
-To: Guenter Roeck <linux@roeck-us.net>,
-	linux-hwmon@vger.kernel.org
-Cc: Sheng-Yuan Huang <syhuang3@nuvoton.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jean Delvare <jdelvare@suse.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 1/2] dt-bindings: hwmon: lm75: Add Nuvoton NCT7715
-Date: Fri, 18 Sep 2026 16:40:40 +0800
-Message-ID: <20260918084042.19541-2-syhuang3@nuvoton.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260918084042.19541-1-syhuang3@nuvoton.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EgI01fe2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 985BD1F00898;
+	Fri, 18 Sep 2026 08:43:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789721028;
+	bh=gQQTKQL6dxbcFSiJfyALXWOOobHnoMTOqFSfNJrzzDc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=EgI01fe2z/dssV05WnmPA0vBwS4QhF4p9zOUMcGf3Ec8p6pfo5U/WMLHYIRX0PW1f
+	 8ZX//ncz4VeHjToXWbyoHnx/c5GQb/QZEPZdPkxE9ikQZOgikggT2V4ud7tRQyNt0M
+	 yXAQ+9Zed1WQOfv2qA/LFvC9kh63fnu99UbTAl/VWmsAIvAm8NupgYiuvwB417TLBK
+	 b5sJLbMZRN9zBWco7I45sEjR5rUB9Yn56YvFic4nGNGVJXUrYgPs8gMmc5dXl/lttu
+	 Kw24mQMSRa5e/WwZ990mDhHlL/Ktr+gBiFCThyGxla7NEB9HLf9HzzM5x+RmMNDyHw
+	 yQXdPGGxYMTRw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 1/2] dt-bindings: hwmon: lm75: Add Nuvoton NCT7715
+Reply-To: sashiko-reviews@lists.linux.dev
+To: hsyemail2@gmail.com
+Cc: robh@kernel.org, conor+dt@kernel.org, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260918084042.19541-2-syhuang3@nuvoton.com>
 References: <20260918084042.19541-1-syhuang3@nuvoton.com>
+ <20260918084042.19541-2-syhuang3@nuvoton.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 18 Sep 2026 08:43:48 +0000
+Message-Id: <20260918084348.985BD1F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Sheng-Yuan Huang <syhuang3@nuvoton.com>
+> From: Sheng-Yuan Huang <syhuang3@nuvoton.com>
+>=20
+> Add the Nuvoton NCT7715 compatible to the LM75 hwmon binding.
+>=20
+> The NCT7715 supports an ALERT output, so permit the optional
+> interrupts property for this compatible.
+>=20
+> Signed-off-by: Sheng-Yuan Huang <syhuang3@nuvoton.com>
 
-Add the Nuvoton NCT7715 compatible to the LM75 hwmon binding.
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-The NCT7715 supports an ALERT output, so permit the optional
-interrupts property for this compatible.
-
-Signed-off-by: Sheng-Yuan Huang <syhuang3@nuvoton.com>
----
-v4:
-- Split the devicetree binding changes into a separate patch.
-- Allow interrupts for the Nuvoton NCT7715 compatible.  
-
- Documentation/devicetree/bindings/hwmon/lm75.yaml | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/hwmon/lm75.yaml b/Documentation/devicetree/bindings/hwmon/lm75.yaml
-index b48bf3fd721f..d55b8b7e49c5 100644
---- a/Documentation/devicetree/bindings/hwmon/lm75.yaml
-+++ b/Documentation/devicetree/bindings/hwmon/lm75.yaml
-@@ -31,6 +31,7 @@ properties:
-       - nxp,p3t1750
-       - nxp,p3t1755
-       - nxp,pct2075
-+      - nuvoton,nct7715
-       - st,stds75
-       - st,stlm75
-       - microchip,tcn75
-@@ -78,6 +79,7 @@ allOf:
-                 - ti,tmp101
-                 - ti,tmp112
-                 - ti,tmp75
-+                - nuvoton,nct7715
-     then:
-       properties:
-         interrupts: false
--- 
-2.43.0
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918084042.1954=
+1-1-syhuang3@nuvoton.com?part=3D1
 
