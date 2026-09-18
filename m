@@ -1,74 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F2FD38B14B;
-	Fri, 18 Sep 2026 03:25:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DCC73B440E
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 03:25:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.24
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789701905; cv=none; b=AjD+l/hRdhQ5uGhbA73yR91xuLosVllKtr3G4wTwil1Rxo4/90AVnUndJF63AuwtaU08R1G9LYEBOSRBgP8CoypjUM4Sb3VyPVV1hNmQWHLMTSDdPNlyZ/1IkbvS3+B5cpFpwGaKMQK7ViFDCXCLgD9BJCUM5sG7DLfkjVT/ye0=
+	t=1789701942; cv=none; b=QcqDXSgw1GvRnsvVKsSlc8b+N8MIXvh0cD0hqg/9dmsZ6lZHnKf7+V2iq7ad2MVjSxwTVKINlNFdhK019JHJpOYijmA8jvnE84zFAIatygkuD1xSv4ofkNypjV8ielHaCBgRY+MwKzNpwuvj59bimbDFXvCA6AvPyzH2hnz7BpU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789701905; c=relaxed/simple;
-	bh=Z0iSEa3iLsSgbnOSZGhKWwYvekHxEizGJopNSZPXYqg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=reGu9yRXvThoEsxQ0irlars3zYZiEK3Ub1u7q9NjkcE0oQuYd5dRAqRnMy6CTxmuw40SRJTe6Kazq6ygGa6aiRiVY1sbtyk9HQOpQq31ORmCRgZkY0+oAm/qh7eDzJ7Eg4LX0LEwLu+Tt1bvyS9jYqBQfiuZKX+UbGXo4u8dG8E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qqy9EBD/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789701942; c=relaxed/simple;
+	bh=EdQvZ61QalUJARA1z7MGMnRy/kwDRIhCjBePd5NVVQ0=;
+	h=From:To:Cc:In-Reply-To:Subject:Date:Message-ID:MIME-Version:
+	 Content-Type:References; b=LRf8LpQuyMbd3Cuj/4gKTur3eXpHHNbdh+5QsiNzrYgdz7WRufGShck9DdpzIh+MqBmh+OOYyg55ilmKaNHlnD/WQ4SRKoDDPFosK+xrcwwtrWk3b1LG4mwS8nPfXb+ZiC2YMNXPvTChuZWpKF/E48iSXnoxmIZQ8YQm4TMhVAA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=RwXjMA+Z; arc=none smtp.client-ip=203.254.224.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qqy9EBD/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4782E1F00893;
-	Fri, 18 Sep 2026 03:25:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789701903;
-	bh=Z0iSEa3iLsSgbnOSZGhKWwYvekHxEizGJopNSZPXYqg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Qqy9EBD/TLusfa260tVFnPusUeKn0UyZ2N9BjpHBCpfc/MHiZroU3hUU5dKt5TEw2
-	 6W0wp1pz+s+L8qAgT1ktncGhj7dOYVnv8UIR1+CVFN6iyYVyg5PWbUcs4ra6MhA5Ed
-	 KQ2hreKgNjlsCXypWNocZhekSLFmzdp5wEEButK5iDhANFqEdbHV0WrWB6pKInZOO0
-	 /KSdK7XF6+cba5GPeWILbbbWi/+KKrcC8q1eED7wUtr5w7MP9oLWEzTV9ewRymyoWV
-	 45385GhKFnnQp+ycrc2MoWiFMjWzTkmwnW0UW8RAmLebETAjjolQVAOQ12pDGo4TC+
-	 NX/YfnlhdhpRQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 02/11] PCI: rcar-gen4: Drop the APP-based link_up check
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Koichiro Den" <den@valinux.co.jp>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, linux-pci@vger.kernel.org, wsa+renesas@sang-engineering.com, conor+dt@kernel.org
-In-Reply-To: <20260918032038.2216471-3-den@valinux.co.jp>
-References: <20260918032038.2216471-1-den@valinux.co.jp>
- <20260918032038.2216471-3-den@valinux.co.jp>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 03:25:02 +0000
-Message-Id: <20260918032503.4782E1F00893@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="RwXjMA+Z"
+Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
+	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20260918032537epoutp019abf3708262239cc63fe876b1c0815df~WTG4K7-zU1802118021epoutp01Z
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 03:25:37 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20260918032537epoutp019abf3708262239cc63fe876b1c0815df~WTG4K7-zU1802118021epoutp01Z
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1789701937;
+	bh=EdQvZ61QalUJARA1z7MGMnRy/kwDRIhCjBePd5NVVQ0=;
+	h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
+	b=RwXjMA+ZDheh/JjJSjft4QdcZk4bIXCNxOnoeBinV65wU5Y/FqHCVlF7/hxl2RH4O
+	 IvASdMKrbOzORuVdTjRGGsRQztJYnMQYf+deW1dcEY7m1rTpFKAaBfQozIGJCyhzq0
+	 sHvcUqs1uKRWZZjQZMF5jxQcKlOcHlHF1HZnwmc4=
+Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
+	epcas5p3.samsung.com (KnoxPortal) with ESMTPS id
+	20260918032536epcas5p3c037713c8e6229d0e8726a6bb418f76d~WTG3LYZix1189811898epcas5p3j;
+	Fri, 18 Sep 2026 03:25:36 +0000 (GMT)
+Received: from epcas5p4.samsung.com (unknown [182.195.38.91]) by
+	epsnrtp04.localdomain (Postfix) with ESMTP id 4hmJ0v2SLNz6B9m5; Fri, 18 Sep
+	2026 03:25:35 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
+	20260918032534epcas5p1db19e612e5a173ae5f2eed6e817b6c37~WTG1XPfwn1605516055epcas5p1B;
+	Fri, 18 Sep 2026 03:25:34 +0000 (GMT)
+Received: from INBRO002756 (unknown [107.122.3.168]) by epsmtip1.samsung.com
+	(KnoxPortal) with ESMTPA id
+	20260918032531epsmtip134ab7e6ab681d7dddb7c7d095e9d4d06~WTGymFoR50136701367epsmtip14;
+	Fri, 18 Sep 2026 03:25:31 +0000 (GMT)
+From: "Alim Akhtar" <alim.akhtar@samsung.com>
+To: "'Selvarasu Ganesan'" <selvarasu.g@samsung.com>, <krzk@kernel.org>,
+	<peter.griffin@linaro.org>, <gregkh@linuxfoundation.org>, <robh@kernel.org>,
+	<conor+dt@kernel.org>, <Thinh.Nguyen@synopsys.com>, <mani@kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-samsung-soc@vger.kernel.org>,
+	<linux-usb@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Cc: <jh0801.jung@samsung.com>, <h10.kim@samsung.com>,
+	<dh10.jung@samsung.com>, <akash.m5@samsung.com>, <hongpooh.kim@samsung.com>,
+	<eomji.oh@samsung.com>, <shijie.cai@samsung.com>,
+	<muhammed.ali@samsung.com>, <thiagu.r@samsung.com>
+In-Reply-To: <20260916122229.2604003-3-selvarasu.g@samsung.com>
+Subject: RE: [PATCH v2 2/3] dt-bindings: usb: Introduce samsung,snps-dwc3
+Date: Fri, 18 Sep 2026 08:55:30 +0530
+Message-ID: <058301dd471d$5d985170$18c8f450$@samsung.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQGcfDqIrCW7OKewQ35ZfbAvR1onfQHu4CTLAhM/jCu3NS/WcA==
+Content-Language: en-us
+X-CMS-MailID: 20260918032534epcas5p1db19e612e5a173ae5f2eed6e817b6c37
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-543,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20260916122354epcas5p401fd6470d6cef75951af732b03aa5970
+References: <20260916122229.2604003-1-selvarasu.g@samsung.com>
+	<CGME20260916122354epcas5p401fd6470d6cef75951af732b03aa5970@epcas5p4.samsung.com>
+	<20260916122229.2604003-3-selvarasu.g@samsung.com>
 
-> rcar_gen4_pcie_link_up() checks link state using SMLH_LINK_UP and
-> RDLH_LINK_UP in PCIEINTSTS0. However, these bits do not reflect the live
-> link state. On an R-Car S4, after taking down the endpoint, a link-down
-> interrupt saw PCIEINTSTS0 =3D 0x20a000c5 with both bits still set. Even
-> after resetting the controller with the LTSSM back in Polling, they read
-> 0xa000c5, still set.
->=20
-> As a result, dw_pcie_link_up() keeps reporting the link as up after it
-> has gone down. That defeats the check in dw_pcie_other_conf_map_bus(),
-> which is supposed to stop config accesses to downstream devices while
-> the link is down, so such accesses go out on the dead link and stall the
-> host. It also makes the callback useless for the link-down recovery
-> added later, which has to wait for the link to actually come back after
-> resetting the controller.
->=20
-> Drop the callback and let the DesignWare core use its PORT_DEBUG1 check
-> instead, which correctly detects the downed link.
->=20
-> Fixes: 0d0c551011df ("PCI: rcar-gen4: Add R-Car Gen4 PCIe controller supp=
-ort for host mode")
-> Signed-off-by: Koichiro Den <den@valinux.co.jp>
 
-Sashiko has reviewed this patch and found no issues. It looks great!
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918032038.2216=
-471-1-den@valinux.co.jp?part=3D2
+> -----Original Message-----
+> From: Selvarasu Ganesan <selvarasu.g=40samsung.com>
+> Sent: Wednesday, September 16, 2026 5:52 PM
+> To: krzk=40kernel.org; peter.griffin=40linaro.org; alim.akhtar=40samsung.=
+com;
+> gregkh=40linuxfoundation.org; robh=40kernel.org; conor+dt=40kernel.org;
+> Thinh.Nguyen=40synopsys.com; mani=40kernel.org;
+> selvarasu.g=40samsung.com; linux-arm-kernel=40lists.infradead.org; linux-
+> samsung-soc=40vger.kernel.org; linux-usb=40vger.kernel.org;
+> devicetree=40vger.kernel.org; linux-kernel=40vger.kernel.org
+> Cc: jh0801.jung=40samsung.com; h10.kim=40samsung.com;
+> dh10.jung=40samsung.com; akash.m5=40samsung.com;
+> hongpooh.kim=40samsung.com; eomji.oh=40samsung.com;
+> shijie.cai=40samsung.com; muhammed.ali=40samsung.com;
+> thiagu.r=40samsung.com
+> Subject: =5BPATCH v2 2/3=5D dt-bindings: usb: Introduce samsung,snps-dwc3
+>=20
+> Add the Samsung Exynos8855 DWC3 binding using a flattened node
+> representation, where the DWC3 controller is directly addressable rather
+> than nested as a child node of a glue layer.
+>=20
+> This is the first Samsung Exynos binding using the flattened representati=
+on.
+> The existing samsung,exynos-dwc3 binding describes the parent and child
+> representation used by existing Exynos SoCs, which can be migrated to the
+> flattened model.
+>=20
+> Samsung Exynos SoCs sharing the same flattened model can be added by
+> using the samsung,snps-dwc3 fallback compatible and extending the
+> compatible enum with per SoC clock and property constraints.
+>=20
+> Co-developed-by: Muhammed Ali <muhammed.ali=40samsung.com>
+> Signed-off-by: Muhammed Ali <muhammed.ali=40samsung.com>
+> Signed-off-by: Selvarasu Ganesan <selvarasu.g=40samsung.com>
+> ---
+Thanks for using flattened node representation. Are you planning to migrate=
+ other existing SoC as well?
+
+Reviewed-by: Alim Akhtar <alim.akhtar=40samsung.com>
 
