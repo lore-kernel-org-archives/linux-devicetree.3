@@ -1,128 +1,169 @@
-Received: from mail-oi2-f0.google.com (mail-oi2-f0.google.com [74.125.231.192])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A40003C1F4B
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 02:20:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.192
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDE283CA4B5
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 02:21:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789698027; cv=none; b=nDTu9oFSHZWaZvSm2y8QQATMGQFNEfDbR8edr5afWqn12m6EGCr+3ux9gloN2kNV7s8cKfJg4uMtfqoInB7kJEkJjtBafxOoxPY4qIzKCTlTWtCywxarUF3RcuxT/6s6j1Mr5+NumMak2n6cqXrAgRTUUcngQZ3vl8Cpl4LsSOA=
+	t=1789698102; cv=none; b=aGEAZ7eqcJ8MOX10pjNtllIGqkX5o3mqC4E+kfttIAuykE3J87R0vXHgjYGCeRH+rVzAwXTA90GgTSYUZFC65FI52pdiJ8sTRehNFGmtf1LZ2awd7tkYJMozY2Xs0cOzInXWENhJd+Gzg7CGYRmqYIuwz13mZvTrIQID20kGmrg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789698027; c=relaxed/simple;
-	bh=1otP8UYV9viBZZ+f8NwjITACufQDeLB/kdjE9I9R9IM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=KGILusE50mMjJlidgAX0vfwzFwluTjPBxeCP8GrAH4ujUKM/JFllMhfv5LPztUN02LWMXzS+bD2jjZqH4GpAqHvP3L4ATNJU1HdbonTZRU2tY3JrUfHETk3/QI0ZHV63W7gcT6EuSpFH4kQvqoL38RV+44uFUSWN8ecmI+Oh5uI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hmZgAq0h; arc=none smtp.client-ip=74.125.231.192
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789698102; c=relaxed/simple;
+	bh=tUw2b7crU+HHHqcx/66Gimzh2XvrG+qMeLaV1m8ApW0=;
+	h=Content-Type:Date:Message-Id:To:Cc:Subject:From:Mime-Version:
+	 References:In-Reply-To; b=SzWiuvpGXmDMhvAuERfz0yc0Xna2urwwjJE/dPa/cm6YZ2sHNdz2tOUGxeiztAuoiPL/mPif6xhlEM6U937yz0oUO3NYG+xLWTVpa/RXBlPKhR6NNe1WWiZ0bpAC7uhfx9vfI/jAT0UpYdSwdm8PZ1dJAx3b5xETMrhJNRdyVjg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=gKcImSqE; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hmZgAq0h"
-Received: by mail-oi2-f0.google.com with SMTP id 5614622812f47-4a49b13b745so123500b6e.0
-        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 19:20:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="gKcImSqE"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-398c066106cso204932a91.1
+        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 19:21:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789698015; x=1790302815; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+        d=nexthop.ai; s=google; t=1789698085; x=1790302885; darn=vger.kernel.org;
+        h=in-reply-to:references:content-transfer-encoding:mime-version:from
+         :subject:cc:to:message-id:date:content-type:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=54xUl28tB3oyyAr/XFRTTgMHGsQTvwV3/5B41pgtCxk=;
-        b=hmZgAq0hFCl4Fd5zm2GTghfOilvCvZLL6bR2TV5c2JXjjNHkbUgoPSULN17tzwf5dn
-         7TuoJ7pmq4pnxGrlYx30/rXjRy086CypdtLnbqEYfp+bbWwqWrM1oTDCXOLeMftUOBDX
-         bEKwHtHhkFgP1ohfu4FSHk88cM29yZBELBFMwtrXu2sATt+BdksQpiSLzcOQuSWJsupT
-         V3aAl+nncjOXbNWVHX4tQ2GtG7tB1IyNZH4Nh7x+0JI9usZdaR/LKJSMtH7uu5opuk46
-         7bN1yvzNCbr063i1RX4SEmfSyEUF7tQFeBAx+GQcjFRTalshZD62slsvILKk7T1lFaz2
-         GsTg==
+        bh=EZ/9bEBYN1Z12jKLfTJjtmiNcTyLLJmUMtlMsC9kMPw=;
+        b=gKcImSqEmdoYC5Fgr/5ueGjyHsJSFbcfwDgZAU0AhtDvYPKUWLdx5D4PuStEAzmHk4
+         xiLrAWxOln6K9XPTweM19KhHDg8BrgpU33wc4iAbb1Zcm7I2/Lw4Jl3PaabJV01D8+jF
+         UsbwTgjwaJD5a1vmBb5FoscUMrkqufba0SS8l9I8+smM74HY1rhOE1JkC/cehphDNepW
+         r5DoGggL9dGDKrdsL661lyhh/xagT1S5MieH2yUusy9UJBJ7RUuSZQUQWm/32+NHp3ZT
+         7V51Iokq6lZYr4Mt9D43Od8LGt9qDFtwlL1vtPAnZOM78pHByVDI8SKEpO+0s9Kj9bMf
+         Trrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789698015; x=1790302815;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1789698085; x=1790302885;
+        h=in-reply-to:references:content-transfer-encoding:mime-version:from
+         :subject:cc:to:message-id:date:content-type:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=54xUl28tB3oyyAr/XFRTTgMHGsQTvwV3/5B41pgtCxk=;
-        b=DAAgcetR1bFfQXtv098DvoHrq5EHgYpWFH6oD/6u12e2NHDm/n94Id6iYWdvdfDJ9h
-         hRZvhLczpXzxCCmQ686BwEHwsAK9LKRlzmlu0GzkZdWL2coeITAe4J21KeSvcxTpMn75
-         J8MLeYaUPNKgZ5G4UXhcqYf7ngUYr33HB8s1NET7qFBqSRCnjbM5VWkHkNCDz+jRgk1V
-         SF015AiHH/iGjK7GcGdx1E2F8xPhEZhWEj0TcUxwIZ+/d182SZ4nvwt2iF79rqrqROj3
-         A+dlBiy3U5LLrd+ScN4EdGfg9Y0x+4zgHSNUGItVCPszHQSYUJUF3+FPfhUJmbyb7jK1
-         a/uw==
-X-Forwarded-Encrypted: i=1; AKwUvBzkGReqHkWOK4wPNQsLLTyZ/v7jk/4Ev+PvdtbG5GEv3ue+L+oyfLMrttL7izZmym61GumcH9AVkS9R@vger.kernel.org
-X-Gm-Message-State: AFuF++lQRnHOMoe3x4Jz/1FNAcGlkO7/JkGx3s5Ag1y+3PNhWqoOA8L2
-	sPqkl2bi2KWZZSWLqqm3VngQPLiQDvPjDODItSJjxeySWAXtch9aZJq0
-X-Gm-Gg: AYBFou1JS5Bkk2EQwNLg0cNGulKU1ebeJf1bCZff/VxJ7wwWJ9JJ18RVCgi6fbhM63i
-	Kq17WprmbqFMjEcewjThs4gpsA04EwbaE0gXbBfYukkMEOMSyuLTBGmZWnLi+xgenqKQO3Vdmug
-	v/HLCIFQEI29juhBre/NR8zJzkHESwC/ibIQnG9tT887JnlsXO7+zn8Tgfh8RTwPbBvF/e3OXy9
-	Gut+bbC5x4IUDDD2Z2tWpmlWJc8x09MO2BpgUl982lPqSrPPnSufV3eepfkp9OfGn3whfGtin3P
-	yZq7I+ULYp+Zlt4jzHK0vRP9CQ2pDYeVb7pSBQ+W5ZI7POvaCt9HuUvHblw/98Nw7VAHi5Hc5Rc
-	teSuo4AWEwPBYhPNxcDXT13jM1St23t3huKpEyQ5oHotoQrV/PUHOpzLlURJnMoQoRKVIN916TC
-	80+fsSYWCYEMa/pf59Ezr5xiqJNLmnhye+FJFmqF6c+uSl7ynd3Bry5A9PQWUjhOu+cg==
-X-Received: by 2002:a05:6808:bc2:b0:4cb:f21b:6f98 with SMTP id 5614622812f47-4ccf9b8f79bmr1640523b6e.43.1789698015057;
-        Thu, 17 Sep 2026 19:20:15 -0700 (PDT)
-Received: from [192.168.18.164] ([2600:8804:5716:d800::b712])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-80e5226786csm295476a34.22.2026.09.17.19.20.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 19:20:14 -0700 (PDT)
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-Date: Thu, 17 Sep 2026 21:19:52 -0500
-Subject: [PATCH v2 3/3] mfd: mt6397-core: Add mt6397 AUXADC support
+        bh=EZ/9bEBYN1Z12jKLfTJjtmiNcTyLLJmUMtlMsC9kMPw=;
+        b=ZXt3eriqy2Oid472Z3fUMMnUE3h3O6dIGPrSy/dcxACzw0bd/xcz/4XDl1Z6Zh+PwB
+         WPyRIBhp1XmC8ga9a9uv5pQuXcws8jk++lzp8PGTziiDNiTu7Aw4uRkLdTTZxfu0A874
+         t/WLgq9L6tnrBolKc1r7Ntw8Kmg0gxf5J/eTyTVEzJ3hXG0F2xjPqrMJLE4bvSzpGUv/
+         YCatSdBoASbAw2mLmK/ge5eV5x3auFx6ozMxMPYym13Qw/b/JSFV2o2STJPqrbtBpHww
+         ULJrCgaa9HBlWwjCZ819u+PkYFsIzPWH2toie/cqc+jgcPzZc8DnAoWy6nXrNLhDPWB4
+         9VfA==
+X-Forwarded-Encrypted: i=1; AKwUvBx+VmrHpnL5mwUQqYtua5zA28lUBTwlREq5j0gsaZj4CtPi6OSf8LG5wkbvQuYAI2wXYqnp/MDNDuc+@vger.kernel.org
+X-Gm-Message-State: AFuF++nGA2nnEvNsDNqqABedXNomutj6lkw4bNYXIRb50252P8ctVK7y
+	kPcvQrqpuU3cAum/uZuvQK+1Jup3noTKG3FfsGYqH18tWSFGt84pYOfldHTpcsRRZaU=
+X-Gm-Gg: AYBFou3UjWm+XxHiUIDhH7vbeVQD9THUYy5U/O4t7NZhcsvy2U3MfaKBWP2QqIMByeS
+	un4/zmWcBCO8f8WXWmlWjjLYex38B+HVHtL61Rp62drOtcoRb8ziTt0wFYorDjpEH9c5ujTDw7r
+	kV3LBiL0LHbhI3m2cApYu7nYQxjgRRb27cXbzd5NgxFQKPmt5WrJAyB8bb8Do+Mq/f8ncNUqcbh
+	PS5LithBExO0m7DA+LWdCUZG/Sm21bmXKJ6UilJ6LWsOmccsY6RJKJ6LwP0f0GRq0t/KZtYCFQL
+	vhJDGNFFo211m0TmuINCwLrUq5tmJlICnTpIpK7Lv19ueKWi8FlCMBrfOzL8pTCGT5sxIsCMJ9w
+	4vjYGfqeuVzZqFYcF+GFmYcP0JgPTmAEsBVO0HDg9RnseXze3WzX7A85WifKCY5u5irKA8nF8SC
+	whEiQdGUrLwdKLxBOUX/RyUnZOr7h+pnlOeX0srNU1VkHfSNuUH386PwbcyVBBI8Aw3wFGG5bBu
+	f3ktBZxHg==
+X-Received: by 2002:a17:90a:d005:b0:39d:ba21:fd90 with SMTP id 98e67ed59e1d1-39e54f2bf77mr4084275a91.16.1789698085330;
+        Thu, 17 Sep 2026 19:21:25 -0700 (PDT)
+Received: from localhost ([50.145.100.174])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c2876ad4dsm219835eec.21.2026.09.17.19.21.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 17 Sep 2026 19:21:24 -0700 (PDT)
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 17 Sep 2026 19:21:23 -0700
+Message-Id: <DLI30THJZGQ0.2NVBET2OS94K1@nexthop.ai>
+To: "Rob Herring" <robh@kernel.org>, "Abdurrahman Hussain"
+ <abdurrahman@nexthop.ai>
+Cc: "Saravana Kannan" <saravanak@kernel.org>, "Frank Rowand"
+ <frowand.list@gmail.com>, "David S. Miller" <davem@davemloft.net>, "Shawn
+ Guo" <shawnguo@kernel.org>, "Grant Likely" <grant.likely@secretlab.ca>,
+ "Grant Likely" <grant.likely@linaro.org>, "Pantelis Antoniou"
+ <pantelis.antoniou@konsulko.com>, "David Daney" <david.daney@cavium.com>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <stable@vger.kernel.org>, "Geert Uytterhoeven" <geert@linux-m68k.org>,
+ "Geert Uytterhoeven" <geert+renesas@glider.be>, "Sashiko AI"
+ <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v7 00/10] of: teach overlay code to keep /aliases in
+ sync
+From: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-rbrue-suez-upstreaming-mt6397-auxadc-v2-3-db35882a6080@gmail.com>
-References: <20260917-rbrue-suez-upstreaming-mt6397-auxadc-v2-0-db35882a6080@gmail.com>
-In-Reply-To: <20260917-rbrue-suez-upstreaming-mt6397-auxadc-v2-0-db35882a6080@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Lee Jones <lee@kernel.org>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, mfd@lists.linux.dev, 
- Roman Vivchar <rva333@protonmail.com>, 
- Luca Leonardo Scorcia <l.scorcia@gmail.com>, 
- Andy Shevchenko <andriy.shevchenko@intel.com>, 
- Ryan Brue <ryanbrue.dev@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789698008; l=822;
- i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=1otP8UYV9viBZZ+f8NwjITACufQDeLB/kdjE9I9R9IM=;
- b=5AvlTzf3l8b4LLef4GkI1AU4KWt0gDt38qriJ2bzdYxbLUme++T/DOctXG9bxd6ylcEF2KKoj
- 2xObESmwo23CDAaFIvEw6+yWIBFc38l1dxVsxUSc08ka11Xc1GqGfja
-X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
- pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: aerc 0.22.0
+References: <20260831-nh-of-alias-overlay-v7-0-02754604805a@nexthop.ai>
+ <20260917203938.GA3480871-robh@kernel.org>
+In-Reply-To: <20260917203938.GA3480871-robh@kernel.org>
 
-The mt6397 PMIC includes an AUXADC. Register the AUXADC in the mt6397
-devices array to allow the corresponding driver to probe using compatible
-string.
+On Thu Sep 17, 2026 at 1:39 PM PDT, Rob Herring wrote:
+> There was another posting in 2024 of Geert's patches and AFAICT my
+> comment there[1] still applies. To repeat, what happens if the alias
+> number already got used because the subsystems can pick any of the
+> numbers without an alias. The only way I see to solve that is make
+> possible alias numbers and dynamic numbers non-overlapping or only allow
+> alias names that are not present in the base DT to be used/honored in
+> overlays.
 
-Assisted-by: LLM
-Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
----
- drivers/mfd/mt6397-core.c | 3 +++
- 1 file changed, 3 insertions(+)
+Thanks, I missed that thread. I went through what the users of
+of_alias_get_id() actually do when the index is taken, to see how bad
+the collision is in practice:
 
-diff --git a/drivers/mfd/mt6397-core.c b/drivers/mfd/mt6397-core.c
-index 9ec951996588..5d5f816492aa 100644
---- a/drivers/mfd/mt6397-core.c
-+++ b/drivers/mfd/mt6397-core.c
-@@ -261,6 +261,9 @@ static const struct mfd_cell mt6359_devs[] = {
- 
- static const struct mfd_cell mt6397_devs[] = {
- 	{
-+		.name = "mt6397-auxadc",
-+		.of_compatible = "mediatek,mt6397-auxadc",
-+	}, {
- 		.name = "mt6397-rtc",
- 		.num_resources = ARRAY_SIZE(mt6397_rtc_resources),
- 		.resources = mt6397_rtc_resources,
+  i2c: i2c_add_adapter() -> i2c_allocate_adapter_id() does
+       idr_alloc(nr, nr + 1). Taken index -> -EBUSY plus
+       pr_err("adapter '%s': failed to allocate id"), adapter is not
+       registered.
 
--- 
-2.55.0
+  spi: spi_register_controller() -> spi_controller_id_alloc(bus_num,
+       bus_num + 1). Taken index -> WARN() and -EBUSY, controller is
+       not registered.
+
+  serial: serial_port.c sets port->line from the alias;
+       serial_core_add_one_port() returns -EINVAL if that line already
+       has a uart_port.
+
+So a collision is a loud probe failure, never two devices on one
+number or a device silently landing somewhere else. What changes with
+this series is the failure mode for an overlay that asks for an index
+which a dynamic allocation already took: today the alias is ignored and
+the device quietly gets a dynamic number (which is exactly the bug the
+series is fixing, since the pinned number was the point of the alias);
+with the series the probe fails and says why. I think that is the right
+contract: an alias is a request for a specific number, and refusing it
+is more useful than pretending it was honored. It matches what already
+happens in the base DT if two aliases name the same index, or if a
+driver calls i2c_add_numbered_adapter() with a taken number.
+
+On the two alternatives you list:
+
+Non-overlapping ranges: the subsystems already try. i2c computes
+__i2c_first_dynamic_bus_num from of_alias_get_highest_id("i2c") at
+init and spi re-reads the highest id at each dynamic registration, so
+dynamic numbers start above every boot-time alias. What they cannot do
+is reserve numbers for an overlay that has not been loaded yet. The
+OF core could refuse an overlay alias whose index is at or below the
+subsystem's dynamic floor, but it does not know that floor; it would
+need a per-stem hook from every subsystem, and I do not think the
+mechanism is worth it for what it buys. In practice the overlay author
+picks an index well above anything the base system can allocate
+dynamically, and if they guess wrong they get -EBUSY in dmesg pointing
+at the adapter, not a misnumbered bus.
+
+Only honoring names absent from the base DT: that addresses a
+different case, an overlay redefining an existing alias to point at
+another node. The notifier already handles that one: an
+OF_RECONFIG_UPDATE_PROPERTY on /aliases destroys the old entry before
+creating the new one, so the old node loses the id and the new node
+gains it. Whether the overlay should be allowed to do that at all is a
+policy question I am happy to go either way on; rejecting it is a
+two-line check in the notifier. But it does not help with the dynamic
+id case, because the colliding number there was never an alias in the
+first place.
+
+If you would rather see the failure mode documented than argued, I can
+add a paragraph to Documentation/devicetree/overlay-notes.rst in v8
+stating that an overlay alias index which is already in use causes the
+device registration to fail.
+
+> Fixes should come first in a series. Then I can apply them if ready even
+> if the feature patches are not ready.
+
+Understood, and thanks for taking 4-7. v8 will be based on dt/linus
+with the remaining fixes (find_target absolute lookup, ERR_PTR from
+dup_and_fixup_symbol_prop) first, then the /aliases patches.
+
+Abdurrahman
 
