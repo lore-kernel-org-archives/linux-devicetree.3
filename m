@@ -1,170 +1,281 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C109D513574;
-	Fri, 18 Sep 2026 13:40:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA6D0515995
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 13:40:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789738824; cv=none; b=uio+KVn71KxOGC879pAiMO4cf22jUsoTL/j99rNb4ohlZhy+mNAJuA+tkU2hiyGSLyyJyqNWqraM/um4pFIkIPEXo+tC2MGZnfLMwfQlyNbNiEwKpaVbRRpDrQc21d4DKhX4M3UHyZay+p5JedbJ963lAP1md2ptlmz5F9ObV2g=
+	t=1789738844; cv=none; b=f0/tEoRIkDxqmjBgXjA0f+e4gSCYUTbUQvaU51HVX505MgGBYQ6ZcIQ1VMmo67lBgZLM01iEJpaNtLhR8++dfJca8wB0JkfSNhrl+XbxY8MA8kRYpLAlYz+QTnF5ZIeb+iZ9NoGRLmG32hKxFZDP4SvpRPn8CPhWUQEZ0WmUO3w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789738824; c=relaxed/simple;
-	bh=Y5AI++T6hC9WIipMlduO+vQ0RNPFYkmnAwmLtnAIGns=;
+	s=arc-20240116; t=1789738844; c=relaxed/simple;
+	bh=ZDxOCvShpHutjhsL2fBtJ2Fiw1jke132QPGapHMPBvg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=KFAIjOG3AMYh7BKv8q8oBUOZEDov7uKmEPPNguOPDHo0/hI3Xx/n3WDCyNddwF9T9/iCipcWbAXas7R9hqYiVN2kbDz6iQww2NNclotLFGCvCqnTceW2Pw8HozLUuZ62/VuMvAxRsSHx+ZPR3oTkjws32st4CGtOmCUwU4V3Lkw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FOXDv5LA; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=SGWFEBsUtySq3eUpCJd3YrT9dub6tcJ4uXQHoT/3FBidjZHunbz0jaM0U8cfjIGwqJttTy+e/zpC+F0PI1xKEo36elNTu18smuucE+iev6LjMLvg4NbvAwTwsGtp6Rohc2mGdExSEN86CMHPOrHAiSX113kJWw4ZEGQBZgb8XSc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RgmAmc7I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FOXDv5LA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DE471F000FF;
-	Fri, 18 Sep 2026 13:40:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RgmAmc7I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7AD01F0089B;
+	Fri, 18 Sep 2026 13:40:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789738821;
-	bh=XTi9Oe9y8tnv+l0hdxOf2X/JoMlZn58xr7nYnH45wHI=;
+	s=k20260515; t=1789738842;
+	bh=/TqgFRDwZA2QQ1avUpKUqMWfrysXh1GGmXbdCCdHN2Y=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FOXDv5LAvBafQfrokPp74VIZNBrEgjOovtoV9W5+8M/DDrUYTA+kQ37HzxY6/lKx6
-	 OeooF2p5w2SaT1ajTzG2I3ojRhS+ACKLnSwgOBGD4a65lO0TSMX/rFWrHMxo5d6o6E
-	 o94XBaueM0JwSSmv3WO6adTEBfzuHE1iN55YHgkP8Sw+znAJ+kTDu5PmaQ7j15CmrX
-	 hJ+hkf7rcntWddsMcagNFiwdXwRAu8dGseAns1svqKuM7153ETgb5HhixE5EboMYBK
-	 XEBKihYc1HClTmCbNSZF2j9cFQZ5cqNl1HQsNshunFbbyRGv889L1LxoD04BDyx+vc
-	 vphiwesTzqtwg==
+	b=RgmAmc7IHHbH2j7qFT1oKrgNHrODapz457PZFFlzO5eZ+dBbLgmSEjPsBcVICJXxB
+	 NFh75tlP19TfFpTXqytuxFW6wTKQkMU/VbMUjJdRb5rZuX4ztRyFiVBA6rGedcQ/gL
+	 S2lx1sq1ydE48t4Um6plxc1VY5eHfBvJoLhJhg18hlVTwqOP2wCA+WmXsnng81efsk
+	 JIMQrq4fLDxx18Jp59ESX617qv4Xv8tBpK8GshviDz5JlMhDavP0yBxQvvte+t37vm
+	 h5iSIRQulALUt4gK2rhvP+8baHWqT4WHPIMFqRTjsl4gkotjkwH/G+f8q/bjtwGVtE
+	 Cqo+OEIJJQNfw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 05/10] mailbox: apple: Add DockChannel FIFO
- controller
+Subject: Re: [PATCH 11/14] media: apple: avd: add h264 support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Michael Reeves" <michael.reeves077@gmail.com>
-Cc: dmitry.torokhov@gmail.com, robh@kernel.org, linux-input@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260918-apple-mtp-keyboard-final-v3-5-e356464e454b@gmail.com>
-References: <20260918-apple-mtp-keyboard-final-v3-0-e356464e454b@gmail.com>
- <20260918-apple-mtp-keyboard-final-v3-5-e356464e454b@gmail.com>
+To: "Sofus Forstreuter" <sofus.c@icloud.com>
+Cc: media-ci@linuxtv.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260918-avd-v1-11-49977931f455@icloud.com>
+References: <20260918-avd-v1-0-49977931f455@icloud.com>
+ <20260918-avd-v1-11-49977931f455@icloud.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 13:40:20 +0000
-Message-Id: <20260918134021.1DE471F000FF@smtp.kernel.org>
+Date: Fri, 18 Sep 2026 13:40:41 +0000
+Message-Id: <20260918134041.D7AD01F0089B@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 9 potential issue(=
 s) to consider:
-- [High] mailbox: apple: lost TX interrupt due to clearing IRQ_FLAG after t=
-ransmission starts
-- [High] mailbox: apple: TOCTOU race in IRQ handler clears newly asserted i=
-nterrupts
-- [Medium] mailbox: apple: interrupt storm when IRQ_TX fires but FIFO is no=
-t empty
+- [Critical] media: avd: UAF and double free of ctx->job.segments
+- [Critical] media: avd: heap buffer overflow via slice array bounds bypass
+- [High] media: avd: out-of-bounds read of decode->dpb
+- [High] media: avd: out-of-bounds read during emulation prevention byte pa=
+rsing
+- [High] media: avd: NULL pointer dereference when mapping DMABUF
+- [High] media: avd: hardware fault due to missing validation of unsupporte=
+d bitstream features
+- [High] media: avd: out-of-bounds read on prediction weights array
+- [Medium] media: avd: memory leak on avd_buf_alloc failure
+- [Medium] media: avd: memory leak of ctx->job.segments on hold capture buf=
+fer
 --
 
-commit 2a04249ed27a338883aa783b0cfe092f13b2057a
-Author: Michael Reeves <michael.reeves077@gmail.com>
+commit e586c8ed1b0833cc07bcac3fd55d2cbf73dddc3d
+Author: Sofus Forstreuter <sofus.c@icloud.com>
 
-mailbox: apple: Add DockChannel FIFO controller
+media: apple: avd: add h264 support
 
-DockChannel is a hardware FIFO used by Apple coprocessors for
-low-latency byte-stream communication with the AP. This adds a
-mailbox controller that preallocates RX storage, tracks IRQ enable
-state in software, and reports TX completion from the TX-empty
-interrupt.
+This commit adds hardware video decoding support for H.264 on Apple
+Silicon devices via the Apple Video Decoder (AVD).
 
-> diff --git a/drivers/mailbox/apple-dockchannel.c b/drivers/mailbox/apple-=
-dockchannel.c
-> index 0000000000000..a99b8dad03987
+> diff --git a/drivers/media/platform/apple/avd/avd-h264.c b/drivers/media/=
+platform/apple/avd/avd-h264.c
+> new file mode 100644
+> index 0000000000000..6262b2f633004
 > --- /dev/null
-> +++ b/drivers/mailbox/apple-dockchannel.c
+> +++ b/drivers/media/platform/apple/avd/avd-h264.c
 [ ... ]
-> +static int apple_dockchannel_send_data(struct mbox_chan *chan, void *dat=
-a)
+> +static void stream_weights(struct avd_ctx *ctx, struct avd_h264_run *run)
 > +{
 [ ... ]
-> +	dc->tx_buf =3D msg->data;
-> +	dc->tx_len =3D msg->len;
-> +	dc->tx_pos =3D 0;
-> +	dc->tx_active =3D true;
+> +	for (int y =3D 0; y < 2; y++) {
+> +		if (y =3D=3D 1 && sl->slice_type !=3D V4L2_H264_SLICE_TYPE_B)
+> +			break;
 > +
-> +	apple_dockchannel_write_pending(dc);
-> +	writel_relaxed(APPLE_DOCKCHANNEL_FIFO_SIZE,
-> +		       dc->config_base + CONFIG_TX_THRESH);
-> +	apple_dockchannel_irq_enable(dc, IRQ_TX);
+> +		factors =3D weights->weight_factors[y];
+> +		int to =3D y =3D=3D 0 ? sl->num_ref_idx_l0_active_minus1 :
+> +				  sl->num_ref_idx_l1_active_minus1;
+> +		for (int i =3D 0; i < to + 1; i++) {
+> +			/*
+> +			 * AVD only expects offsets/weights if they are not
+> +			 * the default ones, otherwise we get artifacts
+> +			 */
+> +			if (factors.luma_weight[i] !=3D luma_denom ||
 
 [Severity: High]
-Does this create a race condition where a valid completion interrupt
-is cleared?
+Does this loop read past the 32-element prediction weight arrays if a user
+provides an active index greater than 31? The loop bound depends on the
+unbounded 8-bit user value num_ref_idx_l0_active_minus1 or
+num_ref_idx_l1_active_minus1.
 
-The transmission is initiated by writing to the FIFO in
-apple_dockchannel_write_pending(). The hardware can transmit the bytes
-and become empty extremely fast. If it does so before the call to
-apple_dockchannel_irq_enable() executes, the hardware latches the IRQ_TX
-completion flag, and apple_dockchannel_irq_enable() immediately clears
-it, potentially permanently hanging the channel.
-
-Could the stale flags be cleared prior to writing the FIFO?
-
+> +			    factors.luma_offset[i] !=3D 0) {
 [ ... ]
-> +static irqreturn_t apple_dockchannel_irq_thread(int irq, void *data)
+> +static void stream_slice(struct avd_ctx *ctx, struct avd_h264_run *run)
 > +{
-> +	struct apple_dockchannel *dc =3D data;
-> +	unsigned long irqflags;
-> +	u32 flags;
-> +	u32 pending;
-> +	bool tx_done =3D false;
-> +
-> +	flags =3D readl_relaxed(dc->irq_base + IRQ_FLAG);
-> +
-> +	spin_lock_irqsave(&dc->lock, irqflags);
-> +
-> +	pending =3D flags & dc->irq_mask & (IRQ_TX | IRQ_RX);
-> +	if (!pending)
-> +		goto out_unlock_none;
-> +
-> +	if (pending & IRQ_TX) {
-> +		if (apple_dockchannel_tx_empty(dc)) {
-> +			apple_dockchannel_irq_disable(dc, IRQ_TX);
-> +			tx_done =3D dc->tx_active;
-> +			dc->tx_active =3D false;
-> +		} else {
-> +			pending &=3D ~IRQ_TX;
-> +		}
+[ ... ]
+> +	/* include emulation byte in offset to slice header */
+> +	while (bytes_read < min_off) {
+> +		if (data[off - 2] !=3D 0x00 || data[off - 1] !=3D 0x00 ||
+> +		    data[off] !=3D 0x03)
+> +			bytes_read++;
+> +		off++;
 > +	}
+
+[Severity: High]
+Is it possible for off to advance past the end of the mapped slice payload?
+If a malformed bitstream repeats 0x00 0x00 0x03 sequences, could this loop
+exceed payload_len and cause an integer underflow when calculating
+payload_len - off below?
+
 > +
-> +	writel_relaxed(pending, dc->irq_base + IRQ_FLAG);
+> +	coded_in =3D h264_ctx->active_slice->addr + off;
+> +
+> +	push(AVD_OP_CODED_DATA |
+[ ... ]
+> +	if (sl->slice_type =3D=3D V4L2_H264_SLICE_TYPE_B) {
+> +		/* bidirectional reference of previous mv */
+> +		ref =3D avd_get_ref_buf(
+> +			ctx, &dst->base.vb,
+> +			decode->dpb[sl->ref_pic_list1[0].index].reference_ts);
+
+[Severity: High]
+Can the user-controlled sl->ref_pic_list1[0].index exceed the bounds of the
+16-element decode->dpb array? It appears this index is used directly without
+validation, which could lead to an out-of-bounds read.
+
+> +
+> +		mv_color_addr =3D
+[ ... ]
+> +static int avd_h264_alloc_bufs(struct avd_ctx *ctx)
+> +{
+[ ... ]
+> +	ret =3D avd_buf_alloc(dev, &h264_ctx->bufs.above_info, mb * 20);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D avd_buf_alloc(dev, &h264_ctx->bufs.ip_above, bit_depth * 4 * mb=
+);
+> +	if (ret)
+> +		return ret;
 
 [Severity: Medium]
-Will this lead to an interrupt storm if the TX interrupt fires but the
-FIFO is not empty?
+If a later allocation fails in this sequence, what happens to the previously
+allocated DMA buffers? For example, if the ip_above allocation fails, the
+function returns the error directly without freeing bufs.above_info,
+potentially leaking memory.
 
-Since IRQ_FLAG is a write-1-to-clear register, removing IRQ_TX from
-pending intentionally skips clearing the active hardware interrupt in
-this case. The handler returns while the unmasked interrupt is still
-asserted, causing the IRQ controller to immediately re-fire the interrupt.
-
-While this may require a spurious hardware interrupt or glitch to trigger,
-it would result in an infinite interrupt loop that permanently hangs a
-CPU core.
-
-[ ... ]
-> +out_unlock_none:
-> +	spin_lock_irqrestore(&dc->lock, irqflags);
 > +
-> +	if (flags & (IRQ_TX | IRQ_RX))
-> +		writel_relaxed(flags & (IRQ_TX | IRQ_RX),
-> +			       dc->irq_base + IRQ_FLAG);
+> +	ret =3D avd_buf_alloc(dev, &h264_ctx->bufs.lf_above,
+[ ... ]
+> +static int avd_h264_validate_sps(struct avd_ctx *ctx,
+> +				 const struct v4l2_ctrl_h264_sps *sps)
+> +{
+> +	if (sps->chroma_format_idc > 2)
+> +		/* Only 4:0:0, 4:2:0 and 4:2:2 are supported */
+> +		return -EINVAL;
 
 [Severity: High]
-Can this write back a stale flags value, clearing newly asserted interrupts?
+Does this validation routine properly reject unsupported bitstream features
+(such as arbitrary slice order or redundant pictures)? The commit message
+mentions that some test case features are not rejected and cause the hardwa=
+re
+to fault. Is it possible for unprivileged userspace to trigger this fault?
 
-The flags value is read outside the lock at the beginning of the handler.
-If the handler takes the out_unlock_none path (e.g., due to a concurrent
-shutdown making pending =3D=3D 0), it will write this stale flags value to
-IRQ_FLAG locklessly.=20
+> +	if (sps->bit_depth_luma_minus8 !=3D sps->bit_depth_chroma_minus8)
+[ ... ]
+> +static int avd_h264_start(struct avd_ctx *ctx)
+> +{
+[ ... ]
+> +	h264_ctx->alloc_slice_num =3D
+> +		ctrl->p_new.p_h264_sps->pic_height_in_map_units_minus1 + 1;
+> +	h264_ctx->slices =3D kzalloc_objs(*h264_ctx->slices,
+> +					h264_ctx->alloc_slice_num, GFP_KERNEL);
+> +	if (!h264_ctx->slices)
+> +		goto err_free_ctx;
+> +
+> +	ret =3D avd_h264_alloc_bufs(ctx);
+> +	if (ret)
+> +		goto err_free_ctx;
+> +
+> +	return 0;
+> +
+> +err_free_ctx:
+> +	kfree(h264_ctx);
+> +	ctx->priv =3D NULL;
+> +	return ret;
 
-If another CPU executes apple_dockchannel_send_data() and completes a
-transmission in the intervening window, this lockless write-1-to-clear
-will wipe the newly generated IRQ_TX interrupt, hanging the mailbox channel.
+[Severity: Medium]
+If avd_h264_alloc_bufs() fails, does this error path leak memory? It looks
+like h264_ctx->slices is never freed before returning here.
+
+> +}
+[ ... ]
+> +static int avd_h264_run(struct avd_ctx *ctx)
+> +{
+[ ... ]
+> +	if (ctx->job.segments &&
+> +	    h264_ctx->slice_num >=3D h264_ctx->alloc_slice_num) {
+> +		ret =3D avd_h264_realloc_slices(ctx);
+> +		if (ret)
+> +			goto err_free_jobs;
+> +	}
+
+[Severity: Critical]
+If a user queues slices without first_mb_in_slice =3D=3D 0, avd_init_job is
+bypassed and ctx->job.segments remains NULL. Wouldn't this bypass the bounds
+check entirely? This might allow h264_ctx->slice_num to keep growing and wr=
+ite
+out of bounds on the heap when it accesses the active slice below.
 
 > +
-> +	return IRQ_NONE;
+> +	src =3D v4l2_m2m_next_src_buf(ctx->fh.m2m_ctx);
+> +	h264_ctx->active_slice =3D &h264_ctx->slices[h264_ctx->slice_num];
+> +	ret =3D avd_buf_alloc(ctx->dev, h264_ctx->active_slice,
+> +			    vb2_get_plane_payload(&src->vb2_buf, 0));
+> +	if (ret)
+> +		goto err_free_jobs;
+> +	memcpy(h264_ctx->active_slice->cpu, vb2_plane_vaddr(&src->vb2_buf, 0),
+> +	       h264_ctx->active_slice->size);
+
+[Severity: High]
+Can vb2_plane_vaddr() return NULL here if the provided buffer cannot be map=
+ped
+(e.g., an unmappable DMABUF)? Passing a NULL pointer directly to memcpy cou=
+ld
+lead to a kernel panic.
+
+> +	h264_ctx->slice_num++;
+[ ... ]
+> +	if (is_new_frame(run.slice_params)) {
+> +		ret =3D avd_init_job(ctx, AVD_CODEC_H264,
+> +				   h264_ctx->alloc_slice_num + 1);
+
+[Severity: Medium]
+If a previous operation left a populated ctx->job.segments without submitti=
+ng
+it, does avd_init_job() unconditionally overwrite ctx->job.segments and leak
+the old array?
+
+> +		if (ret)
+> +			return ret;
+> +		stream_hdr(ctx, &run);
+> +	}
+[ ... ]
+> +	if (run.base.bufs.src->flags & V4L2_BUF_FLAG_M2M_HOLD_CAPTURE_BUF) {
+> +		avd_job_finish(ctx, VB2_BUF_STATE_DONE);
+> +		return 0;
+> +	}
+
+[Severity: Medium]
+When V4L2_BUF_FLAG_M2M_HOLD_CAPTURE_BUF is set, we bypass avd_submit_job()
+which usually frees ctx->job.segments. Could this cause a memory leak of the
+segments array if a new frame is processed subsequently?
+
+> +
+> +	return avd_submit_job(ctx);
+> +
+> +err_free_jobs:
+> +	kfree(ctx->job.segments);
+> +	return ret;
+
+[Severity: Critical]
+Is it possible to encounter a Use-After-Free here? We call kfree on
+ctx->job.segments, but we don't set the pointer to NULL. If a subsequent m2m
+operation bypasses avd_init_job(), could it read from or double-free this
+dangling pointer via avd_h264_realloc_slices()?
+
 > +}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918-apple-mtp-=
-keyboard-final-v3-0-e356464e454b@gmail.com?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918-avd-v1-0-4=
+9977931f455@icloud.com?part=3D11
