@@ -1,48 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A45B4DE70B;
-	Fri, 18 Sep 2026 11:38:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAE404E73AF;
+	Fri, 18 Sep 2026 11:41:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789731490; cv=none; b=Ma7RfYMGLw3fdI2hvlBJjR5IkHniL6YXFLVUz5i1BiDwdoXToLKUMo3WFpC/PhRfK9+khGBLP0wQScy7R24qSwENPIQv2+pAGkq8ov+YeYzLhlMwxuZKk6cEY7XD5v/gtm0ih1T5X5Jn2+d2E/0T4F7JdNTdD1DKFHqFmArfn3U=
+	t=1789731668; cv=none; b=ruP7Jj+DuZorfL/oqTLs3nppe0XgFZt0sbAFJllqv6BXYkG81h00eeMJnwH9rqY0qPg+qLwSBM9DhX9gECvgyq9cpBseH76Yj2nvIkOy7YGLXRYlueWU1DL22R7P58/k9oCtQSSD/wRLICu+tJxrsyKU8Aep6wjG1uVyJ9a6OYg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789731490; c=relaxed/simple;
-	bh=NhcpE0x86WaY3L19vDcMfmEYtxxZPDkTvFPvMJ1x3ds=;
+	s=arc-20240116; t=1789731668; c=relaxed/simple;
+	bh=f0TQ9fRKwaKo3/+QIg/236j82WzlkDKwZyW4jLVI83E=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ff5yjAjQBd+XHFZon5hf6v+mvCU02yKj6KWy8madCAZB3UYEaRxN6cxvk/0qIPD5W/yTgpFP+FC9TlOdMwWqGdvSyJpdYT8XHsoUGqziG3O+SeNILzckHx+UpzSNvL85omv22ScfpymWoFXLiCLxNzo2hU3+Q+T12mMRR0/Kn4k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YFvekzFV; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=UPs+mljXw/DQhtz8ESwfAdbUZ/sbQjCuWxu2DJWriIc6lsSdAOhg1/3QHrSH+csw+y9PO0oRl/Rzk2X4uhh5r1sPnuwxrRxojShe2v21ZPgahW+ZdHUAaL0NuF2pInKhpVa9LICRTzBQHQBJ0hw8ME7XhZHDNRFJu8+GwX/EpO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a3Eb1LF5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YFvekzFV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C05A1F00898;
-	Fri, 18 Sep 2026 11:38:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a3Eb1LF5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49C251F000FF;
+	Fri, 18 Sep 2026 11:41:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789731489;
-	bh=NhcpE0x86WaY3L19vDcMfmEYtxxZPDkTvFPvMJ1x3ds=;
+	s=k20260515; t=1789731666;
+	bh=17R6oFD+3Rnrfxtpg17YJHuJIg2RwIFi6BsTJ4tzPn0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YFvekzFV/BhGm83OLudte0Mksm9JDZLcIOjq9OxmVjcT5wRz9Gr7dEpgfBQxFXHHu
-	 NJpg7mWtiAOAaTsyL1N9IMfz7leMvwd00DogqrXlXIxIJhQxEkAXVcZeI8u2It+uPd
-	 bIfSdZA/Q87xj1eB0Zrd19PJlzE80Ilj4w579X3lfnsz+4lGix2AUm548CqsQp+/0K
-	 sunL6xZCuKn65mLdFWStJQnyRpIVjsJSvtlzonPrtlWt1Xsm/kQSseldoQ/FDxCFsp
-	 yrRi2991ROKw7vDljvclqiWfYtZ08G/UEwkLtUXdudUxs16r6LeF63B47pseb2AXJo
-	 2sD7FFeiT5r4w==
-Date: Fri, 18 Sep 2026 13:38:05 +0200
+	b=a3Eb1LF5xIfv5CC9dcWyV9WJplo6pnReNATJjE16JrFRB0gwhEbCZ/IbIS5rQ4aXo
+	 8jQ+PaVFOAG1hBJwo59xaYCVy03gkbBrIkPviwv1PCHM9Q9LF15i6UyBOkSWFA7J1P
+	 xFYtdls8HG+fX4wlIjFE2Lc1vpba1lLrZoGQ4InvamkGTbMyN5fT1Fyce7Ccd7K8Xk
+	 pJeWZfWCg9KM0JU4pzwFfiLHuT2Pjb6AQhJE7GUUyke9pxneZc2/GtJ+R8xnQPsskw
+	 8wBzRFBx57hqhPrG4Yu4JIj73nKDbUD93qaRtNgtNpoaAM1qcaUo2LFmzxxJwywjAX
+	 fGF7MicbN5tNg==
+Date: Fri, 18 Sep 2026 13:41:01 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Paul Elder <paul.elder+renesas@ideasonboard.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-pm@vger.kernel.org, linux-media@vger.kernel.org
-Subject: Re: [PATCH 01/10] dt-bindings: clock: renesas,r8a78000-cpg: Add
- CPG_SGD4_VIO_DP_{TX,OTHER}
-Message-ID: <20260918-masked-tidy-sheep-b326d4@quoll>
-References: <20260917-epaul-v7-3-rc1-x5h-vsp-fcp-v1-0-4c72d4e086dd@ideasonboard.com>
- <20260917-epaul-v7-3-rc1-x5h-vsp-fcp-v1-1-4c72d4e086dd@ideasonboard.com>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: devicetree@vger.kernel.org, frowand.list@gmail.com, 
+	linux-kernel@vger.kernel.org, robh@kernel.org, saravanak@kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] of: unittest: Fix of_symbols reference leak in
+ of_unittest_overlay_high_level()
+Message-ID: <20260918-transparent-normal-spider-b2c565@quoll>
+References: <20260917125717.2152371-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -51,12 +43,27 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260917-epaul-v7-3-rc1-x5h-vsp-fcp-v1-1-4c72d4e086dd@ideasonboard.com>
+In-Reply-To: <20260917125717.2152371-1-vulab@iscas.ac.cn>
 
-On Thu, Sep 17, 2026 at 09:04:40PM +0900, Paul Elder wrote:
-> Add preliminary clocks for testing:
+On Thu, Sep 17, 2026 at 12:57:17PM +0000, Wentao Liang wrote:
+> of_get_child_by_name() returns a node with an elevated reference count,
+> but the function never drops it: neither on the early return for an
+> illegal node name, nor on the normal return, nor on the err_unlock
+> path. Add the missing of_node_put() calls.
+> 
+> Fixes: 81d0848fc8d2 ("of: Add unit tests for applying overlays")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
-What is a preliminary clock?
+Why are you sending 10 separate patches, one by one, not a proper
+patchset? It's the same as with Guangshuo Li.
+
+Look:
+https://lore.kernel.org/all/?q=f%3AWentao+Liang+%3Cvulab%40iscas.ac.cn%3E
+
+Absolutely nothing is threaded. No way for a subsystem maintainer to for
+example drop one comment for entire subsystem. Instead you ask
+maintainer to reply TO EACH of the patches.
 
 Best regards,
 Krzysztof
