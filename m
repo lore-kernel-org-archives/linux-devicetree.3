@@ -1,51 +1,57 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B10FA51EDE7;
-	Fri, 18 Sep 2026 18:40:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 562783B95E0;
+	Fri, 18 Sep 2026 18:42:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789756830; cv=none; b=LBoE4FHJfuSHEVf+CpdGSh6v1BSlp71QEi9SLjWI9Qr3CfnPdGqHSa6CNIodIEu8DAkwWZaD4MYprrJfYJda6Hy2e8AeywwDaI1QAhHfYwjV0gKIA6/bvs8r0er1vICAraMaO6zmvf6IDXHE23Uvia1z25OfMHuqkMilXsF+BAg=
+	t=1789756931; cv=none; b=gjrD083mBva3Qx131UtK07KEG+1eX9xXz01MYPWvu9nz6XJzH15klKdPvjauKery+yLwhT/dwgYRoYYS+Tqf1PWGCrEzciwscw7xiA0UxFyEMY2j0Ka7gX2tKu2AE8Nz5U3XFqhhRpDe+HJM5DIK/OJ9YvB9tK7ZehLerr/837g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789756830; c=relaxed/simple;
-	bh=Zmg4oVHPgx7maldqzIAQsqpTNKmvF63bhKDnnginVGQ=;
+	s=arc-20240116; t=1789756931; c=relaxed/simple;
+	bh=yRtXZoYoH7DLf9DFZ/GfyScpg4JkyCqCyFHXJ69FqR4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ps9RoaBwN4TXIdcLUP+ZVuRJpb3LYy5s2drmqWJJEG3dhVImuFqyG4uPck3/ckgpcRVvhiLp813gjsAtR+eWjTfrSq6Z44mYcGhM8YbP2rY7+oKNjAguaJ5Fp9yjrcPZiM41SKd+bp+i6i5CpW1+7Mv9AUUbZcgZL+Mx94m2pD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RvTdh+Wy; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=lFYiTrt8hw9beIs80OasZ1QpQ4p0+gdMTfG08CWbsyweKjb+sPoHJLxmqMpgPJMJro4Dy0J8S9jwIRA+cRvkEAHXSDwEWtiyKgiKP50G0TSdtLCFfkzYRdElscqU6r6N/jnO6U5xM6dJqY6uddpzf1toCkqQgLozTzPW7fbzvDM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dGsvJzUR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RvTdh+Wy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D47311F000FF;
-	Fri, 18 Sep 2026 18:40:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dGsvJzUR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62F2A1F000FF;
+	Fri, 18 Sep 2026 18:42:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789756824;
-	bh=K4DKiNWT0z7bDF3x68aCW4RDAzgVquq2Z4NJk4qtB1U=;
+	s=k20260515; t=1789756923;
+	bh=5sY2K0NFqeHlnnXVJj9mphRlP5+qDd3iUqsbcAY+xNQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RvTdh+WyjvcNSenF6Q5iW2+3UCDVfah7CovDAXfjC9ZqUgG1bajXwuHRfzLvwjUFd
-	 ho0oulhMIx8ufdmsrYluvNahDyE/PEXOt35v1NlZ+PpbXFLDxs5iePiJjng9iwJVY2
-	 8QJ2Cahd8z2KTYDb9thogDXKuByxQnrenKF/qtKkfxG+e3ZnjNfQDzTayBiKXm8K7t
-	 6cYRCRKslNUgX3fV778QGMcZB2gohAR3csG+gDWzecoGDiQGpPy4abNV2AFaWUr2cH
-	 W6LZWtmRVFO3lCztr/YPtfQ4dKoo5uNYMXIV6w2wjFJ8UWlkxDuJVgRKlVF/LHjRO0
-	 B4RbGpuWWkdwA==
-Date: Fri, 18 Sep 2026 13:40:22 -0500
+	b=dGsvJzURnx4P2I2ySeknphYi171fhnjGzSiD1bWzXoT3bnkbdVesM6rLQImvP+Rng
+	 Tk1LDa0FfDwc1zq+cR9oPuMBlf5PNOSu1W9pnXJDcJW6IXEHDGGCxqoXWF39997mPF
+	 i3qD1PswT/s8eLDbaIRPOaUTvyvWttwc0L6vTjqrP25zlQnG1durEI9UZxpQTYY0os
+	 vk0kMkn1GVD9F5rorzOzFa6GQZZYfGSyX7bngD2cTHwC8fDlNPbvQmNo7w3bQWLNSn
+	 dV+HPLPKau1h2cPRnbjw/Sf4SAsgpxD7Vud+vm+C8T/WeoUk7J/5pRO7XygeqBHBqw
+	 WecR2YK94mx/A==
+Date: Fri, 18 Sep 2026 13:42:01 -0500
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Emil Renner Berthing <kernel@esmil.dk>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Albert Ou <aou@eecs.berkeley.edu>, Paul Walmsley <pjw@kernel.org>,
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	devicetree@vger.kernel.org, Samuel Holland <samuel@sholland.org>,
+	Maxime Ripard <mripard@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>,
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Linus Walleij <linusw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>
-Subject: Re: [PATCH v8 17/22] dt-bindings: pinctrl: Add
- starfive,jhb100-per2pok-pinctrl
-Message-ID: <178975682173.1350245.6591381351545703552.robh@kernel.org>
-References: <20260910100357.130134-1-changhuang.liang@starfivetech.com>
- <20260910100357.130134-18-changhuang.liang@starfivetech.com>
+	"David S. Miller" <davem@davemloft.net>,
+	linux-sunxi@lists.linux.dev, Philipp Zabel <p.zabel@pengutronix.de>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	linux-stm32@st-md-mailman.stormreply.com, netdev@vger.kernel.org,
+	Jakub Kicinski <kuba@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>, linux-kernel@vger.kernel.org,
+	Andre Przywara <andre.przywara@arm.com>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	Richard Cochran <richardcochran@gmail.com>,
+	Eric Dumazet <edumazet@google.com>
+Subject: Re: [PATCH net-next v2 1/2] dt-bindings: net: sun8i-emac: Add A733
+ GMAC210 compatible
+Message-ID: <178975692133.1355528.3349670401889953428.robh@kernel.org>
+References: <20260910-allwinner-a733-gmac-support-v2-0-4f4a1e520c23@baylibre.com>
+ <20260910-allwinner-a733-gmac-support-v2-1-4f4a1e520c23@baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -54,18 +60,28 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260910100357.130134-18-changhuang.liang@starfivetech.com>
+In-Reply-To: <20260910-allwinner-a733-gmac-support-v2-1-4f4a1e520c23@baylibre.com>
 
 
-On Thu, 10 Sep 2026 03:03:52 -0700, Changhuang Liang wrote:
-> Add pinctrl bindings for StarFive JHB100 SoC Peripheral-2 Power OK
-> (per2pok) pinctrl controller.
+On Thu, 10 Sep 2026 12:25:26 +0200, Jerome Brunet wrote:
+> The A733 GMAC210 is a DesignWare MAC 5.20 close to the A523 GMAC200, with
+> the following differences:
 > 
-> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+>  * The glue configuration registers are a dedicated MMIO region of the
+>    controller instead of a syscon register, so a second reg entry replaces
+>    the syscon phandle.
+>  * The DMA channels and the LPI event have their own interrupt lines.
+>  * A PTP reference clock and an AHB reset are needed.
+>  * Unlike the A523, the controller does not appear to belong to a power
+>    domain.
+>  * The TX clock delay field is 5 bits wide, allowing up to 3100ps.
+> 
+> Add the new compatible and describe those differences.
+> 
+> Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 > ---
->  .../starfive,jhb100-per2pok-pinctrl.yaml      | 162 ++++++++++++++++++
->  1 file changed, 162 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/pinctrl/starfive,jhb100-per2pok-pinctrl.yaml
+>  .../bindings/net/allwinner,sun8i-a83t-emac.yaml    | 130 ++++++++++++++++++---
+>  1 file changed, 115 insertions(+), 15 deletions(-)
 > 
 
 Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
