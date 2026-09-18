@@ -1,140 +1,106 @@
-Received: from mail-oi2-f9.google.com (mail-oi2-f9.google.com [74.125.231.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2195B54705C
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 05:36:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4A68485944;
+	Fri, 18 Sep 2026 05:52:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789709796; cv=none; b=OecFTRtnMZPXD0ptS67seF0z7C+6IY4oajmLqYBuCwDV0tJtgoJnMSiFzZqDk4i7BXmt3/fcZpx2EJzfcEznd7JLunaMKv2QBD7TgPuF16IfaUKGOmYD7q6xLcN4e1VUU3UrneYKapP2uK7JKfLy+3IcVn7Zo370EwC8aI/4GQc=
+	t=1789710770; cv=none; b=XCGB7R+nHG9AFwL/NPgS1H5dykJCNwerygFmE1kGRqyK5imzw3kJc8zw2rUjbZbfP4DrbAoYXhu3np1qIeEj+lNszvBh8be7f9Fk1wyN9U/12cZyJ+tHfkI4xp9N55IXR5K8K7LpVmdEGWm/aODTXl4Y8nOfn6Oz2d/II5Bp/Yo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789709796; c=relaxed/simple;
-	bh=NsABBcb3EIyxT70PI8GRlp7BkYxP4/kjhi7H46Bdmcs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=m4Klx93HNI8iM8dirZtIfit+Uegzznhez3iKohmlP9fjlDkMt5LY87vJcqscCHTzXkNAP6qXp27bxdxu5DjbfxIBuGVQyRHu2d9UsjnIly3OuOskW3xzA8UQKQShKbMwInarhuq5v2+3QvcPnm6L07mHgJm+zGDfbvLoYm/FJCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AV7+b2kh; arc=none smtp.client-ip=74.125.231.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AV7+b2kh"
-Received: by mail-oi2-f9.google.com with SMTP id 46e09a7af769-7f4ddb9adf4so128388a34.1
-        for <devicetree@vger.kernel.org>; Thu, 17 Sep 2026 22:36:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789709794; x=1790314594; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=wzYREWP6rj7hgGP9HuQBvFreYOKOzskxVTsd3aB8HvI=;
-        b=AV7+b2khtmkzQU/ptzlZIYf67PGTb27yZFWmZTAZxmFJe8iHNs+ZxjWSy06dCZbCQx
-         FhqjN3w+v5VzL6VgHwT81GUDpmRFlLA49yDvtmJxmuWexgdW2Su6qPqNlAmjFONE+wDK
-         E4Gztfv/xLN65+lEJzjiE0WjEPq0N7cOeM3QOa2LfNBvaW+zUl7YwwgDEJHBOLeecgGh
-         T2HVKAUa62dBPmGILbigcg6cCrTOYx18VzmxJScEeVkWLwbAyv6tDq5TmlbCJBI9NnC/
-         Jxm497Vx38N4UwBnoQj3nFOWKLsTNxZBcoSUznw5NEemZd+xm/YcdZDiuLBfsa+9o8xv
-         992w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789709794; x=1790314594;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=wzYREWP6rj7hgGP9HuQBvFreYOKOzskxVTsd3aB8HvI=;
-        b=K+MRumRpdC1r7uzjITxoZdrq+yBbnC5ibuRyOouAMjll++w4eKTl0E2QvdB7HTLqUM
-         PLVcHKQBXJdXlZf9jfLvEHHDDyy1dztV+EZ5HFfEIk3iOint3IlzuexKxe0sfIX4P6xs
-         tK8UlH9LS+PiFUfMnqZ16iwxcF4R+sXf4YNpsloZI6ZXVvUhN9D427RI9U1kUD1G/Zaf
-         s2ehrK89CgQknnmA2aa5dRwZiTFCQbMDfKv2cgXeCqCkxkVmDhR523xlTED3iJ+u84e5
-         8JH8FNpfhvMLPvrZ6l1BR9nEic4S7aTeiLJwsNOyItXAPZK8kM6+4gHoVTftIEAar6xO
-         Xk8w==
-X-Forwarded-Encrypted: i=1; AKwUvBzKpEqn2AWMf34QMvdIgBgmXe/KCaPi2Bb6g9yB0ys6kuZI5u2c3FiV8QbZYTLDJgGqvTHV4na/6Gy1@vger.kernel.org
-X-Gm-Message-State: AFuF++lthJKGrzDhEEt1YvRxATG61xL+041IT7BzbgotSKMk2fzuvR7z
-	b5bwhlBfRm5VGFl60SX7w68tMBUm96K1E/AAzX5XKIqjKqwy6zXcSwtd3bzwAxNk0QQ=
-X-Gm-Gg: AYBFou0Mpb8c/8/9/q5Gs13urCtDzCLB2Lj+LlfX4T01cMmdDEnk2J/C4TE5eKiQytd
-	sQ1jJdv4/wy1Iqb+MpgDAEgk05fsB+OXjQnUcppzeLzy5c/P1uo3tHmXioqZ2Zs4yOaKqzryO+h
-	HEjRCBbMaaAE3zz4Yyc2z3t5iJv/iEQoaJ8htuH5DpMr2rePcH6ca9N3PtuduTALnS6zPaaXhr/
-	HBbORxmqhktUrAEUyriZk7gU9LVatyb2ndi84kBwN4TqmZy7ui4BkwmAG6pKk7+QTM7e3jkL38C
-	W69I97qBZ80gXYY1ullrBa8kJLBRqA49mqBvyxg3dpeR9Gt/vR37PZnJkvm9Vr4Ru3vZTXGPN+v
-	ItG+pkDbWlfikgLA0n9j2OfvjaxChC4xc43M4+bbn8XaffhaHkYna/AeOoWDrAJRjycB0Gp1+Av
-	EAB+UMc6qXrMR6ZCVdNg65g5R3vXrF52Pci4csN2swCoGnowQdyUbvy3MpLN/eLYTqkQ==
-X-Received: by 2002:a05:6830:6616:b0:80a:45e1:7677 with SMTP id 46e09a7af769-80de2ee8133mr1570219a34.23.1789709793953;
-        Thu, 17 Sep 2026 22:36:33 -0700 (PDT)
-Received: from [192.168.18.164] ([2600:8804:5716:d800::b712])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-80e5226786csm591006a34.22.2026.09.17.22.36.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 22:36:33 -0700 (PDT)
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-Date: Fri, 18 Sep 2026 00:36:31 -0500
-Subject: [PATCH] dt-bindings: power: supply: battery: allow longer
- ocv-capacity tables
+	s=arc-20240116; t=1789710770; c=relaxed/simple;
+	bh=9gDLaSvfEcxCMzM5UNGOW/P0V0j0lNB4HEBNmiKWMzU=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=VK4Z2yCIO97/Nkr+BdINhlys1hQhZoH5Ws3h2AGQX+53P6AgbcjuftPSXDBvwFkZi1tDKAm3fLhzpXRWPs2ziXOVv73DhJBZlgrfQcZcoP6uEwusiNTK9OAP5rMkbhlt5HkMEI84NS/v7BwZriBUway9SMhfTXPmZfnnJfQMTKs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.103.44])
+	by APP-01 (Coremail) with SMTP id qwCowABnOe2i0axqXE9ICA--.14577S2;
+	Fri, 18 Sep 2026 13:52:35 +0800 (CST)
+Message-ID: <4a7b271d2a90eff94c27dec3bf24114ce44df1fd.camel@iscas.ac.cn>
+Subject: Re: [PATCH v7 7/7] drm/verisilicon: fix DC8200 primary plane
+ disable clearing FB_EN
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
+	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Fri, 18 Sep 2026 13:52:34 +0800
+In-Reply-To: <20260918030125.315978-8-a0987203069@gmail.com>
+References: <20260918030125.315978-1-a0987203069@gmail.com>
+	 <20260918030125.315978-8-a0987203069@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-rbrue-suez-upstreaming-battery-ocv-table-128-v1-1-f477ef39ef0d@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3NQQqDMBBA0avIrDtgErCmVyldZHS0A22USSK24
- t0bunyb/w9IrMIJbs0BypskWWKFuTQwPEOcGWWsBtvarvXmikpaGFPhL5Y1ZeXwljgjhZxZP7g
- MG+ZAL0Zje/QUejd5ZxwR1OSqPMn+390f5/kDCOWi4H4AAAA=
-X-Change-ID: 20260917-rbrue-suez-upstreaming-battery-ocv-table-128-9ba83f9313bb
-To: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Ryan Brue <ryanbrue.dev@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789709793; l=2304;
- i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=NsABBcb3EIyxT70PI8GRlp7BkYxP4/kjhi7H46Bdmcs=;
- b=8RcHojJeCCDh+w91/otTDYKnBOGvtzo4VWyFpp7W6H8wedK1LB8MqkV1m88L2p7oVOhXRrZpp
- NzZxm4zVsEXBwHXt+gQVmq2MsB/VBx7gt2LPyURgsFXfS5pjsz9KKTb
-X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
- pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
+X-CM-TRANSID:qwCowABnOe2i0axqXE9ICA--.14577S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7WrWrXF1kJw48ZF43CF1ftFb_yoW8Ar1DpF
+	4ay3y8KF4rXayj9FyxtFWvgFyYv3W7J34fG3y8G3sIvrn8ta9xWFy8tFyxta4DWrZrAF4S
+	vFs29w47Cr1jkF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvqb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
+	w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMc
+	vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
+	1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
+	C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
+	wI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
+	v20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
+	jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0x
+	ZFpf9x07jUb18UUUUU=
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-ocv-capacity-table-N has been capped at 100 points since battery.txt was
-converted to YAML, where the limit arrived without a stated reason.
+=E5=9C=A8 2026-09-18=E4=BA=94=E7=9A=84 11:01 +0800=EF=BC=8CJoey Lu=E5=86=99=
+=E9=81=93=EF=BC=9A
+> vs_dc8200_primary_plane_disable_ex() calls regmap_set_bits() on
+> VSDC_FB_CONFIG_EX_FB_EN instead of regmap_clear_bits(), so disabling
+> the primary plane on DC8200-family hardware actually leaves the
+> framebuffer enable bit instead of clearing it.
+>=20
+> This bug predates this series: it was carried over unchanged from
+> vs_primary_plane_atomic_disable() when patch "drm/verisilicon:
+> introduce per-variant hardware ops table" split the DC8200-specific
+> implementation out into vs_dc8200.c.
+>=20
+> Fixes: dbf21777caa8 ("drm: verisilicon: add a driver for Verisilicon
+> display controllers")
 
-The MT6397 fuel gauge is characterised per temperature by a table the
-Amazon Fire HD 10 (2017) vendor device tree carries with 126 points, of
-which 122 are expressible here - the remainder are greater than 100%
-discharged, so the binding excludes those points. Boards carrying this
-PMIC fuel gauge would need more than 100 points to describe the pack with
-the generic property. Raise the cap to 128.
+Maybe it'd be better to fix this before adding DC variant abstraction,
+for easier backporting.
 
-Assisted-by: LLM
-Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
----
-No kernel change goes with this. power_supply_get_battery_info() sizes each
-ocv-capacity-table-N from the property itself -- it reads the length with
-fwnode_property_count_u32() and devm_kcalloc()s that many entries -- so
-maxItems in the binding is the only cap on points per table.
-POWER_SUPPLY_OCV_TEMP_MAX bounds the number of tables, not their length.
+Thanks,
+Icenowy
 
-The consumer that wants this is an MT6397 PMIC fuel gauge not yet posted;
-its pack is characterised at 126 points per temperature in the vendor's
-kernel (Amazon Fire OS, based on Linux 3.18), with 122 of those points
-being expressible with the generic property (the rest are greater than
-100%).
----
- Documentation/devicetree/bindings/power/supply/battery.yaml | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/Documentation/devicetree/bindings/power/supply/battery.yaml b/Documentation/devicetree/bindings/power/supply/battery.yaml
-index 8ebf05d9497c..a6d4822f591c 100644
---- a/Documentation/devicetree/bindings/power/supply/battery.yaml
-+++ b/Documentation/devicetree/bindings/power/supply/battery.yaml
-@@ -154,7 +154,7 @@ patternProperties:
-       of the battery and corresponding battery capacity percent, which is used
-       to look up battery capacity according to current OCV value. And the open
-       circuit voltage unit is microvolt.
--    maxItems: 100
-+    maxItems: 128
-     items:
-       items:
-         - description: open circuit voltage (OCV) in microvolts
-
----
-base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
-change-id: 20260917-rbrue-suez-upstreaming-battery-ocv-table-128-9ba83f9313bb
-
-Best regards,
---  
-Ryan Brue <ryanbrue.dev@gmail.com>
+> Signed-off-by: Joey Lu <a0987203069@gmail.com>
+> ---
+> =C2=A0drivers/gpu/drm/verisilicon/vs_dc8200.c | 4 ++--
+> =C2=A01 file changed, 2 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/verisilicon/vs_dc8200.c
+> b/drivers/gpu/drm/verisilicon/vs_dc8200.c
+> index f72da10295e1b..25b5906a1c5fc 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_dc8200.c
+> +++ b/drivers/gpu/drm/verisilicon/vs_dc8200.c
+> @@ -70,8 +70,8 @@ static void
+> vs_dc8200_primary_plane_enable_ex(struct vs_dc *dc, unsigned int out
+> =C2=A0
+> =C2=A0static void vs_dc8200_primary_plane_disable_ex(struct vs_dc *dc,
+> unsigned int output)
+> =C2=A0{
+> -	regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
+> -			VSDC_FB_CONFIG_EX_FB_EN);
+> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
+> +			=C2=A0 VSDC_FB_CONFIG_EX_FB_EN);
+> =C2=A0
+> =C2=A0	vs_dc8200_plane_commit(dc, output);
+> =C2=A0}
 
