@@ -1,131 +1,147 @@
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A09134388D
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 00:35:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.28.215.223
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53025175A64
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 00:45:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789691710; cv=none; b=kDN1EsoM1x0vUYLS+UjSD2KzNPSUXci9OF65f/Y2PTSzNiQB5EMqhsW3pIwxPCqmUbFb2f7x265coMPoDtfyMAZjFoEze8Abagbx6RmPejdjz7jf9qYrHi/UqOTD2vjV1iRqqWjrz6dTEhAN5rfqrYFMBubth2HDjGYtyacSF2Y=
+	t=1789692324; cv=none; b=ukyt1R4+l44+bW3FOVEQuHDnhdksfTrbAhuGIYVsfgSL5Iod67Klx8uJo++I+gYPMmFuFUXm0/oS3IA9Vw1q3DeYNOxO5ux9xhHvMEWiOoauTIvy4Y+SsS/1QjWpcDsMvMXbuF/1Mg/o9H4y9kmiDWDrqB+kmEwo6foBITs38w0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789691710; c=relaxed/simple;
-	bh=8QgXkkNdHre4C26c9GV+NpL0QV5WDefYsihE2tDLo6E=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
-	 References:In-Reply-To; b=K+L0GuJn8jpm9RotxDCxm2/DkSlJ5m5Cv7h7xD0VCi4PWS3Rv0YDGzo1vSuVl5XsofyLFTTDIShRkwP8D8S6Uykeq/olMaOXNIqHUCxEMb/JIp2404elAz5coWEv1adSztG2l2yRhPEnUUQd9x5PGDtVHlpdiEZLidBS5/qMPR4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ubuntu.com; spf=pass smtp.mailfrom=fe-bounces.ubuntu.com; dkim=pass (2048-bit key) header.d=ubuntu.com header.i=@ubuntu.com header.b=g5frHq5i; arc=none smtp.client-ip=149.28.215.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ubuntu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.ubuntu.com
+	s=arc-20240116; t=1789692324; c=relaxed/simple;
+	bh=fof9TctqWK3exOzoPAy/2oeZxLno/qEj/oOvhVvK/98=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Y5PLq1PoP/AZ5kaZmJVdesQ/2NOLcEXNTCCo7ZKq1Hkr1IzZnMCFCyXuBL+QGxdU1nPJiZKCDOVUMRp/Sft+J8n+FW0cx+20OWKoOe/0Fb82XQceZdAbmYj88yYGDAz7zHNZ13xWsT0MCxr8/7qDfTJU8C4vnyj0guqsVGBimZE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aRRF2zK2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ubuntu.com header.i=@ubuntu.com header.b="g5frHq5i"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ubuntu.com;
- h=In-Reply-To: References: Cc: To: From: Subject: Message-Id: Date:
- Content-Type: Content-Transfer-Encoding: Mime-Version; q=dns/txt;
- s=fe-953a8a3ca9; t=1789691702;
- bh=8QgXkkNdHre4C26c9GV+NpL0QV5WDefYsihE2tDLo6E=;
- b=g5frHq5iolSfhZmMT1S+3FKrIYFMmLUvGiIXBDitA8INAs4gwmSKvWPoJO+WDpb6z8JX4MxqX
- hxcczVcils9C8wzRGU8weDzfrhV/6NOvJKq6TWVV2HP1FlGb7PMONOJIXrTYJyjBRlcy33F2Gcu
- f9fpuJ5IzldaEB+PDjBp383WuIYR8RjED63ma3p02k+xy4BebkbufLlmhuqB00NjuBYLiOA/Gqn
- WaSjR4AbRalGjLvLW88dW2ErzJhCgFGAv00+uf+P/nE8VYe0tOWkpDWw3qtYsA0bqH05odCSCof
- P7q31N3Tu7847u0RIxS1e/RI8btpQZPsBNctW8nUZ95w==
-X-Forward-Email-ID: 6aac871042fb3e762f6d18f9
-X-Forward-Email-Sender: rfc822; jpeisach@ubuntu.com, smtp.forwardemail.net,
- 149.28.215.223
-X-Forward-Email-Version: 2.14.2
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aRRF2zK2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B5DF1F00893;
+	Fri, 18 Sep 2026 00:45:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789692321;
+	bh=Va87/TGLRy0EXD8hgYCIy6y3c4fULbE4u7+35V8fwik=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=aRRF2zK2Ro1BfTCjebErmHtxSQlh19/086AD0H6PztuqiRlpRLU1iIMPUXA+JeId9
+	 BQxfj8gktI+SO1LmwYcCFJb9ZBcdN7nBzQY5QZWqt7c//NQ2IQ0psTcG61gVJPlEfh
+	 Dv37Fl/rELpwBemgb3h7HXXjz7yLDAJ7M61Yhvo0y1MExSOK5/H3MsmQXO340cQcuc
+	 ca56n/TFEV4zo87KoJMCIdO4R+l/t89njM16wTdpNGzaWaWlQmXeQEVhWmUeS9LZZx
+	 R2M9G+s7EKJfltTZAvZDWxpolYlGBSMnxVXjuA6bscnj3WfIcJGpXH21KKWvNCahji
+	 aEqMgutRLrubA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v16 02/12] net: phylink: introduce internal
+ phylink PCS handling
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Christian Marangi" <ansuelsmth@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260916235200.20712-3-ansuelsmth@gmail.com>
+References: <20260916235200.20712-1-ansuelsmth@gmail.com>
+ <20260916235200.20712-3-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 18 Sep 2026 00:45:20 +0000
+Message-Id: <20260918004521.4B5DF1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8; format=Flowed
-Date: Thu, 17 Sep 2026 20:34:18 -0400
-Message-Id: <DLI0QTP0NUHS.DAFYGACKWKWO@ubuntu.com>
-Subject: Re: [PATCH v4 01/20] dt-bindings: phy: Add
- starfive,jh7110-inno-hdmi-phy
-From: "Joshua Peisach" <jpeisach@ubuntu.com>
-To: "Krzysztof Kozlowski" <krzk@kernel.org>, "Michal Wilczynski"
- <m.wilczynski@samsung.com>
-Cc: "Vinod Koul" <vkoul@kernel.org>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "Andrzej Hajda" <andrzej.hajda@intel.com>, "Robert Foss"
- <rfoss@kernel.org>, "Laurent Pinchart" <Laurent.pinchart@ideasonboard.com>,
- "Jonas Karlman" <jonas@kwiboo.se>, "Jernej Skrabec"
- <jernej.skrabec@gmail.com>, "Luca Ceresoli" <luca.ceresoli@bootlin.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "Lee
- Jones" <lee@kernel.org>, "Andy Yan" <andy.yan@rock-chips.com>, "Philipp
- Zabel" <p.zabel@pengutronix.de>, "Emil Renner Berthing" <kernel@esmil.dk>,
- "Hal Feng" <hal.feng@starfivetech.com>, "Michael Turquette"
- <mturquette@baylibre.com>, "Stephen Boyd" <sboyd@kernel.org>, "Heiko
- Stuebner" <heiko@sntech.de>, "Paul Walmsley" <pjw@kernel.org>, "Palmer
- Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
- "Alexandre Ghiti" <alex@ghiti.fr>, "Dominique Belhachemi" <db@domibel.de>,
- "Brian Masney" <bmasney+clk@redhat.com>, "Jerome Brunet"
- <jbrunet+clk@baylibre.com>, <linux-phy@lists.infradead.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <mfd@lists.linux.dev>,
- <linux-clk@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-rockchip@lists.infradead.org>, <linux-riscv@lists.infradead.org>,
- "Marek Szyprowski" <m.szyprowski@samsung.com>, "Maud Spierings"
- <maud_spierings@murena.io>, "Graham Markall" <hello@big-grey.co.uk>,
- "Icenowy Zheng" <zhengxingda@iscas.ac.cn>, "Chaoyi Chen"
- <chaoyi.chen@rock-chips.com>, "Joshua Peisach" <jpeisach@ubuntu.com>,
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-X-Mailer: aerc 0.21.0
-References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
- <CGME20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125@eucas1p2.samsung.com> <20260915-jh7110-clean-send-v4-1-f0e4fd6f2cc8@samsung.com> <20260917-mutant-chamois-of-competence-46ca77@quoll>
-In-Reply-To: <20260917-mutant-chamois-of-competence-46ca77@quoll>
 
-On Thu Sep 17, 2026 at 2:51 AM EDT, Krzysztof Kozlowski wrote:
-> On Tue, Sep 15, 2026 at 05:32:09PM +0200, Michal Wilczynski wrote:
->> Add the dt-binding for the StarFive JH7110 Innosilicon HDMI PHY.
->>=20
->> This device is a child of the starfive,jh7110-hdmi-subsystem node. It
->> functions as both a PHY provider for the controller and as a clock
->> provider for the variable pixel clock (hdmi_pclk), which it generates
->> from its refoclk.
->>=20
->> Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
->
-> While I appreciate other people looking at this, I don't think review
-> here applies. It was a blanket tag, given to the entire series, with
-> exception that it is from newbie, thus I want to ask: was this binding
-> REALLY reviewed by Joshua?
->
-> Are the rest of the patches actually reviewed or just "looks good to
-> me"? I see no comments from Joshua on v3, v2 and v1, which is usual sign
-> of doing review.
->
->
-I commented on v3 saying that I would test if I could. I don't just
-throw "Reviewed-by" on everything I look at.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] net: phylink_validate_mac_and_pcs() fails to return error when r=
+equired PCS is missing
+- [Medium] net: phylink_create() unsafely expands MAC supported interfaces =
+with generic PCS capabilities
+--
 
-If anything, I've been trying to be more honest in reviews, and only
-review ones that I actually care about[1].
+commit 5b275072f20518c6dfff0e7c6d9837800cd61c3e
+Author: Christian Marangi <ansuelsmth@gmail.com>
 
-If reviewing patches isn't a good way for newbies to start getting
-familiar with the kernel code (especially a NEW driver), then I don't
-know what is.
+net: phylink: introduce internal phylink PCS handling
 
-And to be clear, I'm not using a LLM to review. I am using actual
-intelligence. For the JH7110 PR specifically, I did actually go through
-and review each commit, because I wanted to learn what was happening
-and why. Actually, that's why I asked where the data sheet was[2].
+This commit introduces internal handling of PCS for phylink, moving the PCS
+selection logic entirely to phylink using the supported_interface value in
+the PCS struct. This provides an alternative to the .mac_select_pcs callbac=
+k.
 
-So if you really want to, drop the Reviewed-by tag. And if it makes
-you feel better, I'll leave the series alone.
+> diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
+> index d67a5184c524f..417d2f1e54b72 100644
+> --- a/drivers/net/phy/phylink.c
+> +++ b/drivers/net/phy/phylink.c
+> @@ -530,6 +549,21 @@ static int phylink_validate_mac_and_pcs(struct phyli=
+nk *pl,
+>  		pcs =3D pl->mac_ops->mac_select_pcs(pl->config, state->interface);
+>  		if (IS_ERR(pcs))
+>  			return PTR_ERR(pcs);
+> +	/*
+> +	 * Find a PCS in available PCS list for the requested interface.
+> +	 *
+> +	 * Skip searching if the MAC doesn't require a dedicated PCS for
+> +	 * the requested interface.
+> +	 */
+> +	} else if (test_bit(state->interface, pl->config->pcs_interfaces)) {
+> +		struct phylink_pcs *tmp;
+> +
+> +		list_for_each_entry(tmp, &pl->pcs_list, list) {
+> +			if (!phylink_validate_pcs_interface(tmp, state->interface)) {
+> +				pcs =3D tmp;
+> +				break;
+> +			}
+> +		}
+>  	}
+> =20
+>  	if (pcs) {
 
--Josh
+[Severity: Medium]
+If the requested interface requires a dedicated PCS (the pcs_interfaces bit
+is set), but the loop finishes without finding a matching PCS in the
+pcs_list, pcs will remain NULL. Should this code return an error here
+rather than falling through?
 
-[1] I won't be reviewing PRs around devicetree since I'm not confident
-(or frankly, interested) in it at this point. https://lore.kernel.org/all/D=
-L94TU52KBMO.2HAKJMJXV2CPE@ubuntu.com/
+If it doesn't return an error, phylink might falsely advertise unsupported
+link modes during auto-negotiation, and later phylink_major_config() could
+attempt to configure this mode, fail to find the required PCS, and fatally
+abort configuration.
 
-[2] Michal giving me the hardware info:
-https://lore.kernel.org/all/071901ef-57f3-456f-af5b-a8c99a0a7dd3@samsung.co=
-m/
+[ ... ]
+
+> @@ -2031,16 +2150,31 @@ struct phylink *phylink_create(struct phylink_con=
+fig *config,
+>  	__set_bit(PHYLINK_DISABLE_STOPPED, &pl->phylink_disable_state);
+>  	timer_setup(&pl->link_poll, phylink_fixed_poll, 0);
+> =20
+> +	/* Fill the PCS list with available PCS from phylink config */
+> +	ret =3D phylink_fill_available_pcs(pl, config);
+> +	if (ret < 0)
+> +		goto free_pl;
+> +
+> +	/* Link available PCS to phylink */
+> +	list_for_each_entry(pcs, &pl->pcs_list, list)
+> +		pcs->phylink =3D pl;
+> +
+>  	phy_interface_copy(pl->supported_interfaces,
+>  			   pl->config->supported_interfaces);
+> =20
+> +	/* Update supported interfaces */
+> +	list_for_each_entry(pcs, &pl->pcs_list, list)
+> +		phy_interface_or(pl->supported_interfaces,
+> +				 pl->supported_interfaces,
+> +				 pcs->supported_interfaces);
+> +
+
+[Severity: Medium]
+Does this safely handle MAC capabilities, or could it incorrectly expand
+the MAC's supported interfaces with generic PCS capabilities?
+
+Generic PCS blocks often support interface modes that the specific MAC or
+board trace routing does not. By ORing in all interfaces supported by the
+attached PCS modules, this might cause phylink_validate() to incorrectly
+accept unsupported interface modes (since MAC drivers often only check
+speed/duplex in their mac_capabilities).
+
+>  	linkmode_fill(pl->supported);
+>  	linkmode_copy(pl->link_config.advertising, pl->supported);
+>  	phylink_validate(pl, pl->supported, &pl->link_config);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260916235200.2071=
+2-1-ansuelsmth@gmail.com?part=3D2
