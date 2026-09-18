@@ -1,299 +1,140 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A46904EE85B
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 15:19:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789744767; cv=pass; b=YZLcw2lXeXIR3m68DaJUptOAChkMy6q+86M380SvG5Fe5/mUTJ7hk+1gTdP7gjo86nHqzKjrU1SX+fZuzDjzYVxyzhUkOVuEfEOLmtHQ9HcrEpn+VF/sSlTiXZpcBlRFU2jNRPgWMKpQbWedkbR8loQ9j/RUmJYc/lDlUMapcFs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789744767; c=relaxed/simple;
-	bh=M4aq4A/LbcJULhQnFbEd+W9HD0oCATJZRy1jAmuOm6M=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fsEd0NQCf4r5xy2jXrhfzQPtWeW8QyDxIiYdIkAzTI4an4YmW2OJPtN7CN8tgxd0Lm10HYlIPyzdHv1QL7JoSHY9rAlSXdcDC/7pahGYfk/MtuoHZ95Ong1irrtjvq8qKqHb6bOKzUJiA/FtaOonVekWroJJWRlCEi2Y5gBBqVs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d8/kRNOV; arc=pass smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34A0A4B048D
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 15:21:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.76
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789744869; cv=none; b=Pq0MiHGzxzYyGVeHcGQAFiLEiCHNzB0O9l8BTG1orHxQyJjlwg3yx7esmXyQtCtfEsQtMhC2Cp+1TItQIp7lM0TIOwUAoQuX9+Fv/krlwbyc58yztUmsnNLJY3JxaiJ0qSpmsyOQPLi2hcesrZK4tXrBHAN8gb9cIcRvcd5WrRc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789744869; c=relaxed/simple;
+	bh=UCOgywt/StEI+8ah0k8GYm8/I/C2yp8RVTAAhQ4Hwyo=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=MRWlAN4fIfTvKCDtIeFlS9gnpr0vM1UGryW7UqytbxuF3fQBXBR4YL9cgOioWeovqUSpY8k+jOQ5y8PcZowxC09OT5tREBnP+vZMijEehqGoKgeOEGeul14DOSvAEa2uBySVSpXaF7oAnKz4pEosok/JHpbEsvHNUmDUJQfXp6A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mmrOxgiP; arc=none smtp.client-ip=74.125.230.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d8/kRNOV"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48439feca17so668046f8f.1
-        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 08:19:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789744764; cv=none;
-        d=google.com; s=arc-20260327;
-        b=T5rDF7PMEWP7STaWu27figdCAB7uSvk8W+aQkNMC6P2crH34yYbLS+PrijphaeP4TM
-         i50vG2RVraBRoTyLTDf0U1UYhJ5VPcwJRXA09dIbRvWTyhNYqxdj2wPwouspIXouZo0k
-         0hx06n3Y2nfTzUxZfFxCuCKE2qyLTkkjNmT3HhZqXUQp2h8cgsoy+i+tlLGKjySTSRp/
-         l2eUyY36zZ9gWhoIT7z3upYjBmsb96WKHDPJL+0jmO8nIu1EhPDVXGEgbuj47ELDVUOy
-         Gpq6412Vzz1WOQ7vBmUbAOKng2sYFuutDVAUQHI85zpEL2H+MAK9a2qM9/KtZIaRSIID
-         Ba/Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=32wpeurSi9/AJaqP3qp1V3FWvCN+eDyCm+NAKdXRSJE=;
-        fh=Ge5LPGy3MVe6T4i9xXDsO2I7y/8Tf0GH2LyPABUQ1ZY=;
-        b=dY7MQ6sp0kgY2sbFKNlUPQmrCCXwtXKfTlFT8Dshcx49kEVd0gQAtKLfA5cMs/Dq+L
-         8F0xoqfL5fOywdOxH+THdUgMHHqKZkQBMyzCouCb7Moo/4OGaUyjCtbrmEVBuCO0UOx1
-         gzOcoEgYLO8jQQ8Jw8uywDtwvGS7DuYnKh3AaRQ14mtIgSGramdRcwQh6wCr68WjZ2vn
-         kT3A6SCmnDQMAC6mbHe2DdXPATGi+D5/U8l9bAkgtZxVJ+7TXECv2Y/uQxVgu4WkW9cU
-         FjRelArLfWFKD6hES32jsdLyZVYOA1/9bTOeX2CLOkdPHAGI06XNc65aIRfvPfOaIknm
-         46hA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mmrOxgiP"
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff16febfso7123391fa.2
+        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 08:21:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789744764; x=1790349564; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=32wpeurSi9/AJaqP3qp1V3FWvCN+eDyCm+NAKdXRSJE=;
-        b=d8/kRNOVBe/EMM66/k/ErzdM21GRBW/DSIYwo9HitktKOmuBa8tQET332kM9FW4AO4
-         HdZ5pgLP2oruPmiXfuD65L+HT1Kf/R5urr3VGe+AvoJeqKQczi46UzcZUnz2w4zRjldn
-         9jjPdCR0LrUgbWONczHyAOfVAROjHX0xDJ+WORVMVLfJ9uv1+5FkSEEWir0kKjKkAhLG
-         S0P4Ob2v5VSN9CzUBaUJce8cqonq4ESQUuALvW8s8uas/FgnDiNQP3D0RCOEjosbat9g
-         SN9wtydJ5p9H3ZDufoW+jPtLVn5YrclB1PZbTEKZMWueY7fvjLvTAeBlanqIdiorHXfV
-         X1ZQ==
+        d=gmail.com; s=20251104; t=1789744864; x=1790349664; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=UCOgywt/StEI+8ah0k8GYm8/I/C2yp8RVTAAhQ4Hwyo=;
+        b=mmrOxgiPFnEtt5N55QEkzwkEvhtWWFhlSh1OSE1NAchmYA7b1JdQtey0zb1zFaJz33
+         JK9r/rbyDChNepptOi4qRoViCtT5hvDCUSUUTqe8kPtCJYklUtxeIapuOXOO3NLPESFI
+         Axjedh0QUEyeO0qOppFFAtKFHTizzav2qkcWaY/gi++H1hYTY9xJRAxd5+/qPffl4Kib
+         fTFqL00+InPvGYc80NxvPCKlYV3wKCic53LSU7CSGaLC9dwv5KX8XjaqVtpNm7eGvOHi
+         Tqk1xDGXxG5/hdxkE/Jnvtf/1a4M8ozGk9GspMIiXtSOIcmpLPbHC6sQ7PQtEMKANOd5
+         ipfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789744764; x=1790349564;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1789744864; x=1790349664;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=32wpeurSi9/AJaqP3qp1V3FWvCN+eDyCm+NAKdXRSJE=;
-        b=KKApRG5DLtLTcpJovTwUG2j+PsDs8VO17ZA6+RGpx2vj7Ee7Gmv1ownmnTH0TSHFVD
-         qwicQIehifT0asKnNCm8w/xUzsTuF+HBDfhlEl5BkvZmUIOOCy/McvjlL/fMA2LUL7Jr
-         pEQoye+T2IncT17Gx52mWvCo95pBXo7Pct/uVPJ0NbywYuJxYNqJCXYzbM4qB9ApOFiK
-         AeHyGPf5i+y2L0Jmb3MqMiM2EaLQB8zFCYR8Lop+JuqTWNeKR2wgosg59fPOp8rwD4ru
-         oX3UFVV/yKXsxgmEJQ1BcQpovZeb+YCKEMl0kVlozzvF9VMmLm8Fq5QHxPnOs9yURMMi
-         cEAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwEVTHl6EkBJ2COISsirJaaqeaSm4eUz1mLdBg931f55OZVIP0k0YSFPg+XXopOCHMud0v/O0B6ZoRx@vger.kernel.org
-X-Gm-Message-State: AFuF++k5GUMJYbxeBjb/JbKRtPeC+NhuDNlY4kZ9T//lwCxUE1hZXHt9
-	QGDWUA3GjO170dEwhuWQt+PLFzV9prk4auEvV2HPfe9QaBi+VxOOpUEDKo7xSnqnJJNv08CcxA0
-	XX8aIQQqcvLjwUBt63uGQ+UkUukpQiS4=
-X-Gm-Gg: AYBFou1MHd36+mOLwJh9Yre6cMaKxTtNxU2F5TtfQ+Ditrj8+ZuIuiAmrxL88Z4dheA
-	DO0baX8lcpmUyOmmWMel6ThOhO4laFDc5bVaQF8v0Ubyhn8ooSiSo5LCyNA6SvVbF/D9gBXQAd6
-	HU66obZMiK89SOZs0h5W9jjcVpU60ZsUvWyCTbNMqBCeOh+qYInLJEG3mrfDwnd1moo6Q2ywNQg
-	CoA1P+1ffCHq8c7W9r+M8Akr039urGdKJKopDQz7xg9lNlFIBTzg5WGxN2kID4mQAXUwrH5u3es
-	3SoP4IOiK6wrLusoVC3KryR9W+3cgJQQT6syRo5O+CDPM4W6wCcfCSlgCAn/jMwBHL7zjquhTlz
-	IkQqDiKouXqNyf14U8X5vCfBEh3IhY1u/L3kFV5e4Iro=
-X-Received: by 2002:a05:6000:2407:b0:487:956:7e97 with SMTP id
- ffacd0b85a97d-4871e2341f6mr4183772f8f.25.1789744763605; Fri, 18 Sep 2026
- 08:19:23 -0700 (PDT)
+        bh=UCOgywt/StEI+8ah0k8GYm8/I/C2yp8RVTAAhQ4Hwyo=;
+        b=UX7cCFhGYuTwPRdvlYgYf+nqfqD482tqQ4pUkhXEZERUfgf4+HZ+T3qEbOqRkL94J1
+         h6/v2zHC8KfP4hn/ecDM6rgUrblXsZJE3bnoWbFMBfrRJgMwhOIvVswJdrnJ0RCwDhZa
+         9WlyVsLPtBeVJQI4z6vm/U667MawN78+b72RlUHnxpdNqzNRbtIbA/NikGld4dBQXPMK
+         cwyUfMp6iBqtiEyIaJB+GXdt+TWRu93HdVvY+raz3hvs9LobBPlMOnkgnbwoumeUioSb
+         yBc3MIVBs1zWwTHPpwHd7tDAI7Y8PylJI2qvYMt9cDzM3rXqu/gab9yYJD7pmQd1U5ck
+         MPgw==
+X-Forwarded-Encrypted: i=1; AKwUvByZwjJC+Nf7fhRyVRtfJKYqwqxFflD00LYTBKE6AFcpueX8sDgc8omRAxU9JlawubCcYCXcVxGJuEsi@vger.kernel.org
+X-Gm-Message-State: AFuF++l26hbEk+FyLrp/z7/TkJ822MU0y2mIdcdneNIoH8op7Kd59dOl
+	DtvxCri5/R8GGxIz0lUDAF6sFfXuZ1kzatF1WOOjFIa9NHicOhuwasUf
+X-Gm-Gg: AYBFou3Bc6v0sczsCkbT3Sb1U2Z6SKnSP1GT1owF2LjVz0T1BkRfz5Hsxy/mWfrMIc+
+	0TH4TuHQ3ZynEgca6CMLKo4MfnLMMKNO657dJFqbMF4VSTHkKbQAvA+BvpEtf9ivS9TVfhGTALA
+	zQpBJzRL83+G2yYI7gxnbveS4xQ0anwB2f5eFD3BF6JgeCIvVKdKRV9Q7h/7CSskhOjkjXN6tzC
+	vSHdtCd/8PBXCKcL5u9v5xOlEfTPthugFbUtFpyJ/aTm6arFLV9oMsIV3yoRD0RkKdwnJNEnMi9
+	L999End9SEk5kKFuYI+pacvObHR4CtgKkdP5bqTdGZGpWXehARawtEbOsji4toEoUFnLnY3+ORi
+	4H9b/99r1KLbE8eksOemJqQfC0o1yajQHNHx7vv/mOhvCfvZud8EuNq/aVGNPvya9bQ5lwMHutK
+	Sl4Vuot0zX+Ig3viTnc+5ZitTYKK1ACbDDz8uaHswE72K69RK9ushtiWATWRfYNlyeK7mITUZAD
+	H25psUgoeztC53lZFWzqL2AiXBW/ABwvqElaNmryswk9KfYbBwuavs9G/YDo35djz9B5Qsyv/Lr
+	pogPdA==
+X-Received: by 2002:a05:6512:1329:b0:5b6:1a7c:59d7 with SMTP id 2adb3069b0e04-5b8c184c9aemr844940e87.49.1789744863829;
+        Fri, 18 Sep 2026 08:21:03 -0700 (PDT)
+Received: from ?IPv6:2001:818:ea56:d000:56e0:ceba:7da4:6673? ([2001:818:ea56:d000:56e0:ceba:7da4:6673])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8c270ea2bsm547830e87.8.2026.09.18.08.21.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 08:21:03 -0700 (PDT)
+Message-ID: <5cd6b31da1f8cbd5b004888cb0df22061fe86a2b.camel@gmail.com>
+Subject: Re: [PATCH 0/5] iio: dac: ad5758: fix DMA alignment, raw range,
+ offset and 4-20 mA
+From: Nuno =?ISO-8859-1?Q?S=E1?= <noname.nuno@gmail.com>
+To: Arka Mondal <arka@arkamondal.net>, Jonathan Cameron <jic23@kernel.org>, 
+ Nuno =?ISO-8859-1?Q?S=E1?=
+	 <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>
+Cc: David Lechner <dlechner@baylibre.com>, Andy Shevchenko
+ <andy@kernel.org>,  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, arkamondalofficial@gmail.com
+Date: Fri, 18 Sep 2026 16:22:27 +0100
+In-Reply-To: <20260918122032.134947-1-arka@arkamondal.net>
+References: <20260918122032.134947-1-arka@arkamondal.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260817192540.423994-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260817192540.423994-6-prabhakar.mahadev-lad.rj@bp.renesas.com> <87577cdb-7f1d-4a9f-8a61-ff1f272234d9@roeck-us.net>
-In-Reply-To: <87577cdb-7f1d-4a9f-8a61-ff1f272234d9@roeck-us.net>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Fri, 18 Sep 2026 16:18:56 +0100
-X-Gm-Features: AcwNN1U3hCdCxEGahTYWyhMlJW9-v5H9ysCq3io2__9dNvGl-uwLBemrbsMvbK8
-Message-ID: <CA+V-a8vVtjALarck6PE3it1si2hNbveZWoGjTaTUW68Q6yYjcQ@mail.gmail.com>
-Subject: Re: [PATCH v4 5/7] watchdog: rzv2h: Add syscon support for WDTDCR
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney@redhat.com>, Wim Van Sebroeck <wim@linux-watchdog.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	linux-clk@vger.kernel.org, Prabhakar <prabhakar.csengg+renesas@gmail.com>, 
-	Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Guenter,
+On Fri, 2026-09-18 at 21:20 +0900, Arka Mondal wrote:
+> The first attempt to send this series on 2026-09-18 was rejected by
+> the kernel.org mail servers, so it did not reach the lists. The patches
+> are unchanged.
+>=20
+> This series fixes four bugs in the AD5758 driver, all present since
+> commit 28d1a7ac2a0d ("iio: dac: Add AD5758 support"). The last bug
+> takes two patches, one for the binding and one for the driver.
+>=20
+> Patch 1 marks the SPI receive buffer __aligned(IIO_DMA_MINALIGN), so
+> it no longer shares a cacheline with other driver state. The 2022
+> conversion of IIO drivers to IIO_DMA_MINALIGN only changed existing
+> ____cacheline_aligned markings, and this driver had none.
+>=20
+> Patch 2 rejects raw values outside 0 to U16_MAX. Writing -1 currently
+> gives full-scale output.
+>=20
+> Patch 3 fixes the offset for every range that does not start at 0.
+> The +-20 mA range reports -32 instead of -32768.
+>=20
+> Patches 4 and 5 fix the 4 mA to 20 mA range. The binding and the
+> driver give it as <4 24000>, which is 4 uA to 24 mA. The data sheet
+> (Rev. B, Table 32) and the original text binding say range code 1010
+> is 4 mA to 20 mA. The old value is still accepted: the binding marks
+> it deprecated and the driver maps it to the corrected range, so
+> existing device trees keep working.
+>=20
+> Compile tested only; no relevant hardware available. The binding was
+> checked with make dt_binding_check and with test device trees:
+> <4000 20000> and <4 24000> are accepted; <4 20000> is rejected.
+>=20
+> Arka Mondal (5):
+> =C2=A0 iio: dac: ad5758: Fix alignment for DMA safety
+> =C2=A0 iio: dac: ad5758: Reject out-of-range raw values
+> =C2=A0 iio: dac: ad5758: Fix the offset calculation
+> =C2=A0 dt-bindings: iio: dac: adi,ad5758: Fix the 4 mA to 20 mA current r=
+ange
+> =C2=A0 iio: dac: ad5758: Fix the 4 mA to 20 mA current range
+>=20
+> =C2=A0.../bindings/iio/dac/adi,ad5758.yaml=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 4 ++++
+> =C2=A0drivers/iio/dac/ad5758.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 | 18 ++++++++++++++----
+> =C2=A02 files changed, 18 insertions(+), 4 deletions(-)
+>=20
+>=20
+> base-commit: 08df884136f1c1197bab2a27814404fd329d9aac
 
-On Thu, Sep 17, 2026 at 2:12=E2=80=AFAM Guenter Roeck <linux@roeck-us.net> =
-wrote:
->
-> Hi,
->
-> On Mon, Aug 17, 2026 at 08:25:38PM +0100, Prabhakar wrote:
-> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> >
-> > On RZ/T2H and RZ/N2H SoCs, the WDTDCR (WDT Debug Control Register) resi=
-des
-> > in the second register region of the CPG/MSSR block. Since this
-> > multi-function block is shared with other peripherals, it is exposed vi=
-a a
-> > syscon regmap interface.
-> >
-> > Look up the SYSC regmap using the optional "renesas,sysc" property and
-> > derive the WDTDCR offset from the watchdog instance index.
-> >
-> > Retain the existing MMIO-based access method when the "renesas,sysc"
-> > property is absent to preserve compatibility with existing DT's.
-> >
-> > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> > Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
->
-> Can I apply this patch without the other patches of the series ?
->
-I posted the v5 series here addressing Sashiko's comments.
+LGTM,
 
-https://lore.kernel.org/all/20260911111731.3404308-1-prabhakar.mahadev-lad.=
-rj@bp.renesas.com/
-
-Cheers,
-Prabhakar
-
-> Thanks,
-> Guenter
->
-> > ---
-> > v3->v4:
-> > - No change
-> >
-> > v2->v3:
-> > - Made use of the new "renesas,sysc" phandle-array property to access t=
-he
-> >   WDTDCR register via the CPG/MSSR syscon node.
-> > - Updated commit message
-> >
-> > v1->v2:
-> > - No change.
-> > ---
-> >  drivers/watchdog/Kconfig     |  1 +
-> >  drivers/watchdog/rzv2h_wdt.c | 56 +++++++++++++++++++++++++++++-------
-> >  2 files changed, 46 insertions(+), 11 deletions(-)
-> >
-> > diff --git a/drivers/watchdog/Kconfig b/drivers/watchdog/Kconfig
-> > index f7d0a0c2c0ef..3c4fc9916d8c 100644
-> > --- a/drivers/watchdog/Kconfig
-> > +++ b/drivers/watchdog/Kconfig
-> > @@ -1046,6 +1046,7 @@ config RENESAS_RZV2HWDT
-> >       depends on ARCH_RENESAS || COMPILE_TEST
-> >       depends on PM || COMPILE_TEST
-> >       select WATCHDOG_CORE
-> > +     select MFD_SYSCON
-> >       help
-> >         This driver adds watchdog support for the integrated watchdogs =
-in the
-> >         Renesas RZ/{G3E,V2H(P)} SoCs. These watchdogs can be used to re=
-set a
-> > diff --git a/drivers/watchdog/rzv2h_wdt.c b/drivers/watchdog/rzv2h_wdt.=
-c
-> > index 8af2f33b5680..04ea962da837 100644
-> > --- a/drivers/watchdog/rzv2h_wdt.c
-> > +++ b/drivers/watchdog/rzv2h_wdt.c
-> > @@ -8,6 +8,7 @@
-> >  #include <linux/delay.h>
-> >  #include <linux/io.h>
-> >  #include <linux/kernel.h>
-> > +#include <linux/mfd/syscon.h>
-> >  #include <linux/module.h>
-> >  #include <linux/of.h>
-> >  #include <linux/platform_device.h>
-> > @@ -44,6 +45,11 @@
-> >
-> >  #define WDT_DEFAULT_TIMEOUT  60U
-> >
-> > +#define RZT2H_WDT_MAX_INSTANCES      6
-> > +
-> > +#define RZT2H_SYS_BLOCK1(n)  (BIT(16) | (0x5100 + (n) * 4))
-> > +#define RZT2H_WDTDCR_OFFSET(n)       RZT2H_SYS_BLOCK1(n)
-> > +
-> >  static bool nowayout =3D WATCHDOG_NOWAYOUT;
-> >  module_param(nowayout, bool, 0);
-> >  MODULE_PARM_DESC(nowayout, "Watchdog cannot be stopped once started (d=
-efault=3D"
-> > @@ -64,14 +70,19 @@ struct rzv2h_of_data {
-> >       bool wdtdcr;
-> >  };
-> >
-> > +struct rzv2h_sysc_wdtdcr {
-> > +     struct regmap *regmap;
-> > +     unsigned int offset;
-> > +};
-> > +
-> >  struct rzv2h_wdt_priv {
-> >       void __iomem *base;
-> > -     struct regmap *wdtdcr_regmap;
-> >       struct clk *pclk;
-> >       struct clk *oscclk;
-> >       struct reset_control *rstc;
-> >       struct watchdog_device wdev;
-> >       const struct rzv2h_of_data *of_data;
-> > +     struct rzv2h_sysc_wdtdcr sysc;
-> >  };
-> >
-> >  static int rzv2h_wdt_ping(struct watchdog_device *wdev)
-> > @@ -90,12 +101,16 @@ static int rzv2h_wdt_ping(struct watchdog_device *=
-wdev)
-> >
-> >  static int rzt2h_wdt_wdtdcr_count_stop(struct rzv2h_wdt_priv *priv)
-> >  {
-> > -     return regmap_set_bits(priv->wdtdcr_regmap, WDTDCR, WDTDCR_WDTSTO=
-PCTRL);
-> > +     struct rzv2h_sysc_wdtdcr *sysc =3D &priv->sysc;
-> > +
-> > +     return regmap_set_bits(sysc->regmap, sysc->offset, WDTDCR_WDTSTOP=
-CTRL);
-> >  }
-> >
-> >  static int rzt2h_wdt_wdtdcr_count_start(struct rzv2h_wdt_priv *priv)
-> >  {
-> > -     return regmap_clear_bits(priv->wdtdcr_regmap, WDTDCR, WDTDCR_WDTS=
-TOPCTRL);
-> > +     struct rzv2h_sysc_wdtdcr *sysc =3D &priv->sysc;
-> > +
-> > +     return regmap_clear_bits(sysc->regmap, sysc->offset, WDTDCR_WDTST=
-OPCTRL);
-> >  }
-> >
-> >  static void rzv2h_wdt_setup(struct watchdog_device *wdev, u16 wdtcr)
-> > @@ -284,17 +299,36 @@ static const struct regmap_config rzv2h_wdtdcr_re=
-gmap_config =3D {
-> >  static int rzt2h_wdt_wdtdcr_init(struct platform_device *pdev,
-> >                                struct rzv2h_wdt_priv *priv)
-> >  {
-> > -     void __iomem *wdtdcr;
-> > +     struct device_node *np =3D pdev->dev.of_node;
-> > +     bool syscon_present =3D of_property_present(np, "renesas,sysc");
-> > +     struct rzv2h_sysc_wdtdcr *sysc =3D &priv->sysc;
-> >       int ret;
-> >
-> > -     wdtdcr =3D devm_platform_ioremap_resource(pdev, 1);
-> > -     if (IS_ERR(wdtdcr))
-> > -             return PTR_ERR(wdtdcr);
-> > +     if (syscon_present) {
-> > +             unsigned int wdt_index;
-> >
-> > -     priv->wdtdcr_regmap =3D devm_regmap_init_mmio(&pdev->dev, wdtdcr,
-> > -                                                 &rzv2h_wdtdcr_regmap_=
-config);
-> > -     if (IS_ERR(priv->wdtdcr_regmap))
-> > -             return PTR_ERR(priv->wdtdcr_regmap);
-> > +             sysc->regmap =3D syscon_regmap_lookup_by_phandle_args(np,=
- "renesas,sysc",
-> > +                                                                 1, &w=
-dt_index);
-> > +             if (IS_ERR(sysc->regmap))
-> > +                     return PTR_ERR(sysc->regmap);
-> > +
-> > +             if (wdt_index >=3D RZT2H_WDT_MAX_INSTANCES)
-> > +                     return -EINVAL;
-> > +
-> > +             sysc->offset =3D RZT2H_WDTDCR_OFFSET(wdt_index);
-> > +     } else {
-> > +             void __iomem *wdtdcr;
-> > +
-> > +             wdtdcr =3D devm_platform_ioremap_resource(pdev, 1);
-> > +             if (IS_ERR(wdtdcr))
-> > +                     return PTR_ERR(wdtdcr);
-> > +
-> > +             sysc->regmap =3D devm_regmap_init_mmio(&pdev->dev, wdtdcr=
-,
-> > +                                                  &rzv2h_wdtdcr_regmap=
-_config);
-> > +             if (IS_ERR(sysc->regmap))
-> > +                     return PTR_ERR(sysc->regmap);
-> > +             sysc->offset =3D WDTDCR;
-> > +     }
-> >
-> >       ret =3D pm_runtime_resume_and_get(&pdev->dev);
-> >       if (ret)
+Reviewed-by: Nuno S=C3=A1 <nuno.sa@analog.com>
