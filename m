@@ -1,188 +1,201 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A5FC4FE2EF
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 13:31:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49A2E4F93D1;
+	Fri, 18 Sep 2026 13:33:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789738322; cv=none; b=K1BNMpP9wgb+EAMOpkk17V7FZkdXuDryeudvHHWra+PkCdKSHmYKb/gwUyEeKVxTZV5KTgxmqh8alyBNeKhdtwh4twFtEFvm/N0va4p24fqpr/s6LI+uNG1U20xtg6nJkE010pTfq+3HlMhSFvvFeUkXKwnyBhI9Zl/Ycf4/K5Y=
+	t=1789738428; cv=none; b=C/DlHPWs29Fk9jSyHMtDS0JYrMVPPQB7gTZ44UxwPFps92abzfejGY3H1wzvEvSfrkbxr2LEexTVAlrEETTQ0rIDY1eYjXSAO8cNv1Z6iXVr1UGX52HIi/PI7njvHWXIUlcg3Ts6PCKilfoAcPbRJkwZEMlhGcOr7ksS9aGjY0Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789738322; c=relaxed/simple;
-	bh=qnVsk++1S0X0GRg3DxqeDr6O7Yc+8TFQ9tDUsCjeKJU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=E4Oc+hLOE18gdQ3SnpdLMkmtO9miphbMBAq9gMuynD6SWHen+Aw+7uxX4jGz3VOWSlYo5l1eaUJMDejuTv3DvMYB4Az/GFBjMn1ITv13nSz7u/J8ctcrXZC4RIGzkbvceDYI0vs//tXHjsoGXBPJbaC7d/ZBjfiHSZV7TF1g0Is=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Gg+7XDb5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iOaie41I; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789738428; c=relaxed/simple;
+	bh=82Mn9uZcABYJuJY9Ja/otiQ81SD5L074KXYkhdIuJ6I=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=c5Gmy+AJUX13j5mSiiQf/6taRQMakU0omPrgseKgEJpWx9tysnWzjylUxcnbMjWiNyFconW0h+UlF4lqCyomkAHd9gt2zxok+w7AkS52XgnYmV1weXtlI4/dXFdUr1UjnJAqZhxT1yhQJSaJEoJ3zkVS+N7nvKgxuZuF5wHhEEg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=sSs1i0F9; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Gg+7XDb5";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iOaie41I"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68IDORc01711286
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 13:31:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	PCTnLTcxwzZ519pMEGEz0Wjn4bFf75SPdZzoYKRnA60=; b=Gg+7XDb5Xspqh047
-	dR82E4z6pFEdT/IzkzvWVNUnubpVxeuDQVNDICK8edyk1wYeEgDWPKkdnj/IIhzw
-	SkzMcEm7f/zdz2lo2REwKtU5vOQc353ocbTRKjGm42/qdcqHahGt50N3Xq94LRvz
-	e/3qR3FkrL8D5miWDGXK1fXrqQmw9LG3rVGZhl6pmp0+hc8VTWMle02WBLkBDHRF
-	XHam/bui5hE5I1Sy2WwNoCohBYFR6orrPSrFXk8i6+kxCTPSivGUt3iONFP0iay9
-	1HKLP4kAqKXwFHuAPZgxuBhBvTnW2xweOBD4p2JSyvboaogv6BmpPdCnvz+LM7Oy
-	s1Xi5A==
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4grrg43c8r-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 13:31:56 +0000 (GMT)
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8632fdf67dfso1011335b3a.1
-        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 06:31:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789738315; x=1790343115; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PCTnLTcxwzZ519pMEGEz0Wjn4bFf75SPdZzoYKRnA60=;
-        b=iOaie41I4YiXw79DZmKg9GWh8LZU6W+Q57Ta+7LxB5eDM1NkmxGgqMsGRc/T1rqBy9
-         xDgCZpltt06ZESfJg5CqUphO1cXIIM7Lva45g1KjAlgf7yMd4442Ut2arf9/DtGhlUiy
-         tX7jiZ87ivZ77iPSu7nnOQQlpGVsz9nH0YTw7f9eAcoIFNJD4ua8HHixLXHU5Elqmvo6
-         nV8CaBJP9kuNGatzCUADt/fb+DLXIhDMEjuTj2i5cJ0kWMEuJy1ftwEfeRK5FyH5ajBy
-         fD5ZPAn4Pqk/iMMMVSOEkeroVetHdFwC5W7CL1f/qID+TEWxMXXPBcfFy5ulf7DT7GFz
-         ifeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789738315; x=1790343115;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PCTnLTcxwzZ519pMEGEz0Wjn4bFf75SPdZzoYKRnA60=;
-        b=FIzhDswzlaoLlW224bRHrDeJWBwCpX9FlzIHeT4d+mcq3t5QMaRZLgpz/QC39YhWsi
-         91d9gJWoC4ISqRnpm47Qa1TITaLKoiUBSpfMzGaVVhTZHRpBvkjyuxrI/A6XakgcPu86
-         zJH2uqPvDKeBY/vizqtDQ49A4cFuRu4eif1H/fM5s+dxz+vCSnpzjX5fngm0f7M9sqmE
-         O1Od2cCVh8sTF37rC15vzfcMxdkRIqS/AcDfPle/apW9PHQul52MXmzGIq2p131CKYm9
-         ueBhAeJ/s4vvaCqyY+kni86rB/+N+Jk5K1Yp7HYdAzjRT1CuyMWuxRKrqFrGN3bTX5uK
-         mgdw==
-X-Forwarded-Encrypted: i=1; AKwUvBxv16QOa6YDla4q/B7833n1C5KAhKWXYNlO07Qeioh+ISlQ6Dwj8Fp2Iim/vcTBMaH8vfT8m1CFg7Zp@vger.kernel.org
-X-Gm-Message-State: AFuF++nGAVdG2fUp/Y8toDFBdZIrYhxWnpj46vz5SZXTbivgslCbhNmT
-	XfJx//Vj91rT2XIiahv2rAXGdgrrRmk35Z9E51JDX8mjf+u0ijv9d+tbQmmBFbwfYq3iKalRK67
-	1s5hhYP3NRU+KtSIVrCeFxfYt0XtJVqWaHHqPRpa6nGUpqCnl7N6IKoajwKZo3pWtp1izljwl
-X-Gm-Gg: AYBFou3wetAmhvQ3uxELt2Gm6a15sim9h2K6Er6+Z95pIxoOs42ZZjTR9T4mXEjVSxQ
-	dN5Z8vLHJOWhzaHBkeZ6duNhIWBLVoCd/l/Qy9p/MZ7EIOTihI8vhAqv7ZQZ5vP0LQFTl5qRln3
-	DDAgVG0gixruCU3eOdPTGfFW2tVQMzk25YwjxUe6148hxChm34Lq4y1g667SYn83fWLzjW2enZs
-	iDhn2wKeYX8TwsEkuq6uqHL89vkZbJB9SYoYvYgNbn4815kCItpheO7Ab/420bBKOkmUdeNum6r
-	W50YQcLeUxuMc1dTARuwieXx0idPatopUBsOTpgMxm6xP2mexgfRtBMMBIVxs7NOZdZs9lcKaPs
-	1+/8wKWI63FzfURUA7WONRxBYwnHXfpWwEp4=
-X-Received: by 2002:a05:6a00:7702:b0:874:72b6:7da5 with SMTP id d2e1a72fcca58-87472b68141mr4605354b3a.32.1789738315460;
-        Fri, 18 Sep 2026 06:31:55 -0700 (PDT)
-X-Received: by 2002:a05:6a00:7702:b0:874:72b6:7da5 with SMTP id d2e1a72fcca58-87472b68141mr4605289b3a.32.1789738314774;
-        Fri, 18 Sep 2026 06:31:54 -0700 (PDT)
-Received: from hu-mohs-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-875dc8f8b00sm834747b3a.20.2026.09.18.06.31.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 06:31:54 -0700 (PDT)
-From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-Date: Fri, 18 Sep 2026 19:01:14 +0530
-Subject: [PATCH v1 3/3] ASoC: qcom: sc8280xp: Handle AIF MI2S and TDM
- interfaces
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="sSs1i0F9"
+Received: from monstersaurus.ideasonboard.com (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7AD234F05;
+	Fri, 18 Sep 2026 15:31:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1789738313;
+	bh=82Mn9uZcABYJuJY9Ja/otiQ81SD5L074KXYkhdIuJ6I=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=sSs1i0F90LIHx/AZUsiKA+YnwsGpLmBo4KVoj+4PCYr811SKW5YYmJfzvEQ+leTOG
+	 VCaTQT21x5BR83STKDA30U4LByAcaDz/jNhdEjxPUk9zaNjq9ie6lUfcemA34CJvoF
+	 NZ/sE+F0CEFUVp37+OhHkPGXGNYIHHWb0YThntK4=
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-qaif_dai_id_support-v1-3-ed863c0e5e45@oss.qualcomm.com>
-References: <20260918-qaif_dai_id_support-v1-0-ed863c0e5e45@oss.qualcomm.com>
-In-Reply-To: <20260918-qaif_dai_id_support-v1-0-ed863c0e5e45@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789738297; l=1593;
- i=mohammad.rafi.shaik@oss.qualcomm.com; s=20260424;
- h=from:subject:message-id; bh=qnVsk++1S0X0GRg3DxqeDr6O7Yc+8TFQ9tDUsCjeKJU=;
- b=wIVV2/m0aMbOA2Q3vfmIK9vkB2u0NWHS6RsFoCIzhFT4x7tqdMzydnmf6e59+k2Sdq8EeqIfC
- EJhylQAuUDKAbhTY2pINc0StWDnOP9lCoa8P6cKm+gfIpXVCLv80vGs
-X-Developer-Key: i=mohammad.rafi.shaik@oss.qualcomm.com; a=ed25519;
- pk=KZedmYgMGYOzuTpLGv56tdrL+pTLDP8pdmfQ91xemiA=
-X-Proofpoint-GUID: kITzNcQjq79R8_6OH3cz2kvCe8h6v_Hy
-X-Authority-Analysis: v=2.4 cv=ZO9CCn7b c=1 sm=1 tr=0 ts=6aad3d4c cx=c_pps
- a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=qGtJ1NKCSgfaheF0IAUA:9 a=QEXdDO2ut3YA:10
- a=OpyuDcXvxspvyRM73sMx:22
-X-Proofpoint-ORIG-GUID: kITzNcQjq79R8_6OH3cz2kvCe8h6v_Hy
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDE5MSBTYWx0ZWRfX7ixjNCzijNri
- fKl8v5ha6HWBd5+4m7ZX+GRGl3MJxA6lkPgArM6Usu3yETBWIi0u1UC4m0h/GvmPilbYSwg/gZt
- bpAVC+brgYCFhP9J8mLzhXq5v6JTYnJAIdiBJ5eaoBjSamwLoxC3Ty929bicif2lP25zYz78sNc
- KjW4sqKWusuOq9PHOSceUaipub7G9GneHIlT9nnTTFnreoC2QkWkkm7/NnUU1wMFfHdgbflixCP
- gQTEx6/7yNwvQRwRxRNVouuFPz56i0IhBCWKOcjivGSKeS32trbi55r71w2BAuBD3BpHAPeu+p/
- Dos8Pnpcoo+1vurXKmkN1IMTkxHEjdTU72bOVhhm1ACkjdIbWuWGii7UViIQS7YEClhBCIxeFVY
- SZ1nOpjdUiNAXt3v5n2hLKC+rNZA07qGJ8HOBOpoCi/T+5VS+kDWezbjs06aRnkmy6YfgKqPTjT
- 9n1yU7koOk6eO9LkIbw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDE5MSBTYWx0ZWRfXw/gwmv7YYWqy
- Q0cJ1YiYf5Vfug44z+yt7ZMgiezyu+hHDt5ZMZkt5pqks8bD90FGMb1Pce8g50KjMouapnTFDbM
- Aqee22WFSQXbe/cfFKHTetz/iG2kn8A=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-18_04,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 priorityscore=1501 suspectscore=0 adultscore=0
- spamscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609180191
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260918132013.GG59058@killaraus.ideasonboard.com>
+References: <20260918-kbingham-orientation-v6-0-5e8b1f01be29@ideasonboard.com> <20260918-kbingham-orientation-v6-2-5e8b1f01be29@ideasonboard.com> <178972979131.1723501.9444120486527129452@ping.linuxembedded.co.uk> <20260918132013.GG59058@killaraus.ideasonboard.com>
+Subject: Re: [PATCH v6 2/6] arm64: dts: qcom: Convert to new media orientation definitions
+From: Kieran Bingham <kieran.bingham@ideasonboard.com>
+Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Bjorn Andersson <andersson@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Daniel Scally <dan.scally@ideasonboard.com>, Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>, Geert Uytterhoeven <geert+renesas@glider.be>, Heiko Stuebner <heiko@sntech.de>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Jacopo Mondi <jacopo@jmondi.org>, Jimmy Su <jimmy.su@intel.com>, Jonathan Hunter <jonathanh@nvidia.com>, Konrad Dybcio <konradybcio@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, Martin Kepplinger <martin.kepplinger@puri.sm>, Matthias Fend <matthias.fend@emfend.at>, Mauro Carvalho Chehab <mchehab@kernel.org>, Michael Riesch <michael.riesch@collabora.com>, Mikhail Rudenko <mike.rudenko@gmail.com>, Paul Elder <paul.elder@ideasonboard.com>, Pengutronix Kernel Team <kernel@pengutronix.de>, Quentin Schulz <quentin.schulz@theobroma-systems.com>, Richard Acayan <mailingradian@gmail.com>, 
+ Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, Sascha Hauer <s.hauer@pengutronix.de>, Svyatoslav Ryhel <clamor95@gmail.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Thierry Reding <thierry.reding@kernel.org>, Tommaso Merciai <tomm.merciai@gmail.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux@ew.tq-group.com, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org, linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, David Heidelberg <david@ixit.cz>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Date: Fri, 18 Sep 2026 14:33:34 +0100
+Message-ID: <178973841405.1723501.9051265194315500867@ping.linuxembedded.co.uk>
+User-Agent: alot/0.9.1
 
-Handle AIF MI2S and TDM DAI IDs in the SC8280XP machine driver
-and extend LPASS_MAX_PORT to accommodate the additional audio
-interfaces.
+Quoting Laurent Pinchart (2026-09-18 14:20:13)
+> On Fri, Sep 18, 2026 at 12:09:51PM +0100, Kieran Bingham wrote:
+> > Quoting Kieran Bingham (2026-09-18 11:44:14)
+> > > From: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+> > >=20
+> > > The orientation property for video interface devices now has definiti=
+ons
+> > > to prevent hardcoded integer values for the enum options.
+> > >=20
+> > > Update the users throughout the qualcomm device trees to use the new
+> > > definitions.
+> > >=20
+> > > Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> > > Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+> > > Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> > > Reviewed-by: David Heidelberg <david@ixit.cz>
+> >=20
+> > Sashiko has noted that there is another new dts added in dts/qcom since
+> > I wrote this patch.
+> >=20
+> > I don't want to invalidate the above reviews by adding another change,
+> > so I will send the single update to the new file separately as the core
+> > definitions are already accepted now.
+> >=20
+> > If someone /really/ wants me to add the change to
+> > arch/arm64/boot/dts/qcom/sm8250-xiaomi-elish-common.dtsi in this patch,
+> > please let me know.
+> >=20
+> > it looks like this:
+> >=20
+> > ----------- arch/arm64/boot/dts/qcom/sm8250-xiaomi-elish-common.dtsi --=
+---------
+> > index 945127dacc82..f86d3e0d51a6 100644
+> > @@ -3,10 +3,11 @@
+> >   * Copyright (c) 2022-2024 Jianhua Lu <lujianhua000@gmail.com>
+> >   */
+> >=20
+> >  #include <dt-bindings/arm/qcom,ids.h>
+> >  #include <dt-bindings/media/video-interfaces.h>
+> > +#include <dt-bindings/media/video-interface-devices.h>
+> >  #include <dt-bindings/phy/phy.h>
+> >  #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+> >  #include <dt-bindings/usb/pd.h>
+> >  #include "sm8250.dtsi"
+> >  #include "pm8150.dtsi"
+> > @@ -571,11 +572,11 @@ camera_front: camera@10 {
+> >               reset-gpios =3D <&tlmm 109 GPIO_ACTIVE_LOW>;
+> >=20
+> >               pinctrl-0 =3D <&cam_mclk3_default &camera_front_active>;
+> >               pinctrl-names =3D "default";
+> >=20
+> > -             orientation =3D <0>; /* Front facing */
+> > +             orientation =3D <MEDIA_ORIENTATION_FRONT>;
+> >               rotation =3D <270>;
+> >=20
+> >               port {
+> >                       ov8856_front_ep: endpoint {
+> >                               data-lanes =3D <1 2>;
+>=20
+> I don't mind either way, and I think you can keep the existing R-b tags
+> if you add that hunk.
 
-Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
----
- sound/soc/qcom/common.h   | 2 +-
- sound/soc/qcom/sc8280xp.c | 2 ++
- 2 files changed, 3 insertions(+), 1 deletion(-)
+As noticed by Thierry, it will also impact things depending on who
+applies this patch and where.
 
-diff --git a/sound/soc/qcom/common.h b/sound/soc/qcom/common.h
-index c1deac109f24..18171656408c 100644
---- a/sound/soc/qcom/common.h
-+++ b/sound/soc/qcom/common.h
-@@ -7,7 +7,7 @@
- #include <dt-bindings/sound/qcom,q6afe.h>
- #include <sound/soc.h>
- 
--#define LPASS_MAX_PORT			(LPI_MI2S_TX_6 + 1)
-+#define LPASS_MAX_PORT			(AIF_TDM_TX_12 + 1)
- 
- struct qcom_snd_tdm_slot_cfg {
- 	unsigned int tx_mask;
-diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
-index 4d48e1012cd4..0876b9be136d 100644
---- a/sound/soc/qcom/sc8280xp.c
-+++ b/sound/soc/qcom/sc8280xp.c
-@@ -260,6 +260,7 @@ static int sc8280xp_snd_hw_params(struct snd_pcm_substream *substream,
- 	case QUINARY_MI2S_RX ... QUINARY_MI2S_TX:
- 	case SENARY_MI2S_RX ... SENARY_MI2S_TX:
- 	case LPI_MI2S_RX_0 ... LPI_MI2S_TX_4:
-+	case AIF_MI2S_RX_0 ... AIF_MI2S_TX_12:
- 		ret = snd_soc_dai_set_fmt(cpu_dai, SND_SOC_DAIFMT_BP_FP);
- 		if (ret && ret != -ENOTSUPP)
- 			return ret;
-@@ -296,6 +297,7 @@ static int sc8280xp_snd_hw_params(struct snd_pcm_substream *substream,
- 		}
- 		break;
- 	case PRIMARY_TDM_RX_0 ... QUINARY_TDM_TX_7:
-+	case AIF_TDM_RX_0 ... AIF_TDM_TX_12:
- 		return sc8280xp_tdm_hw_params(substream, params);
- 	default:
- 		break;
+It seems like the headers used appear in linux-next already now that
+Sakari has merged them, but this hunk won't apply on
+media-committers/next ... so I'll keep it separate until we can let the
+dust settle.
 
--- 
-2.34.1
+--
+Kieran
 
+>=20
+> > > Signed-off-by: Kieran Bingham <kieran.bingham+renesas@ideasonboard.co=
+m>
+> > > ---
+> > >  arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts         | 3 ++-
+> > >  arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts | 3 ++-
+> > >  arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi         | 3 ++-
+> > >  3 files changed, 6 insertions(+), 3 deletions(-)
+> > >=20
+> > > diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arc=
+h/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+> > > index f41ad446a39e..e2b7f1bd05ab 100644
+> > > --- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+> > > +++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+> > > @@ -13,6 +13,7 @@
+> > >  #include <dt-bindings/iio/qcom,spmi-adc7-pmk8350.h>
+> > >  #include <dt-bindings/leds/common.h>
+> > >  #include <dt-bindings/media/video-interfaces.h>
+> > > +#include <dt-bindings/media/video-interface-devices.h>
+> > >  #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+> > >  #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+> > >  #include <dt-bindings/sound/qcom,q6asm.h>
+> > > @@ -701,7 +702,7 @@ camera@10 {
+> > >                 pinctrl-0 =3D <&cam_mclk3_default>;
+> > >                 pinctrl-names =3D "default";
+> > > =20
+> > > -               orientation =3D <0>; /* Front facing */
+> > > +               orientation =3D <MEDIA_ORIENTATION_FRONT>;
+> > >                 rotation =3D <270>;
+> > > =20
+> > >                 port {
+> > > diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.d=
+ts b/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
+> > > index 218573a97785..3b5f6a29e969 100644
+> > > --- a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
+> > > +++ b/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
+> > > @@ -11,6 +11,7 @@
+> > >  #include <dt-bindings/input/gpio-keys.h>
+> > >  #include <dt-bindings/input/input.h>
+> > >  #include <dt-bindings/leds/common.h>
+> > > +#include <dt-bindings/media/video-interface-devices.h>
+> > >  #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+> > > =20
+> > >  #include "sc8280xp.dtsi"
+> > > @@ -683,7 +684,7 @@ camera@10 {
+> > > =20
+> > >                 clocks =3D <&camcc CAMCC_MCLK3_CLK>;
+> > > =20
+> > > -               orientation =3D <0>;      /* Front facing */
+> > > +               orientation =3D <MEDIA_ORIENTATION_FRONT>;
+> > > =20
+> > >                 avdd-supply =3D <&vreg_l6q>;
+> > >                 dvdd-supply =3D <&vreg_l2q>;
+> > > diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arc=
+h/arm64/boot/dts/qcom/sdm670-google-common.dtsi
+> > > index b4854801a5f5..7880d85b52fe 100644
+> > > --- a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
+> > > +++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
+> > > @@ -9,6 +9,7 @@
+> > >  #include <dt-bindings/gpio/gpio.h>
+> > >  #include <dt-bindings/input/input.h>
+> > >  #include <dt-bindings/leds/common.h>
+> > > +#include <dt-bindings/media/video-interface-devices.h>
+> > >  #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+> > >  #include <dt-bindings/power/qcom-rpmpd.h>
+> > >  #include "sdm670.dtsi"
+> > > @@ -460,7 +461,7 @@ camera@1a {
+> > >                 pinctrl-names =3D "default";
+> > > =20
+> > >                 rotation =3D <270>;
+> > > -               orientation =3D <0>;
+> > > +               orientation =3D <MEDIA_ORIENTATION_FRONT>;
+> > > =20
+> > >                 port {
+> > >                         cam_front_endpoint: endpoint {
+> > >=20
+>=20
+> --=20
+> Regards,
+>=20
+> Laurent Pinchart
