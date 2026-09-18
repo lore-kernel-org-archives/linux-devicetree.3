@@ -1,467 +1,82 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F2A452843C
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 18:26:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E00C52188A;
+	Fri, 18 Sep 2026 18:27:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789755965; cv=none; b=NRENLYLHIcL5zPxtxazbBU7ERXMBajdjdt+Y2XG1tBbO/XdeSd9ZHmUe0FA7EAxqp3L26Bwj5J/Gg9739oBxeK5acmW/C1DQYodeCBmf62dbpiAHWwg6bEPlVnQOjG3JZvyLmRg7CtpH700ROdbUjWpoP/HWHOro2ew097knMEg=
+	t=1789756050; cv=none; b=WzALX5VoGtarrri+h3kvsF+bCNSFVfWYO+5/QLs522szpziLcdt5z1LWmYdQd4Q859Ifyncd6J2eUaLYi1tdOZRV8Uaht8KdXZidgianyyXWZsH8suDiPrmPCluIi7U5hMGnWG3A3D/1zRWulfwgmldV5cVLDoZii7vTCZ2mK78=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789755965; c=relaxed/simple;
-	bh=uP2zYyrVNhxR0F5wRNx8VTP3WfC+4MKI0Hisfj+rKY4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fE1mFCIjIgcPx7TZjTV5NQkWe0V2d7nltU6tk67fqhAAyrZeGEi7f4p265BRba4yc5LS6sfWAwLCIpwTA1PO6uSthBPSiatiA+I5Ks9rijbM2d5jPb6X3LH3mYZRi7dqHqxx+uBVUz5wHV7JsKPexr2RvrvvVx44NE8kI1uxPxA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rfw6TOSM; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789756050; c=relaxed/simple;
+	bh=Dri96WREQxEfwj2wUP6PyuqNIP93ZOfNmQegkWad4mQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Gg55eOibqWwWXic2NbWYv0bTaRiXsiQhPHZRCZZJzVz9xzDs/3d0hO00AzScqB8f9IRfcwYdRyjz5Dcrh3xGUgybNqXtTVQP58XuBMDeLdGQrnhcZNGd58v1kJlln8FXSsuusohbwHzld4sZB/McX/OLa7lXPKP8nQZYWYWgnLE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UOhzJEHv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rfw6TOSM"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747f066d8so3875255ad.1
-        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 11:26:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789755962; x=1790360762; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ezND/MR9Dspsyc6ymR2jshkitQWvrthe2sHCr5Ma1SU=;
-        b=rfw6TOSMZuuXMW2e7aVbmmH85ZFE5l77LhTMd7wt9kxS9aZyId9DjLgDnBhID45giq
-         u6qgWmuGm38PEfTdGqrbEzYn5V4R3BiNUe7UvjfoaJN2wEO6lwEBYacMvLFcnIE8y7hl
-         AiPZbe9U/gJVvjCcxW7a5Jghz+A/5AKzsfy2hyg4IjhPjRRXIIEawODmlQw8kpEsJk1K
-         h1KYwkJdynHYOxq72IKNnD6x8VnfJCdunAQRv62yk/4glpPpQrXFyLBHFpoRLFzSMLJq
-         wLYricIJe2tHIrRJz4Z2UzxizRVpsj5NNlGztPxODOiSyhB5Qcs3TpBGqAtAKEcDdBin
-         O3Rw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789755962; x=1790360762;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ezND/MR9Dspsyc6ymR2jshkitQWvrthe2sHCr5Ma1SU=;
-        b=Sc92es42IHh1k0wuBt3yEG7uvQ6wNJcowOMqB/7+lb4wFDLFKcqQyKYu9V2U+8Qku/
-         Bh7AF+D5zLkhI4tOScEvhXZIzFFcZazs28XcybzX3pHGi74g9vFLHbpiWNHfsWn4yHKN
-         WXymeRMDnCsUt0ZR/Yja7Hzqt7lY4NvGbUx2S9v2in1bBYHqUEZgbYA+dVGbHFN80Ehg
-         FAlRnt8GY6vMdUGt/vkAN+3RMvi8hXLAhxtQE5KsbQVxFFoAUsZDXDdPr38u71y1x4+T
-         1dZ82ULjLHtcCuY7BTlLeqnm1zKbhG0QwtvREfLdbvkD/Mw6kHrA13wQKt9tIBNzSb9G
-         txOQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxDp/dDe7brp6ffPQ+ykyFeM0dTRFFPAQMnNQJQwvaRn3TwUNmzjU9Oqohw3P5JHEu0i+Xvoo4lLV9Y@vger.kernel.org
-X-Gm-Message-State: AFuF++k97tCkYtrNEYpzR3/WlW18urMTeur1IIBNFDRvr1QuCxgd+IVV
-	SKpwbwAHioLrw04D0TkgKSu0BpEh6Ewg+oDeHHaEzaNTbjDNBr+LlN1m
-X-Gm-Gg: AYBFou2i2ivCJ6dzMa04TrR6zU1elD3V+eEZEGWlodsYjdVGJjvmfPHb8Nx9muDnWl/
-	WxQ51MYJ9DRb35zIsfzaUm2GZaaKKfAGEhawi0EY06mmkHTeu3ie+2Uq+iFyQEElXnZ77mxvjdj
-	qOPzXqNqy0QSuvGEVJQr1kzjdYRmYMQoNBOm7T0yAVcqrK6EN5rD82JLYWv1gE7JzLpO4CqLQhP
-	KcmiGlLyUIuxjfAUaXmd6bm9tp2F94Vh+UKnuTLg2Xr8BMrEwHphzkOm0vOFsF9HLeozz0Cs112
-	hSylr1BAE+XM9zvRDB2vOmd0xdO66TbS5yuMbijQcFfAMhr7ZXU9MP82s2lGPg+t1PzSep6q47v
-	lobq2AGp4qFCP84GnVkttxOsLWJgnJ3qVLSJs3KafEA8Xe+P0qJgAtdoyU73rbDxCL9xUGt7vgM
-	PONyAIbV/2xEcJTxwVp+ieCwz7PfUTPTLg2aLLcY9QB2kPvY4x4Y8ySX8UEpQCsnFoDzlOyEQ72
-	7oGyTM5tjN8hLb2vK8Y9XekZz/iluSJvizt7t/3zZIPtCR6yOj8EQylOSHWPSsVsEeuX07N4cwk
-	GvQSqJS0syVulEY/hFs=
-X-Received: by 2002:a17:902:d487:b0:2dd:c053:b9c9 with SMTP id d9443c01a7336-2ddc053bab9mr8915495ad.26.1789755961647;
-        Fri, 18 Sep 2026 11:26:01 -0700 (PDT)
-Received: from DESKTOP-G3E0OSP.localdomain ([58.224.60.243])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc16b49casm871895ad.7.2026.09.18.11.25.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 11:26:00 -0700 (PDT)
-From: Jinseob Kim <kimjinseob88@gmail.com>
-To: jic23@kernel.org,
-	linux-iio@vger.kernel.org
-Cc: dlechner@baylibre.com,
-	nuno.sa@analog.com,
-	andriy.shevchenko@intel.com,
-	linux-kernel@vger.kernel.org,
-	rdunlap@infradead.org,
-	joshua.crofts1@gmail.com,
-	u.kleine-koenig@baylibre.com,
-	julianbraha@gmail.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UOhzJEHv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B8821F000FF;
+	Fri, 18 Sep 2026 18:27:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789756048;
+	bh=WLZnhkcbCs2cGW8z2qAspQRyV6RDHbz3ypUhIp/hIoE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UOhzJEHvKuUqYkqOMv6WEMzOnah9ODgXw77d8su//Qz/QRBWSYMq30HRBZyJfcBPs
+	 GIZ0OpjHyVy60b4/F1ETe9qo8pNdupvvo+ok3kKVVu8M+JCnDwuXZxoDENMojh7o5Y
+	 Xhd/tG3jhRVJnTgRENawjOtynb06j161CAXuxBExwL/NjG26R2w+bV+wQy6N6xbOQu
+	 jcuby6T2fvjbrjeFFjNRj7bTdtmRGglf5GCzVWBwZ/6MdTA/zbi7RPQ9WqDGWCfqfW
+	 0A3eJ8sE6AJR7jDevEuz8/ry5S9XKC/yaGsa5LxjZHwGj5TUEL5ShBFxDLx3dbv/nU
+	 KYurNwwtu06Kg==
+Date: Fri, 18 Sep 2026 13:27:27 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: muhammad.nazim.amirul.nazle.asmade@altera.com
+Cc: Dinh Nguyen <dinguyen@kernel.org>, linux-kernel@vger.kernel.org,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"David S . Miller" <davem@davemloft.net>,
+	Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+	Jose Abreu <joabreu@synopsys.com>,
+	Eric Dumazet <edumazet@google.com>, netdev@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	Paolo Abeni <pabeni@redhat.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
 	devicetree@vger.kernel.org,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	linux-doc@vger.kernel.org
-Subject: [PATCH v10 8/8] iio: osf: add IIO KUnit tests
-Date: Sat, 19 Sep 2026 03:24:46 +0900
-Message-ID: <59251baa5b1f53a72ac7a09afc334398e2e84db7.1789753020.git.kimjinseob88@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1789753020.git.kimjinseob88@gmail.com>
-References: <cover.1789753020.git.kimjinseob88@gmail.com>
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH] dt-bindings: net: snps,dwmac: allow stmmaceth-ocp reset
+ name
+Message-ID: <178975604551.1250907.16038130786685150489.robh@kernel.org>
+References: <20260909080559.2028-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909080559.2028-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
 
-Add the existing IIO active-scan packing and buffer producer lifetime
-tests. Extend the test build wiring and help text to cover both suites.
 
-This changes no production source. The complete series retains the
-production behavior of the combined-driver revision, with CRC
-terminology clarified.
+On Wed, 09 Sep 2026 01:05:59 -0700, muhammad.nazim.amirul.nazle.asmade@altera.com wrote:
+> From: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
+> 
+> Arria10 SoCFPGA DWMAC nodes use reset-names = "stmmaceth",
+> "stmmaceth-ocp", which matches what dwmac-socfpga looks up for the
+> OCP reset. The generic snps,dwmac binding only allowed "ahb" as the
+> second reset name, so Arria10 DTS failed schema validation.
+> 
+> Allow "stmmaceth-ocp" as an alternative second reset name and drop
+> the related TODO from the Altera SoCFPGA DWMAC binding.
+> 
+> Signed-off-by: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
+> ---
+>  .../devicetree/bindings/net/altr,socfpga-stmmac.yaml          | 2 --
+>  Documentation/devicetree/bindings/net/snps,dwmac.yaml         | 4 ++--
+>  2 files changed, 2 insertions(+), 4 deletions(-)
+> 
 
-Assisted-by: LLM
-Signed-off-by: Jinseob Kim <kimjinseob88@gmail.com>
----
- drivers/iio/opensensorfusion/Kconfig        |   2 +-
- drivers/iio/opensensorfusion/Makefile       |   2 +-
- drivers/iio/opensensorfusion/osf_iio_test.c | 325 ++++++++++++++++++++
- 3 files changed, 327 insertions(+), 2 deletions(-)
- create mode 100644 drivers/iio/opensensorfusion/osf_iio_test.c
-
-diff --git a/drivers/iio/opensensorfusion/Kconfig b/drivers/iio/opensensorfusion/Kconfig
-index 316f33be1327..b4a2cde9645e 100644
---- a/drivers/iio/opensensorfusion/Kconfig
-+++ b/drivers/iio/opensensorfusion/Kconfig
-@@ -20,7 +20,7 @@ config OPEN_SENSOR_FUSION_KUNIT_TEST
- 	default KUNIT_ALL_TESTS
- 	help
- 	  Build focused unit tests for the Open Sensor Fusion core sample
--	  acceptance, direct-read cache, and capability/session handling. The tests
-+	  acceptance, direct-read cache, and IIO buffer paths. The tests
- 	  exercise accepted, ignored, and rejected sample handling without
- 	  exposing additional production interfaces.
- 
-diff --git a/drivers/iio/opensensorfusion/Makefile b/drivers/iio/opensensorfusion/Makefile
-index c2f5ba065a62..6a28b14cae1f 100644
---- a/drivers/iio/opensensorfusion/Makefile
-+++ b/drivers/iio/opensensorfusion/Makefile
-@@ -4,4 +4,4 @@ obj-$(CONFIG_OPEN_SENSOR_FUSION) += open-sensor-fusion.o
- 
- open-sensor-fusion-y := osf_core.o osf_iio.o osf_protocol.o osf_serdev.o \
- 			 osf_stream.o
--open-sensor-fusion-$(CONFIG_OPEN_SENSOR_FUSION_KUNIT_TEST) += osf_core_test.o
-+open-sensor-fusion-$(CONFIG_OPEN_SENSOR_FUSION_KUNIT_TEST) += osf_core_test.o osf_iio_test.o
-diff --git a/drivers/iio/opensensorfusion/osf_iio_test.c b/drivers/iio/opensensorfusion/osf_iio_test.c
-new file mode 100644
-index 000000000000..63d3ca1af329
---- /dev/null
-+++ b/drivers/iio/opensensorfusion/osf_iio_test.c
-@@ -0,0 +1,325 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+
-+#include <kunit/device.h>
-+#include <kunit/test.h>
-+
-+#include <linux/bitmap.h>
-+#include <linux/completion.h>
-+#include <linux/delay.h>
-+#include <linux/err.h>
-+#include <linux/iio/buffer.h>
-+#include <linux/iio/buffer_impl.h>
-+#include <linux/iio/iio.h>
-+#include <linux/kthread.h>
-+#include <linux/string.h>
-+
-+#include "osf_core.h"
-+#include "osf_iio.h"
-+
-+static noinline void osf_test_poison_stack(void)
-+{
-+	u8 bytes[1024];
-+
-+	memset(bytes, 0xa5, sizeof(bytes));
-+	barrier_data(bytes);
-+}
-+
-+static void osf_iio_check_scan(struct kunit *test, struct iio_dev *indio_dev,
-+			       const s32 *values, unsigned int channels,
-+			       unsigned int mask, bool ts)
-+{
-+	struct iio_buffer *buffer = indio_dev->buffer;
-+	unsigned int data_bytes = hweight32(mask) * sizeof(s32);
-+	unsigned int ts_offset = ALIGN(data_bytes, 8);
-+	unsigned int scan_bytes = ts ? ts_offset + 8 : data_bytes;
-+	unsigned int offset = 0;
-+	u8 scan[24] __aligned(8);
-+	s64 before, after, timestamp;
-+	int ret;
-+
-+	bitmap_zero((unsigned long *)buffer->scan_mask, iio_get_masklength(indio_dev));
-+	for (unsigned int i = 0; i < channels; i++)
-+		if (mask & BIT(i))
-+			set_bit(i, (unsigned long *)buffer->scan_mask);
-+	buffer->scan_timestamp = ts;
-+	ret = iio_update_buffers(indio_dev, buffer, NULL);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	kunit_info(test, "device=%s mask=%u ts=%u bytes=%u\n",
-+		   indio_dev->name, mask, ts, scan_bytes);
-+	memset(scan, 0xa5, sizeof(scan));
-+	before = iio_get_time_ns(indio_dev);
-+	osf_test_poison_stack();
-+	ret = osf_iio_push_sample(indio_dev, values, channels);
-+	after = iio_get_time_ns(indio_dev);
-+	KUNIT_EXPECT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_EQ(test, buffer->bytes_per_datum, scan_bytes);
-+	ret = iio_pop_from_buffer(buffer, scan);
-+	KUNIT_EXPECT_EQ(test, ret, 0);
-+	if (ret)
-+		goto disable;
-+
-+	for (unsigned int i = 0; i < channels; i++) {
-+		if (!(mask & BIT(i)))
-+			continue;
-+		KUNIT_EXPECT_MEMEQ(test, scan + offset, &values[i], sizeof(s32));
-+		offset += sizeof(s32);
-+	}
-+	if (ts) {
-+		for (unsigned int i = data_bytes; i < ts_offset; i++)
-+			KUNIT_EXPECT_EQ(test, scan[i], (u8)0);
-+		memcpy(&timestamp, scan + ts_offset, sizeof(timestamp));
-+		KUNIT_EXPECT_GE(test, timestamp, before);
-+		KUNIT_EXPECT_LE(test, timestamp, after);
-+	}
-+	/* Neither kfifo nor the producer may write outside the consumer stride. */
-+	for (unsigned int i = scan_bytes; i < sizeof(scan); i++)
-+		KUNIT_EXPECT_EQ(test, scan[i], (u8)0xa5);
-+
-+disable:
-+	KUNIT_EXPECT_EQ(test, iio_update_buffers(indio_dev, NULL, buffer), 0);
-+}
-+
-+/* Protect timestamp alignment holes and every supported scan layout. */
-+static void osf_iio_scan_bytes_test(struct kunit *test)
-+{
-+	static const u16 types[] = {
-+		OSF_SENSOR_ACCELEROMETER, OSF_SENSOR_GYROSCOPE,
-+		OSF_SENSOR_MAGNETOMETER, OSF_SENSOR_TEMPERATURE,
-+	};
-+	const s32 values[] = { 101, -202, 303 };
-+	struct osf_capability_entry entry = {
-+		.sample_format = OSF_SAMPLE_FORMAT_S32,
-+		.scale_nano = 1000000,
-+	};
-+	struct osf_device *osf;
-+	struct device *dev;
-+
-+	dev = kunit_device_register(test, "osf-iio");
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
-+	osf = kunit_kzalloc(test, sizeof(*osf), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, osf);
-+	osf_core_init(osf, dev);
-+
-+	for (unsigned int t = 0; t < ARRAY_SIZE(types); t++) {
-+		unsigned int channels = t == 3 ? 1 : 3;
-+		struct iio_dev *indio_dev;
-+		int ret;
-+
-+		entry.sensor_type = types[t];
-+		entry.channel_count = channels;
-+		ret = osf_iio_register_sensor(dev, &entry, osf, &indio_dev);
-+		KUNIT_ASSERT_EQ(test, ret, 0);
-+		for (unsigned int mask = 1; mask < BIT(channels); mask++)
-+			for (unsigned int ts = 0; ts < 2; ts++)
-+				osf_iio_check_scan(test, indio_dev, values, channels, mask, ts);
-+		osf_iio_unregister_sensor(indio_dev);
-+	}
-+}
-+
-+struct osf_iio_race {
-+	struct iio_buffer_access_funcs access;
-+	const struct iio_buffer_access_funcs *original;
-+	struct iio_dev *indio_dev;
-+	struct completion entered;
-+	struct completion release;
-+	struct completion config_started;
-+	struct completion config_done;
-+	atomic_t block_store;
-+	atomic_t stores;
-+	atomic_t disabled;
-+	atomic_t bad_store;
-+	int enable_error;
-+	int disable_error;
-+	int config_result;
-+	bool unregister;
-+};
-+
-+static struct osf_iio_race *osf_iio_race_from_buffer(struct iio_buffer *buffer)
-+{
-+	return container_of(buffer->access, struct osf_iio_race, access);
-+}
-+
-+static int osf_iio_test_store(struct iio_buffer *buffer, const void *data)
-+{
-+	struct osf_iio_race *race = osf_iio_race_from_buffer(buffer);
-+
-+	if (atomic_xchg(&race->block_store, 0)) {
-+		complete(&race->entered);
-+		if (!wait_for_completion_timeout(&race->release, 5 * HZ))
-+			return -ETIMEDOUT;
-+	}
-+	if (atomic_read(&race->disabled))
-+		atomic_inc(&race->bad_store);
-+	atomic_inc(&race->stores);
-+	return race->original->store_to(buffer, data);
-+}
-+
-+static int osf_iio_test_enable(struct iio_buffer *buffer, struct iio_dev *indio_dev)
-+{
-+	struct osf_iio_race *race = osf_iio_race_from_buffer(buffer);
-+
-+	if (race->enable_error)
-+		return race->enable_error;
-+	atomic_set(&race->disabled, 0);
-+	return 0;
-+}
-+
-+static int osf_iio_test_disable(struct iio_buffer *buffer, struct iio_dev *indio_dev)
-+{
-+	struct osf_iio_race *race = osf_iio_race_from_buffer(buffer);
-+
-+	atomic_set(&race->disabled, 1);
-+	return race->disable_error;
-+}
-+
-+static int osf_iio_test_producer(void *data)
-+{
-+	struct osf_iio_race *race = data;
-+	const s32 values[] = { 101, -202, 303 };
-+
-+	while (!kthread_should_stop()) {
-+		osf_iio_push_sample(race->indio_dev, values, ARRAY_SIZE(values));
-+		cond_resched();
-+	}
-+	return 0;
-+}
-+
-+static int osf_iio_test_configure(void *data)
-+{
-+	struct osf_iio_race *race = data;
-+
-+	complete(&race->config_started);
-+	if (race->unregister) {
-+		osf_iio_unregister_sensor(race->indio_dev);
-+		race->config_result = 0;
-+	} else {
-+		race->config_result = iio_update_buffers(race->indio_dev, NULL,
-+							 race->indio_dev->buffer);
-+	}
-+	complete(&race->config_done);
-+	while (!kthread_should_stop())
-+		msleep(20);
-+	return 0;
-+}
-+
-+static void osf_iio_expect_quiesce(struct kunit *test, struct osf_iio_race *race)
-+{
-+	struct task_struct *config;
-+	unsigned long waited;
-+
-+	config = kthread_run(osf_iio_test_configure, race, "osf-cfg-test");
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, config);
-+	KUNIT_EXPECT_NE(test, wait_for_completion_timeout(&race->config_started, HZ), 0UL);
-+	waited = wait_for_completion_timeout(&race->config_done, msecs_to_jiffies(20));
-+	KUNIT_EXPECT_EQ(test, waited, 0UL);
-+	complete(&race->release);
-+	KUNIT_EXPECT_NE(test, wait_for_completion_timeout(&race->config_done, HZ), 0UL);
-+	kthread_stop(config);
-+	KUNIT_EXPECT_EQ(test, race->config_result, 0);
-+}
-+
-+/* Run real IIO configuration and kfifo code against an independent producer. */
-+static void osf_iio_buffer_lifetime_test(struct kunit *test)
-+{
-+	struct osf_capability_entry entry = {
-+		.sensor_type = OSF_SENSOR_ACCELEROMETER,
-+		.channel_count = 3,
-+		.sample_format = OSF_SAMPLE_FORMAT_S32,
-+		.scale_nano = 1000000,
-+	};
-+	const s32 values[] = { 101, -202, 303 };
-+	struct task_struct *producer;
-+	struct osf_iio_race *race;
-+	struct osf_device *osf;
-+	struct iio_dev *indio_dev;
-+	struct iio_buffer *buffer;
-+	struct device *dev;
-+	int stores, ret;
-+
-+	dev = kunit_device_register(test, "osf-race");
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
-+	osf = kunit_kzalloc(test, sizeof(*osf), GFP_KERNEL);
-+	race = kunit_kzalloc(test, sizeof(*race), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, osf);
-+	KUNIT_ASSERT_NOT_NULL(test, race);
-+	osf_core_init(osf, dev);
-+	ret = osf_iio_register_sensor(dev, &entry, osf, &indio_dev);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	buffer = indio_dev->buffer;
-+	race->indio_dev = indio_dev;
-+	race->original = buffer->access;
-+	race->access = *buffer->access;
-+	race->access.store_to = osf_iio_test_store;
-+	race->access.enable = osf_iio_test_enable;
-+	race->access.disable = osf_iio_test_disable;
-+	buffer->access = &race->access;
-+	init_completion(&race->entered);
-+	init_completion(&race->release);
-+	init_completion(&race->config_started);
-+	init_completion(&race->config_done);
-+	atomic_set(&race->disabled, 1);
-+	set_bit(0, (unsigned long *)buffer->scan_mask);
-+	KUNIT_EXPECT_EQ(test, iio_update_buffers(indio_dev, buffer, NULL), 0);
-+
-+	atomic_set(&race->block_store, 1);
-+	producer = kthread_run(osf_iio_test_producer, race, "osf-rx-test");
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, producer);
-+	KUNIT_EXPECT_NE(test, wait_for_completion_timeout(&race->entered, HZ), 0UL);
-+	osf_iio_expect_quiesce(test, race);
-+
-+	for (unsigned int i = 0; i < 100; i++) {
-+		bitmap_zero((unsigned long *)buffer->scan_mask, iio_get_masklength(indio_dev));
-+		*(unsigned long *)buffer->scan_mask = (i % 7) + 1;
-+		buffer->scan_timestamp = i & 1;
-+		KUNIT_EXPECT_EQ(test, iio_update_buffers(indio_dev, buffer, NULL), 0);
-+		cond_resched();
-+		KUNIT_EXPECT_EQ(test, iio_update_buffers(indio_dev, NULL, buffer), 0);
-+	}
-+
-+	race->enable_error = -EIO;
-+	KUNIT_EXPECT_EQ(test, iio_update_buffers(indio_dev, buffer, NULL), -EIO);
-+	stores = atomic_read(&race->stores);
-+	KUNIT_EXPECT_EQ(test, osf_iio_push_sample(indio_dev, values, 3), 0);
-+	KUNIT_EXPECT_EQ(test, atomic_read(&race->stores), stores);
-+	race->enable_error = 0;
-+	KUNIT_EXPECT_EQ(test, iio_update_buffers(indio_dev, buffer, NULL), 0);
-+	race->disable_error = -EIO;
-+	KUNIT_EXPECT_EQ(test, iio_update_buffers(indio_dev, NULL, buffer), -EIO);
-+	stores = atomic_read(&race->stores);
-+	KUNIT_EXPECT_EQ(test, osf_iio_push_sample(indio_dev, values, 3), 0);
-+	KUNIT_EXPECT_EQ(test, atomic_read(&race->stores), stores);
-+	race->disable_error = 0;
-+
-+	KUNIT_EXPECT_EQ(test, iio_update_buffers(indio_dev, buffer, NULL), 0);
-+	/* Retain ownership while testing unregister against an admitted push. */
-+	get_device(&indio_dev->dev);
-+	reinit_completion(&race->entered);
-+	reinit_completion(&race->release);
-+	reinit_completion(&race->config_started);
-+	reinit_completion(&race->config_done);
-+	atomic_set(&race->block_store, 1);
-+	KUNIT_EXPECT_NE(test, wait_for_completion_timeout(&race->entered, HZ), 0UL);
-+	race->unregister = true;
-+	osf_iio_expect_quiesce(test, race);
-+	kthread_stop(producer);
-+	KUNIT_EXPECT_EQ(test, atomic_read(&race->bad_store), 0);
-+	KUNIT_EXPECT_GT(test, atomic_read(&race->stores), 0);
-+	buffer->access = race->original;
-+	put_device(&indio_dev->dev);
-+}
-+
-+static struct kunit_case osf_iio_test_cases[] = {
-+	KUNIT_CASE(osf_iio_scan_bytes_test),
-+	KUNIT_CASE(osf_iio_buffer_lifetime_test),
-+	{ }
-+};
-+
-+static struct kunit_suite osf_iio_test_suite = {
-+	.name = "osf-iio",
-+	.test_cases = osf_iio_test_cases,
-+};
-+
-+kunit_test_suite(osf_iio_test_suite);
-+
-+MODULE_LICENSE("GPL");
--- 
-2.43.0
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
