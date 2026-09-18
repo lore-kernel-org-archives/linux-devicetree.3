@@ -1,570 +1,143 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+Received: from mail-ed2-f37.google.com (mail-ed2-f37.google.com [74.125.228.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C90E456E0B
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 14:40:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22F104D9F92
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 14:43:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789742418; cv=none; b=s2EdlFfBm40zvhcFmHt0aMLSUA2UFbbjUqmD7lfiQ8o3lzzzPDDQkDtq/zuBGffiIWtsixXVrgqlRju3uNyU/AhgLSgAvsJJucJ7CxDMtGARNAQbzJIzpGB9zSDZmGN43iXTEX6Zvx+0a7Ewv3CthEx5jjg6qUYrGJ0sBcFIaF0=
+	t=1789742607; cv=none; b=RJwHDep55FVHESTx5MF6TwRmNxdPX4wb34CZMNdBBo8DVY75eJ/L+V5ku9I+UnZJhRaf8aOh8rX25HULg+RYTtGFUUUIfDT14CEYeoIBp7/6V8cqhiOCQ9VTdLzAwvbJ8l6wb27jsOJynETs7HtMJrScYgxvztnDVdD9jLVqdlY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789742418; c=relaxed/simple;
-	bh=DQJyA5nb82V6M17kyoxQCg3Nzqz+lsekLTT2+vv2vaQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=eMS299xnqyerAzS6FtUpd8ap8z5u5S17e/SWtAcKLc7zulmwhwK9lYbYEWLaDf7b89/cSdLMWGIjZU1e4YBlmbtktJK20XQ4pCdE60y5WXJVT8yqHaGNq2IxMdjN+HezBRzNmmDUNsI93mWXHD8TAVOv5aEK0KUK6AJcEI+rFAQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=tiPW2NKl; arc=none smtp.client-ip=74.125.228.140
+	s=arc-20240116; t=1789742607; c=relaxed/simple;
+	bh=Iryp186ezY+gCaEJKKJAixL+bjwtfJ0T/atOJE5WaQA=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
+	 References:In-Reply-To; b=n/v/9mOY+k3vUfzCfagRmRXWx6Ytrwq8Kp69UgVhXBiTYapJLRw8tw4DgET9GpiZ6sQfWzu6W/hWfWb6xSVg31rSODalQmML36fx52A8IT6lgys2gbE1lQsWw0P3RYCMzvpG0ZUt1zSh0FXAN5A2hvAOQ+sO8++lxYeJk7Kd1p4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=bhpqsMSp; arc=none smtp.client-ip=74.125.228.101
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="tiPW2NKl"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f56039dso103647266b.3
-        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 07:40:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="bhpqsMSp"
+Received: by mail-ed2-f37.google.com with SMTP id 4fb4d7f45d1cf-6a9984f9a59so1136323a12.0
+        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 07:43:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1789742410; x=1790347210; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=M83wqLNz7DCOjII4Gg/C318Fp8Xnn7GJslvtzDtRZJQ=;
-        b=tiPW2NKlcl4S4AUs06S3KWl7YyUfvmKFwJ9zEgYXgitNiG61mGlgz8BYNyCclZLP1l
-         zTcZOnwXboO/ZkWrtO7kfu6fPi0X3jtHTQKQIFY649MF4SxrQJYbNNk5WA1eux5y1Mnx
-         zROcZwqivLHbnWggHP3+eXdQ2Hmtj/Rrrq6b5Jdg2XteXjHUS7uljs0rq8O8iLQ7rojM
-         vEeIOxw0BZUv3BqmIURRo6u7OZYYNgeG9udzTlcpEB7Gicrh2ux15heV8p4zM43lZoLS
-         l+z898xVPe/cWHGwD411l63QrNDKXOqoNxvAWxWSRR1gEz2WWAwZfhTBxlDDp1A8k9l/
-         X/Dw==
+        d=fairphone.com; s=fair; t=1789742603; x=1790347403; darn=vger.kernel.org;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Iryp186ezY+gCaEJKKJAixL+bjwtfJ0T/atOJE5WaQA=;
+        b=bhpqsMSppMXS57/rwie8aIPBboNhq43ehVhkULnvPa175uVXt/MpzOT9JFAr2kUNNe
+         DkPCRPkKsoGVnHdYl61k5IMGAeUM72QS0zEOVKdaulXWmVqJ8l7IA65JogktZnZIFhJi
+         bSzVzs3BM1lJ4W17eHfutGUJNO41Bm6NAqs+NE6AbInBEMEnKKztopefxcLk1heRFQ3M
+         lDwZhHqtzdqxUQ0xnL185CVb2U7BXVtpoSAuJseN7eyjVQ8A22A1HZi0BuuVtuBplWq/
+         vEEfRjsKnkdTDeFEHQRWfLLcbWgLKGnIRiuz6/fsdMgLq8FbG8+wjnPRXeg2VGZErN4u
+         Xtwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789742410; x=1790347210;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1789742603; x=1790347403;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=M83wqLNz7DCOjII4Gg/C318Fp8Xnn7GJslvtzDtRZJQ=;
-        b=rQ++XigxbKROmSRojemE3OBYqd2R1DDSxYGawhwEGLXiUnvSHTnGC3I0ge3uIoDiF0
-         rBS71uLEBk6K67hXlCEO551l+9HyP2S74zp9f9Lb8uctpizBwPuu4NGvzeoPfFcCgpB7
-         14OvKtTGqI4BQ8EZEM50zQV8MnKYMioB3cylIKdO4vHARfpSULFHuYb7RIuRRw8m73G9
-         /AYoSGLxl6+S4Ng4wBtWqkI/KGSWl6j6DbQNAMVZvjIR7vBMUT3hdsw9dbfEsxvn7cV+
-         BPEzm88Gv4XVmvgI5oms/m92x44vZz8RyQUgdzfuNp3Pl0ms5Xip3VdqpIez02PFB6uo
-         lqWg==
-X-Forwarded-Encrypted: i=1; AKwUvBzz/jAk+R0bWyqV5bTQcAhE4yN4dtYB2r6nzhzkn4HvYoZ+nA+5qL89ozuyUW8bklXq4IBsmJoam2tD@vger.kernel.org
-X-Gm-Message-State: AFuF++k1XBPLb0ocSU8uQ9cf8QrrJ5eBI7IY8B/t1DBf/IR5cmmFhjSh
-	5Z5sG2QciMRQF1tJ2uXhdpoo1Fsfsf1LcD4BP2i4G136EKEZWIe7vqopZa8lGJVCoVI=
-X-Gm-Gg: AYBFou3D68k3Gezw8e2pnk0gtuZkAIMCbTZi0G2rxN9gb7w07/czjoipMvOE0rdphdt
-	YUaCPTjSBp3meD5t1gwn9x35TlNvFMLrFfodL0NBLWkRBWNin+xJ5pjdAZ/6mGdeVRBz/OLRBGP
-	yXteL+fW+gCEcBpDBgAQoiyWPkCropJQg5da5z/sEjVz9biAbVVtDtR0pU9edxDV/05wubXSlA9
-	C7Pb0ngLTMaKdNAICms5bZ51fBMvI9NdqcmKVzBBgBkfNkdF+MIf6o66bjC0KnMnVk9LQ97oxhW
-	tM43cHhXcQJ5xZTainp/u9muFtrTMu5wGeL8XwRBlEQe5WKmxhVyAmEC42lg6AlxC3cHkaQ5ydW
-	gebiGEUbA6nZQfAMlLonRmk+czaaIL4cL4F/9wWSSWdK4A0Xu4A9hJu7OaBOQL/RPfZLD0dqzO/
-	N2oBgn9f060piO4UeKI5Unzn12AdxPkXKpHwKjpLZyr7rAnMvKQsLS3zfDaGEI/VoC7GDQL9+8w
-	LKR/fst0UyP/bQW0/exQlX5GXyAzlHHioyEm8uFf/S2c44tI6ac
-X-Received: by 2002:a17:906:6a1c:b0:c25:b620:d676 with SMTP id a640c23a62f3a-c2a157f97e4mr298342266b.15.1789742410294;
-        Fri, 18 Sep 2026 07:40:10 -0700 (PDT)
-Received: from [172.16.220.101] (144-178-202-138.static.ef-service.nl. [144.178.202.138])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a1b7a369esm64244966b.9.2026.09.18.07.40.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 07:40:09 -0700 (PDT)
-From: Luca Weiss <luca.weiss@fairphone.com>
-Date: Fri, 18 Sep 2026 16:40:05 +0200
-Subject: [PATCH v2 2/4] drm/panel: Add driver for Novatek NT37705 panel
+        bh=Iryp186ezY+gCaEJKKJAixL+bjwtfJ0T/atOJE5WaQA=;
+        b=wf3MqsE/LBnYLHXoMNRPs0uoCR1G2QqkiX+EFyHo8RlKZjd3AYednwSyc1WJxO3aam
+         b6m6d567OjIqVXqwQYTta8Wi0YK4Np6cFxyzlGwhjXGFkZJjj6sARw6O6fcMymY89FlK
+         i8DHKZhX16KQzIXKiSXszguN4l3iWhKt3+YdrgblHRzQDXBeC8KVbIudtvjh/x6AoBAW
+         p9Fy0X/BDRZgIN0Q9eG0Ae4iHnir85TD/rG2yY9gm7pwfXt0qoA7IKipRKeeLjgbpTAQ
+         oGZnwm4FljwmqDXsfyAs7PARi6FB9iEH6zONhQMxPLyWtu7i9j/rhKGh2wBDxXlEpHzt
+         TuMw==
+X-Forwarded-Encrypted: i=1; AKwUvByqj6qDA6KKSJeTgAzaqWJZwclCK4v3h32gUi8dwCf7pbfrgbBCDsH8rvgMBP6Rm6weDgtoxnh4C1NR@vger.kernel.org
+X-Gm-Message-State: AFuF++nrP/KrxpuJwSygSydIlFUQm5IphFMgz7ISH21mMKTqpDm6Xz8E
+	hosnW4AMTlMbJtHo0MhixbvjD2HU9hRL8CoKQRUojDdkr8xPiK5DUMEG1Xav/EPLXYNX8bFVi5f
+	95X05
+X-Gm-Gg: AYBFou1UMwcYBW1MDUOHJzSuxwtStuXXzp8WD8YbCoiUio/K4ZDIB7YJKNxRcz5+Hbx
+	iZHq0U0NlAXyNdbcRbTsjJoMaGImRTo++DYsAWjRw5F6drtQt1ue+2ef2oTNhXML2Fn4eXJsc/5
+	pAPdvQ1wxqSOGpABUzUAbT61uIqvmA3ZluUuBwVcu1iNel6kxCf+ElkdtNe9BlXBFqHSaQsxpLF
+	Bnr2NG77FoHWU1w6tlYgnnEvB7x3fu5Mv1qZy4CTNiIVVIMlRmCeWmqFcejgwLq2nqaackL852r
+	Kx3bdve1iJk6xUg+8A1IU/L6UHfKe2AvnMaM986oAr+W7uH5TtSOuqaNSU9EGdXOjBz1hBsQjJS
+	x2Qu8gJNqdR3EAsphh/0dj8nogIousuzG75Lp96XewhFeV8Y+TijQCzAJCVpV8YvKMjASzbEwpA
+	m8yQXb9TlUzPd6BGu4TkFYTykl5kHOhBDLaMcrSWYhh2lHK80T2HIStHHvCmEHyhBT3JYdTbDKg
+	UNo0ZjcSEtUwabfo7uo0hIXaLFA7Vb3UevHidWpkak=
+X-Received: by 2002:a05:6402:5111:b0:6a9:ab6a:640f with SMTP id 4fb4d7f45d1cf-6aa531c28c8mr1640375a12.37.1789742603374;
+        Fri, 18 Sep 2026 07:43:23 -0700 (PDT)
+Received: from localhost (144-178-202-138.static.ef-service.nl. [144.178.202.138])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa59605618sm991778a12.11.2026.09.18.07.43.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 18 Sep 2026 07:43:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-fp6-panel-v2-2-6695c4008920@fairphone.com>
-References: <20260918-fp6-panel-v2-0-6695c4008920@fairphone.com>
-In-Reply-To: <20260918-fp6-panel-v2-0-6695c4008920@fairphone.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- Luca Weiss <luca.weiss@fairphone.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789742407; l=16748;
- i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
- bh=DQJyA5nb82V6M17kyoxQCg3Nzqz+lsekLTT2+vv2vaQ=;
- b=gydufSwZJ0ZlWFVBMK/HRc5GImg6Y5zDI7tB6+SxFsV4o5Y9fGCMODSqU7dxDhRuXO7dXD5po
- MmEHlXI4kp8APXwgoYIH5313FX9cq5yU77+r3ud1d2vClczNe95PhMZ
-X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
- pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 18 Sep 2026 16:43:22 +0200
+Message-Id: <DLIISWYS60TX.BBXK30H05VRL@fairphone.com>
+Subject: Re: [PATCH] arm64: dts: qcom: kodiak: Elite-ify LPASS macros
+From: "Luca Weiss" <luca.weiss@fairphone.com>
+To: "Luca Weiss" <luca.weiss@fairphone.com>, "Konrad Dybcio"
+ <konrad.dybcio@oss.qualcomm.com>, "Bjorn Andersson" <andersson@kernel.org>,
+ "Konrad Dybcio" <konradybcio@kernel.org>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, <cros-qcom-dts-watchers@chromium.org>
+Cc: <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
+ <linux-arm-msm@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3-dirty
+References: <20260522-kodiak-elite-macros-v1-1-487661ac1270@fairphone.com>
+ <b39e4b4f-c166-48e1-901c-51694cf8172b@oss.qualcomm.com>
+ <DJFFMB9BO7GF.3CIRW26SHUSD@fairphone.com>
+In-Reply-To: <DJFFMB9BO7GF.3CIRW26SHUSD@fairphone.com>
 
-Add support for the 2484x1116 AMOLED panel from BOE (BJ631JHM-T71-D900)
-bundled with a NT37705 driver IC, as found on the Fairphone (Gen. 6)
-smartphone.
+Hi Konrad,
 
-The panel can also be configured in 10-bit (RGB101010) mode, however
-currently it's configured in 8-bit (RGB888) since there's some issues in
-the Qualcomm DPU driver when driving this panel in 10-bit.
+On Mon Jun 22, 2026 at 10:23 AM CEST, Luca Weiss wrote:
+> On Wed Jun 17, 2026 at 12:05 PM CEST, Konrad Dybcio wrote:
+>> On 5/22/26 4:46 PM, Luca Weiss wrote:
+>>> Due to initial kodiak/sc7280 bringup being done for Chrome platforms,
+>>> some Chrome-specific bits still remain in kodiak.dtsi, like the clocks
+>>> and power-domains for the LPASS RX/TX/WSA/VA macros.
+>>>=20
+>>> Move them to sc7280-chrome-common.dtsi and put Elite (q6afecc)
+>>> equivalents in its place. The qcs6490-audioreach.dtsi file can also dro=
+p
+>>> deletion of power-domains properties then.
+>>>=20
+>>> This follows previous commits moving Chrome-specific configuration to
+>>> the correct file, leaving kodiak.dtsi for Elite and
+>>> qcs6490-audioreach.dtsi for AudioReach.
+>>>=20
+>>> No functional change intended. The clock-output-names property will now
+>>> exist for both Chrome and AudioReach devices but this shouldn't have an=
+y
+>>> relevant effect. And WSA macro clocks weren't added to Chrome because I
+>>> don't believe this would've ever worked given it already referenced
+>>> q6afecc and the nodes were originally added during AudioReach bringup.
+>>
+>> I think it's better to keep them, if only to make sure that the result
+>> of dtx_diff isn't outside the expectation of a commit that claims to
+>> only reshuffle data for these platforms
+>
+> I documented this in the commit message for this purpose.
+>
+> But I'd argue not putting (likely incorrect) wsa_macro overrides there
+> is the better thing to do. Probably somebody should've taken care of the
+> Chrome platforms when adding the wsa nodes in the first place.
 
-Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
----
- drivers/gpu/drm/panel/Kconfig                 |  12 +
- drivers/gpu/drm/panel/Makefile                |   1 +
- drivers/gpu/drm/panel/panel-novatek-nt37705.c | 413 ++++++++++++++++++++++++++
- 3 files changed, 426 insertions(+)
+Is that okay, or do you want me to change this? I'm still of the opinion
+that adding a very-likely-broken WSA macro to chrome is not great.
 
-diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index cbdf7b8f7f7a..be2f812bef76 100644
---- a/drivers/gpu/drm/panel/Kconfig
-+++ b/drivers/gpu/drm/panel/Kconfig
-@@ -706,6 +706,18 @@ config DRM_PANEL_NOVATEK_NT37700F
- 	  Say Y here if you want to enable support for Novatek NT37700F DSI
- 	  panel module. The panel has a resolution of 1080x2160.
- 
-+config DRM_PANEL_NOVATEK_NT37705
-+	tristate "Novatek NT37705-based DSI panel"
-+	depends on OF
-+	depends on DRM_MIPI_DSI
-+	depends on BACKLIGHT_CLASS_DEVICE
-+	select DRM_DISPLAY_DSC_HELPER
-+	select DRM_DISPLAY_HELPER
-+	help
-+	  Say Y here if you want to enable support for Novatek NT37705-based
-+	  display panels, such as the one found in the Fairphone (Gen. 6)
-+	  smartphone.
-+
- config DRM_PANEL_NOVATEK_NT37801
- 	tristate "Novatek NT37801/NT37810 AMOLED DSI panel"
- 	depends on OF
-diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-index 3b523cf37833..e1366b5e25fc 100644
---- a/drivers/gpu/drm/panel/Makefile
-+++ b/drivers/gpu/drm/panel/Makefile
-@@ -68,6 +68,7 @@ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36536) += panel-novatek-nt36536.o
- obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36672A) += panel-novatek-nt36672a.o
- obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36672E) += panel-novatek-nt36672e.o
- obj-$(CONFIG_DRM_PANEL_NOVATEK_NT37700F) += panel-novatek-nt37700f.o
-+obj-$(CONFIG_DRM_PANEL_NOVATEK_NT37705) += panel-novatek-nt37705.o
- obj-$(CONFIG_DRM_PANEL_NOVATEK_NT37801) += panel-novatek-nt37801.o
- obj-$(CONFIG_DRM_PANEL_NOVATEK_NT39016) += panel-novatek-nt39016.o
- obj-$(CONFIG_DRM_PANEL_MANTIX_MLAF057WE51) += panel-mantix-mlaf057we51.o
-diff --git a/drivers/gpu/drm/panel/panel-novatek-nt37705.c b/drivers/gpu/drm/panel/panel-novatek-nt37705.c
-new file mode 100644
-index 000000000000..27bd8072ccd1
---- /dev/null
-+++ b/drivers/gpu/drm/panel/panel-novatek-nt37705.c
-@@ -0,0 +1,413 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Generated with linux-mdss-dsi-panel-driver-generator from vendor device tree.
-+ * Copyright (c) 2026 Luca Weiss <luca.weiss@fairphone.com>
-+ */
-+
-+#include <linux/backlight.h>
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/module.h>
-+#include <linux/regulator/consumer.h>
-+
-+#include <video/mipi_display.h>
-+
-+#include <drm/display/drm_dsc.h>
-+#include <drm/display/drm_dsc_helper.h>
-+#include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_modes.h>
-+#include <drm/drm_panel.h>
-+#include <drm/drm_probe_helper.h>
-+
-+struct nt37705_panel {
-+	struct drm_panel panel;
-+	struct mipi_dsi_device *dsi;
-+	struct drm_dsc_config dsc;
-+	struct regulator_bulk_data *supplies;
-+	struct gpio_desc *reset_gpio;
-+};
-+
-+static const struct regulator_bulk_data nt37705_supplies[] = {
-+	{ .supply = "vddio" },
-+	{ .supply = "dvdd" },
-+	{ .supply = "vci" },
-+};
-+
-+static inline struct nt37705_panel *to_nt37705_panel(struct drm_panel *panel)
-+{
-+	return container_of_const(panel, struct nt37705_panel, panel);
-+}
-+
-+static void nt37705_reset(struct nt37705_panel *ctx)
-+{
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-+	usleep_range(10000, 11000);
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+	usleep_range(5000, 6000);
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-+	usleep_range(10000, 11000);
-+}
-+
-+static int nt37705_on(struct nt37705_panel *ctx)
-+{
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-+
-+	ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
-+
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf0,
-+				     0x55, 0xaa, 0x52, 0x08, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x1b);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba, 0x18);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x1c);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba,
-+				     0x01, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00,
-+				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+				     0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x2c);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba,
-+				     0x00, 0x01, 0x01, 0x01, 0x00, 0x05, 0x05,
-+				     0x05, 0x00, 0x05, 0x05, 0x05, 0x00, 0x00,
-+				     0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x3c);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba,
-+				     0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 0x0b,
-+				     0x0b, 0x00, 0x00, 0x0b, 0x0b, 0x00, 0x00,
-+				     0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x4c);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba,
-+				     0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00,
-+				     0x1d, 0x00, 0x00, 0x00, 0x1d, 0x00, 0x00,
-+				     0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x5c);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba,
-+				     0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
-+				     0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
-+				     0x01, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x6c);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba,
-+				     0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x0b,
-+				     0x77, 0x77, 0x00, 0x00, 0x0b, 0x00, 0x1d,
-+				     0x00, 0x1d);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x7c);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba,
-+				     0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x0b,
-+				     0x77, 0x77, 0x00, 0x00, 0x0b, 0x00, 0x1d,
-+				     0x00, 0x1d);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x8c);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba,
-+				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+				     0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x9c);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba,
-+				     0x11, 0x11, 0x20, 0x02, 0x00, 0x03, 0x00,
-+				     0x00);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0xa4);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba, 0x00, 0xc0, 0x40, 0x08);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0xa8);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba,
-+				     0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22,
-+				     0x22);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0xb0);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba,
-+				     0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22,
-+				     0x22);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf0,
-+				     0x55, 0xaa, 0x52, 0x08, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x05);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xc5, 0x15, 0x15, 0x15, 0xdd);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf0,
-+				     0x55, 0xaa, 0x52, 0x08, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x0e);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb5, 0x32);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf0,
-+				     0x55, 0xaa, 0x52, 0x00, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0xaa, 0x55, 0xa5, 0x80);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x19);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf2, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x1a);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf4, 0x55);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x11);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf8, 0x01, 0x7f);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x2d);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf8, 0x01, 0x20);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0xaa, 0x55, 0xa5, 0x81);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x05);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x3c);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf9, 0x04);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x1e);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfb, 0x0f);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x0f);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf5, 0x20);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x0d);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfb, 0x80);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0xaa, 0x55, 0xa5, 0x83);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x12);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x41);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x13);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfd, 0x21);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0xaa, 0x55, 0xa5, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x35);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_WRITE_CONTROL_DISPLAY,
-+				     0x20);
-+	mipi_dsi_dcs_set_column_address_multi(&dsi_ctx, 0x0000, 0x045b);
-+	mipi_dsi_dcs_set_page_address_multi(&dsi_ctx, 0x0000, 0x09b3);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_SET_GAMMA_CURVE, 0x00);
-+	mipi_dsi_dcs_set_display_brightness_multi(&dsi_ctx, 0xbb0d);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x04);
-+	mipi_dsi_dcs_set_display_brightness_multi(&dsi_ctx, 0xfe0f);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x81, 0x01, 0x19);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x03, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x90, 0x03, 0x03);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x91,
-+				     0x89, 0x28, 0x00, 0x0c, 0xd2, 0x00, 0x02,
-+				     0x2f, 0x01, 0x18, 0x00, 0x07, 0x09, 0x75,
-+				     0x08, 0x34, 0x10, 0xf0);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x2f, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5a, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x2f, 0x30);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6d, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x11, 0x00);
-+	mipi_dsi_msleep(&dsi_ctx, 120);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x29, 0x00);
-+	mipi_dsi_msleep(&dsi_ctx, 22);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int nt37705_off(struct nt37705_panel *ctx)
-+{
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-+
-+	ctx->dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
-+
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x28, 0x00);
-+	mipi_dsi_msleep(&dsi_ctx, 20);
-+	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x10, 0x00);
-+	mipi_dsi_msleep(&dsi_ctx, 120);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int nt37705_prepare(struct drm_panel *panel)
-+{
-+	struct nt37705_panel *ctx = to_nt37705_panel(panel);
-+	struct device *dev = &ctx->dsi->dev;
-+	struct drm_dsc_picture_parameter_set pps;
-+	int ret;
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(nt37705_supplies), ctx->supplies);
-+	if (ret < 0) {
-+		dev_err(dev, "Failed to enable regulators: %d\n", ret);
-+		return ret;
-+	}
-+
-+	nt37705_reset(ctx);
-+
-+	ret = nt37705_on(ctx);
-+	if (ret < 0) {
-+		dev_err(dev, "Failed to initialize panel: %d\n", ret);
-+		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+		regulator_bulk_disable(ARRAY_SIZE(nt37705_supplies), ctx->supplies);
-+		return ret;
-+	}
-+
-+	drm_dsc_pps_payload_pack(&pps, &ctx->dsc);
-+
-+	ret = mipi_dsi_picture_parameter_set(ctx->dsi, &pps);
-+	if (ret < 0) {
-+		dev_err(panel->dev, "failed to transmit PPS: %d\n", ret);
-+		return ret;
-+	}
-+
-+	ret = mipi_dsi_compression_mode(ctx->dsi, true);
-+	if (ret < 0) {
-+		dev_err(dev, "failed to enable compression mode: %d\n", ret);
-+		return ret;
-+	}
-+
-+	msleep(28); /* TODO: Is this panel-dependent? */
-+
-+	return 0;
-+}
-+
-+static int nt37705_unprepare(struct drm_panel *panel)
-+{
-+	struct nt37705_panel *ctx = to_nt37705_panel(panel);
-+	struct device *dev = &ctx->dsi->dev;
-+	int ret;
-+
-+	ret = nt37705_off(ctx);
-+	if (ret < 0)
-+		dev_err(dev, "Failed to un-initialize panel: %d\n", ret);
-+
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+	regulator_bulk_disable(ARRAY_SIZE(nt37705_supplies), ctx->supplies);
-+
-+	return 0;
-+}
-+
-+static const struct drm_display_mode nt37705_mode = {
-+	.clock = (1116 + 100 + 30 + 100) * (2484 + 70 + 48 + 70) * 120 / 1000,
-+	.hdisplay = 1116,
-+	.hsync_start = 1116 + 100,
-+	.hsync_end = 1116 + 100 + 30,
-+	.htotal = 1116 + 100 + 30 + 100,
-+	.vdisplay = 2484,
-+	.vsync_start = 2484 + 70,
-+	.vsync_end = 2484 + 70 + 48,
-+	.vtotal = 2484 + 70 + 48 + 70,
-+	.width_mm = 66,
-+	.height_mm = 146,
-+	.type = DRM_MODE_TYPE_DRIVER,
-+};
-+
-+static int nt37705_get_modes(struct drm_panel *panel,
-+			     struct drm_connector *connector)
-+{
-+	return drm_connector_helper_get_modes_fixed(connector, &nt37705_mode);
-+}
-+
-+static const struct drm_panel_funcs nt37705_panel_funcs = {
-+	.prepare = nt37705_prepare,
-+	.unprepare = nt37705_unprepare,
-+	.get_modes = nt37705_get_modes,
-+};
-+
-+static int nt37705_bl_update_status(struct backlight_device *bl)
-+{
-+	struct mipi_dsi_device *dsi = bl_get_data(bl);
-+	u16 brightness = backlight_get_brightness(bl);
-+	int ret;
-+
-+	dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
-+
-+	ret = mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
-+	if (ret < 0)
-+		return ret;
-+
-+	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
-+
-+	return 0;
-+}
-+
-+static const struct backlight_ops nt37705_bl_ops = {
-+	.update_status = nt37705_bl_update_status,
-+};
-+
-+static struct backlight_device *
-+nt37705_create_backlight(struct mipi_dsi_device *dsi)
-+{
-+	struct device *dev = &dsi->dev;
-+	const struct backlight_properties props = {
-+		.type = BACKLIGHT_RAW,
-+		.scale = BACKLIGHT_SCALE_NON_LINEAR,
-+		.brightness = 4095,
-+		.max_brightness = 4095,
-+	};
-+
-+	return devm_backlight_device_register(dev, dev_name(dev), dev, dsi,
-+					      &nt37705_bl_ops, &props);
-+}
-+
-+static int nt37705_probe(struct mipi_dsi_device *dsi)
-+{
-+	struct device *dev = &dsi->dev;
-+	struct nt37705_panel *ctx;
-+	int ret;
-+
-+	ctx = devm_drm_panel_alloc(dev, struct nt37705_panel, panel,
-+				   &nt37705_panel_funcs,
-+				   DRM_MODE_CONNECTOR_DSI);
-+	if (IS_ERR(ctx))
-+		return PTR_ERR(ctx);
-+
-+	ret = devm_regulator_bulk_get_const(dev,
-+					    ARRAY_SIZE(nt37705_supplies),
-+					    nt37705_supplies,
-+					    &ctx->supplies);
-+	if (ret < 0)
-+		return ret;
-+
-+	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
-+	if (IS_ERR(ctx->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
-+				     "Failed to get reset-gpios\n");
-+
-+	ctx->dsi = dsi;
-+	mipi_dsi_set_drvdata(dsi, ctx);
-+
-+	dsi->lanes = 4;
-+	dsi->format = MIPI_DSI_FMT_RGB888;
-+	dsi->mode_flags = MIPI_DSI_MODE_NO_EOT_PACKET |
-+			  MIPI_DSI_CLOCK_NON_CONTINUOUS;
-+
-+	ctx->panel.prepare_prev_first = true;
-+
-+	ctx->panel.backlight = nt37705_create_backlight(dsi);
-+	if (IS_ERR(ctx->panel.backlight))
-+		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
-+				     "Failed to create backlight\n");
-+
-+	drm_panel_add(&ctx->panel);
-+
-+	/* This panel only supports DSC; unconditionally enable it */
-+	dsi->dsc = &ctx->dsc;
-+
-+	ctx->dsc.dsc_version_major = 1;
-+	ctx->dsc.dsc_version_minor = 1;
-+
-+	/* TODO: Pass slice_per_pkt = 2 */
-+	ctx->dsc.slice_height = 12;
-+	ctx->dsc.slice_width = 558;
-+	/*
-+	 * TODO: hdisplay should be read from the selected mode once
-+	 * it is passed back to drm_panel (in prepare?)
-+	 */
-+	WARN_ON(1116 % ctx->dsc.slice_width);
-+	ctx->dsc.slice_count = 1116 / ctx->dsc.slice_width;
-+	ctx->dsc.bits_per_component = 8;
-+	ctx->dsc.bits_per_pixel = 8 << 4; /* 4 fractional bits */
-+	ctx->dsc.block_pred_enable = true;
-+
-+	ret = mipi_dsi_attach(dsi);
-+	if (ret < 0) {
-+		drm_panel_remove(&ctx->panel);
-+		return dev_err_probe(dev, ret, "Failed to attach to DSI host\n");
-+	}
-+
-+	return 0;
-+}
-+
-+static void nt37705_remove(struct mipi_dsi_device *dsi)
-+{
-+	struct nt37705_panel *ctx = mipi_dsi_get_drvdata(dsi);
-+	int ret;
-+
-+	ret = mipi_dsi_detach(dsi);
-+	if (ret < 0)
-+		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
-+
-+	drm_panel_remove(&ctx->panel);
-+}
-+
-+static const struct of_device_id nt37705_of_match[] = {
-+	{ .compatible = "boe,bj631jhm-t71-d900" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, nt37705_of_match);
-+
-+static struct mipi_dsi_driver nt37705_driver = {
-+	.probe = nt37705_probe,
-+	.remove = nt37705_remove,
-+	.driver = {
-+		.name = "panel-novatek-nt37705",
-+		.of_match_table = nt37705_of_match,
-+	},
-+};
-+module_mipi_dsi_driver(nt37705_driver);
-+
-+MODULE_DESCRIPTION("DRM driver for NT37705-equipped DSI panels");
-+MODULE_LICENSE("GPL");
+Anything else to note? R-b would be nice :)
 
--- 
-2.55.0
+Regards
+Luca
+
+>
+>>
+>> It looks OK as-is for Elite and Audioreach platforms (for the record, I
+>> checked rb3gen2 and FP5)
+>
+> Thanks!
+>
+> Regards
+> Luca
+
 
