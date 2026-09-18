@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F3014BFE6F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D80624C10C7;
 	Fri, 18 Sep 2026 08:57:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789721842; cv=none; b=iZ8esXSA1lDfoFEchy/eng3PV8IQ4KLOYSKg/WSZeKR/lON/IYBMwVFZqjSq2DRHcIw+sYSV+eF/m/aN3ubexxi4Dkkc/SiSHyVzAyibNiS4+jefCgK9utAiMbPIJ0i+nzLqaZXtU6URZ3G91mpfMMQnpCH4nlsULjL+jnRcki8=
+	t=1789721843; cv=none; b=tnzIr2GqSxSfG8M2/zvIPwTymH+HWeLJMY4ZTgUJuGZDARPmkHWhmHdiM5g/ZGVJE2Fz2P1AVYFkBGEZYS5C+bRlb6IhgJv4ZSVthh8w/8Gx5cbrcEYslIFNTnOx8cUXAsfueA5/MiQ9m6zRBelCnIVVvfejjEykPsdpKk87CAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789721842; c=relaxed/simple;
-	bh=s/ykreRJ0uCDvoPYZfLjy6AF1TwDdHCJ9gJuzoAi3o0=;
+	s=arc-20240116; t=1789721843; c=relaxed/simple;
+	bh=bRrNigDJkW7AZBxFaHxWITPtWA2Rw/thAvAmAhyVF7o=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=cvpabsZaVKX10VpwgAAkU5GwgSN8G0a5CMosdNn8jE9/R6VCSJOx+FJEGTHsPX/pCD0qBL2l/AaTwBiiubLp7Om6TpCI+bfawG6+FUr4YxW/mQA0ywnLjlWCDW4cDrz28El1rVy5geDsp9MuUXQfEeeAa6dvWx3TrMSaKfzTV9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o+hQyT1t; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=FP4y/kp5YnIQAXc9S7m8SRdAV0HBnaEJduUqj0Q+RIE18Z8Kcru2rVxs/m9cb+XDnv3B3J1sCqsTPCbYL27kNOKKNttAH/tZu/gnnUp3mo2jdVLUKDKn7cnTizhvCGQv/Te491xL9VAjC7+uX/JaTrUifaEjHBmGvSlD7iiosHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UOO8Bdqf; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o+hQyT1t"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C158CC4AF10;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UOO8Bdqf"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 9E69BC4AF0C;
 	Fri, 18 Sep 2026 08:57:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1789721840;
-	bh=s/ykreRJ0uCDvoPYZfLjy6AF1TwDdHCJ9gJuzoAi3o0=;
+	bh=bRrNigDJkW7AZBxFaHxWITPtWA2Rw/thAvAmAhyVF7o=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=o+hQyT1tEVFwSwwljIVdvkWy51GiUfAozhQ9ZYe7yGheduoIZJQjlx9Uw2pRGnZfW
-	 aIbeSFG++M6c7bE6pU2osHkX3vqjBvNCT10+KgIK/vRNJGxzFKYVUVf7l3FuDCXlvX
-	 qPUJbC2LJhsZlFNHm6QUB0jKBeyHN8feCNiiYoh4dprei/OpRCPdHT+hSKPcb6aUcu
-	 13PUNZqdueFov7n1wYQuKlwdpzCihA/Sszj4cLBQVFw018s5i2E25F6YlsEnYuggXe
-	 FwsiN9c1rhzNxUuK+gaOoNJzWcusQWuYcKF9Y23HbYje3M5/MXjwShV7tmDOT0fSYf
-	 UCWVX1Plx7E3g==
+	b=UOO8BdqfHOGSnDnmAk7bl2jqttKyOo5yv0/UIrL63deETX4hjjkGs8Tnlp+9XIxnT
+	 zx30HBIeaHKPh2lez8dOfsWh48ht9h11X5y9nU2Jy9xxBSdAT9N1B3tdnztK5tqa+M
+	 DwyYcTttXu7Dc9fWAqRoNsiMnvzNoxxafxeR/af+IjpGE4fsfJPkUjcKNe0Whropba
+	 ffququtbTFxSAruJRn13q9DMUxZ5QZHjG4kihePI68yoW3zyNKPTzP7rfhN3xU3yih
+	 mP8Z9nXD1JlOKl3tgMjcJ4UKz+w3lQrTN7YAIKzJNEhyXCL5JvVig60Bw2uhLku2U+
+	 lf0Nl+xAwC72A==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B0BCEC982D7;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8C4E4C982D2;
 	Fri, 18 Sep 2026 08:57:20 +0000 (UTC)
 From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
-Date: Fri, 18 Sep 2026 16:57:31 +0800
-Subject: [PATCH 16/21] media: i2c: it6625: drop the private CSI-format name
- table
+Date: Fri, 18 Sep 2026 16:57:29 +0800
+Subject: [PATCH 14/21] media: i2c: it6625: fix link-frequency reporting for
+ one-/two-trio C-PHY
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-upstream-it6625-follow-up-patch-v1-16-78d72d7886a5@ite.com.tw>
+Message-Id: <20260918-upstream-it6625-follow-up-patch-v1-14-78d72d7886a5@ite.com.tw>
 References: <20260918-upstream-it6625-follow-up-patch-v1-0-78d72d7886a5@ite.com.tw>
 In-Reply-To: <20260918-upstream-it6625-follow-up-patch-v1-0-78d72d7886a5@ite.com.tw>
 To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
@@ -52,11 +52,11 @@ Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
  linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Hermes Wu <Hermes.wu@ite.com.tw>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789721837; l=2207;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789721837; l=2869;
  i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
- bh=1QBeLpweBexpuPT55/o9kOEnsNm6TzwXFO32asay3lk=;
- b=BKX++v2fjL4HLNPNzaWHrzbk5oo/WTl17NO45uq5t0yu3DmyL11IHTPGWrTYGcy0nnlCaOuJl
- 0huuaU3kuRmBx9yBQ5154lC6VyHEqIauCgHZbk1pTbtmATRwuKvanXz
+ bh=Glt5rCqFCDYbF0ZgrcqztJES4wgIaxcox5FrgQZ10+8=;
+ b=73roMt8CkxBrRlrslmG5oZj7S7/jyD2u1BiYkgxfhE29Zt2lvBj1Cb2nQd2C9NhxT0nnieF9s
+ tfvoeg1g4NtCzmNCepCs/kG40qR2/r3qE01b+4VZMFgep0TYyHZTY+a
 X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
  pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
 X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
@@ -66,68 +66,74 @@ Reply-To: Hermes.wu@ite.com.tw
 
 From: Hermes Wu <Hermes.wu@ite.com.tw>
 
-it6625_csi_format_name(), used only by it6625_log_status(), maintains
-a driver-local name table for a value V4L2 already exposes as a
-media-bus format code. No in-kernel helper converts MEDIA_BUS_FMT_*
-codes to printable names, so report the raw media-bus code as %#x
-instead. it6625_log_status() now snapshots it6625->mbus_fmt_code
-(the value actually used elsewhere as the driver's representation of
-the current format) under it6625_lock instead of the separate
-csi_format field.
+it6625_v4l2_init_controls() selected the 2.5 Gsym/s link-frequency
+menu entry for any C-PHY configuration, but it6625_get_timings_cap()
+only raises the DV-timings pixel-clock ceiling for three-trio C-PHY,
+matching the actually-tested hardware capability. A one-/two-trio
+C-PHY device was reporting an inflated V4L2_CID_LINK_FREQ.
+
+Split the shared two-entry array into two single-entry arrays and
+select between them with the same condition it6625_get_timings_cap()
+uses (bus_type == V4L2_MBUS_CSI2_CPHY && csi_lanes == 3; C-PHY is only
+ever set for IT6626, so this is equivalent to that function's chip-type
+check as well). Name them for what they actually cover rather than for
+a PHY type alone, since one-/two-trio C-PHY uses the low-rate array
+too, not a "D-PHY" array.
 
 Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
 ---
- drivers/media/i2c/it6625.c | 22 +++-------------------
- 1 file changed, 3 insertions(+), 19 deletions(-)
+ drivers/media/i2c/it6625.c | 22 +++++++++++++++-------
+ 1 file changed, 15 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
-index db962bc100cad9f4d71fa4156b10ff5b4c952a7c..4a54de2eb42bba7a6efc84c0b43cad4d2465d3a7 100644
+index 90b87dbf54fcfc7ad2a1245d4594beee24a193ca..882eda8b836d655585ba45b0a33d1c068bb3a8ee 100644
 --- a/drivers/media/i2c/it6625.c
 +++ b/drivers/media/i2c/it6625.c
-@@ -1343,26 +1343,12 @@ static void it6625_polling_work(struct work_struct *work)
- 	it6625_interrupt_handler(it6625);
- }
+@@ -317,11 +317,18 @@ struct it6625 {
+ };
  
--static const char *it6625_csi_format_name(u8 csi_format)
--{
--	switch (csi_format) {
--	case CSI_YUV422_8b:
--		return "YUV422 8bit";
--	case CSI_RGB888:
--		return "RGB888 8bit";
--	case CSI_YUV444_8b:
--		return "YUV444 8bit";
--	default:
--		return "unknown";
--	}
--}
--
- static int it6625_log_status(struct v4l2_subdev *sd)
+ /*
+- * Index 0: D-PHY (4-lane). Index 1: C-PHY (3-trio) -- the confirmed
+- * hardware max C-PHY capability, tested single-port/three-trio.
++ * Reported link frequency for every topology except the reference
++ * exception below: D-PHY (any lane count) and one-/two-trio C-PHY.
+  */
+-static const s64 it6625_link_freq[] = {
++static const s64 it6625_link_freq_default[] = {
+ 	445500000,
++};
++
++/*
++ * IT6626 C-PHY, three trios: the confirmed hardware max C-PHY
++ * capability, tested single-port/three-trio.
++ */
++static const s64 it6626_cphy_3trio_link_freq[] = {
+ 	2500000000LL,
+ };
+ 
+@@ -1850,6 +1857,8 @@ static int it6625_v4l2_init_controls(struct v4l2_subdev *sd)
  {
  	struct it6625 *it6625 = sd_to_6625(sd);
- 	struct v4l2_dv_timings timings, configured_timings;
- 	struct v4l2_bt_timings bt;
--	u8 csi_format;
-+	u32 mbus_fmt_code;
+ 	struct v4l2_ctrl_handler *hdl = &it6625->hdl;
++	bool cphy_3trio = it6625->bus_type == V4L2_MBUS_CSI2_CPHY &&
++			   it6625->csi_lanes == 3;
  
- 	if (it6625_get_detected_timings(it6625, &timings))
- 		v4l2_info(sd, "No video detected");
-@@ -1376,13 +1362,11 @@ static int it6625_log_status(struct v4l2_subdev *sd)
- 
- 	/* snapshot together so the reported pair was actually configured together */
- 	scoped_guard(mutex, &it6625->it6625_lock) {
--		csi_format = it6625->csi_format;
-+		mbus_fmt_code = it6625->mbus_fmt_code;
- 		bt = it6625->timings.bt;
- 	}
- 
--	v4l2_info(sd, "CSI format: %s @ %uHz",
--		  it6625_csi_format_name(csi_format),
--		  fps_from_bt_timings(&bt));
-+	v4l2_info(sd, "CSI format: %#x @ %uHz", mbus_fmt_code, fps_from_bt_timings(&bt));
- 
- 	it6625_show_avi_infoframe(it6625);
- 
+ 	v4l2_ctrl_handler_init(hdl, 4);
+ 	it6625->ctrl_5v_detect =
+@@ -1863,10 +1872,9 @@ static int it6625_v4l2_init_controls(struct v4l2_subdev *sd)
+ 	it6625->ctrl_audio_present =
+ 		v4l2_ctrl_new_custom(hdl, &it6625_ctrl_audio_present, NULL);
+ 	it6625->ctrl_link_freq =
+-		v4l2_ctrl_new_int_menu(hdl, NULL, V4L2_CID_LINK_FREQ,
+-				       ARRAY_SIZE(it6625_link_freq) - 1,
+-				       it6625->bus_type == V4L2_MBUS_CSI2_CPHY ? 1 : 0,
+-				       it6625_link_freq);
++		v4l2_ctrl_new_int_menu(hdl, NULL, V4L2_CID_LINK_FREQ, 0, 0,
++				       cphy_3trio ? it6626_cphy_3trio_link_freq :
++						    it6625_link_freq_default);
+ 	if (hdl->error) {
+ 		v4l2_err(sd, "Failed to initialize controls");
+ 		v4l2_ctrl_handler_free(hdl);
 
 -- 
 2.34.1
