@@ -1,116 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8506850255B;
-	Fri, 18 Sep 2026 15:43:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE7B550B407;
+	Fri, 18 Sep 2026 15:46:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789746237; cv=none; b=ejG4uh7WQIZ5neQXLHDK7cTt+WVlZc+HKOLdxFYsYq27H1pCi0GGHEvCUBIzFfWpRScBsLCq7/nybjtOh0mLWHDUyIQIvLhrr4nJKlb6lMtwJ8PRRX/p2vnq0lpLVK8T4fUlU8m6g6Om2GrBzqavWpfezD6nfjdIjEPZcDXjPYg=
+	t=1789746411; cv=none; b=aObHYg7mBs9lCFn79wJve1wkWsD0kjcGUExe6zqiJc5byrRJFvis+ENQs7Fkh5Use9ty6SWxdbWcDLyUiQ9JxvAdKN0B+ha4Iel4wjaWYuz5aWMXlzp8D7C5TYHjsxP65AG/Cd9DVPq8QTsg9X/xD8TzCjcxRvAyCGRXiJmNB10=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789746237; c=relaxed/simple;
-	bh=xBxzDdY3aNVEWNE7Pl3HkthH7Jw/5hQ9PJG0qhQRIo8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=b2WAXsHfzNbFDoLCk1yx3G3+dBe8IeWF4+SzfT6+zXyrTIEBhPP6uAEggyta8jJKW+HWcnOkydsYTiKO6Xb3cLBAUPnEiiS4O3dc2XxCcQXvHqmLClyf4rxUso3Ol9SJy/3do92eO3nYwZjoTrwWVzECHrACkrSOjJnj/dXhMu8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VePUKWlH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789746411; c=relaxed/simple;
+	bh=ynopiZN/0hAwTlTK6FzFkyoErSsBwQh8mzZQQTHrX6k=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=GikXYiTynIw6XfJMWU623y6sQNuV4A2AKrrrJU5Ia5OL3XoELfpbAKvNCvIK058whpVdfX9reNWdEBIuSGwk6rFzAxDBEkwG9qP7ncbXLyNp9e761Zyn8j73b2hDxkGtcIrgx9AyyOYkASZoKlyX2kxhPAoti+nqW4shn9EeegM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YwK4dlNI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VePUKWlH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A985B1F000FF;
-	Fri, 18 Sep 2026 15:43:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YwK4dlNI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E02B1F000FF;
+	Fri, 18 Sep 2026 15:46:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789746234;
-	bh=sQfGDn9yyR3ZXb91yRMgev+vN7oB4VRZv+LNHP8T6Gg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VePUKWlHD7bUS9I2DIPpflWvvtLQ63sMvJX8/ex/pgsPwJKMGINp2walcskJbIEEA
-	 kTPrjW42ZmVq9iM5cZrIJPIVctiqB7HanAOogxNHgAD4qzcqUNStS388ygtwUSZAuI
-	 TmkJK2mBQYjKMBFbVXdCEEmlZkVr5Q+zw8bFPqx5Hs3/puoqxkp+lacTCHsonpqXnV
-	 UTsngDJmyBK06WLHGsu/rKDwt38WaZhEli1ByD4fQs/SsQ5HCq4IJf4U6MMarkgXF4
-	 CFeyGxiyB/69IZwqNqwvs7zZV9StdelW0FJi7BPp256jjzt0PA+LSoLsvkeaknSsdR
-	 eY4U+iv1rlgtw==
-Date: Fri, 18 Sep 2026 10:43:53 -0500
-From: Rob Herring <robh@kernel.org>
-To: Rodolfo Giometti <giometti@enneenne.com>
-Cc: Eliav Farber <farbere@amazon.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Fabio Estevam <festevam@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
-	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/3] dt-bindings: pps: pps-gpio: document optional
- pinctrl states
-Message-ID: <20260918154353.GA4133751-robh@kernel.org>
-References: <20260916182641.9768-1-farbere@amazon.com>
- <20260917075611.47881-1-farbere@amazon.com>
- <20260917075611.47881-3-farbere@amazon.com>
- <78b01d9f-5551-4bb8-8fe1-9a992f624810@enneenne.com>
+	s=k20260515; t=1789746409;
+	bh=JboVS3406K9moY3GyytFj26wML1m6YzGEP2O+AdCWlA=;
+	h=From:Date:Subject:To:Cc;
+	b=YwK4dlNI9ZSqRvZCTd9nNFqC4V6p5TqniA3vMEAgVE50zjDoLR9Hnjl+xonBtCoWN
+	 yMQ8lZKm31VlE9/JSU0dtM5p+GCTktQLMkh9Qx/Vgy9VhuN52LZjcHxFnxwe12fGsm
+	 PyiXT6b7ictQlkVMXcjURu0RGBarD+MLeg9lauwKXIDPI1K9tU+MR+EYw71uDqkfC3
+	 fAZLu6r+mzW1i4w7m3i+ewt5oxaiXONhw16/ZPqGJIHuXaqCo4tD4A8h4qk+3o5TP2
+	 5CiEg0Yw2YrpPbOLYapbRFfd2HCCauZuMQAmv93tdVNUZXz4EUh3ZH/tzxEJFox2kv
+	 RTmPqrmBnbzUQ==
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 18 Sep 2026 17:46:45 +0200
+Subject: [PATCH] dt-bindings: dma: dma40: Restore disabled-channels
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <78b01d9f-5551-4bb8-8fe1-9a992f624810@enneenne.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260918-dma40-dt-disabled-channels-v1-1-0f691109d8d3@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqDMBBA0avIrB1IgrS2VxEXSWaqAzaVjIggu
+ buxyweff4JyFlZ4Nydk3kXllyps20CcfZoYharBGfcwL9sjfX1nkDYkUR8WJry7xIuis8HGSNT
+ zM0AdrJk/cvznw1jKBdWrvNpsAAAA
+X-Change-ID: 20260918-dma40-dt-disabled-channels-21b1ccdd8e7b
+To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dmaengine@vger.kernel.org, devicetree@vger.kernel.org, 
+ Linus Walleij <linusw@kernel.org>
+X-Mailer: b4 0.14.3
 
-On Fri, Sep 18, 2026 at 09:50:06AM +0200, Rodolfo Giometti wrote:
-> On Thu, Sep 17, 2026 at 07:56:10AM +0000, Eliav Farber wrote:
-> > Document the optional "default" and "inactive" pinctrl-names and show
-> > both in the example.
-> > 
-> > Signed-off-by: Eliav Farber <farbere@amazon.com>
-> > ---
-> > diff --git a/Documentation/devicetree/bindings/pps/pps-gpio.yaml b/Documentation/devicetree/bindings/pps/pps-gpio.yaml
-> > index 383a838744eb..db6ecb17cb54 100644
-> > --- a/Documentation/devicetree/bindings/pps/pps-gpio.yaml
-> > +++ b/Documentation/devicetree/bindings/pps/pps-gpio.yaml
-> > @@ -28,6 +28,19 @@ properties:
-> >      description: Indicates a falling edge assert, when present. Rising edge if absent.
-> >      type: boolean
-> > 
-> > +  pinctrl-names:
-> > +    description:
-> > +      When the PPS input is muxed through a pin controller, the standard
-> > +      "default" state selects the PPS/GPIO function and is applied by the
-> > +      driver core before probe. If a state named "inactive" is also present,
-> > +      it is selected when the driver is unbound or the system is shut down,
-> > +      handing the pins back to their alternate function. The "inactive"
-> > +      state, if used, requires a "default" state; its position among the
-> > +      names does not matter.
-> > +    minItems: 1
-> > +    contains:
-> > +      const: default
-> > +
-> >  required:
-> >    - compatible
-> >    - gpios
-> > @@ -40,8 +53,9 @@ examples:
-> > 
-> >      pps {
-> >          compatible = "pps-gpio";
-> > -        pinctrl-names = "default";
-> > +        pinctrl-names = "default", "inactive";
-> >          pinctrl-0 = <&pinctrl_pps>;
-> > +        pinctrl-1 = <&pinctrl_pps_inactive>;
-> >          gpios = <&gpio1 26 GPIO_ACTIVE_HIGH>;
-> >          assert-falling-edge;
-> >          echo-gpios = <&gpio1 27 GPIO_ACTIVE_HIGH>;
-> 
-> I tried:
-> 
->   $ make DT_SCHEMA_FILES=Documentation/devicetree/bindings/pps/pps-gpio.yaml \
->          dt_binding_check
-> 
-> and it gave me:
-> 
->   pps-gpio.example.dtb: pps (pps-gpio): pinctrl-names:
->         ['default', 'inactive'] is too long
->         from schema $id: http://devicetree.org/schemas/pps/pps-gpio.yaml
+The conversion of the DMA40 binding to YAML omitted the optional
+disabled-channels property from the original text binding. The driver still
+parses this property, but additionalProperties: false rejects any device
+tree using it.
 
-I can't help you without the schema you used. Sounds like something 
-wrong with 'items'.
+Restore disabled-channels and constrain it to the physical channel range.
+Also constrain memcpy-channels to the limits enforced by the driver and
+reject duplicate channel entries in both properties.
 
-Rob
+Fixes: 23fbc87c8ae6 ("dt-bindings: dma: Rewrite ST-Ericsson DMA40 to YAML")
+Assisted-by: LLM
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+---
+ .../devicetree/bindings/dma/stericsson,dma40.yaml          | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/dma/stericsson,dma40.yaml b/Documentation/devicetree/bindings/dma/stericsson,dma40.yaml
+index d8f92838f4c9..81b83603ea79 100644
+--- a/Documentation/devicetree/bindings/dma/stericsson,dma40.yaml
++++ b/Documentation/devicetree/bindings/dma/stericsson,dma40.yaml
+@@ -140,8 +140,22 @@ properties:
+       - description: LCPA (Logical Channel Parameter Address) memory.
+       - description: LCLA (Logical Channel Link base Address) memory.
+ 
++  disabled-channels:
++    $ref: /schemas/types.yaml#/definitions/uint32-array
++    minItems: 1
++    maxItems: 31
++    uniqueItems: true
++    items:
++      maximum: 31
++    description: Physical channels that cannot be used by the DMA engine.
++
+   memcpy-channels:
+     $ref: /schemas/types.yaml#/definitions/uint32-array
++    minItems: 1
++    maxItems: 8
++    uniqueItems: true
++    items:
++      maximum: 63
+     description: Array of u32 elements indicating which channels on the DMA
+       engine are eligible for memcpy transfers
+ 
+
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260918-dma40-dt-disabled-channels-21b1ccdd8e7b
+
+Best regards,
+-- 
+Linus Walleij <linusw@kernel.org>
+
