@@ -1,135 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD6EA470111
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 17:53:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEA12472557
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 17:57:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789754043; cv=none; b=Wdr+UzG/Bd/JFNxwV5mHl3tpCNUEyqZfHmHSlnfrbfk7octoEwscY8ileYVxlvksxCwGb7N4RKzXQlbThgXdFO0ImMaGyDvJK0Fpz1uQ0VB0Rxgg35i4V3M5Q0dfPO9LvRiSrDKdC0/mMxCI9Sf64W+FFYqV5fak5JWQ5n9fcqU=
+	t=1789754271; cv=none; b=jpirj2+9eCpwcR0rINyoKHz08sv2ytgQt6uvKi43yDDxcpP4kYwrEeo+CLFV3D/o+XBaWMMaZ/+6woYel7AT6bXYIroCwORGbE70RBRmM3U6BOQfIn35EDhogVwbRtAu3BHsIBaCgOt7zz/7j5XtVi0h2cQKLko+B6NzAO/IZjE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789754043; c=relaxed/simple;
-	bh=jtP1ibn/4yc7fE5zv325tbFOKhjrKLAz5arkNl4eF+g=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jAp1xRXX+zvsaq9vOi16YJaX7uPYEwC0g+lTsSsExTm7yZvs99EfnI9wb44PrfSMsmKOXfUpbNVsp8If/OTySaT62zYO9+1PB6UiZ5fvkKzVS3a7+D7QqlU6UDGuV/RLuQSVbHsNqESrutYkusJSIm9PL5xvHDZSpGdoDRkbTsM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WFhtxEqW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789754271; c=relaxed/simple;
+	bh=1Uh1f3Z956wEmF2q3u2UHyLztLyaLozkuEdPettpALA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=p92agiuUKa3Sdnj2x1Tvt2B7mq3e8XC8jTmzKMG/OnZTdZtWM7/WaLRtUQlvipVCaX0JTTuGNZCLj4eDb0OUlEVJQmRScLYHzUlhEky3Y36cr5S9Da+gg6CorR5MrbU2JcYL0KciOlOHs1hCYzZv6XEs9I6yQrsV3AR/620cK9g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p/EXPWRB; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WFhtxEqW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D0F51F000FF;
-	Fri, 18 Sep 2026 17:53:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789754036;
-	bh=MeG3Zsz29iVOkRoFW2w55ZxZJHdlOnnY1jOM1b7Cy8U=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WFhtxEqWLaPQFPYLH9MahpXjzCEfX847GLUanRg3+Rgy31XmAjFPOIXSUVftogh4e
-	 r05A6SipuBYA46dfdtNJeOu0g7ZgIig7B6ewQbgg/h0U5GdhAu5m0whgLLByo/4P8q
-	 5/5zl3cvXoA3PZ2jKjw3jYvuz5x/X/kyNuGSMQybSjdu1NdfyrM5UPyEdb1e/t8W9u
-	 9i1lemZgBEWF0aFQVwcEPu4+4GThMxKAkwYb1JBN5PD2yfkkA2+g/CDuIzQSMVQ3iw
-	 5M81r7L/42EFn2QluGhkvj9tjQxgPe7qi/Ap8ESh6vu1PpDy536lezUfJfnL6LSUGf
-	 +EAETascQv41w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] dt-bindings: iio: adc: Add dt binding to xlnx,xadc
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Omer PALA" <palaomer100@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260918174413.17155-1-palaomer100@gmail.com>
-References: <20260918174413.17155-1-palaomer100@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 17:53:55 +0000
-Message-Id: <20260918175356.4D0F51F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p/EXPWRB"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485933b24c3so585589f8f.0
+        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 10:57:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789754266; x=1790359066; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SeIdKvGzh7s/Zod1za/yckFgL52L7iFEeDXKnd5/Wj4=;
+        b=p/EXPWRB1gEJykv1aYDvIY2BdblMjduKbqtr+4Qdk0A2ODr36q5jqCU5QUP060jq35
+         1o6UnAgkVdUtT0lsjinVtCpvUB1lBkUHz+yzG0ETqf2fxKJmIy+XFhEtmUjvGScBn5nT
+         CCaHCqBqYNrXWKmUiW42r0DGnfFnYARjkRqopvPBqvFxCTumvcS7RwgzDKDUQSrfgQ+b
+         coPopBK+BpM6Q+criWUeilqN/tkvZcW/VrTEhMRhH6jDtLV9zllw2ypFotoI9gDnfrkd
+         3ZnJEPTdLP+9i/OM92cQd4ZZ7sU0EhOODKzRTbGfOV98T36/EYpsmPD3mZ4FrPbl4VHl
+         jqxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789754266; x=1790359066;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SeIdKvGzh7s/Zod1za/yckFgL52L7iFEeDXKnd5/Wj4=;
+        b=DV/B3p+jVifMvi66kzf2YilIh7xRETVuCIaNxiP3g/vUW+jn5zujM0LCZbRTw42qt6
+         6z/+9euI606kcPpG++6yH7sq9b700q/ibiff63cQjCXKRvSZ2yQJRnb73VTMGqwCNDmp
+         c8NEuYFn/8Oc6pMLcBEB/hCsqt5Sdw96GsoYl8QYYq15FLm36lZ7UwveydXIPZbEvyJJ
+         8Pcm/A29YDfaJ261wsDeryyDQ35unBLVJjUKfROWXvFphipQIOqMV0JjrKodArN+0fr9
+         UxlDATaU9TBvKjyIjXcS7yryhtUnsaHF4D96qAPFiMjuqOovdksRtG1vopeBOvkeE9ur
+         NgyQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzxHJV+5dB7uJD9S6E86ImIhvE9FXdHhJRr2hsrztpaXNJN1+U/HqO1WzG6iIX+W5BADNMhQnpf7dit@vger.kernel.org
+X-Gm-Message-State: AFuF++l4J4cfFpuLx2Ltho0SJm7v2x8cORDp4xq4iuThEsI+X/YmxhoY
+	Cz/ug3/DjXNnWc56qdO6Zq8HFlDJGMv7GLH0nO1G5P+t23l4N57Q8S/p
+X-Gm-Gg: AYBFou35e61V9IOE9NSKKWgCDUty/fWo99CUU4+YXuf3SlCxXZyPmQsw5Fuk1evpDeB
+	L01tDRWFPcfnsiVMh6pfcOIfTTTBYaU48/7xGimvHmmgiKvPM0z2lwj67c7QtJkwz4hdzu14qVu
+	L+fQn1mZ08PtXLqk0CiC3myVPZAs3mZ+sIvzFSBEL9IjadP1u/0JsyfwTvkMUOTZQURrzHbzEcx
+	DxrDMmHyZ0SyBnuhhEJebWyuniFupmZOD0rAAvWJW9WXSj0ZEYyHF+ez5I5mTbQCSWeWjKi6gL1
+	CAEqA3wl5Ig8m+RUoDTr8OVJoPOeRnUsO1SydzMigYlJQxAaauo3uC+h8jp8Pg+uVrgwTDY+e5s
+	2gEVTbpRrOAUFC5l4d4Nwa1M/cQE2ggnHN1QNSMh6MsHMie6BtAjjBYbSYnslNDeUJQeTf9TTGe
+	arSWIJuDPo9+lTMgUkyZh1tfod1fG8y3KNWY/3Y6LF5pF1T27PoZEU1WyZd71H85Gn7DY=
+X-Received: by 2002:a05:6000:610:b0:487:1681:2218 with SMTP id ffacd0b85a97d-4871e36bf5amr5507663f8f.45.1789754265990;
+        Fri, 18 Sep 2026 10:57:45 -0700 (PDT)
+Received: from luca-vm.lan ([154.61.61.58])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48724562aebsm268461f8f.14.2026.09.18.10.57.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 10:57:45 -0700 (PDT)
+From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+To: linux-mediatek@lists.infradead.org
+Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+	Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	CK Hu <ck.hu@mediatek.com>,
+	Jitao shi <jitao.shi@mediatek.com>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH 0/4] Add support for the mt8167 display pipeline
+Date: Fri, 18 Sep 2026 19:55:24 +0200
+Message-ID: <20260918175736.355305-1-l.scorcia@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] dt-bindings: conflicting constraints when xlnx,external-mux is o=
-mitted
---
+This series adds support for (almost) all display blocks of mt8167.
+This SoC supports a DSI or DPI display and has HDMI output via a second
+DPI block wired to the HDMI phy.
 
-commit 406270de35d17021a1ddb6e41307e55905cede41
-Author: Omer PALA <palaomer100@gmail.com>
+All the hard work was already upstreamed in the past, now all that's left
+is some glue. In the first two patches we add support for the DPI output
+blocks. In the third one we describe all the possible combinations of the
+SoC display pipeline and in the last one we add the required nodes to the
+SoC dtsi.
 
-dt-bindings: iio: adc: Add dt binding to xlnx,xadc
+The final outputs of the display pipeline in the SoC dtsi are
+intentionally left not connected to allow board dts to specify their
+own output node.
 
-This commit converts the xilinx-xadc.txt device tree binding into a YAML
-schema. It defines constraints for xlnx,zynq-xadc-1.00.a,
-xlnx,axi-xadc-1.00.a, and xlnx,system-management-wiz-1.3 bindings.
+I said almost all display blocks because HDMI output is not included in
+this patch. I have it tested and working at all supported resolutions, but
+since it needs some fixes in clocks and a new phy driver, I will send it
+in a separate series.
 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml b/D=
-ocumentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
-> new file mode 100644
-> index 0000000000000..f9b717c297158
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
+The series has been tested on a Lenovo Smart Clock 2 (DSI), a Xiaomi Mi
+Smart Clock 2 (DSI), and a Sony Playstation Classic Mini (HDMI via DPI).
+Unfortunately I couldn't find an actual device using a DPI display, but
+since DPI1-HDMI works, I feel confident saying that the clocks divisors
+are correct.
 
-[ ... ]
+Luca Leonardo Scorcia (4):
+  dt-bindings: display: mediatek: dpi: Add compatible for mt8167
+  drm/mediatek: Add support for mt8167 Digital Parallel Interface
+  soc: mediatek: mt8167-mmsys: add routes for all display paths
+  arm64: dts: mediatek: mt8167: Add DRM nodes
 
-> +allOf:
-> +  - if:
-> +      properties:
-> +        xlnx,external-mux:
-> +          const: none
+ .../display/mediatek/mediatek,dpi.yaml        |   1 +
+ arch/arm64/boot/dts/mediatek/mt8167.dtsi      | 369 ++++++++++++++++++
+ drivers/gpu/drm/mediatek/mtk_dpi.c            |  23 ++
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c        |   2 +
+ drivers/soc/mediatek/mt8167-mmsys.h           | 183 ++++++++-
+ 5 files changed, 569 insertions(+), 9 deletions(-)
 
-[Severity: Medium]
-Will this if block evaluate to true when xlnx,external-mux is omitted?
+-- 
+2.43.0
 
-In JSON Schema, an if block checking a const on a property evaluates
-to true if that property is absent. Does this block need a
-required: [xlnx,external-mux] constraint inside the if to prevent
-it from silently succeeding when the property is not provided?
-
-> +    then:
-> +      properties:
-> +        xlnx,external-mux-channel: false
-> +
-> +  - if:
-> +      properties:
-> +        xlnx,external-mux:
-> +          const: single
-
-[Severity: Medium]
-Does this if block also evaluate to true when xlnx,external-mux is
-omitted because it lacks the same required constraint?
-
-> +    then:
-> +      properties:
-> +        xlnx,external-mux-channel:
-> +          minimum: 0
-> +          maximum: 16
-> +      required:
-> +        - xlnx,external-mux-channel
-> +
-> +  - if:
-> +      properties:
-> +        xlnx,external-mux:
-> +          const: dual
-
-[Severity: Medium]
-When the xlnx,external-mux property is omitted, doesn't this if also
-evaluate to true, piling on a contradictory requirement for
-xlnx,external-mux-channel?
-
-Since xlnx,external-mux is an optional property, omitting it causes the
-schema to simultaneously require xlnx,external-mux-channel (from here and
-the 'single' block) and explicitly forbid it via false (from the 'none'
-block).
-
-This creates an impossible constraint that rejects valid device trees using
-the default mux configuration. Could adding required: [xlnx,external-mux]
-to each if clause fix this underlying conditional logic issue?
-
-> +    then:
-> +      properties:
-> +        xlnx,external-mux-channel:
-> +          minimum: 1
-> +          maximum: 8
-> +      required:
-> +        - xlnx,external-mux-channel
-> +
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918174413.1715=
-5-1-palaomer100@gmail.com?part=3D1
