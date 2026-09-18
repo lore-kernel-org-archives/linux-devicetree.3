@@ -1,141 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D71FB3955E3;
-	Fri, 18 Sep 2026 16:51:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DDA6519E1D
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 16:52:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789750299; cv=none; b=p8CgxgTZm5cj2xpaGGvYS+TooQouqkI+pov5uaDo73bvVxZ4tb+Ndn8mhIveoM/m356tQ2LAuoGmzrfvLcbOQ8PpF94bQB9XeDS17UC5sYqiS7cbU9wNxnmF2NB7Xcy4t47Em9+L6x5ii8VaAbtg/Nq6Wi+gLFjzK1Mk39vyIzc=
+	t=1789750367; cv=none; b=DXh4rkm3pNk5IR5v90CHK+tw+F3aH8PidDKA50AgtU1cL90sJs3ycC4JkBRdOld7OTP20qceuWKCGVbgjzb1TkLBQJtQ7EF3qyG2v+cYLezpLQFovGkDckZteGHtC7wMUBlECMgr6APz+QXAEyTpaT1HqLGVpy89XwlJdvafD8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789750299; c=relaxed/simple;
-	bh=zC3lCvT5eYOgDFwbtEyHAXwzBpQbMkZpP3+92fcnwag=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=LB6oatFD7MI1iGaYVHafcOeDnxzjzqlfX6c55Q/bEFrKr/7LkjBf96rXqvg1+9noXU2epEUsvlLSjKaxb7b/EiLP28o4S6qXy4nU6FK1Y9lpipgg0oJL5kBvxuLN2X93N/IGUEU0+O3+aw3eHo9dMY6zIPe/iy0RpWVQ9moxYyU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jXFX4Qh4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789750367; c=relaxed/simple;
+	bh=im7bHLtGYT9Yz0ql8qKBFhgsMiDZmM4stEa2+3CQjmg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=inWJrYdsbkxptzlQoA389LvXyTjtkKVpH3RX1SHvC1LvYgIaX3pbiMJYtPJx38+APKc2EcQkQOgjKE+gfhrea5ePYkSQUybMFzBxxPjsQHsDdJAHxk2ZYngZMAeTDCP0UCS4yRZ/ixjTLGkjrcZV7BiMHHqVn8wUHl8O0pz1HRU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=K3bTltgi; arc=none smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jXFX4Qh4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 302631F000FF;
-	Fri, 18 Sep 2026 16:51:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789750297;
-	bh=Ha93TMJ2u0bITBXxW+vfPUHEFtwYA7ghfhz705ogvRY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jXFX4Qh44FFMVryomU3OXPSU/6hlrGU/IyzqLOOqKU6f97TwwNEVBkDJAf0HYZ99G
-	 6NRYWTZVTiu6mX1L/mKKZfga/JfFzeyXskHnYzJU13H/INUF4v669h+cCddWkHQ8+9
-	 0WBye11L+pd9XSrQG302lSnQ8E2CseZS2yQBSegkakKytFLRRPSsTX0zG/ICqmcleY
-	 7lZvODS1g293HOsQbPIT58MckSuxKQVOjNYp6AHviHnQZs12MG1owsatFHCqXta5fw
-	 tYaqIw/guNIm+EtNtJYPp8BzG3lSCrWOxf8qe9Imlgmra4baJ1Otc8ExhskfUsVmeg
-	 KgWevlK9QhtIA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/6] mfd: qcom-pm8008: Add PM8010 support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jishnu Prakash" <jishnu.prakash@oss.qualcomm.com>
-Cc: lee@kernel.org, robh@kernel.org, mfd@lists.linux.dev, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260918-pm8010_i2c_support-v1-4-de33d78fad9d@oss.qualcomm.com>
-References: <20260918-pm8010_i2c_support-v1-0-de33d78fad9d@oss.qualcomm.com>
- <20260918-pm8010_i2c_support-v1-4-de33d78fad9d@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 16:51:36 +0000
-Message-Id: <20260918165137.302631F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="K3bTltgi"
+Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910cadeb7so103510485a.0
+        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 09:52:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1789750358; x=1790355158; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UsHLj9guVGOwJ1+byqEfFywik/JH+zBDqG7OfDqa/L8=;
+        b=K3bTltgij+YGsuW8NBaMUplLapyFfvvlGqIe2hFCNzdFwnw0Dj2uMDuHJP5av5L7Mt
+         GgSqVNn1H3J3eFwjnNjqAbjvKH7XlekR/s51bFgHeYzmsY/3grrdZrfRYtybBhZuwA2I
+         lRf7zXLMIL5PbsN9OVcKeaGqHY6vGWf896uwEnPyYY2qdLZfdQkWzLHErbreweevaFQy
+         r1Y4etaFcrp8p1f9Fpb6PBDN8WFc+LtMgBB/cXhdLC9gaRyf+T+49IziLnZVwGwJVJ3l
+         PglLQjQy49HWbSBR8RvpQi6KiwnZFA3SCd6E1ds19hjz0FyLAPvQu6QTAv0eMC9uMrXV
+         8Jmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789750358; x=1790355158;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UsHLj9guVGOwJ1+byqEfFywik/JH+zBDqG7OfDqa/L8=;
+        b=CDeD7WDd3rjEyMfUHFV4YKrI/yleSGy4SAMe9z+ESKe8K+kmVeaJAozkBi0UCnsA4w
+         RMkC7IZp3NiZrP65BNBv2YBNvI6XJKxWvHhCY31gIgywxJUD3LVLmBwCYl574biUkh1I
+         1XqBNXnJZcyyuYp9KMmSsviHvfBHfr8lAG2DIyG/arhDVyNB4Jyl9m6RadVcleuRAy1I
+         dmAudG5gVqGJ5nn7XZj0oKNdHTIPDp+cZaF/qoHKz9hHbnfFPFeVzhsSCVHwV2nFIxwZ
+         5NXSJ7Iavg4MIUTCoXFjr3hnoALDhbQUmUSU1Oc892vRn3gDhopPUdJehhUiVIlZayLW
+         hgtQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwPdt0mWPjhzcDfzswzKaUz0hMbAqnE0d1E4qW08P8chrShdA26i1FaSfkYfM8NItvxdZ5KBIeExNmK@vger.kernel.org
+X-Gm-Message-State: AFuF++k36gCtwoma6PS6jqo9k4g6wHlIDiuYzcpkVUE7GuOtjESWzjBf
+	Rk21EvgtWb9bgGhVRjNWbhU7dQqAZXr4XB/mIZpqMIRAU/JltcBLhvJGT0yZg//cqro=
+X-Gm-Gg: AYBFou3jtp+cNNJNRgHKCrbeI/17NomBal1E8OPKunzLdX87zHzMuCVppsXKeu0ZjFO
+	J2/uQG1MhbRlYpf8FIpkc9oX910FbCEtbOl4uDC/RmazqeF1R5V7ZL34x8EfPuDqmvivDQz3rQw
+	iQ/zptjnQMY4ivd4Pw+8NtGJVUSI0dp3snA03lc+VjpJLjasyBoSklA/UoNFp6jrk1Z4gHsW9NG
+	EtGUNOA4dvbE5uquaukZ6gi1Ehg5ekazV5djwTJTDvt3jVoZznefEHVcANVRRWc3k6yyLjfcOgC
+	fTvApy1Dszsu6975XBeLxwP2Pzpd7scF5mmjnyziMl/Uy6Qe/4B7nB9IpXVy2YgjiXaMx8zqFrw
+	FCPGAhAwqIrUTgGa+QdHwGHvgAX2a1RTVvlwqkU70diKAbK2yg8sw3jGitWZa/yOLDwEJJiae2f
+	gODqDYiu6V8rU9P+cyp/gVJ7OHT+7WjIEfHIomnXRAxDjQEOeKqpGaPH5rxlTerLjsy3R+e0o5R
+	SY=
+X-Received: by 2002:a05:620a:a0da:20b0:93b:e412:8cee with SMTP id af79cd13be357-93be412aa37mr210118885a.73.1789750357966;
+        Fri, 18 Sep 2026 09:52:37 -0700 (PDT)
+Received: from zippy.localdomain ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93be0f0762dsm183582785a.39.2026.09.18.09.52.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 09:52:37 -0700 (PDT)
+From: Alex Elder <elder@riscstar.com>
+To: sboyd@kernel.org,
+	bmasney+clk@redhat.com,
+	jbrunet+clk@baylibre.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	lee@kernel.org,
+	andersson@kernel.org,
+	konradybcio@kernel.org,
+	abelvesa@kernel.org,
+	kees@kernel.org,
+	gustavoars@kernel.org,
+	p.zabel@pengutronix.de
+Cc: daniel@riscstar.com,
+	mohd.anwar@oss.qualcomm.com,
+	lorenzo.bianconi@oss.qualcomm.com,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	mfd@lists.linux.dev,
+	linux-arm-msm@vger.kernel.org,
+	linux-hardening@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/4] clk: introduce TC9564 clock and reset
+Date: Fri, 18 Sep 2026 11:52:29 -0500
+Message-ID: <20260918165234.687224-1-elder@riscstar.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] mfd: complex data passed via match table .data field
---
+This series adds support for the clock and reset controller present
+within the TC9564 SoC.
 
-commit a6c2d131522cd1b3f195202001e9365b690fa7f6
-Author: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+This SoC attaches to a host system via PCIe.  It includes a PCIe
+switch with three downstream ports.  To one of these ports an
+embedded PCIe endpoint is attached, and it implements two PCI
+functions.  BAR 4 for both of these PCI functions provides access
+to the registers that enable or disable a number of clock signals,
+and assert or deassert a set of reset lines.
 
-mfd: qcom-pm8008: Add PM8010 support
+The TC9564 PCI functions provide PCI endpoint buses via devicetree.
+This allows a PCI function to use devicetree to define subordinate
+devices accessible using one or more of the function's BARs.  The
+clock/reset driver binds with a device defined this way.  Only one
+of the two PCI functions is permitted to define the clock/reset
+device node.
 
-This commit adds support for the PM8010 device, which is the next
-generation of the PM8008. It handles I2C and SPMI communications, plumbing
-in the necessary IRQs and MFD cells to support the new device variants.
+					-Alex
 
-> diff --git a/drivers/mfd/qcom-pm8008.c b/drivers/mfd/qcom-pm8008.c
-> index 60204cc9a2dc6..ed656f0d6df25 100644
-> --- a/drivers/mfd/qcom-pm8008.c
-> +++ b/drivers/mfd/qcom-pm8008.c
-[ ... ]
-> @@ -213,6 +213,17 @@ static const struct mfd_cell pm8008_cells[] =3D {
->  	MFD_CELL_NAME("pm8008-gpio"),
->  };
-> =20
-> +static const struct mfd_cell pm8010_cells[] =3D {
-> +	MFD_CELL_NAME("pm8010-regulator"),
-> +	MFD_CELL_RES("qpnp-temp-alarm", pm8008_temp_res),
-> +};
-> +
-> +struct pm8008_match_data {
-> +	const struct regmap_irq_chip *irq_chip_desc;
-> +	const struct mfd_cell *mfd_cells;
-> +	int num_mfd_cells;
-> +};
-> +
+Note: to work correctly, this series depends on this:
+  https://lore.kernel.org/lkml/20260918152659.413268-1-elder@riscstar.com/
 
-[Severity: Medium]
-Does embedding the mfd_cell arrays inside a match data structure violate MFD
-subsystem guidelines?
 
-The MFD core documentation specifically requests that platform data for chi=
-ld
-devices like mfd_cell arrays not be dynamically extracted from device match
-tables to avoid memory safety hazards and initialization races.
+Alex Elder (4):
+  dt-bindings: mfd: introduce the TC9564 config syscon
+  dt-bindings: clock: introduce toshiba,tc9564-clock.yaml
+  clk: toshiba: introduce a TC9564 SoC clock and reset driver
+  arm64: dts: qcom: qcs6490-rb3gen2: add the clock controller
 
-[ ... ]
-> @@ -243,6 +243,10 @@ static int pm8008_probe(struct i2c_client *client)
->  	char *name;
->  	int ret;
-> =20
-> +	data =3D device_get_match_data(dev);
-> +	if (!data)
-> +		return dev_err_probe(dev, -ENODATA, "Missing driver match data\n");
-> +
+ .../bindings/clock/toshiba,tc9564-clock.yaml  |  64 +++
+ .../bindings/mfd/toshiba,tc9564.yaml          |  56 +++
+ MAINTAINERS                                   |   9 +
+ arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts  |  22 +-
+ drivers/clk/Kconfig                           |  11 +
+ drivers/clk/Makefile                          |   1 +
+ drivers/clk/clk-tc9564.c                      | 366 ++++++++++++++++++
+ include/dt-bindings/clock/toshiba,tc9564.h    |  54 +++
+ 8 files changed, 582 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/clock/toshiba,tc9564-clock.yaml
+ create mode 100644 Documentation/devicetree/bindings/mfd/toshiba,tc9564.yaml
+ create mode 100644 drivers/clk/clk-tc9564.c
+ create mode 100644 include/dt-bindings/clock/toshiba,tc9564.h
 
-[Severity: Medium]
-Since passing complex structure pointers via the match table is discouraged,
-would it be better to retrieve an integer or enum ID here?
 
-A standard pattern is to use a switch statement on the retrieved ID to sele=
-ct
-the appropriate static const mfd_cell array directly within the probe funct=
-ion
-rather than receiving a pointer to it.
+base-commit: 79d34e34e9ab629be19e588ec2eb7e1855d6dc46
+-- 
+2.53.0
 
-[ ... ]
-> +static const struct pm8008_match_data pm8008_data =3D {
-> +	.irq_chip_desc =3D &pm8008_irq_chip,
-> +	.mfd_cells =3D pm8008_cells,
-> +	.num_mfd_cells =3D ARRAY_SIZE(pm8008_cells),
-> +};
-> +
-> +static const struct pm8008_match_data pm8010_data =3D {
-> +	.irq_chip_desc =3D &pm8010_irq_chip,
-> +	.mfd_cells =3D pm8010_cells,
-> +	.num_mfd_cells =3D ARRAY_SIZE(pm8010_cells),
-> +};
-> +
->  static const struct of_device_id pm8008_match[] =3D {
-> -	{ .compatible =3D "qcom,pm8008", },
-> +	{ .compatible =3D "qcom,pm8008", .data =3D &pm8008_data },
-> +	{ .compatible =3D "qcom,pm8010-i2c", .data =3D &pm8010_data },
->  	{ },
->  };
-
-[Severity: Medium]
-Does this match table improperly embed complex pointers?
-
-The MFD documentation explicitly flags passing complex pointers via the
-.data field of match tables as a pattern to avoid. Using an ID enum
-such as (void *)TYPE_PM8008 instead of passing the &pm8008_data pointer
-would comply with the core subsystem patterns.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918-pm8010_i2c=
-_support-v1-0-de33d78fad9d@oss.qualcomm.com?part=3D4
