@@ -1,103 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 073F451A15F;
-	Fri, 18 Sep 2026 16:56:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D54C5187E6;
+	Fri, 18 Sep 2026 16:57:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789750621; cv=none; b=SsNp0OL3qemN59B6neTSaiDQa4bCeV8NjqsRL3Ei9MNnn8Y3eKtQoLyilDQF+sqVDFczbC37uINMEFaSNbHCmYl9aHEspYpPy3f2uXV9SePU4PLNoYQsSuubZz6GsOwoiscQ2D+waqMXH9PqHzPTp8i2qddwzO6+ltJC+/r9mwk=
+	t=1789750644; cv=none; b=u+dyKtcWeqd0staBX3vC0cVjBYotubJ2BFSmQBJW7jcdSpCzQgf+I6QVDVyUdamGzISaESxJfh9bNXakDf107WSLnnEcN+xMaOnxd7NYP8BGY2OatxqFZlF6hNtZLFNha5lpmlkyiuR6J4cEvjooDEtCvnFKL+KJZ+YCZNC4H50=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789750621; c=relaxed/simple;
-	bh=fnQ2v+X/Wt2e+j41qAgCtT9DkGeoSVNo+TuWZtrtmTY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=XsGo0aEzckbPx6g9MQC0MzKSoh3fGpQWPqf9wCorwPWtHBpaS4aiCJJhN4OKZYnNu5gBRv15rK9wPE7WNLfsH0BnwcmUPumffpuPQmeY2kRcONBhqmmphBDuON3Ik7T5j46oC3RfUHBTzjNySlN8e3+YH5wXH4M7gCVVkvTpNgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d3eTj1ed; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789750644; c=relaxed/simple;
+	bh=VU4C81zeuIqW+vlB+lovNigETP5XcSzLWiFyVa8oGjs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=DbGjrJqXnuba4+UNATBmGh1puQXUpLuyo3z13tU7DLz0WziVRx2OXc6V920Qv4A321C2+AeoJd0bgLFEdWmmVzJGBuVecSb6XQIq0X2jCptloh4bdrUqHWbGu7bSOTAP4QUah9UXw/S5As/0b7i2jhGwK7xNn7CW626UWDIPHa0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RvdrB9MP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d3eTj1ed"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 800951F00898;
-	Fri, 18 Sep 2026 16:56:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RvdrB9MP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA17C1F000FF;
+	Fri, 18 Sep 2026 16:57:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789750619;
-	bh=VnodSeJ+BTPmRT46DnqqdJcHvkEHEr1Na5mzFLJc5CU=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=d3eTj1edbQXSQgRW3v5SFAgv6Sj8zCCOU7FlK8vkFr2HWYd6jposyZJ7fe7EONjAW
-	 xY3XZBBQYI4+NMYdChbxjykKtpVqqlT2LgWD5tq1RoALnSXBnhykJ6cxRDRxgZ+00+
-	 AV9OiBCZ+U5FnJn6Ant8mg+ItN0muSItAzlnilbznSU0D44voNS3x+5V0SjNDSq6LW
-	 zpyjH3S5jNO0L4SjsF61PqvQaFRn9mB23KNHNHB23CKhvTTqS8BcwNdle+w1CMxhHE
-	 x8RQZp8qWP1NeHwL+JGyQ4zRL/+gwLSx5/Gz48eC7oh7D6i70Z8dryf4TGMQ+VOII5
-	 EJBBIKEkwWRzw==
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 18 Sep 2026 18:56:52 +0200
-Subject: [PATCH v2 2/2] ARM: dts: ux500: Use AB8505 charger compatible
+	s=k20260515; t=1789750642;
+	bh=lZ1pHAJccpQYYC2Zxu3hnnyIwXBPtE2O0tGSnFfKuKw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=RvdrB9MP9l13QHoGXP5lumO/GPZSMqrHX5FUpHpYGQARu6djsrXbKZia+sEEnfE8I
+	 vsmBu9pxr05SwFWbUvmZlWxE0vqCUILWbyy+llmMLWcDTpjnJhXxXAr2Xpi+dzTU2G
+	 IWfw3zQTQdZh+5Q3xntx1m48cJ4g1mQxv970H2qCqO261tbXZE/B+mibQ4+GUGFF4k
+	 hbcPLN/JBoxubKSU/7v8CkzQhnsdoYV/5wy8ZzOpiKp7NWDkLNLPsi23tzAIwucQb2
+	 eUOKvUij3Bc2qV3pacXFT/qjchAblFhfilTOnmNAi1GM3jp7IEELuUjjUA199ARz9I
+	 35Z+ISvdpGr7w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 6/6] mfd: qcom-pm8008: Tolerate missing interrupt
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jishnu Prakash" <jishnu.prakash@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, mfd@lists.linux.dev, lee@kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260918-pm8010_i2c_support-v1-6-de33d78fad9d@oss.qualcomm.com>
+References: <20260918-pm8010_i2c_support-v1-0-de33d78fad9d@oss.qualcomm.com>
+ <20260918-pm8010_i2c_support-v1-6-de33d78fad9d@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 18 Sep 2026 16:57:21 +0000
+Message-Id: <20260918165721.CA17C1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-ab8500-charger-dt-v2-2-5f17c332a2a7@kernel.org>
-References: <20260918-ab8500-charger-dt-v2-0-5f17c332a2a7@kernel.org>
-In-Reply-To: <20260918-ab8500-charger-dt-v2-0-5f17c332a2a7@kernel.org>
-To: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
- Linus Walleij <linusw@kernel.org>
-X-Mailer: b4 0.14.3
 
-Identify the AB8505 charger using its variant-specific compatible and
-retain the AB8500 compatible as a fallback for the existing driver. This
-selects the AB8505 interrupt constraints from the binding.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] mfd: qcom-pm8008: bogus IRQ mappings for child cells when client=
+->irq is 0
+--
 
-The AB8505 interrupt table explicitly omits the five interrupt sources
-belonging to the AB8500 main charger. Remove these nonexistent interrupts
-from the AB8505 charger node, leaving its nine USB charger interrupts.
+commit 2c273914596163e5696becde808ceb33d98f0fe8
+Author: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Fixes: bc324d447fba ("ARM: dts: ux500: Add interrupts to charger")
-Assisted-by: LLM
-Signed-off-by: Linus Walleij <linusw@kernel.org>
----
- arch/arm/boot/dts/st/ste-ab8505.dtsi | 17 ++++-------------
- 1 file changed, 4 insertions(+), 13 deletions(-)
+mfd: qcom-pm8008: Tolerate missing interrupt
 
-diff --git a/arch/arm/boot/dts/st/ste-ab8505.dtsi b/arch/arm/boot/dts/st/ste-ab8505.dtsi
-index 131c82508e82..4c9a8418f225 100644
---- a/arch/arm/boot/dts/st/ste-ab8505.dtsi
-+++ b/arch/arm/boot/dts/st/ste-ab8505.dtsi
-@@ -137,13 +137,9 @@ ab8500_btemp {
- 				};
- 
- 				ab8500_charger {
--					compatible = "stericsson,ab8500-charger";
--					interrupts = <10 IRQ_TYPE_LEVEL_HIGH>,
--						     <11 IRQ_TYPE_LEVEL_HIGH>,
--						     <0 IRQ_TYPE_LEVEL_HIGH>,
--						     <107 IRQ_TYPE_LEVEL_HIGH>,
--						     <106 IRQ_TYPE_LEVEL_HIGH>,
--						     <14 IRQ_TYPE_LEVEL_HIGH>,
-+					compatible = "stericsson,ab8505-charger",
-+						     "stericsson,ab8500-charger";
-+					interrupts = <14 IRQ_TYPE_LEVEL_HIGH>,
- 						     <15 IRQ_TYPE_LEVEL_HIGH>,
- 						     <79 IRQ_TYPE_LEVEL_HIGH>,
- 						     <105 IRQ_TYPE_LEVEL_HIGH>,
-@@ -152,12 +148,7 @@ ab8500_charger {
- 						     <22 IRQ_TYPE_LEVEL_HIGH>,
- 						     <21 IRQ_TYPE_LEVEL_HIGH>,
- 						     <16 IRQ_TYPE_LEVEL_HIGH>;
--					interrupt-names = "MAIN_CH_UNPLUG_DET",
--							  "MAIN_CHARGE_PLUG_DET",
--							  "MAIN_EXT_CH_NOT_OK",
--							  "MAIN_CH_TH_PROT_R",
--							  "MAIN_CH_TH_PROT_F",
--							  "VBUS_DET_F",
-+					interrupt-names = "VBUS_DET_F",
- 							  "VBUS_DET_R",
- 							  "USB_LINK_STATUS",
- 							  "USB_CH_TH_PROT_R",
+This commit modifies pm8008_probe() to only register the IRQ infrastructure
+if the parent IRQ is present. This is intended to support devices like PM80=
+10
+where the interrupt pin is tied to ground.
 
--- 
-2.55.0
+> diff --git a/drivers/mfd/qcom-pm8008.c b/drivers/mfd/qcom-pm8008.c
+> --- a/drivers/mfd/qcom-pm8008.c
+> +++ b/drivers/mfd/qcom-pm8008.c
+> @@ -233,7 +233,7 @@ static void devm_irq_domain_fwnode_release(void *data)
+> =20
+>  static int pm8008_probe(struct i2c_client *client)
+>  {
+> -	struct regmap_irq_chip_data *irq_data;
+> +	struct regmap_irq_chip_data *irq_data =3D NULL;
+>  	const struct pm8008_match_data *data;
 
+[ ... ]
+
+> -	/* Needed by GPIO driver. */
+> -	dev_set_drvdata(dev, regmap_irq_get_domain(irq_data));
+> +		/* Needed by GPIO driver. */
+> +		dev_set_drvdata(dev, regmap_irq_get_domain(irq_data));
+> +	}
+> =20
+>  	return devm_mfd_add_devices(dev, PLATFORM_DEVID_AUTO, data->mfd_cells,
+> -				data->num_mfd_cells, NULL, 0,
+> -				regmap_irq_get_domain(irq_data));
+> +				    data->num_mfd_cells, NULL, 0,
+> +				    regmap_irq_get_domain(irq_data));
+
+[Severity: Medium]
+Will this lead to bogus IRQ mappings for child cells when client->irq is 0?
+
+When the device has no IRQ, irq_data remains NULL, and we pass a NULL domain
+to devm_mfd_add_devices() with an irq_base of 0.
+
+The MFD cells (such as pm8008_temp_res for qpnp-temp-alarm) specify IRQ
+resources using DEFINE_RES_IRQ() with hardcoded offsets, for example:
+
+static const struct resource pm8008_temp_res[] =3D {
+	DEFINE_RES_MEM(PM8008_TEMP_ALARM_ADDR, 0x100),
+	DEFINE_RES_IRQ(PM8008_IRQ_TEMP_ALARM),
+};
+
+When mfd_add_device() processes these IRQ resources and the domain is NULL,
+it falls back to assigning the IRQ as irq_base + start. Since irq_base is 0,
+a child device like the temp alarm will be assigned a global physical Linux
+IRQ matching its offset (e.g., 0 + 5 =3D 5).
+
+If a child driver requests this IRQ, could it steal an interrupt from anoth=
+er
+hardware device on the system, leading to unexpected behavior or resource
+conflicts? Should the driver dynamically strip or adjust the IRQ resources
+from the MFD cells when no parent IRQ is present?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918-pm8010_i2c=
+_support-v1-0-de33d78fad9d@oss.qualcomm.com?part=3D6
