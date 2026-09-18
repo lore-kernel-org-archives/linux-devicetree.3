@@ -1,318 +1,587 @@
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010070.outbound.protection.outlook.com [40.93.198.70])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E0EA4EDCCB;
-	Fri, 18 Sep 2026 10:24:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.70
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789727072; cv=fail; b=d0furuKO072hkRRjgJo6DPMccGOAGJDnXR8qC5KYLUK1I5pJ20dV9K9Nf8ueSR+wzEsbVcF9SaH1epOFXSFeRXbJCRa0GUYD0wTctQXFyPP6MB2FymTBOOjqcS3YQVx0R+UMQdL+H8cmJOXI3zVhDjvkuQ+/ZrWKob2UB4zH1xw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789727072; c=relaxed/simple;
-	bh=DqpXaGbKKKQu8hLpPFxvTaWiH3P0UaNPgxIFh1tPHiU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=azWQ1I3rTWtWsiPBikcYQ7h0+wohpTiqmHef4U04MW8JgHLkxCr7GemtYPNS24fV4R0KEPutFk7QCdqlk4EaA1OkzlP7pMoKqP+MmIi7lU0VNkSeTlRbnAwnzUNtMm6fXxOcSAeGCxUAWh+FAKujbcGQlIG09KZv/b4CQXf8SJ4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=amdcloud.onmicrosoft.com; dkim=pass (2048-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b=FQlnjfbz; arc=fail smtp.client-ip=40.93.198.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amdcloud.onmicrosoft.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98215440654;
+	Fri, 18 Sep 2026 10:24:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789727093; cv=none; b=Lxfpqy0NRPhRi13W891EqSKnXWWJDAMGHkoQXhkHQKZG7Pb46zn/m04Y5x4vOYJEWGZ0Q2i+9WdOqR6vNq1a5RrvjFxN66GHRnPxzsnSTgYQRYQ1obX41qGedd/EMLnODsaY427uYZaxJhe6XHsQ+We4P+GfOBoiRR2tygzC7Hg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789727093; c=relaxed/simple;
+	bh=tTQRRqCwoElAAXf+2z1B4Kz9/RgvOrCiLZMHGqQwHoU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=H7V2YQdlma0q1N9ruzoe5LDyfkhWM+cMwFTtvm3ffF/04tPC2E24H1bK+E7OfgqiY+Wx30WU+zf35fNiIOkNBDhWSuuU3xgPUesvenisQTFq34DtAgUTus351we+4iMvur4EWzJc5+oeXVydrHrOpjSIqkXYqvDeO54Ll/ANWo0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RReDqiiS; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="FQlnjfbz"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Qs93Pj+Q2D9feyyOw2VsnzgVx9h90HrDfiHWWeMmk+XShUIkJcU+0fwr/VBCDPLbWen9Px+rJwdnvj02QIWXdP+YiV65xHRQCSWfO7jTu6DCz6eEn7US+t84oNlUBaIdb6TRhfUzRuZ4WGwrgK5xCST849MIHveiGegF6/AmwvX9OUOqgqNVKm3vO4zH/E5a2Cj+o57B1hsHFR3iT+/550B0dXUT0Fwz/UaCSyx2lQ8INsGE/xc5x45RIaN3rpaYzbz++AspWGggGYXUWvK0thScA0a/GJ+FF6qJui0EzVcs5XJ6JaKKkxWt1CPccq71aJ0vqr9OaRxfM20ZxneJsw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=E6Vt0HxfH5E2+MCrUrAQ//xW7ALkEc09+etY+U3avsQ=;
- b=IPgeu0DCs0F1MN96dMceIt8yHsMHpUnrcZ5c9YGbfClnPoti/EC7ZuWYgOYKGF7yFzawm5MTuNqa0BkppAN7S8Z+1E6xDf+ozikqWK1pOm22ZnWzk9V5TxHjKEmYkL2gQHwiEfeF4M3PhxMlNmqTm2MCAPRt3zhwC8VSACZK+ok0H/0gZVDLeVqog+XMoe7fhCDOIXOKS+omT8mkDUyNbfLdadbWzXyimIuGUhe1CCnNm7AfTaaSQqnAOV8A1DzAr1qVf2PC4xivIRsXH3/GTTI/F1rGOXKT3mj3M6aRd1ZkYDddbjLpYRtGaPmRLI3HCYx9u6+fflrGKRkWOuI1Gg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 165.204.84.17) smtp.rcpttodomain=roeck-us.net smtp.mailfrom=gmail.com;
- dmarc=fail (p=none sp=quarantine pct=100) action=none header.from=gmail.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector1-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E6Vt0HxfH5E2+MCrUrAQ//xW7ALkEc09+etY+U3avsQ=;
- b=FQlnjfbzmVBvJAV7gyMD8hmHZ4WIztmWPqSFtJ5EUDvu0SH/oblLd9CxfkPwpZ+hOFt4FSauDOs/6K4YJTatzm9yrZb+/lAhquO9v2WflijMRPsGEnoz7SE5TThja4iBqvtuQFSR5QLzhXJ2uRlUW/0aacmCmRjw6ft2tm6Nympv+KqY82b2gto3zcCDmf/cC6Ld2kymHZ0Nrqu6DYhLY9f8jOabNRfk6JKAcpurXX/wqOgAj2bHUdJlJz6HJ6NX+mGWrFSzLn+BlaRbMxaUA+7asGzqVGCzOhylp+AT8fOoCeZVGdowLEncxXxK4plXY4vo30aIn2W25oYjBSzSRg==
-Received: from SA1P222CA0137.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:3c2::6)
- by PH8PR12MB6891.namprd12.prod.outlook.com (2603:10b6:510:1cb::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Fri, 18 Sep
- 2026 10:24:23 +0000
-Received: from SN1PEPF000397AE.namprd05.prod.outlook.com
- (2603:10b6:806:3c2:cafe::55) by SA1P222CA0137.outlook.office365.com
- (2603:10b6:806:3c2::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.11 via Frontend Transport; Fri,
- 18 Sep 2026 10:24:22 +0000
-X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
- 165.204.84.17) smtp.mailfrom=gmail.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=gmail.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- gmail.com discourages use of 165.204.84.17 as permitted sender)
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SN1PEPF000397AE.mail.protection.outlook.com (10.167.248.52) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Fri, 18 Sep 2026 10:24:22 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 18 Sep
- 2026 05:24:20 -0500
-Received: from [127.0.1.1] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Fri, 18 Sep 2026 05:24:18 -0500
-From: Colin Huang <u8813345@gmail.com>
-Date: Fri, 18 Sep 2026 18:23:55 +0800
-Subject: [PATCH v6 2/2] hwmon: (pmbus/tda38740) Add driver for Infineon
- TDA38740/TDA38725
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RReDqiiS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789727090; x=1821263090;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=tTQRRqCwoElAAXf+2z1B4Kz9/RgvOrCiLZMHGqQwHoU=;
+  b=RReDqiiSNDP1qhp2IzQwY58PwKqdLVeYZNPRrODG6EGW5AGHSE54/2vo
+   BNFWaR4zWdcKksTxOGOqQlJkKank3m1z2AkZw2yTm5drKQ/ZhwbV12jv6
+   6ABWG8rJxlZ3ZXy1ojCqgAoxdodWY7SJM9oifs5UK6pXw2ojoLxVvqSW+
+   N193AcgLdI23o+NzLU6gdqVbZ8wGfUdXv4TIAZo16D+55bfqNpczJy/Xx
+   TQUgcVsEQSskk3ZI7g3L+mL+jZZjOtqR0tvdKkGqr3Qjdi6Vd4h2AlPJD
+   mXbN2MdhSZsxllPFnyP7heCLa8kgVM10CiGRWKXN7dphFHNh4HRqDO7KP
+   A==;
+X-CSE-ConnectionGUID: 3hzEJx6NQ7uHjVyVnyAt6A==
+X-CSE-MsgGUID: BrUx2RruQX20oFnUxtWAXQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="77786880"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="77786880"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 03:24:46 -0700
+X-CSE-ConnectionGUID: AR9rkLPYQIO2HAoubKMbzw==
+X-CSE-MsgGUID: mZv/B0orToS4m/VFy7Y40w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="268077360"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.224])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 03:24:44 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id DFDB011F8CD;
+	Fri, 18 Sep 2026 13:24:40 +0300 (EEST)
+Date: Fri, 18 Sep 2026 13:24:40 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Hermes.wu@ite.com.tw
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 20/21] media: i2c: it6625: use centrally managed active
+ state
+Message-ID: <aq0RaLPX5o0HU_yC@kekkonen.localdomain>
+References: <20260918-upstream-it6625-follow-up-patch-v1-0-78d72d7886a5@ite.com.tw>
+ <20260918-upstream-it6625-follow-up-patch-v1-20-78d72d7886a5@ite.com.tw>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260918-add-tda38740-and-tda38725-v6-2-a8b11018d850@gmail.com>
-References: <20260918-add-tda38740-and-tda38725-v6-0-a8b11018d850@gmail.com>
-In-Reply-To: <20260918-add-tda38740-and-tda38725-v6-0-a8b11018d850@gmail.com>
-To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>
-CC: <linux-hwmon@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <colin.huang2@amd.com>,
-	<linux-doc@vger.kernel.org>, Colin Huang <u8813345@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789727051; l=6177;
- i=u8813345@gmail.com; s=20260202; h=from:subject:message-id;
- bh=DqpXaGbKKKQu8hLpPFxvTaWiH3P0UaNPgxIFh1tPHiU=;
- b=93AEEQGFwXAg5XubjWClEg1+KDv1rVjzYvwcj4OTrtJEZElwhxR2aptfem6qiZsL3TuFHHdd3
- BjFCScD23d0D32P/o8hyg8l+Hgdr6BbfKZC+e3ez91R6LmP/Tzf9W3z
-X-Developer-Key: i=u8813345@gmail.com; a=ed25519;
- pk=Zlg0WqpCw4qbswOqamTBTXIchwR/3SnYZpy7rjaGMdQ=
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000397AE:EE_|PH8PR12MB6891:EE_
-X-MS-Office365-Filtering-Correlation-Id: 47455215-0933-4be0-ddf7-08df156f01e6
-X-MS-Exchange-SenderADCheck: 2
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|35950700016|48200799018|376014|7416014|61400799027|7093399015|82310400026|13003099007|10067099003|6133799003|3023799007|18002099003|56012099006|11063799006|22082099003|16102099003;
-X-Microsoft-Antispam-Message-Info:
-	a4oy0qJDtk0RyiJm8SjL3QfQubK08u4f3fs7ai/bHUWrg9sAotq2vkGdXjjDh5VSVzaAYxeC7nHhsxfq09R2omCnfFwipAIXb5kVgxRoS83HygijZaTepqkCGBjmZ9Yk+V5uKLrCGZEm04GhD1p1mgLauctmK8SXejpX0kWZww4YOlvsbUffT1WOG0Q9ylzh8u2SfA0kOblAfYypNwwphNws8Isfmn5+oSskA10rVFgsy/tnsKZmXYWZE2oYLlt8CNSmDMnHGesNpvo9wuZyPqD5NwbNQjX8xraIR+a2fPriCLp3mRG6e0mwxzKxt+2SFAdRWpBQoZjq5nx8/a4VyGLh7rvRfTEZ19Qx0c52MFFp93jUhioJm3Qwi+tcQuDGP4fbiiDOT0mSpNsq6C+Fn7n8a6gJuTU58RouRDWFJim8UoADhup+eGBu83g7snsfN2oEC/Yhskd4/PrZixMW0H/wK5fVuxHySsFxmUylYfvqXDQT6kEMjV7cQi5jJMo+dLIW7YSi0/KZN0kChMzQmlTTsci1lUopAQokFKpqBpCNg0ylRYGFdbktpIXMJJ5XED1yAQkIrLQMMV03qx+yYE+AsMvDXcUazck1vl7LDixzYzOl0WZYdGdsCU6Fw5dx5NakTQMAGxtQhCOGDu2f5A==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(35950700016)(48200799018)(376014)(7416014)(61400799027)(7093399015)(82310400026)(13003099007)(10067099003)(6133799003)(3023799007)(18002099003)(56012099006)(11063799006)(22082099003)(16102099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	TCe/MwaGqxsdf5XZ6SbZgvxQupHK9VMhX8WuWt1CSeoKwOEJ8plLIAvEibY0yvA/VbrOqlbgZoGB7Lftf8ymcXaBFRq4E1413Ux7oyzNmhGvMyLvQFJUvHtO+BvaSSlyCSjnkvi/zlioIJYDeE+yE8mfwPh9tVpGqrKvnCf1rH4cbLSsLvXAseL9OzYL+uCMxrbRN+y2Rmhv8BM6eBm/GETJ4gFDx7Uxe4ZfLW6jMpUwTY1x3Rwng56JJn+FIrxbfc9/xnU0PjK24jWlP+4+5o5A9Y7K4MBwGkKcrb9KcSxI5D5HDixoKMLQCSamyJRx6LYKSTnGlWgrZrY+89TCBH4MZQCJFWOnIAw/WV9u1d9GjngmUbvowmcbNfdV80j+CnTtBVMIA5tpMWZ7mHwY/X8KWTKJ7hnQtoqnWLL282NSuEPbtfNoWVCaujn/VBsR
-X-OriginatorOrg: amdcloud.onmicrosoft.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 10:24:22.6699
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 47455215-0933-4be0-ddf7-08df156f01e6
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF000397AE.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6891
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918-upstream-it6625-follow-up-patch-v1-20-78d72d7886a5@ite.com.tw>
 
-Add a PMBus driver for Infineon TDA38740 and TDA38725
-single-voltage synchronous buck regulators.
+Hi Hermes,
 
-Signed-off-by: Colin Huang <u8813345@gmail.com>
----
- Documentation/hwmon/index.rst    |  1 +
- Documentation/hwmon/tda38740.rst | 65 ++++++++++++++++++++++++++++++++++++++++
- drivers/hwmon/pmbus/Kconfig      |  9 ++++++
- drivers/hwmon/pmbus/Makefile     |  1 +
- drivers/hwmon/pmbus/tda38740.c   | 64 +++++++++++++++++++++++++++++++++++++++
- 5 files changed, 140 insertions(+)
+On Fri, Sep 18, 2026 at 04:57:35PM +0800, Hermes Wu via B4 Relay wrote:
+> From: Hermes Wu <Hermes.wu@ite.com.tw>
+> 
+> Adopt the subdev active-state model instead of a private driver mutex
+> and driver-local format fields:
+> 
+>  - Share it6625_lock as both sd->state_lock and sd->ctrl_handler->lock
+>    (set hdl->lock right after v4l2_ctrl_handler_init(), which resets
+>    it, and before any control is created), matching the documented
+>    model in Documentation/driver-api/media/v4l2-subdev.rst. Call
+>    v4l2_subdev_init_finalize() after media_entity_pads_init() and
+>    before any code that touches active state, always before
+>    v4l2_async_register_subdev().
+> 
+>  - Remove csi_format/mbus_fmt_code from struct it6625 and store the
+>    complete format -- code, colorspace, and width/height/field derived
+>    from the configured DV timings -- in the pad format of each
+>    v4l2_subdev_state instead. it6625_set_fmt() now operates directly
+>    on the state the core hands it (already locked, and for ACTIVE
+>    already sd->active_state) instead of taking it6625_lock itself.
+>    it6625_get_fmt() is deleted; .get_fmt is now the core's
+>    v4l2_subdev_get_fmt(). it6625_init_state() seeds a state from the
+>    current active format when one exists (later TRY-state allocation)
+>    or from driver defaults when it doesn't (the very first, pre-
+>    assignment call that becomes the active state itself).
+> 
+>  - Keep it6625->timings as driver-private DV-timings state, but project
+>    its width/height/field onto the active pad format every time it
+>    changes (it6625_update_timings_if_changed(), it6625_clear_timings())
+>    so VIDIOC_SUBDEV_G_FMT stays consistent with
+>    VIDIOC_SUBDEV_G_DV_TIMINGS. it6625_initial_setup() and
+>    it6625_log_status() now read the media-bus code from the locked
+>    active format instead of the removed fields.
+> 
+>  - Make ACTIVE .set_fmt() transactional: return -EBUSY while streaming,
+>    and commit the new code/colorspace to active state only after the
+>    MIPI register writes that implement it actually succeed. This
+>    requires it6625_enable_stream_locked(), it6625_enable_stream(), and
+>    it6625_set_mipi_config_locked() to return int and propagate the
+>    first register/config-update failure; all existing callers are
+>    updated.
 
-diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.rst
-index f07977a20271..aeff87b3d46d 100644
---- a/Documentation/hwmon/index.rst
-+++ b/Documentation/hwmon/index.rst
-@@ -265,6 +265,7 @@ Hardware Monitoring Kernel Drivers
-    sy7636a-hwmon
-    tc654
-    tc74
-+   tda38740
-    thmc50
-    tmp102
-    tmp103
-diff --git a/Documentation/hwmon/tda38740.rst b/Documentation/hwmon/tda38740.rst
-new file mode 100644
-index 000000000000..55ce12f14914
---- /dev/null
-+++ b/Documentation/hwmon/tda38740.rst
-@@ -0,0 +1,65 @@
-+.. SPDX-License-Identifier: GPL-2.0-only
-+
-+====================================
-+Kernel driver tda38740
-+====================================
-+
-+Supported chips:
-+  * Infineon TDA38740
-+  * Infineon TDA38725
-+
-+    Prefix: 'tda38740'
-+
-+    Addresses scanned: -
-+
-+    Datasheet:
-+      https://www.infineon.com/row/public/documents/24/49/infineon-tda38740-tda38725-datasheet-en.pdf
-+
-+Author: Colin Huang <u8813345@gmail.com>
-+
-+Description
-+-----------
-+
-+The TDA38740 and TDA38725 are single-output synchronous buck regulators with a
-+PMBus interface. They expose basic voltage, current, power and temperature
-+telemetry through the standard PMBus hwmon interfaces.
-+
-+Sysfs entries
-+-------------
-+
-+======================= =======================================================
-+curr1_alarm		Input current alarm
-+curr1_input		Measured input current
-+curr1_label		"iin"
-+
-+curr2_crit		Critical maximum output current
-+curr2_crit_alarm	Output current critical high alarm
-+curr2_input		Measured output current
-+curr2_label		"iout"
-+
-+in1_crit		Critical maximum input voltage
-+in1_crit_alarm		Input voltage critical high alarm
-+in1_input		Measured input voltage
-+in1_label		"vin"
-+
-+in2_crit		Critical maximum output voltage
-+in2_crit_alarm		Output voltage critical high alarm
-+in2_input		Measured output voltage
-+in2_label		"vout"
-+in2_lcrit		Critical minimum output voltage
-+in2_lcrit_alarm		Output voltage critical low alarm
-+
-+power1_alarm		Input power alarm
-+power1_input		Measured input power
-+power1_label		"pin"
-+
-+power2_input		Measured output power
-+power2_label		"pout"
-+
-+temp1_crit		Critical high temperature
-+temp1_crit_alarm	Chip temperature critical high alarm
-+temp1_input		Measured temperature
-+temp1_max		Maximum temperature
-+temp1_max_alarm		Chip temperature high alarm
-+======================= =======================================================
-+
-diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
-index bcfdc4ce4c10..e4ca80dd0574 100644
---- a/drivers/hwmon/pmbus/Kconfig
-+++ b/drivers/hwmon/pmbus/Kconfig
-@@ -763,6 +763,15 @@ config SENSORS_TDA38640_REGULATOR
- 	  If you say yes here you get regulator support for Infineon
- 	  TDA38640 as regulator.
- 
-+config SENSORS_TDA38740
-+	tristate "Infineon TDA38725/TDA38740"
-+	help
-+	  If you say yes here you get hardware monitoring support for Infineon
-+	  TDA38725 and TDA38740.
-+
-+	  This driver can also be built as a module. If so, the module will
-+	  be called tda38740.
-+
- config SENSORS_TPS25990
- 	tristate "TI TPS25990"
- 	help
-diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
-index e288fe72a437..eb06d47816fd 100644
---- a/drivers/hwmon/pmbus/Makefile
-+++ b/drivers/hwmon/pmbus/Makefile
-@@ -70,6 +70,7 @@ obj-$(CONFIG_SENSORS_STEF48H28)	+= stef48h28.o
- obj-$(CONFIG_SENSORS_SQ24860)	+= sq24860.o
- obj-$(CONFIG_SENSORS_STPDDC60)	+= stpddc60.o
- obj-$(CONFIG_SENSORS_TDA38640)	+= tda38640.o
-+obj-$(CONFIG_SENSORS_TDA38740)	+= tda38740.o
- obj-$(CONFIG_SENSORS_TPS25990)	+= tps25990.o
- obj-$(CONFIG_SENSORS_TPS40422)	+= tps40422.o
- obj-$(CONFIG_SENSORS_TPS53679)	+= tps53679.o
-diff --git a/drivers/hwmon/pmbus/tda38740.c b/drivers/hwmon/pmbus/tda38740.c
-new file mode 100644
-index 000000000000..067de07ba9fb
---- /dev/null
-+++ b/drivers/hwmon/pmbus/tda38740.c
-@@ -0,0 +1,64 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Hardware monitoring driver for Infineon TDA38725/TDA38740
-+ *
-+ * Copyright (c) 2023 9elements GmbH
-+ *
-+ */
-+
-+#include <linux/err.h>
-+#include <linux/i2c.h>
-+#include <linux/init.h>
-+#include <linux/kernel.h>
-+#include <linux/module.h>
-+#include "pmbus.h"
-+
-+static struct pmbus_driver_info tda38740_info = {
-+	.pages = 1,
-+	.format[PSC_VOLTAGE_IN] = linear,
-+	.format[PSC_VOLTAGE_OUT] = linear,
-+	.format[PSC_CURRENT_OUT] = linear,
-+	.format[PSC_CURRENT_IN] = linear,
-+	.format[PSC_POWER] = linear,
-+	.format[PSC_TEMPERATURE] = linear,
-+	.func[0] = PMBUS_HAVE_VIN | PMBUS_HAVE_STATUS_INPUT
-+	    | PMBUS_HAVE_TEMP | PMBUS_HAVE_STATUS_TEMP
-+	    | PMBUS_HAVE_IIN
-+	    | PMBUS_HAVE_VOUT | PMBUS_HAVE_STATUS_VOUT
-+	    | PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_IOUT
-+	    | PMBUS_HAVE_POUT | PMBUS_HAVE_PIN,
-+};
-+
-+static int tda38740_probe(struct i2c_client *client)
-+{
-+	return pmbus_do_probe(client, &tda38740_info);
-+}
-+
-+static const struct i2c_device_id tda38740_id[] = {
-+	{ .name = "tda38725"},
-+	{ .name = "tda38740"},
-+	{}
-+};
-+MODULE_DEVICE_TABLE(i2c, tda38740_id);
-+
-+static const struct of_device_id tda38740_of_match[] = {
-+	{ .compatible = "infineon,tda38725"},
-+	{ .compatible = "infineon,tda38740"},
-+	{}
-+};
-+MODULE_DEVICE_TABLE(of, tda38740_of_match);
-+
-+static struct i2c_driver tda38740_driver = {
-+	.driver = {
-+		.name = "tda38740",
-+		.of_match_table = tda38740_of_match,
-+	},
-+	.probe = tda38740_probe,
-+	.id_table = tda38740_id,
-+};
-+
-+module_i2c_driver(tda38740_driver);
-+
-+MODULE_DESCRIPTION("PMBus driver for Infineon TDA38725/TDA38740");
-+MODULE_LICENSE("GPL");
-+MODULE_IMPORT_NS("PMBUS");
+I don't think all the above is relevant in the commit message.
+
+> 
+> Every it6625_lock acquisition site was re-audited against the core's
+> actual locking contract (which ioctls the core state-locks, what
+> v4l2_ctrl_handler_init()/_free() and v4l2_subdev_cleanup() actually
+> touch) to confirm none of the driver's own lock-taking helpers are
+> reachable from a path where the core already holds it6625_lock, and
+> that init/teardown ordering keeps hdl->lock valid whenever
+> v4l2_ctrl_handler_free() runs. The full trace is recorded in
+> it6625-follow-up-patch/patch19-lock-audit.md (not part of this commit)
+> for review -- it is static analysis only, since no IT6625/IT6626
+> hardware is available here to exercise this with lockdep enabled.
+
+This paragraph could go to the cover letter.
+
+> 
+> Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
+> ---
+>  drivers/media/i2c/it6625.c | 220 ++++++++++++++++++++++++++++-----------------
+>  1 file changed, 138 insertions(+), 82 deletions(-)
+> 
+> diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
+> index ec6aaa878471ff210264a35e4aa66dfb1e63ed3b..550eb95c6f74a81fc11cc055b4590159ac50e969 100644
+> --- a/drivers/media/i2c/it6625.c
+> +++ b/drivers/media/i2c/it6625.c
+> @@ -255,7 +255,15 @@ struct it6625 {
+>  	struct regmap *it6625_regmap;
+>  	enum it6625_chip_type chip_type;
+>  
+> -	/* protects concurrent access to the chip's registers and state */
+> +	/*
+> +	 * Protects concurrent access to the chip's registers and state.
+> +	 * Also shared as sd.state_lock and hdl.lock (see
+
+This doesn't hold anymore, does it? Typically drivers do without such locks
+as the subdev state lock is used instead -- assigning your own lock also
+has the effect the same lock is used for try states, too.
+
+> +	 * Documentation/driver-api/media/v4l2-subdev.rst), so the V4L2
+> +	 * core already holds it across .get_fmt/.set_fmt/.enable_streams/
+> +	 * .disable_streams and control updates -- callers reached only
+> +	 * through those paths must use the *_locked() helpers instead of
+> +	 * taking it again.
+> +	 */
+>  	struct mutex it6625_lock;
+>  	/* serializes the complete VIDIOC_S_EDID sequence against itself */
+>  	struct mutex edid_lock;
+> @@ -291,8 +299,6 @@ struct it6625 {
+>  	u8 csi_lanes;
+>  	u8 port_num;
+>  	enum v4l2_mbus_type bus_type;
+> -	u8 csi_format;
+> -	u32 mbus_fmt_code;
+>  	/* number of EDID blocks currently loaded, protected by edid_lock */
+>  	u8 edid_blocks;
+>  
+> @@ -911,10 +917,11 @@ static int it6625_v4l2_sd_ctrl_update(struct v4l2_subdev *sd)
+>  	return it6625_s_ctrl_audio_present(sd);
+>  }
+>  
+> -static void it6625_enable_stream_locked(struct it6625 *it6625, bool enable)
+> +static int it6625_enable_stream_locked(struct it6625 *it6625, bool enable)
+>  {
+>  	struct v4l2_subdev *sd = &it6625->sd;
+>  	int val;
+> +	int err;
+>  
+>  	lockdep_assert_held(&it6625->it6625_lock);
+>  
+> @@ -922,27 +929,34 @@ static void it6625_enable_stream_locked(struct it6625 *it6625, bool enable)
+>  		 __func__, enable ? "en" : "dis");
+>  
+>  	val = enable ? B_MIPI_OUTPUT : 0;
+> -	it6625_set_bits(it6625, REG_MIPI_CONTROL, B_MIPI_OUTPUT, val);
+> -	it6625_update_config(it6625);
+> +	err = it6625_set_bits(it6625, REG_MIPI_CONTROL, B_MIPI_OUTPUT, val);
+> +	if (err < 0)
+> +		return err;
+> +
+> +	return it6625_update_config(it6625);
+>  }
+>  
+> -static void it6625_enable_stream(struct it6625 *it6625, bool enable)
+> +static int it6625_enable_stream(struct it6625 *it6625, bool enable)
+>  {
+>  	guard(mutex)(&it6625->it6625_lock);
+> -	it6625_enable_stream_locked(it6625, enable);
+> +	return it6625_enable_stream_locked(it6625, enable);
+>  }
+>  
+> -static void it6625_set_mipi_config_locked(struct it6625 *it6625, u32 cfg_val)
+> +static int it6625_set_mipi_config_locked(struct it6625 *it6625, u32 cfg_val)
+>  {
+>  	u8 mipi_data_type;
+> +	int err;
+>  
+>  	lockdep_assert_held(&it6625->it6625_lock);
+>  
+>  	dev_dbg(it6625->dev, "mipi_data_type = 0x%x", cfg_val);
+>  
+>  	mipi_data_type = cfg_val & 0xFF;
+> -	it6625_write_byte(it6625, REG_MIPI_DATA_TYPE, mipi_data_type);
+> -	it6625_update_config(it6625);
+> +	err = it6625_write_byte(it6625, REG_MIPI_DATA_TYPE, mipi_data_type);
+> +	if (err < 0)
+> +		return err;
+> +
+> +	return it6625_update_config(it6625);
+>  }
+>  
+>  static inline unsigned int fps_from_bt_timings(const struct v4l2_bt_timings *t)
+> @@ -957,10 +971,18 @@ static inline unsigned int fps_from_bt_timings(const struct v4l2_bt_timings *t)
+>  
+>  static void it6625_initial_setup(struct it6625 *it6625)
+>  {
+> +	struct v4l2_subdev *sd = &it6625->sd;
+> +	struct v4l2_mbus_framefmt *fmt;
+> +	int idx;
+>  	int val = 0;
+>  
+>  	guard(mutex)(&it6625->it6625_lock);
+>  
+> +	fmt = v4l2_subdev_state_get_format(v4l2_subdev_get_locked_active_state(sd), 0);
+> +	idx = it6625_csi_mbus_code_idx(fmt->code);
+> +	if (idx < 0)
+> +		idx = 0;
+> +
+>  	/*
+>  	 * REG_MIPI_CFG[0:2] lane count field: 1 lane -> 0, 2 lanes -> 1,
+>  	 * 3 lanes (C-PHY only) -> 3, 4 lanes (D-PHY only) -> 3.
+> @@ -984,7 +1006,7 @@ static void it6625_initial_setup(struct it6625 *it6625)
+>  		val |= FIELD_PREP(B_MIPI_SPLIT, 1);
+>  
+>  	it6625_write_byte(it6625, REG_MIPI_CFG, val);
+> -	it6625_write_byte(it6625, REG_MIPI_DATA_TYPE, it6625->csi_format);
+> +	it6625_write_byte(it6625, REG_MIPI_DATA_TYPE, it6625_formats[idx].csi_format);
+>  	it6625_write_byte(it6625, REG_MIPI_CONTROL, 0x00);
+>  	it6625_write_byte(it6625, REG_RX_CFG, 0x00);
+>  
+> @@ -1140,10 +1162,29 @@ static void it6625_get_timings(struct it6625 *it6625,
+>  	*timings = it6625->timings;
+>  }
+>  
+> +/*
+> + * Project a DV-timings struct's width/height/field onto an active pad
+> + * format. Caller must hold it6625_lock (== the active state's lock).
+> + */
+> +static void it6625_fill_timings_format(const struct v4l2_dv_timings *timings,
+> +				       struct v4l2_mbus_framefmt *fmt)
+> +{
+> +	fmt->width = timings->bt.width;
+> +	fmt->height = timings->bt.height;
+> +	fmt->field = timings->bt.interlaced == V4L2_DV_INTERLACED ?
+> +		     V4L2_FIELD_INTERLACED : V4L2_FIELD_NONE;
+> +}
+> +
+>  static void it6625_clear_timings(struct it6625 *it6625)
+>  {
+> +	struct v4l2_subdev *sd = &it6625->sd;
+> +	struct v4l2_mbus_framefmt *fmt;
+> +
+>  	guard(mutex)(&it6625->it6625_lock);
+>  	memset(&it6625->timings, 0, sizeof(it6625->timings));
+> +
+> +	fmt = v4l2_subdev_state_get_format(v4l2_subdev_get_locked_active_state(sd), 0);
+> +	it6625_fill_timings_format(&it6625->timings, fmt);
+>  }
+>  
+>  static void it6625_irq_hdmi_5v_change(struct it6625 *it6625)
+> @@ -1362,7 +1403,10 @@ static int it6625_log_status(struct v4l2_subdev *sd)
+>  
+>  	/* snapshot together so the reported pair was actually configured together */
+>  	scoped_guard(mutex, &it6625->it6625_lock) {
+> -		mbus_fmt_code = it6625->mbus_fmt_code;
+> +		struct v4l2_mbus_framefmt *fmt =
+> +			v4l2_subdev_state_get_format(v4l2_subdev_get_locked_active_state(sd), 0);
+> +
+> +		mbus_fmt_code = fmt->code;
+>  		bt = it6625->timings.bt;
+>  	}
+>  
+> @@ -1415,6 +1459,9 @@ static int
+>  it6625_update_timings_if_changed(struct it6625 *it6625,
+>  				 const struct v4l2_dv_timings *timings)
+>  {
+> +	struct v4l2_subdev *sd = &it6625->sd;
+> +	struct v4l2_mbus_framefmt *fmt;
+> +
+>  	guard(mutex)(&it6625->it6625_lock);
+>  
+>  	if (v4l2_match_dv_timings(&it6625->timings, timings, 0, false))
+> @@ -1425,6 +1472,9 @@ it6625_update_timings_if_changed(struct it6625 *it6625,
+>  
+>  	it6625->timings = *timings;
+>  
+> +	fmt = v4l2_subdev_state_get_format(v4l2_subdev_get_locked_active_state(sd), 0);
+> +	it6625_fill_timings_format(&it6625->timings, fmt);
+> +
+>  	return 1;
+>  }
+>  
+> @@ -1457,8 +1507,7 @@ static int it6625_s_stream(struct v4l2_subdev *sd, int enable)
+>  {
+>  	struct it6625 *it6625 = sd_to_6625(sd);
+>  
+> -	it6625_enable_stream(it6625, enable);
+> -	return 0;
+> +	return it6625_enable_stream(it6625, enable);
+>  }
+>  
+>  static int it6625_enum_mbus_code(struct v4l2_subdev *sd,
+> @@ -1586,84 +1635,56 @@ static inline u32 format_to_colorspace(u8 csi_format)
+>  	}
+>  }
+>  
+> -static int it6625_get_fmt(struct v4l2_subdev *sd,
+> -			  struct v4l2_subdev_state *sd_state,
+> -			  struct v4l2_subdev_format *format)
+> -{
+> -	struct it6625 *it6625 = sd_to_6625(sd);
+> -	struct v4l2_dv_timings timings;
+> -
+> -	if (format->pad != 0)
+> -		return -EINVAL;
+> -
+> -	it6625_get_timings(it6625, &timings);
+> -	format->format.width = timings.bt.width;
+> -	format->format.height = timings.bt.height;
+> -	format->format.field = timings.bt.interlaced == V4L2_DV_INTERLACED ?
+> -			       V4L2_FIELD_INTERLACED : V4L2_FIELD_NONE;
+> -
+> -	if (format->which == V4L2_SUBDEV_FORMAT_TRY) {
+> -		struct v4l2_mbus_framefmt *fmt;
+> -
+> -		fmt = v4l2_subdev_state_get_format(sd_state, format->pad);
+> -		format->format.code = fmt->code;
+> -		format->format.colorspace = fmt->colorspace;
+> -	} else {
+> -		scoped_guard(mutex, &it6625->it6625_lock) {
+> -			format->format.colorspace =
+> -				format_to_colorspace(it6625->csi_format);
+> -			format->format.code = it6625->mbus_fmt_code;
+> -		}
+> -	}
+> -
+> -	return 0;
+> -}
+> -
+>  static int it6625_set_fmt(struct v4l2_subdev *sd,
+>  			  struct v4l2_subdev_state *sd_state,
+>  			  struct v4l2_subdev_format *format)
+>  {
+>  	struct it6625 *it6625 = sd_to_6625(sd);
+> -	u32 mbus_fmt_code = format->format.code;
+> +	struct v4l2_mbus_framefmt *fmt;
+> +	u32 colorspace;
+> +	int idx;
+>  	int ret;
+>  
+> -	ret = it6625_get_fmt(sd, sd_state, format);
+> -	format->format.code = mbus_fmt_code;
+> -
+> -	if (ret)
+> -		return ret;
+> -
+> -	ret = it6625_csi_mbus_code_idx(mbus_fmt_code);
+> +	if (format->pad != 0)
+> +		return -EINVAL;
+>  
+> -	if (ret < 0) {
+> +	idx = it6625_csi_mbus_code_idx(format->format.code);
+> +	if (idx < 0) {
+>  		v4l2_dbg(1, debug, sd,
+>  			 "%s: unsupported format code 0x%x, falling back to default",
+> -			 __func__, mbus_fmt_code);
+> -		ret = 0;
+> -		mbus_fmt_code = it6625_formats[ret].mbus_fmt_code;
+> -		format->format.code = mbus_fmt_code;
+> +			 __func__, format->format.code);
+> +		idx = 0;
+>  	}
+>  
+> -	if (format->which == V4L2_SUBDEV_FORMAT_TRY) {
+> -		struct v4l2_mbus_framefmt *fmt;
+> +	colorspace = format_to_colorspace(it6625_formats[idx].csi_format);
+>  
+> -		fmt = v4l2_subdev_state_get_format(sd_state, format->pad);
+> -		fmt->code = format->format.code;
+> -		fmt->colorspace = format_to_colorspace(it6625_formats[ret].csi_format);
+> -		format->format.colorspace = fmt->colorspace;
+> +	/* fmt already carries this state's width/height/field; leave them alone */
+> +	fmt = v4l2_subdev_state_get_format(sd_state, format->pad);
+> +
+> +	if (format->which == V4L2_SUBDEV_FORMAT_TRY) {
+> +		fmt->code = it6625_formats[idx].mbus_fmt_code;
+> +		fmt->colorspace = colorspace;
+> +		format->format = *fmt;
+
+Could you rework the code to keep this for active and try paths?
+
+>  		v4l2_dbg(1, debug, sd, "%s: try format code = 0x%x",
+>  			 __func__, format->format.code);
+>  		return 0;
+>  	}
+>  
+> -	scoped_guard(mutex, &it6625->it6625_lock) {
+> -		it6625->csi_format = it6625_formats[ret].csi_format;
+> -		it6625->mbus_fmt_code = format->format.code;
+> -		it6625_enable_stream_locked(it6625, false);
+> -		it6625_set_mipi_config_locked(it6625, it6625->csi_format);
+> -	}
+> +	if (v4l2_subdev_is_streaming(sd))
+> +		return -EBUSY;
+>  
+> -	format->format.colorspace = format_to_colorspace(it6625_formats[ret].csi_format);
+> +	ret = it6625_enable_stream_locked(it6625, false);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = it6625_set_mipi_config_locked(it6625, it6625_formats[idx].csi_format);
+
+There are a few lines longer than 80; please split unless there's a
+tangible reason to do otherwise.
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* commit to active state only after hardware programming succeeded */
+> +	fmt->code = it6625_formats[idx].mbus_fmt_code;
+> +	fmt->colorspace = colorspace;
+> +	format->format = *fmt;
+>  
+>  	return 0;
+>  }
+> @@ -1780,7 +1801,7 @@ static const struct v4l2_subdev_video_ops it6625_video_ops = {
+>  static const struct v4l2_subdev_pad_ops it6625_pad_ops = {
+>  	.enum_mbus_code = it6625_enum_mbus_code,
+>  	.set_fmt = it6625_set_fmt,
+> -	.get_fmt = it6625_get_fmt,
+> +	.get_fmt = v4l2_subdev_get_fmt,
+>  	.get_edid = it6625_g_edid,
+>  	.set_edid = it6625_s_edid,
+>  	.enum_dv_timings = it6625_enum_dv_timings,
+> @@ -1800,8 +1821,26 @@ static const struct v4l2_subdev_ops it6625_ops = {
+>  static int it6625_init_state(struct v4l2_subdev *sd,
+>  			     struct v4l2_subdev_state *sd_state)
+>  {
+> +	struct it6625 *it6625 = sd_to_6625(sd);
+> +	struct v4l2_subdev_state *active = v4l2_subdev_get_locked_active_state(sd);
+
+This function should work the same way independently of whether the state
+is active or not.
+
+>  	struct v4l2_mbus_framefmt *fmt = v4l2_subdev_state_get_format(sd_state, 0);
+>  
+> +	/*
+> +	 * The very first call initializes what becomes sd->active_state
+> +	 * itself, before it's assigned -- active is NULL then, and this
+> +	 * state gets the driver's own defaults. Every later call (opening
+> +	 * a new file handle) initializes a fresh TRY state while the
+> +	 * active state already exists and is locked by the same mutex
+> +	 * (state->lock is assigned before init_state() runs), so seed it
+> +	 * from the current active format instead of reverting to boot
+> +	 * defaults.
+> +	 */
+> +	if (active) {
+> +		*fmt = *v4l2_subdev_state_get_format(active, 0);
+> +		return 0;
+> +	}
+> +
+> +	it6625_fill_timings_format(&it6625->timings, fmt);
+>  	fmt->code = it6625_formats[0].mbus_fmt_code;
+>  	fmt->colorspace = format_to_colorspace(it6625_formats[0].csi_format);
+>  
+> @@ -1842,6 +1881,8 @@ static int it6625_v4l2_init_controls(struct v4l2_subdev *sd)
+>  			   it6625->csi_lanes == 3;
+>  
+>  	v4l2_ctrl_handler_init(hdl, 4);
+> +	hdl->lock = &it6625->it6625_lock;
+> +
+>  	it6625->ctrl_5v_detect =
+>  		v4l2_ctrl_new_std(hdl, NULL, V4L2_CID_DV_RX_POWER_PRESENT,
+>  				  0, 1, 0, 0);
+> @@ -2050,8 +2091,6 @@ static void it6625_init_data(struct it6625 *it6625)
+>  	static struct v4l2_dv_timings default_timing =
+>  			V4L2_DV_BT_CEA_1920X1080P60;
+>  
+> -	it6625->csi_format = it6625_formats[0].csi_format;
+> -	it6625->mbus_fmt_code = it6625_formats[0].mbus_fmt_code;
+>  	it6625->timings = default_timing;
+>  	/* firmware ships with a verified 2-block default EDID in EDID RAM */
+>  	it6625->edid_blocks = 2;
+> @@ -2246,9 +2285,16 @@ static int it6625_probe(struct i2c_client *client)
+>  		goto err_clean_work_queues;
+>  	}
+>  
+> +	sd->state_lock = &it6625->it6625_lock;
+> +	err = v4l2_subdev_init_finalize(sd);
+> +	if (err) {
+> +		dev_err(it6625->dev, "%s %d err=%d", __func__, __LINE__, err);
+> +		goto err_clean_hdl;
+> +	}
+> +
+>  	err = v4l2_ctrl_handler_setup(sd->ctrl_handler);
+>  	if (err)
+> -		goto err_clean_hdl;
+> +		goto err_clean_state;
+>  
+>  	it6625->cec_adap = cec_allocate_adapter(&it6625_cec_adap_ops,
+>  						it6625, dev_name(it6625->dev),
+> @@ -2259,7 +2305,7 @@ static int it6625_probe(struct i2c_client *client)
+>  	if (IS_ERR(it6625->cec_adap)) {
+>  		err = PTR_ERR(it6625->cec_adap);
+>  		dev_err(it6625->dev, "%s %d", __func__, __LINE__);
+> -		goto err_clean_hdl;
+> +		goto err_clean_state;
+>  	}
+>  
+>  	err = cec_register_adapter(it6625->cec_adap, &client->dev);
+> @@ -2267,7 +2313,7 @@ static int it6625_probe(struct i2c_client *client)
+>  		dev_err(it6625->dev, "%s: failed to register the cec device", __func__);
+>  		cec_delete_adapter(it6625->cec_adap);
+>  		it6625->cec_adap = NULL;
+> -		goto err_clean_hdl;
+> +		goto err_clean_state;
+>  	}
+>  
+>  	it6625_debugfs_init(it6625, client);
+> @@ -2294,6 +2340,8 @@ static int it6625_probe(struct i2c_client *client)
+>  	v4l2_debugfs_if_free(it6625->infoframes);
+>  	debugfs_remove_recursive(it6625->debugfs_dir);
+>  	cec_unregister_adapter(it6625->cec_adap);
+> +err_clean_state:
+> +	v4l2_subdev_cleanup(sd);
+>  err_clean_hdl:
+>  	media_entity_cleanup(&sd->entity);
+>  	v4l2_ctrl_handler_free(&it6625->hdl);
+> @@ -2330,12 +2378,20 @@ static void it6625_remove(struct i2c_client *client)
+>  
+>  	debugfs_remove_recursive(it6625->debugfs_dir);
+>  	cec_unregister_adapter(it6625->cec_adap);
+> +
+> +	/*
+> +	 * v4l2_subdev_cleanup()/v4l2_ctrl_handler_free() take it6625_lock
+> +	 * (shared as state_lock/hdl.lock), so they must run before it's
+> +	 * destroyed.
+> +	 */
+
+This comment is hardly useful; the same applies to pretty much all drivers
+using sub-device state and V4L2 controls.
+
+> +	v4l2_subdev_cleanup(sd);
+> +	media_entity_cleanup(&sd->entity);
+> +	v4l2_ctrl_handler_free(&it6625->hdl);
+> +
+>  	mutex_destroy(&it6625->it6625_lock);
+>  	mutex_destroy(&it6625->edid_lock);
+>  	mutex_destroy(&it6625->if_read_lock);
+>  	mutex_destroy(&it6625->if_state_lock);
+> -	media_entity_cleanup(&sd->entity);
+> -	v4l2_ctrl_handler_free(&it6625->hdl);
+>  }
+>  
+>  static const struct i2c_device_id it6625_id[] = {
+> 
 
 -- 
-2.34.1
+Regards,
 
+Sakari Ailus
