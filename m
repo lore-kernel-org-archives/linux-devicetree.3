@@ -1,101 +1,157 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14A543E2ABA
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 03:12:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C22EE25B0B6
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 03:13:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789701127; cv=none; b=dq1XnBg7JIuC5FEh1ebdww5PmIIONcKBgsKaSkF5zViDcRuDka914nyRaUiCLmt8QoucajdbphJEiSq0ooT7IPOK0Za6hf7aslKhIgaNoiBtBP5lwURHyxBbEZEGYFza24xmTd1ymtq4kxbLHIWAW0q0U2c8Z5F56CllieP5v6U=
+	t=1789701197; cv=none; b=p+RmXfd6Y65SvpX8+T/DY4turKD3w+hzIQ/y136IeKQskbq82A6Mgac/huO/9H4p/teXnsUgNe+J6WdfALVcj6bUgP1Tz/K64Bmr0LaOP/UdU4gma6adQBAW16LcYebCVhQKw5WQHTydW6u9mWZIRdu+w/ORVc8HpaU1dlqIFG8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789701127; c=relaxed/simple;
-	bh=+25l0fdCaiAcdyPgFNdOm4jzq3GEPOAAjFRhsIUbdBM=;
+	s=arc-20240116; t=1789701197; c=relaxed/simple;
+	bh=yD8cO48bEP2c+ZrrQIKnTg1ZSU2UDTi38jGZ5K8avnc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=C6yOeMs7e8JI3SuZcVonvGe8nCL+2lRzwrh21xHYE1QRWL3fh2qQfqCidI0kI6O6sAAf+xubBBOo+y3UiLmhYp8d6sjG/4MY6yfSc2QzLktFMqJ55Cv1CSVjluLs0KPlIFU9CHjQJASr2hQpyA0ke7HzMTBwp4VdM/3c7oJ9rHI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A/Ued68j; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=LnQSjUkSSJ/vOB6ykCqXUZ2TXPEAzP2u+7Oo3wVE+k+LGP+R+2KWjXa4KbdtCuCoHp6ND9tJU2zAHxbjAdNKcFp4H+m1zJgQ2vVsrtQ53SiP5x60lSguDP6/fO+oYq6aqHBSSZ4RkV2Ygiz6s1aonCGvwVtB6h8NoNkgFb79jJU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YOV1ROvV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A/Ued68j"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7058F1F000FF;
-	Fri, 18 Sep 2026 03:12:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YOV1ROvV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B15211F000FF;
+	Fri, 18 Sep 2026 03:13:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789701122;
-	bh=sgQfCkPRWWK+FybalF8pgOWHGJEjtz/k8VSRJa/Hg3I=;
+	s=k20260515; t=1789701194;
+	bh=oHoa8mBzUg4+1mcj7snDJWPyEN/yFQ+pya4QRdtQYHA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=A/Ued68jfEmPUqBF1LjwjteqktCDZgnXZKOGFibt2nJ4srMm++i8zXkJUvfafsJRM
-	 Di5HpGxfCuFXelmCp/a40iD7lDPQpkga6P6YMujtyrBfV1Oe68ftLJYIj017x5XTI4
-	 eyxHsIo1PZd3+csDGM/cj09pqeWkgAE4MVwifyA95DBthO/Vwvs4uUoWYEfufWWere
-	 zyU4jLUWFjQxMkAjDezxgUmgAuRnuzFOECwgsicQO8lIWMKRO2eZ/QNxw5NCYigqvP
-	 nBZGsVGAA4UYQhnpQ6dPScGJMux44VEf52uaXyBupnV5CaDmN+NjvuctW3x0oXrF6m
-	 MKuSSuzB4p/yw==
+	b=YOV1ROvVVg/2q4EbQTk6GpQZnOKUa7F7LCtkXF3/4NRKQKVfGkB+q9tUrU4slPmPq
+	 qhuEap8NIgM81uYGwHA/FfNpP/RDzF2Oqw6KbRj+tPOWV3hNRjKSyHt2t4qq5ij5UX
+	 VQXsGT5ZUC8pPDHzsvkiv4kOkDWq8u+WYqkQul2ukNbM/mY8o2wQOAoh+u0YS7sHle
+	 LCd83taefdbu0rc9vG37xG/DEMWLOozGkuxjHqHFQmHH/S/6EWEFltaeGeYazHoVBb
+	 HdDf9NlcWpFT79aQUpLo1j7hLjGr9ryKom80w7hmLC0CHJcyiNhbHRLij18z87akE3
+	 IeptyFiSe/rjQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 3/7] drm/verisilicon: introduce per-variant hardware
- ops table
+Subject: Re: [PATCH v7 4/7] drm/verisilicon: add DC8000 (DCUltraLite)
+ display controller support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Joey Lu" <a0987203069@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260918030125.315978-4-a0987203069@gmail.com>
+Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260918030125.315978-5-a0987203069@gmail.com>
 References: <20260918030125.315978-1-a0987203069@gmail.com>
- <20260918030125.315978-4-a0987203069@gmail.com>
+ <20260918030125.315978-5-a0987203069@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 03:12:02 +0000
-Message-Id: <20260918031202.7058F1F000FF@smtp.kernel.org>
+Date: Fri, 18 Sep 2026 03:13:13 +0000
+Message-Id: <20260918031313.B15211F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] drm: access after clock disable in vs_crtc_atomic_disable()
+- [High] drm/verisilicon: missing IRQ acknowledgment causes interrupt storm
+- [High] drm/verisilicon: wrong register configured in vs_dc8000_panel_enab=
+le_ex
+- [High] drm/verisilicon: reversed VALID bit logic causes incomplete state =
+latching
 --
 
-commit 4d2b1621cdee94c9390817d0548d0b254e003aa6
+commit 091826cd38f41f7f76fdaab38a3712b19c6f3f16
 Author: Joey Lu <a0987203069@gmail.com>
 
-drm/verisilicon: introduce per-variant hardware ops table
+drm/verisilicon: add DC8000 (DCUltraLite) display controller support
 
-This commit introduces a per-variant hardware operations table (vs_dc_funcs)
-for the Verisilicon display controller driver. It extracts DC8200-specific
-hardware operations and updates shared code to dispatch through this vtable
-to better support different hardware variants.
+This patch adds support for the DC8000 display controller to the
+verisilicon DRM driver. It introduces a new vs_dc_funcs implementation
+for the DC8000 generation.
 
-> diff --git a/drivers/gpu/drm/verisilicon/vs_crtc.c b/drivers/gpu/drm/veri=
-silicon/vs_crtc.c
-> index c24c1588cbe69..6033662dd9221 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_crtc.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_crtc.c
+> diff --git a/drivers/gpu/drm/verisilicon/vs_dc8000.c b/drivers/gpu/drm/ve=
+risilicon/vs_dc8000.c
+> new file mode 100644
+> index 0000000000000..df7bd5bdd7f2a
+> --- /dev/null
+> +++ b/drivers/gpu/drm/verisilicon/vs_dc8000.c
+> @@ -0,0 +1,92 @@
 
 [ ... ]
 
-> @@ -30,6 +53,9 @@ static void vs_crtc_atomic_disable(struct drm_crtc *crt=
-c,
->  	drm_crtc_vblank_off(crtc);
-> =20
->  	clk_disable_unprepare(dc->pix_clk[output]);
+> +static void vs_dc8000_panel_enable_ex(struct vs_dc *dc, unsigned int out=
+put)
+> +{
+> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			VSDC_FB_CONFIG_RESET);
+> +}
 > +
-> +	if (dc->funcs->crtc_disable_ex)
-> +		dc->funcs->crtc_disable_ex(dc, output);
+> +static void vs_dc8000_panel_disable_ex(struct vs_dc *dc, unsigned int ou=
+tput)
+> +{
+> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			  VSDC_FB_CONFIG_RESET);
+> +}
 
 [Severity: High]
-Does this access hardware registers after their clock is gated?
+The commit message mentions that panel output starts as soon as
+PANEL_CONFIG.RUNNING is set. However, does this code configure the wrong
+register?
 
-In vs_crtc_atomic_disable(), the pixel clock is disabled via
-clk_disable_unprepare() just before calling the hardware-specific disable
-hook crtc_disable_ex(). If the hook accesses the hardware block after its
-clock is already powered down, it typically leads to asynchronous external
-aborts, system hangs, or MMIO bus faults.
+It sets and clears the VSDC_FB_CONFIG_RESET bit in the framebuffer
+configuration register instead of the panel configuration register, which m=
+ight
+leave the panel hardware unstarted and the framebuffer held in reset.
 
-Should the clock be kept enabled until after crtc_disable_ex() finishes,
-similar to how vs_crtc_atomic_enable() properly enables the clock before
-calling crtc_enable_ex()?
+> +static void vs_dc8000_crtc_begin(struct vs_dc *dc, unsigned int output)
+> +{
+> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			VSDC_FB_CONFIG_VALID);
+> +}
+> +
+> +static void vs_dc8000_crtc_flush(struct vs_dc *dc, unsigned int output)
+> +{
+> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			  VSDC_FB_CONFIG_VALID);
+> +}
 
->  }
-> =20
->  static void vs_crtc_atomic_enable(struct drm_crtc *crtc,
+[Severity: High]
+Is the VALID bit logic reversed here?=20
+
+Setting VSDC_FB_CONFIG_VALID in vs_dc8000_crtc_begin() asserts to hardware
+that the configuration is ready before new plane updates are written, and
+clearing it in vs_dc8000_crtc_flush() marks the completed configuration as
+invalid.=20
+
+Can this reversed signaling cause the hardware to latch an incomplete state
+during atomic updates?
 
 [ ... ]
+
+> +static u32 vs_dc8000_irq_ack(struct vs_dc *dc)
+> +{
+> +	u32 hw_irqs, unified =3D 0, known =3D 0;
+> +	unsigned int i;
+> +
+> +	regmap_read(dc->regs, VSDC_DISP_IRQ_STA, &hw_irqs);
+> +
+> +	for (i =3D 0; i < VSDC_MAX_OUTPUTS; i++) {
+> +		known |=3D VSDC_DISP_IRQ_VSYNC(i);
+> +		if (hw_irqs & VSDC_DISP_IRQ_VSYNC(i))
+> +			unified |=3D VSDC_IRQ_VSYNC(i);
+> +	}
+> +
+> +	drm_WARN_ONCE(&dc->drm_dev->base, hw_irqs & ~known,
+> +		      "Unknown hardware IRQ bits: %#x\n", hw_irqs & ~known);
+> +
+> +	return unified;
+> +}
+
+[Severity: High]
+Does this function fail to clear the pending hardware interrupts?=20
+
+It reads VSDC_DISP_IRQ_STA to check pending interrupts but does not write b=
+ack
+to clear them. For hardware without a dedicated ACK register, the status
+register usually acts as a write-1-to-clear mechanism.=20
+
+Can failing to write back leave the interrupt asserted in the hardware and
+cause an infinite interrupt storm when the VBLANK interrupt fires?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918030125.3159=
-78-1-a0987203069@gmail.com?part=3D3
+78-1-a0987203069@gmail.com?part=3D4
