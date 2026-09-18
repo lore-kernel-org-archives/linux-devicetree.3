@@ -1,159 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E57451AFDE
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 17:08:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 594A551B173;
+	Fri, 18 Sep 2026 17:08:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789751296; cv=none; b=XhKhvEI+oZqqIjPP4zd3ntJ6BZqb/y44Tl8kOW1NWF4zU9fg3JgSRCEF0HexTOwmIZTbQKPCXGjfXmimGAz9cKl4m25LqmdDLv2kGRdbMjhHOY8UBcUYv/VTjIf+bldSUpoNOdn9HycAwV4bTWyqDFwxOIBIuzZudzo9cYkNfPM=
+	t=1789751296; cv=none; b=Wa7GWCb8ZhK8VAyPOtD/JPU5pkY9LSCk80AuS0ZMU05JYXVMP8MIVt2uO+e4bGhhwIkuI1ES9FjLkQfe5vK5vHT+SxFCHUDkaMEdmxo/mKKBe0jQzhJlJFHNPbokjvc6nH/+hm4HLqFB0OkDU87liIRBO3JEt9wJDhS0NrAla6w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789751296; c=relaxed/simple;
-	bh=8V+CI++wd2hRR/8f0kE0wDzpS3pN6AlEwwsZ1swc41g=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ZX5JclZ+CjHSLqq0fzaL8oDudhgPXOI/eSIeTLbomTYS/X92jN0/ITXGMFeXcO/kCYWpSSJoRGkwbwpnzEbuAGxgI9VDgTa/xqn4Q0OE8oS71Yq3UvFA8oOM3gs110jl/v5g7rrSmZ0LPTDx+Lj9DkSCtYJ4sA6BVupfZr0vTWo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S2nNK2rc; arc=none smtp.client-ip=100.103.45.18
+	bh=ZRs5ShIc5SPKgFFZGlNAk63M6odw+wLS2yueYvmPToI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=on1ZSFQKO/tYdEu0s86sTt1v5welw1CzEiXoQh6yWStaXjoCSCwV9By/uUTLK+EIhkbG7TsIfXudpgRaw08JyV7cqtUO7R8yffSn4POeo8Yfbu8w+EASNUKF3GA70LsELu6wjt1Aozj6Svgp4XWhW6u7HlvTxXwu1Bw813vZQsw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=GdlIRMhh; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S2nNK2rc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FF651F00898;
-	Fri, 18 Sep 2026 17:08:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789751290;
-	bh=FlmK4jIvYzuKrd9bMxPXILBV9xAV8wyKPyiAXRj8Ns8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=S2nNK2rccapEk40xZacNGh0dCPf60rKpYfIhh+BFjeQdFJ/HvejFvTyjz1214+BWx
-	 sncDvy6Kgh6tg/8phL6/ONhqF+AKLrbXAigm52qsyk0RutxjyG7EwM6utvnMqDerKk
-	 jY+zGBkkT8L4BP+1ix67AgkltkIFWo9AveIcGXtMEhas6KzP8oj8pWXaZb7S47yNqT
-	 kg1gmOi0c3zZkFvOSU+6f4fYuWqrVA6OfHaDw2sAty2iPZ9B/nMdhiO0+dVKnz6mYM
-	 iDCsAVAMs53dgE93L7jr11UmBhyivt/9owXBdDtCS+FOQ9SmV5ZsPthdW1j7NxbwRj
-	 jFAiw6KLl5I1g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: power: supply: ab8500: Add AB8505
- charger
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Linus Walleij" <linusw@kernel.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260918-ab8500-charger-dt-v2-1-5f17c332a2a7@kernel.org>
-References: <20260918-ab8500-charger-dt-v2-0-5f17c332a2a7@kernel.org>
- <20260918-ab8500-charger-dt-v2-1-5f17c332a2a7@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 17:08:09 +0000
-Message-Id: <20260918170810.0FF651F00898@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="GdlIRMhh"
+Received: from neptunite.rasen.tech (unknown [IPv6:2400:2411:160:2f00:e327:a298:3a5b:4b08])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id C48974FC4;
+	Fri, 18 Sep 2026 19:06:25 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1789751190;
+	bh=ZRs5ShIc5SPKgFFZGlNAk63M6odw+wLS2yueYvmPToI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=GdlIRMhhIyLJ9mGrEA8K56+LH13CqN5eYU8OICKy0lJr3akDYkt9Ybxrsn5YAB7E/
+	 afkuPQZzGjJxjG/W0q4lthQ5WcudPewSAAovo8REyP4HK2Qrr+axGBgcySI9fFX0gR
+	 nkV+BOgMyblWv11de7fNE2lBz8VZH70O1m9/o6SA=
+From: Paul Elder <paul.elder+renesas@ideasonboard.com>
+Date: Sat, 19 Sep 2026 02:07:07 +0900
+Subject: [PATCH v2 10/11] media: rcar-fcp: Handle resets
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260919-epaul-v7-3-rc1-x5h-vsp-fcp-v2-10-dbe9236bfd22@ideasonboard.com>
+References: <20260919-epaul-v7-3-rc1-x5h-vsp-fcp-v2-0-dbe9236bfd22@ideasonboard.com>
+In-Reply-To: <20260919-epaul-v7-3-rc1-x5h-vsp-fcp-v2-0-dbe9236bfd22@ideasonboard.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
+ Ulf Hansson <ulfh@kernel.org>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+Cc: linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-pm@vger.kernel.org, linux-media@vger.kernel.org, 
+ Paul Elder <paul.elder+renesas@ideasonboard.com>
+X-Mailer: b4 0.14.2
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] power: supply: ab8500: driver probe fails on AB8505 due to 9-inter=
-rupt schema constraint
-- [Medium] dt-bindings: power: supply: ab8500: missing io-channels variant =
-constraints
-- [Medium] dt-bindings: power: supply: ab8500: autopower_cfg missing varian=
-t restriction
---
+On some versions of the FCP, such as the one on the X5H, reset control
+is required to operate the FCP. Add support for handling resets
+optionally, to continue supporting versions that do not require it.
 
-commit 1fff99ca786343bf578c093a179ec7f5838e1bb0
-Author: Linus Walleij <linusw@kernel.org>
+Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
 
-dt-bindings: power: supply: ab8500: Add AB8505 charger
+---
+Changes in v2:
+- handle errors
+---
+ drivers/media/platform/renesas/rcar-fcp.c | 30 ++++++++++++++++++++++++++++--
+ 1 file changed, 28 insertions(+), 2 deletions(-)
 
-AB8500 and AB8505 expose different charger interrupt sets. Add a unique
-AB8505 charger compatible with the AB8500 compatible as its fallback.
-Use the variant-specific string to require the fourteen main and USB
-charger interrupts on AB8500 and the nine USB charger interrupts on
-AB8505.
+diff --git a/drivers/media/platform/renesas/rcar-fcp.c b/drivers/media/platform/renesas/rcar-fcp.c
+index dfb0ca93e854dd0bb8aedfb757fd786ef6e45542..76d4c250b30815d9eac58f9b54ad923748df79f6 100644
+--- a/drivers/media/platform/renesas/rcar-fcp.c
++++ b/drivers/media/platform/renesas/rcar-fcp.c
+@@ -16,6 +16,7 @@
+ #include <linux/mutex.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
++#include <linux/reset.h>
+ #include <linux/slab.h>
+ 
+ #include <media/rcar-fcp.h>
+@@ -29,6 +30,7 @@ struct rcar_fcp_device {
+ 	struct list_head list;
+ 	struct device *dev;
+ 	void __iomem *base;
++	struct reset_control *rstc;
+ };
+ 
+ static LIST_HEAD(fcp_devices);
+@@ -162,20 +164,25 @@ static int rcar_fcp_probe(struct platform_device *pdev)
+ 
+ 	fcp->dev = &pdev->dev;
+ 
++	platform_set_drvdata(pdev, fcp);
++
+ 	fcp->base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(fcp->base))
+ 		return PTR_ERR(fcp->base);
+ 
+ 	dma_set_max_seg_size(fcp->dev, UINT_MAX);
+ 
++	fcp->rstc = devm_reset_control_get_optional(&pdev->dev, NULL);
++	if (IS_ERR(fcp->rstc))
++		return dev_err_probe(&pdev->dev, PTR_ERR(fcp->rstc),
++				     "failed to get reset control\n");
++
+ 	pm_runtime_enable(&pdev->dev);
+ 
+ 	mutex_lock(&fcp_lock);
+ 	list_add_tail(&fcp->list, &fcp_devices);
+ 	mutex_unlock(&fcp_lock);
+ 
+-	platform_set_drvdata(pdev, fcp);
+-
+ 	return 0;
+ }
+ 
+@@ -190,6 +197,24 @@ static void rcar_fcp_remove(struct platform_device *pdev)
+ 	pm_runtime_disable(&pdev->dev);
+ }
+ 
++static int fcp_pm_runtime_suspend(struct device *dev)
++{
++	struct rcar_fcp_device *fcp = dev_get_drvdata(dev);
++
++	return reset_control_assert(fcp->rstc);
++}
++
++static int fcp_pm_runtime_resume(struct device *dev)
++{
++	struct rcar_fcp_device *fcp = dev_get_drvdata(dev);
++
++	return reset_control_deassert(fcp->rstc);
++}
++
++static const struct dev_pm_ops fcp_pm_ops = {
++	RUNTIME_PM_OPS(fcp_pm_runtime_suspend, fcp_pm_runtime_resume, NULL)
++};
++
+ static const struct of_device_id rcar_fcp_of_match[] = {
+ 	{ .compatible = "renesas,fcpf" },
+ 	{ .compatible = "renesas,fcpv" },
+@@ -202,6 +227,7 @@ static struct platform_driver rcar_fcp_platform_driver = {
+ 	.remove		= rcar_fcp_remove,
+ 	.driver		= {
+ 		.name	= "rcar-fcp",
++		.pm = pm_ptr(&fcp_pm_ops),
+ 		.of_match_table = rcar_fcp_of_match,
+ 		.suppress_bind_attrs = true,
+ 	},
 
-> diff --git a/Documentation/devicetree/bindings/power/supply/stericsson,ab=
-8500-charger.yaml b/Documentation/devicetree/bindings/power/supply/stericss=
-on,ab8500-charger.yaml
-> index 4f19744844e9c..73f5df2d7a36b 100644
-> --- a/Documentation/devicetree/bindings/power/supply/stericsson,ab8500-ch=
-arger.yaml
-> +++ b/Documentation/devicetree/bindings/power/supply/stericsson,ab8500-ch=
-arger.yaml
-> @@ -12,10 +12,58 @@ maintainers:
-> =20
->  allOf:
->    - $ref: power-supply.yaml#
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: stericsson,ab8505-charger
-> +    then:
-> +      properties:
+-- 
+2.47.3
 
-[Severity: Medium]
-Should there be an io-channels variant constraint for AB8505 here?
-
-A device tree could specify the stericsson,ab8500-charger compatible but on=
-ly
-provide 2 IO channels (vbus_v and usb_charger_c).
-
-This would pass the global schema check since io-channels allows between 2 =
-and
-4, but the driver strictly requires 4 channels (including main_charger_v) f=
-or
-AB8500 hardware:
-
-drivers/power/supply/ab8500_charger.c:ab8500_charger_probe() {
-	if (!is_ab8505(di->parent)) {
-		di->adc_main_charger_v =3D devm_iio_channel_get(dev, "main_charger_v");
-		if (IS_ERR(di->adc_main_charger_v)) {
-            ...
-}
-
-Should the schema enforce minItems: 4 for AB8500 and maxItems: 2 for AB8505
-within these new variant conditional blocks to prevent invalid configuratio=
-ns
-from passing schema validation but failing during probe?
-
-
-[Severity: Medium]
-Does the autopower_cfg property need to be restricted to false in this AB85=
-05
-conditional block?
-
-If a device tree for an AB8505 system incorrectly includes this property, t=
-he
-schema allows it because it's defined globally but not restricted here.
-
-The driver would then read it and later call
-ab8500_enable_disable_sw_fallback(), writing to bit 0 of register 0x03
-(AB8500_SW_CONTROL_FALLBACK).
-
-Since the commit message explicitly states this bit is reserved on AB8505,
-could writing to it cause undefined behavior?
-
-> +        interrupts:
-> +          minItems: 9
-> +          maxItems: 9
-
-[Severity: High]
-Does this break the probe of the ab8500-charger driver on AB8505 hardware?
-
-A device tree for an AB8505 system conforming to this newly introduced sche=
-ma
-would provide only 9 USB charger interrupts.
-
-During driver probe, the driver unconditionally iterates over its hardcoded
-ab8500_charger_irq array of 14 interrupts:
-
-drivers/power/supply/ab8500_charger.c:ab8500_charger_probe() {
-	for (i =3D 0; i < ARRAY_SIZE(ab8500_charger_irq); i++) {
-		irq =3D platform_get_irq_byname(pdev, ab8500_charger_irq[i].name);
-		if (irq < 0)
-			return irq;
-    ...
-}
-
-When it calls platform_get_irq_byname() for the missing main charger
-interrupts, won't it receive an error code (e.g., -ENXIO) and immediately
-return it, aborting the probe?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918-ab8500-cha=
-rger-dt-v2-0-5f17c332a2a7@kernel.org?part=3D1
