@@ -1,87 +1,33 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5CBA342514
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 09:12:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0B07628FFF6;
+	Fri, 18 Sep 2026 09:13:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789722757; cv=none; b=tqUtRyGDHTopaTrPFsU7g8yGym3iimgBN1mhHRpeKtL7WyP6dB2AaYIZQOjtkjUzEEZkbvuG0elGD0RlnhX69UwUJ4lE9LZ/vJe/nAE2yW7zrug0qXfEKCYhxz729+6h09XdcreDl3T7qUbToXrvIR751tK2sZf4cZAC/NGehcg=
+	t=1789722805; cv=none; b=ZodcOG820Ih/6Ka1akEmhEfi89YI51WGt67MZOKKK4p6oLHZRbA2D9mk2ViAwCBVIt8tRclUx0RpDvtcXoJIefdP1jEaVD9LayMiCsBh7wA/li6x6NiczsvdfeTr+mwPAs+4D6zrlRS+VGBE/tDnk+H1H087OcAm1Dv0abmXqk4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789722757; c=relaxed/simple;
-	bh=dqNLkYWW3gpedw8yQO06Nn2TvNDxzw6IotmjZsfjq4E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qv7Ai8OVyyJlae0sULUlqagAT9XWFZmQ/KjhAiraZVjU86SUP5F1a5TxebdBIytW3eLgdVk0mTkWpF92hfqjZ4W1JIaFBoLCN16HOn1yTG6XMZO9DwaMp4Fsm1BJGca81+AYtDp7KQjkZ4KSij6lT83RTs8RWJ3O4OY0yGqmb8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UCVq0oo8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CXZm6+iK; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789722805; c=relaxed/simple;
+	bh=HSN6OUcadQ6p48VplFqTC3qeegwFq6SbpF7S2rpGGbg=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=Oh3O2HOcfK3dy0nAqzThCrwV0cx5XCmJybFRRgzpZ9VRMKgEZZw7nIyDMKnXodxn8my+IdO+V4isZUEOejn2VraYpVxN04AZz0dhN0Ah9JV37uQh7doAAg7tPC8DrjKf4jIHss5XSjYRB5hsrior79h6BrRSJadARD3sOhWvVPg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=UiUs1nAk; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UCVq0oo8";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CXZm6+iK"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68I5xhFq4082729
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 09:12:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	8KWbZAe8YVsxv2ruoBpbVgqJH0J7SyBNe9cK8WaU73A=; b=UCVq0oo8hh3zpuNN
-	YkqNqbz3333d1T73kirv80Sdf81VJxW51udbIcADdlqdimOPwFrBroXRMNZmCa76
-	kAeBZfibEQL0ApMCmDR5Yli8Eb+1FTGBUYooe/kIfRqwteQSs/Q9Kkw/lOQPmJcC
-	P3C8IMJkP61fVh4FHZ2v/Dm7Wj+kidskCGgUH9uRCWb5JOlb7RmHS3xb+JwgGWeI
-	Gp1UtYJuSXW/GoRn0ybRNCpk0pyvklL31mHpqb48WnvgoievVWUZysFa0eqKW9nD
-	JzzYetzT3VYrkLgMM2DHhuCBz2nVo11zppWkJAlEXh3mCCNygH+p1RyoFvOwI4V3
-	gMIuqQ==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4grwxrs5m2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 09:12:33 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93a05d645acso105872485a.2
-        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 02:12:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789722753; x=1790327553; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8KWbZAe8YVsxv2ruoBpbVgqJH0J7SyBNe9cK8WaU73A=;
-        b=CXZm6+iKFUl+TDKQmvTF03XLC+tqEHyFbdUs8DsQtC8MSs7+xL5OZ/K9G/heFHiUWX
-         oQXaCG9nNVt2rIoYlOW0tkGZTbNFomAszQiYfm+Tj9/+JB56xfKb2A9nc8EMD647booF
-         68RU8CIZ2TtaSQ03T0/UXZKy7PGgiTcJYOJq3lWWuspLlpIGvSRnnte6CdJXPREGfWqp
-         4npQ4h4G+tvMVppnC9mk7wuRC0N9BG9Vmil1rsPIUDntTLAjrm8cJjsCosAGwQx3Mury
-         +5sxbPZuCT3ttuxXNgqrmIpjZFQ0hpw1lR59cv25tMCTPo1xVkTYWePP5At16cAvBGgc
-         ZTzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789722753; x=1790327553;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8KWbZAe8YVsxv2ruoBpbVgqJH0J7SyBNe9cK8WaU73A=;
-        b=kbPsEtGpCkzIzihEALClAAG4XXiehm+lAoVz4ST6PEAdA1v37lc6Aaikvhj/Fq98qR
-         OcAKRj2bcwI3eRAt0Hey291vVDTY9XkHnmms/o8I6WbiptrEXRmbGakkui3atuyTI3gl
-         4wjVS82F554I8J6axykCDY9K+XGNA1jeh6Pv9Y2vpNQkgjhOqb/Jd1M3T/6+qb7xSnqb
-         f5QgYakcuxLxaiFCCh9/VAk8lYWm0FsA9syG0szoEOLl4xk1Z2Os3PdppPztlERLCx9I
-         JVgaYCAaUwcEofwIlXCDdvbQlE+PWGfsTs3xnoisJcIZwPRKtunXZoFGjbF1lWzhmse4
-         o6aA==
-X-Forwarded-Encrypted: i=1; AKwUvBxAK3VAcydeW/Q/Zti9cRp6mVEgGbDsWpCUSpsMz4Ovz+jC4JlH1z8blCSqrJYbRPBhsiYAnLA5vY4B@vger.kernel.org
-X-Gm-Message-State: AFuF++lPfMGAwHvLfVfZh7s7JlVucUgunwJItCjiG7GgtiAIUY5QvKq2
-	i0mt6hOrnd6ZOhxTwq5hcmd+xYQ9igoEL/3XVCj6T0+X/tHcusYwTy2VPbTolPA/wGnuEtF/fcd
-	3mfTnM8A0b3Ni1zvoq7n1UihdHqILw3CvOvpjC+4b5lTOYbcWEQQkE0+qU1tC8c4o
-X-Gm-Gg: AYBFou1HRCkLhGRTqdwE9qc2CHUivOsC28FyxZdnbQ/XNabwAzYZYlXxQGs0otwpgiM
-	NRpeYSoCvwgQ24vtISIPqfxH8qMSHQyiNfx82XlY6JgswzGC04mb+kovROPK7GgAlib9+W7CryM
-	/Q1pav4Tc2krlyCjXxvNj5nX9D/jda7B5tr2Ie9gUIphjO/rlaTMd+dDIIa5fAajkaw17Mwo837
-	8zUY7/DKtDFUYb/hnO6qcUbatrpsuzJZxvQB5b9cMWKXqmUNkXxRZjYbKEtig4s+JUbVv1BEV38
-	wn/qXPVKf6ViXk2y9ntlt3cauM+2gnsVDcJpOvZiVfNz3kp4X8ParnVxaKi/NqC0ZeFM/xbMlZd
-	7aAGrT7HUC09Ev5xkBC1dw2xe5eKm/mgqQpTIQKW1n6bPMWD4ZZGmZG4TUbuhM2E=
-X-Received: by 2002:a05:620a:6010:b0:939:f513:cc3b with SMTP id af79cd13be357-93bdca3b239mr216695585a.42.1789722752726;
-        Fri, 18 Sep 2026 02:12:32 -0700 (PDT)
-X-Received: by 2002:a05:620a:6010:b0:939:f513:cc3b with SMTP id af79cd13be357-93bdca3b239mr216692185a.42.1789722752340;
-        Fri, 18 Sep 2026 02:12:32 -0700 (PDT)
-Received: from ?IPV6:2a05:6e02:1041:c10:82ae:cd75:d970:e66f? ([2a05:6e02:1041:c10:82ae:cd75:d970:e66f])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc58a1176sm31018885e9.2.2026.09.18.02.12.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 18 Sep 2026 02:12:31 -0700 (PDT)
-Message-ID: <45768828-d0a7-40c1-8eec-3a1fb2d66a71@oss.qualcomm.com>
-Date: Fri, 18 Sep 2026 11:12:29 +0200
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="UiUs1nAk"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C70D9168F;
+	Fri, 18 Sep 2026 02:13:19 -0700 (PDT)
+Received: from [10.41.4.144] (e142021.arm.com [10.41.4.144])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CD1073F882;
+	Fri, 18 Sep 2026 02:13:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789722803; bh=HSN6OUcadQ6p48VplFqTC3qeegwFq6SbpF7S2rpGGbg=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To:From;
+	b=UiUs1nAknVTTZqJd6p1FKPJi36Cxru2zHT5tFAh9A9BueBYDI9fjsdcdK3j20Mgy1
+	 KFlKccCWspaqDmbD6qtWVhyxoefAUxd7IBOtNM+OwvuIxsvd93D423qChlUE3nzCUN
+	 NC+X+NenfPTFz/PoNrBwihSNdNaoFsH35vtZnCCU=
+Message-ID: <84f0862c-5333-4d53-b882-79b8e4c362ed@arm.com>
+Date: Fri, 18 Sep 2026 11:13:19 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,84 +35,318 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 4/6] thermal: khadas-mcu-fan: Add fan config from
- platform data Add regulator support
-To: linux-kernel-dev@aliel.fr, Neil Armstrong <neil.armstrong@linaro.org>,
-        Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Andi Shyti <andi.shyti@kernel.org>,
-        Kevin Hilman <khilman@baylibre.com>,
-        Jerome Brunet <jbrunet@baylibre.com>,
-        Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-        Beniamino Galvani <b.galvani@gmail.com>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
-Cc: linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
-        mfd@lists.linux.dev
-References: <20260917-add-mcu-fan-khadas-vim4-v12-0-497cd543a148@aliel.fr>
- <20260917-add-mcu-fan-khadas-vim4-v12-4-497cd543a148@aliel.fr>
-Content-Language: en-US
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-In-Reply-To: <20260917-add-mcu-fan-khadas-vim4-v12-4-497cd543a148@aliel.fr>
+From: Andre Przywara <andre.przywara@arm.com>
+Subject: Re: [PATCH v3 2/8] firmware: smccc: Add support for Live Firmware
+ Activation (LFA)
+To: Sudeep Holla <sudeep.holla@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, Salman Nabi
+ <salman.nabi@arm.com>, Vedashree Vidwans <vvidwans@nvidia.com>,
+ Trilok Soni <trilokkumar.soni@oss.qualcomm.com>,
+ Nirmoy Das <nirmoyd@nvidia.com>, vsethi@nvidia.com,
+ Varun Wadekar <vwadekar@nvidia.com>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, devicetree@vger.kernel.org
+References: <20260706134455.132091-1-andre.przywara@arm.com>
+ <20260706134455.132091-3-andre.przywara@arm.com>
+ <20260717-bipedal-courageous-alpaca-4fb54d@sudeepholla>
+Content-Language: en-GB
+In-Reply-To: <20260717-bipedal-courageous-alpaca-4fb54d@sudeepholla>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=EMWTQFZC c=1 sm=1 tr=0 ts=6aad0081 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=KKAkSRfTAAAA:8
- a=EUspDBNiAAAA:8 a=YaFGZCiNkOP6CsGDcAoA:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDEyNiBTYWx0ZWRfXxk28bTa0h/R8
- M4k7rfRaqr4LWiJrsG9q7CwTp+Iy1k4aR6bLihq08bZ/+zkxNyOtcf+eFzpQ5yr3ZGWRpisTkIN
- IuFGzSGnck26azsahaOM8JKTXzq2/dSGA9VIaSPGDyGQk0aXar1HETX0K0I56z9nvvBcSikrDf3
- G1YBMNUr4DayWgsfZjILAI5rN1CAd+MkKobTq2PRiQZPuepMXVDtfLqMcYojX9SLcDqEswaMxRg
- 6JmzMERwBYkqN1lOwHutRprBT/wwR/5sQikxNevck0ZvaEmXcN+j96R4OKRzn0Q4m+D0rP/fFSj
- 9ogqKF1KQVmBtJlP+rhtIYNdsUw4/HaDD1z2TZjbo4liIXkUtR3jLLX3f2HQQaKEE5arPUF7hqa
- I9LzHH+ZoMFu9SEE/7vQrBrzD5p2252Gtvv6gfdS/yR5gl9V+0gESPfo/6nYpfnJMmQamFDgXSJ
- QFcsOuXF6WFJf15tEQA==
-X-Proofpoint-GUID: nsokUib4MKM0Hjt24qpMyaUsrym7751A
-X-Proofpoint-ORIG-GUID: nsokUib4MKM0Hjt24qpMyaUsrym7751A
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDEyNiBTYWx0ZWRfX0pmbE8qxbTKG
- 2hhdWzcnWDXr3KZ4dGPSBlXj1C5JlB15lxxP4WBox7QKhBWazFEU6UZiUckdNA6cVm8KNdAdHgr
- +W4XEeZg1WPJCW4O0GDM+JJTiDjsoEU=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-18_02,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 priorityscore=1501 lowpriorityscore=0 bulkscore=0 adultscore=0
- spamscore=0 malwarescore=0 impostorscore=0 phishscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609180126
 
-On 9/17/26 09:59, Ronald Claveau via B4 Relay wrote:
-> From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Hi Sudeep,
+
+On 7/17/26 11:03, Sudeep Holla wrote:
+> On Mon, Jul 06, 2026 at 03:44:42PM +0200, Andre Przywara wrote:
+>> From: Salman Nabi <salman.nabi@arm.com>
+>>
+>> The Arm Live Firmware Activation (LFA) is a specification [1] to describe
+>> activating firmware components without a reboot. Those components
+>> (like TF-A's BL31, EDK-II, TF-RMM, secure paylods) would be updated the
+>> usual way: via fwupd, FF-A or other secure storage methods, or via some
+>> IMPDEF Out-Of-Bound method. The user can then activate this new firmware,
+>> at system runtime, without requiring a reboot.
+>> The specification covers the SMCCC interface to list and query available
+>> components and eventually trigger the activation.
+>>
+>> Add a new directory under /sys/firmware to present firmware components
+>> capable of live activation. Each of them is a directory under lfa/,
+>> and is identified via its GUID. The activation will be triggered by echoing
+>> "1" into the "activate" file:
+>> ==========================================
+>> /sys/firmware/lfa # ls -l . 6c*
+>> .:
+>> total 0
+>> drwxr-xr-x    2 0 0         0 Jan 19 11:33 47d4086d-4cfe-9846-9b95-2950cbbd5a00
+>> drwxr-xr-x    2 0 0         0 Jan 19 11:33 6c0762a6-12f2-4b56-92cb-ba8f633606d9
+>> drwxr-xr-x    2 0 0         0 Jan 19 11:33 d6d0eea7-fcea-d54b-9782-9934f234b6e4
+>>
+>> 6c0762a6-12f2-4b56-92cb-ba8f633606d9:
+>> total 0
+>> --w-------    1 0        0             4096 Jan 19 11:33 activate
+>> -r--r--r--    1 0        0             4096 Jan 19 11:33 activation_capable
+>> -r--r--r--    1 0        0             4096 Jan 19 11:33 activation_pending
+>> --w-------    1 0        0             4096 Jan 19 11:33 cancel
+>> -r--r--r--    1 0        0             4096 Jan 19 11:33 cpu_rendezvous
+>> -r--r--r--    1 0        0             4096 Jan 19 11:33 current_version
+>> -rw-r--r--    1 0        0             4096 Jan 19 11:33 force_cpu_rendezvous
+>> -r--r--r--    1 0        0             4096 Jan 19 11:33 may_reset_cpu
+>> -r--r--r--    1 0        0             4096 Jan 19 11:33 name
+>> -r--r--r--    1 0        0             4096 Jan 19 11:33 pending_version
+>> /sys/firmware/lfa/6c0762a6-12f2-4b56-92cb-ba8f633606d9 # grep . *
+>> grep: activate: Permission denied
+>> activation_capable:1
+>> activation_pending:1
+>> grep: cancel: Permission denied
+>> cpu_rendezvous:1
+>> current_version:0.0
+>> force_cpu_rendezvous:1
+>> may_reset_cpu:0
+>> name:TF-RMM
+>> pending_version:0.0
+>> /sys/firmware/lfa/6c0762a6-12f2-4b56-92cb-ba8f633606d9 # echo 1 > activate
+>> [ 2825.797871] Arm LFA: firmware activation succeeded.
+>> /sys/firmware/lfa/6c0762a6-12f2-4b56-92cb-ba8f633606d9 #
+>> ==========================================
+>>
+>> [1] https://developer.arm.com/documentation/den0147/latest/
+>>
+>> Signed-off-by: Salman Nabi <salman.nabi@arm.com>
+>> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+>> ---
+>>   drivers/firmware/smccc/Kconfig  |  10 +
+>>   drivers/firmware/smccc/Makefile |   1 +
+>>   drivers/firmware/smccc/lfa_fw.c | 725 ++++++++++++++++++++++++++++++++
+>>   drivers/firmware/smccc/smccc.c  |   5 +
+>>   include/linux/arm-smccc.h       |  15 +
+>>   5 files changed, 756 insertions(+)
+>>   create mode 100644 drivers/firmware/smccc/lfa_fw.c
+>>
+>> diff --git a/drivers/firmware/smccc/Kconfig b/drivers/firmware/smccc/Kconfig
+>> index 15e7466179a6..7fd646d515f8 100644
+>> --- a/drivers/firmware/smccc/Kconfig
+>> +++ b/drivers/firmware/smccc/Kconfig
+>> @@ -23,3 +23,13 @@ config ARM_SMCCC_SOC_ID
+>>   	help
+>>   	  Include support for the SoC bus on the ARM SMCCC firmware based
+>>   	  platforms providing some sysfs information about the SoC variant.
+>> +
+>> +config ARM_LFA
+>> +	tristate "Arm Live Firmware activation support"
+>> +	depends on HAVE_ARM_SMCCC_DISCOVERY && ARM64
+>> +	default y
+>> +	help
+>> +	  Include support for triggering a Live Firmware Activation (LFA),
+>> +	  which allows to upgrade certain firmware components without a reboot.
+>> +	  This is described in the Arm DEN0147 specification, and relies on
+>> +	  a firmware agent running in EL3.
+>> diff --git a/drivers/firmware/smccc/Makefile b/drivers/firmware/smccc/Makefile
+>> index 68bbff1407b8..cddf2c460ab9 100644
+>> --- a/drivers/firmware/smccc/Makefile
+>> +++ b/drivers/firmware/smccc/Makefile
+>> @@ -2,3 +2,4 @@
+>>   #
+>>   obj-$(CONFIG_HAVE_ARM_SMCCC_DISCOVERY)	+= bus.o smccc.o kvm_guest.o
+>>   obj-$(CONFIG_ARM_SMCCC_SOC_ID)	+= soc_id.o
+>> +obj-$(CONFIG_ARM_LFA) += lfa_fw.o
+>> diff --git a/drivers/firmware/smccc/lfa_fw.c b/drivers/firmware/smccc/lfa_fw.c
+>> new file mode 100644
+>> index 000000000000..b333b1e28c0d
+>> --- /dev/null
+>> +++ b/drivers/firmware/smccc/lfa_fw.c
+>> @@ -0,0 +1,725 @@
+>> +// SPDX-License-Identifier: GPL-2.0-only
+>> +/*
+>> + * Copyright (C) 2025 Arm Limited
+>> + */
+>> +
+>> +#include <linux/arm-smccc.h>
+>> +#include <linux/arm-smccc-bus.h>
+>> +#include <linux/array_size.h>
+>> +#include <linux/fs.h>
+>> +#include <linux/init.h>
+>> +#include <linux/kobject.h>
+>> +#include <linux/list.h>
+>> +#include <linux/module.h>
+>> +#include <linux/psci.h>
+>> +#include <linux/stop_machine.h>
+>> +#include <linux/string.h>
+>> +#include <linux/sysfs.h>
+>> +#include <linux/uuid.h>
+>> +#include <linux/workqueue.h>
+>> +
+>> +#include <uapi/linux/psci.h>
+>> +
+>> +#undef pr_fmt
+>> +#define pr_fmt(fmt) "Arm LFA: " fmt
+>> +
+>> +/* CALL_AGAIN flags (returned by SMC) */
+>> +#define LFA_PRIME_CALL_AGAIN		BIT(0)
+>> +#define LFA_ACTIVATE_CALL_AGAIN		BIT(0)
+>> +
+>> +/* LFA return values */
+>> +#define LFA_SUCCESS			0
+>> +#define LFA_NOT_SUPPORTED		1
+>> +#define LFA_BUSY			2
+>> +#define LFA_AUTH_ERROR			3
+>> +#define LFA_NO_MEMORY			4
+>> +#define LFA_CRITICAL_ERROR		5
+>> +#define LFA_DEVICE_ERROR		6
+>> +#define LFA_WRONG_STATE			7
+>> +#define LFA_INVALID_PARAMETERS		8
+>> +#define LFA_COMPONENT_WRONG_STATE	9
+>> +#define LFA_INVALID_ADDRESS		10
+>> +#define LFA_ACTIVATION_FAILED		11
+>> +
+>> +/*
+>> + * Not error codes described by the spec, but used internally when
+>> + * PRIME/ACTIVATE calls return with the CALL_AGAIN bit set.
+>> + */
+>> +#define LFA_TIMED_OUT			32
+>> +#define LFA_CALL_AGAIN			33
+>> +
 > 
-> Introduce platform name, control register and duty-cycle
-> levels per variant.
-> VIM4 uses a different register and level set (0-100)
->   declared as a list (0, 30, 40, 55, 75, 100) compared
->   to previous boards (0-3).
+> Why do you need this if it is purely internal in the driver ?
+> What is the guarantee that LFA spec doesn't use these in the future ?
+> It shouldn't be big problem, but I do expect things may get bit complicated
+> during transition to a firmware version may start using it.
+
+Yeah, I don't like it either ;-)
+I now reworked the error numbers, so i switch to Linux errno numbers 
+earlier, which means I can use -ETIMEDOUT and -EAGAIN here, and can 
+avoid inventing artifical numbers. So those definitions just go away.
+>> +#define LFA_ERROR_STRING(name) \
+>> +	[name] = #name
+>> +
+>> +static const char * const lfa_error_strings[] = {
+>> +	LFA_ERROR_STRING(LFA_SUCCESS),
+>> +	LFA_ERROR_STRING(LFA_NOT_SUPPORTED),
+>> +	LFA_ERROR_STRING(LFA_BUSY),
+>> +	LFA_ERROR_STRING(LFA_AUTH_ERROR),
+>> +	LFA_ERROR_STRING(LFA_NO_MEMORY),
+>> +	LFA_ERROR_STRING(LFA_CRITICAL_ERROR),
+>> +	LFA_ERROR_STRING(LFA_DEVICE_ERROR),
+>> +	LFA_ERROR_STRING(LFA_WRONG_STATE),
+>> +	LFA_ERROR_STRING(LFA_INVALID_PARAMETERS),
+>> +	LFA_ERROR_STRING(LFA_COMPONENT_WRONG_STATE),
+>> +	LFA_ERROR_STRING(LFA_INVALID_ADDRESS),
+>> +	LFA_ERROR_STRING(LFA_ACTIVATION_FAILED)
+>> +};
+>> +
+>> +enum image_attr_names {
+>> +	LFA_ATTR_NAME,
+>> +	LFA_ATTR_CURRENT_VERSION,
+>> +	LFA_ATTR_PENDING_VERSION,
+>> +	LFA_ATTR_ACT_CAPABLE,
+>> +	LFA_ATTR_ACT_PENDING,
+>> +	LFA_ATTR_MAY_RESET_CPU,
+>> +	LFA_ATTR_CPU_RENDEZVOUS,
+>> +	LFA_ATTR_FORCE_CPU_RENDEZVOUS,
+>> +	LFA_ATTR_ACTIVATE,
+>> +	LFA_ATTR_CANCEL,
+>> +	LFA_ATTR_NR_IMAGES
+>> +};
+>> +
+>> +struct fw_image {
+>> +	struct kobject kobj;
+>> +	const char *image_name;
+>> +	int fw_seq_id;
+>> +	u64 current_version;
+>> +	u64 pending_version;
+>> +	bool activation_capable;
+>> +	bool activation_pending;
+>> +	bool may_reset_cpu;
+>> +	bool cpu_rendezvous;
+>> +	bool cpu_rendezvous_forced;
+>> +	struct kobj_attribute image_attrs[LFA_ATTR_NR_IMAGES];
+>> +};
+>> +
+>> +static struct fw_image *kobj_to_fw_image(struct kobject *kobj)
+>> +{
+>> +	return container_of(kobj, struct fw_image, kobj);
+>> +}
+>> +
+>> +/* A UUID split over two 64-bit registers */
+>> +struct uuid_regs {
+>> +	u64 uuid_lo;
+>> +	u64 uuid_hi;
+>> +};
+>> +
+>> +/* A list of known GUIDs, to be shown in the "name" sysfs file. */
+>> +static const struct fw_image_uuid {
+>> +	const char *name;
+>> +	const char *uuid;
+>> +} fw_images_uuids[] = {
+>> +	{
+>> +		.name = "TF-A BL31 runtime",
 > 
-> MAX_LEVEL is kept and bumped from 3 to 5 to make
-> the speed change more gradual with the newer MCUs.
+> This doesn't make any sense to me. Why do you want kernel to assign
+> some random name base on UUID. Userspace is well place to deal with
+> UUID and give it any fancy name it wants.
+
+Well, the whole interface is quite usable without any accompanying user 
+space tools, so just from the shell, but then identifying  firmware 
+components by their GUID becomes a major pain and leaves users 
+completely clueless.
+And while we indeed will never be able to fully catch up with all the 
+firmwares out there, especially not with vendor specific ones, there are 
+some standard firmware components that I think warrant some name.
+TF-A BL31 above (and TF-RMM) are good examples: these GUID is already in 
+the mainline repository, and since BL31 is also an LFA agent, it's quite 
+likely we encounter this component. Even when vendors typically use 
+downstream TF-A ports, those GUIDs would stay the same.
+So yes, it's more opportunistic than complete, but I think it would help 
+to identify at least those well-known firmwares. Anything not named then 
+would use the GUID, and can indeed be resolved by (a yet-to-be-written) 
+userspace component.
+
 > 
-> The cooling device's state is stored as an index into levels[],
-> and khadas_mcu_fan_set_level() writes levels[state] to fan_reg,
-> rather than writing the raw state value as before.
+> [...]
 > 
-> Optionally acquire and enable a "fan" regulator supply
-> at probe time and on resume,
-> so boards that gate fan power through a regulator are handled.
-> The regulator is released via a devm_add_action_or_reset()
-> callback.
+>> diff --git a/include/linux/arm-smccc.h b/include/linux/arm-smccc.h
+>> index 4de81848fe2e..956a5af96c70 100644
+>> --- a/include/linux/arm-smccc.h
+>> +++ b/include/linux/arm-smccc.h
+>> @@ -304,6 +304,21 @@
+>>   			   ARM_SMCCC_OWNER_STANDARD,		\
+>>   			   0x53)
+>>   
+>> +/* Live Firmware Activation (LFA) calls (defined by ARM DEN0147) */
+>> +#define ARM_SMCCC_LFA_FN_BASE					\
+>> +	ARM_SMCCC_CALL_VAL(ARM_SMCCC_FAST_CALL,			\
+>> +			   ARM_SMCCC_SMC_64,			\
+>> +			   ARM_SMCCC_OWNER_STANDARD,		\
+>> +			   0x2e0)
+>> +#define ARM_SMCCC_LFA_FN(n)		(ARM_SMCCC_LFA_FN_BASE + (n))
+>> +#define ARM_SMCCC_LFA_GET_VERSION	ARM_SMCCC_LFA_FN(0)
+>> +#define ARM_SMCCC_LFA_CHECK_FEATURE	ARM_SMCCC_LFA_FN(1)
+>> +#define ARM_SMCCC_LFA_GET_INFO		ARM_SMCCC_LFA_FN(2)
+>> +#define ARM_SMCCC_LFA_GET_INVENTORY	ARM_SMCCC_LFA_FN(3)
+>> +#define ARM_SMCCC_LFA_PRIME		ARM_SMCCC_LFA_FN(4)
+>> +#define ARM_SMCCC_LFA_ACTIVATE		ARM_SMCCC_LFA_FN(5)
+>> +#define ARM_SMCCC_LFA_CANCEL		ARM_SMCCC_LFA_FN(6)
+>> +
 > 
-> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
-> ---
-Acked-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+> Do you expect these to be used outside of the driver(for now atleast) ?
+> If not move it into the driver.
+
+OK. I was under the impression that all SMCCC services would list their 
+function IDs here, but that's probably only for those where we have 
+multiple users (like TRNG in KVM and hw_random).
+Moved them to the driver now.
+
+Cheers,
+Andre
+
+> 
+>>   /*
+>>    * Return codes defined in ARM DEN 0070A
+>>    * ARM DEN 0070A is now merged/consolidated into ARM DEN 0028 C
+>> -- 
+>> 2.43.0
+>>
+>>
+> 
+
