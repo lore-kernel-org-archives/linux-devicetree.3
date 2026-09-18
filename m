@@ -1,278 +1,130 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E51E9519DEA
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 16:53:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 291FB51AED4
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 16:54:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789750441; cv=none; b=uUUmajQTkC8AFX08KqK5gH3CFc9GhXsIHmiTIXYZEdMxm+RLFZ4fRfUvslDmAvDyxy3NgQRb9nee7A5CMAoZ3sYvLLa9ond1mM6c9Vu/KEyHNXJqqH7fbXeuU5yRO5wkjtXOeliDI6WCbZPJ//Gs0yEhJUpscIi4s5bSz5QPg0c=
+	t=1789750474; cv=none; b=FxGmQJ+0YLgfTmwRrXfEReK4LEQGGWq47kuXlGBFGXZaAXqXNLHHfChWU04EjPDo2rG4rGixcfP+XVbv2FsGTj4Rq6dtQtNHDmXQeU0HCBRNakwrWVVBTpAZhWH2Vp+Ujeqyzo3Bkf0HMkywQkjB+Uqx5Fymj2QUxDja6gbNTOo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789750441; c=relaxed/simple;
-	bh=2EvlZasgpZ/lIxySBiQPHv2EmQ3k7uR84drJbmi41ZE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cvzl0Z/0esneHpdj1WQvELPFFmroim0KePgRdvtKP7dUAVVZJW4yqIKGtIqeZqmRjqgeyxlY4NKPTCXp0RHpBM4gIHIooF7N3arUwkAa3munLbP/LEKkzG8TXm1NgNHGQPfpBqN/tzZgxKA5zB+Y8hZd8WG9sACWjyfy43OzJ34=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=rO2FDqr+; arc=none smtp.client-ip=74.125.228.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1789750474; c=relaxed/simple;
+	bh=sFmc55UAaHNbBDtVN3vYWMohL/LpvZSep9r6J267NOU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PMWhq1FkrB/AqfyJV5PzC+KRrSk/iSnh9ahnVprF9ymWYD1A71soPNBNudX8fJKO8t13j2sQqa+p0G+rfH679fgl3jGMVAQ+75H1vnxNBAEqPLmUQILUQEtLRV+SO3kJwxFkLoLePLr5QKx0dHRrs+ppwudI1fNDjHPYD12/8Qw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aaCSQhZZ; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="rO2FDqr+"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469a34907so1189422b3a.1
-        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 09:53:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aaCSQhZZ"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccb1a990so856854a91.3
+        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 09:54:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789750438; x=1790355238; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vVUde7IRkQCiapOxCzvLvGC5LfRJvKccbFMpxGxukJw=;
-        b=rO2FDqr+WMGKjqdk+GJOwWHkkdft0iGMS8+ehkD0wIyz2Tm7/pee5z1MikzxK3FTXY
-         zxUXoSOw758mdiQTVQwS7IvizwHTV5skYtv+p3GCE0KteVMNXVdGwo5Lxxe5jo/wow8T
-         PiCk2O/SgaflJOvnhdXcvl3MFRVIsaTWqsYSKVZAI8oGr6NLbXfjvyRXSJZiu3YujClN
-         n7bA9mTeNAj/8b9AiwW5ewOaRLWFFmduaByQzh8I1TVIfptN23k6/rxpDVk+fVb4ZYch
-         qKH/3zvMSWT906NVKXusD3E337GPwTLP6jPJjcvHIB4z/3l4+z3m+6qxuiodADTXBkeU
-         +4fA==
+        d=gmail.com; s=20251104; t=1789750470; x=1790355270; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EaTufouzUrE+fHGKjau0XKCchZCy0Yqa9z83nKb4F9A=;
+        b=aaCSQhZZoSsprIxRsXivgEpN8tdknwT+wXSS4zA1vkjLNo5C8RLwzM5rCEW65CHMkJ
+         hjOfJ1jDJQykV60lRai2qTAeWjlQBViACzoAe/TVXUTaWgkLw6yA8ZfLrglYtfBJHoUV
+         q70meFtGVnxckHu9L36Agyr+3fEKqCe5nZO1O4/TATtQTLnKcY0wT2McIEdlr/Hzrr0A
+         xc6TfdM1KGDEZ0XlaUPN23a3U8rVUEk0UC8JLcIl2ZyqyLKEUPYu6HOq5DRVeGcDQDHI
+         WoHTUgA4SYa8OsXvslTtyFuMjQOOaLLPx6oIBWv6keSHCtI/5ZkAnDuytSE9dNax6+Ph
+         ypgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789750438; x=1790355238;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vVUde7IRkQCiapOxCzvLvGC5LfRJvKccbFMpxGxukJw=;
-        b=d/yRPjh6W6LypcY2hIprswVmcP97rQpxErN+JR3LL4V2TyAaLxvVSKvS9ChxQktxXi
-         DizsetRX2NDg4uDFdQnoqkX4jbiqQVJDYPIVfUAggzw3dInEfg8i0cNcjcDqwscRstk/
-         Fw3RWvW7dVbrmmH71oCkaZD7cyh7ohB+QTPPxb3H2zz/gBO6uY++GiWzMJl/jDiVA/My
-         giV1gv7lwPqp+RuvvBq74x/RX6KUHILzphp77YVjzhI4CZZhk5nyrs2It+AqUA/fUoMI
-         cCP/voEtqsV/vWBQIHekaNURumlKLFhpzmRGAEMFG0MffrAMOLzb1SCil/Nb4xkTNhWZ
-         yg4A==
-X-Forwarded-Encrypted: i=1; AKwUvBw5CghGFxvJw9Oxs/IyJ4PZfcly6P4mJX8rDALEaYA3SGy5LuYlTtSmQwZRFzGSYPQK/rAAFNtRvyCg@vger.kernel.org
-X-Gm-Message-State: AFuF++m8zXJWtILJrmDkzUw6fccMBzAsRaAgM5ry/X4YTi4FQmoX4v+V
-	l4RQHBXkjrroozSW9lD5Pu6SDRUrImSiTRedq/C0QDv1vVqiiWZN0t1RHWi5An4QTL8=
-X-Gm-Gg: AYBFou1eNU9OnjBsUtSwo1ISP8PodIOcS+OeD6r8TI/u/GAfLYQfZWVZwaM5MBOPhmp
-	IHs3ZFSA4YPWqF2S3oLVs79HeeFDJQkZjwl+w/QyVVCRcwZTD/wVkUxpSBqg1L8qIIJYANrsx0J
-	rU4rw7acJwO6ULIt9uHuDza+Arh1/KocE1Ti/UUiFgavpqRHUGgWF0/RN/HAmhqbCJnSBcJ1ktf
-	PrySL59W13tl+vi2idwBcbVTGmcaEg6Z59FrPlnbD5Tq4LXe7z+5oUj75HvHws9kyZyKLamQavV
-	RehRmL2prZb/l0v23E4wZ67OQflQmNACAcM2F1+es3c48dgphCFKSCSlea8Xr7BKm1eMGNr6eOp
-	gD3jIasfq8KiAzNqFbNVdiAt6do2O2wptaqmwGO8FV+Kxt+7+PIlyAlnOO8nUTkABvfB8ydvk/o
-	lZkesoaBpdwZBPt+3t6lL8BRg/1VrLH3y9PK8oSUGY1lHUSNtzKSQL2DcVg9885deG9x+ov06o3
-	T8=
-X-Received: by 2002:a05:6a00:ad89:b0:847:77e9:acbb with SMTP id d2e1a72fcca58-874dc3f65a8mr6351046b3a.13.1789750438072;
-        Fri, 18 Sep 2026 09:53:58 -0700 (PDT)
-Received: from p14s ([2604:3d09:148c:c800:ff7b:49b4:123e:4989])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877a6bec901sm69019b3a.4.2026.09.18.09.53.56
+        d=1e100.net; s=20260707; t=1789750470; x=1790355270;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EaTufouzUrE+fHGKjau0XKCchZCy0Yqa9z83nKb4F9A=;
+        b=YG0++vNH61igVRNDRabjU/nJoKA+5z6mYoCHddja70u0jm5Etp/rDyvDSOvuT+HEvf
+         IbSOjzHPsZLrhlVWTVNdydtoXYruKLZoqFKoRI5sOt/3n84GtKkS8hH8f+siVQRh4zgg
+         fnmGZ64aT9OPHGlfNeoyHowjFE/QcyWX3eyFd/xi0ucNbYrvoCWfL4khg0j/8HmlQPeg
+         eKHP0nLJsE/mqmYKX0Ei1cObMuYnRKx7lYLjUfUoxtGVnk/yHqINdpbtfwBb6aJHhho/
+         kpOF90PgTNB28kAU00SczSbxIN+524hEpTyO0DgLfepC3vtB+qxCXFQs3demSPXd1zuh
+         zmKA==
+X-Gm-Message-State: AFuF++kpu2nmHoevMlBZbDsrLrYYiceuHdKHjkNjsfNB0IoObALGMx9H
+	TRmo21Cay1er88DoxFKwtuht4rkheoTcbEdBM6N2PlX6gAJ/dQUBf9C4
+X-Gm-Gg: AYBFou0HWsDOZXmMCozl/8AGHTKxOYc9/eEClht4VrcWgkNtRCe7sRXu7/p2WvnNAOL
+	5zjWZDjrA+L4SPHRq+iguW/ACJrSIoc+fTo/KdFRiTzlLPr6mufUTG1oaB//m/u5vJxRe8YlVix
+	r4rRdRPdMZAvs7X7fW6BEwCF3Fvdrg2YCJF/7n/RKdOzpbu0cywilPEKjPIdDwuO7GwRibmJYih
+	QUdYRWGgTuXL4XWb0p5nlkXNAhygDmQX5iWmSYQDd6aS2QBOVU/cal2Q5lR3tv8OpniHQK2pJdR
+	euDFGE+6AD/B4jlP4YUpQ53CptcF2Nr6SIm1ZaO8azWK8wb+r15EoySr/L2TwaSlmpJEgwgW0QI
+	3z6nilkVIegmxfd2ENCUyZdzrSNos/yStFfiQKik/6RNEJzskPTSf89U/tOwVc/KYBtfjMAD2Be
+	H7cHQ5wMYjnhE5ELMfk72xsErV8p/o6Ypz4OFLZugM5AGL9NNp+nqxDQ1H98qnFo0=
+X-Received: by 2002:a17:90a:da90:b0:39e:6a80:b796 with SMTP id 98e67ed59e1d1-39e6a80b849mr771187a91.38.1789750469839;
+        Fri, 18 Sep 2026 09:54:29 -0700 (PDT)
+Received: from archlinux ([207.90.239.231])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6cb0190bsm240270a91.13.2026.09.18.09.54.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 09:53:57 -0700 (PDT)
-Date: Fri, 18 Sep 2026 10:53:54 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Francesco Valla <francesco@valla.it>
-Cc: Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Peng Fan <peng.fan@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, virtualization@lists.linux.dev,
-	imx@lists.linux.dev, iommu@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH RFC 00/12] remoteproc: add support for any virtio device
-Message-ID: <aq1sooGCYUiWbhMH@p14s>
-References: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
+        Fri, 18 Sep 2026 09:54:29 -0700 (PDT)
+From: Mikhail Kalashnikov <iuncuim@gmail.com>
+To: Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>
+Cc: devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Andre Przywara <andre.przywara@arm.com>
+Subject: [PATCH 0/4] arm64: dts: allwinner: add Teclast P85T (A523) support
+Date: Sat, 19 Sep 2026 00:54:10 +0800
+Message-ID: <20260918165414.1129076-1-iuncuim@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
+Content-Transfer-Encoding: 8bit
 
-Hi Francesco,
+This series adds initial support for the Teclast P85T, an 8-inch tablet
+based on the Allwinner A523 (sun55i) SoC.
 
-I have started reviewing this set but given the size and implications, it will
-take me a few days to get through.
+This initial submission enables only what mainline supports today.
 
-Thanks,
-Mathieu
+Display (DE/TCON/DSI), PWM backlight, audio codec, camera (CSI/VIN)
+and LRADC keys are deliberately left out, as those blocks are
+not supported in mainline yet. They will be sent separately.
 
+Patches 1 and 2 overlap with Andre's series
+https://lore.kernel.org/linux-sunxi/20260914210115.28151-1-andre.przywara@arm.com/T/#ma8a2554315eccbccdb15ee7ac212a4d0afb45a5c
+They are included for compatibility and differ only in the full company
+name in the description.
 
-On Wed, Sep 16, 2026 at 11:10:45PM +0200, Francesco Valla wrote:
-> Hello,
-> 
-> this patch series introduces the possibility to support generic virtio
-> devices over the remotepoc transport, whereas today only rpmsg and
-> virtio-console are supported.
-> 
-> == Introduction ==
-> 
-> Support for devices other than rpmsg was originally planned [1] and is
-> declared inside the documentation [2], but is in practice not there for
-> the majority of (if not all) the platforms that provide remoteproc
-> capabilities due to memory allocation.
-> 
-> While vrings are pre-allocated in an area that is reachable by both the
-> local (i.e.; Linux) and remote processors, buffers produced by virtio
-> drivers aren't, since they typically get allocated through kmalloc.
-> The aforementioned rpmsg and virtio-console drivers instead use a trick
-> to overcome this limitation and allocate these buffers directly from
-> the remoteproc device's coherent memory area, somewhat breaking the
-> separation between the driver and the underlying transport.
-> 
-> == Well, nice, but why? ==
-> 
-> Main usecase is sharing/virtualization of devices in hypervisor-less
-> mixed-criticality contexts, where a subset of peripherals are controlled
-> by a "safety" real-time processor but still need to be used by the Linux
-> world. Several solutions have been / are being proposed [3] [4], but
-> none of them re-uses the existing, standardized virtio specifications. 
-> 
-> == The proposal ==
-> 
-> The proposed approach is to introduce a bounce buffering mechanism that
-> is transparent to the drivers and can expose to remoteproc devices only
-> memory areas they can access. This is obtained by defining the .map
-> memeber of each registered vdev and use the map() and unmap() callback
-> to bounce data to and from the remote processor, just like the swiotlb
-> framework is doing in other contexts, using the device's coherent memory
-> area and the associated functions to allocate the bounce buffers.
-> 
-> During the map() callback the address of the incoming buffer is compared
-> against the coherent memory address base and size, to pass through
-> buffers already suitable for remoteproc usage (e.g.: the ones allocated
-> by the rpmsg framework).
-> 
-> == Status and open points ==
-> 
-> The series was tested against a custom Zephyr application [5] running on
-> the Cortex-M33 processor of an i.MX93 and exposing six different virtio
-> devices:
-> 
->   - rpmsg
->   - entropy (rng)
->   - gpio
->   - i2c
->   - spi
->   - can
-> 
-> On top of three of them (unsurprisingly: i2c, spi, and gpio) several
-> devices where declared inside Linux devicetree and successfully used
-> (well, technically I'm still experiencing difficulties with gpio
-> interrupts not firing on the M33, but that's not really related to the
-> series). 
-> 
-> Several open points are still present, and needs to be either
-> investigated or discussed:
-> 
->   - for each bounce buffer an entire page is allocated from the coherent
->     memory pool; this is a waste for most of the allocations, which take
->     on average 32 to 64 bytes. An option can be to initialize a DMA pool
->     on one page and allocate small buffers from it?
-> 
->   - the support in its current form allocates more memory than before
->     (for bounce buffer tracking) also for existing usecases (i.e.,
->     mainly rpmsg).
-> 
->   - an additional issue still exist - and is not solved by this series -
->     for a subset of virtio devices: communication through the device's
->     config space. The remoteproc transport expects this config space to
->     be somewhat constant, and there is no provision to sync changes made
->     by the driver with the remote device. This prevents e.g.
->     virtio-input to work.  
-> 
->   - device de-registration on remoteproc stop is causing oopses (under
->     investigation - might no be strictly tied to the series)
-> 
-> == Patches breakdown ==
-> 
-> Patches 1 and 2 are cleanups to the remoteproc-virtio driver and could
-> be applied independently of this series.
-> 
-> Patch 3 was submitted a couple of months ago [6] and paves the road for
-> the actual support of generic virtio devices, removing the fixed number
-> of 2 for the vrings associated to a vdev.
-> 
-> Patch 4 introduces two new APIs for coherent memory areas associated to
-> devices that are used later.
-> 
-> Patch 5 might somewhat be controversial, as it unconditionally defines
-> the VIRTIO_F_VERSION_1 feature for all vdevs. This is required to
-> support some virtio device types, and there is no other mean of
-> defining it, since the field reserved for features inside the resource
-> table is limited to 32 bits. Given that the 1.x virtio specifications
-> are ~10 years old this still seems reasonable.
-> 
-> Patch 6 is were the bounce buffering mechanism is introduced; another
-> feature (VIRTIO_F_ACCESS_PLATFORM) is there unconditionally defined to
-> force the virtio framework to use the new map APIs.
-> 
-> Patches 7 and 8 are new devicetree bindings, the first for spi-virtio
-> (modelled against the existing ones for gpio-virtio and i2c-virtio) and
-> the second for declaring virtio device inside a devicetree. This is not
-> required for some devices (e.g.: can, net, gpu), but for others is
-> necessary to declare child devices and link them.
-> 
-> Patch 9 is used to convince the remoteproc-virtio transport to parse the
-> bindings just defined; it is worth noting that the virtio framework
-> already has the support for devicetree declarations and this adds only
-> the glue between the existing support and remoteproc.
-> 
-> Patches 10 and 11 are i.MX-specific and enable the usage of the newly
-> introduced support on this family of platforms. The first one might
-> probably be sumbitted as-is independently of the series, as it aligns
-> the behavior of imx-rproc to the other platforms in relation to mailbox
-> usage.
-> 
-> Finally, patch 12 is the PoC that has been used to develop and test the
-> series and shall not be merged.
-> 
-> ======
-> 
-> Thank you in advance for any comment you may want to leave.
-> 
-> Regards,
-> Francesco
-> 
-> [1] https://lore.kernel.org/all/1330589497-4139-1-git-send-email-ohad@wizery.com/
-> [2] https://elixir.bootlin.com/linux/v7.2.5/source/Documentation/staging/remoteproc.rst#L26
-> [3] https://lore.kernel.org/linux-remoteproc/20260721204704.400781-1-shenwei.wang@oss.nxp.com/
-> [4] https://cfp.embedded-recipes.org/er2026/talk/PCYPJP/
-> [5] https://github.com/WallaceIT/zephyr/tree/multi_vdev
-> [6] https://lore.kernel.org/all/20260621-vring_flex-v1-1-c6c582fbe94b@valla.it/
-> 
-> Signed-off-by: Francesco Valla <francesco@valla.it>
-> ---
-> Francesco Valla (12):
->       remoteproc: virtio: cleanup rproc_add_virtio_dev error path
->       remoteproc: virtio: replace commas with semicolons
->       remoteproc: virtio: support dynamic number of vrings
->       dma-coherent: add base and size APIs
->       remoteproc: always report VIRTIO_F_VERSION_1 feature
->       remoteproc: virtio: add bounce buffering for data buffers
->       dt-bindings: spi: add bindings for spi-virtio
->       dt-bindings: remoteproc: add remoteproc-virtio
->       remoteproc: search for a fwnode during vdev registration
->       remoteproc: imx_rproc: always use non-blocking mailboxes
->       dt-bindings: remoteproc: imx-rproc: support virtio
->       PoC: arm64: dts: imx93-11x11-frdm: add multiple vdevs
-> 
->  .../bindings/remoteproc/fsl,imx-rproc.yaml         |   3 +-
->  .../bindings/remoteproc/remoteproc-virtio.yaml     |  89 +++++++++
->  .../devicetree/bindings/spi/spi-virtio.yaml        |  52 +++++
->  arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts | 128 +++++++++++-
->  drivers/remoteproc/imx_rproc.c                     |  49 +----
->  drivers/remoteproc/imx_rproc.h                     |   1 -
->  drivers/remoteproc/remoteproc_core.c               |  43 +++-
->  drivers/remoteproc/remoteproc_virtio.c             | 222 ++++++++++++++++++---
->  include/linux/dma-map-ops.h                        |  10 +
->  include/linux/remoteproc.h                         |  24 ++-
->  kernel/dma/coherent.c                              |  34 ++++
->  11 files changed, 562 insertions(+), 93 deletions(-)
-> ---
-> base-commit: 9b87fdc9af2fbfcdb5c24a64139685ef80f6573f
-> change-id: 20260915-remoteproc_virtio_map-bcf32a5fab54
-> 
-> Best regards,
-> --  
-> Francesco Valla <francesco@valla.it>
-> 
+Touchscreen operation requires firmware extraction from the Android
+firmware kernel module; the file will be added to a public repository
+later.
+
+The values below were obtained experimentally via evtest:
+  touchscreen-size-x = <1786>;
+  touchscreen-size-y = <1128>;
+
+With the values below the touchscreen and display coordinates match:
+  touchscreen-inverted-y;
+  touchscreen-swapped-x-y;
+
+U-Boot support requires an LPDDR3 driver for the A523, which will be
+sent a bit later.
+
+A ready-to-use image with working display, audio and touchscreen can be
+found on the Manjaro forum. Patches will be added as other contributors
+add their parts.
+
+Based on 7.3-rc3.
+
+Mikhail Kalashnikov (4):
+  dt-bindings: vendor-prefixes: Add vendor prefix for Teclast
+  dt-bindings: arm: sunxi: Add Teclast P85T tablet
+  arm64: dts: allwinner: sun55i-a523: add I2C0 and I2C1 pin groups
+  arm64: dts: allwinner: add Teclast P85T tablet
+
+ .../devicetree/bindings/arm/sunxi.yaml        |   5 +
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ arch/arm64/boot/dts/allwinner/Makefile        |   1 +
+ .../allwinner/sun55i-a523-teclast-p85t.dts    | 420 ++++++++++++++++++
+ .../arm64/boot/dts/allwinner/sun55i-a523.dtsi |  18 +
+ 5 files changed, 446 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/allwinner/sun55i-a523-teclast-p85t.dts
+
+-- 
+2.55.0
+
