@@ -1,117 +1,151 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1B77431A3C
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 09:56:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF54B43499F;
+	Fri, 18 Sep 2026 09:56:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789725392; cv=none; b=uY8DMw4WEUXID/xdj7/hEXQ4Hfpei/+usq4MOySRq2PAvV+BaN02h86KkRdYSbh5yD14CWvjmv3tI9+pamlJhgswe3Rt9yGT9lEMEfSR3FBQBZnafRnjMhtT9j1curstC8Jbp6LTXfhVFEpMB14z7BezSRwt+F2TYa7IzVi0vZU=
+	t=1789725398; cv=none; b=E9DwoQQWSsY8WpX1zr+Y+OIbj7qzPus4AY414s/3oL9AfcG0eNZEJPvKxDgiPUeEDkka1U8/wxFLTiu1T9HYbdquc9m1eSg/nS6vqBUfpCEhDYH9Ccj3AvKMW5f3l4d4tB4qgawXXjYpi+n/lAZ4OIwjtlCLzPnLyPEtFdwAZtw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789725392; c=relaxed/simple;
-	bh=zqlWQDmwaIOgQkR91IuTGpH5Px5j9vUjOg0+ay+C7Ag=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BBePwYCsamBKXVj9KHcZtbLxgT0Uh0KT+IIQK7x7D7coTaTucHSIoh744M6PGHWNxoxsY7eM7D1uj4VTGme8Oj3sgjC7xZoCskKOgs+VcTTKO87NrVV/6xOyrhXKDvNkEjDfreKlbzU2P3QauKz1p11alIAvP503OrHBFthR+wY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=bJVqEW7H; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1789725398; c=relaxed/simple;
+	bh=CiSEb/w/hPKGx+1V5IuqF0CcPhReOR0zTYDnVEtbQJE=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=AAk90x56NsHWUYeXToGXCVle2ztlsNqGs5267n8FdgXmwWGXExto/LZ0+XZLoCMQObAchPTF93JTBusHV8iLJkjFqTmNgaD7gzaN5LLi4vEZk7Z17mxPYNr9aulzMlpP5zWf/6IUX9FI0/T8B08PaCh0zMJTogFdAcSxMK7DIBw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AMrOfFAK; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="bJVqEW7H"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4858bc96fabso410321f8f.3
-        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 02:56:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789725388; x=1790330188; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Pwt6VmdbigODlTJ+4GTZarReJSK6366BuVdXf1H3UUQ=;
-        b=bJVqEW7HBbaGeip5VED0w32lHpimsAOSM6HtYXzyzO7ISRJ5zev72qGGN1IVPLDazw
-         5MIDdnMoUHr7JsmsY0oiVNvsYQlOlo6HRg8XgDCbp+h6g8quloJab1DtKl0pfH1YTg/a
-         ocAXb8YLWdYqyt7+dfMIEhNIA4AT0JFtUA1and72VMWKwXf9cY9RJhs1gJW833cJUW/F
-         tXM3yV/fXQG51p9A9GwhWX4zLx2u2CQy/aFaL9AE+qZ/+4TDhQuLr4OKOWu4bNX48Ndn
-         0TzLS/bjHl8/eAvk5fiXDvspsl/dNwe6UN2uzYcWWbVoXHHPdLgI2FIeCTM0yDU7SXHy
-         x3AQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789725388; x=1790330188;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Pwt6VmdbigODlTJ+4GTZarReJSK6366BuVdXf1H3UUQ=;
-        b=NIQYhpF4tBwxToFUwqYRefJr/1RQjvP2nJXuJxjrVOEEvbQclXLwJo1DgemFRRSV1+
-         iP25tpTGJBAUyIO8l16+Li1cUQLpRaJVg8XH1cT8qvD8oux+J7HN/1OQqD/k0my+NT+T
-         8DnVCYJSllNSWUaSTMsS2qfifYlvIpMtiv8V0Zpnt1ttLQfNHl4YKoj94NVNrc31rulb
-         qLzI224HwAL+VM705dhPOxpxZ+0MFl7DnoMBw2kqRN0gKTTj+wRXM74nrvA/3qi2nILZ
-         W+W23/OLVK3CDgFyqH/cXFaV10u+brbfWUCiIJGsJzy7wSMUQXLvnlZz6oiJa+iu4LNb
-         JCsA==
-X-Forwarded-Encrypted: i=1; AKwUvByjKsnFvueQAAv93l8eGnRj0pXIHoVSGzvpeS++c/bhTuAkvBfDB+hEsRt3/sdSB57vnq1oSJcP525P@vger.kernel.org
-X-Gm-Message-State: AFuF++loYGwtkzb3/WLq0AGnBDzfdZIG9PhYU+MOGiP7jR7niRhlubho
-	WvdgAOYAwGxnY6qRMdGJVhiatS1E2mKQbCBMSiPTHL2++0y7TfneD3xQ5l7if/boFFA=
-X-Gm-Gg: AYBFou0mCWRwTm2djjm5tscIPx2KXUSIHQp81crgNDsllGa6805JLPvvN6o8Apa2Izj
-	Zk29r3vykZ39FOegyrsWlWrIoGK8tzrf+S6nJUqj2d3JEB71hbQpxBzg9xN5s6r2/O8MOjHqp7v
-	MdOnrAhenJMKvtMkj3ATMPqJV6DQaVXfBPJhabRJokVGW2Il1NJrJNRJVzVSLJFRm7Gsq3bNtfE
-	5tX1Rtqwqpmroxg7WdJWW6UOTtp/PRKZ+CYUmz7GNa6Vnlo/NrkuYzmWtkKhM3uA845yZTEHM/p
-	7gEBynXJtIV4PcuJhoSA4/WcYhCtBLvVehLuIHQro0qc3DTWB7QIwSiTCA5E6YUaomT91fMigD4
-	VYLfCClNF0IDlRtfX9GXA/8YECk6pHEB9sxk42J8vE8ADYU5Acmi8rRWK0uoWi0HdJjySWnZU81
-	s8xGLFmzluEHOoXJOpRSGMSmxthYbCqhnWXdrhSaZek2ag5kvttWwIigKBFftKZyVdV1ir3Wg=
-X-Received: by 2002:adf:e011:0:20b0:487:219e:5e20 with SMTP id ffacd0b85a97d-487219e5fe1mr667041f8f.51.1789725387833;
-        Fri, 18 Sep 2026 02:56:27 -0700 (PDT)
-Received: from [192.168.3.100] ([151.42.87.32])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4872008fe3csm2829597f8f.37.2026.09.18.02.56.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 18 Sep 2026 02:56:27 -0700 (PDT)
-Message-ID: <7da24c37-3f6a-4a85-a06c-3d587f6ed4e5@baylibre.com>
-Date: Fri, 18 Sep 2026 11:56:26 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AMrOfFAK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789725397; x=1821261397;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=CiSEb/w/hPKGx+1V5IuqF0CcPhReOR0zTYDnVEtbQJE=;
+  b=AMrOfFAKV6LhnoXrZ8wUHRqAIKlOeZ2eybCDMCcEZwPS4bzuJv15ny1H
+   uHeSjOgoxhs9gA6c9fLdLnDj56nDAfG6wEgwmrmOWQYdVwtROOUxbj2Kq
+   oOEK0DbeIzuZ0SDSvkA71cun3bNgY1QUPa9aetO7Olz4MV2ob0VkvzSrS
+   Z/6Bba1RGccHHfS+Gjnyd+Wij+Vd7b24S5L36zGQwgCrUwiBODC5wqEpO
+   r3h0+g9mxzma4JQgHPo87ilOxraZlcnQGFwl42hfkcPkGEBkHxVVKNvTU
+   AyjZAQSuLasuiT/CVMVnNMWsH99H0qJKKmn4UeXvxuwWESZ0T5HjQ+JDS
+   Q==;
+X-CSE-ConnectionGUID: NWRiygS6TqapUKMNqCmDjg==
+X-CSE-MsgGUID: r2UGSjiXR7SNgbLSxolPdw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="100817903"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="100817903"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 02:56:36 -0700
+X-CSE-ConnectionGUID: JmGyV9RqTd64rl9Pt6oRVg==
+X-CSE-MsgGUID: LsAFugHUT72pesSc5w3tJA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="2547012"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.223])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 02:56:27 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Fri, 18 Sep 2026 12:56:24 +0300 (EEST)
+To: Moteen Shah <m-shah@ti.com>
+cc: "Kumar, Udit" <u-kumar1@ti.com>, 
+    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, krzk+dt@kernel.org, 
+    linux-serial <linux-serial@vger.kernel.org>, 
+    LKML <linux-kernel@vger.kernel.org>, Jiri Slaby <jirislaby@kernel.org>, 
+    devicetree@vger.kernel.org, gehariprasath@ti.com, vigneshr@ti.com, 
+    nm@ti.com, a-limaye@ti.com, y-abhilashchandra@ti.com
+Subject: Re: [PATCH v2 2/2] serial: 8250_dw: Add capability to skip empty
+ FIFO read
+In-Reply-To: <307c005e-9a37-41cc-871a-6167a54d3a37@ti.com>
+Message-ID: <ee666d60-1838-c54a-375b-1173b8140c01@linux.intel.com>
+References: <20260916085520.2259420-1-m-shah@ti.com> <20260916085520.2259420-3-m-shah@ti.com> <5fe0efdf-6d61-dba4-9703-269dfd68ae13@linux.intel.com> <5801b899-8090-4bff-b4e2-c3e8c97b0eb3@ti.com> <d82f9326-6a01-2903-a1b7-b1617ca85db9@linux.intel.com>
+ <307c005e-9a37-41cc-871a-6167a54d3a37@ti.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/6] ASoC: meson: aiu: add I2S Capture DAI
-Content-Language: en-US
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, linux-amlogic@lists.infradead.org,
- neil.armstrong@linaro.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-References: <20260917-audin-v2-0-38de4bc1de34@baylibre.com>
- <20260917-audin-v2-4-38de4bc1de34@baylibre.com>
- <20260917212019.4ECE61F00893@smtp.kernel.org>
-From: Valerio Setti <vsetti@baylibre.com>
-In-Reply-To: <20260917212019.4ECE61F00893@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="8323328-980105281-1789725384=:15314"
 
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-> 
-> [Severity: High]
-> Does adding this capture stream introduce a permanent clock divider leak when
-> hw_free is explicitly called?
-> 
-> Now that both playback and capture streams can be active simultaneously,
-> snd_soc_dai_active(dai) can evaluate to 2.
-> 
-> In sound/soc/meson/aiu-encoder-i2s.c:aiu_encoder_i2s_hw_free():
-> 
->      if (snd_soc_dai_active(dai) <= 1)
->          aiu_encoder_i2s_divider_enable(component, 0);
-> 
-> If a user opens both streams so snd_soc_dai_active(dai) evaluates to 2, and
-> explicitly calls SNDRV_PCM_IOCTL_HW_FREE before closing them,
-> snd_soc_dai_active(dai) remains 2. This skips disabling the clock divider.
-> 
-> When the streams are subsequently closed, the ALSA core skips invoking hw_free
-> again because the state was already changed to SNDRV_PCM_STATE_OPEN. This
-> would leave the clock divider permanently enabled, potentially draining battery
-> or blocking system suspend.
-> 
+--8323328-980105281-1789725384=:15314
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-Oh, this seems to be a right claim. I can use 'ts->clk_enabled' for this 
-and gate the call to 'aiu_encoder_i2s_divider_enable' based on what both 
-streams are doing.
+On Fri, 18 Sep 2026, Moteen Shah wrote:
 
-Let's wait a bit for other comments (if any) to show up, then I can 
-prepare a v3 to fix this.
+> Hey=C2=A0Ilpo,
+>=20
+> On 17/09/26 15:10, Ilpo J=C3=A4rvinen wrote:
+> > On Wed, 16 Sep 2026, Kumar, Udit wrote:
+> > > On 9/16/2026 4:22 PM, Ilpo J=C3=A4rvinen wrote:
+> > > > On Wed, 16 Sep 2026, Moteen Shah wrote:
+> > > >=20
+> > > > > dw8250_handle_irq() does a bogus RX read on RX_TIMEOUT with no da=
+ta
+> > > > > present, to avoid an interrupt storm. The UART core also performs
+> > > > > unconditional reads on the empty FIFO during startup and shutdown
+> > > > > of the port. On the IP version used in TDA54, that interrupt stor=
+m
+> > > > > no longer occurs, but reading an empty FIFO instead triggers a da=
+ta
+> > > > > abort.
+> > > > >=20
+> > > > > Add a new capability to guard against the empty FIFO reads, avoid=
+ing
+> > > > > the data aborts.
+> > > > >=20
+> > > > > Signed-off-by: Moteen Shah <m-shah@ti.com>
+> > > > > ---
+> > > > >   drivers/tty/serial/8250/8250.h      |  1 +
+> > > > >   drivers/tty/serial/8250/8250_dw.c   | 16 +++++++++++++++-
+> > > > >   drivers/tty/serial/8250/8250_port.c | 12 +++++++++---
+> > > > >   3 files changed, 25 insertions(+), 4 deletions(-)
+> > > > >=20
+> > > > > diff --git a/drivers/tty/serial/8250/8250.h
+> > > > > b/drivers/tty/serial/8250/8250.h
+> > > > > index 77fe0588fd6b..45e13c3a8c14 100644
+> > > > > --- a/drivers/tty/serial/8250/8250.h
+> > > > > +++ b/drivers/tty/serial/8250/8250.h
+> > > > > @@ -86,6 +86,7 @@ struct serial8250_config {
+> > > > >   =09=09=09=09=09 * STOP PARITY EPAR SPAR WLEN5
+> > > > > WLEN6
+> > > > >   =09=09=09=09=09 */
+> > > > >   #define UART_CAP_NOTEMT=09BIT(18)=09/* UART without interrupt o=
+n
+> > > > > TEMT available */
+> > > > > +#define UART_CAP_RXFIFO_EMPTY_READ=09BIT(19) /* UART needs LSR_D=
+R
+> > > > > check before RX read (TDA54) */
+> > > > IMO, this define naming contradicts with the comment because you
+> > > > effectively say "capable of reading Rx while receive buffer is empt=
+y",
+> > > > not
+> > > > that it needs DR check before issuing that read on buffer (~ named
+> > > > exactly
+> > > > opposite of the actual meaning it is being used in the code).
+> > > >=20
+> > > I echo your comments; the naming should reflect that the IP does not
+> > > allow reading an empty FIFO.
+> > I now recalled we've also the pending RBR -> SRBR change:
+> >=20
+> > https://lore.kernel.org/linux-serial/20260908141524.20302-1-yang.yicong=
+@picoheart.com/#t
+> >=20
+> > I wonder if a similar thing would help in this case as well?
+> >=20
+> > I understand this patch covers more ground than the SRBR patch but can =
+the
+> > IP used in this case read SRBR without aborting?
+>=20
+> The IP that TDA54 uses does not supports the shadow registers, hence we w=
+ill
+> have to go through the quirk/capability path.
 
--- 
-Valerio
+Fair. Thanks for confirming.
 
+--=20
+ i.
+
+--8323328-980105281-1789725384=:15314--
