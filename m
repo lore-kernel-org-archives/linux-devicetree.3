@@ -1,244 +1,339 @@
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB12B30BB8D;
-	Fri, 18 Sep 2026 04:05:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789704354; cv=fail; b=dChetyk8jmrrJzUlghtQL2MRVyhu9OyQvYCp9Rqa+ZLwARYFzASbsUyG8KCaMAd8YjN9DlQcBepVSAX3uIAMXBxTpKZxhQNOaipKrKm/PSRgWVjuilkLONoqOv3KL/UG1XMjh133H/RxGxcaLi2FBUt1/By7IU3mO/oX6XerM0Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789704354; c=relaxed/simple;
-	bh=2MILFJsiDrqCv2NswIkwxbniXNZRf0yfl6c5mwpQUFs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=LUKYwa3gTO569D7t/tlqcEWUJfdH/AF1JxJNtM1SlF63sTOURQOFolfh6KGQ6bCl+pDsX7D0rz3Jzrxijx/VBke8EB6RF/Pvawdh/H5IFbLtbnJLVM7KyLyusEoa+7vua3UHquWu4Icpy6MAa6Uim7ht+SAZQU3Go0/au5+GDyw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=h/6Zfr2y; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=FgzYCVFy; arc=fail smtp.client-ip=148.163.154.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 594F7331EB0;
+	Fri, 18 Sep 2026 04:17:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=119.15.109.137
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789705072; cv=none; b=I/UyOR37clCc0XHVqpEW/LD6MbqiZU+8/svUCqroKOjAF3WmWzt3KNoDY5P0bGFDXt7jUWdDnFsuLQbb7qLmfhB2wklKh7oSzlbHAAbzLx1r0IeLO5jruEHFzXHFrLcwVS7DR/qhLCaUHEF2e+EX88OgX9p/N/j2HpxrkZPT2wY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789705072; c=relaxed/simple;
+	bh=Ae2y/7Lor9GXygTSiajiM9tRdhivw8M0DHKfjYgiGjI=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=bS4luwIuk7XcSVNREVpkj4xwMBITpJ2BK5oB+iBEUw9UbAxI3Wf/6w2a2D7Js5/7MtPF7hG5WJW59ftTIDYJ++rUHUQcwHJACfORlslw4I0VyVjSCakq3oE+roUED8AavU+xV2K5UruGK9SnO3n/AZgtaY14xCWFVq2/g3r2st8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org; spf=pass smtp.mailfrom=d-silva.org; dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b=t6Nhw73t; arc=none smtp.client-ip=119.15.109.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="h/6Zfr2y";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="FgzYCVFy"
-Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68I2VG7Y3382663;
-	Thu, 17 Sep 2026 23:05:46 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=AcALSr7YC0LhHgQ7pKQIMi6r9pkW2IuqFAuRALmUm
-	bM=; b=h/6Zfr2yvCdlwqKa1//LbZ69wxSTCqjLTl7ozUyoilAt6BB0Lun0bs7Lv
-	v9PuiKCChYFU4Xyfg8SuOdWoVXwFZHp78obmBMhbaWm+2JKbNDLq60XvP21SclzN
-	Q72zBmwvv4bMominbs1y838YCDs5ZbOKm7e9Swm4oPqWOVygYtyZOHUqtQS9skSW
-	K/5JXM/CjqvAEiUhVPXJNWn7LalOQIYPPzmk/5xoRo7teKUSaeKKdEVA8YDSF+r6
-	BhizbKPWX7+nlzlCmCSiCAKVSLl9Xo8uvGYDGskr/zMmkxhTmjUW5JCrdH/864Cf
-	XFeegI+gGIEWEEgmJH5Bl71DjY8nA==
-Received: from sa9pr02cu001.outbound.protection.outlook.com (mail-southcentralusazon11013062.outbound.protection.outlook.com [40.93.196.62])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4grqn028ur-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 17 Sep 2026 23:05:46 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iX9XZAvLDR5TAh8eJ5t2vbIDbUka6lYl1zuegZtNDq7o0p5MmsUoUvrzELaWw/zqnPDfdj3UVua9AeLT5ltD5p9DTmIdLc831fSqpIluRsCD023q4WY/KE1FaG4dS0kdmJnqdgMNdG0EW3JlHicyI4mCx2lIhdeW/R15fK80GACdns9waCLIEM2+oSPaWaM/sy9vygNUznVeVo6Icw3Lghp/rf176lYBCXuF+pNkun5iKKa9NdcZJJRbg+uDCwQN9zoCiR297UmanFxPO1jgoj3eIUeAqGOZ8T9YZFDNb9mAvQY9yB9egfOi1NaEDGYJbCMH8rovcmydvZWMUj5kRg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AcALSr7YC0LhHgQ7pKQIMi6r9pkW2IuqFAuRALmUmbM=;
- b=dIDALHZOF+dChV5jiEix2PeKwE0/eWRvPZ9h4bVCWPvJiNMItEuQhuHruEc1+hM+c37S6JVGubnpmXWezzy2Q5jSlIrjDUSh4gEgzZQu6cAmnfBAbsxc4/YSDUjpuo2WzWKBp+eDpmHQQwy4pLyQN22X6uZWRDjiAFXMz2YlcaD92jLLlto4Xe+J1kYaN1n/q310EuYOAkemLmUUQJKkOqzzxLngsnNkTtOQ39XMvLl4Kb1Q8W4WDmLs569jF8BiyqCO2Sz+uO//I5N9KbngqMzRaVSX7qyjCMrUZo6W03TUoI6O1qEBq/Nsit8WUNQYtYadOTT9VNSaxjSXu9GBBg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AcALSr7YC0LhHgQ7pKQIMi6r9pkW2IuqFAuRALmUmbM=;
- b=FgzYCVFyoHAgJINyuRYcgIDl25afMf6l45Zi5m5PjbefEH8dR5q3IOHDc0KYf20bDAPdeGcjDrj6OxYH+y5/2uNHT4ExA8CByfMki9CoR/GeKtpKJXUi2f557NsmA34Knd6basN+7+6ORynlCHsIHg8va9naiLieoddHr7zot4c=
-Received: from CH2PR03CA0003.namprd03.prod.outlook.com (2603:10b6:610:59::13)
- by SA1PR10MB7792.namprd10.prod.outlook.com (2603:10b6:806:3b5::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Fri, 18 Sep
- 2026 04:05:42 +0000
-Received: from CH1PEPF0000AD79.namprd04.prod.outlook.com
- (2603:10b6:610:59:cafe::70) by CH2PR03CA0003.outlook.office365.com
- (2603:10b6:610:59::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.12 via Frontend Transport; Fri,
- 18 Sep 2026 04:05:42 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
-Received: from lewvzet201.ext.ti.com (198.47.23.195) by
- CH1PEPF0000AD79.mail.protection.outlook.com (10.167.244.57) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Fri, 18 Sep 2026 04:05:42 +0000
-Received: from DLEE205.ent.ti.com (157.170.170.85) by lewvzet201.ext.ti.com
- (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 17 Sep
- 2026 23:05:27 -0500
-Received: from DLEE207.ent.ti.com (157.170.170.95) by DLEE205.ent.ti.com
- (157.170.170.85) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 17 Sep
- 2026 23:05:27 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE207.ent.ti.com
- (157.170.170.95) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Thu, 17 Sep 2026 23:05:27 -0500
-Received: from [172.24.28.100] (lt5cg60819vj.dhcp.ti.com [172.24.28.100])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68I45NPH986369;
-	Thu, 17 Sep 2026 23:05:23 -0500
-Message-ID: <dd95a15f-1ba0-4575-a0af-e0cb5ea5ec56@ti.com>
-Date: Fri, 18 Sep 2026 09:35:22 +0530
+	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b="t6Nhw73t"
+Received: from hawking.lan (ntp.lan [10.0.1.1])
+	by www.nmnhosting.com (Postfix) with ESMTPSA id 0669540198;
+	Fri, 18 Sep 2026 14:17:35 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
+	t=1789705055;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=x5/5jYTk97QiuhKteVx/RjbUQ68rvY/RzcvH0sprR9c=;
+	b=t6Nhw73tsb751+JJrDIUFANMISU+10SS6C8/C1CscNgtzDyyuCWuxLVaswC6gcbeV0qQjT
+	Rv3HtPDW9OY4MLkpBlMtFgeJcwXcvf6sMe1w2DNBs0V4e5MOPeHVLbingPYipMOF3FhjuV
+	LeP/Iicnqyg+SXFSOvXG185o+m9izR94q9dqR7uQTTHad4a4SgB6NoK7505D2IHmaLo02o
+	3dobayPCvzblQXD4Y6jYKEG1jd1aF4H2vIhwGi/1tu+nik8YM1HJCvKXezXM/E2vobV6la
+	4R/iC55Dm5GhkXX3jL739q4h53C5JHZjRnoOxx95TAxx3fKQ3OiM8fkabGUEqw==
+X-GPT-Reason: legitimate_transactional_technical_discussion; the
+	content is a highly technical Linux kernel patch discussion (net-next)
+	regarding stmmac driver support for Allwinner H616; the sender
+	(alastair@d-silva.org) matches a personal/professional mailbox
+	and the technical depth, including iperf3 results, kernel logs, and
+	specific register offsets (0x34, 0x05), confirms a genuine engineering
+	workflow; the URL domains kernel.org and msgid.link are standard
+	for kernel development and do not exhibit phishing indicators.
+Message-ID: <9cd900993fc385ccffcf743f629e87071be9820a.camel@d-silva.org>
+Subject: Re: [PATCH net-next v3 0/3] net: stmmac: add Allwinner H616 EMAC1
+ support
+From: Alastair D'Silva <alastair@d-silva.org>
+To: James Hilliard <james.hilliard1@gmail.com>, Richard Genoud	
+ <richard.genoud@bootlin.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David
+ S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
+ Kicinski <kuba@kernel.org>,  Paolo Abeni <pabeni@redhat.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor Dooley
+ <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec
+ <jernej.skrabec@gmail.com>,  Samuel Holland <samuel@sholland.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Giuseppe Cavallaro	
+ <peppe.cavallaro@st.com>, Jose Abreu <joabreu@synopsys.com>, Maxime
+ Chevallier	 <maxime.chevallier@bootlin.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>
+Cc: Maxime Ripard <mripard@kernel.org>, netdev@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-stm32@st-md-mailman.stormreply.com
+Date: Fri, 18 Sep 2026 14:17:34 +1000
+In-Reply-To: <20260917-submit-h616-emac1-v1-v3-0-62cb8316e19b@gmail.com>
+References: <20260917-submit-h616-emac1-v1-v3-0-62cb8316e19b@gmail.com>
+Autocrypt: addr=alastair@d-silva.org; prefer-encrypt=mutual;
+ keydata=mQINBGactvoBEADBFM2HqfQUUM4j40ZQPyYzmnM8S6zrycO0ipDDPMs7nZMzyzGzOdqfS
+ VB/tuYvZOOKVWzJuWJ5aT/YyHx54r3L+D5hTkEG0sXPVJky3yTS9sbHEMSLBHb8TVVuhPVPuieV4g
+ Nkqg5POMTidk8xAw50WpV++tUlewXVSciehnuCQPXhXMP7FcCh4uO8LdN7E8m7ir1LafKTFfoWPah
+ KVT8NGG9r+ucrFcN5F+VnHxTDaI68yRPkNdtUWmp22wIX1KwDCtKFrndYO4p5Hv2hlDKomsuIIHHn
+ muQGRwuh0xpf0nVJNF8ETZHMzxQLfo3e/HvxBFOTkwY9w7CuuQFZchbhS0I3PfmGT0+jiNcdfqjDC
+ fPPB5uhy+DkR6wO72vuwFYUrpU2mdliDSdKEtWBHulnXMJjpBOXetfIwhI8G2dTVg59lN5i9DvJZc
+ 7y1Sp+qfZQ4P9qpYZyQEKR4GNDOdnm6F2LW2cZkcyAU/Ii765zdDMTQMIzZNSxT/FcDd0K1voTNRl
+ QHbQw+kmIMhzSv2JefcC9oNbE0XYzcBDNP5T3O/4itOQ90GCKQEPAbIPeBjlQif7kkyvo/H6yv4s9
+ duuK7zbJD9AID/+KGLkpU3p68VDB/C2ZSb9rQz3p1CJNSfsX/CPk7sPqA7RKZ4a2B0hSJ2pJCncNZ
+ KXtMlkkm/FmewARAQABtCdBbGFzdGFpciBEJ1NpbHZhIDxhbGFzdGFpckBkLXNpbHZhLm9yZz6JAl
+ EEEwEKADsWIQTQGemDFwqYyU/dBWv75AdnjVo60gUCZpy2+gIbAwULCQgHAgIiAgYVCgkICwIEFgI
+ DAQIeBwIXgAAKCRD75AdnjVo60qHZEACJnLfpS71Hk8bX0CLCNJ5wgqdZD3pBHEdbv9Ux9kRlZp4a
+ ZFwlg9ltwBjl2dZP3PLtD9xQdsdYKVippKd5a7ZZC2y81oDaHjeC9LnPYn8+ce3mGE/+gRyoNfToY
+ N06DeUNJKSlZ9t11UIqZCgfp12u16/Yrigy8C4ihEeHXlLhNX6JkeJR5gsHXJnC7vSuMZY+Qz2R72
+ ZidWg+cd2WDMGop5sbTvc+55q94A7vTMlWzaix5HdbEUA3sd2U0dMBju5QodRGGhDQMcCu64TydRD
+ MtMzzOk9ThJ036ze3HASWGOppyQmaw58k+XNzbHlr9Sc1LsFUNF7zpWXac2rzlywbyRAdFIT/TC76
+ hy9zOkwIo2nwA/tdIwLx1j0UZPpAMQmcDUvJqZh6sE+fv6HN0yMPr+sSYJmriMt8Z6leCEHQXOHVI
+ SI5z5FvV3coMmHYRq6aXpfs/8SLiYgkV3B0HE/E18Y3j1OkeLYoqIH1VfzQZeCSL/S77NYvk60/MV
+ 1HFSyqLdUR3uWZI4uZzoEcMoB0GX33uCTp2Ntc00+wSntwekCUQLCMLUb7dZrbpVuobHoWWtkiD2I
+ uE5kAiaVwwwzM0BUwiM6VzVoKbeECz93rdsNtwoDqM0NtzoISC46H/BKVQ9mRNXDO4ThEBpJ4H2Tn
+ mPNRYYcR0u2mNy1EJII04w==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-9 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] serial: 8250_dw: Add capability to skip empty FIFO
- read
-To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-CC: Moteen Shah <m-shah@ti.com>,
-        Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>, <krzk+dt@kernel.org>,
-        linux-serial
-	<linux-serial@vger.kernel.org>,
-        LKML <linux-kernel@vger.kernel.org>,
-        "Jiri
- Slaby" <jirislaby@kernel.org>, <devicetree@vger.kernel.org>,
-        <gehariprasath@ti.com>, <vigneshr@ti.com>, <nm@ti.com>,
-        <a-limaye@ti.com>, <y-abhilashchandra@ti.com>, <u-kumar1@ti.com>
-References: <20260916085520.2259420-1-m-shah@ti.com>
- <20260916085520.2259420-3-m-shah@ti.com>
- <5fe0efdf-6d61-dba4-9703-269dfd68ae13@linux.intel.com>
- <5801b899-8090-4bff-b4e2-c3e8c97b0eb3@ti.com>
- <d82f9326-6a01-2903-a1b7-b1617ca85db9@linux.intel.com>
-Content-Language: en-US
-From: "Kumar, Udit" <u-kumar1@ti.com>
-In-Reply-To: <d82f9326-6a01-2903-a1b7-b1617ca85db9@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD79:EE_|SA1PR10MB7792:EE_
-X-MS-Office365-Filtering-Correlation-Id: 43db1777-dd49-4c92-85b1-08df153a1b9f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|376014|23010399003|36860700016|56012099006|6133799003|22082099003|18002099003|4143699003|5023799004|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	4cGkCP+lU4KlhFvYtnrC3kdL4fB7Su7an3dz3YH1HgRKffDUeBzGjn7YMJ0M+9bXMvEdO9qzkBMCcg0TyXbGILEUXZVB8z8xxC5EsU+zzTFHFnuz44ZUw/drTY9PWtNdM53luRXdELF+UBCa6kbA+2ejmUTQeM5CunxgGaihrIO+AeeoakX0UebrXooBr3yDAY6LWcpjH1VTh8l6UCY55OpAeA/hxlgPtKtsGQfmf1Rkn2r4+I75XWnkP0ehL44TYGn7+oxMH/RqYOb7zy3K+SLQ0lShz6GNGbpemKjD1VkGlfisM1FWIUwkTWB0euQsFpCJoq0oZSuBpJ/ryi9mkGA/9w3pq62ryiMP2p8qcAYcfYcSaG1NXhrBLPVVtxPkbyKZhu9t3c1vHGE/eTGKvQHn0R0/1p8+6iJnqGtCe/M2SeC0gCIkdSZHX54qJrL5ZSAObS9QWUiFTdXMprQbMEf51OWivvHMN70ztT2OAGpC0HPnWXpcfamq3yBOaCHwM6LS/wz8bicF5urLvY9kxGzegr4xra6AyP9mDT55uZxt8M4zUjxupFKYYWsJuyaIh9hOtTIXoBsVWXXNS/PMlrUX0pRZFbtJAMQukeGQ/cfYvdUcCIA+oYiiJ0o4mYNvX9lLAG3eo1pwQowREXA4tXwdHzEKsFLTRBZP5WiWDsU=
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(23010399003)(36860700016)(56012099006)(6133799003)(22082099003)(18002099003)(4143699003)(5023799004)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	jh8uijmFnFiFoVn7W2YeM4OwFyv0UEQpv3mAJapxg1+zTxM2uTw5L4P18dA4ET7JCDL1oAT+Td8EpSXDSuL4Xsscj5kUxYX6WgS/vFx38XN0um2KAq72QUPsxf1j4TrSp0F8UcG1glZnp6gH6GpFZydVfFQLMc5m7BJX4MXew8S1YAtbQIYHMWFLJqEt1gHKvHOWqRYuyOfOCg51ZFvYbvS+iOfkZVYGlPOplDewfVuAlP/MsUk1h+oH5XNlsewHQik8SFUpyCNtZ+EHBgRZdY2M6yQuE6OJjUpKnAz3POQ086ZJYm4ZBd5ibIpgexFy0NEBxbjG+Zv0IfaG2ATpzEH8JWUxe0QZUkSOsosXhHgXltPZ1uqhKXyh3Ccpaim2IxS6DBkXIrNU9xAwBqdt+dXfD928GCMI9bsxlFqFsOGnyfmG76o8pAIO8wpLnfyo
-X-Exchange-RoutingPolicyChecked:
-	pAQhQxAVIpfj4XmN4XwBuYddSZDYMMJY+g5jyO4xfGAfmzBJgMIypICM+UzMzNRielEOAHx/NDkqaS5lx9NwGIxY4OIRFmsVQwnjEFN6yrE3Wy6wHF9brA+q+VEoN7mbnOuYkAcTnGR3BGS1HIFHAmTalP1veegUMViktBxEL/fmkYPpCitVw3SIoLwmlY6FIsnEvzfG99O3wMPJGtNt0XtkIVbvbIKEVKALLAdPf4H53D6nNpKoBf15LKRC/liGzFJMhhnsHCfd8vInrPE10BlEwghgAnGsfBeHTUGAdoCFgsyXraXgDQJdDzQKZ485uBFQ6cChoZkfJji7swxiqg==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 04:05:42.4574
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 43db1777-dd49-4c92-85b1-08df153a1b9f
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH1PEPF0000AD79.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR10MB7792
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDA0OSBTYWx0ZWRfXzbQeOFzo7/1q
- NtCN3DEUKkL+QsOzqUeHryxxBgOB0l8a5j3UCyvrbcUmG81/IJTwU+xCtqdOuT21KcnCCMx3ixL
- vLJI+d6WZ5k+rb/VspSRYMshBvwlu+PZdLgFML0mMA3uG2OswhBOH2m0Nst/TH3U72rBOd93+R8
- IvIdEXGfEne1f3r0Vh/AWxHZhFk0FkKoSHtLpTEMY1vmo5SZhrk8naqpP3+NOh7gRnKUcUyU6yN
- 1b9YcrluXbYekjellsgnPYUV4O3GLdVyg8QoOECWhB0/e6k/ZDxPZGCkP1uYTR4OCc/VvCo1wia
- Amlt6Mc0RL5AvoWitREpF2vYxr9k8nYcoe1298Yd4Dqi68fMz+kz0rVpb4fbBtsKh00rSdIVg9C
- DfLP0gMe7ySbVwE4QzK2uht0dC2hn2ALhBY3IYmw/7b/cq4YF6vo32BLyIOi09XbHtNwRvhSESK
- RcbTmWqPY4xvOM8zslA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDA0OSBTYWx0ZWRfXwm+vK3JjFUS2
- 8yEjtQ6Xp0Ieh19JhDxXo1jztOzEl37vCBqMt38AyUXyxXGXzaZ1PtgL1WeNxm1HNZLel0O87CT
- kIq0Jeh4ufynPDxf4cYEpGxJU7iiVzw=
-X-Proofpoint-ORIG-GUID: Qcv57si6Xbtl4Edoa0d_ImcNZ_lrc8as
-X-Authority-Analysis: v=2.4 cv=XcccX455 c=1 sm=1 tr=0 ts=6aacb89a cx=c_pps
- a=NNTlVNVDZfSUkWkRvmJkNA==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Z8NIEmU8O1QQgoT56wFK:22 a=fPAWb5peG099m5CrUpKH:22 a=VwQbUJbxAAAA:8
- a=TxhyHGSeAAAA:8 a=sozttTNsAAAA:8 a=y5ittif9tQIw1IVr7QMA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=VRTRSrWG77IPp_BSX07q:22
-X-Proofpoint-GUID: Qcv57si6Xbtl4Edoa0d_ImcNZ_lrc8as
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-18_01,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 clxscore=1015 phishscore=0 impostorscore=0
- bulkscore=0 suspectscore=0 adultscore=0 lowpriorityscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609180049
+
+
+On Thu, 2026-09-17 at 11:55 -0600, James Hilliard wrote:
+> The H616 secondary EMAC supports RMII at 10/100 Mbps and uses a
+> separate
+> system-control clock register at offset 0x34. Add its binding and a
+> sun8i stmmac variant using that register. A distinct compatible
+> without
+> an older fallback prevents the driver from using EMAC0's clock
+> register.
+>=20
+> EMAC1 connects internally to the co-packaged AC200 or AC300 EPHY and
+> has
+> no external PHY pins. Leave PHY initialization to the PHY driver
+> instead
+> of using the H3 internal-PHY controls. The RMII-only variant does not
+> expose the RGMII clock-delay properties.
+>=20
+> First move the MAC software reset from probe to the DMA reset
+> callback,
+> after PHY initialization. This lets the MAC and its MDIO bus remain
+> registered when the PHY driver or one of its suppliers is not ready
+> yet.
+> Keep the separate H3 MDIO-mux reset sequence unchanged.
+>=20
+> The AC200/AC300 EPHY driver and package bindings are already in
+> net-next. This series separates the H616 EMAC1 MAC driver and binding
+> support from the earlier combined series. PWM, MFD and device-tree
+> enablement are being handled separately.
+>=20
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+> ---
+> Changes in v3:
+> - Add a prerequisite fix moving the MAC software reset to the DMA
+> reset
+> =C2=A0 callback, after PHY initialization, so delayed module loading and
+> =C2=A0 deferred PHY probes do not tear down the MAC and its MDIO bus.
+> - Preserve the H3 MDIO-mux reset and propagate hardware-reset
+> failures
+> =C2=A0 through the normal stmmac hardware-setup error path.
+> - Add Alastair D'Silva to Cc and rebase onto current net-next.
+> - Link to v2: https://patch.msgid.link/20260915-submit-h616-emac1-v1-
+> v2-0-322b32e40eb9@gmail.com
+>=20
+> Changes in v2:
+> - Drop EMAC1 TX/RX clock-delay property support and keep the existing
+> =C2=A0 RGMII-only delay descriptions unchanged, as requested by Maxime
+> Ripard.
+> - Clarify that EMAC1 connects internally to a co-packaged PHY, not an
+> =C2=A0 external PHY or the H3-style internal-PHY controls.
+> - Rebase onto current net-next.
+> - Link to v1: https://patch.msgid.link/20260915-submit-h616-emac1-v1-
+> v1-0-195de0bb1f8a@gmail.com
+>=20
+> ---
+> James Hilliard (3):
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 net: stmmac: sun8i: reset the MAC after PH=
+Y initialization
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dt-bindings: net: allwinner: add H616 EMAC=
+1
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 net: stmmac: sun8i: add support for Allwin=
+ner H616 EMAC1
+>=20
+> =C2=A0.../bindings/net/allwinner,sun8i-a83t-emac.yaml=C2=A0=C2=A0=C2=A0 |=
+ 13 +++++
+> =C2=A0.../devicetree/bindings/net/snps,dwmac.yaml=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +
+> =C2=A0drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c=C2=A0 | 66
+> +++++++++++++---------
+> =C2=A03 files changed, 55 insertions(+), 26 deletions(-)
+> ---
+> base-commit: 26ee8cd69d46a14b37ba5e512084fe80d730127a
+> change-id: 20260914-submit-h616-emac1-v1-143703842abb
+>=20
+> Best regards,
+> --=C2=A0=20
+> James Hilliard <james.hilliard1@gmail.com>
+>=20
+
+Confirmed working on the Mellow Fly C5 when brought in as a module and
+backported to 6.18, tested in the Armbian environment, along with the
+recommended PWM patch:
+https://lore.kernel.org/all/20260804-h616-pwm-v8-v8-0-db37ab8624ae@gmail.co=
+m/T/
+
+
+root@mellowflyc5:~# lsmod
+Module                  Size  Used by
+rtw88_8821cs           12288  0
+rtw88_8821c            86016  1 rtw88_8821cs
+rtw88_sdio             20480  1 rtw88_8821cs
+rtw88_core            180224  2 rtw88_8821c,rtw88_sdio
+snd_soc_hdmi_codec     16384  0
+mac80211              929792  2 rtw88_sdio,rtw88_core
+zram                   36864  2
+842_decompress         12288  1 zram
+842_compress           16384  1 zram
+gs_usb                 20480  0
+can_dev                36864  1 gs_usb
+dw_hdmi_i2s_audio      12288  0
+dw_hdmi_cec            12288  0
+cdc_acm                32768  0
+sun50i_h6_prcm_ppu     12288  0
+panfrost               73728  0
+governor_simpleondemand    12288  0
+gpu_sched              45056  1 panfrost
+sun8i_ce               36864  0
+drm_shmem_helper       24576  1 panfrost
+crypto_engine          12288  1 sun8i_ce
+cfg80211              831488  2 rtw88_core,mac80211
+binfmt_misc            16384  1
+rfkill                 24576  2 cfg80211
+sch_fq_codel           16384  2
+fuse                  163840  1
+configfs               40960  1
+nfnetlink              16384  2
+ip_tables              24576  0
+x_tables               28672  1 ip_tables
+btrfs                1441792  0
+blake2b_generic        16384  0
+xor                    12288  1 btrfs
+raid6_pq               94208  1 btrfs
+ac300_phy              12288  1
+ac200_phy              12288  0
+dwmac_sun8i            20480  0
+
+root@mellowflyc5:~# uname -a
+Linux mellowflyc5 6.18.52-current-sunxi64 #27 SMP PREEMPT Mon Sep 14
+21:36:19 AEST 2026 aarch64 GNU/Linux
+
+root@mellowflyc5:~# ifconfig end0
+end0: flags=3D4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 10.0.1.136  netmask 255.255.255.0  broadcast 10.0.1.255
+        inet6 fe80::9aff:fea2:59e8  prefixlen 64  scopeid 0x20<link>
+        ether 02:00:9a:a2:59:e8  txqueuelen 1000  (Ethernet)
+        RX packets 5202  bytes 941999 (919.9 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 4059  bytes 431730 (421.6 KiB)
+        TX errors 0  dropped 5 overruns 0  carrier 0  collisions 0
+        device interrupt 50 =20
+
+root@mellowflyc5:~# iperf3 -c 10.0.1.1
+Connecting to host 10.0.1.1, port 5201
+[  5] local 10.0.1.136 port 53578 connected to 10.0.1.1 port 5201
+[ ID] Interval           Transfer     Bitrate         Retr  Cwnd
+[  5]   0.00-1.00   sec  12.0 MBytes   101 Mbits/sec    0    191 KBytes
+[  5]   1.00-2.00   sec  11.5 MBytes  96.5 Mbits/sec    0    191 KBytes
+[  5]   2.00-3.00   sec  11.1 MBytes  93.3 Mbits/sec    0    191 KBytes
+[  5]   3.00-4.00   sec  11.2 MBytes  94.4 Mbits/sec    0    191 KBytes
+[  5]   4.00-5.00   sec  11.2 MBytes  94.4 Mbits/sec    0    191 KBytes
+[  5]   5.00-6.00   sec  11.1 MBytes  93.3 Mbits/sec    0    191 KBytes
+[  5]   6.00-7.00   sec  11.4 MBytes  95.4 Mbits/sec    0    191 KBytes
+[  5]   7.00-8.00   sec  11.2 MBytes  94.3 Mbits/sec    0    191 KBytes
+[  5]   8.00-9.00   sec  11.2 MBytes  94.4 Mbits/sec    0    191 KBytes
+[  5]   9.00-10.00  sec  11.1 MBytes  93.2 Mbits/sec    0    191 KBytes
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bitrate         Retr
+[  5]   0.00-10.00  sec   113 MBytes  95.0 Mbits/sec    0          =20
+sender
+[  5]   0.00-10.01  sec   112 MBytes  94.1 Mbits/sec                =20
+receiver
+
+iperf Done.
 
 
 
-On 9/17/2026 3:10 PM, Ilpo Järvinen wrote:
-> On Wed, 16 Sep 2026, Kumar, Udit wrote:
->> On 9/16/2026 4:22 PM, Ilpo Järvinen wrote:
->>> On Wed, 16 Sep 2026, Moteen Shah wrote:
->>>
->>>> dw8250_handle_irq() does a bogus RX read on RX_TIMEOUT with no data
->>>> present, to avoid an interrupt storm. The UART core also performs
->>>> unconditional reads on the empty FIFO during startup and shutdown
->>>> of the port. On the IP version used in TDA54, that interrupt storm
->>>> no longer occurs, but reading an empty FIFO instead triggers a data
->>>> abort.
->>>>
->>>> Add a new capability to guard against the empty FIFO reads, avoiding
->>>> the data aborts.
->>>>
->>>> Signed-off-by: Moteen Shah <m-shah@ti.com>
->>>> ---
->>>>  drivers/tty/serial/8250/8250.h      |  1 +
->>>>  drivers/tty/serial/8250/8250_dw.c   | 16 +++++++++++++++-
->>>>  drivers/tty/serial/8250/8250_port.c | 12 +++++++++---
->>>>  3 files changed, 25 insertions(+), 4 deletions(-)
->>>>
->>>> diff --git a/drivers/tty/serial/8250/8250.h b/drivers/tty/serial/8250/8250.h
->>>> index 77fe0588fd6b..45e13c3a8c14 100644
->>>> --- a/drivers/tty/serial/8250/8250.h
->>>> +++ b/drivers/tty/serial/8250/8250.h
->>>> @@ -86,6 +86,7 @@ struct serial8250_config {
->>>>  					 * STOP PARITY EPAR SPAR WLEN5 WLEN6
->>>>  					 */
->>>>  #define UART_CAP_NOTEMT	BIT(18)	/* UART without interrupt on TEMT available */
->>>> +#define UART_CAP_RXFIFO_EMPTY_READ	BIT(19) /* UART needs LSR_DR check before RX read (TDA54) */
->>>
->>> IMO, this define naming contradicts with the comment because you 
->>> effectively say "capable of reading Rx while receive buffer is empty", not 
->>> that it needs DR check before issuing that read on buffer (~ named exactly 
->>> opposite of the actual meaning it is being used in the code).
->>>
->>
->> I echo your comments; the naming should reflect that the IP does not
->> allow reading an empty FIFO.
-> 
-> I now recalled we've also the pending RBR -> SRBR change:
-> 
-> https://lore.kernel.org/linux-serial/20260908141524.20302-1-yang.yicong@picoheart.com/#t
-> 
-> I wonder if a similar thing would help in this case as well?
-> 
+I did notice that the speed and activity LEDs on the magjack remained
+dark.
 
-Thanks for this patch, we are using similar IP but not same.
-Let's consume above patch and revert.
+LED Output Pad Enables (Register 0x05 - SYS_IO)
+-----------------------------------------------
 
-Thanks
+According to the AC300 datasheet (Section 4.2.5), bits [3:1] default to
+0 (disabled):
+   - Bit 1: E_LNK_LED_IO_EN
+   - Bit 2: E_SPD_LED_IO_EN
+   - Bit 3: E_DPX_LED_IO_EN
+
+In drivers/net/phy/xpowers/ac300.c, AC300_SYS_IO_VALUE does not set =C2=A0=
+=20
+any of these bits. Consequently, the LED outputs remain disabled/tri-
+stated, and neither the link nor speed LEDs illuminate on the board.
+
+LED Polarity (Register 0x06 - EPHY_CONFIG)
+------------------------------------------
+
+Once the I/O pads are enabled, Register 0x06 bit 1 (LED_POL) controls
+the drive logic:
+   - Bit 1 =3D 0: Active-High (Default)
+   - Bit 1 =3D 1: Active-Low
+
+Because common RJ45 magjacks (such as the HY911105AE on Fly-C5, Orange
+Pi Zero 2W/3, etc.) have LED anodes connected to 3.3V, the PHY must
+sink current (Active-Low) to drive them. Without setting LED_POL =3D 1,
+the LED logic is inverted.
+
+Could we update AC300_SYS_IO_VALUE to enable the LED IO pads, and
+configure LED_POL for active-low operation (or wire it up to the phylib
+LED framework)?
 
 
-> I understand this patch covers more ground than the SRBR patch but can the 
-> IP used in this case read SRBR without aborting?
-> 
+Suggested patch for drivers/net/phy/xpowers/ac300.c:
+
+--- a/drivers/net/phy/xpowers/ac300.c
++++ b/drivers/net/phy/xpowers/ac300.c
+@@ -43,10 +43,14 @@
+ #define AC300_IO_DRV_LEVEL_2			2
+ #define AC300_CLKIN_PAD_ENABLE			BIT(4)
++#define AC300_EPHY_DPX_LED_IO_ENABLE		BIT(3)
++#define AC300_EPHY_SPD_LED_IO_ENABLE		BIT(2)
++#define AC300_EPHY_LNK_LED_IO_ENABLE		BIT(1)
+ #define AC300_EPHY_MII_IO_ENABLE		BIT(0)
+=20
+ #define AC300_EPHY_CONFIG_REG			0x06
+ #define AC300_EPHY_BGS_EFFUSE_MASK		GENMASK(15, 12)
+ #define AC300_EPHY_RMII_SEL			BIT(11)
++#define AC300_EPHY_LED_POL_ACTIVE_LOW		BIT(1)
+ #define AC300_EPHY_SHUTDOWN			BIT(0)
+=20
+@@ -58,7 +62,10 @@
+ #define AC300_SYS_IO_VALUE \
+ 	(FIELD_PREP(AC300_MDIO_DRV_MASK, AC300_IO_DRV_LEVEL_2) | \
+ 	 FIELD_PREP(AC300_MII_DRV_MASK, AC300_IO_DRV_LEVEL_2) | \
+-	 AC300_CLKIN_PAD_ENABLE | AC300_EPHY_MII_IO_ENABLE)
++	 AC300_CLKIN_PAD_ENABLE | AC300_EPHY_MII_IO_ENABLE | \
++	 AC300_EPHY_LNK_LED_IO_ENABLE | \
++	 AC300_EPHY_SPD_LED_IO_ENABLE | \
++	 AC300_EPHY_DPX_LED_IO_ENABLE)
+=20
+ static u16 ac300_ephy_ctl_config(const struct ac300_ephy_ctl *priv)
+ {
+@@ -131,7 +138,8 @@ static u16 ac300_ephy_ctl_config(const struct
+ac300_ephy_ctl *priv)
+ 	return priv->ephy_config |
++		AC300_EPHY_LED_POL_ACTIVE_LOW |
+ 		(priv->interface =3D=3D PHY_INTERFACE_MODE_RMII ?
+ 		 AC300_EPHY_RMII_SEL : 0);
+ }
 
 
->> At the same time, I am thinking, reading the FIFO based on the
->> UART_LSR_DR bit being set in the serial8250_clear_interrupts and
->> serial8250_do_shutdown functions.
->> Do you see any side effects to this?
-> 
-> 
-> 
+--=20
+Alastair D'Silva
+
+
 
