@@ -1,167 +1,108 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ED3A36683B
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 09:05:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A18A654704E;
+	Fri, 18 Sep 2026 09:07:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789722352; cv=none; b=OorS9E8DRu2KwJLFKUXRA0o6F7rOGaVKO8DRP7OvdhLsXy3E1PruRAr8wcUV4+Cuh5uCWBW+66Uv/LHYkQSyZOCslCnkC554HAPNt/N51g5EBu6XvNqXeDHhnB/awof6tHMWeAWE0aw+XQdpWhBago/WgNzyugRpqAj4kUAVhXI=
+	t=1789722435; cv=none; b=XHw3fvjWl4SIfWbX98K0ZUlko4tcLJ5r0FfZfEevTjfGV+Pmwfh4+EjtlJa/Eq9y9Whjvzqca02gfE/yCkRcLqYGf2MQcWaegDb/tM6oTPCzm94GBasv8IdqEGOypBQzaSxgJFGXRgDsDJfySGVJHD0JP21vHXPAViW6DOKpL0M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789722352; c=relaxed/simple;
-	bh=Ej4swH6U/hn+2J3iilCARYgFatpiiV0z/ciLvDehIOY=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=B/MGrEm5+zj3YUhfUnfL3inkGC9l0R62UIqEtlS+TJzTGSr8TYzSE9gOzgwRrIJ1+G65P57yi7o5Y6TwYAzKml3kfmoUtoll6+0XR+m0VkZu5NO/kG6A+Rh+fUb7rYkzki/sxzAWZ5jBnh7Z5tBsLrVxOH5LdD4AyBZ7cKo/aus=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=NYK7ELnr; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1789722435; c=relaxed/simple;
+	bh=uVMGV6mW+9McPX2jlcYqWgyFcbTHghD5Rr/hke0J85A=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=in/jEqINBZYjia9jh0ij4lL8damymh0ql/uivt2uEGt5X/qk5RJOPZAHg2raRuIqM+dmxEMg4MZt8ZbiL/s4h2UzKxfnPahZJvNH1t62bWuSFBcMIYaZkD2qZ5oCgYlspt5TlbBPuQPQ+pLg2PQ44qQd1LtIg0rSloPZ3CGYgVg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ms3SArsN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="NYK7ELnr"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e721b5503so5029705e9.0
-        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 02:05:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789722349; x=1790327149; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7uSQneWyD9u8uXUDCmfCQSOWQMsG1MluBHm0qVsycCg=;
-        b=NYK7ELnrTbVX7If3tsGOXjSYXB9pZrvVLZ6rSVnhml8kNBQ0WOWWGhV3VEtNkzamVu
-         89GGV9Y5woYv8iSbWV4fIMlMv5YU/q5Ah63Eci0mtaZqFq/pGRBBmlPtgLS8dcCq6G/C
-         Tq90jKhAsNbCQq2SiySH3oIxzftz6rrrLWFMhgaZWLle1CDAVQo/r+UVTp4YpaYMvtNP
-         n+lfdrEvLEcga0AzS2CCMhDmcjzrvzS0bayKOnZMF+1QfFGrlKP9ZK1iscF5+JIW763Z
-         60OTlAY/EH/8rK90pwiaLi52g8LtRJtMp/nSaxSF12gWjD7xjvrUpv4T7kHOc1FUFhrZ
-         fkGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789722349; x=1790327149;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7uSQneWyD9u8uXUDCmfCQSOWQMsG1MluBHm0qVsycCg=;
-        b=XSwJGezb7xMgojL0FcrymlI6k1KuTy6ddrAHl1Jr8ZhfknwJ7jqENq6AUnHKHSdbWn
-         U5TkwZGjmHx5zCjgvmQVkxNL3I+3rLcwzYHl0mEC6+aDR8/+E/f4o9kmc/B3G5bfkIqC
-         IlKicM34NP18Ohdb1RszceVPE13EVnISgsrzPRq3j20am+4v22cyVv2Cgg/DPCNfRRls
-         uVVirk6+P/maWgsnHdJYmaPOmbDCuL5guDXAgX8ewo5264mqRP3lLgfMxDX4WY4haYrs
-         oM16mAHnqpSHN9CjqtAVsOyNc/hu3Q1ksr0C3MQuENwdZhPPLtve+snhR4/u03k5CdQz
-         EdQQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz/StYzBb03VYB2Q4r1Ck6bltlWk6xHy1/35G5+BL4MGgNCFbtZ9hbi86Pi9ETKC/26NaHTdarpjqHx@vger.kernel.org
-X-Gm-Message-State: AFuF++nFVKWJ9Nc8R8iPGucmlUAMnvyIuhB43S56ERZlThqUaCr24nlh
-	Iwbas/xG3sk0Bl6yEKXdj9kWfwZJErQzxWks5njrflga5iw8e60PNHIBICTm9M1gXJc=
-X-Gm-Gg: AYBFou1TOzzCrAcNi47WngjFXAmAV3ENGjLflzKful3y5aoCV7thL3fkJwu+QwhxO9x
-	G/AuacDtvbwxRewtPluq1Yk47l0RNhU8TgsQTaix0WEwMUBjkA0xvbAJh0eNGz95qYh5uquEWyF
-	76K67uMYWkWGmG5O5UTyL0DDQLiiopP3amHslkVYrD68bGEAx3ApVcjCCYLPFh47isPqAxlZbD8
-	H7yRw4ZaH8Xpt9dFmxbU2Gj4B4Y22FhDowM2duJYDoWpfYGq19deJY/8001e9DN/DAOJsHwJc8I
-	JLWW9zZCdnC/WFRKYcOYtupWYNOFiz/TRdabK4/gnfkdHkkilvgk05Lbu2JvTVLHO6rTmoXtWhe
-	RyNgyQ1EwwSpM8sBVIfKN5PEJ9yxyMNWEe2e6TP5ThD19k73G0u7IZUyDdBTsijXL8qIwXMGYcD
-	L8vbaqlM0+4IO8oH52PE6Rreo8gd8xlUWE1o8ZlO3ctcV9IDEUIgkLrgUYsWQGA48cW+/Oydyo7
-	/qJOcMNbjQfcQXZOrc5342w0nwfHEfnvBHEd6l15Q/38lzhNni9hA==
-X-Received: by 2002:a05:600c:1f8f:b0:49e:8354:26fb with SMTP id 5b1f17b1804b1-49fc574c729mr22905995e9.32.1789722348545;
-        Fri, 18 Sep 2026 02:05:48 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:c55f:cb91:1ca5:54dc? ([2a01:e0a:106d:1080:c55f:cb91:1ca5:54dc])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc471b9a2sm26149925e9.0.2026.09.18.02.05.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 18 Sep 2026 02:05:48 -0700 (PDT)
-Message-ID: <43f75100-b255-462b-aed2-b3f19fb19342@linaro.org>
-Date: Fri, 18 Sep 2026 11:05:46 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ms3SArsN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14FE11F00893;
+	Fri, 18 Sep 2026 09:07:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789722433;
+	bh=36KRSidEpS51Zb1bKWhm3XI3hlhvN8uP5EwIs5i6OQ4=;
+	h=From:Subject:Date:To:Cc;
+	b=Ms3SArsNpwxupNYZmptYC/aNSZG1oj/QcDsgqGHVRmlT6KF1+3ctpnjm30ySOeNXV
+	 9ZruOaQYIkgnxG3YAeONW7ggp4kuEdZmYGhUF7kiZiaO0KZmTcTBQpNFNcvRmIKGSH
+	 8pcymmjOWUWy7R+m+yj1tQf+Dqzy8iXgWFbnpH9wPdg2+RFyywePUA2hnJNu3Oqg6d
+	 tWqMVfdwOv57PtKNsPPtTftQVhjdF2E+dhu834NTIx5Rdxd77uElKMd0yJFHC0i03u
+	 jYFG9zUJzzK9wMcU4nPiOuy5m5id0YwQfDmBwsPdHPaFU5Avf3mX7lsuE7Ny3mKmIe
+	 NNPTvDlJusY9w==
+From: Thierry Reding <thierry.reding@kernel.org>
+Subject: [PATCH 0/5] arm64: tegra: Miscellaneous I2C changes on Tegra264
+Date: Fri, 18 Sep 2026 11:06:52 +0200
+Message-Id: <20260918-tegra264-i2c-v1-0-3adac7aae717@nvidia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v12 2/6] mfd: khadas-mcu: Use MFD_CELL_* macros for cell
- declarations
-To: linux-kernel-dev@aliel.fr, Lee Jones <lee@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Beniamino Galvani <b.galvani@gmail.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>
-Cc: linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
- mfd@lists.linux.dev
-References: <20260917-add-mcu-fan-khadas-vim4-v12-0-497cd543a148@aliel.fr>
- <20260917-add-mcu-fan-khadas-vim4-v12-2-497cd543a148@aliel.fr>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260917-add-mcu-fan-khadas-vim4-v12-2-497cd543a148@aliel.fr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDS0ML3ZLU9KJEIzMT3UyjZF1TI8Nkg1TLVFODFGMloJaCotS0zAqwcdG
+ xEH5xaVJWanIJyAyl2loAFYPgOHAAAAA=
+X-Change-ID: 20260918-tegra264-i2c-521c0e9e50d3
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>
+Cc: devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1538; i=treding@nvidia.com;
+ h=from:subject:message-id; bh=uVMGV6mW+9McPX2jlcYqWgyFcbTHghD5Rr/hke0J85A=;
+ b=owEBbQKS/ZANAwAKAd0jrNd/PrOhAcsmYgBqrP85E9EJE68J7QBWTBwmzc1FA2wDIVcqZt2UV
+ xBo3kecqcOJAjMEAAEKAB0WIQSI6sMIAUnM98CNyJ/dI6zXfz6zoQUCaqz/OQAKCRDdI6zXfz6z
+ odP7EACRvRY8ivrK2J0ClLr7BlCS51jqY3gQnZ9mCBogu8sd+oAKfpOGA//iUG7Tw91xT1nZPYv
+ GSawXaieMQ4DmaqD2GVK4eA5C0TGuSbwDsUaRb9campumpIi+a15byi/H6Jm6yTrn3+eljoSRom
+ nyeVSaaKcmrTdIMEjt7ituB/on78fuXFlqyvqmeP3j2o02rkFE/IpADaYMRe03Br5EYIpfjDxZe
+ u0MYy5PDNeZXCrnYE+gk2vd1c+0e0y4roYXaPxVtEbG0Wa2PSohbUiaVrYn3HGIzHT7/Zwox2O5
+ 4/li/ircmuGiqtbdlCi+aqCVLw6PGw5Fl4EiCU45n/D9tw7jZPkAWLJGsBaYavvNUWkeCD5l9OR
+ ub0lpwIsVc80BWKc1CGDpoUc5hWDMeO110RiBqdDFOwyFp04A1JqeM4ijpocbGNMqRaGl527Stb
+ Anh79M3F34ZvHyvBrssbunDzawMH9zfXl2q1Ev4klzjBCipJDi5kDkTw3iWdwm7j82Ag12QgXYv
+ tyv+IapjPzhDbhbaVEjG3MqPb0tU9FNZ9iHnFE/mjBw3fKrLFb7jEsi2eZzyz5Py7WLCjgew5QB
+ AGNQoqvZcURInvvA7ZIPVbl7dDa3jMINELyJIYYlmeWLk1G0a+QiuugpNHIwWSLex8CqYg+7WZA
+ uVtGZuZFDnPkUTw==
+X-Developer-Key: i=treding@nvidia.com; a=openpgp;
+ fpr=88EAC3080149CCF7C08DC89FDD23ACD77F3EB3A1
 
-On 9/17/26 09:59, Ronald Claveau via B4 Relay wrote:
-> From: Ronald Claveau <linux-kernel-dev@aliel.fr>
-> 
-> Convert khadas_mcu_fan_cells[] and khadas_mcu_cells[] to use the
-> MFD_CELL_NAME() helper macro instead of open-coding the struct
-> mfd_cell initialisers. While at it, make both arrays const since
-> they are never modified after initialisation.
-> 
-> This is a pure cleanup with no functional change, done in
-> preparation for a subsequent patch which will need to attach
-> platform_data to the fan cell.
-> 
-> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
-> ---
->   drivers/mfd/khadas-mcu.c | 8 ++++----
->   1 file changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/mfd/khadas-mcu.c b/drivers/mfd/khadas-mcu.c
-> index ba981a7886921..0e74efe14f367 100644
-> --- a/drivers/mfd/khadas-mcu.c
-> +++ b/drivers/mfd/khadas-mcu.c
-> @@ -75,13 +75,13 @@ static const struct regmap_config khadas_mcu_regmap_config = {
->   	.cache_type	= REGCACHE_MAPLE,
->   };
->   
-> -static struct mfd_cell khadas_mcu_fan_cells[] = {
-> +static const struct mfd_cell khadas_mcu_fan_cells[] = {
->   	/* VIM1/2 Rev13+ and VIM3 only */
-> -	{ .name = "khadas-mcu-fan-ctrl", },
-> +	MFD_CELL_NAME("khadas-mcu-fan-ctrl"),
->   };
->   
-> -static struct mfd_cell khadas_mcu_cells[] = {
-> -	{ .name = "khadas-mcu-user-mem", },
-> +static const struct mfd_cell khadas_mcu_cells[] = {
-> +	MFD_CELL_NAME("khadas-mcu-user-mem"),
->   };
->   
->   static int khadas_mcu_probe(struct i2c_client *client)
-> 
+This series of patches fixes some minor issues with the I2C controllers
+on Tegra264 and adds some I2C clients that are useful for these systems.
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Patch 1 adds the missing #address-cells and #size-cells properties for
+all I2C controllers. These had gone unnoticed since no I2C clients had
+been added so far.
 
-Thanks,
-Neil
+Patch 2 ensures the I2C controllers are consistently named (and their
+names correspond to those find in various documents) by adding aliases
+to them.
+
+The module and system EEPROMs found on most modern Jetson devices are
+added in patches 3 and 4.
+
+Finally, the thermal sensor found on the Jetson AGX Thor module is
+described in patch 5. This allows reading the local temperature of the
+module.
+
+Thierry
+
+Signed-off-by: Thierry Reding <treding@nvidia.com>
+---
+Thierry Reding (5):
+      arm64: tegra: Add missing *-cells properties for I2C controllers
+      arm64: tegra: Add I2C aliases for Tegra264
+      arm64: tegra: Add NVIDIA Jetson AGX Thor module EEPROM
+      arm64: tegra: Add NVIDIA Jetson AGX Thor system EEPROM
+      arm64: tegra: Add thermal senser for Jetson AGX Thor
+
+ arch/arm64/boot/dts/nvidia/tegra264-p3834.dtsi     | 25 +++++++++++
+ .../boot/dts/nvidia/tegra264-p4071-0000+p3834.dtsi | 14 +++++++
+ arch/arm64/boot/dts/nvidia/tegra264.dtsi           | 49 ++++++++++++++++++++++
+ 3 files changed, 88 insertions(+)
+---
+base-commit: e657a464aba873f5eaf3ca821b6e4016674492d6
+change-id: 20260918-tegra264-i2c-521c0e9e50d3
+
+Best regards,
+--  
+Thierry Reding <treding@nvidia.com>
+
