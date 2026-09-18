@@ -1,68 +1,69 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EC15515983
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 17:32:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 411A94FDA76
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 17:33:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789752784; cv=none; b=cir0X/b/VJqv5GVPoFjztdAjPxC5IAJ7DUSrLmQR8nFL+XszMQZTQrC6B3Y6YZfGSlalA8dQhJeHITiuY9QIKQw4Pc0f5ACdREjIwPd7w6IdArYWQw86uP4l3GZcVUFM7hbDdqoJG+6Dnta2DKnI95ijL1Vsz+GuP0vsBxyFYdM=
+	t=1789752812; cv=none; b=eUtRaVc6/7IoZtqo4L5QHvSJ/iVwtWyvo57cKffqfzDcLN8IgiwbGcFVVIBsPpwxC3XXO5B1oi16qmuaJynnrWoo24xWwQUYY5zaasq/VYdvGi43XxJ/mdOSEI0rBJqEpeBwCep0uvxN1HuO1NA1jwSMNWsEkxik/1EKaY/bb9s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789752784; c=relaxed/simple;
-	bh=BbX8RY98cbW2glkwb44ypYKnRm3un42mGYq+Qy76YHQ=;
+	s=arc-20240116; t=1789752812; c=relaxed/simple;
+	bh=TkeK6vGmZcwODlJlEq5gVtqOmy+dm0WEcZnbleLPAiE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=VMudjK9kBMRSISsBH/AydbLnnnXqCAFq+nMpDhHhW6nJ+n/4o8lNsS7HhXX/0GlC3PDUK9Ba2FrjufwXgeM+4GLMqyAx70F4r0uC3p8hEUGEIC/2/qJ9HwF6D3oiJLf09ECtfHMyoruU6mIWnyLOM9sFZVV51wTM/6lYnDYZspQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=y2ChOQ+A; arc=none smtp.client-ip=74.125.229.204
+	 In-Reply-To:To:Cc; b=W3PX/wAaGok42Bz2As198Z78CDxUce2I87EGlD5Ym+LcK7EIvHoKEG4vY2OHYOe9fH6DapXJgy8DGcPS2vQNCYv0ytjz/sKoTOpfjeqCn3olq4mw+0C/fPjEH/ncaWfNmAd734mGPPVQeH5rr4YdwWn8ltPXGKyBuEpCi8PTv/8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=M7BK05bY; arc=none smtp.client-ip=74.125.229.205
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="y2ChOQ+A"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f13d77so1154820e87.0
-        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 10:32:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="M7BK05bY"
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8c627f291so264997e87.3
+        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 10:33:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789752776; x=1790357576; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1789752806; x=1790357606; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=huJxWlT708nmfTDdQjHUmTyeWJoEnSNCINl2pfaGmoo=;
-        b=y2ChOQ+AY9RtVgYmjjKnALppolchZAwSFw3WhQfCiRaKb6kAgHsMj4Y1EDN3ERhCFG
-         Ef6C4Ezr71iykpTxmzzm+oxU9XNInHtUSP3Yd+3WEoZhC/B58+Hua1G/q4BXY18+etEX
-         pECH1ph74m15GanTmaNpelLj+mDiRYpzXORCnspI5RvvesHF9Y0AoOVUA403qPgpAt9o
-         7RidKx80IQmmLsKhGDo+lfet8eTbmaIkLk792JA+qrZ8BlH3ed9dOaYmdRkGOiMGikfQ
-         uKeqVW1mS/Zohvbv04iOEYbgD/zf/EhX6iLJfEqVkSpH0AZRciZzrdQm5P626YR3o6xj
-         VmhQ==
+        bh=q3e71ONX+G/tBeD/v6Wra0d6veIuI4yfjRsJjDPREyI=;
+        b=M7BK05bYyo7PmAkRPHH4wSQu8S94IPigbvXVqTIXM43uWTF4Zla3tm43mbsyW7veER
+         /s/HY0344RXbvfoMzkqRdkarP/zDa2yeMoDt7wQKjNZ1WuChwi/f1vOibZMBeSdYx0kW
+         p3uH1IInyVgrA5gKQkhl9OlzfQ1mBGgEO4J51RTb0Uq//YKmabI6/u9gBxqcXtlOhUQw
+         6ZBTL8sxobsfO4pD2RFT/pqhJ65Ry/ei5qYJTp1n7GTjz9fyH+yJjq4pnvL4PiSctniq
+         VyrOYQsZmpr752FJsAQGVI0VCUBOZ/PBKeABc3+4xekrPSlAdmDpH/2Uv/V8GSENQimg
+         d8zQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789752776; x=1790357576;
+        d=1e100.net; s=20260707; t=1789752806; x=1790357606;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=huJxWlT708nmfTDdQjHUmTyeWJoEnSNCINl2pfaGmoo=;
-        b=WTg5/+7fT8ZDr40Ri01aDqVC6/yNuA+J7vkgbIrb4sAX627sjXwUW0E1QKtuJnr4zz
-         SdNTAEPKXDBE9Omv6GnlCvvQBIag/xMBc6HAJg6e2Jlr7zrOdk88a9/nwRa+WXdgFRJl
-         oSIgyohG63t9xsbfLpCcbkKtaCk9eTI16q66gRMHJgqX1IZScbesFR0e8JnNvT02tWLY
-         P1kWU4t9+v4tJnK3lQvit2YIREDUhyh40xyq7RnzF9OpxToVpfMNWYTEtQbGUs1qmCCi
-         ZEcVEv5RAFDOneyeVdUwhqa8a7LovM6c0znoRi5gFiSTnxtjqNkpB9tdOoGTPLarniOv
-         9sGw==
-X-Gm-Message-State: AFuF++mgL3XRWFSiByaOnFg1x2Rv4G11fKruJasuzF/LPXSX8B+6GZiP
-	/l5QsOi9jUy1Qk3HVPmocJDlUFhM31XI6bjdPbJDj5Abt0fsNBClS4/UflMQda6V12Tfe8KWlb8
-	n6ZzLFv8=
-X-Gm-Gg: AYBFou03JGzv1TT1TENmMFjJ3KFS+HOHV+cwrevw/kC/qEcVh/Lkx4+KU83V8w0M3ew
-	ZCPky7cC0CUG2KT4UxiJCmVT66eHASr+O33RjzDlGc5zEM3BYm9w4SoMMBKN/x3vgmHqLnWysKN
-	0da6ME7u4zC1ui+L/4R1fj9RDag0QtJ9TfWZtUjjVhJX2HGhPlERfyX1BkdSmgL9e+ejEa4EWD2
-	LV3fiHYBjTSjQBL9dqqN/2vbQZGkH6bINukGmtIH7Z85p2asCSVSVE8DiEnpf4Z2rXF4Yi81QKc
-	ofPmlT08N3XZHHualC9ckZZjYbWwuLTapQnitHo7Jg6FHEN4eaGB+UKJ9ohKXjG3jMl/EMm3Jo0
-	hBJ9+HtcYBNHb8duoUetoCrpEuTc3/8+JpKM7V9jJbA2yUnfPooQ75sQXNRu8CBZ4OGSBnqbxb+
-	ic17NDWpJtBEJxaAyVwHDq/IQ7vYAFqDakjPPMQm03211XYRAaz2A1/kjnl0k5SUEgu4DrA3MfR
-	GtrqsyquyG9TRaqUzfIFQrvx40sKo8CQBFhGbXSiK4aWv3zyGaRaV0QNvOcKTjCjg==
-X-Received: by 2002:a17:907:1c91:b0:c29:386c:58f2 with SMTP id a640c23a62f3a-c2a15e1ff48mr321275466b.38.1789752412145;
-        Fri, 18 Sep 2026 10:26:52 -0700 (PDT)
+        bh=q3e71ONX+G/tBeD/v6Wra0d6veIuI4yfjRsJjDPREyI=;
+        b=nal1wrMThLDoxA7DDNT4G64Tgi9R3JBN+0kYIC2GBryQLAcm99L5SAh0FaItvTlxdi
+         /XiKVGG740RkY5OzSOAMPZnh++FStPpx56JLXSgCMaVR/aA31xUYTGtica14fuw/sola
+         OOOnRQB3Bd5I1YBSG4tI+Ixuy3IOaB+EAlvnqg+e0aUzmYIGpJFEwCZa5cKx62g3f5xR
+         t0Zl5Sm99zhYF8jMoL9SQ4F+UWEPvTafdC0bYytP97C9fY56vSF2ib2gPmxscoWOoAlt
+         70fFscqZneIJoKmvPBP61UGFir3vIdUxLRL7KSSs2tVrBw37OftCViuJLXd06jJ1/LkE
+         LNdA==
+X-Gm-Message-State: AFuF++nvje12tj5BVgD2UTjjuyUPkOpFOh7kml5QJJe/EdGlub3uK1bF
+	rFjMEw3x3EdubAVBtb+XIYSAQDf+g9hqFdbGdY9/apw/DtUVnA1EFl9FDISSlc3tFcyzHbxJUWw
+	Q7FaBpoQ=
+X-Gm-Gg: AYBFou3WFV8sVyGOOhZGmPgwUhIweEXWeF2EyHkjXFQvcT7KvdGEIl2I3/ZhOjKHv5B
+	AU1xab9y7efZGQ64k4l3rFk+zWA6O79SOfvTDJczI/cbgAdsnk73o4CUOXnn4yzkOTb7v1pBFvi
+	NkQ39wc1yVqptWF5rZi/sBWXtTLyr8lVI8P2W3BaU7AspBTTUj5Zfg9rsIUjRFadMyT0YT4g6zQ
+	ToRRBXMaYz7ZST/ZaoGppH8MAI2kBcCrbsyQ3ZT10f5NkHpIGe6z9sZ9IC3ing7g8tMfBgEqt1+
+	F9C8+M0gh0jKs+pnOq0Irx1O+3cSra6rl/2ulwmXulCYWtdKJ36sEsv82nSVWYmtsepnpBvYRFx
+	qPhyj/Hkl5s5FagFRRqpZYChVXU/rsuADl6Or6/9gt8nqpFAHewcq6DUupYfJL6bGsLFzFJdlff
+	Se6bpnR5M6SBZLPBh8TTswv3jkvjyDiqDaNgLPVEtGchpvUp4lu+PU+7zuJU92hIS3aZPILvlXN
+	8YhdvcI8NYp3ei94vfGTmxIm7VzRY9vHnAv2z2X40p1cffBGgVSqjgGJAUZ0hezVw==
+X-Received: by 2002:a17:907:971e:b0:c25:fdbc:52df with SMTP id a640c23a62f3a-c2a15699d4cmr283478866b.10.1789752410253;
+        Fri, 18 Sep 2026 10:26:50 -0700 (PDT)
 Received: from petegriffin.c.googlers.com (116.118.90.34.bc.googleusercontent.com. [34.90.118.116])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a35701d8bsm902966b.27.2026.09.18.10.26.51
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a35701d8bsm902966b.27.2026.09.18.10.26.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 10:26:51 -0700 (PDT)
+        Fri, 18 Sep 2026 10:26:49 -0700 (PDT)
 From: Peter Griffin <peter.griffin@linaro.org>
-Date: Fri, 18 Sep 2026 17:26:37 +0000
-Subject: [PATCH v3 4/4] arm64: defconfig: enable Tensor G5 SoC family
+Date: Fri, 18 Sep 2026 17:26:35 +0000
+Subject: [PATCH v3 2/4] arm64: dts: google: Add dts directory for
+ Google-designed silicon
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,7 +72,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-contrib-pg-pixel10-initial-dts-v3-4-c94e51140509@linaro.org>
+Message-Id: <20260918-contrib-pg-pixel10-initial-dts-v3-2-c94e51140509@linaro.org>
 References: <20260918-contrib-pg-pixel10-initial-dts-v3-0-c94e51140509@linaro.org>
 In-Reply-To: <20260918-contrib-pg-pixel10-initial-dts-v3-0-c94e51140509@linaro.org>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -94,48 +95,101 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  Brian Norris <briannorris@google.com>, 
  William McVicker <willmcvicker@google.com>, kernel-team@android.com, 
  linux-serial@vger.kernel.org, Peter Griffin <peter.griffin@linaro.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
  Brian Norris <briannorris@chromium.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=787;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2879;
  i=peter.griffin@linaro.org; h=from:subject:message-id;
- bh=BbX8RY98cbW2glkwb44ypYKnRm3un42mGYq+Qy76YHQ=;
- b=owEBbQKS/ZANAwAKAc7ouNYCNHK6AcsmYgBqrXRYGuQ5/L4khzKLHRvREUl1l+2lwJGoJSQiY
- SGyFcbuWBCJAjMEAAEKAB0WIQQO/I5vVXh1DVa1SfzO6LjWAjRyugUCaq10WAAKCRDO6LjWAjRy
- utArD/9uj3S4/40eqQyAQNg2mrd8YRRLVD2a+iFnXlDd04AKI6CyH9Aw39xkFrcjJfJ4hkBGr+C
- bq8pFZNwJu3DH6NN/ZgNqnsiuxemOfw/aUIO1dpSTeW6BvQla9JT3YBduKlaAStNeV9HLWE0cdK
- FGDB8mVSVVJ0j/jYlX3BOmNAium/Ewfw9PI0ALpuXmOJ60HZabfOMYnun2JV43MuRmmJx+smUde
- 15IsHXU6GQ15cwQFp56h5tCUisTYD31g39lmK7iD0Qpwd6BC7U3SEFO1LiorExYEECyq9C7h+Mm
- ATP1VxNycE8kVWDXVD5BlcWBgeQeyqFLUcp0wexvmyoxLICWQGWrCCnipjciOVlKfY4Tc6OyEbG
- vrlzf1SPtQJMDhH9y26QfsrMaVvnVHHdMrhtrFblU/rHj/mP0MkdHSSktmN0M2Zw/iXgUpfbzBb
- Sgiz3ymLwkb57NgSqWh4ZEmseH5HGA1gI/D7/tMq3a35ZQZsASN2N8vyisAjaCNPSih+SmS0mfT
- RnVnZKuvriyPYy0oGMaosjltQVaBzFjx9Ok1WALSvawKVkVkIzo6Du0GkfXaO6QcdiwsAHRhkz8
- 8q31d2t0PWWn05xdNQ7eM6h+2MYYbGKpYmzkwJcNXA6ObhSV2vGM73rn7RO/wrqM0hT1uhF5d2E
- A+fovbmpX/pet2g==
+ bh=prHtn5W9Y5dmFFjTBpt1J6sbCTHN8IgoPCiN1ehs4ME=;
+ b=owEBbQKS/ZANAwAKAc7ouNYCNHK6AcsmYgBqrXRXFTEYAGEsoS7MUfIrg6CjdIOaifPmsSFmo
+ QQ8leTp7q6JAjMEAAEKAB0WIQQO/I5vVXh1DVa1SfzO6LjWAjRyugUCaq10VwAKCRDO6LjWAjRy
+ ug/fD/9Urr6DgBP6/xSBuCZzkbqwlAfIRnR0z+L2WO+ksdtXeV/usopNI2AWlnxNecYkTWIZGJa
+ nEg5M1CL0S432JJKZVtOBTqNyd3O3himpBwj8neXDBebwgX61R3vSYad2+Ux1jX1O/Klpi4qnPb
+ oOqdhdPqvqxSOVUE2sk8HR53f0KERaeGyP0yrfXHq+bYR1M/KtSQoUGXuqfDH/0dIHedUIYy/dh
+ X5jFUZvD4fhLsridougvieTgMWG79r/RcfaeeakcMYvEjU2eOgZWA2vxlhQpsHd/T0aBahZhRHr
+ VYTEMfKs2DWxuMakwGN39vpfRy630y/vqTowyXYfAUZqFM8Iw/frDfJTm61WD6dvAB3rVU6ToZt
+ pEcem4gWuKQcuROBYfK3PepyoPV2dWpA+kwsYy3tMGkw5z334AP7kqOxBt5A83YssgBip21tv9+
+ Fp2Fwgi7hYNtNCTiGOEn9mqSsp6ysDQYA9mf/0b7wIehZUycnJrVRAYijVrhOH2K62bvqeMH7ZA
+ 8Ini+nFiLhcz+uYLVsqNuJfSY8lZ185M79jJY9EzEVarntgmQhWexSBmttBx74LR64QRnudxm1i
+ f5x2MsrmsBrVPnJIml/VkouixLbIM9jrTMEqGSfCLiDTtIrDIP1Bh5z7dE3Icy1rqDk8mVlHF51
+ btmyUow4Did/arA==
 X-Developer-Key: i=peter.griffin@linaro.org; a=openpgp;
  fpr=0EFC8E6F5578750D56B549FCCEE8B8D6023472BA
 
-Enable the Google Tensor G5 (Laguna) SoC family in the arm64
-defconfig. This SoC family is found in Pixel 10 and later phones.
+From: Douglas Anderson <dianders@chromium.org>
 
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
+The first four Google Tensor SoCs were offshoots of Samsung Exynos
+SoCs and their device trees were organized under the "exynos/google"
+directory. Starting with the Google Tensor G5 SoC in Pixel 10 phones,
+Google Tensor SoCs are now of Google's own design. Add a location in
+the tree to store these device tree files.
+
+Changes by Peter Griffin
+ * update config symbol help with at least 4 lines to avoid checkpatch
+   warning
+
+Signed-off-by: Douglas Anderson <dianders@chromium.org>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Tested-by: Brian Norris <briannorris@chromium.org>
 Reviewed-by: Brian Norris <briannorris@chromium.org>
 Signed-off-by: Peter Griffin <peter.griffin@linaro.org>
 ---
- arch/arm64/configs/defconfig | 1 +
- 1 file changed, 1 insertion(+)
+ MAINTAINERS                         | 1 +
+ arch/arm64/Kconfig.platforms        | 8 ++++++++
+ arch/arm64/boot/dts/Makefile        | 1 +
+ arch/arm64/boot/dts/google/Makefile | 1 +
+ 4 files changed, 11 insertions(+)
 
-diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
-index 982ea1758eb66..75000c12ead03 100644
---- a/arch/arm64/configs/defconfig
-+++ b/arch/arm64/configs/defconfig
-@@ -51,6 +51,7 @@ CONFIG_ARCH_BLAIZE=y
- CONFIG_ARCH_BST=y
- CONFIG_ARCH_CIX=y
- CONFIG_ARCH_EXYNOS=y
-+CONFIG_ARCH_GOOGLE=y
- CONFIG_ARCH_K3=y
- CONFIG_ARCH_LG1K=y
- CONFIG_ARCH_HISI=y
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 06760c45c582c..bee67180e93e1 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -11245,6 +11245,7 @@ F:	Documentation/devicetree/bindings/phy/google,lga-usb-phy.yaml
+ F:	Documentation/devicetree/bindings/soc/google/google,gs101-pmu-intr-gen.yaml
+ F:	Documentation/devicetree/bindings/usb/google,lga-dwc3.yaml
+ F:	arch/arm64/boot/dts/exynos/google/
++F:	arch/arm64/boot/dts/google/
+ F:	drivers/clk/samsung/clk-gs101.c
+ F:	drivers/phy/phy-google-usb.c
+ F:	drivers/soc/samsung/gs101-pmu.c
+diff --git a/arch/arm64/Kconfig.platforms b/arch/arm64/Kconfig.platforms
+index 1489bad527d8e..c52dc955df5f0 100644
+--- a/arch/arm64/Kconfig.platforms
++++ b/arch/arm64/Kconfig.platforms
+@@ -154,6 +154,14 @@ config ARCH_EXYNOS
+ 	help
+ 	  This enables support for ARMv8 based Samsung Exynos SoC family.
+ 
++config ARCH_GOOGLE
++	bool "Google-Designed SoC family"
++	help
++	  This enables support for Google Tensor SoCs starting at the
++	  Google Tensor G5 (Laguna) found in Pixel 10 and later phones.
++	  Tensor G1 to G4 are offshoots of the Exynos family and are
++	  enabled via ARCH_EXYNOS.
++
+ config ARCH_K3
+ 	bool "Texas Instruments Inc. K3 multicore SoC architecture"
+ 	select SOC_TI
+diff --git a/arch/arm64/boot/dts/Makefile b/arch/arm64/boot/dts/Makefile
+index fc726b215f125..f2d7cd6eb5695 100644
+--- a/arch/arm64/boot/dts/Makefile
++++ b/arch/arm64/boot/dts/Makefile
+@@ -19,6 +19,7 @@ subdir-y += cavium
+ subdir-y += cix
+ subdir-y += exynos
+ subdir-y += freescale
++subdir-y += google
+ subdir-y += hisilicon
+ subdir-y += intel
+ subdir-y += lg
+diff --git a/arch/arm64/boot/dts/google/Makefile b/arch/arm64/boot/dts/google/Makefile
+new file mode 100644
+index 0000000000000..a6b187e2d6318
+--- /dev/null
++++ b/arch/arm64/boot/dts/google/Makefile
+@@ -0,0 +1 @@
++# SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
 
 -- 
 2.55.0.1082.g2b9226bbc0-goog
