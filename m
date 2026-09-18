@@ -1,76 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A23E2140E5F
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 08:55:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6477B4B0C9E;
+	Fri, 18 Sep 2026 08:57:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789721738; cv=none; b=oabuT+kE5nHzdNGTUvHqgMqIfeTkLF5eBhJliU7njzlCNoEkGwj6L3vAzJYMH9CKPwM9KTdWggrVfViYdHeDS7p5IHH8wMW6Y97T5up02q6mm+3PuNTwNMsc9ik4Wu7+hMn9lVcEXDfwgYvPYm/+IjUAM5Kq7ZJ0GPhD84sIq/M=
+	t=1789721841; cv=none; b=UO8MUfi8Mop9E0+H0xTEtn+8KkF3seayCtc2UbthU7cIaRVbzxOW9dteO7wuwBcLWduO7K3Pr0J7FRvT+qspayQ9UIHfAONRFUzVdGQJjo1yEleeri/3rjPGlpQTb3069WoybZp9j3ah31F8YCPSopK9nhT6HMosX0gRYhjPDe0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789721738; c=relaxed/simple;
-	bh=4SpyM+ubUw3bgz9Qu1bRYiL8BbWXPtON1yrhQ/ykkA8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=G9leqrv9F4Q4t7PpzT+Q0ClRFM9dhrgmyFI7v/cuxzbFi9Fo2X1LJ31WqUJC6GD5feoMODbmQMiiTwQxXeM5FrDiDCuEAAAlli76h5nagq9VxhdMPiXGX15GC42508JcKFsohM1ZAKXiQzLyr88+CQ473Gmy4T+TrVesLpNAByw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GWhxTCOn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789721841; c=relaxed/simple;
+	bh=e+E5iM1FydG87K4LexzdnkRbFFD5Ce6LN1dQg+EYuWk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=s4g6YC+9RLFUdYhJCHWFC+dWmfiL15yv47qdagJXAdxpD5QG+Ce1F+/ulxSqr9TKHe+TQa3bWAC8+CE1VaxkT7CNYgMBNfIUsiZQ1wvuBNthyAsCBICK5AfG1akE0MwDwDox9UsisZzsDwx6qAVYKg6hrxTV9Lm6fHuG2UOi46I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MFLuQyJz; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GWhxTCOn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 189461F000FF;
-	Fri, 18 Sep 2026 08:55:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789721737;
-	bh=Q3vK+hrez7Ed1fDsl2TVjNVdL2Vp9oUFESzWid8IhF0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GWhxTCOnTtlFovIZHK2qxAQPf4EAqwRc2LiGpoMZpF80nlaiHWuvtipfLpZT5Rhkg
-	 h7dGte7v2M8uzKuHphGdDgxXMM1ayQHzEnUNCQSUupkayOjhAUM7lrnFJy/nwlPJVG
-	 +CwDXoUhoDyCp80GKNUd9GzuyUfl5xT9xi4ufKmHas+RKI9DlgBu91G4KEF7G2JWBO
-	 dgzyj8wjun6MW4UZFKUtMbu1eAX1UL2Ll/7rqmZZTICBslkEb+Nh40Pbw/fBmFX9mI
-	 hC9HuQ1jG64n1s0pW+vDTBVYM/wt5fg7YGCM7ivCI93N+6APTGbtfeWE9rByH/JG6N
-	 SSWCCaD5uhQPw==
-Date: Fri, 18 Sep 2026 10:55:32 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>
-Cc: Maxime Ripard <mripard@kernel.org>, 
-	Dave Stevenson <dave.stevenson@raspberrypi.com>, Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
-	Stefan Wahren <wahrenst@gmx.net>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, Ray Jui <rjui@broadcom.com>, 
-	Scott Branden <sbranden@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
-	devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v2 2/4] dt-bindings: display: bcm2835-v3d: Add an
- optional reset line
-Message-ID: <20260918-nostalgic-enlightened-macaw-8f4e5a@quoll>
-References: <20260915-vc4-reset-control-v2-0-cb3a25b07822@igalia.com>
- <20260915-vc4-reset-control-v2-2-cb3a25b07822@igalia.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MFLuQyJz"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 794D3C2BCB9;
+	Fri, 18 Sep 2026 08:57:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789721839;
+	bh=e+E5iM1FydG87K4LexzdnkRbFFD5Ce6LN1dQg+EYuWk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=MFLuQyJzXUhyv3Rb1KLRAI9NRf0jHpbR0fBHNX4iUNL12e2ErZpFUODsA0cr8V/8x
+	 /oJCRqD+qXyj/qbS6QdlKXKZoz3jLxfkaQUewkSSO/4qu2iRZE4hfkRP6SmuJX4Kgv
+	 HJkYf4xf7h5P/MzJiwVgd+9cUw4z+KS4wNviyStuPusEDUiGZ7wDM4Ib/Tv3JEvR8+
+	 L45pyPSWPT1IIZJTSvSmstd4ywFtgocpkTc6JukpUqWRSYJ/hvTipsjN46FjPs62tl
+	 fHEbBZegfTRBGQFZh3JSDmWGB+0+tT1wZBRZEviNVhpeMQveFkntDS2jgsLra0RLz7
+	 hg0dK7tgRwHJg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5919DC88E72;
+	Fri, 18 Sep 2026 08:57:19 +0000 (UTC)
+From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
+Date: Fri, 18 Sep 2026 16:57:16 +0800
+Subject: [PATCH 01/21] media: dt-bindings: ite,it6625: document the default
+ CSI-2 bus type
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260915-vc4-reset-control-v2-2-cb3a25b07822@igalia.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260918-upstream-it6625-follow-up-patch-v1-1-78d72d7886a5@ite.com.tw>
+References: <20260918-upstream-it6625-follow-up-patch-v1-0-78d72d7886a5@ite.com.tw>
+In-Reply-To: <20260918-upstream-it6625-follow-up-patch-v1-0-78d72d7886a5@ite.com.tw>
+To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Hermes Wu <Hermes.wu@ite.com.tw>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789721837; l=1548;
+ i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
+ bh=9JG2gnHxv5HEk2OflV4GnhtoGwENcuutmXv8NLZl2zU=;
+ b=2+6GDfh7bjm2quDcWDEExkXG0+2/O5n/T5weM/DqTYqUWm4G/Xgsyr3lIKcXiXqd9AFif6Srj
+ 0RilO9sog2cBrts5V5y1zGd2ZyCA53rP1Ev1FVXxSBCdmrNpuG1EYgp
+X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
+ pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
+X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
+ auth_id=310
+X-Original-From: Hermes Wu <Hermes.wu@ite.com.tw>
+Reply-To: Hermes.wu@ite.com.tw
 
-On Tue, Sep 15, 2026 at 05:51:25PM -0300, Ma=C3=ADra Canal wrote:
-> The BCM2835 power management block drives a reset line for the V3D block
-> that is independent of the graphics power domain, allowing the GPU to be
-> reset without power-cycling the domain. Expose this reset line in the V3D
-> binding.
->=20
-> Keep the property optional, as devices like the Broadcom Cygnus don't have
-> a reset line.
->=20
-> Reviewed-by: Stefan Wahren <wahrenst@gmx.net>
-> Signed-off-by: Ma=C3=ADra Canal <mcanal@igalia.com>
-> ---
->  Documentation/devicetree/bindings/display/brcm,bcm2835-v3d.yaml | 3 +++
->  1 file changed, 3 insertions(+)
+From: Hermes Wu <Hermes.wu@ite.com.tw>
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+bus-type is optional under port@0 and port@1's endpoint for ite,it6625
+(the allOf/if/then clause only requires it for ite,it6626, which
+supports both C-PHY and D-PHY and needs disambiguation). With bus-type
+omitted, the actual runtime default is D-PHY:
+v4l2_fwnode_endpoint_parse_csi2_bus() falls back to
+V4L2_MBUS_CSI2_DPHY whenever data-lanes is present, which this binding
+already requires. Document that default explicitly instead of leaving
+it unstated.
 
-Best regards,
-Krzysztof
+Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
+---
+ Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
+index 756fe655f534f85b23b7741d06710c956f9694d8..9b621f726249189255692da02049ebcbf1d5b43c 100644
+--- a/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
++++ b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
+@@ -65,6 +65,7 @@ properties:
+                 enum:
+                   - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
+                   - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
++                default: 4 # MEDIA_BUS_TYPE_CSI2_DPHY
+ 
+             required:
+               - data-lanes
+@@ -88,6 +89,7 @@ properties:
+                 enum:
+                   - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
+                   - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
++                default: 4 # MEDIA_BUS_TYPE_CSI2_DPHY
+ 
+             required:
+               - data-lanes
+
+-- 
+2.34.1
+
 
