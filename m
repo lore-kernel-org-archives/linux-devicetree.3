@@ -1,204 +1,151 @@
-Received: from mail-pj2-f5.google.com (mail-pj2-f5.google.com [74.125.227.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2097.outbound.protection.partner.outlook.cn [139.219.17.97])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A3BB3E024D
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 08:22:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.133
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789719744; cv=none; b=j2utnatVR6sXsHzOBUUKr08zE2otm1WOFjEwX9ql/SN/CAI7Gn4KeEjns1+bOCYl2UsgO6lWZFBUA9VmZfahPI9+m9YrHQjjdiqd3sePhZkmGRf9UlaWg/quuNh4xm3TGrt0qRnLoo2o6S0PUeZoaLDjacNJzO9TF3QstN3l/DA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789719744; c=relaxed/simple;
-	bh=b7SZRiTdPjaH75CaQCp3RCsjKZl29SheZjvophXkDdY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=seId2t549pSzdd6Es/ORFlRb4yd/MpD+hfguIGbHtBMyvRv9NJuxu+MangSWpHjErJpX7TxjjXLr7QocWjBExRddJbWptyh1rHznqZu76MxHUNT9tJkNlbX1yRMEPNIe0iEP+qhZlJOOYx98KgEiBqPkay1qA86g5/uoV04P7+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h3kyv6bk; arc=none smtp.client-ip=74.125.227.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h3kyv6bk"
-Received: by mail-pj2-f5.google.com with SMTP id d9443c01a7336-2d6fbdc8772so2518745ad.0
-        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 01:22:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789719742; x=1790324542; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CjigVRuOlpSLvwuFF0kw47lERwh/eIzaGM/o/mwNyVQ=;
-        b=h3kyv6bkfvOurMS8Vxjiyw950RnY3q/94qxxzKLE2N4qEcfv03k+v3o99egdd6mL81
-         5+gXGi7PlYYpFi0cakG8fwYYxrtkM/KEBeucGHbfTpzHLaIRS4BGYaVHToMvBejEjIJT
-         co9EVCVju1WQvtOFHwHmV9MlRtGu35aD/M/QvGH5dbGK6wWORoyVuUsCrbB/U/tdG4EY
-         850jC98Ywxk19rX6nzgwn2iGYP7blboWbXLj64WV7oknzH5ydQY5K73y/iuQivEpa1nl
-         r/CbD+qBSvmEYNfHAZSmR/dhzVW+UkrzgjMuJzAbE+5ckheOBugMJdHv6ULWm0fq9lSW
-         iWhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789719742; x=1790324542;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CjigVRuOlpSLvwuFF0kw47lERwh/eIzaGM/o/mwNyVQ=;
-        b=D+BN8sdqkASqge7e/kly6s6KytGid9AHbPLXgZwGtSp+93ZhZnvMGZNrOqDUTm9EI9
-         CMxfNap0axpBL3QMQTtB2AA+JCQ5eqXSOSst3AEjkVoaispH1tQc1cY46R0VTt/H6abj
-         P/i2GHtw/+Y2eJo3hs0iJEI28kBvAko/fV4NO52gqhfBy7pSuCveWjhZ9AgSiCfXCQRS
-         oiYfL2d52TZXJ0xgyRaART5/QB5O5ZnOrtfs+kQ7XJUQvJ6hfOk0W9V51G6fXncZyCZj
-         sptxVeZAFOMMqGydy6OwW2GejkqHRXt6fq0fXjRL+8xXnCs2hKhUldR1So75/P/tqQSe
-         ns/A==
-X-Forwarded-Encrypted: i=1; AKwUvBw5MvdRnmifYaEfztJQdJq1o9CBqxVG/399DFRkoJt90qEPbQcb2jYl60Llq5KQCbhomQip/3PbHkNh@vger.kernel.org
-X-Gm-Message-State: AFuF++luctVk82Y59XCEixqE1DkvUHpm9xpHXBN5S7PM7+4iikiQ8zRg
-	UBeIiSfKYqgo7ykQ0315hhF4PvJhzl2WUyOVZTIhPZsKdIeqNDSTPU++
-X-Gm-Gg: AYBFou08jF0mjssFsRnxOMUHzL+OoJr3H6dfXhr3iJN35bdW8V8IuYGVyYJV8OGn7A+
-	RxRxHM1OYj6DZxHm7NpKUkajY8WaupM0/1QQ+noU2hVWU0NQvJ/0I77CHUpsXnNyCvzR8dF6WH8
-	bUuVFLl3gsaGHlZVUq/jyTxJ5+6tm4r1yvKV64DpPu7Fw6TM71kqhTK6wdLiC09VSJwb068nvmm
-	iLwUHgElJbjDGDdZitvPg47bvhRlgB4C//aZPQQ2EJI4FOePLTxwxLb0DI+KWWqxoCPk5OCB6cP
-	FGh0w0Uscdj6Y48SLmP0V/ee08rEBYFwNlEmZqIdbR+lknauDPBISJhVD25qT+vbZ62ejjPneHN
-	8DN6fs11xPXAwDOpoQfbBs1qZyysidNAtdBUxRPUFxdoebo4OQlcv3c8uKzUTx/1qAXY1QPGhjJ
-	XrgGGlbWGGsumzr4SqIfpj8pOM9cAfxpRGix5gn1L7AHuRiolT+yqGYqF6uc/ywxjRu0JXlm9Aw
-	Po0ug==
-X-Received: by 2002:a05:6a00:4196:b0:874:708d:b637 with SMTP id d2e1a72fcca58-874df800839mr3426122b3a.35.1789719741686;
-        Fri, 18 Sep 2026 01:22:21 -0700 (PDT)
-Received: from [10.125.112.20] ([122.11.210.25])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc5c50e79f1sm541488a12.30.2026.09.18.01.22.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 18 Sep 2026 01:22:20 -0700 (PDT)
-Message-ID: <bc6cf467-84d1-40a0-b570-1b5256a6e2e2@gmail.com>
-Date: Fri, 18 Sep 2026 16:22:03 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64FB7414435;
+	Fri, 18 Sep 2026 08:23:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.97
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789719841; cv=fail; b=duuz4/MDeim9rj0MZznbUFPwk+n5xj+s9IvxA216WEyzRwwFiBiiu5t56nvlcIpfhe3TDAgBPpwCbRfX1urOQHplMx5mqILtBfE8cRNfBKyvDNVyCGbdCPRO/3oopFTZ2zSb7DpnVvYOlDc8vKNADgxqb9/4qQd2lmiSTmCsu4I=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789719841; c=relaxed/simple;
+	bh=j593/wqCKLy7eD1ljY7ksbEBxtrGcnrDRxniw9xOdkc=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=CFpYNujLduylr25e+TbRGNWX7Ky3tTh/RbwYqjDOqcu4nVadlJpdREOBNBlGhN5oy28QxWfXrX/ngjVH4Jm2UMQQqYrMCl7c1gDFkm7lf/jZW/SRhosjNm2AVVDGMTMcg/Be4ehY3quQqPcQa+EefUZ4D1lfMvm7UUV/z745zuU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+Received: from ZQ4PR01MB1330.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:16::12) by NT0PR01MB1343.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:12::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Fri, 18 Sep
+ 2026 05:49:49 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=TKRN7GfRd3gChjOpskRa2lMS/mPm3usT5ow5M95WKCYNR90rA5dq8QT/rYZave7bYjCTbuYpKTDLOPcsOszS4+xj4kVABBYODNQPKrTg6DJYz/6ZceZgzGzWdCOFdKHS9drb3FUXNsRD/x+d93qaO/qZMzXb0sgiWjOuj65sVYFz/DxTg+Rxre2urlS0NkmLjrX7w3rDrV5pb/Loea6SZ4TzAuo1KLSQdEO1hhLSDKWewZVnkInx9eXnBpmiIzVqUXS1eQq0WN9WVZiBZw3RUZGyFkaoRkx/yCVE9VkEfMsMxy6LyVqTu2CV9tIdko3bEYwPUpn8/51p6fPSqFSAjw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=j593/wqCKLy7eD1ljY7ksbEBxtrGcnrDRxniw9xOdkc=;
+ b=l9HRSr26owN79cXa69oSP9mczUtDtDA6q4pZ+l3/iGUQoQkMceCf8DT9hWMPZZxyUyCIebruDJP2E+46uVncgpPU3kaNU9/T5FAIyX9k7Jq/a+PS1t4mRZuh9fJNQAxPeK+jc3wJzQZvPIDvBQ/p5TT4C8TPTRz6E9F0F2oVtyQnq/ahlsLgvlltfndcRUn+SheXiqiioDsEAk/yOP6gpWiSOPpUN3I5yTRalPTjARwbKrG1YgXDvUKfnAQfVfRw7fJeJaN7DPFz22kwRFig0z+NHQEGmZOxmC5hWyt03iwGcsSfBLY5YugbfKP5Ali/+KBKqIrHiGrh7ngYGRxKvg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1330.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:16::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Fri, 18 Sep
+ 2026 02:32:09 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
+ with mapi id 15.21.0428.008; Fri, 18 Sep 2026 02:32:08 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: "Winiarska, Iwona" <iwona.winiarska@intel.com>, "robh@kernel.org"
+	<robh@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>, "linux@roeck-us.net"
+	<linux@roeck-us.net>
+CC: "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
+	"linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v1 3/6] peci: Add support for PECI CC 0x83 retry condition
+Thread-Topic: [PATCH v1 3/6] peci: Add support for PECI CC 0x83 retry
+ condition
+Thread-Index: AQHdO6kVHu1CwGrH7Ui5uBhCEJmWXbbTVFOAgABgJ4A=
+Date: Fri, 18 Sep 2026 02:32:08 +0000
+Message-ID:
+ <ZQ4PR01MB1202D279CB9BEA89EC779500F2872@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+References: <20260903133408.110847-1-changhuang.liang@starfivetech.com>
+	 <20260903133408.110847-4-changhuang.liang@starfivetech.com>
+ <47a9f001f9c0f9e2be2254289c5ba3f7d64cef05.camel@intel.com>
+In-Reply-To: <47a9f001f9c0f9e2be2254289c5ba3f7d64cef05.camel@intel.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic:
+	ZQ4PR01MB1202:EE_|ZQ4PR01MB1330:EE_|NT0PR01MB1343:EE_
+x-ms-office365-filtering-correlation-id: 70de36ad-1fbc-43f9-c260-08df152d097d
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|10067099003|22082099003|18002099003|4143699003|56012099006|38070700021;
+x-microsoft-antispam-message-info:
+ 9po94E2c1OBW+gewL+cuXZFqy0k06xdYqH46r0+SqC0y+Zjra7G+MXil8Q+HwjzpjnGJE19n4FrXT7EEt7SaWsS+IitnD0x40s/nVJOHkYPBnXsxEQkTjoCojVqwzI4yiphq/ZH+VRiD6Bgk8OLzcWdyqUpld1mIX9We+/C0VgQ26e4HtR7R8lqEL8qAx5kCJJ3uz6+w73be3dlrvMlZZ54uVHzAREIo4uUdFd81tiQNwBQvurxVn9oleTfUMeQSGXbrOjXRQlZAajLBpyuaLSmuB5/qVNOBSkP28X4eD0d0be3lJlKHmBsNPHjdnBvusMWe3q+o2BoeFyIChiNKmqbwGzUIf1CFH7nzcm7mAyymfVfDoJRFmVCqrh42BrbrJslEgBcvdaDilrwZCQdIUa7DG6tQa0KgKFkGhKrAAPliVAv5739pSzYMP8teDzXAnelQ5IMFMJJlyoHONU2InO7T378C2rBxabUWTVoRDMBv0NqjcJSA5fy2QWjfPJJhsXtZ4WaukD/Uxj1FJxHLT03KzN+GFFp3sjuGUeZEzCjZ8NzuErwZhIAHET1zTs4F
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:zh-cn;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(10067099003)(22082099003)(18002099003)(4143699003)(56012099006)(38070700021);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?YlZRM0RjMWJLc0ZNMjBtQXNzcDNkM3IvY2t3eHBqL2xVc01yK1IzV3Y5YzlV?=
+ =?utf-8?B?QlNzMHpKQkpsbGVmL0VoK0JsVDVtZlhnK2tVcG1jMlcxNkJBZlBSV29FZEpk?=
+ =?utf-8?B?VnBuQmF6Y0F2S2RwODVVV1FEckFXNUl4dmFVVlBtd3JIb1BCVUJiKy9LZ3Nu?=
+ =?utf-8?B?dVcrN0ZtMzZST2tNWXBqV1J6dUhlV2pnazV2dDZINFJWRWNqeG1pOXdNcGpY?=
+ =?utf-8?B?aVd5dzVjNkVoUzZXWG1sOTB4VmNFYjZPWFJXYTdZc0FOZGw5c3BBUmUvQy92?=
+ =?utf-8?B?OGhyazlkZVZ6ZUc2V0VHbXRJbnFDUnNpd2VIRHJFbDZmZVFaTHVia3hReEM1?=
+ =?utf-8?B?bUltREpIdVBXemZndk04QktyMjUzR3JvMkNvWlp5WEljNS9WYVdNLzdSU3Vt?=
+ =?utf-8?B?ZHRwbDl6UHF2REdkMXNwMjJPUTJKM2pmWTQvbitLaCtqTmZtQW9lRFpKUHVI?=
+ =?utf-8?B?ejNKNjFUenpEaWtIZzduaUp4UUdkN3hTTDNycGtFbUlWeTVrc1B2cGVmVG53?=
+ =?utf-8?B?OVZxZDh6SndnRGNsYkw5cEtBZlZtU2FYaUd2YVVHMCtUdDIwNEdZLzdzc1NU?=
+ =?utf-8?B?RjVpMVBpU1lQaStXUW5JVXRSYStCampNNE9hUHhCRnNrWnZDb05aekxsbzE3?=
+ =?utf-8?B?WU9aak4vSWYyLzYzbXdIbXNJSVFIc2lycGMrQzljMTVIUnJNcHBoYUd2cS9l?=
+ =?utf-8?B?dkV2S3BNdlFoUXBWeS91eXRaa3hiZkMrUko1N2tZSkRtV1ltVGFQc0VUeGQv?=
+ =?utf-8?B?dE41T2FNemhhbURDQUZOYnZEU2JaSDZoSkVMYXpnNHBnZzBVeTFuZnZhNDk1?=
+ =?utf-8?B?dXlLMnhqYzEwRzRCZ3VmOExCN21RQ0ZldHFuejVXVUhSNjlvNE12NmtWS1I5?=
+ =?utf-8?B?dkdLTHdPMG02RnFTTm15V1J5Mi9CblBkejBVc1RPWmZHSmVZSzU5VGlQVU15?=
+ =?utf-8?B?dDhYK2Uyb1N1alEwa1NiSytlMXZmbmxuc3JSWExVMHROZUFUc2ZSRGFBM1c5?=
+ =?utf-8?B?TWFtaGVBei8zT3BGVEdGd1FSczV6WXRBVlV4b2xEdkh3bzBMUjQwS09KeUQ5?=
+ =?utf-8?B?ZXBVTUdPelplWWkwRzRLOGl2K3lEWlBzajNNNXUxQjdkdWJuaXREa2N0Y0Vr?=
+ =?utf-8?B?cW5KRGdLWEhmd3MvQ1dtdHA1VDZocmt2d0NkUDNSKzJia2N4b0d6UjFHQVF4?=
+ =?utf-8?B?MXBaTDJuSXhFYitjQlV5MTFDd29uQjdGMHdlcG1LcUtUZXJkYkVSMjFTYjVV?=
+ =?utf-8?B?aTZXbmFJZFRKMUNqVVh0YW9jZ1ZCemYvNmhGdmpyZ3FjSTA0TkoyOXdLTmxW?=
+ =?utf-8?B?NW9saGYxWnFMa25Fdm5RY2lRZWJPc2JsaS9LMitkR0JyWnpkdjVhTUs1WDVp?=
+ =?utf-8?B?Q0dkUnJqVmFWd21pRERmalpGREFUVk5PR255d3YvT0drTFU5N24vMFhVYThr?=
+ =?utf-8?B?bWZNdlEvVWhxZnZmdnc0eDRyRjk1M3VORzFiS01CaVBWQmdXa2llODlkQ1pN?=
+ =?utf-8?B?Wi8wMnpodTl6K0p2QzRJNEF6cWd6WjUzNURPOTUyeGYxYjAyUnZyd3RRc3dW?=
+ =?utf-8?B?SDNjWjBKaVV5aHJTdGVkT1J6ZU9lL2lOa1RoZWw2b3pUWVFQeUtTekJ2NTZl?=
+ =?utf-8?B?WnBndHl1bWt2amxHYm1iU0tmd3pjbTJJaXpzZldLa1pSZjV3NjhNeUhxQ1pz?=
+ =?utf-8?B?c254clpTRlA5UnA5QURIVDBuZm5LU0ZIWWJQT1hqd2RRbjIwY01Nd1FZZTdn?=
+ =?utf-8?B?NzBiTEFVWCtibFVsVVVxMEdZNURTeGM2MjhxQzZ1TXVFb0Y0emZ4aytlenht?=
+ =?utf-8?B?djdNRDFZYXhMMVdKYWxKZ01ZY1pZOXUxTUNwZE9mbTk4czhscHZpQ0tTb2dy?=
+ =?utf-8?B?RHlOazVvODlxRS9hWDd3a2NKOVNheW04cXZRWWZKdzVHQ2l4OFM1VnZFb3RZ?=
+ =?utf-8?B?bU5rc3VWWW83OE1PemE1SWxvMEhVcC95UkpRQnFsa0lHMWQ5SGZxMTREd1Nv?=
+ =?utf-8?B?UkJkTmRBTUJPUCtpeENlR01MMGNMTGQ1TW1UWFhFb3psZFJFOTZSbGl2TmZk?=
+ =?utf-8?B?MmV4aEpHaWN1aWNxVGttQWw0emEyS0VOOHgrQ2k4TVZBWFdpM1V5S3JqS0tB?=
+ =?utf-8?B?b09FSFRoV2pSMUZ2aTZZWUFFc21FdmZhV1FGRUFRUkVqTlZldGk5S21RRGxW?=
+ =?utf-8?B?MXVjZmY0anBJL1oxelYvUmIzeHkxWGRHR1BPSGpiemI0bHlRcndxaFBtN2tS?=
+ =?utf-8?B?RkhXRTFvdjY4YklFb1Nyc01PeTkrdDJjUnJtNlZzdWtoQ2ZHMVhqelJUd0k5?=
+ =?utf-8?B?Ykpic3AvOXdncDVVdnE1WkFwVHZOYjZuUmxHS3YrckNOZDVXK2l5TmcyOS9k?=
+ =?utf-8?Q?1dCIQAGw8xBYdg1Q=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 06/10] memblock: introduce MEMBLOCK_NODUMP flag
-To: Baoquan He <baoquan.he@linux.dev>
-Cc: catalin.marinas@arm.com, will@kernel.org, chenhuacai@kernel.org,
- pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, tglx@kernel.org,
- mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org,
- robh@kernel.org, saravanak@kernel.org, akpm@linux-foundation.org,
- rppt@kernel.org, pasha.tatashin@soleen.com, pratyush@kernel.org,
- m.szyprowski@samsung.com, mark.rutland@arm.com, kernel@xen0n.name,
- alex@ghiti.fr, hpa@zytor.com, ruirui.yang@linux.dev, robin.murphy@arm.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
- devicetree@vger.kernel.org, kexec@lists.infradead.org, linux-mm@kvack.org,
- iommu@lists.linux.dev
-References: <20260902073116.802752-1-chenwandun1@gmail.com>
- <20260902073116.802752-7-chenwandun1@gmail.com> <aqzxavL91icLw-Xv@fedora>
-Content-Language: en-US
-From: Wandun <chenwandun1@gmail.com>
-In-Reply-To: <aqzxavL91icLw-Xv@fedora>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-Network-Message-Id: 70de36ad-1fbc-43f9-c260-08df152d097d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Sep 2026 02:32:08.6513
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: jMp+gAm6LuPafHAo1AFR8m7P3a9+qrHUSKHPEbdkGmq/3O5R6GJQne36tfjnZ5Zu2oOzkqTJ16YHLec2t8vXielf2JuEnC1b9KBsiLkg5VA4xmOLbK5PhJcwPma5j6/L
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1330
+X-OriginatorOrg: starfivetech.com
 
-
-
-On 9/18/26 16:08, Baoquan He wrote:
-> On 09/02/26 at 03:31pm, Wandun Chen wrote:
->> From: Wandun Chen <chenwandun@lixiang.com>
->>
->> Add MEMBLOCK_NODUMP to mark regions that should be excluded from
->> kdump vmcores.
->>
->> The flag is meant for reserved memory that carries no data useful for
->> crash analysis. Reusable reserved regions such as CMA may hold useful
->> data, so these regions must not be marked MEMBLOCK_NODUMP. Subsequent
->> patches wire this up for /reserved-memory and /memreserve/ entries.
->>
->> Suggested-by: Rob Herring <robh@kernel.org>
->> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
->> Tested-by: Meijing Zhao <zhaomeijing@lixiang.com>
->> ---
->>  include/linux/memblock.h |  9 +++++++++
->>  mm/memblock.c            | 16 ++++++++++++++++
->>  2 files changed, 25 insertions(+)
->>
->> diff --git a/include/linux/memblock.h b/include/linux/memblock.h
->> index d62db9e776cf..b2fcf11fba2b 100644
->> --- a/include/linux/memblock.h
->> +++ b/include/linux/memblock.h
->> @@ -52,6 +52,8 @@ extern unsigned long long max_possible_pfn;
->>   * kernel that we know is good to use. It is the only memory that
->>   * allocations may happen from in this phase.
->>   * @MEMBLOCK_RSRV_HUGETLB: memory is reserved for hugetlb pages
->> + * @MEMBLOCK_NODUMP: exclude from kdump vmcore. It carries no data useful
->> + * for crash analysis (e.g. firmware carveouts).
->>   */
->>  enum memblock_flags {
->>  	MEMBLOCK_NONE		= 0x0,	/* No special request */
->> @@ -63,6 +65,7 @@ enum memblock_flags {
->>  	MEMBLOCK_RSRV_KERN	= 0x20,	/* memory reserved for kernel use */
->>  	MEMBLOCK_KHO_SCRATCH	= 0x40,	/* scratch memory for kexec handover */
->>  	MEMBLOCK_RSRV_HUGETLB	= 0x80, /* memory reserved for hugetlb pages */
->> +	MEMBLOCK_NODUMP		= 0x100,/* exclude from kdump vmcore */
->>  };
->>  
->>  /**
->> @@ -160,6 +163,7 @@ int memblock_reserved_mark_noinit(phys_addr_t base, phys_addr_t size);
->>  int memblock_reserved_mark_kern(phys_addr_t base, phys_addr_t size);
->>  int memblock_mark_kho_scratch(phys_addr_t base, phys_addr_t size);
->>  int memblock_clear_kho_scratch(phys_addr_t base, phys_addr_t size);
->> +int memblock_mark_nodump(phys_addr_t base, phys_addr_t size);
->>  
->>  void memblock_free(void *ptr, size_t size);
->>  void reset_all_zones_managed_pages(void);
->> @@ -306,6 +310,11 @@ static inline bool memblock_is_kho_scratch(struct memblock_region *m)
->>  	return m->flags & MEMBLOCK_KHO_SCRATCH;
->>  }
->>  
->> +static inline bool memblock_is_nodump(struct memblock_region *m)
->> +{
->> +	return m->flags & MEMBLOCK_NODUMP;
->> +}
->> +
->>  int memblock_search_pfn_nid(unsigned long pfn, unsigned long *start_pfn,
->>  			    unsigned long  *end_pfn);
->>  void __next_mem_pfn_range(int *idx, int nid, unsigned long *out_start_pfn,
->> diff --git a/mm/memblock.c b/mm/memblock.c
->> index f2952d725c10..2e87f39826dd 100644
->> --- a/mm/memblock.c
->> +++ b/mm/memblock.c
->> @@ -1204,6 +1204,21 @@ __init int memblock_clear_kho_scratch(phys_addr_t base, phys_addr_t size)
->>  				    MEMBLOCK_KHO_SCRATCH);
->>  }
->>  
->> +/**
->> + * memblock_mark_nodump - Mark a memory region with flag MEMBLOCK_NODUMP.
->> + * @base: the base phys addr of the region
->> + * @size: the size of the region
->> + *
->> + * Mark the region as not to be included in crash dumps.
->> + *
->> + * Return: 0 on success, -errno on failure.
->> + */
->> +int __init_memblock memblock_mark_nodump(phys_addr_t base, phys_addr_t size)
->       ~~~~~~~~~~~~~~^
-> Is it impossible to use at runtime even thought it claims to be generic?
-It is currently only used during initialization, so I added __init_memblock.
-
-If other modules need to use this function in the future, this annotation can
-be removed.
-
-Best regards,
-Wandun>
-> 
->> +{
->> +	return memblock_setclr_flag(&memblock.memory, base, size, 1,
->> +				    MEMBLOCK_NODUMP);
->> +}
->> +
->>  static bool should_skip_region(struct memblock_type *type,
->>  			       struct memblock_region *m,
->>  			       int nid, int flags)
->> @@ -2887,6 +2902,7 @@ static const char * const flagname[] = {
->>  	[ilog2(MEMBLOCK_RSRV_KERN)] = "RSV_KERN",
->>  	[ilog2(MEMBLOCK_KHO_SCRATCH)] = "KHO_SCRATCH",
->>  	[ilog2(MEMBLOCK_RSRV_HUGETLB)] = "RSV_HUGETLB",
->> +	[ilog2(MEMBLOCK_NODUMP)] = "NODUMP",
->>  };
->>  
->>  static int memblock_debug_show(struct seq_file *m, void *private)
->> -- 
->> 2.43.0
->>
-
+SGksIEl3b25hDQoNCj4gT24gVGh1LCAyMDI2LTA5LTAzIGF0IDA2OjM0IC0wNzAwLCBDaGFuZ2h1
+YW5nIExpYW5nIHdyb3RlOg0KPiA+IFNvbWUgUEVDSSBjbGllbnQgZGV2aWNlcyBtYXkgcmV0dXJu
+IGNvbXBsZXRpb24gY29kZSAweDgzDQo+IChDTURfVElNRU9VVCkNCj4gPiB1bmRlciBjZXJ0YWlu
+IGNvbmRpdGlvbnMsIHdoaWNoIGlzIG5vdCBjdXJyZW50bHkgaGFuZGxlZCBieSB0aGUgZHJpdmVy
+Lg0KPiANCj4gVGhpcyBjb21wbGV0aW9uIGNvZGUgbWVhbnMgdGhhdCBhIGNvbW1hbmQgcmVzcG9u
+c2UgaXMgaW4gcHJvZ3Jlc3MuDQo+IEl0IHdhc24ndCBkZWZpbmVkIG9uIG9sZGVyIHBsYXRmb3Jt
+cy4NCj4gDQo+ID4NCj4gPiBBZGQgUEVDSV9DQ19DTURfVElNRU9VVCBkZWZpbml0aW9uIGFuZCBt
+YXAgaXQgdG8gLUVBR0FJTiBzbyB0aGF0IHRoZQ0KPiANCj4gVGhlIGRlZmluaXRpb24gbmFtZSBz
+aG91bGQgYmUgbW9yZSByZWxhdGVkIHRvIHRoZSBleGFjdCBDQyBtZWFuaW5nLCBlLmcuDQo+IFBF
+Q0lfQ0NfUkVTUF9JTl9QUk9HUkVTUz8NCg0KV2lsbCB1cGRhdGUuDQoNCkJlc3QgUmVnYXJkcywN
+CkNoYW5naHVhbmcNCg0KDQo=
