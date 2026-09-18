@@ -1,434 +1,185 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57D184E4C2B;
-	Fri, 18 Sep 2026 11:06:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F16843A81A;
+	Fri, 18 Sep 2026 11:09:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789729612; cv=none; b=B4H8mWN2t1Et0uQ73yBB3hjbI7/vUlgM64KDZBJe8uSY2NVdeCt5bb1eWf7jtgxQPJHGzB/a2fraNobzd6BtdVcCCa6GWRHtzf2KtMG4N/80gKKhHgTieBtAXg6emW/bBHwmfP7EibmN898y1TYGvOYa4IIPhpbDMTTGnzT4VCA=
+	t=1789729800; cv=none; b=exG9LtiuFjBdmLX7+K0Yqlpik5M3rKUKtlOm+Q0V4+ycraQUhG8GiXOYjaGR10PNetJ8jzgcVd6BccIDjZAla43x/5DzNA9bDdzk6Zdl4tby7/+xDtQ0TpGehTSAPS5WDRFoBZa56nMROWvVkdLCsE09GrIMpojgOCDoK2YMFTU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789729612; c=relaxed/simple;
-	bh=XsLeQwB1fLUCtAKmgPFpm557IbbzSOp56z8va3WVDH8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=aWzmFovdktlgWulQq4AmCABIvsI+aSWUkgcKRgXtrRvmQ8WISuV9ShQy91yvKF1JfpcI2VeOalGt7NvEUy8JZ8GOTZMkTNcBfYnLcofEu11VCt3NaG+cZIus+OLe/iUU2hk4U6ueOHivbRPdMTZIS4vyNb0PRdCNSZbvgbjqDTQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DVqE5y7D; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789729800; c=relaxed/simple;
+	bh=pd+OS3tBP8CJ9F0+if3g0L9XTiTjKyDAlPFk7sYS0Cg=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=cgfcFJ9RjRbtnyxrL0qZ1JlMxeIPYy3330KnB3DtTGRVLJcnA+ga71QD811Y/ZLYUywfnQ7Fn/sfv5bAHERFQGCRmB9GNiNTWezJvRlPWwvq6FzuEdeQvUkC8425sHVSY3zAVT9rwG81bbk1pvY1SWSa4i50I/zAAAdxZSxny5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=fail (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=jxOa3RnE reason="signature verification failed"; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DVqE5y7D"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D4E03C32781;
-	Fri, 18 Sep 2026 11:06:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789729610;
-	bh=XsLeQwB1fLUCtAKmgPFpm557IbbzSOp56z8va3WVDH8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=DVqE5y7DQJYuVpmjWMIt4o0darHkxyOHJa5vi7AF5iEtkNLv+D7jZVp5fqkOCIrAh
-	 CGFs7SSaIl/xUsPHR5XFVINqsihkxvjRJx3oqTBYhyxqoudlXS9/0754omlpcvN/yu
-	 yKx65wnGI/mf+p976gp475Ee1QfVFjl5KeoXeiIZtLlVcSRxcPo5yHAf1mRtgGAA7+
-	 7GaSbEKtRG1sdCkhIeSRjw2RjfSHn439uzMzP68VIVnWAS1R/JQ9H4X31v/mzj9MIG
-	 6GIQWQPO1I49lPPNP4m0GghS6Xqr1xZHfb5iTa8jy4QdHua0lOnnlMu0KNgtf8TPFa
-	 hRHWFcDje7sXg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BF823C982DF;
-	Fri, 18 Sep 2026 11:06:50 +0000 (UTC)
-From: Michael Reeves via B4 Relay <devnull+michael.reeves077.gmail.com@kernel.org>
-Date: Fri, 18 Sep 2026 21:06:53 +1000
-Subject: [PATCH v2 10/10] arm64: dts: apple: Enable DockChannel HID on M2
- and M3 laptops
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="jxOa3RnE"
+Received: from monstersaurus.ideasonboard.com (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id B1D6B1F8;
+	Fri, 18 Sep 2026 13:08:11 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1789729691;
+	bh=pd+OS3tBP8CJ9F0+if3g0L9XTiTjKyDAlPFk7sYS0Cg=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=jxOa3RnEq2/CNxX0bfR1kunUgikbVV//SkHNMNfoRZorxeiHSqlD/OAOpbwivtvav
+	 Ss3ClSRi+SGjDqFsdOHunjq21sBvn+l6vcL7XA4PZJtbw/CIofCZGd9tP3WmyTqmZz
+	 IcBATwYWqSR9FPPPmRwDQmdmq/LgcbVR0zFsmoos=
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-apple-mtp-keyboard-final-v2-10-a5c685e50b60@gmail.com>
-References: <20260918-apple-mtp-keyboard-final-v2-0-a5c685e50b60@gmail.com>
-In-Reply-To: <20260918-apple-mtp-keyboard-final-v2-0-a5c685e50b60@gmail.com>
-To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
- Neal Gompa <neal@gompa.dev>, Jassi Brar <jassisinghbrar@gmail.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Hector Martin <marcan@marcan.st>, 
- Michael Reeves <michael.reeves077@gmail.com>, 
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>, 
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, Jiri Kosina <jikos@kernel.org>, 
- Benjamin Tissoires <bentiss@kernel.org>
-Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- iommu@lists.linux.dev, linux-input@vger.kernel.org, 
- Yureka Lilian <yureka@cyberchaos.dev>, Julian Braha <julianbraha@gmail.com>, 
- Sasha Finkelstein <k@chaosmail.tech>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789729608; l=7273;
- i=michael.reeves077@gmail.com; s=fedora-20260918;
- h=from:subject:message-id;
- bh=78kUfdeWKUeiEf4dX7SZ0qB0VILZ/K/tdCVxq/uYAb0=;
- b=SlCQi8R+AsDGd7i6kEdHhrkowfvRK7D4GPBrG+nolP9gXvfAkOOkqK8McyMEOXCUP/cRKrnH/
- T9OI6ggaRtxDXum667qxqJmtLkZd0DyGfXUqKjQhSeJzFVZsQDz22yB
-X-Developer-Key: i=michael.reeves077@gmail.com; a=ed25519;
- pk=VJ0TvyQ9TvfzYZa908YSE9kpkjFLLD5luv0bERu+boc=
-X-Endpoint-Received: by B4 Relay for
- michael.reeves077@gmail.com/fedora-20260918 with auth_id=1035
-X-Original-From: Michael Reeves <michael.reeves077@gmail.com>
-Reply-To: michael.reeves077@gmail.com
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260918-kbingham-orientation-v6-2-5e8b1f01be29@ideasonboard.com>
+References: <20260918-kbingham-orientation-v6-0-5e8b1f01be29@ideasonboard.com> <20260918-kbingham-orientation-v6-2-5e8b1f01be29@ideasonboard.com>
+Subject: Re: [PATCH v6 2/6] arm64: dts: qcom: Convert to new media orientation definitions
+From: Kieran Bingham <kieran.bingham@ideasonboard.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux@ew.tq-group.com, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org, linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, David Heidelberg <david@ixit.cz>
+To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Bjorn Andersson <andersson@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Daniel Scally <dan.scally@ideasonboard.com>, Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>, Geert Uytterhoeven <geert+renesas@glider.be>, Heiko Stuebner <heiko@sntech.de>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Jacopo Mondi <jacopo@jmondi.org>, Jimmy Su <jimmy.su@intel.com>, Jonathan Hunter <jonathanh@nvidia.com>, Konrad Dybcio <konradybcio@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Magnus Damm <magnus.damm@gmail.com>, Martin Kepplinger <martin.kepplinger@puri.sm>, Matthias Fend <matthias.fend@emfend.at>, Mauro Carvalho Chehab <mchehab@kernel.org>, Michael Riesch <michael.riesch@collabora.com>, Mikhail Rudenko <mike.rudenko@gmail.com>, Paul Elder <paul.elder@ideasonboard.com>, Pengutronix Kernel Team <kernel@pengutronix.de>, Quentin Schulz <quentin.schulz@theobroma-sy
+ stems.com>, Richard Acayan <mailingradian@gmail.com>, Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, Sascha Hauer <s.hauer@pengutronix.de>, Svyatoslav Ryhel <clamor95@gmail.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Thierry Reding <thierry.reding@kernel.org>, Tommaso Merciai <tomm.merciai@gmail.com>
+Date: Fri, 18 Sep 2026 12:09:51 +0100
+Message-ID: <178972979131.1723501.9444120486527129452@ping.linuxembedded.co.uk>
+User-Agent: alot/0.9.1
 
-From: Michael Reeves <michael.reeves077@gmail.com>
+Quoting Kieran Bingham (2026-09-18 11:44:14)
+> From: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+>=20
+> The orientation property for video interface devices now has definitions
+> to prevent hardcoded integer values for the enum options.
+>=20
+> Update the users throughout the qualcomm device trees to use the new
+> definitions.
+>=20
+> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Reviewed-by: David Heidelberg <david@ixit.cz>
 
-Enable the MTP mailbox, DART, DockChannel mailbox, and HID transport on
-the M2 and M3 laptop device trees using this internal input path.
+Sashiko has noted that there is another new dts added in dts/qcom since
+I wrote this patch.
 
-Add a keyboard alias and keyboard child node for each machine so the
-transport can expose the internal keyboard.
+I don't want to invalidate the above reviews by adding another change,
+so I will send the single update to the new file separately as the core
+definitions are already accepted now.
 
-Co-developed-by: Hector Martin <marcan@marcan.st>
-Signed-off-by: Hector Martin <marcan@marcan.st>
-Signed-off-by: Michael Reeves <michael.reeves077@gmail.com>
----
- arch/arm64/boot/dts/apple/t602x-j414-j416.dtsi | 29 ++++++++++++++++++++++++++
- arch/arm64/boot/dts/apple/t603x-j514-j516.dtsi | 24 +++++++++++++++++++++
- arch/arm64/boot/dts/apple/t8112-j413.dts       | 24 +++++++++++++++++++++
- arch/arm64/boot/dts/apple/t8112-j415.dts       | 24 +++++++++++++++++++++
- arch/arm64/boot/dts/apple/t8112-j493.dts       | 26 ++++++++++++++++++++++-
- arch/arm64/boot/dts/apple/t8122-j504.dts       | 26 +++++++++++++++++++++++
- arch/arm64/boot/dts/apple/t8122-j613.dts       | 27 ++++++++++++++++++++++++
- arch/arm64/boot/dts/apple/t8122-j615.dts       | 27 ++++++++++++++++++++++++
- 8 files changed, 206 insertions(+), 1 deletion(-)
+If someone /really/ wants me to add the change to
+arch/arm64/boot/dts/qcom/sm8250-xiaomi-elish-common.dtsi in this patch,
+please let me know.
 
-diff --git a/arch/arm64/boot/dts/apple/t602x-j414-j416.dtsi b/arch/arm64/boot/dts/apple/t602x-j414-j416.dtsi
-index 0e806d8dd..91fda44d9 100644
---- a/arch/arm64/boot/dts/apple/t602x-j414-j416.dtsi
-+++ b/arch/arm64/boot/dts/apple/t602x-j414-j416.dtsi
-@@ -16,6 +16,12 @@
- 
- #include "t600x-j314-j316.dtsi"
- 
-+/ {
-+	aliases {
-+		keyboard = &keyboard;
-+	};
-+};
-+
- &framebuffer0 {
- 	power-domains = <&ps_disp0_cpu0>, <&ps_dptx_phy_ps>;
- };
-@@ -43,3 +49,26 @@ &wifi0 {
- &bluetooth0 {
- 	compatible = "pci14e4,5f72";
- };
-+
-+&mtp_mbox {
-+	status = "okay";
-+};
-+
-+&mtp_dart {
-+	status = "okay";
-+};
-+
-+&mtp_dockchannel {
-+	status = "okay";
-+};
-+
-+&mtp_hid {
-+	status = "okay";
-+
-+	keyboard: keyboard {
-+		hid-country-code = <0>;
-+	};
-+
-+	stm {
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/apple/t603x-j514-j516.dtsi b/arch/arm64/boot/dts/apple/t603x-j514-j516.dtsi
-index 517b84c18..f6fe382de 100644
---- a/arch/arm64/boot/dts/apple/t603x-j514-j516.dtsi
-+++ b/arch/arm64/boot/dts/apple/t603x-j514-j516.dtsi
-@@ -21,6 +21,7 @@ / {
- 	chassis-type = "laptop";
- 
- 	aliases {
-+		keyboard = &keyboard;
- 		serial0 = &serial0;
- 	};
- 
-@@ -64,3 +65,26 @@ &serial0 {
- &fpwm0 {
- 	status = "okay";
- };
-+
-+&mtp_mbox {
-+	status = "okay";
-+};
-+
-+&mtp_dart {
-+	status = "okay";
-+};
-+
-+&mtp_dockchannel {
-+	status = "okay";
-+};
-+
-+&mtp_hid {
-+	status = "okay";
-+
-+	keyboard: keyboard {
-+		hid-country-code = <0>;
-+	};
-+
-+	stm {
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/apple/t8112-j413.dts b/arch/arm64/boot/dts/apple/t8112-j413.dts
-index 7ccfceb08..5b9bdad3d 100644
---- a/arch/arm64/boot/dts/apple/t8112-j413.dts
-+++ b/arch/arm64/boot/dts/apple/t8112-j413.dts
-@@ -20,6 +20,7 @@ / {
- 
- 	aliases {
- 		bluetooth0 = &bluetooth0;
-+		keyboard = &keyboard;
- 		wifi0 = &wifi0;
- 	};
- 
-@@ -93,3 +94,26 @@ &fpwm1 {
- };
- 
- #include "hwmon-laptop.dtsi"
-+
-+&mtp_mbox {
-+	status = "okay";
-+};
-+
-+&mtp_dart {
-+	status = "okay";
-+};
-+
-+&mtp_dockchannel {
-+	status = "okay";
-+};
-+
-+&mtp_hid {
-+	status = "okay";
-+
-+	keyboard: keyboard {
-+		hid-country-code = <0>;
-+	};
-+
-+	stm {
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/apple/t8112-j415.dts b/arch/arm64/boot/dts/apple/t8112-j415.dts
-index fdc3409d2..3da132eeb 100644
---- a/arch/arm64/boot/dts/apple/t8112-j415.dts
-+++ b/arch/arm64/boot/dts/apple/t8112-j415.dts
-@@ -20,6 +20,7 @@ / {
- 
- 	aliases {
- 		bluetooth0 = &bluetooth0;
-+		keyboard = &keyboard;
- 		wifi0 = &wifi0;
- 	};
- 
-@@ -93,3 +94,26 @@ &fpwm1 {
- };
- 
- #include "hwmon-laptop.dtsi"
-+
-+&mtp_mbox {
-+	status = "okay";
-+};
-+
-+&mtp_dart {
-+	status = "okay";
-+};
-+
-+&mtp_dockchannel {
-+	status = "okay";
-+};
-+
-+&mtp_hid {
-+	status = "okay";
-+
-+	keyboard: keyboard {
-+		hid-country-code = <0>;
-+	};
-+
-+	stm {
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/apple/t8112-j493.dts b/arch/arm64/boot/dts/apple/t8112-j493.dts
-index 7cea5c594..ecc057929 100644
---- a/arch/arm64/boot/dts/apple/t8112-j493.dts
-+++ b/arch/arm64/boot/dts/apple/t8112-j493.dts
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0+ OR MIT
- /*
-- * Apple MacBook Pro (13-inch, M1, 2022)
-+ * Apple MacBook Pro (13-inch, M2, 2022)
-  *
-  * target-type: J493
-  *
-@@ -24,6 +24,7 @@ / {
- 	 */
- 	aliases {
- 		bluetooth0 = &bluetooth0;
-+		keyboard = &keyboard;
- 		touchbar0 = &touchbar0;
- 		wifi0 = &wifi0;
- 	};
-@@ -149,3 +150,26 @@ touchbar0: touchbar@0 {
- 
- #include "hwmon-laptop.dtsi"
- #include "hwmon-fan.dtsi"
-+
-+&mtp_mbox {
-+	status = "okay";
-+};
-+
-+&mtp_dart {
-+	status = "okay";
-+};
-+
-+&mtp_dockchannel {
-+	status = "okay";
-+};
-+
-+&mtp_hid {
-+	status = "okay";
-+
-+	keyboard: keyboard {
-+		hid-country-code = <0>;
-+	};
-+
-+	stm {
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/apple/t8122-j504.dts b/arch/arm64/boot/dts/apple/t8122-j504.dts
-index 464491b55..a08a130be 100644
---- a/arch/arm64/boot/dts/apple/t8122-j504.dts
-+++ b/arch/arm64/boot/dts/apple/t8122-j504.dts
-@@ -18,6 +18,10 @@ / {
- 	compatible = "apple,j504", "apple,t8122", "apple,arm-platform";
- 	model = "Apple MacBook Pro (14-inch, M3, 2023)";
- 
-+	aliases {
-+		keyboard = &keyboard;
-+	};
-+
- 	led-controller {
- 		compatible = "pwm-leds";
- 		led-0 {
-@@ -35,3 +39,25 @@ &fpwm1 {
- 	status = "okay";
- };
- 
-+&mtp_mbox {
-+	status = "okay";
-+};
-+
-+&mtp_dart {
-+	status = "okay";
-+};
-+
-+&mtp_dockchannel {
-+	status = "okay";
-+};
-+
-+&mtp_hid {
-+	status = "okay";
-+
-+	keyboard: keyboard {
-+		hid-country-code = <0>;
-+	};
-+
-+	stm {
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/apple/t8122-j613.dts b/arch/arm64/boot/dts/apple/t8122-j613.dts
-index 51894ea70..a81326cd5 100644
---- a/arch/arm64/boot/dts/apple/t8122-j613.dts
-+++ b/arch/arm64/boot/dts/apple/t8122-j613.dts
-@@ -17,6 +17,10 @@ / {
- 	compatible = "apple,j613", "apple,t8122", "apple,arm-platform";
- 	model = "Apple MacBook Air (13-inch, M3, 2024)";
- 
-+	aliases {
-+		keyboard = &keyboard;
-+	};
-+
- 	led-controller {
- 		compatible = "pwm-leds";
- 		led-0 {
-@@ -33,3 +37,26 @@ led-0 {
- &fpwm1 {
- 	status = "okay";
- };
-+
-+&mtp_mbox {
-+	status = "okay";
-+};
-+
-+&mtp_dart {
-+	status = "okay";
-+};
-+
-+&mtp_dockchannel {
-+	status = "okay";
-+};
-+
-+&mtp_hid {
-+	status = "okay";
-+
-+	keyboard: keyboard {
-+		hid-country-code = <0>;
-+	};
-+
-+	stm {
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/apple/t8122-j615.dts b/arch/arm64/boot/dts/apple/t8122-j615.dts
-index 2a1970c1b..21bcacb6f 100644
---- a/arch/arm64/boot/dts/apple/t8122-j615.dts
-+++ b/arch/arm64/boot/dts/apple/t8122-j615.dts
-@@ -17,6 +17,10 @@ / {
- 	compatible = "apple,j615", "apple,t8122", "apple,arm-platform";
- 	model = "Apple MacBook Air (15-inch, M3, 2024)";
- 
-+	aliases {
-+		keyboard = &keyboard;
-+	};
-+
- 	led-controller {
- 		compatible = "pwm-leds";
- 		led-0 {
-@@ -33,3 +37,26 @@ led-0 {
- &fpwm1 {
- 	status = "okay";
- };
-+
-+&mtp_mbox {
-+	status = "okay";
-+};
-+
-+&mtp_dart {
-+	status = "okay";
-+};
-+
-+&mtp_dockchannel {
-+	status = "okay";
-+};
-+
-+&mtp_hid {
-+	status = "okay";
-+
-+	keyboard: keyboard {
-+		hid-country-code = <0>;
-+	};
-+
-+	stm {
-+	};
-+};
+it looks like this:
 
--- 
-2.55.0
+----------- arch/arm64/boot/dts/qcom/sm8250-xiaomi-elish-common.dtsi ------=
+-----
+index 945127dacc82..f86d3e0d51a6 100644
+@@ -3,10 +3,11 @@
+  * Copyright (c) 2022-2024 Jianhua Lu <lujianhua000@gmail.com>
+  */
+
+ #include <dt-bindings/arm/qcom,ids.h>
+ #include <dt-bindings/media/video-interfaces.h>
++#include <dt-bindings/media/video-interface-devices.h>
+ #include <dt-bindings/phy/phy.h>
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+ #include <dt-bindings/usb/pd.h>
+ #include "sm8250.dtsi"
+ #include "pm8150.dtsi"
+@@ -571,11 +572,11 @@ camera_front: camera@10 {
+ 		reset-gpios =3D <&tlmm 109 GPIO_ACTIVE_LOW>;
+
+ 		pinctrl-0 =3D <&cam_mclk3_default &camera_front_active>;
+ 		pinctrl-names =3D "default";
+
+-		orientation =3D <0>; /* Front facing */
++		orientation =3D <MEDIA_ORIENTATION_FRONT>;
+ 		rotation =3D <270>;
+
+ 		port {
+ 			ov8856_front_ep: endpoint {
+ 				data-lanes =3D <1 2>;
 
 
+--
+Kieran
+
+
+> Signed-off-by: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+> ---
+>  arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts         | 3 ++-
+>  arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts | 3 ++-
+>  arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi         | 3 ++-
+>  3 files changed, 6 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/ar=
+m64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+> index f41ad446a39e..e2b7f1bd05ab 100644
+> --- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+> +++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+> @@ -13,6 +13,7 @@
+>  #include <dt-bindings/iio/qcom,spmi-adc7-pmk8350.h>
+>  #include <dt-bindings/leds/common.h>
+>  #include <dt-bindings/media/video-interfaces.h>
+> +#include <dt-bindings/media/video-interface-devices.h>
+>  #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+>  #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+>  #include <dt-bindings/sound/qcom,q6asm.h>
+> @@ -701,7 +702,7 @@ camera@10 {
+>                 pinctrl-0 =3D <&cam_mclk3_default>;
+>                 pinctrl-names =3D "default";
+> =20
+> -               orientation =3D <0>; /* Front facing */
+> +               orientation =3D <MEDIA_ORIENTATION_FRONT>;
+>                 rotation =3D <270>;
+> =20
+>                 port {
+> diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts b=
+/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
+> index 218573a97785..3b5f6a29e969 100644
+> --- a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
+> +++ b/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
+> @@ -11,6 +11,7 @@
+>  #include <dt-bindings/input/gpio-keys.h>
+>  #include <dt-bindings/input/input.h>
+>  #include <dt-bindings/leds/common.h>
+> +#include <dt-bindings/media/video-interface-devices.h>
+>  #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+> =20
+>  #include "sc8280xp.dtsi"
+> @@ -683,7 +684,7 @@ camera@10 {
+> =20
+>                 clocks =3D <&camcc CAMCC_MCLK3_CLK>;
+> =20
+> -               orientation =3D <0>;      /* Front facing */
+> +               orientation =3D <MEDIA_ORIENTATION_FRONT>;
+> =20
+>                 avdd-supply =3D <&vreg_l6q>;
+>                 dvdd-supply =3D <&vreg_l2q>;
+> diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arch/ar=
+m64/boot/dts/qcom/sdm670-google-common.dtsi
+> index b4854801a5f5..7880d85b52fe 100644
+> --- a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
+> @@ -9,6 +9,7 @@
+>  #include <dt-bindings/gpio/gpio.h>
+>  #include <dt-bindings/input/input.h>
+>  #include <dt-bindings/leds/common.h>
+> +#include <dt-bindings/media/video-interface-devices.h>
+>  #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+>  #include <dt-bindings/power/qcom-rpmpd.h>
+>  #include "sdm670.dtsi"
+> @@ -460,7 +461,7 @@ camera@1a {
+>                 pinctrl-names =3D "default";
+> =20
+>                 rotation =3D <270>;
+> -               orientation =3D <0>;
+> +               orientation =3D <MEDIA_ORIENTATION_FRONT>;
+> =20
+>                 port {
+>                         cam_front_endpoint: endpoint {
+>=20
+> --=20
+> 2.52.0
+>
