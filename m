@@ -1,70 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from courrier.aliel.fr (courrier.aliel.fr [65.21.61.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 224E13E763E;
-	Fri, 18 Sep 2026 08:50:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 616254B44A8
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 08:54:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.61.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789721408; cv=none; b=gEN5V858b7xel//FDy61HwSMiT2ZIX9BX/JZVu7xBotVioK7KZzvZbjJAwBd0sytMDvfi4UMcqnWeAW613l7dyMpn+EtbXVD/P9mLFbtMDBjaIvhhYLC9cKJtskU1bMhttWyyPEkFSOIoFE7IYydcAuqBZzCOzTmYkytsDvbk0I=
+	t=1789721682; cv=none; b=gvm/jMYxZ2u42UWoK9dZVFfWwGeDGCJB732HEWWUegXlJaeUHK26tScB2eosVqE1lJNX+KYPIiBBEQ9Yn4GAZYlUW4BXbGUP3QoX4u+dF3uS/eZlv4e9XKgVnd0SlZzF0dqPesyr4azioU/0o+vUAHKu1POj7qp8ZspALD9qZyg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789721408; c=relaxed/simple;
-	bh=Qy4aD/RPF/BzhIVdze7t/aiu8d++NWsgUROxDMxTLTo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HQO/jG4/NjhbwizQXBNusqx2xMSZ+ChIlk6hnxBldebOh4bJ2f8Sc5YLQNlHRa45OfvT6NsvxFh5fGv2W73MuFiKzj0RoyzFh/eYvXVUSqvsNj9vl9JVDEObxJKrWDPrw3YGx4xvsM207nWUnjeM9T+ZmpRdSfpB8UJY19Bd5No=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F3z8qkcR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789721682; c=relaxed/simple;
+	bh=wootcnjICb9Pb80ss9CdhfZQ+wLHzPPOFwtZ9cXT/hM=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=nKyNRLoAi6yJPASc8rELASgbZtJjxcspXvCb3Bg2OhvZa9G1FDKss6xELsQo/XfWDRHf7Z93+/qkfk4IK80iazGwvPFqO4VWEiQKKsMAHOPANkkPr6qkCwalgLspH3wdb1lR6e6B2tHST31E/2cGTxZgczQylJ5JCieQsMWQFug=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr; spf=pass smtp.mailfrom=aliel.fr; dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b=In82j0zv; arc=none smtp.client-ip=65.21.61.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aliel.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F3z8qkcR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 787A91F000FF;
-	Fri, 18 Sep 2026 08:50:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789721406;
-	bh=LDJjd9/1o+z+c7/Cl4w+R1oLsSZ0eu0e0EhDDi66568=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=F3z8qkcRNxLQxrwBDPWQL87UhPj1p8yE4Ewn4XYw65yXCs55Dw0LBAz7hh+4Oxhl0
-	 x0agoJZikT56rAjhEvjegJ6P5dyY8gjwGf34ebxwfsbeybhYFYSwcNKtQb8LceUS9E
-	 t1MwePoKMt0McN6ZR4gcHdh21JJslFkw7IObIcKr3uDsvE7rjV+q2NUCD16dwIMswa
-	 4iG2efS5VZ7lkEz5S18CW9mPWyyXHKcLULDcStU1UHlVJAdnSHLqIeEE14Qd+v2thj
-	 62fo8uCAQHEJD5dgP8QotuWIpBuqqSGA3R/i0PIwlaRwtz3sOuuKdZN77M6x5vJDWI
-	 5T2KKwg6ni6/w==
-Date: Fri, 18 Sep 2026 10:50:02 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Bhargav Joshi <j.bhargav.u@gmail.com>
-Cc: Aaro Koskinen <aaro.koskinen@iki.fi>, 
-	Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
-	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, 
-	Animesh Agarwal <animeshagarwal28@gmail.com>, linux-omap@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org
-Subject: Re: [PATCH v2 4/4] dt-bindings: crypto: ti,omap: Fix missing
- subdirectory in $id path
-Message-ID: <20260918-vociferous-pegasus-of-contentment-aa4bbd@quoll>
-References: <20260916-ti-dra7-omap-sham-fix-v2-0-4eadb60081e5@gmail.com>
- <20260916-ti-dra7-omap-sham-fix-v2-4-4eadb60081e5@gmail.com>
+	dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b="In82j0zv"
+Message-ID: <1a28af11-54b9-48c3-a31c-85d9edb74af6@aliel.fr>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
+	s=courrier-s1; t=1789721675;
+	bh=wootcnjICb9Pb80ss9CdhfZQ+wLHzPPOFwtZ9cXT/hM=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=In82j0zvEK3hJimjjrv+sWhPH5Uwgst67ZnXmyNOvLFZyUMYAywbwQQfCDN8CqyEM
+	 1S+ORVhzruWrMHbMyESVCSuRDtdR1SWIfaz3kHwoGcG/B7MeUFk0aHNTFdngobTFG+
+	 9gD+vlf+4IBApqaTyruXJ56OjFFsMNzbq9h9mwIQ=
+Date: Fri, 18 Sep 2026 10:54:24 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260916-ti-dra7-omap-sham-fix-v2-4-4eadb60081e5@gmail.com>
+User-Agent: Mozilla Thunderbird Beta
+From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Subject: Re: [PATCH v12 4/6] thermal: khadas-mcu-fan: Add fan config from
+ platform data Add regulator support
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-amlogic@lists.infradead.org, conor+dt@kernel.org, robh@kernel.org,
+ lee@kernel.org, mfd@lists.linux.dev, devicetree@vger.kernel.org,
+ neil.armstrong@linaro.org
+References: <20260917-add-mcu-fan-khadas-vim4-v12-0-497cd543a148@aliel.fr>
+ <20260917-add-mcu-fan-khadas-vim4-v12-4-497cd543a148@aliel.fr>
+ <20260917081309.8FBD21F000FF@smtp.kernel.org>
+Content-Language: en-US
+In-Reply-To: <20260917081309.8FBD21F000FF@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 16, 2026 at 02:29:41AM +0530, Bhargav Joshi wrote:
-> The $id fields in the omap2-aes and omap4-des schemas are missing the
-> crypto/ subdirectory in their paths.
+On 9/17/26 10:13 AM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] thermal: khadas-mcu-fan: OF node reference leak in probe
+> --
 > 
-> Add the missing crypto/ to $id.
+> commit c3a0644be46518f47124644a90235d26979c4299
+> Author: Ronald Claveau <linux-kernel-dev@aliel.fr>
 > 
-> Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
-> ---
->  Documentation/devicetree/bindings/crypto/ti,omap2-aes.yaml | 2 +-
->  Documentation/devicetree/bindings/crypto/ti,omap4-des.yaml | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
+> thermal: khadas-mcu-fan: Add fan config from platform data Add regulator support
+> 
+> This commit introduces variant-specific platform data including control
+> registers and duty-cycle levels, while also bumping the maximum level.
+> It optionally acquires and enables a fan regulator supply at probe time
+> to handle boards that gate fan power.
+> 
+>> diff --git a/drivers/thermal/khadas_mcu_fan.c b/drivers/thermal/khadas_mcu_fan.c
+>> index 21b3d0a71bd0d..1da639d054971 100644
+>> --- a/drivers/thermal/khadas_mcu_fan.c
+>> +++ b/drivers/thermal/khadas_mcu_fan.c
+> [ ... ]
+>> @@ -76,22 +82,71 @@ static const struct thermal_cooling_device_ops khadas_mcu_fan_cooling_ops = {
+>>  static int khadas_mcu_fan_probe(struct platform_device *pdev)
+>>  {
+>> +	const struct platform_device_id *id = platform_get_device_id(pdev);
+>>  	struct khadas_mcu *mcu = dev_get_drvdata(pdev->dev.parent);
+>>  	struct thermal_cooling_device *cdev;
+>>  	struct device *dev = &pdev->dev;
+>>  	struct khadas_mcu_fan_ctx *ctx;
+>>  	int ret;
+>>  
+>> +
+>> +	if (!dev->of_node)
+>> +		dev->of_node = of_node_get(dev->parent->of_node);
+> 
+> [Severity: Medium]
+> Does this leak the OF node reference? The probe function explicitly
+> acquires the node with of_node_get() and assigns it to dev->of_node,
+> but there is no corresponding cleanup mechanism.
+> 
+> Since there is no .remove callback or devm action registered to call
+> of_node_put(), and the driver core does not automatically drop
+> references assigned directly to dev->of_node in this manner, the
+> reference count appears to leak every time the driver is unbound.
+> 
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+The if statement make it safe to not be incremented when not needed. At
+the end the `platform_device_release` will call the `of_node_put`.
 
+
+-- 
 Best regards,
-Krzysztof
-
+Ronald
