@@ -1,116 +1,120 @@
-Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 833F04E8E00
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 12:21:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED31D4AB3C0;
+	Fri, 18 Sep 2026 12:21:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789734101; cv=none; b=ZV1fJjQTJfRWUz8yJuF1O0R3or+WSkOkRtqQctJ/tQ46Z/98VzMhgnGWjKWiIsgVc1Uq2nL5JIXY+L9jz0+9pclWtvNC+LWJh3IGF+zsemuHO+qjOThHC6gRwzS3+0KpICDSYGsFRRd0j1muqaa7WRl7Pqu4ASfIutEFPb/oaGc=
+	t=1789734102; cv=none; b=YwA/mmTrg7ID0tQcStJvGT+E+0gBJX3C6VtAvV9Jkt5i80tepzjwlt/9/8eZL2GdTEIrQ3YIybJ58MgNZ/qx572PAe3dSaIGqkv+ibQR93qLHpBm9FuqBhLPnOp2ryg8HM/FcI1PCDO9ICsv4LKu4tQDpOuASg9DSaqECN+AHOc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789734101; c=relaxed/simple;
-	bh=3W5C2796scL1/2OyZXCyBa69zoV5O+l8I3JiNOsPG1s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=L/nEgda3YeAjUVQccF9Cc04iFjNzx1oIECcvaYm0Lj+GkL01FE04xGNj/96BUCWvCQERJMfenrgtM2uvJ9Zw2bhzXNDuQ9Yzzp4DqdaHX21gtc3HWyY12cVPlp6dVkwP+oyntz0IytW3bq9w7bhzlckOcLIwI9M58Qoutv4f82M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arkamondal.net; spf=pass smtp.mailfrom=arkamondal.net; dkim=pass (2048-bit key) header.d=arkamondal.net header.i=@arkamondal.net header.b=iKKniw34; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=Mw9NieBh; arc=none smtp.client-ip=34.202.193.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arkamondal.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arkamondal.net
+	s=arc-20240116; t=1789734102; c=relaxed/simple;
+	bh=Bgics+jvZyDHyFEopkcYMAUQ3oIVdIK00+BwO9xxDIw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sa4OPL4s2M3PghQCSFq7hmoIHBOjSQE8H3j7HwAnBfpt2Tm7yI0y3iHtOFM+U14+C9j08dveoquXTwp2Kv9ZTDZKT/c7Cn1njFuI14fJ06DQDsgCE5Ls4JIg8Pn4NxFtCrcxLz0CqppnmnxCTw42Xz6rErb/EHPYs08yn++JRnM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=msfIumxF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arkamondal.net header.i=@arkamondal.net header.b="iKKniw34";
-	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="Mw9NieBh"
-DKIM-Signature: a=rsa-sha256; b=iKKniw34QGt1RnfPqgD7aWTuV+gA/dsto3IpW5q2/6XClb4WP1H/re0GZj0aY/HbPicotMh66E5St+hmJ+3v8KCU2b92z7odfXjKjKwcccoxcAn8zUnTl2JL0Vljffk/qroaL2luIV6md9XaDOytJ93q7zekb8V6Jkawt1eJs/O5G5aLoeiUmHs0Di/JWUzX9CS9BRRKvRckQ9qRpDUVETPVucPl2rweU1GjgGDhBJnLzUamfDiXDgPwT9zdCdCetGxEuTvum2nUvv0EzDwl1Fu2aWMQFN/RaXNlEfcylXMf3Emt3MklO+K5tF6ruCfLPBnWcuV6bNJS5jqWRFpbZw==; s=purelymail2; d=arkamondal.net; v=1; bh=3W5C2796scL1/2OyZXCyBa69zoV5O+l8I3JiNOsPG1s=; h=Received:From:To:Subject:Date;
-DKIM-Signature: a=rsa-sha256; b=Mw9NieBh0cu5hEJVKYVdRoMkeslcT7GQSsFtqB2fZkRI+tyg728cdWkoJRa4VHU1su4r0beyyQYiA9bWXppH7rhOHXgCF+tcehI2gb4lbkpc7RzHirER3KjLppBI60tRYnw7Q4P6DjGMU72DxmTvYkYU3pgPdCNBeu9w5OyJlDsclQx7YhbScC5g/Hv3qd+HoQR7nco/oOdKhsgWKM923clh6AojupRVF9xcY6VJ5CXTLLe3foxTGnaWvSOpoiV1qvLTyEajaY0OiI5NVOaP34aQ8qZ/M0CTFnVkQf0k25U1s85spO018bCMtsZ56TfNCR9eR73wdEPrxUaNBqt/dw==; s=purelymail2; d=purelymail.com; v=1; bh=3W5C2796scL1/2OyZXCyBa69zoV5O+l8I3JiNOsPG1s=; h=Feedback-ID:Received:From:To:Subject:Date;
-Feedback-ID: 1246644:48769:null:purelymail
-X-Pm-Original-To: devicetree@vger.kernel.org
-Authentication-Results: purelymail.com; auth=pass
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -646422619;
-          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-          Fri, 18 Sep 2026 12:21:02 +0000 (UTC)
-From: Arka Mondal <arka@arkamondal.net>
-To: Jonathan Cameron <jic23@kernel.org>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Michael Hennerich <Michael.Hennerich@analog.com>
-Cc: David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux@analog.com,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	arkamondalofficial@gmail.com,
-	Arka Mondal <arka@arkamondal.net>
-Subject: [PATCH 5/5] iio: dac: ad5758: Fix the 4 mA to 20 mA current range
-Date: Fri, 18 Sep 2026 21:20:32 +0900
-Message-ID: <20260918122032.134947-6-arka@arkamondal.net>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260918122032.134947-1-arka@arkamondal.net>
-References: <20260918122032.134947-1-arka@arkamondal.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="msfIumxF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92D4B1F00893;
+	Fri, 18 Sep 2026 12:21:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789734097;
+	bh=Dwha+SiA+06GIqrbQu4RqsoMy+KmsgDL/7NeI8Ummk0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=msfIumxFqXuzghDwnFmFWE3AiF6MbcVdWOq9i2Bl5WckRj5VOVQ+ONTIQP05VhlFK
+	 cW8A6tXJZIO83gG2Q85WZVhRYTJEWWLh8GpL6q2NkDiQYQLLHtT6T/uEdKjTBpMR1c
+	 qOityFR/3wD0asKhoPbAwj+nSsm0nU1GL9t/hHLn9/hC1/5uWkK0+j/yiLT4OoDqk9
+	 3ObKYm/QitVOtp5LkmRTwY9uTyi9dL7btjhm5nSSCJRWjRfKQ7wRZS2OFYEp2Sf9bD
+	 f1mcLYEjFg1pwPkd9ohiO0+Ec2xU5Qz+DmNjKy4kvYM18/7AI59Yba5XsJMVUfEbIU
+	 iVkIawkohpEOA==
+Message-ID: <16f52fbf-1e24-42d9-9f04-d0829b930276@kernel.org>
+Date: Fri, 18 Sep 2026 14:21:30 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-MIME-Autoconverted: from 8bit to quoted-printable by Purelymail
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] platform: arm64: Add a driver for the EC found on
+ ASUS Glymur machines
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Guenter Roeck <linux@roeck-us.net>, Bjorn Andersson <andersson@kernel.org>,
+ Abel Vesa <abelvesa@kernel.org>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, linux-arm-msm@vger.kernel.org
+References: <20260917-topic-asus_ec-v1-0-373516d347ae@oss.qualcomm.com>
+ <20260917-topic-asus_ec-v1-2-373516d347ae@oss.qualcomm.com>
+ <20260918-calm-gainful-turkey-8ba016@quoll>
+ <002eb70b-17fe-496d-870f-ac15c62fe32e@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <002eb70b-17fe-496d-870f-ac15c62fe32e@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Range code 1010 selects 4 mA to 20 mA (data sheet Rev. B, Table 32),
-but the driver describes it as 4 uA to 24 mA. With the reported scale
-and offset, userspace converts raw code 0 to about 0 mA instead of
-4 mA, and full scale to about 23 mA instead of 20 mA.
+On 18/09/2026 14:18, Konrad Dybcio wrote:
+>>> +
+>>> +static const struct of_device_id asus_glymur_ec_of_match[] = {
+>>> +	{ .compatible = "asus,zenbook-a14-ux3407na-ec" },
+>>> +	{ .compatible = "asus,zenbook-a16-ux3607oa-ec" },
+>>
+>> Does this mean devices are compatible? If so should be expressed in the
+>> bindings. If not, should be expressed in bindings commit msg, see
+>> writing bindings docs.
+> 
+> They generally seem to be, but because of the very limited information
+> we have, I don't think it's worth risking associating them.. Would
+> a mention of this be enough?
 
-Describe the range as 4000 to 20000 uA and rename the enum entry to
-match. Map the deprecated <4 24000> device tree value to the corrected
-range, so existing device trees keep working.
+Yes
 
-Fixes: 28d1a7ac2a0d ("iio: dac: Add AD5758 support")
-Signed-off-by: Arka Mondal <arka@arkamondal.net>
----
-
-Notes:
-    Compile tested only; no relevant hardware available.
-
- drivers/iio/dac/ad5758.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/iio/dac/ad5758.c b/drivers/iio/dac/ad5758.c
-index 1e21ad2a050d..b152001f38d4 100644
---- a/drivers/iio/dac/ad5758.c
-+++ b/drivers/iio/dac/ad5758.c
-@@ -141,7 +141,7 @@ enum ad5758_output_range {
- =09AD5758_RANGE_PLUSMINUS_10V,
- =09AD5758_RANGE_0mA_20mA =3D 8,
- =09AD5758_RANGE_0mA_24mA,
--=09AD5758_RANGE_4mA_24mA,
-+=09AD5758_RANGE_4mA_20mA,
- =09AD5758_RANGE_PLUSMINUS_20mA,
- =09AD5758_RANGE_PLUSMINUS_24mA,
- =09AD5758_RANGE_MINUS_1mA_PLUS_22mA,
-@@ -164,7 +164,7 @@ static const struct ad5758_range ad5758_voltage_range[]=
- =3D {
- static const struct ad5758_range ad5758_current_range[] =3D {
- =09{ AD5758_RANGE_0mA_20mA, 0, 20000},
- =09{ AD5758_RANGE_0mA_24mA, 0, 24000 },
--=09{ AD5758_RANGE_4mA_24mA, 4, 24000 },
-+=09{ AD5758_RANGE_4mA_20mA, 4000, 20000 },
- =09{ AD5758_RANGE_PLUSMINUS_20mA, -20000, 20000 },
- =09{ AD5758_RANGE_PLUSMINUS_24mA, -24000, 24000 },
- =09{ AD5758_RANGE_MINUS_1mA_PLUS_22mA, -1000, 22000 },
-@@ -747,6 +747,12 @@ static int ad5758_parse_dt(struct ad5758_state *st)
- =09=09=09=09"Missing \"range-microamp\" property\n");
- =09=09=09return ret;
- =09=09}
-+
-+=09=09if (tmparray[0] =3D=3D 4 && tmparray[1] =3D=3D 24000) {
-+=09=09=09tmparray[0] =3D 4000;
-+=09=09=09tmparray[1] =3D 20000;
-+=09=09}
-+
- =09=09range =3D ad5758_current_range;
- =09=09size =3D ARRAY_SIZE(ad5758_current_range);
- =09}
---=20
-2.55.0
-
+Best regards,
+Krzysztof
