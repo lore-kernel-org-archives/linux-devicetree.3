@@ -1,101 +1,76 @@
-Received: from courrier.aliel.fr (courrier.aliel.fr [65.21.61.41])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 616254B44A8
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 08:54:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.61.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A23E2140E5F
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 08:55:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789721682; cv=none; b=gvm/jMYxZ2u42UWoK9dZVFfWwGeDGCJB732HEWWUegXlJaeUHK26tScB2eosVqE1lJNX+KYPIiBBEQ9Yn4GAZYlUW4BXbGUP3QoX4u+dF3uS/eZlv4e9XKgVnd0SlZzF0dqPesyr4azioU/0o+vUAHKu1POj7qp8ZspALD9qZyg=
+	t=1789721738; cv=none; b=oabuT+kE5nHzdNGTUvHqgMqIfeTkLF5eBhJliU7njzlCNoEkGwj6L3vAzJYMH9CKPwM9KTdWggrVfViYdHeDS7p5IHH8wMW6Y97T5up02q6mm+3PuNTwNMsc9ik4Wu7+hMn9lVcEXDfwgYvPYm/+IjUAM5Kq7ZJ0GPhD84sIq/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789721682; c=relaxed/simple;
-	bh=wootcnjICb9Pb80ss9CdhfZQ+wLHzPPOFwtZ9cXT/hM=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=nKyNRLoAi6yJPASc8rELASgbZtJjxcspXvCb3Bg2OhvZa9G1FDKss6xELsQo/XfWDRHf7Z93+/qkfk4IK80iazGwvPFqO4VWEiQKKsMAHOPANkkPr6qkCwalgLspH3wdb1lR6e6B2tHST31E/2cGTxZgczQylJ5JCieQsMWQFug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr; spf=pass smtp.mailfrom=aliel.fr; dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b=In82j0zv; arc=none smtp.client-ip=65.21.61.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aliel.fr
+	s=arc-20240116; t=1789721738; c=relaxed/simple;
+	bh=4SpyM+ubUw3bgz9Qu1bRYiL8BbWXPtON1yrhQ/ykkA8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=G9leqrv9F4Q4t7PpzT+Q0ClRFM9dhrgmyFI7v/cuxzbFi9Fo2X1LJ31WqUJC6GD5feoMODbmQMiiTwQxXeM5FrDiDCuEAAAlli76h5nagq9VxhdMPiXGX15GC42508JcKFsohM1ZAKXiQzLyr88+CQ473Gmy4T+TrVesLpNAByw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GWhxTCOn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b="In82j0zv"
-Message-ID: <1a28af11-54b9-48c3-a31c-85d9edb74af6@aliel.fr>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
-	s=courrier-s1; t=1789721675;
-	bh=wootcnjICb9Pb80ss9CdhfZQ+wLHzPPOFwtZ9cXT/hM=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=In82j0zvEK3hJimjjrv+sWhPH5Uwgst67ZnXmyNOvLFZyUMYAywbwQQfCDN8CqyEM
-	 1S+ORVhzruWrMHbMyESVCSuRDtdR1SWIfaz3kHwoGcG/B7MeUFk0aHNTFdngobTFG+
-	 9gD+vlf+4IBApqaTyruXJ56OjFFsMNzbq9h9mwIQ=
-Date: Fri, 18 Sep 2026 10:54:24 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GWhxTCOn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 189461F000FF;
+	Fri, 18 Sep 2026 08:55:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789721737;
+	bh=Q3vK+hrez7Ed1fDsl2TVjNVdL2Vp9oUFESzWid8IhF0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GWhxTCOnTtlFovIZHK2qxAQPf4EAqwRc2LiGpoMZpF80nlaiHWuvtipfLpZT5Rhkg
+	 h7dGte7v2M8uzKuHphGdDgxXMM1ayQHzEnUNCQSUupkayOjhAUM7lrnFJy/nwlPJVG
+	 +CwDXoUhoDyCp80GKNUd9GzuyUfl5xT9xi4ufKmHas+RKI9DlgBu91G4KEF7G2JWBO
+	 dgzyj8wjun6MW4UZFKUtMbu1eAX1UL2Ll/7rqmZZTICBslkEb+Nh40Pbw/fBmFX9mI
+	 hC9HuQ1jG64n1s0pW+vDTBVYM/wt5fg7YGCM7ivCI93N+6APTGbtfeWE9rByH/JG6N
+	 SSWCCaD5uhQPw==
+Date: Fri, 18 Sep 2026 10:55:32 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>
+Cc: Maxime Ripard <mripard@kernel.org>, 
+	Dave Stevenson <dave.stevenson@raspberrypi.com>, Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+	Stefan Wahren <wahrenst@gmx.net>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, Ray Jui <rjui@broadcom.com>, 
+	Scott Branden <sbranden@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2 2/4] dt-bindings: display: bcm2835-v3d: Add an
+ optional reset line
+Message-ID: <20260918-nostalgic-enlightened-macaw-8f4e5a@quoll>
+References: <20260915-vc4-reset-control-v2-0-cb3a25b07822@igalia.com>
+ <20260915-vc4-reset-control-v2-2-cb3a25b07822@igalia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
-Subject: Re: [PATCH v12 4/6] thermal: khadas-mcu-fan: Add fan config from
- platform data Add regulator support
-To: sashiko-reviews@lists.linux.dev
-Cc: linux-amlogic@lists.infradead.org, conor+dt@kernel.org, robh@kernel.org,
- lee@kernel.org, mfd@lists.linux.dev, devicetree@vger.kernel.org,
- neil.armstrong@linaro.org
-References: <20260917-add-mcu-fan-khadas-vim4-v12-0-497cd543a148@aliel.fr>
- <20260917-add-mcu-fan-khadas-vim4-v12-4-497cd543a148@aliel.fr>
- <20260917081309.8FBD21F000FF@smtp.kernel.org>
-Content-Language: en-US
-In-Reply-To: <20260917081309.8FBD21F000FF@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260915-vc4-reset-control-v2-2-cb3a25b07822@igalia.com>
 
-On 9/17/26 10:13 AM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] thermal: khadas-mcu-fan: OF node reference leak in probe
-> --
-> 
-> commit c3a0644be46518f47124644a90235d26979c4299
-> Author: Ronald Claveau <linux-kernel-dev@aliel.fr>
-> 
-> thermal: khadas-mcu-fan: Add fan config from platform data Add regulator support
-> 
-> This commit introduces variant-specific platform data including control
-> registers and duty-cycle levels, while also bumping the maximum level.
-> It optionally acquires and enables a fan regulator supply at probe time
-> to handle boards that gate fan power.
-> 
->> diff --git a/drivers/thermal/khadas_mcu_fan.c b/drivers/thermal/khadas_mcu_fan.c
->> index 21b3d0a71bd0d..1da639d054971 100644
->> --- a/drivers/thermal/khadas_mcu_fan.c
->> +++ b/drivers/thermal/khadas_mcu_fan.c
-> [ ... ]
->> @@ -76,22 +82,71 @@ static const struct thermal_cooling_device_ops khadas_mcu_fan_cooling_ops = {
->>  static int khadas_mcu_fan_probe(struct platform_device *pdev)
->>  {
->> +	const struct platform_device_id *id = platform_get_device_id(pdev);
->>  	struct khadas_mcu *mcu = dev_get_drvdata(pdev->dev.parent);
->>  	struct thermal_cooling_device *cdev;
->>  	struct device *dev = &pdev->dev;
->>  	struct khadas_mcu_fan_ctx *ctx;
->>  	int ret;
->>  
->> +
->> +	if (!dev->of_node)
->> +		dev->of_node = of_node_get(dev->parent->of_node);
-> 
-> [Severity: Medium]
-> Does this leak the OF node reference? The probe function explicitly
-> acquires the node with of_node_get() and assigns it to dev->of_node,
-> but there is no corresponding cleanup mechanism.
-> 
-> Since there is no .remove callback or devm action registered to call
-> of_node_put(), and the driver core does not automatically drop
-> references assigned directly to dev->of_node in this manner, the
-> reference count appears to leak every time the driver is unbound.
-> 
+On Tue, Sep 15, 2026 at 05:51:25PM -0300, Ma=C3=ADra Canal wrote:
+> The BCM2835 power management block drives a reset line for the V3D block
+> that is independent of the graphics power domain, allowing the GPU to be
+> reset without power-cycling the domain. Expose this reset line in the V3D
+> binding.
+>=20
+> Keep the property optional, as devices like the Broadcom Cygnus don't have
+> a reset line.
+>=20
+> Reviewed-by: Stefan Wahren <wahrenst@gmx.net>
+> Signed-off-by: Ma=C3=ADra Canal <mcanal@igalia.com>
+> ---
+>  Documentation/devicetree/bindings/display/brcm,bcm2835-v3d.yaml | 3 +++
+>  1 file changed, 3 insertions(+)
 
-The if statement make it safe to not be incremented when not needed. At
-the end the `platform_device_release` will call the `of_node_put`.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-
--- 
 Best regards,
-Ronald
+Krzysztof
+
