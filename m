@@ -1,142 +1,103 @@
-Received: from mail-vs2-f9.google.com (mail-vs2-f9.google.com [74.125.227.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpdh17-1.aruba.it (smtpdh17-1.aruba.it [62.149.155.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 076F43876B2
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 07:46:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 112B449F123
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 07:53:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.149.155.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789717612; cv=none; b=tsHnJzZ+tepnwxDYM9zwbMHiXigFbVPPts07TFne6oq/8ZXk2OddbFFOjI2DMCXSix5II0etrAt0/OZWxPpzKZanxbNJoJXMlspbDzHjpi8gRi7pF+woYkANJhEq5eJcYjWUXckbLtOh4TBuHfyx01Vc7oZqy2zugPHi0CE1P58=
+	t=1789717996; cv=none; b=g3U+L0LrjH1InxsqPYDylApTBE875vga5B6Uli3buhufOhWqswTxE8d+804+juEqfzv2L2YXx1qcBgtan4mPkvlJvddY0owqp5o1s75j9tBfWy75CXUOdlIGyVSk0v0A/4w8GpHkqsUoswtuVJZ7XzI5AdptbCNZfKZu8RutP5s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789717612; c=relaxed/simple;
-	bh=wTlung53wgG0U6uz6ynHrcjwVaYOb0YK4Nvyasm8+go=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=n3KWD7FxlL5+BhsTk3DpIPG1OIDrsQ6ixe4SadbNBpgNToWZFX9zUkBPCPub6oIzsZXwPhZjVFIy347fjs6WabJZ6OlAywQCsB/ur7JQ47pML27swld0l3DOa8Ar8xNU7vOEuVafbEsof3e3cdG3OnnKzCQBIHLz79coNtLyJvk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs2-f9.google.com with SMTP id ada2fe7eead31-790a0799373so87261137.1
-        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 00:46:48 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789717607; x=1790322407;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=y+tYCkkvzZJmFoYOhTQyYw6fM+qA/usgZs/lU8fn+ao=;
-        b=nLkY8oZuVjwAf+cb+P06xqfcPL959pPE70vAfJqInhe4RMIzEc3wjh3AOkIyv229ce
-         BM+aCcXFEj7xDEcWs80WMOBjvR3sAIYOZ3I2060zKHpQRezdtLkxmEZBZSpM6n4gJ6F/
-         78A4pssgxujSj6HuqhaVWaBcOTtCODZXW/MoTrCuBWzEBk6QEY2U32jYfPvynGB1lICI
-         LklGveK7hWH4o83ZS93yDXD+kH7t7fM9qKdFCmg9bgj2zqAIc199X/phGMPXnyRbhg4B
-         snLp58kiIWWfejXwrjOP/9lRULzbE0g8f7QXikG02bFQWCGONByevizzROmZQB2dWZJ7
-         zrEA==
-X-Forwarded-Encrypted: i=1; AKwUvBzO3sbapXuke0awbLIb/Qy/yjsu56eLiQRBOxZhizL9ou3uVNRyjNtxBHqZ9hiN/Yag1tETOYlwVQId@vger.kernel.org
-X-Gm-Message-State: AFuF++kgDm44YujCshQAWY7SKXQcHK9SPQt44sIF30cAETtMUvchC4X2
-	XjS8chl+4UftnuAFa7j2EZb2ANwryPKhHh5mq2vG8rvXRnvK1Lc9v1VZJaBwnm1gCMQ=
-X-Gm-Gg: AYBFou2DXAKgGS5qfEVfzP+oVVt7SfLVVGDPBwqGWmjC+vh2oxc6uYG/ShuUTGTXrUa
-	AjDSATylRJIzsopGQsAVCGmZDa7nLzzZSaESeN/RA0HwW+gy2lV+2J0ffosCEfIceDaH/By7gf1
-	ozTysNauwkcboPPX8ZDVnxaSUcKJaiKYFzFFdpvjxpGvuaP03T+ToSgUfFcSPmji2/7Ws95kZNp
-	YxYlFIGaYSIOM+n6lefQdChKxRYujnAhUXbSNbO/KcZaxY3a1UL9RMCEgaOIGcbrWbeEV2ESbTt
-	HqGNo+5B7stjIiMDTeVPE1voreBK45uIrd9VMSXPANOz97sJTC8/pGToaEfNvo/htZYwK/m6cQ3
-	Qa66+ZP21HImzzm9wEYmCwkWwf4uaUQ08kp1yNfcqMFdkjVYR9EpJaVzWfYF7ag+sx9qE6suYmZ
-	alNoDIUmGgDPputLk9nyukCzBFMOxu3OyTXy1zulR7BWgX2H69Kf+/1tagS0/APm3hbAgdVV+Yh
-	DReJExy5irMsFFncupg2nVrqfB9XHXOy1O6/WUa6eFx6FM=
-X-Received: by 2002:a05:6122:1828:b0:5c9:a617:5813 with SMTP id 71dfb90a1353d-5c9b8b7cb0cmr292846e0c.16.1789717606752;
-        Fri, 18 Sep 2026 00:46:46 -0700 (PDT)
-Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com. [74.125.227.43])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c9b833bf25sm824794e0c.7.2026.09.18.00.46.46
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 18 Sep 2026 00:46:46 -0700 (PDT)
-Received: by mail-vs2-f43.google.com with SMTP id ada2fe7eead31-79229116537so149743137.0
-        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 00:46:46 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByKQwZOinzIk+JXt8hcFZ+8S83EcvZAFLMTrA6U+brv7WjpkE3A03eiNpHgMdep/lmBejMVT2cSGgKz@vger.kernel.org
-X-Received: by 2002:a05:6102:358d:b0:79f:e8ce:27f2 with SMTP id
- ada2fe7eead31-7a55af2df71mr547985137.4.1789717606396; Fri, 18 Sep 2026
- 00:46:46 -0700 (PDT)
+	s=arc-20240116; t=1789717996; c=relaxed/simple;
+	bh=4y2+ZhFdCjg9e0v9XAtB+1izgIjBbJixC6kPLXMZnV8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LvnwsaijCnynSt8eB6fK4ckGhLIHSCdkcYAn8vSMIKV7E84SI3BNITgPoW2CtH+PjG0eP6f2bTUUp0W7n4gzN2abZmV5Se0jt0DcMPnO4+hH/QkOVOEJOo+3ildouDDNaOKj/PgiGVfJ2Qvf+Zs3INFVFdCTln2hY+LswR0FiyE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com; spf=pass smtp.mailfrom=enneenne.com; dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b=Ooay3tPb; arc=none smtp.client-ip=62.149.155.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enneenne.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b="Ooay3tPb"
+Received: from [192.168.0.186] ([101.57.122.26])
+	by Aruba SMTP with ESMTPSA
+	id 7TM8xO8s9r6Qv7TM8xPQVa; Fri, 18 Sep 2026 09:50:01 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aruba.it; s=a1;
+	t=1789717801; bh=4y2+ZhFdCjg9e0v9XAtB+1izgIjBbJixC6kPLXMZnV8=;
+	h=Date:MIME-Version:Subject:To:From:Content-Type;
+	b=Ooay3tPb2eF7PB4ABd7/AcrIjO7Z+i54rdSdi+wQ8XLX0Js+8MAqqfAXPITAEPF0V
+	 pgSbDEXMNIpJzla7OeZ2R4IKMXTEVtbtZOqM1xZyFXgzFL/qgEcJsznqr7GjHYmMrV
+	 z7w4CuUJL7teY+ej4k4tdMwJ04UafYW15BAnY5EmX506x94PwB2vsW5bubRNiDXYbE
+	 OX/Y5rOUySJjdP+BbhQBm6sZuw4ZxDfJcw2UVOpc7/w392B3vEFu/vC8DyMN/JGU5G
+	 FiBzHCPy+gEBKd8dT0NRerBXqr7Xumntqf+AxYKkgmhm0Zb5Nwc5g6aYS1IXFQNzpL
+	 yKxbBGDAqUDSw==
+Message-ID: <bea71814-e4e4-48a3-84e5-901d2b3a5c48@enneenne.com>
+Date: Fri, 18 Sep 2026 09:50:00 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1788338320.git.geert+renesas@glider.be> <1d5c56c80291e447208ac8777aaf90ad6f0a4f4d.1788338320.git.geert+renesas@glider.be>
- <20260917221647.GA4038349-robh@kernel.org>
-In-Reply-To: <20260917221647.GA4038349-robh@kernel.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 18 Sep 2026 09:46:34 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXCFY7-SEGLjhaO1uCDwsvogc0ocdqSz=1C_gsWX6T_tA@mail.gmail.com>
-X-Gm-Features: AcwNN1XFZho-l6FTtqXfFYSmbjO5DpuymjytNtvp4sOSdCdr5EidSrnlACqjwyk
-Message-ID: <CAMuHMdXCFY7-SEGLjhaO1uCDwsvogc0ocdqSz=1C_gsWX6T_tA@mail.gmail.com>
-Subject: Re: [PATCH v3 04/12] of: property: fw_devlink: Add support for renesas,scmi-firmware
-To: Rob Herring <robh@kernel.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Sudeep Holla <sudeep.holla@kernel.org>, 
-	Cristian Marussi <cristian.marussi@arm.com>, Saravana Kannan <saravanak@kernel.org>, 
-	Ulf Hansson <ulfh@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	"Rafael J . Wysocki" <rafael@kernel.org>, Marek Vasut <marek.vasut+renesas@mailbox.org>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Kevin Hilman <khilman@baylibre.com>, 
-	Vinod Koul <vkoul@kernel.org>, Wolfram Sang <wsa+renesas@sang-engineering.com>, 
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
-	=?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clegoffic@baylibre.com>, 
-	devicetree@vger.kernel.org, arm-scmi@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org, 
-	linux-pm@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/3] pps: clients: gpio: propagate probe error codes
+Content-Language: en-US
+To: Eliav Farber <farbere@amazon.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+ Fabio Estevam <festevam@gmail.com>, Andrew Morton
+ <akpm@linux-foundation.org>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+ devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260916182641.9768-1-farbere@amazon.com>
+ <20260917075611.47881-1-farbere@amazon.com>
+ <20260917075611.47881-2-farbere@amazon.com>
+From: Rodolfo Giometti <giometti@enneenne.com>
+In-Reply-To: <20260917075611.47881-2-farbere@amazon.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CMAE-Envelope: MS4xfCe20FSGwlBxOEtP1bnumqe76TRik6QpO4ZDmQiRUA9pclUN6lTp7vgMMSinnBRBuHcWn5XAmMG+oDiAy4MYTEFV3p/K6ATmXQ3w333iRQon9DrA8WIH
+ m+zf+GaXTtPrlMc59QnHYJ6xdKE0gWuIFhVXbklh6pUNrSI1YdYa4Eo3S9e4B87ThIE1B5qtJINTzR8/ehrnaScF6IT8G/wx/mEPMiP+yvPkZxNYcVqBncM0
+ d7io3yaWfmffN4Evih1Sw7EEsj7dpfMf+ILBRFCTCYX1HSt52n5cVBJfR2F5OkeBVyRZs/MQuCZOqy1hQZpWFAygrgwnYbuqQLJZVKngLZwS7ZKiIZetmnbl
+ eoNStTPY/3iJ0T8bmzlfp0JkgLil4TQzB9EMxydj+qilyu1xp+Un2GfhvRArV20k4lj2QTK20hdfzE7ybw+Ciiqe0FL0Sl4OItdJkRvBbVonMuz8KuZ0md2v
+ lSUfTyCVVKr00zlMyFhWZ+ZbS/tmsNLXnp/zinircgksftip8pyaNBn6y+ac7LPd0qcr0Yxts2wqqdNXsvKXPWvgkUVHT8X/A5n9Mw==
 
-Hi Rob,
-
-On Fri, 18 Sept 2026 at 00:16, Rob Herring <robh@kernel.org> wrote:
-> On Wed, Sep 02, 2026 at 01:29:20PM +0200, Geert Uytterhoeven wrote:
-> > Let fw_devlink create device links between consumers and suppliers of
-> > SCMI firmware on Renesas platforms, and enforce these dependencies.
-> >
-> > This prevents probing of drivers before the firmware they depend on
-> > becomes available, thus avoiding unneeded probe deferrals.
-> >
-> > Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> > ---
-> > v3:
-> >   - s/firmware/renesas,scmi-firmware/,
-
-> > +++ b/drivers/of/property.c
-> > @@ -1417,6 +1417,7 @@ DEFINE_SIMPLE_PROP(power_supplies, "power-supplies", NULL)
-> >  DEFINE_SIMPLE_PROP(mmc_pwrseq, "mmc-pwrseq", NULL)
-> >  DEFINE_SUFFIX_PROP(regulators, "-supply", NULL)
-> >  DEFINE_SUFFIX_PROP(gpio, "-gpio", "#gpio-cells")
-> > +DEFINE_SIMPLE_PROP(renesas_scmi_firmware, "renesas,scmi-firmware", NULL)
-> >
-> >  static struct device_node *parse_pinctrl_n(struct device_node *np,
-> >                                          const char *prop_name, int index)
-> > @@ -1574,6 +1575,7 @@ static const struct supplier_bindings of_supplier_bindings[] = {
-> >       { .parse_prop = parse_regulators, },
-> >       { .parse_prop = parse_gpio, },
-> >       { .parse_prop = parse_gpios, },
-> > +     { .parse_prop = parse_renesas_scmi_firmware, },
+On Thu, Sep 17, 2026 at 07:56:09AM +0000, Eliav Farber wrote:
+> Return the actual error code from both paths, and add the errno to the
+> request_threaded_irq() failure message.
 >
-> This is going to be a catch-22, we can't have vendor specific properties
-> here. If we need this, we need to come up with a distributed way to
-> declare them. Linker section tricks is one way. Maybe something in the
-> driver struct would work?
+> Signed-off-by: Eliav Farber <farbere@amazon.com>
+> ---
+> diff --git a/drivers/pps/clients/pps-gpio.c b/drivers/pps/clients/pps-gpio.c
+> index 73ec2c7335e5..038c55c5f7d4 100644
+> --- a/drivers/pps/clients/pps-gpio.c
+> +++ b/drivers/pps/clients/pps-gpio.c
+> @@ -165,7 +165,7 @@ static int pps_gpio_probe(struct platform_device *pdev)
+>  	ret = gpiod_to_irq(data->gpio_pin);
+>  	if (ret < 0) {
+>  		dev_err(dev, "failed to map GPIO to IRQ: %d\n", ret);
+> -		return -EINVAL;
+> +		return ret;
+>  	}
+>  	data->irq = ret;
+>
+> @@ -197,8 +197,8 @@ static int pps_gpio_probe(struct platform_device *pdev)
+>  			  data->info.name, data);
+>  	if (ret) {
+>  		pps_unregister_source(data->pps);
+> -		dev_err(dev, "failed to acquire IRQ %d\n", data->irq);
+> -		return -EINVAL;
+> +		dev_err(dev, "failed to acquire IRQ %d: %d\n", data->irq, ret);
+> +		return ret;
+>  	}
+>
+>  	dev_dbg(&data->pps->dev, "Registered IRQ %d as PPS source\n",
 
-Quoting myself:
-"I still think the vendor prefix should be dropped, or replaced by "arm".
+Looks good to me.
 
-> Can you just avoid a property altogether? Why can't you check for the
-> presence of SCMI at runtime?
+Since this restores the -EPROBE_DEFER that gpiod_to_irq() can return,
+which the hardcoded -EINVAL was turning into a permanent probe failure,
+it is probably worth adding:
 
-A system can have multiple SCMI providers, so
-of_find_compatible_node(..., "arm,scmi") is not sufficient to find
-the right one.
+   Fixes: 4461d65176b4 ("pps: descriptor-based gpio")
 
-Gr{oetje,eeting}s,
+Ciao,
 
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Rodolfo
