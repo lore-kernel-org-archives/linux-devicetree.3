@@ -1,416 +1,227 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66D3D4F96B1
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 13:43:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C71544F85B4
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 13:44:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789739009; cv=none; b=Iv+ZTnw6JZyZPDt5sqTRaWLgleOKTFqhdKMRJMHZQZGI4in2YINdJ/IURvSKtYIu39diIoMZ6bnISWu1Nv043lIXdbL2Ew3KHWYXpvK7GCzIV4OKwghYMLFUZPtPDLjTNTsjwo2j+EA8gZ4thoV9ojezC1NJKahigpAgD1h6X5g=
+	t=1789739042; cv=none; b=MaobbYhtX4NnEtrNka1WqjxVX/U6ErW8Q4LcVt3p/d/Kymrs1mIluaToiEhSCR4U+0BQTQiWDwYNHZzqY5/cwEKk93AKpkzRtve+f/aVQnFZ9Tvul7yblJDDRSlpcyeG/nreG2Y4yVomyG1TuMRn3lK6jkuuOT3r4jlQBTEQv2k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789739009; c=relaxed/simple;
-	bh=izC1FlZec9CbMXA8u+zUhOJnnxKZfsbuj/Y7bZqPNr0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jfkO4zUqVxVjqLJD6ympjs0D8Rkrucq5KPdtPbgNpsEIsfgn8KexrN07bG8qM5FS+rWLJL9sufKAl0x28PseKFRts/pEfkqPysDO23D5bCUvJHCQSaEDcdvVo+OPMPloVdwqVwlchax06Piu9pOtUFyesoP7nRxyiKJBewcl/3s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f3trIe4S; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789739042; c=relaxed/simple;
+	bh=C6rDwUvjmjOqpt4wZEMxf6encxALlNrtz7gB4Dm+IQw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pwuatwsAXeZ6lNI6Ao7Z2Ys6Sgz/oCHomvWek1/nPo6vCCuUVCQIyr/tphytyO5CI1dS3WcFnlmwFSzkX4j1fPthFWpFjwgk0sySxWOUnAa/E8kQcuWhBecowJOsHcJGTb4jNJGAOwhW7mijjVIfIH5HLNS4N77NKEpo11c8VRY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=H+ZaDLda; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VS/iRASm; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f3trIe4S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B63B31F000FF;
-	Fri, 18 Sep 2026 13:43:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789739007;
-	bh=uqTAe9GKzzIn2P5S00EWKQEuXaRJxIJ8066erIanf8E=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=f3trIe4SPhoIj63x8yGLSZIPmxXncLcuTXCyF/qksFPFLTKwQmSNOUPeh4jxR/13Z
-	 avpI4ZXMhBg0URvcuwAiuMoOUk/1PqDQ1DyUzbNUcwEsvpjfU4zLQAVtFVhilYmJHP
-	 eklVNEJyJ+/9IIYixJJGQSUml/8OYbqOrdvbddcpW+Dnoj/eC8T5PL5H42jc/dY7q7
-	 raAE5GBIQD0BUrvyftbDf17PFTtL7I8X4UkA3hgD0942gj5/uiEHLLGdnMuaqgX4dh
-	 tRJBin9kuixzO7V6KALS0yTZ9WWr2RzpupQ5rqoQFrZLjUqb+2ehatf5iffpEv/33G
-	 scCtM3BrqW1AQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 14/14] media: apple: avd: add av1 support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sofus Forstreuter" <sofus.c@icloud.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20260918-avd-v1-14-49977931f455@icloud.com>
-References: <20260918-avd-v1-0-49977931f455@icloud.com>
- <20260918-avd-v1-14-49977931f455@icloud.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 13:43:26 +0000
-Message-Id: <20260918134326.B63B31F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="H+ZaDLda";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VS/iRASm"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68IDOb1d1017013
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 13:43:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	R40LNzW/2/QtfddysHfgigjJCHidHFz25WJIuDBATmo=; b=H+ZaDLdayhTXvZUW
+	MbSqPzkTlUSGS5ywuvjjmtIyDAYrOhehSGdtDSVY7EYK1JKK7QlLB4wZGw4ssoii
+	OLLnKp5RaZqyVt+2qyVDJTyXTY+sSY7T2cG5vVQOiaxMdfP6NZpWHkcR1YTKgDJa
+	VzSYh5sj4fG9O2Xzv1CwGHZ/PQULh6sHcBGckNEj4Tu+OK+nfhxE/hRIGD6jLCeG
+	h5RNQeAhqXMphzwKdCsZk/Rh1MOU49n7l+a1LWGwnbQC+Qq9gXfJ9yuLckTX1+H0
+	7QI7bOKgP/xR47cNPzWZD9Jmd47owVyqAI7+naRxM197qTphehlmh95zk6pPlw1r
+	qYqi1g==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4grnqec6ux-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 13:43:59 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc1bbd7d6e6so745502a12.3
+        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 06:43:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789739038; x=1790343838; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=R40LNzW/2/QtfddysHfgigjJCHidHFz25WJIuDBATmo=;
+        b=VS/iRASmulVKUmoJ5qn1KubNS2IhcTDWxo/NTHd6vp/ZkpA89HVvxWgTCYmJnIt0q7
+         q04cR5iE8Bpd5RygMT614jjxSERfvMwjU4FJ6LBwbJpXike9RG0QPwNTosZG6kCVhg8g
+         g+MHVxdTR5fXmvn3oRhod4C9IVD+2oPlOAXTo5HIzvq5E05UYBI1FJ6yMOPrjKHjNsJj
+         MklD6THbOwRbZ33ye1IDAqPh6N9wAzOG35BDnj+P9xn9VeQ7yJ5HGryIyz8dgl0AJWBQ
+         0KhXy8VmS0LO2RLJ3Uw7i0EJIA1ReMaG2wck3ag25sbgY7aOpHJlt/Y+Y/3So+GVXaWz
+         rJNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789739038; x=1790343838;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=R40LNzW/2/QtfddysHfgigjJCHidHFz25WJIuDBATmo=;
+        b=AE5xHgs7yazA2WhfQytqMrJrJnU5EAugACrliwc2LbIqY/d7Z154mhzdtTxc3d+M41
+         RpovDZuRyD2gP62IOPkrM9/GZHGb5356roi6BknDmUNoRQweWNlRVLDq/5Ldqhl5VGjy
+         LhdsApqG1p7oAAbAc+2DZHmXpHozzNrwFy9pdrPBIwM5r98PENGs4VYbxcXThz7aPxQT
+         EnG8/pI/SXu2ToYZ1g8LpI0iYoMNKFTGP51OuojGKSjyj3dAkcxn28mCsmA3mB1bgmrB
+         wi/0AZ/0IDy0bcpNVNw21Zpf5ZfJcQ+xAcn1Xl48WIMOiEJJE4zkzMASq5BbCX6wHdl1
+         SNFQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxY/ymHonMM1Q91R9v2Y1uNCj/yclWz9pRfVlxVdc37iklmouRYgyierU8kbdwcQ9yWe5UrvrEutk2F@vger.kernel.org
+X-Gm-Message-State: AFuF++kAWni4QaCR+7IkWk7YTZ9pUbdBHCcQeeaPRsR5m9ckB8JCtku7
+	eX/cCOTQ/RvddU4eHkWduBtNuN1G7/pUEFhU59VW8n4wUflbTvMtPNh673AVvd7LtS0QGoP2Ix4
+	eyI+0dal/E7SQ/H/aYVgE6ZLMXiVKS5qxxOYAC1c4B/ERTsuVNzxVlrIuOreDTvsK
+X-Gm-Gg: AYBFou2YcPqZuWtNY1Vbk/maHshZj2oQp8Yx+Bvh81+Nl0nbCt3Kmuk5ztDqrwIOwDS
+	DzuNFLIvSIogzAqHVo0VDCwBFtJToSeO8MlFNn3wOI/4cwiJLUB8N/it9rNOCqHN06JYXI5FAfw
+	02K6XXovIht+BbvacMNySbxG2VcySPtzRUOUOcvz+NCTsuNrJ9aphAwebajsH6NgQnxQq16bbpG
+	u8KG3O8H5xt0VxBZn4l/DvUmh//pDFasdO3oO85bzug5Q7OWGRyc3KFz2wr2vV5tC3hc2rBURb1
+	xyS8lD5QSke5A7NcbePRmlwvmW/82xjJ3bG/UyoeATo99ktqHA2i5my7rlCGTsNjjFWF3qPFjYt
+	mRrqSUKzIs/0iU+NQNub2XLttt7PyKAqPvzNuIA==
+X-Received: by 2002:a05:6300:2204:b0:3dd:85aa:d268 with SMTP id adf61e73a8af0-3dd8c57c3camr6733562637.32.1789739038328;
+        Fri, 18 Sep 2026 06:43:58 -0700 (PDT)
+X-Received: by 2002:a05:6300:2204:b0:3dd:85aa:d268 with SMTP id adf61e73a8af0-3dd8c57c3camr6733501637.32.1789739037909;
+        Fri, 18 Sep 2026 06:43:57 -0700 (PDT)
+Received: from [10.218.21.154] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc5c4eae6fbsm1010698a12.6.2026.09.18.06.43.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 18 Sep 2026 06:43:57 -0700 (PDT)
+Message-ID: <ba6bcf41-779f-4ad2-96f8-6fcb97ed7253@oss.qualcomm.com>
+Date: Fri, 18 Sep 2026 19:13:50 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 01/10] ASoC: dt-bindings: qcom,shikra-qaif-cpu: Add
+ binding
+To: Harendra Gautam <harendra.gautam@oss.qualcomm.com>,
+        Srinivas Kandagatla <srini@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+        Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>,
+        Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
+        Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>
+References: <20260911-b4-qaif-shikra-audio-v6-0-e9addb358201@oss.qualcomm.com>
+ <20260911-b4-qaif-shikra-audio-v6-1-e9addb358201@oss.qualcomm.com>
+Content-Language: en-US
+From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+In-Reply-To: <20260911-b4-qaif-shikra-audio-v6-1-e9addb358201@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: fhSLLJk-KS8CfTeEGNU1hBYi5mbOpwX7
+X-Authority-Analysis: v=2.4 cv=FfiiV5+6 c=1 sm=1 tr=0 ts=6aad401f cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=cBTdkrXCvdqGFug1r-QA:9 a=QEXdDO2ut3YA:10
+ a=bFCP_H2QrGi7Okbo017w:22
+X-Proofpoint-GUID: fhSLLJk-KS8CfTeEGNU1hBYi5mbOpwX7
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDE5NCBTYWx0ZWRfX++Lqgs5m2L/B
+ RDoIQ3oVlq1nPBTJEQ5Sb7R2T85N8/Yjdc2TiIQXl7eMzFrh2XPkKtBCpyn8LozOz8sp9bHDaQz
+ pvVEwR4gvrOIHLt2Ei/kWLGuuPTW9fjY6a1f57P3iNAhNLN0xu9c92MKpgzIXV+9I1YvCfGBrI0
+ zzpH20jOvKMZGt7JzCcFlbipxZI6PJVKbnCUSOPL9C4g4M12G3g3xd0kGwYvfDeHx+bfJHgiPfa
+ xTStPnPHifiEEMQQER8IAxrwIYG7VulxxnBNWZsZDS3n4gtEjC4BTZumu1t9Rb2hUZ2PPKit4Mk
+ q4yERM8i8ibDoLpuSyjfr+NXiyw5vdmObMTuOn2Sm1qOizvNX46eC2O9E+pQKuect4uLz4X/B97
+ uZfHoHBzWqIPSGGD4/w98GzQnaEFjh8JBYNMeQP2IT0a2H++DrfAj7RV0ujg/a/yziVytWClYV9
+ b7Az2uRbbqmBuOf3F6g==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDE5NCBTYWx0ZWRfXxDxj7FwP1XeF
+ Oxu9dI3vxS33vpyW2kp44qgZL7WHU7kLe6Ma/tBylRUrtFjoDU9bjd8fSVkqNHHihv43hVxo1Rm
+ JAF5gzNasAltYgLWC3M5oQDQhtffQRs=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-18_04,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0 clxscore=1015 priorityscore=1501 spamscore=0
+ bulkscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609180194
 
-Thank you for your contribution! Sashiko AI review found 14 potential issue=
-(s) to consider:
-- [Critical] media: apple: avd: integer underflow in DMA offsets from unval=
-idated AV1 frame dimensions
-- [High] media: apple: avd: out-of-bounds read due to unvalidated `tile_col=
-s` and `tile_rows`
-- [High] media: apple: avd: out-of-bounds read via unvalidated tile group r=
-ow/col indices
-- [High] media: apple: avd: nested out-of-bounds reads from unvalidated ref=
-erence indices
-- [High] media: apple: avd: integer truncation in `submit_num` causes hardw=
-are hang
-- [High] media: apple: avd: ignored return value from `avd_av1_alloc_work_b=
-ufs` leads to uninitialized DMA access
-- [High] media: apple: avd: division by zero in `calc_upscale` with `upscal=
-ed_width` 0
-- [High] media: apple: avd: integer overflow in sb_cols DMA size calculation
-- [High] media: apple: avd: silent DMA address truncation due to missing 25=
-6-byte alignment enforcement
-- [High] media: apple: avd: hardware FIFO overflow from blind MMIO executio=
-n loops
-- [Medium] media: apple: avd: memory leak of `above_info` DMA buffer in `av=
-d_av1_stop`
-- [Medium] media: apple: avd: missing cleanup in `avd_av1_run` upon job ini=
-tialization failure
-- [Medium] media: apple: avd: uninitialized DMA address pushed for segmenta=
-tion map
-- [Medium] media: apple: avd: missing DMA cache synchronization around CPU =
-memcpy
---
 
-commit f54648a42a29822e2c57e672c649ebee169ae4fd
-Author: Sofus Forstreuter <sofus.c@icloud.com>
 
-    media: apple: avd: add av1 support
+On 9/11/2026 2:47 PM, Harendra Gautam wrote:
+> Add the Devicetree binding for the Qualcomm Audio Interface (QAIF) CPU DAI
+> controller used on the Shikra audio platform, together with a dt-bindings
+> header for QAIF DAI and AIF interface IDs.
+> index 3a99703dbc4a..f08c20c84c60 100644
+> --- a/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
+> +++ b/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
 
-    This adds AV1 decoding support for newer Apple SoCs, utilizing
-    entropy tables adapted from verisilicon drivers. The implementation
-    passes the AV1-TEST-VECTORS test suite with a 238/242 score.
+Please drop this DAI ID change from this series.
 
-> diff --git a/drivers/media/platform/apple/avd/avd-av1.c b/drivers/media/p=
-latform/apple/avd/avd-av1.c
-> new file mode 100644
-> index 0000000000000..802341b230e26
-> --- /dev/null
-> +++ b/drivers/media/platform/apple/avd/avd-av1.c
-> @@ -0,0 +1,1447 @@
-> +// SPDX-License-Identifier: GPL-2.0
-[ ... ]
-> +struct avd_av1_ctx {
-> +	u8 submit_num;
+I have posted a separate series for these DAI ID additions since they 
+are required by other Qualcomm platforms as well.
 
-[Severity: High]
-Does this regression truncate the result of tile_cols * tile_rows? The
-submit_num field is declared as a u8.
+https://lore.kernel.org/all/20260918-qaif_dai_id_support-v1-0-ed863c0e5e45@oss.qualcomm.com/
 
-[ ... ]
-> +static void calc_upscale(int frame_width, int upscaled_width, int sub_x,
-> +			 int *step_x, int *initial_subpel_x)
-> +{
-> +	int downscaled_plane_w, upscaled_plane_w, err;
-> +
-> +	downscaled_plane_w =3D AV1_DIV_ROUND_UP_POW2(frame_width, sub_x);
-> +	upscaled_plane_w =3D AV1_DIV_ROUND_UP_POW2(upscaled_width, sub_x);
-> +	*step_x =3D ((downscaled_plane_w << SUPERRES_SCALE_BITS) +
-> +		   (upscaled_plane_w / 2)) /
-> +		  upscaled_plane_w;
+Keeping them separate avoids blocking those board enablements and allows 
+this series to remain focused on the Shikra-specific changes.
 
-[Severity: High]
-Is there a risk of a division by zero regression here? If userspace sets
-upscaled_width to 0 in the V4L2_CID_STATELESS_AV1_FRAME control,
-upscaled_plane_w could evaluate to 0.
+Best Regards,
+Rafi.
 
-[ ... ]
-> +	pusha(run->addresses.probs_out, "probs_out", 0);
-> +	pusha(av1_ctx->bufs.probs.addr, "probs", 1);
-> +	pusha(av1_ctx->bufs.above_info.addr, "col", 0);
-> +	pusha(av1_ctx->bufs.seg.addr, "seg", 0);
+> @@ -156,6 +156,58 @@
+>   #define LPI_MI2S_TX_5		150
+>   #define LPI_MI2S_RX_6		151
+>   #define LPI_MI2S_TX_6		152
+> +#define AIF_MI2S_RX_0		153
+> +#define AIF_MI2S_RX_1		154
+> +#define AIF_MI2S_RX_2		155
+> +#define AIF_MI2S_RX_3		156
+> +#define AIF_MI2S_RX_4		157
+> +#define AIF_MI2S_RX_5		158
+> +#define AIF_MI2S_RX_6		159
+> +#define AIF_MI2S_RX_7		160
+> +#define AIF_MI2S_RX_8		161
+> +#define AIF_MI2S_RX_9		162
+> +#define AIF_MI2S_RX_10		163
+> +#define AIF_MI2S_RX_11		164
+> +#define AIF_MI2S_RX_12		165
+> +#define AIF_MI2S_TX_0		166
+> +#define AIF_MI2S_TX_1		167
+> +#define AIF_MI2S_TX_2		168
+> +#define AIF_MI2S_TX_3		169
+> +#define AIF_MI2S_TX_4		170
+> +#define AIF_MI2S_TX_5		171
+> +#define AIF_MI2S_TX_6		172
+> +#define AIF_MI2S_TX_7		173
+> +#define AIF_MI2S_TX_8		174
+> +#define AIF_MI2S_TX_9		175
+> +#define AIF_MI2S_TX_10		176
+> +#define AIF_MI2S_TX_11		177
+> +#define AIF_MI2S_TX_12		178
+> +#define AIF_TDM_RX_0		179
+> +#define AIF_TDM_RX_1		180
+> +#define AIF_TDM_RX_2		181
+> +#define AIF_TDM_RX_3		182
+> +#define AIF_TDM_RX_4		183
+> +#define AIF_TDM_RX_5		184
+> +#define AIF_TDM_RX_6		185
+> +#define AIF_TDM_RX_7		186
+> +#define AIF_TDM_RX_8		187
+> +#define AIF_TDM_RX_9		188
+> +#define AIF_TDM_RX_10		189
+> +#define AIF_TDM_RX_11		190
+> +#define AIF_TDM_RX_12		191
+> +#define AIF_TDM_TX_0		192
+> +#define AIF_TDM_TX_1		193
+> +#define AIF_TDM_TX_2		194
+> +#define AIF_TDM_TX_3		195
+> +#define AIF_TDM_TX_4		196
+> +#define AIF_TDM_TX_5		197
+> +#define AIF_TDM_TX_6		198
+> +#define AIF_TDM_TX_7		199
+> +#define AIF_TDM_TX_8		200
+> +#define AIF_TDM_TX_9		201
+> +#define AIF_TDM_TX_10		202
+> +#define AIF_TDM_TX_11		203
+> +#define AIF_TDM_TX_12		204
+>   
+>   #define LPASS_CLK_ID_PRI_MI2S_IBIT	1
+>   #define LPASS_CLK_ID_PRI_MI2S_EBIT	2
+> 
 
-[Severity: Medium]
-Can this push an uninitialized DMA address to the hardware? This regression
-can occur because the seg buffer is only allocated if
-V4L2_AV1_SEGMENTATION_FLAG_UPDATE_MAP is set. If the flag isn't set on the
-first frame of a context, av1_ctx->bufs.seg.addr will be 0.
-
-[ ... ]
-> +static void set_tiles(struct avd_ctx *ctx, struct avd_av1_run *run)
-> +{
-> +	struct avd_av1_ctx *av1_ctx =3D ctx->priv;
-> +	const struct v4l2_ctrl_av1_frame *frame =3D run->frame;
-> +	const struct v4l2_ctrl_av1_sequence *seq =3D run->seq;
-> +	const struct v4l2_ctrl_av1_tile_group_entry *tile_group;
-> +	const struct v4l2_av1_tile_info *tile_info =3D &frame->tile_info;
-> +	int row, col, sb_row, sb_col, tile_id;
-> +	int sb_shift =3D
-> +		seq->flags & V4L2_AV1_SEQUENCE_FLAG_USE_128X128_SUPERBLOCK ? 5 :
-> +									     4;
-> +
-> +	av1_ctx->submit_num =3D tile_info->tile_cols * tile_info->tile_rows;
-
-[Severity: High]
-As mentioned earlier, could this multiplication truncate and result in 0?
-If it does, the submission loop later would see 0 - 1, which is -1, and
-bypass the execution loop entirely.
-
-> +
-> +	for (row =3D 0; row < tile_info->tile_rows; row++) {
-> +		for (col =3D 0; col < tile_info->tile_cols; col++) {
-> +			ctx->job.num++;
-> +			tile_id =3D row * tile_info->tile_cols + col;
-> +			tile_group =3D &run->tile_group[tile_id];
-
-[Severity: High]
-Could this loop generate a tile_id that reads far out of bounds? If
-tile_cols and tile_rows are unvalidated and reach their maximums, it
-might exceed the dimensions of run->tile_group which is bounded by
-V4L2_AV1_MAX_TILE_COUNT.
-
-> +
-> +			push(AVD_OP_CODED_DATA |
-> +				     AVD_OP_CODED_DATA_ADDR(
-> +					     (run->base.coded_in +
-> +					      tile_group->tile_offset) >>
-> +					     32),
-> +			     "tile_start");
-> +			push((u32)((run->base.coded_in +
-> +				    tile_group->tile_offset) &
-> +				   0xffffffff),
-> +			     "tile_addr");
-> +			push(tile_group->tile_size, "tile_size");
-> +
-> +			sb_row =3D
-> +				tile_info->mi_row_starts[tile_group->tile_row] >>
-> +				sb_shift;
-> +			sb_col =3D
-> +				tile_info->mi_col_starts[tile_group->tile_col] >>
-> +				sb_shift;
-> +			push(AVD_OP_SL_DIM_START |
-> +				     AVD_OP_SL_DIM_START_Y(sb_row) |
-> +				     AVD_OP_SL_DIM_START_X(sb_col),
-> +			     "tile_op_start");
-> +
-> +			push(AVD_SL_DIM_END_ROW(
-> +				     !(frame->flags &
-> +				       V4L2_AV1_FRAME_FLAG_DISABLE_FRAME_END_UPDATE_CDF) &&
-> +						     tile_id =3D=3D
-> +							     tile_info->context_update_tile_id ?
-> +					     8 :
-> +					     0) |
-> +				     AVD_SL_DIM_END_COL(col) |
-> +				     AVD_SL_DIM_END_Y(
-> +					     sb_row +
-> +					     tile_info->height_in_sbs_minus_1
-> +						     [tile_group->tile_row]) |
-
-[Severity: High]
-Could this regression cause out-of-bounds reads into mi_row_starts and
-height_in_sbs_minus_1? The tile_row and tile_col fields come directly
-from the V4L2_CID_STATELESS_AV1_TILE_GROUP_ENTRY control payload. If
-userspace provides large values, it might read past the bounds of these
-small fixed-size arrays and push those values to the hardware.
-
-[ ... ]
-> +static void avd_av1_set_prob(struct avd_ctx *ctx, struct avd_av1_run *ru=
-n)
-> +{
-> +	struct avd_av1_ctx *av1_ctx =3D ctx->priv;
-> +	bool error_resilient_mode =3D !!(
-> +		run->frame->flags & V4L2_AV1_FRAME_FLAG_ERROR_RESILIENT_MODE);
-> +	bool frame_is_intra =3D
-> +		((run->frame->frame_type =3D=3D V4L2_AV1_KEY_FRAME) ||
-> +		 (run->frame->frame_type =3D=3D V4L2_AV1_INTRA_ONLY_FRAME));
-> +	struct avd_decoded_buffer *dst, *ref;
-> +
-> +	dst =3D vb2_to_avd_decoded_buf(&run->base.bufs.dst->vb2_buf);
-> +
-> +	if (error_resilient_mode || frame_is_intra ||
-> +	    run->frame->primary_ref_frame =3D=3D 7) {
-> +		avd_av1_default_coeff_probs(run->frame->quantization.base_q_idx,
-> +					    av1_ctx->bufs.probs.cpu);
-> +		avd_av1_set_default_cdfs(av1_ctx->bufs.probs.cpu);
-> +	} else {
-> +		ref =3D avd_get_ref_buf(
-> +			ctx, &dst->base.vb,
-> +			run->frame->reference_frame_ts
-> +				[run->frame->ref_frame_idx
-> +					 [run->frame->primary_ref_frame]]);
-
-[Severity: High]
-Is it possible for primary_ref_frame or the fetched ref_frame_idx to
-exceed the bounds of their respective arrays? If userspace supplies a
-primary_ref_frame greater than 7, this could lead to a nested
-out-of-bounds read regression when looking up the reference buffer.
-
-> +		memcpy(av1_ctx->bufs.probs.cpu,
-> +		       vb2_plane_vaddr(&ref->base.vb.vb2_buf, 0) +
-> +			       AVD_AV1_CDFS_OFFSET(
-> +				       ref->base.vb.vb2_buf.planes[0].length,
-> +				       ref->av1.color_size),
-> +		       sizeof(struct avd_av1_cdfs));
-
-[Severity: Medium]
-Is a DMA cache synchronization needed before accessing this buffer with the
-CPU? The reference buffer is mapped for device access, and copying from it
-without a prior sync might yield stale cache data.
-
-> +	}
-> +
-> +	/*
-> +	 * AVD writes nothing when DISABLE_FRAME_END_UPDATE_CDF is
-> +	 * enabled
-> +	 */
-> +	memcpy(vb2_plane_vaddr(&dst->base.vb.vb2_buf, 0) +
-> +		       AVD_AV1_CDFS_OFFSET(dst->base.vb.vb2_buf.planes[0].length,
-> +					   dst->av1.color_size),
-> +	       av1_ctx->bufs.probs.cpu, sizeof(struct avd_av1_cdfs));
-
-[Severity: Critical]
-Can the av1.color_size calculation lead to an integer underflow regression
-when passed to AVD_AV1_CDFS_OFFSET?
-
-If userspace provides huge dimensions, avd_color_size might return an
-enormous value. Subtracting it from the plane length could underflow,
-leading to a massive positive offset that causes memcpy to overwrite
-memory far outside the mapped buffer.
-
-[ ... ]
-> +static int avd_av1_run_preamble(struct avd_ctx *ctx, struct avd_av1_run =
-*run)
-> +{
-[ ... ]
-> +	dst_len =3D run->base.bufs.dst->vb2_buf.planes[0].length;
-> +	tlb_len =3D avd_color_size(run->frame->frame_width_minus_1 + 1,
-> +				 run->frame->frame_height_minus_1 + 1);
-> +
-> +	run->addresses.color =3D
-> +		run->base.y_out + AVD_AV1_COLOR_OFFSET(dst_len, tlb_len);
-> +
-> +	run->addresses.probs_out =3D
-> +		run->base.y_out + AVD_AV1_CDFS_OFFSET(dst_len, tlb_len);
-
-[Severity: High]
-Does this offset logic require dst_len to be 256-byte aligned? If an
-unaligned length is provided, the resulting DMA pointer may become
-unaligned. When passed to pusha() later, the unaligned bits might be
-silently truncated, causing a regression where hardware writes to a
-shifted boundary.
-
-[ ... ]
-> +static int avd_av1_alloc_work_bufs(struct avd_ctx *ctx, struct avd_av1_r=
-un *run)
-> +{
-> +	struct avd_dev *avd =3D ctx->dev;
-> +	struct avd_av1_ctx *av1_ctx =3D ctx->priv;
-> +	const struct v4l2_ctrl_av1_frame *frame =3D run->frame;
-> +	const struct v4l2_ctrl_av1_sequence *seq =3D run->seq;
-> +	const struct v4l2_av1_tile_info *tile_info =3D &frame->tile_info;
-> +	int ret, max_sb_col =3D 0, max_sb_row =3D 0, i, sb_cols1 =3D 0, sb_cols=
-2 =3D 0,
-> +		 sb;
-> +	int sb_shift =3D
-> +		seq->flags & V4L2_AV1_SEQUENCE_FLAG_USE_128X128_SUPERBLOCK ? 1 :
-> +									     0;
-> +	int w =3D frame->frame_width_minus_1 + 1;
-> +	int h =3D frame->frame_height_minus_1 + 1;
-> +	int bit_depth =3D seq->bit_depth;
-> +
-> +	for (i =3D 0; i < tile_info->tile_cols; i++) {
-> +		sb =3D tile_info->width_in_sbs_minus_1[i] + 1;
-> +		max_sb_col =3D sb > max_sb_col ? sb : max_sb_col;
-> +		sb_cols1 +=3D ALIGN((sb << sb_shift) * 44, 128);
-> +		/* wrong alignment? */
-> +		sb_cols2 +=3D ALIGN((sb << sb_shift) * 12, 128);
-> +	}
-
-[Severity: High]
-Could this loop read past the end of the width_in_sbs_minus_1 array? This
-array has 64 elements, but tile_cols can iterate up to 255 if unvalidated.
-
-Additionally, does the size calculation overflow? The operation
-(sb << sb_shift) * 44 uses signed 32-bit arithmetic, which could wrap
-around with extremely large values of sb, resulting in a tiny allocation
-and an out-of-bounds DMA write regression.
-
-[ ... ]
-> +static int avd_av1_run(struct avd_ctx *ctx)
-> +{
-> +	struct avd_av1_run run;
-> +	struct avd_decoded_buffer *dst;
-> +	int ret;
-> +
-> +	ret =3D avd_av1_run_preamble(ctx, &run);
-> +	if (ret) {
-> +		avd_run_postamble(ctx, &run.base);
-> +		return ret;
-> +	}
-> +
-> +	ret =3D avd_init_job(ctx, AVD_CODEC_AV1,
-> +			   run.frame->tile_info.tile_cols *
-> +					   run.frame->tile_info.tile_rows +
-> +				   1);
-> +	if (ret)
-> +		return ret;
-
-[Severity: Medium]
-If avd_init_job() fails, does the context need to be cleaned up?
-avd_av1_run_preamble() was successfully called right before this, so
-it looks like a regression where avd_run_postamble() is missing to
-release the preamble state before returning.
-
-> +
-> +	dst =3D vb2_to_avd_decoded_buf(&run.base.bufs.dst->vb2_buf);
-> +	update_dec_buf_info(dst, run.seq, run.frame);
-> +
-> +	avd_av1_set_prob(ctx, &run);
-> +	avd_av1_alloc_work_bufs(ctx, &run);
-> +
-> +	set_header(ctx, &run);
-
-[Severity: High]
-What happens if avd_av1_alloc_work_bufs() fails? The function returns an
-error code on allocation failure, but it appears to be ignored here. If it
-fails, the hardware might be commanded to use unallocated (zeroed) DMA
-addresses, causing a regression.
-
-[ ... ]
-> +static void avd_av1_stop(struct avd_ctx *ctx)
-> +{
-> +	struct avd_av1_ctx *av1_ctx =3D ctx->priv;
-> +	struct avd_dev *avd =3D ctx->dev;
-> +
-> +	avd_buf_free(avd, &av1_ctx->bufs.rf_above_info);
-> +	avd_buf_free(avd, &av1_ctx->bufs.az_above);
-> +	avd_buf_free(avd, &av1_ctx->bufs.ip_above);
-> +	avd_buf_free(avd, &av1_ctx->bufs.lf_above);
-> +	avd_buf_free(avd, &av1_ctx->bufs.lf_above_info);
-> +	avd_buf_free(avd, &av1_ctx->bufs.lf_left);
-
-[Severity: Medium]
-Should av1_ctx->bufs.above_info be freed here? It seems this buffer is
-allocated in avd_av1_alloc_work_bufs but is missing from this teardown
-sequence, resulting in a memory leak regression.
-
-[ ... ]
-> +static void avd_av1_submit(struct avd_ctx *ctx)
-> +{
-> +	struct avd_av1_ctx *av1_ctx =3D ctx->priv;
-> +	struct avd_dev *avd =3D ctx->dev;
-> +
-> +	writel(AVD_OP_EXEC |
-> +		       AVD_OP_EXEC_FLAG_START_REV4(avd->variant->revision =3D=3D
-> +						   4) |
-> +		       AVD_OP_EXEC_FIFO_IDX(ctx->fifo_idx) |
-> +		       AVD_OP_EXEC_FIFO_MASK(avd->variant->fifo_slots),
-> +	       avd->ctrl + avd->variant->submit_offset);
-> +	for (int i =3D 0; i < av1_ctx->submit_num - 1; i++) {
-> +		writel(AVD_OP_EXEC | AVD_OP_EXEC_FIFO_IDX(ctx->fifo_idx) |
-> +			       AVD_OP_EXEC_FIFO_MASK(avd->variant->fifo_slots),
-> +		       avd->ctrl + avd->variant->submit_offset);
-> +	}
-
-[Severity: High]
-Could this tight loop overrun the hardware FIFO? The MMIO writes are
-executed sequentially without polling or checking if the hardware can
-accept them, which might cause command drops if submit_num exceeds the
-available FIFO depth.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918-avd-v1-0-4=
-9977931f455@icloud.com?part=3D14
