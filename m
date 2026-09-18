@@ -1,281 +1,206 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA6D0515995
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 13:40:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17B8E4FD78E;
+	Fri, 18 Sep 2026 13:41:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789738844; cv=none; b=f0/tEoRIkDxqmjBgXjA0f+e4gSCYUTbUQvaU51HVX505MgGBYQ6ZcIQ1VMmo67lBgZLM01iEJpaNtLhR8++dfJca8wB0JkfSNhrl+XbxY8MA8kRYpLAlYz+QTnF5ZIeb+iZ9NoGRLmG32hKxFZDP4SvpRPn8CPhWUQEZ0WmUO3w=
+	t=1789738890; cv=none; b=ZskSem7Ct5hLTZ5ENRyiwSKzByJu6noIzEtHCrLsEs5Fl2NtdDSeg1RqwXyUH9GKaRr4C3LTSMhCFUEEEoXgx/DOUgrxygxX9uvyA3l0n+HD5pvaP6YTnRDcM76k4E4yQB0AlzqiuEztHexO/9enjhJfyH/xiPUb2cAa1BajGE8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789738844; c=relaxed/simple;
-	bh=ZDxOCvShpHutjhsL2fBtJ2Fiw1jke132QPGapHMPBvg=;
+	s=arc-20240116; t=1789738890; c=relaxed/simple;
+	bh=dloLV4HYCCPaOV+L/OTMKNKQnETvSaPTpEonVO7Olnk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=SGWFEBsUtySq3eUpCJd3YrT9dub6tcJ4uXQHoT/3FBidjZHunbz0jaM0U8cfjIGwqJttTy+e/zpC+F0PI1xKEo36elNTu18smuucE+iev6LjMLvg4NbvAwTwsGtp6Rohc2mGdExSEN86CMHPOrHAiSX113kJWw4ZEGQBZgb8XSc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RgmAmc7I; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=SnNBfqbBftxJUgyYBPFskNgaxj/iGplHJ57dlVEmFgCyDnY8crqMPgnOATiiBlFR77cdXmu6S+XqbfGkHpPHfRguTpv355qydrvyKcaMCiwb60mwhT19GgbWBZTznS3qkBMDv89hEkG0yCVoJhyxTmBrZNKZ9Mnbf1yjojntb2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bxO1VRkv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RgmAmc7I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7AD01F0089B;
-	Fri, 18 Sep 2026 13:40:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bxO1VRkv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C9621F000FF;
+	Fri, 18 Sep 2026 13:41:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789738842;
-	bh=/TqgFRDwZA2QQ1avUpKUqMWfrysXh1GGmXbdCCdHN2Y=;
+	s=k20260515; t=1789738888;
+	bh=HtWjXaiApjcacubTg0mWVUajzAgJSFSfnPWkggT6wDQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RgmAmc7IHHbH2j7qFT1oKrgNHrODapz457PZFFlzO5eZ+dBbLgmSEjPsBcVICJXxB
-	 NFh75tlP19TfFpTXqytuxFW6wTKQkMU/VbMUjJdRb5rZuX4ztRyFiVBA6rGedcQ/gL
-	 S2lx1sq1ydE48t4Um6plxc1VY5eHfBvJoLhJhg18hlVTwqOP2wCA+WmXsnng81efsk
-	 JIMQrq4fLDxx18Jp59ESX617qv4Xv8tBpK8GshviDz5JlMhDavP0yBxQvvte+t37vm
-	 h5iSIRQulALUt4gK2rhvP+8baHWqT4WHPIMFqRTjsl4gkotjkwH/G+f8q/bjtwGVtE
-	 Cqo+OEIJJQNfw==
+	b=bxO1VRkvsSYBHPuCPRCIASF00lkJiX9gtCAXvU4wH/vhMHu9ucriuiwwwDUjf3t8o
+	 10Pntdq8lXpQK+oSPi3t53btk5lKfnuJjXjpOssUUXdUQhl7qXV7ETmw3NDHndPDRY
+	 BtkQCZTirULN1txga/ThB9O3KvdCQr30Lq2bdQeZTjqGCwFwJFg1uiz2Fe+b902H9a
+	 /JY6zY2mEwF7brPj261Za5STuBggZfSaCN8UDwXkKul7MhoghUm0wunhn5easM5+kX
+	 q0iVKenpGC8oeMuqDss47hECZUMKwyYuKoGopa9aUxQCmqYRv/bf3gXr7Zwxoh1hgL
+	 feJRmwu/4bhLA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 11/14] media: apple: avd: add h264 support
+Subject: Re: [PATCH v3 08/10] HID: apple: Add DockChannel HID transport
+ driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sofus Forstreuter" <sofus.c@icloud.com>
-Cc: media-ci@linuxtv.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260918-avd-v1-11-49977931f455@icloud.com>
-References: <20260918-avd-v1-0-49977931f455@icloud.com>
- <20260918-avd-v1-11-49977931f455@icloud.com>
+To: "Michael Reeves" <michael.reeves077@gmail.com>
+Cc: conor+dt@kernel.org, dmitry.torokhov@gmail.com, linux-input@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260918-apple-mtp-keyboard-final-v3-8-e356464e454b@gmail.com>
+References: <20260918-apple-mtp-keyboard-final-v3-0-e356464e454b@gmail.com>
+ <20260918-apple-mtp-keyboard-final-v3-8-e356464e454b@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 13:40:41 +0000
-Message-Id: <20260918134041.D7AD01F0089B@smtp.kernel.org>
+Date: Fri, 18 Sep 2026 13:41:28 +0000
+Message-Id: <20260918134128.5C9621F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 9 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [Critical] media: avd: UAF and double free of ctx->job.segments
-- [Critical] media: avd: heap buffer overflow via slice array bounds bypass
-- [High] media: avd: out-of-bounds read of decode->dpb
-- [High] media: avd: out-of-bounds read during emulation prevention byte pa=
-rsing
-- [High] media: avd: NULL pointer dereference when mapping DMABUF
-- [High] media: avd: hardware fault due to missing validation of unsupporte=
-d bitstream features
-- [High] media: avd: out-of-bounds read on prediction weights array
-- [Medium] media: avd: memory leak on avd_buf_alloc failure
-- [Medium] media: avd: memory leak of ctx->job.segments on hold capture buf=
-fer
+- [High] hid: use-after-free in dchid_cmd() if unbound with pending commands
+- [Medium] hid: out-of-bounds read due to using hid_input_report() instead =
+of hid_safe_input_report()
+- [Medium] hid: concurrent command submissions trigger WARN_ON and fail wit=
+h -EBUSY
+- [Medium] hid: race condition between internal STM requests and userspace =
+in dchid_handle_ready()
 --
 
-commit e586c8ed1b0833cc07bcac3fd55d2cbf73dddc3d
-Author: Sofus Forstreuter <sofus.c@icloud.com>
+commit 9430d372e505704cf501df7e6ffaa4952a5855aa
+Author: Michael Reeves <michael.reeves077@gmail.com>
 
-media: apple: avd: add h264 support
+HID: apple: Add DockChannel HID transport driver
 
-This commit adds hardware video decoding support for H.264 on Apple
-Silicon devices via the Apple Video Decoder (AVD).
+This commit adds a new HID transport driver for Apple DockChannel. It boots
+the MTP RTKit coprocessor, exchanges HID packets through the DockChannel
+mailbox, and registers child HID interfaces from devicetree.
 
-> diff --git a/drivers/media/platform/apple/avd/avd-h264.c b/drivers/media/=
-platform/apple/avd/avd-h264.c
+> diff --git a/drivers/hid/dockchannel/apple-hid.c b/drivers/hid/dockchanne=
+l/apple-hid.c
 > new file mode 100644
-> index 0000000000000..6262b2f633004
 > --- /dev/null
-> +++ b/drivers/media/platform/apple/avd/avd-h264.c
+> +++ b/drivers/hid/dockchannel/apple-hid.c
 [ ... ]
-> +static void stream_weights(struct avd_ctx *ctx, struct avd_h264_run *run)
+> +static int dchid_cmd(struct dchid_iface *iface, u32 type, u32 req,
+> +		     void *data, size_t size, void *resp_buf, size_t resp_size)
 > +{
-[ ... ]
-> +	for (int y =3D 0; y < 2; y++) {
-> +		if (y =3D=3D 1 && sl->slice_type !=3D V4L2_H264_SLICE_TYPE_B)
-> +			break;
+> +	unsigned long flags;
+> +	int ret;
+> +	int report_id;
+> +	bool timed_out =3D false;
+> +	u32 out_flags;
 > +
-> +		factors =3D weights->weight_factors[y];
-> +		int to =3D y =3D=3D 0 ? sl->num_ref_idx_l0_active_minus1 :
-> +				  sl->num_ref_idx_l1_active_minus1;
-> +		for (int i =3D 0; i < to + 1; i++) {
-> +			/*
-> +			 * AVD only expects offsets/weights if they are not
-> +			 * the default ones, otherwise we get artifacts
-> +			 */
-> +			if (factors.luma_weight[i] !=3D luma_denom ||
-
-[Severity: High]
-Does this loop read past the 32-element prediction weight arrays if a user
-provides an active index greater than 31? The loop bound depends on the
-unbounded 8-bit user value num_ref_idx_l0_active_minus1 or
-num_ref_idx_l1_active_minus1.
-
-> +			    factors.luma_offset[i] !=3D 0) {
-[ ... ]
-> +static void stream_slice(struct avd_ctx *ctx, struct avd_h264_run *run)
-> +{
-[ ... ]
-> +	/* include emulation byte in offset to slice header */
-> +	while (bytes_read < min_off) {
-> +		if (data[off - 2] !=3D 0x00 || data[off - 1] !=3D 0x00 ||
-> +		    data[off] !=3D 0x03)
-> +			bytes_read++;
-> +		off++;
-> +	}
-
-[Severity: High]
-Is it possible for off to advance past the end of the mapped slice payload?
-If a malformed bitstream repeats 0x00 0x00 0x03 sequences, could this loop
-exceed payload_len and cause an integer underflow when calculating
-payload_len - off below?
-
-> +
-> +	coded_in =3D h264_ctx->active_slice->addr + off;
-> +
-> +	push(AVD_OP_CODED_DATA |
-[ ... ]
-> +	if (sl->slice_type =3D=3D V4L2_H264_SLICE_TYPE_B) {
-> +		/* bidirectional reference of previous mv */
-> +		ref =3D avd_get_ref_buf(
-> +			ctx, &dst->base.vb,
-> +			decode->dpb[sl->ref_pic_list1[0].index].reference_ts);
-
-[Severity: High]
-Can the user-controlled sl->ref_pic_list1[0].index exceed the bounds of the
-16-element decode->dpb array? It appears this index is used directly without
-validation, which could lead to an out-of-bounds read.
-
-> +
-> +		mv_color_addr =3D
-[ ... ]
-> +static int avd_h264_alloc_bufs(struct avd_ctx *ctx)
-> +{
-[ ... ]
-> +	ret =3D avd_buf_alloc(dev, &h264_ctx->bufs.above_info, mb * 20);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D avd_buf_alloc(dev, &h264_ctx->bufs.ip_above, bit_depth * 4 * mb=
-);
-> +	if (ret)
-> +		return ret;
-
-[Severity: Medium]
-If a later allocation fails in this sequence, what happens to the previously
-allocated DMA buffers? For example, if the ip_above allocation fails, the
-function returns the error directly without freeing bufs.above_info,
-potentially leaking memory.
-
-> +
-> +	ret =3D avd_buf_alloc(dev, &h264_ctx->bufs.lf_above,
-[ ... ]
-> +static int avd_h264_validate_sps(struct avd_ctx *ctx,
-> +				 const struct v4l2_ctrl_h264_sps *sps)
-> +{
-> +	if (sps->chroma_format_idc > 2)
-> +		/* Only 4:0:0, 4:2:0 and 4:2:2 are supported */
+> +	if (size < 1)
 > +		return -EINVAL;
+> +
+> +	report_id =3D *(u8 *)data;
+> +	out_flags =3D FIELD_PREP(FLAGS_GROUP, type) | FIELD_PREP(FLAGS_REQ, req=
+);
+> +
+> +	spin_lock_irqsave(&iface->out_lock, flags);
+> +
+> +	/* Only one command can be in flight per interface */
+> +	if (WARN_ON(iface->out_report !=3D -1)) {
+> +		spin_unlock_irqrestore(&iface->out_lock, flags);
+> +		return -EBUSY;
+> +	}
+
+[Severity: Medium]
+Can this warning be triggered by unprivileged userspace or during normal
+initialization?
+
+The dchid_cmd() function rejects concurrent commands with a kernel warning
+and returns an error. Since the HID core does not serialize raw_request
+ioctls, concurrent ioctls on the hidraw node can trigger this.
+
+Additionally, dchid_open() invokes dchid_start_interface() which calls
+dchid_comm_cmd() on the shared "comm" interface. If multiple child devices
+are opened concurrently, they might race on the shared interface and hit
+this warning. Could the driver wait for the interface to become free or
+queue the commands instead of returning an error?
+
+> +
+> +	iface->out_report =3D report_id;
+> +	iface->out_flags =3D out_flags;
+> +	iface->retcode =3D 0;
+> +	iface->resp_buf =3D resp_buf;
+> +	iface->resp_size =3D resp_size;
+> +	reinit_completion(&iface->out_complete);
+> +
+> +	spin_unlock_irqrestore(&iface->out_lock, flags);
+> +
+> +	ret =3D dchid_send(iface, out_flags, data, size);
+> +	if (ret < 0) {
+> +		spin_lock_irqsave(&iface->out_lock, flags);
+> +		iface->out_report =3D -1;
+> +		iface->resp_buf =3D NULL;
+> +		iface->resp_size =3D 0;
+> +		spin_unlock_irqrestore(&iface->out_lock, flags);
+> +		return ret;
+> +	}
+> +
+> +	if (!wait_for_completion_timeout(&iface->out_complete,
+> +					 msecs_to_jiffies(COMMAND_TIMEOUT_MS))) {
+> +		dev_err(iface->dchid->dev, "command 0x%x to iface %d (%s) timed out\n",
+> +			report_id, iface->index, iface->name);
+> +		timed_out =3D true;
+> +	}
+> +
+> +	spin_lock_irqsave(&iface->out_lock, flags);
 
 [Severity: High]
-Does this validation routine properly reject unsupported bitstream features
-(such as arbitrary slice order or redundant pictures)? The commit message
-mentions that some test case features are not rejected and cause the hardwa=
-re
-to fault. Is it possible for unprivileged userspace to trigger this fault?
+Is there a use-after-free risk here if the driver is unbound while commands
+are pending?
 
-> +	if (sps->bit_depth_luma_minus8 !=3D sps->bit_depth_chroma_minus8)
+A thread blocking in wait_for_completion_timeout() could wake up after
+dchid_remove() returns. The dchid_shutdown() function stops the hardware
+and destroys the HID devices, but does not abort or wait for pending
+commands. After the remove callback returns, devres frees the iface
+structure. When the blocked thread times out, it would access freed memory
+at spin_lock_irqsave(&iface->out_lock, flags).
+
 [ ... ]
-> +static int avd_h264_start(struct avd_ctx *ctx)
+> +static void dchid_handle_ready(struct dchid_dev *dchid, void *data, size=
+_t length)
 > +{
 [ ... ]
-> +	h264_ctx->alloc_slice_num =3D
-> +		ctrl->p_new.p_h264_sps->pic_height_in_map_units_minus1 + 1;
-> +	h264_ctx->slices =3D kzalloc_objs(*h264_ctx->slices,
-> +					h264_ctx->alloc_slice_num, GFP_KERNEL);
-> +	if (!h264_ctx->slices)
-> +		goto err_free_ctx;
+> +	iface =3D dchid->ifaces[index];
+> +	if (!iface)
+> +		return;
 > +
-> +	ret =3D avd_h264_alloc_bufs(ctx);
-> +	if (ret)
-> +		goto err_free_ctx;
+> +	dev_dbg(dchid->dev, "interface %s is now ready\n", iface->name);
+> +	complete_all(&iface->ready);
 > +
-> +	return 0;
-> +
-> +err_free_ctx:
-> +	kfree(h264_ctx);
-> +	ctx->priv =3D NULL;
-> +	return ret;
+> +	/* When STM is ready, grab global device info */
+> +	if (!strcmp(iface->name, "stm")) {
+> +		ret =3D dchid_get_report_cmd(iface, STM_REPORT_ID, &dchid->device_id,
 
 [Severity: Medium]
-If avd_h264_alloc_bufs() fails, does this error path leak memory? It looks
-like h264_ctx->slices is never freed before returning here.
+Does signaling the completion before internal requests are sent create a
+race condition with userspace?
 
-> +}
+By calling complete_all(&iface->ready) before fetching the STM report ID,
+any thread waiting in dchid_open() is woken up. A userspace process could
+then immediately issue a synchronous HID request, entering dchid_cmd()
+concurrently while dchid_handle_ready() is issuing its own internal STM
+request via dchid_get_report_cmd(). This would trigger the lock check
+warning in dchid_cmd() and fail with an error.
+
+Should the completion be signaled only after internal requests are
+finished?
+
 [ ... ]
-> +static int avd_h264_run(struct avd_ctx *ctx)
+> +static void dchid_handle_report(struct dchid_iface *iface, void *data, s=
+ize_t length)
 > +{
-[ ... ]
-> +	if (ctx->job.segments &&
-> +	    h264_ctx->slice_num >=3D h264_ctx->alloc_slice_num) {
-> +		ret =3D avd_h264_realloc_slices(ctx);
-> +		if (ret)
-> +			goto err_free_jobs;
-> +	}
-
-[Severity: Critical]
-If a user queues slices without first_mb_in_slice =3D=3D 0, avd_init_job is
-bypassed and ctx->job.segments remains NULL. Wouldn't this bypass the bounds
-check entirely? This might allow h264_ctx->slice_num to keep growing and wr=
-ite
-out of bounds on the heap when it accesses the active slice below.
-
+> +	if (!iface->hid || !iface->open)
+> +		return;
 > +
-> +	src =3D v4l2_m2m_next_src_buf(ctx->fh.m2m_ctx);
-> +	h264_ctx->active_slice =3D &h264_ctx->slices[h264_ctx->slice_num];
-> +	ret =3D avd_buf_alloc(ctx->dev, h264_ctx->active_slice,
-> +			    vb2_get_plane_payload(&src->vb2_buf, 0));
-> +	if (ret)
-> +		goto err_free_jobs;
-> +	memcpy(h264_ctx->active_slice->cpu, vb2_plane_vaddr(&src->vb2_buf, 0),
-> +	       h264_ctx->active_slice->size);
-
-[Severity: High]
-Can vb2_plane_vaddr() return NULL here if the provided buffer cannot be map=
-ped
-(e.g., an unmappable DMABUF)? Passing a NULL pointer directly to memcpy cou=
-ld
-lead to a kernel panic.
-
-> +	h264_ctx->slice_num++;
-[ ... ]
-> +	if (is_new_frame(run.slice_params)) {
-> +		ret =3D avd_init_job(ctx, AVD_CODEC_H264,
-> +				   h264_ctx->alloc_slice_num + 1);
+> +	hid_input_report(iface->hid, HID_INPUT_REPORT, data, length, 1);
 
 [Severity: Medium]
-If a previous operation left a populated ctx->job.segments without submitti=
-ng
-it, does avd_init_job() unconditionally overwrite ctx->job.segments and leak
-the old array?
+Does this allow an out-of-bounds read in the HID core?
 
-> +		if (ret)
-> +			return ret;
-> +		stream_hdr(ctx, &run);
-> +	}
-[ ... ]
-> +	if (run.base.bufs.src->flags & V4L2_BUF_FLAG_M2M_HOLD_CAPTURE_BUF) {
-> +		avd_job_finish(ctx, VB2_BUF_STATE_DONE);
-> +		return 0;
-> +	}
+The raw data is passed to hid_input_report() without specifying its
+allocated bounds. If the device sends a maliciously truncated packet but
+declares a large report size in its descriptor, the core could read past
+the allocated bounds of the buffer.
 
-[Severity: Medium]
-When V4L2_BUF_FLAG_M2M_HOLD_CAPTURE_BUF is set, we bypass avd_submit_job()
-which usually frees ctx->job.segments. Could this cause a memory leak of the
-segments array if a new frame is processed subsequently?
-
-> +
-> +	return avd_submit_job(ctx);
-> +
-> +err_free_jobs:
-> +	kfree(ctx->job.segments);
-> +	return ret;
-
-[Severity: Critical]
-Is it possible to encounter a Use-After-Free here? We call kfree on
-ctx->job.segments, but we don't set the pointer to NULL. If a subsequent m2m
-operation bypasses avd_init_job(), could it read from or double-free this
-dangling pointer via avd_h264_realloc_slices()?
+Should this use hid_safe_input_report() to enforce explicit boundary checks
+based on the allocated buffer size?
 
 > +}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918-avd-v1-0-4=
-9977931f455@icloud.com?part=3D11
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918-apple-mtp-=
+keyboard-final-v3-0-e356464e454b@gmail.com?part=3D8
