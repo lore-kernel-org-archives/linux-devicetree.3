@@ -1,33 +1,32 @@
-Received: from mta-64-225.siemens.flowmailer.net (mta-64-225.siemens.flowmailer.net [185.136.64.225])
+Received: from mta-64-227.siemens.flowmailer.net (mta-64-227.siemens.flowmailer.net [185.136.64.227])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 212323AAF69
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 23:15:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.64.225
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 142F63812ED
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 23:15:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.64.227
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789773312; cv=none; b=ab6cKYvaABM7MZ59FtdxYEGnC9YDL1xrGZb9Pg526pPtxpT1nBg+SrRCNvNKlu+e49I0mlu8c4LnDcFHVqZggMC0SpAmzExWlSW8jarY4vp1GRK0xijYe+1ArNgL/mKNARNj4A2JZlSeasNESlMWTUNvZW3gT3TmB1gDmhJV1MI=
+	t=1789773311; cv=none; b=MKeYoZf02yJAQzMBNrzQgEF0oeP7eBh/7m8XuJ5iTDf2dRtvDdylk6bwCwkG6CCAD7o8G1XI4Pc/dSo2SFKvbVb5l9vZfS/vwXJUTE+5vMKXzIS6YKC3knquiL79oB2G7xxh46Hc50ejULS6CHn8R8AFkJkP48Cdk4r2d4eEXGo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789773312; c=relaxed/simple;
-	bh=njv0aHK0Wsob9AbSpsOdZFyaIoN/zXJeZ5/gR3k/I6g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sI4SLuu1IAyMeoqXjL7XMHnpwljyCN2jCcOTEcsGuLCsbIknHVuRG3i8ic/NNtAsfhh5eA5GqLsOZZSJ/IlOggoBOVVMmDx5RL7l+UZeiPAQXANSb7EaMh2WDtUBrK+ZWYILb3+m+vS6Zl7Y3RCFnOlsjVu11RZdbC2ltr9kypI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alessandro.zini@siemens.com header.b=MUoHGSW7; arc=none smtp.client-ip=185.136.64.225
+	s=arc-20240116; t=1789773311; c=relaxed/simple;
+	bh=N1+8lTa0cD8Di4i5uB08hdfN+adjhDPO5yydi9aX/Ps=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AcQJppoUgHi9LT6wdZwfmh1pvstrMFErbS05JO1lCi72Uqpj4tvNZl3ywxK4DaDmUTgaE2qd7Gfe/KCMoDDGASF8J+VUixl1QMy57c+W/GsvIKou46x7yk/12UKW3H48PYUdnmbL8irjNf0jRTwsjm7D4KoQsss+rPXdNmjede8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alessandro.zini@siemens.com header.b=cBhi3G6g; arc=none smtp.client-ip=185.136.64.227
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=siemens.com header.i=alessandro.zini@siemens.com header.b="MUoHGSW7"
-Received: by mta-64-225.siemens.flowmailer.net with ESMTPSA id 202609182315048438245cfd00020775
+	dkim=pass (2048-bit key) header.d=siemens.com header.i=alessandro.zini@siemens.com header.b="cBhi3G6g"
+Received: by mta-64-227.siemens.flowmailer.net with ESMTPSA id 20260918231502ac6c16d59d00020722
         for <devicetree@vger.kernel.org>;
-        Sat, 19 Sep 2026 01:15:04 +0200
+        Sat, 19 Sep 2026 01:15:03 +0200
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm1;
  d=siemens.com; i=alessandro.zini@siemens.com;
- h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc:References:In-Reply-To;
- bh=iRt54UFriLwuvrWsaUSqNIpmcgh0PUNJdcQKFqrAaDg=;
- b=MUoHGSW7xxvsZp32b6QuAep0g260rCb1Tkq2Rk3oNzwJNPQQqJ+AXeN572RviYT9vkjcmp
- R3aBs9NhOKO4pR8X202HmNZgBL3SuWjeLzzKjaY1NZ18Scnxkak7OAccOGj25PtqaaC0J43C
- QAvS1ny6qva0hxRYqwVoR0l0a30q6wDaPWppdk6BDSt/QvLarZcJO5/uQtyJIPUT0XBVY0F2
- vPXLjBxVjV3UDYuz3IxaEHMh6jnG75ZHEtHBqXr8MliVHaumXJUSXHmuM/PQMNo/cXKOTQct
- miCNp7S4hBbnMwHdxzE/Ggjlo6xW4fEgqajhGE7E4OVZrJMBk843u03w==;
+ h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc;
+ bh=Zsf3t29XMHxUbmFN/T07chbg3R0ZMS1E1xGPRbiAOb4=;
+ b=cBhi3G6gxkYgV3Jdr0QYq6iMgh2AI3XGfoGnyFSiPjIAvE4ekfv8ptkiJ6PcBHYE2C7Cct
+ EM4l8hZUm92eJ/fwpgwb68pcUoOUHBLypHVeHquDwfEHL7e0ZUFC8LwSNvdmM4idzeBYtcgu
+ IDNKtcQqVexL63k/Dw0+2Dz9Y//tasEn5WCDwajYZGAHKgdjUxQR2J00uZyyfDV8zzgd4+Y1
+ RnB6Wj0wsVd9Er/nB8K6bBZFvVsyiW/N/EU2LcS4BjYfxW7pIJAk8UIGKstvti+2XfQW95j/
+ YRC0RjIM5q0UgCfZoATiPTdAaAkTrr5sF2J1popUopIlsbzJG6getlBg==;
 From: Alessandro Zini <alessandro.zini@siemens.com>
 To: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
 	Andrew Lunn <andrew+netdev@lunn.ch>,
@@ -44,11 +43,9 @@ Cc: Ciprian Regus <ciprian.regus@analog.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Alessandro Zini <alessandro.zini@siemens.com>
-Subject: [PATCH net-next v4 3/3] net: ethernet: oa_tc6: add reset-gpios support
-Date: Sat, 19 Sep 2026 01:14:50 +0200
-Message-ID: <20260918231450.55966-4-alessandro.zini@siemens.com>
-In-Reply-To: <20260918231450.55966-1-alessandro.zini@siemens.com>
-References: <20260918231450.55966-1-alessandro.zini@siemens.com>
+Subject: [PATCH net-next v4 0/3] net: ethernet: oa_tc6: add reset-gpios support
+Date: Sat, 19 Sep 2026 01:14:47 +0200
+Message-ID: <20260918231450.55966-1-alessandro.zini@siemens.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -59,83 +56,59 @@ Content-Transfer-Encoding: 8bit
 X-Flowmailer-Platform: Siemens
 Feedback-ID: 519:519-1327013:519-21489:flowmailer
 
-OPEN Alliance 10BASE-T1x MAC-PHY Serial Interface specification
-(v1.1, section 8.2) defines an external RESET pin as an optional reset
-source for the MAC-PHY.
+This series adds optional reset GPIO support for OPEN Alliance 10BASE-T1x
+MAC-PHY devices using the OA TC6 library, and documents the property for
+the Microchip LAN8650/1 MAC-PHY.
 
-Add support for an optional reset GPIO in oa_tc6_init(). The GPIO is
-requested asserted, kept asserted for 10 us and, once deasserted, 1 ms of
-settle time is allowed for the crystal oscillator startup before the
-initial TC6 control protection check and software reset are performed.
+Patch 1 documents the optional reset-gpios property for the Microchip
+LAN8650/1.
 
-As the reset handling lives in the common library, it is available to all
-MAC-PHY devices using oa_tc6_init() that provide an external reset pin.
+Patch 2 converts oa_tc6_init() to return an ERR_PTR instead of NULL, so
+that -EPROBE_DEFER from the GPIO lookup added in patch 3 reaches the
+driver core instead of being turned into -ENODEV.
 
-Suggested-by: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>
-Signed-off-by: Alessandro Zini <alessandro.zini@siemens.com>
----
+Patch 3 implements optional reset GPIO handling in the common oa_tc6
+library. The reset line is requested asserted, kept asserted for 10 us and
+1 ms of settle time is allowed after deassertion for the crystal
+oscillator startup, before the OPEN Alliance TC6 communication is started.
+
+Note: In v3, a DT binding patch was added for adi,ad3306.yaml based on
+review bot feedback, as adin1140 also calls oa_tc6_init(). However, I have
+later realized that ADIN1140/AD3306 does not have an external reset pin...
+Therefore, that binding patch has been dropped in v4. Sorry for the
+spam.
+
 Changes in v4:
-- Clarified commit message regarding devices with external reset pins
-  (renumbered from 4/4 to 3/3).
+- Dropped patch 2 from v3 ("dt-bindings: net: adi,ad3306: add reset-gpios
+  property") because the ADIN1140/AD3306 does not feature a physical reset
+  pin.
+- Renumbered patches accordingly (now 3 patches).
 
 Changes in v3:
-- Request the GPIO with GPIOD_OUT_HIGH and drop the now redundant
-  gpiod_set_value_cansleep(..., 1) call, as suggested by Qingfang Deng.
-- Return the error from dev_err_probe() so that -EPROBE_DEFER is
-  propagated to the driver core.
-- Reworded comment to stay within 80 columns.
-- Sorted the new includes into the existing include block.
+- Picked up Acked-by tag from Krzysztof on patch 1.
+- Added patch documenting the property for adi,ad3306 (dropped in v4).
+- Added patch converting oa_tc6_init() to ERR_PTR, so that -EPROBE_DEFER
+  is not lost.
+- In the driver patch, requested the GPIO with GPIOD_OUT_HIGH and dropped
+  the now redundant gpiod_set_value_cansleep() call, as suggested by
+  Qingfang Deng, propagated the dev_err_probe() return value, reworded
+  the comment and sorted the new includes.
 
 Changes in v2:
-- Moved reset GPIO handling from lan865x.c to common oa_tc6.c as suggested
-  by Parthiban Veerasooran.
- drivers/net/ethernet/oa_tc6.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+- Moved reset-gpios handling from the lan865x driver into the common oa_tc6
+  library (drivers/net/ethernet/oa_tc6.c), so all MAC-PHY devices can make
+  use of it, as suggested by Parthiban Veerasooran.
 
-diff --git a/drivers/net/ethernet/oa_tc6.c b/drivers/net/ethernet/oa_tc6.c
-index 8c82bc8354ede..364027c39fa4a 100644
---- a/drivers/net/ethernet/oa_tc6.c
-+++ b/drivers/net/ethernet/oa_tc6.c
-@@ -6,6 +6,8 @@
-  */
- 
- #include <linux/bitfield.h>
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
- #include <linux/iopoll.h>
- #include <linux/interrupt.h>
- #include <linux/mdio.h>
-@@ -88,6 +90,7 @@ struct oa_tc6 {
- 	bool disable_traffic;
- 	bool prot_ctrl;
- 	enum oa_tc6_quirk_flag quirk_flags;
-+	struct gpio_desc *reset_gpio;
- };
- 
- enum oa_tc6_header_type {
-@@ -1504,6 +1507,22 @@ struct oa_tc6 *oa_tc6_init(struct spi_device *spi, struct net_device *netdev,
- 	if (!tc6->spi_data_rx_buf)
- 		return ERR_PTR(-ENOMEM);
- 
-+	tc6->reset_gpio = devm_gpiod_get_optional(&spi->dev, "reset",
-+						  GPIOD_OUT_HIGH);
-+	if (IS_ERR(tc6->reset_gpio))
-+		return ERR_PTR(dev_err_probe(&spi->dev,
-+					     PTR_ERR(tc6->reset_gpio),
-+					     "failed to get reset gpio\n"));
-+
-+	if (tc6->reset_gpio) {
-+		/* Keep the reset asserted for 10 us and then allow 1 ms of
-+		 * settle time for the crystal oscillator startup.
-+		 */
-+		fsleep(10);
-+		gpiod_set_value_cansleep(tc6->reset_gpio, 0);
-+		fsleep(1000);
-+	}
-+
- 	/* Check the PROTE bit status so that we can reset the device */
- 	ret = oa_tc6_check_ctrl_protection(tc6);
- 	if (ret) {
+Alessandro Zini (3):
+  dt-bindings: net: microchip,lan8650: add reset-gpios property
+  net: ethernet: oa_tc6: return ERR_PTR from oa_tc6_init()
+  net: ethernet: oa_tc6: add reset-gpios support
+
+ .../bindings/net/microchip,lan8650.yaml       |  5 ++
+ drivers/net/ethernet/adi/adin1140.c           |  4 +-
+ .../net/ethernet/microchip/lan865x/lan865x.c  |  4 +-
+ drivers/net/ethernet/oa_tc6.c                 | 46 +++++++++++++------
+ 4 files changed, 42 insertions(+), 17 deletions(-)
+
 -- 
 2.55.0
-
