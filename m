@@ -1,103 +1,120 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59BAE5111B4
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 16:07:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CFB4F4EB859;
+	Fri, 18 Sep 2026 16:21:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789747631; cv=none; b=FCsexLHk7RDQUrhilsUM5eyLxIky5J1y8BSKbPFm+EN29gJZ3x8CAQVEHMV6Ay+RkxXzaCiDOEYuZxabzsabmTr4uXtx4ZteNvJJnDsZqJlU7TmeuRegf3IaEg37nqCQQXyhml//E/5bw5HAjbOq4oqhYsOG02nDFR4/glU7IBA=
+	t=1789748505; cv=none; b=Zr2btw2ZTPpbIbNUAuEPQgbNJYR167DCK/bTh849Rtbilat5oO9sd5a/qXD8LVgVbpk1TxRVElfmAinBgcbaYdyZvtUyi4rYwR5V+qL+VD7NGZC8EHj96hirtOcGvN5mDE7e/RDavts7zytyDa99CyTab/J3wiTUZCfHxQ8GcFg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789747631; c=relaxed/simple;
-	bh=+fXFt1wmuGm36I/6m2mLaabGRHYph3PCUFE2O+zRlTA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HxQ/3hU9/O1u5CZpmMGfYUpPOBS3KP9sVod8kWS9j4TjR7VTXtvxLljUCwP/ivDRofLt5efirBsTMrubEfJdpoWDwKhjsVBt9oFfvHVVcPcypKHAjoAbZztKPe/SvRaQ1Go+L6TlBnGBSu2m8WvArE3dL/x9+7iUx4wevXKb+dA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oMz9yvFz; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789748505; c=relaxed/simple;
+	bh=/OybNd89mEkvshGFEDppqY+8tuTPGqXqbXHfup9KH90=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gNpkuJFJvgvp6ujZT7frT06BbTGpDTwlUcWZnllBt57HvD1/GrkHu0iqTQTREZS+EyGr2GXprKQqY/xoQpzkoMhgfirJkeTzxUffx4OqzPi+mZQRzQFHAdc+0uycOwc1D5/4AHVoU16U81OhDKPl/XTl0OfMO4005iC7UDLyNU4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=fJwZQlJs; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oMz9yvFz"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-398cb5615deso1053117a91.3
-        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 09:07:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789747630; x=1790352430; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=+a91oW+XEpT6uwd1XGhqfpSXASpWO0V95HM9oxBjsHU=;
-        b=oMz9yvFzVJohjoZAp+3wAr4UODJZWG7XDCY6QTsLxsQMUPcI6fb5KI6L508ICcRQEY
-         wEAOxHpqxQrDEoNX5pYCniZ3pEp8tkQ5kbMBTtlRBFbj4gdGD0K7Punxoq5Og2DlLKBQ
-         WhzGR7PP7FOy/OOqTMoUCsklyCtN261Tcchk0rtquY5REReuy6OSQ4g7cnkc0yjH2ton
-         hiI5KrRfQxToUfYWlZ68BQVah39K0TFbAi2NdG9ty7scEd1b4yqeQ4Q604hVi5XGqV6F
-         n5PFEePLChw1MFUb9CHiVdzPcBVbHLwrIN3CBZiIXE9ORpFbQMSP3XFgxxT8RuNFfhwY
-         a80w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789747630; x=1790352430;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+a91oW+XEpT6uwd1XGhqfpSXASpWO0V95HM9oxBjsHU=;
-        b=C7VjrVRvF7hlhayGnDRl/RDGiNrXnB+apibDFqwrZnVuWLEjnLF9j4HKADGoJ1WXkR
-         Ps4y8/5IRZ3z8JzBC7nqdKTuodlrMH24Dc3lxUfXa6ujlhcLQWk5I3S+XCJ4Lq9p5zmK
-         wpLs69hGymtZJgJjFhJMg5YOt+FEqxqSFk0Lt7zSGhNXNvwd639H/+S2weO1NZZArlwe
-         BYvpMoBfDMtaE0DlA+u2HTzSD+K2aqYLHnQkEtASkUVN0f3neBSndaXJQc5RRysXf/TG
-         /1G4KiqRHUHvjRJZqIwz55Q6YCyHJjpfZjuemtplXJxs14QGhfNQeWOo0t/JWboh2F5p
-         fx5g==
-X-Forwarded-Encrypted: i=1; AKwUvBwOJnZU09PM5o9+Egfa/Ab1FA/iMc5JPNgxFE14/UlmXZoTI5JKW1/QCsoaJMq0bzDPOiyT52CmtHIw@vger.kernel.org
-X-Gm-Message-State: AFuF++kFjYV1/D2Ws7Amdc/LEwOTj/rhu6mdms0rpWt+fRDcybkElwPl
-	8otyDnloJMGyM0jMuY4+ZJDnnw6EP6cJAXewhs/ZUiCF+t/W36qDxym0
-X-Gm-Gg: AYBFou1Yiu7UGi3kU0tlZb7b0p0xmpFqyJ7PkqRzYDTC76+EG9T13ccFMcUa0GbD+FS
-	NvV6RMLYEC2vGBmnnjXRHA7glJbL/gximuZQuuMCJipWZ1jvCzep9S2GOvXnSwoH6xErwanb/R5
-	Z06t1Aj7zns7R5kamQj7OxXp1mXz0I0VGk9P1g32XDYUDxWOUEd7xIRmMBh/uKFdyQdzF8hrLkU
-	rASYGKr1JTHVNuxcC4wZfX9t07sDSUzUMKdVDp5j0OqvCI5IakFws36dtIFc5DR4n64B+Qpp+63
-	qTj3u6yPUquXirWBN8BXJ7tythqrVVHEucOLfpGovbnRsQViJKfjPHXIWHQ7gInULO/hwUVbjv2
-	D0VcbNN7LaaJSzRYlX/q9QM2K/prnQk33BFjFXhOOsKqgqgKpJeNhPwKre2RO2c9KeNAYQuxZ2Z
-	lDYPyVHHVvKxL7KxPfKM0aXx55f9HxrN2oeUryT9oxlqrdqSh6lAT1H5EJ7jciwlRRP6rsj5OOh
-	jYD9O6g3GCd
-X-Received: by 2002:a17:90b:28c6:b0:39e:6a82:afd2 with SMTP id 98e67ed59e1d1-39e6a82bbccmr686160a91.36.1789747629623;
-        Fri, 18 Sep 2026 09:07:09 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c32da4960sm39043eec.0.2026.09.18.09.07.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 09:07:09 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Fri, 18 Sep 2026 09:07:07 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Quchaosheng <quchaosheng000406@163.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Liviu Dudau <liviu.dudau@arm.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] hwmon: vexpress: point the DT binding reference at
- the schema
-Message-ID: <93b9a44c-d595-4ba3-afc6-eb6abf0c17c2@roeck-us.net>
-References: <20260917115818.540344-1-quchaosheng000406@163.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="fJwZQlJs"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8B4C3168F;
+	Fri, 18 Sep 2026 09:21:35 -0700 (PDT)
+Received: from [100.72.146.165] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 128D83F86C;
+	Fri, 18 Sep 2026 09:21:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789748499; bh=/OybNd89mEkvshGFEDppqY+8tuTPGqXqbXHfup9KH90=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=fJwZQlJsnMiSfZIlOizxrilzkBZz7exxuPyeBUE+ppFFDfzYKFNi6vcVdg+lyNtDa
+	 KmdZYJm5DOOZgCpSlpQZrgeFfKD+1C4gfdJFiZiSRhVNwLNf0ci9EguPOdEhr3PaSb
+	 nbk7+IZRhRJYbwXBiBuQS9kJ/054i+iRniIaE4AE=
+Message-ID: <efa6f286-ea5d-4a94-9fb8-65ece584532c@arm.com>
+Date: Fri, 18 Sep 2026 18:21:34 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917115818.540344-1-quchaosheng000406@163.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/8] firmware: smccc: Add support for Live Firmware
+ Activation (LFA)
+To: Mark Rutland <mark.rutland@arm.com>
+Cc: Sudeep Holla <sudeep.holla@kernel.org>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, Salman Nabi
+ <salman.nabi@arm.com>, Vedashree Vidwans <vvidwans@nvidia.com>,
+ Trilok Soni <trilokkumar.soni@oss.qualcomm.com>,
+ Nirmoy Das <nirmoyd@nvidia.com>, vsethi@nvidia.com,
+ Varun Wadekar <vwadekar@nvidia.com>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, devicetree@vger.kernel.org
+References: <20260706134455.132091-1-andre.przywara@arm.com>
+ <20260706134455.132091-3-andre.przywara@arm.com>
+ <20260717-bipedal-courageous-alpaca-4fb54d@sudeepholla>
+ <84f0862c-5333-4d53-b882-79b8e4c362ed@arm.com> <aq1KjzpIGuSpsPWx@J2N7QTR9R3>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <aq1KjzpIGuSpsPWx@J2N7QTR9R3>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 17, 2026 at 07:58:17PM +0800, Quchaosheng wrote:
-> Documentation/hwmon/vexpress.rst points at
-> Documentation/devicetree/bindings/hwmon/vexpress.txt for the device tree
-> binding of the arm,vexpress-volt, -amp, -temp, -power and -energy sensors.
+Hi Mark,
+
+On 9/18/26 16:28, Mark Rutland wrote:
+> On Fri, Sep 18, 2026 at 11:13:19AM +0200, Andre Przywara wrote:
+>> On 7/17/26 11:03, Sudeep Holla wrote:
+>>> On Mon, Jul 06, 2026 at 03:44:42PM +0200, Andre Przywara wrote:
 > 
-> That file only restates the compatibles and the label property, which the
-> arm/vexpress-config.yaml schema describes now. Point the reference there.
+>>>> +/* A list of known GUIDs, to be shown in the "name" sysfs file. */
+>>>> +static const struct fw_image_uuid {
+>>>> +	const char *name;
+>>>> +	const char *uuid;
+>>>> +} fw_images_uuids[] = {
+>>>> +	{
+>>>> +		.name = "TF-A BL31 runtime",
+>>>
+>>> This doesn't make any sense to me. Why do you want kernel to assign
+>>> some random name base on UUID. Userspace is well place to deal with
+>>> UUID and give it any fancy name it wants.
+>>
+>> Well, the whole interface is quite usable without any accompanying user
+>> space tools, so just from the shell, but then identifying  firmware
+>> components by their GUID becomes a major pain and leaves users completely
+>> clueless.
+>> And while we indeed will never be able to fully catch up with all the
+>> firmwares out there, especially not with vendor specific ones, there are
+>> some standard firmware components that I think warrant some name.
+>> TF-A BL31 above (and TF-RMM) are good examples: these GUID is already in the
+>> mainline repository, and since BL31 is also an LFA agent, it's quite likely
+>> we encounter this component. Even when vendors typically use downstream TF-A
+>> ports, those GUIDs would stay the same.
+>> So yes, it's more opportunistic than complete, but I think it would help to
+>> identify at least those well-known firmwares. Anything not named then would
+>> use the GUID, and can indeed be resolved by (a yet-to-be-written) userspace
+>> component.
 > 
-> Assisted-by: LLM
-> Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
+> Sudeep is right; this is not a good idea.
+> 
+> Remove the table and just expose the UUID of the image. Users can map
+> that to a string in userspace if they need/want, and that'll work
+> regardless of the vintage of kernel they're using.
+> 
+> I appreciate it might seem helpful to expose a name where we know it,
+> but overall it creates more problems, including (but not limited to)
+> compatibility issues, needless busywork to add entries (and arguments
+> about what is approriate to add), political issues when some project
+> naming changes, etc.
 
-Applied.
+Fair enough, and honestly I was expecting something like this. I just 
+wanted to offer some compensation for the spec forcing me to put GUIDs 
+on you.
+By now I can remember that the TF-RMM GUID starts with "6c", I guess 
+that needs to suffice now ;-)
 
-Thanks,
-Guenter
+Cheers,
+Andre
+
+> I am not going to Ack this with the name present, and I suspect neither
+> will Sudeep.
+> 
+> Mark.
+
