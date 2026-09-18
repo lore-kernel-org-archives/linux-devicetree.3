@@ -1,159 +1,135 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CB46282F16
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 17:49:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD6EA470111
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 17:53:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789753803; cv=none; b=WI8B0QBTWnjLa/zuDsgKFq9OomqkdNmFNWlGfVEYUATIDMK+6n+Il9fuSxhReo+FHot2cCkDdZHEiMFJ8O802CA7mTDlsejq0NTpulUAvUO6nmjb8dEb+PQvdoBlGA44YNKMyT6FWxIwuGKkeEKmXOmfJtF3xP84rVxbGqSJ1NA=
+	t=1789754043; cv=none; b=Wdr+UzG/Bd/JFNxwV5mHl3tpCNUEyqZfHmHSlnfrbfk7octoEwscY8ileYVxlvksxCwGb7N4RKzXQlbThgXdFO0ImMaGyDvJK0Fpz1uQ0VB0Rxgg35i4V3M5Q0dfPO9LvRiSrDKdC0/mMxCI9Sf64W+FFYqV5fak5JWQ5n9fcqU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789753803; c=relaxed/simple;
-	bh=afPlTpVBOVxRusNWGxKuDYVFIlS9SkvZcarrTJS78lU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CPaDN2ldVyMhd7HjyRsOuIeIZU5NFNv4/wyB9zCJMgjBe7TtAYMWW7Pp0Ajr8NFz6BHMAqyHNYIXkWMlmUfrh4zppoaxWjUiTeyG1LwAI+PtbSt0wdEdV8G0CN7EyUQzKbXGzl+yGG8iYCWSOXHwr91of2Msamy0KH/aKbIAnAI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=pVHEJOwK; arc=none smtp.client-ip=74.125.230.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1789754043; c=relaxed/simple;
+	bh=jtP1ibn/4yc7fE5zv325tbFOKhjrKLAz5arkNl4eF+g=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=jAp1xRXX+zvsaq9vOi16YJaX7uPYEwC0g+lTsSsExTm7yZvs99EfnI9wb44PrfSMsmKOXfUpbNVsp8If/OTySaT62zYO9+1PB6UiZ5fvkKzVS3a7+D7QqlU6UDGuV/RLuQSVbHsNqESrutYkusJSIm9PL5xvHDZSpGdoDRkbTsM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WFhtxEqW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="pVHEJOwK"
-Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-5310b91044aso9287511cf.3
-        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 10:49:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1789753795; x=1790358595; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QBXBlps+fzGob8XyzdrqGGeZGJ/AtzGPAtCevAfGf40=;
-        b=pVHEJOwKKdHLMeJuk4L8dL8tZ6DcYhRBL5eQdj3UfUKw4ms5RN1YlVphH0RTWYxbo8
-         0dD9ZMsseW2hM7CXiM9mld2iUGabg7YU8cIfsrr4qUpT8GSld5V15b4+9z7Si4oDz+X6
-         HkDti8jIAE8b6wkPrMuliLmC5JTEdLBJBHdhpBvhp7TieAuzxtMfAM/WOJNfuDYrNmSm
-         TioyH2QXDpMo7UAJLntVwrqL8UVSPj2z2KcgN3RvBtVXB1kjfv6Aurfz08wOOCkj2snB
-         zHU7ekFl8DBJB2+vSOD4clFjWjaRrqCKInFU+Nv29l3co1e5ZP0SXwBl71kfo1BTtyEp
-         DfHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789753795; x=1790358595;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QBXBlps+fzGob8XyzdrqGGeZGJ/AtzGPAtCevAfGf40=;
-        b=HhSOEErLAdioqX8veEfRRCxViOZfyeUqxHvv1il+qk2nL+vJIbx1BqVrvwYHJ8uvRI
-         0WMH+ksZ3kdjzjw57pYeefIVenSiAkgC/aXMxwxNFPhicxvea1xaWObAiMNxpPE+Azct
-         da/WRdFdcubCX4vERzXXl75TgGM1e7GI9MTDe7SadtIaArfXzDaKwZ+fWkj1EqK8IOT2
-         Ucz4RHmMqdQOnvn8yfLitU0Ffq3DqtkFvo0xjgZWL+PD35+geD06Cb37lIHY6SOWFlsA
-         FcsYgHigmM4wU9CDGXfuyH6dyxUZCtWdXtLhxtiKhh8UklojLzAJR5r1rBheeEFnO2dI
-         R8KQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzuW6HZelTEZb2LkLoToeoQHMcVJ60NFDH2agOrqD2r9VnO19qIvkNBZUzCsJ/k3YNo6UzNpKoNyWcg@vger.kernel.org
-X-Gm-Message-State: AFuF++kkNkapbjq/rUMmTG4JqOb/HYZ/eIvIdwdqRLztA2iV2cG6BXLd
-	Vy0Zye+B8Gq8VNOpInpRneMKFzZUsu6dpu4/ttUCmWa0crmk0jpIwR8unNaz5BBn22c=
-X-Gm-Gg: AYBFou3742atJcCPfyN0itqN7XiM5nmMgOjvUkiGnZCcbbknBpxRMVRi5mn14XZLZkt
-	Uh41yx+1nZwVrtVOUgB2jJxx4JLunUHuRrow9YsShBKDMIV9wTTI5eWOe9vQ5aR6Gagzozr3kUS
-	OGqXmD3bHF1HOBKjLSPmRmhSdyCeDzjngzBJ9JGw04Rduro+ovbIY77tq9TN6cP6Bm9wCefq2es
-	1HMajOtS7Dvb/04tZivW+8nhsa6/utqMRGVnNxUXc+Q1Ji73Axb6FFZaWmnh8Tqh8rr83kvWt/L
-	g8tTYbMTf6bcx1mYOnYueasIVUdipCBk1kB78P74grgRxU41T8Ds9eLYrAVjj5v7HILnhBQvVrO
-	NgUYr5DQaTkG9qTV55PUACQSM2eCOtiWH+7sZLgI1NytRPWXByUL8P46bokwoSDIzS6mYSlV6Az
-	KL/alE/pKXpzph2SKdEnCX8EYfhwOWxvbW5L5VvLQbsdfDQ/QhXoaum4gPXUX8nddxS1PIzog=
-X-Received: by 2002:ac8:5d8f:0:b0:530:ff84:e426 with SMTP id d75a77b69052e-5329e47ff4bmr57576891cf.47.1789753795392;
-        Fri, 18 Sep 2026 10:49:55 -0700 (PDT)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-532ae5ef242sm2551661cf.5.2026.09.18.10.49.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 18 Sep 2026 10:49:55 -0700 (PDT)
-Message-ID: <e9bd7954-1cec-4ffb-a5b2-2389469b0c05@riscstar.com>
-Date: Fri, 18 Sep 2026 12:49:53 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WFhtxEqW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D0F51F000FF;
+	Fri, 18 Sep 2026 17:53:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789754036;
+	bh=MeG3Zsz29iVOkRoFW2w55ZxZJHdlOnnY1jOM1b7Cy8U=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=WFhtxEqWLaPQFPYLH9MahpXjzCEfX847GLUanRg3+Rgy31XmAjFPOIXSUVftogh4e
+	 r05A6SipuBYA46dfdtNJeOu0g7ZgIig7B6ewQbgg/h0U5GdhAu5m0whgLLByo/4P8q
+	 5/5zl3cvXoA3PZ2jKjw3jYvuz5x/X/kyNuGSMQybSjdu1NdfyrM5UPyEdb1e/t8W9u
+	 9i1lemZgBEWF0aFQVwcEPu4+4GThMxKAkwYb1JBN5PD2yfkkA2+g/CDuIzQSMVQ3iw
+	 5M81r7L/42EFn2QluGhkvj9tjQxgPe7qi/Ap8ESh6vu1PpDy536lezUfJfnL6LSUGf
+	 +EAETascQv41w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] dt-bindings: iio: adc: Add dt binding to xlnx,xadc
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Omer PALA" <palaomer100@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260918174413.17155-1-palaomer100@gmail.com>
+References: <20260918174413.17155-1-palaomer100@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 18 Sep 2026 17:53:55 +0000
+Message-Id: <20260918175356.4D0F51F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/3] misc: tc9564: introduce base PCI driver
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, arnd@arndb.de,
- gregkh@linuxfoundation.org, bhelgaas@google.com, andersson@kernel.org,
- konradybcio@kernel.org, abelvesa@kernel.org, daniel@riscstar.com,
- mohd.anwar@oss.qualcomm.com, lorenzo.bianconi@oss.qualcomm.com,
- devicetree@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- Andrea della Porta <andrea.porta@suse.com>,
- Herve Codina <herve.codina@bootlin.com>, Lizhi Hou <lizhi.hou@amd.com>
-References: <20260918173003.GA1166280@bhelgaas>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <20260918173003.GA1166280@bhelgaas>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 9/18/26 12:30 PM, Bjorn Helgaas wrote:
-> [+cc Andrea, Herve, Lizhi for of_pci_make_dev_node() quirks]
-> 
-> On Fri, Sep 18, 2026 at 10:26:57AM -0500, Alex Elder wrote:
->> The Toshiba TC9564 is small and highly-specialized SoC that implements
->> a PCIe switch as well as an Ethernet AVB/TSN bridge.  In addition to
->> these, the SoC implements other functions, including a reset and clock
->> controller, an address translation unit, and a few other devices.  PCIe
->> BARs provide access to registers that manage these IP blocks, and the
->> SoC is modeled using a PCI endpoint bus in devicetree.  This allows the
->> IP blocks to be bound to platform drivers that do MMIO via the PCI BARs.
->>
->> Create a new PCI driver under drivers/misc that binds with the embedded
->> PCI endpoint functions within the TC9564 SoC.  Because these functions
->> will use devicetree pci-ep-bus to provide access to other IP blocks
->> within the TC9564 chip, the main purpose of this driver is to do basic
->> PCI initialization, then call of_platform_default_populate() to scan for
->> the any endpoint bus children, and probe all devices defined therein.
->>
->> Because we're using pci-ep-bus, we need to use the PCI quirks mechanism
->> to have of_pci_make_dev_node() be called for each endpoint device in
->> pci_bus_add_device() (via pci_fixup_device(pci_fixup_final, dev)).
->>
->> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
->> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
->> Signed-off-by: Alex Elder <elder@riscstar.com>
-> 
-> Acked-by: Bjorn Helgaas <bhelgaas@google.com>	# quirks.c
-> 
-> Not an issue for this patch, but I'm not sure the quirk mechanism is
-> the best mechanism for doing this.  It's not working around a device
-> defect like most quirks do.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] dt-bindings: conflicting constraints when xlnx,external-mux is o=
+mitted
+--
 
-I pretty much agree with you.  I think I mentioned this before
-(though it might have been in a private conversation) that it
-is an intentional act to call of_pci_make_dev_node() for an
-endpoint (and not just a bridge).  And that's different from
-a hardware quirk.  You only need to do it if there's a pci-ep-bus
-sub-node on the endpoint.  (I'd have to verify this on the other
-users of this approach to be 100% sure though.)
+commit 406270de35d17021a1ddb6e41307e55905cede41
+Author: Omer PALA <palaomer100@gmail.com>
 
-> I wonder if pci_bus_add_device() should unconditionally call a wrapper
-> that calls of_pci_make_dev_node() for bridges and any device that
-> appears in an allow-list.  I guess it sort of amounts to the same
-> thing in the end, but it might be a little more explicit and not
-> subject to CONFIG_PCI_QUIRKS.
+dt-bindings: iio: adc: Add dt binding to xlnx,xadc
 
-Yes, I think it would be better to separate this case from PCI
-quirks, which are really intended for anomalous hardware behavior.
+This commit converts the xilinx-xadc.txt device tree binding into a YAML
+schema. It defines constraints for xlnx,zynq-xadc-1.00.a,
+xlnx,axi-xadc-1.00.a, and xlnx,system-management-wiz-1.3 bindings.
 
-I'd like to get these things merged, but would be willing to work
-on this sort of thing (and/or on separating this driver type, as
-Arnd suggested elsewhere).
+> diff --git a/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml b/D=
+ocumentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
+> new file mode 100644
+> index 0000000000000..f9b717c297158
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
 
-Thanks a lot Bjorn.
+[ ... ]
 
-					-Alex
+> +allOf:
+> +  - if:
+> +      properties:
+> +        xlnx,external-mux:
+> +          const: none
 
->> +++ b/drivers/pci/quirks.c
->> @@ -6391,6 +6391,7 @@ DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_XILINX, 0x5020, of_pci_make_dev_node);
->>   DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_XILINX, 0x5021, of_pci_make_dev_node);
->>   DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_REDHAT, 0x0005, of_pci_make_dev_node);
->>   DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_EFAR, 0x9660, of_pci_make_dev_node);
->> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_TOSHIBA, 0x0220, of_pci_make_dev_node);
->>   
->>   /*
->>    * Devices known to require a longer delay before first config space access
->> -- 
->> 2.53.0
->>
+[Severity: Medium]
+Will this if block evaluate to true when xlnx,external-mux is omitted?
 
+In JSON Schema, an if block checking a const on a property evaluates
+to true if that property is absent. Does this block need a
+required: [xlnx,external-mux] constraint inside the if to prevent
+it from silently succeeding when the property is not provided?
+
+> +    then:
+> +      properties:
+> +        xlnx,external-mux-channel: false
+> +
+> +  - if:
+> +      properties:
+> +        xlnx,external-mux:
+> +          const: single
+
+[Severity: Medium]
+Does this if block also evaluate to true when xlnx,external-mux is
+omitted because it lacks the same required constraint?
+
+> +    then:
+> +      properties:
+> +        xlnx,external-mux-channel:
+> +          minimum: 0
+> +          maximum: 16
+> +      required:
+> +        - xlnx,external-mux-channel
+> +
+> +  - if:
+> +      properties:
+> +        xlnx,external-mux:
+> +          const: dual
+
+[Severity: Medium]
+When the xlnx,external-mux property is omitted, doesn't this if also
+evaluate to true, piling on a contradictory requirement for
+xlnx,external-mux-channel?
+
+Since xlnx,external-mux is an optional property, omitting it causes the
+schema to simultaneously require xlnx,external-mux-channel (from here and
+the 'single' block) and explicitly forbid it via false (from the 'none'
+block).
+
+This creates an impossible constraint that rejects valid device trees using
+the default mux configuration. Could adding required: [xlnx,external-mux]
+to each if clause fix this underlying conditional logic issue?
+
+> +    then:
+> +      properties:
+> +        xlnx,external-mux-channel:
+> +          minimum: 1
+> +          maximum: 8
+> +      required:
+> +        - xlnx,external-mux-channel
+> +
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918174413.1715=
+5-1-palaomer100@gmail.com?part=3D1
