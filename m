@@ -1,320 +1,169 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EB9A4F93CF
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 13:36:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAB2938E8CA;
+	Fri, 18 Sep 2026 13:38:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789738611; cv=none; b=fUoW8B2nNP8TFygK5sTYceNaMxVpToWvuKX3gfwFnD3Jpd7GHwp2jBcSbd1AuImavXQy+DO3IK8S6Jr41XZ8xQoPGG/6m6Z0ZbfDKjbMFDGXaCQyHiRT1vTcOby6W44GUeiJp4Zl05dYcr6joBiPrVPx8xBiarA+zKIieH0GKPY=
+	t=1789738718; cv=none; b=NOmZO+9NoVwJDWRx26kbYnQHUkKFwb6tZnW6aetRi5R2A42uxH3D19W8/mlSHyxQZ9MgIuIdwDiwGVrG1KOcITV+90b8EbP9MYgmVu/pWIIUp0UVvTYQhhsgD7gnoI+pZsZN9wT1q/jTyJ+ikdWGuJLKHoxR0/+WV9xn7DMDp6Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789738611; c=relaxed/simple;
-	bh=O39GIVkPnK2Y3Q94zakU1NpZ28oZvYggAZ8l1J9JbTU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=tV96N4RfNiBmFkxmsQBWfAXrVcMSOTZwKSRVFRu/P8H96Up4fOysSkpxzb26MRLy7gMD3Zk4DBAhxAAkEGHNMq6vLyOkzhCedQJTE8o+4DvFqrWbIDyi9ACKusJ/+3+p9vta2j6DtRGaaa/9zIzJqnqwn8QG0EQM7YrhN8CCvWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nPYDFxaV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789738718; c=relaxed/simple;
+	bh=uHxRfFpeeeqM0dj1pBYqYINu37TMxuN+a+TZg+JofAo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=k1J3i/qvh+p+oU69XfHXYAggSndgXH2Sbw/Ax8DmyUpXLex1YSRkhdI/48Xbn5Glz9Qn+0dNGcgvRg+krad/FAOztm6ByDxaLtAANLioLG2Pa8p3Q4Bl8KM8bgFZmSZ7LZAig5GDMBqBS8P6kA3JQkIcrKS5HZfDhwRj0dp+/cs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YFidbsMm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nPYDFxaV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E2051F000FF;
-	Fri, 18 Sep 2026 13:36:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YFidbsMm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 419D81F000FF;
+	Fri, 18 Sep 2026 13:38:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789738609;
-	bh=7HQi6UhZRGba9tCDNxwHqFNbqd33M2zrY0hdCCRx4ow=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nPYDFxaVnaw9O7GPLP7QxgmrxXquZWQjkMTehAPH9pc3r0f7XcSaYCOOyC075U0g4
-	 mXARJN3wvawVG+gLSBzwRBFSfxEdTbbCz9tOEBqmJSNDn/oYI3jdxKVmcNrBSK/clo
-	 o38FyzMWNIaMVSxnXYqRd0W2UA99mJnblS4ucus2Fj44jEiVGevHWCZbhYf5Yd75Fz
-	 NqAFYYqwfZBoW6e+VsGxQIRs/V+WrfRgsPiDOD2oiVmSQn/x9fkO/3AssEsVTvWf8z
-	 iS8vbtbtzXZojrnI7uCjYiX1H2LawxHD0SGfHOYADt4rYyI7/e1H/BgTy+b4Ie4a0w
-	 kF2/TxTDGq//Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 10/14] media: apple: add avd driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sofus Forstreuter" <sofus.c@icloud.com>
-Cc: media-ci@linuxtv.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260918-avd-v1-10-49977931f455@icloud.com>
-References: <20260918-avd-v1-0-49977931f455@icloud.com>
- <20260918-avd-v1-10-49977931f455@icloud.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 13:36:48 +0000
-Message-Id: <20260918133649.6E2051F000FF@smtp.kernel.org>
+	s=k20260515; t=1789738716;
+	bh=MKGYAMvXjOap74e+UNuv2FfLwh1OSEeO0iMecbj8vYY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=YFidbsMme1vbL1Pbu5WDdBTx7bbuMUuYKYZOHQcou5+9zUr18QfZDDZ8LRHiEYMM/
+	 IVXEAuRddREGxRAArD9+mRc+ppJktjoJfqT3uAkaQXW8Brz97BCZtZsMO39213MBBO
+	 tysBNnZGUXzdbyaJ5si/IVn0F+NG+LRPRtmCNbwIVvEvSu0PwbPotZzFxwCbWHyC6K
+	 eK0qB8GVKGQSj4rAYciiMgLV5F02qO/4jxImXUbQAdKAZnhaW3D37bys/9o699Puxz
+	 odWY02eK9XRozJH0Wi71yfABkHtmeBG2r8J+wNFpNIxMbbUc2LcmKbTYSsiDO1eCBP
+	 CgR+6vXL0HlqQ==
+Message-ID: <8f7dd986-ac78-4a87-a8bc-228fdd05e9b4@kernel.org>
+Date: Fri, 18 Sep 2026 15:38:28 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] dt-bindings: embedded-controller: Add ASUS Zenbook
+ A16 EC
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Guenter Roeck <linux@roeck-us.net>, Bjorn Andersson <andersson@kernel.org>,
+ Abel Vesa <abelvesa@kernel.org>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, linux-arm-msm@vger.kernel.org
+References: <20260917-topic-asus_ec-v1-0-373516d347ae@oss.qualcomm.com>
+ <20260917-topic-asus_ec-v1-1-373516d347ae@oss.qualcomm.com>
+ <20260918-objective-okapi-from-neptune-cbcabd@quoll>
+ <92b7a87a-c086-48d1-8487-883dda7c4d70@oss.qualcomm.com>
+ <372e9dc8-ec28-4d8e-a349-15145b82385d@kernel.org>
+ <9709e146-0f9a-42a5-bfcf-2e5f8b49df2e@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <9709e146-0f9a-42a5-bfcf-2e5f8b49df2e@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 13 potential issue=
-(s) to consider:
-- [Critical] media: apple: avd: UAF in IRQ handler during device removal
-- [Critical] media: apple: avd: IRQ storm when context is NULL
-- [High] media: apple: avd: avd_buf_alloc unconditionally frees valid buffe=
-rs
-- [High] media: apple: avd: incomplete hardware submission on full queue
-- [High] media: apple: avd: breaking DMA API by detaching default IOMMU dom=
-ain
-- [High] media: apple: avd: TOCTOU race between watchdog and IRQ handler
-- [High] media: apple: avd: UAF of firmware during watchdog reset after unb=
-ind
-- [High] media: apple: avd: UAF due to devres allocation of V4L2 device obj=
-ect
-- [High] media: apple: avd: swapped dimension divisors for UV plane in 4:2:=
-2 formats
-- [Medium] media: apple: avd: memory leak of job segments on error or conte=
-xt release
-- [Medium] media: apple: avd: firmware and IOMMU domain leaks in probe erro=
-r paths
-- [Medium] media: apple: avd: race condition between s_ctrl and try_fmt
-- [Low] media: apple: avd: missing pm_ptr wrapper for avd_pm_ops
---
+On 18/09/2026 15:23, Konrad Dybcio wrote:
+> On 9/18/26 3:21 PM, Krzysztof Kozlowski wrote:
+>> On 18/09/2026 14:29, Konrad Dybcio wrote:
+>>> On 9/18/26 1:34 PM, Krzysztof Kozlowski wrote:
+>>>> On Thu, Sep 17, 2026 at 12:54:56PM +0200, Konrad Dybcio wrote:
+>>>>> +description:
+>>>>> +  The Qualcomm Snapdragon X2 series-based ASUS Zenbook A16 (and similar
+>>>>> +  machines) come with a custom EC firmware, loosely based on the
+>>>>> +  Qualcomm reference ("Hamoa CRD EC") implementation, with a lot of
+>>>>> +  customization.
+>>>>> +
+>>>>> +properties:
+>>>>> +  compatible:
+>>>>> +    enum:
+>>>>> +      - asus,zenbook-a14-ux3407na-ec
+>>>>> +      - asus,zenbook-a16-ux3607oa-ec
+>>>>> +
+>>>>> +  reg:
+>>>>> +    const: 0x76
+>>>>> +
+>>>>> +  interrupts:
+>>>>> +    maxItems: 1
+>>>>> +
+>>>>> +  "#thermal-sensor-cells":
+>>>>> +    const: 1
+>>>>> +
+>>>>> +  wakeup-source: true
+>>>>> +
+>>>>> +required:
+>>>>> +  - compatible
+>>>>> +  - reg
+>>>>> +  - interrupts
+>>>>> +  - '#thermal-sensor-cells'
+>>>>> +  - wakeup-source
+>>>>
+>>>> Wakeup source should not be required. If it is, then it is completely
+>>>> implied by compatible and there is no need for DT property, right?
+>>>
+>>> I suppose it's not *required* but it's highly desirable.. should I
+>>> just drop it from the required list?
+>>
+>> Then why isn't the device driver setting wakeup unconditionally?
+> 
+> The i2c core checks for wakeup-source - I can remove the property
+> and call the equivalent functions from the driver if you prefer,
+> but that feels a little "rough"
 
-commit 5989fef6d831f0e50e4be107c2e9853fa7046a46
-Author: Sofus Forstreuter <sofus.c@icloud.com>
+This is irrelevant here. If we remove I2C core handling of wakeup-source
+and rely on drivers, do we change the bindings?
 
-media: apple: add avd driver
-   =20
-Add the AVD (Apple Video Decoder) driver with V4L2 M2M stateless
-support based largely on rockchips implementation.
+Required means either hardware or software cannot work without it.
+Interrupts are required, because (supposedly) it is impossible to create
+a hardware with interrupt pin floating, which could be argument to move
+to the SW, but compatible cannot imply them. Saying that wakeup is
+required, means that something requires it while compatible cannot imply
+that property. Kind of contradictory to logic, because this means device
+has such characteristic but we need DT to represent it. That's odd
+because we should not need DT to represent simple bool - driver can do it.
 
-> diff --git a/drivers/media/platform/apple/avd/avd-drv.c b/drivers/media/p=
-latform/apple/avd/avd-drv.c
-> --- /dev/null
-> +++ b/drivers/media/platform/apple/avd/avd-drv.c
-> @@ -0,0 +1,817 @@
+This is basically the fourth device which requires being wakeup-source,
+so something highly unusual and anyway if it stays, needs explanation in
+device description.
 
-[ ... ]
-
-> +void fill_comp(struct avd_comp *comp, enum avd_image_fmt image_fmt, u32 =
-width,
-> +	       u32 height)
-> +{
-> +	u32 y_meta, y, uv_meta, uv;
-> +	int bit_depth, vdiv, hdiv =3D 2;
-
-[ ... ]
-
-> +	/* y has 32x32 tiles and 32 bytes of metadata per tile */
-> +	calc_tile_meta(width, height, bit_depth, 32, 32, &y, &y_meta);
-> +	/* uv has 16x16 tiles and 8 bytes of metadata per tile */
-> +	calc_tile_meta(width / vdiv, height / hdiv, bit_depth * 2, 16, 8, &uv,
-> +		       &uv_meta);
-
-[Severity: High]
-Does this calculate the UV dimensions correctly for 4:2:2 formats? In
-fill_comp(), vdiv is set to 1 and hdiv is set to 2 for these formats. Apply=
-ing
-vdiv to width and hdiv to height gives full-width and half-height, but 4:2:2
-formats should typically be half-width and full-height.
-
-[ ... ]
-
-> +int avd_buf_alloc(struct avd_dev *avd, struct avd_buf *buf, size_t size)
-> +{
-> +	if (!buf->cpu && size < buf->size)
-> +		return 0;
-> +	else if (buf->cpu)
-> +		avd_buf_free(avd, buf);
-
-[Severity: High]
-Could this unconditionally free valid buffers? The condition checks if the
-buffer is unallocated (!buf->cpu) instead of allocated. If the buffer is
-already allocated, it falls through to the else branch and is freed, which
-prevents buffer reuse.
-
-[ ... ]
-
-> +int avd_init_job(struct avd_ctx *ctx, enum avd_codec codec, size_t segme=
-nts)
-> +{
-> +	int ret =3D 0;
-> +	struct avd_job *job =3D &ctx->job;
-> +
-> +	job->codec =3D codec;
-> +	job->num =3D 0;
-> +	job->segments =3D kzalloc_objs(*job->segments, segments, GFP_KERNEL);
-
-[Severity: Medium]
-Is it possible for these job segments to leak? They are allocated here in
-avd_init_job(), but if a job fails before submission or if the file
-descriptor is closed mid-job, there doesn't seem to be a corresponding
-cleanup for job->segments in avd_release().
-
-[ ... ]
-
-> +int avd_submit_job(struct avd_ctx *ctx)
-> +{
-
-[ ... ]
-
-> +	for (; idx <=3D sub->num; idx++) {
-> +		seg =3D &sub->segments[idx];
-> +		for (i =3D 0; i < seg->num; i++)
-> +			writel(seg->instructions[i], reg);
-> +		if (avd_wait_submission_queue(ctx, vp))
-> +			break;
-> +		writel(AVD_OP_EXEC | exec_mask |
-> +			       AVD_OP_EXEC_FLAG_END(idx =3D=3D sub->num),
-> +		       reg);
-> +	}
-
-[Severity: High]
-Does this leave the hardware in a hanging state if the submission queue
-becomes full? Breaking here skips writing the AVD_OP_EXEC_FLAG_END marker,
-but the function still frees the segments and returns success, which might
-leave the hardware waiting indefinitely.
-
-[ ... ]
-
-> +static int avd_reset(struct avd_dev *avd)
-> +{
-
-[ ... ]
-
-> +	if (avd->empty_domain) {
-> +		iommu_attach_device(avd->empty_domain, avd->dev);
-> +		iommu_detach_device(avd->empty_domain, avd->dev);
-> +	}
-
-[Severity: High]
-Does manually detaching the IOMMU domain here break the DMA API? Calling
-iommu_detach_device() strips the device of the default domain assigned by
-the DMA API, and it doesn't appear to be restored. This could lead to IOMMU
-faults later.
-
-[ ... ]
-
-> +static irqreturn_t avd_irq_handler(int irq, void *data)
-> +{
-> +	struct avd_dev *avd =3D data;
-> +	struct avd_ctx *ctx =3D v4l2_m2m_get_curr_priv(avd->m2m_dev);
-
-[Severity: Critical]
-Could this result in a use-after-free during device removal? The
-avd_remove() function frees the M2M structures via avd_v4l2_cleanup(), but
-the IRQ line isn't disabled and the devres-managed IRQ handler remains
-active until the remove function returns.
-
-[Severity: High]
-Is this susceptible to a race condition with the watchdog? The context is
-fetched locklessly. If the watchdog resets the hardware and completes a
-timed-out job, the M2M framework could schedule a new job. A delayed
-interrupt from the old job might then cause this handler to fetch the new
-context and improperly finish the new job.
-
-> +	enum vb2_buffer_state state;
-> +	u32 status;
-> +
-> +	if (!ctx)
-> +		return IRQ_HANDLED;
-
-[Severity: Critical]
-Does returning here cause an interrupt storm? The hardware interrupt status
-isn't cleared via AVD_REG_MBOX_IRQ_CLR before returning IRQ_HANDLED, which
-would leave the level-triggered interrupt asserted.
-
-[ ... ]
-
-> +static int avd_release(struct file *filp)
-> +{
-> +	struct avd_ctx *ctx =3D file_to_ctx(filp);
-> +
-> +	v4l2_fh_del(&ctx->fh, filp);
-> +	v4l2_m2m_ctx_release(ctx->fh.m2m_ctx);
-> +	v4l2_ctrl_handler_free(&ctx->ctrl_hdl);
-> +	v4l2_fh_exit(&ctx->fh);
-> +	avd_buf_free(ctx->dev, &ctx->inst);
-
-[Severity: High]
-Can this access freed memory if the file descriptor is closed after device
-unbind? The avd device object is allocated with devres (devm_kzalloc) and
-will be freed immediately upon unbind, but avd_release() could be called
-later if userspace holds the descriptor open.
-
-[ ... ]
-
-> +static int avd_probe(struct platform_device *pdev)
-> +{
-
-[ ... ]
-
-> +	ret =3D dma_set_mask_and_coherent(avd->dev,
-> +					DMA_BIT_MASK((avd->variant->quirks &
-> +						     AVD_QUIRK_LSR) ? 38 : 64));
-> +	if (ret) {
-> +		dev_err(avd->dev, "Failed to set DMA mask");
-> +		return ret;
-> +	}
-
-[Severity: Medium]
-Could this error path leak the requested firmware and allocated IOMMU
-domain? It appears to return directly without calling release_firmware() or
-iommu_domain_free().
-
-[ ... ]
-
-> +static void avd_remove(struct platform_device *pdev)
-> +{
-> +	struct avd_dev *avd =3D platform_get_drvdata(pdev);
-> +
-> +	release_firmware(avd->fw);
-> +
-> +	avd_v4l2_cleanup(avd);
-
-[Severity: High]
-Can this lead to a use-after-free of the firmware if a job is hanging during
-unbind? Since pending jobs aren't canceled and the watchdog work isn't
-flushed, a timeout after this function returns could trigger avd_reset(),
-which then calls avd_boot() and copies from the already freed
-avd->fw->data.
-
-[ ... ]
-
-> +static struct platform_driver avd_driver =3D {
-> +	.probe =3D avd_probe,
-> +	.remove =3D avd_remove,
-> +	.driver =3D {
-> +		.name =3D "avd",
-> +		.of_match_table =3D avd_of_match,
-> +		.pm =3D &avd_pm_ops,
-> +	},
-> +};
-
-[Severity: Low]
-Is it intended to leave the pm field assigned unconditionally? Wrapping this
-with pm_ptr() would allow the compiler to eliminate the dead code when power
-management is disabled.
-
-> diff --git a/drivers/media/platform/apple/avd/avd-v4l2.c b/drivers/media/=
-platform/apple/avd/avd-v4l2.c
-> --- /dev/null
-> +++ b/drivers/media/platform/apple/avd/avd-v4l2.c
-> @@ -0,0 +1,752 @@
-
-[ ... ]
-
-> +static int avd_s_ctrl(struct v4l2_ctrl *ctrl)
-> +{
-
-[ ... ]
-
-> +	image_fmt =3D desc->ops->get_image_fmt(ctx, ctrl);
-> +	if (avd_image_fmt_changed(ctx, image_fmt)) {
-> +		vq =3D v4l2_m2m_get_vq(ctx->fh.m2m_ctx,
-> +				     V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE);
-> +		if (vb2_is_busy(vq))
-> +			return -EBUSY;
-> +
-> +		ctx->image_fmt =3D image_fmt;
-> +		avd_reset_decoded_fmt(ctx);
-> +	}
-
-[Severity: Medium]
-Is there a race condition here between control setting and format ioctls?
-The VIDIOC_S_CTRL ioctl runs under the control lock but without the video
-device lock. Writing to ctx->image_fmt locklessly might cause concurrently
-running format ioctls like try_fmt to see torn state and calculate corrupted
-buffer sizes.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918-avd-v1-0-4=
-9977931f455@icloud.com?part=3D10
+Best regards,
+Krzysztof
