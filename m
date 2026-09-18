@@ -1,33 +1,69 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B2AC1518140;
-	Fri, 18 Sep 2026 17:36:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C83665172F9
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 17:39:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.40
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789752994; cv=none; b=VtS4hhyVtobKdFyX1KbJ6p6zb7Y+Udc+rzGKGTVPyLLTLFANBN5ie1MVKPbAW+/VH57fiSpukE0WXma8x58bKeTGd3SQxuJsGTmp/xixmnI+6pwRXnCSRWccaBsR+ZVIaLNXZj7sC34U2VRbm2NdbPC8Enz22wNMluED5Jzz0YM=
+	t=1789753190; cv=none; b=ff6XXyW3jpLAGdoaJ7NwWy6Q/vpPX3XdOaFwxtSS2BTHlRxBPN7YMIbs0JClFZd6hBRgfVecsNxTL2TXP13BkNpr/3y/7ad5Ra6CxzHJL2rHYtiScP8jRaFqMff/Anh6PuuLbI+zuYB9MxDAPe+xaB+/6KGEl8/WL9zpSCt73qI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789752994; c=relaxed/simple;
-	bh=2srv1XLkscOatAp2l4+oooP8vZZpRy+cubNoI7IaP24=;
+	s=arc-20240116; t=1789753190; c=relaxed/simple;
+	bh=MDiWz/AWqwWs96s+XjfNuGuDwtzStFIrTIMZMFLPOvo=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=S1DwansFkjg8rOQIROcjIfTktULl81RsPx5q+BSLuGgHludRqV3+hq8rWNRSI9TZ40rHUPnO38n1kmGRYE7PFa+l3DFktSKSEUey1v6sCi3cCHWXa+1BaOF/iEf2JFLFrRoUNM6an7mv51y9tIxKz9bkOOseUpa8bEOO+I+ab08=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=eBdR4zQ5; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 In-Reply-To:Content-Type; b=rvs+a6Gtkw2Eu/OrLp7Dt7HGoFucLV7Ua1ymjCSlFpfCLkUJffEnmy2YjurEgK9qu8lKafa84Hl3XGVi5qAIdamjU+cPWJgWMkY/fG8xmXREUUDfQywvkYhkjLdNn4LP4jKZ5Nh76AzzpbYzuLtmJ2nWrfx3rcasRCl9Mos8+9A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LYctSQ5e; arc=none smtp.client-ip=74.125.228.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="eBdR4zQ5"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F0C0D1596;
-	Fri, 18 Sep 2026 10:36:18 -0700 (PDT)
-Received: from [172.18.224.124] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3EFD13F7B4;
-	Fri, 18 Sep 2026 10:36:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789752982; bh=2srv1XLkscOatAp2l4+oooP8vZZpRy+cubNoI7IaP24=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=eBdR4zQ5mqr+kLhrkLlnUHMi5INt3IUoHVvjNTADZu6tTNm1EGNfBvRHUYVi0VNxG
-	 ZDXwTlZaAMYofuUgHh2IvIykf7ebHqEnZE73bYnTBlxl7L/nxtQNK1WIAN7S7uB+V8
-	 fyOjTikMpTBePwQm7nA9JLRE7o6HqtO9I9jHrT9s=
-Message-ID: <f31009e2-f7e0-426f-a546-1ed3ba63a1b4@arm.com>
-Date: Fri, 18 Sep 2026 19:36:17 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LYctSQ5e"
+Received: by mail-pz2-f40.google.com with SMTP id 41be03b00d2f7-cc5121bcf1aso858045a12.1
+        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 10:39:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789753188; x=1790357988; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=D5Ib5GKimOnmndCsEnEMx37Z4fKeBAXUAyL8zUhE3/s=;
+        b=LYctSQ5eamvwAu1wqb4pieNFVBhr2nkmwhSZuNq+4xlX53Wv8LDzZyl2wWDABI9fc9
+         zeDSa15Kje7Ld3qtk69zhZvJcTQ6AC0b8JzxkdPujDJrGj7AAEuWCWc102ebcPibjUT5
+         HTKjXAizAkqkBlAkmn9vXJwz/hqujvqcZbi/oLQZ9HNi3STnPky6rd5zkqGI84FZLz2j
+         oDq9bEG8sdtaVhCV39O5HQR8GXrtrQAGuVQD1e1poZWos3remaCEZZq1MbpmB89EPqJN
+         vI9KKlVPQhUKXuXkuGAJh0VDVUzu9zg98U+2/4pOWIld+OXjP8XDtGUwjqeQfiiC3hzF
+         AKfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789753188; x=1790357988;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=D5Ib5GKimOnmndCsEnEMx37Z4fKeBAXUAyL8zUhE3/s=;
+        b=Tv6aNL6EqlM8s5wwCaayMUhN+hsoPy+flZeNyOXKu9jUuQ1SCopTXXdpWbJFKR/Xnf
+         CmS3ycq+tJ5K3b7RmFhtfwiDmgscj8rDnePVMhl2UAtqXjNjjDaI1U6xqNlK+Sd4rh8q
+         Gg/kTl6gi9ZANzH8KJnTGTx9tb8pf08VbsraqPei/cW1wmT6GQYuUsNKJHCYGXt4mjou
+         HvWZQFaVqQePy065s8Wu3NOKZQMevelHkApg4LVM6n3zCBrWGVwjQ30r5DXqTDsyW9Ht
+         JdVtoyY/nocDOtYLWwf+ju9qSlkTcDgHh3Oi44zVX7EOpsGLKtCVI3uVRePPm6UONXZ1
+         zZjw==
+X-Forwarded-Encrypted: i=1; AKwUvBzOcGlpQ2P5PM1/sTRLnm2j0qF8bqgHHmxEZWTi57++r/ON+gbeI7WWjzq/DjI+slRidCJxLAv2EL1q@vger.kernel.org
+X-Gm-Message-State: AFuF++mlMNLoDuKpb6GurscPqseEgmJx7ampKCzoxwTQAn1wDp9E5BQ5
+	veRicf4CQ8Y6DcZZsOtWp4de3Dq9o/UcfsE4NukeA07UlLAk76c6t1jY
+X-Gm-Gg: AYBFou3euHyv1gZ/dwSTYLbI9vraJvuguyZzWHPpJzVBS2rC5Sdu0UlW8FjwPOCO5zn
+	iY8WhbdsmE9P8+list8lGrbRCs4dGPdvuRmSB/FnPwEQoA0rEkSetB//BOa7KGH4XhIggvB/xz9
+	UR1G7098kg6hQTrZnoDKEb6nM7fTUSHblu80+JoH86UJjHpYPLbG+lPTCMymcTeiD6UXsV9tKzk
+	SUeZDflWYZkBgr94b+5XyxPPxXj+0VYCIWPslwj/I77ACnqtLDUdpByw444IKsHqrJ73G8srTnI
+	KP0vXlfXVNoM6bzkURdxPRXPCTd2YVrx488eXzbuBv0E+BmS3VPe0OuraPV0RkspwmrpSy+pcFD
+	ewXz6s+hTj6W9AAo2JSSYodbRqo2t80A7CsHmBvDcxTgIxwQ9zmqzoxYk7EYpbk45dWl/RfzNif
+	n3vKnuyi+jFL5VDMJjoY/Lhb0YXZGlw5bA1uw/HETO0Xi1WldtEg2HHM0uLMVhbX2mAYJdM+ol6
+	pbn7SfhDYV8Hemerb7kVRIPIdOz4t4r/ehMwHB/qDiknRPn
+X-Received: by 2002:a17:90b:3eca:b0:39e:6a7f:1dc6 with SMTP id 98e67ed59e1d1-39e6a7f2209mr952403a91.34.1789753187862;
+        Fri, 18 Sep 2026 10:39:47 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6ca86d83sm441741a91.6.2026.09.18.10.39.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 18 Sep 2026 10:39:46 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <a73c5d5d-dd64-4061-83cd-0a1cdcc2db4d@roeck-us.net>
+Date: Fri, 18 Sep 2026 10:39:44 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,72 +71,112 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] arm64: dts: allwinner: sun55i-a523: add I2C0 and I2C1
- pin groups
-To: Mikhail Kalashnikov <iuncuim@gmail.com>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20260918165414.1129076-1-iuncuim@gmail.com>
- <20260918165414.1129076-4-iuncuim@gmail.com>
-Content-Language: en-GB
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <20260918165414.1129076-4-iuncuim@gmail.com>
+Subject: Re: [PATCH v4 5/7] watchdog: rzv2h: Add syscon support for WDTDCR
+To: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-watchdog@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+ Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>,
+ Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260817192540.423994-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260817192540.423994-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <87577cdb-7f1d-4a9f-8a61-ff1f272234d9@roeck-us.net>
+ <CA+V-a8vVtjALarck6PE3it1si2hNbveZWoGjTaTUW68Q6yYjcQ@mail.gmail.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <CA+V-a8vVtjALarck6PE3it1si2hNbveZWoGjTaTUW68Q6yYjcQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 Hi,
 
-On 9/18/26 18:54, Mikhail Kalashnikov wrote:
-> Add the pin groups for the I2C0 (PH0/PH1) and I2C1 (PH2/PH3) controllers
-> that used on some A523 boards.
+On 9/18/26 08:18, Lad, Prabhakar wrote:
+> Hi Guenter,
+> 
+> On Thu, Sep 17, 2026 at 2:12 AM Guenter Roeck <linux@roeck-us.net> wrote:
+>>
+>> Hi,
+>>
+>> On Mon, Aug 17, 2026 at 08:25:38PM +0100, Prabhakar wrote:
+>>> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>>>
+>>> On RZ/T2H and RZ/N2H SoCs, the WDTDCR (WDT Debug Control Register) resides
+>>> in the second register region of the CPG/MSSR block. Since this
+>>> multi-function block is shared with other peripherals, it is exposed via a
+>>> syscon regmap interface.
+>>>
+>>> Look up the SYSC regmap using the optional "renesas,sysc" property and
+>>> derive the WDTDCR offset from the watchdog instance index.
+>>>
+>>> Retain the existing MMIO-based access method when the "renesas,sysc"
+>>> property is absent to preserve compatibility with existing DT's.
+>>>
+>>> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>>> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+>>
+>> Can I apply this patch without the other patches of the series ?
+>>
+> I posted the v5 series here addressing Sashiko's comments.
+> 
 
-I was about to say we should add port specifiers to the node names and 
-labels (i2c0-ph-pins), for functions which are also available on other 
-pins, but I see we don't do this for I2C on any other SoC, so that's 
-fine. It's internal, so we can fix this later.
+Sorry, I was getting confused. I somehow thought they are different series.
 
-Compared against the manual:
-> Assisted-by: OpenCode:DeepSeek-V4.1-Flash
-> Signed-off-by: Mikhail Kalashnikov <iuncuim@gmail.com>
+Do you plan to send v6 to address the issues reported in v5 ?
 
-Reviewed-by: Andre Przywara <andre.przywara@arm.com>
+Note that Sashiko no longer reports pre-existing issues in public,
+so those will be out of scope.
 
 Thanks,
-Andre
-
-> ---
->   arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi | 18 ++++++++++++++++++
->   1 file changed, 18 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
-> index 85ef492ff..0ec5d19f7 100644
-> --- a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
-> +++ b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
-> @@ -147,6 +147,24 @@ pio: pinctrl@2000000 {
->   			interrupt-controller;
->   			#interrupt-cells = <3>;
->   
-> +			/omit-if-no-ref/
-> +			i2c0_pins: i2c0-pins {
-> +				pins = "PH0", "PH1";
-> +				function = "i2c0";
-> +				allwinner,pinmux = <2>;
-> +				drive-strength = <10>;
-> +				bias-pull-up;
-> +			};
-> +
-> +			/omit-if-no-ref/
-> +			i2c1_pins: i2c1-pins {
-> +				pins = "PH2", "PH3";
-> +				function = "i2c1";
-> +				allwinner,pinmux = <2>;
-> +				drive-strength = <10>;
-> +				bias-pull-up;
-> +			};
-> +
->   			/omit-if-no-ref/
->   			i2s2_pi_pins: i2s2-pi-pins {
->   				pins = "PI2", "PI3", "PI4", "PI5";
+Guenter
 
