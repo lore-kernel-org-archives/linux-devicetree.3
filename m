@@ -1,243 +1,226 @@
-Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11011063.outbound.protection.outlook.com [52.101.125.63])
+Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net [217.70.183.193])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8197A4FE2E9;
-	Fri, 18 Sep 2026 15:09:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.63
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789744177; cv=fail; b=cSKfjLG09uTYhSh5oDqwdO5DLh7hVZjg5RjNrCF8mqXs65t/33dmm2CU3HaHGD+qP+OuT4gXNEgiDPN9m5Vp08UDqdl4s8WF+JKPxUzFsyoICOcuHJoEkjIgz2Uq9+XB5+KHRfVLRMHhqWQ7fk+oP5g3mvnR6uMV8hjYuOGEGL4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789744177; c=relaxed/simple;
-	bh=5Jjj3sbJh4Jk33awVZDWXsKHtzMW/qrgUFbmmZemaiI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=k8IkNjsVNEajhtPk0P/THvXP6L/rejCXEi51g5ktBf3qLV9zC7wfY9MbnVK7QLCNLcrclGwvKceK1t458u4RGKuEc8k1KyJxFinGvOdVMglfMFzXOu//rYzIVJ4Enz+vUY3vGnwNX3hjSMuoEnH9rAE8tHu6BRRREZtcRmjSeLg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=likXwUyf; arc=fail smtp.client-ip=52.101.125.63
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82A0E4EB847;
+	Fri, 18 Sep 2026 15:14:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.193
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789744450; cv=none; b=VNucBEC3cgx4uJmu9eLZ8ncaKwKWkughy/7/ijWCBfWPKbbDzt5MRVP3giXPGzXBOSCMFGxU+XPxcnKZ3kN+eZy8bXCmpE/blDkPUCNmFRK4+sCV36dZcOXteHz6xRVpfMseIk5jv/x+JZFNCbbm0a5iCzEpy2k+92K4zNellwM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789744450; c=relaxed/simple;
+	bh=ISccSyJukB5b/2mH/sxrBdNv502Nd8IO+LlWiR5BHwU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=tMV260Wxj8N6Ktux5TAKnMTAnveUzsFBm/kVbDOQ6z77YlHSVjp/oGXFxhC+zwuy904LX7h80GrAIMwAroUzORbsbfF4B8ZtU9940var90de9S6HEc+ZOSJXyDclXU7dcnudvWmwcLQdlQcZF3juiD4ZmKTxI3um/jZ8bkOO9cU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=kVdwR34T; arc=none smtp.client-ip=217.70.183.193
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="likXwUyf"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=D+xv5QkCaUBFA4L8u6W8yt51vAXaM1zNrcgyDRgUM/MAKDn4YFLymAP2YtqgA8g9ONErkygJum2x3ht+3n6OOPf0WVvwfpm6c8kgKuivIfqOWM1KkmF26CdjpQotxjQ2x0oEZeXecIFOddW37F/eD2qAwcV7HlpdrydB2uZEaVD9GjQqkC379/A0+X6/kR4tkoKqrt29lxumn1TG1ZusjdPPI9CDQirLRnepCq5j3oYPg5bHT9fekWUrLdl2qHBjHJnBvBHd/MwVp8cJBCrOB3SyWfGYzCQ8eqtwpo0ScUMvuP7bLnD04jpzc+KPJ74Zhx6RaYzW2/+qbn5A/wTi0A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=T7wFkZvnOGhhIZaHIJE4cHRGPZm/8mneBjnYMu4H3yE=;
- b=hAz/EpQLK0624+ztQoWAfVV/bvtHAAiRXSIhhWJGVBibOvh/dONw/aCpAS1r/o2WSN7fnGoVFKL++cjU71mqbgUPdfq4gByUJ3DN6NvwrcOstuhCA2DefOR9l2sy+bjbIG/Q929G2RH/cRcO9GkfcHvoRcCGoU/fmhIHJp7i1AuvH25V7jkKX9T3KjqBNX5PbDsNvAYWaTzXXXBgSmaiWar+HlpiisnRHHT8ZUhN6rwuNufI4rtaTEIqLdvg562/eUA6wjgRQau8LzBRFCNQdzRy5YnBLcGP6a18po4PVpDkXORGhm/9vgyzZRCKRLGuwqAT0HfKBEFMdZFo8cs4Ew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 8.62.32.50) smtp.rcpttodomain=bp.renesas.com smtp.mailfrom=bp.renesas.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=bp.renesas.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=T7wFkZvnOGhhIZaHIJE4cHRGPZm/8mneBjnYMu4H3yE=;
- b=likXwUyfcDY7rBPP/mQhzrXq3Ci9WmgSMHI9MwRw8OALU/ki1kO5zHA849qlCImO5Mj+6kJT6fQzoJMinOzRPYCk6uMw/qCxZyEht7XdHC0JekJl6MHUTiXdIPwJmNPTFVwdJbZ6I+KhJP60JRxa1M/0Qh1T6MMwphXwTfDOG8w=
-Received: from TYCPR01CA0140.jpnprd01.prod.outlook.com (2603:1096:400:2b7::10)
- by OSCPR01MB16364.jpnprd01.prod.outlook.com (2603:1096:604:349::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
- 2026 15:09:23 +0000
-Received: from TYO1EPF00005025.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:2b7:cafe::73) by TYCPR01CA0140.outlook.office365.com
- (2603:1096:400:2b7::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.14 via Frontend Transport; Fri,
- 18 Sep 2026 15:09:23 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 8.62.32.50)
- smtp.mailfrom=bp.renesas.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=bp.renesas.com;
-Received-SPF: Pass (protection.outlook.com: domain of bp.renesas.com
- designates 8.62.32.50 as permitted sender) receiver=protection.outlook.com;
- client-ip=8.62.32.50; helo=ejcrelay005p.adwin.renesas.com; pr=E
-Received: from ejcrelay005p.adwin.renesas.com (8.62.32.50) by
- TYO1EPF00005025.mail.protection.outlook.com (10.167.240.22) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.8
- via Frontend Transport; Fri, 18 Sep 2026 15:09:23 +0000
-Received: from biju-VirtualBox.adwin.renesas.com (BGR-5CG2270RS1.adwin.renesas.com [10.226.92.53])
-	by ejcrelay005p.adwin.renesas.com (Postfix) with ESMTP id 91FFF30007D2;
-	Sat, 19 Sep 2026 00:09:15 +0900 (JST)
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>,
-	linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	Chris Paterson <Chris.Paterson2@renesas.com>,
-	Biju Das <biju.das@bp.renesas.com>,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH v2 8/8] arm64: dts: renesas: r9a08g046: Enable TSU
-Date: Fri, 18 Sep 2026 16:07:25 +0100
-Message-ID: <20260918150730.122056-9-biju.das.jz@bp.renesas.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260918150730.122056-1-biju.das.jz@bp.renesas.com>
-References: <20260918150730.122056-1-biju.das.jz@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="kVdwR34T"
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 3458A3EF90;
+	Fri, 18 Sep 2026 15:14:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
+	s=gm1; t=1789744444;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=o7bJKE7ivEWVLmt669qOHE1oWBllitD5HhFf4FomBzg=;
+	b=kVdwR34ThI5tkVrihDG4x8+IvP1y+mydnR5AFNc00CrmYkW/daf73dfgvdGZ463FRNU2ia
+	DMInhmDuV/c+I6oA+56s1enqDmAkO/pymylzdZYO3rsJeFHjAhXuPqPF9et6hsHm1eS4gH
+	qN6BNQEE9hQ4hgColc5DyfpecltqOy47S7nu83SpdgKBBDMlMNR5oTyIGVBcYR8kscmQ8C
+	0bkRrODJJWGptJrmlzphj3uEoRTuVmRUxzo5xfa5d3JX7dpFt2rxNJum147qEUWD+HwggY
+	x7ed6Jbva0R72BRGgK62XligKTjO3UIMBzZTBaFpDNQolVAT5FjAQfLpauSUsg==
+From: Arthur Crepin Leblond <arthur@marmottus.net>
+Subject: [PATCH net-next v9 0/3] w5100: restore GPIO-based link detection
+Date: Fri, 18 Sep 2026 17:13:52 +0200
+Message-Id: <20260918-wiznet-link-gpio-v9-0-5536f24d8d6d@marmottus.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYO1EPF00005025:EE_|OSCPR01MB16364:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 264d37e5-b2f0-4596-3ba7-08df1596d2b2
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|1800799024|23010399003|376014|7416014|56012099006|10067099003|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	QbXiHjO4iQgj5qKKq1bZ7E31Pzs7jb83XWwXymlUkDiQvhWeQIrWJJ8xUq5CO3FxfVkHHNA7DGsSx6LU7cHjfFiVCIsJOiuerdTgUlI4AqyMHSNUTpOp74K3/RdPFtJDMWP70Tn45WlXuYBKi699h+PtzpISRzIhCaoSmwkiT7qIXOTPamrf+g33R+BIFaxe5d8Ck+GYnKYxIIcmkh6DqFpwBOhUzXIjuy6ilbl7StkQ9bKuKYJyhyX44W7Pn6x3JRSEAOs9Y2NSx0bQxZDb47oo96ovKmDMxRragnambRXJVxS4hBl7kKlw2CfUYMaGfojmVAZ3PxSDchbg5HVtx2viqQqGe5kiBPshtuPsjjq2fvk7js6LNgJFYWc9U2wW/0PT7FjVaY53Z6OQsXfGqxr7r6dhZ/sz0RRuNk4G/wvPS0HAQNcoqGyaR3qv8FxscXv0LIO3yL/b0Yp9kfA7q3JxnpzvkzNXDTrSX9JjItQytgaUsD52i73GjyFl6IpJIxhl3OSokddEK31xw2StQCK1CHlEDHWmaLfAnRoYhnIg6WKepTOXDN5G8vdDi70mzFVJ00ItREt+iARI+Ultvpngjx5p3HvAMx6mfJbW+kDnxyvs4n/6M7M5hrJ81LYVWFMU+1znI2P5F9jNTwsz0Xrh+/+Fs5ApZu9x4530Qj6rNZ9tIxwiIp++B77WlE4Tjn9o1t2nD/simXJQxyQEzQ==
-X-Forefront-Antispam-Report:
-	CIP:8.62.32.50;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ejcrelay005p.adwin.renesas.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(1800799024)(23010399003)(376014)(7416014)(56012099006)(10067099003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	E11MNNV2MDHhsCeiI+C5JAQhM5tJK9qS7koWzYOGrheQhZacLOu3MA6IZajQHj37rdsVEl7g8OPPFidJRA5U2TUczo0nfW68LuqZDY2t9QzRba0FWjs9uRjuGDUcz1O/VbX/Otsjnr44kUbf1gClMczFTqQkb2dxoirW3q4BJ3bRpSGRyYhmKgaAuq8ygY9RbGLVkrB2f5qnMX8IUuewr5ELdmJsVqYmTr2B/4RBhopOhgBG6P3rlWnEpqwfs5TYS+6cER/d1vbx6QJLf4EMso+QYsmMPhn5N+kwJ5+l0O7Ww+YHZR4/zTF9eHOu3dBrdr3CRwSeoSIvJm9xZLVOoX1ilvwPLe1QKzVEiBJtENmtbmGMekfwiVHRBE6SvSnsOhIuX9Pe0o9uidZ7EhRDs4Ybge+OOyTT3oGJviRcpFMZCxHbNkrOK4qzonxnpxsP
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 15:09:23.3571
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 264d37e5-b2f0-4596-3ba7-08df1596d2b2
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=53d82571-da19-47e4-9cb4-625a166a4a2a;Ip=[8.62.32.50];Helo=[ejcrelay005p.adwin.renesas.com]
-X-MS-Exchange-CrossTenant-AuthSource: TYO1EPF00005025.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSCPR01MB16364
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIADBVrWoC/4XQy04DIRQG4FdpWIvhegBXvodxwbVF7Uwz0LHa9
+ N1lxoUTg3F5wn++H7iiEqccC3rYXdEU51zyOLTB3O2QP9hhH3EObUaMMCCaCPyeP4dY8VseXvH
+ +lEesDCQOPlCRDGprpymmfFnJJ7REh3ip6Pn7pJzdS/R1EZfsIZc6Th9r+0zXjb+LZoopdsAgB
+ ZGU9+7xaKfjWOu53LfkWjGz/xCGCeaOBuK1IonLHsK3CHQQ3hDJWRCWCq5JFxEbhNIOIhoigkw
+ qWK2l1T1EbhHeQWRDrG9PhcSEoLyHwAbhvZvAgrgYwUtvAGIPUT+I6X6sagiYRKhTpCmph+gNQ
+ mUH0Q0JVHFgTCjh/W/kdrt9Afc6PtSzAgAA
+X-Change-ID: 20260804-wiznet-link-gpio-796f36cd14f9
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>, netdev@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Arthur Crepin Leblond <arthur@marmottus.net>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-GND-Sasl: arthur@marmottus.net
+X-GND-State: clean
+X-GND-Score: -100
+X-GND-Cause: dmFkZTFvDdygotnCkyDQ+j22Z9K+lQp6S627A6pJ5gUNuN13UeS76/llvHTj61I8mobFo+8f2EbQuRGEQo8z5yXQLMp2QU9ZWdHmfkdqVMq3BzZeSUDN2C+YR31od+Ujg2k8SioCSoHI2X3e/lU9zCznktRoPO8cNM1njHBpx7d56aldWXRRB1F0wUwa0rU3utr6LT1eCF9Mjxsq5ElBM/rtUM3Hvix3nWSWZSClPjumiXykUrqwxHEXie9VcqhPIKb2wtC7LXfgUDJ9KYcHSvCJx5Vn21J3OQCE0WWZcmda3+F7Qe3iFvFZ2G3lkO9Yyk0QsVWuOsEyJUvGWmeTKi5DSXvxIx9rNi1qHFJrER0U8liOnpi4HoVXGERpIpC/QJus4WX8GHanVMQt+mMYkdOXK3wDzmDDktBDoDsBQehveC+H4jn5NJSfjmxUsVXDRKmqlMKcMtdx0rk1Bq8f0im96xjce8X68BHKoBlOyLiofRb/XdeVw8koWT5/m0yas3Adv9H7syhZcP6rBAGpOIwE+dw2ojSHi1bBZLX+1M+Iu2e0Qz8bZj2oCwxIi2RMygIULlBxWQMuSR73lXPh9Xj5+JiHW0RKGbWXRt+tSNdXngtOq7rTm4iT7q+9ptTpAyodrRGglQiCD2uYcnphp9cbboVFMldhrVX03xLfHroOmchAeQ
 
-Add #cooling-cells to the CPU nodes, and describe the ADC1 (used
-exclusively by the TSU) and TSU nodes along with a CPU thermal zone
-using passive and critical trip points, with CPU frequency cooling
-maps for thermal mitigation.
+Hi,
 
-Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+In the previous version of the w5100 driver, the LINKLED pin could be
+wired to a GPIO to detect the link status changes via an interrupt.
+This only works on w5500 as it is the only one documenting its LINKLED
+pin to hold the link status (on w5100 the LINKLED pin is changing with
+RX/TX activity).
+
+This series of patches is bringing back the link status detection on
+w5500 using the Link Status bit of the PHY Configuration Register.
+Additionally, the LINKLED pin can also be wired to detect link status
+changes and read the register in the interrupt handler.
+
+Arthur Crepin Leblond
+
+Signed-off-by: Arthur Crepin Leblond <arthur@marmottus.net>
 ---
-v1->v2:
- * No Change.
----
- arch/arm64/boot/dts/renesas/r9a08g046.dtsi | 66 ++++++++++++++++++++++
- 1 file changed, 66 insertions(+)
+v8 -> v9:
+ - Address Sashiko review
+  - Rework commit message
+  - Disable the link irq first in w5100_stop()
+  - Call w5100_hw_close earlier in w5100_stop()
+  - Flush rx/tx work and cancel restart in w5100_stop()
+  - Call cancel_work_sync() after unregister_netdev in w5100_remove()
+  - Call cancel_work_sync before netif_carrier_off in w5100_suspend()
+  - Enable/Disable main irq in open()/stop() and suspend()/resume()
+  - Check the number of irqs defined in DT
+  - enable the link irq after checking PHYCFGR
+  - Ignore fwnode_irq_get errors other than EPROBE_DEFER
 
-diff --git a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi b/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
-index 53e68b1c3258..29ce1ab2a57f 100644
---- a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
-+++ b/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
-@@ -179,6 +179,7 @@ cpu0: cpu@0 {
- 			next-level-cache = <&L3_CA55>;
- 			enable-method = "psci";
- 			clocks = <&cpg CPG_CORE R9A08G046_CLK_IC0>;
-+			#cooling-cells = <2>;
- 			operating-points-v2 = <&cluster0_opp>;
- 		};
- 
-@@ -189,6 +190,7 @@ cpu1: cpu@100 {
- 			next-level-cache = <&L3_CA55>;
- 			enable-method = "psci";
- 			clocks = <&cpg CPG_CORE R9A08G046_CLK_IC1>;
-+			#cooling-cells = <2>;
- 			operating-points-v2 = <&cluster0_opp>;
- 		};
- 
-@@ -199,6 +201,7 @@ cpu2: cpu@200 {
- 			next-level-cache = <&L3_CA55>;
- 			enable-method = "psci";
- 			clocks = <&cpg CPG_CORE R9A08G046_CLK_IC2>;
-+			#cooling-cells = <2>;
- 			operating-points-v2 = <&cluster0_opp>;
- 		};
- 
-@@ -209,6 +212,7 @@ cpu3: cpu@300 {
- 			next-level-cache = <&L3_CA55>;
- 			enable-method = "psci";
- 			clocks = <&cpg CPG_CORE R9A08G046_CLK_IC3>;
-+			#cooling-cells = <2>;
- 			operating-points-v2 = <&cluster0_opp>;
- 		};
- 
-@@ -374,6 +378,37 @@ scif5: serial@1004e000 {
- 			status = "disabled";
- 		};
- 
-+		adc1: adc@108c0000 {
-+			compatible = "renesas,r9a08g046-adc1";
-+			reg = <0 0x108c0000 0 0x10000>;
-+			interrupts = <GIC_SPI 378 IRQ_TYPE_EDGE_RISING>;
-+			clocks = <&cpg CPG_MOD R9A08G046_ADC1_ADCLK>,
-+				 <&cpg CPG_MOD R9A08G046_ADC1_PCLK>;
-+			clock-names = "adclk", "pclk";
-+			resets = <&cpg R9A08G046_ADC1_PRESETN>,
-+				 <&cpg R9A08G046_ADC1_ADRST_N>;
-+			reset-names = "presetn", "adrst-n";
-+			power-domains = <&cpg>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			#io-channel-cells = <1>;
-+
-+			channel@8 {
-+				reg = <8>;
-+			};
-+		};
-+
-+		tsu: thermal@108d0000 {
-+			compatible = "renesas,r9a08g046-tsu";
-+			reg = <0 0x108d0000 0 0x10000>;
-+			clocks = <&cpg CPG_MOD R9A08G046_TSU_PCLK>;
-+			resets = <&cpg R9A08G046_TSU_PRESETN>;
-+			power-domains = <&cpg>;
-+			#thermal-sensor-cells = <0>;
-+			io-channels = <&adc1 0>;
-+			io-channel-names = "tsu";
-+		};
-+
- 		i2c0: i2c@100ae000 {
- 			compatible = "renesas,riic-r9a08g046", "renesas,riic-r9a09g057";
- 			reg = <0 0x100ae000 0 0x400>;
-@@ -1570,6 +1605,37 @@ stmmac_axi_setup: stmmac-axi-config {
- 		snps,blen = <16 8 4 0 0 0 0>;
- 	};
- 
-+	thermal-zones {
-+		cpu-thermal {
-+			polling-delay = <1000>;
-+			polling-delay-passive = <250>;
-+			thermal-sensors = <&tsu>;
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&target>;
-+					cooling-device = <&cpu0 0 3>, <&cpu1 0 3>,
-+							 <&cpu2 0 3>, <&cpu3 0 3>;
-+					contribution = <1024>;
-+				};
-+			};
-+
-+			trips {
-+				sensor_crit: sensor-crit {
-+					temperature = <120000>;
-+					hysteresis = <1000>;
-+					type = "critical";
-+				};
-+
-+				target: trip-point {
-+					temperature = <95000>;
-+					hysteresis = <1000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+	};
-+
- 	timer {
- 		compatible = "arm,armv8-timer";
- 		interrupts = <GIC_PPI 13 IRQ_TYPE_LEVEL_LOW>,
--- 
-2.43.0
+ - DT binding: Simplify the interrupts description:
+  - Describe the 2 interrupts in the top-level properties
+  - Limit the maximum number to 1 on non-w5500 with a condition
+  - Somehow only adding minItems in the top-level and then describing
+    2 items in the if block led to dt checks errors.
+
+Link to v8: https://patch.msgid.link/20260915-wiznet-link-gpio-v8-0-d173622474cc@marmottus.net
+Sashiko: https://sashiko.dev/#/patchset/20260915-wiznet-link-gpio-v8-0-d173622474cc%40marmottus.net
+Clashiko: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260915-wiznet-link-gpio-v8-0-d173622474cc%40marmottus.net
+
+v7 -> v8:
+- dt-bindings: net: wiznet,w5100: convert to DT schema
+ - Add a myself in MAINTAINERS
+ - Address Sashiko reviews
+  - Change edge-falling to level-low
+  - Clarify the spi max frequency for all devices
+  - Add main interrupt description
+
+- dt-bindings: net: wiznet,w5100: add link status interrupt
+ - Remove Krzysztof Kozlowski reviewed-by tag after Sashiko review changes
+  - Make the interrupts property conditional
+
+- w5100: detect carrier state using link status bit and optional
+  interrupt
+ - Add myself in the MAINTAINERS file
+ - Address Sashiko reviews from online bot and locally run
+  - Add a mutex to synchronize the link state read and interrupt
+  - Return last known carrier state (netif_carrier_ok) in
+    w5500_get_link on SPI error or if the device is not present
+  - Only set ops .get_link on w5500
+  - Check the netif state, disable/enable the irq and re-check the
+    carrier state in w5100_restart
+  - Cancel the restart work on stop/suspend
+  - Only set carrier state to off in w5100_stop/suspend  when a link
+    irq is present
+  - Warn on fwnode_irq_get errors for the link irq
+  - Free the main irq and flush queues before resetting the hardware
+    in w5100_remove
+
+Link to v7: https://patch.msgid.link/20260904-wiznet-link-gpio-v7-0-69f01b70c96f@marmottus.net
+Sashiko : https://sashiko.dev/#/patchset/20260904-wiznet-link-gpio-v7-0-69f01b70c96f%40marmottus.net
+Netdev Sashiko : https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260904-wiznet-link-gpio-v7-0-69f01b70c96f%40marmottus.net
+
+v6 -> v7:
+- Address Sashiko reviews
+ - Propagate spi read error to the caller
+ - Do not change the state of the carrier on SPI read error
+ - Enable the link IRQ before reading the PHYCFGR bit
+ - Call unregister_netdev before reset
+ - Update commit message
+
+Link to v6: https://patch.msgid.link/20260831-wiznet-link-gpio-v6-0-abee6c5c966e@marmottus.net
+
+v5 -> v6:
+- Fix DT error: use minItems
+- Remove conditional properties
+- Put back the reviewed by tag from Krzysztof Kozlowski from v4
+- Revert to the reviewed v4 version by Arnd Bergmann with a few
+  changes based on Sashiko's review
+- Address Sashiko reviews
+ - call netif_carrier_off in open if there is no link_irq or  get_link
+   returns false
+ - call register_netdev at the very end of probe
+ - call unregister_netdev before destroying work queue
+ - handle link irq probe defer error
+ - call netif_device_attach in resume before re enabling the link irq
+ - disable the link irq first in suspend
+ - log netif_err when PHYCFGR cannot be read
+ - enable link irq in open
+ - disable link irq in stop
+ - free irq and invalidate it in remove
+
+Link to v5: https://patch.msgid.link/20260813-wiznet-link-gpio-v5-0-ac8046f24413@marmottus.net
+
+v4 -> v5:
+- Remove gpio/gpio.h include from DT example
+- Make the DT interrupts property dynamic from the compatible one
+- Fix DT bindings errors
+- Address Sashiko review
+ - Read the link status register only on w5500 instead of checking
+   link_irq
+ - call netif_carrier_off on w5500 link status off in open
+ - enable/disable the link irq in open/stop
+ - enable/disable the link irq in resume/suspend
+ - handle link irq probe defer error
+ - register the netdev last
+
+Link to v4: https://patch.msgid.link/20260811-wiznet-link-gpio-v4-0-4d5f7da885a8@marmottus.net
+
+v3 -> v4:
+- Update interrupts in DT bindings
+- Use directly an interrupt line instead of gpio -> irq
+- Address Sashiko reviews
+ - drop devm_ on request_threaded_irq to avoid use after free
+ - disable/enable the link_irq in the suspend/resume
+ - only call netif_carrier_on|off if the link interrupt is present
+
+Link to v3: https://patch.msgid.link/20260806-wiznet-link-gpio-v3-0-532d4a143805@marmottus.net
+
+v2 -> v3:
+- Fix DT binding errors
+- Use the Link Status bit of the PHY Configuration Register
+- Use the LINKLED gpio binding for change detection only
+
+Link to v2: https://patch.msgid.link/20260804-wiznet-link-gpio-v2-0-3b1d0c870f35@marmottus.net
+
+v1 -> v2:
+- Convert device tree binding to YAML
+- Use devm_request_threaded_irq instead of request_any_context_irq
+- Use devm_gpiod_get_optional instead of gpiod_get_optional
+- Call dev_err_probe on gpiod_to_irq failure
+- Remove link_irq from priv
+- Use a fixed string for the IRQ name
+- Remove empty new lines
+
+Link to v1: https://patch.msgid.link/20260804-wiznet-link-gpio-v1-1-b626fd4f7ccb@marmottus.net
+
+---
+Arthur Crepin Leblond (3):
+      dt-bindings: net: wiznet,w5100: convert to DT schema
+      dt-bindings: net: wiznet,w5100: add link status interrupt
+      w5100: detect carrier state using link status bit and optional interrupt
+
+ .../devicetree/bindings/net/wiznet,w5100.yaml      |  88 +++++++++
+ .../devicetree/bindings/net/wiznet,w5x00.txt       |  50 -----
+ MAINTAINERS                                        |   7 +
+ drivers/net/ethernet/wiznet/w5100.c                | 220 ++++++++++++++++++---
+ 4 files changed, 293 insertions(+), 72 deletions(-)
+---
+base-commit: 4bb9710c6a68d35207f123aef55dcd50e7195ec5
+change-id: 20260804-wiznet-link-gpio-796f36cd14f9
 
