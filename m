@@ -1,155 +1,107 @@
-Received: from mail-ej2-f24.google.com (mail-ej2-f24.google.com [74.125.228.152])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FFBB3A7F7A
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 14:27:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.152
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 77E4F3C1D62;
+	Fri, 18 Sep 2026 14:28:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789741666; cv=none; b=PXtCC0kIxeAAya3Br8QuHzdU1n82wx1bycv+vNYaROqCUrCAI9AzWGcRQRTNAZTSSX3MxCV4PyKEqPwPp5ojHlFBqnKQBtag4qtYaKWS44hUHENZ3LlQzrJH61onPcNefeAJTMlvgjDEcy1sCRfSZS5NU88dTCHDAV9aW3H91L8=
+	t=1789741723; cv=none; b=NaBxZwgdObu3fikxReMXKDwJQpYcXc6FVdolbEhclg+U/tMufv4U2gT1elm4+V6igIomDfOH1cbHguxw/PtCA78J5oI/5tQoZI3gHIv4P1OFCNYi+PvCeXut3aBDJYUghbiLYhWxgGwX2Q78nyLIMpr55eMoRe12Xf0tCtO6rDs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789741666; c=relaxed/simple;
-	bh=sgunm2sNjagt46bq1ZIC/qX8k5vKqpE4P8hC394mvU8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=t3ToGO2uCz2a3VMqekdHTBOJKFhy3YXAHn9NHJwJmQhkJiUetlJoIXU2LKemrez0fvBv7DsYKSlpU/i4pXoqSwtNaPZlhi5gt7Zwnf9N4+8d95JGuMQKjklxqm4Dh87cLWPv+c8q/nQFiwoaDr0Gi1z06UOA3aOOHffCfcWjZs4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Q0c/haM4; arc=none smtp.client-ip=74.125.228.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1789741723; c=relaxed/simple;
+	bh=hv+0y+A4oUAo0uo5dyEK8zc0I6j3cla+Yg8qcL1PnSY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ak6RPYUJImQlxI3Z+zHMd1XGXBrwWsMheNMx479kT+cxHo1yif4rxNgdKdEU4MuYdKOXJn9BTmuF0yA83fWOKZlAMz4BhrNk83gJk5F2BuU7IySkH9g/0jquCu1/U7gelJvLVU2kVedVbOf/KznubEw68czShjlyljJkYkcpxGk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=I8a3wVZd; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Q0c/haM4"
-Received: by mail-ej2-f24.google.com with SMTP id a640c23a62f3a-c29d33431c8so108025766b.2
-        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 07:27:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789741663; x=1790346463; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BnD2Ei89mkiOFb1zZQQ79Aq7EmWfIQzBftxY+5mS48k=;
-        b=Q0c/haM434hFxRb9HrsA8HMhQ0aOYGv8PgHBrbqBJeyp/+aT5rApMn3T0JqghomwUW
-         q8y2OWHAWCdnBzrh1nqiidF/S8Hp98uwPim6fYZfFsVX690bH/yv3113Q00lT7nb3fNG
-         CRscyAc6emTw4eOnjRlzLsRVxc512gqkfkRZb8oypb7n9gFZJfIxA1B4OsUlwzlLOvFA
-         zJ12gqU0/I1Hr+dE+lUijjXGRIQ5yD3533ZduBBF9fOnaawbEWC3xH6nXnGF9l9rT3ua
-         qcY/rZJw9ABTJUHRati5Vdte22n0RM8V8fdXj/jf2ptSov9y9/iL+XoITfh6OSdpv4Ta
-         W04g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789741663; x=1790346463;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BnD2Ei89mkiOFb1zZQQ79Aq7EmWfIQzBftxY+5mS48k=;
-        b=mEzCwHFZQrv3BNMXVSeL38AtjZHGJG5pajGPnZ5j5P51X48Y4Uw5RBgQfi1byosg+g
-         SwAMdQRHXmHoYnzsn/3xFb6NgrT1ExQ5wzkJFX0Psrn0PWNd8IN/pVHwMoHZew9WmbX2
-         +hWcJFBKL2LXAhNjGuHK9XlhF+t064LUG1/r+/rc58Dw3a7oxJqiKNF3ONiNp/gAx+Nj
-         IL+6LLJxDqgJVc6cLepkEzAuuiud1+mYAcqsX3075G9fj/UFA8btIiL+uEpDMqJJcc/n
-         pjAuSpkUL3OX0rf3NQNKaVYusIYliaBv00wRSUglRHlp0k8vbTV6UijhLiqG2iTkBrtL
-         MqYQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy2lGYMziwJ9XabSOmpgJmV6mvo6wXUoLK0xIrJlrqLP2TJAOv3gTZZ5g/xxUSkErYRbtaygA0P5Bsi@vger.kernel.org
-X-Gm-Message-State: AFuF++lZ+VUk77afvio1pFb8eWYGxodVbCl1DmqTbEmKzMu+cBm4XJiw
-	z//QhnqMB3C+AN/8VDOc80WwHSj7NBHFp7OITBHnuLQCU8maDZFt7Krbt3Wyq69htYY=
-X-Gm-Gg: AYBFou19hVGEhTQYHSNTp5R3m7oN7khngENUTyGFcPqhnYJ0tiux0A6AHASanRiKoTZ
-	cfd41tTP3h0+JTH6mq/3W3OehiSQUDACXe1M8wZTnF0uk9gApLlW/2XOb9caDsl30ToC0qjriNc
-	Kk/HCJkvkiasfXenXWUNgpxynSHHimPlnIRiI7Z4M/ivHvs5johVgXNvOOTkm606nMKoFEd0/Tm
-	r3J+q8VGhXUsg2c9mHpbA7uj6eu8W4/1sD2ZuEB1xA2XRBPBlx68wlri12lWX7cQI422G4W0z7k
-	zL7TFdhaCw+pVWtw08VkdH1tdE4kD09MPcgjMFOZa2GZ5+Fkv3cbklmOq5tGXb6hjqtRf791Bn1
-	968EWZwY2+32GPlJnz7UxcEV3SzySa6OQYp5nBTiW8N7bMbvM3yGQidElYBSZxxTR7Uv0WMXI/x
-	HNqTaGlGtkelltoKnsxn85UbLPAlp7N6ZP77omEQ48kw46rocuw5AacQF21j9YA/LBvFPVm1/yp
-	llHAQwkpQ==
-X-Received: by 2002:a17:906:478d:b0:c29:5a76:72be with SMTP id a640c23a62f3a-c2a157c41a8mr252060066b.24.1789741662748;
-        Fri, 18 Sep 2026 07:27:42 -0700 (PDT)
-Received: from [192.168.0.167] ([109.76.4.225])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a1bb8ba5bsm61582566b.45.2026.09.18.07.27.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 18 Sep 2026 07:27:42 -0700 (PDT)
-Message-ID: <fd6bf432-0ce8-4793-821f-f08321b13a5b@linaro.org>
-Date: Fri, 18 Sep 2026 15:27:40 +0100
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="I8a3wVZd"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0954F1C00;
+	Fri, 18 Sep 2026 07:28:36 -0700 (PDT)
+Received: from J2N7QTR9R3 (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 40A5E3F86C;
+	Fri, 18 Sep 2026 07:28:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789741719; bh=hv+0y+A4oUAo0uo5dyEK8zc0I6j3cla+Yg8qcL1PnSY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=I8a3wVZdwqL44ccM5tzVyzAt6HGTdGjCOHTcGWkUshTyRY821N3vwcMkh+DlOz6c9
+	 lG8BomnxIG+cwehaFLU6kvsosZLvlz086w3863jNSI+B4QAbBRUncc7xB2gm4LelS4
+	 FxFEnDCQ/hg51yrBq3fkgRcFl6GwV6IODLnftLGE=
+Date: Fri, 18 Sep 2026 15:28:31 +0100
+From: Mark Rutland <mark.rutland@arm.com>
+To: Andre Przywara <andre.przywara@arm.com>
+Cc: Sudeep Holla <sudeep.holla@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Salman Nabi <salman.nabi@arm.com>,
+	Vedashree Vidwans <vvidwans@nvidia.com>,
+	Trilok Soni <trilokkumar.soni@oss.qualcomm.com>,
+	Nirmoy Das <nirmoyd@nvidia.com>, vsethi@nvidia.com,
+	Varun Wadekar <vwadekar@nvidia.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 2/8] firmware: smccc: Add support for Live Firmware
+ Activation (LFA)
+Message-ID: <aq1KjzpIGuSpsPWx@J2N7QTR9R3>
+References: <20260706134455.132091-1-andre.przywara@arm.com>
+ <20260706134455.132091-3-andre.przywara@arm.com>
+ <20260717-bipedal-courageous-alpaca-4fb54d@sudeepholla>
+ <84f0862c-5333-4d53-b882-79b8e4c362ed@arm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v20 2/6] phy: core: Add phy_get_by_of_node()
-To: Neil Armstrong <neil.armstrong@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
- Todor Tomov <todor.too@gmail.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Bryan O'Donoghue <bod@kernel.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>, Felipe Balbi <balbi@ti.com>,
- Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linux-phy@lists.infradead.org,
- Krzysztof Kozlowski <krzk@kernel.org>
-References: <20260918-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v20-0-dc244e124e71@linaro.org>
- <20260918-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v20-2-dc244e124e71@linaro.org>
- <211caa95-dfbc-427d-8ce8-49cc76c24124@linaro.org>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <211caa95-dfbc-427d-8ce8-49cc76c24124@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <84f0862c-5333-4d53-b882-79b8e4c362ed@arm.com>
 
-On 18/09/2026 15:10, Neil Armstrong wrote:
->>   EXPORT_SYMBOL_GPL(devm_of_phy_get_by_index);
->> +/**
->> + * phy_get_by_of_node() - lookup and obtain a reference to a phy by 
->> device_node
->> + * @np: node containing the phy
->> + *
->> + * Returns: the phy associated with the device node or ERR_PTR.
->> + */
->> +struct phy *phy_get_by_of_node(struct device_node *np)
->> +{
->> +    struct of_phandle_args args = { .np = np, .args_count = 0 };
->> +    struct phy *phy;
->> +
->> +    mutex_lock(&phy_provider_mutex);
+On Fri, Sep 18, 2026 at 11:13:19AM +0200, Andre Przywara wrote:
+> On 7/17/26 11:03, Sudeep Holla wrote:
+> > On Mon, Jul 06, 2026 at 03:44:42PM +0200, Andre Przywara wrote:
+
+> > > +/* A list of known GUIDs, to be shown in the "name" sysfs file. */
+> > > +static const struct fw_image_uuid {
+> > > +	const char *name;
+> > > +	const char *uuid;
+> > > +} fw_images_uuids[] = {
+> > > +	{
+> > > +		.name = "TF-A BL31 runtime",
+> > 
+> > This doesn't make any sense to me. Why do you want kernel to assign
+> > some random name base on UUID. Userspace is well place to deal with
+> > UUID and give it any fancy name it wants.
 > 
-> I don't really understand the usage of lockdep_assert_held(), but why
-> does _of_phy_get() uses lockdep_assert_held() and here you use mutex_lock()
-> like before patch 1 ?
-> 
-> Neil
+> Well, the whole interface is quite usable without any accompanying user
+> space tools, so just from the shell, but then identifying  firmware
+> components by their GUID becomes a major pain and leaves users completely
+> clueless.
+> And while we indeed will never be able to fully catch up with all the
+> firmwares out there, especially not with vendor specific ones, there are
+> some standard firmware components that I think warrant some name.
+> TF-A BL31 above (and TF-RMM) are good examples: these GUID is already in the
+> mainline repository, and since BL31 is also an LFA agent, it's quite likely
+> we encounter this component. Even when vendors typically use downstream TF-A
+> ports, those GUIDs would stay the same.
+> So yes, it's more opportunistic than complete, but I think it would help to
+> identify at least those well-known firmwares. Anything not named then would
+> use the GUID, and can indeed be resolved by (a yet-to-be-written) userspace
+> component.
 
-assert_lockdep_held() is just an assertion that the lock is held, Loic 
-suggested adding it BTW. It ensures that when another function calls 
-this function it holds phy_provider_mutex.
+Sudeep is right; this is not a good idea.
 
-i.e.
+Remove the table and just expose the UUID of the image. Users can map
+that to a string in userspace if they need/want, and that'll work
+regardless of the vintage of kernel they're using.
 
-phy_get_by_of_node()
-{
-	mutex_lock(&phy_provider_mutex);
-	_of_phy_get();
-	mutex_unlock(&phy_provider_mutex);
-}
-EXPORT_SYMBOL(phy_get_by_of_node);
+I appreciate it might seem helpful to expose a name where we know it,
+but overall it creates more problems, including (but not limited to)
+compatibility issues, needless busywork to add entries (and arguments
+about what is approriate to add), political issues when some project
+naming changes, etc.
 
-_of_phy_get()
-{
-	lockdep_assert_held(&phy_provider_mutex);
-	/* happy days */
-}
+I am not going to Ack this with the name present, and I suspect neither
+will Sudeep.
 
-phy_broken_locking()
-{
-	_of_phy_get();
-}
-EXPORT_SYMBOL(phy_broken_locking);
-
-_of_phy_get()
-{
-	lockdep_assert_held(&phy_provider_mutex);
-	/* wails plaintively into the void */
-}
-
----
-bod
+Mark.
