@@ -1,123 +1,107 @@
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF5B02CCC5;
-	Fri, 18 Sep 2026 05:59:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6680F39E9DD;
+	Fri, 18 Sep 2026 06:07:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789711156; cv=none; b=NXkxnZhh8fm7VX55UWmHUPib3oQfvyX4n5FIXotcL+zHlDiPyI5Ugs+2BUWPXozuvU7qvhIS1wqbPIRd/K1eFgD2Bw/b1MSU4yqg/dQ3E16x84MGykYGIE8vSnyRFcH+RFQjEEFjqtiUhwgtezZWeVqLd5HM0b1xsLTHHzg1SMo=
+	t=1789711637; cv=none; b=UVr40w5q0xDdCfUlEQm1C5HPSgtDrxMe12y8Ohmg7LCai1o1rb+E9sy2YWMqw/hpN0AHit26YR/1QZQFKasPoHQ6rkpDxrYEd9zrhNpK+OunxRPmdw8H7tSdoUJSWDc+afHXH6+QiOFx0keAs+/km0EahKNbbuEV81dsMoz9uAM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789711156; c=relaxed/simple;
-	bh=JS8Rhd7b/HFoVVdP0RMjIv015cFtAfHlBy4pvpu4gbk=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=PXtal17c4HRHyhXxytlBBlou6PxUxswYbKkMTkHZtn+suHUHfo9di/2DX0CCrBH2RdIILFC9GFDKJWKa7YjxQRXKPwMB35xluLwGIpefn2Jc12WGxUwngelGHdGThaNURQpajecfAXklZdbwZllX6LRKrhwmTQUC0F08n2BvDWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.103.44])
-	by APP-01 (Coremail) with SMTP id qwCowAAn_O8C06xqtWNICA--.15380S2;
-	Fri, 18 Sep 2026 13:58:28 +0800 (CST)
-Message-ID: <1aa49a9bcf5c5a16ce38b57f8f508a31ca70c1ce.camel@iscas.ac.cn>
-Subject: Re: [PATCH v4 05/20] dt-bindings: display: verisilicon: Add
- starfive,jh7110-dc8200
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Michal Wilczynski <m.wilczynski@samsung.com>, Vinod Koul
- <vkoul@kernel.org>,  Neil Armstrong <neil.armstrong@linaro.org>, Rob
- Herring <robh@kernel.org>, Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, Andrzej Hajda	 <andrzej.hajda@intel.com>,
- Robert Foss <rfoss@kernel.org>, Laurent Pinchart	
- <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
- <luca.ceresoli@bootlin.com>, Maarten Lankhorst	
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
- Yan <andy.yan@rock-chips.com>, Philipp Zabel	 <p.zabel@pengutronix.de>,
- Emil Renner Berthing <kernel@esmil.dk>, Hal Feng	
- <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Paul
- Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
- <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,  Dominique
- Belhachemi	 <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>, Jerome
- Brunet	 <jbrunet+clk@baylibre.com>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	mfd@lists.linux.dev, linux-clk@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
-	linux-riscv@lists.infradead.org, Marek Szyprowski
- <m.szyprowski@samsung.com>,  Maud Spierings <maud_spierings@murena.io>,
- Graham Markall <hello@big-grey.co.uk>, Chaoyi Chen	
- <chaoyi.chen@rock-chips.com>, Joshua Peisach <jpeisach@ubuntu.com>, Uwe
- =?ISO-8859-1?Q?Kleine-K=F6nig?=	 <u.kleine-koenig@baylibre.com>
-Date: Fri, 18 Sep 2026 13:58:26 +0800
-In-Reply-To: <20260915-jh7110-clean-send-v4-5-f0e4fd6f2cc8@samsung.com>
-References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
-		<CGME20260915153222eucas1p213b95b05ea7eb9a18700af8888ef5a44@eucas1p2.samsung.com>
-	 <20260915-jh7110-clean-send-v4-5-f0e4fd6f2cc8@samsung.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	s=arc-20240116; t=1789711637; c=relaxed/simple;
+	bh=1JJVz9r1I2YKlPh7YDn7HbtgjT6XpDzjfnEG3nPQua8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=IgGF8PSGFjYJcSSrpHm9RzeCtAAPfWImUrajsQihmGGBmQEpyX04LuHjEO8UCdbECf3sRDoZ4Kxh0Mn628MX9nx/EkxsfrJxhpKF4TBm1dTcDRMSK9y0Cgd5CAAZxR1ntqk27v8AIcS+f5/ei6bYhZF4Nr7ZQ1yknvjcX2Ic0t0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from [127.0.1.1] (unknown [IPv6:2a02:560:5dd5:4b00:9ebf:dff:fe00:fdb5])
+	(Authenticated sender: sha@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id EB9E3200927;
+	Fri, 18 Sep 2026 08:07:05 +0200 (CEST)
+From: Sascha Hauer <s.hauer@pengutronix.de>
+Date: Fri, 18 Sep 2026 08:07:03 +0200
+Subject: [PATCH v4 3/4] arm64: dts: rockchip: rk3588: Add JPEG decoder node
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-CM-TRANSID:qwCowAAn_O8C06xqtWNICA--.15380S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7ur4fJrW7tF1UKFykGFy5XFb_yoW8GF4xpF
-	sakFZrJFyIgrn3W3y8J3WUK3y7Wr1xA3W0gF1jq3W2grs8GFWFqr4Y9r1qgF4UJFW8CFW8
-	ZFsY9rWYvr1vyF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvGb7Iv0xC_Cr1lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
-	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
-	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Jr0_Gr
-	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
-	MxkF7I0En4kS14v26rWY6Fy7MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
-	4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
-	67AKxVWrXVW8Jr1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6x
-	IIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY
-	6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa
-	73UjIFyTuYvjxUaGYpUUUUU
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260918-rockchip-jpegdec-v4-3-0dd97df47abb@pengutronix.de>
+References: <20260918-rockchip-jpegdec-v4-0-0dd97df47abb@pengutronix.de>
+In-Reply-To: <20260918-rockchip-jpegdec-v4-0-0dd97df47abb@pengutronix.de>
+To: Lucas Sinn <lucas.sinn@wolfvision.net>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789711625; l=2122;
+ i=s.hauer@pengutronix.de; s=20230412; h=from:subject:message-id;
+ bh=1JJVz9r1I2YKlPh7YDn7HbtgjT6XpDzjfnEG3nPQua8=;
+ b=eUuHUUyU7vVmW4lwsxTq1Fxazll4yoErjnLr0cZeTpiDOtHnHLd0BWx303WsXcNzhn02+u/jq
+ JNo1kezXGGVD4mRh1zKQLZ8Hw9j8Xf+PqRV0gVpot+R3erWV8esHRbB
+X-Developer-Key: i=s.hauer@pengutronix.de; a=ed25519;
+ pk=4kuc9ocmECiBJKWxYgqyhtZOHj5AWi7+d0n/UjhkwTg=
 
-=E5=9C=A8 2026-09-15=E4=BA=8C=E7=9A=84 17:32 +0200=EF=BC=8CMichal Wilczynsk=
-i=E5=86=99=E9=81=93=EF=BC=9A
-> The JH7110 embeds a DC8200. The binding requires an SoC specific
-> compatible ahead of the generic one, so add the JH7110 to the enum.
->=20
-> Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
-> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
-> ---
-> =C2=A0Documentation/devicetree/bindings/display/verisilicon,dc.yaml | 1 +
-> =C2=A01 file changed, 1 insertion(+)
->=20
-> diff --git
-> a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-> b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-> index
-> 919a9001220120054cb62d1d01b7293367266f95..05a202633cd273fec358c095c64
-> 584d959d96d90 100644
-> --- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-> +++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-> @@ -16,6 +16,7 @@ properties:
-> =C2=A0=C2=A0 compatible:
-> =C2=A0=C2=A0=C2=A0=C2=A0 items:
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - enum:
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - starfive,jh7110=
--dc8200
+Add device tree nodes for the Rockchip JPEG hardware decoder and its
+IOMMU on the RK3588.
 
-Note: this binding is being refactored as part of MA35D1 support
-introduction (this SoC has a single-port DC like a DC8000), after the
-refactor the binding string might need to appear twice.
+The decoder is at 0xfdb90000 with its MMU at 0xfdb90480.  It takes the
+AXI and AHB clocks and resets, and sits in the VDPU power domain.  The
+AXI clock is pinned to 600 MHz, which is the rate the downstream BSP
+runs it at; it is a dedicated clock, not shared with another block.
 
-Thanks,
-Icenowy
+Both blocks are entirely on-SoC and have no board dependency, so they are
+enabled unconditionally like the other codec blocks in this file.
 
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - thead,th15=
-20-dc8200
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - const: verisilicon,dc # DC IPs hav=
-e discoverable ID/revision
-> registers
-> =C2=A0
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+---
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+index fc1fdbfd31622..ce02a0f753e33 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+@@ -1317,6 +1317,30 @@ rga: rga@fdb80000 {
+ 		power-domains = <&power RK3588_PD_VDPU>;
+ 	};
+ 
++	jpegd: video-codec@fdb90000 {
++		compatible = "rockchip,rk3588-jpegd";
++		reg = <0x0 0xfdb90000 0x0 0x400>;
++		interrupts = <GIC_SPI 129 IRQ_TYPE_LEVEL_HIGH 0>;
++		clocks = <&cru ACLK_JPEG_DECODER>, <&cru HCLK_JPEG_DECODER>;
++		clock-names = "axi", "ahb";
++		assigned-clocks = <&cru ACLK_JPEG_DECODER>;
++		assigned-clock-rates = <600000000>;
++		resets = <&cru SRST_A_JPEG_DECODER>, <&cru SRST_H_JPEG_DECODER>;
++		reset-names = "axi", "ahb";
++		iommus = <&jpegd_mmu>;
++		power-domains = <&power RK3588_PD_VDPU>;
++	};
++
++	jpegd_mmu: iommu@fdb90480 {
++		compatible = "rockchip,rk3588-iommu", "rockchip,rk3568-iommu";
++		reg = <0x0 0xfdb90480 0x0 0x40>;
++		interrupts = <GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH 0>;
++		clocks = <&cru ACLK_JPEG_DECODER>, <&cru HCLK_JPEG_DECODER>;
++		clock-names = "aclk", "iface";
++		power-domains = <&power RK3588_PD_VDPU>;
++		#iommu-cells = <0>;
++	};
++
+ 	vepu121_0: video-codec@fdba0000 {
+ 		compatible = "rockchip,rk3588-vepu121";
+ 		reg = <0x0 0xfdba0000 0x0 0x800>;
+
+-- 
+2.47.3
 
