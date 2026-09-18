@@ -1,31 +1,31 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CFB0F4F0553;
-	Fri, 18 Sep 2026 14:11:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 532172E06E6;
+	Fri, 18 Sep 2026 14:11:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789740696; cv=none; b=sJWl446WkzKcWVR6sp/1h8Lc5Zc9PSLUV0T8NJCwy2U4/Mb2RSCsnKnoi4e3ET9YV0qcLgRVYQQHtx8C2JaCBrO9oxBpmbgvukUNiMH+YOYdRqbd21L8Q6mgahEew544vkhw9hEZHOeSE3s70lgl7PsQKKdyNeJqmKPFYQzOT24=
+	t=1789740699; cv=none; b=BuRZJLVXkTqzlE/7kdmDicvyWQrYZyfWAGzT/OKUE2vpZ7Rhxt+PwIrcdmsMwC5f+eWPqWpVgv9DTkTDEG/bAkCpZBhU/gSuz6MK17YYLgyjJ1ZjItaehct5RM9TDA5aYNgvVIctweFqSIT2OPtRrQmFcc+/Qjia1uY7Nqm5sNc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789740696; c=relaxed/simple;
-	bh=EqKIdJZ0C+yXX2cIFzzx7FCYTPgkMMFND81vIIt+GIE=;
+	s=arc-20240116; t=1789740699; c=relaxed/simple;
+	bh=tqqHViVw4RtjptjFs9M84wpARYpMZc1L7EOtLQIh1oo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=u5NBVFKTU3AHAUxySrv1tjaBwMnsPwAZE/aeBHTfCcsMDMqvMVe3IbEpzeJ3lwmWy1wnRP3Q3zGb66FGeq6OCFOneDO2CprHvWdhLI8D1o7IyoYXq+0gL4b2Bqyc1x3hz9En8y9yjQ+nB58Xo1NWRDcPhFjPF/mA1MK3gqCK+Dg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=F8FyOcCX; arc=none smtp.client-ip=217.140.110.172
+	 MIME-Version; b=XftadRTfsar0jyIU4E+CXKVX2l3nBRmWtnHqq0nZLpqjxvK2la0JFqY+LnrHjFBOBDNWhsIOSfNb8BSzsz9k/cdB6sXhssrutBy7BBDhiIkjN5MDHw2XNrbcfBcUnw97gecc6R6/DQYGgkQ/1R3vy5+63sdzhbfh1p6+yb17QX4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=YLmw7Nwo; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="F8FyOcCX"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="YLmw7Nwo"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B0DF2168F;
-	Fri, 18 Sep 2026 07:11:29 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B52B21E4D;
+	Fri, 18 Sep 2026 07:11:32 -0700 (PDT)
 Received: from e142021.Arm.com (e142021.arm.com [10.41.4.144])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9851E3F86C;
-	Fri, 18 Sep 2026 07:11:30 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9CF073F86C;
+	Fri, 18 Sep 2026 07:11:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789740693; bh=EqKIdJZ0C+yXX2cIFzzx7FCYTPgkMMFND81vIIt+GIE=;
+	t=1789740696; bh=tqqHViVw4RtjptjFs9M84wpARYpMZc1L7EOtLQIh1oo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=F8FyOcCXQckp4bzNt3OPkNZh/YqjJUFVK3Ks90QuELF1e+SfV/oHOHnLlbvEJbIjW
-	 +0+W6JoEjuh4aPKeFPi1H2YKg+jWtMQuTPHrDEB65dDB4bMg/rHN6FapE+LfjOWR5d
-	 ec95aBneWJET/Ps4qFVCb0yDoYk/OG7950gLn2Bc=
+	b=YLmw7Nwo80b6aduB5DEetF7b3bjN96QlcDU+DDuMilue4/P/UWwGZXj7+cgSSgiAB
+	 +vK7xolsHS6S7ansbLxSMUguVmiqgOUriItR/PIsEwp+bDA3WgfzAwxaVecpy0E+4g
+	 TvPPj6M+GMyQnrRryW9okdFmZzx4Ty5aBbfSZoGE=
 From: Andre Przywara <andre.przywara@arm.com>
 To: Mark Rutland <mark.rutland@arm.com>,
 	Lorenzo Pieralisi <lpieralisi@kernel.org>,
@@ -42,9 +42,9 @@ Cc: Salman Nabi <salman.nabi@arm.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
 	devicetree@vger.kernel.org
-Subject: [PATCH v4 3/8] firmware: smccc: lfa: Add timeout and trigger watchdog
-Date: Fri, 18 Sep 2026 16:11:06 +0200
-Message-ID: <20260918141112.2115555-4-andre.przywara@arm.com>
+Subject: [PATCH v4 4/8] firmware: smccc: lfa: Register ACPI notification
+Date: Fri, 18 Sep 2026 16:11:07 +0200
+Message-ID: <20260918141112.2115555-5-andre.przywara@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260918141112.2115555-1-andre.przywara@arm.com>
 References: <20260918141112.2115555-1-andre.przywara@arm.com>
@@ -58,128 +58,197 @@ Content-Transfer-Encoding: 8bit
 
 From: Vedashree Vidwans <vvidwans@nvidia.com>
 
-Enhance PRIME/ACTIVATION functions to touch watchdog and implement
-timeout mechanism. This update ensures that any potential hangs are
-detected promptly and that the LFA process is allocated sufficient
-execution time before the watchdog timer expires. These changes improve
-overall system reliability by reducing the risk of undetected process
-stalls and unexpected watchdog resets.
+The Arm LFA spec describes an ACPI notification mechanism, where the
+platform (firmware) can notify an LFA client about newly available
+firmware imag updates ("pending images" in LFA terms).
+
+Add a faux device after discovering the existence of an LFA agent via
+the SMCCC discovery mechnism, and use that device to check for the ACPI
+notification description. Register this when one is provided.
+
+The notification just conveys the fact that at least one firmware image
+has now a pending update, it doesn't say which, also there could be more
+than one pending. Loop through all images to find every which needs to
+be activated, and trigger the activation. We need to do this is a loop,
+since an activation might change the number and the status of available
+images.
 
 Signed-off-by: Vedashree Vidwans <vvidwans@nvidia.com>
-Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+[Andre: convert from platform driver to smccc bus]
+Signed-off-by: Andre Przywara <andre.przywar@arm.com>
 ---
- drivers/firmware/smccc/lfa_fw.c | 43 +++++++++++++++++++++++++++++----
- 1 file changed, 38 insertions(+), 5 deletions(-)
+ drivers/firmware/smccc/lfa_fw.c | 122 +++++++++++++++++++++++++++++++-
+ 1 file changed, 121 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/firmware/smccc/lfa_fw.c b/drivers/firmware/smccc/lfa_fw.c
-index 7cf847e102d5a..b6ce478d3fc01 100644
+index b6ce478d3fc01..bb89fffde6856 100644
 --- a/drivers/firmware/smccc/lfa_fw.c
 +++ b/drivers/firmware/smccc/lfa_fw.c
-@@ -6,11 +6,14 @@
+@@ -3,12 +3,14 @@
+  * Copyright (C) 2025 Arm Limited
+  */
+ 
++#include <linux/acpi.h>
  #include <linux/arm-smccc.h>
  #include <linux/arm-smccc-bus.h>
  #include <linux/array_size.h>
-+#include <linux/delay.h>
+ #include <linux/delay.h>
  #include <linux/fs.h>
  #include <linux/init.h>
++#include <linux/kernel.h>
  #include <linux/kobject.h>
-+#include <linux/ktime.h>
+ #include <linux/ktime.h>
  #include <linux/list.h>
- #include <linux/module.h>
-+#include <linux/nmi.h>
- #include <linux/psci.h>
+@@ -18,11 +20,13 @@
  #include <linux/stop_machine.h>
  #include <linux/string.h>
-@@ -27,6 +30,11 @@
- #define LFA_PRIME_CALL_AGAIN		BIT(0)
- #define LFA_ACTIVATE_CALL_AGAIN		BIT(0)
+ #include <linux/sysfs.h>
++#include <linux/types.h>
+ #include <linux/uuid.h>
+ #include <linux/workqueue.h>
  
-+#define LFA_PRIME_BUDGET_MS		30000		/* 30s cap */
-+#define LFA_PRIME_DELAY_MS		10		/* 10ms between polls */
-+#define LFA_ACTIVATE_BUDGET_MS		10000		/* 10s cap */
-+#define LFA_ACTIVATE_DELAY_MS		10		/* 10ms between polls */
-+
- /* LFA return values */
- #define LFA_SUCCESS			0
- #define LFA_NOT_SUPPORTED		1
-@@ -295,6 +303,7 @@ static int call_lfa_activate(void *data)
- 	struct fw_image *image = data;
- 	struct arm_smccc_1_2_regs reg = { 0 }, res;
+ #include <uapi/linux/psci.h>
  
-+	touch_nmi_watchdog();
- 	reg.a0 = ARM_SMCCC_LFA_ACTIVATE;
- 	reg.a1 = image->fw_seq_id;
- 	/*
-@@ -318,6 +327,7 @@ static int call_lfa_activate(void *data)
++#define DRIVER_NAME	"ARM_LFA"
+ #undef pr_fmt
+ #define pr_fmt(fmt) "Arm LFA: " fmt
  
- static int activate_fw_image(struct fw_image *image)
- {
-+	ktime_t end = ktime_add_ms(ktime_get(), LFA_ACTIVATE_BUDGET_MS);
- 	int ret;
- 
- retry:
-@@ -339,8 +349,15 @@ static int activate_fw_image(struct fw_image *image)
- 	}
- 
- 	/* SMC returned with call_again flag set, or with LFA_BUSY */
--	if (ret == -EAGAIN || ret == -EBUSY)
--		goto retry;
-+	if (ret == -EAGAIN || ret == -EBUSY) {
-+		if (ktime_before(ktime_get(), end)) {
-+			if (!msleep_interruptible(LFA_ACTIVATE_DELAY_MS))
-+				goto retry;
-+			ret = -EINTR;
-+		} else {
-+			ret = -ETIMEDOUT;
-+		}
-+	}
- 
- 	lfa_cancel(image);
- 
-@@ -352,6 +369,7 @@ static int activate_fw_image(struct fw_image *image)
- static int prime_fw_image(struct fw_image *image)
- {
- 	struct arm_smccc_1_2_regs reg = { 0 }, res;
-+	ktime_t end = ktime_add_ms(ktime_get(), LFA_PRIME_BUDGET_MS);
- 	int ret;
- 
- 	if (image->may_reset_cpu) {
-@@ -360,6 +378,8 @@ static int prime_fw_image(struct fw_image *image)
- 		return -EINVAL;
- 	}
- 
-+	touch_nmi_watchdog();
-+
- 	reg.a0 = ARM_SMCCC_LFA_PRIME;
- retry:
- 	/*
-@@ -378,10 +398,23 @@ static int prime_fw_image(struct fw_image *image)
- 		return lfa_to_linux_errno((long)res.a0);
- 	}
- 
--	if (res.a1 & LFA_PRIME_CALL_AGAIN)
--		goto retry;
-+	if (!(res.a1 & LFA_PRIME_CALL_AGAIN))
-+		return 0;
- 
--	return 0;
-+	/* SMC returned with call_again flag set */
-+	if (ktime_before(ktime_get(), end)) {
-+		if (!msleep_interruptible(LFA_PRIME_DELAY_MS))
-+			goto retry;
-+		ret = -EINTR;
-+	} else {
-+		pr_err("LFA_PRIME for image %s timed out",
-+		       get_image_name(image));
-+		ret = -ETIMEDOUT;
-+	}
-+
-+	lfa_cancel(image);
-+
-+	return ret;
+@@ -733,6 +737,112 @@ static int update_fw_images_tree(void)
+ 	return 0;
  }
  
- static ssize_t name_show(struct kobject *kobj, struct kobj_attribute *attr,
++/*
++ * Go through all FW images in a loop and trigger activation
++ * of all activatible and pending images.
++ * We have to restart enumeration after every triggered activation,
++ * since the firmware images might have changed during the activation.
++ */
++static int activate_pending_image(void)
++{
++	struct kobject *kobj;
++	bool found_pending = false;
++	struct fw_image *image;
++	int ret;
++
++	spin_lock(&lfa_kset->list_lock);
++	list_for_each_entry(kobj, &lfa_kset->list, entry) {
++		image = kobj_to_fw_image(kobj);
++
++		if (image->fw_seq_id == -1)
++			continue; /* Invalid FW component */
++
++		update_fw_image_pending(image);
++		if (image->activation_capable && image->activation_pending) {
++			found_pending = true;
++			break;
++		}
++	}
++	spin_unlock(&lfa_kset->list_lock);
++
++	if (!found_pending)
++		return -ENOENT;
++
++	ret = prime_fw_image(image);
++	if (ret)
++		return ret;
++
++	ret = activate_fw_image(image);
++	if (ret)
++		return ret;
++
++	pr_info("%s: automatic activation succeeded\n", get_image_name(image));
++
++	return 0;
++}
++
++#ifdef CONFIG_ACPI
++static void lfa_acpi_notify_handler(acpi_handle handle, u32 event, void *data)
++{
++	int ret;
++
++	while (!(ret = activate_pending_image()))
++		;
++
++	if (ret != -ENOENT)
++		pr_warn("notified image activation failed: %d\n", ret);
++}
++
++static int lfa_register_acpi(struct device *dev)
++{
++	struct acpi_device *acpi_dev;
++	acpi_handle handle;
++	acpi_status status;
++
++	acpi_dev = acpi_dev_get_first_match_dev("ARML0003", NULL, -1);
++	if (!acpi_dev)
++		return -ENODEV;
++	handle = acpi_device_handle(acpi_dev);
++	if (!handle) {
++		acpi_dev_put(acpi_dev);
++		return -ENODEV;
++	}
++
++	/* Register notify handler that indicates LFA updates are available */
++	status = acpi_install_notify_handler(handle, ACPI_DEVICE_NOTIFY,
++					     lfa_acpi_notify_handler, NULL);
++	if (ACPI_FAILURE(status)) {
++		acpi_dev_put(acpi_dev);
++		return -EIO;
++	}
++
++	ACPI_COMPANION_SET(dev, acpi_dev);
++
++	return 0;
++}
++
++static void lfa_remove_acpi(struct device *dev)
++{
++	struct acpi_device *acpi_dev = ACPI_COMPANION(dev);
++	acpi_handle handle = acpi_device_handle(acpi_dev);
++
++	if (handle)
++		acpi_remove_notify_handler(handle,
++					   ACPI_DEVICE_NOTIFY,
++					   lfa_acpi_notify_handler);
++	acpi_dev_put(acpi_dev);
++}
++#else	/* !CONFIG_ACPI */
++static int lfa_register_acpi(struct device *dev)
++{
++	return -ENODEV;
++}
++
++static void lfa_remove_acpi(struct device *dev)
++{
++}
++#endif
++
+ static int lfa_smccc_probe(struct arm_smccc_device *sdev)
+ {
+ 	struct arm_smccc_1_2_regs reg = { 0 };
+@@ -769,11 +879,21 @@ static int lfa_smccc_probe(struct arm_smccc_device *sdev)
+ 		destroy_workqueue(fw_images_update_wq);
+ 	}
+ 
+-	return err;
++	if (!acpi_disabled) {
++		err = lfa_register_acpi(&sdev->dev);
++		if (!err)
++			pr_info("registered LFA ACPI notification\n");
++		if (err != -ENODEV)
++			return err;
++	}
++
++	return 0;
+ }
+ 
+ static void lfa_smccc_remove(struct arm_smccc_device *sdev)
+ {
++	if (!acpi_disabled)
++		lfa_remove_acpi(&sdev->dev);
+ 	clean_fw_images_tree();
+ 	flush_workqueue(fw_images_update_wq);
+ 	destroy_workqueue(fw_images_update_wq);
 -- 
 2.43.0
 
