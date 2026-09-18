@@ -1,637 +1,194 @@
-Received: from ironport.ite.com.tw (unknown [210.202.87.179])
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE8C48BD3B;
-	Fri, 18 Sep 2026 10:03:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.202.87.179
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789725808; cv=none; b=lCAYOWMllEEtGa60MiY5OrPPdW4kWeyduWE89OAlKbJHiOE1C01zbT+zmPkM13f9NTzaVLYvvGZtIo37Qmpj8h4p5tzps33/lbZJx+jt1GFqrsRGn/SWf7KlUeyRqoe2FMXAA0bJBh3SBvNNDhs45RVPL35Rb13vOTDlLr2aTJY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789725808; c=relaxed/simple;
-	bh=KayxDk1rLUzn8bPvpQvgGAeprp9HIdnaCKlDuxByzOc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=o+HqQFUwCye54bPueLKt4inj0MDeenjc9h1idYayfyDW0Ok80/Jfi0B0g1E4hcCGsuxWLCX5bZOaQ81uCUEs7WmJCqiuUUV6nOPuJmaAjacX/sjodxfkUcUSk4HSj1uS2SwJN6tQa9GJF5lnB1xXi6i859l7kYf/ut4MO/Z5H7w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw; spf=pass smtp.mailfrom=ite.com.tw; dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b=gxLSF1GO; arc=none smtp.client-ip=210.202.87.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 095DF4772BB;
+	Fri, 18 Sep 2026 10:04:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789725858; cv=fail; b=V7tj+kiv/HdVTJJFVZ24osAOP+4aTWwZEh/uh6tG9cDA2eP47EIQMK3UNclDGHFDSmvLNwY3+T2iNc/5dx1Eq4xZKCe/lhZspq0UhmRPoSNYaQJjZrripUaQiyLdUHg2Z2Nyc6GJGnZc0cy9az0ZRFhwkg38RyFH7Y6cweegMnk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789725858; c=relaxed/simple;
+	bh=MVcKVJQCRtJUVYzYZX6W0WNepyi5bianQ20nrRk/Ccs=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=FWdtkjioE9cXLCTYa5RIsAgD66nSNnlMb7PKl0LEzcBu7bXoaIXtbUheiIFEM4F1LSuMS/b0hCje5JwgV6oRlbI53m6lAlx5bsOSto31oLFFykKiMFHALEQkmH4gXnH7qK4YZYPA+jfMVXdHabbTKIO7+aC93znCbo980/NkBxQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=Xd9sV/nF; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=G94OGwAA; arc=fail smtp.client-ip=148.163.154.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b="gxLSF1GO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=ite.com.tw; s=dkim;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=vMgkdt23waDtvLXExFz+I4luTtzvHc3cvsarrIUcku8=;
-  b=gxLSF1GOLn8dTvi9+8mY8mUhzPpgf5yzOp7gJkdAWmv+u04fEBGK/dWw
-   J4sVS+rPGaLc57lJ5l4Ogfys8q1xmZAPfreXfWADPx7XeMdeZQxTXGDw6
-   WG/bpaOq9MTBrahW06OQxT0xb7ZFQcSnDGNhk57j79qgsKg0GaORbCS1j
-   YUFRR24WUvMunbAVdkd4kAJ554gGJ6Re7pbYqqyGjs65DGv3Jv1Kk/SLe
-   016wnmMiunC67Zz0nNiUwgjz3DRIw2NNxz2TALqMxYwnV6n3HfR0xEVHU
-   cC+5OxhNHzhIxPbZenCkwx19dHevBLSqF3+x4+zt5cr342U/VHpDA4AlP
-   Q==;
-X-CSE-ConnectionGUID: cpaYtMyqRUyWCi5hFWRjwA==
-X-CSE-MsgGUID: Fr6Akn3+QRODci8KjIgYOg==
-Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
-  by ironport.ite.com.tw with ESMTP; 18 Sep 2026 18:03:09 +0800
-Received: from jiraproxy.ite.com.tw (jira.internal.ite.com.tw [192.168.35.200])
-	by mse.ite.com.tw with ESMTP id 68IA33DD091798;
-	Fri, 18 Sep 2026 18:03:03 +0800 (+08)
-	(envelope-from ite_pd@ite.com.tw)
-Received: from [127.0.1.1] (ITE01791W10.internal.ite.com.tw [192.168.37.107])
-	by jiraproxy.ite.com.tw (Postfix) with ESMTP id 447912F07;
-	Fri, 18 Sep 2026 18:03:03 +0800 (CST)
-From: Amber Kao <ite_pd@ite.com.tw>
-Date: Fri, 18 Sep 2026 18:03:44 +0800
-Subject: [PATCH v2 2/2] usb: typec: ucsi: itepd: Add DisplayPort alternate
- mode support
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="Xd9sV/nF";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="G94OGwAA"
+Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68I9dLq3033420;
+	Fri, 18 Sep 2026 05:04:10 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=proofpoint-05-2026; bh=jWpylLY6FtkmE
+	ObK/7EzskWlx9niryhJ9FXZ/JbadYE=; b=Xd9sV/nFrK99RsQW3Wl9mhW3Nfep6
+	iSUu/Pbx7vEifY8OhYvbR1/xZluwpkKPV0/omAKAW2z2W2g955EgQ8Lc9Lc49amZ
+	SsZjacfLFW5vC6XP5mftBSlH0mm/3aTKdiZQD++s1jtqbrDlQewCUHIKhiLyBip7
+	OjrXg3tFZ0olLBn8VxA6+3KZjNwIE6Z3nTUi3+74sTCy2kJC4hjEWXvPYokTq/sl
+	gGLPd67s21t9FaY6a/xp4vpa4L1RNgLBzYKBZtaR9QbBWjfQzF3A9sLxvqpVURBC
+	JzVOp98XBEuO195V67mtNeNNIpvxn4FGuiRIV47KY4fQwcBi+hP+sOEnA==
+Received: from ph8pr06cu001.outbound.protection.outlook.com (mail-westus3azon11012067.outbound.protection.outlook.com [40.107.209.67])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4gs0k38wrk-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 18 Sep 2026 05:04:10 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MiiakZFZJyYa30BkaHBPYaQk74vBvQsGgFgKqZ7R8sGzJUUTr+sMFudoldOROMPwDOO65UR6PACygSWlFFW3BjXv5b4sz980jMs+loBsZwcX0of9Xl50/CsoEc+OKEtq/6Ju4OPx15yzQxB+zpfRG6LFwHT3PCjx50brEV5KSm1T2fZXinSB35Eat2tZYG7gNuLhUPSyKlW5ssD0f5qcnLFiy+hCSE4raFoB7dtBhDBNh5HFMlUiM57Dj0UDY00a9cOcHxlYognyQLxDgnYPf1znQEyxXNoCroKWtEjdjKvRNxlerIDj5clz9kl5rQUKIVgazjotBYvwYvZDWQtoYg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jWpylLY6FtkmEObK/7EzskWlx9niryhJ9FXZ/JbadYE=;
+ b=wkkF1v6kAsBQ0hOBSCcAfz3RmdRdNHL1JcNOcl1UpbbcXvTiwMfVIeOH/KW1InNuBAmJabwG6RlqHYn6qGl9K6xA4xAJktF4ls+cIHYSwwOMQNQwZSc8O6QFwo5Yu5pfYSqhDDdUBfyoSFK+mJHbXxcP1fz5SCQsrkOjvzwAZh2iCTRbgRdz2BrwiM6zmWwS6Je5iwutowcuSTSGps7iYmabLtiifEI/xCx4PsEWjCpzgLAdEKvTiYC0y5eyL2KZPOUQIiu3jZog4rZpDI6LmAKQV8aVkOoV/pCzFb7X0tEE+Dotly0ETqFGUld8q4Q34KqrFALW4QnnW0ra6JL4cQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jWpylLY6FtkmEObK/7EzskWlx9niryhJ9FXZ/JbadYE=;
+ b=G94OGwAAPLjNMgyt2fNIFCewJakl+9Of+LG7nnWf28thkKZoh8ic2clU0zmPYVt5nl4pIhUAxi2izVfPkrpfp38IIf3Nk7tjHIE7fho2YO8ePtrboAxqk8C9Ei223oMSAEDyLjyxrtid8TCEcpcJJrP8/wghNETRtGmIJoxAB5k=
+Received: from BN9PR03CA0365.namprd03.prod.outlook.com (2603:10b6:408:f7::10)
+ by DM6PR10MB4362.namprd10.prod.outlook.com (2603:10b6:5:21a::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Fri, 18 Sep
+ 2026 10:04:06 +0000
+Received: from BL6PEPF00020E60.namprd04.prod.outlook.com
+ (2603:10b6:408:f7:cafe::8d) by BN9PR03CA0365.outlook.office365.com
+ (2603:10b6:408:f7::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.12 via Frontend Transport; Fri,
+ 18 Sep 2026 10:04:06 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
+Received: from lewvzet200.ext.ti.com (198.47.23.194) by
+ BL6PEPF00020E60.mail.protection.outlook.com (10.167.249.21) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Fri, 18 Sep 2026 10:04:06 +0000
+Received: from DLEE214.ent.ti.com (157.170.170.117) by lewvzet200.ext.ti.com
+ (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 18 Sep
+ 2026 05:03:51 -0500
+Received: from DLEE215.ent.ti.com (157.170.170.118) by DLEE214.ent.ti.com
+ (157.170.170.117) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 18 Sep
+ 2026 05:03:51 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE215.ent.ti.com
+ (157.170.170.118) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Fri, 18 Sep 2026 05:03:51 -0500
+Received: from moteen-ubuntu-desk.dhcp.ti.com (moteen-ubuntu-desk.dhcp.ti.com [10.24.50.20])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68IA3k3J1507569;
+	Fri, 18 Sep 2026 05:03:47 -0500
+From: Moteen Shah <m-shah@ti.com>
+To: <ilpo.jarvinen@linux.intel.com>, <gregkh@linuxfoundation.org>,
+        <krzk+dt@kernel.org>, <linux-serial@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <jirislaby@kernel.org>,
+        <devicetree@vger.kernel.org>
+CC: <u-kumar1@ti.com>, <gehariprasath@ti.com>, <m-shah@ti.com>,
+        <vigneshr@ti.com>, <nm@ti.com>, <a-limaye@ti.com>,
+        <y-abhilashchandra@ti.com>
+Subject: [PATCH v3 0/2] serial: 8250_dw: Add ti,tda54-uart support
+Date: Fri, 18 Sep 2026 15:33:44 +0530
+Message-ID: <20260918100346.4044899-1-m-shah@ti.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260918-ucsi-itepd-it527x-v2-2-7b2d9437cc72@ite.com.tw>
-References: <20260918-ucsi-itepd-it527x-v2-0-7b2d9437cc72@ite.com.tw>
-In-Reply-To: <20260918-ucsi-itepd-it527x-v2-0-7b2d9437cc72@ite.com.tw>
-To: Amber Kao <amber.kao@ite.com.tw>, Jeson Yang <jeson.yang@ite.com.tw>,
-        Yaode Fang <Yaode.Fang@ite.com.tw>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Amber Kao <ite_pd@ite.com.tw>
-X-Mailer: b4 0.15.2
-X-MAIL:mse.ite.com.tw 68IA33DD091798
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF00020E60:EE_|DM6PR10MB4362:EE_
+X-MS-Office365-Filtering-Correlation-Id: 55307ff6-33ef-40c2-7531-08df156c2d03
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|23010399003|376014|1800799024|82310400026|13003099007|10067099003|56012099006|6133799003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	xqiNWAwLQBofqQuP0TLMWlOuINPFW1aV5SV/tk0NOs6uIVA4c50qEftr65x/u8PHIF2WJJTpWPOzDq4a8Z9zxfzESpHeVGWmXCoztqUM3LwNZnWQ1OhcmTOSj6+OPxnhqsbLz4RtpR/161nstJp/mSCCXm5JVQe1ftWDsb5QqKDuwCc8cUXw+ohHXQ5d5cNwwXN937H/XLtfkcpqkJIkZLjnkmXinfVqgez41XIuFya8VTb0YBlRWKy1mmJ+ja3M935o8cFXKoK68OiL1iUWoyWenr57QOChkSze8V5/a6E/dbt4BUpXqP0aJJAX+q9AQdDp7wtpxVGBaPJLDv7IaLyxel0m6XrWi3Q7snc741H75N7omgJVoiYQGjZMs/H4DmakqPfhGMgwlvBEDER3+Ij2yhCmMMW9pIra/AJmf5FAFu79H64uCz3bwxYJqezvCFMd4qMx70P41UjfJJ3/eSlKkrC40jImw+VvI9H3yTijxRbAs8egZ9kskg4zukjFNe45nSV6QNQytDI06oLWDe+ZxCULFK11loJlaB5mVRTbsdoguhX6x4KivW8VudRRKSM+6lDOqoyr3J64Rvo5DR3bZHVzeAy5lQzcPMYRGoenCow3JXoQAT5ZSjXgj0dHtBM/0mzxniF858B/mgIHmzhw9aCmgN8wvWM6gFJvlIoFzCE+4t2c38EwYCkFEP1PfRwtHeucQZuFmpWYfMtCSQ==
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(376014)(1800799024)(82310400026)(13003099007)(10067099003)(56012099006)(6133799003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	+g4Tc6LertWHWlLch5gcMFR/NwuD5By+j3nfPLDCKXrdVy/cXlXKOls9RtUgLflo8tcnIZxDQdfoGEjoe7hGpkZ4uJlnY1uvNqCVEBs3LO9xHo2iQSu7ohCDyRzr0uXyKcyOwAxIYe6CbqgkKt+p+FP5IdWAlKGthdFS6iJXESBQjOq0RFdKEmfmQEIO2JrxQJyFGaauWngJr22ICxDhcscRETL5FlQveMf10uyLRkJu4ib2STtDCalLYzl8IrZaJzI/pvmgaZSenFVVGGSprSXk+GnA/Z2NAHtsa0rqERfpMylDYh5fAN5TaA1NRkFLZEKv/9F7VBEL/AdJV6e6wOGHg84AD8y+B/z7zku6AaDZfFCFkULuNG5yzeatpIosd5ZkzcMJpODVS5PaZOCy+CVkx4pi7zLdeOL3Fgvw8XQ9e99g1KR9BbuUDt28AGnV
+X-Exchange-RoutingPolicyChecked:
+	ys0oPju/FBF9MGyR2Dj/1nRmj9W/dab8WKNfV9V2RCa25tte9ZvW1JPBiQ/63rth2etIHezRi2nWJJ7Rc2Ju2gFX4887N1IGj7kFRTP2If/8dEjzg9OXl+x5qa1I3N1voKj9ulonluSX8FBbYULwmyJq4ImWZqhQ5zvhtu/G6bIDpqYnYg/GT2Gqd27ievGlDpnIGNXR3t6XUtDRyc0HGC8wlAMSFYZhiin5THTVANcBP4t2+NEb4A9pADsK+13S2FZv4dKDscejFLQPGpsy01q7id0hr8QMMNGtAgsz8pBmOZpz9dqDvaK8FlsR3xhbKRV1dolrBfUFDa6h9DhaPQ==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 10:04:06.4605
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 55307ff6-33ef-40c2-7531-08df156c2d03
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL6PEPF00020E60.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR10MB4362
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDEzOSBTYWx0ZWRfX0MfULhDNxGvH
+ IP0uzprRJbiH34c+h9fgd97c5wunw+0mu8GaGgjOiiyAEfCyEHd9dZTfiBOfGYWV8SJOUrp/QmA
+ bhB1ime3FYIdBDh8R5Wk1Uv52lPUV8M=
+X-Authority-Analysis: v=2.4 cv=K6S3jCWI c=1 sm=1 tr=0 ts=6aad0c9a cx=c_pps
+ a=nfJ3K52CLbhVQgIdADXVOg==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=VdqzKS8jKosA:10 a=s63m1ICgrNkA:10
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=fPAWb5peG099m5CrUpKH:22 a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8 a=TxhyHGSeAAAA:8
+ a=dsxY-UZ9IpOO0aJRIToA:9 a=VRTRSrWG77IPp_BSX07q:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDEzOSBTYWx0ZWRfX/8xagx9uNOiv
+ vLE6fBe8mfUifY6+s7o4xR3ez6qACxQrC7Q9ivhjlEGbyNZlVfCvLJ+/4YsFjLiwrqIPv57gZgb
+ cCLJruUFBdJCos+p6auPOSpuQZYC1Xo8P2Ex+zNzdj48G6ClQeutQklfAF868MwPLJs36oxhjjW
+ n68HEAeYopHsS25W7XnbQOPyoON0p8c8TuUWxuAEumfL3XMCVcuiWb1JYkD4fnC+5I73GN3X2vV
+ 6f4y+phlzpNbkbTRd1w+m5U62oG1wsXPmqcYTqKvUy/HeDgdNAysWjZrUoG5QTvOm0LreoP1j2f
+ ktKR4iUBkw1wLBcABwFlBlvp0ZNEhKh3UdKY5HYj6u/iG2zO88Yxr/REmUt6G/zq4yofNQrwHC/
+ byFylEFPKySSdXnl8074EQ8pAYcGqKRrinauIzThr7cOta9HsXgOwE/zhpMuR9RtgVkkiH7Bvy/
+ yfC72h30zLTJtDYoEpQ==
+X-Proofpoint-GUID: vaXQ6bUQn7sOlL5lMyRY1_TgS0SU028w
+X-Proofpoint-ORIG-GUID: vaXQ6bUQn7sOlL5lMyRY1_TgS0SU028w
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-18_03,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0 priorityscore=1501 bulkscore=0
+ lowpriorityscore=0 phishscore=0 clxscore=1015 spamscore=0 impostorscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609180139
 
-Add support for DisplayPort alternate mode. The driver retrieves
-the current alternate mode from the PPM, configures the Type-C mux
-and retimer accordingly, and reports HPD state and HPD IRQ events
-through the DRM auxiliary HPD bridge.
+Add the ti,tda54-uart compatible string to the DW APB UART binding,
+and add a quirk to skip the RX FIFO dummy read on TDA54.
 
-Signed-off-by: Amber Kao <ite_pd@ite.com.tw>
----
- drivers/usb/typec/ucsi/Kconfig      |   8 +-
- drivers/usb/typec/ucsi/ucsi_itepd.c | 404 +++++++++++++++++++++++++++++++++++-
- 2 files changed, 400 insertions(+), 12 deletions(-)
+Reading an empty FIFO on the IP version used in TDA54 triggers a
+data abort. The interrupt storm this dummy read was meant to avoid
+no longer occurs on this version of the IP, so skip the read via a
+new quirk.
 
-diff --git a/drivers/usb/typec/ucsi/Kconfig b/drivers/usb/typec/ucsi/Kconfig
-index 0f10dac9b34b..c5eaf4967e4e 100644
---- a/drivers/usb/typec/ucsi/Kconfig
-+++ b/drivers/usb/typec/ucsi/Kconfig
-@@ -105,11 +105,15 @@ config UCSI_HUAWEI_GAOKUN
- 	  called ucsi_huawei_gaokun.
- 
- config UCSI_ITEPD
--	tristate "UCSI Interface Driver for ITE IT8851/IT8853"
-+	tristate "UCSI Interface Driver for ITE IT885x and IT527x series"
- 	depends on I2C
-+	depends on DRM || !DRM
-+	select DRM_AUX_HPD_BRIDGE if DRM_BRIDGE && OF
- 	help
- 	  This driver enables UCSI support on platforms that expose an
--	  ITE IT8851/IT8853 Type-C Power Delivery controller over an I2C interface.
-+	  ITE IT885x or IT527x series Type-C Power Delivery controller
-+	  over an I2C interface. It also supports DisplayPort alternate
-+	  mode, including HPD notification through the DRM bridge.
- 
- 	  To compile the driver as a module, choose M here: the module
- 	  will be called ucsi_itepd.
-diff --git a/drivers/usb/typec/ucsi/ucsi_itepd.c b/drivers/usb/typec/ucsi/ucsi_itepd.c
-index 50a9eae656ab..8c4e9c1bd06f 100644
---- a/drivers/usb/typec/ucsi/ucsi_itepd.c
-+++ b/drivers/usb/typec/ucsi/ucsi_itepd.c
-@@ -3,14 +3,24 @@
-  * Copyright (C) 2025-2026, ITE. All Rights Reserved
-  *
-  */
-+#include <linux/auxiliary_bus.h>
-+#include <linux/bitmap.h>
- #include <linux/bits.h>
- #include <linux/err.h>
- #include <linux/i2c.h>
- #include <linux/interrupt.h>
-+#include <linux/log2.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
-+#include <linux/of.h>
-+#include <linux/property.h>
- #include <linux/slab.h>
- #include <linux/unaligned.h>
-+#include <linux/usb/typec_dp.h>
-+#include <linux/usb/typec_mux.h>
-+#include <linux/usb/typec_retimer.h>
-+
-+#include <drm/bridge/aux-bridge.h>
- 
- #include "ucsi.h"
- 
-@@ -29,6 +39,35 @@
- #define ITEPD_EVENT_NONE	0
- #define ITEPD_EVENT_UCSI	1
- #define ITEPD_EVENT_VDM		2
-+#define ITEPD_EVENT_OTHER	3
-+
-+#define ITEPD_CONSTAT_ORIENTATION_OFFSET	86
-+
-+#define ITEPD_CAM_CS_INDEX(_i_)			((u64)(_i_) << 24)
-+#define ITEPD_CAM_CS_LEN			10
-+#define ITEPD_CAM_CS_STATUS_OFFSET		1
-+#define ITEPD_CAM_CS_CONF_OFFSET		6
-+
-+#define ITEPD_CAM_NONE				0xff
-+
-+#define ITEPD_ATTENTION_VDO_LEN			11
-+#define ITEPD_ATTENTION_NUM_VDOS_OFFSET		2
-+#define ITEPD_ATTENTION_NUM_VDOS_MASK		GENMASK(2, 0)
-+#define ITEPD_ATTENTION_VDO_OFFSET		7
-+
-+struct itepd;
-+
-+struct itepd_port {
-+	struct itepd *itepd;
-+	unsigned int index;
-+	struct typec_mux *typec_mux;
-+	struct typec_retimer *typec_retimer;
-+	struct auxiliary_device *bridge;
-+	struct typec_mux_state state;
-+	struct typec_altmode dp_alt;
-+	unsigned long mode;
-+	bool hpd_state;
-+};
- 
- struct itepd {
- 	struct i2c_client *client;
-@@ -38,6 +77,9 @@ struct itepd {
- 	struct mutex received_lock;	/* Protects cci and msg_in */
- 	u8 msg_in[ITEPD_MSG_IN_MAX_LEN];
- 	u32 cci;
-+
-+	struct itepd_port *ports;
-+	unsigned int num_ports;
- };
- 
- static u8 ucsi_itepd_get_len(u32 cci)
-@@ -115,25 +157,26 @@ static int itepd_process_event(struct itepd *itepd, u32 *cci)
- {
- 	u8 msg_in[ITEPD_MSG_IN_MAX_LEN] = {};
- 	__le32 le_cci;
--	u8 event, ack;
-+	u8 raw, event, ack;
- 	u8 len = 0;
- 	int err = 0;
- 	int ret;
- 
- 	guard(mutex)(&itepd->event_lock);
- 
--	ret = itepd_read_reg(itepd, ITEPD_VENDOR_INT, &event, sizeof(event));
-+	ret = itepd_read_reg(itepd, ITEPD_VENDOR_INT, &raw, sizeof(raw));
- 	if (ret)
- 		return ret;
- 
--	event &= ITEPD_ALERT_VDM_EVENT | ITEPD_ALERT_UCSI_EVENT;
--	if (!event) {
-+	if (!raw) {
- 		mutex_lock(&itepd->received_lock);
- 		*cci = itepd->cci;
- 		mutex_unlock(&itepd->received_lock);
- 		return ITEPD_EVENT_NONE;
- 	}
- 
-+	event = raw & (ITEPD_ALERT_VDM_EVENT | ITEPD_ALERT_UCSI_EVENT);
-+
- 	if (event & ITEPD_ALERT_UCSI_EVENT) {
- 		err = itepd_read_reg(itepd, ITEPD_UCSI_CCI_REG, &le_cci,
- 				     sizeof(le_cci));
-@@ -148,7 +191,7 @@ static int itepd_process_event(struct itepd *itepd, u32 *cci)
- 		}
- 	}
- 
--	ack = event;
-+	ack = raw;
- 	ret = itepd_write_reg(itepd, ITEPD_VENDOR_WC_INT, &ack, sizeof(ack));
- 	if (ret)
- 		return ret;
-@@ -169,7 +212,8 @@ static int itepd_process_event(struct itepd *itepd, u32 *cci)
- 	*cci = itepd->cci;
- 	mutex_unlock(&itepd->received_lock);
- 
--	return ITEPD_EVENT_VDM;
-+	return event & ITEPD_ALERT_VDM_EVENT ? ITEPD_EVENT_VDM :
-+					       ITEPD_EVENT_OTHER;
- }
- 
- static int ucsi_itepd_read_version(struct ucsi *ucsi, u16 *version)
-@@ -220,18 +264,233 @@ static int ucsi_itepd_read_message_in(struct ucsi *ucsi, void *val, size_t val_l
- static int ucsi_itepd_async_control(struct ucsi *ucsi, u64 command)
- {
- 	struct itepd *itepd = ucsi_get_drvdata(ucsi);
--	__le64 le_cmd = cpu_to_le64(command);
-+	__le64 le_cmd;
- 
--	if (UCSI_COMMAND(command) == UCSI_PPM_RESET) {
-+	switch (UCSI_COMMAND(command)) {
-+	case UCSI_PPM_RESET:
- 		mutex_lock(&itepd->received_lock);
- 		itepd->cci = 0;
- 		mutex_unlock(&itepd->received_lock);
-+		break;
-+	case UCSI_SET_NOTIFICATION_ENABLE:
-+		command |= UCSI_ENABLE_NTFY_ATTENTION;
-+		break;
-+	default:
-+		break;
- 	}
- 
-+	le_cmd = cpu_to_le64(command);
-+
- 	return itepd_write_reg(itepd, ITEPD_UCSI_CONTROL_REG, &le_cmd,
- 			       sizeof(le_cmd));
- }
- 
-+static void itepd_port_set_state(struct itepd_port *port, unsigned long mode,
-+				 struct typec_displayport_data *dp_data)
-+{
-+	struct device *dev = &port->itepd->client->dev;
-+	struct typec_retimer_state retimer_state = {};
-+	int ret;
-+
-+	if (!dp_data && mode == port->mode)
-+		return;
-+
-+	port->dp_alt.active = !!dp_data;
-+
-+	port->state.alt = dp_data ? &port->dp_alt : NULL;
-+	port->state.mode = mode;
-+	port->state.data = dp_data;
-+
-+	retimer_state.alt = port->state.alt;
-+	retimer_state.mode = mode;
-+	retimer_state.data = dp_data;
-+
-+	ret = typec_retimer_set(port->typec_retimer, &retimer_state);
-+	if (ret)
-+		dev_err(dev, "port%u: failed to set retimer to mode %lu: %d\n",
-+			port->index, mode, ret);
-+
-+	ret = typec_mux_set(port->typec_mux, &port->state);
-+	if (ret)
-+		dev_err(dev, "port%u: failed to set mux to mode %lu: %d\n",
-+			port->index, mode, ret);
-+
-+	port->mode = mode;
-+
-+	port->state.data = NULL;
-+}
-+
-+static void itepd_port_notify_hpd(struct itepd_port *port, bool hpd_state,
-+				  bool hpd_irq)
-+{
-+	if (!port->bridge)
-+		return;
-+
-+	if (hpd_state == port->hpd_state && !hpd_irq)
-+		return;
-+
-+	port->hpd_state = hpd_state;
-+
-+	drm_aux_hpd_bridge_notify(&port->bridge->dev,
-+				  hpd_state ? connector_status_connected :
-+					      connector_status_disconnected);
-+}
-+
-+static void itepd_set_orientation(struct ucsi_connector *con)
-+{
-+	if (con->ucsi->version >= UCSI_VERSION_2_0)
-+		return;
-+
-+	if (!UCSI_CONSTAT(con, CONNECTED)) {
-+		typec_set_orientation(con->port, TYPEC_ORIENTATION_NONE);
-+		return;
-+	}
-+
-+	if (bitmap_read(con->status, ITEPD_CONSTAT_ORIENTATION_OFFSET, 1) ==
-+	    UCSI_CONSTAT_ORIENTATION_REVERSE)
-+		typec_set_orientation(con->port, TYPEC_ORIENTATION_REVERSE);
-+	else
-+		typec_set_orientation(con->port, TYPEC_ORIENTATION_NORMAL);
-+}
-+
-+static int itepd_get_dp_cam(struct itepd *itepd, struct ucsi_connector *con)
-+{
-+	struct ucsi_altmode alt[2] = {};
-+	u64 cmd;
-+	u8 cam;
-+	int ret;
-+
-+	cmd = UCSI_GET_CURRENT_CAM | UCSI_CONNECTOR_NUMBER(con->num);
-+	ret = ucsi_send_command(itepd->ucsi, cmd, &cam, sizeof(cam));
-+	if (ret < 0)
-+		return ret;
-+
-+	if (cam == ITEPD_CAM_NONE)
-+		return -ENODEV;
-+
-+	cmd = UCSI_GET_ALTERNATE_MODES;
-+	cmd |= UCSI_GET_ALTMODE_RECIPIENT(UCSI_RECIPIENT_CON);
-+	cmd |= UCSI_GET_ALTMODE_CONNECTOR_NUMBER(con->num);
-+	cmd |= UCSI_GET_ALTMODE_OFFSET(cam);
-+	ret = ucsi_send_command(itepd->ucsi, cmd, alt, sizeof(alt));
-+	if (ret < 0) {
-+		dev_dbg(&itepd->client->dev, "con%d: cannot verify CAM %u: %d\n",
-+			con->num, cam, ret);
-+		return cam;
-+	}
-+
-+	if (alt[0].svid != USB_TYPEC_DP_SID)
-+		return -ENODEV;
-+
-+	return cam;
-+}
-+
-+static int itepd_get_attention_status(struct itepd *itepd,
-+				      struct ucsi_connector *con, u32 *status)
-+{
-+	u8 data[ITEPD_ATTENTION_VDO_LEN] = {};
-+	u64 cmd;
-+	int ret;
-+
-+	cmd = UCSI_GET_ATTENTION_VDO | UCSI_CONNECTOR_NUMBER(con->num);
-+	ret = ucsi_send_command(itepd->ucsi, cmd, data, sizeof(data));
-+	if (ret < 0)
-+		return ret;
-+
-+	if (!(data[ITEPD_ATTENTION_NUM_VDOS_OFFSET] &
-+	      ITEPD_ATTENTION_NUM_VDOS_MASK))
-+		return -ENODATA;
-+
-+	*status = get_unaligned_le32(data + ITEPD_ATTENTION_VDO_OFFSET);
-+
-+	return 0;
-+}
-+
-+static void itepd_handle_dp_altmode(struct itepd *itepd,
-+				    struct itepd_port *port,
-+				    struct ucsi_connector *con)
-+{
-+	struct typec_displayport_data dp_data = {};
-+	u8 data[ITEPD_CAM_CS_LEN] = {};
-+	unsigned long mode;
-+	u32 status;
-+	u8 pin_assign;
-+	u64 cmd;
-+	int cam;
-+	int ret;
-+
-+	cam = itepd_get_dp_cam(itepd, con);
-+	if (cam < 0) {
-+		/* Partner is in some other alternate mode, keep USB alive */
-+		itepd_port_set_state(port, TYPEC_STATE_USB, NULL);
-+		itepd_port_notify_hpd(port, false, false);
-+		return;
-+	}
-+
-+	cmd = UCSI_GET_CAM_CS | UCSI_CONNECTOR_NUMBER(con->num) |
-+	      ITEPD_CAM_CS_INDEX(cam);
-+	ret = ucsi_send_command(itepd->ucsi, cmd, data, sizeof(data));
-+	if (ret < 0) {
-+		dev_err(&itepd->client->dev, "con%d: GET_CAM_CS failed: %d\n",
-+			con->num, ret);
-+		return;
-+	}
-+
-+	dp_data.status = get_unaligned_le32(data + ITEPD_CAM_CS_STATUS_OFFSET);
-+	dp_data.conf = get_unaligned_le32(data + ITEPD_CAM_CS_CONF_OFFSET);
-+
-+	pin_assign = DP_CONF_GET_PIN_ASSIGN(dp_data.conf);
-+	if (pin_assign)
-+		mode = TYPEC_MODAL_STATE(get_count_order(pin_assign));
-+	else
-+		mode = TYPEC_STATE_SAFE;
-+
-+	itepd_port_set_state(port, mode, &dp_data);
-+
-+	if (!itepd_get_attention_status(itepd, con, &status))
-+		dp_data.status = status;
-+
-+	itepd_port_notify_hpd(port, !!(dp_data.status & DP_STATUS_HPD_STATE),
-+			      !!(dp_data.status & DP_STATUS_IRQ_HPD));
-+}
-+
-+static void ucsi_itepd_update_connector(struct ucsi_connector *con)
-+{
-+	struct itepd *itepd = ucsi_get_drvdata(con->ucsi);
-+
-+	if (con->num < 1 || con->num > itepd->num_ports)
-+		return;
-+
-+	con->typec_cap.orientation_aware = true;
-+}
-+
-+static void ucsi_itepd_connector_status(struct ucsi_connector *con)
-+{
-+	struct itepd *itepd = ucsi_get_drvdata(con->ucsi);
-+	struct itepd_port *port;
-+
-+	if (con->num < 1 || con->num > itepd->num_ports)
-+		return;
-+
-+	port = &itepd->ports[con->num - 1];
-+
-+	itepd_set_orientation(con);
-+
-+	if (!UCSI_CONSTAT(con, CONNECTED)) {
-+		itepd_port_set_state(port, TYPEC_STATE_SAFE, NULL);
-+		itepd_port_notify_hpd(port, false, false);
-+		return;
-+	}
-+
-+	if (!UCSI_CONSTAT(con, PARTNER_FLAG_ALT_MODE)) {
-+		itepd_port_set_state(port, TYPEC_STATE_USB, NULL);
-+		itepd_port_notify_hpd(port, false, false);
-+		return;
-+	}
-+
-+	itepd_handle_dp_altmode(itepd, port, con);
-+}
-+
- static const struct ucsi_operations ucsi_itepd_ops = {
- 	.read_version		= ucsi_itepd_read_version,
- 	.read_cci		= ucsi_itepd_read_cci,
-@@ -239,6 +498,8 @@ static const struct ucsi_operations ucsi_itepd_ops = {
- 	.read_message_in	= ucsi_itepd_read_message_in,
- 	.sync_control		= ucsi_sync_control_common,
- 	.async_control		= ucsi_itepd_async_control,
-+	.update_connector	= ucsi_itepd_update_connector,
-+	.connector_status	= ucsi_itepd_connector_status,
- };
- 
- static irqreturn_t itepd_irq_process(struct itepd *itepd)
-@@ -256,6 +517,9 @@ static irqreturn_t itepd_irq_process(struct itepd *itepd)
- 	if (ret == ITEPD_EVENT_UCSI)
- 		ucsi_notify_common(itepd->ucsi, cci);
- 
-+	if (ret == ITEPD_EVENT_VDM)
-+		dev_dbg(&itepd->client->dev, "VDM event\n");
-+
- 	return IRQ_HANDLED;
- }
- 
-@@ -266,6 +530,117 @@ static irqreturn_t itepd_irq_thread_fn(int irq, void *data)
- 	return itepd_irq_process(itepd);
- }
- 
-+static void itepd_put_mux(void *data)
-+{
-+	typec_mux_put(data);
-+}
-+
-+static void itepd_put_retimer(void *data)
-+{
-+	typec_retimer_put(data);
-+}
-+
-+static int itepd_ports_init(struct itepd *itepd)
-+{
-+	struct device *dev = &itepd->client->dev;
-+	struct itepd_port *port;
-+	unsigned int count, idx = 0;
-+	u32 reg;
-+	int ret;
-+
-+	count = device_get_child_node_count(dev);
-+	if (!count)
-+		return 0;
-+
-+	itepd->ports = devm_kcalloc(dev, count, sizeof(*itepd->ports),
-+				    GFP_KERNEL);
-+	if (!itepd->ports)
-+		return -ENOMEM;
-+
-+	device_for_each_child_node_scoped(dev, fwnode) {
-+		ret = fwnode_property_read_u32(fwnode, "reg", &reg);
-+		if (ret < 0)
-+			return dev_err_probe(dev, ret,
-+					     "%pfwP: missing reg property\n",
-+					     fwnode);
-+
-+		if (reg != idx)
-+			return dev_err_probe(dev, -EINVAL,
-+					     "%pfwP: reg is %u, expected %u\n",
-+					     fwnode, reg, idx);
-+
-+		port = &itepd->ports[idx];
-+		port->itepd = itepd;
-+		port->index = idx;
-+		port->mode = TYPEC_STATE_SAFE;
-+		port->state.mode = TYPEC_STATE_SAFE;
-+		port->dp_alt.svid = USB_TYPEC_DP_SID;
-+		port->dp_alt.mode = USB_TYPEC_DP_MODE;
-+
-+		port->typec_mux = fwnode_typec_mux_get(fwnode);
-+		if (IS_ERR(port->typec_mux))
-+			return dev_err_probe(dev, PTR_ERR(port->typec_mux),
-+					     "port%u: failed to get mode-switch\n",
-+					     idx);
-+
-+		if (port->typec_mux) {
-+			ret = devm_add_action_or_reset(dev, itepd_put_mux,
-+						       port->typec_mux);
-+			if (ret)
-+				return ret;
-+		}
-+
-+		port->typec_retimer = fwnode_typec_retimer_get(fwnode);
-+		if (IS_ERR(port->typec_retimer))
-+			return dev_err_probe(dev, PTR_ERR(port->typec_retimer),
-+					     "port%u: failed to get retimer-switch\n",
-+					     idx);
-+
-+		if (port->typec_retimer) {
-+			ret = devm_add_action_or_reset(dev, itepd_put_retimer,
-+						       port->typec_retimer);
-+			if (ret)
-+				return ret;
-+		}
-+
-+		if (is_of_node(fwnode)) {
-+			struct device_node *np = to_of_node(fwnode);
-+
-+			port->bridge = devm_drm_dp_hpd_bridge_alloc(dev, np);
-+			if (IS_ERR(port->bridge))
-+				return dev_err_probe(dev, PTR_ERR(port->bridge),
-+						     "port%u: failed to allocate HPD bridge\n",
-+						     idx);
-+		}
-+
-+		idx++;
-+	}
-+
-+	itepd->num_ports = idx;
-+
-+	return 0;
-+}
-+
-+static int itepd_bridges_add(struct itepd *itepd)
-+{
-+	struct device *dev = &itepd->client->dev;
-+	unsigned int i;
-+	int ret;
-+
-+	for (i = 0; i < itepd->num_ports; i++) {
-+		if (!itepd->ports[i].bridge)
-+			continue;
-+
-+		ret = devm_drm_dp_hpd_bridge_add(dev, itepd->ports[i].bridge);
-+		if (ret)
-+			return dev_err_probe(dev, ret,
-+					     "port%u: failed to add HPD bridge\n",
-+					     i);
-+	}
-+
-+	return 0;
-+}
-+
- static int itepd_probe(struct i2c_client *client)
- {
- 	struct device *dev = &client->dev;
-@@ -286,6 +661,10 @@ static int itepd_probe(struct i2c_client *client)
- 	mutex_init(&itepd->received_lock);
- 	i2c_set_clientdata(client, itepd);
- 
-+	ret = itepd_ports_init(itepd);
-+	if (ret)
-+		return ret;
-+
- 	itepd->ucsi = ucsi_create(dev, &ucsi_itepd_ops);
- 	if (IS_ERR(itepd->ucsi))
- 		return dev_err_probe(dev, PTR_ERR(itepd->ucsi),
-@@ -310,8 +689,14 @@ static int itepd_probe(struct i2c_client *client)
- 		goto out_free_irq;
- 	}
- 
-+	ret = itepd_bridges_add(itepd);
-+	if (ret)
-+		goto out_ucsi_unregister;
-+
- 	return 0;
- 
-+out_ucsi_unregister:
-+	ucsi_unregister(itepd->ucsi);
- out_free_irq:
- 	free_irq(client->irq, itepd);
- out_ucsi_destroy:
-@@ -352,6 +737,5 @@ static struct i2c_driver itepd_driver = {
- module_i2c_driver(itepd_driver);
- 
- MODULE_AUTHOR("Jeson Yang <jeson.yang@ite.com.tw>");
--MODULE_AUTHOR("Amber Kao <amber.kao@ite.com.tw>");
--MODULE_DESCRIPTION("UCSI driver for ITE IT8851 and IT8853 Type-C PD controllers");
-+MODULE_DESCRIPTION("UCSI driver for ITE IT885x/IT527x Type-C PD controllers");
- MODULE_LICENSE("GPL");
+Changes since v2:
+Link: https://lore.kernel.org/all/20260916085520.2259420-1-m-shah@ti.com/
+- Drop the fixup being done for the clear_interrupts and
+shutdown of port. Reading an empty FIFO (by RBR) will be fine
+when the fifo is disabled[0]. In the case of clear_interrupts
+the issue is fixed by the following
+commit 7f8fdd4dbffc ("serial: 8250: fix panic due to PSLVERR")
+
+- Base this series on top of the following series[3].
+
+[0]https://lore.kernel.org/linux-serial/ab256e4a-a9cc-410e-b889-f75fb01e77c7@picoheart.com/
+[1]https://lore.kernel.org/linux-serial/20260908141524.20302-1-yang.yicong@picoheart.com/
+[3]https://lore.kernel.org/linux-serial/20260908141524.20302-1-yang.yicong@picoheart.com/
+
+Moteen Shah (2):
+  dt-bindings: serial: snps-dw-apb-uart: Add ti,tda54-uart
+  serial: 8250_dw: Add ti,tda54-uart quirk to skip empty FIFO read
+
+ .../devicetree/bindings/serial/snps-dw-apb-uart.yaml     | 1 +
+ drivers/tty/serial/8250/8250_dw.c                        | 9 ++++++++-
+ 2 files changed, 9 insertions(+), 1 deletion(-)
 
 -- 
-2.53.0
+2.34.1
 
