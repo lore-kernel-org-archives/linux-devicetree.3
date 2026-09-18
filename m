@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 040C11C6FF5
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 09:16:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50158369D5E
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 09:17:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789723019; cv=none; b=GT75TP2cIYB34Fb7vKoyBvC/jHnJsNKxKY8apXmpMBKYcrdtgaVLPjO2kJMvvWU+tZVrf2+D13S/T6HKXqrJ+Lu0ZrT2t2K9j/35LkUzguSq/ro2ZqMA0ZFCoQHu5tYtdq6YH+Sdb1G8GBPH+PCwBSly2LImfrJ9XowALedjeq0=
+	t=1789723035; cv=none; b=H4TL6GY5vwel+Q+a6HgKl73r2STTsFSYko3HqV1YVfyE2cFr+nVpteQBVAgfVD46RL8bkJWBh3JeVrGSYlpk5JVr3Vzx8eSceCElf+2EN5xEpzUdIEuJlVDvzsxk7x0texGcO66IVwuYuXMhd7wNaCQIRuntwz8eXumu1+QXT1Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789723019; c=relaxed/simple;
-	bh=tpTwWQbvd/R9RtnaVzw+ZATmbgAXO20+pZr3EJCdZoc=;
+	s=arc-20240116; t=1789723035; c=relaxed/simple;
+	bh=QT8f/Ci4SmxTDLvCHnTnBDnq+AgBjOYLO9E04HY1SPE=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bMxZE+ghAGb6buBPT6pH64lmYI5aMqf7HiYwKsYak8mB24WW+QKM9iyypMdAb/44MDbXMNjP5v+/P9WxK0suskdN9GnMWVrq+sivwDOytXHt3wdPLS5sh7uqSsulfVZAzuR7p0X4Tqlz+NzYXRhui3Y/mMU8JVUnQDvJTOUPGn0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M9SR9X0B; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=l5DE7oU5zqzOqwNVarpYEYj25AU20FIUG703EG3sSshyA3Kg8UmOtU04kUZdrco3gL8CMu6vOc3sQ+05CJGk6GHAoqFVY4G4v7PcNF6y6r84Y37JT8O2C94ZiDXfIcL2rZee33e4FyZCmZ1G7ZG1LJ7MALYLKJBM4Y6aqm6tVLg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WnfEprJ5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M9SR9X0B"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F1381F000FF;
-	Fri, 18 Sep 2026 09:16:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WnfEprJ5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 201A31F000FF;
+	Fri, 18 Sep 2026 09:17:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789723017;
-	bh=JYOQbpmB+SZVy9XRpfg4JS8xlHck1lkMeOHPXUsEbuI=;
+	s=k20260515; t=1789723033;
+	bh=psUf4xsErPBpBUovpkt3CPzxw7K1YGcqQSgHua0LSIo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=M9SR9X0BbBlyt2F/n+EDex29UDODxq9hFhRFih12yUUA4X85XeaR76VyddeJFEPaC
-	 vtz70VQcIUffMA/3phLJHvGOGNqttVolGfLMMcxb9ajAbJhkHyn47MLLLzJGTVB1Im
-	 tNd83YnVNXV9ITa2wPDgIK0JNmS5hHyUEBW98IBiBkKg86fQmViubV+YbsTPqCcchs
-	 yXep/cHCLWZwpAY5nZVNggRpvOFxwOLfGCtzWD+OfoLn3ZGk1qa6B7kPMu03WwfNSh
-	 3t+8irx83dVdNI5WsxoBx4BVSifFPgtXFd++mHnXc3Vtlw3cL5L560bL+K5C2NE2F7
-	 omnTY826yj4Tw==
+	b=WnfEprJ5L8C0mJbbbVYLwaKYfoCe94hac1Ci4Id1DzX5Y7DP3hV0xS+FSLMzzry7L
+	 IMtLtGSeWTzBQ7czfa8LCgWSN0tvyF86uS8kwjsfWm7zVHC8lSC1szMTQuO0OV1Qws
+	 BMfnhQ0X5PyoIuHEbVlSNaGfAb5uEHTpNOvINzDcamx4LcPs66+V1AOp+TcHXaLdPz
+	 P16b8JVUOMDTOcHR+2CWLDEvaNHtNfP6xZDU7TJJFCF/Z/ld67jdoXzPR9OBHF7oyu
+	 E2JgxD9rcmYnsQObxMwoi2HsIGxc7rrZ4mhD/ahF2ebNs11w7obeEEM1Sh3+0MQEAf
+	 ih3+LO4av47iw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 17/21] media: i2c: it6625: require a DT endpoint and
- simplify endpoint parsing
+Subject: Re: [PATCH v7 03/11] iio: dac: mcp47feb02: use field_get() instead
+ of custom dynamic macros
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Hermes Wu" <Hermes.wu@ite.com.tw>
-Cc: media-ci@linuxtv.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260918-upstream-it6625-follow-up-patch-v1-17-78d72d7886a5@ite.com.tw>
-References: <20260918-upstream-it6625-follow-up-patch-v1-0-78d72d7886a5@ite.com.tw>
- <20260918-upstream-it6625-follow-up-patch-v1-17-78d72d7886a5@ite.com.tw>
+To: "Ariana Lazar" <ariana.lazar@microchip.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260918-mcp47feb02_refactor-v7-3-82ca794eafe2@microchip.com>
+References: <20260918-mcp47feb02_refactor-v7-0-82ca794eafe2@microchip.com>
+ <20260918-mcp47feb02_refactor-v7-3-82ca794eafe2@microchip.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 09:16:56 +0000
-Message-Id: <20260918091657.4F1381F000FF@smtp.kernel.org>
+Date: Fri, 18 Sep 2026 09:17:12 +0000
+Message-Id: <20260918091713.201A31F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,60 +47,44 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] dev_err() unconditionally logs -EPROBE_DEFER causing boot log sp=
-am
+- [Low] iio: dac: unused macro MCP47FEB02_DAC_CTRL_MASK left behind
 --
 
-commit 60b825e6a08d82d6c62f40c034de7563ec028e05
-Author: Hermes Wu <Hermes.wu@ite.com.tw>
+commit d3bd49e7115fae14b0ecbbde0aa73b674836dfd2
+Author: Ariana Lazar <ariana.lazar@microchip.com>
 
-media: i2c: it6625: require a DT endpoint and simplify endpoint parsing
+iio: dac: mcp47feb02: use field_get() instead of custom dynamic macros
 
-This commit removes hardcoded configuration defaults that were applied when
-no CSI-2 endpoint was found, requiring the configuration to come entirely
-from the device tree. It deletes the early return for missing endpoints,
-allowing the fwnode parser to handle the NULL fwnode and return -EPROBE_DEF=
-ER.
+This commit replaces manual bit operations for selecting channel-specific
+bits with the field_get() macro in mcp47feb02_init_ctrl_regs().
 
-> diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
-> index 4a54de2eb42bb..5fa8441f07369 100644
-> --- a/drivers/media/i2c/it6625.c
-> +++ b/drivers/media/i2c/it6625.c
+Link: https://lore.kernel.org/all/20260913224339.490d89ba@jic23-hlaptop/
+
+> diff --git a/drivers/iio/dac/mcp47feb02.c b/drivers/iio/dac/mcp47feb02.c
+> index 1b1a4972f7719..d910a6cf9718d 100644
+> --- a/drivers/iio/dac/mcp47feb02.c
+> +++ b/drivers/iio/dac/mcp47feb02.c
+
 [ ... ]
-> @@ -2098,13 +2095,6 @@ static int it6625_parse_endpoint(struct it6625 *it=
-6625)
->  			of_node_put(port_ep);
->  	}
+
+> @@ -1024,7 +1024,7 @@ static int mcp47feb02_init_ctrl_regs(struct mcp47fe=
+b02_data *data)
+>  			return ret;
+>  		data->chdata[i].dac_data =3D dac_val;
 > =20
-> -	if (!ep) {
-> -		it6625->port_num =3D 1;
-> -		dev_dbg(dev, "no CSI-2 endpoint node found, using default %u CSI lanes=
-",
-> -			it6625->csi_lanes);
-> -		return 0;
-> -	}
-> -
->  	ret =3D v4l2_fwnode_endpoint_alloc_parse(of_fwnode_handle(ep), &endpoin=
-t);
->  	of_node_put(ep);
->  	if (ret) {
->  		dev_err(dev, "failed to parse endpoint: %d", ret);
+> -		data->chdata[i].ref_mode =3D (vref_ch >> (2 * i)) & MCP47FEB02_DAC_CTR=
+L_MASK;
+> +		data->chdata[i].ref_mode =3D field_get(DAC_CTRL_MASK(i), vref_ch);
 
-[Severity: Medium]
-Looking at it6625_parse_endpoint() in drivers/media/i2c/it6625.c, since the
-early return for !ep was removed, a missing device tree endpoint node resul=
-ts
-in ep evaluating to NULL. In this case, v4l2_fwnode_endpoint_alloc_parse()
-intentionally returns -EPROBE_DEFER.
+[Severity: Low]
+Does this change leave behind MCP47FEB02_DAC_CTRL_MASK as unused dead code?
 
-Since dev_err() is used here instead of dev_err_probe(), will this
-unconditionally print an error message on every probe deferral retry and
-cause boot log spam? Should dev_err_probe() be used here instead to
-silence the -EPROBE_DEFER message?
+Since this patch replaces all instances of MCP47FEB02_DAC_CTRL_MASK, should
+the original definition be removed from the file to prevent code clutter?
 
->  		return ret;
->  	}
+drivers/iio/dac/mcp47feb02.c:
+    #define MCP47FEB02_DAC_CTRL_MASK			GENMASK(1, 0)
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918-upstream-i=
-t6625-follow-up-patch-v1-0-78d72d7886a5@ite.com.tw?part=3D17
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918-mcp47feb02=
+_refactor-v7-0-82ca794eafe2@microchip.com?part=3D3
