@@ -1,99 +1,122 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 077B4522699
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 19:53:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 823DA451996;
+	Fri, 18 Sep 2026 19:55:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789761185; cv=none; b=ZL8TBcWcSBUuflA6975GE/aaHXWkUgIWeskMJ81dYkQ4TgFyIYf7Cd7Tl5M/R9oRRs/Y06b/gc1Prcahz6ZYpT/JhkBpc9CKNXSBG4VGlns02bUzBPn9bO5xdH1mNu/PfZrvwvQxfPbDrySlu7MvN7L5+o8FTY7G0rjEQJNH454=
+	t=1789761343; cv=none; b=mfSEkIxHtSoLQKNkyTq02IC8v+yXCnmHqePUIDSrRk7stPxnHEd0e/JBbxOvqxHAOF6O9YV9c12t4EEMxCewJvYvPS8zEry8UmbHNJ8r5ZRhLlO1LyeUUmQxJMnFztj/YZzINcvd+CwrcXA73HKx4zdPIG+iTIvhaq46cIqiN7c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789761185; c=relaxed/simple;
-	bh=3C83J2e0pNXsKbiuzw7L3H64sGGPUZHkX/EjMGwvxsg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=PivQ9J6iTWbWCp2hvRHrIbLx23rDruAkXnD+djFNlfX1dBWQFEpAKeWWaoaOvQXoxxFp46xo+5qVcFqoUMKWQndZ91GgacoxC+ByN8kNMV+uKMI7dSVlW036eNpLlFde3+c4gPoZAR0Ey7PC9kHV4Fu7oaI0cFfGcgGvdWBgPVY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F7Bqvr0j; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789761343; c=relaxed/simple;
+	bh=UHunDqPdEFSKYOMnpEy5f2kp6PBW3L9UHE8MUW3I2G8=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=OwcIQN0bUyF0Ece2/nWAVk9EdlDgTmMUMt/zqyHJ0Y/LNIdFluObqWz+SCH8X8R2mdcS926v356u6vfqDFmX6xOixuWbkySVrleDDxsdxOrWxITLOd2rceB4kZoxD7cnRqc4UttC5yDvc2HjLszF5ZcIlI++DJxz7R1K0G8ofAU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GzDYyFTw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F7Bqvr0j"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AB8F1F000FF;
-	Fri, 18 Sep 2026 19:53:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GzDYyFTw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB5B41F000FF;
+	Fri, 18 Sep 2026 19:55:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789761183;
-	bh=0nrcn6lmq1s3sZLBvvqABs/zbqGa4Bysj3PMaLHW9cw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=F7Bqvr0jPdH9rCZCa1lCUXgk4ys+icszIMsEh7NWAakRtBeS13FnfGIjN1zbmfw8J
-	 2sED6enMJ6XCAH2Sr8oTuCRNLxg5M74xYbinIbODCzy/rQL/nA+5Ocmlhiw74VMRq/
-	 R09QdXak7xF/K9UZVAAj+TewTDSpKr+J0ltjNiQkbtbOXzOs9N0LiLBm+X7nmLFGnV
-	 sqhUCNklHlVCytTANKOS+4g2vPzppuGH0YrRbYs7356qFIta1xVWXux7N3vsFUB4aj
-	 GGNpz0uklcpwt40v3rw15HKESA00c1InNxJnXnPFnJO7KF3HgQPGdOZlJTDm+dSMaj
-	 ca/jJiMrI2/ww==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4] dt-bindings: iio: adc: Add dt binding to xlnx,xadc
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Omer PALA" <palaomer100@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260918194434.9240-1-palaomer100@gmail.com>
-References: <20260918185813.5070-1-palaomer100@gmail.com>
- <20260918194434.9240-1-palaomer100@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 19:53:03 +0000
-Message-Id: <20260918195303.9AB8F1F000FF@smtp.kernel.org>
+	s=k20260515; t=1789761342;
+	bh=XFTSfce6uRZiBVefoXaSKf4aWAfla8JofKn6hY0ShWQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=GzDYyFTwlwGh97c7Y5tuTpaJPPfOJFgJGMeMzZbC4RjtQ1PcbPSAUz6xAiXyxC/6g
+	 EePcj3HqJZZvgzdIxZqDA02O2u7gigDhHDj0/pEBidetisu5anXRrozGZ8A8PCHvb0
+	 elBnNoNzJ/w3Y4KKwfKsO4zK3YlJUFcxWOCrCHnzX5ceBLnxzFYOOUu48fWZNv4+Kg
+	 UuWVbPaR4h/jJyqu+4lRTzyQnyM29G8jvXLw7IJAxW14Ms2UzEA9KGo9ooeb7RmzLU
+	 KRzSHD2vdFpX8ywQ6sdAbCQJt1hKRvk9TdW4ZnR529ZEkYYCae+WMUc3LFIBqgBGkX
+	 MKQJGOX1gp8Cg==
+Date: Fri, 18 Sep 2026 14:55:40 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Angel J <iamanaws@httpd.dev>
+Cc: linux-pci@vger.kernel.org, bhelgaas@google.com, robh@kernel.org,
+	herve.codina@bootlin.com, lizhi.hou@amd.com, andrea.porta@suse.com,
+	florian.fainelli@broadcom.com, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, regressions@lists.linux.dev,
+	linux-rpi-kernel@lists.infradead.org
+Subject: [PATCH v3] PCI: of_property: Omit bus properties without a
+ subordinate bus
+Message-ID: <20260918195540.GA1187209@bhelgaas>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916145045.GA922158@bhelgaas>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] dt-bindings: validation bypass when 'xlnx,external-mux' is omitt=
-ed
---
+Author: Angel J <iamanaws@httpd.dev>
 
-commit 28ac615c3320e6e0d6b6715f4d23365bf3a32842
-Author: Omer PALA <palaomer100@gmail.com>
+PCI: of_property: Omit bus properties without a subordinate bus
 
-dt-bindings: iio: adc: Add dt binding to xlnx,xadc
+A bridge (a device with a Type 1 header) may not have a secondary bus
+allocated (pdev->subordinate), e.g., if there are no available bus numbers
+or the bridge secondary/subordinate bus numbers are not writable.
 
-This commit converts the xilinx-xadc.txt device tree binding to YAML format
-for xlnx,zynq-xadc-1.00.a, xlnx,axi-xadc-1.00.a, and
-xlnx,system-management-wiz-1.3.
+The dynamic OF helpers of_pci_prop_bus_range() and of_pci_prop_intr_map()
+dereference pdev->subordinate without checking it.  When
+CONFIG_PCI_DYNAMIC_OF_NODES is enabled, this can cause a NULL pointer
+dereference and early boot hang.
 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml b/D=
-ocumentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
-> new file mode 100644
-> index 0000000000000..388511476ca8c
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
-[ ... ]
-> +allOf:
-> +  - if:
-> +      not:
-> +        properties:
-> +          xlnx,external-mux:
-> +            enum: [single, dual]
-> +    then:
-> +      properties:
-> +        xlnx,external-mux-channel: false
+Generate 'bus-range' and 'interrupt-map' properties only when a subordinate
+bus exists.  Keep the node and its remaining properties for bridges without
+one.
 
-[Severity: Medium]
-Will this logic correctly handle the case where xlnx,external-mux is comple=
-tely
-omitted?
+The problem was latent since 407d1a51921e ("PCI: Create device tree node
+for bridge"), but wasn't reachable until 1f340724419e ("PCI: of: Create
+device tree PCI host bridge node"), which appeared in v6.15.  Before
+1f340724419e, of_pci_make_dev_node() returned early because the parent OF
+node was missing.
 
-In JSON schema, checking properties without making them required trivially
-evaluates to true if the property is missing. This means if xlnx,external-m=
-ux
-is omitted, the properties check passes, the not keyword inverts it to fals=
-e,
-and the if condition fails.
+Fixes: 407d1a51921e ("PCI: Create device tree node for bridge")
+Signed-off-by: Angel J <iamanaws@httpd.dev>
+[bhelgaas: move pdev->subordinate test to callees, commit log]
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+Cc: stable@vger.kernel.org	# v6.6+
+Link: https://patch.msgid.link/20260912043106.10715-1-iamanaws@httpd.dev
+---
+Changes in v3:
+- Move pdev->subordinate tests to of_pci_prop_bus_range() and
+  of_pci_prop_intr_map()
 
-Because the condition fails, the then clause is skipped entirely, which
-seems to allow device trees to specify xlnx,external-mux-channel even when
-xlnx,external-mux is not present.
+Changes in v2
+(https://lore.kernel.org/all/20260912043106.10715-1-iamanaws@httpd.dev):
+- Keep the dynamic OF node and skip only bus-range and interrupt-map
+  when no subordinate bus exists, following review of v1.
+- Tested on Linux 6.18.44 with the v1 guard removed.
 
-Does this logic bypass the validation the commit is trying to enforce?
+v1
+(https://lore.kernel.org/all/20260911230420.26244-1-iamanaws@httpd.dev)
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918194434.9240=
--1-palaomer100@gmail.com?part=3D1
+diff --git a/drivers/pci/of_property.c b/drivers/pci/of_property.c
+index 75a358f73e69..1500740cc55d 100644
+--- a/drivers/pci/of_property.c
++++ b/drivers/pci/of_property.c
+@@ -95,9 +95,13 @@ static int of_pci_prop_bus_range(struct pci_dev *pdev,
+ 				 struct of_changeset *ocs,
+ 				 struct device_node *np)
+ {
+-	u32 bus_range[] = { pdev->subordinate->busn_res.start,
+-			    pdev->subordinate->busn_res.end };
++	u32 bus_range[2];
+ 
++	if (!pdev->subordinate)
++		return 0;
++
++	bus_range[0] = pdev->subordinate->busn_res.start;
++	bus_range[1] = pdev->subordinate->busn_res.end;
+ 	return of_changeset_add_prop_u32_array(ocs, np, "bus-range", bus_range,
+ 					       ARRAY_SIZE(bus_range));
+ }
+@@ -220,6 +224,9 @@ static int of_pci_prop_intr_map(struct pci_dev *pdev, struct of_changeset *ocs,
+ 	int ret;
+ 	u8 pin;
+ 
++	if (!pdev->subordinate)
++		return 0;
++
+ 	pnode = pci_device_to_OF_node(pdev->bus->self);
+ 	if (!pnode)
+ 		pnode = pci_bus_to_OF_node(pdev->bus);
