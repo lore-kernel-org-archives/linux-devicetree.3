@@ -1,158 +1,108 @@
-Received: from mail-ej2-f42.google.com (mail-ej2-f42.google.com [74.125.228.170])
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A41BC4FC8FD
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 14:21:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 384F84ED1B2
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 14:21:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789741299; cv=none; b=nCQL29rt4aJOGKaIY/JEjUlBLcA2+ET6QAThpEkfJDMNhRHPMiFmKvzBM2xH/JWJPhqmk0pbeSegYQL5iiIBo+850UZvhLm/2KP/AfCn4RPIAUq+413U2u1FyHaCTsO15NbjLl34t5La5q730LG/tj6a5drbiLCOUSqiCc0TG/g=
+	t=1789741313; cv=none; b=TEYlF7iAk7NWhSU8G/IDZfapBIAN9pX9206sTco4WQOrwMVZL1bEOMkrhvm6JH0/1QT625lO1sBJCD+ON6yZOuEFrkF4XSPsIIXDMvqprwkZW8lBCfzCBKG3lY+nKpzLHPaH85rGh4dH1OzwTsHemj86j/0kmJ2rieuJP7FULJo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789741299; c=relaxed/simple;
-	bh=Zs0q3BB6FPEKrnEd2QcTPKWAEsGsAYzDdsgAWxcpX18=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
-	 References:In-Reply-To; b=nV67lJ/MpkIL2UkUj1sPc5KqS3+tkg1M+rxf9RilIjRd3CRKphhd4RWTX23ZjX6lgBgrJOk3vTy2ZkihRrWGOJTHHLPQQ36Drhh08Og4X4yLECaMPT6FY7CHlQ+7uOK5pGe73Np4o27Gmdd1lsR77aQ/1XOpPASZbAZSd638z3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=DTneyczo; arc=none smtp.client-ip=74.125.228.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1789741313; c=relaxed/simple;
+	bh=9XYa6FqU3mw/mrQiRKV/D+EoT2qjMYHpM/1GBGcHENs=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=uE9dwvLmQI+1F9IvSSErUkKBtxFGuqZj+x2J8aZ/ZHkSF9ttuyVN/7ZLiMPKs9AdQC9SVxdwdT1P9I6aVtlFw05L+iMrUC3lp7CaMuHqexc8qFCrWa9lttosFi7lzj1n+aM/VsEAfJrmLjXj3TTo+6r60N4MT7fxonwAa8z7yMU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ffroot.co.za; spf=none smtp.mailfrom=ffroot.co.za; dkim=pass (2048-bit key) header.d=ffroot-co-za.20251104.gappssmtp.com header.i=@ffroot-co-za.20251104.gappssmtp.com header.b=R5coWt11; arc=none smtp.client-ip=74.125.225.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ffroot.co.za
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ffroot.co.za
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="DTneyczo"
-Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c254f6c7a56so104884466b.1
-        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 07:21:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ffroot-co-za.20251104.gappssmtp.com header.i=@ffroot-co-za.20251104.gappssmtp.com header.b="R5coWt11"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4858bc96fabso649210f8f.3
+        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 07:21:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1789741296; x=1790346096; darn=vger.kernel.org;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=2t5ETH0BVW3gDZ+cs/uAotP/lQAVJkBPSTT8r5GG204=;
-        b=DTneyczoiM0wkdqGRDTwFWnc2vvUAJyd/2a2kKLGjmHRKxVTxX/emog/QBcXFPFhc8
-         tJ92+aiJzKBzHcOOSZ5iGG5m4DcDGK+t4ei7Wck2FWza//vDda2COTM3VjQ6jBfph8YI
-         cZWgETrMmYSTohD/b0QdP1M+3aLJzdcvjzGo5jzIJ1beEHY8SqgIokcXKuUQ7YMqr9oz
-         KmCa67L9TcpAo5dDOt5eJw7GaZNfMeLA109NHwVL4wb0YaQnRogMJLaY9M5Fg7UMQvc5
-         VV1zj2e18iZH0CJDEYijSuFcOXvVkgyOhY4cC2PJpDxxvDAvu/0BCKXP9Vw/zBjHzjsl
-         vg6Q==
+        d=ffroot-co-za.20251104.gappssmtp.com; s=20251104; t=1789741308; x=1790346108; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:user-agent:references
+         :in-reply-to:subject:cc:to:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=HRW5+1Frva7zZ8isaTm2TY41CHJL0yWnE9pSGq+/CS8=;
+        b=R5coWt11hGbdTVSEE2hsJmVgmDSM1Tj81gHQEq9FcVUA7YY6E2OPVGrQv0aFa+P48w
+         CUD5sNFsKYuMKE/Ra64Lz9y2O0or7JIbjhDXzKgonJY8e+kEq0n81nKOASTjEqDsQKYz
+         kjHd1nMnFm3+uCsyw0BO0E1xUw/NySwl2rLfDNxv0yXBgj3cKT0ds3jQbkYyMCEtfcom
+         LsnSONR8cEvfP+kYo9dO6qHLCR4X7i5W+TgNHOwBscaPPRekJ9cccOv57/bufsc53+3P
+         9fn0TEXWlKbIZimDQL5njp4wqzrGA1B0/MRL6Lglr/KRr9d3GNFDTR38xuhni3pFIx8w
+         vWHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789741296; x=1790346096;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2t5ETH0BVW3gDZ+cs/uAotP/lQAVJkBPSTT8r5GG204=;
-        b=IWossI9Hq/+aqFyXPVOc++k87mgGWDAtOe+6cYXtty9vhm7tmM7A7sg39vL61I1JX0
-         /kOdzFiWOCwpgnG9effn2PEROy+UhdQOc//TjwTKmAD1M8Jygxq/+M4Fqf4RpmZIPMxq
-         9t9CNPmweAkF+lcq/ggFUn3kxTzAHKOsFNPNfJPy7vK1s+n1htMBjbmQkXfKcrioo//L
-         PQNHoR4pQEwEt3/C8MO/idTxMz/7iFyWXKGmmJBE+fFcHq6wlNXxQd/yjIrx5wQm5aw0
-         MLHToWF6HDB0DmfS9C/NzIJmgiAhHuPAcFMGk8HW7OqEP85VH5q7NNMDdtdZTSY8QUaJ
-         DVEA==
-X-Forwarded-Encrypted: i=1; AKwUvBzzW18QqoPowU5aNhSf78EAg8nX387Y1nKl5L9sDBjN09e7pRxVNAA/x4YCeT17LBpRMILxOLnN3UUh@vger.kernel.org
-X-Gm-Message-State: AFuF++kbDTsKTXi2xIDlQ8mdZ6lz1innNTw0JjszDpxd7EJAFWOwpabG
-	CGCQwUvlejVKsGfP+qQ5riI3d2Alp7AXCRqPmUsuG3BfZcKNdoDIOeSPm1zrzdy7SLM=
-X-Gm-Gg: AYBFou00BRkTb5uNLhupoNOf22v6IOIq2439xEFfxG3IF4Oz2L2GgwR68JnizwRMcTn
-	ThHYY7+o7fH444/HwosxMCngQC26W5dgVTQ6+x5vOFwnv7zmBNY7lGfJtc7H5uks1qyYgt095ve
-	RxvKP7lymQ15dkiejAiAHbi9xrkDavN3bVcCMxywkBt8f8KBZ3yAXTFulaI0YANBEglu7tSeLmQ
-	bQaLH1ovK4pfnxt4oZp1VgKPEJeHEAlhvG+J6A4ZZI41s+u4x/02Ovptm8lWaWXfNPhLdRD7r2R
-	RHMNtb2FwP/3817Z2C5J/Ax74W91xjbs/qdxSQGs1anAoy3gwqRfvtdEvIhM3AkR83Oi+cNQdFW
-	qQDGTAkNQTKiUVG+tB1lQOmEYiZAZRyrB54zooOAWvPClXUHXfSpqd3nnTq1tH76xLURUC2nRdB
-	dUXdecp+CIoy+lRGT/4mLz573rrNY9oWZbJezU497jKEPRdcU0jakW8zka/GULhR/8q0syhCYXT
-	HRq3YXs9di4CyVnNOtEv5lmTHVBoLb4qFdtRrRj9Rk=
-X-Received: by 2002:a17:907:e0d2:10b0:c26:3107:71dd with SMTP id a640c23a62f3a-c2a2538ac4fmr66810866b.13.1789741295804;
-        Fri, 18 Sep 2026 07:21:35 -0700 (PDT)
-Received: from localhost (144-178-202-138.static.ef-service.nl. [144.178.202.138])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a1b424826sm61186066b.0.2026.09.18.07.21.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 18 Sep 2026 07:21:35 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789741308; x=1790346108;
+        h=content-type:mime-version:message-id:date:user-agent:references
+         :in-reply-to:subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=HRW5+1Frva7zZ8isaTm2TY41CHJL0yWnE9pSGq+/CS8=;
+        b=kKR+05bYNw6tTWqK1ee/vv0HtjQBE3RtQJr8j9KS1ANSe7u/BJ2GrJ7aRPTiT8fFjD
+         UX41CJ5Kbr7Qktd8aJOe1KV8K4wF0gS1s0Gtly/zxcocCHjeSgjufmGPIhGEE1YOpZx0
+         rpByPYiaFA5nBs06CqSwPqK5NmGDKN2UtYlbuqHTyB+t1E05c1LRjxQBltWDsm8Hktma
+         TPzAp2vLODq+8tDwDEh1+QsgF6cwZ36HPLEqG+gJGu/G1z74v5Pb7h+2dlWwc6bYY0pq
+         KdFvr2kVatp6TItP3xN6zSoHu93YXtqqwMGpewysGQH1zqZvjndwCODxFTdo0sbH45AL
+         vZtQ==
+X-Forwarded-Encrypted: i=1; AKwUvByphHpg4qgkVbY2GlObQVIH2L/ZDxWU+hU8VpxemL0jjcv9FWevEb4+dKhmTprSkUFD8jAgb40d8sdJ@vger.kernel.org
+X-Gm-Message-State: AFuF++nluinJSEHIep2pCaP0F64G0z2gKMckdhxqJb4eo1LK28gl6Gyf
+	p77Oe9q8WbUZwhWcpYXq7mofYKGqefUAlgMevoURwTVYPpa4jCrdmWrk/MMf3Xr1xbI=
+X-Gm-Gg: AYBFou2X8YjmW6Euq5WlbDYi5LBTiUEAbi+g3wMkf2ZvKB9D4pi1SNVHCtKCPafAKLg
+	oiIC9FgBRFWmzO4rtdbGqBzbRxq/4BpR1H6922y7/hF/4HkXgREO0cWWHL3Q8x2ln4gUPON1Pla
+	iKAjOTs7t7OW2w1Pu8IiMLNb0wJDonysta6ZnvUQzjjiogaBiUmG4/jCOQ7hxJCI86UD1+tHtoA
+	L/siBS6+zDMbPKV+ZGKqNYvab9lMlQkZWLOlnnIFHYIWl326VPW2B74Unu6pDXFE/2ZnZVq6nuC
+	8NI0wCTfnpY9XSascBg47+/XMj/MXiGGZ60cFmvuOstoxpUwGLdrYlYQCL2BezW0RYSNX+3IMjy
+	oOF82pE5ruYMmxqn1POF7IFqEu6mSjsmT/X+qxnaqZJWYQZb8cTCuBoCIzbM++uiLfRDUX9ohHg
+	ClezcmvWTEGVsGj2PA2pJpOx96/f1pEpD8J/pM8TOe0rs0OMCmYNTV3a8JxsZOYVQ5OZ+CZz2oz
+	Kx2+I61j2BdBOs=
+X-Received: by 2002:a05:6000:2904:b0:487:197a:e27c with SMTP id ffacd0b85a97d-4871e244c22mr3729361f8f.8.1789741307974;
+        Fri, 18 Sep 2026 07:21:47 -0700 (PDT)
+Received: from dev-ag ([102.33.165.38])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4871feb5de3sm4774627f8f.1.2026.09.18.07.21.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 07:21:47 -0700 (PDT)
+From: Andrew Gaylard <ag@ffroot.co.za>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org,  devicetree@vger.kernel.org,
+  qinjian@cqplus1.com,  robh@kernel.org,  krzk+dt@kernel.org,
+  conor+dt@kernel.org,  linux@armlinux.org.uk
+Subject: Re: [PATCH 3/4] arm: dts: sunplus: add Tibbo LTPP3G2 board
+In-Reply-To: <20260918-silent-zircon-cuttlefish-bafcbc@quoll> (Krzysztof
+	Kozlowski's message of "Fri, 18 Sep 2026 13:31:00 +0200")
+References: <20260917082632.626614-1-ag@ffroot.co.za>
+	<20260917082632.626614-4-ag@ffroot.co.za>
+	<20260918-silent-zircon-cuttlefish-bafcbc@quoll>
+User-Agent: mu4e 1.12.14; emacs 30.2
+Date: Fri, 18 Sep 2026 16:21:43 +0200
+Message-ID: <sa6bj9ufxmw.fsf@dev-ag>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 18 Sep 2026 16:21:34 +0200
-Message-Id: <DLIIC89MM6AK.L02JKTJKQSXZ@fairphone.com>
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Konrad Dybcio" <konrad.dybcio@oss.qualcomm.com>, "Luca Weiss"
- <luca.weiss@fairphone.com>, "Liam Girdwood" <lgirdwood@gmail.com>, "Mark
- Brown" <broonie@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "Bjorn Andersson" <andersson@kernel.org>, "Konrad Dybcio"
- <konradybcio@kernel.org>
-Cc: <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
- "Krzysztof Kozlowski" <krzk@kernel.org>, <linux-arm-msm@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>
-Subject: Re: [PATCH 3/4] regulator: qcom-rpmh: Add missing regulators in
- PM6350
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3-dirty
-References: <20260901-fp4-regulator-supply-v1-0-68288ab70aee@fairphone.com>
- <20260901-fp4-regulator-supply-v1-3-68288ab70aee@fairphone.com>
- <ef06178c-5c16-4cb4-8ef8-3a7e1ccbf260@oss.qualcomm.com>
-In-Reply-To: <ef06178c-5c16-4cb4-8ef8-3a7e1ccbf260@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain
 
-Hi Konrad,
+Krzysztof Kozlowski <krzk@kernel.org> writes:
 
-On Wed Sep 2, 2026 at 10:51 AM CEST, Konrad Dybcio wrote:
-> On 9/1/26 10:58 AM, Luca Weiss wrote:
->> Add the missing smps3-6 and ldo17 definitions. While smps3/5 and ldo17
->> are not used from the rpmh regulator driver on SM6350, the regulators do
->> exist, so add them with the types based on the datasheet.
->>=20
->> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
->> ---
->>  drivers/regulator/qcom-rpmh-regulator.c | 7 +++++--
->>  1 file changed, 5 insertions(+), 2 deletions(-)
->>=20
->> diff --git a/drivers/regulator/qcom-rpmh-regulator.c b/drivers/regulator=
-/qcom-rpmh-regulator.c
->> index dd2265961151..7d20f3e47760 100644
->> --- a/drivers/regulator/qcom-rpmh-regulator.c
->> +++ b/drivers/regulator/qcom-rpmh-regulator.c
->> @@ -1591,7 +1591,10 @@ static const struct rpmh_vreg_init_data pm6150l_v=
-reg_data[] =3D {
->>  static const struct rpmh_vreg_init_data pm6350_vreg_data[] =3D {
->>  	RPMH_VREG("smps1",  SMPS, 1,  &pmic5_ftsmps510, "vdd-s1"),
->>  	RPMH_VREG("smps2",  SMPS, 2,  &pmic5_hfsmps510, "vdd-s2"),
->> -	/* smps3 - smps5 not configured */
->> +	RPMH_VREG("smps3",  SMPS, 3,  &pmic5_ftsmps510, "vdd-s3"),
->> +	RPMH_VREG("smps4",  SMPS, 4,  &pmic5_ftsmps510, "vdd-s4"),
->> +	RPMH_VREG("smps5",  SMPS, 5,  &pmic5_ftsmps510, "vdd-s5"),
->> +	RPMH_VREG("smps6",  SMPS, 6,  &pmic5_hfsmps510, "vdd-s6"),
->>  	RPMH_VREG("ldo1",   LDO,  1,  &pmic5_nldo,      "vdd-l1"),
->>  	RPMH_VREG("ldo2",   LDO,  2,  &pmic5_pldo,      "vdd-l2-l5-l7"),
->>  	RPMH_VREG("ldo3",   LDO,  3,  &pmic5_pldo,      "vdd-l3-l6-l8-l9-l10")=
-,
->> @@ -1608,7 +1611,7 @@ static const struct rpmh_vreg_init_data pm6350_vre=
-g_data[] =3D {
->>  	RPMH_VREG("ldo14",  LDO,  14, &pmic5_pldo,      "vdd-l12-l14"),
->>  	RPMH_VREG("ldo15",  LDO,  15, &pmic5_nldo,      "vdd-l15-l19-l22"),
->>  	RPMH_VREG("ldo16",  LDO,  16, &pmic5_nldo,      "vdd-l16"),
->> -	/* ldo17 not configured */
->> +	RPMH_VREG("ldo17",  LDO,  17, &pmic5_nldo,      "vdd-l17"),
+> On Thu, Sep 17, 2026 at 10:26:31AM +0200, Andrew Gaylard wrote:
+>> +		bootargs = "console=ttySUP0,115200 earlycon root=/dev/mmcblk0p8 rootwait";
 >
-> L17 (and other NLDOs on this PMIC) can do 0.312 - 1.304 V, whereas
-> the pmic5_nldo config allows a range of 0.32 - 1.296 V. But I suppose
-> that is something to fix separately anyway
+> None of above should be here. earlycon is for debugging. Console is
+> below. root - why booting is fixed to mmc? Why none of other boot
+> methods are suitable or allowed?
 
-Can you help with what numbers from the data sheet we're supposed to
-use?
+Because as of linux-next 20260915, ethernet does not work (crashes the
+chip hard; I have a patch series coming that will fix this), and the SD
+and USB drivers are not yet upstream.  That leaves only the eMMC for a
+rootfs.
 
-In 80-PR887-1 Rev. G, Table 3-20 would suggest L17 is programmable from
-0.312V to 1.328V while "output voltage range" is 0.32V-1.304V.
+Nonetheless, you're right, none of this belongs in the DTS.
+I'll remove the whole line.
 
-But Table 3-11 does indeed show 0.312V - 1.304V as "Programming range"
-for this specific LDO.
-
-So the voltages from the Table 3-11 are the ones to use? The other ones
-can be ignored completely? But e.g. the step size is only listed in
-3-20.
-
-Sidenote, are the step sizes for the SMPS listed anywhere?
-
-Regards
-Luca
-
+>> +	pins_bt_reset: pinmux_bt_reset-pins {
 >
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
->
-> Konrad
+> Please follow DTS coding style for naming.
 
+Will do.
 
+-- 
+Andrew
