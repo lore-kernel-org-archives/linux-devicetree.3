@@ -1,88 +1,69 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1D1F5038F0;
-	Fri, 18 Sep 2026 15:28:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6B2537F8C1;
+	Fri, 18 Sep 2026 15:30:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789745326; cv=none; b=QiQ5KJIofYDsaFfOTfb4VX7zsYu40fcdv4DuFgcXtvU1Q4cKF5NQLHJluK4MOMRt0W5eBv3OvsJslgNI3mzV8yf9LYdk0+tSrxvksDOc2WTJ7NuTy+Dr9V31HtU5ahgNVEZH9XSoii09a3kxTeAFPoTv6pJ8BbjSq9mf6C1Z0kM=
+	t=1789745425; cv=none; b=pLLHa87JWcW4Bbztn0MfZBSpx+yatRwSbEA8awWJKkKzKwPBZrifd3Yk+Y1E/ZTPuFFiQyncGPrmkZwgv1uem8IzCpRse+2ThiK9pTK8/J7jrpQSbFPrrzANzQZ2e/uRIT86hpBTbnjjV2WUDSX1BFKYmdBEjBXBWcHnNM0TZ4E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789745326; c=relaxed/simple;
-	bh=wU4gETurlTl2nr2f1G/BLzuQUhvCIsjdRVd5oL4Yp2I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DznWXBJ8Z7FC8dpzE7p40vYk4N4rQfxZB5c/WGE2KTjGKpXoGtOYUzGUgEE1pbVJ85lTUxgpriVEEP+0G+qb8QVRNcGrEuRsgkfaLuvw7qw1SqFgcqZaYPePoFCYR0jO01rOAwRS2QkhXJkzbT+QdpuOnWjKafQJS38U27Nltf8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SOdm43TD; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789745425; c=relaxed/simple;
+	bh=m0DknOOqEdbXGEpq7Eh5+FQHFEx79+KaLHRPPo/Uh/w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tZE0K65l9r3yGlYBMrwbHWn+yLb6EHxOliEX2vRvMizMKS2XAW6zyxCm8xP44S2xiFzzLogspdrtedqAMCH4vPqueGgJTivWXWwKFNtVlbHAQb3a6xYTony0buYGGCQPUDXja/dp/FnewHC/D4DWs/h6d6aQHi4lkPbkGT4zCcs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=pass smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=e5aLHUO7; arc=none smtp.client-ip=5.135.140.105
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SOdm43TD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789745325; x=1821281325;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=wU4gETurlTl2nr2f1G/BLzuQUhvCIsjdRVd5oL4Yp2I=;
-  b=SOdm43TDUAzTLdntSrpxLSAc2kKPkRPa6wUDD63pdWFIUhVcq4sZOm0E
-   Aubyy4jt/3n6B4rgAH5S1jn+rA5gaSGVpYGgsl3ErQaakze64cVQqxVRZ
-   U2TUv2lkiZVPDRjtQVE++fBqrGop+uIT5l4nyZF5a+RPsnCk94koUz5Ow
-   wH/PtXGmVgA9Ha1Ey09abiF5M/8zL2GvFGZLR/welkH180TVcWRH9eSzo
-   Yc+PVRXu/ayhh3ctDiyXMcVlnwFherSq/7lGuVwzvhcoEO5u/ET3Kvqxh
-   3K0fLIO4j057bxS91TAM9d4Ce5kXmRBRPEKmvzmg3aG5LCQGE0lv0rKyr
-   g==;
-X-CSE-ConnectionGUID: 53Na4OPWTBegrpUl9iCUVQ==
-X-CSE-MsgGUID: /mmRXV8oQMaUfoHodaoQ2A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11909"; a="100856990"
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
-   d="scan'208";a="100856990"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 08:28:44 -0700
-X-CSE-ConnectionGUID: z9VK+lRhTqe5epqTSMZrxQ==
-X-CSE-MsgGUID: B+TDvUJ5Rj6H1JHHSvpk/g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
-   d="scan'208";a="279681432"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.5])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 08:28:40 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 271F7121BAB;
-	Fri, 18 Sep 2026 18:28:38 +0300 (EEST)
-Date: Fri, 18 Sep 2026 18:28:38 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Hermes.Wu@ite.com.tw
-Cc: mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 20/21] media: i2c: it6625: use centrally managed active
- state
-Message-ID: <aq1Yps6g7m7TQJvd@kekkonen.localdomain>
-References: <20260918-upstream-it6625-follow-up-patch-v1-0-78d72d7886a5@ite.com.tw>
- <20260918-upstream-it6625-follow-up-patch-v1-20-78d72d7886a5@ite.com.tw>
- <aq0RaLPX5o0HU_yC@kekkonen.localdomain>
- <69a3df11b37f466fbdca8be37a6cc378@ite.com.tw>
+	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="e5aLHUO7"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 365BE4E0B89;
+	Fri, 18 Sep 2026 17:30:10 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1789745419; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=Jxqwyt6VaOzRpU+WpKOB7tHmcDzh7U4x2sGOF/SNj3E=;
+	b=e5aLHUO75rmv85DqXnf26I+4dDnxykkecLbfKvnlE/eeKZjl6bvxwDCPVX+mz88NvMNeRC
+	RDeSgwyNhWwkXvirfQIThBxG+o92gdw1Q5dQz+zAvsFZchnsri60u4T66eaa8xIfGMzcmT
+	aiRc0DbpkChiEAF+LzmeWn42/JWzjv40Tl3b/1B3DsYdQPq1X49PSuZi+xVYQcZ66+XLxc
+	yosIuHcrpa2s09bjW9dRqyLpf4R54NKEWNirCieIEvInDxT82D5eFBlNinuQu5hT8UnYuj
+	kxsBZdffvZ7eygH5hdeOSeJucZO1EUjiPEBc8Ltd0xJA9H8fIHs3e/7qKL/dTg==
+Message-ID: <5d6c9811-b78e-463a-983d-8cf1d2ed528b@cjdns.fr>
+Date: Fri, 18 Sep 2026 17:30:06 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <69a3df11b37f466fbdca8be37a6cc378@ite.com.tw>
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH v7 0/5] clocksource/timer-econet-en751221: Support irq
+ number per timer
+To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
+ linux-mips@vger.kernel.org
+Cc: conor+dt@kernel.org, daniel.lezcano@kernel.org,
+ devicetree@vger.kernel.org, krzk+dt@kernel.org,
+ linux-kernel@vger.kernel.org, naseefkm@gmail.com, robh@kernel.org,
+ tglx@kernel.org, grandmaster@al2klimov.de
+References: <20260731120246.1296955-1-cjd@cjdns.fr>
+ <4917ef30-0ed9-4c5a-8516-1033b5f02fdc@oss.qualcomm.com>
+ <f98f17aa-0f95-4b03-9f95-385e8af762df@cjdns.fr>
+ <560064b6-73ca-4895-8415-b252b6824147@oss.qualcomm.com>
+Content-Language: en-US
+From: Caleb James DeLisle <cjd@cjdns.fr>
+In-Reply-To: <560064b6-73ca-4895-8415-b252b6824147@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Hermes,
+>
+>
+>> Any suggestions would be appreciated.
+>   s/%d/%zd/ ?
+>
+Thank you for the suggestion (and for remembering this thread which I'd 
+almost forgotten), I have just applied it and sent v8.
 
-On Fri, Sep 18, 2026 at 11:19:38AM +0000, Hermes.Wu@ite.com.tw wrote:
-> Dropped both aliasing assignments (sd->state_lock, hdl->lock) and let
-> the core give the subdev state and the control handler their own
-> independent locks, like most drivers do. it6625_lock stays exactly
+Thanks,
 
-Is this AI-generated?
+Caleb
 
-Please use the control handler's lock as the state lock, too. This is what
-most modern drivers do, too.
-
--- 
-Regards,
-
-Sakari Ailus
