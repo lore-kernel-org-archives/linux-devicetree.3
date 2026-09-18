@@ -1,35 +1,68 @@
-Received: from smtpdh17-1.aruba.it (smtpdh17-1.aruba.it [62.149.155.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A88423DCD99
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 07:53:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.149.155.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88DC749F123
+	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 07:54:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789717997; cv=none; b=E9V3IiyMlSoHIiFdsQEbLjC8BMkwBuqxtlyDBLm8a9NQwzoli28VpomTM28aS8olM4SOLBF4SybWy3GPt2uFTZlbIj08t5ywVM2SiG297VKeeS0VmjuYrUrwvAyWe/J1KZuUwve0MMAO9EL0/TqK/TgjmkETto4PbsvtF2mH9Z4=
+	t=1789718059; cv=none; b=WS2PqZ2154e5A9LlyuSZWIeXA7+kxBMNYeXwPEGeEorYg2H2PSoqJzxSdpj6jMp+pUDYZfZtDJBgaUcM0yzgRR6dv+rol3Gj8WuGFUcMmGq5sMrXRmcfZViXT90c6GExdPAe4MNcMHmiacahD0sQqP5bCkTeeFm63V3pCPpvOEo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789717997; c=relaxed/simple;
-	bh=rs7o5fyQ69KDrE4c+f68M3f72xhlbarCxw5Wnu1QAAE=;
+	s=arc-20240116; t=1789718059; c=relaxed/simple;
+	bh=kNjWH5+CMgW1Pl5h6a/fYwVArl9Y83OAw6Pl4E7UYmc=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jP1OsyPdnVD8ZKluXZWZXQKf4ZEI12IQYYLjHt0IaYcFsfXGKlUjo/2cV/t9fXqOhkPjPOf8V5nKt/HoFIqtdXUS1iau95dYF9CrqadjHV+rbt1LOeB4OhQIvjou2KtosJ+rEZIN8Ya1+I3cQv2uRBV5NO/eko6i61nYRHjAHD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com; spf=pass smtp.mailfrom=enneenne.com; dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b=kjEtN2hu; arc=none smtp.client-ip=62.149.155.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enneenne.com
+	 In-Reply-To:Content-Type; b=nFZuWXM8CNJQCbC/j7t4AGd3FUvVneVGpCe483onzlqBwUbnIgr5rTRlk8sUHUeSZv5fBe/Vtrw/3l2tPN2ETmDTjsWsqsordW7secKmxV2s0VOfuhVvbpTyLA+rqtm6jWn9mynBKIkcEnQaauAIxGIo9z/G8zuW6DmhA89qcLU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AxIs2gZ6; arc=none smtp.client-ip=209.85.208.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b="kjEtN2hu"
-Received: from [192.168.0.186] ([101.57.122.26])
-	by Aruba SMTP with ESMTPSA
-	id 7TM8xO8s9r6Qv7TMExPQZT; Fri, 18 Sep 2026 09:50:06 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aruba.it; s=a1;
-	t=1789717806; bh=rs7o5fyQ69KDrE4c+f68M3f72xhlbarCxw5Wnu1QAAE=;
-	h=Date:MIME-Version:Subject:To:From:Content-Type;
-	b=kjEtN2huOHW3xgbhld+RwCowjLq2BuNcwUVVX3tgTJY0Ci1NBStJrRJO389DsmEki
-	 rJm1Pgnmy/i3wfBfCwFk4gu7VJ/29P/WUaBeiyjG/T3C3Vyuq3LvNXR08m/2BNCeTv
-	 RrrxKf9drcDOASh9bAPANwV4OnTJl9PNZSCvS296C9tqEDnhSmqkcTzyVwQFhhA7D5
-	 U5FYrLL4sO/iQe3TebkeuIgMKVVEcYybxeGuXLm3/4pH0YNfGFzMPonYwvFqMwXiI8
-	 NCOhP4lTLiIjICNrgQ3hnA4v+pJbvQZXW6z8EMULbH+eSVLUhqLp5EcEm4290F9fY/
-	 uHHfV1pwHTwVg==
-Message-ID: <78b01d9f-5551-4bb8-8fe1-9a992f624810@enneenne.com>
-Date: Fri, 18 Sep 2026 09:50:06 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AxIs2gZ6"
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6a5e971c970so2007499a12.0
+        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 00:54:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789718056; x=1790322856; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=drEHSSlhuZVaxkDlnBGA1Yj/cgZE9sePJP3czUIslhE=;
+        b=AxIs2gZ6VH5UgYIFr9Yw9EV0BCQ1R8qky6GwRmk7r36t663M3YjIgQ45OrUYfvv4XU
+         1xPInICkSV1b1a9Vdi5FMVoRtYq20V65xznc5G72rrvLXaNzISvbtExVX0apWPEvEN9M
+         4z+VqgE5GwR/bi4IuI0rzKmCkRiGDk2oF71M3VWMdbTsFGggVQn6A5qBg616EmD512HA
+         d2F6EczK4Tz+gjzGHGjLJKafFc7qINFjW7QTeRscKoKwLAoUWo3vJx4aVi6CVuzjq/zM
+         BNbeed+DRZDosI+MoHynG6tjI0BQXwrju6r6/VwkAZHbv+rKEmMCww4PmPsAL8TDVRWG
+         jNZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789718056; x=1790322856;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=drEHSSlhuZVaxkDlnBGA1Yj/cgZE9sePJP3czUIslhE=;
+        b=lQ96mqBNKacLmmGUlDRtmXwps62uJeejtOB0hvvADGxWFrEJ1fOjXbklprfV7gq0AU
+         qGA3owAfZdP6LFDHKk5nmqMzxsH0tmz/GSiO8eL4w1VYPg/vnIcYk9ohZzGy30agqoTB
+         rAm1AtlUpPu6R25JmRyyyRdbZIC7OGRC5icD1IFaxhyZbNKUsU8ey+3yxfsw2XHlctom
+         ZMQ55esq4YTG8xTd9A7g1LQIwhWDb4c6bDnmiqS+TlNA8GVWaN8Rh0kh2SHxC16cb4Lm
+         xKzU9h4IwCqOpzzjQkz7EFTYH6Jpf4La+UtKcgBxSfY/pH40/ItSNFAYPXRJLaPvKL5P
+         gLtQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwEN1sOlzfZo1U2Iz+bWLKzOX+d+q37MzYxVBWdFmrzYHPI2zpeIy90V3R+kETs3GGtH7MP8CONB8K2@vger.kernel.org
+X-Gm-Message-State: AFuF++msc+zFSqLRcRwgHTiVS+uM1XDBV+oCTcBhftO6DIOBZ8nZi5w3
+	Fn0KkBSFDn8pfunc8PzD/f4IEmgaypFdwzEVD5EhQxlP11v9Z+bZsrG4
+X-Gm-Gg: AYBFou3FpxoNqenpYwZHFXZjuyrrzeVKlhoed5UzPrXDUw9qJOD0Ku4XlB2qzc37G52
+	z+e2LOC5hcPv7AR1IpYjiC5jAviiYUXGoNUUrHdCa3vKnsMw53g01wGB71UWYQV88RQziUF8fbJ
+	kDnZM6bO9rZsKOVUMO67ivovU66DMfwlTIJfj4O8AWDEOre46sWvX/W7fK70oVXVLYqSqHlrX4Q
+	ZCIs28bXXLzrLMghd4OXzMp9vLKC1ORbcuyyPAsFufYbD/HVehk2qAKk6e2M7nQtZHp7d35xMZ8
+	LiliQM9j6qDR3hBTiKTjhaZ4sSBIAj74X1XC7g0TDhKKmbpRascwY0bmWmYGO5MQCK0oMQksie9
+	/ikm95exvO0abrzeKcOc28JvS/+Lj/nfOfgm40mfZMD61u3FO/7L9tGzqDCPc9lJueWzsbcLfW/
+	xZDxfKenw9MNVO4PEC546DsDwOgWPZlmAKdVTbsj+xGrrFFp8YknrJObCZ7f7c3Bk6OBjNkqvs1
+	RDkYZDW2fL600iLDJ4taPNvA5fq1KNQQNo=
+X-Received: by 2002:aa7:cb1a:0:b0:6aa:1d71:4a7a with SMTP id 4fb4d7f45d1cf-6aa36e04b69mr2998119a12.12.1789718055453;
+        Fri, 18 Sep 2026 00:54:15 -0700 (PDT)
+Received: from [192.168.1.30] (161-53-210-87.ftth.glasoperator.nl. [87.210.53.161])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa59605618sm469752a12.11.2026.09.18.00.54.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 18 Sep 2026 00:54:14 -0700 (PDT)
+Message-ID: <c7fd0dfc-5da7-4bad-bfb0-308e3937b1cc@gmail.com>
+Date: Fri, 18 Sep 2026 09:54:14 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -37,82 +70,59 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] dt-bindings: pps: pps-gpio: document optional
- pinctrl states
+Subject: Re: [PATCH v4 1/3] dt-bindings: soc: qcom: add
+ xiaomi,taoyao-pmic-glink compatible
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Sebastian Reichel <sre@kernel.org>,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org
+References: <20260915084901.56622-1-zstaseg@gmail.com>
+ <20260915084901.56622-2-zstaseg@gmail.com>
+ <20260917-sticky-sheep-from-pluto-adf65b@quoll>
 Content-Language: en-US
-To: Eliav Farber <farbere@amazon.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Fabio Estevam <festevam@gmail.com>, Andrew Morton
- <akpm@linux-foundation.org>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
- devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260916182641.9768-1-farbere@amazon.com>
- <20260917075611.47881-1-farbere@amazon.com>
- <20260917075611.47881-3-farbere@amazon.com>
-From: Rodolfo Giometti <giometti@enneenne.com>
-In-Reply-To: <20260917075611.47881-3-farbere@amazon.com>
+From: Stanislav Zaikin <zstaseg@gmail.com>
+In-Reply-To: <20260917-sticky-sheep-from-pluto-adf65b@quoll>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4xfLgmRDpKuM+x+ItopsDtC5jCo5SJhcfgPi3w64jVBCfoRUs58T6+lOO33oI0jbFPoZAN8bhO2nDKqmhAkjMtZWw438wPSNR8k6lM22RgKFFl8Ma7W588
- 6+a2UFHEFz7T+21W9dfOmdU07HwCmM8XKY7je7q9TjbkYOw8f3zAQwbivq5qR6Q1D3e232Kg3tiaSiUcr1HTvWa53z/xYVNgx3arwOkONjLx7VrEUQebf/50
- w5vKYO6K3cCSQZQovs5UfbT3F+91oQ2eXOWssy1M50Fd/237JxGzUkVq200tJSdU9MjQVJM2lWwXQmZfQXY4smMIBbRLq56n0GFeMMHe1wPh9Tt73B+2idJt
- G+R9zIWkfY9Y4Z5d8EbvntHU10OCya0WYwO3/bmBXkoxqc5asc+BtUqtClnpNiWRVprkF45DWunk+3f/4e2nKzomzuZAip3QIfht7BZ8sMSYx4RPRoh08I5z
- xHIVwJJdAKE/sgeKhAJm1VkQzFrlm2bXb9eRXy/ZmmxAKGy+Tkd2V+J2NkBm9GGthKBAZ3soW1kP+DvP2J4pbx6ja7tIzzFBD8Ihgw==
 
-On Thu, Sep 17, 2026 at 07:56:10AM +0000, Eliav Farber wrote:
-> Document the optional "default" and "inactive" pinctrl-names and show
-> both in the example.
->
-> Signed-off-by: Eliav Farber <farbere@amazon.com>
-> ---
-> diff --git a/Documentation/devicetree/bindings/pps/pps-gpio.yaml b/Documentation/devicetree/bindings/pps/pps-gpio.yaml
-> index 383a838744eb..db6ecb17cb54 100644
-> --- a/Documentation/devicetree/bindings/pps/pps-gpio.yaml
-> +++ b/Documentation/devicetree/bindings/pps/pps-gpio.yaml
-> @@ -28,6 +28,19 @@ properties:
->      description: Indicates a falling edge assert, when present. Rising edge if absent.
->      type: boolean
->
-> +  pinctrl-names:
-> +    description:
-> +      When the PPS input is muxed through a pin controller, the standard
-> +      "default" state selects the PPS/GPIO function and is applied by the
-> +      driver core before probe. If a state named "inactive" is also present,
-> +      it is selected when the driver is unbound or the system is shut down,
-> +      handing the pins back to their alternate function. The "inactive"
-> +      state, if used, requires a "default" state; its position among the
-> +      names does not matter.
-> +    minItems: 1
-> +    contains:
-> +      const: default
-> +
->  required:
->    - compatible
->    - gpios
-> @@ -40,8 +53,9 @@ examples:
->
->      pps {
->          compatible = "pps-gpio";
-> -        pinctrl-names = "default";
-> +        pinctrl-names = "default", "inactive";
->          pinctrl-0 = <&pinctrl_pps>;
-> +        pinctrl-1 = <&pinctrl_pps_inactive>;
->          gpios = <&gpio1 26 GPIO_ACTIVE_HIGH>;
->          assert-falling-edge;
->          echo-gpios = <&gpio1 27 GPIO_ACTIVE_HIGH>;
+On 9/17/26 12:07 PM, Krzysztof Kozlowski wrote:
+> On Tue, Sep 15, 2026 at 10:48:59AM +0200, Stanislav Zaikin wrote:
+>> Add the compatible string used by Xiaomi 12 Lite 5G (taoyao) so its
+>> battery manager can be matched to a device-specific variant in
+>> qcom_battmgr.
+> 
+> Previously you were asked if the device is compatible with qcm6490. You
+> responded about something completely else - that you need qcm6490. That
+> was not the question if you need it or not. The question was are they
+> compatible and you have entire commit msg to explain that.
+> 
+> Instead, describing standard Linux device driver matching in commit msg
+> is redundant.
+> 
+> Best regards,
+> Krzysztof
+> 
 
-I tried:
+Yes, apart from battmgr, the pmic-glink implementation on this device is 
+compatible with the QCM6490 platform (base communication & UCSI 
+implementation), and therefore should keep qcom,qcm6490-pmic-glink and 
+qcom,pmic-glink in the compatibles.
 
-   $ make DT_SCHEMA_FILES=Documentation/devicetree/bindings/pps/pps-gpio.yaml \
-          dt_binding_check
+I will adjust the commit message in the v5 to:
 
-and it gave me:
+dt-bindings: soc: qcom: qcom,pmic-glink: Document Xiaomi taoyao compatible
 
-   pps-gpio.example.dtb: pps (pps-gpio): pinctrl-names:
-         ['default', 'inactive'] is too long
-         from schema $id: http://devicetree.org/schemas/pps/pps-gpio.yaml
+The taoyao is the device compatible with the QCM6490 platform (apart 
+from battmgr). The device also requires both UCSI_NO_PARTNER_PDOS & 
+UCSI_DELAY_DEVICE_PDOS quirks.
 
-Ciao,
+Document the PMIC GLINK firmware interface on the taoyao by using the 
+QCM6490 bindings as fallback.
 
-Rodolfo
+-- 
+Best regards,
+Stanislav
+
