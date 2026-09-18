@@ -1,121 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29ACD4F93DD
-	for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 15:03:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789743820; cv=none; b=tukoQmbqTofFVSq+pcTu0LtMUanncC8Hk3pnlX+tMxzBvVxVggTC+ouVKlN19K2ErBmW/1k/3Gf8D3PMeTWM4pLxMKbA30581nh3oRX4Py6w8EBcu+PGmPTckO3y3y2KWBhYQOKOC3D3McLE8YThhWgkQTDaDoubx5MDKvKjX04=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789743820; c=relaxed/simple;
-	bh=nKQVXDybAK+Er+p+uyIKqjXNVbYERnp+ZaogDQ5XDkg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=WdZbrAkVNRjV/43uakoKxcUPYyylWivbyBQfgMubnUuz1weRkwqQlZcEuFA8cYgx54ZJY9zzwonRXOEMeToz5JfeCLALv8NX1dHMwmavkgb703/Pb4GjbGzd8asLIyQ8Pqp2yXqSuXhRbshbTPshMK021Bn0e9IJ3+vS9hRhFM8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QLvxT2cW; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06E334FD7B5;
+	Fri, 18 Sep 2026 15:07:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789744081; cv=pass; b=M45ASsOky2tkyVH3JBZXpjmTLpMvTRoklXd2pgWkUmjNXTukcschhyoyGcjPCJrSJxW8yQypGQ+x1gsklcSxofAWEwdZn5jPLx+1I5gx5sxDFYY4kf9CcpNriyfhuzm9cWEVERhP9pJs7nGpL0MwmuBynzJk8MLUJvX0HXU3uG8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789744081; c=relaxed/simple;
+	bh=jsi3UUXRgbbIy+/aogqfeBFzjsG4NHFYXVtrcEV5mak=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fmmv1D0zNrdnk6rheE3XjRPoDRb9eCKbdMMpjX+OwHCZKRElRjlbllNsuPvOc5UB7MgTzYOdB7j6UA5zcG5/GPdG3WdPeaXwAK88InP84A6pqauyrYFmIn96kyWoa2FK1Sm0IXUQ6++wyZ5SEyQrsVOmQ48p137R0BM8XBTY1XQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=michael.riesch@collabora.com header.b=Iveo383U; arc=pass smtp.client-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QLvxT2cW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 569D71F000FF;
-	Fri, 18 Sep 2026 15:03:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789743818;
-	bh=TgrEdSinsacpoaCC9CUJbzvoefjX/T52raAJ4xPP1mE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=QLvxT2cWmWtCSKjzXGiwn+vZMpDHlkljFqbR9PDP5fO/2sZM00hZZQovI4RFgR9GB
-	 +4Gjs5QL0RzeIy9YMmWARyJyu9f5UPMKMrbrM4cpaCLEzy5hhfLfXdxRgxmmuAMvpi
-	 eL+PexoCXR4bcXGYxhJm7SfDa8Rr2F0AaLcLwxBQ8ufTXfpMszX6yBhF9yDzlXXNYz
-	 W/1MacOvwdN/SUxvtlS/2ypTiHaX6OfF1yak0iHXGpwa0hDzmTiZnq75jZ8h/BtFWu
-	 xRepnCkWx7t5nBrWRCp5uapErNAw2K6Nw6eoMto1du/aU6Pb2QP8h7OH3Q1k/oeo8Y
-	 uovVUX6Sk9N6g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] dt-bindings: iio: adc: Add dt binding to xlnx,xadc
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Omer PALA" <palaomer100@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260918145804.26957-1-palaomer100@gmail.com>
-References: <20260918145804.26957-1-palaomer100@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Sep 2026 15:03:37 +0000
-Message-Id: <20260918150338.569D71F000FF@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=michael.riesch@collabora.com header.b="Iveo383U"
+ARC-Seal: i=1; a=rsa-sha256; t=1789744065; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=I6AW+OWNKfm4s1J1lr3yv1SWdLqkpIuUnes4bAC1oU/tIdhk8iXNdTdmVVRlsViDKJ23EjB160SMgGIV5svRWbnLU7LUqZJhQkaJG/ndOLztCQZtjNC/hVDOrgV0HDTq4srb/WtXy/ZDO9tQ3ez318TfrIqg4jD78kL2YtenAc0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1789744065; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=6DYLdUfKD8lQHyVdszF6+D1lk2bnnMb1mJc/zRkdlrQ=; 
+	b=T700XLKdSf0EGDN75SihmMKYg3lAWCsUqclWVCyT6oN7KvzMiSmi8ugGG8ylbpfBEtqLjHddEh0JBfDj5lIQwQSSGDMZ/zg/U/ZsTBUJitrdGLvIP9saHZVnFQhEPexxtIsQqDm5Eg24LQGLJp8azKalhSJDgNZy3ufDuaZo0r8=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
+	dmarc=pass header.from=<michael.riesch@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789744065;
+	s=zohomail; d=collabora.com; i=michael.riesch@collabora.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=6DYLdUfKD8lQHyVdszF6+D1lk2bnnMb1mJc/zRkdlrQ=;
+	b=Iveo383UsiLdY2oMy62uJysUNVHEvUOdK4YiiR0HmfG3LJ82de/K91VgKfFIqFzJ
+	2MuWVDpTt3ko9gQQz6FdUrfvDMCVIYFYOfSPZzXxgmydGBHb1Amt2X77NPqlkoWJgah
+	BfXG4l1kNpj/N4L5Kd3/Haz+kEBfSW3C+IrZ+XG4=
+Received: by smtp.zohomail.com with SMTPS id 1789744062457111.72786165405773;
+	Fri, 18 Sep 2026 08:07:42 -0700 (PDT)
+Message-ID: <eee3fd59-adfc-4f36-b467-e1e7c2ad38de@collabora.com>
+Date: Fri, 18 Sep 2026 17:07:38 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/4] phy: rockchip: add support for the RK3576 MIPI
+ CSI-2 DPHYs
+To: Amin Gattout <amin.gattout@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-phy@lists.infradead.org, Conor Dooley <conor.dooley@microchip.com>
+References: <20260915-rk3576-dphy-v2-0-b56e68b54b8c@gmail.com>
+Content-Language: en-US
+From: Michael Riesch <michael.riesch@collabora.com>
+In-Reply-To: <20260915-rk3576-dphy-v2-0-b56e68b54b8c@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] dt-bindings: missing required constraint for xlnx,external-mux-c=
-hannel
-- [Medium] dt-bindings: missing required constraint for #address-cells and =
-#size-cells under xlnx,channels
---
+Hi Amin,
 
-commit 7f09f8169e0c3778bfd860a9b73695d153e538cf
-Author: Omer PALA <palaomer100@gmail.com>
+Thanks for your work, very nice!
 
-dt-bindings: iio: adc: Add dt binding to xlnx,xadc
+On 9/15/26 12:42, Amin Gattout wrote:
+> Hi all,
+> 
+> The Rockchip RK3576 features two MIPI CSI-2 DPHYs. The CSI-2 DPHYs can be
+> supported using the existing phy-rockchip-inno-csidphy driver.
+> 
+> This patch series adds support for this variant.
+> 
+> As you may have guessed, this is part of the efforts to bring the
+> support for the RK3576 camera pipeline (VICAP) mainline.
+> 
+> Looking forward to your comments!
+> 
+> ---
+> Changes in v2:
+> - Patch 3: drop the RK3576 GRF register table, which duplicated the
+>   RK3588 one, and reuse rk3588_grf_dphy_regs instead, so that the reset
+>   names are now the only difference between the two variants (Michael)
+> - Patch 3: reword the commit message accordingly
+> - Patch 2: spell out in the commit message why the RK3576 compatible
+>   cannot use a fallback (Conor)
+> - Collected Acked-by from Conor on patches 1 and 2
+> - Link to v1: https://patch.msgid.link/20260820-rk3576-dphy-v1-0-70e25e8d5e78@gmail.com
+> 
+> ---
+> Amin Gattout (4):
+>       dt-bindings: soc: rockchip: add rk3576 csidphy grf syscon
+>       dt-bindings: phy: rockchip-inno-csi-dphy: add rk3576 variant
+>       phy: rockchip: phy-rockchip-inno-csidphy: add support for rk3576 variant
+>       arm64: dts: rockchip: add csi dphy nodes to rk3576
 
-This commit converts the text-based devicetree binding for the Xilinx 7
-Series XADC and UltraScale/UltraScale+ System Monitor into YAML format.
 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml b/D=
-ocumentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
-> new file mode 100644
-> index 0000000000000..6031de7630a2c
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/adc/xlnx,xadc.yaml
-[ ... ]
-> +  xlnx,channels:
-> +    type: object
-> +    description: List of external channels that are connected to the ADC.
-> +    properties:
-> +      "#address-cells":
-> +        const: 1
-> +      "#size-cells":
-> +        const: 0
-> +    patternProperties:
+For the complete series:
 
-[Severity: Medium]
-Should "#address-cells" and "#size-cells" be added to a required array for=
-=20
-the xlnx,channels node? Without a required list here, schema validation=20
-might silently accept nodes that are missing these mandatory properties.
+Reviewed-by: Michael Riesch <michael.riesch@collabora.com>
 
-[ ... ]
-> +allOf:
-> +  - if:
-> +      properties:
-> +        xlnx,external-mux:
-> +          const: single
-> +    then:
-> +      properties:
-> +        xlnx,external-mux-channel:
-> +          minimum: 0
-> +          maximum: 16
+Best regards,
+Michael
 
-[Severity: Medium]
-Does this if-then block need a required declaration for=20
-xlnx,external-mux-channel? Currently, it only restricts the bounds of the=20
-property but doesn't mandate its presence when xlnx,external-mux is set to=
-=20
-single. This could allow incomplete device trees to pass validation.
+> 
+>  .../bindings/phy/rockchip-inno-csi-dphy.yaml       |  2 ++
+>  .../devicetree/bindings/soc/rockchip/grf.yaml      |  1 +
+>  arch/arm64/boot/dts/rockchip/rk3576.dtsi           | 34 ++++++++++++++++++++++
+>  drivers/phy/rockchip/phy-rockchip-inno-csidphy.c   | 15 ++++++++++
+>  4 files changed, 52 insertions(+)
+> ---
+> base-commit: bd5f485f3f026225b86573e559af0b7254ef4184
+> change-id: 20260819-rk3576-dphy-2304f848215b
+> 
+> Best regards,
+> --  
+> Amin Gattout <amin.gattout@gmail.com>
+> 
 
-> +
-> +  - if:
-> +      properties:
-> +        xlnx,external-mux:
-> +          const: dual
-> +    then:
-> +      properties:
-> +        xlnx,external-mux-channel:
-> +          minimum: 1
-> +          maximum: 8
-
-[Severity: Medium]
-Similarly, should xlnx,external-mux-channel be marked as required in this=20
-block when xlnx,external-mux is dual?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260918145804.2695=
-7-1-palaomer100@gmail.com?part=3D1
