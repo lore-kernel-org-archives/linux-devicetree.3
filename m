@@ -1,143 +1,161 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022085.outbound.protection.outlook.com [52.101.126.85])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A810339388
-	for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 13:31:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789824676; cv=none; b=LbTDt1VcQ0vAvw3XNAzAWvwAQmPohw3dgboUf8qOmtHxbBRa6PpSApr7IcXOUsOo+niTL0SvQjVhRbG550Hve7+0WeWmhy91HREkDgHHqS4tA9V9/UnCcDUE6jiJWq4u9VakNYR/cORvCIhdaHrgXJNBX/Bb3DeMopWLc31+iBA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789824676; c=relaxed/simple;
-	bh=Puhb9y8XG8KLGLMFjlsPhq/rxjMdTvMoxR1pFU+GbOk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=I0bg5fa4zn10v0kEat9xnKMav002QidyAK5uRhdni+Kv3xPyDaYULYufgONdr5uRQtU9LFXu5EYEMR8qIblqf48ayiAX1sbgRNhBX/XMLdTI1jU78HAfMEdiSDPxCTVR2/9zmVOT1lUPvXqGh16hgZ8KAo+3HH+QjafhKUF6kYQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev; spf=pass smtp.mailfrom=tuxon.dev; dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b=or1/tCms; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxon.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B62D2DCBEC;
+	Sat, 19 Sep 2026 13:41:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.85
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789825297; cv=fail; b=K43WhN6bS6+tDDujepcYKSJh7VoKbkWqQjTMUQZqhxHJQMzCwUWxDk495a5+iM7eJp/SvnE6HL6Ws5iqmburK0gDiy0TLhpei9shdYjzwEDkRPbkdQ9cFap6M0I3am+dc+sg/ynEoGNOV3RnssCNGvDGD1QzXylUUq4aXSf5S90=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789825297; c=relaxed/simple;
+	bh=cAESAurVdkio04CRJfx9UPxdBOTjNHLRuDkkqydrKhk=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=XUBxEZ/WW8lENeN5S7MzvEchC37LTyP6yk+THD+rXYu8PpXJJDHms88Y2UknXM+mIZ6jTzGTpZF7Asg9AmihBrnQcXID4OKWDC4ZFJGCm9XqrJ2oWEdPsK7aFENciAI9SBgxrI9vNHyby8e1m3lvawxuhy61JCGAB2mixwc8FsI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crepuse.com; spf=pass smtp.mailfrom=crepuse.com; dkim=pass (2048-bit key) header.d=crepuse.com header.i=@crepuse.com header.b=qPcOdz0X; arc=fail smtp.client-ip=52.101.126.85
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crepuse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crepuse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b="or1/tCms"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d37b6so7220385e9.0
-        for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 06:31:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tuxon.dev; s=google; t=1789824672; x=1790429472; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=M59/iU/94UEEWnEAOxMnAplI0bpHeu60K9JCIDTKOvo=;
-        b=or1/tCmsTRrZGSclfbKWwbs5ZMvAWDaVgdLfYrQSf+U4ApxQbn3XFGLKReFn2tyyTt
-         3LUUgTTzNBBJwG9hvoF2oqlu/t/r54fX68AERs80Gp32+qT7p/qvw/jdRIEZSDmpbOlz
-         YFbnMosJoBdoiW0vZZeNl5gl4OxjeNahJVhV1t535LvE4G9ND8OO9Kd5hFrJ4ccqHfaC
-         7yWzJLE1Xf2EZ7vN2xcziaegFaRPP6EPT2KOXtmJeJ38yvMAaL3jQQi3LNtAhKUr8kUI
-         EaaD8oPpeRIf4baODu8847f2ODi/uRup78Zloift2T7OE6JvstkyvBCxw4LYFx9U7BU6
-         WsLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789824672; x=1790429472;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=M59/iU/94UEEWnEAOxMnAplI0bpHeu60K9JCIDTKOvo=;
-        b=dBj/gvRYyyOrdKf22GL/pTPKRjaaK/zJKt0EeIjkWk0Faf87/s3BYDl8ORMexvRzPz
-         6p5xixmCO5Yrwp/Y4YzaQD2jhWptwJMkeCaJcmhN+l5uWscdmS4HtP9V7XhPDJ+a1+zd
-         WH5ryqLXl7fkEF2Yzw1ni4BZySOZN0N7tyAl/MLmRNozOBMMnvKBfQ4lqRSDL3Z8868X
-         TO26BOTQiTslNwAfcCjoZLcNWjG3Y1UJXn8h3BKux9BkdPSIhuLrY8WhL41gdB1MjsxW
-         4AcAT0UeZsgcnZ7XA1FeekSBLCSjYsPV8VdQCb3PFmME73Nz6oF/TqR09Bn04Ung9PHF
-         QeWw==
-X-Forwarded-Encrypted: i=1; AKwUvBxI/5y2652MTOgu6ozn65zItie/47L2gnwKTwmIzq1UsnNlNZb+YyAekaO28Oht4pEIB8O1mdgAYR6P@vger.kernel.org
-X-Gm-Message-State: AFuF++lYDsRi+umVWpflvwvcaxn56Fapoj12v8Ut+HoXShd5RGxnY2yx
-	4TvIXgbDtJo9yn0mFRgMzOpY2NgWJAbAbgjkQW4Cdivewx3UepIDpsCyg2cVTrblloY=
-X-Gm-Gg: AYBFou3S3ulRT6PvLlSHi/XOogCPXa2Ma0MvS1krbhcbsN9dKZZigQ2d93AvFX6emJ1
-	BmRv4Lxyk0WW/Lvk4h9FBauIK8V7MSrUFQGHgUT9Tusvd6z5pVxYeJblxNCxNl/2x01m7oR7Q6T
-	2cxc5XUlpY1gZJUEoX6MpCrwMtv9fPl4bl2t7W1qyLSwd06YpsfU0vNNdWM+sdnFIm2Hk3iyrIL
-	HInGj7Gzcfetfxijl6eE4nREIvuuF2OYgTO+kkMpJW9EPAivHs8iqXVQ7ciEhsR6QBQr7FqXU7h
-	oMpWATisLHLoYL4fQ87bKfXDKnLfCmdF2GTJSKHfl38YtcIIR0Q6GF2RnmU6sL1I8TVbm+Lw6dY
-	5bgRwwdZ5I5EvvM8dDp4VaLDVqVaU4C73sfpCb+iLSYtkrpWJENKGiYe6pkiDenPTi0+w+5JgJ/
-	1WCW9KPuGyed3FqXJIgmz6Uf20XXexpGS1RHPcolDD593JQhTa5jql1UOFaorFt03e6XSiJVSL2
-	jY6TNaqZ4jcYvZKlKeqhAgbzpoNQyTi2zO0R6vvb5qZroS1VMzXLE0=
-X-Received: by 2002:a05:600c:6211:b0:49f:bc28:e8b1 with SMTP id 5b1f17b1804b1-49fc5735be8mr67988985e9.14.1789824672039;
-        Sat, 19 Sep 2026 06:31:12 -0700 (PDT)
-Received: from ?IPV6:2a02:2f05:1204:e000:2cf7:c250:64a9:ae77? ([2a02:2f05:1204:e000:2cf7:c250:64a9:ae77])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd086ce9sm105569825e9.12.2026.09.19.06.31.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 19 Sep 2026 06:31:10 -0700 (PDT)
-Message-ID: <b63a2054-c695-4bdc-809c-924742526122@tuxon.dev>
-Date: Sat, 19 Sep 2026 16:31:06 +0300
+	dkim=pass (2048-bit key) header.d=crepuse.com header.i=@crepuse.com header.b="qPcOdz0X"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=zHRvPSivKqb9iuBIyK3eihPAOuX6Y1rgIg+afh5Cn6MucPIOcL0Bu/wz9Q0zGFGZTOejnDz/Ldyn54g6nn22Nbp2OeYH5ZClYFNQpIOQS4nKcfQa2gioYomERkTpT62EdScUfVHESMWIaqVp7lGxK6UZCFt3OnaF9oR4GthptZ+NNGB18p8iHyapGsB/JhPMk2583SLTF16jW9JiJxyTewEDJbfEOjGIQrtzCom32L6/xTAzVRgn8/0WCdzJGxfBSv+p3sES2LjtS5JJla7QoPHWmQ5H+CfvfQZDstgDjPYL4Yu0/3aNXh84e5OqFCagOAsX1ULkPO/CgMY+/VOOfA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=p2cTSoKc97034v0w/lCIwJttOO+5NlcnJDjdg5EThDQ=;
+ b=jsI/LfHOCiUtzhn6b17maP80qBPQIR2fJnQaGZ1p9mJA4cejw9Axc6BsBrMA0+fLKRx40mPBjlIRHK8GzdG3eGN0uFYHMRUEWzwDbyg7b/iFw7PMbJZKuIzRwcJdeCyj2vUzFZc11yZFTffbJAU4RPrvhNowv/bEaYiJe8UGJl3KBQ8tO6A4w/bM9bf3Q4DravAnZsiuEnrjVv3T2GeSVmwdvLy8imbuJnG0OOSNZhZrSFx30lgB+bfLEgKtHurbROQuirrVw1k4BQAJtKEN8yEIh9igfBEGRL9c1w0WbH55eI6go9vg2KzI3xcmfhHlmeYhgPv+2RjUp2GJZ1tfbw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=crepuse.com; dmarc=pass action=none header.from=crepuse.com;
+ dkim=pass header.d=crepuse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crepuse.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=p2cTSoKc97034v0w/lCIwJttOO+5NlcnJDjdg5EThDQ=;
+ b=qPcOdz0X3jPWnQzLCjrUFv/kkyhGTu4ougKqAWnyHg2MD3s6G8TVpy7/BF/FaxnTzv7bhhCHelHm4mziI2hgLYPATNDCLRaJXqAjJs0Gtx9whjxyr+SKT9MESMLOtMqGP1uI2dby7EX70HetFs3PK34mDjyPG3H2eXAy5n/iWj5ycWd56+ttaFUxc4BchO7nBXGjZyP7S3wt0KGR6f3QaKlYrC815j1JfwuokwSw3Fn4QOp06+K5vnlt8alMdfl9MeaJGIbD3JNG4G6zD8HTyXKrnEtmGPJtb9rVui6pspSZYPzHb/OVJzbNcDYs1dy4VZ6i1bzFNtyoKSGZAgoekQ==
+Received: from PS1PPF6469DE8C6.apcprd06.prod.outlook.com (2603:1096:308::253)
+ by JH0PR06MB6581.apcprd06.prod.outlook.com (2603:1096:990:33::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.14; Sat, 19 Sep
+ 2026 13:41:30 +0000
+Received: from PS1PPF6469DE8C6.apcprd06.prod.outlook.com
+ ([fe80::e60a:2617:6895:a0cf]) by PS1PPF6469DE8C6.apcprd06.prod.outlook.com
+ ([fe80::e60a:2617:6895:a0cf%6]) with mapi id 15.21.0406.007; Sat, 19 Sep 2026
+ 13:41:29 +0000
+From: Mizuno Miotsuki <founder@crepuse.com>
+To: Heiko Stuebner <heiko@sntech.de>
+CC: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "linux-rockchip@lists.infradead.org"
+	<linux-rockchip@lists.infradead.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: [PATCH 0/2] arm64: dts: rockchip: Add DFRobot UNIHIKER M10 V1.2
+ support
+Thread-Topic: [PATCH 0/2] arm64: dts: rockchip: Add DFRobot UNIHIKER M10 V1.2
+ support
+Thread-Index: AQHdSDyTnctY7HRwbk2VBS0DsQnXDA==
+Date: Sat, 19 Sep 2026 13:41:29 +0000
+Message-ID: <20260919134125.59419-1-founder@crepuse.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=crepuse.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PS1PPF6469DE8C6:EE_|JH0PR06MB6581:EE_
+x-ms-office365-filtering-correlation-id: 6c8016b1-dee1-4b46-600f-08df1653b5d1
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|38070700021|56012099006|10067099003|18002099003;
+x-microsoft-antispam-message-info:
+ CdKCIRd9oOSAxmNWIU5dDCxAV64kz2jYYtH2UrTohqSNniWxnN/4EEuKFq18IwrbTLHkwxj8b/bam5/v5TDo88LZ5TkHedtjQtJKn7zafvhJti10rjXGPufN8HLJflkigiBQST2qgG9Ku5e7DaQ3PlRccBz0dsPVJsxk5hHBBNijHA5MwEJywyovz76YZQOZHXSSJ5tngow2E0P3AS/ybcEJz3e3JHQt0AxYZeLdf5JLlorbqEfqdH9/0D7NvkKGyReN1qsetChuRxUjKnWjinhZ+AiD6W4o0R4TS+H9xErbU1KnXTJ3k9oXGf9Zx0GAVUSoC7Soga6+QJ3e4znAH11WDQfs/yt30McH9JD0Ev1aa6BPaxT8Csv/OUNKxNO9OSYkgQgjhL1liWsVSOMWTPiNP230iP1to8rN87qirQl/9pN0E2K7Hui/YfbRHLHpPeAXX3zPW05kYfXfZCRbEmPjNAf0WDHYahYVFSqs8DQDsm3qO1DJyrkKreWgIPAq4eZiBITDCxq7gEzDpeyuDCuCiuJNd1R+pGHuC08NSigqvfgjWfi2ZPky5A5oyMZreBmlK9jz+5rnHZ7ZmZpllaeP8LCjIX/HCLehJ4hY868Z9ms8LentHenWxoVICKjtMSfMuIfJK4aTfUUYs3CumrDIB9ThDGpwIJjL3WV/mTvwQqOpIW3gAypaGf+mRlc0fwkuPaMn1598ihuXGQcKaA==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PS1PPF6469DE8C6.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(38070700021)(56012099006)(10067099003)(18002099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?K7GkyZjTV16muuHA4BAgMhWImEvHQzImht7eprUkqEC/pVLJ4g/REj4DVQ?=
+ =?iso-8859-1?Q?HzbGl450i2PaF8Vp9c99D1tolVn3YJan77LDSSVjMGz07ifz9DOBY6PjIm?=
+ =?iso-8859-1?Q?Ht89bSmNKCGgXdsqn1QVVXi0zMnQIUo8fobjB+joNuD9voq/+/OrQOfRqt?=
+ =?iso-8859-1?Q?QWRaxna5/JFhANgXaeXDCYlSijc7iznztbuuQYPiPuxT3PjhMnuqX+u7xq?=
+ =?iso-8859-1?Q?pZDJFQhcCCfqKCqE1UhEWdji/bwVyiDlshLMdX1O7g+32Zw4U0eY94VItk?=
+ =?iso-8859-1?Q?QVz1vaw9gyKJuAPSKGsG9ANl99xJkW6jGsYKFFso/XA07744p1LykRxEdF?=
+ =?iso-8859-1?Q?pPA6gMAgRBXQgkX5bwh9LdYmOERye8Akp0E6D46lLtn6kebm4kJwbxQD2D?=
+ =?iso-8859-1?Q?BS4bpIC5Daq4xxY9aFsfwF0EEYT7zjENE8J5QZ3WAizT1YUAfgY//sD1vq?=
+ =?iso-8859-1?Q?oRJuOmZSt9rzO4KwUcT58jckOwXVyOh26hNpAMIrVeshJhkZQp2Ph7KvHy?=
+ =?iso-8859-1?Q?5r2FNKEg5T2EQE1V/0tdHSsPv50U2jprSAV5GUE+07GAMUM0G6ZkYl47DM?=
+ =?iso-8859-1?Q?pdTDcm3a7kzG1Us9FwA+2NB00TZOl/NaLw5FXtG4gGs2eiTiCM4v20o5rg?=
+ =?iso-8859-1?Q?0JQmI7x9pOto4ZZer10PTtkX/Cjj+cYcfAIjDPUglyQsd3a6K3F5Y1S+mh?=
+ =?iso-8859-1?Q?PtF2HCuCEk9AZWs0vgO96boNQyUie0mXwseqj3iXdmFtAs617f/5TbNK80?=
+ =?iso-8859-1?Q?12ubOxlWkHSXZPLij6jEeowOEZ/8bEKStNVfPi07eaDC1k1WlaWqeuFrKi?=
+ =?iso-8859-1?Q?21jE/Ym4UwvuUAEMcZVoBmt1bGSQU78h7xnvN7peKiOCMht9SBgPEElU7Q?=
+ =?iso-8859-1?Q?wuaMbtvHgknIevVXFxDeRBv9TbE9Z+ZMQgXK/mZHeP0MBUr2i5kEj4XiVK?=
+ =?iso-8859-1?Q?IYDl3nC6EDVbHEpErfNsVVVJnkeCywFMLPe5oo0hnqZC7DtLeIoo/G6Wt+?=
+ =?iso-8859-1?Q?O3yZTT8hQQI9rLBzKykj7H5+1dtyzeGrkzz1BHveaDyWY9X0TIKBTERDU9?=
+ =?iso-8859-1?Q?TbDna2gTIGkIcAh3DxpsWnpvr+gJXbbrEwqCSBfPrUgfbVyqBXpyUhOYFm?=
+ =?iso-8859-1?Q?6WYy3hgdXWvYlrMXanAbgZe+0wHMG4yW8LALQwcyvO8r6/yMtfA0APcuVu?=
+ =?iso-8859-1?Q?9k1sc0jrP2B3LbOilInItFlW00RjHJ16pg2mB5DqyITsy6zPQRFQyraVEv?=
+ =?iso-8859-1?Q?o7chJFjDoAR9RTp1UI9gk9v767DzHRHA4wNm9bEsFJBaH1HQoCtugWoPPq?=
+ =?iso-8859-1?Q?MURdJmnIDLllza2r7DFGl4jSTnnhkhcnv8Qp0qJa/aJOXNXxTDaxuF+kJV?=
+ =?iso-8859-1?Q?MUhV32evwPOgSu5d9K5sqKQyATWD4RuTsgFWVui6IPzf+XtjeF3e2pcw80?=
+ =?iso-8859-1?Q?iuuXVHEXWFonuffyNYK20tukUceu4ILLvqNiTxGZAJC7XaLWl7L+ARIyVC?=
+ =?iso-8859-1?Q?p1YUTACp7Wj9rR9bSZQ/ZhjMM7Ji1rMwXmE38OyRBlKmixTKhX9KvrBvn0?=
+ =?iso-8859-1?Q?dwI1xEsZbON4/5Lt0FMiGzqHXXLe6dMJmFp6TLoxtek1O8qm5uJ4q5mWfZ?=
+ =?iso-8859-1?Q?VjtkQMIL0QcaALVPWG4UAHV22YLt1VQghX/Y6xwOg24k06qWtKlAiJnbtZ?=
+ =?iso-8859-1?Q?bhX3pGdfrvB0gU1qY69Hb8q8ciAHD2EC984A3fBGo9OOSJ+9Imt09n68oa?=
+ =?iso-8859-1?Q?hJ4SlbJzSeuC3G5JWv1quBG10VKLSukT9Dwgg2kTFFsNRg?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 14/17] ARM: dts: microchip: sama7d65: add otpc node
-To: Varshini Rajendran <varshini.rajendran@microchip.com>,
- ehristev@kernel.org, jic23@kernel.org, dlechner@baylibre.com,
- nuno.sa@analog.com, andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, nicolas.ferre@microchip.com,
- alexandre.belloni@bootlin.com, srini@kernel.org, marcelo.schmitt@analog.com,
- radu.sabau@analog.com, joshua.crofts1@gmail.com, jorge.marques@analog.com,
- Jonathan.Santos@analog.com, jishnu.prakash@oss.qualcomm.com,
- antoniu.miclaus@analog.com, duje@dujemihanovic.xyz,
- mazziesaccount@gmail.com, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260806074024.531259-1-varshini.rajendran@microchip.com>
- <20260806074024.531259-15-varshini.rajendran@microchip.com>
-Content-Language: en-US
-From: claudiu beznea <claudiu.beznea@tuxon.dev>
-In-Reply-To: <20260806074024.531259-15-varshini.rajendran@microchip.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-OriginatorOrg: crepuse.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PS1PPF6469DE8C6.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6c8016b1-dee1-4b46-600f-08df1653b5d1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Sep 2026 13:41:29.8031
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 1d352272-7d70-4a91-9c85-0db444db1bc9
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Sps5WCyN3glE92MOe9kwI8B3yDwVwzaHH6HqT7sDAodnz64rnU5wxEZkoYrp7asqy4bbkOu+u59pSLS2YavNYA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: JH0PR06MB6581
 
-
-
-On 8/6/26 10:40, Varshini Rajendran wrote:
-> Add OTPC node along with temperature calibration cell.
-> 
-> Signed-off-by: Varshini Rajendran <varshini.rajendran@microchip.com>
-> ---
->   arch/arm/boot/dts/microchip/sama7d65.dtsi | 16 ++++++++++++++++
->   1 file changed, 16 insertions(+)
-> 
-> diff --git a/arch/arm/boot/dts/microchip/sama7d65.dtsi b/arch/arm/boot/dts/microchip/sama7d65.dtsi
-> index c35f27615bc4..aac2e22d96cb 100644
-> --- a/arch/arm/boot/dts/microchip/sama7d65.dtsi
-> +++ b/arch/arm/boot/dts/microchip/sama7d65.dtsi
-> @@ -15,6 +15,7 @@
->   #include <dt-bindings/interrupt-controller/arm-gic.h>
->   #include <dt-bindings/interrupt-controller/irq.h>
->   #include <dt-bindings/mfd/at91-usart.h>
-> +#include <dt-bindings/nvmem/microchip,sama7g5-otpc.h>
-
-This header is not needed for now. I can drop it while applying, if any.
-
-Other than that:
-
-Reviewed-by: Claudiu Beznea <claudiu.beznea@tuxon.dev>
-
->   
->   / {
->   	model = "Microchip SAMA7D65 family SoC";
-> @@ -1111,6 +1112,21 @@ ddr3phy: ddr3phy@e3804000 {
->   			reg = <0xe3804000 0x1000>;
->   		};
->   
-> +		otpc: efuse@e8c00000 {
-> +			compatible = "microchip,sama7d65-otpc", "microchip,sama7g5-otpc", "syscon";
-> +			reg = <0xe8c00000 0x100>;
-> +
-> +			nvmem-layout {
-> +				compatible = "fixed-layout";
-> +				#address-cells = <1>;
-> +				#size-cells = <1>;
-> +
-> +				temperature_calib: calib@41435354 {
-> +					reg = <0x41435354 0x2c>;	/* Temp calib data packet TAG */
-> +				};
-> +			};
-> +		};
-> +
->   		gic: interrupt-controller@e8c11000 {
->   			compatible = "arm,cortex-a7-gic";
->   			reg = <0xe8c11000 0x1000>,
-
+Add initial mainline support for the DFRobot UNIHIKER M10 V1.2. Only=0A=
+revision 1.2 is claimed because later board revisions have not been=0A=
+electrically verified.=0A=
+=0A=
+The board device tree enables a conservative core subset for a usable=0A=
+mainline system: CPU regulation, eMMC, SD, RTL8723DS SDIO Wi-Fi, UART0,=0A=
+USB host and peripheral operation, GPIO keys, and the watchdog.=0A=
+Bluetooth, audio, display, touch, IMU, SARADC, and GD32 support are=0A=
+intentionally deferred.=0A=
+=0A=
+Runtime validation used normal U-Boot boot from the eMMC boot partition,=0A=
+not kexec. Four candidate boots reached userspace. Testing covered eMMC=0A=
+and SD card I/O, RTL8723DS SDIO Wi-Fi including network traffic, USB=0A=
+gadget operation, USB host controller enumeration, watchdog and GPIO-key=0A=
+probe, and an empty deferred-probe list.=0A=
+=0A=
+SD hot removal and reinsertion, physical USB-host devices, physical=0A=
+button events, and an independent UART0 adapter remain untested.=0A=
+=0A=
+`dt_binding_check` and the full `dtbs_check` pass with zero errors or=0A=
+warnings.=0A=
+=0A=
+Mizuno Miotsuki (2):=0A=
+  dt-bindings: arm: rockchip: Add DFRobot UNIHIKER M10 V1.2=0A=
+  arm64: dts: rockchip: Add DFRobot UNIHIKER M10 V1.2=0A=
+=0A=
+ Documentation/devicetree/bindings/arm/rockchip.yaml |   5 +=0A=
+ arch/arm64/boot/dts/rockchip/Makefile                |   1 +=0A=
+ .../dts/rockchip/rk3308-unihiker-m10-v1.2.dts        | 248 +++++++++++++++=
+++++=0A=
+ 3 files changed, 254 insertions(+)=0A=
+ create mode 100644 arch/arm64/boot/dts/rockchip/rk3308-unihiker-m10-v1.2.d=
+ts=0A=
+=0A=
+-- =0A=
+2.55.0=0A=
