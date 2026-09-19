@@ -1,67 +1,67 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23B1E2F39B8
-	for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 13:23:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31F1E175A95
+	for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 13:24:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789824211; cv=none; b=sVGObBIcGIFQGpsBEUz3U/0Bot2+gx4kv2woMW39NfWZW5SqN7/uMaw+g0LcTvZ+BKP/QcmORfRWsFi3vZWrEO02cKTmZIaN3VZq7nQ7jfZINEb7Lss+4WFNF2xghMY/Jk/YxCrmnhCJzhmhpU5pPWMom4YV/cpMJ1zDPJNzjIk=
+	t=1789824281; cv=none; b=fBrYdjL07fw5c/IR0gtej0Qwt0bjxmcxzfviRf+lQhNMBGXZEOnFH5TK2y8TKjljB75caS8O7qB1zV3S8pWckuTPmYMFOVxUiThz2Vey6KnsjF7wl4HTapAKPy+f1luUcQ7EUcJakSU5jbhc9B7cv8Bz46vss0JolW96H7eZMoo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789824211; c=relaxed/simple;
-	bh=oqu1ZjNxi0F3UXS+4RXdwI3lwSHWQEMDLX/P/O8dKSo=;
+	s=arc-20240116; t=1789824281; c=relaxed/simple;
+	bh=We4kQ3+PMqzSMpklzI6gmAx2TCZtf539gHKv2s/cemw=;
 	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=JVZhhdV90FQOX7Jt/zc4h0W7qJsqvVwStl801nEJI6xBBNuqciYqXHS79jg8lSFt4t7+0WM0tKliNC8VNvXe1zqdt+oJidg7wD8e0vUGP4o3cJveix1FFdK36gu0BKhCHzst3ZJazq/SkvxMzhnlGX4yRafCzf02HIVZcYLZ8mo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev; spf=pass smtp.mailfrom=tuxon.dev; dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b=pKoIexRi; arc=none smtp.client-ip=74.125.225.76
+	 In-Reply-To:Content-Type; b=KuBmj+Dq89DE9/9LE6HUfGucGP7HBEZ7thNMV2LRojdaZV64ExS8dUd4lDUrP9MI3cxY+dqOorf3ZfBXahwFWvF6PhEQ6KOkRrARPUkV3biePOBg3tKeY3dvIRhmMLGIce4OmTSmOJkYEr4hTqvm0oCRdsunMR0e4fsp9rQHp2c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev; spf=pass smtp.mailfrom=tuxon.dev; dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b=a4Fq4ZSF; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxon.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b="pKoIexRi"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350f91so889609f8f.1
-        for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 06:23:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b="a4Fq4ZSF"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cc9f581c4so6256305e9.0
+        for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 06:24:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tuxon.dev; s=google; t=1789824206; x=1790429006; darn=vger.kernel.org;
+        d=tuxon.dev; s=google; t=1789824278; x=1790429078; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:to:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=I6FrOEEciDq9ZXU99OtyWWJL3jqDBzGG33W1ecDR5UQ=;
-        b=pKoIexRieimSr2isT9jR5N5g+Jq/8mugS7/5F6o75d3c15fMRhPJsCCnInPYowSY7Q
-         hiCIRQdcHEmWJdJjrv/7SdlmGVAdO5USuTFKOZl79fO0q10YxY1OBrBH3uVkplD2AY6Q
-         XtsU04fk9AaGRbw+bjaZEPWfGbAhieLALL0f13jL7f9yTQcRlR73Sopigvmpyd7J571p
-         P17VoP+b1vE4vG/jYay1GKVJXk/3/5MUY/DU/M9unzi22AbQ0+NW+tyxnoe9tkNftbju
-         Y1NK2TS51nsDJ7TlPXcT85rGL4Ux0RQ4G5nQjzo1/NyONm3sESoeRupmEQ58vG7cgFrG
-         Vk3Q==
+        bh=Z1fZ6KqR7Gubow5Qyu4FfRMFbkSYpjfYEjbAmpCRKQA=;
+        b=a4Fq4ZSF6lWD7ysroqrS9FCd7HJwRGaolwn+ULT2RcwllXYo7DfEwZEOPn5uYs3HqW
+         A8UemQ0mm594wz9kW/Zf6My71ZXBd/HUXIjU7s3uFazt4vIhoCKCIz3bBri7GVAQOh6q
+         kBTbv56v/rFCOTolH97Z4dSYIulIcw5xBEDCCP9LixHNEkiB/VSx6SrJwzMAhlfQb7QY
+         zzbnnFiA+oOoD4n9yG4z63o0wKiS+M2vHj/sxE8YWwH7oHNJQgt/tEmt6gFVqcQh1dQl
+         9MJvY7oRXaytOvaL79djt3YGKkm0HakSf27j7KiXNwaNwZbm/IROoozITJAL1CfXUuRT
+         1Isw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789824206; x=1790429006;
+        d=1e100.net; s=20260707; t=1789824278; x=1790429078;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:to:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=I6FrOEEciDq9ZXU99OtyWWJL3jqDBzGG33W1ecDR5UQ=;
-        b=ybCZauuop67I6i+BonuRx9tsPhoy8kOVIrOoatULviVdM0+Oo9lju+XtBmTnKWEOX6
-         lZ/xaz9qN9W/iHtEmLGnIN94frpA+UvWlJprhDlaai/KVwKXBb3hqNrKgOeCzqrr8lIh
-         vzl6e04nYW7e5fsP4k2gGr3vS7wkZFg+8qg1/BnnqZHGU+LhuigAagflTzMx9XIMzj8k
-         cjat69A0yXuPW1/ZurBZMfL3dOSEz7KqAskspnoYulUnbmQvAXsEsWAa4ZMA9+X00xId
-         h829xosju2qCBKjns010qC+czhda0WY5W3k9E+f0aHfj6T1rNpBawvWlleJJn/lyLFFv
-         MrZw==
-X-Forwarded-Encrypted: i=1; AKwUvBwTiRu75pJ7b6t+ZDrJcOjTjsmireLcuWb1yGq/IjJH/wqN3Eyus9t2QBakmZpdORTsJzF3wR0auWfD@vger.kernel.org
-X-Gm-Message-State: AFuF++lpJz0277Nee5FdMqhXII50AJtmYP6HJkPf+6946xXAOrVfR5vf
-	vGctZLUbtu6xZ+H/PNckruxwmwbmCoCmDAaEtFUkUihV93Q1/UPGl2lLY9RWG8fEsB0=
-X-Gm-Gg: AYBFou1l9YIzez1YKxfEgwC71LMGbOpKVyz7Buhk6JFNlQoNKVvY132Iq8qFXfEWrP5
-	fDMEhBYs7pUuiN9CgdbfNluvtdHtFlfJEk7jI+H70cMYt3L26bcgA6fZDDW199V/Y28WInjhRoM
-	XOxTgj/bK34MVtgNpWnDwqdHn7r3ahJcueSztRMicDQLIlk5vQ1ZaSNUSHx1/SyXODSMD3nzuR5
-	xw29w1Tzf4aRT8U45IRTfZHEtZEmAdU/yCBIlz2nNPOMIND/AYKAKH5TsDCVWVdd3VCAQwTXCVX
-	4utjsUPqBfOl0w/MgUzsBBuyU+2MAXEtqRtn0yVMsJOWzvcptLEVk9Gn2phv8NbdIKRrOLzAkzl
-	Nc7SIr1XQOIC2Y7G1UR/o3PMwMEe2omQCc2a58xAQwCY2PZJpROPhHefT9/X05DeBN5KeCHg/h1
-	EolY7/uHvg/EyP46wiScsp81U3h66cwTnPcitoje6w9BxL4MBAaV3yidjrSEvw6rVodGycbv9CV
-	ec5gB1fBGLaJWbSEHM5hX+OQkU+8lhP14WR96dDt45II5G8gzH9kwnf3amwXu3CVok=
-X-Received: by 2002:a05:6000:41c7:b0:486:fcfd:45d4 with SMTP id ffacd0b85a97d-4871e216bcfmr8106032f8f.17.1789824205769;
-        Sat, 19 Sep 2026 06:23:25 -0700 (PDT)
+        bh=Z1fZ6KqR7Gubow5Qyu4FfRMFbkSYpjfYEjbAmpCRKQA=;
+        b=xoQ/vK8TbCzNOEd0bYq7TmstyUuokmNXlVw2caZnaygM/CHP2iT4rs4yLut1W5/znG
+         aORMBA4vekD6nUlcJSF8DSK9PqBlIl1mfIJV6LUXl+PXKIDnuH8A1Bvj9TwBBm7IEq6z
+         vkcaAWHZoR6NsPsTpfnSRZDyn5uVSCCKlJaxrvK/bu5hRl6m2rfPADI9XaDaN05o72oo
+         VM5LryPZMw+kazoZGEtoToJtuaF7GSIi+LXO0YW9n7dXf+YJvTcquvCJP2XBFtzuZMLK
+         v2VvCZw9sh/boQ5nunaFE90QoayQU07T63UAik0ewUFZqv8BlCXPLIqznNUb05pVRjf7
+         k1vg==
+X-Forwarded-Encrypted: i=1; AKwUvByE5z+0iErnVNZSXEPlCx22V9MK3D1IK/27MCMM3TBp6YwojfjgDGB1XpfPapr1+g773RTox5qbqhat@vger.kernel.org
+X-Gm-Message-State: AFuF++nDWHgUIwsAoGJLOPMjQGlsfqBboAEkl9cRtixp+l5LqQ/n2yIX
+	4JGviCZPPT2N9HQqgDekK8aCbURI9burIh2A32NC1FvBcI9QUjBOElCD8jTDSWl2ao4=
+X-Gm-Gg: AYBFou3uDSrXXeH5rXE67Hl/0Hj/7SWDKiQJlt/IUR9H1FED+2beTxv5h5umzHLzcBw
+	PpqqYK8jgCUFzG1fuvI3Er6nEouM2dFTCK345+f43xOOXlshV2qiO28JfaBmCjG9GKu+dgcXwLp
+	lBvILjp0nGhPjON3otQqVHJPqZUTtJWqyrdwzHkTrE02SYfcMEk9F2uj7r2H810vSBhJOs1r0fl
+	KGZO95+FBY1t9RON71B+DWw4L4jyjOJvjryGL9UiTtZ+KE52pRrxPS7UnrZTpwVsLSTdJgZK7hD
+	FpIZcS7yGstMehlH+7txqazrZ/i2Ey15Ujjn1hI+zymUjxC5ZMS5IaszRSpUE0HtuCBUbBVI5gM
+	QTllUGFrcyKjT96WAOrWqA4iG5B82y7wVBizh69W0m9mHw7r/ij4xkNqgbaSNWxzctVVRYyBogh
+	/tEle/CE6RNK2fT3MehgeYQfzB6ec2YI4XhysyUpv1qxTUXVtaFTgCxZZbfPwbly8/0JN8kCDiR
+	qH/LPynPhW4UYAeJbo9cAB5CPenn47Itw3qegERB/x6HBEgG9z0bIeI
+X-Received: by 2002:a05:600c:4e89:b0:49e:6ca6:d40f with SMTP id 5b1f17b1804b1-49fc4ff40a9mr87364545e9.9.1789824278440;
+        Sat, 19 Sep 2026 06:24:38 -0700 (PDT)
 Received: from ?IPV6:2a02:2f05:1204:e000:2cf7:c250:64a9:ae77? ([2a02:2f05:1204:e000:2cf7:c250:64a9:ae77])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-487245a869asm6815705f8f.37.2026.09.19.06.23.23
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc585920fsm303117955e9.4.2026.09.19.06.24.36
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 19 Sep 2026 06:23:25 -0700 (PDT)
-Message-ID: <ebbbf57b-9c2a-4b6b-b705-31cd4bd0a617@tuxon.dev>
-Date: Sat, 19 Sep 2026 16:23:22 +0300
+        Sat, 19 Sep 2026 06:24:37 -0700 (PDT)
+Message-ID: <e23712ef-1515-43a1-8cb0-e88e26505b05@tuxon.dev>
+Date: Sat, 19 Sep 2026 16:24:35 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,8 +69,7 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 10/17] nvmem: microchip-otpc: nvmem: add emulation mode
- and OTP access validation
+Subject: Re: [PATCH v6 11/17] ARM: dts: microchip: sama7d65: add cpu opps
 To: Varshini Rajendran <varshini.rajendran@microchip.com>,
  ehristev@kernel.org, jic23@kernel.org, dlechner@baylibre.com,
  nuno.sa@analog.com, andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
@@ -83,22 +82,17 @@ To: Varshini Rajendran <varshini.rajendran@microchip.com>,
  devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org
 References: <20260806074024.531259-1-varshini.rajendran@microchip.com>
- <20260806074024.531259-11-varshini.rajendran@microchip.com>
+ <20260806074024.531259-12-varshini.rajendran@microchip.com>
 Content-Language: en-US
 From: claudiu beznea <claudiu.beznea@tuxon.dev>
-In-Reply-To: <20260806074024.531259-11-varshini.rajendran@microchip.com>
+In-Reply-To: <20260806074024.531259-12-varshini.rajendran@microchip.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 
 
 On 8/6/26 10:40, Varshini Rajendran wrote:
-> Add validation of OTP memory accessibility and emulation mode status
-> during probe.
-> 
-> When the boot packet is not configured, emulation mode allows access to
-> the other packets. When both are not available an informational message
-> is logged to help with debugging.
+> Add CPU OPPs table for SAMA7D65.
 > 
 > Signed-off-by: Varshini Rajendran<varshini.rajendran@microchip.com>
 
