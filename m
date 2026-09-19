@@ -1,94 +1,244 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from flow-a1-smtp.messagingengine.com (flow-a1-smtp.messagingengine.com [103.168.172.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A2F92E888A;
-	Sat, 19 Sep 2026 09:16:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8195432695F;
+	Sat, 19 Sep 2026 09:21:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789809408; cv=none; b=t4qJV5zMRY8VMAq2AjG2o1TqAs63Bfr55Q+BtOgEeZano0KvjER/CSdC89z9SwBa5z3f8yWnuQftL57gTfWbbxa1R+ycJ2iCmFcC/x3rOohEcxOaiY3Qw9cM/n/kbyS5hZ7kJPMGisSWFZVkrJQonDKuECnY1sk46qDnSIeV/1A=
+	t=1789809668; cv=none; b=CMa+4Dj6y9mLZaEJfwLDi2C2cBs9sLvKD31FZtSWhuWHv6DOucCwrwnbPlb4KnHrUhvclT5dn/MRLF8cpXAD9ic2mle8fPHvfgMTBIFpw69orE4rDL0LtFK4fXvnHfEBNsHA6wPdY7VfvHRpTBkg5JScwWTAuzGHgGaA/y/u9CE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789809408; c=relaxed/simple;
-	bh=jt9VtQwbyOGQ+PL9s8wTrMgvNOfgIkxlvQU7cFQBXIc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=Zk/woN7XhpjC+b8vCgqlRDzGRthzgWldv1MPUmTivV8+KcmHD83JwRO5q8fBblx4iuRzNyH9l1BjZUecTmfzhnG6tFEI8KwI2lhAGGgU2/2R2AtzDtB9GPlxqJvXs5ADzfKDU9EbN2WeTogJjiy+wwVkvpfyWlYtACwQ2LxK2RQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SrZJlnpt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789809668; c=relaxed/simple;
+	bh=pzApuuerjL8qD/Zos8LlmaW4d6yJGkOH9sOp2iu4cVY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gWHKSQYNLvS0iYHnr6n6piK8dj1SEFbAj09nmtYOfgHiGMWw5Ye0+g1MN1fkdh+K6JhDbblQhb4EQTBqxU/x6dkFFqnSyHgeLsQgfSy6orqyikLtcUZA4h8E1JLoHsm8BK5NNWHZBbxS6SzwhXdADIE9PAKeaxY1CyxN8Cr/FvQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=KKJxgAPq; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=wLA7xh2o; arc=none smtp.client-ip=103.168.172.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SrZJlnpt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 740DF1F00898;
-	Sat, 19 Sep 2026 09:16:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789809407;
-	bh=4Py1+GgfuEnxk9UkTp+lp/VRKiZSQ9m4yRbBLVPlpb8=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=SrZJlnpt83mg0MZ/YbXrfGEP6A9UQTjRuRz5/7hIMl2fzZ4VsSLMkUvuP4h+pBKlP
-	 XHof2KTkCIXvPJ1zz8Jl9ABmmAIJmUT6AZh7nY/RWiHFCvLuPHagY/6I8FQo9Ivbnv
-	 1xy2foa92/qIDjUzcj+se55/tWNHtJhX3Fo7ks/S9v4amOXVw77eTngti+n0qsrtCb
-	 62ai6FBurxlnDyBzSiam3Tt79FhZZVrVKxfbAD6kpQaj/zSn3e9kjAu5MRPZQIz6iO
-	 +47EI0/jmI2MfW4WocIYrGArMDg4kMzzqB2SMK0YdUfpaikQ248s4UaIsotoVxQ65y
-	 J3M7I4Uae5KJA==
-From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, robh@kernel.org, krzk+dt@kernel.org, 
- conor+dt@kernel.org, perex@perex.cz, tiwai@suse.com, 
- Karl Asseily <karl@asseily.com>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260918182317.143223-1-karl@asseily.com>
-References: <20260918182317.143223-1-karl@asseily.com>
-Subject: Re: [PATCH v4 0/4] ASoC: add ESS Technology ES9039Q2M codec driver
-Message-Id: <178976645820.1863384.17210158696737260030.b4-ty@b4>
-Date: Fri, 18 Sep 2026 23:20:58 +0200
+	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="KKJxgAPq";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="wLA7xh2o"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailflow.phl.internal (Postfix) with ESMTP id 7A4A71380CC3;
+	Sat, 19 Sep 2026 05:21:04 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-05.internal (MEProxy); Sat, 19 Sep 2026 05:21:04 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1789809664;
+	 x=1789816864; bh=MGYptzQitBqvlBeqfLUR1pvxKBwqhA+k9O947J2Uzs4=; b=
+	KKJxgAPqGf8ffn9cEzGN/lmRPaI84KnadpYFXzKCX9hE2ejUIq68mi4u49PvWfgc
+	Itlb19ZH3qr7BojbMyQRo+ba2NPVuxshKxNHPNc1n0WoFm2P82SdvXVe/ozusaqU
+	UUuNFmN3pT+MAIOXefE4Sv9U8sKTnAH69sCP1ZzXN2aKc8adbqjGCZ5y3vHL5yUn
+	DebvNQKunanNCX2bmcP83jS/V3bgaOaMTSMerlAWCQ2EgFBXQ1ZRTTrcYTU71eEv
+	lbzAJDJUW1lP7r0QDdMJOaObYpwLv8jsh3ZCwwwsKuWBDf/iXMBIEia/Vxnb/8S7
+	nxGJsoWmFpCeajtr5MutCw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789809664; x=
+	1789816864; bh=MGYptzQitBqvlBeqfLUR1pvxKBwqhA+k9O947J2Uzs4=; b=w
+	LA7xh2o3RY19SYTpHtjFoN2bWuBr9Jl0X822TEzfg09UxehR9IxivJ/PPDbEq5vh
+	xknj+g7mVbq0BrIyxwjz7mQPl76Es0GLU76nsl2Jc5PWQZ2aYnu4tSWX2U+CEbOU
+	duXnb8byYslI35rhb9G1P41C+PXcxQA0LTyXYnfwnUdPfuutf27xS+i0HNDcYlJc
+	mgqWClJS3odJaqniOPApq6NW3P2YBAq8VK9RlSsIgQ3yQUFHVbKCGOJnK9XiOEZD
+	XKwatuiR9o5xSppMVRA8v/P+uFKq6qikqTrSgLJnHtuSO/CDe3DZZJW23Dy/fkvD
+	ZW547r14CEX+ogHG402fg==
+X-ME-Sender: <xms:_VOuaoMc3T-ITDLbcqgHBdCUnJzWxvJ2B31OHOBqLt2R6J_GHk_kgg>
+    <xme:_VOuaqs_CdaHWRrECVh8zBB_Oyed8sjnn2zi8cyFPVs8HxgcW-AM-CDenZ6BvPCg9
+    zlQ4TZCJOVtaZNgCLdbweoHYhCfqfMC5hHqD0aLFaBIweeaNQUjKTmY>
+X-ME-Received: <xmr:_VOuan099myfjV70XEVtLI9rCteLcp3wwc72aBYnA1KSo0aM_0JVaFlzyhM1LK5r-Kar73jmByYogctH37tNWYeVENTK3UI>
+X-ME-Proxy-Cause: dmFkZTEHzaPBOkzhEZKtlcJiHuaR/8A9YwcvLFmST50NgBICej+vTp5vMhNNvAsQoG90/2
+    Jm0kDSLPlHjTl32jVWjbcwmLDSqw4GyHFeDhV0053Ev7hF2r8HtYhx1OQFrcFYUvp22zhD
+    bwa3p77dJnCDUtHCllEbqhJvrcmU7/C1lASmVI5bvK/T4qtdpnBur25H1DkP7UkKXPQC/j
+    elUdagyi5wVvBIc8Nks2/9BjgcJJqa08jQYX7fGyZhY2tU8D8FNMzrqNvQRW4UOnqv29DO
+    Z3Z15oIGz+UspWal/6k8HrhYZj+XVKhxeKCuy8RhfhaOSuu8zlDB0q69H/9Oe3rv7hs/Wn
+    ZGWF+6lY0YfPnQu0pkLeDFn6uVWRwRv3tWt2cnBI8Mig3THTVbziWZT3hx0FavRU1Rblw2
+    5GJ1NCrct8YFcaHTUsLESEIG9dn4bGZyc3OuX6C4ucocsN5peK2laUn1i/p649xuZe4yDu
+    V9gsVPzHsvP7DCumtstJA6KfKFLICxe7Ru/+RiSUSIleLOGD4tyf6+IMKgLo2rk4eyaZo+
+    A7NyVb8ONLKLmtm+YaDKnf1kykpl1RplpJr0gIHd9q1fENpv+FWekqgFQI2/j8Oy2+G7o+
+    pftD3dpMRQhb9hVe3tAsXetfhuC7wxDXeMfAKz0fypwUl3oZ3oPUXI0wHjNg
+X-ME-Proxy: <xmx:_VOuah2y4LFz1PpadpumYBxfc98D0-tdHUeGo910UPdHnB2MAwoLcw>
+    <xmx:_VOuaqq125S6Unzcn9Y0ECrr5LgGIJIXBZEy27KqgbK5ukiGRB_g-w>
+    <xmx:_VOuai0UYZvkkFR3qjdiC9hpdOm_mE8nabOFF-wFotoZzh3c314HmA>
+    <xmx:_VOuaj0j1IjBEGZ5neb_ubNG80H_nWXeTS--3M-4wyMouLo54xV9WA>
+    <xmx:AFSuakOZvT35vQTN-w2q-qm0NMqiAOAQOnWSEbPNjOLlAV8dYkNEXA1S>
+Feedback-ID: i80c9496c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 19 Sep 2026 05:21:00 -0400 (EDT)
+Date: Sat, 19 Sep 2026 11:20:57 +0200
+From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
+To: Kieran Bingham <kieran.bingham@ideasonboard.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,	Jacopo Mondi <jacopo@jmondi.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Jimmy Su <jimmy.su@intel.com>,	Matthias Fend <matthias.fend@emfend.at>,
+	Mikhail Rudenko <mike.rudenko@gmail.com>,
+	Daniel Scally <dan.scally@ideasonboard.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Michael Riesch <michael.riesch@collabora.com>,
+	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+	Sylvain Petinot <sylvain.petinot@foss.st.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Paul Elder <paul.elder@ideasonboard.com>,
+	Martin Kepplinger <martin.kepplinger@puri.sm>,
+	Quentin Schulz <quentin.schulz@theobroma-systems.com>,
+	Tommaso Merciai <tomm.merciai@gmail.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>,
+	Richard Acayan <mailingradian@gmail.com>,	Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,	Heiko Stuebner <heiko@sntech.de>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>, linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux@ew.tq-group.com, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,	linux-rockchip@lists.infradead.org,
+ linux-tegra@vger.kernel.org,
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+	David Heidelberg <david@ixit.cz>
+Subject: Re: [PATCH v6 3/6] arm64: dts: renesas: Convert to new media
+ orientation definitions
+Message-ID: <20260919092057.GA1099675@ragnatech.se>
+References: <20260918-kbingham-orientation-v6-0-5e8b1f01be29@ideasonboard.com>
+ <20260918-kbingham-orientation-v6-3-5e8b1f01be29@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260918-kbingham-orientation-v6-3-5e8b1f01be29@ideasonboard.com>
 
-On Fri, 18 Sep 2026 21:23:13 +0300, Karl Asseily wrote:
-> ASoC: add ESS Technology ES9039Q2M codec driver
+Hi Kieran,
+
+Thanks for your work.
+
+On 2026-09-18 11:44:15 +0100, Kieran Bingham wrote:
+> From: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
 > 
-> This series adds support for the ESS Technology ES9039Q2M, a 32-bit
-> two-channel audio DAC with an asynchronous sample rate converter,
-> controlled over I2C. The part also has a hardware mode strapped by
-> HW0/HW1/HW2 with no control bus at all; this driver implements the
-> software mode that MODE = GND selects.
+> The orientation property for video interface devices now has definitions
+> to prevent hardcoded integer values for the enum options.
 > 
-> [...]
+> Update the users throughout the renesas device trees to use the new
+> definitions.
+> 
+> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> Reviewed-by: David Heidelberg <david@ixit.cz>
+> Signed-off-by: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
 
-Applied to
+Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
+> ---
+>  .../arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j1-imx219.dtso | 3 ++-
+>  .../arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j1-imx462.dtso | 3 ++-
+>  .../arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j2-imx219.dtso | 3 ++-
+>  .../arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j2-imx462.dtso | 3 ++-
+>  4 files changed, 8 insertions(+), 4 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j1-imx219.dtso b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j1-imx219.dtso
+> index 3acaf714cf24..b816382bba0a 100644
+> --- a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j1-imx219.dtso
+> +++ b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j1-imx219.dtso
+> @@ -12,6 +12,7 @@
+>  
+>  #include <dt-bindings/gpio/gpio.h>
+>  #include <dt-bindings/media/video-interfaces.h>
+> +#include <dt-bindings/media/video-interface-devices.h>
+>  
+>  &{/} {
+>  	clk_cam_j1: clk-cam-j1 {
+> @@ -44,7 +45,7 @@ cam@10 {
+>  		VDIG-supply = <&reg_cam_j1>;
+>  		VDDL-supply = <&reg_cam_j1>;
+>  
+> -		orientation = <2>;
+> +		orientation = <MEDIA_ORIENTATION_EXTERNAL>;
+>  		rotation = <0>;
+>  
+>  		port {
+> diff --git a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j1-imx462.dtso b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j1-imx462.dtso
+> index a19bc0840392..4019b80a88b7 100644
+> --- a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j1-imx462.dtso
+> +++ b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j1-imx462.dtso
+> @@ -12,6 +12,7 @@
+>  
+>  #include <dt-bindings/gpio/gpio.h>
+>  #include <dt-bindings/media/video-interfaces.h>
+> +#include <dt-bindings/media/video-interface-devices.h>
+>  
+>  &{/} {
+>  	clk_cam_j1: clk-cam-j1 {
+> @@ -46,7 +47,7 @@ cam@1a {
+>  		vdda-supply = <&reg_cam_j1>;
+>  		vddd-supply = <&reg_cam_j1>;
+>  
+> -		orientation = <2>;
+> +		orientation = <MEDIA_ORIENTATION_EXTERNAL>;
+>  		rotation = <0>;
+>  
+>  		port {
+> diff --git a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j2-imx219.dtso b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j2-imx219.dtso
+> index 512810b861aa..fea1ef4a1178 100644
+> --- a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j2-imx219.dtso
+> +++ b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j2-imx219.dtso
+> @@ -12,6 +12,7 @@
+>  
+>  #include <dt-bindings/gpio/gpio.h>
+>  #include <dt-bindings/media/video-interfaces.h>
+> +#include <dt-bindings/media/video-interface-devices.h>
+>  
+>  &{/} {
+>  	clk_cam_j2: clk-cam-j2 {
+> @@ -44,7 +45,7 @@ cam@10 {
+>  		VDIG-supply = <&reg_cam_j2>;
+>  		VDDL-supply = <&reg_cam_j2>;
+>  
+> -		orientation = <2>;
+> +		orientation = <MEDIA_ORIENTATION_EXTERNAL>;
+>  		rotation = <0>;
+>  
+>  		port {
+> diff --git a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j2-imx462.dtso b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j2-imx462.dtso
+> index a31524b59834..177201a8a6d2 100644
+> --- a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j2-imx462.dtso
+> +++ b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-camera-j2-imx462.dtso
+> @@ -12,6 +12,7 @@
+>  
+>  #include <dt-bindings/gpio/gpio.h>
+>  #include <dt-bindings/media/video-interfaces.h>
+> +#include <dt-bindings/media/video-interface-devices.h>
+>  
+>  &{/} {
+>  	clk_cam_j2: clk-cam-j2 {
+> @@ -46,7 +47,7 @@ cam@1a {
+>  		vdda-supply = <&reg_cam_j2>;
+>  		vddd-supply = <&reg_cam_j2>;
+>  
+> -		orientation = <2>;
+> +		orientation = <MEDIA_ORIENTATION_EXTERNAL>;
+>  		rotation = <0>;
+>  
+>  		port {
+> 
+> -- 
+> 2.52.0
+> 
+> 
 
-Thanks!
-
-[1/4] dt-bindings: vendor-prefixes: add ESS Technology
-      https://git.kernel.org/broonie/sound/c/beb56d1d3de5
-[2/4] ASoC: dt-bindings: add ESS Technology ES9039Q2M
-      https://git.kernel.org/broonie/sound/c/ab1a02163fcd
-[3/4] ASoC: es9039q2m: add ESS Technology ES9039Q2M codec driver
-      https://git.kernel.org/broonie/sound/c/004e260a5475
-[4/4] MAINTAINERS: add entry for the ES9039Q2M codec driver
-      https://git.kernel.org/broonie/sound/c/10d321c76b1e
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+-- 
+Kind Regards,
+Niklas Söderlund
