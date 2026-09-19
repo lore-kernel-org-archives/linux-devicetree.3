@@ -1,79 +1,86 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98FBB3254BD;
-	Sat, 19 Sep 2026 00:48:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D53A738DC50;
+	Sat, 19 Sep 2026 01:01:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789778910; cv=none; b=ED1xYbYQelbbSHE3zCeAuC1eqaJF2GlVFpLlaRx7MUgTo/1FvoY44dmO3cZYh3uHJSffCU5H6SBASJ7Oz9M1Flme8MIPVHqU6qs9ffX4I5gYOit7DwfbphZCDkg7JLZ9PhOo4bRaSTj9UbvP6ZMalKXXh/KO2vF0QrBkDcZlNpE=
+	t=1789779692; cv=none; b=HMPGZkzkA1+gZM0FV0za1f7VB+FlOpZfkV7IUwxhYp+7bavHEultK1eYaFIN8sVwjOyX2Gyq6w8ctJD9QJtkPie7mdsxYLdSWHCC2PjIIrwBnSB71b+ikLvUWIaOQaRx3B+8n/N+9hyZoFIJuq6HroMwFGqPENdhAzUo8hHbsfo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789778910; c=relaxed/simple;
-	bh=MCbmQ6WJDGdCzQN4mYg04ADyk1fF1OC+DJiGEgxhAdw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=abeqpBpkOJJLyVA8cOPSPhQEFRGrtCTbFPDLD3stXiZgyLMZnHq8+FuvYo7s9sypLCVnDyLLZgmdeOMsM+c56rc47jjZ9CEod7FiXcL5Tl4PIHKrGzA6igfzRCVvQRfsHJAcJ2dzAxUy//XKggZ0KctfGwDZEn6EhfiPqPr8UME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RUw5HGvE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789779692; c=relaxed/simple;
+	bh=HWzXUAZiSudXtv+ysyemS4usfyUV9q4TgpEDa7hb46I=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=FrPQ2MUJd70mNB9bHK3yHu0mLJcN7BdAQUPD9GBdF9Za86Xkl4KeUUbL58hphfKkbv2ckoBKQ8rt0iHlUcwOvz4crcm5y4eO2GHJd7ALdq49wgCj5wtkjeXy+zVCw/6ax0YJbCdStdxu3iOUVKBauMYCsRibfrpSm8jtmhjAGQw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I5BYy7QL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RUw5HGvE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CB8D1F000FF;
-	Sat, 19 Sep 2026 00:48:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I5BYy7QL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 701201F00899;
+	Sat, 19 Sep 2026 01:01:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789778898;
-	bh=MCbmQ6WJDGdCzQN4mYg04ADyk1fF1OC+DJiGEgxhAdw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=RUw5HGvE4NOuabChT6omhbwuPsmkFw8sBJTVrHIa3igoep+FaodwCNFN3Qzj+gYie
-	 DtsRevJzMoPULHVcNHKA8n7W29O1tlxdkmxxX0mCI7ExijWvKuBiUI3YrrAmhYxFAW
-	 CuBYZknAPhdL2q3gYT27jA+wMGqXK1YyavBKEWrJI0bfn6DNZ+GcF9Sg7wuGlugTwD
-	 S+IykXDZNXW8RKtdTumDSVr1meeQjJTWgIOCYSEuDCfB9duWGZtaWagVpNGLnW7ASn
-	 XhB2fYu2ItAwUo7gZJT0uPf2WMvBi9ZiH7/lOVq2C3tO2umtpz/GyK1Qjhq1cYMiyk
-	 OWqmT/Ai/7Hag==
-Date: Fri, 18 Sep 2026 17:48:16 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Linus Walleij <linusw@kernel.org>
-Cc: netdev-bot+sashiko@kernel.org, woojung.huh@microchip.com,
- UNGLinuxDriver@microchip.com, andrew@lunn.ch, olteanv@gmail.com,
- davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, marex@denx.de,
- horms@kernel.org, linux@armlinux.org.uk, nb@tipi-net.de,
- netdev@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH net-next v15 2/4] net: dsa: tag_ks8995: Add the KS8995
- tag handling
-Message-ID: <20260918174816.0d77d5dd@kernel.org>
-In-Reply-To: <CAD++jLm7UQGiS9C=HnAUGOmnjA0AvjLc_qOUTRCK0PeRsVn0JA@mail.gmail.com>
-References: <20260916-ks8995-to-ksz8-v15-2-8825ff5fd4be@kernel.org>
-	<178965134740.22033.13313484925246996796@kernel.org>
-	<CAD++jLm7UQGiS9C=HnAUGOmnjA0AvjLc_qOUTRCK0PeRsVn0JA@mail.gmail.com>
+	s=k20260515; t=1789779677;
+	bh=BhWw07RB08Sq10ZxN4JWnZZQuiI8UGuDOAwR8QQWB4k=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=I5BYy7QLi0Mgtff/H72pa4MuCNDA1UhLqISosU8jzd+Lz+OE9FX0OZkgoxZuYb6Kr
+	 xyEb4jm2koopdWUXm6YjskY8Hxm7YZfPrw95hZqq8VL7HPfA5h1cqzd/mri5X37CR+
+	 /m1yLKt5toVh5WfM1xz7Yn8xD1WZ27b7xrE5fpgCS+Gh87jX4vrz7bCbvAd9fFBjG5
+	 FfOOgN5GvBcicnwyDDoyszlegDfp0H2DRKFN3gNScvnaoFfn27Ta5i6gWr1/XwMmYR
+	 IxvgDgVd8GahQFmUtNGZxaIqzFUKQR8g77S11HWW3T0csfwkt2FryfRxZnil52PANT
+	 aFXPj9xkcoupg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 93A043811978;
+	Sat, 19 Sep 2026 01:00:11 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next v15 0/4] net: dsa: microchip: Add support for
+ KSZ8995XA/KS8995XA
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178977961014.1214202.126037338656223815.git-patchwork-notify@kernel.org>
+Date: Sat, 19 Sep 2026 01:00:10 +0000
+References: <20260916-ks8995-to-ksz8-v15-0-8825ff5fd4be@kernel.org>
+In-Reply-To: <20260916-ks8995-to-ksz8-v15-0-8825ff5fd4be@kernel.org>
+To: Linus Walleij <linusw@kernel.org>
+Cc: woojung.huh@microchip.com, UNGLinuxDriver@microchip.com, andrew@lunn.ch,
+ olteanv@gmail.com, davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ marex@denx.de, horms@kernel.org, linux@armlinux.org.uk, nb@tipi-net.de,
+ netdev@vger.kernel.org, Woojung.Huh@microchip.com,
+ devicetree@vger.kernel.org, krzysztof.kozlowski@oss.qualcomm.com
 
-On Thu, 17 Sep 2026 23:18:42 +0200 Linus Walleij wrote:
-> On Thu, Sep 17, 2026 at 3:22=E2=80=AFPM <netdev-bot+sashiko@kernel.org> w=
-rote:
->=20
-> > Two details worth noting: this only happens with a conduit MAC that str=
-ips
-> > the non-standard 0x810X TPID into metadata while preserving the port bi=
-ts,
-> > which was not demonstrated here, and the same OUT_BAD outcome already
-> > applies to other VLAN-metadata DSA taggers such as the tag_8021q family,
-> > where proto becomes ETH_P_XDSA and also has no case in the switch. Shou=
-ld
-> > the receive path here rely only on the in-band tag, or is degraded hash=
-ing
-> > on the conduit acceptable for this configuration? =20
->=20
-> This is just getting too fringe. What about we merge this and look into t=
-his
-> when we have a user who actually want to do these things on this
-> old chip?
->=20
-> I don't think this is a blocker.
+Hello:
 
-Yes, sorry, I need to modify the emails to call it out more clearly.
-We only really care about issues >=3DMedium severity, but if there are
-any such issues found we send out the low ones too just in case.
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Wed, 16 Sep 2026 12:20:57 +0200 you wrote:
+> This series breaks with the dated attempt to polish the old
+> KS8995 driver, and instead implement support for the KS8995XA
+> in the KSZ driver, and after that delete the old KS8995 driver.
+> 
+> The hardware clearly has the same ancestry, the KSZ8995XA is
+> just a rebrand of the much older Micrel KX8995XA switch.
+> 
+> [...]
+
+Here is the summary with links:
+  - [net-next,v15,1/4] dt-bindings: net: dsa: microchip: Add KSZ8995XA
+    https://git.kernel.org/netdev/net-next/c/7a5e75f64916
+  - [net-next,v15,2/4] net: dsa: tag_ks8995: Add the KS8995 tag handling
+    https://git.kernel.org/netdev/net-next/c/ca30cd47fe7f
+  - [net-next,v15,3/4] net: dsa: microchip: Support Microchip KSZ8995XA / KS8995XA
+    https://git.kernel.org/netdev/net-next/c/a926dc2352a9
+  - [net-next,v15,4/4] net: dsa: ks8995: Delete surplus driver
+    https://git.kernel.org/netdev/net-next/c/744e0256c4a1
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
