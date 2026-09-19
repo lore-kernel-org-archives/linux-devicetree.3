@@ -1,303 +1,231 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C322282F0C;
-	Sat, 19 Sep 2026 12:05:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 201C6397E81
+	for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 12:29:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789819509; cv=none; b=juG88jOmvZIXorvsLUrMA9BtNhQCk8tgfO3pL3FVeoF5bl5ep0UL35dmskWpe24Ixgp7TH4Nvoznt/t/g/8hBMxceH5BPDzsJZOYcTn0MdN95SMGvRx5xiBdmSST7BuklNZfjTn5eGkGVHdjwRdUNoGSfmMuzf6vQWigajSOhNc=
+	t=1789820990; cv=none; b=IRLV88hj+jwX8kxhA+r9FDjiZyvD7OMRPcPhGHTOr4Oql6l1dzmkLTSOHdD7bkczWBSOgNULiUKZwAeX1+YI9sFhug19XdIg+PKZz/NHgMoPyBtbCWSaukRjoKRSgiDP95cFcfdg52Xyqw7XaI0R9niHKF0QSDh3khOT9VHe9OA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789819509; c=relaxed/simple;
-	bh=qT0uHq50xuDhbsDO5hHlQBOwDv2Zr0eCRbEkzMG7I3A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Rxk3rLX8x8njHUjzAfCqwdQr0Icovbg83fCJvHgYgmVlN+FNGPdAofmt2CCA2qh8w89yIe7fSOq4XzQrLHM7rakxWQCN8JoGRTBMmmXRHUaIck/Wt+z4KUXF8LakFYpwDMvM5V6NsFJaX4R2AiHhXv5BkIIBveMw87fCYih0i3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=i6MQZccq; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789820990; c=relaxed/simple;
+	bh=YlRi0jvoGCP3epi2jzLBh73rR6rYvlrsGdFSllcGDEI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=POTCj+5edUM9Sz08y/HY4Y+zD7JgXuXMyV6Qe8YMR+TheCoB0Mgi7BKjU3gbQwtBd9VeKkeOLUr/0jzS9CgkW/ymk/ou0GN3DG/IieqGddh7oBU2WU2SAXTaHtV/D8DZNxtP6eGPbQOfMsApkKGtd2XWFBQFHGfP/dRLrQZiEUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fsWuAMJP; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="i6MQZccq"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 55BB6C5145A;
-	Sat, 19 Sep 2026 12:05:49 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id DB431606CA;
-	Sat, 19 Sep 2026 12:05:03 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1195E1032802B;
-	Sat, 19 Sep 2026 14:04:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789819500; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=SFMPcolUh4zpvmGrKEAW5fnqAUuQ8Gy43QODCsF/j7o=;
-	b=i6MQZccqtvleTOJOc2xjeW74ER3MJIHhkShL13MtzMohMMbitlY+MYOeRapQZv1FRiszrs
-	zsf1Pv/lOh5OT6jSrSMJ4+EokPhsjhR2nNW0DzbFOFsB7Cz6h7q8KceiPVEr8c/hVjzTQE
-	nqWaJ3jUnxndGN+Av5Y/zTKlPIozQ9H0inoQiaosndiodGrV9KAbI4uoJd7zMc8ncYo6Zk
-	P6PzdTlsRqie0aGyDM4ExXIMsVaonLvOTTS6NvT3XEezxcxgwTD/wUnrR/f5DLEmh6snZn
-	cRuCQZNwoa0sUcWwmZASNz92J0cRcRQihCO++rAu2wDZgfruuPhVucTt1phM4g==
-Message-ID: <7b0a957d-f770-4bad-b3b9-aeb7a61bfb49@bootlin.com>
-Date: Sat, 19 Sep 2026 14:04:43 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fsWuAMJP"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2dd58e1e2c7so14390485ad.0
+        for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 05:29:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789820985; x=1790425785; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9Cz2gzGY048RFK6yaT1IK/Bb3cZA3GbpsU47/37Y+Pk=;
+        b=fsWuAMJPgyiMBEVnBz6/PDqKbxnXYuOOqDRxYpazCKalFRSU1RZVvz4PS04HK+8aL/
+         pvKsccrjxNGtZTvqK8r2tFUSnN5WXlnCzjnHK6GeF9z5XvOiToHY0k2QaMhrcdE6dvTX
+         uR/Kw1pXNc0EHC478xzsfXM4hEfOJR2aE8SGssaszblbpedjipfVj/gZfReGiyXQ0v/i
+         lwknjCsSlcnKjS+m2O/nCC5nMt0RNB3HPvKrquA+PEyOCSj1TG4YNsXKU8RWEAvTSCtF
+         NpPvMO9KrpqMXmFMWBm+nyqSIgf/HfEx2jaCN/sh9A2bTOyX8UZB2i5jSZJC/vpk286L
+         qY2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789820985; x=1790425785;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9Cz2gzGY048RFK6yaT1IK/Bb3cZA3GbpsU47/37Y+Pk=;
+        b=yJf6uKnq3RFKGoekSjuqUChq6As1MrgQmIaraTHBmWedUPqMv/CBeOeaPS7j8VZx/J
+         hUc1V9VZKJw6hS/Vl2As7Eo9fAWE+MSOQMyXfLifipaU6gxP65R87rzKDmBVQgtUJ/Dk
+         LM4XqMGc03r/1e7EK3zMXBCxFAHk3Y2wLGHhXRrNxYMEGfxxaQ246Rtzi/tjH0BCKUky
+         as8C+RWxTM3awi/xoB5tzQcm2CJYyWrRBx5c+gm0K82XHDS74CTXj9bugpP1bWRQ/Gku
+         /5auKtMNY1ujz1JJh4bmCEXP+aVj050QYCNVt2vIuK0QZj53HOknY7pSuudQ3NSjkVEi
+         ZJqQ==
+X-Forwarded-Encrypted: i=1; AKwUvByE3KsxgSnzSw0DZSPZTdo6poQRdKU41TwnltZnfRge1MT/UC15fjj8oqLjH77H+B/vt1oEX6KVLWOz@vger.kernel.org
+X-Gm-Message-State: AFuF++nunAJQXpErItuJc4EtDVgAIeVVPSlZgjnHEJ2GeoYGoiY04D8v
+	4tfPjEof/GL6B7s+DKxOCcaLa9vjobHoeT+UdDk1i8FibKlwhL7FMzac
+X-Gm-Gg: AYBFou3Yq3MT65+wV1pOQ2fqGTynNN1PIwmmWLtlbrOhV26yT7j4lGthWqHn0WyxqZz
+	5ZzoB4UqOOCwqAOB9UkGRYOUNWAJBQKLdrsbwkT31KaW5JVUCzKGm9VoUGJZ1vbj+ScgxGlpt1N
+	APJMyuOQH3aIT3T94BFIg8S5kOIqYXq6VkHAlRwiqGe3rSJFd/H/nYUeWaKlac7VZorj2tfFkix
+	dLrkziORn1bRuhLoPIj36V1ZpRWIZnovaGz5+tyIymBy8UDPP0O+qlURi0/J2W+riccS7Q7uQTS
+	GCeqQsU7lqNPt9hpTD7hHEFzja2M7RstKv5RldfPAPbp18d1GNKJOMZIzvKX8WtaqsceYk+gGk4
+	MbbCu7hkdoS3fbAhuysU2RmzNNDY04Gw9o1PHJhstXjM0Dou0IV6y3aFB3HryQBAt6yrwOtLegj
+	+jAK7nu1Prr1y4Vy868dsWv/2aZ/tDQqZzrL08J5rNnX92NgKId7pPyHFbYleGfqEcRURd1EJit
+	rz9rSDZRrg=
+X-Received: by 2002:a17:903:1a88:b0:2d9:3850:2741 with SMTP id d9443c01a7336-2ddb16d6a6bmr103231325ad.0.1789820985169;
+        Sat, 19 Sep 2026 05:29:45 -0700 (PDT)
+Received: from Aaron-M6 ([188.253.120.162])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17d7115sm9552155ad.66.2026.09.19.05.29.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 19 Sep 2026 05:29:43 -0700 (PDT)
+From: Yaozhong Li <yaozhonguwl@gmail.com>
+To: Lee Jones <lee@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Chris Zhong <zyw@rock-chips.com>,
+	Zhang Qing <zhangqing@rock-chips.com>
+Cc: mfd@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Yaozhong Li <yaozhonguwl@gmail.com>
+Subject: [RFC PATCH v2 0/3] Fix poweroff restarting the board on Firefly-RK3399
+Date: Sat, 19 Sep 2026 20:29:27 +0800
+Message-ID: <20260919122930.1418-1-yaozhonguwl@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.3
+In-Reply-To: <20260909092728.1859-1-yaozhonguwl@gmail.com>
+References: <20260909092728.1859-1-yaozhonguwl@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v3 07/12] net: stmmac: dwmac-s32: Add SGMII support
-To: jan.petrous@oss.nxp.com,
- Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>,
- NXP S32 Linux Team <s32@nxp.com>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Bogdan Hamciuc
- <bogdan.hamciuc@nxp.com>, Ionut Vicovan <ionut.vicovan@nxp.com>,
- Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
- Russell King <linux@armlinux.org.uk>, Clark Wang <xiaoning.wang@nxp.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Chester Lin <chester62515@gmail.com>, Matthias Brugger <mbrugger@suse.com>,
- Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- Richard Cochran <richardcochran@gmail.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- imx@lists.linux.dev, linux-pci@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Vincent Guittot <vincent.guittot@linaro.org>
-References: <20260919-s32g_serdes-v3-0-9d68868c1e89@oss.nxp.com>
- <20260919-s32g_serdes-v3-7-9d68868c1e89@oss.nxp.com>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20260919-s32g_serdes-v3-7-9d68868c1e89@oss.nxp.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-Hi Jan,
+Still an RFC: the patched kernel has not been booted on hardware (see
+Testing), and the open questions from v1 about placement and naming are
+unanswered.
 
-On 9/19/26 08:54, Jan Petrous via B4 Relay wrote:
-> From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
-> 
-> Wire the NXP S32G SerDes XPCS PCS into the dwmac-s32 glue layer so the
-> MAC can run SGMII over a SerDes lane.
-> 
-> Changes:
-> - s32_gmac_write_phy_intf_select: replace the hard-coded RGMII selector
->   with a switch on phy_interface so SGMII (0x01), RGMII, RMII and MII
->   all programme the SoC control register correctly.
-> - Add s32_gmac_pcs_init: obtain the phylink_pcs handle from the SerDes
->   subsystem via s32g_serdes_pcs_create(), keyed by the standard
->   pcs-handle property on the GMAC node pointing at the SerDes XPCS lane
->   child. Propagates -EPROBE_DEFER if the SerDes driver has not probed
->   yet. There is no matching exit hook: the device link created by
->   s32g_serdes_pcs_create() covers the lifetime.
-> - Add s32_gmac_select_pcs: return the stored PCS handle when the
->   negotiated interface is SGMII.
-> - Hook pcs_init and select_pcs into plat_stmmacenet_data.
-> 
-> Note that installing a select_pcs callback suppresses the core's
-> integrated_pcs fallback, because stmmac treats a NULL return from
-> select_pcs as "no PCS" rather than "fall through". This matches what
-> dwmac-rzn1 and dwmac-intel already do.
-> 
-> Both negotiation modes are supported by the PCS. The board device
-> trees added later in this series describe the MAC-side link as fixed,
-> so they exercise the out-of-band path.
-> 
-> The XPCS header guards its s32g_serdes_pcs_create() declaration with
-> IS_REACHABLE(CONFIG_PHY_S32G_SERDES) and provides a static-inline stub
-> returning -ENODEV otherwise. IS_REACHABLE is false both when the SerDes
-> driver is disabled and in the built-in-consumer / modular-provider case
-> (DWMAC_S32=y with PHY_S32G_SERDES=m), so this driver links in all four
-> combinations of the two symbols.
-> 
-> Linking is not sufficient on its own, though. In the DWMAC_S32=y with
-> PHY_S32G_SERDES=m case the stub makes s32_gmac_pcs_init() return
-> -ENODEV, and stmmac treats a failing plat->pcs_init() as fatal, so a
-> built-in MAC would refuse to probe on any device tree describing
-> pcs-handle. Add a Kconfig dependency forbidding that combination
-> rather than letting it build into a MAC that cannot probe.
-> 
-> Tested on an S32G3-VNP-RDB3 board: GMAC0 links at 1G over SGMII and
-> passes traffic, both in SerDes mode 1 (alongside two active PCIe root
-> complexes) and in mode 3.
-> 
-> Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/Kconfig     |  6 ++
->  drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c | 74 ++++++++++++++++++++++++-
->  2 files changed, 78 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-> index e3dd5adda5ac..1443ff4149b4 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
-> +++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-> @@ -192,6 +192,12 @@ config DWMAC_S32
->  	tristate "NXP S32G/S32R GMAC support"
->  	default ARCH_S32
->  	depends on OF && (ARCH_S32 || COMPILE_TEST)
-> +	# SGMII needs the PCS from the SerDes driver. The header falls back
-> +	# to a stub returning -ENODEV when that driver is not reachable, and
-> +	# stmmac makes a failing plat->pcs_init() fatal, so a built-in MAC
-> +	# with a modular SerDes would refuse to probe on any DT describing
-> +	# pcs-handle. Forbid that combination instead.
-> +	depends on PHY_S32G_SERDES || PHY_S32G_SERDES=n
+v1: https://lore.kernel.org/all/20260909092728.1859-1-yaozhonguwl@gmail.com/
 
-select PHY_S32G_SERDES ? This is what other glues that require PCS do,
-or there's a catch that prevents using it ?
+Changes since v1, addressing the Sashiko review Lee Jones asked me to act on
+--------------------------------------------------------------------------
 
->  	help
->  	  Support for ethernet controller on NXP S32CC SOCs.
->  
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c
-> index 024d8e10e918..a3a56b21181a 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c
-> @@ -16,12 +16,14 @@
->  #include <linux/of_mdio.h>
->  #include <linux/of_address.h>
->  #include <linux/phy.h>
-> +#include <linux/phy/nxp-s32g-serdes.h>
->  #include <linux/phylink.h>
->  #include <linux/platform_device.h>
->  #include <linux/regmap.h>
->  #include <linux/stmmac.h>
->  
->  #include "stmmac_platform.h"
-> +#include "stmmac.h"
->  
->  #define GMAC_INTF_RATE_125M	125000000	/* 125MHz */
->  
-> @@ -40,23 +42,89 @@ struct s32_priv_data {
->  	phy_interface_t *intf_mode;
->  	struct clk *tx_clk;
->  	struct clk *rx_clk;
-> +	/* SGMII PCS provided by the SerDes subsystem (NULL if not SGMII) */
-> +	struct phylink_pcs *pcs;
+* [Medium] "Acquiring 'power-hold' GPIOs after registering MFD child devices
+  can cause probe deferral thrashing."
 
-There's already a phylink_pcs pointer in priv->hw, you shouldn't have to
-store your own here.
+  Fixed, and the finding was correct. v1 claimed the array after
+  devm_mfd_add_devices(), so a -EPROBE_DEFER from the GPIO provider would
+  have unwound the regulators, RTC and clocks on every retry. v2 claims it
+  before devm_regmap_add_irq_chip(), i.e. before anything is registered on
+  the device: the property test is hoisted into a bool and reused for the
+  sys-off registration further down, which is otherwise unchanged. A comment
+  records why the acquisition has to stay there.
 
->  };
->  
->  static int s32_gmac_write_phy_intf_select(struct s32_priv_data *gmac)
->  {
-> +	u32 intf_sel;
->  	int ret = 0;
->  
-> +	switch (*gmac->intf_mode) {
-> +	case PHY_INTERFACE_MODE_SGMII:
-> +		intf_sel = S32_PHY_INTF_SEL_SGMII;
-> +		break;
-> +	case PHY_INTERFACE_MODE_RGMII:
-> +	case PHY_INTERFACE_MODE_RGMII_ID:
-> +	case PHY_INTERFACE_MODE_RGMII_RXID:
-> +	case PHY_INTERFACE_MODE_RGMII_TXID:
-> +		intf_sel = S32_PHY_INTF_SEL_RGMII;
-> +		break;
-> +	case PHY_INTERFACE_MODE_RMII:
-> +		intf_sel = S32_PHY_INTF_SEL_RMII;
-> +		break;
-> +	case PHY_INTERFACE_MODE_MII:
-> +		intf_sel = S32_PHY_INTF_SEL_MII;
-> +		break;
-> +	default:
-> +		dev_err(gmac->dev, "Unsupported phy interface mode: %s\n",
-> +			phy_modes(*gmac->intf_mode));
-> +		return -EINVAL;
-> +	}
+  Worth noting that this is exactly the part v1 disclosed as untested - the
+  out-of-tree proxy used for the functional testing claims the GPIOs at
+  module load, so it never exercises the probe path at all.
 
-We go from supporting RGMII only to RGMII + RMII + MII + SGMII.
+* [Low] "The commit message description violates the MFD subsystem formatting
+  rules by using a lowercase letter."
 
-Are RMII and MII actually supported on that platform ? if so, can you split
-that into 2 commits : one for proper inft_sel support with RMII + MII added,
-the another one for SGMII ? 
+  Fixed: "mfd: rk8xx: Release ...". The dt-bindings and arm64 dts subjects
+  keep their own subsystems' lowercase convention.
 
-> +
->  	if (gmac->ctrl_sts)
-> -		writel(S32_PHY_INTF_SEL_RGMII, gmac->ctrl_sts);
-> +		writel(intf_sel, gmac->ctrl_sts);
->  	else
->  		ret = regmap_write(gmac->sts_regmap, gmac->sts_offset,
-> -				   S32_PHY_INTF_SEL_RGMII);
-> +				   intf_sel);
->  
->  	dev_dbg(gmac->dev, "PHY mode set to %s\n", phy_modes(*gmac->intf_mode));
->  
->  	return ret;
->  }
->  
-> +static int s32_gmac_pcs_init(struct stmmac_priv *priv)
-> +{
-> +	struct s32_priv_data *gmac = priv->plat->bsp_priv;
-> +	struct device_node *pcs_node;
-> +
-> +	/*
-> +	 * pcs-handle points at the SerDes XPCS lane child node; its
-> +	 * nxp,xpcs-instance property is what identifies the XPCS instance.
-> +	 */
-> +	pcs_node = of_parse_phandle(gmac->dev->of_node, "pcs-handle", 0);
-> +	if (!pcs_node) {
-> +		dev_dbg(gmac->dev, "no 'pcs-handle' property, SGMII PCS unavailable\n");
-> +		return 0;
-> +	}
-> +
-> +	gmac->pcs = s32g_serdes_pcs_create(gmac->dev, pcs_node);
-> +	of_node_put(pcs_node);
-> +
-> +	if (IS_ERR(gmac->pcs)) {
-> +		int err = PTR_ERR(gmac->pcs);
-> +
-> +		gmac->pcs = NULL;
-> +		/* SerDes may not be probed yet - defer probe. */
-> +		return err;
-> +	}
-> +
-> +	dev_dbg(gmac->dev, "SGMII PCS created via SerDes XPCS\n");
-> +	return 0;
-> +}
-> +
-> +static struct phylink_pcs *s32_gmac_select_pcs(struct stmmac_priv *priv,
-> +					       phy_interface_t interface)
-> +{
-> +	struct s32_priv_data *gmac = priv->plat->bsp_priv;
-> +
-> +	if (interface == PHY_INTERFACE_MODE_SGMII && gmac->pcs)
-> +		return gmac->pcs;
+* The binding now states that power-hold-gpios is only meaningful together
+  with system-power-controller, which is what the driver implements. This is
+  not expressed as a "dependencies" entry because the driver also accepts the
+  deprecated rockchip,system-power-controller, and a dependency on one
+  spelling would reject device trees using the other.
 
-No need for the && gmac->pcs here, if it's NULL we return NULL anyway so you
-can return priv->hw->phylink_pcs
+* checkpatch --strict alignment fix in the GPIO acquisition; no functional
+  change.
 
-> +
-> +	return NULL;
-> +}
-> +
->  static int s32_gmac_init(struct device *dev, void *priv)
->  {
->  	struct s32_priv_data *gmac = priv;
-> @@ -204,6 +272,8 @@ static int s32_dwmac_probe(struct platform_device *pdev)
->  
->  	plat->init = s32_gmac_init;
->  	plat->exit = s32_gmac_exit;
-> +	plat->pcs_init = s32_gmac_pcs_init;
-> +	plat->select_pcs = s32_gmac_select_pcs;
->  
->  	plat->clk_tx_i = gmac->tx_clk;
->  	plat->set_clk_tx_rate = stmmac_set_clk_tx_rate;
-> 
+The problem
+-----------
 
-Thanks,
+On the Firefly-RK3399, "poweroff" drops the rails and immediately brings
+them back up, so the board reboots instead of staying off. U-Boot reports
+the result as a power-on reset.
 
-Maxime
+Firefly's BSP drives two SoC pins low during shutdown, before writing the
+RK808's shutdown bit: GPIO1_D0 and GPIO1_B5. Mainline does not describe
+GPIO1_D0 at all, and describes GPIO1_B5 as the backlight enable GPIO,
+although the vendor's own backlight node has no enable GPIO. Nothing
+therefore releases either line at power-off.
+
+What was established on the board is the sequence, not what happens inside
+the PMIC: the shutdown sticks only when GPIO1_D0 goes from high to low
+during power-off prepare, with GPIO1_B5 low, and the shutdown bit written
+after a settle delay. Leaving GPIO1_B5 asserted makes the board come back
+up even when GPIO1_D0 is released correctly, which is why the backlight
+cannot keep that pin.
+
+Why not gpio-poweroff
+---------------------
+
+gpio-poweroff drives the line active, back to inactive, then active again,
+waits timeout-ms and then WARN()s on the assumption that it is itself
+performing the power off, and it registers at SYS_OFF_MODE_POWER_OFF. Here
+the RK808 performs the power off from its own POWER_OFF_PREPARE handler,
+the lines only have to be released and left released, and there are two of
+them.
+
+rk3188-bqedison2qc.dts does drive a pwr_hold pin from gpio-poweroff, which
+works there because pulling that line low is by itself enough to cut the
+power. That is not the case here - driving a line low at runtime, with no
+PMIC access at all, left this board running for the 10 s it was observed.
+
+Open questions (unchanged from v1)
+----------------------------------
+
+1. Does this belong in the PMIC driver at all, rather than a small separate
+   driver registering at POWER_OFF_PREPARE with a higher priority?
+2. Should the property be rockchip,power-hold-gpios? The vendor DT calls
+   these pins pmic,stby-gpio and pmic,hold-gpio.
+3. Should the DT also carry a pinctrl group for the pins, as the vendor does?
+4. Dropping the backlight enable-gpios is required for the sequence to work,
+   but nobody here has the schematic to confirm that property was wrong to
+   begin with.
+
+Testing
+-------
+
+Tested on a Firefly-RK3399 (4 GB, RK808), shutdown captured on the debug
+UART at 1500000 8N1. A run counts as "stayed off" only if the console
+produced nothing for 150 s and there was no ICMP reply and no USB gadget
+afterwards.
+
+The patched kernel has NOT been booted: CONFIG_MFD_RK8XX is built in on the
+test system and a full kernel build does not fit on it. The series compiles
+(aarch64, W=1, no warnings), checkpatch --strict is clean, dt_binding_check
+passes, and dtbs_check reports only the pre-existing usb2phy diagnostics for
+this board, reproduced unchanged on the unpatched tree.
+
+The functional evidence comes from an out-of-tree module using the same
+gpiod array consumer name, the same GPIOD_OUT_HIGH, the same per-descriptor
+gpiod_set_value_cansleep() loop and the same msleep() as this series,
+against a device tree carrying exactly these properties, registered at
+POWER_OFF_PREPARE with SYS_OFF_PRIO_HIGH + 1. It does not exercise the probe
+path, so the v2 reordering above is not covered by it.
+
+Every run started from a cold boot with both pins at their reset state
+(inputs, low), verified by reading the GPIO registers beforehand:
+
+  both lines, as in this series:            3 of 3 stayed off
+  GPIO1_D0 only, GPIO1_B5 left low:        3 of 3 stayed off
+  GPIO1_B5 only, GPIO1_D0 left low:        0 of 2 stayed off
+  GPIO1_D0 released, GPIO1_B5 left high:   0 of 2 stayed off
+  nothing driven (mainline today):         restarts after about 2 s
+
+On this particular board pwm-backlight does not bind, so GPIO1_B5 stays an
+input and describing GPIO1_D0 alone was enough here. That is not true in
+general, which is why both lines are described and the backlight property is
+dropped.
+
+The 200 ms is the value the vendor uses; the threshold was not characterised.
+The msleep() was measured at 200 to 201 ms on the console timestamps.
+
+
+This series was prepared with AI assistance (Claude); the analysis and
+the measurements on the board were reviewed by the author.
+
+Yaozhong Li (3):
+  dt-bindings: mfd: rk808: add board level power hold GPIOs
+  mfd: rk8xx: Release the power hold GPIOs before powering off
+  arm64: dts: rockchip: fix power-off on Firefly-RK3399
+
+ .../bindings/mfd/rockchip,rk808.yaml          | 21 +++++++++
+ .../boot/dts/rockchip/rk3399-firefly.dts      |  4 +-
+ drivers/mfd/rk8xx-core.c                      | 47 ++++++++++++++++++-
+ include/linux/mfd/rk808.h                     |  4 ++
+ 4 files changed, 73 insertions(+), 3 deletions(-)
+
+-- 
+2.55.0.windows.3
+
