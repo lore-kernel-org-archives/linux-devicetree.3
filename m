@@ -1,165 +1,150 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D530349CD8;
-	Sat, 19 Sep 2026 18:16:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD2C638228A
+	for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 18:42:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789841765; cv=none; b=Sw3xs4rZaonOJaGhrlGo501dS8ztv1rnsPSGh76e9GLqwTKshsexaoWNlSG45RikRKRORVzPND1sTg9R/OhCn/rnqaBR3lHrzzBSJ9oPKRDzxr5VetRtvSnhP0KO9xkufteoH57YltLnLUDxj2PVE4lHy1vzJ1bR+6VLbRSuWeM=
+	t=1789843371; cv=none; b=nFXKYZNd3zAbd/6Qmp3+RNlBmYwZ+l9Ff7AcJA8MjmgWgLCM/zU3mF/1R9QUkpuOyVX3jYNWYBDL5iD/VJiUJVc5hSP0WNrvG7z/6qVP4YPCJHl7mcRXsqzbgS+Ni0p+fCV3U7WMupTVOdsa+MpXwIisan37/oNtZ1zB3cu2quQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789841765; c=relaxed/simple;
-	bh=wH8Tb4KqRc4VOh6/dbLrwuxzssZnUUFHkjcWJvCsIAE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pm8c+p+fiSXDWN8m5gRLK6nG+JvtwRDNUQUS/vCwaDn2q/vFaZPJLlcha8LYsmMg86ZX+dww6qkn85m7+NSi6FjHO5yZIg6h6r7UMehhCUYTQLznJkD/RCuE85osBpBm3rGmfKMbPVhRLPFbX8oaES7MbLUYebsLe+fE+YYQeZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=uZ10c8pz; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1789843371; c=relaxed/simple;
+	bh=L0cJg8bEa3JcDAFMwgJ+PXyC/ThA9AhiO5G7soyuk4Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GJHlBK6gmrBfOE8dh2aZeJ2iOxeRZq+5rJIAYUqOJ0NJ/6y7miG9bkMnFeZehNr6qkK193cH6lpo1JY53bBovIGRKfnomK59DWxIZ+vaN0BeVODfnpa+k051R30SQKF5ObII5pYAhP3Ixfr7U/q4knh3nWjYHlqESacbRXoEsG8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L+rhnWa9; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="uZ10c8pz"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3C502C36;
-	Sat, 19 Sep 2026 20:14:15 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1789841655;
-	bh=wH8Tb4KqRc4VOh6/dbLrwuxzssZnUUFHkjcWJvCsIAE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=uZ10c8pz/N2zzU7AqCtcuG4Y5uHw/9SgQOpCgF8n0ljm9CDLNkZ1AhCdncdud52hj
-	 nOjGc5OsfdA4Ia5olYwgqz6CgKHItk5HnBnjXZiYQnWY4i6kX42wWMGO1J5hGiEFX1
-	 4NEr+BuZns3VgYrdr4GsV0GBd2zzU4bDGcMbbuFI=
-Date: Sat, 19 Sep 2026 21:15:57 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Paul Elder <paul.elder+renesas@ideasonboard.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-pm@vger.kernel.org, linux-media@vger.kernel.org
-Subject: Re: [PATCH v2 10/11] media: rcar-fcp: Handle resets
-Message-ID: <20260919181557.GK1124359@killaraus.ideasonboard.com>
-References: <20260919-epaul-v7-3-rc1-x5h-vsp-fcp-v2-0-dbe9236bfd22@ideasonboard.com>
- <20260919-epaul-v7-3-rc1-x5h-vsp-fcp-v2-10-dbe9236bfd22@ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L+rhnWa9"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e8185e037so9745355e9.3
+        for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 11:42:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789843368; x=1790448168; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EUaG58XyyXj2IYGxruqsBjrWu0FDpmLYKW3X9EM+9DM=;
+        b=L+rhnWa9nQG2h6Uso3aXhrUb1+pFdsXRFDMx5XcAo69q9fXnDxwpUAnp67jjx05WOh
+         UlHlMf0RCkzMdqFJJyX15kVA7PDcV2cDKzmhkkO3id15YNJF8a3BVbLTlGsK/XPtQM29
+         065odsPEekw6UhF8ik+AQ9gQfRZ/kObO4TrxSbY5+hcsn2cCh3iA11HoNAznCt3ea5HY
+         Fv82E4PjgXTB/1vEy1hauB5j7z+9KyIHJvrA0aEP3zEcl69oTsyDYBZWrNnz+Ggvb/th
+         SYtRL3+ZnGtvfXPzXi81+71BDGhMs0KnxACyG2QGoegKiUDa6P+tUSBBVGabEodUxRWn
+         D/lg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789843368; x=1790448168;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EUaG58XyyXj2IYGxruqsBjrWu0FDpmLYKW3X9EM+9DM=;
+        b=aZfcGA0TrzTliJ5LKMmSOyN7iSiele+pj/yFgETQcRlqpmxNxCe75gABKCBmGxgt0L
+         8o+rC17YN8VhNRFNCarQCGEHJlL43IeypVx5palhqK48HxNYdmyJNheATKFLQlGQViC4
+         B8CxYpTWsDVCiqvEBHFm2VPh07uVrAdygpxIwGK6J2XVkMXYI/leCJgmuXS1b7A8HXd5
+         hNsmWwCSli1jUjo2QvMzn0AKmvlAaMGP5anEplofwlpFdR8FMWpHfrvdVK0YdwdXChb4
+         ugRkS0bs3lkYUcgwaii9O36wr8Al0eQVnnuFCaQOdvC9AIwGbnwP9r8f9dhFIcy3xSIR
+         Q+qg==
+X-Forwarded-Encrypted: i=1; AKwUvBzixmYlyK/l0192dZeDJ5aZCIhIql3MrvoVOrF/xtwptPrU4ENC+Tg96KyzEmoQPkJLldFYQsx/cv6C@vger.kernel.org
+X-Gm-Message-State: AFuF++nAFt3lQZlnGNGFZRFjGrI2FBO8/polLj8dnn65OSeHCxKz6PdT
+	17weh/ytNIS6RCxwjyfvnW5rdpA/dhj6ob9w2LI37tse8egVPonokUqe
+X-Gm-Gg: AYBFou2oG5EhUNQs/lPs9oGhnd8m7vFTu9ygK7ecJD2dF5MOjIhW1cm97BtDFXR+36A
+	0WbbtJQTK06m+GlwjzMJ8iRgmCYHdTZyHsqqZeg1yka5ThtAnCqLh2m2hXuywzAx6LFDTVKXDRh
+	rZ/yitED2l3131G6sTIiWjnfgBt7qkEB7V8rDBcdlZSHHqf/v7Ayyh8ndk0shYWKLzwx2Etays0
+	rgCcRmtfWdj5UBb28FHjhrSiRNEqqEU8Iw2jAxGaMBHiGdVyGVI4sGIr0xT8+xnHJaTwjCiSX32
+	YCONyNEbBZTenjod6jWj2n47MENApZxT5AWp0oA81l8mHP8XXIxya+TgW/TkyPhRcVkpw6o6Ghs
+	MEneZYPXCtb4pJ1eSGATFpt3EqdladjOBW5eVxvfpo+OJ8+mupkRlbDmKjP31y6aZbzThBAXXZS
+	Yq6AcYqo6gLXYUG4X4TYeIOyI+G2bYRxgqEfGMhDqhlqtyxaGxz2hnT5h8t4RDzfXSSC+D+KEvk
+	9EG7mI+NHpLTRESizXVEve6T51c
+X-Received: by 2002:a05:600c:4505:b0:49a:a101:4157 with SMTP id 5b1f17b1804b1-49fc56db92fmr86686385e9.7.1789843367901;
+        Sat, 19 Sep 2026 11:42:47 -0700 (PDT)
+Received: from [192.168.1.13] ([185.69.144.71])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd07cca6sm91087395e9.11.2026.09.19.11.42.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 19 Sep 2026 11:42:47 -0700 (PDT)
+Message-ID: <8427de42-2cdf-4acb-a439-d7c99cd249ca@gmail.com>
+Date: Sat, 19 Sep 2026 19:42:43 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260919-epaul-v7-3-rc1-x5h-vsp-fcp-v2-10-dbe9236bfd22@ideasonboard.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 00/11] Add spi-hid transport driver
+To: fQwQf <fqwqf@fqwqf.xyz>, jingyliang@chromium.org, jikos@kernel.org,
+ bentiss@kernel.org, corbet@lwn.net, broonie@kernel.org, rostedt@goodmis.org,
+ mhiramat@kernel.org, mathieu.desnoyers@efficios.com,
+ dmitry.torokhov@gmail.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org
+Cc: linux-input@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ hbarnor@chromium.org, tfiga@chromium.org, jaschultz@microsoft.com,
+ dmanti@microsoft.com, acz@semihalf.com
+References: <20260609-send-upstream-v4-0-b843d5e6ced3@chromium.org>
+ <010601a0b3ff1cf6-944e2ad5-0ad1-49d4-9e89-c8ab03bbc62c-000000@ap-northeast-1.amazonses.com>
+Content-Language: en-US
+From: Dale Whinham <daleyo@gmail.com>
+In-Reply-To: <010601a0b3ff1cf6-944e2ad5-0ad1-49d4-9e89-c8ab03bbc62c-000000@ap-northeast-1.amazonses.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Paul,
-
-Thank you for the patch.
-
-On Sat, Sep 19, 2026 at 02:07:07AM +0900, Paul Elder wrote:
-> On some versions of the FCP, such as the one on the X5H, reset control
-> is required to operate the FCP. Add support for handling resets
-> optionally, to continue supporting versions that do not require it.
+On 18/09/2026 11:10, fQwQf wrote:
+> Hi Jingyuan,
 > 
-> Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
-
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-
-> ---
-> Changes in v2:
-> - handle errors
-> ---
->  drivers/media/platform/renesas/rcar-fcp.c | 30 ++++++++++++++++++++++++++++--
->  1 file changed, 28 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/media/platform/renesas/rcar-fcp.c b/drivers/media/platform/renesas/rcar-fcp.c
-> index dfb0ca93e854dd0bb8aedfb757fd786ef6e45542..76d4c250b30815d9eac58f9b54ad923748df79f6 100644
-> --- a/drivers/media/platform/renesas/rcar-fcp.c
-> +++ b/drivers/media/platform/renesas/rcar-fcp.c
-> @@ -16,6 +16,7 @@
->  #include <linux/mutex.h>
->  #include <linux/platform_device.h>
->  #include <linux/pm_runtime.h>
-> +#include <linux/reset.h>
->  #include <linux/slab.h>
->  
->  #include <media/rcar-fcp.h>
-> @@ -29,6 +30,7 @@ struct rcar_fcp_device {
->  	struct list_head list;
->  	struct device *dev;
->  	void __iomem *base;
-> +	struct reset_control *rstc;
->  };
->  
->  static LIST_HEAD(fcp_devices);
-> @@ -162,20 +164,25 @@ static int rcar_fcp_probe(struct platform_device *pdev)
->  
->  	fcp->dev = &pdev->dev;
->  
-> +	platform_set_drvdata(pdev, fcp);
-> +
->  	fcp->base = devm_platform_ioremap_resource(pdev, 0);
->  	if (IS_ERR(fcp->base))
->  		return PTR_ERR(fcp->base);
->  
->  	dma_set_max_seg_size(fcp->dev, UINT_MAX);
->  
-> +	fcp->rstc = devm_reset_control_get_optional(&pdev->dev, NULL);
-> +	if (IS_ERR(fcp->rstc))
-> +		return dev_err_probe(&pdev->dev, PTR_ERR(fcp->rstc),
-> +				     "failed to get reset control\n");
-> +
->  	pm_runtime_enable(&pdev->dev);
->  
->  	mutex_lock(&fcp_lock);
->  	list_add_tail(&fcp->list, &fcp_devices);
->  	mutex_unlock(&fcp_lock);
->  
-> -	platform_set_drvdata(pdev, fcp);
-> -
->  	return 0;
->  }
->  
-> @@ -190,6 +197,24 @@ static void rcar_fcp_remove(struct platform_device *pdev)
->  	pm_runtime_disable(&pdev->dev);
->  }
->  
-> +static int fcp_pm_runtime_suspend(struct device *dev)
-> +{
-> +	struct rcar_fcp_device *fcp = dev_get_drvdata(dev);
-> +
-> +	return reset_control_assert(fcp->rstc);
-> +}
-> +
-> +static int fcp_pm_runtime_resume(struct device *dev)
-> +{
-> +	struct rcar_fcp_device *fcp = dev_get_drvdata(dev);
-> +
-> +	return reset_control_deassert(fcp->rstc);
-> +}
-> +
-> +static const struct dev_pm_ops fcp_pm_ops = {
-> +	RUNTIME_PM_OPS(fcp_pm_runtime_suspend, fcp_pm_runtime_resume, NULL)
-> +};
-> +
->  static const struct of_device_id rcar_fcp_of_match[] = {
->  	{ .compatible = "renesas,fcpf" },
->  	{ .compatible = "renesas,fcpv" },
-> @@ -202,6 +227,7 @@ static struct platform_driver rcar_fcp_platform_driver = {
->  	.remove		= rcar_fcp_remove,
->  	.driver		= {
->  		.name	= "rcar-fcp",
-> +		.pm = pm_ptr(&fcp_pm_ops),
->  		.of_match_table = rcar_fcp_of_match,
->  		.suppress_bind_attrs = true,
->  	},
+>> This series picks up the spi-hid driver work originally started by
+>> Microsoft. The patch breakdown has been modified and the implementation
+>> has been refactored to address upstream feedback and testing issues. We
+>> are submitting this as a new series while keeping the original sign-off
+>> chain to reflect the history.
+> 
+> 
+> I am working on Linux support for the Surface Laptop 7 (13.8-inch, Snapdragon X series), whose touchpad is a HID-over-SPI device behind a Qualcomm GENI QSPI controller. I noticed that v4 (June 9) is the
+> latest revision of this series and has so far only seen automated review feedback, so I would like to coordinate before preparing any upstream submission of my own.
+> 
+> Current state on my side:
+> 
+> - I have a working touchpad using a downstream Qualcomm GENI QSPI +  spi-hid stack (originally from scuggo's x1e-nixos work, imported  via ELLX-Kernel). My local adaptations move the transport to spi-mem and add framing, response matching, and DMA/error-path  hardening.
+> - Normal touchpad use works on my machine. The latest hardening currently has only build and software-test coverage; I have not validated s.
+> 2. The SL7 adds a different transport requirement (quad-SPI via GENI, through spi-mem) on topuspend/resume, and I have not yet run your v4 series on this hardware.
+> 
+> I believe our work may complement each other in two ways:
+> 
+> 1. The automated review of the series raised DMA cacheline-alignment concerns for SPI transfer buffers and unchecked reset return values in the init/resume paths. Both overlap with the hardening I have been doing downstream, and I would be glad to contribute fixes there.
+> 2. The SL7 adds a different transport requirement (quad-SPI via GENI, through spi-mem) on top of the same HID-over-SPI protocol, which looks like a natural fit for your generic driver rather than a standalone one.
+> 
+> Questions:
+> 
+> - What tree or series do you recommend working against? Is v4 still your current baseline, or do you have a newer development branch?
+> - Would adding the SL7 quad-SPI transport requirements to your generic driver be the preferred upstream approach? Is anyone already working on this?
+> - Are you waiting on maintainer review before a v5? A second hardware platform may help move things along, and I am happy to provide testing on SL7.
+> 
+> I am also tracing the downstream provenance of the Qualcomm QSPI code with the original authors to ensure a clean sign-off chain; I appreciate that this series handles its own history the same way.
+> 
+> Happy to share technical details or a preliminary diff if useful.
+> 
+> I'm not subscribed to the lists; please keep me in CC.
+> 
+> Best regards,
+> Jizhou Tong
 
--- 
-Regards,
+Hi Jizhou, Jingyuan,
 
-Laurent Pinchart
+I am working on Surface Pro 11 aka. Denali, Snapdragon X1E80100.
+
+This series (v4) has enabled successful bringup of touchscreen and pen 
+on the SP11, which also uses QSPI via GENI.
+
+There is some updated SL7 QSPI 'glue' code at 
+https://github.com/orvitpng/nix1e that reworked the original scuggo nix 
+flake code to work on top of Jingyuan's updated spi-hid series.
+
+With that + some extra pieces to wire it into the Denali devicetree, 
+this series is working well here.
+
+I'm keen to help move things along as the tablet functionality is a key 
+feature of the Surface Pro - please feel free to CC me on further 
+discussions.
+
+Tested-by: Dale Whinham <daleyo@gmail.com>
