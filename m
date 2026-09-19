@@ -1,109 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 767DC49620
-	for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 19:50:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6D5738424C;
+	Sat, 19 Sep 2026 22:23:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789847406; cv=none; b=o3vO+Qnd6UDLV7BILGG0fTfJxz36UpWNZwjXUKin3YChmBJvSNM956TiWqBI50jQ5x5LbSRbV9BOZLNQpt8VffQpkUViO2dqTyOZfN93TWUGman11cmfqBQc98x/Znb6XuOk5vwEVlrXRJx5ZU2HMr85SE/AAtOctK04HsmJyis=
+	t=1789856607; cv=none; b=LxZxjUsqosdXw07+8bptvqVK1EnB9NaE7cTQtnESltqk0lKENPldd6xRWAMrPd7jl/urWy1e5zNxaOHOY9FKlxF+q9x3oWH1IwnRvW60N/AeUZRyU3g+pfPcimNVJwbrzNXfOP+96yGwF7ZreBiU10/1t8JSegOIAjFgtp8d/Mg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789847406; c=relaxed/simple;
-	bh=S0RVJe21JrBgi+j8g0R/9N6nj+G2J3vnOZqgLSDhPlY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=tSRukURFQgCZXz319woELDkXdPbs/ArHWczEAKXQ8zadYNvuYqT58EO2gBjZ+v9tYuIvcJJ1y9F02+Nekl8sutzQMVVpcgNITc2NfHJDHwXguOIX8x6x+LOXTgmFDWccJ0gTBD3B3hmitrir156qy0ZQCaXU4WtHq9wWSLpaQuw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KiBiRiXL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789856607; c=relaxed/simple;
+	bh=CYm3bn/G5CpHxowBhxlW6qnGcwW3HcH/BkAvjjtC3KY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MUCsHqNC8YAsxv7fOA6AKu7vOg0oSqs3gJQQNwsUwvs1JcjP2tIOdhqspfWaVo5fL/42Y5YWSK0q4Cucfaq9mMuEXGbhVreHHjGYVrWoPcZCwFju14EuVV9Um/YX7Ehv21EsQHTUiS9bQ2JXb9oqztmXwrOJYcO1Mey9Roqg/Og=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=JO7uCzMx; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KiBiRiXL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D99D11F000FF;
-	Sat, 19 Sep 2026 19:50:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789847405;
-	bh=+oKbpI4uIGXo2xhLnvTm9iN7KH87Uqtpt+D60dSsz4k=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KiBiRiXL/xdwaZM20BnJed35GEUnL7QzDuBezmXVspOtF7IoOrSJJW/Mpr5Vmu7Xt
-	 kZs6fsmw4hXwOfgiD5vt2kKjuMhkat8To0sLwAYDaT9rYstq2sG5K6hbfVKZdLE60A
-	 64HLiZBJd+ZTPvEjHSU2sp8j/AUjLHuSuYe3bYQulYVQASpg3ECE5z/3ULoVg3SR2v
-	 6W3hAzhKFLwDqx9zl8DiUuUbHaQwFAbQTcApPjY+/Tw3PTdhXCEx/HLm7+jQzm1OEg
-	 nprLuEOHUjC/+WVqXV6rFxHlJisTPV+e5PYQTaDXOH9DgMTLFrGSbbXefeK7ln64t+
-	 EibILvRfCV+DQ==
-From: sashiko-bot@kernel.org
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="JO7uCzMx"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=arYgjoTvtYvhRB29W6paCuPe7hqmom9kFaLIHBHqv2A=; b=JO7uCzMxsydPkVLkbgcnKZFjMj
+	XAJHq1dQXW2QiII1JYziYfM5VVRJ3GEkKavpHODazyctZrruCe47AeCAOSRkwArylp+dQIZYtN0nb
+	lNLJKIDwSkUg4ysOjyV+IWhPJVBYosObU9eu7rwgiFQS4Avla6qugnhavyXloTI1WwJw=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x83Sg-0064Ku-7H; Sun, 20 Sep 2026 00:23:10 +0200
+Date: Sun, 20 Sep 2026 00:23:10 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: nicolo.giuliani6@studio.unibo.it
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Gregory Clement <gregory.clement@bootlin.com>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
 Subject: Re: [PATCH 3/3] arm64: dts: marvell: Add Sophos XGS 107w NPU board
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Nicolo Giuliani" <nicolo.giuliani6@studio.unibo.it>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260919-send-dt-v1-3-365615a74ef3@studio.unibo.it>
+Message-ID: <6b935e31-169a-4cd1-b385-62dc659c1256@lunn.ch>
 References: <20260919-send-dt-v1-0-365615a74ef3@studio.unibo.it>
  <20260919-send-dt-v1-3-365615a74ef3@studio.unibo.it>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 19 Sep 2026 19:50:04 +0000
-Message-Id: <20260919195004.D99D11F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260919-send-dt-v1-3-365615a74ef3@studio.unibo.it>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] dt: intentional omission of physical reset-gpios to workaround d=
-river bug
---
+> The reset line of the switch (CP GPIO2 pin 17) is deliberately not given
+> to the mv88e6xxx driver as reset-gpios. The 88E6193X needs about two
+> seconds after a reset before it can be used, much longer than the driver
+> waits, so the probe would time out.
 
-commit 3bbda9294c3060f49dfc25ff724a945a54bd4560
-Author: Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
+The obvious question is, why is your 88E6193X special?
 
-arm64: dts: marvell: Add Sophos XGS 107w NPU board
+I've seen issues when there is an EEPROM attached and it has a lot of
+content to setup the switch. But that goes against using DSA, where
+you want Linux to control the switch, not a fixed configuration.
 
-This commit adds a device tree for the network processing unit (NPU) of the
-Sophos XGS 87/107 desktop firewalls. It describes the Marvell Armada CN9130
-SoC, along with the UART, eMMC, SPI NOR flash, SFP cage, and a Marvell
-88E6193X switch.
-
-> diff --git a/arch/arm64/boot/dts/marvell/cn9130-sophos-xgs107w.dts b/arch=
-/arm64/boot/dts/marvell/cn9130-sophos-xgs107w.dts
-> new file mode 100644
-> index 0000000000000..d98d8da10e637
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/marvell/cn9130-sophos-xgs107w.dts
-
-[ ... ]
-
-> +&cp0_mdio {
-> +	status =3D "okay";
+> +&cp0_i2c0 {
+> +	clock-frequency = <100000>;
+> +	status = "okay";
 > +
-> +	switch@2 {
-> +		compatible =3D "marvell,mv88e6190";
-> +		reg =3D <2>;
-> +		/*
-> +		 * The reset line of the switch is CP GPIO2 pin 17. It is not
-> +		 * described as reset-gpios: the 88E6193X needs about two
-> +		 * seconds after a reset before it can be used, much longer
-> +		 * than the driver waits, and the probe would time out. The
-> +		 * boot loader resets the switch before starting the kernel.
-> +		 */
+> +	/* Drives the port speed LEDs, which are not described yet */
+> +	gpio@20 {
 
-[Severity: Medium]
-Is it appropriate to deliberately omit the physically present reset-gpios
-property to work around a Linux driver timeout limitation?
+Which port?
 
-Device Tree is intended to be an OS-independent description of the hardware
-topology. By intentionally omitting this connection in switch@2, the kernel
-is unable to reset the switch natively (for instance, during a driver reload
-or system reboot).
+> +&cp0_i2c1 {
+> +	/* SFP EEPROM (0x50/0x51) */
 
-Would it be better to accurately describe the hardware by including the
-reset-gpios property here, and instead fix the timeout in the mv88e6xxx
-driver or use standard delay properties like reset-deassert-us to handle
-the two-second requirement?
+The addresses are not that simple. When a copper module is inserted,
+other addresses are used. The SFP driver assumes it has access to all
+addresses on the bus.
 
-> +
-> +		ports {
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <0>;
 
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260919-send-dt-v1=
--0-365615a74ef3@studio.unibo.it?part=3D3
+  Andrew
