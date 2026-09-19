@@ -1,180 +1,201 @@
-Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f12.google.com (mail-oi2-f12.google.com [74.125.231.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ADEA3ACF1D;
-	Sat, 19 Sep 2026 01:07:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=119.15.109.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D53A12E266C
+	for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 01:14:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789780080; cv=none; b=DjWEf+/uaiul7I0iWlJv/auFri3gY1SXKPxs54Z4bTd6eXZgcKMFYI14EMrbG/MtJlpZrQsYlWx5AcuExz61wkAAccfnSPEpeeAiV/aT5Qky9Ey/vH4juISXkTGh7esulpcS7bLy581dtZcX8KTrFmGWrCulkVZAcgzOqt8Jkww=
+	t=1789780492; cv=none; b=DQG5ShEKnl3CQbgTGmwLMusQSewvMczN7pZceCMaw98SspkDaaUwpBzgTeWrro3Ah4e0t3eZIu30/IvUuARLTvJdHpmrmRGw4C9GysdscP3TPZZ2BhYxAydhwZlN7MzvAwzIuwut0+Nt/GIooTXTcTPl08S/FoKIVc5+HC1IVuU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789780080; c=relaxed/simple;
-	bh=6HewLLL8ipgY9ww2B3n9+2RGXN10iLBb3PUHWKJHjHA=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=c86rJtf7ZZ2MTu4xqHokt7oIkJdFCdBaSll5PPJ7j5bcOS1XwLYQ1HqzGKKOrIEfZglbd8slIBLP0hAwk9kJmj6cjwd61sUDlGENn3KLYpZ178tP9nsZ4roERVepx9C2lmMPxOJF3MPpfSycGZBYBWZFj+iZq+BS+y50cF+7W6I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org; spf=pass smtp.mailfrom=d-silva.org; dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b=JF4OYFnz; arc=none smtp.client-ip=119.15.109.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
+	s=arc-20240116; t=1789780492; c=relaxed/simple;
+	bh=zqQ2Gc3YrVtSTqVH9pz+HHauXgCJZooWRhN+Ev9jLqY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=p7+aESAFciWE3rxVSm2FUonRzaa//Wr3oKQweHFCcP9o63rqxs3ICotwBzpwNUyLcpdqqveKEwWj2SeZwczYTtJvXrNNbNlyH2soux4sJQFpWPOurGTUCWoOcOi+XV7u1oARs3vkvMMlvY0ErZDd7D7qzZa6Y8KRM35JhOxvuDI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WHCXCE1Q; arc=none smtp.client-ip=74.125.231.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b="JF4OYFnz"
-Received: from hawking.lan (ntp.lan [10.0.1.1])
-	by www.nmnhosting.com (Postfix) with ESMTPSA id 551E140497;
-	Sat, 19 Sep 2026 11:07:31 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
-	t=1789780051;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=6HewLLL8ipgY9ww2B3n9+2RGXN10iLBb3PUHWKJHjHA=;
-	b=JF4OYFnz5uVwSTxfHxbiXOwgyD1ltxZwUJokhs/GboS1lWV2BGfUDtEpycPy0epafOFMww
-	/ideq4L0YJLp4kwiHDr5Sq8u/mdXbsXynYgW/l9uGHbXoguumsI/Zy5wxbEHU2gnGu0t8P
-	MfvQTuCHWNIsYVvqooav+p2J6x6Ufi/PkdAUftABbjc5qsdFVyXzKlxGZqEWYqcy0WzFHc
-	S8nHxBCGAWjGTjvFRAVjClB3+2W8x/mNIfuDaGCmOqNsG13X646mqz9pjl7mHdNOn5zbxq
-	0wHXVtCGyKQXwwok0npnNsev4zL+mdzuS49ghAOdcEnRxMsrtrkM4Pc0YrX9oQ==
-X-GPT-Reason: legitimate; the email is a technical discussion regarding
-	Linux kernel patches (net-next) and contains highly specific engineering
-	details about stmmac drivers and Allwinner H616 EMAC support; the
-	sender identity (alastair@d-silva.org) perfectly matches the recipient
-	mailbox (alastair@d-silva.org), indicating a personal/professional
-	communication; the presence of a link to msgid.link is consistent
-	with standard Linux kernel mailing list practices for patch submission;
-	there are no indicators of phishing, urgency, or unsolicited marketing.
-Message-ID: <ae87fcbacadb7447d5e249c03f43a49ee49cfdce.camel@d-silva.org>
-Subject: Re: [PATCH net-next v3 0/3] net: stmmac: add Allwinner H616 EMAC1
- support
-From: Alastair D'Silva <alastair@d-silva.org>
-To: James Hilliard <james.hilliard1@gmail.com>, Richard Genoud	
- <richard.genoud@bootlin.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David
- S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
- Kicinski <kuba@kernel.org>,  Paolo Abeni <pabeni@redhat.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor Dooley
- <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec
- <jernej.skrabec@gmail.com>,  Samuel Holland <samuel@sholland.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Giuseppe Cavallaro	
- <peppe.cavallaro@st.com>, Jose Abreu <joabreu@synopsys.com>, Maxime
- Chevallier	 <maxime.chevallier@bootlin.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>
-Cc: Maxime Ripard <mripard@kernel.org>, netdev@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-stm32@st-md-mailman.stormreply.com
-Date: Sat, 19 Sep 2026 11:07:31 +1000
-In-Reply-To: <20260917-submit-h616-emac1-v1-v3-0-62cb8316e19b@gmail.com>
-References: <20260917-submit-h616-emac1-v1-v3-0-62cb8316e19b@gmail.com>
-Autocrypt: addr=alastair@d-silva.org; prefer-encrypt=mutual;
- keydata=mQINBGactvoBEADBFM2HqfQUUM4j40ZQPyYzmnM8S6zrycO0ipDDPMs7nZMzyzGzOdqfS
- VB/tuYvZOOKVWzJuWJ5aT/YyHx54r3L+D5hTkEG0sXPVJky3yTS9sbHEMSLBHb8TVVuhPVPuieV4g
- Nkqg5POMTidk8xAw50WpV++tUlewXVSciehnuCQPXhXMP7FcCh4uO8LdN7E8m7ir1LafKTFfoWPah
- KVT8NGG9r+ucrFcN5F+VnHxTDaI68yRPkNdtUWmp22wIX1KwDCtKFrndYO4p5Hv2hlDKomsuIIHHn
- muQGRwuh0xpf0nVJNF8ETZHMzxQLfo3e/HvxBFOTkwY9w7CuuQFZchbhS0I3PfmGT0+jiNcdfqjDC
- fPPB5uhy+DkR6wO72vuwFYUrpU2mdliDSdKEtWBHulnXMJjpBOXetfIwhI8G2dTVg59lN5i9DvJZc
- 7y1Sp+qfZQ4P9qpYZyQEKR4GNDOdnm6F2LW2cZkcyAU/Ii765zdDMTQMIzZNSxT/FcDd0K1voTNRl
- QHbQw+kmIMhzSv2JefcC9oNbE0XYzcBDNP5T3O/4itOQ90GCKQEPAbIPeBjlQif7kkyvo/H6yv4s9
- duuK7zbJD9AID/+KGLkpU3p68VDB/C2ZSb9rQz3p1CJNSfsX/CPk7sPqA7RKZ4a2B0hSJ2pJCncNZ
- KXtMlkkm/FmewARAQABtCdBbGFzdGFpciBEJ1NpbHZhIDxhbGFzdGFpckBkLXNpbHZhLm9yZz6JAl
- EEEwEKADsWIQTQGemDFwqYyU/dBWv75AdnjVo60gUCZpy2+gIbAwULCQgHAgIiAgYVCgkICwIEFgI
- DAQIeBwIXgAAKCRD75AdnjVo60qHZEACJnLfpS71Hk8bX0CLCNJ5wgqdZD3pBHEdbv9Ux9kRlZp4a
- ZFwlg9ltwBjl2dZP3PLtD9xQdsdYKVippKd5a7ZZC2y81oDaHjeC9LnPYn8+ce3mGE/+gRyoNfToY
- N06DeUNJKSlZ9t11UIqZCgfp12u16/Yrigy8C4ihEeHXlLhNX6JkeJR5gsHXJnC7vSuMZY+Qz2R72
- ZidWg+cd2WDMGop5sbTvc+55q94A7vTMlWzaix5HdbEUA3sd2U0dMBju5QodRGGhDQMcCu64TydRD
- MtMzzOk9ThJ036ze3HASWGOppyQmaw58k+XNzbHlr9Sc1LsFUNF7zpWXac2rzlywbyRAdFIT/TC76
- hy9zOkwIo2nwA/tdIwLx1j0UZPpAMQmcDUvJqZh6sE+fv6HN0yMPr+sSYJmriMt8Z6leCEHQXOHVI
- SI5z5FvV3coMmHYRq6aXpfs/8SLiYgkV3B0HE/E18Y3j1OkeLYoqIH1VfzQZeCSL/S77NYvk60/MV
- 1HFSyqLdUR3uWZI4uZzoEcMoB0GX33uCTp2Ntc00+wSntwekCUQLCMLUb7dZrbpVuobHoWWtkiD2I
- uE5kAiaVwwwzM0BUwiM6VzVoKbeECz93rdsNtwoDqM0NtzoISC46H/BKVQ9mRNXDO4ThEBpJ4H2Tn
- mPNRYYcR0u2mNy1EJII04w==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-9 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WHCXCE1Q"
+Received: by mail-oi2-f12.google.com with SMTP id 46e09a7af769-805c194bc92so1347412a34.1
+        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 18:14:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789780462; x=1790385262; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pxKrnFCKVv+A/s21AGnSTz11SqzSXxKNsYK80fhyo7I=;
+        b=WHCXCE1QvwvNBvVl7/vVkNmQur++G7Srnu/8VyBNehIJ2KfoX4D5jhzst436M2svCC
+         wzfGJMBiFOBAdzkbLQMbtVgp4mEy7um5T7znha8/h0wmhcrtNiqG6ztkVsCP5EYp/YCT
+         YwJItOzCcp+rKjN4tzV9HweRZwhSPUOwOfxXi1BSBCxKZBG8rLPGaeu5beRKqp9JzH2s
+         BidVtCW/2lyGrixk/eSwX/XsGZ7IA+1oAYmrrkc7RJJtjdwGac8vpACA3cZqrK4MFoyV
+         EU46tMZAQfw3V+hnJF/06YhYWhso02HmgmmXpBR8elimR39pG206m+S4/IKuxqW/Rpp0
+         vMKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789780462; x=1790385262;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pxKrnFCKVv+A/s21AGnSTz11SqzSXxKNsYK80fhyo7I=;
+        b=VinGIRYCXqZi9tQWls+7pnNFt/4WhNo15l04qNn/TLcvsHQn8/NtkeitbJF10OCFMH
+         p285llHiaO4ydoP+saDKaPlVDdNMRKquRUa75z2MWjItB00XkJCfuPEuK93061Ds1ev2
+         5ogKN9sI+vYlADTTH20ygDe3nxtfxFRw5AoH+uZ1aXchO6hRw57J472OwQnuk0lYheZB
+         vz5Hiv9uQDoWqcZW5PA0H1CPyQ7cN9DQCLytQhbe/pf2KnXSfc/0/bFgSSWQ5mrn6Izs
+         IqWzsrl4r7peBrLX4T4+Hz+UfUboeXUJv/wsd29yjXW9WO5hUfsZ0WsvQ46XhQL1TKOF
+         FILA==
+X-Gm-Message-State: AFuF++lzxBzdpE2cOjNwFRIbBa72SOOnyGgVm7d0ZWGd5BB/YfOMJlWp
+	NR2NtC7/D1fI84FXC/xXv//1lhK4MsYpobISnc+0JWw/j+ppKM9vqntT
+X-Gm-Gg: AYBFou2MZDR6Umteo49jJ9HrVvC7gDislKkhythliyfkcNgPwpRB7WEgzx3R8RvtARD
+	BBQzEPWTOu/JQ80MF3ZTFSTa8ItCHZmF7o+aYY3fjSc9a3ItNT0P84r6YuAZzRNkEcg+aiwrxtw
+	JbEOS3KFf7DXFS6QD+fyOWcGASjX3zqbPv+H+/xec1T3c7607i9uokrElP25BbMOCDXcpOgoV4c
+	NbHpL7/ntbJDC7qg0PzE+o0jT4n71D0XJhWzEgtxPxj5T9QaRYiNJdYcEUgb4cW6LkWK+vU5dWM
+	Re/cGqQGPZ3Aoh4DDHC8+Du5rLLCy11Ngde7C4EJ/upp4r2bPfPksEQexFJFAxd0lG1y1UxbDnO
+	1THnm+IN6WM1a7Wm6Nfnfj8I+bKdiVS0c2Rd2ZmnqsTzVjx3Vt63pdzxeDo3RhAabTgAWLzZD0j
+	R5mC3MExG6n/ylhqL1/HyzLWcFTA3Exsb/QuumpvPdSZ8/Mbh7ithKcEuv8dZQrUwt3BIEFufAt
+	XDRWs/8RiQPqFC1iGBB07i91Vdhsb99f5UXXP1ZNUIsVdOpeXPa673yxMMOmCWX
+X-Received: by 2002:a05:6830:3886:b0:80c:d30f:97d with SMTP id 46e09a7af769-80de33eccf5mr4941299a34.30.1789780462100;
+        Fri, 18 Sep 2026 18:14:22 -0700 (PDT)
+Received: from DESKTOP-FG7FD3B.localdomain (fixed-187-189-149-136.totalplay.net. [187.189.149.136])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8107eea55c8sm1317188a34.26.2026.09.18.18.14.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 18:14:21 -0700 (PDT)
+From: Daniel28972897 <danyboy28sep@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	Daniel28972897 <danyboy28sep@gmail.com>
+Subject: [PATCH] dt-bindings: misc: add binding for Xilinx AXI4-Stream FIFO MM S
+Date: Fri, 18 Sep 2026 19:14:17 -0600
+Message-Id: <20260919011417.156828-1-danyboy28sep@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu, 2026-09-17 at 11:55 -0600, James Hilliard wrote:
-> The H616 secondary EMAC supports RMII at 10/100 Mbps and uses a
-> separate
-> system-control clock register at offset 0x34. Add its binding and a
-> sun8i stmmac variant using that register. A distinct compatible
-> without
-> an older fallback prevents the driver from using EMAC0's clock
-> register.
->=20
-> EMAC1 connects internally to the co-packaged AC200 or AC300 EPHY and
-> has
-> no external PHY pins. Leave PHY initialization to the PHY driver
-> instead
-> of using the H3 internal-PHY controls. The RMII-only variant does not
-> expose the RGMII clock-delay properties.
->=20
-> First move the MAC software reset from probe to the DMA reset
-> callback,
-> after PHY initialization. This lets the MAC and its MDIO bus remain
-> registered when the PHY driver or one of its suppliers is not ready
-> yet.
-> Keep the separate H3 MDIO-mux reset sequence unchanged.
->=20
-> The AC200/AC300 EPHY driver and package bindings are already in
-> net-next. This series separates the H616 EMAC1 MAC driver and binding
-> support from the earlier combined series. PWM, MFD and device-tree
-> enablement are being handled separately.
->=20
-> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-> ---
-> Changes in v3:
-> - Add a prerequisite fix moving the MAC software reset to the DMA
-> reset
-> =C2=A0 callback, after PHY initialization, so delayed module loading and
-> =C2=A0 deferred PHY probes do not tear down the MAC and its MDIO bus.
-> - Preserve the H3 MDIO-mux reset and propagate hardware-reset
-> failures
-> =C2=A0 through the normal stmmac hardware-setup error path.
-> - Add Alastair D'Silva to Cc and rebase onto current net-next.
-> - Link to v2: https://patch.msgid.link/20260915-submit-h616-emac1-v1-
-> v2-0-322b32e40eb9@gmail.com
->=20
-> Changes in v2:
-> - Drop EMAC1 TX/RX clock-delay property support and keep the existing
-> =C2=A0 RGMII-only delay descriptions unchanged, as requested by Maxime
-> Ripard.
-> - Clarify that EMAC1 connects internally to a co-packaged PHY, not an
-> =C2=A0 external PHY or the H3-style internal-PHY controls.
-> - Rebase onto current net-next.
-> - Link to v1: https://patch.msgid.link/20260915-submit-h616-emac1-v1-
-> v1-0-195de0bb1f8a@gmail.com
->=20
-> ---
-> James Hilliard (3):
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 net: stmmac: sun8i: reset the MAC after PH=
-Y initialization
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dt-bindings: net: allwinner: add H616 EMAC=
-1
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 net: stmmac: sun8i: add support for Allwin=
-ner H616 EMAC1
->=20
-> =C2=A0.../bindings/net/allwinner,sun8i-a83t-emac.yaml=C2=A0=C2=A0=C2=A0 |=
- 13 +++++
-> =C2=A0.../devicetree/bindings/net/snps,dwmac.yaml=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +
-> =C2=A0drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c=C2=A0 | 66
-> +++++++++++++---------
-> =C2=A03 files changed, 55 insertions(+), 26 deletions(-)
-> ---
-> base-commit: 26ee8cd69d46a14b37ba5e512084fe80d730127a
-> change-id: 20260914-submit-h616-emac1-v1-143703842abb
->=20
-> Best regards,
-> --=C2=A0=20
-> James Hilliard <james.hilliard1@gmail.com>
->=20
+The axis-fifo driver (drivers/staging/axis-fifo/axis-fifo.c) has
+supported the "xlnx,axi-fifo-mm-s-4.1", "xlnx,axi-fifo-mm-s-4.2" and
+"xlnx,axi-fifo-mm-s-4.3" compatible strings since it was added, but no
+devicetree binding schema exists for them, which checkpatch.pl flags:
 
-Tested-by: Alastair D'Silva <alastair@d-silva.org>
-Reviewed-by:=C2=A0Alastair D'Silva <alastair@d-silva.org>
+  WARNING: DT compatible string "xlnx,axi-fifo-mm-s-4.1" appears
+  un-documented -- check ./Documentation/devicetree/bindings/
 
-As a follow-up (non blocking), I would add the LED control registers I
-mentioned at the bottom of my test results.=20
+Add a schema documenting the compatible strings and the six
+xlnx,*-prefixed properties the driver reads in
+axis_fifo_parse_dt(), all of which are currently required by the
+driver's own error handling.
 
---=20
-Alastair D'Silva
+Validated with:
+  make dt_binding_check DT_SCHEMA_FILES=Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
+
+Signed-off-by: Daniel28972897 <danyboy28sep@gmail.com>
+---
+ .../bindings/misc/xlnx,axi-fifo-mm-s.yaml     | 91 +++++++++++++++++++
+ 1 file changed, 91 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
+
+diff --git a/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml b/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
+new file mode 100644
+index 000000000000..56d58b37b71e
+--- /dev/null
++++ b/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
+@@ -0,0 +1,91 @@
++# SPDX-License-Identifier: GPL-2.0 OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/misc/xlnx,axi-fifo-mm-s.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Xilinx AXI4-Stream FIFO MM S IP core
++
++maintainers:
++  - Daniel <danyboy28sep@gmail.com>
++
++description:
++  The Xilinx AXI4-Stream FIFO MM S IP core provides a simple interface
++  to move data between the AXI4-Stream and AXI4 memory-mapped domains.
++  See Xilinx PG080 for details.
++
++properties:
++  compatible:
++    enum:
++      - xlnx,axi-fifo-mm-s-4.1
++      - xlnx,axi-fifo-mm-s-4.2
++      - xlnx,axi-fifo-mm-s-4.3
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  xlnx,axi-str-rxd-tdata-width:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    const: 32
++    description:
++      Width, in bits, of the AXI4-Stream receive data interface.
++      Only 32 is currently supported by the driver.
++
++  xlnx,axi-str-txd-tdata-width:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    const: 32
++    description:
++      Width, in bits, of the AXI4-Stream transmit data interface.
++      Only 32 is currently supported by the driver.
++
++  xlnx,rx-fifo-depth:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description:
++      Depth, in bytes, of the receive FIFO.
++
++  xlnx,tx-fifo-depth:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description:
++      Depth, in bytes, of the transmit FIFO.
++
++  xlnx,use-rx-data:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    enum: [0, 1]
++    description:
++      Whether the receive data path is present in this IP core instance.
++
++  xlnx,use-tx-data:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    enum: [0, 1]
++    description:
++      Whether the transmit data path is present in this IP core instance.
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - xlnx,axi-str-rxd-tdata-width
++  - xlnx,axi-str-txd-tdata-width
++  - xlnx,rx-fifo-depth
++  - xlnx,tx-fifo-depth
++  - xlnx,use-rx-data
++  - xlnx,use-tx-data
++
++additionalProperties: false
++
++examples:
++  - |
++    fifo@40000000 {
++        compatible = "xlnx,axi-fifo-mm-s-4.1";
++        reg = <0x40000000 0x10000>;
++        interrupts = <0 29 4>;
++        xlnx,axi-str-rxd-tdata-width = <32>;
++        xlnx,axi-str-txd-tdata-width = <32>;
++        xlnx,rx-fifo-depth = <2048>;
++        xlnx,tx-fifo-depth = <2048>;
++        xlnx,use-rx-data = <1>;
++        xlnx,use-tx-data = <1>;
++    };
+-- 
+2.34.1
+
