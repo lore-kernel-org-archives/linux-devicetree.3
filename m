@@ -1,242 +1,285 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11023091.outbound.protection.outlook.com [52.101.83.91])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F787380FFE;
-	Sat, 19 Sep 2026 10:07:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.91
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789812436; cv=fail; b=SV86TgwVaqNyd4byp0gZPAS+TyKYP017waDZkgCNUhwKDYQAY6nw2IbYI6SlBvglTpwlW/BjTGh3fmXw9uOu+at5lle0wygRBfbr2Y/E2P1Y39q0oicpnaXvP1mTJ8MkXtKZi2tiwEz2QehNaGZuzq2vHgGqmRaobdtH/Rqxs2M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789812436; c=relaxed/simple;
-	bh=A4HU2/5IqLIZu9JK0z7t4BkKYUdNlG1V9SjPDnNuyOk=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=aRt+pTgQNz+03gGROvkyOAOCwc+TXNPI6OK0X1BMckxN0oiT58GzySpz4VpHh65vI6O0M3eiBMx9zcoWpLvcXOJZKYs5eqv81uehlPS01rTejd1Nfs9SbSFB4E9ybrXlnnfbIJoVyiIm2OA+0D2G0NDi2Gj9P8Hv+GG0KVKNH0k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jolla.com; spf=pass smtp.mailfrom=jolla.com; dkim=pass (2048-bit key) header.d=jolla.com header.i=@jolla.com header.b=vEVc0kEu; arc=fail smtp.client-ip=52.101.83.91
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jolla.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jolla.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4F8E2F60CC;
+	Sat, 19 Sep 2026 10:28:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789813705; cv=none; b=cAs22PJuTb3tembsDzDtfNXLbDEEeY3XXGYaoxAY0goS3tuJzTMuHBA6abwjFXUSjfzOFsKsenf5z0/gt+XLCHrLCUygPG8421swxf5CEyXtFy7n2dkoL1uZbFyOmNbZ4SzPYio84IqwI0IPPXN56iTLdXvNKd5UDvHSli2uDI8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789813705; c=relaxed/simple;
+	bh=4xyy6NrJdiBNfkE7H63oBX0hpY5sXGuE/HGHGvQygkg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=NQb3i5beH8g/Yv036M0YoTCzLHAIXuo/fdbD6ygWB4/pgAkTD2k/2dMneol/VaxFw0/3sV5sR7jYy8RHk+LO1xsj7qAS2+xs3Opo1O7lBrUqI3+9eg+o65KCSrVGRI0mEVsPrEbiZYuUleYILQtAFK3aoWG/kgpDKgfP0M/i6DY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m6UrPncW; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jolla.com header.i=@jolla.com header.b="vEVc0kEu"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JiJJ9LGTAZkgn47pWNhj0BFLTtEAu2g+qwMoFcWXXPRYGOZOvrJOKogdGknSFWKOVk8ap64jATFweG3n3MuRIPEiBb3thDqGfaqQ1S/ZBrx33tWA+1U5s2aLTtrQJdQQHZWqfo9ObYuKwPhFwYXN+7bakFcjVr3dFqD6uF9YT3bkopf8w41TwwaQLi3Uiv8ZXYKzWKeRY8I/yummhkCe+GWR/kIlPRQtWhwp51VFJeKZOJv2xpDDEGwmRHFeQsNDFz3Bl+QfPcXqU20lYYnWYOTmoI1SPsgv8vAInFfohGBg3t/0cCM8PegGD6ytw8Nx0NOeNDTwhYA5x+UR8VAn0A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3W5joIT9a0o/BO5o8rfJdmdWIKv/e3ulgq2vU7mruEI=;
- b=gyLPOjQHanjuCCFOE4ovtc2HCN5YTHLc6JxB3PD9y8WJ8CNRgiQAaUC5ruiPTJEODg38RrJuhMN0u66wTHZ1mOlYc/8/QkCg8msxInrxuw8EevUOlyJek/aFnxdpOIrsARw2I/A8XVg780E8v0q6IKi+RMB2OZURfD4IOhqZ5jsg5Qx3Q32nstqbNzytc08FVQ41qMg7GC+1bi2IjeLQBsq5H7/ecUDKYQi3Z8hcwky4clzPY3jME1nnDFMuYaxbOAjuq8iygz6WJI6Q3T7KkgM239WIXJGlLP8xyiwxwo1s4klwnZ5vIz8/GaN7OzggozYeZTjVHFrg1LB9KPRMmQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=jolla.com; dmarc=pass action=none header.from=jolla.com;
- dkim=pass header.d=jolla.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jolla.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3W5joIT9a0o/BO5o8rfJdmdWIKv/e3ulgq2vU7mruEI=;
- b=vEVc0kEuPWxb+/NmioZgTwGZml9DjwT15niYwnePx90w66k0upzyfA93BjOmhXH/eFkRAeQ/UQAv45NhZkQrh/4qF/9kM6kTnLTU+GgBxEnMi4WwukQr3J9Knw/L2v5+bG30N984v/elu8Cqme2PdjkvpaJ49+o0kERkhvf15KgraeczfMIQuWSFrMK3CF40BbmfQHKjm+VDAr140I2oSoqh5HtPwh/i6VZWvs/AcaqBKqGQEHJhChLgUyUS0G4EH3RH/ctbiCVXMyPqHWEYwRe6Pr0wkLY63HPNsK8pAzHZAGx0S+5yRli8CvpS93BuiOt7dPuARxVDe1+ec17SJA==
-Received: from GV1PR06MB8417.eurprd06.prod.outlook.com (2603:10a6:150:24::20)
- by DU0PR06MB8573.eurprd06.prod.outlook.com (2603:10a6:10:358::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.16; Sat, 19 Sep
- 2026 10:07:10 +0000
-Received: from GV1PR06MB8417.eurprd06.prod.outlook.com
- ([fe80::4cc8:af2b:8580:2a99]) by GV1PR06MB8417.eurprd06.prod.outlook.com
- ([fe80::4cc8:af2b:8580:2a99%4]) with mapi id 15.21.0428.009; Sat, 19 Sep 2026
- 10:07:09 +0000
-From: Nikolai Burov <nikolai.burov@jolla.com>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	"chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>
-CC: "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
-	"maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
-	"mripard@kernel.org" <mripard@kernel.org>, "tzimmermann@suse.de"
-	<tzimmermann@suse.de>, "airlied@gmail.com" <airlied@gmail.com>,
-	"simona@ffwll.ch" <simona@ffwll.ch>, "robh@kernel.org" <robh@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org"
-	<conor+dt@kernel.org>, "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
-	"jitao.shi@mediatek.com" <jitao.shi@mediatek.com>,
-	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
-	"linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "kernel@collabora.com"
-	<kernel@collabora.com>, "justin.yeh@mediatek.com" <justin.yeh@mediatek.com>,
-	"jason-jh.lin@mediatek.com" <jason-jh.lin@mediatek.com>
-Subject: Re: [PATCH v8 02/13] drm/mediatek: Implement Display Stream
- Compression support
-Thread-Topic: [PATCH v8 02/13] drm/mediatek: Implement Display Stream
- Compression support
-Thread-Index: AQHdRQqeK2Ypb3mcyEKOw4qUZ3ay3rbPp/cDgAAVSQCAADsIUIABEfOAgASlZ54=
-Date: Sat, 19 Sep 2026 10:07:08 +0000
-Message-ID:
- <GV1PR06MB8417EC0F8704D72979464C68E4862@GV1PR06MB8417.eurprd06.prod.outlook.com>
-References: <20260915084148.11385-1-angelogioacchino.delregno@collabora.com>
- <20260915084148.11385-3-angelogioacchino.delregno@collabora.com>
- <GV1PR06MB8417DED4A9C82CE84248F5F5E4BA2@GV1PR06MB8417.eurprd06.prod.outlook.com>
- <14b99e0a-e08a-42af-b982-471cae869149@collabora.com>
- <GV1PR06MB841771AF67A658BF71D4F479E4BA2@GV1PR06MB8417.eurprd06.prod.outlook.com>
- <1b7438ba-69c3-4c3d-b79b-2879b90fabc1@collabora.com>
-In-Reply-To: <1b7438ba-69c3-4c3d-b79b-2879b90fabc1@collabora.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=jolla.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: GV1PR06MB8417:EE_|DU0PR06MB8573:EE_
-x-ms-office365-filtering-correlation-id: 982fa652-0224-452b-8f29-08df1635c40d
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|366016|10070799003|3023799007|10067099003|4143699003|56012099006|38070700021|18002099003|22082099003;
-x-microsoft-antispam-message-info:
- wCj4OT0yE2NzBWXHCD3PyNJhnGEqNXrQjwYAsDurw9pFsRovu2MRoxlaHxj5tXxAcPqDZH+eVSeoLCTvfLZ0rKOgApKwYd3CkuORjzN0cWRlTbuZSgfNiAmzW1cFCfEEUgzVLCuwqtnoOlT5BZQ26H22ykQSicOY+sPP3ZzzKiVbMq1dFRQBT8fKOyoPfYZaBu6P2v++lYFx7nJGCBif9xk3QCzsGhwtAriNWDLiURDQVyO2/9GaKg08Yf6Ahb/ZT53VUApWXjBJCA/kXEIyYSUI4XjTVzZDeSjNMs6dPBJIbapqJKyEkBfREGbskBzq/E59ECg0T+1XpzrpACE+Nsfio+LSh+VBrt4L5CSLpM6eL7r3FWgPSatA4kd5jD7iRYlfar5A7JarquMjbF1KeF14lcGDr/9CxOguReOqNXWYrTWN2RRvw2f4PNCQUZdlju/zZBbNuDdjtBFY5kVscn2t89AdG8y4w0bxuDkBq6GsmLfk70xauUlQoQVwjjhkigk3Y5EZJliPQKEyrZKn+S749Gm3ZtezEY0A4FS47ECBkT05RZ7X69shmQu+Hq9BmkASTscrhl/Ve/ozguC3JcxMPHkFD7b0AbKaHHVHtOU19uijKbDlOy3T1DfkIqoy6JkuzNQ2+1dfDfWzP/cxnhMrd/9pjC8awUeuMXFJn8A=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV1PR06MB8417.eurprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(366016)(10070799003)(3023799007)(10067099003)(4143699003)(56012099006)(38070700021)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 2
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?rzdZRwmlwq9pYp35VO48AlmS51ah2rimcK2pJAD9Cb0Mlzj8Q5ReZOhn4X?=
- =?iso-8859-1?Q?WQqo5FXmqP6uoRvlS6oPv6XoF9WKjAbky6JxsZTfVrDjfZYLJNWHSWSty1?=
- =?iso-8859-1?Q?vmnhwh4IkLRwfg4o0eHulE5ygbT8ABkkzTG3fd/MSrk/lMDNY39vG+q1go?=
- =?iso-8859-1?Q?MtJ1SsqhC6mpy1Q/xHgi32GadPG2RsLq53+4DEbWq8g4mK/TxEgTz/QCCU?=
- =?iso-8859-1?Q?6Ykn4BZ5/BgIksCRScQWhZIrx2COJ6G131o+vTNJoERZ4T6eJe/vMroCaD?=
- =?iso-8859-1?Q?lBHe9WOpBjojHjRcWJPGNUF+LgpNPfzGwoa34bi8tHe6JTlNTxjR2tOmex?=
- =?iso-8859-1?Q?icTQWxZ8FnKYebK/V64bLmu2mt1o6WpaMwKwq9Fj1IIOD3gbWm5laBaf4A?=
- =?iso-8859-1?Q?uSr2rE/Z62yWUL3bDifNDcdiqrJybnkTucGeUZ8wEtqRhB6eomto201EaE?=
- =?iso-8859-1?Q?VcqG1VQeTbujniJDzCVXb9wpqy+Ie+4QJmQFh3XBcYmdLTMz+P0OfhRxPa?=
- =?iso-8859-1?Q?1GMylexVGcwzLdtHslOlly6fVL+gF6VR7PlGbjsjIaHJiC4aTjas0Vbaew?=
- =?iso-8859-1?Q?OImVKsH3kdHiUnh9QmadLihdXeh1zUxpbGwNM3z9cYF23RvkdFwFjPHICb?=
- =?iso-8859-1?Q?BklkP0l5XrPB5JXxttAy6dW5NN85bniovzU03ykHhCBb8t/oQ88GpQ4vHv?=
- =?iso-8859-1?Q?wvWz0Sk6uEoCHrEjC6cbhTgpYJ7qTQ++URTsThpJyGmUHXsWuxkPU/F6qL?=
- =?iso-8859-1?Q?IB0KDKzk3cyDaQlqJCRE0cisHhW6giH4ppC7V27iThAd2Rdxc73lybSnG0?=
- =?iso-8859-1?Q?x28kOPjUBOjKzcTDoEOhzDWdjQXkkIa8UK8Yq+whhTpAOBcLZGCpqDhaeF?=
- =?iso-8859-1?Q?e9u8mrUD50d2gVtYhP/TTwSWcMTOU80nHGmS1JhNtzvd+/uON/mM7Bz9m/?=
- =?iso-8859-1?Q?7nLH1Y+VyHiSc/BW6RM1nx0Cx8tpWg1G0LUW7ItCLoQ4kS+kTU9ZiDZjLv?=
- =?iso-8859-1?Q?Q0TJPE88XS/cM36oUNidoXtPdb428uvVUQFHwVw9BdEC2LCBYbRI8c5Lmw?=
- =?iso-8859-1?Q?lPDttfijiS93er7Yl5og/XLrlBREmnOtMGeYQmIZv8zgGv3TA/EAFZBvoS?=
- =?iso-8859-1?Q?15dg/4PJQNDdD+mYxTUPB5Jw6mREWQ3u1VrgbhlvES3kbKWBIblrZTaBOu?=
- =?iso-8859-1?Q?XT7t5pHX2kTqdCAa+RN/opQoD4I3Pm4bqRQmJJxNiD5MSYdUGfvcLf4SoD?=
- =?iso-8859-1?Q?Pr2nAVoMpY7wNMbv96aWeT30S+KQ1dPsR4iTU8XR+AXSiXehaCgZUN/sy1?=
- =?iso-8859-1?Q?iqRMhGN+dVz/kCh0dN7Jz88MK8Bl0F9yOoOEd7YQi7Z6f/h4hR7RZ7vSv1?=
- =?iso-8859-1?Q?VWlk9VeCiSoCpLT54wB6VmBfRce4smQvrW29jYJAzDGfoQhKC5jHgtoAnY?=
- =?iso-8859-1?Q?427UWcNxT/KLPVg1PDu/BKU8qxs4XJmUc+fSKh04zys2j/lsEonEGqi9oV?=
- =?iso-8859-1?Q?YnpS8NZ+Kf3fTN4lXgvsWI7etTEbgOjGJXPqBm5aXaqrTXIgbhJ/AcddGX?=
- =?iso-8859-1?Q?G27u7FIiYNyHsBoyr2G+Mod6YCCU1mxSGt3mrqL21E5iAStUPqhTX1I1+h?=
- =?iso-8859-1?Q?4Qj/bc746cO37ft+MCXt0v3Or1DtVmM7UDmmFcPdmGraYiUx05QyNIoAxI?=
- =?iso-8859-1?Q?+CPsVifdJo/YNB4+M2+f9ibUMkSGXCz1RXVFfcYaxSvHnz2TjcO8d42qZX?=
- =?iso-8859-1?Q?Nf26DDtt3JCGnZW2k7LS/VCp2m6LrLxuQxoku09QWxQrSco5Ky7o74AIrQ?=
- =?iso-8859-1?Q?Yeyvof6rOMwXJXGwcXwv7s/yJwGsazlDptMyf16LV3fzq1LbG8c5rr9Aon?=
- =?iso-8859-1?Q?lW?=
-x-ms-exchange-antispam-messagedata-1: t4Zl4q8KTI5QmQ==
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m6UrPncW"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 70EE8C2BCFB;
+	Sat, 19 Sep 2026 10:28:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789813705;
+	bh=4xyy6NrJdiBNfkE7H63oBX0hpY5sXGuE/HGHGvQygkg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=m6UrPncWcutPaC/aA0yIxH9fax80yaAC4ClT4eoUbOrn6o41hehlZcl9uWMElmqBo
+	 gsCJUv2sRl6zWDfdkHGFSSrrRwu1kJwlXW9QKqHuwqBu1ZwG6BGiLlPIwpi9TBeDaf
+	 sQnXhwMdtigDNul/9FwVY1a//5YVj+dvw6GbO6B1DGT5o5WUI9CeqHY113k3W6RTis
+	 WXCvUW9oVItEJw5miKrwUCUeuFqNOxPvwcEFi4NpBbddi2HotlLq43d8EZiTyitANE
+	 yqmYe8JjFfMM2O6NWe9PlJGg/0armj/LPMo3cpQa1OpSI7/ALVfQ58dSYUFNG55R8l
+	 /OlWTwFr7RTsg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 54D4AC982D7;
+	Sat, 19 Sep 2026 10:28:25 +0000 (UTC)
+From: =?utf-8?q?=E5=AE=89=E5=AE=B9_via_B4_Relay?= <devnull+HystericalDragons.proton.me@kernel.org>
+Date: Sat, 19 Sep 2026 18:28:19 +0800
+Subject: [PATCH v7 3/3] arm64: dts: rockchip: Add devicetree for the
+ FriendlyElec NanoPi R28S
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: jolla.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: GV1PR06MB8417.eurprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 982fa652-0224-452b-8f29-08df1635c40d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Sep 2026 10:07:08.7735
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b6cd1562-9512-488f-a364-34d46554c96a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: jmJ3SA4/cEpL5syhBaBUSDxR+vibfBuZrV3lIFYhKcLd6/Ke0aDvMunlx2MPyblKDT8Ahfq8yWn6VtuE6aD5pA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR06MB8573
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260919-r28s-upstream-v7-3-e80a6f8ef521@proton.me>
+References: <20260919-r28s-upstream-v7-0-e80a6f8ef521@proton.me>
+In-Reply-To: <20260919-r28s-upstream-v7-0-e80a6f8ef521@proton.me>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Chukun Pan <amadeus@jmu.edu.cn>, Jonas Karlman <jonas@kwiboo.se>, 
+ jensen <jensenhuang@friendlyarm.com>, 
+ Andrey Korshunov <razor1702@gmail.com>, 
+ Diederik de Haas <diederik@cknow-tech.com>, 
+ =?utf-8?q?=E5=AE=89=E5=AE=B9?= <HystericalDragons@proton.me>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5467;
+ i=HystericalDragons@proton.me; h=from:subject:message-id;
+ bh=NuAc4jMDfk/Tx8+/OfV/iX5ruACbgsmXbYkj7OTFAfs=;
+ b=owGbwMvMwCUmepz3XUtTHjvjabUkhqx1yceXr2ayXmq7evK12Getv6IOS7/RWDCr5tS/nrtyH
+ +Yk1S9z7ihlYRDjYpAVU2SR3VQdKbQqemYRi9RxmDmsTCBDGLg4BWAihW8YGS5WrotmfXCFa8GR
+ Oyopu0Kfah5es3NNpzn7309rdkxYlW7DyLD1uCPzZPa0hdkMVhIbjvdZnbpvwLkgednNhqZ/7KL
+ 5zxkB
+X-Developer-Key: i=HystericalDragons@proton.me; a=openpgp;
+ fpr=1DB27B5912AA5B9972041AC715C70DEE84826E07
+X-Endpoint-Received: by B4 Relay for HystericalDragons@proton.me/default
+ with auth_id=1004
+X-Original-From: =?utf-8?q?=E5=AE=89=E5=AE=B9?= <HystericalDragons@proton.me>
+Reply-To: HystericalDragons@proton.me
 
-On 9/16/26 1:57 PM, AngeloGioacchino Del Regno wrote:=0A=
->>>> The defaults in MediaTek's downstream driver match DRM_DSC_1_2_444, no=
-t=0A=
->>>> DRM_DSC_1_1_PRE_SCR, and the panel on my test device requires that eve=
-n=0A=
->>>> though it uses DSC v1.1. This may be a panel-specific problem, but hav=
-e=0A=
->>>> you tested this with any actual panels that need 1_1_PRE_SCR?=0A=
->>>>=0A=
->>>=0A=
->>> My downstream uses 1_1_PRE_SCR... that's why it is like this.=0A=
->>>=0A=
->>> I can resolve it like=0A=
->>>=0A=
->>>       if (dsc->dsc_version_major =3D=3D 1 && dsc->dsc_version_minor =3D=
-=3D 1)=0A=
->>>           type =3D DRM_DSC_1_1_PRE_SCR;=0A=
->>>       else=0A=
->>>           type =3D DRM_DSC_1_2_444;=0A=
->>>=0A=
->>>       ret =3D drm_dsc_setup_rc_params(dsc, type);=0A=
->>>=0A=
->>> ...that will work, granted that the panel declares the correct DSC =0A=
->>> version.=0A=
->>>=0A=
->>=0A=
->> Unfortunately not, because DRM_DSC_1_2_444 is also needed for some v1.1=
-=0A=
->> panels. From drivers/gpu/drm/drm_dsc_helper.c:=0A=
->>=0A=
->> /*=0A=
->>   * Selected Rate Control Related Parameter Recommended Values from =0A=
->> DSC v1.2, v1.2a, v1.2b and=0A=
->>   * DSC_v1.1_E1 specs.=0A=
->>   *=0A=
->>   * Cross-checked against C Model releases: DSC_model_20161212 and =0A=
->> 20210623=0A=
->>   */=0A=
->> static const struct rc_parameters_data rc_parameters_1_2_444[] =3D {=0A=
->> ...=0A=
->>=0A=
->> I'm pretty sure that my device is not using DSC v1.2.=0A=
->>=0A=
->> Since this is definitely panel-specific and there seems to be no good=0A=
->> way to detect the required parameters at the moment, this is probably=0A=
->> something to fix later.=0A=
->>=0A=
-> =0A=
-> Ok, let's just go with 1_2_444 then - makes sense... that's something=0A=
-> that must be accounted at the API level, because I know of some panels=0A=
-> that need the PRE_SCR set... and that's even if they're using v1.2, just=
-=0A=
-> because - for whatever reason - some of the DSC params are stored in and=
-=0A=
-> read from an OTP area of the DriverIC (and that would mismatch then with=
-=0A=
-> the other params that are runtime-programmable from the DrIC view, which=
-=0A=
-> results in pixel-garbage artifacts).=0A=
-> =0A=
-> Not sure how many panels are doing that, but this is of course not a MTK=
-=0A=
-> specific thing... I looked around, and apparently there's a mention of=0A=
-> that in the Intel driver as well - yay I'm not the only one who knows, lo=
-l.=0A=
-> =0A=
-> (And I definitely didn't expect that to be the case anyway).=0A=
-=0A=
-I just double-checked the downstream code I was referring to, and it=0A=
-seems that the 1.2 parameters are only used for 10-bit panels by=0A=
-default. The parameters for 8-bit panels match 1_1_PRE_SCR [1].=0A=
-=0A=
-So this would be closer to the default downstream behavior:=0A=
-=0A=
-    if (dsc->bits_per_component =3D=3D 8)=0A=
-        type =3D DRM_DSC_1_1_PRE_SCR;=0A=
-    else=0A=
-        type =3D DRM_DSC_1_2_444;=0A=
-=0A=
-    ret =3D drm_dsc_setup_rc_params(dsc, type);=0A=
-=0A=
-But again, this is actually panel-specific and should be fixed=0A=
-separately. I wasn't demanding any changes here and you can also keep=0A=
-using 1_1_PRE_SCR or whatever works for you if you have to send another=0A=
-version.=0A=
-=0A=
-[1]: https://github.com/oppo-source/android_kernel_modules_and_devicetree_o=
-ppo_mt6993/blob/4d505a4292dab3176a45fec66dc85debc362e24c/kernel/kernel_devi=
-ce_modules-6.12/drivers/gpu/drm/mediatek/mediatek_v2/v1/mtk_disp_dsc.c#L152=
-2=0A=
-=0A=
-Best regards,=0A=
-Nikolai=
+From: 安容 <HystericalDragons@proton.me>
+
+The NanoPi R28S is a dual gigabit Ethernet router board based on the
+Rockchip RK3528 SoC, designed and developed by FriendlyElec. It shares
+most of its design with the NanoPi Zero2, so it builds on the common
+rk3528-nanopi.dtsi.
+
+Specification:
+- Rockchip RK3528
+- 1GB RAM
+- eMMC socket (optional)
+- MicroSD slot
+- 1x 1000Base-T (GMAC1, Realtek RTL8211F)
+- 1x 1000Base-T (PCIe, Realtek RTL8111H)
+- AICSemi AIC8800D80 SDIO WiFi + Bluetooth
+- 3x LEDs (SYS, LAN, WAN)
+- 1x USB 2.0 Type-C OTG, shared with the 5V power input
+- User and MaskROM buttons
+- Haoyu HYM8563 RTC
+- 1x USB Type-C debug UART (onboard WCH CH340E)
+
+The AIC8800D80 has no upstream driver yet, so only the SDIO and UART
+controllers it hangs off are enabled, along with the WiFi and Bluetooth
+wake and power pins taken from the schematics.
+
+Assisted-by: LLM
+Signed-off-by: 安容 <HystericalDragons@proton.me>
+---
+ arch/arm64/boot/dts/rockchip/Makefile              |   1 +
+ .../arm64/boot/dts/rockchip/rk3528-nanopi-r28s.dts | 160 +++++++++++++++++++++
+ 2 files changed, 161 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/rockchip/Makefile
+index b677914cd3..51a9889088 100644
+--- a/arch/arm64/boot/dts/rockchip/Makefile
++++ b/arch/arm64/boot/dts/rockchip/Makefile
+@@ -94,6 +94,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3399-vicharak-vaaman.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3399pro-rock-pi-n10.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3528-armsom-sige1.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3528-hinlink-h28k.dtb
++dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3528-nanopi-r28s.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3528-nanopi-zero2.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3528-radxa-e20c.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3528-rock-2a.dtb
+diff --git a/arch/arm64/boot/dts/rockchip/rk3528-nanopi-r28s.dts b/arch/arm64/boot/dts/rockchip/rk3528-nanopi-r28s.dts
+new file mode 100644
+index 0000000000..294b66f60e
+--- /dev/null
++++ b/arch/arm64/boot/dts/rockchip/rk3528-nanopi-r28s.dts
+@@ -0,0 +1,160 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (c) 2022 Rockchip Electronics Co., Ltd.
++ * Copyright (c) 2026 FriendlyElec Computer Tech. Co., Ltd.
++ * Copyright (c) 2026 安容 <HystericalDragons@proton.me>
++ */
++
++/dts-v1/;
++
++#include "rk3528-nanopi.dtsi"
++
++/ {
++	model = "FriendlyElec NanoPi R28S";
++	compatible = "friendlyarm,nanopi-r28s", "rockchip,rk3528";
++
++	aliases {
++		mmc2 = &sdio0;
++		serial2 = &uart2;
++	};
++
++	gpio-keys {
++		compatible = "gpio-keys";
++		pinctrl-names = "default";
++		pinctrl-0 = <&gpio4_b2_usr_btn>;
++
++		button-user {
++			debounce-interval = <50>;
++			gpios = <&gpio4 RK_PB2 GPIO_ACTIVE_LOW>;
++			label = "USER";
++			linux,code = <BTN_1>;
++			wakeup-source;
++		};
++	};
++
++	sdio_pwrseq: sdio-pwrseq {
++		compatible = "mmc-pwrseq-simple";
++		pinctrl-names = "default";
++		pinctrl-0 = <&pwr_wf>;
++		post-power-on-delay-ms = <100>;
++		reset-gpios = <&gpio1 RK_PC2 GPIO_ACTIVE_LOW>;
++	};
++};
++
++&combphy {
++	status = "okay";
++};
++
++&led1 {
++	default-state = "off";
++	function = LED_FUNCTION_WAN;
++	linux,default-trigger = "netdev";
++};
++
++&leds {
++	pinctrl-names = "default";
++	pinctrl-0 = <&led_sys_pin>, <&led1_pin>, <&led2_pin>;
++
++	led-2 {
++		color = <LED_COLOR_ID_GREEN>;
++		default-state = "off";
++		function = LED_FUNCTION_LAN;
++		gpios = <&gpio4 RK_PB3 GPIO_ACTIVE_HIGH>;
++		linux,default-trigger = "netdev";
++	};
++};
++
++&pcie {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pcie_eth_perstb>;
++	reset-gpios = <&gpio4 RK_PC0 GPIO_ACTIVE_HIGH>;
++	vpcie3v3-supply = <&vcc_3v3>;
++	status = "okay";
++};
++
++&pinctrl {
++	bluetooth {
++		bt_wake_host: bt-wake-host {
++			rockchip,pins = <1 RK_PB5 RK_FUNC_GPIO &pcfg_pull_down>;
++		};
++
++		host_wake_bt: host-wake-bt {
++			rockchip,pins = <1 RK_PB4 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++	};
++
++	gpio-keys {
++		gpio4_b2_usr_btn: gpio4-b2-usr-btn {
++			rockchip,pins = <4 RK_PB2 RK_FUNC_GPIO &pcfg_pull_up>;
++		};
++	};
++
++	leds {
++		led2_pin: led2-pin {
++			rockchip,pins = <4 RK_PB3 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++	};
++
++	pcie {
++		pcie_eth_perstb: pcie-eth-perstb {
++			rockchip,pins = <4 RK_PC0 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++	};
++
++	wifi {
++		host_wake_wl: host-wake-wl {
++			rockchip,pins = <1 RK_PA6 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++
++		pwr_wf: pwr-wf {
++			rockchip,pins = <1 RK_PC2 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++
++		wl_wake_host: wl-wake-host {
++			rockchip,pins = <1 RK_PA7 RK_FUNC_GPIO &pcfg_pull_down>;
++		};
++	};
++};
++
++&sdio0 {
++	bus-width = <4>;
++	cap-sd-highspeed;
++	cap-sdio-irq;
++	keep-power-in-suspend;
++	mmc-pwrseq = <&sdio_pwrseq>;
++	no-mmc;
++	no-sd;
++	non-removable;
++	sd-uhs-sdr104;
++	vmmc-supply = <&vcc_3v3>;
++	vqmmc-supply = <&vcc_1v8>;
++	status = "okay";
++};
++
++&uart2 {
++	dma-names = "tx", "rx";
++	pinctrl-names = "default";
++	pinctrl-0 = <&uart2m1_xfer>, <&uart2m1_ctsn>, <&uart2m1_rtsn>;
++	uart-has-rtscts;
++	status = "okay";
++};
++
++&usb_host0_xhci {
++	/*
++	 * The Type-C port is also the 5V power input, so it comes up as a
++	 * device, but host mode works with an externally powered hub.
++	 */
++	extcon = <&usb2phy>;
++	maximum-speed = "high-speed";
++	phys = <&usb2phy_otg>;
++	phy-names = "usb2-phy";
++	status = "okay";
++};
++
++&usb2phy {
++	status = "okay";
++};
++
++&usb2phy_otg {
++	status = "okay";
++};
+
+-- 
+2.55.0
+
+
