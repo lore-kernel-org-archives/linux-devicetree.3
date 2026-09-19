@@ -1,71 +1,254 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f7.google.com (mail-pj2-f7.google.com [74.125.227.135])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A6F92C87F;
-	Sat, 19 Sep 2026 12:37:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 672FD2D7D47
+	for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 12:51:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.135
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789821441; cv=none; b=e7/iBYg2neC66B2qd9Er7vl+b2yv6zsCyilxsRUeYo3O+oMyQ+feeduGmKt/Bupqh/k8RILJxAeWbsJ4nExRUeMluhjLRvrBI8FWpDFYPJuEuPFl6DSG2sfxkUaUPfvI3dkF7R9DRa4cli4s/WFgldI9lC9nvY22xtoBM9cq3fs=
+	t=1789822307; cv=none; b=gfpC1BxA/8jTmGQv+Fwsil/St4I/xIohqPi+xUtzlxMPg02XVFwmr0FgG/QkgI58uYSsYLVKdfGGqcnFZLfY96DTKtfMIJgO0zZH/PyDWU3GfzVXRt0YnRrzpA3/TK0B4n0U98dMymz54z1ypbmaTOgynvhcclpwnhPsmEEl0Og=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789821441; c=relaxed/simple;
-	bh=CudjOoiS0CN5wckAnmUNIAvsvwLoUc3xC2z4gGv7Sas=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=s78zU6gquoXW7N0oAmLQrJ0PUALCoIfol6MAoS7ipU8datLV6rWl4D/6RCshkTYAmagrwDmduj4nGy8Sfwvi8p3F+HjW44GoLPl6fgOKHNCtEwIVm7L2ukMrVbcPXZbii+ldv5fvpAr1JHp75eDtWVuWezIMsWwTm+ShTnXQNgo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J8MwJpnx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789822307; c=relaxed/simple;
+	bh=NIJkPdrb34c+GXUZql5gIGKgt46vdTtKGO6ZMghyykQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=CkjmLQc98sGvWOc7v9fHcVUpA5e+uIXFFbLFcnhNmtSHgpZflT+cVYYhJivea3uV4Bm/oH8u7dyg2DvWnQHi8LZWtPqFlcf2FbaK/7TwGNcSE8FZzBwxcnkMX+usyu6+EBYEnXWrJ0wwx+xT4bsuFRxtfVnvf2lNRHV8Ccv7wc0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bI/zaacI; arc=none smtp.client-ip=74.125.227.135
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J8MwJpnx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 806E51F000FF;
-	Sat, 19 Sep 2026 12:37:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789821439;
-	bh=CudjOoiS0CN5wckAnmUNIAvsvwLoUc3xC2z4gGv7Sas=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=J8MwJpnxpfTMPYQNJ0tPP3AW4WnISpBVuf/zD9hVvBn4URcekWHCPB5jjFvFR8Go+
-	 vnmjj1kW2gMk17yGwbgejIvaavqJo4IYFUd6SRIt64B1RW/LblqWzEVS/dW8GCGtYL
-	 /bW2pBsLwfddFNfQyKjT6T0+ZG2pQpyn6cVJt8vBaAhouDsp1YH0sUhYxvYgtXM4DW
-	 2gr196+DQIq2NH5CrQfifOGGok93eGHQadwFTpg0hyN3f8Y1Yj+eghnkr+v4pP0rTq
-	 0JxJ5tPHKLlQA+yeZuwfQHz8dZoIw83MrJxCzGH+thiPYoZWEAdXHwleIQg/uCQNP7
-	 pdlRgb88sPVRA==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v2 3/3] arm64: dts: rockchip: fix power-off on
- Firefly-RK3399
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yaozhong Li" <yaozhonguwl@gmail.com>
-Cc: mfd@lists.linux.dev, lee@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260919122930.1418-4-yaozhonguwl@gmail.com>
-References: <20260909092728.1859-1-yaozhonguwl@gmail.com>
- <20260919122930.1418-4-yaozhonguwl@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 19 Sep 2026 12:37:19 +0000
-Message-Id: <20260919123719.806E51F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bI/zaacI"
+Received: by mail-pj2-f7.google.com with SMTP id 98e67ed59e1d1-39e37c430bbso686514a91.1
+        for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 05:51:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789822306; x=1790427106; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WeS5LqLOuIKT4KDWIZgKWwOtuHWnT7hUVImYY975124=;
+        b=bI/zaacIqyY3JPP921Jr3f3kTHtIMpjWqDZafaaZ+/btLyXs/qCh4VdYj7PLblAhFX
+         wNugegYlPFRZxNQXqnX1Uu92pAo9HRCod4uesoaJa5uTOMkSrUftkoqMd1TYvMsBn52L
+         SviSRHlNij0c73Uvnl2e1gzDVbSdMR0o1DnYAN5wLZTQ8ij1nrWoMC/PkCRFNw2BvtOL
+         XVqHnBlN5W5Fq3AKY2mbThGOP+FSJ7A2MzQFs8C/cYPH/kFbkmn5IKIWlemeDPvelRH+
+         +ql7QgssUoNFtekVLASq9ycb6fVimZl9uFu9ydryibyqwgOh2p9/MLwLdAFczuAMEpOs
+         bEBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789822306; x=1790427106;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WeS5LqLOuIKT4KDWIZgKWwOtuHWnT7hUVImYY975124=;
+        b=oc8oQfIap7OZoT5Gfiul/TY/BpxL28lbAmBO6sNEQUbHnqUUA2hlwz9rZA5i+8N3Ed
+         ucFBSO8g5ocDWeL0EEAE70HtOPRtsJ0u7OSja4q5QfIKIYns/ePQTMHmmnksoGIEhilx
+         3RsYzrCJwxBuc6gsLsRduWygZ9cogaTb9XpEGg7i5RlqxHV2BMvZlrEkgtanK0sNEoGo
+         Sp/Bn8oLJAWLApdCwyDw2D57EU4NC/5gkI6CezGzNPMoN9yYANwPzAoMm+k3WIVz/2zh
+         2D2IRo/U9Im2kI+C9HDfNvu+pLnNNTTkJ8zB2lME6UWNGG+pMqbqWSpa6/cg3Li3SjvA
+         RrVw==
+X-Forwarded-Encrypted: i=1; AKwUvByyzBTH9d2S4l3DbhvUqHF7rMjv4IPGYWYtIcVKqOZvNXlyqymw9YkVGlYaH/66BfO3CUH4DgLOOWL6@vger.kernel.org
+X-Gm-Message-State: AFuF++kcLEAGJRgkz202v6X9tVMAQ4WU+mzGaPPd9ogNY5XTniYPDsv4
+	NoxdTr2QTU1j+2pkkvmItr8rl3uJ3euwQuvoW4Wi+S1peNG8Yfnr8qj4
+X-Gm-Gg: AYBFou0QDV39oBcvH/aN4fdMhROfC5769GuF5zMRourZVgoAeIgaLBYIjQc4q0LRS62
+	gYiJ9ReN6qwl5QjJB3gQtjUGXLYR/SribBqTRFmtBJZKVOpDAYcdby0Fb1G0LTlX80st9pY0vRP
+	SE7t+ELzVG/q/g8mILWD/IJ1A1icjdBcMg3VhaYFyNN9zmsWcvviKwRDMK/IrqUvL3roKzSS265
+	+rfDIJrfuyTimlWXNAHmUm3mC/gwCjfQxyPYoYYaZSRtnAlIy2LpefJbiZYNxg/3yJ2nA/C7X9Y
+	Z2a7JhSR1j+uDKRuPvbmwY241ZzWbWzO3wqn57tToiqOtSB5tHvTNDlkpRY99VKmgafWAb5AYtZ
+	/XbP9CxyZqgEc1871YCBeZkXXn6hwEB00S2A1Ck23RmiqC/ud0yFBO0ob6xSrOAtV0Prt2yuOA0
+	vmqvcfDwgzccu8pK1ObmUrJ6ffaYmGNEZrx2RkUA7swYBtLdbRJ+czhZgm45fFtbcNjSe/Wg==
+X-Received: by 2002:a05:6a00:4309:b0:874:708d:b636 with SMTP id d2e1a72fcca58-874df60bf54mr9495073b3a.34.1789822305666;
+        Sat, 19 Sep 2026 05:51:45 -0700 (PDT)
+Received: from server.lan ([168.138.199.194])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877aa0026b2sm991805b3a.44.2026.09.19.05.51.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 19 Sep 2026 05:51:44 -0700 (PDT)
+From: Coia Prant <coiaprant@gmail.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Vinod Koul <vkoul@kernel.org>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Romain Gantois <romain.gantois@bootlin.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Coia Prant <coiaprant@gmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Shawn Lin <shawn.lin@rock-chips.com>,
+	David Heidelberg <david@ixit.cz>,
+	netdev@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-phy@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH net-next v8 00/11] net: pcs: add basic support for RK3568 XPCS
+Date: Sat, 19 Sep 2026 20:51:07 +0800
+Message-ID: <20260919125119.2107089-1-coiaprant@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-> poweroff on this board drops the rails and immediately brings them back
-> up, so it reboots instead of staying off and U-Boot reports a power-on
-> reset.
->=20
-> Firefly's BSP drives GPIO1_D0 and GPIO1_B5 low during shutdown, before
-> writing the RK808's shutdown bit. Mainline does not describe GPIO1_D0 at
-> all, and describes GPIO1_B5 as the backlight enable GPIO - the vendor's
-> own backlight node has no enable GPIO. Nothing therefore releases either
-> line at power-off, and while the backlight owns GPIO1_B5 it can hold it
-> asserted, which is enough to make the board come back up on its own.
->=20
-> Describe both lines in the PMIC node and drop the backlight enable-gpios,
-> with the settle time the vendor uses.
->=20
-> Fixes: 171582e00db1 ("arm64: dts: rockchip: add support for firefly-rk339=
-9 board")
-> Signed-off-by: Yaozhong Li <yaozhonguwl@gmail.com>
+This series adds proper SGMII support for the Rockchip RK3568 SoC
+using the integrated Synopsys DesignWare XPCS, along with necessary
+fixes and refactoring in the stmmac core and XPCS driver.
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+Motivation
+==========
+The RK3568 integrates a DW XPCS accessed via APB3 and connected to
+a Naneng Combo SerDes PHY.  Several boards (e.g., Ariaboard
+Photonicat) use this interface for Gigabit Ethernet.  However, the
+current upstream stmmac driver does not support this configuration,
+and the XPCS driver has issues in SGMII poll mode that cause the
+link to be reported incorrectly.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260919122930.1418=
--1-yaozhonguwl@gmail.com?part=3D3
+This series addresses these issues by:
+- Refactoring stmmac PCS lifetime management to allow platform drivers
+  full control over PCS creation/destruction
+- Fixing the XPCS driver's SGMII link recovery
+- Adding a Rockchip XPCS platform glue driver and wiring it up in
+  dwmac-rk
+
+Series overview
+===============
+
+Generic:
+  Patch 1: move XPCS lifetime management to platform drivers
+
+PHY:
+  Patch 2: DT binding for Naneng Combo PHY SGMII MAC selection
+  Patch 3: implement the PHY SGMII MAC selection in driver
+
+RK3568 XPCS/SGMII:
+  Patch 4: DT binding for Rockchip RK3568 XPCS
+  Patch 5: add XPCS and fixed-clock nodes to rk3568.dtsi
+  Patch 6: add ANRESTART support for SGMII link recovery
+  Patch 7: implement the Rockchip XPCS platform glue driver
+  Patch 8: DT binding for Rockchip DWMAC PCS
+  Patch 9: wire up SGMII support in dwmac-rk
+  Patch 11: update MAINTAINERS
+
+Board enablement:
+  Patch 10: enable SGMII LAN port on Photonicat board
+
+Changelog
+=========
+
+Changes since v7:
+
+Patch 7 (net: pcs: xpcs: add Rockchip RK3568 platform glue driver)
+- Fix a use-after-free window in xpcs_rk_create(): device_link_add()
+  does not fail on a supplier that is unbinding (it creates the link in
+  DL_STATE_SUPPLIER_UNBIND), so the drvdata could be freed between the
+  link creation and the platform_get_drvdata() call. Read the drvdata
+  under the supplier's device_lock with a device_is_bound() check, so
+  a concurrent unbind is detected and the probe defers.
+- Correct the comment above device_link_add(): the link does not keep
+  the supplier alive by itself; device_lock() plus device_is_bound() is
+  what protects the drvdata read.
+- Change the Kconfig select to "select PM_GENERIC_DOMAINS if PM" so a
+  COMPILE_TEST build with CONFIG_PM=n does not force PM_GENERIC_DOMAINS
+  on against its own dependency.
+
+Key design decisions
+====================
+- The stmmac core now delegates XPCS creation entirely to platform
+  drivers via pcs_init/pcs_exit.  This is necessary because the
+  generic XPCS creation logic would override any XPCS set up by the
+  platform driver.
+
+- The Rockchip XPCS driver creates a virtual MDIO bus over the APB3
+  registers and implements address remapping.  The generic XPCS core
+  handles all PCS configuration via phylink_pcs_ops.
+
+- On RK3568 in SGMII mode, the MAC clock is fixed at 125 MHz and
+  cannot be dynamically changed.  In-band mode is used, and the
+  generic stmmac set_clk_tx_rate callback is disabled to prevent
+  incorrect clock updates that would break RX.
+
+- The SerDes and power domain are attached to the XPCS device tree
+  node rather than the MAC node. This reflects the actual hardware
+  topology and simplifies the dwmac-rk driver by keeping all PCS-related
+  resources self-contained. It also prepares for possible future QSGMII
+  support, where a single SerDes serves multiple MACs and would be
+  more naturally managed under the XPCS node.
+
+Testing
+=======
+Board: Ariaboard Photonicat (RK3568)
+OS: Armbian (trixie)
+Kernel: 6.18 (backports)
+Result: The SGMII interface obtains an IP address, SSH works, and
+        ping traffic passes without loss.
+
+Notes
+=====
+- When testing out-band mode with set_clk_tx_rate, only 1000Mbps
+  works on both TX/RX; 10/100Mbps only works on TX side.
+
+Dependencies
+============
+None. All patches apply cleanly on top of torvalds master tree (v7.3).
+
+Acknowledgments
+===============
+This work was inspired by and builds upon the excellent work of others:
+- Serge Semin's Synopsys DesignWare XPCS platform driver (pcs-xpcs-plat.c)
+- Clément Léger's Renesas MIIC driver (pcs-rzn1-miic.c)
+- The Rockchip TRM and downstream OEM drivers
+
+Thanks in advance,
+Coia Prant
+---
+Coia Prant (11):
+  net: stmmac: move XPCS lifetime management to platform drivers
+  dt-bindings: phy: rockchip: naneng-combphy: add rockchip,sgmii-mac-sel
+    property
+  phy: rockchip: naneng-combphy: add SGMII MAC selection for RK3568
+  dt-bindings: net: pcs: add rockchip,rk3568-xpcs support
+  arm64: dts: rockchip: rk3568: add XPCS and fixed-clock nodes
+  net: pcs: xpcs: add ANRESTART support for SGMII link recovery
+  net: pcs: xpcs: add Rockchip RK3568 platform glue driver
+  dt-bindings: net: rockchip-dwmac: document pcs-handle
+  net: stmmac: dwmac-rk: add SGMII support for RK3568
+  arm64: dts: rockchip: rk3568-photonicat: enable SGMII LAN port
+  MAINTAINERS: add entry for Rockchip XPCS driver
+
+ .../net/pcs/rockchip,rk3568-xpcs.yaml         | 110 ++++
+ .../bindings/net/rockchip-dwmac.yaml          |  18 +
+ .../phy/phy-rockchip-naneng-combphy.yaml      |  13 +
+ MAINTAINERS                                   |   9 +
+ .../boot/dts/rockchip/rk3568-photonicat.dts   |  74 ++-
+ arch/arm64/boot/dts/rockchip/rk3568.dtsi      |  45 ++
+ drivers/net/ethernet/stmicro/stmmac/Kconfig   |   1 +
+ .../net/ethernet/stmicro/stmmac/dwmac-intel.c |  44 +-
+ .../stmicro/stmmac/dwmac-renesas-gbeth.c      |   7 +-
+ .../net/ethernet/stmicro/stmmac/dwmac-rk.c    | 130 +++-
+ .../net/ethernet/stmicro/stmmac/dwmac-rzn1.c  |   7 +-
+ .../ethernet/stmicro/stmmac/dwmac-socfpga.c   |   7 +-
+ .../net/ethernet/stmicro/stmmac/stmmac_mdio.c |  39 +-
+ drivers/net/pcs/Kconfig                       |  25 +
+ drivers/net/pcs/Makefile                      |   5 +-
+ drivers/net/pcs/pcs-xpcs-rk.c                 | 599 ++++++++++++++++++
+ drivers/net/pcs/pcs-xpcs.c                    |  35 +-
+ .../rockchip/phy-rockchip-naneng-combphy.c    |   8 +
+ include/linux/pcs/pcs-xpcs-rk.h               |  11 +
+ 19 files changed, 1115 insertions(+), 72 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/pcs/rockchip,rk3568-xpcs.yaml
+ create mode 100644 drivers/net/pcs/pcs-xpcs-rk.c
+ create mode 100644 include/linux/pcs/pcs-xpcs-rk.h
+
+-- 
+2.47.3
 
