@@ -1,111 +1,108 @@
-Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
+Received: from mail-oo2-f39.google.com (mail-oo2-f39.google.com [74.125.231.167])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92E3130C35F
-	for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 02:51:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.40
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AB6C2931DF
+	for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 02:59:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789786278; cv=none; b=jAip8n44uwYnLyx9tGs/+3wANq3Uyz9Alxous9UQ7e8PrR91OHfrd7shskGbfNKPPftYDcGZ95dyFbz8z8swenZKyWWguLx3uYWX06q8PZWNbB6HhIZfip1W3Q8I/0H2Wb5Wsi+/gUdxJGUH8SN4hg9M/jOs+P+jG3BywB9BCuk=
+	t=1789786747; cv=none; b=LdrHsORmto+8cYxM6WP8Ky2/sxmcnpXVMW5k72qukkA+2wAkwq1j+kVUK26+N+twssK6pxh4vlvzeaBMSjdIL9bR+zW2DMH1wtG+cKdU4tqDLVYMpzKPgKegKr7EuMwQYfQKlEyIy+N9zFUH7IcoGP9gF6Yk6D04xJrcHj2iRrg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789786278; c=relaxed/simple;
-	bh=JcECnNjrlOaWBJGWKF19/ox7DU/tJMVTNEO6ke2Z5lE=;
-	h=From:Message-ID:Date:MIME-Version:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=n9kwJkesrXhH3LZ7gxMxr+ywn3Xu0Nm5L0uNPlmlmo6ejpBpkK3OH0l43oyl1Lisnsd50YbjzqJD1TrPpen3G3JYoMeqca3kP+DQlpYUr2LG3l+UHY3uf9zUmmSD07T72piOyZ0Gma64FVMmTcOAOJk7mBIteTo+mOSbfprDS+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fIxsM1rK; arc=none smtp.client-ip=74.125.228.40
+	s=arc-20240116; t=1789786747; c=relaxed/simple;
+	bh=YajLatm1N39wTUS/2spLdpOg4xpSAjkOcr5obwgS3UY=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=R9GCJly8EH7ry2h79UHT6qbPhsjOLbM7VPs9vNkmUYk39ydpgUcRRAThwhutdXDCdPoL/IGIWvHNWIIROOReGmU3OpDyeS692ujp+0r3Axfvle91GvDhr7+XXVRnJz9aXdNvNXqqMQ0OXtYHmHCePQg4AcfL5MIMsfFscAahyzU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lymfHllK; arc=none smtp.client-ip=74.125.231.167
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fIxsM1rK"
-Received: by mail-pz2-f40.google.com with SMTP id 41be03b00d2f7-cc5121bcf1aso1144295a12.1
-        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 19:51:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lymfHllK"
+Received: by mail-oo2-f39.google.com with SMTP id 006d021491bc7-6b1ae6b1b26so589176eaf.2
+        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 19:59:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789786275; x=1790391075; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7ffAIIOTzJLTc90hT/z6VobY5awA2RAnbn6y+KHd4n0=;
-        b=fIxsM1rKKETM7EOWIyBgwq/sHbjixz517kRhyizI8JZfwrlpSpN6CYY5J0e3TmND6z
-         qo5iOwxoawWdWgno8hoJ5vmMfSezDZRhm6idsUyF2Lw5S2A/UtAsWbYVTvKWHgZeAZlQ
-         rgvFhIJLfBWOQa05teE6g6Mt5Bu1b/8T/Mu01OZowBbGnfcwv6AOJdvnCre+Bhela57L
-         1IWUgiTBi9X+WcSAsP9rDxM3z48XTBY18IuGENXXAK3FJLFAO31t056dD0pqc9UdgcZc
-         0NhxQXJri4711v8URYLMwm70fYYoaYFjGt4zDu74T6dsrfNbZg+P2riG7P6cc5Z/EErL
-         Phdg==
+        d=gmail.com; s=20251104; t=1789786745; x=1790391545; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZCesOAxM2IbdAjwoghFpZoYF2NflnmReXHRHMAC19yM=;
+        b=lymfHllKscqLDzD3R93ZSc3qD2xCgtbE45+K3Yp/DSjoIPXMckFFGRJXyLjIInTODH
+         4mMFtJoKUmAsmEtbC7C1xGn9IpH0jWwxpsOJ5sxmMIuJ8t5cVSOkbwYVwtoC77upT+ag
+         NldZE7TD4Bmg7NT+bPad/pYRHSkN+2gObalhnPPypnYfelmzOICOz9B1jJVgmO8wjwoJ
+         4ioR6xFIY4pxmZh0gZxjRzFdSSyM/zB8UsblS65Dqg3O6yOd2Wj9MHLyrxhA4GHiAgfU
+         ZwtIMQjkogkxe9YY5u37s6FN2nxD5U3tUr/BkoKAad3ugphmkgQXo0bdDiIhwm3fqW0L
+         BBMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789786275; x=1790391075;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=7ffAIIOTzJLTc90hT/z6VobY5awA2RAnbn6y+KHd4n0=;
-        b=0nWZEI7Szu0hhAHtyG+3eRTZ69wdUPo3O0NZGQD37gdcCGOuQSn569OBVMygC1InFM
-         84geYNC/rX2NBMHGNQqC2ot40Up9wc5eUx6EFQQp3UqtdKZPvuU0kY0uzU/bPIJUeJKF
-         dvO17VrN7HhotkSlbDjw6+hxEwVdp2Dq8E/n9iUz6V/nYdkuoWXa4kbw7ED9anc4PBs5
-         zFiIC2Dhy0SYJ56DzU2T31AskBrghl9RsJwWnS6c09AlgVgO0kFo1aq1wdu4aMAp3oiy
-         qgMFZVn2F6eFdwDN/jPcHqkRumyxO7sr91+OLQ2t4Cxce/x8JRUDwyjXrMWKUJwdIt3Z
-         LH7g==
-X-Forwarded-Encrypted: i=1; AKwUvBzCJMtI3U75l+HWXO6cob4mTgfYGW1oRRwy+SE83sV1UEtQUNs4NrbSBKKTr/kx3UIFK94jViqaVHBU@vger.kernel.org
-X-Gm-Message-State: AFuF++mxwe7ZAv8ZKdj4Uio7sK4aOqNJAq5y32afy56W21EGcRsvJqN6
-	+JMXGRjp4DJl63Xrna2wWUoxPkvg6xbDQKSMplAlRSzMXPMbLWVugS7U
-X-Gm-Gg: AYBFou1I03hy2T3Yeoei55boZsXRmuBbcSR28qC4Z7un2zxwuCpR1dh7a/s4+JPzb3k
-	H0xou0ZXN2UviRwJ7ubUig6uNw094ICIlWgK5u4MfvREktTx3aoRizMWcltMt4ZvI52q6JHIIAA
-	LqeDXzCwqjSx/ml+x2C7xtnB9D0rZ9JCkAiJ5fWp9YqkX7UAwASC4wi1EQBPXzZR8Z0UOSMNu7I
-	POVMKCMilMnYueK/H8L12QkpGvneocBTNboZxrmVwkC7canrLBW+gWjxnBcrTevfeWcuoSe7y51
-	P2vpHaJJvT8o5WsltXeXjziHVHtSw4WV4cNGNh0vdQJBob9zrRtZP5KyMls/Fo4Ixb0391xwL6x
-	OxNxypHGXh7tlEQMJ67NOE8UNEksLkalTyA4RjKtTRDLM5bLAPGm9nbkP8ldSveouUCjSwUyYMP
-	AJAPLNZpJfoFbGfbNeTz//AgRosreygq7oHniaz1AFlswZpX5W1JyTPXxNC5y50UdJun9DRG0LF
-	Xvw9MWlsc276USz1/T96eLBefZAzThzvf6lBIVPO8KGGlkRRcY=
-X-Received: by 2002:a17:90b:17ca:b0:393:19a3:4f1 with SMTP id 98e67ed59e1d1-39e54cb43c7mr8391467a91.6.1789786274734;
-        Fri, 18 Sep 2026 19:51:14 -0700 (PDT)
-Received: from [172.19.1.47] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c615f05sm2060720a91.15.2026.09.18.19.51.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 18 Sep 2026 19:51:12 -0700 (PDT)
-From: Jacky Huang <ychuang570808@gmail.com>
-X-Google-Original-From: Jacky Huang <ychuang3@nuvoton.com>
-Message-ID: <cb92ac17-d334-45e5-b5f4-4c299a1fb462@nuvoton.com>
-Date: Sat, 19 Sep 2026 10:51:07 +0800
+        d=1e100.net; s=20260707; t=1789786745; x=1790391545;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZCesOAxM2IbdAjwoghFpZoYF2NflnmReXHRHMAC19yM=;
+        b=EfPFwNLUleZR7dpkydG8s6llKLCVfPB4kfs4srX/KNbKJho3Dxt8C4hFIr5wjj0x+T
+         H+RvIny1RgQ6yWPOlbs9soQxSFoHbBvXCgO7i189DduoLfcCBsdpIIgYNB8uXfPhDY4Y
+         mRaXk3rdRgbIp5OzK0WqsbX4NNTf7KNltJlVDU7UHtX/oBeeYOjfUevXp1jo7ykl2AXV
+         7KbEJHYeprES20BavSTZxwKNKiM1EMo/li/gpCYyWuux1XvaPUJS0B0hrxAahEGye85T
+         RWBH+Fm8djcwAyINpDvadUdJ/55LINVH0ODdVMZZcjAUK+rfKeC1dLQwsFkqxpbR1hfd
+         wJaQ==
+X-Gm-Message-State: AFuF++mlwK4/H/OiBshn5rnAMoEUFGTLyeTwD72gshXODr4JmafPGd0m
+	Cly/MfalQEslhbT6g5CdMvrqP3r1dUjS+kMFFIV7/IKTmfcQo3jfx2deWD+bzezr
+X-Gm-Gg: AYBFou1PxSTfaLvV9KuiLHqEGuyeSgpfNfc5ztQZ1itsgPGl1LwSSYNy35Qz3Q5b/g2
+	RQP5ZCKye6sERe5RoUmbklsGwcowAyYuNv+yJLaJGSwvtKxbN61ZsabAcWluNEgXOLnZ6skiQ4d
+	MBVaJQGcZhUcRkPXShZHlVkxZQzoCPzszFZdoA7QocLJ7duItzhqK6+PFVx+O+PalGBg+bRpQ3l
+	7DrOdzPZS1TeRgvznN9tjxKZ94Cb05nbqsh4lM6JmT6p2OuYCeONlE6BHNOs0HiHbDr2TUm+SOl
+	DzkWIcgTB9FgkcvVJdJHl5IMLOGZw/rWEDCXsIEMox++TkKsOmX7guqaU1Dk9tWTo/7ahKuOS9/
+	h6YvzZ4e3qyAhKzRlImqg4VBSgMQyFh8ziL9FfLdsqgjqZ42Bv0MFKkeXo7FViVifvzpX2e+LqF
+	V+kpgsK0nsjggiRn+AuiXsJ7nDteCeF1JzXbXYyd60IuDpbckWZZnxQWA8DNSuKCWqU6pywFKCv
+	zOun9Zxh7rDdPokQsxNTWFnRYhgO+aDIq7ZZ5asMZad6b7+Gbozy/sccUe7kZEn8u6EI0jt/A==
+X-Received: by 2002:a05:6820:1988:b0:6b1:89ff:8a1a with SMTP id 006d021491bc7-6ca9a1326a3mr4442238eaf.3.1789786744895;
+        Fri, 18 Sep 2026 19:59:04 -0700 (PDT)
+Received: from DESKTOP-FG7FD3B.localdomain (fixed-187-189-149-136.totalplay.net. [187.189.149.136])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6cd2ea874c3sm1904355eaf.0.2026.09.18.19.59.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 19:59:04 -0700 (PDT)
+From: Daniel28972897 <danyboy28sep@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	Daniel28972897 <danyboy28sep@gmail.com>
+Subject: [PATCH v2 0/2] dt-bindings: misc: convert axis-fifo binding to YAML
+Date: Fri, 18 Sep 2026 20:58:58 -0600
+Message-Id: <20260919025900.169703-1-danyboy28sep@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260919011417.156828-1-danyboy28sep@gmail.com>
+References: <20260919011417.156828-1-danyboy28sep@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] arm64: dts: nuvoton: ma35d1: add CAN nodes
-To: Zi-Yu Chen <zychennvt@gmail.com>,
- Andrew Jeffery <andrew@codeconstruct.com.au>
-Cc: schung@nuvoton.com, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, mkl@pengutronix.de
-References: <20260916051827.919538-1-zychennvt@gmail.com>
-Content-Language: en-US
-In-Reply-To: <20260916051827.919538-1-zychennvt@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-> +               can0: can@403c0000 {
-> +                       compatible = "bosch,m_can";
-> +                       reg = <0x0 0x403c0000 0x0 0x200>, <0x0 0x403c0200 0x0 0x2000>;
-> +                       reg-names = "m_can", "message_ram";
-> +                       interrupts = <GIC_SPI 71 IRQ_TYPE_LEVEL_HIGH>,
-> +                                    <GIC_SPI 131 IRQ_TYPE_LEVEL_HIGH>;
-> +                       interrupt-names = "int0", "int1";
-> +                       resets = <&sys MA35D1_RESET_CANFD0>;
-> +                       clocks = <&clk HCLK3>, <&clk CAN0_GATE>;
-> +                       clock-names = "hclk", "cclk";
-> +                       bosch,mram-cfg = <0x0 4 4 32 32 32 8 8>;
-> +                       status = "disabled";
-> +               };
+This is v2 of the axis-fifo devicetree binding conversion, addressing
+review feedback from the Sashiko AI bot on v1:
 
-Hi Zi-Yu,
+- The FIFO depth properties are documented in 32-bit words, not bytes,
+  matching the original text binding and the driver's own arithmetic.
+- additionalProperties: false no longer rejects real-world devicetrees,
+  since all properties generated by the Xilinx IP integrator (even
+  ones the driver ignores) are now listed in the schema.
+- The now-superseded drivers/staging/axis-fifo/axis-fifo.txt is
+  removed, split into its own patch per
+  Documentation/devicetree/bindings/submitting-patches.rst.
 
-The CANFD0 through CANFD3 reset properties added in v4 address Marc's
-comment, and the reset assignments look correct.
+Daniel28972897 (2):
+  dt-bindings: misc: convert axis-fifo binding to YAML
+  staging: axis-fifo: remove superseded text binding
 
-Reviewed-by: Jacky Huang <ychuang3@nuvoton.com>
+ .../bindings/misc/xlnx,axi-fifo-mm-s.yaml     | 150 ++++++++++++++++++
+ drivers/staging/axis-fifo/axis-fifo.txt       |  96 -----------
+ 2 files changed, 150 insertions(+), 96 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
+ delete mode 100644 drivers/staging/axis-fifo/axis-fifo.txt
 
-Best regards,
-Jacky Huang
-
+-- 
+2.34.1
 
