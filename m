@@ -1,133 +1,139 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7489B398910
-	for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 23:00:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6F9B348C7B;
+	Sat, 19 Sep 2026 23:13:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789858823; cv=none; b=copoXPjbup83w9lwIhS6JfoENfqX52J2SfpF2X4rsv9fpGKLjNFA7lBHpGbTT4ZnJZwziM5bbjx24U/x0Os6pxLbCDkulJPpYKVlBVZs2Xwr35BZwAVE0G2Z2GT43bymOAHRuYf4IZ2x4wCTHT65opxVfjx3GNrOtuFE0eBYCYw=
+	t=1789859617; cv=none; b=k1u4LfNHM8uz9SUU6nY12iqab1o5qS53yEWfkiVXdimnDVND5lHsntLS6F1S9dOD+o+wIjq6OJqWuRM1OJGLA5YAuzOrV5auypH66fimR9HZwnOHZHx6h+BFdI0nTXxtlOUlMB/BaTTBM8ZyvGstN0hFSGOmzfT597wQH0rjrAs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789858823; c=relaxed/simple;
-	bh=0DqLZhnGiguHeWNw8aYpuKZ+r8Z0GJIFLwAU45LnjCY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jFDFqTdQ+vCwgXlzidb0IvZdRKNMsR9pEem4Oj0dgi4NvnsLh6Ps7xJ59RxPxTCPSpmHe3SrjfZZgeuhjxx9Rwxqk24np1zCVymbQmuPcrg4VLNmKUlGi8Wn4T5vPYP8gkhlxyUO4PHM0aR0Rut2wOlx6nK6XmgMo39u0JlsdWQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j3CjLMZa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789859617; c=relaxed/simple;
+	bh=sK2yacM6Q3NGD6pgtUu/ouaNBLyacVN5mFpthK3M0EE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Eo+2g1bZBJEDqv0mCtw2MokV1q1X6LQnhTiYiw0KOI1sJU8Fd6zmkDRAzj6RsIlv/n96zRKg2ITYKc2ZhjoK/V+0T/rIU2G906xXIB98mlQLzKs3/2yffeDDTT4oTEaw0kMS5jJ8j/4/1988y0ITvxStn5sAC0fL+Doies0m834=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=agsW2GL4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j3CjLMZa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B39CE1F000FF;
-	Sat, 19 Sep 2026 23:00:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="agsW2GL4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E960B1F000FF;
+	Sat, 19 Sep 2026 23:13:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789858822;
-	bh=W6mN8A9DWn6P8+kbvO8t3ERh6hIjBIMl/hS38pPRaq4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=j3CjLMZa9cjja8NLYqr5GMDIGiq9ZO4Jdq/y9MKQE/0ejtJtcNhMj8wXUD+X9KsXu
-	 fhUeo8FIe1S/jLtOR1hMfL5kQq8g0MQ9wjzopuWuclpRA7q3EoVq2y3JMTXw7uP0yp
-	 BisPP4bk0jtE5EA2RoTopO0DWVXG4ROdWNpyvJ6ufq2inPS+jj8YAhaCw/C1ZeMc3P
-	 eWieQpB3RqkGLqopNx4wjVsfQc3ItATxb1J9+7DsY37KDIOedru455+0lIUV+IveGe
-	 /rR/tKEea9yBzWd+2KSO7mZIHOdFjErOV6cbQvCd+Sc4icLinfc6De5mwOgoy/sPZM
-	 LT+vy1FMTVsNg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] iio: pressure: add Sensirion SDP31 driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Muhammad Abu Bakar" <m.abubakar365@yahoo.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260919223854.13437-3-m.abubakar365@yahoo.com>
-References: <20260919223854.13437-1-m.abubakar365@yahoo.com>
- <20260919223854.13437-3-m.abubakar365@yahoo.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 19 Sep 2026 23:00:21 +0000
-Message-Id: <20260919230021.B39CE1F000FF@smtp.kernel.org>
+	s=k20260515; t=1789859615;
+	bh=2Sef/0wxyMwTpjYCRnlB9CgtNUDrbK2hMY8qeX5WdGA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=agsW2GL4vTTRqpy7+o1jwke4n1/xbLd5GX9CLNxEpk/J+J6CA5r6gJkG1jKju+NPm
+	 wMOwUqTa8PrIQ5wkmYvByON9AH34njGzQIckoWUQPP6lfYsVH1JubRrXOdrW/fDw1f
+	 J2KFvOBBVO/gh08nduHOQAzcOQ9ftbLQRO7OVHCnjhE6vE1wWWV93XFIHgu/NnTaQy
+	 bwWdMoTMk2f5hcq3K2BvqZN+6n8vMasxFKOUFPoOB/yX3n73ayxbMRHE+cQ9UhK+Rg
+	 2as9+UFbBD1l4QEoqvsNfhlrtSmWN6j5jQbj2zLUJ0MnCtSxGzVIQUE/LcE7liMVkP
+	 JWzwOrSYgSyVg==
+Date: Sat, 19 Sep 2026 23:13:33 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Icenowy Zheng <uwu@icenowy.me>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org
+Subject: Re: [PATCH 2/3] pmdomain: spacemit: Add power domain driver
+Message-ID: <20260919231333-GKB322102@kernel.org>
+References: <20260918-04-k3-pm-support-v1-0-0acd2b36b96f@kernel.org>
+ <20260918-04-k3-pm-support-v1-2-0acd2b36b96f@kernel.org>
+ <a4359efeee2220903a05a2383a651ec8ec7284b7.camel@icenowy.me>
+ <20260918230107-GKC297024@kernel.org>
+ <33b33b2b79763d410bc2e5b4ef46c305aaf6f7c8.camel@icenowy.me>
+ <20260919095936-GKA322102@kernel.org>
+ <8301abce221e33d827053c54a64aed05f3227f7f.camel@icenowy.me>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <8301abce221e33d827053c54a64aed05f3227f7f.camel@icenowy.me>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] iio: pressure: data race on global sdp31_crc8_table during concurr=
-ent probes
-- [Low] i2c: sdp31_id array uses positional instead of named initializers
---
+Hi Icenowy,
 
-commit 64f407e74ab363c060c44155c0fe0d881043f834
-Author: Muhammad Abu Bakar <m.abubakar365@yahoo.com>
+On 21:56 Sat 19 Sep     , Icenowy Zheng wrote:
+> 在 2026-09-19六的 09:59 +0000，Yixun Lan写道：
+> > Hi Icenowy,
+> > 
+> > On 14:57 Sat 19 Sep     , Icenowy Zheng wrote:
+> > > 在 2026-09-18五的 23:01 +0000，Yixun Lan写道：
+> > > > Hi Icenowy, 
+> > > > 
+> > > > On 17:00 Fri 18 Sep     , Icenowy Zheng wrote:
+> > > > > 在 2026-09-18五的 02:40 +0000，Yixun Lan写道：
+> > > > > >   SpacemiT's PMU (Power Management Unit) consist of several
+> > > > > > power
+> > > > > > domains
+> > > > > > which can be managed independently, depending on different
+> > > > > > application
+> > > > > > scenario, each domain can be powered on/off for saving power.
+> > > > > > 
+> > > > > >   The driver is implemented based on Linux Generic PM Domain
+> > > > > > framework.
+> > > > > > From a hardware perspective, either of two distinct power-on
+> > > > > > sequences
+> > > > > > are supported, in software mode (SW mode), the driver is
+> > > > > > responsible
+> > > > > > for
+> > > > > > controlling the states of bits such as sleep1, sleep2,
+> > > > > > isolation
+> > > > > > and
+> > > > > > pwr_state, while in hardware mode (HW mode), the PMU hardware
+> > > > > > will
+> > > > > > complete
+> > > > > > the sequence automatically without requiring software
+> > > > > > intervention.
+> > > > > 
+> > > > > I think there also exists solutions for K3 that uses RPMI power
+> > > > > domains, and let their ESOS firmware to access the hardware.
+> > > > > 
+> > > > Yes, I'm aware of that
+> > > > 
+> > > > > What's the relationship of this implementation with the ESOS
+> > > > > implementation? Should the ESOS part be disabled to use this
+> > > > > implementation?
+> > > > > 
+> > > > I should say, it's a mutually exclusive solution, so yes, the
+> > > > ESOS
+> > > > part
+> > > > should be disabled in order to use this version
+> > > > 
+> > > > The motivation of this patch is trying to support drm/display
+> > > > driver's
+> > > > PM requirement, while avoid going with vendor's complicated RPMI
+> > > > solution
+> > > > which isn't mainline ready
+> > > 
+> > > Is this a long-term solution, or a temporary one?
+> > > 
+> > For upstream, I'd say we probably will stick to this solution for
+> > long time, won't say it 'forever', see comment below..
+> > 
+> > > If it's a temporary conflicting one, I don't think it's worth
+> > > picking
+> > > at all.
+> > > 
+> > Well, checked current Linux kernel status, there is no RPMI PM
+> > solution 
+> > implemented although there is documentation in riscv-rpmi spec[1]
+> 
+> I have seen pending patch for it with multiple revisions [1], the dt
+> binding is even already ACKed by Conor, so I think it's not a big
+> problem here.
+> 
+That's exactly what I said - it's not mature, not saying it's pending
+patch for review, but for whole solution that involve Linux driver,
+opensbi and underlying fimware (ESOS) - which not upstream-ed..
 
-    iio: pressure: add Sensirion SDP31 driver
-   =20
-    Add an IIO driver for the Sensirion SDP31 differential pressure sensor.
-    The device is accessed over I2C and reports differential pressure and
-    temperature. Each measurement is validated using the sensor's CRC-8
-    checksum.
+To make it clear, I'm not going to pursue the RPMI solution, but if
+someone insist and willing to spend the effort, please feel free to push
 
-> diff --git a/drivers/iio/pressure/sdp31.c b/drivers/iio/pressure/sdp31.c
-> new file mode 100644
-> index 0000000000000..934a3afcde7f3
-> --- /dev/null
-> +++ b/drivers/iio/pressure/sdp31.c
-[ ... ]
-> +DECLARE_CRC8_TABLE(sdp31_crc8_table);
-[ ... ]
-> +static int sdp31_check_crc(const u8 *word)
-> +{
-> +	if (crc8(sdp31_crc8_table, word, 2, SDP31_CRC8_INIT) !=3D word[2])
-> +		return -EIO;
-> +	return 0;
-> +}
-[ ... ]
-> +static int sdp31_probe(struct i2c_client *client)
-> +{
-> +	struct iio_dev *indio_dev;
-> +	struct sdp31_data *data;
-> +	struct sdp31_reading r;
-> +	int ret;
-> +
-> +	indio_dev =3D devm_iio_device_alloc(&client->dev, sizeof(*data));
-> +	if (!indio_dev)
-> +		return -ENOMEM;
-> +
-> +	data =3D iio_priv(indio_dev);
-> +	data->client =3D client;
-> +	mutex_init(&data->lock);
-> +
-> +	crc8_populate_msb(sdp31_crc8_table, SDP31_CRC8_POLY);
-
-[Severity: High]
-Is it possible for this crc8_populate_msb() call to race with concurrent re=
-ads
-of the same table?
-
-DECLARE_CRC8_TABLE(sdp31_crc8_table) creates a global static array. If one
-SDP31 device is actively queried from userspace, it reads from
-sdp31_crc8_table in sdp31_check_crc().
-
-If a second SDP31 device is probed simultaneously (for example, via a bus
-rescan or hotplug event), sdp31_probe() will unconditionally write to this
-global array without synchronization.
-
-Could this initialization be protected with something like DO_ONCE(), or mo=
-ved
-to the module initialization phase?
-
-[ ... ]
-> +static const struct i2c_device_id sdp31_id[] =3D {
-> +	{ "sdp31" },
-
-[Severity: Low]
-Should this array use named initializers to align with I2C subsystem
-guidelines?
-
-The I2C subsystem requires arrays of type struct i2c_device_id to explicitly
-use named initializers.
-
-Could this be updated to use explicit initialization, such as
-{ .name =3D "sdp31" }?
-
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(i2c, sdp31_id);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260919223854.1343=
-7-1-m.abubakar365@yahoo.com?part=3D2
+-- 
+Yixun Lan (dlan)
