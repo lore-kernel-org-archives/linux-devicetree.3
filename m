@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E56C5248896;
-	Sat, 19 Sep 2026 07:21:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10F7E2E040D;
+	Sat, 19 Sep 2026 07:25:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789802474; cv=none; b=A8ArqFex4a0exyKs3OIu7YqxqZU/dN3qoNNXUrFEfjJ9Opc+OZPS7tLvdQ/MkOfUJ2vY6wf7s464Bf2icBH3ArG8gH7VowJxszBlOwOLR1z7/f5WTNikbh7y7RiRUcVlIVyKnpdIdMwL41Pn/HGBpMSS8rdWj+ebyGUgxf/eBYo=
+	t=1789802726; cv=none; b=Meb2relDuZHq4Gjj61zNZD8BGBnFwiDaV9yqFhNRQF/Hp7qW4TT75qlSV5V+NAW7BA4D2DvgWNDxPDtOaxxJVVqi/S2+Rot1tWMzVxBfSvVrg5Y8L+PiW5BD+lL479uc2RzPiElOndEko6Ejnn1G/B3VccmBEABlXqnFI+X8+/o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789802474; c=relaxed/simple;
-	bh=yQ8LiHbSa+FZuD5nzS5wh+J04mbtHEpk//ywjSpHHBk=;
+	s=arc-20240116; t=1789802726; c=relaxed/simple;
+	bh=dZUeROihmHBFdkbPDVuhMmWdYMvUMfvtMDaVHHDnscw=;
 	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=rWZyZMB/SykqI6CslFVj2Kq65xh1NQgjXStcwi5V+9dZFziHgVVFLKcFGlV0ojQ1oNMuXAKo2cj7VpHx54VhI3eWz7qiJTye79QNSFDL/2U0MAw24NPM0/+7ZQRLwOiXc/mmShz5ropI/YkQBfv3kZbMGAo99sb7gQxnUmurLe0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XodjoFyw; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=gsM1Gd18Og1rNW3TtJx/PVKBAxWyDMv8SIINy2sMnJ4u6G2uv7cwYWoe0xgKzcR0NUccxryRBzucgNZPpCnRgk7e5BD4zXzp49xG4zcVO0vnkK7fpC6B6hJV3c8XwxWzKHmxqtqbzHiLaevstEHv5dEhQkexI+GVQ214TeBRKI4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HoNoCvkv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XodjoFyw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECC481F000FF;
-	Sat, 19 Sep 2026 07:21:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HoNoCvkv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE8BE1F000FF;
+	Sat, 19 Sep 2026 07:25:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789802472;
-	bh=gcV1cifYYEXR5fN/PvDPz+mSKLKnhoe7/UY0t5C/g0g=;
+	s=k20260515; t=1789802724;
+	bh=fAD6GbG/00mvVvJ/4iMpR9akbfBBXwDJ9dBrI57N/Qg=;
 	h=Date:Subject:To:References:From:In-Reply-To;
-	b=XodjoFyw/WkTK6ApM2c9k9l5PiICFSTKrE/CQ/x2nTjfqo+YZSIJWJ6Zwp3Tn5CKU
-	 obt3PzPksSqSJ+PH7u3BJREuUCjt4hIDmCVin5Looew8yNWI81TyB/RV+VjwBmHuR4
-	 3zxRzys3ay13ePvU+IV+jonRxfzTVQmB/9tajhfpSpOMVS9/4eQVW42UkRLamWaBWB
-	 mCRlm0DpJbk5ATFEHKFsU8u0kWHAdmPtH2xfOlLOXjuXF1p/ZuSCVL9lj2QETOFu8n
-	 O/rJDehmCn3zXEW2o6n95UxH+iG1HO4e1h8B03PLt2+9DAbhu+R3/+dJtaqUkWdCnC
-	 DTBmWJaKmon5g==
-Message-ID: <cbe7cdd7-e225-4432-b4f2-2146c31e9656@kernel.org>
-Date: Sat, 19 Sep 2026 09:21:05 +0200
+	b=HoNoCvkv0GrWiliCtbLtqZZGme1pfStF/olhW/47guAXcMB8XnKa3Sh07a+mqlA6m
+	 5MTEXnHesA9Aab6th5cv0EJtMAHnoI1KvzryYAREHixC5mQKvhz2RW/uV4+75H89gg
+	 trPRt5Fm45TWpqqvFlxyg/OKDnEh3gzQoKDJTBH+IOQQZsmysQuRoInJwqPnfPQ9HX
+	 V4S31Htc2fn25ZBLkLAXyIIEFjFExdfJoYDuIkmT/QZKYYTGNRYoYBDEy/70bWUf8B
+	 qUCuSXQjdzUjn7QcMMQMywN1DTQcCZ8y1gYb6Ccd1CnniXc+HmjtdS07D3s0K2SxGA
+	 +6d9/xrns//Gw==
+Message-ID: <b787a787-5011-4f14-9332-4cca098b374d@kernel.org>
+Date: Sat, 19 Sep 2026 09:25:17 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,14 +35,20 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 1/2] arm64: dts: intel: agilex5: add USB3.1 controller
- node
-To: adrian.ho.yin.ng@altera.com, Dinh Nguyen <dinguyen@kernel.org>,
+Subject: Re: [PATCH v5] dt-bindings: iio: adc: Add dt binding to xlnx,xadc
+To: Omer PALA <palaomer100@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
+ David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <cover.1789114403.git.adrian.ho.yin.ng@altera.com>
- <dba41aa636c6db86be9e0e2a3e2ae1a03095e1cb.1789114403.git.adrian.ho.yin.ng@altera.com>
+ Conor Dooley <conor+dt@kernel.org>, Michal Simek <michal.simek@amd.com>,
+ "open list:IIO SUBSYSTEM AND DRIVERS" <linux-iio@vger.kernel.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>,
+ "moderated list:ARM/ZYNQ ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20260918194434.9240-1-palaomer100@gmail.com>
+ <20260918203257.6034-1-palaomer100@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -88,42 +94,31 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <dba41aa636c6db86be9e0e2a3e2ae1a03095e1cb.1789114403.git.adrian.ho.yin.ng@altera.com>
+In-Reply-To: <20260918203257.6034-1-palaomer100@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11/09/2026 11:09, adrian.ho.yin.ng@altera.com wrote:
-> From: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
+On 18/09/2026 22:32, Omer PALA wrote:
+> Add yaml devicetree binding for xlnx,zynq-xadc-1.00.a,
+> xlnx,axi-xadc-1.00.a and xlnx,system-management-wiz-1.3 from
+> xilinx-xadc.txt file.
 > 
-> Add a DTS node for the Synopsys DWC3 USB3.1 controller on the Agilex5 SoC.
-> Place it under a simple-bus with a 40-bit dma-ranges window (#address-cells
-> = 2) to match the USB DMA address width of the interconnect. Enable it in
-> host mode on the SoCDK board.
-> 
-> ref and suspend both use AGILEX5_USB31_SUSPEND_CLK because they share the
-> same hardware clock source on this SoC.
-> 
-> Signed-off-by: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
+> Signed-off-by: Omer PALA <palaomer100@gmail.com>
 > ---
->  .../arm64/boot/dts/intel/socfpga_agilex5.dtsi | 35 +++++++++++++++++++
->  .../boot/dts/intel/socfpga_agilex5_socdk.dts  |  5 +++
->  2 files changed, 40 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
-> index f54767d1526e..523f722a2a64 100644
-> --- a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
-> +++ b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
-> @@ -493,6 +493,41 @@ usb0: usb@10b00000 {
->  			status = "disabled";
->  		};
->  
-> +		usb31_bus: usb-bus@11000000 {
+>  Changes in v5:
+>   Fix validation bypass: xlnx,external-mux-channel could be set even
+>   when xlnx,external-mux was omitted entirely, due to "not: properties:"
+>   being vacuously true when the key is absent. Now uses required +
+>   properties with if/else.
 
-No, USB bus is not a simple bus. You probably wanted simple bus or any
-other approved, but not discouraged names from simple-bus.
+How many versions are you going to send one day? If you only used search:
+https://lore.kernel.org/all/?q=dfn%3ADocumentation%2Fdevicetree%2Fbindings%2Fiio%2Fadc%2Fxilinx-xadc.txt
 
-Don't come up with own naming.
+I asked for this indirectly in your staging patch. I pointed previous
+discussion where I said work was already done and received comments.
 
+The lesson to take from that was to CHECK for existing work and READ
+existing comments.
 
 Best regards,
 Krzysztof
