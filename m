@@ -1,119 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5BC945D5E3;
-	Sat, 19 Sep 2026 10:28:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBB732F7F15
+	for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 10:36:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789813705; cv=none; b=dbunBR/gBHP8WhV7/XvT60fDA2U7JLpwdzbYWXzamAG2K1KzAk1SypTCMigThnUudzMTY+PxSlD7daHQzIptGgh9Pnr05IcbAZgey3mhfr02lXcuQ2r002SP939PXaMYFHi62hG1a3uYvgKFUClhEynOp8tvOBzekjjjiO6oVx8=
+	t=1789814165; cv=none; b=P8XqR5xFuOVOVw2LdaO0olz426ZNmikPgeX4gZHivKaQdgGGA/CIs9Hwo7p9RRfEC+u9fNt+by5/72cS3FRmZWQesuve/Xs2+rcwANKmUWCwI4HBmnz8d6BbPB3kahb2NwnI9OMA5PYY06oJy6tSw26UVDwhG11+GhefN2OybNk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789813705; c=relaxed/simple;
-	bh=tuo9FTC9trpH9PTGtyXsmxAlQQNcjXaX7nP/LygpwVE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=fzuVCb5hb51cggYKaFoOUIsn99BxpzKQcD08cK8iq2lwOYQGmGLZFvxH8lW3BhoGu9KU74478riz5pSm6aLZHCdxitRrrwrUQDam04GnmUdYuhka0Vth6HuYjL+OalIGLhOQ2LF8XlimglxYCXCdhlK20fKKdWgV0ZbheSEggfg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jwFvZTGR; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789814165; c=relaxed/simple;
+	bh=fnYSpO6wiAedaXGhaIUDzhgoY0DKBgsKUBj5JNyoOkg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=CotsImMrBsBz8CglpGCPMO74G5Z57X16hKqLE2kZCgkxNPz0sA2jhm78tf9MWeN8VUHqfgNjSUey4uwndMhhXTIoJ2MhZkJzVlxMk4fA1UW0F9BqJeVdd87cc98o/Rc5NED6xmMvRPaGTeyB91+/zFVlCUgKed5dDtfmrGLPS7U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F/ilqDTX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jwFvZTGR"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 5951DC2BCF7;
-	Sat, 19 Sep 2026 10:28:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789813705;
-	bh=tuo9FTC9trpH9PTGtyXsmxAlQQNcjXaX7nP/LygpwVE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=jwFvZTGRmUC+k+oN6aF/64mcm5/dTwrKKBO4BmG2zNjSHm1VvKoi2Vd2yB2wwvhWJ
-	 fBAA6YDspa84ZI8iy7uM9uwtxcLziZh21sK7o6+eNm8l5MLRPnUiuehzwnJdP1JNyz
-	 cyEl+CSxfrCLYARIJUeFExL9HZpSIR+oZ7EVOdNQ7ttEjQQrrGME86neXXaKd1VFZ5
-	 N+lZNfKNlyryi8LIo6uesEQeRI3pIyKs9pX+gnGPqJ8eywT/hEp/1IGTxef/MSDtNI
-	 ui+LOUSdfy66yhx15sA9dJ0Kw+NOURIrOpA46LY7/LRzsBJDFsPtkbcxxMwysTDIw/
-	 U8ylbA4LqWHnQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 36CCEC982CC;
-	Sat, 19 Sep 2026 10:28:25 +0000 (UTC)
-From: =?utf-8?q?=E5=AE=89=E5=AE=B9_via_B4_Relay?= <devnull+HystericalDragons.proton.me@kernel.org>
-Date: Sat, 19 Sep 2026 18:28:17 +0800
-Subject: [PATCH v7 1/3] dt-bindings: arm: rockchip: Add FriendlyElec NanoPi
- R28S
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F/ilqDTX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E84DA1F000FF;
+	Sat, 19 Sep 2026 10:36:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789814163;
+	bh=7riI3k0Pe+aUcigPpX03i9Hj15JnH0Ss1MaHSMeoMYc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=F/ilqDTXWc6Ph1IVmpSh0AYn3GzIBa0vVJdcXP8x+tQI+Gntcf3IaJZrLPEAVNDt3
+	 Xhxh2FsyZFt2HFfn/9ydUMjQa1X9koUa8Etb8sFp0ickG2xJSTyi0cBwGcgmBvo7fj
+	 0ww5uXXhhR7EsuM7yq9c+HYbCOSR1yUpH9Blav+0cqEzZdRaYdvKLwX1l7c7CpcN4k
+	 PCydpSGKCDAfNWSA/lhY36+qptybK+amjKRXxSsXYlL/N0YQaxrQz1L0Yh2F62vmX7
+	 +MhWQY5eMqiMeoL+xOWvYwa3Su6Dbi0TalnypBQjhYfaQAsiXgZe+Ax5YdYz9CKTbY
+	 YsgO2zLpNxZ0w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 3/3] arm64: dts: rockchip: Add devicetree for the
+ FriendlyElec NanoPi R28S
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?5a6J5a65?= <HystericalDragons@proton.me>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260919-r28s-upstream-v7-3-e80a6f8ef521@proton.me>
+References: <20260919-r28s-upstream-v7-0-e80a6f8ef521@proton.me>
+ <20260919-r28s-upstream-v7-3-e80a6f8ef521@proton.me>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 19 Sep 2026 10:36:02 +0000
+Message-Id: <20260919103602.E84DA1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260919-r28s-upstream-v7-1-e80a6f8ef521@proton.me>
-References: <20260919-r28s-upstream-v7-0-e80a6f8ef521@proton.me>
-In-Reply-To: <20260919-r28s-upstream-v7-0-e80a6f8ef521@proton.me>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Chukun Pan <amadeus@jmu.edu.cn>, Jonas Karlman <jonas@kwiboo.se>, 
- jensen <jensenhuang@friendlyarm.com>, 
- Andrey Korshunov <razor1702@gmail.com>, 
- Diederik de Haas <diederik@cknow-tech.com>, 
- Conor Dooley <conor.dooley@microchip.com>, 
- =?utf-8?q?=E5=AE=89=E5=AE=B9?= <HystericalDragons@proton.me>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1622;
- i=HystericalDragons@proton.me; h=from:subject:message-id;
- bh=GjgiG/CwrGYA6nG9hPXid2MYCUCClI7qpstAQn8fUNs=;
- b=owGbwMvMwCUmepz3XUtTHjvjabUkhqx1ycdlp/poMgdu33paPfj0iRvdTS61+64sX2JaLHfRf
- 7qgVW9rRykLgxgXg6yYIovspupIoVXRM4tYpI7DzGFlAhnCwMUpABM5Uc/wT/lQ1nMphfCFHz/z
- G5yNNl24NULE+t3uKE+JlFqpjthpfxgZfl6zswvNaqm3W872/J/n4y2q7z8Kb4l453N7C6fu/+Y
- adgA=
-X-Developer-Key: i=HystericalDragons@proton.me; a=openpgp;
- fpr=1DB27B5912AA5B9972041AC715C70DEE84826E07
-X-Endpoint-Received: by B4 Relay for HystericalDragons@proton.me/default
- with auth_id=1004
-X-Original-From: =?utf-8?q?=E5=AE=89=E5=AE=B9?= <HystericalDragons@proton.me>
-Reply-To: HystericalDragons@proton.me
 
-From: 安容 <HystericalDragons@proton.me>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] dts: unused pinctrl definitions for wifi and bluetooth pins
+--
 
-The NanoPi R28S is a dual gigabit Ethernet router board based on the
-Rockchip RK3528 SoC. It shares its base devicetree with the NanoPi
-Zero2, so fold both boards into a single RK3528 series entry, which
-further RK3528 based NanoPi boards can join without renaming it.
+commit 745cf672aded254ac32cf444a084e38df95384e1
+Author: =E5=AE=89=E5=AE=B9 <HystericalDragons@proton.me>
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-Signed-off-by: 安容 <HystericalDragons@proton.me>
----
- Documentation/devicetree/bindings/arm/rockchip.yaml | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+arm64: dts: rockchip: Add devicetree for the FriendlyElec NanoPi R28S
 
-diff --git a/Documentation/devicetree/bindings/arm/rockchip.yaml b/Documentation/devicetree/bindings/arm/rockchip.yaml
-index 81744fbee9..dc69999862 100644
---- a/Documentation/devicetree/bindings/arm/rockchip.yaml
-+++ b/Documentation/devicetree/bindings/arm/rockchip.yaml
-@@ -347,6 +347,13 @@ properties:
-               - friendlyarm,nanopi-r2s-plus
-           - const: rockchip,rk3328
- 
-+      - description: FriendlyElec NanoPi RK3528 series boards
-+        items:
-+          - enum:
-+              - friendlyarm,nanopi-r28s
-+              - friendlyarm,nanopi-zero2
-+          - const: rockchip,rk3528
-+
-       - description: FriendlyElec NanoPi R3S
-         items:
-           - const: friendlyarm,nanopi-r3s
-@@ -388,11 +395,6 @@ properties:
-           - const: friendlyarm,nanopi-r76s
-           - const: rockchip,rk3576
- 
--      - description: FriendlyElec NanoPi Zero2
--        items:
--          - const: friendlyarm,nanopi-zero2
--          - const: rockchip,rk3528
--
-       - description: FriendlyElec NanoPC T6 series boards
-         items:
-           - enum:
+This commit adds devicetree support for the NanoPi R28S router board based =
+on
+the RK3528 SoC. It shares most of its design with the NanoPi Zero2 and enab=
+les
+various peripherals including SDIO, UART, and networking interfaces.
 
--- 
-2.55.0
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3528-nanopi-r28s.dts b/arch/a=
+rm64/boot/dts/rockchip/rk3528-nanopi-r28s.dts
+> new file mode 100644
+> index 0000000000000..294b66f60e47b
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/rockchip/rk3528-nanopi-r28s.dts
+[ ... ]
+> +&pinctrl {
+> +	bluetooth {
+> +		bt_wake_host: bt-wake-host {
+> +			rockchip,pins =3D <1 RK_PB5 RK_FUNC_GPIO &pcfg_pull_down>;
+> +		};
+> +
+> +		host_wake_bt: host-wake-bt {
+> +			rockchip,pins =3D <1 RK_PB4 RK_FUNC_GPIO &pcfg_pull_none>;
+> +		};
+> +	};
 
+[Severity: Low]
+Are these bluetooth pinctrl nodes intended to be used or configured as hogs?
+They are defined here but appear to never be referenced by any device node.
+Without an explicit reference, such as a pinctrl-0 property on a device or
+a hog definition, the configured pull states will not be applied.
 
+[ ... ]
+> +	wifi {
+> +		host_wake_wl: host-wake-wl {
+> +			rockchip,pins =3D <1 RK_PA6 RK_FUNC_GPIO &pcfg_pull_none>;
+> +		};
+> +
+> +		pwr_wf: pwr-wf {
+> +			rockchip,pins =3D <1 RK_PC2 RK_FUNC_GPIO &pcfg_pull_none>;
+> +		};
+> +
+> +		wl_wake_host: wl-wake-host {
+> +			rockchip,pins =3D <1 RK_PA7 RK_FUNC_GPIO &pcfg_pull_down>;
+> +		};
+> +	};
+> +};
+
+[Severity: Low]
+Similarly, are the host_wake_wl and wl_wake_host nodes meant to be referenc=
+ed
+somewhere? Like the bluetooth pins, they are defined but do not seem to be
+used by any device or set up as a hog, meaning their pull states will not t=
+ake
+effect.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260919-r28s-upstr=
+eam-v7-0-e80a6f8ef521@proton.me?part=3D3
