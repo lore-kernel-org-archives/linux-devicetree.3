@@ -1,148 +1,203 @@
-Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.lysator.liu.se (mail.lysator.liu.se [130.236.254.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABF0F547055
-	for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 05:49:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAA772E040D;
+	Sat, 19 Sep 2026 06:13:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.236.254.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789796979; cv=none; b=t9frXbDqzC7oSeX4m4cMNVfkLdyrTx6nTMngB3FduTReZNFzt4Xg9mC+YS97gcTRBC4JMEqG9KiRp7hgGcabgWI+QkHeMzoi8yyB+/Ys4QLIrKC1JviVJEk+nCYobJPKO7Svxj7eDHDMol2WCFWA8h+6hJbwA4OI5uNtYVcma+Y=
+	t=1789798399; cv=none; b=I1L3ql4ZGorurz1ssHqkmOCn2FXELpwogSuunHRjeSRho3JwZcngUAbGl5H8NrMuMyvNq5QJNPuDd+4z9RyPvnAXhV0oKpDrGbUk4bzPdpBZKUQGJIScIDphst5iSFPNN5HTmyp9xV9E5wGJ95PScLyQZEF7gAwje28L5sgublw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789796979; c=relaxed/simple;
-	bh=ADlmP3cuIVH6XDELJaBXIFK0o8CQXGLyOKUW6Gu2JKM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WU+TI10lCleMzDmNvalveAv4A/GWulwoTOyrILlHWLbqqBFtDlBmrYKmwTxxOSHuAajlYPZksQwa/llK0ePAf4Zv+EG5JPp19fKUNP+CvNhosovWB+dhbAV7Yzt7ibHJlPZNB+9wlurHNoLSSefxwg0VTz8QqWd3BfW8kimAL6Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dKFh90yZ; arc=none smtp.client-ip=74.125.227.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789798399; c=relaxed/simple;
+	bh=r0rIJEbTCjPraoleaNid+5e/bfwSclqT21BbxtXocGw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dKiAozHn3neVnfbyL3/tye1YaXUvfsIGfJjAXb+TI2hlKbKNitX6PBET7YhrDUKpfZHG0tluI662zwTDqa9vG3hjV7xIRQdsFtP0fFQQmfdj1M/Qyx+zuSUKN6HxOhcVZmrp5mWwia5+tyIzGAzI4dnSfBvSIjrfWKYmv2cJ4bI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lysator.liu.se; spf=pass smtp.mailfrom=lysator.liu.se; dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b=Ojlk2QbJ; dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b=BowDxEo1; arc=none smtp.client-ip=130.236.254.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lysator.liu.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lysator.liu.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dKFh90yZ"
-Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-396ccda24afso1123044a91.3
-        for <devicetree@vger.kernel.org>; Fri, 18 Sep 2026 22:49:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789796977; x=1790401777; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hJw+LFtPFh6SoU2BWDHxw9/YHsXZDhQ0lOnE3Vh/h6c=;
-        b=dKFh90yZORs92tY4TEA/OqSxrCgpF8Ov7q5UI4RFeE29yqiYXBkxsDPBIjjtDw8+d1
-         EFXsTncfUi3jgsvX0S3fcIUWR2PjZnsP/WPxuLA3TyB7wggA0hY7Sz/nnjm6ePYzQ/+w
-         70hn62B7sR5u5lh+iuSQGF8jfc6EYd9ndV6Itvp+QjuAcmYBR2Ofer5ZWFj25x5yV8RX
-         1hrVFkrIy4akPWKdwoNniX2W3nieJq/uFaM4LucMjdA7S/XFDvn6Hl8Bu0IzU5NK+545
-         C/I3OV3KakFIkj8j1HmTzuSPOjsntwP42DkUbZh/iabQ06E+5r0DV/7QAwAG8FLWBK7A
-         /3gA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789796977; x=1790401777;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hJw+LFtPFh6SoU2BWDHxw9/YHsXZDhQ0lOnE3Vh/h6c=;
-        b=VkjJTZ2006Wx90Ni1miMUNzvco2UUPsBVsMzwrHF7J6Mri97isTp3VraoHIVjTpd8H
-         aIqN+cyRcnS4Ve5qdKMZY1Ok9w3udReOB0D0gTc7Hhcn21io4zfZniXXr46APQdU9tgB
-         X+E7hgFNu1kHfltzAUeF9a3y1dW4CMrHanJrOCDSlFEw2E9OoZc73j6+nlUtFbTpBgXc
-         CF8upBxl1loD3f71wLPkY62Cxhzq1kYauHNu8raKEuvZWjjs7y9FoOM7GPJk1oJG8ddO
-         EPEzJIQrVfBfD7gRYVkWKseVJ6YuDh6hrAJRIQTpWFFT8GA3FtoOF3HPiNt2SdEZN1gr
-         v2RA==
-X-Forwarded-Encrypted: i=1; AKwUvBzs5y3pAFLOQ6O1ZRJHpQr5lLCzwQnaBxZndeWxiF3hNSyrWpb1XGTkKkPruXXgla8j2ZTCvTlUzO8V@vger.kernel.org
-X-Gm-Message-State: AFuF++mpmALNlk8PVmtTXX/cxerZNBsF8rKadscCG5pwCVRffzcKMFgV
-	VgZpC3ej1nTlTF6t6Hg5ESYN3Jz0pH2XKnuy9tdNr0aklVVHDGwi1IrW
-X-Gm-Gg: AYBFou3rZamuE5/dJT4ehoZDRC5uHoQMaBpwAbpIe2ANJ7lcYYpw8OJ9SfGq0EG/m8H
-	3ZQR1t2Q15WaiQL21x+F+KZDolyqybFxHw7MJDQDhXG5xR0+5jXX5Tl9TT3Bee0Y7L5CbtuRtJt
-	iaSPkMCPK4/JiAEBdYBW/1jFPYDTmMkndUkYhdrCXlXomwmDmeApjg0GHlcfsl/dZ0M8wfXoYZ+
-	vJwrvWSbf4dggtA8uYwFVd100oPGkZm3Be0HSingxy7Fxg4PGBSVxLozl54XkdCHUMSmhOqQpoa
-	Jgs8RTIk8/P1QtDxBNLSGOHt3z5Qei48+7MJYgnRuYI/XmiWp6gxbemce8kPx5744uz/W5/rYkB
-	M85pU+41I/lEMppL5Ksbsnn8OUJIas1V3gwRbStCW47dJA4ziScSzdR3zB4p99k2P60DCorVONz
-	99FxRENJ4h0dRywHLDJGKB5OjH8uYZu9Z06fr7yfFYl4rhTW6PKg3GXB2W5zTgNurMMURQwtWZY
-	BcIY5w7dzjt0ejcRBkFbVwztl/AvOKzykL87nXOGmKC6OnOKsbMmms=
-X-Received: by 2002:a17:90b:3bcb:b0:38e:bbf1:de3f with SMTP id 98e67ed59e1d1-39e54eab3e6mr15914399a91.12.1789796977038;
-        Fri, 18 Sep 2026 22:49:37 -0700 (PDT)
-Received: from [172.19.1.47] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6cb400c3sm2791939a91.17.2026.09.18.22.49.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 18 Sep 2026 22:49:36 -0700 (PDT)
-Message-ID: <2d07e535-3029-41d0-9dcf-8772f7330434@gmail.com>
-Date: Sat, 19 Sep 2026 13:49:31 +0800
+	dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b="Ojlk2QbJ";
+	dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b="BowDxEo1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lysator.liu.se;
+	s=2026; t=1789797884;
+	bh=r0rIJEbTCjPraoleaNid+5e/bfwSclqT21BbxtXocGw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Ojlk2QbJS0JUarWklSMSJ78+j5a71qmswe8chR1dJdN+aTR5/sSk29crtQq5602SV
+	 SCv+TTGO2K1wyLOO7hQUDTI0wxnn8xbaefYYBIvi2oSq5iOFN9lS7mcpqDpmfGwkgD
+	 gAHAWS7BMDl5leryc5LAVPDkajfwlvr5Gbv7nVJMtOGO1kkXMZ3QC/e4F46vkuNmoi
+	 BSiHtT467Tm+Mmkii3sjrTQnN3sJEp5ggqGBB/OnaqaXQmOlGRkZ3kJS0im67f0lQx
+	 VTPi5trNSnLglycJuHr2BI92wP0SE0Wms11Sp0UJiVWSYTkwUpKbMwQz99iuvH7+cZ
+	 rsZZ4+ZiBLv4w==
+Received: from mail.lysator.liu.se (localhost [127.0.0.1])
+	by mail.lysator.liu.se (Postfix) with ESMTP id 05DCD1E1B4;
+	Sat, 19 Sep 2026 08:04:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lysator.liu.se;
+	s=2026; t=1789797883;
+	bh=r0rIJEbTCjPraoleaNid+5e/bfwSclqT21BbxtXocGw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=BowDxEo1IYdb6rY/WL1w01+BTaocQ0docKjrTzMsulIOGKgEg7Md2IQCVLhDuu514
+	 LD+gxsW5mJIh6HpP/gSHkspFypatATxpjJHTbKMB716oAaWtsi9sOIGZthZwLN91/O
+	 s7RVjmUyAIpLVnK7OxcE+XxOUuiOtk5HCPcMcQmt/9pG6C3UGhKCoyAm7Fr81ZlSmx
+	 Th2uxUZcEhuHCDS3bPZAfCUZsuD9XIeiEgd481tJQdz2u5NffhfI4Y8Aah4pFGYZTs
+	 b8xhVIe1Gw8Ggeexq4Y/99B66pmWhmEr5JnqPdOPKCt3Qqvcrh5M+p/xP3tKYVVtwH
+	 A1fgzZ7txQRdQ==
+Received: from gryt (81-225-28-11-no2391.tbcn.telia.com [81.225.28.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by mail.lysator.liu.se (Postfix) with ESMTPSA id 54E541E212;
+	Sat, 19 Sep 2026 08:04:43 +0200 (CEST)
+Date: Sat, 19 Sep 2026 08:04:41 +0200
+From: Peter Rosin <peda@lysator.liu.se>
+To: rahul sharma <r-sharma3@ti.com>
+Cc: Conor <mail@conchuod.ie>, Conor Dooley <conor@kernel.org>,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	vigneshr@ti.com
+Subject: Re: Re: Re: Re: [PATCH 1/2] dt-bindings: mux-controller: ti: add
+ binding for event mux router
+Message-ID: <aq4l-dCW_dqvisj_@gryt>
+References: <20260828100615.1700223-1-r-sharma3@ti.com>
+ <20260828100615.1700223-2-r-sharma3@ti.com>
+ <20260828-goes-scrawny-a5cf40c9514d@spud>
+ <bacf61ea-91b1-454c-97aa-8c6e4ca07b16@ti.com>
+ <20260915-shredder-liver-219bbc18dd18@spud>
+ <62194a7f-5b7e-419a-8235-9eb46f2f2e7d@ti.com>
+ <8724E360-7B38-48E2-8A5D-9BBAA69EAD06@conchuod.ie>
+ <1cd03e37-a9bb-4c21-b8f6-557a1fcacc5b@ti.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/3] arm64: dts: nuvoton: ma35d1: add USB controllers
- and dual-port PHY node
-To: Joey Lu <a0987203069@gmail.com>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
- Catalin Marinas <catalin.marinas@arm.com>, Jacky Huang
- <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>,
- Hui-Ping Chen <hpchen0nvt@gmail.com>, Joey Lu <yclu4@nuvoton.com>,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260914031859.385224-1-a0987203069@gmail.com>
- <20260914031859.385224-3-a0987203069@gmail.com>
-Content-Language: en-US
-From: Jacky Huang <ychuang570808@gmail.com>
-In-Reply-To: <20260914031859.385224-3-a0987203069@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <1cd03e37-a9bb-4c21-b8f6-557a1fcacc5b@ti.com>
+X-Virus-Scanned: ClamAV using ClamSMTP
 
-> Add the USB subsystem nodes for the MA35D1 SoC and boards:
->
->    - usb_phy: standalone PHY node with #phy-cells = <1>, covering both
->      the OTG port (PHY0, index 0) and the host-only port (PHY1, index 1).
->      Uses nuvoton,sys phandle and HUSBH0_GATE clock per the binding.
->
->    - usb (DWC2 gadget, USB0): phys = <&usb_phy 0>, dr_mode = peripheral.
->    - ehci0/ohci0 (USB0 host): phys = <&usb_phy 0>, companion pairing.
->    - ehci1/ohci1 (USB1 host): phys = <&usb_phy 1>.
->
-> Board files (ma35d1-som-256m.dts, ma35d1-iot-512m.dts) add pinctrl for
-> VBUSVLD, PWREN and OVC signals and enable all USB nodes.
->
-> Signed-off-by: Joey Lu <a0987203069@gmail.com>
-> ---
->   .../boot/dts/nuvoton/ma35d1-iot-512m.dts      | 36 ++++++++++
->   .../boot/dts/nuvoton/ma35d1-som-256m.dts      | 36 ++++++++++
->   arch/arm64/boot/dts/nuvoton/ma35d1.dtsi       | 65 +++++++++++++++++++
->   3 files changed, 137 insertions(+)
->
-> diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
-> index 78534d613486..0a068abda6e0 100644
-> --- a/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
-> +++ b/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
-> @@ -97,6 +97,16 @@ pinctrl_uart14: uart14-pins {
->                          power-source = <1>;
->                  };
->          };
-> +
-> +       hsusb {
-> +               pinctrl_hsusb: hsusb-pins {
-> +                       nuvoton,pins = <5 15 1>, /* VBUSVLD */
-> +                                      <11 12 9>, /* PWREN */
-> +                                      <11 13 9>; /* OVC */
-> +                       bias-disable;
-> +                       power-source = <1>;
-> +               };
-> +       };
->   };
->
+Den Fri, Sep 18, 2026 at 11:35:28PM +0530, skrev rahul sharma:
+> Hi Conor,
+> 
+> On 18/09/26 03:40, Conor wrote:
+> > On 17 September 2026 17: 44: 21 GMT+02: 00, rahul sharma <r-sharma3@ ti. com>
+> > wrote: >Hi Conor, > >On 15/09/26 19: 19, Conor Dooley wrote: >> On Tue, Sep 15,
+> > 2026 at 06: 10: 45PM +0530, rahul sharma wrote: >>> Hi Conor,
+> > 
+> > 
+> > 
+> > On 17 September 2026 17:44:21 GMT+02:00, rahul sharma <r-sharma3@ti.com> wrote:
+> > > Hi Conor,
+> > > 
+> > > On 15/09/26 19:19, Conor Dooley wrote:
+> > > > On Tue, Sep 15, 2026 at 06:10:45PM +0530, rahul sharma wrote:
+> > > > > Hi Conor,
+> > > > > 
+> > > > > Thanks for reviewing.
+> > > > > Apologies for the delay in responding.
+> > > > > 
+> > > > > On 28/08/26 21:57, Conor Dooley wrote:
+> > > > > > On Fri, Aug 28, 2026 at 03:36:14PM +0530, Rahul Sharma wrote:
+> > > > > > > Add binding for the event mux router of TI's K3 based SoC AM62L.
+> > > > > > > 
+> > > > > > > The TI K3 mux routers which route the GPIO input events or Time-Sync
+> > > > > > > events b/w peripherals instead of routing to a CPU.
+> > > > > > > 
+> > > > > > > Refer Section 10.2 and 10.2.1 of
+> > > > > > > https://www.ti.com/lit/pdf/sprujb4
+> > > > > > > 
+> > > > > > > Signed-off-by: Rahul Sharma <r-sharma3@ti.com>
+> > > > > > > ---
+> > > > > > >    .../mux/ti,am62l-event-mux-router.yaml        | 79 +++++++++++++++++++
+> > > > > > >    1 file changed, 79 insertions(+)
+> > > > > > >    create mode 100644 Documentation/devicetree/bindings/mux/ti,am62l-event-mux-router.yaml
+> > > > > > > 
+> > > > > > > diff --git a/Documentation/devicetree/bindings/mux/ti,am62l-event-mux-router.yaml b/Documentation/devicetree/bindings/mux/ti,am62l-event-mux-router.yaml
+> > > > > > > new file mode 100644
+> > > > > > > index 000000000000..a5ba7f78a156
+> > > > > > > --- /dev/null
+> > > > > > > +++ b/Documentation/devicetree/bindings/mux/ti,am62l-event-mux-router.yaml
+> > > > > > > @@ -0,0 +1,79 @@
+> > > > > > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > > > > > > +%YAML 1.2
+> > > > > > > +---
+> > > > > > > +$id: https://urldefense.com/v3/__http://devicetree.org/schemas/mux/ti,am62l-event-
+> > mux-router.yaml*__;Iw!!G3vK!VJUh5A8cDCko1ZAGtTQ8V-
+> > LL1vTj1BNr5NNBonzfy5GnFCQkP4Oc-0Kkq4xVdCcEA5bQcDckFu6UyA$ <https://urldefense.com/v3/__http://devicetree.org/schemas/mux/ti,am62l-event-mux-router.yaml*__;Iw!!G3vK!VJUh5A8cDCko1ZAGtTQ8V-LL1vTj1BNr5NNBonzfy5GnFCQkP4Oc-0Kkq4xVdCcEA5bQcDckFu6UyA$>
+> > > > > > > +$schema: https://urldefense.com/v3/__http://devicetree.org/meta-schemas/core.yaml*__;Iw!!
+> > G3vK!VJUh5A8cDCko1ZAGtTQ8V-LL1vTj1BNr5NNBonzfy5GnFCQkP4Oc-0Kkq4xVdCcEA5bQcDdyRJuLcg$ <https://urldefense.com/v3/__http://devicetree.org/meta-schemas/core.yaml*__;Iw!!G3vK!VJUh5A8cDCko1ZAGtTQ8V-LL1vTj1BNr5NNBonzfy5GnFCQkP4Oc-0Kkq4xVdCcEA5bQcDdyRJuLcg$>
+> > > > > > > +
+> > > > > > > +title: TI Event Multiplexer on K3 SoCs
+> > > > > > > +
+> > > > > > > +maintainers:
+> > > > > > > +  - Rahul Sharma <r-sharma3@ti.com>
+> > > > > > > +
+> > > > > > > +description:
+> > > > > > > +  The TI K3 mux routers routes the GPIO input events or Time
+> > > > > > > +  Sync events between peripherals instead of routing to a CPU.
+> > > > > > > +
+> > > > > > > +allOf:
+> > > > > > > +  - $ref: mux-controller.yaml#
+> > > > > > > +
+> > > > > > > +properties:
+> > > > > > > +  compatible:
+> > > > > > > +    const: ti,am62l-event-mux-router
+> > > > > > > +
+> > > > > > > +  reg:
+> > > > > > > +    description: Register base address and size.
+> > > > > > > +    maxItems: 1
+> > > > > > > +
+> > > > > > > +  '#mux-control-cells':
+> > > > > > > +    const: 1
+> > > > > > > +    description:
+> > > > > > > +      Number of cells in a mux control specifier. This should be 1.
+> > > > > > > +      The cell specifies which mux control to use (0-based index).
+> > > > > > > +
+> > > > > > > +  ti,reg-mask-val:
+> > > > > > > +    $ref: /schemas/types.yaml#/definitions/uint32-matrix
+> > > > > > > +    items:
+> > > > > > > +      items:
+> > > > > > > +        - description: Register offset (relative to reg base)
+> > > > > > > +        - description: Bit mask for the mux control bits
+> > > > > > > +        - description: Value to write when mux is active (state 1)
+> > > > > > > +    minItems: 1
+> > > > > > > +    description: |
+> > > > > > > +      Array of triplets specifying register offset, mask, and value for each
+> > > > > > > +      mux control. Each triplet contains:
+> > > > > > > +      - register offset (relative to reg base)
+> > > > > > > +      - bit mask for the mux control bits
+> > > > > > > +      - value to write when mux is active (state 1)
+> > > > > > 
+> > > > > > You have a device-specific compatible, why do you need this? If the
+> > > > > > active setting depends on the device or w/e, why can that not come from
+> > > > > > a mux-control-cell?
+> > > > > 
+> > > > > This is a boot-time/board-fixed routing decision, not a runtime-selectable
+> > > > > mux that any driver ever calls mux_control_select() on.
+> > > > 
+> > > > 2/3 of this property appears to describe the register layout of the
+> > > > device, that's not affected by the board or some boot time decision.
+> > > > 
+> > > 
+> > > You are right about the mask element; I will move the mask into the driver since it is constant across all entries. However, the reg-offset must remain in the DT, as it is specific to each BCDMA channel's trigger line configuration. This allows the DT to define the unique routing offsets required for the hardware.
+> > 
+> > The reason you cite here for needing reg offset is exactly what using mux-controls from a consumer node provides.
+> 
+> I will refactor this to use mux-control-cells. I will drop ti,reg-mask-val
+> from the bindings and instead source the reg-offset and value from the
+> consumer node.
 
-The outer pinctrl group node name does not match the MA35D1 pinctrl 
-binding. dt-validate reports:
+Since you have this ti,reg-mask-val in the binding I assume you have 
+different setups needing different values. But, since it is obviously OK 
+to handle the variation in the mux-controller DT node, it should also be 
+possible to simply enumerate the different setups as different 
+compatibles. Then all needed compatibles could be handled by this driver 
+which would use the compatible to look up the needed values in a table.
 
-   'hsusb' does not match any of the regexes: '-grp$',
-   '^gpio@[0-9a-f]+$', '^pinctrl-[0-9]+$'
+The relevant tqble can surely not be all that large?
 
-Please rename it to "hsusb-grp" in both ma35d1-iot-512m.dts and 
-ma35d1-som-256m.dts.
+I prefer that over passing values in the cells, whixh seems a bit 
+convoluted to me.
 
-I tested this change locally. Both affected DTBs build and validate 
-cleanly after the rename.
-
-
-Best regards,
-Jacky Huang
-
+Cheers,
+Peter
