@@ -1,64 +1,64 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A2B0397E81
-	for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 12:29:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 970353F329E
+	for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 12:29:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789820994; cv=none; b=dDuqCKPYWgIsNfGw7dlSVQzuPoJksCKLjkeYBKlN1trY0CiIFbxjTlBbM742yoI1hlxXW9liAR+wLzIMp8/VUB4fairXJdYXFrFyYfUk2mvB6nOZ+QoqZrdXTVi27qhGMB5hvW+WRJQuUwP4VbzWAu18al+fwmS7QFy2View/SM=
+	t=1789820998; cv=none; b=KtpRt44RHSk7MervTiwbkom1qumE2zPEWoX4hPr6WRT/ESDQzPDPwrn/jM2BbLOWzaK5RozvW+c7taLwrbw5/Vo7LdpEkQy2KvMYS3lrq+ide/5fvmF7tMon85/0wMS8mSZa9E3ZescZdHLBMOVY8ECjTL9N3pI4EGfER48hwfA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789820994; c=relaxed/simple;
-	bh=7UirNnKptkM23XV21O98MU/F3kZMMKqkqZFRUqz79+g=;
+	s=arc-20240116; t=1789820998; c=relaxed/simple;
+	bh=A6YC8hwe0sxhvQOJTVbWS9EOH9//kG+V5D2wIqS3pGE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rFkVZV7joEf1YUocl8rkMe0TUZrsbN9OZ1ak1opr5zlunbYQXImZn31PfC79V/FCTP/LAMvbSLYDLZ24DbBtKepV9+tEsOq4j3yfDAZW5MFiONJqgSGheyCWj8zNdS8luazipmsm1sDdSt0RseN0iKjAsDA7HSGS3iqx+Xp1xzw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rGb6m0WW; arc=none smtp.client-ip=74.125.227.171
+	 MIME-Version; b=FWqWiUuSWJgBhOMwDcLCPZntr9480FD/DR+vKxmHgPb1yu+qMePBiE2zB/Vg+1gv5av+PKa0apuEJo3iICa91N2dgU+G2ILR0srJ2a5hsfhnqQDoitLru0gITNhFPo73ss/zB3NhCEQTGJ0lViMxcgdiW1sgn2PzLXQQkggoVS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DRDAhpm0; arc=none smtp.client-ip=74.125.227.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rGb6m0WW"
-Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2dd88a115ebso13672705ad.2
-        for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 05:29:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DRDAhpm0"
+Received: by mail-pj2-f41.google.com with SMTP id d9443c01a7336-2d91a931f66so10570525ad.0
+        for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 05:29:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789820991; x=1790425791; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789820996; x=1790425796; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8MmcjKlyf4A3stJwDXl+4IDRDF8eUG006ktFMDeykK4=;
-        b=rGb6m0WWKVDyVASC5NYehxAm+a1YUhkO73/Zs5I+epmPDbx/0geKI+9DF8BpyLZjuf
-         JDD4lrKfJBtMnRMNxQfc2Ihx6tEwrqAt/fRl9hJtNPu1LVcNGuIz7CQF1U2DZAIsl+Kx
-         ICORzgojn0lF2JoniV/0zzNnhPHR6y+Bsx0/eddy8ZTQ/lGN3DAtjhFrcEEPv/YJxwPJ
-         4jkvICBYNZg0WOCy+3pGVYhZd1Kh+O0V8EfhWLI4IYzbW3C4sGydYbHLRWZF6DN/Uosl
-         T6L33oZEvEwyXRWMWI3AzVxBgsUIc0tc+ZGgSPSJlkBtGl3ZyU6ORRUoeHWnKTZGA7NU
-         wjoA==
+        bh=JTGehQbUedEzKLkhhaH1lsUDkNzzFr5cL05MJAHVVcA=;
+        b=DRDAhpm0oCgV7pcmAssfcDLexn7vUzP77r/fuPCoLdxERnEH4pKPG2vBpoxa6rzx6Q
+         dqKwWHcU7JMShwGn9AdY3LM38Vd0JSYCP+T4Nq6Dg6CsU/g40rhLPfBrDIkI4K5nPUFT
+         uItNWgF2TXkgzmZL8kZmXduqatzHayivYgBMhf5/ayFxiM3GyLTKYe61239aLXoTWXSJ
+         7lIOox0/NWIcDVq+EenjBfXtkiHTRKBlq28h8dk1iOyOkIesqVMXXT/VZs1exqHfrqtH
+         JZKJG1zEZVvYKMcivNkwD4K0ZE+j+bYwK5PYovk1VjauN8XXvKKgdese+15o/Wi8cwGP
+         ZpgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789820991; x=1790425791;
+        d=1e100.net; s=20260707; t=1789820996; x=1790425796;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8MmcjKlyf4A3stJwDXl+4IDRDF8eUG006ktFMDeykK4=;
-        b=MI1GLnwmn6JOYTEqW+oVR3SCGTD+2orrJG3DpJt2bhXdmE/CAa1hQfwJb9EuM0vNnW
-         i9dmfDyRUO285D/+dMhXzNdhwlvqIfbU3sRZHxMAQHNKSKSE0wuS8qz/Bb7QXchrNEnG
-         AJ+8eFtVgPhILbeS/pssg0qFG6JfBL/gMJvcyFlP9RpQcmVlSFxrPV1C3E/fedMaMxqe
-         FDX/7s8c4TSDvIQvPzdZBa+MAk5Uy8lyQVdodoknh0U4nXoN0U/a5HrsSqn8nCnbFcTT
-         0nEK8XKj8mrFbZbMVw1NboB3DLVI3MVZ3LW074J/ICRH3ndif/NHCOD1iCMmKGdPgDWL
-         IAsg==
-X-Forwarded-Encrypted: i=1; AKwUvBz6SnUCdZ3Y2RgPyYCi7KEp1RxrqkQIPtQcsHGNHRTQvT3sBoJNdqftw48nB9QBI4kffsFT6DV1yTPz@vger.kernel.org
-X-Gm-Message-State: AFuF++mfdCSBJkN71evt/RMD571n8kFto7+nVA1grJYYhiF2zPZaG7cA
-	DR+KOdeD27AubQcxDitT3qYuXCnn9h8UZJmG3iNBOrPYUoPFhOsFRwcT
-X-Gm-Gg: AYBFou3XYiNR517G9DcZsOEztytJJCYvQn9+fxd2+dbzatXP1uuvR26VNAFkSxVJdVU
-	dnkr6glH9miOUUD1BMxcFikgYzYU5me/gEngE7JX3IlfSVtwrkffQ6MIe6ZcgHD7eSaAPObQDD8
-	75cg7lUKIRbnkwFxAtbLqdYrbHL5XMTLqalJxayEe4VzQaRTeoPYqYCEFDzKC8imEueWBsjrlzH
-	L6q1lgzlziulDann1D5g3QLSuyRtlbRIOUp18J73W0Lnyo0V/Gpd4wMtBU5nsOlvRMDcJ7U/Ri/
-	pLRmM6DNcoavunIuWHOBkQvU9DJQiRBFYamcXN9ac6MR3ODZYgj+WzDPghQoY3HU4u2rN6CIGT8
-	P914E2hS9Kg/+Rp2rlOp6Mv/LKTOWp7eW5Qx9fMf3hv/1/jONMgXa97jEHhJId1EbXAN4bcngjV
-	OkThAOucnyz9o2ACTpHrkgKXeT1tPIed2z4A0FyFgX6rq4pVe/HMoRRuxkZNN2AK9/jZQS1LnNf
-	X9rPLoXviA=
-X-Received: by 2002:a17:902:d48e:b0:2dd:ad74:ac2e with SMTP id d9443c01a7336-2ddb1b9a0edmr96579045ad.23.1789820990640;
-        Sat, 19 Sep 2026 05:29:50 -0700 (PDT)
+        bh=JTGehQbUedEzKLkhhaH1lsUDkNzzFr5cL05MJAHVVcA=;
+        b=sH6QpYEYv1hzLUAGjusunxR5nGUt8LnNJByZVwWuFzq0FxpFH1q3JXF6krmHzn/p7Z
+         wk0/Hqda/J9ClpETXaoYOzvq8VhJoFO+TgTEgxIKDB9C5zh3nQRmxLxeeRkRIJJLevsw
+         W50wAL07fv3US9nz5QHliIKh4gU2/8o+OGPyXJIjRvS+3+3N2qhEP1bksmeY2TBynnE3
+         E1Q96NwFJfAWdrogmQFqqaKCeazYBImtyP3K127jTr+bKTlwxkygvJh4gimAZdvPDYcV
+         ClbzbbEnNEcRpd+J3SfmWyLqB+a5CxF77+1AdWhe3UA02hn83SrxvpzqpvuS/J3G+A6k
+         /3Vg==
+X-Forwarded-Encrypted: i=1; AKwUvBygPD8Yu91OpYdJExFLi5NpreKnLiKJBId5q4WFhE5c0kTMmkCMKDvnn2vPjNoVMhdMJz9hUjqGnrXV@vger.kernel.org
+X-Gm-Message-State: AFuF++ldGz4NdWN5E+JgvE/YXR/zmUwKfZxOLGOkCyu2NixZHPZZvn+N
+	zhkvRgDFBSUy0i7CcNpiRox+i+RdT7MByfPPV2ID8GS27SLSF+12TzoA
+X-Gm-Gg: AYBFou0w0MycYZ21tfhhWL6wqQPI2bP1telULBkqfBEkbM4SKh4QDPdA+UDaBgKdiu4
+	3ZdFOtxXH9t+Og/0eG5Q07hv4hV5MlFcuaXewqu3rr3H6xUy4QGxqh3y09a7D1svRer/4FY5E29
+	488xfPkWHWiJZUkGsb+A86775n2jUbcPEiirEynydmJqiZIM6QiJs7o+29rNU9B8BHKogvnaEHb
+	Dr0ncNhWYLuVNlpBfHXiMdrlZicUkFLascWCvBBb6R7OtRRu2bvckxIVp6ExgEk9QTFHxiZDycG
+	Lnkzgi+b6uEPeffXQQM+7dPgyLnUf7iDFc25uP1BlJipEoBsc7lyxyn+KfMFbEY+sjVo5HWAe7o
+	74EfjwZnMmUaMrZ7h2wzqgD3WM1truBRqPjCXH87T2VqW+BGua7XrPaqhtCupM9S5N0oYLS6Qc8
+	h65hWHb7mDJsX5d9aqCTbAo2lhJ68YH+1wBf54aCBITBt2QHOvnuzFwsw/czS1lXhAbxnzwBY03
+	yV6n+TEZTk=
+X-Received: by 2002:a17:902:d4c4:b0:2d8:d4dd:24c0 with SMTP id d9443c01a7336-2ddb1b97ee1mr97401945ad.21.1789820995660;
+        Sat, 19 Sep 2026 05:29:55 -0700 (PDT)
 Received: from Aaron-M6 ([188.253.120.162])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17d7115sm9552155ad.66.2026.09.19.05.29.45
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17d7115sm9552155ad.66.2026.09.19.05.29.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 05:29:49 -0700 (PDT)
+        Sat, 19 Sep 2026 05:29:55 -0700 (PDT)
 From: Yaozhong Li <yaozhonguwl@gmail.com>
 To: Lee Jones <lee@kernel.org>,
 	Rob Herring <robh@kernel.org>,
@@ -73,9 +73,9 @@ Cc: mfd@lists.linux.dev,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Yaozhong Li <yaozhonguwl@gmail.com>
-Subject: [RFC PATCH v2 1/3] dt-bindings: mfd: rk808: add board level power hold GPIOs
-Date: Sat, 19 Sep 2026 20:29:28 +0800
-Message-ID: <20260919122930.1418-2-yaozhonguwl@gmail.com>
+Subject: [RFC PATCH v2 2/3] mfd: rk8xx: Release the power hold GPIOs before powering off
+Date: Sat, 19 Sep 2026 20:29:29 +0800
+Message-ID: <20260919122930.1418-3-yaozhonguwl@gmail.com>
 X-Mailer: git-send-email 2.55.0.windows.3
 In-Reply-To: <20260909092728.1859-1-yaozhonguwl@gmail.com>
 References: <20260909092728.1859-1-yaozhonguwl@gmail.com>
@@ -87,58 +87,139 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Some boards route "power hold" lines from the SoC into the board's power
-circuitry. Those lines have to be held asserted while the system is
-running and released before the PMIC shutdown request is written; with any
-of them left asserted the rails drop and then come back up.
+rk808_power_off() writes the PMIC's shutdown bit directly. On boards where
+lines driven by the SoC gate the PMIC's power-off path, a shutdown
+performed this way does not stick: the rails drop and immediately come
+back up, so the board restarts instead of staying off. U-Boot reports the
+result as a power-on reset.
 
-Add power-hold-gpios to describe those lines and power-hold-delay-ms for
-the settle time.
+Take those lines as an optional GPIO array, hold them asserted while the
+system runs and release them - waiting power-hold-delay-ms - before
+writing the shutdown bit. Device trees without the property retain the
+existing behaviour.
+
+The array is claimed before any child device is registered, so that a
+-EPROBE_DEFER from the GPIO provider does not tear down the regulators,
+RTC and clocks that devm_mfd_add_devices() has already registered.
+
+Releasing every described line matters: on a Firefly-RK3399 the board
+stays off when both lines described for it are released, whereas releasing
+GPIO1_D0 while GPIO1_B5 is left asserted makes it come back up.
 
 Signed-off-by: Yaozhong Li <yaozhonguwl@gmail.com>
 ---
- .../bindings/mfd/rockchip,rk808.yaml          | 21 +++++++++++++++++++
- 1 file changed, 21 insertions(+)
+ drivers/mfd/rk8xx-core.c  | 47 +++++++++++++++++++++++++++++++++++++--
+ include/linux/mfd/rk808.h |  4 ++++
+ 2 files changed, 49 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/mfd/rockchip,rk808.yaml b/Documentation/devicetree/bindings/mfd/rockchip,rk808.yaml
-index 50dfffa..d59f6ba 100644
---- a/Documentation/devicetree/bindings/mfd/rockchip,rk808.yaml
-+++ b/Documentation/devicetree/bindings/mfd/rockchip,rk808.yaml
-@@ -43,6 +43,24 @@ properties:
+diff --git a/drivers/mfd/rk8xx-core.c b/drivers/mfd/rk8xx-core.c
+index 3dcf6ab..0898db0 100644
+--- a/drivers/mfd/rk8xx-core.c
++++ b/drivers/mfd/rk8xx-core.c
+@@ -11,6 +11,8 @@
+  */
  
-   system-power-controller: true
+ #include <linux/bitfield.h>
++#include <linux/delay.h>
++#include <linux/gpio/consumer.h>
+ #include <linux/interrupt.h>
+ #include <linux/mfd/rk808.h>
+ #include <linux/mfd/core.h>
+@@ -703,6 +705,24 @@ static int rk808_power_off(struct sys_off_data *data)
+ 	default:
+ 		return NOTIFY_DONE;
+ 	}
++
++	/*
++	 * Some boards route "power hold" lines from the SoC into the board's
++	 * power circuitry. They have to be held asserted while the system is
++	 * running and released before the PMIC shutdown request is written:
++	 * with any of them left asserted, the rails drop and then come back
++	 * up. Releasing them here rather than from a separate handler keeps
++	 * the ordering against the I2C write explicit.
++	 */
++	if (rk808->power_hold_gpios) {
++		unsigned int i;
++
++		for (i = 0; i < rk808->power_hold_gpios->ndescs; i++)
++			gpiod_set_value_cansleep(rk808->power_hold_gpios->desc[i], 0);
++
++		msleep(rk808->power_hold_delay_ms);
++	}
++
+ 	ret = regmap_update_bits(rk808->regmap, reg, bit, bit);
+ 	if (ret)
+ 		dev_err(rk808->dev, "Failed to shutdown device!\n");
+@@ -766,6 +786,7 @@ int rk8xx_probe(struct device *dev, int variant, unsigned int irq, struct regmap
+ 	struct rk808 *rk808;
+ 	const struct rk808_reg_data *pre_init_reg;
+ 	const struct mfd_cell *cells;
++	bool system_power_controller;
+ 	int dual_support = 0;
+ 	int nr_pre_init_regs;
+ 	u32 rst_fun = 0;
+@@ -851,6 +872,29 @@ int rk8xx_probe(struct device *dev, int variant, unsigned int irq, struct regmap
+ 	if (!irq)
+ 		return dev_err_probe(dev, -EINVAL, "No interrupt support, no core IRQ\n");
  
-+  power-hold-gpios:
-+    minItems: 1
-+    maxItems: 2
-+    description:
-+      Board level power hold lines driven by the SoC. They have to be held
-+      asserted while the system is running and released before the PMIC
-+      shutdown request is written; with any of them left asserted the rails
-+      drop and then come back up. A line left asserted by another consumer
-+      therefore defeats the sequence, so every line involved must be listed
-+      here. Only meaningful together with system-power-controller, as the
-+      lines are released as part of the PMIC's power-off path.
++	system_power_controller =
++		device_property_read_bool(dev, "system-power-controller") ||
++		device_property_read_bool(dev, "rockchip,system-power-controller");
 +
-+  power-hold-delay-ms:
-+    default: 0
-+    description:
-+      Time to wait after releasing power-hold-gpios before the shutdown
-+      request is written, to let the lines settle.
++	/*
++	 * Claim the optional power hold GPIOs before any child device is
++	 * registered. A -EPROBE_DEFER from the GPIO provider at this point
++	 * costs nothing, whereas deferring after devm_mfd_add_devices()
++	 * would tear the freshly registered children down again on every
++	 * retry.
++	 */
++	if (system_power_controller) {
++		rk808->power_hold_gpios =
++			devm_gpiod_get_array_optional(dev, "power-hold",
++						      GPIOD_OUT_HIGH);
++		if (IS_ERR(rk808->power_hold_gpios))
++			return dev_err_probe(dev, PTR_ERR(rk808->power_hold_gpios),
++					     "Failed to get power hold GPIOs\n");
 +
-   wakeup-source:
-     type: boolean
-     description:
-@@ -113,6 +131,9 @@ properties:
-         unevaluatedProperties: false
-     unevaluatedProperties: false
++		device_property_read_u32(dev, "power-hold-delay-ms",
++					 &rk808->power_hold_delay_ms);
++	}
++
+ 	ret = devm_regmap_add_irq_chip(dev, rk808->regmap, irq,
+ 				       IRQF_ONESHOT | dual_support, -1,
+ 				       rk808->regmap_irq_chip, &rk808->irq_data);
+@@ -872,8 +916,7 @@ int rk8xx_probe(struct device *dev, int variant, unsigned int irq, struct regmap
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "failed to add MFD devices\n");
  
-+dependencies:
-+  power-hold-delay-ms: [ power-hold-gpios ]
+-	if (device_property_read_bool(dev, "system-power-controller") ||
+-	    device_property_read_bool(dev, "rockchip,system-power-controller")) {
++	if (system_power_controller) {
+ 		ret = devm_register_sys_off_handler(dev,
+ 				    SYS_OFF_MODE_POWER_OFF_PREPARE, SYS_OFF_PRIO_HIGH,
+ 				    &rk808_power_off, rk808);
+diff --git a/include/linux/mfd/rk808.h b/include/linux/mfd/rk808.h
+index 7ffc904..eda111e 100644
+--- a/include/linux/mfd/rk808.h
++++ b/include/linux/mfd/rk808.h
+@@ -1459,6 +1459,8 @@ enum {
+ 	RK818_ID = 0x8180,
+ };
+ 
++struct gpio_descs;
 +
- required:
-   - compatible
-   - reg
+ struct rk808 {
+ 	struct device			*dev;
+ 	struct regmap_irq_chip_data	*irq_data;
+@@ -1466,6 +1468,8 @@ struct rk808 {
+ 	long				variant;
+ 	const struct regmap_config	*regmap_cfg;
+ 	const struct regmap_irq_chip	*regmap_irq_chip;
++	struct gpio_descs		*power_hold_gpios;
++	u32				power_hold_delay_ms;
+ };
+ 
+ void rk8xx_shutdown(struct device *dev);
 -- 
 2.55.0.windows.3
 
