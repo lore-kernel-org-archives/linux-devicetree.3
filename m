@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BD6736F8F0;
-	Sat, 19 Sep 2026 07:06:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0815D3624A9;
+	Sat, 19 Sep 2026 07:08:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789801590; cv=none; b=LYiviOidSRGCgb+lzEkPpFJOLTST8tx9HPWGWuvtqfejk9bKMQSMdyhqaLGnkZzKHMONIa6B0O31vWQpkWP8GUzBUyIcBPFfItfg6qPR6tnquXn6e38CP7CoJGQc8kW2iz9Wdb802jhxrzBMneVPudX6XBAlMQkzFxWNiuoebvU=
+	t=1789801707; cv=none; b=iPhD5+iZh+JQ1UxMAYrLf76//2nDjqhUcXjiU8FAyGYzPu9sY+/RMLwcP9yyqtTZWYFMOIHDzCf4VVOJHSMQaso/i5SIsHzdfx33hnYKQ7sa3HkS4b5mfi4OfCH02teTui6X21MYpZcFNYkGZ6vDlWZFErQ1Ah9WRvraZ/roxjo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789801590; c=relaxed/simple;
-	bh=CKnRo2L5ruTnRuYUGbPUHxC+CRCzGwLLo6hRb8BzuUw=;
+	s=arc-20240116; t=1789801707; c=relaxed/simple;
+	bh=5MGz3WuTKdMlxJLz4fLHKYHs7Zt62FQYjI6usArljZU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TiwoQzGea4lMPwpAhCCC/Qw58MDCgu8vhekRTDTt8mLYsQPLFTwI8V/BP/HevlRUDXwTix7SDj0fMTXm1J17RJVRR1x8BXQRv4h/yZ5PgDShQeeYafl3Cijv4BJeHylMhS1CHAJko9azR4oCynp10gYGAxlYZnOGw2n4mMM82wk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N2UpMNQB; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=LZjZGC9/jx1bFCCAjPaIhprbj3iauy7fEXpRw6ROzh+mIOc7V37XUl1PySyl9Th3/9gFQrph6zV7O9zt/2F8uR7NI4XXwnNFbi01ZkNMNEtrBpjxAwKQ0RiMUN6NtDhLAVX4+P4h6ux5zq94063RX5zOwTF8Y0x9Ifmippcq1E8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BCh+Q1fk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N2UpMNQB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 994621F000FF;
-	Sat, 19 Sep 2026 07:06:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BCh+Q1fk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC9F41F000FF;
+	Sat, 19 Sep 2026 07:08:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789801586;
-	bh=/8+6lA/+MmGMiGw2NXATI/t1AKiDDA8JtVUJlxNBu1I=;
+	s=k20260515; t=1789801705;
+	bh=uhaSLRWxWnpOZ1hMGZ3P8vEzC790v0CsHkY9724kydk=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=N2UpMNQBTk5S5Fv1Swg8wtKBtN0KP6INau24ihdfa2/gGRx1RcvRet3kaDra0x7w3
-	 rR6msojBGT43tJt8igXOSoTNGVOFvYQeu8+th9bJEhdhYa5x+UFqBo0x0Bo7mhEI3P
-	 cFB48WuZzyQXxsxCpVtl+OIEsAmpD3kof6kTTi+PuQVmsAtnNOdFgp4/10vCUQo+6j
-	 omxo4IlUbia8sjOpGpKMX8vkpslPZD47tuXApYTuIb22IjFV48WnWyFLgTFYQhjLqk
-	 cIN2GnrY1uFctQgKSLDBUC0Q36jbswKmEBDuXF8egMaQogL8UnfygAfUrhhiPKHdCC
-	 emIpQoQRnHm8A==
-Message-ID: <c7ca685f-3b1f-422f-b7bf-d79af544fea3@kernel.org>
-Date: Sat, 19 Sep 2026 09:06:20 +0200
+	b=BCh+Q1fkXZMtjVafQ5YGFV+h5db354VNq/ELCWyC4KkM9EOKXmUTlqgi+ma1wXozp
+	 DftsecIquMnGZU/bn7dlqfHB0SFowcKCtqYqFYBKKfUSA8s3K9Rsk5SMYPxnV+DeBV
+	 Y5Sj2gXory2ScdEG5Sx21lZEfxqdEdqZ9ssZyQau7j9QTMvL/H4vwGIsnSHVVKjlqr
+	 r41sO26J5aU+9ztpXEn5Q6cqRxLTKJH0TIlovq31RymcWsd+tEVLn+dCLOvNd83tjr
+	 uc83mnTCusi1VsH/mO2vViF+aXTvauBuk/3UmRhVl0wbrNfua+U/YMiqJx6DLrDv5O
+	 AiKJ0In7NVj/A==
+Message-ID: <457bb3d5-1d73-4acb-9ef0-4e40de6bdc94@kernel.org>
+Date: Sat, 19 Sep 2026 09:08:04 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,19 +35,46 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/11] media: dt-bindings: i2c: vd55g1: Add vd55g0
- compatible
-To: Peter Marshall <pm@petermarshall.ca>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
- Sylvain Petinot <sylvain.petinot@foss.st.com>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-media@vger.kernel.org, platform-driver-x86@vger.kernel.org,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-References: <20260918221705.323510-1-pm@petermarshall.ca>
- <20260918221705.323510-3-pm@petermarshall.ca>
+Subject: Re: [PATCH] dt-bindings: Expand flow lists to block lists
+To: Daniel Matyas <matyasdaniel006@gmail.com>, Lee Jones <lee@kernel.org>,
+ =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
+ Ulf Hansson <ulfh@kernel.org>, Liang Yang <liang.yang@amlogic.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Ray Jui <rjui@broadcom.com>,
+ Scott Branden <sbranden@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Vinod Koul <vkoul@kernel.org>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>
+Cc: Jose Abreu <joabreu@synopsys.com>, Ray Jui <ray.jui@broadcom.com>,
+ Scott Branden <scott.branden@broadcom.com>, Atish Patra
+ <atishp@rivosinc.com>, Shawn Guo <shawn.guo@linaro.org>,
+ Dmitry Osipenko <digetx@gmail.com>, Thierry Reding
+ <thierry.reding@gmail.com>, Ibrahim Tilki <Ibrahim.Tilki@analog.com>,
+ Okan Sahin <Okan.Sahin@analog.com>, devicetree@vger.kernel.org,
+ Paul Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt
+ <palmer@sifive.com>, Conor Dooley <conor@kernel.org>,
+ linux-rtc@vger.kernel.org, Ricard Wanderlof <ricardw@axis.com>,
+ patches@opensource.cirrus.com, Lukas Wunner <lukas@wunner.de>,
+ Chunfeng Yun <chunfeng.yun@mediatek.com>, Eugen Hristev
+ <ehristev@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, linux-iio@vger.kernel.org, linux@analog.com,
+ linux-input@vger.kernel.org, chrome-platform@lists.linux.dev,
+ linux-riscv@lists.infradead.org
+References: <20260917144028.459053-1-matyasdaniel006@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -93,39 +120,23 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260918221705.323510-3-pm@petermarshall.ca>
+In-Reply-To: <20260917144028.459053-1-matyasdaniel006@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 19/09/2026 00:16, Peter Marshall wrote:
->    reg:
->      maxItems: 1
-> @@ -101,6 +104,21 @@ required:
->  allOf:
->    - $ref: /schemas/media/video-interface-devices.yaml#
->  
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: st,vd55g0
-> +    then:
-> +      properties:
-> +        port:
-> +          properties:
-> +            endpoint:
-> +              properties:
-> +                link-frequencies:
-> +                  items:
-> +                    minimum: 375000000
+On 17/09/2026 16:40, Daniel Matyas wrote:
+> Running dt_bindings_check returned:
+> [error] string value is redundantly quoted with any quotes (quoted-strings)
+> 
+> The files used quotation marks in flow lists because the strings had
+> commas and these commas were interpreted as separators. Convert flow
+> style lists to block style lists, so that there is no problems with the
+> commas.
+> 
+> Signed-off-by: Daniel Matyas <matyasdaniel006@gmail.com>
 
-So this explains why you wanted to move the allOf. Just squash both patches.
-
-> +
->  unevaluatedProperties: false
->  
->  examples:
-
+Ignore this patch. Daniel sent it THREE times, so we need to respond
+three times that it is wrong.
 
 Best regards,
 Krzysztof
