@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59DB92E7387;
-	Sat, 19 Sep 2026 06:59:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEFA331A555;
+	Sat, 19 Sep 2026 07:04:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789801194; cv=none; b=jzTeSl83WAzVLvpDfiYK4jAbsN9M9UJnimivasXBIBZDDR64vzLGrOtJcCnizlJVdQPOY9mv6FEJnVsh78JvNAzLXqP77act3f+q9MEprlmKwugf9qodsPZuctCMC3z3By1g8nPbopLZVkRYVYHMKdNes/PmH6N9D+M+rD3xpM0=
+	t=1789801463; cv=none; b=F6z3M3173cC4meoKiuAbvWVbiFi8FCXdjB8mby0o3Y/HEpubjsmiAVhWYHujTBdVeFphxgo5zWd1rpn7J+wYPVshBO6LwpyOnQ2aCIb57apYv1VxRt4Qq0QrxxLWFAxQMgSaXRfdjV/PZ7Qaezo1B1UXHzTODxeK+CcQRUPz34k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789801194; c=relaxed/simple;
-	bh=8SjGvr8/O2gclvrCAm4kDJBJai2iJMxC1yw/98CkclY=;
+	s=arc-20240116; t=1789801463; c=relaxed/simple;
+	bh=C3ikIsOLwRVgLFdJ1s6aULu9a9sldfXr5ccQyoo7LBc=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LwjSBf7f7Y0pr2+v8rWo8NIGqe4AjmFReUW/EzNli+nXiPD7nI69oOlf+9LluJ1/98a2tiGfctO9lTiBftMdeZftt4jpS/naIC4g1mjbhIyEq2QALnbpYW+ZxfIoG3mKBTzGAr+sH+9zIekAdEVhSt3D9xt+BlavPKzi1eyO+IA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VNiIYoeW; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=m7vy3Buqv/4+iGn9fOj/EoU9htngj82JpKXwdYAIZUmL9Ikw5HkrxZOA2t7wJfksnVt1Jg4LYv0FTq1ny1+gojRPurLNsq/Zhb+WiWbaln8Tqcr8TelohRXDLAvMflATWR6bKSWL/jPyZN3phoCc1FlxvZIYSZIWLiF8VC7BUkU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c4j/14QT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VNiIYoeW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1C7E1F000FF;
-	Sat, 19 Sep 2026 06:59:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c4j/14QT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35A001F000FF;
+	Sat, 19 Sep 2026 07:04:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789801193;
-	bh=AcK3qN4mIQkoSdoSSWTxmWlqlNCPKjKRHTtUStmtPnM=;
+	s=k20260515; t=1789801461;
+	bh=C3ikIsOLwRVgLFdJ1s6aULu9a9sldfXr5ccQyoo7LBc=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=VNiIYoeWtj7YxYLhvJbFkVg3+axpW7PcOropK3rWC136FGDhk6Sw/amyDY4neu6hF
-	 umi8OwoN67A40VUEk336XNWu/5ns2jc6AxyGTRQ5mPhamZ80W1jv/2z2UEUslYqrbl
-	 s4wDMzf2QWBneK10fmRGet3S8VMSNzYE9kdXsZyLOJb+V2xq0D6Jtobu2jZ3zTHYsD
-	 7zjM+DMOXTgvOeHN92IXyD8E5yIY39w3X2u5kCP/XHrnzANBgVZuZY/u7ms1NzJDZW
-	 cCdXj7WqjRuokKjU4uqPpw60FQzH31YoPP6i641ltydV1xcaLBPkk/cSkDnll0Xvsd
-	 dBpY2jXcpR+/Q==
-Message-ID: <4240bc80-4cde-4b19-8ed1-2e3d9a92537c@kernel.org>
-Date: Sat, 19 Sep 2026 08:59:45 +0200
+	b=c4j/14QTWkl2iVIIQ2IkMuIRC7gpLTDAGevyaBKzUqPJofq1h3AyjACd0z+beIksz
+	 LZA0QgaH9EQh468MPkyVG8r4dhafKtg31cYnOZ/VG8rG94oJjiUxkuhcyU6AL5pUDb
+	 Ogj+NMxQfBeCzLGD41GoHC6tdOFRQGuy0/WLAz9oWn6eT9uIIvVwWzVbg4hmpOSvTv
+	 g8ilNnrBeNWRPLjsafaSjWBDnGANEO8PS22idEXRWWR7U+OGWb2LMpRBYaehmKD0aN
+	 StUs7QQHLnRkhgia4igFIHteV5GPFNjJWnH6Expm7MVgKsi3TTkNIW8AamQu8OfMVC
+	 Shw7Wo1JFDH2A==
+Message-ID: <51d363ff-5ff2-471c-825f-a70b677c5d1c@kernel.org>
+Date: Sat, 19 Sep 2026 09:04:15 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,15 +35,19 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] staging: axis-fifo: remove superseded text binding
-To: Daniel28972897 <danyboy28sep@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-staging@lists.linux.dev
-References: <20260919011417.156828-1-danyboy28sep@gmail.com>
- <20260919025900.169703-1-danyboy28sep@gmail.com>
- <20260919025900.169703-3-danyboy28sep@gmail.com>
+Subject: Re: [PATCH 01/11] dt-bindings: media: i2c: st,vd55g1: Move allOf:
+ after required:
+To: Peter Marshall <pm@petermarshall.ca>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+ Sylvain Petinot <sylvain.petinot@foss.st.com>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-media@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+References: <20260918221705.323510-1-pm@petermarshall.ca>
+ <20260918221705.323510-2-pm@petermarshall.ca>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -89,22 +93,16 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260919025900.169703-3-danyboy28sep@gmail.com>
+In-Reply-To: <20260918221705.323510-2-pm@petermarshall.ca>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 19/09/2026 04:59, Daniel28972897 wrote:
-> This driver's devicetree binding has been converted to
-> Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml,
-> which supersedes and duplicates this file.
-> 
-> Signed-off-by: Daniel28972897 <danyboy28sep@gmail.com>
-> ---
->  drivers/staging/axis-fifo/axis-fifo.txt | 96 -------------------------
->  1 file changed, 96 deletions(-)
+On 19/09/2026 00:16, Peter Marshall wrote:
+> Update this binding to follow the ordering convention of
+> example-schema.yaml which places allOf: after required:. No functional
+> change.
 
-Pointless commit on its own. Never should be split. Just look at history
-how it is done (`git log`) and do not do such work COMPLETELY different.
+We don't do such changes, allOf with ref is placed correctly.
 
 Best regards,
 Krzysztof
