@@ -1,138 +1,113 @@
-Received: from mail-pz2-f9.google.com (mail-pz2-f9.google.com [74.125.228.9])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50FC639B972
-	for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 12:53:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86EE8392C20
+	for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 13:01:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789822394; cv=none; b=HfpX5VXbzHske2Rz/4RdvdsSA0qNkavUbjmgoLBo44VIVrEdoq2HeroXflIazYQTddHYzYHUnwvNsB5/aoRF4Jldk4OxetdQRu3NfAmaDcITOv03LqoR1VV2UL5HhcEZLW0v2fI5E66LSjfg9fUN42leuE8RPz8ItWs1DXWZipU=
+	t=1789822904; cv=none; b=X8UdWle8UyFeyYZtRHvEKaZvwux8IK2L1Ke41Zupw0z8s1qlr6F2A5br14BSSINYI/kLvyDb8dwYx3y9h3ZJtTV54gnraujhUqkwpEaKiW4+qvLocekJACxR6HYv6EWDOINpLcVvgYKw3/pQDD+spiaSR4/aaoVFkIyKx8N1SCc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789822394; c=relaxed/simple;
-	bh=tCrgHNTqayWFj1XRarWJorXnl2XIBvQrDCQv89fV94M=;
+	s=arc-20240116; t=1789822904; c=relaxed/simple;
+	bh=uA+HoBevpg+o3pjy8ENPdza6Bd76MyHGiCyS2GIOcHw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=spbBXWzPMB4e+DcaqWF0U9Pk1cA7uv8JTn67qSwE2D2D8LBNfGyniIbpN4jlE2i+S+4L3GDvESlqwxAJfv/uukODG0R/bvihc+h8H0fucKn8a1KIvOzqoJEIjrAlJU3lgJW9S65oqxfhOn4rW8HiQDqWx1QHR9oD1EeFus/Kr2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MYRJkC55; arc=none smtp.client-ip=74.125.228.9
+	 MIME-Version:Content-Type; b=Yh/q7ZW8WVbugsqb/sWW8Ycbqm5plRp6lENhiYIns4qPgb5CKUy/bb50wWpHayIcHYkmRDu/cWmnCtxXdpCyW1VcSO9AEpIsbG28dQ+rG6BXoT409f2xGJtajTs7DVuWAKMyu0tZ7uGRA/ZF1tKGs8f1DGi4I9gnR9LEvoji3+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UXdyBIrb; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MYRJkC55"
-Received: by mail-pz2-f9.google.com with SMTP id 41be03b00d2f7-cc1631a57d2so1062860a12.0
-        for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 05:53:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UXdyBIrb"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b965f447cso13336115e9.3
+        for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 06:01:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789822393; x=1790427193; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rQei+xFrWR/8tHZU0Qo/Qb7KMibEAMjL/DUhroeeXK4=;
-        b=MYRJkC55yHwhHoONtGB5ttuGAyN5MCrfpYjCb1B2hzqkTPZ51muAILPGY/Nu/IwOb8
-         dVCo8fyIH9bxEfRit6buo/MBTw+cA1lWDGVrzRz8eGIdzUgE9lq78U1RUcwmC4k5sMqy
-         2QKZg/mn0r62aonntu/exwVXyEXYxfAY2MEM02f90Xa898AdqMZpJRe7gq5WhnqOCgik
-         J94NQPk8o5SsbldFG6Igv27/a+vqb2g+Fm7xlMw2Lt2xYp8VysBP1zlFTsGfk575zrNa
-         veF7VeSMu4iqddGsywnxxDcZmrtQH33m3RCivWj6FGuy31MuS4xtUvj12b8hwohb7BLc
-         e/vQ==
+        d=gmail.com; s=20251104; t=1789822900; x=1790427700; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uA+HoBevpg+o3pjy8ENPdza6Bd76MyHGiCyS2GIOcHw=;
+        b=UXdyBIrbzpBh1E77+g/CtssQ1/m0/osSFpCQH/9bZhhZnbwji0JMcFCd6vr7zWjhhu
+         OSco+zmhnmhSdrtj7TLuXYa4zUB1KZuuUiD9md2H6d3s3LlAdfHs3SVUd2otPG42+9GC
+         ViJeidk3BhQZbRR3/D3O111KYtdV3ltjfVd3YflSDFj8ggT3XzlgPhMD4SKHnYFXOkCK
+         La6EKZT4EhFxybk8b5vg/Rb9oBOYUYWv/THvvU9VDQHmkXmmEmUgNOF9k613ITleCx46
+         g2xkt6I1YgdhF/5JJmFyHpubOzCiWhT6puaw1n6nR27QjkWX+MqEQoua/o2nkgCcAlbE
+         4zbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789822393; x=1790427193;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rQei+xFrWR/8tHZU0Qo/Qb7KMibEAMjL/DUhroeeXK4=;
-        b=f8jY8bp2SNa3CdWg3kpNvngeThVHjNyQRcVsbwz31PtNyRGkUUYPACesiqPyCyvqU8
-         kAKh7FlQIEx4v2vV9iMKcu3O3rSnOZ271ADHKARSHEuMzuJmgAmY6IIluQjY3jzxBOqX
-         OR402BU/TvV62oRn7KmTj+31fp3B0je/mWtvr/Ai7kPrXqRJRaEBAfFXOGJ4OeaBfipR
-         AFqMpnLKQfXSbqnH7FfmWyfXWV7soanXZ8pOKY6SW6iD9WzdKw4EU/4uXKOF6Z0Ib2c3
-         yIo7y1EbfUjsRHNUZbpo0twHgfP+qqWpCbmkfj6sCjEIuTK5aSIuGn9j+HzglOTAMPu3
-         frCA==
-X-Forwarded-Encrypted: i=1; AKwUvBxoVWwqRxOQy1H97OltPvBAMoxnvpXWqZQXdTicykaZ8d0FrJ5EHnnGbPujSbL3NiOvXowOCasQ14LF@vger.kernel.org
-X-Gm-Message-State: AFuF++lMbPZbCNnD9N6lnKTzl70JE8p1YmCLCfUPQUx50fBsnCjB+QJo
-	liIc+Ub21EAhzB/yfBtdzeslY9rw9orqgsDMV1NajiK8WIe9CAeMI0Mu
-X-Gm-Gg: AYBFou3M7f5umICEgJaE6w9RZnZTpUOa+pxfuQyG+e/Gng6edjWk1TceaXglD4J3dLb
-	OqmydTjj2v6sOFkd2ZVGH7gxexesbSRsS4WJ0KoM3QP4So5zOjM7RQbm2Rl7fxOPR6TIMx4Ezio
-	Za9GYpMEme8Ycye2F6wJsvU4CvAoS6ukxEaPZgcRHZE/MYpwjZG4S8+qWitAqtkMgPmF87cb+2H
-	ETxfGL57b4hfVwzrLaM3X8VTAcoC8LqTCeeKBW2XrydJHGcm8Zbfhx4lRHsZCmxGJToHyBV1vXl
-	/PVp+gV08In5OaD5NEqYkGqYsC55KD/2NdsMqWgPxNxuFpuId56tVHUNq20cs9wJ2QD3GQEFX/X
-	mQFQTvcdw0OWmzhJv+H3c8Ewcyf3OzMCJ7WfyLbYoeeg9KUvlOQFMNUlkpoM+xpYmOY2VHYa7xZ
-	kr8HvZoxCA5lFNHEsGBiTRAB4IQajg5mh975iavs14cnP/5S4OamqzDvUWh26Zuo+nEp+jOw==
-X-Received: by 2002:a05:6a00:1796:b0:874:706d:8573 with SMTP id d2e1a72fcca58-874ddef6806mr9062175b3a.27.1789822392717;
-        Sat, 19 Sep 2026 05:53:12 -0700 (PDT)
-Received: from server.lan ([168.138.199.194])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877aa0026b2sm991805b3a.44.2026.09.19.05.53.05
+        d=1e100.net; s=20260707; t=1789822900; x=1790427700;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uA+HoBevpg+o3pjy8ENPdza6Bd76MyHGiCyS2GIOcHw=;
+        b=pki2YsQY+TXkCYPx9CZgFinmPRGEvDZMMCHtI1ylf9dUGPcn6OaP4QO/mWpeZJWJfE
+         s5aLxTRurwT6i1/WzCbb3PV8jdR1VTB7UpgJoqcPDpbsKTUgERx8cqjpMxGC4WIGKfCV
+         WT4E/0/MYSn9tddatSzR/A+inNjn4hP/5ecqIvcADvTmYMVDHlWCy80fd1WkJgooXBWf
+         oevSJEQkIaduQZpQYRlIUSUn0NDtAO/7uDHESTHXrT8kGvQayloY3qhcixjca4dBcY/4
+         eu/OsORWJRElnFmDaS2VoCOBprmJaHQmguFtuyQxyzJ62AoXHUpJQRQoX8hvOsvtBZtN
+         5Tfw==
+X-Forwarded-Encrypted: i=1; AKwUvBwnPrqGv9icglm/WcKeOuTI+8rZ23yMiVVw2bYJKvTO5IeoBTwQYEYoWB35/y/nSdPeMHBxdrGlST8g@vger.kernel.org
+X-Gm-Message-State: AFuF++nBK2YVENGxotk+xfcHULze5WpXYnfd22AAElTrgo7SLvYGNP3e
+	vbGcvxiNSDVCVVhKurSW5dP6mg6rgUHDHW6LqIO2yzL4qSbgubcfqjMc
+X-Gm-Gg: AYBFou2qk4r1uwRIjSDAFxMDCNzfCn4SeOli9cUaanp9XHxJkPqcRMPwqgXoLZ8TlNN
+	xzB3iuXBlwDu0jM8EWTIRNAsBN6WXprMTKJb4u9nIaHfoGcX1X21UqqHV5Ts9SNeW06Edl6yAEx
+	bir76tIrcWpCGhnH7E9TIuCgEeqUvK7A7phKrpzym8Dq2swvMlnjWPNdqBre//ujYkO/x3NV+fx
+	a05eUefTTBch6hZOL/5xP0UJ3GeO3FIx+uY7ESUtQ665D1wlICZ5XQvBHPbPTt/GASutaBfvsUf
+	L+mMafAoop/9RClXuYJa/+AkSl9f79hT3oPFDe2W+OSApV/19uk2h/IiKgV739e4xZPcH86hwNu
+	9iqKDALNfSzjK6ZzxpDmK9GamSGkhyGK1VbDY/LPrniaVeHIcFfm2GDtIcWTLTt/EgUq2jQQD/q
+	UD4ud78KOQ0lvG19PC3snsvkpJpEKBgcPsLzd5BJCax1qIKK7fPFcR92Pm0dQoTJh3kN2lUjtlW
+	Ria7ULM
+X-Received: by 2002:a05:600c:3b05:b0:49e:6249:268b with SMTP id 5b1f17b1804b1-49fc574194amr69801595e9.32.1789822899376;
+        Sat, 19 Sep 2026 06:01:39 -0700 (PDT)
+Received: from localhost.localdomain ([185.40.61.191])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49fc52a5b6esm65037995e9.4.2026.09.19.06.01.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 05:53:11 -0700 (PDT)
-From: Coia Prant <coiaprant@gmail.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
+        Sat, 19 Sep 2026 06:01:38 -0700 (PDT)
+From: Oleg Keri <okerixx@gmail.com>
+To: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
+	Lee Jones <lee@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Vinod Koul <vkoul@kernel.org>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Romain Gantois <romain.gantois@bootlin.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Coia Prant <coiaprant@gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Shawn Lin <shawn.lin@rock-chips.com>,
-	David Heidelberg <david@ixit.cz>,
-	netdev@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
+	Guru Das Srinagesh <linux@gurudas.dev>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
+	mfd@lists.linux.dev,
 	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-renesas-soc@vger.kernel.org
-Subject: [PATCH net-next v8 11/11] MAINTAINERS: add entry for Rockchip XPCS driver
-Date: Sat, 19 Sep 2026 20:51:18 +0800
-Message-ID: <20260919125119.2107089-12-coiaprant@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260919125119.2107089-1-coiaprant@gmail.com>
-References: <20260919125119.2107089-1-coiaprant@gmail.com>
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Dhruvin Rajpura <drajpura@qti.qualcomm.com>,
+	Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+	Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>
+Subject: Re: [PATCH 0/6] mfd: qcom-pm8008: Add support for PM8010 over I2C
+Date: Sat, 19 Sep 2026 15:01:28 +0200
+Message-ID: <178982288839.2267.636188297415440296@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260918-pm8010_i2c_support-v1-0-de33d78fad9d@oss.qualcomm.com>
+References: <20260918-pm8010_i2c_support-v1-0-de33d78fad9d@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Add a MAINTAINERS entry for the Rockchip RK3568 XPCS platform driver
-and its device tree binding.
+Hi Jishnu,
 
-Include the relevant mailing lists (netdev and linux-rockchip) so that
-future patches are properly distributed.
+On Fri, Sep 18, 2026, Jishnu Prakash wrote:
+> PM8010 is the next generation PMIC following PM8008 and has similar
+> functionality, providing 7 LDOs that power camera sensors and associated
+> hardware, with some differences from PM8008 LDOs. The series also adds
+> support for skipping interrupt configurations which is needed to support
+> SoCs where the PMIC's interrupt pin is grounded, such as Glymur.
 
-Signed-off-by: Coia Prant <coiaprant@gmail.com>
----
- MAINTAINERS | 9 +++++++++
- 1 file changed, 9 insertions(+)
+For the series:
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 3b2eb2a7a89a8..f53a519da6298 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -23739,6 +23739,15 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/sound/rockchip,rk3576-sai.yaml
- F:	sound/soc/rockchip/rockchip_sai.*
- 
-+ROCKCHIP XPCS DRIVER
-+M:	Coia Prant <coiaprant@gmail.com>
-+L:	netdev@vger.kernel.org
-+L:	linux-rockchip@lists.infradead.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/net/pcs/rockchip,rk3568-xpcs.yaml
-+F:	drivers/net/pcs/pcs-xpcs-rk.c
-+F:	include/linux/pcs/pcs-xpcs-rk.h
-+
- ROCKER DRIVER
- M:	Jiri Pirko <jiri@resnulli.us>
- L:	netdev@vger.kernel.org
--- 
-2.47.3
+Tested-by: Oleg Keri <okerixx@gmail.com> # Lenovo Yoga Slim 7x Gen 11 (Glymur)
 
+PM8010 at 0x8 on the camera CCI bus with no interrupt line, on
+next-20260918. The MFD and the regulator probe, L2, L4 and L7 power an
+ov08x40 and the camera streams with libcamera.
+
+Thanks,
+Oleg
