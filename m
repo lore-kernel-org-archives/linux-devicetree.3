@@ -1,817 +1,213 @@
-Received: from mail-wr2-f30.google.com (mail-wr2-f30.google.com [74.125.225.94])
+Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com [74.125.231.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ADD7476CE8
-	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 19:39:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.94
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5939B4825B3
+	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 19:45:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789933200; cv=none; b=RbZ+ydwZQwkRglE7M1hIF/wiCqezoAAY5qSn1dr2spGAOXDVvZcxYvgR5GzomKLeR0gCGMCICuSLdWgjsgHj7vRPCMH3qLGBdm1s6CMbwd9yo7kqANV3Xn2QaZ2qJ9xl930b4OtbQ0dHqbJjfdcfd/p/s4usFEs7kI9xZhnAM4o=
+	t=1789933542; cv=none; b=OTC0T5Jkbe8JPzFTklhodl/oIsp3L98AiBPBl4/LVUvveO2xigZco/ctg4ILnovI/MOqO/gfmZwTTJ9Yz006uTM3R/NR434YCQVTc+UwQYhbbralWUUQUdFchZDTdS+a5WVHaBQbnxAKRPeio5bK2fHfXYTQU06WRfvyjNTUsOA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789933200; c=relaxed/simple;
-	bh=JvvKGGgzX4KzSPvwLofjBYEBvTr2mi28X4z/1dapQOw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KxvEcGFfPNnmTcfDFuBrShKCX7rg+hfbkpMOt4BQ00PJtThgUuResaFamuvTiY/XlPNV1H9Cu1ZqdH0ruL0DZe0PZ/w22D7//OU8bkiLgaF54a5E0QY30Yayq5RCN/aq6nAr0uF9E3idFbpipgQ/rIvoU6aEhefczdNBc1KoFW4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jlz+dj//; arc=none smtp.client-ip=74.125.225.94
+	s=arc-20240116; t=1789933542; c=relaxed/simple;
+	bh=lPaUeF7IJpjaq75aykVKQZ2IAKhTtUHjZTkLNARPGUo=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=JZoM1Es3naJPiB445SxD7Tv91gaMa0AYiBkYl1+mkkFa6bmZjyiujT9vubOs4jIw10vsWBG/No6u/tvjXMRG5EF4aQJlcd5jpYbe52KzXgOn7MbzFL6e6TcGb1kCX0bFpGsgdnllRLiS7VEQp+uilcpixH6mYkZNJg4BzLzEhIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HKkpq16n; arc=none smtp.client-ip=74.125.231.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jlz+dj//"
-Received: by mail-wr2-f30.google.com with SMTP id ffacd0b85a97d-48439feca17so1750008f8f.1
-        for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 12:39:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HKkpq16n"
+Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-466cc9b2f1dso1516033fac.0
+        for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 12:45:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789933193; x=1790537993; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mHCtwcksOyerky3/ku1+b4FGw0vHXSG1M6MLEq+Vmmo=;
-        b=jlz+dj//EgBeGA8I64ThK/AETMRy3tHthnIJ+Oi0iaRn5x2K7uqXIg2q8hP4RgEOA+
-         eA5Fr5iy9Bb3hl1M7y9ZQABNRjr0mqqDpDxPS5vwWl3B+93G6Rz7ggyYJ5qZl7U8MnSD
-         8g6mUv6DPcamWUTxCTqDAGnlBUmPH5+WZVIg6HnSH5gX+Fv71WO5FNVO4G8NzWCYfmOO
-         y2CtxXFUZbPkkCLxxN/TmzqUOau8Q9SPF+A8qsqo5/SXWyf/r3DR4nzUsGXN+J8CHv2h
-         LEraTvyrzJjGCwcm5vFxHy+AlBHEV/upD4T3DUYK93CQ4EJTMSDzhYY0mHidXN7E5DBF
-         LhhQ==
+        d=gmail.com; s=20251104; t=1789933539; x=1790538339; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=F5XD7E1guV/vtraPrPS4BySY9EoY0nGlYAqlZQZKu0s=;
+        b=HKkpq16nrPRBi8fW9/7ViGipTKFnIVpnZlbcIA7ZSvift7AHYRcY5nv/LXfFcZ2xzG
+         t+lwoprK4ORt2sK9uAxTCWcfsE1G1SqNBy2FGq4PJdsDN3kdC90TjaFEmYCQtoWIIX5i
+         mdIDOrtGLfzAJ6oGOUpYDKcWYxabMA49jIQtPBiC20jwVoZPohQMDtEFB3pjJqUEKeHf
+         NtP4Eu0NyFPgT+fdiPcTggYRa1L44faa2i+bSgKhk+lC5hziT2diXDOp0qbWfL/AZjY+
+         8t6DYFkLGhUIBiA3cHna1FWaopLS2HUw5OByYzydfTrCh0M2/WtKc09Rl2e1EsDno/e+
+         BFJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789933193; x=1790537993;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mHCtwcksOyerky3/ku1+b4FGw0vHXSG1M6MLEq+Vmmo=;
-        b=iAo/seMZByZbyxdSNYUF7K6DSaRjtfIdYC5UPseQefhwQQQdAWth0cIDMIkBYsnBCn
-         pImnWkK2w9ZveHbOgQIVH+gfe16kGm7bqQtz+fF3Kp+g8PmCGGJg2pUr9i4xQj4491Av
-         zMpKTbuy9/jr36a5meeAQUakIak5WMYBAlkYz4Pp4CUUyFqDla69xnNA0HYMYEwuW1bb
-         KmVU6yxoorSJSEnMVxVMt1tCh2vvF15b5hg4xWUtgH3uaxuQqEeDXT1BNNtnYX0G5bJx
-         wEmdeHUVHraIYw4gW1OWQfVl/IYPuWwHGm29MjrfUX0rNt/lsEYMazsYozm/JHoc7cdT
-         SBBw==
-X-Forwarded-Encrypted: i=1; AKwUvByhTO4UZm7QEraPPsc01mtEBcok2yjHgxHGc5nmOpoy88m9oXLmX6EDjS2n60zGzLdd9lCCMcJptihi@vger.kernel.org
-X-Gm-Message-State: AFuF++maZ6MWQxncQrjbq/3DtGraW9dJ+JCeKLKK4QiEHw2IsV/qKAeM
-	DleyxtgnySze0oqKUhc8w/oAKONW6lRKjSF3DJp+sojkph6nsO7rXvLy
-X-Gm-Gg: AYBFou0eDScQjxlKRnegsJ0k8YA/c3swrQnB2USgRTxzwArWYkJxc0pIVfUIo0gBKcc
-	vTAl8R0rsLNECUHNmAopqs7xkrjIBvfxCTj5myV9NnYuTFPhfhZjpFp1QVSuRQuUmJ/i6rlNhBk
-	Jrf3g+UbezG0FFJ2iZTRUW9A9sb3cVI0NPqz9NSpGz1bd11t20SfARfA9JaYBl7X/NLZginHeVB
-	qXhTdiQeLPMn1NMGGUGUzV0NTHuFBwWQxq3M5lwtpGqndXZBTKlu7ZwFW/wp4bndZMzkPimLS9l
-	ZyZOcKMCuIf3pQ41PJoYytjjQ0KVtFEw9BMj5PaWojfAWFM0sQNY/mCUfcbpY5j8UyeMYC4y0Dv
-	JmeEhdBacBFZjbJLYS6qBY8jkIYH9F5VTmvr/6VoxdlNMX5vDZdRFa8I+Eyblcz/69FmDOw32FL
-	W9UC1wJxVePCo4litcJ3FH1YVpWd2Vjm8kNlScVEcvUF1uUidqyrr7Bl0sXvfE0sReVmEOXEyhv
-	uhd5xF13kVv4LB1dIejmOKDc9b9CzqnjFOlBtghPfXy7ozzsTBLaiHWwEVPRwTuFCd8GklNasdw
-	HPMtv6decSQRno+NWMeFDbdp/secV5jOuEEA
-X-Received: by 2002:a05:600c:3ba4:b0:49c:fc6c:be15 with SMTP id 5b1f17b1804b1-49fc57414c4mr152384825e9.27.1789933193502;
-        Sun, 20 Sep 2026 12:39:53 -0700 (PDT)
-Received: from stiangglanda-IdeaPad.. ([85.233.101.104])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc56aab7csm168250455e9.1.2026.09.20.12.39.52
+        d=1e100.net; s=20260707; t=1789933539; x=1790538339;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=F5XD7E1guV/vtraPrPS4BySY9EoY0nGlYAqlZQZKu0s=;
+        b=LWyCVzEBdP/bI0btsLB0g7edwG6JoLaZ6fsTKZqvygqHbV/YFt5i9EaNdD38qvmLhA
+         vT89m5uDP3msuYLxWvqpgJ2WnmJfutxcR9/2+xxIOhCjHMb5/3LqsyYMoY18za3IRyJb
+         DGfFOcCo4g0ODVZau0bv2X2dLDe/hrhwQsL/TTYBAbyfxSsZNWEyjN/BWWAB8umFewT9
+         V86TvbSxJ5LN/4MwyqMlyO/V5AgNpr/GoFkUMA5alVKpaD+8oJGtk/HqY7ELm297D2/1
+         uuqYgIupfIpWS9/M2EVdUsWaY1vwZGlQ6e6zmw/gOiEozclVSfimWx8f0ivbCj8A8ALR
+         14lQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw9ZxkSoG0HDxKAj+UTQuuxOs7WIfZyavk4z8nO88Ab1q1L4EBeDVck0/f6vwXJsH082ne+nxnFsPD1@vger.kernel.org
+X-Gm-Message-State: AFuF++l2zR8xXBf0qV88+FHaJB7yQJea0eSQybEsmwBjRc7es0fORMox
+	2ATpfjvQmbMILDIzvWjtglBx2NO4jBg18ntcFlcHl2N2qOTPa95n0TYB
+X-Gm-Gg: AYBFou2DC3g0rqh/6olDSZqbDNadWBNRAlL0lBYLTIwACjTcAGSZlYPoHDEGqjVQ1v9
+	e2zqpvIgaN9BsLJNFFNMznZO8pj+Lxz1Iu7NSO0nrlY0+xvzVawQSTPFsWOHt1a3MFhE4FL6I4J
+	s1PFDvyJ0113zZaA8FIaGfPr42APwyDquCxlpNnm6RUubZATZPFIFmyPlLq6hWPq/QsQwjNoT9m
+	UIIjFaByOeve0CFTBFf+t+KI9r6gJl0zyl/l6Zrz4ZA7GBDI6mtmd9kt0K3gK442wvIbZ+Q4DLm
+	a0EM41BgYhzbIQthQNHnm51nPL/gVY8EczBNVneeyOovrGBHDBQ27/8ZoLPE3Meah58WxBPjWT0
+	ZlaFomSrmwftKqEhinAI6PljbbcinMkoLBrUyQpoJxEkfMmSUAKmh4vx0BmOL8Jcmad6ZH1nxr4
+	cZ8zLj8OLeAbHsMS+veV6vQEfh5yaSsj3G8HOmQu+CF/uw2RUq2iQiKnF0Vut4ewogASJtBleOU
+	YorPcXXSKa55qmuGajGjCs8tUBUyZeWYvo1tWpKFzesZsKLBslRCBD247+l2t6yI3prjyqg/u87
+	ymuttXQofepxrBuFzq+O4cZajxmU4csxlgc84Vs85WXdqEQvJJUC5EZzTjOvPwoOcGNaei5LfJH
+	6DF9ItIXEE6tsVWm9vz6tMQ==
+X-Received: by 2002:a05:6870:c04:b0:47b:d505:86e8 with SMTP id 586e51a60fabf-486dd636e17mr7766380fac.7.1789933539109;
+        Sun, 20 Sep 2026 12:45:39 -0700 (PDT)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4881f4d7861sm6103834fac.1.2026.09.20.12.45.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 12:39:52 -0700 (PDT)
-From: Leander Kieweg <kieweg.leander@gmail.com>
-To: dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org
-Cc: airlied@gmail.com,
-	simona@ffwll.ch,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	u.kleine-koenig@baylibre.com,
-	Leander Kieweg <kieweg.leander@gmail.com>
-Subject: [PATCH v5 2/2] drm/glanda: Add initial DRM driver for GlandaGPU
-Date: Sun, 20 Sep 2026 21:39:44 +0200
-Message-ID: <20260920193944.110983-3-kieweg.leander@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260920193944.110983-1-kieweg.leander@gmail.com>
-References: <20260920193944.110983-1-kieweg.leander@gmail.com>
+        Sun, 20 Sep 2026 12:45:38 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Subject: [PATCH net-next v4 0/6] net: stmmac: add Allwinner H616 EMAC1
+ support
+Date: Sun, 20 Sep 2026 13:45:26 -0600
+Message-Id: <20260920-submit-h616-emac1-v1-v4-0-8347dfe2eb7d@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43OwQrCMAwG4FeRnq00aa2bJ99DPDQ1uorbZK1Dk
+ b27dXoQURByCUm+PzcRuQscxXJyEx33IYa2yY2ZToSvXLNnGba5F6jQqhKMjGeqQ5KVBSu5dh5
+ kDxKMXihdGHREIp+eOt6Fy8iuRcNJNnxJYvOcZOHAPj3Ux24VYmq76/hBD+PFK2z+PSyXklDOt
+ 6yIYFe41b524TjzbT1G9PgPghnRiKSRjWIqPxH9jix+IDojFj0VGixDSe/IMAx3ppIpa14BAAA
+ =
+X-Change-ID: 20260914-submit-h616-emac1-v1-143703842abb
+To: Richard Genoud <richard.genoud@bootlin.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
+ Jose Abreu <joabreu@synopsys.com>, 
+ Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Russell King <linux@armlinux.org.uk>, 
+ Christian Marangi <ansuelsmth@gmail.com>, Andrew Lunn <andrew@lunn.ch>, 
+ Heiner Kallweit <hkallweit1@gmail.com>, 
+ Tiezhu Yang <yangtiezhu@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>
+Cc: Maxime Ripard <mripard@kernel.org>, 
+ Alastair D'Silva <alastair@d-silva.org>, netdev@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ linux-stm32@st-md-mailman.stormreply.com, 
+ James Hilliard <james.hilliard1@gmail.com>, 
+ Andre Przywara <andre.przywara@arm.com>
+X-Mailer: b4 0.15.2
 
-Introduce the core DRM/KMS driver for GlandaGPU. This driver
-supports basic modesetting, atomic updates via shadow plane helpers,
-and optional QEMU PCI probing alongside the platform driver.
+The H616 secondary EMAC supports RMII at 10/100 Mbps and uses a separate
+system-control clock register at offset 0x34. Add its binding and a
+sun8i stmmac variant using that register. A distinct compatible without
+an older fallback prevents the driver from using EMAC0's clock register.
 
-Signed-off-by: Leander Kieweg <kieweg.leander@gmail.com>
+EMAC1 connects internally to the co-packaged AC200 or AC300 EPHY and has
+no external PHY pins. Leave PHY initialization to the PHY driver instead
+of using the H3 internal-PHY controls. The RMII-only variant does not
+expose the RGMII clock-delay properties.
+
+First fix failed MTU-change reopening and hardware-resume cleanup in the
+stmmac core so the interface is closed without repeating NAPI shutdown
+or resource teardown. Allow phylink to stop a suspended instance without
+restarting its link. Then move the MAC software reset from probe to the
+DMA reset callback, after PHY initialization. This lets the MAC and its
+MDIO bus remain registered when the PHY driver or one of its suppliers
+is not ready yet. Clear DMA and interrupt state even if the reset times
+out. Keep the separate H3 MDIO-mux reset sequence unchanged.
+
+The AC200/AC300 EPHY driver and package bindings are already in
+net-next. This series separates the H616 EMAC1 MAC driver and binding
+support from the earlier combined series. PWM, MFD and device-tree
+enablement are being handled separately.
+
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- MAINTAINERS                      |   6 +
- drivers/gpu/drm/tiny/Kconfig     |  11 +
- drivers/gpu/drm/tiny/Makefile    |   1 +
- drivers/gpu/drm/tiny/glandagpu.c | 655 +++++++++++++++++++++++++++++++
- 4 files changed, 673 insertions(+)
- create mode 100644 drivers/gpu/drm/tiny/glandagpu.c
+Changes in v4:
+- Add a prerequisite stmmac core fix closing the interface after a failed
+  MTU-change reopen without repeating DMA, IRQ or NAPI teardown.
+- Close the interface after failed hardware resume, and let phylink
+  finish shutdown directly from its suspended state.
+- Retain DMA and interrupt-register clearing when the sun8i MAC reset
+  times out, and return the original reset error.
+- Link to v3: https://patch.msgid.link/20260917-submit-h616-emac1-v1-v3-0-62cb8316e19b@gmail.com
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 6dea93a41..c16d1ed70 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -8076,6 +8076,12 @@ T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
- F:	drivers/gpu/drm/gud/
- F:	include/drm/gud.h
- 
-+DRM DRIVER FOR GLANDAGPU
-+M:	Leander Kieweg <kieweg.leander@gmail.com>
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/display/kieweg,gpu.yaml
-+F:	drivers/gpu/drm/tiny/glandagpu.c
-+
- DRM DRIVER FOR GRAIN MEDIA GM12U320 PROJECTORS
- M:	Hans de Goede <hansg@kernel.org>
- S:	Maintained
-diff --git a/drivers/gpu/drm/tiny/Kconfig b/drivers/gpu/drm/tiny/Kconfig
-index f0e72d4b6..267b3103d 100644
---- a/drivers/gpu/drm/tiny/Kconfig
-+++ b/drivers/gpu/drm/tiny/Kconfig
-@@ -56,6 +56,17 @@ config DRM_CIRRUS_QEMU
- 	   - qxl (DRM_QXL, qemu -vga qxl, works best with spice)
- 	   - virtio (DRM_VIRTIO_GPU), qemu -vga virtio)
- 
-+config DRM_GLANDA
-+	tristate "GlandaGPU DRM driver"
-+	depends on DRM && MMU && (PCI || COMPILE_TEST)
-+	select DRM_KMS_HELPER
-+	select DRM_GEM_SHMEM_HELPER
-+	help
-+	  DRM/KMS driver for the GlandaGPU display controller
-+	  (FPGA soft IP). This driver supports basic modesetting,
-+	  dumb buffers, and atomic updates via shadow planes.
-+	  It also provides PCI probing for QEMU testing.
-+
- config DRM_GM12U320
- 	tristate "GM12U320 driver for USB projectors"
- 	depends on DRM && USB && MMU
-diff --git a/drivers/gpu/drm/tiny/Makefile b/drivers/gpu/drm/tiny/Makefile
-index 48d30bf61..b4fa1554a 100644
---- a/drivers/gpu/drm/tiny/Makefile
-+++ b/drivers/gpu/drm/tiny/Makefile
-@@ -4,6 +4,7 @@ obj-$(CONFIG_DRM_APPLETBDRM)		+= appletbdrm.o
- obj-$(CONFIG_DRM_ARCPGU)		+= arcpgu.o
- obj-$(CONFIG_DRM_BOCHS)			+= bochs.o
- obj-$(CONFIG_DRM_CIRRUS_QEMU)		+= cirrus-qemu.o
-+obj-$(CONFIG_DRM_GLANDA) 			+= glandagpu.o
- obj-$(CONFIG_DRM_GM12U320)		+= gm12u320.o
- obj-$(CONFIG_DRM_PANEL_MIPI_DBI)	+= panel-mipi-dbi.o
- obj-$(CONFIG_DRM_PIXPAPER)              += pixpaper.o
-diff --git a/drivers/gpu/drm/tiny/glandagpu.c b/drivers/gpu/drm/tiny/glandagpu.c
-new file mode 100644
-index 000000000..38fa5809f
---- /dev/null
-+++ b/drivers/gpu/drm/tiny/glandagpu.c
-@@ -0,0 +1,655 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+
-+#include <linux/module.h>
-+#include <linux/kernel.h>
-+#include <linux/init.h>
-+#include <linux/platform_device.h>
-+#include <linux/pci.h>
-+#include <linux/io.h>
-+#include <linux/of.h>
-+#include <linux/slab.h>		/* GFP_KERNEL */
-+#include <linux/interrupt.h>
-+#include <linux/wait.h>
-+#include <linux/mm.h>
-+#include <linux/mutex.h>
-+#include <linux/iosys-map.h>
-+
-+#include <drm/drm_drv.h>
-+#include <drm/drm_device.h>
-+#include <drm/drm_file.h>
-+#include <drm/drm_gem.h>
-+#include <drm/drm_ioctl.h>
-+#include <drm/drm_gem_shmem_helper.h>
-+#include <drm/drm_gem_atomic_helper.h>
-+#include <drm/drm_framebuffer.h>
-+#include <drm/drm_vblank.h>
-+#include <drm/drm_vblank_helper.h>
-+
-+#include <drm/drm_connector.h>
-+#include <drm/drm_encoder.h>
-+#include <drm/drm_modeset_helper.h>
-+#include <drm/drm_probe_helper.h>
-+#include <drm/drm_gem_framebuffer_helper.h>
-+#include <drm/drm_crtc.h>
-+#include <drm/drm_crtc_helper.h>
-+#include <drm/drm_modeset_helper_vtables.h>
-+#include <drm/drm_plane.h>
-+#include <drm/drm_fourcc.h>
-+#include <drm/drm_atomic.h>
-+#include <drm/drm_atomic_helper.h>
-+#include <drm/drm_damage_helper.h>
-+#include <drm/drm_print.h>
-+
-+/* Hardware Constants */
-+#define GLANDA_WIDTH      640
-+#define GLANDA_HEIGHT     480
-+#define GLANDA_VRAM_SIZE  (GLANDA_WIDTH * GLANDA_HEIGHT * 4)
-+#define GLANDA_MMIO_SIZE  32
-+#define GLANDA_MMIO_OFFSET 0x00200000
-+
-+/* QEMU test device ID, from the range reserved for experimental use (docs/specs/pci-ids.rst). */
-+#define PCI_DEVICE_ID_GLANDA_GPU 0x10f0
-+
-+/* Register Offsets */
-+#define REG_STATUS  0x00
-+#define REG_CTRL    0x04
-+#define REG_COORD0  0x08
-+#define REG_COORD1  0x0C
-+#define REG_COLOR   0x10
-+#define REG_ISR     0x14
-+#define REG_IER     0x18
-+
-+/* Bit Masks */
-+#define INT_DONE    BIT(0)
-+#define INT_VSYNC   BIT(1)
-+
-+#define STATUS_BUSY BIT(0)
-+#define CMD_CLEAR   (0x1)
-+#define CMD_RECT    (0x2)
-+#define CMD_LINE    (0x3)
-+#define CTRL_START  BIT(4)
-+
-+struct glanda_device {
-+	struct drm_device drm;
-+
-+	/* hw */
-+	void __iomem *mmio_base;
-+	void __iomem *vram_base;
-+	phys_addr_t vram_phys;
-+
-+	int irq;
-+
-+	/* drm */
-+	struct drm_plane primary_plane;
-+	struct drm_crtc crtc;
-+	struct drm_encoder encoder;
-+	struct drm_connector connector;
-+};
-+
-+#define to_glanda(dev) container_of_const(dev, struct glanda_device, drm)
-+
-+static const u32 glanda_plane_formats[] = {
-+	DRM_FORMAT_XRGB8888,
-+};
-+
-+static void glanda_blit_rect(struct glanda_device *gdev,
-+			     const struct drm_rect *dst_clip,
-+			     const struct iosys_map *src,
-+			     struct drm_framebuffer *fb,
-+			     int dst_off_x, int dst_off_y,
-+				 struct drm_format_conv_state *fmtcnv_state)
-+{
-+	unsigned int src_pitch = fb->pitches[0];
-+	unsigned int width = drm_rect_width(dst_clip);
-+	unsigned int height = drm_rect_height(dst_clip);
-+	unsigned int x, y;
-+	size_t len = width * sizeof(u32);
-+	u32 *sbuf;
-+
-+	sbuf = drm_format_conv_state_reserve(fmtcnv_state, len, GFP_KERNEL);
-+	if (!sbuf)
-+		return;
-+
-+	for (y = 0; y < height; y++) {
-+		unsigned int dst_y = dst_clip->y1 + y;
-+		unsigned int src_y = dst_y - dst_off_y;
-+		u32 __iomem *dst = (u32 __iomem *)gdev->vram_base +
-+				   (size_t)dst_y * GLANDA_WIDTH + dst_clip->x1;
-+		size_t src_off = (size_t)src_y * src_pitch +
-+				 (size_t)(dst_clip->x1 - dst_off_x) * sizeof(u32);
-+
-+		iosys_map_memcpy_from(sbuf, src, src_off, len);
-+
-+		for (x = 0; x < width; x++) {
-+			u32 pixel = le32_to_cpu((__force __le32)sbuf[x]);
-+			u32 packed = ((pixel >> 12) & 0x0F00) |
-+				((pixel >> 8) & 0x00F0) |
-+				((pixel >> 4) & 0x000F);
-+
-+			writel_relaxed(packed, &dst[x]);
-+		}
-+	}
-+}
-+
-+static void glanda_plane_atomic_update(struct drm_plane *plane,
-+				       struct drm_atomic_commit *state)
-+{
-+	struct drm_plane_state *old_state = drm_atomic_get_old_plane_state(state, plane);
-+	struct drm_plane_state *new_state = drm_atomic_get_new_plane_state(state, plane);
-+	struct drm_shadow_plane_state *shadow_state = to_drm_shadow_plane_state(new_state);
-+	struct drm_rect vram_clip = DRM_RECT_INIT(0, 0, GLANDA_WIDTH, GLANDA_HEIGHT);
-+	struct glanda_device *gdev = to_glanda(plane->dev);
-+	struct drm_framebuffer *fb = new_state->fb;
-+	struct drm_atomic_helper_damage_iter iter;
-+	struct drm_rect damage;
-+	int dst_off_x, dst_off_y;
-+	int ret, idx;
-+
-+	ret = drm_gem_fb_begin_cpu_access(fb, DMA_FROM_DEVICE);
-+	if (ret)
-+		return;
-+
-+	if (!drm_dev_enter(plane->dev, &idx))
-+		goto out_drm_gem_fb_end_cpu_access;
-+
-+	dst_off_x = new_state->dst.x1 - (new_state->src.x1 >> 16);
-+	dst_off_y = new_state->dst.y1 - (new_state->src.y1 >> 16);
-+
-+	drm_atomic_helper_damage_iter_init(&iter, old_state, new_state);
-+	drm_atomic_for_each_plane_damage(&iter, &damage) {
-+		struct drm_rect dst_clip = new_state->dst;
-+
-+		drm_rect_translate(&damage, dst_off_x, dst_off_y);
-+
-+		if (!drm_rect_intersect(&dst_clip, &damage))
-+			continue;
-+		if (!drm_rect_intersect(&dst_clip, &vram_clip))
-+			continue;
-+
-+		glanda_blit_rect(gdev, &dst_clip, &shadow_state->data[0], fb,
-+				 dst_off_x, dst_off_y, &shadow_state->fmtcnv_state);
-+	}
-+
-+	drm_dev_exit(idx);
-+out_drm_gem_fb_end_cpu_access:
-+	drm_gem_fb_end_cpu_access(fb, DMA_FROM_DEVICE);
-+}
-+
-+static void glanda_plane_atomic_disable(struct drm_plane *plane,
-+					struct drm_atomic_commit *state)
-+{
-+	struct drm_device *dev = plane->dev;
-+	struct glanda_device *gdev = to_glanda(dev);
-+	int idx;
-+
-+	if (!drm_dev_enter(dev, &idx))
-+		return;
-+
-+	memset_io(gdev->vram_base, 0, GLANDA_WIDTH * sizeof(u32) * GLANDA_HEIGHT);
-+	drm_dev_exit(idx);
-+}
-+
-+static int glanda_plane_atomic_check(struct drm_plane *plane,
-+				     struct drm_atomic_commit *state)
-+{
-+	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state, plane);
-+	struct drm_crtc_state *new_crtc_state = NULL;
-+	int ret;
-+
-+	if (new_plane_state->crtc)
-+		new_crtc_state = drm_atomic_get_new_crtc_state(state, new_plane_state->crtc);
-+
-+	ret = drm_atomic_helper_check_plane_state(new_plane_state, new_crtc_state,
-+						  DRM_PLANE_NO_SCALING, DRM_PLANE_NO_SCALING,
-+		false,	/* can_position */
-+		false); /* can_update_disabled */
-+	if (ret)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+static const struct drm_plane_helper_funcs glanda_plane_helper_funcs = {
-+	DRM_GEM_SHADOW_PLANE_HELPER_FUNCS,
-+	.atomic_update = glanda_plane_atomic_update,
-+	.atomic_check = glanda_plane_atomic_check,
-+	.atomic_disable = glanda_plane_atomic_disable,
-+};
-+
-+static const struct drm_plane_funcs glanda_plane_funcs = {
-+	.update_plane = drm_atomic_helper_update_plane,
-+	.disable_plane = drm_atomic_helper_disable_plane,
-+	.destroy = drm_plane_cleanup,
-+	DRM_GEM_SHADOW_PLANE_FUNCS,
-+};
-+
-+static int glanda_connector_get_modes(struct drm_connector *connector)
-+{
-+	struct drm_display_mode *mode;
-+
-+	mode = drm_mode_create(connector->dev);
-+	if (!mode) {
-+		dev_err(connector->dev->dev, "GlandaGPU: failed to create display mode\n");
-+		return 0;
-+	}
-+
-+	/* Standard VGA timing: 640x480 @ 60 Hz. */
-+	mode->hdisplay = 640;
-+	mode->hsync_start = 656;
-+	mode->hsync_end = 752;
-+	mode->htotal = 800;
-+
-+	mode->vdisplay = 480;
-+	mode->vsync_start = 490;
-+	mode->vsync_end = 492;
-+	mode->vtotal = 525;
-+
-+	mode->clock = 25175;	/* 25.175 MHz pixel clock */
-+
-+	mode->flags = DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC;
-+	mode->type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED;
-+
-+	drm_mode_set_name(mode);
-+	drm_mode_probed_add(connector, mode);
-+
-+	return 1;
-+}
-+
-+static int glanda_crtc_enable_vblank(struct drm_crtc *crtc)
-+{
-+	struct glanda_device *gdev = to_glanda(crtc->dev);
-+	u32 ier;
-+	int idx;
-+
-+	if (!drm_dev_enter(crtc->dev, &idx))
-+		return -ENODEV;
-+
-+	ier = readl(gdev->mmio_base + REG_IER);
-+	writel(ier | INT_VSYNC, gdev->mmio_base + REG_IER);
-+
-+	drm_dev_exit(idx);
-+	return 0;
-+}
-+
-+static void glanda_crtc_disable_vblank(struct drm_crtc *crtc)
-+{
-+	struct glanda_device *gdev = to_glanda(crtc->dev);
-+	u32 ier;
-+	int idx;
-+
-+	if (!drm_dev_enter(crtc->dev, &idx))
-+		return;
-+
-+	ier = readl(gdev->mmio_base + REG_IER);
-+	writel(ier & ~INT_VSYNC, gdev->mmio_base + REG_IER);
-+
-+	drm_dev_exit(idx);
-+}
-+
-+static void glanda_crtc_atomic_flush(struct drm_crtc *crtc,
-+				     struct drm_atomic_commit *state)
-+{
-+	struct drm_crtc_state *new_state = drm_atomic_get_new_crtc_state(state, crtc);
-+	struct drm_pending_vblank_event *event;
-+
-+	if (new_state->event) {
-+		event = new_state->event;
-+		new_state->event = NULL;
-+
-+		spin_lock_irq(&crtc->dev->event_lock);
-+
-+		if (drm_crtc_vblank_get(crtc) == 0)
-+			drm_crtc_arm_vblank_event(crtc, event);
-+		else
-+			drm_crtc_send_vblank_event(crtc, event);
-+
-+		spin_unlock_irq(&crtc->dev->event_lock);
-+	}
-+}
-+
-+static const struct drm_crtc_funcs glanda_crtc_funcs = {
-+	.destroy = drm_crtc_cleanup,
-+	.set_config = drm_atomic_helper_set_config,
-+	.page_flip = drm_atomic_helper_page_flip,
-+	.reset = drm_atomic_helper_crtc_reset,
-+	.atomic_duplicate_state = drm_atomic_helper_crtc_duplicate_state,
-+	.atomic_destroy_state = drm_atomic_helper_crtc_destroy_state,
-+	.enable_vblank = glanda_crtc_enable_vblank,
-+	.disable_vblank = glanda_crtc_disable_vblank,
-+};
-+
-+static const struct drm_crtc_helper_funcs glanda_crtc_helper_funcs = {
-+	.atomic_enable = drm_crtc_vblank_atomic_enable,
-+	.atomic_disable = drm_crtc_vblank_atomic_disable,
-+	.atomic_flush = glanda_crtc_atomic_flush,
-+};
-+
-+static const struct drm_connector_helper_funcs glanda_connector_helper_funcs = {
-+	.get_modes = glanda_connector_get_modes,
-+};
-+
-+static const struct drm_encoder_funcs glanda_encoder_funcs = {
-+	.destroy = drm_encoder_cleanup,
-+};
-+
-+static const struct drm_connector_funcs glanda_connector_funcs = {
-+	.fill_modes = drm_helper_probe_single_connector_modes,
-+	.destroy = drm_connector_cleanup,
-+	.reset = drm_atomic_helper_connector_reset,
-+	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
-+	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
-+};
-+
-+static const struct drm_mode_config_funcs glanda_mode_config_funcs = {
-+	.fb_create = drm_gem_fb_create_with_dirty,
-+	.atomic_check = drm_atomic_helper_check,
-+	.atomic_commit = drm_atomic_helper_commit,
-+};
-+
-+DEFINE_DRM_GEM_FOPS(glanda_drm_fops);
-+
-+static const struct drm_driver glanda_drm_driver = {
-+	.driver_features =
-+	    DRIVER_GEM | DRIVER_MODESET | DRIVER_ATOMIC,
-+	.name = "glandagpu",
-+	.desc = "GlandaGPU DRM Driver",
-+	.major = 1,
-+	.minor = 0,
-+	.fops = &glanda_drm_fops,
-+	.dumb_create = drm_gem_shmem_dumb_create,
-+};
-+
-+static irqreturn_t glanda_irq_handler(int irq, void *dev_id)
-+{
-+	struct glanda_device *gdev = dev_id;
-+	u32 isr, ier;
-+
-+	if (!gdev || !gdev->mmio_base)
-+		return IRQ_NONE;
-+
-+	isr = readl(gdev->mmio_base + REG_ISR);
-+	if (unlikely(isr == 0xFFFFFFFF))
-+		return IRQ_NONE;
-+
-+	ier = readl(gdev->mmio_base + REG_IER);
-+
-+	if (!(isr & ier))
-+		return IRQ_NONE;
-+
-+	if (isr & INT_VSYNC)
-+		drm_crtc_handle_vblank(&gdev->crtc);
-+
-+	/* Clear interrupt(W1C) */
-+	writel(isr, gdev->mmio_base + REG_ISR);
-+	return IRQ_HANDLED;
-+}
-+
-+/* Common DRM setup once MMIO/VRAM/IRQ are known(used by both probe paths) */
-+static int glanda_drm_init(struct glanda_device *gdev, int irq)
-+{
-+	int ret;
-+
-+	writel(0, gdev->mmio_base + REG_IER);
-+	writel(0xFFFFFFFF, gdev->mmio_base + REG_ISR);	/* clear flags */
-+
-+	/* DRM mode config */
-+	ret = drmm_mode_config_init(&gdev->drm);
-+	if (ret)
-+		return ret;
-+
-+	gdev->drm.mode_config.min_width = 640;
-+	gdev->drm.mode_config.min_height = 480;
-+	gdev->drm.mode_config.max_width = DRM_SHADOW_PLANE_MAX_WIDTH;
-+	gdev->drm.mode_config.max_height = DRM_SHADOW_PLANE_MAX_HEIGHT;
-+	gdev->drm.mode_config.funcs = &glanda_mode_config_funcs;
-+
-+	ret = drm_universal_plane_init(&gdev->drm, &gdev->primary_plane, 1 << 0,
-+				       &glanda_plane_funcs,
-+				       glanda_plane_formats,
-+				       ARRAY_SIZE(glanda_plane_formats), NULL,
-+				       DRM_PLANE_TYPE_PRIMARY, NULL);
-+	if (ret) {
-+		drm_err(&gdev->drm, "Failed to initialize primary plane\n");
-+		return ret;
-+	}
-+	drm_plane_helper_add(&gdev->primary_plane, &glanda_plane_helper_funcs);
-+
-+	drm_plane_enable_fb_damage_clips(&gdev->primary_plane);
-+
-+	/* CRTC init */
-+	ret = drm_crtc_init_with_planes(&gdev->drm, &gdev->crtc,
-+					&gdev->primary_plane, NULL,
-+					&glanda_crtc_funcs, NULL);
-+	if (ret) {
-+		drm_err(&gdev->drm, "Failed to initialize CRTC with planes\n");
-+		return ret;
-+	}
-+	drm_crtc_helper_add(&gdev->crtc, &glanda_crtc_helper_funcs);
-+
-+	ret = drm_encoder_init(&gdev->drm, &gdev->encoder, &glanda_encoder_funcs,
-+			       DRM_MODE_ENCODER_DAC, NULL);
-+	if (ret) {
-+		drm_err(&gdev->drm, "Failed to initialize encoder\n");
-+		return ret;
-+	}
-+	gdev->encoder.possible_crtcs = 1;
-+
-+	ret = drm_connector_init(&gdev->drm, &gdev->connector,
-+				 &glanda_connector_funcs, DRM_MODE_CONNECTOR_VGA);
-+	if (ret) {
-+		drm_err(&gdev->drm, "Failed to initialize connector\n");
-+		return ret;
-+	}
-+	drm_connector_helper_add(&gdev->connector, &glanda_connector_helper_funcs);
-+
-+	drm_connector_attach_encoder(&gdev->connector, &gdev->encoder);
-+
-+	/* VBlank init */
-+	ret = drm_vblank_init(&gdev->drm, 1);
-+	if (ret) {
-+		drm_err(&gdev->drm, "Failed to initialize vblank\n");
-+		return ret;
-+	}
-+
-+	drm_mode_config_reset(&gdev->drm);
-+
-+	gdev->irq = irq;
-+	ret = devm_request_irq(gdev->drm.dev, gdev->irq, glanda_irq_handler,
-+			       IRQF_SHARED, "glandagpu", gdev);
-+	if (ret) {
-+		drm_err(&gdev->drm, "Failed to request IRQ %d\n",
-+			gdev->irq);
-+		return ret;
-+	}
-+
-+	ret = drm_dev_register(&gdev->drm, 0);
-+	if (ret)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+/* Shared teardown, mirrors glanda_drm_init() */
-+static void glanda_drm_fini(struct glanda_device *gdev)
-+{
-+	drm_dev_unplug(&gdev->drm);
-+	drm_atomic_helper_shutdown(&gdev->drm);
-+}
-+
-+static int glandagpu_probe(struct platform_device *pdev)
-+{
-+	struct resource *res;
-+	struct glanda_device *gdev;
-+	int irq;
-+
-+	gdev = devm_drm_dev_alloc(&pdev->dev, &glanda_drm_driver, struct glanda_device, drm);
-+	if (IS_ERR(gdev))
-+		return PTR_ERR(gdev);
-+
-+	platform_set_drvdata(pdev, gdev);
-+
-+	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-+	if (!res)
-+		return -ENODEV;
-+
-+	if (resource_size(res) < GLANDA_MMIO_OFFSET + GLANDA_MMIO_SIZE) {
-+		dev_err(&pdev->dev, "MMIO region too small: %llu bytes, need at least %u\n",
-+			(unsigned long long)resource_size(res),
-+			GLANDA_MMIO_OFFSET + GLANDA_MMIO_SIZE);
-+		return -EINVAL;
-+	}
-+
-+	gdev->vram_phys = res->start;
-+	gdev->vram_base = devm_ioremap_wc(&pdev->dev, res->start, GLANDA_VRAM_SIZE);
-+	gdev->mmio_base = devm_ioremap(&pdev->dev, res->start + GLANDA_MMIO_OFFSET,
-+				       GLANDA_MMIO_SIZE);
-+	if (!gdev->vram_base || !gdev->mmio_base) {
-+		drm_err(&gdev->drm, "failed to ioremap\n");
-+		return -ENOMEM;
-+	}
-+
-+	irq = platform_get_irq(pdev, 0);
-+	if (irq < 0)
-+		return irq;
-+
-+	return glanda_drm_init(gdev, irq);
-+}
-+
-+static void glandagpu_remove(struct platform_device *pdev)
-+{
-+	glanda_drm_fini(platform_get_drvdata(pdev));
-+}
-+
-+static void glandagpu_shutdown(struct platform_device *pdev)
-+{
-+	struct glanda_device *gdev = platform_get_drvdata(pdev);
-+
-+	drm_atomic_helper_shutdown(&gdev->drm);
-+}
-+
-+/* Device Tree match table. */
-+static const struct of_device_id glanda_of_match[] = {
-+	{ .compatible = "kieweg,gpu-1.0" },
-+	{ }
-+};
-+
-+MODULE_DEVICE_TABLE(of, glanda_of_match);
-+
-+static struct platform_driver glandagpu_driver = {
-+	.driver = {
-+		.name = "glandagpu",
-+		.of_match_table = glanda_of_match,
-+	},
-+	.probe = glandagpu_probe,
-+	.remove = glandagpu_remove,
-+	.shutdown = glandagpu_shutdown,
-+};
-+
-+/* PCI probe path for the QEMU test device, real hardware uses platform_driver */
-+#ifdef CONFIG_PCI
-+static int glandagpu_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
-+{
-+	struct glanda_device *gdev;
-+	int ret;
-+
-+	ret = pcim_enable_device(pdev);
-+	if (ret)
-+		return ret;
-+	pci_set_master(pdev);
-+
-+	if (pci_resource_len(pdev, 0) < GLANDA_MMIO_SIZE ||
-+	    pci_resource_len(pdev, 1) < GLANDA_VRAM_SIZE) {
-+		dev_err(&pdev->dev, "BAR too small: BAR0=%llu (need %u), BAR1=%llu (need %u)\n",
-+			(unsigned long long)pci_resource_len(pdev, 0), GLANDA_MMIO_SIZE,
-+			(unsigned long long)pci_resource_len(pdev, 1), GLANDA_VRAM_SIZE);
-+		return -EINVAL;
-+	}
-+
-+	ret = pcim_iomap_regions(pdev, BIT(0), "glandagpu");
-+	if (ret)
-+		return ret;
-+
-+	ret = pcim_request_region(pdev, 1, "glandagpu");
-+	if (ret)
-+		return ret;
-+
-+	gdev = devm_drm_dev_alloc(&pdev->dev, &glanda_drm_driver, struct glanda_device, drm);
-+	if (IS_ERR(gdev))
-+		return PTR_ERR(gdev);
-+
-+	pci_set_drvdata(pdev, gdev);
-+
-+	gdev->mmio_base = pcim_iomap_table(pdev)[0];
-+	gdev->vram_phys = pci_resource_start(pdev, 1);
-+
-+	gdev->vram_base = devm_ioremap_wc(&pdev->dev, gdev->vram_phys, GLANDA_VRAM_SIZE);
-+	if (!gdev->vram_base)
-+		return -ENOMEM;
-+
-+	return glanda_drm_init(gdev, pdev->irq);
-+}
-+
-+static void glandagpu_pci_remove(struct pci_dev *pdev)
-+{
-+	glanda_drm_fini(pci_get_drvdata(pdev));
-+}
-+
-+static void glandagpu_pci_shutdown(struct pci_dev *pdev)
-+{
-+	struct glanda_device *gdev = pci_get_drvdata(pdev);
-+
-+	drm_atomic_helper_shutdown(&gdev->drm);
-+}
-+
-+static const struct pci_device_id glanda_pci_ids[] = {
-+	{ PCI_DEVICE(PCI_VENDOR_ID_REDHAT_QUMRANET, PCI_DEVICE_ID_GLANDA_GPU) },
-+	{ }
-+};
-+
-+MODULE_DEVICE_TABLE(pci, glanda_pci_ids);
-+
-+static struct pci_driver glandagpu_pci_driver = {
-+	.name = "glandagpu-pci",
-+	.id_table = glanda_pci_ids,
-+	.probe = glandagpu_pci_probe,
-+	.remove = glandagpu_pci_remove,
-+	.shutdown = glandagpu_pci_shutdown,
-+};
-+#endif /* CONFIG_PCI */
-+
-+static int __init glandagpu_init(void)
-+{
-+	int ret;
-+
-+	ret = platform_driver_register(&glandagpu_driver);
-+	if (ret) {
-+		pr_err("GlandaGPU: Failed to register platform driver\n");
-+		return ret;
-+	}
-+
-+#ifdef CONFIG_PCI
-+	ret = pci_register_driver(&glandagpu_pci_driver);
-+	if (ret) {
-+		pr_err("GlandaGPU: Failed to register PCI driver\n");
-+		platform_driver_unregister(&glandagpu_driver);
-+		return ret;
-+	}
-+#endif
-+
-+	return 0;
-+}
-+
-+static void __exit glandagpu_exit(void)
-+{
-+#ifdef CONFIG_PCI
-+	pci_unregister_driver(&glandagpu_pci_driver);
-+#endif
-+	platform_driver_unregister(&glandagpu_driver);
-+}
-+
-+module_init(glandagpu_init);
-+module_exit(glandagpu_exit);
-+
-+MODULE_LICENSE("GPL");
-+MODULE_AUTHOR("Leander Kieweg <kieweg.leander@gmail.com>");
-+MODULE_DESCRIPTION("DRM driver for GlandaGPU, an FPGA-based 2D GPU with VGA output");
--- 
-2.43.0
+Changes in v3:
+- Add a prerequisite fix moving the MAC software reset to the DMA reset
+  callback, after PHY initialization, so delayed module loading and
+  deferred PHY probes do not tear down the MAC and its MDIO bus.
+- Preserve the H3 MDIO-mux reset and propagate hardware-reset failures
+  through the normal stmmac hardware-setup error path.
+- Add Alastair D'Silva to Cc and rebase onto current net-next.
+- Link to v2: https://patch.msgid.link/20260915-submit-h616-emac1-v1-v2-0-322b32e40eb9@gmail.com
+
+Changes in v2:
+- Drop EMAC1 TX/RX clock-delay property support and keep the existing
+  RGMII-only delay descriptions unchanged, as requested by Maxime Ripard.
+- Clarify that EMAC1 connects internally to a co-packaged PHY, not an
+  external PHY or the H3-style internal-PHY controls.
+- Rebase onto current net-next.
+- Link to v1: https://patch.msgid.link/20260915-submit-h616-emac1-v1-v1-0-195de0bb1f8a@gmail.com
+
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>
+To: "David S. Miller" <davem@davemloft.net>
+To: Eric Dumazet <edumazet@google.com>
+To: Jakub Kicinski <kuba@kernel.org>
+To: Paolo Abeni <pabeni@redhat.com>
+To: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>
+To: Russell King <linux@armlinux.org.uk>
+To: Christian Marangi <ansuelsmth@gmail.com>
+To: Chen-Yu Tsai <wens@kernel.org>
+To: Jernej Skrabec <jernej.skrabec@gmail.com>
+To: Samuel Holland <samuel@sholland.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Maxime Ripard <mripard@kernel.org>
+To: Giuseppe Cavallaro <peppe.cavallaro@st.com>
+To: Jose Abreu <joabreu@synopsys.com>
+To: Andrew Lunn <andrew@lunn.ch>
+To: Heiner Kallweit <hkallweit1@gmail.com>
+To: Tiezhu Yang <yangtiezhu@loongson.cn>
+To: Huacai Chen <chenhuacai@kernel.org>
+Cc: netdev@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-sunxi@lists.linux.dev
+Cc: devicetree@vger.kernel.org
+
+---
+James Hilliard (6):
+      net: phylink: allow stopping a suspended instance
+      net: stmmac: close the interface after a failed MTU reopen
+      net: stmmac: close the interface after failed hardware resume
+      net: stmmac: sun8i: reset the MAC after PHY initialization
+      dt-bindings: net: allwinner: add H616 EMAC1
+      net: stmmac: sun8i: add support for Allwinner H616 EMAC1
+
+ .../bindings/net/allwinner,sun8i-a83t-emac.yaml    | 13 ++++
+ .../devicetree/bindings/net/snps,dwmac.yaml        |  2 +
+ drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c  | 69 +++++++++++++---------
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h       |  2 +
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  | 30 +++++++---
+ drivers/net/phy/phylink.c                          | 16 +++++
+ 6 files changed, 98 insertions(+), 34 deletions(-)
+---
+base-commit: 8830e65ed46de41f849eefb8ba227d4852c460f6
+change-id: 20260914-submit-h616-emac1-v1-143703842abb
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
 
