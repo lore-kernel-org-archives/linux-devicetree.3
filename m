@@ -1,37 +1,37 @@
-Received: from mta1.migadu.com (out-89.mta1.migadu.com [95.215.58.89])
+Received: from mta0.migadu.com (out-155.mta0.migadu.com [91.218.175.155])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 836553CA483
-	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 03:18:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39F78257435
+	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 03:18:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.155
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789874319; cv=none; b=EMMzJQOPgXX8yLyiZ6nNszTF5vh+3YNYwJfVoHtmwSmGhCALf+gcO45FVmWYtcdxlSWuJSkNoyDJyUDCpzvRjo4cyRwlbJWYZpW05Hta8+kk/ln+YRWKPwN2NMZHgjoNZQGDpCfwVrjmcnSzD+wFaoy14uDuzlw3Vw72CuF8tD4=
+	t=1789874325; cv=none; b=MobZ3Lh+9gIuTfJbkj5nuyrJtDntyl+pX4X6/jgfZZ8b8rAOBAkHf/UMvKf2RpvQHTAKjCXjYn82258h5xX0HnY/G7kASRa4t07id82beWg5SxZysxhljOgUqbUk+81ro5wFaSMNzvnHNd5kOSURBblrkRPMlKmOiOgfm4DZ0wk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789874319; c=relaxed/simple;
-	bh=3W3O8094sWvs6XA3nq+JIrIy9/nDGCyklWmUxuJkhHE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=M5vYnv/h4gPa2XIFn/Ay80ymv6heP6ITmYM80xYlq0YXyVFbeeuzh7ArSaTvbSKtliwBiAU7PM0i25TvdeFkQvxvI3VmC6LP5E3A+9t4HI7Je9fYCxZyO0n+c3muoL78ID6D5SLHj+CSJhLZxiL7A5WrB8zcVkyo2YGU8nDT+uY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=qgs0b/yB; arc=none smtp.client-ip=95.215.58.89
+	s=arc-20240116; t=1789874325; c=relaxed/simple;
+	bh=vM1h2IEpNOC/A2qB1FfARCsAhtN479Y/HyUIKeMHG6k=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=auS3MpXk69Dlu4RdsK5MWqjQkB9B0CyZOMGtM5Pu2OKe5ktcvU4nlKiQdPt+V9XSvow9Bksu4AdOmtvWuhqSDeF8hofJmMRL+T9ydPuJr3GeUyCU055kGAt0TqtaIzdOMyEonmYNqM7HX+BqGjprbZQmmN3CCetKmCHZ3CtPUUw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=F2fraA1d; arc=none smtp.client-ip=91.218.175.155
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="qgs0b/yB"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="F2fraA1d"
 X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=3W3O8094sWvs6XA3nq+JIrIy9/nDGCyklWmUxuJkhHE=;
+DKIM-Signature: a=rsa-sha256; bh=vM1h2IEpNOC/A2qB1FfARCsAhtN479Y/HyUIKeMHG6k=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789874315; v=1; x=1790479115;
- b=qgs0b/yBrERYTjY5M8aM853MXHKXuMqTl3dC3nGJMra6awJnuuNkeTJrBFzelN51nvSJTBHQ
- SfWWd0IcxpVepjPqqp7TQ0SWF3DZPpWcvVKL2egnR6cK454XBInldUz8OEcljDRkRrcaxvussnG
- 1jXddu+UWhjRUMr1Ceabtk64=
+ t=1789874321; v=1; x=1790479121;
+ b=F2fraA1dx3qaY6HRbIqmJ4G1RvfyG6ryi8CTEXfgBkchZH3fq0V9Erqpw0wS4fMvqvQlMzXI
+ OV3H3wDoSb9Dx6Ifyw7KwxWV24rmiW2mzLCj7vdIu0RWlpucu/IOM+hkzXG8a3Yh54jIOj74xex
+ NuX9xPLh9ld0GjA008T+FXX8=
 X-Envelope-To: devicetree@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 4239474afc06c193;
-	Sun, 20 Sep 2026 03:18:35 +0000
-X-Mizu-Trace-ID: 4239474afc06c193
+Received: by mta12.migadu.com with ESMTPS id c54495dbf87a1f9f;
+	Sun, 20 Sep 2026 03:18:30 +0000
+X-Mizu-Trace-ID: c54495dbf87a1f9f
 X-Migadu-Flow: FLOW_OUT
 From: Troy Mitchell <troy.mitchell@linux.dev>
-Date: Sun, 20 Sep 2026 11:18:02 +0800
-Subject: [PATCH RFC 1/3] arch_topology: Add a die level to CPU topology
+Subject: [PATCH RFC 0/3] riscv: Add explicit die-level CPU topology
+Date: Sun, 20 Sep 2026 11:18:01 +0800
+Message-Id: <20260920-riscv-die-topology-rfc-v1-0-071c0bf61d5f@linux.dev>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,9 +40,10 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260920-riscv-die-topology-rfc-v1-1-071c0bf61d5f@linux.dev>
-References: <20260920-riscv-die-topology-rfc-v1-0-071c0bf61d5f@linux.dev>
-In-Reply-To: <20260920-riscv-die-topology-rfc-v1-0-071c0bf61d5f@linux.dev>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQrCQAwAv1JyNhCXUlivgg/wKj3YNFsj0i1JL
+ Urp3131OAMzK7iYisOhWsFkUdc8FtjvKuDbdRwEtS8MgUJDkWo0dV6wV8E5T/mRhzdaYmSimBq
+ pO4kBSjyZJH39xhc4n47Q/qU/u7vw/F3Ctn0AhUKEwn8AAAA=
+X-Change-ID: 20260904-riscv-die-topology-rfc-c009f6e4be92
 To: Sudeep Holla <sudeep.holla@kernel.org>, 
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
  "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
@@ -56,113 +57,75 @@ Cc: Catalin Marinas <catalin.marinas@arm.com>,
  linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
  Troy Mitchell <troy.mitchell@linux.dev>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3769;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2811;
  i=troy.mitchell@linux.dev; h=from:subject:message-id;
- bh=3W3O8094sWvs6XA3nq+JIrIy9/nDGCyklWmUxuJkhHE=;
- b=owGbwMvMwCU2g/N9w09jE33G02pJDFnrA+oZbvrfOL/008GwqU1e10rnnEsruPKnx6tZjXmD7
- 9yzsq83d5SyMIhxMciKKbJ0P+DZVuATZVsgUOgLM4eVCWwIF6cATGSDLyPDV4f1J8QTD50JTFnE
- Pbeoz4OnaDZT4+/5xVPzOcQUDz/nY2SYWXIuevPUK6q3tHP+mr9bIRFpt9jxzaX2FT9tmBn4Luj
- xAgA=
+ bh=vM1h2IEpNOC/A2qB1FfARCsAhtN479Y/HyUIKeMHG6k=;
+ b=owGbwMvMwCU2g/N9w09jE33G02pJDFnrA2rf16yXPsr1c5Owe8Qb/aCSDWZXO6SW2x+4pVufb
+ 7Xnmn1YRykLgxgXg6yYIkv3A55tBT5RtgUChb4wc1iZQIYwcHEKwESc6hgZns1KTuyX82luTG9y
+ rZmhKLy76sHKM+/ye/yOy6lEyCotYPhfIv6nuyivTWH6a/ftzUdSQo+YN+/dsvbLtNn2Ki+THSo
+ 5AA==
 X-Developer-Key: i=troy.mitchell@linux.dev; a=openpgp;
  fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
 
-The generic topology model records packages and clusters but has no
-representation for a die between them. Systems with multiple dies in one
-package must therefore either report each die as a package or flatten
-clusters across all dies. Both choices lose part of the physical hierarchy.
+The generic arch_topology model has no die level. Systems with multiple
+dies in one package must flatten their clusters or report each die as a
+separate package, losing the die or package boundary.
 
-Add a die identifier and sibling mask between the package and cluster
-levels. Initialize the identifier to -1 and only build die sibling masks
-when firmware supplied a valid identifier. CPU topology paths without die
-information, including the current ACPI parser and the fallback topology,
-therefore keep the die unknown instead of inventing die 0.
+This RFC adds a die ID and sibling mask to arch_topology, parses optional
+dieN nodes in DT cpu-map, and exposes die topology through sysfs on RISC-V.
+Clusters can be numbered independently within each die.
 
-Scope cluster sibling matching to a die so each die can number its
-clusters independently, and maintain the new mask across CPU hotplug.
+The RISC-V sysfs behavior is:
+
+  - An explicit dieN node supplies a non-negative die ID within its package
+    and a die sibling mask. RISC-V exposes die_id, die_cpus, and
+    die_cpus_list.
+  - A DT without dieN keeps die_id at -1 and creates no die sysfs files.
+    Package and cluster parsing is unchanged.
+  - ACPI die discovery is not implemented. The ACPI and fallback paths
+    also leave die_id at -1 and create no die sysfs files.
+
+The DT parser is shared by arm64 and RISC-V, so both record dieN nodes
+internally. Only RISC-V exposes the die sysfs files in this series. If you
+think I should enable this for arm64 as well, please let me know.
+
+The sysfs visibility hook defaults to visible on other architectures,
+including powerpc configurations that report die_id as -1. Their existing
+sysfs behavior is unchanged.
+
+The dieN hierarchy is a proposed extension to the DT cpu-map binding.
+This RFC does not include a schema update. I'd like feedback on the
+topology model and sysfs interface before sending the binding update.
+
+Does placing dieN between socket and cluster make sense? I'd also
+appreciate feedback on keeping unspecified dies at -1 and on the sysfs
+visibility hook.
+
+Tested with W=1 builds of the affected objects for RISC-V, arm64, and ARM,
+and with a complete RISC-V Image build. On a 32-CPU QEMU virt guest, a DT
+describing one package with two dies, four clusters per die, and four
+cores per cluster exposed the expected IDs and masks and updated them
+across CPU offline/online. The same guest with a legacy DT exposed no die
+sysfs files while retaining package and cluster topology.
 
 Signed-off-by: Troy Mitchell <troy.mitchell@linux.dev>
 ---
- drivers/base/arch_topology.c  | 20 +++++++++++++++++---
- include/linux/arch_topology.h |  2 ++
- 2 files changed, 19 insertions(+), 3 deletions(-)
+Troy Mitchell (3):
+      arch_topology: Add a die level to CPU topology
+      arch_topology: Parse die nodes in /cpu-map
+      riscv: topology: Expose explicit CPU die topology
 
-diff --git a/drivers/base/arch_topology.c b/drivers/base/arch_topology.c
-index 8c5e47c28d9a3..ee82827be3351 100644
---- a/drivers/base/arch_topology.c
-+++ b/drivers/base/arch_topology.c
-@@ -766,6 +766,14 @@ void update_siblings_masks(unsigned int cpuid)
- 		cpumask_set_cpu(cpuid, &cpu_topo->core_sibling);
- 		cpumask_set_cpu(cpu, &cpuid_topo->core_sibling);
- 
-+		if (cpuid_topo->die_id != cpu_topo->die_id)
-+			continue;
-+
-+		if (cpuid_topo->die_id >= 0) {
-+			cpumask_set_cpu(cpu, &cpuid_topo->die_sibling);
-+			cpumask_set_cpu(cpuid, &cpu_topo->die_sibling);
-+		}
-+
- 		if (cpuid_topo->cluster_id != cpu_topo->cluster_id)
- 			continue;
- 
-@@ -792,6 +800,9 @@ static void clear_cpu_topology(int cpu)
- 	cpumask_clear(&cpu_topo->cluster_sibling);
- 	cpumask_set_cpu(cpu, &cpu_topo->cluster_sibling);
- 
-+	cpumask_clear(&cpu_topo->die_sibling);
-+	cpumask_set_cpu(cpu, &cpu_topo->die_sibling);
-+
- 	cpumask_clear(&cpu_topo->core_sibling);
- 	cpumask_set_cpu(cpu, &cpu_topo->core_sibling);
- 	cpumask_clear(&cpu_topo->thread_sibling);
-@@ -808,6 +819,7 @@ void __init reset_cpu_topology(void)
- 		cpu_topo->thread_id = -1;
- 		cpu_topo->core_id = -1;
- 		cpu_topo->cluster_id = -1;
-+		cpu_topo->die_id = -1;
- 		cpu_topo->package_id = -1;
- 
- 		clear_cpu_topology(cpu);
-@@ -824,6 +836,8 @@ void remove_cpu_topology(unsigned int cpu)
- 		cpumask_clear_cpu(cpu, topology_sibling_cpumask(sibling));
- 	for_each_cpu(sibling, topology_cluster_cpumask(cpu))
- 		cpumask_clear_cpu(cpu, topology_cluster_cpumask(sibling));
-+	for_each_cpu(sibling, &cpu_topology[cpu].die_sibling)
-+		cpumask_clear_cpu(cpu, &cpu_topology[sibling].die_sibling);
- 	for_each_cpu(sibling, topology_llc_cpumask(cpu))
- 		cpumask_clear_cpu(cpu, topology_llc_cpumask(sibling));
- 
-@@ -969,9 +983,9 @@ void store_cpu_topology(unsigned int cpuid)
- 	cpuid_topo->core_id = cpuid;
- 	cpuid_topo->package_id = cpu_to_node(cpuid);
- 
--	pr_debug("CPU%u: package %d core %d thread %d\n",
--		 cpuid, cpuid_topo->package_id, cpuid_topo->core_id,
--		 cpuid_topo->thread_id);
-+	pr_debug("CPU%u: package %d die %d core %d thread %d\n",
-+		 cpuid, cpuid_topo->package_id, cpuid_topo->die_id,
-+		 cpuid_topo->core_id, cpuid_topo->thread_id);
- 
- topology_populated:
- 	update_siblings_masks(cpuid);
-diff --git a/include/linux/arch_topology.h b/include/linux/arch_topology.h
-index ebd7f8935f969..2a5591bb95075 100644
---- a/include/linux/arch_topology.h
-+++ b/include/linux/arch_topology.h
-@@ -63,10 +63,12 @@ struct cpu_topology {
- 	int thread_id;
- 	int core_id;
- 	int cluster_id;
-+	int die_id;
- 	int package_id;
- 	cpumask_t thread_sibling;
- 	cpumask_t core_sibling;
- 	cpumask_t cluster_sibling;
-+	cpumask_t die_sibling;
- 	cpumask_t llc_sibling;
- };
- 
+ arch/riscv/include/asm/topology.h |  4 +++
+ drivers/base/arch_topology.c      | 68 +++++++++++++++++++++++++++++++--------
+ drivers/base/topology.c           | 28 +++++++++++++++-
+ include/linux/arch_topology.h     |  2 ++
+ include/linux/topology.h          |  3 ++
+ 5 files changed, 91 insertions(+), 14 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260904-riscv-die-topology-rfc-c009f6e4be92
 
--- 
-2.55.0
+Best regards,
+--  
+Troy Mitchell <troy.mitchell@linux.dev>
 
