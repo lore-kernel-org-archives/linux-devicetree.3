@@ -1,80 +1,98 @@
-Received: from sg-3-42.ptr.tlmpb.com (sg-3-42.ptr.tlmpb.com [101.45.255.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B8F3932C8
-	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 10:02:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.45.255.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECEC7381EA2
+	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 10:03:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789898573; cv=none; b=BFHnHjE70jBEBK67sXRdfiwDR90KWkEeB7D6Fn/BdQCi+lZkG5a9ogf8epicdZw+P9IjLzLMp2nyxCtdsrdUjJ/kCK1T65eRGkbMWWY5qtFS7p+sU0RPyhAuCVjak0XHH7RY/iVkOtPGshF7ZWrutkdUxgHkibr7UdV/yIwnd5M=
+	t=1789898585; cv=none; b=AeDem7v2FgRiD0NqdEJf1a1vSaUMVakBUhL9KM6E+b1vx+5kiSLi6/4ZntHqqpMGIdM/NsVclWIqvHqE4GbO+qVn7DOR8fiASkfAIwjt8LyLl/pssyV0SuQ1RJVXQjZc19iUMkN0URaOkH0Iqrvv8oWG1xnoN7rjUwASFsIUKXQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789898573; c=relaxed/simple;
-	bh=ttOxI5Y229QMz9DbVBXaGOtOLX5sVcTcavTN6OTo46Y=;
-	h=Cc:Subject:References:Mime-Version:In-Reply-To:From:Date:
-	 Message-Id:Content-Type:To; b=dwRM1m0UZ5gR3KJPQnyo8KthWAlvwFYRaqFdkLKReqYH3iaAcWBPSu6iRBIJeG9GC9+rxhHodJCMBcEYekZx7VMLEfPFV2vY9WHLDos69Dp23vdezGAhmRwMnfhspCAG9Jx/tJ3AB6LL1KWB7mY2/nKn/2VVOy3EGi+O5cK+Oyo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bedmex.com; spf=none smtp.mailfrom=bedmex.com; dkim=pass (2048-bit key) header.d=bedmex-com.20200927.dkim.feishu.cn header.i=@bedmex-com.20200927.dkim.feishu.cn header.b=NFekP/8k; arc=none smtp.client-ip=101.45.255.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bedmex.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bedmex.com
+	s=arc-20240116; t=1789898585; c=relaxed/simple;
+	bh=6Z2B9efW6oQ12wEhyEUlN9Sfd4HI65DR1Bu8uFgI2HY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tTZhaNqftTmZPOg43t6jKLoqhr8D7QWZPUzKtWOV5NuOw+KpykLjxMFuVJetpTXFOF08LAaICiaNHn38kHu+B3KWUYolPlLFEUMjc8Z7dB7VBMSOgeh7/2PCOI28jFA0ra8E7gOnVbC5N4lID/6I/77nkn8zEnllWbly2rCpQ90=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tco057qg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bedmex-com.20200927.dkim.feishu.cn header.i=@bedmex-com.20200927.dkim.feishu.cn header.b="NFekP/8k"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=bedmex-com.20200927.dkim.feishu.cn; t=1789897834;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=Ad85azF8NuUWbQOZeE/AypEFZ0EAh0ubTf77I/hzDg0=;
- b=NFekP/8kvjF128KV6JcWpkz+nZWXoFosT17l7gTDQ5+M3zc0ii+kZN5VbTEokZwcD9v+P3
- hyIqFIiNgYe51ykpy+k0Cttayrw/MyiW4flTgovlB3Hvr/l89A+QnlZsAm/G5oNtzzaaFJ
- lq6vTSMJKH6wLIv8jzsEMieCmAOd6eKjqV/aJ88lA8sW6q4mJi4xUF3u2zNF8fhqyHF+C8
- +xFJvXe3ESQVOu2pTFItCKpqYiWVTBbPxOkXC+hpqyRdVnJ1p/mXHH9TfMRT7OwERBE8Nm
- 5uqfNl9HDWKBJ3GxSz3PZr6wpxRCAsGPNXlmCXz9D3NiQNSpg94PiZRZxrt2Wg==
-Cc: <marcel@holtmann.org>, <devicetree@vger.kernel.org>, <robh@kernel.org>, 
-	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, 
-	<linux-kernel@vger.kernel.org>, <zhirunliu@aicsemi.com>, 
-	<dijiaxu@aicsemi.com>, <chunqiuliu@aicsemi.com>, <liheng.wei@bedmex.com>, 
-	<yanli.yang@bedmex.com>
-Subject: [RFC PATCH v2 1/3] dt-bindings: vendor-prefixes: Add AIC Semiconductor
-References: <cover.1789897503.git.yanli.yang@bedmex.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tco057qg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AAAF1F000FF
+	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 10:03:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789898581;
+	bh=A5oO+cMTbQ47NycpUxUJcMEhXz8+yRynclZhYTmvhis=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=Tco057qgWvgMuPuc4/91xhT2/7OKkAszD83wQzIYe3mDkMMJxIBWH4LbtRvfobKUQ
+	 yAhKphrUMBpepjuzK5gt+voyHNIhtbk1Qa4gtqAR5NrZ52Fukpcpc9QKE1Si744HIW
+	 3M1wAMKAnSNIb8pbkJcltguiMRTchvMg/2OUShSix9qONcds0jja/ROfDQVtNqEEAX
+	 XP51rAlP9Kf1UOGcpl/6AeG7aWjQYJH6oAilT6SEEfZN5JeF5ACfrxtXmLdhK3aF3D
+	 creBqK1Tsbt9p3vxcj1K0VKo88iBq2tpSkIeFO4SN7/qwr62XWYK4tdL1P8ffIY7dd
+	 sjugVvnfX9l7w==
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff04155bso17659521fa.1
+        for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 03:03:01 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxFcN6ydlFIRYHl/hTdAyTn7AqDVgT/gDOc5eILm0Ize7/J3BchqJjIuYv9srPPWLimDXHTrepLWjiG@vger.kernel.org
+X-Gm-Message-State: AFuF++kpXfuA0l+6IpQoAoDgBvPe8Ktp3K2vVE0XXYHQ2fzoQwbXPjnS
+	oXgw+avpGpPoldAlCDe9DEpA+U+9Tewt9Yu1gkUp44rRlBOMwiuWfvnn6b2XvifR3TBfceIRK1L
+	oiP2P9YYFe2DIOlEQJt2qZetr/LQtpCI=
+X-Received: by 2002:a05:651c:31c5:b0:3a3:7681:6d60 with SMTP id
+ 38308e7fff4ca-3a5fc0aa3afmr16089621fa.24.1789898579440; Sun, 20 Sep 2026
+ 03:02:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-In-Reply-To: <cover.1789897503.git.yanli.yang@bedmex.com>
-X-Original-From: Yanli Yang <yanli.yang@bedmex.com>
-Content-Transfer-Encoding: 7bit
-Received: from bmxpxe-virtual-desktop.. ([36.141.79.164]) by smtp.feishu.cn with ESMTPS; Sun, 20 Sep 2026 17:50:31 +0800
-From: "Yanli Yang" <yanli.yang@bedmex.com>
-Date: Sun, 20 Sep 2026 17:50:24 +0800
-Message-Id: <7a2c93192831b8756fe071fd60ec064a05703b8b.1789897503.git.yanli.yang@bedmex.com>
-X-Lms-Return-Path: <lba+26aafac68+58014e+vger.kernel.org+yanli.yang@bedmex.com>
-Content-Type: text/plain; charset=UTF-8
-To: <linux-bluetooth@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260913145527.18148-1-iuncuim@gmail.com> <20260913145527.18148-5-iuncuim@gmail.com>
+In-Reply-To: <20260913145527.18148-5-iuncuim@gmail.com>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Sun, 20 Sep 2026 18:02:45 +0800
+X-Gmail-Original-Message-ID: <CAGb2v64SfV4wdXwn2Si8w87r6E+PidAAKJJfUJDWqz3kHn9chg@mail.gmail.com>
+X-Gm-Features: AcwNN1WNiiqZx-dirR42ASsi4bsV2jdbUXD9xI8djW0wkB4hBsUX1s8oMylt76o
+Message-ID: <CAGb2v64SfV4wdXwn2Si8w87r6E+PidAAKJJfUJDWqz3kHn9chg@mail.gmail.com>
+Subject: Re: [PATCH v6 4/5] thermal/drivers/sun8i: Add support for A523 THS0/1 controllers
+To: Mikhail Kalashnikov <iuncuim@gmail.com>
+Cc: Vasily Khoruzhick <anarsoul@gmail.com>, Yangtao Li <tiny.windzz@gmail.com>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, linux-pm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	Philipp Zabel <p.zabel@pengutronix.de>, 
+	=?UTF-8?Q?Juan_Manuel_L=C3=B3pez_Carrillo?= <juanmanuellopezcarrillo@gmail.com>, 
+	Andre Przywara <andre.przywara@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add the vendor prefix for AIC Semiconductor (Shanghai) Co., Ltd.,
-used by the AIC8800D80 Bluetooth bindings.
+On Sun, Sep 13, 2026 at 10:56=E2=80=AFPM Mikhail Kalashnikov <iuncuim@gmail=
+.com> wrote:
+>
+> From: Mikhail Kalashnikov <iuncuim@gmail.com>
+>
+> The A523 processor has two temperature controllers, THS0 and THS1.
+> THS0 has only one temperature sensor, which is located in the DRAM
+> controller. THS1 does have 4 sensors:
+> ths1_0 - "big" cores
+> ths1_1 - "little" cores
+> ths1_2 - gpu
+> ths1_3 - npu
+>
+> The user manual for the T527 processor describes 4 sensors, whereas
+> the one for the A523 describes only 3. As additional information, the BSP
+> driver was used, in which the value SUN55IW3_CAL_COM(5000) is used as
+> the calibration value in the formula; in the mainline driver it is
+> treated as the ft_deviation value. Also, in the BSP driver the NPU sensor
+> is used for both the GPU and the NPU =E2=80=94 its actual purpose is uncl=
+ear;
+> both sensors are functional and show temperature changes depending on
+> load.
+>
+> Signed-off-by: Mikhail Kalashnikov <iuncuim@gmail.com>
 
-Signed-off-by: Zhirun Liu <zhirunliu@aicsemi.com>
-Signed-off-by: Dijia Xu <dijiaxu@aicsemi.com>
-Signed-off-by: Chunqiu Liu <chunqiuliu@aicsemi.com>
-Signed-off-by: Liheng Wei <liheng.wei@bedmex.com>
-Signed-off-by: Yanli Yang <yanli.yang@bedmex.com>
----
- Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
 
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index ba2002969373..8d35a4b7d8ed 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -76,6 +76,8 @@ patternProperties:
-     description: Aeroflex Gaisler AB
-   "^aesop,.*":
-     description: AESOP Embedded Forum
-+  "^aic,.*":
-+    description: AIC Semiconductor (Shanghai) Co., Ltd.
-   "^airoha,.*":
-     description: Airoha
-   "^al,.*":
--- 
-2.34.1
+I think we can ignore Sashiko's concerns for this patch.
+
+1. calibration likely happens at room temperature
+2. it is not the drivers responsibility to guard against incorrect
+   device trees
