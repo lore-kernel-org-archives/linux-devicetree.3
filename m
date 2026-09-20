@@ -1,37 +1,37 @@
-Received: from mta0.migadu.com (out-155.mta0.migadu.com [91.218.175.155])
+Received: from mta0.migadu.com (out-151.mta0.migadu.com [91.218.175.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39F78257435
-	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 03:18:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.155
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C32F4175A95
+	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 03:18:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789874325; cv=none; b=MobZ3Lh+9gIuTfJbkj5nuyrJtDntyl+pX4X6/jgfZZ8b8rAOBAkHf/UMvKf2RpvQHTAKjCXjYn82258h5xX0HnY/G7kASRa4t07id82beWg5SxZysxhljOgUqbUk+81ro5wFaSMNzvnHNd5kOSURBblrkRPMlKmOiOgfm4DZ0wk=
+	t=1789874325; cv=none; b=O4Iu4zdvtykC6bauREDnjWTpuosAMvC3tr1XeNgRW9bKjTeLIBnWf43LP8onkVY18dxu2Ym7p8S5Am6fFzIQVk09iPrWEgeXuBUFCT04hxY7kKpOVUvY72fyzAVv67wOHl0+WPaEbmZ73gFKeQcaB/BvriWJIubW7RlDQJSPhlM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789874325; c=relaxed/simple;
-	bh=vM1h2IEpNOC/A2qB1FfARCsAhtN479Y/HyUIKeMHG6k=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=auS3MpXk69Dlu4RdsK5MWqjQkB9B0CyZOMGtM5Pu2OKe5ktcvU4nlKiQdPt+V9XSvow9Bksu4AdOmtvWuhqSDeF8hofJmMRL+T9ydPuJr3GeUyCU055kGAt0TqtaIzdOMyEonmYNqM7HX+BqGjprbZQmmN3CCetKmCHZ3CtPUUw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=F2fraA1d; arc=none smtp.client-ip=91.218.175.155
+	bh=sLuj1hW1gJrgOf+bnaZxdaJK6PTj0i8XPll8TEvnjak=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=INPZBo3hMijFmpdmQAof5Lg7e/ikNPqE2xWQr/I6ISuBx5TWPwP1qv15a8yp7ir93smTPrExE2shrOm7RCb4U/ZZez3H/VfLH+iY7LIdiA4b5v3joYsoeI68YQjVQVcCwPqemLLUZpI6hE+aPXIhKWewRJoCZ0Dvl1xYaWepDEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=dqyr9T+g; arc=none smtp.client-ip=91.218.175.151
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="F2fraA1d"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="dqyr9T+g"
 X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=vM1h2IEpNOC/A2qB1FfARCsAhtN479Y/HyUIKeMHG6k=;
+DKIM-Signature: a=rsa-sha256; bh=sLuj1hW1gJrgOf+bnaZxdaJK6PTj0i8XPll8TEvnjak=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789874321; v=1; x=1790479121;
- b=F2fraA1dx3qaY6HRbIqmJ4G1RvfyG6ryi8CTEXfgBkchZH3fq0V9Erqpw0wS4fMvqvQlMzXI
- OV3H3wDoSb9Dx6Ifyw7KwxWV24rmiW2mzLCj7vdIu0RWlpucu/IOM+hkzXG8a3Yh54jIOj74xex
- NuX9xPLh9ld0GjA008T+FXX8=
+ t=1789874319; v=1; x=1790479119;
+ b=dqyr9T+gOoSShrtuh4ylvdAKLRaghASR/DdxUBa78jCKNZEv6if1f3ZbIO9cnM9A/VyqLyL4
+ nGrhtyS5g3r/haug09/iRmHJ2C+mRl7hR6eRqIANhBEu7dbShEcc4RjO43yDplrc3t9lFy7mXqH
+ uNnRpP/yaq8wYI9x0HeBA1+g=
 X-Envelope-To: devicetree@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id c54495dbf87a1f9f;
-	Sun, 20 Sep 2026 03:18:30 +0000
-X-Mizu-Trace-ID: c54495dbf87a1f9f
+Received: by mta12.migadu.com with ESMTPS id e98d43414bfcadef;
+	Sun, 20 Sep 2026 03:18:39 +0000
+X-Mizu-Trace-ID: e98d43414bfcadef
 X-Migadu-Flow: FLOW_OUT
 From: Troy Mitchell <troy.mitchell@linux.dev>
-Subject: [PATCH RFC 0/3] riscv: Add explicit die-level CPU topology
-Date: Sun, 20 Sep 2026 11:18:01 +0800
-Message-Id: <20260920-riscv-die-topology-rfc-v1-0-071c0bf61d5f@linux.dev>
+Date: Sun, 20 Sep 2026 11:18:03 +0800
+Subject: [PATCH RFC 2/3] arch_topology: Parse die nodes in /cpu-map
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,10 +40,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQrCQAwAv1JyNhCXUlivgg/wKj3YNFsj0i1JL
- Urp3131OAMzK7iYisOhWsFkUdc8FtjvKuDbdRwEtS8MgUJDkWo0dV6wV8E5T/mRhzdaYmSimBq
- pO4kBSjyZJH39xhc4n47Q/qU/u7vw/F3Ctn0AhUKEwn8AAAA=
-X-Change-ID: 20260904-riscv-die-topology-rfc-c009f6e4be92
+Message-Id: <20260920-riscv-die-topology-rfc-v1-2-071c0bf61d5f@linux.dev>
+References: <20260920-riscv-die-topology-rfc-v1-0-071c0bf61d5f@linux.dev>
+In-Reply-To: <20260920-riscv-die-topology-rfc-v1-0-071c0bf61d5f@linux.dev>
 To: Sudeep Holla <sudeep.holla@kernel.org>, 
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
  "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
@@ -57,75 +56,158 @@ Cc: Catalin Marinas <catalin.marinas@arm.com>,
  linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
  Troy Mitchell <troy.mitchell@linux.dev>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2811;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4640;
  i=troy.mitchell@linux.dev; h=from:subject:message-id;
- bh=vM1h2IEpNOC/A2qB1FfARCsAhtN479Y/HyUIKeMHG6k=;
- b=owGbwMvMwCU2g/N9w09jE33G02pJDFnrA2rf16yXPsr1c5Owe8Qb/aCSDWZXO6SW2x+4pVufb
- 7Xnmn1YRykLgxgXg6yYIkv3A55tBT5RtgUChb4wc1iZQIYwcHEKwESc6hgZns1KTuyX82luTG9y
- rZmhKLy76sHKM+/ye/yOy6lEyCotYPhfIv6nuyivTWH6a/ftzUdSQo+YN+/dsvbLtNn2Ki+THSo
- 5AA==
+ bh=sLuj1hW1gJrgOf+bnaZxdaJK6PTj0i8XPll8TEvnjak=;
+ b=owGbwMvMwCU2g/N9w09jE33G02pJDFnrAxqen56er69bWaF1aNrfd+c7xHkDNrv4i8ydL73y8
+ r+pGs/9OkpZGMS4GGTFFFm6H/BsK/CJsi0QKPSFmcPKBDKEgYtTACbyU5mRYe2mb8yC/m483tvu
+ fo22+ijgqelmff7Oxx8+cQrvzO7NDmP473J16dm3EYtL1u6IWfOC47mE61d91Su7V677zTz1Jud
+ zCyYA
 X-Developer-Key: i=troy.mitchell@linux.dev; a=openpgp;
  fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
 
-The generic arch_topology model has no die level. Systems with multiple
-dies in one package must flatten their clusters or report each die as a
-separate package, losing the die or package boundary.
+The devicetree CPU map can distinguish packages and clusters but cannot
+describe multiple dies in one package. Such systems have to flatten all
+clusters into the package, making cluster identifiers package-wide and
+hiding the die boundary.
 
-This RFC adds a die ID and sibling mask to arch_topology, parses optional
-dieN nodes in DT cpu-map, and exposes die topology through sysfs on RISC-V.
-Clusters can be numbered independently within each die.
+Recognize an optional sequence of dieN nodes between a socket and its
+clusters, and propagate the die identifier to every CPU below it. Enumerate
+clusters independently below each die.
 
-The RISC-V sysfs behavior is:
-
-  - An explicit dieN node supplies a non-negative die ID within its package
-    and a die sibling mask. RISC-V exposes die_id, die_cpus, and
-    die_cpus_list.
-  - A DT without dieN keeps die_id at -1 and creates no die sysfs files.
-    Package and cluster parsing is unchanged.
-  - ACPI die discovery is not implemented. The ACPI and fallback paths
-    also leave die_id at -1 and create no die sysfs files.
-
-The DT parser is shared by arm64 and RISC-V, so both record dieN nodes
-internally. Only RISC-V exposes the die sysfs files in this series. If you
-think I should enable this for arm64 as well, please let me know.
-
-The sysfs visibility hook defaults to visible on other architectures,
-including powerpc configurations that report die_id as -1. Their existing
-sysfs behavior is unchanged.
-
-The dieN hierarchy is a proposed extension to the DT cpu-map binding.
-This RFC does not include a schema update. I'd like feedback on the
-topology model and sysfs interface before sending the binding update.
-
-Does placing dieN between socket and cluster make sense? I'd also
-appreciate feedback on keeping unspecified dies at -1 and on the sysfs
-visibility hook.
-
-Tested with W=1 builds of the affected objects for RISC-V, arm64, and ARM,
-and with a complete RISC-V Image build. On a 32-CPU QEMU virt guest, a DT
-describing one package with two dies, four clusters per die, and four
-cores per cluster exposed the expected IDs and masks and updated them
-across CPU offline/online. The same guest with a legacy DT exposed no die
-sysfs files while retaining package and cluster topology.
+When a CPU map has no dieN nodes, continue parsing its existing package
+and cluster hierarchy but pass -1 as the die identifier. Legacy maps
+therefore remain compatible without being reported as an explicitly
+described die 0.
 
 Signed-off-by: Troy Mitchell <troy.mitchell@linux.dev>
 ---
-Troy Mitchell (3):
-      arch_topology: Add a die level to CPU topology
-      arch_topology: Parse die nodes in /cpu-map
-      riscv: topology: Expose explicit CPU die topology
+ drivers/base/arch_topology.c | 48 +++++++++++++++++++++++++++++++++++---------
+ 1 file changed, 38 insertions(+), 10 deletions(-)
 
- arch/riscv/include/asm/topology.h |  4 +++
- drivers/base/arch_topology.c      | 68 +++++++++++++++++++++++++++++++--------
- drivers/base/topology.c           | 28 +++++++++++++++-
- include/linux/arch_topology.h     |  2 ++
- include/linux/topology.h          |  3 ++
- 5 files changed, 91 insertions(+), 14 deletions(-)
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20260904-riscv-die-topology-rfc-c009f6e4be92
+diff --git a/drivers/base/arch_topology.c b/drivers/base/arch_topology.c
+index ee82827be3351..67a984f3ba8d9 100644
+--- a/drivers/base/arch_topology.c
++++ b/drivers/base/arch_topology.c
+@@ -498,7 +498,7 @@ static int __init get_cpu_for_node(struct device_node *node)
+ }
+ 
+ static int __init parse_core(struct device_node *core, int package_id,
+-			     int cluster_id, int core_id)
++			     int die_id, int cluster_id, int core_id)
+ {
+ 	char name[20];
+ 	bool leaf = true;
+@@ -517,6 +517,7 @@ static int __init parse_core(struct device_node *core, int package_id,
+ 		cpu = get_cpu_for_node(t);
+ 		if (cpu >= 0) {
+ 			cpu_topology[cpu].package_id = package_id;
++			cpu_topology[cpu].die_id = die_id;
+ 			cpu_topology[cpu].cluster_id = cluster_id;
+ 			cpu_topology[cpu].core_id = core_id;
+ 			cpu_topology[cpu].thread_id = i;
+@@ -538,6 +539,7 @@ static int __init parse_core(struct device_node *core, int package_id,
+ 		}
+ 
+ 		cpu_topology[cpu].package_id = package_id;
++		cpu_topology[cpu].die_id = die_id;
+ 		cpu_topology[cpu].cluster_id = cluster_id;
+ 		cpu_topology[cpu].core_id = core_id;
+ 	} else if (leaf && cpu != -ENODEV) {
+@@ -549,7 +551,7 @@ static int __init parse_core(struct device_node *core, int package_id,
+ }
+ 
+ static int __init parse_cluster(struct device_node *cluster, int package_id,
+-				int cluster_id, int depth)
++				int die_id, int cluster_id, int depth)
+ {
+ 	char name[20];
+ 	bool leaf = true;
+@@ -572,7 +574,7 @@ static int __init parse_cluster(struct device_node *cluster, int package_id,
+ 			break;
+ 
+ 		leaf = false;
+-		ret = parse_cluster(c, package_id, i, depth + 1);
++		ret = parse_cluster(c, package_id, die_id, i, depth + 1);
+ 		if (depth > 0)
+ 			pr_warn("Topology for clusters of clusters not yet supported\n");
+ 		if (ret != 0)
+@@ -598,7 +600,8 @@ static int __init parse_cluster(struct device_node *cluster, int package_id,
+ 		}
+ 
+ 		if (leaf) {
+-			ret = parse_core(c, package_id, cluster_id, core_id++);
++			ret = parse_core(c, package_id, die_id, cluster_id,
++					 core_id++);
+ 			if (ret != 0)
+ 				return ret;
+ 		} else {
+@@ -616,6 +619,34 @@ static int __init parse_cluster(struct device_node *cluster, int package_id,
+ 	return 0;
+ }
+ 
++static int __init parse_die(struct device_node *parent, int package_id)
++{
++	char name[20];
++	bool has_die = false;
++	int die_id = 0, ret;
++
++	do {
++		snprintf(name, sizeof(name), "die%d", die_id);
++		struct device_node *d __free(device_node) =
++			of_get_child_by_name(parent, name);
++
++		if (!d)
++			break;
++
++		has_die = true;
++		ret = parse_cluster(d, package_id, die_id, -1, 0);
++		if (ret)
++			return ret;
++
++		die_id++;
++	} while (1);
++
++	if (!has_die)
++		ret = parse_cluster(parent, package_id, -1, -1, 0);
++
++	return ret;
++}
++
+ static int __init parse_socket(struct device_node *socket)
+ {
+ 	char name[20];
+@@ -631,7 +662,7 @@ static int __init parse_socket(struct device_node *socket)
+ 			break;
+ 
+ 		has_socket = true;
+-		ret = parse_cluster(c, package_id, -1, 0);
++		ret = parse_die(c, package_id);
+ 		if (ret != 0)
+ 			return ret;
+ 
+@@ -639,7 +670,7 @@ static int __init parse_socket(struct device_node *socket)
+ 	} while (1);
+ 
+ 	if (!has_socket)
+-		ret = parse_cluster(socket, 0, -1, 0);
++		ret = parse_die(socket, 0);
+ 
+ 	/*
+ 	 * Reset the max_smt_thread_num to 1 on failure. Since on failure
+@@ -667,10 +698,7 @@ static int __init parse_dt_topology(void)
+ 		return 0;
+ 	}
+ 
+-	/*
+-	 * When topology is provided cpu-map is essentially a root
+-	 * cluster with restricted subnodes.
+-	 */
++	/* cpu-map is the root of the processor topology hierarchy. */
+ 	struct device_node *map __free(device_node) =
+ 		of_get_child_by_name(cn, "cpu-map");
+ 
 
-Best regards,
---  
-Troy Mitchell <troy.mitchell@linux.dev>
+-- 
+2.55.0
 
