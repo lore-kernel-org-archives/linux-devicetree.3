@@ -1,42 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0996B37BE63;
-	Sun, 20 Sep 2026 18:14:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5266A3DF01C;
+	Sun, 20 Sep 2026 18:18:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789928049; cv=none; b=OhJPpR04LJKsaigIJQYqb/6z+PapqkAflRSMC8XzB1tJj0zd2YVHjK/+TKyP3untctjMTwxLj/VXydLpF7DocM0DY0j838ZYsc8/kOXFrBk3ZveAVNfuQ8dUPL6eBwZXIMS3jBR6iVm1y5PdsX+5Gw5J0Icn4mUYf2/J3Ut7hRg=
+	t=1789928326; cv=none; b=oR1BqfTDPqhE6Oa8j90eEBa9R7cjNzk0TiWoZamNbRbWKW3j0+KP3yBtYJrZsjulaxhYNfCS5mUZOXgLR3V3g6Io2SLZp72dxGo7aHM0sk/ikXmSwEr7d/Z+B2lhatspvtb7MN1lyvRhy+r7RoEpklSBhribLfHPKzqJJiI/OUA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789928049; c=relaxed/simple;
-	bh=t5OkIKRNMdJSJczm9uYxncFKQ0T4pNQV2EIe6AY89TU=;
+	s=arc-20240116; t=1789928326; c=relaxed/simple;
+	bh=oColPJm7byDapCx6KUmBg6fWkywzUvd2Yt8UBbtrxIQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=W1IpBNhtpwhcP9vGsUpoipAxIgsY4+vzI8xxFoqop5nmVhakj6H9oUAiQyRiTf3RZ8jbv75qfiPye+JpwCjmCxxEZEZsVvqJhI2Cia+kzOgg+kUmHP2YtWs3uJ1lWmx8eQx0+DEzHNcqvdJRF8dZLoZcDoJye/C7qI27HP7cMIA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EoINsmAr; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=JF+YLi3KJ+UG7Bo3r2kCdsqycLcszk1rZfjin5j0qHVTHYH6HeYLkvFOYNQuz6iI7TgRyter7oPZai7FqKcb64uvi/dVrUNCqCelUCdQ+D+mr0qlAfNYA5mSDdGKwpsaLEDih73bJvwtUWtX7vVzXY72m4oa1pQyDxeknF+DaoI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dW0QsLK1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EoINsmAr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3EEE1F000FF;
-	Sun, 20 Sep 2026 18:14:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dW0QsLK1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E6401F000FF;
+	Sun, 20 Sep 2026 18:18:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789928047;
-	bh=tcm6HGCLUSSy/9FlI6paPBg6JDS2N6Hp/BFuNZUtfdY=;
+	s=k20260515; t=1789928324;
+	bh=mHGhS5D3hwDg2bZdL0zyDjYJ+/3CST/aN6uzLGqVjq0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EoINsmArbCovjSAJC0rpHdjj7hhbtXO2lqFrWeIWT7NyaVFfnjBGT2U4sJrYNi1U4
-	 uGFtAzp21dGUznmVktj5kpPygX2WtYd0GN8y/DLU6l2M+4SkSjZuh/bXKl0/+h/yj3
-	 y+QNPnRDUbcp+czdnsASxXmSR76vKdyCdPL7KqOJeje6s9GvJX3lHtlrjEZBXK/3bg
-	 B/AjxDA/bWiBQLVOTN4+Rf298+E06Z79KyqbDipA8jBwbPfywVQLvNvuOwx7wUWlwS
-	 PNMcK7XbRL2jL/jjPTsB850HPSnCB3FIKWxl//lqaYMy2Qg3SEmHBGFpZlKj2E+pfE
-	 17c3hO0n4S5Zg==
-Date: Sun, 20 Sep 2026 20:14:04 +0200
+	b=dW0QsLK1o62TrLNh2bC1MdK9kcwGTMIPy+Wo4jcbbAjmzwhTnwFKT6NzjKkLGnBX2
+	 vnQdvIf7Cqum22EdvRwXCB5C8xUGxpUrbmQzv8f3Bu6ASz7DenPt53PO7PSJpFeKI4
+	 9hZaOABik7O+MjcOiEG4fLjqj99XRFZ5d/sAndzQXhRB8NV/EAP7DfSJAlaKVwnRxW
+	 k27M/6A2yMmxo+BDZpnqhOWEBeP4l2lbFGt2TkfasXhoqUIYa3Te3S4Xv0LGt3EB/o
+	 Ok3KiX6d8CokRGm8ghHTUU64cDCltyrF8k23OUi+R+UghqYfKH4S2kSrMg+bJHjN2r
+	 dml0Np+kcX/OQ==
+Date: Sun, 20 Sep 2026 20:18:42 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-pm@vger.kernel.org, 
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: power: supply: ab8500: Add AB8505
- charger
-Message-ID: <20260920-demonic-relaxed-penguin-1a2eda@quoll>
-References: <20260918-ab8500-charger-dt-v2-0-5f17c332a2a7@kernel.org>
- <20260918-ab8500-charger-dt-v2-1-5f17c332a2a7@kernel.org>
+To: Alex Elder <elder@riscstar.com>
+Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, lee@kernel.org, 
+	andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org, kees@kernel.org, 
+	gustavoars@kernel.org, p.zabel@pengutronix.de, daniel@riscstar.com, 
+	mohd.anwar@oss.qualcomm.com, lorenzo.bianconi@oss.qualcomm.com, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, mfd@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
+	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/4] dt-bindings: mfd: introduce the TC9564 config syscon
+Message-ID: <20260920-fiery-fanatic-manticore-6abf0a@quoll>
+References: <20260918165234.687224-1-elder@riscstar.com>
+ <20260918165234.687224-2-elder@riscstar.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,41 +48,101 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260918-ab8500-charger-dt-v2-1-5f17c332a2a7@kernel.org>
+In-Reply-To: <20260918165234.687224-2-elder@riscstar.com>
 
-On Fri, Sep 18, 2026 at 06:56:51PM +0200, Linus Walleij wrote:
-> AB8500 and AB8505 expose different charger interrupt sets. Add a unique
-> AB8505 charger compatible with the AB8500 compatible as its fallback.
-> Use the variant-specific string to require the fourteen main and USB
-> charger interrupts on AB8500 and the nine USB charger interrupts on
-> AB8505.
+On Fri, Sep 18, 2026 at 11:52:30AM -0500, Alex Elder wrote:
+> Define the binding for a system controller used in the Toshiba
+> TC9564 SoC.
 > 
-> Also clarify that autopower_cfg describes the AB8500 facility, since the
-> corresponding AB8505 register bit is reserved.
-> 
-> Fixes: eb917497734c ("dt-bindings: power: supply: ab8500: Convert to DT schema format")
-> Assisted-by: LLM
-> Signed-off-by: Linus Walleij <linusw@kernel.org>
+> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
+> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+> Signed-off-by: Alex Elder <elder@riscstar.com>
 > ---
->  .../power/supply/stericsson,ab8500-charger.yaml    | 70 ++++++++++++++++------
->  1 file changed, 53 insertions(+), 17 deletions(-)
+>  .../bindings/mfd/toshiba,tc9564.yaml          | 56 +++++++++++++++++++
+>  MAINTAINERS                                   |  1 +
+>  2 files changed, 57 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/mfd/toshiba,tc9564.yaml
 > 
-> diff --git a/Documentation/devicetree/bindings/power/supply/stericsson,ab8500-charger.yaml b/Documentation/devicetree/bindings/power/supply/stericsson,ab8500-charger.yaml
-> index 4f19744844e9..73f5df2d7a36 100644
-> --- a/Documentation/devicetree/bindings/power/supply/stericsson,ab8500-charger.yaml
-> +++ b/Documentation/devicetree/bindings/power/supply/stericsson,ab8500-charger.yaml
-> @@ -12,10 +12,58 @@ maintainers:
->  
->  allOf:
->    - $ref: power-supply.yaml#
+> diff --git a/Documentation/devicetree/bindings/mfd/toshiba,tc9564.yaml b/Documentation/devicetree/bindings/mfd/toshiba,tc9564.yaml
+> new file mode 100644
+> index 0000000000000..32e73a727c82a
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/mfd/toshiba,tc9564.yaml
+> @@ -0,0 +1,56 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/mfd/toshiba,tc9564.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Toshiba TC9564 System Controller
+> +
+> +maintainers:
+> +  - Alex Elder <elder@riscstar.com>
+> +  - Daniel Thompson <daniel@riscstar.com>
+> +
+> +description: |
 
-Please move the allOf after the "required:" block. The constraints
-shouldn't not be before the actual top-level properties for readability.
+Do not need '|' unless you need to preserve formatting.
 
+> +  The Toshiba TC9564 is an SoC accessed by a host system through the
+> +  upstream PCIe port on the PCIe switch it implements.  The switch includes
+> +  an embedded PCIe endpoint on one of its downstream ports that provides
+> +  access to various SoC peripherals (including a clock and reset controller)
+> +  via one of its BARs.  A system controller provides managed access to the
+> +  first two pages of this memory region to ensure accesses made by these
+> +  peripherals produce well-defined results.
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - const: toshiba,tc9564-config
+> +      - const: syscon
+> +      - const: simple-mfd
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  ranges: true
+> +
+> +  '#address-cells':
+> +    const: 1
+> +
+> +  '#size-cells':
+> +    const: 1
 
-With this:
+Both properties and simple-mfd are redundant. You do not have children.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +
+> +unevaluatedProperties: false
+
+And this should be additionalProperties instead
+
+> +
+> +examples:
+> +  - |
+> +    syscon@0 {
+> +        compatible = "toshiba,tc9564-config",
+> +                     "syscon",
+> +                     "simple-mfd";
+> +        reg = <0x0 0x2000>;
+> +        #address-cells = <1>;
+> +        #size-cells = <1>;
+> +        ranges;
+
+As you can see here - no children.
+
+I also have doubts that this is needed - I see no updates to the misc
+binding, which would be referencing it. But then another point would be,
+that you do not need separate child node, which has no properties.
+
+Well, has one - address space.
+
+Lack of full picture is not helping here.
 
 Best regards,
 Krzysztof
