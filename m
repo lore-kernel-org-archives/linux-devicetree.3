@@ -1,70 +1,178 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58AC3349CF8;
-	Sun, 20 Sep 2026 11:05:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E147B274FDF;
+	Sun, 20 Sep 2026 11:05:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789902308; cv=none; b=aac4OB0Ex9xTmxh1Spa5YtMoaF6OSMFI4rVUTBXtIQeCOahK5WSLMBNVn2Vgi1ij+r7VMsLYcVcyLm54+eYqEzKxHV3xaywV9gzT4GEFqqUNUPotqbIsdlbQZix+zOmi1iU2Z+xoVIDZzybB0WhGlwaEoD6bQiz84LTk2zPgz9Y=
+	t=1789902348; cv=none; b=mk68Zip7STq7mfsYvAgRrTAfoRgXB9U1RZjyYsKbj1RXFTKfBy+v6tuP5hoKDq7WSkhR+MjzcA6dr4c6RAM8UxUxVocgoVupyVYm5V0Bmp9hr8jmCmAw8Bt0+A+g460lwU6UIXgiI1G0u0/dEX+UitzP/F7fBmeQ+UrTxQ1giqE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789902308; c=relaxed/simple;
-	bh=70vbilDEjLIdM6cZFU2A28ziQFY3kHfHzEgumbuw3O4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CSUzf1vlxUhPjQJJv1+08yF1ds8hEcPKfpZTpV6FpokfbWoHhyQzwQEwZvHzhRZNSdHQYYH193Gsu9pKCqj0RCC4o7dkWor2nv+3F2vTWdJwjNiLJD7aQQM5teY7dQ8zLmqtMnJNNOQNcyfFfA+hVyvlFMGG1Omww/DIBn3BK3E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ebHO/mPk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789902348; c=relaxed/simple;
+	bh=rtR6voWlBp6nmy7r/Mw5s0EqVFPdv3nDJeJ4GzojCQ4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=LFuWhr5ePpAmJ1mw9SZ37pCj/39ZhL9TNrU44snU3lZKEFoVxG/KS1C0SlR59I/dhJg1vNooaxt4UU/xtK0lYXsyAsr58oHksXyxcS69BZSGyQppllq10PwmC2VDrdo4QtSVq+DZtqmT6zjROVcLzh9gn7KmS8cWhRHkvQqJaNg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fd0j7+4y; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ebHO/mPk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 706091F000FF;
-	Sun, 20 Sep 2026 11:05:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789902306;
-	bh=di/BbTISvG4/OjzNVLYs/I24TNETqXYR65gNhidz4Xs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ebHO/mPkO+CtKbNjfH/qXxVV0WNhT8BZht10185Ju7NJNOWXS0bXtDJo31kOEXwgX
-	 nraZxF+uYuYlzeUUSMDmjW1wQu9qN8AEjGT6ZIJNpjejrtlxyPOyhuGZ3fZJ5uMUml
-	 U39LV1DPJU2voqqcsmhRXmRipZQKb6t9CevZFYDYVsxg0SulanKQAkNEMz+Gkd+QR8
-	 arkEqGIPi5b2MDEzoV0vAdCrd0Dr4lh2f7GDnBEGU6DUIFsge6qSU6510kZZOvDhzB
-	 Dn9R8S0W5Gm+88mxyrWPS0/BbI4wwgkY6JVv1T7iN08Y52EoXWP0Qi3Eyo/WzblnQ8
-	 1XoRDfB9v+JZA==
-Date: Sun, 20 Sep 2026 13:05:01 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: "A. Sverdlin" <alexander.sverdlin@siemens.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: display: simple: Add Truly
- TFT320240-229-E panel
-Message-ID: <20260920-thoughtful-brawny-snake-b06d43@quoll>
-References: <20260917110517.1053556-1-alexander.sverdlin@siemens.com>
- <20260917110517.1053556-2-alexander.sverdlin@siemens.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fd0j7+4y"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8C4F0C2BCFB;
+	Sun, 20 Sep 2026 11:05:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789902347;
+	bh=rtR6voWlBp6nmy7r/Mw5s0EqVFPdv3nDJeJ4GzojCQ4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=fd0j7+4y2WOMxKiwEfQmUS+Xv9TbAqzvIBRj9c850+4jcd/KN4aiAPH0HrxDZ6bXu
+	 kEMHNXq0uiwWlz0AEs/+jwJvRuoQ93vsiRmeHdX4jvrWTRwTN0A/IpDrOCCjvaRZ3Q
+	 3WLnnHsX3q7LZmubslfFCJshJgpUHbkm4+PXygDOnq3AB+PL6VHJmCvPWCKcSBgGDB
+	 mMob6BeD8ldmwZPhwUoggOxYKEaPf4DC+Hk912Ue2ZdoTPrUdToBkwsIeUtVbQ1AEm
+	 /lmVT1vbFzCiraex+LKkfoRW2hQtw+o32k+iFiA04gmwoOdHeWrmraDvGOAPHJz4lO
+	 qsipwLP8cTMjg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6A8F5C982EB;
+	Sun, 20 Sep 2026 11:05:47 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Sun, 20 Sep 2026 13:05:45 +0200
+Subject: [PATCH 02/11] dt-bindings: display: panel: samsung,s6e3ha8: Add
+ AMB630QY01 panel
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260917110517.1053556-2-alexander.sverdlin@siemens.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260920-crosshatch-panel-v1-2-de6e9512da96@ixit.cz>
+References: <20260920-crosshatch-panel-v1-0-de6e9512da96@ixit.cz>
+In-Reply-To: <20260920-crosshatch-panel-v1-0-de6e9512da96@ixit.cz>
+To: Dzmitry Sankouski <dsankouski@gmail.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2442; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=K2rs3ud3gazsmGeLP5fMP4q2yS8qRIDd3AISDM3ybSU=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqr74I3rDmLkqGSsIZDN+9uz4f1LGgo8qyM3CXq
+ 6B0H9X7JeyJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaq++CAAKCRBgAj/E00kg
+ clSTD/9L6pf3JrF6YXl/a7X0d8gmOHJJqwinoKrwkOWltUBnw4VeXVFWZjcQzUn1B2DQPdNxpQR
+ ioxQZgv0HUr5ZakzEM1S9lA/FdNe0jhbX+xl+YrCviYo24ktRsXwfmqQDHViNWwwChbgLI2n1KM
+ SajESGv2o3jkrZO/LqKFwvCEdA6MNu9YETzljzqfv9szIWxSfdAK7ZPA+I9c6r8j/UwayF/1cqG
+ 4ddsf+6pV7dfBFH2xueh7wVGTEKzlghixT5BgqmGb20TIr4s3Fc4Sj1e+a+vxSIakc0Yw8ORL8r
+ fvAlPP4lZSRRGTip/uCQgDweHM8TtuSW1gY8/X7D7dWOelvCr9Svza6SzOaoA5unTtN4kYSNZ35
+ bL7jh4dnR1o5jnUrXHRSegnMZUL3hxd0SqRUWsxR7g7Tb4bnzq/Y2IGult4UafC/+LZm4BAiz12
+ UnyZoGcMCJVRSTf+5T54ZD25LLzLSEmSSjHRDs9NVck3gnmXINAIh4GnFRC5M5vGI83i8qqDUqg
+ RXkzeo8m9Kb3fmCymS0pTBWfGTK90VGy3r1vEGKnsuCvZg+4KxgAbB4Z0Y2wqKSyR0OxEs92gOm
+ wO+B9j1+C1zsTELPlgVqAARJ/Ls3LMcFtP23GuqWmccwKPqcVRtIrYJlsLMoeD4b7m+WZ6qMsDo
+ 3HHk5Wg22gQUnlQ==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-On Thu, Sep 17, 2026 at 01:05:14PM +0200, A. Sverdlin wrote:
-> From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
-> 
-> Document the compatible string for the Truly Semiconductors Limited
-> TFT320240-229-E 3.5" QVGA (320 x 240) parallel RGB TFT LCD panel, which
-> is driven by the panel-simple driver.
-> 
-> Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
-> ---
->  .../devicetree/bindings/display/panel/panel-simple.yaml         | 2 ++
->  1 file changed, 2 insertions(+)
+From: David Heidelberg <david@ixit.cz>
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+The Google Pixel 3 XL (crosshatch) uses a Samsung AMB630QY01 6.3"
+1440x2960 flexible AMOLED panel.
 
-Best regards,
-Krzysztof
+Assisted-by: LLM
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ .../bindings/display/panel/samsung,s6e3ha8.yaml    | 31 ++++++++++++++++++++--
+ 1 file changed, 29 insertions(+), 2 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml b/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml
+index ca250b1b91712..acc2ea2969298 100644
+--- a/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml
++++ b/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml
+@@ -7,48 +7,75 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: Samsung s6e3ha8 AMOLED DSI panel
+ 
+ description: |
+   The s6e3ha8 is a display driver IC used in 1440x2960 AMOLED panels from
+   Samsung Mobile Displays (SMD).
+ 
+   Known panels:
+     - AMB577PX01, 5.77", Samsung Galaxy S9 (samsung,s6e3ha8-amb577px01)
++    - AMB630QY01, 6.3", Google Pixel 3 XL (samsung,s6e3ha8-amb630qy01)
+ 
+ maintainers:
+   - Dzmitry Sankouski <dsankouski@gmail.com>
+ 
+ allOf:
+   - $ref: panel-common.yaml#
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - samsung,s6e3ha8
++              - samsung,s6e3ha8-amb577px01
++    then:
++      required:
++        - vddr-supply
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: samsung,s6e3ha8-amb630qy01
++    then:
++      required:
++        - vddpos-supply
++        - vddneg-supply
+ 
+ properties:
+   compatible:
+     oneOf:
+-      - const: samsung,s6e3ha8-amb577px01
++      - enum:
++          - samsung,s6e3ha8-amb577px01
++          - samsung,s6e3ha8-amb630qy01
+       - const: samsung,s6e3ha8
+         deprecated: true
+ 
+   reg:
+     maxItems: 1
+ 
+   vdd3-supply:
+     description: VDD regulator
+ 
+   vci-supply:
+     description: VCI regulator
+ 
+   vddr-supply:
+     description: VDDR regulator
+ 
++  vddpos-supply:
++    description: positive boost supply regulator (ELVDD)
++
++  vddneg-supply:
++    description: negative boost supply regulator (ELVSS)
++
+ required:
+   - compatible
+   - reset-gpios
+   - vdd3-supply
+   - vci-supply
+-  - vddr-supply
+ 
+ unevaluatedProperties: false
+ 
+ examples:
+   - |
+     #include <dt-bindings/gpio/gpio.h>
+ 
+     dsi {
+
+-- 
+2.55.0
+
 
