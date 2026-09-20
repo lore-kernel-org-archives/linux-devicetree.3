@@ -1,52 +1,59 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7923845A2B6;
-	Sun, 20 Sep 2026 16:18:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E670B459AF2;
+	Sun, 20 Sep 2026 16:18:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789921100; cv=none; b=RpOZeTNuF5H/ks2nEQcA+2qtiAPHEoW1jpBr5C4k3LdyOMAgZgX8x+SLe4k9IfnBpxu2qhrgKKVt43iQJvCRTq25n92EKuUqaDvxPbD7AFinD97DF7fqZ8XVPhLX53UQNoheuUZ+EVGw8MlQvQxOkqUjBMOXvShCdqhsXjB6iWI=
+	t=1789921112; cv=none; b=s2ZJTFTuREkxJhhFFY6NESxsPuTI8IiBvP77iYRdPIZrOAhQMIt8O0rwxtGmPQhtjWwx/sVOysf+XoHT97/SCd5hz4aT+Mde/sjDGmYq0a0JA/3LHqDzi5qk0YKQtOPcJUL+uYxQ1IvIpAXax//91tAhdYy1faVpDGnZisXyI/k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789921100; c=relaxed/simple;
-	bh=yXHh3cnOSfQfGHKoWUfQW7aCbwrwx30KBMb+/dmnEL8=;
+	s=arc-20240116; t=1789921112; c=relaxed/simple;
+	bh=N+vswpgUDGCRk6/8Ow0ln0bhjks9VhFnV9YH2XIbm3c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ELLjWgZPKCmwTrhKCzCvT+0ydqPiy181iaxFSrfMgENMsfRC5Ej3RIJ8jmddWmc13PhXGCPr8bJWa9E4sGUfV7K7INB6+ntPTBN2/tu11PqGPdOXH7sawb5AkAJqCG63VmzrymIG91ep43h7lK+gPloEHxFvH42ZfKmzSoGm+vY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XKRtozKQ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=nY32NJa+mKSWVu+fVf9UJDxHXVmO2IAflygCJe3HsXMfXVmGzOtFEHjzgou27lEXlfHnSpP58IgWMb7ZnxOiU/3PeFQQYpSqAWYyATiaJNkLUouICumucurwaQ4R63w6yZa0pbvaDxXUQhKVHtGu6uQUrycIP1QzYfUNOoONl80=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hy+ta0Z/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XKRtozKQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D97131F00893;
-	Sun, 20 Sep 2026 16:18:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hy+ta0Z/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 637861F00899;
+	Sun, 20 Sep 2026 16:18:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789921099;
-	bh=oWrs+Si1H3KWvlJdp1xU14ZaF8bdn2VV4K3QOlIal+M=;
+	s=k20260515; t=1789921101;
+	bh=ygfSp4T2NIau647RrtwqADOfg9Si3sKLRyKxPNNmEZk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XKRtozKQebB6IErECcs3uio+5I6uooGZpkc43rFH9VYXgK+VQ3p519ytzAlGYG2WH
-	 I7P7ZdYrZKWO9VLfYBaaKH6SebVhodH51PCPHsX+y89PYH6y0I48nZj/WM0SKDdyKQ
-	 mIKfTm6682OuV9ICi97N0QsHLJy3UGf0oNzu4rHZchxqvsfor0vgeJnPJqv6EzuLxK
-	 SbO9ZCrx6CQ7yTCNp7Tq+ilCTlCrLGyzIWrG2DHSuIwRFXjzJHBaeqfwumYRaD2Jr+
-	 s8ElO7y/YDrSKDbMvroLqdV/Jj3/fg2t02xuKazLljjQ3rcVuYkcGYhZWOGcbPhrmU
-	 KywlnB7gHCADw==
+	b=hy+ta0Z/cH2sU70ovM11EVsbaexE/1WLiszSFK+/JHz/i9sQXwikcwL70giJzN7//
+	 gqUMb9nrRFugbAkd4F+lsqikAgjbzgUmhmJU2LlbMw8T1q8eXy+rp/lt6OeR5NgGEx
+	 676DxHZePOhU15rSxLgHWlNRE80YbevVhzOB/19STz1FVH4oX9frWU0pLuLSQRuyuW
+	 AgDccMMpgM6v9Y0pBQ2riLoynqO04PBxxORPB5VjVlI8VYOlREbm3ArPxIQ0axadwK
+	 wP4PbWu+1vLkZANKPFIWKe3ekNPcxzX2vhT84v3BRlD7lHMYUSYwK5ZFm9+3ciPM03
+	 0Xhb05Xgp7TXQ==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>,
+To: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney@redhat.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
-	Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>,
-	Yadu M G <yadu.mg@oss.qualcomm.com>,
-	Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+	Taniya Das <taniya.das@oss.qualcomm.com>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Jagadeesh Kona <quic_jkona@quicinc.com>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Vivek Aknurwar <vivek.aknurwar@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v15 0/6] Add initial device trees for Nord platform
-Date: Sun, 20 Sep 2026 11:18:08 -0500
-Message-ID: <178992108602.214160.18132180044428418795.b4-ty@kernel.org>
+	linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>
+Subject: Re: [PATCH v3 0/2] clk: qcom: add camera clock controller support for Hawi SoC
+Date: Sun, 20 Sep 2026 11:18:09 -0500
+Message-ID: <178992108611.214160.10133358912987093867.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260914031412.140856-1-shengchao.guo@oss.qualcomm.com>
-References: <20260914031412.140856-1-shengchao.guo@oss.qualcomm.com>
+In-Reply-To: <20260915-camcc-hawi-v3-0-5b57f45477f1@oss.qualcomm.com>
+References: <20260915-camcc-hawi-v3-0-5b57f45477f1@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -57,32 +64,18 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Mon, 14 Sep 2026 11:14:05 +0800, Shawn Guo wrote:
-> This series adds initial device tree support for Qualcomm's Nord SoC
-> and the reference design boards, SA8797P RIDE for Automotive and IQ10 RRD
-> for Robotics.
+On Tue, 15 Sep 2026 10:33:00 -0700, Vivek Aknurwar wrote:
+> Add support for the camera clock controllers on the upcoming
+> Qualcomm Hawi SoC.
 > 
-> Nord includes two variants, GearVM and Embedded. The GearVM variant has
-> platform resources (clocks, regulators, powerdomains, etc.) controlled
-> by SCMI server running on a VM. And the Embedded variant has the resources
-> directly controlled by the operating system.
 > 
-> [...]
 
 Applied, thanks!
 
-[1/6] arm64: dts: qcom: Add device tree for Nord SoC series
-      commit: 5e97460df08d194acb20861d1c58d7f55f8bb9bf
-[2/6] arm64: dts: qcom: Add device tree for Nord GearVM variant
-      commit: 6d3394d0451ed046e16dab61302600727eba48ec
-[3/6] arm64: dts: qcom: Add device tree for Nord Embedded variant
-      commit: 0ffb5db49f82fe730b3375d0f1ebfc5bcca4f3ac
-[4/6] dt-bindings: arm: qcom: Document Nord reference boards
-      commit: 05f9fe5e499561cb2c91cdf97e2019796d5b0ff2
-[5/6] arm64: dts: qcom: Add device tree for Nord Ride board
-      commit: 9ea6f82ac0e7404a9a6e20ac49daefef364679e8
-[6/6] arm64: dts: qcom: Add device tree for Nord RRD board
-      commit: 32afff1e816e10185bb571aa9d89dc2eb061d548
+[1/2] dt-bindings: clock: qcom: Add Hawi CAMCC compatible strings
+      commit: 5bf89b02b163ea04b3894e2a5beabc3f0619c2e8
+[2/2] clk: qcom: Add support for the camera clock controller (CAMCC) on Hawi
+      commit: 1390fc11599b5ad3ca9bbafba04ee781b4544819
 
 Best regards,
 -- 
