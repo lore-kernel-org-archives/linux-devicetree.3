@@ -1,86 +1,151 @@
-Received: from v54.v54282eed.euw1.send.eu.mailgun.net (v54.v54282eed.euw1.send.eu.mailgun.net [185.250.239.4])
+Received: from v511.v5ed9ac7d.euw1.send.eu.mailgun.net (v511.v5ed9ac7d.euw1.send.eu.mailgun.net [141.193.32.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A01093DC4DE
-	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 19:22:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.250.239.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49262470EB2
+	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 19:34:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=141.193.32.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789932140; cv=none; b=ja2Ka0yFw/I+wzWUD0MJWx6vpnBEsw+ojjVw/uOLVZfcTGwG2+0AKA5mHBdXA/MXKDDzZbw1Q6/ctHCY2U1ogtoaJuG1ID/BlmupDitrXVvEIdO8GWKIO9IsqYOhVrG/R+gjmxlA2M7+pdXJR7g4LTW7ln1dUZmu5PsWDRgVpNY=
+	t=1789932886; cv=none; b=nzKbosDxkJWHZvf4aPeF5WL8an8bUJPVbLeVyR4JqaGI6xvXcflXmvH7tmedBxYIqW+5/VrGtDgp1hYwAYmAi/fVFDwgAEI+zSRIVhsRAt526b31WNU/yoFuswez5M5x745St+m3HpqVQeSbzWSeBqLp7OV40pYMHIkKJCL1xdQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789932140; c=relaxed/simple;
-	bh=u+vIZ43JfLZ8LkHmfHQtXl/8U0Cx9xVLlobAbbpN84c=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=GlDRICwkQGXnPJfRKR4V1vnaX9fJ1PuBzCfdr0KhMtFc2GPi2MqZE2TH1OOLxyXwY5GLYA53Va/yig5dOYq8aa2vXXcrfW+skVk+aqq4L+JYs6KcxL3crfmmSVaeHe3CL0RZ2qoI8wN4Zpsvg//IC2cxtMjqZb0j3a/hBd0Oks8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=plajta.eu; spf=pass smtp.mailfrom=plajta.eu; dkim=pass (2048-bit key) header.d=plajta.eu header.i=@plajta.eu header.b=BW7UphDD; arc=none smtp.client-ip=185.250.239.4
+	s=arc-20240116; t=1789932886; c=relaxed/simple;
+	bh=t4JIveL13S9gauJA04Ox198PtrobTg34jManQ35hPL0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=EX58kF+D9l+3qRo4jGQEpFs2x1VVqxmyyhxHw3sJ2teh77fNYoQDFx4VPblEq1LqPxLM6uE3m/rk+P4n84LqlQjKZluEuQ8YHgE7sWMetF8N80Mv0XcMfLlXLPGApcRfvxRJpcVdrWkl+Lfb6xCf1eZwzdBGtEyR2xNQfGx77Ck=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=plajta.eu; spf=pass smtp.mailfrom=plajta.eu; dkim=pass (2048-bit key) header.d=plajta.eu header.i=@plajta.eu header.b=5cBxX8vI; arc=none smtp.client-ip=141.193.32.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=plajta.eu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=plajta.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=plajta.eu header.i=@plajta.eu header.b="BW7UphDD"
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=plajta.eu; q=dns/txt; s=s1; t=1789932135; x=1789939335;
- h=Cc: To: To: In-Reply-To: References: Message-Id: Content-Transfer-Encoding: Content-Type: MIME-Version: Subject: Subject: Date: From: From: Sender: Sender;
- bh=RtwQwsbRFeW7bEqLw+ZYZ90U9CWGFLV7cHxo0QOPLks=;
- b=BW7UphDDM9G9o2RdoeQA5j7rnHw/84zYogbPiE7iXH4vNDoO5XeNJy7GkuM/cYd1NEZEmQinu2qioGOB5uXifEvtBskAGP8xG7w1jiYLX9QvxGUMUlrAlYgLhSQWcNPQC82CvVY7uPVcus86YySMrkresCzf9VwrUZibkoSwW2cx27PdYNHD3H7lVx47w722scNHiaLUZwvmr2dxcUYegI7pcOXmDJeOLvLdvjKAk5yKY0wmiCqtaB7yhbLCT4N5j+t22EXm9kjG+VwX7pM/kU62KeGCSJOoSXs43qix5gUadugAqjZDay06prxpLBC20UpfoH0yctDZZ1d4tZ6l4A==
+	dkim=pass (2048-bit key) header.d=plajta.eu header.i=@plajta.eu header.b="5cBxX8vI"
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=plajta.eu; q=dns/txt; s=s1; t=1789932882; x=1789940082;
+ h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To: Message-ID: Date: Subject: Subject: Cc: To: To: From: From: Sender: Sender;
+ bh=FmzhuK6IpWvR2aW1te2Z5aBW1CaQdm+9cLdgsDSyZlQ=;
+ b=5cBxX8vIRFqKqGRGGA/GjJEc1t+MULA/9QlHxSPiiZxRyqWu2MMaFxXoi4ezVzLNOvwC93EDZpXruaz/t4otjUR76oBealH5SZSDFtqwsGE2i8c7EsEWUG6nxHWPg66FQPXWKq9CPld5TPIXwxAovlbYtM5mB8Li/HmsM+kLvJdpbUS55+PPG0A0mayu0WAS+kDjJBLxT5CfzLZLlq9jzK1eu8k6QGeFCk7PIupDjfZ/DY9fm60PVWUYVcZ1ISJp+SLTS1guByOys9VX+wrHIxv9k9N4qHnxsxHGWun0dGrO+prSi+o7+J6+lHL/Sxx9bn6PLlPWuj2D+UfrFIsQOg==
 X-Mailgun-Sid: WyIxMzMzOSIsImRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnIiwiYTkyNGIiXQ==
-Received: from [192.168.1.219] (ip-86-49-238-222.bb.vodafone.cz [86.49.238.222]) by
- 62dde763711f91b09babc141eb112fb8433c3bdf14f6a1f222f9cb9a27a17a83 with SMTP id
- 6ab03267b0e292dfde225348 (version=TLS1.3, cipher=TLS_AES_128_GCM_SHA256);
- Sun, 20 Sep 2026 19:22:15 GMT
-X-Mailgun-Sending-Ip: 185.250.239.4
+Received: from tensor.lan (ip-86-49-238-222.bb.vodafone.cz [86.49.238.222]) by
+ 00ac16c5e585ac9bceb1079b802b58c72c785b7e76dfb24b3a1541702f7d4fe6 with SMTP id
+ 6ab0355132eec1afadfe4f4a (version=TLS1.3, cipher=TLS_AES_128_GCM_SHA256);
+ Sun, 20 Sep 2026 19:34:41 GMT
+X-Mailgun-Sending-Ip: 141.193.32.11
 Sender: andrijsalivon@plajta.eu
 From: Andrii Salivon <andrijsalivon@plajta.eu>
-Date: Sun, 20 Sep 2026 21:21:37 +0200
-Subject: [PATCH v2 1/2] dt-bindings: arm: fsl: add Amazon Kindle 4 (Yoshi)
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	Andrii Salivon <andrijsalivon@plajta.eu>
+Subject: [PATCH v2 2/2] ARM: dts: imx50: add support for Amazon Kindle 4 (Yoshi)
+Date: Sun, 20 Sep 2026 21:34:24 +0200
+Message-ID: <20260920193424.3637697-1-andrijsalivon@plajta.eu>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260920-imx50-yoshi-v1-0-b8a46b3a972f@plajta.eu>
+References: <20260920-imx50-yoshi-v1-0-b8a46b3a972f@plajta.eu>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260920-imx50-yoshi-v1-1-b8a46b3a972f@plajta.eu>
-References: <20260920-imx50-yoshi-v1-0-b8a46b3a972f@plajta.eu>
-In-Reply-To: <20260920-imx50-yoshi-v1-0-b8a46b3a972f@plajta.eu>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- Andrii Salivon <andrijsalivon@plajta.eu>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1789932134; l=773;
- i=andrijsalivon@plajta.eu; h=from:subject:message-id;
- bh=u+vIZ43JfLZ8LkHmfHQtXl/8U0Cx9xVLlobAbbpN84c=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgRPkrbhoPH7FSvHGDzrn6ac5XixtTH
- LGWklZFOfCUTc8AAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QCGNxb76DDkKsA2EIEB+PpDylCtpW9VAHZctg/fF1JJ8079slVTPtJxwcYqGbz5u/+f0Ld8/dSJ
- qfu6ycZ1dawM=
-X-Developer-Key: i=andrijsalivon@plajta.eu; a=openssh;
- fpr=SHA256:NIrmQeSA8iZxz4K2sBePBO20E3POR1tDuMtfPGdgY+k
+Content-Transfer-Encoding: 8bit
 
-Add the amazon,yoshi compatible string for the Amazon Kindle 4
-non-touch e-reader to the i.MX50 board list.
+Add initial device tree for the Amazon Kindle 4 non-touch e-reader
+(codename "yoshi", mainboard marked E01100), based on the i.MX50 SoC.
+
+This enables the console (UART1) and internal eMMC (eSDHC3), tested
+booting to a full Arch Linux ARM userspace with systemd on real
+hardware.
 
 Signed-off-by: Andrii Salivon <andrijsalivon@plajta.eu>
 ---
- Documentation/devicetree/bindings/arm/fsl.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm/boot/dts/nxp/imx/Makefile            |  1 +
+ .../boot/dts/nxp/imx/imx50-amazon-yoshi.dts   | 59 +++++++++++++++++++
+ 2 files changed, 60 insertions(+)
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx50-amazon-yoshi.dts
 
-diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
-index 656f2596e1d5..dfc91bcf9384 100644
---- a/Documentation/devicetree/bindings/arm/fsl.yaml
-+++ b/Documentation/devicetree/bindings/arm/fsl.yaml
-@@ -186,6 +186,7 @@ properties:
-       - description: i.MX50 based Boards
-         items:
-           - enum:
-+              - amazon,yoshi
-               - fsl,imx50-evk
-               - kobo,aura
-           - const: fsl,imx50
-
+diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/imx/Makefile
+index 1a2539fa19b4..1a9e70b985d6 100644
+--- a/arch/arm/boot/dts/nxp/imx/Makefile
++++ b/arch/arm/boot/dts/nxp/imx/Makefile
+@@ -23,6 +23,7 @@ dtb-$(CONFIG_SOC_IMX35) += \
+ 	imx35-eukrea-mbimxsd35-baseboard.dtb \
+ 	imx35-pdk.dtb
+ dtb-$(CONFIG_SOC_IMX50) += \
++	imx50-amazon-yoshi.dtb \
+ 	imx50-evk.dtb \
+ 	imx50-kobo-aura.dtb
+ dtb-$(CONFIG_SOC_IMX51) += \
+diff --git a/arch/arm/boot/dts/nxp/imx/imx50-amazon-yoshi.dts b/arch/arm/boot/dts/nxp/imx/imx50-amazon-yoshi.dts
+new file mode 100644
+index 000000000000..417972ad6bb3
+--- /dev/null
++++ b/arch/arm/boot/dts/nxp/imx/imx50-amazon-yoshi.dts
+@@ -0,0 +1,59 @@
++// SPDX-License-Identifier: GPL-2.0+
++/dts-v1/;
++#include "imx50.dtsi"
++
++/ {
++	model = "Amazon Kindle 4 (Yoshi)";
++	compatible = "amazon,yoshi", "fsl,imx50";
++
++	chosen {
++		stdout-path = "serial0:115200n8";
++	};
++
++	memory@70000000 {
++		device_type = "memory";
++		reg = <0x70000000 0x10000000>;
++	};
++};
++
++&esdhc3 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_sd3>;
++	bus-width = <8>;
++	non-removable;
++	min-frequency = <400000>;
++	max-frequency = <40000000>;
++	disable-wp;
++	status = "okay";
++
++	/* Internal eMMC */
++};
++
++&iomuxc {
++	pinctrl_sd3: sd3grp {
++		fsl,pins = <
++			MX50_PAD_SD3_CMD__ESDHC3_CMD		0x1e4
++			MX50_PAD_SD3_CLK__ESDHC3_CLK		0xd4
++			MX50_PAD_SD3_D0__ESDHC3_DAT0		0x1d4
++			MX50_PAD_SD3_D1__ESDHC3_DAT1		0x1d4
++			MX50_PAD_SD3_D2__ESDHC3_DAT2		0x1d4
++			MX50_PAD_SD3_D3__ESDHC3_DAT3		0x1d4
++			MX50_PAD_SD3_D4__ESDHC3_DAT4		0x1d4
++			MX50_PAD_SD3_D5__ESDHC3_DAT5		0x1d4
++			MX50_PAD_SD3_D6__ESDHC3_DAT6		0x1d4
++			MX50_PAD_SD3_D7__ESDHC3_DAT7		0x1d4
++		>;
++	};
++	pinctrl_uart1: uart1grp {
++		fsl,pins = <
++			MX50_PAD_UART1_TXD__UART1_TXD_MUX	0x1e4
++			MX50_PAD_UART1_RXD__UART1_RXD_MUX	0x1e4
++		>;
++	};
++};
++
++&uart1 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_uart1>;
++	status = "okay";
++};
 -- 
 2.55.0
 
