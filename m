@@ -1,196 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022123.outbound.protection.outlook.com [52.101.126.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 154AC3D2FE6
-	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 05:14:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789881294; cv=none; b=DegfRIT5M1KjvN6e8/ZW+8nM2du7eivYXKLB77hy5KfyIe1/FgrT35P7fSqtK+uCi5XEbBrERiNo260KaEG+xLdF8D4ghWuyuliWtxF5qFstubtxnL0M/zd1+47msxNd58aL4LA5m0vvft4wKbwp1BRmBidvXVf4YUf3EjbQMe4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789881294; c=relaxed/simple;
-	bh=Y4TwA4UpLUE6myioa4dvueuwTx3r22lccBT/D7ixNyY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=JtmGJUec67CIr+2vKIGD9ajjf0N9XT4leJ1UT3WGm4qjLeyUhTI7UxzCUXpud1Lv+zpC81qtsHDJkk1Q7fiPZI0HoIUbF0KOd2mCs9Pk7hLiErpFYzMIx5Z5dp2ive3mEjPJ8vYSFwSSryoL5SErq5Kvaod4yEsyqmVAgYSQf+k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hfUgIN3f; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hfUgIN3f"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4A1A1F000FF;
-	Sun, 20 Sep 2026 05:14:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789881293;
-	bh=196qq50DEwRyAMwYTM9Uui1NJGv5PW6zG6S+1AyuEP8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hfUgIN3fH9rqlavghoSsBNXn2Q4w0+UEq62Td6ZqNl/cC8Na2H+LHs1y8Rsv2JL1G
-	 c2dgf2Il6MVfoAGnli4CsNn83daseDh18sgrGm/pTZwrTf+NssT84MvjoasYLDbKCZ
-	 WNAHYmSVvmrN2r56kdlRpX7CkSTZu4JJVqIW44d+a8G4A3U5wi+gNg1M30WMgnUopm
-	 3xZozxY0T0oydJHtxvl1wPKaBwj8O2E/gWVDBOVf2iUEC3YdViAoBznUlxUyHVhzCH
-	 zX0KyGo+2/p+vJVTIlXEhkrWtpxTs9QZnBTgLI+ZOYcFsnbvl6TQdI+i5GQOa0roOJ
-	 +PAk3AkQGgkzQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 17/28] arm64: dts: apple: t8103-j274: Add
- speaker/headset jack nodes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "James Calligeros" <jcalligeros99@gmail.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260920-macaudio-v1-17-741cc20a74e5@gmail.com>
-References: <20260920-macaudio-v1-0-741cc20a74e5@gmail.com>
- <20260920-macaudio-v1-17-741cc20a74e5@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 20 Sep 2026 05:14:52 +0000
-Message-Id: <20260920051452.B4A1A1F000FF@smtp.kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA1D53D4112;
+	Sun, 20 Sep 2026 05:15:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.123
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789881311; cv=fail; b=MDpSsCVh5/opjqwP1TXtHJRt0n1BgFyiB9+l3Xg3oSElI81hjCO9oX10iJxj6PnAbIE+4VLXRaaMf69EBb+e87vGW5K9HCdN/E6yws0OU6jC6BR8vx0dThKQNAZtYDNmWx4xwVTPSoSC5nFSiUkUFjZO/LNeqmP2PuNGZIkoz3Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789881311; c=relaxed/simple;
+	bh=ylZ/CvgG3yh2HSIJShoIBFahkooqMR7/RY6zuzk8lgo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jtCivOwdVTgi12VRWYh2VB9iuFfizcEjyL10qAGKi5IXtjwV0JdKIpErubXS2k03+fVF7VX0Q45tEBw7iEUXASH3YigoKkdFoKFWk61f+dtntNZO2SAqfCwUuCkz+nup7L1CmWoLxs75AQec1eMerA+dE5y3ZVhPBRmewxwnrys=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=52.101.126.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=s8SPU5oAvtezlEd4woUcNkLHALbOsUJgdptDyX27GWCxQKPbAgC+WyPDXNJFWfJaKD/IPB7czGlDqmuLYvY16lX6Z63EjWvB2tadTw/DB+Ve/qVEBlDytIcK4zZSlKn0m6oo4Xav+eHBSXmMw0SOP6BcYdKemutbifiJpxKtHZdWf+cOJeTPi61TOHjd3J2Tiyxp1gH+VZeLWMFAIPFfx6wlRyBkEZ9XHqzj8tQ1VRIseHjeJoWTNqshxcDkC8kPeCZMKxuaIYNFInfQb3CjYlckCYybsJ4czNso96UG5MX8oeMrWwAgQvpOlm2u0jTQughEDf2HsjCtBmxojgACNg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ylZ/CvgG3yh2HSIJShoIBFahkooqMR7/RY6zuzk8lgo=;
+ b=pxXgi3CxESXTde6BDP9bdo0xPDjvgOYLxLNwOLCmScwsOaz3VJAGjJHmj/Zb26QE26zwKFOQAiasENSpzOy4bbGI0ZP9iLrRfvpeQJK0EyNFGD78d241fORMG11pR9tlAicSC9KuCVKIzG9+/+xcbtpf3d2Wpv4BVsAfJplljS8MzLoI1v/Ksr6e7jInX2o9ihi8oLpkStfH/JDlpDBfs3VtX5PKsnGVnrRfZIYPrb8ZlRSdfFHQq642+ETE08Ka/T5u0Kt4cwQkGII0IfxzByVbN6EHF4LAiyUn3ITAkaYJ1ikt9rt2sV4bbHKgsxY2t8y/chYOVgmWgrIUWdEt2Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from TYCP286CA0356.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:7c::8) by
+ JH0PR06MB6891.apcprd06.prod.outlook.com (2603:1096:990:51::10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.15; Sun, 20 Sep 2026 05:15:04 +0000
+Received: from TY2PEPF0000AB85.apcprd03.prod.outlook.com
+ (2603:1096:405:7c:cafe::6d) by TYCP286CA0356.outlook.office365.com
+ (2603:1096:405:7c::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.15 via Frontend Transport; Sun,
+ 20 Sep 2026 05:15:03 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
+ smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ TY2PEPF0000AB85.mail.protection.outlook.com (10.167.253.5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Sun, 20 Sep 2026 05:15:03 +0000
+Received: from ubuntu (unknown [172.20.64.99])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id B587840920E2;
+	Sun, 20 Sep 2026 13:15:01 +0800 (CST)
+From: Jelly Jia <Jelly.Jia@cixtech.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: Jelly Jia <Jelly.Jia@cixtech.com>,
+	vkoul@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	Frank.Li@kernel.org,
+	robin.murphy@arm.com,
+	cix-kernel-upstream@cixtech.com,
+	dmaengine@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 3/5] dt-bindings: dma: Add CIX Sky1 DMA-350 integration
+Date: Sun, 20 Sep 2026 13:15:01 +0800
+Message-ID: <20260920051501.3620794-1-Jelly.Jia@cixtech.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <aqE42NzerAiD2U1E@squawk>
+References: <aqE42NzerAiD2U1E@squawk>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB85:EE_|JH0PR06MB6891:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: db941cae-d928-4856-80a4-08df16d6207e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|23010399003|7416014|376014|1800799024|36860700016|18002099003|22082099003|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	OAJssUO5OBQLxSxysO2gjsA4HD70vatnsM/JWqqtcnGhYlgP27EBi9Ywp0Ou0QKHFObaSoFQb914F/9uMOGtX2xg3mIlnutcxnRf/S7HcadJ2lvz2b+BOULQ5YM8UkhFw1JKOvB8f7vY2eEdzuidSfLMrjTMr4+U27s4SY6SU0RunUoBUmzGVwGYSypxFIc0V+gq9JaJid8zoUcfV9N/nquhZFKQmzIF3hOcm/GK/kLug/WViwUXGvdZMBZ6cU4nTiwqwwUz+G7NqflZzzSw6m2MaJ0DiTsozct3LKHzS2PLII3L8Zu9e4EvqI3QMi6eZBrLiRxShB6WfNRgK9yyUIslYa2rT8hea5JI0Vg7p6soCWIPXxIX+UjaTAg1B5YDosIGlhde2BOYabFudaUOWn2gSXgZTVwi/TNNpiOYGfJwd3IOXwUQE7uPD8H0s7lJaE8H/iU13BhbMGIc70SRL5Ea/n3aUF+SjrC8Oc05ZFm8jTS/Dnyl3qr4ZSBphhhCMfT5FgueQph45VaroFVX4Tj9kTWJcPJqYRX9S79s8qW3X301N9ek1ZqR7iaHY1d8FSEeTrvdHQwgmOEIW3kv26/J+//hg+pAnSWGI7PCcdHkK7Hm2WjezlilICVvKOkEssLqa7/x5Lsgjg7FN2ojznzALT7pFseJWpmQWpGbKk+l18UpYWVh5Mvm6Un87BQ6+pf2u+r6W6gD8EkjUPjOgw==
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(7416014)(376014)(1800799024)(36860700016)(18002099003)(22082099003)(56012099006)(10067099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	KowlSTKsSt9TJdAxFPtmIulOQxSk4H8krEHbIsvLX/3BxqqksLTr1ZNpAhVmdK8Dngu8n+h0JU2e0qwXJirROV1wGFMHfQpBVC+U69wxmyNbF4kS518dhvRfaKTdBpO+BwDqcqHLQ2sckcytkI7MOlskCJNhLeGi5qYf4eqoM5qnzRqPYqiD5mmiv+WLzDKPlyUWRaCgSoY2jDf+BhTq4KMsKQdpICNRATE3I8t7B+o9NqxZxrpyvdvzGh4VHjvschyzL3jBXhb6XBZuT0qPtY7WQQa/rYkmLsGc2R0UV4TRE7ux3J6/QWlVuTLvowjv2FswOnU0PY/j+ai+9E4GWZxVESqLgQorDxgWnN48UhyoTcYGXaG0kXDpt44DfNowj3XpK6uJVIns2ZvXvpENt+iJ0kN7eh5Y5uI8NWM8xZQeMsEqZSpHps69Y3VrihvI
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2026 05:15:03.1384
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: db941cae-d928-4856-80a4-08df16d6207e
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	TY2PEPF0000AB85.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: JH0PR06MB6891
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [Medium] dts: missing required regulators in cs42l83 node
-- [Low] dts: duplicate &i2c2 node definition
-- [Low] dts: invalid compatible string array for tas2770
-- [Low] dts: undocumented properties in cs42l83 node
-- [Low] dts: missing addressing properties in sound node
---
+Hi Conor,
 
-commit 05517f4fbd6ba283bbb6aac224c8afd505d5bf52
-Author: James Calligeros <jcalligeros99@gmail.com>
-arm64: dts: apple: t8103-j274: Add speaker/headset jack nodes
+Thanks, understood: with the SoC-specific compatible scoping the
+integration code, other platforms are unaffected either way.
 
-This commit introduces speaker and headset jack nodes for the M1 Mac mini.=
-=20
-It defines configurations for the TI TAS2770 and Cirrus CS42L42 audio=20
-codecs and links them to the machine driver.
+For v2 my preference is to keep the wrapper, since it leaves the
+generic arm-dma350 driver and its binding untouched. Does that work
+for you, or would you rather see the dma-350 node itself carry a
+device-specific compatible, with the clocks, resets and
+memory-region described on it? I'd also like Robin's take on the
+arm-dma350 side before restructuring that far.
 
-> diff --git a/arch/arm64/boot/dts/apple/t8103-j274.dts b/arch/arm64/boot/d=
-ts/apple/t8103-j274.dts
-> index 1212852251e07..4b30f08eaac01 100644
-> --- a/arch/arm64/boot/dts/apple/t8103-j274.dts
-> +++ b/arch/arm64/boot/dts/apple/t8103-j274.dts
-[ ... ]
-> +/* Audio codecs */
-> +&i2c1 {
-> +	status =3D "okay";
-> +
-> +	speaker: codec@31 {
-> +		compatible =3D "ti,tas5770l", "ti,tas2770";
-
-[Severity: Low]
-Will this compatible string array fail schema validation?=20
-
-The ti,tas2770.yaml schema restricts the compatible property to a single en=
-um
-of either "ti,tas2770" or "ti,tas5770l". Providing an array instead of a=20
-single string causes a dtbs_check validation error.
-
-> +		reg =3D <0x31>;
-> +		interrupts-extended =3D <&pinctrl_ap 182 IRQ_TYPE_LEVEL_LOW>;
-> +		shutdown-gpios =3D <&pinctrl_ap 181 GPIO_ACTIVE_HIGH>;
-> +		#sound-dai-cells =3D <0>;
-> +		ti,imon-slot-no =3D <0>;
-> +		ti,vmon-slot-no =3D <2>;
-> +	};
-> +};
-> +
-> +&i2c2 {
-> +	status =3D "okay";
-> +
-> +	jack_codec: codec@48 {
-
-[Severity: Low]
-Is there a reason to redefine &i2c2 here?
-
-The t8103-j274.dts file already contains an &i2c2 block earlier in the file=
-.=20
-Appending another &i2c2 block at the end of the file is redundant; the=20
-jack_codec child could be added directly to the existing &i2c2 block.
-
-[Severity: Medium]
-Are there missing regulator supplies for this codec?
-
-The cirrus,cs42l42.yaml binding explicitly requires VP-supply, VCP-supply,=
-=20
-VD_FILT-supply, VL-supply, and VA-supply. These are absent from this node,=
-=20
-which can lead to schema validation failures and driver probe failures if=20
-dummy regulators are disabled.
-
-> +		compatible =3D "cirrus,cs42l83";
-> +		reg =3D <0x48>;
-> +		interrupts-extended =3D <&pinctrl_ap 183 IRQ_TYPE_LEVEL_LOW>;
-> +		reset-gpios =3D <&pinctrl_nub 11 GPIO_ACTIVE_HIGH>;
-> +		#sound-dai-cells =3D <0>;
-> +		sound-name-prefix =3D "Jack";
-
-[Severity: Low]
-Do these generic audio properties pass schema checks?
-
-The cirrus,cs42l42.yaml binding specifies `additionalProperties: false` but=
-=20
-does not include #sound-dai-cells or sound-name-prefix, nor does it include=
-=20
-a reference to dai-common.yaml. Their presence will trigger validation erro=
-rs.
-
-> +		cirrus,ts-inv =3D <1>;
-> +	};
-> +};
-> +
-> +/ {
-> +	sound: sound {
-> +		compatible =3D "apple,j274-macaudio", "apple,macaudio";
-> +		model =3D "Mac mini J274";
-
-[Severity: Low]
-Should this parent node declare #address-cells and #size-cells?
-
-Since the children dai-link nodes use unit addresses, standard DT syntax an=
-d=20
-the apple,macaudio.yaml binding require the parent sound node to specify=20
-these properties to avoid compiler warnings.
-
-> +
-> +		dai-link@0 {
-
-[Severity: Low]
-Does this node require a reg property?
-
-Using a unit address without a matching reg property violates device tree=20
-specification and causes compiler warnings.
-
-> +			link-name =3D "Speaker";
-> +
-> +			codec {
-> +				sound-dai =3D <&speaker>;
-> +			};
-> +
-> +			cpu {
-> +				sound-dai =3D <&mca 0>;
-> +			};
-> +		};
-> +
-> +		dai-link@1 {
-
-[Severity: Low]
-Similarly, does this dai-link need a reg property to match the @1 unit=20
-address?
-
-> +			link-name =3D "Headphone Jack";
-> +
-> +			codec {
-> +				sound-dai =3D <&jack_codec>;
-> +			};
-> +
-> +			cpu {
-> +				sound-dai =3D <&mca 2>;
-> +			};
-> +		};
-> +	};
-> +};
-> +
->  #include "hwmon-mini.dtsi"
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260920-macaudio-v=
-1-0-741cc20a74e5@gmail.com?part=3D17
+Best regards,
+Jelly
