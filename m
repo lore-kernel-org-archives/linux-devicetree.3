@@ -1,452 +1,365 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F2EE26F2A0
-	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 01:48:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789868911; cv=pass; b=C0gSdr8R+mXWBFnCCq1fqfSaExF+xhkYNi8xYP8XbuM6qoIJwBKukfDCHD+jW1dY1z9uogfyD2VtQwtLlOLMk/d1awi4/zMEiwiGv0wx5ryI25dfszkko+EzR46RT0vHJRYlvYXIm1t8XUBBAQOYzejVzs8LyIkzHIki/TMxTvo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789868911; c=relaxed/simple;
-	bh=x3vQNuQDJzVM8ktLCyC7Bj5o8jPukV29wkue2Gp6P8Y=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oG/Fv5pymEJMg+OjP/oiBPLA3HTPPPCy6hGrdxFSI8yEVqZ2uo777cBN11WJgZ9zX/5d7GP67RDPKQ5aVi4vESpLQ2I5w5mJZnlD9fi920idH/yo1atVj6Faqy8nK3ff2u1vaSiXxm78s+nyVebx9yRK+q/xxvIXkOVZgAfAWBE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jLMzLIOR; arc=pass smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EA552139C9;
+	Sun, 20 Sep 2026 02:03:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789869840; cv=none; b=JglJo27SFZ8SJWz/OAygObpbTnCT2TLWUU7v3Qyk0PoPdZWTjMbmmBT8lniKteHzo0RMsgqTSmM8wKzt6vj28pOdD9y0tfhBqrYbaBz9nFZTMOlB/jhh7lNq4Qe0G+wOk36+t4ft+tmdkt47RtKMPyLd1vNbx0bSru001XTBZew=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789869840; c=relaxed/simple;
+	bh=PwVVYV4JEx/0Ve75abmdYMHHwrig3Ha1HpjqxDoEcWQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=PyOlGXE2ReTtQHoFYSn6bNgqdFApGcz+0pqCWdQIQP6sXN+oJeYULLLTPdJgIfWi7pXfNq3o+BVAijS2tYg2DcnaRYwcXPI7ET8TkqazO6XOk+RkyFQLnVonf/UTsmY4p4/+WLSgvTblsbd2LjGwKB/PdSMZ5hTeQTgWfyDzCIU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GAq/C/R0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jLMzLIOR"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a996c8adf3so3099227a12.1
-        for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 18:48:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789868908; cv=none;
-        d=google.com; s=arc-20260327;
-        b=N81vEbT9qRuHRfhAYM1E6bC9FwbZOl9yrS+y587M/IHFdgXA1hVMoGLi5eELBMK8ti
-         4d3mq2CCNVJ3v5XG2aHpOtzzv66A5I4T3y/PnqJMOCp11VPk30m2tSuX3pB1eYgVtuRQ
-         6WCnpk6tcrvGCWPG6AbRoGe1kcpRsSveKdXTL09meRxVFi8HuYdBMBK1IxjPA2OOHetN
-         tFug4dlg4IfjjUBIQGbhDP19RTpQsFcrncdhPLuRZO8FiDvOBpdnLpMMcq5gMGWPxw+G
-         zi1IRfUig3m6coFDeJ1VI/OgBrOS6F0adJf8EtDw//L3x9gIccSu/ToMK0DbdaCRIGMQ
-         Mycw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=gtZ34DxLz0d+WsG/fI4ru7SyHYhXKJbtjJu5a7enHP8=;
-        fh=aaA+cvroKNPkT4JnVT58+JdLVtlwpiZ40uemDNxHjRI=;
-        b=lx62Lc/6ysri4/3pILhIZtTEjMlsW/2hUixsx2k+tEm6qqpcJX8odl68A6aR8mm+Lt
-         WwLZw8VPUVX0JrnLEj4/MNmguhpFH6V1TOixmC5hGwKgxkTKVVAdjfWoUL8l7HtZ7t6k
-         xazaQDJmQ4FlZDpv1ncSIhuBhGrLlTeK+BuA4lEKmGe7uNF0Mk5ztQInPQMkglmS+GOV
-         MT0v5NTFN4jerGqGP0DpVux8oUeJvpRh5Xz2/aZf26kmkdM4QPJrBCpHiKVY3cmX+rk6
-         dIRT+7Bm//MCek629erl+6Vjnm22WM9OALtXjk+QgHM7tRjuyVtcsbTi9GUos8IdKwLY
-         K+wg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789868908; x=1790473708; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=gtZ34DxLz0d+WsG/fI4ru7SyHYhXKJbtjJu5a7enHP8=;
-        b=jLMzLIOR2GTmS5GUQyWx7BEewqCUKv1kKR2DbA/X9VxusEOu2NYMtWwYafyQ21Mo3q
-         jcf7zslMo0de9wLW0wdSzDZTIKbD2hUgFLA0BC9CFEu8VAJ8JB8d8RUJs/xdDnPhpqF8
-         ZEbzw6xNvuU2qCrvHSKgEQPzSmuu7GP+qx+GP0A0t826VhSkyaK0MZ8zwrFMRiFb5n8Q
-         NNCt69+jL9AE5WBYRXd0CEJktWhJbEkDBV5ORULCQu/l5PuP9bfc2bXbpdPIEEJcn180
-         9s/MCA+3aX1DJBCPiegvf37WQf4JRQ+yxYFllbgi7QBoCO6iqK+PJgHociUjWr+fCaoM
-         BPvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789868908; x=1790473708;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gtZ34DxLz0d+WsG/fI4ru7SyHYhXKJbtjJu5a7enHP8=;
-        b=L9SIGf4TrwsDtrKWY/sCk1r29Qxjb+d0aoF6Ed8OJXLsXxzuicF20k3rNO1d7EyeIC
-         AVkl7pslFn/wDSfPBSZK+JO+CiX/JwE91xBe64tlbmGDNqgoyOFEhLNw9f2ZrLeGa5h6
-         XansvbxU+jDc6zFnsSkxrzm8aBCx6gerFDXAtaRBoBC/BqnpxPLyuewZGFahLUHZ+Yyh
-         Kcaxt7QWbGpVbfQ5kYBDA3jWJd2uXo6A9vjfhO2Pejg/SU3efAzuKp3zetHK0XBHOJhj
-         bgRTHsQ4wuGjHezmD4BUYwS9f8D2WQoOgj1fEgc2buSTkvHtn3YXR9JTFveA3MFXG2bk
-         rr7g==
-X-Forwarded-Encrypted: i=1; AKwUvBwmCl0oUUZ/8YOy6sKQK8lmRo5PrvMpDLqiU32VUcyjCv33T8TmHChGcrhharG31WqzT1yQVXLyPjSL@vger.kernel.org
-X-Gm-Message-State: AFuF++kU6DZreHo55Ew+O2P4KuguEECNyGa2GWtAgEJXm9iftNlqkGw5
-	/TUhVjM6Q3k3/ReEvd4s6ja57R4ub+L3LAUPmPbnm1PoWJeZz1mhzBiYFUG4ZbfcSz4/yV9TIx0
-	s2cP84tUbPtTF1FV5flACZw8OJoBCiYo=
-X-Gm-Gg: AYBFou00O2rJxfHO+h8njCfJAY/3PL4qdYJP696P/ad7zfU4gHLb6DoVzd0D0xg9lgg
-	EX+MToQ1MCzsvyiwndPybfbH2onzlEctl2Ga7I0V315EL8Gd9nsMuh7JCmm4qbV4WTvxLorJXld
-	w25z0Bv8wsaxfoeQvDGCTwALI/nxQQoSRLrwmzn18tF40jgKgCqcKw13g0O9yP0zPTh0W1uP8vy
-	FEkdHCUoZuCNLiZAa2SQ4xKc2iJEVXgQ32LyBUa6DrLWsFxxluyI9fgwkY71CWckcZgVmHl6C18
-	UkU23xgm8JAghtpARHES6p3eTWOZlW1eJJFwdsUKDZonWRJdG1OHz3j5
-X-Received: by 2002:a05:6402:249a:b0:6aa:734a:a08f with SMTP id
- 4fb4d7f45d1cf-6aa734aa2b2mr1937361a12.38.1789868907580; Sat, 19 Sep 2026
- 18:48:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GAq/C/R0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3A551F00893;
+	Sun, 20 Sep 2026 02:03:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789869838;
+	bh=X9N4VoDKYV4KaRtg0FDgOvzdsIFsiYYCVYCWida5uF0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=GAq/C/R07e438NhKogWpebxC5aBzem2qlBeArf+KtMUu9bADSfOk5wQjOu/2R+6Bz
+	 uiB3znfHvVNqZ73kx4iEo4W7p3t82gE30SnYg6Swwqe10w5NNhX5Mak4z3RoPoENUU
+	 rOL7glhq/mjfTgRsnY4QK9mOGIOX0IzfnTMSc3ywA+4liQ9Jmx/n7SKoB0kJLHMhtF
+	 6l3sHjWZpUUNbmlUANVFE0nOVYb9Bo82sZ78JBCT+Vy6GCyVQW6Mn8+LYwGZyYETaO
+	 xScFWAW1Ajz4aL03SXKeBOPBHQpCkrZ/FY4ZLDr5PNDl3rABewsvg45Ayew8PF+tsa
+	 EYJ2rR+8iwtGA==
+Date: Sun, 20 Sep 2026 03:03:52 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Jinseob Kim <kimjinseob88@gmail.com>
+Cc: linux-iio@vger.kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
+ andriy.shevchenko@intel.com, linux-kernel@vger.kernel.org,
+ rdunlap@infradead.org, joshua.crofts1@gmail.com,
+ u.kleine-koenig@baylibre.com, julianbraha@gmail.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+ corbet@lwn.net, skhan@linuxfoundation.org, linux-doc@vger.kernel.org
+Subject: Re: [PATCH v10 6/8] iio: osf: add IIO devices from capability
+ reports
+Message-ID: <20260920030352.62526119@jic23-hlaptop>
+In-Reply-To: <c88d0ced0bff5cf29e765cd2c280ce3c10c50988.1789753020.git.kimjinseob88@gmail.com>
+References: <cover.1789753020.git.kimjinseob88@gmail.com>
+	<c88d0ced0bff5cf29e765cd2c280ce3c10c50988.1789753020.git.kimjinseob88@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1789546118.git.zhoubinbin@loongson.cn> <6985dce54bb5b87bb232c714d236b7cb82eeb58c.1789546118.git.zhoubinbin@loongson.cn>
- <94eef31a-59e0-4a7b-8032-49ff8ae3d141@oss.qualcomm.com>
-In-Reply-To: <94eef31a-59e0-4a7b-8032-49ff8ae3d141@oss.qualcomm.com>
-From: Binbin Zhou <zhoubb.aaron@gmail.com>
-Date: Sun, 20 Sep 2026 09:48:15 +0800
-X-Gm-Features: AcwNN1UVi50zzMsbiaTQ3enPNoBUYtT4_5z-3uQeazCpVNm5HUPCA35z9r3qdN8
-Message-ID: <CAMpQs4KJ4DsTO-xEO5cH1p0Ye1qSBAe47s5dbGO4kpX+ZzLKWQ@mail.gmail.com>
-Subject: Re: [PATCH v5 4/4] thermal/drivers/loongson2: Add support for Loongson-2K0300
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-Cc: Binbin Zhou <zhoubinbin@loongson.cn>, Huacai Chen <chenhuacai@loongson.cn>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Yinbo Zhu <zhuyinbo@loongson.cn>, zhanghongchen <zhanghongchen@loongson.cn>, 
-	"Rafael J . Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, 
-	Huacai Chen <chenhuacai@kernel.org>, devicetree@vger.kernel.org, 
-	linux-pm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Daniel:
+On Sat, 19 Sep 2026 03:24:44 +0900
+Jinseob Kim <kimjinseob88@gmail.com> wrote:
 
-Thanks for your reply.
+> Register IIO devices from supported capability descriptors and expose
+> signed raw samples, descriptor scales and software buffers. Keep early
+> capabilities owned by the core until UART and supply setup is complete,
+> and unregister children after the receive producer has stopped.
+> 
+> Validate nonzero descriptor scales and sample/descriptor equality, leave
+> discovery open after empty or unsupported inventories, and compare
+> repeated descriptors independently of order. Fault a bound session if a
+> descriptor changes meaning, gating cache and buffer publication together.
+> 
+> Add initialized active-scan packing and buffer producer quiescence. The
+> production implementation is now complete; subsequent patches only add
+> the existing core and IIO KUnit suites and their build wiring.
 
-On Sat, Sep 19, 2026 at 1:02=E2=80=AFAM Daniel Lezcano
-<daniel.lezcano@oss.qualcomm.com> wrote:
->
->
-> Hi Binbin,
->
->
-> On 9/17/26 13:15, Binbin Zhou wrote:
-> > The Loongson-2K0300 thermal sensor uses a 10-bit ADC and requires
->
-> The commit message says this is a 10-bit ADC, while the code uses bits
-> [10:0]. The 2K0300 user manual also describes Thsens_val[10:0], i.e. an
-> 11-bit value. Should this say 11-bit instead?
->
-> > per-chip calibration. The calibration offset is stored in the CHIP ID
-> > registers, which are accessed via syscon. The driver reads this offset
-> > and applies it when converting the raw ADC value to millicelsius.
-> >
-> > To handle old fuse versions that cannot be calibrated correctly, the
-> > driver includes a fallback formula and a validity check. Once invalid
-> > data is detected, the driver falls back to the old formula for future
-> > reads and warns the user.
-> >
-> > Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
-> > ---
-> >   drivers/thermal/loongson2_thermal.c | 94 ++++++++++++++++++++++++++++=
--
-> >   1 file changed, 92 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/thermal/loongson2_thermal.c b/drivers/thermal/loon=
-gson2_thermal.c
-> > index fb4793a9bc55..8930a8a75da7 100644
-> > --- a/drivers/thermal/loongson2_thermal.c
-> > +++ b/drivers/thermal/loongson2_thermal.c
-> > @@ -2,9 +2,11 @@
-> >   /*
-> >    * Author: zhanghongchen <zhanghongchen@loongson.cn>
-> >    *         Yinbo Zhu <zhuyinbo@loongson.cn>
-> > + *         Binbin Zhou <zhoubinbin@loongson.cn>
-> >    * Copyright (C) 2022-2023 Loongson Technology Corporation Limited
-> >    */
-> >
-> > +#include <linux/bitfield.h>
-> >   #include <linux/interrupt.h>
-> >   #include <linux/io.h>
-> >   #include <linux/minmax.h>
-> > @@ -13,6 +15,9 @@
-> >   #include <linux/property.h>
-> >   #include <linux/thermal.h>
-> >   #include <linux/units.h>
-> > +#include <linux/mfd/syscon.h>
-> > +#include <linux/regmap.h>
-> > +#include <linux/syscore_ops.h>
->
-> Is it enabled ?
+No need to talk about what other patches do and that a series is functionally
+complete in a patch. If you want to do it, under the --- so it doesn't end
+up in the git log.
 
-Yes, it's redundant; it must have been left over from my previous testing.
->
-> >
-> >   #include "thermal_hwmon.h"
-> >
-> > @@ -22,18 +27,34 @@
-> >   #define LOONGSON2_THSENS_CTRL_LOW_REG       0x8
-> >   #define LOONGSON2_THSENS_STATUS_REG 0x10
-> >   #define LOONGSON2_THSENS_OUT_REG    0x14
-> > +#define LOONGSON2_THSENS_CFG_REG     0x18
-> >
-> >   #define LOONGSON2_THSENS_INT_LO             BIT(0)
-> >   #define LOONGSON2_THSENS_INT_HIGH   BIT(1)
-> >   #define LOONGSON2_THSENS_INT_EN             (LOONGSON2_THSENS_INT_LO =
-| \
-> >                                        LOONGSON2_THSENS_INT_HIGH)
-> > -#define LOONGSON2_THSENS_OUT_MASK    0xFF
-> > +#define LOONGSON2_THSENS_OUT_8B_MASK 0xFF
-> > +#define LOONGSON2_THSENS_OUT_11B_MASK        GENMASK(10, 0)
-> > +
-> > +#define LS2K0300_CHIP_ID0            0x10
-> > +#define LS2K0300_CHIP_ID1            0x14
-> > +#define LS2K0300_EXTERN_ID           BIT(4)
-> > +#define LS2K0300_ID0_VAL_MASK                GENMASK(31, 20)
-> > +#define LS2K0300_ID1_VAL_MASK                GENMASK(15, 0)
-> > +
-> > +#define LS2K0300_COMP_VAL_MASK               GENMASK(14, 0)
-> > +#define LS2K0300_COMP_SIGN_BIT               BIT(15)
-> > +
-> > +#define LS2K0300_LOWEST_VALID_TEMP   (-55000)
-> > +#define LS2K0300_HIGHEST_VALID_TEMP  (125000)
-> >
-> >   /*
-> >    * This flag is used to indicate the temperature reading
-> >    * method of the Loongson-2K2000
-> >    */
-> >   #define LS2K2000_THSENS_OUT_FLAG    BIT(0)
-> > +#define LS2K0300_CHIP_ID_FLAG                BIT(1)
-> > +#define LS2K0300_OLD_FUSE_FLAG               BIT(2)
-> >
-> >   struct loongson2_thermal_chip_data {
-> >       unsigned int thermal_sensor_sel;
-> > @@ -42,8 +63,11 @@ struct loongson2_thermal_chip_data {
-> >   };
-> >
-> >   struct loongson2_thermal_data {
-> > +     struct device *dev;
-> >       void __iomem *ctrl_reg;
-> >       void __iomem *temp_reg;
-> > +     struct regmap *regmap_cfg;
-> > +     u32 flags;
-> >       const struct loongson2_thermal_chip_data *chip_data;
-> >   };
-> >
-> > @@ -71,13 +95,54 @@ static int loongson2_thermal_set(struct loongson2_t=
-hermal_data *data,
-> >       return 0;
-> >   }
-> >
-> > +static int loongson2_2k0300_get_temp(struct thermal_zone_device *tz, i=
-nt *temp)
-> > +{
-> > +     struct loongson2_thermal_data *tdata =3D thermal_zone_device_priv=
-(tz);
-> > +     int calib_data, calib_offset, temp_mc, raw_adc;
-> > +     u32 chip_id0 =3D 0, chip_id1 =3D 0;
-> > +
-> > +     writel(0xff03, tdata->ctrl_reg + LOONGSON2_THSENS_CFG_REG);
->
-> Please no litterals or magic values in the code. Add a define with a
-> self-explanatory names and a comment if it makes sense (there are other
-> places in the code to be checked).
+> 
+> Assisted-by: LLM
+> Signed-off-by: Jinseob Kim <kimjinseob88@gmail.com>
 
-ok. I will do it.
->
-> > +     raw_adc =3D FIELD_GET(LOONGSON2_THSENS_OUT_11B_MASK,
-> > +                         readl(tdata->ctrl_reg + LOONGSON2_THSENS_OUT_=
-REG));
->
-> Why is it done at every read and not at probe time ?
+A few things inline.  Biggest one is a question (I'm not sure) on
+whether you can use a claim on buffered mode (which will hold it in that
+if it succeeds until released) is sufficient to replace the extra lock you
+have to block that transition. 
 
-`raw_adc` represents the initial temperature value, which, of course,
-needs to be read each time.
->
-> > +
-> > +     if (tdata->flags & LS2K0300_OLD_FUSE_FLAG) {
-> > +             *temp =3D raw_adc * 569 - 394700;
->
->                                 no litterals ...
->
-> and don't repeat the formula, write a function for it
->
-> > +             return 0;
-> > +     }
-> > +
-> > +     regmap_read(tdata->regmap_cfg, LS2K0300_CHIP_ID0, &chip_id0);
-> > +     regmap_read(tdata->regmap_cfg, LS2K0300_CHIP_ID1, &chip_id1);
->
-> The return values of regmap_read() are ignored here. If accessing the
-> CHIP ID registers fails, the driver will silently use zero or partially
-> initialized calibration data and may report a plausible but incorrect
-> temperature. Could you propagate the error instead?
+Thanks,
 
-Okay, and as for this static calibration data, I'll try to move it to
-`probe()` (to be read only once) to avoid repeated polling in the hot
-path.
+Jonathan
 
-Like:
 
-static int loongson2_2k0300_read_calib(struct loongson2_thermal_data *data)
-{
-       u32 chip_id0, chip_id1;
-       int calib_data, calib_offset;
-       int ret;
 
-       ret =3D regmap_read(data->regmap_cfg, LS2K0300_CHIP_ID0, &chip_id0);
-       if (ret)
-               return ret;
+> diff --git a/drivers/iio/opensensorfusion/osf_iio.c b/drivers/iio/opensensorfusion/osf_iio.c
+> new file mode 100644
+> index 000000000000..f4011b8fae14
+> --- /dev/null
+> +++ b/drivers/iio/opensensorfusion/osf_iio.c
+...
 
-       ret =3D regmap_read(data->regmap_cfg, LS2K0300_CHIP_ID1, &chip_id1);
-       if (ret)
-               return ret;
+> +
+> +struct osf_iio_scan_3axis {
+> +	s32 values[3];
+> +	u32 padding;
+No needed unless you explicitly write into padding for some reason.
+C rules add it anyway and then we don't need to make sure it remains
+correct if this structure changes in future.
+> +	aligned_s64 timestamp;
+> +};
+> +
+> +struct osf_iio_scan_1axis {
+> +	s32 value;
+> +	u32 padding;
+As above, unneeded.
+> +	aligned_s64 timestamp;
+> +};
 
-       if (chip_id0 & LS2K0300_EXTERN_ID) {
-               calib_data =3D FIELD_GET(LS2K0300_ID1_VAL_MASK, chip_id1);
-               calib_offset =3D FIELD_GET(LS2K0300_COMP_VAL_MASK, calib_dat=
-a);
-               if (calib_data & LS2K0300_COMP_SIGN_BIT)
-                       calib_offset =3D -calib_offset;
-       } else {
-               calib_data =3D FIELD_GET(LS2K0300_ID0_VAL_MASK, chip_id0);
-               calib_offset =3D FIELD_GET(LS2K0300_COMP_VAL_MASK, calib_dat=
-a);
-       }
+Given I think these are only used in one place, moving them to there would
+avoid need for named structure types.
 
-       data->calib_offset =3D calib_offset;
-       return 0;
-}
+> +
+> +#define OSF_MOD_CHAN(_type, _mod, _idx)				\
+> +	{								\
+> +		.type = (_type),					\
+> +		.modified = 1,						\
+> +		.channel2 = (_mod),					\
+> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),		\
+> +		.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),	\
+> +		.scan_index = (_idx),					\
+> +		.scan_type = {						\
+> +			.sign = 's',					\
+> +			.realbits = 32,					\
+> +			.storagebits = 32,				\
+> +			.endianness = IIO_CPU,				\
+> +		},							\
+> +	}
+> +
+> +#define OSF_CHAN(_type, _idx)					\
 
-static void loongson2_2k0300_detect_old_fuse(struct
-loongson2_thermal_data *data)
-{
-       int raw_adc, temp_mc;
+Given this is not much used, you could use the IIO_NO_MOD modifier as a gate
+on setting .modified = (_mod != IIO_NO_MOD) ? 1 : 0,
+and have just one macro.
 
-       writel(0xff03, data->ctrl_reg + LOONGSON2_THSENS_CFG_REG);
-       raw_adc =3D FIELD_GET(LOONGSON2_THSENS_OUT_11B_MASK,
-                           readl(data->ctrl_reg + LOONGSON2_THSENS_OUT_REG)=
-);
+> +	{								\
+> +		.type = (_type),					\
+> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),		\
+> +		.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),	\
+> +		.scan_index = (_idx),					\
+> +		.scan_type = {						\
+> +			.sign = 's',					\
+> +			.realbits = 32,					\
+> +			.storagebits = 32,				\
+> +			.endianness = IIO_CPU,				\
+> +		},							\
+> +	}
+> +
+> +static const struct iio_chan_spec osf_accel_channels[] = {
+> +	OSF_MOD_CHAN(IIO_ACCEL, IIO_MOD_X, 0),
+> +	OSF_MOD_CHAN(IIO_ACCEL, IIO_MOD_Y, 1),
+> +	OSF_MOD_CHAN(IIO_ACCEL, IIO_MOD_Z, 2),
+> +	IIO_CHAN_SOFT_TIMESTAMP(3),
+> +};
+> +
+> +static const struct iio_chan_spec osf_gyro_channels[] = {
+> +	OSF_MOD_CHAN(IIO_ANGL_VEL, IIO_MOD_X, 0),
+> +	OSF_MOD_CHAN(IIO_ANGL_VEL, IIO_MOD_Y, 1),
+> +	OSF_MOD_CHAN(IIO_ANGL_VEL, IIO_MOD_Z, 2),
+> +	IIO_CHAN_SOFT_TIMESTAMP(3),
+> +};
+> +
+> +static const struct iio_chan_spec osf_mag_channels[] = {
+> +	OSF_MOD_CHAN(IIO_MAGN, IIO_MOD_X, 0),
+> +	OSF_MOD_CHAN(IIO_MAGN, IIO_MOD_Y, 1),
+> +	OSF_MOD_CHAN(IIO_MAGN, IIO_MOD_Z, 2),
+> +	IIO_CHAN_SOFT_TIMESTAMP(3),
+> +};
+> +
+> +static const struct iio_chan_spec osf_temp_channels[] = {
+> +	OSF_CHAN(IIO_TEMP, 0),
+> +	IIO_CHAN_SOFT_TIMESTAMP(1),
+> +};
+> +
+> +static const struct osf_iio_sensor_spec osf_iio_sensor_specs[] = {
+> +	{
+> +		.sensor_type = OSF_SENSOR_ACCELEROMETER,
+> +		.channel_count = 3,
+> +		.name = "osf-accel",
+> +		.channels = osf_accel_channels,
+> +		.num_channels = ARRAY_SIZE(osf_accel_channels),
+> +	},
+> +	{
+> +		.sensor_type = OSF_SENSOR_GYROSCOPE,
+> +		.channel_count = 3,
+> +		.name = "osf-gyro",
+> +		.channels = osf_gyro_channels,
+> +		.num_channels = ARRAY_SIZE(osf_gyro_channels),
+> +	},
+> +	{
+> +		.sensor_type = OSF_SENSOR_MAGNETOMETER,
+> +		.channel_count = 3,
+> +		.name = "osf-magn",
+> +		.channels = osf_mag_channels,
+> +		.num_channels = ARRAY_SIZE(osf_mag_channels),
+> +	},
+> +	{
+> +		.sensor_type = OSF_SENSOR_TEMPERATURE,
+> +		.channel_count = 1,
+> +		.name = "osf-temp",
+> +		.channels = osf_temp_channels,
+> +		.num_channels = ARRAY_SIZE(osf_temp_channels),
+> +	},
+> +};
+> +
+> +static const struct osf_iio_sensor_spec *
+> +osf_iio_find_sensor_spec(u16 sensor_type, u16 channel_count)
+> +{
+> +	for (unsigned int i = 0; i < ARRAY_SIZE(osf_iio_sensor_specs); i++) {
+> +		if (osf_iio_sensor_specs[i].sensor_type == sensor_type &&
+> +		    osf_iio_sensor_specs[i].channel_count == channel_count)
+> +			return &osf_iio_sensor_specs[i];
+> +	}
+> +
+> +	return NULL;
+> +}
+> +
+> +bool osf_iio_sensor_supported(u16 sensor_type, u16 channel_count)
+> +{
+> +	if (osf_iio_find_sensor_spec(sensor_type, channel_count))
+> +		return true;
+> +
+> +	return false
 
-       temp_mc =3D (raw_adc + data->calib_offset) * 570 - 394700;
+	return osf_iio_find_sensor_spec(sensor_type, channel_count) != NULL;
 
-       if (temp_mc < LS2K0300_LOWEST_VALID_TEMP ||
-           temp_mc > LS2K0300_HIGHEST_VALID_TEMP)
-               data->flags |=3D LS2K0300_OLD_FUSE_FLAG;
-}
+> +}
 
-> > +     if (chip_id0 & LS2K0300_EXTERN_ID) {
-> > +             calib_data =3D FIELD_GET(LS2K0300_ID1_VAL_MASK, chip_id1)=
-;
-> > +             calib_offset =3D FIELD_GET(LS2K0300_COMP_VAL_MASK, calib_=
-data);
-> > +             if (calib_data & LS2K0300_COMP_SIGN_BIT)
-> > +                     calib_offset =3D -calib_offset;
-> > +     } else {
-> > +             calib_data =3D FIELD_GET(LS2K0300_ID0_VAL_MASK, chip_id0)=
-;
-> > +             calib_offset =3D FIELD_GET(LS2K0300_COMP_VAL_MASK, calib_=
-data);
-> > +     }
-> > +
-> > +     temp_mc =3D (raw_adc + calib_offset) * 570 - 394700;
->
->                                 no litterals + formula ...
->
-> > +
-> > +     /* For old fuse which can not read right thermal data */
-> > +     if (temp_mc < LS2K0300_LOWEST_VALID_TEMP || temp_mc > LS2K0300_HI=
-GHEST_VALID_TEMP) {
-> > +             dev_warn_once(tdata->dev, "It's an old fuse, thermal %d i=
-s not right\n", temp_mc);
->
-> Improve the message please
+> +
+> +static int osf_iio_buffer_postenable(struct iio_dev *indio_dev)
+> +{
+> +	struct osf_iio_state *state = iio_priv(indio_dev);
+> +
+> +	guard(mutex)(&state->buffer_lock);
 
-I will remove this prompt and move this section to
-`loongson2_2k0300_detect_old_fuse()` (as shown above), calling it
-directly from `probe()`.
->
-> > +             tdata->flags |=3D LS2K0300_OLD_FUSE_FLAG;
-> > +             temp_mc =3D raw_adc * 569 - 394700;
-> > +     }
-> > +     *temp =3D temp_mc;
-> > +
-> > +     return 0;
-> > +}
-> > +
-> >   static int loongson2_2k1000_get_temp(struct thermal_zone_device *tz, =
-int *temp)
-> >   {
-> >       int val;
-> >       struct loongson2_thermal_data *data =3D thermal_zone_device_priv(=
-tz);
-> >
-> >       val =3D readl(data->ctrl_reg + LOONGSON2_THSENS_OUT_REG);
-> > -     *temp =3D ((val & LOONGSON2_THSENS_OUT_MASK) - HECTO) * KILO;
-> > +     *temp =3D ((val & LOONGSON2_THSENS_OUT_8B_MASK) - HECTO) * KILO;
-> >
-> >       return 0;
-> >   }
-> > @@ -112,6 +177,11 @@ static int loongson2_thermal_set_trips(struct ther=
-mal_zone_device *tz, int low,
-> >       return loongson2_thermal_set(data, low/MILLI, high/MILLI, true);
-> >   }
-> >
-> > +static const struct thermal_zone_device_ops loongson2_2k0300_of_therma=
-l_ops =3D {
-> > +     .get_temp =3D loongson2_2k0300_get_temp,
-> > +     .set_trips =3D loongson2_thermal_set_trips,
-> > +};
-> > +
-> >   static const struct thermal_zone_device_ops loongson2_2k1000_of_therm=
-al_ops =3D {
-> >       .get_temp =3D loongson2_2k1000_get_temp,
-> >       .set_trips =3D loongson2_thermal_set_trips,
->
-> Can you confirm the set_trips function is the same for 2k1000 and 2k0300 =
-?
+These transistions are already guarded by the core, so see the question later
+on whether you can just claim buffered mode in the data handler
+to avoid the need for this. That might not work but the way you did
+this got me thinking about a more general solution to the problem.
 
-ok. I will check it.
->
-> > @@ -134,6 +204,8 @@ static int loongson2_thermal_probe(struct platform_=
-device *pdev)
-> >               return -ENOMEM;
-> >
-> >       data->chip_data =3D device_get_match_data(dev);
-> > +     data->flags =3D data->chip_data->flags;
-> > +     data->dev =3D dev;
-> >
-> >       data->ctrl_reg =3D devm_platform_ioremap_resource(pdev, 0);
-> >       if (IS_ERR(data->ctrl_reg))
-> > @@ -146,6 +218,14 @@ static int loongson2_thermal_probe(struct platform=
-_device *pdev)
-> >                       return PTR_ERR(data->temp_reg);
-> >       }
-> >
-> > +     /* The chip id register is needed for Loongson-2K0300 */
-> > +     if (data->chip_data->flags & LS2K0300_CHIP_ID_FLAG) {
-> > +             data->regmap_cfg =3D
-> > +                     syscon_regmap_lookup_by_phandle(dev->of_node, "lo=
-ongson,chipid");
-> > +             if (IS_ERR(data->regmap_cfg))
-> > +                     return PTR_ERR(data->regmap_cfg);
-> > +     }
-> > +
-> >       irq =3D platform_get_irq(pdev, 0);
-> >       if (irq < 0)
-> >               return irq;
-> > @@ -178,6 +258,12 @@ static int loongson2_thermal_probe(struct platform=
-_device *pdev)
-> >       return 0;
-> >   }
-> >
-> > +static const struct loongson2_thermal_chip_data loongson2_thermal_ls2k=
-0300_data =3D {
-> > +     .thermal_sensor_sel =3D 0,
-> > +     .flags =3D LS2K0300_CHIP_ID_FLAG,
-> > +     .thermal_ops =3D &loongson2_2k0300_of_thermal_ops,
-> > +};
-> > +
-> >   static const struct loongson2_thermal_chip_data loongson2_thermal_ls2=
-k1000_data =3D {
-> >       .thermal_sensor_sel =3D 0,
-> >       .flags =3D 0,
-> > @@ -191,6 +277,10 @@ static const struct loongson2_thermal_chip_data lo=
-ongson2_thermal_ls2k2000_data
-> >   };
-> >
-> >   static const struct of_device_id of_loongson2_thermal_match[] =3D {
-> > +     {
-> > +             .compatible =3D "loongson,ls2k0300-thermal",
-> > +             .data =3D &loongson2_thermal_ls2k0300_data,
-> > +     },
-> >       {
-> >               .compatible =3D "loongson,ls2k1000-thermal",
-> >               .data =3D &loongson2_thermal_ls2k1000_data,
->
+> +	state->buffer_active = true;
+> +
+> +	return 0;
+> +}
+> +
+> +static int osf_iio_buffer_predisable(struct iio_dev *indio_dev)
+> +{
+> +	struct osf_iio_state *state = iio_priv(indio_dev);
+> +
+> +	/* Wait for the current push before the IIO core changes its buffers. */
+> +	guard(mutex)(&state->buffer_lock);
+> +	state->buffer_active = false;
+> +
+> +	return 0;
+> +}
 
---=20
-Thanks.
-Binbin
+
+> +
+> +int osf_iio_push_sample(struct iio_dev *indio_dev, const s32 *values,
+> +			u16 channel_count)
+> +{
+> +	struct osf_iio_state *state = iio_priv(indio_dev);
+> +	s64 timestamp;
+> +
+> +	if (channel_count != state->spec->channel_count)
+> +		return -EPROTO;
+> +
+> +	guard(mutex)(&state->buffer_lock);
+
+Using an extra lock is one solution I suppose to the risk
+of this racing with the buffer tear down and the problems
+around active_scan_mask being freed. Could you use
+
+	if (iio_device_try_claim_buffer_mode(indio_dev))
+and later a release on that to achieve the same result?
+
+Only the ade9000 is doing similar at the moment so would need
+some testing to make sure no lock inversions occur in general
+but given you don't take any other locks in here it should be fine.
+
+
+> +	if (!state->buffer_active || !iio_buffer_enabled(indio_dev))
+> +		return 0;
+> +
+> +	timestamp = iio_get_time_ns(indio_dev);
+> +
+> +	switch (channel_count) {
+> +	case 1: {
+> +		struct osf_iio_scan_1axis scan = {
+> +			.value = values[0],
+> +		};
+As suggested above, this structure type is only used locally here. So
+make the definition local as well.
+		struct {
+			s32 value;
+			aligned_s64 timestamp;
+		} scan = { };
+
+> +
+> +		return iio_push_to_buffers_with_ts(indio_dev, &scan,
+> +						   sizeof(scan), timestamp);
+> +	}
+> +	case 3: {
+> +		struct osf_iio_scan_3axis scan = {
+> +			.values = { },
+
+Setting values doesn't add anything useful as = { } 
+zeros the whole structure (including any holes - they kernel is
+built with specific compiler options to ensure that last bit
+as it wasn't required in older c specs).
+
+> +		};
+> +		unsigned int channel, index = 0;
+
+Please split declarations that assign and ones that don't on to separate lines.
+Ends up a little more readable.
+		unsigned int index = 0;
+		unsigned int channel;
+
+> +
+> +		/* Pack the active channels; unused storage remains initialized. */
+> +		for_each_set_bit(channel, indio_dev->active_scan_mask, channel_count)
+> +			scan.values[index++] = values[channel];
+> +
+> +		return iio_push_to_buffers_with_ts(indio_dev, &scan,
+> +						   sizeof(scan), timestamp);
+> +	}
+> +	default:
+> +		return -EPROTO;
+> +	}
+> +}
+
+> diff --git a/drivers/iio/opensensorfusion/osf_serdev.c b/drivers/iio/opensensorfusion/osf_serdev.c
+> index 8a747c01ff9d..3d5e90d83967 100644
+> --- a/drivers/iio/opensensorfusion/osf_serdev.c
+> +++ b/drivers/iio/opensensorfusion/osf_serdev.c
+> @@ -23,7 +23,7 @@ struct osf_serdev {
+>  	bool vcc_enabled;
+>  	struct osf_device osf;
+>  	struct osf_stream stream;
+> -	/* Protects the parser and all RX counters. */
+> +	/* Protects the parser, all RX counters, and the registration gate. */
+>  	struct mutex rx_lock;
+
+Just name it 'lock' given it has scope beyond rx.  Do that in earlier patch
+though rather than changing it here.
+
+>  };
+
+>  
+> @@ -139,5 +144,5 @@ static struct serdev_device_driver osf_serdev_driver = {
+>  };
+>  module_serdev_device_driver(osf_serdev_driver);
+>  
+> -MODULE_DESCRIPTION("Open Sensor Fusion UART receiver");
+> +MODULE_DESCRIPTION("Open Sensor Fusion IIO driver");
+
+Just have that being slightly missleading in earlier patch to reduce churn here.
+
+>  MODULE_LICENSE("GPL");
+
