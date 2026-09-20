@@ -1,117 +1,135 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 476353C7E13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D3053C4B64
 	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 12:53:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789908811; cv=none; b=OISdsBLmeXFdSI3xtSILoPbVHbjW47j3AzNMVrMMAo9TR0y/XloBW4PNflcGwFzcIake5PkRgzHvYEruD7+gncKGsEVL9gM11360vSq4Via08cItQookox/1X2p2J5s09cafLSXcG4JptGV49pGEeC9nvs/giyBCMTcmxQsAyVY=
+	t=1789908820; cv=none; b=GMeYWjhs+ocFqY4tQQfQJHAlMSu2xtVPdMeyG593g6M3xe2MvcKblJzOa7YyFY4092kPlWVHAmxollxbDUyBi6rfp1wG7LFZOBu3SdFGZQIHOYI7apAegFIFSbduwLw8MWwH3LP3ju4vbD5boFWq64m4If5tsriXAAX3QRYjUzw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789908811; c=relaxed/simple;
-	bh=o/nawfiFQd0CrN22pkrA9T38n/2uRgQwZLAoqnoq18g=;
+	s=arc-20240116; t=1789908820; c=relaxed/simple;
+	bh=R4UcuqzIlFWHBmzfgEM5UeCp1dFiViecARR39DX9uzY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=e8qEIiBfE4fylRz6U/6qJAyNYvCH6RfSrboS4eXN560yTCyOtNrBJ3lSmfDaw0uAPTHlM0oO4hY0nvDM8XfV5as+8Y7mvONj5ViLNFNmUQ8u4guBwhpmU+kEcwOpWrPArz2Quc0DhD6Q12GZeSyH0IAXfvRy+legZh/WmJfD66c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z7AFOpYf; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=HGZFt7RnZv2vKVgUZGRjG/SY90n9DNOumujmRtQmPkAhJkYLeV63+JTth7aNrPNXl+bKel2LnuMGGxSDY9bLZQAc2zZgNhJC2Lwhela9UH4vJ562100XwHsKpg6at4G2ZMhpWc1+eVwC5Z5aynLaVWYDvFN5oyavxrIbqg9b5Kk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aY6ZDoRu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z7AFOpYf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E5A31F000FF;
-	Sun, 20 Sep 2026 12:53:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aY6ZDoRu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D9001F00893;
+	Sun, 20 Sep 2026 12:53:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789908799;
-	bh=SKBPvnCf0OrqkCEig86J9amZCxAny2+66nIYZiBwcRU=;
+	bh=v2l60P4XbYSqxLiNQ8qMCT/wM2wFsRk4MS6VFdhfcT8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Z7AFOpYfDl18uLmg37eRWXBNETtHO64gLkt7XG3mO5Qpfkcjum4YYJSGCDGJrhAfL
-	 Ix/3ksXSTSKWdUxF7+lroyi6u2atLcVAnhLQUfw4QqjSWKtrtfKFqnbh7nU1lzSYFC
-	 n582MSgLw8kPafE0pUBdjZx99TKNyj9nC6qE17hIiYxBr04SF2Ec3zbAfvblqMcOFJ
-	 Mm9Q5LLRsv4HZKqIo8agLFDDdZl/0FVlTrnG3L+rou6+Xyju3OWHtkU3z88zxuCYZf
-	 4+I50uNogKdwW+Vbi7lk5lVf4mdV3+cXuS8J8eHd7LW5GsNP7HxNCQN6D/Z4l7Qf5A
-	 FMuX5mofhXEHg==
+	b=aY6ZDoRuX5g8Q/4j1I9SAc4qGTr7860RAN/xeYOYo+gu3Rap5/2T3zmNv6ICaVRhR
+	 xJRoA3FjUvBtCtwrcMM0L91UzN9gJdDCKxge7r2uHeFD4b7wCbjWdtU4xPVV5Dkacp
+	 OfpuLpAQAVPZT1spzrL0pVeDIwgiOvXe5m9l4PS9eA5D2kaDf/ceUpBnLUioCT99In
+	 pscJU3xTvnlID9ljUMm7f9F0ZNBS00pevyK0z4NRRwZM3dFF91BcRMF+0Us928tYUQ
+	 /Vn9n1SCIrVkEFVRWP+4zgFa6RUXYNoo4Xt4hfLGDwGmvU2y+aPtNI0vSxtcmv3/aw
+	 51IiYUpY7h79Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v8 05/11] arm64: dts: rockchip: rk3568: add
- XPCS and fixed-clock nodes
+Subject: Re: [PATCH net-next v8 07/11] net: pcs: xpcs: add Rockchip RK3568
+ platform glue driver
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Coia Prant" <coiaprant@gmail.com>
-Cc: neil.armstrong@linaro.org, linux-phy@lists.infradead.org, conor+dt@kernel.org, vkoul@kernel.org, robh@kernel.org, olteanv@gmail.com, devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <20260919125119.2107089-6-coiaprant@gmail.com>
+Cc: conor+dt@kernel.org, wsa+renesas@sang-engineering.com, linux-phy@lists.infradead.org, neil.armstrong@linaro.org, robh@kernel.org, vkoul@kernel.org, olteanv@gmail.com, devicetree@vger.kernel.org
+In-Reply-To: <20260919125119.2107089-8-coiaprant@gmail.com>
 References: <20260919125119.2107089-1-coiaprant@gmail.com>
- <20260919125119.2107089-6-coiaprant@gmail.com>
+ <20260919125119.2107089-8-coiaprant@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 20 Sep 2026 12:53:18 +0000
-Message-Id: <20260920125318.9E5A31F000FF@smtp.kernel.org>
+Date: Sun, 20 Sep 2026 12:53:19 +0000
+Message-Id: <20260920125319.8D9001F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] devicetree: fixed-clock anti-pattern for internal XPCS clocks
-- [Low] devicetree: missing required phys property in xpcs node
+- [High] net: pcs: xpcs-rk: UAF in xpcs_rk_create due to TOCTOU and unprote=
+cted devres access
 --
 
-commit 752959013e963f31a1ffc2b59a8a556bc481a7c3
+commit 2e7f490907e83788481369bf43ad35abe0d56504
 Author: Coia Prant <coiaprant@gmail.com>
-arm64: dts: rockchip: rk3568: add XPCS and fixed-clock nodes
 
-This commit adds the XPCS device node and associated fixed-clock nodes to
-the RK3568 SoC device tree to support 1000BASE-X, SGMII, and QSGMII
-interfaces. The XPCS node requires board-level activation and PHY
-assignments, while the fixed-clock nodes are introduced to provide a
-static 125 MHz reference.
+net: pcs: xpcs: add Rockchip RK3568 platform glue driver
 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3568.dtsi b/arch/arm64/boot/d=
-ts/rockchip/rk3568.dtsi
-> --- a/arch/arm64/boot/dts/rockchip/rk3568.dtsi
-> +++ b/arch/arm64/boot/dts/rockchip/rk3568.dtsi
-> @@ -110,6 +110,51 @@ sata0: sata@fc000000 {
->  		status =3D "disabled";
->  	};
-> =20
-> +	xpcs: ethernet-pcs@fda00000 {
-> +		compatible =3D "rockchip,rk3568-xpcs";
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <0>;
-> +		reg =3D <0x0 0xfda00000 0x0 0x200000>;
-> +		clocks =3D <&cru PCLK_XPCS>, <&cru CLK_XPCS_EEE>;
-> +		clock-names =3D "csr", "eee";
-> +		power-domains =3D <&power RK3568_PD_PIPE>;
-> +		status =3D "disabled";
+This commit introduces a generic platform glue driver for the Synopsys
+DesignWare XPCS on Rockchip RK3568 SoCs. It translates standard MDIO
+operations into APB3 memory-mapped register accesses by creating a
+virtual MDIO bus.
 
-[Severity: Low]
-The commit message states that "dtbs_check only validates required properti=
-es
-for enabled nodes, so the SoC dtsi does not provide phys/phy-names". Is this
-assumption accurate?
+Link: https://dl.radxa.com/rock3/docs/hw/datasheet/Rockchip%20RK3568%20TRM%=
+20Part1%20V1.1-20210301.pdf
+Link: https://dl.radxa.com/rock3/docs/hw/datasheet/Rockchip%20RK3568%20TRM%=
+20Part2%20V1.1-20210301.pdf
 
-dt-schema evaluates all nodes against the required list regardless of the
-status property, unless the schema explicitly conditions the requirement. W=
-ill
-this omission cause make dtbs_check to throw validation errors for all RK35=
-68
-boards that leave the XPCS node disabled?
+> diff --git a/drivers/net/pcs/pcs-xpcs-rk.c b/drivers/net/pcs/pcs-xpcs-rk.c
+> new file mode 100644
+> index 0000000000000..84f8ea7fa57e8
+> --- /dev/null
+> +++ b/drivers/net/pcs/pcs-xpcs-rk.c
 
 [ ... ]
 
-> +	clk_gmac0_xpcs_mii: clock-xpcs-gmac0 {
-> +		compatible =3D "fixed-clock";
-> +		clock-frequency =3D <125000000>;
-> +		clock-output-names =3D "clk_gmac0_xpcs_mii";
-> +		#clock-cells =3D <0>;
-> +	};
+> +struct dw_xpcs *xpcs_rk_create(struct device *dev, struct device_node *n=
+p)
+> +{
+> +	struct platform_device *pdev;
 
-[Severity: Low]
-Does using a fixed-clock here accurately model the hardware?
+[ ... ]
 
-Since the 125 MHz reference clock is generated internally by the XPCS or
-Combo PHY, representing it as a fixed root oscillator appears to violate
-devicetree hardware modeling principles.
+> +	if (!device_link_add(dev, &pdev->dev, DL_FLAG_AUTOREMOVE_CONSUMER)) {
+> +		put_device(&pdev->dev);
+> +		return ERR_PTR(-EPROBE_DEFER);
+> +	}
+> +
+> +	device_lock(&pdev->dev);
+> +	if (!device_is_bound(&pdev->dev)) {
+> +		device_unlock(&pdev->dev);
+> +		put_device(&pdev->dev);
+> +		return ERR_PTR(-EPROBE_DEFER);
+> +	}
+> +	device_unlock(&pdev->dev);
+> +
+> +	pxpcs =3D platform_get_drvdata(pdev);
+> +	if (!pxpcs || !pxpcs->bus) {
 
-Should the IP block that actually generates this clock act as the clock
-provider, instead of injecting a dummy fixed-clock node into the device tre=
-e?
+[Severity: High]
+Can this result in a use-after-free of the supplier devres data?
+
+If the XPCS driver unbinds while a second MAC consumer probes, the newly
+created device link will be in the DL_STATE_SUPPLIER_UNBIND state. Because
+of this state, device_links_unbind_consumers() ignores it and does not wait.
+
+Since the device_lock() is dropped before calling platform_get_drvdata(),
+could the unbind finish and free the pxpcs devres allocation before we
+dereference pxpcs->bus below?
+
+CPU1 (Supplier Unbinding)             CPU2 (Consumer Probing)
+                                      device_link_add()
+                                      device_lock()
+                                      device_is_bound() returns true
+                                      device_unlock()
+unbind completes
+devres frees pxpcs
+                                      pxpcs =3D platform_get_drvdata(pdev);
+                                      xpcs_create_mdiodev(pxpcs->bus, ...)
+
+> +		put_device(&pdev->dev);
+> +		return ERR_PTR(-EPROBE_DEFER);
+> +	}
+> +
+> +	xpcs =3D xpcs_create_mdiodev(pxpcs->bus, (int)port);
+> +	if (IS_ERR(xpcs)) {
+> +		put_device(&pdev->dev);
+> +		return xpcs;
+> +	}
+
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260919125119.2107=
-089-1-coiaprant@gmail.com?part=3D5
+089-1-coiaprant@gmail.com?part=3D7
