@@ -1,114 +1,170 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97FE03F20F9
-	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 10:03:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E620B3E51D4
+	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 10:05:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789898631; cv=none; b=SMW5uGCpC6mxKwpOPCUPxqXAKkBZ3+o67buNrNQxMBlBpKAsvzL69seuo+yx/PaEwppukb/UMJBwxFGFsp9hmmsLDvewa6Cv5lxA4B9El6BsjXsG2DW/Ot0eEhhwolZWcSQnNqhLw7aXWnpD0ii3msX48wGNxI/brSDpyyYf4oQ=
+	t=1789898710; cv=none; b=dQYT/BTOBM7YO4GFwMsjDkT0DdUa4XzitthGfPxaA5eA0WKxWNQ0sI60pjgE5RoPk2b5mGEcjxjmuCpYkUpr4Rj4sZSvqad1XkEKfJpmZDeaOODyrE+vVZLl5lMX8YeDyb1HXpQ2KRBU7brx2HtuvUikPlFOtbYj/EVM5gRanxs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789898631; c=relaxed/simple;
-	bh=EnxpzJSEHXINI/wRnRyilLXIqawY0qL3ie093H9W018=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=VH1aejuHQJPBYJaMrCD4DYmBlHKvf7QNaEVnJnu7k3TSZl2mjvasAFgXohtVTIJWq4MHzPAeWvnk7AFHgtvqIf9Mx4VDU1fSUkeJSo1nTGwHNleKpZe82EmkrruXnz1AH87tIKKMV6Ns6cllSNRFZFRol0+gUrIPv3knTjFvcZo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b4f3Fxkp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789898710; c=relaxed/simple;
+	bh=PVtQgVmSpyfIu95EBVnFKjv5QM6juuMMqQmwaZS/fQA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DPSDHtd5Tt6KG3w3Btol5QytQNYRSq99vIlYjHILKtlNyDbL762Sx+he7tq0gg/LObCOG6wQxKGBgJPSIj/xM/j74SYZJCfrFl4mrpXIndnln95Aye+lZJrPataEjK7UFZ0XLgCMXp3OX1YIx2bx/s43b+3Ce5sNxFKfiOaB2z8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oWBIbzhX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b4f3Fxkp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D08A1F000FF;
-	Sun, 20 Sep 2026 10:03:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oWBIbzhX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9D991F00893
+	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 10:05:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789898627;
-	bh=CE5rmOVNTyCjnBnZ80V/DqJobrrwhSTAG8KHTeesDyQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=b4f3FxkpSCqX/eMRsNsSiZwQXcJzdC1ttyJYA1vcmUYhw9xZfW7HZxhvcMJ5Tpmdz
-	 WVDpc8m988eIw+JZrULC/ggqTe2AyEQiHjfu02Dsg+QXLyo6rWq5agjX2hcSbVqVpW
-	 61mENtRsllluVualS3GtuoZa0V1WcAyNJrgYMOLQNgKoWmTOZ1sCTzsu8NG7WamtH4
-	 3C1lQaVf5cCh21u9k1jyyE8/ydGwJI163V1PMqhGZFZYP4m3czZVALYRQhYno5hulJ
-	 x5y14rB9ax+7UbmYOwcf5tj776CKtt3grEm9tqLwHObe/kl6KHrMiZ048TPchYuAhy
-	 JrLIEDg+pRzVg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/5] of: reserved_mem: reject static regions
- overlapping no-map memory
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wandun Chen" <chenwandun1@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260920092852.614973-5-chenwandun1@gmail.com>
-References: <20260920092852.614973-1-chenwandun1@gmail.com>
- <20260920092852.614973-5-chenwandun1@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 20 Sep 2026 10:03:47 +0000
-Message-Id: <20260920100347.9D08A1F000FF@smtp.kernel.org>
+	s=k20260515; t=1789898708;
+	bh=M7NZhpxBrkp8Vzpt1FhZ1vqtn7lpguc1OW9Ue/8E4VI=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=oWBIbzhXtymHbRL5PwQwT5FWNGGs8IXtkiIcpk1knJHMO7/gLmI+30eOv9l6E/7qf
+	 TlqXlfjla12uhy9qrykUEChWGrzFpoRUWk8a56MaRpkbWPxEQbG1OLyXY/+RtyA+wv
+	 isL/TnU8KzIvhqoVhbzm9IhsX70HHAKZGiuP5MbYzi1sQ2O1IxoKQQ6k81DGKqmU6A
+	 GLVVelQMEGqMoPqi5rSIXo/p8xG2XdIxGxPRAiPKd0wmn76j4Ob6iSPHmROvoxrgwH
+	 0P82uuTppu5lGfbv/RnphdCmRlAsd4y0516++K96bD52FwCmLaaQuX9RFjqfnOSfl0
+	 gVfg6u7FfeDjQ==
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff15fadfso8331251fa.0
+        for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 03:05:08 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw4+0aG3bxdOFdyw9hXmmmxpEgbtFB8utk7nxJIKVQDiQ5X8M+bO1TIBPTW7ujrZGOgOCsqPCoLRAlX@vger.kernel.org
+X-Gm-Message-State: AFuF++mi5IpTCEsaeRNOLOJ4dDwygWq4UaXhRLYEWm+irW9LDsEY7erB
+	33jjKKW+EjVL1g1DViAmNRU3uhqJqSws9Edjk/MhT1L+IDNIirb7iKYj+UTFhcm6eIA0Sv/dHTE
+	xqtZrhlJTHrNAcT92V0DQGfpCk/+VBlM=
+X-Received: by 2002:a2e:b8c1:0:b0:3a6:d50:e26e with SMTP id
+ 38308e7fff4ca-3a60d50e441mr6927511fa.2.1789898707044; Sun, 20 Sep 2026
+ 03:05:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260910-axp318-regulator-v8-0-e906a61a7f3d@baylibre.com>
+In-Reply-To: <20260910-axp318-regulator-v8-0-e906a61a7f3d@baylibre.com>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Sun, 20 Sep 2026 18:04:53 +0800
+X-Gmail-Original-Message-ID: <CAGb2v64zjCan5Up=bxJ_JfCcj2y=2=jNnM8buKQN2ULEA-82cA@mail.gmail.com>
+X-Gm-Features: AcwNN1X5_0H5ONYiyVVLAE5WEX7_3CXfPb5UokMjxFhKsOHjiWGm7bWqapkRcO8
+Message-ID: <CAGb2v64zjCan5Up=bxJ_JfCcj2y=2=jNnM8buKQN2ULEA-82cA@mail.gmail.com>
+Subject: Re: [PATCH v8 0/5] regulator: Add X-Powers AXP318W PMIC support
+To: Lee Jones <lee@kernel.org>
+Cc: Jerome Brunet <jbrunet@baylibre.com>, Andre Przywara <andre.przywara@arm.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Hans de Goede <hansg@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	mfd@lists.linux.dev, linux-sunxi@lists.linux.dev, 
+	Sashiko <sashiko-bot@kernel.org>, Conor Dooley <conor.dooley@microchip.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] of: reserved_mem: integer overflow in rmem_overlaps_check bypasses=
- overlap detection
---
+Hi Lee,
 
-commit bab4bcea3e71f149872f45d815c003c14a811a0a
-Author: Wandun Chen <chenwandun@lixiang.com>
+On Thu, Sep 10, 2026 at 6:44=E2=80=AFPM Jerome Brunet <jbrunet@baylibre.com=
+> wrote:
+>
+> This patch series adds support for the X-Powers AXP318W PMIC, which is
+> used recently on new boards with Allwinner SoCs (the A733).
+>
+> The PMIC features 9 DCDC buck converters and 28 LDOs, plus the usual ADC,
+> interrupts, and power key components.
+> A datasheet can be found linked in this Wiki table:
+> https://linux-sunxi.org/AXP_PMICs
+>
+> There was an unclosed topic regarding the handling of LDOs output
+> voltage being limited to input voltage being provided by the supply.
+> Chen-Yu noted the min_dropout_uV would be a good fit for that but
+> the actual minimal dropout value was unknown. I've arbitrarily picked
+> 1uV because it is the minimum the framework supports. Realistically a low
+> dropout regulator is bound to have some dropout. This choice does the
+> trick for now and is certain be less restrictive than what it is in
+> reality.
+>
+> If anyone has problems because the dropout is actually higher
+> * it is arguably an HW design error
+> * it is a good time to let us know what the actual dropout is
+>
+> Changes in v8:
+> - Fix interrupt optional in the binding (mis-understanding on my end)
+>   Resent quickly to avoid wasting time on v7 over this
+> - Link to v7: https://patch.msgid.link/20260910-axp318-regulator-v7-0-de7=
+20ceb9bac@baylibre.com
+>
+> Changes in v7:
+> - Rebased on v7.3-rc1.
+> - Applied Chen-Yu change requests.
+>   - More complete register definition all in the MFD change.
+>   - Add writeable region holes.
+>   - Fix invertion between short and long press IRQ.
+>   - Drop confusing comment about DVM.
+>   - Use MFD_CELL_NAME() for the regulator device.
+> - Link to v6: https://patch.msgid.link/20260812-axp318-regulator-v6-0-d6b=
+84b55c000@baylibre.com
+>
+> Changes in v6:
+> - Apply wording suggestions from Chen-Yu
+> - Link to v5: https://patch.msgid.link/20260720-axp318-regulator-v5-0-a1a=
+fa7ee24f9@baylibre.com
+>
+> Changes in v5:
+> - Fix shutdown register offset
+> - Re-order patches to put fixes first
+> - Tighten DT regexp around swout
+> - Other points raised by Sashiko on v4 are unrelated to the addition
+>   of the AXP318 support and pre-exist the series. They are not
+>   addressed ATM.
+> - Link to v4: https://patch.msgid.link/20260717-axp318-regulator-v4-0-50a=
+ff97084dd@baylibre.com
+>
+> Changes in v4:
+> - Capitalize patch 3 title
+> - regulator: add support for workmode and poly-phase.
+> - i2c: fix probe through i2c sysfs
+> - Link to v3: https://patch.msgid.link/20260717-axp318-regulator-v3-0-779=
+dc1b97dd4@baylibre.com
+>
+> Changes in v3:
+> - Correct mess up v2 errors regarding ops and ids.
+> - Correctly propagate errors when checking axp318 threshold.
+> - Fix DT binding regex regarding dcdc max ids
+> - Add missing RTCLDO.
+> - Remove axp318 PEK MFD cell:
+>   As pointed out by sashiko, the driver name did not match anything in th=
+e
+>   pek driver. While the device does support some handling of the power
+>   button, it does not seem to match the existing driver. Register 0x36
+>   relates to DLDO3, not the power key, as expected by the misc driver.
+>   Leave this out for now.
+> - Constify axp313 and axp717 mfd_cells array for consistency.
+> - Link to v2: https://patch.msgid.link/20260710-axp318-regulator-v2-0-ee5=
+f1c56b49f@baylibre.com
+>
+> Changes in v2:
+> - Dropped _NUM_VOLTAGES macros
+> - Use min_dropout_uV to limit LDO voltage to supplies
+> - Add bypass mode for EDLO4/5
+> - Prevent crossing 1.54V threshold for DCDC6/7/8/9
+> - Link to v1: https://lore.kernel.org/r/20251021112013.2710903-1-andre.pr=
+zywara@arm.com
+>
+> ---
+> Andre Przywara (3):
+>       dt-bindings: mfd: x-powers,axp152: Document AXP318W
+>       mfd: axp20x: Add support for AXP318W PMIC
+>       regulator: axp20x: add support for the AXP318W
+>
+> Jerome Brunet (2):
+>       mfd: axp20x: Constify axp313 and axp717 cells
+>       mfd: axp20x-i2c: Fix i2c instantiation
 
-of: reserved_mem: reject static regions overlapping no-map memory
+I think this series is ready to be merged. Mark gave his reviewed-by for
+the regulator patch, which IIRC he said acks the patch to go through
+another tree.
 
-This commit updates the reserved memory initialization to reject static no-=
-map
-regions that overlap with existing reserved no-map memory. It also skips
-no-map regions during the late scan if they overlap with already reserved
-ones, preventing multiple drivers from mapping the same physical memory.
+So please merge the whole series through the mfd tree.
 
-Link: https://sashiko.dev/#/message/20260814084718.29C341F000E9%40smtp.kern=
-el.org [1]
 
-> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
-> index 3a6c6dbfd7b11..8d2057f2ac12e 100644
-> --- a/drivers/of/of_reserved_mem.c
-> +++ b/drivers/of/of_reserved_mem.c
-
-[ ... ]
-
-> @@ -266,6 +267,20 @@ static void __init __rmem_check_for_overlap(void)
->  	}
->  }
-> =20
-> +static bool __init rmem_overlaps_check(phys_addr_t base, phys_addr_t siz=
-e,
-> +				       int start)
-> +{
-> +	int i;
-> +
-> +	for (i =3D start; i < reserved_mem_count; i++) {
-> +		struct reserved_mem *r =3D &reserved_mem[i];
-> +
-> +		if (memblock_addrs_overlap(base, size, r->base, r->size))
-> +			return true;
-
-[Severity: High]
-Does this code allow an integer wrap-around to bypass the overlap check?
-
-The size variable read from the device tree is used without being bounded by
-memblock_cap_size() before calling memblock_addrs_overlap().
-
-If a crafted device tree or overlay defines a static reserved memory node
-with a size large enough to cause base + size to wrap around phys_addr_t,
-the internal addition in memblock_addrs_overlap() could wrap. This would
-cause it to incorrectly return false, bypassing this overlap check.
-
-The region then reaches memblock_is_region_rsrv_rmem(), which does cap the
-size and finds the valid overlap marked by an earlier valid region, allowing
-multiple reserved memory regions to be mapped to the exact same physical
-memory.
-
-> +	}
-> +	return false;
-> +}
-> +
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260920092852.6149=
-73-1-chenwandun1@gmail.com?part=3D4
+Thanks
+ChenYu
