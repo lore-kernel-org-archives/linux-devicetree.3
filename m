@@ -1,69 +1,69 @@
 Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA5333921D6
-	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 04:56:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C4AE3CB541
+	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 04:56:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789880203; cv=none; b=GWUHa5fpm3r+g0Xof6U9X4gF/WbojhDkXEFvqdf1oUfEl8OJF2vFXyCM4JDL73X0UisHhtzh5AGFfuBVKMtd8Ya0mIE05I14hEhVZz1D8WS9MxlR0Z+XaOCq71VPr204xBn8NEtg6oiudtlLUfn8o9S+ZMqBhW8rLiESqC4zKzA=
+	t=1789880211; cv=none; b=nDe0qJAx0b01mfpaII0tH/GjQMSIMRAP/FTk52tylv+27cd4PkEmO9/9qf8fOU/96WRvoaYf0vHbAj87F/hr5mdXU6UU294NBSpyN/Nf/gtMLBcDx48ipVSOlBYKclePRXxWy5q7DeCiIF32oTy6c6SpKMQ3rfFR9QRv5W1mkg8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789880203; c=relaxed/simple;
-	bh=orkI4Wz6NvKsu2dnhAfmTqfm8jAF2sqyShpaRHJbfnA=;
+	s=arc-20240116; t=1789880211; c=relaxed/simple;
+	bh=T6mbgeWv9jzF1B9kGkNBo77HMeI/WqXPSrUa9mCj9Mc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=WmgN8PBoqA1eUNJPzC4FgeibJHxzmUAMEEflJUtRLSmJgSauXQqjzK7iJaSlS4TPM+nXNXF1L1Uqe5ymsQTT/FUvtRn6AXWg5AUihulG5AQUrYOJkqgmm3JfyHLOzl3RU4CPLK/bYpb7TxVTCysjQBn1v/afFxjJnQERNxJaK40=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I1O+5BtJ; arc=none smtp.client-ip=74.125.227.140
+	 In-Reply-To:To:Cc; b=c1hlWfMydIoE39yEHwjoY0X17T44AhOaPX9e0wVyuqB1b6zb3y4wLRuKCgpJV7zvF5Ga3zyRgzDngHogBWzhfCXByM58RrCFCJRBlKCor9h45JehszW81ia96a9Oe1WqkNTDbkTFjtRlWkIgpp2co+ZVP5lf+8QtbbrTeuAJUWU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BsOlAGs7; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I1O+5BtJ"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747ec6188so11902885ad.3
-        for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 21:56:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BsOlAGs7"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747ed1368so24898215ad.1
+        for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 21:56:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789880201; x=1790485001; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789880210; x=1790485010; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=usgTFYno7+hAzGXo/yfuRjYlJhKU8fYfhaps2/4rD8k=;
-        b=I1O+5BtJGUet+kpfZoO9fYMHVZ9EujvfTncIWpWdLuQL77w5slP+J/UZMNrtPjr0pM
-         LtWPCg91+BwGyPPCQ/KqIUCZtDMK8JeKGPqtlvTBgHxKyR25ZHzu01ah/P+PcbuWInH5
-         qhxGAHDlRFe0IzAHiRAApKxv2tycfzqnI3gWcUGbTRztidLVeoMPAVx6n1ngYhhakiX7
-         4+PPkRM8z9DiA/oE6ynGKlL/2pnijbZOEGDh8ygvatMh1AirXclsol5jJ5U/y8/MQzVN
-         RqfYb0pr86OZWux5nUTTpAhdnKfnVZU6dB7DpVYamJwIAlAv+fr4z4KRew0JSmwbP8Y+
-         koOg==
+        bh=3dXNK/OowzWM58hnD1jde+T7w0Zoo6WExVjNMgQVHK8=;
+        b=BsOlAGs7v5xLNbovIUT9SWMZ/4MIIbWOoxViRs4ace2dj9NNe1K+TSWTgjJQ+3H0Mj
+         TLe4gL5gA0K+GJAawNgQhObYoC06qSgQX1BIK/xwHzDVFI7E4osq9s5xzI+nFUduRg2C
+         hSH7RUI1qHFyFKn/E9pgQtsvdlziS1hs9jdppPMlGOI/QlaZAVAnHsuyShLsvMCjYoQg
+         BCboTv3TQKtIBv37Dja6BgSDhyh1VTT7bo6arOQHtZezOgEnh0GnaCa4w84PuSWWfBGD
+         GdVkhI+NmJuEZmufzmPZHYNe6VnN+htRw5G7J7n34mF/7Q+pw11fgHrwIoikiW96Xatl
+         IMxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789880201; x=1790485001;
+        d=1e100.net; s=20260707; t=1789880210; x=1790485010;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=usgTFYno7+hAzGXo/yfuRjYlJhKU8fYfhaps2/4rD8k=;
-        b=yv+l8KKdyvbIaZAjDLeO6Z0S8nCtXlnoKuyN/ukEwevWDBLFT+uMAtg2QkNqDfkiUf
-         Sir5BwkjnSRo+qbe1MH4fHfRUkyoM9GtCTawMw2x06Cb63EhYk0r+DOtBAipYTfDchzC
-         uEh37PmPQA3Eom9CSPmBWpvjLIolAaDLAiJPNnby38/DWODucY7xP7RCBMGdJCgdMmvx
-         /m3wHWv7hyXxBR3urqXG5dm3cQjT0ZIhtz7c1sRrbo8429e9SFAWP8L+tULKFk8xdDyd
-         FdSatttFkKwrJGy6bPurQRW7PWvVNzB7XGQSy1tp2j4J5roGoSN7MR20ePB0zsXDnFri
-         vUng==
-X-Forwarded-Encrypted: i=1; AKwUvBwdpAhKiCoqe2QwSawiKF+nSc8mmv12KoptdWjOq4nu0qcJDXc8EdBYydTpCUrA34Ee095mj8jaQ1JU@vger.kernel.org
-X-Gm-Message-State: AFuF++mhXBd8rRPUHbfHu+eBVUdObVXyg72wGyWxvsNu1dJdLLd9uwZO
-	RsNCFju7xp31gCAakw5jE6uZfJ73XATLKJlQ9REmRUIpO0qr99YrtP9h
-X-Gm-Gg: AYBFou0zUOVZGPg6sairNJh4jmABimEWqhpEaiDc8Um8KgzVcrVRth91eAzhVjw3ZPi
-	WP84sQCnGc0MXokd74/WpBwcG2n1Y6jCYDXoQN6J+f6Wb/0aLn20a2TjZcdNd2gLT5GBTm+OE1p
-	zkYqu5DMmzi3wwlZ2YLuJr3x07uxBEGNKUD5AWvSm7P2J92asC143aILU4K6qZSTcIOGWE5NJOG
-	/E+Qzpjz1BqUY94zk85pQbf2w1rtaeyVdR6tCOBltygZNhC5dgHf1+PLm0EQh2C4s32NM4InHwi
-	qjIWkAVX+z/P9s9pTrPjtLzFjmlCnXjWbCsCDXAD6Y1vWspLVD3oiI87U8GzZZZs0QPLZyq2sYV
-	XS7OK6B1OLhrzaj1IYv1gmx6x4z10MRPxa/Gy2p3S+8O/VTq/UiAvzLZg4j8An9wdPluGtCXaho
-	dR2XlUAHliJ0ueUmQT8l+TlSDLeyiQ6vLpEkdPLJkrHA8rcBVLBNQrfAFjH9e1pyldHG5bZv6CC
-	YqAQoTKEtt1VfdgFHXe8A+cnUdM7gV29NnbNbS/+c6rpTXI6YrFQKA0RJDInqn1sB4/h9D4zXcz
-	9bmYcKCDkufuQGMr2Y1BaxB/o1nSKWv4WCK7zpSY90/lnqY=
-X-Received: by 2002:a17:902:e543:b0:2df:39bd:ace2 with SMTP id d9443c01a7336-2df39bdb0a4mr24798825ad.43.1789880201029;
-        Sat, 19 Sep 2026 21:56:41 -0700 (PDT)
+        bh=3dXNK/OowzWM58hnD1jde+T7w0Zoo6WExVjNMgQVHK8=;
+        b=inNrV03jYK72zPvt2ZTqlN72foMWIjBSCBZiW550CXTet7i1r/ThsRWXuAX1rysifB
+         FwFUvdnnOkc4jrIpBzv+SQwxvVZPdVRDu4LZxlAp9aqdH1rFtpYqxLQcF3gd4c8ChKWN
+         2J/OOU0K7AXzmM2geeyux6ZJQ/qsMVT+XYzcTnRP6fHLaNVUT165+wYnS6ATTjrNYhQS
+         csCKqyvfARix+cws9gLk4/sN5vjYoZnEpVX7OWnwxqJ6gytt9cy42/m00T70ijI0hAw3
+         1y0w8ekG/NU/A5Gr/O2age8LxkHAR3LarxKpEP0sSbfmiLz9zC8KwqJlnpZHMJlNTBbX
+         QwIA==
+X-Forwarded-Encrypted: i=1; AKwUvBykQsYuJBymWkjkc9PgxkLil0erlRigX8Ls7uAom/efBr9go4A4W1n468fs/QahguVpkmKqdd9JFFtO@vger.kernel.org
+X-Gm-Message-State: AFuF++mFRuyksUdqc40H92r9H0AVcJaKaSvhYHqa8AClVykrfAql47R4
+	5Mqg1rASzkOuQCF+ftbEDkmySY2MR0CHVIPX1Oj3azu0DaWG6xtFubCa
+X-Gm-Gg: AYBFou169XIt2o7KHOVrAoeOp3hEpQUWu+wdmEBMclyA4CkjW/zUYYqiw1CaJMj82yk
+	fjxvTnhU+cL5aZyGXUBjn81AxYUjA/v3n2az+Go5CDpD3Ni97LdWrIVnCeN4/NcJR3uopTFlAkI
+	+tG5C/rj15Ehy8SaeLhPXBej7xbBiSqwwmy0ksdmEpqvEnEdjWzPjRKIlnTgzb6RJmy1z5jLhBL
+	YcR7C15js+KX+LCgmE9qDxXH9Gz61vFEYDhHQESsj1gr7tVGF64gGoYrIlzlJPw8QP7f3GEoTX1
+	qRC0g+gZq0B1bbNCUleC/NuSPTN43UdrHizk04Mbg8HtDGfZiskcrd5rJpRfTLBtepTm/5wrGR1
+	+OXDwqabzMlIkw7Rh4pifhFYOO6yfsdrTTO8VXNp1yfM3VGjsLKG9Uptq4Gt+JHgoJUAKkFx9Lj
+	skrcEgOOL41MkxFFmfNDR3LomkbP9vs6iUX4FipF+QN0T/ZXR/8k0qIa7c1BbxVwqmwE1176u7B
+	nM3LPaiuHL6iowEYTGmMzoHVywBtCM+segOgKNJnk5lR2yc1A1i5YtL60vHiwqlcAlZsmY4XTBr
+	iL3UMfx+8yb9kqOjAmIjj8aQ1mf9vS8Ez2OSedgjgb0tPYI=
+X-Received: by 2002:a17:902:f645:b0:2d8:d4d0:792b with SMTP id d9443c01a7336-2ddb1b79d84mr118058735ad.15.1789880209811;
+        Sat, 19 Sep 2026 21:56:49 -0700 (PDT)
 Received: from [192.168.2.3] ([2403:581e:d87e:0:fc2d:ed31:e80e:412d])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17d712dsm16026765ad.64.2026.09.19.21.56.31
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17d712dsm16026765ad.64.2026.09.19.21.56.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 21:56:40 -0700 (PDT)
+        Sat, 19 Sep 2026 21:56:49 -0700 (PDT)
 From: James Calligeros <jcalligeros99@gmail.com>
-Date: Sun, 20 Sep 2026 14:53:49 +1000
-Subject: [PATCH 10/28] ASoC: ops: Accept patterns in snd_soc_limit_volume
+Date: Sun, 20 Sep 2026 14:53:50 +1000
+Subject: [PATCH 11/28] ASoC: ops: Introduce 'snd_soc_deactivate_kctl'
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260920-macaudio-v1-10-741cc20a74e5@gmail.com>
+Message-Id: <20260920-macaudio-v1-11-741cc20a74e5@gmail.com>
 References: <20260920-macaudio-v1-0-741cc20a74e5@gmail.com>
 In-Reply-To: <20260920-macaudio-v1-0-741cc20a74e5@gmail.com>
 To: =?utf-8?q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>, 
@@ -97,116 +97,91 @@ Cc: asahi@lists.linux.dev, linux-sound@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, patches@opensource.cirrus.com, 
  Takashi Iwai <tiwai@suse.de>, linux-mediatek@lists.infradead.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2816;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2331;
  i=jcalligeros99@gmail.com; h=from:subject:message-id;
- bh=giyxcaB7oPKDW7kHY6FxQFJhi2IQzFYLV+w/nh4sO8E=;
- b=owGbwMvMwCV2xczoYuD3ygTG02pJDFnr0xV+HF2p1seUK7lhz+75Sy6XKnK6zLlreVYmbF3Bm
- QOajkLxHRNZGMS4GCzFFFk2NAl5zDZiu9kvUrkXZg4rE8gQaZEGBiBgYeDLTcwrNdIx0jPVNtQz
- NNIx1jFi4OIUgKleG8TI8CqdbbN2+S/VoCAT3nVMDvGZ86ZkRsz6OD1eZoq/ovrURYwMV95umc5
- m67PbWbG0nuv1Qp6aIJtzX5z1bYVeT724eGMZPwA=
+ bh=4cm5zIm3FR1CXBqv5TeTAc7DTM6jYX/PUwYOK0HZ2oU=;
+ b=owGbwMvMwCV2xczoYuD3ygTG02pJDFnr0xVeP9V2u/i9uIX1ytYqxZ/snN8836Rv+51+YvqOp
+ vWx0vd8OyayMIhxMViKKbJsaBLymG3EdrNfpHIvzBxWJpAh0iINDEDAwsCXm5hXaqRjpGeqbahn
+ aKRjrGPEwMUpAFMtt5rhf3hUQtvsyg7bl9YHX3CIpm9Wea/cHlYhG3Jxoc2m8Led0owMv//eL7J
+ x5Duk6RhwIVNQ43zMTevZAQlyynuN2G49FnzPDQA=
 X-Developer-Key: i=jcalligeros99@gmail.com; a=openpgp;
  fpr=B08212489B3206D98F1479BDD43632D151F77960
 
 From: Martin Povišer <povik+lin@cutebit.org>
 
-In snd_soc_limit_volume, instead of looking up a single control by name,
-also understand wildcard-starting patterns like '* Amp Gain Volume' to
-touch many controls at one.
+The new function can be used to deactivate controls -- either a single
+one or in bulk by pattern. It is something a machine driver may call in
+fixup_controls.
 
 Signed-off-by: Martin Povišer <povik+lin@cutebit.org>
 Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
 ---
- sound/soc/soc-ops.c | 51 ++++++++++++++++++++++---
- 1 file changed, 45 insertions(+), 6 deletions(-)
+ include/sound/soc.h |  2 ++
+ sound/soc/soc-ops.c | 38 +++++++++++++++++++++++++
+ 2 files changed, 40 insertions(+)
 
+diff --git a/include/sound/soc.h b/include/sound/soc.h
+index 553bb7e2be98..973ffaf6f060 100644
+--- a/include/sound/soc.h
++++ b/include/sound/soc.h
+@@ -578,6 +578,8 @@ int snd_soc_put_volsw_sx(struct snd_kcontrol *kcontrol,
+ 	struct snd_ctl_elem_value *ucontrol);
+ int snd_soc_limit_volume(struct snd_soc_card *card,
+ 	const char *name, int max);
++int snd_soc_deactivate_kctl(struct snd_soc_card *card,
++	const char *name, int active);
+ int snd_soc_bytes_info(struct snd_kcontrol *kcontrol,
+ 		       struct snd_ctl_elem_info *uinfo);
+ int snd_soc_bytes_get(struct snd_kcontrol *kcontrol,
 diff --git a/sound/soc/soc-ops.c b/sound/soc/soc-ops.c
-index e572b05840b4..2f91ee7946bb 100644
+index 2f91ee7946bb..d35e24df891b 100644
 --- a/sound/soc/soc-ops.c
 +++ b/sound/soc/soc-ops.c
-@@ -403,6 +403,29 @@ int snd_soc_put_volsw_sx(struct snd_kcontrol *kcontrol,
+@@ -512,6 +512,44 @@ int snd_soc_limit_volume(struct snd_soc_card *card, const char *name, int max)
  }
- EXPORT_SYMBOL_GPL(snd_soc_put_volsw_sx);
+ EXPORT_SYMBOL_GPL(snd_soc_limit_volume);
  
-+static bool soc_control_matches(struct snd_kcontrol *kctl,
-+	const char *pattern)
-+{
-+	const char *name = kctl->id.name;
-+
-+	if (pattern[0] == '*') {
-+		int namelen;
-+		int patternlen;
-+
-+		pattern++;
-+		if (pattern[0] == ' ')
-+			pattern++;
-+
-+		namelen = strlen(name);
-+		patternlen = strlen(pattern);
-+
-+		if (namelen > patternlen)
-+			name += namelen - patternlen;
-+	}
-+
-+	return !strcmp(name, pattern);
-+}
-+
- static int snd_soc_clip_to_platform_max(struct snd_kcontrol *kctl)
- {
- 	struct soc_mixer_control *mc = (struct soc_mixer_control *)kctl->private_value;
-@@ -445,31 +468,47 @@ static int soc_limit_volume(struct snd_kcontrol *kctl, int max)
- }
- 
- /**
-- * snd_soc_limit_volume - Set new limit to an existing volume control.
-+ * snd_soc_limit_volume - Set new limit to existing volume controls.
-  *
-  * @card: where to look for the control
-- * @name: Name of the control
-+ * @name: name pattern
-  * @max: new maximum limit
-  *
-- * Return 0 for success, else error.
-+ * Finds controls matching the given name (which can be either a name
-+ * verbatim, or a pattern starting with the wildcard '*') and sets
-+ * a platform volume limit on them.
++/**
++ * snd_soc_deactivate_kctl - Activate/deactivate controls matching a pattern
 + *
-+ * Return number of matching controls on success, else error. At least
-+ * one control needs to match the pattern.
-  */
- int snd_soc_limit_volume(struct snd_soc_card *card, const char *name, int max)
- {
- 	struct snd_kcontrol *kctl;
++ * @card: where to look for the controls
++ * @name: name pattern
++ * @active: non-zero to activate, zero to deactivate
++ *
++ * Return number of matching controls on success, else error.
++ * No controls need to match.
++ */
++int snd_soc_deactivate_kctl(struct snd_soc_card *card,
++	const char *name, int active)
++{
++	struct snd_kcontrol *kctl;
 +	int hits = 0;
 +	int ret;
- 
- 	/* Sanity check for name */
- 	if (unlikely(!name))
- 		return -EINVAL;
- 
--	kctl = snd_soc_card_get_kcontrol(card, name);
--	if (!kctl) {
++
++	/* Sanity check for name */
++	if (unlikely(!name))
++		return -EINVAL;
++
 +	list_for_each_entry(kctl, &card->snd_card->controls, list) {
 +		if (!soc_control_matches(kctl, name))
 +			continue;
 +
-+		ret = soc_limit_volume(kctl, max);
++		ret = snd_ctl_activate_id(card->snd_card, &kctl->id, active);
 +		if (ret < 0)
 +			return ret;
 +		hits++;
 +	}
 +
-+	if (!hits) {
- 		/* Some cards blindly add limits for multiple variants. */
- 		dev_dbg(card->dev, "Volume limit for unknown control '%s'\n",
- 			name);
- 		return -EINVAL;
- 	}
- 
--	return soc_limit_volume(kctl, max);
++	if (!hits)
++		return -EINVAL;
++
 +	return hits;
- }
- EXPORT_SYMBOL_GPL(snd_soc_limit_volume);
- 
++}
++EXPORT_SYMBOL_GPL(snd_soc_deactivate_kctl);
++
+ int snd_soc_bytes_info(struct snd_kcontrol *kcontrol,
+ 		       struct snd_ctl_elem_info *uinfo)
+ {
 
 -- 
 2.55.0
