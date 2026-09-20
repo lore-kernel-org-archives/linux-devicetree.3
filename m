@@ -1,43 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF3502D3225;
-	Sun, 20 Sep 2026 00:53:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE59E17B50F;
+	Sun, 20 Sep 2026 01:12:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789865596; cv=none; b=ClrfGZE5bSZKYl3sEwPc9a+O2okuIeie99rAyfoyuwQMgD+vISt8N+l8N0buqXADeZq4gk+eWhdm1oph4MCUml4/za3LEVda31T6pNGEcveWdXkxVrTOTiEEP0BuyqCbm7uEsr7RywJSE89g+EFOD6DHuOC0YKiz7XIcgd43GAQ=
+	t=1789866766; cv=none; b=KcXh0SBabXu0sBUcA6OnCuzcw3Rm41CYLYTwyi5y30lJYWMSBv5hRO4tbexTsvP9p13v7l0Wi0yCZ9Nsn1uWHrhHpj2MY5BKkgtgMedOK4tiTpUBO4BSrAs4M4tv+N9SJ5XciVnF77OEs15q1GnFoQn8wdgT4cNE1XC9Iiqtf0g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789865596; c=relaxed/simple;
-	bh=baL5FdezyJpw0WdG3hFVDydrZTj66S9G9b+cQUt4DJE=;
+	s=arc-20240116; t=1789866766; c=relaxed/simple;
+	bh=+N6J1LZ6CBdc1zIhV3kOvDxoPJ1p6hB1SMwEMNaeBe0=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OwAoH7+75G5hTRGYfUNkBiXOY3t/5IWmDe8pZlEBXEuMS3dci98Iawg2TW63UV3DMwll1dLiAiPKgg0RSk4ygDUH8Vn0DaA2IpwSexwwCG9N/X8c+cCYctLu7SSQiWRvm2/9jmR3DfhqlVWzgv4zCmsBHpy66Xojs9LyjMRn7gc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eO/w/Kp7; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=gm9dQe/MNfl7MYk5MFFg96xRbUC3bCRqh2qTiq9zXX2MDjontEyfOfW8szxRC4z9Sbc8X0dcquo4HH2Qu5x8PgRsEg5cdzBMsaJGCUQmcZUygnIdAGaGrDZP0PD2pTmHias3rACBSC7pynZfs9QjXQN4oPKl7d9FmleeEEiP1BM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kxLcGd/Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eO/w/Kp7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A80D21F000FF;
-	Sun, 20 Sep 2026 00:53:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kxLcGd/Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C3FB1F000FF;
+	Sun, 20 Sep 2026 01:12:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789865594;
-	bh=9hJp49Gq8lhC7HaZtvb3HUU8DHCTVPncgTmT5nXugTo=;
+	s=k20260515; t=1789866764;
+	bh=vWhFuwQAE7RhwWDtnIUTLdbJqKiTWXC8oO4CWXKEvQM=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=eO/w/Kp78hwcvvIePw7MpZ7/XoScURSWS7fatJ9msVlOjz0/m2Tc6BcDc46i9QATb
-	 hwC1VfEMkGc7+OwLQRrbdAbC3jkhop12WSAegq3fsis5bZUklOfm9HIqGkqWvwDUTB
-	 KitxLZG3nrymnKy8adWnZ6uZW3Grc2uQjwwDzwnfT7LC719PJafASpWLTHUk6MjQEr
-	 volfSp0+VtPu5XapQC+JbYkbhhi7PF+LqWrsPekNrrEKL5VLbryLfa8rnP9OkCa9sU
-	 eW6j6p6UvbXgkEne0pjX4txtrvy21UOziKwo2vJipxgNR5dpYXePgq+RJklUk9BVYI
-	 a0fTc6AW2ToZA==
-Date: Sun, 20 Sep 2026 01:53:10 +0100
+	b=kxLcGd/Z04DRTdyXv8CkazBPRQ1V55ZcrTtzbpFHutBk6yhqAD0mUQmiUYARbtchM
+	 mA8mVVXZ5RieCw2NoyTFG63rvRM0PKU4CvEEtRyV/iPZWrOlV+ZsL2fcwLhkNuotcm
+	 CwF+tf0GIzi2DL1vfB6atN9JJLOo/Ktnn57PJ9yRgYUfUrTxuPyhlpj3qBKw91olqE
+	 5zRsnfucypcjVmgRqczqCszq7Yddgx+nqXyBN9DDFA6ErfPj+50oFaXJn6PCPx52Ky
+	 NvghFb4OTUa0vwfqHOkbPsLC74ZpCCNUuXUqN3mGafAlLOi/QGRidTL2yNQhIL5Rxj
+	 VTnjuS4H8eqxA==
+Date: Sun, 20 Sep 2026 02:12:38 +0100
 From: Jonathan Cameron <jic23@kernel.org>
-To: Muhammad Abu Bakar <m.abubakar365@yahoo.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, dlechner@baylibre.com,
- nuno.sa@analog.com, andy@kernel.org, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] iio: pressure: add Sensirion SDP31 driver
-Message-ID: <20260920015310.0c13425c@jic23-hlaptop>
-In-Reply-To: <20260919223854.13437-3-m.abubakar365@yahoo.com>
-References: <20260919223854.13437-1-m.abubakar365@yahoo.com>
-	<20260919223854.13437-3-m.abubakar365@yahoo.com>
+To: Jinseob Kim <kimjinseob88@gmail.com>
+Cc: linux-iio@vger.kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
+ andriy.shevchenko@intel.com, linux-kernel@vger.kernel.org,
+ rdunlap@infradead.org, joshua.crofts1@gmail.com,
+ u.kleine-koenig@baylibre.com, julianbraha@gmail.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+ corbet@lwn.net, skhan@linuxfoundation.org, linux-doc@vger.kernel.org
+Subject: Re: [PATCH v10 2/8] Documentation: iio: add Open Sensor Fusion
+ driver overview
+Message-ID: <20260920021238.6d4ff353@jic23-hlaptop>
+In-Reply-To: <9fdbc924bf3387a4d33d1258ea21ac33abef65bb.1789753020.git.kimjinseob88@gmail.com>
+References: <cover.1789753020.git.kimjinseob88@gmail.com>
+	<9fdbc924bf3387a4d33d1258ea21ac33abef65bb.1789753020.git.kimjinseob88@gmail.com>
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -48,218 +51,148 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Sun, 20 Sep 2026 03:38:54 +0500
-Muhammad Abu Bakar <m.abubakar365@yahoo.com> wrote:
+On Sat, 19 Sep 2026 03:24:40 +0900
+Jinseob Kim <kimjinseob88@gmail.com> wrote:
 
-> Add an IIO driver for the Sensirion SDP31 differential pressure sensor.
-> The device is accessed over I2C and reports differential pressure and
-> temperature. Each measurement is validated using the sensor's CRC-8
-> checksum.
+> Document the supported OSF receiver profile, runtime sensor discovery,
+> IIO channel units, scale validation and session lifetime.
 > 
-> Tested on an SDP31 connected to a Raspberry Pi 4 I2C bus.
+> Link the project-maintained fixed wire specification instead of
+> duplicating its layouts and compatibility policy. Explain host IIO
+> timestamps and the explicit rebind needed after a changed inventory.
 > 
-> Signed-off-by: Muhammad Abu Bakar <m.abubakar365@yahoo.com>
+> Assisted-by: LLM
+> Signed-off-by: Jinseob Kim <kimjinseob88@gmail.com>
 
-Welcome to IIO.
+Hi Jinseob,
 
-Sashiko has some feedback on this one. Please take a look.
-
-https://sashiko.dev/#/patchset/20260919223854.13437-1-m.abubakar365%40yahoo.com
-the DO_ONCE is a sensible suggestion and cleaner than what we
-used to do with the crc setup in init().  Note there may well
-be other drivers doing this wrong today - I haven't checked!
-
-Generally a nice little driver. Some stuff in here looks quite
-like how we did things a while back.  I'm guessing you perhaps
-modelled it on an older driver?  Anyhow, nothing major - just changing
-conventions.
+Just a couple of minor things inline.
 
 Thanks,
 
 Jonathan
 
-
 > ---
->  MAINTAINERS                   |   6 ++
->  drivers/iio/pressure/Kconfig  |  11 ++
->  drivers/iio/pressure/Makefile |   1 +
->  drivers/iio/pressure/sdp31.c  | 194 ++++++++++++++++++++++++++++++++++
->  4 files changed, 212 insertions(+)
->  create mode 100644 drivers/iio/pressure/sdp31.c
+>  Documentation/iio/index.rst              |  1 +
+>  Documentation/iio/open-sensor-fusion.rst | 77 ++++++++++++++++++++++++
+>  MAINTAINERS                              |  1 +
+>  3 files changed, 79 insertions(+)
+>  create mode 100644 Documentation/iio/open-sensor-fusion.rst
 > 
+> diff --git a/Documentation/iio/index.rst b/Documentation/iio/index.rst
+> index b02b879b053a..c2b7963348fd 100644
+> --- a/Documentation/iio/index.rst
+> +++ b/Documentation/iio/index.rst
+> @@ -40,4 +40,5 @@ Industrial I/O Kernel Drivers
+>     adxl345
+>     bno055
+>     ep93xx_adc
+> +   open-sensor-fusion
+>     opt4060
+> diff --git a/Documentation/iio/open-sensor-fusion.rst b/Documentation/iio/open-sensor-fusion.rst
+> new file mode 100644
+> index 000000000000..03ab36aca5f8
+> --- /dev/null
+> +++ b/Documentation/iio/open-sensor-fusion.rst
+> @@ -0,0 +1,77 @@
+> +.. SPDX-License-Identifier: GPL-2.0-only
+> +
+> +Open Sensor Fusion
+> +==================
+> +
+> +Open Sensor Fusion is a sensor aggregation hub interface. The Linux IIO driver
+> +receives device-to-host frames over UART and discovers sensor channels from
+> +capability reports. Device Tree describes the hub using the
+> +``opensensorfusion,osf`` compatible; individual sensors are discovered at
+> +runtime. See the binding in
+> +``Documentation/devicetree/bindings/iio/opensensorfusion,osf.yaml``.
+> +
+> +The OSF Device-to-Host 0.0 specification is maintained by the Open Sensor Fusion
+> +project. The canonical specification_ defines the wire layout, compatibility
+> +rules, reserved fields and physical units. This document describes the Linux
+> +receiver profile and its mapping to IIO.
+> +
+> +.. _specification: https://github.com/opensensorfusion/opensensorfusion-protocol/blob/ca9cdea1ae550c2b4d6f29f87877adae99470744/spec/osf-d2h-0.0.md
+> +
+> +Supported receive profile
+> +-------------------------
+> +
+> +The driver supports the fixed OSF0 frame layout with protocol major version 0.
+> +Compatible minor versions use the same known message layouts. The decoder
+> +requires exact lengths for known messages, validates CRC and bounds before
+> +interpreting payloads, and tolerates reserved padding. Unsupported majors and
+
+If you spin again "Unsupported major versions and.."
+
+> +unknown message types are ignored. Unsupported capability entries are skipped
+> +individually. A CRC-valid application rejection consumes the complete frame;
+> +an invalid frame candidate is resynchronized without trusting its payload length.
+> +
+> +The receive path handles sensor samples, complete capability reports and
+> +device status. Its limits are 4096 bytes per frame and 16 supported sensor
+> +descriptors. These are implementation limits, not protocol-wide maxima.
+> +
+> +IIO mapping
+> +-----------
+> +
+> +The supported sensor classes map to:
+> +
+> +* accelerometer: ``IIO_ACCEL`` X/Y/Z, in m/s^2;
+> +* gyroscope: ``IIO_ANGL_VEL`` X/Y/Z, in rad/s;
+> +* magnetometer: ``IIO_MAGN`` X/Y/Z, in gauss;
+> +* temperature: ``IIO_TEMP``, in millidegrees Celsius.
+> +
+> +Each registered channel exposes signed ``RAW`` data and descriptor-derived
+> +``SCALE``. Multiplying RAW by SCALE gives a value in the channel's IIO unit.
+> +Buffered samples use signed 32-bit values with native CPU endianness. Active
+> +channels are packed into the scan, with initialized padding before an optional
+> +64-bit timestamp.
+> +
+> +Discovery and session lifetime
+> +------------------------------
+> +
+> +The driver validates all supported descriptors before registering IIO devices.
+> +An empty or entirely unsupported initial report leaves discovery open for a
+> +later supported report. 
+
+So if the device can send multiple discovery reports, this implies if we
+recognise something in the first one we will stop looking at later ones?
+That seems odd given if we don't recognise anything we keep looking.
+If I'm reading too much into this text, then please tweak it to make
+it clear why this doesn't matter.
+
+> Supported descriptors must advertise a nonzero scale.
+> +A sample's channel count, format and scale must match its registered descriptor
+> +before it can update the latest RAW cache or be published to a buffer. A
+> +rejected sample preserves previously accepted data.
+> +
+> +Repeated reports are compared by sensor type and index, independently of entry
+> +order. Reserved padding, advisory flags and unsupported additions do not change
+> +the supported inventory. A supported key appearing or disappearing, or a
+> +change in its channel count, format or scale, faults the bound session.
+> +
+> +After a session fault, new cache updates and buffer publication stop, and
+> +direct RAW reads fail. Existing IIO devices remain until driver teardown.
+> +An equivalent report does not clear the fault; explicit unbind/rebind starts
+> +fresh discovery. No fault-specific userspace ABI is exposed.
+> +
+> +Timestamps
+> +----------
+> +
+> +Buffered samples use the selected IIO host clock when they are pushed into
+> +the buffer. The device timestamp is not correlated with that clock and is not
+> +used as the IIO buffer timestamp. Device timestamp or sequence discontinuities
+> +alone do not start a new host session.
 > diff --git a/MAINTAINERS b/MAINTAINERS
-> index 214aeee76..a053a530e 100644
+> index 9463b8111d52..26b9b2862724 100644
 > --- a/MAINTAINERS
 > +++ b/MAINTAINERS
-> @@ -24855,6 +24855,12 @@ S:	Maintained
->  F:	Documentation/devicetree/bindings/iio/chemical/sensirion,scd4x.yaml
->  F:	drivers/iio/chemical/scd4x.c
+> @@ -20515,6 +20515,7 @@ OPEN SENSOR FUSION
+>  M:	Jinseob Kim <kimjinseob88@gmail.com>
+>  S:	Maintained
+>  F:	Documentation/devicetree/bindings/iio/opensensorfusion,osf.yaml
+> +F:	Documentation/iio/open-sensor-fusion.rst
+>  K:	opensensorfusion
 >  
-> +SENSIRION SDP31 DIFFERENTIAL PRESSURE SENSOR DRIVER
-> +M:	Muhammad Abu Bakar <m.abubakar365@yahoo.com>
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/iio/pressure/sensirion,sdp31.yaml
-> +F:	drivers/iio/pressure/sdp31.c
->
-
-Add the initial Maintainers entry in the dt-binding patch, then add
-just the new file here.
-
-> diff --git a/drivers/iio/pressure/sdp31.c b/drivers/iio/pressure/sdp31.c
-> new file mode 100644
-> index 000000000..934a3afcd
-> --- /dev/null
-> +++ b/drivers/iio/pressure/sdp31.c
-
-> +
-> +static int sdp31_send_cmd(struct i2c_client *client, u16 cmd)
-> +{
-> +	u8 buf[2] = { cmd >> 8, cmd & 0xff };
-
-Given it seems to be handled as a be16, I'd just use one for it
-complete with a cpu_to_be16() to put the data in the right order.
-
-> +	int ret = i2c_master_send(client, buf, sizeof(buf));
-> +
-> +	if (ret < 0)
-> +		return ret;
-> +	return (ret == sizeof(buf)) ? 0 : -EIO;
-> +}
-> +
-> +static int sdp31_check_crc(const u8 *word)
-> +{
-> +	if (crc8(sdp31_crc8_table, word, 2, SDP31_CRC8_INIT) != word[2])
-> +		return -EIO;
-> +	return 0;
-> +}
-> +
-> +static int sdp31_measure(struct i2c_client *client, struct sdp31_reading *out)
-For below, pass in your spd31_data structure instead of client.
-> +{
-> +	u8 rx[9];
-> +	int ret;
-
-The thing being serialized by the lock is the contents of this. As such
-I'd lock in here rather than at caller with
-
-	guard(mutex)(&data->lock);
-
-That to me makes the lock scope more obvious.
-> +
-> +	ret = sdp31_send_cmd(client, SDP31_CMD_TRIG_DP);
-> +	if (ret)
-> +		return ret;
-> +
-> +	msleep(SDP31_MEAS_DELAY_MS);
-> +
-> +	ret = i2c_master_recv(client, rx, sizeof(rx));
-> +	if (ret < 0)
-> +		return ret;
-> +	if (ret != sizeof(rx))
-> +		return -EIO;
-> +
-> +	if (sdp31_check_crc(&rx[0]) ||
-> +	    sdp31_check_crc(&rx[3]) ||
-> +	    sdp31_check_crc(&rx[6]))
-> +		return -EIO;
-> +
-> +	out->pressure = (s16)((rx[0] << 8) | rx[1]);
-> +	out->temp     = (s16)((rx[3] << 8) | rx[4]);
-> +	out->scale    =       (rx[6] << 8) | rx[7];
-
-get_unaligned_be16() for each of these + appropriate include
-for that.
-
-
-> +	return 0;
-> +}
-
-
-
-> +
-> +static int sdp31_probe(struct i2c_client *client)
-> +{
-Quite useful to have a local device pointer given how often it is used
-	struct device *dev = &client->dev;
-
-> +	struct iio_dev *indio_dev;
-> +	struct sdp31_data *data;
-> +	struct sdp31_reading r;
-> +	int ret;
-> +
-> +	indio_dev = devm_iio_device_alloc(&client->dev, sizeof(*data));
-> +	if (!indio_dev)
-> +		return -ENOMEM;
-> +
-> +	data = iio_priv(indio_dev);
-> +	data->client = client;
-> +	mutex_init(&data->lock);
-
-For new code
-	ret = devm_mutex_init(dev, &data->lock);
-	if (ret)
-		return ret;
-It adds some lock debugging related stuff.  Whilst it tends not
-to be that useful for how we use these locks in an IIO driver, it
-is near free to turn on so we prefer that we do that.
-
-> +
-> +	crc8_populate_msb(sdp31_crc8_table, SDP31_CRC8_POLY);
-
-Sashiko got the race here if multiple instances of this devices are
-connected and probing in parallel. The DO_ONCE() magic should deal
-with that for you.
-
-> +
-> +	/* Confirm the sensor is present and learn its scale factor. */
-> +	ret = sdp31_measure(client, &r);
-> +	if (ret)
-> +		return dev_err_probe(&client->dev, ret,
-> +				     "failed to read from sensor\n");
-Once you have dev as a local variable these sort of prints that only
-go a little over 80 chars are fine on one line. 
-
-> +	if (!r.scale)
-> +		return dev_err_probe(&client->dev, -EINVAL,
-> +				     "invalid scale factor\n");
-> +	data->dp_scale = r.scale;
-> +
-> +	indio_dev->name = "sdp31";
-> +	indio_dev->info = &sdp31_info;
-> +	indio_dev->modes = INDIO_DIRECT_MODE;
-> +	indio_dev->channels = sdp31_channels;
-> +	indio_dev->num_channels = ARRAY_SIZE(sdp31_channels);
-> +
-> +	return devm_iio_device_register(&client->dev, indio_dev);
-> +}
-> +
-> +static const struct i2c_device_id sdp31_id[] = {
-> +	{ "sdp31" },
-
-As sashiko calls out. Standard now is named initializers
-for all the ID tables.
-
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(i2c, sdp31_id);
-> +
-> +static const struct of_device_id sdp31_of_match[] = {
-> +	{ .compatible = "sensirion,sdp31" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, sdp31_of_match);
-> +
-> +static struct i2c_driver sdp31_driver = {
-> +	.driver = {
-> +		.name = "sdp31",
-> +		.of_match_table = sdp31_of_match,
-> +	},
-> +	.probe = sdp31_probe,
-> +	.id_table = sdp31_id,
-> +};
-> +module_i2c_driver(sdp31_driver);
-> +
-> +MODULE_AUTHOR("Muhammad Abu Bakar");
-> +MODULE_DESCRIPTION("Sensirion SDP31 differential pressure sensor");
-> +MODULE_LICENSE("GPL");
+>  OPENCOMPUTE PTP CLOCK DRIVER
 
