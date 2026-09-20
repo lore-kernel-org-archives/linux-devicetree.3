@@ -1,143 +1,129 @@
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92A3134B1A2;
-	Sun, 20 Sep 2026 10:00:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B8032D9ECB
+	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 10:01:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789898438; cv=none; b=poHGad4Ye/pGsQblOZJj4J+VgYFWHz567KACDmBhZmfdJ7A/SegFSb5Eb8x8N0pvIWmg0ceIMotuhNsI50gCvaxHE+98D2UfPZWN2UPxQOTBTfA+ZfB7xEcbdB+7my/XVzz/PHQqt3c/LMLjvg9YxcoEJ1n6wKB0ZSuF58NfRP8=
+	t=1789898478; cv=none; b=lfLBGNI+8cLVxEC2BFsrFBE40o2XcFOZtEpksLucQCzgBj74O6Wn55ktHTRKJOvl5Vu4MoHB/j442QFX++ERa0mzg4zZran+87eTB2x0iLQ7+LbAoy8Sm+44Hvm4bq+lKNoXKnZiwXUbG2rVvOi2heqgr73lvCGYQtmH4OzQm88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789898438; c=relaxed/simple;
-	bh=Pa/kThhCijMFi8BDye7+rFM1nK7NtTDPDRSHSp6ffQs=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=gaMu001/MLnEjUf+ZxcNIBtB6XKPQcwVIUce40IjPD9QPB3Cd4KG1uoc8GPIjd/LzippnkGI3AqiDyQ141uVSMcUKIcEf/FSVLTLdHw89TGcHk2sNrXG5z0tTz6rXkV7D/s33rvtczKCkTmZfCPnsK88NYgfMp+7236+QcCgFE0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn; spf=pass smtp.mailfrom=jmu.edu.cn; arc=none smtp.client-ip=45.254.49.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jmu.edu.cn
-Received: from Vostro-3710.. (unknown [14.220.232.127])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4e715e30a;
-	Sun, 20 Sep 2026 18:00:28 +0800 (GMT+08:00)
-From: Chukun Pan <amadeus@jmu.edu.cn>
-To: Yixun Lan <dlan@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	spacemit@lists.linux.dev,
-	Chukun Pan <amadeus@jmu.edu.cn>
-Subject: [PATCH 1/1] riscv: dts: spacemit: set ETH MAC from eeprom for OrangePi
-Date: Sun, 20 Sep 2026 18:00:00 +0800
-Message-Id: <20260920100000.3888256-1-amadeus@jmu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789898478; c=relaxed/simple;
+	bh=nlB5jQZBgojNE29iCYcEoW+xcH2KpeYoHcq65/wFbuo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=nnd9BHs/Q/9ThbQip5d2vq3L60xHgPeJ9a38ZSl8mjmNlGK+l+EJrUDzVPlMoH7o9zegK8hM+aAi8X0yxla/kPRF6ld1DkC+UqnoIvqHJ/Fm+GMDWDIavKCTMxfAupkX7b1f1hyc3EWVYNHB648u5vL3tHWdHl+nY+vdv/sLtAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kGbCShma; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kGbCShma"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DAD91F000FF;
+	Sun, 20 Sep 2026 10:01:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789898476;
+	bh=MVI9p4gqJ5du2VsZ2KPh8eEXGdxbocDhp4YlMYx329g=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=kGbCShmaecw7BwJ/2kX2XgdCgcfQXse8+A4VYJKb0bYqvsm1su8mMIEvz3PKNoLKC
+	 iCdsFdVGMkTFpRHnken4SRv+mf/00CIF5Vwvn/iZDGbnhJdSKxPVYrttDsYYUJW0X1
+	 LIU9VLnLrm9tM/KlycdSUa12uikduCBc/3x70LiH6ID+N2IsvKdQrGBmBykfC0buZN
+	 ClaHteb2bMCgt8tIHmZvChxR1ofMHW/hrp2YnXJpwMLppglDNrm21d2GzO3+8ZGaan
+	 HjVrpF4x8teTBpBzuPZY+kjp7VtzmGebTapaLIpacK7MSjZ/HPrOOKNDNXKjgfFtPH
+	 85YaPhXEdWF+w==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH v2 2/3] dt-bindings: net: bluetooth: Add AIC8800D80
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Yanli Yang" <yanli.yang@bedmex.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <a4304d4068002ca854d2aea5609ac8440935a8b2.1789897503.git.yanli.yang@bedmex.com>
+References: <cover.1789897503.git.yanli.yang@bedmex.com>
+ <a4304d4068002ca854d2aea5609ac8440935a8b2.1789897503.git.yanli.yang@bedmex.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 20 Sep 2026 10:01:15 +0000
+Message-Id: <20260920100116.6DAD91F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0be42903c03a2kunm0b30d86444d90c
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZThhCVkMeSkJPSh4ZTEpLTFYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKT1VJSUtVSUhJVUpJTFlXWRYaDxIVHRRZQVlPS0hVSktISk
-	5MTlVKS0tVSkJLS1kG
 
-The EEPROM on the OrangePi R2S and OrangePi RV2 stores the MAC address.
-Assign it to Ethernet, with eth1 having a MAC offset of 1. Remove the
-Ethernet alias to avoid U-Boot patching incorrect MAC addresses.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] dt-bindings: net: bluetooth: Incorrect max-speed property constr=
+aint
+- [Low] dt-bindings: net: bluetooth: Unidiomatic reg property constraint sy=
+ntax
+--
 
-Signed-off-by: Chukun Pan <amadeus@jmu.edu.cn>
----
- arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts | 8 +++++---
- arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts | 8 +++++---
- 2 files changed, 10 insertions(+), 6 deletions(-)
+commit 8cfd6d94bf45715d77abf03541df961e63f18ae5
+Author: Yanli Yang <yanli.yang@bedmex.com>
 
-diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts
-index 7125f2882ce8..073cc975135f 100644
---- a/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts
-+++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts
-@@ -16,8 +16,6 @@ aliases {
- 		i2c2 = &i2c2;
- 		i2c8 = &i2c8;
- 		serial0 = &uart0;
--		ethernet0 = &eth0;
--		ethernet1 = &eth1;
- 	};
- 
- 	chosen {
-@@ -66,6 +64,8 @@ &emmc {
- };
- 
- &eth0 {
-+	nvmem-cells = <&mac_address 0>;
-+	nvmem-cell-names = "mac-address";
- 	phy-handle = <&rgmii0>;
- 	phy-mode = "rgmii-id";
- 	pinctrl-names = "default";
-@@ -90,6 +90,8 @@ rgmii0: phy@1 {
- };
- 
- &eth1 {
-+	nvmem-cells = <&mac_address 1>;
-+	nvmem-cell-names = "mac-address";
- 	phy-handle = <&rgmii1>;
- 	phy-mode = "rgmii-id";
- 	pinctrl-names = "default";
-@@ -129,7 +131,7 @@ eeprom@50 {
- 		nvmem-layout {
- 			compatible = "onie,tlv-layout";
- 
--			mac-address {
-+			mac_address: mac-address {
- 				#nvmem-cell-cells = <1>;
- 			};
- 
-diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-index 837616255464..609c4755775d 100644
---- a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-+++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-@@ -15,8 +15,6 @@ / {
- 
- 	aliases {
- 		serial0 = &uart0;
--		ethernet0 = &eth0;
--		ethernet1 = &eth1;
- 		i2c2 = &i2c2;
- 		i2c8 = &i2c8;
- 		mmc0 = &emmc;
-@@ -93,6 +91,8 @@ &emmc {
- };
- 
- &eth0 {
-+	nvmem-cells = <&mac_address 0>;
-+	nvmem-cell-names = "mac-address";
- 	phy-handle = <&rgmii0>;
- 	phy-mode = "rgmii-id";
- 	pinctrl-names = "default";
-@@ -117,6 +117,8 @@ rgmii0: phy@1 {
- };
- 
- &eth1 {
-+	nvmem-cells = <&mac_address 1>;
-+	nvmem-cell-names = "mac-address";
- 	phy-handle = <&rgmii1>;
- 	phy-mode = "rgmii-id";
- 	pinctrl-names = "default";
-@@ -156,7 +158,7 @@ eeprom@50 {
- 		nvmem-layout {
- 			compatible = "onie,tlv-layout";
- 
--			mac-address {
-+			mac_address: mac-address {
- 				#nvmem-cell-cells = <1>;
- 			};
- 
--- 
-2.34.1
+dt-bindings: net: bluetooth: Add AIC8800D80
 
+This commit adds a devicetree binding for the AIC8800D80 Bluetooth chip.
+It describes the SDIO firmware-loading function and the UART HCI interface
+which uses the H4 protocol with hardware flow control.
+
+> diff --git a/Documentation/devicetree/bindings/net/bluetooth/aic,aic8800d=
+80-bt.yaml b/Documentation/devicetree/bindings/net/bluetooth/aic,aic8800d80=
+-bt.yaml
+> new file mode 100644
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/bluetooth/aic,aic8800d80-bt.y=
+aml
+
+[ ... ]
+
+> +allOf:
+> +  - $ref: bluetooth-controller.yaml#
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          const: aic,aic8800d80-bt-sdio
+> +    then:
+> +      properties:
+> +        reg:
+> +          const: [[1]]
+
+[Severity: Low]
+Is this the correct syntax for constraining the reg property?
+
+In devicetree YAML bindings, reg constraints are typically expressed using
+standard json-schema properties like minimum/maximum or an items list
+definition. Does using a 2D array [[1]] expose the internal parsing
+representation of dt-schema, making it unidiomatic? Could this fail
+validation in future tooling updates or confuse other developers?
+
+> +        max-speed: false
+> +        aic,firmware-sdio: false
+> +      required:
+> +        - reg
+> +    else:
+> +      properties:
+> +        reg: false
+> +        max-speed:
+> +          const: 1500000
+> +      required:
+> +        - max-speed
+
+[Severity: Medium]
+Does this incorrectly mandate a fixed max-speed?
+
+According to standard devicetree principles and the core
+serial-peripheral-props.yaml specification, max-speed represents a
+board-specific hardware limitation and should only be present if the maximum
+is less than the slave device can support. By requiring it and forcing it to
+const: 1500000, does this force redundant, fixed configuration into every
+device tree using this compatible string?
+
+Would this also prevent developers from specifying a lower speed if their
+particular board design has signal quality issues? If the device always
+operates at 1.5 Mbaud by default, should the kernel driver handle that based
+on the compatible string rather than hardcoding a required static property =
+in
+the DT?
+
+> +        - aic,firmware-sdio
+> +      allOf:
+> +        - $ref: /schemas/serial/serial-peripheral-props.yaml#
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1789897503.gi=
+t.yanli.yang@bedmex.com?part=3D2
