@@ -1,126 +1,81 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AF9746E005;
-	Sun, 20 Sep 2026 17:07:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 795C6390999;
+	Sun, 20 Sep 2026 17:09:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789924061; cv=none; b=ioQYfqSNKCB9SJ2tmaUXr1jgT+NMalrmreWxWdVRjjacExqpld3O/5PzNbzzJtyuUjykPu/y0JPpL5uud11eFq7ECKRl6VSrcx+Q7EIJA9dr7QYpShe6J6LlvdCMpLWPw/NZ/lBLGLgzmzrgQcCj1l+7zXMuBuOPwnx3dfCTgGc=
+	t=1789924145; cv=none; b=S+i0/nq0nLU321dYouF7q5uMIeli4W2MvzIOUQvMX7oPRMAxeqOMPcrlwMvcFodTQq1hGEa94W0lA3tiTrpggkNUW2XSCxLp2wXqk2jarj9c3ox6kDiXkE040j/HnTXZ9GLi4iUi/RzUr/5PeHo+nEnZGaqBCkvsxNTaYap8WcA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789924061; c=relaxed/simple;
-	bh=++7cKn5dPLEoCOGhGWoB/T8i+KYlJXPfpJyNEaynf8g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=N6pXj6xHJUcMeoz3fNeHN0LDQo+dHy7EWitRleDhQa79rbAmWoQaEvwyVCETQOxi9Wlz6W+5QwbS3L2Dyxa0tLpWzbXxbr2Y5I5pEUxrKTNSktj/n2dYgZy46UdjppeHnbwEwuSKZPVc+wFnW82qg6nT9D3XkhmREVtpozk1E+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=LswdCCLG; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1789924145; c=relaxed/simple;
+	bh=Z3uEuNBmQKwma9vxWujWTL5worfS8Jbi0ubAliPHrME=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=szpG3gMNOxbpIvwmICzoq4bRhtBaXBsbVRz4K4dGh1EofJY6FQZ6lCwQim7WdXV9YwJFmepjko/N+nU5taBURfPC/tM4NvPOCnQQ9vjrg6mNxXNUpeQRGlytuw10NwJjBEF9p6zwnhysiYXA49uhpMm81tx5HRSjSk7ItGKcxkE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WTt+FY3X; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="LswdCCLG"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=SRR6GWm8VvaCpKgQykY2MiSoqyYUd1GFMV1rrWkJ4JI=; b=LswdCCLGZ/fMTQ3fP37RE0xKmP
-	tWLPS26CI1aHU7OSJLo4czeq1buGrq1SP4843QH/8q7GydxdJRJ5FarpIzBqSKJ98gU2TQc0oQwGy
-	FY+BYRxWt7Lee6y7s9AFMUxX5aVGPlNmmDATqZIjBxpHEmBB2Dit1Azv1/G9/Qn+g4cQ=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x8L0d-006BGL-FN; Sun, 20 Sep 2026 19:07:23 +0200
-Date: Sun, 20 Sep 2026 19:07:23 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: jan.petrous@oss.nxp.com
-Cc: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>,
-	NXP S32 Linux Team <s32@nxp.com>, Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WTt+FY3X"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 570571F00893;
+	Sun, 20 Sep 2026 17:09:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789924144;
+	bh=HCdz1wdJC9OT+zficoFF7wL3rJKkBYpCcd00vySQmSE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=WTt+FY3X0e3VfK5ZIxtZsFFwfHPXo+Q2G1REdEZuOMqR7YR7YExSSjvGtVrd8KfWk
+	 KUi10bPASdWNkO2100raKxwhToUCDf0j0g1SE/4B9z+BLQXmK2QohjinjJpKu3IdQx
+	 dDZj0QFRutamod5aohNmg4mBcE7biYaqDmBiIoeXm35Q586Fxo43cLQ/AehjiHQsrc
+	 XY7EXp60EqzUYHMYe7BqMUzEvR+C/lQXAX5kpFw1ZzJHi5g1s6KDIV80WI2e9EI3SB
+	 qx0emCe+hKGINnF3ejUzsnmZ9/ONOZQ9S52XFB2B/koRwLQW4jIG74enb0GItgxcbK
+	 sQTYXlFWZgcOw==
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Sam Protsenko <semen.protsenko@linaro.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alexey Klimov <alexey.klimov@linaro.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Bogdan Hamciuc <bogdan.hamciuc@nxp.com>,
-	Ionut Vicovan <ionut.vicovan@nxp.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Clark Wang <xiaoning.wang@nxp.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Chester Lin <chester62515@gmail.com>,
-	Matthias Brugger <mbrugger@suse.com>,
-	Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	imx@lists.linux.dev, linux-pci@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Alexandru-Catalin Ionita <alexandru-catalin.ionita@nxp.com>,
-	Bogdan Roman <bogdan-gabriel.roman@nxp.com>
-Subject: Re: [PATCH RFC v3 05/12] net: pcs: Add NXP S32G XPCS driver
-Message-ID: <c2c4dbc4-e6b4-47a0-9852-d116c6d21f89@lunn.ch>
-References: <20260919-s32g_serdes-v3-0-9d68868c1e89@oss.nxp.com>
- <20260919-s32g_serdes-v3-5-9d68868c1e89@oss.nxp.com>
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	linux-samsung-soc@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v4 1/2] dt-bindings: sram: Document samsung,exynos850-acpm-sram
+Date: Sun, 20 Sep 2026 19:08:52 +0200
+Message-ID: <178992412363.36366.4345126158825411848.b4-ty@b4>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260914-exynos850_sram-v4-1-253871de0f61@linaro.org>
+References: <20260914-exynos850_sram-v4-1-253871de0f61@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260919-s32g_serdes-v3-5-9d68868c1e89@oss.nxp.com>
+Content-Type: text/plain; charset="utf-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=732; i=krzk@kernel.org; h=from:subject:message-id; bh=wOpdMdU3DF1mK2QyVbqdQ3Xb/N3uH3K53tS2Mz8dBc8=; b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqsBMl/GgAuARyHXtA4+qfMaSKoMGlGdUJEAnYa WJZ1S4bpiyJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCarATJQAKCRDBN2bmhouD 112OD/9YYnniZyiMj2BLPJQLkMeB32hp+SuhzEWi3EgUOz4TMHKCgT6wxKoKeGH3AdQKC4AupLa iiKC1CWoHH5bk7ZVEsH7dabLaEfEqtF1+tLrQhDLKC5OtdyUcwKh9e4IfkwrcvoPg2HgLig4e8a qRmMbNH0OgU9VhIFAYSA54a1Ud0Vrg+jXdfNOpH+j89jWNKeNnUBNlflMcBI0UYPhLuSGlpnugy Xu2W1iI+X7V6xQ66h6monxJT1BnzOxaMX0ln0BYnNqzweGaIQrlmcn6pt4T/xDl21hoGkelh8JO P01qpdb3WcUXwXXqhgw4FP2sgpldWPZT25/Msvou2Qb8ez0iNgPvQvTeXdSHxt19a6FxkkIa7gE ktRA8o522xaDWA+BGTEA95yq43I+kLnRpn47u4+ysFwlPz+jYZv2cfT5IogJJA2m6WamVa0nrm2 04jdcLgn6vWQcIF/V/AZrp+2wMHVAK8wRhQ5OPk05xt8KD+iMvkhzuhibYGSLHppbG/8RAaZcih 7/QBdFxPJ91r2IuklYoNXWs2GLpCH45cCGDR1q4CiscdMb0usScYUnR0sasYF8l9OiJrMHqsnnw t6xyHgp9BHoXFVHEQo3YJKIofD3Aiv8SxQdfmqpncfvs0m/jbZPt+dPF9VOoxbYRv9/vGM7uMPi xOb5FC7SDzqNr+
+ A==
+X-Developer-Key: i=krzk@kernel.org; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+Content-Transfer-Encoding: 8bit
 
-> +#define SR_MII_CTRL				0x1f0000
 
-This is 0x1f0000 + MII_BMCR
+On Mon, 14 Sep 2026 17:58:44 +0100, Alexey Klimov wrote:
+> Document "samsung,exynos850-acpm-sram" which represents an SRAM region used
+> for ACPM communication on Samsung-based SoCs.
+> 
+> The SRAM is consumed as a whole, is not split up using child nodes and
+> properties related to this are not required, that is why "mmio-sram"
+> compatible can't be used for ACPM purposes because it requires child nodes
+> to be declared, which are not needed and make no sense in case of ACPM.
+> 
+> [...]
 
-> +#define   SS13					BIT(13)
+Applied, thanks!
 
-#define BMCR_SPEED100           0x2000  /* Select 100Mbps              */
+[1/2] dt-bindings: sram: Document samsung,exynos850-acpm-sram
+      https://git.kernel.org/krzk/linux/c/ca4fb89e677527e32d16c5eb779eb34bccd2b967
 
-> +#define   AN_ENABLE				BIT(12)
-
-#define BMCR_ANENABLE           0x1000  /* Enable auto negotiation     */
-
-> +#define   RESTART_AN				BIT(9)
-
-#define BMCR_ANRESTART          0x0200  /* Auto negotiation restart    */
-
-> +#define   DUPLEX_MODE				BIT(8)
-
-#define BMCR_FULLDPLX           0x0100  /* Full duplex                 */
-
-> +#define   SS6					BIT(6)
-
-#define BMCR_SPEED1000          0x0040  /* MSB of Speed (1000)         */
-
-> +#define SR_MII_STS				0x1f0001
-
-This is 0x1f0000 + MII_BMSR
-
-> +#define   LINK_STS				BIT(2)
-
-#define BMSR_LSTATUS            0x0004  /* Link status                 */
-
-Please go through all these register definitions and throw out all the
-ones which follow 801.3 and use the values from include/uapi/linux/mii.h
-
-    Andrew
-
----
-pw-bot: cr
+Best regards,
+-- 
+Krzysztof Kozlowski <krzk@kernel.org>
