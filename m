@@ -1,151 +1,138 @@
-Received: from v511.v5ed9ac7d.euw1.send.eu.mailgun.net (v511.v5ed9ac7d.euw1.send.eu.mailgun.net [141.193.32.11])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49262470EB2
-	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 19:34:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=141.193.32.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2348F4825B3
+	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 19:39:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789932886; cv=none; b=nzKbosDxkJWHZvf4aPeF5WL8an8bUJPVbLeVyR4JqaGI6xvXcflXmvH7tmedBxYIqW+5/VrGtDgp1hYwAYmAi/fVFDwgAEI+zSRIVhsRAt526b31WNU/yoFuswez5M5x745St+m3HpqVQeSbzWSeBqLp7OV40pYMHIkKJCL1xdQ=
+	t=1789933187; cv=none; b=lcifvXHpKZ8A64ybhgmO+VnT4X1nJCFKYal/6bnGSuBUnFImEoFQ4/b1XiFVEIgzqbJOgV47QgytDDgigGm6EEtGm2hsQ4LIwYbAiLWr7TNER74ADbrP2/zmmGBQrR1rQeLYmS9XqZAGVvPKlhQ9motC8sDR+DMERyIEsZ7pmVg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789932886; c=relaxed/simple;
-	bh=t4JIveL13S9gauJA04Ox198PtrobTg34jManQ35hPL0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EX58kF+D9l+3qRo4jGQEpFs2x1VVqxmyyhxHw3sJ2teh77fNYoQDFx4VPblEq1LqPxLM6uE3m/rk+P4n84LqlQjKZluEuQ8YHgE7sWMetF8N80Mv0XcMfLlXLPGApcRfvxRJpcVdrWkl+Lfb6xCf1eZwzdBGtEyR2xNQfGx77Ck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=plajta.eu; spf=pass smtp.mailfrom=plajta.eu; dkim=pass (2048-bit key) header.d=plajta.eu header.i=@plajta.eu header.b=5cBxX8vI; arc=none smtp.client-ip=141.193.32.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=plajta.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=plajta.eu
+	s=arc-20240116; t=1789933187; c=relaxed/simple;
+	bh=BFGYGg6hFd6brXc8be9Lc+zgUDV/5uBkffDvcSv8+Yc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=L0AQwq5Fmhi8vUrdn5bBVRBvoM7V30mTLx63e3Q+prHeDauvm3IZ+h0DK9GpmLWtQ8cwgiyx51nVq7reDoe/1qeb/O9A/706uJrS8n6xNHZbGKmEQpJLp92Pbm8Y7VbyzFlnZLBlWeW0QlYCX4/XbNEjkxcYFf3qUOTt7ReEtkY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=UpoFBPzf; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=plajta.eu header.i=@plajta.eu header.b="5cBxX8vI"
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=plajta.eu; q=dns/txt; s=s1; t=1789932882; x=1789940082;
- h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To: Message-ID: Date: Subject: Subject: Cc: To: To: From: From: Sender: Sender;
- bh=FmzhuK6IpWvR2aW1te2Z5aBW1CaQdm+9cLdgsDSyZlQ=;
- b=5cBxX8vIRFqKqGRGGA/GjJEc1t+MULA/9QlHxSPiiZxRyqWu2MMaFxXoi4ezVzLNOvwC93EDZpXruaz/t4otjUR76oBealH5SZSDFtqwsGE2i8c7EsEWUG6nxHWPg66FQPXWKq9CPld5TPIXwxAovlbYtM5mB8Li/HmsM+kLvJdpbUS55+PPG0A0mayu0WAS+kDjJBLxT5CfzLZLlq9jzK1eu8k6QGeFCk7PIupDjfZ/DY9fm60PVWUYVcZ1ISJp+SLTS1guByOys9VX+wrHIxv9k9N4qHnxsxHGWun0dGrO+prSi+o7+J6+lHL/Sxx9bn6PLlPWuj2D+UfrFIsQOg==
-X-Mailgun-Sid: WyIxMzMzOSIsImRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnIiwiYTkyNGIiXQ==
-Received: from tensor.lan (ip-86-49-238-222.bb.vodafone.cz [86.49.238.222]) by
- 00ac16c5e585ac9bceb1079b802b58c72c785b7e76dfb24b3a1541702f7d4fe6 with SMTP id
- 6ab0355132eec1afadfe4f4a (version=TLS1.3, cipher=TLS_AES_128_GCM_SHA256);
- Sun, 20 Sep 2026 19:34:41 GMT
-X-Mailgun-Sending-Ip: 141.193.32.11
-Sender: andrijsalivon@plajta.eu
-From: Andrii Salivon <andrijsalivon@plajta.eu>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	Andrii Salivon <andrijsalivon@plajta.eu>
-Subject: [PATCH v2 2/2] ARM: dts: imx50: add support for Amazon Kindle 4 (Yoshi)
-Date: Sun, 20 Sep 2026 21:34:24 +0200
-Message-ID: <20260920193424.3637697-1-andrijsalivon@plajta.eu>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260920-imx50-yoshi-v1-0-b8a46b3a972f@plajta.eu>
-References: <20260920-imx50-yoshi-v1-0-b8a46b3a972f@plajta.eu>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="UpoFBPzf"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e64ccso16577615e9.0
+        for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 12:39:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1789933183; x=1790537983; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rF0vHV+0AKSYzey1/84t/+UqW00wC12/mV03L9JGZxk=;
+        b=UpoFBPzfbKfC+4D8uflO29K6XHkW8qdKbdmVDw1tYoj/eKVt3nHP1MzSXaY6ZUoCSd
+         p7hnNsIT0zNI93b4eLYUjHEF5kj5qiFRMHoCEJ0RctULJQGIayodEkpeVDguNPIemR0F
+         4a9/J0UHrJJ1SBRjff6BwtlzH9/TNGQQzYo8BACplxYsL16n6FTodRlhOfj6T5kX0QGR
+         HO1EDuCwCngljo+Cg7FOgqJ10xVvo/rTSmAkZL+Top0iJsN5CvBonZJEI0PHxHaJ1/0y
+         Amw8ZCKeN5OgC3V7TQ1LLNL+gFdjpLFNtKDlEI+/6Y1LYACCGO6hUQI0RYL9fQTOt3YW
+         5CKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789933183; x=1790537983;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rF0vHV+0AKSYzey1/84t/+UqW00wC12/mV03L9JGZxk=;
+        b=jpJ9ozqLUDszblGjtxcSZvsFxsFMypIMRRsJFVQyUy0n8tlsKlKow4iu+5evotNw16
+         29mxIU1vmdUgoKEB4P3BOk/R4gMV7RSQ30hEOimdBpP9k7K6zev2RjDG6hPYgcrQ+twL
+         Q8uGGk10IlxRc4o4BW99bGwavIu4lYBk0SNJpMhcyBqV5pWQSu59Uj57xsnDHi4Nq8Fc
+         rt1hFMn9bd++/YfC1hi6euJUBVVrWN5SDNXv4X0I7jbfyptV5M2usY61/REMjp32H9kM
+         JztJuvesFPIEyZOR1B6sPozqAyi+pHr1r0lAf8/nSV8JWWY7uyG2AEoo0TF/c/GV+nI6
+         Pz4g==
+X-Forwarded-Encrypted: i=1; AKwUvBwn2nAAltRXOpANlmtubBHTxMGxGw+7aYpCKWF4979rGEps8ulhfmp4w3LHacwc9TfPOCJhn2oCwp77@vger.kernel.org
+X-Gm-Message-State: AFuF++lO7+RGikmVqdpx2HDTmFVctPubt7Vc/CsrceOkgV7yRgDk6bKT
+	uOOeO6HWNRa29gn6KR8c6sA0vj1HryjAQ8q33/6EuyHai4ZT3K31zxho/yDjvIPdB2g=
+X-Gm-Gg: AYBFou19Rf55o7q5vsw39fwrDcjtCvUDvlT7zW1Yc30Vs5q3qlWIvyj/s+bGfNgB45T
+	Pq2WSGOJ532HVakRiQZh0uGroaFGmbNFAj5iWdrwNmISep8mrcSzUPAmIEchXSRidWVGPumeIKx
+	hZlMNgCkBO5X3bYya92UJaP8MBhCz3mz2sG6NA2g9qnxRZMgvVLJWF5AFUjqb6K+c1DvnBG0IzL
+	37cZnfMpWzTCrSuT6LKWi5BHa1GzAq/I/gz1X3LkVG+esYhCELMirtcMXvmu5FnhV/qcDAGAeNF
+	rWXO5UU1C2TgpRLTC4VUL85j05Nvi4WPL4C02kddRUXHbRI9+Dm52MAdnYTgz4IUgb7PDmVfRbw
+	NroilUpT9K5L6oCJq90EvK10ggSqj4MFGt/F0xfq3yoTK7UtoQSuLiRTsHxdr4fkTRz6MlsN2dL
+	GNsSkC78W/CGEprUTpJigVVPTOMNrGsV/EBVxU+V9TtSSPALsdXRyfpUo1efn/AoU+xMqVknoy9
+	8o=
+X-Received: by 2002:a05:600c:3e19:b0:49f:bd3c:bc1a with SMTP id 5b1f17b1804b1-49fc572f27fmr119630965e9.21.1789933183359;
+        Sun, 20 Sep 2026 12:39:43 -0700 (PDT)
+Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49fcd0ece6esm234353675e9.2.2026.09.20.12.39.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Sep 2026 12:39:41 -0700 (PDT)
+Date: Sun, 20 Sep 2026 21:39:39 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Alex Elder <elder@riscstar.com>
+Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, lee@kernel.org, 
+	andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org, kees@kernel.org, 
+	gustavoars@kernel.org, p.zabel@pengutronix.de, daniel@riscstar.com, 
+	mohd.anwar@oss.qualcomm.com, lorenzo.bianconi@oss.qualcomm.com, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, mfd@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
+	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/4] clk: toshiba: introduce a TC9564 SoC clock and reset
+ driver
+Message-ID: <arA1svdQzaj3VanR@monoceros>
+References: <20260918165234.687224-1-elder@riscstar.com>
+ <20260918165234.687224-4-elder@riscstar.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="tk4w7pucaicwka36"
+Content-Disposition: inline
+In-Reply-To: <20260918165234.687224-4-elder@riscstar.com>
 
-Add initial device tree for the Amazon Kindle 4 non-touch e-reader
-(codename "yoshi", mainboard marked E01100), based on the i.MX50 SoC.
 
-This enables the console (UART1) and internal eMMC (eSDHC3), tested
-booting to a full Arch Linux ARM userspace with systemd on real
-hardware.
+--tk4w7pucaicwka36
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH 3/4] clk: toshiba: introduce a TC9564 SoC clock and reset
+ driver
+MIME-Version: 1.0
 
-Signed-off-by: Andrii Salivon <andrijsalivon@plajta.eu>
----
- arch/arm/boot/dts/nxp/imx/Makefile            |  1 +
- .../boot/dts/nxp/imx/imx50-amazon-yoshi.dts   | 59 +++++++++++++++++++
- 2 files changed, 60 insertions(+)
- create mode 100644 arch/arm/boot/dts/nxp/imx/imx50-amazon-yoshi.dts
+Hello Alex,
 
-diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/imx/Makefile
-index 1a2539fa19b4..1a9e70b985d6 100644
---- a/arch/arm/boot/dts/nxp/imx/Makefile
-+++ b/arch/arm/boot/dts/nxp/imx/Makefile
-@@ -23,6 +23,7 @@ dtb-$(CONFIG_SOC_IMX35) += \
- 	imx35-eukrea-mbimxsd35-baseboard.dtb \
- 	imx35-pdk.dtb
- dtb-$(CONFIG_SOC_IMX50) += \
-+	imx50-amazon-yoshi.dtb \
- 	imx50-evk.dtb \
- 	imx50-kobo-aura.dtb
- dtb-$(CONFIG_SOC_IMX51) += \
-diff --git a/arch/arm/boot/dts/nxp/imx/imx50-amazon-yoshi.dts b/arch/arm/boot/dts/nxp/imx/imx50-amazon-yoshi.dts
-new file mode 100644
-index 000000000000..417972ad6bb3
---- /dev/null
-+++ b/arch/arm/boot/dts/nxp/imx/imx50-amazon-yoshi.dts
-@@ -0,0 +1,59 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/dts-v1/;
-+#include "imx50.dtsi"
-+
-+/ {
-+	model = "Amazon Kindle 4 (Yoshi)";
-+	compatible = "amazon,yoshi", "fsl,imx50";
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	memory@70000000 {
-+		device_type = "memory";
-+		reg = <0x70000000 0x10000000>;
-+	};
-+};
-+
-+&esdhc3 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_sd3>;
-+	bus-width = <8>;
-+	non-removable;
-+	min-frequency = <400000>;
-+	max-frequency = <40000000>;
-+	disable-wp;
-+	status = "okay";
-+
-+	/* Internal eMMC */
-+};
-+
-+&iomuxc {
-+	pinctrl_sd3: sd3grp {
-+		fsl,pins = <
-+			MX50_PAD_SD3_CMD__ESDHC3_CMD		0x1e4
-+			MX50_PAD_SD3_CLK__ESDHC3_CLK		0xd4
-+			MX50_PAD_SD3_D0__ESDHC3_DAT0		0x1d4
-+			MX50_PAD_SD3_D1__ESDHC3_DAT1		0x1d4
-+			MX50_PAD_SD3_D2__ESDHC3_DAT2		0x1d4
-+			MX50_PAD_SD3_D3__ESDHC3_DAT3		0x1d4
-+			MX50_PAD_SD3_D4__ESDHC3_DAT4		0x1d4
-+			MX50_PAD_SD3_D5__ESDHC3_DAT5		0x1d4
-+			MX50_PAD_SD3_D6__ESDHC3_DAT6		0x1d4
-+			MX50_PAD_SD3_D7__ESDHC3_DAT7		0x1d4
-+		>;
-+	};
-+	pinctrl_uart1: uart1grp {
-+		fsl,pins = <
-+			MX50_PAD_UART1_TXD__UART1_TXD_MUX	0x1e4
-+			MX50_PAD_UART1_RXD__UART1_RXD_MUX	0x1e4
-+		>;
-+	};
-+};
-+
-+&uart1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_uart1>;
-+	status = "okay";
-+};
--- 
-2.55.0
+On Fri, Sep 18, 2026 at 11:52:32AM -0500, Alex Elder wrote:
+> +#include <linux/bits.h>
+> +#include <linux/clk-provider.h>
+> +#include <linux/mfd/syscon.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/module.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/regmap.h>
+> +#include <linux/reset-controller.h>
 
+Please rely on linux/platform_device.h to provide of_device_id and drop
+including <linux/mod_devicetable.h>. (If you want to go full iwyu,
+include <linux/device-id/of.h> instead.)
+
+> +static const struct of_device_id tc9564_clk_ids[] = {
+> +	{ .compatible = "toshiba,tc9564-clock" },
+> +	{ },
+> +};
+
+Drop the trailing comma after the list terminator please.
+
+Best regards
+Uwe
+
+--tk4w7pucaicwka36
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqwNngACgkQj4D7WH0S
+/k6pNwf+Lem5dcJHNqZeQwO1vn2EY3m9bTRWfD8WbvhlPJ79o5a3UXt/dBcaMHqJ
+RquJw/Iwe5AOARXNI2za1AWXKNpjbTyEXg0PG0/xV0FiyYXR+lz33BXvcKDWPl2S
+0SilXiIV0VuCARwFkjcibTk4qZaP5tvRg/cD2nsoiDmMdl/2EbQpD5KqEVu1+v/b
+ZPj9we1Tm9elAc76W5CGrKLynb8dLHe5kI7balWhxGgV94XZhJCKLvK7Laa9ucYc
+abBaruwJGES79c9Uz6Fkn4CxZIcnhc5DwXHEzoTkQMMPt1u1L9ZaAxpPojFCv+D6
+SBroUn8lSetw56k5hBWYPlyq5qgKAw==
+=ddJ0
+-----END PGP SIGNATURE-----
+
+--tk4w7pucaicwka36--
