@@ -1,78 +1,74 @@
-Received: from mail-08.mail-europe.com (mail-08.mail-europe.com [57.129.93.249])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC4E43DB960
-	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 06:54:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.129.93.249
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EFEF3603E0;
+	Sun, 20 Sep 2026 06:54:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789887245; cv=none; b=KKqtugUDOjpdr6oCHnoUSMzWyfI8YKOd3RS5KOvhwQCIAkq/SDQ1aHBPmkRAvgCGNCpLHclrRaTRGLrP7MVFnHCgss0/sVwRErJNoSU3yvT6ysQTwXIcky1Nl7UoHEDHhGV+l4c0XsI1J8hx1UJQY7wFgppswkdXNmNqP5M2GxM=
+	t=1789887294; cv=none; b=V8TyH54OwJz3foPQNj+GFGH+Qcxzx3E5LygQsDtzWZXUuf9RjvmRIMEOaAMPs8onWHMUAS7OaRWlBabZzGUCTuueB0DNRaXYLjZBbc1uLHmsr2GFEsHjnYx402xQ5t4+VXto9aT0pTMcU6xTcP4W0CZgGWcY01XFrioHUWlyB6w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789887245; c=relaxed/simple;
-	bh=IbJAK7aXa5pz972jBcMi7T/vqSkdrkXCC86Z5Qp3eWA=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=le0KLik98v3Vfz4UrwcC4T5WkxKgLPvUGJKSadGJJxz4u1DKFi/RKjDvg83DAuGkI7ZtLmwm3L4zV1xd19IdiUVoszz0/geEU3218OtOCkzrWvserRixfZzE76QvoiJzvBvZNBzGDbVK32A+nFNiAIXIb7q1UrmPPpyhpjBR3xc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=frdOYZX7; arc=none smtp.client-ip=57.129.93.249
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1789887294; c=relaxed/simple;
+	bh=6mN/FowLjmR0/UbkgfuwKru9RQN7sEsKwX9on/rTlSQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=BQeev0YO6T9okGS3Ug9OWGP4FNhGvHlLx08lFLei2aVqQI4XcYFMgpiw0VKVJZeQUJy32y9BxEH9hs/uCkXKzVgbuuJ7CprV+ApyQOM3mrobitc2WAd/HmUOUkHk/nGb7+38RaPg7ca8HyjvQpMywKzsReBriW/Vx2VnmEKwbGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ba7ntHvN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="frdOYZX7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1789887226; x=1790146426;
-	bh=IbJAK7aXa5pz972jBcMi7T/vqSkdrkXCC86Z5Qp3eWA=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=frdOYZX7FZJb91z6hvpOE5kpgk1q9s61Ad7aVmQ4uEJktsWxeb3O8iXMhYKFYCplc
-	 AQEr/xyofjiCZdfjZ1p7lJIK6PIaJH+SyO5XEkcLuIyuR+C8bWcq9Gu2/C79jofA9U
-	 R5HZTCWYeyr8JVFQjRt07BKju70K9EV0/hJfw5KcJAK2iA6w4DlToxp+crJ4R/4P88
-	 oZ0PGwkaqNprudYxz4Rqd/kZZFMderx2YDEE9H80hCu3zSGeGPU8D1fdtgT3eAZbs7
-	 hYko7HerXKILyDYgUihgLtj/YWV8mB2ctxZUXGT8yBYUzMJsm+iVR/Cp9tBQKZyRdo
-	 EdpIyHhLCdH2A==
-Date: Sun, 20 Sep 2026 06:53:42 +0000
-To: Andre Przywara <andre.przywara@arm.com>
-From: =?utf-8?Q?Juan_Carlos_Guti=C3=A9rrez?= <jcarlosgl96@proton.me>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] arm64: dts: allwinner: Add SPC Glee 10.1 A64
-Message-ID: <nW8RRZw7ua8aoc8OVyDPwkugyF_ondGUfEyOAIeuIjstEOvZUVgQGJ5ZPREZV0uFfsj_tcfUAENVI6ojy6ESKziH-HxaYLDWZl-OomGx2cc=@proton.me>
-In-Reply-To: <63a19617-9349-4dd4-b9cb-dc677edc387f@arm.com>
-References: <20260911-b4-spc-glee-a64-v1-v2-0-ed0b7ff02e0b@proton.me> <20260911-b4-spc-glee-a64-v1-v2-2-ed0b7ff02e0b@proton.me> <63a19617-9349-4dd4-b9cb-dc677edc387f@arm.com>
-Feedback-ID: 47397442:user:proton
-X-Pm-Message-ID: 8b81d433734c5098b45b8dd05d52a33c041e4bfd
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ba7ntHvN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02E191F000FF;
+	Sun, 20 Sep 2026 06:54:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789887292;
+	bh=KEuH2EAzfUqyNX9a68w9H4vTMXeVGfHbJWfU3V+VveE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Ba7ntHvN+gDZfWbdyyP7ukRrMIOv3vx6EaM1bdQ9fOrQjfuu5F0RPXWeXDlJYb7Tj
+	 4wtOfOa3R0jk3LytOSOHvCkQtd5sX2iEEloklggpDknm0SsOy407b0ZIA28Kr5QG0t
+	 3GgZKZCLPDNtTzlikiSktzTybF+OsDx/i/ZJZF0NDxKVZ//keDyKPFCN+yWJKDL5Ej
+	 noBrE1ap5/P6s7tvvI5uX7VHrI7owqXbuyqot6uJu5nbqz/lfMF14NmosLni0vbxi9
+	 9iO6mjLUwvhMxwjSNyBTJHQAFtQRtMCg8GeE45c+GWXzqPj48B6GVO36KJrU95qHun
+	 iaC52C8SX/T0A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC v3 07/12] net: stmmac: dwmac-s32: Add SGMII support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?SmFuIFBldHJvdXMgKE9TUyk=?= <jan.petrous@oss.nxp.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, imx@lists.linux.dev, Frank.Li@kernel.org, olteanv@gmail.com, neil.armstrong@linaro.org, linux-pci@vger.kernel.org, devicetree@vger.kernel.org, linux-phy@lists.infradead.org, wsa+renesas@sang-engineering.com
+In-Reply-To: <20260919-s32g_serdes-v3-7-9d68868c1e89@oss.nxp.com>
+References: <20260919-s32g_serdes-v3-0-9d68868c1e89@oss.nxp.com>
+ <20260919-s32g_serdes-v3-7-9d68868c1e89@oss.nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 20 Sep 2026 06:54:51 +0000
+Message-Id: <20260920065452.02E191F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-Hi Andre,
+> From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
+>=20
+> Wire the NXP S32G SerDes XPCS PCS into the dwmac-s32 glue layer so the
+> MAC can run SGMII over a SerDes lane.
+>=20
+> Changes:
+> - s32_gmac_write_phy_intf_select: replace the hard-coded RGMII selector
+>   with a switch on phy_interface so SGMII (0x01), RGMII, RMII and MII
+>   all programme the SoC control register correctly.
+> - Add s32_gmac_pcs_init: obtain the phylink_pcs handle from the SerDes
+>   subsystem via s32g_serdes_pcs_create(), keyed by the standard
+>   pcs-handle property on the GMAC node pointing at the SerDes XPCS lane
+>   child. Propagates -EPROBE_DEFER if the SerDes driver has not probed
+>   yet. There is no matching exit hook: the device link created by
+>   s32g_serdes_pcs_create() covers the lifetime.
+> [ ... ]
+> Tested on an S32G3-VNP-RDB3 board: GMAC0 links at 1G over SGMII and
+> passes traffic, both in SerDes mode 1 (alongside two active PCIe root
+> complexes) and in mode 3.
+>=20
+> Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
 
-Thanks for the detailed review.
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-I have looked at the PineTab DTS and the other A64 reference boards. They a=
-re useful guides for the remaining peripherals, and I will use them when pr=
-eparing the next revision.
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260919-s32g_serde=
+s-v3-0-9d68868c1e89@oss.nxp.com?part=3D7
 
-You are right about the memory node. I will remove it and leave memory disc=
-overy to U-Boot.
-
-The eMMC was left disabled because I had not yet verified its supply voltag=
-e and operating mode from a BSP boot. I will inspect the BSP MMC configurat=
-ion and runtime state, then enable it once the voltage and timing are confi=
-rmed.
-
-The 25 MHz SD limit was conservative while high-speed operation was still u=
-nverified. I will test the 3.3 V high-speed configuration and remove the li=
-mit if the board is stable at 50 MHz.
-
-USB has only been validated in peripheral mode so far. I will check the BSP=
- GPIO/debug information for an ID-detect pin. If the hardware is wired for =
-OTG, I will add the corresponding usb0_id_det-gpios configuration; otherwis=
-e I will keep peripheral mode and document the limitation.
-
-I will incorporate these changes in the next revision.
-
-Best regards,
-Juan Carlos
