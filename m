@@ -1,871 +1,123 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FEEE46C82A
-	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 21:14:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 971DB38D014
+	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 21:21:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789938848; cv=none; b=bqbGoDs3+atzP1kqGkDiLzOW2I8Jck0JjF0OjSiq+ZYSXTFvPK9dCHzlSTBwWKd5s7q1oeuwL0AXtb/A6XyaDbR5tPOvHgaTgyC1YV7GKCy9Q0mEVSM6w+nqhtZl0Aoo11JSNl7fBssaOLuZpvUuR/5D/+KETZOemOORFyfzbJ0=
+	t=1789939297; cv=none; b=tjLUBYeJgZIPZyvqt//LCaKmtDHINC2QIlL1J5KyqYBA/lou5Zlc9xNGKUX6Q6jT4g1mWLODNuq8P1V0PB4a50U33YVPDZLf7cIqYbdVMb3k7Fa/JB3efSvPxdpMoxxJ9iAFb83aZfvfYAO+btLY9zeSHIuFM5SohDx3ymUWAOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789938848; c=relaxed/simple;
-	bh=YOWA2O3X1QEuvGt008dycBlt0GJGoH96hRzWxdnNBoI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fmKC5pkppkh/RM/aWVVnIpfCX2BfokmjfM09hGZ9A7guYscppi6uRcg5MeaXkIblObbhNOzkO7z4XyhKTovX9dYgTmTRl9EXFDB7d3LSL3YnRvsX7VF+/l3znkV228EVpm+jOrw8mepg+eEFe6us/Fml+22egrjUj7dQUFA92gY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rEnUAfFe; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789939297; c=relaxed/simple;
+	bh=qoKr8F73jXZwuLTCYhGa0Hp+b6lJiLywfTbygYS4GYo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gmPUUD0xALB8zIAOrRAxrg2UZRixfoPtNY+IE5PQtas27FtZQZoHqUaOSQDwZo1/6oyL9oDUaeo48JoFIVGQUptB7yykXsNECIPrPIVe1SAR5fEu2DlvAyrwJJKAuNqSGVi5o1BvAyZRQhyhxHoi6jIMhQ/7fyiz2PzRVXPCze0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=u9wPDC94; arc=none smtp.client-ip=74.125.228.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rEnUAfFe"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d8fb334ddcso19281735ad.0
-        for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 14:14:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="u9wPDC94"
+Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6a64c7cdb46so3524898a12.3
+        for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 14:21:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789938845; x=1790543645; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eSh1hcyRa6PM+nUi/uX4COeerBsZk9RanDJW9q2qpoQ=;
-        b=rEnUAfFedeHX56c5KIoMCcQjY5p35I/LLhMsgFE6YI9SzhjeHGBaLBNJZuKfvx/gLC
-         jb0WrM1yfSoXom8q3DsCBooolu0Qv1RHvSmVX+1ObHPdyiZSMEtXr4ihvaE+3bofcfkX
-         rtBfJHNuRS35WLvk6sF0RKZTa/WSSM1hC1LuQ8dmdrsfW6yYaqhPg2DrtxT8ExD7xCHe
-         yNILZV8gr4RRxcJT0teiWjhFDKq+Wz4igDI5wKoCNm2PxSehOT9oC6mI/Kh+2zlsvx0w
-         adYPobMlRgVay9XiGXApHk202jr+cXETDk3N8np4Qk5n+ch45aew2wmeXdsyLHMso7CZ
-         7vyA==
+        d=linaro.org; s=google; t=1789939294; x=1790544094; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bHL0bqzjiVcWZ4wR3C4oOtKMYoG1Qe+r8qIwvuj52cY=;
+        b=u9wPDC94k93C89cV8kHPTS7s6kfPnF6GFUD++1XUV8QXjWXUty5xJ1Bp3DsznbitbU
+         JLZPyogRvCqN9XhnZGHiFWveOHMQd3MIl0eMFIAcTw61QdZEKL1Cyf8+9OKGY5frrbwo
+         8Ht5qjvtf7vvmB9Y7Pq9dd/57B3Pn4rg61n5oZgHiLcheEvuXforkZNbyeTmwK8OR2rU
+         aLNDpgcokBV2tJwhM0YjD8gwnvLiNdWDGTj8EI6rcwL2vgjqnWy7SpdaNGcHi4zW6WAy
+         A+09nEqJaJnyuUyitvs2VX0YWufWSQblrEMVQP8Sdev6JxkTXAw9LNFGT9avVJtkhAzo
+         /2Yg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789938845; x=1790543645;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eSh1hcyRa6PM+nUi/uX4COeerBsZk9RanDJW9q2qpoQ=;
-        b=e6Qrqj7u4alxan0hfksKqgKaehOID3zUfr0jRZpRjg5StlUYCrytPPmOx1hUxQ90Ye
-         n/cGCHuLz2kK9lSal/Avora2ZdDWX2grTNmmx2+vF9H5kukGB/DnRvWVhHVHiTfjEgsT
-         psm0dh/NLgHMUY6ANqaei4lKee9hvC733rr+xNqBK3jI5QfovO38Upp37WlshQYLBSXV
-         qGFDdSnkI/RZpcIONm/mT8c17UEyyqiC+vYTWDmuGwceJsBzne+bJWpvLH8Z8Km99WiU
-         sXf/VIFsVzatbB9/H5uIBgR8K9fCE5PCXdMhlTnt3Z3WAeMWdkWXBzlGeL2dQqd79OUX
-         bZbA==
-X-Gm-Message-State: AFuF++k9z2cqbzGet+G01hzLP5b7w5bwipbEtpqp3GEtJyTuR32b/noc
-	EKUDc5fGgI2gLYMl9gTOnqGCW2oO3J0jYiVdul0SAuUyUdaPqIiyx1XpqoB0/w==
-X-Gm-Gg: AYBFou2TlFAUqEn7Hrh6E00Lfg4ttkeEiMxMv9P0jJs2nfMAzvrWv4ouANFKK6+8YAo
-	oq9ts/oSwF81gsLvjU6eWs2nafX1Kdq85ILKqYTjuXt5sKGjKYXRv0ggfjWE6whiN4YZqXD+I0f
-	l8k5gf+rwzMo4AOGAALDPyoIykp8mMlC3zPrQOjONNytZYn/gV3ug2k5+QJ+ejAxAMNd0LGUD4D
-	fmk9t9UbzYq0Jt9QnPSEHVHCM3lXiI4oX7c94h6S4HNeIIutcTByoYq1Dl5KzQtW9hxJWH3IyHM
-	fzpU19RYMS1NjS1E/b61VUJXrJqkDYbfecpDqBKUqisZK92mCxnWLNRlhuADVoQXVZfXBwf2XmK
-	3nyZlLV6VlLyRKYgQSYpmpj+BNNGT/jGAftlo+vDQQTA4FyXdXc0RBssNum5kbOHhweY0oWLEK2
-	LzX1YwhW2+gXAn06At/NiTdecHQ85sgchrezF/TAdCYvh8Nw4SlbjXfp79PIFt1kKHtBtUqeGm7
-	SyG7HJYQ0YDSOHdlC/PrB/REuBBf+7D8NK/pAG/HfMD9Csh2DGng9tpDgj+Huhoqs8OhyItVKLK
-	+FSwPO5yDuJkrGEhrvxomeP0LSZostMnB2dFYjfIjmGT5m9aiu2Q2Tlv/DI=
-X-Received: by 2002:a17:90b:3eca:b0:39e:6a7f:1dc6 with SMTP id 98e67ed59e1d1-39e6a7f2209mr8464761a91.34.1789938845311;
-        Sun, 20 Sep 2026 14:14:05 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c3145dasm10609743a91.4.2026.09.20.14.14.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 14:14:04 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: devicetree@vger.kernel.org
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
-	Hauke Mehrtens <hauke@hauke-m.de>,
-	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5@gmail.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	linux-arm-kernel@lists.infradead.org (moderated list:BROADCOM BCM5301X ARM ARCHITECTURE),
-	linux-kernel@vger.kernel.org (open list),
-	linux-usb@vger.kernel.org (open list:USB SUBSYSTEM)
-Subject: [PATCH 2/2] ARM: dts: broadcom: model USB VBUS power with regulator-fixed
-Date: Sun, 20 Sep 2026 14:13:56 -0700
-Message-ID: <20260920211356.186967-3-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260920211356.186967-1-rosenp@gmail.com>
-References: <20260920211356.186967-1-rosenp@gmail.com>
+        d=1e100.net; s=20260707; t=1789939294; x=1790544094;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bHL0bqzjiVcWZ4wR3C4oOtKMYoG1Qe+r8qIwvuj52cY=;
+        b=O/Y26rPaKWJchwtKc5MTZ1CcEbCOyuJNHFdlLR2PCG0RCaHC6dDnvL8nJGggX2Qqyh
+         Pu2PU1dyMioeG/H8xrKw/+bvjvBP4QYUjmOi2SERXHSKo7/2T/GeuDFKMx+i4fEjUB8u
+         MCq4vsE6cqVnD5WDfiJNEDTfojuOMPf8skcrlFC/Lcvo35NYWI/NAtvPrVslX3+mdS8R
+         SFkVxB8YBeIIs8ejCO+8wGWrt+LqkVqkxYygT5CDJbSSfX9HActly9c68dKOE9xYJ44N
+         a8x1qrBVPN8p9wvEUNUVvij49+j9W1PCpI+7HArpF9p56ypaaomLqH2yTrtcXFoAT2j1
+         A+IA==
+X-Forwarded-Encrypted: i=1; AKwUvBztOKs95L8nFbNWIrZ+qR3qc2VRla0HtBgQ46A1YRbSsr58Qm0kPagPWEUAo4ye6bCejnyRGnhd28Mj@vger.kernel.org
+X-Gm-Message-State: AFuF++l0bW8BPRfDQFMOcp8KWR4B8TG0RA8y/Zb847LoIMqFU7whNtdk
+	fe85jfkqxaxgxNEgjZQKFtsmdYoRo9UWLx0FaqW61SgEjdYSMEZWVfT9WJWktqTLLxxAdf6yfq6
+	Bq2OF
+X-Gm-Gg: AYBFou0wiZCYJBdU/tRu4m8sjEGZ+ofUGR6qqcqXZu1LX1X0hcSsYw5L9qgjwJWyiOb
+	2lvOAoXnQ3aQDRMiAq7xneVFbJaqfJ3mqwg4r7ls1k6unV5/24qqtP2YvEQMfky5I+ECoqypVBJ
+	SsW1ZDDVXWn5iKly8UUL/FQtbHRHNH4r+tQ229sLH6RBK9rVGqkJT0FH1auqw/O8c+EdTAferdm
+	LaOhydEXhYu4SGo9+ZBEgyf7SnY8aBVMgEtA9FkP8TOhAIBeTBMaUch01VFnFS4hTUpQtzSORbE
+	3LUOa02zwaarJkI3Y3sIziHTPjY3CkG3eyjSSkYzYxgjOfoXw7oP9YLysUbewRz4ICASGEIaYe3
+	s2MS3iAl8p20l6z02S8SfzLWsaT/sPBfbN2FxLFXO8JAxTHuWYSK1bzsTrV4P+aU8JU/6TwsFpM
+	xCiCqhDavpActuyjYR9qwFCSWPYpWsYGm+TYKi1njZgOpFY57dIE/Gu2RMUk5MHsekA+wW4/oqh
+	lMr5wc1apM=
+X-Received: by 2002:a05:6402:23d2:b0:6a9:f874:6de8 with SMTP id 4fb4d7f45d1cf-6aa559cd4dcmr5546423a12.0.1789939293867;
+        Sun, 20 Sep 2026 14:21:33 -0700 (PDT)
+Received: from [192.168.0.167] ([109.76.73.189])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa67dd0000sm3062351a12.17.2026.09.20.14.21.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 20 Sep 2026 14:21:32 -0700 (PDT)
+Message-ID: <95cc550d-8eac-4d1e-a61e-60595afa9ce8@linaro.org>
+Date: Sun, 20 Sep 2026 22:21:29 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] dt-bindings: usb: qcom,pmic-types: make example use
+ generic VBUS property
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260920-fix-tcpm-vbus-bis-v1-0-cc9347bbe81a@oss.qualcomm.com>
+ <20260920-fix-tcpm-vbus-bis-v1-2-cc9347bbe81a@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20260920-fix-tcpm-vbus-bis-v1-2-cc9347bbe81a@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Replace the undocumented "vcc-gpio" property on the usb2/usb3
-controller nodes with the standard vbus-supply/regulator-fixed model.
-Boards now declare a regulator bound to the chipcommon GPIO that
-bcma-hcd used to poke directly, one per power rail.
-
-Polarity is preserved: rails that used a GPIO_ACTIVE_HIGH are marked
-enable-active-high, while the Buffalo usb3 rails keep GPIO_ACTIVE_LOW
-and rely on the binding's active-low default. regulator-boot-on mirrors
-the rail being left enabled by CFE so the power line is never toggled
-during probe.
-
-Assisted-by: LLM
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- .../broadcom/bcm4708-buffalo-wxr-1750dhp.dts  | 14 +++++++++-
- .../bcm4708-buffalo-wzr-1166dhp-common.dtsi   | 25 ++++++++++++++++--
- .../broadcom/bcm4708-buffalo-wzr-1750dhp.dts  | 25 ++++++++++++++++--
- .../broadcom/bcm4708-linksys-ea6300-v1.dts    | 14 +++++++++-
- .../broadcom/bcm4708-linksys-ea6500-v2.dts    | 14 +++++++++-
- .../dts/broadcom/bcm4708-netgear-r6250.dts    | 14 +++++++++-
- .../dts/broadcom/bcm4708-netgear-r6300-v2.dts | 14 +++++++++-
- .../dts/broadcom/bcm47081-luxul-xwr-1200.dts  | 14 +++++++++-
- .../broadcom/bcm47081-tplink-archer-c5-v2.dts | 14 +++++++++-
- .../dts/broadcom/bcm4709-asus-rt-ac3200.dts   | 14 +++++++++-
- .../broadcom/bcm4709-buffalo-wxr-1900dhp.dts  | 14 +++++++++-
- .../dts/broadcom/bcm4709-linksys-ea9200.dts   | 26 +++++++++++++++++--
- .../dts/broadcom/bcm4709-netgear-r7000.dts    | 16 ++++++++++--
- .../dts/broadcom/bcm4709-netgear-r8000.dts    | 16 ++++++++++--
- .../broadcom/bcm4709-tplink-archer-c9-v1.dts  | 26 +++++++++++++++++--
- .../dts/broadcom/bcm47094-asus-rt-ac3100.dtsi | 14 +++++++++-
- .../dts/broadcom/bcm47094-asus-rt-ac5300.dts  | 14 +++++++++-
- .../dts/broadcom/bcm47094-dlink-dir-885l.dts  | 14 +++++++++-
- .../dts/broadcom/bcm47094-dlink-dir-890l.dts  | 26 +++++++++++++++++--
- .../broadcom/bcm47094-linksys-panamera.dts    | 26 +++++++++++++++++--
- .../dts/broadcom/bcm47094-luxul-abr-4500.dts  | 14 +++++++++-
- .../dts/broadcom/bcm47094-luxul-xbr-4500.dts  | 14 +++++++++-
- .../dts/broadcom/bcm47094-luxul-xwr-3100.dts  | 14 +++++++++-
- .../broadcom/bcm47094-luxul-xwr-3150-v1.dts   | 14 +++++++++-
- .../arm/boot/dts/broadcom/bcm947189acdbmr.dts | 14 +++++++++-
- 25 files changed, 391 insertions(+), 33 deletions(-)
-
-diff --git a/arch/arm/boot/dts/broadcom/bcm4708-buffalo-wxr-1750dhp.dts b/arch/arm/boot/dts/broadcom/bcm4708-buffalo-wxr-1750dhp.dts
-index f5c95c9a712e..1bedd74e40d0 100644
---- a/arch/arm/boot/dts/broadcom/bcm4708-buffalo-wxr-1750dhp.dts
-+++ b/arch/arm/boot/dts/broadcom/bcm4708-buffalo-wxr-1750dhp.dts
-@@ -129,8 +129,20 @@ port@4 {
- 	};
- };
- 
-+/ {
-+	usb_power: regulator-usb {
-+		compatible = "regulator-fixed";
-+		regulator-name = "usb-vcc";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-boot-on;
-+		gpios = <&chipcommon 10 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+};
-+
- &usb3 {
--	vcc-gpio = <&chipcommon 10 GPIO_ACTIVE_HIGH>;
-+	vbus-supply = <&usb_power>;
- };
- 
- &usb3_phy {
-diff --git a/arch/arm/boot/dts/broadcom/bcm4708-buffalo-wzr-1166dhp-common.dtsi b/arch/arm/boot/dts/broadcom/bcm4708-buffalo-wzr-1166dhp-common.dtsi
-index 9f9084269ef5..faed5e0895c6 100644
---- a/arch/arm/boot/dts/broadcom/bcm4708-buffalo-wzr-1166dhp-common.dtsi
-+++ b/arch/arm/boot/dts/broadcom/bcm4708-buffalo-wzr-1166dhp-common.dtsi
-@@ -138,12 +138,33 @@ button-eject {
- 	};
- };
- 
-+/ {
-+	usb2_power: regulator-usb2 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "usb2-vcc";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-boot-on;
-+		gpios = <&chipcommon 9 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+
-+	usb3_power: regulator-usb3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "usb3-vcc";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-boot-on;
-+		gpios = <&chipcommon 10 GPIO_ACTIVE_LOW>;
-+	};
-+};
-+
- &usb2 {
--	vcc-gpio = <&chipcommon 9 GPIO_ACTIVE_HIGH>;
-+	vbus-supply = <&usb2_power>;
- };
- 
- &usb3 {
--	vcc-gpio = <&chipcommon 10 GPIO_ACTIVE_LOW>;
-+	vbus-supply = <&usb3_power>;
- };
- 
- &spi_nor {
-diff --git a/arch/arm/boot/dts/broadcom/bcm4708-buffalo-wzr-1750dhp.dts b/arch/arm/boot/dts/broadcom/bcm4708-buffalo-wzr-1750dhp.dts
-index 95ef6ca7210b..6dcfb273329d 100644
---- a/arch/arm/boot/dts/broadcom/bcm4708-buffalo-wzr-1750dhp.dts
-+++ b/arch/arm/boot/dts/broadcom/bcm4708-buffalo-wzr-1750dhp.dts
-@@ -134,12 +134,33 @@ button-eject {
- 	};
- };
- 
-+/ {
-+	usb2_power: regulator-usb2 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "usb2-vcc";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-boot-on;
-+		gpios = <&chipcommon 9 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+
-+	usb3_power: regulator-usb3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "usb3-vcc";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-boot-on;
-+		gpios = <&chipcommon 10 GPIO_ACTIVE_LOW>;
-+	};
-+};
-+
- &usb2 {
--	vcc-gpio = <&chipcommon 9 GPIO_ACTIVE_HIGH>;
-+	vbus-supply = <&usb2_power>;
- };
- 
- &usb3 {
--	vcc-gpio = <&chipcommon 10 GPIO_ACTIVE_LOW>;
-+	vbus-supply = <&usb3_power>;
- };
- 
- &spi_nor {
-diff --git a/arch/arm/boot/dts/broadcom/bcm4708-linksys-ea6300-v1.dts b/arch/arm/boot/dts/broadcom/bcm4708-linksys-ea6300-v1.dts
-index 03d5546a147c..41a02961763e 100644
---- a/arch/arm/boot/dts/broadcom/bcm4708-linksys-ea6300-v1.dts
-+++ b/arch/arm/boot/dts/broadcom/bcm4708-linksys-ea6300-v1.dts
-@@ -47,6 +47,18 @@ &usb3_phy {
- 	status = "okay";
- };
- 
-+/ {
-+	usb_power: regulator-usb {
-+		compatible = "regulator-fixed";
-+		regulator-name = "usb-vcc";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-boot-on;
-+		gpios = <&chipcommon 10 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+};
-+
- &usb3 {
--	vcc-gpio = <&chipcommon 10 GPIO_ACTIVE_HIGH>;
-+	vbus-supply = <&usb_power>;
- };
-diff --git a/arch/arm/boot/dts/broadcom/bcm4708-linksys-ea6500-v2.dts b/arch/arm/boot/dts/broadcom/bcm4708-linksys-ea6500-v2.dts
-index ad246f9a734a..31aa34288d18 100644
---- a/arch/arm/boot/dts/broadcom/bcm4708-linksys-ea6500-v2.dts
-+++ b/arch/arm/boot/dts/broadcom/bcm4708-linksys-ea6500-v2.dts
-@@ -44,6 +44,18 @@ &usb3_phy {
- 	status = "okay";
- };
- 
-+/ {
-+	usb_power: regulator-usb {
-+		compatible = "regulator-fixed";
-+		regulator-name = "usb-vcc";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-boot-on;
-+		gpios = <&chipcommon 10 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+};
-+
- &usb3 {
--	vcc-gpio = <&chipcommon 10 GPIO_ACTIVE_HIGH>;
-+	vbus-supply = <&usb_power>;
- };
-diff --git a/arch/arm/boot/dts/broadcom/bcm4708-netgear-r6250.dts b/arch/arm/boot/dts/broadcom/bcm4708-netgear-r6250.dts
-index 2bdbc7d18b0e..f8c8bb9e9661 100644
---- a/arch/arm/boot/dts/broadcom/bcm4708-netgear-r6250.dts
-+++ b/arch/arm/boot/dts/broadcom/bcm4708-netgear-r6250.dts
-@@ -83,8 +83,20 @@ button-restart {
- 	};
- };
- 
-+/ {
-+	usb_power: regulator-usb {
-+		compatible = "regulator-fixed";
-+		regulator-name = "usb-vcc";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-boot-on;
-+		gpios = <&chipcommon 0 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+};
-+
- &usb3 {
--	vcc-gpio = <&chipcommon 0 GPIO_ACTIVE_HIGH>;
-+	vbus-supply = <&usb_power>;
- };
- 
- &spi_nor {
-diff --git a/arch/arm/boot/dts/broadcom/bcm4708-netgear-r6300-v2.dts b/arch/arm/boot/dts/broadcom/bcm4708-netgear-r6300-v2.dts
-index 55f0d9e90d5f..4c9b11c798bc 100644
---- a/arch/arm/boot/dts/broadcom/bcm4708-netgear-r6300-v2.dts
-+++ b/arch/arm/boot/dts/broadcom/bcm4708-netgear-r6300-v2.dts
-@@ -88,5 +88,17 @@ &usb3_phy {
- };
- 
- &usb3 {
--	vcc-gpio = <&chipcommon 0 GPIO_ACTIVE_HIGH>;
-+	vbus-supply = <&usb_power>;
-+};
-+
-+/ {
-+	usb_power: regulator-usb {
-+		compatible = "regulator-fixed";
-+		regulator-name = "usb-vcc";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-boot-on;
-+		gpios = <&chipcommon 0 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
- };
-diff --git a/arch/arm/boot/dts/broadcom/bcm47081-luxul-xwr-1200.dts b/arch/arm/boot/dts/broadcom/bcm47081-luxul-xwr-1200.dts
-index 73ff1694a4a0..87c4766d181c 100644
---- a/arch/arm/boot/dts/broadcom/bcm47081-luxul-xwr-1200.dts
-+++ b/arch/arm/boot/dts/broadcom/bcm47081-luxul-xwr-1200.dts
-@@ -106,8 +106,20 @@ button-restart {
- 	};
- };
- 
-+/ {
-+	usb_power: regulator-usb {
-+		compatible = "regulator-fixed";
-+		regulator-name = "usb-vcc";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-boot-on;
-+		gpios = <&chipcommon 9 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+};
-+
- &usb2 {
--	vcc-gpio = <&chipcommon 9 GPIO_ACTIVE_HIGH>;
-+	vbus-supply = <&usb_power>;
- };
- 
- &gmac0 {
-diff --git a/arch/arm/boot/dts/broadcom/bcm47081-tplink-archer-c5-v2.dts b/arch/arm/boot/dts/broadcom/bcm47081-tplink-archer-c5-v2.dts
-index b6a5886698b2..3673d4b3c2b6 100644
---- a/arch/arm/boot/dts/broadcom/bcm47081-tplink-archer-c5-v2.dts
-+++ b/arch/arm/boot/dts/broadcom/bcm47081-tplink-archer-c5-v2.dts
-@@ -108,6 +108,18 @@ partition-file-system {
- 	};
- };
- 
-+/ {
-+	usb_power: regulator-usb {
-+		compatible = "regulator-fixed";
-+		regulator-name = "usb-vcc";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-boot-on;
-+		gpios = <&chipcommon 9 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+};
-+
- &usb2 {
--	vcc-gpio = <&chipcommon 9 GPIO_ACTIVE_HIGH>;
-+	vbus-supply = <&usb_power>;
- };
-diff --git a/arch/arm/boot/dts/broadcom/bcm4709-asus-rt-ac3200.dts b/arch/arm/boot/dts/broadcom/bcm4709-asus-rt-ac3200.dts
-index 3da2daee0c84..e97a41d1a400 100644
---- a/arch/arm/boot/dts/broadcom/bcm4709-asus-rt-ac3200.dts
-+++ b/arch/arm/boot/dts/broadcom/bcm4709-asus-rt-ac3200.dts
-@@ -141,8 +141,20 @@ port@4 {
- 	};
- };
- 
-+/ {
-+	usb_power: regulator-usb {
-+		compatible = "regulator-fixed";
-+		regulator-name = "usb-vcc";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-boot-on;
-+		gpios = <&chipcommon 9 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+};
-+
- &usb2 {
--	vcc-gpio = <&chipcommon 9 GPIO_ACTIVE_HIGH>;
-+	vbus-supply = <&usb_power>;
- };
- 
- &usb3_phy {
-diff --git a/arch/arm/boot/dts/broadcom/bcm4709-buffalo-wxr-1900dhp.dts b/arch/arm/boot/dts/broadcom/bcm4709-buffalo-wxr-1900dhp.dts
-index b7cd2faa30ce..66c141ef9f6d 100644
---- a/arch/arm/boot/dts/broadcom/bcm4709-buffalo-wxr-1900dhp.dts
-+++ b/arch/arm/boot/dts/broadcom/bcm4709-buffalo-wxr-1900dhp.dts
-@@ -119,8 +119,20 @@ button-eject {
- };
- 
- 
-+/ {
-+	usb_power: regulator-usb {
-+		compatible = "regulator-fixed";
-+		regulator-name = "usb-vcc";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-boot-on;
-+		gpios = <&chipcommon 13 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+};
-+
- &usb2 {
--	vcc-gpio = <&chipcommon 13 GPIO_ACTIVE_HIGH>;
-+	vbus-supply = <&usb_power>;
- };
- 
- &spi_nor {
-diff --git a/arch/arm/boot/dts/broadcom/bcm4709-linksys-ea9200.dts b/arch/arm/boot/dts/broadcom/bcm4709-linksys-ea9200.dts
-index 37593e7582ba..4d2663627d08 100644
---- a/arch/arm/boot/dts/broadcom/bcm4709-linksys-ea9200.dts
-+++ b/arch/arm/boot/dts/broadcom/bcm4709-linksys-ea9200.dts
-@@ -154,12 +154,34 @@ &usb3_phy {
- 	status = "okay";
- };
- 
-+/ {
-+	usb2_power: regulator-usb2 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "usb2-vcc";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-boot-on;
-+		gpios = <&chipcommon 13 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+
-+	usb3_power: regulator-usb3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "usb3-vcc";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-boot-on;
-+		gpios = <&chipcommon 14 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+};
-+
- &usb2 {
--	vcc-gpios = <&chipcommon 13 GPIO_ACTIVE_HIGH>;
-+	vbus-supply = <&usb2_power>;
- };
- 
- &usb3 {
--	vcc-gpios = <&chipcommon 14 GPIO_ACTIVE_HIGH>;
-+	vbus-supply = <&usb3_power>;
- };
- 
- &gmac2 {
-diff --git a/arch/arm/boot/dts/broadcom/bcm4709-netgear-r7000.dts b/arch/arm/boot/dts/broadcom/bcm4709-netgear-r7000.dts
-index 24ba8f8f9bf3..1911daa84b08 100644
---- a/arch/arm/boot/dts/broadcom/bcm4709-netgear-r7000.dts
-+++ b/arch/arm/boot/dts/broadcom/bcm4709-netgear-r7000.dts
-@@ -93,12 +93,24 @@ button-restart {
- 	};
- };
- 
-+/ {
-+	usb_power: regulator-usb {
-+		compatible = "regulator-fixed";
-+		regulator-name = "usb-vcc";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-boot-on;
-+		gpios = <&chipcommon 0 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+};
-+
- &usb2 {
--	vcc-gpio = <&chipcommon 0 GPIO_ACTIVE_HIGH>;
-+	vbus-supply = <&usb_power>;
- };
- 
- &usb3 {
--	vcc-gpio = <&chipcommon 0 GPIO_ACTIVE_HIGH>;
-+	vbus-supply = <&usb_power>;
- };
- 
- &usb3_phy {
-diff --git a/arch/arm/boot/dts/broadcom/bcm4709-netgear-r8000.dts b/arch/arm/boot/dts/broadcom/bcm4709-netgear-r8000.dts
-index a4b135d37659..5940f052b77f 100644
---- a/arch/arm/boot/dts/broadcom/bcm4709-netgear-r8000.dts
-+++ b/arch/arm/boot/dts/broadcom/bcm4709-netgear-r8000.dts
-@@ -186,12 +186,24 @@ wifi@0,0 {
- 	};
- };
- 
-+/ {
-+	usb_power: regulator-usb {
-+		compatible = "regulator-fixed";
-+		regulator-name = "usb-vcc";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-boot-on;
-+		gpios = <&chipcommon 0 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+};
-+
- &usb2 {
--	vcc-gpio = <&chipcommon 0 GPIO_ACTIVE_HIGH>;
-+	vbus-supply = <&usb_power>;
- };
- 
- &usb3 {
--	vcc-gpio = <&chipcommon 0 GPIO_ACTIVE_HIGH>;
-+	vbus-supply = <&usb_power>;
- };
- 
- &usb3_phy {
-diff --git a/arch/arm/boot/dts/broadcom/bcm4709-tplink-archer-c9-v1.dts b/arch/arm/boot/dts/broadcom/bcm4709-tplink-archer-c9-v1.dts
-index 5a8b2b1567e6..69ff4f14b89e 100644
---- a/arch/arm/boot/dts/broadcom/bcm4709-tplink-archer-c9-v1.dts
-+++ b/arch/arm/boot/dts/broadcom/bcm4709-tplink-archer-c9-v1.dts
-@@ -92,12 +92,34 @@ button-restart {
- 	};
- };
- 
-+/ {
-+	usb2_power: regulator-usb2 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "usb2-vcc";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-boot-on;
-+		gpios = <&chipcommon 13 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+
-+	usb3_power: regulator-usb3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "usb3-vcc";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-boot-on;
-+		gpios = <&chipcommon 12 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+};
-+
- &usb2 {
--	vcc-gpio = <&chipcommon 13 GPIO_ACTIVE_HIGH>;
-+	vbus-supply = <&usb2_power>;
- };
- 
- &usb3 {
--	vcc-gpio = <&chipcommon 12 GPIO_ACTIVE_HIGH>;
-+	vbus-supply = <&usb3_power>;
- };
- 
- &spi_nor {
-diff --git a/arch/arm/boot/dts/broadcom/bcm47094-asus-rt-ac3100.dtsi b/arch/arm/boot/dts/broadcom/bcm47094-asus-rt-ac3100.dtsi
-index 2d2e7e581291..29f54169d072 100644
---- a/arch/arm/boot/dts/broadcom/bcm47094-asus-rt-ac3100.dtsi
-+++ b/arch/arm/boot/dts/broadcom/bcm47094-asus-rt-ac3100.dtsi
-@@ -166,8 +166,20 @@ port@8 {
- 	};
- };
- 
-+/ {
-+	usb_power: regulator-usb {
-+		compatible = "regulator-fixed";
-+		regulator-name = "usb-vcc";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-boot-on;
-+		gpios = <&chipcommon 9 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+};
-+
- &usb2 {
--	vcc-gpio = <&chipcommon 9 GPIO_ACTIVE_HIGH>;
-+	vbus-supply = <&usb_power>;
- };
- 
- &usb3_phy {
-diff --git a/arch/arm/boot/dts/broadcom/bcm47094-asus-rt-ac5300.dts b/arch/arm/boot/dts/broadcom/bcm47094-asus-rt-ac5300.dts
-index 8bf623c67de0..0906c0ef8182 100644
---- a/arch/arm/boot/dts/broadcom/bcm47094-asus-rt-ac5300.dts
-+++ b/arch/arm/boot/dts/broadcom/bcm47094-asus-rt-ac5300.dts
-@@ -150,8 +150,20 @@ port@4 {
- 	};
- };
- 
-+/ {
-+	usb_power: regulator-usb {
-+		compatible = "regulator-fixed";
-+		regulator-name = "usb-vcc";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-boot-on;
-+		gpios = <&chipcommon 9 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+};
-+
- &usb2 {
--	vcc-gpio = <&chipcommon 9 GPIO_ACTIVE_HIGH>;
-+	vbus-supply = <&usb_power>;
- };
- 
- &usb3_phy {
-diff --git a/arch/arm/boot/dts/broadcom/bcm47094-dlink-dir-885l.dts b/arch/arm/boot/dts/broadcom/bcm47094-dlink-dir-885l.dts
-index c5099defe9f9..046bca843e29 100644
---- a/arch/arm/boot/dts/broadcom/bcm47094-dlink-dir-885l.dts
-+++ b/arch/arm/boot/dts/broadcom/bcm47094-dlink-dir-885l.dts
-@@ -117,8 +117,20 @@ button-restart {
- 	};
- };
- 
-+/ {
-+	usb_power: regulator-usb {
-+		compatible = "regulator-fixed";
-+		regulator-name = "usb-vcc";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-boot-on;
-+		gpios = <&chipcommon 18 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+};
-+
- &usb3 {
--	vcc-gpio = <&chipcommon 18 GPIO_ACTIVE_HIGH>;
-+	vbus-supply = <&usb_power>;
- };
- 
- &gmac0 {
-diff --git a/arch/arm/boot/dts/broadcom/bcm47094-dlink-dir-890l.dts b/arch/arm/boot/dts/broadcom/bcm47094-dlink-dir-890l.dts
-index 944d592dee2c..1816f636b293 100644
---- a/arch/arm/boot/dts/broadcom/bcm47094-dlink-dir-890l.dts
-+++ b/arch/arm/boot/dts/broadcom/bcm47094-dlink-dir-890l.dts
-@@ -157,12 +157,34 @@ firmware@0 {
- 	};
- };
- 
-+/ {
-+	usb2_power: regulator-usb2 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "usb2-vcc";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-boot-on;
-+		gpios = <&chipcommon 21 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+
-+	usb3_power: regulator-usb3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "usb3-vcc";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-boot-on;
-+		gpios = <&chipcommon 18 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+};
-+
- &usb2 {
--	vcc-gpios = <&chipcommon 21 GPIO_ACTIVE_HIGH>;
-+	vbus-supply = <&usb2_power>;
- };
- 
- &usb3 {
--	vcc-gpios = <&chipcommon 18 GPIO_ACTIVE_HIGH>;
-+	vbus-supply = <&usb3_power>;
- };
- 
- &usb3_phy {
-diff --git a/arch/arm/boot/dts/broadcom/bcm47094-linksys-panamera.dts b/arch/arm/boot/dts/broadcom/bcm47094-linksys-panamera.dts
-index bdbd0f097925..b62ac448fe2d 100644
---- a/arch/arm/boot/dts/broadcom/bcm47094-linksys-panamera.dts
-+++ b/arch/arm/boot/dts/broadcom/bcm47094-linksys-panamera.dts
-@@ -197,12 +197,34 @@ fixed-link {
- 	};
- };
- 
-+/ {
-+	usb2_power: regulator-usb2 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "usb2-vcc";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-boot-on;
-+		gpios = <&chipcommon 13 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+
-+	usb3_power: regulator-usb3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "usb3-vcc";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-boot-on;
-+		gpios = <&chipcommon 14 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+};
-+
- &usb2 {
--	vcc-gpio = <&chipcommon 13 GPIO_ACTIVE_HIGH>;
-+	vbus-supply = <&usb2_power>;
- };
- 
- &usb3 {
--	vcc-gpio = <&chipcommon 14 GPIO_ACTIVE_HIGH>;
-+	vbus-supply = <&usb3_power>;
- };
- 
- &srab {
-diff --git a/arch/arm/boot/dts/broadcom/bcm47094-luxul-abr-4500.dts b/arch/arm/boot/dts/broadcom/bcm47094-luxul-abr-4500.dts
-index e374062eb5b7..fbd362991e43 100644
---- a/arch/arm/boot/dts/broadcom/bcm47094-luxul-abr-4500.dts
-+++ b/arch/arm/boot/dts/broadcom/bcm47094-luxul-abr-4500.dts
-@@ -61,8 +61,20 @@ button-restart {
- 	};
- };
- 
-+/ {
-+	usb_power: regulator-usb {
-+		compatible = "regulator-fixed";
-+		regulator-name = "usb-vcc";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-boot-on;
-+		gpios = <&chipcommon 18 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+};
-+
- &usb3 {
--	vcc-gpio = <&chipcommon 18 GPIO_ACTIVE_HIGH>;
-+	vbus-supply = <&usb_power>;
- };
- 
- &gmac0 {
-diff --git a/arch/arm/boot/dts/broadcom/bcm47094-luxul-xbr-4500.dts b/arch/arm/boot/dts/broadcom/bcm47094-luxul-xbr-4500.dts
-index cf95af9db1e6..f1f099a90997 100644
---- a/arch/arm/boot/dts/broadcom/bcm47094-luxul-xbr-4500.dts
-+++ b/arch/arm/boot/dts/broadcom/bcm47094-luxul-xbr-4500.dts
-@@ -61,8 +61,20 @@ button-restart {
- 	};
- };
- 
-+/ {
-+	usb_power: regulator-usb {
-+		compatible = "regulator-fixed";
-+		regulator-name = "usb-vcc";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-boot-on;
-+		gpios = <&chipcommon 18 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+};
-+
- &usb3 {
--	vcc-gpio = <&chipcommon 18 GPIO_ACTIVE_HIGH>;
-+	vbus-supply = <&usb_power>;
- };
- 
- &gmac0 {
-diff --git a/arch/arm/boot/dts/broadcom/bcm47094-luxul-xwr-3100.dts b/arch/arm/boot/dts/broadcom/bcm47094-luxul-xwr-3100.dts
-index 4d0ba315a204..9420ae1367d8 100644
---- a/arch/arm/boot/dts/broadcom/bcm47094-luxul-xwr-3100.dts
-+++ b/arch/arm/boot/dts/broadcom/bcm47094-luxul-xwr-3100.dts
-@@ -101,8 +101,20 @@ button-restart {
- 	};
- };
- 
-+/ {
-+	usb_power: regulator-usb {
-+		compatible = "regulator-fixed";
-+		regulator-name = "usb-vcc";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-boot-on;
-+		gpios = <&chipcommon 18 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+};
-+
- &usb3 {
--	vcc-gpio = <&chipcommon 18 GPIO_ACTIVE_HIGH>;
-+	vbus-supply = <&usb_power>;
- };
- 
- &gmac0 {
-diff --git a/arch/arm/boot/dts/broadcom/bcm47094-luxul-xwr-3150-v1.dts b/arch/arm/boot/dts/broadcom/bcm47094-luxul-xwr-3150-v1.dts
-index 8e487f60a2cc..f4f718b52c6f 100644
---- a/arch/arm/boot/dts/broadcom/bcm47094-luxul-xwr-3150-v1.dts
-+++ b/arch/arm/boot/dts/broadcom/bcm47094-luxul-xwr-3150-v1.dts
-@@ -97,8 +97,20 @@ wifi@0,0 {
- 	};
- };
- 
-+/ {
-+	usb_power: regulator-usb {
-+		compatible = "regulator-fixed";
-+		regulator-name = "usb-vcc";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-boot-on;
-+		gpios = <&chipcommon 18 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+};
-+
- &usb3 {
--	vcc-gpio = <&chipcommon 18 GPIO_ACTIVE_HIGH>;
-+	vbus-supply = <&usb_power>;
- };
- 
- &usb3_phy {
-diff --git a/arch/arm/boot/dts/broadcom/bcm947189acdbmr.dts b/arch/arm/boot/dts/broadcom/bcm947189acdbmr.dts
-index 0b8727ae6f16..fcb0bb9f3942 100644
---- a/arch/arm/boot/dts/broadcom/bcm947189acdbmr.dts
-+++ b/arch/arm/boot/dts/broadcom/bcm947189acdbmr.dts
-@@ -91,6 +91,18 @@ wifi@0,1,0 {
- 	};
- };
- 
-+/ {
-+	usb_power: regulator-usb {
-+		compatible = "regulator-fixed";
-+		regulator-name = "usb-vcc";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-boot-on;
-+		gpios = <&chipcommon 8 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+};
-+
- &usb2 {
--	vcc-gpio = <&chipcommon 8 GPIO_ACTIVE_HIGH>;
-+	vbus-supply = <&usb_power>;
- };
--- 
-2.55.0
-
+On 20/09/2026 15:37, Dmitry Baryshkov wrote:
+> The commit fe2195b019f6 ("dt-bindings: usb: qcom,pmic-typec: deprecate
+> device-specific VBUS") switched the schema to use generic vbus-supply
+> property, however the example continued to use the old, deprecated one.
+> Update example to use the expected style of specifying the VBUS.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+>   Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml b/Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml
+> index db487562cec4..dd56dc8afe03 100644
+> --- a/Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml
+> +++ b/Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml
+> @@ -176,7 +176,6 @@ examples:
+>                                 "msg-rx-discarded",
+>                                 "fr-swap";
+>   
+> -            vdd-vbus-supply = <&pm8150b_vbus>;
+>               vdd-pdphy-supply = <&vreg_l2a_3p1>;
+>   
+>               connector {
+> @@ -186,6 +185,8 @@ examples:
+>                   data-role = "dual";
+>                   self-powered;
+>   
+> +                vbus-supply = <&pm8150b_vbus>;
+> +
+>                   source-pdos = <PDO_FIXED(5000, 3000, PDO_FIXED_DUAL_ROLE |
+>                                  PDO_FIXED_USB_COMM | PDO_FIXED_DATA_SWAP)>;
+>   
+> 
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
