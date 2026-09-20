@@ -1,152 +1,309 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42BE63CAA54
-	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 03:45:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789875937; cv=none; b=T1Y8uY1oR7NG/nD5ooFGM09a/txyQFYSfCz5hq370hyuF6lJW07UgcCaPXV/Den0e4kcGkIe7iJ2oZJnb73mqSdM8i0LD/Y6LfKRlGc+f/awUL0R/Vz4P2wHxoPoUr0KpelzX7o6NkbgJgxx3R0qVlN7avkhKX/26YVtpDbflYc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789875937; c=relaxed/simple;
-	bh=zxchw+AGLqScYiC+c7N1Lx2xWKasFMFlXvmdODN36go=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=KXBpBjZclsCu0fOO1moLbBFIRUMkTox7j10YSbPN7lYpDxkYhh3ZsdCQRiVrsraOFD5q5dGeyiTY/WhwuCiwE661ZXE9Zer+hhyGE46YKHzWaS/JQ0DArpxAeAb0ljC3WipxpicVauHkHfoxch+3XE86gsiaKckE1EOP/jTbXGs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ai+kZE5p; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E28D33BBCD
+	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 03:57:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789876660; cv=pass; b=t732gsNyDvl15ZMntB4oqsBgdn4fqq3OUTklPjCFqtNWPSxzRIncFOUlUumMXcYdXVl3ZMOiHv/8nn5mComRMeBCUlM/Pnx5WaJVY5vJ2cMxfPgKZvs1ZtaE0lDc4DT47zMRXFkApbqFfGQHHj2nonr8vCy/uN6qLlPLm9M2QuA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789876660; c=relaxed/simple;
+	bh=01GZU/jLIcXtdAKaeOdDyvEN/rN3WyW3iNdMo3ImlIo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BgPnfT0tDqYUkHAi0L8Oq0qCWmaN99qCccRXlmkNRYi9ldfx/KMF81Npm+mFjiiGdqxjdkrM4lv/BjvOgWLgJf4xiFiOHN13xLKgfb62tQd21TAsyrmQXldTH15aQp/s/y/qj+neYoWVjfH1rMxlUYgTzTWC0EXl5dz8fmXUtQ8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XbGFvAwk; arc=pass smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ai+kZE5p"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EC581F000FF;
-	Sun, 20 Sep 2026 03:45:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789875935;
-	bh=RJPY4dRtqZamgssNeUmrfywhtzvMqb9zarBP3B1gqkg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ai+kZE5pZj36FW8VNDTLzErgsUQf0yUjlBBsFhFKkklODMq7RlgwQeXCohJZNGg46
-	 aaVQ+b15BapIgRfAWrtPHy3PdzD6jiJTF7b2dfQnqY9EhMRf4loDQzwzG405peHh/D
-	 p5yzVaqIfTHSWA+CFU38IIaeAmeearEQY21mPvuquy1/pAcK81h2qieXJJIwUukxMb
-	 MXxoudQicJ5zZBL8LvorRmhNwVJ8/im9g8N+Fzr/pi3IO8ZVcX9AV6Ja7048D4pEvU
-	 qW/Wq1L7Uz+BalwE6HXoqjp7DCvlXAvdaue615tNm+wt0Z3+yWm1O/QACHcCdpmbcj
-	 5KzZaGIQfYKFA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3] arm64: dts: qcom: shikra: Add BAM-DMUX support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vishnu Santhosh" <vishnu.santhosh@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260920-qcom-shikra-dts-bam-dmux-v3-1-91474d507d61@oss.qualcomm.com>
-References: <20260920-qcom-shikra-dts-bam-dmux-v3-1-91474d507d61@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 20 Sep 2026 03:45:35 +0000
-Message-Id: <20260920034535.9EC581F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XbGFvAwk"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-398b1e63c49so2231936a91.0
+        for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 20:57:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789876658; cv=none;
+        d=google.com; s=arc-20260327;
+        b=hvGbvmcJAHn4dIeiA4DkGxAHZsRZTmw8oxW2RSQatqEp2tGN6Yn80NaS6m57+/IXCG
+         Y+y0y2FLCVV/OteYAPGe5BM8lsJuNUoxEvfJykYSY5eFM47BZIMZpkyhliM+hkV2N3/W
+         4P2gCTskW2vdTsEHOFk4B1Fis5BwzCTwu7g3MYZRRMGbOHgePxpgKrfcRzoZ56NMCkYx
+         xZZ3RfHxzO52hg+k/eUDYBaDMc06fso8/eEAzfTr5ux4D1MkgR+96qCSIV96g9N4f3Zx
+         V+xaoD2ceOATZPgS9IpPzTLHSLr5WZ6UMSyEGCLA8p7QIhyqHqa+G4byLdD8dRrW8ftL
+         6rxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=znS7PwEw/HPsC2fBiIZ8UstZ+J7E6Fo1CbQIj0vmESY=;
+        fh=UHomdDSdqRqlw8rQbdRNMpOMHeqztDyJ7uSujiem2tw=;
+        b=gVaXISeBCmCZXcUmvYHVi0cbohB7vg0r2exq5KM1sUV8sLtq/Qa+EBdNYvZTZyb5Tb
+         4G8Yi6dTILSyvnWZE1ngKuiEeXEK43KB8m8UiWD0nSYXDWSgS5UVGqr8EOqL7e6kAPMN
+         zgE+r08TzaRbnTDxVCYl1JcPhFiMpfc63aOWonnxRHF4kEx8aCGFOBVQ5Dwm44hrN9JE
+         iW3hfgrinXML76b4Hn6+N9dV6PBfa/rYRrBsDs1cPzuiF/Y1RR20p2z2VTvO3JLV1xJv
+         rH5rUa9S9TMW3jVk32MAg5ItuVEOi55sRxNd7quHfAc9LSB/zRYCTTdBZN5tGDrBjZws
+         y2WA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789876658; x=1790481458; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=znS7PwEw/HPsC2fBiIZ8UstZ+J7E6Fo1CbQIj0vmESY=;
+        b=XbGFvAwk9TRvZypSbLtmQsdoVmpqESaeipr+sawUw9u+h4rVgjIFr2ClEtGMGEhKjx
+         3B+PmYX/4XykJNm/cgFF0JPdn6hqFV7wJvvdK5XwgXJFP3rZL5MpNOQtOKF2hQhxlZBa
+         ZDEmpDIUV61CreuLupw6kFzrkUAsVQo/hKVq9F1ig1crgh6S4o0peodCbxNV6smrq4DS
+         1nzHBeGf4miPzcOgXy5IUlOmQJc9njWLqseSE+SmPFGTiw6o7z3K8/stUpxDgo+J0bTx
+         gr2Y7HAxpaVkPuRuj16PDo4MTfXbxoPYFc70vJjW0u9r3ewmS/iwDqrKHyySvw1HMNSj
+         qSBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789876658; x=1790481458;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=znS7PwEw/HPsC2fBiIZ8UstZ+J7E6Fo1CbQIj0vmESY=;
+        b=Ko6xGx7M/ZXHLSk+ICo8Dfqwr0DKahPYKE4IOIRMwQ6t7kna1H/zXy3TIp1vjtzbF8
+         C4VV/Q3WdIw3kuWEL4UMD/aTlkZO/an6A9PGdaigpJlhl/S2MysqjiDdPVOFYy9g+1QO
+         d/4hyEUUP0nROq6y4oZDW+lSMGv9m7CmkUxNzIp4w8eH57a+lFQhsKgt9ypOrFjjkheJ
+         8WjQicq1kMVZGNFwDf2UDLPllV1crdOGl+JVJeyQR1X3SKDHPxnMNsLT+9NBNwApOhZM
+         QwImmTTnINHGbu75l0dZxgh/P3s8ti+CUdV309aHWVc+2zXOnuiVvqqUJuAskB2NfFe5
+         CvYg==
+X-Forwarded-Encrypted: i=1; AKwUvBwmPZCU7ImLtoubisoxZEDVBWSJ9mXQz86zO8z3HVaPpud+beKW3KQYbxiD2XMd/nJHQdeAYTb5aFGQ@vger.kernel.org
+X-Gm-Message-State: AFuF++mGpWeuzefmtZpMG1xN3mBSICpeECw/H9QsV2P5AZTbwXbAWMkz
+	RnjXnF4Cx7rZ4svRA8uTqO/ZURJOrwr8uBW0J5QtESCsYZbEjrqoHZ7kIssED5YkxmrmgYpArAz
+	d8JPuaDf/PV+1rQI2CjqvF6Jj3HLMtaY=
+X-Gm-Gg: AYBFou0Ynf+md/az0FhBd2E/EkmzfVda81363M/3CuQz5TV+eqYOu9lZMOsHLC7Cmbz
+	LF+k5F7kb20ZnFMDvUIFUO2fnlb1+CsupZ3Qzl9K15E6ELB9i1hqelGkt0bKbArN5oWiBH/9T/a
+	ky1Q4lDA1qjML9X6ZR8iJQGJuuZg2kO5dhPePoMUf6V6F13DYP0rnb7669+YGeXcH00Vp50dWiK
+	HhS3LjGQQKIiXVyD/l/32+2k3jOSP763/15k0nJNjGAPpKUQgp4xfyZk4jZ/4s2MPup0Z1BjBEi
+	xPf4IfGeisIdGT75FZyOiXoRgdMo94wR+mW3Eln0m4X6DAtJirodkk5/RNtWTTaBZzpJqZX3U9a
+	bevHQMXOL1iLR1geLsBlvsfnd+doqHQGrTXHrHJCg
+X-Received: by 2002:a17:90a:e7c7:b0:3a0:25f0:d89b with SMTP id
+ 98e67ed59e1d1-3a025f0de30mr3043839a91.50.1789876657661; Sat, 19 Sep 2026
+ 20:57:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <cover.1789753020.git.kimjinseob88@gmail.com> <9fdbc924bf3387a4d33d1258ea21ac33abef65bb.1789753020.git.kimjinseob88@gmail.com>
+ <20260920021238.6d4ff353@jic23-hlaptop>
+In-Reply-To: <20260920021238.6d4ff353@jic23-hlaptop>
+From: Kim Jinseob <kimjinseob88@gmail.com>
+Date: Sun, 20 Sep 2026 12:57:28 +0900
+X-Gm-Features: AcwNN1WtBlzfWX0n4kCCth-9RIkby4yGdvgGCxFz3ox1yJaRl3ZK2zZ0hMZoeTg
+Message-ID: <CALMSewJqj6UseoMg-Cpi4C1kd7E83SinE_WJj=nMEVhy1hNgSQ@mail.gmail.com>
+Subject: Re: [PATCH v10 2/8] Documentation: iio: add Open Sensor Fusion driver overview
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: linux-iio@vger.kernel.org, dlechner@baylibre.com, nuno.sa@analog.com, 
+	andriy.shevchenko@intel.com, linux-kernel@vger.kernel.org, 
+	rdunlap@infradead.org, joshua.crofts1@gmail.com, u.kleine-koenig@baylibre.com, 
+	julianbraha@gmail.com, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, devicetree@vger.kernel.org, corbet@lwn.net, 
+	skhan@linuxfoundation.org, linux-doc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Critical] dts: qcom: bam_dmux_pool shares BAM DMA descriptors with untru=
-sted modem
-- [High] dts: qcom: bam_dmux driver ignores qcom,vmid, leading to SMMU/XPU =
-faults
---
+Hi Jonathan,
 
-commit 29cefe6f8087e49778891d714bb8fb329002f944
-Author: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+both points make sense.
 
-arm64: dts: qcom: shikra: Add BAM-DMUX support
+The capability reports are complete inventory snapshots rather than
+incremental fragments. An empty or unsupported-only initial report
+does not establish a supported inventory, so discovery remains open.
+Once a complete report with supported descriptors establishes the
+inventory for the host session, later reports are still processed:
+equivalent inventories are idempotent, while a supported key
+appearing/disappearing or changing its shape, format, or scale is
+treated as an inventory change and faults the session.
 
-Add the SMSM state entries, BAM-DMUX node, and BAM DMA controller needed
-to provide modem data channels on Shikra. Reserve a 256 KiB restricted
-DMA pool and reference it from both the BAM-DMUX and BAM DMA nodes.
+I'll clarify that distinction in the next revision, and also change
+=E2=80=9CUnsupported majors=E2=80=9D to =E2=80=9CUnsupported major versions=
+=E2=80=9D.
 
-> diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/q=
-com/shikra.dtsi
-> index 92d22e3b6931c..4980c125b7e1a 100644
-> --- a/arch/arm64/boot/dts/qcom/shikra.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
-> @@ -352,6 +353,13 @@ reserved_memory: reserved-memory {
->  		#size-cells =3D <2>;
->  		ranges;
-> =20
-> +		bam_dmux_pool: restricted-dma-pool {
-> +			compatible =3D "restricted-dma-pool";
-> +			size =3D <0x0 0x40000>;
-> +			alignment =3D <0x0 0x40000>;
-> +			alloc-ranges =3D <0x0 0x80000000 0x0 0x80000000>;
-> +		};
-> +
+Thanks,
 
-[ ... ]
+Jinseob
 
-> @@ -1866,6 +1891,20 @@ glink-edge {
->  				qcom,remote-pid =3D <1>;
->  				label =3D "mpss";
->  			};
-> +
-> +			bam_dmux: bam-dmux {
-> +				compatible =3D "qcom,bam-dmux";
-> +				interrupt-parent =3D <&modem_smsm>;
-> +				interrupts =3D <1 IRQ_TYPE_EDGE_BOTH>,
-> +					     <11 IRQ_TYPE_EDGE_BOTH>;
-> +				interrupt-names =3D "pc", "pc-ack";
-> +				qcom,smem-states =3D <&apps_smsm 1>, <&apps_smsm 11>;
-> +				qcom,smem-state-names =3D "pc", "pc-ack";
-> +				dmas =3D <&bam_dmux_dma 4>, <&bam_dmux_dma 5>;
-> +				dma-names =3D "tx", "rx";
-> +				memory-region =3D <&bam_dmux_pool>;
-> +				qcom,vmid =3D <QCOM_SCM_VMID_NAV>;
-
-[Severity: High]
-Does the BAM-DMUX driver actually parse and use this property?
-
-The host BAM-DMUX driver (drivers/net/wwan/qcom_bam_dmux.c) does not appear=
- to
-parse qcom,vmid or invoke the necessary Qualcomm SCM calls to configure the
-hardware memory protection.
-
-Will this cause SMMU or XPU memory protection faults when the modem attempts
-to read or write its buffers, since the driver fails to grant the modem the
-necessary access to the DMA pool?
-
-> +			};
->  		};
-
-[ ... ]
-
-> @@ -2026,6 +2065,18 @@ dispcc: clock-controller@5f00000 {
->  			#power-domain-cells =3D <1>;
->  		};
-> =20
-> +		bam_dmux_dma: dma-controller@6044000 {
-> +			compatible =3D "qcom,bam-v1.7.0";
-> +			reg =3D <0x0 0x06044000 0x0 0x19000>;
-> +			interrupts =3D <GIC_SPI 74 IRQ_TYPE_EDGE_RISING 0>;
-> +			#dma-cells =3D <1>;
-> +			qcom,ee =3D <0>;
-> +			num-channels =3D <6>;
-> +			qcom,num-ees =3D <1>;
-> +			qcom,powered-remotely;
-> +			memory-region =3D <&bam_dmux_pool>;
-
-[Severity: Critical]
-Is it safe to share bam_dmux_pool between the modem and the BAM DMA
-descriptors?
-
-The commit message notes that this shared pool provides space for the BAM
-descriptor FIFOs. By linking this pool to the bam_dmux node above, the desi=
-gn
-aims to grant the untrusted modem access to the entire pool.
-
-Because the bam_dmux_dma controller uses physical addresses, if the modem
-overwrites the address field of a DMA descriptor within this shared pool, w=
-ill
-the BAM DMA controller blindly execute DMA operations on the forged address?
-
-Could this allow a compromised modem to read or write arbitrary host memory?
-
-> +		};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260920-qcom-shikr=
-a-dts-bam-dmux-v3-1-91474d507d61@oss.qualcomm.com?part=3D1
+2026=EB=85=84 9=EC=9B=94 20=EC=9D=BC (=EC=9D=BC) =EC=98=A4=EC=A0=84 10:12, =
+Jonathan Cameron <jic23@kernel.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+>
+> On Sat, 19 Sep 2026 03:24:40 +0900
+> Jinseob Kim <kimjinseob88@gmail.com> wrote:
+>
+> > Document the supported OSF receiver profile, runtime sensor discovery,
+> > IIO channel units, scale validation and session lifetime.
+> >
+> > Link the project-maintained fixed wire specification instead of
+> > duplicating its layouts and compatibility policy. Explain host IIO
+> > timestamps and the explicit rebind needed after a changed inventory.
+> >
+> > Assisted-by: LLM
+> > Signed-off-by: Jinseob Kim <kimjinseob88@gmail.com>
+>
+> Hi Jinseob,
+>
+> Just a couple of minor things inline.
+>
+> Thanks,
+>
+> Jonathan
+>
+> > ---
+> >  Documentation/iio/index.rst              |  1 +
+> >  Documentation/iio/open-sensor-fusion.rst | 77 ++++++++++++++++++++++++
+> >  MAINTAINERS                              |  1 +
+> >  3 files changed, 79 insertions(+)
+> >  create mode 100644 Documentation/iio/open-sensor-fusion.rst
+> >
+> > diff --git a/Documentation/iio/index.rst b/Documentation/iio/index.rst
+> > index b02b879b053a..c2b7963348fd 100644
+> > --- a/Documentation/iio/index.rst
+> > +++ b/Documentation/iio/index.rst
+> > @@ -40,4 +40,5 @@ Industrial I/O Kernel Drivers
+> >     adxl345
+> >     bno055
+> >     ep93xx_adc
+> > +   open-sensor-fusion
+> >     opt4060
+> > diff --git a/Documentation/iio/open-sensor-fusion.rst b/Documentation/i=
+io/open-sensor-fusion.rst
+> > new file mode 100644
+> > index 000000000000..03ab36aca5f8
+> > --- /dev/null
+> > +++ b/Documentation/iio/open-sensor-fusion.rst
+> > @@ -0,0 +1,77 @@
+> > +.. SPDX-License-Identifier: GPL-2.0-only
+> > +
+> > +Open Sensor Fusion
+> > +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > +
+> > +Open Sensor Fusion is a sensor aggregation hub interface. The Linux II=
+O driver
+> > +receives device-to-host frames over UART and discovers sensor channels=
+ from
+> > +capability reports. Device Tree describes the hub using the
+> > +``opensensorfusion,osf`` compatible; individual sensors are discovered=
+ at
+> > +runtime. See the binding in
+> > +``Documentation/devicetree/bindings/iio/opensensorfusion,osf.yaml``.
+> > +
+> > +The OSF Device-to-Host 0.0 specification is maintained by the Open Sen=
+sor Fusion
+> > +project. The canonical specification_ defines the wire layout, compati=
+bility
+> > +rules, reserved fields and physical units. This document describes the=
+ Linux
+> > +receiver profile and its mapping to IIO.
+> > +
+> > +.. _specification: https://github.com/opensensorfusion/opensensorfusio=
+n-protocol/blob/ca9cdea1ae550c2b4d6f29f87877adae99470744/spec/osf-d2h-0.0.m=
+d
+> > +
+> > +Supported receive profile
+> > +-------------------------
+> > +
+> > +The driver supports the fixed OSF0 frame layout with protocol major ve=
+rsion 0.
+> > +Compatible minor versions use the same known message layouts. The deco=
+der
+> > +requires exact lengths for known messages, validates CRC and bounds be=
+fore
+> > +interpreting payloads, and tolerates reserved padding. Unsupported maj=
+ors and
+>
+> If you spin again "Unsupported major versions and.."
+>
+> > +unknown message types are ignored. Unsupported capability entries are =
+skipped
+> > +individually. A CRC-valid application rejection consumes the complete =
+frame;
+> > +an invalid frame candidate is resynchronized without trusting its payl=
+oad length.
+> > +
+> > +The receive path handles sensor samples, complete capability reports a=
+nd
+> > +device status. Its limits are 4096 bytes per frame and 16 supported se=
+nsor
+> > +descriptors. These are implementation limits, not protocol-wide maxima=
+.
+> > +
+> > +IIO mapping
+> > +-----------
+> > +
+> > +The supported sensor classes map to:
+> > +
+> > +* accelerometer: ``IIO_ACCEL`` X/Y/Z, in m/s^2;
+> > +* gyroscope: ``IIO_ANGL_VEL`` X/Y/Z, in rad/s;
+> > +* magnetometer: ``IIO_MAGN`` X/Y/Z, in gauss;
+> > +* temperature: ``IIO_TEMP``, in millidegrees Celsius.
+> > +
+> > +Each registered channel exposes signed ``RAW`` data and descriptor-der=
+ived
+> > +``SCALE``. Multiplying RAW by SCALE gives a value in the channel's IIO=
+ unit.
+> > +Buffered samples use signed 32-bit values with native CPU endianness. =
+Active
+> > +channels are packed into the scan, with initialized padding before an =
+optional
+> > +64-bit timestamp.
+> > +
+> > +Discovery and session lifetime
+> > +------------------------------
+> > +
+> > +The driver validates all supported descriptors before registering IIO =
+devices.
+> > +An empty or entirely unsupported initial report leaves discovery open =
+for a
+> > +later supported report.
+>
+> So if the device can send multiple discovery reports, this implies if we
+> recognise something in the first one we will stop looking at later ones?
+> That seems odd given if we don't recognise anything we keep looking.
+> If I'm reading too much into this text, then please tweak it to make
+> it clear why this doesn't matter.
+>
+> > Supported descriptors must advertise a nonzero scale.
+> > +A sample's channel count, format and scale must match its registered d=
+escriptor
+> > +before it can update the latest RAW cache or be published to a buffer.=
+ A
+> > +rejected sample preserves previously accepted data.
+> > +
+> > +Repeated reports are compared by sensor type and index, independently =
+of entry
+> > +order. Reserved padding, advisory flags and unsupported additions do n=
+ot change
+> > +the supported inventory. A supported key appearing or disappearing, or=
+ a
+> > +change in its channel count, format or scale, faults the bound session=
+.
+> > +
+> > +After a session fault, new cache updates and buffer publication stop, =
+and
+> > +direct RAW reads fail. Existing IIO devices remain until driver teardo=
+wn.
+> > +An equivalent report does not clear the fault; explicit unbind/rebind =
+starts
+> > +fresh discovery. No fault-specific userspace ABI is exposed.
+> > +
+> > +Timestamps
+> > +----------
+> > +
+> > +Buffered samples use the selected IIO host clock when they are pushed =
+into
+> > +the buffer. The device timestamp is not correlated with that clock and=
+ is not
+> > +used as the IIO buffer timestamp. Device timestamp or sequence discont=
+inuities
+> > +alone do not start a new host session.
+> > diff --git a/MAINTAINERS b/MAINTAINERS
+> > index 9463b8111d52..26b9b2862724 100644
+> > --- a/MAINTAINERS
+> > +++ b/MAINTAINERS
+> > @@ -20515,6 +20515,7 @@ OPEN SENSOR FUSION
+> >  M:   Jinseob Kim <kimjinseob88@gmail.com>
+> >  S:   Maintained
+> >  F:   Documentation/devicetree/bindings/iio/opensensorfusion,osf.yaml
+> > +F:   Documentation/iio/open-sensor-fusion.rst
+> >  K:   opensensorfusion
+> >
+> >  OPENCOMPUTE PTP CLOCK DRIVER
+>
