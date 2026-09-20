@@ -1,174 +1,158 @@
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2129.outbound.protection.partner.outlook.cn [139.219.17.129])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f6.google.com (mail-oo2-f6.google.com [74.125.231.134])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B3DC1A6806;
-	Sun, 20 Sep 2026 06:23:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.129
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789885392; cv=fail; b=s0tH13xnVQwfYtATF2i6wmrUzo3X+3d095mYbwDxQPDQ3MwmnNkjrEI5gm1fELFMSYeHEsRCplzbK4hGyixtEQTS285dEKrkea4M0jodW4kKfkg4z7TXdXuENPDojMFRm1ifHF6pJmKSuv9xA1blYgYJFw5ztWX7tt4yWn18bEA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789885392; c=relaxed/simple;
-	bh=hPj/fjN1Kz75aqhGtGVmzhj3V4RZw9BFSnBBDrruFAk=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=SajGuYGHwR6NyLnS8E7Ix0Dwpl8nzGIP7nAK/cipHtGvbvgnCHB93/DjKPkwrRK2ZZg6KHto9OFH2y7g9RT2j7ARbR7ltb8p3sVbRoPKvHnOly6gZGEN6ftuRhrC53cEDxIXfY71egNb8CI84u6zoqWOI+JuvRrDudNBMkZdFhE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dvwwji7F3bAkYrlxFet5zfcziG5WhvGnM5MeKWw/4SZMC/54p0YpRzD/TdUOsSGQlDtNV1yRCSFvnAdDV1OsKzG6GlOto8sIwo5ZGyrLvQEJiQm8bJRMHqnyZ6hFTm9IF412fqFhM8/bz8lCj4ldtmztGXdKfsvDwqBdPynIVJ8xDuFdGqwh9EU1+aWmMOanDk0xkjMeVXGZqqXJnMoQ8gTsnQXtPaJXy2JCKzzhJR4NyqcmXJcgr21WhLsYIbX69+SWzQI/IYvwHBz4pYtgLEKERdRGjsJtHU5BhhIj9VUdq75ZS3yurdmfPUXHFOdWoqKjDRK5uEtnk7scvHkkzQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hPj/fjN1Kz75aqhGtGVmzhj3V4RZw9BFSnBBDrruFAk=;
- b=AYxE+k2lBuQBo2OGJAdJQ7gaFhPpU4ZZ8Qytp/PuMgFDoJskPizKMwGODlpoPSGdLxD29UQDEhXb/5wEmBRnjmTBaRW+SyMXm67MGkSyoOGB4h2HqyeW7WZk0OnvOM8YwFxh33isrYRTFLcnfjK8gw5t31JS5U7TxBbY+0PAh5QxO8VA4Z6wCaoSYIiV8fDV/tkq0fv+jfpV+mifp7IZU9GnX8A5BQ24lB/hc+AkUXonMncIy0NETav3tR6puBWhUF0mcj2uozvzw7bOzqHBiate/NY8i6UovqLW8Gh3ngSCIwY1r4LSz73qCJn7LwGj2Ay7R0IKu4PbSj3H3//sUw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Received: from ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:18::6) by ZQ0PR01MB1237.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:1a::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.14; Sun, 20 Sep
- 2026 06:22:52 +0000
-Received: from ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
- ([fe80::973:272c:ab11:7570]) by ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
- ([fe80::973:272c:ab11:7570%4]) with mapi id 15.21.0428.014; Sun, 20 Sep 2026
- 06:22:52 +0000
-From: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-To: Herbert Xu <herbert@gondor.apana.org.au>
-CC: Olivia Mackall <olivia@selenic.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>, "linux-crypto@vger.kernel.org"
-	<linux-crypto@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject:
- =?gb2312?B?u9i4tDogW1BBVENIIHY4IDIvMl0gaHdybmc6IHN0YXJmaXZlOiByZXdvcmsg?=
- =?gb2312?Q?clk/reset_teardown_order_for_JHB100?=
-Thread-Topic: [PATCH v8 2/2] hwrng: starfive: rework clk/reset teardown order
- for JHB100
-Thread-Index: AQHdPnc9LZrr1btr0kuIoVF4D3Ad/LbT00QAgANATxA=
-Date: Sun, 20 Sep 2026 06:22:52 +0000
-Message-ID:
- <ZQ0PR01MB126919F96070E84987907EE382852@ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn>
-References: <20260907031603.188483-1-lianfeng.ouyang@starfivetech.com>
- <20260907031603.188483-3-lianfeng.ouyang@starfivetech.com>
- <aqzBMBaXnIZZMX70@gondor.apana.org.au>
-In-Reply-To: <aqzBMBaXnIZZMX70@gondor.apana.org.au>
-Accept-Language: en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: ZQ0PR01MB1269:EE_|ZQ0PR01MB1237:EE_
-x-ms-office365-filtering-correlation-id: f5abe3a6-2848-4215-fd11-08df16df99dd
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|23010399003|376014|366016|38070700021|56012099006|6133799003|10067099003|4143699003|22082099003|18002099003;
-x-microsoft-antispam-message-info:
- E+4WyIxFycMEjL5uJG8e1b6zD7sZgiRoyaXyrJXC+WgiXCWocylyVHdOzxMa5k29j8jMnyfdi5qxwISVGBZmhM80HKyusg4YU4jCtFFFp9JflJOgs4YwXBUisrQe5MRkvoaoREDgSqUZX6VvaCO+/qVDeT6SaQb0LkW4cRc3WHbXq9X2Tk7FT9p+0arICGK5+E+pQbP4qjqIU0MOsKWvOD8lV4S0B6W5IUPQ2Kuab3ugedr6RjykztMgm/XPyerBLRjW19mesi6pn1d4hr13ojgyCMC3JOkkmlLxz2N8ygjvoV7ANxgMXdNNIPvvbJG5C/sWKaIXdSAGfbEeIVDLCGE57QfEjPbOH9wmEjPiqcNOOKED7Ia2YnuSAnggpQJes8jWqMCydlotDuJ+dVsL2EhWRDeo7CPXucV7gawHgcVkLBmGVJxhD3uDDvP8ij6/aes85punOalJLq8Cw7euqWQgFpVUTeXItbxc4TocE0uZBlTf43Uc3LYbbrSCRHwxI7V6NpWkMLIhBJ7vRPvX6hZlhCjPfHJ8qZxPnNibh4xhwoMcocTC6Xwke4bQRhUT
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:zh-cn;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(38070700021)(56012099006)(6133799003)(10067099003)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?gb2312?B?dG9rZU9teE85RE5KOWVxZmxhUldNRFpTaXVPdTVNTzMxSGI1Y3UyOXd5VzRP?=
- =?gb2312?B?WUxLdlBSMlZwdW9qa0hjazVYT04wMlN2U3dFYmNoK1k0R1hXeHZ4b0Q3VEhV?=
- =?gb2312?B?NkNnZWpyRmhPTDNOWHZROWRtREQ2MDJpeUxlcjFiRzMwdTBZUkFmeG03VzBL?=
- =?gb2312?B?VmlvR05hVW1FQzE3Q2JXeGNGVmI5NGlDSFhxRjlZZVlIa0krL0FaZExCMlJQ?=
- =?gb2312?B?OFlQci9LcmorMTBHd2s1UnVHWm5EK1IwQzJjdFdESWxqZGJYNkgvK0IzVUow?=
- =?gb2312?B?K2ZiQ0RtL213Tk1abFB4aHdLNkpsMkFOc3NzOHlvSU9qMzlmeTZqSEMzY3VI?=
- =?gb2312?B?a0ovL0swRVkrVEROSEI5eDd3NzR0eE8ySkFiRWYyOGhRQzFKSlJhcEM1MFBx?=
- =?gb2312?B?ZTNiVHBMb0NZUDNoWkFheTJzakhGMGFoSjdLdGFzTnNZc0lhdGlDL2VkN3pS?=
- =?gb2312?B?VEFzazR6b2E0Y0d3V3NqOWpwSElva09ycWdsakx2QXVEYXdUTGJ1ekRXUlBM?=
- =?gb2312?B?bDNWLzV0QWMwVmNSbCtBK0l6bFUrcGJZQzI3eks3anAvV1NFa2djdmUvWDNO?=
- =?gb2312?B?a00yRW1memxjUGEraDcwNWt5dFJFdWFmZDZiTWVuamxtZmJucWdTMHYreUFB?=
- =?gb2312?B?Z2tHMndzNEFwbkJBSWg5V2ZjU3h0cHVOMHFxbVgrZmovM1lHdFoxSnFaR01m?=
- =?gb2312?B?ZERvWk9tSHEzb2JhblZqTW9xbC92NlNFS1A5WUJ1UkI4Ujlkc0V3cStMQnA4?=
- =?gb2312?B?cjF2eWxuKzQ3dkZVSldSbkRLUHFVQUhrZHB0ZGEwdzJoRGF1c1l1QjNManN5?=
- =?gb2312?B?NkhHMHduTVFaYXJIZUhmeG5qck5pY1U3UktHQ2ZjN2U0a3B3UTFOV1g4MGpR?=
- =?gb2312?B?SlgwWDhkQ2RMZVdRM2tUYk1tOW41REJNUm1Kb3BLRHdNcjl4ZWNnWUxsMTZ3?=
- =?gb2312?B?TnAwUHd4YWhlNU1MQ25BZ2xPN1phUHkraUlscTBqdzk0ZXRtWUltNjF5SHZl?=
- =?gb2312?B?RVpqWkROSytQSzllclNnUmdVMzNFN2pEY3ZKdU1XWU9SUVgxRUlrYjkrOU5j?=
- =?gb2312?B?UCtXODZ4ZUFyMG5sOC84dm1aemRjY2d4SCtxdlhGY0NuYlNQRUh2UWQ4c2lx?=
- =?gb2312?B?Ni9nTVBwRGNwdzFVbVpZREpyNzh3NU1iTmtBUEwrblZmS1FKcDl0b0s4YnlL?=
- =?gb2312?B?emduSEd4enhsbCswb2NqdG54bnc4SVFzdDFLMTNSc3RYRGdtSlBqNERlU3FH?=
- =?gb2312?B?VEgvcWt4aERWNG9tTHdtL3hscUJDMXVxdjVFKzRPZUZLTDMwOWlYZlhHcGhv?=
- =?gb2312?B?SDFTUWZUMkRUMlFpSnhrb0NnNTFwbG5Gbi8rcjBTWmdqa2dHdXp5dVEyMkNj?=
- =?gb2312?B?QkxaQ2lnN0pick9DSUlMUmd1bWxPSWFmQTZVRElsYzZ1TWd4MDJoOUsvWUYx?=
- =?gb2312?B?MmI1T0xYdGtyTnNEeTEzVThpdVRDWXh6U2dNVFhaSmpNZmNJY0ZEUjQwcHdO?=
- =?gb2312?B?SGlmQVJrcWxjMzB6Mlhvclovbm4vMmNwdnQ4RzZVQXNDSkcweUo0dm9LZWpS?=
- =?gb2312?B?TnNpNDNmL2s3YndDUElENlBDTlNMZDJGVHdtbFZEN3hhZ1RjZHZ3K1gzWFBC?=
- =?gb2312?B?UjhxUjRZZGhGcDVBZ3lkeUd0NFZ2VkZqbTZCQlp1THc0ZHF2c1V6RzhEQXVN?=
- =?gb2312?B?V0FDNWlPSVVsVHVlS0FPdWE3Q0RZU1VHR2xTRGRSYkExN3ZUUVo3dGhtWlZB?=
- =?gb2312?B?bnVhTEsydGcySERjc2tyZ0F2dmlMdjhwYVk4SmdNMnpTL3AwNXFYWkRsS2lZ?=
- =?gb2312?B?SGVpMTNUUkZ0TnNCUE1IM0RxdGtaamFKY01XcUk1aERkNnc1a2JqK1ZkMFZu?=
- =?gb2312?B?MFVnbWQrTGkzaUpYbitkeVExN0N0UkZSVEhQUEdNaHg0UTR5U1l0RmwvMDgx?=
- =?gb2312?B?QjZCZUNHQXZNNWdCS2JaRUdJV1hKWTJzZEUzQWZMU3VLbnVrZDNFZEpkYWhs?=
- =?gb2312?B?ZjZZR2FFR2xyLzQyby9wUWVCQjBJVWNCeG9tNVdWaFNaZWpiQmx3UGtCZHFa?=
- =?gb2312?B?U0xhWExhYUpCVEpLbFhTSnhFN1UvcHdtcjRaS0VVK3NFNGxiOVNyN0ZxcGxm?=
- =?gb2312?B?ZjZpVWNGMHg5YnlDYnJab3JNN1VDSHZEYjBtRnNuRGJVSitGUUM4Q3lEdHEx?=
- =?gb2312?B?VnMvdjQyNnhicWVOQWI5SWxHcmdzbzFtL25SV3pmSHNlRVBWU2Z3RUNUOE1L?=
- =?gb2312?B?Q3krQzhDeDdkQlFwcDc3bjJKTi9qdE5wVDhtSDhXeUF0SVJ1UFdQSlF3ZlRY?=
- =?gb2312?B?YkcweTVUTUhCSXpjeFdOMEFickhDVVNVVVBPWXFMVHhuQ1M1Z3BCTWR4MHB5?=
- =?gb2312?Q?OyiqXNt4b6tIkXCQ=3D?=
-Content-Type: text/plain; charset="gb2312"
-Content-Transfer-Encoding: base64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6A5C3603E0
+	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 06:42:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.134
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789886529; cv=none; b=N6/zujVEDwALBPCCWCTfSlDRvJfNNOT3N1IkEbumn/0tsCGh7FtSYimOLAvswO+Zz0aM+NIdXNy0gnKXno6pUVj76dX4CD6Pj9XJagW5VqWpraGeOLkbobdU4j9hgRxnISowGdhH1W9uD05jDG9hMrlkWdK1po20h/2P3ULCgBs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789886529; c=relaxed/simple;
+	bh=bKFyQFP+H9CKKJRClIaGqP/oH3xakPCq/Uh034txxHg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NiWLVDfyNx/G6zQEffbdprBYD7hfAGUjyX07ysyiEl2+nA0VUQcI/F2u8Aa3eEk3UvbP5X4bIGwosTjWTJCZDxvUfRv273NqhbevTqohOwM0Ib1Qcqo77NFHmNql7W5Qs0vgJuIh+IIJlheRQcSoJGwKhDYcGK8OOfsJs9rc5BM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mNpQXyCs; arc=none smtp.client-ip=74.125.231.134
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mNpQXyCs"
+Received: by mail-oo2-f6.google.com with SMTP id 006d021491bc7-6b1b8f5a1d5so870043eaf.1
+        for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 23:42:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789886526; x=1790491326; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kmH2de0kdW01Esae1dcXkd/FPy1YNazdkMTeV2gFsXY=;
+        b=mNpQXyCsfKZ+q0GPbYAp6+t6bwoIw/uGc0mECXK6WdVDxQGkg4NzvvlKWkVPNAz0py
+         a2C6b7Nt7XuzQQM01MyrH77sG0oGeUy/+ADMDbeUybzT7y4513IeIzA2KTxtqGA7dl8c
+         PBTG7KKe/SJMms8U59TEfHU0dyGaH2Dr2MIU9d4MJNn4kmz5EH9L6WHmvw8TgW4Z6ylz
+         MrF3npDCq0ay4gnij7JGDZUKLwDfKvNQs2sxBF0APl2lVkj7BGFi8uQC7/kwvz1B6IUM
+         1SMDMX+SwyJHikC3T72g6BZhN1Y9LoJM6ctu8APvA3eU+mGps/jozvmufd7QT6IbhOiC
+         B3YQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789886526; x=1790491326;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kmH2de0kdW01Esae1dcXkd/FPy1YNazdkMTeV2gFsXY=;
+        b=FJl0hYLyOyECdFMCGRRnNe4ZIwK+C+pqS/PoiDgw+/ZQbluqH0Br21vnMEBL6yN4+2
+         IYYGWN9Vbyj6A2d1FC5W7uDxMzbMseEGmcj1hGc9iZdA0KqvGco3Djlrj7iMQjKW8MUY
+         xfoYTWPgjgPiScFzogaSaPRF1iO2Mi8WA2l1aCjryQU0Ha9/j4vowXFqixnm2mt9ojwV
+         7Q1baFK38cAT89DUy9SmsdZAkUYtVwBQK64D2Gbom77Si3CqnIefrSLZX3L7z97RPjYS
+         X/IU3MolOp2aevL24PV1zMLfVORPnDCBOeWLnALYU2XoKYBeYiQcaVHll//EbFWlXhNA
+         dn5w==
+X-Forwarded-Encrypted: i=1; AKwUvBwoKaTHyF7C+55jAU99+amu6aGr5Zdgw7yINaWXNoST69bWbV7fkPRN9AKiIZ9SjV0+fQUTRkYlfZy0@vger.kernel.org
+X-Gm-Message-State: AFuF++md6EvP9oi5JQLOGW3XpSF6KbE0tTopU0OURoNGja3Kk0j5alBP
+	Z+EQVFRGPqvrHoaB+Y0vFj8dBxOQE8Tr2wxvM3wV21W2B3D/A/C0ga7F
+X-Gm-Gg: AYBFou10lf/WXLxt/lrj2sdtFKgWSWwAxhfBZrMoZk8vbGIZCgaZOgLq92aFa0Yh23i
+	AkrqtZ8DJppnY4BEek9GRm2baSiJEUwC3d6aAhDNHhCgzVvQwsgKroUckO8QT1BsxDRLZm+ej9s
+	YfHWPWRbpxd/DTy+K1jBYkJ9KsGgF7oM+BBZ0tRUgXrqTiogBX1/nyyzQc/4OW0a9/LrSIqKBCo
+	1bvuw7y8NJvHzzpbiFFlPsic9wapG3Q/SF3clbefc31EBA5KdJNQNIg8VOROhYbNUYop6hGZMu9
+	1a2hR4z057IjB5tYpovfrsjz0TQXpxKZd6Fg/zSkZVoiSvgnzh97lLLaGifYG7RhXT8/n2EKrNR
+	5btLfXMM6rAUPnFpHH2FgehAp3hD056L5G0gB+L8NW2IauQuZzIAOyv+vwu1tMX7Rk8TvjfW8Td
+	Zw5nSA3U0QaejsrnuMOG9XWSirUI/V+6WL/2TKDJ3YM2dV02t/6V8jkZRaA45BlpINb4tKgmJap
+	LdBlagwDAYje7U=
+X-Received: by 2002:a05:6820:1f04:b0:6bd:af9e:a802 with SMTP id 006d021491bc7-6ca9c94f259mr6638022eaf.57.1789886526512;
+        Sat, 19 Sep 2026 23:42:06 -0700 (PDT)
+Received: from ?IPV6:2600:8804:5716:d800::2620? ([2600:8804:5716:d800::2620])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-48820f30fe9sm4490104fac.4.2026.09.19.23.42.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 19 Sep 2026 23:42:05 -0700 (PDT)
+Message-ID: <fff86d6b-e4e6-4d90-8373-3ee32432807a@gmail.com>
+Date: Sun, 20 Sep 2026 01:42:02 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-Network-Message-Id: f5abe3a6-2848-4215-fd11-08df16df99dd
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Sep 2026 06:22:52.4681
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Irx3rEmKszItAQU/owangEJA4EARaSD3rWniABpi6JIICerR6Nrk33pXgqA4rgutDPgKk6e5Az/LCSlb0j2JZL//5iuxLiyj5kyyMx0hnXmPsUfdKSzKz8eKgsoF1xw5
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ0PR01MB1237
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: power: supply: battery: allow longer
+ ocv-capacity tables
+To: Henrik Grimler <henrik.grimler@axis.com>
+Cc: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260918-rbrue-suez-upstreaming-battery-ocv-table-128-v1-1-f477ef39ef0d@gmail.com>
+ <20260918082921.GA1515928@pc67698-2615.sto.se.axis.com>
+Content-Language: en-US
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+In-Reply-To: <20260918082921.GA1515928@pc67698-2615.sto.se.axis.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-DQoNCj4gLS0tLS3Tyrz+1K28/i0tLS0tDQo+ILeivP7IyzogSGVyYmVydCBYdSA8aGVyYmVydEBn
-b25kb3IuYXBhbmEub3JnLmF1Pg0KPiC3osvNyrG85DogMjAyNsTqOdTCMTjI1SAxMjo0Mg0KPiDK
-1bz+yMs6IExpYW5mZW5nIE91eWFuZyA8bGlhbmZlbmcub3V5YW5nQHN0YXJmaXZldGVjaC5jb20+
-DQo+ILOty806IE9saXZpYSBNYWNrYWxsIDxvbGl2aWFAc2VsZW5pYy5jb20+OyBSb2IgSGVycmlu
-ZyA8cm9iaEBrZXJuZWwub3JnPjsNCj4gS3J6eXN6dG9mIEtvemxvd3NraSA8a3J6aytkdEBrZXJu
-ZWwub3JnPjsgQ29ub3IgRG9vbGV5DQo+IDxjb25vcitkdEBrZXJuZWwub3JnPjsgUGhpbGlwcCBa
-YWJlbCA8cC56YWJlbEBwZW5ndXRyb25peC5kZT47DQo+IGxpbnV4LWNyeXB0b0B2Z2VyLmtlcm5l
-bC5vcmc7IGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnOw0KPiBsaW51eC1rZXJuZWxAdmdlci5r
-ZXJuZWwub3JnDQo+INb3zOI6IFJlOiBbUEFUQ0ggdjggMi8yXSBod3JuZzogc3RhcmZpdmU6IHJl
-d29yayBjbGsvcmVzZXQgdGVhcmRvd24gb3JkZXIgZm9yDQo+IEpIQjEwMA0KPiANCj4gT24gTW9u
-LCBTZXAgMDcsIDIwMjYgYXQgMTE6MTY6MDNBTSArMDgwMCwgbGlhbmZlbmcub3V5YW5nIHdyb3Rl
-Og0KPiA+IEZyb206IExpYW5mZW5nIE91eWFuZyA8bGlhbmZlbmcub3V5YW5nQHN0YXJmaXZldGVj
-aC5jb20+DQo+ID4NCj4gPiBSZXdvcmsgdGhlIFN0YXJGaXZlIFRSTkcgZHJpdmVyIHRvIGFkZHJl
-c3MgaGFyZHdhcmUtc3BlY2lmaWMgcmVxdWlyZW1lbnRzDQo+ID4gICBmb3IgSkhCMTAwIFNvQy4g
-VG8gYXZvaWQgcmVzZXQtZG9tYWluIGNyb3NzaW5nIGdsaXRjaGVzLCB0aGUgZHJpdmVyIG5vdw0K
-PiA+ICAgZW5zdXJlcyBjbG9ja3MgYXJlIGdhdGVkIGJlZm9yZSBhc3NlcnRpbmcgcmVzZXQgZHVy
-aW5nIHRlYXJkb3duIGZvcg0KPiA+ICAgSkhCMTAwLCB3aGlsZSBKSDcxMTAgcmV0YWlucyB0aGUg
-b3JpZ2luYWwgcmVzZXQtZmlyc3Qgc2VxdWVuY2UuDQo+ID4NCj4gPiBBZGQgcGVyLWNvbXBhdGli
-bGUgbWF0Y2ggZGF0YSAoc3RydWN0IHN0YXJmaXZlX3RybmdfZGF0YSkgZGVzY3JpYmluZyB0aGUN
-Cj4gPiAgIGNsb2NrL3Jlc2V0IHRlYXJkb3duIG9yZGVyLCBhIG5ldyAic3RhcmZpdmUsamhiMTAw
-LXRybmciIGNvbXBhdGlibGUsIGFuZA0KPiA+ICAgc2VsZWN0IHRoZSBvcmRlcmluZyBmcm9tIGl0
-Lg0KPiA+DQo+ID4gRml4IHRoZSBydW50aW1lLVBNIGdldC9wdXQgYmFsYW5jaW5nIGFjcm9zcyB0
-aGUgaW5pdC9yZWFkL3Jlc2VlZC9jbGVhbnVwDQo+ID4gICBwYXRocywgbWFuYWdlIFBNIGFuZCB0
-aGUgY2xrL3Jlc2V0IHRlYXJkb3duIHZpYSBkZXZtIHNvIGFsbCBlcnJvciBwYXRocw0KPiA+ICAg
-dW53aW5kIGNvcnJlY3RseSwgcnVuIHRoZSBTRVUtdHJpZ2dlcmVkIHJlc2VlZCBmcm9tIGEgd29y
-a3F1ZXVlIGluc3RlYWQNCj4gPiAgIG9mIGhhcmQgSVJRLCBhbmQgc2VyaWFsaXNlIHRoZSBjb21t
-YW5kIHNlcXVlbmNlcyB3aXRoIGEgbXV0ZXguDQo+ID4NCj4gPiBTaWduZWQtb2ZmLWJ5OiBMaWFu
-ZmVuZyBPdXlhbmcgPGxpYW5mZW5nLm91eWFuZ0BzdGFyZml2ZXRlY2guY29tPg0KPiA+IC0tLQ0K
-PiA+ICBNQUlOVEFJTkVSUyAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgIDIgKy0NCj4gPiAg
-ZHJpdmVycy9jaGFyL2h3X3JhbmRvbS9qaDcxMTAtdHJuZy5jIHwgMjk3DQo+ICsrKysrKysrKysr
-KysrKysrKysrKy0tLS0tLQ0KPiA+ICAyIGZpbGVzIGNoYW5nZWQsIDIzOSBpbnNlcnRpb25zKCsp
-LCA2MCBkZWxldGlvbnMoLSkNCj4gDQo+IFBsZWFzZSB0YWtlIGEgbG9vayBhdA0KPiANCj4gaHR0
-cHM6Ly9zYXNoaWtvLmRldi8jL3BhdGNoc2V0LzIwMjYwOTA3MDMxNjAzLjE4ODQ4My0xLWxpYW5m
-ZW5nLm91eWFuZyU0DQo+IDBzdGFyZml2ZXRlY2guY29tDQo+IA0KPiBUaGFua3MsDQoNClRoYW5r
-IHlvdSBmb3IgZm9sbG93aW5nIHVwLiBJIGFtIGN1cnJlbnRseSBtYWtpbmcgcmV2aXNpb25zIGJh
-c2VkIG9uIFNhc2hpa28ncyBzdWdnZXN0aW9ucy4NCg0KQmVzdCBSZWdhcmRzLA0KTGlhbmZlbmcg
-T3V5YW5nDQoNCj4gLS0NCj4gRW1haWw6IEhlcmJlcnQgWHUgPGhlcmJlcnRAZ29uZG9yLmFwYW5h
-Lm9yZy5hdT4NCj4gSG9tZSBQYWdlOiBodHRwOi8vZ29uZG9yLmFwYW5hLm9yZy5hdS9+aGVyYmVy
-dC8NCj4gUEdQIEtleTogaHR0cDovL2dvbmRvci5hcGFuYS5vcmcuYXUvfmhlcmJlcnQvcHVia2V5
-LnR4dA0K
+On 9/18/26 3:29 AM, Henrik Grimler wrote:
+> Hi Ryan,
+>
+> On Fri, Sep 18, 2026 at 12:36:31AM -0500, Ryan Brue wrote:
+>> ocv-capacity-table-N has been capped at 100 points since battery.txt was
+>> converted to YAML, where the limit arrived without a stated reason.
+>>
+>> The MT6397 fuel gauge is characterised per temperature by a table the
+>> Amazon Fire HD 10 (2017) vendor device tree carries with 126 points, of
+>> which 122 are expressible here - the remainder are greater than 100%
+>> discharged, so the binding excludes those points. Boards carrying this
+>> PMIC fuel gauge would need more than 100 points to describe the pack with
+>> the generic property. Raise the cap to 128.
+>>
+>> Assisted-by: LLM
+>> Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+>> ---
+>> No kernel change goes with this. power_supply_get_battery_info() sizes each
+>> ocv-capacity-table-N from the property itself -- it reads the length with
+>> fwnode_property_count_u32() and devm_kcalloc()s that many entries -- so
+>> maxItems in the binding is the only cap on points per table.
+>> POWER_SUPPLY_OCV_TEMP_MAX bounds the number of tables, not their length.
+>>
+>> The consumer that wants this is an MT6397 PMIC fuel gauge not yet posted;
+>> its pack is characterised at 126 points per temperature in the vendor's
+>> kernel (Amazon Fire OS, based on Linux 3.18), with 122 of those points
+>> being expressible with the generic property (the rest are greater than
+>> 100%).
+> Allowing for points > 100 % could make sense, but why would you need
+> 122 points up to 100 %? If the vendor kernel has several values at for
+> example 20 %, then a better solution is probably to take the average
+> of them.
+>
+> I think only reason to have multiple values for the same percentage
+> would be if hysterersis (see for example this open-access article [1]
+> for discussion about hysteresis) is taken into account, i.e. having
+> one table for charge direction, and one table for discharge direction,
+> but I don't think any driver uses multiple tables to handle something
+> like that.
+>
+> [1] https://doi.org/10.1038/s41598-019-51474-5
+>
+> Best regards,
+> Henrik Grimler
+Hi Henrik,
+Yeah, you're right. To be honest, I didn't think about that, and should 
+have.
+
+On why there's so many points: the vendor's table isn't indexed by 
+percentage at all. A row is a fixed 54 mAh step of charge - 
+step_of_qmax, which the meter converts to mAh directly - and the 
+percentage column is just that rounded, round(i * 54 * 100 / Qmax), 
+which fits every row of all five tables exactly. At 0.85% per row about 
+one in six repeats, so the duplicates carry nothing. I should also 
+correct the figures I sent: 126/122 is a different cell in the same 
+vendor file. This unit's tables are 120 points and none of the points 
+are above 100% in this one.
+
+I don't need to model the vendor one to one. I measured what dropping 
+resolution costs, and decimating to 100 points changes the capacity I 
+report by at most 1% - so it fits the binding as it stands, and the 
+justification I sent doesn't hold.
+
+The only thing I can see still being worth raising is 101 rather than 
+128. Capacity percent is capped at 100, and 0..100 inclusive is 101 
+values, so if I'm not mistaken no board can express 1% granularity today 
+if they have points at both 0 and 100. I'm not sure that's worth a patch 
+on its own, so I'm fine dropping this, or doing a v2 allowing 101 values.
+
+Best regards,
+Ryan Brue
