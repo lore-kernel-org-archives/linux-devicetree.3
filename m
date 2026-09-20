@@ -1,327 +1,334 @@
-Received: from mail-m128238.netease.com (mail-m128238.netease.com [103.209.128.238])
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2124.outbound.protection.partner.outlook.cn [139.219.146.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65FE8419FA6;
-	Sun, 20 Sep 2026 11:36:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.209.128.238
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789904203; cv=none; b=sg7VATZMtFeSfRGP1g8qxgB3Cyp5h8gIBtjGRuU6XzhHkkhv+WlSnu7/FbfFhXJ2q/1zGG6xWSQIVnnhyjKpNklXtuGAZi28QIBlyzX9G37Tbvwb7EDq7Dg6a+9AAa1DRrh9G4c8ioaufXuE1z2J9ADT47vzZyFJZdgZQeMqy5w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789904203; c=relaxed/simple;
-	bh=ziI41b7B4MvPrDxo+k+/KLU9IP4PspEkVL7npWGyaSc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=s+Z8Koz2nBfPAsumjhofIzfOjGgDsgQ5levsdIlQwXCfWxgUyk9WMgZXo3Grt22rnL2kYDkW0rQj2iBgf8W2x5uGSnik2i8JQPEsg0jh35YHqujyWG0dk588aw3U7HdilTwpKIK7duRPFXD4DzsQQEH5biorc31JCVg3vcqLTac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=QaYeJjLC; arc=none smtp.client-ip=103.209.128.238
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="QaYeJjLC"
-Received: from [172.16.12.74] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4e72f2e5d;
-	Sun, 20 Sep 2026 19:36:18 +0800 (GMT+08:00)
-Message-ID: <57f57f40-87ec-47a2-a8b9-cc8b1adc3b8f@rock-chips.com>
-Date: Sun, 20 Sep 2026 19:36:16 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 763CA3815E1;
+	Sun, 20 Sep 2026 12:01:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.124
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789905682; cv=fail; b=AxVwSKTO6rSFX3qdZ+1Ku+daNGQKVLBdpDqQbZxehd4CU8AyxZ7PfdeW1jxhXzEeRyucRN00NjsfL8q//y1tMUFNuimZiK0PGagfe8qWVR1IXt1sSlyy8YhfVu1geAYWf+B/mfn4szV42NQ7hZMq28jwm4ycQcLjHT4hZWZSpN8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789905682; c=relaxed/simple;
+	bh=hanDe1c2c3BlHoUIFkWE9cTxqCb7cZy4BwQfyAd92pg=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=VT/sR/9kl6hHEfAET85rDNZZseZ6vdsFP5vzZLijX8riT34gsimAXp8DVjZ75fbbhDDVmIhybZhhC6tiHXXtoPoTm7n83nP8auN+O14dTAU5DvlNKeKSwmHO/mCCrJFDq6+ldptAqZ1xAAd4GHoe69leFDUqZ+bIuxCuB0WlHVY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=LIsr6uoqjB3xnnhLpGvh2ZSDwjMniy3BtMNfEy0uYYNGsu3FgAypR6WKhCiRSQfi3MN/CQtQX3V1vm+yuWgdjipng3fcH6CXOZ59Y4R3q1bxkvpjRRY9YM8HwiPoOypQQVIy0c7sQs24SGwaCe3jqEm+n7hH5T1jSnCrQPPaSa6G8kosbYHPUqbYG+GJKZVhnvbApQ9zCsz12f9IS0NncOa0EAq593sVNcysaZE0vvA7EP7QOKxV+NwnRDo6wg80d2Pw4Ti1/NVQ5BZEpRgzK9kUnUbV5VW2kLr1/yWQgqWoxcFUhq1hyfm6dO+EB9jIvVJcP2jjLJr84SGDfjRAVg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=k3VI916n/13B114yV9jTzrZtVJU35fBJa2+1usjnR8Q=;
+ b=KwI4DnldsdDMtIhquwal6rZx2y0nlyWHz5n5S3Vs2x4/2gKcWj7Fzf3i4auk/yqvtbih+6Ht9OOoBCatmibXK85E7ky7dA+XP/RRIQSEd5gShUQN4WLVQAfLK1rKAJzOal2DTM6WbFB3iSjH6gC6yr+CaM04A4XsIBeWNIf/DDjAyjEAGeza2fUVOJ0QM5TEgLHCaxcP/Nqjq6ppkQCcotZLfikxMydE9o0bUEt42iB3z9/ymNdYvTqn0ypfTaPNRFK3Utn2+iQkGJ1KgtGxiGRQFYie95gCQQtFqMW6hJSC4JePBGXiDR3FPFh0v4JEqIM/QFnWmq93ir/Wy5hrtw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:11::9) by NT0PR01MB1040.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:d::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.15; Sun, 20 Sep
+ 2026 12:01:07 +0000
+Received: from NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn
+ ([fe80::1666:48e8:19e9:ad29]) by
+ NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn ([fe80::1666:48e8:19e9:ad29%4])
+ with mapi id 15.21.0428.014; Sun, 20 Sep 2026 12:01:07 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Michael Turquette <mturquette@baylibre.com>,
+	Brian Masney <bmasney@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Emil Renner Berthing <kernel@esmil.dk>,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A . R . Silva" <gustavoars@kernel.org>,
+	Richard Cochran <richardcochran@gmail.com>
+Cc: linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	linux-hardening@vger.kernel.org,
+	netdev@vger.kernel.org,
+	Hal Feng <hal.feng@starfivetech.com>,
+	Changhuang Liang <changhuang.liang@starfivetech.com>
+Subject: [PATCH v4 16/22] clk: starfive: Add StarFive JHB100 Peripheral-1 clock driver
+Date: Sun, 20 Sep 2026 05:00:38 -0700
+Message-Id: <20260920120044.194901-17-changhuang.liang@starfivetech.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260920120044.194901-1-changhuang.liang@starfivetech.com>
+References: <20260920120044.194901-1-changhuang.liang@starfivetech.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SHXPR01CA0025.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:1b::34) To NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:11::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 00/10] Add HPD support for Rockchip Analogix DP
-To: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Andy Yan <andy.yan@rock-chips.com>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org
-References: <20260804081717.741404-1-damon.ding@rock-chips.com>
- <5609825.iZASKD2KPV@diego>
- <29d483f3-2eb2-4886-a4fe-9b4b6d9d14f3@rock-chips.com>
- <7775230.ejJDZkT8p0@diego>
-Content-Language: en-US
-From: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <7775230.ejJDZkT8p0@diego>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0be9a4b1603a8kunma17d51969197c6
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDQhkfVkpKHR9JSUlMSRodSVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=QaYeJjLCc4XajREryUfFqAtNBIWn9Jb8ESbypl4sfBVl+JMwiqmovMf9LbFiY9YdTfh0FKfE9VKu3Xu3UhSxHC7B2kSHwtydFeVssV5BCxNEe7msZ9+wU59pyWIv/jRh/ZbafLMi7V/4nY7izMYZwmvj964QE4yoVLhH3tTwi0k=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=Zs3RsGuA4dUDbRO1KmwFvzwlH/DxEtLctC1ij8O7myE=;
-	h=date:mime-version:subject:message-id:from;
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: NT0PR01MB1216:EE_|NT0PR01MB1040:EE_
+X-MS-Office365-Filtering-Correlation-Id: 70b418ee-166a-4372-b281-08df170edac0
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|52116014|376014|7416014|23010399003|366016|1800799024|921020|38350700014|18002099003|22082099003|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	VTASDN/BtW1z5fOYeadbK2qBp0o8ff+gw1hMawoJXUfKBQo0V6JiGMjiE+n8SrKQ0PyL+uf+pq/He/A76ssf19a5Pa8tQ/MxHcqHXF/qOqXtbB//byG+6BsqpHZ7q5jlqdihu+hQdLG+qPL4Ch0/KbGXIgpt3kc86Xww6NQ9LShQ5Fx/JNZORiXsJ+WK98cMTM7SJwcfwOhCRdTm00gBHAwHANMx2MxlMCyKjO0ZOBxSZFg907VI+/DBWuXZEHmMj/DhAXl3U8JOTEfTV4fK/iKIYywBgVj/cWEpzGOKg3hxBlJswV64fNLJTsrnAZYBuEpPvBjowKcgOVRgU2QsABOdGhKbPdMNEGxjve2C+4NNsnhK9R9Tlc5Q2ccHozvs12fZxaY6/Z74P9/VoKBi3UhiG6ll9u0kaoahN1mrAjFIbiVrlS3gZurTLnb8ugXP8nD77cFMXtWmSLvyR9xVg0s6tvk76evrTd/+L4feloWbpqIWQIgOIKKzs+y/UaLQd5kjLp4mHM6RfRZSiYvK6RMyl7ziO8jubw94Blp+R9vWi2cwnifO2pdo9meamwXtB/6MW6BeWNfqVE3MSFFayA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(52116014)(376014)(7416014)(23010399003)(366016)(1800799024)(921020)(38350700014)(18002099003)(22082099003)(56012099006)(10067099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?Y7/1Szv48p3Je9xx3kvtWEI6xX3QkjjQ+UK6DlzL8QV14+3hxanuLJ8XsMGN?=
+ =?us-ascii?Q?z8fX0p0wTp3FFbCcqaLPM+C9uS/6iR48wB9kGCeSVQjINcryuib3pn8p/mFc?=
+ =?us-ascii?Q?SphiWgwofM07rsmwhB9WyVzLduLwqSlQAqbCkr9XNzOfEuWHAm/YdFXQiWEQ?=
+ =?us-ascii?Q?za/pgNp/N01bVhOutkZxIvUdJH9/e6bc56+27HD4/J81Ro9GwqA5ocLUe+YG?=
+ =?us-ascii?Q?x/XzB0UPFA1EDLv8Fxx0FfrmVhFmTE+HrpsJs7T+WWGTQscooN1Tj49mQlur?=
+ =?us-ascii?Q?HTKUUkOKZaAGzbP7nzI1qdVTDvM34y14kcUhiZ1I6PTHWaUX72xRix8DsPDz?=
+ =?us-ascii?Q?Kpuvx0z/X8YJUQrGhuT35ziu9VKSjuPa54DxGvt/GgWaJxkfArwf3Shf6TXR?=
+ =?us-ascii?Q?EKptJDWWTbJXgbVcqtVhXEzM5hkaqDh64MtkLRw7xQKXVDgADtnYKNxZts1D?=
+ =?us-ascii?Q?W+epyXxIoInWRJUf3QU29wUcfBpD0jWk/Mowhk+ArHQ95aJPNa2Q0GfMgp9S?=
+ =?us-ascii?Q?X+1bl0ThVOX3qlZCxInQjkaOOOij86GJP+QjwFKIHn9H6cB5AVVVMc8Tyc3Z?=
+ =?us-ascii?Q?/Mw51gOv+dOn2hjcqnh8p4tv3O4PO0TQZCUMvyXW6ZsWy7SmFqr+GxPsB1V+?=
+ =?us-ascii?Q?B2MssXYgC9Y3AyptymP0uW/pIOfBc58iKtYTszYl3/ld0tsZifGhM3Q95ZrB?=
+ =?us-ascii?Q?/ROZwDZfa9OIvMuWwJWStzC22EYZaROCpVQfUOe6ubBGrAOZynKRXMTf6djm?=
+ =?us-ascii?Q?sDE58yFSfPRR/J7RKTY5Tb4RCyQPhfP5GO/EBQ94vDSmweFRpnvCdmsQHypn?=
+ =?us-ascii?Q?stGMluKSGdBpBdt94IQex7R1EJTKYaut6pXfmNvcstYsn9HcYSQuNvX7DQEr?=
+ =?us-ascii?Q?9exkWC5Sm2/LouHD0AGppUd0dTMXrSNl0G1mENVuExKwy77XcmNuMZOipQlW?=
+ =?us-ascii?Q?KBYvJuz1Oa8ja0Rs9MyjGsTxhMJOfIicw/GcnXPPGqgtqKrANLsER245MyYp?=
+ =?us-ascii?Q?9YVLR3CV/hqVOQF7yglTDfpqYTjluw7ga3+8Y6jseuFPc55oqfYnzynAU13y?=
+ =?us-ascii?Q?D5vn/mCkl1Rjns1sM6RvXDbIO2k877KOY27dK/x/OCfeejyYE0zLd3j5+8b9?=
+ =?us-ascii?Q?ZQMtOmXxMiGeNtWnE0ixCOd2T2U6HanQcq1mYJjsy/n3acAev5WdYnorf+2A?=
+ =?us-ascii?Q?JrQkdGtHCJeOTq51NpVjaAeFiB5fo6Y/P+whlCeH/PCgrnSCGypptWsQg/e+?=
+ =?us-ascii?Q?duf5BysQ7gW22CWMaa226pzBc5qSzYpP61mQgZxXjK9akdSOYKat4AAUpgtG?=
+ =?us-ascii?Q?jVWArPc2bGXX1M7yPWSeBqoPgC4JpNdcImyahR3uZTuJYZ/NxjxzRQHU7JZI?=
+ =?us-ascii?Q?kaYlNDC4qb21ptztRVRf7B+fcPyQKgJDL4Ml68dw8aw5u4BO0lZSge+4GgdE?=
+ =?us-ascii?Q?/xwvZCEZgkt/gzESsHDqcGiLnx5W9y+ffJHpibvI1ZsrPkUWyNtv1dTZz+Pm?=
+ =?us-ascii?Q?i9NiD4dakNHFpY6HEtUqmSKsIJHQQpQNCeNGBCoySwY24EnBpabWG+e6Apkw?=
+ =?us-ascii?Q?yhWqSUOyeH3zehNb3ubQXaEyEnPzuhaY90lxbNWg9zWAxP42v9Gd5zW7pAt1?=
+ =?us-ascii?Q?YcSjJDrMk+sVR5oIcXbiLNZ7Gz47QcvLVjllmQZ3SVu8Jpgq2z3wZiXluCqs?=
+ =?us-ascii?Q?VKvhgMxO5vZ150w2Lf+l3/DLXKDpsM4kvo+KFHj8hgPCmilB4ZtdSTMTAFbh?=
+ =?us-ascii?Q?tFeLA8QNbYmp/4Xo4sH24ZBBqKLvuSBNFjVC0kaqpGx3fl5Nyu26?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 70b418ee-166a-4372-b281-08df170edac0
+X-MS-Exchange-CrossTenant-AuthSource: NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2026 12:01:07.7736
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: FQwO1WsDaOEd2h7fhB7jbBJs3wYaXZBgU+bt1x0O8GbLw6V+6PjV9hNGFsO57VwcvTyy9LWX/sKn1bhCEY4OJdQ30+1BTIaetZWtnaWPsAYkGBtIxflrsPZfUJrf+U8T
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: NT0PR01MB1040
 
-Hi Heiko,
+Add driver for the StarFive JHB100 Peripheral-1 clock controller.
 
-On 8/6/2026 7:42 AM, Heiko Stübner wrote:
-> Am Mittwoch, 5. August 2026, 06:06:48 Mitteleuropäische Sommerzeit schrieb Damon Ding:
->> Hi Heiko,
->>
->> On 8/5/2026 6:39 AM, Heiko Stübner wrote:
->>> Hi Damon,
->>>
->>> Am Dienstag, 4. August 2026, 10:17:07 Mitteleuropäische Sommerzeit schrieb Damon Ding:
->>>> Display-connector mode (DP connector without HPD GPIO):
->>>>
->>>>     &edp_out_conn {
->>>>         remote-endpoint = <&dp_con_in>;
->>>>     };
->>>>
->>>>     dp-con {
->>>>         compatible = "dp-connector";
->>>>         label = "DP OUT";
->>>>         type = "full-size";
->>>>
->>>>         port {
->>>>             dp_con_in: endpoint {
->>>>                 remote-endpoint = <&edp_out_conn>;
->>>>             };
->>>>         };
->>>>     };
->>>>
->>>> Display-connector mode (DP connector with HPD GPIO):
->>>>
->>>>     dp-con {
->>>>         compatible = "dp-connector";
->>>>         label = "DP OUT";
->>>>         type = "full-size";
->>>>         pinctrl-0 = <&edp0_hpd>;
->>>>         pinctrl-names = "default";
->>>>         hpd-gpios = <&gpio4 RK_PC1 GPIO_ACTIVE_HIGH>;
->>>>
->>>>         port {
->>>>             dp_con_in: endpoint {
->>>>                 remote-endpoint = <&edp_out_conn>;
->>>>             };
->>>>         };
->>>>     };
->>>>
->>>> All four configurations detect cable plug/unplug events correctly.
->>
->> Thanks a lot for your testing and feedback. :-)
->>
->> It seems my test setup gave me the false impression that those cases
->> worked well.
->>
->>>
->>> hmm, it wasn't working entirely for me though and was still running into
->>> issues when the display was unplugged on boot.
->>>
->>
->> Are you seeing this boot‑unplug issue for both scenarios: DP‑connector
->> with HPD‑gpio paired with eDP without HPD‑gpio, and DP‑connector without
->> HPD‑gpio paired with eDP with HPD‑gpio? I.e. it wrongly reports
->> connected even with no display plugged in and proceeds into DRM
->> .atomic_enable()?
-> 
-> Yep it's different. The analogix-dp gpio-hpd works correctly,  because the
-> analogix driver can do gpiod_get_value() in analogix_dp_get_plug_in_status()
-> 
-> The dp-connector does not, as with the patch you pointed to, it lost
-> that ability. So on boot a plugged in display is not detected correctly
-> because there won't be a hotplug interrupt.
-> 
->>
->>> I wiggled around a bit like in the diff below and am now getting correct
->>> plug and unplug events.
->>
->> Oh, I see. For the GPIO HPD case, the IRQ needs to be enabled early so
->> that plug‑in interrupts can be properly responded to. However GPIO HPD
->> does not require a runtime PM get. I will better separate these two
->> scenarios in the next version.
->>
->>>
->>> But of course, as the dp-variant of the connector does not provide
->>> a "detect" and just the "hpd" functionality, it's missing the initial state.
->>>
->>> I'm currently not sure how to find out _if_ a panel is connected on boot.
->>>
->>
->> Based on Dmitry's commit cb640b2ca546 ("drm/bridge: display‑connector:
->> don't set OP_DETECT for DisplayPorts"), HPD events from DP‑variant
->> connector should be handled by the upstream DP controller. Hence I added
->> analogix_dp_bridge_notify() to retrieve HPD status coming from downstream.
->>
->> As expected, under the bridge‑connector framework, the detect result
->> from Analogix DP should in theory reflect the actual connection status.
->> Let's dig into this boot‑time initial‑state issue together.
-> 
-> One idea I had was, is it possible to do a drm_dp_read_dpcd_caps()
-> read during bind/... to see if something answers?
-> 
+Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+---
+ drivers/clk/starfive/Kconfig                  |  11 ++
+ drivers/clk/starfive/Makefile                 |   1 +
+ .../clk/starfive/clk-starfive-jhb100-per1.c   | 149 ++++++++++++++++++
+ 3 files changed, 161 insertions(+)
+ create mode 100644 drivers/clk/starfive/clk-starfive-jhb100-per1.c
 
-Sorry for the long delay to get back to this series. I was stuck on some 
-tricky local issues.
-
-I'll test your suggestion and try to send out v3 within next week.
-
-Best regards,
-Damon
-
-> 
->>> In other review comments:
->>> - the bridge could use devm_drm_of_get_bridge() as suggested in
->>>     the documentation of drm_of_find_panel_or_bridge(), as that would
->>>     remove the separate panel_bridge creation
->>> - instead of using plat_data->next_bridge _inside_ the driver
->>>     struct drm_bridge has a field next_bridge already.
->>
->> Great suggestions, I will incorporate them for the next version
->> alongside Sashiko's comments.
->>
->> Best regards,
->> Damon
->>
->>>
->>>
->>> Heiko
->>>
->>>
->>> ------- 8< -------
->>> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
->>> index 877e1b3ca7525..1388640a27de7 100644
->>> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
->>> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
->>> @@ -43,7 +43,7 @@ static const bool verify_fast_training;
->>>    static bool analogix_dp_require_pm_for_hpd_irq(struct analogix_dp_device *dp)
->>>    {
->>>    	return analogix_dp_is_rockchip(dp->plat_data->dev_type) && !dp->hpd_gpiod &&
->>> -	       !dp->force_hpd;
->>> +	       !dp->hpd_bridge && !dp->force_hpd;
->>>    }
->>>    
->>>    static void analogix_dp_init_dp(struct analogix_dp_device *dp)
->>> @@ -72,7 +72,7 @@ static int analogix_dp_detect_hpd(struct analogix_dp_device *dp)
->>>    	 * Trust connection status from downstream bridge (e.g.,
->>>    	 * display-connector with hpd-gpios).
->>>    	 */
->>> -	if (dp->plat_data->next_bridge && dp->connection_notified)
->>> +	if (dp->hpd_bridge && dp->connection_notified)
->>>    		return 0;
->>>    
->>>    	while (timeout_loop < DP_TIMEOUT_LOOP_COUNT) {
->>> @@ -926,10 +926,10 @@ analogix_dp_bridge_detect(struct drm_bridge *bridge, struct drm_connector *conne
->>>    	 */
->>>    	if (dp->plat_data->next_bridge && dp->last_bridge_is_panel)
->>>    		status = connector_status_connected;
->>> -
->>> -	if (!analogix_dp_detect_hpd(dp))
->>> +	else if (!analogix_dp_detect_hpd(dp))
->>>    		status = connector_status_connected;
->>>    
->>> +printk("---> %s status %d\n", __func__, status);
->>>    	return status;
->>>    }
->>>    
->>> @@ -1044,7 +1044,7 @@ static int analogix_dp_set_bridge(struct analogix_dp_device *dp)
->>>    		goto out_dp_init;
->>>    	}
->>>    
->>> -	if (!analogix_dp_require_pm_for_hpd_irq(dp))
->>> +	if (!analogix_dp_require_pm_for_hpd_irq(dp) && !dp->hpd_bridge)
->>>    		enable_irq(dp->irq);
->>>    	return 0;
->>>    
->>> @@ -1187,7 +1187,7 @@ static void analogix_dp_bridge_disable(struct drm_bridge *bridge)
->>>    	if (dp->dpms_mode != DRM_MODE_DPMS_ON)
->>>    		return;
->>>    
->>> -	if (!analogix_dp_require_pm_for_hpd_irq(dp))
->>> +	if (!analogix_dp_require_pm_for_hpd_irq(dp) && !dp->hpd_bridge)
->>>    		disable_irq(dp->irq);
->>>    
->>>    	analogix_dp_set_analog_power_down(dp, POWER_ALL, 1);
->>> @@ -1264,6 +1264,7 @@ static void analogix_dp_bridge_notify(struct drm_bridge *bridge, struct drm_conn
->>>    	struct analogix_dp_device *dp = to_dp(bridge);
->>>    
->>>    	dp->connection_notified = (status == connector_status_connected);
->>> +printk("---> %s connection_notified %d\n", __func__, dp->connection_notified);
->>>    }
->>>    
->>>    static const struct drm_bridge_funcs analogix_dp_bridge_funcs = {
->>> @@ -1641,6 +1642,13 @@ static int analogix_dp_aux_done_probing(struct drm_dp_aux *aux)
->>>    	if (ret && ret != -ENODEV)
->>>    		return ret;
->>>    
->>> +	/*
->>> +	 * There is a next link in the chain which is not a panel, we should
->>> +	 * expect hotplug-information coming from there.
->>> +	 */
->>> +	if (plat_data->next_bridge && !drm_bridge_is_panel(plat_data->next_bridge))
->>> +		dp->hpd_bridge = true;
->>> +
->>>    	return component_add(dp->dev, plat_data->ops);
->>>    }
->>>    
->>> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
->>> index d0fb25e543ea0..ecca3b87b4456 100644
->>> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
->>> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
->>> @@ -169,6 +169,7 @@ struct analogix_dp_device {
->>>    	bool			fast_train_enable;
->>>    	bool			psr_supported;
->>>    	bool			last_bridge_is_panel;
->>> +	bool			hpd_bridge;
->>>    	bool			connection_notified;
->>>    
->>>    	u8 dpcd[DP_RECEIVER_CAP_SIZE];
->>> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
->>> index ec5950066f838..6f0d642739ffd 100644
->>> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
->>> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
->>> @@ -182,7 +182,7 @@ void analogix_dp_config_interrupt(struct analogix_dp_device *dp)
->>>    	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_2);
->>>    	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_3);
->>>    
->>> -	if (dp->hpd_gpiod) {
->>> +	if (dp->hpd_gpiod || dp->hpd_bridge) {
->>>    		analogix_dp_mute_hpd_interrupt(dp, HPD_IRQ);
->>>    	} else {
->>>    		/*
->>> @@ -438,7 +438,7 @@ void analogix_dp_init_hpd(struct analogix_dp_device *dp)
->>>    {
->>>    	u32 reg;
->>>    
->>> -	if (dp->hpd_gpiod)
->>> +	if (dp->hpd_gpiod || dp->hpd_bridge)
->>>    		return;
->>>    
->>>    	analogix_dp_clear_hotplug_interrupts(dp, HPD_IRQ);
->>> @@ -539,6 +539,9 @@ int analogix_dp_get_plug_in_status(struct analogix_dp_device *dp)
->>>    	if (dp->hpd_gpiod) {
->>>    		if (gpiod_get_value(dp->hpd_gpiod))
->>>    			return 0;
->>> +	} else if (dp->hpd_bridge) {
->>> +		if (dp->connection_notified)
->>> +			return 0;
->>>    	} else {
->>>    		reg = readl(dp->reg_base + ANALOGIX_DP_SYS_CTL_3);
->>>    		if (reg & HPD_STATUS)
->>>
->>>
->>>
->>>
->>>
->>
->>
-> 
-> 
-> 
-> 
-> 
-> 
+diff --git a/drivers/clk/starfive/Kconfig b/drivers/clk/starfive/Kconfig
+index 8fff853f0c44..8a427e958659 100644
+--- a/drivers/clk/starfive/Kconfig
++++ b/drivers/clk/starfive/Kconfig
+@@ -84,6 +84,17 @@ config CLK_STARFIVE_JHB100_PER0
+ 	  Say yes here to support the peripheral-0 clock controller
+ 	  on the StarFive JHB100 SoC.
+ 
++config CLK_STARFIVE_JHB100_PER1
++	bool "StarFive JHB100 peripheral-1 clock support"
++	depends on ARCH_STARFIVE || COMPILE_TEST
++	select AUXILIARY_BUS
++	select CLK_STARFIVE_COMMON
++	select RESET_STARFIVE_JHB100 if RESET_CONTROLLER
++	default ARCH_STARFIVE
++	help
++	  Say yes here to support the peripheral-1 clock controller
++	  on the StarFive JHB100 SoC.
++
+ config CLK_STARFIVE_JHB100_SYS0
+ 	bool "StarFive JHB100 system-0 clock support"
+ 	depends on ARCH_STARFIVE || COMPILE_TEST
+diff --git a/drivers/clk/starfive/Makefile b/drivers/clk/starfive/Makefile
+index 2f605d0fd6da..51511086a727 100644
+--- a/drivers/clk/starfive/Makefile
++++ b/drivers/clk/starfive/Makefile
+@@ -12,6 +12,7 @@ obj-$(CONFIG_CLK_STARFIVE_JH7110_ISP)	+= clk-starfive-jh7110-isp.o
+ obj-$(CONFIG_CLK_STARFIVE_JH7110_VOUT)	+= clk-starfive-jh7110-vout.o
+ 
+ obj-$(CONFIG_CLK_STARFIVE_JHB100_PER0)		+= clk-starfive-jhb100-per0.o
++obj-$(CONFIG_CLK_STARFIVE_JHB100_PER1)		+= clk-starfive-jhb100-per1.o
+ obj-$(CONFIG_CLK_STARFIVE_JHB100_SYS0)		+= clk-starfive-jhb100-sys0.o
+ obj-$(CONFIG_CLK_STARFIVE_JHB100_SYS1)		+= clk-starfive-jhb100-sys1.o
+ obj-$(CONFIG_CLK_STARFIVE_JHB100_SYS2)		+= clk-starfive-jhb100-sys2.o
+diff --git a/drivers/clk/starfive/clk-starfive-jhb100-per1.c b/drivers/clk/starfive/clk-starfive-jhb100-per1.c
+new file mode 100644
+index 000000000000..656b17e538d6
+--- /dev/null
++++ b/drivers/clk/starfive/clk-starfive-jhb100-per1.c
+@@ -0,0 +1,149 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * StarFive JHB100 Peripheral-1 Clock Driver
++ *
++ * Copyright (C) 2024 StarFive Technology Co., Ltd.
++ *
++ * Author: Changhuang Liang <changhuang.liang@starfivetech.com>
++ *
++ */
++
++#include <dt-bindings/clock/starfive,jhb100-crg.h>
++#include <linux/platform_device.h>
++
++#include "clk-starfive-common.h"
++
++#define JHB100_PER1CLK_NUM_CLKS			(JHB100_PER1CLK_MAIN_ICG_EN_UFS + 1)
++
++/* external clocks */
++#define JHB100_PER1CLK_PLL7			(JHB100_PER1CLK_NUM_CLKS + 0)
++#define JHB100_PER1CLK_NCNOC_INIT		(JHB100_PER1CLK_NUM_CLKS + 1)
++#define JHB100_PER1CLK_CFG_800			(JHB100_PER1CLK_NUM_CLKS + 2)
++#define JHB100_PER1CLK_NCNOC_TARG		(JHB100_PER1CLK_NUM_CLKS + 3)
++#define JHB100_PER1CLK_CFG_143			(JHB100_PER1CLK_NUM_CLKS + 4)
++
++static const char * const jhb100_per1_ext_clk[] = {
++	"pll7",
++	"ncnoc_init",
++	"cfg_800",
++	"ncnoc_targ",
++	"cfg_143",
++};
++
++static const struct starfive_clk_data jhb100_per1crg_clk_data[] = {
++	STARFIVE__DIV(JHB100_PER1CLK_100, "per1_100", 8, JHB100_PER1CLK_NCNOC_INIT),
++	STARFIVE__DIV(JHB100_PER1CLK_1, "per1_1", 100, JHB100_PER1CLK_100),
++	STARFIVE__DIV(JHB100_PER1CLK_200_DIVN0, "200_divn0", 256,
++		      JHB100_PER1CLK_CFG_800),
++	STARFIVE__DIV(JHB100_PER1CLK_200_DIVN1, "200_divn1", 256,
++		      JHB100_PER1CLK_CFG_800),
++	STARFIVE__DIV(JHB100_PER1CLK_200_DIVN2, "200_divn2", 256,
++		      JHB100_PER1CLK_CFG_800),
++	STARFIVE__DIV(JHB100_PER1CLK_200_DIVN3, "200_divn3", 256,
++		      JHB100_PER1CLK_CFG_800),
++	STARFIVE__DIV(JHB100_PER1CLK_200_CCLK_DIV, "200_cclk_div", 2046,
++		      JHB100_PER1CLK_NCNOC_TARG),
++	STARFIVE_GATE(JHB100_PER1CLK_SGPIO0_PCLK, "sgpio0_pclk", CLK_IGNORE_UNUSED,
++		      JHB100_PER1CLK_100),
++	STARFIVE_GATE(JHB100_PER1CLK_SGPIO0_DCLK, "sgpio0_dclk", CLK_IGNORE_UNUSED,
++		      JHB100_PER1CLK_100),
++	STARFIVE_GATE(JHB100_PER1CLK_SGPIO1_PCLK, "sgpio1_pclk", CLK_IGNORE_UNUSED,
++		      JHB100_PER1CLK_100),
++	STARFIVE_GATE(JHB100_PER1CLK_SGPIO1_DCLK, "sgpio1_dclk", CLK_IGNORE_UNUSED,
++		      JHB100_PER1CLK_100),
++	STARFIVE_GATE(JHB100_PER1CLK_EMMC0_BCLK, "emmc0_bclk", CLK_IGNORE_UNUSED,
++		      JHB100_PER1CLK_NCNOC_TARG),
++	STARFIVE_GATE(JHB100_PER1CLK_EMMC0_CCLK, "emmc0_cclk", 0,
++		      JHB100_PER1CLK_NCNOC_TARG),
++	STARFIVE_GATE(JHB100_PER1CLK_DMAC1_1CH_CORE, "dmac1_1ch_core", 0,
++		      JHB100_PER1CLK_NCNOC_TARG),
++	STARFIVE_GATE(JHB100_PER1CLK_DMAC1_1CH_ACLK, "dmac1_1ch_aclk", 0,
++		      JHB100_PER1CLK_NCNOC_TARG),
++	STARFIVE_GATE(JHB100_PER1CLK_DMAC2_1CH_CORE, "dmac2_1ch_core", 0,
++		      JHB100_PER1CLK_NCNOC_TARG),
++	STARFIVE_GATE(JHB100_PER1CLK_DMAC2_1CH_ACLK, "dmac2_1ch_aclk", 0,
++		      JHB100_PER1CLK_NCNOC_TARG),
++	STARFIVE_GATE(JHB100_PER1CLK_DMAC3_1CH_CORE, "dmac3_1ch_core", 0,
++		      JHB100_PER1CLK_NCNOC_TARG),
++	STARFIVE_GATE(JHB100_PER1CLK_DMAC3_1CH_ACLK, "dmac3_1ch_aclk", 0,
++		      JHB100_PER1CLK_NCNOC_TARG),
++	STARFIVE_GATE(JHB100_PER1CLK_DMAC0_2CH_CORE, "dmac0_2ch_core", 0,
++		      JHB100_PER1CLK_NCNOC_TARG),
++	STARFIVE_GATE(JHB100_PER1CLK_DMAC0_2CH_ACLK, "dmac0_2ch_aclk", 0,
++		      JHB100_PER1CLK_NCNOC_TARG),
++	STARFIVE__DIV(JHB100_PER1CLK_UFS_REF, "ufs_ref", 75,
++		      JHB100_PER1CLK_PLL7),
++	STARFIVE__DIV(JHB100_PER1CLK_UFS_300, "ufs_300", 2,
++		      JHB100_PER1CLK_NCNOC_INIT),
++	STARFIVE__DIV(JHB100_PER1CLK_UFS_150, "ufs_150", 12,
++		      JHB100_PER1CLK_NCNOC_INIT),
++	STARFIVE__DIV(JHB100_PER1CLK_UFS_400, "ufs_400", 2,
++		      JHB100_PER1CLK_CFG_800),
++	STARFIVE__DIV(JHB100_PER1CLK_UFS_75, "ufs_75", 2,
++		      JHB100_PER1CLK_UFS_150),
++	STARFIVE__DIV(JHB100_PER1CLK_UFS_37_5, "ufs_37_5", 2,
++		      JHB100_PER1CLK_UFS_75),
++	STARFIVE__DIV(JHB100_PER1CLK_UFS_7_5, "ufs_7_5", 10,
++		      JHB100_PER1CLK_UFS_75),
++	STARFIVE__DIV(JHB100_PER1CLK_UFS_1_875, "ufs_1_875", 4,
++		      JHB100_PER1CLK_UFS_7_5),
++	STARFIVE__DIV(JHB100_PER1CLK_UFS_7_143, "ufs_7_143", 20,
++		      JHB100_PER1CLK_CFG_143),
++	STARFIVE__DIV(JHB100_PER1CLK_UFS_3_5715, "ufs_3_5715", 2,
++		      JHB100_PER1CLK_UFS_7_143),
++	STARFIVE_GATE(JHB100_PER1CLK_MAIN_ICG_EN_SFC0, "main_icg_en_sfc0", CLK_IS_CRITICAL,
++		      JHB100_PER1CLK_NCNOC_TARG),
++	STARFIVE_GATE(JHB100_PER1CLK_MAIN_ICG_EN_SFC1, "main_icg_en_sfc1", CLK_IS_CRITICAL,
++		      JHB100_PER1CLK_NCNOC_TARG),
++	STARFIVE_GATE(JHB100_PER1CLK_MAIN_ICG_EN_SFC2, "main_icg_en_sfc2", CLK_IS_CRITICAL,
++		      JHB100_PER1CLK_NCNOC_TARG),
++	STARFIVE_GATE(JHB100_PER1CLK_MAIN_ICG_EN_SPI0, "main_icg_en_spi0", 0,
++		      JHB100_PER1CLK_NCNOC_TARG),
++	STARFIVE_GATE(JHB100_PER1CLK_MAIN_ICG_EN_EMMC0, "main_icg_en_emmc0", 0,
++		      JHB100_PER1CLK_NCNOC_TARG),
++	STARFIVE_GATE(JHB100_PER1CLK_MAIN_ICG_EN_SGPIO0, "main_icg_en_sgpio0", 0,
++		      JHB100_PER1CLK_100),
++	STARFIVE_GATE(JHB100_PER1CLK_MAIN_ICG_EN_SGPIO1, "main_icg_en_sgpio1", 0,
++		      JHB100_PER1CLK_100),
++	STARFIVE_GATE(JHB100_PER1CLK_MAIN_ICG_EN_SENSORS_PERIPH1, "main_icg_en_sensors_periph1", 0,
++		      JHB100_PER1CLK_100),
++	STARFIVE_GATE(JHB100_PER1CLK_MAIN_ICG_EN_DMAC_SFC0, "main_icg_en_dmac_sfc0",
++		      CLK_IS_CRITICAL, JHB100_PER1CLK_NCNOC_TARG),
++	STARFIVE_GATE(JHB100_PER1CLK_MAIN_ICG_EN_DMAC_SFC1, "main_icg_en_dmac_sfc1",
++		      CLK_IS_CRITICAL, JHB100_PER1CLK_NCNOC_TARG),
++	STARFIVE_GATE(JHB100_PER1CLK_MAIN_ICG_EN_DMAC_SFC2, "main_icg_en_dmac_sfc2",
++		      CLK_IS_CRITICAL, JHB100_PER1CLK_NCNOC_TARG),
++	STARFIVE_GATE(JHB100_PER1CLK_MAIN_ICG_EN_DMAC_SPI0, "main_icg_en_dmac_spi0",
++		      CLK_IS_CRITICAL, JHB100_PER1CLK_NCNOC_TARG),
++	STARFIVE_GATE(JHB100_PER1CLK_MAIN_ICG_EN_RAS, "main_icg_en_ras", 0,
++		      JHB100_PER1CLK_100),
++	STARFIVE_GATE(JHB100_PER1CLK_MAIN_ICG_EN_UFS, "main_icg_en_ufs", 0,
++		      JHB100_PER1CLK_100),
++};
++
++static const struct starfive_crg_domain_info jhb100_per1crg_info = {
++	.clk_data	= jhb100_per1crg_clk_data,
++	.num_clk	= ARRAY_SIZE(jhb100_per1crg_clk_data),
++	.ext_clk	= jhb100_per1_ext_clk,
++	.num_ext_clk	= ARRAY_SIZE(jhb100_per1_ext_clk),
++	.rst_name	= "jhb100-r-per1",
++	.power_domain	= false,
++};
++
++static const struct of_device_id jhb100_per1crg_match[] = {
++	{
++		.compatible = "starfive,jhb100-per1crg",
++		.data = &jhb100_per1crg_info,
++	},
++	{ /* sentinel */ }
++};
++
++static struct platform_driver jhb100_per1crg_driver = {
++	.probe = starfive_crg_probe,
++	.driver = {
++		.name = "clk-starfive-jhb100-per1",
++		.of_match_table = jhb100_per1crg_match,
++		.suppress_bind_attrs = true,
++	},
++};
++builtin_platform_driver(jhb100_per1crg_driver);
+-- 
+2.25.1
 
