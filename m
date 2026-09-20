@@ -1,91 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAF513ED5CD;
-	Sun, 20 Sep 2026 18:27:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BDE63D3D11;
+	Sun, 20 Sep 2026 18:39:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789928852; cv=none; b=OF/Vzl4QzxbipoMRs4lGhtzlUUDfRkQhWKJlik24suwcpYuvuVUZMbl9fN7IUZnubWg7PyAeTYQAVHXjpdO1/w5mUboBHT0XTk7E5TbpgzGr4ZgH1SmPdV0LiDMcOwgle3hHa/WLIGQNL2x5eAKDvO5p7febcWNV/70qE79bUqM=
+	t=1789929590; cv=none; b=F9s5OmOwfs5ZBiXas2tGezgBSLx4iPdr9wb+h6RGBLydGse887h1yOskLBbuVtjm69TQTBENfTb5ZERGofg0X4F2i7X34eFG7i8ZJ6IUyCD0LUCPzUC/mlEQDUQCnlMcRHsXzSyglMb/KGVqjkAc5GofDoJ6wiP8+AzzkxtFCG8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789928852; c=relaxed/simple;
-	bh=+39zWbxJTbIdcWHYEiYa7GfUhZ7/jv321vABY412XGM=;
+	s=arc-20240116; t=1789929590; c=relaxed/simple;
+	bh=XsddRJKzdkiZUyWrpHpYyW361f4IBlV6GQp+muynYOg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oCvl4kjb8X1H7STDJY+VnEjJXUcLE9nXJxtMSAPbaXMTTFWedmfsXKdNV8lom5VBtcwnH0/j59WmrDX8hkyTk6Na9b0xCOpCWgEaleVENpgCeTd30kQs3P8nKIBPX382YWTJ2UgYvtitq3T/22XxpK0CmK64DnCZE3ioxkROcOg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kw1X5ljY; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=N5zMsuffSTo3voBoa8CpAraVvTc8qweXt3ObHjhAaLhfPblBYKXU7H2W9WHJO4hV6gzykm4+sTsv/Xitl4PBlaui2KgVW89nbN7heJrba6eL4efv6+KGA8g3NdW17BmBISCUIrcoPrLnRtzlKq6xTNemKdVy1S2FZZ43ktJJZBI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=nzvzsbyS; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kw1X5ljY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7F1B1F000FF;
-	Sun, 20 Sep 2026 18:27:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789928850;
-	bh=o5p4jevbzCcNT8+15DGunWCaousHFOTOP1KQpTKa9Ng=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kw1X5ljYdyuEx/BPqcdPHjTfSCZXvubINjRkiuwp8bRrfYloJ61juTEezvERFm7Uk
-	 nZzUcMV7bkua/zEUx3SO+rDaV13RZ7Jc8CMJJDf0Ubwo+H5XNcDxRcQoTeioylwdTW
-	 3kjJ0p0Xm1uKTYScNP9M7lNAauagOHZSGPR43cFfr6oqfomhUGky2eJN6OhIAv0NYN
-	 bvw8wj/TvgqVxBXOCkfVfWTWzZN7d4aXpC1yHdwEcRdbSKd4GQrNAETBHSO7FqxYT4
-	 0Yu5O2aclGFVkWRC+58AWGE75oGW1GcgYHtmOQASpAkKbLG3cScaS4gl6v68Sb3dhD
-	 ydUMxy6ulU97Q==
-Date: Sun, 20 Sep 2026 20:27:27 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
-	Gregory Clement <gregory.clement@bootlin.com>, Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 2/3] dt-bindings: arm: marvell: Add Sophos XGS 107w NPU
-Message-ID: <20260920-therapeutic-wapiti-of-novelty-76abfc@quoll>
-References: <20260919-send-dt-v1-0-365615a74ef3@studio.unibo.it>
- <20260919-send-dt-v1-2-365615a74ef3@studio.unibo.it>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="nzvzsbyS"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=PGAGqvFCwHGZEk2NRMEY90gRI3koAV1XWGGTvnMRxnw=; b=nzvzsbySuWS+Cjkysz0gvo9x8A
+	eFoyFLn9Vu+yHmiXhkGUXAdnng8/b8TpZl6eDNE11GUy7ArHm2wCTXud+T/QqXAAMbxZRy747HVCX
+	tgMMMjg9k4X9uehfknX8sZcYVaQVhDX352A9jRHw2DL++Ylhn785LLuj8zgZBnuyhP9w=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x8MRi-006BXd-VL; Sun, 20 Sep 2026 20:39:26 +0200
+Date: Sun, 20 Sep 2026 20:39:26 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: jan.petrous@oss.nxp.com
+Cc: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>,
+	NXP S32 Linux Team <s32@nxp.com>, Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Bogdan Hamciuc <bogdan.hamciuc@nxp.com>,
+	Ionut Vicovan <ionut.vicovan@nxp.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Clark Wang <xiaoning.wang@nxp.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Chester Lin <chester62515@gmail.com>,
+	Matthias Brugger <mbrugger@suse.com>,
+	Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Richard Cochran <richardcochran@gmail.com>,
+	linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+	imx@lists.linux.dev, linux-pci@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	Vincent Guittot <vincent.guittot@linaro.org>
+Subject: Re: [PATCH RFC v3 04/12] net: pcs: add NXP SerDes XPCS shared core
+Message-ID: <07c5ed86-755a-4094-b45a-6316d10f4515@lunn.ch>
+References: <20260919-s32g_serdes-v3-0-9d68868c1e89@oss.nxp.com>
+ <20260919-s32g_serdes-v3-4-9d68868c1e89@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260919-send-dt-v1-2-365615a74ef3@studio.unibo.it>
+In-Reply-To: <20260919-s32g_serdes-v3-4-9d68868c1e89@oss.nxp.com>
 
-On Sat, Sep 19, 2026 at 09:44:18PM +0200, Nicolo Giuliani wrote:
-> The Sophos XGS 87/107 desktop firewalls combine an AMD x86 host with a
-> separate network processing unit (NPU). The NPU is a Marvell Armada CN9130
-> SoC with its own eMMC and SPI NOR flash, connected to the x86 host over
-> PCIe. It serves the front panel ports through a Marvell 88E6193X switch.
+On Sat, Sep 19, 2026 at 08:54:32AM +0200, Jan Petrous via B4 Relay wrote:
+> From: Clark Wang <xiaoning.wang@nxp.com>
 > 
-> Document the compatible string of the NPU board, with the CN9130 SoC
-> compatibles as fallbacks.
+> The SerDes subsystems found on NXP S32G and i.MX SoCs integrate a
+> Synopsys DesignWare Ethernet XPCS and an Ethernet PHY (PMA) with an
+> identical register layout. Only the register transport differs: indirect
+> memory mapped access on S32G, Clause 45 MDIO on i.MX.
 > 
-> Assisted-by: LLM
-> Signed-off-by: Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
-> ---
->  Documentation/devicetree/bindings/arm/marvell/armada-7k-8k.yaml | 9 +++++++++
->  1 file changed, 9 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/arm/marvell/armada-7k-8k.yaml b/Documentation/devicetree/bindings/arm/marvell/armada-7k-8k.yaml
-> index 7e77310da6..2e114139f1 100644
-> --- a/Documentation/devicetree/bindings/arm/marvell/armada-7k-8k.yaml
-> +++ b/Documentation/devicetree/bindings/arm/marvell/armada-7k-8k.yaml
-> @@ -136,4 +136,13 @@ properties:
->            - const: solidrun,cn9132-sr-cex7
->            - const: marvell,cn9130
->  
+> Add a transport agnostic phylink PCS core which operates on regmaps
+> provided by the platform glue.
 
-Looks like you add to the end of the file, not in correct spot.
+What is not transport agnostic with the current code.
 
-> +      - description:
-> +          Sophos XGS 87/107 network processing unit (Armada CN9130 SoC
-> +          with an 88E6193X switch)
-> +        items:
-> +          - const: sophos,xgs107w-npu
-> +          - const: marvell,cn9130
+Think carefully about that, before you answer.
 
-Why is cn9130 used once as final compatible and once as not?
-
-> +          - const: marvell,armada-ap807-quad
-> +          - const: marvell,armada-ap807
-
-Best regards,
-Krzysztof
-
+	Andrew
