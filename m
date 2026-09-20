@@ -1,320 +1,160 @@
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2120.outbound.protection.partner.outlook.cn [139.219.17.120])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48FF42222C5;
-	Sun, 20 Sep 2026 14:33:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.120
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789914802; cv=fail; b=gy0mASvxFDgK5pWHFADrjihOl5g/bUTPR0XuNv5dH9GaBuqn5HPJP9JBun1YQloPrhgVBfJZb1LmVOJ+HfUiIFAH5O2xfNOQeCvy/ThMQmCFZI0oCBhhHaBgcVhvJj6EEVJg+5WJA80rzwEZAb09rSXDv1yGKZ4K39dJjfNpu78=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789914802; c=relaxed/simple;
-	bh=H/vZ5Yn8cjW5nbmfIjkAY+aWi4lkaeTF8CzuWScgraQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=do2lSpe7Qez3vlByXdR9IgtVJ2ywPz5HNclqca8y/hv00K0o/XSyXyxP6YM1f5+ET+Sqtzba6OxgTxbYeacjs42YPPQ4FS4p5t+BllJEUlVJr9+2G0byzCiiraEqtXJaual7QDtLmpoHcN2kesIVzbYzIXhleHpFVAPeGWCKgpU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.120
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mD0gArynY53yYhgArEsIHnCnX0X98eSwJqgQ1Q5jP76P2z+Ee+eXbXrD7pItJWpBH6zWgigrhN85aPOnMoZeWWRKVH62i37ga2WEC4snNe5L7r9TKBty5jsP880BIp7l4D5cYBMnjA2DAjcu2ORv7IppZkYbiElTLl/2zqwsLcvvuUKZXR4gV+a0Qblwi6885u9MDCDRyaqYVbd/r5qUqqm8kNWcvFuDubCmf1bduLIZubZxNQ9kXu26oNvOeSOF0XtVULYRY6HIRURt2p4EqNL+W0QfLexIjGudBD4dz/JeNkUjllzjWx/ED05i8To/T1lAj+IYkywg8QMYqcvEDg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TauP9r/3dV/iEXdXQaRnjl+opS9TW5uDLkak42TjL9k=;
- b=fI4DafrZRvg+aagoSB01HODC6Y1BYO0sn1bR8letM0jgljjV8eblPch2hc4DE5Ur9k7U2b3ZOg3yr7T29KKgbN49JmQpjGSC6QDCOqVs6brdaepM/p/pomoe7Zt27IkjNxG4YpFQCs9Y0OeeuBs6372//0NBXjzjUqqpKmzeF+wqXMTgee/pqD2ODKSY1D1HjttGNQcFFQkUD2f4hJhB24J8P02UriHBmDGaH70VxixfbHQXbyS9OONPaoS7HEYiSSMhiT3X/Z7guwKRgi6FYROT1P/mbZUAXgtlF6/O/MBDqi00o8B+RBNn1P8HhlWJIiT2iEC1GmqXSrFPba9fHw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:11::9) by NT0PR01MB1040.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:d::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.15; Sun, 20 Sep
- 2026 12:01:08 +0000
-Received: from NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn
- ([fe80::1666:48e8:19e9:ad29]) by
- NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn ([fe80::1666:48e8:19e9:ad29%4])
- with mapi id 15.21.0428.014; Sun, 20 Sep 2026 12:01:08 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Michael Turquette <mturquette@baylibre.com>,
-	Brian Masney <bmasney@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Emil Renner Berthing <kernel@esmil.dk>,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A . R . Silva" <gustavoars@kernel.org>,
-	Richard Cochran <richardcochran@gmail.com>
-Cc: linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	linux-hardening@vger.kernel.org,
-	netdev@vger.kernel.org,
-	Hal Feng <hal.feng@starfivetech.com>,
-	Changhuang Liang <changhuang.liang@starfivetech.com>
-Subject: [PATCH v4 17/22] dt-bindings: clock: Add StarFive JHB100 Peripheral-2 clock and reset generator
-Date: Sun, 20 Sep 2026 05:00:39 -0700
-Message-Id: <20260920120044.194901-18-changhuang.liang@starfivetech.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260920120044.194901-1-changhuang.liang@starfivetech.com>
-References: <20260920120044.194901-1-changhuang.liang@starfivetech.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SHXPR01CA0025.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c311:1b::34) To NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:11::9)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25EDE39A4C4
+	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 14:37:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789915034; cv=none; b=kDTPVF+4rFlGyCmtbjG+PL8mlLxSL8F8iIcJgjxlyNYqyDz9PCRSIOPD3C+nZrpXxumEJXdRcT1QOr1ABFcbYFKfrOCxrfw1m6WQ3RPjZUJghE4rDZmYRNbDUridhfWyPL12I7LcGLhSC0q/rGjo/LyKT1mcsDH6g0wZz2uMDWU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789915034; c=relaxed/simple;
+	bh=iiSzUn/aeSQKWahRmmKZGhlAE3S8IuXG+BBv6HR+40Y=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=mRbXz7/A0ZLzkJyvlc1cyPV7tennYN+uNOmpuhhJMEgYTVK2z2idCSLQ5FcFt/IUTVo6d4STSFXBf1JM7kzjqUG0xnSLjmrkK1Xkt2BPxCqFAwTnwYRRucyNnB8FOxjTgYGZqKJ2d4c5TJ0cTFGfQW9lI/Fx7M2Im8XSQ15sbo8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JTRLgRz+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=b+dJARKc; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JTRLgRz+";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="b+dJARKc"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68KBnnrq974571
+	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 14:37:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=xDn7I1zCrzFS1D5ndiQFLn
+	1k6kZDyod8HfJniJbO2Zg=; b=JTRLgRz+4K8NKoPdS1qu/EEa/yCOsrV3zkSVDb
+	wD3NYZeZNfpIIpu7rlNS68Kr4s7nM+7G1yLb3yr8fpFJs+rLFVjWq/zLmLqFZ0gd
+	SGlXKcaB0ykiASfeEWgFrIj015P/54xdfRfAR5A5XYPQ3eDK76X6fib9EkvnqCA9
+	vojVngNi2kZ7Ll1nPI1qm6OZbhbSz5nyEzlnjuzYGYMwILXBk8NapDXgv0OZ6Wgt
+	4UbeZypmoHLR9xFjeIcvFR1uuVWJ24FW87Bt7ykPG7s7Am4Je6JlmTvBl79Tyjnl
+	hgE3SAwvoUUgxwygIyG/CT5le4SrvNPehNSaATwAGMGt+GYQ==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gskjk32a0-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 14:37:09 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-5328cdb38bcso49142341cf.3
+        for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 07:37:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789915029; x=1790519829; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=xDn7I1zCrzFS1D5ndiQFLn1k6kZDyod8HfJniJbO2Zg=;
+        b=b+dJARKc6sxgU7FCwK7tKoullE2Q97BBC87akz9FIaF+WlrghZwt4WXU2xpGukdD0X
+         1s7u+kz0688GWHIviWWvGjq1Xt8UImH15T49Z1qnpK3ZrQN4DBNeb4rANi0GEue3s6nc
+         08xAhQrirao3nisiSwiq6SUd7CsNhBdzn3n5hTyZ5RrWjwfMx+Ms9YED5tGpAqRZxpxb
+         sPqz9MtiNnEbuc57RRWt4aJcZP65u7RaSNzufZi0nG5SKk61tRnBuk57kAE+tQvLdG/b
+         r2F538Xj39b2fDXSn1ZN1xI2BjDR2lNbMn2vT8PZgr8IGFv5c1+e48qgnSIBbhQhQl7e
+         7JFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789915029; x=1790519829;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=xDn7I1zCrzFS1D5ndiQFLn1k6kZDyod8HfJniJbO2Zg=;
+        b=Hu9h0+j2IQlg/+wW5D2683OIvyFAH1Vv3QjS019/K+KeckhthTJmSv0zT/Eb0XNQ21
+         2bwsbTDS+4LebpXfaby2yLj3IluUSJgUg2Kq1pOPhlThml5YCMP1l+bRrRnsai9rgH7x
+         +14RtE8NHCJkl77gnE0t1uyswZC2a6n9YJib45vgSaVuFzLpNn1+OdvsandMvbfREOKi
+         Avc/B33GRgFyPfVJEYRXnV+utKbjkaYHylwnt8pC3jsrOpnoOkxqp48+b5jLVmvQVfoe
+         YC5YWTCdHVqa2dfhq+ju8YLNHboC0l5hP/6MmhdjaO8U44vgrNv/t1bOMaXcQR+gqrWZ
+         A8dw==
+X-Forwarded-Encrypted: i=1; AKwUvBxyomWAZ+F8L+ZjzB78ttI8mmOXFYvEHHVYAZ4aGkjPv5V7oEit8zsSiSX5m+H9QEEL0ObXofPfoDUq@vger.kernel.org
+X-Gm-Message-State: AFuF++mCPIJiZf/PHDfPHtQQF2ofO1rXfLijPdMQJHCYoRPnvvYa688T
+	thWEpaxBzXDL7XYgEWFoQwx8TnMZXYDs0Z5ftBgEBfLjLcCmELKkYdWTEvHFt4V5qhKQpuD/COC
+	I5E5HItRQjzegTfmcjqqaDOtNQyrL6G6gZrPzDVMzzxADvpy3KMgXCFggHDeHfMsu
+X-Gm-Gg: AYBFou2vWAeYwZCY/diZU7TwZxMV05Rwc6jC0hM4x3YX0n1hagfl5plu7f5qv21XJUF
+	oWddbm1aCb+7hW0RsqdobziUOmcxTml+7Ddx+A3+x+c5pO+H1on2x/2DHRo8vXgxckaLRfcqZEJ
+	F5cM8cd5qOn1RrjZte0jJYTW7t1H7vXRhl4GG/p8J/cehZFiLwCv3aRKZE/Wc+oNN9rq4T3c+gf
+	cvArpd5MTU2Y4qJt+LeRHtI/m4yzK/vTMIykdy+rTyuY9ki07c4J6XK8MzzOJo7FzW8v7zAIm6Z
+	/HVscNIG2Ra1I/uW7z7uhAlaYIZUAKn7vsKHn/x2dMdQFLH33S1ZFGU9rFfu0K4WLOQIDt3eX4a
+	/BGhCqaXs5/ravwspMLYw311jaAyT7N7yQI9J72jlhIvy5xsFlwjEnLfZkwRzEjquqXtlwoZZwd
+	/T8Ny/3T+8BI2L
+X-Received: by 2002:a05:622a:1788:b0:52e:fb1b:b50f with SMTP id d75a77b69052e-532b72fea69mr55463321cf.35.1789915028931;
+        Sun, 20 Sep 2026 07:37:08 -0700 (PDT)
+X-Received: by 2002:a05:622a:1788:b0:52e:fb1b:b50f with SMTP id d75a77b69052e-532b72fea69mr55463031cf.35.1789915028560;
+        Sun, 20 Sep 2026 07:37:08 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a6163d7119sm3948151fa.30.2026.09.20.07.37.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Sep 2026 07:37:07 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: [PATCH 0/2] EDITME: cover title for fix-tcpm-vbus-bis
+Date: Sun, 20 Sep 2026 17:37:05 +0300
+Message-Id: <20260920-fix-tcpm-vbus-bis-v1-0-bc9a7c72e5d0@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: NT0PR01MB1216:EE_|NT0PR01MB1040:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8d2f2eb4-5f34-47b1-5507-08df170edb54
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|52116014|376014|7416014|23010399003|366016|1800799024|921020|38350700014|18002099003|22082099003|56012099006|3023799007|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	zWnXqDan2UjZ4cuCGIdXLIg0IvvOw17JwG5MPHVYkg3n7mMbouuMkQGCZmbaB834pTrmOOhyksQqZh+JmhHtwjOB8c+aamuKscYWdcpHv7vz7thTvcl9vvepwgD0PaoDeoZdxveSpvVxxodbDxaT87t91Vp0KcnaUpPdBM3fwnwE/++aKd4JFBpTR3hr65Q0dpFiyZyrQWbwLbdU8Tg4U5cgSGqA+/8Sa+fFJPKR+wEa86vx2zk2UMn3vwBMFdAOeJafCdn7cDGWoIbk7dUhkvRgy4utBuJK6Ud3Sdo/vy+IRmkYWJXFgtnik00B682/4G5m6BAjlO3jOOEAB5Zz1bgouPaFKdJyxzPAm/O0q2z5CvyyEsF0J3ZMy+EZFsOZxcBvgX28NUgFFU1C8N8C0JBiC+7es5UqgWBarPolN+i6RYPFtA8BZdCQHtin7hq2G05Hvx1jbzpnDNXDTpSKzgAU4Q7yGITC31gr+IZmj5g2W4qG6g6YTQZLNmcnxPqQm3DnA0kM9hq9kP50AdHxn+7/7GIjBaXWT90ozsZ89uRlZHa5D/ekbvwIQaX/WfyNFBVVqvg5XQwtNa6MaVUJkw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(52116014)(376014)(7416014)(23010399003)(366016)(1800799024)(921020)(38350700014)(18002099003)(22082099003)(56012099006)(3023799007)(10067099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?47xJi+iYOUQruAXS1nMqK74xP92HhAvUxBEYXyyX7d75dezWiUEhBCB+f776?=
- =?us-ascii?Q?qspwaoyPYrfqsh2pmczWwhwYtKbg06yX0tCCYbOa3+PCZdWWREpJ0GJeo953?=
- =?us-ascii?Q?Ov41/56eOee7bHi2NyLH4tliVJ2Gts8JoCoDTDVkQPXmk89f96Xl0VAviwXF?=
- =?us-ascii?Q?Qm9HcDWzyq5eCdoGAV1GzKMmWJdaRiDRYJ5JXnxvX2W1UYQnVuawMdogW6XQ?=
- =?us-ascii?Q?OPmi5Nvi6iH3Jcoc6PGxuC1Cpi3cLytDhAY5vt/nH/gpjaOPGeWhJgQFKrGX?=
- =?us-ascii?Q?3oLz8UuasdzRTMqNsW54U0uq8aGKs9LMbsCWL8vVIubBrjnaMg1RQPiguJmM?=
- =?us-ascii?Q?E1yOJk6kFL6d+heN0ljp4ZcD0gOP+G3jyHA2IYDedJiBphEDtYQTKst931uT?=
- =?us-ascii?Q?PW31MVBM2K8xjYGULd8WBn1fVHECprHTFBEQw8rCDS0OZHiwFJvld9kOLTWO?=
- =?us-ascii?Q?NZ/RLq34U3biHEkN7bvi7QSp3VZEMr8X+tVbFlL2p2x7uDbdK+s/n57RK1+s?=
- =?us-ascii?Q?BI+dnaD+2Kvz/Hza/9kwv3gse5c9aocLE2p8kQQSeAsIm1P8vMLHdTQvvndz?=
- =?us-ascii?Q?kBsZr0YxfdKRSu3l8EQRJJP24CfngpDvNH7XbyRvM/UTtCweQgnmGJnKAB5P?=
- =?us-ascii?Q?TdcULKHPt8q7UcXVxxv9drG7Y04iSkEXImmu8jKEo85keNv8Sxlfsjn47jcq?=
- =?us-ascii?Q?9lNAJPRzZU18rDgcrNLWDJxYTxh5Ca09BW4e2qIsDN1VadfhYR4sH9tzG9Gh?=
- =?us-ascii?Q?B5sSBz0i6nPZnZI1DeLd93SSZD1LMhHoOlcrD4xr7A40RCyiIvFlBnaniUSA?=
- =?us-ascii?Q?xhz4odTRtiH1ehCgJ+oLTjnAEXdXtcgnlPmqLCEaFvj65OH5yZ4aWwCjcw2B?=
- =?us-ascii?Q?wsHe8vnQJZO6z4UyZ5NioEeejj4xAvzS9B98uj/pEgcyIMi879HwkyT2Ghtb?=
- =?us-ascii?Q?edlFXfrhglH8689OQsPfVBQdWCcEEWPnzlJ1j2EsfDWy1sgoVL6eda1J4JRU?=
- =?us-ascii?Q?iq6mPjvrUw2QejGS1mPrHMUqG6IQg+zn1M6IV8fyW6gO5SqKX1yAvjwBaIyP?=
- =?us-ascii?Q?NFpHlb0LxhORCEnL8U/3SyyGZK14khneQz1aH4gES0B+Ll6pKUPIdq/wROkn?=
- =?us-ascii?Q?3HPwgZVa/VqWcASC2B9fm738BHepy86rczFO4ixwS24Brik/Vir8t0fkzmqI?=
- =?us-ascii?Q?ORfCvmHQDImOFSz7L8UXomLujg67Zn0Rr6OdNtFR3Jd4A9QsXR3qTUrTq4C/?=
- =?us-ascii?Q?C8W+xt+Heq2aw2KsWFBHEKrp2JwnUgG9L/+PNVNM8G8QWq23Nc/SHpT5Js6m?=
- =?us-ascii?Q?wRPHBHHsLaEtBT9029QGvio2XBQAXX24Qgnqj5mxy/STdCIHChZFLfkm8y1m?=
- =?us-ascii?Q?bZ9U7eosX0OauWiUi/8B3XO5llS+CbC7pCv1+vb3kurCtm66F5h57sPRfDGk?=
- =?us-ascii?Q?D/tMHJH4SMXBudUNhVVAU1XQrq98aIWiYs1j6kkjRA5jXhc8Hc2BCemnxrnh?=
- =?us-ascii?Q?SRHkdOdqdT+seRPsqo09oq6GtkPJuZQBHakj+DdRSBb69aY0EKW/3kybBBOk?=
- =?us-ascii?Q?RJgw+/iJXyNYdYMyyTimfO3VNWNxcVSLOJywnMfU68RedIdmBGF2W4URJY68?=
- =?us-ascii?Q?RP032QHozzVf2eJQ4IOTQh1G1o6cvwo+c67d04BX1cw/KWzvJD7IjZxVTF+9?=
- =?us-ascii?Q?RDF82M2pL3dnqXnC1ZNysGu3zYR+23NktMYf9ftuhd9Kubs60MUCEji4Yu2n?=
- =?us-ascii?Q?6wfjTtwDVtJduD9kIEBw6I+5cx9aw48yXqcc2MHLa9VGL4Y25Hfs?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8d2f2eb4-5f34-47b1-5507-08df170edb54
-X-MS-Exchange-CrossTenant-AuthSource: NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2026 12:01:08.7314
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DO225lSgv01M3QPwUkOeBnubLiafmRRYbUtvqYNqP4HjISbmjoFzCFeR0Gw+OVsKNK32E1cCak73Ge2xdgvbRWeLhPNpRX5f1zeXqQ/EvXZQf8JiD3sJHCMz7Qdvwot3
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: NT0PR01MB1040
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJHvr2oC/y2N0QrCMBAEf6XcswcxUmv9FemDiVs9wVpzSRFK/
+ 91T+zgwOzuTIgmUjtVMCZOoPAeD7aaieDsPV7BcjMk7v3etd9zLm3McHzyFohxEGYddjybWTd0
+ 6st2YYNKveer+rCXcEfM3tBoJr2JnedWW5QMJnpGAigAAAA==
+X-Change-ID: 20260920-fix-tcpm-vbus-bis-e83fe7c57590
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=543;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=iiSzUn/aeSQKWahRmmKZGhlAE3S8IuXG+BBv6HR+40Y=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqr++SjidsnLRQfWe+ZaABAxajEvB8LEPrWKn1n
+ hRnrcAlaAWJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaq/vkgAKCRCLPIo+Aiko
+ 1b70B/9Q5KAPI7SVBkRxLExtcI4NmjyR1GOdq7cXDYtaHJrr25vrH/ux1FLGNYPI2IiNr9U6m38
+ RrEQ1As8lqhXv3OvvFO/uguJeeak2GPnywp0xRmrH3KJemM/Wy8qCqHAMmdKZrIE8sW0iS2ne4V
+ n+PXf8LG1kf88UOx0dtWmlvSsGM/8csPu3W3mKcYuMcYzgOGoXTNCX7tzRJsCmcFJcITTkJlDLM
+ vNHihGz8LwON2z2cPH1+0mY6vWVpa3T7hk8net1WA4A6l4h8YoXIxTG85S0XxUAifEVp18MFgJF
+ NjfmD0uwR5MiXjbSzgbLfGdbHD8vJdard4+qwItmahptZXuO
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Authority-Analysis: v=2.4 cv=H6JOUOYi c=1 sm=1 tr=0 ts=6aafef95 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
+ a=nSv7VxSjxcQYhaeNqXUA:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIwMDIxMiBTYWx0ZWRfXyDOZuKI1vqwl
+ DPuABZEnoWs/GNQ/vv4AHuooa95qZQ0oxUo6Lo2Wel79o2nNrO7acZGfinRYnabUDnLOl+L+YYj
+ ezGxSFo+G+LKeNCDh/ZUrALInfb0H4vSDRvcWtNPzj98VlAk/VxDPUHwu2FOhYKwKuYD9DN4S3+
+ ca7HudegdLaeY0B+fKKqojh6ToMJMGOlW8h0dNWo8uoFFKELhMQJEPuvM8jqu0ZgCF/GthAKtH+
+ b1ChKm4njha/hO1RhzGoIm8GT81qZ/wP59M+l07adW7FZaJwgD/MmQ0cFRlgQVN3ZaUVpv10uqf
+ RxaB4cMGzKg3VKkWFeM5lp+YU902JMXYe+2zgMdEsn5FcZV+bWXsuX1ax4PUu1R+W/Q6gmkp7sm
+ kUK+WebFLQMIoQZ5ZB/qzuyHtJfuq6crD/cflc+YYXpcnrXzaQKt574GAZJQO3tdADI544JzhdX
+ znrsZMxJwdARgp7wcDQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIwMDIxMiBTYWx0ZWRfX3H7xgz4GhNrN
+ gWc1FNOa2X6kFxlrSEiJt3K+T7w/djBCGA5nkww49ymiNDOa/QnreIze423XkKHcAyRXEcpJa0h
+ I71CRgMPVpxg8Xbv/zjqqQU9uHutu2w=
+X-Proofpoint-ORIG-GUID: X_Oyj1cc8_C1MxHvkAemr07CuRyBueFS
+X-Proofpoint-GUID: X_Oyj1cc8_C1MxHvkAemr07CuRyBueFS
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-20_04,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 phishscore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0
+ impostorscore=0 adultscore=0 spamscore=0 malwarescore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609200212
 
-Add bindings for the Peripheral-2 clock and reset generator (PER2CRG)
-on the JHB100 RISC-V SoC by StarFive Ltd.
-
-Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- .../clock/starfive,jhb100-per2crg.yaml        | 76 +++++++++++++++++++
- .../dt-bindings/clock/starfive,jhb100-crg.h   | 57 ++++++++++++++
- .../dt-bindings/reset/starfive,jhb100-crg.h   | 17 +++++
- 3 files changed, 150 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/clock/starfive,jhb100-per2crg.yaml
+Dmitry Baryshkov (2):
+      dt-bindings: usb: qcom,pmic-types: require one of the VBUS sources
+      dt-bindings: usb: qcom,pmic-types: make example use generic VBUS property
 
-diff --git a/Documentation/devicetree/bindings/clock/starfive,jhb100-per2crg.yaml b/Documentation/devicetree/bindings/clock/starfive,jhb100-per2crg.yaml
-new file mode 100644
-index 000000000000..175654645221
---- /dev/null
-+++ b/Documentation/devicetree/bindings/clock/starfive,jhb100-per2crg.yaml
-@@ -0,0 +1,76 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/clock/starfive,jhb100-per2crg.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: StarFive JHB100 Peripheral-2 Clock and Reset Generator
-+
-+maintainers:
-+  - Changhuang Liang <changhuang.liang@starfivetech.com>
-+
-+properties:
-+  compatible:
-+    const: starfive,jhb100-per2crg
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: Non Coherent NOC Initiator
-+      - description: Configure 400MHz
-+      - description: Configure 125MHz
-+      - description: GMAC2 RGMII RX
-+      - description: GMAC2 RMII Reference
-+      - description: GMAC3 SGMII TX
-+      - description: GMAC3 SGMII RX
-+      - description: Main Oscillator (25 MHz)
-+
-+  clock-names:
-+    items:
-+      - const: ncnoc_init
-+      - const: cfg_400
-+      - const: cfg_125
-+      - const: gmac2_rgmii_rx
-+      - const: gmac2_rmii_ref
-+      - const: gmac3_sgmii_tx
-+      - const: gmac3_sgmii_rx
-+      - const: osc
-+
-+  '#clock-cells':
-+    const: 1
-+    description:
-+      See <dt-bindings/clock/starfive,jhb100-crg.h> for valid indices.
-+
-+  '#reset-cells':
-+    const: 1
-+    description:
-+      See <dt-bindings/reset/starfive,jhb100-crg.h> for valid indices.
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - clock-names
-+  - '#clock-cells'
-+  - '#reset-cells'
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    clock-controller@11bc0000 {
-+      compatible = "starfive,jhb100-per2crg";
-+      reg = <0x11bc0000 0x1000>;
-+      clocks = <&sys0crg 52>, <&sys0crg 54>, <&sys0crg 55>,
-+               <&per2_gmac2_rgmii_rx>, <&per2_gmac2_rmii_ref>,
-+               <&per2_gmac3_sgmii_tx>, <&per2_gmac3_sgmii_rx>,
-+               <&osc>;
-+      clock-names = "ncnoc_init", "cfg_400", "cfg_125",
-+                    "gmac2_rgmii_rx", "gmac2_rmii_ref",
-+                    "gmac3_sgmii_tx", "gmac3_sgmii_rx",
-+                    "osc";
-+      #clock-cells = <1>;
-+      #reset-cells = <1>;
-+    };
-diff --git a/include/dt-bindings/clock/starfive,jhb100-crg.h b/include/dt-bindings/clock/starfive,jhb100-crg.h
-index 7f508574177c..2b2e148ce5ce 100644
---- a/include/dt-bindings/clock/starfive,jhb100-crg.h
-+++ b/include/dt-bindings/clock/starfive,jhb100-crg.h
-@@ -447,4 +447,61 @@
- #define JHB100_PER1CLK_MAIN_ICG_EN_RAS			75
- #define JHB100_PER1CLK_MAIN_ICG_EN_UFS			76
- 
-+/* PER2CRG clocks */
-+#define JHB100_PER2CLK_300				0
-+#define JHB100_PER2CLK_100				1
-+#define JHB100_PER2CLK_50				2
-+#define JHB100_PER2CLK_GMAC2_RMII_50			3
-+#define JHB100_PER2CLK_CAN0_CORE_DIV			4
-+#define JHB100_PER2CLK_CAN1_CORE_DIV			5
-+#define JHB100_PER2CLK_CAN0_TIMER			6
-+#define JHB100_PER2CLK_CAN1_TIMER			7
-+
-+#define JHB100_PER2CLK_RTC_CORE_DIV			11
-+#define JHB100_PER2CLK_GMAC2_RMII_MUX_DLY		12
-+#define JHB100_PER2CLK_GMAC2_RMII_DIV			13
-+
-+#define JHB100_PER2CLK_GMAC2_RGMII_125_MUX		15
-+#define JHB100_PER2CLK_GMAC2_RGMII_DIV			16
-+#define JHB100_PER2CLK_GMAC2_TX_MUX			17
-+#define JHB100_PER2CLK_GMAC2_TX_180_BUF			18
-+#define JHB100_PER2CLK_GMAC2_RX_MUX_DLY			19
-+#define JHB100_PER2CLK_GMAC2_RX_180_BUF			20
-+#define JHB100_PER2CLK_GMAC2_TXCK_MUX_DLY		21
-+#define JHB100_PER2CLK_GMAC3_TX_125_MUX			22
-+#define JHB100_PER2CLK_GMAC3_RX_125_MUX			23
-+#define JHB100_PER2CLK_GMAC3_TX_DIV			24
-+#define JHB100_PER2CLK_GMAC3_RX_DIV			25
-+#define JHB100_PER2CLK_SENSORS_PERIPH2			26
-+
-+#define JHB100_PER2CLK_FAN_TACH_PCLK			33
-+
-+#define JHB100_PER2CLK_ETHER0_RMIIANDRGMII_TX_I		44
-+#define JHB100_PER2CLK_ETHER0_RMIIANDRGMII_RX_I		45
-+#define JHB100_PER2CLK_ETHER0_RMIIANDRGMII_TX_180_I	46
-+#define JHB100_PER2CLK_ETHER0_RMIIANDRGMII_RX_180_I	47
-+#define JHB100_PER2CLK_ETHER0_RMIIANDRGMII_PTP_REF_I	48
-+#define JHB100_PER2CLK_ETHER0_RMIIANDRGMII_RMII_I	49
-+#define JHB100_PER2CLK_ETHER0_RMIIANDRGMII_CSR_I	50
-+#define JHB100_PER2CLK_ETHER0_RMIIANDRGMII_ACLK_I	51
-+#define JHB100_PER2CLK_RMIIANDRGMII_IOMUX_GMAC2_TXCK	52
-+#define JHB100_PER2CLK_ETHER1_SGMII_TX_I		53
-+#define JHB100_PER2CLK_ETHER1_SGMII_RX_I		54
-+#define JHB100_PER2CLK_ETHER1_SGMII_TX_125_I		55
-+#define JHB100_PER2CLK_ETHER1_SGMII_RX_125_I		56
-+#define JHB100_PER2CLK_ETHER1_SGMII_PTP_REF_I		57
-+#define JHB100_PER2CLK_ETHER1_SGMII_CSR_I		58
-+#define JHB100_PER2CLK_ETHER1_SGMII_ACLK_I		59
-+#define JHB100_PER2CLK_ETHER1_SGMII_PHY_PCLK_I		60
-+#define JHB100_PER2CLK_ETHER1_SGMII_REF_25_I		61
-+#define JHB100_PER2CLK_MAIN_ICG_EN_CAN0			62
-+#define JHB100_PER2CLK_MAIN_ICG_EN_CAN1			63
-+
-+#define JHB100_PER2CLK_MAIN_ICG_EN_DMAC_8CH		65
-+#define JHB100_PER2CLK_MAIN_ICG_EN_RTC_SCAN		66
-+#define JHB100_PER2CLK_MAIN_ICG_EN_ADC0			67
-+#define JHB100_PER2CLK_MAIN_ICG_EN_ADC1			68
-+#define JHB100_PER2CLK_MAIN_ICG_EN_GMAC2		69
-+#define JHB100_PER2CLK_MAIN_ICG_EN_GMAC3		70
-+
- #endif /* __DT_BINDINGS_CLOCK_STARFIVE_JHB100_H__ */
-diff --git a/include/dt-bindings/reset/starfive,jhb100-crg.h b/include/dt-bindings/reset/starfive,jhb100-crg.h
-index cf933a1befbb..0965f3798397 100644
---- a/include/dt-bindings/reset/starfive,jhb100-crg.h
-+++ b/include/dt-bindings/reset/starfive,jhb100-crg.h
-@@ -157,4 +157,21 @@
- #define JHB100_PER1RST_MAIN_RSTN_DMAC_SPI0				15
- #define JHB100_PER1RST_MAIN_RSTN_PERIPH1_RAS				16
- 
-+/* PER2CRG resets */
-+#define JHB100_PER2RST_IOMUX_PRESETN					0
-+#define JHB100_PER2RST_POK_IOMUX_PRESETN				1
-+#define JHB100_PER2RST_SYSREG_RSTN					2
-+#define JHB100_PER2RST_MAIN_RSTN_CAN0					3
-+#define JHB100_PER2RST_MAIN_RSTN_CAN1					4
-+#define JHB100_PER2RST_FAN_TACH_PRESETN					5
-+#define JHB100_PER2RST_MAIN_RSTN_GMAC2					6
-+#define JHB100_PER2RST_MAIN_RSTN_GMAC3					7
-+#define JHB100_PER2RST_MAIN_RSTN_DMAC_8CH				8
-+#define JHB100_PER2RST_MAIN_RSTN_RTC					9
-+#define JHB100_PER2RST_ADC0_PRESETN					10
-+#define JHB100_PER2RST_ADC0_IOMUX_PRESETN				11
-+#define JHB100_PER2RST_ADC1_PRESETN					12
-+#define JHB100_PER2RST_ADC1_IOMUX_PRESETN				13
-+#define JHB100_PER2RST_MAIN_RSTN_PERIPH2_SENSORS			14
-+
- #endif /* __DT_BINDINGS_RESET_STARFIVE_JHB100_CRG_H__ */
--- 
-2.25.1
+ Documentation/devicetree/bindings/usb/qcom,pmic-typec.yaml | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
+---
+base-commit: 3f2425f5b5bbbdd991ca9cdfd5502e68d8895998
+change-id: 20260920-fix-tcpm-vbus-bis-e83fe7c57590
+
+Best regards,
+--  
+With best wishes
+Dmitry
 
