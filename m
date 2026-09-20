@@ -1,136 +1,120 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EA723F4DEB;
-	Sun, 20 Sep 2026 10:08:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C25083EB0FB
+	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 10:13:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789898893; cv=none; b=OBJyhMcExn7Dn+QIRkE+1OQZSYl6arGuhNnFPYDR2SDiCE/1t3JMFNiG8L1KcMpt83zI7+a4x+xmiBuqSlDB2NCd+6WZgVazAq4bYLOva7M+jmoetDALHjXBkyo/IeTfkQuutqGmD5zQ046y1l00C4qxBB1I+WPgHiNxvxIdzFU=
+	t=1789899216; cv=none; b=smCMAf1PeRQWF2r/K9ZybITFLvx2fcESTTfnE2Km2nn6PYiV9dr2W20hXBpn2xU/IjZYrZFGkCUtTUa986EmPzOtMpBh1De0/MAQ+rlfE98z/F7x/aVPpnmYGF+uf1eGqkhNzV6ulRfsyfE6syPQ2cACmDFvhUIoRdkmdf7E10E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789898893; c=relaxed/simple;
-	bh=pzro5xNTMOnRijjVYFDPWCHoqz/t3bJKUCEuc2uMFAg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HW2W6Qzt9PoqgZjs5v20KPdgcvFRm7CLeG0g00C9+O/pcFvlk9pLWnzoeBTzmIm0Vlr49HxF77jvYWQSHHsz81Z1jOp2qumO3zYRP7N3pzaQpC7oNGkJzQydtmDv7UEd4LMRX7GKbpfzBOIyCQaGSpkfyyUJrvuUMGRz+HgTKZI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P52aX3g9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789899216; c=relaxed/simple;
+	bh=nbT1O1h+hPpotRTgsN7QS3bvB2PwZ4ajRmrGDXKDxR0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=iK9yGxKcY2MsyeMcPU3z9ih+WWOH2UBGec0Dzt8X42j11smcVbOZJo3VRjS4pN0MfbyJNJPxgso9K34d1hr4wYPJIeuEYmPk2HUtpnkvgx3ujUWK5JmwZpdBY7Iu6VLiDanN9JIc2HRwahX4S7gFePk26bIQnvvqrWHfOxbUvK8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FOVN5xQX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P52aX3g9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 795EB1F000FF;
-	Sun, 20 Sep 2026 10:08:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FOVN5xQX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DE8A1F000FF;
+	Sun, 20 Sep 2026 10:13:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789898891;
-	bh=mH+Q5wd7lUfaqxnNVA1Wifkg7F6QqQpknKLOza7T+3U=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=P52aX3g9Tpd/QHd1YCdoOV3d9WztBDvQe33yoPR5YjMp7rZqnG7TmD9aPQB6dHAX3
-	 4sAnjNMRfme5MWZQSg89Kh073DUsH6t8w1KH0c5RnbZbE2iuM+9Y8Jhiq8FS6A8OQw
-	 0NGJI4nsX6eGkAdZL31MsUCI0ME1and3iW9TZfA/NbszkoeB562KqBrM2WtEDINqOE
-	 PS4IbHyM3oHvFTfESMmrpjQNjwkuwrWjWxUreGoKn9dlvlEpPlw5xcPUbnQjQGFGlv
-	 29bwiqr1V/dgI+l6YeDZG10/5MrNsCkS2PNuu0uyNay7mD588QAvjQryD5h+mKTIa8
-	 0SbyX2OrxztLg==
-Message-ID: <da42fe72-4351-46f2-8c5b-fc3292f7d8e1@kernel.org>
-Date: Sun, 20 Sep 2026 12:08:02 +0200
+	s=k20260515; t=1789899214;
+	bh=Ux5zy2F4VF7IqbxsSu2BczmSOlFBU2rHHmy54jES3lE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=FOVN5xQXLQuQZz0DscbmBegaqjbg/Znr5iIp4dQiP0zE7u5WrLn69K8m1SHKayLeZ
+	 QpzuN6d2MHq4wS34bu7+yy8khSNLS0cXl+/+AWZJNKtFJ8WkYQyJZgJNHmBumMPxa/
+	 m3vVFTfJeEWuNp1FVU2f5ZcivDbHhESNsU6NojF+A86mxgIDQkRQ28rO6vGoZ3GGMy
+	 rxaZBi/PF4k6kP/bqMu2yyW++3thy+cSdQi68iKRaoLOmKh4Gj/586DCdTD+Mh7BnJ
+	 FLg/iz34Li3lcrZ3kvrH5TSQdN9GX3zcQsRSrOeKbcbnoyAn103+Etenu6wHqfU4oS
+	 u4MWSSDSLYLJA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 5/5] of: reserved_mem: reject static mapped regions
+ overlapping existing reservations
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Wandun Chen" <chenwandun1@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260920092852.614973-6-chenwandun1@gmail.com>
+References: <20260920092852.614973-1-chenwandun1@gmail.com>
+ <20260920092852.614973-6-chenwandun1@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 20 Sep 2026 10:13:33 +0000
+Message-Id: <20260920101334.5DE8A1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/14] dt-bindings: media: add apple,avd
-To: Sofus Forstreuter <sofus.c@icloud.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Sven Peter <sven@kernel.org>,
- Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Heiko Stuebner <heiko@sntech.de>, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org, asahi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-rockchip@lists.infradead.org
-References: <20260918-avd-v1-0-49977931f455@icloud.com>
- <20260918-avd-v1-2-49977931f455@icloud.com>
- <c8d25275-3c45-4e9a-826c-cf856938d60e@kernel.org> <aq-RBuOWrHU07pXS@m3>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <aq-RBuOWrHU07pXS@m3>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 20/09/2026 09:53, Sofus Forstreuter wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] of/reserved_mem: valid overlapping reservations are broken by unco=
+nditional rejection
+--
 
->>> +  interrupts:
->>> +    minItems: 2
->>> +    items:
->>> +      - description: mailbox 0
->>> +      - description: mailbox 1
->>> +      - description: mailbox 2
->>> +      - description: mailbox 3
->>> +      - description: flag 0
->>> +      - description: flag 1
->>> +      - description: DMA status
->>> +    description: |
->>> +      Notably there are no decode related interrupts. All decode related
->>> +      interrupts are sent to the CM3.
->>> +
->>> +required:
->>> +  - compatible
->>> +  - reg
->>> +  - interrupts
->>> +  - reg-names
->>> +  - iommus
->>> +  - power-domains
->>> +  - resets
->>> +
->>
->> Why properties are unconstrained per each variant? Why are they flexible?
->>
-> 
-> There is no reason for this. I will remove the unused interrupts.
+commit f3ecc5d72c441ce7fd915e30544e07c69215f6c4
+Author: Wandun Chen <chenwandun@lixiang.com>
 
-Hardware should be completely described, so if there are interrupts
-there should be here as well. And in DTS. This should not be flexible,
-unless hardware actually is flexible (but rarely is).
+of: reserved_mem: reject static mapped regions overlapping existing reserva=
+tions
 
-Best regards,
-Krzysztof
+This commit modifies early_init_dt_reserve_memory() to reject static
+reserved-memory regions that overlap with existing memblock reservations.
+It aims to prevent memory corruption when initialization of a statically
+placed region fails and memblock_phys_free() returns the overlap to the
+buddy allocator.
+
+Link: https://sashiko.dev/#/message/20260806100605.2C2C01F000E9%40smtp.kern=
+el.org [1]
+
+> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
+> index 8d2057f2ac12e..2d1e01c0f8867 100644
+> --- a/drivers/of/of_reserved_mem.c
+> +++ b/drivers/of/of_reserved_mem.c
+> @@ -141,6 +141,10 @@ static int __init early_init_dt_reserve_memory(phys_=
+addr_t base,
+>  		return ret;
+>  	}
+> =20
+> +	if (memblock_is_region_reserved(base, size) ||
+> +	    memblock_overlaps_nomap_region(base, size))
+> +		return -EBUSY;
+> +
+
+[Severity: High]
+Does this code unconditionally reject reserved-memory nodes that perfectly
+describe memory already reserved by the architecture or EFI setup?
+
+If a bootloader (like U-Boot or EFI) reserves a memory region (e.g.
+EFI_RESERVED_TYPE) and also passes a /reserved-memory DT node describing the
+same region to ensure compatibility, it looks like
+early_init_dt_reserve_memory() will now find the region already reserved in
+memblock and return -EBUSY. This bypasses memblock_mark_rsrv_rmem().
+
+Later in the boot process, fdt_scan_reserved_mem_late() checks for the
+MEMBLOCK_RSRV_RMEM flag on the region:
+
+drivers/of/of_reserved_mem.c:fdt_scan_reserved_mem_late() {
+    ...
+    if (!memblock_is_region_rsrv_rmem(base, size, nomap))
+        continue;
+    ...
+}
+
+If the flag is missing, it skips calling fdt_init_reserved_mem_node(). Could
+this cause valid overlapping DT nodes to be silently discarded, causing
+devices relying on these nodes (like DRM display drivers using an EFI
+framebuffer) to fail to probe because of_reserved_mem_lookup() will return
+NULL?
+
+Additionally, does the existing check in the if (nomap) block earlier in
+early_init_dt_reserve_memory() have the same effect? It appears to reject
+no-map DT nodes if the region was already marked nomap by EFI, effectively
+destroying those DT nodes as well.
+
+>  	ret =3D memblock_reserve(base, size);
+>  	if (!ret)
+>  		memblock_mark_rsrv_rmem(base, size);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260920092852.6149=
+73-1-chenwandun1@gmail.com?part=3D5
