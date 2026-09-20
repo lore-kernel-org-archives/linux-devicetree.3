@@ -1,69 +1,70 @@
-Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
+Received: from mail-pj2-f34.google.com (mail-pj2-f34.google.com [74.125.227.162])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 304863CB544
-	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 04:55:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B14563CD8B8
+	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 04:56:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.162
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789880157; cv=none; b=EQhZB5eNPKzxjq3HeKkDvzpqK08RFx6ptV2Yy9wQxX8W8/WUhYChTq3y7QWD/g2p7r074DO+dQko0I7DOiKY1o+YlSUS0JAStbX8bcnNHnFaG5nnRVviVvLd3aLROumb9lr5g1uBys3PN0eZsHt05KvE8hudQ4e+g/umXfWuk44=
+	t=1789880167; cv=none; b=QMUxO2LpIIlmUB4zk0doHwDiPfXAMcP4Wp0ZfC9FI2hdKBlVmmm40VdZEWxiCBx101Cmz7E5VtRdlHhzypq6O3RkABI/pFZ0z1hJCLsl60EY8rRHn8ZfM9U2I05GzhGvCCx3Fxm4CCeZ3DH7ZNFz1Sw5fPLc+YKS1vBJl25BZIQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789880157; c=relaxed/simple;
-	bh=kx5kKJMfW173nOCJWUzv3mwvx0YJN3LDcuLBMFQLo60=;
+	s=arc-20240116; t=1789880167; c=relaxed/simple;
+	bh=o6Mmzyd7BRwU9H5C74qoe+G2Tq+aI/IRIDM1u7th/B4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=sYLKghx8obZMkTU1O3wa6wpLjfxa4SbBbosPc2X2K4KUCdxyuz1F0Vx5LUKYKvAPZN0uNAE/b21n4PNvPVUmWW9BHnCxDzrtetE7SaWINIUpNOCIDtuDJldReBWrxvLf2K6yqwwGsJ2EGXXONXjf8THQm8Hd/UEhD0dN3ZPWhdE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZDx703Jw; arc=none smtp.client-ip=74.125.227.170
+	 In-Reply-To:To:Cc; b=PBpbvfLCu0WdoObof+h2+9L41F+36q6Y9reYXMuQZYga+XtuLyH3hP4uUDx6ndsoxKCnc6nhYqxYmZXoEbRkZsWw2G6glimPgC42bQ4e37Re4NkLYhZQP95fC8HabBTveFSDScJwymWGHhcjg9FjBDk4Q301VfcqrvWt35Yfzds=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hpw+OhY/; arc=none smtp.client-ip=74.125.227.162
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZDx703Jw"
-Received: by mail-pj2-f42.google.com with SMTP id d9443c01a7336-2df38376150so1165715ad.0
-        for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 21:55:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hpw+OhY/"
+Received: by mail-pj2-f34.google.com with SMTP id d9443c01a7336-2d747eb79f7so13408685ad.1
+        for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 21:56:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789880155; x=1790484955; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789880165; x=1790484965; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xzyP2lP6mDo2Tguvti7VeQ501kHVG6IAx4yYOdJMaeY=;
-        b=ZDx703Jw5n9A+cB5JIm1R79QkXxX1uF+Y4r8oUiS+Covuu6y7I9YfLAd9PlAGrcmGo
-         os62ngVc8/IY2im4bMS9kfQi9khboUaKnznuwey31ryD7FzMj/wYZQ5yWBPfxSnSngip
-         iQ5S7XqruYvCFAoLYo1ujnLn907PVIDG+n//Tsy5MhpeRSOCXFPAQjPh5tdcPB/n6GAo
-         yLcm76phAkz1uxeBbjIwT4U96Bmq+4sGP6aTledyeZ2WBAU39LGDO7bee5y8wqXHqZTp
-         fCTw3uq2OZXdUIILZnWNZ1WAT7DaZEClQpQf8aWYl5EBMEw/Z0MqRy3ePEN19MSWxrQi
-         k1Pw==
+        bh=2MoZTcxnKczPWM7o1mzqY2ipongGCpZ7IBnK4RjYvUM=;
+        b=Hpw+OhY/r9qvfCb/v6ZNx2vv7z/yuQFjsE2BS4T1tHtgfPZvUs14GJb+sdbYRrSRnT
+         RrlcgQBZNSYqMuVZvSZMin1wDbW1vS9Kg/WHL8SmBXbXPSbBKNuCN26cX3r7R0besBB9
+         +cSqmZ0XOswAcUPuyU889PYF/GGNi1//waRVmmxOBnHqEaAC89oCIvpsvn/UzYdInEJK
+         Q8ZILiMZKRFgx1OeGeddk2RYiVoTVoJ4V6iZ7veXo9xISPii8pbyr0CACWhJ3RZL0T0P
+         wwOI/tYJ7vR/jnT8E23DAvSQZ6+dyE0CMKwCjg/GVcJJOwxIKVpO4OgsMtmCtGbAOfAX
+         +fcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789880155; x=1790484955;
+        d=1e100.net; s=20260707; t=1789880165; x=1790484965;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=xzyP2lP6mDo2Tguvti7VeQ501kHVG6IAx4yYOdJMaeY=;
-        b=u5/c4kspxXceoyqPQ/8h/mU5VPhMmnmHNb0YugIwMCZFIXH2Ado4Li7qx5daxsxxkc
-         gMxfXvZn8DZLg8MijoaztmeCSZ4P1MZ4R8maWwJwaQka7HU6V63HC/Sgc+6heeawrV+w
-         qgee14h87vbGS4srDnfmJYeh2sbMW9teLgggT/f5qc5QpqY0Eb4Qp/RDNf+GxhOAfQy7
-         6dAVRo32tVjIMkPV2Gc/uYhRXz9OzgNvQYZ6GMSyO4GzFsNWmdk6QYoCHIrhunBeDC+n
-         u4wUPbJrQILAllO88Han4IMks4C+H7INPek7qILiuPws6udaWA7HKQMA3nRjnl9XHR7Z
-         F7tA==
-X-Forwarded-Encrypted: i=1; AKwUvBwaLmnuI5EejsVG+BXvfBKSmwTdyNLOe3a42KIQhRVfmk67/0fADQ9FArKCb+Q15WqQCqJK02GrUSSW@vger.kernel.org
-X-Gm-Message-State: AFuF++mhHzD4qhlMiN1o9mnz6fhWN8xQNzONYD8RWyuA/PtM3MOqFn3i
-	N7D26LM8Kkz2GYtjVk2PslRT0ZV6m1U6BH961O80GQkAmNqKIkh4azq+
-X-Gm-Gg: AYBFou0Dbrz7BtqFcsXAnx8W1U856F0owjHrmlpOwaLBjR4G/nAAmvJxJMAxz18t080
-	4inU3wBVNsUdTnTHQ8yd/dJPHA6Yvl7Pa1Rh0FMDEuUIxJqb6HC13kRiSGiViS1D/l+jG45BiyT
-	1OTVLayszFSMwCoOedifGefLwPLAGhjiH6xl+5NSiyvwvx4ZxoKxATso/M1B9MwhJ7sQlj5CBGd
-	A+wtPnS1wOGGKf9vuiq/iI3xkLn03n5XMGzvtHeMO+05aS/yl4NlsNwV2KTgPdxJciou73BQPt3
-	ncvxCDj2XXGvjEAIsInrXTDrNjEEjarXhxxn5kgjgt4Bjl/iqB7U7ZsDQZFC1c4jtg/E8N9AN9b
-	OB+DgofsZAa1bVIl1ibFhSuUodf70AzQTcVbl1cyP1gNL7amwmwiduFTUhkfOKOx9Qj9t2ijot9
-	sETtMqM/MeC1XGWJUoubamEzIPVcirRFbpq2Hl82YZ2Vx9Xg7YYRvdAX7rL7P7gx2lFlsvyNn2N
-	+W4Fxk+0I0LZ6Es4ZANdNJYDQSRRxSdBZYmP8RqTMIHARGrWB9ox+WGN69SITEkVKjZE/mC8HoA
-	nS++uQOx7e/74OE8UJUSviFtYQG4HhwStNNUIvVVv0qFi18=
-X-Received: by 2002:a17:902:d2d2:b0:2dd:ad73:5b5a with SMTP id d9443c01a7336-2ddb224f33bmr80978895ad.21.1789880155541;
-        Sat, 19 Sep 2026 21:55:55 -0700 (PDT)
+        bh=2MoZTcxnKczPWM7o1mzqY2ipongGCpZ7IBnK4RjYvUM=;
+        b=L9X+b7qNQI/+aNrVfILj3NN3ZH3MvqwUdETRZ8Cw3ZXAJi/zyapPorHfR+XYxMnb4Q
+         f2TyNxA2aQi73EaCFIJeN3/NNhd40ud+kaxm3tW6F6JwaeNZC8t/HPWoxezhKOrvK/it
+         UmcOV9EIB339YSB7IAcecN7meoNYY+S6iYX6ZFx37kiLuwP8VdB1k2q8JGspYqrDV0qW
+         YDnu7R0avnkAItFP7mGEVgWRvXmy0ovHCTabaOGANhC9sYNwkiNeB24Et5FxQsyyLX1B
+         /X6JILgywkgFsxcmbdSH4m8lKzIOCiM0sCppshsRzRcuARfMOhKHTYk6EkXTNz+jgb55
+         AwNg==
+X-Forwarded-Encrypted: i=1; AKwUvBwHtW8MpZlnh3xKEkHDGqgtU0m2fNsinKrY0gtiTY0OB+MlNcZ58V8wnDAQ9Fh86XQSXZTbn5ON3/3+@vger.kernel.org
+X-Gm-Message-State: AFuF++nvixxBgG3L0z7ebWxT2z1lxrYhOIUWuVZxpdQ+AC/M9d53pXDU
+	xL6uCwxZjVmLQqDovjQiYz9RakkDGVCJxZE3PS9L0ew7nwuUkuuhIhbx
+X-Gm-Gg: AYBFou2UgRHq0szUMrc1Avb32wrBk8Y2jUQwKr+LVUn9J4+ZTWiDfYkWdqxdfTNySPV
+	9CaasOSgLh4za/+f8xMVTkAYeOQoCSahPrYUH1tAhdUskGiZ6r9H7XbpifmzifHn3pXXNgMvqDL
+	BqfTzrnJWiQZ608SS2MLlrN3K/9goFL7IDZxpaY7JkkRhEt7Lz2Tx+FNX9ks6lTJv8fAJM4HdZ+
+	biDP5NiIWo5qaaXwFuPmRd+dJ+dGsBx5q/NED6g8BXm2GuUqPdgW0g4XbHtvD6D6bYBYNXVyb1t
+	1cRtQyKGbJDX0L3SlgANroPJdu9Bgf56gqU1wSKruBQ0NbbJSa57xxZo118baSVhFVZujOUiQwL
+	r8oDt+RZ6KQDbaQkpvZh9KDZn4dJDzZ9M8fXFtiInLMos/I71z4T5ztnl6foaGU1zNkuF8sjbLZ
+	r1166O1FAlMx5kjVIziKW37YCpCe+YQ7pG37SLb2qqC7F2/rnKmNbAFaLRTgd2WmTxiXsgyUTqq
+	lw19cBBJS5uSc1DV12wjiAx9Hh0ZTpXFzUCZ3bCYrNZ2J0jJ30Rrs6LdHNcmc7Ccbbv+QfLn95e
+	kHv+ajnq5st78R/H2/haSuq10SYd0bwxnoLQfIuRpOASBYM=
+X-Received: by 2002:a17:903:fa5:b0:2dd:c053:82f1 with SMTP id d9443c01a7336-2ddc053841bmr56459515ad.40.1789880164957;
+        Sat, 19 Sep 2026 21:56:04 -0700 (PDT)
 Received: from [192.168.2.3] ([2403:581e:d87e:0:fc2d:ed31:e80e:412d])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17d712dsm16026765ad.64.2026.09.19.21.55.46
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17d712dsm16026765ad.64.2026.09.19.21.55.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 21:55:55 -0700 (PDT)
+        Sat, 19 Sep 2026 21:56:04 -0700 (PDT)
 From: James Calligeros <jcalligeros99@gmail.com>
-Date: Sun, 20 Sep 2026 14:53:44 +1000
-Subject: [PATCH 05/28] alsa: pcm: Remove the qos request only if active
+Date: Sun, 20 Sep 2026 14:53:45 +1000
+Subject: [PATCH 06/28] ALSA: dmaengine: Always terminate DMA when a PCM is
+ closed
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,7 +73,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260920-macaudio-v1-5-741cc20a74e5@gmail.com>
+Message-Id: <20260920-macaudio-v1-6-741cc20a74e5@gmail.com>
 References: <20260920-macaudio-v1-0-741cc20a74e5@gmail.com>
 In-Reply-To: <20260920-macaudio-v1-0-741cc20a74e5@gmail.com>
 To: =?utf-8?q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>, 
@@ -98,60 +99,50 @@ Cc: asahi@lists.linux.dev, linux-sound@vger.kernel.org,
  Takashi Iwai <tiwai@suse.de>, linux-mediatek@lists.infradead.org, 
  Hector Martin <marcan@marcan.st>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1854;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1367;
  i=jcalligeros99@gmail.com; h=from:subject:message-id;
- bh=sB9amKGCujymCV5dzhnXLQgtXCZDFSeONKc8RiAMJk8=;
- b=owGbwMvMwCV2xczoYuD3ygTG02pJDFnr0+UN5p3NCRDcX2rwtCeY+U1o1BqxOV9aeCT2Pg2+s
- cW76L9px0QWBjEuBksxRZYNTUIes43YbvaLVO6FmcPKBDJEWqSBAQhYGPhyE/NKjXSM9Ey1DfUM
- jXSMdYwYuDgFYKojPRn+adW6m8+Zu2WmcdojE37fL2mVgR13MvV2nf3JeWLWmeYpRxj+mShcjNp
- sw+Q7MyPW1PitzbHnSd8+notYbJv1bMt81fmGPAA=
+ bh=zGb+++j8iUZe/cn0Z0nFJK8T6VZ7UceNkKMJL+0HzLM=;
+ b=owGbwMvMwCV2xczoYuD3ygTG02pJDFnr0+UNCs+tnF8jm/Fr9rnD+qaz/5/MlJvafvnEpdXpu
+ SeWZM6J65jIwiDGxWAppsiyoUnIY7YR281+kcq9MHNYmUCGSIs0MAABCwNfbmJeqZGOkZ6ptqGe
+ oZGOsY4RAxenAEz1kxJGhmuLz9eF5142Xp283+/t0Rc/gw80iqvZZe94zfXn23/Xh9UM/2yWb2j
+ yPuE6S9JqBqt0gZDlkrU7xeS3e7Hc+lrDvndKKxsA
 X-Developer-Key: i=jcalligeros99@gmail.com; a=openpgp;
  fpr=B08212489B3206D98F1479BDD43632D151F77960
 
 From: Hector Martin <marcan@marcan.st>
 
-Fixes warning:
+When a PCM is suspended, we pause the DMA. If the PCM is then closed
+while in this state, it does not receive the STOP trigger (as it is not
+running). In this case, we fail to properly terminate the DMA, calling
+dmaengine_synchronize() nonetheless, which is undefined behavior.
 
-[    8.502802] ------------[ cut here ]------------
-[    8.503445] cpu_latency_qos_remove_request called for unknown object
-[    8.504269] WARNING: CPU: 5 PID: 2790 at kernel/power/qos.c:322 cpu_latency_qos_remove_request+0x48/0x98
-[    8.505499] CPU: 5 PID: 2790 Comm: wireplumber Tainted: G        W          6.5.0-asahi-00708-gb9b88240f7ae #2291
-[    8.506777] Hardware name: Apple MacBook Air (13-inch, M2, 2022) (DT)
-<snip regs>
-[    8.519099] Call trace:
-[    8.519402]  cpu_latency_qos_remove_request+0x48/0x98
-[    8.520027]  snd_pcm_ioctl+0x86c/0x182c
-[    8.520519]  __arm64_sys_ioctl+0xf8/0xbd0
-[    8.521020]  invoke_syscall.constprop.0+0x78/0xc8
-[    8.521604]  do_el0_svc+0x58/0x154
-[    8.522026]  el0_svc+0x34/0xe4
-[    8.522409]  el0t_64_sync_handler+0x120/0x12c
-[    8.522951]  el0t_64_sync+0x190/0x194
-[    8.523408] ---[ end trace 0000000000000000 ]---
+Make sure we always call dmaengine_terminate_async() on PCM close,
+regardless of whether it has been called previously or not in the
+trigger callbacks.
 
-Fixes: 5371a79be97c ("sound: Call cpu_latency_qos_*() instead of pm_qos_*()")
+Fixes: bc0e7345168c ("ALSA: pcm_dmaengine: Properly synchronize DMA on shutdown")
 Signed-off-by: Hector Martin <marcan@marcan.st>
 Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
 ---
- sound/core/pcm_native.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ sound/core/pcm_dmaengine.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-index 6d32c12fb79b..88c83e5fd6cf 100644
---- a/sound/core/pcm_native.c
-+++ b/sound/core/pcm_native.c
-@@ -971,8 +971,9 @@ static int snd_pcm_hw_free(struct snd_pcm_substream *substream)
- 		goto unlock;
- 	result = do_hw_free(substream);
- 	snd_pcm_set_state(substream, SNDRV_PCM_STATE_OPEN);
--	cpu_latency_qos_remove_request(&substream->latency_pm_qos_req);
-- unlock:
-+	if (cpu_latency_qos_request_active(&substream->latency_pm_qos_req))
-+		cpu_latency_qos_remove_request(&substream->latency_pm_qos_req);
-+unlock:
- 	snd_pcm_buffer_access_unlock(runtime);
- 	return result;
- }
+diff --git a/sound/core/pcm_dmaengine.c b/sound/core/pcm_dmaengine.c
+index 1306b04be171..e59b561b849d 100644
+--- a/sound/core/pcm_dmaengine.c
++++ b/sound/core/pcm_dmaengine.c
+@@ -355,6 +355,11 @@ static void __snd_dmaengine_pcm_close(struct snd_pcm_substream *substream,
+ 	if (status == DMA_PAUSED)
+ 		dmaengine_terminate_async(prtd->dma_chan);
+ 
++	/*
++	 * The PCM might have been closed while suspended, which would
++	 * skip the STOP trigger. Make sure we terminate.
++	 */
++	dmaengine_terminate_async(prtd->dma_chan);
+ 	dmaengine_synchronize(prtd->dma_chan);
+ 	if (release_channel)
+ 		dma_release_channel(prtd->dma_chan);
 
 -- 
 2.55.0
