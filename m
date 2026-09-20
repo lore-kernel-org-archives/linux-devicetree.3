@@ -1,287 +1,114 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-235.mta0.migadu.com [91.218.175.235])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 049CA1799F
-	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 03:28:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ECBD3438BC
+	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 03:33:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.235
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789874922; cv=none; b=DWhjLFBTntSFCehhqlve9NVPKtswaTyZMxrUJILAG80eOKoGgs7fx3p9R6zvYKR0yKIc+uKaEN9NlsDIpGXPEl3L4ksPxFT7ToLgkt81OJiw0HUMwCLxwOhoBD5LuIWPafaTWHXfZP0szCX3Tl+lOawq59ZAn+0PvF4U40T+cm4=
+	t=1789875236; cv=none; b=uF+UGOy4w27Evpz61Pe8hhgWZoIYLf1em8L17EIKxqJj62EB6wA7wIQic3KFZg2IclbBRkD/RQr4sRVGetdzZHef+TauIt2IilFkokNLghHstGMCK+kskIQ/aqfKoqvoy/1lN219hUb118Y5IQD83d9ohi1I5nfHZECKjivdZcM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789874922; c=relaxed/simple;
-	bh=rc4XDAZoSEw5crJuY4tHdWyxPIRJNcgVL16QMaMSMro=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ZVdeaNDOhQ629nbF0isX9NIUr+Lw7nxK5PL3tBk2uEY6ZR28/St594EMgwuYE50yZmK0oc2BMHdqoaAfyt9kFxlqgj++cfjvGBDHhSoTXLuHKfGNcDJDJ2hrHdH3VV8JyEEL+rw+xjxPWrJSnaozLNgYtL8IXfBUgTdh6pJ6Lcw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=pEsWMRFw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RkMPF2ef; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789875236; c=relaxed/simple;
+	bh=hXLqE47HqcLGyqOng+gJY4MA1aiOWDH2fotgfictL0g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jSti3n9owIdmV9WxfW0KQpXUTigNXb8Uzthk4VOZCdveI2rXRs1FCaKl0vViJ/HfbFT3EU6NqlCEzg1fOOQJVk8ZzZXsJOfdHZDZYuxR+YWunY3wAOqK/PmEGwTb231ZqG05OZoOzRS7oojmSRyez4cKOZooSZfk/Bj5MGSasm8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=MjFuIBdx; arc=none smtp.client-ip=91.218.175.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="pEsWMRFw";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RkMPF2ef"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68K1mNQH1213518
-	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 03:28:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=5rXvRzqmu67ws4mhhP2e6S
-	1iBGv09ES9MANgQedfOhg=; b=pEsWMRFwzIkd2EhTuRa4385YerMHR/kMWZmil1
-	mkslR4Eww0oCesFVnNiUsUDXhatGDmySSQOmOmJFX0FL2xWK3GUrfpwNo0oNPG9u
-	h2BD1Uuj8Tf5BUm40Z5ynYeSHh8/KzCd5/FQhsbPwIJXq6pMDCRVAMSU/D62aumw
-	wRPlXDOpv5YL/YhzMrJuXLXU9BS4owEEKfmojMYJN/RXn6e0WHV+s9Cq72k5PDRj
-	fFtEQHSEej2yHASqjN7R6TvCHeZRVMFOne4lb8Rski18TO9o3uDONYXj5kIHT2PV
-	JSbjdmHA0xZsdF5RH52ycD7LSTxZhAyCDrdHhtukJ+Xc+F/g==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gsjm3253f-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 03:28:40 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc1a439db36so1768800a12.2
-        for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 20:28:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789874919; x=1790479719; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=5rXvRzqmu67ws4mhhP2e6S1iBGv09ES9MANgQedfOhg=;
-        b=RkMPF2efnCQAfrVhiRETc9BltsMQtIlFZDOrzCMG3nKzL/7WhUbLfMaqh1lNL6zVwI
-         eN0hYRuoyzgKeOPrJ7beWWYr56xwUVb6z9+lYnKCw0fm+wcZwXMajYRywAQU1dKvpfEv
-         h7VlgqsD3Vv6tNi7wzvEw2tx/Xs2gE63eVZ+sY+RPXaJKNNF3iQDH848DtcQ7mBsndX1
-         GTCHAPa+S5aOBMdt/NA0S2RPrBK2K/gkeRlaqWrzF6lRuxC+mYcNvs4BXtA25DMuLPQd
-         O1L8PwR538sPqhkeGQXPphZGfQ3F4+2VfPXZA1MliDCiinCU1bEBA8eI3ZOfVRDKHU+Q
-         5zbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789874919; x=1790479719;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=5rXvRzqmu67ws4mhhP2e6S1iBGv09ES9MANgQedfOhg=;
-        b=iOnlAK7kV2K1WBx4X3/pYjiwt7K3niXHk7P2vxI4+0vStDwHTY4rlctvQ/naA5R6QU
-         AXzJuUk4keLeD2WZHlRCBtkk6D5T+FtQ9r9z71o88IUV+POKpPHSGpA7+6k2mW8wa2wh
-         /kIE83pBM6pFZk+2hcjSrcH564Qtlko8msrnb72Dee8eWOsGPRD+dm16fYWgaJxDNTf5
-         +FV0HpxzrYe/Af8VwvwMBoBrTHtI/vPRFsC4f0Mpvt1YehRv6YIeoc6/Mv6CGaHIAx0s
-         iq490Xu5gn7n8jNKnHGV8XtwXzQmPdNxHPwDPEyvPe7tovbZqU5S13bHNrh5HEqsHCTi
-         AXIg==
-X-Forwarded-Encrypted: i=1; AKwUvByU3pxyvqXntz3CUpZGoPWOD10yOgkCciZWozs9QFY8sIcooctTpI3tWybRjIDsAXelty1+S/oy5u6M@vger.kernel.org
-X-Gm-Message-State: AFuF++ls3Jn9RsC6WfIwMEgk/Mn45Y99ZTgrtGvc6xI4dh7g4a3Sm46L
-	jygdwOLwGt6hOQA1G9iKB+8/ILHyka54mfWT9rS1iEsbxT1ekA6IoddlAgAFgnpdgurE2fP+P1A
-	nXDzsI2B5M39iSKMyeOemfyfjOL2g3DofdcE8aDOHr7l2PLvDzLsc0guf/RW+D+z1
-X-Gm-Gg: AYBFou10/EfaQH0bTM0qkT7g96DDNV02bH2ocX/HQQn6ST4kz4k7x57Nx4tSmLMhy+M
-	k6K0P/MTmFFqylv5BxEkd+AwzXFIQTJZM0crGhlTICmN5cs1Wn54pkQoOrZRxpsXARDrdysd7Go
-	c14YgYejmWQtErfqXtQPTf23GGA7y3WZWtn7RDEs8qIHAqpZcGUIBca693g4nFCYy/hZfXfWAU3
-	QxNTzLahQBhoQM+LtDP/6noFRC5ZxYzuhidKweIrakkjfQjh/JRG+uTL/0+QdCPk9SIVknHdDTt
-	64S8yZtscZaaH8zCN/KhRf6GqT71WYObLlC2UvWFnF8WzoOpgj2OgkD6UjX+nGtnDEujYqf7vS/
-	vaknEmbKLLJPs5ywf3ugNg8xh1YbmRWa65cs=
-X-Received: by 2002:a17:90b:52cf:b0:398:9c39:520f with SMTP id 98e67ed59e1d1-39e54bd0941mr12283160a91.15.1789874919355;
-        Sat, 19 Sep 2026 20:28:39 -0700 (PDT)
-X-Received: by 2002:a17:90b:52cf:b0:398:9c39:520f with SMTP id 98e67ed59e1d1-39e54bd0941mr12283135a91.15.1789874918802;
-        Sat, 19 Sep 2026 20:28:38 -0700 (PDT)
-Received: from hu-vishsant-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c3311ad4esm9298965eec.5.2026.09.19.20.28.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 20:28:38 -0700 (PDT)
-From: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-Date: Sun, 20 Sep 2026 08:58:15 +0530
-Subject: [PATCH v3] arm64: dts: qcom: shikra: Add BAM-DMUX support
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="MjFuIBdx"
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=hXLqE47HqcLGyqOng+gJY4MA1aiOWDH2fotgfictL0g=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789875232; v=1; x=1790480032;
+ b=MjFuIBdxri6mnPIUOZ/bHRkOn9QfFFAQ/Q0tabD86fdfsLaHgHc5pFS1MJG6bPQIFl3Gca6t
+ kDUwPfcgXw4TbXfFtT1ksq+r5VLNgYmTTo+y/m6Qe1Fm5WLBb1VtWBJjhIKxd4GXgMgK888pnSb
+ W4ddmcOquFJ+NHn4dj3C3t4o=
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 15499ad898b25d57;
+	Sun, 20 Sep 2026 03:33:52 +0000
+X-Mizu-Trace-ID: 15499ad898b25d57
+X-Migadu-Flow: FLOW_OUT
+Date: Sun, 20 Sep 2026 11:33:45 +0800
+From: Baoquan He <baoquan.he@linux.dev>
+To: Mike Rapoport <rppt@kernel.org>
+Cc: Wandun Chen <chenwandun1@gmail.com>, catalin.marinas@arm.com,
+	will@kernel.org, chenhuacai@kernel.org, pjw@kernel.org,
+	palmer@dabbelt.com, aou@eecs.berkeley.edu, tglx@kernel.org,
+	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
+	x86@kernel.org, robh@kernel.org, saravanak@kernel.org,
+	akpm@linux-foundation.org, pasha.tatashin@soleen.com,
+	pratyush@kernel.org, m.szyprowski@samsung.com, mark.rutland@arm.com,
+	kernel@xen0n.name, alex@ghiti.fr, hpa@zytor.com,
+	ruirui.yang@linux.dev, robin.murphy@arm.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org, kexec@lists.infradead.org,
+	linux-mm@kvack.org, iommu@lists.linux.dev
+Subject: Re: [PATCH v6 06/10] memblock: introduce MEMBLOCK_NODUMP flag
+Message-ID: <aq9UGXeqmCfuPHdD@fedora>
+References: <20260902073116.802752-1-chenwandun1@gmail.com>
+ <20260902073116.802752-7-chenwandun1@gmail.com>
+ <aqzxavL91icLw-Xv@fedora>
+ <aq41nFRPtRWTQ7cK@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260920-qcom-shikra-dts-bam-dmux-v3-1-91474d507d61@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAM9Sr2oC/52Ry2rDMBBFf8Vo3Ql6WXK86n+ULPQYJaK1nViOS
- An598o2pYGkXXQzMANz7p07V5JwjJhIW13JiDmmOPSlES8VcQfT7xGiLz3hlCuqqICTGzpIh/g
- +GvBTAms68N35Ajp4Z60KVilOyvpxxBAvC/ptt/Yjns5FYVqHpMOUzKLQVgt/S5tv9NHcoW3sf
- ez3kCUwUFTKptmiRuFfh5Q2p7P5KKa6TSmz8COW09X2CjSQu+gBLxNkXoDSWxsCxVq75l/A4vC
- eSAFD7QxnuhH6OdGahDAP4tRWNWuwtnorHVWOFiNWUh8EFimupSlxUu6Y0GRO8RDTNIyfy78yW
- 2JcX8PY76/JbD5TeGpLkQzDo6mZnfkPT//Jm2PztRUCUXAmnhy5u91uX2J3859dAgAA
-X-Change-ID: 20260603-qcom-shikra-dts-bam-dmux-7fdcbb6fb662
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stephan@gerhold.net,
-        Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>,
-        Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789874914; l=5428;
- i=vishnu.santhosh@oss.qualcomm.com; s=20251203; h=from:subject:message-id;
- bh=rc4XDAZoSEw5crJuY4tHdWyxPIRJNcgVL16QMaMSMro=;
- b=le+NqhnaQYvqozLT1aYojD/hrG3KMYw2nZVuYzAxlsTEzVIz4h3IKkvQ9LbgU++uTsRjrlKHH
- FKaBtGoygDKAeBH/1U0LhNaT1pIbhIsBWk090HwRtQ28d1cfnoxXqNC
-X-Developer-Key: i=vishnu.santhosh@oss.qualcomm.com; a=ed25519;
- pk=G8/AJPecB1feGI7wxArGWGN0PPGQS0GUaD4THQCbdis=
-X-Proofpoint-ORIG-GUID: 7V7mLEg1qhIpTns5PmE3UbvG0mr5PiCW
-X-Proofpoint-GUID: 7V7mLEg1qhIpTns5PmE3UbvG0mr5PiCW
-X-Authority-Analysis: v=2.4 cv=DtfDa2/+ c=1 sm=1 tr=0 ts=6aaf52e8 cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=1luV-em0b8dgtdwlMEUA:9 a=QEXdDO2ut3YA:10
- a=bFCP_H2QrGi7Okbo017w:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIwMDA0NSBTYWx0ZWRfX4Qkv/ErBqk9/
- 2C15sa2ywIBJAyvgZIjvCs6bE5mBuG1pDuqmnxo9gewxKVKW0jU0OYng1nUUAVrt5JFz66mZd/E
- hoUg7s0++wSseftPUui3YDPQIV+QQwL3bzLT6x0+RYeDdqG6xOlLoRJXJmCeMTHsiI6g9BppKM1
- C1gegd3bCc9SRnrO+UtoSFJ33nrw4nr3FJ0hTHnyqUWKYGYxYtTfVTDeHEX/WE1Ao/46WDM3/4v
- TRszps6x4LKwyezwOwJtRQb9qki54BrvZNrV7PKryNefhPy96ORFCvo8/L9JGbvCmSawqCFbQGv
- NzHBiycMkmcyoeBOeHH3SnLiw9AUXnaH2TgutmU8dPM1Y4w2cpK5dSmifk0/qbqhYZSU9/dZZPk
- XRmL9r4qT6XAGBymYWM/ScwDatXXITj8LDjHrexuWOI0VKVDPx4ILfSWaxD6bymtDdbqC2scSxK
- RCaeDH4TytbKUVV07QQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIwMDA0NSBTYWx0ZWRfX9DDGw8q8gk96
- sy0bYhOL+C8sEWcjQHfLR/vXz/Hvdeq6JV7gcI87W/Bo94ZCpmYldxxIGl7IHxj013qiYwA6KtX
- tnptXFCEFhRkwdH2zHIYxjiCZP62B+o=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-20_01,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 priorityscore=1501 adultscore=0 spamscore=0
- suspectscore=0 clxscore=1015 phishscore=0 impostorscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609200045
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aq41nFRPtRWTQ7cK@kernel.org>
 
-Add the SMSM state entries, BAM-DMUX node, and BAM DMA controller needed
-to provide modem data channels on Shikra.
+On 09/19/26 at 10:11am, Mike Rapoport wrote:
+> On Fri, Sep 18, 2026 at 04:08:10PM +0800, Baoquan He wrote:
+> > On 09/02/26 at 03:31pm, Wandun Chen wrote:
+...snip... 
+> > > +/**
+> > > + * memblock_mark_nodump - Mark a memory region with flag MEMBLOCK_NODUMP.
+> > > + * @base: the base phys addr of the region
+> > > + * @size: the size of the region
+> > > + *
+> > > + * Mark the region as not to be included in crash dumps.
+> > > + *
+> > > + * Return: 0 on success, -errno on failure.
+> > > + */
+> > > +int __init_memblock memblock_mark_nodump(phys_addr_t base, phys_addr_t size)
+> >       ~~~~~~~~~~~~~~^
+> > Is it impossible to use at runtime even thought it claims to be generic?
+> 
+> This should only happen at boot.
+> 
+> Allowing modifications of memblock properties in runtime is a can of worms
+> I don't want to open.
 
-Reserve a 256 KiB restricted DMA pool and reference it from both the
-BAM-DMUX and BAM DMA nodes. Set qcom,vmid to NAV so the BAM-DMUX driver
-can grant the modem access to the complete pool before requesting the DMA
-channels.
+Thank you. This is why I said this can't be claimed as a generic way to
+mark memory region as no dump. The generic way I'd like to see is
+at any time of system we can mark any unwanted memory region as no dump.
+And it won't impact the behaviour of the current system.
 
-The 256 KiB pool provides space for BAM-DMUX RX and TX buffers and BAM
-descriptor FIFOs, with additional headroom.
-
-Place the BAM-DMUX node below the modem remoteproc so userspace can
-associate the resulting network interfaces with the owning remoteproc
-through the device hierarchy.
-
-Co-developed-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-Signed-off-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
----
-Changes in v3:
-- Add a shared restricted DMA pool for BAM-DMUX mappings and BAM
-  descriptor FIFOs.
-- Add memory-region references to the BAM-DMUX and BAM DMA nodes.
-- Add qcom,vmid to grant NAV access to the pool.
-- Replace and supersede the separate BAM-DMUX VMID extension v1:
-  https://lore.kernel.org/r/20260714-b4-qcom-shikra-dts-bam-dmux-vmid-ext-v1-1-5b19da8d7735@oss.qualcomm.com
-- Link to v2: https://lore.kernel.org/r/20260711-qcom-shikra-dts-bam-dmux-v2-1-d5b33ee32138@oss.qualcomm.com
-
-Changes in v2:
-- Move the "bam-dmux" node below the modem remoteproc
-  ("remoteproc_mpss"), instead of at the root, so that userspace can
-  associate the resulting network interfaces with the owning
-  remoteproc via udev/sysfs (Stephan)
-- Add the "shikra-dt-m1" series as a declared prerequisite, since it
-  introduces the "remoteproc_mpss" node this series now depends on
-- Link to v1: https://lore.kernel.org/r/20260611-qcom-shikra-dts-bam-dmux-v1-1-43d0b43d41ef@oss.qualcomm.com
----
- arch/arm64/boot/dts/qcom/shikra.dtsi | 51 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 51 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/qcom/shikra.dtsi
-index 92d22e3b6931cf49f213d1807f78fc1a261f290d..4980c125b7e1a45f3793ba2335b6cfd1702eb877 100644
---- a/arch/arm64/boot/dts/qcom/shikra.dtsi
-+++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
-@@ -10,6 +10,7 @@
- #include <dt-bindings/interconnect/qcom,icc.h>
- #include <dt-bindings/interconnect/qcom,osm-l3.h>
- #include <dt-bindings/dma/qcom-gpi.h>
-+#include <dt-bindings/firmware/qcom,scm.h>
- #include <dt-bindings/interconnect/qcom,rpm-icc.h>
- #include <dt-bindings/interconnect/qcom,shikra.h>
- #include <dt-bindings/interrupt-controller/arm-gic.h>
-@@ -352,6 +353,13 @@ reserved_memory: reserved-memory {
- 		#size-cells = <2>;
- 		ranges;
- 
-+		bam_dmux_pool: restricted-dma-pool {
-+			compatible = "restricted-dma-pool";
-+			size = <0x0 0x40000>;
-+			alignment = <0x0 0x40000>;
-+			alloc-ranges = <0x0 0x80000000 0x0 0x80000000>;
-+		};
-+
- 		hyp_mem: hyp@80000000 {
- 			reg = <0x0 0x80000000 0x0 0x1600000>;
- 			no-map;
-@@ -500,6 +508,23 @@ modem_smp2p_in: slave-kernel {
- 		};
- 	};
- 
-+	smsm {
-+		compatible = "qcom,smsm";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		mboxes = <0>, <&apcs_glb 13>;
-+		apps_smsm: apps@0 {
-+			reg = <0>;
-+			#qcom,smem-state-cells = <1>;
-+		};
-+		modem_smsm: modem@1 {
-+			reg = <1>;
-+			interrupts = <GIC_SPI 69 IRQ_TYPE_EDGE_RISING 0>;
-+			interrupt-controller;
-+			#interrupt-cells = <2>;
-+		};
-+	};
-+
- 	soc: soc@0 {
- 		compatible = "simple-bus";
- 
-@@ -1866,6 +1891,20 @@ glink-edge {
- 				qcom,remote-pid = <1>;
- 				label = "mpss";
- 			};
-+
-+			bam_dmux: bam-dmux {
-+				compatible = "qcom,bam-dmux";
-+				interrupt-parent = <&modem_smsm>;
-+				interrupts = <1 IRQ_TYPE_EDGE_BOTH>,
-+					     <11 IRQ_TYPE_EDGE_BOTH>;
-+				interrupt-names = "pc", "pc-ack";
-+				qcom,smem-states = <&apps_smsm 1>, <&apps_smsm 11>;
-+				qcom,smem-state-names = "pc", "pc-ack";
-+				dmas = <&bam_dmux_dma 4>, <&bam_dmux_dma 5>;
-+				dma-names = "tx", "rx";
-+				memory-region = <&bam_dmux_pool>;
-+				qcom,vmid = <QCOM_SCM_VMID_NAV>;
-+			};
- 		};
- 
- 		remoteproc_cdsp: remoteproc@b300000 {
-@@ -2026,6 +2065,18 @@ dispcc: clock-controller@5f00000 {
- 			#power-domain-cells = <1>;
- 		};
- 
-+		bam_dmux_dma: dma-controller@6044000 {
-+			compatible = "qcom,bam-v1.7.0";
-+			reg = <0x0 0x06044000 0x0 0x19000>;
-+			interrupts = <GIC_SPI 74 IRQ_TYPE_EDGE_RISING 0>;
-+			#dma-cells = <1>;
-+			qcom,ee = <0>;
-+			num-channels = <6>;
-+			qcom,num-ees = <1>;
-+			qcom,powered-remotely;
-+			memory-region = <&bam_dmux_pool>;
-+		};
-+
- 		sram@c11e000 {
- 			compatible = "qcom,shikra-imem", "mmio-sram";
- 			reg = <0x0 0x0c11e000 0x0 0x1000>;
-
----
-base-commit: 518e5b794c06c0f0eb40df3e202274a66202c137
-change-id: 20260603-qcom-shikra-dts-bam-dmux-7fdcbb6fb662
-prerequisite-message-id: 20260908-shikra-pas-bam-dmux-binding-v4-1-6044889e7e3d@oss.qualcomm.com
-prerequisite-patch-id: c3d19e8dbf9451f9f8155c86c21a4e6b5dc796d0
-prerequisite-message-id: 20260920-qcom-bam-dma-vmid-ext-v2-1-4dbbff0e57c8@oss.qualcomm.com
-prerequisite-patch-id: 30840b157a197cc896556c0152b26a00abba0010
-prerequisite-message-id: 20260920-qcom-bam-dmux-vmid-ext-v2-0-ef5ca2178378@oss.qualcomm.com
-prerequisite-patch-id: a9c2ce26fabf293f94f384409991f8a9b3afaafa
-prerequisite-patch-id: c4d2876bea87e825468eb3bd116bfdf5a203f7c1
-
-Best regards,
--- 
-Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-
+>  
+> > > +{
+> > > +	return memblock_setclr_flag(&memblock.memory, base, size, 1,
+> > > +				    MEMBLOCK_NODUMP);
+> > > +}
+> > > +
+> > >  static bool should_skip_region(struct memblock_type *type,
+> > >  			       struct memblock_region *m,
+> > >  			       int nid, int flags)
+> > > @@ -2887,6 +2902,7 @@ static const char * const flagname[] = {
+> > >  	[ilog2(MEMBLOCK_RSRV_KERN)] = "RSV_KERN",
+> > >  	[ilog2(MEMBLOCK_KHO_SCRATCH)] = "KHO_SCRATCH",
+> > >  	[ilog2(MEMBLOCK_RSRV_HUGETLB)] = "RSV_HUGETLB",
+> > > +	[ilog2(MEMBLOCK_NODUMP)] = "NODUMP",
+> > >  };
+> > >  
+> > >  static int memblock_debug_show(struct seq_file *m, void *private)
+> > > -- 
+> > > 2.43.0
+> > > 
+> 
+> -- 
+> Sincerely yours,
+> Mike.
