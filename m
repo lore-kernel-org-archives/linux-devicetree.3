@@ -1,129 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sg-3-42.ptr.tlmpb.com (sg-3-42.ptr.tlmpb.com [101.45.255.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B8032D9ECB
-	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 10:01:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B8F3932C8
+	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 10:02:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.45.255.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789898478; cv=none; b=lfLBGNI+8cLVxEC2BFsrFBE40o2XcFOZtEpksLucQCzgBj74O6Wn55ktHTRKJOvl5Vu4MoHB/j442QFX++ERa0mzg4zZran+87eTB2x0iLQ7+LbAoy8Sm+44Hvm4bq+lKNoXKnZiwXUbG2rVvOi2heqgr73lvCGYQtmH4OzQm88=
+	t=1789898573; cv=none; b=BFHnHjE70jBEBK67sXRdfiwDR90KWkEeB7D6Fn/BdQCi+lZkG5a9ogf8epicdZw+P9IjLzLMp2nyxCtdsrdUjJ/kCK1T65eRGkbMWWY5qtFS7p+sU0RPyhAuCVjak0XHH7RY/iVkOtPGshF7ZWrutkdUxgHkibr7UdV/yIwnd5M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789898478; c=relaxed/simple;
-	bh=nlB5jQZBgojNE29iCYcEoW+xcH2KpeYoHcq65/wFbuo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nnd9BHs/Q/9ThbQip5d2vq3L60xHgPeJ9a38ZSl8mjmNlGK+l+EJrUDzVPlMoH7o9zegK8hM+aAi8X0yxla/kPRF6ld1DkC+UqnoIvqHJ/Fm+GMDWDIavKCTMxfAupkX7b1f1hyc3EWVYNHB648u5vL3tHWdHl+nY+vdv/sLtAo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kGbCShma; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789898573; c=relaxed/simple;
+	bh=ttOxI5Y229QMz9DbVBXaGOtOLX5sVcTcavTN6OTo46Y=;
+	h=Cc:Subject:References:Mime-Version:In-Reply-To:From:Date:
+	 Message-Id:Content-Type:To; b=dwRM1m0UZ5gR3KJPQnyo8KthWAlvwFYRaqFdkLKReqYH3iaAcWBPSu6iRBIJeG9GC9+rxhHodJCMBcEYekZx7VMLEfPFV2vY9WHLDos69Dp23vdezGAhmRwMnfhspCAG9Jx/tJ3AB6LL1KWB7mY2/nKn/2VVOy3EGi+O5cK+Oyo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bedmex.com; spf=none smtp.mailfrom=bedmex.com; dkim=pass (2048-bit key) header.d=bedmex-com.20200927.dkim.feishu.cn header.i=@bedmex-com.20200927.dkim.feishu.cn header.b=NFekP/8k; arc=none smtp.client-ip=101.45.255.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bedmex.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bedmex.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kGbCShma"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DAD91F000FF;
-	Sun, 20 Sep 2026 10:01:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789898476;
-	bh=MVI9p4gqJ5du2VsZ2KPh8eEXGdxbocDhp4YlMYx329g=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kGbCShmaecw7BwJ/2kX2XgdCgcfQXse8+A4VYJKb0bYqvsm1su8mMIEvz3PKNoLKC
-	 iCdsFdVGMkTFpRHnken4SRv+mf/00CIF5Vwvn/iZDGbnhJdSKxPVYrttDsYYUJW0X1
-	 LIU9VLnLrm9tM/KlycdSUa12uikduCBc/3x70LiH6ID+N2IsvKdQrGBmBykfC0buZN
-	 ClaHteb2bMCgt8tIHmZvChxR1ofMHW/hrp2YnXJpwMLppglDNrm21d2GzO3+8ZGaan
-	 HjVrpF4x8teTBpBzuPZY+kjp7VtzmGebTapaLIpacK7MSjZ/HPrOOKNDNXKjgfFtPH
-	 85YaPhXEdWF+w==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v2 2/3] dt-bindings: net: bluetooth: Add AIC8800D80
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yanli Yang" <yanli.yang@bedmex.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <a4304d4068002ca854d2aea5609ac8440935a8b2.1789897503.git.yanli.yang@bedmex.com>
+	dkim=pass (2048-bit key) header.d=bedmex-com.20200927.dkim.feishu.cn header.i=@bedmex-com.20200927.dkim.feishu.cn header.b="NFekP/8k"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=bedmex-com.20200927.dkim.feishu.cn; t=1789897834;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=Ad85azF8NuUWbQOZeE/AypEFZ0EAh0ubTf77I/hzDg0=;
+ b=NFekP/8kvjF128KV6JcWpkz+nZWXoFosT17l7gTDQ5+M3zc0ii+kZN5VbTEokZwcD9v+P3
+ hyIqFIiNgYe51ykpy+k0Cttayrw/MyiW4flTgovlB3Hvr/l89A+QnlZsAm/G5oNtzzaaFJ
+ lq6vTSMJKH6wLIv8jzsEMieCmAOd6eKjqV/aJ88lA8sW6q4mJi4xUF3u2zNF8fhqyHF+C8
+ +xFJvXe3ESQVOu2pTFItCKpqYiWVTBbPxOkXC+hpqyRdVnJ1p/mXHH9TfMRT7OwERBE8Nm
+ 5uqfNl9HDWKBJ3GxSz3PZr6wpxRCAsGPNXlmCXz9D3NiQNSpg94PiZRZxrt2Wg==
+Cc: <marcel@holtmann.org>, <devicetree@vger.kernel.org>, <robh@kernel.org>, 
+	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, 
+	<linux-kernel@vger.kernel.org>, <zhirunliu@aicsemi.com>, 
+	<dijiaxu@aicsemi.com>, <chunqiuliu@aicsemi.com>, <liheng.wei@bedmex.com>, 
+	<yanli.yang@bedmex.com>
+Subject: [RFC PATCH v2 1/3] dt-bindings: vendor-prefixes: Add AIC Semiconductor
 References: <cover.1789897503.git.yanli.yang@bedmex.com>
- <a4304d4068002ca854d2aea5609ac8440935a8b2.1789897503.git.yanli.yang@bedmex.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 20 Sep 2026 10:01:15 +0000
-Message-Id: <20260920100116.6DAD91F000FF@smtp.kernel.org>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+In-Reply-To: <cover.1789897503.git.yanli.yang@bedmex.com>
+X-Original-From: Yanli Yang <yanli.yang@bedmex.com>
+Content-Transfer-Encoding: 7bit
+Received: from bmxpxe-virtual-desktop.. ([36.141.79.164]) by smtp.feishu.cn with ESMTPS; Sun, 20 Sep 2026 17:50:31 +0800
+From: "Yanli Yang" <yanli.yang@bedmex.com>
+Date: Sun, 20 Sep 2026 17:50:24 +0800
+Message-Id: <7a2c93192831b8756fe071fd60ec064a05703b8b.1789897503.git.yanli.yang@bedmex.com>
+X-Lms-Return-Path: <lba+26aafac68+58014e+vger.kernel.org+yanli.yang@bedmex.com>
+Content-Type: text/plain; charset=UTF-8
+To: <linux-bluetooth@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] dt-bindings: net: bluetooth: Incorrect max-speed property constr=
-aint
-- [Low] dt-bindings: net: bluetooth: Unidiomatic reg property constraint sy=
-ntax
---
+Add the vendor prefix for AIC Semiconductor (Shanghai) Co., Ltd.,
+used by the AIC8800D80 Bluetooth bindings.
 
-commit 8cfd6d94bf45715d77abf03541df961e63f18ae5
-Author: Yanli Yang <yanli.yang@bedmex.com>
+Signed-off-by: Zhirun Liu <zhirunliu@aicsemi.com>
+Signed-off-by: Dijia Xu <dijiaxu@aicsemi.com>
+Signed-off-by: Chunqiu Liu <chunqiuliu@aicsemi.com>
+Signed-off-by: Liheng Wei <liheng.wei@bedmex.com>
+Signed-off-by: Yanli Yang <yanli.yang@bedmex.com>
+---
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-dt-bindings: net: bluetooth: Add AIC8800D80
-
-This commit adds a devicetree binding for the AIC8800D80 Bluetooth chip.
-It describes the SDIO firmware-loading function and the UART HCI interface
-which uses the H4 protocol with hardware flow control.
-
-> diff --git a/Documentation/devicetree/bindings/net/bluetooth/aic,aic8800d=
-80-bt.yaml b/Documentation/devicetree/bindings/net/bluetooth/aic,aic8800d80=
--bt.yaml
-> new file mode 100644
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/net/bluetooth/aic,aic8800d80-bt.y=
-aml
-
-[ ... ]
-
-> +allOf:
-> +  - $ref: bluetooth-controller.yaml#
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          const: aic,aic8800d80-bt-sdio
-> +    then:
-> +      properties:
-> +        reg:
-> +          const: [[1]]
-
-[Severity: Low]
-Is this the correct syntax for constraining the reg property?
-
-In devicetree YAML bindings, reg constraints are typically expressed using
-standard json-schema properties like minimum/maximum or an items list
-definition. Does using a 2D array [[1]] expose the internal parsing
-representation of dt-schema, making it unidiomatic? Could this fail
-validation in future tooling updates or confuse other developers?
-
-> +        max-speed: false
-> +        aic,firmware-sdio: false
-> +      required:
-> +        - reg
-> +    else:
-> +      properties:
-> +        reg: false
-> +        max-speed:
-> +          const: 1500000
-> +      required:
-> +        - max-speed
-
-[Severity: Medium]
-Does this incorrectly mandate a fixed max-speed?
-
-According to standard devicetree principles and the core
-serial-peripheral-props.yaml specification, max-speed represents a
-board-specific hardware limitation and should only be present if the maximum
-is less than the slave device can support. By requiring it and forcing it to
-const: 1500000, does this force redundant, fixed configuration into every
-device tree using this compatible string?
-
-Would this also prevent developers from specifying a lower speed if their
-particular board design has signal quality issues? If the device always
-operates at 1.5 Mbaud by default, should the kernel driver handle that based
-on the compatible string rather than hardcoding a required static property =
-in
-the DT?
-
-> +        - aic,firmware-sdio
-> +      allOf:
-> +        - $ref: /schemas/serial/serial-peripheral-props.yaml#
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1789897503.gi=
-t.yanli.yang@bedmex.com?part=3D2
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index ba2002969373..8d35a4b7d8ed 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -76,6 +76,8 @@ patternProperties:
+     description: Aeroflex Gaisler AB
+   "^aesop,.*":
+     description: AESOP Embedded Forum
++  "^aic,.*":
++    description: AIC Semiconductor (Shanghai) Co., Ltd.
+   "^airoha,.*":
+     description: Airoha
+   "^al,.*":
+-- 
+2.34.1
