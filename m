@@ -1,267 +1,285 @@
-Received: from mail-ej2-f27.google.com (mail-ej2-f27.google.com [74.125.228.155])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AA6E440626
-	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 13:14:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.155
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C4F8434996
+	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 13:16:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789910079; cv=none; b=oxKQe8esKMbV8xqIeO1eTfglAeRN8XbbVMsKbSeI4iouSvOz9MGCN5Y2BtrWl7Zgeke3tC1EKkhLcVtjqaYPSK8i1j9zYtccUGXZTDRI5fMvN8CedRhwbWkqbJP60asba18t9N3Isdur2HunUFQsHXpNh9+8RhJQTFxB4MQQdBk=
+	t=1789910182; cv=none; b=B2Gq2FX1/Qq395vvSlY+hZ5v9uWqrHJ74QZyoFyFB+RUOhKrNGVbKt/6euVt3Ofo6aI0PhHsG0NYSIwb/shiHBeA/yWjxseP5WueK7GOZny4tLI2QVdnXoK79dp5ImKlUVYkug2jfxI5lM69adOIUX9AJmNzeMU7iOU9+rBpqIs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789910079; c=relaxed/simple;
-	bh=VK7RoF1IQoNC3f+NsiDh8gGx5Rb6QtODUmRQmxHqHFo=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=Qeqsy/yixtkRx5qhTEuqotRTM3NXv7a+FNg36/HcvJBj1PXel5tvaG7etIJnfdzr7N63ufCnDNb3R8M0m4Ow3xVT2N96c9Xd8q0JL5PSOEsArmfkROBtwALd5aAe2L0ElT1OsW0Z7iwMY1Sm65y5a24jco3cSzIDhPteSvXwKGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=conchuod.ie; spf=pass smtp.mailfrom=conchuod.ie; dkim=pass (2048-bit key) header.d=conchuod.ie header.i=@conchuod.ie header.b=dr7GKYjW; arc=none smtp.client-ip=74.125.228.155
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=conchuod.ie
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=conchuod.ie
+	s=arc-20240116; t=1789910182; c=relaxed/simple;
+	bh=Xt6eE3mXVxpdy1niUg2kBBuIQUoWkM0zPYl+iKtIwMw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kCL93tiNSPb+i0vrDvl0DeKNpFpfiT/1L10qQwV3TcaPpF/Vq4KFKYPym4ZXaew7xPcsP8wwslZXZYh99Z3yJPN5wJ9HxAbnfEEN1HG9rae4AoLX5BgIfxFGyKxCridwB8BA/FVb0nf9ZgXLX+NUEGHyyDP+yDTGCntEO5D0Fx4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kDhuIokx; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RnRf7hSB; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=conchuod.ie header.i=@conchuod.ie header.b="dr7GKYjW"
-Received: by mail-ej2-f27.google.com with SMTP id a640c23a62f3a-c254f6c7a58so314358366b.2
-        for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 06:14:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kDhuIokx";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RnRf7hSB"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68KBoMm12762242
+	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 13:16:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=Ejeu4h5Q9V99yYBFdvooJSxj
+	14uii0XMOf9g/UP93OQ=; b=kDhuIokxsn8KPNfHYbplmMNPV1YOoWeKo8HgdiOF
+	xtAEnm5NZEFTwoCZhxNUywNnNyrUpLiu98HZGym5x7luExwtyxZvudQf4vQF+BK/
+	m/Pwh1AajYFtcMLnc2qtmbM9eDwWNjcWutUnN37G4GRcAT/EflFzPEXnWwv731pr
+	7rHecTMSH2gyilDQCDh4dFnfmf3XEIgscIYZb+LEKrUyOarPJf0vot7QyQ9MfmBv
+	bXzvQbaX8Wg5QG46AIwkSZZUbhieibi3KbMqDhmx52Fu8ZA/l+X2K7BL9QwGNVW2
+	X31BDumqdr0Qv/fq5D49hIjJtceKmVfp3jHET2ycfVz0gg==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gshd635a3-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 13:16:17 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2dd8920c132so53824725ad.0
+        for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 06:16:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=conchuod.ie; s=google; t=1789910074; x=1790514874; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=JFbD+COCu0lnrDJVoD6aOrFo9jVKtOVDblrxwIMvKRY=;
-        b=dr7GKYjW0O938xlBYo71Nf8w8sZxU1L/11ABaMXkYAqK20BDj5lUPGzLSj1njfjrlr
-         vmgr8kcZDwcF/muUwxBF69aeGzF1hhW8xG41PT7R243TwuuTgXqYvRvkCIgUPuU0fh5r
-         t1qKa+WTgNJ/5BqeV+VDPNJr5V+z2ijd0nQbVo2waWxOriLRZ8rjqfcDKbo2HT/OBBlW
-         Xs0U1eaQPH5JzOn6za6Fx+clcwk8liJhjlvUDdBJaeJyUmGhbZhcqq1kqjlZ756h30zM
-         C1Y643pvyFmioyWqN6XtnvG5ajpTiK2o1tJkgey0/iaP18NPL/1hmG5fJoJdjeXDOQYI
-         Hdew==
+        d=oss.qualcomm.com; s=google; t=1789910176; x=1790514976; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Ejeu4h5Q9V99yYBFdvooJSxj14uii0XMOf9g/UP93OQ=;
+        b=RnRf7hSB1afgLdduVI2ZYYDOEwzNokPir2HzikGPVKVO7nMQniv0ESb6DFo2JV1H7+
+         /meIsabfcCoM6jkmYiBMPa+JkAyw6xIMv3aXBqy3Tehr8eBn4bV9ZYUIS/NcVq4jn0ld
+         kdgvrGoDKCQssZAbMQeAK/h4IVyvbAZ39Xb5MAuj/YhMQy1rOT8G1qtmC2bpVHfEqp2N
+         R5CR60+kotqjNpEJWf3trKkMwDGoplBDm92v4lvLqZwyUa+81+1D3JEe8MPkL97026aH
+         7vJOsB75E3c51IsmbqX7xI8o2QPOXwIWk4Bb8SlL9R/s6upBt6YxcvWLtXXoG4WGv+4O
+         0atw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789910074; x=1790514874;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1789910176; x=1790514976;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=JFbD+COCu0lnrDJVoD6aOrFo9jVKtOVDblrxwIMvKRY=;
-        b=LsgieHY0E9RzwIIciSEkPIMhx9ys1DFg6y9gHi1wEl+XxRFLPLW/vTti/dYsIgBlAQ
-         RDzy+LfG9MJ3OBpO37hL0wSgn54CRItigFB4Juosn+VmQ7KsGAVeilpWH7ojGzRWryHR
-         zJVG0nX4WHXVYi70VF3qYST8ogS3JYguz+O5FUAZ2+EMsBRWq13qaRHxRQTyffhgE32K
-         /TgKFoQs/vA8CMTBdwMwZEGZf1KyhwtR0cP/Eq1vQQRwrTvDrJnngl4hDBiKVrPseZ0L
-         DwKdFckqE9ASXBMiE0tA09DrhM7rpEi8VNdhmikMqZCZ4E0I3xrTLP/AQjF5z03Zs2Rk
-         BVNg==
-X-Forwarded-Encrypted: i=1; AKwUvBycu+MPhFzRsp81GyuTfgsyH4N9jQrBrFa1LUJfV0aRlRWU4T+fBGQukj2I46KJjJfJjhhr3ZvwhLhn@vger.kernel.org
-X-Gm-Message-State: AFuF++ksvOEkiqCP/9pFftlTKXCaYayiZqV96YtESV4PZ4Mi1/SeR/kM
-	YYzm45d0qbs4oCCPjTgk6btQZxEXFfLHpKyyVN5z5oJpx92qoxhOVJru1Z5GwWTxSis=
-X-Gm-Gg: AYBFou1wRVGHs/OYgKe87mWjyOpAa59HAQ3gHmocBWeiQD2qLjXWBu4PJNsuUhi1KsL
-	tAxUW6k16ZaHwJN/B+RgAaYyftY3x3QEHiV3DFRwiA1gAG0nyVjoiiqXk2WZDRVS2cW4nQ8EtWt
-	rMDSu4otkNrVmFw3BdFOaOtNcxNCLrsDtzzb9zlKCaBKPaLmMNkhjeUxdASzTcroM0x/CPGJZ3l
-	HXF3cl85JqMpBtHWpE7cQpfYqztZYV5H7vNaXpUEoQ2F8Cr8u3L90vYJZZOP8DPY7EN7mVZdJ8R
-	cfz6AqAqefv916KoNSN8X+Esosqx3lvE6ZJmnQ54baUupdX/gUK4H+kqD+6utYJNWN9cyz2rbkS
-	nTjiX3uj5ch5MwyziOY/27mm9Rnqd7zqpZ2NkmrvuZsPC2pz6vJ3f6xhF1eVHuI+zm1HNttEyaa
-	QoInQajmGSTrdkDbk/1RxDZWMYzhcrqeRR0UpsfrfToR/AKMp0noO0HbknNd245Ibraqh3AJec2
-	f5M7GrhzwI9+X9De4tw3vQwmY9XzlaZ3tFavlSe1ALPQvpTwvc=
-X-Received: by 2002:a17:907:9703:b0:c29:4fcb:2886 with SMTP id a640c23a62f3a-c2a15b739a2mr686473666b.39.1789910073446;
-        Sun, 20 Sep 2026 06:14:33 -0700 (PDT)
-Received: from ehlo.thunderbird.net (ip-077-020-009-205.vkd66.pools.vodafone-ip.de. [77.20.9.205])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa67daf380sm2634379a12.12.2026.09.20.06.14.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 20 Sep 2026 06:14:32 -0700 (PDT)
-Date: Sun, 20 Sep 2026 15:14:30 +0200
-From: Conor <mail@conchuod.ie>
-To: Jonathan Cameron <jic23@kernel.org>, Chang Yu <marcus.yu.56@gmail.com>
-CC: Conor Dooley <conor@kernel.org>, Joshua Crofts <joshua.crofts1@gmail.com>,
- David Lechner <dlechner@baylibre.com>,
- =?ISO-8859-1?Q?Nuno_S=E1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Shi Hao <i.shihao.999@gmail.com>,
- "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-Subject: Re: [PATCH v2 1/2] dt-bindings: iio: light: add as7343
-User-Agent: K-9 Mail for Android
-In-Reply-To: <20260920010448.114fc597@jic23-hlaptop>
-References: <20260907210042.32552-1-marcus.yu.56@gmail.com> <20260907210042.32552-2-marcus.yu.56@gmail.com> <20260908-dinner-shelve-1d61e19ee3b7@spud> <20260913014203.2bae2222@jic23-hlaptop> <20260915-gleeful-jester-c8114edf28ff@spud> <20260917034823.03940ac4@jic23-hlaptop> <aq3rdBcMw1XcHnkL@gmail.com> <20260920010448.114fc597@jic23-hlaptop>
-Message-ID: <77D15400-6ECD-4661-8733-E1F4F85077AF@conchuod.ie>
+        bh=Ejeu4h5Q9V99yYBFdvooJSxj14uii0XMOf9g/UP93OQ=;
+        b=kdaVrH98YA+heOfCx7CE/rS8ng0oE5EeWtR8AHKViZ/aHZewhZ8u3qMUOzIgfY3Cr+
+         qqwEXWVyS6e0RX+m0iTrILm+ZvLqe5mNbSiRfQ9zQm0V3pwQ7U5Uzo0Z7ucd6iD529cu
+         2zPbmZFOG66S97OOgqSfA9lEWS03hGuX7nmP4Pmy6J8DbvWzypjLAsJIL2txMbpfm3e/
+         hsSxmmbdcrAw3GzQYSN8WVEexSwzOoFzc43l3U3o8cUsUZSMpigjTOjTp4mhEELi8yJT
+         fmMb7H8ZUSGMPonChwEix/EbQgqMK6MVKEZDx+sYdINySJW+iPIZHng91m1hrhU+kUak
+         GzVQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwjmUfSOML81fYPSvVHg3kbLvy5iixgJPU12Lcmok0hNxuH8n3S9gMQF/gQi1pP2Ev2fn9r/BGBGUX9@vger.kernel.org
+X-Gm-Message-State: AFuF++kcokrtMw7pHq0qlo1jSHUtBDT1rFvfnt7ind9yP8kRe/ulHwf/
+	crazs8u5jaIi+8R8iYr7laylSh59ioi/TBHKp1I22yfJHSPWk1kdENJzoOwWmhPOs9oEToIhOWH
+	YzhM0d5nRX2buDf2tw7CCSI3JqfT5BExMJwrzBsEm+yhgp+om4UANuBKqdVWC2uKN
+X-Gm-Gg: AYBFou25VC7zSNf47WMKpeYA7G7UBB3dHeBbh5MJXkTP7dOUYTx7UmRsqOHu1VSlGMl
+	A2d5EL3rDWMwA42ySCaoRyWa0KfcO9msOgk8uMVFqFfMo1wQn6R40hWGNzU4q+DzpOTRNyv3JvO
+	sCTH7SJ+Ikk9sTenrbL/nzYQdzOXOE1P1afjggkWnlRQrm+U615lfnRtCF3vp3ranMmYvIYQ3Wu
+	a+XxZEmV9uETjgZFGDwezZvfBWxrIPL4zlzfOoHETApBiojwOQTAflssqNuibeB8vbJo9Q7gtPB
+	nxY7kzUrVuyVGxNwcnfwncTszhn/yajJDImqXHnszm9JzQUPhNefPjIRXBmHi/fnZBNPnrNDDJJ
+	m8TwMNVOZ2EqI2nkUU54PNWXsP+HwM5KcuTrmyWG61g==
+X-Received: by 2002:a17:903:2c0e:b0:2dd:c100:313d with SMTP id d9443c01a7336-2ddc10031ebmr61553655ad.57.1789910176402;
+        Sun, 20 Sep 2026 06:16:16 -0700 (PDT)
+X-Received: by 2002:a17:903:2c0e:b0:2dd:c100:313d with SMTP id d9443c01a7336-2ddc10031ebmr61553295ad.57.1789910175909;
+        Sun, 20 Sep 2026 06:16:15 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c331aef9bsm12287653eec.25.2026.09.20.06.16.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Sep 2026 06:16:15 -0700 (PDT)
+Date: Sun, 20 Sep 2026 21:16:09 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/4] arm64: dts: qcom: nord: Add iris video node
+Message-ID: <aq_cmcYa1wL69Hq4@QCOM-aGQu4IUr3Y>
+References: <20260919-nord-iris-v1-0-94428761ec06@oss.qualcomm.com>
+ <20260919-nord-iris-v1-2-94428761ec06@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260919-nord-iris-v1-2-94428761ec06@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIwMDE5MyBTYWx0ZWRfX68OeM1iKBItP
+ x+6yoRELczK/SD+BrJyBzCJiiy3GhbBaCbQdOyoMI091t1U2SX+b5dIeqCxQ+I20VYjVInhQ1pf
+ iIPNSJ9PKy3Mkt0kfu4LJjzJyD4v90LgjpZABBOOUMqVZti4hWuFwWMpN41IgAM8tpkqF3umNyf
+ xQFW8zoFuMZIU4npXiVpwQbJ8mpS07iUS9oiPc0d61toH4E4+ZrCp17BMOPjijtDQOgRNVgPx4+
+ ATdWALbej1XucsFExYYmt/GkaYEUscpZ8BcIQYJvaPpF7ounrthl7x5JsyMapgS22+ExDuNUJar
+ MT+AjnWkKdUbW+opK0AON1PHOCMNBMsFPR265xYxnnao8nFPhTcZgoGTH9T9dyR/oiIwYoyRuW4
+ O3hEUNe4TqxxxLkJIJedptc841TOXOPxK4Oe0d/Zn0M79MPL5etAkVnG7b4noGhIQ6bGlqbrF/W
+ dmb4mTXLH1PJTbPPBSA==
+X-Authority-Analysis: v=2.4 cv=RMQmjIi+ c=1 sm=1 tr=0 ts=6aafdca1 cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=cpf97Ptf5-OE3Sj05EoA:9 a=CjuIK1q_8ugA:10
+ a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-ORIG-GUID: b1WPCApRpbWO7AzePzJ6llNEHIGVKBtU
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIwMDE5MyBTYWx0ZWRfXzf9ZE00qISgv
+ eHp0nzSW8gF571k5YCbkZlSNAY8Vxkt2lZHn5tTd/bSOxc8N8l+oOxplfx7DC/DoXcIJJ93DPl3
+ KLS6qll0SnxkHsu3U1yRinTsa03Uk7c=
+X-Proofpoint-GUID: b1WPCApRpbWO7AzePzJ6llNEHIGVKBtU
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-20_04,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0 phishscore=0 priorityscore=1501 adultscore=0
+ clxscore=1015 spamscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609200193
 
+On Sat, Sep 19, 2026 at 10:14:56AM +0530, Vishnu Reddy wrote:
+> Add iris video codec to nord SoC, which comes with significantly different
+> powering up sequence than previous platforms, thus different clocks and
+> resets.
+> 
+> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/nord-embedded.dtsi | 114 ++++++++++++++++++++++++++++
+>  1 file changed, 114 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/nord-embedded.dtsi b/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
+> index 74f4e6be8652..03f827f3e5fc 100644
+> --- a/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
+> @@ -1428,6 +1428,120 @@ camcc: clock-controller@9ce0000 {
+>  		#power-domain-cells = <1>;
+>  	};
+>  
+> +	iris: video-codec@aa00000 {
+> +		compatible = "qcom,nord-iris", "qcom,glymur-iris";
+> +		reg = <0x0 0x0aa00000 0x0 0xf0000>;
 
+nord-embedded.dtsi is a place to accommodate Nord Embedded variant
+specific resource descriptions, like clock, regulator, pinctrl,
+interconnect, power domain, PHY, etc. The rest of descriptions should
+go to nord.dtsi, like reg, interrupts, iommu, dma, etc.
 
-On 20 September 2026 02:04:48 GMT+02:00, Jonathan Cameron <jic23@kernel=2E=
-org> wrote:
->On Fri, 18 Sep 2026 18:55:00 -0700
->Chang Yu <marcus=2Eyu=2E56@gmail=2Ecom> wrote:
->
->> On Thu, Sep 17, 2026 at 03:48:23AM +0100, Jonathan Cameron wrote:
->> > On Tue, 15 Sep 2026 18:11:17 +0100
->> > Conor Dooley <conor@kernel=2Eorg> wrote:
->> >  =20
->> > > On Sun, Sep 13, 2026 at 01:42:03AM +0100, Jonathan Cameron wrote: =
-=20
->> > > > On Tue, 8 Sep 2026 19:13:55 +0100
->> > > > Conor Dooley <conor@kernel=2Eorg> wrote:
->> > > >    =20
->> > > > > On Mon, Sep 07, 2026 at 02:00:41PM -0700, Chang Yu wrote:   =20
->> > > > > > Add binding for AMS AS7343 which is a 14-channel multi-spectr=
-al sensor
->> > > > > > with i2c address of 0x39=2E
->> > > > > >=20
->> > > > > > The GPIO pin is described as a generic GPIO for now=2E Bindin=
-g design for the
->> > > > > > more advanced measurement/LED synchronization use cases are d=
-eferred to
->> > > > > > future patches=2E     =20
->> > > > >=20
->> > > > > Unfortunately, you can't change what you document, so picking s=
-omething
->> > > > > correct now is needed - even if the driver doesn't use it yet=
-=2E   =20
->> > > >=20
->> > > > Definitely needs an outline of how it would be backwards compatib=
-le and
->> > > > an explanation of why not now=2E  Sometimes a portion of the bind=
-ing is
->> > > > so uncertain that we do kick it back from initial version but we =
-'must'
->> > > > be sure we can extend the binding to new configurations=2E  Norma=
-lly this
->> > > > is one of those we are fairly sure, but not entirely sure cases -=
- or
->> > > > picking between two options where consensus isn't being reached=
-=2E
->> > > >=20
->> > > > Chang Yu: This sort of things needs discussion and is one of the =
-reasons to
->> > > > go slowly=2E   =20
->> > >=20
->> > > Ye, I note that there are 2 more versions of this since I left this
->> > > comment, but you seem to be on top of that=2E
->> > >  =20
->> > > > > > Datasheet: https://look=2Eams-osram=2Ecom/m/5f2d27fff9a874d2/=
-original/AS7343-14-Channel-Multi-Spectral-Sensor=2Epdf
->> > > > > > Signed-off-by: Chang Yu <marcus=2Eyu=2E56@gmail=2Ecom>
->> > > > > > ---
->> > > > > > Changes in v2:
->> > > > > >   - Add the LDR, the interrupt pin, and the GPIO pin to the b=
-indings=2E
->> > > > > >   - Fix node name and unit address mismatch=2E
->> > > > > >   - Include MAINTAINERS changes=2E
->> > > > > >=20
->> > > > > >  =2E=2E=2E/bindings/iio/light/ams,as7343=2Eyaml        | 69 +=
-++++++++++++++++++
->> > > > > >  MAINTAINERS                                   |  6 ++
->> > > > > >  2 files changed, 75 insertions(+)
->> > > > > >  create mode 100644 Documentation/devicetree/bindings/iio/lig=
-ht/ams,as7343=2Eyaml
->> > > > > >=20
->> > > > > > diff --git a/Documentation/devicetree/bindings/iio/light/ams,=
-as7343=2Eyaml b/Documentation/devicetree/bindings/iio/light/ams,as7343=2Eya=
-ml
->> > > > > > new file mode 100644
->> > > > > > index 000000000000=2E=2Eb06d445b92b3
->> > > > > > --- /dev/null
->> > > > > > +++ b/Documentation/devicetree/bindings/iio/light/ams,as7343=
-=2Eyaml
->> > > > > > @@ -0,0 +1,69 @@
->> > > > > > +# SPDX-License-Identifier: GPL-2=2E0-only OR BSD-2-Clause
->> > > > > > +%YAML 1=2E2
->> > > > > > +---
->> > > > > > +$id: http://devicetree=2Eorg/schemas/iio/light/ams,as7343=2E=
-yaml#
->> > > > > > +$schema: http://devicetree=2Eorg/meta-schemas/core=2Eyaml#
->> > > > > > +
->> > > > > > +title: AMS AS7343 14-Channel Multi-Spectral Sensor
->> > > > > > +
->> > > > > > +maintainers:
->> > > > > > +  - Chang Yu <marcus=2Eyu=2E56@gmail=2Ecom>
->> > > > > > +
->> > > > > > +description: |
->> > > > > > +  The AMS AS7343 is a 14-channel multi-spectral sensor with =
-i2c address of 0x39=2E
->> > > > > > +  https://look=2Eams-osram=2Ecom/m/5f2d27fff9a874d2/original=
-/AS7343-14-Channel-Multi-Spectral-Sensor=2Epdf
->> > > > > > +
->> > > > > > +properties:
->> > > > > > +  compatible:
->> > > > > > +    enum:
->> > > > > > +      - ams,as7343
->> > > > > > +
->> > > > > > +  reg:
->> > > > > > +    description:
->> > > > > > +      I2C address of the device (0x39)=2E
->> > > > > > +    maxItems: 1
->> > > > > > +
->> > > > > > +  interrupts:
->> > > > > > +    description:
->> > > > > > +      Open drain output active low interrupt pin=2E
->> > > > > > +    maxItems: 1
->> > > > > > +
->> > > > > > +  vdd-supply: true
->> > > > > > +
->> > > > > > +  ams,led-current-microamp:
->> > > > > > +    description:
->> > > > > > +      The driver current for the external LED connected to t=
-he LDR pin=2E
->> > > > > > +    minimum: 4000
->> > > > > > +    maximum: 258000
->> > > > > > +    multipleOf: 2000
->> > > > > > +    default: 12000     =20
->> > > > >=20
->> > > > > Rather than a custom property, the tsl2772 uses led-max-microam=
-p:
->> > > > > tsl2772=2Eyaml
->> > > > > 46:  led-max-microamp:
->> > > > > 81:                led-max-microamp =3D <100000>;
->> > > > >=20
->> > > > > I wonder if the same should be done here, or if there should be=
- an leds
->> > > > > subnode? Perhaps the IIO folks can comment on that=2E   =20
->> > > >=20
->> > > > I don't think we've ever bothered with a subnode as there only te=
-nds
->> > > > to be one of them=2E  Given the enabling etc is all hardware cont=
-rolled
->> > > > I'm not sure a more generic LED binding makes sense=2E I don't kn=
-ow that
->> > > > much about the led bindings though so maybe it is worth doing a s=
-ubnode
->> > > > just to use the leds/common=2Eyaml definition of led-max-microamp=
-?   =20
->> > >=20
->> > > Could always just put a ref in to leds/common=2Eyaml and not bother=
- with a
->> > > child node=2E I'd stick with the additionalProperties: false, since
->> > > there's lots of leds properties that probably don't apply to a devi=
-ce
->> > > like this=2E
->> > >  =20
->> > Sounds good to me=2E
->> >  =20
->> > > Cheers,
->> > > Conor=2E =20
->> >  =20
->> A quick heads up, adding a ref produces the following error when runnin=
-g
->> dt_binding_check:
->>=20
->> properties:led-max-microamp: '$ref' should not be valid under {'const':=
- '$ref'}
->> 	hint: Standard unit suffix properties don't need a type $ref
->> 	from schema $id: http://devicetree=2Eorg/meta-schemas/core=2Eyaml
->>=20
->> So it looks like we can just put led-max-microamp, and not add the $ref=
-=2E
->
->Ah=2E That's a bit irritating as it is assuming the ref is to get the
->type rather than to make the connection to the standard definition
->of what it is=2E  Conor, what is the best way around this?=20
->Maybe a comment to say where it is documented instead of a $ref?
+Shawn
 
-From=20the error, it looks like this was done incorrectly, but impossible to=
- tell for sure without the snippet=2E
-The ref I was talking about would be at the  top level
-
->
->J
->
+> +
+> +		clocks = <&nwgcc NW_GCC_VIDEO_AXI0_CLK>,
+> +			 <&videocc VIDEO_CC_MVS0C_CLK>,
+> +			 <&videocc VIDEO_CC_MVS0_CLK>,
+> +			 <&nwgcc NW_GCC_VIDEO_AXI0C_CLK>,
+> +			 <&videocc VIDEO_CC_MVS0C_FREERUN_CLK>,
+> +			 <&videocc VIDEO_CC_MVS0_FREERUN_CLK>,
+> +			 <&nwgcc NW_GCC_VIDEO_AXI1_CLK>,
+> +			 <&videocc VIDEO_CC_MVS1_CLK>,
+> +			 <&videocc VIDEO_CC_MVS1_FREERUN_CLK>;
+> +		clock-names = "core_iface",
+> +			      "core",
+> +			      "vcodec0_core",
+> +			      "vcodec0_iface",
+> +			      "core_freerun",
+> +			      "vcodec0_core_freerun",
+> +			      "vcodec1_iface",
+> +			      "vcodec1_core",
+> +			      "vcodec1_core_freerun";
+> +
+> +		dma-coherent;
+> +
+> +		interconnects = <&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
+> +				 &config_noc SLAVE_VENUS_CFG QCOM_ICC_TAG_ACTIVE_ONLY>,
+> +				<&mmss_noc MASTER_VIDEO_MVP0 QCOM_ICC_TAG_ALWAYS
+> +				 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
+> +		interconnect-names = "cpu-cfg",
+> +				     "video-mem";
+> +
+> +		interrupts = <GIC_SPI 174 IRQ_TYPE_LEVEL_HIGH>;
+> +
+> +		memory-region = <&video_mem>;
+> +
+> +		operating-points-v2 = <&iris_opp_table>;
+> +
+> +		power-domains = <&videocc VIDEO_CC_MVS0C_GDSC>,
+> +				<&videocc VIDEO_CC_MVS0_GDSC>,
+> +				<&rpmhpd RPMHPD_MXC>,
+> +				<&rpmhpd RPMHPD_MMCX>,
+> +				<&videocc VIDEO_CC_MVS1_GDSC>;
+> +		power-domain-names = "venus",
+> +				     "vcodec0",
+> +				     "mxc",
+> +				     "mmcx",
+> +				     "vcodec1";
+> +
+> +		resets = <&nwgcc NW_GCC_VIDEO_AXI0_CLK_ARES>,
+> +			 <&nwgcc NW_GCC_VIDEO_AXI0C_CLK_ARES>,
+> +			 <&videocc VIDEO_CC_MVS0C_FREERUN_CLK_ARES>,
+> +			 <&videocc VIDEO_CC_MVS0_FREERUN_CLK_ARES>,
+> +			 <&nwgcc NW_GCC_VIDEO_AXI1_CLK_ARES>,
+> +			 <&videocc VIDEO_CC_MVS1_FREERUN_CLK_ARES>;
+> +		reset-names = "core_bus",
+> +			      "vcodec0_bus",
+> +			      "core",
+> +			      "vcodec0_core",
+> +			      "vcodec1_bus",
+> +			      "vcodec1_core";
+> +
+> +		#address-cells = <1>;
+> +		#size-cells = <1>;
+> +		dma-ranges = <0x0 0x0 0x0 0xffe00000>;
+> +
+> +		status = "disabled";
+> +
+> +		non-pixel {
+> +			iommus = <&apps_smmu_1 0x0940 0x20>,
+> +				 <&apps_smmu_1 0x0944 0x0>,
+> +				 <&apps_smmu_1 0x0960 0x20>;
+> +			iommu-ranges = <0x25800000 0xda600000>;
+> +		};
+> +
+> +		pixel {
+> +			iommus = <&apps_smmu_1 0x0943 0x0>;
+> +		};
+> +
+> +		iris_opp_table: opp-table {
+> +			compatible = "operating-points-v2";
+> +
+> +			opp-240000000 {
+> +				opp-hz = /bits/ 64 <240000000 240000000 360000000>;
+> +				required-opps = <&rpmhpd_opp_svs>,
+> +						<&rpmhpd_opp_svs>;
+> +			};
+> +
+> +			opp-435000000 {
+> +				opp-hz = /bits/ 64 <435000000 435000000 652500000>;
+> +				required-opps = <&rpmhpd_opp_svs_l1>,
+> +						<&rpmhpd_opp_svs_l1>;
+> +			};
+> +
+> +			opp-480000000 {
+> +				opp-hz = /bits/ 64 <480000000 480000000 720000000>;
+> +				required-opps = <&rpmhpd_opp_svs_l1>,
+> +						<&rpmhpd_opp_nom>;
+> +			};
+> +
+> +			opp-533333333 {
+> +				opp-hz = /bits/ 64 <533333333 533333333 800000000>;
+> +				required-opps = <&rpmhpd_opp_svs_l1>,
+> +						<&rpmhpd_opp_turbo>;
+> +			};
+> +
+> +			opp-560000000 {
+> +				opp-hz = /bits/ 64 <560000000 560000000 840000000>;
+> +				required-opps = <&rpmhpd_opp_nom>,
+> +						<&rpmhpd_opp_turbo_l1>;
+> +			};
+> +		};
+> +	};
+> +
+>  	videocc: clock-controller@aaf0000 {
+>  		compatible = "qcom,nord-videocc";
+>  		reg = <0x0 0x0aaf0000 0x0 0x10000>;
+> 
+> -- 
+> 2.34.1
+> 
+> 
