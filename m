@@ -1,155 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B4ED3E316D
-	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 19:48:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 973BD3E0C66
+	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 21:14:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789933683; cv=none; b=fye3hYHqeVUIT4PkqpQRmD5WW5kgktO4A1yBKmG2AR6xQjuYuzXTcGtGdogOa/+HA/c2yTy+DrcIL/f4SeTUsFHZqg57Tzp+Dq7p27W8VeWJJGaRC5fd2gXz31Sb5dDLwjKp/YcVqQd9cT6ypQHNisCz3FDga7gk9utK8kVNSOQ=
+	t=1789938841; cv=none; b=c7CNkZC7oEFxd4I1eJoPLdq0RyAVESPE8Jq2y2FKxwBil8snqsE2XFButKo/XYYv7er6LXGHbwjC/Fi665xWH0L7ybffBG9poUpRwuSsEPepKP3dNYWB8o1o2QlbT4qt6bPeEomBvWIpTkj+2GbiLRynjPk5gGRkPM+TdVFefL4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789933683; c=relaxed/simple;
-	bh=mVVe0KxldjUr2igjqNSaYkvV6moH//KctbCkKHercs4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Jy2ySGJMECTwq2K54vW3C+dd3VT8cJaDP3xVuLWVXcEbllILNeNMtC07eBbJ4DLWWqkUwj19zc3mebC3hzocPsyUyJmKK9CmxONW7SOsIMZzqb7ExsL3lTX96YleeDqyNos2WMq+N7laUzSIZVsX3HCJws0I3kWg52sJWkLezjI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GxWnamcZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789938841; c=relaxed/simple;
+	bh=o2jGA+oz8FAHUUGJjII1o9Dpx+I2JLINT0FHkUiHcKM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kCrMEmxiFKvS8e5fradcCH8xZRQid1X4wmdaL56vIODju+nP3rWBwh2RaEg6WbHEP5bmiqvsipPZvyfLL5pjhvWKwibGWNlVo0Ryucun8lqhBgZEVS/DS754NXQNwJp/eCW9ZW35L95hBH55G52gkbBO+v/nxEkDbjn4whUJLkw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cTFA5MuV; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GxWnamcZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6413B1F00904;
-	Sun, 20 Sep 2026 19:48:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789933680;
-	bh=R2YB4fsE0h6lm0CizC3Y5cR3+eH2124fhxidNfYGVOg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=GxWnamcZGvOy8TmY3PGUqexvORaRyEMrYUnOTqhfUNTINd0sPnEUO7iHajkjmrrOi
-	 2YSvw9ZvoYrZpVm9iAnloFUWdXmwvn3KR53HTS7ozbnjb8iHKUEkwzdDNzPWEc5aR1
-	 H2kUhDPia4EPMgyY1SGK4W+gCqKHHDifIpp2sghUf/sCu5XG98uRH1mBrBFGb1BqQ4
-	 rXivRczOrURJtm4FPTEbw5/43UbqlK8tc3LLLI+gsP7qRZ2nqNHvpMTZC92xZdcFpr
-	 pbEZg9B1Qv1Ythf+1Etx+Z5hf03pjDfFZgGqg712SXcInLM7ij1DaD3E+y85lmsYgu
-	 lH/2c2XBQeSDA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/2] drm/glanda: Add initial DRM driver for GlandaGPU
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Leander Kieweg" <kieweg.leander@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org
-In-Reply-To: <20260920193944.110983-3-kieweg.leander@gmail.com>
-References: <20260920193944.110983-1-kieweg.leander@gmail.com>
- <20260920193944.110983-3-kieweg.leander@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 20 Sep 2026 19:47:59 +0000
-Message-Id: <20260920194800.6413B1F00904@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cTFA5MuV"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccd78e6eso941461a91.0
+        for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 14:14:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789938840; x=1790543640; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5GVVx1LqA6B1jJlZmV64iP6HqsdwAzR/vY4RLJ8HlJI=;
+        b=cTFA5MuVrIwwUpiHun3AF0v7E6G2C4VNXJNI3vjaAVvOSFmFlLXloxJj6PxGGRqIYT
+         CZp4KvTeuWSInVT1j+yAvm9853t05hBoamyjW4KEfRz66TrHy97odZygbJ6pqmfghoip
+         mdnppQjZ9CHodLVZFF/MELEHV8Mtc55NP1uKYBWHvpw5nVkCEiFd8PbTFP5xgIicLqhp
+         TdbiYmSbjqK2YOg4YGrbmf+hjICwn16ozpBdZIfoUp335Wz1h1l+LSQkn5x3RUF41Q+z
+         F8WpI713bNTrTsSgvCVSc1a8CNLnTlkDAXrRvjJpAidCF8ZlQk1ckTdNh7ThXpElJDq0
+         KsGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789938840; x=1790543640;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5GVVx1LqA6B1jJlZmV64iP6HqsdwAzR/vY4RLJ8HlJI=;
+        b=LyI0YfcmYESBszCdp5RwwoIH4TD4E/X/GlIrTRxwqNVFPSPQfLtMGRjlogoSAIoeRJ
+         5IJ5x7M3bEjFu5a7/oo4u2AMxAXZCy0kYZNkWHUVgNuTYhejkowbQpJA7iribDESO4X5
+         xRRCUqrZbSD9iP8Rk/W18POSUQopDgv5AyFfupLtHRtlM45QL4aMq8unvP3AcwjnhvCr
+         AkQIKjnK7kzAMrT/953cHmgAeXc3re5rsgffbrj1+RxmeZGMYxl6KIRsCVMMxeLpVYNn
+         o6a/0gi++qnQrx+wSWR2odGYn9PaUFnzk5OyaPzVuqccRGUShjlZXC3jBosfBia+lBdG
+         wADg==
+X-Gm-Message-State: AFuF++nbpc/e7aog6o4z64s+gjO+mZ1x5Df77fXHSsFiefTgk4PLbrAF
+	2ie4yJBw7G//S2yprtj58ayJeEOwIjSysjVZ9IzjnZb5IbcpwkxwwlNbwunEDw==
+X-Gm-Gg: AYBFou3HYaYZtQ0IiAaMjuoYVbaqpYkJo+eMXdNRQEErgKuN9qVh4RXA2/CuaIPtlKm
+	5sN8mj6xftz1/pjHPaS4T+8RTxhOy4Sr32oNYQ4SN+W7l7luWdr5w6V6PvJxn6TcX7J4TsCAMQp
+	O9SsrDR6u7sHfQI29/m+cl2XFAOVtSNPzaJRyr1/cnWvzTGe88fkL2sGlmO5eAhlRLjnn8oNKGk
+	OBqf5HQZBmPUBTG6i/WHT0rxO93UKjlR1NNshhxxYaaLQL1WpTCDHgbNAJCaDq/um8hN+VHbcNx
+	IE/GNh9CPr3cT9E3LTFpKMog1XhM1dm2KGFaOYWPapN219Og4vsaE09AWPoEOyy+qWu22gFyI+A
+	hvVMgdsmWa7kfaOticovImHqg47UTh2DDurE0INR4QhJBrd4MwN4LmFCDY4FXT6v3q8HYz/G2ZA
+	jA0Tewj9KUXl6vNcFkm3Az+1E8QShTFVIoKIBG9YWn6se+3HNrmeNTyQpALHWTgobiFxfbBAl+/
+	xRj31KKWUX8HF9Vr9AczqjZPXIkZSpocGnS7KsYQ66AiWx85hXCwJe4eohRFKMKqdDybTwkjD3q
+	hRo7FngfPNwCA5TmEom9PSx7v7ooyFPNDtjkkn8cDHKz+45rWJZAFLMnyXw=
+X-Received: by 2002:a17:90b:3a43:b0:39e:6c68:fd91 with SMTP id 98e67ed59e1d1-39e6c68fec5mr4752048a91.38.1789938839949;
+        Sun, 20 Sep 2026 14:13:59 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c3145dasm10609743a91.4.2026.09.20.14.13.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Sep 2026 14:13:59 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: devicetree@vger.kernel.org
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
+	Hauke Mehrtens <hauke@hauke-m.de>,
+	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5@gmail.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	linux-arm-kernel@lists.infradead.org (moderated list:BROADCOM BCM5301X ARM ARCHITECTURE),
+	linux-kernel@vger.kernel.org (open list),
+	linux-usb@vger.kernel.org (open list:USB SUBSYSTEM)
+Subject: [PATCH 0/2] usb: bcma: control VBUS via a regulator
+Date: Sun, 20 Sep 2026 14:13:54 -0700
+Message-ID: <20260920211356.186967-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] drm: sleeping in atomic context during plane atomic update
-- [High] drm: VBLANK IRQ storm due to unhandled interrupt on driver unbind
---
+bcma-hcd currently drives the USB power line by grabbing the
+undocumented "vcc-gpio" property from the controller node and poking
+it through gpiolib. Besides relying on a non-standard binding, this
+cannot work on boards such as the NETGEAR R7000 and R8000 where one
+chipcommon GPIO powers both the USB2 and USB3 cores: the two
+controllers each request that GPIO exclusively, so the second one
+fails with -EBUSY and its port stays dead.
 
-commit 32feffcdec94761d97377d2756a8face5aaf6281
-Author: Leander Kieweg <kieweg.leander@gmail.com>
+Instead, switch the driver to the standard regulator interface and
+express the power rails as regulator-fixed nodes bound to the
+chipcommon GPIOs. The regulator core reference-counts enable/disable
+requests, letting both controllers share one GPIO without conflicts.
 
-drm/glanda: Add initial DRM driver for GlandaGPU
+Rosen Penev (2):
+  usb: bcma: control VBUS via a regulator instead of a GPIO
+  ARM: dts: broadcom: model USB VBUS power with regulator-fixed
 
-Introduce the core DRM/KMS driver for GlandaGPU. This driver
-supports basic modesetting, atomic updates via shadow plane helpers,
-and optional QEMU PCI probing alongside the platform driver.
+ .../broadcom/bcm4708-buffalo-wxr-1750dhp.dts  | 14 +++++-
+ .../bcm4708-buffalo-wzr-1166dhp-common.dtsi   | 25 ++++++++++-
+ .../broadcom/bcm4708-buffalo-wzr-1750dhp.dts  | 25 ++++++++++-
+ .../broadcom/bcm4708-linksys-ea6300-v1.dts    | 14 +++++-
+ .../broadcom/bcm4708-linksys-ea6500-v2.dts    | 14 +++++-
+ .../dts/broadcom/bcm4708-netgear-r6250.dts    | 14 +++++-
+ .../dts/broadcom/bcm4708-netgear-r6300-v2.dts | 14 +++++-
+ .../dts/broadcom/bcm47081-luxul-xwr-1200.dts  | 14 +++++-
+ .../broadcom/bcm47081-tplink-archer-c5-v2.dts | 14 +++++-
+ .../dts/broadcom/bcm4709-asus-rt-ac3200.dts   | 14 +++++-
+ .../broadcom/bcm4709-buffalo-wxr-1900dhp.dts  | 14 +++++-
+ .../dts/broadcom/bcm4709-linksys-ea9200.dts   | 26 ++++++++++-
+ .../dts/broadcom/bcm4709-netgear-r7000.dts    | 16 ++++++-
+ .../dts/broadcom/bcm4709-netgear-r8000.dts    | 16 ++++++-
+ .../broadcom/bcm4709-tplink-archer-c9-v1.dts  | 26 ++++++++++-
+ .../dts/broadcom/bcm47094-asus-rt-ac3100.dtsi | 14 +++++-
+ .../dts/broadcom/bcm47094-asus-rt-ac5300.dts  | 14 +++++-
+ .../dts/broadcom/bcm47094-dlink-dir-885l.dts  | 14 +++++-
+ .../dts/broadcom/bcm47094-dlink-dir-890l.dts  | 26 ++++++++++-
+ .../broadcom/bcm47094-linksys-panamera.dts    | 26 ++++++++++-
+ .../dts/broadcom/bcm47094-luxul-abr-4500.dts  | 14 +++++-
+ .../dts/broadcom/bcm47094-luxul-xbr-4500.dts  | 14 +++++-
+ .../dts/broadcom/bcm47094-luxul-xwr-3100.dts  | 14 +++++-
+ .../broadcom/bcm47094-luxul-xwr-3150-v1.dts   | 14 +++++-
+ .../arm/boot/dts/broadcom/bcm947189acdbmr.dts | 14 +++++-
+ drivers/usb/host/bcma-hcd.c                   | 45 +++++++++++++------
+ 26 files changed, 422 insertions(+), 47 deletions(-)
 
-> diff --git a/drivers/gpu/drm/tiny/glandagpu.c b/drivers/gpu/drm/tiny/glan=
-dagpu.c
-> new file mode 100644
-> index 0000000000000..38fa5809f31e0
-> --- /dev/null
-> +++ b/drivers/gpu/drm/tiny/glandagpu.c
+-- 
+2.55.0
 
-[ ... ]
-
-> +static void glanda_blit_rect(struct glanda_device *gdev,
-> +			     const struct drm_rect *dst_clip,
-> +			     const struct iosys_map *src,
-> +			     struct drm_framebuffer *fb,
-> +			     int dst_off_x, int dst_off_y,
-> +				 struct drm_format_conv_state *fmtcnv_state)
-> +{
-> +	unsigned int src_pitch =3D fb->pitches[0];
-> +	unsigned int width =3D drm_rect_width(dst_clip);
-> +	unsigned int height =3D drm_rect_height(dst_clip);
-> +	unsigned int x, y;
-> +	size_t len =3D width * sizeof(u32);
-> +	u32 *sbuf;
-> +
-> +	sbuf =3D drm_format_conv_state_reserve(fmtcnv_state, len, GFP_KERNEL);
-
-[Severity: High]
-Does this code sleep in atomic context? The glanda_blit_rect() function is=
-=20
-called from the glanda_plane_atomic_update() callback, which runs in atomic=
-=20
-context where sleeping is forbidden. Using GFP_KERNEL here can cause kernel=
-=20
-panics or deadlocks.
-
-[ ... ]
-
-> +static void glanda_plane_atomic_update(struct drm_plane *plane,
-> +				       struct drm_atomic_commit *state)
-> +{
-> +	struct drm_plane_state *old_state =3D drm_atomic_get_old_plane_state(st=
-ate, plane);
-> +	struct drm_plane_state *new_state =3D drm_atomic_get_new_plane_state(st=
-ate, plane);
-> +	struct drm_shadow_plane_state *shadow_state =3D to_drm_shadow_plane_sta=
-te(new_state);
-> +	struct drm_rect vram_clip =3D DRM_RECT_INIT(0, 0, GLANDA_WIDTH, GLANDA_=
-HEIGHT);
-> +	struct glanda_device *gdev =3D to_glanda(plane->dev);
-> +	struct drm_framebuffer *fb =3D new_state->fb;
-> +	struct drm_atomic_helper_damage_iter iter;
-> +	struct drm_rect damage;
-> +	int dst_off_x, dst_off_y;
-> +	int ret, idx;
-> +
-> +	ret =3D drm_gem_fb_begin_cpu_access(fb, DMA_FROM_DEVICE);
-
-[Severity: High]
-Can this sleep while waiting for hardware fences? Since=20
-glanda_plane_atomic_update() is executed in atomic context, calling=20
-drm_gem_fb_begin_cpu_access() (and the corresponding end_cpu_access) is=20
-unsafe here.
-
-[ ... ]
-
-> +static void glanda_drm_fini(struct glanda_device *gdev)
-> +{
-> +	drm_dev_unplug(&gdev->drm);
-> +	drm_atomic_helper_shutdown(&gdev->drm);
-> +}
-
-[Severity: High]
-Does this teardown order cause an unhandled IRQ storm on unbind?
-
-If drm_dev_unplug() is called before drm_atomic_helper_shutdown(), the=20
-device is marked as unplugged. When the shutdown helper tries to disable=20
-the CRTC, it calls glanda_crtc_disable_vblank():
-
-static void glanda_crtc_disable_vblank(struct drm_crtc *crtc)
-{
-	...
-	if (!drm_dev_enter(crtc->dev, &idx))
-		return;
-	...
-}
-
-The drm_dev_enter() check will fail because the device is already unplugged=
-,=20
-causing the hardware write to disable the VBLANK interrupt to be skipped.=20
-The interrupt would remain active in hardware while the driver frees the=20
-IRQ handler.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260920193944.1109=
-83-1-kieweg.leander@gmail.com?part=3D2
