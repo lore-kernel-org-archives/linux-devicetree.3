@@ -1,71 +1,71 @@
-Received: from mail-oa2-f17.google.com (mail-oa2-f17.google.com [74.125.231.81])
+Received: from mail-oa2-f35.google.com (mail-oa2-f35.google.com [74.125.231.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3554847A88E
-	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 19:45:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBCD7489FC2
+	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 19:45:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789933546; cv=none; b=NHqCIC3hrCr6Dq7MY4brNHiYxVWlayDaWoWxDOFZzOKOm2GzfhXoaV26VB1hzZeTRcBPbiwEObl/ojSfcV+L4UTJZRBIaoRyGQfj07FK+Ifrh59rY6XpMV4+tmib7nYrd6UyePmLClKNrwy+B2xDD9ltgVuAqXsaNC7Xmsf0pTA=
+	t=1789933548; cv=none; b=tWybGBNx3BO3JhkvJPLdSSSwpzUCJ4MKYab9X1d8jKhlbkm8nc/PW+nurK8ulI/0NJnhhh4h4KI0e/U4YVawGYs15hBbBQVd0lYDxum7ne+rS6VNxtiBipP6ESG1xSCU0bLMiIsQ1Y3g3w2M/f3j3aJWKaX8WGc/NaWOjw+u46A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789933546; c=relaxed/simple;
-	bh=k5FoGW0DAM2X+E/ozmN4JjC/wwwbNR5mhWy/pmNOyns=;
+	s=arc-20240116; t=1789933548; c=relaxed/simple;
+	bh=L/gVslUU4Nj87gMlJ1iN5b89DCxQ3qLLsz8MQD+nnKM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=X7Qqt3VbuT8mFVhMeeASekrR4ryw7LH5SzWc66Fe1uD7tlcCusn4u0dwRjEQ0UYvw+8JeSJ9Eururv5fIPJPk5CHi3auqfElUeCD0x6gSRTbL9dOcHWte7jwKsILMsuKCEEO0xycoUPqU1xru1eVS0Ke1Ohk7iFI22PX6irwFCY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KChtIWAD; arc=none smtp.client-ip=74.125.231.81
+	 In-Reply-To:To:Cc; b=jARC++Ji3SWCJSmab8/i4egi1QlonvjTcow50bDVmilsn24cCuYQWdhAtB4X70YKY9zwttGoYd15HyTgmTrrubnAOTAGm7CsniH3J2dt7m4Mu8cNq9c1cqu3UX6ZGVYZ2jxSCALAjxbLP2ENXz4PU4cot0+ULBgqnjUutxlkuuo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b6IxJVgm; arc=none smtp.client-ip=74.125.231.99
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KChtIWAD"
-Received: by mail-oa2-f17.google.com with SMTP id 586e51a60fabf-466cc88a0d7so1629527fac.2
-        for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 12:45:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b6IxJVgm"
+Received: by mail-oa2-f35.google.com with SMTP id 586e51a60fabf-470417e5b52so1709332fac.3
+        for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 12:45:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789933542; x=1790538342; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789933544; x=1790538344; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=z7+d1aoXBtF7Wx/9KwAupq2tjY1ApF1IdNz1vfPutVo=;
-        b=KChtIWADyQPy1o8x3Vf6QSEP9nxAhcpg4xaQ7MrHkeo1s8eq2DqjsoIqHdpqhVqkeG
-         EIlXoeKUxJ9V9NbBOqOv4lYJe22qe6HVSlmzLr/+c9bAMFDDwYSL8vaALmTxiQyooQ2b
-         XRXL7mulZZUPuXgwJAjsmAXQguVwvquRlZLTO+0mDJ7XfTLKGe9061QEyhHGGoc8shw2
-         EsvKkq/4AeXYgaW8ljOzuhmdM/KaZMER7iI3YL52kAH5GhJprD1v2aSrt18JGRUC25pU
-         8ye4/SOw5kqy7volQjHvm5lWXTHjF04zDWthI3COTHk/OqlGmj2AxdU4YIMqSDh0hF3w
-         vjwQ==
+        bh=3aFq2H0KJohvHytlOdYBRSeWux+yzT03AinuuVRvEmM=;
+        b=b6IxJVgmucYmvO5f9YkZ/mpQlEpApK7Y+SyeTPT2cj6xbyT9maXXXMh9YSut7YGkxv
+         8JyzdzOVXIIyxs7j8UBo2RucuIMQ5DPjvFRJ3DUeZEvq8AL7lsh8JCwqppk7Oo9aXft/
+         P3GlVian8EHjzHZ3ME5mU3zMzPAk9gso/IUfbGWTZk8f9/g5idBOAM+gBzE2S6FxzUeh
+         zfY9z8KQKMI22qch/4ZJG9SO0VWaJ99HBOgBGWepUaXi7pJ28U0NmyqO+pmgQ0kuLu2S
+         kh8DqOe4wYec6c3nZRFwUSfpkcA9MQ7yrki6PJy5MZVB+XeN1rDPKjOY4d3Cy6A94DVV
+         q6cA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789933542; x=1790538342;
+        d=1e100.net; s=20260707; t=1789933544; x=1790538344;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=z7+d1aoXBtF7Wx/9KwAupq2tjY1ApF1IdNz1vfPutVo=;
-        b=H8UHT9/ZgiN+iOk7FQ7qepzT5lD4QUHBvSxn/ofhxUIff272RnkgfGHIefe5p3V6+C
-         Jo96wmFzgxEhgxOC6mabZR06E3M8AinMG0wit1ztobRL0PFIoU5eJJpy3TbngoqFAPlJ
-         LoC6Yefcw604Zm2/50BHMVCgB2kLTtQsivPcvxDi1W2zLwo5i8HwQdjBNoE8F9BSkk4m
-         Kw3jTm2f4NAHuoxBr6deAQLBt2BLyFHTybbMOKQOhmWtr2nVbThOC7N8KPaARQJkKFUa
-         PzuYP/oRsNYjgJGEqAy9daANvBRLD4t4UBpmgfbV3sZkz1GFJp4w+XrliDc739GjdbPB
-         ezcg==
-X-Forwarded-Encrypted: i=1; AKwUvBzvocxNHC0UFQQR4PydexWLgby32kwjZAq5QtiAbqUv04IhkWbfim0UrYvceqWd5rWQLpUOluydra/a@vger.kernel.org
-X-Gm-Message-State: AFuF++k7FLGTZlSQBjl0Z4a1GJaadxE2VcUXZZEUcKlGilVAhPuBwm9K
-	Aww7B5DIo4nl93S2f6tFygfujLm4PJ6EzZ5McB1sgIQ2+TeaHWwhWnAS
-X-Gm-Gg: AYBFou1dSOie4YlrPVIg+3osuZ4EBlLETTrWcT7vlqHxKWQr3/WTESnsH4OSFssTR82
-	PJ7iXFw8sqdJmSb43bNcN4EcYK4KjETGWbiUS+/aX/7ZQ05hV3FnOrdliTaVYgHSLWHqLCQtM0Z
-	k3swLp1SmiN9SpwM4w4JUVi5nCBv4fp+8qH5HoyWyK3ZjHjjOhNu7qDh6WB6O1ZgHuUMeNENNaM
-	ybOeaNI7S3Y2JyozAQfi6XrovBwSzKG/yMHUuGrjh51xFWphCt8klw51puTygluFo387Asgs721
-	sj6pkWFptXB/FsQlH5NsWUgFFYHG6OcLePAQPaC/cGMQyK7sJVQE6YvYb659gCm6ebtJWD6S/uV
-	DYgOoXcf2sII6XXPhVJJQ/pY502AK8TxCu3CG+C1AhVLqiO70yYb65UyQoiRanIrp1BDdoWKRpr
-	9DAH+scPCCPU9jdJBxFPojaiytk7bX3JNZ7ZdC6k2W4H5uV/ZiUQlvj9kP9jvY9hrQbdDYzNx/l
-	7L/F043ghKrcZidrCC74PDDrYJgnEN94lqSQoHTKweH2UWE6ieDLc56f4505DKRcFCKzauvWqar
-	Pu5qjXfy/kMhEPciX8zjSkmH8zVr5TY6IqKJAkls6lsboGS105pB2hAfSchYnhjOsfy/+5004Nn
-	bPdofdWJ3n/N1pWPS3Em3
-X-Received: by 2002:a05:6820:1c8f:b0:6cd:3ffc:acf6 with SMTP id 006d021491bc7-6cd3ffcb603mr4885791eaf.70.1789933542612;
-        Sun, 20 Sep 2026 12:45:42 -0700 (PDT)
+        bh=3aFq2H0KJohvHytlOdYBRSeWux+yzT03AinuuVRvEmM=;
+        b=JyMfOsBfqf9MCZ0dNORRcGXc1asG0Ic2VA6g1YQSJi1/sCkbSCoHvSjzJ9vv+YPTY6
+         kkEggojcJi1Jtc7tL/uQPjpE+2ZfDbMKSKv8/WObJj29a/ajFLDJDfMgu1OyapuwLfYR
+         LdTrOpdHR3hM5SkrbN4iQ4gbYxLOcc50NKm+2lFlTtYY2zTYg9Klsi+ZpQvHEVmLP73S
+         6FmWhs7RIK/y6UhwDJQtYZDgSBCuxMjq1+7XsN7lIN6Kf9dE7P1ct5lE4cuVfD5xO0ln
+         tRH8nTsWySgKLxIYFFMDLmYF7fM3gMef6GcXwxcmIDBVJhKkBG1Nfe51HBrDtd3xDX2R
+         AhZA==
+X-Forwarded-Encrypted: i=1; AKwUvBxaSbbmN8PAp97yHvKb3HKYDpt1rWOvQRyC3R2e+YNyuzevvk3C7u14zWaFiVxRW22bv+hWrv9J6oHG@vger.kernel.org
+X-Gm-Message-State: AFuF++ke371WCuty+tsUeEcP2um7F6xMnGQtw8xepAIlFwSkkg7clnOR
+	F+LhjS1kZ2SnvhWHpUW+YEAUJMJ5d6dEM+LKZFq9PdcEdRFuFx6VuBfZ
+X-Gm-Gg: AYBFou0mZIvH0FJD2iaqP0QM2vwLxno4ewu/y3AhHuwLBdkrSjO1dE6Tzmxs6Itq6AT
+	bgZrRU8+O5Om1sPmniwdZHs4tU3O+Mdbcb/wSkA/pR1UHTWtOws0JvgzuE3H/HkUionSyFN0HEh
+	M0w8H6IaB28Isn5oyLWuFyi3wze5lCbaJkUeV4EfzuPEdcJg22N38Z9YPDRzZFlrr1A12f96v1i
+	52H7syVBO6WEXifVM387Didx68ZSN2JOm5PV/Rc9KmQLfGGmST2aivOoKtnfzrj0NuTfcRYb4Oi
+	rn3Y+EQUl/RXdK28Z1pSEUUUEyJjSAnTZbn3uSDrlSRSD+GnxNPT2rsqDHLjvuDsmcjWGYd1p66
+	srxwWsKhXBrCHrzprGkOLFTCtfDDLxNtLzgLet809x3WVxhfhCcXn3LVetBBRDsGh7iMVgYbtUf
+	eZwZd+LHwaJi0ZVuCOb/KDEKaFiJkayecFl7jZfFJfvlVFwf0/DF7Ixnhp0xMxnEMqQN9KC3t+z
+	Oy8G1O1D7t2Ut4wV3Pf+rg/QR6MTS9brs2zUMRN/l9ZKfhGxRsMMeXH3tyb4MkI0+YqYL8aa9Jd
+	S48zQ6bNySiTYHtJ1VKH2+4CG6Nvc9GAGadsUvop+NJfB1EvPa6JJ5W2qGUQ5h7sSweyGtO1bUj
+	PDLvt/77DLwb+w2/k1DpG
+X-Received: by 2002:a05:6870:c205:b0:42c:49c7:a499 with SMTP id 586e51a60fabf-486e4ceaa22mr8316127fac.3.1789933544510;
+        Sun, 20 Sep 2026 12:45:44 -0700 (PDT)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4881f4d7861sm6103834fac.1.2026.09.20.12.45.40
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4881f4d7861sm6103834fac.1.2026.09.20.12.45.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 12:45:42 -0700 (PDT)
+        Sun, 20 Sep 2026 12:45:43 -0700 (PDT)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Sun, 20 Sep 2026 13:45:28 -0600
-Subject: [PATCH net-next v4 2/6] net: stmmac: close the interface after a
- failed MTU reopen
+Date: Sun, 20 Sep 2026 13:45:29 -0600
+Subject: [PATCH net-next v4 3/6] net: stmmac: close the interface after
+ failed hardware resume
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -74,7 +74,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260920-submit-h616-emac1-v1-v4-2-8347dfe2eb7d@gmail.com>
+Message-Id: <20260920-submit-h616-emac1-v1-v4-3-8347dfe2eb7d@gmail.com>
 References: <20260920-submit-h616-emac1-v1-v4-0-8347dfe2eb7d@gmail.com>
 In-Reply-To: <20260920-submit-h616-emac1-v1-v4-0-8347dfe2eb7d@gmail.com>
 To: Richard Genoud <richard.genoud@bootlin.com>, 
@@ -102,79 +102,95 @@ Cc: Maxime Ripard <mripard@kernel.org>,
  James Hilliard <james.hilliard1@gmail.com>
 X-Mailer: b4 0.15.2
 
-An MTU change stops the data path and then reopens it using a newly
-allocated DMA configuration. If reopening fails, the new allocation is
-freed while the netdev remains up and priv->dma_conf retains copies of
-the freed pointers. A subsequent close repeats NAPI disable and IRQ and
-DMA-resource teardown. It can hang in napi_disable() or access resources
-which have already been freed.
+System suspend disables NAPI and suspends phylink but retains the IRQs
+and DMA resources. If hardware setup fails during resume, the interface
+remains administratively up with NAPI still disabled. Closing it later
+calls napi_disable() a second time and can hang indefinitely.
 
-Track successful opens of the data path separately from the netdev's
-administrative state. Clear that state when releasing the data path and
-skip a second release after a failed reopen. Close the netdev through the
-network core on the MTU error path, so the PHY attachment and runtime-PM
-reference are released and the interface is marked down. A subsequent
-open can then allocate fresh resources and retry normally.
+On hardware-setup or timestamping failure, stop DMA and disable the MAC,
+then release the suspended data path without repeating NAPI disable.
+Stop phylink directly from its suspended state rather than restarting
+the link on hardware which failed to resume. Drop the driver mutex
+before teardown, retaining RTNL across cleanup and network-core close.
 
-Keep successful MTU changes on the existing path, retaining the PHY
-attachment and runtime-PM reference. Allocation failures before stopping
-the original data path still leave the running interface unchanged.
+Close the netdev to detach the PHY, release its runtime-PM reference and
+clear its administrative state. Reattach the now-down netdev so a later
+open can allocate new resources and retry. Preserve the original resume
+error and leave successful resume unchanged.
 
-Fixes: 3470079687448 ("net: ethernet: stmicro: stmmac: permit MTU change with interface up")
+Fixes: 6896c2449a18 ("net: stmmac: Check stmmac_hw_setup() in stmmac_resume()")
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac.h      |  2 ++
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 10 ++++++++++
- 2 files changed, 12 insertions(+)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 20 +++++++++++++-------
+ 1 file changed, 13 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-index 4fc96b317d79..363872ff00d6 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-@@ -281,6 +281,8 @@ struct stmmac_priv {
- 	struct mutex lock;
- 
- 	struct stmmac_dma_conf dma_conf;
-+	/* Paired __stmmac_open()/__stmmac_release(), serialized by RTNL. */
-+	bool opened;
- 
- 	/* Generic channel for NAPI */
- 	struct stmmac_channel channel[STMMAC_CH_MAX];
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index bf9e7e4cb1c3..89b773370894 100644
+index 89b773370894..18630ae62316 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -4212,6 +4212,7 @@ static int __stmmac_open(struct net_device *dev,
- 	stmmac_enable_all_queues(priv);
- 	netif_tx_start_all_queues(priv->dev);
- 	stmmac_enable_all_dma_irq(priv);
-+	priv->opened = true;
+@@ -4283,7 +4283,7 @@ static int stmmac_open(struct net_device *dev)
+ 	return ret;
+ }
  
- 	return 0;
- 
-@@ -4287,6 +4288,11 @@ static void __stmmac_release(struct net_device *dev)
+-static void __stmmac_release(struct net_device *dev)
++static void __stmmac_release(struct net_device *dev, bool napi_disabled)
+ {
  	struct stmmac_priv *priv = netdev_priv(dev);
  	u8 chan;
- 
-+	/* A failed MTU reopen has already released the data path. */
-+	if (!priv->opened)
-+		return;
-+	priv->opened = false;
-+
+@@ -4296,7 +4296,9 @@ static void __stmmac_release(struct net_device *dev)
  	/* Stop and disconnect the PHY */
  	phylink_stop(priv->phylink);
  
-@@ -6212,6 +6218,10 @@ static int stmmac_change_mtu(struct net_device *dev, int new_mtu)
- 		if (ret) {
- 			free_dma_desc_resources(priv, dma_conf);
- 			kfree(dma_conf);
-+			/* Finish closing the PHY and PM state, but do not repeat
-+			 * the data-path teardown after the failed reopen.
-+			 */
-+			netif_close(dev);
- 			netdev_err(priv->dev, "failed reopening the interface after MTU change\n");
- 			return ret;
+-	stmmac_disable_all_queues(priv);
++	/* Suspend has already disabled NAPI when hardware resume fails. */
++	if (!napi_disabled)
++		stmmac_disable_all_queues(priv);
+ 
+ 	for (chan = 0; chan < priv->plat->tx_queues_to_use; chan++)
+ 		hrtimer_cancel(&priv->dma_conf.tx_queue[chan].txtimer);
+@@ -4335,7 +4337,7 @@ static int stmmac_release(struct net_device *dev)
+ 	if (device_may_wakeup(priv->device))
+ 		phylink_speed_down(priv->phylink, false);
+ 
+-	__stmmac_release(dev);
++	__stmmac_release(dev, false);
+ 
+ 	stmmac_legacy_serdes_power_down(priv);
+ 	phylink_disconnect_phy(priv->phylink);
+@@ -6212,7 +6214,7 @@ static int stmmac_change_mtu(struct net_device *dev, int new_mtu)
+ 			return PTR_ERR(dma_conf);
  		}
+ 
+-		__stmmac_release(dev);
++		__stmmac_release(dev, false);
+ 
+ 		ret = __stmmac_open(dev, dma_conf);
+ 		if (ret) {
+@@ -8415,7 +8417,7 @@ int stmmac_resume(struct device *dev)
+ 	ret = stmmac_hw_setup(ndev);
+ 	if (ret < 0) {
+ 		netdev_err(priv->dev, "%s: Hw setup failed\n", __func__);
+-		goto error_unlock;
++		goto error_stop_dma;
+ 	}
+ 
+ 	if (priv->ptp_enabled) {
+@@ -8454,9 +8456,13 @@ int stmmac_resume(struct device *dev)
+ error_stop_dma:
+ 	stmmac_stop_all_dma(priv);
+ 	stmmac_mac_set(priv, priv->ioaddr, false);
+-error_unlock:
+-	stmmac_legacy_serdes_power_down(priv);
+ 	mutex_unlock(&priv->lock);
++	/* Release the suspended data path before ndo_stop(), which must not
++	 * disable NAPI or free these resources a second time.
++	 */
++	__stmmac_release(ndev, true);
++	netif_close(ndev);
++	netif_device_attach(ndev);
+ 	rtnl_unlock();
+ 
+ 	return ret;
 
 -- 
 2.53.0
