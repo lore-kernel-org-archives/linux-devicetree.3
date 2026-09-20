@@ -1,107 +1,85 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 018C7456293;
-	Sun, 20 Sep 2026 23:13:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D7D9547066;
+	Sun, 20 Sep 2026 23:13:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789946014; cv=none; b=tislWwD3V7HRO4Tutc2MjEvneN9S1EoXCIbSlIcy/2Vfq2DqfRvvhzOs/N1DwdIDmWpTvrQ1E7CthFCITwe8CJ3d67DiNk2NwComEvEEc4c3uxwJkbJ7UUX8WuB6ouIWUdJkiYQdwHS+zVA46WJQv0IbOblXqgyPTCVbHf0BfM8=
+	t=1789946021; cv=none; b=Gi1sYIGh+bgDTc9BLMu81fWBgf4MWCKmQf7DsXs9UTdrmSUNYcg3UETD09qsnbbEudlq44yMZlRBWX1/Ph03btL5ux5RtfnE78QJuCik/8EldnjLnYPfj6uWs8Dr+I/y0itXO+Z67OmjsrJuCNLLXRrNxbrHoC3RIsyHJksSS58=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789946014; c=relaxed/simple;
-	bh=a4/UrZar8cPi57XJmDtnkA3Y2ToL8Y0OdGdavnIqOww=;
+	s=arc-20240116; t=1789946021; c=relaxed/simple;
+	bh=ac0PDjx2CF9tr/x+wiRBEjO0MaCdDwRbdhwCEBHROfY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NRJf30S0SLIbkjgx6d+2AheazoYSnl6cLM6JsMDKC3bZklv12xFkq1fj/q3yaIFo+7fOUsT8wQPqz6PeKODp386E1gy3i1BhmzVx8+SZWo+nuyWHJb+OqCNBfZrrj8cQH9kkOByuZUaPjJ8eQ78h43n3MDnZBKLWMZO597cICeM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=FSSH8Ul/; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	 In-Reply-To:Content-Type; b=sQxzbmKOf3kZ/SCZu6IsK/L1AXsi56Wxb/wAkJSOVLzhPCd+0npyJpBgvQ61Jz7y39xs285K+SP9qJBjMzyMPD3xwD2rjnagTX71tEgxIAt9zhoTgYOCE0oJZrd7nWw0BqbtNkckDLeMHkoDfMV9Y5dC/bL8mM6mDNvlYUOaGKA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=Zzo2IZ+7; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="FSSH8Ul/"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A7FDE105209;
-	Mon, 21 Sep 2026 01:13:19 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1789946001;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=l0nF7Y90i1a32N+Eh1IDD4CMXzDQOFfRkIgkTxsD3ZY=;
-	b=FSSH8Ul/X0/nKhRZP9ikjxPyURHV7Bln+4XfjITgOjnXHFht+v2Fh4uzGH6GwHz+ZmYaiL
-	jLmu5IjsAhO2fKUWMmIX2egVR62IdFpJTPitvH24K08/w2c87OsGRm7TGe7tsY4/aNguFT
-	XfEl071Bdw5epFx7DhfQZ3XFqNJUUCFo1WDAb4BBj6gmKLcjCYSJObXglBKxjrkg/E++rB
-	P8xTuogrmqNtPeTeglwDTIzg10WbX8OA9Xl+iuJENsADP7lieWriM3teUpt1anvEbdjS4z
-	bi8ArjAKrQhZYl/99sewUsYj0r2nlHkKw3qFspYhg8uL1liqc5bqO/RSriRcwg==
-Message-ID: <bca6ea91-297b-4316-b5db-74636593b084@nabladev.com>
-Date: Sun, 20 Sep 2026 19:05:58 +0200
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="Zzo2IZ+7"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hp2Gk6LC4zMl2c;
+	Mon, 21 Sep 2026 01:13:34 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1789946014;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PYh/AD6nS8laDFlVoK9osQ5yY8ZdUZ4VHdWngoSYgg0=;
+	b=Zzo2IZ+7qi6H7xWvC3tFER2/ngqV5p+JrH/HN5SMSwbt+09kAzn4P0waANcyPWJIe/GXvG
+	HbN2h2ZC+R77nXVxhx1usLtN/2DzB1fy6e44dj/6u2/8ckLgWPGpr18J6iipSxr8XRbx24
+	DJWcp14c+bg2jeR3xUE1d3Q4h5irBl4S8qwuYYEugG4P6xrSOXqR2OfM1CS6Ef3bM8PtWK
+	Q2p3eEg1O8lhSNtKRDlc3Wt6wk3BHd5qk4dugourPKZwz9+nvc5Sgw9aV6HTq4f88rwwC3
+	DNaDQhg1wrJ0lM8YHwz8fYTvt59+gMPv+YjXqzwV++Xc8yJMWfWiCnRQDCPWOg==
+Message-ID: <797c63bc-b759-459c-99f2-d5c3146cbe67@mailbox.org>
+Date: Sun, 20 Sep 2026 19:17:09 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/3] arm64: dts: imx95: Add support for Data Modul
- i.MX95 eDM SBC
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Marc Kleine-Budde <mkl@pengutronix.de>, robh@kernel.org,
- Frank.Li@kernel.org, imx@lists.linux.dev, conor+dt@kernel.org,
- Oliver Hartkopp <socketcan@hartkopp.net>,
- Oleksij Rempel <o.rempel@pengutronix.de>, linux-can@vger.kernel.org,
- Vincent Mailhol <mailhol@kernel.org>, devicetree@vger.kernel.org
-References: <20260917062543.534416-1-marex@nabladev.com>
- <20260917062543.534416-3-marex@nabladev.com>
- <20260917063512.C71F51F000FF@smtp.kernel.org> <aqwbBQUSfd60nVeI@SMW015318>
- <384c5f71-d5ab-4990-9567-027605457439@nabladev.com>
- <aqw1agBrSjYoy71_@SMW015318>
- <c1197d8e-add5-48b7-b0ba-a5a91379ab04@nabladev.com>
- <aq1DnBkxgF49QLwa@SMW015318>
+Subject: Re: [PATCH] media: dt-bindings: raspberrypi,pispbe: Fix example
+ indent
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Conor Dooley <conor+dt@kernel.org>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-rpi-kernel@lists.infradead.org
+References: <20260917002554.362516-1-marek.vasut+renesas@mailbox.org>
+ <20260918-amusing-rat-of-nirvana-cda3f9@quoll>
 Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <aq1DnBkxgF49QLwa@SMW015318>
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <20260918-amusing-rat-of-nirvana-cda3f9@quoll>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-MBO-RS-ID: 2c0fc8c46b5874c426e
+X-MBO-RS-META: m9q3hrijtsm5o47hjkr9iw4k9kpo396q
 
-On 9/18/26 3:58 PM, Frank Li wrote:
-
-Hello Frank,
-
->>>>>>> +	reg_panel_vcc: regulator-panel-vcc {
->>>>>>> +		compatible = "regulator-fixed";
->>>>>>> +		regulator-min-microvolt = <3300000>;
->>>>>>> +		regulator-max-microvolt = <3300000>;
->>>>>>> +		regulator-name = "PANEL_VCC";
->>>>>>> +		gpios = <&i2c2_gpio_expander_20 17 0>;
->>>>>
->>>>> gpio third arg 0, means GPIO_ACTIVE_HIGH
->>>>>
->>>>> 	so need enable-active-high
->>>>>
->>>>> if your boards have invertor should use GPIO_ACTIVE_LOW
->>>>
->>>> I already went through all that, please see "Re: [PATCH 3/3] arm64: dts:
->>>> imx95: Add support for Data Modul i.MX95 eDM SBC" .
->>>
->>> at https://lore.kernel.org/imx/f4dbeaac-ab10-4980-9fc5-533907be223c@nabladev.com/
->>>
->>> <&i2c2_gpio_expander_20 17 0>;
->>>                              ^
->>>
->>> 0 should use predefine MACRO, after I check 0 means GPIO_ACTIVE_HIGH.
->>>
->>> so need enable-active-high for regulator.
+On 9/18/26 12:44 PM, Krzysztof Kozlowski wrote:
+> On Thu, Sep 17, 2026 at 02:25:18AM +0200, Marek Vasut wrote:
+>> Fix two spaces before { in example. No functional change.
 >>
->> This is extended via a DTO, so no, I must not use a macro because I do not
->> know the polarity of this signal, that is why there is 0 here.
->>
->> The enable-active-high DT property must explicitly NOT be here, because the
->> DTO can not remove properties from the base DT. Adding enable-active-high
->> here would make the DTO unable to operate this signal as active-low .
+>> DT checker reports this as follows:
+>> "
+>> ./Documentation/devicetree/bindings/media/raspberrypi,pispbe.yaml:56: example 0 [redundant-whitespace] extra whitespace before {
 > 
+> I already posted this for more files:
+> https://lore.kernel.org/all/20260801195528.235230-2-krzysztof.kozlowski@oss.qualcomm.com/
 > 
-> But why DTO need update regulator-panel-vcc's gpio informaiton. I suppose
-> it is fixed when board design.
+> And doing such changes file-per-file is quite a churn, so better to
+> combine commits.
+All right, please just apply yours, thanks !
 
-It is just a GPIO, it can have either polarity depending on the 
-regulator that it controls.
-
--- 
-Best regards,
-Marek Vasut
+I noticed it while running the DT checker, so I fixed it and sent a 
+patch, hence single file change.
