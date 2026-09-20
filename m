@@ -1,69 +1,69 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E09473CD8B8
-	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 04:55:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 304863CB544
+	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 04:55:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789880148; cv=none; b=cVDywWtzhrDfjlf3SU1ZFg+uQ7QrMfBZLMYzqyQZRQIaPZ4fr+tkTJAKECIxGnTP/O3PmDCBoKOOhrNDw0sAroIn6uJem2opCoVluoGzKGwKLfmXuZBwnHaKpgCH9FIZ62RO7AkOSCM9FQkd6Xc4yEMZST1/o0Vj5r+G11G/8ps=
+	t=1789880157; cv=none; b=EQhZB5eNPKzxjq3HeKkDvzpqK08RFx6ptV2Yy9wQxX8W8/WUhYChTq3y7QWD/g2p7r074DO+dQko0I7DOiKY1o+YlSUS0JAStbX8bcnNHnFaG5nnRVviVvLd3aLROumb9lr5g1uBys3PN0eZsHt05KvE8hudQ4e+g/umXfWuk44=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789880148; c=relaxed/simple;
-	bh=kMBkAaHfXaz58m08vArU+hc+2lbzFG3sRy/QCWibQdk=;
+	s=arc-20240116; t=1789880157; c=relaxed/simple;
+	bh=kx5kKJMfW173nOCJWUzv3mwvx0YJN3LDcuLBMFQLo60=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=SgQbtFPwzFc43O5pb1WeSNJONd+JnjYZvMQWyO3ILin04/qOkI6Hwzg/DTYjOg8PAYSN7aRcRtWYj6/GhSc0+Fif4PjVGJ/UTXtVArzVWpKsD2VbVUP1/n27PNRs2+17fqF5PZTh6PBhKiPgWk/I0HqUUjLkojvtg8pghUwW1ok=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FI+a3251; arc=none smtp.client-ip=74.125.227.140
+	 In-Reply-To:To:Cc; b=sYLKghx8obZMkTU1O3wa6wpLjfxa4SbBbosPc2X2K4KUCdxyuz1F0Vx5LUKYKvAPZN0uNAE/b21n4PNvPVUmWW9BHnCxDzrtetE7SaWINIUpNOCIDtuDJldReBWrxvLf2K6yqwwGsJ2EGXXONXjf8THQm8Hd/UEhD0dN3ZPWhdE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZDx703Jw; arc=none smtp.client-ip=74.125.227.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FI+a3251"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d8fbef5018so25454945ad.0
-        for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 21:55:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZDx703Jw"
+Received: by mail-pj2-f42.google.com with SMTP id d9443c01a7336-2df38376150so1165715ad.0
+        for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 21:55:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789880146; x=1790484946; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789880155; x=1790484955; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=SAVOL9koiJ+YcQGa1QFT/np1LbpIAAvGvOBmeTVIdhA=;
-        b=FI+a3251o47vrl9qhpBO9pRnUVmARw/dpGb6QXeAsUaxf8JWwC2U6py7UuzwTjKSpT
-         8DneJxtc4/U5OGFg4ylGhVdrfcJzdnl+4rsSlnBpKvShj4qVnwbFy+uLlCj1C42TcZgP
-         bfJKtAtA8d0+q4Lj5Ibkx07j04BwtRe+NV8vvYcVUC9YHNtRk2IDAWoTBAv/BPnf4O6X
-         uWRMw9qaS/u4sdkmDNvIFOxtGtfqBgfNKHeVGeg2MuIUGa7yhUMxaYuCwOd+klSbsSCn
-         NaepW2dklmjRRaPGspYfMPaGbzLAqvx9NNPY39rfS25i6jBt0enUDuZpamBvPK3+hkaa
-         N8eg==
+        bh=xzyP2lP6mDo2Tguvti7VeQ501kHVG6IAx4yYOdJMaeY=;
+        b=ZDx703Jw5n9A+cB5JIm1R79QkXxX1uF+Y4r8oUiS+Covuu6y7I9YfLAd9PlAGrcmGo
+         os62ngVc8/IY2im4bMS9kfQi9khboUaKnznuwey31ryD7FzMj/wYZQ5yWBPfxSnSngip
+         iQ5S7XqruYvCFAoLYo1ujnLn907PVIDG+n//Tsy5MhpeRSOCXFPAQjPh5tdcPB/n6GAo
+         yLcm76phAkz1uxeBbjIwT4U96Bmq+4sGP6aTledyeZ2WBAU39LGDO7bee5y8wqXHqZTp
+         fCTw3uq2OZXdUIILZnWNZ1WAT7DaZEClQpQf8aWYl5EBMEw/Z0MqRy3ePEN19MSWxrQi
+         k1Pw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789880146; x=1790484946;
+        d=1e100.net; s=20260707; t=1789880155; x=1790484955;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=SAVOL9koiJ+YcQGa1QFT/np1LbpIAAvGvOBmeTVIdhA=;
-        b=ZcyJlfztyrqYqNkUUwko7S86ZEA/egSTmcknwcgPrC4qrhqin0TJa0dA9yxiNf4Edh
-         2GxPc0Jt2+2GFWL48IVXhzY4RVUNe0FxDirNnOCN676G3oqykztCuQUFkP/z/ipI8f4A
-         JJxM9QN3xYoiG+Qyva5I7MT94GEqhB+Y1BDnxmoo70tGTeaPTzDrA0KpToUVN6e4k7wp
-         XoO4OHeZdH9QSo/922lx5pzo4VVspUzGV4AK/n6B/d1h+asemY93DWi/OBukDeggIHss
-         a4BQeGP7MYH9cWGyNB2JLuFf//9kucUUIE9imvHsGOqsrvRpKTemVTOfvXxRrlBXRsph
-         oVvg==
-X-Forwarded-Encrypted: i=1; AKwUvBzNqAuVKzfNMN8IyVmkyEiuaBRWVxzp8DWtUHB78SbZGZRj3l/6QHL1g4ty1TCizgXIBI13NAlxzOKp@vger.kernel.org
-X-Gm-Message-State: AFuF++kYV2rkjxveMzfLoAtkD2hxttw8H9+YDv2GCk6LeWV80jboUAUO
-	SMXwB01Nxqis+surhNOfMHcgBTK4FVxqYglVm8UbXbkJa+Z10kyAzBvC
-X-Gm-Gg: AYBFou1k3ewkWiryjly9708InlMSVyDjznRC5GTwu/6hAz8gfLKAoYegdw0ipuBrz0I
-	saEjlcWr1zpAeHhQGryhL7bo2z8JTzLKuuX76G7xPD9MtVS3cu+bk4w45lVDgUG7u/z1Vh/BrX2
-	bSokj+Jm91tFSR78DghEyJE/wXqbZtWZYc/KJbMf31AfdPNw7d3Ki1YLM/G+JpsV3pGWe7ipGpw
-	I+mOS9ETuyamenvdb0r811gHOp1Tbxm9vFTPXU26yudit34RuLdjPeOTMRsF0BTwLIKmkENdNSu
-	JM190iIk+2KimTQQRtc0+6oEDJ3xYTYe9/Ui8C2VSrH9KhUqATDUU0JrPKySoNc8xSx6vg2hxDh
-	Aq/i1ULHDrGPDe/++mb0fv1oELdRBhOVDTIK9S5+w2Tfw+En4YxP4VfJuAwieoGZh6T1xTfNnyx
-	T0uJ5vjuFqCiP+NVgWfsVAF55CDOmwJ2N6zn+SVhB6gToOPFVERVgYbtdlvT0tSojs8o6t8crUm
-	PPPoWP6T3VfoBdfzAg6/IiIC5TLK5NRbl+iWpz47z1odYAAWNTbb1Gn+0kPt5UNBCih31Ep5Qhg
-	7Pbr42Fns0E8AY/xJYs8cBZNxaiJnuDuPymxSlT+K2SMA/s3c4M29t1N/g==
-X-Received: by 2002:a17:902:d4c6:b0:2dd:c100:3130 with SMTP id d9443c01a7336-2ddc100319amr56593615ad.44.1789880146239;
-        Sat, 19 Sep 2026 21:55:46 -0700 (PDT)
+        bh=xzyP2lP6mDo2Tguvti7VeQ501kHVG6IAx4yYOdJMaeY=;
+        b=u5/c4kspxXceoyqPQ/8h/mU5VPhMmnmHNb0YugIwMCZFIXH2Ado4Li7qx5daxsxxkc
+         gMxfXvZn8DZLg8MijoaztmeCSZ4P1MZ4R8maWwJwaQka7HU6V63HC/Sgc+6heeawrV+w
+         qgee14h87vbGS4srDnfmJYeh2sbMW9teLgggT/f5qc5QpqY0Eb4Qp/RDNf+GxhOAfQy7
+         6dAVRo32tVjIMkPV2Gc/uYhRXz9OzgNvQYZ6GMSyO4GzFsNWmdk6QYoCHIrhunBeDC+n
+         u4wUPbJrQILAllO88Han4IMks4C+H7INPek7qILiuPws6udaWA7HKQMA3nRjnl9XHR7Z
+         F7tA==
+X-Forwarded-Encrypted: i=1; AKwUvBwaLmnuI5EejsVG+BXvfBKSmwTdyNLOe3a42KIQhRVfmk67/0fADQ9FArKCb+Q15WqQCqJK02GrUSSW@vger.kernel.org
+X-Gm-Message-State: AFuF++mhHzD4qhlMiN1o9mnz6fhWN8xQNzONYD8RWyuA/PtM3MOqFn3i
+	N7D26LM8Kkz2GYtjVk2PslRT0ZV6m1U6BH961O80GQkAmNqKIkh4azq+
+X-Gm-Gg: AYBFou0Dbrz7BtqFcsXAnx8W1U856F0owjHrmlpOwaLBjR4G/nAAmvJxJMAxz18t080
+	4inU3wBVNsUdTnTHQ8yd/dJPHA6Yvl7Pa1Rh0FMDEuUIxJqb6HC13kRiSGiViS1D/l+jG45BiyT
+	1OTVLayszFSMwCoOedifGefLwPLAGhjiH6xl+5NSiyvwvx4ZxoKxATso/M1B9MwhJ7sQlj5CBGd
+	A+wtPnS1wOGGKf9vuiq/iI3xkLn03n5XMGzvtHeMO+05aS/yl4NlsNwV2KTgPdxJciou73BQPt3
+	ncvxCDj2XXGvjEAIsInrXTDrNjEEjarXhxxn5kgjgt4Bjl/iqB7U7ZsDQZFC1c4jtg/E8N9AN9b
+	OB+DgofsZAa1bVIl1ibFhSuUodf70AzQTcVbl1cyP1gNL7amwmwiduFTUhkfOKOx9Qj9t2ijot9
+	sETtMqM/MeC1XGWJUoubamEzIPVcirRFbpq2Hl82YZ2Vx9Xg7YYRvdAX7rL7P7gx2lFlsvyNn2N
+	+W4Fxk+0I0LZ6Es4ZANdNJYDQSRRxSdBZYmP8RqTMIHARGrWB9ox+WGN69SITEkVKjZE/mC8HoA
+	nS++uQOx7e/74OE8UJUSviFtYQG4HhwStNNUIvVVv0qFi18=
+X-Received: by 2002:a17:902:d2d2:b0:2dd:ad73:5b5a with SMTP id d9443c01a7336-2ddb224f33bmr80978895ad.21.1789880155541;
+        Sat, 19 Sep 2026 21:55:55 -0700 (PDT)
 Received: from [192.168.2.3] ([2403:581e:d87e:0:fc2d:ed31:e80e:412d])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17d712dsm16026765ad.64.2026.09.19.21.55.37
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17d712dsm16026765ad.64.2026.09.19.21.55.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 21:55:45 -0700 (PDT)
+        Sat, 19 Sep 2026 21:55:55 -0700 (PDT)
 From: James Calligeros <jcalligeros99@gmail.com>
-Date: Sun, 20 Sep 2026 14:53:43 +1000
-Subject: [PATCH 04/28] ASoC: apple: mca: Fix PD link double-frees
+Date: Sun, 20 Sep 2026 14:53:44 +1000
+Subject: [PATCH 05/28] alsa: pcm: Remove the qos request only if active
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260920-macaudio-v1-4-741cc20a74e5@gmail.com>
+Message-Id: <20260920-macaudio-v1-5-741cc20a74e5@gmail.com>
 References: <20260920-macaudio-v1-0-741cc20a74e5@gmail.com>
 In-Reply-To: <20260920-macaudio-v1-0-741cc20a74e5@gmail.com>
 To: =?utf-8?q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>, 
@@ -98,84 +98,60 @@ Cc: asahi@lists.linux.dev, linux-sound@vger.kernel.org,
  Takashi Iwai <tiwai@suse.de>, linux-mediatek@lists.infradead.org, 
  Hector Martin <marcan@marcan.st>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2173;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1854;
  i=jcalligeros99@gmail.com; h=from:subject:message-id;
- bh=l6ILyllDJHogvaPe0jQmA0G3c3totE6rg0ScLhCeibc=;
- b=owGbwMvMwCV2xczoYuD3ygTG02pJDFnr0+U5j3Q8K1d7n3zG7LTOxmmXz5Q2XzaeunGxT7HUc
- 45m1SaHjoksDGJcDJZiiiwbmoQ8Zhux3ewXqdwLM4eVCWSItEgDAxCwMPDlJuaVGukY6ZlqG+oZ
- GukY6xgxcHEKwFRPesTwT+HVJhMTvqn60VdsGRn0HgazSXQf/Jq76funXvH8tlWL1RgZWk4ftrd
- /oNc+ddnUN1O2mJZWhlTNltBy1Hz0+n246IQNHAA=
+ bh=sB9amKGCujymCV5dzhnXLQgtXCZDFSeONKc8RiAMJk8=;
+ b=owGbwMvMwCV2xczoYuD3ygTG02pJDFnr0+UN5p3NCRDcX2rwtCeY+U1o1BqxOV9aeCT2Pg2+s
+ cW76L9px0QWBjEuBksxRZYNTUIes43YbvaLVO6FmcPKBDJEWqSBAQhYGPhyE/NKjXSM9Ey1DfUM
+ jXSMdYwYuDgFYKojPRn+adW6m8+Zu2WmcdojE37fL2mVgR13MvV2nf3JeWLWmeYpRxj+mShcjNp
+ sw+Q7MyPW1PitzbHnSd8+notYbJv1bMt81fmGPAA=
 X-Developer-Key: i=jcalligeros99@gmail.com; a=openpgp;
  fpr=B08212489B3206D98F1479BDD43632D151F77960
 
 From: Hector Martin <marcan@marcan.st>
 
-Add additional checks to ensure MCA PD links are not double freed.
+Fixes warning:
 
-Fixes: 3df5d0d97289 ("ASoC: apple: mca: Start new platform driver")
+[    8.502802] ------------[ cut here ]------------
+[    8.503445] cpu_latency_qos_remove_request called for unknown object
+[    8.504269] WARNING: CPU: 5 PID: 2790 at kernel/power/qos.c:322 cpu_latency_qos_remove_request+0x48/0x98
+[    8.505499] CPU: 5 PID: 2790 Comm: wireplumber Tainted: G        W          6.5.0-asahi-00708-gb9b88240f7ae #2291
+[    8.506777] Hardware name: Apple MacBook Air (13-inch, M2, 2022) (DT)
+<snip regs>
+[    8.519099] Call trace:
+[    8.519402]  cpu_latency_qos_remove_request+0x48/0x98
+[    8.520027]  snd_pcm_ioctl+0x86c/0x182c
+[    8.520519]  __arm64_sys_ioctl+0xf8/0xbd0
+[    8.521020]  invoke_syscall.constprop.0+0x78/0xc8
+[    8.521604]  do_el0_svc+0x58/0x154
+[    8.522026]  el0_svc+0x34/0xe4
+[    8.522409]  el0t_64_sync_handler+0x120/0x12c
+[    8.522951]  el0t_64_sync+0x190/0x194
+[    8.523408] ---[ end trace 0000000000000000 ]---
+
+Fixes: 5371a79be97c ("sound: Call cpu_latency_qos_*() instead of pm_qos_*()")
 Signed-off-by: Hector Martin <marcan@marcan.st>
 Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
 ---
- sound/soc/apple/mca.c | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
+ sound/core/pcm_native.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/apple/mca.c b/sound/soc/apple/mca.c
-index be702b2942a5..66196c6a9273 100644
---- a/sound/soc/apple/mca.c
-+++ b/sound/soc/apple/mca.c
-@@ -303,6 +303,7 @@ static int mca_fe_enable_clocks(struct mca_cluster *cl)
- 	 * the power state driver would error out on seeing the device
- 	 * as clock-gated.
- 	 */
-+	WARN_ON(cl->pd_link);
- 	cl->pd_link = device_link_add(mca->dev, cl->pd_dev,
- 				      DL_FLAG_STATELESS | DL_FLAG_PM_RUNTIME |
- 					      DL_FLAG_RPM_ACTIVE);
-@@ -326,7 +327,11 @@ static void mca_fe_disable_clocks(struct mca_cluster *cl)
- 	mca_modify(cl, REG_SYNCGEN_STATUS, SYNCGEN_STATUS_EN, 0);
- 	mca_modify(cl, REG_STATUS, STATUS_MCLK_EN, 0);
- 
--	device_link_del(cl->pd_link);
-+	if (cl->pd_link) {
-+		device_link_del(cl->pd_link);
-+		cl->pd_link = NULL;
-+	}
-+
- 	clk_disable_unprepare(cl->clk_parent);
+diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+index 6d32c12fb79b..88c83e5fd6cf 100644
+--- a/sound/core/pcm_native.c
++++ b/sound/core/pcm_native.c
+@@ -971,8 +971,9 @@ static int snd_pcm_hw_free(struct snd_pcm_substream *substream)
+ 		goto unlock;
+ 	result = do_hw_free(substream);
+ 	snd_pcm_set_state(substream, SNDRV_PCM_STATE_OPEN);
+-	cpu_latency_qos_remove_request(&substream->latency_pm_qos_req);
+- unlock:
++	if (cpu_latency_qos_request_active(&substream->latency_pm_qos_req))
++		cpu_latency_qos_remove_request(&substream->latency_pm_qos_req);
++unlock:
+ 	snd_pcm_buffer_access_unlock(runtime);
+ 	return result;
  }
- 
-@@ -392,6 +397,7 @@ static int mca_fe_prepare(struct snd_pcm_substream *substream,
- 	if (!cl->syncgen_in_use) {
- 		int port = ffs(mca_fe_get_portmask(substream));
- 
-+		WARN_ON(cl->pd_link);
- 		cl->pd_link = device_link_add(mca->dev, cl->pd_dev,
- 					      DL_FLAG_STATELESS | DL_FLAG_PM_RUNTIME |
- 						DL_FLAG_RPM_ACTIVE);
-@@ -423,8 +429,10 @@ static int mca_fe_hw_free(struct snd_pcm_substream *substream,
- 		return 0;
- 
- 	mca_modify(cl, REG_SYNCGEN_STATUS, SYNCGEN_STATUS_EN, 0);
--	if (cl->pd_link)
-+	if (cl->pd_link) {
- 		device_link_del(cl->pd_link);
-+		cl->pd_link = NULL;
-+	}
- 
- 	return 0;
- }
-@@ -1145,8 +1153,10 @@ static void apple_mca_release(struct mca_data *mca)
- 			dev_pm_domain_detach(cl->pd_dev, true);
- 	}
- 
--	if (mca->pd_link)
-+	if (mca->pd_link) {
- 		device_link_del(mca->pd_link);
-+		mca->pd_link = NULL;
-+	}
- 
- 	if (!IS_ERR_OR_NULL(mca->pd_dev))
- 		dev_pm_domain_detach(mca->pd_dev, true);
 
 -- 
 2.55.0
