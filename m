@@ -1,337 +1,216 @@
-Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023107.outbound.protection.outlook.com [40.107.44.107])
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11021101.outbound.protection.outlook.com [40.107.130.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EAA53164C7;
-	Sun, 20 Sep 2026 08:22:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.44.107
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10BCF24676D;
+	Sun, 20 Sep 2026 08:48:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.101
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789892541; cv=fail; b=dorOKmsonorlZg9aV8QD0cAg6bXOiH8VZrix77vzWUPzVnOvNY9SlER5QDy820tJl1S12x40ccJCD69+TjMPjiKY/pHfD1k1czQYT0+d2aAeUa8h1E1/Geav510kDECf0n66N4fQjQUl3I9hOMEugcGizBrJFNqHhH2H3Txv8ek=
+	t=1789894109; cv=fail; b=iTsVbghzESv3bIBUnsXDGCKu5JdXMiHRt6ujcoZ9y7gB3JgglFJqKToRzL15rrAyHup9DQNpp/He+PSeD70aky0GWukdsct9KiDCszEzf8qNt7tslxQKcnvuDqoJdl/jD1ltIO4eF/Ug+4J1txxn/0OAbzqRkQJ6TF3SA3U16PI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789892541; c=relaxed/simple;
-	bh=q9QvuwjbwKdLKQYfWbSPyPR6q3f7oxHkxIP+9G6mCqw=;
-	h=Message-ID:Date:Subject:From:To:Cc:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=QmdV9B1CmVXWXw9ZMrD2y+eOmy4OBdDjKi5vqftwzi6ycAkd03abNO3zbnxUO4hn5WXaJH07qrN0s9jCaMQkh4v5lZIV2o5JbilktqAkQ8M/juUH2ZW9LlyKRb4XpJPbS/U9m24yTyZoM0JUULJLv2Md1DqHH/e+fTXBJgOh8Mc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=FKjbsd1c; arc=fail smtp.client-ip=40.107.44.107
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+	s=arc-20240116; t=1789894109; c=relaxed/simple;
+	bh=KycW+S0je6ztNN4DIuKhDISuBjalvrhoO56pusErCj0=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=iHDhj9fNfl80b9CCiIz17XdNF5aH1QumMIiU28KPjtc9hf8PFdw5RMkcxu8r+pwC/eAluyJI8fT+lSlKb8jorkfCUAF0ZuPliJvUOnLHJlKueSqE6BPtp2unDKHmHWigxy9fqdbzMAFke5NMfnG7Ht1+tOIoRKByHbPGSQUxpaE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=studio.unibo.it; spf=pass smtp.mailfrom=studio.unibo.it; dkim=pass (2048-bit key) header.d=studio.unibo.it header.i=@studio.unibo.it header.b=f7X2Pgtr; arc=fail smtp.client-ip=40.107.130.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=studio.unibo.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=studio.unibo.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="FKjbsd1c"
+	dkim=pass (2048-bit key) header.d=studio.unibo.it header.i=@studio.unibo.it header.b="f7X2Pgtr"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xMoUr/mjtfo7K8DmTMB2tS2LO0dCw1CKMU0JCjQxtablOmp6bys2jBjB/10cnoCkblzsQ8a4cn+i4U5KBlehOcjtQlWWCQQuoAnFW+5xVotN6ddR1I9IQzwfQ7lLx5IncHSNiJctncQt9sSC2id3BiFBASvI1dRfPxcvYZkvZbdU05UhDgcMY5sHLY0C9eEaT+9IEbSH25gAwAJjLPG4YB8MisjF/hkZfFbGzf2C7SsM8KwhVm6A012dDZ4Uh/YxDR9VayOPVWRzU3CPMM0cFhAMC16pgGk3eqm+LZCx0ldWgsU7kmJN8IzJp+Tu3HTqWiMalq7rcQ/ETJ/8e0Q3JA==
+ b=U1R78s1q3F6vFjpyc2YMGo9XPW5mbAeuiSpR934SbWHuj7a9gUAI+0IEZuUK4HSbVoDkiBgkycjn4x9ZWY+d/B14/mMnCFqyD2o1TIVPcoVJm5TgUDumYG5GdNWMVPH06jcrDzwzWY60b3RihQBOapD0+g58WeVppdTSXznVp9Oy+f3L6xxkctUfy9ziarzZyefUHwtPt2h4R/9whlCmbPnznPdFTfn9bg0QbUXtrPSsNIZ9dC+nlN2b4aMAMW+4H87q5vrjVwF0zgHgfkHK4zqFLRYAMbnm+S6kmvSkOkegB4MEEqY4UEnrkPorfAxbu7HF6AWeNV9Lu4hiiYskRw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LQiugX6KGIMCU1p+cKlXt5BpMDGezJZkqwRlbpQS7dM=;
- b=hfFsoTJBTEZetBxFi9BHYVKVxEN4S800r4/ibsGFxj1Uxql8fcYSMJgWldbNyShUqkKQRcv+B471X3m8pHWDVqwXxFkiNaDkhfVvDLynWA08lsAiWPhBVqErLOqXPzmrUUM+hrwU2E4xTMnjroXNu3RLUSqSZvNg0P5wIg3YFCvorHvWtm3YG5bLH3xQx2vpC60ieOSZpPdymrU+Y4K0WuRLRNPVm/JCNMPygcNuvML70tA0CyyQ0B6aDO/wxFB02qbM4aNx/NcQ+NHq3gBOW4n3R+qFma6XC8IEtZccf20hEDLnBJEFUrZUu86bacgPZ965hw4Vy7mQ6hwyH+blSg==
+ bh=Gy3DF58Vm2mdgoMOT66kYOhfj8/zD2R2O2PPzgK1V7g=;
+ b=FjMe6cRVSNkWqkSDULT1TKJQthecMq4cBdoh4t4neh8YUFyTPb+YBnSbXf2u5sj3/VCWd2TSY+OxQQwFNer4qXzQ8mYj0ZBe2NbotHg4hs+u0O3YhzFVWKn2ONcUs/GhIsHrwOkvcDXhvXVcDMjJfGHDx+ki+FMSB/2kkyFuZi/++GXyTdrk4okwKM0zrVtq8v1TGgv9W4VQXouV9lWDSvPQEvkeJi0HcgStPltF7BsiMpk1SC14VH/7NsIQYcRGT3MoSbpcazrQlTwOQFLa1OELaN2q5HWjp4KP4tVox/7kVAsk+qUCiv3g2Qt2XvsmHL2lqPKSQpXBGWqS1v0mMA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
- dkim=pass header.d=amlogic.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
- s=selector1;
+ smtp.mailfrom=studio.unibo.it; dmarc=pass action=none
+ header.from=studio.unibo.it; dkim=pass header.d=studio.unibo.it; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=studio.unibo.it;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LQiugX6KGIMCU1p+cKlXt5BpMDGezJZkqwRlbpQS7dM=;
- b=FKjbsd1cA1I6Ew4/1fGlUWiH+/sOFQeXBIFHM8gZUFjfwfvOjQLuh42bNthZ5a1I5Vd9CLUY6sG/Ubatjyqk5aM/SW1oe6P02Oto/hemHAS/0+jPiU+QAacV+9po0S6stfjaoy9Lbvbsv4QuOwQj2zoXDfFnKB4QIUikb3p83EiAJJAiTaSpICF+b8JVyQZ6i2Mq7CCCTtMC5lHxyC72pdFhNZlc31YsxcIneI28KQ8MdKoOUfbg4Ih9putXu5kTDJ3kuS6YvtmUdGbC53kilR9UoAvSz4bwbd2sYAJadwlj7z8keRGuhY89wL+2oMppXD/cLJiVtoz1ewzSubJ7kg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amlogic.com;
-Received: from KL1PR03MB7149.apcprd03.prod.outlook.com (2603:1096:820:ca::7)
- by PUZPR03MB7015.apcprd03.prod.outlook.com (2603:1096:301:f2::6) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=Gy3DF58Vm2mdgoMOT66kYOhfj8/zD2R2O2PPzgK1V7g=;
+ b=f7X2PgtrXKl6Tt2OL1qWPk35L17rBzyF+uPhOpxByWAaEhOHZbL4vM/6BQwsOOV28wMXQ3swKKT9h7S35eYsHemkVi1qdu9+bl5F1sZXZ7ZBW6TEXIkzNkUcK8FinByCtWcfvVl4n/86Ra7FSd/0wL5c0+VJzup4yZn9nkv0mBZa+2REnfm/AeZzC3DH1Kr9h+LhhxW3lWtZOzpFQ5+6U2WAhQQliC2dBQL5nSm5aCQvm7uKvRkJtVkzYgomAYCTFjchY1ZvhxM5FmcDYoxdeYQID7AO/NHMjF0HybM6mFbkBvw2drr1RJ/H9Loku0yN58SSjXAHkc0u0EwWUvTMpA==
+Received: from DU4PR01MB12163.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:620::18) by AMBPR01MB12153.eurprd01.prod.exchangelabs.com
+ (2603:10a6:20b:6ef::22) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Sun, 20 Sep
- 2026 08:22:15 +0000
-Received: from KL1PR03MB7149.apcprd03.prod.outlook.com
- ([fe80::2f06:12a:fff0:6506]) by KL1PR03MB7149.apcprd03.prod.outlook.com
- ([fe80::2f06:12a:fff0:6506%3]) with mapi id 15.21.0428.011; Sun, 20 Sep 2026
- 08:22:15 +0000
-Message-ID: <f518be12-9c96-4415-b442-4afcbc5b5d36@amlogic.com>
-Date: Sun, 20 Sep 2026 16:22:08 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 07/10] clk: amlogic: Support POWER_OF_TWO for PLL
- pre-divider
-From: Jian Hu <jian.hu@amlogic.com>
-To: Jerome Brunet <jbrunet@baylibre.com>
-Cc: Jian Hu via B4 Relay <devnull+jian.hu.amlogic.com@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Xianwei Zhao <xianwei.zhao@amlogic.com>, Kevin Hilman
- <khilman@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org
-References: <20260511-b4-a9_clk-v1-0-41cb4071b7c9@amlogic.com>
- <20260511-b4-a9_clk-v1-7-41cb4071b7c9@amlogic.com>
- <1jy0hm6n7e.fsf@starbuckisacylon.baylibre.com>
- <8d89b669-e72e-4663-9596-999a12922d32@amlogic.com>
- <1jqzn65y9l.fsf@starbuckisacylon.baylibre.com>
- <3fda1592-f7d0-4e86-8615-602804673414@amlogic.com>
- <1ja4tm5pb3.fsf@starbuckisacylon.baylibre.com>
- <c9c4945f-cdfc-4382-b8ca-71b69d91deb4@amlogic.com>
-In-Reply-To: <c9c4945f-cdfc-4382-b8ca-71b69d91deb4@amlogic.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SE2P216CA0133.KORP216.PROD.OUTLOOK.COM
- (2603:1096:101:2c7::13) To KL1PR03MB7149.apcprd03.prod.outlook.com
- (2603:1096:820:ca::7)
+ 2026 08:48:21 +0000
+Received: from DU4PR01MB12163.eurprd01.prod.exchangelabs.com
+ ([fe80::bffd:753f:fbcc:c402]) by
+ DU4PR01MB12163.eurprd01.prod.exchangelabs.com ([fe80::bffd:753f:fbcc:c402%6])
+ with mapi id 15.21.0428.015; Sun, 20 Sep 2026 08:48:20 +0000
+From: =?iso-8859-1?Q?Nicol=F2_Giuliani_-_nicolo=2Egiuliani6=40studio=2Eunibo=2E?=
+ =?iso-8859-1?Q?it?= <nicolo.giuliani6@studio.unibo.it>
+To: Andrew Lunn <andrew@lunn.ch>
+CC: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Gregory Clement
+	<gregory.clement@bootlin.com>, Sebastian Hesselbarth
+	<sebastian.hesselbarth@gmail.com>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>
+Subject: R: [PATCH 3/3] arm64: dts: marvell: Add Sophos XGS 107w NPU board
+Thread-Topic: [PATCH 3/3] arm64: dts: marvell: Add Sophos XGS 107w NPU board
+Thread-Index: AQHdSG9FPSJli8/cuky5AOQ9f1roMbbWeggAgACufWQ=
+Date: Sun, 20 Sep 2026 08:48:20 +0000
+Message-ID:
+ <DU4PR01MB12163AE447B65B21A7D585A0D80852@DU4PR01MB12163.eurprd01.prod.exchangelabs.com>
+References: <20260919-send-dt-v1-0-365615a74ef3@studio.unibo.it>
+ <20260919-send-dt-v1-3-365615a74ef3@studio.unibo.it>
+ <6b935e31-169a-4cd1-b385-62dc659c1256@lunn.ch>
+In-Reply-To: <6b935e31-169a-4cd1-b385-62dc659c1256@lunn.ch>
+Accept-Language: it-IT, en-US
+Content-Language: it-IT
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=studio.unibo.it;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DU4PR01MB12163:EE_|AMBPR01MB12153:EE_
+x-ms-office365-filtering-correlation-id: 2b3a6371-9988-4c86-b3e1-08df16f3ec1b
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|786006|23010399003|366016|1800799024|6133799003|22082099003|18002099003|38070700021|56012099006|5023799004|11063799006|4143699003|10067099003;
+x-microsoft-antispam-message-info:
+ 4eVt1WOHi0M3jJExvKZLvA+Em100e4aOaSjc55A6pI53txLHJeBH5GjBuxXqRRTTBna723NOADelHQcGEu8xeDkZ+ohqHNervsiigAy3V29zz5jp9k0nCPxb80oMTkqH39vyi+H9d0/EsMfjNKVngiO8uK6qe+WsnU7ME9p1z/A/OAi31LjKsn9NVv32Q/gjJHPgk4noVnVq92o1g95j4H2oDjKOuSTrmAAo5R2+Ryz2LRY8plhyFZOojpkh2ProMtywYrVedyDCNk/ulGg8/wFcBY/CrlAb/ITXIN6DWTI/HH9GQqHsOJAazMyKD8Vjm8MHgjrF+djg8Ilm/3OnAlWSOtZ5E7jPouOLYig6jQZjvy4v7YB0g9GQZoaUy4pijz4WkRQYx0iOIGSYEaPwAcEJl9xWvgctD/+G2Z9auZSv1G8EWcf3STT7pMUTpeDNlKn8XWFdypf8AEJ+SGscH0CsqPXyOahdD7Hlzk+H/uLAl5qZaHrbpB1itmDslQzD3wgYl0QmyXcv9ctzVlV5e+th4jKTbjZjG86HRqgcKnXESkrYW+phQ+dQWb3FR6JRBVySRlPv+UsiUJ13+eqHWswPdul/ZRLlKeqYClGVU2m+LNdhPmcktrY/iZvl8pJeQ3Amn7OcB9RCh10qgOFjem5PJ6jMuWwW1hte3y42WpkIKS+TVR5NSNW9KqKAr8yP2Ro2hdWRG/1Zdr1kKIG7EC4sPKT3XXoVWjS5Wr4Ichw=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU4PR01MB12163.eurprd01.prod.exchangelabs.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(786006)(23010399003)(366016)(1800799024)(6133799003)(22082099003)(18002099003)(38070700021)(56012099006)(5023799004)(11063799006)(4143699003)(10067099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?KuavYImgQnaOpypktvTvIy24BoWVYg/iN2l7o8YCzseCyHFrl57aKuRJen?=
+ =?iso-8859-1?Q?AqYhPgw5LXMBSvvKRFvztFJLPQcWbyus2rkcRv33huR5Q8mEqlO8GiaItN?=
+ =?iso-8859-1?Q?HB0T2uy+3uKOs9RbUY2dDmBF0HcJXnvlsEMf6u1TpxJkpjFEj4FORnVwPz?=
+ =?iso-8859-1?Q?YKXNczf5wjW5JQLtvVs4zj55RzgTI0m2ajTjFg30sJXj+v+x4WMfOVHCbI?=
+ =?iso-8859-1?Q?NaealeZwzqvNfy0ZNl4laZ/fljtrzRifbSIAJAKJ680cBo0Ayv4FIIbtkd?=
+ =?iso-8859-1?Q?Rpw4WHv6WfV7spi4h1ROZRk2pfmFXEvgcPj+b1vZaTEUYpPWjmOIm9uZE1?=
+ =?iso-8859-1?Q?bbVBQmVo5q+XP2GN7saxZg+MA9ocege0YjeG+KSJ8XuOFmpEMTTARUINXw?=
+ =?iso-8859-1?Q?Mq6xt6NLTDVyGI/W4+UN3y3+YYZG/hK/19dXKVy0NUQY0NyGEmXD5abaQH?=
+ =?iso-8859-1?Q?f2unLLmaPieFlLu/k1SVnqHcSERvIiQd1AN6JFyv8UROqkoaLxnJOoVOGU?=
+ =?iso-8859-1?Q?tPXFSoRPgJJSZU3E2mS0aS0jKqxcSfohCIhnJviZeKynIw8s9LC+tlO84I?=
+ =?iso-8859-1?Q?PqZiitgJ2Xmlu+7k/fufnbZMNlfmoZEr2e6veJ9uIrja2o7F9CEi9t4TwH?=
+ =?iso-8859-1?Q?42hAZ4yvv3rt1Kn1xyQNwbSrqWsSc/ORrE2qp0jvFdhoAxYVD/ay/4xiYC?=
+ =?iso-8859-1?Q?UnpaRIMQgoe+Nwgbk9eEETedpdo0hH4x+hqrHJEOOZ3qA6VS1Monj6Ir6B?=
+ =?iso-8859-1?Q?Tg/3dzauS852b8v/Xzyc24SzrDx0fRu7s1ihgffSmGVo0u78vorMUsvCyO?=
+ =?iso-8859-1?Q?iLthlbIk4Tdtx7ip03mvd6G8bEZszB7+w3wikLft9OwgPDFmqLAbLR+Hfd?=
+ =?iso-8859-1?Q?sIFReRYkvliOUHxbIYoRVUMFfoOiRMVboKB4RZxbGVEBTqGDF6D64kOqAK?=
+ =?iso-8859-1?Q?ruwxwzbPmm5g49HsQPvLrim92XK6SIsdlfloNTV6ZJDSNQGh9rcpZ2lZ/Z?=
+ =?iso-8859-1?Q?311Hwv8+RyoDucM7ChZQGmRoNDx2yT3IYphiDlIxXV2Yy5XVYA6G4B5+cj?=
+ =?iso-8859-1?Q?fjiAehbKOpc7ohqrLKJVGBPLFQTvXlxDD4xkyh9qitOn0Pj+Plq3SNzTTP?=
+ =?iso-8859-1?Q?VdOVVjrbl6eeG4fJpNhbVvcv8vRAfMzH/QbMYRa0qTbrXgmsllWD9GRP7z?=
+ =?iso-8859-1?Q?mTja4GdOHl+4a9oVPJIrb1j8iwvoTu0cldAsW9xaXGwXz5yhF32PDTFiBW?=
+ =?iso-8859-1?Q?eEoI8LHxMM1IAEvZG4ubdFHuv/xuq8jbSFJkYDoU/MQt3DqLz7VnMmiZs0?=
+ =?iso-8859-1?Q?iW+pW6swNjqg26hXQ1saNdgdTDBJ6cM3Opcs2oi68hnP6eZn+dy4mRr6HG?=
+ =?iso-8859-1?Q?ef/OeQB5wkZaFQPjByT9xgXV1z+/WjjWOnIMkjK6Lkpj/7z5HUow6WPJqH?=
+ =?iso-8859-1?Q?dvr1dke0LRj87j83skXTtwC4fDDJf9IucqbZBvN8K4XbrrseMIbO2KrBVE?=
+ =?iso-8859-1?Q?1LIAjRk+exxfyAZs1wBGDz7/F6kTDUJsLr1MqcQ46uAEVyT3B25+/Ik/Cr?=
+ =?iso-8859-1?Q?jEuThHuxZEODxX7vdEHUf7SMlrrJJoyWa64pGQyoNyTwJP9b1Sk0ActCi2?=
+ =?iso-8859-1?Q?6FdhP374vRy8le9OFb1wOpZ/eADbjtddb9F30J0xZ+VUm8uoUEt0Gc1aie?=
+ =?iso-8859-1?Q?YAaxgrvtjxO6gK9FiDyK4s94QS6nceqYdRQfdQvRXtpleYsujJBtFkDH8T?=
+ =?iso-8859-1?Q?Hxe43khWfuwqizJ8T37dOqMPdBLOqexh09P+x+WgwfGyhyuyruEDvYg/CR?=
+ =?iso-8859-1?Q?E6FoJnQLEoqdenqBDVNcbFwTOApDLkc=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: KL1PR03MB7149:EE_|PUZPR03MB7015:EE_
-X-MS-Office365-Filtering-Correlation-Id: ac292b9a-fa2d-49e0-c6ae-08df16f046f0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|366016|3023799007|6133799003|10067099003|56012099006|5023799004|11063799006|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	jRquFaxp7rJmK3riJoqazrV6H8D3XHUqlokthRxTp5yVEB4ZxcPR7izbHBnkezlhgabUsY3EqLnf3D/PA4Zn+GTVodNmD+QY91+i8Ig/2gPsWoMhmXK8Z2ryTz5GZMsM0kCZRqE+sUVMQb6DK8wa2HnGH0mJ/MC/0xTBhUOHPkiM0owTTkv5mnFPZzUC5MtPnaus6PU2TgISDqqEFkrAwHsUvmzMkdpzKlSXKebSYwJog3egUF9uCWxNGqrwCbEJdfJXgfv8hBmEqvv73qfQFK0m0whP/QXn3qxImhphzYqC+yTujUaPKo2J2c+7qpWzJTP48fwAv4ymAFXweNE6bakyxwvyvgd5vMw+P919vYQ5Zfsbz7d05+TFyt0uFBOm4opiHq81gcW9x6d58nKeAzelDXW492I0J9zEalutf4isq9gt5kM1drg78MlpBwGalaLPmukQALI5PjjGBE+EWQ8b3gpNkdWli2E6GGlB6IKzqdNV72JlYmTD+bi6KVcNk2VUjXRqkPmHUgtYttvsp8nBh5x0xZYa6F4+XZN+waom4bsEWQH993BtBGwd0ehQ9tSAXMqEdPB1bzgXm5myGVq092lxKrjB18289mDwPuBz0agclEfPFuF8G1+4r5OiO2nQy4OK18hHunpDgGNVf++zajQD2yAOtS8EBc2pTJI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB7149.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(366016)(3023799007)(6133799003)(10067099003)(56012099006)(5023799004)(11063799006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VGZieVdtZUVkZWg2VUp2WXFwbzRKOFNPdkNxVisrdVpzbnJWaSsva05XWkdv?=
- =?utf-8?B?bkx6cUFaYUt0Q29XVytQTzc1YUo0T3RIQ2ZtU0tkNjJSeVBER2VlZTMyRWtu?=
- =?utf-8?B?OEFZV01ydzVBR3hKdlBadTNZbjRlc2R4K010WEFWNXdJek9RQk1VY0tBbHpj?=
- =?utf-8?B?YTBFS1c1RUR1Q0pFZTlka3BWN2pZZjFmQ25kanBMekJCREt3QzJZekRNT1dI?=
- =?utf-8?B?emJxalh6MWRZK05hb0J3OUtPdFhBcVVvSStlSTdsSVd0cXhsN0phTkdhTnli?=
- =?utf-8?B?b3l2dGtOVGZ1TlR2L3VQMXZoMUhHc0JkdDAwM2xvTVBVUE5JeVN0T0FHTDNW?=
- =?utf-8?B?a0lBWW9LMjJ3ZDF4dDlrWWVmWk1iZlZhNHpNWHJYcE9zQyszUmpOQUJwcE9v?=
- =?utf-8?B?U1dJdjlNQXJaV2FRWERibFhtR3BtUEZhNC9pcnp6ZW9lUHg5emtaVnU5TGJD?=
- =?utf-8?B?VDdpZ1l5dUI5eTRNcWcweE9INzZYMGtzbklYTHZCTjJnWFlodzM1d0kyYnZK?=
- =?utf-8?B?elhTb2ZoVkpBQjgvODVMUkVLRSswVEQ4Q3NiSWlKQklJQWhJUklDM0FtL00v?=
- =?utf-8?B?YjM2d1RsQlhOWTkyRE92UjEyWmZmZ0JaQ20wWWVPVlpGdThyem1XVm1xcjky?=
- =?utf-8?B?SnY3bHR1dXQzTktZY29oQm91bmoyVDNjaTd1NExVbXlvWC9iVzFlUnNKUS9N?=
- =?utf-8?B?bzM2YnhJMGZsZXlLcmt4T2VyU09PNmVZTFkzWGRMb0Z5dlJ3aTFUdEplMEpP?=
- =?utf-8?B?blZZTVJTdW1PZHNUVUh6ZlhrYitpUHJvUmlKNTZqdU1DWWFKejZtK0w5andZ?=
- =?utf-8?B?YzVtU3VkY1B4N2h4TkVRMW82ekliLzBiVEJjaUIyZ3pvVmlNeUUzY01RWU5G?=
- =?utf-8?B?QXVFUnB2SUJsNzdJMTUyYVBJNUtOZi9abVNnTVhFSWRRMXBFbDdOL3FuajdK?=
- =?utf-8?B?eFY1RmhPMy84Zkp3V3BaNC9lUU82TkVmYnZyTUhBdmRkRzlVQW16WWJCVmFW?=
- =?utf-8?B?eHczU2tCL3VXcTNkUUpOYmR1LzBFNXNjL3h1WU9uTWdCSkttYWJySVRqZUhT?=
- =?utf-8?B?Z1NmWWgwS3VsMjJ4RkN4dVBPNVJlNmtpNTdRaXUwYS93MDc4TWlmMEsxa082?=
- =?utf-8?B?Z0VvbE1WRXpoR2tGR244Y1hJWVA4d3ZTRjBaTkhFR1ZDdXdMK21ITHNaSmNT?=
- =?utf-8?B?UnYxeFkvTCtjeVI4TVVRZ0V2VWhvc0IvTDlrTmgxWVdXTjJDN2YwT1VyNWJs?=
- =?utf-8?B?Z3oxSTMzTktMWUVBNFN6b2NpSWExcTltTldpaW5KZm1sK1g5Y1dRdElkOGNJ?=
- =?utf-8?B?dmE2Ui9UbHhYSXVuSzRMMTkwMkFHNU5HNXBUblpGVTFJaGErZmJ0Q0hXWWR2?=
- =?utf-8?B?TEViVnRrRGcrbytScU16TTcrL20zUWI1NzNFNlk2VDlaYWFINEhMN3AxZ2Y5?=
- =?utf-8?B?M1dOWmt6VncveFM0TjdKUjZtdjdCbTFGbUQyODVUUXM2L3FJN1dObE1xR1JN?=
- =?utf-8?B?NjJ5blRDdTZmdWt4M20zYmlZSTdlcXNoWjNmckdJUHF5NWVYVy82K21tVWJG?=
- =?utf-8?B?Q2o4dWhvNlNHNU9VVER3U2pVcmNjOGhvU3NsTksrUUNHNktnOW5WR2RmMEpo?=
- =?utf-8?B?aTAwSG85TnBuMjFXeS9GSUVlaXFLWStiOFRxcGtQVERtOENMdWZ4SHh2YzJF?=
- =?utf-8?B?N1dRekVlZmlpWWlpUW4zT3Frb0tsanowSDZiM0Q2emM3RDRsbE96RStRRnJt?=
- =?utf-8?B?cjZsaGtGb1BqUFJsZy9xOTdZTTluZ3ZNTFlpOWNxM2pUY2g1L2xhYTFFTFhv?=
- =?utf-8?B?anZqUG9WNVZVYzZIdjg0aHp5Yzh4d1pLdy9WUmNpTTdkcEV2MFptZVpVZWtC?=
- =?utf-8?B?SnZJZFhwcmIwK0RtTGF3dVgzQXUyOWlwdmR4V0Zjb2RsdUY1dDZ3RnZkUnVk?=
- =?utf-8?B?eDNZUlBMaHBWQUUvQnRYekNmelFBdU5uYnRrS0RWaFFlSkIxVXVOL2s2b3Bq?=
- =?utf-8?B?ZEZBWEdKbk40Wlh0VVovb3VOeWNhb0FvR0FUSGtNL0NIcDh3cWRZKzhSamhW?=
- =?utf-8?B?Qjl6dVRneU5VVWo3SldEdHUyNFgxSy9GVXRIcUJOZkVRdDhmeXF5QjM4K2VD?=
- =?utf-8?B?em1YSWtWSDNwN01VTWxiQ3FGNVBOUlB6NzV2ZVh4T0c0bWUzUkdFSXNsTEtU?=
- =?utf-8?B?c2kzUE5IdVNhL3FhVmQyWi95L0IvV3o2THlkb0hBSmhuQ2hIN2ZaK0NYMGRF?=
- =?utf-8?B?LzhudCsrZ2NEQzI3ZVdWOHZqUkFKMnVobDFwazR2UWl0aTN3eXZOalFwMThH?=
- =?utf-8?B?aG4ralVGa0d1b0Q4bWVMblEvRlRKQmpZSnd1UzArcFZxQU1xNTVQdz09?=
-X-OriginatorOrg: amlogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ac292b9a-fa2d-49e0-c6ae-08df16f046f0
-X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB7149.apcprd03.prod.outlook.com
+X-OriginatorOrg: studio.unibo.it
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2026 08:22:14.9799
+X-MS-Exchange-CrossTenant-AuthSource: DU4PR01MB12163.eurprd01.prod.exchangelabs.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2b3a6371-9988-4c86-b3e1-08df16f3ec1b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Sep 2026 08:48:20.3311
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SZrFr1jixGDD1UiyUBqjJnaPGUnLqdEkHpH2vuLmgSUYGabWbx9KwMwMoBvYO8q1Dx6gqrxtNOdGa2G7pVnxkA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PUZPR03MB7015
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: e99647dc-1b08-454a-bf8c-699181b389ab
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: UJokIN7qkjO3wHtwBdvSOz2Tcgc6crdwuSVuQILRKL2Cj553OzpMmnFnlc7gCnZoTzI6M1r4YImGpbEPJA6Sqbi9gfSnp3JxLRvW65xnEi3JcZgERUxUFus7Du5M8HiO
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMBPR01MB12153
+
+Hi Andrew,
+
+Thanks for the review.
+
+> The reset line of the switch (CP GPIO2 pin 17) is deliberately not given
+> to the mv88e6xxx driver as reset-gpios. The 88E6193X needs about two
+> seconds after a reset before it can be used, much longer than the driver
+> waits, so the probe would time out.
+>
+> The obvious question is, why is your 88E6193X special?
+
+I don't think it is. I saw the probe time out when I started the kernel wit=
+h kexec from the vendor Linux, so nothing had reset the switch before the d=
+river did. When the boot loader resets the switch first, which is how the b=
+oard normally boots, probing with reset-gpios works on this board (Linux 6.=
+18). I have not been able to test a driver-only reset yet, because the boot=
+ loader always resets the switch first, so I cannot say what made the diffe=
+rence. I have not checked whether an EEPROM is attached. v2 describes reset=
+-gpios and drops the comment.
+
+> +&cp0_i2c0 {
+> [...]
+> +     gpio@20 {
+>
+> Which port?
+
+It is the LED expander of the eight RJ45 ports (two pins per port). Nothing=
+ uses it yet, so I dropped the node from v2. It can come back together with=
+ the LED nodes.
+
+> +&cp0_i2c1 {
+> +     /* SFP EEPROM (0x50/0x51) */
+>
+> The addresses are not that simple. When a copper module is inserted,
+> other addresses are used. The SFP driver assumes it has access to all
+> addresses on the bus.
+
+Thanks, I had not considered copper modules. I removed the comment; the nod=
+e now only enables the I2C bus of the SFP cage.
+
+I will send v2 as a new thread after more feedback.
+
+Thanks,
+Nicolo Giuliani
+
+________________________________________
+Da: Andrew Lunn <andrew@lunn.ch>
+Inviato: domenica 20 settembre 2026 00:23
+A: Nicol=F2 Giuliani - nicolo.giuliani6@studio.unibo.it
+Cc: Rob Herring; Krzysztof Kozlowski; Conor Dooley; Gregory Clement; Sebast=
+ian Hesselbarth; devicetree@vger.kernel.org; linux-kernel@vger.kernel.org; =
+linux-arm-kernel@lists.infradead.org
+Oggetto: Re: [PATCH 3/3] arm64: dts: marvell: Add Sophos XGS 107w NPU board
+
+> The reset line of the switch (CP GPIO2 pin 17) is deliberately not given
+> to the mv88e6xxx driver as reset-gpios. The 88E6193X needs about two
+> seconds after a reset before it can be used, much longer than the driver
+> waits, so the probe would time out.
+
+The obvious question is, why is your 88E6193X special?
+
+I've seen issues when there is an EEPROM attached and it has a lot of
+content to setup the switch. But that goes against using DSA, where
+you want Linux to control the switch, not a fixed configuration.
+
+> +&cp0_i2c0 {
+> +     clock-frequency =3D <100000>;
+> +     status =3D "okay";
+> +
+> +     /* Drives the port speed LEDs, which are not described yet */
+> +     gpio@20 {
+
+Which port?
+
+> +&cp0_i2c1 {
+> +     /* SFP EEPROM (0x50/0x51) */
+
+The addresses are not that simple. When a copper module is inserted,
+other addresses are used. The SFP driver assumes it has access to all
+addresses on the bus.
 
 
-On 5/29/2026 3:08 PM, Jian Hu wrote:
-> On 5/26/2026 8:27 PM, Jerome Brunet wrote:
->> [ EXTERNAL EMAIL ]
->>
->> On mar. 26 mai 2026 at 17:58, Jian Hu <jian.hu@amlogic.com> wrote:
->>
->>> On 5/20/2026 3:35 PM, Jerome Brunet wrote:
->>>> [ EXTERNAL EMAIL ]
->>>>
->>>> On mer. 20 mai 2026 at 13:47, Jian Hu <jian.hu@amlogic.com> wrote:
->>>>
->>>>> On 5/14/2026 11:11 PM, Jerome Brunet wrote:
->>>>>> [ EXTERNAL EMAIL ]
->>>>>>
->>>>>> On lun. 11 mai 2026 at 20:47, Jian Hu via B4 Relay 
->>>>>> <devnull+jian.hu.amlogic.com@kernel.org> wrote:
->>>>>>
->>>>>>> From: Jian Hu <jian.hu@amlogic.com>
->>>>>>>
->>>>>>> The A9 PLL pre-divider uses a division factor of 2^n to ensure a 
->>>>>>> clock
->>>>>>> duty cycle of 50% after predivision.
->>>>>>>
->>>>>>> Add flag 'CLK_MESON_PLL_N_POWER_OF_TWO' to indicate that the PLL
->>>>>>> pre-divider division factor is 2^n.
->>>>>> I understand what you are doing here but I have to ask why this 
->>>>>> can't be
->>>>>> implemented with independent dividers that already supports power 
->>>>>> of 2 ?
->>>>> If we use independent dividers, the n member would have to be 
->>>>> removed from
->>>>> meson_clk_pll_data.
->>>>>
->>>>> However, n is referenced 35 times in clk-pll.c, which means we 
->>>>> would need
->>>>> to modify all
->>>>> related logic across the file. This would be a relatively large
->>>>> change.
->>>> Yes
->>>>
->>>>> Moreover, for all Amlogic chips, the n divider is an indispensable 
->>>>> part of
->>>>> the DCO clock.
->>>> There is hardly a justification here
->>>>
->>>>> The difference between SoC generations is as follows:
->>>>>       Previous SoCs PLL: n = 1, 2, 3, 4... (linear divider)
->>>>>       A9 SoC PLL:            n = 2^0, 2^1, 2^2, 2^3, 2^4... 
->>>>> (power-of-two
->>>>> divider)
->>>> Yes that was fairly obvious
->>>>
->>>>> Therefore, splitting out the n divider from the DCO clock might 
->>>>> not be a
->>>>> good design choice.
->>>> I'm not sure I agree and you've only stated your point of view without
->>>> providing any technical justification here.
->>>>
->>>>   From the datasheets of the different SoC we have, the documented
->>>> limitation is always the DCO output rate range. Nothing related to 
->>>> n (or
->>>> m, or the mult-range for that matter). This is a legacy problem, we
->>>> started with monolithic driver and slowly simplified it.
->>>>
->>>> As far as I can see now, reworking the PLL driver to be a simple
->>>> multiplier driver with range output rate constraint could actually be
->>>> simpler than the current code. I would also make simpler to accomodate
->>>> differences such as the one presented here.
->>>>
->>>> Unless you can provide technical reasons why going in this direction
->>>> would be incorrect, that's where I'd prefer to go.
->>>>
->>>>> [...]
->>>>>
->>>>> Best regards,
->>>>>
->>>>> Jian
->>>> -- 
->>>> Jerome
->>>
->>> I agree that having an independent N divider would simplify the PLL 
->>> rate
->>> calculation.
->>>
->>> A separate pre-divider for N is technically possible, but there are 
->>> some
->>> hardware constraints that need to be considered:
->>>
->>> N = 1 is the preferred operating mode except a few fixed-frequency 
->>> PLLs.
->>> Larger N values reduce the PLL phase detector frequency, which may
->>> negatively impact
->>> jitter performance and overall PLL stability.
->> Understood. You could really make a difference by going deeper and
->> explaining what those constraints are, especially since you ask question
->> internally at Amlogic.
->>
->> At the moment what is documented is a range regarding the output rate of
->> the PLLs. A PLL is made of a pre-divider and fractional multiplier.
->> and you are saying that for the multiplier to work and lock, there is
->> actually a constraint the input rate too.
->>
->> If you can discuss with your HW team and clarify what the constraints
->> really are, that would help to better model the PLL. In then more likely
->> for us to figure out the best way to drive it.
->
->
-> I have discussed with the HW PLL team. And here is the discussion 
-> results:
->
-> When N increases by a factor of X, the PLL bandwidth decreases by a 
-> factor of X,
-> deviating from the default optimal bandwidth, which leads to a 
-> decrease in
-> clock performance and affects the stability of clock-dependent modules 
-> in the chip.
->
->>
->>> Because of this, we cannot guarantee stable system operation when 
->>> arbitrary
->>> larger
->>> N values are used.
->>>
->>> Some PLLs require non-1 N values to generate specific fixed output
->>> frequencies because
->>> the target rate cannot be achieved with N = 1 while keeping the PLL 
->>> while
->>> keeping the
->>> PLL within its valid operating range. So N is designed to have other 
->>> values
->>> ​​to
->>> satisfy this requirement.
->> Again it seems like the constraints we are using are not the real
->> limitation, just by-products, which the situation unclear.
->
->
-> When N=3, this type of PLL is designed with the optimal bandwidth 
-> based on N=3.
->
->>> For example, the AXG PCIe PLL uses N = 3 to generate the required 
->>> 100 MHz
->>> output frequency,
->>> since the target frequency cannot be achieved with N = 1.
->>>
->> PCIe is a topic in itself. It uses different ops for historic reasons 
->> though
->> I suspect, with proper constraints, it would not really need to.
->
->
-> PCIe has a strict protocol that must be followed. It is also a highly 
-> sensitive block
-> with hundreds of complex and stringent lab test requirements.
->
-> The PCIe PLL lock sequence needs to fully follow the Amlogic HW team's 
-> released demo code.
->>> Additionally, is the refactored pre-divider N implemented as a separate
->>> patchset,
->>> independent from the A9 PLL changes?
->> I could be seen as a pre-requisite.
->
->
-> Understood.
->
-
-Regarding the suggestion to remove N from the DCO and make it a separate 
-prescaler,
-
-I have a local draft for this change. Would you like me to send it as a 
-follow-up patch,
-
-or are you planning to address it?
-
->>>
->>> Best regards,
->>>
->>>
->>> Jian
->> -- 
->> Jerome
->
->
-> Best regards,
->
->
-> Jian
-
---
-
-Jian
-
+  Andrew
