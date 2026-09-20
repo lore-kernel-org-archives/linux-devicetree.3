@@ -1,82 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-2-48.ptr.blmpb.com (va-2-48.ptr.blmpb.com [209.127.231.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 125563EA94C
-	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 09:39:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03D343EFFBD
+	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 09:50:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789897197; cv=none; b=CUnYNrkfQR14xmS4zjjAGPmiCmhrNmJbie3KranaWGBKePxh/J0/WvAoqRM12pUbs08AJMuOgFA1m1DoKA4b5PeqZMdJ3g3S2ynyVL6yZX1J3Hd1h29Zz1SurpGw0GZpCdnNZkqG7dM0399uGrB8Umrgu57VnHRpW6vREza6uxw=
+	t=1789897846; cv=none; b=PniKCdVvl4a2doATs/it/t8ABOKGYutYkNoTmQ3sxttt8zy/KsN0TpjlXYv/LWiG4uY9iJrp3NstDo0NGC8eyUKrYoJvBw70MtfNfbkQswzA9lfQsbYwEQTXHYR9+eWHJ2arDy6I67yvTSwt1TH6IHMpDbEN22KD1/jp9hntwnY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789897197; c=relaxed/simple;
-	bh=4AMZou3BZexPhp9w/h5VtlhpWqxxliNTreCtBnAhm7U=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=RBdotfq9Gku5GpI9rUfYNldE3RgCbu92MsA/x63JcmaQKO9jNq5v5DfxpWmkwnljgQudLKEOrf0ba0TqyXpW8BPgmIEGYCl/Jf1hd/Yue1+bNuvOvTkp3CEzrHja11fDWcYxrCAKNUwEHdZ33mpu34Y//CUJNeqzigNL5+dGY0A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f8KL7atj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789897846; c=relaxed/simple;
+	bh=FxGKFiGA1NYvJbeR/glmcpOryn20NZkLbSjlUmLTYx8=;
+	h=To:In-Reply-To:Subject:References:Content-Type:From:Date:
+	 Mime-Version:Cc:Message-Id; b=FgId4fHJEZJ7KmIW5itIR8fFKc+NhJZ1pRNEw1TDyj6cMWADLiA0mo3r75lIBvqAsn06X0F1tRC3EqY5PBBj6oAqmsR6grzEvl8TrcTr7vuwmkziZqEHs321tqOhkbTxkm3VyR73R3pnNbMgWUpG44DYu5hPKTfji6GAFGYimKc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bedmex.com; spf=none smtp.mailfrom=bedmex.com; dkim=pass (2048-bit key) header.d=bedmex-com.20200927.dkim.feishu.cn header.i=@bedmex-com.20200927.dkim.feishu.cn header.b=dN9SU2DZ; arc=none smtp.client-ip=209.127.231.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bedmex.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bedmex.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f8KL7atj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B05791F00893
-	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 09:39:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789897195;
-	bh=4AMZou3BZexPhp9w/h5VtlhpWqxxliNTreCtBnAhm7U=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=f8KL7atjNwkScTIsSWnT74N9Nea2wXa3T0R6qm6PFRZGMBOYoBpx/NfQ+5+zKQRzG
-	 1hJ4/Oz0eEfGxs13wslAjjzeqPnxrWsVgzodJBY4R6+lKjnS/F6uZNuqUbjEc7kwrv
-	 AGJ7PJqIiT8Nn4xkYGPwQxsosMlZ3SgOkh12VNFr6xNJ7yan8VBS5C57ccqEzvb5sJ
-	 bTlbfF0djSJa+T+vUcxvOonapjr+c/uue5toXN2U0k/oPVreBXWZfUoxG2GCbop0hN
-	 qKhJuU7hH8CpDh9fCQi2+23blEe9ya4S1PXImMBJySUloqERntexW98lNRHDm0WU61
-	 1obNtU5/4VlxA==
-Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a3156692c6so13651421fa.3
-        for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 02:39:55 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz3cni2iDt1FkcNI+soDBWLPoo4x7Tpea2Mwp9U9wbdUTR521FFovYd7ZbDEBCtKwPzVUDMOodMbfnu@vger.kernel.org
-X-Gm-Message-State: AFuF++kbZBUpcyTeehc7MDPpAnXBPB53xPUiShAoXJHe4dqUA813XXrb
-	/q7FPAtx+WqPUICagLJQ2Yk8SH0JGt+asUboqqOJ7lP3aPhIPiaYUSpSFE5o0p671QnuhbO9dzM
-	ZO5KD4R079GyKfBbprB49t4RqCsn6FAk=
-X-Received: by 2002:a05:651c:2127:b0:3a3:74b7:fc08 with SMTP id
- 38308e7fff4ca-3a5fbfd4f36mr17073761fa.20.1789897194049; Sun, 20 Sep 2026
- 02:39:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bedmex-com.20200927.dkim.feishu.cn header.i=@bedmex-com.20200927.dkim.feishu.cn header.b="dN9SU2DZ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=bedmex-com.20200927.dkim.feishu.cn; t=1789897832;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=AjuyDrWPL4MPoemjbd5vwIdOF5iPGFODtbhkLWhg0+Y=;
+ b=dN9SU2DZRj0ZfnkGgwaxOzdHtABoDXHvxur0j+1oU3uLLbbfOxblDJLrFnPJXog4QpAk0k
+ NlQjEeUNUzp2b4L47sIqSgMBO6SHAEKmUbklvRtkO99xw8ocVzTL4qLYd3uyZd+8HndHok
+ rtqt4J7e7uSOwfcJYSp73Jx9mfAUvZFciRjywG+5CC9n89H00fIRTtlDdvllz8jfREFo0V
+ hBlQZr23XSbGBNBLtDBXgA3YntZjKW5RDHBG35/FMOOx4w1uQ/on5doq8M1cv3AY6OJtiy
+ 5LUWgbGQwuDZl4onQpXuGR/M+7jYcG7cEUfeaPGs33OF7LJHTLAfbom7ZKM1vA==
+To: <linux-bluetooth@vger.kernel.org>
+X-Original-From: Yanli Yang <yanli.yang@bedmex.com>
+In-Reply-To: <cover.1789546358.git.yanli.yang@bedmex.com>
+Subject: [RFC PATCH v2 0/3] Bluetooth: Add AIC8800D80 SDIO firmware loader and UART HCI
+References: <cover.1789546358.git.yanli.yang@bedmex.com>
+X-Mailer: git-send-email 2.34.1
+X-Lms-Return-Path: <lba+26aafac66+aa00a6+vger.kernel.org+yanli.yang@bedmex.com>
+Content-Type: text/plain; charset=UTF-8
+From: "Yanli Yang" <yanli.yang@bedmex.com>
+Date: Sun, 20 Sep 2026 17:50:23 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260913145527.18148-1-iuncuim@gmail.com> <20260913145527.18148-2-iuncuim@gmail.com>
-In-Reply-To: <20260913145527.18148-2-iuncuim@gmail.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Sun, 20 Sep 2026 17:39:40 +0800
-X-Gmail-Original-Message-ID: <CAGb2v65v=2kC-9GrscGi=RXuARZYVNkmEkNhQZ5fFXnQsmL6BQ@mail.gmail.com>
-X-Gm-Features: AcwNN1Xk5hFqet9lFlmVe7uaLm2rV_go5OhWrqP8yaEGk0kqgWkXxxEJqM8dWAo
-Message-ID: <CAGb2v65v=2kC-9GrscGi=RXuARZYVNkmEkNhQZ5fFXnQsmL6BQ@mail.gmail.com>
-Subject: Re: [PATCH v6 1/5] dt-bindings: thermal: sun8i: Add A523 THS0/1 controllers
-To: Mikhail Kalashnikov <iuncuim@gmail.com>
-Cc: Vasily Khoruzhick <anarsoul@gmail.com>, Yangtao Li <tiny.windzz@gmail.com>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, linux-pm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	Philipp Zabel <p.zabel@pengutronix.de>, 
-	=?UTF-8?Q?Juan_Manuel_L=C3=B3pez_Carrillo?= <juanmanuellopezcarrillo@gmail.com>, 
-	Andre Przywara <andre.przywara@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+Received: from bmxpxe-virtual-desktop.. ([36.141.79.164]) by smtp.feishu.cn with ESMTPS; Sun, 20 Sep 2026 17:50:29 +0800
+Cc: <marcel@holtmann.org>, <devicetree@vger.kernel.org>, <robh@kernel.org>, 
+	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, 
+	<linux-kernel@vger.kernel.org>, <zhirunliu@aicsemi.com>, 
+	<dijiaxu@aicsemi.com>, <chunqiuliu@aicsemi.com>, <liheng.wei@bedmex.com>, 
+	<yanli.yang@bedmex.com>
+Message-Id: <cover.1789897503.git.yanli.yang@bedmex.com>
+Content-Transfer-Encoding: 7bit
 
-On Sun, Sep 13, 2026 at 10:56=E2=80=AFPM Mikhail Kalashnikov <iuncuim@gmail=
-.com> wrote:
->
-> From: Mikhail Kalashnikov <iuncuim@gmail.com>
->
-> Add dt-bindings description of the thermal sensors in the A523 processor.
->
-> The calibration data for both thermal controllers (THS0, THS1) is split
-> across two nvmem cells at different offsets, requiring the two cells
-> to be read and merged. To maintain backward compatibility, the name of
-> the old cell remains "calibration" and the new cell is named
-> "calibration-second-part".
->
-> Signed-off-by: Mikhail Kalashnikov <iuncuim@gmail.com>
+Hi,
 
-Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
+This RFC series adds initial Bluetooth support for the AIC8800D80.
+SDIO function 1 loads the Bluetooth firmware; HCI traffic uses a separate
+UART interface with H4 framing at 1500000 baud and hardware flow control.
+
+The series adds the AIC vendor prefix, Device Tree bindings for the two
+interfaces, and the btaic driver with build and maintainer integration.
+The UART node references its SDIO firmware provider through the
+aic,firmware-sdio property.
+
+All issues reported by the automated checks on v1 have been addressed.
+This version is also regenerated against the latest bluetooth-next master.
+
+Validation status:
+- The vendor has confirmed that SDIO firmware loading works.
+- UART HCI communication, controller initialization, scanning, pairing,
+  connections and data transfer have not yet been validated.
+- Suspend/resume and Wi-Fi/Bluetooth coexistence have not been validated.
+- No hardware functionality beyond firmware loading is claimed.
+
+This is an RFC for implementation and binding review, not a request for
+merging at this stage. Feedback is particularly welcome on the SDIO/UART
+split, the firmware-provider association and the device lifetime handling.
+
+The driver requests the following external firmware files:
+  aic/aic8800d80/fw_adid_8800d80_u02.bin
+  aic/aic8800d80/fw_patch_8800d80_u02.bin
+  aic/aic8800d80/fw_patch_table_8800d80_u02.bin
+Firmware binaries are not included in this kernel patch series.
+
+Changes in v2:
+- Fix the Device Tree schema encoding of the SDIO reg constant.
+- Preallocate the SDIO receive buffer used by the interrupt handler.
+- Prevent late responses from timed-out SDIO commands from racing the next
+  command and its completion state.
+- Accept transfers that exactly consume the available SDIO credits.
+- Free the UART receive skb only after receive callbacks have stopped.
+- Use the fixed baud rate required by the binding.
+- Sync the series to bluetooth-next commit 019debf20bfd.
+
+v1: https://lore.kernel.org/linux-bluetooth/cover.1789546358.git.yanli.yang@bedmex.com/
+
+Thanks,
+Yanli
+
+Yanli Yang (3):
+  dt-bindings: vendor-prefixes: Add AIC Semiconductor
+  dt-bindings: net: bluetooth: Add AIC8800D80
+  Bluetooth: btaic: Add AIC8800D80 SDIO loader and UART transport
+
+ .../net/bluetooth/aic,aic8800d80-bt.yaml      |  87 ++
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ MAINTAINERS                                   |  11 +
+ drivers/bluetooth/Kconfig                     |  16 +
+ drivers/bluetooth/Makefile                    |   3 +
+ drivers/bluetooth/btaic.h                     |  26 +
+ drivers/bluetooth/btaic_core.c                | 180 ++++
+ drivers/bluetooth/btaic_sdio.c                | 901 ++++++++++++++++++
+ drivers/bluetooth/btaic_uart.c                | 328 +++++++
+ 9 files changed, 1554 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/bluetooth/aic,aic8800d80-bt.yaml
+ create mode 100644 drivers/bluetooth/btaic.h
+ create mode 100644 drivers/bluetooth/btaic_core.c
+ create mode 100644 drivers/bluetooth/btaic_sdio.c
+ create mode 100644 drivers/bluetooth/btaic_uart.c
+
+
+base-commit: 019debf20bfd648b40ba10377ee0168db5eb241e
+-- 
+2.34.1
