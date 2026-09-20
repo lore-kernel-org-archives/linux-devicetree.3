@@ -1,214 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68CC0390999;
-	Sun, 20 Sep 2026 17:05:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AF9746E005;
+	Sun, 20 Sep 2026 17:07:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789923936; cv=none; b=o1obNkbyx7NWy4HPrRmD5ZfMZcn5t/jyJL9bnT9s/iOpN8jSmiQOLa6cmDCn35uSYWdaYvzGH5B2AIpy7OhylMNWD9S1FrKFBNmiJW0nrxwuFrrXRV85aHcauhj+tg8TOhLLkNpu057mdy6ykYlBR2VWPbjeVb7TF/FWYbRYfR8=
+	t=1789924061; cv=none; b=ioQYfqSNKCB9SJ2tmaUXr1jgT+NMalrmreWxWdVRjjacExqpld3O/5PzNbzzJtyuUjykPu/y0JPpL5uud11eFq7ECKRl6VSrcx+Q7EIJA9dr7QYpShe6J6LlvdCMpLWPw/NZ/lBLGLgzmzrgQcCj1l+7zXMuBuOPwnx3dfCTgGc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789923936; c=relaxed/simple;
-	bh=9P7MYbhwh6wUyemh89f7DQ1SvlHWQbSD47gloWfxPVI=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cAhjrkA0nEyDd3UQrgnojTcmS4Z+bKdIMVsKEZ9f4L7YqaVnfzFuZcvIr0+JWCqBTzPOwXATsN+RRUVD2aZKjQa/Tp93nwF2IIUEBkAg7CHXZwLJY4oRmo8zim4LuJ3BXhuHVqv6mslbgmTkkCrmN53eGpX3xqx/SacKetIpoWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mMmt9SpK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789924061; c=relaxed/simple;
+	bh=++7cKn5dPLEoCOGhGWoB/T8i+KYlJXPfpJyNEaynf8g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=N6pXj6xHJUcMeoz3fNeHN0LDQo+dHy7EWitRleDhQa79rbAmWoQaEvwyVCETQOxi9Wlz6W+5QwbS3L2Dyxa0tLpWzbXxbr2Y5I5pEUxrKTNSktj/n2dYgZy46UdjppeHnbwEwuSKZPVc+wFnW82qg6nT9D3XkhmREVtpozk1E+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=LswdCCLG; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mMmt9SpK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1CCE1F000FF;
-	Sun, 20 Sep 2026 17:05:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789923935;
-	bh=haIzO1pAdV2cZZ2DvzEIWMRl+VDNhX2rc5xrz7+7Cg4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=mMmt9SpKBo0taBktUC2s2PqtSXvK/gOW9pcdPe8nyJj4HNJKjnWISm8RYURorlEPP
-	 LBYjSujAJNGfKYl9bG0lwgwqbck7M1t6Y++4NWnpaXKPB037bl0LJASrAP87PoubnN
-	 8SjmYrIFU8BOsMRQsPff9IYRlUWKX9lZSkwVreHeE44IR82PhmB3Ef5hKEBeGpGS+n
-	 0+rkVODgdWQ+8RrTspBlPLy4bAQslVyin0DK7J7jLekd8j02rScouGi8/LWGgCuh3f
-	 NT/5OWzTdE4WJVpv6Wa5/kmC4CPXgXQv/IklkQuWoko4pOz/ukXTqGAmTV/0yaqVPg
-	 tdT9IFZRnS3bQ==
-Date: Sun, 20 Sep 2026 18:05:24 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Kim Jinseob <kimjinseob88@gmail.com>
-Cc: linux-iio@vger.kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
- andriy.shevchenko@intel.com, linux-kernel@vger.kernel.org,
- rdunlap@infradead.org, joshua.crofts1@gmail.com,
- u.kleine-koenig@baylibre.com, julianbraha@gmail.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
- corbet@lwn.net, skhan@linuxfoundation.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v10 0/8] iio: add Open Sensor Fusion UART support
-Message-ID: <20260920180524.6b18d644@jic23-hlaptop>
-In-Reply-To: <CALMSewJ4ATy9eZ_GrHs-+Q+9yosiwhu3rtQUfxAbzOmR4R9cNQ@mail.gmail.com>
-References: <cover.1789753020.git.kimjinseob88@gmail.com>
-	<20260920030512.50f4f988@jic23-hlaptop>
-	<CALMSewJ4ATy9eZ_GrHs-+Q+9yosiwhu3rtQUfxAbzOmR4R9cNQ@mail.gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="LswdCCLG"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=SRR6GWm8VvaCpKgQykY2MiSoqyYUd1GFMV1rrWkJ4JI=; b=LswdCCLGZ/fMTQ3fP37RE0xKmP
+	tWLPS26CI1aHU7OSJLo4czeq1buGrq1SP4843QH/8q7GydxdJRJ5FarpIzBqSKJ98gU2TQc0oQwGy
+	FY+BYRxWt7Lee6y7s9AFMUxX5aVGPlNmmDATqZIjBxpHEmBB2Dit1Azv1/G9/Qn+g4cQ=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x8L0d-006BGL-FN; Sun, 20 Sep 2026 19:07:23 +0200
+Date: Sun, 20 Sep 2026 19:07:23 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: jan.petrous@oss.nxp.com
+Cc: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>,
+	NXP S32 Linux Team <s32@nxp.com>, Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Bogdan Hamciuc <bogdan.hamciuc@nxp.com>,
+	Ionut Vicovan <ionut.vicovan@nxp.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Clark Wang <xiaoning.wang@nxp.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Chester Lin <chester62515@gmail.com>,
+	Matthias Brugger <mbrugger@suse.com>,
+	Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Richard Cochran <richardcochran@gmail.com>,
+	linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+	imx@lists.linux.dev, linux-pci@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Alexandru-Catalin Ionita <alexandru-catalin.ionita@nxp.com>,
+	Bogdan Roman <bogdan-gabriel.roman@nxp.com>
+Subject: Re: [PATCH RFC v3 05/12] net: pcs: Add NXP S32G XPCS driver
+Message-ID: <c2c4dbc4-e6b4-47a0-9852-d116c6d21f89@lunn.ch>
+References: <20260919-s32g_serdes-v3-0-9d68868c1e89@oss.nxp.com>
+ <20260919-s32g_serdes-v3-5-9d68868c1e89@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260919-s32g_serdes-v3-5-9d68868c1e89@oss.nxp.com>
 
-On Sun, 20 Sep 2026 13:22:58 +0900
-Kim Jinseob <kimjinseob88@gmail.com> wrote:
+> +#define SR_MII_CTRL				0x1f0000
 
-> > Any reason not to push it one level deeper and put it under IMUs?
-> > I'm not that keen to grow the top level menu for this as all the
-> > other entries are about type of sensor, not one specific sensor. =20
->=20
-> Yes, I agree that adding an Open Sensor Fusion entry at the IIO top
-> level is not ideal.
->=20
-> My hesitation with putting it under imu/ is that Open Sensor Fusion is
-> not intended to be an IMU. The current Linux profile exposes
-> accelerometer, gyroscope, magnetometer and temperature data, but the
-> hardware/firmware architecture is a general sensor hub and fusion
-> device. Other OSF hardware variants can aggregate sources such as
-> pressure sensors, GNSS/RTK-GNSS, motor encoders and LiDAR in addition
-> to inertial sensors.
->=20
-> Would drivers/iio/common/opensensorfusion/ be a better fit?
->=20
-> There are already sensor-hub/common implementations such as the
-> ChromeOS EC sensors and Samsung SSP sensor hub under
-> drivers/iio/common/.
->=20
-> That would avoid growing the IIO top-level menu without classifying
-> the device itself as an IMU.
+This is 0x1f0000 + MII_BMCR
 
-Lets just start a new directory (maybe move some others later) for
-sensorhubs.  Common is meant for library type modules rather than
-this purpose.  Often those are parts of sensorhubs.
+> +#define   SS13					BIT(13)
 
-So how about
-driver/iio/sensorhubs/osf/
-?
->=20
-> Thanks,
-> Jinseob
->=20
-> 2026=EB=85=84 9=EC=9B=94 20=EC=9D=BC (=EC=9D=BC) =EC=98=A4=EC=A0=84 11:05=
-, Jonathan Cameron <jic23@kernel.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
-> >
-> > On Sat, 19 Sep 2026 03:24:38 +0900
-> > Jinseob Kim <kimjinseob88@gmail.com> wrote:
-> > =20
-> > > Specification status: OSF-D2H 0.0 spec-1 has completed project techni=
-cal
-> > > stability review, has been adopted by the project owner, and is publi=
-shed
-> > > as a fixed specification.
-> > >
-> > > Canonical specification:
-> > > https://github.com/opensensorfusion/opensensorfusion-protocol/blob/ca=
-9cdea1ae550c2b4d6f29f87877adae99470744/spec/osf-d2h-0.0.md
-> > >
-> > > Errata process:
-> > > https://github.com/opensensorfusion/opensensorfusion-protocol/blob/ca=
-9cdea1ae550c2b4d6f29f87877adae99470744/errata/README.md
-> > >
-> > > Current adoption/publication record:
-> > > https://github.com/opensensorfusion/opensensorfusion-protocol/blob/0c=
-abccf63ac01d0eb82dd9882739ff58eed4a76c/reviews/publication-record-20260918.=
-md
-> > >
-> > > The specification was frozen before adoption/publication, so its embe=
-dded
-> > > status snapshot is intentionally historical. The dated publication re=
-cord
-> > > above establishes the current adopted/public state. This is project r=
-eview
-> > > and adoption, not an external maintainer approval.
-> > >
-> > > This series adds the Open Sensor Fusion UART receive path and IIO dev=
-ices
-> > > discovered from capability reports. It exposes accelerometer, gyrosco=
-pe,
-> > > magnetometer and temperature data through RAW/SCALE and buffered scan=
-s.
-> > > Device Tree describes the sensor hub; its individual streams are disc=
-overed
-> > > at runtime.
-> > >
-> > > The receiver validates supported descriptors and sample scales, keeps
-> > > discovery open after empty or unsupported initial inventories, and ch=
-ecks
-> > > repeated inventories before allowing new data to use registered metad=
-ata.
-> > > A supported descriptor changing meaning faults the session until an
-> > > explicit teardown and rebind. Existing v9 cache, scan-layout and buff=
-er
-> > > lifetime fixes are retained.
-> > >
-> > > Based on Jonathan Cameron's IIO testing branch:
-> > > 69fa76f0af3414cc189c3b0b807cb59e327ecc00
-> > >
-> > > Changes since v9:
-> > > - Publish and reference the reviewed/adopted OSF-D2H 0.0 specificatio=
-n,
-> > >   errata process and dated publication evidence.
-> > > - Tolerate reserved padding, validate descriptor/sample scales, keep
-> > >   discovery open after empty/unsupported reports, and compare repeated
-> > >   capability reports.
-> > > - Fail closed on changed descriptor meaning instead of publishing data
-> > >   with stale metadata.
-> > > - Add focused KUnit coverage for these lifecycle and validation cases.
-> > > - Use managed UART/IIO/power teardown and dev_warn_probe() for the
-> > >   controller baud-rate warning, addressing Andy's probe-path feedback.
-> > > - Split the former combined UART/core/IIO driver patch into transport=
-/core,
-> > >   IIO registration, core KUnit, and IIO KUnit patches following revie=
-w.
-> > > - Use validated/unvalidated terminology for framing/CRC results throu=
-ghout
-> > >   the stream/core/transport code, tests and diagnostics. CRC detects
-> > >   accidental corruption; it does not provide cryptographic authentica=
-tion.
-> > >
-> > > Prior validation on the identical source tree:
-> > > identical source tree evidence reused; no builds rerun for DCO packag=
-ing.
-> > > - All eight intermediate apply/config/relevant builds.
-> > > - Independent transport/core and IIO module link/MODPOST.
-> > > - GCC/Clang W=3D1 vmlinux and modules.
-> > > - GCC and Clang KUnit: core 16 + IIO 2, all 18 pass in each run.
-> > > - Core-only intermediate KUnit: all 16 pass.
-> > > - ARM64 Image, selected OSF module and Pi4 DTB.
-> > > - Targeted DT binding/style and IIO documentation.
-> > >
-> > > The terminology-only diff was verified mechanically. Wire semantics a=
-nd
-> > > data-path behavior are unchanged; the receive diagnostic key is valid=
-ated=3D.
-> > > Hardware testing was not repeated for this terminology revision or th=
-is
-> > > post-DCO packaging audit; previous hardware evidence remains historic=
-al.
-> > >
-> > > Human DCO is complete. No email has been sent.
-> > >
-> > > Jinseob Kim (8):
-> > >   dt-bindings: iio: add Open Sensor Fusion device
-> > >   Documentation: iio: add Open Sensor Fusion driver overview
-> > >   iio: osf: add protocol decoding
-> > >   iio: osf: add validated stream parser
-> > >   iio: osf: add UART transport and core receive path
-> > >   iio: osf: add IIO devices from capability reports
-> > >   iio: osf: add core KUnit tests
-> > >   iio: osf: add IIO KUnit tests
-> > >
-> > >  .../bindings/iio/opensensorfusion,osf.yaml    |   52 +
-> > >  .../devicetree/bindings/vendor-prefixes.yaml  |    2 +
-> > >  Documentation/iio/index.rst                   |    1 +
-> > >  Documentation/iio/open-sensor-fusion.rst      |   77 ++
-> > >  MAINTAINERS                                   |    8 +
-> > >  drivers/iio/Kconfig                           |    1 +
-> > >  drivers/iio/Makefile                          |    1 +
-> > >  drivers/iio/opensensorfusion/Kconfig          |   27 + =20
-> > Any reason not to push it one level deeper and put it under IMUs?
-> > I'm not that keen to grow the top level menu for this as all the
-> > other entries are about type of sensor, not one specific sensor.
-> > =20
+#define BMCR_SPEED100           0x2000  /* Select 100Mbps              */
 
+> +#define   AN_ENABLE				BIT(12)
+
+#define BMCR_ANENABLE           0x1000  /* Enable auto negotiation     */
+
+> +#define   RESTART_AN				BIT(9)
+
+#define BMCR_ANRESTART          0x0200  /* Auto negotiation restart    */
+
+> +#define   DUPLEX_MODE				BIT(8)
+
+#define BMCR_FULLDPLX           0x0100  /* Full duplex                 */
+
+> +#define   SS6					BIT(6)
+
+#define BMCR_SPEED1000          0x0040  /* MSB of Speed (1000)         */
+
+> +#define SR_MII_STS				0x1f0001
+
+This is 0x1f0000 + MII_BMSR
+
+> +#define   LINK_STS				BIT(2)
+
+#define BMSR_LSTATUS            0x0004  /* Link status                 */
+
+Please go through all these register definitions and throw out all the
+ones which follow 801.3 and use the values from include/uapi/linux/mii.h
+
+    Andrew
+
+---
+pw-bot: cr
