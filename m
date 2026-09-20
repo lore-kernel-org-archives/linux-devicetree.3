@@ -1,69 +1,69 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C79B34EEEE
-	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 04:55:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8DE834EEEE
+	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 04:55:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789880112; cv=none; b=NnntQqiOo+3BOgDep36vLHpuJfn2pGTLBOhtnXkJCz4oFYK20gmiQjzg6HI2lxYSPzbxRqw6YsSWPwcv+1rSHcoJ62lHq0CF8gc+kcujyKjiBEusVcmSDcj1yF1VVAsKmI68MDRK4MLmeaguwfPu26Ok6wn4x5Y1K1wlD/skjmQ=
+	t=1789880121; cv=none; b=a/pOf9xCBdb28yyQjwJp9tT1zfMNuohe1+f0UcuhpZ68REF3C3CUze4/pSY7ZXvNdO7lqOSnRF9ijVEkC+jCXl+jp/ATnLRvv4eEsQtWEbBZobdn4BAY8KtsPVdGvTzyIxrRt39I9+pODyuujreFJsQHpxUau+y+oKH7d5lKsY0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789880112; c=relaxed/simple;
-	bh=CFj0wXW59irlghkyjdPh8VaRRF+k+fzH58xy0dEOiyw=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=CQou101Ii1TqSfPCqJOtzdyTE83RB83oH8Ec6Ni3PdlAtt+eD7EyT/nTkQC6RbFmsC4vtltnRS4as9sHsTbMAMNyhTzTYUnfSlhcsZEmACBTwOL6cTxC7/5S3pNuRMABQNw7BNdzg3ODykYnaWcc8orIDH6+zvp8s0MgTNaTm1s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=du+CBv8j; arc=none smtp.client-ip=74.125.227.140
+	s=arc-20240116; t=1789880121; c=relaxed/simple;
+	bh=uepsaU3slwYEfLHfsvhyLbAvmuRviSvpWKO9IAQavXE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=NTDzXz9V/Nj3d14/SmkqcHVJtxBurEFY8fcvJxwyDqnUYBJtWyo3xlzIFwxR95fL2mZvLB7QHDObmiUn7HZrhxF5xh0E8+1rohSOd3fMjZ/R1k1msTwNnCIlepJr4FChlNCMs34Zykug38wNXbfzQtwJyjL0qj42zQqSQ452fVM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GeIwS8nD; arc=none smtp.client-ip=74.125.227.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="du+CBv8j"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747ec6185so12085825ad.0
-        for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 21:55:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GeIwS8nD"
+Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2d747ec6188so11900465ad.3
+        for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 21:55:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789880109; x=1790484909; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=zHfStuZ9Xz/dxvNMxRM9GTvjt+Pmq5h7RaUmSX+aOCo=;
-        b=du+CBv8jMRIEluF12hlhChUx+ymbNRbAQQRKsSU8p4s4+iyjCsDTEgcGjeY+8e7o5v
-         h11csD6rKpMIQjs22wRzfJVM1oVIrQHjRFg3pkIiTjZdkQy5Tbc3nKhHUOPWxvJ5LAyS
-         ye87fx+9VI/v9y7GmpBMIn+uy5tfWiv5k434KS3y+M/y7OzwAHtD6S+zS9BduWa7ckgt
-         +gIPTfw2KqibkGl2Qm/y62M1AHmwzqV2/hFYG1LKy49rvqKyZtLjmW7H7lGsQda8dRS0
-         Cu5/7MGGXfMH8k/G+xoX58xXsxnENt5pfr/6e6OZukOpoEHH5Mt6a7t9gOZenZ8mYQfV
-         ytLg==
+        d=gmail.com; s=20251104; t=1789880119; x=1790484919; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KogKCVIDydzzLBHYMHz25ygPrnoGlSNxk56qzP4OHdo=;
+        b=GeIwS8nD5H5wy3+4GbbAdxxF/tb3jpO38tvqcfH39z2jTHFCspovb0bMvuhyMyqUro
+         33pv7GBulFBL5Ca/ii0fJs/LFaAn+0+eAY+kZ92qUBYQrnLL/wgA9er7ifM3FgJswl1C
+         m5UJYoRaxc5sskaqwgIb1/kGHPsDfO4EfoifaaQetD+iSL+aKxK/RZvRUnuNJdfRl9Tf
+         JxMARGH7UsFmvMQaQPmgC6XwdaLH/nwkBRFjubFEp1AERLIm3AkWc2g5KKPmMXM6YLHh
+         gr5Ye7ljBeLBwCldI5PmTDTIpUiYjhms+pgBk0sh+GDhpuM6oIbwzjdiWGZW9VeRmQWh
+         BWAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789880109; x=1790484909;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=zHfStuZ9Xz/dxvNMxRM9GTvjt+Pmq5h7RaUmSX+aOCo=;
-        b=ppXttrXiKe+1C+eMKjBeLV+sGFTqw2XOTuLLJ+Kw++BOXv3vaaRthkiB56L+S4KEid
-         xPMRZschdu2gdZokdIBcjiQcfGx8IhutDxcErDr/5pMS05l3XAqylN1g2VCBNQRKNOFj
-         RA8+nIv8Y8ZnrbkSFTzRyh2mUMX6eM268HVe0CkKfBteq8fRLWmQT0YmKXfBgbyd1Ry0
-         an8Qm4EdQAdKk92W4S0UA8ihwyO2bCB7wlVyRPSIaASCJG6a7f8kFaV+P2y25ydoQIhe
-         fSxud/QR+SrAWKmVTEaJ8q8gkl117AtpMgL5DqIUQHlTVbUfvWKkBTerV5RQmYn+ttZM
-         D5dw==
-X-Forwarded-Encrypted: i=1; AKwUvBzPfdMV/HJSjFRmgt43fbMOcQTo3HzyFcQuCJCVXBbH19roSY2gNlWSTsGWt3qgHTMMSZXNIVtkESzQ@vger.kernel.org
-X-Gm-Message-State: AFuF++nysVEWgt6SogO9oeLPcsGCEgzoysykWo1kjO3qlKLYzKMx26MB
-	kXAEp4o0AWIXoLkFjNY+2TE8Pt3JGHTADLnlnTT9TkJ/cUqgZK5gw7vj
-X-Gm-Gg: AYBFou2K/J+X3e3VFWGsVSOtRdixJZ1HTTp1q/d7UJL8wtWsE32HLX7O6OlaKKRDAXQ
-	vhZt9AcJByJX2y4zs+apvW/lQp5SyKQhSO8zvUYT5mKJ5J3r2Ql5L3Zycpb/WdPmng5+cYG4tIF
-	LCysCXZzwnn9Z5b84GwkU0djJZ9quhTHXX+tCuKqMan3pa6BM9DqWOME5mQphf8yub+ExUr5kzC
-	iThQMICLh0sO4C8aw2XnTj99KlD8XeqjBZ4AlACToUHZmtSZXB+DMuJR9VvhCH8NwLMV/evXp19
-	UqzCstnDRLMtbjYp5OUJAcuXavxwHl5G6ATdTW54wQVzSwv1Y03X+JeeaM4W5gDwQ9WT5ZikN7Z
-	WtQSs7p1DQMSJJj4bRHEdSTZWq/NrgKDxQo3ge7T3zLXeUMmTxsIEQGoQFgZilva3NYNOrTGLoM
-	IgqGQcTA+1zG3z47nukgQKit7ZvsST5UxEQCnPNKXSYRFQF96qBM4+PTPH/KCXRefruMwUFDJdb
-	FjQnNKBObA1cB9DXxLOSSKcx13cy0olvDRJa2i0Hv4272ETBkQO2jur1uODyC57PyoCcOxWwRpw
-	oj53D5ZnurXbAgETTd2S1lmefuViVUATKt6+imOhl6wt/kWFAW7gnhQH8w==
-X-Received: by 2002:a17:903:bcf:b0:2dd:c100:425a with SMTP id d9443c01a7336-2ddc1004524mr36709245ad.62.1789880108858;
-        Sat, 19 Sep 2026 21:55:08 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789880119; x=1790484919;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KogKCVIDydzzLBHYMHz25ygPrnoGlSNxk56qzP4OHdo=;
+        b=sRxsBOEsriMw97q5MBbqaA4z7ZpyTWqdH1J5mPWi0VTb76tydiJkdO5DbuCUI7AGJS
+         VvG4bFfVSzi2V3xMOv3r6sR17Y+0YUNkNOH7ZjuIRnkqOMXHkONp7WKwUTAx6ZyYWngv
+         E2AejJosIcXV0fB5gOqJ2SkWRIe48mEp07xyQqwlSKGLLtXAy+Bhr1DIaDHxtSxvd2uf
+         hQChOY/1GVj/+2mLWiE0BK2Z5VJkw2y/b88Y8xJUfxFTEhLLvzpEftnzBPVOT5DMKeOL
+         9JpY8UVKGISxZUrs/jtkyFfViwmqAJffv3iRKbvhBdI27YxvHqkMZ0UPQMe86g25M22s
+         pvRQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzbPaAYy2B31e+5bmSLrkHwSUZzUR93h2oO7lvRetCFFPYUenyCBAAobsmn+VXH88Lqa6cOAwOsFP+x@vger.kernel.org
+X-Gm-Message-State: AFuF++kmNhlJ7ayK24bnQ1Eo92R5PUK3pM8omPviaNNFxxPK7Wic8is3
+	YONKNEwad4CxrfuBR/vLwJI5gqRi6eXAHAJapAb0AmTj3empDqJpSH+r
+X-Gm-Gg: AYBFou2sRZXbnIA7L/y5jYvbLjBF/CsDMufHpVXuih9Jp8gr4uzqfNy2IqRFhwSTiUA
+	QTdRR+MFZff9wcptgYKGTTiZcmVt3o1RthOg4g/TV7l0k+JrjDrTrPveKL3oGB1dCC6QXKwUAXt
+	TrkKnU0EX+fKSMWNxJgJEnifl05ACXTuniO/3gne7FXx01D1nh3g4fSinA+zx31Bu+l/3jL5GYn
+	hiRdqK6zL/fZlXUyLPAqOY4QwxQn0G1/PALAw/8369iEVeppiPjd2P1oePBWkuxeTkozwdNU8xb
+	lr6hHlcit6+TcfX4iYa9YzWOefjgN6v828+8jmQ8DQjmIt81nw8JfkdVJNO+pmvN/su6YRLufif
+	4tlcSf5wB4/obNH+Ib8dpLtYsDOSkcy/6KUDMD/pD2ZlkD5Z0WBCC2d0M8vdigxnZaCSUaWfMSr
+	9gK6bDKSyghAJvke5U3NutbSCDfssZx5plT8OokoMWheYZ58cqkvBUlM/IbA8b4zSwb8ufp9qY1
+	znd95u6AvNfIx81VdgFzI8IXte81I7zJPUyrkDD+5me9zk2ZH8beU0t3jC8w1IUx5dQHGZJ9H1R
+	MwNVmeDYHbyqnjGq0EFBaxvE/XMVOPJTR1hLdhOD9xvVYhs=
+X-Received: by 2002:a17:903:28e:b0:2dd:c100:4253 with SMTP id d9443c01a7336-2ddc10044f8mr51621965ad.55.1789880118819;
+        Sat, 19 Sep 2026 21:55:18 -0700 (PDT)
 Received: from [192.168.2.3] ([2403:581e:d87e:0:fc2d:ed31:e80e:412d])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17d712dsm16026765ad.64.2026.09.19.21.54.59
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17d712dsm16026765ad.64.2026.09.19.21.55.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 21:55:08 -0700 (PDT)
+        Sat, 19 Sep 2026 21:55:18 -0700 (PDT)
 From: James Calligeros <jcalligeros99@gmail.com>
-Subject: [PATCH 00/28] Add speaker and headset jack support for Apple
- Silicon Macs
-Date: Sun, 20 Sep 2026 14:53:39 +1000
-Message-Id: <20260920-macaudio-v1-0-741cc20a74e5@gmail.com>
+Date: Sun, 20 Sep 2026 14:53:40 +1000
+Subject: [PATCH 01/28] dt-bindings: sound: Add Apple Macs sound peripherals
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,10 +72,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDS0NT3dzE5MTSlMx8XWPjZMNkkzRjA5OURCWg8oKi1LTMCrBR0bEQfnF
- pUlZqcglIv1JtLQBCLL0xbAAAAA==
-X-Change-ID: 20260915-macaudio-33c1c4f304da
+Message-Id: <20260920-macaudio-v1-1-741cc20a74e5@gmail.com>
+References: <20260920-macaudio-v1-0-741cc20a74e5@gmail.com>
+In-Reply-To: <20260920-macaudio-v1-0-741cc20a74e5@gmail.com>
 To: =?utf-8?q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>, 
  Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -96,158 +95,272 @@ To: =?utf-8?q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>,
 Cc: asahi@lists.linux.dev, linux-sound@vger.kernel.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, patches@opensource.cirrus.com, 
- Takashi Iwai <tiwai@suse.de>, linux-mediatek@lists.infradead.org, 
- =?utf-8?q?Martin_Povi=C5=A1er?= <povik@protonmail.com>, 
- Hector Martin <marcan@marcan.st>, Sasha Finkelstein <k@chaosmail.tech>
+ Takashi Iwai <tiwai@suse.de>, linux-mediatek@lists.infradead.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6822;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7900;
  i=jcalligeros99@gmail.com; h=from:subject:message-id;
- bh=CFj0wXW59irlghkyjdPh8VaRRF+k+fzH58xy0dEOiyw=;
- b=owGbwMvMwCV2xczoYuD3ygTG02pJDFnr06V5yx5xv/43uWvHJDGm6S8k1Samr9oaOf/cZ57DC
- +f+vDCrvGMiC4MYF4OlmCLLhiYhj9lGbDf7RSr3wsxhZQIZIi3SwAAELAx8uYl5pUY6Rnqm2oZ6
- hkY6xjpGDFycAjDVaesZ/vBV8e3vZv5ismfvufyrfV/qHs47e7ivIo4jodXY6gqv0HdGhvfyKuF
- nzV4Kz+j1nHm94OL6ptkiKne/cl15LKU/zXyRAicA
+ bh=RNoeFTf5GkP7c5biu82Rkx8kHDbaSest5BhJxhVEVws=;
+ b=owGbwMvMwCV2xczoYuD3ygTG02pJDFnr0+U3Vq8T/1Q9z8vgxF5Dn9eLdjy47Hzf1L30cT5Hx
+ r6Dp1T2d0xkYRDjYrAUU2TZ0CTkMduI7Wa/SOVemDmsTCBDpEUaGICAhYEvNzGv1EjHSM9U21DP
+ 0EjHWMeIgYtTAKb6MifDf8+NNp/2Ffd5+ByRn7I7r9qXl/1c7LNftzf3rmDi+JLWfI6R4e/qJI6
+ 5rgt2Lei4/lPwf9xCnaqcer1lqVkiuu4m71y3MQAA
 X-Developer-Key: i=jcalligeros99@gmail.com; a=openpgp;
  fpr=B08212489B3206D98F1479BDD43632D151F77960
 
-Hi folks,
+From: Martin Povišer <povik+lin@cutebit.org>
 
-This series finalises support for the main
-audio subsystem on Apple Silicon Macs. It adds a machine driver
-called macaudio, which is based on an RFC sent many years ago
-by Martin Povišer[1]. The driver uses the DPCM model to dynamically
-glue a backend DAI (combination of MCA ports and codecs) to a
-frontend PCM. While this theoretically allows us to route any
-backend to any frontend, this is not used in practice; the "Primary"
-frontend is always used for the headset codec and the "Secondary"
-is always used for the speakers.
+Add binding for Apple Silicon Macs machine-level integration of sound
+peripherals.
 
-The audio subsystem on Apple Silicon Macs is rather complicated.
-The speaker arrangement is highly variable; some machines have a
-single mono woofer while others pull together multiple woofers
-and tweeters into a single stereo pair. The driver also exposes
-the headset jack's capture PCM. The builtin microphones on equipped
-Apple Silicon Macs are not handled by this driver as they are
-connected to the Always-On Processor (not actually always on).
-
-Many functions which are handled by firmware on other platforms
-must be handled by the kernel or userspace. Most notably, speaker
-protection is handled by speakersafetyd[2], a userspace daemon.
-The macaudio machine driver facilitates this by exposing a capture
-PCM from which the voltage and current across each speaker's voice
-coil can be read. Given that there are absolutely no hardware or
-firmware level failsafes preventing permanent damage to the fragile
-speakers found on these machines, the driver also implements a
-failsafe that will mute and lock the kcontrol of every speaker
-unless speakersafetyd is running.
-
-This (rather large, sorry) series is split up into logical sections:
-
-1. Devicetree binding for the macaudio driver;
-2. Minor ALSA/ASoC fixes required to drive the audio subsystem on
-   these machines correctly;
-3. Minor ALSA/ASoC API additions to facilitate the driver's
-   integration with speakersafetyd and the insane combinatorics
-   required to cater for such a wide array of possible setups;
-4. The machine driver itself; and
-5. Devicetree updates for M1 and M2 series machines.
-
-Adding the required Devicetree updates for M3 series devices would
-have bloated this series to an unreasonable size as they are still
-missing most prerequisite hardware nodes. They will be added in a
-future series.
-
-Regards,
-James
-
-[1] https://lore.kernel.org/asahi/20220606191910.16580-1-povik+lin@cutebit.org/
-[2] https://github.com/AsahiLinux/speakersafetyd
-
+Signed-off-by: Martin Povišer <povik+lin@cutebit.org>
+Co-developed-by: James Calligeros <jcalligeros99@gmail.com>
+Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
 ---
-Hector Martin (6):
-      ASoC: cs42l42: Set a faster digital ramp-up rate
-      ASoC: apple: mca: Fix PD link double-frees
-      alsa: pcm: Remove the qos request only if active
-      ALSA: dmaengine: Always terminate DMA when a PCM is closed
-      ALSA: control: Add kcontrol callbacks for lock/unlock
-      ASoC: ops: Export snd_soc_control_matches()
+ .../bindings/sound/apple,macaudio.yaml   | 235 +++++++++++++++++++++++++
+ 1 file changed, 235 insertions(+)
 
-James Calligeros (13):
-      ASoC: tas2764: Set up V/ISENSE on codec probe
-      arm64: dts: apple: t8103-j274: Add speaker/headset jack nodes
-      arm64: dts: apple: t8103-j313: Add speaker/headset jack nodes
-      arm64: dts: apple: t8103-j293: Add speaker/headset jack nodes
-      arm64: dts: apple: t8103-j45x: Add headset jack nodes
-      arm64: dts: apple: t8112-j413: Add speaker/headset jack nodes
-      arm64: dts: apple: t8112-j415: Add speaker/headset jack nodes
-      arm64: dts: apple: t8112-j473: Add speaker/headset jack nodes
-      arm64: dts: apple: t8112-j493: Add speaker/headset jack nodes
-      arm64: dts: apple: t600x-j31x: Add speaker/headset jack nodes
-      arm64: dts: apple: t600x-j375: Add speaker/headset jack nodes
-      arm64: dts: apple: t602x-j41x: Add speaker/headset jack nodes
-      arm64: dts: apple: t602x-j47x: Add speaker/headset jack nodes
+diff --git a/Documentation/devicetree/bindings/sound/apple,macaudio.yaml b/Documentation/devicetree/bindings/sound/apple,macaudio.yaml
+new file mode 100644
+index 000000000000..bd844c9928c9
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/apple,macaudio.yaml
+@@ -0,0 +1,235 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/apple,macaudio.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Sound peripheral integration for Apple Silicon Macs
++
++description:
++  This binding represents the overall machine-level integration of sound
++  peripherals on Apple Silicon Macs, starting with the M1 series.
++
++maintainers:
++  - James Calligeros <jcalligeros99@gmail.com>
++
++properties:
++  compatible:
++    oneOf:
++      - description: First-of-their-kind machines
++        items:
++          - enum:
++              - apple,j180-macaudio
++              - apple,j274-macaudio
++              - apple,j293-macaudio
++              - apple,j313-macaudio
++              - apple,j314-macaudio
++              - apple,j316-macaudio
++              - apple,j375-macaudio
++              - apple,j413-macaudio
++              - apple,j415-macaudio
++              - apple,j473-macaudio
++              - apple,j456-macaudio
++              - apple,j457-macaudio
++          - const: apple,macaudio
++      - description: Machines compatible with J293
++        items:
++          - enum:
++              - apple,j493-macaudio
++          - const: apple,j293-macaudio
++          - const: apple,macaudio
++      - description: Machines compatible with J314
++        items:
++          - enum:
++              - apple,j414-macaudio
++              - apple,j504-macaudio
++              - apple,j514-macaudio
++          - const: apple,j314-macaudio
++          - const: apple,macaudio
++      - description: Machines compatible with J316
++        items:
++          - enum:
++              - apple,j416-macaudio
++              - apple,j516-macaudio
++          - const: apple,j316-macaudio
++          - const: apple,macaudio
++      - description: Machines compatible with J375
++        items:
++          - enum:
++              - apple,j475-macaudio
++              - apple,j575-macaudio
++          - const: apple,j375-macaudio
++          - const: apple,macaudio
++      - description: Machines compatible with J413
++        items:
++          - enum:
++              - apple,j613-macaudio
++          - const: apple,j413-macaudio
++          - const: apple,macaudio
++      - description: Machines compatible with J415
++        items:
++          - enum:
++              - apple,j615-macaudio
++          - const: apple,j415-macaudio
++          - const: apple,macaudio
++      - description: Machines compatible with J473
++        items:
++          - enum:
++              - apple,j474-macaudio
++          - const: apple,j473-macaudio
++          - const: apple,macaudio
++
++  "#address-cells":
++    const: 1
++
++  "#size-cells":
++    const: 0
++
++  model:
++    description:
++      Model name for presentation to users
++    $ref: /schemas/types.yaml#/definitions/string
++
++patternProperties:
++  "^dai-link(@[0-9a-f]+)?$":
++    description: |
++      Node for each sound peripheral such as the speaker array, headphones jack,
++      or microphone.
++    type: object
++    $ref: tdm-slot.yaml#
++
++    additionalProperties: false
++
++    properties:
++      reg:
++        maxItems: 1
++
++      link-name:
++        description: |
++          Name for the peripheral, expecting 'Speaker' or 'Speakers' if this is
++          the speaker array.
++        $ref: /schemas/types.yaml#/definitions/string
++
++      cpu:
++        type: object
++
++        properties:
++          sound-dai:
++            description: |
++              DAI list with CPU-side I2S ports involved in this peripheral.
++            minItems: 1
++            maxItems: 2
++
++        required:
++          - sound-dai
++
++      codec:
++        type: object
++
++        properties:
++          sound-dai:
++            minItems: 1
++            maxItems: 8
++            description: |
++              DAI list with the CODEC-side DAIs connected to the above CPU-side
++              DAIs and involved in this sound peripheral.
++
++              The list is in left/right order if applicable. If there are more
++              than one CPU-side DAIs (there can be two), the CODECs must be
++              listed first those connected to the first CPU, then those
++              connected to the second.
++
++              In addition, on some machines with many speaker codecs, the CODECs
++              are listed in this fixed order:
++
++              Four speakers: Left Front, Left Rear, Right Front, Right Rear
++              Six speakers: Left Woofer 1, Left Tweeter, Left Woofer 2,
++                            Right Woofer 1, Right Tweeter, Right Woofer 2
++
++        required:
++          - sound-dai
++
++    patternProperties:
++      "^dai-tdm-idle-mode-[0-9]$":
++        $ref: tdm-slot.yaml#/properties/dai-tdm-idle-mode
++
++      "^dai-tdm-slot-tx-idle-mask-[0-9]$":
++        $ref: /schemas/types.yaml#/definitions/uint32
++        description: Idle slot mask. A bit being set to 1 indicates
++          that the corresponding TDM slot is inactive/idle.
++
++    required:
++      - reg
++      - cpu
++      - codec
++
++required:
++  - compatible
++  - model
++
++additionalProperties: false
++
++examples:
++  - |
++    mca: mca@9b600000 {
++      compatible = "apple,t6000-mca", "apple,mca";
++      reg = <0x9b600000 0x10000>,
++            <0x9b500000 0x20000>;
++
++      clocks = <&nco 0>, <&nco 1>, <&nco 2>, <&nco 3>;
++      power-domains = <&ps_audio_p>, <&ps_mca0>, <&ps_mca1>,
++                      <&ps_mca2>, <&ps_mca3>;
++      dmas = <&admac 0>, <&admac 1>, <&admac 2>, <&admac 3>,
++             <&admac 4>, <&admac 5>, <&admac 6>, <&admac 7>,
++             <&admac 8>, <&admac 9>, <&admac 10>, <&admac 11>,
++             <&admac 12>, <&admac 13>, <&admac 14>, <&admac 15>;
++      dma-names = "tx0a", "rx0a", "tx0b", "rx0b",
++                  "tx1a", "rx1a", "tx1b", "rx1b",
++                  "tx2a", "rx2a", "tx2b", "rx2b",
++                  "tx3a", "rx3a", "tx3b", "rx3b";
++
++      #sound-dai-cells = <1>;
++    };
++
++    sound {
++      compatible = "apple,j416-macaudio", "apple,j316-macaudio", "apple,macaudio";
++      model = "MacBook Pro J416";
++
++      #address-cells = <1>;
++      #size-cells = <0>;
++
++      dai-link@0 {
++        reg = <0>;
++        link-name = "Speakers";
++
++        dai-tdm-idle-mode-0 = "zero";
++        dai-tdm-idle-mode-3 = "zero";
++        dai-tdm-slot-tx-idle-mask-0 = <0xf0f0f0>;
++        dai-tdm-slot-tx-idle-mask-3 = <0x0f0f0f>;
++
++        cpu {
++          sound-dai = <&mca 0>, <&mca 1>;
++        };
++
++        codec {
++          sound-dai = <&speaker_left_woof1>,
++                      <&speaker_left_tweet>,
++                      <&speaker_left_woof2>,
++                      <&speaker_right_woof1>,
++                      <&speaker_right_tweet>,
++                      <&speaker_right_woof2>;
++        };
++      };
++
++      dai-link@1 {
++        reg = <1>;
++        link-name = "Headphones Jack";
++
++        cpu {
++          sound-dai = <&mca 2>;
++        };
++        codec {
++          sound-dai = <&jack_codec>;
++        };
++      };
++    };
 
-Martin Povišer (9):
-      dt-bindings: sound: Add Apple Macs sound peripherals
-      ASoC: cs42l42: Fix typo
-      ALSA: Support nonatomic dmaengine PCMs
-      ASoC: ops: Move guts out of snd_soc_limit_volume
-      ASoC: ops: Accept patterns in snd_soc_limit_volume
-      ASoC: ops: Introduce 'snd_soc_deactivate_kctl'
-      ASoC: ops: Introduce 'soc_set_enum_kctl'
-      ASoC: card: Let 'fixup_controls' return errors
-      ASoC: apple: Add macaudio machine driver
-
- .../bindings/sound/apple,macaudio.yaml   |  235 ++++
- .../arm64/boot/dts/apple/t6000-j314s.dts |    5 +
- .../arm64/boot/dts/apple/t6000-j316s.dts |    5 +
- .../arm64/boot/dts/apple/t6001-j314c.dts |    5 +
- .../arm64/boot/dts/apple/t6001-j316c.dts |    5 +
- .../arm64/boot/dts/apple/t6001-j375c.dts |    5 +
- .../arm64/boot/dts/apple/t6002-j375d.dts |    5 +
- .../boot/dts/apple/t600x-j314-j316.dtsi  |  128 ++
- .../arm64/boot/dts/apple/t600x-j375.dtsi |   58 +
- .../arm64/boot/dts/apple/t6020-j414s.dts |    5 +
- .../arm64/boot/dts/apple/t6020-j416s.dts |    5 +
- .../arm64/boot/dts/apple/t6020-j474s.dts |    5 +
- .../arm64/boot/dts/apple/t6021-j414c.dts |    5 +
- .../arm64/boot/dts/apple/t6021-j416c.dts |    5 +
- .../arm64/boot/dts/apple/t6021-j475c.dts |    5 +
- .../arm64/boot/dts/apple/t6022-j475d.dts |    5 +
- .../boot/dts/apple/t602x-j414-j416.dtsi  |   35 +
- .../boot/dts/apple/t602x-j474-j475.dtsi  |   10 +
- arch/arm64/boot/dts/apple/t8103-j274.dts |   60 +
- arch/arm64/boot/dts/apple/t8103-j293.dts |  104 ++
- arch/arm64/boot/dts/apple/t8103-j313.dts |   75 ++
- arch/arm64/boot/dts/apple/t8103-j456.dts |   33 +
- arch/arm64/boot/dts/apple/t8103-j457.dts |   33 +
- arch/arm64/boot/dts/apple/t8112-j413.dts |  101 ++
- arch/arm64/boot/dts/apple/t8112-j415.dts |  125 ++
- arch/arm64/boot/dts/apple/t8112-j473.dts |   55 +
- arch/arm64/boot/dts/apple/t8112-j493.dts |  101 ++
- include/sound/control.h                  |    7 +
- include/sound/cs42l42.h                  |    4 +
- include/sound/soc-card.h                 |    2 +-
- include/sound/soc.h                      |    8 +-
- sound/core/control.c                     |   16 +-
- sound/core/pcm_dmaengine.c               |   37 +-
- sound/core/pcm_native.c                  |    5 +-
- sound/soc/apple/Kconfig                  |   19 +
- sound/soc/apple/Makefile                 |    4 +
- sound/soc/apple/macaudio.c               | 1729 +++++++++++++++++++++++++
- sound/soc/apple/mca.c                    |   16 +-
- sound/soc/codecs/cs42l42.c               |   12 +-
- sound/soc/codecs/tas2764.c               |   61 +-
- .../soc/mediatek/mt8188/mt8188-mt6359.c  |    4 +-
- sound/soc/soc-card.c                     |   12 +-
- sound/soc/soc-core.c                     |    5 +-
- sound/soc/soc-ops.c                      |  182 ++-
- 44 files changed, 3268 insertions(+), 73 deletions(-)
----
-base-commit: 0e5a521109e0d2fb7ac226bd6301ec1facca1c26
-change-id: 20260915-macaudio-33c1c4f304da
-
-Best regards,
---  
-James Calligeros <jcalligeros99@gmail.com>
+-- 
+2.55.0
 
