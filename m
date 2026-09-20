@@ -1,164 +1,167 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F32733603E0
-	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 05:11:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D44D72E266C
+	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 05:12:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789881074; cv=none; b=tRVXuiYPvhQcxYlyq+9CmrnzhLSp3KP5DEOYX4HXQ4iH564JiDmMWCjyz5pVffhGEk8uvRXpJroqSnF9IYZGuNgBqmAcYjZNYkDKoz2vaMCqN+YA/qV4kYVEftyjW1O9g5+F51MqY1JYHzfKMRn3TR4yqCXgsfL9/0DRgh2XEV4=
+	t=1789881162; cv=none; b=WRVCR/gYxMlc+5QHVxnnlMPuEzXfNe4L77vHDka04eOpWLt+8qVXksvc5KYIqU0bz8Sbcv65sASLZkR8+2b7s1/vx/finyfB7yOK+/a8udA6xxgF+ENK6lguplhvmOsLCiwQF1XhLFSkDKZaqLee12z5OL3rpLJr2iQ6zXpwvj0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789881074; c=relaxed/simple;
-	bh=Vg3ugbqrLuVJKRpB33+Akogp2OZo0PXrg+cVzj+vApE=;
+	s=arc-20240116; t=1789881162; c=relaxed/simple;
+	bh=5ifGV88W+1N4xoiwA2raFqxJ8EU9aUY97V90FThxoTU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=MYI3wBBE0gisjDad0pv/vEfChGYSRrz+io5xapGjmWyNuHaxwnf/xBUZHIY7KDF5y4p11IFfDpxoezfx0lNJ4KPLQzu97WdNT/P3+/juqCp1HMv/mb7Xhh8hXaq1WF2ODjJDfzaGbMDoHJv5eKboWWX9g0md9uVm31hsJwFKVjM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IOpwxN3V; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=CmCD4O9jpcxrCEUuC+AG6R6btH2rIRQNW3LE2/h/VNa1i8Dl4Tw2DamqQT7HB+t12zgTPYbP0xHmvWqE4VOdG5AYNi23C7Wht7EyUPDhpRhx5539RQpJlaqfuNuNxpQCVFxFHTOqYCZf5hqMKGGprwSJRM6jhDHGIokORR0FY0Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hTSIRkeH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IOpwxN3V"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F3C71F00893;
-	Sun, 20 Sep 2026 05:11:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hTSIRkeH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48ECD1F000FF;
+	Sun, 20 Sep 2026 05:12:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789881064;
-	bh=edQkdBHthvYuTVL0zFgumD+mLE8ynAk7Ky/Lxa5WQDI=;
+	s=k20260515; t=1789881160;
+	bh=akHae49pytpmDD6Cj8rEP9KgSIyWBQ7+p+vOzeQoOHk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IOpwxN3V2PqBcqkEGei4wz5VwhPQvZ9FPmCwHayL6i0L9gAEw5Ymp9x78xdk68V4v
-	 2egm0GnuPIYvet0nE7MwR4XiaUFRdPOgpu8+rJipVQEXWCxPJV9kBAnejsB17h/qWx
-	 FC4Xosbu2bjXwvEX41FLEOTHT+5vRWoWhNrvymJO8FUQkMq485cTOMkT4kSBL/uFkd
-	 vgL23w/0YxG0iomI+ttb7mwB0HG3iZaO1m+H+10z2Xq+TcpH+XTu0MZ5b0pB1Xow1M
-	 EZVM/SIhtNEPhNwyE/DpbYk/gLnEfVdHqqtUOYIpwl3LDce+I9BbBKpExTZpZFUf+B
-	 qlDetlO8X9A0Q==
+	b=hTSIRkeHnoQc2eUu6PJnvUZ77hOS4XNs+HhUKpzAD/R6Nr53go5UU/EyWKaIR8oGv
+	 5qb5jsk13P23TXY0dmhq6SO1CB73HZ+lWBLfUPZCeztQPS1TgAoe5yL6kl5j8ITWGV
+	 E/FQvGsz1omorSleo50GkHmX+Yf7jke753ogtZwwFoo3Mnmk7v6nEPu2LoywG+gxg5
+	 YIxgjjZpOmDX2oUsSQpWSunSakkiOqbjGhnF/hATFszNdNm3KYIVWJBkR3nJH9iJmL
+	 fO0IjqL7rqQw0SKRzyphSDdHactLW80kfnh8CbgzUOQbYoAMOKhqaEHfVtzEw5VWK9
+	 iEZc/bfuP/hHg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 08/28] ALSA: control: Add kcontrol callbacks for
- lock/unlock
+Subject: Re: [PATCH 10/28] ASoC: ops: Accept patterns in
+ snd_soc_limit_volume
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "James Calligeros" <jcalligeros99@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260920-macaudio-v1-8-741cc20a74e5@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260920-macaudio-v1-10-741cc20a74e5@gmail.com>
 References: <20260920-macaudio-v1-0-741cc20a74e5@gmail.com>
- <20260920-macaudio-v1-8-741cc20a74e5@gmail.com>
+ <20260920-macaudio-v1-10-741cc20a74e5@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 20 Sep 2026 05:11:04 +0000
-Message-Id: <20260920051104.7F3C71F00893@smtp.kernel.org>
+Date: Sun, 20 Sep 2026 05:12:39 +0000
+Message-Id: <20260920051240.48ECD1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] ALSA: control: Missing element context in lock/unlock callbacks
-- [High] ALSA: control: Missing unlock callback invocation on control remov=
-al
+- [High] ASoC: ops: Data race and UAF in snd_soc_limit_volume list traversal
+- [High] ASoC: ops: Type confusion and NULL pointer dereference in soc_limi=
+t_volume
+- [High] ASoC: ops: snd_soc_limit_volume API breakage causes audio initiali=
+zation failure
 --
 
-commit 432b3659bebdece13c2a2b132af2a88df66f8e1d
-Author: Hector Martin <marcan@marcan.st>
+commit 71061718845772d7571d727c356dc0cbae99856e
+Author: Martin Povi=C5=A1er <povik+lin@cutebit.org>
 
-ALSA: control: Add kcontrol callbacks for lock/unlock
+ASoC: ops: Accept patterns in snd_soc_limit_volume
 
-This commit introduces lock and unlock callbacks for ALSA kcontrols,
-allowing drivers to implement custom policy when controls are locked or
-unlocked. It is primarily intended for implementing volume safety controls
-where user-space processes must complete a handshake to increase volumes.
+This patch modifies snd_soc_limit_volume() to accept wildcard patterns,
+allowing it to apply limits to multiple matching controls at once. It also
+returns the number of matching controls on success instead of 0.
 
-> diff --git a/include/sound/control.h b/include/sound/control.h
-> index 909db0d0485df..6b3ef6be51003 100644
-> --- a/include/sound/control.h
-> +++ b/include/sound/control.h
-> @@ -15,9 +15,12 @@
->  #define snd_kcontrol_chip(kcontrol) ((kcontrol)->private_data)
-> =20
->  struct snd_kcontrol;
-> +struct snd_ctl_file;
->  typedef int (snd_kcontrol_info_t) (struct snd_kcontrol * kcontrol, struc=
-t snd_ctl_elem_info * uinfo);
->  typedef int (snd_kcontrol_get_t) (struct snd_kcontrol * kcontrol, struct=
- snd_ctl_elem_value * ucontrol);
->  typedef int (snd_kcontrol_put_t) (struct snd_kcontrol * kcontrol, struct=
- snd_ctl_elem_value * ucontrol);
-> +typedef int (snd_kcontrol_lock_t) (struct snd_kcontrol * kcontrol, struc=
-t snd_ctl_file *owner);
-> +typedef void (snd_kcontrol_unlock_t) (struct snd_kcontrol * kcontrol);
-
-[Severity: High]
-Does omitting the element index or ID from the callback signatures prevent
-drivers from applying per-element policy for multi-element controls, as they
-cannot deduce which specific element is being locked or unlocked?
-
->  typedef int (snd_kcontrol_tlv_rw_t)(struct snd_kcontrol *kcontrol,
->  				    int op_flag, /* SNDRV_CTL_TLV_OP_XXX */
-> [ ... ]
-> diff --git a/sound/core/control.c b/sound/core/control.c
-> index 4199342d4ffe0..c8aab9abd306a 100644
-> --- a/sound/core/control.c
-> +++ b/sound/core/control.c
-> @@ -126,10 +126,12 @@ static int snd_ctl_release(struct inode *inode, str=
-uct file *file)
->  	scoped_guard(rwsem_write, &card->controls_rwsem) {
->  		list_for_each_entry(control, &card->controls, list)
->  			for (idx =3D 0; idx < control->count; idx++)
-> -				if (control->vd[idx].owner =3D=3D ctl)
-> +				if (control->vd[idx].owner =3D=3D ctl) {
->  					control->vd[idx].owner =3D NULL;
-> +					if (control->unlock)
-> +						control->unlock(control);
-> +				}
-
-[Severity: High]
-Since this loop does not provide the element index to the unlock callback,
-does it result in identical, indistinguishable unlock calls being sent to t=
-he
-driver for each locked element within the same control? Could this confuse =
-the
-driver's internal state machine?
-
->  	}
->  	snd_fasync_free(ctl->fasync);
->  	snd_ctl_empty_read_queue(ctl);
-> [ ... ]
-> @@ -1487,6 +1491,12 @@ static int snd_ctl_elem_lock(struct snd_ctl_file *=
-file,
->  	vd =3D &kctl->vd[snd_ctl_get_ioff(kctl, &id)];
->  	if (vd->owner)
->  		return -EBUSY;
-> +
-> +	if (kctl->lock) {
-> +		int err =3D kctl->lock(kctl, file);
-> +		if (err < 0)
-> +			return err;
-> +	}
-
-[Severity: High]
-Are drivers able to correctly process this lock request? It invokes the
-lock callback without passing the idx or id of the specific element being
-locked.
-
->  	vd->owner =3D file;
->  	return 0;
+> diff --git a/sound/soc/soc-ops.c b/sound/soc/soc-ops.c
+> index e572b05840b48..2f91ee7946bb1 100644
+> --- a/sound/soc/soc-ops.c
+> +++ b/sound/soc/soc-ops.c
+[ ... ]
+> @@ -445,31 +468,47 @@ static int soc_limit_volume(struct snd_kcontrol *kc=
+tl, int max)
 >  }
-
-Additionally, looking at the control removal process in the existing codeba=
-se
-that interacts with the new lock state:
-
-sound/core/control.c:__snd_ctl_remove() {
-    ...
-	for (idx =3D 0; idx < kcontrol->count; idx++)
-		snd_ctl_notify_one(card, SNDRV_CTL_EVENT_MASK_REMOVE, kcontrol, idx);
-	snd_ctl_free_one(kcontrol);
-	return 0;
-}
+> =20
+>  /**
+> - * snd_soc_limit_volume - Set new limit to an existing volume control.
+> + * snd_soc_limit_volume - Set new limit to existing volume controls.
+>   *
+>   * @card: where to look for the control
+> - * @name: Name of the control
+> + * @name: name pattern
+>   * @max: new maximum limit
+>   *
+> - * Return 0 for success, else error.
+> + * Finds controls matching the given name (which can be either a name
+> + * verbatim, or a pattern starting with the wildcard '*') and sets
+> + * a platform volume limit on them.
+> + *
+> + * Return number of matching controls on success, else error. At least
+> + * one control needs to match the pattern.
+>   */
+>  int snd_soc_limit_volume(struct snd_soc_card *card, const char *name, in=
+t max)
+>  {
+>  	struct snd_kcontrol *kctl;
+> +	int hits =3D 0;
+> +	int ret;
+> =20
+>  	/* Sanity check for name */
+>  	if (unlikely(!name))
+>  		return -EINVAL;
+> =20
+> -	kctl =3D snd_soc_card_get_kcontrol(card, name);
+> -	if (!kctl) {
+> +	list_for_each_entry(kctl, &card->snd_card->controls, list) {
 
 [Severity: High]
-When a control is dynamically added and then removed, or when a device is
-hot-unplugged, this function frees the control memory without checking for
-active locks or invoking the unlock callback for locked elements.=20
+Does this locklessly traverse the ALSA control list?
 
-Could this lead to driver resource leaks or hardware state not being proper=
-ly
-restored if userspace holds a lock during removal?
+If a local user dynamically adds or removes ALSA user controls via
+SNDRV_CTL_IOCTL_ELEM_ADD or SNDRV_CTL_IOCTL_ELEM_REMOVE, couldn't traversing
+the list here without holding card->controls_rwsem or card->controls_rwlock
+result in memory corruption and a kernel panic?
+
+> +		if (!soc_control_matches(kctl, name))
+> +			continue;
+> +
+> +		ret =3D soc_limit_volume(kctl, max);
+
+[Severity: High]
+Since the wildcard matching can now match dynamically created user ALSA
+controls, is it safe to pass kctl directly to soc_limit_volume() without
+verifying it is actually a mixer control?
+
+For user controls, kctl->private_value is NULL. When soc_limit_volume()
+unconditionally casts this to a struct soc_mixer_control pointer and
+accesses mc->max or mc->platform_max:
+
+soc_limit_volume(struct snd_kcontrol *kctl, int max)
+{
+	struct soc_mixer_control *mc =3D
+		(struct soc_mixer_control *)kctl->private_value;
+
+	if (max <=3D 0 || max > mc->max - mc->min)
+		...
+
+won't this result in a NULL pointer dereference?
+
+> +		if (ret < 0)
+> +			return ret;
+> +		hits++;
+> +	}
+> +
+> +	if (!hits) {
+>  		/* Some cards blindly add limits for multiple variants. */
+>  		dev_dbg(card->dev, "Volume limit for unknown control '%s'\n",
+>  			name);
+>  		return -EINVAL;
+>  	}
+> =20
+> -	return soc_limit_volume(kctl, max);
+> +	return hits;
+
+[Severity: High]
+Could changing the success return value from 0 to a positive integer break
+existing callers?
+
+Callers like asoc_sdw_cs35l56_volume_limit() interpret any non-zero return
+value as an error, propagating it and bypassing further initialization steps
+like snd_soc_dapm_add_routes().
+
+>  }
+>  EXPORT_SYMBOL_GPL(snd_soc_limit_volume);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260920-macaudio-v=
-1-0-741cc20a74e5@gmail.com?part=3D8
+1-0-741cc20a74e5@gmail.com?part=3D10
