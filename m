@@ -1,66 +1,66 @@
-Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com [74.125.227.42])
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B30D2EEE79
-	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 14:03:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBF173264E0
+	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 14:08:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789912986; cv=none; b=axy4tKomy2U1hngLM1dBsq1u7kK4jbD3yy+GlRMIGI7BIy3RPtt7DywlFEkuatZ0czzCq1HvUaFYE58y73Z83Nq+ueDANkJwYO2Zb6B0EyXlnHjbZtVQ42nmL7c1ORNaS8ZEBKk492gwZ+5ks2cAe+P7WxsKNUvUl1cvrznc7m4=
+	t=1789913304; cv=none; b=uCq6JQPDyDQuCXtjOff6/QNNa2lBnRA2Honk2zk2yA/0Jck6GDktYNEaliybrojqnwmUAFMG4iBzX0TFjV0MKk0huatuNbW4L0lFkLzNaGd3uCvhS2dD9391MG5vv0SHDQsDRWwI9ljkDNELSocBh1ACLBWozyf3IZAw7PyPIac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789912986; c=relaxed/simple;
-	bh=KBEWERMKVz+kidmKpZBAbGJ4UDpVNu5XhVT7ZOFCQzU=;
+	s=arc-20240116; t=1789913304; c=relaxed/simple;
+	bh=bof09/06nPiQ4HzLqim9Sfhjmg3hRr1rOAzuadnmP+k=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TVg4I1n4HHtBclcFncy/W5TPpuLLE256wdZwTwM5/oeykfQMMSsGbUCLHZlVWtWLwZ/MUimMscQ4qcDUUUOZMbuo7U2s+pDu91bXmZfX34ZZ1jvBiV2uCcRgmXNE5ssz9e4U2QpyktewOKFQ8pNiaRcrMPIQ1rXhsjwO1KgJIa4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p0rxR4ge; arc=none smtp.client-ip=74.125.227.42
+	 Content-Type:Content-Disposition:In-Reply-To; b=DcbCjj5OPUUHjDh1j/c6bGcMeYNa6podAc+7xWKLSzlBQuNygNAhdlN3GuXBZqGGFBVDwZM+rEVxb2abWigLeU+v+mP5L3UN50SVcSbGlrQt/DLSNgoynp8t+2Gg/isCtlVkxxOslNZQCeeZxNnl1Br/p/fnbmqzthLLNhp4D+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FonyBhjo; arc=none smtp.client-ip=74.125.228.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p0rxR4ge"
-Received: by mail-vs2-f42.google.com with SMTP id 71dfb90a1353d-5c67e5059f8so612636e0c.1
-        for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 07:03:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FonyBhjo"
+Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc4bdf8abaaso1776586a12.2
+        for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 07:08:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789912978; x=1790517778; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789913302; x=1790518102; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=qGOBrazGO1SbR4ysdjTYnrXtGS2lZGrR+BRy6J/y9+M=;
-        b=p0rxR4geQgJyn1lcoOzcm42MinZN/j2Cjba1iZqi1giy2HYHWUNZNvEjL8nxMf4Bjv
-         3QZ1Da8Q3uS4qiYPBctPCew5XU26KXUjh2Cr4mJ4SdaWglEYvHW7p0suOEf9N4rQegUf
-         6DCawZO1QbBWPhiZt/2ElFI8PQYmgeWFzHG+doCXWDecIGWzVN3pdTPCHM7MuXfsNR9i
-         kkwXGIt3gQZSw2mX8QC2KqOnAl/cgai1AiuoSy5EudVAU8mb2GNMKyCaEJ3qQgtmr/MQ
-         T7QXgCpjCG342pMqTNJ/J8Vea43JqlCQEFOM9KrueY7lD7lyjZY9EnIuff7SDYXTz5yX
-         V1oA==
+        bh=iyOmZAJ5EC0g24waSg1z6ypsi7AcrrbpqT6UrnwgkGA=;
+        b=FonyBhjoMeC1jqWHAxmLeMtbVXfrqU+W7qQttCpdKcO+uKfaszWTqIBcm7RwHfVEd2
+         UaQCTvt6r4wAdntCQDDdXfSf2olZcf4pjbRxkdvJLJU5hOU9vkn7uGqrRLJyP22pEyee
+         m5lEJzy221Qq6tAQd1OIpMjbgi3OlIPb1yUFWcfkBun74PWVEGo86u1CJ4Opn0MYcSFr
+         N1nkfDdFS8lcalJmFvfiaQNrYW0Vb+1j02Gdy+0ckc+MenoUBeD9lLFwmor9JQ03ZCMs
+         D2/VJsYUTXRttYN6xjdQ2JBfaHjRoBGx+ntRarliDB9JXRg3qK+D4h04KShg8A54cXEH
+         FYKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789912978; x=1790517778;
+        d=1e100.net; s=20260707; t=1789913302; x=1790518102;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=qGOBrazGO1SbR4ysdjTYnrXtGS2lZGrR+BRy6J/y9+M=;
-        b=eZoKIdH/BKqZoJBuSHGqVNjHAT/wLhYaaTZtQ84T0F/kkRpvg5kzHOC0WfcTClcVS9
-         kLqVbS/sSKdHHwF7lPeo6q4757WsoUHBVNVY5hPCtHBegfNmu9d3wRKy2tCOUKUVXhM0
-         80+QyY5njoM/WSacdGuca1oFWug8Ypuqb3TRTej95diZ4IM/N6F6XpDTzFJ1e6zrm2Sm
-         Jjd3EUqEeNTLEtp121vFA57w+L7xmCdwrWMECzqF3Wk/A7oUPF4qyxvPZ6MpwID6WiDi
-         WDHoCSZhl1ZK419ScKcd+JANkEp1kso04E1mD/p+F6+BMbjee2q+tu+GEY2J6dOa9C3U
-         Cycg==
-X-Forwarded-Encrypted: i=1; AKwUvBwG1rwalzVMjOADlsUxXXu72t5IdlPnVlM9uLfMhiqYVDxLzaC3Ek0aco4rjCkO8HvtTr10g5dC61np@vger.kernel.org
-X-Gm-Message-State: AFuF++nvLmSsjnwOhBqnTwVwotss89bGJZU6gHzbePHoCYkj1wea9kSH
-	5mdDuhEww8X5q9Xch2WV8cZ9Fn5LwJufRt2YpO3v1okEGljZ7VjMllQx
-X-Gm-Gg: AYBFou1mWV+pYWby5fqPmVcy927s55g0ui/yxjhjxjw/Kgg0LWOWjBFLmF6mKK3BV1i
-	GBHeUFb4Fk7puO0dDzsCyEkGA6dc64DUErXnTEMupitJ/Xj3oxSLfgGOKEBCQpZzdXSTnNuDx6z
-	IdN0qIIIpujlT5RDARd1XwJPX+owZKt+nZ3BznrHobBtH77l//1TjPyRqaZsZztMR+UMnLPtQt7
-	hUtcquknvoAzsEEy6WDeVLg6QL7Zw4mEvOQ2UwF1uUJrYTqGQR/6mRy9sLeNw/jvbTtzH9mRxpB
-	X5+sy/ishR638JuM9vNaFLM2CjdO4BGRq0/FYxf8INrj8hRIE/+Uy/skiUZk9KVrY8ANmT0MDSC
-	Rn6qTOZJaXCnCILR0+8gPoRjAnnlq4CEkw5jv6YwffXNF5wBKTbjsCHPjdx5TkfI6aGd9+Jl4pI
-	iFfBpSPYw7CjQKe4ShzPE5cPbhBIMnatBtKydzKQbdt1+d0fP3VteLEz1yO2icA0R1eI3vgTYmX
-	KuGol7TcQu1uZI=
-X-Received: by 2002:a05:6122:3291:b0:5c9:a617:580c with SMTP id 71dfb90a1353d-5c9b8b29d50mr3290274e0c.9.1789912969770;
-        Sun, 20 Sep 2026 07:02:49 -0700 (PDT)
+        bh=iyOmZAJ5EC0g24waSg1z6ypsi7AcrrbpqT6UrnwgkGA=;
+        b=EDJ927EGwooMOP0QZRjw0JCXvjYsmCSPxgotIBZpK/sF3fTDBF1KsBBIIhMQjWHYyC
+         VdilSpwNazoCPz+WfiA4ujQ7QTjPWuzy+8LqF5OUGWbUzilpdUuheXRowQm+ZF8bICj/
+         77rzvLaPTGaG8SmS/G/Wyy/ZeglF9JZETubDBaJdyuW0AcYs1X/rYQ9gJElKaOe/Rune
+         sxdnhXCYvGUNxOz7d7d8Blike1Ow52Fd3K7qLpVQo/axBtgMogcccHI1t9dNFih0mOsi
+         dAO9rAs3W+5uHadELcXkqiwPF3TYmaMrN+4KPOaH7+FEoSdPPSdqiCZcgC5VjM/dFWHL
+         W69g==
+X-Forwarded-Encrypted: i=1; AKwUvByRla2wPyOS83SrCF8sK/Jt64DavGdJhWSt+dOxZ49pHXuv1FU6seG2CrLBrn1PK/NpRkIY3os2q1LA@vger.kernel.org
+X-Gm-Message-State: AFuF++knouO8MvQt8Ue56JZgJy/Bqb4qVhdu/Gss8Q91+JlYhtDVyDol
+	z/T1Q+aLLdIIujmy7JTSDIwq2cgsHFRvWW0IkdlSQhDKeOYGgYdjJTiH
+X-Gm-Gg: AYBFou2AzzP7gQadfiGKSlaeONU15lo3uVgveBchdvJx6vjLwIcT11knhzUXvCxDWQr
+	0FLBU6zR7L/Ev9hIh7YtgdFButGjUDFY8dKbL+YY8bLxnSMtg9BNH2EdKcZqbK/HpLFgftWCmQo
+	EZJczeiMr5sWfe0jJrm/3mAZmT1U+DeNYYxtE2DibQN3lnmj/X5PnxPSKPfhP9UpP47w+sxxjjT
+	NSPf/vhb5IkKDzn6krXuCyUevnvKlR/oKdfCQXVq/PhCSk16WET1DJJNowX6+NdzpcXMxrhgWC3
+	N2zR15b83V8tWRz08wYYPqrZ7BRyXxjGHRk+CTTyKZsrEDDkd+fFH158NOwEfbkgAIMKcRl6hLf
+	qYL9GazUDx/YWTbwBLjCGLnVtn4sbPrgyF8EnXfqa2dMht6XsPjicMeI/j0GLU5U4d3E22w8+8a
+	VHkjDzcd0zZxQ55+mhpB9s/39CgJTcF+dw5Rc0a+8LieZjuSa+b7vIToDTUV+eWfXCO9rIwV8sy
+	rI0byK/ZuJ4GXo=
+X-Received: by 2002:a17:90b:3eca:b0:39e:6a7f:1dc6 with SMTP id 98e67ed59e1d1-39e6a7f2209mr7510006a91.34.1789913301817;
+        Sun, 20 Sep 2026 07:08:21 -0700 (PDT)
 Received: from localhost ([2804:30c:96c:bf00:7844:c38c:894:4054])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c9c198f790sm4743292e0c.18.2026.09.20.07.02.47
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144e14dd04dsm2962133c88.7.2026.09.20.07.08.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 07:02:48 -0700 (PDT)
-Date: Sun, 20 Sep 2026 11:03:55 -0300
+        Sun, 20 Sep 2026 07:08:20 -0700 (PDT)
+Date: Sun, 20 Sep 2026 11:09:27 -0300
 From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
 To: Kanak Shilledar <kanak.shilledar@axis.com>
 Cc: Henrik Grimler <henrik.grimler@axis.com>,
@@ -75,11 +75,11 @@ Cc: Henrik Grimler <henrik.grimler@axis.com>,
 	Chris Morgan <macromorgan@hotmail.com>, kernel@axis.com,
 	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 3/5] iio: imu: inv_icm42607: Add support for
- ICM-42370-P
-Message-ID: <aq_nyxWauKzWQwFC@debian-BULLSEYE-live-builder-AMD64>
+Subject: Re: [PATCH v4 4/5] iio: imu: inv_icm42607: Implement MREGx register
+ access
+Message-ID: <aq_pFy46SirVu09b@debian-BULLSEYE-live-builder-AMD64>
 References: <20260917-b4-inv_icm42370p-v4-0-fd9373f123c9@axis.com>
- <20260917-b4-inv_icm42370p-v4-3-fd9373f123c9@axis.com>
+ <20260917-b4-inv_icm42370p-v4-4-fd9373f123c9@axis.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -88,49 +88,127 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260917-b4-inv_icm42370p-v4-3-fd9373f123c9@axis.com>
-
-Hello Kanak, just a couple minor suggestions to this one.
+In-Reply-To: <20260917-b4-inv_icm42370p-v4-4-fd9373f123c9@axis.com>
 
 On 09/17, Kanak Shilledar wrote:
-> Add support for the Invensense ICM-42370-P MEMS MotionTracking 3-axis
-> accelerometer with built-in temperature sensor. This device is almost
-> identical to the existing Invensense ICM-42607-P IMU, but lacks
-> gyroscope. The device supports I2C, SPI and I3C, implement only I2C
-> support.
-
-The device supports I2C, SPI and I3C, though, only I2C support is currently
-being implemented.
-
-Would sound a bit more natural.
-
-> Provide basic support for raw sensor reads via sysfs. There is
-> also a built-in temperature sensor but it can not be turned off similar
-> to the ICM-42607. Return with `dev_err_probe()` when WHO_AM_I read
-> fails.
+> The device supports indirect register access to different banks. A
+> specific routine needs to be followed when accessing the registers in
+> another bank as documented in the datasheet (section 13). This is
+> required for accessing registers configured via the user and
+> implementing buffer support. The implementation is inspired from the
+> icm45600 driver. The banks are defined based on their initial bank
+> access code which are written to the BLK_SEL_* regs. However, there is a
+> variation for MREG1 as User Bank 0 and MREG1 both share the same 0x00,
+> so User Bank 1 has 0x00 and MREG1 has 0x01. When MREG1 register is
+> accessed, then BLK_SEL_* is written with 0x00 instead of 0x01.
 > 
 > Datasheet: https://www.invensense.tdk.com/en-us/products/3-axis/icm-42370-p
 > Datasheet: https://www.lcsc.com/product-detail/C5129967.html
+> Assisted-by: LLM
 > Signed-off-by: Kanak Shilledar <kanak.shilledar@axis.com>
 > ---
+> LLM was used to implement the mreg back switching support.
 ...
->  	/* Warn, but don't fail. */
->  	if (val != st->hw->whoami)
-> @@ -630,15 +648,20 @@ int inv_icm42607_core_probe(struct regmap *regmap,
->  	pm_runtime_set_autosuspend_delay(dev, INV_ICM42607_SUSPEND_DELAY_MS);
->  	pm_runtime_use_autosuspend(dev);
 >  
-> -	/* Initialize IIO device for Accel */
-> +	/*
-> +	 * Invensense, ICM42607 and ICM42607P both have accelerometer
-> +	 * and gyroscope functionality. Whereas, Invensense, ICM42370
-> +	 * has only accelerometer.
-> +	 */
-I would specify ICM42370P (with 'P') here. Since there is ICM42607 and ICM42607P,
-it wouldn't be surprising if ICM42370 (different from ICM42370P) eventually
-shows up.
+> -/* Virtual register addresses: @bank on MSB (4 upper bits), @address on LSB */
+> +/*
+> + * Virtual register addresses: bank id in the upper byte, register address in
+> + * the lower byte. Bank 0 is directly addressable on the bus. MREG banks are
+> + * reached through the BLK_SEL/MADDR/M indirect access window, one byte per
+> + * transaction (datasheet section 13, no burst support).
+> + *
+> + * MREG1 programs BLK_SEL = 0x00, which collides with the direct bank, so it
+> + * gets the distinct virtual id 0x01. MREG2 and MREG3 virtual ids match their
+> + * BLK_SEL values.
+> + */
+> +#define INV_ICM42607_REG_BANK_MASK			GENMASK(15, 8)
+> +#define INV_ICM42607_REG_ADDR_MASK			GENMASK(7, 0)
+> +
+> +#define INV_ICM42607_BANK0				0x0000
+> +#define INV_ICM42607_MREG1				0x0100
+> +#define INV_ICM42607_MREG2				0x2800
+> +#define INV_ICM42607_MREG3				0x5000
+> +
+> +/* BLK_SEL value written to the device for each virtual bank id. */
+> +#define INV_ICM42607_MREG1_BLK_SEL			0x00
+> +#define INV_ICM42607_MREG2_BLK_SEL			0x28
+> +#define INV_ICM42607_MREG3_BLK_SEL			0x50
+> +
+> +/*
+> + * Datasheet section 13, Accessing MREGx Registers: no bus access for 10us
+> + * after programming the indirect access window.
+> + */
+> +#define INV_ICM42607_MREG_ACCESS_DELAY_US		10
+>  
+>  /* Register Map for User Bank 0 */
+It would help review if either the commit message or a comment here made it
+clear Bank 0 register access is now going to be handled by the same routines
+used by 16-bit virtual regmap_config. Replacing 0x00 by 0x0000 looks odd
+otherwise.
 
->  	st->indio_accel = inv_icm42607_accel_init(st);
->  	if (IS_ERR(st->indio_accel))
->  		return PTR_ERR(st->indio_accel);
+> -#define INV_ICM42607_REG_MCLK_RDY			0x00
+> +#define INV_ICM42607_REG_MCLK_RDY			0x0000
+> +#define INV_ICM42607_MCLK_RDY_BIT			BIT(3)
+>  
+> -#define INV_ICM42607_REG_DEVICE_CONFIG			0x01
+> +#define INV_ICM42607_REG_DEVICE_CONFIG			0x0001
+>  #define INV_ICM42607_DEVICE_CONFIG_SPI_AP_4WIRE		BIT(2)
+>  #define INV_ICM42607_DEVICE_CONFIG_SPI_MODE		BIT(0)
+>  
+...
+> -static bool inv_icm42607_is_readable_reg(struct device *dev, unsigned int reg)
+> +static int inv_icm42607_mclk_get(struct regmap *map, bool *idle_set)
+>  {
+> -	switch (reg) {
+> -	case INV_ICM42607_REG_MCLK_RDY ... INV_ICM42607_REG_INT_CONFIG:
+> -	case INV_ICM42607_REG_TEMP_DATA1 ... INV_ICM42607_REG_TMST_FSYNCL:
+> -	case INV_ICM42607_REG_APEX_DATA4 ... INV_ICM42607_REG_INTF_CONFIG1:
+> -	case INV_ICM42607_REG_INT_STATUS_DRDY ... INV_ICM42607_REG_FIFO_DATA:
+> -	case INV_ICM42607_REG_WHOAMI:
+> -		return true;
+> +	unsigned int val;
+> +	int ret;
+> +
+> +	*idle_set = false;
+> +
+> +	ret = regmap_read(map, INV_ICM42607_REG_MCLK_RDY, &val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (val & INV_ICM42607_MCLK_RDY_BIT)
+> +		return 0;
+> +
+> +	/*
+> +	 * Clock isn't running: we're either in Sleep mode or in Accel LP mode
+> +	 * running on WUOSC. Force the RC oscillator on via IDLE and wait for
+> +	 * MCLK_RDY. Datasheet gives 10us (accel startup) to 200us (accel
+> +	 * transition from OFF) for this to complete.
+> +	 */
+> +	ret = regmap_set_bits(map, INV_ICM42607_REG_PWR_MGMT0,
+> +			      INV_ICM42607_PWR_MGMT0_IDLE);
+> +	if (ret)
+> +		return ret;
+> +
+> +	*idle_set = true;
+> +
+> +	ret = regmap_read_poll_timeout(map, INV_ICM42607_REG_MCLK_RDY, val,
+> +				       val & INV_ICM42607_MCLK_RDY_BIT, 10, 200);
+> +	if (ret) {
+> +		regmap_clear_bits(map, INV_ICM42607_REG_PWR_MGMT0,
+> +				  INV_ICM42607_PWR_MGMT0_IDLE);
+> +		*idle_set = false;
+To fully handle the error path, it should also check regmap_clear_bits() return.
+E.g.
+		ret2 = regmap_clear_bits(map, INV_ICM42607_REG_PWR_MGMT0,
+					 INV_ICM42607_PWR_MGMT0_IDLE);
+		if (ret2)
+			dev_err(...);
+		else
+			*idle_set = false;
+
+>  	}
+>  
+> -	return false;
+> +	return ret;
+>  }
 >  
