@@ -1,212 +1,357 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa2-f9.google.com (mail-oa2-f9.google.com [74.125.231.73])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CB6835201C
-	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 02:33:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E85C13358B0
+	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 02:48:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.73
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789871608; cv=none; b=Zvi/bytua3n5HS8WT9KhkVzgg8hG4S9K2ScGLQPy8TTDJZVjnS+WQPwl8RyfjVA6xgUhZ3XbJmJ17uIhnugxWaVH44E1EI7hr7lhM6Qy887ndYcE/ZGcbaN0QdlF54b9gdVDW73rYXvnLnmNPkZ3toHJgQO+e2L71BKn13hts7M=
+	t=1789872512; cv=none; b=nxWzNt3teiS739GBB5LA8c3un7zwsA8Lkr3jgxN3hz4xUXRtmWg/DN86MepWr/zQnDSrDve7qs8IK3piqa+UzWkLC0NgHQ7QyP/V27aYbffFcl9qHKNdX2ZgrNqQYfbwSIr2DWhVeshQbwBs0TEt5/UquUTEK9BQakDWN1bQohM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789871608; c=relaxed/simple;
-	bh=AIciJD7ZR0wQX72ob08+OdJjOe+jTPh+QkN3fU7AnV4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=qYdbqy1XqdEszV1ak+axvVRn1oVFapN3QRZ9pU9fIvDg4zN2WafyzBefv9Neao3Y98ne5XKHdcdO25pHW4MpkRz/lqM2UWJyn9XSuLhuvy06DqWLFzkEMkPkYnKSl/lWwMB+DRbpftjumUKJ0vRJNfzt1usQyl3/JXblIh2648Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MFd2iUjj; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WyEuv1TZ; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789872512; c=relaxed/simple;
+	bh=5zJQUcTfeHOupAFBO5SzKmha1B+IVgnGLyfPlMQyMi4=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=FRJaPn4I1Phnnf+uDiejKMvZPOZag61OLgtnK1+o3JgynNsVPqyH2ni/iRV9zWqyEle/wd8Ms3mEt+opj/GuF14RLxqbHOguz/gHBto2qenygocEpsfS1cqFhRTPx+yk/H4zOqxEi1pmwNO2tBuEy6dftrMYyEuG/LQiavPglCk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=edrJU3Ob; arc=none smtp.client-ip=74.125.231.73
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MFd2iUjj";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WyEuv1TZ"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68K1nfm72061004
-	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 02:33:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=1j6nqTITOk8SF7fJV0hjTN
-	onoSPb53+oHpIjMalqk3M=; b=MFd2iUjjv8qQSBRfQmlBaLRsIuKVJyznWJFeEc
-	61w3Sdmk4gOslOU2Vvpp1DDrwG6rpqIp9ZF3KYV0oewX8e5Mj+/qaq/SX5ez54xp
-	48P/99AIUuL2gO5AXfLJFscas4z0xQdHCFx8CsSV8MjyqgZPn5aN/PzHiErToacJ
-	FaCBreQDzEutaRMN1nrd50Jf3jw8MStFjo08AXIFRehReQWOIiJmfkCA4gFw2gig
-	C64ChvyJnJ9p660ZOPKX8i7JLXBHTKVtuuxX27fiDgUEJS0wUgchhm54rCbnOzaN
-	HytDKK5duiu/aLlJThR2Mz9nME1iE2f0frSPllHLUgfqq0vA==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gshbsa74k-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 02:33:26 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2d94f086fedso29002585ad.1
-        for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 19:33:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="edrJU3Ob"
+Received: by mail-oa2-f9.google.com with SMTP id 586e51a60fabf-47bd4bcc3e2so905071fac.1
+        for <devicetree@vger.kernel.org>; Sat, 19 Sep 2026 19:48:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789871606; x=1790476406; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=1j6nqTITOk8SF7fJV0hjTNonoSPb53+oHpIjMalqk3M=;
-        b=WyEuv1TZCsrE7/FpiBC3T52aMbLPxkKwLG54pBYNhnhoMWoeG3Lj/MfjY4w4wod4Yu
-         NU4/FHJw9NrHuTLd9hRVVc4s7SinkS4M0oiShht37efJ4H7fsGy4witjzJL9kquB42Yk
-         GYz82g0iDb9SLx1bH/2PNbMd/DQm5qQSY2aJW5CHfm2UCD7rUNk4xgfk3ppQz0Qhg614
-         Ph+mM6LdCyyaKECvJpumVRJ/9ak5rzdiuqE194uKRjeurOuXETa2DJo9Mt3UewiAH1hs
-         bmE6DwE4tPmvwsE+174Ntihjgen3MK+7zskMmuSe9DpAdKVIbBOjSws4nA1IoXsms1dN
-         8yFA==
+        d=gmail.com; s=20251104; t=1789872510; x=1790477310; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TjvmYyCc6sVH2RWH/PPf9bwAMgPY9Arl3SG7xhOPHXY=;
+        b=edrJU3ObiRBfUezczsp3hF4E0jIdgu62Oi+NduiwJbDFH3fBJQc3Lfv/5vpcrRd8MD
+         vOUi+fmqHaqLwGPGoBFs3Tj8W2QKEugh19joQ+4hGp16nYQQWIWJB3fFQayFdxUt5eS7
+         4lN4ZA4z2khMeq+Po5Q5pRULgUyCZtNMMYemp3QKdHH6+o/EKyxaCRCeV2tV34jfalSs
+         N0oga6ITNllKo3u9vWa0bdb8sFjlrdnY/AWxYtTFAZUB3RiwY8LDYhPwYjDOfNIC5A/W
+         d5SWTMg4lW8sN/gGk9D/+36o7i6Bh3uisti8nfWX7TFmMhiGK6z7b8vEpZOIZRf4lgbr
+         rlIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789871606; x=1790476406;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=1j6nqTITOk8SF7fJV0hjTNonoSPb53+oHpIjMalqk3M=;
-        b=ipTE9e7Z2PrL4KXpbJsyXMMoXtygUqILaMD2h91cXEqvClSpi4sUKAnqrvfxSkHGQC
-         fLKHdL2RqAwDPqcak9IE0yUQhtJcfMf5S2/vg/URVAZHvatGhrtjH27LmITHOFQUrvpY
-         i3dhDpZLduQuH6Fa/yrCsC+lpFlDcNV8Rqb5MpHWYLEfjTi3/zO0cDle04/KLl5Lt19O
-         GhQ4gVtg4gw7Y4zJI9Z6FGzV7dFNWcSyBJ5msI98F3bKAX5LVcc/I9Hg35kGZ2vNJz0M
-         zQBuSCagbg36KfTkeBb8/IBZ4lrT+ABJDn1/8dbzQRmLhjuFa2R5I9mERw3uWzEnu3fA
-         oymA==
-X-Forwarded-Encrypted: i=1; AKwUvByVauQkSyyXt6rYS/vDSrrRSJpOGMHpSQcRrzF0o/dR/oD1Hy5TqevLq4j2/vz4w1dtU5tko3ODc+SG@vger.kernel.org
-X-Gm-Message-State: AFuF++nDVX0coNrg0BIaXKwGRTruV7h5i8hod4jFnvF4kFYpitpUD8Lk
-	sXOr7rLF1Q3bMX8qEnIZjkfun/+fV6Ck6xbwZRtKWu8S0Kz+yJO33g0G43Z0CLCmITiRWjJSY04
-	+gHwHa2XQzh/nawNWXGoMnRih8OphPFPdw5p7xSCjmhl09+2Rq0iBqptcFHFAKcYu
-X-Gm-Gg: AYBFou1HiXanW9TiFPty1ROQlv201CwdvbfPlwI8eOoh2bjDVYjJ+LdcfqvD9MMXJUC
-	PiOyVGzi8LJ0HubJ1CBbUE3pk9e5FzwkfC1UP4sTI5/f3JNeLMwov8ci3HyFsp3eppkDQ2ZE3Yg
-	QA1JTQ9AcMgQ7MzM5i8qgWbBBj1rAiaaizZzdFUssT131Iqnm2ZBkucuhkYJtYvtt8XPeU4gHEb
-	3iAJpagaUmPhJDPd+3qtV30ekN9xsMSy+ddXiWPQJtROd7u147zTK92Ije44RU/ZnJe+6i9hZr3
-	jNNBMK48lbwVH6078uwUlnHLMdKwNDtzB6GSjOJWpGqAjNXsZ4jcSXncPBaJYQLLx6YJdHCQ2s5
-	pud+ScYQiOdB4DVzIzCiMNYPBi2HZwmOSnTP8
-X-Received: by 2002:a17:902:fda8:b0:2dd:87c7:a907 with SMTP id d9443c01a7336-2ddb1b7a312mr116771465ad.15.1789871605641;
-        Sat, 19 Sep 2026 19:33:25 -0700 (PDT)
-X-Received: by 2002:a17:902:fda8:b0:2dd:87c7:a907 with SMTP id d9443c01a7336-2ddb1b7a312mr116771175ad.15.1789871605121;
-        Sat, 19 Sep 2026 19:33:25 -0700 (PDT)
-Received: from hu-vishsant-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c331d5a21sm9045566eec.31.2026.09.19.19.33.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 19:33:24 -0700 (PDT)
-From: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-Date: Sun, 20 Sep 2026 08:03:05 +0530
-Subject: [PATCH v2] dt-bindings: dma: qcom,bam-dma: Allow memory-region
- property
+        d=1e100.net; s=20260707; t=1789872510; x=1790477310;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TjvmYyCc6sVH2RWH/PPf9bwAMgPY9Arl3SG7xhOPHXY=;
+        b=c8TCel/ucKbDcyYVjpX9aOo0v8ERjoJZzDwbL8zgdTQHnPIRRiiXEzavTiHTRKmFgY
+         rqJRtnlOYOsZhNwFDw6eBlYb2a6AtTjTGlv/unnolmvHMoStLH1R0LWHjtBoukO8VuN3
+         kvjaniaSZAr5ejM2dGdpB95z8AvNCI6dcdAupzaR/g2nXkiNHSyJgoOXE7gGjikQ0ixa
+         7zKJuuOWzN2dVSOjrjtSZky3YXmWwrss7dxsPsF4V19y/yBrRJG4/1VAuzA+ffqPwGrg
+         xgxsrpELa9hhvyCaYY+mHpsRdo+VuWJD7EMDCT1swHpTfM9uemnqpcXO4M7S1L+IZ6sn
+         Yspg==
+X-Forwarded-Encrypted: i=1; AKwUvBzmOHFyRk66DG5qj2HfBSeI+iNWn9ce8vZlRs5QGVPMpboP4q5f/FxMoJtuzuwvtV0udgYB+xF6ytJ7@vger.kernel.org
+X-Gm-Message-State: AFuF++lrH8Ch5+RNw3bWYQNyv6gDxoE0O+YJBAWAGbotQkLQNKKkHSlG
+	RpptN+nwJa4tjHZRLw65fCODSlT7BsP7P3cF1rgMqltqDBmKveDouo3O
+X-Gm-Gg: AYBFou2j5NceSBm7Lg+6+f50lB7VpeufN3TAdc4yiwnoANjEeQ5iJzFynmBvq8Ji6q0
+	yCwVFLSid0KqDWXScPvscP5a5vqJgd1sMrakg8k6esSa0ICJkkSydY37CQ5E3f/TcdYE37MIK2m
+	43SNUOA24erWS19n2B5l1RBpkwuWbFwn85GcCfJeOHNYwU6CZjm9rGvIBRsK+4ECYdK4uYt1C1z
+	KCqV2wQRSm0o98Yrrq8tzpVtmQo0hKmugwnF1L2vYVIqplD85CRQ0gXeH1i74bXj1QHtAk8XQc7
+	6pczC6kiIr0pb88Q7/9Z10vmtBzobzEjbWLJ3orT6bskvud0KNwF3ZgV4bdE8yb0dzBDAHIbWR7
+	HH8CGH+hLPOY1LEgMVccBmpwXUkxjdJB7fb3jLogIGnhdtwjs8DPzQAbqcPx0ToMeH9IDL72/8T
+	Qy1ejda2H8KTognxtMvRzdVSYy5DEwO7NNqW5CaNROJJkUXt28pyJ4Cp5OrDBDbnz4uiJaF9mI+
+	7HElRfcznqCRrdLHwFd7wo2pw==
+X-Received: by 2002:a05:6870:d24c:b0:43b:bb18:affd with SMTP id 586e51a60fabf-486e554a334mr7101333fac.8.1789872509696;
+        Sat, 19 Sep 2026 19:48:29 -0700 (PDT)
+Received: from ?IPV6:2600:8804:5716:d800::2620? ([2600:8804:5716:d800::2620])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4881f4d519fsm4188565fac.2.2026.09.19.19.48.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 19 Sep 2026 19:48:28 -0700 (PDT)
+Message-ID: <7f1ab011-c90f-42fc-bc4c-836a1ef9febc@gmail.com>
+Date: Sat, 19 Sep 2026 21:48:25 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+Subject: Re: [PATCH v2 2/3] iio: adc: mt6397-auxadc: add mt6397 PMIC AUXADC
+ driver
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Lee Jones <lee@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ mfd@lists.linux.dev, Roman Vivchar <rva333@protonmail.com>,
+ Luca Leonardo Scorcia <l.scorcia@gmail.com>
+References: <20260917-rbrue-suez-upstreaming-mt6397-auxadc-v2-0-db35882a6080@gmail.com>
+ <20260917-rbrue-suez-upstreaming-mt6397-auxadc-v2-2-db35882a6080@gmail.com>
+ <aqzo2vqeGEGCLFIP@ashevche-desk.local>
+Content-Language: en-US
+In-Reply-To: <aqzo2vqeGEGCLFIP@ashevche-desk.local>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260920-qcom-bam-dma-vmid-ext-v2-1-4dbbff0e57c8@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAOBFr2oC/4WNTQ6CMBCFr0Jm7ZBSxBJX3sOwKO0gk1gqLTYYw
- t2tXMDNS76X97NBpMAU4VpsEChxZD9lkKcCzKinByHbzCCFvAhVnXE23mGvHVqnMTm2SOuCra5
- 7W5vGCEGQu69AA6/H7r3LPHJcfPgcN6n6uf8WU4UCDQ2tMo3qlTU3H2M5v/Uzx12ZBbp9379g6
- dTFwQAAAA==
-X-Change-ID: 20260714-qcom-bam-dma-vmid-ext-8a3bd3c5c00e
-To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>,
-        Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789871600; l=2666;
- i=vishnu.santhosh@oss.qualcomm.com; s=20251203; h=from:subject:message-id;
- bh=AIciJD7ZR0wQX72ob08+OdJjOe+jTPh+QkN3fU7AnV4=;
- b=PBW27f4qUH9Hvcj4x0CFOOZybT847Owl6O4ioQHJsMjHzGa7mZD5gBxbPskCnE0HkbpJWazrK
- j516oPwuXscAircVdd1TkN2FYIKMmlVeG2SiohiMucxT6XXYFMbT3S8
-X-Developer-Key: i=vishnu.santhosh@oss.qualcomm.com; a=ed25519;
- pk=G8/AJPecB1feGI7wxArGWGN0PPGQS0GUaD4THQCbdis=
-X-Proofpoint-GUID: WFy4FDSrvXns513jsq2A-RsOUKkw8Gnv
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIwMDAzMyBTYWx0ZWRfX3Qcu7PJ27UIi
- cypSMAvFkssgYiwljj2GBmCuXRylJb1BogIeeFanSFN1ZK+tWce8ZH1GuK0zuTNicKMS3PKMccO
- ZmCDOYKVsE13MYvXr0/hsGUHmD/PbvqBjaVN/p2VKB5EkHCLTw4P33/RLn3xFAHT5vZJbDl/nOd
- D7gpOWrRhfZMGUELg92QTW/yFTgrVIvs8JGrjV7rv1Zgazv8CNdoKK8QY5y5KlOpreQTNuaLzOt
- gO+gIlTmc6rdpqpUxlfHD+S9U2Ba+vxGZ/ux2sreY2LdqLseZWeaZChXOA4DsNFXoCIWSgcszPp
- BHwWmqhZXi2UbTaLOR0D5yazbHZwCd8FBXpmraDjdpZ+T9sCBcL/VqFFTKm+DzM53e7HmSTpr24
- 5GpQDbNPkqgOxEVWNrtrsaupxtU3dM0d2MNZG34OTJkRFDljwE02Jpj329hhGIi8T/J5dr17f+N
- luRX8Pdzkn6SFxpdofQ==
-X-Proofpoint-ORIG-GUID: WFy4FDSrvXns513jsq2A-RsOUKkw8Gnv
-X-Authority-Analysis: v=2.4 cv=bPqDs/+Z c=1 sm=1 tr=0 ts=6aaf45f6 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=_tQzNdYRXts5BJOlV6YA:9 a=QEXdDO2ut3YA:10
- a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIwMDAzMyBTYWx0ZWRfX05OKWZ+bhdEI
- 1rLXKLQ/hTE9EedjVxWVho1+BPmB1PG07OQNJ305Z+XiHm+iqsSTWicTKB3YDjJO7lknfXwizTM
- /dST/usuFOpAgT0fOun7zi10azVamd8=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-20_01,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 priorityscore=1501 malwarescore=0 clxscore=1015 impostorscore=0
- suspectscore=0 lowpriorityscore=0 bulkscore=0 phishscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609200033
 
-Some Qualcomm SoCs, such as Shikra, run the modem in a separate security
-domain, preventing it from accessing BAM descriptor FIFOs allocated from
-arbitrary host memory.
+On 9/18/26 2:31 AM, Andy Shevchenko wrote:
+> The below should be part of the comment block, no commit message needs to
+> be polluted with this.
+>
+>> A new driver was created here, instead of modifying an existing driver
+>> such as mt6323-auxadc or mt6359-auxadc, for the following reasons:
+>>
+>>   - Both mt6323-auxadc and mt6359-auxadc select channels through a request
+>>     register (1 bit per channel), while mt6397 uses a 4-bit numeric field
+>>     CHSEL in CON1 (10:7), and then pulses a START bit (CON1 bit 0).
+>>
+>>   - For mt6323-auxadc, which is the closest I could find to the mt6397
+>>     (CON0..CON27), it has 13 more registers than the mt6397 (CON0..CON14).
+>>     It uses CON22 for its request register, and reads the result value
+>>     from the same register as the ready bit. We don't do that - the mt6397
+>>     has a factory calibrated value for each channel at 0x16 higher than the
+>>     raw value. mt6323 also has a 1800 mV / 15 bit scale / resolution while
+>>     we have 1200 mV / 10 bits. We also have some per-channel preparation
+>>     that we have to do before the burst, that the mt6323 doesn't have to
+>>     do.
+>>
+>>   - For mt6359-auxadc, it has a more generic framework for describing the
+>>     AUXADC, but it assumes requests are channel-per-bit, and so we would
+>>     have to basically ignore req_idx, req_mask, rdy_idx, and rdy_mask.
+>>
+>>   - We also have our own software sampling, which the vendor does too
+>>     (Amazon Fire OS based on Linux 3.18). We'd have to have our own
+>>     sampling callback to do it.
+>>
+>> Assisted-by: LLM
+>> Signed-off-by: Ryan Brue<ryanbrue.dev@gmail.com>
+>> ---
+> ...here is the comment block...
+Done in v3.
+>> +static int mt6397_auxadc_read_once(struct mt6397_auxadc *adc,
+>> +				   const struct iio_chan_spec *chan, int *val)
+>> +{
+>> +	struct regmap *map = adc->regmap;
+>> +	unsigned int reg;
+>> +	int ret;
+>> +
+>> +	ret = regmap_update_bits(map, MT6397_AUXADC_CON1,
+>> +				 MT6397_AUXADC_CON1_CHSEL,
+>> +				 FIELD_PREP(MT6397_AUXADC_CON1_CHSEL,
+>> +					    chan->address));
+> Make it two a bit long lines rather than four.
+Done in v3.
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	/* START is edge triggered: it has to be lowered before being raised. */
+>> +	ret = regmap_clear_bits(map, MT6397_AUXADC_CON1, MT6397_AUXADC_CON1_START);
+>> +	if (ret)
+>> +		return ret;
+> Does it need any settling timeout (in case it was set before)?
+I don't think so. The ready bit gets cleared when START gets raised, not 
+when it gets lowered, so a missed edge wouldn't surface as an error. The 
+poll would match the previous conversion's ready bit and a stale value 
+would be averaged into the burst, so I forced one by suppressing the 
+clear on START.
 
-Add an optional memory-region property to constrain DMA allocations made
-by the BAM DMA controller to a restricted DMA pool. Access permissions
-for the remote execution environment are managed separately.
+With the clear suppressed the set finds START already high, so regmap 
+doesn't issue a write at all and no edge happens. All 40 reads still 
+succeeded, but each one returns sixteen identical conversions instead of 
+the usual spread, and nothing shows up in dmesg.
 
-Co-developed-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-Signed-off-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
----
-Changes in v2:
-- Replace the qcom,vmid property and BAM DMA driver SCM assignment with
-  the standard memory-region restricted DMA pool mechanism.
-- Rely on generic DMA handling to constrain descriptor FIFO allocations
-  to the restricted pool.
-- Drop the Shikra-specific BAM compatible and all BAM DMA driver changes.
-- Link to v1: https://lore.kernel.org/r/20260714-qcom-bam-dma-vmid-ext-v1-0-cef87c57b7dc@oss.qualcomm.com
----
- .../devicetree/bindings/dma/qcom,bam-dma.yaml       | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+It also let me calibrate the probe, which I wanted before trusting a 
+zero out of it. Probing the result register just after the rise, it 
+counts the injected stale bits exactly: 93.75% with the clear 
+suppressed, which is 15 of 16 because in the first conversion of a burst 
+START is already low and still makes an edge, and 43.79% against 43.75% 
+predicted when seven of sixteen are made stale. In normal operation 
+everything it sees is conversions that have already finished, and once I 
+subtract those out, what's left at 30 us -- which is where the poll 
+first looks -- is -5.1e-3 +/- 2.9e-3 over 96000 conversions.
 
-diff --git a/Documentation/devicetree/bindings/dma/qcom,bam-dma.yaml b/Documentation/devicetree/bindings/dma/qcom,bam-dma.yaml
-index e72adc172af102d8f400044ea0dc32db6b2365be..1e4324799f2b3b8a9ebf9f084e457e66aad20d28 100644
---- a/Documentation/devicetree/bindings/dma/qcom,bam-dma.yaml
-+++ b/Documentation/devicetree/bindings/dma/qcom,bam-dma.yaml
-@@ -50,6 +50,13 @@ properties:
-     minItems: 1
-     maxItems: 7
- 
-+  memory-region:
-+    maxItems: 1
-+    description:
-+      Phandle to a reserved-memory node compatible with restricted-dma-pool.
-+      The BAM DMA controller uses the pool for DMA allocations, including
-+      channel descriptor FIFOs.
-+
-   num-channels:
-     $ref: /schemas/types.yaml#/definitions/uint32
-     description:
-@@ -137,6 +144,20 @@ examples:
-             qcom,num-ees = <4>;
-             num-channels = <20>;
-             qcom,controlled-remotely;
-+            memory-region = <&bam_dmux_pool>;
-+        };
-+    };
-+
-+    reserved-memory {
-+        #address-cells = <1>;
-+        #size-cells = <1>;
-+        ranges;
-+
-+        bam_dmux_pool: restricted-dma-pool {
-+            compatible = "restricted-dma-pool";
-+            size = <0x40000>;
-+            alignment = <0x40000>;
-+            alloc-ranges = <0x80000000 0x80000000>;
-         };
-     };
- ...
+The two writes are never back to back anyway, since each one is its own 
+transaction on an uncached regmap over the PMIC wrapper and the set 
+alone takes at least 7.3 us. I also tried inserting a gap of 30 and 300 
+us, and it moves the reading by under 0.06 LSB, with no poll timing out 
+across about a million conversions.
 
----
-base-commit: 40288c9206c17eb66a603262e06a58d300d0f279
-change-id: 20260714-qcom-bam-dma-vmid-ext-8a3bd3c5c00e
+Even though the vendor isn't necessarily what we care about, it also 
+writes START 0 then 1 with nothing in between.
+
+I don't have a datasheet figure for a minimum low time, this is all 
+measured, so if you end up wanting a wait there let me know, v3 has a 
+bit more context in the comment.
+
+>> +static int mt6397_auxadc_battemp_bias(struct mt6397_auxadc *adc, bool on)
+> There is nothing common between on==false and on==true cases. Make it two
+> distinct functions and drop bool parameter. It's actually a recommended
+> pattern.
+Done in v3.
+>> +{
+>> +	struct regmap *map = adc->regmap;
+>> +	int ret, err;
+>> +
+>> +	if (on) {
+>> +		ret = regmap_set_bits(map, MT6397_AUXADC_CON0,
+>> +				      MT6397_AUXADC_CON0_BUF_PWD_ON);
+>> +		if (ret)
+>> +			return ret;
+>> +
+>> +		ret = regmap_set_bits(map, MT6397_AUXADC_CON0,
+>> +				      MT6397_AUXADC_CON0_BUF_PWD_B);
+>> +		if (ret)
+>> +			return ret;
+>> +
+>> +		ret = regmap_set_bits(map, MT6397_CHR_CON7,
+>> +				      MT6397_CHR_CON7_BATON_TDET_EN);
+>> +	} else {
+>> +		/*
+>> +		 * Every step of the teardown is attempted even if an earlier
+>> +		 * one failed, so that one failing write cannot leave the bias
+>> +		 * or the input buffer powered. The first error is reported.
+>> +		 */
+>> +		ret = regmap_clear_bits(map, MT6397_CHR_CON7,
+>> +					MT6397_CHR_CON7_BATON_TDET_EN);
+>> +
+>> +		err = regmap_clear_bits(map, MT6397_AUXADC_CON0,
+>> +					MT6397_AUXADC_CON0_BUF_PWD_B);
+>> +		if (!ret)
+>> +			ret = err;
+>> +
+>> +		err = regmap_clear_bits(map, MT6397_AUXADC_CON0,
+>> +					MT6397_AUXADC_CON0_BUF_PWD_ON);
+>> +		if (!ret)
+>> +			ret = err;
+> These 'if (!ret)' bug me. What can we do if the ret == 0 and err != 0
+> on the caller's level? In other words, what can caller do in such a case?
+Nothing, and in v2 it didn't do anything -- read_channel() discarded the 
+teardown's return anyways, so the value wasn't even used. v3 hands it to 
+dev_err() instead, as mt6323-auxadc.c does on its own release path, and 
+the accumulators are gone.
+
+The 'if (!ret)' left in read_channel() are sequencing the next step 
+rather than merging an error into it, and the teardown below it is 
+unconditional, but if you don't want 'if (!ret)' at all, let me know.
+>> +	if (!ret)
+>> +		ret = err;
+>> +
+>> +	return ret;
+> This can be written as
+>
+> 	if (ret)
+> 		return ret;
+>
+> 	return err;
+>
+>
+> But the same Q as per above remains.
+I took it a step further and made both teardowns return on the first 
+failure rather than attempting the rest. mt6323_auxadc_release() does 
+the same, and so do twelve others in drivers/iio that I could find. One 
+does continue after a failed write -- ltr390_powerdown(), but it's a 
+void devm cleanup callback that logs each error as it comes, so it has 
+nothing to return.
+
+With this change, a failed write can leave the later bits set. The read 
+still returns its value with the failure logged, and the teardown runs 
+at the end of every read, so the next read of that channel clears them.
+>> +	/* Held across the whole burst: the channel select is shared state. */
+> Unneeded comment. It's obvious that guard()() takes the whole scope.
+Done in v3.
+>> +	guard(mutex)(&adc->lock);
+>> +
+>> +	/*
+>> +	 * Once any part of the per-channel setup has been written, the
+>> +	 * teardown has to run, so every exit below goes through it.
+>> +	 */
+>> +	if (isense) {
+>> +		ret = mt6397_auxadc_isense_enable(adc);
+>> +		if (ret)
+>> +			goto out_teardown;
+> Have you compiled this?
+Yes, with clang on arm64 and gcc on x86_64 allmodconfig, W=1 clean at 
+every patch in the series, and the codegen was correct: one mutex_lock, 
+one mutex_unlock and a single ret in read_raw() with read_channel() 
+inlined into it, and no path that takes the lock reaches that ret 
+without passing the unlock. The only two branches ahead of the lock are 
+the SCALE and default cases, and neither takes it. Still, I missed that 
+cleanup.h wants goto and cleanup helpers to not mix, and I shouldn't 
+have mixed them. v3 puts the sample loop into its own function, so 
+read_channel() becomes setup, then a conditional burst and an 
+unconditional teardown, with no label.
+>> +		fsleep(MT6397_AUXADC_ISENSE_SETTLE_US);
+>> +	} else {
+>> +		ret = mt6397_auxadc_battemp_bias(adc, true);
+>> +		if (ret)
+>> +			goto out_teardown;
+>> +		fsleep(MT6397_AUXADC_BATTEMP_SETTLE_US);
+>> +	}
+>> +
+>> +	for (unsigned int i = 0; i < MT6397_AUXADC_SAMPLES; i++) {
+>> +		ret = mt6397_auxadc_read_once(adc, chan, &sample);
+>> +		if (ret)
+>> +			goto out_teardown;
+>> +
+>> +		sum += sample;
+>> +	}
+>> +
+>> +	*val = DIV_ROUND_CLOSEST(sum, MT6397_AUXADC_SAMPLES);
+>> +
+>> +out_teardown:
+>> +	/* Lower START so the converter is not left armed between reads. */
+>> +	regmap_clear_bits(adc->regmap, MT6397_AUXADC_CON1,
+>> +			  MT6397_AUXADC_CON1_START);
+>> +
+>> +	if (isense)
+>> +		mt6397_auxadc_isense_disable(adc);
+>> +	else
+>> +		mt6397_auxadc_battemp_bias(adc, false);
+>> +
+>> +	return ret;
+>> +}
+> So, this function has to refactored. And please, compile and test the code
+> *each* time you update it.
+Ack. Admittedly I hadn't tested the 'goto out_teardown' path prior to 
+sending out the v2, so I apologize. I have now tested it by injecting a 
+failure into each of the helpers read_channel() calls. All five paths 
+return the helper's errno, the teardown runs, and leaves every bit the 
+partial setup wrote clear again, and guard() releases the mutex.
+
+I also stubbed out the teardown as a negative control, and the same 
+faults do leave the bits set in that situation, so the check can fail. 
+The restructure is in v3.
+> ...
+>
+>> +static int mt6397_auxadc_read_raw(struct iio_dev *indio_dev,
+>> +				  const struct iio_chan_spec *chan,
+>> +				  int *val, int *val2, long mask)
+>> +{
+>> +	struct mt6397_auxadc *adc = iio_priv(indio_dev);
+>> +	int ret;
+>> +
+>> +	switch (mask) {
+>> +	case IIO_CHAN_INFO_RAW:
+>> +		ret = mt6397_auxadc_read_channel(adc, chan, val);
+>> +		if (ret)
+>> +			return ret;
+>> +
+>> +		return IIO_VAL_INT;
+>> +
+>> +	case IIO_CHAN_INFO_SCALE:
+>> +		/* 1200 mV full range with 10-bit resolution. */
+>> +		*val = 1200;
+>> +		if (chan->channel == MT6397_AUXADC_ISENSE)
+>> +			*val *= MT6397_AUXADC_ISENSE_DIVIDER;
+> Make it if-else.
+Done in v3.
+>> +		*val2 = 10;
+>> +
+>> +		return IIO_VAL_FRACTIONAL_LOG2;
+>> +
+>> +	default:
+>> +		return -EINVAL;
+>> +	}
+>> +}
+Thanks Andy!
 
 Best regards,
--- 
-Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-
+Ryan
