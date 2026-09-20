@@ -1,141 +1,128 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C9FD331EB4;
-	Sun, 20 Sep 2026 08:12:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA99F33E36A;
+	Sun, 20 Sep 2026 08:13:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789891934; cv=none; b=hazK/2M3voUgZQ77W4JT9c18usxaPjC3cB9++ahP1QdJPjktabZRNhKoTmTFgTxHbs0TeDrA+/epsntAG6KwIW0zid1mVUTbAtN4kHkFHHFqvb1OzuaHYTq3VKcMikSL1aiZ+u+VqlpMx1zDKOZvscBPD1evGB2vA0+4RTCBn3k=
+	t=1789892014; cv=none; b=iYTY92CxDvTo2lBMWk8COPE2fYXBhggIC6sLsAHH9F4JxgzSk+WkxrJHOneJUNDiGjY0M/IIMC3DPWyg0u0fuF33z53Da84+Zb8YHj0Sqi9UdpviTvzkKBsi8kkFzwyzmjoMYdsHQ6obX8R07709Hv09/esXR+JGB75w+rC+OEs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789891934; c=relaxed/simple;
-	bh=c8HDD9gy3XYEiQiftfBz7gisxCFrZk0+YcJa41DQK4w=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=Fa9BobM3X+7lFWq+K6lRwL2tZStHd7yNDxftc25O/ifRmEUSY6pE7nFdFMdDC6d3dkU2+10fXPdj0+bLWHz+CsqNyT/g6GV1oe8JgPcpmswMfK+1IfaPAfzMidDK5IADiEeY5wb5fZze9sVtmNLMbstoy9nL2Hq89uuM7iQOCbI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=PSTTD4fd; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789892014; c=relaxed/simple;
+	bh=zJ4Kq0ilfuKS6ulNMZMQIAYed/md/A689VodwX/hPzc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Cwh6Mg0ejf7DZMou/ZPDh5KErPN/Mp677jogJsqqzcLp/wm576IDKviw5eqkMgUn1v6zM+GUhIpaaxEFG1oxIYdSOO9Ub3Ik9ealr0FDNNCJSsV33/XHNCY6HxCt+xzASdLXArpTSci924bejrlPALXshaYpmbuxTfnFrSxGoWU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M6SyDQS8; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="PSTTD4fd"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=c8HDD9gy3XYEiQiftfBz7gisxCFrZk0+YcJa41DQK4w=; b=P
-	STTD4fd9BB9N0YXqu23wPCQG8KQ/aYHmI1DgYHKt6TOHwidD95KVxmF65Mn9YT1U
-	pEEOg76F1Cr7qMjjqkWUywQB4Bu2qwasYlzo9vXFj6E3XgYIOMZU1oHK6naynlAE
-	sS5sH8z2XZ8acv0jX2QgupHuIJ6bGP9FdTCa7cf3b4=
-Date: Sun, 20 Sep 2026 16:10:55 +0800 (CST)
-From: "Andy Yan" <andyshrk@163.com>
-To: "Sofus Forstreuter" <sofus.c@icloud.com>
-Cc: "Mauro Carvalho Chehab" <mchehab@kernel.org>,
-	"Sven Peter" <sven@kernel.org>, "Janne Grunau" <j@jannau.net>,
-	"Neal Gompa" <neal@gompa.dev>, "Rob Herring" <robh@kernel.org>,
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>,
-	"Conor Dooley" <conor+dt@kernel.org>,
-	"Philipp Zabel" <p.zabel@pengutronix.de>,
-	"Heiko Stuebner" <heiko@sntech.de>, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org, asahi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-rockchip@lists.infradead.org
-Subject: Re:[PATCH 02/14] dt-bindings: media: add apple,avd
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <20260918-avd-v1-2-49977931f455@icloud.com>
-References: <20260918-avd-v1-0-49977931f455@icloud.com>
- <20260918-avd-v1-2-49977931f455@icloud.com>
-X-NTES-SC: AL_Qu2TC/SSvkAu4yaaZekfmUgWjuw/WsG1v/Ul1YBSP556jDDp9T4GV11FDUr87MypESqPswCTbCFeyft6QJZDU4sJ6lRZ7F7Xr97h7GpyhoujMg==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M6SyDQS8"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 58B79C2BCFB;
+	Sun, 20 Sep 2026 08:13:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789892014;
+	bh=zJ4Kq0ilfuKS6ulNMZMQIAYed/md/A689VodwX/hPzc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=M6SyDQS8Snru8vjucK4v7O4WRsM1gD300q/JYXyIsM2gcOm/OvKd53Jr8juTiZsrD
+	 WBPVVmkqopihFl9v1BhYpeOu7nFtvo0XuWFYE0oImf5SgaYwPqTiFNQmcFeuXo/j8a
+	 +NbByStJZ4R7gw0Cj6dBi9e7RWxD6iNhSVUMG0TpIsJ9PC2Q7cws4pVzbp0QSEiOtk
+	 vCoNondtGjtuXxfs1TZeAwHtdzPDOD12slhjruifvY0gqOAPh18xxYpACW6VKN4Ymy
+	 MZTQ3nPkba1mOwwC3sn6u3yplZCrfiIcKDkCJPl/PILi3TQ5qUStWABw57gjRzha/v
+	 GCp3wwoZtNitQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3ABEBC982E6;
+	Sun, 20 Sep 2026 08:13:34 +0000 (UTC)
+From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
+Date: Sun, 20 Sep 2026 08:13:29 +0000
+Subject: [PATCH 2/3] dt-bindings: net: meson-dwmac: add T7 support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <490c0413.5a83.1a0bdde450c.Coremail.andyshrk@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:digvCgC3zzAPla9q5t1KAA--.34829W
-X-CM-SenderInfo: 5dqg52xkunqiywtou0bp/xtbCxQ-uTWqvlQ-tVwAA3M
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260920-t7-node-new-v1-2-e6e0840c1b0b@amlogic.com>
+References: <20260920-t7-node-new-v1-0-e6e0840c1b0b@amlogic.com>
+In-Reply-To: <20260920-t7-node-new-v1-0-e6e0840c1b0b@amlogic.com>
+To: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+ Xianwei Zhao <xianwei.zhao@amlogic.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789892012; l=1537;
+ i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
+ bh=abTtflC0UcLD+x5kKzaRfULETMk7wpSe7VhzrgrkyKk=;
+ b=Xcjkq4cXvlSWwCECEchY3frjVxn0apaxGFXF2H1YZnqGdeP0qtqcPy2fGBF3YbMQaLZhc1VPM
+ 75XgH1ade34C1T7656apcYR9pzp5XdTv6rBpsQq5G0yHbxF0IiyuR3m
+X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
+ pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
+X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
+ auth_id=578
+X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+Reply-To: xianwei.zhao@amlogic.com
 
-CkhlbGxv77yMCgpBdCAyMDI2LTA5LTE4IDIxOjE1OjA3LCAiU29mdXMgRm9yc3RyZXV0ZXIiIDxz
-b2Z1cy5jQGljbG91ZC5jb20+IHdyb3RlOgo+RG9jdW1lbnQgdGhlIEFwcGxlIFZpZGVvIERlY29k
-ZXIuIEEgaGFyZHdhcmUgdmlkZW8gZGVjb2RlciBwcmVzZW50IG9uCj5BcHBsZSBoYXJkd2FyZS4K
-Pgo+U2lnbmVkLW9mZi1ieTogU29mdXMgRm9yc3RyZXV0ZXIgPHNvZnVzLmNAaWNsb3VkLmNvbT4K
-Pi0tLQo+IC4uLi9kZXZpY2V0cmVlL2JpbmRpbmdzL21lZGlhL2FwcGxlLGF2ZC55YW1sICAgICAg
-IHwgMTEyICsrKysrKysrKysrKysrKysrKysrKwo+IE1BSU5UQUlORVJTICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIHwgICAxICsKPiAyIGZpbGVzIGNoYW5nZWQsIDExMyBp
-bnNlcnRpb25zKCspCj4KPmRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmlu
-ZGluZ3MvbWVkaWEvYXBwbGUsYXZkLnlhbWwgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmlu
-ZGluZ3MvbWVkaWEvYXBwbGUsYXZkLnlhbWwKPm5ldyBmaWxlIG1vZGUgMTAwNjQ0Cj5pbmRleCAw
-MDAwMDAwMDAwMDAuLjM0YTQxMjlkNmE0Ngo+LS0tIC9kZXYvbnVsbAo+KysrIGIvRG9jdW1lbnRh
-dGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL21lZGlhL2FwcGxlLGF2ZC55YW1sCj5AQCAtMCwwICsx
-LDExMiBAQAo+KyMgU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAtb25seSBPUiBCU0Qt
-Mi1DbGF1c2UKPislWUFNTCAxLjIKPistLS0KPiskaWQ6IGh0dHA6Ly9kZXZpY2V0cmVlLm9yZy9z
-Y2hlbWFzL21lZGlhL2FwcGxlLGF2ZC55YW1sIwo+KyRzY2hlbWE6IGh0dHA6Ly9kZXZpY2V0cmVl
-Lm9yZy9tZXRhLXNjaGVtYXMvY29yZS55YW1sIwo+Kwo+K3RpdGxlOiBBcHBsZSBWaWRlbyBEZWNv
-ZGVyIChBVkQpCj4rCj4rZGVzY3JpcHRpb246IHwKPisgIEFWRCBpcyBhIHN0YXRlbGVzcyB2aWRl
-byBkZWNvZGUgSVAgYmxvY2sgcHJlc2VudCBvbiBBcHBsZSBkZXZpY2VzLgo+KyAgTm90YWJseSBp
-dCBpbmNsdWRlcyBhbiBBUk0gQ29ydGV4LU0zIGFuZCBhc3NvY2lhdGVkIERNQSBjb250cm9sbGVy
-Lgo+KyAgQVZEIGlzIGNhcGFibGUgb2YgZGVjb2RpbmcgSDI2NCwgSDI2NSwgVlA5IGFuZCBBVjEg
-b24gbmV2ZXIgU29Dcy4KClR5cG/vvJogcy9uZXZlci9OZXdlcu+8nwoKPisKPisgIFRoZSBJUCBk
-b2VzIG5vdCBjaGFuZ2UgbXVjaCwgd2l0aCBjaGFuZ2VzIGJlaW5nIG1vc3RseSB0aGUgQ00zIGhh
-dmluZyBtb3JlCj4rICBtZW1vcnkgYW5kIGludGVycnVwdHMuCj4rCj4rbWFpbnRhaW5lcnM6Cj4r
-ICAtIFNvZnVzIEZvcnN0cmV1dGVyIDxzb2Z1cy5jQGljbG91ZC5jb20+Cj4rCj4rcHJvcGVydGll
-czoKPisgIGNvbXBhdGlibGU6Cj4rICAgIG9uZU9mOgo+KyAgICAgIC0gaXRlbXM6Cj4rICAgICAg
-ICAgIC0gZW51bToKPisgICAgICAgICAgICAgIC0gYXBwbGUsdDYwMzAtYXZkCj4rICAgICAgICAg
-ICAgICAtIGFwcGxlLHQ2MDMxLWF2ZAo+KyAgICAgICAgICAtIGNvbnN0OiBhcHBsZSx0ODEyMi1h
-dmQKPisgICAgICAtIGVudW06Cj4rICAgICAgICAgIC0gYXBwbGUsdDgxMDMtYXZkCj4rICAgICAg
-ICAgIC0gYXBwbGUsdDgxMTItYXZkCj4rICAgICAgICAgIC0gYXBwbGUsdDgxMjItYXZkCj4rICAg
-ICAgICAgIC0gYXBwbGUsdDYwMDAtYXZkCj4rICAgICAgICAgIC0gYXBwbGUsdDYwMjAtYXZkCj4r
-Cj4rICByZWc6Cj4rICAgIG1pbkl0ZW1zOiA0Cj4rICAgIGl0ZW1zOgo+KyAgICAgIC0gZGVzY3Jp
-cHRpb246IENvcnRleC1NMyBjb2RlICh1bnNpZ25lZCkKPisgICAgICAtIGRlc2NyaXB0aW9uOiBD
-b3J0ZXgtTTMgc3JhbQo+KyAgICAgIC0gZGVzY3JpcHRpb246IE1haWxib3gKPisgICAgICAtIGRl
-c2NyaXB0aW9uOiBWaWRlbyBkZWNvZGUgY29udHJvbAo+KyAgICAgIC0gZGVzY3JpcHRpb246IERN
-QSBjb250cm9sCj4rCj4rICByZWctbmFtZXM6Cj4rICAgIGl0ZW1zOgo+KyAgICAgIC0gY29uc3Q6
-IGNvZGUKPisgICAgICAtIGNvbnN0OiBzcmFtCj4rICAgICAgLSBjb25zdDogbWJveAo+KyAgICAg
-IC0gY29uc3Q6IGN0cmwKPisKPisgIGlvbW11czoKPisgICAgbWluSXRlbXM6IDEKPisgICAgbWF4
-SXRlbXM6IDMKPisgICAgZGVzY3JpcHRpb246IHwKPisgICAgICBUaGUgYmxvY2sgY29udGFpbnMg
-MyBpb21tdXMsIG9uZSBmb3IgZGVjb2RlIG9wZXJhdGlvbnMsIG9uZSB0aGUgRE1BCj4rICAgICAg
-Y29udHJvbGxlciBjYW4gdXNlIGFuZCB0aGUgbGFzdCBmb3IgZGVjb2RpbmcgZHJtLXByb3RlY3Rl
-ZCBjb250ZW50Lgo+Kwo+KyAgcG93ZXItZG9tYWluczoKPisgICAgbWF4SXRlbXM6IDEKPisKPisg
-IHJlc2V0czoKPisgICAgbWF4SXRlbXM6IDEKPisKPisgIGludGVycnVwdHM6Cj4rICAgIG1pbkl0
-ZW1zOiAyCj4rICAgIGl0ZW1zOgo+KyAgICAgIC0gZGVzY3JpcHRpb246IG1haWxib3ggMAo+KyAg
-ICAgIC0gZGVzY3JpcHRpb246IG1haWxib3ggMQo+KyAgICAgIC0gZGVzY3JpcHRpb246IG1haWxi
-b3ggMgo+KyAgICAgIC0gZGVzY3JpcHRpb246IG1haWxib3ggMwo+KyAgICAgIC0gZGVzY3JpcHRp
-b246IGZsYWcgMAo+KyAgICAgIC0gZGVzY3JpcHRpb246IGZsYWcgMQo+KyAgICAgIC0gZGVzY3Jp
-cHRpb246IERNQSBzdGF0dXMKPisgICAgZGVzY3JpcHRpb246IHwKPisgICAgICBOb3RhYmx5IHRo
-ZXJlIGFyZSBubyBkZWNvZGUgcmVsYXRlZCBpbnRlcnJ1cHRzLiBBbGwgZGVjb2RlIHJlbGF0ZWQK
-PisgICAgICBpbnRlcnJ1cHRzIGFyZSBzZW50IHRvIHRoZSBDTTMuCj4rCj4rcmVxdWlyZWQ6Cj4r
-ICAtIGNvbXBhdGlibGUKPisgIC0gcmVnCj4rICAtIGludGVycnVwdHMKPisgIC0gcmVnLW5hbWVz
-Cj4rICAtIGlvbW11cwo+KyAgLSBwb3dlci1kb21haW5zCj4rICAtIHJlc2V0cwo+Kwo+K2FkZGl0
-aW9uYWxQcm9wZXJ0aWVzOiBmYWxzZQo+Kwo+K2V4YW1wbGVzOgo+KyAgLSB8Cj4rICAgICNpbmNs
-dWRlIDxkdC1iaW5kaW5ncy9pbnRlcnJ1cHQtY29udHJvbGxlci9hcHBsZS1haWMuaD4KPisgICAg
-I2luY2x1ZGUgPGR0LWJpbmRpbmdzL2ludGVycnVwdC1jb250cm9sbGVyL2lycS5oPgo+Kwo+KyAg
-ICBzb2Mgewo+KyAgICAgICAgI2FkZHJlc3MtY2VsbHMgPSA8Mj47Cj4rICAgICAgICAjc2l6ZS1j
-ZWxscyA9IDwyPjsKPisKPisgICAgICAgIGF2ZDogYXZkQDI4OTA4MDAwMCB7Cj4rICAgICAgICAg
-ICAgY29tcGF0aWJsZSA9ICJhcHBsZSx0ODEyMi1hdmQiOwo+KyAgICAgICAgICAgIHJlZyA9IDww
-eDIgMHg4OTA4MDAwMCAweDAgMHgxMjAwMD4sCj4rICAgICAgICAgICAgICAgICAgPDB4MiAweDg5
-MDkyMDAwIDB4MCAweDEyMDAwPiwKPisgICAgICAgICAgICAgICAgICA8MHgyIDB4ODkwYTQwMDAg
-MHgwIDB4NDAwMD4sCj4rICAgICAgICAgICAgICAgICAgPDB4MiAweDg5MTAwMDAwIDB4MCAweDEw
-MDAwPjsKPisgICAgICAgICAgICByZWctbmFtZXMgPSAiY29kZSIsICJzcmFtIiwgIm1ib3giLCAi
-Y3RybCI7Cj4rICAgICAgICAgICAgaW50ZXJydXB0LXBhcmVudCA9IDwmYWljPjsKPisgICAgICAg
-ICAgICBpbnRlcnJ1cHRzID0gPEFJQ19JUlEgNjc5IElSUV9UWVBFX0xFVkVMX0hJR0g+LAo+KyAg
-ICAgICAgICAgICAgICAgICAgICAgICA8QUlDX0lSUSA2ODAgSVJRX1RZUEVfTEVWRUxfSElHSD47
-Cj4rICAgICAgICAgICAgcG93ZXItZG9tYWlucyA9IDwmcHNfYXZkX3N5cz47Cj4rICAgICAgICAg
-ICAgcmVzZXRzID0gPCZwc19hdmRfc3lzPjsKPisgICAgICAgICAgICBpb21tdXMgPSA8JmF2ZF9k
-YXJ0IDA+Owo+KyAgICAgICAgfTsKPisgICAgfTsKPmRpZmYgLS1naXQgYS9NQUlOVEFJTkVSUyBi
-L01BSU5UQUlORVJTCj5pbmRleCA0Y2M0YTJkYzZkMzAuLjNjN2M1ZmUzZjBiYyAxMDA2NDQKPi0t
-LSBhL01BSU5UQUlORVJTCj4rKysgYi9NQUlOVEFJTkVSUwo+QEAgLTI2NDMsNiArMjY0Myw3IEBA
-IEY6CURvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9pb21tdS9hcHBsZSxkYXJ0Lnlh
-bWwKPiBGOglEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvaW9tbXUvYXBwbGUsc2Fy
-dC55YW1sCj4gRjoJRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2xlZHMvYmFja2xp
-Z2h0L2FwcGxlLGR3aS1ibC55YW1sCj4gRjoJRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRp
-bmdzL21haWxib3gvYXBwbGUsbWFpbGJveC55YW1sCj4rRjoJRG9jdW1lbnRhdGlvbi9kZXZpY2V0
-cmVlL2JpbmRpbmdzL21lZGlhL2FwcGxlLGF2ZC55YW1sCj4gRjoJRG9jdW1lbnRhdGlvbi9kZXZp
-Y2V0cmVlL2JpbmRpbmdzL21mZC9hcHBsZSxzbWMueWFtbAo+IEY6CURvY3VtZW50YXRpb24vZGV2
-aWNldHJlZS9iaW5kaW5ncy9uZXQvYmx1ZXRvb3RoL2JyY20sYmNtNDM3Ny1ibHVldG9vdGgueWFt
-bAo+IEY6CURvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9udm1lL2FwcGxlLG52bWUt
-YW5zLnlhbWwKPgo+LS0gCj4yLjU1LjAKPgo+Cj5fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwo+TGludXgtcm9ja2NoaXAgbWFpbGluZyBsaXN0Cj5MaW51eC1y
-b2NrY2hpcEBsaXN0cy5pbmZyYWRlYWQub3JnCj5odHRwOi8vbGlzdHMuaW5mcmFkZWFkLm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL2xpbnV4LXJvY2tjaGlwCg==
+From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+
+Add the T7 compatible to the Meson DWMAC binding.
+
+The T7 DWMAC controller requires the following compatible combination:
+
+amlogic,t7-dwmac
+amlogic,meson-axg-dwmac
+snps,dwmac-4.00
+
+Add a conditional schema check to enforce this compatible combination
+when amlogic,t7-dwmac is used.
+
+Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
+---
+ .../devicetree/bindings/net/amlogic,meson-dwmac.yaml       | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
+index 5c91716d1f21..f75a275e2d75 100644
+--- a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
++++ b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
+@@ -28,6 +28,18 @@ select:
+ 
+ allOf:
+   - $ref: snps,dwmac.yaml#
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: amlogic,t7-dwmac
++    then:
++      properties:
++        compatible:
++          items:
++            - const: amlogic,t7-dwmac
++            - const: amlogic,meson-axg-dwmac
++            - const: snps,dwmac-4.00
+   - if:
+       properties:
+         compatible:
+@@ -139,8 +151,10 @@ properties:
+           - amlogic,meson-gxbb-dwmac
+           - amlogic,meson-axg-dwmac
+           - amlogic,meson-g12a-dwmac
++          - amlogic,t7-dwmac
+     contains:
+       enum:
++        - snps,dwmac-4.00
+         - snps,dwmac-3.70a
+         - snps,dwmac
+ 
+
+-- 
+2.52.0
+
+
