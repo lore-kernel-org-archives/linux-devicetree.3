@@ -1,207 +1,123 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DA533F1AAD
-	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 09:50:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5395A3E5585;
+	Sun, 20 Sep 2026 09:52:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789897860; cv=none; b=acUpaHqkhoFnWxh84GqF2vNNhZnUkFQMzReye40sbmVh7dI2Eb5aCKg73NU05f9nxx0RKE5AZzdmxNOuEuQYX6No1MWwdKPyyNyxS6yi0pvQDUaj8FfrHZq76k9afWHpvlmOFR81TUaGAiVonHPWrM1lItL5VbZxDLqtN6PGInA=
+	t=1789897964; cv=none; b=hhCjswsGGIKH83hwEX9vq4rgIEwDMg6mVkvtqePnnytZofCAzbxRo71tZSIdvEX3fU0N97Papvrich39zf7hLXSao5wC+ilrniSde3QuElUsaXf96pAFnV8CTcPvxH3bKcZeEKegm3THNVElsMMOQJQ/yHvA8Wa5W9ifCFz2ibc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789897860; c=relaxed/simple;
-	bh=fSQDFoD2QDiHdD9sozjPUbTo2K0Q/Jp9hC3TXlCvVoI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=aPciaNTp8dvLWY7gWelkgk/PF3v8LJIQT79E5Yq88NINWnwna2wSfqTCoC7Qvt7tyYUrJ0YrlTK1dtimsVY7rck/5AGjaiXTFOYTvnO4bJ2x/bgjA3b4OCL4FqqQgsrgUW9RJj82MGNqGRa1gDWG5uLTGeK61VxYoZ+6l3Z/yzo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IEQyehoN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789897964; c=relaxed/simple;
+	bh=FcvYh1vrpULz4i9IzQ5jwW5qaC8ejCy39cXA4maoCeg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dsUBNGOHoq8qagZtHodaywXMBbeTkb/anZ0GEWZMUsKSDBWEu44Ox09t0Ygw1P35GuLUpUQpHmOafFdxF9vYLY1sVrFKlv7YQfbRfOtQBAWIACu6VRNZj8CY9cWF2vNwZINz2gsFFdnciaPplrP/xATfCE/gknc9vC9iGM1c2lw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z78p13xi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IEQyehoN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28F9F1F0089C
-	for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 09:50:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z78p13xi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4925A1F000FF;
+	Sun, 20 Sep 2026 09:52:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789897856;
-	bh=SjYJbPqlOSw/5GKAWiHuamoPBcbEI2Y/L8HWn+XiZW0=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=IEQyehoN8tnzcIUUB2yod+5aTWoBewtFtg/Oee95XirMfEdlCGT2W7Z07zD0nbI4l
-	 Z89zXci2inN8vcwuwzrc01Jvu+HI8H+ufABefjR1EggIHTO8V6pK6XssPoEKipUoul
-	 BPudP+BFT/XiulSPHnO4nP2yakcWU0sP+V6y3woUaAqwjcY4x3jg+COgABnGgRlVmw
-	 SaXpkSxkEPICfoVx/VFyTDgEjkieC46Ho6Fb74pGD8buuxmctwEpFp3KsRJV9J8cI5
-	 VcmfHsBSnlPMC1OH3yHaPYPYnGaEe80cZiKrsKn7IIqM8RiU9K6zkM+ZgKPBlNo2w4
-	 IXa1kW9mMowdA==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f13d77so2412217e87.0
-        for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 02:50:56 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByniT63GwZ8SugX+CeVL3i8Knim+sp+1WlfSa804oZdTv4SNdtdqNVeFD7QT8/KoqZ5kWHyi0wbQsmX@vger.kernel.org
-X-Gm-Message-State: AFuF++kmVD4Lcx1d/dQ2JRd0oQXkZ8o3xq+qkpKECWxgoMlrZOvkayyL
-	EsqEITl3OgAndZoNm7mHKZI3DJcQ5v1GXnTwoaNgkIQn3MMhBWTIk7yHf8XaqdmzVxWJczILEHy
-	BCoNLF10CeA4dhoF0xrtSkSAnFUkHk48=
-X-Received: by 2002:a05:651c:1543:b0:3a3:7741:b43c with SMTP id
- 38308e7fff4ca-3a5fbf06931mr15872001fa.7.1789897854214; Sun, 20 Sep 2026
- 02:50:54 -0700 (PDT)
+	s=k20260515; t=1789897963;
+	bh=uycCXDqR7CDsxUEuwBs9u9GyI2xkX2Ryw6Sy62xlFaA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Z78p13xi36PNWzeTPtTgZDRpjuETw+sZIwVh/ND30PzXVNIJvefeCwyJTTRM+bUcb
+	 FJNIV9iRAoZ2OwdAQzfUGN6QcsZVwNllQBQ/+no93MkQhZ2cx3+dqkOv3veWdSBUqw
+	 8J76Pr93+Y+ZPSZBZSc/wePz+rN92cA80AdKfUu2ohnp/XrHZHKIMXjp3/gfoqYJv5
+	 dktl3QpQeF+BLGoAvE1OpdtgEEC0PyP9nQ5TFDy/5fsRL3OlZLDTQjnsvFXvkAqf7u
+	 RL9NO27Hpc3xdhXVqgb6xI+4PuLfz7lB2zH20yLTulNxS+XALq4pqtEn+1iSPHdavx
+	 itNZTi+ye+WfA==
+Message-ID: <042c39d5-0642-4bcd-b965-61fce77b52ae@kernel.org>
+Date: Sun, 20 Sep 2026 11:52:36 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260913145527.18148-1-iuncuim@gmail.com> <20260913145527.18148-4-iuncuim@gmail.com>
-In-Reply-To: <20260913145527.18148-4-iuncuim@gmail.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Sun, 20 Sep 2026 17:50:41 +0800
-X-Gmail-Original-Message-ID: <CAGb2v67jmSPeKD-kr2MsASJy7v5Mqw+FBOvX9ziE__-35W6EJA@mail.gmail.com>
-X-Gm-Features: AcwNN1XesilYUDb2NviAIFfSkaFxFlN66gg2pfogUxTJxiboh6rzWf-zN1gPLSI
-Message-ID: <CAGb2v67jmSPeKD-kr2MsASJy7v5Mqw+FBOvX9ziE__-35W6EJA@mail.gmail.com>
-Subject: Re: [PATCH v6 3/5] thermal/drivers/sun8i: get calibration data from
- two nvmem cells
-To: Mikhail Kalashnikov <iuncuim@gmail.com>
-Cc: Vasily Khoruzhick <anarsoul@gmail.com>, Yangtao Li <tiny.windzz@gmail.com>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, linux-pm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	Philipp Zabel <p.zabel@pengutronix.de>, 
-	=?UTF-8?Q?Juan_Manuel_L=C3=B3pez_Carrillo?= <juanmanuellopezcarrillo@gmail.com>, 
-	Andre Przywara <andre.przywara@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 3/3] arm: dts: altera: add Draeger M48 CPU Module
+To: Petko Manolov <petko.manolov@konsulko.com>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ dinguyen@kernel.org, arnemaximilian.richter@draeger.com,
+ martynas.grybauskas@draeger.com
+References: <20260917163157.1380860-1-petko.manolov@konsulko.com>
+ <20260917163157.1380860-4-petko.manolov@konsulko.com>
+ <20260918-strategic-hairy-kelpie-46e807@quoll>
+ <20260920075924.GC7878@cabron.k.g>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260920075924.GC7878@cabron.k.g>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sun, Sep 13, 2026 at 10:56=E2=80=AFPM Mikhail Kalashnikov <iuncuim@gmail=
-.com> wrote:
->
-> From: Mikhail Kalashnikov <iuncuim@gmail.com>
->
-> The A523 processor has calibration data in two nvmem cells. To be able to
-> add support, the ability to add data from two cells into one array must b=
-e
-> added.
->
-> Signed-off-by: Mikhail Kalashnikov <iuncuim@gmail.com>
+On 20/09/2026 09:59, Petko Manolov wrote:
+> On 26-09-18 13:57:22, Krzysztof Kozlowski wrote:
+>> On Thu, Sep 17, 2026 at 07:31:56PM +0300, Petko Manolov wrote:
+>>> Draeger M48 CPU Module that is built around Altera SoCFPGA.
+>>
+>> How can you run a CPU module alone? To my knowledge there is only one such
+>> case, only one exception, and it was explained by the authors. If this is
+>> second, I already asked you to properly explain the hardware in commit msg.
+> 
+> I've described the board/carrier/module/whatever in the cover letter.  When i
 
-I'd say that Sashiko's comment on "leaking" memory until the device is
-removed is not too much of a concern. Sure it could be released sooner
-since it's not used, but it's not a lot of memory.
+Cover letters do not matter. We don't read them and they usually do not
+end up in the git history. Your commit must stand on its own, not rely
+on cover letter.
 
-Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
+> put the same text in the commit message Sashiko rejected the patch on the
+> grounds that there should be just one CPU architecture there.  But there are
+> two.
 
-> ---
->  drivers/thermal/sun8i_thermal.c | 81 +++++++++++++++++++++------------
->  1 file changed, 53 insertions(+), 28 deletions(-)
->
-> diff --git a/drivers/thermal/sun8i_thermal.c b/drivers/thermal/sun8i_ther=
-mal.c
-> index 1412bce63..360654880 100644
-> --- a/drivers/thermal/sun8i_thermal.c
-> +++ b/drivers/thermal/sun8i_thermal.c
-> @@ -300,43 +300,68 @@ static int sun50i_h6_ths_calibrate(struct ths_devic=
-e *tmdev,
->
->  static int sun8i_ths_calibrate(struct ths_device *tmdev)
->  {
-> -       struct nvmem_cell *calcell;
-> +       struct nvmem_cell *calcell =3D NULL;
->         struct device *dev =3D tmdev->dev;
-> -       u16 *caldata;
-> -       size_t callen;
-> +       struct device_node *np =3D dev_of_node(dev);
-> +       struct property *prop;
-> +       const char *cellname;
-> +       u8 *caldata =3D NULL;
-> +       size_t callen =3D 0;
->         int ret =3D 0;
->
-> -       calcell =3D nvmem_cell_get(dev, "calibration");
-> -       if (IS_ERR(calcell)) {
-> -               if (PTR_ERR(calcell) =3D=3D -EPROBE_DEFER)
-> -                       return -EPROBE_DEFER;
-> -               /*
-> -                * Even if the external calibration data stored in sid is
-> -                * not accessible, the THS hardware can still work, altho=
-ugh
-> -                * the data won't be so accurate.
-> -                *
-> -                * The default value of calibration register is 0x800 for
-> -                * every sensor, and the calibration value is usually 0x7=
-xx
-> -                * or 0x8xx, so they won't be away from the default value
-> -                * for a lot.
-> -                *
-> -                * So here we do not return error if the calibration data=
- is
-> -                * not available, except the probe needs deferring.
-> -                */
-> -               goto out;
-> +       of_property_for_each_string(np, "nvmem-cell-names", prop, cellnam=
-e) {
-> +               size_t len;
-> +               u8 *caldatapart;
-> +
-> +               calcell =3D of_nvmem_cell_get(np, cellname);
-> +               if (IS_ERR(calcell)) {
-> +                       if (PTR_ERR(calcell) =3D=3D -EPROBE_DEFER)
-> +                               return -EPROBE_DEFER;
-> +                       /*
-> +                        * Even if the external calibration data stored i=
-n sid is
-> +                        * not accessible, the THS hardware can still wor=
-k, although
-> +                        * the data won't be so accurate.
-> +                        *
-> +                        * The default value of calibration register is 0=
-x800 for
-> +                        * every sensor, and the calibration value is usu=
-ally 0x7xx
-> +                        * or 0x8xx, so they won't be away from the defau=
-lt value
-> +                        * for a lot.
-> +                        *
-> +                        * So here we do not return error if the calibrat=
-ion data is
-> +                        * not available, except the probe needs deferrin=
-g.
-> +                        */
-> +                       goto out;
-> +               }
-> +
-> +               caldatapart =3D nvmem_cell_read(calcell, &len);
-> +               nvmem_cell_put(calcell);
-> +               calcell =3D NULL;
-> +               if (IS_ERR(caldatapart)) {
-> +                       ret =3D PTR_ERR(caldatapart);
-> +                       goto out;
-> +               }
-> +
-> +               caldata =3D devm_krealloc(dev, caldata, callen + len, GFP=
-_KERNEL);
-> +               if (!caldata) {
-> +                       kfree(caldatapart);
-> +                       ret =3D -ENOMEM;
-> +                       goto out;
-> +               }
-> +
-> +               memcpy(caldata + callen, caldatapart, len);
-> +               callen +=3D len;
-> +               kfree(caldatapart);
->         }
->
-> -       caldata =3D nvmem_cell_read(calcell, &callen);
-> -       if (IS_ERR(caldata)) {
-> -               ret =3D PTR_ERR(caldata);
-> +       if (!caldata)
->                 goto out;
-> -       }
->
-> -       tmdev->chip->calibrate(tmdev, caldata, callen);
-> +       tmdev->chip->calibrate(tmdev, (u16 *)caldata, callen);
->
-> -       kfree(caldata);
-> +       devm_kfree(dev, caldata);
-> +       caldata =3D NULL;
->  out:
-> -       if (!IS_ERR(calcell))
-> +       if (!IS_ERR_OR_NULL(calcell))
->                 nvmem_cell_put(calcell);
->         return ret;
->  }
-> --
-> 2.55.0
->
+Sashiko cannot reject a patch. Does not have such abilities nor power.
+
+Regardless its comment was right - your description was between
+incomplete to confusing.
+
+
+Best regards,
+Krzysztof
