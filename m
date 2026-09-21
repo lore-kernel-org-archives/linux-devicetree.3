@@ -1,141 +1,85 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84145476682;
-	Mon, 21 Sep 2026 20:39:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AFC9448BAB;
+	Mon, 21 Sep 2026 20:39:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790023185; cv=none; b=QS5rjn0oqihy5gMc+MENZpoPu40qn7qbxyliyATJdjKALRQcD4YN7+a5VS+NlLQH9lt457CFZXu7IBX54qvAoK6+dGIJT0nQFApPJtWBG942svGhzsHjdFQbVnBp2v9Y4Biulz4iqv+TlDy3IhB7YGV1aSeejUlEjpnvZNk4ZHI=
+	t=1790023190; cv=none; b=XIh00JdRsLiARCDA16C8ekPwWait3uM3dJ+UOHOAyzYsEjKL8HzLevkTqpKD+N+MD+THJFuJyRap2/6wfMlhA09NjTM64rlHEh5y2LBOaQ4quF6/fl1eFl6kLiwhflaGk/b9V7W2LQr/vCgcDTEFSaTa+Q+A4aDAhoS7PXgX3g0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790023185; c=relaxed/simple;
-	bh=qT04uTaurPQCwegVxclAb4cTisTzk38I9pdbRBeW/D0=;
+	s=arc-20240116; t=1790023190; c=relaxed/simple;
+	bh=EhBZhbYrQK6Cu1Th1gCXCHDCDkF6SJh+T4Sxzy0WVl0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=AKRf6ry4EgpY2MdfWs3Kc4wF+ZxQadToGb+Krl4O5i2CfIWGHltR8tv7NC74WtxyegLubR31xZf01wD4N+J4GleoNL1lXNoqKCSgfdwVF5obdiJlTy8btBn8+5W4eIBqdxcsohIKxsch2Nbwi4XUhJeyt//l1djkHRzR9eIrJp0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MIcp8P8Z; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=cbEvWRkaa+eEQS2eXYoeKTWwO2CZSLgH/j8qBWDO9uxmFqGq6IrSxn0pYPzn6KiW8R6FSsKkzVXAZhXRFOlPy7XoIzRP6uzu+O96m8AVWBpJ32bkRFZSdEPiIaTgu0YrDirQO2JQC5y1WmN5lBREfvEaPstAGvf59KiaHg7C6PE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gMCpr7Iz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MIcp8P8Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF7E51F000FF;
-	Mon, 21 Sep 2026 20:39:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gMCpr7Iz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C68D71F000FF;
+	Mon, 21 Sep 2026 20:39:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790023183;
-	bh=tWGl7BiS8nBuHbK7FGgbRbZWhiO7S9O9bhvxRVSTAVU=;
+	s=k20260515; t=1790023189;
+	bh=iw+NWOUfNMrDKuOac/YKhbZLDke4f9kSIya86Za6rvQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MIcp8P8ZyH55CpTB6kvuKUvOQJVVOWqGplqeFYQyUylZynfHhT4+HdjCOzQ50ge89
-	 L73MF6xd2g6VbllcuV1O+1B38Oc+64RFjNg7j/KajhNTNuimK+xnsYuNBNz5fVfasN
-	 sqqsRfJ+pr4wN5hzAXMIFXHb+q6hj4/Ia9jZX1r8IDBdE/Lo8uGev4p+z4Wl5luIt7
-	 g5mp1n3g4yTIuhkOBeL7tAgmKuahHQK8zWzjlFfPsIWy7b+TWd1q5+/N628kxlz1gp
-	 kFaArI8Q0UtGvGWDJ/D/6iL/gnzhKCLfx6t6wtkfhIbnrIxsbKUH852HU0h4t+/MAF
-	 DSG1bgZfzgwVw==
+	b=gMCpr7IzkosziEgK2Yy2SgiBXvxPQV2tpB2zHA9Vlj7JrdRC78mqyFXo7D7EZSfH7
+	 mf+uEVJUi7QxwfKCYxzBxtkxX4yh5cIBFVkRtgfjUpDTSxXg7TLGtmCu1zuvIM1rvC
+	 QTlyLMfTkf5iRE8DVm0nGlG5mUcGhC0Jz0wz6mz28H9vxgstSy7BrcaP7DWy2cnlTc
+	 zNJ2RyXzkqpW4Pph4IWt7GdSRit/rUPhq08ix1z9qLSaTOO7vm9Yn/gqvnJ3lao9Yi
+	 si/bzTnqCg4+a8gjUid6oZmpUhAKt5ufkd9BSi57h37J5aNS6af94sNBkrXGs6DDir
+	 2aDM0NcIjl2XQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 1/6] dt-bindings: PCI: rcar-gen4-pci-host: Add R-Car
- X5H PCIe4 compatible
+Subject: Re: [PATCH v2 4/8] PM / devfreq: rockchip-dfi: add NO_INTERRUPT
+ perf capability
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marek Vasut" <marek.vasut+renesas@mailbox.org>
-Cc: wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, robh@kernel.org, linux-pci@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260921202823.72620-2-marek.vasut+renesas@mailbox.org>
-References: <20260921202823.72620-1-marek.vasut+renesas@mailbox.org>
- <20260921202823.72620-2-marek.vasut+renesas@mailbox.org>
+To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260921-rockchip-dfi-cleanup-v2-4-43ff34ac8599@collabora.com>
+References: <20260921-rockchip-dfi-cleanup-v2-0-43ff34ac8599@collabora.com>
+ <20260921-rockchip-dfi-cleanup-v2-4-43ff34ac8599@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 21 Sep 2026 20:39:42 +0000
-Message-Id: <20260921203942.CF7E51F000FF@smtp.kernel.org>
+Date: Mon, 21 Sep 2026 20:39:48 +0000
+Message-Id: <20260921203948.C68D71F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] dt-bindings: pci: missing phys requirement for Gen5 PCIe
-- [Medium] dt-bindings: pci: missing minItems allows incomplete reg arrays =
-to pass validation
+- [Low] perf: logic inversion in commit message regarding sampling support
 --
 
-commit 514029652899ad708ecb1a48b34db8779da18327
-Author: Marek Vasut <marek.vasut+renesas@mailbox.org>
+commit 568c8dc55a298020ff3044a68b97809f490ba7e0
+Author: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
-dt-bindings: PCI: rcar-gen4-pci-host: Add R-Car X5H PCIe4 compatible
+PM / devfreq: rockchip-dfi: add NO_INTERRUPT perf capability
 
-Document bindings for R-Car X5H (R8A78000) PCIe4 host module. The commit
-introduces the "renesas,rcar-gen5-pcie4" compatible string and adjusts the
-"reg" and "reg-names" constraints, as the PHY is now a separate IP for Gen5.
+This commit adds the PERF_PMU_CAP_NO_INTERRUPT capability flag to the
+rockchip-dfi PMU. This informs the perf core that the PMU does not support
+sampling.
 
-> diff --git a/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yam=
-l b/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
-> index 64f456c6a75a1..9767a52f3904e 100644
-> --- a/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
-> +++ b/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
+Link: https://lore.kernel.org/all/20250619140442.GH1613376@noisy.programmin=
+g.kicks-ass.net/ [1]
 
-[ ... ]
+>     The perf subsystem's PERF_PMU_CAP_NO_INTERRUPT is a bit of a
+>     misnomer.[1] Instead of meaning that the PMU has no interrupt, it
+>     actually means that the PMU does support sampling. On CPU PMUs, this =
+is
 
-> @@ -84,6 +74,46 @@ required:
->    - resets
->    - reset-names
-> =20
-> +allOf:
-> +  - $ref: snps,dw-pcie.yaml#
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: renesas,rcar-gen4-pcie
-> +    then:
-> +      properties:
-> +        reg:
-> +          maxItems: 7
+[Severity: Low]
+Is there a missing "not" in this sentence?
 
-[Severity: Medium]
-By moving the "reg" and "reg-names" properties into this allOf conditional
-block, does this bypass the automatic array length constraint inference from
-dt-schema?
+In kernel/events/core.c, if a sampling event is requested for a PMU with th=
+is
+flag, the allocation fails with -EOPNOTSUPP. Thus, the flag means the PMU d=
+oes
+not support sampling.
 
-Without an explicit "minItems: 7" constraint here, it looks like the schema
-will fall back to inheriting "minItems: 2" from the base schema in
-snps,dw-pcie.yaml#. Could this allow a device tree node with only two
-registers (like "dbi" and "config") to incorrectly pass validation?
-
-> +
-> +        reg-names:
-> +          items:
-> +            - const: dbi
-> +            - const: dbi2
-> +            - const: atu
-> +            - const: dma
-> +            - const: app
-> +            - const: phy
-> +            - const: config
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: renesas,rcar-gen5-pcie4
-> +    then:
-> +      properties:
-> +        reg:
-> +          maxItems: 6
-
-[Severity: Medium]
-Similarly to the Gen4 conditional above, does this Gen5 block need an
-explicit "minItems: 6" constraint to prevent truncated register arrays from
-passing validation?
-
-Also, the commit message mentions that the R-Car X5H PCIe4 controller no
-longer includes the PHY register range and that the PHY is now referenced
-via the "phys" DT property. Since the driver requires this external PHY to
-be present, should "phys" be added to a "required" list within this Gen5
-conditional block so that incomplete device tree nodes fail validation?
-
-> +
-> +        reg-names:
-> +          items:
-> +            - const: dbi
-> +            - const: dbi2
-> +            - const: atu
-> +            - const: dma
-> +            - const: app
-> +            - const: config
+The code in drivers/devfreq/event/rockchip-dfi.c:rockchip_ddr_perf_init()
+correctly applies the flag, so there is no functional issue, but the commit
+message contains a logic inversion.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921202823.7262=
-0-1-marek.vasut+renesas@mailbox.org?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921-rockchip-d=
+fi-cleanup-v2-0-43ff34ac8599@collabora.com?part=3D4
