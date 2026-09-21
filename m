@@ -1,119 +1,171 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7239443230D;
-	Mon, 21 Sep 2026 11:40:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36E33485506
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 11:44:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789990835; cv=none; b=O95lTfTScUhE/UVhlVEZ9wbmepw5kO7/8aZtHy7AOwbjzVmM9bTK30trsibTBoXzdkdo+OVZbUuKlvU3Cr6r4CLiqO12Y1dDeC0PRUXMgSa/vxT9/mu0FaMqjKwSrIKZnEX1Elc1aMrQECRaH3D820PpMo6fajU7FYuirQnWGXU=
+	t=1789991098; cv=none; b=iJxwTLokqSZrKNoA8I5BvHUnhmx4/AnmwvQyxwkFl2ENiFEZ8LRkuxMslkskLPhf+waJfkAtw4QGFzj3Mqqj3PHbOjz7YX3y9oDq+bkz1QfLcX5Z3bH1Vzc3//i1XHk+lEv3Bv0mWx600UK5DYDKLn7dD+9CcVjRsqb0d55A34I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789990835; c=relaxed/simple;
-	bh=npATMY12C+GY7ohGLRtqK0XErpc5fS+ZSiUMul/BW9M=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QH9xnt7m1SlUgzR8tv+xAzh9dIitp9SBvO7QBFgJPKHH2s/5aDqyTtwjVsrbuw5zzTN4dzzhGSL5+dFx3CG27upHZMEgyo4shA20chqOhtlDl7S7ciMOWgE3i2t6MR7kDbj4loaMxwu8We03k1WZvQOFlM5oeQvrFr/lrMFp5LU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZIVzC4oA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789991098; c=relaxed/simple;
+	bh=P/ehlcwcSIptN0yDEvjTfDoiN2wwjIFY+ixKWIuUPqY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=F99W2H04br3r5vaQmzJHJ4LDOCi8icbkxHhIQ3jTF5A7m+iFmi0avoCaAP2q37z8z6zh5xc4ozV/34n2lvqE1GtovhI12vBlkjLye2fWwsAdBeybD0Co9kTs2igxMVJSsHkEZLyvlylDYRqtKkBxqt4CfpKHVLzmrBumQOOKycI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XGfd2RP4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RhidlA2z; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZIVzC4oA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 644391F000FF;
-	Mon, 21 Sep 2026 11:40:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789990833;
-	bh=Pma1GOXfPcPEVtvFI91F+Aj2Iy3Q46cl+VPrJ6bEO30=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZIVzC4oAwdtToJflZXtRHdIXZ/xN7MUn27nO7LUyDdbyhKViWlhQurkezDBNFFhqV
-	 4JLz/N+WkoGUwrxL8O7Yc9dvGBv7N2EquDnFVIn4E4F3xQtanh1H552NCy0vbdLfkZ
-	 Yug6+oi6hxC00SR4PyL89tYTnDN4+LvrRGNwI1PVAnonGM6B7q5qagld527oDchIzw
-	 j/FX1xpKf1+hG98fuVs5wyaoNV1ZSvUzD0ufHD0RdzGwWNUaHlFZMQVPg+aBEWKmca
-	 x5gpZTkEV9cbFZ97KMlRtjR/7KZEQIZAaZePgdBWsEwzf+XL4wwMYRgMLcpMmm0EGQ
-	 I7pH2c/tI949A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 6/6] arm64: qcom: monaco: Add PCIe Endpoint nodes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Krishna Chaitanya Chundru" <krishna.chundru@oss.qualcomm.com>
-Cc: olteanv@gmail.com, conor+dt@kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, vkoul@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, linux-pci@vger.kernel.org
-In-Reply-To: <20260921-monaco_ep-v1-6-63c5282fb0db@oss.qualcomm.com>
-References: <20260921-monaco_ep-v1-0-63c5282fb0db@oss.qualcomm.com>
- <20260921-monaco_ep-v1-6-63c5282fb0db@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 21 Sep 2026 11:40:32 +0000
-Message-Id: <20260921114033.644391F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XGfd2RP4";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RhidlA2z"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LAeEjJ1219020
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 11:44:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	qs5l2ZklcXkpQyTIj4J9g8bsXs2G4KWcTXKNEWTCVZo=; b=XGfd2RP4Hfr6GiEq
+	LyFNftfapntzL7aAKfCMRQJwgX0/SvHzYpsqiF2MB3IE8VvvE439vazYxuX5VyO/
+	f6p0WZUbV3OMv0rtUphUnGgttOhfwzlPLzFQf8A/FX6YWY78GORAAdngg2euRoMP
+	DkHzbe4PBUF9g6QS5ZktoX0It/6HNIynrFjlyYotFqSc4acM0d74q/j1+IQQnGvw
+	u7PHBrsJL4RDwOa6GPtRQ+/96Ed5J6H4C4nMhpjbVTEQthufyXm5nj8FhsXVMchq
+	Fu0i83QXRDXc/Hw8dVAvR3vVprbilaZtbwFdzW6nEYlfeXe1cZBmZeDUocL9Tgpy
+	MqspTg==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gu01192eg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 11:44:54 +0000 (GMT)
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-9106bb33cdfso6997436d6.2
+        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 04:44:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789991094; x=1790595894; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qs5l2ZklcXkpQyTIj4J9g8bsXs2G4KWcTXKNEWTCVZo=;
+        b=RhidlA2zwVTlIUXlHIEyYDRM382WVPJO1pf2e3N0DazTFBb4VZ+w66BM0yCM5txFXx
+         DNmShT497kxz62XSVleWp3T9Bo4ZP1LNta+fKNtRBlAE5o3lzhnlyvms/pQAd3xkO3/f
+         0ek0St3Mp0LybEENLe/yBXKegM76BEpqBEHvvFkOyU0wga8rpPj05iMybswBsCvvquy6
+         z6I5X3/UpsW8BAgAk/dqYLhMV0KvrKZqb/91tkU7BA0KZ0U1rN9ymsuVoPLNa8q0Xz4W
+         Gm00TaBPasIyAk8cIsi1Jb5wbYNrc1JbLbzTf1HZLbX9v5Y8M6QbPnu7r3nZJjbCUjO5
+         M1/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789991094; x=1790595894;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qs5l2ZklcXkpQyTIj4J9g8bsXs2G4KWcTXKNEWTCVZo=;
+        b=bjxP2VD7dYyUqjEozaxMwUEmpFHFXBXQHWD/A4s5p3QgA4rG97gHIbg8k8lSwYZoJT
+         QIclEUGnZLtk6GcohGFSgpV9OmUijXwl9ZPyyAOrN2rcvCq0KxNq7XLirGFPLfDex+EX
+         AMJ4dIKqSEWtOa1k2PU57qd6Jg8ST3h894yPRz5klmIZfdKD/M5oR3wzTtqzyvWeS4q+
+         JQgS18ZSEYiRbMkRgWzk0xHR+O9U8fg3D12FX7VTOmVbc1XGsDeG1t0Mn3bIZ9azwUSX
+         iA4Mv4SdRg4dbqjaYEYfj9gJz8XWRNrHC4ptnhnMAMV/XZRfy7cKEs02VgoCCzDijAxe
+         OkwA==
+X-Forwarded-Encrypted: i=1; AKwUvBx/ehmi2RS8g41NiJkERG8sYdzzBa6Fmg/wGgXKEm/RNdATjm5P+zyDAAILa02+D2LylUIey8+uswt2@vger.kernel.org
+X-Gm-Message-State: AFuF++mf9lPKUjDDyeiQ1Cz7uklKryutvsemGNbsS8T0UVlMWBGLebem
+	YkqxD1z/YjdaVdZqiPuZhlfhcHrHbfsUc9/+Ck0vhq9mDYaxFkZLIZhMTNtO7eXRvFIej89qp4d
+	4qVFfrOJ6zS9SEnjZfeCUFm6OTcTtLk207lacA8WaWKZT/KbSS4OCZw6D5s4IQ1Zv
+X-Gm-Gg: AYBFou3iYZ4gtgCl2GtF0eYMfgiHCstHcJNJEOv8Xg4TITY1yziX1wqGywW8J/HbWHG
+	Xu6gzy5ZzydC9gAFr0dZVqZ8woDXYEjdFxt7a+u5naBqGV7aCzw/cT2ICAaVO1TVcD4Oz4qPpOP
+	LkWOWcTZ0XY8ohZc9i3fFHVCKcNsZHvaDMTDxGiknBCtbrTiJI2aRf4Y/WFEzcz1aqTdCXQrvkd
+	Q6ffeqSSJRKnJpwzBuI6g5Eu2U/7neLudY1yfBGZLuQfP+Vzd2pSIuAThjg7OOpPEUwEjfXUz7Y
+	EIIp8m0VzBoUwdbFU5DOyBJsNsuivd0HrQbs5MY/OtrnKm2/3qh2MtoOBzAO3ZcxMu/vtlIlGel
+	eDrCaC/tmGtdsvof1FwbpAw==
+X-Received: by 2002:ad4:5ca8:0:b0:912:127c:d7f6 with SMTP id 6a1803df08f44-913fc9782acmr1419346d6.4.1789991094411;
+        Mon, 21 Sep 2026 04:44:54 -0700 (PDT)
+X-Received: by 2002:ad4:5ca8:0:b0:912:127c:d7f6 with SMTP id 6a1803df08f44-913fc9782acmr1419036d6.4.1789991093948;
+        Mon, 21 Sep 2026 04:44:53 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa67e35d64sm4266508a12.30.2026.09.21.04.44.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 21 Sep 2026 04:44:52 -0700 (PDT)
+Message-ID: <15daa9f3-162c-43fd-b22e-0194b82f602c@oss.qualcomm.com>
+Date: Mon, 21 Sep 2026 13:44:50 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/8] arm64: dts: qcom: Add t-power-on-us property for PCIe
+ root ports
+To: Manivannan Sadhasivam <mani@kernel.org>,
+        Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260911-t_pwr_on-v1-0-c9eee197d082@oss.qualcomm.com>
+ <d5821380-3006-4eb6-86fd-977d6e17a8bd@oss.qualcomm.com>
+ <f2324e26-88a3-4411-acd5-9645552c4a14@oss.qualcomm.com>
+ <fbtundyvbywomj67ee3jyogqhgrvndrjqctvkb7ttp7iy7pkvq@xocvzaiq7zmg>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <fbtundyvbywomj67ee3jyogqhgrvndrjqctvkb7ttp7iy7pkvq@xocvzaiq7zmg>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: Lmxm2HNztMPNiILXhDllwP7w9Gy8l0Kk
+X-Authority-Analysis: v=2.4 cv=dPczC+Zb c=1 sm=1 tr=0 ts=6ab118b6 cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=Ei8_fX62Guvo6lbYW7UA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=1HOtulTD9v-eNWfpl4qZ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDE3MCBTYWx0ZWRfX25DsXjRTEwG6
+ wvE8l04G6QVFvJOidX7dgyBHGY1CZSim6ZOftATkJoMYZ9dCPIsn0ZHmXiA0mjb7m4W/mwl/Sgt
+ M2wf5lBRzQ2exQF/XjME+Yco4MO/HcAuDsnEiPwNTtBAETr6gOn+HsoAHTaiK0Mr52qSuZlDGgE
+ Yl4djHtqCusoEJiaDDmKLauXNPL1PAWKiOrFZjQx15Sld9Xh5+ODIqMCHV76DDyigT/oNrhtrql
+ mqJqkfZ1svBak+5LNmEXQmxHmUY9hzYcwrsxM/XUXTIQWNTGKU5rsZ3XqoqDkVYoc7/Y7GkBDcl
+ 4sa27FRDG/vsc2yLvt5aVi4RtZbleSsoeFsja5T9X2OGHsCS25p1Nmi0s/rIScnrCUZJZ59/p++
+ 3fae9i9KTGzkY18UtQT3327Z54TgswtMPt7v8uAQmpVKjTHDQLH7BWdlHFhdGwRBKGTeT+e4h+4
+ bOSS/5pozVvtMSuePPA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDE3MCBTYWx0ZWRfX9hs7FHWmBAke
+ 3V34mwBZzX1nF63+s8RQKo+YJPCIzNLibgtw6SUXE0mi4mvbII/afC9FwvXpXibiEOHGzpt6mO/
+ QUkcsB9gECXnrfnx6BhaDkTJkjUZL3I=
+X-Proofpoint-ORIG-GUID: Lmxm2HNztMPNiILXhDllwP7w9Gy8l0Kk
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_04,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 malwarescore=0 phishscore=0 lowpriorityscore=0
+ priorityscore=1501 bulkscore=0 clxscore=1015 adultscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609210170
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] dts: qcom: spurious PCIe WAKE# assertion due to output-low
---
+On 9/21/26 1:34 PM, Manivannan Sadhasivam wrote:
+> On Mon, Sep 21, 2026 at 04:40:43PM +0530, Krishna Chaitanya Chundru wrote:
+>>
+>>
+>> On 9/21/2026 2:09 PM, Konrad Dybcio wrote:
+>>> On 9/11/26 8:50 AM, Krishna Chaitanya Chundru wrote:
+>>>> The Qualcomm PCIe host controller driver added support for parsing the
+>>>> -power-on-us property[1] from each Root Port node and programming it as
+>>>> art of host initialization (PCI: qcom: Program T_POWER_ON) [2]. Prior to
+>>>> this, T_POWER_ON was expected to be programmed correctly in hardware or
+>>>> by the bootloader, but not all targets support this, which can lead to an
+>>>> incorrectly calculated LTR_L1.2_THRESHOLD in aspm.c and improper L1.2 exit
+>>>> behavior.
+>>> This is a good problem description. Does it have observable effects
+>>> that could also be mentioned here, beyond perhaps lspci reporting
+>>> an odd value?
+>> we haven't seen direct problem till now, but we might seen some issue due to
+>> incorrect LTR_L1.2_THRESHOLD value.
+> 
+> Can you specify what issue can be seen without this series? I'd assume the
+> link will fail to enter L1.2 and will result in slightly more power drain as
+> the link can only enter L1.1.
 
-commit e087a4ad529c59501ceaa5d2b1a9d03392103204
-Author: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+Would that produce an explicit warning message somewhere?
 
-arm64: qcom: monaco: Add PCIe Endpoint nodes
+i.e. can I reasonably be able to tell I'm missing this change and
+I need it?
 
-This commit adds two PCIe controllers that can operate in Endpoint mode for
-Monaco. It describes the Endpoint nodes for both controllers, including the=
-ir
-register regions, clocks, interrupts, interconnects, and PHY connections.
+(if not, this is of course not a blocker, but the answer to that
+question is always worth sharing)
 
-> diff --git a/arch/arm64/boot/dts/qcom/monaco.dtsi b/arch/arm64/boot/dts/q=
-com/monaco.dtsi
-> index d7d135e87a8c7..8f2f0941383aa 100644
-> --- a/arch/arm64/boot/dts/qcom/monaco.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/monaco.dtsi
-
-[ ... ]
-
-> @@ -6225,6 +6323,52 @@ tlmm: pinctrl@f100000 {
->  			#interrupt-cells =3D <2>;
->  			wakeup-parent =3D <&pdc>;
-> =20
-> +			pcie0_ep_default_state: pcie0-ep-default-state {
-> +				wake-pins {
-> +					pins =3D "gpio0";
-> +					function =3D "gpio";
-> +					drive-strength =3D <2>;
-> +					output-low;
-
-[Severity: Medium]
-Will configuring this pin as output-low cause a spurious PCIe WAKE# asserti=
-on?
-
-Since the endpoint nodes omit wake-gpios, the endpoint driver in
-drivers/pci/controller/dwc/pcie-qcom-ep.c will not request the GPIO to
-logically de-assert it. Because this configures the pin to output 0V, won't
-the active-low WAKE# signal remain permanently driven low by default?
-
-This could cause the endpoint to continuously assert the WAKE# signal to the
-host, potentially preventing the host from sleeping or causing a wake
-interrupt storm.
-
-> +				};
-> +
-> +				clkreq-pins {
-
-[ ... ]
-
-> +			pcie1_ep_default_state: pcie1-ep-default-state {
-> +				wake-pins {
-> +					pins =3D "gpio21";
-> +					function =3D "gpio";
-> +					drive-strength =3D <2>;
-> +					output-low;
-
-[Severity: Medium]
-Does this have the same continuous WAKE# assertion issue as
-pcie0_ep_default_state above?
-
-> +				};
-> +
-> +				clkreq-pins {
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921-monaco_ep-=
-v1-0-63c5282fb0db@oss.qualcomm.com?part=3D6
+Konrad
