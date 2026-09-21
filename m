@@ -1,199 +1,141 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07ABD457E71
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 11:37:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 384F448F000
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 11:39:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789990658; cv=none; b=DBzq+P8eSCYJPpD458Yc6ZzsnoxUr7SKnKNZwKFw5YS5M+p6+cuYIODFakfsrDNuvXyg9POTLreRp7vy/ndMx/wB1qtSCAy0L4yM9e12MIKb+TzMtGYwgBi6TH5I3GKErGttll9FJzZ5yLIJiLAtIpzrJzo5bKtV6/OFvsCGqW4=
+	t=1789990768; cv=none; b=ldy98GYVpk5fJ295R/uBVvjOn3ynGcWiFzUZB1WHHIG8RU5NsDxbyT7q6w3dRJXqwe4Tp9KqZXPFbAt6gxmAJtBkgSdQPDQTV/QlmrE5e1MpgfxvG9Nmb/UtAExekC99PhXql3ukDjiLES6j//N3rReQ4tBsawSPDkPW3kC+gI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789990658; c=relaxed/simple;
-	bh=/kEURet12G5FSZnVX3MjvFTJwDIqrxFW27XSiA3Bboc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SYkHSB+E57OyGG40bJc66SYGqyN305/VCG6SesgvO3bTsXRLovml6b4Y0p328EVlHJfc0gnFh2sNm9w96BhxB1eHsLnUbvctvdpx5T6/rqfU9M9HhC7fxp4l92GlWYdaKOBxR+tjb40/ukKOAyQUt713CfRi65d2rNhTrt4KDiE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Ae37Tqjs; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GwU4ocIR; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789990768; c=relaxed/simple;
+	bh=SgVXdnakh1a9vybRscg8PdXIeBwRWAm6jhyYz/fIS3w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=laTHISHoG+d3maAR0UN9tLb/dxORfnqAp8SCaSCzWFwgljXz253XxVNd7vkFPCRM4N9gL5bQ8PFpffPLod424oSR777PWCf14pj5HvhAfdbMU7oVv9JKJlqYgdXELooMuVXv9l+V4V9spU2kOlgk/XNmRX6FAtbqtapuZkes0Ws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c6018jKc; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ae37Tqjs";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GwU4ocIR"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LAdo801217553
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 11:37:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	+ldSCCQUbN0yIvEs2nrmIuR/2PtGFwnoDR0CjVLH6bk=; b=Ae37TqjsgDsPv9sg
-	vQEMgfvykwQBAydcFsMoZLMG1IKlhH9PosIdCEmu2XBwLXyGneqVI700cE0EC8/D
-	jiOMqv6ygB34bz18yWaV2w8g9ER5X1qBuu5LZXegGawDqLxBh2COTcAkj2m4qdyK
-	1plDd7ieQwtFUt5rIE9rfEQwtASg+GunOpL2JOEo0baExUPFHrNO2SvXjnBRBFmW
-	WQnP+F5pV5JTfsFTp1NT+A4pTAB1UqQGBBveswEmFE39MQ2xW+5dXXxgAP2F+niw
-	Fh5TjXgQXaj5KliiQWEaDfJoolC5d3hj205ZT+oo9g/Lz2rlnUJ0oJWLFaf8NguS
-	YCbjHg==
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gu01191jg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 11:37:34 +0000 (GMT)
-Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-7a6634ef51bso28030137.0
-        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 04:37:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c6018jKc"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e8185e037so16086215e9.3
+        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 04:39:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789990654; x=1790595454; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+ldSCCQUbN0yIvEs2nrmIuR/2PtGFwnoDR0CjVLH6bk=;
-        b=GwU4ocIRj4dHS55nIoxOF78wlY/zBip7vc79cxhqiCZBPb6e2wbIaw0xA7PsF5AU3h
-         ZEhW1V0MHbJ7YAQ3tdStsNBt+LYR1fYerVnJURQMmhNXXtLY5OgJnIgl0F9xaRgfk2tv
-         icelt5uo3gb79MAjHUUg5FZaZcIh2rQ8K3De3lOyYragaxX5PI4WePsjtXAj+Wojgj6l
-         oecMTgMwE+FJd8VosF6WkFeAzaDVLErT3sDYzKCN5tO30jx+K3PgtKZCK9794/GdiU/d
-         938KzfE+zSgqUjACjLHhc8h/IL2RBPaGy50a3b5NdX/uizaLxyE6+yV17dizKyGqbdI5
-         bzoQ==
+        d=gmail.com; s=20251104; t=1789990765; x=1790595565; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bJjHs4K3u+gvdjbfOs0Xg8GRiY9vzGbZiOJ805s9gPE=;
+        b=c6018jKczyYlBKLfZW09cEBcNQYjNWUZ22B18YONln1fit9LNYjCrUgWhAp4kntnJX
+         ovnd31bQlq7X6It1ovLQIMguGEfOB4/HWZ60nCWHhPVp62LTS6whP0lehzq1Km67/LwI
+         dge6VjpjewkaCFq11ksUzPgzGNioT+pUV1SKmfZMRL6L7v3HbrgPb06TzziDW1t7LDx4
+         aSsWB0nGkpAdfueQ3Y6Kdi5tgI1x+K3d9BmJmByyG4DGBL0hJFrnxvw3Dh2f7koP4SXI
+         14LGSHdtM1P8kNXXWcwCABXV9HuCADCM0HRwN9F8xughGAqQYz4k56iDEFxfkvIKshgj
+         uBgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789990654; x=1790595454;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1789990765; x=1790595565;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+ldSCCQUbN0yIvEs2nrmIuR/2PtGFwnoDR0CjVLH6bk=;
-        b=HvvY1Vcv7qpVC417RlC2J3YMB+qAecMScm54Tu8XREEkFNy4txkgbJkrZQvKBvJ5yo
-         S9Xrf9YP9mJRCHZBlAmxAdmPyR+7OIbHNyfvmJ/U49wZZoCe/BP9ucPQh3B6/FDA9TDZ
-         xn1sKna+ydltWYvefOXH9Tygwq+ROJg/r8ZyN4ST6rsd+zA49SkSLnHsCm8M9XJgtqVe
-         u0PizViBOYglXPiYw1A5D9BOtrJ8Ic821GC1iZNuhSQaa9Rp+eGa1vgeFguEbTBJgrIr
-         TWlPF32QCqnqJuD6yjGEYM2gtsi8ZiJft3d/QMD3KIGAfblcL8DmDsVyUeE7Gf/jxDHj
-         jssQ==
-X-Forwarded-Encrypted: i=1; AKwUvBywI12XvhOBtJIZIxbA1tv6czsmIE88BZh3FGxCsjcnvhJ9wRZXcaS4RsFJ+mFdJL7LTfDcHanxXaAP@vger.kernel.org
-X-Gm-Message-State: AFuF++n0AxE2GTUYJFcvEw6zJ486v1SOwvbfYNbpM2YtG7AClhPLsWgB
-	wC3Q3QrdFKYxjC/EZf+gSS7IEXMnbNI1F9a6vkiHkl3sWa59wzrczcRDN5KpbJP8v4UiBt0Ppn+
-	0+B06ZkRy7tAz60+/rkdjVMhq0RbypOOCKDdzIIRxI6K+MxvO6dB7u6afdZeAqfTJ
-X-Gm-Gg: AYBFou1ZOkcE7k3xrLbufgX7sDlgeMiT38IYMWttkdhmK5PbG1QIpPJjmLyQoewf/nZ
-	fODpLwMej5p+sJ4Pyfol5+vy8hRyNDm0uI8+vLAHVnOzelf3qpVnDScwj64TkB9NUgsmS7vx8vk
-	Ubmlo/d6q/KHz3LTc7xOmi6C4BtDxsmzbcBx7P/GKMho6AfqcplYYBmOEwlZqOCOvy/l798+bwf
-	Da3ClP1mhEVYzMNfu0RDVnIcpk2qUshuGANk41znDVCEBrwv3ImXEuw6/kQrWFQ2/b7oorESQFR
-	hP8wFXz9f8sSwmpKDWwKLGq/lp6thJg4YihKXGuK2kboHnOBBNJgAULV/NFKhHmKHG5cgfEfIEL
-	RG0+19kSXrWANinXeYCQS5Q==
-X-Received: by 2002:a05:6102:3710:b0:7a7:326b:688d with SMTP id ada2fe7eead31-7a7326b6d93mr1849147137.2.1789990654280;
-        Mon, 21 Sep 2026 04:37:34 -0700 (PDT)
-X-Received: by 2002:a05:6102:3710:b0:7a7:326b:688d with SMTP id ada2fe7eead31-7a7326b6d93mr1849136137.2.1789990653766;
-        Mon, 21 Sep 2026 04:37:33 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a3572d4d5sm285294666b.33.2026.09.21.04.37.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 04:37:32 -0700 (PDT)
-Message-ID: <8daa32e6-f140-44d1-a2d2-c475d8a5959c@oss.qualcomm.com>
-Date: Mon, 21 Sep 2026 13:37:29 +0200
+        bh=bJjHs4K3u+gvdjbfOs0Xg8GRiY9vzGbZiOJ805s9gPE=;
+        b=PUCyaAep06/VjgrdVPTEV9eQDyEWe6tpYgkYqdny6m25cp6kMvA1kHbkLnWmQnchlk
+         odncdUFuoHiCTE83F6SR9KFwmcXvGhjP66zWdN8rs+K5YneHCv9ou8dsiyQ+E37a6GiU
+         lTyfq++BbUeXPkmDVqzEXklz2q9KFeb9521+w6LKx7wqkv8EasONvZttAl5bsOTIyOdm
+         6B9CG+DqFGmmv5Dmh/MNkt53emkFZl7lf2JkDdPWOh2VS65G5oVGx9WnryVpsJLx6fkT
+         S4Pvtc0fjQdGNLqsa2sWT0RFhZTGRiGT+Wi+lPABvmuewibZvQuAXS2YqdKo3oYqE80w
+         KRVg==
+X-Forwarded-Encrypted: i=1; AKwUvByzKId/gq6UeWa1gm6B638bOka7MvLmA5D86Yk8I29+yohyhytyPAyJRmNKlpfSJdwoGX3yDcuppF5S@vger.kernel.org
+X-Gm-Message-State: AFuF++loG2/gzwHzj+In+t8/zVJhHP6txvQJL1Ucz0DELZJYVpnmOHl6
+	OWB3UDXJDlGJW+ifCCotP3XroI0fBPEc/akNSuOvPwMf0vL7E26Ml7Y/
+X-Gm-Gg: AYBFou31pGqt2tfqaa3lhmo0bW3EbnxrPcYVhfSM3se2B94wKp/rYmA3C8TjrqrhnC5
+	6fQJC35c4W8s2eaxu1dMiIPUJyhV34CuCPO2OAjYPWDgnRtW22LVlqdDhzJmMR42OZpwinoQXKq
+	YZRIk7m8JOVlkSBs4QMTZruMjsCYLNGDcE5IRy0D5ZuD12kfmei7x8A51ykjNzhIwgkF91uo/G+
+	D6jlpHequZ70E4Dnp4Q0avAgEcoWKAfFqjL6Mf6Yu2vtKhBbTtxraWfN52Pl455/QojHXIR3D4b
+	NtkAaDXeEAJoDT7EOEXMNhuIRl2rDObBJ8BU6s0M1tUXQb7gtkjJegyqeIcEOExcRD/thJaU9Fl
+	WKP+DIpeTuSRIqFEMNpdVpwhX5qbCGg5fRWZ2+vJZwjujZ7sfTYOE1WQD2ua/OwpUwEmESIck5e
+	3i8PD1y6BwNTX/LrNSbj8Qq7djdBh9VF5XeVuHJHYODqYWEebu+yk0fxvq75oznlp6Wn7p9k6rx
+	cnr2Q==
+X-Received: by 2002:a05:600c:3b8e:b0:49f:bc43:9e96 with SMTP id 5b1f17b1804b1-49fc57144aamr185348875e9.8.1789990765124;
+        Mon, 21 Sep 2026 04:39:25 -0700 (PDT)
+Received: from luca-vm.lan ([154.61.61.58])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc57547easm244273865e9.3.2026.09.21.04.39.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 04:39:24 -0700 (PDT)
+From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+To: linux-mediatek@lists.infradead.org
+Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+	Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	CK Hu <ck.hu@mediatek.com>,
+	Jitao shi <jitao.shi@mediatek.com>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH v2 0/4] Add support for the mt8167 display pipeline
+Date: Mon, 21 Sep 2026 13:38:54 +0200
+Message-ID: <20260921113914.779393-1-l.scorcia@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 8/8] arm64: dts: qcom: kodiak: Desribe EUD UTMI routing
- and connector mapping
-To: Elson Serrao <elson.serrao@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Rob Herring <robh@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260912225301.3396556-1-elson.serrao@oss.qualcomm.com>
- <20260912225301.3396556-9-elson.serrao@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260912225301.3396556-9-elson.serrao@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: C7-w7GOwJdo-aWCO0gx3a8HW2386-Aft
-X-Authority-Analysis: v=2.4 cv=dPczC+Zb c=1 sm=1 tr=0 ts=6ab116fe cx=c_pps
- a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=dRlD9xG63GnEMi0rZ4sA:9 a=QEXdDO2ut3YA:10
- a=-aSRE8QhW-JAV6biHavz:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDE2NyBTYWx0ZWRfX94hkMZq28Jy+
- g91AobPUQDgIEGe2tFlQyZIIKYvI4nlcM0X4GB7zpMAmC4PHnRE1bvWJg3FV5IwshKrSdRLgI/0
- h5ybMTfqcNzY3V8TZ+p8apKnI8PdKylploQZ3hx/h7L/eB1EaR4lyf1N8URLHHmyXO8f0bHbWIF
- fR+RwSxF04penwz5S4sfAq1zqX7W1tmktEac7MkAufQgMYVY+IABcNw1/SovH2G5xv0sDSnOSjL
- tN20RjgZrnZCvu0iH08Jvqr7gTDLF5VWCEJJWFZPlHux9NeMX9NcVl2stjgHXkYCJCphBgpoIHt
- m01+mio4mU/L1pt4gJUc+MwGHPeawZUJqrJY/e9fcsRlL4KFlKWeYf4mKRClpDZg4u2JknREsg9
- QIBVPvAUZCOpxxQOm/10+LzaKr9eLTYxA3Bg9lrKUdMlluqLk600hRt58/HwXT8LuMJJ/hik+s6
- r4fYovl4Epbecf08hkw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDE2NyBTYWx0ZWRfXzybxaDJgWF6N
- MpJgHw8G8Q8N6utRdxNt86mIoqhOtYM1MwwwYZrkEDdYTxlUPBEZL8r5+TVl2wDpcfBdhRTVBCU
- y+XhCEmShUJCRUQm8WT/f2ThK+afGmA=
-X-Proofpoint-ORIG-GUID: C7-w7GOwJdo-aWCO0gx3a8HW2386-Aft
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_04,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 phishscore=0 lowpriorityscore=0
- priorityscore=1501 bulkscore=0 clxscore=1015 adultscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609210167
+Content-Transfer-Encoding: 8bit
 
-On 9/13/26 12:53 AM, Elson Serrao wrote:
-> The existing EUD description uses a legacy single-path representation
-> that assumes uniform UTMI routing. This was sufficient for minimal
-> configurations where the USB port operated only in device mode and role
-> switching was not considered.
-> 
-> Update the description to explicitly model the topology using eud path
-> child node and add a role-switch declaration to reflect role-dependent
-> UTMI routing. Also on this SoC, the EUD hardware intercepts only the
-> primary UTMI path. So remove the USB endpoint mapping to the secondary
-> controller and associate it with the primary controller.
-> 
-> With the intermediate EUD node now in place, update the Kodiak board
-> descriptions to map the USB connector endpoint to the EUD instead of
-> directly to the USB controller, reflecting the intended hardware
-> topology. Enable the EUD by default now that the complete topology is
-> described.
-> 
-> Signed-off-by: Elson Serrao <elson.serrao@oss.qualcomm.com>
-> ---
+This series adds support for (almost) all display blocks of mt8167.
+This SoC supports a DSI or DPI display and has HDMI output via a second
+DPI block wired to the HDMI phy.
 
-[...]
+All the hard work was already upstreamed in the past, now all that's left
+is some glue. In the first two patches we add support for the DPI output
+blocks. In the third one we describe all the possible combinations of the
+SoC display pipeline and in the last one we add the required nodes to the
+SoC dtsi.
 
-> diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
-> index f41ad446a39e..b1f1ff6b99e6 100644
-> --- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
-> +++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
-> @@ -98,7 +98,7 @@ port@0 {
->  					reg = <0>;
->  
->  					pmic_glink_hs_in: endpoint {
-> -						remote-endpoint = <&usb_1_dwc3_hs>;
-> +						remote-endpoint = <&eud_con>;
->  					};
->  				};
->  
-> @@ -1530,10 +1530,6 @@ &usb_1 {
->  	status = "okay";
->  };
->  
-> -&usb_1_dwc3_hs {
-> -	remote-endpoint = <&pmic_glink_hs_in>;
-> -};
-> -
->  &usb_1_hsphy {
->  	vdda-pll-supply = <&vreg_l10c>;
->  	vdda18-supply = <&vreg_l1c>;
-> @@ -1573,3 +1569,7 @@ &wifi {
->  	qcom,calibration-variant = "Fairphone_5";
->  	status = "okay";
->  };
-> +
-> +&eud_con {
-> +	remote-endpoint = <&pmic_glink_hs_in>;
-> +};
+The final outputs of the display pipeline in the SoC dtsi are
+intentionally left not connected to allow board dts to specify their
+own output node.
 
-Label references should be sorted alphabetically within a file,
-there may be slight deviations because the tooling to enforce
-that is still under development, but let's try to not add more
+I said almost all display blocks because HDMI output is not included in
+this patch. I have it tested and working at all supported resolutions, but
+since it needs some fixes in clocks and a new phy driver, I will send it
+in a separate series.
 
-Konrad
+The series has been tested on a Lenovo Smart Clock 2 (DSI), a Xiaomi Mi
+Smart Clock 2 (DSI), and a Sony Playstation Classic Mini (HDMI via DPI).
+Unfortunately I couldn't find an actual device using a DPI display, but
+since DPI1-HDMI works, I feel confident saying that the clocks divisors
+are correct.
+
+Changes in v2:
+- Fixed some copy-and-paste error in MMSYS routes spotted by Sashiko [2].
+
+Initial version: [1]
+
+[1] https://lore.kernel.org/linux-mediatek/20260918175736.355305-1-l.scorcia@gmail.com/
+[2] https://sashiko.dev/#/message/20260918180358.81A1D1F000FF%40smtp.kernel.org
+
+Luca Leonardo Scorcia (4):
+  dt-bindings: display: mediatek: dpi: Add compatible for mt8167
+  drm/mediatek: Add support for mt8167 Digital Parallel Interface
+  soc: mediatek: mt8167-mmsys: add routes for all display paths
+  arm64: dts: mediatek: mt8167: Add DRM nodes
+
+ .../display/mediatek/mediatek,dpi.yaml        |   1 +
+ arch/arm64/boot/dts/mediatek/mt8167.dtsi      | 369 ++++++++++++++++++
+ drivers/gpu/drm/mediatek/mtk_dpi.c            |  23 ++
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c        |   2 +
+ drivers/soc/mediatek/mt8167-mmsys.h           | 193 ++++++++-
+ 5 files changed, 579 insertions(+), 9 deletions(-)
+
+-- 
+2.43.0
+
