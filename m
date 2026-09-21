@@ -1,52 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9CA93A8388;
-	Mon, 21 Sep 2026 10:23:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 221F93C3C07;
+	Mon, 21 Sep 2026 10:24:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789986225; cv=none; b=cNaNbXKwvEhvwZXU3hVsZCD8yUsEDc8tjU+ZhonI9MQPXG+cPaIGMuWJhPTxgtwdWjp91IoaVnFqYI4/Wf7wLxuuBhkt/1gBq+4KnJwsE+jUqY3pN08J52MzZcM0ue4h1KZ0sLm5ys+FJi4dwC5sVAKHlSkIMfdq+kgPnGBfeZM=
+	t=1789986252; cv=none; b=j9kq2Kplq2Nnw24jLpI7um17BBGBtQgnHNZJYaapdVTiM9R9qPSxvIqhebh6J73JM0oxeDHsPEva2o0bvsSk5n+1pY1ZPRJ/w6vY9iHr9NJJq1vFuBKppowNecPiQaIOsl/csiPXNwIi1xZcBNIbw3TBHsNDUWI07EYrXydKh40=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789986225; c=relaxed/simple;
-	bh=7GAn0SQrJZf8k+Cj17Zb29X4ig34iegCyfKKDdzx8c4=;
+	s=arc-20240116; t=1789986252; c=relaxed/simple;
+	bh=Ub/+kGpAAP6+lsoiaCw9Klc1Wvd0seH12psmBQ0pa4g=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CZuMSJpEdxQ8GPIGianGipRQZl6i93yelab4E39MOWXkKbCuM9SIpAnpLaW1D3ltTPBREZtC5O8mgpVxNSdzBuOxdqN+IiSvfqciWOCDEksHgCDEY5BGhTanpQQyTpJrA75fAY0BoDbHp7BxIhzSyaOQoGoacFHkpB80tXRt4W0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l1StiYi4; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=NO90f5cyGo3gmoXxucVU8yPXgm7PFGr1dB4VnWpj54DUUN61BV5itD/mNPWHLBjkN7iSGkuyt5IdVYeyV2KwQtWSEWLulXEz2mAtb5HP7pvMfahXn15OKR6uMNqoERw/hELCCl7lujMfBApOLFpVASq7qeoo/Ao4nedIvTLi3es=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kkp/F6R7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l1StiYi4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A95551F000FF;
-	Mon, 21 Sep 2026 10:23:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kkp/F6R7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1EE61F000FF;
+	Mon, 21 Sep 2026 10:24:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789986223;
-	bh=KeiDS35e7oDHwVYJ1jbiHDTcydj3LPI1RqwdLg/V/rc=;
+	s=k20260515; t=1789986250;
+	bh=lwX4uKLsOTYT1SCuUhODQ6rGv8tZpp4S5pftAMN0UFY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=l1StiYi4RfoOPqgoNX1poiOFcPxlad0HHVR4LgotRAP93zWrY35dmUG4Nvdg5CTj3
-	 YrQKm155U8J7D3AjlI8Kam8U4CJ3SWheQ0s0bd8y0qZiByYR08hVKUy8kFygMnNSFp
-	 /f27J7sCr3AhKDtucR0BNgSXW5dRy+IoifrobCIrlLNO1+N90f5iyTTceK0AmRE98D
-	 jmlrxOdHpx1TU89FFNIgIBN3SM1Jh6mFo11g9sLj3mIJP+u6tvzy+dy23bBnRQelyw
-	 4YHseQfrcmJ2L1CJVofEZEjtG6AZZKgZ22oFtLJYYe9n4A454D2l7YpQ0VX8xOmCuX
-	 WThWlEhsEp7jg==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 44EA21AC52F5; Mon, 21 Sep 2026 11:23:39 +0100 (BST)
-Date: Mon, 21 Sep 2026 12:23:39 +0200
-From: Mark Brown <broonie@kernel.org>
-To: zain_zhou@realsil.com.cn
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Vikash Bansal <vikash.bansal@nxp.com>,
-	Aman Kumar Pandey <aman.kumarpandey@nxp.com>,
-	Lakshay Piplani <lakshay.piplani@nxp.com>,
-	devicetree@vger.kernel.org, linux-i3c@lists.infradead.org,
-	linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
-	Wei Wang <wei_wang@realsil.com.cn>
-Subject: Re: [RFC PATCH 3/4] regulator: rts490x: Add driver for on-die
- regulators
-Message-ID: <arEFq_jDaUcbbDvo@sirena.co.uk>
-References: <20260920100501.4091351-1-zain_zhou@realsil.com.cn>
- <20260920100501.4091351-4-zain_zhou@realsil.com.cn>
+	b=Kkp/F6R7RcrV996+F2BmiS0mCBFkfoMw0mo2+WHNo8tu51/jvdlk4oaGmKZm/H+rq
+	 Rfg9Oy3pOswCWSS2mFm2Ig9BkjTbwZVtieTQQC4948ZJ6m6bK03o6VM2QUbUC4vDej
+	 eVr2+evJZqWtqkTAMcXNaAswZ6ZlmByPatJNMfpcIOFWlNukFZWINhDB9+JyWdRdYG
+	 XQJhMSddxMNv1AOlhFYrs69jT7rJtWClnEnLG/dWR1NHJ2g0E7OEn6nIIE2TgkfuxQ
+	 p+0XUC+PHM5DTUO5aZ44f8G9ueuQ16XCR8dyI1LKJvjs3ooZcMQm+1Zce+y2f6vfny
+	 X0PG7re0U9OWg==
+Date: Mon, 21 Sep 2026 12:24:07 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Jon Hunter <jonathanh@nvidia.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
+Subject: Re: [PATCH v2 0/3] soc/tegra: fuse: Add Tegra264 support
+Message-ID: <arEFuSVya1BcQcrN@orome>
+References: <20260917-tegra-tegra264-fuse-v2-0-4936068c2168@nvidia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -54,81 +43,72 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="f5/rSFUp8Yji7O/g"
+	protocol="application/pgp-signature"; boundary="c473hq6sfnp3kpw7"
 Content-Disposition: inline
-In-Reply-To: <20260920100501.4091351-4-zain_zhou@realsil.com.cn>
-X-Cookie: Too clever is dumb.
+In-Reply-To: <20260917-tegra-tegra264-fuse-v2-0-4936068c2168@nvidia.com>
 
 
---f5/rSFUp8Yji7O/g
-Content-Type: text/plain; charset=us-ascii
+--c473hq6sfnp3kpw7
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 0/3] soc/tegra: fuse: Add Tegra264 support
+MIME-Version: 1.0
 
-On Sun, Sep 20, 2026 at 06:05:00PM +0800, zain_zhou@realsil.com.cn wrote:
+On Thu, Sep 17, 2026 at 10:16:00AM +0100, Jon Hunter wrote:
+> This series adds support for the FUSE block found on Tegra264. The first
+> two patches were originally posted by Thierry Reding and add the device
+> tree binding and FUSE node. The third patch adds the Tegra264 FUSE SoC
+> data, including the register range and keepouts.
+>=20
+> Changes in v2:
+> - Reword the device tree binding commit message following review
+>   feedback
+> - Correct the register range for the efuse block to map the complete
+>   address space.
+> - Add Tegra264 FUSE driver support
+>=20
+> Link: https://lore.kernel.org/linux-tegra/20260320233822.2578569-1-thierr=
+y.reding@kernel.org/
+> Signed-off-by: Jon Hunter <jonathanh@nvidia.com>
+> ---
+> Jon Hunter (1):
+>       soc/tegra: fuse: Add Tegra264 support
+>=20
+> Thierry Reding (2):
+>       dt-bindings: fuse: Document compatible string for Tegra264 FUSE
+>       arm64: tegra: Add FUSE block on Tegra264
+>=20
+>  .../bindings/fuse/nvidia,tegra20-fuse.yaml         |   1 +
+>  arch/arm64/boot/dts/nvidia/tegra264.dtsi           |   7 +
+>  drivers/soc/tegra/fuse/fuse-tegra.c                |  11 +-
+>  drivers/soc/tegra/fuse/fuse-tegra30.c              | 168 +++++++++++++++=
++++++-
+>  drivers/soc/tegra/fuse/fuse.h                      |   7 +-
+>  5 files changed, 191 insertions(+), 3 deletions(-)
 
-> Add regulator support for the four programmable LDO outputs in the
-> Realtek RTS490x I3C hub. The driver exposes the LDO voltage and enable
-> controls through the regulator framework while preserving protected
-> register state across updates.
+All there patches applied, thanks.
 
-> +static int rts490x_regulator_unprotect(struct regulator_dev *rdev,
-> +				       struct rts490x_reg_state *state)
-> +{
-> +	int ret;
-> +
-> +	state->restore = false;
-> +
-> +	ret = regmap_read(rdev->regmap, RTS490X_PROTECTION_CODE,
-> +			  &state->original);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (state->original == RTS490X_REGISTERS_UNLOCK_CODE)
-> +		return 0;
-> +
-> +	ret = regmap_write(rdev->regmap, RTS490X_PROTECTION_CODE,
-> +			   RTS490X_REGISTERS_UNLOCK_CODE);
-> +	if (!ret)
-> +		state->restore = true;
-> +
-> +	return ret;
-> +}
+Thierry
 
-What's going on with all this restore tracking?
-
-> +static int rts490x_regulator_probe(struct platform_device *pdev)
-> +{
-
-> +	if (!pdev->dev.of_node) {
-> +		dev_warn(&pdev->dev,
-> +			 "no OF node; skipping on-chip LDO registration\n");
-> +		return 0;
-> +	}
-
-The hardware is there no matter what, you should just load the driver so
-the state is visible.  Without constraints the hardware state won't be
-touched.
-
-> +	regulators = of_get_available_child_by_name(pdev->dev.of_node, "regulators");
-> +	if (!regulators)
-> +		return 0;
-
-The driver should just register all the regulators the silicon has
-unconditionally.
-
---f5/rSFUp8Yji7O/g
+--c473hq6sfnp3kpw7
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqxBaoACgkQJNaLcl1U
-h9DrEgf+KXidvn27tUTXYgVYcFZ0ex7DvlXgyKZmRRxKrLvcmKP7zfArl7kU5hn2
-SI1FLzc3ZUSfJ91wZIe+loFnf/Vx7/pmt9KvN0IZqtmuI0q8pbsGGDPOb4xc/Mx6
-MX/5aOUIrcHRGsxWUVJld1AYkG/Hp5z38/TlPxtdxQpP09artOzs4F1qXFUdcKMN
-QtrtPgyUrMf9vJV3+QaEfIzU3XslZOqr7igO4+jeJbGtc8Za5FG7/StjbvrQoOkd
-mxsTFhFLO9R4/QUjXz7ARi8JlAXl5WHaJiNhyoTrXXLlt/DbCIKLFA5cGd3gCA40
-5VnO2kac3TjTifouGM5EgKWlv2P6Eg==
-=RDhc
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqxBccACgkQ3SOs138+
+s6G+mhAAmQERE+9oglvjMFq0bGHSrMhFsWXzwxwRfRHRzKRRRif+Vd5AS1hjELXh
+18+jEiHRVDluV54BaO6hOFLL+CuIZv9Jy1UATKMYXooS6UwE3lCo2yP0TH8L6RHB
+ni9wfveRpkkUEgHgelvaY2KaWUsw4sfoY8I4AzzUMfoymLOHjoUdWkx0h5C0uvAk
+Onbn81XBcvUH48zlhF4wJbxQqZZzi3Q0QleTD8I8wv6YSC3IqZVZzpgtdxDFYYLP
+msLHUKNNE0xcjJLvAJJqJHfvk7oNA0lae+pFqLn4MXWDe2BREkGr0Z91O31OsMZP
+drAzzfU6YVW8sNix9W4zQinQgpZm2jXE4b7smp4XzxNxPt9yx/7FgsP609KVHZ4g
+cOLaf4eOJ4Pn9tDQAAxc8FTuZErfSqC2Xww+44sJA9FDxeDHlIiN2LeiIcBlmH38
+EWCvgHjxRXtazi2UVG8wHbLIPD4AG8p+Agz9lHr0LSlngt5Q3ohoR+deN0WR875l
+eRVk8WfYGbgohxatiBGKI9CrvXukNewROrVTmzcXJGJucRM0BP7+LfJWEVOnLnsk
+f8Bnytnz6TdLXsSrj7E4Qs0LpM3kQHhoOd1NzcPegNDZ+PCs/v0VTQk+JtByfVvW
+ELiQn4jWlGF/BwX4c1gLPdgzWnnCO8dz2D/biz7aeIoUmvN05/M=
+=K4L1
 -----END PGP SIGNATURE-----
 
---f5/rSFUp8Yji7O/g--
+--c473hq6sfnp3kpw7--
