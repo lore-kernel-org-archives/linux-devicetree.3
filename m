@@ -1,1690 +1,1873 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5864848986E;
-	Mon, 21 Sep 2026 16:28:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8231F4D5983;
+	Mon, 21 Sep 2026 16:28:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790008109; cv=none; b=t/ypRta+/jdY4Zy2oTZTXjndXAi2+29JfIs4AsqkxxcLFhwq/f8INC+sqNhMDG3fwGfUT88cIAuDeKCzfGwRzr/XMKdC+uG5AkLGnqRHMJM7962+S5FTG5hHc7u6m5WkLo9uVe22NO+sOqnj6OXLd3+cabEj8I4s+cOtLwOXEMs=
+	t=1790008128; cv=none; b=DX8qNnOS6hXRCCmDoWhZAPGbCzzu7DLznRDpDzIyolkf3C59XWE6mx2YJ10vCr2bGzlDW8FTiQNtkBlZUxf5L8Ndf4tZvd6mFNHOmxeG8umzB6+i9x089ogC1a2nARrA2v+Baks41I4Kgzj6b5gMW4gUkcsk3mAnY2l81VlOVCA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790008109; c=relaxed/simple;
-	bh=0P31LfzF2eAOsutpMs79/InR1adPCdxmEifQi4XLeFc=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=aFa/XuUFtb8QeI7q+zzcRw0Q++DxeEPR/CqSAiGGW/62MZFr/rleJl0Qm6AIfYH69MT+SC5KWNm9IesWBxO0VR0BbTSW0GnIIxxAHAMcE3Fnja+QMTwyvEV5OdbFV+kLiul/TuCpLZ8DqvGD5FZuHhHvQ1M7imCL2ftG7AMVlkQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=k9RlmwQ2; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790008128; c=relaxed/simple;
+	bh=QVbe3totQqOiqCi8V8WS0HunS4DnDu/c5o/bQJI6bko=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=n6OLpiO/XRYQzDVOpfRzRkZKveTDVj47JvaaUc0GQmeJ1FtMBYuO79KEMs+ehAgrX+lpW8Y0i6QTYZ2KsSZCBgOGgnRAECY0bEUH+ctDLLRiVQL2bLBvV/3TKEUceQSFfG/NLPROf4E3BtEvNzAlxIEwj20AF6DuYSxmD/umfhY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DD3IMmNE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="k9RlmwQ2"
-Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c69:85de:a3c9:9357:b164:bf0b])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 74056104C;
-	Mon, 21 Sep 2026 18:26:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790007997;
-	bh=0P31LfzF2eAOsutpMs79/InR1adPCdxmEifQi4XLeFc=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=k9RlmwQ2zqK9HCJe65i8eRhnTNU+NN1xLXa1v2eX7wtMcWaCTCqDUJhT0l4jh2DSH
-	 eqGyMC1tRj2oRd7tY/yRgIzhoEVssgwapUFY80XTfOquQzLevYNlCWTmKtqC/BaOD7
-	 smAlgCZGHqCBp0mYpav4Es09WF2soAn7YRmZ4JqQ=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DD3IMmNE"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id E6A221F00899;
+	Mon, 21 Sep 2026 16:28:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790008123;
+	bh=uTBPwhxLVqOFqyt6E3BAW4GoZgGLlrpRPgseQiDbHwY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DD3IMmNEokYgWEvqBHIjoLGhwwzBPIWr1eojkZIUPsIrl5gyxleFjLmq/gg3FsRbv
+	 M4+487aVSI91a+K8EL1K1Zk+PDdzjILAm6GGDzFuSGuTuqTZWTC3izimaNAy26J8iC
+	 5emRyciWMV7oDQd+sAfaIuZUsYjTTMw8jiYrwVVc4/lfu3WzmugeKa2Q2cs7S7uLLd
+	 o/QtdX1yWSdPUwt3THLBdFsLQ6A032FX3G7I8Mvr7g5KKlCasX42NX9xlaXVlfnA7H
+	 glF8DqBKWu0uPDcnSJdcxF/YVUzF9CKh/MGZQ2fqxqajT+oYLwFC0CduTabx2XZCI/
+	 sfMm79d9OoLlg==
+Date: Mon, 21 Sep 2026 18:28:40 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>, 
+	Richard Genoud <richard.genoud@bootlin.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney@redhat.com>, linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	Paul Kocialkowski <paulk@sys-base.io>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+	John Stultz <jstultz@google.com>, Joao Schim <joao@schimsalabim.eu>, bigunclemax@gmail.com, 
+	linux-clk@vger.kernel.org
+Subject: Re: [PATCH v8 2/4] pwm: sun8i: Add H616 PWM support
+Message-ID: <arFMta6PPwmzSk86@monoceros>
+References: <20260804-h616-pwm-v8-v8-0-db37ab8624ae@gmail.com>
+ <20260804-h616-pwm-v8-v8-2-db37ab8624ae@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="4wk3qwvshgohinge"
+Content-Disposition: inline
+In-Reply-To: <20260804-h616-pwm-v8-v8-2-db37ab8624ae@gmail.com>
+
+
+--4wk3qwvshgohinge
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260828064843.65047-3-lachlan.michael@sony.com>
-References: <20260828064843.65047-1-lachlan.michael@sony.com> <20260828064843.65047-3-lachlan.michael@sony.com>
-Subject: Re: [PATCH v3 2/2] media: i2c: Add Sony IMX908 image sensor driver
-From: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, kieran.bingham@ideasonboard.com, Ryuichi.Tadano@sony.com, Kengo.Hayasaka@sony.com, Tim.Bird@sony.com, Kazumi.A.Sato@sony.com, Yuji.John.Takahashi@sony.com, linux-kernel@vger.kernel.org, Lachlan Michael <lachlan.michael@sony.com>
-To: Lachlan Michael <lachlan.michael@sony.com>, devicetree@vger.kernel.org, hverkuil+cisco@kernel.org, laurent.pinchart@ideasonboard.com, linux-media@vger.kernel.org, mchehab@kernel.org, sakari.ailus@linux.intel.com
-Date: Mon, 21 Sep 2026 21:58:16 +0530
-Message-ID: <179000809637.3701737.17026819145311474886@freya>
-User-Agent: alot/0.13.dev35+g4a69c46ca
+Subject: Re: [PATCH v8 2/4] pwm: sun8i: Add H616 PWM support
+MIME-Version: 1.0
 
-Hi Lachlan,
-
-Thank you for your patch.
-
-And thanks for fixing my comments from v2. I have a few more, some I missed
-the last time around, but some are new.
-
-Quoting Lachlan Michael (2026-08-28 12:18:43)
-> The Sony IMX908 is an 8.39 megapixel (3856x2176) CMOS image sensor
-> with a MIPI CSI-2 output interface, configurable as either 2 or 4
-> data lanes.
+On Tue, Aug 04, 2026 at 03:27:25PM -0600, James Hilliard wrote:
+> From: Richard Genoud <richard.genoud@bootlin.com>
 >=20
-> Add a V4L2 sub-device driver for the sensor. The driver supports
-> RAW10 and RAW12 output formats, exposure and analogue gain controls,
-> horizontal and vertical flipping, horizontal and vertical blanking
-> controls, window cropping and test pattern generation.
+> Add a driver for the Allwinner H616 PWM controller, supporting six
+> channels. Each channel output can carry either a PWM waveform or a clock
+> from its bypass path.
 >=20
-> HDR modes and RAW16 output are not currently supported.
+> The channels are paired as 0/1, 2/3 and 4/5. Each pair shares a mux, gate
+> and prescaler, while each channel has its own prescaler and bypass.
 >=20
-> Signed-off-by: Lachlan Michael <lachlan.michael@sony.com>
+> Register each shared pair mux, divider and gate with the Common Clock
+> Framework, and expose each channel bypass as a clock output. Program the
+> channel-specific divider directly in the PWM path. Arbitrate each output
+> when the PWM is requested or the bypass clock is prepared, and hold the
+> shared pair rate exclusively while either sibling output is active.
+>=20
+> CCF reference counts do not describe outputs left active by firmware.
+> Before disabling a pair gate or changing its rate, also inspect the
+> hardware channel-enable bits. Preserve inherited outputs through generic
+> unused-clock cleanup so declared consumers can claim them. At driver
+> sync_state(), stop channels which remain unowned and reconcile an empty
+> shared pair gate through CCF. This prevents both premature shutdown of a
+> late-probing consumer and indefinite unclaimed outputs.
+>=20
+> The clock-provider interface is needed because pwm-clock cannot accurately
+> represent the bypass path. For example, pwm-clock represents 24 MHz as an
+> integer 42 ns PWM period. The PWM waveform-rounding rules happen to select
+> the H616 bypass and produce 24 MHz for that request, but the pwm-clock API
+> does not require its advertised clock rate to equal the rounded hardware
+> waveform.
+
+I don't understand the issue here. When you write pwm-clock, do you mean
+drivers/clk/clk-pwm.c or drivers/pwm/pwm-clk.c? (I guess the former.)
+If you do
+
+	compatible =3D "pwm-clock";
+	clock-frequency =3D <24000000>;
+	pwms =3D <&pwm0 42 ...>;
+
+that should give you a reliable match?!
+
+> Exposing the bypass through CCF provides an exact rate request,
+> conveys that duty-cycle and polarity control are not needed, and makes the
+> shared pair clock visible to CCF rate arbitration.
+
+Are you "just" suffering that clocks are programmed in Hz which PWMs are
+programmed in ns and thus your losing precision on divisions?
+
+> Wait for the hardware period-update handshake before replacing PPR. Track
+> the active and newly programmed periods so normal updates use a tight
+> timeout, while an unknown firmware update conservatively allows the maxim=
+um
+> hardware period. Scale the sleep interval to keep the number of MMIO polls
+> bounded even for very long periods.
+>=20
+> Dead-zone mode is not representable by the PWM API. Reject it while either
+> output in the pair is active, but clear dormant dead-zone enable state wh=
+en
+> both outputs are disabled so stale firmware configuration does not
+> permanently prevent ordinary PWM use.
+>=20
+> Signed-off-by: Richard Genoud <richard.genoud@bootlin.com>
+> Co-developed-by: James Hilliard <james.hilliard1@gmail.com>
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 > ---
-> Changes in v3:
-> - Correct link-frequency indexing mapping to match the sensor
->   DATARATE_SEL values and the frequency ordering
-> - Changed the pixel_rate to 16-pixel-per-clocks based on datasheet
->   mode values
-> - Clean up the constant names, register definitions and comments in
->   response to review feedback.
-> - Remove various (uneeded) checks in code based on feedback
-> - Remove cached vmax/hmax and recalculated where necessary
-> - Drop pixel_rate and test_pattern pointers from struct
-> - Remove read-only controls set_ctrl switch
-> - Remove event handlers
-> - Remove uneeded delays at startup=20
-> - Simplify runtime_resume/suspend functions
-> - Remove the 4k recording-area in favour of larger active area
-> - Use the same constraints for VMAX for crop and all pixel mode to
->   simplify the driver logic by removing branching
-> - Rework HMAX based on the fact that the whole line is always read
->   even in crop mode. HMAX varies in all modes now, but not with=20
->   horizontal crop.
-> - Minor edits and bugfixes=20
+> Changes v7 -> v8:
+>   - clear the complete two-bit clock-source selector field
+>   - leave rate and period registers untouched when disabling a channel
+>   - distinguish PWM-owned bypass signals from clock-owned bypass outputs
+>   - round waveforms over all parent, pair-divider, channel-divider and by=
+pass
+>     choices according to the PWM core ordering
+>   - encode constant levels without overflowing the 16-bit active-cycle fi=
+eld
+>   - allocate clock topology state per device and use the fixed parent map
+>     (reported by Sashiko)
+>   - use managed clock registrations for complete probe-error cleanup
+>     (reported by Sashiko and suggested by Philipp)
+>   - deassert reset before registering clocks and keep the reset handle lo=
+cal
+>     (reported by Sashiko and suggested by Philipp)
+>   - arbitrate channel ownership in clock prepare/unprepare and select byp=
+ass
+>     only while the clock output is enabled  (reported by Sashiko)
+>   - roll back failed PWM requests and serialize channel release
+>     (reported by Sashiko)
+>   - protect the shared pair source while either sibling channel is active
+>     (reported by Sashiko)
+>   - preserve the 65536-tick duty intermediate before polarity conversion
+>     (reported by Sashiko)
+>   - avoid replaying write-one control bits while changing channel settings
+>     (reported by Sashiko)
+>   - keep the hardware-waveform state within the PWM core storage limit
+>   - clarify that either co-packaged AC200 or AC300 PHY uses the bypass cl=
+ock
+>   - drop Tested-by tags after the clock implementation was reworked
+>   - quantize inverted waveforms in hardware ticks and report their
+>     physical offset
+>   - force released channels off so stale waveforms cannot restart with a
+>     sibling
+>   - track the active and pending cycle for the period-update handshake and
+>     adapt the sleep interval to bound MMIO polling on long periods
+>   - quiesce rate, polarity and bypass transitions before reprogramming the
+>     output
+>   - clear unsupported pulse mode when programming periodic waveforms
+>   - preserve firmware-active outputs through generic unused-clock cleanup,
+>     stop any still-unclaimed channels at sync_state(), reconcile empty pa=
+ir
+>     gates through CCF, and reject pair retuning while either output is
+>     active
+>   - hold pair-rate exclusivity only while an output is active
+>   - make pair-rate changes transactional and restore a quiesced output on
+>     failure
+>   - clear dormant dead-zone state when both pair outputs are disabled,
+>     while rejecting active dead-zone and pulse modes which the PWM API
+>     cannot represent
+>   - correct the hardware topology to show the pair gate before div_m
+>   - remove unused register definitions and simplify the fixed parent
+>     topology
 > ---
->  MAINTAINERS                |    1 +
->  drivers/media/i2c/Kconfig  |   11 +
->  drivers/media/i2c/Makefile |    1 +
->  drivers/media/i2c/imx908.c | 1367 ++++++++++++++++++++++++++++++++++++
->  4 files changed, 1380 insertions(+)
->  create mode 100644 drivers/media/i2c/imx908.c
+>  drivers/pwm/Kconfig     |   12 +
+>  drivers/pwm/Makefile    |    1 +
+>  drivers/pwm/pwm-sun8i.c | 1542 +++++++++++++++++++++++++++++++++++++++++=
+++++++
+>  3 files changed, 1555 insertions(+)
 >=20
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index bb7adcfd4767..a17c31234ec7 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -25542,6 +25542,7 @@ SONY IMX908 SENSOR DRIVER
->  M:     Lachlan Michael <lachlan.michael@sony.com>
->  S:     Maintained
->  F:     Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
-> +F:     drivers/media/i2c/imx908.c
+> diff --git a/drivers/pwm/Kconfig b/drivers/pwm/Kconfig
+> index e8886a9b64d9..e7fd2e66b1aa 100644
+> --- a/drivers/pwm/Kconfig
+> +++ b/drivers/pwm/Kconfig
+> @@ -748,6 +748,18 @@ config PWM_SUN4I
+>  	  To compile this driver as a module, choose M here: the module
+>  	  will be called pwm-sun4i.
 > =20
->  SONY MEMORYSTICK SUBSYSTEM
->  M:     Maxim Levitsky <maximlevitsky@gmail.com>
-> diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-> index 5c52007f9cbe..cfa1359d8c7d 100644
-> --- a/drivers/media/i2c/Kconfig
-> +++ b/drivers/media/i2c/Kconfig
-> @@ -310,6 +310,17 @@ config VIDEO_IMX678
->           To compile this driver as a module, choose M here: the
->           module will be called imx678.
-> =20
-> +config VIDEO_IMX908
-> +        tristate "Sony IMX908 sensor support"
-> +        depends on GPIOLIB
-> +        select V4L2_CCI_I2C
-> +        help
-> +          This is a Video4Linux2 sensor driver for the Sony
-> +          IMX908 CMOS image sensor.
+> +config PWM_SUN8I
+> +	tristate "Allwinner sun8i/sun50i PWM support"
+> +	depends on ARCH_SUNXI || COMPILE_TEST
+> +	depends on HAS_IOMEM && COMMON_CLK
+> +	help
+> +	  PWM framework driver for Allwinner controllers whose channels share
+> +	  paired source clocks. In addition to PWM operation, each channel's
+> +	  hardware bypass path can be exported as a clock output.
 > +
-> +          To compile this driver as a module, choose M here: the
-> +          module will be called imx908.
+> +	  To compile this driver as a module, choose M here: the module
+> +	  will be called pwm-sun8i.
 > +
->  config VIDEO_MAX9271_LIB
->         tristate
-> =20
-> diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
-> index d04bd5724552..d91ed1bc6427 100644
-> --- a/drivers/media/i2c/Makefile
-> +++ b/drivers/media/i2c/Makefile
-> @@ -63,6 +63,7 @@ obj-$(CONFIG_VIDEO_IMX412) +=3D imx412.o
->  obj-$(CONFIG_VIDEO_IMX415) +=3D imx415.o
->  obj-$(CONFIG_VIDEO_IMX678) +=3D imx678.o
->  obj-$(CONFIG_VIDEO_IMX471) +=3D imx471.o
-> +obj-$(CONFIG_VIDEO_IMX908) +=3D imx908.o
->  obj-$(CONFIG_VIDEO_IR_I2C) +=3D ir-kbd-i2c.o
->  obj-$(CONFIG_VIDEO_ISL7998X) +=3D isl7998x.o
->  obj-$(CONFIG_VIDEO_KS0127) +=3D ks0127.o
-> diff --git a/drivers/media/i2c/imx908.c b/drivers/media/i2c/imx908.c
+>  config PWM_SUNPLUS
+>  	tristate "Sunplus PWM support"
+>  	depends on ARCH_SUNPLUS || COMPILE_TEST
+> diff --git a/drivers/pwm/Makefile b/drivers/pwm/Makefile
+> index 5630a521a7cf..9c922b1fd0b4 100644
+> --- a/drivers/pwm/Makefile
+> +++ b/drivers/pwm/Makefile
+> @@ -68,6 +68,7 @@ obj-$(CONFIG_PWM_STM32)		+=3D pwm-stm32.o
+>  obj-$(CONFIG_PWM_STM32_LP)	+=3D pwm-stm32-lp.o
+>  obj-$(CONFIG_PWM_STMPE)		+=3D pwm-stmpe.o
+>  obj-$(CONFIG_PWM_SUN4I)		+=3D pwm-sun4i.o
+> +obj-$(CONFIG_PWM_SUN8I)		+=3D pwm-sun8i.o
+>  obj-$(CONFIG_PWM_SUNPLUS)	+=3D pwm-sunplus.o
+>  obj-$(CONFIG_PWM_TEGRA)		+=3D pwm-tegra.o
+>  obj-$(CONFIG_PWM_TH1520)	+=3D pwm_th1520.o
+> diff --git a/drivers/pwm/pwm-sun8i.c b/drivers/pwm/pwm-sun8i.c
 > new file mode 100644
-> index 000000000000..ca85a5cd058a
+> index 000000000000..5c3580a0924d
 > --- /dev/null
-> +++ b/drivers/media/i2c/imx908.c
-> @@ -0,0 +1,1367 @@
-> +// SPDX-License-Identifier: GPL-2.0
+> +++ b/drivers/pwm/pwm-sun8i.c
+> @@ -0,0 +1,1542 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
 > +/*
-> + * V4L2 driver for Sony IMX908
+> + * Driver for Allwinner sun8i Pulse Width Modulation Controller
 > + *
-> + * Diagonal 6.42 mm (Type 1/2.8) CMOS image sensor with 8.39 M pixels.
+> + * (C) Copyright 2025 Richard Genoud, Bootlin <richard.genoud@bootlin.co=
+m>
+> + * (C) Copyright 2026 James Hilliard <james.hilliard1@gmail.com>
 > + *
-> + * Copyright 2026 Sony Semiconductor Solutions Corporation
+> + * Based on drivers/pwm/pwm-sun4i.c with Copyright:
+> + *
+> + * Copyright (C) 2014 Alexandre Belloni <alexandre.belloni@bootlin.com>
+> + *
+> + * Channels are paired (0/1, 2/3, 4/5). Each pair shares a clock source =
+and
+> + * first prescaler (div_m), while each channel has its own second presca=
+ler
+> + * (div_k) and bypass path.
 > + *
 > + */
 > +
-> +#include <linux/align.h>
-> +#include <linux/array_size.h>
-> +#include <linux/bitops.h>
+> +#include <linux/bitfield.h>
+> +#include <linux/bits.h>
 > +#include <linux/clk.h>
-> +#include <linux/container_of.h>
-> +#include <linux/delay.h>
+> +#include <linux/clk-provider.h>
+> +#include <linux/device.h>
 > +#include <linux/err.h>
-> +#include <linux/gpio/consumer.h>
-> +#include <linux/i2c.h>
-> +#include <linux/math.h>                /* DIV_ROUND_UP */
-> +#include <linux/math64.h>      /* DIV64_U64_ROUND_UP */
-> +#include <linux/minmax.h>
+> +#include <linux/io.h>
+> +#include <linux/iopoll.h>
+> +#include <linux/limits.h>
+> +#include <linux/math64.h>
 > +#include <linux/module.h>
-> +#include <linux/pm_runtime.h>
-> +#include <linux/property.h>
-> +#include <linux/regulator/consumer.h>
+> +#include <linux/notifier.h>
+> +#include <linux/of.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/pwm.h>
+> +#include <linux/reset.h>
+> +#include <linux/slab.h>
+> +#include <linux/spinlock.h>
+> +#include <linux/time.h>
 > +
-> +#include <media/media-entity.h>
-> +#include <media/v4l2-cci.h>
-> +#include <media/v4l2-ctrls.h>
-> +#include <media/v4l2-fwnode.h>
-> +#include <media/v4l2-mediabus.h>
-> +#include <media/v4l2-rect.h>
-> +#include <media/v4l2-subdev.h>
+> +/* PWMCC Pairs Clock Configuration Registers */
+> +#define SUN8I_PWM_PCCR(pair)		(0x20 + ((pair) * 0x4))
+> +#define SUN8I_PWM_PCCR_SRC_SHIFT	7
+> +#define SUN8I_PWM_PCCR_SRC_MASK		GENMASK(1, 0)
+> +#define SUN8I_PWM_PCCR_GATE_BIT		4
+> +#define SUN8I_PWM_PCCR_GATE		BIT(SUN8I_PWM_PCCR_GATE_BIT)
+> +#define SUN8I_PWM_PCCR_BYPASS_BIT(chan)	((chan) % 2 + 5)
+> +#define SUN8I_PWM_PCCR_DIV_M_SHIFT	0
+> +#define SUN8I_PWM_PCCR_DIV_M_WIDTH	4
 > +
-> +/* ---- IMX908 Registers --------- */
-> +#define IMX908_REG_STANDBY     CCI_REG8(0x3000)
-> +#define IMX908_STANDBY_EN      BIT(0)          /* Standby mode */
-> +#define IMX908_STANDBY_CANCEL  0x00            /* Operating mode */
-> +#define IMX908_REG_XMSTA       CCI_REG8(0x3002)        /* [0] Init 1h */
-> +#define IMX908_XMSTA_START     0x00
-> +#define IMX908_XMSTA_STOP      0x01
-> +#define IMX908_REG_XMASTER     CCI_REG8(0x3003)        /* [0] Init 0h */
-> +#define IMX908_CONTROLLER_MODE 0x00
-> +#define IMX908_REG_INCK_SEL    CCI_REG8(0x3014)        /* 0:74.25 1:37.1=
-25 2:72 3:27 4:24 */
-> +#define IMX908_REG_DATARATE_SEL        CCI_REG8(0x3015)
+> +/* PWM Enable Register */
+> +#define SUN8I_PWM_PER			0x40
+> +#define SUN8I_PWM_ENABLE(chan)		BIT(chan)
 > +
-> +/* ---- Crop */
-> +#define IMX908_REG_WINMODE     CCI_REG8(0x3018)        /* [3:0] */
-> +#define IMX908_WINMODE_ALLPIX  0x00    /* All-pixel readout mode */
-> +#define IMX908_WINMODE_CROP    0x04    /* Window cropping mode */
+> +/* PWM Control Register */
+> +#define SUN8I_PWM_PCR(chan)		(0x60 + (chan) * 0x20)
+> +#define SUN8I_PWM_PCR_PRESCAL_K_MASK	GENMASK(7, 0)
+> +#define SUN8I_PWM_PCR_ACTIVE_STATE	BIT(8)
+> +#define SUN8I_PWM_PCR_MODE		BIT(9)
+> +#define SUN8I_PWM_PCR_PULSE_START	BIT(10)
+> +#define SUN8I_PWM_PCR_PERIOD_READY	BIT(11) /* 0: ready, 1: busy */
 > +
-> +/* ---- Flip */
-> +#define IMX908_REG_HREVERSE    CCI_REG8(0x3020)
-> +#define IMX908_HREVERSE_NORMAL 0x00
-> +#define IMX908_HREVERSE_INV    0x01
-> +#define IMX908_REG_VREVERSE    CCI_REG8(0x3021)
-> +#define IMX908_VREVERSE_NORMAL 0x00
-> +#define IMX908_VREVERSE_INV    0x01
+> +/* PWM Period Register */
+> +#define SUN8I_PWM_PPR(chan)		(0x64 + (chan) * 0x20)
+> +#define SUN8I_PWM_PPR_PERIOD_MASK	GENMASK(31, 16)
+> +#define SUN8I_PWM_PPR_DUTY_MASK		GENMASK(15, 0)
+> +#define SUN8I_PWM_PPR_PERIOD_VALUE(reg)	(FIELD_GET(SUN8I_PWM_PPR_PERIOD_=
+MASK, reg) + 1)
+> +#define SUN8I_PWM_PPR_DUTY_VALUE(reg)	FIELD_GET(SUN8I_PWM_PPR_DUTY_MASK,=
+ reg)
+> +#define SUN8I_PWM_PPR_PERIOD(prd)	FIELD_PREP(SUN8I_PWM_PPR_PERIOD_MASK, =
+(prd) - 1)
+> +#define SUN8I_PWM_PPR_DUTY(dty)		FIELD_PREP(SUN8I_PWM_PPR_DUTY_MASK, dty)
+> +#define SUN8I_PWM_PPR_PERIOD_MAX	(FIELD_MAX(SUN8I_PWM_PPR_PERIOD_MASK) +=
+ 1)
 > +
-> +/* ---- Internal Analog to Digital conversion bit width */
-> +#define IMX908_REG_ADBIT       CCI_REG8(0x3022)
-> +#define IMX908_ADBIT_10BIT     0x00    /* 10-bit */
-> +#define IMX908_ADBIT_12BIT     0x01    /* 11-bit + digital dither */
+> +/* PWM pair dead-zone control registers. */
+> +#define SUN8I_PWM_PDZCR(pair)		(0x30 + ((pair) * 0x4))
+> +#define SUN8I_PWM_PDZCR_ENABLE		BIT(0)
 > +
-> +#define IMX908_REG_MDBIT       CCI_REG8(0x3023)
-> +#define IMX908_MDBIT_RAW10     0x00
-> +#define IMX908_MDBIT_RAW12     0x01
+> +#define SUN8I_PWM_PERIOD_READY_MARGIN_US	50
+> +#define SUN8I_PWM_PERIOD_READY_MIN_POLL_US	10
+> +#define SUN8I_PWM_PERIOD_READY_MAX_POLL_US	10000
+> +#define SUN8I_PWM_PERIOD_READY_POLL_COUNT	1024
 > +
-> +/* ---- VMAX  Frame length in lines */
-> +#define IMX908_REG_VMAX                CCI_REG24_LE(0x3028)    /* [19:0]=
- */
-> +#define IMX908_VMAX_MAX                0xfffff
-> +#define IMX908_VMAX_DEFAULT    2250
-> +/*
-> + * VMAX restrictions, documented for window cropping mode:
-> + * VMAX >=3D PIX_VWIDTH + 70
-> + * VMAX >=3D 1206
-> + */
-> +#define IMX908_VMAX_MARGIN     70
-> +#define IMX908_VMAX_MIN                1206
-> +
-> +/* ---- HMAX Line length in clocks */
-> +#define IMX908_REG_HMAX                CCI_REG16_LE(0x302c)    /* [15:0]=
- */
-> +#define IMX908_HMAX_MAX                0xffff
-> +#define IMX908_HMAX_DEFAULT    1100
-> +
-> +/* ---- Cropping related */
-> +#define IMX908_REG_PIX_HST     CCI_REG16_LE(0x303c)    /* [12:0] Init 0h=
- */
-> +#define IMX908_REG_PIX_HWIDTH  CCI_REG16_LE(0x303e)    /* [12:0] Init 0F=
-10h */
-> +#define IMX908_REG_LANEMODE    CCI_REG8(0x3040)
-> +#define IMX908_LANEMODE_2LANE  0x01
-> +#define IMX908_LANEMODE_4LANE  0x03
-> +#define IMX908_REG_PIX_VST     CCI_REG16_LE(0x3044)    /* [12:0] Init 0h=
- */
-> +#define IMX908_REG_PIX_VWIDTH  CCI_REG16_LE(0x3046)    /* [12:0] Init 08=
-84h */
-> +#define IMX908_CROP_ALIGN_VSTART       4
-> +#define IMX908_CROP_ALIGN_VWIDTH       4
-> +#define IMX908_CROP_ALIGN_HSTART       4
-> +#define IMX908_CROP_ALIGN_HWIDTH       16
-> +#define IMX908_CROP_MIN_HEIGHT         1136
-> +#define IMX908_CROP_MIN_WIDTH          1040
-> +
-> +/* ---- Shutter */
-> +#define IMX908_REG_SHR0                CCI_REG24_LE(0x3050)    /* [19:0]=
- */
-> +#define IMX908_MIN_SHR0                7
+> +#define SUN8I_PWM_PAIR_IDX(chan)	((chan) >> 1)
 > +
 > +/*
-> + * Analogue gain control
-> + * Range is from 0 to 100 (0dB - 30dB) with 0.3dB step size
-> + * Values from 101 to 240 are valid but correspond to additional digital=
- gain
-> + * (0.3dB - 42dB) so don't expose it to userspace
+> + * Block diagram of the PWM clock controller:
+> + *
+> + *             _____      ______      ________
+> + * OSC24M --->|     |    |      |    |        |
+> + * APB1 ----->| Mux |--->| Gate |--->| /div_m |-----> SUN8I_PWM_clock_sr=
+c_xy
+> + *            |_____|    |______|    |________|
+> + *                               ________
+> + *                              |        |
+> + *                           +->| /div_k |---> SUN8I_PWM_clock_x
+> + *                           |  |________|
+> + *                           |    ______
+> + *                           |   |      |
+> + *                           +-->| Gate |----> SUN8I_PWM_bypass_clock_x
+> + *                           |   |______|
+> + * SUN8I_PWM_clock_src_xy ---+   ________
+> + *                           |  |        |
+> + *                           +->| /div_k |---> SUN8I_PWM_clock_y
+> + *                           |  |________|
+> + *                           |    ______
+> + *                           |   |      |
+> + *                           +-->| Gate |----> SUN8I_PWM_bypass_clock_y
+> + *                               |______|
+> + *
+> + * NB: when the bypass is set, all the PWM logic is bypassed.
+> + * So, the duty cycle and polarity can't be modified (we just have a clo=
+ck).
+> + * The bypass in PWM mode is used to achieve a 1/2 relative duty cycle w=
+ith the
+> + * fastest clock.
+> + *
+> + * SUN8I_PWM_clock_x/y serve for the PWM purpose.
+> + * SUN8I_PWM_bypass_clock_x/y serve for the clock-provider purpose.
+> + *
 > + */
-> +#define IMX908_REG_GAIN                CCI_REG16_LE(0x3070)    /* [10:0]=
- */
-> +#define IMX908_ANA_GAIN_MAX    100
-> +#define IMX908_ANA_GAIN_MIN    0
-> +#define IMX908_ANA_GAIN_STEP   1
-> +#define IMX908_ANA_GAIN_DEFAULT        0
 > +
-> +/* ---- XVS/XHS output mode */
-> +#define IMX908_XXS_DRV         CCI_REG8(0x30a6)        /* [1:0] XVS_DRV =
-[3:2] XHS_DRV */
-> +
-> +#define IMX908_REG_BLKLEVEL    CCI_REG16_LE(0x30dc)    /* [15:0] black l=
-evel */
-> +
-> +/* ---- Test Pattern Generator (TPG) registers */
-> +#define IMX908_REG_TPG_EN      CCI_REG8(0x30e0)
-> +#define IMX908_TPG_EN_BIT      BIT(0)
-> +#define IMX908_REG_TPG_PATSEL  CCI_REG8(0x30e2)        /* [4:0] pattern =
-idx */
-> +#define IMX908_REG_TESTCLKEN   CCI_REG8(0x4900)
-> +#define IMX908_TESTCLKEN_BIT   BIT(3)
-> +
-> +#define IMX908_REG_TYPE_ID     CCI_REG16_LE(0x4c0c)
-> +#define IMX908_CHIP_ID         0x038c
-> +
-> +/* ---- IMX908 Common Register List ---- */
-> +static const struct cci_reg_sequence imx908_common_regs[] =3D {
-> +       { IMX908_XXS_DRV, IMX908_CONTROLLER_MODE },
-> +       { CCI_REG8(0x039c), 0x03 },
-> +       { CCI_REG8(0x3416), 0x20 },
-> +       { CCI_REG8(0x3417), 0x00 },
-> +       { CCI_REG8(0x3456), 0xf4 },
-> +       { CCI_REG8(0x345d), 0x01 },
-> +       { CCI_REG8(0x3460), 0x00 },
-> +       { CCI_REG8(0x3461), 0x0b },
-> +       { CCI_REG8(0x3471), 0x00 },
-> +       { CCI_REG8(0x3472), 0x23 },
-> +       { CCI_REG8(0x347b), 0x02 },
-> +       { CCI_REG8(0x3481), 0x01 },
-> +       { CCI_REG8(0x380c), 0x00 },
-> +       { CCI_REG8(0x380f), 0x0c },
-> +       { CCI_REG8(0x381c), 0x11 },
-> +       { CCI_REG8(0x3820), 0x22 },
-> +       { CCI_REG8(0x3824), 0x33 },
-> +       { CCI_REG8(0x3828), 0x22 },
-> +       { CCI_REG8(0x382c), 0x33 },
-> +       { CCI_REG8(0x3830), 0x33 },
-> +       { CCI_REG8(0x3838), 0x05 },
-> +       { CCI_REG8(0x383c), 0x07 },
-> +       { CCI_REG8(0x3840), 0x06 },
-> +       { CCI_REG8(0x3848), 0x17 },
-> +       { CCI_REG8(0x384c), 0x0b },
-> +       { CCI_REG8(0x3850), 0x10 },
-> +       { CCI_REG8(0x3854), 0x12 },
-> +       { CCI_REG8(0x385c), 0x20 },
-> +       { CCI_REG8(0x38c4), 0x64 },
-> +       { CCI_REG8(0x38c5), 0x64 },
-> +       { CCI_REG8(0x38c6), 0x64 },
-> +       { CCI_REG8(0x3c4a), 0x15 },
-> +       { CCI_REG8(0x3c4c), 0x13 },
-> +       { CCI_REG8(0x3c4d), 0x13 },
-> +       { CCI_REG8(0x3c4e), 0x13 },
-> +       { CCI_REG8(0x3c50), 0x77 },
-> +       { CCI_REG8(0x3c51), 0x07 },
-> +       { CCI_REG8(0x3db4), 0x00 },
-> +       { CCI_REG8(0x4419), 0x06 },
-> +       { CCI_REG8(0x441c), 0x00 },
-> +       { CCI_REG8(0x4426), 0x00 },
-> +       { CCI_REG8(0x4538), 0x20 },
-> +       { CCI_REG8(0x4539), 0x19 },
-> +       { CCI_REG8(0x453a), 0x19 },
-> +       { CCI_REG8(0x453b), 0x19 },
-> +       { CCI_REG8(0x453c), 0x19 },
-> +       { CCI_REG8(0x453d), 0x19 },
-> +       { CCI_REG8(0x453e), 0x19 },
-> +       { CCI_REG8(0x453f), 0x19 },
-> +       { CCI_REG8(0x4540), 0x19 },
-> +       { CCI_REG8(0x4544), 0x11 },
-> +       { CCI_REG8(0x4545), 0x11 },
-> +       { CCI_REG8(0x4546), 0x11 },
-> +       { CCI_REG8(0x463c), 0x20 },
-> +       { CCI_REG8(0x465e), 0xcf },
-> +       { CCI_REG8(0x4684), 0x20 },
-> +       { CCI_REG8(0x46a6), 0xcf },
-> +       { CCI_REG8(0x46e2), 0xf3 },
+> +/* /div_m is a power-of-two divider limited to /256. */
+> +static const struct clk_div_table sun8i_pwm_div_m_table[] =3D {
+> +	{ .val =3D 0, .div =3D 1 },
+> +	{ .val =3D 1, .div =3D 2 },
+> +	{ .val =3D 2, .div =3D 4 },
+> +	{ .val =3D 3, .div =3D 8 },
+> +	{ .val =3D 4, .div =3D 16 },
+> +	{ .val =3D 5, .div =3D 32 },
+> +	{ .val =3D 6, .div =3D 64 },
+> +	{ .val =3D 7, .div =3D 128 },
+> +	{ .val =3D 8, .div =3D 256 },
+> +	{ /* sentinel */ }
 > +};
 > +
-> +static const u32 imx908_bit_depth_regs[] =3D {
-> +       CCI_REG8(0x3d78),
-> +       CCI_REG8(0x3d79),
-> +       CCI_REG8(0x3d80),
-> +       CCI_REG8(0x3d81),
-> +       CCI_REG8(0x3d88),
-> +       CCI_REG8(0x3d89),
-> +       CCI_REG8(0x3d90),
-> +       CCI_REG8(0x3d91),
+> +enum sun8i_pwm_mode {
+> +	SUN8I_PWM_MODE_NONE,
+> +	SUN8I_PWM_MODE_PWM,
+> +	SUN8I_PWM_MODE_CLK,
 > +};
 > +
-> +#define IMX908_EXPOSURE_MIN    1
-> +#define IMX908_EXPOSURE_STEP   1
-> +
-> +/* ---- Internal image-data interface clock */
-> +#define IMX908_VTPXCK_HZ       74250000ULL
-> +
-> +/* Fixed pixel rate: 16 pixels per video timing pixel clock cycle */
-> +#define IMX908_PIX_PER_CLK     16
-> +#define IMX908_PIXEL_RATE      (IMX908_VTPXCK_HZ * IMX908_PIX_PER_CLK)
-> +
-> +/* ---- Subdev Pads */
-> +#define IMX908_SOURCE_PAD      0
-> +
-> +#define IMX908_DEFAULT_MBUS_CODE MEDIA_BUS_FMT_SRGGB10_1X10
-> +
-> +/*
-> + * IMX908 total area includes active area height plus
-> + *  4 pixels effective pixel ignored area
-> + * 10 pixels vertical direction effective OB
-> + * 10 pixels OB side ignored area
-> + */
-> +static const struct v4l2_rect imx908_total_area =3D {
-> +       .top =3D 0,
-> +       .left =3D 0,
-> +       .width =3D 3856,
-> +       .height =3D 2200,
+> +struct sun8i_pwm_data {
+> +	unsigned int npwm;
 > +};
 > +
+> +struct sun8i_pwm_chip;
+> +
+> +struct sun8i_pwm_pair {
+> +	struct clk_mux mux;
+> +	struct clk_hw gate_hw;
+> +	struct clk_divider divider;
+> +	struct clk_hw *hw;
+> +	struct notifier_block rate_nb;
+> +	struct sun8i_pwm_chip *chip;
+> +	unsigned int index;
+> +};
+> +
+> +struct sun8i_pwm_bypass {
+> +	struct clk_hw hw;
+> +	struct sun8i_pwm_chip *chip;
+> +	unsigned int index;
+> +};
+> +
+> +struct sun8i_pwm_channel {
+> +	struct sun8i_pwm_bypass bypass;
+> +	struct clk *pair_clk;
+> +	enum sun8i_pwm_mode mode;
+> +	u64 pending_period_ns;
+> +	bool rate_exclusive;
+> +};
+> +
+> +struct sun8i_pwm_chip {
+> +	struct clk_hw_onecell_data *hw_data;
+> +	struct sun8i_pwm_pair *pairs;
+> +	struct sun8i_pwm_channel *channels;
+> +	struct clk *bus_clk;
+> +	void __iomem *base;
+> +	const struct sun8i_pwm_data *data;
+> +	/* Protects shared registers and channel ownership. */
+> +	spinlock_t lock;
+> +};
+> +
+> +struct sun8i_pwm_waveform {
+> +	u32 duty_ticks;
+> +	u32 period_ticks;
+> +	u32 pair_rate;
+> +	u16 div_k;
+> +	u8 enabled:1;
+> +	u8 active_state:1;
+> +	u8 bypass_en:1;
+> +};
+> +
+> +static inline struct sun8i_pwm_chip *sun8i_pwm_from_chip(const struct pw=
+m_chip *chip)
+> +{
+> +	return pwmchip_get_drvdata(chip);
+> +}
+> +
+> +static inline u32 sun8i_pwm_readl(struct sun8i_pwm_chip *sun8i_chip,
+> +				  unsigned long offset)
+> +{
+> +	return readl(sun8i_chip->base + offset);
+> +}
+> +
+> +static inline void sun8i_pwm_writel(struct sun8i_pwm_chip *sun8i_chip,
+> +				    u32 val, unsigned long offset)
+> +{
+> +	writel(val, sun8i_chip->base + offset);
+> +}
+> +
+> +static void sun8i_pwm_set_bypass_locked(struct sun8i_pwm_chip *sun8i_chi=
+p,
+> +					unsigned int idx, bool enable)
+> +{
+> +	unsigned long reg_offset;
+> +	u32 val;
+> +
+> +	lockdep_assert_held(&sun8i_chip->lock);
+> +
+> +	reg_offset =3D SUN8I_PWM_PCCR(SUN8I_PWM_PAIR_IDX(idx));
+> +	val =3D sun8i_pwm_readl(sun8i_chip, reg_offset);
+> +	if (enable)
+> +		val |=3D BIT(SUN8I_PWM_PCCR_BYPASS_BIT(idx));
+> +	else
+> +		val &=3D ~BIT(SUN8I_PWM_PCCR_BYPASS_BIT(idx));
+> +
+> +	sun8i_pwm_writel(sun8i_chip, val, reg_offset);
+> +}
+> +
+> +static void sun8i_pwm_set_enabled_locked(struct sun8i_pwm_chip *sun8i_ch=
+ip,
+> +					 unsigned int idx, bool enable)
+> +{
+> +	u32 val;
+> +
+> +	lockdep_assert_held(&sun8i_chip->lock);
+> +
+> +	val =3D sun8i_pwm_readl(sun8i_chip, SUN8I_PWM_PER);
+> +	if (enable)
+> +		val |=3D SUN8I_PWM_ENABLE(idx);
+> +	else
+> +		val &=3D ~SUN8I_PWM_ENABLE(idx);
+> +	sun8i_pwm_writel(sun8i_chip, val, SUN8I_PWM_PER);
+> +}
+> +
+> +static bool
+> +sun8i_pwm_channel_is_enabled_locked(struct sun8i_pwm_chip *sun8i_chip,
+> +				    unsigned int idx)
+> +{
+> +	unsigned int pair =3D SUN8I_PWM_PAIR_IDX(idx);
+> +	u32 pccr, per;
+> +
+> +	lockdep_assert_held(&sun8i_chip->lock);
+> +
+> +	pccr =3D sun8i_pwm_readl(sun8i_chip, SUN8I_PWM_PCCR(pair));
+> +	per =3D sun8i_pwm_readl(sun8i_chip, SUN8I_PWM_PER);
+> +
+> +	return (pccr & SUN8I_PWM_PCCR_GATE) &&
+> +	       (per & SUN8I_PWM_ENABLE(idx));
+> +}
+> +
+> +static u32 sun8i_pwm_pair_enable_mask(struct sun8i_pwm_chip *sun8i_chip,
+> +				      unsigned int pair)
+> +{
+> +	unsigned int first =3D pair * 2;
+> +	u32 mask =3D SUN8I_PWM_ENABLE(first);
+> +
+> +	if (first + 1 < sun8i_chip->data->npwm)
+> +		mask |=3D SUN8I_PWM_ENABLE(first + 1);
+> +
+> +	return mask;
+> +}
+> +
+> +static u32
+> +sun8i_pwm_pair_owner_mask_locked(struct sun8i_pwm_chip *sun8i_chip,
+> +				 unsigned int pair)
+> +{
+> +	unsigned int first =3D pair * 2;
+> +	u32 mask =3D 0;
+> +
+> +	lockdep_assert_held(&sun8i_chip->lock);
+> +
+> +	if (sun8i_chip->channels[first].mode !=3D SUN8I_PWM_MODE_NONE)
+> +		mask |=3D SUN8I_PWM_ENABLE(first);
+> +	if (first + 1 < sun8i_chip->data->npwm &&
+> +	    sun8i_chip->channels[first + 1].mode !=3D SUN8I_PWM_MODE_NONE)
+> +		mask |=3D SUN8I_PWM_ENABLE(first + 1);
+> +
+> +	return mask;
+> +}
+> +
+> +static inline struct sun8i_pwm_pair *
+> +sun8i_pwm_pair_from_gate_hw(struct clk_hw *hw)
+> +{
+> +	return container_of(hw, struct sun8i_pwm_pair, gate_hw);
+> +}
+> +
+> +static int sun8i_pwm_pair_gate_enable(struct clk_hw *hw)
+> +{
+> +	struct sun8i_pwm_pair *pair =3D sun8i_pwm_pair_from_gate_hw(hw);
+> +	struct sun8i_pwm_chip *sun8i_chip =3D pair->chip;
+> +	unsigned long flags;
+> +	u32 pccr;
+> +
+> +	spin_lock_irqsave(&sun8i_chip->lock, flags);
+> +	pccr =3D sun8i_pwm_readl(sun8i_chip, SUN8I_PWM_PCCR(pair->index));
+> +	pccr |=3D SUN8I_PWM_PCCR_GATE;
+> +	sun8i_pwm_writel(sun8i_chip, pccr, SUN8I_PWM_PCCR(pair->index));
+> +	spin_unlock_irqrestore(&sun8i_chip->lock, flags);
+> +
+> +	return 0;
+> +}
+> +
+> +static void sun8i_pwm_pair_gate_disable(struct clk_hw *hw)
+> +{
+> +	struct sun8i_pwm_pair *pair =3D sun8i_pwm_pair_from_gate_hw(hw);
+> +	struct sun8i_pwm_chip *sun8i_chip =3D pair->chip;
+> +	unsigned long reg =3D SUN8I_PWM_PCCR(pair->index);
+> +	unsigned long flags;
+> +	u32 pccr, per;
+> +
+> +	/* CCF counts do not include outputs awaiting firmware-state handoff. */
+> +	spin_lock_irqsave(&sun8i_chip->lock, flags);
+> +	per =3D sun8i_pwm_readl(sun8i_chip, SUN8I_PWM_PER);
+> +	if (!(per & sun8i_pwm_pair_enable_mask(sun8i_chip, pair->index))) {
+> +		pccr =3D sun8i_pwm_readl(sun8i_chip, reg);
+> +		pccr &=3D ~SUN8I_PWM_PCCR_GATE;
+> +		sun8i_pwm_writel(sun8i_chip, pccr, reg);
+> +	}
+> +	spin_unlock_irqrestore(&sun8i_chip->lock, flags);
+> +}
+> +
+> +static int sun8i_pwm_pair_gate_is_enabled(struct clk_hw *hw)
+> +{
+> +	struct sun8i_pwm_pair *pair =3D sun8i_pwm_pair_from_gate_hw(hw);
+> +	struct sun8i_pwm_chip *sun8i_chip =3D pair->chip;
+> +	unsigned long reg =3D SUN8I_PWM_PCCR(pair->index);
+> +	unsigned long flags;
+> +	bool enabled;
+> +
+> +	spin_lock_irqsave(&sun8i_chip->lock, flags);
+> +	enabled =3D sun8i_pwm_readl(sun8i_chip, reg) & SUN8I_PWM_PCCR_GATE;
+> +	spin_unlock_irqrestore(&sun8i_chip->lock, flags);
+> +
+> +	return enabled;
+> +}
+> +
+> +static const struct clk_ops sun8i_pwm_pair_gate_ops =3D {
+> +	.enable =3D sun8i_pwm_pair_gate_enable,
+> +	.disable =3D sun8i_pwm_pair_gate_disable,
+> +	.is_enabled =3D sun8i_pwm_pair_gate_is_enabled,
+> +};
+> +
+> +static int sun8i_pwm_pair_rate_notifier(struct notifier_block *nb,
+> +					unsigned long event, void *data)
+> +{
+> +	struct sun8i_pwm_pair *pair =3D
+> +		container_of(nb, struct sun8i_pwm_pair, rate_nb);
+> +	struct sun8i_pwm_chip *sun8i_chip =3D pair->chip;
+> +	unsigned long flags;
+> +	bool active;
+> +
+> +	if (event !=3D PRE_RATE_CHANGE)
+> +		return NOTIFY_DONE;
+> +
+> +	spin_lock_irqsave(&sun8i_chip->lock, flags);
+> +	active =3D sun8i_pwm_readl(sun8i_chip, SUN8I_PWM_PER) &
+> +		 sun8i_pwm_pair_enable_mask(sun8i_chip, pair->index);
+> +	spin_unlock_irqrestore(&sun8i_chip->lock, flags);
+> +
+> +	return active ? NOTIFY_BAD : NOTIFY_OK;
+> +}
+> +
+> +static inline struct sun8i_pwm_bypass *
+> +sun8i_pwm_bypass_from_hw(struct clk_hw *hw)
+> +{
+> +	return container_of(hw, struct sun8i_pwm_bypass, hw);
+> +}
+> +
+> +static int sun8i_pwm_bypass_prepare(struct clk_hw *hw)
+> +{
+> +	struct sun8i_pwm_bypass *bypass =3D sun8i_pwm_bypass_from_hw(hw);
+> +	struct sun8i_pwm_chip *sun8i_chip =3D bypass->chip;
+> +	struct sun8i_pwm_channel *chan =3D &sun8i_chip->channels[bypass->index];
+> +	unsigned long flags;
+> +	int ret =3D 0;
+> +
+> +	spin_lock_irqsave(&sun8i_chip->lock, flags);
+> +	if (chan->mode !=3D SUN8I_PWM_MODE_NONE)
+> +		ret =3D -EBUSY;
+> +	else
+> +		chan->mode =3D SUN8I_PWM_MODE_CLK;
+> +	spin_unlock_irqrestore(&sun8i_chip->lock, flags);
+> +
+> +	return ret;
+> +}
+> +
+> +static void sun8i_pwm_bypass_unprepare(struct clk_hw *hw)
+> +{
+> +	struct sun8i_pwm_bypass *bypass =3D sun8i_pwm_bypass_from_hw(hw);
+> +	struct sun8i_pwm_chip *sun8i_chip =3D bypass->chip;
+> +	struct sun8i_pwm_channel *chan =3D &sun8i_chip->channels[bypass->index];
+> +	unsigned long flags;
+> +
+> +	spin_lock_irqsave(&sun8i_chip->lock, flags);
+> +	if (WARN_ON_ONCE(chan->mode !=3D SUN8I_PWM_MODE_CLK))
+> +		goto out_unlock;
+> +
+> +	chan->mode =3D SUN8I_PWM_MODE_NONE;
+> +
+> +out_unlock:
+> +	spin_unlock_irqrestore(&sun8i_chip->lock, flags);
+> +}
+> +
+> +static int sun8i_pwm_bypass_enable(struct clk_hw *hw)
+> +{
+> +	struct sun8i_pwm_bypass *bypass =3D sun8i_pwm_bypass_from_hw(hw);
+> +	struct sun8i_pwm_chip *sun8i_chip =3D bypass->chip;
+> +	struct sun8i_pwm_channel *chan =3D &sun8i_chip->channels[bypass->index];
+> +	unsigned int pair =3D SUN8I_PWM_PAIR_IDX(bypass->index);
+> +	unsigned long flags;
+> +	u32 pccr, per;
+> +	int ret =3D 0;
+> +
+> +	spin_lock_irqsave(&sun8i_chip->lock, flags);
+> +	if (WARN_ON_ONCE(chan->mode !=3D SUN8I_PWM_MODE_CLK)) {
+> +		ret =3D -EBUSY;
+> +		goto out_unlock;
+> +	}
+> +
+> +	pccr =3D sun8i_pwm_readl(sun8i_chip, SUN8I_PWM_PCCR(pair));
+> +	per =3D sun8i_pwm_readl(sun8i_chip, SUN8I_PWM_PER);
+> +	if (!(pccr & BIT(SUN8I_PWM_PCCR_BYPASS_BIT(bypass->index))) ||
+> +	    !(per & SUN8I_PWM_ENABLE(bypass->index))) {
+> +		sun8i_pwm_set_enabled_locked(sun8i_chip, bypass->index, false);
+> +		sun8i_pwm_set_bypass_locked(sun8i_chip, bypass->index, true);
+> +		sun8i_pwm_set_enabled_locked(sun8i_chip, bypass->index, true);
+> +	}
+> +
+> +out_unlock:
+> +	spin_unlock_irqrestore(&sun8i_chip->lock, flags);
+> +
+> +	return ret;
+> +}
+> +
+> +static void sun8i_pwm_bypass_disable(struct clk_hw *hw)
+> +{
+> +	struct sun8i_pwm_bypass *bypass =3D sun8i_pwm_bypass_from_hw(hw);
+> +	struct sun8i_pwm_chip *sun8i_chip =3D bypass->chip;
+> +	struct sun8i_pwm_channel *chan =3D &sun8i_chip->channels[bypass->index];
+> +	unsigned long flags;
+> +
+> +	spin_lock_irqsave(&sun8i_chip->lock, flags);
+> +	if (WARN_ON_ONCE(chan->mode !=3D SUN8I_PWM_MODE_CLK))
+> +		goto out_unlock;
+> +
+> +	sun8i_pwm_set_enabled_locked(sun8i_chip, bypass->index, false);
+> +	sun8i_pwm_set_bypass_locked(sun8i_chip, bypass->index, false);
+> +
+> +out_unlock:
+> +	spin_unlock_irqrestore(&sun8i_chip->lock, flags);
+> +}
+> +
+> +static void sun8i_pwm_bypass_disable_unused(struct clk_hw *hw)
+> +{
+> +	/* Defer inherited-output cleanup to sun8i_pwm_sync_state(). */
+> +}
 
-The "Pixel Arrangement" section in the datasheet for IMX678 (Starvis 2,
-same resolution) mentioned a horizontal margin of 8 and 9, and vertical
-margin of 10 + 10 + 4 + 8 and 9, thus the total came out to be 3857x2201
+I would expect that you can drop this empty callback?!
 
-Which also explained why the CFA readout stays R->G->G->B irrespective of
-VFLIP and HFLIP, the extra pixel allowed shifting the readout start.
+> +static int sun8i_pwm_bypass_is_enabled(struct clk_hw *hw)
+> +{
+> +	struct sun8i_pwm_bypass *bypass =3D sun8i_pwm_bypass_from_hw(hw);
+> +	struct sun8i_pwm_chip *sun8i_chip =3D bypass->chip;
+> +	unsigned int pair =3D SUN8I_PWM_PAIR_IDX(bypass->index);
+> +	unsigned long flags;
+> +	bool enabled;
+> +	u32 val;
+> +
+> +	spin_lock_irqsave(&sun8i_chip->lock, flags);
+> +
+> +	val =3D sun8i_pwm_readl(sun8i_chip, SUN8I_PWM_PCCR(pair));
+> +	enabled =3D (val & SUN8I_PWM_PCCR_GATE) &&
+> +		  (val & BIT(SUN8I_PWM_PCCR_BYPASS_BIT(bypass->index)));
+> +
+> +	val =3D sun8i_pwm_readl(sun8i_chip, SUN8I_PWM_PER);
+> +	enabled =3D enabled && (val & SUN8I_PWM_ENABLE(bypass->index));
+> +
+> +	spin_unlock_irqrestore(&sun8i_chip->lock, flags);
+> +
+> +	return enabled;
+> +}
+> +
+> +static unsigned long sun8i_pwm_bypass_recalc_rate(struct clk_hw *hw,
+> +						  unsigned long parent_rate)
+> +{
+> +	return parent_rate;
+> +}
+> +
+> +static const struct clk_ops sun8i_pwm_bypass_ops =3D {
+> +	.prepare =3D sun8i_pwm_bypass_prepare,
+> +	.unprepare =3D sun8i_pwm_bypass_unprepare,
+> +	.enable =3D sun8i_pwm_bypass_enable,
+> +	.disable =3D sun8i_pwm_bypass_disable,
+> +	.disable_unused =3D sun8i_pwm_bypass_disable_unused,
+> +	.is_enabled =3D sun8i_pwm_bypass_is_enabled,
+> +	.recalc_rate =3D sun8i_pwm_bypass_recalc_rate,
+> +};
 
-> +static const struct v4l2_rect imx908_active_area =3D {
-> +       .top =3D 0,
-> +       .left =3D 0,
-> +       .width =3D 3856,
-> +       .height =3D 2176,
+I have problems grokking how the clk and pwm frameworks interact here. I
+think that would be easier to understand if you split this patch into
+a basic pwm driver and in a 2nd patch add the clk stuff. Maybe also
+split out the bypass stuff?
 
-Shouldn't this have .top =3D 24 (10 + 10 + 4)?
+> +static int sun8i_pwm_request(struct pwm_chip *chip, struct pwm_device *p=
+wm)
+> +{
+> +	struct sun8i_pwm_chip *sun8i_chip =3D sun8i_pwm_from_chip(chip);
+> +	struct sun8i_pwm_channel *chan =3D &sun8i_chip->channels[pwm->hwpwm];
+> +	unsigned int idx =3D pwm->hwpwm;
+> +	unsigned long flags;
+> +	bool was_enabled =3D false;
+> +	int ret;
+> +
+> +	spin_lock_irqsave(&sun8i_chip->lock, flags);
+> +	if (chan->mode !=3D SUN8I_PWM_MODE_NONE) {
+> +		ret =3D -EBUSY;
+> +	} else {
+> +		was_enabled =3D
+> +			sun8i_pwm_channel_is_enabled_locked(sun8i_chip, idx);
+> +		chan->mode =3D SUN8I_PWM_MODE_PWM;
+> +		ret =3D 0;
+> +	}
+> +	spin_unlock_irqrestore(&sun8i_chip->lock, flags);
+> +	if (ret)
+> +		return ret;
 
-At least on IMX678, while the diagram shows the OB area at bottom, that's
-where the scan starts from (N12 pin) when HREVERSE/VREVERSE are 0.
+With scoped_guard() this can be written in a nicer way.
 
-It would be good to confirm if IMX908 is indeed different in its behaviour
-from Starvis2 sensors.
+> +	if (was_enabled) {
+> +		ret =3D clk_rate_exclusive_get(chan->pair_clk);
+> +		if (ret)
+> +			goto err_release_channel;
+> +		WRITE_ONCE(chan->rate_exclusive, true);
+> +	}
+> +
+> +	ret =3D clk_prepare_enable(chan->pair_clk);
+> +	if (ret) {
+> +		if (READ_ONCE(chan->rate_exclusive)) {
+> +			clk_rate_exclusive_put(chan->pair_clk);
+> +			WRITE_ONCE(chan->rate_exclusive, false);
+> +		}
+> +		goto err_release_channel;
+> +	}
+> +
+> +	return 0;
+> +
+> +err_release_channel:
+> +	spin_lock_irqsave(&sun8i_chip->lock, flags);
+> +	chan->mode =3D SUN8I_PWM_MODE_NONE;
+> +	spin_unlock_irqrestore(&sun8i_chip->lock, flags);
+> +
+> +	return ret;
+> +}
+> +
+> +static void sun8i_pwm_free(struct pwm_chip *chip, struct pwm_device *pwm)
+> +{
+> +	struct sun8i_pwm_chip *sun8i_chip =3D sun8i_pwm_from_chip(chip);
+> +	struct sun8i_pwm_channel *chan =3D &sun8i_chip->channels[pwm->hwpwm];
+> +	unsigned long flags;
+> +
+> +	spin_lock_irqsave(&sun8i_chip->lock, flags);
+> +	if (WARN_ON_ONCE(chan->mode !=3D SUN8I_PWM_MODE_PWM)) {
 
+WARN_ON is usually frowned upon, see e.g.
+https://lore.kernel.org/all/2026091953-cherub-empty-ef35@gregkh/.
+
+> +		spin_unlock_irqrestore(&sun8i_chip->lock, flags);
+> +		return;
+> +	}
+> +
+> +	sun8i_pwm_set_enabled_locked(sun8i_chip, pwm->hwpwm, false);
+> +	sun8i_pwm_set_bypass_locked(sun8i_chip, pwm->hwpwm, false);
+> +	spin_unlock_irqrestore(&sun8i_chip->lock, flags);
+> +
+> +	if (READ_ONCE(chan->rate_exclusive)) {
+
+given this isn't performance critical (is it?) and we have a lock
+anyhow, I'd prefer to have chan->rate_exclusive protected by that lock,
+too, instead of mixing different atomics here.
+
+> +		clk_rate_exclusive_put(chan->pair_clk);
+> +		WRITE_ONCE(chan->rate_exclusive, false);
+> +	}
+> +	clk_disable_unprepare(chan->pair_clk);
+> +
+> +	spin_lock_irqsave(&sun8i_chip->lock, flags);
+> +	chan->mode =3D SUN8I_PWM_MODE_NONE;
+> +	spin_unlock_irqrestore(&sun8i_chip->lock, flags);
+> +}
+> +
+> +static int sun8i_pwm_read_waveform(struct pwm_chip *chip,
+> +				   struct pwm_device *pwm,
+> +				   void *_wfhw)
+> +{
+> +	struct sun8i_pwm_waveform *wfhw =3D _wfhw;
+> +	struct sun8i_pwm_chip *sun8i_chip =3D sun8i_pwm_from_chip(chip);
+> +	struct sun8i_pwm_channel *chan =3D &sun8i_chip->channels[pwm->hwpwm];
+> +	unsigned int pair =3D SUN8I_PWM_PAIR_IDX(pwm->hwpwm);
+> +	unsigned long flags, pair_rate;
+> +	u32 pccr, pcr, pdzcr, per, ppr;
+> +
+> +	pair_rate =3D clk_get_rate(chan->pair_clk);
+> +	if (pair_rate > U32_MAX)
+> +		return -ERANGE;
+
+That should not happen. You lock the rate in .request(). So please check
+the rate already there and return an error code.
+
+> +	spin_lock_irqsave(&sun8i_chip->lock, flags);
+> +	pccr =3D sun8i_pwm_readl(sun8i_chip, SUN8I_PWM_PCCR(pair));
+> +	per =3D sun8i_pwm_readl(sun8i_chip, SUN8I_PWM_PER);
+> +	pcr =3D sun8i_pwm_readl(sun8i_chip, SUN8I_PWM_PCR(pwm->hwpwm));
+> +	ppr =3D sun8i_pwm_readl(sun8i_chip, SUN8I_PWM_PPR(pwm->hwpwm));
+> +	pdzcr =3D sun8i_pwm_readl(sun8i_chip, SUN8I_PWM_PDZCR(pair));
+> +	spin_unlock_irqrestore(&sun8i_chip->lock, flags);
+> +
+> +	*wfhw =3D (struct sun8i_pwm_waveform) {
+> +		.enabled =3D !!(pccr & SUN8I_PWM_PCCR_GATE) &&
+> +			   !!(per & SUN8I_PWM_ENABLE(pwm->hwpwm)),
+> +		.bypass_en =3D !!(pccr &
+> +				 BIT(SUN8I_PWM_PCCR_BYPASS_BIT(pwm->hwpwm))),
+> +		.active_state =3D !!(pcr & SUN8I_PWM_PCR_ACTIVE_STATE),
+> +		.duty_ticks =3D SUN8I_PWM_PPR_DUTY_VALUE(ppr),
+> +		.period_ticks =3D SUN8I_PWM_PPR_PERIOD_VALUE(ppr),
+> +		.pair_rate =3D pair_rate,
+> +		.div_k =3D FIELD_GET(SUN8I_PWM_PCR_PRESCAL_K_MASK, pcr) + 1,
+> +	};
+> +
+> +	if (wfhw->enabled && !wfhw->bypass_en &&
+> +	    (pdzcr & SUN8I_PWM_PDZCR_ENABLE))
+> +		return -EOPNOTSUPP;
+> +	if (wfhw->enabled && !wfhw->bypass_en &&
+> +	    (pcr & SUN8I_PWM_PCR_MODE))
+> +		return -EOPNOTSUPP;
+
+These need at least a comment.
+
+> +	return 0;
+> +}
+> +
+> +static u64 sun8i_pwm_ticks_to_ns(u32 ticks, u16 div_k, u32 pair_rate)
+> +{
+> +	return DIV_ROUND_UP_ULL(NSEC_PER_SEC * (u64)ticks * div_k,
+> +				pair_rate);
+> +}
+> +
+> +static void
+> +sun8i_pwm_waveform_to_ns(const struct sun8i_pwm_waveform *wfhw,
+> +			 struct pwm_waveform *wf)
+> +{
+> +	u32 pair_rate =3D wfhw->pair_rate;
+> +	u16 div_k =3D wfhw->div_k;
+> +
+> +	wf->duty_offset_ns =3D 0;
+> +
+> +	if (!wfhw->enabled || !pair_rate) {
+> +		wf->period_length_ns =3D 0;
+> +		wf->duty_length_ns =3D 0;
+> +		return;
+> +	}
+> +
+> +	if (wfhw->bypass_en) {
+> +		wf->period_length_ns =3D DIV_ROUND_UP_ULL(NSEC_PER_SEC,
+> +							pair_rate);
+> +		wf->duty_length_ns =3D
+> +			DIV_ROUND_UP_ULL(NSEC_PER_SEC,
+> +					 2ULL * pair_rate);
+> +	} else {
+> +		wf->period_length_ns =3D sun8i_pwm_ticks_to_ns(wfhw->period_ticks,
+> +							     div_k, pair_rate);
+> +		if (wfhw->active_state) {
+> +			u32 duty_ticks =3D min(wfhw->duty_ticks,
+> +					     wfhw->period_ticks);
+> +
+> +			wf->duty_length_ns =3D
+> +				sun8i_pwm_ticks_to_ns(duty_ticks, div_k, pair_rate);
+> +		} else if (!wfhw->duty_ticks) {
+> +			wf->duty_length_ns =3D wf->period_length_ns;
+> +		} else if (wfhw->duty_ticks >=3D wfhw->period_ticks) {
+> +			wf->duty_length_ns =3D 0;
+> +		} else {
+> +			u32 low_ticks =3D wfhw->duty_ticks;
+> +			u32 high_ticks =3D wfhw->period_ticks - wfhw->duty_ticks;
+> +
+> +			wf->duty_length_ns =3D
+> +				sun8i_pwm_ticks_to_ns(high_ticks, div_k, pair_rate);
+> +			wf->duty_offset_ns =3D
+> +				sun8i_pwm_ticks_to_ns(low_ticks, div_k, pair_rate);
+> +		}
+> +	}
+> +}
+> +
+> +static int sun8i_pwm_round_waveform_fromhw(struct pwm_chip *chip,
+> +					   struct pwm_device *pwm,
+> +					   const void *_wfhw,
+> +					   struct pwm_waveform *wf)
+> +{
+> +	const struct sun8i_pwm_waveform *wfhw =3D _wfhw;
+> +
+> +	sun8i_pwm_waveform_to_ns(wfhw, wf);
+
+I suggest to rename that function to __sun8i_pwm_round_waveform_fromhw()
+or similar to make the relation between the two functions obvious.
+
+> +	dev_dbg(pwmchip_parent(chip),
+> +		"pwm#%u: pair-rate=3D%u, div-k=3D%u, period=3D%u, duty=3D%u, bypass=3D=
+%u, active-high=3D%u -> %llu/%llu [+%llu]\n",
+> +		pwm->hwpwm, wfhw->pair_rate, wfhw->div_k,
+> +		wfhw->period_ticks, wfhw->duty_ticks, wfhw->bypass_en,
+> +		wfhw->active_state,
+> +		wf->duty_length_ns, wf->period_length_ns,
+> +		wf->duty_offset_ns);
+> +
+> +	return 0;
+> +}
+> +
+> +static bool
+> +sun8i_pwm_pair_rate_constrained(struct sun8i_pwm_chip *sun8i_chip,
+> +				unsigned int idx)
+> +{
+> +	unsigned int sibling =3D idx ^ 1;
+> +	unsigned long flags;
+> +	bool constrained;
+> +
+> +	if (sibling >=3D sun8i_chip->data->npwm)
+> +		return false;
+> +
+> +	spin_lock_irqsave(&sun8i_chip->lock, flags);
+> +	constrained =3D sun8i_chip->channels[sibling].mode =3D=3D
+> +			SUN8I_PWM_MODE_CLK ||
+> +		      READ_ONCE(sun8i_chip->channels[sibling].rate_exclusive) ||
+> +		      sun8i_pwm_channel_is_enabled_locked(sun8i_chip,
+> +							  sibling);
+> +	spin_unlock_irqrestore(&sun8i_chip->lock, flags);
+> +
+> +	return constrained;
+> +}
+> +
+> +static int sun8i_pwm_clear_idle_deadzone(struct sun8i_pwm_chip *sun8i_ch=
+ip,
+> +					 unsigned int idx)
+> +{
+> +	unsigned int pair =3D SUN8I_PWM_PAIR_IDX(idx);
+> +	unsigned long flags;
+> +	u32 pdzcr, per;
+> +	int ret =3D 0;
+> +
+> +	spin_lock_irqsave(&sun8i_chip->lock, flags);
+> +	pdzcr =3D sun8i_pwm_readl(sun8i_chip, SUN8I_PWM_PDZCR(pair));
+> +	if (!(pdzcr & SUN8I_PWM_PDZCR_ENABLE))
+> +		goto out_unlock;
+> +
+> +	per =3D sun8i_pwm_readl(sun8i_chip, SUN8I_PWM_PER);
+> +	if (per & sun8i_pwm_pair_enable_mask(sun8i_chip, pair)) {
+> +		ret =3D -EOPNOTSUPP;
+> +		goto out_unlock;
+> +	}
+> +
+> +	pdzcr &=3D ~SUN8I_PWM_PDZCR_ENABLE;
+> +	sun8i_pwm_writel(sun8i_chip, pdzcr, SUN8I_PWM_PDZCR(pair));
+> +
+> +out_unlock:
+> +	spin_unlock_irqrestore(&sun8i_chip->lock, flags);
+> +
+> +	return ret;
+> +}
+> +
+> +static u64 sun8i_pwm_max_period_ns(struct sun8i_pwm_chip *sun8i_chip,
+> +				   unsigned int idx)
+> +{
+> +	struct sun8i_pwm_channel *chan =3D &sun8i_chip->channels[idx];
+> +	unsigned long flags, pair_rate;
+> +	u32 pcr;
+> +	u16 div_k;
+> +
+> +	pair_rate =3D clk_get_rate(chan->pair_clk);
+> +	if (!pair_rate || pair_rate > U32_MAX)
+> +		return 0;
+> +
+> +	spin_lock_irqsave(&sun8i_chip->lock, flags);
+> +	pcr =3D sun8i_pwm_readl(sun8i_chip, SUN8I_PWM_PCR(idx));
+> +	spin_unlock_irqrestore(&sun8i_chip->lock, flags);
+> +	div_k =3D FIELD_GET(SUN8I_PWM_PCR_PRESCAL_K_MASK, pcr) + 1;
+> +
+> +	return sun8i_pwm_ticks_to_ns(SUN8I_PWM_PPR_PERIOD_MAX, div_k,
+> +				     pair_rate);
+> +}
+> +
+> +static int sun8i_pwm_wait_period_ready(struct sun8i_pwm_chip *sun8i_chip,
+> +				       unsigned int idx, u64 *timeout_us)
+> +{
+> +	struct sun8i_pwm_channel *chan =3D &sun8i_chip->channels[idx];
+> +	unsigned long poll_us;
+> +	u64 period_ns;
+> +	u32 val;
+> +	int ret;
+> +
+> +	/* PPR contains the pending value, not necessarily the active period. */
+> +	period_ns =3D chan->pending_period_ns;
+> +	if (!period_ns)
+> +		period_ns =3D sun8i_pwm_max_period_ns(sun8i_chip, idx);
+> +	*timeout_us =3D DIV_ROUND_UP_ULL(period_ns, NSEC_PER_USEC) +
+> +		      SUN8I_PWM_PERIOD_READY_MARGIN_US;
+> +	poll_us =3D clamp_t(u64,
+> +			  DIV_ROUND_UP_ULL(*timeout_us,
+> +					   SUN8I_PWM_PERIOD_READY_POLL_COUNT),
+> +			  SUN8I_PWM_PERIOD_READY_MIN_POLL_US,
+> +			  SUN8I_PWM_PERIOD_READY_MAX_POLL_US);
+> +
+> +	ret =3D readl_poll_timeout(sun8i_chip->base + SUN8I_PWM_PCR(idx), val,
+> +				 !(val & SUN8I_PWM_PCR_PERIOD_READY), poll_us,
+> +				 *timeout_us);
+> +	if (!ret)
+> +		chan->pending_period_ns =3D 0;
+> +
+> +	return ret;
+> +}
+> +
+> +static int sun8i_pwm_write_waveform(struct pwm_chip *chip,
+> +				    struct pwm_device *pwm, const void *_wfhw)
+> +{
+> +	const struct sun8i_pwm_waveform *wfhw =3D _wfhw;
+> +	struct sun8i_pwm_chip *sun8i_chip =3D sun8i_pwm_from_chip(chip);
+> +	struct sun8i_pwm_channel *chan =3D &sun8i_chip->channels[pwm->hwpwm];
+> +	struct device *dev =3D pwmchip_parent(chip);
+> +	unsigned long bus_rate, current_rate, restored_rate;
+> +	unsigned long flags;
+> +	u64 new_ns, old_ns, timeout_us;
+> +	bool acquired_exclusive =3D false;
+> +	bool can_restore_enable =3D true;
+> +	bool current_bypass, needs_quiesce, was_enabled;
+> +	u16 current_div_k;
+> +	u32 old_ticks, pcr, ppr, val;
+> +	int restore_ret, ret;
+> +
+> +	if (!wfhw->enabled) {
+> +		spin_lock_irqsave(&sun8i_chip->lock, flags);
+> +		sun8i_pwm_set_enabled_locked(sun8i_chip, pwm->hwpwm, false);
+> +		sun8i_pwm_set_bypass_locked(sun8i_chip, pwm->hwpwm, false);
+> +		spin_unlock_irqrestore(&sun8i_chip->lock, flags);
+> +		if (READ_ONCE(chan->rate_exclusive)) {
+> +			clk_rate_exclusive_put(chan->pair_clk);
+> +			WRITE_ONCE(chan->rate_exclusive, false);
+> +		}
+> +
+> +		return 0;
+> +	}
+> +
+> +	if (!wfhw->pair_rate ||
+> +	    (!wfhw->bypass_en &&
+> +	     (!wfhw->div_k || wfhw->div_k > 256 ||
+> +	      !wfhw->period_ticks ||
+> +	      wfhw->period_ticks > SUN8I_PWM_PPR_PERIOD_MAX ||
+> +	      wfhw->duty_ticks > FIELD_MAX(SUN8I_PWM_PPR_DUTY_MASK))))
+> +		return -EINVAL;
+> +
+> +	if (!wfhw->bypass_en) {
+> +		ret =3D sun8i_pwm_clear_idle_deadzone(sun8i_chip, pwm->hwpwm);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	current_rate =3D clk_get_rate(chan->pair_clk);
+> +	if (!current_rate || current_rate > U32_MAX)
+> +		return -ERANGE;
+> +	bus_rate =3D clk_get_rate(sun8i_chip->bus_clk);
+> +
+> +	if (!wfhw->bypass_en) {
+> +		/* Do not overwrite a PPR update which has not latched yet. */
+> +		ret =3D sun8i_pwm_wait_period_ready(sun8i_chip, pwm->hwpwm,
+> +						  &timeout_us);
+> +		if (ret) {
+> +			dev_err_ratelimited(dev, "pwm#%u: update timeout after %llu us\n",
+> +					    pwm->hwpwm, timeout_us);
+> +			return ret;
+> +		}
+> +	}
+> +
+> +	spin_lock_irqsave(&sun8i_chip->lock, flags);
+> +	was_enabled =3D sun8i_pwm_channel_is_enabled_locked(sun8i_chip,
+> +							  pwm->hwpwm);
+> +	val =3D sun8i_pwm_readl(sun8i_chip,
+> +			      SUN8I_PWM_PCCR(SUN8I_PWM_PAIR_IDX(pwm->hwpwm)));
+> +	current_bypass =3D !!(val &
+> +				   BIT(SUN8I_PWM_PCCR_BYPASS_BIT(pwm->hwpwm)));
+> +	pcr =3D sun8i_pwm_readl(sun8i_chip, SUN8I_PWM_PCR(pwm->hwpwm));
+> +	ppr =3D sun8i_pwm_readl(sun8i_chip, SUN8I_PWM_PPR(pwm->hwpwm));
+> +	spin_unlock_irqrestore(&sun8i_chip->lock, flags);
+> +	current_div_k =3D FIELD_GET(SUN8I_PWM_PCR_PRESCAL_K_MASK, pcr) + 1;
+> +
+> +	if (current_rate !=3D wfhw->pair_rate &&
+> +	    sun8i_pwm_pair_rate_constrained(sun8i_chip, pwm->hwpwm))
+> +		return -EBUSY;
+> +
+> +	if (was_enabled && !READ_ONCE(chan->rate_exclusive)) {
+> +		ret =3D clk_rate_exclusive_get(chan->pair_clk);
+> +		if (ret)
+> +			return ret;
+> +		WRITE_ONCE(chan->rate_exclusive, true);
+> +	}
+> +
+> +	/*
+> +	 * Updating PPR while running is safe only if the input clocks and
+> +	 * polarity remain unchanged and PCLK is faster than the PWM clock.
+> +	 * Otherwise stop the channel before touching its configuration.
+> +	 */
+> +	needs_quiesce =3D was_enabled &&
+> +		(current_bypass !=3D wfhw->bypass_en ||
+> +		 current_rate !=3D wfhw->pair_rate ||
+> +		 (!wfhw->bypass_en &&
+> +		  (!!(pcr & SUN8I_PWM_PCR_ACTIVE_STATE) !=3D
+> +		   wfhw->active_state ||
+> +		   current_div_k !=3D wfhw->div_k ||
+> +		   (pcr & SUN8I_PWM_PCR_MODE) ||
+> +		   !bus_rate ||
+> +		   bus_rate <=3D DIV_ROUND_UP_ULL(wfhw->pair_rate,
+> +						     wfhw->div_k))));
+> +
+> +	if (needs_quiesce) {
+> +		spin_lock_irqsave(&sun8i_chip->lock, flags);
+> +		sun8i_pwm_set_enabled_locked(sun8i_chip, pwm->hwpwm, false);
+> +		spin_unlock_irqrestore(&sun8i_chip->lock, flags);
+> +	}
+> +
+> +	if (!was_enabled && !READ_ONCE(chan->rate_exclusive)) {
+> +		if (current_rate =3D=3D wfhw->pair_rate)
+> +			ret =3D clk_rate_exclusive_get(chan->pair_clk);
+> +		else
+> +			ret =3D clk_set_rate_exclusive(chan->pair_clk,
+> +						     wfhw->pair_rate);
+> +		if (ret)
+> +			return ret;
+> +		WRITE_ONCE(chan->rate_exclusive, true);
+> +		acquired_exclusive =3D true;
+> +	} else if (current_rate !=3D wfhw->pair_rate) {
+> +		ret =3D clk_set_rate(chan->pair_clk, wfhw->pair_rate);
+> +		if (ret)
+> +			goto restore_enable;
+> +	}
+> +
+> +	if (clk_get_rate(chan->pair_clk) !=3D wfhw->pair_rate) {
+> +		ret =3D -EINVAL;
+> +		goto restore_rate;
+> +	}
+> +
+> +	if (!wfhw->bypass_en) {
+> +		/* Return the channel to cycle mode without replaying W1S bits. */
+> +		pcr &=3D ~(SUN8I_PWM_PCR_PRESCAL_K_MASK |
+> +			 SUN8I_PWM_PCR_ACTIVE_STATE | SUN8I_PWM_PCR_MODE |
+> +			 SUN8I_PWM_PCR_PULSE_START |
+> +			 SUN8I_PWM_PCR_PERIOD_READY);
+> +		pcr |=3D FIELD_PREP(SUN8I_PWM_PCR_PRESCAL_K_MASK,
+> +				  wfhw->div_k - 1);
+> +		if (wfhw->active_state)
+> +			pcr |=3D SUN8I_PWM_PCR_ACTIVE_STATE;
+> +		sun8i_pwm_writel(sun8i_chip, pcr, SUN8I_PWM_PCR(pwm->hwpwm));
+> +
+> +		val =3D SUN8I_PWM_PPR_DUTY(wfhw->duty_ticks);
+> +		val |=3D SUN8I_PWM_PPR_PERIOD(wfhw->period_ticks);
+> +		old_ns =3D 0;
+> +		if (was_enabled && !current_bypass) {
+> +			old_ticks =3D SUN8I_PWM_PPR_PERIOD_VALUE(ppr);
+> +			old_ns =3D sun8i_pwm_ticks_to_ns(old_ticks, current_div_k,
+> +						       current_rate);
+> +		}
+> +		new_ns =3D sun8i_pwm_ticks_to_ns(wfhw->period_ticks,
+> +					       wfhw->div_k, wfhw->pair_rate);
+> +		chan->pending_period_ns =3D max(old_ns, new_ns);
+> +		sun8i_pwm_writel(sun8i_chip, val, SUN8I_PWM_PPR(pwm->hwpwm));
+> +	}
+> +
+> +	spin_lock_irqsave(&sun8i_chip->lock, flags);
+> +	sun8i_pwm_set_bypass_locked(sun8i_chip, pwm->hwpwm, wfhw->bypass_en);
+> +	sun8i_pwm_set_enabled_locked(sun8i_chip, pwm->hwpwm, true);
+> +	spin_unlock_irqrestore(&sun8i_chip->lock, flags);
+> +
+> +	return 0;
+> +
+> +restore_rate:
+> +	if (current_rate !=3D wfhw->pair_rate) {
+> +		restore_ret =3D clk_set_rate(chan->pair_clk, current_rate);
+> +		restored_rate =3D clk_get_rate(chan->pair_clk);
+> +		if (restore_ret || restored_rate !=3D current_rate) {
+> +			dev_err(dev,
+> +				"pwm#%u: failed to restore pair clock rate %lu: %d (got %lu)\n",
+> +				pwm->hwpwm, current_rate, restore_ret,
+> +				restored_rate);
+> +			can_restore_enable =3D false;
+> +		}
+> +	}
+> +	if (acquired_exclusive) {
+> +		clk_rate_exclusive_put(chan->pair_clk);
+> +		WRITE_ONCE(chan->rate_exclusive, false);
+> +	}
+> +restore_enable:
+> +	if (needs_quiesce && can_restore_enable) {
+> +		spin_lock_irqsave(&sun8i_chip->lock, flags);
+> +		sun8i_pwm_set_enabled_locked(sun8i_chip, pwm->hwpwm, true);
+> +		spin_unlock_irqrestore(&sun8i_chip->lock, flags);
+> +	}
+> +
+> +	return ret;
+
+For a function that is supposed to just write wfhw into the hardware
+that is really complicated. Is this really necessary?
+
+> +}
+> +
+> +struct sun8i_pwm_rounding {
+> +	const struct pwm_waveform *requested;
+> +	struct sun8i_pwm_waveform best;
+> +	struct pwm_waveform best_wf;
+> +	u32 current_pair_rate;
+> +	bool have_best;
 > +};
 > +
-> +static const char *const imx908_supply_names[] =3D {
-> +       "avdd",  /* Analog (3.3V) supply */
-> +       "dvdd",  /* Digital Core (1.1V) supply */
-> +       "ovdd",  /* IF (1.8V) supply */
-> +};
-> +
-> +static const u32 imx908_mbus_codes[] =3D {
-> +       MEDIA_BUS_FMT_SRGGB10_1X10, /* RAW10 */
-> +       MEDIA_BUS_FMT_SRGGB12_1X12, /* RAW12 */
-> +};
-> +
-> +/*
-> + * Link frequency indices, ordered so that the index is also the
-> + * DATARATE_SEL register value. Keep in descending frequency order.
-> + */
-> +enum {
-> +       IMX908_LINK_FREQ_1188MHZ =3D 0x00,
-> +       IMX908_LINK_FREQ_1039MHZ =3D 0x01,
-> +       IMX908_LINK_FREQ_891MHZ  =3D 0x02,
-> +       IMX908_LINK_FREQ_720MHZ  =3D 0x03,
-> +       IMX908_LINK_FREQ_594MHZ  =3D 0x04,
-> +       IMX908_LINK_FREQ_445MHZ  =3D 0x05,
-> +       IMX908_LINK_FREQ_360MHZ  =3D 0x06,
-> +       IMX908_LINK_FREQ_297MHZ  =3D 0x07,
-> +};
-> +
-> +static const s64 imx908_link_freqs[] =3D {
-> +       [IMX908_LINK_FREQ_1188MHZ] =3D 1188000000LL,
-> +       [IMX908_LINK_FREQ_1039MHZ] =3D 1039500000LL,
-> +       [IMX908_LINK_FREQ_891MHZ]  =3D  891000000LL,
-> +       [IMX908_LINK_FREQ_720MHZ]  =3D  720000000LL,
-> +       [IMX908_LINK_FREQ_594MHZ]  =3D  594000000LL,
-> +       [IMX908_LINK_FREQ_445MHZ]  =3D  445500000LL,
-> +       [IMX908_LINK_FREQ_360MHZ]  =3D  360000000LL,
-> +       [IMX908_LINK_FREQ_297MHZ]  =3D  297000000LL,
-> +};
-> +
-> +/* Allowed clock values in Hz */
-> +static const u32 imx908_inck_table[] =3D {
-> +       74250000,
-> +       37125000,
-> +       72000000,
-> +       27000000,
-> +       24000000,
-> +};
-> +
-> +struct imx908 {
-> +       struct v4l2_subdev sd;
-> +       struct media_pad pad;
-> +       struct device *dev;
-> +
-> +       struct regmap *cci;
-> +
-> +       struct clk *xclk;
-> +       struct gpio_desc *reset_gpio;
-> +       struct regulator_bulk_data supplies[ARRAY_SIZE(imx908_supply_name=
-s)];
-> +
-> +       u8 inck_sel;
-> +
-> +       u8 num_lanes;
-> +       unsigned long link_freq_bitmap;
-> +       unsigned int link_freq_idx;
-> +
-> +       struct {
-> +               struct v4l2_ctrl_handler handler;
-> +
-> +               struct v4l2_ctrl *exposure;
-> +               struct v4l2_ctrl *vblank;
-> +               struct v4l2_ctrl *hblank;
-> +       } ctrls;
-> +};
-> +
-> +static inline struct imx908 *to_imx908(struct v4l2_subdev *_sd)
+> +static bool
+> +sun8i_pwm_candidate_is_better(const struct sun8i_pwm_rounding *rounding,
+> +			      const struct sun8i_pwm_waveform *candidate,
+> +			      const struct pwm_waveform *candidate_wf)
 > +{
-> +       return container_of(_sd, struct imx908, sd);
+> +	const struct pwm_waveform *requested =3D rounding->requested;
+> +	bool candidate_period_down, best_period_down;
+> +
+> +	/* A zero-duty, zero-offset cycle-mode candidate always exists. */
+> +	if (candidate_wf->duty_length_ns > requested->duty_length_ns ||
+> +	    candidate_wf->duty_offset_ns > requested->duty_offset_ns)
+> +		return false;
+> +
+> +	if (!rounding->have_best)
+> +		return true;
+> +
+> +	candidate_period_down =3D
+> +		candidate_wf->period_length_ns <=3D requested->period_length_ns;
+> +	best_period_down =3D
+> +		rounding->best_wf.period_length_ns <=3D requested->period_length_ns;
+> +	if (candidate_period_down !=3D best_period_down)
+> +		return candidate_period_down;
+> +
+> +	if (candidate_wf->period_length_ns !=3D
+> +	    rounding->best_wf.period_length_ns) {
+> +		if (candidate_period_down)
+> +			return candidate_wf->period_length_ns >
+> +			       rounding->best_wf.period_length_ns;
+> +
+> +		return candidate_wf->period_length_ns <
+> +		       rounding->best_wf.period_length_ns;
+> +	}
+> +
+> +	if (candidate_wf->duty_length_ns !=3D
+> +	    rounding->best_wf.duty_length_ns)
+> +		return candidate_wf->duty_length_ns >
+> +		       rounding->best_wf.duty_length_ns;
+> +
+> +	if (candidate_wf->duty_offset_ns !=3D
+> +	    rounding->best_wf.duty_offset_ns)
+> +		return candidate_wf->duty_offset_ns >
+> +		       rounding->best_wf.duty_offset_ns;
+> +
+> +	/* Avoid a shared pair-rate change when two settings are equivalent. */
+> +	return candidate->pair_rate =3D=3D rounding->current_pair_rate &&
+> +	       rounding->best.pair_rate !=3D rounding->current_pair_rate;
 > +}
 > +
-> +/* ----------------------- Basic Helper Functions ----------------------=
------ */
-> +static bool imx908_mbus_code_supported(struct imx908 *imx, u32 code)
+> +static void
+> +sun8i_pwm_consider_candidate(struct sun8i_pwm_rounding *rounding,
+> +			     const struct sun8i_pwm_waveform *candidate)
 > +{
-> +       for (unsigned int i =3D 0; i < ARRAY_SIZE(imx908_mbus_codes); i++=
-) {
-> +               if (imx908_mbus_codes[i] =3D=3D code)
-> +                       return true;
-> +       }
+> +	struct pwm_waveform candidate_wf;
 > +
-> +       return false;
+> +	sun8i_pwm_waveform_to_ns(candidate, &candidate_wf);
+> +	if (!sun8i_pwm_candidate_is_better(rounding, candidate,
+> +					   &candidate_wf))
+> +		return;
+> +
+> +	rounding->best =3D *candidate;
+> +	rounding->best_wf =3D candidate_wf;
+> +	rounding->have_best =3D true;
 > +}
 > +
-> +static u16 imx908_calc_hmax(u32 width, u32 hblank)
+> +static void
+> +sun8i_pwm_consider_normal(struct sun8i_pwm_rounding *rounding, u32 pair_=
+rate,
+> +			  u16 div_k)
 > +{
-> +       u32 hmax =3D DIV_ROUND_UP(width + hblank, IMX908_PIX_PER_CLK);
+> +	const struct pwm_waveform *requested =3D rounding->requested;
+> +	struct sun8i_pwm_waveform candidate =3D {
+> +		.enabled =3D true,
+> +		.pair_rate =3D pair_rate,
+> +		.div_k =3D div_k,
+> +	};
+> +	u64 denominator =3D NSEC_PER_SEC * (u64)div_k;
+> +	u64 duty_ticks, period_ticks;
+> +	u64 duty_ns =3D requested->duty_length_ns;
+> +	u64 period_ns =3D requested->period_length_ns;
+> +	u32 inactive_ticks;
 > +
-> +       return min_t(u32, hmax, IMX908_HMAX_MAX);
-> +}
-> +
-> +/* Horizontal cropping is digital, so the full width is always read out =
-*/
-> +static u16 imx908_calc_min_hmax(struct imx908 *imx, u8 bpp)
-> +{
-> +       u64 link_hz =3D imx908_link_freqs[imx->link_freq_idx];
-> +       u64 num =3D (u64)imx908_active_area.width * bpp * IMX908_VTPXCK_H=
-Z;
-> +       u64 den =3D (u64)imx->num_lanes * link_hz * 2; /* DDR */
-> +
-> +       /*
-> +        * den can exceed 32 bits (e.g. 4 lanes * 720 MHz * 2 =3D 5.76 GH=
-z), so
-> +        * DIV_ROUND_UP_ULL / do_div would truncate the divisor to u32. U=
-se a
-> +        * full 64/64 division.
-> +        */
-> +       return DIV64_U64_ROUND_UP(num, den);
-> +}
-> +
-> +static u32 imx908_calc_min_vblank(const struct v4l2_rect *crop)
-> +{
-> +       u32 min_vmax =3D max_t(u32, crop->height + IMX908_VMAX_MARGIN,
-> +                        IMX908_VMAX_MIN);
-> +
-> +       return min_vmax - crop->height;
-> +}
-> +
-> +static int imx908_set_exposure_lines(struct imx908 *imx, u32 exposure_li=
-nes)
-> +{
-> +       const struct v4l2_mbus_framefmt *format;
-> +       struct v4l2_subdev_state *state;
-> +       u32 vmax, max_lines;
-> +
-> +       state =3D v4l2_subdev_get_locked_active_state(&imx->sd);
-> +       format =3D v4l2_subdev_state_get_format(state, IMX908_SOURCE_PAD);
-> +
-> +       vmax =3D format->height + imx->ctrls.vblank->val;
-> +       max_lines =3D vmax - IMX908_MIN_SHR0;
-> +
-> +       /* Guards SHR0 underflow when VBLANK+EXPOSURE are set together */
-> +       exposure_lines =3D clamp_t(u32, exposure_lines, 1, max_lines);
-> +
-> +       u32 shr0 =3D vmax - exposure_lines;
-> +
-> +       return cci_write(imx->cci, IMX908_REG_SHR0, shr0, NULL);
-> +}
-> +
-> +static u8 imx908_bits_per_pixel(u32 code)
-> +{
-> +       switch (code) {
-> +       case MEDIA_BUS_FMT_SRGGB12_1X12:
-> +               return 12;
-> +       case MEDIA_BUS_FMT_SRGGB10_1X10:
-> +       default:
-> +               return 10;
-> +       }
-> +}
-> +
-> +static u32 imx908_hmax_to_hblank(u16 hmax, u32 width)
-> +{
-> +       return hmax * IMX908_PIX_PER_CLK - width;
-> +}
-> +
-> +static int imx908_update_hblank_limits(struct imx908 *imx, u32 old_width,
-> +                                      u32 width, u8 bpp)
-> +{
-> +       u16 min_hmax =3D imx908_calc_min_hmax(imx, bpp);
-> +       u32 max_hblank =3D imx908_hmax_to_hblank(IMX908_HMAX_MAX, width);
-> +       u32 min_hblank =3D imx908_hmax_to_hblank(min_hmax, width);
-> +       /* Re-derive the line period at the old width to preserve line ti=
-me */
-> +       u16 hmax =3D imx908_calc_hmax(old_width, imx->ctrls.hblank->val);
-> +       u32 hblank =3D imx908_hmax_to_hblank(hmax, width);
-> +       int ret;
-> +
-> +       hblank =3D clamp_t(u32, hblank, min_hblank, max_hblank);
-> +
-> +       ret =3D __v4l2_ctrl_modify_range(imx->ctrls.hblank, min_hblank,
-> +                                      max_hblank, IMX908_PIX_PER_CLK, hb=
-lank);
-> +       if (ret)
-> +               return ret;
-> +
-> +       if (imx->ctrls.hblank->val !=3D hblank)
-> +               __v4l2_ctrl_s_ctrl(imx->ctrls.hblank, hblank);
-> +
-> +       return 0;
-> +}
-> +
-> +static int imx908_update_vblank_limits(struct imx908 *imx,
-> +                                      const struct v4l2_rect *crop,
-> +                                      u32 old_height)
-> +{
-> +       u32 min_vblank =3D imx908_calc_min_vblank(crop);
-> +       u32 max_vblank =3D IMX908_VMAX_MAX - crop->height;
-> +       /* Preserve frame length across height changes when possible. */
-> +       u32 vmax =3D old_height + imx->ctrls.vblank->val;
-> +       u32 vblank =3D clamp_t(u32, vmax - crop->height,
-> +                            min_vblank, max_vblank);
-> +       int ret;
-> +
-> +       ret =3D __v4l2_ctrl_modify_range(imx->ctrls.vblank, min_vblank,
-> +                                      max_vblank, 1, vblank);
-> +       if (ret)
-> +               return ret;
-> +
-> +       if (imx->ctrls.vblank->val !=3D vblank)
-> +               __v4l2_ctrl_s_ctrl(imx->ctrls.vblank, vblank);
-> +
-> +       return 0;
-> +}
-> +
-> +/* ------------------ Pattern Generator (TPG) ----------------------- */
-> +static const char * const imx908_tpg_menu[] =3D {
-> +       "Disabled",
-> +       "All 000h",
-> +       "All FFFh",
-> +       "All 555h",
-> +       "All AAAh",
-> +       "555h / AAAh Toggle",
-> +       "AAAh / 555h Toggle",
-> +       "000h / 555h Toggle",
-> +       "555h / 000h Toggle",
-> +       "000h / FFFh Toggle",
-> +       "FFFh / 000h Toggle",
-> +       "Horiz Color Bars",
-> +       "Vert Color Bars",
-> +};
-> +
-> +static int imx908_update_test_pattern(struct imx908 *imx, u32 index)
-> +{
-> +       int ret =3D 0;
-> +
-> +       if (index =3D=3D 0) {
-> +               /* Picture (not TPG) output setting */
-> +               cci_update_bits(imx->cci, IMX908_REG_TPG_EN, IMX908_TPG_E=
-N_BIT,
-> +                               0x00, &ret);
-> +
-> +               /* Disable TESTCLKEN (write-only register) */
-> +               cci_write(imx->cci, IMX908_REG_TESTCLKEN, 0x00, &ret);
-> +
-> +               return ret;
-> +       }
-> +
-> +       cci_write(imx->cci, IMX908_REG_TESTCLKEN, IMX908_TESTCLKEN_BIT, &=
-ret);
-> +       cci_write(imx->cci, IMX908_REG_TPG_PATSEL, index - 1, &ret);
-> +       cci_update_bits(imx->cci, IMX908_REG_TPG_EN, IMX908_TPG_EN_BIT,
-> +                       IMX908_TPG_EN_BIT, &ret);
-> +
-> +       return ret;
-> +}
-> +
-> +static int imx908_update_framing_limits(struct imx908 *imx,
-> +                                       struct v4l2_subdev_state *state,
-> +                                       u32 old_width,
-> +                                       u32 old_height)
-> +{
-> +       const struct v4l2_mbus_framefmt *fmt;
-> +       const struct v4l2_rect *crop;
-> +       int ret;
-> +
-> +       fmt =3D v4l2_subdev_state_get_format(state, IMX908_SOURCE_PAD);
-> +       crop =3D v4l2_subdev_state_get_crop(state, IMX908_SOURCE_PAD);
-> +       u8 bpp =3D imx908_bits_per_pixel(fmt->code);
-> +
-> +       ret =3D imx908_update_hblank_limits(imx, old_width, fmt->width, b=
-pp);
-> +       if (ret)
-> +               return ret;
-> +
-> +       ret =3D imx908_update_vblank_limits(imx, crop, old_height);
-> +       if (ret)
-> +               return ret;
-> +
-> +       u32 vmax =3D fmt->height + clamp_t(u32, imx->ctrls.vblank->val,
-> +                                        imx908_calc_min_vblank(crop),
-> +                                        IMX908_VMAX_MAX - fmt->height);
-> +
-> +       return __v4l2_ctrl_modify_range(imx->ctrls.exposure,
-> +                                       IMX908_EXPOSURE_MIN,
-> +                                       vmax - IMX908_MIN_SHR0,
-> +                                       IMX908_EXPOSURE_STEP,
-> +                                       imx->ctrls.exposure->default_valu=
-e);
-> +}
-> +
-> +/* ----------------------- HW Programming ---------------------- */
-> +static int imx908_set_mode(struct imx908 *imx,
-> +                          const struct v4l2_mbus_framefmt *fmt)
-> +{
-> +       u8 adbit, mdbit, value;
-> +       u16 blklevel;
-> +       int ret =3D 0;
-> +
-> +       switch (fmt->code) {
-> +       case MEDIA_BUS_FMT_SRGGB10_1X10:
-> +               adbit =3D IMX908_ADBIT_10BIT;
-> +               mdbit =3D IMX908_MDBIT_RAW10;
-> +               blklevel =3D 50; /* datasheet recommended value for 10-bi=
-t */
-> +               value =3D 0x0c;  /* register map value for 10-bit */
-> +               break;
-> +       case MEDIA_BUS_FMT_SRGGB12_1X12:
-> +       default:
-> +               adbit =3D IMX908_ADBIT_12BIT;
-> +               mdbit =3D IMX908_MDBIT_RAW12;
-> +               blklevel =3D 200; /* datasheet recommended value for 12-b=
-it */
-> +               value =3D 0x05;   /* register map value for 12-bit */
-> +               break;
-> +       }
-> +
-> +       cci_write(imx->cci, IMX908_REG_XMASTER, IMX908_CONTROLLER_MODE, &=
-ret);
-> +       cci_write(imx->cci, IMX908_REG_ADBIT, adbit, &ret);
-> +       cci_write(imx->cci, IMX908_REG_MDBIT, mdbit, &ret);
-> +
-> +       for (unsigned int i =3D 0; i < ARRAY_SIZE(imx908_bit_depth_regs);=
- ++i)
-> +               cci_write(imx->cci, imx908_bit_depth_regs[i], value, &ret=
+> +	period_ticks =3D mul_u64_u64_div_u64(period_ns, pair_rate, denominator);
+> +	period_ticks =3D clamp_t(u64, period_ticks, 1, SUN8I_PWM_PPR_PERIOD_MAX=
 );
+> +	candidate.period_ticks =3D period_ticks;
+> +	if (candidate.period_ticks > 1 &&
+> +	    sun8i_pwm_ticks_to_ns(candidate.period_ticks, div_k, pair_rate) >
+> +	    requested->period_length_ns)
+> +		candidate.period_ticks--;
 > +
-> +       cci_write(imx->cci, IMX908_REG_INCK_SEL, imx->inck_sel, &ret);
-> +       cci_write(imx->cci, IMX908_REG_DATARATE_SEL, imx->link_freq_idx, =
-&ret);
-> +       cci_write(imx->cci, IMX908_REG_LANEMODE, imx->num_lanes =3D=3D 2 ?
-> +                 IMX908_LANEMODE_2LANE : IMX908_LANEMODE_4LANE, &ret);
-> +       cci_write(imx->cci, IMX908_REG_BLKLEVEL, blklevel, &ret);
-
-Has the BLKLEVEL register handling changed from Starvis2 -> Starvis3?
-
-For IMX678 the default value recommended by datasheet were the same, 50 and
-200, but with a note that increasing register by 1 in 12-bit mode meant an
-increase of 4 in the output. Thus the register always reads 50 (or 0x32) by
-default.
-
+> +	duty_ticks =3D mul_u64_u64_div_u64(duty_ns, pair_rate, denominator);
+> +	duty_ticks =3D min_t(u64, duty_ticks, candidate.period_ticks);
+> +	if (duty_ticks &&
+> +	    sun8i_pwm_ticks_to_ns(duty_ticks, div_k, pair_rate) >
+> +	    requested->duty_length_ns)
+> +		duty_ticks--;
 > +
-> +       if (ret)
-> +               dev_err(imx->dev, " register write failed: %d\n", ret);
+> +	/*
+> +	 * Zero active ticks encode either constant level. For a toggling
+> +	 * waveform, active-low mode places the rising edge after the inactive
+> +	 * part, which is the only non-zero offset supported by the hardware.
+> +	 */
+> +	if (!duty_ticks) {
+> +		candidate.active_state =3D true;
+> +		candidate.duty_ticks =3D 0;
+> +	} else if (duty_ticks =3D=3D candidate.period_ticks) {
+> +		candidate.active_state =3D false;
+> +		candidate.duty_ticks =3D 0;
+> +	} else {
+> +		inactive_ticks =3D candidate.period_ticks - duty_ticks;
+> +		if (sun8i_pwm_ticks_to_ns(inactive_ticks, div_k, pair_rate) <=3D
+> +		    requested->duty_offset_ns) {
+> +			candidate.active_state =3D false;
+> +			candidate.duty_ticks =3D inactive_ticks;
+> +		} else {
+> +			candidate.active_state =3D true;
+> +			candidate.duty_ticks =3D duty_ticks;
+> +		}
+> +	}
 > +
-> +       return ret;
+> +	sun8i_pwm_consider_candidate(rounding, &candidate);
 > +}
 > +
-> +static int imx908_program_window(struct imx908 *imx,
-> +                                const struct v4l2_rect *crop)
+> +static void
+> +sun8i_pwm_consider_pair_rate(struct sun8i_pwm_rounding *rounding,
+> +			     u32 pair_rate)
 > +{
-> +       bool all_pixel_mode =3D v4l2_rect_equal(crop, &imx908_active_area=
-);
-> +       int ret =3D 0;
+> +	struct sun8i_pwm_waveform bypass =3D {
+> +		.duty_ticks =3D 1,
+> +		.period_ticks =3D 1,
+> +		.pair_rate =3D pair_rate,
+> +		.div_k =3D 1,
+> +		.enabled =3D true,
+> +		.active_state =3D true,
+> +		.bypass_en =3D true,
+> +	};
 > +
-> +       cci_write(imx->cci, IMX908_REG_WINMODE,
-> +                 all_pixel_mode ? IMX908_WINMODE_ALLPIX : IMX908_WINMODE=
-_CROP,
-> +                 &ret);
+> +	for (unsigned int div_k =3D 1; div_k <=3D 256; div_k++)
+> +		sun8i_pwm_consider_normal(rounding, pair_rate, div_k);
 > +
-> +       if (!all_pixel_mode) {
-> +               cci_write(imx->cci, IMX908_REG_PIX_HST,    crop->left,   =
-&ret);
-> +               cci_write(imx->cci, IMX908_REG_PIX_HWIDTH, crop->width,  =
-&ret);
-> +               cci_write(imx->cci, IMX908_REG_PIX_VST,    crop->top,    =
-&ret);
-> +               cci_write(imx->cci, IMX908_REG_PIX_VWIDTH, crop->height, =
-&ret);
-> +       }
-> +
-> +       return ret;
+> +	sun8i_pwm_consider_candidate(rounding, &bypass);
 > +}
 > +
-> +/* ----------------------- Start/Stop streaming ---------------------- */
-> +static int imx908_start_streaming(struct imx908 *imx,
-> +                                 struct v4l2_subdev_state *sd_state)
+> +static int sun8i_pwm_round_waveform_tohw(struct pwm_chip *chip,
+> +					 struct pwm_device *pwm,
+> +					 const struct pwm_waveform *wf,
+> +					 void *_wfhw)
 > +{
-> +       const struct v4l2_mbus_framefmt *format;
-> +       const struct v4l2_rect *crop;
-> +       int ret =3D 0;
+> +	struct sun8i_pwm_chip *sun8i_chip =3D sun8i_pwm_from_chip(chip);
+> +	struct sun8i_pwm_channel *chan =3D &sun8i_chip->channels[pwm->hwpwm];
+> +	struct sun8i_pwm_pair *pair =3D
+> +		&sun8i_chip->pairs[SUN8I_PWM_PAIR_IDX(pwm->hwpwm)];
+> +	struct sun8i_pwm_waveform *wfhw =3D _wfhw;
+> +	struct sun8i_pwm_rounding rounding =3D {
+> +		.requested =3D wf,
+> +	};
+> +	unsigned long current_rate;
 > +
-> +       crop =3D v4l2_subdev_state_get_crop(sd_state, IMX908_SOURCE_PAD);
-> +       format =3D v4l2_subdev_state_get_format(sd_state, IMX908_SOURCE_P=
-AD);
+> +	if (!wf->period_length_ns) {
+> +		*wfhw =3D (struct sun8i_pwm_waveform) {
+> +			.enabled =3D false,
+> +		};
+> +		return 0;
+> +	}
 > +
-> +       cci_multi_reg_write(imx->cci, imx908_common_regs,
-> +                           ARRAY_SIZE(imx908_common_regs), &ret);
-> +       if (ret)
-> +               return ret;
+> +	current_rate =3D clk_get_rate(chan->pair_clk);
+> +	if (!current_rate || current_rate > U32_MAX)
+> +		return -ERANGE;
+> +	rounding.current_pair_rate =3D current_rate;
 > +
-> +       ret =3D imx908_set_mode(imx, format);
-> +       if (ret)
-> +               return ret;
+> +	if (sun8i_pwm_pair_rate_constrained(sun8i_chip, pwm->hwpwm)) {
+> +		sun8i_pwm_consider_pair_rate(&rounding, current_rate);
+
+These consider functions make an over-engineered impression on me. Over
+all I have the impression this driver is more complicated than
+necessary. I didn't recheck on Richard's previous iteration, but that
+seemed simpler (read: better) to me.
+
+> +	} else {
+> +		for (unsigned int parent_idx =3D 0;
+> +		     parent_idx < clk_hw_get_num_parents(pair->hw);
+> +		     parent_idx++) {
+> +			struct clk_hw *parent;
+> +			unsigned long parent_rate;
 > +
-> +       ret =3D imx908_program_window(imx, crop);
-> +       if (ret)
-> +               return ret;
+> +			parent =3D clk_hw_get_parent_by_index(pair->hw, parent_idx);
+> +			if (!parent)
+> +				continue;
+> +			parent_rate =3D clk_hw_get_rate(parent);
+> +			if (!parent_rate)
+> +				continue;
 > +
-> +       ret =3D __v4l2_ctrl_handler_setup(imx->sd.ctrl_handler);
-> +       if (ret)
-> +               return ret;
+> +			for (unsigned int i =3D 0; sun8i_pwm_div_m_table[i].div;
+> +			     i++) {
+> +				u16 div_m =3D sun8i_pwm_div_m_table[i].div;
+> +				u64 pair_rate;
 > +
-> +       cci_write(imx->cci, IMX908_REG_STANDBY, IMX908_STANDBY_CANCEL, &r=
-et);
-> +       fsleep(24 * USEC_PER_MSEC); /* >=3D24 ms stabilization after stan=
-dby cancel */
+> +				pair_rate =3D DIV_ROUND_UP_ULL(parent_rate, div_m);
+> +				if (!pair_rate || pair_rate > U32_MAX)
+> +					continue;
+> +				sun8i_pwm_consider_pair_rate(&rounding, pair_rate);
+> +			}
+> +		}
+> +	}
 > +
-> +       cci_write(imx->cci, IMX908_REG_XMSTA, IMX908_XMSTA_START, &ret);
+> +	if (!rounding.have_best)
+> +		return -EINVAL;
+> +	*wfhw =3D rounding.best;
 > +
-> +       return ret;
+> +	dev_dbg(pwmchip_parent(chip),
+> +		"pwm#%u: %llu/%llu [+%llu] -> pair-rate=3D%u, div-k=3D%u, period=3D%u,=
+ duty=3D%u, bypass=3D%u, active-high=3D%u\n",
+> +		pwm->hwpwm, wf->duty_length_ns, wf->period_length_ns,
+> +		wf->duty_offset_ns, wfhw->pair_rate, wfhw->div_k,
+> +		wfhw->period_ticks, wfhw->duty_ticks, wfhw->bypass_en,
+> +		wfhw->active_state);
+> +
+> +	return rounding.best_wf.period_length_ns > wf->period_length_ns;
 > +}
 > +
-> +static int imx908_stop_streaming(struct imx908 *imx)
-> +{
-> +       int ret =3D 0;
-> +
-> +       cci_write(imx->cci, IMX908_REG_STANDBY, IMX908_STANDBY_EN, &ret);
-> +       cci_write(imx->cci, IMX908_REG_XMSTA, IMX908_XMSTA_STOP, &ret);
-> +
-> +       return ret;
-> +}
-> +
-> +/* --------------------------- V4L2 controls ---------------------------=
---- */
-> +static int imx908_set_ctrl(struct v4l2_ctrl *ctrl)
-> +{
-> +       struct imx908 *imx =3D container_of(ctrl->handler, struct imx908,
-> +                                         ctrls.handler);
-> +       const struct v4l2_mbus_framefmt *format;
-> +       struct v4l2_subdev_state *state;
-> +       int ret =3D 0;
-> +
-> +       state =3D v4l2_subdev_get_locked_active_state(&imx->sd);
-> +       format =3D v4l2_subdev_state_get_format(state, IMX908_SOURCE_PAD);
-> +
-> +       /* Update exposure control limits even if the sensor is not strea=
-ming */
-> +       if (ctrl->id =3D=3D V4L2_CID_VBLANK) {
-> +               const struct v4l2_rect *crop;
-> +
-> +               crop =3D v4l2_subdev_state_get_crop(state, IMX908_SOURCE_=
-PAD);
-> +
-> +               u32 min_vblank =3D imx908_calc_min_vblank(crop);
-> +               u32 max_vblank =3D IMX908_VMAX_MAX - format->height;
-> +               u32 vblank =3D clamp_t(u32, ctrl->val, min_vblank, max_vb=
-lank);
-
-The above 3 lines are redundant for simple VBLANK control updates. V4L2
-control framework would ensure new values are within the defined min/max
-range before the drivers .s_ctrl is triggered.
-
-> +
-> +               u32 vmax =3D format->height + vblank;
-> +               u32 max_exposure =3D vmax - IMX908_MIN_SHR0;
-> +               u32 current_exposure =3D clamp_t(u32, imx->ctrls.exposure=
-->cur.val,
-> +                                       IMX908_EXPOSURE_MIN, max_exposure=
-);
-
-Same here. No reason the exposure->cur.val would be out of bounds when user
-requests an update to VBLANK value. So this should be:
-
-    u32 current_exposure =3D imx->ctrls.exposure->cur.val
-
-> +
-> +               ret =3D __v4l2_ctrl_modify_range(imx->ctrls.exposure,
-> +                                              IMX908_EXPOSURE_MIN,
-> +                                              max_exposure,
-> +                                              IMX908_EXPOSURE_STEP,
-> +                                              current_exposure);
-> +               if (ret)
-> +                       return ret;
-> +       }
-> +
-> +       /* Hardware writes only when powered; cached ctrls applied on res=
-ume */
-> +       if (!pm_runtime_get_if_active(imx->dev))
-> +               return 0;
-> +
-> +       switch (ctrl->id) {
-> +       case V4L2_CID_EXPOSURE:
-> +               ret =3D imx908_set_exposure_lines(imx, ctrl->val);
-> +               break;
-> +
-> +       case V4L2_CID_ANALOGUE_GAIN:
-> +               cci_write(imx->cci, IMX908_REG_GAIN, ctrl->val, &ret);
-> +               break;
-> +
-> +       case V4L2_CID_VBLANK: {
-> +               u32 vmax =3D format->height + ctrl->val;
-> +
-> +               ret =3D cci_write(imx->cci, IMX908_REG_VMAX, vmax, NULL);
-> +               /* SHR0 derived from VMAX, re-apply exposure after change=
-s */
-> +               if (!ret)
-> +                       ret =3D imx908_set_exposure_lines(imx,
-> +                                                       imx->ctrls.exposu=
-re->val);
-> +               break;
-> +       }
-> +
-> +       case V4L2_CID_HBLANK: {
-> +               u16 hmax =3D imx908_calc_hmax(format->width, ctrl->val);
-> +
-> +               cci_write(imx->cci, IMX908_REG_HMAX, hmax, &ret);
-> +               break;
-> +       }
-> +
-> +       case V4L2_CID_TEST_PATTERN:
-> +               ret =3D imx908_update_test_pattern(imx, ctrl->val);
-> +               break;
-> +
-> +       case V4L2_CID_HFLIP:
-> +               cci_write(imx->cci, IMX908_REG_HREVERSE,
-> +                         ctrl->val ? IMX908_HREVERSE_INV
-> +                         : IMX908_HREVERSE_NORMAL, &ret);
-> +               break;
-> +
-> +       case V4L2_CID_VFLIP:
-> +               cci_write(imx->cci, IMX908_REG_VREVERSE,
-> +                         ctrl->val ? IMX908_VREVERSE_INV
-> +                         : IMX908_VREVERSE_NORMAL, &ret);
-> +               break;
-> +
-
-Any reason the register values for HREVERSE/VREVERSE are inverted now w.r.t
-the userspace HFLIP/VFLIP settings?
-
-Ah, and is this why imx908_active_area.top was 0 and not 24 ?
-
-What v2 did (writing ctrl->val directly to the registers) seemed okay to
-me. It's usually a good idea to mention functional changes in the
-changelog. If there is a valid reason for the swap, maybe also add a code
-comment here explaining why.
-
-> +       default:
-> +               dev_warn(imx->dev,
-> +                        "ctrl(id:0x%x,val:0x%x) is not handled\n",
-> +                        ctrl->id, ctrl->val);
-> +               break;
-> +       }
-> +
-> +       pm_runtime_put(imx->dev);
-> +
-> +       return ret;
-> +}
-> +
-> +static const struct v4l2_ctrl_ops imx908_ctrl_ops =3D {
-> +       .s_ctrl =3D imx908_set_ctrl,
+> +static const struct pwm_ops sun8i_pwm_ops =3D {
+> +	.request =3D sun8i_pwm_request,
+> +	.free =3D sun8i_pwm_free,
+> +	.sizeof_wfhw =3D sizeof(struct sun8i_pwm_waveform),
+> +	.round_waveform_tohw =3D sun8i_pwm_round_waveform_tohw,
+> +	.round_waveform_fromhw =3D sun8i_pwm_round_waveform_fromhw,
+> +	.read_waveform =3D sun8i_pwm_read_waveform,
+> +	.write_waveform =3D sun8i_pwm_write_waveform,
 > +};
 > +
-> +/* ------------------------ Pad/video ops ------------------ */
-> +static int imx908_enum_mbus_code(struct v4l2_subdev *sd,
-> +                                struct v4l2_subdev_state *sd_state,
-> +                                struct v4l2_subdev_mbus_code_enum *code)
-> +{
-> +       if (code->index >=3D ARRAY_SIZE(imx908_mbus_codes))
-> +               return -EINVAL;
-> +       code->code =3D imx908_mbus_codes[code->index];
-> +       return 0;
-> +}
-> +
-> +static int imx908_enum_frame_size(struct v4l2_subdev *sd,
-> +                                 struct v4l2_subdev_state *sd_state,
-> +                                 struct v4l2_subdev_frame_size_enum *fse)
-> +{
-> +       struct imx908 *imx =3D to_imx908(sd);
-> +       const struct v4l2_rect *crop;
-> +
-> +       if (fse->index > 0)
-> +               return -EINVAL;
-> +
-> +       if (!imx908_mbus_code_supported(imx, fse->code))
-> +               return -EINVAL;
-> +
-> +       crop =3D v4l2_subdev_state_get_crop(sd_state, IMX908_SOURCE_PAD);
-> +
-> +       fse->min_width  =3D crop->width;
-> +       fse->max_width  =3D crop->width;
-> +       fse->min_height =3D crop->height;
-> +       fse->max_height =3D crop->height;
-> +
-> +       return 0;
-> +}
-> +
-> +static int imx908_set_pad_format(struct v4l2_subdev *sd,
-> +                                struct v4l2_subdev_state *sd_state,
-> +                                struct v4l2_subdev_format *fmt)
-> +{
-> +       struct imx908 *imx =3D to_imx908(sd);
-> +       struct v4l2_mbus_framefmt *format;
-> +
-> +       if (fmt->which =3D=3D V4L2_SUBDEV_FORMAT_ACTIVE &&
-> +           v4l2_subdev_is_streaming(sd))
-> +               return -EBUSY;
-> +
-> +       format =3D v4l2_subdev_state_get_format(sd_state, fmt->pad);
-> +
-> +       if (imx908_mbus_code_supported(imx, fmt->format.code))
-> +               format->code =3D fmt->format.code;
-> +       else
-> +               format->code =3D IMX908_DEFAULT_MBUS_CODE;
-> +
-> +       /* Fully define metadata */
-> +       format->field        =3D V4L2_FIELD_NONE;
-> +       format->colorspace   =3D V4L2_COLORSPACE_RAW;
-> +       format->ycbcr_enc    =3D V4L2_YCBCR_ENC_DEFAULT;
-> +       format->quantization =3D V4L2_QUANTIZATION_FULL_RANGE;
-> +       format->xfer_func    =3D V4L2_XFER_FUNC_NONE;
-> +
-> +       /* Limits track the real controls only for the ACTIVE state, not =
-TRY */
-> +       if (fmt->which =3D=3D V4L2_SUBDEV_FORMAT_ACTIVE) {
-> +               /* set_pad_format() never changes width, so old =3D=3D ne=
-w here */
-> +               u32 old_width =3D format->width;
-> +               u32 old_height =3D format->height;
-> +               int ret =3D imx908_update_framing_limits(imx, sd_state,
-> +                                              old_width, old_height);
-> +
-> +               if (ret)
-> +                       return ret;
-> +       }
-
-I see program_window() only looks at crop size, so changing format
-width/height to something else using S_FMT will not change anything on the
-CSI-2 bus.
-
-For freely-configurable sensor drivers like these, I think the usual
-pattern is to allow S_SELECTION to configure the window size, and S_FMT
-always snaps format->width =3D crop->width (same for height).
-
-> +
-> +       fmt->format =3D *format;
-> +
-> +       return 0;
-> +}
-> +
-> +static int imx908_set_selection(struct v4l2_subdev *sd,
-> +                               struct v4l2_subdev_state *sd_state,
-> +                               struct v4l2_subdev_selection *sel)
-> +{
-> +       struct imx908 *imx =3D to_imx908(sd);
-> +       struct v4l2_mbus_framefmt *format;
-> +       struct v4l2_rect *r =3D &sel->r;
-> +       struct v4l2_rect *crop;
-> +
-> +       if (sel->target !=3D V4L2_SEL_TGT_CROP)
-> +               return -EINVAL;
-> +
-> +       if (sel->which =3D=3D V4L2_SUBDEV_FORMAT_ACTIVE &&
-> +           v4l2_subdev_is_streaming(sd))
-> +               return -EBUSY;
-> +
-> +       crop =3D v4l2_subdev_state_get_crop(sd_state, sel->pad);
-> +       format =3D v4l2_subdev_state_get_format(sd_state, sel->pad);
-> +
-> +       /*
-> +        * Round the crop rectangle size down to the hardware alignment
-> +        * constraints, then clamp it to the supported size range.
-> +        */
-> +       r->width =3D clamp_t(s32, ALIGN_DOWN(r->width, IMX908_CROP_ALIGN_=
-HWIDTH),
-> +                          IMX908_CROP_MIN_WIDTH, imx908_active_area.widt=
-h);
-> +       r->height =3D clamp_t(s32, ALIGN_DOWN(r->height, IMX908_CROP_ALIG=
-N_VWIDTH),
-> +                           IMX908_CROP_MIN_HEIGHT, imx908_active_area.he=
-ight);
-> +
-> +       /*
-> +        * Round and clamp the crop position similarly, with the maximum =
-value
-> +        * chosen so that the crop rectangle remains fully inside the act=
-ive
-> +        * pixel array.
-> +        */
-> +       r->left =3D clamp_t(s32, ALIGN_DOWN(r->left, IMX908_CROP_ALIGN_HS=
-TART), 0,
-> +                         imx908_active_area.width - r->width);
-> +       r->top =3D clamp_t(s32, ALIGN_DOWN(r->top, IMX908_CROP_ALIGN_VSTA=
-RT), 0,
-> +                        imx908_active_area.height - r->height);
-> +
-> +       u32 old_width =3D crop->width;
-> +       u32 old_height =3D crop->height;
-> +
-> +       *crop =3D *r;
-> +
-> +       /* IMX908 has no binning, so the output size matches the crop 1:1=
+> +/* Register the shared mux, gate and /div_m clock for each channel pair.=
  */
-> +       format->width  =3D crop->width;
-> +       format->height =3D crop->height;
+> +static int sun8i_pwm_register_pair_clocks(struct device *dev,
+> +					  struct sun8i_pwm_chip *sun8i_chip)
+> +{
+> +	static const struct clk_parent_data parent_data[] =3D {
+> +		{ .index =3D 0 },
+> +		{ .index =3D 1 },
+> +	};
+> +	unsigned int num_pairs =3D DIV_ROUND_UP(sun8i_chip->data->npwm, 2);
 > +
-> +       if (sel->which =3D=3D V4L2_SUBDEV_FORMAT_ACTIVE) {
-> +               int ret =3D imx908_update_framing_limits(imx, sd_state,
-> +                                              old_width, old_height);
+> +	for (unsigned int i =3D 0; i < num_pairs; i++) {
+> +		struct sun8i_pwm_pair *pair =3D &sun8i_chip->pairs[i];
+> +		void __iomem *reg =3D sun8i_chip->base + SUN8I_PWM_PCCR(i);
+> +		struct clk *pair_clk;
+> +		const char *name;
+> +		int ret;
 > +
-> +               if (ret)
-> +                       return ret;
-> +       }
+> +		name =3D devm_kasprintf(dev, GFP_KERNEL,
+> +				      "%s#pwm-clk-src%u%u", dev_name(dev),
+> +				       i * 2, i * 2 + 1);
+> +		if (!name)
+> +			return -ENOMEM;
 > +
-> +       return 0;
+> +		pair->mux.reg =3D reg;
+> +		pair->mux.shift =3D SUN8I_PWM_PCCR_SRC_SHIFT;
+> +		pair->mux.mask =3D SUN8I_PWM_PCCR_SRC_MASK;
+> +		pair->mux.flags =3D CLK_MUX_ROUND_CLOSEST;
+> +		pair->mux.lock =3D &sun8i_chip->lock;
+> +
+> +		pair->chip =3D sun8i_chip;
+> +		pair->index =3D i;
+> +
+> +		pair->divider.reg =3D reg;
+> +		pair->divider.shift =3D SUN8I_PWM_PCCR_DIV_M_SHIFT;
+> +		pair->divider.width =3D SUN8I_PWM_PCCR_DIV_M_WIDTH;
+> +		pair->divider.table =3D sun8i_pwm_div_m_table;
+> +		pair->divider.lock =3D &sun8i_chip->lock;
+> +
+> +		pair->hw =3D devm_clk_hw_register_composite_pdata(dev, name,
+> +								parent_data,
+> +								ARRAY_SIZE(parent_data),
+> +			&pair->mux.hw, &clk_mux_ops,
+> +			&pair->divider.hw, &clk_divider_ops,
+> +			&pair->gate_hw, &sun8i_pwm_pair_gate_ops, 0);
+> +		if (IS_ERR(pair->hw))
+> +			return dev_err_probe(dev, PTR_ERR(pair->hw),
+> +					     "Failed to register pair %u clock\n", i);
+> +
+> +		pair_clk =3D devm_clk_hw_get_clk(dev, pair->hw, NULL);
+> +		if (IS_ERR(pair_clk))
+> +			return dev_err_probe(dev, PTR_ERR(pair_clk),
+> +					     "Failed to get pair %u clock\n", i);
+> +
+> +		pair->rate_nb.notifier_call =3D sun8i_pwm_pair_rate_notifier;
+> +		ret =3D devm_clk_notifier_register(dev, pair_clk, &pair->rate_nb);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "Failed to protect pair %u clock rate\n", i);
+> +	}
+> +
+> +	return 0;
 > +}
 > +
-> +static int imx908_get_selection(struct v4l2_subdev *sd,
-> +                               struct v4l2_subdev_state *sd_state,
-> +                               struct v4l2_subdev_selection *sel)
+> +/* Register a pair-clock consumer and the bypass clock for each channel.=
+ */
+> +static int sun8i_pwm_register_channel_clocks(struct device *dev,
+> +					     struct sun8i_pwm_chip *sun8i_chip)
 > +{
-> +       switch (sel->target) {
-> +       case V4L2_SEL_TGT_CROP:
-> +               sel->r =3D *v4l2_subdev_state_get_crop(sd_state,
-> +                                                    IMX908_SOURCE_PAD);
-> +               return 0;
+> +	for (unsigned int i =3D 0; i < sun8i_chip->data->npwm; i++) {
+> +		struct sun8i_pwm_channel *chan =3D &sun8i_chip->channels[i];
+> +		struct clk_hw *parent =3D sun8i_chip->pairs[SUN8I_PWM_PAIR_IDX(i)].hw;
+> +		struct clk_parent_data parent_data =3D { .hw =3D parent };
+> +		struct clk_init_data init =3D {};
+> +		const char *name;
+> +		int ret;
 > +
-> +       case V4L2_SEL_TGT_NATIVE_SIZE:
-> +               sel->r =3D imx908_total_area;
-> +               return 0;
+> +		/* Separate handles let CCF arbitrate sibling rate exclusivity. */
+> +		chan->pair_clk =3D devm_clk_hw_get_clk(dev, parent, NULL);
+> +		if (IS_ERR(chan->pair_clk))
+> +			return dev_err_probe(dev, PTR_ERR(chan->pair_clk),
+> +					     "Failed to get pair clock for PWM %u\n", i);
 > +
-> +       case V4L2_SEL_TGT_CROP_DEFAULT:
-> +               sel->r =3D imx908_active_area;
-> +               return 0;
+> +		name =3D devm_kasprintf(dev, GFP_KERNEL, "%s#pwm-bypass%u",
+> +				      dev_name(dev), i);
+> +		if (!name)
+> +			return -ENOMEM;
 > +
-> +       case V4L2_SEL_TGT_CROP_BOUNDS:
-> +               sel->r =3D imx908_active_area;
-> +               return 0;
+> +		chan->bypass.chip =3D sun8i_chip;
+> +		chan->bypass.index =3D i;
+> +		init.name =3D name;
+> +		init.ops =3D &sun8i_pwm_bypass_ops;
+> +		init.parent_data =3D &parent_data;
+> +		init.num_parents =3D 1;
+> +		/* Keep the shared pair rate stable for the prepared lifetime. */
+> +		init.flags =3D CLK_SET_RATE_PARENT | CLK_SET_RATE_GATE;
+> +		chan->bypass.hw.init =3D &init;
+> +
+> +		ret =3D devm_clk_hw_register(dev, &chan->bypass.hw);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "Failed to register bypass clock %u\n", i);
+> +
+> +		sun8i_chip->hw_data->hws[i] =3D &chan->bypass.hw;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +/*
+> + * A disabled pair gate makes any set PER bits ineffective. Clear those =
+stale
+> + * enables before a clock consumer can turn the shared gate on and expos=
+e an
+> + * unrequested output.
+> + */
+> +static void
+> +sun8i_pwm_sanitize_disabled_pairs(struct sun8i_pwm_chip *sun8i_chip)
+> +{
+> +	unsigned int num_pairs =3D DIV_ROUND_UP(sun8i_chip->data->npwm, 2);
+> +	unsigned long flags;
+> +	u32 per;
+> +
+> +	spin_lock_irqsave(&sun8i_chip->lock, flags);
+> +	per =3D sun8i_pwm_readl(sun8i_chip, SUN8I_PWM_PER);
+> +	for (unsigned int pair =3D 0; pair < num_pairs; pair++) {
+> +		unsigned int first =3D pair * 2;
+> +		u32 pccr;
+> +
+> +		pccr =3D sun8i_pwm_readl(sun8i_chip, SUN8I_PWM_PCCR(pair));
+> +		if (pccr & SUN8I_PWM_PCCR_GATE)
+> +			continue;
+> +
+> +		per &=3D ~SUN8I_PWM_ENABLE(first);
+> +		pccr &=3D ~BIT(SUN8I_PWM_PCCR_BYPASS_BIT(first));
+> +		if (first + 1 < sun8i_chip->data->npwm) {
+> +			per &=3D ~SUN8I_PWM_ENABLE(first + 1);
+> +			pccr &=3D ~BIT(SUN8I_PWM_PCCR_BYPASS_BIT(first + 1));
+> +		}
+> +		sun8i_pwm_writel(sun8i_chip, pccr, SUN8I_PWM_PCCR(pair));
+> +	}
+> +	sun8i_pwm_writel(sun8i_chip, per, SUN8I_PWM_PER);
+> +	spin_unlock_irqrestore(&sun8i_chip->lock, flags);
+> +}
+> +
+> +/*
+> + * Keep firmware-active outputs running until all declared consumers hav=
+e had
+> + * a chance to claim them. Once the driver core calls sync_state(), any =
+channel
+> + * which still has no PWM or clock owner can be stopped.
 
-nitpick: can be simplified as
+Never saw that callback before, I hesitate to like it. The idea is to
+disable the PWMs if there is no consumer after boot-up? If this is
+considered a good idea, I'd prefer to do that at the pwm core level for
+all drivers/devices in the same way.
 
-       case V4L2_SEL_TGT_CROP_DEFAULT:
-       case V4L2_SEL_TGT_CROP_BOUNDS:
-               sel->r =3D imx908_active_area;
-               return 0;
+> + */
+> +static void sun8i_pwm_sync_state(struct device *dev)
+> +{
+> +	struct sun8i_pwm_chip *sun8i_chip =3D dev_get_drvdata(dev);
+> +	unsigned int num_pairs =3D DIV_ROUND_UP(sun8i_chip->data->npwm, 2);
+> +	unsigned long empty_pairs =3D 0;
+> +	unsigned long flags;
+> +	u32 active, per, unclaimed =3D 0;
+> +
+> +	spin_lock_irqsave(&sun8i_chip->lock, flags);
+> +	per =3D sun8i_pwm_readl(sun8i_chip, SUN8I_PWM_PER);
+> +	for (unsigned int pair =3D 0; pair < num_pairs; pair++) {
+> +		u32 pair_mask =3D sun8i_pwm_pair_enable_mask(sun8i_chip, pair);
+> +		u32 owner_mask;
+> +		u32 pdzcr;
+> +
+> +		owner_mask =3D sun8i_pwm_pair_owner_mask_locked(sun8i_chip, pair);
+> +		pdzcr =3D sun8i_pwm_readl(sun8i_chip, SUN8I_PWM_PDZCR(pair));
+> +		/* Dead-zone mode couples both outputs into one waveform. */
+> +		if ((pdzcr & SUN8I_PWM_PDZCR_ENABLE) &&
+> +		    (per & owner_mask))
+> +			continue;
+> +
+> +		unclaimed |=3D pair_mask & ~owner_mask;
+> +	}
+> +
+> +	active =3D per & unclaimed;
+> +	per &=3D ~unclaimed;
+> +	sun8i_pwm_writel(sun8i_chip, per, SUN8I_PWM_PER);
+> +
+> +	for (unsigned int pair =3D 0; pair < num_pairs; pair++) {
+> +		unsigned int first =3D pair * 2;
+> +		u32 pccr;
+> +
+> +		pccr =3D sun8i_pwm_readl(sun8i_chip, SUN8I_PWM_PCCR(pair));
+> +		if (unclaimed & SUN8I_PWM_ENABLE(first))
+> +			pccr &=3D ~BIT(SUN8I_PWM_PCCR_BYPASS_BIT(first));
+> +		if (first + 1 < sun8i_chip->data->npwm &&
+> +		    unclaimed & SUN8I_PWM_ENABLE(first + 1))
+> +			pccr &=3D ~BIT(SUN8I_PWM_PCCR_BYPASS_BIT(first + 1));
+> +		sun8i_pwm_writel(sun8i_chip, pccr, SUN8I_PWM_PCCR(pair));
+> +
+> +		if (!(per & sun8i_pwm_pair_enable_mask(sun8i_chip, pair)))
+> +			empty_pairs |=3D BIT(pair);
+> +	}
+> +	spin_unlock_irqrestore(&sun8i_chip->lock, flags);
+> +
+> +	/*
+> +	 * Reconcile empty pair gates through CCF. Taking and dropping a
+> +	 * temporary reference leaves a gate with another CCF user enabled, but
+> +	 * disables a firmware-enabled gate whose software count is still zero.
+> +	 */
+> +	for (unsigned int pair =3D 0; pair < num_pairs; pair++) {
+> +		struct clk *pair_clk;
+> +		int ret;
+> +
+> +		if (!(empty_pairs & BIT(pair)))
+> +			continue;
+> +
+> +		pair_clk =3D sun8i_chip->channels[pair * 2].pair_clk;
+> +		ret =3D clk_prepare_enable(pair_clk);
+> +		if (ret) {
+> +			dev_warn(dev, "Failed to synchronize pair %u gate: %pe\n",
+> +				 pair, ERR_PTR(ret));
+> +			continue;
+> +		}
+> +		clk_disable_unprepare(pair_clk);
+> +	}
+> +
+> +	if (active)
+> +		dev_dbg(dev, "disabled unclaimed firmware outputs %#x\n", active);
+> +}
+> +
+> +static int sun8i_pwm_init_clocks(struct device *dev,
+> +				 struct sun8i_pwm_chip *sun8i_chip)
+> +{
+> +	unsigned int num_pairs =3D DIV_ROUND_UP(sun8i_chip->data->npwm, 2);
+> +	size_t hw_data_size;
+> +	int ret;
+> +
+> +	sun8i_chip->pairs =3D devm_kcalloc(dev, num_pairs,
+> +					 sizeof(*sun8i_chip->pairs), GFP_KERNEL);
+> +	if (!sun8i_chip->pairs)
+> +		return -ENOMEM;
+> +
+> +	hw_data_size =3D struct_size(sun8i_chip->hw_data, hws,
+> +				   sun8i_chip->data->npwm);
+> +	sun8i_chip->hw_data =3D devm_kzalloc(dev, hw_data_size, GFP_KERNEL);
+> +	if (!sun8i_chip->hw_data)
+> +		return -ENOMEM;
 
-> +       default:
-> +               return -EINVAL;
-> +       }
+Can you fold these allocations into a single one (that is, have
+devm_pwmchip_alloc() as only allocation call)? That should give better
+cache locality and reduce fragmentation.
+
+> +	sun8i_chip->hw_data->num =3D sun8i_chip->data->npwm;
+> +	sun8i_pwm_sanitize_disabled_pairs(sun8i_chip);
+> +
+> +	ret =3D sun8i_pwm_register_pair_clocks(dev, sun8i_chip);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return sun8i_pwm_register_channel_clocks(dev, sun8i_chip);
 > +}
 > +
-> +static int imx908_enable_streams(struct v4l2_subdev *sd,
-> +                                struct v4l2_subdev_state *sd_state,
-> +                                u32 pad,
-> +                                u64 streams_mask)
+> +static int sun8i_pwm_probe(struct platform_device *pdev)
 > +{
-> +       struct imx908 *imx =3D to_imx908(sd);
-> +       int ret;
+> +	const struct sun8i_pwm_data *data;
+> +	struct device *dev =3D &pdev->dev;
+> +	struct sun8i_pwm_chip *sun8i_chip;
+> +	struct reset_control *rst;
+> +	struct pwm_chip *chip;
+> +	int ret;
 > +
-> +       ret =3D pm_runtime_resume_and_get(imx->dev);
-> +       if (ret)
-> +               return ret;
+> +	data =3D of_device_get_match_data(dev);
+> +	if (!data)
+> +		return dev_err_probe(dev, -ENODEV,
+> +				     "Missing specific data structure\n");
 > +
-> +       ret =3D imx908_start_streaming(imx, sd_state);
-> +       if (ret) {
-> +               pm_runtime_put_autosuspend(imx->dev);
-> +               return ret;
-> +       }
+> +	chip =3D devm_pwmchip_alloc(dev, data->npwm, sizeof(*sun8i_chip));
+> +	if (IS_ERR(chip))
+> +		return dev_err_probe(dev, PTR_ERR(chip),
+> +				     "Failed to allocate pwmchip\n");
 > +
-> +       return 0;
+> +	sun8i_chip =3D sun8i_pwm_from_chip(chip);
+> +	sun8i_chip->data =3D data;
+> +	spin_lock_init(&sun8i_chip->lock);
+> +	sun8i_chip->base =3D devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(sun8i_chip->base))
+> +		return dev_err_probe(dev, PTR_ERR(sun8i_chip->base),
+> +				     "Failed to get PWM base address\n");
+> +
+> +	sun8i_chip->bus_clk =3D devm_clk_get_enabled(dev, "bus");
+> +	if (IS_ERR(sun8i_chip->bus_clk))
+> +		return dev_err_probe(dev, PTR_ERR(sun8i_chip->bus_clk),
+> +				     "Failed to get bus clock\n");
+> +
+> +	rst =3D devm_reset_control_get_shared_deasserted(dev, NULL);
+> +	if (IS_ERR(rst))
+> +		return dev_err_probe(dev, PTR_ERR(rst),
+> +				     "Failed to get reset control\n");
+> +
+> +	sun8i_chip->channels =3D devm_kcalloc(dev, data->npwm,
+> +					    sizeof(*sun8i_chip->channels),
+> +					    GFP_KERNEL);
+> +	if (!sun8i_chip->channels)
+> +		return dev_err_probe(dev, -ENOMEM,
+> +				     "Failed to allocate %d channels array\n",
+> +				     data->npwm);
+> +
+> +	chip->ops =3D &sun8i_pwm_ops;
+> +
+> +	ret =3D sun8i_pwm_init_clocks(dev, sun8i_chip);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D devm_of_clk_add_hw_provider(dev, of_clk_hw_onecell_get,
+> +					  sun8i_chip->hw_data);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to add HW clock provider\n");
+> +
+> +	ret =3D devm_pwmchip_add(dev, chip);
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "Failed to add PWM chip\n");
+> +
+> +	platform_set_drvdata(pdev, sun8i_chip);
+> +
+> +	return 0;
 > +}
 > +
-> +static int imx908_disable_streams(struct v4l2_subdev *sd,
-> +                                 struct v4l2_subdev_state *sd_state,
-> +                                 u32 pad,
-> +                                 u64 streams_mask)
-> +{
-> +       struct imx908 *imx =3D to_imx908(sd);
-> +       int ret;
-> +
-> +       ret =3D imx908_stop_streaming(imx);
-> +
-> +       pm_runtime_put_autosuspend(imx->dev);
-> +
-> +       return ret;
-> +}
-> +
-> +static int imx908_init_state(struct v4l2_subdev *sd,
-> +                            struct v4l2_subdev_state *sd_state)
-> +{
-> +       struct v4l2_subdev_selection sel =3D {
-> +               .which  =3D V4L2_SUBDEV_FORMAT_TRY,
-> +               .pad    =3D IMX908_SOURCE_PAD,
-> +               .target =3D V4L2_SEL_TGT_CROP,
-> +               .r      =3D imx908_active_area,
-> +       };
-> +       struct v4l2_subdev_format fmt =3D {
-> +               .which =3D V4L2_SUBDEV_FORMAT_TRY,
-> +               .pad   =3D IMX908_SOURCE_PAD,
-> +               .format =3D {
-> +                       .code   =3D IMX908_DEFAULT_MBUS_CODE,
-> +                       .width  =3D imx908_active_area.width,
-> +                       .height =3D imx908_active_area.height,
-> +               },
-> +       };
-> +
-> +       imx908_set_selection(sd, sd_state, &sel);
-> +       imx908_set_pad_format(sd, sd_state, &fmt);
-> +
-> +       return 0;
-> +}
-> +
-> +static const struct v4l2_subdev_video_ops imx908_video_ops =3D {
-> +       .s_stream =3D v4l2_subdev_s_stream_helper,
+> +static const struct sun8i_pwm_data sun50i_h616_pwm_data =3D {
+> +	.npwm =3D 6,
+
+Are there new variants of that hardware already in the pipeline and
+these are known to differ by npwm only? If not, please hardcode that 6,
+or use a dt property (`npwms =3D <6>`). There is no need to do device
+variant handling if there is only a single variant.
+
 > +};
 > +
-> +static const struct v4l2_subdev_pad_ops imx908_pad_ops =3D {
-> +       .enum_mbus_code      =3D imx908_enum_mbus_code,
-> +       .enum_frame_size     =3D imx908_enum_frame_size,
-> +       .get_fmt             =3D v4l2_subdev_get_fmt,
-> +       .set_fmt             =3D imx908_set_pad_format,
-> +       .get_selection       =3D imx908_get_selection,
-> +       .set_selection       =3D imx908_set_selection,
-> +       .enable_streams      =3D imx908_enable_streams,
-> +       .disable_streams     =3D imx908_disable_streams,
+> +static const struct of_device_id sun8i_pwm_dt_ids[] =3D {
+> +	{
+> +		.compatible =3D "allwinner,sun50i-h616-pwm",
+> +		.data =3D &sun50i_h616_pwm_data,
+> +	}, {
+> +		/* sentinel */
+> +	}
 > +};
+> +MODULE_DEVICE_TABLE(of, sun8i_pwm_dt_ids);
 > +
-> +static const struct v4l2_subdev_internal_ops imx908_internal_ops =3D {
-> +       .init_state =3D imx908_init_state,
+> +static struct platform_driver sun8i_pwm_driver =3D {
+> +	.driver =3D {
+> +		.name =3D "sun8i-pwm",
+> +		.of_match_table =3D sun8i_pwm_dt_ids,
+> +		.sync_state =3D sun8i_pwm_sync_state,
+> +	},
+> +	.probe =3D sun8i_pwm_probe,
 > +};
+> +module_platform_driver(sun8i_pwm_driver);
 > +
-> +static const struct v4l2_subdev_ops imx908_subdev_ops =3D {
-> +       .video =3D &imx908_video_ops,
-> +       .pad   =3D &imx908_pad_ops,
-> +};
-> +
-> +/* ----------------------- Power management ---------------------- */
-> +static int imx908_power_on(struct device *dev)
-> +{
-> +       struct v4l2_subdev *sd =3D dev_get_drvdata(dev);
-> +       struct imx908 *imx =3D to_imx908(sd);
-> +       int ret;
-> +
-> +       ret =3D regulator_bulk_enable(ARRAY_SIZE(imx908_supply_names),
-> +                                   imx->supplies);
-> +       if (ret) {
-> +               dev_err(imx->dev, "failed to enable regulators\n");
-> +               return ret;
-> +       }
-> +       /* XCLR already asserted by GPIOD_OUT_HIGH */
-> +       udelay(1); /* >=3D 500ns T_low */
-> +       gpiod_set_value_cansleep(imx->reset_gpio, 0); /* Sensor start */
-> +
-> +       ret =3D clk_prepare_enable(imx->xclk);
-> +       if (ret) {
-> +               dev_err(imx->dev, "failed to enable xclk: %d\n", ret);
-> +               goto err_reset;
-> +       }
-> +
-> +       fsleep(20); /* T_1 >=3D 20us before first SDA/SCL */
-> +
-> +       return 0;
-> +
-> +err_reset:
-> +       gpiod_set_value_cansleep(imx->reset_gpio, 1); /* assert reset */
-> +       regulator_bulk_disable(ARRAY_SIZE(imx908_supply_names), imx->supp=
-lies);
-> +       return ret;
-> +}
-> +
-> +static void imx908_power_off(struct device *dev)
-> +{
-> +       struct v4l2_subdev *sd =3D dev_get_drvdata(dev);
-> +       struct imx908 *imx =3D to_imx908(sd);
-> +
-> +       clk_disable_unprepare(imx->xclk);
-> +       gpiod_set_value_cansleep(imx->reset_gpio, 1);
-> +       regulator_bulk_disable(ARRAY_SIZE(imx908_supply_names), imx->supp=
-lies);
-> +}
-> +
-> +static int imx908_runtime_resume(struct device *dev)
-> +{
-> +       return imx908_power_on(dev);
-> +}
-> +
-> +static int imx908_runtime_suspend(struct device *dev)
-> +{
-> +       imx908_power_off(dev);
-> +       return 0;
-> +}
-> +
-
-You could use imx908_power_off and imx908_power_on directly as the
-RUNTIME_PM_OPS below.
-
-> +static DEFINE_RUNTIME_DEV_PM_OPS(imx908_pm_ops,
-> +                                imx908_runtime_suspend,
-> +                                imx908_runtime_resume, NULL);
-> +
-> +/* ------------------------------- Probe/remove ------------------------=
---- */
-> +
-> +static int imx908_get_inck_sel(struct imx908 *imx, u32 xclk_freq)
-> +{
-> +       for (unsigned int i =3D 0; i < ARRAY_SIZE(imx908_inck_table); i++=
-) {
-> +               if (imx908_inck_table[i] =3D=3D xclk_freq) {
-> +                       imx->inck_sel =3D i;
-> +                       return 0;
-> +               }
-> +       }
-> +
-> +       return dev_err_probe(imx->dev, -EINVAL, "unsupported xclk %u Hz\n=
-",
-> +                            xclk_freq);
-> +}
-> +
-> +static int imx908_get_regulators(struct imx908 *imx)
-> +{
-> +       for (unsigned int i =3D 0; i < ARRAY_SIZE(imx908_supply_names); i=
-++)
-> +               imx->supplies[i].supply =3D imx908_supply_names[i];
-> +
-> +       return devm_regulator_bulk_get(imx->dev,
-> +                       ARRAY_SIZE(imx908_supply_names),
-> +                       imx->supplies);
-> +}
-> +
-> +static int imx908_parse_fwnode(struct imx908 *imx)
-> +{
-> +       struct v4l2_fwnode_endpoint bus_cfg =3D {
-> +               .bus_type =3D V4L2_MBUS_CSI2_DPHY
-> +       };
-> +       struct fwnode_handle *ep;
-> +       int ret =3D 0;
-> +
-> +       ep =3D fwnode_graph_get_next_endpoint(dev_fwnode(imx->dev), NULL);
-> +
-> +       /* Only data-lanes and link-frequencies are used from the endpoin=
-t */
-> +       ret =3D v4l2_fwnode_endpoint_alloc_parse(ep, &bus_cfg);
-> +       fwnode_handle_put(ep);
-> +       if (ret)
-> +               return ret;
-> +
-> +       imx->num_lanes =3D bus_cfg.bus.mipi_csi2.num_data_lanes;
-> +
-> +       if (imx->num_lanes !=3D 2 && imx->num_lanes !=3D 4) {
-> +               dev_err(imx->dev,
-> +                       "only 2 or 4 CSI-2 data lanes are supported (got =
-%u)\n",
-> +                       imx->num_lanes);
-> +               ret =3D -EINVAL;
-> +               goto out_free;
-> +       }
-> +
-> +       ret =3D v4l2_link_freq_to_bitmap(imx->dev,
-> +                                      bus_cfg.link_frequencies,
-> +                                      bus_cfg.nr_of_link_frequencies,
-> +                                      imx908_link_freqs,
-> +                                      ARRAY_SIZE(imx908_link_freqs),
-> +                                      &imx->link_freq_bitmap);
-> +       if (ret)
-> +               goto out_free;
-
-The above two lines could be dropped.
-
-> +
-> +       imx->link_freq_idx =3D __ffs(imx->link_freq_bitmap);
-> +       dev_dbg(imx->dev, "using %u lanes at link freq %llu Hz\n",
-> +               imx->num_lanes, imx908_link_freqs[imx->link_freq_idx]);
-> +
-> +out_free:
-> +       v4l2_fwnode_endpoint_free(&bus_cfg);
-> +       return ret;
-> +}
-> +
-> +static int imx908_init_controls(struct imx908 *imx)
-> +{
-> +       struct v4l2_ctrl_handler *hdl =3D &imx->ctrls.handler;
-> +       struct v4l2_fwnode_device_properties props;
-> +       struct v4l2_ctrl *ctrl;
-> +       int ret;
-> +
-> +       /* Read rotation and orientation properties from the firmware nod=
-e */
-> +       ret =3D v4l2_fwnode_device_parse(imx->dev, &props);
-> +       if (ret)
-> +               return ret;
-> +
-> +       ret =3D v4l2_ctrl_handler_init(hdl, 11);
-> +       if (ret)
-> +               return ret;
-> +
-> +       /* PIXEL_RATE is always read-only, so it needs no s_ctrl() handli=
-ng */
-> +       v4l2_ctrl_new_std(hdl, NULL, V4L2_CID_PIXEL_RATE,
-> +                         IMX908_PIXEL_RATE, IMX908_PIXEL_RATE, 1,
-> +                         IMX908_PIXEL_RATE);
-> +
-> +       /* LINK_FREQ is informational only and has no s_ctrl() handling */
-> +       ctrl =3D v4l2_ctrl_new_int_menu(hdl, NULL, V4L2_CID_LINK_FREQ,
-> +                                     ARRAY_SIZE(imx908_link_freqs) - 1,
-> +                                     imx->link_freq_idx, imx908_link_fre=
-qs);
-> +       if (ctrl)
-> +               ctrl->flags |=3D V4L2_CTRL_FLAG_READ_ONLY;
-> +
-> +       u32 min_vblank =3D imx908_calc_min_vblank(&imx908_active_area);
-> +       u32 max_vblank =3D IMX908_VMAX_MAX - imx908_active_area.height;
-> +       /* Default to the datasheet 30 fps operating point */
-> +       u32 def_vblank =3D IMX908_VMAX_DEFAULT - imx908_active_area.heigh=
-t;
-> +
-> +       imx->ctrls.vblank =3D v4l2_ctrl_new_std(hdl, &imx908_ctrl_ops,
-> +                                             V4L2_CID_VBLANK, min_vblank,
-> +                                             max_vblank, 1, def_vblank);
-> +
-> +       u8 bpp =3D imx908_bits_per_pixel(IMX908_DEFAULT_MBUS_CODE);
-> +       u16 min_hmax =3D imx908_calc_min_hmax(imx, bpp);
-> +       u32 min_hblank =3D imx908_hmax_to_hblank(min_hmax,
-> +                                              imx908_active_area.width);
-> +       u32 max_hblank =3D imx908_hmax_to_hblank(IMX908_HMAX_MAX,
-> +                                              imx908_active_area.width);
-> +       u32 hblank =3D imx908_hmax_to_hblank(IMX908_HMAX_DEFAULT,
-> +                                          imx908_active_area.width);
-> +
-> +       /* Default HMAX can be infeasible at low link freqs; clamp into r=
-ange */
-> +       hblank =3D clamp_t(u32, hblank, min_hblank, max_hblank);
-> +
-> +       imx->ctrls.hblank =3D v4l2_ctrl_new_std(hdl, &imx908_ctrl_ops,
-> +                                             V4L2_CID_HBLANK, min_hblank,
-> +                                             max_hblank, IMX908_PIX_PER_=
-CLK,
-> +                                             hblank);
-> +       u32 max_exp =3D IMX908_VMAX_DEFAULT - IMX908_MIN_SHR0;
-> +
-> +       imx->ctrls.exposure =3D v4l2_ctrl_new_std(hdl, &imx908_ctrl_ops,
-> +                                               V4L2_CID_EXPOSURE,
-> +                                               IMX908_EXPOSURE_MIN,
-> +                                               max_exp,
-> +                                               IMX908_EXPOSURE_STEP,
-> +                                               max_exp / 2);
-> +
-> +       v4l2_ctrl_new_std(hdl, &imx908_ctrl_ops, V4L2_CID_ANALOGUE_GAIN,
-> +                         IMX908_ANA_GAIN_MIN, IMX908_ANA_GAIN_MAX,
-> +                         IMX908_ANA_GAIN_STEP, IMX908_ANA_GAIN_DEFAULT);
-> +
-> +       /* Set test pattern. Menu (13 entries: Disabled + 12 patterns) */
-> +       v4l2_ctrl_new_std_menu_items(hdl, &imx908_ctrl_ops,
-> +                                    V4L2_CID_TEST_PATTERN,
-> +                                    ARRAY_SIZE(imx908_tpg_menu) - 1, 0, =
-0,
-> +                                    imx908_tpg_menu);
-> +
-> +       v4l2_ctrl_new_std(hdl, &imx908_ctrl_ops, V4L2_CID_HFLIP, 0, 1, 1,=
- 0);
-> +       v4l2_ctrl_new_std(hdl, &imx908_ctrl_ops, V4L2_CID_VFLIP, 0, 1, 1,=
- 0);
-> +
-> +       v4l2_ctrl_new_fwnode_properties(hdl, &imx908_ctrl_ops, &props);
-> +       if (hdl->error) {
-> +               ret =3D hdl->error;
-> +               goto err_free;
-
-Instead of the goto you could directly return here:
-
-        v4l2_ctrl_handler_free(hdl);
-        return ret;
-
-
-> +       }
-> +
-> +       imx->sd.ctrl_handler =3D hdl;
-> +
-> +       return 0;
-> +
-> +err_free:
-> +       v4l2_ctrl_handler_free(hdl);
-> +       return ret;
-> +}
-> +
-> +static int imx908_identify_model(struct imx908 *imx)
-> +{
-> +       u16 chip_id;
-> +       u64 val;
-> +       int ret;
-> +
-> +       /*
-> +        * The TYPE_ID registers are not accessible after power-up while
-> +        * the device remains in standby. Exit standby and wait for the
-> +        * required stabilization period before reading the chip ID.
-> +        */
-> +       ret =3D cci_write(imx->cci, IMX908_REG_STANDBY, IMX908_STANDBY_CA=
-NCEL, NULL);
-> +       if (ret)
-> +               return ret;
-> +
-> +       fsleep(24 * USEC_PER_MSEC); /* >=3D24 ms stabilization after stan=
-dby cancel */
-> +
-> +       ret =3D cci_read(imx->cci, IMX908_REG_TYPE_ID, &val, NULL);
-> +       if (ret)
-> +               return ret;
-> +
-> +       chip_id =3D val;
-> +       dev_dbg(imx->dev, "IMX908 chip ID: 0x%04x\n", chip_id);
-> +
-> +       if (chip_id !=3D IMX908_CHIP_ID) {
-> +               dev_err(imx->dev, "unexpected chip ID 0x%04x (expected 0x=
-%04x)\n",
-> +                       chip_id, IMX908_CHIP_ID);
-> +               return -ENXIO;
-> +       }
-> +
-> +       /* Set to standby mode to save power */
-> +       ret =3D cci_write(imx->cci, IMX908_REG_STANDBY, IMX908_STANDBY_EN=
-, NULL);
-> +       if (ret) {
-> +               dev_err(imx->dev, "failed to enter standby state: %d\n", =
-ret);
-> +               return ret;
-> +       }
-> +
-> +       return 0;
-> +}
-> +
-> +static int imx908_probe(struct i2c_client *client)
-> +{
-> +       struct imx908 *imx;
-> +       int ret;
-> +
-> +       imx =3D devm_kzalloc(&client->dev, sizeof(*imx), GFP_KERNEL);
-> +       if (!imx)
-> +               return -ENOMEM;
-> +       imx->dev =3D &client->dev;
-> +
-> +       v4l2_i2c_subdev_init(&imx->sd, client, &imx908_subdev_ops);
-> +       imx->sd.internal_ops =3D &imx908_internal_ops;
-> +
-> +       imx->cci =3D devm_cci_regmap_init_i2c(client, 16);
-> +       if (IS_ERR(imx->cci))
-> +               return dev_err_probe(imx->dev, PTR_ERR(imx->cci),
-> +                                    "CCI regmap init failed\n");
-> +
-> +       imx->xclk =3D devm_v4l2_sensor_clk_get(imx->dev, NULL);
-> +       if (IS_ERR(imx->xclk))
-> +               return dev_err_probe(imx->dev, PTR_ERR(imx->xclk),
-> +                                    "failed to get clock\n");
-> +
-> +       ret =3D imx908_get_inck_sel(imx, clk_get_rate(imx->xclk));
-> +       if (ret)
-> +               return ret;
-> +
-> +       imx->reset_gpio =3D devm_gpiod_get_optional(imx->dev, "reset",
-> +                                                 GPIOD_OUT_HIGH);
-> +
-> +       if (IS_ERR(imx->reset_gpio))
-> +               return dev_err_probe(imx->dev, PTR_ERR(imx->reset_gpio),
-> +                                    "failed to get reset gpio\n");
-> +
-> +       ret =3D imx908_get_regulators(imx);
-> +       if (ret)
-> +               return dev_err_probe(imx->dev, ret, "failed to get regula=
-tors\n");
-> +
-> +       ret =3D imx908_parse_fwnode(imx);
-> +       if (ret)
-> +               return dev_err_probe(imx->dev, ret, "device tree parse fa=
-iled\n");
-> +
-> +       ret =3D imx908_power_on(imx->dev);
-> +       if (ret)
-> +               return dev_err_probe(imx->dev, ret, "power-on failed\n");
-> +
-> +       ret =3D imx908_identify_model(imx);
-> +       if (ret) {
-> +               dev_err(imx->dev, "failed to identify model: %d\n", ret);
-> +               goto err_power_off;
-> +       }
-> +
-> +       /* Device is powered; keep it resumed across registration, releas=
-e at end */
-> +       pm_runtime_set_active(imx->dev);
-> +       pm_runtime_get_noresume(imx->dev);
-> +       ret =3D devm_pm_runtime_enable(imx->dev);
-> +       if (ret)
-> +               goto err_pm_put;
-> +
-> +       pm_runtime_set_autosuspend_delay(imx->dev, 1000);
-> +       pm_runtime_use_autosuspend(imx->dev);
-> +
-> +       ret =3D imx908_init_controls(imx);
-> +       if (ret)
-> +               goto err_pm_put;
-> +
-> +       imx->sd.flags |=3D V4L2_SUBDEV_FL_HAS_DEVNODE;
-> +       imx->sd.entity.function =3D MEDIA_ENT_F_CAM_SENSOR;
-> +       imx->pad.flags =3D MEDIA_PAD_FL_SOURCE;
-> +       ret =3D media_entity_pads_init(&imx->sd.entity, 1, &imx->pad);
-> +       if (ret)
-> +               goto err_hdl;
-> +
-> +       /* Share the ctrl handler lock so s_ctrl can access the locked st=
-ate */
-> +       imx->sd.state_lock =3D imx->ctrls.handler.lock;
-> +
-> +       ret =3D v4l2_subdev_init_finalize(&imx->sd);
-> +       if (ret)
-> +               goto err_entity;
-> +
-> +       ret =3D v4l2_async_register_subdev_sensor(&imx->sd);
-> +       if (ret)
-> +               goto err_subdev;
-> +
-> +       /* Balance get_noresume; allow the sensor to suspend after probe =
-*/
-> +       pm_runtime_put_autosuspend(imx->dev);
-> +
-> +       return 0;
-> +
-> +err_subdev:
-> +       v4l2_subdev_cleanup(&imx->sd);
-> +
-> +err_entity:
-> +       media_entity_cleanup(&imx->sd.entity);
-> +
-> +err_hdl:
-> +       v4l2_ctrl_handler_free(imx->sd.ctrl_handler);
-> +
-> +err_pm_put:
-> +       pm_runtime_put_noidle(imx->dev);
-> +
-> +err_power_off:
-> +       imx908_power_off(imx->dev);
-> +
-> +       return ret;
-> +}
-> +
-> +static void imx908_remove(struct i2c_client *client)
-> +{
-> +       struct v4l2_subdev *sd =3D i2c_get_clientdata(client);
-> +       struct imx908 *imx =3D to_imx908(sd);
-> +
-> +       v4l2_async_unregister_subdev(sd);
-> +       v4l2_subdev_cleanup(sd);
-> +       media_entity_cleanup(&sd->entity);
-> +       v4l2_ctrl_handler_free(sd->ctrl_handler);
-> +
-> +       pm_runtime_disable(imx->dev);
-
-This should be dropped given devm_pm_runtime_enable() was used in probe().
-
-> +       if (!pm_runtime_status_suspended(imx->dev))
-> +               imx908_power_off(imx->dev);
-> +       pm_runtime_set_suspended(imx->dev);
-> +}
-> +
-> +static const struct of_device_id imx908_of_ids[] =3D {
-> +       { .compatible =3D "sony,imx908" },
-> +       { /* sentinel */ }
-> +};
-> +MODULE_DEVICE_TABLE(of, imx908_of_ids);
-> +
-> +static struct i2c_driver imx908_i2c_driver =3D {
-> +       .driver =3D {
-> +               .name           =3D "imx908",
-> +               .pm             =3D pm_ptr(&imx908_pm_ops),
-> +               .of_match_table =3D imx908_of_ids,
-> +       },
-> +       .probe  =3D imx908_probe,
-> +       .remove =3D imx908_remove,
-> +};
-> +module_i2c_driver(imx908_i2c_driver);
-> +
-> +MODULE_AUTHOR("Lachlan Michael <Lachlan.Michael@sony.com>");
-> +MODULE_DESCRIPTION("Sony IMX908 Sensor Driver");
+> +MODULE_AUTHOR("Richard Genoud <richard.genoud@bootlin.com>");
+> +MODULE_DESCRIPTION("Allwinner sun8i PWM driver");
 > +MODULE_LICENSE("GPL");
+>=20
 > --=20
-> 2.47.3
+> 2.53.0
 >=20
 
-Thanks,
-    Jai
+--4wk3qwvshgohinge
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqxWzYACgkQj4D7WH0S
+/k5dLwgArrNNG4H814DPR29UhvaOzPe0BfUiiH+Sk43DRXSsYZ7DPdj1VsrXhzCZ
+KzwGI8T95WRNrjk5wks2DOaCksRR9emNiGfxzLN1uwsgRyWLU/YDyjXLrQe+foYc
+pBr/mQ6+sZRarW2QKXvDRKsZZL3pYiurFm9o2RbV4YQWMpfbxHueYMX7BKuJrDT4
+M7fJUlER87mPd5GJNTCoz0SScZhq4Z/X6RMyk9E0MslGdJU3FtNNOiTK9AOVvQZU
+2IykXH0OZfhLdglTPFvOS0sAOWHhar2wBnk6IN+dS0k1MHef289pz09zuGxPoZKx
+HDi1i1cwDGT3+jFCQuXC41xnmNafNw==
+=9T/B
+-----END PGP SIGNATURE-----
+
+--4wk3qwvshgohinge--
