@@ -1,322 +1,152 @@
-Received: from de-smtp-delivery-113.mimecast.com (de-smtp-delivery-113.mimecast.com [194.104.111.113])
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013038.outbound.protection.outlook.com [40.107.201.38])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9E863B38BE
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 07:16:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.104.111.113
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789974968; cv=none; b=qNPZu4++gsFONV1QiD7g46P+y14l6FBIYSvpr3WgUdzsmcr5WFEZIepkjXTURa9clix3NEpKeYpKK8VkEd4Vwx1n0SahqVu06zj7du69j4Y8/oMaMZHt8opkhbcqngXOrC0fRac2CY4FQd0kbzwJ9HF564HzmcdAiXqOt6pyxcY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789974968; c=relaxed/simple;
-	bh=O6z8vM9plsABkbYRna0hlYB5IU/g6JJXUmPieDCvRcg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:In-Reply-To:
-	 MIME-Version:Content-Type:Content-Disposition; b=EeyVKAj8zIZTzGUC226XxlH45BeMP+/KbmK+lpiQkkv/1RJpOyIHoNT7oaJHJwZk37aWbxHEQ9Amtoqchgy9Aybn5gkarrPApM4+QvX0DTWzz6k0x/WvPP6rtNBKcKfxbzzDYSYn71dEYbmtAgIBPfqEZth4DuKvist3874P/70=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=toradex.com; spf=pass smtp.mailfrom=toradex.com; dkim=pass (1024-bit key) header.d=toradex.com header.i=@toradex.com header.b=OMXplDh8; arc=none smtp.client-ip=194.104.111.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=toradex.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toradex.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C18D43B3C10;
+	Mon, 21 Sep 2026 07:16:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.38
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789975010; cv=fail; b=J5tCtJYQsgqY88tEBwnswD7IMl51CUmj9RYkKBMGmILBrx0QJP6njW3azbszwKAEpWvcdFeEtDUqFemB8/QF6AHq6I42l4ykbx+vkdN0xsKCRXFJ4WURS5uC9z8PYR65sBsKcoGbudY1BNYPn9v7MWF/S9vDu8AHtyI9K6TyEFA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789975010; c=relaxed/simple;
+	bh=YuSdR4wIlcGg1GZxu+tFSk8yYZFGnErE1BHwXOZ6gBc=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=JrHlzruifv1VpwQM5D4taHmT3WZWtwh8UcIaqJybV/wSakR7ROeIbcShER9aMmpuOf9huebJMgQIa+muwP0D+BF3zl3UO9t/diT2/anmbBMhWz27SNyWNwAglvi//rtTqPjAsv6wNQF/7eijazuGlt/31q/0sBbLTVPLMQ+PN14=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=amdcloud.onmicrosoft.com; dkim=pass (2048-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b=ya+MOL4t; arc=fail smtp.client-ip=40.107.201.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amdcloud.onmicrosoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=toradex.com header.i=@toradex.com header.b="OMXplDh8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=toradex.com; s=toradex-com;
-	t=1789974957;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Pa8fA3NnKgToABoCj8CplO03uImYGS89s2RzWlw2xo8=;
-	b=OMXplDh81A58NrnsMJPTf/JlCSHOWo816GJvPZ82EGYufzsVkl0HqBf9/U17svHTSxbbIj
-	dgowAFyMbgZH+k7DzIb+07L2naZF6rnxnqW+alr5NQn3BUFGwqcAMgAdPBkPDV8R2aPnkn
-	UxiFzO7PKA/0+oBJz1NbD2eBkQclLlQ=
-Received: from ZRZP278CU001.outbound.protection.outlook.com
- (mail-switzerlandnorthazon11021090.outbound.protection.outlook.com
- [40.107.167.90]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- de-mta-34-gd8o0yEhMH-M_Vy_8FqW0g-1; Mon, 21 Sep 2026 09:15:54 +0200
-X-MC-Unique: gd8o0yEhMH-M_Vy_8FqW0g-1
-X-Mimecast-MFC-AGG-ID: gd8o0yEhMH-M_Vy_8FqW0g_1789974954
-Received: from ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:2e::8) by
- GV0P278MB1898.CHEP278.PROD.OUTLOOK.COM (2603:10a6:710:70::5) with Microsoft
+	dkim=pass (2048-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="ya+MOL4t"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AYTLjsF3WwBRe/TCo6agdYkR5EGiU1Got1kHVF6VgAxPZxouuhOdQkDFQ5agzk4n3j3Ym4gbSORtCwASOQ6NfEhX1dzKerPH3Vx05Vd9qhBp/NfF5KEcMMr0U0MM5VFQ/sV+IAcGrg32cQ7nkagwvFXsRy974Ejwc6i5ElYaZNLWqNEMpB5GfoB0KdVQ7R3vggtgt8XGP6xeJ6dgTqZNVMcH40r6pTp0SYLYj9UHPwnhLNF08/RgrkWMtre3XDITFxVIdvFYTopYqVhswGDmWa3QWsT7hVmas1Zeeh1rEi+0RorXRVZPXISifurpsL9r0xODTBIeoQZ0yJ0+7PqirA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pl0HNCUh+l6v/rXn+m8QshZ8hVHGMN91pooRN6c9Xnc=;
+ b=WVCjd1mFkYR33j1fFGml8qhraiBn8B6lYFhVUdArLOcWzwdFtFlWcwDgKLNEskpoHgHPEMEXs5EGoErY5ZqDc8H7qGuvY979ryuARwyrA9hhhH4iHjxEUAuKeJZCqwZs6hBRFS0vGq1Ji0E9Lf7Gsv11mHW9VZBWKcx7iKzBG8y1+4sMlT7OqdvPOG/JQsewJudXN4Yr5dd9Yp8uGDRHAsic6HCU5OvRgg8J+Dp8gjhLm8cePbk8wDsD2Sf143q++8fwWxrj+AvkhAyNK12oIm/gbSJ1nsZscWKpFhRVpfLRyDMzF2RwWf6GvV5JXJ855w0H4o/2By82lbeTT7H22g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=gmail.com;
+ dmarc=fail (p=none sp=quarantine pct=100) action=none header.from=gmail.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector1-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pl0HNCUh+l6v/rXn+m8QshZ8hVHGMN91pooRN6c9Xnc=;
+ b=ya+MOL4txou9X151gFD8EmRJTDSQD5l2FZ7xjFpa1vSfPwMSmDw1q6M+bjKkKo1kA/2Om1rPJU7To7etk6/ZeAEZ0W1Kofxz7s6npprbQHsetqB0lg3/3rZOmbatPVc7Nka2xBlhb3JgpllBj5smf8sNoSP121TiffzJyNim6PcU60t8Ni/2vEX5t8WCgaYtChrjzZErYOF81pwaJ2IVFTzkN86UaA2IklrodDI2NKJ39T6xNO/LTTl9QhTNAGdA7mT5S+JJEgSjBYxC2mPhJm2TWzAxeayYy0UWhj02xWqkDRzcFYrZPCtQNuXs3UJ19dkGPRk5iWHWW3TbGk35EA==
+Received: from CH2PR18CA0024.namprd18.prod.outlook.com (2603:10b6:610:4f::34)
+ by SN7PR12MB6984.namprd12.prod.outlook.com (2603:10b6:806:260::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Mon, 21 Sep
+ 2026 07:16:45 +0000
+Received: from DS2PEPF000061C6.namprd02.prod.outlook.com
+ (2603:10b6:610:4f:cafe::30) by CH2PR18CA0024.outlook.office365.com
+ (2603:10b6:610:4f::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.16 via Frontend Transport; Mon,
+ 21 Sep 2026 07:16:44 +0000
+X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
+ 165.204.84.17) smtp.mailfrom=gmail.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=gmail.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ gmail.com discourages use of 165.204.84.17 as permitted sender)
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ DS2PEPF000061C6.mail.protection.outlook.com (10.167.23.73) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.16; Mon, 21 Sep 2026 07:15:49 +0000
-Received: from ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM
- ([fe80::88:6821:13f5:a5b2]) by ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM
- ([fe80::88:6821:13f5:a5b2%6]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
- 07:15:49 +0000
-Date: Mon, 21 Sep 2026 09:15:46 +0200
-From: Francesco Dolcini <francesco.dolcini@toradex.com>
-To: Kieran Bingham <kieran.bingham@ideasonboard.com>
-Cc: Rob Herring <robh@kernel.org>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Frank Li <Frank.li@oss.nxp.com>,
-	Ernest Van Hoecke <ernestvanhoecke@gmail.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-Subject: Re: [PATCH 3/6] dt-bindings: connector: Add Toradex camera connector
-Message-ID: <arDZoulyKIzVj-73@francesco-nb>
-References: <20260910-verdin-imx8mp-hmp-camera-ready-v1-0-3c9349ecdb9f@toradex.com>
- <20260910-verdin-imx8mp-hmp-camera-ready-v1-3-3c9349ecdb9f@toradex.com>
- <aqLaLmz7n31P6igy@SMW015318>
- <prwghb3ftrz5xd3hapxtlv2o2gm5xmuapnpz2h7fqulf75phqz@lk4yiaepormb>
- <aqLif2zrrsbYd5sM@SMW015318>
- <aqLk5UAv-j39Jxd3@francesco-nb>
- <20260918192447.GB1465432-robh@kernel.org>
- <178981707848.1761404.17065871878122418287@ping.linuxembedded.co.uk>
-In-Reply-To: <178981707848.1761404.17065871878122418287@ping.linuxembedded.co.uk>
-X-ClientProxiedBy: ZR2P278CA0054.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:53::17) To ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:2e::8)
+ 15.21.451.8 via Frontend Transport; Mon, 21 Sep 2026 07:16:44 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 21 Sep
+ 2026 02:16:42 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 21 Sep
+ 2026 02:16:42 -0500
+Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Mon, 21 Sep 2026 02:16:39 -0500
+From: Colin Huang <u8813345@gmail.com>
+Subject: [PATCH v3 0/2] Support RAA229639 and RAA229640
+Date: Mon, 21 Sep 2026 15:16:34 +0800
+Message-ID: <20260921-add-raa229639-and-raa229640-v3-0-b104ee8a70b2@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIANLZsGoC/33NSw7CIBSF4a0YxmLgYgs4ch/GwS2PlsS2BgzRN
+ N27tIlGJx3+Z/CdiSQXg0vktJtIdDmkMA4lxH5HTIdD62iwpQkwqJlmQNFaGhEBdC00xeFbR0a
+ NBI8cuPUKSBHu0fnwXPXLtXQX0mOMr/Us82X9uHLTzZwyqrwErkyDqrLntsdwO5ixJ4ub4ddS2
+ xYsljCyamrOhf6z5nl+AxDZE70SAQAA
+X-Change-ID: 20260902-add-raa229639-and-raa229640-c72fa121df82
+To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm
+	<magnus.damm@gmail.com>, Grant Peltier <grant.peltier.jg@renesas.com>
+CC: <linux-hwmon@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-renesas-soc@vger.kernel.org>,
+	<colin.huang2@amd.com>, Colin Huang <u8813345@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789975000; l=1228;
+ i=u8813345@gmail.com; s=20260202; h=from:subject:message-id;
+ bh=YuSdR4wIlcGg1GZxu+tFSk8yYZFGnErE1BHwXOZ6gBc=;
+ b=tWy8I+Y2ffuZdYp4FNLFxf7zxc0UArQfKrXfbcxcAq7cMg0uj67dxNWovT4XLdje9Lf9LzTRu
+ bsXapDz+3HfBxj/Eh1e/j0mwWwaAuFP8AEMLexoJtNAb/FtqWhsw8w0
+X-Developer-Key: i=u8813345@gmail.com; a=ed25519;
+ pk=Zlg0WqpCw4qbswOqamTBTXIchwR/3SnYZpy7rjaGMdQ=
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZRAP278MB0495:EE_|GV0P278MB1898:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2363425a-4293-4821-da10-08df17b0299a
-X-MS-Exchange-SenderADCheck: 1
+X-MS-TrafficTypeDiagnostic: DS2PEPF000061C6:EE_|SN7PR12MB6984:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1ffe9ab0-3d66-4ac1-d433-08df17b04aae
+X-MS-Exchange-SenderADCheck: 2
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|7416014|23010399003|366016|1800799024|6133799003|22082099003|18002099003|56012099006|4143699003|10067099003|3023799007
-X-Microsoft-Antispam-Message-Info: a8vqaDppGRJSy1L6lI2yZF8hcikxB14pbzMsXxXJ/7bGFO05+osZR8slgJ1wWZg+VrC0cnDWHuSRYjBh421iOoF9Rb+uFvTwAq0kwQwVFywApEwekU5fzEwj0SsTG3Jk2xEjCtUxZbNd7Fs8CsoWDupyE8SYt20G5F5VzQQIYLXE2QdICEY+u5Ayb53e1BArPfDBMeXHN3eOMdui5ZHE38kqTw76St+S3KmnHMx3wK4NbHX6rCvPr/kK582A46Ruw3n79bXwv12Z8lOFVTw7xZvw1rKAXjV5YGp/6gohiC7ss2rcI1+CQtwnqILZ+T8Fs347BB6a0x7KqrAsaseCFT97oVvUfgGcCPIPttD7mXWPmyVhkTtN6YbUouRv2pCxJ2M3fRaZsOh1nVyXCnFJ7tsWuOdmNQdDf7NWEdJ53nwz+0z2JVbbNWjHvsuqcvqDx/ajqpjdpV9PFFR8kfpBK2AjrzX/7DGiwrgnzHoYJh1V23w+aCAKRm17t5ICUzyTPKf9XWw+ZnSAzp82L/aMErE7k1VAJdqRnjGiHcNizfQc5/MV1uDHENv0Pj2GGVMkBwxBvE8NTvVW0HHhF0/OR94k9/Bu2twTAR5ta4QIH44PC1PyWarvVV2yhb8s+VTp
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(6133799003)(22082099003)(18002099003)(56012099006)(4143699003)(10067099003)(3023799007);DIR:OUT;SFP:1102
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7093399015|61400799027|48200799018|82310400026|35950700016|7416014|376014|10067099003|11063799006|16102099003|18002099003|56012099006|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	njzdauVQJQbnH7eZmRw8y7HBXkNpnHV96LEwyNZPj3RultNYsjhlpEXaZfe4SbkSwNfkTW/PndmO45IwuYEa2h6JPfuOWC2178vooHrdAnscEclsykwvhlOpCIhzX1F/HVKr3/8GKdxyok1A9ORw/d84HZm0xvKUxz6K4n8FAAStDPBbPaZFzTkB26jdpMokPjO3RH++/wr2WHD2hZNjErHcbTWPlBpkyLweNACYX3fOcLjq4gHuxNRimc9y1zXFGBJ9zutSrpLhHL7+faLUoUKZS7wM1k3zODGQL+qgl0KeQatdkoNCLAsQjvCLD7lhOdFlDi9ShLxgFD5Fw4bq8N8PCrePb8o6Jn6zzbSaWKHEA0ASICEARNopU1qLuK/cUUKtLAdZsoNUOrCE/MaonUqN2iDdtQxbFTUL35QFWa8XvsY+3IRWh7EgfsRFVRIoaYbdT0KsZKSLGHz/5n7bhsMaT6Jic2ARZDPqVTLU91Jhw9Y6QvkBHkeFMyP/tVAtul10XZ/sXJla4+TiC1d6rPwrI/G2YTlzSCTrxeuERbZoXnct3GsvMWXiJKmMwK1dHn0HbotXkHR0ardnfxLwg/yHA4LzidMx51jzxMSKQGYSP52Tz7pAu9/QboyGdSJ9fNdxdIO3nAs8Hd19msXOZw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7093399015)(61400799027)(48200799018)(82310400026)(35950700016)(7416014)(376014)(10067099003)(11063799006)(16102099003)(18002099003)(56012099006)(13003099007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?UIdJ53Tqdoc1rJod4u1BGRRsG4tj53kZshc6gJhVnZSbh3eKr0G6exO9+feQ?=
- =?us-ascii?Q?wR3RK/ilpA232QaegIA1gVXLlJFwZ6prc+Eupf5aTsn/2Hk1pr5o8EMqqg69?=
- =?us-ascii?Q?/krvYe3QLuUa53bdicTP30Hr8kL9577KKV74De/ki55JpT44bqtWoUOBAziV?=
- =?us-ascii?Q?90f5qd11SfHQZ4n6TvkhruzjRKOt0wnc3jegeTrx5r2cnnBYt/JejhV96eht?=
- =?us-ascii?Q?yjv69PANc4IKYCV9AM+tZyjMsvII6FzJKqsSRy1IurqWjbuk5FYFchaVSc5Y?=
- =?us-ascii?Q?FsGzRuPeXRjhh0NBrPkUoswJ8bR2bt340cCfxRhJoksOXquYEmxqojB5V3gO?=
- =?us-ascii?Q?1i/mWf+gLk485R3gAR3EwGXJrvDQ+9GCKAPtkv27C9o3QkyNUX6yOLDEHQ70?=
- =?us-ascii?Q?ihqcQ0B98IhswY4M+nX9XvzV3NQyUNyk7LLrS2/9GQp/Z0t6c3GRDoRGQ1rG?=
- =?us-ascii?Q?y4YQ2a+2RCg/IgYMt4OkGa9Gd5ju3eLkeSFjS6thrg6muaW+FLf4GzU+CEyJ?=
- =?us-ascii?Q?HnhMb+i8S2lzs+votcmaADlrjl0XAD6fLZOXqUWAlsF0u9iS0ZPrJGsbR8u7?=
- =?us-ascii?Q?AKsT83AwU4zp+UlcJLDXMwMVZZ+3V84RqSQJyrK/+sVTZIUTc4OgSEF/6rTa?=
- =?us-ascii?Q?KdcWyNJus+2n1WzZ8GT5Lo8733+a8s5Azs2Orgzx1m3Ba+tHxKuq2fVzWvw8?=
- =?us-ascii?Q?yhgKJBS13Edk26p1wY/JU3ansUIFMM6xmnfck/d/vOQrmQMpARKykK9MO1bw?=
- =?us-ascii?Q?gLjBHx/IMeZ+WUeF9yh6+2BTi+FyzSY0GBUW6NZ0BbP0MhKVcbJZ7s2gaf4A?=
- =?us-ascii?Q?eAw7iv/i/CvpMIgr9JQubk6otCG9zRCQMODUTnC1s4hMEIogrgkRDi5+hGfK?=
- =?us-ascii?Q?sz27qcwdVLhylUaWO4BCe+rZyE7I4AC8qJgm6csfSqXxfhCZlBaE04XWaoLN?=
- =?us-ascii?Q?nOJddpcf+qLqNyUpw/rNKaxTFogJu8cml/oeJ4264L1apzMvJYbC6tHEOscL?=
- =?us-ascii?Q?/oZlssxUlRgR2b/wj07w81ROCjywuzsLOUI/TNT9bFlFcdKbhMb8KZiHA6yL?=
- =?us-ascii?Q?3XWOReRsvqcKrEMcgJSYvinTCPpi201crI0QYVyRHgsY6Bkc3jF/cC0eBGNK?=
- =?us-ascii?Q?O9smqhsAwmrsZ9OC0Zg6EDAMoNyyl+DMl07yuHUwJeouRxKyvinhnceOCn1j?=
- =?us-ascii?Q?r4nAVW9ifS5OkuBHXi6/UTSmxjrylVUhLc9Yzb87sx1EkHU7tehk2tDUu7xx?=
- =?us-ascii?Q?Sb3sz/wgwM1wwaea5DYkihbuV2CayIJA0sxHoscxs/7YMmJPXhpJk/GRmNsp?=
- =?us-ascii?Q?DUU7KIRX8x/jgK8iBKMlzUBd+Igaoc97IZl2G5ekXh6ZmvVVtpWEDWlq3E11?=
- =?us-ascii?Q?PodkaKmzILOUsatDUYZtQANZS1VSWHB3zFHztAhyAdUp7Q69pfY3t80EqChs?=
- =?us-ascii?Q?mZYrdAgnY1cKcYZZGGJOnn6X/gcEd3y7ez/RMXfLq+54MktNCyblMsgJpQXO?=
- =?us-ascii?Q?FKPiXG229VMUQlJovwepZuOfO3LHCc8OqW6Nf3u9R8LzqyzSWK04OTA2k5d2?=
- =?us-ascii?Q?cLyY03oyqBB4i9JRCRKdXVvfPjtjH7Q31V6pG9hechoDmg8elFvYJ8WSdLAW?=
- =?us-ascii?Q?w7xAUrh9OOiNFEu5UUw1lMHfUdrdwRYYp6vy3vLha+5RDjuqKGokRNnEbj4C?=
- =?us-ascii?Q?acgznG//LZU7J9XRTBbdM8bYS5BOepoB6hXDvYsNScVwI0S5RiddDQW0ANNh?=
- =?us-ascii?Q?VEq9TD9ZV2LX70ZiHvMO6O3jiznZWRk=3D?=
-X-Exchange-RoutingPolicyChecked: D7ZUkU/hF8JWcE7f3FTDysnuZReKAYDEr3N/K+cJYgfk+t8zRdZQWT+x+p/QlrvaFqQxsTbBoE8GmIy6FC1Twp0NDugI04b/4IDC3z2msQetPABCtgTLsuST6Z+C0ycpuH8ZzSuRX8YXVeSR1SUwDMXmZ9QFXKh9xwaIeAuwLP9D0xwgUbQczDWxNrNR4/X9k9e7u4UK4fE8gWr+/8xykbC+hDa78uaidXaV23Ex+cpn+J/dhAFRlwf7/5MJv3iAlV7ccPeQld9zOvutpJ6wjM/Jl8yPMIabA1XjkeKNcnBfqszdEIeav8letgzTFhN5IcA9WIJcxkQfQaV10Zp1mg==
-X-OriginatorOrg: toradex.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2363425a-4293-4821-da10-08df17b0299a
-X-MS-Exchange-CrossTenant-AuthSource: ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 07:15:49.3475
+X-MS-Exchange-AntiSpam-MessageData-0:
+	wcir4qgwHg7QiMO2qZ5oyVyvaDODty/dLtJttCiqcAq+SCw9ISyuholROVROptXcqbLIeMLjn6/ZNfRW80vBpx0QRc/wkUPRXNjRD7fsCBOJnDoCvNz9IOpjPqr07n9JDmAKZy85Ze8Pt5xI8UhEAdE6AwlTF3CLjGn851e9NHYFZe5zRQ6zyi9FeMdry6vOCdSWBbwF7Rt9woLSAZ/UeQc50D2SvravABZNliuzkP1wXtdIT2boymVQfcDe3MvBDCXZ/LAMeZ3BDwwakXN7NgUcK9gl62aL5Z5LuyHOa9sECOGY4SGULtvoNzQFp9CCedXcCadA2xqNVe+6yItaTbBE3RthX7eV4CXYyytYUDXDEQLnLjTYJN9V+jaWrgyqBS/27lnfJd9poD29A1NaISDRSMk92plPijs8rzqqcS3fLi8b4ZX6+FXXE6UgC7Tm
+X-OriginatorOrg: amdcloud.onmicrosoft.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 07:16:44.3740
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: d9995866-0d9b-4251-8315-093f062abab4
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4TXfbHpGgoHQl+hhwu4Sv2fqgAit4UFhSqltWAOEum/Saxsl0a812EPxDigBPPj7V4A+6lKQHpLsXvtyoHtmTdWBxxXYdWgrmHYFmyJeMEg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV0P278MB1898
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: T7mxfwr1m28oGBGRF5VuxsNIuJDxwoKHAImNYI36L-k_1789974954
-X-Mimecast-Originator: toradex.com
-Content-Type: text/plain; charset=WINDOWS-1252
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1ffe9ab0-3d66-4ac1-d433-08df17b04aae
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS2PEPF000061C6.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6984
 
-Hello Kieran,
+Signed-off-by: Colin Huang <u8813345@gmail.com>
+---
+Changes in v3:
+- Updated the OF match entries for renesas,raa229639 and renesas,raa229640 to use 
+  raa_dmpvr2_2rail_nontc instead of raa_dmpvr2_2rail.
+- Compatible with existing 2-rail non-TC controllers and use renesas,raa228244 
+  as fallback compatible.
+- Link to v2: https://lore.kernel.org/r/20260908-add-raa229639-and-raa229640-v2-0-83c75b61139d@gmail.com
 
-On Sat, Sep 19, 2026 at 12:24:38PM +0100, Kieran Bingham wrote:
-> Quoting Rob Herring (2026-09-18 20:24:47)
-> > On Thu, Sep 10, 2026 at 07:12:05PM +0200, Francesco Dolcini wrote:
-> > > On Thu, Sep 10, 2026 at 12:01:51PM -0500, Frank Li wrote:
-> > > > On Thu, Sep 10, 2026 at 06:39:30PM +0200, Ernest Van Hoecke wrote:
-> > > > > Hi Frank,
-> > > > >
-> > > > > Thanks for reviewing this so quickly.
-> > > > >
-> > > > > On Thu, Sep 10, 2026 at 11:26:22AM -0500, Frank Li wrote:
-> > > > > > On Thu, Sep 10, 2026 at 05:37:59PM +0200, Ernest Van Hoecke wro=
-te:
-> > > > > > > From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-> > > > > > >
-> > > > > > > Toradex boards route the sideband signals of their 24-pin cam=
-era
-> > > > > > > connectors to different GPIO controllers. Camera overlays whi=
-ch name
-> > > > > > > those controllers directly must therefore be duplicated for e=
-ach host
-> > > > > > > board.
-> > > > > > >
-> > > > > > > Describe reset, power-down, detection and power-control as
-> > > > > > > connector-local GPIO functions. This lets an accessory overla=
-y remain
-> > > > > > > independent of the host wiring. MIPI CSI-2, I2C, clocks and s=
-upplies
-> > > > > > > remain described separately because the GPIO nexus does not a=
-bstract
-> > > > > > > them.
-> > > > > > >
-> > > > > > > Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.co=
-m>
-> > > > > > > ---
-> > > > > > >  .../connector/toradex,camera-connector.yaml        | 86 ++++=
-++++++++++++++++++
-> > > > > > >  1 file changed, 86 insertions(+)
-> > > > > > >
-> > > > > > > diff --git a/Documentation/devicetree/bindings/connector/tora=
-dex,camera-connector.yaml b/Documentation/devicetree/bindings/connector/tor=
-adex,camera-connector.yaml
-> > > > > > > new file mode 100644
-> > > > > > > index 000000000000..06e6836e1aa6
-> > > > > > > --- /dev/null
-> > > > > > > +++ b/Documentation/devicetree/bindings/connector/toradex,cam=
-era-connector.yaml
-> > > > > > > @@ -0,0 +1,86 @@
-> > > > > > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > > > > > > +%YAML 1.2
-> > > > > > > +---
-> > > > > > > +$id: http://devicetree.org/schemas/connector/toradex,camera-=
-connector.yaml#
-> > > > > > > +$schema: http://devicetree.org/meta-schemas/base.yaml#
-> > > > > > > +
-> > > > > > > +title: Toradex camera connector GPIO nexus
-> > > > > > > +
-> > > > > > > +maintainers:
-> > > > > > > +  - Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-> > > > > > > +  - Toradex Linux BSP Team <linux-bsp@toradex.com>
-> > > > > > > +
-> > > > > > > +description: |
-> > > > > > > +  Toradex boards provide 24-pin camera connectors carrying M=
-IPI CSI-2, I2C,
-> > > > > > > +  clock, power, and sideband GPIO signals. This binding desc=
-ribes the sideband
-> > > > > > > +  signals as a GPIO nexus. The other connector resources rem=
-ain described by
-> > > > > > > +  the surrounding board device tree.
-> > > > > > > +
-> > > > > > > +  The nexus exposes connector-local GPIO function numbers to=
- camera overlays
-> > > > > > > +  and maps the functions wired by a carrier board to their G=
-PIO controllers.
-> > > > > > > +  GPIO specifiers contain a function number followed by stan=
-dard GPIO flags.
-> > > > > > > +  A board may omit functions which it does not wire.
-> > > > > > > +
-> > > > > > > +  The function numbers are:
-> > > > > > > +    - 0: Camera reset, connector pin 11
-> > > > > > > +    - 1: Camera power-down, connector pin 22
-> > > > > > > +    - 2: Camera identification, connector pin 23
-> > > > > > > +    - 3: Camera power control, connector pin 24
-> > > > > > > +
-> > > > > > > +properties:
-> > > > > > > +  compatible:
-> > > > > > > +    const: toradex,camera-connector
-> > > > > >
-> > > > > > Name is too generally, suggest use board name, we got similar c=
-omments at
-> > > > > >
-> > > > > > https://lore.kernel.org/imx/20260629074734.3643227-2-chancel.li=
-u@oss.nxp.com/
-> > > > >
-> > > > > I saw that and it made me reconsider this name.
-> > > > >
-> > > > > However, I believe that in our case it is specific enough. It is =
-really
-> > > > > the same on all our carrier boards, and Toradex specific. It's al=
-so only
-> > > > > for cameras, which is more defined than just "io". Curious to see=
- if
-> > > > > others agree or if we should come up with a name for this.
-> > > >=20
-> > > > If some days later, you update hardware connector to 30pin from 24p=
-ins.
-> > >=20
-> > > That connector is there since years, not days.
-> > >=20
-> > > We have multiple cameras, designed to mate with it.
-> > >=20
-> > > If tomorrow we will define a new camera connector (that is absolutely
-> > > possible), the new connector will get its name, maybe
-> > > toradex,camera-connector-v2, or toradex,camera-connector-22pin or
-> > > whatever that connector would be named, not just in the DT, but also =
-as
-> > > a product and on the actual HW.
-> >=20
->=20
-> Diving in because, cameras :D
->=20
->=20
-> > I for one hate 'v2' naming.
-> >=20
->=20
-> Me too. I wouldn't ever call it v2, but a future
-> toradex,camera-connector-24pin might be appropriate.
->=20
-> Note that I specifically said 24 as an example because there is already
-> a 22 pin Raspberry Pi connector.
->=20
-> If Toradex were to produce boards with a 22 pin connector, I would
-> anticipate it to be the same pinout as the Raspberry Pi connector.
->=20
-> Raspberry Pi camera connectors have already somewhat become a defacto
-> standard (albeit for both positives and negatives there).
->=20
-> So I would imagine if a 22 pin layout were ever made it would be
-> compatible with RPi 22. And if Toradex ever make a 22 pin connector
-> which is not RPi compatible ... well I might scream into the void ;-)
-> but then it would have a toradex prefix I guess!
->=20
->=20
-> Equally we have other vendors who have 30 pin connectors (There are
-> quite a few, so I have myself a research project to go find out how
-> {in,}compatible they all are here ...)
->=20
-> So, I would imagine if we're giong to name connectors we should set out
-> an expectation to start with
->=20
->   toradex,camera-connector-30pin
->   raspberrypi,camera-connector-15pin
->   raspberrypi,camera-connector-22pin
->=20
-> And if Toradex were to make a *different* 22 pin connector then it would
-> be:
->=20
->   toradex,camera-connector-22pin,
->=20
-> But if it's RPi layout, then it would be defined as such.
->=20
->=20
-> All that to say - I think Toradex certainly warrant a specific
->=20
->   toradex,camera-connector
->=20
-> But I think specifiying the pin count already could be useful (but not
-> essential).
+Changes in v2:
+- Clarify why fallback compatibles are not added in the DT binding.
+- Reword driver commit message to avoid implying DT-level compatibility.
+- Link to v1: https://lore.kernel.org/r/20260907-add-raa229639-and-raa229640-v1-0-8f7218cba85d@gmail.com
 
-As Toradex, this is how this connector is called, and there is no plan
-to design a new one. If you want a full descriptive name you can call it
-"Toradex MIPI CSI-2 Camera Connector".
+---
+Colin Huang (2):
+      dt-bindings: hwmon: pmbus: isl68137: Add Renesas RAA229639 and RAA229640
+      hwmon: (pmbus/isl68137): Add Renesas RAA229639 and RAA229640
 
-I see no evidence that we are going to have a connector with a different
-amount of pins anytime, if we would redesign the connector today it will
-likely have the same pin count but 1v8 logic instead of 3v3, and your
-proposal would not help.
+ Documentation/devicetree/bindings/hwmon/pmbus/isil,isl68137.yaml | 2 ++
+ drivers/hwmon/pmbus/isl68137.c                                   | 4 ++++
+ 2 files changed, 6 insertions(+)
+---
+base-commit: f4c3b88983f342d6614cb11b53a0640ec8bc8fd2
+change-id: 20260902-add-raa229639-and-raa229640-c72fa121df82
 
-A little bit more data on what we have today, the connector is a 24-pin
-0.5mm pitch FFC/FPC, it goes back to 2017 and it never changed after
-that. It is currently implemented in Apalis, Verdin, Aquila, SMARC and
-OSM Toradex Carrier boards.
-
-Francesco
+Best regards,
+-- 
+Colin Huang <u8813345@gmail.com>
 
