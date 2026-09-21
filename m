@@ -1,143 +1,119 @@
-Received: from mail-pz2-f30.google.com (mail-pz2-f30.google.com [74.125.228.30])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 805073DD871
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 07:28:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.30
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789975735; cv=pass; b=bTjG/N0VOOIuPYxAs0HdLAHdJNzfIT4idxNbA7p8xCk6azZvHYUgv9V7wUhTYGnKsRGDgNMcew1b1ePnItrGBlcWDqyoAyKJ8MSzXipUeSMcrLAtjLrULRMmfIRSh+9XPv3x5JQ1VLmj1h7lJvGeMdUEAewa5SEnpISG0mH81Ok=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789975735; c=relaxed/simple;
-	bh=lxo3rItzOI5E9MqNdGIwnwpWKqkISYML5yv6YHZcizc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UYC85qlnhaWC+Zgt//8l7CFeECfjk2vzVtJaats0B35NVJnjOfSNGvyOl4vtQpOyP8MmcdeRMWWsyGOq8rHLin+ejj/NNiw5w3Q6FAa8PQIfGJPUh+9i8rsJM8AKqcs6xjp/cULZ0gY9mk7UPk+A/lSI9+8/ycVoew1EuJw5qVc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BPK8/FO4; arc=pass smtp.client-ip=74.125.228.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 891B53F1AC6
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 07:29:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789975777; cv=none; b=vA3Dxy8KSxrrEkYx0arUwa85X0lEmKisdXvGGyOt79GBBfJxet47tLeja3qcC+vE9bH1rSVcWsMRRlSXDkumSa0zpzbKIRvvUyResPD2ylawAvWmPmQcJJtGGQZa7R4BLUizcXgOgtQ5a5f1aRFOgUijQ1XCIJzaF+XaC+QNNOo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789975777; c=relaxed/simple;
+	bh=K1h2h70Kg7mlBm5CKFkhFRtqimQPKIZhcitVm8oxotI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=YKavJj9AJRS4+Ve9d5nwhb+MZfP9+3eWxt7KXoBJYJBN53Tcgyg95KlKC10519MUB56h3M2NfRzpf0tok3v/vktdSok81ul4WEK3LXePbRD8wSJKq+qIdXQLvlY3YqKZe+nhdHS3NUmV5bD+CMw0P2f0eBGjHZR0UOadu04u/0U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IvmmH36u; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BPK8/FO4"
-Received: by mail-pz2-f30.google.com with SMTP id 41be03b00d2f7-cc1cea50dc0so1074483a12.2
-        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 00:28:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789975730; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Ff6bddyCZD60OE3ZKfTstHPGGYWYBNGxn+r/Y2OjNivB1TqxafqGybqBePwO1YbplH
-         KfKgRZ05O9qtgwN9GpCZqJwWImUtlAs3dJgr6R0r/g5T+2+4g5M80lf0Nts0g8KtT2Ji
-         NpRZPn54qysWQfQtrO/g4BfpS3kk2TpC457cK7T+STc4xYIMU6xRBk6VraaylOD1okS6
-         OppVhgduVUSHCwFIRV85zAtH1exYCKYSKBJtqGs01TPX+MBLiWlpfkNRMbaWD9vURa2O
-         vYrNn5Ab73dBu/jeusDn+r8EC+U3hZNJUG+vd7mF3GbB73Tk87mBNjfCfUUbm72yavoD
-         ouYA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=A6cNT/xOU7D+9cHzOo3kYyxs0BX7F75Svm7QKlu1XOQ=;
-        fh=2S19mWitZevCxODI7XtEiYkQzLn6KLUpsx76Fj6qenw=;
-        b=dWNEDfm8ma9yQjbLor6g2BkLeZQiyHbJDrZeUC5YDPyTH3ENr1+iNHE1nyjbAozlGJ
-         zD6IP2tq8Hf+q430NoiHCEsGAz8cSdwuofyVszTsHI4R0U3LxPjCwSWdgGtKKDwMvgHf
-         yjmEcpzapX5nzXq1HSXLXsXoN2aF5lhGiyj/bqMA/Tyz/eb4VO5507VulHEA3W00+Ud6
-         ytrMUvr/oKOueJp1wHwO49WcvQxUhiJPi4kcEl3N0e5XQTfWSuAWgJFV24iyuH0+fOlA
-         VUZvPVYojZq6bB+/edYRNILOuT5BevUeJbTTkN7t3d+D55kQ5lIFZ5JqR75X/o07m4ks
-         9Uug==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789975730; x=1790580530; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=A6cNT/xOU7D+9cHzOo3kYyxs0BX7F75Svm7QKlu1XOQ=;
-        b=BPK8/FO4MZk8LnmE3C0zsRMjRZqsdw9FI0zUn8r7RNGdnKb8QXCR0SKb6oDI7lAhVP
-         m9qZlWhIUIonYT5m76UqY1uDUOLanucx1YBHwsRlm4XGCwief3ZJdpiTTKqo7TKhXNV4
-         K2jsXoDnXpe7PSO//bYlC7kIframl4HaW69jsN+ZUy64hEPs+PRo7TIduLimrD9ZotFT
-         o9UpH0mmaaJMZT2p06Yowyf9oOQkZHSbRbIPTCgJR+VT4NS89+xVr9ius11hEbIRgyp+
-         zOvA3IbebjUViAfJxgkVzNd12W7Lp7a7i75bwlVfVS5BuI66X9kmYCA2civlJw6KE4st
-         KR1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789975730; x=1790580530;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=A6cNT/xOU7D+9cHzOo3kYyxs0BX7F75Svm7QKlu1XOQ=;
-        b=EEdB72332W4Nc8QRC7IDxN4sHSqQcnSE0aXp0EZugMiJ3tC3llX8Jvh66iGEesNnHw
-         99OdKXRKzhlGiRO9Q83irWeRAgrqYWQZCyrxr862wenKm/iW6AejlXMyYhzfpc7CLRuv
-         /py7jQtxLil4oYfZmGvUbaUvJYqTXoegl/LLQPEXSStR3pV+ocr/+rGKlFUhmn4RxuwC
-         f1rF0r2qjhBNvOTMvHkvleqEK29fm/KbkqJny6YWpfWanpZfIJridC38A8V9BICIJOIn
-         3rpqmYvubtZDgWoOqIX5Rh7B4mOXJ/UUIzFVrUaqq6IkOH5MUYpfAwUZ/kVgCATM6zKJ
-         utzw==
-X-Forwarded-Encrypted: i=1; AKwUvByr2APJdKdcsNvK5Nh/9TLLMb2Xdff3hdZF1jt5Vu5VnM2iM5XM+4ravtVEfAd/1naczcnwmLWsPTCO@vger.kernel.org
-X-Gm-Message-State: AFuF++mg9SoPuQ/3YZ+vTqOO11V2MTygpH6aYzKkajhx/t9PxzPgUR1B
-	YnJ4d1sPgMBRrMsGmR/37o6H1yHi68iSACBrZZ4xljWd5TZedXcWU6FigR8bgUP86kGT8IMbaAZ
-	dEq9F1W3i/4kcKMLoEGFda+83HrFd61mwkQ==
-X-Gm-Gg: AYBFou0bU55jetgiHZbBUlu5ScDpaWLFfmSXe8X9wj4mzXoLyAboJAZB5Vb4UAz0dJU
-	cjPvnJyg2OdDod28V5ZkuhTHdDe/+Gdtnu1vqDskM1j5RThPGKQt4eazZcz9dsaqUz2pgRlwRxT
-	TG2LRwZY85ZPseHoYw6Al6FDT+o4dAWmSEYSf5igIrJE6xjDFKFnF2CmGZ3NDi1wGGc5OFUucJD
-	CiMsA89zCz2kvTNow9ABZ90/6RFROUNnGdk+jXL8kvptHSz8nN4tdYb6UGk5HBywJOmkhko2M0M
-	xSqt49TCu90QL9X84KJixqVdXJZzHPvbuhrqAy4cLwZe9aiWlIN2NBEPDKSfVomUCckihV0S/qe
-	QNj3REawf0YO+
-X-Received: by 2002:a17:90b:4c4c:b0:39e:4c7f:7307 with SMTP id
- 98e67ed59e1d1-39e5506f80fmr15344793a91.30.1789975730612; Mon, 21 Sep 2026
- 00:28:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IvmmH36u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AC481F000FF;
+	Mon, 21 Sep 2026 07:29:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789975773;
+	bh=3GNvKHndknsRuysIzkoAIGFKz/RGLhmcpCgAkEsB+pc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=IvmmH36u9ncRWwVVZmo8V6FL7XGqxdUOWNRUkbwWFbkLoq3xwUQcSF8L1UrNFihGd
+	 RA6NlzZ5BuYCgR6oyVubt+wvCed8hXkv7wwvhoeYFyE77XgzdG9C5762pmnRT8onyw
+	 sHocARzB+CnaHQKchn9/bDG2NkEabpMvvudyrpegUZlAlDhfd92Ldagc/VMczVd8iT
+	 k5w6zuvbSj9erWIRy3SxgK3TrARD9JGYESAKScx8Tyde/1gaXXvt+/itgN3QjpZq59
+	 OTaGH3iJAljhTTLA7AJhJVDnCwQQ/8ggs/8svcuvApHi9KSE23wxvocpqSaUj41t1+
+	 HKKlTLDrAdAyg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 2/2] pwm: add Axiado AX3000 PWM driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Petar Stepanovic" <pstepanovic@axiado.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260921-axiado-ax3000-pwm-v5-2-202aad28e129@axiado.com>
+References: <20260921-axiado-ax3000-pwm-v5-0-202aad28e129@axiado.com>
+ <20260921-axiado-ax3000-pwm-v5-2-202aad28e129@axiado.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 21 Sep 2026 07:29:33 +0000
+Message-Id: <20260921072933.8AC481F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260731114106.169398-1-clamor95@gmail.com>
-In-Reply-To: <20260731114106.169398-1-clamor95@gmail.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Mon, 21 Sep 2026 10:28:39 +0300
-X-Gm-Features: AcwNN1WIubtOA2Pf-MJxcDjvG4Mtn46SZcjDO-qZ5S8wuOcCU4q_uN3xE35GGCo
-Message-ID: <CAPVz0n0jQCLjBPbJcmJLgW7MAjS9pCZUpVv-aMFp768Dqewm_A@mail.gmail.com>
-Subject: Re: [PATCH v3 00/10] ARM: tegra: tf701t: Add new features
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Mikko Perttunen <mperttunen@nvidia.com>, Svyatoslav Ryhel <clamor95@gmail.com>, devicetree@vger.kernel.org, 
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-=D0=BF=D1=82, 31 =D0=BB=D0=B8=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 14:41 Svya=
-toslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> Add new features recently merged like CPU DFLL, MC and EMC timins
-> along with fixing some existing issues.
->
-> ---
-> Changes in v2:
-> - removed vdd-cpu-supply from CPU node
-> - fixed typo in thermal nodes
-> - adjusted MMC flags
-> - improvements of commit descriptions
->
-> Changes in v3:
-> - expanded commit description for BCM43341 related commit
-> - added Mikko's reviewed by
-> ---
->
-> Svyatoslav Ryhel (10):
->   ARM: tegra: tf701t: Configure CPU DFLL clock node
->   ARM: tegra: tf701t: Add core-supply to PMC node
->   ARM: tegra: tf701t: Add MC and EMC timing nodes
->   ARM: tegra: tf701t: Remove pin_ prefix from PMIC pinmux
->   ARM: tegra: tf701t: Add thermal zones for nct1008 sensor
->   ARM: tegra: tf701t: Tune MMC devices
->   ARM: tegra: tf701t: Fix BCM43341 WiFi/BT chip configuration
->   ARM: tegra: tf701t: Complete power sensor node
->   ARM: tegra: tf701t: Configure UART-B line used for GPS
->   ARM: tegra: tf701t: Add chosen node
->
->  .../boot/dts/nvidia/tegra114-asus-tf701t.dts  | 885 +++++++++++++++++-
->  1 file changed, 848 insertions(+), 37 deletions(-)
->
-> --
-> 2.53.0
->
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] pwm: axiado: misinterprets constant-high hardware state as 0% duty=
+ on readback
+--
 
-Hello Thierry!
+commit 0be6bd48e49f4eaed6639766408acd48c1985d0f
+Author: Petar Stepanovic <pstepanovic@axiado.com>
 
-May you please pick this series if you are fine with it? Thank you.
+pwm: add Axiado AX3000 PWM driver
 
-Best regards,
-Svyatoslav R.
+The Axiado AX3000 and AX3005 SoCs include a single-channel PWM
+controller. Add a driver supporting period, duty-cycle, and enable-state
+configuration through the Linux PWM framework.
+
+> diff --git a/drivers/pwm/pwm-axiado.c b/drivers/pwm/pwm-axiado.c
+> new file mode 100644
+> index 0000000000000..781053e255f03
+> --- /dev/null
+> +++ b/drivers/pwm/pwm-axiado.c
+[ ... ]
+> +static int
+> +axiado_pwm_round_waveform_fromhw(struct pwm_chip *chip,
+> +				 struct pwm_device *pwm,
+> +				 const void *_wfhw,
+> +				 struct pwm_waveform *wf)
+> +{
+> +	struct axiado_pwm_chip *axpwm =3D pwmchip_get_drvdata(chip);
+> +	const struct axiado_pwm_waveform *wfhw =3D _wfhw;
+> +	u32 period =3D wfhw->period;
+> +	u32 duty =3D wfhw->duty;
+> +
+> +	if (!wfhw->enabled) {
+> +		*wf =3D (struct pwm_waveform) {
+> +			.period_length_ns =3D 0,
+> +		};
+> +
+> +		return 0;
+> +	}
+> +
+> +	/*
+> +	 * The constant low encoding doesn't hold a period. Report the
+> +	 * shortest one, the output is low for all of it either way.
+> +	 */
+> +	if (period =3D=3D AXIADO_PWM_PERIOD_CONST_LOW) {
+> +		period =3D 1;
+> +		duty =3D 0;
+> +	} else if (duty > period) {
+> +		duty =3D period;
+> +	}
+
+[Severity: High]
+Does this logic misinterpret a constant-high hardware state as a 0% duty
+cycle on readback?
+
+The driver's comments indicate that a zero high time is interpreted by the
+hardware as a constant high output (100% duty cycle). However, if the
+hardware is already programmed with a zero high time (e.g., by the
+bootloader), axiado_pwm_read_waveform() will read duty =3D 0.
+
+When this state is processed here in axiado_pwm_round_waveform_fromhw(),
+it fails to map duty =3D 0 to duty =3D period, returning a duty_length_ns
+of 0 instead of 100% duty as documented by the hardware behavior.
+
+This could cause an abrupt output flip from 100% duty (constant high) to
+0% duty (constant low) when a consumer driver probes and inherits the
+initial PWM state. If the PWM controls a voltage regulator, this drops the
+voltage to 0, which could cause a system crash. For a backlight, the
+screen could turn black.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921-axiado-ax3=
+000-pwm-v5-0-202aad28e129@axiado.com?part=3D2
