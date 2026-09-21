@@ -1,51 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B37104AF9F4;
-	Mon, 21 Sep 2026 17:49:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89ABC4C9E13;
+	Mon, 21 Sep 2026 17:50:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790012981; cv=none; b=h5ZbjCxqRD9v8xfVoz4pcWUQ+jRSSbH9g81gkK1iillGmV17JCZ+K6kgM1Xq/rKHdndecxdFd9OZQ04B36BmB74Pw6AOyCS2mG+mAigghLrJz6CUvsY8Pf096jYGVdi3zS2n3ZItNJXn5Z45G7u8KWq65cRWdpbco8V1AyEQu1M=
+	t=1790013027; cv=none; b=LpK+6cba4mwfeGIEHZfFVXvMQeP+FMwFGSaprc12A+emX1liAA76NGQLQiwyM1jRmHo3l63gJcUDnwS71BNkSjZm/5FmFMLlL0W3+DgyFzF/1ovV5VvicS2Crya2dQDxTAhqmzKSjP8gBI1SwcdWojcBaRflmt+OcFJI0Ql64WQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790012981; c=relaxed/simple;
-	bh=eA1hWVHqWPJJMO/8JMSy+3AzNIFbsM9Ofw6Yh7syOD4=;
+	s=arc-20240116; t=1790013027; c=relaxed/simple;
+	bh=zv9+IM1nkDhJZKWTYE6MoczP8torGbhtT+W/OGBz3fM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YnKrF11e87Lx1ps5Ns7a6P5xhFI4WoA5Q4AEzaudy3vhyhEuGPw44IGzXDgyNXiWaMQw6t6XZ6tzppHEJyCddWdogMdvsNPszgXHYzItDYWy7AB0qU195V1KWDzCSHhhigmiNMP9BRzwhjKewNSAWkFkNbGczUAUTkItlcRSuo4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZuiPcNx4; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=SaCn42OaIM/9G/S5aI40YlhiPCZpudKS5OerlybEiqVmgCS8WujEL5LTXweZKEmU3BkMma53x/tdzcYRuB7r+2ts7Q2XqXHx8VqqjbXYCgPWcjsE05PppgLABYQz/Pd7z22EC3ta1UW1MySHje5PXyK88nyp+D6xPEnbbnEbI00=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HBpzUZN7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZuiPcNx4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE3051F000FF;
-	Mon, 21 Sep 2026 17:49:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HBpzUZN7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 371171F000FF;
+	Mon, 21 Sep 2026 17:50:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790012979;
-	bh=ljunNeE8kPEp4/5uzgfcM5oIGquaBg60ldIjslW4ZUc=;
+	s=k20260515; t=1790013026;
+	bh=DdVJRtwgnD+M+9vdvF7iO9rluJxy9K38LfMx/0iiTzM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZuiPcNx4PAM6dGL5xgpIbZN8P/pusIrHqbCzRcbyGPoMB4uCQWh7B3clhEpL5uaPX
-	 Rknv9tBOBlDN7uhcLWD1FeIgbP5Ee8H/G+AdgrPP52SNao7yy7r/Jl4Ghy7Sy7jGTg
-	 MTl30nSDaPMg22X4p9euZL/WKCL6uy50/QjAZjJhOwjPKdWWnZYW35uorw6Va5r8qS
-	 2grqfFL3iziF72m400A+El80ZbfXTswoZOIE0gu9mnTVaXvRGNdfNLhlLTD7MLkzo3
-	 AZ1FuFkISXLz3QJo3Wr+rz801/k2Ctl9mS3x7yok5iz03/1nvTJ+2u8hwa1JxhKtCL
-	 IAUPdzx0tOgRQ==
-Date: Mon, 21 Sep 2026 12:49:37 -0500
+	b=HBpzUZN76BzwmpKSlLhXFSjiXiaWJCBMla1I7pmOVNg69rNVYg9SWn2DX+KI13BfH
+	 ujbuJVFUBgmkXSyGbUvecio5EyPqK+0YBAqCi9IAacKpcsjR7Ct7rFnuKIST5Nv3TY
+	 8Q0IGjuw8MEaDdGfTS/nGswa8K79It2XumBT+oFA2d14ZZKz60saEA5fAukpGQqJ62
+	 wfHn8tbi5nK7fzOvGU510AW6+FtAGB3UqqXUMkOze3Ph2uUfKLURcIj3LBCNmybe8p
+	 wwsW9HkWP89c+Bk0apdbXFwKu1ur4ss+6odjBuQMvQD0zRS5DD8rNYafgC9SNBD4Cc
+	 zUei97DHnl/tA==
+Date: Mon, 21 Sep 2026 12:50:24 -0500
 From: "Rob Herring (Arm)" <robh@kernel.org>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
-	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Artur Weber <aweber.kernel@gmail.com>,
-	Pavel Machek <pavel@kernel.org>,
-	Daniel Thompson <danielt@kernel.org>,
-	Jingoo Han <jingoohan1@gmail.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Andrew Davis <afd@ti.com>,
-	Kiran Gunda <quic_kgunda@quicinc.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Aleksandrs Vinarskis <alex@vinarskis.com>,
-	Lee Jones <lee@kernel.org>,
-	Steffen Trumtrar <kernel@pengutronix.de>
-Subject: Re: [PATCH] dt-bindings: leds: Use consistent indentation in the
+Cc: devicetree@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Alexander Stein <alexander.stein@ew.tq-group.com>,
+	Xu Yang <xu.yang_2@nxp.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	David Mosberger <davidm@egauge.net>, Peng Fan <peng.fan@nxp.com>,
+	Alexey Charkov <alchark@flipper.net>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org, Matthias Kaehlcke <mka@chromium.org>,
+	Roger Quadros <rogerq@kernel.org>, Li Jun <jun.li@nxp.com>
+Subject: Re: [PATCH] dt-bindings: usb: Use consistent indentation in the
  example
-Message-ID: <179001297680.1073319.11422853930402434820.robh@kernel.org>
-References: <20260913123301.100129-2-krzysztof.kozlowski@oss.qualcomm.com>
+Message-ID: <179001302419.1076243.10882515734847470478.robh@kernel.org>
+References: <20260913123243.100040-2-krzysztof.kozlowski@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -54,10 +51,10 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260913123301.100129-2-krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260913123243.100040-2-krzysztof.kozlowski@oss.qualcomm.com>
 
 
-On Sun, 13 Sep 2026 14:33:02 +0200, Krzysztof Kozlowski wrote:
+On Sun, 13 Sep 2026 14:32:44 +0200, Krzysztof Kozlowski wrote:
 > Correct indentation in the examples to consistent 2- or 4-spaces
 > indentation to fix dt-check-style warnings ("example 0
 > [indent-consistent] indent mismatch ...").  Preferred is 4-spaces, but
@@ -65,14 +62,14 @@ On Sun, 13 Sep 2026 14:33:02 +0200, Krzysztof Kozlowski wrote:
 > 
 > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 > ---
->  .../leds/backlight/lm3630a-backlight.yaml     | 52 +++++++++----------
->  .../leds/backlight/lp855x-backlight.yaml      | 18 +++----
->  .../bindings/leds/backlight/qcom-wled.yaml    |  2 +-
->  .../bindings/leds/leds-consumer.yaml          | 14 ++---
->  .../devicetree/bindings/leds/leds-lp50xx.yaml | 12 ++---
->  .../devicetree/bindings/leds/leds-lp5860.yaml | 12 ++---
->  .../devicetree/bindings/leds/nxp,pca963x.yaml | 24 ++++-----
->  7 files changed, 67 insertions(+), 67 deletions(-)
+>  .../devicetree/bindings/usb/ci-hdrc-usb2.yaml |  2 +-
+>  .../bindings/usb/corechips,sl6341.yaml        | 20 +++++++-------
+>  .../bindings/usb/maxim,max3421.yaml           | 12 ++++-----
+>  .../devicetree/bindings/usb/nxp,ptn5110.yaml  |  8 +++---
+>  .../bindings/usb/realtek,rts5411.yaml         |  2 +-
+>  .../devicetree/bindings/usb/ti,j721e-usb.yaml | 26 +++++++++----------
+>  .../devicetree/bindings/usb/ti,usb8041.yaml   |  4 +--
+>  7 files changed, 37 insertions(+), 37 deletions(-)
 > 
 
 Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
