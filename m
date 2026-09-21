@@ -1,189 +1,185 @@
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch [79.135.106.28])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EF374078E1
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 07:31:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789975864; cv=pass; b=oUkdXL2lDCz2VvyePskUOSec8K8SeyVJDDPeyOooaLHnmwHIpuqngjGv2LF9J2Tw4o3PqFo8Tn0r4bXBl/s6vYaKgNU4tzyEn3QzanxxyAN8vjWp7GIJM/DzhDvuVspYV39PTJW1RlQyTcv57GCMTRydPKrSilmVNR7iCWTKoxc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789975864; c=relaxed/simple;
-	bh=+kodcrZ7Rfq3RbtOm64zvOegmrBogr+8Wwr1ekULfyY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZEZuM6Q11z+wjJ2+4McM+9vX7ipZnwUPQ6Xg8EbTZx2WUs3a0i9VLce9jyMfPL/OgLNsXp25D5ZRAhR3FiubLLOjhLqTm3s1V06hVc/yocU18CctVEiA3k9bShGs6/VgTM2fC0Gc+vKnhrnKq7eC7cBiBofEhkBYcsK+c3Kq/lw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jD1gc/W/; arc=pass smtp.client-ip=74.125.228.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9100942A152
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 07:34:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.28
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789976058; cv=none; b=hn5sAhOjbsukSNZJNuzivMJec3cggFAjgn2QKenF/v3/0mOCN39OQEH+CClPr2iacZJx6sgFyoAot1Dv2VhSt3hLGKSBDCplMnr4SQd+nV6xElCsB+dsNSzZUxNPA/fNrH6nEYxLnp3cra2ZJO57IFdJkUsk79GAzZyUGLn2IQI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789976058; c=relaxed/simple;
+	bh=UVE7R9BB99XXJOqEeXYlbB1DFFirdbSX88LtuA3dPWA=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=gMfXA4R3d5HAarcqjKKVEAsev2cdk/3b11EndxOVXXB/dQcsEJG/aCbQaTEcY3NXCCfKN2imjroxX42RUOtmzwJ4XIH9TxdMlh3YRtVTRrsuCGpKQ2ueR9UZf7RRfA0BC9NqjpFn9hX2dukP+CErsmXYz8Jo869I+O3jUf7pPt4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=TI3qO780; arc=none smtp.client-ip=79.135.106.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jD1gc/W/"
-Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc50bcf87b2so1592881a12.1
-        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 00:31:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789975862; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TuSpWY1sqwCRpO0VhDc/EUp4HknFbjXjFXGYBF+v1702ZxYQKF4EdlUietvdfPi2aO
-         A6K2pyFC4ZyY98cfCwxL27KZpLmt4Wozjt67rkpsY+MJPDiTtPcpBXPEkAR0gdnwvsgo
-         IJEIqg3qxEe7JBVDyO0RCjKOi8iYYMr9yekmxtosMxi0wAXBmosj8QUH5kbE5JpDdI8d
-         YnBPeg36EgT60Fz6CuZonMf+1TOnM+zMHihjiTSXXA9ZEAuq8KU33uNZioFCusQXR8oC
-         n7ckvX7YIwZvr6JlTLTfWJ5xJOv9aLnxxzFVv6Ipru6q52Q4Mkzh/KGFdWMfQR3N+8fa
-         d/Rw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=q1BZ6sJCmqeFIahqjVQKO9ObElEe/vXNKUx/QqdQ6iE=;
-        fh=L8y9VzacoOJeEwIN1JNZSJ5RUKIB+N9yk+kqU/od8wI=;
-        b=QUQLM4Xs4iH3BkiKhWHNZqyNrQ3fvoHL5Wzyj8OBYEShpunAMc9gNB1RQkbyhr23Nh
-         ZnSzR5FPKoGDtxNJTiRd+98yr9Bb9J28CfnSLXPMhrXY9pFkAIvVxSfAM5/WF/DBtFwr
-         z8dkMDKnoOg4t4Lk5vuzGPpRUGelERpODL4wJ3AQBbQKswaCHrV109CjrjUxUz5EQJAC
-         uNvryIdyVvIYsqwytfUuE/ZvPGegEllGMDiZ2d+KLJNeJ1GUnUGbvJnBMH/crKvHMvFw
-         OjDOJiTt8nYrWniOk9ODBlX4+YJsS6cJms5Mq1MSLwNLOFTJfaCMTw/A6W0xesuvfdoM
-         NYrg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789975862; x=1790580662; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=q1BZ6sJCmqeFIahqjVQKO9ObElEe/vXNKUx/QqdQ6iE=;
-        b=jD1gc/W/eQYVqx+yirVe2qcyxe+donWRgWllTIa+7VE9+YQJpmeal1Rk0LOgaDcry3
-         CuOI/JxJJI52Wsmu7eYoX1vkz5XJvFN+BfSEzY0Gn5YGMnZZ+WpXeMtv/PCNa3YpWlo8
-         s9hlAknJ3Qs1c0R42qcLm2LyzNL24XghGRMB1PXSn54MvoQOde6Cud7hsfyOlSGdMN9n
-         8FJXDNTZlmmR79EqWzI6FBGzPfCGDgiRg9UWmYQl9dgfe0NzixXKlHk5TC/12PLNK4zS
-         RbqumxQSe17kO1x8LDxXCTnnBqvxMkz+ipuP2SCD7m6l6cbkmTgd4ow7pTU+7NgWu8UD
-         wPvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789975862; x=1790580662;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=q1BZ6sJCmqeFIahqjVQKO9ObElEe/vXNKUx/QqdQ6iE=;
-        b=K1f9jCAw4yetWYy827RIID3vKO5RlCKScBjj1EA5NR/TMXyg/UBFH6hFP6RoqV9K5H
-         3XnuD9zAlyQRX3Ogy6oJdJPsHy60Vg5Wq4MqU/fVDd7/R+D7QuQUcT3UK19VnOrlP0cV
-         /MzEihOS87bfQyE9VemJ5FVPPlnRW+qxajwoevqPuCz64Ugo8Wqi/uUH1C+HqMlAiX6V
-         REnz/QetYOmxl2Z7Aj+LyuUzBfS5WVPxGJFmTynhnkj8JzssW9zqDtyaW+AYuPs9SUxd
-         354fX1pEoN92v1g8qz+dphxLjRVzQSoHgTx7lRbMXO3Tm6rfqwh/m0Rw6kBOQh13SmzM
-         jqjA==
-X-Forwarded-Encrypted: i=1; AKwUvBwFtYscTKR6zRSLzDaa3gP+kUleffrmSVkNGjcVceO3MTQGTspu9aFYfkyouBsBTklgMn8iY0MWVJL1@vger.kernel.org
-X-Gm-Message-State: AFuF++l8ICB3evb7hiU2hiVbyiy9aekY1FZgKWQFXsRa+tdNLWrEBW9Z
-	CUrIc6R1A5iEdnIAHjMWih+wQQ+/uC31pcuho8XizwNYRHEueXHag9beXfpY3+C7iXjGSRhwt2K
-	xZUmBIT4swy2wuDFT0/SNljyBUWlXogQ=
-X-Gm-Gg: AYBFou1FG1vBbFqptjMkV8LcPkLdKOuBshZxs+daTj0y9aQo6Sp0ydvxl86lxbwzDMI
-	QEc8R/b/A7965gkabD8MxmGJVa+4exo55AtHZ0+QwbPaTGIo+B/D5f7BbAHFhFne2C+Fcp69u8m
-	jodtM83gcxUWM15uPUAoxSzWXpOg6OIxIvdDW/eGKCLsMFsULXqzXNhiNLwXvozxNIk1ibPCyvZ
-	gz0zMco7S9JAw4arTs/whpXRgLu2yJdQU8/CZSy+Sm6OoYLpLxtaAI7+TF8nrM0/0mjuKo1zyCj
-	nk62S9ia5oZ0zHK3pl2U9chlpySXdN4L7jPwe2zXw7KsVMRKsLDJHHw3CeVBWmIES5MkAmH66cz
-	OsMiKPYzWXXLE
-X-Received: by 2002:a05:6a21:6b05:b0:3da:c2f5:a2aa with SMTP id
- adf61e73a8af0-3dd8c3323a9mr17128224637.18.1789975862197; Mon, 21 Sep 2026
- 00:31:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="TI3qO780"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1789976048; x=1790235248;
+	bh=9r3qo3RhW1eT6npY6O91FnLiaqgITql2u6tc4bU4a1o=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=TI3qO780+896QkaRcWVu+n6mwn/ISxwXax7O2mqBo25mKCvCDTvemoTXTYgdHNP7t
+	 1B2pNEuQr/gw+hG05yZ88evybtY/pLzvpgOWUo4GdvbsA2uH82huoJd08S/B3FJ9Hh
+	 F/kH1D5RdQsmtWRrl4oIAFZsE9TFcQYQyFzDo66FAGJW7yaOX3nJ4bdwkad0HZLR8z
+	 2tBHbh1MsW/lcrZ72J7DpSoGtQB+xLsEt7xTalNgiakVhN5ixnXCEFahGUDD2Bu/kR
+	 QvtCkFD2vTxvvw81dMDQ9QdeukYfAfWrDshDae9U65SG5IIjSh/Yi+yDq7lLB110Yp
+	 Zj5dNaJV0IgYg==
+Date: Mon, 21 Sep 2026 07:34:02 +0000
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v4 0/3] Add support for the Sony IMX681 camera sensor
+Message-ID: <20260921073352.86357-1-lsa.uz@pm.me>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: 5085e3fc67cf7216ef12953b6bcbbeb01184b320
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260721095654.429346-1-clamor95@gmail.com> <20260721095654.429346-2-clamor95@gmail.com>
- <178463529533.2776661.17291216407355479584.robh@kernel.org>
- <20260909162654.GK2133376@google.com> <CAPVz0n2zLd2SPrHGb5vSX3AvRrofbA7Q54YFpmcPP6032MUw+Q@mail.gmail.com>
-In-Reply-To: <CAPVz0n2zLd2SPrHGb5vSX3AvRrofbA7Q54YFpmcPP6032MUw+Q@mail.gmail.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Mon, 21 Sep 2026 10:30:50 +0300
-X-Gm-Features: AcwNN1Xwan51ardBlULGfF9_kTLOoiJJ0xUxr2pfFDkGmuB0AEVFXrA3aSj0HMQ
-Message-ID: <CAPVz0n2o0OYFWsoXrYXcoAPNz2L4sKi2=JvXPdQzfvha1mOm_A@mail.gmail.com>
-Subject: Re: [PATCH v7 1/6] dt-bindings: leds: leds-cpcap: convert to DT schema
-To: Lee Jones <lee@kernel.org>
-Cc: "Rob Herring (Arm)" <robh@kernel.org>, Pavel Machek <pavel@kernel.org>, devicetree@vger.kernel.org, 
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Conor Dooley <conor+dt@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-input@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-=D1=81=D1=80, 9 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 19:50 Svyat=
-oslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> =D1=81=D1=80, 9 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 19:27 Lee=
- Jones <lee@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> >
-> > On Tue, 21 Jul 2026, Rob Herring (Arm) wrote:
-> >
-> > >
-> > > On Tue, 21 Jul 2026 12:56:48 +0300, Svyatoslav Ryhel wrote:
-> > > > Convert LEDs devicetree bindings for the Motorola CPCAP MFD from TX=
-T to
-> > > > YAML format. This patch does not change any functionality; the bind=
-ings
-> > > > remain the same.
-> > > >
-> > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-> > > > ---
-> > > >  .../devicetree/bindings/leds/leds-cpcap.txt   | 29 -------------
-> > > >  .../bindings/leds/motorola,cpcap-leds.yaml    | 42 +++++++++++++++=
-++++
-> > > >  2 files changed, 42 insertions(+), 29 deletions(-)
-> > > >  delete mode 100644 Documentation/devicetree/bindings/leds/leds-cpc=
-ap.txt
-> > > >  create mode 100644 Documentation/devicetree/bindings/leds/motorola=
-,cpcap-leds.yaml
-> > > >
-> > >
-> > > My bot found errors running 'make dt_binding_check' on your patch:
-> > >
-> > > yamllint warnings/errors:
-> > >
-> > > dtschema/dtc warnings/errors:
-> > >
-> > >
-> > > doc reference errors (make refcheckdocs):
-> > > Warning: Documentation/devicetree/bindings/leds/motorola,cpcap-leds.y=
-aml references a file that doesn't exist: Documentation/devicetree/bindings=
-/mfd/motorola,cpcap.yaml
-> > > Warning: Documentation/devicetree/bindings/mfd/motorola-cpcap.txt ref=
-erences a file that doesn't exist: Documentation/devicetree/bindings/leds/l=
-eds-cpcap.txt
-> > > Documentation/devicetree/bindings/leds/motorola,cpcap-leds.yaml: Docu=
-mentation/devicetree/bindings/mfd/motorola,cpcap.yaml
-> > > Documentation/devicetree/bindings/mfd/motorola-cpcap.txt: Documentati=
-on/devicetree/bindings/leds/leds-cpcap.txt
-> > >
-> > > See https://patchwork.kernel.org/project/devicetree/patch/20260721095=
-654.429346-2-clamor95@gmail.com
-> > >
-> > > The base for the series is generally the latest rc1. A different depe=
-ndency
-> > > should be noted in *this* patch.
-> > >
-> > > If you already ran 'make dt_binding_check' and didn't see the above
-> > > error(s), then make sure 'yamllint' is installed and dt-schema is up =
-to
-> > > date:
-> > >
-> > > pip3 install dtschema --upgrade
-> > >
-> > > Please check and re-submit after running the above command yourself. =
-Note
-> > > that DT_SCHEMA_FILES can be set to your schema file to speed up check=
-ing
-> > > your schema. However, it must be unset to test all examples with your=
- schema.
-> >
-> > This one.
-> >
->
-> As you can see only complain is that reference in the leds yaml to
-> Documentation/devicetree/bindings/mfd/motorola,cpcap.yaml does not
-> exist. All cpcap cell bindings were converted one by one as separate
-> commits, so this is natural since motorola,cpcap.yaml will be
-> converted last and patch doing this is included in the series. It does
-> not bring any regressions in yaml and dt schema checks.
->
+The Sony IMX681 is the user-facing camera on the Microsoft Surface Pro 11 f=
+or
+Business (Intel Lunar Lake, IPU7), enumerated as ACPI device SONY0681. With=
+out
+a driver the camera does not appear at all - not as a degraded device, not =
+at
+all.
 
-Hello Lee!
+  1/3  dt-bindings: media: Add Sony IMX681            (mine)
+  2/3  media: i2c: Add Sony IMX681 sensor driver      (Andre Gilerson's)
+  3/3  media: ipu-bridge: Add Sony IMX681             (mine)
 
-Is this explanation sufficient? Rob left his Reviewed-by to all DT
-related patches of this series.
+The driver is Andre's work, reverse-engineered from I2C traces taken under
+Windows. I am carrying the submission, not the code: his Signed-off-by is o=
+n
+2/3 with mine beneath it as the person passing it on.
 
-> > --
-> > Lee Jones
+Changes in v4
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+All three are Krzysztof Kozlowski's, from his review of v3 on 11 September.
+
+  - MAINTAINERS: the T: line is gone. He is right that neither Andre nor I
+    have commit rights to that tree, and the line was ours rather than his =
+-
+    the MAINTAINERS hunk went in with v2.
+
+  - dev_err() followed by a return is now dev_err_probe(). He flagged one
+    site, at the CCI init. The same shape was in twelve others on the probe
+    path, so all thirteen are converted rather than only the one he quoted.
+    Seven further sites are left alone, in imx681_start_streaming(),
+    imx681_stop_streaming() and imx681_power_on(): dev_err_probe() is wrong
+    outside probe, and power_on() is reached from runtime-PM resume as well
+    as from probe, so it is not a probe path even though probe calls it.
+
+  - The clock-rate dev_dbg is gone. clk_summary says it.
+
+Nothing else changed. No behaviour changes except that the converted sites
+now return the error through dev_err_probe() instead of beside it.
+
+Trailers, and a correction I owe
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D
+
+Krzysztof's Reviewed-by is on 1/3, and on 1/3 only.
+
+German Pablo Lindo's Tested-by is on 2/3 and never on 1/3, per Krzysztof's
+"Just remember that Tested-by does not apply here".
+
+The correction, in the open because the error was: the v3 cover letter call=
+ed
+the tester by a surname I had taken from his email address rather than from
+him. It was wrong. His name is German Pablo Lindo, and the Tested-by below =
+is
+his own wording.
+
+Andre, and why this goes out before your ack
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+Krzysztof asked that Andre ack the binding, since it names him as maintaine=
+r.
+That is properly his and he is away until 28 September, so this version doe=
+s
+not have it.
+
+It goes now anyway, for a reason that is about the tags rather than about
+impatience: patchwork.linuxtv.org populates its tags field for nobody on th=
+is
+instance - not for our two patches and not for four accepted ones I checked
+against today - so a maintainer applying from patchwork picks up neither
+trailer.
+They exist in the lore archive and in these commit messages, and nowhere el=
+se.
+A v4 is the only thing that carries them.
+
+Andre - the ack is yours whenever you are back, and nothing here needs it i=
+n
+order to be read or reviewed.
+
+Not addressed by this version: nobody has commented on 2/3 or 3/3 yet, and
+the mirroring question raised against v3 is still open with Sakari, Dan and
+Hans. If any of that lands, it lands in v5.
+
+Checked
+=3D=3D=3D=3D=3D=3D=3D
+
+checkpatch --strict, sparse and W=3D1 are all clean on 2/3 and 3/3. 1/3's o=
+nly
+checkpatch warning asks whether MAINTAINERS needs updating, which 2/3 does.
+
+Built and run on the machine rather than only compiled: the driver probes,
+ipu-bridge binds it at 3844x2640 over two lanes at 969.6 MHz per lane, and
+captured frames render as a coherent image rather than as noise.
+
+Limitations
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+  error paths       The regulator get succeeds here because INT3472 hands o=
+ut
+                    dummies for dvdd and dovdd, so the fatal path is reason=
+ed
+                    rather than exercised.
+
+  IVSC              None of the IVSC HIDs is present on this machine, so
+                    sensor->csi_dev is NULL and ipu-bridge never enters tho=
+se
+                    paths.
+
+  one machine       One Surface Pro 11 and one sensor sample. German has th=
+e
+                    same HID on another machine but reaches IPU7 through th=
+e
+                    staging driver, which is a second path rather than a
+                    second test of this one.
+
+  one mode          3844x2640 SGRBG10 at 969.6 MHz per lane is the only
+                    configuration the driver has, and the only one measured=
+.
+
+  no sanitisers     Not built with KASAN or lockdep. That is a kernel rebui=
+ld
+                    here rather than a problem, so ask if it would help.
+
+Based on media/next at aedd77ea8168 ("media: qcom: camss: use
+fwnode_graph_for_each_endpoint_scoped() to simplify code"). That branch
+rewinds - v3's declared base is no longer in it either - so if this does no=
+t
+apply where you are, say so and I will rebase rather than guess.
+
+German reported this HID as a bug on this list on 3 September and has had n=
+o
+reply since; he is on Cc here.
+
+  https://lore.kernel.org/linux-media/20260903080854.16266-1-germanpapulind=
+ez@gmail.com/
+--=20
+2.54.0 (Apple Git-157)
+
+
