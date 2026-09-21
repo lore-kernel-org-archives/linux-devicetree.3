@@ -1,110 +1,101 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B12724AB1B6;
-	Mon, 21 Sep 2026 14:56:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A8EA4AC17D
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 14:57:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790002567; cv=none; b=O/pUIqfR4k5VYf5p2oqgR9Z7mW4BwcYzAdrxFu2V3asbD/0fG0msTkswJWRpuxDBlDrDC7WSmfsYgf7TKW6OpeDn+T7Fc6gAGAtkz3hGNFEQUIPi6pu5Bu8EfWhvDAeOxOiu9X+r4EgIOvjMHeldGqf4oCqUvQZz5KvnX3HewGg=
+	t=1790002651; cv=none; b=N49JVISfoPbgnBdzOC6TC7J4p9iLJD5kjqrE2IKFxM8VKK7k1ZZmiS9SI4sIBiZtBGOwgkhAtr1/2LFjLpSeFzBGlXTVrJLBfW4/xEfG9BoLG2ppTUAye21jeScQXw7mxS7TvvOLWLKIzYrRRTN+M2ZwuzelfcEr8Kmm1P5jB30=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790002567; c=relaxed/simple;
-	bh=pKq1NgtVeldVrlvWVVY7UHgOPOxgx1kIDbjZRKrz/DU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=T8UFjZBmYFRpK9yAz2JYnBIQRbrV1NNTnPXio1FJNDFnuCuDQ5NvuV71zxdTU/xuBFXfogms2sdoJPtrz/jGJxoJklhRef3m+iCEsaKohyjmlZ0T2nYECQh84TbKEap0qrhJrO7CrD+i17zcPCcFFmAuJRoOcx9CwaNRawGvEKg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UU3YerWU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790002651; c=relaxed/simple;
+	bh=BygMtSCR/ezjRX27IMDu6CPvswuhLjOj+dMRXGlIdYU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Xvk2O3P/VPVUSVCcaso1FRjYbVWNrWLK+EB5F6G4baZkcbkq82AP32kDOs7hH5ir+9ebAu1RAgSxlW29U0C+OYbM3gKqVc3UEKnd/kl8zQdWuEOVNaZL7EjoMUdTNcaOsR0L1qxwVGPoskOb9aHCOGvIRH72oaSI/KVuKYqa6Ks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YgAJMm5a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UU3YerWU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E77B81F00899;
-	Mon, 21 Sep 2026 14:55:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YgAJMm5a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 692791F000FF;
+	Mon, 21 Sep 2026 14:57:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790002557;
-	bh=2KhcIYvD4WU6B8VL8pQJEB5vtrhrYx58gIS42TGhKjM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=UU3YerWUSa6hmScKk/28hmb2rL6bdiUV8dr+TUZpRAUN0kKluqK3zDyOeOKP0uw95
-	 FyREyKV3Bp+mWGw2/c5tu+oxTCujP/JXpSzmUK3WvdWqhm5NtPE6MEbdgYtgElBUN4
-	 KTiamfhM1RSwoD9sBmcTSAEIqlZqNMKdZYCMFxN3VzVpZBE0Xw0m9GFeUlVTtFl37b
-	 fB9yKLdYBdgrSd9dxw52MjJ+0BMBXf/88re6WZ6l3eACWJMd1Ppj2B/KPkhjRNkRRL
-	 B+AY6WBxqT8vmjOHqg0JbxI1b1ae8AXM+LEl+Vie8Ugvl477NAI21r7aOMk9/LpC+H
-	 Ta9aVer+u0b5Q==
-From: Mark Brown <broonie@kernel.org>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Frieder Schrempf <frieder@fris.de>
-Cc: linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, 
- Frieder Schrempf <frieder.schrempf@kontron.de>
-In-Reply-To: <20260921-spi-sample-delay-cleanup-v2-0-b460d572fd32@kontron.de>
-References: <20260921-spi-sample-delay-cleanup-v2-0-b460d572fd32@kontron.de>
-Subject: Re: [PATCH v2 0/3] spi: Better specification for
- rx-sample-delay-ns and core parsing
-Message-Id: <178999301827.228132.5384836256951345086.b4-ty@b4>
-Date: Mon, 21 Sep 2026 14:16:58 +0200
+	s=k20260515; t=1790002645;
+	bh=UBJgVOvi3AeJKa/O8uQf4T9QkJ9QWJIyMtqUI4AeeJ8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=YgAJMm5ag8YDfsI+1rhm5H3SIMGihcl/KbWM8TXeT4S+T0zhzssCdErM1IQDOEeTm
+	 H8M6KpNeQ8bsSezG8iq/ZviVvb95+263HUtIKmewSj0OqlKC+CByOphM9q4mStMbLc
+	 DxkJBWHIjCTO8kREDT+Tj0xHBgJlokgQasjvJk7C3D5QMYDZKqXCIyH7eZggROCWDf
+	 P4tPx2Ed1DIWm1XbvndGGfP6qwPOMqjqYL3oRT+pLwbYUOK89vLS8cTfDYfsNZRAHR
+	 9v/EfSg4fr2Ub8rcCRdWzWwz48lPopcxb8aGLTmBc/f0BgNIppjulIf+82oP84xxal
+	 l9Nbztw7mrLiQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: nord: wire up GPI DMA for QUP
+ I2C/SPI engines
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Bartosz Golaszewski" <bartosz.golaszewski@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260921-nord-gpi-dts-v2-2-4f297c983b94@oss.qualcomm.com>
+References: <20260921-nord-gpi-dts-v2-0-4f297c983b94@oss.qualcomm.com>
+ <20260921-nord-gpi-dts-v2-2-4f297c983b94@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 21 Sep 2026 14:57:25 +0000
+Message-Id: <20260921145725.692791F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2005; i=broonie@kernel.org;
- h=from:subject:message-id; bh=pKq1NgtVeldVrlvWVVY7UHgOPOxgx1kIDbjZRKrz/DU=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqsUV3MiUE11vmndVK7J13KVtlCYMO6NgAfa8yk
- F1ISGGHfSWJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCarFFdwAKCRAk1otyXVSH
- 0PyjB/9O6wWNQDpTjCinYKeGqr3AaavS6lrNfvoE1jf9IvhzytejOAz5D2vohF+GD/sw/93pxpy
- N8FCMQsROVBBJ/g+jY4cxDGWIoGw1XmrmH+eXVa5Puwa8u4fqNh8d8MRYd/sPNZIzdCHVqdx0nj
- 0bhXpxNOtSeQ68mB7L367kAy9kib6CLtWwYU09gJaOoUBEZFwSxjrN7qriCGL1a3WF3gj57mdyr
- zhYNeLLy6e9p4K7fxAU7o5tFqc44Kkn/fClLHEvy6JePtYtDzeJBOpE52hj3L3/bSkrLeFfQf+Y
- y8Gku6XXyc1yOnG1BIscBr7d8JG9Drv6iikWxwtpAmvtUiLt
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Mon, 21 Sep 2026 12:16:43 +0200, Frieder Schrempf wrote:
-> spi: Better specification for rx-sample-delay-ns and core parsing
-> 
-> "rx-sample-delay-ns" has been a generic SPI peripheral property since it
-> was moved to spi-peripheral-props.yaml, but the core has never looked at
-> it, and what it is meant to describe has become blurred along the way.
-> 
-> It was introduced in 2015 for Rockchip, to compensate "boards with
-> high-capacitance SPI lines". The wording now in the generic schema came
-> later, from a description of a DesignWare register, and lost its
-> controller-specific qualifier on the way. It says what the value does to
-> the controller, but not what a board should measure to arrive at it.
-> 
-> [...]
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] dts: qcom: SPI DMA properties mistakenly added to UART nodes
+--
 
-Applied to
+commit be91916b8a47fc6278b780bd5f1d5c34e90bd488
+Author: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.4
+arm64: dts: qcom: nord: wire up GPI DMA for QUP I2C/SPI engines
 
-Thanks!
+This commit adds DMA phandles to I2C and SPI QUPv3 serial engine nodes
+in the device tree.
 
-[1/3] spi: dt-bindings: Clarify what rx-sample-delay-ns describes
-      https://git.kernel.org/broonie/spi/c/2c68b2403acd
-[2/3] spi: Parse the rx-sample-delay-ns peripheral property in the core
-      https://git.kernel.org/broonie/spi/c/631a56336381
-[3/3] spi: dw: Use the rx-sample-delay-ns value parsed by the core
-      https://git.kernel.org/broonie/spi/c/38d4b42e4a2a
+> diff --git a/arch/arm64/boot/dts/qcom/nord.dtsi b/arch/arm64/boot/dts/qco=
+m/nord.dtsi
+> index 9f4e0e1498c32..906e4e67f03c7 100644
+> --- a/arch/arm64/boot/dts/qcom/nord.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/nord.dtsi
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+[ ... ]
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+> @@ -1184,6 +1220,10 @@ uart0: serial@980000 {
+>  				reg =3D <0x0 0x00980000 0x0 0x4000>;
+>  				interrupts =3D <GIC_SPI 314 IRQ_TYPE_LEVEL_HIGH>;
+> =20
+> +				dmas =3D <&gpi_dma0 0 0 QCOM_GPI_SPI>,
+> +				       <&gpi_dma0 1 0 QCOM_GPI_SPI>;
+> +				dma-names =3D "tx", "rx";
+> +
+>  				status =3D "disabled";
+>  			};
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+[Severity: High]
+Does this mistakenly add the SPI DMA configuration to the uart0 node
+instead of a spi node?
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+In the Qualcomm GPI DMA driver, gpi_terminate_all() determines how to
+terminate channels based on the protocol. If the protocol is QCOM_GPI_UART,
+it terminates the TX or RX channel independently. If the protocol is set
+to QCOM_GPI_SPI, it assumes a synchronous protocol and forces both the TX
+and RX channels to be terminated and reset in lockstep.
 
-Thanks,
-Mark
+If QCOM_GPI_SPI is applied to asynchronous uart nodes, won't this cause
+data loss? For example, if the UART driver terminates one channel to flush
+an RX timeout, the DMA driver will silently reset the other active TX chann=
+el
+mid-transfer, dropping characters.
 
+This same QCOM_GPI_SPI configuration appears to be mistakenly applied to
+uart1, uart2, uart3, uart7, uart8, uart11, and uart12 later in this patch.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921-nord-gpi-d=
+ts-v2-0-4f297c983b94@oss.qualcomm.com?part=3D2
