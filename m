@@ -1,60 +1,57 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D50F0441623;
-	Mon, 21 Sep 2026 20:36:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ED1244BC91;
+	Mon, 21 Sep 2026 20:39:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790023002; cv=none; b=jdDm+ifJB5diTVvRzg4Oadf6BldgCUeFjA23fk+pV1XcHDfEET5yWtPIccOohhN/NPRRvaauJvWKvYqcp4Awe1rX85ZY5vUZ+Z2m+KJzIc+nMAI+pcofMK6YNEqDp1TEtg9XeSJn0ouPWEF5DkSNAIafGXCgPhNu5XYOyrwL3xs=
+	t=1790023181; cv=none; b=ct77YMaPfuGuV/tUkdNySTic5U57uQq+wxuR0czO3jhDmy2CEceOoqP+Ugh9TJAioOckDXAEULPuS+uCqKzSx+Dbw630O16pw+wSdIkGB9e7wBEPmOakXZ6OUt7krwlQXwB81HhGw9r/2B6Ne9N1+X2+l4SwVGuFH5a9VuIvvrc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790023002; c=relaxed/simple;
-	bh=cNAJYuMspUAN+QqORlFoq3wFo1ggZvwOKH1Z/zTlrss=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Y8/V8d0fNJ3oYOYroBsMvf0gZgFNLD0mROfPhZaVGy691ssS1WqOX8hAnPgDOH2slsvxSfyDYqEhRisP2VeR1QLKIu8AEJ4rJNQip2giueOd4JZ7FkGOxKL4qpPH/aKUVwqpeOEMIgQCULMtceBq58i/G9ygwD6ioHh5D1XOYLw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O5n6W0/2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790023181; c=relaxed/simple;
+	bh=/4Gqlt90VL1TypVBsowbQodJE76B3pcG0Ed3lf3e5UU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Dq5t9LxYqzyeAwlQZdzj/zg5uLJD0dkCRrIaM9CgJQDb7MUuLwqVXJczgmErPKaBcjzckUtDzYp+T+pvVCCgVipnbt2Ailrsqepr31zihDCdqH51dygUp5g2TLCN4ZS91sk4pngz9lWvd5BIHESwrCDSYAN3YhvWyxV2AhkcXpk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A5bqOBoi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O5n6W0/2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1292B1F00893;
-	Mon, 21 Sep 2026 20:36:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A5bqOBoi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87BB51F000FF;
+	Mon, 21 Sep 2026 20:39:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790023001;
-	bh=cNAJYuMspUAN+QqORlFoq3wFo1ggZvwOKH1Z/zTlrss=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=O5n6W0/2tSFdE1mCpmEq8KdnjwgCLq9otq2VcGnnYMMeoNi9u6mFC8M74yOyMW33n
-	 WkIypV+lLc9xSnmkHeNcTJEkFlYteekwPaqM+JP2kXRv/boulAGFDXX3trXR2mSAKb
-	 DeskrCFxyFypIYaeIrQlfsHkZkWkcsqjIsrWNsEJdPy3H+MHGeElR9sXYzVgl/Un/V
-	 5yrqQ8MOXWX4sthpRFEOV6AGkEE4BuZg5m1niTWIiuTmlipyDfVwP/JkUkTPRlH7Hz
-	 8Wc9yfe8TmLbQ+GX1/Whg2c7O6NjZpQn9sj+ShoaWkOhHYfa0LBLMCQSd9GlsaMJ3N
-	 CdJZpwTMjUkuQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 5/6] PCI: dwc: rcar-gen4: Handle PERST via reset
- subsystem
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marek Vasut" <marek.vasut+renesas@mailbox.org>
-Cc: conor+dt@kernel.org, robh@kernel.org, linux-pci@vger.kernel.org, wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org
-In-Reply-To: <20260921202823.72620-6-marek.vasut+renesas@mailbox.org>
-References: <20260921202823.72620-1-marek.vasut+renesas@mailbox.org>
- <20260921202823.72620-6-marek.vasut+renesas@mailbox.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 21 Sep 2026 20:36:40 +0000
-Message-Id: <20260921203641.1292B1F00893@smtp.kernel.org>
+	s=k20260515; t=1790023180;
+	bh=dittuI7Jo/Uhew1jMl8JLGUl5/koRCSwkzAOXH6YsVQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=A5bqOBoiV0iFung/gNNn0OXJDT+OpJ947kSAPW5YwL8UXBtg8U4WVecDtbGOGnc7E
+	 /7JzcmUTugW+5QTLMxMF1k0E/WZHataiZXGeNHsMsOvmyFnr9VAUXaRWg/rQmjbC2E
+	 +ihBhIxYm/QOL3Y8ncEoR/fwW8PgX5cEBygEimw+qdtwP30Da3y3ZWTEbiC9DI2WIy
+	 rlkZLG7Ojv3nQQIKjw1aNhSwCYEWwzyR7B9zSmxDjrlg1xJbwSCodFfzN0G7v0GT2B
+	 mso2UPRTM0H3JrPnkfhvxP6m1HxGY2pasFARkMF0tRYfleF/9NLDsT4pXjgPmzH0tG
+	 TRl9HgxOO77qA==
+Date: Mon, 21 Sep 2026 13:39:38 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: muhammad.nazim.amirul.nazle.asmade@altera.com
+Cc: dinguyen@kernel.org, maxime.chevallier@bootlin.com,
+ rmk+kernel@armlinux.org.uk, krzk+dt@kernel.org, conor+dt@kernel.org,
+ robh@kernel.org, davem@davemloft.net, edumazet@google.com,
+ pabeni@redhat.com, andrew+netdev@lunn.ch, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 0/4] Add Agilex5 SoCDK TSN Config2 board support
+Message-ID: <20260921133938.003a5a19@kernel.org>
+In-Reply-To: <20260908070557.3585-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
+References: <20260908070557.3585-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-> Handle PERST via both GPIO and reset subsystem. On R-Car Gen4, the
-> PERST signal is operated as a GPIO, on R-Car Gen5 it might only be
-> accessible via SCMI reset via reset subsystem. Support both options.
-> This is a preparatory patch for R-Car Gen5 support.
->=20
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+On Tue,  8 Sep 2026 00:05:53 -0700
+muhammad.nazim.amirul.nazle.asmade@altera.com wrote:
+> Subject: [PATCH v6 0/4] Add Agilex5 SoCDK TSN Config2 board support
 
-Sashiko has reviewed this patch and found no issues. It looks great!
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921202823.7262=
-0-1-marek.vasut+renesas@mailbox.org?part=3D5
-
+This is about to drop out of patchwork, and we need acks.
+Please repost just patches 3,4 as a separate series for networking
+(if the series is still relevant of course).
