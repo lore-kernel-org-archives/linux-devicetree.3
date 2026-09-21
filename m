@@ -1,101 +1,106 @@
-Received: from ironport.ite.com.tw (itemail.ite.com.tw [60.251.196.230])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 163202571A0;
-	Mon, 21 Sep 2026 02:24:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.251.196.230
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B3DA1C695;
+	Mon, 21 Sep 2026 02:42:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789957487; cv=none; b=FXl1xv9FQGIImglEGJ/0OQYf67zbEPhle2k4K/AMn5sHtJT08BXA7abW1LtfT7r6pbLlYbt79/tiQqKncprjZMogvVY9Cb4OifOwF/C3gU0CXIRyOWAkn4+Rjsl7CPfCbgo0h/GM7DNi6mchZD6CqHXJNA2zsEt3V5urZ+Fv8iE=
+	t=1789958544; cv=none; b=I+LBaGaqsCBGTMvg+d0m1xpbkZZUG6DDiUHF/pqAZdQlQdMjHsjdGWdNhO0oFcaZML04bDT7Ib2XTTbSFzBoRn/NuB4xqbGBBI5J0fRObWNiTI8gIKXZYcq3l2Vjgteu1NUnY66T+4B5Ip8Tb+e5GbSdtfR9ymonhn47dQls5bw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789957487; c=relaxed/simple;
-	bh=Bx3bVDSoEaUOQGKKulxNrXFCUXbXQIBNeBlIAuHrhzs=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=biesGt43/ozmeQPx4vnLDtQmKKLKq+tglNa1s4UK5pkd49EtcLbuwx2PPWPg59eXl9pqqMW2YYTWNE4ze0FlAN42A3UFLULnNMCs9Gu3l1p/V4gPj+tAUJaJTOeZCdJwLsinMKW6uLiulj4w69wksLLnK9Rc+luzUlykbnLN2pg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw; spf=pass smtp.mailfrom=ite.com.tw; dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b=OxqAJFmU; arc=none smtp.client-ip=60.251.196.230
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
+	s=arc-20240116; t=1789958544; c=relaxed/simple;
+	bh=rqUZhq6FGLgK9HJYynd7McvQht7yS1FoXSeDoganFcc=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=svY5Fqc0B0cZ6eiDyUpavU20pVMV8Lev0DNExQy1rHieLIj2Vduf9E9H+qbxTE9l0n7CjWoKZweQaHwmpaJP9X61JU62zELZc9URcoAwn4R3/pGvcCZ9eXd9SZqXl86Ogheh/oJiNXa/F60YVjrv6AInCES6zo+rpAhiUsTHtbY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PBeBt9x7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b="OxqAJFmU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=ite.com.tw; s=dkim;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=Bx3bVDSoEaUOQGKKulxNrXFCUXbXQIBNeBlIAuHrhzs=;
-  b=OxqAJFmUEpfFU85mx+KtQpkPenU4TzI+wxFveMv3qAZ0y2k68B6Tdefw
-   P3ZjiV2gRE9FesKZ2FlJV/HnOEVmB2+VAS/1SjnHxw3cI2Z1QTPhZUgK1
-   A4GZUJwOOmPrmXVcj6Ag6JW4A6DlyQRX7oUXaXprYNglRoZN2A/DMdZcU
-   BVJ5CjdkGO7ljybuy0KsQnlE9CMucBwIG6vhlWnmHIHWQ5WDNrcbL4Nz2
-   bDVokyi5yILIeziLvsimw2xNQ9EnBjPOfbX2NeacWre9BnQvMfilMpZF3
-   tGFlK/yS57lV1I3rmLoHkF3LTtrqwN7XPvOJn/iPo09QoE1EEl0tpSP+O
-   w==;
-X-CSE-ConnectionGUID: OrqzpHi9TKmaZx4Xmrf9MQ==
-X-CSE-MsgGUID: VqIqdJifRHCrt+prwNmnRQ==
-Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
-  by ironport.ite.com.tw with ESMTP; 21 Sep 2026 10:24:35 +0800
-Received: from tpemail1.internal.ite.com.tw (TPEMAIL1.internal.ite.com.tw [192.168.15.58])
-	by mse.ite.com.tw with ESMTP id 68L2OUNj055813;
-	Mon, 21 Sep 2026 10:24:30 +0800 (+08)
-	(envelope-from Hermes.Wu@ite.com.tw)
-Received: from TPEMAIL1.internal.ite.com.tw (192.168.15.58) by
- TPEMAIL1.internal.ite.com.tw (192.168.15.58) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 21 Sep 2026 10:24:29 +0800
-Received: from TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291]) by
- TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291%3]) with mapi id
- 15.02.2562.046; Mon, 21 Sep 2026 10:24:29 +0800
-From: <Hermes.Wu@ite.com.tw>
-To: <sakari.ailus@linux.intel.com>
-CC: <mchehab@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-        <conor+dt@kernel.org>, <linux-media@vger.kernel.org>,
-        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH 20/21] media: i2c: it6625: use centrally managed active
- state
-Thread-Topic: [PATCH 20/21] media: i2c: it6625: use centrally managed active
- state
-Thread-Index: AQHdR1f0JNOGacAb70SRmiTIS7Nox7bUME/g//+/pQCABF7e0A==
-Date: Mon, 21 Sep 2026 02:24:29 +0000
-Message-ID: <f2c5479e4d0d4d89a030698f34a277e3@ite.com.tw>
-References: <20260918-upstream-it6625-follow-up-patch-v1-0-78d72d7886a5@ite.com.tw>
- <20260918-upstream-it6625-follow-up-patch-v1-20-78d72d7886a5@ite.com.tw>
- <aq0RaLPX5o0HU_yC@kekkonen.localdomain>
- <69a3df11b37f466fbdca8be37a6cc378@ite.com.tw>
- <aq1Yps6g7m7TQJvd@kekkonen.localdomain>
-In-Reply-To: <aq1Yps6g7m7TQJvd@kekkonen.localdomain>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-tm-snts-smtp: 6CF4E9D0941117F4C5CE57440F963E5C40A890500F52DAF2A694B800A3650CF72002:8
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PBeBt9x7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFA9F1F000FF;
+	Mon, 21 Sep 2026 02:42:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789958543;
+	bh=/bP2P06kLvgPkyhpVNzT6k606fwq12DxgFbkk6tfbMQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=PBeBt9x7DdoVQU7tr2KgmMAn1i4H64u2l4SsVrtKW23pblTwsxqfEZSV+ngfiBlj1
+	 6NYV/Uh6YOfQasaBnIiI6W/BXBML9VomIOem7W1mGPwk+jl+yM/1XibtXyKCHSTOrk
+	 DudkEoFCOt8wTWktSVli8dEkZvpyKLDa47f/YQwLWJZBNrCyyLCjwn5IPKnanKDUTe
+	 OQ3kGzcMnOTyydvIiTJ3WiBdZB4vGrwrXmfZy+F0YrEnk8DK+gcyJaJvckgwCf5oqA
+	 D4OQxs5IUfhnuFXPC90aAHb3myfVHGcOGO5kf264ZbxIm4+9NR7Y7T+IOlP0a5HKcP
+	 46RnLg+knHQTw==
+Date: Mon, 21 Sep 2026 03:42:18 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+Cc: Rodrigo Alencar via B4 Relay
+ <devnull+rodrigo.alencar.analog.com@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org, Lars-Peter
+ Clausen <lars@metafoo.de>, Michael Hennerich
+ <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp
+ Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, Shuah
+ Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, "Gustavo A.
+ R. Silva" <gustavoars@kernel.org>, Conor Dooley
+ <conor.dooley@microchip.com>, Johan Hovold <johan@kernel.org>
+Subject: Re: [PATCH v10 00/17] AD9910 Direct Digital Synthesizer
+Message-ID: <20260921034218.45c93e1a@jic23-hlaptop>
+In-Reply-To: <20260907230505.277f1a6d@jic23-huawei>
+References: <20260729-ad9910-iio-driver-v10-0-aa1f6167729e@analog.com>
+	<20260802010959.25f9f4df@jic23-huawei>
+	<20260802015846.2be354ec@jic23-huawei>
+	<q2t53ly3vl73kmu3ehvntnj75pxl2smntctcuxzjuaguihqwju@adzts2ezpg5x>
+	<20260907230505.277f1a6d@jic23-huawei>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MAIL:mse.ite.com.tw 68L2OUNj055813
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-SGkgU2FrYXJpLA0KDQpUaGFuayB5b3UgZm9yIHRoZSBjbGFyaWZpY2F0aW9uLg0KDQo+IElzIHRo
-aXMgQUktZ2VuZXJhdGVkPw0KDQpJIHVzZWQgQUkgYXNzaXN0YW5jZSB0byBoZWxwIHVuZGVyc3Rh
-bmQgdGhpcyByZXZpZXcgY29tbWVudCBhbmQgZHJhZnQgcGFydHMNCm9mIHBhdGNoZXMgMjAvMjEg
-YmVjYXVzZSBJIHdhcyBub3QgY2VydGFpbiBhYm91dCB0aGUgZXhwZWN0ZWQgbG9ja2luZyBtb2Rl
-bC4NCkkgcmV2aWV3ZWQgdGhlIHJlc3VsdCBiZWZvcmUgc2VuZGluZyBpdCwgYnV0IG15IGNvbmNs
-dXNpb24gYWJvdXQgdGhlIHN0YXRlDQpsb2NrIHdhcyBpbmNvcnJlY3QuIEkgc2hvdWxkIGhhdmUg
-YXNrZWQgZm9yIGNsYXJpZmljYXRpb24gaW5zdGVhZCBvZiBtYWtpbmcNCnRoZSBjbGFpbSBhYm91
-dCB3aGF0IG1vc3QgZHJpdmVycyBkby4gU29ycnkgYWJvdXQgdGhhdC4NCg0KPiBQbGVhc2UgdXNl
-IHRoZSBjb250cm9sIGhhbmRsZXIncyBsb2NrIGFzIHRoZSBzdGF0ZSBsb2NrLCB0b28uIFRoaXMg
-aXMNCj4gd2hhdCBtb3N0IG1vZGVybiBkcml2ZXJzIGRvLCB0b28uDQoNCkRvIHlvdSBtZWFuIHRo
-YXQgSSBzaG91bGQgbGVhdmUgdGhlIGNvbnRyb2wgaGFuZGxlciB1c2luZyBpdHMgb3duIGludGVy
-bmFsDQpsb2NrIGFuZCBhc3NpZ24gdGhhdCBsb2NrIHRvIHRoZSBzdWJkZXYgc3RhdGUgYmVmb3Jl
-IGNhbGxpbmcNCnY0bDJfc3ViZGV2X2luaXRfZmluYWxpemUoKSwgYXMgZm9sbG93cz8NCg0KCXNk
-LT5zdGF0ZV9sb2NrID0gc2QtPmN0cmxfaGFuZGxlci0+bG9jazsNCg0KSSBhbSBhbHNvIHN0aWxs
-IHVuc3VyZSBhYm91dCB0aGUgc2VwYXJhdGUgaXQ2NjI1X2xvY2suIFRoZSBjaGlwJ3MgTUNVDQpw
-cm9jZXNzZXMgb25lIHJlZ2lzdGVyLWRyaXZlbiBjb21tYW5kIGF0IGEgdGltZSwgYW5kIG9wZXJh
-dGlvbnMgc3VjaCBhcw0KaXNzdWluZyBhIGNvbW1hbmQgZm9sbG93ZWQgYnkgcG9sbGluZyBmb3Ig
-Y29tcGxldGlvbiBtdXN0IG5vdCBiZQ0KaW50ZXJsZWF2ZWQuIFRoaXMgbG9jayBhbHNvIHNlcmlh
-bGl6ZXMgQ0VDLCBJUlEvcG9sbGluZywgRURJRCBhbmQgZGVidWdmcw0KcGF0aHMgdGhhdCBkbyBu
-b3QgcnVuIHVuZGVyIHRoZSBjb250cm9sL3N0YXRlIGxvY2suDQoNClNob3VsZCBpdDY2MjVfbG9j
-ayB0aGVyZWZvcmUgcmVtYWluIGFzIGEgc2VwYXJhdGUgTUNVIHRyYW5zYWN0aW9uIGxvY2ssIHdp
-dGgNCnRoZSBjb250cm9sL3N0YXRlIGxvY2sgYWNxdWlyZWQgZmlyc3Qgd2hlbmV2ZXIgYm90aCBs
-b2NrcyBhcmUgbmVlZGVkPw0KDQpSZWdhcmRzLA0KSGVybWVzDQo=
+On Mon, 7 Sep 2026 23:05:05 +0100
+Jonathan Cameron <jic23@kernel.org> wrote:
+
+> On Tue, 4 Aug 2026 11:56:26 +0100
+> Rodrigo Alencar <455.rodrigo.alencar@gmail.com> wrote:
+> 
+> > On 02/08/26 01:58, Jonathan Cameron wrote:  
+> > > On Sun, 2 Aug 2026 01:09:59 +0100
+> > > Jonathan Cameron <jic23@kernel.org> wrote:
+> > >     
+> > > > On Wed, 29 Jul 2026 09:25:27 +0100
+> > > > Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+> > > >     
+> > > > > This patch series adds support for the Analog Devices AD9910 DDS.
+> > > > >       
+> > > > Series applied with that small Kconfig help tweak and a bit of fuzz
+> > > > around the new channel type due to the flow sensor I merged earlier today.    
+> > 
+> > Thanks! Let me know if you need a v11, I suppose We are going to wait on the
+> > mul_u64_add_u64_div_u64() fix anyways.
+> >   
+> > > And dropped again :( See patch 11 reply.    
+> >   
+> 
+> Picked up on top of an immutable  branch with the necessary x86
+> fixup. ib-iio-x86-asm-fix-7.3
+> 
+> So this is now on the testing branch of iio.git
+
+And here we go again. Merge rc4 and cherry-picked the patches
+on top of that.  Hopefully I didn't mess it up - please
+take a look as now pushed out as testing
+
+Thanks
+
+Jonathan
+
+> 
+> Thanks,
+> 
+> Jonathan
+> 
+> 
+> 
+
