@@ -1,145 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-145.mta1.migadu.com [95.215.58.145])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 528FB2EEE67;
-	Mon, 21 Sep 2026 05:48:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A256435F163
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 05:48:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.145
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789969720; cv=none; b=cMcfsTTxZuUUqNlCljhRjXevR0LtgN7rt9O6QYNjMdPCoyr3uU81om9HzZbgF1mpR9XiTNJeFPeWHmAA4JaPsFfq7CXlhy0xBEr5a0a0p9dTtZNFSrd+jzwtqaKE/Mc18SKQ9ZUWYwscOIZVFvp6HbXfRT8lmV9jgKLzSTzNzjM=
+	t=1789969722; cv=none; b=aDZ1ln4P7F0FBbK4mqIurq52Er/W/SrvOPEBzp5EkGeL2d4cXaPW3Rsyb9p3jmxsoc8AWUE3J8+rYC3RexknLLeBJ1zkLn43aS78SI8LtW5pqgXJgLy/qmUBRonmfOU4ojXdLDMCZDUVJfrjifersaSnRtw16AAxmWdHG7tGWb0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789969720; c=relaxed/simple;
-	bh=tSLdVNxGhAOvRbRGY2uyDn443CrPrm2agd3NFZcpIaI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=DQGXGoWnAWo/d3WhDAW8Fx9cZFJluqaMZDg96NHt6LrQe4yaK3hHNrheLGkWpuY6At1woldZlC8A+E4CqTeg6q8zX5SypZ4p/nxvK1LfO53/9odQXQE8AYgmk84DzucAbkVeDv3IhhV65VD7xojfPfyhGXncuDhXX8uouWzQDaM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mD8a4zwp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789969722; c=relaxed/simple;
+	bh=jhV/vw4+vWN8dqMOnDQNzr0Wd/YKWAZ5SZrLjVrKgJI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=H0cVQAOF2uo/Hsz/eMWc8KILNfN1RnRXiTVxhiFiIWPWtStJRHWuSuOvzdjgxsnKqAo+/G8JiSPb4e+jCmdgZ5ic3LhArRDAaACWVYvFBM9PmOGeY8U0fa/Y+bNEc9bpJkn1YKIEvpt/CYZDFbgb4Cdzv+5NARcG795HRm4REZk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wsWyZ/it; arc=none smtp.client-ip=95.215.58.145
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mD8a4zwp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB7201F000FF;
-	Mon, 21 Sep 2026 05:48:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789969719;
-	bh=SA6nxX+JUVKT1zZ5uXHnnmcttjZ30G41Ui3mYtPxDNQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mD8a4zwpNKOOL/TtLZ1KMnWO7jrOcjYqqRoR0d4RN5tityLyMJegOSxaT/NxxMwQQ
-	 wvCCK/G8TTfhnO/vISDi0FmotXUqPE78Z2xa948Q/uvey+n/hCAZMt71oDUju20tZz
-	 txTcw0oyT4NL+JBFipTOVXSwP7XqP4OelZVqQHcdWWwrF3xQEyCnHmV4CVC20r+14g
-	 HB0P0QekIB+y/okzKnby4Xo1cmUxKv77G78jHi8qoMj8+K+DUSHt470UKs3rhOkGam
-	 7SzEy8WVeyOnZ8OP4AhEY3FBEt2fa7DSBTC54qlLXn2mQeqFb7+5zZbF4uFZp6jpet
-	 a0ITtT6nhjpnA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 5/6] phy: qcom: qmp-pcie: Refactor common multiphy
- handling
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Krishna Chaitanya Chundru" <krishna.chundru@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, neil.armstrong@linaro.org, vkoul@kernel.org, linux-phy@lists.infradead.org, linux-pci@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, olteanv@gmail.com
-In-Reply-To: <20260921-nord-v4-5-ed05c6e09240@oss.qualcomm.com>
-References: <20260921-nord-v4-0-ed05c6e09240@oss.qualcomm.com>
- <20260921-nord-v4-5-ed05c6e09240@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 21 Sep 2026 05:48:38 +0000
-Message-Id: <20260921054838.BB7201F000FF@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wsWyZ/it"
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=jhV/vw4+vWN8dqMOnDQNzr0Wd/YKWAZ5SZrLjVrKgJI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789969718; v=1; x=1790574518;
+ b=wsWyZ/itCi6fu86wCCcJ0RZGEFvh1E6p15NlDx9Adkkv4ElC8H2tSzAL4teGcsjDOD6R85qz
+ ElMAx70yL56Y1inpsiwWZHt2hrRRGoQ/lXhLrDGO15qK0CXIIZPbnue43uUKvmPYjDQXRaCwlcP
+ 2RBx/KWVKMVfSuslG0ikOMXY=
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 417d6ee2dae11de6;
+	Mon, 21 Sep 2026 05:48:38 +0000
+X-Mizu-Trace-ID: 417d6ee2dae11de6
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 21 Sep 2026 13:48:34 +0800
+From: Baoquan He <baoquan.he@linux.dev>
+To: Wandun Chen <chenwandun1@gmail.com>
+Cc: catalin.marinas@arm.com, will@kernel.org, chenhuacai@kernel.org,
+	pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
+	tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+	dave.hansen@linux.intel.com, x86@kernel.org, robh@kernel.org,
+	saravanak@kernel.org, akpm@linux-foundation.org, rppt@kernel.org,
+	pasha.tatashin@soleen.com, pratyush@kernel.org,
+	m.szyprowski@samsung.com, mark.rutland@arm.com, kernel@xen0n.name,
+	alex@ghiti.fr, hpa@zytor.com, ruirui.yang@linux.dev,
+	robin.murphy@arm.com, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, loongarch@lists.linux.dev,
+	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
+	kexec@lists.infradead.org, linux-mm@kvack.org,
+	iommu@lists.linux.dev
+Subject: Re: [PATCH v6 02/10] riscv: build crash_mem ranges from memblock
+ instead of resource tree
+Message-ID: <arDFMqcUr6xkTn-h@fedora>
+References: <20260902073116.802752-1-chenwandun1@gmail.com>
+ <20260902073116.802752-3-chenwandun1@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260902073116.802752-3-chenwandun1@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] devres: UAF of parent-allocated qmp in child's devres action
---
+On 09/02/26 at 03:31pm, Wandun Chen wrote:
+> From: Wandun Chen <chenwandun@lixiang.com>
+> 
+> Replace walk_system_ram_res() with for_each_mem_range(). A later patch
+> introduces MEMBLOCK_NODUMP in memblock, the reserved-memory regions
+> marked with MEMBLOCK_NODUMP can be excluded from the vmcore by walking
+> memblock.
+> 
+> for_each_mem_range() iterates memblock.memory, which is freed after
+> init unless ARCH_KEEP_MEMBLOCK is selected. riscv needs ARCH_KEEP_MEMBLOCK
+> to filter reserved memory from the vmcore, so extend its condition
+> (ACPI || KEXEC) with CRASH_DUMP. arm64 and loongarch already select
+> ARCH_KEEP_MEMBLOCK unconditionally.
+> 
+> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
+> Tested-by: Meijing Zhao <zhaomeijing@lixiang.com>
+> ---
+>  arch/riscv/Kconfig                     |  2 +-
+>  arch/riscv/kernel/machine_kexec_file.c | 31 ++++++++++----------------
+>  2 files changed, 13 insertions(+), 20 deletions(-)
 
-commit 959cd8885f7d94827203cfb4fa89bce224f75fb7
-Author: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+This looks good to me, FWIW,
 
-phy: qcom: qmp-pcie: Refactor common multiphy handling
+Acked-by: Baoquan He <baoquan.he@linux.dev>
 
-Refactors the multiphy handling to reuse port resource arrays and attach
-power domains to individual PHY devices instead of the parent device. It
-also validates the clock-output-names property count.
-
-> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-pcie-multiphy.c b/drivers/=
-phy/qualcomm/phy-qcom-qmp-pcie-multiphy.c
-> --- a/drivers/phy/qualcomm/phy-qcom-qmp-pcie-multiphy.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-pcie-multiphy.c
-[ ... ]
-> @@ -398,45 +386,39 @@ static const struct phy_ops qmp_pcie_phy_ops =3D {
->  static void qmp_pcie_pd_detach(void *data)
->  {
->  	struct qmp_pcie *qmp =3D data;
-> -	const struct qmp_phy_cfg *cfg =3D qmp->cfg;
->  	int i;
-> =20
-> -	for (i =3D 0; i < cfg->num_pds; i++) {
-> +	for (i =3D 0; i < qmp->cfg->num_pds; i++) {
->  		if (!IS_ERR_OR_NULL(qmp->pd_devs[i]))
->  			dev_pm_domain_detach(qmp->pd_devs[i], true);
->  	}
+> 
+> diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
+> index d6c2dbf8455c..1de14a2d5aba 100644
+> --- a/arch/riscv/Kconfig
+> +++ b/arch/riscv/Kconfig
+> @@ -58,7 +58,7 @@ config RISCV
+>  	select ARCH_HAS_UBSAN
+>  	select ARCH_HAS_VDSO_ARCH_DATA
+>  	select ARCH_HAVE_NMI_SAFE_CMPXCHG
+> -	select ARCH_KEEP_MEMBLOCK if ACPI || KEXEC
+> +	select ARCH_KEEP_MEMBLOCK if ACPI || KEXEC || CRASH_DUMP
+>  	select ARCH_MHP_MEMMAP_ON_MEMORY_ENABLE	if 64BIT && MMU
+>  	select ARCH_OPTIONAL_KERNEL_RWX if ARCH_HAS_STRICT_KERNEL_RWX
+>  	select ARCH_OPTIONAL_KERNEL_RWX_DEFAULT
+> diff --git a/arch/riscv/kernel/machine_kexec_file.c b/arch/riscv/kernel/machine_kexec_file.c
+> index 26cd2a8bd0cd..808e872f4063 100644
+> --- a/arch/riscv/kernel/machine_kexec_file.c
+> +++ b/arch/riscv/kernel/machine_kexec_file.c
+> @@ -37,39 +37,32 @@ int arch_kimage_file_post_load_cleanup(struct kimage *image)
 >  }
-> =20
-> -static int qmp_pcie_pd_init(struct qmp_pcie *qmp)
-> +static int qmp_pcie_pd_init(struct qmp_pcie *qmp, struct phy *phy)
+>  
+>  #ifdef CONFIG_CRASH_DUMP
+> -static int get_nr_ram_ranges_callback(struct resource *res, void *arg)
+> -{
+> -	unsigned int *nr_ranges = arg;
+> -
+> -	(*nr_ranges)++;
+> -	return 0;
+> -}
+> -
+>  unsigned int arch_get_system_nr_ranges(void)
 >  {
->  	const struct qmp_phy_cfg *cfg =3D qmp->cfg;
-> -	struct device *dev =3D qmp->dev;
-> +	struct device *pd_dev =3D &phy->dev;
->  	int i, ret;
-> =20
->  	if (!cfg->num_pds)
->  		return 0;
-> =20
-> -	qmp->pd_devs =3D devm_kcalloc(dev, cfg->num_pds, sizeof(*qmp->pd_devs),
-> +	qmp->pd_devs =3D devm_kcalloc(pd_dev, cfg->num_pds, sizeof(*qmp->pd_dev=
-s),
->  				    GFP_KERNEL);
->  	if (!qmp->pd_devs)
->  		return -ENOMEM;
-> =20
-> +	ret =3D devm_add_action_or_reset(pd_dev, qmp_pcie_pd_detach, qmp);
-
-[Severity: High]
-Can this code introduce a use-after-free regression during device unbind?
-
-The qmp structure is allocated via devm_kcalloc() and tied to the parent
-platform device's devres (qmp->dev) in qmp_pcie_multiphy_probe().
-However, the cleanup action qmp_pcie_pd_detach() is now added to the child
-PHY device's devres (pd_dev =3D &phy->dev).
-
-If the parent device is unbound while a consumer holds a reference to the
-PHY (e.g., via phy_get()), the parent's devres executes first and frees
-the qmp array.
-
-When the consumer later releases the PHY, the child PHY device's devres
-executes, calling qmp_pcie_pd_detach() on the already freed qmp pointer.
-This would lead to a use-after-free when accessing qmp->cfg->num_pds.
-
-> +	if (ret)
-> +		return ret;
-> +
->  	for (i =3D 0; i < cfg->num_pds; i++) {
-> -		qmp->pd_devs[i] =3D dev_pm_domain_attach_by_name(dev,
-> -							       cfg->pd_names[i]);
-> -		if (IS_ERR_OR_NULL(qmp->pd_devs[i])) {
-> -			ret =3D PTR_ERR(qmp->pd_devs[i]) ? : -ENODATA;
-> -			goto err_detach;
-> -		}
-> +		qmp->pd_devs[i] =3D dev_pm_domain_attach_by_name(pd_dev, cfg->pd_names=
-[i]);
-> +		if (IS_ERR_OR_NULL(qmp->pd_devs[i]))
-> +			return PTR_ERR_OR_ZERO(qmp->pd_devs[i]) ? : -ENODATA;
->  	}
-> =20
-> -	return devm_add_action_or_reset(dev, qmp_pcie_pd_detach, qmp);
-> -
-> -err_detach:
-> -	while (--i >=3D 0)
-> -		dev_pm_domain_detach(qmp->pd_devs[i], false);
-> -
-> -	return ret;
-> +	return 0;
+>  	unsigned int nr_ranges = 2 + crashk_cma_cnt; /* For exclusion of crashkernel region */
+> +	u64 i;
+> +	phys_addr_t start, end;
+>  
+> -	walk_system_ram_res(0, -1, &nr_ranges, get_nr_ram_ranges_callback);
+> +	for_each_mem_range(i, &start, &end)
+> +		nr_ranges++;
+>  
+>  	return nr_ranges;
 >  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921-nord-v4-0-=
-ed05c6e09240@oss.qualcomm.com?part=3D5
+>  
+> -static int prepare_elf64_ram_headers_callback(struct resource *res, void *arg)
+> +int arch_crash_populate_cmem(struct crash_mem *cmem)
+>  {
+> -	struct crash_mem *cmem = arg;
+> +	u64 i;
+> +	phys_addr_t start, end;
+>  
+> -	cmem->ranges[cmem->nr_ranges].start = res->start;
+> -	cmem->ranges[cmem->nr_ranges].end = res->end;
+> -	cmem->nr_ranges++;
+> +	for_each_mem_range(i, &start, &end) {
+> +		cmem->ranges[cmem->nr_ranges].start = start;
+> +		cmem->ranges[cmem->nr_ranges].end = end - 1;
+> +		cmem->nr_ranges++;
+> +	}
+>  
+>  	return 0;
+>  }
+>  
+> -int arch_crash_populate_cmem(struct crash_mem *cmem)
+> -{
+> -	return walk_system_ram_res(0, -1, cmem, prepare_elf64_ram_headers_callback);
+> -}
+> -
+>  static char *setup_kdump_cmdline(struct kimage *image, char *cmdline,
+>  				 unsigned long cmdline_len)
+>  {
+> -- 
+> 2.43.0
+> 
