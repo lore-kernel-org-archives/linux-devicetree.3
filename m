@@ -1,505 +1,239 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 996D44A99C3
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 14:47:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 707054A498E;
+	Mon, 21 Sep 2026 14:48:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790002039; cv=none; b=mXMKT8nkuPVxEyscG/McXOIYwl2NbgZ7u6wbKjbrDIw9RCiXdrh6EkOIK3MCDJjLqo6GDSBHLu1y0YPXPrwHdSCXtYJOTMtuVFoOeNVhH67TpLCU6dt4pc5K2VNf/jQ8OsEbv2AiwfeLqSw98yPAtWbqG9iXbGZoJXdfX3MRc2Q=
+	t=1790002127; cv=none; b=MHGZ0ZBzwVylKpY0bgZ1qQLi48A6zcvs4LlMFBEYMAjTCQfJ7gh2vR4dckkB1/Fnh1/dXbVZc33lRbE+evscOW+Ri1TKWXruPYNxlVqcKZYTq6xVM5MA6yHra1HDJ7oN1/CL6UBhc9YObQea4FhjNxt/b6GrIAus8U+/BWOG7R4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790002039; c=relaxed/simple;
-	bh=2YBSOpUloJeOo0gUlMDWkHdVrud956EaBJk+8lTaslk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=uf5Odf4+ztJfMmGBTYQXRaSOzXOB6EHgE25Gp37M09EnlMFcpNT1elxrYaixodC/F+wKv7dqNcorsGLxxIXNcUhnEUM//lQOQSABv7LpRL7iqZb6f/D3wJJsam9OSQGz2ru4n3CIPocm717tTvUWWpC44cSeI2VlfKLQac6EWmQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OBFGX2H6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aPaSSlUU; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790002127; c=relaxed/simple;
+	bh=NKTifSDflitLQjdfAzo5qNWT+zQGTs7TAS2iKtcdBPM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QEPUiVoHneYjTWh//wy+0e6Fa67Re3dYy8YS76EZ4AZLgmOoCdpcATDRijQqTeglcJMr9WLdx+c5vqCztzhs4+Gj4NaAnIZm4HUSNUnCs1PtdLbh5pWszUgwOuXQQXSsi1L4MvyC/j92pZF2JsJcn4YemnFCUPxl5Z89WyEwu9s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QENe3acR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OBFGX2H6";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aPaSSlUU"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LEGfAf100552
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 14:47:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Z9sZcBFSA9fJGluApKNyvWSkZPXaq5HebaoLOU6Deuc=; b=OBFGX2H6tXTKicib
-	ZJz/KpTIIR91o/ROjWbNeZoX4lh0/vaTrrapFJRZsms7Pdp7ARghSZFujVt+UfZw
-	MYXUtbmzy5EdOTiE0pzCi3IV4N3CXM5w/ztHA3ETZAeuCKNWGdLSIqDuV77l9TN+
-	mqWa16BtvLZ2SgcaL0MzC/RKQA/e3gdLZGtBAY+3c0bqz/vVa69dMLHaRk/BM2zf
-	Il1Kw0EYfF6yFFxENbrWSE+u4r3l3sLZcCQepCyhSxh2Pt/CmhwKbbqhxm0pKyPV
-	EYcfNwaW7S4b9jcCetS0q2O2gXqh16O2UbRxfVasVyesmHMFOUSsmS8csaMmYyZj
-	iclVlQ==
-Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gtq79b6dv-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 14:47:16 +0000 (GMT)
-Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5c683ca769dso671552e0c.2
-        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 07:47:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790002036; x=1790606836; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Z9sZcBFSA9fJGluApKNyvWSkZPXaq5HebaoLOU6Deuc=;
-        b=aPaSSlUU5Lz0jIN1YkIigj514PihFJ/Ko/3u5Kcpr45+ygkccRoCo1NKAwnSlQw8We
-         0wduw0mJMFcWLoAquhgY9IOcVa6t3JetRYjZW2dA+b8qxcLUPtWWdGlo3FkKHpr1191K
-         lYtRav2k6j5rQkIdaOWN8XXZNiqVOWzixO7rszsrGb8UodyBDT/MMXU0xmmkcqZvugTi
-         sHoELN1weGoF6B5J/6794NcQjcqB0Xs2IY4KEz6xUGZZcTgW1bLKIy9DDwLJsjNelQz4
-         Td0iI96Cltfq7XMBqoLIDA2BnPnIf+RmbsNBOcWbG1uqip1YcpnhhFnpnoSQ+G6ylLAx
-         DVcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790002036; x=1790606836;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Z9sZcBFSA9fJGluApKNyvWSkZPXaq5HebaoLOU6Deuc=;
-        b=CaVWxDO+chbk3pHerZjzjRqvIlQ/+rCW7btqJI31ollB4DObsBSMCzbqCeMBnnr10q
-         YijwpDBdygSzcEGjI5RWzrU4b8DbJK7kp6X9jezlUWHLvRMf3uwnzKN252I3DKZeTlJP
-         KZgRNZzCf3nsXfjKXodZYDp9UgB9N5qViJPtB5WtfjEfqoIWNn5VCxsvJPSSKp9spUxs
-         otJDWML650C/UIftKuV0eMQiBeVRfuQ5bwFZDf7Ma+aEuoCg9xY856cqoIUH8Rwenl8E
-         NrhY3rRgTT3TVfqU3ZBIZx6OfD6mqzQw3bZty4nSFbqwx//Kk+wn1mCZgTg9/fAbrW9U
-         yklg==
-X-Forwarded-Encrypted: i=1; AKwUvBzB/FuUhM/ciR1/R0bKLcrz9hVPxjGU5E8QOP/EWz6baMZJrFnJOS1CK/2of8xkzBWTRV+a/n7wwrUZ@vger.kernel.org
-X-Gm-Message-State: AFuF++n0VrR5TfunlB68c16dnZXjaczKkBltLE/CBrK4lsdF1D3eodeG
-	a6FsZk0A1PDLLFC4ecjdPt2iaMjFPQc1kWAbtB+t1ijFcBObXuKSea5BFvf6UbR8nI2Vkm+9Xcg
-	T+PR/Wt7MjO5M1cFzCyPpcphkRQFCB4CnrfDyLpsjac0tymhPpcwtGWtrRTLVx/x7
-X-Gm-Gg: AYBFou2vWN7dSw20alFQ+BwsJxNtZJw+U+eTzdfWqioyoETKATAz1qHw6Z4stU65hkH
-	pBcNQJW099ucoEVchTNvfyeK3rQoI1gVhG4mq1kd8Zr5EBxIye8TNzvctd7s3sT98rkXm8zGx/c
-	H5B359Ck3iMHh4an27n5rhGndk1uH0z4CJsEyM+Cx0X17Ue2hpIEw40L8ga5LeNdX8meTogqWkM
-	k8KhgU5/ZhrDaI7KyNWajpDbZsLaUwOcG6mONreZk98ci38oZX75etfGvk1RGg6KEG7maS1JMuN
-	rmX5bwCNQMsRnddkuONVhAfy7/p1NfEsCfp/dUDWMmva1aYm/Hbrx9lDyt8fVfxNCel7opWcZFG
-	LZQyuDS3h5+9HfbX7v9dv3LSKmSE=
-X-Received: by 2002:a05:6122:208d:b0:5c9:a60d:327b with SMTP id 71dfb90a1353d-5c9b59cc72dmr2473896e0c.15.1790002035662;
-        Mon, 21 Sep 2026 07:47:15 -0700 (PDT)
-X-Received: by 2002:a05:6122:208d:b0:5c9:a60d:327b with SMTP id 71dfb90a1353d-5c9b59cc72dmr2473825e0c.15.1790002035071;
-        Mon, 21 Sep 2026 07:47:15 -0700 (PDT)
-Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:d04:d483:faad:1e4e])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48724562aebsm24992091f8f.14.2026.09.21.07.47.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 07:47:14 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Mon, 21 Sep 2026 16:46:59 +0200
-Subject: [PATCH v2 2/2] arm64: dts: qcom: nord: wire up GPI DMA for QUP
- I2C/SPI engines
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QENe3acR"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 5912C1F000FF;
+	Mon, 21 Sep 2026 14:48:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790002124;
+	bh=95BoNoyBnS7EiZNoov/GT1S0dobxbX/rx/A/TW4Y+lU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QENe3acRXOT+cK9tRA47gQ2P4AbRZaFyBPQIszaBcTHT2aySooj4SuAzq4sp2JXQj
+	 iJnL/x1Vo47KM02dKgb/ba0g0UP+K9GWryG6n9kPqHmPY44xZ8SxW5YwTQ0V6ieeeJ
+	 ScwfJ7aGfWPsGC09fmAvqr1zAVjVMH4nGZeoM+9bfqWNqnEJZrli2YJnLn0PEcUs/O
+	 cdWR5LE+wI7VwwnaAF5xHPrwz3XJ8I0S17k851+AigMqIMXCIlrfX+Ni3Z4qNJ4NY4
+	 rRiG2FvHQTwwr4Agw+ZKc9wfdMt/y9m+HpCMjrfKvTcX2nHibPT/h6CGLckhesaqlZ
+	 vQTb0rFEq5dTQ==
+Date: Mon, 21 Sep 2026 16:48:42 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: Petar Stepanovic <pstepanovic@axiado.com>
+Cc: Akhila Kavi <akavi@axiado.com>, 
+	Prasad Bolisetty <pbolisetty@axiado.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Harshit Shah <hshah@axiado.com>, linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
+Subject: Re: [PATCH v5 2/2] pwm: add Axiado AX3000 PWM driver
+Message-ID: <arFAy5wMZ2Rl7ubj@monoceros>
+References: <20260921-axiado-ax3000-pwm-v5-0-202aad28e129@axiado.com>
+ <20260921-axiado-ax3000-pwm-v5-2-202aad28e129@axiado.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-nord-gpi-dts-v2-2-4f297c983b94@oss.qualcomm.com>
-References: <20260921-nord-gpi-dts-v2-0-4f297c983b94@oss.qualcomm.com>
-In-Reply-To: <20260921-nord-gpi-dts-v2-0-4f297c983b94@oss.qualcomm.com>
-To: Shawn Guo <shawnguo@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, brgl@kernel.org
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10183;
- i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=2YBSOpUloJeOo0gUlMDWkHdVrud956EaBJk+8lTaslk=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqsUNqBDtkh+aPan/fAhpBUraJsorQ32MZ5Wq8J
- 6brKpGXl8yJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCarFDagAKCRAFnS7L/zaE
- w3oED/0eikUokifi441RScvfrNfTZbddU+WXnUgw0hHdNFiKz/fYoEF+sTEVSPxLQ4xZS+23quR
- 0Svhl0Hee3MGSZNmjYF2bWhk5heviG+KukiDYHc5jXvH07n77h5l28zVmfB5m3sZCDDJr6mT/MB
- 1hMwAZD1tMeF5N61nQ3P9VyEkHjcpWvSBY6+vj172rn6o35v46X59ATyuMyJN47S+SmjeqC4caC
- AVVfAso0ORDfMP1XAHEzQZUXpnwNwutkfQjbb1VSXY7tgl8ft/LUjaOSf5ZUmO0Dc6y5fF1Toj5
- us1n94+rsgFVTldfaiFdR162XbFwK0xbDMHTGAitk6ML7oxRebQ1bPZZn+9sBFpnwBl3niM2KPy
- x4+hCWnmaiuwigdlGDzdjxqDP0x0j3/DfajFu9/aImu8Hik+SZCVasbd/KjHgpGNK1ID7x+fn71
- pesbe+VdH/ae/rxHCRiArLfNyqFUCpyzuot8u0A48vC635DE7cAu2Fvd4N1hYAEWiuPnHA755Rn
- UOFdtNGW+iJAD0TlsIC++2HBxXdtow3LFMqrfkda7igApQrBycHf2qRbGP9jy4LsMP/0iHQH+Kg
- l45p7mxX6KJhezSKJ+CqyJebqSlbRs74IaK76F+VyfjBmRJHmsSzPVmHqyaUMxTBIs0dLnUAfI7
- Peni39abFow98fw==
-X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
- fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Authority-Analysis: v=2.4 cv=aJ9lOr9m c=1 sm=1 tr=0 ts=6ab14374 cx=c_pps
- a=+D9SDfe9YZWTjADjLiQY5g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=A0ElxUCGbprSqmrbtIUA:9 a=QEXdDO2ut3YA:10 a=vmgOmaN-Xu0dpDh8OwbV:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDIxNSBTYWx0ZWRfX1fEfb4FLppiF
- 3B/SBYsSuvCdlTagiQ6xQtgGPMe9SHIwtq1143cV9+NoybPs1TZXvlFGCKniYQdkc0xUW0XqoFU
- eEVU98lbgUXPETHQEqC3fRHYed21b04=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDIxNSBTYWx0ZWRfXyFtNj23E4dJv
- FudJIiFuufMvqoLJNiJym9bm3jwT3ZpS72im9QEnSciQn78SACz9RMdmzCI75o4WG0e8v/Lw49W
- iJtxsOJeItBLHpQmuzYU9dQcOj/jugAvA9xD9xpjACjFlID6NjnzcM3/yzR2src3ZIWxpwcWdut
- tyAb8E1xR7GReu2GITh3Dt9nGu9nkO/tcddHJv0N+0ojIDLwKhbr84E9PVU5WVtmJgsIIvUYg+P
- EqWMm3o9iWc2FhdXM9Y9Wv/DFZ6gyodnLYD9AldtxkVTpz4ExoZsc3Sqrg8KuSClunF4+s1+G8e
- SED7wcNxvkyu5ykCTC013CEyFSGtkZT6/ATibCe6+Mar+2ua1xb9MHqzda6Z+dmySnsb4dINXlg
- uj0htqT9TIRBN/DiU7m87TSTxnrQQuZv4dtAGVDgv4JQD36oGdavyMuJh6IAPxkuGxY6j6+Yiht
- hrcZKV8+H1QrEd0enoA==
-X-Proofpoint-ORIG-GUID: f5RayB5oCSfqU8bOPk4yvCDvPkrfJlOV
-X-Proofpoint-GUID: f5RayB5oCSfqU8bOPk4yvCDvPkrfJlOV
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 phishscore=0 clxscore=1015 bulkscore=0
- priorityscore=1501 suspectscore=0 adultscore=0 impostorscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210215
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="tnydnd7lsyvlx4t2"
+Content-Disposition: inline
+In-Reply-To: <20260921-axiado-ax3000-pwm-v5-2-202aad28e129@axiado.com>
 
-Add DMA phandles to I2C and SPI QUPv3 serial engine nodes.
 
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/nord.dtsi | 124 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 124 insertions(+)
+--tnydnd7lsyvlx4t2
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH v5 2/2] pwm: add Axiado AX3000 PWM driver
+MIME-Version: 1.0
 
-diff --git a/arch/arm64/boot/dts/qcom/nord.dtsi b/arch/arm64/boot/dts/qcom/nord.dtsi
-index 9f4e0e1498c329eb7134fbc725f1dc05ffb1677d..906e4e67f03c70965bd2c588f740dd86f0b8b798 100644
---- a/arch/arm64/boot/dts/qcom/nord.dtsi
-+++ b/arch/arm64/boot/dts/qcom/nord.dtsi
-@@ -945,6 +945,10 @@ i2c14: i2c@880000 {
- 				reg = <0x0 0x00880000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 373 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma2 0 0 QCOM_GPI_I2C>,
-+				       <&gpi_dma2 1 0 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -972,6 +976,10 @@ i2c15: i2c@884000 {
- 				reg = <0x0 0x00884000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 583 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma2 0 1 QCOM_GPI_I2C>,
-+				       <&gpi_dma2 1 1 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -999,6 +1007,10 @@ i2c16: i2c@888000 {
- 				reg = <0x0 0x00888000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 584 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma2 0 2 QCOM_GPI_I2C>,
-+				       <&gpi_dma2 1 2 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -1026,6 +1038,10 @@ i2c17: i2c@88c000 {
- 				reg = <0x0 0x0088c000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 585 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma2 0 3 QCOM_GPI_I2C>,
-+				       <&gpi_dma2 1 3 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -1053,6 +1069,10 @@ i2c18: i2c@890000 {
- 				reg = <0x0 0x00890000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 586 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma2 0 4 QCOM_GPI_I2C>,
-+				       <&gpi_dma2 1 4 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -1080,6 +1100,10 @@ i2c19: i2c@894000 {
- 				reg = <0x0 0x00894000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 587 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma2 0 5 QCOM_GPI_I2C>,
-+				       <&gpi_dma2 1 5 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -1107,6 +1131,10 @@ i2c20: i2c@898000 {
- 				reg = <0x0 0x00898000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 461 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma2 0 6 QCOM_GPI_I2C>,
-+				       <&gpi_dma2 1 6 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -1118,6 +1146,10 @@ spi20: spi@898000 {
- 				reg = <0x0 0x00898000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 461 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma2 0 6 QCOM_GPI_SPI>,
-+				       <&gpi_dma2 1 6 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1165,6 +1197,10 @@ i2c0: i2c@980000 {
- 				reg = <0x0 0x00980000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 314 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma0 0 0 QCOM_GPI_I2C>,
-+				       <&gpi_dma0 1 0 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -1184,6 +1220,10 @@ uart0: serial@980000 {
- 				reg = <0x0 0x00980000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 314 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma0 0 0 QCOM_GPI_SPI>,
-+				       <&gpi_dma0 1 0 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1192,6 +1232,10 @@ i2c1: i2c@984000 {
- 				reg = <0x0 0x00984000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 513 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma0 0 1 QCOM_GPI_I2C>,
-+				       <&gpi_dma0 1 1 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -1211,6 +1255,10 @@ uart1: serial@984000 {
- 				reg = <0x0 0x00984000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 513 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma0 0 1 QCOM_GPI_SPI>,
-+				       <&gpi_dma0 1 1 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1219,6 +1267,10 @@ i2c2: i2c@988000 {
- 				reg = <0x0 0x00988000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 514 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma0 0 2 QCOM_GPI_I2C>,
-+				       <&gpi_dma0 1 2 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -1238,6 +1290,10 @@ uart2: serial@988000 {
- 				reg = <0x0 0x00988000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 514 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma0 0 2 QCOM_GPI_SPI>,
-+				       <&gpi_dma0 1 2 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1246,6 +1302,10 @@ i2c3: i2c@98c000 {
- 				reg = <0x0 0x0098c000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 515 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma0 0 3 QCOM_GPI_I2C>,
-+				       <&gpi_dma0 1 3 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -1265,6 +1325,10 @@ uart3: serial@98c000 {
- 				reg = <0x0 0x0098c000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 515 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma0 0 3 QCOM_GPI_SPI>,
-+				       <&gpi_dma0 1 3 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1273,6 +1337,10 @@ i2c4: i2c@990000 {
- 				reg = <0x0 0x00990000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 516 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma0 0 4 QCOM_GPI_I2C>,
-+				       <&gpi_dma0 1 4 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -1300,6 +1368,10 @@ i2c5: i2c@994000 {
- 				reg = <0x0 0x00994000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 517 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma0 0 5 QCOM_GPI_I2C>,
-+				       <&gpi_dma0 1 5 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -1311,6 +1383,10 @@ spi5: spi@994000 {
- 				reg = <0x0 0x00994000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 517 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma0 0 5 QCOM_GPI_SPI>,
-+				       <&gpi_dma0 1 5 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1358,6 +1434,10 @@ i2c7: i2c@a80000 {
- 				reg = <0x0 0x00a80000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 353 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma1 0 0 QCOM_GPI_I2C>,
-+				       <&gpi_dma1 1 0 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -1377,6 +1457,10 @@ uart7: serial@a80000 {
- 				reg = <0x0 0x00a80000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 353 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma1 0 0 QCOM_GPI_SPI>,
-+				       <&gpi_dma1 1 0 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1385,6 +1469,10 @@ i2c8: i2c@a84000 {
- 				reg = <0x0 0x00a84000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 354 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma1 0 1 QCOM_GPI_I2C>,
-+				       <&gpi_dma1 1 1 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -1404,6 +1492,10 @@ uart8: serial@a84000 {
- 				reg = <0x0 0x00a84000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 354 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma1 0 1 QCOM_GPI_SPI>,
-+				       <&gpi_dma1 1 1 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1412,6 +1504,10 @@ i2c9: i2c@a88000 {
- 				reg = <0x0 0x00a88000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 355 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma1 0 2 QCOM_GPI_I2C>,
-+				       <&gpi_dma1 1 2 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -1431,6 +1527,10 @@ i2c10: i2c@a8c000 {
- 				reg = <0x0 0x00a8c000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 356 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma1 0 3 QCOM_GPI_I2C>,
-+				       <&gpi_dma1 1 3 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -1450,6 +1550,10 @@ i2c11: i2c@a90000 {
- 				reg = <0x0 0x00a90000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 357 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma1 0 4 QCOM_GPI_I2C>,
-+				       <&gpi_dma1 1 4 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -1469,6 +1573,10 @@ uart11: serial@a90000 {
- 				reg = <0x0 0x00a90000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 357 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma1 0 4 QCOM_GPI_SPI>,
-+				       <&gpi_dma1 1 4 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1477,6 +1585,10 @@ i2c12: i2c@a94000 {
- 				reg = <0x0 0x00a94000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 358 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma1 0 5 QCOM_GPI_I2C>,
-+				       <&gpi_dma1 1 5 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -1496,6 +1608,10 @@ uart12: serial@a94000 {
- 				reg = <0x0 0x00a94000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 358 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma1 0 5 QCOM_GPI_SPI>,
-+				       <&gpi_dma1 1 5 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1504,6 +1620,10 @@ i2c13: i2c@a98000 {
- 				reg = <0x0 0x00a98000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 363 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma1 0 6 QCOM_GPI_I2C>,
-+				       <&gpi_dma1 1 6 QCOM_GPI_I2C>;
-+				dma-names = "tx", "rx";
-+
- 				#address-cells = <1>;
- 				#size-cells = <0>;
- 
-@@ -1515,6 +1635,10 @@ spi13: spi@a98000 {
- 				reg = <0x0 0x00a98000 0x0 0x4000>;
- 				interrupts = <GIC_SPI 363 IRQ_TYPE_LEVEL_HIGH>;
- 
-+				dmas = <&gpi_dma1 0 6 QCOM_GPI_SPI>,
-+				       <&gpi_dma1 1 6 QCOM_GPI_SPI>;
-+				dma-names = "tx", "rx";
-+
- 				status = "disabled";
- 			};
- 
+On Mon, Sep 21, 2026 at 12:21:31AM -0700, Petar Stepanovic wrote:
+> diff --git a/drivers/pwm/Makefile b/drivers/pwm/Makefile
+> index 0dc0d2b69025..4466a29e780a 100644
+> --- a/drivers/pwm/Makefile
+> +++ b/drivers/pwm/Makefile
+> @@ -8,6 +8,7 @@ obj-$(CONFIG_PWM_ARGON_FAN_HAT)	+= pwm-argon-fan-hat.o
+>  obj-$(CONFIG_PWM_ATMEL)		+= pwm-atmel.o
+>  obj-$(CONFIG_PWM_ATMEL_HLCDC_PWM)	+= pwm-atmel-hlcdc.o
+>  obj-$(CONFIG_PWM_ATMEL_TCB)	+= pwm-atmel-tcb.o
+> +obj-$(CONFIG_PWM_AXIADO)	+= pwm-axiado.o
+>  obj-$(CONFIG_PWM_AXI_PWMGEN)	+= pwm-axi-pwmgen.o
+>  obj-$(CONFIG_PWM_BCM2835)	+= pwm-bcm2835.o
+>  obj-$(CONFIG_PWM_BCM_IPROC)	+= pwm-bcm-iproc.o
+> diff --git a/drivers/pwm/pwm-axiado.c b/drivers/pwm/pwm-axiado.c
+> new file mode 100644
+> index 000000000000..781053e255f0
+> --- /dev/null
+> +++ b/drivers/pwm/pwm-axiado.c
+> @@ -0,0 +1,277 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * SPDX-FileCopyrightText: 2021-2026 Axiado Corporation.
+> + */
+> +
 
--- 
-2.47.3
+Is there a public reference manual for that hardware? If so, adding a
+link here would be awesome.
 
+> +/*
+> + * Limitations:
+> + * - Only normal polarity is supported.
+> + * - The hardware has no shadow registers, so configuration changes take
+> + *   effect immediately without waiting for the current period to complete.
+> + * - The output is driven high while the hardware is disabled.
+> + * - Supported period range: 2 through 0xfffffffe PWM input clock cycles;
+> + *   0xffffffff is reserved by the hardware for a constant low output.
+> + *   Longer periods are clamped to the maximum.
+> + * - A 0% duty cycle is emitted using the constant low encoding because the
+> + *   hardware interprets a zero high time as a constant high output. The
+> + *   requested period is lost in that case and is reported as a single clock
+> + *   cycle.
+> + * - A 100% duty cycle is supported and emits a constant high output.
+> + */
+> [...]
+> +static int
+> +axiado_pwm_round_waveform_tohw(struct pwm_chip *chip,
+> +			       struct pwm_device *pwm,
+> +			       const struct pwm_waveform *wf,
+> +			       void *_wfhw)
+> +{
+> +	struct axiado_pwm_chip *axpwm = pwmchip_get_drvdata(chip);
+> +	struct axiado_pwm_waveform *wfhw = _wfhw;
+> +	u64 period;
+> +	u64 duty;
+> +	int ret = 0;
+> +
+> +	/* Encode a disabled request as a zeroed hardware waveform. */
+> +	if (!wf->period_length_ns) {
+> +		*wfhw = (struct axiado_pwm_waveform) { };
+> +
+> +		return 0;
+> +	}
+> +
+> +	period = mul_u64_u64_div_u64(wf->period_length_ns, axpwm->rate,
+> +				     NSEC_PER_SEC);
+> +	duty = mul_u64_u64_div_u64(wf->duty_length_ns, axpwm->rate,
+> +				   NSEC_PER_SEC);
+> +
+> +	if (!duty) {
+> +		/*
+> +		 * A zero high time makes the hardware emit a constant high
+> +		 * output, so use the constant low period encoding for a 0%
+> +		 * duty cycle. The high time must stay non-zero because it
+> +		 * takes precedence over that encoding. The requested period
+> +		 * is lost, .round_waveform_fromhw() reports a single clock
+> +		 * cycle instead.
+> +		 */
+> +		*wfhw = (struct axiado_pwm_waveform) {
+> +			.period = AXIADO_PWM_PERIOD_CONST_LOW,
+> +			.duty = AXIADO_PWM_DUTY_MIN,
+> +			.enabled = true,
+> +		};
+> +
+> +		/* That single cycle is longer than a sub-cycle request. */
+> +		return period ? 0 : 1;
+> +	}
+> +
+> +	if (period < AXIADO_PWM_PERIOD_MIN) {
+> +		period = AXIADO_PWM_PERIOD_MIN;
+> +		ret = 1;
+> +	} else if (period > AXIADO_PWM_PERIOD_MAX) {
+> +		period = AXIADO_PWM_PERIOD_MAX;
+> +	}
+> +
+> +	/*
+> +	 * Period clamping can leave the converted duty greater than the
+> +	 * final hardware period. In that case, clamp it to 100% duty.
+> +	 */
+> +	if (duty > period)
+> +		duty = period;
+
+So with period in [AXIADO_PWM_PERIOD_MIN, AXIADO_PWM_PERIOD_MAX], duty =
+period yields a constant high output? If so, why is there a special
+encoding for const high?
+
+> +	*wfhw = (struct axiado_pwm_waveform) {
+> +		.period = period,
+> +		.duty = duty,
+> +		.enabled = true,
+> +	};
+> +
+> +	return ret;
+> +}
+> +
+> +static int
+> +axiado_pwm_round_waveform_fromhw(struct pwm_chip *chip,
+> +				 struct pwm_device *pwm,
+> +				 const void *_wfhw,
+> +				 struct pwm_waveform *wf)
+> +{
+> +	struct axiado_pwm_chip *axpwm = pwmchip_get_drvdata(chip);
+> +	const struct axiado_pwm_waveform *wfhw = _wfhw;
+> +	u32 period = wfhw->period;
+> +	u32 duty = wfhw->duty;
+> +
+> +	if (!wfhw->enabled) {
+> +		*wf = (struct pwm_waveform) {
+> +			.period_length_ns = 0,
+> +		};
+> +
+> +		return 0;
+> +	}
+> +
+> +	/*
+> +	 * The constant low encoding doesn't hold a period. Report the
+> +	 * shortest one, the output is low for all of it either way.
+> +	 */
+> +	if (period == AXIADO_PWM_PERIOD_CONST_LOW) {
+> +		period = 1;
+> +		duty = 0;
+> +	} else if (duty > period) {
+> +		duty = period;
+> +	}
+
+You don't handle wfhw->duty == 0 here. I think this is what Sashiko
+pointed out. While .round_waveform_tohw() doens't produce this setting,
+it would still be good to handle that in case the driver is loaded with
+this setting applied in hardware.
+
+> +	*wf = (struct pwm_waveform) {
+> +		.period_length_ns =
+> +			mul_u64_u64_div_u64_roundup(period, NSEC_PER_SEC,
+> +						    axpwm->rate),
+> +		.duty_length_ns =
+> +			mul_u64_u64_div_u64_roundup(duty, NSEC_PER_SEC,
+> +						    axpwm->rate),
+> +		.duty_offset_ns = 0,
+> +	};
+> +
+> +	return 0;
+> +}
+
+Best regards
+Uwe
+
+--tnydnd7lsyvlx4t2
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqxQ8cACgkQj4D7WH0S
+/k7Uigf/XkGXqZJB9VBHl6LGR9+YtK2QKCI4RtGM5Ejt+6pf4XPIlnKLVZflNdDe
+kLLMOwwQ1cQUv53G6g/oDfrnJGEYsjklgxOXYxKNJLnoElDreJVtnq0G/kf8f0qG
+sGhWC43SeibhUgxvZlN7M4AvqqFJkp/y+Ra/P8msoGm6mVsm+c0lqQnomHb0cpps
+MP7NPeAVc9JJznYm3LtFOJt0lNXWQf3WQDipRIgkI5Af+KyszHg+YCvME9I4yoXF
+mKARwyvvlryrYraVwyQPbeoWMePZqWD8gYFUC4EVVQ3Lv3V2+4uNoxpyUkbM6HWI
+s/JhDbyOClE/G4bnhHGOt/wiy6HgGg==
+=4Tg2
+-----END PGP SIGNATURE-----
+
+--tnydnd7lsyvlx4t2--
