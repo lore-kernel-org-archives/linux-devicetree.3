@@ -1,120 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f18.google.com (mail-ed2-f18.google.com [74.125.228.82])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD0F622D7A9;
-	Mon, 21 Sep 2026 03:29:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789961398; cv=none; b=nz9vX9MqNnPrA33+Eoyx+x4OaDQp/BBMOpU07cAkcKxsOJ75tg6N6TGi7fIcfMobVsPXFHyIEYd/2sB7fyYUruX4OxLia2F/B2wIdTY1LsJHOw8fmA3n/UTe/Bn5iDjlWPTVmLEyawcsUossRtKgOZkSp8+2RGmc78CO60ZNs6Q=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789961398; c=relaxed/simple;
-	bh=rn75iNrFLTwbbycSrtqtYnYCOk2j3GZ0FdeFPHqihug=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GjvIrHx2TyZnRNjV8ZZTE0T6quxWhz9opY9Esn4vMmXbwQbKK0rD+d//Jryms/kqW6ealdxVsczu7/dCtbaRB/sx4YzawrGY0EKER7omgV5bnOgY7mWEid1jHk0N86QmlPwsDcSSFVgGDYgP2Czhg/Pz7EeJ6FJEnY94rCn9xcg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FcAn6caa; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97ADD31B101
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 03:31:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.82
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789961485; cv=pass; b=dJd0E1S32L2a44M3SSWiIIixuci/oyZDzNZKyOo8xEEEE20v02GFSAXzK4oO4pEPEF5TdOKRZXdmGJML0AGhFvfy8qMFZkbWo4oPpe4jnrPjTUFJE9nA4DX/IeyJR7ZqCrOVfCJptahxmBItDobOBOXEo5BVKZaKfmvSiKOf2tY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789961485; c=relaxed/simple;
+	bh=1JgJndpiQjTJjF4DQFibfiYrBkEpUhcO1uo3E1MTk/w=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=bquGRLZNOUBLYcH3Sddk9O1yMcUo+q3tN56Hld4bFP+Bz6jxbyC65R61QF6/xxU3i56kzI56lxYilv/TTnwzr4avVRbzL4E2rDA8/1Fr/gf2rv6SN1yIUh5+ThKBTFshCNQcTzZBqBo0lRLd2I9GFUsaW3SYtiswjxlKUAGWziA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=liXP9qyf; arc=pass smtp.client-ip=74.125.228.82
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FcAn6caa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E113E1F000FF;
-	Mon, 21 Sep 2026 03:29:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789961397;
-	bh=5EjlznZso6ilvD3xaUAuAr25DR38QrNXUtBdvR2wDJg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=FcAn6caanFFCpeGgly/feeazgIH4kJjApe4IzfYUYWG47ZqxTfLO10PL8+/zfeZz2
-	 3iJ0UM/jgcxaO81ZxWhR+d2qJePGelF0OgQsJ53kHYoSuzngqAKwyCHY4aEV8i0NUQ
-	 CIAlsLq0r5P91GiCR6Fccz6qIOngZ1n3ySewno8hJtaEE1Ar/+lO6XVDRS+SQcI7rU
-	 AwcboLQTHXAgKZ4XQNbaM67KdRx7aK3e3qWJQeYvatihnEbKQKFJwf22XO52TwYXN0
-	 GKyuoHJxCsA/dEyukln7Rdl8dj/hOg0eGbaVBcpX5l6YWOlGmMVfC2fooLSzAGWIsA
-	 SJIuSOyk2l5Jg==
-Date: Mon, 21 Sep 2026 04:29:49 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Biju Das <biju.das.jz@bp.renesas.com>
-Cc: Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>, Rob
- Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Geert Uytterhoeven
- <geert+renesas@glider.be>, "magnus.damm" <magnus.damm@gmail.com>, David
- Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Claudiu Beznea
- <claudiu.beznea.uj@bp.renesas.com>, "linux-pm@vger.kernel.org"
- <linux-pm@vger.kernel.org>, "linux-iio@vger.kernel.org"
- <linux-iio@vger.kernel.org>, "linux-renesas-soc@vger.kernel.org"
- <linux-renesas-soc@vger.kernel.org>, "devicetree@vger.kernel.org"
- <devicetree@vger.kernel.org>, Chris Paterson <Chris.Paterson2@renesas.com>
-Subject: Re: [PATCH v2 6/8] dt-bindings: iio: adc: renesas,rzg2l-adc:
- Document RZ/G3L ADC for TSU
-Message-ID: <20260921042936.548630f3@jic23-hlaptop>
-In-Reply-To: <TY3PR01MB113466E3B9C0DDFC619C2549186842@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References: <20260918150730.122056-1-biju.das.jz@bp.renesas.com>
-	<20260918150730.122056-7-biju.das.jz@bp.renesas.com>
-	<178992596604.706584.10451227613547984363.b4-review@b4>
-	<TY3PR01MB113466E3B9C0DDFC619C2549186842@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="liXP9qyf"
+Received: by mail-ed2-f18.google.com with SMTP id 4fb4d7f45d1cf-6a9adea43b6so3166166a12.0
+        for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 20:31:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789961482; cv=none;
+        d=google.com; s=arc-20260327;
+        b=b8RWJtxQp77UQCqazg/tJWJf0s+f6J3aaNMABUrdzfC/hCqtTxG9MRXXzejvTYr9ey
+         DuAGWSRb7nguChC0gcQpdw7wkpPssF0fXNUMzwBNqAU5iXojUTUMWaHwse/R0+P2Z8Dd
+         rukcHLmRPpkrwuwveTcm7gn8t6+JbGhIcFcydosn+o/9dVye3URfJnr2L0lKkE6mO8+J
+         rRTBJKIgl1hGR4seMAGJMlMA6wgyrVguOpDtNrbCi6A993l0mKhIrxwLR/Q3yD3yiR/a
+         pe4OmH19Si+t6IiURhfkavVJeBvkU31U+u0Y00N23kEpf58Y9k9LPp8d4+qI4JtufdQW
+         3ZbQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=1JgJndpiQjTJjF4DQFibfiYrBkEpUhcO1uo3E1MTk/w=;
+        fh=gmKxl5UnZ6/jFyDM08Fm60GSgSpSkdFiA3XBCUATuCo=;
+        b=lVG4pJsHXh0qGuvL6j2PFyNTD7MjuP6uo9ZnNFsq0mRP4if+2ElrFZCAUReeGO2/hr
+         s5o9KVAEwKjE7pH03Ra/a6hUxciNRFToQ5q0G2LW1Vth0dykYkNj4/T9Y9SPfsEByrRJ
+         AbqQaDBL+sOUmMVMlz7kZWbXx78QpVJND0v8PAlN11Wbn7Nahm4IkTsbBqUl3XOn9HJS
+         +TFoIBrGfb1+tOGDr+06luqtpcZs1GT6n5gOLQwraf5DC3cfLvW6oZ36qOPJwI6O+1Fs
+         BxhGpJ0tf9a2t5gk9iCQC8vi7RaBJBCug8Vsz3C5Zx0mhxqzT4L6gaEEvblw8eaUqjR2
+         5Oug==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1789961482; x=1790566282; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1JgJndpiQjTJjF4DQFibfiYrBkEpUhcO1uo3E1MTk/w=;
+        b=liXP9qyfSnnSa3IRVhVi7pFCMNtVFLBrgnKj6XVTbqcAlJihMkFxmbSrobSMQ1vDqf
+         35b2ZzjbfGmdXyi3aulCp6ou7+lnG9JtQfGgNKn29Laj9U+kV+ghhyzM2Rad2+SsXGc2
+         1gUmvPXb7Up5Mdo+lCNjdx5KuCEh4cYIPXlA9DSnzFO9LwbcJnR7ZWOCVnmoDxOKTxh9
+         NyjVV0dHSMkZ0btnShfjyO7bDetBtLSp5vvYnJoU3VkBaacg7ecibNjpmqQJCcowb4f3
+         Ibn/XFbWwr7u6w02ZKcHm603UWwbjCFwtrRpMvOZjNM3DAQ0viJQUrhr+esbh2B+QuwB
+         w7Hg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789961482; x=1790566282;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=1JgJndpiQjTJjF4DQFibfiYrBkEpUhcO1uo3E1MTk/w=;
+        b=Wj5I43nqQL81YUgkdTlE+L8PHYIGsRuBGgF0dRrUXepzveLTI+ZNZkxv5VVxMzDVBQ
+         zQ4kspaG2e19GzxrEYEgSZw5HQQlJKiqsqP5ehBPcETo4fTuELmAoX/G6XMGb+2X9lwI
+         IrZWsihXXtRbOXlSDslbKiP2zLzP70Wd+Zk4nVwiTvw7l4e7Jecp5B8kT9VjyHGyOuWQ
+         bCERwhnBPQw4BiVivD6ZRRrXz/jMIJjNHGiYqVHFC3tovtdtCihzWuswv8BlEuyqUjlZ
+         kuLRHDTM/mM4HNoLhB2w5heH5frajZqT0k7fxLQ+6bss02C8qaXpGHgZ/0lPFkxtL7Lm
+         INUA==
+X-Forwarded-Encrypted: i=1; AKwUvBzIgTNpUCzTGGmQN8yXSd36l9VmhqC/v5KMn2wuRbDv580BVmSkPv8lgbCnJc5VyVhVYp06Vcf+PXi+@vger.kernel.org
+X-Gm-Message-State: AFuF++k1FbIvcXR4hfjB9h6XV0vEgTMP+vxcxflgKDKhhtmEEJFQ98w8
+	TC3PdWNP4ft/z2Lv478g8TgsH5b1by1pH4qngUNq4us9yozFX4Rp9ExsJSgSf7bsbMEvSkeU0Y3
+	3T+8RGsadmwXrQ/xYGE9KuuyOSzQE6sm4Iqa5q9fn+w==
+X-Gm-Gg: AYBFou1p0roPwLggsgHtgxTZi5MCpOCI0zWXsOotqZ0DS3OMS/Re4r9BKDmAGULeOEE
+	3YutRnDBOx3p3VdXQCK+udSVSHGtMK3f1OJXYUK0vUrRdjB5fYbAKheSlFvvc4wMtMjqlb8hYr3
+	B8WI9Ac1xKkXgZf7XmlaDZX+Qdt9wy7LndD5QjhGxZ8AT8DGieRdV65l69rwGIXdQJKFBaMgj7D
+	kGv/5q2ZE5Q57fTklR6xtAF9FFHQt19Y+dq7qA21izbns68ynlDHeIRo3waVDTihRCbwFbyoTYM
+	3JkA9/UcneBRwdHL8Ibsa1V2st4ErCBJZXMJSbwQb2V+EcB806EHTNH1ysjugutuATmVFGJ6VDR
+	spLVyjqqF/CBA5w==
+X-Received: by 2002:a05:6402:4394:b0:6a9:ab7f:c8f with SMTP id
+ 4fb4d7f45d1cf-6aa54611e57mr5885453a12.17.1789961481999; Sun, 20 Sep 2026
+ 20:31:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
+ <aq1sooGCYUiWbhMH@p14s> <aq453yukMHiNb1jp@bywater>
+In-Reply-To: <aq453yukMHiNb1jp@bywater>
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+Date: Sun, 20 Sep 2026 21:31:11 -0600
+X-Gm-Features: AcwNN1W3qE53RFtHuPGOztjJSdwljZIvy9Wk3z8AN3NJ17iDKQARaTMy5b-3hH0
+Message-ID: <CANLsYkySF+eF-FURnnT6UJv7P5Sg2HdfMSBZnZy_BLyCMvuofw@mail.gmail.com>
+Subject: Re: [PATCH RFC 00/12] remoteproc: add support for any virtio device
+To: Francesco Valla <francesco@valla.it>
+Cc: Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>, 
+	Robin Murphy <robin.murphy@arm.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Peng Fan <peng.fan@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, virtualization@lists.linux.dev, 
+	imx@lists.linux.dev, iommu@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 21 Sep 2026 02:03:18 +0000
-Biju Das <biju.das.jz@bp.renesas.com> wrote:
+On Sat, 19 Sept 2026 at 01:33, Francesco Valla <francesco@valla.it> wrote:
+>
+> Hi Mathieu,
+>
+> On Fri, Sep 18, 2026 at 10:53:54AM -0600, Mathieu Poirier wrote:
+> > Hi Francesco,
+> >
+> > I have started reviewing this set but given the size and implications, it will
+> > take me a few days to get through.
+>
+> I'm going through the review done by sashiko - would you prefer me
+> sending a v2 with the trivial errors already ironed out before doing
+> a complete review?
+>
 
-> Hi Jonathan,
-> 
-> Thanks for the feedback.
-> 
-> > -----Original Message-----
-> > From: Jonathan Cameron <jic23@kernel.org>
-> > Sent: 20 September 2026 18:39
-> > Subject: Re: [PATCH v2 6/8] dt-bindings: iio: adc: renesas,rzg2l-adc: Document RZ/G3L ADC for TSU
-> >   
-> > > Add renesas,r9a08g046-adc1 compatible string and its hardware
-> > > parameters for the ADC1 IP on RZ/G3L, which is dedicated to the
-> > > on-chip TSU (thermal sensor unit).
-> > >
-> > > Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
-> > >
-> > > diff --git a/drivers/iio/adc/rzg2l_adc.c b/drivers/iio/adc/rzg2l_adc.c
-> > > index 408fbf8c29cc..35eaebfbdd77 100644
-> > > --- a/drivers/iio/adc/rzg2l_adc.c
-> > > +++ b/drivers/iio/adc/rzg2l_adc.c
-> > > @@ -500,8 +500,17 @@ static const struct rzg2l_adc_hw_params rzg3s_hw_params = {
-> > >  	.adint_inten_mask = GENMASK(11, 0),
-> > >  };
-> > >
-> > > +static const struct rzg2l_adc_hw_params rzg3l_adc1_hw_params = {
-> > > +	.num_channels = 9,  
-> > 
-> > This maybe needs a comment that only channel 8 actually goes anywhere.  
-> 
-> Yes, it deserves a comment as it has only 1 channel and its channel number is 8.
-> Or
-> change the variable name from num_channels to max_channels to make it
-> Clear. Shall I change the variable name? or still you prefer adding comment.
-> Please let me know.
+We can wait if the errors are trivial.
 
-That makes sense.  So yes, please rename.
-
-> 
-> RZ/G3S ADC has 9 channels{ADC0..ADC8) and ADC8 is connected to thermal sensor unit.
-> RZ/G3L ADC1 IP has 1 channel ADC8 and ADC8 is connected to thermal sensor unit.
-> RZ/G3L ADC0 IP has 8 channels (ADC0..ADC7).
-> 
-> Note:
-> Looks like copy paste mistake. You commented on binding patches for 
-> Driver changes.
-> 
-> https://lore.kernel.org/all/20260918150730.122056-8-biju.das.jz@bp.renesas.com/
-
-Don't think so. That was about the binding.  I was asking why io-channels is required
-which is all about what channels exist and how useful a subset is.
-
-> 
-> Cheers,
-> Biju
-> 
-> 
-
+> >
+> > Thanks,
+> > Mathieu
+> >
+>
+> Thank you!
+>
+> Regards,
+> Francesco
+>
