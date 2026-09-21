@@ -1,131 +1,159 @@
-Received: from mail-ed2-f18.google.com (mail-ed2-f18.google.com [74.125.228.82])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97ADD31B101
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 03:31:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.82
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789961485; cv=pass; b=dJd0E1S32L2a44M3SSWiIIixuci/oyZDzNZKyOo8xEEEE20v02GFSAXzK4oO4pEPEF5TdOKRZXdmGJML0AGhFvfy8qMFZkbWo4oPpe4jnrPjTUFJE9nA4DX/IeyJR7ZqCrOVfCJptahxmBItDobOBOXEo5BVKZaKfmvSiKOf2tY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789961485; c=relaxed/simple;
-	bh=1JgJndpiQjTJjF4DQFibfiYrBkEpUhcO1uo3E1MTk/w=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bquGRLZNOUBLYcH3Sddk9O1yMcUo+q3tN56Hld4bFP+Bz6jxbyC65R61QF6/xxU3i56kzI56lxYilv/TTnwzr4avVRbzL4E2rDA8/1Fr/gf2rv6SN1yIUh5+ThKBTFshCNQcTzZBqBo0lRLd2I9GFUsaW3SYtiswjxlKUAGWziA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=liXP9qyf; arc=pass smtp.client-ip=74.125.228.82
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CC0B136351
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 03:32:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789961544; cv=none; b=u5GBFvCOUYDBlXdWb4e8i8DxHBJgzpROIfHv2cnJz4zBK1ilwfMihloODRi7XOYmwAyLiB1wOAWcrOCjKEm2ucA1OAvLqE1xKwhcf95PAmDA0aABs1z2h6HTHPLZ9ZYQSNjouq2xBspkGnN70o9VUaoUwPPk/C+Wj4aEb+HQ2F8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789961544; c=relaxed/simple;
+	bh=BBExn2VtQFK/zCAqIRlKSN5m1YGyKdZqwUZY34MnYm8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HnhcTBCilb3hGe62pqe+gXrWCRiDnG+MualMPSvU7FJaeT9qThI9eYuAwrzSM0aYJTZCUeUmwfWnIjvti5Du8N57mlw4TPiht3c5QS/Se8aU2bYCp+j6pWofpFnssPyux9GcJ+7bsrhM98+D5plVFHlr/BuTnDZBdqS0Hhr6NgI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=O49mI/D7; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="liXP9qyf"
-Received: by mail-ed2-f18.google.com with SMTP id 4fb4d7f45d1cf-6a9adea43b6so3166166a12.0
-        for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 20:31:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789961482; cv=none;
-        d=google.com; s=arc-20260327;
-        b=b8RWJtxQp77UQCqazg/tJWJf0s+f6J3aaNMABUrdzfC/hCqtTxG9MRXXzejvTYr9ey
-         DuAGWSRb7nguChC0gcQpdw7wkpPssF0fXNUMzwBNqAU5iXojUTUMWaHwse/R0+P2Z8Dd
-         rukcHLmRPpkrwuwveTcm7gn8t6+JbGhIcFcydosn+o/9dVye3URfJnr2L0lKkE6mO8+J
-         rRTBJKIgl1hGR4seMAGJMlMA6wgyrVguOpDtNrbCi6A993l0mKhIrxwLR/Q3yD3yiR/a
-         pe4OmH19Si+t6IiURhfkavVJeBvkU31U+u0Y00N23kEpf58Y9k9LPp8d4+qI4JtufdQW
-         3ZbQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=1JgJndpiQjTJjF4DQFibfiYrBkEpUhcO1uo3E1MTk/w=;
-        fh=gmKxl5UnZ6/jFyDM08Fm60GSgSpSkdFiA3XBCUATuCo=;
-        b=lVG4pJsHXh0qGuvL6j2PFyNTD7MjuP6uo9ZnNFsq0mRP4if+2ElrFZCAUReeGO2/hr
-         s5o9KVAEwKjE7pH03Ra/a6hUxciNRFToQ5q0G2LW1Vth0dykYkNj4/T9Y9SPfsEByrRJ
-         AbqQaDBL+sOUmMVMlz7kZWbXx78QpVJND0v8PAlN11Wbn7Nahm4IkTsbBqUl3XOn9HJS
-         +TFoIBrGfb1+tOGDr+06luqtpcZs1GT6n5gOLQwraf5DC3cfLvW6oZ36qOPJwI6O+1Fs
-         BxhGpJ0tf9a2t5gk9iCQC8vi7RaBJBCug8Vsz3C5Zx0mhxqzT4L6gaEEvblw8eaUqjR2
-         5Oug==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789961482; x=1790566282; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1JgJndpiQjTJjF4DQFibfiYrBkEpUhcO1uo3E1MTk/w=;
-        b=liXP9qyfSnnSa3IRVhVi7pFCMNtVFLBrgnKj6XVTbqcAlJihMkFxmbSrobSMQ1vDqf
-         35b2ZzjbfGmdXyi3aulCp6ou7+lnG9JtQfGgNKn29Laj9U+kV+ghhyzM2Rad2+SsXGc2
-         1gUmvPXb7Up5Mdo+lCNjdx5KuCEh4cYIPXlA9DSnzFO9LwbcJnR7ZWOCVnmoDxOKTxh9
-         NyjVV0dHSMkZ0btnShfjyO7bDetBtLSp5vvYnJoU3VkBaacg7ecibNjpmqQJCcowb4f3
-         Ibn/XFbWwr7u6w02ZKcHm603UWwbjCFwtrRpMvOZjNM3DAQ0viJQUrhr+esbh2B+QuwB
-         w7Hg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789961482; x=1790566282;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=1JgJndpiQjTJjF4DQFibfiYrBkEpUhcO1uo3E1MTk/w=;
-        b=Wj5I43nqQL81YUgkdTlE+L8PHYIGsRuBGgF0dRrUXepzveLTI+ZNZkxv5VVxMzDVBQ
-         zQ4kspaG2e19GzxrEYEgSZw5HQQlJKiqsqP5ehBPcETo4fTuELmAoX/G6XMGb+2X9lwI
-         IrZWsihXXtRbOXlSDslbKiP2zLzP70Wd+Zk4nVwiTvw7l4e7Jecp5B8kT9VjyHGyOuWQ
-         bCERwhnBPQw4BiVivD6ZRRrXz/jMIJjNHGiYqVHFC3tovtdtCihzWuswv8BlEuyqUjlZ
-         kuLRHDTM/mM4HNoLhB2w5heH5frajZqT0k7fxLQ+6bss02C8qaXpGHgZ/0lPFkxtL7Lm
-         INUA==
-X-Forwarded-Encrypted: i=1; AKwUvBzIgTNpUCzTGGmQN8yXSd36l9VmhqC/v5KMn2wuRbDv580BVmSkPv8lgbCnJc5VyVhVYp06Vcf+PXi+@vger.kernel.org
-X-Gm-Message-State: AFuF++k1FbIvcXR4hfjB9h6XV0vEgTMP+vxcxflgKDKhhtmEEJFQ98w8
-	TC3PdWNP4ft/z2Lv478g8TgsH5b1by1pH4qngUNq4us9yozFX4Rp9ExsJSgSf7bsbMEvSkeU0Y3
-	3T+8RGsadmwXrQ/xYGE9KuuyOSzQE6sm4Iqa5q9fn+w==
-X-Gm-Gg: AYBFou1p0roPwLggsgHtgxTZi5MCpOCI0zWXsOotqZ0DS3OMS/Re4r9BKDmAGULeOEE
-	3YutRnDBOx3p3VdXQCK+udSVSHGtMK3f1OJXYUK0vUrRdjB5fYbAKheSlFvvc4wMtMjqlb8hYr3
-	B8WI9Ac1xKkXgZf7XmlaDZX+Qdt9wy7LndD5QjhGxZ8AT8DGieRdV65l69rwGIXdQJKFBaMgj7D
-	kGv/5q2ZE5Q57fTklR6xtAF9FFHQt19Y+dq7qA21izbns68ynlDHeIRo3waVDTihRCbwFbyoTYM
-	3JkA9/UcneBRwdHL8Ibsa1V2st4ErCBJZXMJSbwQb2V+EcB806EHTNH1ysjugutuATmVFGJ6VDR
-	spLVyjqqF/CBA5w==
-X-Received: by 2002:a05:6402:4394:b0:6a9:ab7f:c8f with SMTP id
- 4fb4d7f45d1cf-6aa54611e57mr5885453a12.17.1789961481999; Sun, 20 Sep 2026
- 20:31:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="O49mI/D7"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68L15S5D4137288;
+	Mon, 21 Sep 2026 03:32:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=YZquQWjZGeAbplbdG5X5m8RzhCZUR63iLT9FGoWQX
+	x0=; b=O49mI/D7aPrL/vmnmtn3XIoo5ga1ooMOaUaLfHSnoYjFvJQM5EHvqehrq
+	uRfz+Msvhrj8TGUAB9un/ie/THHQSXXGXJl007FQ+YB3kjQVu9cHPGZYcCDNOwbl
+	718LYR4PtAlVJRjd8yv/9azkwWq9FzHw2w+QI52VXcF2Te31bw8JcWtkguJCGviF
+	mEU+VBKopfch1zFubZt2gmD7RIGVSaUICIQ47TBO5GkjoWTgalqytYufMEn2mewj
+	EhvUjPUvdAuDS2Mbcm7yr5w8YUbbYCtCJLUsGyip/pOiKMEV3fb2vLtHG6+HJXh2
+	shTy9vxNraBEIru9iq1hBhAwl5tuA==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskgrxk0y-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 21 Sep 2026 03:32:04 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68L0lcFb471371;
+	Mon, 21 Sep 2026 03:32:03 GMT
+Received: from smtprelay07.wdc07v.mail.ibm.com ([172.16.1.74])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gt67gkhvm-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 21 Sep 2026 03:32:03 +0000 (GMT)
+Received: from smtpav02.dal12v.mail.ibm.com (smtpav02.dal12v.mail.ibm.com [10.241.53.101])
+	by smtprelay07.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68L3W2st37093756
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 21 Sep 2026 03:32:02 GMT
+Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 385E15805A;
+	Mon, 21 Sep 2026 03:32:02 +0000 (GMT)
+Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6EDA558051;
+	Mon, 21 Sep 2026 03:32:01 +0000 (GMT)
+Received: from li-4c4c4544-0038-3410-8038-c4c04f423534.ibm.com (unknown [9.61.133.32])
+	by smtpav02.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 21 Sep 2026 03:32:01 +0000 (GMT)
+From: Haren Myneni <haren@linux.ibm.com>
+To: linuxppc-dev@lists.ozlabs.org
+Cc: devicetree@vger.kernel.org, maddy@linux.ibm.com, robh@kernel.org,
+        mpe@ellerman.id.au, npiggin@gmail.com, saravanak@kernel.org,
+        ritesh.list@gmail.com, tyreld@linux.ibm.com, hbabu@us.ibm.com,
+        haren@linux.ibm.com
+Subject: [PATCH v2 1/2] drivers/of: Add of_detach_node_no_notify()
+Date: Sun, 20 Sep 2026 20:31:55 -0700
+Message-ID: <20260921033156.991481-1-haren@linux.ibm.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
- <aq1sooGCYUiWbhMH@p14s> <aq453yukMHiNb1jp@bywater>
-In-Reply-To: <aq453yukMHiNb1jp@bywater>
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-Date: Sun, 20 Sep 2026 21:31:11 -0600
-X-Gm-Features: AcwNN1W3qE53RFtHuPGOztjJSdwljZIvy9Wk3z8AN3NJ17iDKQARaTMy5b-3hH0
-Message-ID: <CANLsYkySF+eF-FURnnT6UJv7P5Sg2HdfMSBZnZy_BLyCMvuofw@mail.gmail.com>
-Subject: Re: [PATCH RFC 00/12] remoteproc: add support for any virtio device
-To: Francesco Valla <francesco@valla.it>
-Cc: Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>, 
-	Robin Murphy <robin.murphy@arm.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Peng Fan <peng.fan@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, virtualization@lists.linux.dev, 
-	imx@lists.linux.dev, iommu@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=V/XoQuni c=1 sm=1 tr=0 ts=6ab0a535 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8 a=Yfu1lNDa6tetUWVIbbMA:9
+X-Proofpoint-ORIG-GUID: ThzuiThGIny9TGCt26ANs60FMrGURNzt
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDA0MSBTYWx0ZWRfX2BDKqicpedUU
+ ALUFiTl+X9IMlhS6dMWsk8UrCltQW+6ZZfEKOEvn0ai1c/VPoipSIEnY9YhvmKF7uy5KQ/wF/di
+ DrMIGXFNHisONHx2SmHqMVAfYlyXk1GAcdK9y5IEaGpPGCyhgIWNQpLsNskxpnY1sLXxjECmBbG
+ syh8MZONS0VGn9XSoRW8SjvYkm9lRm6fYcUj3hLnvsD3hiyTcbI4RxC9X+tu7f5buuB1QUb2w+S
+ rNNT6fdaNak7ZT36ss9OpLaXW+OqHc+6pbt+nK/XUK62B30m6b2bdNF0uHZUy5Tcn/bbFQZOLQm
+ xfCXvUQRbrR6ILtKcrkR7VkMY9oQxsQa1OLM4qA3ImRfda1opRPhP7+mm3liHc6vDISiAyrq9Nr
+ jqj9hWv8NjVsK/jtRa+cHwpihZSBWyMMGiLG3qLbeNvMhahIInjYSnhwC/J2ryhMeJEt7/1exuX
+ nRf3VP62tJEfuEi5OcQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDA0MSBTYWx0ZWRfX5F6nDRVG6FrL
+ ODDWwAw940jeixBm1ujScIClClE7JhKpeLSLhyXOQGsdatwwc0zeTh5NtW2BOrqc2pOvDOaDyUD
+ WqVa5PuaZfzPctho6p1Y4NzkhERRNzE=
+X-Proofpoint-GUID: mtxUVzCyxG28VfcbkTSaFwhXJp9TOZi9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_01,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 malwarescore=0 clxscore=1015 phishscore=0
+ bulkscore=0 adultscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210041
 
-On Sat, 19 Sept 2026 at 01:33, Francesco Valla <francesco@valla.it> wrote:
->
-> Hi Mathieu,
->
-> On Fri, Sep 18, 2026 at 10:53:54AM -0600, Mathieu Poirier wrote:
-> > Hi Francesco,
-> >
-> > I have started reviewing this set but given the size and implications, it will
-> > take me a few days to get through.
->
-> I'm going through the review done by sashiko - would you prefer me
-> sending a v2 with the trivial errors already ironed out before doing
-> a complete review?
->
+of_changeset_apply() interface adds nodes for action
+OF_RECONFIG_ATTACH_NODE and calls notifiers for each attached node.
+Then the caller uses of_detach_node() to release each node and
+also calls the corresponding notifier function. In the case of
+failure from the add notifier for any node, of_changeset_apply()
+returns failure after adding nodes. The current implementation
+does not the provide any interface to the caller to remove nodes
+from the DT without calling notifiers. It may end up having nodes
+in DT even though ADD is not successful.
 
-We can wait if the errors are trivial.
+This patch introduces of_detach_node_no_notify() interface for the
+caller to only remove node if it is not attached.
 
-> >
-> > Thanks,
-> > Mathieu
-> >
->
-> Thank you!
->
-> Regards,
-> Francesco
->
+Signed-off-by: Haren Myneni <haren@linux.ibm.com>
+---
+ drivers/of/dynamic.c | 16 ++++++++++++++++
+ include/linux/of.h   |  1 +
+ 2 files changed, 17 insertions(+)
+
+diff --git a/drivers/of/dynamic.c b/drivers/of/dynamic.c
+index 744ce0e1eb24..fc6f22371a97 100644
+--- a/drivers/of/dynamic.c
++++ b/drivers/of/dynamic.c
+@@ -318,6 +318,22 @@ int of_detach_node(struct device_node *np)
+ }
+ EXPORT_SYMBOL_GPL(of_detach_node);
+ 
++/**
++ * of_detach_node_no_notify() - "Unplug" a node from the device
++ * and return without running notifiers.
++ * @np:	Pointer to the caller's Device Node
++ */
++int of_detach_node_no_notify(struct device_node *np)
++{
++	mutex_lock(&of_mutex);
++	if (!of_node_check_flag(np, OF_DETACHED))
++		__of_detach_node(np);
++	mutex_unlock(&of_mutex);
++
++	return 0;
++}
++EXPORT_SYMBOL_GPL(of_detach_node_no_notify);
++
+ void __of_prop_free(struct property *prop)
+ {
+ 	kfree(prop->name);
+diff --git a/include/linux/of.h b/include/linux/of.h
+index b920aac6b975..7a509341e998 100644
+--- a/include/linux/of.h
++++ b/include/linux/of.h
+@@ -442,6 +442,7 @@ extern int of_update_property(struct device_node *np, struct property *newprop);
+ 
+ extern int of_attach_node(struct device_node *);
+ extern int of_detach_node(struct device_node *);
++extern int of_detach_node_no_notify(struct device_node *);
+ 
+ #define of_match_ptr(_ptr)	(_ptr)
+ 
+-- 
+2.55.0
+
