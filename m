@@ -1,63 +1,67 @@
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com [209.85.221.71])
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8436E485956
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 11:00:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC67B483BF1
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 11:00:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789988460; cv=none; b=VAkVydsZtOrpAGf3Fl4GE5H5GSxp5JygAV6Rwg4HoI23zhzo27Nw/jbMFpoIpUsEci8eiD21HhPXnYlB2huD+q8j6JvG6Si2e0O7PTINA7l+JhYml23EbwC+eA0gSU5nhFXrl1E7n/9Fpsy7vBn2zWKAJTc/G5siU/VVUC/+FDk=
+	t=1789988462; cv=none; b=O+eW1aV7SSBRHGYkr8lj0Q9S3RN3ddXyoBoD9UeiDyp30WwP1ng7dOsoWP1BYZdatBoyu5hhE6DaSvdH5DY43qPRn+UfCr4+NWxAcvU2SL9Eqsj1Ma1Rhx+6GFv1+RaGLjdpuP0lkULN7U/TwHvbOxS8ffyEnqzwxOn5ghGzHSI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789988460; c=relaxed/simple;
-	bh=eN7iTn1wD0hv6E0Nm6zoniYYsyYKikUiM6fMfXhhLZk=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=H2uDbbENAznTiaMJLByUC5FtnNOzv/4a/dhjFLxwiQ7988IUgRlKhpstGUnd0g43Gm68iT/lqBS9r4+KU3fTua9o7O8G5Vi7cdXsnApYCQHEmU8rTPUtGSPUoWvvR7ZWVnhwgdwe+Kww7gIBhBnsUzzes13ftMxxjFlx0tKexRE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=iRKJHpTY; arc=none smtp.client-ip=209.85.221.71
+	s=arc-20240116; t=1789988462; c=relaxed/simple;
+	bh=oJ0zGW6aMw8rKZXNikPlWrWiaIddi7KYY011U3LJm+k=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=qW/4nw5tXDl5/CYsPuOJW79JrCUhKS8IDTv5cF1qXqmGLBrZsXYskwmWAd8CmlPIyikZLbS4fK+8RnnhmoqUQJrttf51U/qILzj1SWIGFgnCzLNC8aHdTpydf7F3MGyMfRi8h5CtbdTGmMX7kq+UglIP+PhlduDlM8O4hEZSUAw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=OuI/EUTY; arc=none smtp.client-ip=209.85.128.70
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="iRKJHpTY"
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48706ee8fbaso1469959f8f.1
-        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 04:00:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="OuI/EUTY"
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49e661c6440so15470635e9.3
+        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 04:00:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789988456; x=1790593256; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tq21iXQPKKynEPw3Uhq/hZUwml7pvAbpZ0OeTPKe4Go=;
-        b=iRKJHpTYpAjXEzf+1DEWQF4IJot8fh5mXJq1H+9vlqwwbBMzlhtLwhnAtHXlDX+CFV
-         UlV7QkGAot3XTnBggLznrZp5V2RT7UlRwVxcSSFXAy244z6heN4YvVy2mwSNUUcJ+OGx
-         bzNXYfou9t/HS1i3Ux689WKQwbgFj/5J5KqioO73lXLivzjqYHHWQhgC3e1TC9c7++F6
-         BfdJZkYRyZfjeFr8UjKBKtlEtYFzTXhFJNEALT106XM6GPsP2dGONLW6FXjEhE1hhjdE
-         Uq2e48Z5beqRQEGfJZWjWnM5EPV+ovxq0Zu5Y1fScdI8Nsm4+jPoN7sY9w39ZdVzmFCa
-         9HAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789988457; x=1790593257;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1789988458; x=1790593258; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=tq21iXQPKKynEPw3Uhq/hZUwml7pvAbpZ0OeTPKe4Go=;
-        b=tZP3G0F6PmfQx+7UE8T0ayav4WqAwzVBTAZDcTEGAYFFUuqrBq7u3njyCCWzizxYPN
-         RZAu0d/sfjByJXww6hRjwkyU+rZpEu4NWZO30fzGOZITAg4X4Vd3MRR3Ke29BtqJxbnx
-         ZAVo0KDrqtq52DIpHUw/IReYNVebfScNR6UBtQwFYAgNrER8S1ctkSXFQ5rEAXYUhCti
-         fOFPHAmmuhj3HBKnslenRSN6Pjc6dKd26H2oDk3kZaVh7kLKqQUaqyQjulidOPWxCibZ
-         /PZ+lo1yOZXC41VxRr/Xb2zcQIDRYczJadjWoWPT7yZPFREvpc5deaR9jhKYb/Bh0Mef
-         qFUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx477nBhhL+Z3lqdW07B4Q84K0Bc2jf6q26emv3JLRedq+VXKinhrCd3nWbIxzYpsrjsx1XPhuCME1i@vger.kernel.org
-X-Gm-Message-State: AFuF++ksCfgiItl2bmaWh9lmotZbfSTTpar8P1FTRgmDk/7WU+CnZAT8
-	GtvK5OW1Gok7ckV3KeQxpgLkIdRwmWqAERZoBm5fI2MbRd7yNNzeV+An4x4UA4YzlZF7Qdf+p80
-	8+2DhLDBlgyaPEYq0ZYIEsg==
-X-Received: from wrbep8.prod.google.com ([2002:a05:6000:42c8:b0:488:5ffc:4b74])
+        bh=IM/pFcIIS9AfJIvDjZJlWaiz8Fy5HD+1VXbC/YTcKBU=;
+        b=OuI/EUTY+aI+2XjRZealZiliZT1lUZwdUyINQ5OkWNAXV1Y7brDogggcADMj2o1yKz
+         pS/SAdObrdE+uJsgXWuNsrLAFC/ACOnCn7ZFfqBwxXci94tzsDLGqpUPAuBz7TcFe+cX
+         83ENq3Ksc2PrL449gtMuK/xjNIFi8kNNvYFqGeeyQFAFjqAWfAkBHy8Xl1Hfy4ZaxuHR
+         rCb4eONiG8pa8vsMm6eOfx6XuRrClHnHffTWDJ8jWGk8DeH7FnganINqoNxbDYrkNlCQ
+         6HPWsthSLGpYMhv0QhbkOctj4DSaWai5uGMKpab3saur2ahCq2vHslI4e2ZUH46szD0Z
+         +C1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789988458; x=1790593258;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IM/pFcIIS9AfJIvDjZJlWaiz8Fy5HD+1VXbC/YTcKBU=;
+        b=PmF4unXznLTaImpc4YCXQStvaAm0LPLv8LLZAGYXCFDzs1YgW8TBqoQAi/sReVFryz
+         /chO7PeWIYYfGBjdHbQyUyVVJ+UlJNCSY1fz0dcwMhkuvcfrydo6uGG8CXI+HUTzUlWr
+         /x43xhBB0yNiothjvclcBYbvvZe4AHEwmmRaPUskrKuBOvsQOjXVkn1gnyQonMDJJ556
+         R1hRfTC4NusQpcMHGT5lAoMoNPYzBm+d+6l+RyDU6qwnfBlp+n3l5WdLvA/b1V1NcE9a
+         +k1kcaXz1nSLMlhFwyuJCDoo/+bu0S/ef0MoKsgJDwJQCUbrbMZUaXAGF1IDM5PEKWGQ
+         lWBw==
+X-Forwarded-Encrypted: i=1; AKwUvBwYDOcaWbMEzGhbJT9J7gz1gCD8krCyP9ZwL8CkAknVWrlnsj3g6j/EmucTvO3yDdar/BhupjMTp6ud@vger.kernel.org
+X-Gm-Message-State: AFuF++liUpslP307ZkWsgLYABEAlikkjLYO/+OdFchj+0UU4z/jL4TCQ
+	bU9eOOBCXHcIbJb9TKzOPS4f080svoZPnz89E1bsxudvBqm3s1tVY3ri8LFIxv3AkX6g6IMSJ9K
+	duXZ+D84ylNO5IpNpe0ibCw==
+X-Received: from wmcn17-n2.prod.google.com ([2002:a05:600c:c0d1:20b0:49e:8399:b77d])
  (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
- 2002:a5d:6f05:0:b0:487:10b6:1ce2 with SMTP id ffacd0b85a97d-4871e2158d7mr13645670f8f.1.1789988455971;
- Mon, 21 Sep 2026 04:00:55 -0700 (PDT)
-Date: Mon, 21 Sep 2026 12:00:42 +0100
+ 2002:a05:600c:3b2a:b0:49e:6861:50f7 with SMTP id 5b1f17b1804b1-49fc5687df8mr141949475e9.5.1789988457579;
+ Mon, 21 Sep 2026 04:00:57 -0700 (PDT)
+Date: Mon, 21 Sep 2026 12:00:43 +0100
+In-Reply-To: <20260921110050.3977591-1-vdonnefort@google.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
+References: <20260921110050.3977591-1-vdonnefort@google.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260921110050.3977591-1-vdonnefort@google.com>
-Subject: [PATCH v2 0/8] arm64: Unmap FF-A lent memory from direct map
+Message-ID: <20260921110050.3977591-2-vdonnefort@google.com>
+Subject: [PATCH v2 1/8] memblock: Introduce MEMBLOCK_PTEMAP
 From: Vincent Donnefort <vdonnefort@google.com>
 To: catalin.marinas@arm.com, will@kernel.org, rppt@kernel.org, 
 	akpm@linux-foundation.org, sudeep.holla@kernel.org, jenswi@kernel.org, 
@@ -69,156 +73,128 @@ Cc: mark.rutland@arm.com, sumit.garg@kernel.org, ardb@kernel.org,
 	linux-kernel@vger.kernel.org, Vincent Donnefort <vdonnefort@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-This series is a follow-up to the discussion that has started here [1].
+Keeping PTE-level mappings is interesting on some architectures as it
+allows mapping/unmapping pages from the kernel direct map without the
+risk of splitting blocks which, under the break-before-make rule, may
+trigger page-faults the kernel can't handle.
 
-When memory is lent to the Secure world via FF-A, CPU speculative
-accesses from NS to the lent pages can still occur as long as it retains
-a cacheable mapping to it.
+However, mapping the entire direct map at PTE-level is costly. So
+instead, create a new memblock flag MEMBLOCK_PTEMAP to selectively apply
+a PTE-level mapping.
 
-Ideally, lent memory would be "no-map" but that would mean giving up
-MiBs of useful memory, so let's try to do better with the help of a CMA
-pool.
+Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
+---
+ include/linux/memblock.h | 18 ++++++++++++++++++
+ mm/memblock.c            | 30 ++++++++++++++++++++++++++++++
+ 2 files changed, 48 insertions(+)
 
-On arm64, modifying the direct map at runtime is generally restricted
-because the linear map defaults to block mapping and splitting blocks at
-runtime may trigger fatal page fault, unless the CPU implements BBML3
-or the entire direct map was mapped at page granularity from boot.
-Forcing last-level mappings system-wide incurs a severe penalty we want
-to avoid. Instead, this series introduces targeted last-level mappings
-for designated memory regions, along with the "arm,ffa-lend-pool" CMA
-driver to manage unmapping and remapping on lend/reclaim transitions:
-
-1. memblock:
-   - Introduce MEMBLOCK_PTEMAP to force PTE mappings only for a specific region.
-
-2. set_memory infrastructure:
-   - Introduce can_set_direct_map_range() to check if a specific address
-     range is mapped with last-level entries and can be modified safely.
-   - Introduce __set_direct_map_*() variants that bypass redundant checks
-     when the caller has already validated the range.
-
-3. "arm,ffa-lend-pool" driver
-   - Introduce the "arm,ffa-lend-pool" CMA reserved-memory driver, which
-     unmaps pages prior to lending (ffa_prepare_lend()) and restores them
-     when reclaimed (ffa_lend_reclaimed()).
-
-4. Optee support
-   - Hook OP-TEE dynamic protected memory pools to "arm,ffa-lend-pool" for
-     both SMC (via DT memory-region phandle) and FF-A (via
-     ffa_lend_pool_attach()) transports.
-
-Testing:
-========
-
-Tested with QEMU v8 using OP-TEE OS (built with CFG_CORE_DYN_PROTMEM=y)
-under both SMC and FF-A transports [2]
-
-static void dump_direct_map(const char *label)
-{
-	printf("\n=== %s ===\n", label);
-	fflush(stdout);
-	system("sed -n '/Linear Mapping start/,/Linear Mapping end/p' /sys/kernel/debug/kernel_page_tables");
-	fflush(stdout);
-}
-
-int main(int argc, char *argv[])
-{
-	int heap_fd;
-	int dmabuf_fd;
-	struct dma_heap_allocation_data data = { 0 };
-	size_t size = 1024 * 1024; /* 1MB */
-
-	if (argc > 1)
-		size = strtoul(argv[1], NULL, 0);
-
-	dump_direct_map("BEFORE ALLOCATION");
-
-	heap_fd = open("/dev/dma_heap/protected,secure-video", O_RDWR);
-	if (heap_fd < 0) {
-		perror("open /dev/dma_heap/protected,secure-video");
-		return 1;
-	}
-
-	printf("\nOpened /dev/dma_heap/protected,secure-video\n");
-	printf("Allocating %zu bytes of protected memory via DMA heap...\n", size);
-
-	data.len = size;
-	data.fd_flags = O_RDWR | O_CLOEXEC;
-	if (ioctl(heap_fd, DMA_HEAP_IOCTL_ALLOC, &data) < 0) {
-		perror("ioctl DMA_HEAP_IOCTL_ALLOC");
-		close(heap_fd);
-		return 1;
-	}
-
-	dmabuf_fd = data.fd;
-	printf("Successfully allocated %zu bytes! dmabuf_fd = %d\n", size, dmabuf_fd);
-
-	dump_direct_map("DURING LEND (EXPECT HOLE IN DIRECT MAP)");
-
-	printf("\nReleasing dmabuf_fd...\n");
-	close(dmabuf_fd);
-	close(heap_fd);
-
-	dump_direct_map("AFTER RECLAIM (RESTORED DIRECT MAP)");
-
-	return 0;
-}
-
-[1] https://lore.kernel.org/all/20260807-tegra-vpr-v4-7-5510d16af89e@nvidia.com/
-[2] https://optee.readthedocs.io/en/latest/building/gits/build.html#qemu-v8
-
-Changelog:
-
-v2:
-  - Rename MEMBLOCK_LLMAP to MEMBLOCK_PTEMAP (Mike)
-  - Warn on conflicting MEMBLOCK_NOMAP and MEMBLOCK_PTEMAP flags (Mike)
-  - Drop DT "ll-map" property and mark MEMBLOCK_PTEMAP from ffa_lend_pool_setup() (Rob, Thierry)
-  - Drop "reusable" and "no-map" property checks from ffa_lend_pool_setup() (Rob)
-  - dt-bindings: Document arm,ffa-lend-pool (Rob)
-  - Rework the Optee support with a separate ffa_lend_pool.c file.
-  - use walk_kernel_page_table_range_lockless() for
-    can_set_direct_map_range() to fix folded page table (Sashiko)
-  - Add missing TLB flush in ffa_prepare_lend()
-  - Disable hibernation
-  - Rebase on linux-next (next-20260918) to use the new set_direct_map*() ranges (Mike)
-
-v1 (https://lore.kernel.org/all/20260902104712.2399797-1-vdonnefort@google.com/)
-
-Vincent Donnefort (8):
-  memblock: Introduce MEMBLOCK_PTEMAP
-  arm64: Introduce can_set_direct_map_range()
-  arm64: Introduce __set_direct_map*()
-  arm64: Add support for MEMBLOCK_PTEMAP
-  firmware: arm_ffa: Introduce ffa-lend-pool
-  optee: Add support for arm,ffa-lend-pool
-  dt-bindings: reserved-memory: Add Arm FF-A lend pool
-  dt-bindings: firmware: optee: Add memory-region property
-
- .../arm/firmware/linaro,optee-tz.yaml         |   5 +
- .../reserved-memory/arm,ffa-lend-pool.yaml    |  55 ++++
- arch/arm64/include/asm/set_memory.h           |   7 +
- arch/arm64/mm/mmu.c                           |  23 +-
- arch/arm64/mm/pageattr.c                      |  72 ++++-
- drivers/firmware/arm_ffa/Kconfig              |   5 +
- drivers/firmware/arm_ffa/Makefile             |   1 +
- drivers/firmware/arm_ffa/lend_pool.c          | 261 ++++++++++++++++++
- drivers/tee/optee/Makefile                    |   1 +
- drivers/tee/optee/core.c                      |   6 +
- drivers/tee/optee/ffa_abi.c                   |  13 +-
- drivers/tee/optee/ffa_lend_pool.c             |  72 +++++
- drivers/tee/optee/optee_private.h             |   4 +
- drivers/tee/optee/protmem.c                   |  20 +-
- drivers/tee/optee/smc_abi.c                   |  21 +-
- include/linux/arm_ffa.h                       |  23 ++
- include/linux/memblock.h                      |  18 ++
- mm/memblock.c                                 |  30 ++
- 18 files changed, 608 insertions(+), 29 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/reserved-memory/arm,ffa-lend-pool.yaml
- create mode 100644 drivers/firmware/arm_ffa/lend_pool.c
- create mode 100644 drivers/tee/optee/ffa_lend_pool.c
-
-
-base-commit: 3f2425f5b5bbbdd991ca9cdfd5502e68d8895998
+diff --git a/include/linux/memblock.h b/include/linux/memblock.h
+index aa845f488327..13263055996d 100644
+--- a/include/linux/memblock.h
++++ b/include/linux/memblock.h
+@@ -52,6 +52,7 @@ extern unsigned long long max_possible_pfn;
+  * kernel that we know is good to use. It is the only memory that
+  * allocations may happen from in this phase.
+  * @MEMBLOCK_RSRV_HUGETLB: memory is reserved for hugetlb pages
++ * @MEMBLOCK_PTEMAP: memory region to be mapped using PTE-level mapping
+  */
+ enum memblock_flags {
+ 	MEMBLOCK_NONE		= 0x0,	/* No special request */
+@@ -63,6 +64,7 @@ enum memblock_flags {
+ 	MEMBLOCK_RSRV_KERN	= 0x20,	/* memory reserved for kernel use */
+ 	MEMBLOCK_KHO_SCRATCH	= 0x40,	/* scratch memory for kexec handover */
+ 	MEMBLOCK_RSRV_HUGETLB	= 0x80, /* memory reserved for hugetlb pages */
++	MEMBLOCK_PTEMAP		= 0x100,/* PTE-level mapping */
+ };
+ 
+ /**
+@@ -160,6 +162,8 @@ int memblock_reserved_mark_noinit(phys_addr_t base, phys_addr_t size);
+ int memblock_reserved_mark_kern(phys_addr_t base, phys_addr_t size);
+ int memblock_mark_kho_scratch(phys_addr_t base, phys_addr_t size);
+ int memblock_clear_kho_scratch(phys_addr_t base, phys_addr_t size);
++int memblock_mark_ptemap(phys_addr_t base, phys_addr_t size);
++int memblock_clear_ptemap(phys_addr_t base, phys_addr_t size);
+ 
+ void memblock_free(void *ptr, size_t size);
+ 
+@@ -285,8 +289,16 @@ static inline bool memblock_is_mirror(struct memblock_region *m)
+ 	return m->flags & MEMBLOCK_MIRROR;
+ }
+ 
++static inline void memblock_warn_invalid_map_flags(struct memblock_region *m)
++{
++	enum memblock_flags map_flags = MEMBLOCK_NOMAP | MEMBLOCK_PTEMAP;
++
++	WARN_ON_ONCE((m->flags & map_flags) == map_flags);
++}
++
+ static inline bool memblock_is_nomap(struct memblock_region *m)
+ {
++	memblock_warn_invalid_map_flags(m);
+ 	return m->flags & MEMBLOCK_NOMAP;
+ }
+ 
+@@ -305,6 +317,12 @@ static inline bool memblock_is_kho_scratch(struct memblock_region *m)
+ 	return m->flags & MEMBLOCK_KHO_SCRATCH;
+ }
+ 
++static inline bool memblock_is_ptemap(struct memblock_region *m)
++{
++	memblock_warn_invalid_map_flags(m);
++	return m->flags & MEMBLOCK_PTEMAP;
++}
++
+ int memblock_search_pfn_nid(unsigned long pfn, unsigned long *start_pfn,
+ 			    unsigned long  *end_pfn);
+ void __next_mem_pfn_range(int *idx, int nid, unsigned long *out_start_pfn,
+diff --git a/mm/memblock.c b/mm/memblock.c
+index ea0de4b5f356..8a87d4d2516d 100644
+--- a/mm/memblock.c
++++ b/mm/memblock.c
+@@ -1204,6 +1204,35 @@ __init int memblock_clear_kho_scratch(phys_addr_t base, phys_addr_t size)
+ 				    MEMBLOCK_KHO_SCRATCH);
+ }
+ 
++/**
++ * memblock_mark_ptemap - Mark a memory region with flag MEMBLOCK_PTEMAP.
++ * @base: the base phys addr of the region
++ * @size: the size of the region
++ *
++ * If supported by the architecture, such region is mapped using PTE-level
++ * mappings in the kernel direct map.
++ *
++ * Return: 0 on success, -errno on failure.
++ */
++int __init_memblock memblock_mark_ptemap(phys_addr_t base, phys_addr_t size)
++{
++	return memblock_setclr_flag(&memblock.memory, base, size, 1,
++				    MEMBLOCK_PTEMAP);
++}
++
++/**
++ * memblock_clear_ptemap - Clear flag MEMBLOCK_PTEMAP for a specified region.
++ * @base: the base phys addr of the region
++ * @size: the size of the region
++ *
++ * Return: 0 on success, -errno on failure.
++ */
++int __init_memblock memblock_clear_ptemap(phys_addr_t base, phys_addr_t size)
++{
++	return memblock_setclr_flag(&memblock.memory, base, size, 0,
++				    MEMBLOCK_PTEMAP);
++}
++
+ static bool should_skip_region(struct memblock_type *type,
+ 			       struct memblock_region *m,
+ 			       int nid, int flags)
+@@ -2880,6 +2909,7 @@ static const char * const flagname[] = {
+ 	[ilog2(MEMBLOCK_RSRV_KERN)] = "RSV_KERN",
+ 	[ilog2(MEMBLOCK_KHO_SCRATCH)] = "KHO_SCRATCH",
+ 	[ilog2(MEMBLOCK_RSRV_HUGETLB)] = "RSV_HUGETLB",
++	[ilog2(MEMBLOCK_PTEMAP)] = "PTEMAP",
+ };
+ 
+ static int memblock_debug_show(struct seq_file *m, void *private)
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
