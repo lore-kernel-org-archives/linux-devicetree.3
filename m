@@ -1,245 +1,113 @@
-Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com [74.125.226.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7839F4B44AB
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 15:11:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC113495500;
+	Mon, 21 Sep 2026 15:14:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790003487; cv=none; b=SjtW4pkpe82SJ7cIXIMTLCjwDqXlMk0kUec9Es+xTlwDBHMAiay+G2Ig7RLqjtVuxYK/eb0AWM96Ea9v8+gQ8G45+GIuNvvw3GHQWXjZAfgT8gpC1RsF0ZOuVLnx6ZAQGwm8o3te8AtzqP5AtiKXno/JsEbOyG05diTE1vRxW2s=
+	t=1790003655; cv=none; b=Ph5khz/QwEAYUgvijalB7iXfupMRQsZxsrr1hWM4uvaXssn2TvvKG6YrAasxi5LFLK53XCtLXKWaPcRPaSc1NmqftOzuZsFQUqpElVaCFgGvc7ZzTiQJX2kIX+xmBMFcPMSnGNIMcIHWEeMRlm7sdBCroQylTWIVliu40yEpe5E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790003487; c=relaxed/simple;
-	bh=ZTCJvXoBV8RP2vIYKQszn9XZ30Wu6GdcQ0zPG5RY6IM=;
+	s=arc-20240116; t=1790003655; c=relaxed/simple;
+	bh=bR6K029sGNSyhgaZTWyi7W10rvwXcbXNTGYn/TM7BYg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Nx1SHfE+4pPP21jK3P2mI+BJj4cPbMrpL750jcUY9CC2wRvzloJI7tWWum9wpFzjVo9n1t48j3pBvIYu98ZqiiE2cegkQXR1QLcFhIMiuiXB0HrgBeJQmGZbbLOhACN/rEMAeouPlqGWhBTMLp9TUN435dyIiy2yGfhOVp8j22U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fFpnWOr7; arc=none smtp.client-ip=74.125.226.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=cqSq2N84ipe0tdaq1WHmJefmd5ypZiD3mPcUoT80rtrdF4TjdWLubWFrhu+FRUP8N3VVdX10K7ZbGhYlksC7pcJDpzRVWH7/u5JVu0szvqqCK3M7Gw38FOzzu+gay39l5RmsXiVTj+ZfJj31NlwWF4tnw4beZL5HrxgpK4SQMr0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RCxq22/+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fFpnWOr7"
-Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97e97e2c7b3so1687925241.0
-        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 08:11:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790003478; x=1790608278; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=cKj6cgHdEp15E9vhsDJp2muq+So8+qMhQDWxfEct4bI=;
-        b=fFpnWOr7Q4JwtO1nRHqEkmzSMld/2lkJ9CpBTiqGt+sxpXhdMHJ2X/hBvpDyx4oLeA
-         360Ns0JrDCFUeuota7RRkr1Atj1FI1cRVuixBhr9ddYUCG6mhZECdvbf8ilZyEztrMid
-         lQSalDQth6RaJ+8LYEb61BwHr55n1j6kdHzg+b2upSmvcMUCQ1G0a1Y3cMcF6JWpy06g
-         JIkoI2XKCj8UVUCHBITE9C0I6RxMSV1YjFkYGGGACPn9YrapJlisj1FYlH5NX91b1/F9
-         7P15YhoP9OfXQCoJdXcCB8xdc4uGguJWjKJ/jWADXpqw+6H/V6DqvWymHtNySumOvd8U
-         u5Gg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790003478; x=1790608278;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cKj6cgHdEp15E9vhsDJp2muq+So8+qMhQDWxfEct4bI=;
-        b=Yk/K/X7OEhaB8dqzHLNwukxgHMFcJHgDrrB50HxqJgRmt6ck3l3N/hSvKr6ec2rWFl
-         V40TDrtsJOmHItEN69B9F3RNjwHsEGRrpgFn9k6sdibhtRnRerQmbn4E5zV8Ap7HdoNS
-         +lOv/XiYhjn/KJA+m7IqpdU3kpLPxBU5DI8dxbe119TsjZwWf1VyP/fPv8WTN3Pk87/w
-         xgSEAW8WWK2SzIFLHnFelUeAX7ruuWp6ZC7SmB1yuTRcEwklGOK1riyO6lUFC2D1++Ji
-         C2q+GXdia1yJywSGRQyVE+ZDj0bMknjX+vfldQjWomqLe6vcUlcQkcLvbpuHkozcyeKv
-         6U1w==
-X-Forwarded-Encrypted: i=1; AKwUvByBYQIbudQcGlVEn4ujA72Ev6GN58aSMpuvMwNdV8cDIYjcxij9xp1MhTzOSa8obJ5OCo6Z+TdHFNJt@vger.kernel.org
-X-Gm-Message-State: AFuF++lLqu4kIUxXC8Yz+/8GIkSNPiEGa/rjA19Du1nGRYvIXBuQ5+xn
-	NgDYXnZkhSmyKAi2xFqWuih6Jl5nIxyf2Mjuav+qziSWV0AR+kT0vxEt
-X-Gm-Gg: AYBFou0C6vi3ozdr5WcrlM+z62nBZCW7z/1UhNHfO28bXUxqvsdVE21nRICXD8PGwur
-	+5GdxO3yds6Dx/dA3FFfquf76A0oLjKuDpY2UaxD0z3McyxIR/dTwHfeXI0uGLFi6voWA/hPnNd
-	E/iKwRjPHazAlf9y+0QFNoZQDLrXZPcBtB+9FpSDo9Lhbkeu53g+ygUKx4N5VHASQm9y7/gSx4B
-	w1gfN+c302TyTDWkE0Y5dWJ9h7nv1HN3ezv5e8sCD8TRxkNsFLvs+KjMMIOlqW150NfrSDiQYmu
-	Jq3qAA7pTqkGrGPkW05B2d7bgMIPGgbUcYRu37Ry/WLZgnD+RX6X4p73+WjTcwMFXs5+moKzQea
-	wrB3tZhgvJzUXI6VapnVTadbDg1EUKLApZPdIJhFGmnTlNtg4dkz83Z8D6iBN/h57L1QGZQwhzk
-	mUum/DwgaQIFnPb3rOop/WfDDdpWVZR6XZaJM1ihsUtt1oKiD9L4ZMM3ViFS+sGqvKptQGGT7tB
-	sx+
-X-Received: by 2002:a05:6122:2202:b0:5c9:c60e:3a3d with SMTP id 71dfb90a1353d-5c9c60e3d5bmr3601718e0c.21.1790003478530;
-        Mon, 21 Sep 2026 08:11:18 -0700 (PDT)
-Received: from localhost ([2804:30c:96c:bf00:7844:c38c:894:4054])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c9e1e46d24sm151226e0c.3.2026.09.21.08.11.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 08:11:17 -0700 (PDT)
-Date: Mon, 21 Sep 2026 12:12:24 -0300
-From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux@analog.com, nuno.sa@analog.com, dlechner@baylibre.com,
-	andy@kernel.org, Michael.Hennerich@analog.com, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, corbet@lwn.net,
-	skhan@linuxfoundation.org
-Subject: Re: [PATCH v2 08/15] iio: adc: ad4134: Support buffered data read
-Message-ID: <arFJWLuqlzvkk6qP@debian-BULLSEYE-live-builder-AMD64>
-References: <cover.1789494473.git.marcelo.schmitt@analog.com>
- <dbc37d95fe7f96bd158d8e3339c41205524ae217.1789494473.git.marcelo.schmitt@analog.com>
- <178995544507.955708.14374719433731561725.b4-review@b4>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RCxq22/+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B9121F000FF;
+	Mon, 21 Sep 2026 15:14:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790003653;
+	bh=A1vpA9Vu/anVUkgqQq6JZrIZF54n9p7jw4+5ezh/lQY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RCxq22/+ukarhuU4fLef1DBuO4WHwye2i/enhDbY/fN5vk+yc2q8glQdtTR4ar+R4
+	 kpaMNBUNGuZ2D9F7anJo8Tc7jUFessC92tZxVWklyiekG+W3GLDrLW80AZc4gMsvO8
+	 F1m0hqtosUiriuVusd21Dt9o31B5JZSVyrosgeImxruP1y7EXTOX3z3gam7EzpER3H
+	 z0Wcet/tUJg/ft7kI5gfVs//vOKXF69BeEsw6tJu8u7I5VNU37z9OJeWUJlLvNafDM
+	 ot7CzGLz37k3RgxiKDycEa/R/E80OkP5L0jlyZpjZRxgTAKetXHsS+LVitSS+VLOrv
+	 G3p3Ha4HzcvCQ==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id 010351AC56A7; Mon, 21 Sep 2026 16:14:09 +0100 (BST)
+Date: Mon, 21 Sep 2026 17:14:09 +0200
+From: Mark Brown <broonie@kernel.org>
+To: James Calligeros <jcalligeros99@gmail.com>
+Cc: Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>,
+	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Sven Peter <sven@kernel.org>,
+	Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>,
+	David Rhodes <david.rhodes@cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Amit Kucheria <amit.kucheria@linaro.org>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Lars-Peter Clausen <lars@metafoo.de>, Vinod Koul <vkoul@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+	Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
+	James Schulman <james.schulman@cirrus.com>, asahi@lists.linux.dev,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.de>,
+	linux-mediatek@lists.infradead.org,
+	Martin =?utf-8?Q?Povi=C5=A1er?= <povik@protonmail.com>,
+	Hector Martin <marcan@marcan.st>,
+	Sasha Finkelstein <k@chaosmail.tech>
+Subject: Re: [PATCH 00/28] Add speaker and headset jack support for Apple
+ Silicon Macs
+Message-ID: <arFJwcfSWqyawDYp@sirena.co.uk>
+References: <20260920-macaudio-v1-0-741cc20a74e5@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="jhwW/VhgT1w2TOjQ"
 Content-Disposition: inline
-In-Reply-To: <178995544507.955708.14374719433731561725.b4-review@b4>
+In-Reply-To: <20260920-macaudio-v1-0-741cc20a74e5@gmail.com>
+X-Cookie: Too clever is dumb.
 
-Hi Jonathan,
 
-On 09/21, Jonathan Cameron wrote:
-> > Enable users to run buffered data captures triggered by IIO trigger device.
-> > Add an IIO timestamp channel so each data scan is provided with measurement
-> > time information. Require single-read operations to be in IIO device direct
-> > access mode to prevent buffered and single-shot data captures to disrupt
-> > each other.
-> > 
-> > Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
-> 
-> Hi Marcelo
-> 
-> Sashiko had a bunch of feedback on this one.  Note that you can save
-> time if you check out what it comes up with and reply to the thread
-> to say what is valid and not.
+--jhwW/VhgT1w2TOjQ
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Yes, I've been working on fixes for the issues that seem legitimate. Most of
-them do seem to make sense. I was to reply only to the ones that seem off, but
-didn't yet manage to fully assess them all. Will start providing preliminary
-reply to automated reviews.
+On Sun, Sep 20, 2026 at 02:53:39PM +1000, James Calligeros wrote:
+> Hi folks,
+>=20
+> This series finalises support for the main
+> audio subsystem on Apple Silicon Macs. It adds a machine driver
+> called macaudio, which is based on an RFC sent many years ago
+> by Martin Povi=C5=A1er[1]. The driver uses the DPCM model to dynamically
+> glue a backend DAI (combination of MCA ports and codecs) to a
+> frontend PCM. While this theoretically allows us to route any
+> backend to any frontend, this is not used in practice; the "Primary"
+> frontend is always used for the headset codec and the "Secondary"
+> is always used for the speakers.
 
-> 
-> I haven't yet asked for those emails to go directly to linux-iio
-> as the quality is mixed and I am reluctant to confuse newcomers, but
-> most like I will ask them to turn those emails on in a month or so
-> if not before. In meantime more experienced folk can look at the
-> website directly.
-> 
-> > diff --git a/drivers/iio/adc/ad4134.c b/drivers/iio/adc/ad4134.c
-> > index 30c7b1d1bc67..0b6843bf8a9e 100644
-> 
-> >  
-> 
-> >  
-> >  struct ad4134_state {
-> > @@ -149,7 +161,10 @@ struct ad4134_state {
-> >  	 * DMA (thus cache coherency maintenance) requires the transfer buffers
-> >  	 * to live in their own cache lines.
-> >  	 */
-> > -	u8 rx_buf[AD4134_SPI_MAX_XFER_LEN] __aligned(IIO_DMA_MINALIGN);
-> > +	union {
-> > +		u8 reg[AD4134_SPI_MAX_XFER_LEN];
-> > +		u32 scan[ARRAY_SIZE(ad4134_chan_set)];
-> 
-> 
-> Sashiko:
-> [Severity: High]
-> Does this array size fail to account for the timestamp's alignment padding?
-> 
-> The array is fixed at 20 bytes (5 elements). When all 4 channels and the 64-bit
-> timestamp are active, the IIO core computes scan_bytes as 24 bytes due to the
-> timestamp's 8-byte alignment requirement (16 bytes data + 8 bytes padding and
-> timestamp). Passing sizeof(st->rx_buf.scan) to iio_push_to_buffers_with_ts()
-> later in the trigger handler will cause the IIO core's safety check to fail,
-> aborting the buffer push with -ENOSPC on full-scan captures.
-> -
-> 
-> That does indeed look wrong. I'd expect to see one of the DECLARE
-> buffer macros used here to ensure a large enough buffer.  This
-> should have shown up in testing so I'm curious why it didn't.
+This has got a lot of different stuff in it, there's several different
+sets of fixes, a number of framework features, as well as the new driver
+and a huge pile of DT updates.  It would be a lot more digestable were
+these things to be split out, especially the fixes.
 
-I had initially tested with only one or two channels enabled while requesting
-timestamp. This issue is going to be fixed in v3.
+--jhwW/VhgT1w2TOjQ
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> 
-> [Severity: High]
-> Can concurrent lockless accesses corrupt the rx_buf shared union?
-> 
-> The ad4134_trigger_handler() executes locklessly in a pollfunc context, while
-> regmap debugfs reads/writes (which do not acquire the IIO direct mode lock) can
-> concurrently use st->rx_buf.reg as a DMA buffer. This can result in corrupted
-> SPI scan data, corrupted regmap read/write data, and potentially invalid
-> hardware configurations or ADC samples if debugfs is accessed while a triggered
-> buffer capture is running.
-> 
-> -
-> Also sounds valid though I haven't confirmed everything stated.
-> A buffer like this should be protected by a local lock, not rely on
-> serialization via the mode claim mechanism.
+-----BEGIN PGP SIGNATURE-----
 
-Yes, that's a valid one that is going to be fixed.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqxSb4ACgkQJNaLcl1U
+h9ApuAf/ZwCUmddLEXrzSNnteIkRCaFhvQG/Ig3/Uo79xixZgarNV9EQrRh0cr/+
+wF4WqgVixB1t/yQr/ZvXeb2E1cuVxIY5MnqrXVqnFDxy0gZmr3kd1mKGvub6VstW
+E1auraBBQFDoz4/mBlBstM8YiWqmdgerxvqEGsHkjWMagDD/d8YG618XoY668mGW
+jn/w9JtTv9eyrrO3SX4N+MlVvLii06XTCi9Oegvjdo/uvF5tcICk9fZRY7bqXLGF
+KE1vXeSEdwr2ivDAjwMvYd1fjdBx1Ew+UL2mvTO3F1lAeA7o3zVieczdoP97C98C
+XEk5G4Q7u56Q1J2d8Vo0C0yXTyTVCg==
+=6yVp
+-----END PGP SIGNATURE-----
 
-> 
-> > +	} rx_buf __aligned(IIO_DMA_MINALIGN);
-> >  	u8 tx_buf[AD4134_SPI_MAX_XFER_LEN];
-> >  };
-> 
-> 
-> > @@ -281,7 +296,7 @@ static int ad4134_data_read(struct ad4134_state *st, unsigned int reg,
-> >  		 * Clock out data from all channels to avoid that.
-> >  		 */
-> >  		if (i == AD4134_VREG_CH(reg))
-> > -			sample = get_unaligned_be24(st->rx_buf);
-> > +			sample = get_unaligned_be24(st->rx_buf.reg);
-> >  	}
-> >  	*val = sign_extend32(sample, AD4134_CHAN_PRECISION_BITS - 1);
-> 
-> [Severity: Medium]
-> Does this leak uninitialized stack memory if the soft timestamp channel is read
-> as a virtual register?
-> 
-> Because ad4134_regmap_config sets max_register to include the soft timestamp
-> channel (ARRAY_SIZE(ad4134_chan_set) includes the timestamp, making index 4
-> valid), userspace could read virtual register index 4 via regmap debugfs. In
-> that case, this loop iterates only up to AD4134_NUM_CHANNELS (indices 0 to 3),
-> meaning `i == AD4134_VREG_CH(reg)` (where AD4134_VREG_CH(reg) would be 4) is
-> never true. The sample variable is left uninitialized, and an uninitialized
-> 32-bit stack chunk is processed and returned to userspace.
-> -
-> Please check this one.
-> >  
-> 
-Ack
-
-> 
-> 
-> > @@ -333,6 +348,37 @@ static const struct regmap_config ad4134_regmap_config = {
-> >  	.max_register = AD4134_CH_VREG(ARRAY_SIZE(ad4134_chan_set)),
-> >  };
-> >  
-> > +static irqreturn_t ad4134_trigger_handler(int irq, void *p)
-> > +{
-> > +	struct iio_poll_func *pf = p;
-> > +	struct iio_dev *indio_dev = pf->indio_dev;
-> > +	struct ad4134_state *st = iio_priv(indio_dev);
-> > +	unsigned int i = 0;
-> > +	int ret;
-> > +
-> > +	gpiod_set_value_cansleep(st->odr_gpio, 1);
-> > +	fsleep(1);
-> > +	gpiod_set_value_cansleep(st->odr_gpio, 0);
-> > +
-> > +	for (unsigned int ch = 0; ch < AD4134_NUM_CHANNELS; ch++) {
-> > +		ret = spi_write_then_read(st->spi, NULL, 0, &st->rx_buf.scan[ch],
-> > +					  BITS_TO_BYTES(AD4134_CHAN_PRECISION_BITS));
-> > +		if (ret)
-> > +			goto err_out;
-> > +
-> > +		if (test_bit(ch, indio_dev->active_scan_mask) && ch != i)
-> > +			memcpy(&st->rx_buf.scan[i++], &st->rx_buf.scan[ch],
-> 
-> [Severity: High]
-> Does this conditional logic permanently corrupt the scan data by overwriting
-> active channels?
-> 
-> When the first active channel has the same index as the destination (for example,
-> both are 0), the condition `ch != i` evaluates to false, short-circuiting the
-> if statement and entirely skipping the post-increment `i++`. The next active
-> channel will then overwrite the previous data by being written to scan[0] again.
-> This triggers on any standard buffered capture involving multiple channels.
-> -
-> 
-> Check this one as well. Looks plausible to me.
-
-Ack.
-
-Thanks,
-Marcelo
+--jhwW/VhgT1w2TOjQ--
