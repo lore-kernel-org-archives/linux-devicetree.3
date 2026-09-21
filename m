@@ -1,270 +1,168 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013010.outbound.protection.outlook.com [40.93.196.10])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A61F546EC84;
-	Mon, 21 Sep 2026 12:22:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789993332; cv=fail; b=p2oqF/Mq+V//Z+UuhFUGTEd+/Cmb1Qef9aH5cUr+pOTrfPGLgW+9K5m1+7I9/WCQtT3+6ISZW+fkQKEGwqgQIcdI1tkJmqewgNwT3qh435F6p93tTQY+eCZFMUPeTK1QZPFTeXfCcLcjXyFC/vyYjDWVww/pHOFdLeZbZkIqbrE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789993332; c=relaxed/simple;
-	bh=wkJrt9g9r7QfUWflBswEYcNGoQpOIPadS1RaVsDPcwQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=T3tctH0JKe9k92cglJ8v7T/hKuwszV9oDZVhBjKhmMpQBsrgkQY+FGSpqteMf3H9fhYyfxvWGrNyF/6nXaAkX7x5hgKBJe8NSbCHfcGk/173JAs3vM7yybsuGu/kl7AXoJ+XuHR3QkQv3RCRto41xMByYBGS3X9cEqNcf/Z98dM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=S7pkqAK7; arc=fail smtp.client-ip=40.93.196.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E78C3BE635
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 12:24:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789993446; cv=none; b=J3Sxjw5irNF2FV5o76tqPA0GnMW0uSCNzXHL0tITc+yJ+nUXSes0GEGCyB5r6lsmhDrvQVZhI0/zdR0I4YQYEwShv91GZPVR6I/8taOZEdB7C4kOOgqyZgbAbqCdmyZyhXsMVmNQuTndNnssV3HUO0+rFsNFF2FZqVja/n87Mqw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789993446; c=relaxed/simple;
+	bh=qCNMsx/uc/pNWm/YO7I0ZBuH71mQrPFF88Bz66g6IOk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NERjL1LPlaDUx37J9sjkgCGYWa7/fW3ct7yQ4BPh+ieiB5smvVSUSLV5MtPCwGvmHqqZ1LTQ1IoYPf60Tkw8YBa3hV6eeOV92/qxn3WJky2dbVeFNT3G8Eo6GgF8cwVonH18Q2rUZI1JX9sUrnXU3ffV8Vi2nCS3Fi+NesJExno=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OoEWN8g4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Iu4qVML5; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="S7pkqAK7"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ljYHmcdMhpHtYWcY3duIEdHVPELMilEzNwB+bqDT0U25PMVmbcK+5Ss2o+57v8FF1UrYzJD+QWRcrtK2nw2Ct9Znz06kNjGMRlJkPtfoK5+Okc6dlgL4TMO4NaJX4Gmw4YHAii20hzr/2Wx1SvjvYdjbFU+qbgtCWTRDsETu2MFzMdvszaheMbL/hIyVnymDFyh5Pu1N465rHqkbjBf+gsdZqLOBBCjV48Ir6BfaZ91C9+GIbNK7UMgeJmXPhArRCM33YkHZmEoWM0GcjrU2+NVKYusHs3EA4kpJ156HKT8cd36Bb5cBnbS6QtI8VcMapQRGN+WktK+wpsuS/KIspQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OeJeotQjDwPrPe3f0CzBtluFSlAbIo8er1IHcT/EyDo=;
- b=Hx0t2tD4GMqZ/XCJItGzFXMQ7hpWePvcmJ6T2I/TDPKjicBYThQ17zOuDH8C1ySWa501QWBB6mG2wPbh777PgBogQEvyPLYyKbi9aS1Zv7envdq1RwftDa8T1j3oioxJLzC5dpTZvabnQGOSnBwo5Zq1EmAhmgpX6fOnIjN+jbqptNzkvYRexE/WVx+zhcML+/5zp3wwWSAG5OFsr3N76R135gkvg81PgT2/jHqw9YlQMC/bCn/ya2e8DoOVFwEPnOIKWWlgGqWByY/zwuli8kkeM/XJWdbtEcWeZpq2P6HTRZGXYYkjgwh/IJEm9slRMEVBSxOqIwjag0t8xBDa+A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=gmail.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OeJeotQjDwPrPe3f0CzBtluFSlAbIo8er1IHcT/EyDo=;
- b=S7pkqAK7Nwe4Tgona9H79ZsRbM8uIZnANO5+PTud3W977OyM7yMh0L2hANlAdFzsueWv0c1WEaIk28K4Ee86B3oiKsbuHTsOes7hCOKINSOOMV6AytPlfz6qg85LhcL6vRe/aOBSV9zo8pI1Ub9pXYncPxaMkTivnCU4XNzzv6SlsTkTyvwIL3ez8RJB7uxWPi835Fhr8McRi9OecCAcPDpBlQreFgPP3lrnExKhb++4jlru24vgpwNwueralNuUKq2GZCSNfDs/KAggk5N7pKrcsDwA2SnML0lSD3iNUyiX9R3ofYu152KpNm5F//vJsCc7okBFQA9koKM0k173iw==
-Received: from PH7P220CA0163.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:33b::24)
- by SJ1PR12MB6219.namprd12.prod.outlook.com (2603:10b6:a03:456::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.14; Mon, 21 Sep
- 2026 12:20:03 +0000
-Received: from SJ5PEPF00000208.namprd05.prod.outlook.com
- (2603:10b6:510:33b:cafe::85) by PH7P220CA0163.outlook.office365.com
- (2603:10b6:510:33b::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Mon,
- 21 Sep 2026 12:20:03 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- SJ5PEPF00000208.mail.protection.outlook.com (10.167.244.41) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Mon, 21 Sep 2026 12:20:03 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 21 Sep
- 2026 05:19:46 -0700
-Received: from [127.0.1.1] (10.126.230.37) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 21 Sep
- 2026 05:19:42 -0700
-From: Jon Hunter <jonathanh@nvidia.com>
-Date: Mon, 21 Sep 2026 13:19:09 +0100
-Subject: [PATCH 9/9] usb: gadget: tegra-xudc: Add support for Tegra264
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OoEWN8g4";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Iu4qVML5"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LB4rDY1130242
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 12:24:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	2hX0nyMoB0pgtWjEs7TcbpdDDeGxZEojIwJqmRzxhTU=; b=OoEWN8g489Lgn8XX
+	YKqdfKr5J3lRp+o07qYkvbnGt4e4z1pctTxnVUHD7KleCXYybvBeYa7gOv8Xf1E0
+	jZhSBAncAKtCLT8Be/awroIpW5/VVKWjDnTdwKyl6TXoHPFZiNhF8DBModXdmfUW
+	YQbQfRPRKKfm6tw5mtHtFZgW1b6dQK0JeuodOZ+isMqNbZu4DfXpD4vmr3bbM8+r
+	bblD42HjvwR/D/APi8of1YGQm4coMgimUhtF/0XFKWtTvsziL8DjqpobFqVXiM69
+	vI45JrXrNbWiE/9ppPGs5nBvrtsk85DBdmdh9P4iuuo/AAHW3cWKSmFYI/rFXLlN
+	fSIkSg==
+Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gu3csg9dv-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 12:24:04 +0000 (GMT)
+Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5c7d6767d06so93090e0c.2
+        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 05:24:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789993443; x=1790598243; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2hX0nyMoB0pgtWjEs7TcbpdDDeGxZEojIwJqmRzxhTU=;
+        b=Iu4qVML5I9Dgc2Yjey7dGHXIwHFGuNUjqr4dxMvE6kZ6HLqzpBpmU/Pkh5rJSoBwRR
+         duUl5FUTTy74oyRquadCIQ2lIlD+5r+bx/J9F1/ohQ4sbfhbqI2VCNl3lm1ecUEsPrsV
+         dcdDhP6BS5cTPi73DK9Ag/4MLrcCHcaDK+mTo1DFrTGFqfON5WlymHbBRpcnGJriyhPh
+         RhC3RPTeh7u1wCw1ZcBq18dzvufCr5mm1mxYoGNUwjtpX3F+P2cavnt0jghlZc3RZrTX
+         4xqpvI3j1J5tJAQ17ftngQtdW3lcy6gzySlTbe/GDZEL3JVtXIi5HeCdEKKVnCpHDJnA
+         bNEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789993443; x=1790598243;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2hX0nyMoB0pgtWjEs7TcbpdDDeGxZEojIwJqmRzxhTU=;
+        b=2KbwwUqv8JYc8lPBJ60DFS2+CO2sxfGR93Qr0WgmErETBqpY0xD/E6hpPgnCCzup8V
+         13U9Soi2luJN1jVYoJD/K2WyYe90yp2SpgilZVeZ2QbM0s9CXoeKUCtVh+oGBf7dEP+3
+         QMnvQK4qU9UILx4PuOkZj0ba/686jbkJ6TTjbJb6PRCOeVNnB1DZrhL8401fbyZA/3me
+         XME21nTgpEECFS9Ru+5n+Ec8SgeotIyh2RZfopOBtlNr1ZcepRBN2xfe0oHhrxuc6aXC
+         TrLgmyiJFPWIyNc2005s9sBv0cnsn0/rK3QoGOAMRNgf65F/MkiZH2RTSKEPWUTRhoWR
+         1CUw==
+X-Forwarded-Encrypted: i=1; AKwUvBwu0XIKry7surjFVjBL51PMeUirnkaLVqGKG+B/GgwurD+ncVjRrR/0XvGU7v443Vo8CvNf9d07duUP@vger.kernel.org
+X-Gm-Message-State: AFuF++krz5C+NmObL4Rn0X+4vdhjUIXUqoouIl4E2x9Bmrb7ZSOJdw+E
+	1k9qc8kl5HKmvaerm8qCvSLTTBETn9mx3PwOpyhJewA5hyrVARjFNjYAC327n03Oo49odI5Cf9H
+	mzDRPREh84fSkM4o2CwodUlABGZ+BzBEEltvic7uHxI4rqIbW4foueB6GWeLno0RS
+X-Gm-Gg: AYBFou0bPjzgXjrzw+qNiFtrAP3CpfJ8mj+V7b74ODzJGJ/lJluxU8juA9KLgw33MJ2
+	U3aLuFfAQaUcnGsQcigot3eoTeKwF2mPn42qtOLFpvxW9/HKxHDWb7L+C1NhlAr6Tsx5sfocdqw
+	dQmx1uZJ9lsvf12iPEW9zmCUN2TVQMv7lPj+me6fwAL3z8PghXMhSoAcNGTbtnHd00TFIntUnk3
+	OgHuIs9ZvR8qSwBPd8TsuJE+ZX1WgCrxm5Eb/pqPYtySBORPfzXo2gHgGrziYcQeF50OQZzaImr
+	q1qA7SwAGNm3+XohOsnxHFPIZGKNK4wxZRTSgqV5OEdQglbDfNC9ZTglKHNndCSVSY3A2WT0SnP
+	Ao3JC8FWgO0dTo/o5X3notw==
+X-Received: by 2002:a05:6122:4a11:20b0:5c9:91ba:5d7a with SMTP id 71dfb90a1353d-5c9b8a53dc8mr3456232e0c.1.1789993443329;
+        Mon, 21 Sep 2026 05:24:03 -0700 (PDT)
+X-Received: by 2002:a05:6122:4a11:20b0:5c9:91ba:5d7a with SMTP id 71dfb90a1353d-5c9b8a53dc8mr3456214e0c.1.1789993442897;
+        Mon, 21 Sep 2026 05:24:02 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8c7961f4dsm1961105e87.68.2026.09.21.05.24.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 21 Sep 2026 05:24:01 -0700 (PDT)
+Message-ID: <579939eb-92b5-45a8-b782-8e79a4366a8e@oss.qualcomm.com>
+Date: Mon, 21 Sep 2026 14:23:59 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260921-tegra-usb-v1-9-74a925a35d82@nvidia.com>
-References: <20260921-tegra-usb-v1-0-74a925a35d82@nvidia.com>
-In-Reply-To: <20260921-tegra-usb-v1-0-74a925a35d82@nvidia.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Thierry Reding <thierry.reding@kernel.org>, "Nagarjuna
- Kristam" <nkristam@nvidia.com>, JC Kuo <jckuo@nvidia.com>, Mathias Nyman
-	<mathias.nyman@intel.com>
-CC: Thierry Reding <thierry.reding@gmail.com>, <linux-usb@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-tegra@vger.kernel.org>, Thierry Reding
-	<treding@nvidia.com>, Wayne Chang <waynec@nvidia.com>, Jon Hunter
-	<jonathanh@nvidia.com>
-X-Mailer: b4 0.16.1-dev
-X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF00000208:EE_|SJ1PR12MB6219:EE_
-X-MS-Office365-Filtering-Correlation-Id: caa8b0ef-d9e5-43ee-bffd-08df17daa9ec
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|36860700016|23010399003|7416014|376014|10067099003|6133799003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	+N2nG4G0LqQLQ2HuzsC6zdyywf8tDsjMo7Si6Qhie3/bbjudLRfzbkEdQz12TAWb8+/OBtrUS5KctjfJ5D8DrNk62Nn/t+dlg9b1YDYGFThjXo4c2tDHTAgj2rxLNYRX/EWRPDUFMERyTtpJDcZEcylw8L/2a5CAweYIBNsmm7mzXtEXxg5B73da3d411TLbtf56fSpmV70THiquv7obij5YlspuuwyuEfBS9UMhnDHVb323Sd8/9sQ4gV4Z5Fx+ke9W3mC+u/KCKDsp5uaawc2d/liGZPZDBhxZxKmM5PaZvWZOGFqsK+Hz2jR2RdOPSBdzRCNq+JhzWfoLplqcPdzrhWfotdKB8gZqnd+IhUKlKwMKuUPGuSHyWQbejG8a3z2FR6WBd7eq2VU765rHTr3s0QU8hC4DNVATA76ezGJPoXzsqjszVrCkxXtIrq4F0dCI0YwKNJmerSRxedz9zzMCn407WIkaFFDIH/XABfaCphJ20Gh+HSD7+VRzny1UfaL88QWeW1X4KOw50HLiGF7TgbF2Emofas8GEsIreNN5gZvmIM0nN6lnKiRuDYXfBYJDW0X//OcPsZAzZ6/t0JXKMYpzWSJoxmvRP449fGRyL9IkRg5bwS612+tbdkhT9QsqITIQIKjS1vSK3Xp3WqyH6FEzBsUkwbS3LLE7b+RypxBT87wv33XPiXrbORZbVVTkdIixN9ws0/9FzPtzvg==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700016)(23010399003)(7416014)(376014)(10067099003)(6133799003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	S6zwsq2WaJWcLvMnHdq/ClUL41277BGS7Prl2DqaKEPio52R/kH9REemEpiA1NyJJi1wN7VNtTm+KjxioAuvw2NTHB7eovMLNHyKdloA+jvXFSIAYR4zSu4NDAH7ZWphPHtcsE/Mn4T8WHhXthlBSvVDZT/dkj2PaLb3RMxj2BRhbdMlVdCIQbBYCWNpPCifoiqJ/RBwe+6bRJgKEWkMZ4+GseUjuhpFzs12+yXDPCtYg2xBgXriOpkqauc6MEoTBoccS2/34BMX1YxUTLb8VMbF9hAh3wdGvSk6vya+jGL2QABrXh7//IXZsm3WA8cOGYpLjNGw7iQmsZnBR6VKa6h6W7oEADjeVrW51Bos1afDhgK75rtpzOxErzFYjGf56na0Btff9b96yHC8A8YV38+PL++W57Sa8iT9q6oR3kfXnad0M4mcFmoxaHDBJmHP
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 12:20:03.0461
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: caa8b0ef-d9e5-43ee-bffd-08df17daa9ec
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF00000208.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6219
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/8] platform: arm64: qcom-hamoa-ec: Switch fan profile
+ based on power supply state
+To: Anvesh Jain P <anvesh.p@oss.qualcomm.com>,
+        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>,
+        =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org
+References: <20260728-ec_add_more_commands-v1-0-771abd65ee1a@oss.qualcomm.com>
+ <20260728-ec_add_more_commands-v1-3-771abd65ee1a@oss.qualcomm.com>
+ <cf04c613-ed91-4929-aaf6-421fe9bb7ab4@oss.qualcomm.com>
+ <1612b46d-1291-4593-b24e-464ba2a180ed@oss.qualcomm.com>
+ <872897af-6357-460e-9aa0-158eda22aa43@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <872897af-6357-460e-9aa0-158eda22aa43@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDE4MCBTYWx0ZWRfX2fQjqumwhOEB
+ 71B29oDNy1pWYM00ap15TVuvOAivyQuGjKO4ruWludQHIy+yD8P/pDJU5UkRTp0n0qeRNogA90g
+ JbLJV6V3gV2/n2CvhSWeTTGGPuE8T0I=
+X-Proofpoint-GUID: P90xIBJPV-BxJ0Kx0VRAJtcH299pAwfV
+X-Authority-Analysis: v=2.4 cv=QovLTlyd c=1 sm=1 tr=0 ts=6ab121e4 cx=c_pps
+ a=wuOIiItHwq1biOnFUQQHKA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=gD9UIibj9IRekF7xquYA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=XD7yVLdPMpWraOa8Un9W:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDE4MCBTYWx0ZWRfXwpuCv/UfrCzO
+ 74oUAvd0T6d157i7DiwqqfI+Ag8Tkp3341FXmpWNFNzH/XTPtYaFxJJucmmsy7oJSZaWh0OOtF6
+ vm5be0XTlf5a+7SnpWJJ2k+0XkYWQOb8QyvRBHbPDnUshpKzUf8kcR02q7KNQORMO+7Hkoi/SpD
+ 7pCXnhx0pASnVs5Npc77VO4Egp+9QQIS1wDNzhgw3xnMvm7VIUFO+NQJWoNNu9oLLFGDSrrlnG4
+ HWGv1mvv3gj0HcYa1itZW0Csaj/sV053NTxz2/pbhwmahp7MRtf+4PP9B0dqRDDUjvIkyKla9th
+ lYMPZQZv5GTtZ4UVMvwXvBtio5rTgMT+rX8x0u/Vgi+CqONMMMteNjveVxxIXAmPi4C4Ltsehum
+ 06SG/c26kNDnCkmB0Cr/UGQcRV6Eu3AHQN4UO1qcZbpH70n7mUWWRcHwzkFHLnerXWGxU7e5OxL
+ CDxSd+RD4lInk1SUceg==
+X-Proofpoint-ORIG-GUID: P90xIBJPV-BxJ0Kx0VRAJtcH299pAwfV
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_04,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 suspectscore=0 bulkscore=0 impostorscore=0 priorityscore=1501
+ spamscore=0 lowpriorityscore=0 phishscore=0 malwarescore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210180
 
-Add support for the Tegra264 XUDC by adding the device-tree compatible
-string, SoC data and additional registers that need to be configured for
-Tegra264. The LMP ITP timer mask in the SSPX_CORE_CNT30 register is
-different for Tegra264 and so move the mask into the SoC data.
+On 8/19/26 7:19 AM, Anvesh Jain P wrote:
+> 
+> 
+> On 7/30/2026 11:51 AM, Anvesh Jain P wrote:
+>>> Is being on a (powerful) charger a prerequisite for entering this profile?
+>>> Currently plugging in a 5W charger would trigger the switch as well.
+>>>
+>>> Should this instead be exposed as a fan profile for userspace?
+>>>
+>>> Konrad
+>> Fair point — power_supply_is_system_supplied() only checks mains
+>> presence, not charger wattage, so even a 5W charger triggers the "best
+>> performance" profile. And exposing this via platform_profile instead of
+>> an automatic AC/battery switch would let userspace make the call
+>> instead. Will check on the feasibility of making this possible.
+> Even at 5W we're still not battery-constrained, so best performance
+> still makes sense, it's about wall power vs battery, not wattage. And I
+> don't think userspace needs control over this either, it's just an
+> automatic fan curve pick, not a performance setting users would want to
+> tune themselves.
 
-Signed-off-by: Jon Hunter <jonathanh@nvidia.com>
----
- drivers/usb/gadget/udc/tegra-xudc.c | 60 +++++++++++++++++++++++++++++++++----
- 1 file changed, 55 insertions(+), 5 deletions(-)
+I believe fan profile control is very much within the expected
+feature scope of a personal computer..
 
-diff --git a/drivers/usb/gadget/udc/tegra-xudc.c b/drivers/usb/gadget/udc/tegra-xudc.c
-index 56585c350cab..cbbdcd00e9b9 100644
---- a/drivers/usb/gadget/udc/tegra-xudc.c
-+++ b/drivers/usb/gadget/udc/tegra-xudc.c
-@@ -146,10 +146,15 @@
- #define SSPX_CORE_CNT0 0x10
- #define  SSPX_CORE_CNT0_PING_TBURST_MASK GENMASK(7, 0)
- #define  SSPX_CORE_CNT0_PING_TBURST(x) ((x) & SSPX_CORE_CNT0_PING_TBURST_MASK)
-+#define SSPX_CORE_CNT13 0x44
-+#define  SSPX_CORE_CNT13_CRDTHP_TIMER_MASK GENMASK(11, 0)
-+#define  SSPX_CORE_CNT13_CRDTHP_TIMER(x) ((x) & \
-+				SSPX_CORE_CNT13_CRDTHP_TIMER_MASK)
-+#define SSPX_CORE_CNT27 0x7c
-+#define  SSPX_CORE_CNT27_PING_LFPS_TRPT_MASK GENMASK(29, 0)
-+#define  SSPX_CORE_CNT27_PING_LFPS_TRPT(x) ((x) & \
-+				SSPX_CORE_CNT27_PING_LFPS_TRPT_MASK)
- #define SSPX_CORE_CNT30 0x88
--#define  SSPX_CORE_CNT30_LMPITP_TIMER_MASK GENMASK(19, 0)
--#define  SSPX_CORE_CNT30_LMPITP_TIMER(x) ((x) & \
--					SSPX_CORE_CNT30_LMPITP_TIMER_MASK)
- #define SSPX_CORE_CNT32 0x90
- #define  SSPX_CORE_CNT32_POLL_TBURST_MAX_MASK GENMASK(7, 0)
- #define  SSPX_CORE_CNT32_POLL_TBURST_MAX(x) ((x) & \
-@@ -549,9 +554,12 @@ struct tegra_xudc_soc {
- 	unsigned int num_clks;
- 	unsigned int num_phys;
- 	unsigned int sspx_offset;
-+	unsigned int crdthp_timer;
- 	unsigned int lfps_ping;
-+	unsigned int lfps_ping_trpt;
- 	unsigned int lfps_poll;
- 	unsigned int lmpitp_timer;
-+	unsigned int lmpitp_timer_mask;
- 	unsigned int u3_timeout;
- 	bool u1_enable;
- 	bool u2_enable;
-@@ -3429,11 +3437,25 @@ static void tegra_xudc_device_params_init(struct tegra_xudc *xudc)
- 		xudc_writel(xudc, val, offset + SSPX_CORE_CNT0);
- 	}
- 
-+	if (xudc->soc->crdthp_timer) {
-+		val = xudc_readl(xudc, offset + SSPX_CORE_CNT13);
-+		val &= ~(SSPX_CORE_CNT13_CRDTHP_TIMER_MASK);
-+		val |= SSPX_CORE_CNT13_CRDTHP_TIMER(xudc->soc->crdthp_timer);
-+		xudc_writel(xudc, val, offset + SSPX_CORE_CNT13);
-+	}
-+
-+	if (xudc->soc->lfps_ping_trpt) {
-+		val = xudc_readl(xudc, offset + SSPX_CORE_CNT27);
-+		val &= ~(SSPX_CORE_CNT27_PING_LFPS_TRPT_MASK);
-+		val |= SSPX_CORE_CNT27_PING_LFPS_TRPT(xudc->soc->lfps_ping_trpt);
-+		xudc_writel(xudc, val, offset + SSPX_CORE_CNT27);
-+	}
-+
- 	if (xudc->soc->lmpitp_timer) {
- 		/* Default tPortConfiguration timeout is too small. */
- 		val = xudc_readl(xudc, offset + SSPX_CORE_CNT30);
--		val &= ~(SSPX_CORE_CNT30_LMPITP_TIMER_MASK);
--		val |= SSPX_CORE_CNT30_LMPITP_TIMER(xudc->soc->lmpitp_timer);
-+		val &= ~(xudc->soc->lmpitp_timer_mask);
-+		val |= xudc->soc->lmpitp_timer & xudc->soc->lmpitp_timer_mask;
- 		xudc_writel(xudc, val, offset + SSPX_CORE_CNT30);
- 	}
- 
-@@ -3658,6 +3680,7 @@ static struct tegra_xudc_soc tegra210_xudc_soc_data = {
- 	.lfps_ping = 0xa,
- 	.lfps_poll = 0xb0, /* 1.45us */
- 	.lmpitp_timer = 0x978,
-+	.lmpitp_timer_mask = GENMASK(19, 0),
- 	.u3_timeout = 0x5dc0,
- 	.u1_enable = false,
- 	.u2_enable = true,
-@@ -3677,6 +3700,7 @@ static struct tegra_xudc_soc tegra186_xudc_soc_data = {
- 	.lfps_ping = 0xa,
- 	.lfps_poll = 0xb0, /* 1.45us */
- 	.lmpitp_timer = 0x978,
-+	.lmpitp_timer_mask = GENMASK(19, 0),
- 	.u3_timeout = 0x5dc0,
- 	.u1_enable = true,
- 	.u2_enable = true,
-@@ -3696,6 +3720,7 @@ static struct tegra_xudc_soc tegra194_xudc_soc_data = {
- 	.lfps_ping = 0xa,
- 	.lfps_poll = 0xb0, /* 1.45us */
- 	.lmpitp_timer = 0x978,
-+	.lmpitp_timer_mask = GENMASK(19, 0),
- 	.u3_timeout = 0x5dc0,
- 	.u1_enable = true,
- 	.u2_enable = true,
-@@ -3715,6 +3740,7 @@ static struct tegra_xudc_soc tegra234_xudc_soc_data = {
- 	.lfps_ping = 0xa,
- 	.lfps_poll = 0xb0, /* 1.45us */
- 	.lmpitp_timer = 0x978,
-+	.lmpitp_timer_mask = GENMASK(19, 0),
- 	.u3_timeout = 0x5dc0,
- 	.u1_enable = true,
- 	.u2_enable = true,
-@@ -3733,6 +3759,7 @@ static struct tegra_xudc_soc tegra238_xudc_soc_data = {
- 	.lfps_ping = 0xa,
- 	.lfps_poll = 0xb0, /* 1.45us */
- 	.lmpitp_timer = 0x978,
-+	.lmpitp_timer_mask = GENMASK(19, 0),
- 	.u3_timeout = 0x5dc0,
- 	.u1_enable = true,
- 	.u2_enable = true,
-@@ -3743,6 +3770,25 @@ static struct tegra_xudc_soc tegra238_xudc_soc_data = {
- 	.has_ipfs = false,
- };
- 
-+static struct tegra_xudc_soc tegra264_xudc_soc_data = {
-+	.clock_names = tegra186_xudc_clock_names,
-+	.num_clks = ARRAY_SIZE(tegra186_xudc_clock_names),
-+	.num_phys = 4,
-+	.sspx_offset = 0x4000,
-+	.crdthp_timer = 0x33,
-+	.lfps_ping_trpt = 0x7a1200,
-+	.lfps_poll = 0x3b, /* 1.466us */
-+	.lmpitp_timer = 0xc9,
-+	.lmpitp_timer_mask = GENMASK(11, 0),
-+	.u1_enable = true,
-+	.u2_enable = true,
-+	.lpm_enable = true,
-+	.invalid_seq_num = false,
-+	.pls_quirk = false,
-+	.port_reset_quirk = false,
-+	.has_ipfs = false,
-+};
-+
- static const struct of_device_id tegra_xudc_of_match[] = {
- 	{
- 		.compatible = "nvidia,tegra210-xudc",
-@@ -3764,6 +3810,10 @@ static const struct of_device_id tegra_xudc_of_match[] = {
- 		.compatible = "nvidia,tegra238-xudc",
- 		.data = &tegra238_xudc_soc_data
- 	},
-+	{
-+		.compatible = "nvidia,tegra264-xudc",
-+		.data = &tegra264_xudc_soc_data
-+	},
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, tegra_xudc_of_match);
-
--- 
-2.43.0
-
+Konrad
