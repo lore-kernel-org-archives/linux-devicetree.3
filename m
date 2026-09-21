@@ -1,85 +1,86 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65EA53C1D4D;
-	Mon, 21 Sep 2026 23:28:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0837647D928
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 23:31:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790033333; cv=none; b=u1nBwAMjlQvTczJrVNBvUolOOImfeMbprWfopn/3YxVQLgFjiFa0oWlakSDP2jlw3CsLB1fAwqc/VWNMxar7g+lW+Li185KF+Qq8GYf2d8pHzR0bewoRgkodaIoOlXIckIJ/64GdK3x9NEfxWObADNAjOhzLYKHfUnA2fSsEFbQ=
+	t=1790033474; cv=none; b=BJC7iAOQVV9p1Nc54dKBguhLZV3VlV5TP82U96X2EYQUdtqvFysyHeuMFerfl0+nIc//kHFyQP++9z6N9aXwuGZvFEX3ca3YOvcpr5Dau2ArN5K2vUrxNxsfzFI4zOW7DimEtxETq1kvW1OGDOIfevDXDHDdgU7fcfYqjUWXqjU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790033333; c=relaxed/simple;
-	bh=rvxFVCi8l1oHqpLRwxE7IM/SxNzZSu5rHf2IMDJrxxA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=k0NK5qaThKefIIDZlPTy3mtej8jCpfcimYATeNwbS/kdXfTILk2S7hKgQ9+JIcIk1sPa/Yr6kjYbGeosWgaO+AWkUh4qiSfQdEVw7mdRRoTdvEhZ1rKtV8nra/onn8rvw+CesNxr7H9SITXWW1ZsmOSw/AFvnOZOApjtT1MbBms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G6AW76Pw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790033474; c=relaxed/simple;
+	bh=dEtbBP0D/W234d+3ol48LdmRQr60bus9qcoXjjIyfOc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=K06Bzu1QcXtXNvb18MmlZFznYk73hqCaNTB9TDarPgQjIlsisWZW8twESQly9euKIChbsGxSSYOp0lwk1RcSUsG7F0QD2iuo3fv97WG1IyujY2b1oYZB8njMXmIxgiGS/FGtP+Q3bPkgVvz+IS8P6ObSvrhsmTSS+IeCFcEMfDg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iEuv9S3O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G6AW76Pw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EADF1F000FF;
-	Mon, 21 Sep 2026 23:28:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iEuv9S3O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B3ED1F000FF;
+	Mon, 21 Sep 2026 23:31:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790033318;
-	bh=6dICvcKm3BIGHLqArm5a68sfhcX4BHfmX+37PnEVNIU=;
-	h=From:To:Cc:Subject:Date;
-	b=G6AW76Pw+tuclNLlmPboPUnIfHQGSTZEibH7WL1m/ALP5AoJDpuQx5Gx9WxDS9gnD
-	 5RmJF3TKIfhME64en1Y9uszNmBlYyJ9wcDRoXchXbcmU5+FxAlKDeVAP+GoSt/LpPF
-	 8LHQptJjbfvQDufL2/2ytujbOq1oECVJ13KybRG3bvzyMM85G72Do7lReNfVFAdhLa
-	 3TU9+L2q8UbXM5cZBqYsiCVKZRvdk4Fz+47u+UyYObxJBpKKaEruOVST7wzT6BrSiV
-	 Xgr/PuKcIGfbw5t0JDnnPNFe9omz6RpZgn2WGtxEhcNKVp9KrSp3g8Nd3AUUuRc0Q7
-	 U5//tIn3pmjBQ==
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Mike Leach <mike.leach@arm.com>,
-	James Clark <james.clark@linaro.org>,
-	Leo Yan <leo.yan@arm.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: Leo Yan <leo.yan@linux.dev>,
-	coresight@lists.linaro.org,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] dt-bindings: arm: coresight: Allow funnel clocks
-Date: Mon, 21 Sep 2026 18:28:33 -0500
-Message-ID: <20260921232834.3138571-1-robh@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	s=k20260515; t=1790033466;
+	bh=elDywjZ3s1n2qOTXyuTfIYnsQEe8Pq4iCTbp1TRt1jE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=iEuv9S3OcMRWBAlQqRju/XIqon5tWplAZrENM4RTotVTahRCf//sK0CSbUizN2uVN
+	 +ZOF8hx+rmONU/6FnzpNXJizonzTZ0JObRP2UrcmUwZpxZeqBeVsmZtmrZVgh2pKje
+	 iPWB7ULTFkuYx+2zz6UEzQRt0RSH80T7uCpSxAwhCpsFkqdUwMEEdRtRG26oUIvELM
+	 A4FxojfZKZjFAcf5+APxssVdFPLDgYKqs9VHa2/KV8II5Foif3RQAZxa4ooWCBEgdq
+	 HmSL4k78xj2MJOM/RbSEPY5mS5TmMPSdpFtwB7SHS69UGmUvlNuSPcAyf7F9uvD9OO
+	 oVN6nO5RKeGcg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] dt-bindings: soc: mediatek: Allow pwrap regs
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?Um9iIEhlcnJpbmcgKEFybSk=?= <robh@kernel.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260921232527.3127894-1-robh@kernel.org>
+References: <20260921232527.3127894-1-robh@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 21 Sep 2026 23:31:05 +0000
+Message-Id: <20260921233106.4B3ED1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Some static funnel nodes have APB and AT clocks. Allow one or two
-clocks and the apb_pclk and atclk clock-names entries.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] dt-bindings: missing referenced mediatek,mt6380-regulator.yaml sche=
+ma
+--
 
-Assisted-by: LLM
-Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
----
- .../bindings/arm/arm,coresight-static-funnel.yaml      | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+commit 73b0295b13e9c91b5f296071d21498bc710f649e
+Author: Rob Herring (Arm) <robh@kernel.org>
 
-diff --git a/Documentation/devicetree/bindings/arm/arm,coresight-static-funnel.yaml b/Documentation/devicetree/bindings/arm/arm,coresight-static-funnel.yaml
-index 9598a3d0a95b..4a3d08f9568c 100644
---- a/Documentation/devicetree/bindings/arm/arm,coresight-static-funnel.yaml
-+++ b/Documentation/devicetree/bindings/arm/arm,coresight-static-funnel.yaml
-@@ -30,6 +30,16 @@ properties:
-   power-domains:
-     maxItems: 1
- 
-+  clocks:
-+    minItems: 1
-+    maxItems: 2
-+
-+  clock-names:
-+    minItems: 1
-+    items:
-+      - const: apb_pclk
-+      - const: atclk
-+
-   label:
-     description:
-       Description of a coresight device.
--- 
-2.53.0
+dt-bindings: soc: mediatek: Allow pwrap regs
 
+This commit updates the MT7622 PMIC wrapper binding to add a child schema
+reference for regulators. This change routes regulator subnodes to the
+MT6380 regulator binding for evaluation.
+
+> diff --git a/Documentation/devicetree/bindings/soc/mediatek/mediatek,pwra=
+p.yaml b/Documentation/devicetree/bindings/soc/mediatek/mediatek,pwrap.yaml
+> --- a/Documentation/devicetree/bindings/soc/mediatek/mediatek,pwrap.yaml
+> +++ b/Documentation/devicetree/bindings/soc/mediatek/mediatek,pwrap.yaml
+> @@ -105,6 +105,9 @@ properties:
+>    pmic:
+>      type: object
+> =20
+> +  regulators:
+> +    $ref: /schemas/regulator/mediatek,mt6380-regulator.yaml#
+
+[Severity: Low]
+Does this introduce an invalid schema reference for the regulators property?
+
+It appears the referenced mediatek,mt6380-regulator.yaml file does not exist
+in the repository, as the MT6380 regulator binding is currently a legacy te=
+xt
+file (mt6380-regulator.txt).
+
+This can cause make dt_binding_check to fail when resolving the
+cross-reference or silently skip validating the regulators node. Subsequent
+patches in the series also do not appear to add the missing YAML file.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921232527.3127=
+894-1-robh@kernel.org?part=3D1
