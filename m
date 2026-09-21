@@ -1,119 +1,68 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4CBB425888;
-	Mon, 21 Sep 2026 16:50:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93C1F3BF68D;
+	Mon, 21 Sep 2026 17:01:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790009436; cv=none; b=pNMrwOCpHUR9X/Cnpmw6OMYFhLAWAb2M2abmY7ffsNa1vaMZhlTEtsuJ4Fhs/p3xnNq96po2KG+NsF+QbV56mdVigH3aaFBTPq3If3F6X9B1Jwb4Z+Cx1Ljy2MHHU3gyjGxw6bdc8wNYZ/R8i/k5kv+PU3itd2A3nzTX7d23O4c=
+	t=1790010090; cv=none; b=nsSl7RAFWLN2aRRFu7VoQiLdDEvFCjAlOZqsqbuK0KjShvFoEoKo+CBJIQeb7uWjYM7WXM98Ux5aKb/nNQNgyzV895AbyAL8y12c8QYngehx+GIVOHCg+xx+LAJCQX+wgp8UNAMTEuC3q8qw1iP1Tugmdq3VaoMH6iKbjAzZ5Rg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790009436; c=relaxed/simple;
-	bh=tzEaQ78haQfPp9bau9Y5NopwAYQx6DU57qk2wbAgzA8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=sxOIflp4jqGMzstlRcYT1Wjq5H1elHRHy/Z/NSJ26rQJJz8aJKN+ERk/wb+wmRClzkZK+j9HEbFldpVWZq+v0eN+mMcOTcFKejI0j2kolJ+gSuhex6zj8Ci+az4WPBDjSMeTqDXBlSCk+keQ/WeN9Gv35JtT2tcM1WjWiGVLDqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dtuE+kyq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790010090; c=relaxed/simple;
+	bh=MA+ZcYIUn/C28DKNLCi4W6hUtQhlgmcukjYPAcPtLjs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=i/zc0X/OGTD6buhsAefrEBgDNWXd9TJxsAfDVAgW6EXwwzSHANoVti0tca7nYcFDUsXihOhTZczzkZMKLO0mPWqMYYjUynmwaFDkn3BLb7MH4oEYotO0X6ua3QUxZKYRW78oj8RDmnznPEfmpsPPLRFAQtGbNuzfbi0plTcJmuQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YIvufl2K; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dtuE+kyq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11B1E1F000FF;
-	Mon, 21 Sep 2026 16:50:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YIvufl2K"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 010741F000FF;
+	Mon, 21 Sep 2026 17:01:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790009432;
-	bh=evOcOug5HuQ7QipyqVv2PipPmrWdgiFen7VKh/pTWD8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dtuE+kyqiOpqLHGqXxrbVTuqarr3I0qBmoyMA+GNRHi3elfmPl0pgPFPKTv/r3Xnx
-	 c6nPDRYld4u7T6yz1TnHVS9Bh+YltwNZlqpUs3+Wg5OoICCoAa9WI2a4mzSsD8Eqsv
-	 JeT7DpqsbzB4X6w6NTii5PHZpd1OCKRv6ZWekjWCc58/rqqe1+7DfTiTV7CCsdLXqX
-	 oecV0EPly9JG2ODsebVU7MRu/7gi6UWyQW6XaWYDgunxyZJrFZW3iwMYyPhDXbqhY2
-	 izBDfalZ2qHZagqJI9LNvyjrT1GhCrGgy381uSR22QlvDKNoFOh9kQX97BhPSep0w5
-	 +NoR5dVnT6JdQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] clk: qcom: Add support for camera clock
- controller on Maili
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jagadeesh Kona" <jagadeesh.kona@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, linux-clk@vger.kernel.org
-In-Reply-To: <20260921-maili_camcc-v3-2-2f8d739ac2d4@oss.qualcomm.com>
-References: <20260921-maili_camcc-v3-0-2f8d739ac2d4@oss.qualcomm.com>
- <20260921-maili_camcc-v3-2-2f8d739ac2d4@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 21 Sep 2026 16:50:31 +0000
-Message-Id: <20260921165032.11B1E1F000FF@smtp.kernel.org>
+	s=k20260515; t=1790010089;
+	bh=LDYfj0q0WBbc27zJfQKY47KhE5CkSTCe0tT5qQ5LOuk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YIvufl2KQ/GmFXyad1oCBKcuqybWf/Yt8lXLGX5IJCfSonNJA4vvhaTFnghQMVcmo
+	 xdZBV+4sQAm0MAZe2kCCVhSY30RNqNxUvsldGpqSGxRkkxNaGT3eCYF3uUUT+jMx43
+	 Mh5KIxaE7RZ8rWrfkvHrO4ZJVENXvA/8Ucw5xPJZnIrL87+27oVEfLw8rdqhXoICrs
+	 3sVK9FxEYzg140DNb+DzWI9anb5AyljUp9yfDsATkHmOxiBSVr4Wt2x6yv5oX9ao+r
+	 E0ztA/vE4eVQsSBun/CZE7RW9fKl3NYMl1TjWTFArFGYHf3c4WA94/525bvdra3x9T
+	 ywdZn8rCcHRNw==
+Date: Mon, 21 Sep 2026 12:01:27 -0500
+From: Rob Herring <robh@kernel.org>
+To: Yureka Lilian <yureka@cyberchaos.dev>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
+	Neal Gompa <neal@gompa.dev>, Hector Martin <marcan@marcan.st>,
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, asahi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-watchdog@vger.kernel.org
+Subject: Re: [PATCH v2 2/7] dt-bindings: arm: apple: apple,pmgr: Add t8140
+ compatible
+Message-ID: <20260921170127.GA894200-robh@kernel.org>
+References: <20260911-apple-a18-pro-initial-devicetrees-v2-0-08d06cf011d4@cyberchaos.dev>
+ <20260911-apple-a18-pro-initial-devicetrees-v2-2-08d06cf011d4@cyberchaos.dev>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260911-apple-a18-pro-initial-devicetrees-v2-2-08d06cf011d4@cyberchaos.dev>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] clk: qcom: missing frequency table update for cam_cc_cci_1_clk_s=
-rc on Maili
---
+On Fri, Sep 11, 2026 at 06:58:39PM +0200, Yureka Lilian wrote:
+> The PMGR blocks on the Apple silicon A18 Pro SoC (t8140) is compatible
+> with the M1-M4 SoCs. Add "apple,t8140-pmgr" as A18 Pro specific
+> compatible.
+> 
+> Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
+> ---
+>  Documentation/devicetree/bindings/arm/apple/apple,pmgr.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-commit 9204e9b27b38229aa09fff0dc17f81cd19db9fc2
-Author: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
-
-clk: qcom: Add support for camera clock controller on Maili
-
-Maili camcc is mostly identical to Hawi camcc, with a few clocks
-removed, frequency table updates for a few other clocks, and PLL
-configuration changes. Hence, reuse the Hawi camera clock controller
-driver and extend it for the Qualcomm Maili SoC.
-
-> diff --git a/drivers/clk/qcom/camcc-hawi.c b/drivers/clk/qcom/camcc-hawi.c
-> index aa52b99aec003..dc5c108ce608c 100644
-> --- a/drivers/clk/qcom/camcc-hawi.c
-> +++ b/drivers/clk/qcom/camcc-hawi.c
-
-[ ... ]
-
-> @@ -3106,12 +3105,35 @@ static const struct of_device_id cam_cc_hawi_matc=
-h_table[] =3D {
-> =20
->  static int cam_cc_hawi_probe(struct platform_device *pdev)
->  {
-> +	if (device_is_compatible(&pdev->dev, "qcom,maili-camcc")) {
-> +		cam_cc_pll0.config =3D &cam_cc_pll0_config_maili;
-> +		cam_cc_pll1.config =3D &cam_cc_pll1_config_maili;
-> +		cam_cc_pll2.config =3D &cam_cc_pll2_config_maili;
-> +		cam_cc_pll3.config =3D &cam_cc_pll3_config_maili;
-> +		cam_cc_pll4.config =3D &cam_cc_pll4_config_maili;
-> +		cam_cc_pll5.config =3D &cam_cc_pll5_config_maili;
-> +		cam_cc_pll6.config =3D &cam_cc_pll6_config_maili;
-> +		cam_cc_pll7.config =3D &cam_cc_pll7_config_maili;
-> +		cam_cc_pll8.config =3D &cam_cc_pll8_config_maili;
-> +
-> +		cam_cc_camnoc_rt_axi_clk_src.freq_tbl =3D ftbl_cam_cc_camnoc_rt_axi_cl=
-k_src_maili;
-> +		cam_cc_cci_0_clk_src.freq_tbl =3D ftbl_cam_cc_cci_0_clk_src_maili;
-> +		cam_cc_ofe_clk_src.freq_tbl =3D ftbl_cam_cc_ofe_clk_src_maili;
-
-[Severity: Medium]
-Since cam_cc_cci_1_clk_src statically references ftbl_cam_cc_cci_0_clk_src,
-should it also be updated to use the new Maili table here?
-
-Without an update for cam_cc_cci_1_clk_src, it will continue using the old
-Hawi frequency table (ftbl_cam_cc_cci_0_clk_src). This means cci_0 gets the
-new P_CAM_CC_PLL0_OUT_EVEN with a /16 integer divider, while cci_1 remains
-on P_CAM_CC_PLL0_OUT_ODD with a 3/32 fractional divider.
-
-Could this mismatch and unintended configuration cause instability or failu=
-re
-for cameras attached to the second Camera Control Interface (CCI_1) on the
-Maili SoC?
-
-> +
-> +		cam_cc_hawi_clocks[CAM_CC_CCI_2_CLK_SRC] =3D NULL;
-> +		cam_cc_hawi_clocks[CAM_CC_CCI_2_CLK] =3D NULL;
-> +		cam_cc_hawi_clocks[CAM_CC_CSI5PHYTIMER_CLK_SRC] =3D NULL;
-> +		cam_cc_hawi_clocks[CAM_CC_CSI5PHYTIMER_CLK] =3D NULL;
-> +		cam_cc_hawi_clocks[CAM_CC_CSIPHY5_CLK] =3D NULL;
-> +	}
-> +
->  	return qcom_cc_probe(pdev, &cam_cc_hawi_desc);
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921-maili_camc=
-c-v3-0-2f8d739ac2d4@oss.qualcomm.com?part=3D2
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
