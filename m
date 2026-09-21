@@ -1,35 +1,67 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 601035172C5;
-	Mon, 21 Sep 2026 21:46:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D0E0517BDB
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 21:46:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790027177; cv=none; b=P6cUJDuyq2kvkjubYhd6i6k4FVCIQ7gfsKtD5Zv9pjC1oZSb5GUUhW5c84ynRYHLqPk0ejIvDALUemYGnZc30K2nOtpNdZWNIIvdvUTq3iw0C8ek8RGu4Nq9exFbYV6/cpa7rvaznFa3cs2uQ4N28jF4/l7PeILAyhEjxFsAdpA=
+	t=1790027207; cv=none; b=eVKN+06xG41ceXxL9FRBNowu7vWlcKr4q1J7J3sKdNIkIxOaZo4DNEmd2YBd+ddFaHTLdohOvwrllqQPtAASJtV1/41T+y8xeXx/94gb41WgR0JC5vXmmNYbeLx/EGHNoKtTMwh8N1dGv4Z4J0fKgPyzlkLomvAw8GEgSZxLIns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790027177; c=relaxed/simple;
-	bh=S/FjZLw2JMnscIqs9SxURr83ipTNyq2rCWZhJbsUqzQ=;
+	s=arc-20240116; t=1790027207; c=relaxed/simple;
+	bh=Yc5Uc7ZFw+ABZqHHGfrsDtaZfnUyH0lPgtl/XXBBFbM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sam9E2EbM4b25vAJccFbkbtMZjSF+iF2z5J5nk6Tg1+2GbPxUCzRF2i7/5guXFm5pkvzePmgYIEram261vf1eYZJ3mh6Tvz5JPqQ7Uer3ZXFyi1tsxbFbtMHoL9avlyi1VnK0Kj3MrKSvedAH6DGE1elkk+wXIUzKA12ZupSWO0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=ehsrNji+; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	 In-Reply-To:Content-Type; b=jdrFhMVcqoV2m1fUyDmiXZ0RfwpzvOGSqgI6ddaNDwuEj9K57FmwCvbgP06O+E+rm/xHiYeU4y7+WtffLvKveKQ2HNfS/dch3C21R0ElBSgtdsm2+f6sfOfINlEwmfz2T1AzomVXDt2YbfXUUCdqjxHWV9IMPnR/S3NvXDAfVfs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=usOtonDa; arc=none smtp.client-ip=74.125.230.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="ehsrNji+"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CD7581054FF;
-	Mon, 21 Sep 2026 23:46:07 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1790027169;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=EISBgpV1yDqoSVGQWE/qnkBSJ6XiedIy0SjO363fM/Y=;
-	b=ehsrNji+fdOFOmvH09wSAEH0ipX3NZz2aGXPIaTICu/xtru1HbJYO/Oy9a4GnIgypf/1L2
-	/4UrhDaoeNgXdmwx/lmyLWOv//2i9YJYiaLrrCnBiyacF/1OpvxVU1k8zODaeeDIQ0NaeH
-	MVsvbEkYus25Ox9U9H6TF0AJShV3murBZr020KzgMGkDhc8CWRZU1fgvlbTiNVKTD8nyqF
-	ZbqOdc6KNZkWGMfB5BF6Fn9JGk9hf/X1tepTyXf9Wxd4xq2uFfmxrafIf60Us9gwDlgBBP
-	VaYlcGGJjYCf2y8GS4gKw/mBQqCiUITly6EepSqhzhERn3H1kSL14qIVc3MtAA==
-Message-ID: <5c918ab8-94f3-4926-a969-9585c7d63e2f@nabladev.com>
-Date: Mon, 21 Sep 2026 23:46:06 +0200
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="usOtonDa"
+Received: by mail-qk2-f43.google.com with SMTP id af79cd13be357-939109fafd6so287228385a.3
+        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 14:46:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1790027204; x=1790632004; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MZyT8k12LGsI6T36jz5Fg5RlaOjRcJ/zSXFiTQ+h2nQ=;
+        b=usOtonDaMYeMX3ZXgZaMup8ty4PM3XVEiN6I9tL/g6jEtooQtrH3AtpmkoV3OKDhGI
+         CzO8IsyvLopA/W4KWaJDJ0TOuGFmA8BP5aFb7z0qnz4WqAxVWyAKeU8rBM4xeYv1Wq18
+         T8psDYuiEpG+4hSUXXCkBp+RV89Kcmoqqw2Sng4JI5oVqP3kwkGwZ4ry9UsZkw/rZ78E
+         MCAsCOanEbPyYgdzjH00LujvZA1sCg5Eh2qGEptbkdreLbkHvf4zp+zoX3NnUaXAemV/
+         fozqoRz9M+kei7U5YJmCTtEHdTltjJojezjJOZtxhLi6CThD0oYhRnRkxNUxjQ30v5sd
+         uEEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790027204; x=1790632004;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MZyT8k12LGsI6T36jz5Fg5RlaOjRcJ/zSXFiTQ+h2nQ=;
+        b=hfw3jWRIO5nSEnuBlNEnsKOeqgX/o2trlxVAhtFIE4IV8CIi5IZ4DqEohgghiwme5S
+         drWqQ+VqQnJH7ANE2Fvkh/hzpphlk2Z3hxyajqVTug3UmVqXIY0PX5rNaG44v6ElBZEC
+         HYWRwGThx/zjAOPXDQJL295bgBZYvG1m4hLvzS2+sT1z+vCO8rtVI4TwYOcIseIeYoIv
+         +WH5z/jMWdW3YgPkmwEO84yKkT5SG4kAC9uw5IzqV41p4ZvXJd/SpUjlAfSVJEE7chll
+         J9Ol4pgwBzrXpwDJ6TPExHrAr4RwLquezY0ZiNZ1AGD57SQoe5HhKOie3fSjjj24iaaw
+         7ZIg==
+X-Forwarded-Encrypted: i=1; AKwUvBwpL3PYhFHV+VfvmaHgUFqUAWqxq+Nvd8GvGwypAs1rrQct4B9ZdUBURZlzHTAn7aSNvsVABwM06q1k@vger.kernel.org
+X-Gm-Message-State: AFuF++kF/Rw77pAzY0V8/0TZeBhv6rYhHEOI1/fg7KRm0N9zIxvCyrOV
+	8Sdid3hF/+ZnSnOh/F4gdwTbRsRzGYM8RpG5fuDJrwqnzYPI67QaN/dDCXt3lB6qvmw=
+X-Gm-Gg: AYBFou2WKhBHeBZzvzY3NbxZaMEB/XiQqdqtCJZMYcwr73qVMQuBn/6kT38tQWNpBaU
+	OHuFPtuyYDpNCwtiak09JUKESo8OUXm30nmBCxlbOY0Kj+qsJa2mmPmljtxsG9/RXF1Lf42UNzS
+	TdlRTghewWs6gcopht69A7ttiwpQ5gxwx7VVOPAAhrgmQtj/XFGxFtuylNaElwm9aBqT4xy3RWe
+	DzoU0tnJAeXvFCxX1FO7OXnWZi5frzWs4UlC4h51N5MIWpyYWduedi+NHwfiaOYtfWn+TGsqYZI
+	5JTs2RcIe6le4kQzVAaBJZJoAbEAm6MMgc0EOXC+69eD7O3xzbTqIEmNS+zkgdtgamfcMuu4W5R
+	BH4xtqg6wPQZ5KYv0ZmFGWhU4vpK9LHIp9rfss5WMq1VqbRwEJ3QQjDSn+s4HB+WHTmaYT+Dfsf
+	rT0823jg//H7ZrsyEMPpnCvfY+JcRhprSQcwrh11mMkEUduZtYkcfaF7cLUIwRjmOyV7vRVcg=
+X-Received: by 2002:a05:620a:4496:b0:93b:d7d7:8739 with SMTP id af79cd13be357-93c15e4296bmr271488185a.46.1790027203515;
+        Mon, 21 Sep 2026 14:46:43 -0700 (PDT)
+Received: from [172.22.22.28] ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c19a604dasm24653985a.11.2026.09.21.14.46.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 21 Sep 2026 14:46:43 -0700 (PDT)
+Message-ID: <85b0e7de-e4a8-4e08-b801-a9664d366e1a@riscstar.com>
+Date: Mon, 21 Sep 2026 16:46:41 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -37,77 +69,173 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/3] arm64: dts: imx95: Add support for Data Modul
- i.MX95 eDM SBC
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Marc Kleine-Budde <mkl@pengutronix.de>, robh@kernel.org,
- Frank.Li@kernel.org, imx@lists.linux.dev, conor+dt@kernel.org,
- Oliver Hartkopp <socketcan@hartkopp.net>,
- Oleksij Rempel <o.rempel@pengutronix.de>, linux-can@vger.kernel.org,
- Vincent Mailhol <mailhol@kernel.org>, devicetree@vger.kernel.org
-References: <aqwbBQUSfd60nVeI@SMW015318>
- <384c5f71-d5ab-4990-9567-027605457439@nabladev.com>
- <aqw1agBrSjYoy71_@SMW015318>
- <c1197d8e-add5-48b7-b0ba-a5a91379ab04@nabladev.com>
- <aq1DnBkxgF49QLwa@SMW015318>
- <bca6ea91-297b-4316-b5db-74636593b084@nabladev.com>
- <arFaPA6aeFey9WlI@SMW015318>
- <c43d3f57-8268-45f2-a654-a11ee4adb72d@nabladev.com>
- <arFlScBqnMDmJi2O@SMW015318>
- <abd334fb-22d4-4b71-9d44-4aa3c2789b79@nabladev.com>
- <arGETwtIZxP3yOP1@SMW015318>
+Subject: Re: [PATCH 1/4] dt-bindings: mfd: introduce the TC9564 config syscon
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, lee@kernel.org,
+ andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
+ kees@kernel.org, gustavoars@kernel.org, p.zabel@pengutronix.de,
+ daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
+ lorenzo.bianconi@oss.qualcomm.com, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, mfd@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260918165234.687224-1-elder@riscstar.com>
+ <20260918165234.687224-2-elder@riscstar.com>
+ <20260920-fiery-fanatic-manticore-6abf0a@quoll>
 Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <arGETwtIZxP3yOP1@SMW015318>
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <20260920-fiery-fanatic-manticore-6abf0a@quoll>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-On 9/21/26 9:23 PM, Frank Li wrote:
+On 9/20/26 1:18 PM, Krzysztof Kozlowski wrote:
+> On Fri, Sep 18, 2026 at 11:52:30AM -0500, Alex Elder wrote:
+>> Define the binding for a system controller used in the Toshiba
+>> TC9564 SoC.
+>>
+>> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
+>> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+>> Signed-off-by: Alex Elder <elder@riscstar.com>
 
-[...]
+Thank you for your feedback, Krzysztof.
 
->>>> Hence, base common stuff in the base DT, stuff that changes in the DTOs.
->>>
->>> Idea is good, but avoid hack stuff. Can you show me what's plan use
->>> reg_panel_vcc in dtso and how to share it.
->> See above, currently I cannot really use the regulator, because of the
->> missing DPU support.
+>> ---
+>>   .../bindings/mfd/toshiba,tc9564.yaml          | 56 +++++++++++++++++++
+>>   MAINTAINERS                                   |  1 +
+>>   2 files changed, 57 insertions(+)
+>>   create mode 100644 Documentation/devicetree/bindings/mfd/toshiba,tc9564.yaml
+>>
+>> diff --git a/Documentation/devicetree/bindings/mfd/toshiba,tc9564.yaml b/Documentation/devicetree/bindings/mfd/toshiba,tc9564.yaml
+>> new file mode 100644
+>> index 0000000000000..32e73a727c82a
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/mfd/toshiba,tc9564.yaml
+>> @@ -0,0 +1,56 @@
+>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/mfd/toshiba,tc9564.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Toshiba TC9564 System Controller
+>> +
+>> +maintainers:
+>> +  - Alex Elder <elder@riscstar.com>
+>> +  - Daniel Thompson <daniel@riscstar.com>
+>> +
+>> +description: |
 > 
-> I suggest add it when it will be used.
+> Do not need '|' unless you need to preserve formatting.
 
-The users can already use it with additional downstream patches, so 
-having the base node in the DT is helpful to the users.
+OK.
 
-> Or Remove gpios = <&i2c2_gpio_expander_20 17 0>;
-
-Having the GPIO described here is also helpful to the users, since they 
-won't have to look up which GPIO is controlling this regulator in the 
-schematic, and won't make mistakes.
-
-> Suppose it will be overwrited by dtso future.
-
-Only the polarity.
-
->> The only DTO I temporarily have in tree (used with my
->> DPU patchset) is for the RPi 7" display 2, which does not use this
->> regulator.
->>
->> The plan is to use it the same way as on the MX8MM/MX8MP eDM SBC in the DTO:
->>
->> &reg_panel_vcc {
->>    gpios = <&i2c2_gpio_expander_20 17 GPIO_ACTIVE_HIGH>;
->>    enable-active-high;
->>    status = "okay";
->> };
->>
->> or
->>
->> &reg_panel_vcc {
->>    gpios = <&i2c2_gpio_expander_20 17 GPIO_ACTIVE_LOW>;
->>    status = "okay";
->> };
+>> +  The Toshiba TC9564 is an SoC accessed by a host system through the
+>> +  upstream PCIe port on the PCIe switch it implements.  The switch includes
+>> +  an embedded PCIe endpoint on one of its downstream ports that provides
+>> +  access to various SoC peripherals (including a clock and reset controller)
+>> +  via one of its BARs.  A system controller provides managed access to the
+>> +  first two pages of this memory region to ensure accesses made by these
+>> +  peripherals produce well-defined results.
+>> +
+>> +properties:
+>> +  compatible:
+>> +    items:
+>> +      - const: toshiba,tc9564-config
+>> +      - const: syscon
+>> +      - const: simple-mfd
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  ranges: true
+>> +
+>> +  '#address-cells':
+>> +    const: 1
+>> +
+>> +  '#size-cells':
+>> +    const: 1
 > 
-> In future, it should be nexus node for it and put reg_panel_vcc into dtso
-> files, and looks like you use gpio controller add-on boards's regulator.
-There is really no need for a nexus node, only for a polarity setting.
+> Both properties and simple-mfd are redundant. You do not have children.
+
+I think ranges, #address-cells, and #size-cells might have
+been left here by mistake, and I hadn't noticed.  (They are
+required to be included within a pci-ep-bus sub-node, but
+even if that's why they're here, they're in the wrong place.)
+
+I will remove these three properties, as well as the
+"simple-mfd" compatible string in version 2.
+
+>> +
+>> +required:
+>> +  - compatible
+>> +  - reg
+>> +
+>> +unevaluatedProperties: false
+> 
+> And this should be additionalProperties instead
+
+OK.
+>> +examples:
+>> +  - |
+>> +    syscon@0 {
+>> +        compatible = "toshiba,tc9564-config",
+>> +                     "syscon",
+>> +                     "simple-mfd";
+>> +        reg = <0x0 0x2000>;
+>> +        #address-cells = <1>;
+>> +        #size-cells = <1>;
+>> +        ranges;
+> 
+> As you can see here - no children.
+
+I have seen some examples of syscon nodes that incorporate
+sub-devices, while others do not.
+
+Our purpose for defining a syscon here is to coordinate
+access for multiple devices to several registers located
+within the same page of memory.
+
+I think this device was originally defined in a sub-node
+because the only memory accesses it requires are within
+the range covered by the syscon.
+
+Should we instead define the syscon to be a fairly trivial
+standalone thing, and then refer to it in the clock/reset
+device node by phandle?  (Or have the driver look it up
+by compatible string?)
+
+     tc9564_config_syscon0: syscon@0 {
+         compatible = "toshiba,tc9564-config",
+                      "syscon";
+         reg = <0x0 0x2000>;
+     };
+
+     clock@1004 {
+         compatible = "toshiba,tc9564-clock";
+         toshiba,config-syscon = <&tc9564_config_syscon0 0x1004>;
+         #clock-cells = <1>;
+         #reset-cells = <1>;
+     };
+> I also have doubts that this is needed - I see no updates to the misc
+> binding, which would be referencing it. But then another point would be,
+> that you do not need separate child node, which has no properties.
+
+I'm sorry if I'm missing something.  I saw other examples of
+syscon nodes being defined, and tried to copy what I saw, but
+obviously got it wrong.
+
+> Well, has one - address space.
+> 
+> Lack of full picture is not helping here.
+
+I will gladly provide a better picture, but I also want to
+stay focused on what's necessary for the binding.
+
+I have more in my next message.
+
+					-Alex
+
+> Best regards,
+> Krzysztof
+
