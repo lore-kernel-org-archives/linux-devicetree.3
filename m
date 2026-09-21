@@ -1,129 +1,126 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 806863AE704
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 19:36:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 315663AE704
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 19:38:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790019394; cv=none; b=M98nrN/9B1L13Wrh0PcxyXsFR1yDNm8rmdhAYyTI3R5nnjZgOs4pxzx7AflBwIQqnUucNRLP/mF0+ghg/2UUK3pcWR/iG62xg/G6wv/BoXbfBaZd4A/ZZGoqgVKOCe30lDaaiQPhTopd+3AZVCynciCIzT5Kb8hjMahUAomw6jA=
+	t=1790019511; cv=none; b=piNJpgcYMM7+ZuOzetiKShntdhG2gjJF4ViT4eQs8HnptYQpkqlGPWLf2xHuBC08oIuhLEp/5EpCDV7vxRmRBmZkhlVmFowBmbIGf3gUercQSZQnmFRLwUeZ9I0jpsVk8bF8eqamZQLoJQq1n9uX/DPrCvdNwzhzpGgUgUqYvqQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790019394; c=relaxed/simple;
-	bh=OaVkxkmraawHNTKTHsTGdgc0Vs97xI/bTkINePWEX74=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=N0OZVSA2JYnTdHAuWmxj65v+9b26S0mwlrWjX7Lc50X6voJal+hIeIzcMYubY/1dWmct+ddNdbcRjC/dxNRe31weRUmV80qh/FzjZpihHTSxbH2RnYfclXb4OGQ0+xGiX4AHGg8mKi1y5OEBVTL7FwBGDkOegT8uHZBCrR0CnsY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pIfd9lf9; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790019511; c=relaxed/simple;
+	bh=y9h1im/jnXeqPTiK2M3AC1QUCYkicur3yCIiMGWp5FU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Ei72nIMQ/wUcrqEZ3/9nm/ScX8HMpvHk4uVszKTqk8cj6Pg2ZdP429k1VgqJpUtIMc6ApZRhmY99jJyGq6fxKhonQO1tH6B8FWVByn7ztw8DyPtWpOZ6SXrNRRgz3cxkeHIbZY1oVSoZ1JZgbWrF427+uG9PmR6ibI9xVdbagjk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q7mdQryq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pIfd9lf9"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e721b5503so33463025e9.0
-        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 12:36:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790019390; x=1790624190; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MGcvaZSPcorP6DNYm+a0nDXUDpyXPezZYvSZ9UhvaG0=;
-        b=pIfd9lf9FrU+l8KQYa0sYtiSa9yESMeTa1/gvq4MPS433hEfZoKAD7WCF+Gy3gg9n5
-         WGemnkxg0UZSi5tcOheCVKI94sWTWLZ/0HivkQGgAnnUtJnXVaRag36RzeZaN6fwCsNJ
-         qnBTujA0Hcu8QvTykdTrkb9YA0xOmvbhEqPt4QdIx8mubxqxB6YzR58oYgXZd3ccMRXM
-         ftObY82r8C3erfJli+7SPdmFWrp2AqjjT08ZhIu/qH8tusZbYSx/XPbBbx6kHqigB9eD
-         5/NhIiugh4yKa/DUFufbb8GWxYj6bUmLpQymunQve4bJdY6UNSmmZz8l1bu5e3Xd4QC8
-         //nw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790019390; x=1790624190;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MGcvaZSPcorP6DNYm+a0nDXUDpyXPezZYvSZ9UhvaG0=;
-        b=HHQuXk0oihNLsyN+IekDyZpDyqDEDd52Y8EdEpAuJLWpzMNbbQxarg+MTpDEMBccuQ
-         6DJjGsNcq+ys+4yrE3fLnrgWkmkUVUThf/r+zdUELA8bgopM3D+4HeYr7owLqlKaS9ul
-         HgQXNAsS6v0+LqqDElH8Z3T4fOaaPVtPDBUS6+R2ye5hHkexZ8n1y5dGSIE4TnZvw4d1
-         nUt/AEXUglZB1rDGV9bW6pEL+LkTU8WqjikeTHu82TfGzkaHj1QRC1Rka7K7PDKpHP6a
-         ZQNXy0YYzySLQmzXsaAIBd+MlGYJrXZmJA2oMix5DlLry/7Ez/8Eb71ubEnjd9DgsLrT
-         MEpw==
-X-Forwarded-Encrypted: i=1; AKwUvBz+gAqewn9hIA+ij5V1WSEmydwBovJWTTEkfn37I3sxlkj/F80cyETjAkkmM50MOXenYB9pY3mkWKY/@vger.kernel.org
-X-Gm-Message-State: AFuF++m16BJL2595loE6yW7I4k3W4QAuR7PZRo3IhtHo1yVP2MK38xHd
-	EKxKA7CiImcYPNqd+28OoA7PnUkNbKodH4AijUSu2DiBvTXuS6xkh/XQ
-X-Gm-Gg: AYBFou0YvTEv5o3GVUaJXHM8I+DXp4IHIQTMB3XTzt5msBe0sNOWGjRkNRIi5GHPkK7
-	3nz6xWcTPGSsCobd8S780+hKUY6oQU5CdlKn0aySBc2ntfddwNLzIoFGtU0sqzcDXSvUsRnQReX
-	G192e9JsHVi2mEPkiqoL6viMUp1LDT1aBMynHauJMAwvBamaIRpcyq5jaE28OHA6BU/SrDoOAdm
-	M8WZqNu/3ydlcTkhq71YI0bNf2TN627anfQrDysMj1pQxjhzg/lhYFlFy9iZMNyM7Mnl2uyz2gW
-	r0hW7uSmSVB5h7SsR+N6k2qrcW9K1Mkepd0wA3hYOtA7gR9BlYChPSQ1oAyj4AtBQ8Hb4egltab
-	yvUD8ky5Id39urv1pRndgzCG5IdM0vq30QcY64oF8s20bwPqztg5rFMzgKS/D2mZ+V1nqXUUJJP
-	MOwpqyGR0IOgitNobtifXLNGhhkO+Mr7sWMeqWly7V6HnT0US21kwqbcToZe+xXlp2mzKNDVusv
-	X610/GcRjiJ4mpR/EIqKS87DR3qHtihph+IZ+ZxeOf9zAWYwNh5vQ==
-X-Received: by 2002:a05:600c:4e8f:b0:49c:fc6c:be19 with SMTP id 5b1f17b1804b1-49fc574c2b9mr174061695e9.31.1790019389438;
-        Mon, 21 Sep 2026 12:36:29 -0700 (PDT)
-Received: from [192.168.0.40] (212.71.14.70.adsl.dyn.edpnet.net. [212.71.14.70])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fd8b96cefsm13450625e9.1.2026.09.21.12.36.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 12:36:28 -0700 (PDT)
-Message-ID: <9dd42965-f39b-49e5-aeef-5d03647b2005@gmail.com>
-Date: Mon, 21 Sep 2026 21:36:27 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q7mdQryq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C5A11F000FF;
+	Mon, 21 Sep 2026 19:38:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790019509;
+	bh=jU+O1pD92+y8U5ljoHi2GXcig9vcZbsMAnHGgYRM1bQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Q7mdQryqWx1qU/b/hDAgPBfUHt1oMICQNTtaIvhDBW16J4c/Dywdu6WUCriO+Qy6t
+	 Xt9rxH/YAZ6Th4CLcPyzNnfIVgiElkWRqkR2GWSyyw8HpH/eLw/gJ3mZVpwelu8jkd
+	 X4lEvOmuC92OneAcQiLSguGQdhcaexnKU45SflDXZ6bi7fhpNC0Bvwkcl5QiQNXsbd
+	 14DXuH7XbHyU3YBCXcDmRyzxQOefHAx+8sXjfvS856mXeVtJxzu5zC2lDBco7edSyv
+	 PdphkNJqSar4zwnNcfHs6C57BWCnqpl9B7yjaCbNxMBeYjCXL+LrvVOgydwvCyj4wA
+	 VHMp73/oJxAUg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 2/3] media: i2c: Add Sony IMX681 sensor driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sergey Lebedev" <lsa.uz@pm.me>
+Cc: media-ci@linuxtv.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260921192450.21811-3-lsa.uz@pm.me>
+References: <20260921192450.21811-1-lsa.uz@pm.me>
+ <20260921192450.21811-3-lsa.uz@pm.me>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 21 Sep 2026 19:38:29 +0000
+Message-Id: <20260921193829.8C5A11F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] rtc: Add Raspberry Pi 5 RTC driver
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Jonathan Bell <jonathan@raspberrypi.com>, Stefan Wahren <wahrenst@gmx.net>,
- linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- Dom Cobley <popcornmix@gmail.com>
-References: <20260917135841.841680-1-sander.speetjens@gmail.com>
- <20260917135841.841680-3-sander.speetjens@gmail.com>
- <20260918-outrageous-myrtle-giraffe-80dfdc@quoll>
- <20260921185949d6debd17@mail.local>
-Content-Language: en-US
-From: Sander Speetjens <sander.speetjens@gmail.com>
-In-Reply-To: <20260921185949d6debd17@mail.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-> This was my comment on the previous revision, I'm not sure why it was
-> ignored.
-Looks like that email got lost on my end, I found it in the archive.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] media: i2c: imx681: non-atomic control updates due to missing cl=
+uster
+--
 
-> This undocumented sysfs interface has to be removed.
-Just to make sure I understand correctly: does "This undocumented
-sysfs interface has to be removed" mean that
-   a) the attributes themselves are not wanted and should be dropped, or
-   b) they are acceptable but must be properly documented under
-      Documentation/ABI/ before they can stay?
+commit acaa5eee3740a4ac3a0c239fabfd5d066ae26848
+Author: Andre Gilerson <andre.gilerson@gmail.com>
 
-Kind regards
-Sander Speetjens
+media: i2c: Add Sony IMX681 sensor driver
 
-On 9/21/26 20:59, Alexandre Belloni wrote:
-> On 18/09/2026 13:47:22+0200, Krzysztof Kozlowski wrote:
->> On Thu, Sep 17, 2026 at 03:58:41PM +0200, Sander Speetjens wrote:
->>> +	return devm_rtc_register_device(vrtc->rtc);
->>> +}
->>> +
->>> +static const struct of_device_id rpi_rtc_dt_match[] = {
->>> +	{ .compatible = "raspberrypi,firmware-rtc"},
->> Please fixup white space issues, see existing drivers (missing space
->> before }
->>
->>> +	{},
->> and unnecessary ,.
->>
->> Just take existing latest code as starting point, otherwise you
->> reintroduce discouraged patterns.
->>
->> More important: undocumented ABI.
->>
-> This was my comment on the previous revision, I'm not sure why it was
-> ignored.
->
->
+This commit adds support for the Sony IMX681 sensor found on Intel Lunar La=
+ke=20
+devices like the Surface Pro 11. It configures the sensor using=20
+reverse-engineered I2C sequences and exposes controls via the V4L2 API.
+
+> diff --git a/drivers/media/i2c/imx681.c b/drivers/media/i2c/imx681.c
+> new file mode 100644
+> index 0000000000000..825d8c80a29b8
+> --- /dev/null
+> +++ b/drivers/media/i2c/imx681.c
+[ ... ]
+> +static int imx681_set_ctrl(struct v4l2_ctrl *ctrl)
+> +{
+[ ... ]
+> +	switch (ctrl->id) {
+> +	case V4L2_CID_VBLANK:
+> +		cci_write(imx681->cci, IMX681_REG_GROUP_HOLD, 0x01, &ret);
+> +		cci_write(imx681->cci, IMX681_REG_FRAME_LENGTH,
+> +			  IMX681_HEIGHT + ctrl->val, &ret);
+> +		cci_write(imx681->cci, IMX681_REG_GROUP_HOLD, 0x00, &ret);
+> +		dev_dbg(imx681->dev, "set frame_length: %d, ret=3D%d\n",
+> +			IMX681_HEIGHT + ctrl->val, ret);
+> +		break;
+> +
+> +	case V4L2_CID_EXPOSURE:
+> +		cci_write(imx681->cci, IMX681_REG_GROUP_HOLD, 0x01, &ret);
+> +		cci_write(imx681->cci, IMX681_REG_EXPOSURE, ctrl->val, &ret);
+> +		cci_write(imx681->cci, IMX681_REG_GROUP_HOLD, 0x00, &ret);
+
+[Severity: Medium]
+Does this break hardware atomicity during control updates?
+
+The group hold is toggled independently for every control modification. If a
+frame readout boundary occurs between these separate I2C transactions, could
+the sensor latch a partial state, causing image tearing or brightness glitc=
+hes?
+
+[ ... ]
+> +static int imx681_init_controls(struct imx681 *imx681)
+> +{
+[ ... ]
+> +	/* Exposure */
+> +	imx681->exposure =3D v4l2_ctrl_new_std(ctrl_hdlr, &imx681_ctrl_ops,
+> +					     V4L2_CID_EXPOSURE,
+> +					     IMX681_EXPOSURE_MIN,
+> +					     IMX681_EXPOSURE_MAX, 1,
+> +					     IMX681_EXPOSURE_DEFAULT);
+> +
+> +	/* Analog gain */
+> +	v4l2_ctrl_new_std(ctrl_hdlr, &imx681_ctrl_ops, V4L2_CID_ANALOGUE_GAIN,
+> +			  IMX681_ANA_GAIN_MIN, IMX681_ANA_GAIN_MAX, 1,
+> +			  IMX681_ANA_GAIN_DEFAULT);
+> +
+> +	/* Digital gain */
+> +	v4l2_ctrl_new_std(ctrl_hdlr, &imx681_ctrl_ops, V4L2_CID_DIGITAL_GAIN,
+> +			  IMX681_DIG_GAIN_MIN, IMX681_DIG_GAIN_MAX, 1,
+> +			  IMX681_DIG_GAIN_DEFAULT);
+
+[Severity: Medium]
+Are these related controls missing a call to v4l2_ctrl_cluster()?
+
+Because vblank, exposure, and the gains are instantiated but never clustere=
+d,
+the V4L2 core will invoke imx681_set_ctrl() sequentially for each individual
+control rather than passing them as a single atomic update.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921192450.2181=
+1-1-lsa.uz@pm.me?part=3D2
