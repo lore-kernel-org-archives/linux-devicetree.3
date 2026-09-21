@@ -1,81 +1,174 @@
-Received: from mail-244121.protonmail.ch (mail-244121.protonmail.ch [109.224.244.121])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17E9B38E8BA
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 19:25:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.121
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 803D539020C
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 19:25:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790018721; cv=none; b=UFHGDmsRqWWLicn0v9e59FUOQFK0UF7QsTCrKrwt0+YyvHaQ3lqSiHGckrGriRrvrXwvOc3RRgLW/fjdD2tVG8V8q5Z03tBRNX//2oq/iyS3metxyAn8i3l0PpwUiiUJN24jFI882eizqt9z9fvIbRJt4ROUH6SZfEBTIIvAvKs=
+	t=1790018724; cv=none; b=IhXVJpUjs4HKHHbemc2llkBbX4PQpRR7A87scrQvt577elw2jBGW+tqbXfnJJb6kjhnwsPlOt7XZ4k3bnu0SwhdlGqXrknw/HO+sWXry0fIrpfm/kUSIfELSjXYXGGjP4FU7eddgwe2ASuWxZrL2SQmDNSVu1KA2tDyF0wqMMyw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790018721; c=relaxed/simple;
-	bh=h9Trgpq+IKaW7jFGrhNGqF9VOhmwiuANsQLufQFcwWA=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rV9AXYG89FuYkjS4UrWA1tIOOvpfB/qdfmjKVilNfErbNwpNXw8Yud16calGNgn2YaP8CzF+5IazsaGKbS6Dlo7fH194G9OlPgusOmsbwUrYvcFk+VGqf+Sgs0FQQFFme5O9mx+kaGnkaYDIHZpU/84S0GNhtMVFyGdNKxWgz3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=qar9lRDP; arc=none smtp.client-ip=109.224.244.121
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1790018724; c=relaxed/simple;
+	bh=DmrpIYOQ8ExFiAIrHxWd73HalZhaIGVnB1SKMycZENA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Wt+5Zh17dwUb+yYqo2zfjvbe4j6Zy5demHC7sS2HFTDrp3xyDmHmmYb3Nuynysw9l0kgbXteFbCj/x0ruQsMtM7iB00EkVEPwizKUVXhNyUfUbUFWQRuNopxwsVenedQjICycIoCVRiH3Ul6++q2m7T23RB01enequBq+Vo0Ts4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EYoOtgJ5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="qar9lRDP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1790018718; x=1790277918;
-	bh=h9Trgpq+IKaW7jFGrhNGqF9VOhmwiuANsQLufQFcwWA=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=qar9lRDPkIM0UkiJjfUgrGPCOg8yeVqhCgfKpqaBjP1RZGmz+OBVHhA3WuZgBUMym
-	 tUjEPkvS91tJHlZ7SetAlTJUJbwAte6PcyxFlzBp3MaFx4z8F13J9vU4sTnMWvMF9u
-	 14C6LyUQhN5pREgJVm1eskskUt/XTBLLVzZ3QfHc5rs5LAxf5yyPwX2PYq72yss/yW
-	 o/C+6iK6QB912iDMt7EuBMMK8voVM2FlK7FSE6tFwCzeAgv64/7ee6SbiNDmX7HDIQ
-	 t89DzDepuaDRnHkuwJOsanPNLZybwuo+THm94WigbKn1BeJN2sbnbtbxbA7Ir57jD2
-	 0TtDdacNgsxPg==
-Date: Mon, 21 Sep 2026 19:25:13 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v5 3/3] media: ipu-bridge: Add Sony IMX681
-Message-ID: <20260921192450.21811-4-lsa.uz@pm.me>
-In-Reply-To: <20260921192450.21811-1-lsa.uz@pm.me>
-References: <20260921192450.21811-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: f8a8323559918e895ce9fbf9f3bb4b6d95af4214
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EYoOtgJ5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A8DE1F00893;
+	Mon, 21 Sep 2026 19:25:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790018723;
+	bh=XgfowBqWfVI8oGjE7CgGFevM7mIce17ZANUVlJuO8bA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=EYoOtgJ5kfqShW2Tk9XcCweXkMBAgAHlQuk2gsVDathHwYe+Cho0D6cmqfl5RMvjP
+	 gmZicIxLktXkPfWlQefn0SEnpUaWJxmJxNzIvX1CavxifFKIDfna9UC8bh/sMy23Uz
+	 lpMsgA7nktiqrtE6QY30vY3o+wjBhZVC5JPxzelK3ljFTXIo3rbm5/lBIwCREAa9Dk
+	 Gnuy+oDRzP1Ur99IFS42k9PnDIuOrgBBVp/h+uwJhYuocuo94sxHxrXBRHQ1LMhgN5
+	 fog784ztoxDR2yuNVRtnYY9uKNdCb6jokDBQTtDg4IhBKYxrlHsxahOsVXuVd7AO9C
+	 drgaka6Ygq5iw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 4/4] ASoC: qcom: q6apm-dai: add SCM buffer assignment
+ for mDSP platforms
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ajay Kumar Nandam" <ajay.nandam@oss.qualcomm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260922-vmid-v4-v5-4-e79cfd7af5b3@oss.qualcomm.com>
+References: <20260922-vmid-v4-v5-0-e79cfd7af5b3@oss.qualcomm.com>
+ <20260922-vmid-v4-v5-4-e79cfd7af5b3@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 21 Sep 2026 19:25:22 +0000
+Message-Id: <20260921192523.2A8DE1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-The Microsoft Surface Pro 11 for Business (Intel Lunar Lake, IPU7) carries
-a Sony IMX681 as its user-facing sensor, enumerated as ACPI device
-SONY0681. Add it so ipu_bridge_connect_sensors() builds its half of the
-graph; without the entry the sensor is never connected, whatever driver is
-present.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] asoc: qcom: compress stream allocation bypasses reserved pool size=
+ limits
+- [Medium] asoc: qcom: SCM assignment expands beyond reserved memory bounds
+- [Medium] asoc: qcom: memory and graph leak in q6apm_dai_compr_open() erro=
+r path
+- [Medium] asoc: qcom: capture stream lacks dynamic buffer size constraint
+--
 
-One link frequency, 969.6 MHz, on two CSI-2 lanes.
+commit 8016abb309ec8211ded913589c6a8b5656e3fed2
+Author: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+Subject: ASoC: qcom: q6apm-dai: add SCM buffer assignment for mDSP platforms
 
-Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
----
- drivers/media/pci/intel/ipu-bridge.c | 2 ++
- 1 file changed, 2 insertions(+)
+This commit adds support for mDSP platforms by explicitly assigning PCM buf=
+fers
+to the appropriate Virtual Machine IDs via SCM calls at probe time and duri=
+ng
+stream opening. It manages whole-pool assignment for data-path buffers when=
+ a
+memory region is provided, falling back to per-buffer assignments when no
+data-path pool is present.
 
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel=
-/ipu-bridge.c
-index 77257311d1..a1a4023f81 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -116,6 +116,8 @@ static const struct ipu_sensor_config ipu_supported_sen=
-sors[] =3D {
- =09IPU_SENSOR_CONFIG("OVTI5693", 1, 419200000),
- =09/* Omnivision OV8856 */
- =09IPU_SENSOR_CONFIG("OVTI8856", 3, 180000000, 360000000, 720000000),
-+=09/* Sony IMX681 */
-+=09IPU_SENSOR_CONFIG("SONY0681", 1, 969600000),
- =09/* Sony IMX471 */
- =09IPU_SENSOR_CONFIG("SONY471A", 1, 200000000),
- =09/* Sony IMX471 (found on Lenovo X1 Carbon G14) */
+> diff --git a/sound/soc/qcom/qdsp6/q6apm-dai.c b/sound/soc/qcom/qdsp6/q6ap=
+m-dai.c
+> index 033197bdd8705..8f12b860e1250 100644
+> --- a/sound/soc/qcom/qdsp6/q6apm-dai.c
+> +++ b/sound/soc/qcom/qdsp6/q6apm-dai.c
+[ ... ]
+> @@ -409,8 +502,11 @@ static int q6apm_dai_open(struct snd_soc_component *=
+component,
+>  	}
+> =20
+>  	if (substream->stream =3D=3D SNDRV_PCM_STREAM_PLAYBACK) {
+> +		size_t buf_max =3D pdata->has_reserved_mem ? pdata->reserved_buf_size :
+> +							   BUFFER_BYTES_MAX;
+> +
+>  		ret =3D snd_pcm_hw_constraint_minmax(runtime, SNDRV_PCM_HW_PARAM_BUFFE=
+R_BYTES,
+> -						   BUFFER_BYTES_MIN, BUFFER_BYTES_MAX);
+> +						   BUFFER_BYTES_MIN, buf_max);
+
+[Severity: Medium]
+Since this constraint is only applied when the stream is
+SNDRV_PCM_STREAM_PLAYBACK, capture streams still advertise a static
+BUFFER_BYTES_MAX of 512KB. If the reserved memory pool limits reserved_buf_=
+size
+to something smaller than 512KB, couldn't userspace request a capture size =
+up
+to 512KB, causing hw_params to fail because the preallocated buffer is too =
+small?
+
+>  		if (ret < 0) {
+[ ... ]
+> @@ -683,6 +814,17 @@ static int q6apm_dai_compr_open(struct snd_soc_compo=
+nent *component,
+>  	if (ret)
+>  		return ret;
+> =20
+> +	if (pdata->use_scm_assign && !pdata->has_reserved_mem) {
+
+[Severity: High]
+When has_reserved_mem is true, the device's DMA allocations are fulfilled f=
+rom
+the memory-region[1] pool. However, this function unconditionally allocates=
+ 8MB
+(COMPR_PLAYBACK_MAX_FRAGMENT_SIZE * COMPR_PLAYBACK_MAX_NUM_FRAGMENTS) witho=
+ut
+capping it to pdata->reserved_buf_size like the PCM streams do. Will this
+massive allocation immediately exhaust the shared data-path pool, starving =
+all
+other streams, or fail outright if the pool slice is smaller than 8MB?
+
+> +		ret =3D q6apm_dai_scm_assign(pdata, prtd->dma_buffer.addr,
+> +					   ALIGN(size, PAGE_SIZE));
+> +		if (ret) {
+> +			dev_err(dev, "SCM assign compr buffer failed: %d\n",
+> +				ret);
+> +			snd_dma_free_pages(&prtd->dma_buffer);
+> +			return ret;
+
+[Severity: Medium]
+If q6apm_dai_scm_assign() fails here, the driver frees the DMA buffer and
+returns directly. Doesn't this bypass freeing the prtd structure (allocated=
+ via
+kzalloc_obj) and closing the DSP graph (opened via q6apm_graph_open)? The A=
+LSA
+core does not invoke the .free callback when .open returns an error, so this
+appears to cause a permanent memory and graph resource leak.
+
+> +		}
+> +	}
+> +
+[ ... ]
+> @@ -1029,12 +1177,122 @@ static int q6apm_dai_probe(struct platform_devic=
+e *pdev)
+[ ... ]
+> +		if (mem_count >=3D 1) {
+> +			struct device_node *mem_node;
+> +			struct reserved_mem *rmem;
+> +
+> +			mem_node =3D of_parse_phandle(node, "memory-region", 0);
+> +			rmem =3D of_reserved_mem_lookup(mem_node);
+> +			of_node_put(mem_node);
+> +			if (!rmem) {
+> +				dev_err(dev,
+> +					"memory-region[0]: lookup failed\n");
+> +				return -ENODEV;
+> +			}
+> +
+> +			rc =3D q6apm_dai_scm_assign(pdata, rmem->base,
+> +						  ALIGN(rmem->size, PAGE_SIZE));
+
+[Severity: Medium]
+SCM assignments modify memory protections at the TrustZone level. Since the
+ALIGN macro indiscriminately rounds up the size, what happens if the device
+tree provides a carveout size that is not a multiple of PAGE_SIZE? It seems
+the driver will request TrustZone to reassign the trailing bytes that belong
+to adjacent, unreserved kernel memory, which revokes HLOS access to that
+adjacent memory and could cause a kernel crash when accessed by other
+subsystems.
+
+> +			if (rc) {
+
 --=20
-2.54.0 (Apple Git-157)
-
-
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922-vmid-v4-v5=
+-0-e79cfd7af5b3@oss.qualcomm.com?part=3D4
