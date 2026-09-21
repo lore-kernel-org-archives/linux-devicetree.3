@@ -1,106 +1,295 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F8B04AA402
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 16:02:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 084514B44C0;
+	Mon, 21 Sep 2026 16:03:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790006571; cv=none; b=NZ4MUe9NVWo/DyOPg4kVAe9GoOAX7+Lgbx+Qe7CpPjWItxr62zoynhmBN+08rL5uewuvQzjZJe1dbRXaaW4IOMEoBFKc258DA6EskBlemtV98l/aYqcbnoEsitRfvtl2XFRzoxk/IkBfzARiJKZhjCuqwlZzotws5ASMzxa7IZY=
+	t=1790006610; cv=none; b=CKUA1aEVbf4+6EsEMbKrvsIvM6l90LD9BOv6EmXraY5bID3ipLHn8YuOSoHmtlt83e+C6uaeafLoGAvqBlx5UdjKgocx7P4iwYhC2DTR4Z4islnaa709FB5gBk+aTk+vMlr4RM0Hdalu3enALE7BiyLh6yqZFvYdUu2Kwj2fvUk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790006571; c=relaxed/simple;
-	bh=Ryakvez2AuPrHsciT1nsS1VZjsANZaRlT0oLyFD9r08=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=NqpkjpNrXWqDomHLchl9pLlcEtFSi+bSL9PYnKRkZd3ZtBr5EC4x7/0nzMnYjkCTTGCCBaF5Epwoaa2qBGYZHRqACogsSAYC+mUYp9WNtVK+T3ZYKGMY0CbyStSDB3l/C2xPGsk2eNeWZP85lhg+VeNe2XsPkCuTbdX6nZovGzA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=L7bllr18; arc=none smtp.client-ip=74.125.228.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1790006610; c=relaxed/simple;
+	bh=GcQVIx0ZHlSgiMpABZs9hzeajAke/Pcr222mEOJyldw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=o91dKc9d6E2DAuKPzR1OWBetMNsMtwoloiE8wX6quEONfKgeYMOhRhfzdCepZuCz/k4nSZdr4tXGwGRyQZxDVrqOUMzHhBM7PdNJPl9/SJI6zTAkjEX7CttoTQhVuAKR3qZPfprgSY4Cw4zXsVlPc/EkokSim6eXwCzd/pBYJpE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mfT0Auj5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="L7bllr18"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469b2e1d5so3272076b3a.1
-        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 09:02:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790006569; x=1790611369; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hKFRVCGIKTeJtMXkPmTO6NVYkX101OwB/yBvUY5h+ko=;
-        b=L7bllr180MY+bK204YggwMGeo8DS4KcWI3LbqjGLDBRtpJ3HSzqmoR9SVVFL8BQoj6
-         NfNNLx3sc0brurecgqfH+5PjSpl+ZEeKxl2cLBunbDgvZGX9CpqNxlgz1lpWIUMEa0gU
-         xFhQI2l3AS0p47kpFmENPmycx+a6DhJeP3HzDGltZ8w9JkVOHIyTG/9gf/a3xDSjYdWm
-         0EwX8hGTVEp27I99tF2Y8ms+eO7YIHqXJLju5P9wFI+oXcAThL6ZaiB4PRHiI/BBfIWX
-         kicu0fA7urX19da4rUzJs2JIFh9Q+xaaEN2x1pIc9wnRfeXufZtmLrGuUGSuzQe4GYG9
-         3U6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790006569; x=1790611369;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hKFRVCGIKTeJtMXkPmTO6NVYkX101OwB/yBvUY5h+ko=;
-        b=qq5lcVkBU0fShfauLqZ1kiL/17TDQyO5oX7dE0sNihM+DlMvB0Kl38Cy+F8H7SS1Qz
-         WrHpfD9C5Sy2+tiptNCe629SAd0gra7BOuyMcjk/S1bAUc0fISrolHDZTaF1DS+9t4yv
-         OwN7whQW3WJZwGmR5uhvOFnKbT8MUqmTIWEAqi8VtIq4XRvIu8FJzOxGrbBj+HBKXlMA
-         QgstB3ri/Wi4rv1C+dhM4RQ6/jMO2X1bsXPP1FhcawIQpQIBeP9cMDO7042+MM6nGEdx
-         9/rI/kPoRsVVT8HGgBbA3CNaytQ+GpULEAWRO1+nO3m5CnEPunOoXZFxw1067CAth7YB
-         Qcqw==
-X-Forwarded-Encrypted: i=1; AKwUvBw7PouDKi7gUCkFgCm9bpzUmfP6W7LRa31mkThl3El4xrKIyorStbTpFTkjgO/DAvP+D4JcS52C33ht@vger.kernel.org
-X-Gm-Message-State: AFuF++k+CnAOK+6aobtCC+6BBr4UUbFlnMVPstqlPb0ofqHfBb/vcC11
-	7RG4VmAnkTTDrvwxKNnSzO5z67UHc8ZRC4IeYCPFNpjV1ZDj9iW0jcDQkHbMht4sWzU=
-X-Gm-Gg: AYBFou02kQy0W8lVqkCcGL0W+deXBsSY26ZnQUHaxizc3kw3u+2wWuWKNxZNtTu0fdP
-	Dcq6m77Z/Ro0YrsZN2ryGoPnZ5g4oBcc92QyeAPCms+pGeI9QNFCVzQYe4tYsBDHbprswRSrPbB
-	9HkTy12Is5hphl74klmn3QrqQh89VSjOhNMd1xZwQjVGBkjQbFQo/X0kWg8U9kNDxiiFZWbP1az
-	K+fpjl+pZp7YlsR6h675udVgYBWJGQBIHQfXu5lcc72Rmdmve6wK63NRnCk6N6JEnJmQtK/YNqD
-	pHSGy/3lu+BrfK/gqV9FI1tiQVTy8RbQKJ3egcxyj3PpvbaCq+LVGtH579JUNooSLsJybphTMoq
-	yjNOEcW5e3idHWe4JLQButbDCt8eNuUDcav3vcuBydx2ZZIBX2vGn2FRJFmOy1CQZbH2dx8xSYM
-	7/IxHL8giR0NYvu1649UuJaJ/ZxZoYKE1GyMCSrH4tzvd20x2nFI9UfGPw5Rt6MAVROU0=
-X-Received: by 2002:a05:6a00:7702:b0:877:b053:2e10 with SMTP id d2e1a72fcca58-877b053372dmr8630049b3a.9.1790006568844;
-        Mon, 21 Sep 2026 09:02:48 -0700 (PDT)
-Received: from localhost ([71.212.197.238])
-        by smtp.gmail.com with UTF8SMTPSA id d2e1a72fcca58-877aa1099e5sm3480526b3a.49.2026.09.21.09.02.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 09:02:47 -0700 (PDT)
-From: Kevin Hilman <khilman@baylibre.com>
-To: "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>, Aaro Koskinen
- <aaro.koskinen@iki.fi>, Andreas Kemnade <andreas@kemnade.info>, Roger
- Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, Lee Jones
- <lee@kernel.org>, Shree Ramamoorthy <s-ramamoorthy@ti.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>
-Cc: Andrew Davis <afd@ti.com>, Bajjuri Praneeth <praneeth@ti.com>, Thomas
- Petazzoni <thomas.petazzoni@bootlin.com>, linux-omap@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, "Kory Maincent
- (TI)" <kory.maincent@bootlin.com>
-Subject: Re: [PATCH v6] ARM: dts: am335x-bonegreen-eco: Enable 1GHz OPP by
- increasing vdd_mpu voltage
-In-Reply-To: <20260917-fix_tps65219-v6-1-0544b735edb8@bootlin.com>
-References: <20260917-fix_tps65219-v6-1-0544b735edb8@bootlin.com>
-Date: Mon, 21 Sep 2026 09:02:47 -0700
-Message-ID: <7hwlsed23c.fsf@baylibre.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mfT0Auj5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 710321F000FF;
+	Mon, 21 Sep 2026 16:03:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790006608;
+	bh=S+nMtydxu60gnpE5YP5lmUy7iVTsov6d1dYlPJMyWS8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mfT0Auj5snoKFG1xn3/9wL5oGWbpP0gJKVay/fBgkh+vPMCLBBeyB9hSKeb5yxgW7
+	 zG3VAe0XvtqoJdUxoimZ1lX/3/UfvbPpYbtkxPWw9pLtcgqfcJPTfM17U9mfzj/GhS
+	 muGfKTc68RCMRkhxAz6bfOpK7ZrgewkX/9/JsDAn8cMQqoslvIceLybmhWkmVwJNhf
+	 KMfjKWG3SMSA8k7r23HH1NG9PrcaJ/kGD6AAJgBEs4z4nUWoJBgUrolJh1gtcbyuHT
+	 /hCi4shZbAhhWlz+zzS1YWayY8MtCjXGRzGzhRuh73wBlXawNyLDiEhFbDxZq5maNd
+	 4En6yh89p5r1A==
+Date: Mon, 21 Sep 2026 18:03:20 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-pci@vger.kernel.org, 
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Conor Dooley <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH v4 6/6] PCI: dwc: rcar-gen4: Add support for R-Car X5H
+ PCIe4
+Message-ID: <ygec5dvolsujxmaxxjqnmusfj6shzszkiprlckbwqkdf6u6hc6@5sm6ayrfzkkm>
+References: <20260905212649.360498-1-marek.vasut+renesas@mailbox.org>
+ <20260905212649.360498-7-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260905212649.360498-7-marek.vasut+renesas@mailbox.org>
 
-"Kory Maincent (TI.com)" <kory.maincent@bootlin.com> writes:
-
-> The vdd_mpu regulator maximum voltage was previously limited to 1.2985V,
-> which prevented the CPU from reaching the 1GHz operating point. This
-> limitation was put in place because voltage changes were not working
-> correctly, causing the board to stall when attempting higher frequencies.
->
-> With the recent TPS65219 PMIC driver fixes that properly implement the
-> LOCK register handling, voltage transitions now work reliably. Increase
-> the maximum voltage to 1.3515V to allow the full 1GHz OPP to be used.
->
-> Reviewed-by: Shree Ramamoorthy <s-ramamoorthy@ti.com>
-> Signed-off-by: Kory Maincent (TI) <kory.maincent@bootlin.com>
+On Sat, Sep 05, 2026 at 11:26:27PM +0200, Marek Vasut wrote:
+> Add support for R8A78000 (R-Car X5H) PCIe4.
+> 
+> This driver previously supported R-Car Gen4 S4/V4H/V4M. PCIe features
+> of R-Car X5H PCIe4 are almost all the same.
+> 
+> The controller initialization sequence is slightly different and is
+> factored out into controller specific callbacks, in a manner similar
+> to previous R-Car Gen4 handling.
+> 
+> The controller does have a PHY attached to it, but the PHY is operated
+> by a separate PHY driver, the PHY driver instance binding is handled
+> in rcar_gen4_pcie_get_resources() and controlled in the aforementioned
+> controller specific callbacks.
+> 
+> The controller driver is deliberately using "renesas,rcar-gen5-pcie4"
+> DT compatible string to discern R-Car X5H PCIe4 controller supported
+> by this driver, from R-Car X5H PCIe6 controller which will most likely
+> use a separate driver.
+> 
+> The R-Car X5H PCIe4 controller embeds HDMA instead of EDMA embedded
+> in the R-Car Gen4 PCIe controller, "dw-edma" driver supports both
+> DMA variants.
+> 
+> Endpoint mode is currently not implemented for R-Car Gen5 PCIe4.
+> 
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 > ---
-> I was pinged that the following series was not fully merged: the devicetree
-> change did not land upstream.
-> https://lore.kernel.org/r/20251218-fix_tps65219-v5-0-8bb511417f3a@bootlin.com
+> Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
+> Cc: Bjorn Helgaas <bhelgaas@google.com>
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
+> Cc: Manivannan Sadhasivam <mani@kernel.org>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-pci@vger.kernel.org
+> Cc: linux-renesas-soc@vger.kernel.org
+> ---
+> V2: No change
+> V3: - Disable clock in case of PHY init failure in rcar_gen5_pcie_init()
+>     - Add .deinit callback and tear down Gen5 PHY in it
+>     - Use 16bit accessors on LNKCTL register
+> V4: Rebase on next-20260904
+> ---
+>  drivers/pci/controller/dwc/pcie-rcar-gen4.c | 128 +++++++++++++++++++-
+>  1 file changed, 126 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/pci/controller/dwc/pcie-rcar-gen4.c b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+> index 89472a4becc46..5c0d5fd686cb5 100644
+> --- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+> +++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+> @@ -19,6 +19,7 @@
+>  #include <linux/of_address.h>
+>  #include <linux/of_irq.h>
+>  #include <linux/pci.h>
+> +#include <linux/phy/phy.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/pm_runtime.h>
+>  #include <linux/reset.h>
+> @@ -36,6 +37,7 @@
+>  
+>  /* MSI Capability */
+>  #define MSICAP0			0x0050
+> +#define MSICAP0_MMESCAP_MASK	GENMASK(19, 17)
+>  #define MSICAP0_MSIE		BIT(16)
+>  
+>  /* PCIe Interrupt Status 0 */
+> @@ -74,6 +76,11 @@
+>  #define PCIEPWRMNGCTRL		0x0070
+>  #define APP_CLK_REQ_N		BIT(11)
+>  #define APP_CLK_PM_EN		BIT(10)
+> +#define APP_READY_ENTR_L23	BIT(6)
+> +#define APP_REQ_ENTR_L1		BIT(5)
+> +
+> +/* PCI Express capability */
+> +#define EXPCAP(x)		(0x0070 + (x))
+>  
+>  #define RCAR_NUM_SPEED_CHANGE_RETRIES	10
+>  #define RCAR_MAX_LINK_SPEED		4
+> @@ -98,6 +105,7 @@ struct rcar_gen4_pcie {
+>  	struct dw_pcie dw;
+>  	void __iomem *base;
+>  	void __iomem *phy_base;
+> +	struct phy *phy;
+>  	struct platform_device *pdev;
+>  	struct reset_control *perst;
+>  	const struct rcar_gen4_pcie_drvdata *drvdata;
+> @@ -170,6 +178,35 @@ static int rcar_gen4_pcie_speed_control(struct rcar_gen4_pcie *rcar)
+>  	return 0;
+>  }
+>  
+> +static int rcar_gen5_pcie_speed_control(struct rcar_gen4_pcie *rcar)
+> +{
+> +	struct dw_pcie *dw = &rcar->dw;
+> +	u32 lnkcap = dw_pcie_readl_dbi(dw, EXPCAP(PCI_EXP_LNKCAP));
+> +	u32 lnksta = dw_pcie_readw_dbi(dw, EXPCAP(PCI_EXP_LNKSTA));
+> +	u32 val, retries;
+> +
+> +	if ((lnksta & PCI_EXP_LNKSTA_CLS) == (lnkcap & PCI_EXP_LNKCAP_SLS))
+> +		return 0;
+> +
+> +	/* Retrain link */
+> +	val = dw_pcie_readw_dbi(dw, EXPCAP(PCI_EXP_LNKCTL));
+> +	val |= PCI_EXP_LNKCTL_RL;
+> +	dw_pcie_writew_dbi(dw, EXPCAP(PCI_EXP_LNKCTL), val);
+> +
+> +	/* Wait for link retrain */
+> +	for (retries = 0; retries <= 10; retries++) {
 
-Thanks for the reminder.  Queuing for v7.4.
+So this loop executes 11 times. Is that intented?
 
-Kevin
+> +		lnksta = dw_pcie_readw_dbi(dw, EXPCAP(PCI_EXP_LNKSTA));
+> +
+> +		/* Check retrain flag */
+> +		if (!(lnksta & PCI_EXP_LNKSTA_LT))
+> +			break;
+> +
+> +		usleep_range(1000, 1100);
+
+What is the expected behavior if the Link retrain is not successfull? If it is
+safe to continue, shouldn't the users be warned atleast?
+
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>  /*
+>   * Enable LTSSM of this controller and manually initiate the speed change.
+>   * Always return 0.
+> @@ -285,6 +322,49 @@ static int rcar_gen4_v4h_v4m_pcie_init(struct rcar_gen4_pcie *rcar)
+>  	return 0;
+>  }
+>  
+> +static int rcar_gen5_pcie_init(struct rcar_gen4_pcie *rcar)
+> +{
+> +	struct dw_pcie *dw = &rcar->dw;
+> +	int ret;
+> +	u32 val;
+> +
+> +	/* R-Car Gen4 and Gen5 common initialization. */
+> +	ret = rcar_gen4_pcie_common_init(rcar);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* R-Car Gen5 specific additional initialization. */
+> +	ret = phy_init(rcar->phy);
+> +	if (ret)
+> +		goto err_unprepare;
+> +
+> +	dw_pcie_dbi_ro_wr_en(dw);
+> +
+> +	val = dw_pcie_readl_dbi(dw, PCIE_PORT_LANE_SKEW);
+> +	val &= ~PORT_LANE_SKEW_INSERT_MASK;
+> +	if (dw->num_lanes < 8)
+> +		val |= BIT(6);
+> +	dw_pcie_writel_dbi(dw, PCIE_PORT_LANE_SKEW, val);
+> +
+> +	val = dw_pcie_readl_dbi(dw, MSICAP0);
+> +	FIELD_MODIFY(MSICAP0_MMESCAP_MASK, &val, 4);
+> +	dw_pcie_writel_dbi(dw, MSICAP0, val);
+> +
+> +	dw_pcie_dbi_ro_wr_dis(dw);
+> +
+> +	val = readl(rcar->base + PCIEPWRMNGCTRL);
+> +	val |= APP_CLK_REQ_N | APP_CLK_PM_EN |
+> +	       APP_READY_ENTR_L23 | APP_REQ_ENTR_L1;
+> +	writel(val, rcar->base + PCIEPWRMNGCTRL);
+> +
+> +	return 0;
+> +
+> +err_unprepare:
+> +	clk_bulk_disable_unprepare(DW_PCIE_NUM_CORE_CLKS, dw->core_clks);
+> +
+> +	return ret;
+> +}
+> +
+>  static void rcar_gen4_pcie_common_deinit(struct rcar_gen4_pcie *rcar)
+>  {
+>  	struct dw_pcie *dw = &rcar->dw;
+> @@ -293,6 +373,12 @@ static void rcar_gen4_pcie_common_deinit(struct rcar_gen4_pcie *rcar)
+>  	clk_bulk_disable_unprepare(DW_PCIE_NUM_CORE_CLKS, dw->core_clks);
+>  }
+>  
+> +static void rcar_gen5_pcie_deinit(struct rcar_gen4_pcie *rcar)
+> +{
+> +	phy_exit(rcar->phy);
+> +	rcar_gen4_pcie_common_deinit(rcar);
+> +}
+> +
+>  static int rcar_gen4_pcie_prepare(struct rcar_gen4_pcie *rcar)
+>  {
+>  	struct device *dev = rcar->dw.dev;
+> @@ -322,8 +408,12 @@ static int rcar_gen4_pcie_get_resources(struct rcar_gen4_pcie *rcar)
+>  	struct device_node *root_port;
+>  
+>  	rcar->phy_base = devm_platform_ioremap_resource_byname(rcar->pdev, "phy");
+> -	if (IS_ERR(rcar->phy_base))
+> -		return PTR_ERR(rcar->phy_base);
+> +	if (IS_ERR(rcar->phy_base)) {
+> +		rcar->phy_base = NULL;
+> +		rcar->phy = devm_phy_get(dev, NULL);
+> +		if (IS_ERR(rcar->phy))
+> +			return PTR_ERR(rcar->phy);
+> +	}
+>  
+>  	root_port = of_get_next_available_child(dev->of_node, NULL);
+>  	if (root_port) {
+> @@ -807,6 +897,28 @@ static int r8a779f0_pcie_ltssm_control(struct rcar_gen4_pcie *rcar, bool enable)
+>  	return 0;
+>  }
+>  
+> +static int rcar_gen5_pcie_ltssm_control(struct rcar_gen4_pcie *rcar, bool enable)
+> +{
+> +	u32 val;
+> +
+> +	val = readl(rcar->base + PCIERSTCTRL1);
+> +	if (enable) {
+> +		val |= APP_LTSSM_ENABLE;
+> +		val &= ~APP_HOLD_PHY_RST;
+> +	} else {
+> +		val &= ~APP_LTSSM_ENABLE;
+> +		val |= APP_HOLD_PHY_RST;
+> +	}
+> +	writel(val, rcar->base + PCIERSTCTRL1);
+> +
+> +	if (enable)
+> +		phy_power_on(rcar->phy);
+> +	else
+> +		phy_power_off(rcar->phy);
+
+It is quite unusual to handle PHY power on/off in the start_link() callback.
+Should this be moved to init/deinit callbacks?
+
+- Mani
+
+-- 
+மணிவண்ணன் சதாசிவம்
