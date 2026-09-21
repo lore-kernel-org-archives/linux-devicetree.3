@@ -1,124 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30287314D1F
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 11:50:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FD0B3C1D7A;
+	Mon, 21 Sep 2026 11:54:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789991432; cv=none; b=DDg4KDzNFhaMdWkx+SULqE69t/3a/kLQWEjYo0kNgAjlt1GSfndSnxHHJmdKQ81nuqPhs8NhVRcGT8VDDY+uhM1aFZIOCGYG3dZQilpTuD3sdpFea1pzPlN6JnqPbf6h+LlLbI5n7z2rGjK09jUus3YDOoR2xUfQp3X78QS8y9U=
+	t=1789991660; cv=none; b=HSUVf09vzfdNcLiPV48kdfa3dlFGuv0qHTF1mqEidsoUM2HKW54XTbsGF3q1EGvVgC+XyxZsy1M3fm8Dqax/1SR395DNPzwNdNCI/oMOl49nzWvanjMMib/BciE9h/9nyM1gmOujlweVnWBipSLD8WCQbMBM+pfMiguG+EynpjI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789991432; c=relaxed/simple;
-	bh=WDUooRQR9Ss2vkdVSiPyyTYc3b6l5LPuWnkY82GXnAc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=M3Lh9WxKZG7MFQhy4TXuPXw/DVqfYRyCXr4bwgQmlpnrpc+CvYdiI9yeQY/pQXD7CSOPUX+ZWkIV9wUBEzr0PoAgfOp2EcPxYpqGLUbVGq+6DPX82CVu88Up+WHTEuvFY/yPfPu7yHJmcCGkxq2wZGlVTvz/2Zqv2xqXhACivwU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fw8aYA0n; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789991660; c=relaxed/simple;
+	bh=fNSpUENjKb6oRVpVNnY08zpSoVTuGiZyyybiAWMBTUY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=KDOdvNKz6pe61bNAk2lxV9ZicIGJHk31pSScOcR31KMLTE8qR/zVX5mVUKrxJm9sg8h6WDw9ELxgp9swhVN3GVwr9lw42gEJEkAfhg3K0TPCV3yDInTo6WQ4Bv/mdxDIioj4W43qIvJ4DL/FbYPMagJbfUMMjh/3wEQ2ZVcV9uc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=nIl7sW6x; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fw8aYA0n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DFDF1F000FF;
-	Mon, 21 Sep 2026 11:50:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789991430;
-	bh=uMNo+W7eeEQLJwnzZvEaZJQy4yg6U6SXNwHqFT59FwY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Fw8aYA0n1E5v3ptknTslf1AyKASp5wZ8YYfPLWx5d882fOQ+AxzOtHzkHmxpJv2np
-	 uHvvPz6jWle47KWaIWzd60ftnVZgXUP8JU+l5B14M0AyAdrtE2by1Qjkk9tiloiKzH
-	 EQBMY8mD+qMid0k1khc/H1Yty+djap4ziGip617OEtTlDP8MayXshq7zCQLbt0v34i
-	 CoajZQnqNp7gplOzqOM5EtmA8PX9dywKIE8T3KTYKc2qSydIG6/W8YilCVeFFFYpB4
-	 nT7XpH5mNxFklfybtX9lTHk5NaI20QTaAvs4NjuauDnVtHeBhXFePQPQ3ujVysU0jZ
-	 gJIGfZpIQFsmw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/4] soc: mediatek: mt8167-mmsys: add routes for all
- display paths
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Luca Leonardo Scorcia" <l.scorcia@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260921113914.779393-4-l.scorcia@gmail.com>
-References: <20260921113914.779393-1-l.scorcia@gmail.com>
- <20260921113914.779393-4-l.scorcia@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 21 Sep 2026 11:50:29 +0000
-Message-Id: <20260921115030.2DFDF1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="nIl7sW6x"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 61CDCC23D8E;
+	Mon, 21 Sep 2026 11:55:00 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 1F0865FFB2;
+	Mon, 21 Sep 2026 11:54:14 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B596A103281B7;
+	Mon, 21 Sep 2026 13:53:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789991648; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=hNLbvi05R+0xppE7dvLIZ87hpi3V6sXWpbl9gw3s2SU=;
+	b=nIl7sW6xAQkxQ9/I0pwkb5XGFXtrlDtbn+4kHc3XOddvyTtw4Zd6gPaZoZMTGye1WYoORa
+	ZQNSGKYaZdGLNl6daAnfHzKmJ4VVU7SCZLu2qhTHinstvbPQRjFzWd0vgkPoIx67Bv1NgR
+	mwZQu4mo+eSZDFwq9MoR9nkukUawtmXeWtFDaW23KsOCW6qJgkLwLvEpewLcNggqSNn+Fy
+	TALkSVERiHR3oMw2+/XLgeKCoTOmVl/htowEK+7GpUn52ArsjkiNIXFgID2TC+aerk3WUb
+	tEh/SXfAa3pHTAi9ZJi7M1TprlSS8HW8tzPVQ0LZ66ask5yIGFkgTxZKuqZTBQ==
+Message-ID: <475799c2-7eaf-45ed-a6cb-80c2c2c556e7@bootlin.com>
+Date: Mon, 21 Sep 2026 13:53:52 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v4 0/6] net: stmmac: add Allwinner H616 EMAC1
+ support
+To: James Hilliard <james.hilliard1@gmail.com>,
+ Richard Genoud <richard.genoud@bootlin.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Russell King <linux@armlinux.org.uk>,
+ Christian Marangi <ansuelsmth@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
+ Heiner Kallweit <hkallweit1@gmail.com>, Tiezhu Yang
+ <yangtiezhu@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>
+Cc: Maxime Ripard <mripard@kernel.org>,
+ Alastair D'Silva <alastair@d-silva.org>, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Andre Przywara <andre.przywara@arm.com>
+References: <20260920-submit-h616-emac1-v1-v4-0-8347dfe2eb7d@gmail.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20260920-submit-h616-emac1-v1-v4-0-8347dfe2eb7d@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] mmsys: concurrent MOUT outputs broken by full bitmasks
---
+Hi James,
 
-commit 8ae801c4ff167fb410aace262b9f0eef4667f2c9
-Author: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+On 9/20/26 21:45, James Hilliard wrote:
+> The H616 secondary EMAC supports RMII at 10/100 Mbps and uses a separate
+> system-control clock register at offset 0x34. Add its binding and a
+> sun8i stmmac variant using that register. A distinct compatible without
+> an older fallback prevents the driver from using EMAC0's clock register.
+> 
+> EMAC1 connects internally to the co-packaged AC200 or AC300 EPHY and has
+> no external PHY pins. Leave PHY initialization to the PHY driver instead
+> of using the H3 internal-PHY controls. The RMII-only variant does not
+> expose the RGMII clock-delay properties.
+> 
+> First fix failed MTU-change reopening and hardware-resume cleanup in the
+> stmmac core so the interface is closed without repeating NAPI shutdown
+> or resource teardown. Allow phylink to stop a suspended instance without
+> restarting its link. Then move the MAC software reset from probe to the
+> DMA reset callback, after PHY initialization. This lets the MAC and its
+> MDIO bus remain registered when the PHY driver or one of its suppliers
+> is not ready yet. Clear DMA and interrupt state even if the reset times
+> out. Keep the separate H3 MDIO-mux reset sequence unchanged.
+> 
+> The AC200/AC300 EPHY driver and package bindings are already in
+> net-next. This series separates the H616 EMAC1 MAC driver and binding
+> support from the earlier combined series. PWM, MFD and device-tree
+> enablement are being handled separately.
+> 
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+> ---
+> Changes in v4:
+> - Add a prerequisite stmmac core fix closing the interface after a failed
+>   MTU-change reopen without repeating DMA, IRQ or NAPI teardown.
+> - Close the interface after failed hardware resume, and let phylink
+>   finish shutdown directly from its suspended state.
 
-soc: mediatek: mt8167-mmsys: add routes for all display paths
+[...]
+> ---
+> James Hilliard (6):
+>       net: phylink: allow stopping a suspended instance
+>       net: stmmac: close the interface after a failed MTU reopen
+>       net: stmmac: close the interface after failed hardware resume
 
-This commit adds support for additional routes according to the SoC data
-sheet and Android sources. It redefines existing routing table entries to
-use full masks and adds new concurrent display output configurations.
+These new patches belong to net, don't mix the fixes and the glue code :)
 
-> diff --git a/drivers/soc/mediatek/mt8167-mmsys.h b/drivers/soc/mediatek/m=
-t8167-mmsys.h
-> index 001379373507a..7da81b6688715 100644
-> --- a/drivers/soc/mediatek/mt8167-mmsys.h
-> +++ b/drivers/soc/mediatek/mt8167-mmsys.h
+The glue can land without these, no ?
 
-[ ... ]
+Maxime
 
-> @@ -34,16 +78,162 @@
-> =20
->  static const struct mtk_mmsys_routes mt8167_mmsys_routing_table[] =3D {
-> +	/* OVL0<->COLOR0 */
->  	MMSYS_ROUTE(OVL, 0, COLOR, 0,
-> -		    MT8167_DISP_REG_CONFIG_DISP_OVL0_MOUT_EN, OVL0_MOUT_EN_COLOR0,
-> -		    OVL0_MOUT_EN_COLOR0),
-> +		    MT8167_DISP_REG_CONFIG_DISP_OVL0_MOUT_EN, MT8167_OVL0_MOUT_EN_MASK,
-> +		    MT8167_OVL0_MOUT_EN_COLOR0),
-
-[Severity: High]
-Does changing this mask to the full MT8167_OVL0_MOUT_EN_MASK inadvertently
-introduce a regression for concurrent multi-output pipelines?
-
-Looking at mtk_mmsys_ddp_disconnect(), it performs a read-modify-write
-operation on the register using (tmp & ~mask) | (val & mask). When
-disconnecting a route, val is 0, so the register is masked with ~mask.
-
-By using the full bitfield mask instead of the individual bit mask, does
-disconnecting one route clear the enable bits for all other active
-concurrent paths originating from the same block?
-
-> +	MMSYS_ROUTE(OVL, 0, COLOR, 0,
-> +		    MT8167_DISP_REG_CONFIG_DISP_COLOR0_SEL_IN, MT8167_COLOR0_SEL_IN_MA=
-SK,
-> +		    MT8167_COLOR0_SEL_IN_OVL0),
-> +
-> +	/* OVL0<->WDMA0 */
-> +	MMSYS_ROUTE(OVL, 0, WDMA, 0,
-> +		    MT8167_DISP_REG_CONFIG_DISP_OVL0_MOUT_EN, MT8167_OVL0_MOUT_EN_MASK,
-> +		    MT8167_OVL0_MOUT_EN_WDMA0),
-
-[Severity: High]
-For example, if the OVL0-to-WDMA0 route is active alongside OVL0-to-COLOR0,
-does disconnecting WDMA0 here clear the active OVL0-to-COLOR0 routing
-bits as well because of the shared MT8167_OVL0_MOUT_EN_MASK mask?
-
-[ ... ]
-
-> +	/* DITHER<->UFOE */
-> +	MMSYS_ROUTE(DITHER, 0, UFOE, 0,
-> +		    MT8167_DISP_REG_CONFIG_DISP_DITHER_MOUT_EN, MT8167_DITHER_MOUT_EN_=
-MASK,
-> +		    MT8167_DITHER_MOUT_EN_UFOE),
-
-[Severity: High]
-Similarly, does using the full MT8167_DITHER_MOUT_EN_MASK here cause the
-disconnect of the DITHER-to-UFOE route to accidentally break concurrent
-routing to RDMA0 and WDMA0?
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921113914.7793=
-93-1-l.scorcia@gmail.com?part=3D3
