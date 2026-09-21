@@ -1,88 +1,88 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0A194A8A17
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 14:47:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 996D44A99C3
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 14:47:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790002038; cv=none; b=dcgZUZVr3w5eqiSd2gU94pg020jJOmFrwgZ4cz12iN0hSajgSZsmt7NNErqQiMpTEVBjEA9L6ACmPb8FLydMLoiX1mUMYVfV3CACHstDw/zeIl1+HgqRl7BpQEOok3o03ycw5N2ZDGw3TYtA0Ji00QevOzloITZqyuXmrXoJmbE=
+	t=1790002039; cv=none; b=mXMKT8nkuPVxEyscG/McXOIYwl2NbgZ7u6wbKjbrDIw9RCiXdrh6EkOIK3MCDJjLqo6GDSBHLu1y0YPXPrwHdSCXtYJOTMtuVFoOeNVhH67TpLCU6dt4pc5K2VNf/jQ8OsEbv2AiwfeLqSw98yPAtWbqG9iXbGZoJXdfX3MRc2Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790002038; c=relaxed/simple;
-	bh=55BCUBdpjTt4Pu4DifavT/3kB4yaJtykeAtNAaIzyw0=;
+	s=arc-20240116; t=1790002039; c=relaxed/simple;
+	bh=2YBSOpUloJeOo0gUlMDWkHdVrud956EaBJk+8lTaslk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=N/OG41PLq3L679MPYudBIJMRzHISc4RoET3P3WutzCSI+fgHCFnsskNWhWz+St9Ox7Msm9/l2l368IXsTkD2GyeHa9ufF9kq1dis+0fAdOdT45qwSy30c2WvlASqkH010wVRnANOnKpCjt8ejzKccDFYTZUXEVAm085FEYlIvoQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WwcqzfJF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ayj1QXCI; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:To:Cc; b=uf5Odf4+ztJfMmGBTYQXRaSOzXOB6EHgE25Gp37M09EnlMFcpNT1elxrYaixodC/F+wKv7dqNcorsGLxxIXNcUhnEUM//lQOQSABv7LpRL7iqZb6f/D3wJJsam9OSQGz2ru4n3CIPocm717tTvUWWpC44cSeI2VlfKLQac6EWmQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OBFGX2H6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aPaSSlUU; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WwcqzfJF";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ayj1QXCI"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LEGdo5763906
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 14:47:14 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OBFGX2H6";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aPaSSlUU"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LEGfAf100552
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 14:47:17 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	GnIxoSLru4K1VMVUAYvaDV2N2ai1mZa6TrrHuICciMk=; b=WwcqzfJFODRHND83
-	/MZ0iLrV5Sr1VgvuV8hje+6UBrBHUd2Vu1znnrkbCn4mT12eWLIXvRktTn06lyg+
-	rMwzLq2B33q39pNMsuIdRUZMbYqIfGj9LzJBL3xn5Go/AX+7vBdPZUFZIt1L6qS+
-	tGoFTt5iSBsSZnCLy/Uy5n5wLyagaNCtU/LldyV6AF2LWRA81xZn318Vb8Inn8Oj
-	YW7jzu8okIQpH3yeKy0n0jVcHLfYtz4K/EytIZMnGPv3eZtglpK3bgt24XX37JOJ
-	Qw842Eb1xxlDcabiQQ6tjsCF0bXYS9GabaoTV93ClSEVlmeLJu4Psx473cb7jDWG
-	myPGIw==
-Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gu0rj1n6d-1
+	Z9sZcBFSA9fJGluApKNyvWSkZPXaq5HebaoLOU6Deuc=; b=OBFGX2H6tXTKicib
+	ZJz/KpTIIR91o/ROjWbNeZoX4lh0/vaTrrapFJRZsms7Pdp7ARghSZFujVt+UfZw
+	MYXUtbmzy5EdOTiE0pzCi3IV4N3CXM5w/ztHA3ETZAeuCKNWGdLSIqDuV77l9TN+
+	mqWa16BtvLZ2SgcaL0MzC/RKQA/e3gdLZGtBAY+3c0bqz/vVa69dMLHaRk/BM2zf
+	Il1Kw0EYfF6yFFxENbrWSE+u4r3l3sLZcCQepCyhSxh2Pt/CmhwKbbqhxm0pKyPV
+	EYcfNwaW7S4b9jcCetS0q2O2gXqh16O2UbRxfVasVyesmHMFOUSsmS8csaMmYyZj
+	iclVlQ==
+Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gtq79b6dv-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 14:47:14 +0000 (GMT)
-Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5c9a93f5f3aso3880807e0c.3
-        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 07:47:14 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 14:47:16 +0000 (GMT)
+Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5c683ca769dso671552e0c.2
+        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 07:47:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790002034; x=1790606834; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1790002036; x=1790606836; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=GnIxoSLru4K1VMVUAYvaDV2N2ai1mZa6TrrHuICciMk=;
-        b=ayj1QXCIZZbywetaLlNyWer8BW48MQm791xCBkrtez1Mb6mMNT5opjSEDOC+A7Hxo6
-         quY+7tL84HvymZPxA03thacq83BxJqcONg1FKZO6tUSCa8jv+2IRbRd4dRCZryz0+oIP
-         gfDGqH3PxDM3xtEJn7sV5BM0lxCKFWoAsPR94gQpbKp2LjjjBblC51s1xgN71dX/Vm0m
-         m1SE28wpvWAj0oaUKBihOc9fxd0D+p/0fwP7+D3ebLltgQV7wP/0QVHhbKxfV9o2pRgq
-         rF8ygY7pBiravOS3eoJxml5RxhSaLaSQ44I665IxedgK3o+EnMUFVGklrF+P9gJbm95d
-         3EWQ==
+        bh=Z9sZcBFSA9fJGluApKNyvWSkZPXaq5HebaoLOU6Deuc=;
+        b=aPaSSlUU5Lz0jIN1YkIigj514PihFJ/Ko/3u5Kcpr45+ygkccRoCo1NKAwnSlQw8We
+         0wduw0mJMFcWLoAquhgY9IOcVa6t3JetRYjZW2dA+b8qxcLUPtWWdGlo3FkKHpr1191K
+         lYtRav2k6j5rQkIdaOWN8XXZNiqVOWzixO7rszsrGb8UodyBDT/MMXU0xmmkcqZvugTi
+         sHoELN1weGoF6B5J/6794NcQjcqB0Xs2IY4KEz6xUGZZcTgW1bLKIy9DDwLJsjNelQz4
+         Td0iI96Cltfq7XMBqoLIDA2BnPnIf+RmbsNBOcWbG1uqip1YcpnhhFnpnoSQ+G6ylLAx
+         DVcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790002034; x=1790606834;
+        d=1e100.net; s=20260707; t=1790002036; x=1790606836;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=GnIxoSLru4K1VMVUAYvaDV2N2ai1mZa6TrrHuICciMk=;
-        b=TjiVe7C/PeWYX4SY3h+CSeZ/F9rZq36Hpmm/BeyJMALdKMsN+1n3yt2v2DRcrvVqfE
-         jMQcBbKA2ZSvIdT/iSGRBqwQ4J8xaI1N8YjKue1OPBoFWgiM1rVK2WDs75pTpU6dJmRu
-         dncVn2ZJd3QUAV2DM/mKNrJbGKZVoBlurG/osZegaH6P01A29ovs+0cl2lJlBdDsnvu+
-         ZMBzdCJjlCiz5BsGATwiqxPJLZHUoD0i8fFfdC3qEusFqW0m2FROwkCBTOPhGQTqBKWf
-         uYFtrXnfYPIMnWJvoXaHKpD06ysstN2JepBDOYgzaIOBsvCgukDtUVwM+ObsrCY7CUcd
-         zkRw==
-X-Forwarded-Encrypted: i=1; AKwUvBwf04oG1Nz45MD1LvfuLTKlOdb5t99YQjYMH9qtxHpN7YFBMs7zAlvc74MmBiep4kyJ5PKz8YdUxz8v@vger.kernel.org
-X-Gm-Message-State: AFuF++l3xAA0JGe1NY9x7VphEl1TaPrtbKiX62ZA+4Xtv5D+lsbrtYNc
-	8dfhZiXnPUSqJeCW5bXNL5L1FDJAmN9z5QR2qTA3YKSl6Yy0qiTe9wP7tLM7Erq2P6xZfXfO3lY
-	uFawONnonB8pQJdkmqmd4bRyDNQ5IL/qz8hehYcNcN6YvhasfYr+9ZZRVVvrNLEbl
-X-Gm-Gg: AYBFou2iUrr1Hwl4Wnr61xdIzUCirwA7qP6BZlrSq+Ik1bd6MzTtNP8n7iPcwkqq43E
-	Xy7ht+SBZJxEBAelRp3J55PKSc3yUTyxqOPgcW+N8Ri9zHlFZz8xM3T3ty2MD5wNkfOtwG3K6S7
-	87AvvBUmOFXBRg2PTC/UKrHloOIVCSX2LM1wlIWxxgrkXWHYuODhnr4RBtTtcYtBvGd926RVZjH
-	X6enNpMV0fWB6Yo0DrzwF8z4Pov3mnZXIp5gvvr262fUIh+jQN7iEVFneVHxXcm51ln82xnleHu
-	ojfJS+bzJn+yUhC15uQMxTlh8qDAB5aI3g596xG72sICoTb4w3lGBzBgGE9kZLFnJc9UolyHcKd
-	fQFypK8eydHgOt5TAEnunWUduqBU=
-X-Received: by 2002:a05:6122:d89:b0:5c9:a60c:2735 with SMTP id 71dfb90a1353d-5c9b598e3c8mr5157172e0c.13.1790002033646;
-        Mon, 21 Sep 2026 07:47:13 -0700 (PDT)
-X-Received: by 2002:a05:6122:d89:b0:5c9:a60c:2735 with SMTP id 71dfb90a1353d-5c9b598e3c8mr5157130e0c.13.1790002033132;
-        Mon, 21 Sep 2026 07:47:13 -0700 (PDT)
+        bh=Z9sZcBFSA9fJGluApKNyvWSkZPXaq5HebaoLOU6Deuc=;
+        b=CaVWxDO+chbk3pHerZjzjRqvIlQ/+rCW7btqJI31ollB4DObsBSMCzbqCeMBnnr10q
+         YijwpDBdygSzcEGjI5RWzrU4b8DbJK7kp6X9jezlUWHLvRMf3uwnzKN252I3DKZeTlJP
+         KZgRNZzCf3nsXfjKXodZYDp9UgB9N5qViJPtB5WtfjEfqoIWNn5VCxsvJPSSKp9spUxs
+         otJDWML650C/UIftKuV0eMQiBeVRfuQ5bwFZDf7Ma+aEuoCg9xY856cqoIUH8Rwenl8E
+         NrhY3rRgTT3TVfqU3ZBIZx6OfD6mqzQw3bZty4nSFbqwx//Kk+wn1mCZgTg9/fAbrW9U
+         yklg==
+X-Forwarded-Encrypted: i=1; AKwUvBzB/FuUhM/ciR1/R0bKLcrz9hVPxjGU5E8QOP/EWz6baMZJrFnJOS1CK/2of8xkzBWTRV+a/n7wwrUZ@vger.kernel.org
+X-Gm-Message-State: AFuF++n0VrR5TfunlB68c16dnZXjaczKkBltLE/CBrK4lsdF1D3eodeG
+	a6FsZk0A1PDLLFC4ecjdPt2iaMjFPQc1kWAbtB+t1ijFcBObXuKSea5BFvf6UbR8nI2Vkm+9Xcg
+	T+PR/Wt7MjO5M1cFzCyPpcphkRQFCB4CnrfDyLpsjac0tymhPpcwtGWtrRTLVx/x7
+X-Gm-Gg: AYBFou2vWN7dSw20alFQ+BwsJxNtZJw+U+eTzdfWqioyoETKATAz1qHw6Z4stU65hkH
+	pBcNQJW099ucoEVchTNvfyeK3rQoI1gVhG4mq1kd8Zr5EBxIye8TNzvctd7s3sT98rkXm8zGx/c
+	H5B359Ck3iMHh4an27n5rhGndk1uH0z4CJsEyM+Cx0X17Ue2hpIEw40L8ga5LeNdX8meTogqWkM
+	k8KhgU5/ZhrDaI7KyNWajpDbZsLaUwOcG6mONreZk98ci38oZX75etfGvk1RGg6KEG7maS1JMuN
+	rmX5bwCNQMsRnddkuONVhAfy7/p1NfEsCfp/dUDWMmva1aYm/Hbrx9lDyt8fVfxNCel7opWcZFG
+	LZQyuDS3h5+9HfbX7v9dv3LSKmSE=
+X-Received: by 2002:a05:6122:208d:b0:5c9:a60d:327b with SMTP id 71dfb90a1353d-5c9b59cc72dmr2473896e0c.15.1790002035662;
+        Mon, 21 Sep 2026 07:47:15 -0700 (PDT)
+X-Received: by 2002:a05:6122:208d:b0:5c9:a60d:327b with SMTP id 71dfb90a1353d-5c9b59cc72dmr2473825e0c.15.1790002035071;
+        Mon, 21 Sep 2026 07:47:15 -0700 (PDT)
 Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:d04:d483:faad:1e4e])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48724562aebsm24992091f8f.14.2026.09.21.07.47.10
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48724562aebsm24992091f8f.14.2026.09.21.07.47.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 07:47:11 -0700 (PDT)
+        Mon, 21 Sep 2026 07:47:14 -0700 (PDT)
 From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Mon, 21 Sep 2026 16:46:58 +0200
-Subject: [PATCH v2 1/2] arm64: dts: qcom: nord: add GPI DMA controller
- nodes
+Date: Mon, 21 Sep 2026 16:46:59 +0200
+Subject: [PATCH v2 2/2] arm64: dts: qcom: nord: wire up GPI DMA for QUP
+ I2C/SPI engines
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -91,7 +91,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-nord-gpi-dts-v2-1-4f297c983b94@oss.qualcomm.com>
+Message-Id: <20260921-nord-gpi-dts-v2-2-4f297c983b94@oss.qualcomm.com>
 References: <20260921-nord-gpi-dts-v2-0-4f297c983b94@oss.qualcomm.com>
 In-Reply-To: <20260921-nord-gpi-dts-v2-0-4f297c983b94@oss.qualcomm.com>
 To: Shawn Guo <shawnguo@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
@@ -103,156 +103,402 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
         linux-kernel@vger.kernel.org,
         Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3880;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=10183;
  i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=55BCUBdpjTt4Pu4DifavT/3kB4yaJtykeAtNAaIzyw0=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqsUNpHj9C8nCmp0E7vvStBdCnH4BCjNqVuWs+6
- IjITR9k9uWJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCarFDaQAKCRAFnS7L/zaE
- w1R2D/4yjLsyv9ZR98Phr2cOAJg5zPJU2W+kr5ovXdfyG0EnpttroRI8EnuxMXlbmjOFMCt4pkg
- Y4hvGN3/hRZ5TlDTLC267ni1RCc9gl9vcBjq1Gk1SwrCHD/7MdZg9Ag5YLQQUjnoq/CVkyLtF6P
- bWGN2ed9sWn4liitauNiZXA1kbtkxygOUqwWKP9O8W94qElCpuPopEcIWUMNZjQODS57+8Bg+OR
- XVrPJdqFBpz1TNm4zh5nS/1ROK3E50/zCloxnslrfMQutSvxUbiGe3NEmkl5sJE5uzlhURITQMn
- z2WEOMh8a2DBbWvZqVvhNdyamJ5nxiT60n4NUHB60IJXakwsGjEqm8WcRxvPNpVqBMKHHo8oQpw
- qIN20ctIclo0eznqNwS1B/Yaw+etAt7WvvRib5L/+37ORb1xhGiRonDA0HT95nIbaGZnPfnA/Hn
- RMn5qNBMmiVpSVGs/opuPdUNK1nAjFzGFzMNFBXyHps+RNcnzvhmafGHn5z/jQzKCAlfd+TeGcj
- RbpNWQWdOSlmlHvlqb/a53ejOP4jMgMajG3XZmQKHIA2KhlfeXMnOUECNfvPWTERTjsMH2X8UYZ
- 34/4bktWqNMXSsLSno5EEFmTFjBCbHXg7xsCzD+tBlY9jZGIymiI+10gU+3CzJykr9+XHd28YOC
- mwFPcKHv+sWNT6w==
+ bh=2YBSOpUloJeOo0gUlMDWkHdVrud956EaBJk+8lTaslk=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqsUNqBDtkh+aPan/fAhpBUraJsorQ32MZ5Wq8J
+ 6brKpGXl8yJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCarFDagAKCRAFnS7L/zaE
+ w3oED/0eikUokifi441RScvfrNfTZbddU+WXnUgw0hHdNFiKz/fYoEF+sTEVSPxLQ4xZS+23quR
+ 0Svhl0Hee3MGSZNmjYF2bWhk5heviG+KukiDYHc5jXvH07n77h5l28zVmfB5m3sZCDDJr6mT/MB
+ 1hMwAZD1tMeF5N61nQ3P9VyEkHjcpWvSBY6+vj172rn6o35v46X59ATyuMyJN47S+SmjeqC4caC
+ AVVfAso0ORDfMP1XAHEzQZUXpnwNwutkfQjbb1VSXY7tgl8ft/LUjaOSf5ZUmO0Dc6y5fF1Toj5
+ us1n94+rsgFVTldfaiFdR162XbFwK0xbDMHTGAitk6ML7oxRebQ1bPZZn+9sBFpnwBl3niM2KPy
+ x4+hCWnmaiuwigdlGDzdjxqDP0x0j3/DfajFu9/aImu8Hik+SZCVasbd/KjHgpGNK1ID7x+fn71
+ pesbe+VdH/ae/rxHCRiArLfNyqFUCpyzuot8u0A48vC635DE7cAu2Fvd4N1hYAEWiuPnHA755Rn
+ UOFdtNGW+iJAD0TlsIC++2HBxXdtow3LFMqrfkda7igApQrBycHf2qRbGP9jy4LsMP/0iHQH+Kg
+ l45p7mxX6KJhezSKJ+CqyJebqSlbRs74IaK76F+VyfjBmRJHmsSzPVmHqyaUMxTBIs0dLnUAfI7
+ Peni39abFow98fw==
 X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
  fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDIxNSBTYWx0ZWRfX7URHbbqIPtud
- cuASnH5k73zBa4u/Lp+Ty3c00pC/g61xJx7GpBCxv+nY1fZnnoY9zZmYe5C4Diyo64KaTHCoNuX
- v9vNjxVtvb/PnofzuRLvQAEw5osOTHU=
-X-Authority-Analysis: v=2.4 cv=AsR7T+9P c=1 sm=1 tr=0 ts=6ab14372 cx=c_pps
- a=wuOIiItHwq1biOnFUQQHKA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Authority-Analysis: v=2.4 cv=aJ9lOr9m c=1 sm=1 tr=0 ts=6ab14374 cx=c_pps
+ a=+D9SDfe9YZWTjADjLiQY5g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
- a=5TetioHNO0Q85TPnjQEA:9 a=QEXdDO2ut3YA:10 a=XD7yVLdPMpWraOa8Un9W:22
-X-Proofpoint-GUID: O28bpuIwV3vSfs-4XkS8H1f1UjD5rW85
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDIxNSBTYWx0ZWRfXzncEk82Oyyyj
- uVmh6nWBTcKdN1lQUemd8D6mPL6fzl0ZQyMiY/Kh4gi1mWo38qWYeFDxhWnON5pjTzk4NLYBMGY
- BvkylQ6EiOpVrim6a0rgUOWzqDYRlgNhEXDvJfr55gPNlsOVDFwK+ktab0PwqdCbLkuzC1agb37
- UINk3o4KoYZ0ajyOIXxmY+Z10jPy3pXS5xAQQaCc33WxDdp6ftP8BQXYeBKehjHuRrgR2MO6VkU
- CrAFBe4ZyRwhw7YqCurn5DonLRDlhUCjLaWxsX8x5pRs3U52T7tG+g6b/iCHNtCh4LKAffFdIvF
- c4pP3YOLP/4dBCiA3qlnQEYwfkaTSMKwHBSWuGrS3PjusmOLxBhHuwx17T3VeDHPbRYQpG/zNDK
- 6ZQ7akztoD2Rd3RxT4cMQTbaib0b2BvswiIwnTiva1h1ZwAlmE1hB9VjZglv5D6G5FP4hbu/gU/
- rUbfl1O+UAfD+pBr+HA==
-X-Proofpoint-ORIG-GUID: O28bpuIwV3vSfs-4XkS8H1f1UjD5rW85
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
+ a=A0ElxUCGbprSqmrbtIUA:9 a=QEXdDO2ut3YA:10 a=vmgOmaN-Xu0dpDh8OwbV:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDIxNSBTYWx0ZWRfX1fEfb4FLppiF
+ 3B/SBYsSuvCdlTagiQ6xQtgGPMe9SHIwtq1143cV9+NoybPs1TZXvlFGCKniYQdkc0xUW0XqoFU
+ eEVU98lbgUXPETHQEqC3fRHYed21b04=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDIxNSBTYWx0ZWRfXyFtNj23E4dJv
+ FudJIiFuufMvqoLJNiJym9bm3jwT3ZpS72im9QEnSciQn78SACz9RMdmzCI75o4WG0e8v/Lw49W
+ iJtxsOJeItBLHpQmuzYU9dQcOj/jugAvA9xD9xpjACjFlID6NjnzcM3/yzR2src3ZIWxpwcWdut
+ tyAb8E1xR7GReu2GITh3Dt9nGu9nkO/tcddHJv0N+0ojIDLwKhbr84E9PVU5WVtmJgsIIvUYg+P
+ EqWMm3o9iWc2FhdXM9Y9Wv/DFZ6gyodnLYD9AldtxkVTpz4ExoZsc3Sqrg8KuSClunF4+s1+G8e
+ SED7wcNxvkyu5ykCTC013CEyFSGtkZT6/ATibCe6+Mar+2ua1xb9MHqzda6Z+dmySnsb4dINXlg
+ uj0htqT9TIRBN/DiU7m87TSTxnrQQuZv4dtAGVDgv4JQD36oGdavyMuJh6IAPxkuGxY6j6+Yiht
+ hrcZKV8+H1QrEd0enoA==
+X-Proofpoint-ORIG-GUID: f5RayB5oCSfqU8bOPk4yvCDvPkrfJlOV
+X-Proofpoint-GUID: f5RayB5oCSfqU8bOPk4yvCDvPkrfJlOV
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-21_04,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 malwarescore=0 suspectscore=0 clxscore=1015
- impostorscore=0 adultscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0
+ spamscore=0 lowpriorityscore=0 phishscore=0 clxscore=1015 bulkscore=0
+ priorityscore=1501 suspectscore=0 adultscore=0 impostorscore=0 malwarescore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210215
 
-Add GPI DMA controller nodes for all three QUPv3 engines.
+Add DMA phandles to I2C and SPI QUPv3 serial engine nodes.
 
 Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 ---
- arch/arm64/boot/dts/qcom/nord.dtsi | 67 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 67 insertions(+)
+ arch/arm64/boot/dts/qcom/nord.dtsi | 124 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 124 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/nord.dtsi b/arch/arm64/boot/dts/qcom/nord.dtsi
-index e0496fd40c3087a168416ac56c60655bd13b124b..9f4e0e1498c329eb7134fbc725f1dc05ffb1677d 100644
+index 9f4e0e1498c329eb7134fbc725f1dc05ffb1677d..906e4e67f03c70965bd2c588f740dd86f0b8b798 100644
 --- a/arch/arm64/boot/dts/qcom/nord.dtsi
 +++ b/arch/arm64/boot/dts/qcom/nord.dtsi
-@@ -3,6 +3,7 @@
-  * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-  */
+@@ -945,6 +945,10 @@ i2c14: i2c@880000 {
+ 				reg = <0x0 0x00880000 0x0 0x4000>;
+ 				interrupts = <GIC_SPI 373 IRQ_TYPE_LEVEL_HIGH>;
  
-+#include <dt-bindings/dma/qcom-gpi.h>
- #include <dt-bindings/interrupt-controller/arm-gic.h>
- 
- / {
-@@ -909,6 +910,28 @@ soc: soc@0 {
- 		dma-ranges = <0 0 0 0 0x10 0>;
- 		ranges = <0 0 0 0 0x10 0>;
- 
-+		gpi_dma2: dma-controller@800000 {
-+			compatible = "qcom,nord-gpi-dma", "qcom,sm6350-gpi-dma";
-+			reg = <0x0 0x00800000 0x0 0x60000>;
-+			#dma-cells = <3>;
-+			interrupts = <GIC_SPI 588 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 589 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 590 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 591 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 592 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 593 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 594 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 595 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 596 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 597 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 359 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 360 IRQ_TYPE_LEVEL_HIGH>;
-+			dma-channels = <12>;
-+			dma-channel-mask = <0xfff>;
-+			iommus = <&apps_smmu_0 0x15b6 0x0>;
-+			status = "disabled";
-+		};
++				dmas = <&gpi_dma2 0 0 QCOM_GPI_I2C>,
++				       <&gpi_dma2 1 0 QCOM_GPI_I2C>;
++				dma-names = "tx", "rx";
 +
- 		qupv3_2: geniqup@8c0000 {
- 			compatible = "qcom,geni-se-qup";
- 			reg = <0x0 0x008c0000 0x0 0x2000>;
-@@ -1107,6 +1130,28 @@ uart20: serial@898000 {
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
+ 
+@@ -972,6 +976,10 @@ i2c15: i2c@884000 {
+ 				reg = <0x0 0x00884000 0x0 0x4000>;
+ 				interrupts = <GIC_SPI 583 IRQ_TYPE_LEVEL_HIGH>;
+ 
++				dmas = <&gpi_dma2 0 1 QCOM_GPI_I2C>,
++				       <&gpi_dma2 1 1 QCOM_GPI_I2C>;
++				dma-names = "tx", "rx";
++
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
+ 
+@@ -999,6 +1007,10 @@ i2c16: i2c@888000 {
+ 				reg = <0x0 0x00888000 0x0 0x4000>;
+ 				interrupts = <GIC_SPI 584 IRQ_TYPE_LEVEL_HIGH>;
+ 
++				dmas = <&gpi_dma2 0 2 QCOM_GPI_I2C>,
++				       <&gpi_dma2 1 2 QCOM_GPI_I2C>;
++				dma-names = "tx", "rx";
++
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
+ 
+@@ -1026,6 +1038,10 @@ i2c17: i2c@88c000 {
+ 				reg = <0x0 0x0088c000 0x0 0x4000>;
+ 				interrupts = <GIC_SPI 585 IRQ_TYPE_LEVEL_HIGH>;
+ 
++				dmas = <&gpi_dma2 0 3 QCOM_GPI_I2C>,
++				       <&gpi_dma2 1 3 QCOM_GPI_I2C>;
++				dma-names = "tx", "rx";
++
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
+ 
+@@ -1053,6 +1069,10 @@ i2c18: i2c@890000 {
+ 				reg = <0x0 0x00890000 0x0 0x4000>;
+ 				interrupts = <GIC_SPI 586 IRQ_TYPE_LEVEL_HIGH>;
+ 
++				dmas = <&gpi_dma2 0 4 QCOM_GPI_I2C>,
++				       <&gpi_dma2 1 4 QCOM_GPI_I2C>;
++				dma-names = "tx", "rx";
++
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
+ 
+@@ -1080,6 +1100,10 @@ i2c19: i2c@894000 {
+ 				reg = <0x0 0x00894000 0x0 0x4000>;
+ 				interrupts = <GIC_SPI 587 IRQ_TYPE_LEVEL_HIGH>;
+ 
++				dmas = <&gpi_dma2 0 5 QCOM_GPI_I2C>,
++				       <&gpi_dma2 1 5 QCOM_GPI_I2C>;
++				dma-names = "tx", "rx";
++
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
+ 
+@@ -1107,6 +1131,10 @@ i2c20: i2c@898000 {
+ 				reg = <0x0 0x00898000 0x0 0x4000>;
+ 				interrupts = <GIC_SPI 461 IRQ_TYPE_LEVEL_HIGH>;
+ 
++				dmas = <&gpi_dma2 0 6 QCOM_GPI_I2C>,
++				       <&gpi_dma2 1 6 QCOM_GPI_I2C>;
++				dma-names = "tx", "rx";
++
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
+ 
+@@ -1118,6 +1146,10 @@ spi20: spi@898000 {
+ 				reg = <0x0 0x00898000 0x0 0x4000>;
+ 				interrupts = <GIC_SPI 461 IRQ_TYPE_LEVEL_HIGH>;
+ 
++				dmas = <&gpi_dma2 0 6 QCOM_GPI_SPI>,
++				       <&gpi_dma2 1 6 QCOM_GPI_SPI>;
++				dma-names = "tx", "rx";
++
+ 				status = "disabled";
  			};
- 		};
  
-+		gpi_dma0: dma-controller@900000 {
-+			compatible = "qcom,nord-gpi-dma", "qcom,sm6350-gpi-dma";
-+			reg = <0x0 0x00900000 0x0 0x60000>;
-+			#dma-cells = <3>;
-+			interrupts = <GIC_SPI 116 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 205 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 121 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 207 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 119 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 219 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 220 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 222 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 223 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 117 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 118 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 120 IRQ_TYPE_LEVEL_HIGH>;
-+			dma-channels = <12>;
-+			dma-channel-mask = <0xfff>;
-+			iommus = <&apps_smmu_2 0x1016 0x0>;
-+			status = "disabled";
-+		};
+@@ -1165,6 +1197,10 @@ i2c0: i2c@980000 {
+ 				reg = <0x0 0x00980000 0x0 0x4000>;
+ 				interrupts = <GIC_SPI 314 IRQ_TYPE_LEVEL_HIGH>;
+ 
++				dmas = <&gpi_dma0 0 0 QCOM_GPI_I2C>,
++				       <&gpi_dma0 1 0 QCOM_GPI_I2C>;
++				dma-names = "tx", "rx";
 +
- 		qupv3_0: geniqup@9c0000 {
- 			compatible = "qcom,geni-se-qup";
- 			reg = <0x0 0x009c0000 0x0 0x2000>;
-@@ -1278,6 +1323,28 @@ uart5: serial@994000 {
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
+ 
+@@ -1184,6 +1220,10 @@ uart0: serial@980000 {
+ 				reg = <0x0 0x00980000 0x0 0x4000>;
+ 				interrupts = <GIC_SPI 314 IRQ_TYPE_LEVEL_HIGH>;
+ 
++				dmas = <&gpi_dma0 0 0 QCOM_GPI_SPI>,
++				       <&gpi_dma0 1 0 QCOM_GPI_SPI>;
++				dma-names = "tx", "rx";
++
+ 				status = "disabled";
  			};
- 		};
  
-+		gpi_dma1: dma-controller@a00000 {
-+			compatible = "qcom,nord-gpi-dma", "qcom,sm6350-gpi-dma";
-+			reg = <0x0 0x00a00000 0x0 0x60000>;
-+			#dma-cells = <3>;
-+			interrupts = <GIC_SPI 279 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 280 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 281 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 282 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 283 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 284 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 293 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 294 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 295 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 296 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 297 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 298 IRQ_TYPE_LEVEL_HIGH>;
-+			dma-channels = <12>;
-+			dma-channel-mask = <0xfff>;
-+			iommus = <&apps_smmu_2 0x1056 0x0>;
-+			status = "disabled";
-+		};
+@@ -1192,6 +1232,10 @@ i2c1: i2c@984000 {
+ 				reg = <0x0 0x00984000 0x0 0x4000>;
+ 				interrupts = <GIC_SPI 513 IRQ_TYPE_LEVEL_HIGH>;
+ 
++				dmas = <&gpi_dma0 0 1 QCOM_GPI_I2C>,
++				       <&gpi_dma0 1 1 QCOM_GPI_I2C>;
++				dma-names = "tx", "rx";
 +
- 		qupv3_1: geniqup@ac0000 {
- 			compatible = "qcom,geni-se-qup";
- 			reg = <0x0 0x00ac0000 0x0 0x2000>;
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
+ 
+@@ -1211,6 +1255,10 @@ uart1: serial@984000 {
+ 				reg = <0x0 0x00984000 0x0 0x4000>;
+ 				interrupts = <GIC_SPI 513 IRQ_TYPE_LEVEL_HIGH>;
+ 
++				dmas = <&gpi_dma0 0 1 QCOM_GPI_SPI>,
++				       <&gpi_dma0 1 1 QCOM_GPI_SPI>;
++				dma-names = "tx", "rx";
++
+ 				status = "disabled";
+ 			};
+ 
+@@ -1219,6 +1267,10 @@ i2c2: i2c@988000 {
+ 				reg = <0x0 0x00988000 0x0 0x4000>;
+ 				interrupts = <GIC_SPI 514 IRQ_TYPE_LEVEL_HIGH>;
+ 
++				dmas = <&gpi_dma0 0 2 QCOM_GPI_I2C>,
++				       <&gpi_dma0 1 2 QCOM_GPI_I2C>;
++				dma-names = "tx", "rx";
++
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
+ 
+@@ -1238,6 +1290,10 @@ uart2: serial@988000 {
+ 				reg = <0x0 0x00988000 0x0 0x4000>;
+ 				interrupts = <GIC_SPI 514 IRQ_TYPE_LEVEL_HIGH>;
+ 
++				dmas = <&gpi_dma0 0 2 QCOM_GPI_SPI>,
++				       <&gpi_dma0 1 2 QCOM_GPI_SPI>;
++				dma-names = "tx", "rx";
++
+ 				status = "disabled";
+ 			};
+ 
+@@ -1246,6 +1302,10 @@ i2c3: i2c@98c000 {
+ 				reg = <0x0 0x0098c000 0x0 0x4000>;
+ 				interrupts = <GIC_SPI 515 IRQ_TYPE_LEVEL_HIGH>;
+ 
++				dmas = <&gpi_dma0 0 3 QCOM_GPI_I2C>,
++				       <&gpi_dma0 1 3 QCOM_GPI_I2C>;
++				dma-names = "tx", "rx";
++
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
+ 
+@@ -1265,6 +1325,10 @@ uart3: serial@98c000 {
+ 				reg = <0x0 0x0098c000 0x0 0x4000>;
+ 				interrupts = <GIC_SPI 515 IRQ_TYPE_LEVEL_HIGH>;
+ 
++				dmas = <&gpi_dma0 0 3 QCOM_GPI_SPI>,
++				       <&gpi_dma0 1 3 QCOM_GPI_SPI>;
++				dma-names = "tx", "rx";
++
+ 				status = "disabled";
+ 			};
+ 
+@@ -1273,6 +1337,10 @@ i2c4: i2c@990000 {
+ 				reg = <0x0 0x00990000 0x0 0x4000>;
+ 				interrupts = <GIC_SPI 516 IRQ_TYPE_LEVEL_HIGH>;
+ 
++				dmas = <&gpi_dma0 0 4 QCOM_GPI_I2C>,
++				       <&gpi_dma0 1 4 QCOM_GPI_I2C>;
++				dma-names = "tx", "rx";
++
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
+ 
+@@ -1300,6 +1368,10 @@ i2c5: i2c@994000 {
+ 				reg = <0x0 0x00994000 0x0 0x4000>;
+ 				interrupts = <GIC_SPI 517 IRQ_TYPE_LEVEL_HIGH>;
+ 
++				dmas = <&gpi_dma0 0 5 QCOM_GPI_I2C>,
++				       <&gpi_dma0 1 5 QCOM_GPI_I2C>;
++				dma-names = "tx", "rx";
++
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
+ 
+@@ -1311,6 +1383,10 @@ spi5: spi@994000 {
+ 				reg = <0x0 0x00994000 0x0 0x4000>;
+ 				interrupts = <GIC_SPI 517 IRQ_TYPE_LEVEL_HIGH>;
+ 
++				dmas = <&gpi_dma0 0 5 QCOM_GPI_SPI>,
++				       <&gpi_dma0 1 5 QCOM_GPI_SPI>;
++				dma-names = "tx", "rx";
++
+ 				status = "disabled";
+ 			};
+ 
+@@ -1358,6 +1434,10 @@ i2c7: i2c@a80000 {
+ 				reg = <0x0 0x00a80000 0x0 0x4000>;
+ 				interrupts = <GIC_SPI 353 IRQ_TYPE_LEVEL_HIGH>;
+ 
++				dmas = <&gpi_dma1 0 0 QCOM_GPI_I2C>,
++				       <&gpi_dma1 1 0 QCOM_GPI_I2C>;
++				dma-names = "tx", "rx";
++
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
+ 
+@@ -1377,6 +1457,10 @@ uart7: serial@a80000 {
+ 				reg = <0x0 0x00a80000 0x0 0x4000>;
+ 				interrupts = <GIC_SPI 353 IRQ_TYPE_LEVEL_HIGH>;
+ 
++				dmas = <&gpi_dma1 0 0 QCOM_GPI_SPI>,
++				       <&gpi_dma1 1 0 QCOM_GPI_SPI>;
++				dma-names = "tx", "rx";
++
+ 				status = "disabled";
+ 			};
+ 
+@@ -1385,6 +1469,10 @@ i2c8: i2c@a84000 {
+ 				reg = <0x0 0x00a84000 0x0 0x4000>;
+ 				interrupts = <GIC_SPI 354 IRQ_TYPE_LEVEL_HIGH>;
+ 
++				dmas = <&gpi_dma1 0 1 QCOM_GPI_I2C>,
++				       <&gpi_dma1 1 1 QCOM_GPI_I2C>;
++				dma-names = "tx", "rx";
++
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
+ 
+@@ -1404,6 +1492,10 @@ uart8: serial@a84000 {
+ 				reg = <0x0 0x00a84000 0x0 0x4000>;
+ 				interrupts = <GIC_SPI 354 IRQ_TYPE_LEVEL_HIGH>;
+ 
++				dmas = <&gpi_dma1 0 1 QCOM_GPI_SPI>,
++				       <&gpi_dma1 1 1 QCOM_GPI_SPI>;
++				dma-names = "tx", "rx";
++
+ 				status = "disabled";
+ 			};
+ 
+@@ -1412,6 +1504,10 @@ i2c9: i2c@a88000 {
+ 				reg = <0x0 0x00a88000 0x0 0x4000>;
+ 				interrupts = <GIC_SPI 355 IRQ_TYPE_LEVEL_HIGH>;
+ 
++				dmas = <&gpi_dma1 0 2 QCOM_GPI_I2C>,
++				       <&gpi_dma1 1 2 QCOM_GPI_I2C>;
++				dma-names = "tx", "rx";
++
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
+ 
+@@ -1431,6 +1527,10 @@ i2c10: i2c@a8c000 {
+ 				reg = <0x0 0x00a8c000 0x0 0x4000>;
+ 				interrupts = <GIC_SPI 356 IRQ_TYPE_LEVEL_HIGH>;
+ 
++				dmas = <&gpi_dma1 0 3 QCOM_GPI_I2C>,
++				       <&gpi_dma1 1 3 QCOM_GPI_I2C>;
++				dma-names = "tx", "rx";
++
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
+ 
+@@ -1450,6 +1550,10 @@ i2c11: i2c@a90000 {
+ 				reg = <0x0 0x00a90000 0x0 0x4000>;
+ 				interrupts = <GIC_SPI 357 IRQ_TYPE_LEVEL_HIGH>;
+ 
++				dmas = <&gpi_dma1 0 4 QCOM_GPI_I2C>,
++				       <&gpi_dma1 1 4 QCOM_GPI_I2C>;
++				dma-names = "tx", "rx";
++
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
+ 
+@@ -1469,6 +1573,10 @@ uart11: serial@a90000 {
+ 				reg = <0x0 0x00a90000 0x0 0x4000>;
+ 				interrupts = <GIC_SPI 357 IRQ_TYPE_LEVEL_HIGH>;
+ 
++				dmas = <&gpi_dma1 0 4 QCOM_GPI_SPI>,
++				       <&gpi_dma1 1 4 QCOM_GPI_SPI>;
++				dma-names = "tx", "rx";
++
+ 				status = "disabled";
+ 			};
+ 
+@@ -1477,6 +1585,10 @@ i2c12: i2c@a94000 {
+ 				reg = <0x0 0x00a94000 0x0 0x4000>;
+ 				interrupts = <GIC_SPI 358 IRQ_TYPE_LEVEL_HIGH>;
+ 
++				dmas = <&gpi_dma1 0 5 QCOM_GPI_I2C>,
++				       <&gpi_dma1 1 5 QCOM_GPI_I2C>;
++				dma-names = "tx", "rx";
++
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
+ 
+@@ -1496,6 +1608,10 @@ uart12: serial@a94000 {
+ 				reg = <0x0 0x00a94000 0x0 0x4000>;
+ 				interrupts = <GIC_SPI 358 IRQ_TYPE_LEVEL_HIGH>;
+ 
++				dmas = <&gpi_dma1 0 5 QCOM_GPI_SPI>,
++				       <&gpi_dma1 1 5 QCOM_GPI_SPI>;
++				dma-names = "tx", "rx";
++
+ 				status = "disabled";
+ 			};
+ 
+@@ -1504,6 +1620,10 @@ i2c13: i2c@a98000 {
+ 				reg = <0x0 0x00a98000 0x0 0x4000>;
+ 				interrupts = <GIC_SPI 363 IRQ_TYPE_LEVEL_HIGH>;
+ 
++				dmas = <&gpi_dma1 0 6 QCOM_GPI_I2C>,
++				       <&gpi_dma1 1 6 QCOM_GPI_I2C>;
++				dma-names = "tx", "rx";
++
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
+ 
+@@ -1515,6 +1635,10 @@ spi13: spi@a98000 {
+ 				reg = <0x0 0x00a98000 0x0 0x4000>;
+ 				interrupts = <GIC_SPI 363 IRQ_TYPE_LEVEL_HIGH>;
+ 
++				dmas = <&gpi_dma1 0 6 QCOM_GPI_SPI>,
++				       <&gpi_dma1 1 6 QCOM_GPI_SPI>;
++				dma-names = "tx", "rx";
++
+ 				status = "disabled";
+ 			};
+ 
 
 -- 
 2.47.3
