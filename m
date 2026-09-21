@@ -1,169 +1,225 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 973FC49A3C3
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 09:35:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39C8147CC71;
+	Mon, 21 Sep 2026 09:41:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789983347; cv=none; b=sfh3dWJ9XJni9sMjCLnAC0hmvS+tu9KtssI4ScdOxO7aNsmRVFmBIVW8CnTzXL8z/jIZPyRLYkIoJSAuFGhMTdfCFYMaxO6P2rKjqli+Fv89GpFKQVwTy/g155v2bn0XOBHLDjhXBhJrnZKgUdSXLAptKJmMAVVUbo+mwgIn/nw=
+	t=1789983698; cv=none; b=eeuoDW+sS6N8ccgRCjXkFnF9oJxEFBr6noJR4fUxpp4e8aA0W5hRAZ4yNUg+bKTKpO20dlNvyZf/HvtZMnFWS1uHfwzaEEhWe2VH174NeicmGRHhRUhY4kUMna8ON1xfvu0MDLoQ9Wr+aq/kzN3jBegm5IsA8M3qyzxRg40Lz4M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789983347; c=relaxed/simple;
-	bh=ViUeWJk96PNqJrIhaEIWN5xsXuhaArFaHhFVC6OOLhg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UUUdIhFU6D0hD6wCQX9y/l8HMwhdIxjVTSAmw0qfZiJ+8WrRdUj3PLaAW0Fts3lbAWepmBUrkeW0G3zYaNVB/RxT3IfPc0J1tOiBPDLSD8uZfUUUBT7R5wAPxcy47fcj4zBbdOaunQhH2PxmUxMLSRNqf7D3qg2dHz9Yk8yectk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KFvsOztY; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=a7lsuEWN; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789983698; c=relaxed/simple;
+	bh=MJ+xEW52TjywRhwxyFDVIBqFTTQfEIN7C8X1wWow78M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TlUZxUeNg7nmbybJy9DUyzas6naB7uWLWECuux6qYTtnsSBUl90KHfqWPlU1STmYzvGErZB8U4raa/JiDHCANn/VPPeUliiXTGEiaMD8h1jrna9gcOPCZcphPjxl3U5EXGN5iXRTSFdHeWhf6zVOdy03/snqAe5zPGIACtF5PR0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z4eLRehz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KFvsOztY";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="a7lsuEWN"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68L7EcEZ759694
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 09:35:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=mJTrOvpF8hQYLxtXvCLsRNpc5rO6U96I10x
-	yU4upylA=; b=KFvsOztYpIvT7BiVlSUrkjRCgWpqbz7bevnuNrjNQe16G2UiTgH
-	PZo7psoXfBCpj9WB7kWN+OgdDB7C1DeBKSUyMz5EdFCftCas1aY8ZJ3OkduKiiEo
-	HnZ6nYO6PPfhc4aUa1HfFMLR+BWmQ6kYDh3YTw2dYQeGg0j0u7fab/0Sg8HxQ3aa
-	WymnoUzuIjScFHkCUlrwBawf56lPMwT9VsHyxZrTHUYAkdCsXNb2udEszd3bdS6e
-	FeuQkF2qZq9+DJoGGPPi+FTSorhIxHo6DbYjKO3Q77744xcxKcWOYUi6kGqLMai9
-	ek7RbkSKjsdQVqA9anN5Ksicq+QM8sVsGkQ==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gu0118jyb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 09:35:43 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91064f6e75bso94662326d6.3
-        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 02:35:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789983343; x=1790588143; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mJTrOvpF8hQYLxtXvCLsRNpc5rO6U96I10xyU4upylA=;
-        b=a7lsuEWNLlqeiim+gwnOQy5YGR1YMWLGacklyczwPXV7xJ1GYX8wUitc9BEOjEkHs2
-         0C2gCnMlNJkhjSG2BZYXxpmUAXKF3unGz/wmrNbJQd0pWLiNflYxXgsyEsE/2ftRzMjy
-         rf+ltCrP4DtQ43BL518FPjybeO7i7Bjzf8CyPtDygKPeDYqn4Giz+ytYUYYJ1+DtYwMI
-         ovcnS85Yq5I2L0UreDkTPN/Rgwmd8mEro8SSWab6EiTLHAOXJ1zHsEi5p8mSpUe0Hl7D
-         c3iP/pmZSxTzHuwiAH6HA9RvsQq00QftACuFcdScyKoiLK9PLB/fpRxk/xNNp61ubNqQ
-         5UaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789983343; x=1790588143;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mJTrOvpF8hQYLxtXvCLsRNpc5rO6U96I10xyU4upylA=;
-        b=sv1f3EzhZVrRPr0jDjLlYBLhj8F5i1J297Mkq25unNs8h0qax1TBx65AFjW4MuD5JP
-         BfYtIcMVe4Zjw1wQJfQSdnAQJrR/51po1QNuw8QlvHrvYF+G9TidanJ1InrTskUKSzD/
-         G5syuDO33bBaoOnlrlVa50rqwQ4+r66TK0YsnKopnCJWq8znIQHm8Y4ph/4jveSjTK8l
-         Ah1xfP4Bhk0egJXKUKyp6GRe+wbqL7nsBjJLmw6aHE4wOynDK3eMzw0kwhPU+TIsFVrb
-         RQyqZq9ypYsaINavt1hUy9Os6E3qfYGhJgRFTj74Yn8cOGwA7qiXAH8m6ngdo5eeJmyW
-         KCHA==
-X-Forwarded-Encrypted: i=1; AKwUvBwI5qq+WrX5k/+lEovzwCSu68GPWC97ohfy6e+46T29zpHZAPXdjwKytKc1NUATbvbQ6cJUHh4ir9ej@vger.kernel.org
-X-Gm-Message-State: AFuF++k9wPAoDc+r1VwzQLINnmpIKd6NuDoPYNMAG1lY5HOlW2G3vU7D
-	iwOwiWZ+Sf1SCSH+3qswACd3y0E4udla4oY9cOwNgnYHk8MeINMW4MwOR7SVPy7XyYMmkzF1IRF
-	gBXT6ekBlpjh0U44iBKfXTYQstLkrgu78+h1JjYqqpiCey4X8fkZIUbl0gyanx24W
-X-Gm-Gg: AYBFou2V7xZdKuYl6N6MWhuZz7yzSJB91nCpSxToD828GVVoxU9REO8QEdbwfNEtq8K
-	micg0lvyo3Wx9iXMAK3lTgUG2k4sORr0FBJOY1YaJolo679hA3yE1Rq6E81GQtWoQEWhcWnczag
-	rEYoCDajv2RRMij63aeAvLVtdydLUBmyFMovyiR+Rf/2GJPfPxDDonRuLV8YNbqZ+BKDXd4Cv+S
-	l8NHXkDD5dNiJ1T0ZEL8ks86JURKrJA6z2Z6lTWlc3UEVkJteCv7hnU92GrClX/C9GI3RmQAeH8
-	L5OgyOeiu5full/TMDRX0tegsVALqt5QERbZISAomtD+y5ZGJ7sLbobMx0XzbDEQFqrs+qC/v4F
-	uxeCKA1JAGjz1tIqXVN6ZOD2jbQ==
-X-Received: by 2002:a05:620a:1a14:b0:93b:d7a1:ba10 with SMTP id af79cd13be357-93bf576ab1amr994780785a.59.1789983342836;
-        Mon, 21 Sep 2026 02:35:42 -0700 (PDT)
-X-Received: by 2002:a05:620a:1a14:b0:93b:d7a1:ba10 with SMTP id af79cd13be357-93bf576ab1amr994778685a.59.1789983342499;
-        Mon, 21 Sep 2026 02:35:42 -0700 (PDT)
-Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:d04:d483:faad:1e4e])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4872456301dsm21897253f8f.18.2026.09.21.02.35.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 02:35:41 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Marcel Holtmann <marcel@holtmann.org>,
-        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        KrzysztofKozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-pci@vger.kernel.org, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-bluetooth@vger.kernel.org, devicetree@vger.kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: [GIT PULL] power sequencing dependencies for v7.4-rc1
-Date: Mon, 21 Sep 2026 11:35:29 +0200
-Message-ID: <20260921093529.45596-1-bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z4eLRehz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 600441F00893;
+	Mon, 21 Sep 2026 09:41:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789983696;
+	bh=QHZ7RZbtDUTSVET/tmRibcujY6+y4hUCkc+X3EXjmpk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Z4eLRehzEveBRSIUWvxhkJcFhB8j26avtsaeKTp70gepwopW+7LJYdxscWWFaBYPs
+	 P0VRkLypOQxlrEVFCcerntaJnTe5JOpMYnsRbyfJNaVjyY0TRXiWW5MCVK+2R1KUN+
+	 VWESH0A/IWIZehS8jrSyLxIY5bOGaDnl58gJGmQWEtPrOKSn0+VTP4MYMlb/mtAKz0
+	 grH0T/no3PHZMJ4tbgODSxDVSYan9VD4+0cTNguWF3x4eProe2PvKyJ/vRkuEZUtPN
+	 7as4Y6z5TFzLZ/b5V9axILY5wtaoE0ahp9Gg49ljjO64zLJG9kJdTwRe6BvmVYzR1F
+	 5nRNdcPvYk57A==
+Date: Mon, 21 Sep 2026 09:41:34 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
+	linux-scsi@vger.kernel.org
+Subject: Re: [PATCH v5 2/3] scsi: ufs: spacemit: k3: Add UFS Host Controller
+ driver
+Message-ID: <20260921094134-GKB292047@kernel.org>
+References: <20260916-08-k3-ufs-support-v5-0-1f5d71f1027d@kernel.org>
+ <20260916-08-k3-ufs-support-v5-2-1f5d71f1027d@kernel.org>
+ <20260916031008.5C1911F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: H049QzMMwDi-ffS-5UnDHCzDjc62LyZ8
-X-Authority-Analysis: v=2.4 cv=dPczC+Zb c=1 sm=1 tr=0 ts=6ab0fa6f cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=VdqzKS8jKosA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=gowsoOTTUOVcmtlkKump:22 a=VwQbUJbxAAAA:8 a=Dtz6quo8gWpENlhL4bYA:9
- a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDEzNiBTYWx0ZWRfX/WGIUgkLyC54
- BHL2SfKectUOMKV+NcePnyZqynjSBlNidmLYQM/hDpBB6qwJomya3GQoKU8SKTw0jt3bdo9CMJO
- WBimd2PxbFxQv57mlDrtp5vxVM/hr/w7nK93rNvA2v1JRZRne87zPKn9VRN1vGcSbCjcNBSgNxc
- rLHuwOjQrZJqVtBy76uia70gJ2BzcXouew2VfPH5WSFsquuyCCubXKExof+slAlGuMzfXVo9wuE
- rj9sXWCB4QKMCVsSXDLxTXd+yyubUJY2WcGdrjHOkmIO3WHzYO7T1E/N51UQ732KEIbcm/h3/tO
- ua15hLIUexjPc5O2AOYRh3IMexXLKFSLSQYzCYwS75xIif8FA4Lgv3Kq7T7KRCwvQLsbsFZTg86
- w+hMhWWiVFrdO4cP3awh/jpUwkC3C1ImA5NYLk7bJm+1dY4ULsMueFui4Y04XdSSKGL2YrA5N0p
- tQU/Q9bJlm0hURtQOfQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDEzNiBTYWx0ZWRfX2Y2eb62YhMrQ
- UQOIMIJjTPdnuPycmk5g7Iuul2N8ESK3GpMiI/rRWyurSV+GTXaNS2oujEw04BOqRfN8quh6yVQ
- 24UY0KSsKdPgOoLRH2kfm6ovhaTBPPI=
-X-Proofpoint-ORIG-GUID: H049QzMMwDi-ffS-5UnDHCzDjc62LyZ8
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_03,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 phishscore=0 lowpriorityscore=0
- priorityscore=1501 bulkscore=0 clxscore=1015 adultscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609210136
+In-Reply-To: <20260916031008.5C1911F000FF@smtp.kernel.org>
 
-Hi!
+Hi ALL,
 
-Please pull the following set of power sequencing updates into the Bluetooth
-tree to satisfy the dependencies for supporting BT on Monza.
+On 03:10 Wed 16 Sep     , sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
+> - [High] scsi: ufs: missing M-PHY attributes configuration for lane 1
+> - [Low] scsi: ufs: dead code via unused struct ufs_spacemit_host
+> - [Low] scsi: ufs: unused macros and magic numbers in M-PHY config
+> --
+> 
+> commit 82db4e922a94ed053811c2ea8440617bd6a94d08
+> Author: Yixun Lan <dlan@kernel.org>
+> Subject: scsi: ufs: spacemit: k3: Add UFS Host Controller driver
+> 
+> This commit adds the UFS Host Controller driver for the SpacemiT K3 SoC.
+> The hardware features are compatible with JEDEC UFS 2.2, MIPI UniPro v1.61, 
+> and M-PHY v3.0 standards.
+> 
+> > diff --git a/drivers/ufs/host/ufs-spacemit.c b/drivers/ufs/host/ufs-spacemit.c
+> > index 0000000000000..179e6edb2ac25
+> > --- /dev/null
+> > +++ b/drivers/ufs/host/ufs-spacemit.c
+> 
+> [ ... ]
+> 
+> > +static int ufs_spacemit_uniprov1p6_init(struct ufs_hba *hba)
+> > +{
+> > +	static const struct ufshcd_dme_attr_val setup_attrs[] = {
+> > +		{ UIC_ARG_MIB(0x1552), 0x4f }, /* PA_TXHSG1SYNCLENGTH */
+> > +		{ UIC_ARG_MIB(0x1553), 0xf }, /* PA_TXHSG1PREPARELENGTH */
+> > +		{ UIC_ARG_MIB(0x1554), 0x4f }, /* PA_TXHSG2SYNCLENGTH */
+> > +		{ UIC_ARG_MIB(0x1555), 0xf }, /* PA_TXHSG2PREPARELENGTH */
+> 
+> [Severity: Low]
+> Is there a reason the raw hex literals are used here instead of the
+> macros like PA_TXHSG1SYNCLENGTH and PA_TXHSG1PREPARELENGTH that were
+> explicitly defined at the top of the file?
+> 
+I found there are some macros defined in incude/ufs/unipro.h already
+I will use them while leave others unchanged which not defined in global
 
-Thanks,
-Bartosz
+I will also drop local macros from this drivers for now, it's probably
+better to promote them into global header, but I'd prefer to do it in
+a separate patch
 
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+> [ ... ]
+> 
+> > +		/* TX HB8_TIME CAP */
+> > +		{ UIC_ARG_MIB_SEL(0x000F, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)), 0x64 },
+> > +		{ UIC_ARG_MIB_SEL(0x000F, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(1)), 0x64 },
+> > +		/* RX HB8_TIME CAP */
+> > +		{ UIC_ARG_MIB_SEL(0x0092, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(0)), 0x64 },
+> > +		{ UIC_ARG_MIB_SEL(0x0092, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(1)), 0x64 },
+> > +		/* TX EQ 3DB */
+> > +		{ UIC_ARG_MIB_SEL(0x00CD, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)),  0x5 },
+> > +		/* RX garbage cnt = 32 SI */
+> 
+> [Severity: High]
+> Should the TX EQ 3DB attribute also be configured for lane 1 here? The
+> surrounding attributes (like TX/RX HB8_TIME CAP and RX garbage cnt) properly
+> target both lanes 0 and 1. 
+> 
+> If lane 1 is left asymmetrically configured, could this lead to PHY link
+> instability, CRC errors, or failure to maintain high-speed gears in a 2-lane
+> setup?
+> 
+false report, the configuration will actually apply to lane 1 too, so ignore
 
-  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+> > +		{ UIC_ARG_MIB_SEL(0x00F2, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(0)), 0x9F },
+> > +		{ UIC_ARG_MIB_SEL(0x00F2, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(1)), 0x9F },
+> > +	};
+> > +
+> > +	return ufs_spacemit_dme_set(hba, setup_attrs, ARRAY_SIZE(setup_attrs));
+> > +}
+> 
+> [ ... ]
+> 
+> > +static int ufs_spacemit_link_startup_post_change(struct ufs_hba *hba)
+> > +{
+> > +	/* Add 0xe8 make UFS2.1 run GEAR3 + 2Lane@409M */
+> > +	static const struct ufshcd_dme_attr_val setup_attrs[] = {
+> > +		{ UIC_ARG_MIB_SEL(0xe8, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)), 0x97 },
+> > +		{ UIC_ARG_MIB_SEL(0xe8, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)), 0xd7 },
+> > +		{ UIC_ARG_MIB_SEL(0xe8, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)), 0x17 },
+> > +		{ UIC_ARG_MIB(DL_AFC0REQTIMEOUTVAL), UFS_DL_AFC0REQTIMEOUTVAL_MAX },
+> > +	};
+> 
+> [Severity: High]
+> Does this workaround need to be applied to lane 1 as well? The inline comment
+> explicitly documents this as a "2Lane" workaround, but the configuration is
+> only applied to lane 0 via UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0).
+> 
+ditto, wil ignore 
 
-are available in the Git repository at:
+> [ ... ]
+> 
+> > +static int ufs_spacemit_pwr_change_notify(struct ufs_hba *hba,
+> > +					  enum ufs_notify_change_status status,
+> > +					  struct ufs_pa_layer_attr *dev_req_params)
+> > +{
+> > +	struct ufs_spacemit_host *host = ufshcd_get_variant(hba);
+> > +	int ret = 0;
+> > +
+> > +	if (!dev_req_params) {
+> > +		dev_err(hba->dev, "Invalid Parameters\n");
+> > +		return -EINVAL;
+> > +	}
+> > +
+> > +	switch (status) {
+> > +	case PRE_CHANGE:
+> > +		break;
+> > +	case POST_CHANGE:
+> > +		/* Cache the power mode parameters to use internally */
+> > +		memcpy(&host->dev_req_params, dev_req_params, sizeof(*dev_req_params));
+> 
+> [Severity: Low]
+> Are the cached power mode parameters used elsewhere in the driver? We are
+> copying dev_req_params into host->dev_req_params here, but the structure
+> field doesn't appear to be read anywhere else.
+> 
+it's true, I will drop this cache parameters ..
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/brgl/linux.git tags/pwrseq-is-controllable-for-v7.4
+> [ ... ]
+> 
+> > +static int ufs_spacemit_init(struct ufs_hba *hba)
+> > +{
+> > +	struct device *dev = hba->dev;
+> > +	struct ufs_spacemit_host *host;
+> > +	struct reset_control *rst;
+> > +
+> > +	host = devm_kzalloc(dev, sizeof(*host), GFP_KERNEL);
+> > +	if (!host)
+> > +		return -ENOMEM;
+> 
+> [Severity: Low]
+> Since the ufs_spacemit_host structure is only written to and never read, do
+> we need to allocate this memory during initialization, or is there some
+> planned functionality missing that was supposed to consume it?
+>
+I think this due to massive cleanup from vendor driver, but I would keep
+it as is for now, for easy to implement vendor specific feature.
 
-for you to fetch changes up to 295eeaf2c6543f746c1c7d9871f6d2f71a7ed4cc:
+> > +
+> > +	rst = devm_reset_control_get_exclusive_deasserted(dev, NULL);
+> 
+> [ ... ]
+> 
+> > diff --git a/drivers/ufs/host/ufs-spacemit.h b/drivers/ufs/host/ufs-spacemit.h
+> > index 0000000000000..5e459f6ba243c
+> > --- /dev/null
+> > +++ b/drivers/ufs/host/ufs-spacemit.h
+> 
+> [ ... ]
+> 
+> > +/* ATOP base*/
+> > +#define UFS_ATOP_BASE			0x1C00
+> > +
+> > +#define UFS_SYSCLK			499
+> 
+> [Severity: Low]
+> Is this UFS_SYSCLK macro intended to be used? It doesn't appear to be
+> referenced anywhere in the implementation.
+> 
+will drop it
 
-  power: sequencing: qcom-wcn: Report power controllability (2026-09-21 11:28:12 +0200)
+> > +#define UFS_TX_SYMBO_CLK		0x800
+> > +#define UFS_MAX_LINKSTARTUP_TIMER	0xFFFFFFFF
+> > +#define UFS_DL_AFC0REQTIMEOUTVAL_MAX	0xFFFF
+> 
+> [ ... ]
+> 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260916-08-k3-ufs-support-v5-0-1f5d71f1027d@kernel.org?part=2
 
-----------------------------------------------------------------
-power: sequencing: provide and use pwrseq_is_controllable()
-
-Add a new core power sequencing consumer functions:
-pwrseq_is_controllable(). This allows users to check whether the
-sequencer's target is actually host-controllable.
-
-----------------------------------------------------------------
-Loic Poulain (3):
-      power: sequencing: Add pwrseq_is_controllable() API
-      power: sequencing: pcie-m2: Report power controllability
-      power: sequencing: qcom-wcn: Report power controllability
-
- drivers/power/sequencing/core.c            | 49 ++++++++++++++++++++++++++++++
- drivers/power/sequencing/pwrseq-pcie-m2.c  | 26 ++++++++++++++++
- drivers/power/sequencing/pwrseq-qcom-wcn.c | 30 ++++++++++++++++++
- include/linux/pwrseq/consumer.h            |  7 +++++
- include/linux/pwrseq/provider.h            |  8 +++++
- 5 files changed, 120 insertions(+)
+-- 
+Yixun Lan (dlan)
