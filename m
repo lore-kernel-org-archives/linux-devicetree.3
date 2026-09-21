@@ -1,1101 +1,190 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BDF0351C1C;
-	Mon, 21 Sep 2026 06:07:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECD8C32BF4B
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 06:19:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789970856; cv=none; b=TmJquapxEyRRN3Hqpw6o5aXAM+I7CWsTMLGbAW/pIHcCe+Yk9Ljpg2wPTGpuScMm+FKdPOmWIJMi6lWP9bJA4dYXdjZ73ql9I83HQZiqCu5TF6I0KNc3mflHNMdIOW353FkH+vpCywzD5TGnwKdLEFMD0/4ZJKkrokNv1E2ujNI=
+	t=1789971590; cv=none; b=twSuHJw6k29TH/2AnpV9paEmBN9CQekCi5RUKAb+VomyaKTMBuPI4LJwdZZv/mwrrpwncoBytB3S6enlNEq4JVD8LhG4POHuN3u77091mLa65gUSGhj8PODeB6gxvL+8x4heGNFnmXiSIZVpHh8Jky7O0tT5RwsMbDg+gS9Ivnk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789970856; c=relaxed/simple;
-	bh=X8eH9hI87CAvXEbUodLqg66kXC6syF/yXBaxX7UCwpw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ebUjeOwj6cMfbaYUWRj6Od1tnXMdNsk1tyYvGacd1CLIxS1ySfNGbyET34LvqFD3om56XOfavXlsMfwBLbfwpS+IhxVdWOx+/lrf2xuaKZJkZDxsNqHiMoLekKFd35Z8+BSqHTiFXDBNiC5wJrIN1VoooWIyaIe6Ef8bwQ2Kitc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au; spf=pass smtp.mailfrom=gandalf.ozlabs.org; dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b=UowIgF8t; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+	s=arc-20240116; t=1789971590; c=relaxed/simple;
+	bh=h+3CTS49i76JumwlBIZVMtL9PMPg7KtHdhYrFkHh5AY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=cvLffLqIs1kIv18Ph9ZSePoSB1kVeOy9PukvNxV5JDFepjJ81dnHia8Ng/NNJkCFvQug+NDDkq52GlatbEP7swPwtQifXdLhhGWdAOyEIgQWHJDcxIXkzdizbDCLXmlBRyPh2729HFCV2C2wlzev0lxU/NQNUkHC++v51gAUbfE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=D9EMbh5r; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GAxm/d21; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b="UowIgF8t"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="D9EMbh5r";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GAxm/d21"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68L3Za0i486331
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 06:19:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=NN1XadWkF+YNKHvEuDcku8
+	r3g5rqc1+Br6lTnG7Wf54=; b=D9EMbh5ra53il8jziSPp6KEkMrWAFW1YO0JB1y
+	VSmhQO/7NJ776kwcTsvGzlsPjV/zeBJh8cNO+Tj1vAu02GDy5QSjwjkIHDsRQ0lP
+	Otg0pTilqrTbsWwBtrGXUwjJjxQBf0ahdmc+QAStVtot+SyDWcd1F1fFEMsZNo9F
+	yjfybkdbzn3m6ANIy5nXVGAe4aUZtT+Yha9IIpp7NOezH1PVpSPlIFIi4mvCAPEM
+	lGi9+4a56wo9yeVqQKNoAfZBg5fJqP4z50NTEE1g+dzDAw5yULDUHGSg0exmTMhc
+	XEBPctynFZMyP4kqQ/7EazmgkXIC7RFVdls7kgicqjyclszg==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gtq7j96p7-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 06:19:47 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc72777faa2so1740402a12.1
+        for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 23:19:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202608; t=1789970829;
-	bh=ZKLaW9H34SJ4s5YHf3p5wWEmQBUmtAaaIBbu4xT/etA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=UowIgF8tkI/jvwUmOr4naYwq9VV3q8ZlH1WEjx8cPbPH96kMLG4TXwRXmGLyPvtRo
-	 CJgEgZ6xSvnu4wX76ijYtXrxr8af3rynwLIw5otNyroBP7bN8ENZ6jMv7Xz0U642Oe
-	 mbtClA9+b0axaRCZcHvos0L579DGJ6+g3hRybkWm8zRX9Y4lG0hQYoQaTXX3yDp2/H
-	 VFfmRPw8XBiPqhvy4ZGc+eDjnVXs0WEQg4IBr9jv7ye3/U7IzCte2mdEH8w7a+66li
-	 w/cwquYtZNnDvV3rYfAcwuv1KZ44TcAfaGJ6suyy4Nv2+akiCHYscLRaHXO+4HaKE6
-	 wTUdJPnC+f4GA==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4hpCRx0jCfz4wSL; Mon, 21 Sep 2026 16:07:09 +1000 (AEST)
-Date: Mon, 21 Sep 2026 16:06:13 +1000
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Ayush Singh <ayush@beagleboard.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
-	Hui Pu <hui.pu@gehealthcare.com>,
-	Ian Ray <ian.ray@gehealthcare.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v3 14/15] libfdt: Handle unknown tags on dtb modifications
-Message-ID: <arDJSBEh9Duus0kz@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
- <20260826083146.304291-15-herve.codina@bootlin.com>
+        d=oss.qualcomm.com; s=google; t=1789971587; x=1790576387; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=NN1XadWkF+YNKHvEuDcku8r3g5rqc1+Br6lTnG7Wf54=;
+        b=GAxm/d21QaIws0X3DeWrCjPTnr7jzQtbJLmtUEMyJXnvFDPsBmAI9UCzhOzTN39tSh
+         s/Su3h7rufSBTIHmi3s0gx+kc5bSwbIaR/9xjh84d6mL54wBpIoxlYGDPXP27yFXx1mN
+         LFc51I+zr27BUHvro0COS9LNtLgoxsuKRAyy4ssaK1C9L3zx/kfqft8Zyl8SzJUM/hRx
+         oPxHP4VBtFqFcqiPFHI0MeDWFg1Lds4XDFNB22I93tBAW53R78iOLZ/ewiu3rQEr9vh3
+         CfcBhVoaPWqk49FjmeIqTrO7mdb2E9PzlA8e+DNzV7BsFZ3q/0FuHtGXMb13Zrkt9Bn/
+         Qcwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789971587; x=1790576387;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=NN1XadWkF+YNKHvEuDcku8r3g5rqc1+Br6lTnG7Wf54=;
+        b=TAkgU7ZLiNEZMYV7N4rFhAgIaw4yPlefxmIWdCRa7e6MXaGYP0pY97qfq6LdeE8M3j
+         UNICr34GZZ2jVXrpRpms6e0NMOFHWfiddZtc0iRrnPfKLuGtPENSrXqLZ+LprNv4TS6R
+         8SA59UUWzDQImuiVLW7nvSPnKbrmiNzEcT7hySgnQWVHXiLKlBCk7t5BL//A+NqpSRcV
+         0MP04fzDec3vXUk/gh55U/7z3v2bg9HKGpbWqtxPWON/wdFbDUuDVZwF9Tj15b2t6pZi
+         n2d8iXqzD9IZPZqAvFSzKieuKKTWPaDSl2vdePJ0eogYccAJPY6ynYL1++2Py0GDbx8n
+         uu3Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzPSzbR4md0Pj/4tIAK0VY+bB60ECxE232OcOG46goto5awJEbYNfdkMx3ydZI+7TLJRIiNmoPsopla@vger.kernel.org
+X-Gm-Message-State: AFuF++l3lQsro2igXRKUTqCYhjzsSgBkFX8hNJZCptnUeJyCSkLaGjz+
+	dcp3P700WPNnztAWzAgR6aoIaPZSrvpr+0Uo/Up+qG3gWJd7iTDnw/jcgGT72lyVE4EXjjrfeQP
+	XScVuW2hUpTYXW/hPSGij9AaphEVhlyxbzhBWSNh7n1yScQdMoLC8wVqgSdGusm0k
+X-Gm-Gg: AYBFou0+hoEnkAzf7iB7uSVSYUc50EcEqiHWrhBdG8vzYQS//bVJIKY7zw72HjRKIx8
+	Mgq9+GSfyw2tj5L4Atar8l5SBR0nvQykHAFFlGkcYw6/SXARbctyIv9F1qCs6VSTclm4jqbpRdE
+	BV5CwlHvhhrvko1qP71q0lkdjoV9JHAn3/QVTT92CHLYQU6QDqxspLAW5oSfco89AjdDPxmrIC2
+	XKodT2f/ACUtTGCkebz4UW09iRfKLTpuQqkz1HGYu0+/Gx2yAi35dajmlZX67b4YyRbKSbbkrO7
+	lMjUTUH+ffNrLgHQV9o4y+wi/wjkw9WyZGNuFaZNkJ8CYhjwnwMBd/vbszaX88ZoQyIB+a7xiIc
+	cBVcuWlIgdS2DgPa+PIMrT1x1/mTfAmGPrBZlrEnLksxLoLksdjMI5eNM4M26vtJkDSX2J4Gt84
+	rJGw7Zkbu1mf5Mwffw/L729R78dV5Ys9K2rg==
+X-Received: by 2002:a17:90b:5287:b0:38e:7168:281 with SMTP id 98e67ed59e1d1-39e54ce361emr15662568a91.10.1789971586743;
+        Sun, 20 Sep 2026 23:19:46 -0700 (PDT)
+X-Received: by 2002:a17:90b:5287:b0:38e:7168:281 with SMTP id 98e67ed59e1d1-39e54ce361emr15662554a91.10.1789971586205;
+        Sun, 20 Sep 2026 23:19:46 -0700 (PDT)
+Received: from hu-kathirav-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c331d3f2csm14091444eec.28.2026.09.20.23.19.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Sep 2026 23:19:45 -0700 (PDT)
+From: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+Subject: [PATCH 00/11] Add a few minor enhancements to the Qualcomm IPQ GCC
+ drivers.
+Date: Mon, 21 Sep 2026 11:49:33 +0530
+Message-Id: <20260921-ipq_clk_changes-v1-0-d242e3d49648@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="SqICAo96eBB2Izzy"
-Content-Disposition: inline
-In-Reply-To: <20260826083146.304291-15-herve.codina@bootlin.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHXMsGoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDCyNT3cyCwvjknOx4iGyxbpqhUZqBmZGhpaGlsRJQV0FRalpmBdjE6Fg
+ Iv7g0KSs1uQRkjFJtLQDbSSRmcwAAAA==
+X-Change-ID: 20260825-ipq_clk_changes-f12f06219193
+To: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+        Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Georgi Djakov <djakov@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Varadarajan Narayanan <quic_varada@quicinc.com>,
+        Dmitry Baryshkov <lumag@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Gokul Sriram Palanisamy <quic_gokulsri@quicinc.com>,
+        Sricharan Ramabadhran <quic_srichara@quicinc.com>,
+        Kathiravan T <quic_kathirav@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-pm@vger.kernel.org,
+        Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
+        stable@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Authority-Analysis: v=2.4 cv=HIZWhYtv c=1 sm=1 tr=0 ts=6ab0cc83 cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=bMZdg2PHOV3iVps5Te4A:9 a=QEXdDO2ut3YA:10
+ a=bFCP_H2QrGi7Okbo017w:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDA4OSBTYWx0ZWRfX41ceWqTZ1jcw
+ gWlRJT4M/1scjESJY5LKRvszPpuiOKU5Ta1uSWgi39vgaXqKvceOoL2xhkjlyDvDVpk/2XS4nLZ
+ zpl/HX3TAXWynFhh+Ar2tDMC2zqEPUE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDA4OSBTYWx0ZWRfXzfyZyZqZ08eZ
+ olxkpB+h8sxudlaM8JYHOonIvYS6BRloaZP3VR/EIlxQEuj34b5F3AvQksGbDQzAwRXP5Vo0bLE
+ TzcPBupIcKYjdVC0UHF8AQJdMZCaoCTCqR8YZEnTmVv2rmLQwFSBnW1yw09X4MiKjBq5IvQIQPw
+ P29p3SIiRqUdVdGmIVHARdeRtoropTvHsBjze7FWrQby8qlIIOis15U4Wmx7SreeFzpFvb/GzvU
+ GwzbOYiMESWEMfts6EgCAzbn8Pe8JDMxukQ4ljfp4cIQkJ6pp8wIUTI2fJwUwhW5dUtczXoRo72
+ wAHjaGS2QJaLu5qc6tKrnV6tiSb/DX/JL3RizJSMyR2jaBnt2/oIVxKfZYwl5IiePxwUQR9SJY+
+ 1NN8Qp80aLQYnjgY3IL12XFdbJfD64j5ucaF3tiMbxW+p5NdWUz/g1NL5ZMUSigmr8ze0LL0XfC
+ E8kXZAd4vHLxrS+vrfg==
+X-Proofpoint-ORIG-GUID: MGtm6MmtcF5K0s1GWPALn1l5WMl0wA0O
+X-Proofpoint-GUID: MGtm6MmtcF5K0s1GWPALn1l5WMl0wA0O
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_02,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 adultscore=0 lowpriorityscore=0 bulkscore=0
+ spamscore=0 priorityscore=1501 suspectscore=0 phishscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210089
 
---SqICAo96eBB2Izzy
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+This series adds USB, NSS, and clock-related updates for several
+Qualcomm IPQ SoCs, including:
 
-On Wed, Aug 26, 2026 at 10:31:45AM +0200, Herve Codina wrote:
-> The structured tag value definition introduced recently gives the
-> ability to ignore unknown tags without any error.
->=20
-> When the dtb is modified those unknown tags have to be taken into
-> account.
->=20
-> First, depending on the unknown tag location, the item associated with
-> the tag is identified:
->   - An unknown tag located just after a FDT_BEGIN_NODE is related to the
->     node.
->=20
->   - An unknown tag located just after a FDT_PROP is related to the
->     property.
->=20
->   - An unknown tag out of any node (i.e located before the first
->     FDT_BEGIN_NODE or after the last FDT_END_NODE) is a global tag
->     related to the dtb itself.
+  - Configure the USB UTMI reference clock to 24 MHz on IPQ5018,
+    IPQ5210, and IPQ5332 to fix USB enumeration issues.
+  - Wire the USB3 PHY PIPE clocks to GCC on IPQ5424 and IPQ9574.
+  - Add NSS MEMNOC clocks and corresponding clock and ICC IDs for
+    IPQ5424.
+  - Connect the IPQ5424 PPE clock to GCC and document the required
+    clock input ordering.
+  - Add UNIPHY XPCS reset definitions required for NSS support on
+    IPQ5210.
+  - Fix IPA-related typos in the IPQ5424 APSS clock driver.
 
-Since we rely on those constraings here, it seems like those should
-probably be written into the structured tag specs / description.
-Which to my mind strengthens the case for explicitly calling them
-"metadata tags".
+Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+---
+Kathiravan Thirumoorthy (11):
+      clk: qcom: ipq5018: add 24MHz rate for USB UTMI clock
+      clk: qcom: ipq5332: add 24MHz rate for USB UTMI clock
+      clk: qcom: ipq5210: add 24MHz rate for USB UTMI clock
+      arm64: dts: qcom: ipq9574: Wire up USB3 PHY PIPE clock to GCC
+      dt-bindings: clock: qcom: ipq5332-gcc: Describe clock inputs per compatible
+      arm64: dts: qcom: ipq5424: Wire up USB3 PHY PIPE clock to GCC
+      dt-bindings: qcom,ipq5424: add NSS MEMNOC clock and ICC IDs
+      clk: qcom: gcc-ipq5424: add the MEMNOC clocks needed for the NSS block
+      arm64: dts: qcom: ipq5424: Wire up PPE clock to GCC
+      clk: qcom: gcc-ipq5210: add UNIPHY XPCS reset entries
+      clk: qcom: apss-ipq5424: fix 'ipa' typos
 
-> Then, if we are allowed to write a dtb containing unknown tags, the
-> following rules are used:
->   - When a property is modified, tags related to this property are
->     removed and the dtb version is downgraded.
+ .../bindings/clock/qcom,ipq5332-gcc.yaml           | 26 +++---
+ arch/arm64/boot/dts/qcom/ipq5424.dtsi              |  3 +-
+ arch/arm64/boot/dts/qcom/ipq9574.dtsi              |  2 +-
+ drivers/clk/qcom/apss-ipq5424.c                    | 10 +--
+ drivers/clk/qcom/gcc-ipq5018.c                     |  1 +
+ drivers/clk/qcom/gcc-ipq5210.c                     |  4 +
+ drivers/clk/qcom/gcc-ipq5332.c                     |  1 +
+ drivers/clk/qcom/gcc-ipq5424.c                     | 93 ++++++++++++++++++++++
+ include/dt-bindings/clock/qcom,ipq5424-gcc.h       |  4 +
+ include/dt-bindings/interconnect/qcom,ipq5424.h    |  4 +
+ 10 files changed, 131 insertions(+), 17 deletions(-)
+---
+base-commit: 3f2425f5b5bbbdd991ca9cdfd5502e68d8895998
+change-id: 20260825-ipq_clk_changes-f12f06219193
 
-Hmm.  This seems weird to me, but maybe that's because we haven't
-pinned down in specs / docs what the interaction is between new
-skippable tags and the overall version.
+Best regards,
+--  
+Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
 
-My assumption had been that tags - even structured tags - newer than
-vNNN must not appear in a dtb with version =3D=3D NNN (but they can appear
-in a dtb with last_compat_version < NNN).
-
-With that model, this seems kind of backwards - downgrading the
-version would require removing newer tags throughout the tree, rather
-than removing some tags causing the version to be downgraded.
-
->   - When a property is removed, tags related to this property are
->     obviously removed. The dtb version is kept unchanged.
->=20
->   - When a property or a node is added, obviously no unknown tags are
->     added and the dtb version is kept unchanged.
-
-This seems weird to me in combination with the behaviour on
-modification.  The previous one makes more sense to me in the context
-of an alternative model: newer versions might *require* certain
-metadata tags are present.  But in that case this part doesn't work.
-
->   - When a node is removed, tags related to this node are obviously
->     removed. The dtb version is kept unchanged.
->=20
->   - Adding, removing or modifying a property is not considered as a node
->     modification and so, those operations have no impacts on unknown
->     tags related to the node. Those node related tags are kept unchanged.
-
-That.. certainly constrains what it's possible to put in skippable
-tags, in a way that we'd have to document, though it's not especially
-easy to do so.
-
->   - The only modification considered as a node modification is setting
->     its name. We consider that this operation has no impact on tags
->     related to the node. Here also, those node related tags and the
->     dtb version are kept unchanged.
->=20
->   - Global (dtb related) unknown tags are kept unchanged regardless the
->     modification done.
->=20
-> Implement those rules when a dtb is modified.
->=20
-> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> ---
->  libfdt/fdt_rw.c                               | 129 +++++++++++++++++-
->  libfdt/fdt_wip.c                              |  28 +++-
->  libfdt/libfdt_internal.h                      |   3 +
->  tests/run_tests.sh                            |  78 +++++++++++
->  ...own_tags_can_skip.fdtput.test.dtb.0.expect |  31 +++++
->  ...own_tags_can_skip.fdtput.test.dtb.1.expect |  35 +++++
->  ...own_tags_can_skip.fdtput.test.dtb.2.expect |  33 +++++
->  ...own_tags_can_skip.fdtput.test.dtb.3.expect |  35 +++++
->  ...own_tags_can_skip.fdtput.test.dtb.4.expect |  34 +++++
->  ...own_tags_can_skip.fdtput.test.dtb.5.expect |  32 +++++
->  ...own_tags_can_skip.fdtput.test.dtb.6.expect |  27 ++++
->  ...nknown_tags_can_skip.wip.test.dtb.0.expect |  31 +++++
->  ...nknown_tags_can_skip.wip.test.dtb.1.expect |  35 +++++
->  ...nknown_tags_can_skip.wip.test.dtb.2.expect |  37 +++++
->  ...nknown_tags_can_skip.wip.test.dtb.3.expect |  38 ++++++
->  15 files changed, 603 insertions(+), 3 deletions(-)
->  create mode 100644 tests/unknown_tags_can_skip.fdtput.test.dtb.0.expect
->  create mode 100644 tests/unknown_tags_can_skip.fdtput.test.dtb.1.expect
->  create mode 100644 tests/unknown_tags_can_skip.fdtput.test.dtb.2.expect
->  create mode 100644 tests/unknown_tags_can_skip.fdtput.test.dtb.3.expect
->  create mode 100644 tests/unknown_tags_can_skip.fdtput.test.dtb.4.expect
->  create mode 100644 tests/unknown_tags_can_skip.fdtput.test.dtb.5.expect
->  create mode 100644 tests/unknown_tags_can_skip.fdtput.test.dtb.6.expect
->  create mode 100644 tests/unknown_tags_can_skip.wip.test.dtb.0.expect
->  create mode 100644 tests/unknown_tags_can_skip.wip.test.dtb.1.expect
->  create mode 100644 tests/unknown_tags_can_skip.wip.test.dtb.2.expect
->  create mode 100644 tests/unknown_tags_can_skip.wip.test.dtb.3.expect
->=20
-> diff --git a/libfdt/fdt_rw.c b/libfdt/fdt_rw.c
-> index ceef49b8..87776609 100644
-> --- a/libfdt/fdt_rw.c
-> +++ b/libfdt/fdt_rw.c
-> @@ -197,10 +197,69 @@ int fdt_del_mem_rsv(void *fdt, int n)
->  	return fdt_splice_mem_rsv_(fdt, re, 1, 0);
->  }
-> =20
-> +static void fdt_nopify_area(void *fdt, int start_offset, int next_offset)
-
-This should be written in terms of fdt_nop_region_() from fdt_wip.c
-(or else the other way around).  It should also probably live in
-fdt_wip.c.
-
-> +{
-> +	int count =3D (next_offset - start_offset) / sizeof(fdt32_t);
-> +	fdt32_t fdt32_nop =3D cpu_to_fdt32(FDT_NOP);
-> +	fdt32_t *ptr;
-> +
-> +	ptr =3D fdt_offset_ptr_w_(fdt, start_offset);
-> +	while (count--)
-> +		*(ptr++) =3D fdt32_nop;
-> +};
-> +
-> +int fdt_prop_remove_unknown_tags(void *fdt, bool force_inplace,
-> +				 int prop_offset, bool downgrade_version)
-> +{
-> +	int nextoffset, offset;
-> +	bool is_unknown;
-> +	uint32_t tag;
-> +
-> +	/*
-> +	 * Only inplace using nopify is supported even if we could use an other
-> +	 * method involving splices if force_inplace is set to false.
-
-This comment is fairly hard to understand without reading a lot of the
-rest of the patch first.  It's also really not ideal - when we're in
-the fdt_rw context, we want to be able to really truly remove the
-stale tags, not just NOP them.
-
-
-
-
-> +	 */
-> +
-> +	tag =3D fdt_next_tag(fdt, prop_offset, &nextoffset);
-> +	if (tag =3D=3D FDT_END)
-> +		return nextoffset;
-> +
-
-Should this error out if tag !=3D FDT_PROP?
-
-> +	/*
-> +	 * Look at all tags related to the current property. I.e. tags after the
-> +	 * current property and before either the next property, a sub-node  or
-> +	 * the end of current node
-> +	 */
-> +	do {
-> +		offset =3D nextoffset;
-> +		tag =3D fdt_next_tag_(fdt, offset, &nextoffset, &is_unknown);
-> +		if (tag =3D=3D FDT_END)
-> +			return nextoffset;
-> +
-> +		/*
-> +		 * Unknown tags are returned as NOP. Force FDT_NOP to be really
-> +		 * present in the area to remove the unknown tag and its related
-> +		 * data. Also, as a tag is removed, downgrade the dtb version
-> +		 * if asked for.
-> +		 */
-> +		if (tag =3D=3D FDT_NOP) {
-
-It seems to me this would be more natural using fdt_next_tag_all() (or
-whatever it ends up being called) and handling the nopping in the
-'default' case.
-
-> +			if (is_unknown) {
-> +				if (downgrade_version)
-> +					fdt_downgrade_version(fdt);
-> +				fdt_nopify_area(fdt, offset, nextoffset);
-> +			}
-> +		}
-> +
-> +	} while ((tag !=3D FDT_PROP) && (tag !=3D FDT_BEGIN_NODE) &&
-> +		 (tag !=3D FDT_END_NODE));
-> +
-> +	return 0;
-> +}
-> +
->  static int fdt_resize_property_(void *fdt, int nodeoffset,
->  				const char *name, int namelen,
->  				int len, struct fdt_property **prop)
->  {
-> +	int prop_offset;
->  	int oldlen;
->  	int err;
-> =20
-> @@ -209,6 +268,15 @@ static int fdt_resize_property_(void *fdt, int nodeo=
-ffset,
->  	if (!*prop)
->  		return oldlen;
-> =20
-> +	/*
-> +	 * The property is resized. Remove possible unknown tags related to the
-> +	 * property downgrading the dtb version.
-> +	 */
-> +	prop_offset =3D fdt_ptr_offset_(fdt, *prop);
-> +	err =3D fdt_prop_remove_unknown_tags(fdt, false, prop_offset, true);
-> +	if (err)
-> +		return err;
-> +
->  	if ((err =3D fdt_splice_struct_(fdt, (*prop)->data, FDT_TAGALIGN(oldlen=
-),
->  				      FDT_TAGALIGN(len))))
->  		return err;
-> @@ -217,6 +285,29 @@ static int fdt_resize_property_(void *fdt, int nodeo=
-ffset,
->  	return 0;
->  }
-> =20
-> +static int fdt_node_skip_unknown_tags(void *fdt, int next)
-
-Is 'next' the offset of a node?  If so it should probably have a more
-suggestive name.
-
-> +{
-> +	int nextoffset =3D next;
-> +	int offset;
-> +	uint32_t tag;
-> +
-> +	/*
-> +	 * Skip all tags related to the current node. I.e. tags after the
-> +	 * current node and before either the next property, a sub-node or the
-> +	 * end of current node.
-> +	 */
-> +	do {
-> +		offset =3D nextoffset;
-> +		tag =3D fdt_next_tag(fdt, offset, &nextoffset);
-> +		if (tag =3D=3D FDT_END)
-> +			return nextoffset;
-> +
-> +	} while ((tag !=3D FDT_PROP) && (tag !=3D FDT_BEGIN_NODE) &&
-> +		 (tag !=3D FDT_END_NODE));
-> +
-> +	return offset;
-> +}
-> +
->  static int fdt_add_property_(void *fdt, int nodeoffset, const char *name,
->  			     int namelen, int len, struct fdt_property **prop)
->  {
-> @@ -235,6 +326,15 @@ static int fdt_add_property_(void *fdt, int nodeoffs=
-et, const char *name,
->  	if ((nextoffset =3D fdt_check_node_offset_(fdt, nodeoffset)) < 0)
->  		return nextoffset;
-> =20
-> +	/*
-> +	 * nextoffset it at the first tag after the node.
-> +	 * Skip possible unknown tags related to the node in order to add the
-> +	 * property after those tags.
-> +	 */
-> +	nextoffset =3D fdt_node_skip_unknown_tags(fdt, nextoffset);
-> +	if (nextoffset < 0)
-> +		return nextoffset;
-> +
->  	namestroff =3D fdt_find_add_string_(fdt, name, namelen, &allocated);
->  	if (namestroff < 0)
->  		return namestroff;
-> @@ -333,11 +433,22 @@ int fdt_appendprop(void *fdt, int nodeoffset, const=
- char *name,
->  {
->  	struct fdt_property *prop;
->  	int err, oldlen, newlen;
-> +	int prop_offset;
-> =20
->  	FDT_RW_PROBE(fdt);
-> =20
->  	prop =3D fdt_get_property_w(fdt, nodeoffset, name, &oldlen);
->  	if (prop) {
-> +		/*
-> +		 * The property is going to be modified. Remove possible unknown
-> +		 * tags related to this property downgrading the dtb version.
-> +		 */
-> +		prop_offset =3D fdt_ptr_offset_(fdt, prop);
-> +		err =3D fdt_prop_remove_unknown_tags(fdt, false, prop_offset,
-> +						   true);
-> +		if (err)
-> +			return err;
-
-Just NOPing the unknown tags isn't ideal here.  This function can
-already insert/remove stuff from the structure block, so removing the
-tags entirely would be preferable.
-
->  		newlen =3D len + oldlen;
->  		err =3D fdt_splice_struct_(fdt, prop->data,
->  					 FDT_TAGALIGN(oldlen),
-
-> @@ -360,6 +471,8 @@ int fdt_delprop(void *fdt, int nodeoffset, const char=
- *name)
->  {
->  	struct fdt_property *prop;
->  	int len, proplen;
-> +	int prop_offset;
-> +	int err;
-> =20
->  	FDT_RW_PROBE(fdt);
-> =20
-> @@ -367,6 +480,15 @@ int fdt_delprop(void *fdt, int nodeoffset, const cha=
-r *name)
->  	if (!prop)
->  		return len;
-> =20
-> +	/*
-> +	 * The property is going to be removed. Remove also possible unknown
-> +	 * tags related to this property. Keep the dtb version unchanged.
-> +	 */
-> +	prop_offset =3D fdt_ptr_offset_(fdt, prop);
-> +	err =3D fdt_prop_remove_unknown_tags(fdt, false, prop_offset, false);
-> +	if (err)
-> +		return err;
-
-Here, only NOPing the tags is worse, since delprop is expected to
-entirely remove the property without leaving NOPs.
-
-Also.. just NOPing unknown tags isn't correct either.  The property is
-being removed, so *all* the associated skippable tags should be
-removed as well (ideally with a single fdt_splice_struct_()).
-
-> +
->  	proplen =3D sizeof(*prop) + FDT_TAGALIGN(len);
->  	return fdt_splice_struct_(fdt, prop, proplen, 0);
->  }
-> @@ -395,7 +517,12 @@ int fdt_add_subnode_namelen(void *fdt, int parentoff=
-set,
->  	else if (offset !=3D -FDT_ERR_NOTFOUND)
->  		return offset;
-> =20
-> -	/* Try to place the new node after the parent's properties */
-> +	/*
-> +	 * Try to place the new node after the parent's properties and unknown
-> +	 * tags related to those properties.
-> +	 * Unknown tags are reported as FDT_NOP tags by fdt_next_tag.
-> +	 * Skipping FDT_NOP tags will correctly skip unknown tags.
-
-True, but I think it would be clearer and more robust to explicitly
-look for an FDT_BEGIN_NODE or FDT_END_NODE tag instead.
-
-> +	 */
->  	tag =3D fdt_next_tag(fdt, parentoffset, &nextoffset);
->  	/* the fdt_subnode_offset_namelen() should ensure this never hits */
->  	if (!can_assume(LIBFDT_FLAWLESS) && (tag !=3D FDT_BEGIN_NODE))
-> diff --git a/libfdt/fdt_wip.c b/libfdt/fdt_wip.c
-> index c2d7566a..7ca3ffbc 100644
-> --- a/libfdt/fdt_wip.c
-> +++ b/libfdt/fdt_wip.c
-> @@ -15,17 +15,30 @@ int fdt_setprop_inplace_namelen_partial(void *fdt, in=
-t nodeoffset,
->  					uint32_t idx, const void *val,
->  					int len)
->  {
-> +	int prop_offset;
->  	void *propval;
->  	int proplen;
-> +	int err;
-> =20
-> -	propval =3D fdt_getprop_namelen_w(fdt, nodeoffset, name, namelen,
-> -					&proplen);
-> +	prop_offset =3D fdt_getprop_offset_namelen(fdt, nodeoffset, name, namel=
-en);
-> +	if (prop_offset < 0)
-> +		return prop_offset;
-> +
-> +	propval =3D fdt_getprop_by_offset_w(fdt, prop_offset, NULL, &proplen);
->  	if (!propval)
->  		return proplen;
-> =20
->  	if ((unsigned)proplen < (len + idx))
->  		return -FDT_ERR_NOSPACE;
-> =20
-> +	/*
-> +	 * Remove unknown tags related to the property downgrading the dtb
-> +	 * version.
-> +	 */
-> +	err =3D fdt_prop_remove_unknown_tags(fdt, true, prop_offset, true);
-
-Functions in fdt_wip.c should not depend on functions in fdw_rw.c.
-Part of the reason for organising things this way is so that a client
-only uses write-in-place functions, the linker will omit the more
-complex full read-write code (even if an old or limited linker that
-doesn't do e.g. function sections).  fdt_rw.c by contrast _is_
-permitted to rely on fdt_wip.c
-
-> +	if (err)
-> +		return err;
-> +
->  	memcpy((char *)propval + idx, val, len);
->  	return 0;
->  }
-> @@ -59,12 +72,23 @@ static void fdt_nop_region_(void *start, int len)
->  int fdt_nop_property(void *fdt, int nodeoffset, const char *name)
->  {
->  	struct fdt_property *prop;
-> +	int prop_offset;
->  	int len;
-> +	int err;
-> =20
->  	prop =3D fdt_get_property_w(fdt, nodeoffset, name, &len);
->  	if (!prop)
->  		return len;
-> =20
-> +	/*
-> +	 * The property is going to be removed (nopified). Remove unknown tags
-> +	 * related to this property. Keep the dtb version unchanged.
-> +	 */
-> +	prop_offset =3D fdt_ptr_offset_(fdt, prop);
-> +	err =3D fdt_prop_remove_unknown_tags(fdt, true, prop_offset, false);
-> +	if (err)
-> +		return err;
-
-Similar to fdt_delprop() this needs to NOP *all* the properties
-associated with the property we're killing, not just the unknown ones
-(again, ideally with a single fdt_nop_region_()).
-
->  	fdt_nop_region_(prop, len + sizeof(*prop));
-> =20
->  	return 0;
-> diff --git a/libfdt/libfdt_internal.h b/libfdt/libfdt_internal.h
-> index e3923629..ce128fda 100644
-> --- a/libfdt/libfdt_internal.h
-> +++ b/libfdt/libfdt_internal.h
-> @@ -26,6 +26,9 @@ uint32_t fdt_next_tag_(const void *fdt, int startoffset=
-, int *nextoffset,
->  int fdt_check_node_offset_(const void *fdt, int offset);
->  int fdt_check_prop_offset_(const void *fdt, int offset);
-> =20
-> +int fdt_prop_remove_unknown_tags(void *fdt, bool force_inplace,
-> +				 int prop_offset, bool downgrade_version);
-> +
->  int fdt_getprop_offset_namelen(const void *fdt, int nodeoffset,
->  			       const char *name, int namelen);
->  static inline int fdt_getprop_offset(const void *fdt, int nodeoffset,
-> diff --git a/tests/run_tests.sh b/tests/run_tests.sh
-> index 419a24d8..980ed6a0 100755
-> --- a/tests/run_tests.sh
-> +++ b/tests/run_tests.sh
-> @@ -586,6 +586,34 @@ libfdt_tests () {
->  		unknown_tags_no_skip.dtb; do
->  	run_test check_full -n $bad
->      done
-> +
-> +    # Check inplace modification with "unknown" tags that can be skipped
-> +    dtb=3Dunknown_tags_can_skip.wip.test.dtb
-> +    cp unknown_tags_can_skip.dtb $dtb
-> +    base_run_test wrap_fdtdump $dtb $dtb.0.out
-> +    # Remove unneeded header fields (keep those related to versions)
-> +    sed -i '/^\/.*\(magic\|off\|size\|cpu\)/d' $dtb.0.out
-> +    base_run_test check_diff $dtb.0.out "$SRCDIR/$dtb.0.expect"
-
-As noted earlier in the series, tests of binary-level behaviour
-shouldn't depend on specific source formatting.  The use of wip_func
-to essentially do some of the test steps in shell seems clumsy to me -
-I think this would be nicer as explicit tests written in C which
-directly look at the binary dtb contents.
-
-> +    run_test wip_func $dtb set_prop / prop-str 0 "vwxy"
-> +    base_run_test wrap_fdtdump $dtb $dtb.1.out
-> +    # Remove unneeded header fields (keep those related to versions)
-> +    sed -i '/^\/.*\(magic\|off\|size\|cpu\)/d' $dtb.1.out
-> +    base_run_test check_diff $dtb.1.out "$SRCDIR/$dtb.1.expect"
-> +
-> +    cp unknown_tags_can_skip.dtb $dtb
-> +    run_test wip_func $dtb nop_prop /subnode2 prop-int1
-> +    base_run_test wrap_fdtdump $dtb $dtb.2.out
-> +    # Remove unneeded header fields (keep those related to versions)
-> +    sed -i '/^\/.*\(magic\|off\|size\|cpu\)/d' $dtb.2.out
-> +    base_run_test check_diff $dtb.2.out "$SRCDIR/$dtb.2.expect"
-> +
-> +    cp unknown_tags_can_skip.dtb $dtb
-> +    run_test wip_func $dtb nop_node /subnode2/subsubnode
-> +    base_run_test wrap_fdtdump $dtb $dtb.3.out
-> +    # Remove unneeded header fields (keep those related to versions)
-> +    sed -i '/^\/.*\(magic\|off\|size\|cpu\)/d' $dtb.3.out
-> +    base_run_test check_diff $dtb.3.out "$SRCDIR/$dtb.3.expect"
->  }
-> =20
->  dtc_tests () {
-> @@ -1045,6 +1073,56 @@ fdtput_tests () {
->      run_wrap_error_test $DTPUT $dtb -d /chosen   non-existent-prop
-> =20
->      # TODO: Add tests for verbose mode?
-> +
-> +    # Modify a dtb containing some "unknown" tags that can be skipped
-> +    dtb=3Dunknown_tags_can_skip.fdtput.test.dtb
-> +    cp unknown_tags_can_skip.dtb $dtb
-> +    base_run_test wrap_fdtdump $dtb $dtb.0.out
-> +    # Remove unneeded header fields (keep those related to versions)
-> +    sed -i '/^\/.*\(magic\|off\|size\|cpu\)/d' $dtb.0.out
-> +    base_run_test check_diff $dtb.0.out "$SRCDIR/$dtb.0.expect"
-> +    run_fdtput_test "vwxyz" $dtb / prop-str -ts "vwxyz"
-> +    base_run_test wrap_fdtdump $dtb $dtb.1.out
-> +    # Remove unneeded header fields (keep those related to versions)
-> +    sed -i '/^\/.*\(magic\|off\|size\|cpu\)/d' $dtb.1.out
-> +    base_run_test check_diff $dtb.1.out "$SRCDIR/$dtb.1.expect"
-
-Doing these as fdtput tests again seems kind of clumsy, unless the
-point is explicitly to check the fdtput utility's behaviour.  The core
-library functionality should be tested directly without introducing
-extra layers.
-
-> +    cp unknown_tags_can_skip.dtb $dtb
-> +    run_wrap_test $DTPUT $dtb -c /tst-fdtput
-> +    base_run_test wrap_fdtdump $dtb $dtb.2.out
-> +    # Remove unneeded header fields (keep those related to versions)
-> +    sed -i '/^\/.*\(magic\|off\|size\|cpu\)/d' $dtb.2.out
-> +    base_run_test check_diff $dtb.2.out "$SRCDIR/$dtb.2.expect"
-> +    run_wrap_test $DTPUT $dtb -c /tst-fdtput/n1 /tst-fdtput/n2 /tst-fdtp=
-ut/n3
-> +    run_wrap_test $DTPUT $dtb -r /tst-fdtput/n1 /tst-fdtput/n3
-> +    run_fdtget_test "n2" $dtb -l  /tst-fdtput
-> +    base_run_test wrap_fdtdump $dtb $dtb.3.out
-> +    # Remove unneeded header fields (keep those related to versions)
-> +    sed -i '/^\/.*\(magic\|off\|size\|cpu\)/d' $dtb.3.out
-> +    base_run_test check_diff $dtb.3.out "$SRCDIR/$dtb.3.expect"
-> +
-> +    cp unknown_tags_can_skip.dtb $dtb
-> +    run_wrap_test $DTPUT $dtb -d / prop-str
-> +    run_fdtget_test "prop-int" $dtb -p  /
-> +    base_run_test wrap_fdtdump $dtb $dtb.4.out
-> +    # Remove unneeded header fields (keep those related to versions)
-> +    sed -i '/^\/.*\(magic\|off\|size\|cpu\)/d' $dtb.4.out
-> +    base_run_test check_diff $dtb.4.out "$SRCDIR/$dtb.4.expect"
-> +
-> +    cp unknown_tags_can_skip.dtb $dtb
-> +    run_wrap_test $DTPUT $dtb /subnode2 prop-tst-fdtput -ts "Test fdtput"
-> +    base_run_test wrap_fdtdump $dtb $dtb.5.out
-> +    # Remove unneeded header fields (keep those related to versions)
-> +    sed -i '/^\/.*\(magic\|off\|size\|cpu\)/d' $dtb.5.out
-> +    base_run_test check_diff $dtb.5.out "$SRCDIR/$dtb.5.expect"
-> +
-> +    cp unknown_tags_can_skip.dtb $dtb
-> +    run_wrap_test $DTPUT $dtb -r /subnode2/subsubnode
-> +    base_run_test wrap_fdtdump $dtb $dtb.6.out
-> +    # Remove unneeded header fields (keep those related to versions)
-> +    sed -i '/^\/.*\(magic\|off\|size\|cpu\)/d' $dtb.6.out
-> +    base_run_test check_diff $dtb.6.out "$SRCDIR/$dtb.6.expect"
->  }
-> =20
->  utilfdt_tests () {
-> diff --git a/tests/unknown_tags_can_skip.fdtput.test.dtb.0.expect b/tests=
-/unknown_tags_can_skip.fdtput.test.dtb.0.expect
-> new file mode 100644
-> index 00000000..75883593
-> --- /dev/null
-> +++ b/tests/unknown_tags_can_skip.fdtput.test.dtb.0.expect
-> @@ -0,0 +1,31 @@
-> +/dts-v1/;
-> +// version:		4294967295
-> +// last_comp_version:	16
-> +
-> +// Unknown tag ignored: 0xd0000000, data len 4 00000001
-> +/ {
-> +    // Unknown tag ignored: 0xc0000000, data len 0
-> +    prop-int =3D <0x00003201>;
-> +    // Unknown tag ignored: 0xd0000000, data len 4 00000110
-> +    prop-str =3D "abcd";
-> +    // Unknown tag ignored: 0xe0000000, data len 8 0000012000000121
-> +    // Unknown tag ignored: 0xf0000000, data len 3 101112
-> +    subnode1 {
-> +        prop-int =3D <0x00006401 0x00006402>;
-> +        // Unknown tag ignored: 0xc0000000, data len 0
-> +    };
-> +    subnode2 {
-> +        // Unknown tag ignored: 0xd0000000, data len 4 00000121
-> +        prop-int1 =3D <0x00064020 0x00064021>;
-> +        // Unknown tag ignored: 0xe0000000, data len 8 0000122000001221
-> +        prop-int2 =3D <0x00032022>;
-> +        subsubnode {
-> +            // Unknown tag ignored: 0xe0000000, data len 8 0000123000001=
-231
-> +            prop-bool;
-> +        };
-> +        // Unknown tag ignored: 0xf0000000, data len 3 212223
-> +    };
-> +    // Unknown tag ignored: 0xf0000000, data len 4 31323334
-> +};
-> +// Unknown tag ignored: 0xd0000000, data len 4 00000002
-> +// Unknown tag ignored: 0xf0000000, data len 2 4041
-> diff --git a/tests/unknown_tags_can_skip.fdtput.test.dtb.1.expect b/tests=
-/unknown_tags_can_skip.fdtput.test.dtb.1.expect
-> new file mode 100644
-> index 00000000..b4d3ae29
-> --- /dev/null
-> +++ b/tests/unknown_tags_can_skip.fdtput.test.dtb.1.expect
-> @@ -0,0 +1,35 @@
-> +/dts-v1/;
-> +// version:		17
-> +// last_comp_version:	16
-> +
-> +// Unknown tag ignored: 0xd0000000, data len 4 00000001
-> +/ {
-> +    // Unknown tag ignored: 0xc0000000, data len 0
-> +    prop-int =3D <0x00003201>;
-> +    // Unknown tag ignored: 0xd0000000, data len 4 00000110
-> +    prop-str =3D "vwxyz";
-> +    // [NOP]
-> +    // [NOP]
-> +    // [NOP]
-> +    // [NOP]
-> +    // [NOP]
-> +    // [NOP]
-> +    subnode1 {
-> +        prop-int =3D <0x00006401 0x00006402>;
-> +        // Unknown tag ignored: 0xc0000000, data len 0
-> +    };
-> +    subnode2 {
-> +        // Unknown tag ignored: 0xd0000000, data len 4 00000121
-> +        prop-int1 =3D <0x00064020 0x00064021>;
-> +        // Unknown tag ignored: 0xe0000000, data len 8 0000122000001221
-> +        prop-int2 =3D <0x00032022>;
-> +        subsubnode {
-> +            // Unknown tag ignored: 0xe0000000, data len 8 0000123000001=
-231
-> +            prop-bool;
-> +        };
-> +        // Unknown tag ignored: 0xf0000000, data len 3 212223
-> +    };
-> +    // Unknown tag ignored: 0xf0000000, data len 4 31323334
-> +};
-> +// Unknown tag ignored: 0xd0000000, data len 4 00000002
-> +// Unknown tag ignored: 0xf0000000, data len 2 4041
-> diff --git a/tests/unknown_tags_can_skip.fdtput.test.dtb.2.expect b/tests=
-/unknown_tags_can_skip.fdtput.test.dtb.2.expect
-> new file mode 100644
-> index 00000000..a196bed3
-> --- /dev/null
-> +++ b/tests/unknown_tags_can_skip.fdtput.test.dtb.2.expect
-> @@ -0,0 +1,33 @@
-> +/dts-v1/;
-> +// version:		17
-> +// last_comp_version:	16
-> +
-> +// Unknown tag ignored: 0xd0000000, data len 4 00000001
-> +/ {
-> +    // Unknown tag ignored: 0xc0000000, data len 0
-> +    prop-int =3D <0x00003201>;
-> +    // Unknown tag ignored: 0xd0000000, data len 4 00000110
-> +    prop-str =3D "abcd";
-> +    // Unknown tag ignored: 0xe0000000, data len 8 0000012000000121
-> +    // Unknown tag ignored: 0xf0000000, data len 3 101112
-> +    tst-fdtput {
-> +    };
-> +    subnode1 {
-> +        prop-int =3D <0x00006401 0x00006402>;
-> +        // Unknown tag ignored: 0xc0000000, data len 0
-> +    };
-> +    subnode2 {
-> +        // Unknown tag ignored: 0xd0000000, data len 4 00000121
-> +        prop-int1 =3D <0x00064020 0x00064021>;
-> +        // Unknown tag ignored: 0xe0000000, data len 8 0000122000001221
-> +        prop-int2 =3D <0x00032022>;
-> +        subsubnode {
-> +            // Unknown tag ignored: 0xe0000000, data len 8 0000123000001=
-231
-> +            prop-bool;
-> +        };
-> +        // Unknown tag ignored: 0xf0000000, data len 3 212223
-> +    };
-> +    // Unknown tag ignored: 0xf0000000, data len 4 31323334
-> +};
-> +// Unknown tag ignored: 0xd0000000, data len 4 00000002
-> +// Unknown tag ignored: 0xf0000000, data len 2 4041
-> diff --git a/tests/unknown_tags_can_skip.fdtput.test.dtb.3.expect b/tests=
-/unknown_tags_can_skip.fdtput.test.dtb.3.expect
-> new file mode 100644
-> index 00000000..52faa1dd
-> --- /dev/null
-> +++ b/tests/unknown_tags_can_skip.fdtput.test.dtb.3.expect
-> @@ -0,0 +1,35 @@
-> +/dts-v1/;
-> +// version:		17
-> +// last_comp_version:	16
-> +
-> +// Unknown tag ignored: 0xd0000000, data len 4 00000001
-> +/ {
-> +    // Unknown tag ignored: 0xc0000000, data len 0
-> +    prop-int =3D <0x00003201>;
-> +    // Unknown tag ignored: 0xd0000000, data len 4 00000110
-> +    prop-str =3D "abcd";
-> +    // Unknown tag ignored: 0xe0000000, data len 8 0000012000000121
-> +    // Unknown tag ignored: 0xf0000000, data len 3 101112
-> +    tst-fdtput {
-> +        n2 {
-> +        };
-> +    };
-> +    subnode1 {
-> +        prop-int =3D <0x00006401 0x00006402>;
-> +        // Unknown tag ignored: 0xc0000000, data len 0
-> +    };
-> +    subnode2 {
-> +        // Unknown tag ignored: 0xd0000000, data len 4 00000121
-> +        prop-int1 =3D <0x00064020 0x00064021>;
-> +        // Unknown tag ignored: 0xe0000000, data len 8 0000122000001221
-> +        prop-int2 =3D <0x00032022>;
-> +        subsubnode {
-> +            // Unknown tag ignored: 0xe0000000, data len 8 0000123000001=
-231
-> +            prop-bool;
-> +        };
-> +        // Unknown tag ignored: 0xf0000000, data len 3 212223
-> +    };
-> +    // Unknown tag ignored: 0xf0000000, data len 4 31323334
-> +};
-> +// Unknown tag ignored: 0xd0000000, data len 4 00000002
-> +// Unknown tag ignored: 0xf0000000, data len 2 4041
-> diff --git a/tests/unknown_tags_can_skip.fdtput.test.dtb.4.expect b/tests=
-/unknown_tags_can_skip.fdtput.test.dtb.4.expect
-> new file mode 100644
-> index 00000000..1ddc694b
-> --- /dev/null
-> +++ b/tests/unknown_tags_can_skip.fdtput.test.dtb.4.expect
-> @@ -0,0 +1,34 @@
-> +/dts-v1/;
-> +// version:		17
-> +// last_comp_version:	16
-> +
-> +// Unknown tag ignored: 0xd0000000, data len 4 00000001
-> +/ {
-> +    // Unknown tag ignored: 0xc0000000, data len 0
-> +    prop-int =3D <0x00003201>;
-> +    // Unknown tag ignored: 0xd0000000, data len 4 00000110
-> +    // [NOP]
-> +    // [NOP]
-> +    // [NOP]
-> +    // [NOP]
-> +    // [NOP]
-> +    // [NOP]
-> +    subnode1 {
-> +        prop-int =3D <0x00006401 0x00006402>;
-> +        // Unknown tag ignored: 0xc0000000, data len 0
-> +    };
-> +    subnode2 {
-> +        // Unknown tag ignored: 0xd0000000, data len 4 00000121
-> +        prop-int1 =3D <0x00064020 0x00064021>;
-> +        // Unknown tag ignored: 0xe0000000, data len 8 0000122000001221
-> +        prop-int2 =3D <0x00032022>;
-> +        subsubnode {
-> +            // Unknown tag ignored: 0xe0000000, data len 8 0000123000001=
-231
-> +            prop-bool;
-> +        };
-> +        // Unknown tag ignored: 0xf0000000, data len 3 212223
-> +    };
-> +    // Unknown tag ignored: 0xf0000000, data len 4 31323334
-> +};
-> +// Unknown tag ignored: 0xd0000000, data len 4 00000002
-> +// Unknown tag ignored: 0xf0000000, data len 2 4041
-> diff --git a/tests/unknown_tags_can_skip.fdtput.test.dtb.5.expect b/tests=
-/unknown_tags_can_skip.fdtput.test.dtb.5.expect
-> new file mode 100644
-> index 00000000..f955ac1c
-> --- /dev/null
-> +++ b/tests/unknown_tags_can_skip.fdtput.test.dtb.5.expect
-> @@ -0,0 +1,32 @@
-> +/dts-v1/;
-> +// version:		17
-> +// last_comp_version:	16
-> +
-> +// Unknown tag ignored: 0xd0000000, data len 4 00000001
-> +/ {
-> +    // Unknown tag ignored: 0xc0000000, data len 0
-> +    prop-int =3D <0x00003201>;
-> +    // Unknown tag ignored: 0xd0000000, data len 4 00000110
-> +    prop-str =3D "abcd";
-> +    // Unknown tag ignored: 0xe0000000, data len 8 0000012000000121
-> +    // Unknown tag ignored: 0xf0000000, data len 3 101112
-> +    subnode1 {
-> +        prop-int =3D <0x00006401 0x00006402>;
-> +        // Unknown tag ignored: 0xc0000000, data len 0
-> +    };
-> +    subnode2 {
-> +        // Unknown tag ignored: 0xd0000000, data len 4 00000121
-> +        prop-tst-fdtput =3D "Test fdtput";
-> +        prop-int1 =3D <0x00064020 0x00064021>;
-> +        // Unknown tag ignored: 0xe0000000, data len 8 0000122000001221
-> +        prop-int2 =3D <0x00032022>;
-> +        subsubnode {
-> +            // Unknown tag ignored: 0xe0000000, data len 8 0000123000001=
-231
-> +            prop-bool;
-> +        };
-> +        // Unknown tag ignored: 0xf0000000, data len 3 212223
-> +    };
-> +    // Unknown tag ignored: 0xf0000000, data len 4 31323334
-> +};
-> +// Unknown tag ignored: 0xd0000000, data len 4 00000002
-> +// Unknown tag ignored: 0xf0000000, data len 2 4041
-> diff --git a/tests/unknown_tags_can_skip.fdtput.test.dtb.6.expect b/tests=
-/unknown_tags_can_skip.fdtput.test.dtb.6.expect
-> new file mode 100644
-> index 00000000..59247478
-> --- /dev/null
-> +++ b/tests/unknown_tags_can_skip.fdtput.test.dtb.6.expect
-> @@ -0,0 +1,27 @@
-> +/dts-v1/;
-> +// version:		17
-> +// last_comp_version:	16
-> +
-> +// Unknown tag ignored: 0xd0000000, data len 4 00000001
-> +/ {
-> +    // Unknown tag ignored: 0xc0000000, data len 0
-> +    prop-int =3D <0x00003201>;
-> +    // Unknown tag ignored: 0xd0000000, data len 4 00000110
-> +    prop-str =3D "abcd";
-> +    // Unknown tag ignored: 0xe0000000, data len 8 0000012000000121
-> +    // Unknown tag ignored: 0xf0000000, data len 3 101112
-> +    subnode1 {
-> +        prop-int =3D <0x00006401 0x00006402>;
-> +        // Unknown tag ignored: 0xc0000000, data len 0
-> +    };
-> +    subnode2 {
-> +        // Unknown tag ignored: 0xd0000000, data len 4 00000121
-> +        prop-int1 =3D <0x00064020 0x00064021>;
-> +        // Unknown tag ignored: 0xe0000000, data len 8 0000122000001221
-> +        prop-int2 =3D <0x00032022>;
-> +        // Unknown tag ignored: 0xf0000000, data len 3 212223
-> +    };
-> +    // Unknown tag ignored: 0xf0000000, data len 4 31323334
-> +};
-> +// Unknown tag ignored: 0xd0000000, data len 4 00000002
-> +// Unknown tag ignored: 0xf0000000, data len 2 4041
-> diff --git a/tests/unknown_tags_can_skip.wip.test.dtb.0.expect b/tests/un=
-known_tags_can_skip.wip.test.dtb.0.expect
-> new file mode 100644
-> index 00000000..75883593
-> --- /dev/null
-> +++ b/tests/unknown_tags_can_skip.wip.test.dtb.0.expect
-> @@ -0,0 +1,31 @@
-> +/dts-v1/;
-> +// version:		4294967295
-> +// last_comp_version:	16
-> +
-> +// Unknown tag ignored: 0xd0000000, data len 4 00000001
-> +/ {
-> +    // Unknown tag ignored: 0xc0000000, data len 0
-> +    prop-int =3D <0x00003201>;
-> +    // Unknown tag ignored: 0xd0000000, data len 4 00000110
-> +    prop-str =3D "abcd";
-> +    // Unknown tag ignored: 0xe0000000, data len 8 0000012000000121
-> +    // Unknown tag ignored: 0xf0000000, data len 3 101112
-> +    subnode1 {
-> +        prop-int =3D <0x00006401 0x00006402>;
-> +        // Unknown tag ignored: 0xc0000000, data len 0
-> +    };
-> +    subnode2 {
-> +        // Unknown tag ignored: 0xd0000000, data len 4 00000121
-> +        prop-int1 =3D <0x00064020 0x00064021>;
-> +        // Unknown tag ignored: 0xe0000000, data len 8 0000122000001221
-> +        prop-int2 =3D <0x00032022>;
-> +        subsubnode {
-> +            // Unknown tag ignored: 0xe0000000, data len 8 0000123000001=
-231
-> +            prop-bool;
-> +        };
-> +        // Unknown tag ignored: 0xf0000000, data len 3 212223
-> +    };
-> +    // Unknown tag ignored: 0xf0000000, data len 4 31323334
-> +};
-> +// Unknown tag ignored: 0xd0000000, data len 4 00000002
-> +// Unknown tag ignored: 0xf0000000, data len 2 4041
-> diff --git a/tests/unknown_tags_can_skip.wip.test.dtb.1.expect b/tests/un=
-known_tags_can_skip.wip.test.dtb.1.expect
-> new file mode 100644
-> index 00000000..2a0dd4a0
-> --- /dev/null
-> +++ b/tests/unknown_tags_can_skip.wip.test.dtb.1.expect
-> @@ -0,0 +1,35 @@
-> +/dts-v1/;
-> +// version:		17
-> +// last_comp_version:	16
-> +
-> +// Unknown tag ignored: 0xd0000000, data len 4 00000001
-> +/ {
-> +    // Unknown tag ignored: 0xc0000000, data len 0
-> +    prop-int =3D <0x00003201>;
-> +    // Unknown tag ignored: 0xd0000000, data len 4 00000110
-> +    prop-str =3D "vwxy";
-> +    // [NOP]
-> +    // [NOP]
-> +    // [NOP]
-> +    // [NOP]
-> +    // [NOP]
-> +    // [NOP]
-> +    subnode1 {
-> +        prop-int =3D <0x00006401 0x00006402>;
-> +        // Unknown tag ignored: 0xc0000000, data len 0
-> +    };
-> +    subnode2 {
-> +        // Unknown tag ignored: 0xd0000000, data len 4 00000121
-> +        prop-int1 =3D <0x00064020 0x00064021>;
-> +        // Unknown tag ignored: 0xe0000000, data len 8 0000122000001221
-> +        prop-int2 =3D <0x00032022>;
-> +        subsubnode {
-> +            // Unknown tag ignored: 0xe0000000, data len 8 0000123000001=
-231
-> +            prop-bool;
-> +        };
-> +        // Unknown tag ignored: 0xf0000000, data len 3 212223
-> +    };
-> +    // Unknown tag ignored: 0xf0000000, data len 4 31323334
-> +};
-> +// Unknown tag ignored: 0xd0000000, data len 4 00000002
-> +// Unknown tag ignored: 0xf0000000, data len 2 4041
-> diff --git a/tests/unknown_tags_can_skip.wip.test.dtb.2.expect b/tests/un=
-known_tags_can_skip.wip.test.dtb.2.expect
-> new file mode 100644
-> index 00000000..bc08885b
-> --- /dev/null
-> +++ b/tests/unknown_tags_can_skip.wip.test.dtb.2.expect
-> @@ -0,0 +1,37 @@
-> +/dts-v1/;
-> +// version:		4294967295
-> +// last_comp_version:	16
-> +
-> +// Unknown tag ignored: 0xd0000000, data len 4 00000001
-> +/ {
-> +    // Unknown tag ignored: 0xc0000000, data len 0
-> +    prop-int =3D <0x00003201>;
-> +    // Unknown tag ignored: 0xd0000000, data len 4 00000110
-> +    prop-str =3D "abcd";
-> +    // Unknown tag ignored: 0xe0000000, data len 8 0000012000000121
-> +    // Unknown tag ignored: 0xf0000000, data len 3 101112
-> +    subnode1 {
-> +        prop-int =3D <0x00006401 0x00006402>;
-> +        // Unknown tag ignored: 0xc0000000, data len 0
-> +    };
-> +    subnode2 {
-> +        // Unknown tag ignored: 0xd0000000, data len 4 00000121
-> +        // [NOP]
-> +        // [NOP]
-> +        // [NOP]
-> +        // [NOP]
-> +        // [NOP]
-> +        // [NOP]
-> +        // [NOP]
-> +        // [NOP]
-> +        prop-int2 =3D <0x00032022>;
-> +        subsubnode {
-> +            // Unknown tag ignored: 0xe0000000, data len 8 0000123000001=
-231
-> +            prop-bool;
-> +        };
-> +        // Unknown tag ignored: 0xf0000000, data len 3 212223
-> +    };
-> +    // Unknown tag ignored: 0xf0000000, data len 4 31323334
-> +};
-> +// Unknown tag ignored: 0xd0000000, data len 4 00000002
-> +// Unknown tag ignored: 0xf0000000, data len 2 4041
-> diff --git a/tests/unknown_tags_can_skip.wip.test.dtb.3.expect b/tests/un=
-known_tags_can_skip.wip.test.dtb.3.expect
-> new file mode 100644
-> index 00000000..aa6e9394
-> --- /dev/null
-> +++ b/tests/unknown_tags_can_skip.wip.test.dtb.3.expect
-> @@ -0,0 +1,38 @@
-> +/dts-v1/;
-> +// version:		4294967295
-> +// last_comp_version:	16
-> +
-> +// Unknown tag ignored: 0xd0000000, data len 4 00000001
-> +/ {
-> +    // Unknown tag ignored: 0xc0000000, data len 0
-> +    prop-int =3D <0x00003201>;
-> +    // Unknown tag ignored: 0xd0000000, data len 4 00000110
-> +    prop-str =3D "abcd";
-> +    // Unknown tag ignored: 0xe0000000, data len 8 0000012000000121
-> +    // Unknown tag ignored: 0xf0000000, data len 3 101112
-> +    subnode1 {
-> +        prop-int =3D <0x00006401 0x00006402>;
-> +        // Unknown tag ignored: 0xc0000000, data len 0
-> +    };
-> +    subnode2 {
-> +        // Unknown tag ignored: 0xd0000000, data len 4 00000121
-> +        prop-int1 =3D <0x00064020 0x00064021>;
-> +        // Unknown tag ignored: 0xe0000000, data len 8 0000122000001221
-> +        prop-int2 =3D <0x00032022>;
-> +        // [NOP]
-> +        // [NOP]
-> +        // [NOP]
-> +        // [NOP]
-> +        // [NOP]
-> +        // [NOP]
-> +        // [NOP]
-> +        // [NOP]
-> +        // [NOP]
-> +        // [NOP]
-> +        // [NOP]
-> +        // Unknown tag ignored: 0xf0000000, data len 3 212223
-> +    };
-> +    // Unknown tag ignored: 0xf0000000, data len 4 31323334
-> +};
-> +// Unknown tag ignored: 0xd0000000, data len 4 00000002
-> +// Unknown tag ignored: 0xf0000000, data len 2 4041
-> --=20
-> 2.55.0
->=20
->=20
-
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
-
---SqICAo96eBB2Izzy
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmqwyUgACgkQzQJF27ox
-2GfhVA/+NAICtVFqCRO8fL2iy8/a19koB/GbwhkQWzCl3x8oUvhHX+iibqzfhb5G
-imoKO38uN/AmaRYK/igr2CLYb2TdZbh36o53jFphGaKPwkc+mtKyeTqokQXzYpYD
-e18WMwgF6oFIZM/3WTiAq+er0yOYUIWjNGEwU2z/jqnybslUBR7luq3S0Kvg/WWK
-FC7ldEGQmeN7NbW0rGWG5TjIDPikj6SzfHZTaktQr3Qouo5+HG8RIPZMLTTSnsHd
-fXyvvMgkgK9HESw4E27JLdbQh/qW/6kZmDonFWI4xvGV7wrAoSSzNNigtfBYWK3B
-UBWC/0jBz76NIr8YUbfXwVpxMrb7NOg+ns/4rB+XwTkt68AIexS+eE6VMsabGv+2
-kOS/aXM2zljFfS7KT94QJH01yvON3mvY/GcimuNoFoENeJ/uWaPCST+OammU2ocz
-MleoP5vdwYgmtydLqigmKlerEp9zTM9nt5Iue1n0wkGQQjPY5xqRZFVVFmYIjrex
-UqsKyD2dZzFpCqYOR8ClSQ5Y1uLD80IbU7mYk1cceJOhsQtEvLLMUdzijhxfpssn
-T9M5ubT0L4TkVv2uvatbsnbC4/i3rV/k9jJweNREWSk/3R9ZzlZp3E6+0PWa1Ijs
-8q4lqetJDm1Ng4VxLmH1AZe0yBN0eeBEqBzrxPKeLWxhAzjpmRU=
-=KUlU
------END PGP SIGNATURE-----
-
---SqICAo96eBB2Izzy--
