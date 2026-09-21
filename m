@@ -1,110 +1,96 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41A81229B38
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 21:59:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A5D6514762;
+	Mon, 21 Sep 2026 22:06:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790027973; cv=none; b=AjxKnLL3i9iLLY+Dlvrjg0j+N2gFAHan2asGpNDLhk0Ue6bmAK70M37y8JQjjafABelgoxdBUf0bdtwJ1rc6huIHf3Movji/QREJb1DtWVSR5cidNyF55M9fGYpNpLL+fZEvqibjbhljMA6Fit8fgXBdQ8gEu+A2g1OrZyyRISs=
+	t=1790028404; cv=none; b=bD6UqfmZ95WBfZLmOcuSPvcolVYPL5zUmIHd8G7YqhcADiZgW1qbt4nkIMkXNh9v3MeNhWgObKCH/AFh1gwonKSCZ5XKUDosz7TszFRbPktyXk77VEtzOT03NMlq2gBeHiKDaT4HMcPP7b0AbXuf+WrR4eKyeYBXFQ/88/TUsNc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790027973; c=relaxed/simple;
-	bh=TRdeNXfR3TBad0tHP8EChOJSQIYnhe9sNy3UDCObhoY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZyIyba3mUl95knHPOQ9azkJnNyOOZnduv57w9FpdG2z6fVpkbau+ihpkqUCcGKWjJ9G9sJUOvaQ1go7RUPiUMv32jlJJi1tUAlcE9tX1HRuCYpX2G72aI3kv//sltrj8zzW/jzKsU79hJ+eUbndtVJH5hsoqnqRDJqYq9+ge5hE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ayPDLsRo; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790028404; c=relaxed/simple;
+	bh=X/0hh96nzijd9yDSFT9pakn2WTJfPccstachVOiA3f0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Il6MIWCMXnstJvWbrUMDVFiuaTesRtzvA0Jda5zCRoKA4Ik2JGgeQ75oLgr04J+O+5hFtLrnsZRoVszLEQHQZHNYjLWFrqhcV19rRs2Pq5edcwey1iMtEL8N319yUgYfgdHEp2yQasiiZLZY2ApseRBpVTS6a6zbl/NjwfbpXk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=VdwN1/m6; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ayPDLsRo"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f55efe5so544090066b.2
-        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 14:59:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790027968; x=1790632768; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TrkUPYLMl9LKtkW3M3SxTjU77noomALRO+sF6HlftGw=;
-        b=ayPDLsRopvwm7v8XOJzvBPIXF+4TUimTRxlIGy0COADfk2h3ofKrm1qY3feLdOegZI
-         0v8W7JJ2pM/7eiAcsS30ofOLbW4DgLHMcWJzzKBrweER19LPPtx55Afy2hccItcxNKgB
-         L0TlXqqz0X+NIIS9c/d097MvZjnjMU7LEg6enKPx0NYvERJu84AyGuPGZm5Vk6I2whRE
-         t+bWJ+aKFb9elLwngJAKzaTiYTqaHA17WVyEaCWa03aJiBtX7H9Di9Umg8f20dO+JvJv
-         lI4YhvsEh0qqcPNczgHwd6+IC64jd9KBVSN3SeEaxD4hg9dHDOy0H6P2ebLAWN5dBgk9
-         sdyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790027968; x=1790632768;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TrkUPYLMl9LKtkW3M3SxTjU77noomALRO+sF6HlftGw=;
-        b=ZPAvx7QBFojFkzZpYj/a8TvCcaWIDatLrUoU/mWtAON7FPhcyyMQTHg+w+xYKj9Z5w
-         G7rzFBRA1YJQ5gWBz3WX28tsjsBM90nqAMn+YR+rjmgbmaOjof15fdOgLgN+CfWv4XpQ
-         Sf6tt/Pfj3xHYD9qRo2TxxwyjP4FoDunf9Y92uqlSjweuU7LcYK+gDfNnxttVEiL+Z1y
-         mGyhHdiDO3PKP8kWqErmp19S2CffPWIAOX7wFylvBHTKNHNc2YLCzRVFCk2I+AF7ub1e
-         zhr1w6iVtK+F6Rb0zknDLA5Q5sRtmdgcNZ86yk8xsNVgAVPpychWIdvasTjafI8dwc36
-         hjOA==
-X-Forwarded-Encrypted: i=1; AKwUvBw9RE/dK8I/gZRionkqfUFMqTDoBcgTSsrcxMC+SgVTPQPxAxUR07fCvaG4GsjCBzNxH7WSaS2vCkzi@vger.kernel.org
-X-Gm-Message-State: AFuF++kbCF8KKVNq8KaLLG+iY9ZIbY8MSPCFarXcWa+NoRrijhh+sqmk
-	LfSWJMbK6I+W9D/541bdgNAGMjQB0/ZkRz1TDOMTAugN+GYynPX6Ka2i
-X-Gm-Gg: AYBFou0xwLNmw9sm/70zT5O9grIiTFn3tvJ/gRCLlk2zl/r20fqZljKLZ+qtx1FlcJU
-	2AbujeyyCtAvgMLCKBRXQK/B4SLShnt5xA9BgedOONNLdEv0MVZZhTIwked1TJ3ukg92YRUlij3
-	gN5GP2/JJ2bWDenQ8CZ4i82BmTqYJiy/vu+3My87HnzFGN8aN7XiOSjOqqebDoamyQ74mD0AOA6
-	0JglMLUP4MsBSqtGQJfJnRJgAkAHpfMh7JMtsG48zuVPzfWmlCsCR6zlNRuUK8uFaKJgSXLsKs7
-	C80+C05950tkAZJONPdNY4zN2JDdkksGRwe5i60dVyz4akXvbkRLaq+zwONvPrk7ARfW4RTOweS
-	5n3gDu0HGONCRJ+is5ihonExL7woTUq4Y4LAtneclMi4vtEjUw9Qw7yZk0bdN+j+HymTxTGbOwU
-	0OmOUXkqMsnu4Jze2AnkYaUYhtazuHBXqlZ7RTYQy1NfBNuCa+evWGJekleEhVUAsLAuGgi6sBQ
-	t9Msckq6D7v21k/IPIvVCDseg==
-X-Received: by 2002:a17:906:99c9:b0:c29:61b9:7b3b with SMTP id a640c23a62f3a-c2a15829440mr1024592366b.49.1790027968392;
-        Mon, 21 Sep 2026 14:59:28 -0700 (PDT)
-Received: from [192.168.33.7] ([89.151.31.85])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a962c814fsm9185866b.34.2026.09.21.14.59.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 14:59:27 -0700 (PDT)
-Message-ID: <7980fee5-f70a-426d-8cdc-d51e15323852@gmail.com>
-Date: Mon, 21 Sep 2026 23:59:25 +0200
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="VdwN1/m6"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=Xh7r+wBULLX7xOhkCrEp64UsGuqdkH4pf7taI2bfz/Y=; b=VdwN1/m6cob8uyb69bcrs6kzSx
+	wtZUqa2i/g68w6+aAstSNytJPJAdb7p0plB3mUGSxy1VC/EHfNYwPRyrZz8tiSDF1anBMUg7gK6rU
+	eQC9D04+lNHkSnHgdukiwNCNsh6MSaUxYoATm8yDqOfGvbbi0V+WgZQImmgt9bArxhDuBZEaWhj7c
+	xHLDzjwwbJGJ/pM0PyQX75uvDyz/O1A8n2E8GYOXOv5ZfHn9Z00J6AGt7DHP+YSCA3KUqgEzYDLnK
+	EuCneA+xU2pEcqJX7T4gH5Qqo/H26phoAVxLkUy4Gsmj2RFiVxQ/hSIlSwLVSOTfYjm57u1SHLhSL
+	t0eaVU+Q==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: tomeu@tomeuvizoso.net, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com,
+ ulfh@kernel.org, p.zabel@pengutronix.de, ogabbay@kernel.org,
+ zhangqing@rock-chips.com, Jiaxing Hu <gahing@gahingwoo.com>
+Cc: royalnet026@gmail.com, abel.vesa@oss.qualcomm.com,
+ sebastian.reichel@collabora.com, sidong.yang@furiosa.ai,
+ u.kleine-koenig@baylibre.com, chaoyi.chen@rock-chips.com,
+ diederik@cknow-tech.com, alchark@flipper.net,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ iommu@lists.linux.dev, linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Jiaxing Hu <gahing@gahingwoo.com>
+Subject:
+ Re: [PATCH v13 09/14] pmdomain: rockchip: add optional per-domain power-on
+ settle delay
+Date: Tue, 22 Sep 2026 00:06:12 +0200
+Message-ID: <15844283.tv2OnDr8pf@phil>
+In-Reply-To: <20260915104328.45901-10-gahing@gahingwoo.com>
+References:
+ <20260915104328.45901-1-gahing@gahingwoo.com>
+ <20260915104328.45901-10-gahing@gahingwoo.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCHv2 1/2] usb: bcma: add regulator support
-To: Rosen Penev <rosenp@gmail.com>, devicetree@vger.kernel.org
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
- Hauke Mehrtens <hauke@hauke-m.de>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "moderated list:BROADCOM BCM5301X ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>,
- open list <linux-kernel@vger.kernel.org>,
- "open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>
-References: <20260921214133.16519-1-rosenp@gmail.com>
- <20260921214133.16519-2-rosenp@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>
-In-Reply-To: <20260921214133.16519-2-rosenp@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-W dniu 21.09.2026 o 23:41, Rosen Penev pisze:
-> @@ -411,6 +422,14 @@ static int bcma_hcd_probe(struct bcma_device *core)
->   		return dev_err_probe(&core->dev, PTR_ERR(usb_dev->gpio_desc),
->   				     "error obtaining VCC GPIO");
->   
-> +	usb_dev->regulator = devm_regulator_get(dev, "vbus");
-> +	if (IS_ERR(usb_dev->regulator))
-> +		return dev_err_probe(dev, PTR_ERR(usb_dev->regulator), "error obtaining VBUS regulator");
+Hi,
 
-Did you test this for DT without VBUS? You seem to *require* regulator. Shouldn't you make it optional?
+Am Dienstag, 15. September 2026, 12:43:23 Mitteleurop=C3=A4ische Sommerzeit=
+ schrieb Jiaxing Hu:
+> The RK3576 NPU domains need a short settle time after the idle request is
+> released before the registers behind the domain answer. Without it the QoS
+> writes that rockchip_pmu_restore_qos() issues land while the domain is
+> still coming up, and the NPU throws an async SError on the first cold
+> power-on.
+
+are you really really sure, this is the fault of the domain itself?
+
+The regulator also can just need a longer time to bring up the power.
+Looking at [0], it seems I actually encountered the same thing back
+on the RK3588.
+
+Only difference is, on RK3588 a fan5355-type regulator normally does
+provide the npu supply, while on your board it comes from the main pmic.
+
+Can you please try the following:
+=2D set your power-domain regulator to always-on in the DT (so it stays
+  on even when the domain gets turned off)
+=2D try to reproduce your SError issue and see if it still appears
 
 
-> +	err = regulator_enable(usb_dev->regulator);
-> +	if (err)
-> +		return dev_err_probe(dev, err, "error enabling VCC regulator");
-> +
+And for the other case, look through the pmic datasheet to find the
+enable-time values and do something similar for the RK806.
 
-Can't you use one of devm helpers that get and enable regulator for you?
+
+Thanks a lot
+Heiko
+
+
+[0] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/comm=
+it/?id=3D8acfb165a492251a08a22a4fa6497a131e8c2609
+
+
+
