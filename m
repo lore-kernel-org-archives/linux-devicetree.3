@@ -1,152 +1,305 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f40.google.com (mail-ed2-f40.google.com [74.125.228.104])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3691E3BADA3
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 11:55:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D0AD3BADA3
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 11:59:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.104
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789991761; cv=none; b=VsUTdzNM1MXEjqwtImR+qEt7osRj7Evl7KXH6rr2zqEQJEmFhufp1QhZjCl2IPCHNVTMRGqozQSKsDD98fHHWPbfwY27ZX/jvUESH8WlJSc1Bmu5L2hdtmTlHKL/jgVN9tm8gCP7/o3/Dyg0ktV/c9Y/6V/hVjGBIxW1NWHzOjs=
+	t=1789992001; cv=none; b=lGHFShSjL1KYdPuLdiU476md4NynKnkdoX0//GNOKfBIJffl457+Ttvk3AF+pzoUTdmVXN4cqe1kKK0TeE+j9LGirsJlfVP5x8LWrsPNqwtCBoZEGcR2kt4MVkeFhenve1aOnOhiKGY9O0hcbEaj4jP4bVqGLDNrc+84AMRl/0g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789991761; c=relaxed/simple;
-	bh=QM33p/EnGBtZK0CqjaAx0N/SNwLOCdwqPt4LLx0Q4pE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FRsFmbSjnt2gYGOoUY5Y24LHhlysKqQHgOt8mlxJYxN2x8Ay0hQaT5FaQx4thd0c3Lyy++sVpgdzRA6IDion0a48PWVuEoxMDKMZla/wVgKei6SSZxvdQVIinF8+XVfXoNih6xCsXv+ZdvJ2d8qVi3TkzMSv5BuZsThxijmdFno=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=IZvYpOW3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Lr3pTnBg; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789992001; c=relaxed/simple;
+	bh=bEPzRIyIzB0IF+0zjejBOzqxA+2cdOa9NJ/Zly89bAI=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=kTik3k1vSTeyw2X7nisjCogWoorfvNpvJ0qk7xNvM7tU+eYD8wmai/JaMtBJhI9+YcYSXer6qB0PFJobxJruOcSTQ0IJgrb0+njIi/eROvNHAZ1yCV8EB4I88NsyqtxLZnAGGlrPDRIJ6FoeQGrPd57dCNe2Vmod/tBdb5tYyIk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=conchuod.ie; spf=pass smtp.mailfrom=conchuod.ie; dkim=pass (2048-bit key) header.d=conchuod.ie header.i=@conchuod.ie header.b=BPPz4J5q; arc=none smtp.client-ip=74.125.228.104
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=conchuod.ie
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=conchuod.ie
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="IZvYpOW3";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Lr3pTnBg"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LAdp8q1217743
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 11:55:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=pCz5R9OTLvUBi0/Cp+vZu+bb
-	lXkEmBIy3X7lCeXp+H8=; b=IZvYpOW3b3TUXtoEnOlI72w2mkb6PBMcLXeDSIep
-	fBUu4Tj57G9+cvNXcyN7cc1YNgY6IIwp1iHR9zDGrTe7eHREbE5SA9UxFq2ewtsE
-	qBOjHCOtwIYh79nYKgl1MgWH7ufkbpaJLEVshw8thvsHobuMyVEvhpCScIx9tU4A
-	9m6VX1ZWBcEus83jhCpw7fNJAgY7uDRbsIbD4emcZdWyXlMO5chuDoWefE6XaFBj
-	8JkYU4il+uYP83r0jtxpcc33WYAVWOujGjFkijWb17wAnOFbf5vOa88SHmuAlwni
-	TK0OruYlK5W+tOeK/oHyWi+hpFbJF/o16Srjwdh8henXSQ==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gu01193qj-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 11:55:58 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-939062ecda9so471316085a.1
-        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 04:55:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=conchuod.ie header.i=@conchuod.ie header.b="BPPz4J5q"
+Received: by mail-ed2-f40.google.com with SMTP id 4fb4d7f45d1cf-6a60590a85cso5364986a12.0
+        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 04:59:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789991758; x=1790596558; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pCz5R9OTLvUBi0/Cp+vZu+bblXkEmBIy3X7lCeXp+H8=;
-        b=Lr3pTnBgsMnG3VytlMGVjgifCNQqwEBvJ7Z0ovDfgXjY5dcYCTu3bK1TNfB1aeToCf
-         VVUYz5dZncyUk2Wz2kd+0zaHDR5nOF7Xl+TyABixVXGmH5p6FrWcbSst7ACKkYuiNojm
-         cgu6mVUO+Gj8/QZmgtLfYiN4TLdtYb9IwDabwNTmnqbLYyN5Opuz9Uqq5w8PLQ44pqF+
-         aMo70WKoC3m3AQHoaLHt53xHrrvUd08kYElf0+R5jiPxHzWugGreHvIB1DIOj3F2zavU
-         gb5qaimVL6WXVGuQoht/FOzfHmbb/Ce9c5n60hzb+MJ0wBvcouX0PE1GxHN6XqIJfBb/
-         cojA==
+        d=conchuod.ie; s=google; t=1789991995; x=1790596795; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=vm99IYdaFdSFEgRLWbOM1gyDbfw+zjAxHYiDcpK5GD8=;
+        b=BPPz4J5qUJbxgD7iIKL0SLMwKlXYaEe66n6DuChwl9Bu8fECKtyH5K95L0F7hmdLyg
+         36C7rzq9E3YxTGtqdpPWhHdXSRDpGlk1qfi860PsbV0WeWjitFq77bXvlR7USfE79jLS
+         RG4SY6xHOlFPk58mJ36rmc5JxpSDGZe1m5ahwBHwyTlLh4w1G+oKGCj5sgIX8NPNYXJE
+         xZzL4yTxrlpGTJz1kUS1sX09ss9vL3JMVLd+3XsI4tASFs7X9Eb8kr5aUk3WaBBlhesh
+         6EW+dcAo+EXgAxtT/nMFFYo36YZ4FIYKDmYzT1CZugSknZsOgdEqWaJaBhv7CCPuE31j
+         v9gQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789991758; x=1790596558;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1789991995; x=1790596795;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=pCz5R9OTLvUBi0/Cp+vZu+bblXkEmBIy3X7lCeXp+H8=;
-        b=2FOXTKne9jE3JI8PohqycQ0Ia8zspnr6JqAO8cEi6YYQDuGuACr4RNrfJN9ocMIFYd
-         yrSadYdgV/1V8jwYrrgBj4cSSHLAIJH6qOUEy06bTr6BFbRtAl1GWTYk/PQmFwRMu645
-         d/xp1uZhijT8eqLf2EfDGxylIpUuxrScgz+3MaPsX5VynN+sco5zDf3H4I/Wvb59rilO
-         AUzgGg0ZG/6OnLw38gAG78Efx2yC9gsPVPxnw+7RBHqgG4rlPwJOtmkhfdzWv4ISNxHb
-         DBynenu3MP0xvomSw/hLjooJXZ1NvgurOGxuoEjig/S9jr4ZafQRA8lEpoiqMiuhVmh4
-         pOow==
-X-Forwarded-Encrypted: i=1; AKwUvBwYCmjg1fxDky43iYHkTK9gxItJlEHG2lMko94HxzcIQNozTuJz15qAv/pFajdIZRTdO0TrwfXLN1O7@vger.kernel.org
-X-Gm-Message-State: AFuF++kHr6q8XIdVEdYsjrtO8JFx36sTsfloOHj7afBlotZhnOPot+Y0
-	RWp6EoGrBPg1Cl0rsKDlwl8pbLiHVB3gJsDWQooUBvvlJtfpsFyIkwKNFcHKQPVw8wA9PpmUee6
-	zhqrc4UNJh44Z9Hee1d5B0QvLGZdjVUyQGrB3boK62pOfZw6HxnpO9haGDfZLJxNr
-X-Gm-Gg: AYBFou1ldWd2DeMMWq9O4HEQbxcVtfv63qqBhbGfSNKxwhq6bKNT1ju8Lv2lv0TQOCo
-	WoHo9oVEaPG62m0HMwkQ1cqbdnccko/tnxCfiCCxQbCInKSHpHA6eWdkaXaXujhGGfLWnPD4TeF
-	1ycxD59aNxpeR8CCsAGtUqUgCXqi4XRihMvDM8+smLUT+weRLHwJH6qMc6drM5FevXS7Z6J4Col
-	atRWRnbrCrGqdqGQfl8XMssSqDKECqkmQ/5uzn7B0JYzOqO49ucFqCwhuasVUqxcpYFZbGDfTk1
-	hy4mYR0QnsX4ApeYyraOifIhVnXHPpBDBrVrVvqkIEZwcGOkypB2/LDabmq5jDl+QB7CwrJyNCR
-	quf5SAUmgRkicXTg=
-X-Received: by 2002:a05:620a:17ac:b0:939:b482:d474 with SMTP id af79cd13be357-93c15e77468mr17505685a.35.1789991757978;
-        Mon, 21 Sep 2026 04:55:57 -0700 (PDT)
-X-Received: by 2002:a05:620a:17ac:b0:939:b482:d474 with SMTP id af79cd13be357-93c15e77468mr17489985a.35.1789991755512;
-        Mon, 21 Sep 2026 04:55:55 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.232])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-487245645cbsm32971631f8f.20.2026.09.21.04.55.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 04:55:54 -0700 (PDT)
-Date: Mon, 21 Sep 2026 14:55:52 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-        Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Georgi Djakov <djakov@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Varadarajan Narayanan <quic_varada@quicinc.com>,
-        Dmitry Baryshkov <lumag@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Gokul Sriram Palanisamy <quic_gokulsri@quicinc.com>,
-        Sricharan Ramabadhran <quic_srichara@quicinc.com>,
-        Kathiravan T <quic_kathirav@quicinc.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-pm@vger.kernel.org, stable@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH 04/11] arm64: dts: qcom: ipq9574: Wire up USB3 PHY PIPE
- clock to GCC
-Message-ID: <xac3umbsecmny7sul6zonikbuc7v2wgdoox2suvbpydzpqjdmp@ga4g3umtvjit>
-References: <20260921-ipq_clk_changes-v1-0-d242e3d49648@oss.qualcomm.com>
- <20260921-ipq_clk_changes-v1-4-d242e3d49648@oss.qualcomm.com>
+        bh=vm99IYdaFdSFEgRLWbOM1gyDbfw+zjAxHYiDcpK5GD8=;
+        b=w/TtzkcGf2wvneGEc/fbzPCJduicPiyVDM35Pf3D5p0y059rAfRPr8RF/mbWtgAogE
+         OlJLGwVAAPh3IjvV5fMXJ9kBNv2zCwHUdJcjUzP02bFcRbxfHSqHS1Oy4kH2duRFyC/t
+         LzZamH1pZZJ1PGJekIXH3yEdNye9htGeYYMhgBfl+4ocrM4gxggrsIlKTl5nJEopFPMo
+         zywgK+nQorO1eeYpQTdH2XFTS433OvXWnrNlOXhdPJbTf4PU++29RYQrn50zF0bOlsrP
+         H80v3YwvngbxeIbnizqLCtaUqYyaeSx6gB/uo1qdgCdLSJYH3kg4PP1NwAzCbKtkll9h
+         hHgg==
+X-Forwarded-Encrypted: i=1; AKwUvBxx3JNgfhU9Y5yui8ovJRyd8N0sClaPk8EGWV7ThUS1bX5gEywVUgc4Ec7kelPnE693dXPGpXF1RITV@vger.kernel.org
+X-Gm-Message-State: AFuF++lHgMA1Dybn9s5u+U2ftQ1ZbOrazfBBIqjj18PRJ1+65kwBpjBd
+	qC8qNraRVzUO92pTYdkgI1UCz/vPNkQzVigjF16ej6dmRMZ9dKrj8Pse35faDWiJw0A=
+X-Gm-Gg: AYBFou0emxfCxLeCpWRKfyaCijLeCKWnFZMOJ0pv161FSz+3xw3Swp4Z72rusWGSugN
+	ymW439Yg0Ia+afQbPvfKB6gPapfrdszUD4WZQz4UMlrNrN6q0V87z00bxmsonA86GfyRAxoP7uu
+	ltgZrh4NOZzSckmIeXxLoamy/7BKM0m2R8pBTMnGI9ah5++qHfyQAYX3oeUjcwtDOnZ6zJ7yrp7
+	b1Po9/rVxuB94QUPY43X7XXS0OSfDRlw+NuhMsuZZe7vuiHZ9aDjLn2sKI6Q7IGBb4bCcsfheLM
+	S25CxYshivZGtKgQWQWdarNh1mAYDHa7Z0GCET1qFjsaJzfFNMjoVYRfyZ7e+RXh/4M8Kijss/l
+	PslpGRaCjb36jLbr0lkJrorBFkVR7oWMcm1/VRAkj4qtMV0HqmrP91VU3Ekre7rvsNnw07w7Z8Z
+	WJGFlXqMLqIuEH8XTrKbsGNcsBxv9yJR/WgU5brbROLFc6X60NmMgtzkaFHIfXs05TlG7k4fy+
+X-Received: by 2002:a17:906:c10b:b0:c26:19de:9138 with SMTP id a640c23a62f3a-c2a15cf34efmr955118766b.43.1789991995191;
+        Mon, 21 Sep 2026 04:59:55 -0700 (PDT)
+Received: from ehlo.thunderbird.net ([80.233.32.56])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a3523816dsm290466766b.2.2026.09.21.04.59.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 21 Sep 2026 04:59:54 -0700 (PDT)
+Date: Mon, 21 Sep 2026 13:59:53 +0200
+From: Conor <mail@conchuod.ie>
+To: Chang Yu <marcus.yu.56@gmail.com>
+CC: Jonathan Cameron <jic23@kernel.org>, Conor Dooley <conor@kernel.org>,
+ Joshua Crofts <joshua.crofts1@gmail.com>,
+ David Lechner <dlechner@baylibre.com>,
+ =?ISO-8859-1?Q?Nuno_S=E1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Shi Hao <i.shihao.999@gmail.com>,
+ "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: iio: light: add as7343
+User-Agent: K-9 Mail for Android
+In-Reply-To: <arCp0DQpBiOk3zvz@zephyrus-g14.localdomain>
+References: <20260907210042.32552-1-marcus.yu.56@gmail.com> <20260907210042.32552-2-marcus.yu.56@gmail.com> <20260908-dinner-shelve-1d61e19ee3b7@spud> <20260913014203.2bae2222@jic23-hlaptop> <20260915-gleeful-jester-c8114edf28ff@spud> <20260917034823.03940ac4@jic23-hlaptop> <aq3rdBcMw1XcHnkL@gmail.com> <20260920010448.114fc597@jic23-hlaptop> <77D15400-6ECD-4661-8733-E1F4F85077AF@conchuod.ie> <arCp0DQpBiOk3zvz@zephyrus-g14.localdomain>
+Message-ID: <0FB27C18-FADD-4791-8159-41FE6D04D8F3@conchuod.ie>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260921-ipq_clk_changes-v1-4-d242e3d49648@oss.qualcomm.com>
-X-Proofpoint-GUID: hUHkJpUz3Hp_Ptqtw8ZNEXSyaszrXq5w
-X-Authority-Analysis: v=2.4 cv=dPczC+Zb c=1 sm=1 tr=0 ts=6ab11b4e cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=h3Rc7G0Mu9zKJFVqRbgA:9 a=CjuIK1q_8ugA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDE3MiBTYWx0ZWRfXyMnFHzmOnZDX
- SClUg0vMzjNzHT9XFCBytUsz5LBh7OpHmlR4O6sU5t0RHZ5UIYF+g+JjeS0p/mIxeIiYAH5a3vT
- INKzV92BbV01HyWK5XUPrZY8OxoPLLi3Wza3BcBfH947o1tV9eW9dGD3cE2sakbfUGxW/EKSTCa
- UhK+6D/walw2SUdbfL6TotPoEtaMjLQMxggyNfgHc+xSQINOKkfvduGx53LVf8SnV1MRrK0KB7+
- hukevBaAHoV9mtyDbVcPqEaz4f7UL7+IA57/1eitYrGi+3sMj/kZNsyPw8TrJzq6RT+zrFW4YqP
- 8P5b+pbTFqx5MXz3ImItiyvKkQSAT1H6BuRg691ICqG892aNrtJCqZLxwYNGAyPUlyEbNall9nF
- HVbDgqJ+KPPLRI6DrKHWRw9UgziGgpu9nXDimCfiFXBY/VNZwsjaOSO5xFYavOG+gfGo9diB12o
- DW/mchapxv8Pc6cxVSg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDE3MiBTYWx0ZWRfX9rASbczjU+23
- eo41Uac0nr2QqVwegmQX71GaBs2afoQCljW/r8ytu1fn4ZUjm7PMkeWBrUUKAo3PncxrME4AY2q
- eV3cRDaqrHpceY07A8osr67c41paPeo=
-X-Proofpoint-ORIG-GUID: hUHkJpUz3Hp_Ptqtw8ZNEXSyaszrXq5w
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_04,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 phishscore=0 lowpriorityscore=0
- priorityscore=1501 bulkscore=0 clxscore=1015 adultscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609210172
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 26-09-21 11:49:37, Kathiravan Thirumoorthy wrote:
-> Connect the QMP PHY USB3 output to GCC so the USB3 PHY pipe clock can
-> propagate to the USB controller.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: a98bfb31f676 ("arm64: dts: qcom: ipq9574: Add USB related nodes")
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+
+On 21 September 2026 05:51:44 GMT+02:00, Chang Yu <marcus=2Eyu=2E56@gmail=
+=2Ecom> wrote:
+>On Sun, Sep 20, 2026 at 03:14:30PM +0200, Conor wrote:
+>>=20
+>>=20
+>> On 20 September 2026 02:04:48 GMT+02:00, Jonathan Cameron <jic23@kernel=
+=2Eorg> wrote:
+>> >On Fri, 18 Sep 2026 18:55:00 -0700
+>> >Chang Yu <marcus=2Eyu=2E56@gmail=2Ecom> wrote:
+>> >
+>> >> On Thu, Sep 17, 2026 at 03:48:23AM +0100, Jonathan Cameron wrote:
+>> >> > On Tue, 15 Sep 2026 18:11:17 +0100
+>> >> > Conor Dooley <conor@kernel=2Eorg> wrote:
+>> >> >  =20
+>> >> > > On Sun, Sep 13, 2026 at 01:42:03AM +0100, Jonathan Cameron wrote=
+: =20
+>> >> > > > On Tue, 8 Sep 2026 19:13:55 +0100
+>> >> > > > Conor Dooley <conor@kernel=2Eorg> wrote:
+>> >> > > >    =20
+>> >> > > > > On Mon, Sep 07, 2026 at 02:00:41PM -0700, Chang Yu wrote:   =
+=20
+>> >> > > > > > Add binding for AMS AS7343 which is a 14-channel multi-spe=
+ctral sensor
+>> >> > > > > > with i2c address of 0x39=2E
+>> >> > > > > >=20
+>> >> > > > > > The GPIO pin is described as a generic GPIO for now=2E Bin=
+ding design for the
+>> >> > > > > > more advanced measurement/LED synchronization use cases ar=
+e deferred to
+>> >> > > > > > future patches=2E     =20
+>> >> > > > >=20
+>> >> > > > > Unfortunately, you can't change what you document, so pickin=
+g something
+>> >> > > > > correct now is needed - even if the driver doesn't use it ye=
+t=2E   =20
+>> >> > > >=20
+>> >> > > > Definitely needs an outline of how it would be backwards compa=
+tible and
+>> >> > > > an explanation of why not now=2E  Sometimes a portion of the b=
+inding is
+>> >> > > > so uncertain that we do kick it back from initial version but =
+we 'must'
+>> >> > > > be sure we can extend the binding to new configurations=2E  No=
+rmally this
+>> >> > > > is one of those we are fairly sure, but not entirely sure case=
+s - or
+>> >> > > > picking between two options where consensus isn't being reache=
+d=2E
+>> >> > > >=20
+>> >> > > > Chang Yu: This sort of things needs discussion and is one of t=
+he reasons to
+>> >> > > > go slowly=2E   =20
+>> >> > >=20
+>> >> > > Ye, I note that there are 2 more versions of this since I left t=
+his
+>> >> > > comment, but you seem to be on top of that=2E
+>> >> > >  =20
+>> >> > > > > > Datasheet: https://look=2Eams-osram=2Ecom/m/5f2d27fff9a874=
+d2/original/AS7343-14-Channel-Multi-Spectral-Sensor=2Epdf
+>> >> > > > > > Signed-off-by: Chang Yu <marcus=2Eyu=2E56@gmail=2Ecom>
+>> >> > > > > > ---
+>> >> > > > > > Changes in v2:
+>> >> > > > > >   - Add the LDR, the interrupt pin, and the GPIO pin to th=
+e bindings=2E
+>> >> > > > > >   - Fix node name and unit address mismatch=2E
+>> >> > > > > >   - Include MAINTAINERS changes=2E
+>> >> > > > > >=20
+>> >> > > > > >  =2E=2E=2E/bindings/iio/light/ams,as7343=2Eyaml        | 6=
+9 +++++++++++++++++++
+>> >> > > > > >  MAINTAINERS                                   |  6 ++
+>> >> > > > > >  2 files changed, 75 insertions(+)
+>> >> > > > > >  create mode 100644 Documentation/devicetree/bindings/iio/=
+light/ams,as7343=2Eyaml
+>> >> > > > > >=20
+>> >> > > > > > diff --git a/Documentation/devicetree/bindings/iio/light/a=
+ms,as7343=2Eyaml b/Documentation/devicetree/bindings/iio/light/ams,as7343=
+=2Eyaml
+>> >> > > > > > new file mode 100644
+>> >> > > > > > index 000000000000=2E=2Eb06d445b92b3
+>> >> > > > > > --- /dev/null
+>> >> > > > > > +++ b/Documentation/devicetree/bindings/iio/light/ams,as73=
+43=2Eyaml
+>> >> > > > > > @@ -0,0 +1,69 @@
+>> >> > > > > > +# SPDX-License-Identifier: GPL-2=2E0-only OR BSD-2-Clause
+>> >> > > > > > +%YAML 1=2E2
+>> >> > > > > > +---
+>> >> > > > > > +$id: http://devicetree=2Eorg/schemas/iio/light/ams,as7343=
+=2Eyaml#
+>> >> > > > > > +$schema: http://devicetree=2Eorg/meta-schemas/core=2Eyaml=
+#
+>> >> > > > > > +
+>> >> > > > > > +title: AMS AS7343 14-Channel Multi-Spectral Sensor
+>> >> > > > > > +
+>> >> > > > > > +maintainers:
+>> >> > > > > > +  - Chang Yu <marcus=2Eyu=2E56@gmail=2Ecom>
+>> >> > > > > > +
+>> >> > > > > > +description: |
+>> >> > > > > > +  The AMS AS7343 is a 14-channel multi-spectral sensor wi=
+th i2c address of 0x39=2E
+>> >> > > > > > +  https://look=2Eams-osram=2Ecom/m/5f2d27fff9a874d2/origi=
+nal/AS7343-14-Channel-Multi-Spectral-Sensor=2Epdf
+>> >> > > > > > +
+>> >> > > > > > +properties:
+>> >> > > > > > +  compatible:
+>> >> > > > > > +    enum:
+>> >> > > > > > +      - ams,as7343
+>> >> > > > > > +
+>> >> > > > > > +  reg:
+>> >> > > > > > +    description:
+>> >> > > > > > +      I2C address of the device (0x39)=2E
+>> >> > > > > > +    maxItems: 1
+>> >> > > > > > +
+>> >> > > > > > +  interrupts:
+>> >> > > > > > +    description:
+>> >> > > > > > +      Open drain output active low interrupt pin=2E
+>> >> > > > > > +    maxItems: 1
+>> >> > > > > > +
+>> >> > > > > > +  vdd-supply: true
+>> >> > > > > > +
+>> >> > > > > > +  ams,led-current-microamp:
+>> >> > > > > > +    description:
+>> >> > > > > > +      The driver current for the external LED connected t=
+o the LDR pin=2E
+>> >> > > > > > +    minimum: 4000
+>> >> > > > > > +    maximum: 258000
+>> >> > > > > > +    multipleOf: 2000
+>> >> > > > > > +    default: 12000     =20
+>> >> > > > >=20
+>> >> > > > > Rather than a custom property, the tsl2772 uses led-max-micr=
+oamp:
+>> >> > > > > tsl2772=2Eyaml
+>> >> > > > > 46:  led-max-microamp:
+>> >> > > > > 81:                led-max-microamp =3D <100000>;
+>> >> > > > >=20
+>> >> > > > > I wonder if the same should be done here, or if there should=
+ be an leds
+>> >> > > > > subnode? Perhaps the IIO folks can comment on that=2E   =20
+>> >> > > >=20
+>> >> > > > I don't think we've ever bothered with a subnode as there only=
+ tends
+>> >> > > > to be one of them=2E  Given the enabling etc is all hardware c=
+ontrolled
+>> >> > > > I'm not sure a more generic LED binding makes sense=2E I don't=
+ know that
+>> >> > > > much about the led bindings though so maybe it is worth doing =
+a subnode
+>> >> > > > just to use the leds/common=2Eyaml definition of led-max-micro=
+amp?   =20
+>> >> > >=20
+>> >> > > Could always just put a ref in to leds/common=2Eyaml and not bot=
+her with a
+>> >> > > child node=2E I'd stick with the additionalProperties: false, si=
+nce
+>> >> > > there's lots of leds properties that probably don't apply to a d=
+evice
+>> >> > > like this=2E
+>> >> > >  =20
+>> >> > Sounds good to me=2E
+>> >> >  =20
+>> >> > > Cheers,
+>> >> > > Conor=2E =20
+>> >> >  =20
+>> >> A quick heads up, adding a ref produces the following error when run=
+ning
+>> >> dt_binding_check:
+>> >>=20
+>> >> properties:led-max-microamp: '$ref' should not be valid under {'cons=
+t': '$ref'}
+>> >> 	hint: Standard unit suffix properties don't need a type $ref
+>> >> 	from schema $id: http://devicetree=2Eorg/meta-schemas/core=2Eyaml
+>> >>=20
+>> >> So it looks like we can just put led-max-microamp, and not add the $=
+ref=2E
+>> >
+>> >Ah=2E That's a bit irritating as it is assuming the ref is to get the
+>> >type rather than to make the connection to the standard definition
+>> >of what it is=2E  Conor, what is the best way around this?=20
+>> >Maybe a comment to say where it is documented instead of a $ref?
+>>=20
+>> From the error, it looks like this was done incorrectly, but impossible=
+ to tell for sure without the snippet=2E
+>> The ref I was talking about would be at the  top level
+>>=20
+>> >
+>> >J
+>> >
+>I was doing something like:
+>    led-max-microamp:
+>      $ref: /schemas/leds/common=2Eyaml#/properties/led-max-microamp
+>      minimum: 4000
+>which gave me the error=2E
+>
+>IIUC, Conor was suggesting something like:
+>    allOf:
+>      - $ref: /schemas/leds/common=2Eyaml#
+>
+>From my limited understanding of dt bindings, the above should not be
+>used together with additionalProperties: false ? So do we want something
+
+It can be used with it, you just need to list the property in the schema y=
+ou're writing - which you have to do anyway because you're setting constrai=
+nts on it=2E
+
+Cheers,
+Conor=20
+
+>like:
+>
+>    allOf:
+>      - $ref: /schemas/leds/common=2Eyaml#
+>
+>    unevaluatedProperties: false
+>
+>Or just stick with what's in v5?
+>
