@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0837647D928
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 23:31:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8352485950
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 23:31:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790033474; cv=none; b=BJC7iAOQVV9p1Nc54dKBguhLZV3VlV5TP82U96X2EYQUdtqvFysyHeuMFerfl0+nIc//kHFyQP++9z6N9aXwuGZvFEX3ca3YOvcpr5Dau2ArN5K2vUrxNxsfzFI4zOW7DimEtxETq1kvW1OGDOIfevDXDHDdgU7fcfYqjUWXqjU=
+	t=1790033494; cv=none; b=syHb8G2CPFEPDCXZhEUkSnei6BDdoicdZcWYQ6Demnhc5VKMHVQPC59Zmz/yDbknHmkr/SrBhXfPymZrtL+hBO45Tr9KU7JYD7RCeisfYy//IEalZ7tXQ+dAluAxZ5SmLMf6sOaEUODzD+tZrs2oOarYmrIflsEzYvFdUmOGZ+w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790033474; c=relaxed/simple;
-	bh=dEtbBP0D/W234d+3ol48LdmRQr60bus9qcoXjjIyfOc=;
+	s=arc-20240116; t=1790033494; c=relaxed/simple;
+	bh=ngYdl9UZAB1DqGatFNwRlGp3ejvyBXphxPXjJOALX/M=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=K06Bzu1QcXtXNvb18MmlZFznYk73hqCaNTB9TDarPgQjIlsisWZW8twESQly9euKIChbsGxSSYOp0lwk1RcSUsG7F0QD2iuo3fv97WG1IyujY2b1oYZB8njMXmIxgiGS/FGtP+Q3bPkgVvz+IS8P6ObSvrhsmTSS+IeCFcEMfDg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iEuv9S3O; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=TsUONwVGdkL7C0o+NUtSrUdFIkxcqsAKaPG4BTMl1fMLMdmLuCJzvzjdEy83KJJldnJA617Awh28qVEd5P24ZIkbW19QfKCR7yeGvvQvk8UVbGaVa/LJe9QP3GlEdqs/smNBBjKtSi0l85VjoG838pMvr0Ia3ICSz92oe6R4oAU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CjXqqGto; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iEuv9S3O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B3ED1F000FF;
-	Mon, 21 Sep 2026 23:31:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CjXqqGto"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2F1E1F000FF;
+	Mon, 21 Sep 2026 23:31:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790033466;
-	bh=elDywjZ3s1n2qOTXyuTfIYnsQEe8Pq4iCTbp1TRt1jE=;
+	s=k20260515; t=1790033488;
+	bh=x9lp7gPOH4HN0ABVJ+mnRA/E2DYHcAtL7p17OLva6Sw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=iEuv9S3OcMRWBAlQqRju/XIqon5tWplAZrENM4RTotVTahRCf//sK0CSbUizN2uVN
-	 +ZOF8hx+rmONU/6FnzpNXJizonzTZ0JObRP2UrcmUwZpxZeqBeVsmZtmrZVgh2pKje
-	 iPWB7ULTFkuYx+2zz6UEzQRt0RSH80T7uCpSxAwhCpsFkqdUwMEEdRtRG26oUIvELM
-	 A4FxojfZKZjFAcf5+APxssVdFPLDgYKqs9VHa2/KV8II5Foif3RQAZxa4ooWCBEgdq
-	 HmSL4k78xj2MJOM/RbSEPY5mS5TmMPSdpFtwB7SHS69UGmUvlNuSPcAyf7F9uvD9OO
-	 oVN6nO5RKeGcg==
+	b=CjXqqGtoH8rNEEO06NNp5LkVdG2N94y96orykZd4hTn63p4zRl3J/8xChcfKps2RZ
+	 LgxUqYrmZ9kR5r6tFyo9zKT4ZmvEGvaAqc2r/f7ET89fPQRHvf6H5j4UG8/DFLX85V
+	 UXcI32XVY6OxisA/1V0rXkvfwJT/TBt7AqRG6UDQ5CC69rjXUzmD07XUu92bx4sM7x
+	 WXI17zvSjWse89uXFwwfelDbf3RsulVbNFOqV5bSxFtzdCI4unYyg/G8f4FYqpYOfo
+	 Txx8uMUZFVDBonot0U09nHYTbmQVHlqWp6KIx7y/ysTiHWOmvv1m4XP20RWFGsGVQh
+	 xcDBppX+g8EIw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] dt-bindings: soc: mediatek: Allow pwrap regs
+Subject: Re: [PATCH] dt-bindings: panel: Add JDI NT35596S
 Reply-To: sashiko-reviews@lists.linux.dev
 To: =?utf-8?b?Um9iIEhlcnJpbmcgKEFybSk=?= <robh@kernel.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260921232527.3127894-1-robh@kernel.org>
-References: <20260921232527.3127894-1-robh@kernel.org>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org
+In-Reply-To: <20260921232609.3130272-1-robh@kernel.org>
+References: <20260921232609.3130272-1-robh@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 21 Sep 2026 23:31:05 +0000
-Message-Id: <20260921233106.4B3ED1F000FF@smtp.kernel.org>
+Date: Mon, 21 Sep 2026 23:31:27 +0000
+Message-Id: <20260921233127.C2F1E1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,42 +45,62 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] dt-bindings: missing referenced mediatek,mt6380-regulator.yaml sche=
-ma
+- [Low] dt-bindings: incorrect use of additionalProperties instead of uneva=
+luatedProperties
 --
 
-commit 73b0295b13e9c91b5f296071d21498bc710f649e
+commit e0dc4d49c687f6d5568ce2c31031086acb6cd5e6
 Author: Rob Herring (Arm) <robh@kernel.org>
 
-dt-bindings: soc: mediatek: Allow pwrap regs
+dt-bindings: panel: Add JDI NT35596S
 
-This commit updates the MT7622 PMIC wrapper binding to add a child schema
-reference for regulators. This change routes regulator subnodes to the
-MT6380 regulator binding for evaluation.
+This commit adds a new device tree binding schema for the JDI FHD
+NT35596S MIPI-DSI panel. It documents properties such as the DSI reg value,
+reset GPIO, backlight, port, and various power supplies.
 
-> diff --git a/Documentation/devicetree/bindings/soc/mediatek/mediatek,pwra=
-p.yaml b/Documentation/devicetree/bindings/soc/mediatek/mediatek,pwrap.yaml
-> --- a/Documentation/devicetree/bindings/soc/mediatek/mediatek,pwrap.yaml
-> +++ b/Documentation/devicetree/bindings/soc/mediatek/mediatek,pwrap.yaml
-> @@ -105,6 +105,9 @@ properties:
->    pmic:
->      type: object
-> =20
-> +  regulators:
-> +    $ref: /schemas/regulator/mediatek,mt6380-regulator.yaml#
+> diff --git a/Documentation/devicetree/bindings/display/panel/jdi,fhd-nt35=
+596s.yaml b/Documentation/devicetree/bindings/display/panel/jdi,fhd-nt35596=
+s.yaml
+> new file mode 100644
+> index 0000000000000..aefc9ae5d8abd
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/panel/jdi,fhd-nt35596s.ya=
+ml
+
+[ ... ]
+
+> +allOf:
+> +  - $ref: panel-common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: jdi,fhd-nt35596s
+
+[ ... ]
+
+> +required:
+> +  - compatible
+> +  - reg
+> +  - reset-gpios
+> +  - vddio-supply
+> +  - vddneg-supply
+> +  - vddpos-supply
+> +  - port
+> +
+> +additionalProperties: false
 
 [Severity: Low]
-Does this introduce an invalid schema reference for the regulators property?
+Does the use of additionalProperties: false here incorrectly reject standard
+inherited panel properties?
 
-It appears the referenced mediatek,mt6380-regulator.yaml file does not exist
-in the repository, as the MT6380 regulator binding is currently a legacy te=
-xt
-file (mt6380-regulator.txt).
+Because this schema references panel-common.yaml in an allOf block,
+additionalProperties does not traverse the $ref references. This blocks
+standard properties like rotation and forces the redundant declaration of
+properties like backlight, reset-gpios, and port just to pass static JSON
+schema validation during a make dt_binding_check.
 
-This can cause make dt_binding_check to fail when resolving the
-cross-reference or silently skip validating the regulators node. Subsequent
-patches in the series also do not appear to add the missing YAML file.
+Should this use unevaluatedProperties: false instead?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921232527.3127=
-894-1-robh@kernel.org?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921232609.3130=
+272-1-robh@kernel.org?part=3D1
