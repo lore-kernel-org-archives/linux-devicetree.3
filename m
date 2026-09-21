@@ -1,67 +1,69 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9E8E4AEBF9
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 15:09:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B52D2FD696
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 15:09:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790003360; cv=none; b=iVuGeI6164OTOQmKub6BjDydBydKJTlKYTtbyw0Gps3Wn/jLDsBEKPo83zuKuMtQG8B3yhmpifHLaR4ohcyrFLxz7/ydDAZW75MMt5CaTP2DciJuvjkSLYd2WqHQQZrfJNV4ttZRhTEqp1NZ0APw5b7ElRFrvWHqam3oMFKJ8Js=
+	t=1790003361; cv=none; b=pFamlDUmdpoxiu0RzsaIpjHJ7Gv4hTy9DzToTEU7pCwcE2BQfQWjdH26Hl6ev02eAglF//B3SrQnxGw7EMQL4h7LwOj6SYQKLYrxCbyt52+6wYevl8rCyzQKzrnh+oKqevj8zWKyoXm6YpRiIUzGm5f+7XzpmRl+5aMJIsWgYJ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790003360; c=relaxed/simple;
-	bh=hf5kjbI81u8GhWKWua09PR9zzZ8Qo0DwQU4NZxqtTl0=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=pVXggl0MAakegKhKrRMjEz3RUEd5iyfJn4W4sG3lDVxmX1tbkeRybkzdvhi4p3VLPDkfkWxNmhHCP3mYfH6q5dl+U24oIArvL+ntWAWkYfvwCb7Vw9rB4Fp1/BwPEvbgiaflg1Os2QvRMIvxZtSfoz9v8Egymg/pr3np0WyivHg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=neIvGl02; arc=none smtp.client-ip=74.125.225.140
+	s=arc-20240116; t=1790003361; c=relaxed/simple;
+	bh=7oCgxgnMTJm72ksYvBvCCDiMxSWPCHawhVNGVG3gnF0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=mrDPTdxMo8XRq89gPoCmZgQCYKb6YT/9iUxWY33E7g55q1+5ZHJRDJ3MJoPr2RnggoFfARLIe98posRNWPJUJ2NoX33uaWmHCc60GYXeFOKT/jhBDuYRz5vhajgmqMF5N3sQtjhQF5Il1m/zkrV5IvzlXaKScoL+k3qwljcS02U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=opDFsxfq; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="neIvGl02"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0e5dso44106605e9.2
-        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 08:09:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="opDFsxfq"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6356256so1036312f8f.1
+        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 08:09:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20251104; t=1790003357; x=1790608157; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=6nZuDnIdpGvlJrJpl4QPHUuS58+C3sDRO9ZRmoer2zg=;
-        b=neIvGl02v/kxlbpnoE0MIH0LJjQeCurCEajPP1me/8xVAAwF+PLOZPGTKToY4DgLOQ
-         1QQSq0MbyS78Ly+T+3htOd5i4mhHqwLxJt6T6JOP3/Qv0AFNIgCWR+fiNLHUVxUbXTz5
-         7DmdjRUqQbYvGqz4j2BBwCyscDhwgTF6paFQ8RjzztqNXAVEMHle8zkRGD0YVFoiSOko
-         ruFXl4B/jSzp5OzBObmikbmMNj4qp8xIqfQGnEbi9ZuFSrPyNvOXp6X5TsQZegHs9f0e
-         Vn0T4b03IWZNDdIP9i8RjYPTk2jaFwTerRNJsEDavwRIgd9ko6ZI3spwaxLF/N4+XxrI
-         3V2Q==
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=B/ZOmzg+WvtC9K7MxqhI9dmC9yNAOVlajFGrJ+kti0k=;
+        b=opDFsxfqGmOGZ1bz+Rf7nOI4xNbONgr4gecsQrC0ubS7qc0DjhHmKDn02PZ+pZwzLW
+         rhJb3INhdDje/g5a7M624lrBD2EnxWq580U/g0Pmfsj+HWybaDga/z4k31pXtIAYSQlT
+         uLbjs0IpnlENBjPpT8sT4mxzd5Y2QLHUIPO+eC7nf5hgHTfo5wQUbc+MGLSKNj07ws6s
+         MCYsOPqD7xctolejt8HytULREstRdUucen4/qD//fL/FGDoMABJl+72PAm3+SllQz/I0
+         8vq8L09Yn6gBPhWRFFkfO+cLFZXtJUjTg6vn28SIf5C+ihWSQXUKsUXI4bML7BQhke7q
+         1DWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1790003357; x=1790608157;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=6nZuDnIdpGvlJrJpl4QPHUuS58+C3sDRO9ZRmoer2zg=;
-        b=jHveYIDfddto+gV7PlKuzeG5Z1LL55JnWv+3A6rxJ51HbJCzE+6lnIWFFrkz2NC4Pp
-         KqO+xZt4o/wcuoCJjdrEo8sSP73a0YFJlZnPxQ1eJnaGyMbaI+Zi+3v69dFaRtCy7VhI
-         5tyMzIYr1o5OYH4C0jHiW6ZzuD/+ARpnkGsPZH82XJqwmklejDh7yu23WZo7JtNqEyWk
-         RR5SXQUq5o0cMTKTXWpimoUCWAtfzYXQX+2A///4u8Evo3EqJbFasGM0dQ4aytTDcy1I
-         hqmguI9rVYpmJf0aPEwuHIIRZ/jXjBuvmIOCj89mbmORXJ2y61ST9knkk3EuYgcQT9K4
-         jPpA==
-X-Gm-Message-State: AFuF++lMios9sbNSOGGQCDTtWvUwBXZKqcWN0O9WHE40i+T6DLupJtuf
-	IzfQah2Op4x1TgbmZzBhEdOEqkTw/isb1vT15w+NbX1IG60SBs6HQHit
-X-Gm-Gg: AYBFou32dsseVIfFaT+1UGL+5e/3fGwNs+zRojI+b7YmgLdq+ILC2elLHhjUn4Gm5qj
-	8NzkoVB4gzrujQqaKJeKexIj/iuQBHwQV9cklsoi727sXWnptQmTHKZFPFPy0qyEUpsOsg0HiyK
-	j5O5rdxwGf62rVtv+ho35FuDKrs4Fk/RHv0N65SAnlFbY0pEdmFK82dnGqgp0X2B/W6mdLv43I5
-	EGGh6+eEWhbf7xxKNa8BIJdAI8LpFuBuRBgHmVtvgr2YT9Y8O1WWFQU/gHP2rK143fTKk24qZVT
-	pUTZinDc7Jumtvwg2WpN/r65HN6QBDaAeqMNDK4DYOiBky5BuapVks0lJK3kFZJ+CIaZbwzbj9M
-	hXv079Fj+Kw/RH4cw61pvYI4+tCsPZwykpDkYsPyy3CJ0jdsgnP3jN9XohnWXNV1eH9H7PnzNdK
-	JTRqcacwb4ZCPGzkLwQLLiPkOnYckBVxwtMkSTZDO6W0+osArAKb2FjaFWkahUdAD4x+F115wyG
-	LIgPcSi2vKO29OINmPlOC1OAe9ks87QwDu0uGQOZ9Ub2g3BNlwmwWk6horAV0eVeDvoDPvoAnSW
-	cMdk7zevqPmgA+6lOw==
-X-Received: by 2002:a05:600c:4691:b0:49f:bd3c:bc1b with SMTP id 5b1f17b1804b1-49fc572f297mr139363745e9.22.1790003356583;
-        Mon, 21 Sep 2026 08:09:16 -0700 (PDT)
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=B/ZOmzg+WvtC9K7MxqhI9dmC9yNAOVlajFGrJ+kti0k=;
+        b=R9GC9xUbIAiwZ+3E9epw46IMOm30vi79PiCttqgT8wqr4emE+niU8FCgk9D2fIShw3
+         8pf1SelWMfWKD/GBaS+S7TG7rtfuntZoVArvGOs2T0Qwa2CkBi+d6utooeKJ9KRvXlXb
+         4KbqKIETrLVo5b0WYFWz1krs1gaBKkiBmaYhyJBamn0SfsvhmJDp35mLBtc0dYvCrPVH
+         u/tIhY6xN5wf0bxJDfpQC30Pdq6Cp0QkbT35yMKNSweurTcbAtJQaWbxqer1JSFX2xnE
+         4RlTeUFc80XKE2UMcZTSUSCZnoO+nBh2bvK8qMAy6lY3XuDmibVHRKepCcM7KLQKNybb
+         R+Ag==
+X-Gm-Message-State: AFuF++kXIKFxVX9Fzl8EztiKHshrp6VbnTOtd2eauXFd4xx7rtIvIvMJ
+	uZdQ7Pei2v3q7RLExeaF7pKX9f1bQ31IfqBIS9Y9lQ2xGk83Yn+Lh55+
+X-Gm-Gg: AYBFou2pygDIadVd9T7dz2xqpoHPj3EMukKh//uHgwGHt+rSO2EN0SLKSqQLgzib3hl
+	iMkEYWSuj+ErzDXvE5puS3D3og9GQAXhJKWTKmzYVvrQsAffZxhGvgfhkE4s0w7vRh4ByFk2RZ9
+	jQZvPHtMYjawknH84kvQHDyv+V4d6LfD9dkl88C89sxLf1MQFkuSXqXGahPmpqygOkK7ElmanLP
+	lu7923AfnY4j+L1U9Uhou/3XM4ySR9wYekN850l0URmKqgm8dgOj5YDPBd6xiHbqgNFejI5R0Do
+	pkICPCNpyiEzT7kO9niOjR81/h09HItjFc+E0WycW+Zwydf4mSU6GrULhW0yDYYmXpT+w+eLsiQ
+	JL8sAPqWZQOgm9qyI4+175HMXV/5NSvvoEOsCp3ly4VWkfCacfDtpmFD4cZL7rf00js983NHfAb
+	Ts0UzEUxe4v+zATixhtLJkAfIjY6sQB81veEBlR6StSd9r1Ry2ij7Jes2KXjb/ghevPZE9FLZKt
+	r9LWv/9/X2mXHRvgKPFazsUi3jBvi80odUMPTxs3deF6ptHOLmgdttlr2gxeApo1ViAavx57Nbm
+	Nq93NK3+Q2RFKyjf
+X-Received: by 2002:a05:600c:3b0a:b0:49f:ce79:7a8d with SMTP id 5b1f17b1804b1-49fce797ab1mr105033485e9.17.1790003357536;
+        Mon, 21 Sep 2026 08:09:17 -0700 (PDT)
 Received: from [192.168.0.233] (2a02-8388-e6ca-5780-e161-768d-5c97-84d0.cable.dynamic.v6.surfer.at. [2a02:8388:e6ca:5780:e161:768d:5c97:84d0])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc56eff84sm255659435e9.1.2026.09.21.08.09.15
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc56eff84sm255659435e9.1.2026.09.21.08.09.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 08:09:16 -0700 (PDT)
+        Mon, 21 Sep 2026 08:09:17 -0700 (PDT)
 From: Andrei Lalaev <andrey.lalaev@gmail.com>
-Subject: [PATCH 0/2] Do not reserve memory for coprocessor FW
-Date: Mon, 21 Sep 2026 17:08:58 +0200
-Message-Id: <20260921-sophgo-remove-coprocessor-node-v1-0-ace29446b327@gmail.com>
+Date: Mon, 21 Sep 2026 17:08:59 +0200
+Subject: [PATCH 1/2] riscv: dts: sophgo: cv1800b-milkv-duo: drop reserved
+ memory node
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,10 +72,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNQQ6CMBBG4auQWTsJNEDEqxgX0P5CTew0M0pIC
- He36vLbvLeTQSOMLtVOijValFTQnCryy5hmcAzF5GrX14Nr2CQvs7DiKSvYS1bxMBPlJAHcovf
- dME7dOTgqkay4x+03uN7+tvf0gH99q3QcHwa5uTWCAAAA
-X-Change-ID: 20260921-sophgo-remove-coprocessor-node-4e6c59ab58d2
+Message-Id: <20260921-sophgo-remove-coprocessor-node-v1-1-ace29446b327@gmail.com>
+References: <20260921-sophgo-remove-coprocessor-node-v1-0-ace29446b327@gmail.com>
+In-Reply-To: <20260921-sophgo-remove-coprocessor-node-v1-0-ace29446b327@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Chen Wang <chen.wang@linux.dev>, 
  Inochi Amaoto <inochiama@gmail.com>, Paul Walmsley <pjw@kernel.org>, 
@@ -83,65 +84,46 @@ Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
  sophgo@lists.linux.dev, linux-kernel@vger.kernel.org, 
  Andrei Lalaev <andrey.lalaev@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790003355; l=1759;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790003355; l=917;
  i=andrey.lalaev@gmail.com; s=20260901; h=from:subject:message-id;
- bh=hf5kjbI81u8GhWKWua09PR9zzZ8Qo0DwQU4NZxqtTl0=;
- b=GWyRcQp1oB8Sh4EZuyzCScn2OIWBgOKi080vPgH/ZvEmbEh78yfsQHts+sQRZUH9qqncxyCcU
- SRwo1HzBuu3AZg9vJqEr7ZCrzi3yECFcHcvQk3vfnM+Il1FVWF7qKSA
+ bh=7oCgxgnMTJm72ksYvBvCCDiMxSWPCHawhVNGVG3gnF0=;
+ b=/HfpHWWsl0W+IWEQi4abC2w6SqzvmKlMQckSkNlWUn5dc9Mj2OzdmT7rYT+JYx8lh26QfJ78Q
+ 6nk39nHIi6TCAUn4XyySgyaRyJzuiXrG/1Lw3F+tpSB5erRjmrskv3Y
 X-Developer-Key: i=andrey.lalaev@gmail.com; a=ed25519;
  pk=YHk+K3q98GV/1CigmrEAQ+Vc0o+GlFWt3j94jvrEh6o=
 
-Milk-V Duo and Duo-256M reserve a region for coprocessor FW at
-the end of RAM. It is not correct because:
-  - FSBL can be configured to load FW into a different region
-  - if no firmware is loaded, the reserved memory is wasted
-
-As explained in [1, 2], FSBL should reserve the region at runtime.
-
-The latest FSBL can boot the system without coprocessor FW:
-  FSBL Jb2829:g6f8962c394dd-dirty:2026-09-20T13:04:17+00:00
-  st_on_reason=d0000
-  st_off_reason=0
-  P2S/0x1000/0xc00fa00.
-  SD/0xaa00/0x1000/0x1000/0.P2E.
-  cv181x DDR init.
-  ddr_param[0]=0x0.
-  pkg_type=5
-  D1_3_2
-  DDR3-2G-QFN
-  Data rate=1866.
-  DDR BIST PASS
-  PLLS.
-  PLLE.
-  C2S/0x0/0x0/0x0.
-  No C906L image.
-  MS/0xba00/0x80000000/0x43e00.
-  SD/0xba00/0x43e00/0x43e00/0.ME.
-  L2/0x4f800.
-  SD/0x4f800/0x200/0x200/0.L2/0x33334c42/0xcafe4b49/0x80200000/0x8c200/0x8c200
-  SD/0x4f800/0x8c200/0x8c200/0.sys_switch_all_to_pll...
-  Loader_2nd loaded.
-  Use internal 32k
-
-So it is safe to remove `coprocessor_rtos` nodes.
-
-[1]: https://lore.kernel.org/sophgo/6e4b5c98-7d48-4629-a6a0-4d930327f9a0@sifive.com/
-[2]: https://lore.kernel.org/sophgo/aqrhRic7Ww6fPhxg@pie/
+The current FSBL can load firmware to any address and can also
+disable the coprocessor. Therefore, FSBL should modify the device
+tree at runtime. Remove the node accordingly.
 
 Signed-off-by: Andrei Lalaev <andrey.lalaev@gmail.com>
 ---
-Andrei Lalaev (2):
-      riscv: dts: sophgo: cv1800b-milkv-duo: drop reserved memory node
-      riscv: dts: sophgo: sg2002-milkv-duo256m: drop reserved memory node
+ arch/riscv/boot/dts/sophgo/cv1800b-milkv-duo.dts | 11 -----------
+ 1 file changed, 11 deletions(-)
 
- arch/riscv/boot/dts/sophgo/cv1800b-milkv-duo.dts    | 11 -----------
- arch/riscv/boot/dts/sophgo/sg2002-milkv-duo256m.dts | 11 -----------
- 2 files changed, 22 deletions(-)
----
-base-commit: 93f51579e7df248780214094418f205253383cc5
-change-id: 20260921-sophgo-remove-coprocessor-node-4e6c59ab58d2
+diff --git a/arch/riscv/boot/dts/sophgo/cv1800b-milkv-duo.dts b/arch/riscv/boot/dts/sophgo/cv1800b-milkv-duo.dts
+index 0e6d79e6e3a4..02848bae2e16 100644
+--- a/arch/riscv/boot/dts/sophgo/cv1800b-milkv-duo.dts
++++ b/arch/riscv/boot/dts/sophgo/cv1800b-milkv-duo.dts
+@@ -22,17 +22,6 @@ aliases {
+ 	chosen {
+ 		stdout-path = "serial0:115200n8";
+ 	};
+-
+-	reserved-memory {
+-		#address-cells = <1>;
+-		#size-cells = <1>;
+-		ranges;
+-
+-		coprocessor_rtos: region@83f40000 {
+-			reg = <0x83f40000 0xc0000>;
+-			no-map;
+-		};
+-	};
+ };
+ 
+ &osc {
 
-Best regards,
---  
-Andrei Lalaev <andrey.lalaev@gmail.com>
+-- 
+2.55.0
 
