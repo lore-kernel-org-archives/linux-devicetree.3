@@ -1,91 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EC122FD696;
-	Mon, 21 Sep 2026 15:21:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B76E84A6CE6;
+	Mon, 21 Sep 2026 15:22:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790004062; cv=none; b=TwBp8bit+aDt1nIVZD+y2jsH61IKe8ZnVvi/dhpXexzw85/dx2s+cI2J0+3WUK5pSYpJjULn51J4wL3BmrWFbFa2Kg9eafvlGoAb6jzx+jY2NRnc4rxwpj6N/gQ4+QX88QdAHb8NEQtd9vx6NEy0GmyDmLteWzSHJU/pc4lXroE=
+	t=1790004150; cv=none; b=LJWT0dTjwq0myjS4Xno87igdCF34uPcJYVbT/3ijhuvZODl9l4XqFOms5Zlo2wMKDZ5q8rBryFNZ/Al+DGG7Cu1XrmuiH1rs//lqkoITUN6EsAI2a+JgTx2kIwKtoQyNQcmDozXjp14OU+u+TDB5MbUUyM/1LwKTTIZV28DOA7E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790004062; c=relaxed/simple;
-	bh=YGYSZXZAOKyI+SQaZzhWKnu+5MVOSTM6FqMOOPMWjOI=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=fC9inm6InUFhrjEvv36B9KU4E5f9lYvrUXRJeabOyOSnNl/hG10vS2K2sbLQ1kgCkaXq4yDyODBeIgjOEIz+1JOkDWPG5q0TH9bgLLVnmuGrH59UoGKBHV2Ulkg7zP/uzp2Absv7ZXbUn7OCMUFM/Yt8kwSkccJcI3we87dWkiU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OBxIhJsP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790004150; c=relaxed/simple;
+	bh=VXUsg3+dZhmol/9l/MYhF/EWP685nUKqfT/ZySayUhM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GcGAeakSXStGRtNgpbkGao6GsVzPqwX0h8ghjsViNp3QgDHAUAhE1bdybGfpNtjrsydxjl1VfLEr9/ruSlAJZbk3kjb04WB2FzJUDcBiVSquZe84eq4Q4NFE/BXSQZ0xAz5Kv+BpH4Nno5ZiYwmPay+syCYVWRLVApHmRaBGrcc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C2ZU9Id/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OBxIhJsP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75BD81F000FF;
-	Mon, 21 Sep 2026 15:21:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C2ZU9Id/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 521351F000FF;
+	Mon, 21 Sep 2026 15:22:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790004060;
-	bh=sYN6gB7Ijq5F3mQPt8j/w5U9BHlrr8gpwOqMcp1ScAg=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=OBxIhJsPI6FsskimLCHHwrb8YKf6UPRxsiFCq59DToJg9t5AnuMw/QWSc+aBld6qV
-	 NB3NNeRcUt3wKYVht8mQrwSIZ7/mOEejWEpr1fF/Dwd3BpiED8bv/PAPMsLaXsNGJl
-	 q2NGUlDPTERSUs4uxPzUsiSo/mS/VKDXMhwjsqHr7hWE48gYYswEiAI8J5HyCcHPA0
-	 EPSKVPrlwvmniMaY3C8eAC48YqmZNW9dFf1Lrsc/M2n4fFGXj3kV2L62rgB4CPVW//
-	 4lFlmRyZkfTB24GFesazvM4qSuSQ8ITvwJTIy8phGp6Q5YPcDWnSUIR3Tfkim3WJvW
-	 aGFFPbZg+71jA==
-Date: Mon, 21 Sep 2026 10:20:58 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1790004149;
+	bh=bOzR8GVrme4M89CxBLevVcZ1IZiI/sDrZnX7jk52Wno=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=C2ZU9Id/+o1irOenoCt9jM34dfFp6/t2bWH0fXwvb2Jy9dd0QU7QgEOUE6aaFSh24
+	 ToidA/ICs5d9V0HBZPj9oTwsLLE/lG+jfwZ4qNdgQ3J2mVj6aNrHZJeXB9uPT6/ezr
+	 gXQVF4K8q7fJBfeInuGl2eceBeaRH6wz6s46Gh8KJc3HrDs3zH4dQIjIU0cvlbiSbj
+	 NuE943hL8XPvQt6FSMoxRLuOaQgZnCm/MyA9lsUapoUk3aeDQr/qjeVHR2chXn8lK/
+	 fnevuSvK1Qjau09aVKkyer+OS5zMNmo2RkEil1IK4TTwuUiid4f4jF8L2Nd6tQKvho
+	 tS+6MZU40uEcA==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id B5E3B1AC56A7; Mon, 21 Sep 2026 16:22:22 +0100 (BST)
+Date: Mon, 21 Sep 2026 17:22:22 +0200
+From: Mark Brown <broonie@kernel.org>
+To: James Calligeros <jcalligeros99@gmail.com>
+Cc: Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>,
+	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Sven Peter <sven@kernel.org>,
+	Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>,
+	David Rhodes <david.rhodes@cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Amit Kucheria <amit.kucheria@linaro.org>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Lars-Peter Clausen <lars@metafoo.de>, Vinod Koul <vkoul@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+	Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
+	James Schulman <james.schulman@cirrus.com>, asahi@lists.linux.dev,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.de>,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH 01/28] dt-bindings: sound: Add Apple Macs sound
+ peripherals
+Message-ID: <arFLrr23j9QVjKp5@sirena.co.uk>
+References: <20260920-macaudio-v1-0-741cc20a74e5@gmail.com>
+ <20260920-macaudio-v1-1-741cc20a74e5@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: sumit.garg@kernel.org, linux-arm-kernel@lists.infradead.org, 
- akpm@linux-foundation.org, mark.rutland@arm.com, 
- linux-kernel@vger.kernel.org, sudeep.holla@kernel.org, 
- thierry.reding@kernel.org, david@kernel.org, rppt@kernel.org, 
- jenswi@kernel.org, linux-mm@kvack.org, danielmentz@google.com, 
- catalin.marinas@arm.com, op-tee@lists.trustedfirmware.org, 
- devicetree@vger.kernel.org, will@kernel.org, ardb@kernel.org
-To: Vincent Donnefort <vdonnefort@google.com>
-In-Reply-To: <20260921110050.3977591-8-vdonnefort@google.com>
-References: <20260921110050.3977591-1-vdonnefort@google.com>
- <20260921110050.3977591-8-vdonnefort@google.com>
-Message-Id: <179000402021.412547.18161897733601725746.robh@kernel.org>
-Subject: Re: [PATCH v2 7/8] dt-bindings: reserved-memory: Add Arm FF-A lend
- pool
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="9DlXPXtwe81yJB7g"
+Content-Disposition: inline
+In-Reply-To: <20260920-macaudio-v1-1-741cc20a74e5@gmail.com>
+X-Cookie: Too clever is dumb.
 
 
-On Mon, 21 Sep 2026 12:00:49 +0100, Vincent Donnefort wrote:
-> Add bindings for the "arm,ffa-lend-pool" reserved-memory CMA pool.
-> 
-> Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
-> ---
->  .../reserved-memory/arm,ffa-lend-pool.yaml    | 55 +++++++++++++++++++
->  1 file changed, 55 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/reserved-memory/arm,ffa-lend-pool.yaml
-> 
+--9DlXPXtwe81yJB7g
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-My bot found errors running 'make dt_binding_check' on your patch:
+On Sun, Sep 20, 2026 at 02:53:40PM +1000, James Calligeros wrote:
+> From: Martin Povi=C5=A1er <povik+lin@cutebit.org>
+>=20
+> Add binding for Apple Silicon Macs machine-level integration of sound
+> peripherals.
 
-yamllint warnings/errors:
+> +      - description: Machines compatible with J293
+> +        items:
+> +          - enum:
+> +              - apple,j493-macaudio
+> +          - const: apple,j293-macaudio
+> +          - const: apple,macaudio
 
-dtschema/dtc warnings/errors:
-Documentation/devicetree/bindings/reserved-memory/arm,ffa-lend-pool.example.dtb: ffa-lend-pool (arm,ffa-lend-pool): {'compatible': ['arm,ffa-lend-pool'], 'reusable': True, 'size': 67108864, '$nodename': ['ffa-lend-pool']} is valid under each of {'if': {'required': ['iommu-addresses']}, 'then': {'required': ['reg']}}, {'required': ['size']}
-	from schema $id: http://devicetree.org/schemas/reserved-memory/arm,ffa-lend-pool.yaml
-Documentation/devicetree/bindings/reserved-memory/arm,ffa-lend-pool.example.dtb: ffa-lend-pool (arm,ffa-lend-pool): Unevaluated properties are not allowed ('reusable', 'size' were unexpected)
-	from schema $id: http://devicetree.org/schemas/reserved-memory/arm,ffa-lend-pool.yaml
+This doesn't seem to correspond to the DT for j493.
 
-doc reference errors (make refcheckdocs):
+--9DlXPXtwe81yJB7g
+Content-Type: application/pgp-signature; name="signature.asc"
 
-See https://patchwork.kernel.org/project/devicetree/patch/20260921110050.3977591-8-vdonnefort@google.com
+-----BEGIN PGP SIGNATURE-----
 
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqxS60ACgkQJNaLcl1U
+h9CEPAf/dQqOTFUfSqvlY/jmFLZk+OUZk4RtOYaqTJ/vfY4z/YQ/sCnFIXYeZnin
+TSXdhiD4jqVa4STh+dsIzzsnODcQyStOhfCGFXIYzSoV9gdR00T3DwHlTKU6zrlz
+qDFc3jxbaHcdW2VZ10YmawxZ9PIjGevKTgKQwrLLD9rxjWEa64yVb+1hgc8jAmWv
+vn8e4DnGoR0qfJvzIJ/GgiRmwEY2EK2zXw4x+QtQzFVCrV01QmrIuQIvKKXlFkmQ
+BiHssUi3qgPFuaWRNe6yubT8pq/8qGFBiBtr/YMoYPNv9vGp0Tr0ARhCo8ycHTsH
+yOa386ia8Ee7BbOlalJdhEWFxxxwqw==
+=e0C1
+-----END PGP SIGNATURE-----
 
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+--9DlXPXtwe81yJB7g--
