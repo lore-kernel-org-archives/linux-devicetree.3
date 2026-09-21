@@ -1,178 +1,262 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1559443498F
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 08:13:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789978437; cv=none; b=Lc6be15X//JR+DcjH/nbcbQN5fITxR5H1NjIjTkCDFPnBzEp2rQTSaL9MuzZQ/2MW6tcTjzzIRBCN4mZ4v6wYO3KriPHURGeZ6lIKLWCNhf7Yu8zPPgfLdEQCmyqkuHcjrvZDGTVGJhCDXvkerjhDoWL27+dCt3geUAG7qlbtWg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789978437; c=relaxed/simple;
-	bh=hq1hrRc8fNxJg7Se70rDgteQ01doEvi0ZNVeg8yWWUU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=aKZbDOIFkJvioiuFIrcI9mBx1lauSzn+wRerrbgbJC88IWIob9U13EJOORDZyCIxLT+bw4tl5ZXv2NNOvOoAz88nWu08GS33bWqi9oNDB8ZRodNhpqGetOdVNlvG18jxRgw6wVWVhIQsV1NFSuCY0ZkSn0Irq0k0S96arRjWRPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dIHtaix/; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA67E449B2F
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 08:16:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789978610; cv=pass; b=O6x+8KC17Kwp7i8NQ9BWNEetDWfyM7qPtQKMdYPTQ8bC2MwwhMs4qV5m5H/4CyuI1HIoaekGH7yWxmgDjMc4HqTFbL47P6s+Gc4tU9C80SSjK8cbT6xNGLPUKrx6GAxK+oLdPPM4Gt18UphzHc0tC1WrxNiNTBrmOxxs+VvqiMQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789978610; c=relaxed/simple;
+	bh=q3EkqwdcLdgFV2VFGPbC3LNBtZOmLyf+gqDHedG+WLY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=aySVxUB4SLk3UtBTTbIoMjzuY/9Ttuz/2/hq8eecL/SFPDBgg6tpar8C/81Ua7ydr4VEwcYUlLncyu3MvYTRO53xrXkJSG8aaKmtVOEYxILfUwDnYCanHPuFfuqYSO/tCeKdcCxgW90GCOp68NQe3lw0I6QRiqDWU0UL+/3zrSA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kESnledQ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Q4pxSYk4; arc=pass smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dIHtaix/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B4951F00893;
-	Mon, 21 Sep 2026 08:13:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789978435;
-	bh=kmLTRNY1kc2se1JCA9fEugMVStcIxV4+UhGwHWOQnwo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dIHtaix/nXCu2qX9GynTmq3EQFPMc4tQtf2tl+VArguVtyLE+vbrx/JdNNb7xIY25
-	 tQ9eQI1Em3gSTQ77xsmzIOhA0u4iApHYk/+8TwcjM23ZGfQtynLHXOlOassCHnArpB
-	 IN14WIvm4m10MfgbUwZ/QERrfQD0KWLmlhQIfvN4/DA1BK8j4TlCp10ss88ehXLCKh
-	 phRW6kqQXMzpx8J0XV4U0XDEwSqm9pIM4ZGSxamw4S/2kpm7G96tRFTyDNjf4DhscI
-	 zihoiYtucIssNEMNPNcaUaGi2LhaVhSgbrwC2yJ9uIoX71bFr2d+UVufH7JIeQtU9r
-	 X+Nm0MQAmI7Vw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] arm64: dts: amlogic: add T7 peripheral nodes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Xianwei Zhao" <xianwei.zhao@amlogic.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, neil.armstrong@linaro.org, linux-amlogic@lists.infradead.org
-In-Reply-To: <20260920-t7-node-new-v1-3-e6e0840c1b0b@amlogic.com>
-References: <20260920-t7-node-new-v1-0-e6e0840c1b0b@amlogic.com>
- <20260920-t7-node-new-v1-3-e6e0840c1b0b@amlogic.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 21 Sep 2026 08:13:54 +0000
-Message-Id: <20260921081355.1B4951F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kESnledQ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Q4pxSYk4"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68L7F3Ss957078
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 08:16:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	vx8dnU+n6phV57GfzrrgfQ2D/ZRjFORy9xJ5hSXAhSg=; b=kESnledQd8++Pdet
+	j62TRILMBoyIcvS7lWMhOXOc3NIB5u3ny0DJZovb/7Y3qWU/fkIHUM4ZDyae/7qW
+	7Cgt8daE9hvwrMtDaxVmqV53Dj9ibjoIUeT5DQTKhtL360PUfTl0tutd7I9wV0pJ
+	mFYjzMXMdzYTimqKu26QbhtYRwb3exVRHvJrSF5x1HlIesDkuovAb/wVoXG+p37w
+	6FAJJAgUDemBP/niM4BSmVfHUHaixVYDxDF8tiafzP62HH4V+pG5j0qQ5WxEYScm
+	GGSHMx4FZLlmCP8kGDRodpzKQymMKpxHl0ZNO3hfA/FQPm75e9G0c1AIXyOvg7vV
+	bYM4+A==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gu01d07na-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 08:16:47 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93bd22160bbso148846185a.1
+        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 01:16:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789978607; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GtFra+2xLqnMxIu2lNCkXhCJ5+SX2+BU4KsjtWXlVwL50Y0NwjS8lN6COCC0flJCLO
+         IV4emNdnnGhn+lEeFN6nf2dSdTLNw0oAro2T4B4RdE23y62OKrIfLd/vXm6JHph2AmYZ
+         WzXwcKmrdVCGaBtaKUFZnJdkyvvQG2PZjSnEiXv0sZzC7aPnSwpX166LVbxCVTzaunHx
+         KR5t3rG1wa4iiu+h1ZINf7Fl1qSyzFgvkNE4quWAHzUD+qJpnCm5iJMYB7UCb2DdviHQ
+         c4UiRItMmB8BNP3rvFLH2wg3TBgPNvE+LTplg+Dy5Obkj3s4e76mGx4cCPwTHgtskc6L
+         75ew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=vx8dnU+n6phV57GfzrrgfQ2D/ZRjFORy9xJ5hSXAhSg=;
+        fh=/Jp+k+sOTvBPg9kgq/sBafFASjioJC35Ci6ibJdApFc=;
+        b=Kc0tww3W3+e3J6QHF0OcTTmV3sR0yujGdOAoQJV6mRdu4jjJZEM1DEjQCxWYfbcWoQ
+         H4qbm1eJvn417vP2yBHuCTFxRm3IYdQMAAPSc9WRP3u5KzjNYXRHdnDwfa8YfsdHZw0X
+         rWES1EgeDlxT/AWM1L+61muV/cBCvLD2ksGy1P+S2C1LzSJr2lCb7LozWKjE04BkVC96
+         v1W0d4WPPr14F6kUWqmLFcUv5qy5UnoPtxxCrWujwuo0Epv3I2h6TKqqeylldTGn1l2C
+         bDONXGmN0uQ9tQ807EATzDGdLW7lZ7JpZf80drtWwVuoUUxfHYunKvNSIm4r6GbpZeq9
+         kXBg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789978607; x=1790583407; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vx8dnU+n6phV57GfzrrgfQ2D/ZRjFORy9xJ5hSXAhSg=;
+        b=Q4pxSYk4mzOJtcchWS+0LzAiXerBnzDJRcDq8gCvQnz4vXhL+RmLh6T+ju+Ocljjla
+         UyOjdycpqbYJnlek6dTTnGFmWBfHk51EIp7ETV/u9oM/IIgBPc/zq/wZdrlNhKJMWWXm
+         Ib/u/sMwkulJbO6/hXs8eTA98d5a2Z19k7tPkXnphOB/r9UGN7PrRmONUuaRUgV4T/eR
+         BjRQnRmRAG78cJcmGImr0qnVHReAwjlcXepVt3Vr3wu1J9TLnMlfooegI/ngrY+nyg17
+         ae82mEcCf74fg15Lts2EPj7h4cIipGUhDlqa4KOUZOdEDFFhBkllytpIDozFnJgL8n8O
+         r0DA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789978607; x=1790583407;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vx8dnU+n6phV57GfzrrgfQ2D/ZRjFORy9xJ5hSXAhSg=;
+        b=K7Jp9aPYyDsjT8aahQPCOuF7ueqCuErpIQ/hCXHgz0qYrRFNXE+6W/CDArHsEYu7Vx
+         gIbyrKmL0HGRJopUiasAjmqEHGT6WrK3sqm2cNR5/II+PBVkVD04demNtkLmNgjSD0Wo
+         S7J2ZVcvv763YDYnazievuBjEgyCPZd1BxUcUuUaueq+XhVxYpQRG4SRLV4YvGCpEBH4
+         8ku9gArVX8P3Rzq7liDmzeuGdlb45xTXpV4U1+klD8uSQNsOo50ZZtrAA/U2N4z4ckmm
+         XWTGeFfFW6kUFIlcF5DAtDK6oBvTvF1KJl+MPoZoiH1BmOaPRzLn+Te07szy+VNiBn5N
+         Uu+Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwqDwlV/hK3ejcP7jVnwnzYxhrboYIHpOWLqzvqUc1TbnH8kSOwxt7dhM5K41sFQKJ2KGP4L2FVA4r/@vger.kernel.org
+X-Gm-Message-State: AFuF++mhgR2hQxG40BAqu/U7Qfrwzt9lUVt8JN+r0c//rTf+t49HDFFF
+	xaBlfZ4s8Qu31+XHlzQhAp+jUhr456+QZqObJZ7kHNx+qPJAI8xCAIrIGBfjf73poJd/MraCVXA
+	M2LA3vfXIUv6HdXfjG6f0MZe6ZMP4n1gOE2lV0mupQVLs9O3VuitwdFvThMM1ZpSEXIboAdmDNw
+	hp897VY7K4kTupSQqeCSfvV8hHy9usSuY0Ia4EOcg=
+X-Gm-Gg: AYBFou3kcPXDbkr9jWH4ut/wNi6kId7+0Qc3q6a6IyiPcmSEEBhML1Wr3UNvvoj0tT0
+	c6ulc54MMbo9WSGlA+cMGL/jo6WeAE5Ybj1U3IHc+QTVSxwdMU5ng0Hu9KUkWEar4ZG96qxPXlS
+	RbATgiwO4pMJLDI8TM2ggNyxcx+FLrDONMv9qCPPBpIadrn/sSb2fYvJQ0MsmqCgYQ6DdPGJWvI
+	EofkylCR/7LkRjmtliMCR6rhy2YJsw6qtU7nF43I+hBqiyglbhq+r51LPaZlgCJoZ19YyZUhD0X
+X-Received: by 2002:a05:620a:2809:b0:92e:bd39:9993 with SMTP id af79cd13be357-93bf55af058mr895550385a.31.1789978607025;
+        Mon, 21 Sep 2026 01:16:47 -0700 (PDT)
+X-Received: by 2002:a05:620a:2809:b0:92e:bd39:9993 with SMTP id
+ af79cd13be357-93bf55af058mr895545385a.31.1789978606550; Mon, 21 Sep 2026
+ 01:16:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260920-qcom-bam-dmux-vmid-ext-v2-0-ef5ca2178378@oss.qualcomm.com>
+ <20260920-qcom-bam-dmux-vmid-ext-v2-1-ef5ca2178378@oss.qualcomm.com> <20260920-humongous-raven-of-charisma-bb99ed@quoll>
+In-Reply-To: <20260920-humongous-raven-of-charisma-bb99ed@quoll>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Mon, 21 Sep 2026 10:16:35 +0200
+X-Gm-Features: AcwNN1VVhQqlVhKk-jGl48O2Ddr1iFZHmIKcpsImvO5gypb5NVk-JoOt1_b9g5M
+Message-ID: <CAFEp6-0juFLDxo6kCTf_RrHv0EAevVqB3DP47=fg6PBNSCDcbA@mail.gmail.com>
+Subject: Re: [PATCH net-next v2 1/2] dt-bindings: net: qcom,bam-dmux: Add
+ memory-region and qcom,vmid properties
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+        Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+Cc: Stephan Gerhold <stephan@gerhold.net>, Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Sergey Ryazanov <ryazanov.s.a@gmail.com>,
+        Johannes Berg <johannes@sipsolutions.net>,
+        linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-ORIG-GUID: Bh7ZZ3KfZE0W8KShHlkDHVsMA12ivrbm
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDExOCBTYWx0ZWRfX5qD+k/EjTBRW
+ SBnONYppe09x6JJFzKk4v8d3Furs/j39vE7usnDDC55Y+QOVo5xhm4JVrV87t1GoE0KYN7lyAc9
+ VVp4RZZcYwlXOL+nAyuZSW0PtKwc9Eg=
+X-Proofpoint-GUID: Bh7ZZ3KfZE0W8KShHlkDHVsMA12ivrbm
+X-Authority-Analysis: v=2.4 cv=Ht7jiETS c=1 sm=1 tr=0 ts=6ab0e7ef cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=p3HfQXL-393XT7cpVekA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDExOCBTYWx0ZWRfXyCNHXSWFyRrN
+ A+8SJ4Rz0mPa0LThUp/Rb2eu3svx2X/5ngrB9c/kvzueEd3Wngo3o+vyKLIQltNpQPAGhsInTXM
+ /5l+mz+iWJ/oohKMv4BFRh6vVEcPlZ4WRosOmmRCHn2NrZztK292F7KrqqzS+qJ+xSeKpfKzgpY
+ 0WAM31ig08fVIlDqFwkmIUU29oSA3RgrddBnQfH/niJx11usaIyv0Yx5ALjPGF+7WumHNqcypia
+ tcE0nIw6CN6vuA+gFNdZiY0HW/T9UafzUhssQTdG213L81QPw7tNPU0DcVY4BVKIuPUGiwmVpUP
+ NaA3psqZzAZ2sv9sfQ7XwoppkdYjMrxt0Mz+k5j+1FYi/7CWe7n5KuFtCxIsJHaFQ1v5kjsm3JD
+ g7Tm0HNyp7gepsNxVHjxFSPQlSdtAL6qQCRRpqW9hSMjl34hPs9h/E/ooTMeJiVB+ExUOt68VuZ
+ SK+3216J0dVYzJEdv5w==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_03,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 spamscore=0 adultscore=0 impostorscore=0
+ suspectscore=0 lowpriorityscore=0 phishscore=0 malwarescore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210118
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [Medium] dt: i2c2 node is unconditionally enabled in SoC dtsi
-- [Low] dt: ethernet-phy node name violates schema (uses underscore)
-- [Low] dt: fixed regulators define enable-active-high without gpio
-- [Low] dt: new UART nodes omit mandatory clocks properties
---
+Hi Krzysztof,
 
-commit 6fa9620003d2e99adee0e1cd106450b9d0aabb2d
-Author: Xianwei Zhao <xianwei.zhao@amlogic.com>
+On Sun, Sep 20, 2026 at 12:36=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.o=
+rg> wrote:
+>
+> On Sun, Sep 20, 2026 at 08:32:29AM +0530, Vishnu Santhosh wrote:
+> > Some Qualcomm SoCs, such as Shikra, run the modem in a separate securit=
+y
+> > domain with restricted access to system memory. BAM-DMUX DMA mappings
+>
+> Then this is specific to Shikra and should come with its compatible plus
+> constraints per variant.
+>
+> > must therefore be constrained to a designated region that can be shared
+> > with the modem.
+> >
+> > Add an optional memory-region property to reference a restricted DMA
+> > pool used for BAM-DMUX mappings, and a qcom,vmid property to identify t=
+he
+> > remote execution environment that is granted access to the pool through
+> > SCM.
+> >
+> > Require memory-region whenever qcom,vmid is specified.
+> >
+> > Co-developed-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+> > Signed-off-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+> > Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+> > ---
+> >  .../devicetree/bindings/net/qcom,bam-dmux.yaml     | 38 ++++++++++++++=
+++++++++
+> >  1 file changed, 38 insertions(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/net/qcom,bam-dmux.yaml b=
+/Documentation/devicetree/bindings/net/qcom,bam-dmux.yaml
+> > index 33746c238513d72366bc52359fb10f275475b331..5351269b0ab72ede808ae47=
+b55d57580af209038 100644
+> > --- a/Documentation/devicetree/bindings/net/qcom,bam-dmux.yaml
+> > +++ b/Documentation/devicetree/bindings/net/qcom,bam-dmux.yaml
+> > @@ -72,6 +72,24 @@ properties:
+> >        - const: tx
+> >        - const: rx
+> >
+> > +  memory-region:
+> > +    maxItems: 1
+> > +    description:
+> > +      Phandle to a reserved-memory node compatible with restricted-dma=
+-pool.
+> > +      The BAM-DMUX device uses the pool for DMA mappings.
+> > +
+> > +  qcom,vmid:
 
-arm64: dts: amlogic: add T7 peripheral nodes
+I can see several existing drivers, along with a few ongoing series,
+using this same property. Instead of redefining it in every binding,
+should we consider defining the prop/type once in a common soc/qcom
+schema and reusing it across bindings?
 
-Add device tree descriptions for the peripherals on the Amlogic T7
-SoC and the T7 A311D2 AN400 board.
-
-Add support for the T7 Ethernet controller, SPI controllers, I2C
-controllers, UARTs, pinctrl groups, regulators, and reserved memory.
-Also enable the Ethernet controller on the AN400 board.
-
-> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-an400.dts b/ar=
-ch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-an400.dts
-> index ca7536f772ff1..dfd82148179b0 100644
-> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-an400.dts
-> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-an400.dts
-
-[ ... ]
-
-> +	vddao_3v3: regulator-vddao-3v3 {
-> +		vin-supply =3D <&dc_in>;
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "VDDAO_3V3";
-> +		regulator-min-microvolt =3D <3300000>;
-> +		regulator-max-microvolt =3D <3300000>;
-> +		startup-delay-us =3D <70000>;
-> +		enable-active-high;
-
-[Severity: Low]
-Does this regulator actually need the enable-active-high property? Without
-specifying a gpio, this property will not have a functional effect.
-
-> +		regulator-boot-on;
-> +		regulator-always-on;
-> +	};
-
-[ ... ]
-
-> +	vdd_ddr: regulator-vdd-ddr {
-> +		vin-supply =3D <&dc_in>;
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "VDD_DDR";
-> +		regulator-min-microvolt =3D <800000>;
-> +		regulator-max-microvolt =3D <800000>;
-> +		startup-delay-us =3D <70000>;
-> +		enable-active-high;
-
-[Severity: Low]
-Similar to vddao_3v3 above, does this regulator need enable-active-high
-without a gpio property?
-
-> +		regulator-boot-on;
-> +		regulator-always-on;
-> +	};
->  };
-
-[ ... ]
-
-> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi b/arch/arm64/boo=
-t/dts/amlogic/amlogic-t7.dtsi
-> index 8f3f1c0579a0f..a4ca3be358429 100644
-> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-
-[ ... ]
-
-> +			uart_b: serial@7a000 {
-> +				compatible =3D "amlogic,t7-uart", "amlogic,meson-s4-uart";
-> +				reg =3D <0x0 0x7a000 0x0 0x18>;
-> +				interrupts =3D <GIC_SPI 169 IRQ_TYPE_EDGE_RISING>;
-> +				status =3D "disabled";
-> +			};
-
-[Severity: Low]
-Is this node missing its clocks and clock-names properties? Omitting them h=
-ere
-might force board files to duplicate the clock configurations.
-
-[ ... ]
-
-> +				int_mdio: mdio@1 {
-> +					reg =3D <1>;
-> +					#address-cells =3D <1>;
-> +					#size-cells =3D <0>;
-> +
-> +					internal_ephy: ethernet_phy@8 {
-
-[Severity: Low]
-Could this node be named ethernet-phy@8 instead? Using an underscore violat=
-es
-the mdio.yaml schema, which expects names matching ^ethernet-phy(@[a-f0-9]+=
-)?$.
-
-> +						compatible =3D "ethernet-phy-id0180.3301",
-> +							     "ethernet-phy-ieee802.3-c22";
-> +						interrupts =3D <GIC_SPI 340 IRQ_TYPE_LEVEL_HIGH>;
-> +						reg =3D <8>;
-> +						max-speed =3D <100>;
-> +					};
-> +				};
-> +			};
-
-[ ... ]
-
-> +			i2c2: i2c@6a000 {
-> +				compatible =3D "amlogic,t7-i2c", "amlogic,meson-axg-i2c";
-> +				reg =3D <0x0 0x6a000 0x0 0x48>;
-> +				interrupts =3D <GIC_SPI 162 IRQ_TYPE_EDGE_RISING>;
-> +				#address-cells =3D <1>;
-> +				#size-cells =3D <0>;
-> +				clocks =3D <&clkc_periphs CLKID_SYS_I2C_M_C>;
-> +				status =3D "okay";
-
-[Severity: Medium]
-Should this node be set to status =3D "disabled" by default? Enabling it
-unconditionally in the SoC dtsi might lead to probe failures or hardware
-conflicts on boards that do not use this controller.
-
-> +			};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260920-t7-node-ne=
-w-v1-0-e6e0840c1b0b@amlogic.com?part=3D3
+> > +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> > +    minItems: 1
+>
+> Drop
+>
+> > +    maxItems: 1
+> > +    items:
+> > +      minimum: 1
+> > +      maximum: 63
+> > +    description:
+> > +      VMID of the remote execution environment that is granted access =
+to the
+> > +      restricted DMA pool through SCM. The local execution environment=
+ is
+> > +      retained automatically and must not be specified.
+> > +
+> >  required:
+> >    - compatible
+> >    - interrupts
+> > @@ -81,12 +99,29 @@ required:
+> >    - dmas
+> >    - dma-names
+> >
+> > +dependencies:
+> > +  qcom,vmid: [ memory-region ]
+> > +
+> >  additionalProperties: false
+> >
+> >  examples:
+> >    - |
+> > +    #include <dt-bindings/firmware/qcom,scm.h>
+> >      #include <dt-bindings/interrupt-controller/irq.h>
+> >
+> > +    reserved-memory {
+> > +        #address-cells =3D <1>;
+> > +        #size-cells =3D <1>;
+> > +        ranges;
+> > +
+> > +        bam_dmux_pool: restricted-dma-pool {
+> > +            compatible =3D "restricted-dma-pool";
+> > +            size =3D <0x40000>;
+> > +            alignment =3D <0x40000>;
+> > +            alloc-ranges =3D <0x80000000 0x80000000>;
+> > +        };
+> > +    };
+>
+> This wasn't here before. Drop.
+>
+> Best regards,
+> Krzysztof
+>
