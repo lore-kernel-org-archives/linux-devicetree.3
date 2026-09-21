@@ -1,420 +1,259 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EE6033C1BE;
-	Mon, 21 Sep 2026 03:48:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BE3433BBBD
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 03:51:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789962507; cv=none; b=REPUmpfcOIjmYUc0KJGcHqmg+1+SI1e1jnWCGQ3Ua7JEoTM4r/z0zrDD5q9V9+pEnFjReSWHSqj5de/MmFMIqEWCSq6EB6pMEVw6+96MxcGe5aCBkt7NERQSpsS5pvzglKoJG+ruuda5BJ4sTMBFcx9FJdSIuz2GG3exScFhiPo=
+	t=1789962714; cv=none; b=PcW/vNXoFzI3CpSQVYrqax6n4vb7FNVYh452/vvwzikmTK7rJ4ON+YAdUCI3sjcw34U3SacQXsVazEtN4r5AbPuq8zTdRm/m1eylhQfz+aahEY0L3J7M28P/TN2VDn8dw0+3cjkmEvPUfYDG605PR0SKS/fkjLk19HrusSnPaww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789962507; c=relaxed/simple;
-	bh=X2FZhLiHF5lvC6RLt3eGUzO9KUxe7+iaRhCqVbumjMU=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=O9iZ+3ISeqjGRJUMBtxMGWphtr+o6Dg9hOe8M6GsRpcfyNVAObPxk4RgcN7dm0i6OOuRqdvomRBRCJRZWokSudTWWv/YfoArmBoSQIUhO6EoAGr3bovre3KUGQrEUc89g+MQJPo5STvK2E6EMcthfSQuPB0tNTNHuVR7+ZAo1a8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kiZzDuWC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789962714; c=relaxed/simple;
+	bh=K82EgIbx1c3Pt4aprRyajv8B9kasIoaE1zD7vpKRcbU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=edBB1KwjzwuFdAA8Zf8WcNiBqxUbyFoPBQ7u9hfSMnpF49+5FniiA6BprNlOEbUoruS3G0FyOH7mhTlQDDhjKXi2sx94wGa8gK8j4GSOtX/MqHUcr6n8BCr/S4bOz0qGv0PJIXHl/f02vIgoVj+ULhuIbB/bhbNImBvAiNc41Z8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OghcOJf4; arc=none smtp.client-ip=74.125.227.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kiZzDuWC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D2041F00893;
-	Mon, 21 Sep 2026 03:48:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789962505;
-	bh=Q+gfMcgIYxr5U4QGuV3PyosxWM/5AkpyPGlqILK5RzA=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=kiZzDuWCuk/KY+Fz2k7BC3hkbjxzxOCv8truQU8pt8gU6HLK4oL3rcBSytBCeMyc8
-	 wbtMv5lim4xcGndlcmbPcOoPQa7K0OtS4Thva63SKb5xkbH7ZYaZreUAYcPBPChCfY
-	 IOFz0PXz6TTFJiTJsyt7p+oCJO1dDAk/dWCHUtD2LZ8pYaup9a4a5cjoYTzBCMVrBl
-	 2woNC0V49jUrBt60UixaNcOVtrNTSPDnX79wmbQlTGDr/kJzelDgums8WqTyqVZFju
-	 ILAUMJbTiIPpwrguTdcNj00HIZbqhdZ2Yr3xFzTiUIopeVarjkHxAFoGOJaYlufmmQ
-	 BLV8kiTENt/nQ==
-Subject: Re: [PATCH net-next v2 2/2] net: wwan: qcom_bam_dmux: Assign
- restricted DMA pool to remote processor
-From: netdev-bot+sashiko@kernel.org
-To: vishnu.santhosh@oss.qualcomm.com
-Cc: stephan@gerhold.net, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, loic.poulain@oss.qualcomm.com,
- ryazanov.s.a@gmail.com, johannes@sipsolutions.net,
- linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- deepak.singh@oss.qualcomm.com
-Date: Mon, 21 Sep 2026 03:48:23 +0000
-Message-ID: <178996250389.2160803.17277339384338088713@kernel.org>
-In-Reply-To:
- <20260920-qcom-bam-dmux-vmid-ext-v2-2-ef5ca2178378@oss.qualcomm.com>
-References:
- <20260920-qcom-bam-dmux-vmid-ext-v2-2-ef5ca2178378@oss.qualcomm.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OghcOJf4"
+Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-396ccb65437so1880406a91.3
+        for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 20:51:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789962712; x=1790567512; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kdDhzCRdCllLNDO+MhePTUS200ix97YhSyiLkztN8Pc=;
+        b=OghcOJf4nZVTYVRG6KA6VP6yKh41NlbMtdeEDZBSSt4lzbn6BHCkFQXFcXztAS/cw1
+         v9VuwFcpqIhP5RVMl0DpuurTpDPaCXCmlI3Vr955BS0VCThKByCRzLDqQQzWdkY1pUXi
+         2AcwL5DLtNAw5WHzLtNv/vmhA0SF/vTuABPu+P/hDJR1me5Gk4HGrQKnlL92KnFU/Flx
+         4T0G7L2IPxJ4//PVUN70xSdMcJ0BnPTzW0Y4dBzmSBmUga3To8DP2K5+lc7mAQHFNIQG
+         Jm1IVhsuLhFOBbXKguSBK066+V+0YMdDiu9XoT7Uk+Dbi9+uMc8azTPwaB/l6raVpNXh
+         VPgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789962712; x=1790567512;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kdDhzCRdCllLNDO+MhePTUS200ix97YhSyiLkztN8Pc=;
+        b=ddMh7kjSaDQix9CgB8IxZlY+9HPJms4GqVarlUauGw3BOPiYvdCCoOODznpSeIRKB3
+         SsJZ8xL9hRFcRzuIAMJSbIaP/NldghRkpvsl8nc+vndTRzCNl+DiPxiLCpAniei8SQIw
+         Qc80CcVZ9kxmIo6eBg2C71uPqSvICrCGF/4FCO6hhYal6oIVQH+kSw9JASNP8hAYCiIW
+         8t97SU3PjB45u6Z/ycCmUo5yF5821KzqUZIrK1jE4hn4PjG5rSDhJd07uFP8GLjb0dSU
+         YMWJVsuIogPc6HlWsF6rPGiGROvVvFblC7TQBHVzQ4lNoD/mGzkthXGB5CHcScv0MXlk
+         yeLg==
+X-Forwarded-Encrypted: i=1; AKwUvBwMwrk8+oX2CWG2NqNDz54Ku8Wsi8ATiLS88tAXnr0aK8nG/J4rckegyl+vY3ku+Pp+gVCkiS9RjEoH@vger.kernel.org
+X-Gm-Message-State: AFuF++k1AH8OvewMrlnnpFyUOMsLiCK91oytitRsc0fskSXnkCJsDfpF
+	5Pn/8rp3PBZAU0mwjsXg+IyL2hTUxIJbPnPWwXaz8KK0S32QUraor7K6
+X-Gm-Gg: AYBFou1fJnShwH9HMlC9oLtz0pCadIdd4Td9Eyex+kLFBJpu+zA0BtVMR7fE7Uh8r+F
+	AIwhdPeqHiIxWMCq0WmWvDss7BJngD37mYqXtV7fpymYROYKpZiN0UFlwqGWEN1lX+4I+8Kbohh
+	+x016/Mh112qVLgCjl70Tal3qxumK7W3G1R0wZ42O3mXgPn1ABU7W8E1Dkj4Tc9QvFwh5FQwD6V
+	yj+LWO3CYacwV70G9dqTwei9bn/9+aIjMqV2KjpPVZpHEuMPrqYiUVbgFMcXch5ibKAGq0zHdCO
+	jpiCZ79MSk4MzU4GxJmx3A3/G9ZmPsTOEwPzoR/jdkS8ktf/G4l77/vv4l+ouWNpbxEuK264Y46
+	w9HfwqMHpcg4H6kMY5LhFlv3xmOx9VRBTJfBm8VAQ2dUutk2Z6LULzDTA7k4G1ttmJXJFmfszZ6
+	goy+qL4eT2tDtgI3RL8/fc5W+ztO1qOu2Nv7GSi22653EWLwHoL/vsRg==
+X-Received: by 2002:a17:90b:54c4:b0:39e:4c7f:7308 with SMTP id 98e67ed59e1d1-39e55071981mr14409742a91.31.1789962712193;
+        Sun, 20 Sep 2026 20:51:52 -0700 (PDT)
+Received: from localhost ([2600:1700:5431:250::22])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144d54af4d5sm16190292c88.2.2026.09.20.20.51.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Sep 2026 20:51:51 -0700 (PDT)
+Date: Sun, 20 Sep 2026 20:51:44 -0700
+From: Chang Yu <marcus.yu.56@gmail.com>
+To: Conor <mail@conchuod.ie>
+Cc: Jonathan Cameron <jic23@kernel.org>, Chang Yu <marcus.yu.56@gmail.com>,
+	Conor Dooley <conor@kernel.org>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Shi Hao <i.shihao.999@gmail.com>,
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: iio: light: add as7343
+Message-ID: <arCp0DQpBiOk3zvz@zephyrus-g14.localdomain>
+References: <20260907210042.32552-1-marcus.yu.56@gmail.com>
+ <20260907210042.32552-2-marcus.yu.56@gmail.com>
+ <20260908-dinner-shelve-1d61e19ee3b7@spud>
+ <20260913014203.2bae2222@jic23-hlaptop>
+ <20260915-gleeful-jester-c8114edf28ff@spud>
+ <20260917034823.03940ac4@jic23-hlaptop>
+ <aq3rdBcMw1XcHnkL@gmail.com>
+ <20260920010448.114fc597@jic23-hlaptop>
+ <77D15400-6ECD-4661-8733-E1F4F85077AF@conchuod.ie>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <77D15400-6ECD-4661-8733-E1F4F85077AF@conchuod.ie>
 
-Thank you for your contribution! Sashiko AI review found 8 potential
-issue(s) to consider.
+On Sun, Sep 20, 2026 at 03:14:30PM +0200, Conor wrote:
+> 
+> 
+> On 20 September 2026 02:04:48 GMT+02:00, Jonathan Cameron <jic23@kernel.org> wrote:
+> >On Fri, 18 Sep 2026 18:55:00 -0700
+> >Chang Yu <marcus.yu.56@gmail.com> wrote:
+> >
+> >> On Thu, Sep 17, 2026 at 03:48:23AM +0100, Jonathan Cameron wrote:
+> >> > On Tue, 15 Sep 2026 18:11:17 +0100
+> >> > Conor Dooley <conor@kernel.org> wrote:
+> >> >   
+> >> > > On Sun, Sep 13, 2026 at 01:42:03AM +0100, Jonathan Cameron wrote:  
+> >> > > > On Tue, 8 Sep 2026 19:13:55 +0100
+> >> > > > Conor Dooley <conor@kernel.org> wrote:
+> >> > > >     
+> >> > > > > On Mon, Sep 07, 2026 at 02:00:41PM -0700, Chang Yu wrote:    
+> >> > > > > > Add binding for AMS AS7343 which is a 14-channel multi-spectral sensor
+> >> > > > > > with i2c address of 0x39.
+> >> > > > > > 
+> >> > > > > > The GPIO pin is described as a generic GPIO for now. Binding design for the
+> >> > > > > > more advanced measurement/LED synchronization use cases are deferred to
+> >> > > > > > future patches.      
+> >> > > > > 
+> >> > > > > Unfortunately, you can't change what you document, so picking something
+> >> > > > > correct now is needed - even if the driver doesn't use it yet.    
+> >> > > > 
+> >> > > > Definitely needs an outline of how it would be backwards compatible and
+> >> > > > an explanation of why not now.  Sometimes a portion of the binding is
+> >> > > > so uncertain that we do kick it back from initial version but we 'must'
+> >> > > > be sure we can extend the binding to new configurations.  Normally this
+> >> > > > is one of those we are fairly sure, but not entirely sure cases - or
+> >> > > > picking between two options where consensus isn't being reached.
+> >> > > > 
+> >> > > > Chang Yu: This sort of things needs discussion and is one of the reasons to
+> >> > > > go slowly.    
+> >> > > 
+> >> > > Ye, I note that there are 2 more versions of this since I left this
+> >> > > comment, but you seem to be on top of that.
+> >> > >   
+> >> > > > > > Datasheet: https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
+> >> > > > > > Signed-off-by: Chang Yu <marcus.yu.56@gmail.com>
+> >> > > > > > ---
+> >> > > > > > Changes in v2:
+> >> > > > > >   - Add the LDR, the interrupt pin, and the GPIO pin to the bindings.
+> >> > > > > >   - Fix node name and unit address mismatch.
+> >> > > > > >   - Include MAINTAINERS changes.
+> >> > > > > > 
+> >> > > > > >  .../bindings/iio/light/ams,as7343.yaml        | 69 +++++++++++++++++++
+> >> > > > > >  MAINTAINERS                                   |  6 ++
+> >> > > > > >  2 files changed, 75 insertions(+)
+> >> > > > > >  create mode 100644 Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
+> >> > > > > > 
+> >> > > > > > diff --git a/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml b/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
+> >> > > > > > new file mode 100644
+> >> > > > > > index 000000000000..b06d445b92b3
+> >> > > > > > --- /dev/null
+> >> > > > > > +++ b/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
+> >> > > > > > @@ -0,0 +1,69 @@
+> >> > > > > > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> >> > > > > > +%YAML 1.2
+> >> > > > > > +---
+> >> > > > > > +$id: http://devicetree.org/schemas/iio/light/ams,as7343.yaml#
+> >> > > > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> >> > > > > > +
+> >> > > > > > +title: AMS AS7343 14-Channel Multi-Spectral Sensor
+> >> > > > > > +
+> >> > > > > > +maintainers:
+> >> > > > > > +  - Chang Yu <marcus.yu.56@gmail.com>
+> >> > > > > > +
+> >> > > > > > +description: |
+> >> > > > > > +  The AMS AS7343 is a 14-channel multi-spectral sensor with i2c address of 0x39.
+> >> > > > > > +  https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
+> >> > > > > > +
+> >> > > > > > +properties:
+> >> > > > > > +  compatible:
+> >> > > > > > +    enum:
+> >> > > > > > +      - ams,as7343
+> >> > > > > > +
+> >> > > > > > +  reg:
+> >> > > > > > +    description:
+> >> > > > > > +      I2C address of the device (0x39).
+> >> > > > > > +    maxItems: 1
+> >> > > > > > +
+> >> > > > > > +  interrupts:
+> >> > > > > > +    description:
+> >> > > > > > +      Open drain output active low interrupt pin.
+> >> > > > > > +    maxItems: 1
+> >> > > > > > +
+> >> > > > > > +  vdd-supply: true
+> >> > > > > > +
+> >> > > > > > +  ams,led-current-microamp:
+> >> > > > > > +    description:
+> >> > > > > > +      The driver current for the external LED connected to the LDR pin.
+> >> > > > > > +    minimum: 4000
+> >> > > > > > +    maximum: 258000
+> >> > > > > > +    multipleOf: 2000
+> >> > > > > > +    default: 12000      
+> >> > > > > 
+> >> > > > > Rather than a custom property, the tsl2772 uses led-max-microamp:
+> >> > > > > tsl2772.yaml
+> >> > > > > 46:  led-max-microamp:
+> >> > > > > 81:                led-max-microamp = <100000>;
+> >> > > > > 
+> >> > > > > I wonder if the same should be done here, or if there should be an leds
+> >> > > > > subnode? Perhaps the IIO folks can comment on that.    
+> >> > > > 
+> >> > > > I don't think we've ever bothered with a subnode as there only tends
+> >> > > > to be one of them.  Given the enabling etc is all hardware controlled
+> >> > > > I'm not sure a more generic LED binding makes sense. I don't know that
+> >> > > > much about the led bindings though so maybe it is worth doing a subnode
+> >> > > > just to use the leds/common.yaml definition of led-max-microamp?    
+> >> > > 
+> >> > > Could always just put a ref in to leds/common.yaml and not bother with a
+> >> > > child node. I'd stick with the additionalProperties: false, since
+> >> > > there's lots of leds properties that probably don't apply to a device
+> >> > > like this.
+> >> > >   
+> >> > Sounds good to me.
+> >> >   
+> >> > > Cheers,
+> >> > > Conor.  
+> >> >   
+> >> A quick heads up, adding a ref produces the following error when running
+> >> dt_binding_check:
+> >> 
+> >> properties:led-max-microamp: '$ref' should not be valid under {'const': '$ref'}
+> >> 	hint: Standard unit suffix properties don't need a type $ref
+> >> 	from schema $id: http://devicetree.org/meta-schemas/core.yaml
+> >> 
+> >> So it looks like we can just put led-max-microamp, and not add the $ref.
+> >
+> >Ah. That's a bit irritating as it is assuming the ref is to get the
+> >type rather than to make the connection to the standard definition
+> >of what it is.  Conor, what is the best way around this? 
+> >Maybe a comment to say where it is documented instead of a $ref?
+> 
+> From the error, it looks like this was done incorrectly, but impossible to tell for sure without the snippet.
+> The ref I was talking about would be at the  top level
+> 
+> >
+> >J
+> >
+I was doing something like:
+    led-max-microamp:
+      $ref: /schemas/leds/common.yaml#/properties/led-max-microamp
+      minimum: 4000
+which gave me the error.
 
-Critical: 0 · High: 3 · Medium: 3 · Low: 2
+IIUC, Conor was suggesting something like:
+    allOf:
+      - $ref: /schemas/leds/common.yaml#
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+From my limited understanding of dt bindings, the above should not be
+used together with additionalProperties: false ? So do we want something
+like:
 
-- [High] bam_dmux_probe()'s err_disable_pm label
-  (drivers/net/wwan/qcom_bam_dmux.c:938-942) calls the new…
-- [High] The feature's stated requirement - that the BAM descriptor FIFOs
-  also live in the SCM-assigned region - cannot be expressed by a…
-- [High] bam_dmux_remove() revokes the remote EE's access to the pool
-  even when the remote has demonstrably not quiesced.
-- [Medium] bam_dmux_assign_dma_pool()
-  (drivers/net/wwan/qcom_bam_dmux.c:770-830) validates only device-tree…
-- [Medium] bam_dmux_assign_dma_pool() accepts any qcom,vmid in 0..63
-  (line 786) and stores dmux->dma_pool_perms =…
-- [Medium] bam_dmux_reclaim_dma_pool()
-  (drivers/net/wwan/qcom_bam_dmux.c:832-852) only logs a failure of…
-- [Low] The qcom,vmid parser in bam_dmux_assign_dma_pool()
-  (drivers/net/wwan/qcom_bam_dmux.c:783-787) accepts values and property…
-- [Low] Binding/driver validation ranges diverge for qcom,vmid:
-  Documentation/devicetree/bindings/net/qcom,bam-dmux.yaml constrains…
+    allOf:
+      - $ref: /schemas/leds/common.yaml#
 
---
+    unevaluatedProperties: false
 
-net: wwan: qcom_bam_dmux: Assign restricted DMA pool to remote processor
+Or just stick with what's in v5?
 
-This patch makes qcom_bam_dmux look up the restricted DMA pool referenced
-by memory-region when qcom,vmid is present, and hands the whole pool to
-both HLOS and the remote VMID via qcom_scm_assign_mem() before the DMA
-channels are requested.  The pool is reclaimed for HLOS again on remove
-and on the probe error path.
-
-A few questions about the new code below.
-
-> diff --git a/drivers/net/wwan/qcom_bam_dmux.c b/drivers/net/wwan/qcom_bam_dmux.c
-> index cc6ace8d6437..c81e668d4e96 100644
-> --- a/drivers/net/wwan/qcom_bam_dmux.c
-> +++ b/drivers/net/wwan/qcom_bam_dmux.c
-
-[ ... ]
-
-> @@ -762,6 +767,90 @@ static int __maybe_unused bam_dmux_runtime_resume(struct device *dev)
->  	return 0;
->  }
->  
-> +static int bam_dmux_assign_dma_pool(struct bam_dmux *dmux)
-> +{
-> +	struct device *dev = dmux->dev;
-> +	struct device_node *rmem_np;
-> +	struct reserved_mem *rmem;
-> +	struct qcom_scm_vmperm dst[2];
-> +	u64 src = BIT_ULL(QCOM_SCM_VMID_HLOS);
-> +	u32 vmid;
-> +	int ret;
-> +
-> +	if (!of_property_present(dev->of_node, "qcom,vmid"))
-> +		return 0;
-> +
-> +	ret = of_property_read_u32(dev->of_node, "qcom,vmid", &vmid);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to read qcom,vmid\n");
-> +	if (vmid == QCOM_SCM_VMID_HLOS || vmid >= BITS_PER_TYPE(u64))
-> +		return dev_err_probe(dev, -EINVAL, "Invalid qcom,vmid %u\n", vmid);
-
-[Severity: Low]
-Is vmid == 0 intentionally accepted here?  The binding added by
-"dt-bindings: net: qcom,bam-dmux: Add memory-region and qcom,vmid
-properties" declares:
-
-  qcom,vmid:
-    minItems: 1
-    maxItems: 1
-    items:
-      minimum: 1
-      maximum: 63
-
-so qcom,vmid = <0> is schema-invalid, but this check only rejects
-QCOM_SCM_VMID_HLOS and values >= 64, and 0 is forwarded as dst[1].vmid to
-qcom_scm_assign_mem().
-
-The maxItems: 1 side is not enforced either.  of_property_read_u32() reads
-just the first cell, so qcom,vmid = <A B> is silently truncated rather than
-rejected.  Would of_property_count_u32_elems() (or the read_variable
-helper) be a better fit so a malformed list fails with the clear "Invalid
-qcom,vmid" diagnostic instead of a firmware rejection later?
-
-[Severity: Low]
-Related: the binding's numeric range 1..63 includes QCOM_SCM_VMID_HLOS
-(0x3, include/dt-bindings/firmware/qcom,scm.h), and the prose note that the
-local execution environment must not be specified is not encoded in the
-schema.  So qcom,vmid = <QCOM_SCM_VMID_HLOS> passes dt_binding_check while
-this check fails probe with -EINVAL.  Could the schema express the
-exclusion so the constraint is machine-checkable?
-
-> +
-> +	if (!IS_ENABLED(CONFIG_DMA_RESTRICTED_POOL))
-> +		return dev_err_probe(dev, -EOPNOTSUPP,
-> +				     "qcom,vmid requires DMA_RESTRICTED_POOL\n");
-> +
-> +	rmem_np = of_parse_phandle(dev->of_node, "memory-region", 0);
-> +	if (!rmem_np)
-> +		return dev_err_probe(dev, -EINVAL,
-> +					     "qcom,vmid requires memory-region\n");
-> +
-> +	if (!of_device_is_compatible(rmem_np, "restricted-dma-pool")) {
-> +		of_node_put(rmem_np);
-> +		return dev_err_probe(dev, -EINVAL,
-> +				     "memory-region must reference a restricted DMA pool\n");
-> +	}
-> +
-> +	rmem = of_reserved_mem_lookup(rmem_np);
-> +	of_node_put(rmem_np);
-> +	if (!rmem)
-> +		return dev_err_probe(dev, -EINVAL,
-> +					     "Failed to look up restricted DMA pool\n");
-
-[Severity: Medium]
-These checks confirm the device tree text (memory-region index 0 is
-compatible with restricted-dma-pool, and the reserved_mem descriptor
-exists), but is there anything here that confirms the pool actually backs
-this device's DMA path, i.e. that dev->dma_io_tlb_mem points at it?
-
-Attaching the pool is best-effort in the DMA core.  In
-of_dma_configure_id(), the restricted pool is only installed when the
-device was not claimed by an IOMMU:
-
-drivers/of/device.c:of_dma_configure_id() {
-	...
-	if (ret)
-		of_dma_set_restricted_buffer(dev, np);
-	...
-}
-
-and of_dma_set_restricted_buffer() additionally requires the node to be
-available and only warns on failure:
-
-	if (of_device_is_compatible(it.node, "restricted-dma-pool") &&
-	    of_device_is_available(it.node)) {
-		if (of_reserved_mem_device_init_by_idx(dev, of_node, i))
-			dev_warn(dev, "failed to initialise \"restricted-dma-pool\" memory node\n");
-
-rmem_swiotlb_device_init() can also legitimately fail, for example:
-
-kernel/dma/swiotlb.c:rmem_swiotlb_device_init() {
-	if (PageHighMem(pfn_to_page(PHYS_PFN(rmem->base)))) {
-		dev_err(dev, "Restricted DMA pool must be accessible within the linear mapping.");
-		return -EINVAL;
-	}
-
-In all of those cases probe still succeeds, the pool is still granted to
-the modem, and bam_dmux_skb_dma_map()'s dma_map_single() returns addresses
-outside the assigned region.  The commit message states:
-
-  "This ensures that BAM-DMUX mappings are within the assigned region."
-
-Can that hold without checking the device's effective DMA backend (for
-example is_swiotlb_for_alloc(dev) / dev->dma_io_tlb_mem) after
-of_dma_configure() has run?
-
-> +
-> +	if (!qcom_scm_is_available())
-> +		return -EPROBE_DEFER;
-> +
-> +	dst[0].vmid = QCOM_SCM_VMID_HLOS;
-> +	dst[0].perm = QCOM_SCM_PERM_RW;
-> +	dst[1].vmid = vmid;
-> +	dst[1].perm = QCOM_SCM_PERM_RW;
-> +
-> +	ret = qcom_scm_assign_mem(rmem->base, rmem->size, &src, dst,
-> +				  ARRAY_SIZE(dst));
-
-[Severity: High]
-This assigns the pool referenced by the bam-dmux consumer node, but the
-BAM descriptor FIFOs are allocated against the BAM DMA controller device:
-
-drivers/dma/qcom/bam_dma.c:bam_alloc_chan() {
-	...
-	bchan->fifo_virt = dma_alloc_wc(bdev->dev, BAM_DESC_FIFO_SIZE,
-					&bchan->fifo_phys, GFP_KERNEL);
-	...
-}
-
-so the FIFO follows the controller's DMA configuration, not the consumer's
-restricted pool.  The commit message says:
-
-  "When the BAM DMA controller references the same pool, its descriptor
-  FIFOs are covered by the assignment as well."
-
-How is a device tree supposed to express that?  Adding
-memory-region = <&pool> to the qcom,bam-dma node does not validate, since
-Documentation/devicetree/bindings/dma/qcom,bam-dma.yaml defines no
-memory-region property and ends with:
-
-  additionalProperties: false
-
-Without that binding change, do the descriptor FIFOs stay outside the
-assigned region, which is the access the commit message describes as
-triggering an XPU violation?
-
-> +	if (ret)
-> +		return dev_err_probe(dev, ret,
-> +				     "SCM assign restricted DMA pool failed\n");
-> +
-> +	dmux->dma_pool_base = rmem->base;
-> +	dmux->dma_pool_size = rmem->size;
-> +	/* Track the destination VMIDs explicitly for the reclaim operation. */
-> +	dmux->dma_pool_perms = BIT_ULL(QCOM_SCM_VMID_HLOS) | BIT_ULL(vmid);
-
-[Severity: Medium]
-The check above allows any vmid up to 63, and the bit is recorded here with
-BIT_ULL() and later passed as the srcvm bitmap to qcom_scm_assign_mem().
-Does that work on a 32-bit build?  The SCM helper sizes the source array
-with hweight64() but decodes it with the unsigned-long-wide BIT():
-
-drivers/firmware/qcom/qcom_scm.c:qcom_scm_assign_mem() {
-	src_sz = hweight64(srcvm_bits) * sizeof(*src);
-	...
-	for (b = 0; b < BITS_PER_TYPE(u64); b++) {
-		if (srcvm_bits & BIT(b))
-			src[i++] = cpu_to_le32(b);
-	}
-	...
-		next_vm |= BIT(newvm->vmid);
-}
-
-On a 32-bit kernel a vmid >= 32 is counted but never emitted, and
-qcom_tzmem_alloc() uses gen_pool_alloc() without zeroing, so the skipped
-src[] slot reaches the secure monitor with stale bytes.  This driver also
-covers 32-bit SoCs, and the binding example uses QCOM_SCM_VMID_NAV (0x2B,
-43).  Should the accepted range match what the SCM bitmap plumbing can
-actually represent?
-
-> +
-> +	return 0;
-> +}
-> +
-> +static void bam_dmux_reclaim_dma_pool(struct bam_dmux *dmux)
-> +{
-> +	struct qcom_scm_vmperm hlos = {
-> +		.vmid = QCOM_SCM_VMID_HLOS,
-> +		.perm = QCOM_SCM_PERM_RW,
-> +	};
-> +	u64 src = dmux->dma_pool_perms;
-> +	int ret;
-> +
-> +	if (!dmux->dma_pool_perms)
-> +		return;
-> +
-> +	ret = qcom_scm_assign_mem(dmux->dma_pool_base, dmux->dma_pool_size, &src,
-> +				  &hlos, 1);
-> +	if (ret) {
-> +		dev_err(dmux->dev, "SCM reclaim restricted DMA pool failed: %d\n", ret);
-> +		return;
-> +	}
-
-[Severity: Medium]
-When this reclaim fails, dma_pool_perms is left set and the region stays
-owned by {HLOS, remote VMID}, but that state only lives in the devm
-allocated struct bam_dmux, which goes away once probe returns or remove()
-finishes.
-
-Does that make the condition unrecoverable?  A later re-bind or module
-reload enters bam_dmux_assign_dma_pool() with the hard-coded source set:
-
-	u64 src = BIT_ULL(QCOM_SCM_VMID_HLOS);
-
-which no longer matches the real owner set, so the assign is rejected and
-the device cannot be used again without a reboot.  Would it be better to
-propagate the failure (or retry) instead of only logging it?
-
-> +
-> +	dmux->dma_pool_perms = 0;
-> +}
-> +
->  static int bam_dmux_probe(struct platform_device *pdev)
->  {
->  	struct device *dev = &pdev->dev;
-
-[ ... ]
-
-> @@ -845,6 +938,7 @@ static int bam_dmux_probe(struct platform_device *pdev)
->  err_disable_pm:
->  	pm_runtime_disable(dev);
->  	pm_runtime_dont_use_autosuspend(dev);
-> +	bam_dmux_reclaim_dma_pool(dmux);
->  	return ret;
->  }
-
-[Severity: High]
-Can this path revoke the remote VMID's access while the RX pipe and its
-mappings are still live?
-
-The pc IRQ is registered before the last fallible probe step:
-
-	ret = devm_request_threaded_irq(dev, dmux->pc_irq, NULL, bam_dmux_pc_irq,
-					IRQF_ONESHOT, NULL, dmux);
-	if (ret)
-		goto err_disable_pm;
-
-	ret = irq_get_irqchip_state(dmux->pc_irq, IRQCHIP_STATE_LINE_LEVEL,
-				    &dmux->pc_state);
-	if (ret)
-		goto err_disable_pm;
-
-bam_dmux_pc_irq() -> bam_dmux_power_on() does dma_request_chan(dev, "rx")
-and queues BAM_DMUX_NUM_SKB RX buffers mapped out of the restricted pool,
-then acks the modem.  If probe then fails here, err_disable_pm calls the
-reclaim without disable_irq(dmux->pc_irq), bam_dmux_power_off() or
-bam_dmux_free_skbs(), and devres only frees the IRQs (and the devm
-allocated dmux) after probe returns, so the handler can even re-arm RX DMA
-into an already-reclaimed pool.
-
-bam_dmux_remove() establishes the ordering the commit message describes:
-
-	disable_irq(dmux->pc_irq);
-	bam_dmux_power_off(dmux);
-	bam_dmux_free_skbs(dmux->tx_skbs, DMA_TO_DEVICE);
-	bam_dmux_reclaim_dma_pool(dmux);
-
-The commit message says the pool is reclaimed "after DMA channels and
-mappings are released during remove or probe error cleanup".  Should the
-error path mirror that sequence?
-
->  
-> @@ -879,6 +973,7 @@ static void bam_dmux_remove(struct platform_device *pdev)
->  	disable_irq(dmux->pc_irq);
->  	bam_dmux_power_off(dmux);
->  	bam_dmux_free_skbs(dmux->tx_skbs, DMA_TO_DEVICE);
-> +	bam_dmux_reclaim_dma_pool(dmux);
->  }
-
-[Severity: High]
-Is it safe to reclaim unconditionally here when the remote side did not
-quiesce?  Just above, the timeout result is only logged:
-
-	if (!wait_event_timeout(dmux->pc_wait, !dmux->rx, BAM_DMUX_REMOTE_TIMEOUT))
-		dev_err(dev, "Timed out waiting for remote side to suspend\n");
-
-Control flow is unchanged, so bam_dmux_power_off() and the new reclaim run
-anyway and the modem loses RW on the pool while it may still be fetching
-descriptors from it.
-
-Local teardown is not guaranteed either.  dma_release_channel() reaches
-bam_free_chan(), which can bail before resetting the pipe and freeing the
-FIFO:
-
-drivers/dma/qcom/bam_dma.c:bam_free_chan() {
-	ret = pm_runtime_get_sync(bdev->dev);
-	if (ret < 0)
-		return;
-	...
-}
-
-leaving the BAM pipe programmed with a descriptor FIFO address inside the
-region whose permission was just revoked.  Should the reclaim be skipped
-(or deferred) when the remote has not acked the power-down?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260920-qcom-bam-dmux-vmid-ext-v2-0-ef5ca2178378%40oss.qualcomm.com
