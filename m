@@ -1,105 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3884C3E451B
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 10:04:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B275457E69;
+	Mon, 21 Sep 2026 10:06:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789985055; cv=none; b=SB8lS7MJ589z4UKIPl5t2dks/Nlk4vwBC37uJqnGUGf7i1fkaenYV5uhTJeuGGZoYuMv+V0qMWunWsyZy7bGCkrv/v6nlMHhxtTEXKTe2M6zwgbNQKVM7yofJmZJRZ5JB04kgpzhrEahVi2qEGXmGOWWE1xqzG8Q2xmYGlQNOxY=
+	t=1789985164; cv=none; b=rpON6ZtoA9kmOqcN1AVYry9zk5Y0UTsrJR4tpJ0PwQwvjQuff0X1jydPU8H/9RUTRqWQQZb5MXIlJbE/ojoUbDIam/lE4YnNDdbIJjuqo3CClqbcbgZ/i8uxI1CovcLjjP3Jl06HVHp+aEjEdFTgrd6H5Lt1+yuFtT4VVsx+aPE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789985055; c=relaxed/simple;
-	bh=7B1KwnAzKkk51aZnvmIoqH5tuRSKwRvPTkgpW6Cx13M=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=u0e/JS0wlX2u2YMPsw4BWno1T4CjxOyYtVR6qrFHNOPxd9vktbYHkjNUF5OwbFOUKOk6So/HBC/4mHtj8i3c6AY9/kLbpcD9y5eSzTKRqCm8yJUySHdGfHO61kHdF9IsRSjo0RVaiZg7vsb51l5mUfySn/av0sLmbxK7hqMVlLY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=icmQPuGS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789985164; c=relaxed/simple;
+	bh=cDVOUqRmDAiIlq1x0W5Pvyz6PeI3fBgskd+Ma0ilQKo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RoGWXylAi+wmadQw+I5IxOthFmTTRazDuFiuWB+/+NsbwxNU3IV/Kkb78KO7wSpI8H3RtxbHn4eDKcAiBstXF8kvLmd7B63wvUi85Yvm/fAgdPgcYzefbuQx0JDCEPAs0NmemhXnntq6trfa3MGh4gZhqRn+xxTsRYpn1z+VC4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=A3pfzR/d; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="icmQPuGS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C0421F000FF;
-	Mon, 21 Sep 2026 10:04:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789985053;
-	bh=QQUnHGRVF6nprFoCbL7EXydZ0GNp98ACCsSGZOB+LZs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=icmQPuGSKJCgTez/qQ6ajxt9Cm/FHxYrfngrt7ZiYI4bSa5W78IGkjsUgNTiLh/04
-	 5YVY0TJ3XdHaP/HGp4uOU2m1fhLyubrdK4B68OW3W2kumvelyfABrFvPUiRvb3hIsx
-	 kQHmBRw6HCjKcBamM2CR96WI1Id//Oo7izb5oGK0xPtoVwdWbOJKVWXyTaaWHCCBeR
-	 T12xh3KtE/YdD1N0139wqXFBedbWIaJPeYLqQr3VISPpwejQuDNwBDavxsqbIL1pWG
-	 KVhAcQJBd55BDKgFivjrzend2VL1febMyCcncwhSeWQsddwTkiH9NpRQmzZIt7Xwrx
-	 9yBsw8jeg84Zw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/5] arm64: dts: qcom: eliza: Add iris video codec
- node
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wangao Wang" <wangao.wang@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org, conor+dt@kernel.org
-In-Reply-To: <20260921-add_iris_for_eliza-v2-3-5fe7be8c0230@oss.qualcomm.com>
-References: <20260921-add_iris_for_eliza-v2-0-5fe7be8c0230@oss.qualcomm.com>
- <20260921-add_iris_for_eliza-v2-3-5fe7be8c0230@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 21 Sep 2026 10:04:13 +0000
-Message-Id: <20260921100413.7C0421F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="A3pfzR/d"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789985161;
+	bh=cDVOUqRmDAiIlq1x0W5Pvyz6PeI3fBgskd+Ma0ilQKo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=A3pfzR/dCqrz8smbfXkXbFTaPcptGDfypqJU0/vWlqaFXv6he4RZgFT2s1gI4WHJD
+	 wnsm/w/bm4cf/OeQ5iGHeKsxop9OmaKwEk4DZSFWhR41obr1W9Q07t/Fhla4sa2KEo
+	 rZnlnUNakg4PvHKtYLdwwHYiVAZ/FWjTBaVVkzdqqSjzjwtTpMPmSMn+ULiGk4PJFA
+	 3Yg/py1RSSE+qxIaNb4EJFtx9TGzAGtSqqfSHFORXNQi1k7h7bLkp5b5veC22bHsoW
+	 fQZFTnrMgQa9NJODZqU7bEF1cFC4Ay1PfltiJIBmiwucz+NCWMz6oTIgZxOF9fLomF
+	 FESu3L+VMYGPw==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 49EA117E020C;
+	Mon, 21 Sep 2026 12:06:00 +0200 (CEST)
+Message-ID: <a657522a-30b3-491c-8f1c-9d09e3bbe176@collabora.com>
+Date: Mon, 21 Sep 2026 12:05:59 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 02/13] drm/mediatek: Implement Display Stream
+ Compression support
+To: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Cc: chunkuang.hu@kernel.org, p.zabel@pengutronix.de,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, matthias.bgg@gmail.com, jitao.shi@mediatek.com,
+ dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, kernel@collabora.com,
+ justin.yeh@mediatek.com, jason-jh.lin@mediatek.com,
+ Nikolai Burov <nikolai.burov@jolla.com>
+References: <20260916110825.102631-1-angelogioacchino.delregno@collabora.com>
+ <20260916110825.102631-3-angelogioacchino.delregno@collabora.com>
+ <94451cc1-5dcc-4017-9b17-19fc20245ca8@rock-chips.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <94451cc1-5dcc-4017-9b17-19fc20245ca8@rock-chips.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] dts: qcom: eliza: iommus hidden in subnodes causing SMMU bypass
---
+On 9/19/26 08:52, Chaoyi Chen wrote:
+> Hi,
+> 
+> On 9/16/2026 7:08 PM, AngeloGioacchino Del Regno wrote:
+>> Add a real driver for the Display Stream Compression (DSC) Display
+>> Controller IP, implementing support for DSC v1.1 to v1.2.
+>>
+>> In order to do this, it was necessary to remove the basic DSC IP
+>> bypass setup from mtk_ddp_comp: this functionality is retained in
+>> the new mtk_disp_dsc driver, which checks if DSC was actually
+>> requested by other components (with the only one that currently
+>> supports this being DSI) and, if not, it will set BYPASS mode in
+>> the DSC IP.
+>>
+>> Like before, the BYPASS mode is set before starting the DSC IP,
+>> but unlike before, this is being done in the component start
+>> callback instead of the config one.
+>> Notably, the config callback is called by mtk_crtc always
+>> immediately before the calling start callback, so the order of
+>> register writes is retained.
+>> The only real difference is that now this is being done through
+>> CPU writes instead of CMDQ, but since that's called only once
+>> and since it's just three registers, the performance impact will
+>> not be minimal and not even measurable.
+>>
+>> As anticipated, DSC handling was also introduced in the mtk_dsi
+>> driver: when performing dsi_host_attach, the driver now checks
+>> if the DSI panel adds the DSC configuration structure to the
+>> mipi_dsi_device structure and, if it does, it will store a
+>> pointer in the driver-local mtk_dsi structure's `dsc` member.
+>>
+>> The DSI driver will then check whether the DSC configuration
+>> that comes from the panel is valid (in regard to MediaTek DSI)
+>> and will call the DRM API's DSC helpers to calculate and set
+>> all of the const and RC parameters for the actual DSC setup.
+>>
+>> For the time being, even though the latest MediaTek SoCs do
+>> support DSC v1.2, only DSC v1.1 pre-scr support is implemented
+>> as an initial contribution (which is rather big, and 1.2 would
+>> make it even bigger - but that can anyway be implemented later).
+>>
+>> As a last step for validation of DSC parameters in DSI, a check
+>> for the hdisplay against DSC slice sidth and one for vdisplay
+>> against DSC slice height was added to the mode_valid callback,
+>> making sure that H/V are, as expected, multiples of slice W/H.
+>>
+>> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+>> ---
+>>   drivers/gpu/drm/mediatek/Makefile       |   1 +
+>>   drivers/gpu/drm/mediatek/mtk_crtc.c     |  21 ++
+>>   drivers/gpu/drm/mediatek/mtk_ddp_comp.c |  43 +--
+>>   drivers/gpu/drm/mediatek/mtk_ddp_comp.h |   9 +
+>>   drivers/gpu/drm/mediatek/mtk_disp_drv.h |   8 +
+>>   drivers/gpu/drm/mediatek/mtk_disp_dsc.c | 449 ++++++++++++++++++++++++
+>>   drivers/gpu/drm/mediatek/mtk_drm_drv.c  |   2 +
+>>   drivers/gpu/drm/mediatek/mtk_drm_drv.h  |   1 +
+>>   drivers/gpu/drm/mediatek/mtk_dsi.c      | 151 +++++++-
+>>   9 files changed, 635 insertions(+), 50 deletions(-)
+>>   create mode 100644 drivers/gpu/drm/mediatek/mtk_disp_dsc.c
+>>
+> 
+> [...]
+> 
+>> +
+>> +	dsc->simple_422 = false;
+>> +	dsc->convert_rgb = true;
+>> +	dsc->vbr_enable = false;
+>> +
+>> +	drm_dsc_set_const_params(dsc);
+>> +	drm_dsc_set_rc_buf_thresh(dsc);
+>> +
+>> +	ret = drm_dsc_setup_rc_params(dsc, DRM_DSC_1_2_444);
+>> +	if (ret) {
+>> +		dev_err(dev, "Cannot find DSC RC params\n");
+>> +		return ret;
+>> +	}
+>> +
+> 
+> Just out of curiosity, is there a reason the DSC v1.1 rc parameters
+> aren't used here?
+> 
 
-commit b77780d6cb2ef27e94100c8e74b32f91454ac5cd
-Author: Wangao Wang <wangao.wang@oss.qualcomm.com>
+I was using the v1.1 RC parameters before, but Nikolai found out that some panels
+actually require that, even when v1.2 support is not declared.
 
-arm64: dts: qcom: eliza: Add iris video codec node
+Besides, he also validated that v1.2 works for him, and works for me as well, so
+I opted to use those ones instead, as the v1.1 pre_scr params were working for me
+but not for him.
 
-This commit adds the Iris video codec hardware node for the Eliza SoC.
-It defines the hardware at 0xaa00000, including interconnects, clocks,
-power domains, and operating points.
+This will be improved in the future, as choosing any of the two will leave us with
+something working and something broken... but I plan to make those improvements
+only after at least this basic support finds his way upstream.
 
-> diff --git a/arch/arm64/boot/dts/qcom/eliza.dtsi b/arch/arm64/boot/dts/qc=
-om/eliza.dtsi
-> --- a/arch/arm64/boot/dts/qcom/eliza.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/eliza.dtsi
-[ ... ]
-> +		iris: video-codec@aa00000 {
-> +			compatible =3D "qcom,eliza-iris";
-> +			reg =3D <0 0xaa00000 0 0xf0000>;
-[ ... ]
-> +			status =3D "disabled";
-> +
-> +			non-pixel {
-> +				iommus =3D <&apps_smmu 0x1940 0x0>;
-> +				iommu-ranges =3D <0x25800000 0xba800000>;
-> +			};
-> +
-> +			pixel {
-> +				iommus =3D <&apps_smmu 0x1947 0x0>;
-> +			};
-
-[Severity: High]
-Does this break the IOMMU configuration for the upstream iris driver?
-
-The mainline devicetree binding and Linux driver core expect the iommus
-property directly on the main iris device node (video-codec@aa00000) to
-correctly attach it to an IOMMU domain.
-
-Placing the iommus configuration inside non-pixel and pixel subnodes appears
-to rely on downstream parsing behavior. Because the upstream iris driver do=
-es
-not parse these subnodes, the main device will lack an IOMMU attachment.
-Will this cause subsequent DMA allocations to bypass the SMMU or fail entir=
-ely,
-leading to SMMU context faults when dealing with IOVAs?
-
-Additionally, does this node structure fail dtbs_check validation since
-the subnodes and the iommu-ranges property are forbidden by the upstream
-bindings?
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921-add_iris_f=
-or_eliza-v2-0-5fe7be8c0230@oss.qualcomm.com?part=3D3
+Cheers,
+Angelo
