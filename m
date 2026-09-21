@@ -1,58 +1,58 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CFFA4746AA
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 10:31:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B88CD4756B8
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 10:35:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789986711; cv=none; b=Qyw95rkFv5agKMIK5vX9BD8B3AWrkXW0IAoYAQj4rntHHn0aGUkhtXQ29eHr60Ar+J+pvcosAc61HSW8myGnTD6OdeTleNm0OTZbnw/+G7b/7UQIPYHdGVOik3PAe8qZizvZ9f0rJuZf6UZVrb4L+/Jj8dmAAJwN/HlRtX5KNLQ=
+	t=1789986914; cv=none; b=oQ2onUfnIIknM846IafDdaJMis0h/4ftthgqYgxDASwxexWBhokbvdqbB3k5pyePOHSI4Gn+2ACgxtCFUH3DzxI7opzye4XMrCmI9bnyeUsyaTjnbzib+3HdCQgcvFrn01euUqyGGPPO3fm3cgFRF1vDNZqxJX6eJWwoya58Cx0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789986711; c=relaxed/simple;
-	bh=wlyZp0Y8DtkcpxZgedsAGdv5R+a3YrLHF+oXTMTBElQ=;
+	s=arc-20240116; t=1789986914; c=relaxed/simple;
+	bh=EOrTycvPaTgtJNwbvItqQE20ImaT9FxfEnEhBk/abZg=;
 	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AQZjxHfu5/PiwjtalFMX3ZinnRSuksM6UYEIf+ja1xfqRNNwQ45I4F6ryqKwWGdUMInbXAMP0vpypXrM/0iULgGrGVF1HLvKnX09pghdGj5KnHCXR0g14+3vvbOsyM6dnttmt+a+Z8ys0fLm/MSDmhI4pF8v1cqvVYtBX0VoKIo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VPU9tO8H; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=Vn5YuSy1mZFzKz5MDXejxaGlI0yZrx2VFuNgqnW9QW5AMqc0zPVxuUU/t5qpChCWJoPl0UDvVtZuWy4RPV9KLVBy6cGX6UgIyZ4H7cINt5TLaFgC09YFEoaLv1XQ/6nkGtUEhSiWIKVCIqACwRPTdkapuIs6JXjpnrkGa71isEA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=orNUCASL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VPU9tO8H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47B2B1F008BF
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 10:31:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="orNUCASL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 723711F008BD
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 10:35:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789986708;
-	bh=wlyZp0Y8DtkcpxZgedsAGdv5R+a3YrLHF+oXTMTBElQ=;
+	s=k20260515; t=1789986911;
+	bh=uf7K0+ckYfZ1RE4IQEUJIKlulg/YWQPSFrPzeeWpU08=;
 	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=VPU9tO8HyjXQg9hPxqUgoZx3O6CP8/01/4vHCoV9a260fK4Edl4qoUs+qxH+0w9mU
-	 /5PbomemBtITMx8M4jPCzMgYYqXJj29ejgQxRuZ7nfDXRhpvSCnfAfq0PzVuwTrsSp
-	 zXUnpRfk0O7lMWJs/JP+bvv+OxbUdcmSMVhRYtRNjZ/sYH00R643AQ46wExjKB8MVI
-	 W+OaB1cE9LYQ94n+pR3PBMMrsDzAAic54alptXlheNRDRm6xKvkbXgplTsQR7wCyIs
-	 DRqjS7+wMN3k2cvyOY5A49srIrlgWXZUGdYkRX2KSEmgR8Mpx84plERTRO3wh5SgAJ
-	 5V5AHaHTG1cww==
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a3156692c6so18159431fa.3
-        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 03:31:48 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx2fHS2v6OEKxb8sGbkb4YIOkpSpTU6NqtKFJNKQ6KSDvOSyRXAVSO/F24Qc5/L/qkoB4GhTAutXUpg@vger.kernel.org
-X-Gm-Message-State: AFuF++k56iaXZgYMT7qpytok1VlSJ0pq+DEnqkS1tsy9TFZLej/QEN93
-	1Qj9SCGWOpYrTmtWDUTbAisrDFEEFTv/wmYm/vEsWZfvIPOGzhfAAMq+wEYkgc4mVBT3HFpiwNA
-	9xxR6qQtIlP+j1WlT/TLtS82MykFUkTSP6uOP6NTr3w==
-X-Received: by 2002:a2e:be8a:0:b0:3a3:74b7:fc0e with SMTP id
- 38308e7fff4ca-3a5fc03636emr22688931fa.26.1789986706801; Mon, 21 Sep 2026
- 03:31:46 -0700 (PDT)
+	b=orNUCASLJXrta2jQAt3DZfNJXG64yPkECzsZxCKUcdNrEr8sYKbeFrvYhVt6pvxRn
+	 XPaVfFVj0LFVmn5txFq7ujldG6HlnD1PJchdDGytX3zXACi0HoHW8G1xpjuJMcFjpw
+	 g5lFmheLNbd2i0jgKrnpoOmOHqlX9qQXBTw+plQvtCN2xAIQ6yXieA8FnmBr2ziQuN
+	 o5rtdr/TamlhcRr+eXDKTARMiyUoClUwvTp6zljHDD+uU4/6YMMhcu9AQtD2CmS3nz
+	 mxqFNI2wO1mm3TUpmUi6agq2nTJmbuj6wOQ+ND6sa/5ghz8haPxdfrt1ZSAhIvkz3V
+	 XBCHb0kNekbZg==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8c9954ccbso1231846e87.1
+        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 03:35:11 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxr+8QHcJZ8p6UKwxpogKg7T2FeFON9qX1G4YNAFHvywQ/xKHW0gKGLufpxG7kTPymHlr9LjN7qXB0t@vger.kernel.org
+X-Gm-Message-State: AFuF++mNrOllAtVJeYm+8Bi94x+N+aly7Lxx4DaJi1hh3RRXTqt3xTmj
+	wCR4/pkTinmkNgD74hauWNpcEl/JtSqzsesaiZRtESA6dUgvNgvvBJ9Naieu2qgkhzvoI3RLFeE
+	9wdrzKIu7lSrL7fohGNOCJGqXwpSdT8jiP8kDGoVJTQ==
+X-Received: by 2002:a05:6512:3e1a:b0:5b8:b419:b90 with SMTP id
+ 2adb3069b0e04-5b8c197b251mr2961808e87.67.1789986910027; Mon, 21 Sep 2026
+ 03:35:10 -0700 (PDT)
 Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 21 Sep 2026 06:31:45 -0400
+ HTTPREST; Mon, 21 Sep 2026 06:35:08 -0400
 Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 21 Sep 2026 06:31:45 -0400
+ HTTPREST; Mon, 21 Sep 2026 06:35:08 -0400
 From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260921-cv75-v5-v8-0-282ff5d98dda@ambarella.com>
+In-Reply-To: <20260921-cv75-v5-v8-9-282ff5d98dda@ambarella.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921-cv75-v5-v8-0-282ff5d98dda@ambarella.com>
-Date: Mon, 21 Sep 2026 06:31:45 -0400
-X-Gmail-Original-Message-ID: <CAMRc=Mf-0oLOPZsPboE0dzOGE2AzNE0LXmv9fcmgWO47FtGu1g@mail.gmail.com>
-X-Gm-Features: AcwNN1UZiDNcMAJ4MNmlX-UMIL58DwmKhOHQm7KWs4DW0jTpzuluxkWRRETFZSo
-Message-ID: <CAMRc=Mf-0oLOPZsPboE0dzOGE2AzNE0LXmv9fcmgWO47FtGu1g@mail.gmail.com>
-Subject: Re: [PATCH v8 00/18] Ambarella CV75 SoC minimal bring-up
+References: <20260921-cv75-v5-v8-0-282ff5d98dda@ambarella.com> <20260921-cv75-v5-v8-9-282ff5d98dda@ambarella.com>
+Date: Mon, 21 Sep 2026 06:35:08 -0400
+X-Gmail-Original-Message-ID: <CAMRc=Mf7dtxvxBUF1fOuKw0mxdhCYPj=J4ckySPZUvcZ7a6cbQ@mail.gmail.com>
+X-Gm-Features: AcwNN1VMqVgF7bm9abckTPi2_jaxdRsIFb-CjJ1kvLYDiK7JhcmYHE-hjU9EtD0
+Message-ID: <CAMRc=Mf7dtxvxBUF1fOuKw0mxdhCYPj=J4ckySPZUvcZ7a6cbQ@mail.gmail.com>
+Subject: Re: [PATCH v8 09/18] gpiolib: regmap: add gpio_regmap_get_chip()
 To: longzhao@ambarella.com
 Cc: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>, 
 	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
@@ -65,24 +65,39 @@ Cc: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>,
 	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
 	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
 	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, 
+	Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, 
 	linux-arm-kernel@lists.infradead.org
 Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 21 Sep 2026 06:23:19 +0200, Long Zhao via B4 Relay
+On Mon, 21 Sep 2026 06:23:28 +0200, Long Zhao via B4 Relay
 <devnull+longzhao.ambarella.com@kernel.org> said:
-> This series adds minimal Ambarella CV75 support for early bring-up with
-> a serial console: DT bindings, RCT clocks, pinctrl, PL061 GPIO via
-> gpio-regmap, 8250_dw UART quirks, ARCH_AMBARELLA, CV75 EVK DT, and
-> MAINTAINERS.
+> From: Long Zhao <longzhao@ambarella.com>
 >
-> This is a single unified series. Please apply via the SoC
-> tree; subsystem maintainers are Cc'd for their pieces.
+> Let drivers that implement a custom irqchip retrieve the gpio_chip
+> after registration.
 >
+> Signed-off-by: Long Zhao <longzhao@ambarella.com>
+> ---
+>  drivers/gpio/gpio-regmap.c  | 6 ++++++
+>  include/linux/gpio/regmap.h | 1 +
+>  2 files changed, 7 insertions(+)
+>
+> diff --git a/drivers/gpio/gpio-regmap.c b/drivers/gpio/gpio-regmap.c
+> index fbd4c753525a..21e0993b89e2 100644
+> --- a/drivers/gpio/gpio-regmap.c
+> +++ b/drivers/gpio/gpio-regmap.c
+> @@ -295,6 +295,12 @@ void *gpio_regmap_get_drvdata(struct gpio_regmap *gpio)
+>  }
+>  EXPORT_SYMBOL_GPL(gpio_regmap_get_drvdata);
+>
+> +struct gpio_chip *gpio_regmap_get_chip(struct gpio_regmap *gpio)
+> +{
+> +	return &gpio->gpio_chip;
+> +}
+> +EXPORT_SYMBOL_GPL(gpio_regmap_get_chip);
 
-As I said before: this brings in a lot of potentially conflicting code into
-drivers/gpio/ so I'll need an immutable branch to pull or I can queue the GPIO
-part myself and provide an immutable branch to other trees.
+Please provide a kernel doc for all public APIs. It should explain that this
+must not be used outside of a GPIO controller driver context.
 
-Bartosz
+Bart
