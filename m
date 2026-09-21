@@ -1,140 +1,79 @@
-Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D6CE3ACA77
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 07:04:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B63743AE6F4
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 07:06:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789974249; cv=none; b=ErlgSXZN1PrsDQhjX/dXfBZh4PRbQ8p+jvV9GLg6feHJ2rxcD6qMluevg/vVmhiNJNKuA9b23EC3aVz7nBYIDxC3vKzgDfu4KwPk4MBW5F3jVpiq5T73V4T2DswGY7Pw+4k1WFkrQ4vh8Wg+UTlXYVEytafqI0VA84dZ2W0frQc=
+	t=1789974391; cv=none; b=fDgdgaokdBLW6gOo3gFSkkHEb819DHHxQLIAJ1Q6Mmvn5ptiI0qp5NQLPCRoT3IJLEp5E1j5Hc52/tHFw053/2tRC8dERJIKfYsFGxcX9p419A/uWLTpZ56NB0LDZjdzSbGYlDzCz2l0RNJHuxj7YSrOwvy/K3Zs3u9/0VI4cqI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789974249; c=relaxed/simple;
-	bh=bIoiuueqrgbj5iOEpDzHmj1mvUntjViMQNteYy73Loo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=tilh3uFGhYYADQxXuW12MTIsBtw9bFf1xCOnGbUj3bqKVQCLFIiiRNoeYplPCY5axcqnKt7qvQbQZokKDDo7ys9lexXLwYdhmOIrT2ClNP/vkApALGz3gR5g59im11W9XK7Os4d6+6Zi07DkNSmx1tJMcD0hoz2p3IYK6KOXqUQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=OJltEPhS; arc=none smtp.client-ip=203.254.224.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1789974391; c=relaxed/simple;
+	bh=IYh5w+KxUAUA8iUbtSHuprwqVza+V9VJirc+X43mf5E=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UHbHBrRUK4SPgf9BaM+odxfL/RcnPs6heSx1rBoccxneU/GVlM0L7m9sBGjVRp9cHY1uOAtILGowL185ahN9VfhFjSCO4Qo2X/ig2dYRxwv/kxOLknIBfw1cZk9sZhV1hzRl1afhzQVDw1uiX2QEPItHgwzx+g1nGO8RxeUZnf0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dzVJCakb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="OJltEPhS"
-Received: from epcas5p4.samsung.com (unknown [182.195.41.42])
-	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20260921070405epoutp049027a5dcd97c8f73b37ae97d954230ec~XRBesNdz71322613226epoutp04v
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 07:04:05 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20260921070405epoutp049027a5dcd97c8f73b37ae97d954230ec~XRBesNdz71322613226epoutp04v
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1789974245;
-	bh=A2RGwEkX8Nr2X2WiqJgXRovZAX/TOp2rfkegY7+nn5M=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=OJltEPhS4bdswx5DbOMWMF7aMeuigsTDgRdBzFosjRnngMXqPf+GD6UN4IG7qPhKz
-	 wQbRBoMSKKMeC5v7dW2sAVY/AzIR/TUv5XEYPCVs8Xr6PxjLrkJf0IUfK+OxUJJe8N
-	 MbQUz97SNvL5QlmO7OApDSNgkbOwn4FmOuH8fS1g=
-Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
-	epcas5p3.samsung.com (KnoxPortal) with ESMTPS id
-	20260921070404epcas5p3fd32e1e83eed9c75c3552ede73a9bcf4~XRBeSK8Xc0766607666epcas5p3g;
-	Mon, 21 Sep 2026 07:04:04 +0000 (GMT)
-Received: from epcas5p3.samsung.com (unknown [182.195.38.91]) by
-	epsnrtp03.localdomain (Postfix) with ESMTP id 4hpDjb6Tcfz3hhTL; Mon, 21 Sep
-	2026 07:04:03 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
-	20260921070403epcas5p1e5467529358348d41e60829d045e55e9~XRBcw5yLI1491414914epcas5p1n;
-	Mon, 21 Sep 2026 07:04:03 +0000 (GMT)
-Received: from [107.122.5.126] (unknown [107.122.5.126]) by
-	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20260921070400epsmtip20f421aa8950b361a497ca737f8cf6a1d~XRBZ8jRid2760327603epsmtip2I;
-	Mon, 21 Sep 2026 07:04:00 +0000 (GMT)
-Message-ID: <053c58ae-5920-4aed-a3b8-61b0a02fc52d@samsung.com>
-Date: Mon, 21 Sep 2026 12:33:58 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dzVJCakb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 509DD1F000FF
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 07:06:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789974390;
+	bh=dS669YdL4HWYJMFHFuqUiLwJ+dBe/E6NjwQ/Nk/pJzY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=dzVJCakbVvndGYTPoffC9/BBzOjv0OuuLWyNhM2cqnoeUPz+j3kaKJOg2Ng3Ulpi/
+	 OUwKJDf/XbLgq/xbydxb4tVHHGEjq4K5NX4NTSzi7ekOAtUXh93zNeNQcirNdMSQC/
+	 qgwtyW/is7d9DkFEp3EkoYTh/aG0fqU6Z1ZbLEgZGDyMQkSD4sEopBD++gKCIhxyp5
+	 oevnUHQJOTp1ymFFvrgXGZeYcyNVXl2p9idu7/cguSIfBl5ukTlUM0D6t0uX+y9QuK
+	 oor95CfEQRpTCnYlC5qMzeXmFazG6QZVe8mtQJ66H1OOMS+yz7TCLtTUULjPcxYQ3k
+	 S9JoC0Hct48Vg==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8c3de61a3so2112625e87.3
+        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 00:06:30 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxKKLChjhdsDfLCIfetGBUm6lVEiRehV9Jnw3PuxI7yDKcsQBelhQ/jhflS/ysW6PiLSAzKuW1pdTg8@vger.kernel.org
+X-Gm-Message-State: AFuF++ntmVtuTiSfw2YddEWvMVCTLpg4ygJPCa2ZNyUIgUN+YPS1hxOD
+	Ci03V3y3m80jBlcXKyqcyonojEGjBcEU9vORie6urDX2vE3h41ac2Vfy5AMa7m5ECLQvFARUoaa
+	6A6xh2hOG3Ihp3RedDMNuy2wKXSoYGpo=
+X-Received: by 2002:a05:6512:23a7:b0:5b6:1a7c:aa1a with SMTP id
+ 2adb3069b0e04-5b8c197cf88mr3053851e87.50.1789974389058; Mon, 21 Sep 2026
+ 00:06:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] dt-bindings: usb: Introduce samsung,snps-dwc3
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: peter.griffin@linaro.org, alim.akhtar@samsung.com,
-	gregkh@linuxfoundation.org, robh@kernel.org, conor+dt@kernel.org,
-	Thinh.Nguyen@synopsys.com, mani@kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
-	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, jh0801.jung@samsung.com, h10.kim@samsung.com,
-	dh10.jung@samsung.com, akash.m5@samsung.com, hongpooh.kim@samsung.com,
-	eomji.oh@samsung.com, shijie.cai@samsung.com, muhammed.ali@samsung.com,
-	thiagu.r@samsung.com
-Content-Language: en-US
-From: Selvarasu Ganesan <selvarasu.g@samsung.com>
-In-Reply-To: <628a4ac0-135d-434a-b5c7-27453e96fdec@kernel.org>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20260921070403epcas5p1e5467529358348d41e60829d045e55e9
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-542,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20260916122354epcas5p401fd6470d6cef75951af732b03aa5970
-References: <20260916122229.2604003-1-selvarasu.g@samsung.com>
-	<CGME20260916122354epcas5p401fd6470d6cef75951af732b03aa5970@epcas5p4.samsung.com>
-	<20260916122229.2604003-3-selvarasu.g@samsung.com>
-	<20260918-burgundy-marmoset-of-focus-c9b9a7@quoll>
-	<fef2b2f5-3838-4eec-8118-d41f9ca0ed2f@samsung.com>
-	<7fbcf497-a166-45d6-844d-faaece6f581c@kernel.org>
-	<628a4ac0-135d-434a-b5c7-27453e96fdec@kernel.org>
+References: <20260921-ux500-power-domains-v7-1-v3-0-9352be6b86b1@kernel.org>
+ <20260921-ux500-power-domains-v7-1-v3-18-9352be6b86b1@kernel.org> <20260920230526.D9E331F000FF@smtp.kernel.org>
+In-Reply-To: <20260920230526.D9E331F000FF@smtp.kernel.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 21 Sep 2026 09:06:16 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkazAsBWPD9vhh_N4fgsohDARUZLb72HMpfV4ZJvVs+6A@mail.gmail.com>
+X-Gm-Features: AcwNN1WdHGAFgi49VdletBEx39eGC37Zp4G66DB5ah7Aob95Mw3hiURMbaajIF4
+Message-ID: <CAD++jLkazAsBWPD9vhh_N4fgsohDARUZLb72HMpfV4ZJvVs+6A@mail.gmail.com>
+Subject: Re: [PATCH v3 18/18] ARM: dts: ux500: Remove DB8500 EPOD regulators
+To: sashiko-reviews@lists.linux.dev
+Cc: vkoul@kernel.org, dri-devel@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, 
+	dmaengine@vger.kernel.org, robh@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Mon, Sep 21, 2026 at 1:05=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
 
-On 9/18/2026 7:25 PM, Krzysztof Kozlowski wrote:
-> On 18/09/2026 15:46, Krzysztof Kozlowski wrote:
->> On 18/09/2026 15:36, Selvarasu Ganesan wrote:
->>
->>> As seen in samsung,exynos-dwc3.yaml, our existing bindings already
->>> support multiple SoCs with diverse clock requirements within a single
->>> file. Similarly, we plan to use a single flattened Samsung binding to
->>> manage these diverse clock requirements. for different SoCs.
->>>
->>> Regarding the migration for current and future SoCs, would you prefer,
->> I do not understand how any of this is relevant to my review comment.
->>
->>> Option A: A single flattened binding file using a common fallback
->>> compatible string (instead of samsung,snps-dwc3) to minimize
->>> of_match_table entries, and if/then constraints to handle diverse clock
->>> requirements.
->>> Option B: Separate binding files for each individual SoCs.
->>>
->>> Could you please let us know your preferred approach? Once confirmed, we
->>> will address your other review comments based on the selected approach.
->> You do not have other bindings. You have one device. If you have more,
->> then post more. We are not making reviews based on imaginary future things.
-> OK, I guess you referred to my further comments about if:then: block
-> here. When you have more devices, you can add them to the same binding,
-> with proper constraints for each variant.
+> Will removing the v-ape-supply property cause regressions in the
+> ux500-msp-i2s driver?
 >
-> https://protect2.fireeye.com/v1/url?k=9ebe79fc-ff356cca-9ebff2b3-74fe485fffe0-0d2d81d841babdca&q=1&e=60d36b7b-e65b-4d92-9fe0-f943564aaf66&u=https%3A%2F%2Felixir.bootlin.com%2Flinux%2Fv7.3-rc3%2Fsource%2FDocumentation%2Fdevicetree%2Fbindings%2Fclock%2Fsamsung%2Cexynos990-clock.yaml%23L93
+> Looking at sound/soc/ux500/ux500_msp_dai.c:ux500_msp_drv_probe(), it
+> unconditionally requests this regulator:
 >
-> If the difference is only in clocks, one binding file is usually good to
-> hold many variants. If there are more differences, things are getting
-> too messy and more files are useful (see commit
-> c80dc8121d3af8f33413bb0f9ed9e81e2c576e1a for example).
-
-
-Thanks for your reference.
-
-
-Since the differences between the Exynos SoCs with USB DWc3 are 
-primarily their clock requirements, We will keep the one binding file 
-and add Exynos8855 SoC now and extend the same binding with per 
-compatible clock constraints when others are migrated.
-
-As we mentioned in our previous comment, we would appreciate your 
-guidance on the naming convention for a binding file that supports 
-multiple SoCs for flattened support , similar to how 
-samsung,exynos-dwc3.yaml is structured.
-
-should we use a common binding filename for the flattened representation 
-(Example: samsung,exynos-dwc3-flattened.yaml)?
-
-
-Thanks,
-Selva
+>         drvdata->reg_vape =3D devm_regulator_get(&pdev->dev, "v-ape");
+>         if (IS_ERR(drvdata->reg_vape)) {
 >
-> Best regards,
-> Krzysztof
+> Will this missing supply cause the regulator framework to fall back to a
+> dummy regulator (emitting a warning) or return an error and break the
+> driver probe entirely?
+
+Ooops I'll add a patch removing that so the driver just uses the power
+domain.
+
+Yours,
+Linus Walleij
