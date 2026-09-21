@@ -1,140 +1,92 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A38C642CB08;
-	Mon, 21 Sep 2026 20:41:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E19CD3793D5;
+	Mon, 21 Sep 2026 20:44:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790023313; cv=none; b=b99yybZDk3QNJ0d9fxKjYVRqVUvx5tQWU0m/269UnLFhjmogD2q4HTkPztDIaYAi2sF6m1J3xnItvt+KPaW4AkKAWAReVeox6yBQLWAX7+o8ykWbJuGjk7CzclvlOEDcNkwHYmTjF4FJ3GI+D/KmkrdJLfGgDgycrN2htA5Uh0o=
+	t=1790023452; cv=none; b=Q6eMA4vL+CQWeauSEjj6wd1WqmvfpwusXeTjEhOfx6C1dzc0sX8e73G1fH6H+WoTrJ3hYrReii8xo66T++Yg2vNWssjehC5nPjbReEZa57/tSf8E7XLXWCbYWNW3KkpZ6Xo3MBDIWuYpf58701szS9YpkYw+Usp9ZfounNGuLJ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790023313; c=relaxed/simple;
-	bh=H0PiM6jVLH1IEJPtzoz8BW5/20099viV2vGfGAgeRjY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=iFbKPXJkgSsxYEh5GBHW3oyxQ/GJIuNr9hTR0n3W47WcnXppAfC+gabn6sEEg6PCkLm3HX00Ra3UqvWZcGpqPwdm1SMbIZJ+qZcKCeCehLPvKW+HdM8tvaZyPmRnjJpC2jyV/Xfu0iprgh0Ba7ORD8n7rftUsdMAdnNMQPKBgPA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mLeU38Kn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790023452; c=relaxed/simple;
+	bh=8c+jErfj+uBNwgnYJNUzugDspvwBBvrUO8alXzftTSk=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=IC0Y9P8JRGBX9c1cVtNIg1ywmGVdnVcx4KEWmBO9eRqzfLjs/6fMHMxcc39HfQEobuYFugYk9VXt1BSrMftfNv2TlIcFy7xgEkyVIQrlxWqBWU8gYScZzmoZKeKpdHBlQfnDyyjMI3MnidaMUUexCcu/zF/i2ST+egHxuCepRgA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ASIU3ya9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mLeU38Kn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE8A51F000FF;
-	Mon, 21 Sep 2026 20:41:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ASIU3ya9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BABE1F000FF;
+	Mon, 21 Sep 2026 20:44:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790023312;
-	bh=exFEWHyGZXfBJxzEIKXZH2KjDMcCy2h2+BuM4gRvU8k=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mLeU38Knxvb37Kox0PfcNNGes32srMji4mDV797mMWVoGKPaUXGAD0qdzC+HR3H/n
-	 LndvUwg1x2ll8hOLcwf/CxMOLVu1dQKsbYJXsjFxLcmP30n9rESpOUnG9tckeff/jh
-	 ABglASbpxw6Gp1pKKZJnBkgBa8LxffHd5LJggbwEw/DWqyfDHKQ5EpDASB1xLAkQQs
-	 wHx7GXED0g7Vj4XhqdxsD6EcczAQJoORye+MXsv/0H8tN4CsVAvFThZBEDFIPg7P/H
-	 3vUYOzjK4H2i3/ko+eze33jRtQLDYhPr1DYXGDJvz/jwLhIZYd7QWnHaCpri4tJDuX
-	 cfiDL0G28llxQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/8] dt-bindings: devfreq: event: rockchip,dfi: add
- clocks to rk3588
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: robh@kernel.org, linux-clk@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260921-rockchip-dfi-cleanup-v2-2-43ff34ac8599@collabora.com>
-References: <20260921-rockchip-dfi-cleanup-v2-0-43ff34ac8599@collabora.com>
- <20260921-rockchip-dfi-cleanup-v2-2-43ff34ac8599@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 21 Sep 2026 20:41:50 +0000
-Message-Id: <20260921204151.DE8A51F000FF@smtp.kernel.org>
+	s=k20260515; t=1790023451;
+	bh=2G4T0MAWfyxwtdo4bQIzxWIk9EaFzA8n4tVd4B6WzeM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ASIU3ya9AEqjh0TgaUFHTneshyOF8JcyNqC6qjhRySf+P4e1oLzWTERmhhS4TA9Qy
+	 S1c6KSAEbHoTp+V0PNCA2K0aQLqjp5vZU6TlG87HDkHN7w2kMHKX0uycI5RmMTxkF8
+	 cYi4/moQoOzVByogBDPqkRoKweQUrgje6uHCpA57c7znu6veEA04uBhRHpj7cA/0Dm
+	 4GQEMw9PkFlWjVW3K6lmM+DpJgKZ2s3/A4nyZhBU0IqrYuUDFWTQi1zYdL5ke3Rm6G
+	 4MyFxZBWDJzQHzwEdYFlGe+tk7eoHXjM2AUw6/d5lA6KxRA6udR/8+Y2qxHkyXIf8b
+	 jnUzOI5r3o8ew==
+Date: Mon, 21 Sep 2026 13:44:10 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrew
+ Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Vladimir
+ Oltean <olteanv@gmail.com>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ "Chester A. Unal" <chester.a.unal@arinc9.com>, Daniel Golle
+ <daniel@makrotopia.org>, Heiner Kallweit <hkallweit1@gmail.com>, Russell
+ King <linux@armlinux.org.uk>, Simon Horman <horms@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ netdev@vger.kernel.org, mfd@lists.linux.dev, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v22 4/9] mfd: an8855: Add support for Airoha
+ AN8855 Switch
+Message-ID: <20260921134410.13a7173c@kernel.org>
+In-Reply-To: <20260915123812.14747-5-ansuelsmth@gmail.com>
+References: <20260915123812.14747-1-ansuelsmth@gmail.com>
+	<20260915123812.14747-5-ansuelsmth@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] dt-bindings: missing clock constraints for rk3568-dfi
-- [Medium] dt-bindings: variant conditionals fail to restrict clock-names e=
-xact strings
---
+On Tue, 15 Sep 2026 14:38:01 +0200 Christian Marangi wrote:
+> Add support for Airoha AN8855 Switch that provide support for a DSA
+> switch and a NVMEM provider.
+>=20
+> Also make use of the mdio-regmap driver and register a regmap for each
+> internal PHY of the switch.
+> This is needed to handle the double usage of the PHYs as both PHY and
+> Switch accessor.
 
-commit 88c291fbc8ab68b7cfb2fa8d4a230dd27bd0f853
-Author: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+GCC spews warnings:
 
-dt-bindings: devfreq: event: rockchip,dfi: add clocks to rk3588
+drivers/mfd/airoha-an8855.c: In function =E2=80=98an8855_mdio_register=E2=
+=80=99:
+drivers/mfd/airoha-an8855.c:438:48: warning: =E2=80=98-phy=E2=80=99 directi=
+ve output may be truncated writing 4 bytes into a region of size between 1 =
+and 61 [-Wformat-truncation=3D]
+  438 |         snprintf(mrc.name, MII_BUS_ID_SIZE, "%s-phy%d", priv->bus->=
+id, addr);
+      |                                                ^~~~
+In function =E2=80=98an8855_phy_bus_register=E2=80=99,
+    inlined from =E2=80=98an8855_mdio_register=E2=80=99 at ../drivers/mfd/a=
+iroha-an8855.c:469:9:
+drivers/mfd/airoha-an8855.c:438:45: note: using the range [-2147483648, 214=
+7483647] for directive argument
+  438 |         snprintf(mrc.name, MII_BUS_ID_SIZE, "%s-phy%d", priv->bus->=
+id, addr);
+      |                                             ^~~~~~~~~~
+drivers/mfd/airoha-an8855.c:438:9: note: =E2=80=98snprintf=E2=80=99 output =
+between 6 and 76 bytes into a destination of size 61
+  438 |         snprintf(mrc.name, MII_BUS_ID_SIZE, "%s-phy%d", priv->bus->=
+id, addr);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~=
+~~~~~~~~~
 
-This commit updates the Rockchip DFI binding to add clock definitions for
-the rk3588 SoC. It modifies the global clock limits and introduces
-conditional blocks to handle the differences between rk3399 and rk3588.
-
-> diff --git a/Documentation/devicetree/bindings/devfreq/event/rockchip,dfi=
-.yaml b/Documentation/devicetree/bindings/devfreq/event/rockchip,dfi.yaml
-> index 50d3fabe958d5..3450e28b40208 100644
-> --- a/Documentation/devicetree/bindings/devfreq/event/rockchip,dfi.yaml
-> +++ b/Documentation/devicetree/bindings/devfreq/event/rockchip,dfi.yaml
-> @@ -17,11 +17,18 @@ properties:
->        - rockchip,rk3588-dfi
-> =20
->    clocks:
-> -    maxItems: 1
-> +    minItems: 1
-> +    maxItems: 4
-> =20
->    clock-names:
-> +    minItems: 1
->      items:
-> -      - const: pclk_ddr_mon
-> +      - enum:
-> +          - pclk_ddr_mon
-> +          - pclk_ddr_mon_ch0
-> +      - const: pclk_ddr_mon_ch1
-> +      - const: pclk_ddr_mon_ch2
-> +      - const: pclk_ddr_mon_ch3
-
-[ ... ]
-
-> -if:
-> -  properties:
-> -    compatible:
-> -      contains:
-> -        enum:
-> -          - rockchip,rk3399-dfi
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - rockchip,rk3399-dfi
-
-[Severity: Medium]
-Will this omission cause schema validation to be incomplete for rk3568-dfi?
-
-The global clocks constraint was relaxed to maxItems: 4 to support rk3588,
-but rk3568-dfi is omitted from these conditional blocks. Doesn't this mean
-device trees for rk3568-dfi specifying up to 4 clocks will inadvertently pa=
-ss
-dtbs_check validation instead of being restricted to the historic maxItems:=
- 1
-limit?
-
-> +    then:
-> +      properties:
-> +        clocks:
-> +          maxItems: 1
-> +        clock-names:
-> +          maxItems: 1
-> +      required:
-> +        - clocks
-> +        - clock-names
-
-[Severity: Medium]
-Does this setup allow incorrectly named clocks to pass validation for speci=
-fic
-variants?
-
-Since the global clock-names definition uses an enum for the first item,
-and this conditional block only restricts maxItems: 1, a device tree using
-clock-names =3D "pclk_ddr_mon_ch0" will erroneously pass validation for
-rk3399-dfi. The same applies for rk3588-dfi passing with "pclk_ddr_mon".
-
-Should the variant-specific conditional blocks override the items array
-to enforce the correct fixed string (const) for that specific variant?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921-rockchip-d=
-fi-cleanup-v2-0-43ff34ac8599@collabora.com?part=3D2
