@@ -1,224 +1,167 @@
-Received: from mail-pj2-f31.google.com (mail-pj2-f31.google.com [74.125.227.159])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B80F4562BD
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 08:38:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.159
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52C0C44F54F
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 08:39:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789979902; cv=none; b=U5r+aYHAgvlt/+p9GSzpBrQtUy5T7XFQqo7bD7xqJq+cTWy/eJ7Av55HtvlnsKwdlv/EYHgSiEUKI3aFQ1vb8JLPKZXtqsCmAnw5/9WzvNZakXvV9UzG8IBzFDjCyy8UoE1x1/44Sxi585G1iw4UIsAOtBzTh4YXCOXuBumHWhs=
+	t=1789979962; cv=none; b=LvzuJBKRwTsIZdWqHqtabx4IB4yMFuHzl/0HRvf1jeo4hv7gacgUcrlAHfMOS2y89y3JOPx9AHdZO/4puMEYSVWJA2V6wKYrW1VXm/TDWOBMJ0qi6/ntXA6b/Aj+UC4rK7k26m7iwSO1+f0rcY/mUG34Ab9n4MIoxL6T+ovdWdM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789979902; c=relaxed/simple;
-	bh=0aK3nrisfIvMUC7hMzoMx1aGyZsFxW2jrw74ipuIpwY=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=FMWf3vS5Vf5J61oy8mg9iMCd/R23vQHqoh/3GEycUJSVqe9HbQ9HMVjBg7KeB12nvkzkLQP81sVn9tWnpLx5VXldgKTJ53ugR8Wp7EbYmc8oVYArXLrIbc/Qiv6JWh2JPkF2RFPkBUjMK5VoWzRFn0rX/vr/TJZeDCYWv992BiQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ar7gBbyh; arc=none smtp.client-ip=74.125.227.159
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789979962; c=relaxed/simple;
+	bh=XTE0kn2MoO/iNGwudDMabaFjWA+xpSyJN666f3dQZbE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WOpdeYUemkrKPPBAhaomB1YO1nSBLNxwpKp6D9Er2KwpQij8xGNyEc+BDmnC+jpxyJGINhp1XBXCYhVLtFOiAKswow1aMA8dmRjjaAxoEuIpFWquSAiYcBuucbgunrUxz9pzUBlvSxfMQWlNG4rS0WfQowD/V2QV9kppYBgwoDI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=V7O/avnO; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GTAdUcmH; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ar7gBbyh"
-Received: by mail-pj2-f31.google.com with SMTP id d9443c01a7336-2dd53691be5so24841195ad.1
-        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 01:38:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="V7O/avnO";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GTAdUcmH"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68L7EI9W759266
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 08:39:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	QL8zsf25qI8f6OfYJqvNvrJ7OfAtYEj510v43CBRTMs=; b=V7O/avnOinz0Bj8m
+	MDWMHBuCMNM0qt/ooJDqcxX084KssfcDxzEKco/h2pp46wfYTLsD4AICKc7j7TsQ
+	53tQ3LZPEvl0fnqvNPHoHnDv0EXZHmaBofuwt755qsGC2YK5nrjyvVOY7pNXf4xD
+	D41z94n4K0fJhkKjl2hUFTygKC94AKfnusJEgsCr8eyynao2o4s/6RtnTUDd9uuj
+	8yDs2DBkMOMGCNGZf4YxRw30wuii6YqqVaqWK6anuc21n1irEnLdgg+Jlno/XV9k
+	lZZFmWF2q1E8Z5JLmYwih5ULAmAyZnFAnd6nIw2pm9Ar5pGgCGGwr514v08DJ4Qj
+	ruLS2w==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gu0118af0-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 08:39:20 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-939fc317691so107742085a.3
+        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 01:39:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789979900; x=1790584700; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6y8Hcxg9MXxS8AWcFY2VAmn1cCgVHpq4caMsrXoFzEI=;
-        b=Ar7gBbyhibhn9BnlOsiMj3+7WDHE8D5Abb7FUmkzG8wdB33+Kwa6pp0mpGPFmUsG0K
-         zGmM3dcpm6ACqvv1mU5H9PxMaijb7jmkvYcW/5SzuDuLLwLNfW3GocZulERhhwVcPus9
-         2s1Z1T9HCpgAvKmJH8Hjapfxicw4z6wFRkYz7Qyyn+F69ZCWQgQM8QwQ6XL4VTd0QtBP
-         y27SBnB2ebYDcxD+ro3gdUx/rRenVWBkGUUQ+JsRMiJzJhFz81Pni+mr6IFfHorXn1PA
-         93WC5YZEqIEhk2FVCy/rKoQ64jilh0xOSxjBKI+ajNkNP7s39wQYoGQaE9Q3kFIF6/tZ
-         DfUg==
+        d=oss.qualcomm.com; s=google; t=1789979959; x=1790584759; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QL8zsf25qI8f6OfYJqvNvrJ7OfAtYEj510v43CBRTMs=;
+        b=GTAdUcmHotNiJwur+ijsX+NyMuvJWO2Tot5+0lzYMVuEZunOnigHrMClLT0kON0dUQ
+         GW3b0EyUEGZ6wavn4zZcTWc2mThRhdA0K8u9ZQuJl1fbOhXwZM324zml0kmnG27N3YKT
+         lXgqVaKjKCTyIDXgZ2szkh1D5ONtbl6ICAtGTlQac59j3z7IklTrFRkE9kfWhODG9Zqx
+         lKqtiqMpqLZemJEOy+9V1uavRzZyK7tXjzlA7uovict1YueXDE8W0lgXzSdsyhdpRqj5
+         1ehyhP+dZSOTLULj7aICaBBlgk59sv3mLTqmk/AXqi7gI1HpQIE9VY6gdkmueBYxi6bE
+         9yZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789979900; x=1790584700;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6y8Hcxg9MXxS8AWcFY2VAmn1cCgVHpq4caMsrXoFzEI=;
-        b=OA5CJtYkmdRakmF8ZcxjWVmX0X+s2nFPQYFgpbYGks6GNmj5bLNoeurRr2f6IV+VGP
-         hmEWJcygeYNRlbO/muY7xRgSLTX3TS8pGz0uGJRCq8xUCVYHinmzVJPHGfinNwRugqBL
-         9gEP75tCYPXCukRfnbp+GXVT3TrSF1xDDch8QFAAxj3j09j8HuW2wKFTQPc+AC7Net9j
-         awz4ezCJ17roTq+P33ixEQWLNYVjv1FVXXfq42/wTGCUOPcS/xh7emf6hfmYW3Ti1I5X
-         KEl8OdSRB5ljQPg2rJE8TQzWvTiTg8BD2CH+6hNAg+c+vxmqIxD6TDZENp+Zg1vJmobj
-         HoUw==
-X-Forwarded-Encrypted: i=1; AKwUvBwKoyjq2kVQPDvhIMNPXYv6mEQXTHrFGmW7JUrhWXB7+xpr1gJZmQIMQAfKQw058IP6W9HKm2oQyTX4@vger.kernel.org
-X-Gm-Message-State: AFuF++lT280SRX59zx/doidLz31MUD23ieUgee9HBcebxzes3HDw1ok4
-	mENZaSBETRraVF7mj5MOyGRNrpX9oDUr5i6CGQ/2ziWUiS41Te07CJnQ
-X-Gm-Gg: AYBFou0cNfZ/bOi2jrt7+S0VBYLuG0UBt85Z2G5uZBJmu/o1RjscHPt01dYHkyt6KQB
-	OikV/rhvmmc3nYP/TPDc9taRYss5yiaPcDLYGs0qFGkXxV8XXh9D8fHs7YpFdBFcgwJy5HdaXX4
-	d03GJDBl84zeRRBcC9f7PuJY1x0uQsQ5PngJp5dinZs6I1u4EhRpKPlYYrcfJlBHat6MuiM++v1
-	p1JnMowVyEBPu8FFgFwGhj6aVCLpIxRuMCSq1+EDANg7DwNoBsmacyCa4RUQhGWIQBplh4NtR+3
-	MCIRXzyWJkTvPzQ3HXZf1yOXLITlzIn+4DZEmavFH9FRh6yVxgPjCjXtKComTwdMmGWFAEtOm4Y
-	ukyROSGEt7XN6MBUcJBdl/2BCW9gSy4HBbrYPH8RXz9O6AZudEtKctdf6wVC09UdWiUKzTJw2N1
-	N1gt97HA8HQA1ArqJYK5mq8zsV5TG0AYJWEa2qwJQuy4LgeNOzuFoeLGdzVvNL9LGAkZ9iyDL5r
-	fmh45BC7qZ6mPPbbUgUjZvkY+m/rwps2xjtqNogAU0tpnoCCv3+ri5D
-X-Received: by 2002:a17:90a:da90:b0:39e:6a80:b796 with SMTP id 98e67ed59e1d1-39e6a80b849mr10118808a91.38.1789979899922;
-        Mon, 21 Sep 2026 01:38:19 -0700 (PDT)
-Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6ca50694sm15121508a91.2.2026.09.21.01.38.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 01:38:19 -0700 (PDT)
-From: Zi-Yu Chen <zychennvt@gmail.com>
-To: Andi Shyti <andi.shyti@kernel.org>,
-	linux-i2c@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: Jacky Huang <ychuang3@nuvoton.com>,
-	Shan-Chun Hung <schung@nuvoton.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Zi-Yu Chen <zychennvt@gmail.com>
-Subject: [PATCH v10 3/3] arm64: dts: nuvoton: Add I2C nodes for MA35D1 SoC
-Date: Mon, 21 Sep 2026 16:37:53 +0800
-Message-Id: <20260921083753.1109826-4-zychennvt@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260921083753.1109826-1-zychennvt@gmail.com>
-References: <20260921083753.1109826-1-zychennvt@gmail.com>
+        d=1e100.net; s=20260707; t=1789979959; x=1790584759;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QL8zsf25qI8f6OfYJqvNvrJ7OfAtYEj510v43CBRTMs=;
+        b=zMh6gxFV8ldRnNrzTE30W3HsSmodbu9OuyLMajQpceKn/hM/ckYS8RtMACFbihzzHG
+         7mMPVDDA4pSfR3kilDzjhjh+ZeisGsL14divgXATcomsAgHT8K22XOt6bsoX4pO7BaP8
+         5a9isPXKVj+XlgMyA1HJS6nlevY06v3avYi5cqi5T5AHZkJ2gC8rfHI8Xvz8PZBatm2x
+         YxHFZ+0gjYebss4BRvAIwxX1faHtO3pUgIKQBk8FFn3WmczrPwntCI3e21wKmlwgfTUx
+         Cp0HLvULI1DSGtC1NLO6LoRgb65wkgZCJQbhuCUr0y99JNOwqHVYgsh6BRSkG27w2Bfi
+         TZtg==
+X-Forwarded-Encrypted: i=1; AKwUvBx9R+hQpHRwkJfmMTAei2R626e2Pv/l9eNMzAxX62LktO8bkzwEBHkKj5Zp2mnQ0H5sPmpNWtWRz3Y/@vger.kernel.org
+X-Gm-Message-State: AFuF++ltT+ol4JG+me+lmTRiBZnMPL0MUE3JDKcT7uHH/Y1IkBvZV8H+
+	c+R83DZEh9Y6TS5cuJ4J7Se7JsCR06BMTO89t6grpkt8d0CZCDz0EDYS7HZRqP2zmY9GD7Ta/ob
+	+eWM7cdRsWmzADiFhhBZ+kyGPAUEfsgk/ahAwKrw0voXDw0DpAYVRbJzXIQYvx6Kv
+X-Gm-Gg: AYBFou10zlfjg2vyPwWkdDnE/2mi/XmrLa/Gmorlev146ycLB2cgssv9JuuXLAY0njC
+	/4OPuxsfsDsB/D7mLTcbgtwwP4tUCtoYD2+z7GTq/7nVz2RcFXxe/j6gKxYMSbrvX6f0mw3lDi0
+	7TCgcsHijCUm+GBUg+NEGWb81sFaopLr9IJqfuzLP5cI1s5Sbz3aABs6FJtNgUAG0/MP1myYxJu
+	DMnVyuB1aciY0Rk8UcpwcQvchUthNENH8jj/v2Hk8KqGKxtvLlS6eHSFHFZkKPXBXZYuEzz+GGa
+	bsZ2sI4GNSVvC7JXNMgWPv9Qa615rMCJBlb1vmi69b/E8qNQRaRlTxZ/5H18cir9elKW2oXuPx3
+	zVEeIvxeQN90nuPWfDvMQlw==
+X-Received: by 2002:a05:620a:4592:b0:939:e9a3:3105 with SMTP id af79cd13be357-93bf58b5b11mr914962685a.6.1789979959563;
+        Mon, 21 Sep 2026 01:39:19 -0700 (PDT)
+X-Received: by 2002:a05:620a:4592:b0:939:e9a3:3105 with SMTP id af79cd13be357-93bf58b5b11mr914960485a.6.1789979959176;
+        Mon, 21 Sep 2026 01:39:19 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa67dc582csm3864765a12.16.2026.09.21.01.39.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 21 Sep 2026 01:39:18 -0700 (PDT)
+Message-ID: <d5821380-3006-4eb6-86fd-977d6e17a8bd@oss.qualcomm.com>
+Date: Mon, 21 Sep 2026 10:39:16 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/8] arm64: dts: qcom: Add t-power-on-us property for PCIe
+ root ports
+To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, mani@kernel.org
+References: <20260911-t_pwr_on-v1-0-c9eee197d082@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260911-t_pwr_on-v1-0-c9eee197d082@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: hzWLQ8Mc_a95Tqn2H9_WxkOcdsOtFoOy
+X-Authority-Analysis: v=2.4 cv=dPczC+Zb c=1 sm=1 tr=0 ts=6ab0ed38 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=zKUMnf7IFlsw2KSWKZIA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDEyNCBTYWx0ZWRfX4Ooug6SSSrxq
+ CFNEll72rlBRIdRvpgePNDYyyPEgsqDvCLipKWGKat9iCAo/nuBx/2nqVwrsArdTaDKiVEk1CYE
+ mgsMq2RDRVrgPuMFAXtVf9EBUv/faZwkQUiGyakvkyCvwFiJgwBF5SYshl5Is7RUkh3CaA8pJbw
+ EwlZwKIm3W1HyMJM9E9msOJKA9PDf0yXwO9MaiY5Is2TsYe88YY4+mEKNyqKwnhxeaaDt7JgMnN
+ waK7d4CRUY5CBnjUip4+t6oCFD7Lb34iBauqBbVRPEf+yX4OZHWUh0kVatX8mOpeapnSKxisk3f
+ jH4ZsVcsddUSYJHPS2j7F2rdV+bksgwoKH8rfT6qMRdGfd6uzboH8FE6a47kkHgHwO3X+mbAfmZ
+ AfsApTgxSoR7fHZ9IKQ0l+iCSLkMmiTt27XWMBpv9waYSIg+F/oNuybV1tP/jY4T7EHEnKVKFbd
+ WSCPBNYl89mfXlh78vA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDEyNCBTYWx0ZWRfX3BO8XA1iiV8g
+ H9bcsh6BKL3bMVpbXu7SkkuKYVuqbDJBAuA1vHtshZvi29L0R7MuRJF1yU7qrJytRptNXxd15/o
+ 1l3MJL8mVkcejVLRf1iJb1qbKE0eR78=
+X-Proofpoint-ORIG-GUID: hzWLQ8Mc_a95Tqn2H9_WxkOcdsOtFoOy
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_03,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 malwarescore=0 phishscore=0 lowpriorityscore=0
+ priorityscore=1501 bulkscore=0 clxscore=1015 adultscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609210124
 
-Add I2C controller nodes to the MA35D1 SoC dtsi file.
-Also, enable the I2C2 interface on the MA35D1 SOM board and
-configure its pinctrl to allow communication with the onboard
-NAU8822 audio codec
+On 9/11/26 8:50 AM, Krishna Chaitanya Chundru wrote:
+> The Qualcomm PCIe host controller driver added support for parsing the
+> -power-on-us property[1] from each Root Port node and programming it as
+> art of host initialization (PCI: qcom: Program T_POWER_ON) [2]. Prior to
+> this, T_POWER_ON was expected to be programmed correctly in hardware or
+> by the bootloader, but not all targets support this, which can lead to an
+> incorrectly calculated LTR_L1.2_THRESHOLD in aspm.c and improper L1.2 exit
+> behavior.
 
-Signed-off-by: Zi-Yu Chen <zychennvt@gmail.com>
----
- .../boot/dts/nuvoton/ma35d1-som-256m.dts      | 20 ++++++
- arch/arm64/boot/dts/nuvoton/ma35d1.dtsi       | 72 +++++++++++++++++++
- 2 files changed, 92 insertions(+)
+This is a good problem description. Does it have observable effects
+that could also be mentioned here, beyond perhaps lspci reporting
+an odd value?
 
-diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
-index a029b660e8dc..422468dbc3bf 100644
---- a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
-+++ b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
-@@ -57,6 +57,18 @@ &clk {
- 			   "integer";
- };
- 
-+&i2c2 {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_i2c2>;
-+
-+	nau8822: audio-codec@1a {
-+		compatible = "nuvoton,nau8822";
-+		reg = <0x1a> ;
-+		nuvoton,spk-btl;
-+	};
-+};
-+
- &pinctrl {
- 	uart-grp {
- 		pinctrl_uart0: uart0-pins {
-@@ -100,6 +112,14 @@ pinctrl_uart16: uart16-pins {
- 			power-source = <1>;
- 		};
- 	};
-+
-+	i2c-grp {
-+		pinctrl_i2c2: i2c2-pins {
-+			nuvoton,pins = <1 8 4>,
-+				       <1 9 4>;
-+			bias-disable;
-+		};
-+	};
- };
- 
- &uart0 {
-diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
-index 7228ad4735b5..28488889f564 100644
---- a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
-+++ b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
-@@ -372,6 +372,78 @@ uart15: serial@407f0000 {
- 			status = "disabled";
- 		};
- 
-+		i2c0: i2c@40800000 {
-+			compatible = "nuvoton,ma35d1-i2c";
-+			reg = <0x0 0x40800000 0x0 0x1000>;
-+			interrupts = <GIC_SPI 13 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&clk I2C0_GATE>;
-+			clock-frequency = <100000>;
-+			resets = <&sys MA35D1_RESET_I2C0>;
-+			status = "disabled";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+		};
-+
-+		i2c1: i2c@40810000 {
-+			compatible = "nuvoton,ma35d1-i2c";
-+			reg = <0x0 0x40810000 0x0 0x1000>;
-+			interrupts = <GIC_SPI 69 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&clk I2C1_GATE>;
-+			clock-frequency = <100000>;
-+			resets = <&sys MA35D1_RESET_I2C1>;
-+			status = "disabled";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+		};
-+
-+		i2c2: i2c@40820000 {
-+			compatible = "nuvoton,ma35d1-i2c";
-+			reg = <0x0 0x40820000 0x0 0x1000>;
-+			interrupts = <GIC_SPI 97 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&clk I2C2_GATE>;
-+			clock-frequency = <100000>;
-+			resets = <&sys MA35D1_RESET_I2C2>;
-+			status = "disabled";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+		};
-+
-+		i2c3: i2c@40830000 {
-+			compatible = "nuvoton,ma35d1-i2c";
-+			reg = <0x0 0x40830000 0x0 0x1000>;
-+			interrupts = <GIC_SPI 98 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&clk I2C3_GATE>;
-+			clock-frequency = <100000>;
-+			resets = <&sys MA35D1_RESET_I2C3>;
-+			status = "disabled";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+		};
-+
-+		i2c4: i2c@40840000 {
-+			compatible = "nuvoton,ma35d1-i2c";
-+			reg = <0x0 0x40840000 0x0 0x1000>;
-+			interrupts = <GIC_SPI 123 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&clk I2C4_GATE>;
-+			clock-frequency = <100000>;
-+			resets = <&sys MA35D1_RESET_I2C4>;
-+			status = "disabled";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+		};
-+
-+		i2c5: i2c@40850000 {
-+			compatible = "nuvoton,ma35d1-i2c";
-+			reg = <0x0 0x40850000 0x0 0x1000>;
-+			interrupts = <GIC_SPI 124 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&clk I2C5_GATE>;
-+			clock-frequency = <100000>;
-+			resets = <&sys MA35D1_RESET_I2C5>;
-+			status = "disabled";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+		};
-+
- 		uart16: serial@40880000 {
- 			compatible = "nuvoton,ma35d1-uart";
- 			reg = <0x0 0x40880000 0x0 0x100>;
--- 
-2.34.1
 
+> This series adds the t-power-on-us = <80>; property to the PCIe root
+> port node(s) on the following targets, so the controller programs the
+> correct T_POWER_ON value instead of relying on the (currently incorrect)
+> hardware default:
+> 
+> - kodiak
+> - lemans
+> - monaco
+> - hamoa
+> - glymur
+> - talos
+> - sm8750
+> - kaanapali
+
+Because you said "currently incorrect", it clearly applies to all of
+these platforms. Are other ones that we support in the tree also
+affected?
+
+Konrad
