@@ -1,149 +1,179 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D67A493D41
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 12:07:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B898488DAF;
+	Mon, 21 Sep 2026 12:10:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789992451; cv=none; b=dHP/vZRHLpfFrKZg5v7CPf9je735rvcYPuojbde3CYJ/woRbOlmLm0NQTrLl9F7+V8CWmKqdk1TW8SBOcy/bNiVmJmCRvINqaMKmxbPWiW+X1hf2+MsQG8JxnhlANb8W4j2YJx/sTxPRVhn/jRvggowDsOHD4O+0rcgKeawj+hk=
+	t=1789992621; cv=none; b=V1kOzRuh1x3pECSjJf1YXEtojjVi06KM0JB7Q7fjhNwiaSigzX1KBUmcYP4mBUDHpx7vUDKklglQl1shD8jTlKtGGGIasZ1bfbV31+uOAcPorLDqxlmhOYjIxwRxh8U0aAyDRACbW1nmv15IpJY0nf7YZkv2LOVY6HgaTn6V7Sk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789992451; c=relaxed/simple;
-	bh=aI+TcTaxp3qATHFDOIc+09KqwGvOBm/VOg2yW5Pt6c8=;
+	s=arc-20240116; t=1789992621; c=relaxed/simple;
+	bh=FG6tH/Y8T9b0/2uVNUkAWRpyGeXjSLQD/gEba+dtlXg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Rc7nTdPdz1jKRH7g66pkJp9+nY5croULW8xDzOHmAO/haPTHf7q/NZ8LE8RhWQEoQdHvFfv2HKFk8IIgSerLZ0/rnPH9TRDwZl2nUlr7uwvwxOVCOxhR89s6B+v2SCxzoHc0VfU/Qs79iIitvEL7nAm5yxD2xvleTZe4ek3/6vk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=edHCoD7A; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WVWHtlzi; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=UL1iKedbE6OPJ6F0SO3vyTO6uCWD5jpDFWKCNmPKEl3PnvKeuF4MhQMTCADZvsoWRc2JMztiXCcDI1gOr75+NKDYMx/CXRuq24XnTUTcpkRiD6AZuBu7C8USDRruJKcTuE76ZzLcucpc8IeGZVFrFk0XQlZoFQsC0hdxMexMVRg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NOpaGtJ8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="edHCoD7A";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WVWHtlzi"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LB4HCm1128769
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 12:07:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=mrmIbXeN2TBMf2KsRlbZFCo/
-	xNhOB/akjMxEecMlLrQ=; b=edHCoD7AmB/TowptwnhrUHlYRxIeu7lrGS/fubpA
-	J0PBp4aDsLxuDDvc5lFjzEXjf/kp0brI8AJp38E6uxFiz8w6R5tXNDiUxWy5c4eu
-	zurbSHWEzRpwgakncAWIFygU5mlXX4pBKi73/ZS74kcM9HrVA92LhXcJQ0Ztgwik
-	uTx0WbLvMiYR+dYvGDcQMPyzCpTv8k/6JeBNf7PUuHMbqQe1CLJzMugnjM+x9sZi
-	1PqaF0UIhhClNk0unCSTRa6+yBryPSDi6Ek1IXxNl7BiL9C701wJg1rupyfkzoh7
-	/2UnmAE2NiqyeyArt9Uj+zWlKyxFrCXuNGe0tIsfmngWGA==
-Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com [209.85.217.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gu3csg7jk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 12:07:28 +0000 (GMT)
-Received: by mail-vs1-f71.google.com with SMTP id ada2fe7eead31-78d25a8ff32so720202137.2
-        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 05:07:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789992447; x=1790597247; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mrmIbXeN2TBMf2KsRlbZFCo/xNhOB/akjMxEecMlLrQ=;
-        b=WVWHtlziABnNFi18DkJAP8FuSEQgxmnjKM0JXpU343tZGj3NUJLVQXhQAME9JnalvC
-         bClYrlkVF1k5wCRdc/zRT5kXaG8x6oZH7VHyAT9SIFwuaFx57irjbCBNxyA6K8lcSLrK
-         Qybqc3/haYbNEQSzcjJd0eUnpdDPhaM8yatlnnPfTw+MCy1HUOLB18YZ6b6Xtj337Mdh
-         K11S3usU2SvpTfRsG0G5ZruvxOWuSozlA022y0DURriM0+gZ2GDCN2BpVxrInXBPZ08t
-         sCWghZogggUG8ynnuyObzAjyQAJ2cbHmRE8WFCyY+ZL4ANhIfHVseEwOCjk19e/lXtgI
-         fJPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789992447; x=1790597247;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mrmIbXeN2TBMf2KsRlbZFCo/xNhOB/akjMxEecMlLrQ=;
-        b=0ioJPbH68whbu8dmbiD386sYksBr49sAweCvPzgf+bi7ewUI91uUz91D90PL8UBBL8
-         UOfLXZm6yAIC8CSOZ2xlsKzh+CyUXJ/6kpRtZd0tHVrCAbij9i9FxyVUWGRWmwZFuHUr
-         g2Oy7HJymsXcsCPS6Nmtrv1WIlYCtGsoHIegcYkW2rpeKmquJLA3kWAwe7sZRnZks37m
-         RfaNhDdQl/iVCDMOLOcLOu3F33EOlb4i6jTcsdCt8zwCM0N0zACHqrJcmUofxOvoMfuf
-         t+a4U+cKDZNgRY8m0tRh+Sh5hOAhnwUzMqdx79MAQ56eC861AyTbxN5yW73web8bZG8T
-         I1Og==
-X-Forwarded-Encrypted: i=1; AKwUvBzkHWi9PSyE+gLZb2M9sownHDGJCgenyYEuy/ik6yC0vHN/zLBM1clE8gOWFXN03lnIr4zNQ96b+uxX@vger.kernel.org
-X-Gm-Message-State: AFuF++m7Y9hfmIZ7GZx7DSQ66VSGwtNb0xF7ylwslTRcZF847D2+hpH5
-	t7yEleXdK2AF6lFL4ZnEL2Rz2dyizJZAn6opXXdFI32y6t8WkHhhOouU7RhkeRK12deckhMArjo
-	xEw0KYXWJubcWG9pg4u4b0tb0rdgLVSOzkzEIeZWfoh0h1tlw+oyOaLMMWEyQk7cv
-X-Gm-Gg: AYBFou3jP9xbjaHuay0v6CcNihPHAwVHXwChv/m9uXqoVkVfaZtpIxvoNddwdaW7icj
-	B9YfWrc7MFSoQu/ruXl4OZOf4kCIpQcSwg0G68dZq07SR0LX1pSfDQuKHt8EQd2qrIN1mBoym8I
-	cVQNiyLpJwKHl0c2bEmlqc9k9F5Ke7RAIUhvSECfLP/jBcdoNtntEcTYtWojoM+xosXTkrJXYxr
-	NcSPfxCjsP378O+VbV1ol3iFAr20X6hi5jilpctUDDQIXKxR4TG3bcRAG4BnxV22AkjjNEiuctH
-	1ocyzTXIXZMNM5LI6Qx5QykaHJANyjE5vWrj1k10x60xU1NBo3YaKwPrF7qGKbltrepeNhyZOYW
-	bWiDLbt3XUj056Q==
-X-Received: by 2002:a05:6102:3f0e:b0:7a1:f980:e93f with SMTP id ada2fe7eead31-7a55d796d12mr3921068137.27.1789992446834;
-        Mon, 21 Sep 2026 05:07:26 -0700 (PDT)
-X-Received: by 2002:a05:6102:3f0e:b0:7a1:f980:e93f with SMTP id ada2fe7eead31-7a55d796d12mr3920971137.27.1789992446153;
-        Mon, 21 Sep 2026 05:07:26 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.232])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd0eabfcsm233127095e9.3.2026.09.21.05.07.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 05:07:25 -0700 (PDT)
-Date: Mon, 21 Sep 2026 15:07:23 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-        Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Georgi Djakov <djakov@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Varadarajan Narayanan <quic_varada@quicinc.com>,
-        Dmitry Baryshkov <lumag@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Gokul Sriram Palanisamy <quic_gokulsri@quicinc.com>,
-        Sricharan Ramabadhran <quic_srichara@quicinc.com>,
-        Kathiravan T <quic_kathirav@quicinc.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-pm@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH 11/11] clk: qcom: apss-ipq5424: fix 'ipa' typos
-Message-ID: <oez5n4yxcusxjuw5pt7gtqqa2drnvbvzhmpaau2s3rybwxdzr4@7qpaaeevdfzb>
-References: <20260921-ipq_clk_changes-v1-0-d242e3d49648@oss.qualcomm.com>
- <20260921-ipq_clk_changes-v1-11-d242e3d49648@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NOpaGtJ8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FE441F000FF;
+	Mon, 21 Sep 2026 12:10:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789992619;
+	bh=3uAtYTanQvdsf1B+VPerfl6h7vAqJMoph6hxUBqYX7Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NOpaGtJ8d++Zjqk+UoXhakEjmOlnVQIsuHpbXfFYV7K8jr4hyOGCVgwc3IAF2ni5w
+	 p1uvEkfp9voac0b7T8ihJV0NM2Q68FaNxdCAGlv/f+CLHPK45HP7IzejYj81Ylz2HJ
+	 +QuWP1387BZap0C4UNLw1ceCBKNpcnPezEY5lbrThWRyOM/V0Phx4YqGxyGEc28xUH
+	 oZlcD8tzG9DuLVRxOdQnCR879W9saNzv26PHUVOQvaFhKpXpga0d2EnYJ2nIghTC/y
+	 twDPiKShfjwM90J4jSLynS47kyx0geFk9lM0oXqfT/xzzUqwL4OaH3pmkHFW2Yfcvj
+	 +xaneJMo9qBRQ==
+Date: Mon, 21 Sep 2026 14:10:17 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Kieran Bingham <kieran.bingham@ideasonboard.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jacopo Mondi <jacopo@jmondi.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Jimmy Su <jimmy.su@intel.com>, 
+	Matthias Fend <matthias.fend@emfend.at>, Mikhail Rudenko <mike.rudenko@gmail.com>, 
+	Daniel Scally <dan.scally@ideasonboard.com>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Michael Riesch <michael.riesch@collabora.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, 
+	Sylvain Petinot <sylvain.petinot@foss.st.com>, Paul Elder <paul.elder@ideasonboard.com>, 
+	Martin Kepplinger <martin.kepplinger@puri.sm>, Quentin Schulz <quentin.schulz@theobroma-systems.com>, 
+	Tommaso Merciai <tomm.merciai@gmail.com>, Svyatoslav Ryhel <clamor95@gmail.com>, 
+	Richard Acayan <mailingradian@gmail.com>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
+	Magnus Damm <magnus.damm@gmail.com>, Heiko Stuebner <heiko@sntech.de>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux@ew.tq-group.com, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org, 
+	Alexander Stein <alexander.stein@ew.tq-group.com>, David Heidelberg <david@ixit.cz>, 
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Quentin Schulz <quentin.schulz@cherry.de>
+Subject: Re: [PATCH v6 0/6] dt-bindings: Orientation defines
+Message-ID: <arEeG06MiZ_97uzH@orome>
+References: <20260918-kbingham-orientation-v6-0-5e8b1f01be29@ideasonboard.com>
+ <CAMuHMdWWOB48AUCbXh=9ZGCK2qZyVH06kJ2paRY-wxkq5NC16A@mail.gmail.com>
+ <CAMuHMdVhK0vm_Ksze_=jG8D_=8Q45v+ezNbxwL7JntTt_v_fkg@mail.gmail.com>
+ <20260921073538.GA1466037@killaraus.ideasonboard.com>
+ <arEVs0FDleyHeeLj@orome>
+ <178999124332.1723501.13535584681937232110@ping.linuxembedded.co.uk>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="vnshuij5kqlf56wu"
 Content-Disposition: inline
-In-Reply-To: <20260921-ipq_clk_changes-v1-11-d242e3d49648@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDE3NSBTYWx0ZWRfX1l1uKEv2V1fC
- N/bDuEKVBbNUrmRhzo1wvg9ba4u6mq293sbYjXPmy5tPv8foyI6OxDxZy+UgfS+uFrxmkLBsLNV
- g9msOVvBpNwOA3E8qqLCGbU2GUqBJxs=
-X-Proofpoint-GUID: 8Lc39M4XVg4ySF2cSPtdqX6f7zjrPnP6
-X-Authority-Analysis: v=2.4 cv=QovLTlyd c=1 sm=1 tr=0 ts=6ab11e00 cx=c_pps
- a=P2rfLEam3zuxRRdjJWA2cw==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=D9-gj5qkw8m8MH5a88kA:9 a=CjuIK1q_8ugA:10
- a=ODZdjJIeia2B_SHc_B0f:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDE3NSBTYWx0ZWRfXxhGxs1pRjz0+
- w6M0FQy4JEVjuHGgduFRy0ZsT+/ssBOIujtWIaEZ4pQ4saK3YgFQNSPf4g4ZuhCwFlOmzRO2USr
- jYGqkzyPSUcrx+m4gXPyrCtu0ekwnjWU59LGs1jWL69byDocYpCYLGFbNJ3jQEEzUHjYEreKejV
- G7ja7dxfxDBH4WdIaeI1uzmM9QiBgEfyZGGIVDNsmd0Re0eOa8jKHLkGz1AoLYUjejZVeAuOiZU
- 4Dh7unvREgaT4JT06Fl/iEFc2o0ptw+YwxjH0XBUnC1eh0zR4A1W/n+kSrUAO1cXdojytn9feAz
- v9m+Cx+OniU+f4h4mtnzIchzVdHBeVEETrRVg0JsuaUi5/BOAlyrZQRv6J07zhxhgv/wURkfbAb
- aA8SR0gZOiPfrI2Q09f9n6CU9Tp+39oC3juV0jHGAKvc5yTMB/dRYPamsY17lb5xp+VUQSf1nhZ
- MHR3K6RJYFNt02qQzAg==
-X-Proofpoint-ORIG-GUID: 8Lc39M4XVg4ySF2cSPtdqX6f7zjrPnP6
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_04,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 suspectscore=0 bulkscore=0 impostorscore=0 priorityscore=1501
- spamscore=0 lowpriorityscore=0 phishscore=0 malwarescore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210175
+In-Reply-To: <178999124332.1723501.13535584681937232110@ping.linuxembedded.co.uk>
 
-On 26-09-21 11:49:44, Kathiravan Thirumoorthy wrote:
-> Replace incorrect occurrences of "ipa" with "ipq".
-> 
-> Compile-tested only.
-> 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+--vnshuij5kqlf56wu
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v6 0/6] dt-bindings: Orientation defines
+MIME-Version: 1.0
+
+On Mon, Sep 21, 2026 at 12:47:23PM +0100, Kieran Bingham wrote:
+> Quoting Thierry Reding (2026-09-21 12:33:54)
+> > On Mon, Sep 21, 2026 at 10:35:38AM +0300, Laurent Pinchart wrote:
+> > > On Mon, Sep 21, 2026 at 09:07:01AM +0200, Geert Uytterhoeven wrote:
+> > > > On Mon, 21 Sept 2026 at 09:05, Geert Uytterhoeven wrote:
+> > > > > On Fri, 18 Sept 2026 at 12:55, Kieran Bingham wrote:
+> > > > > > Add a new dt-bindings/media/video-interface-devices.h header th=
+at
+> > > > > > initially supports the Orientation types and convert existing u=
+sers
+> > > > > > throughout the code base.
+> > > > >
+> > > > > Just noticed these are already in since commit 6ab5acfb8dd38729
+> > > > > ("dt-bindings: media: Add macros for video interface devices") in
+> > > > > media/master (next-20260903 and later)?
+> > > > >
+> > > > > > v3 collects tags, and fixes the typo, but drops all hunks that =
+do not
+> > > > >
+> > > > > [...]
+> > > > >
+> > > > > > v2:
+> > > > >
+> > > > > Interesting changelog order ;-)
+> > > > >
+> > > > > [...]
+> > > > >
+> > > > > > v3:
+> > > > >
+> > > > > [...]
+> > > > >
+> > > > > > -v4:
+> > > > >
+> > > > > [...]
+> > > > >
+> > > > >
+> > > > > > -v5:
+> > > > > >  - Definitions now accepted in linux-media, rebased to get conv=
+ersions in.
+> > > > >
+> > > > > Oh, you say so here ;-)
+> > > > >
+> > > > > >       arm64: dts: renesas: Convert to new media orientation def=
+initions
+> > > > >
+> > > > > So it's been safe for me to pick this up since v5?
+> > > >=20
+> > > > No it's not, there is a hard dependency.
+> > >=20
+> > > The whole series needs to be postponed by one kernel cycle :-/ It's n=
+ot
+> > > urgent so it's not a big deal. Kieran will have the priviledge of
+> > > rebasing and sending a v7 :-)
+> >=20
+> > If all platform maintainers Ack this series, they could go through the
+> > media tree where the shared include was already merged. Alternatively
+> > the media maintainers could provide a shared branch for everyone to pull
+> > into their platform trees.
+> >=20
+> > But given that this is simply replacing a literal with a preprocessor
+> > macro, maybe not worth the extra hassle.
+>=20
+> Indeed, I'm not personally worried here. I thought that because Sakari
+> had accepted the main patches these could go in now, so I refreshed the
+> series.
+>=20
+> I don't really care which route they go, or when. I'd rather not have to
+> re-re-rebase again in two months ... but I can cope whatever :D There's
+> certainly no urgency here.
+
+You already have my Acked-by and I'm fine with anyone picking up the
+Tegra DT changes. I don't think there's going to be any conflict with
+any other work in the Tegra tree. If they don't get applied, I'll pick
+it up for the next release.
+
+Thierry
+
+--vnshuij5kqlf56wu
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqxHqkACgkQ3SOs138+
+s6GCVA/8CTjCU06x7t4Mbm966PsuhGx8Q1j3ntV2PiowxzhJwEyb68oBkfVXTkrL
+9rGbkF8OnuoiY/uxupgsIUa+x2hplNqTs6J/OxG5LLbOhdnv1OpzXUBaXlg6ahe2
++7XwSzG2TQcYExblLuZqsViN21+KOWOJAcTGTnxP/X0lbLQYLjSRmzkVlOPjhtEU
+uhszVibjBBSQjotx1SMbk0C2Mxmko7X+ocCxsZ+APwIO3xvrxRRefs3s5nWXRaZH
+mb8ywwgh0WqojUcfOLazhhfUQ/wIn5WTNutOymPP17QgoUVluJOu9TUz1KEnSDVg
+B5NLXtC37c4Ap7iy4ZZMbs95EpkH6c6Dg5qF6avcs3nDUt/g94yCb3eQ20JBveBj
+jOBT9Gpc5pz0s5wLzVzCNWmKk1tQYABslMzcS5aQLBy85HUIwDH/DcCXBOQMm5Tu
+ukBohOeV+nvFWVkT5gDK+zRzaHqPpYpajvemCYUJrw5eXZp53X0L8JV+4HvhGgnW
+uUHIqXFNgXiRGiSfAs+24+jaUhU/W8Wpj5svPEsD2/OeW2jjUTKpo58pQEo7X4up
+XVVNGOuxJaT/8Rh62gC7rHMnM2sVlBE9I0rpRtghOzA8EBdyFnq22rDy/xIx/86j
+aXnoCcK0YUHzkj4lzswo2sohi0nE4T9nDsfYTN14FxH3WvRPoFk=
+=3wJh
+-----END PGP SIGNATURE-----
+
+--vnshuij5kqlf56wu--
