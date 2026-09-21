@@ -1,65 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f30.google.com (mail-pz2-f30.google.com [74.125.228.30])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0022A3C4168;
-	Mon, 21 Sep 2026 07:28:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789975693; cv=none; b=Sl4906/xTtZWlp7tBmn6h2UJmWIOATlDOznbGXsUZjvQwJnW5+7pChS1LjWWSDvZChkv+f52oWddTr5txJicvTPSMrYydZu2m2qgXAbelMyeh87wa/FygrlOU4pNeiHMbymmkR31BYBSonD3luhQMokyBplf/wOrL5TWfpzI1uo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789975693; c=relaxed/simple;
-	bh=6+bKnSKvSExu33JG3bUIaq02dcPIEX0e3plaLt0KpGc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=dUGodOZn9ykVvbyPasJ+XLXrDSExPVpVRmeo6fgWm07caQ6Ra3irOnCi2+P/0/NDvlD19h9Oi35hA9Q2OA3ezS2VwiUl1JVmkUd5PjjG5DssDQXxSDS2Zs9BYt8V1u+LfPpWEXiPjTrWf6LHkmiclXqNcK+Ro2sAclwvkwYZ+ck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PnvmyoYK; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 805073DD871
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 07:28:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.30
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789975735; cv=pass; b=bTjG/N0VOOIuPYxAs0HdLAHdJNzfIT4idxNbA7p8xCk6azZvHYUgv9V7wUhTYGnKsRGDgNMcew1b1ePnItrGBlcWDqyoAyKJ8MSzXipUeSMcrLAtjLrULRMmfIRSh+9XPv3x5JQ1VLmj1h7lJvGeMdUEAewa5SEnpISG0mH81Ok=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789975735; c=relaxed/simple;
+	bh=lxo3rItzOI5E9MqNdGIwnwpWKqkISYML5yv6YHZcizc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UYC85qlnhaWC+Zgt//8l7CFeECfjk2vzVtJaats0B35NVJnjOfSNGvyOl4vtQpOyP8MmcdeRMWWsyGOq8rHLin+ejj/NNiw5w3Q6FAa8PQIfGJPUh+9i8rsJM8AKqcs6xjp/cULZ0gY9mk7UPk+A/lSI9+8/ycVoew1EuJw5qVc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BPK8/FO4; arc=pass smtp.client-ip=74.125.228.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PnvmyoYK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44E831F000FF;
-	Mon, 21 Sep 2026 07:28:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789975687;
-	bh=6+bKnSKvSExu33JG3bUIaq02dcPIEX0e3plaLt0KpGc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PnvmyoYKXQe4rRgn2tqnQ30UMcP0hyq1/djE7lOqaXXnMyy1g3xnjhCf2XvPxqRGD
-	 7WFnVFYBg5yUC+jUuc9CRtm5r/rQPzOeBWcy76eME5flostFhF7UKEF7/pJ72LQ2t5
-	 WOk6XCmHA002RBd27/URce3tNBiuwvXVEY+sfSeuPemhPt7ZDgzVUHsLmYez0q+Zd+
-	 uRCi2PDMkS3iaG5avw5zJjoyohzHI8rwK2gcM7h++CGGyiSB8YD/sPaA6efvTGcUPb
-	 jtu46SjsxKmFbV/llvFLTU1uNC02YagOW79tywDeFgjwxNwYzw9BGagpYiGIyft87I
-	 fNWA4CCNF5Rfw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/2] dt-bindings: hwmon: add Axiado AX3000 and AX3005
- PWM fan controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Petar Stepanovic" <pstepanovic@axiado.com>
-Cc: robh@kernel.org, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260921-axiado-ax3000-pwm-fan-v3-1-3def8b6ffec9@axiado.com>
-References: <20260921-axiado-ax3000-pwm-fan-v3-0-3def8b6ffec9@axiado.com>
- <20260921-axiado-ax3000-pwm-fan-v3-1-3def8b6ffec9@axiado.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 21 Sep 2026 07:28:06 +0000
-Message-Id: <20260921072807.44E831F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BPK8/FO4"
+Received: by mail-pz2-f30.google.com with SMTP id 41be03b00d2f7-cc1cea50dc0so1074483a12.2
+        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 00:28:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789975730; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Ff6bddyCZD60OE3ZKfTstHPGGYWYBNGxn+r/Y2OjNivB1TqxafqGybqBePwO1YbplH
+         KfKgRZ05O9qtgwN9GpCZqJwWImUtlAs3dJgr6R0r/g5T+2+4g5M80lf0Nts0g8KtT2Ji
+         NpRZPn54qysWQfQtrO/g4BfpS3kk2TpC457cK7T+STc4xYIMU6xRBk6VraaylOD1okS6
+         OppVhgduVUSHCwFIRV85zAtH1exYCKYSKBJtqGs01TPX+MBLiWlpfkNRMbaWD9vURa2O
+         vYrNn5Ab73dBu/jeusDn+r8EC+U3hZNJUG+vd7mF3GbB73Tk87mBNjfCfUUbm72yavoD
+         ouYA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=A6cNT/xOU7D+9cHzOo3kYyxs0BX7F75Svm7QKlu1XOQ=;
+        fh=2S19mWitZevCxODI7XtEiYkQzLn6KLUpsx76Fj6qenw=;
+        b=dWNEDfm8ma9yQjbLor6g2BkLeZQiyHbJDrZeUC5YDPyTH3ENr1+iNHE1nyjbAozlGJ
+         zD6IP2tq8Hf+q430NoiHCEsGAz8cSdwuofyVszTsHI4R0U3LxPjCwSWdgGtKKDwMvgHf
+         yjmEcpzapX5nzXq1HSXLXsXoN2aF5lhGiyj/bqMA/Tyz/eb4VO5507VulHEA3W00+Ud6
+         ytrMUvr/oKOueJp1wHwO49WcvQxUhiJPi4kcEl3N0e5XQTfWSuAWgJFV24iyuH0+fOlA
+         VUZvPVYojZq6bB+/edYRNILOuT5BevUeJbTTkN7t3d+D55kQ5lIFZ5JqR75X/o07m4ks
+         9Uug==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789975730; x=1790580530; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=A6cNT/xOU7D+9cHzOo3kYyxs0BX7F75Svm7QKlu1XOQ=;
+        b=BPK8/FO4MZk8LnmE3C0zsRMjRZqsdw9FI0zUn8r7RNGdnKb8QXCR0SKb6oDI7lAhVP
+         m9qZlWhIUIonYT5m76UqY1uDUOLanucx1YBHwsRlm4XGCwief3ZJdpiTTKqo7TKhXNV4
+         K2jsXoDnXpe7PSO//bYlC7kIframl4HaW69jsN+ZUy64hEPs+PRo7TIduLimrD9ZotFT
+         o9UpH0mmaaJMZT2p06Yowyf9oOQkZHSbRbIPTCgJR+VT4NS89+xVr9ius11hEbIRgyp+
+         zOvA3IbebjUViAfJxgkVzNd12W7Lp7a7i75bwlVfVS5BuI66X9kmYCA2civlJw6KE4st
+         KR1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789975730; x=1790580530;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=A6cNT/xOU7D+9cHzOo3kYyxs0BX7F75Svm7QKlu1XOQ=;
+        b=EEdB72332W4Nc8QRC7IDxN4sHSqQcnSE0aXp0EZugMiJ3tC3llX8Jvh66iGEesNnHw
+         99OdKXRKzhlGiRO9Q83irWeRAgrqYWQZCyrxr862wenKm/iW6AejlXMyYhzfpc7CLRuv
+         /py7jQtxLil4oYfZmGvUbaUvJYqTXoegl/LLQPEXSStR3pV+ocr/+rGKlFUhmn4RxuwC
+         f1rF0r2qjhBNvOTMvHkvleqEK29fm/KbkqJny6YWpfWanpZfIJridC38A8V9BICIJOIn
+         3rpqmYvubtZDgWoOqIX5Rh7B4mOXJ/UUIzFVrUaqq6IkOH5MUYpfAwUZ/kVgCATM6zKJ
+         utzw==
+X-Forwarded-Encrypted: i=1; AKwUvByr2APJdKdcsNvK5Nh/9TLLMb2Xdff3hdZF1jt5Vu5VnM2iM5XM+4ravtVEfAd/1naczcnwmLWsPTCO@vger.kernel.org
+X-Gm-Message-State: AFuF++mg9SoPuQ/3YZ+vTqOO11V2MTygpH6aYzKkajhx/t9PxzPgUR1B
+	YnJ4d1sPgMBRrMsGmR/37o6H1yHi68iSACBrZZ4xljWd5TZedXcWU6FigR8bgUP86kGT8IMbaAZ
+	dEq9F1W3i/4kcKMLoEGFda+83HrFd61mwkQ==
+X-Gm-Gg: AYBFou0bU55jetgiHZbBUlu5ScDpaWLFfmSXe8X9wj4mzXoLyAboJAZB5Vb4UAz0dJU
+	cjPvnJyg2OdDod28V5ZkuhTHdDe/+Gdtnu1vqDskM1j5RThPGKQt4eazZcz9dsaqUz2pgRlwRxT
+	TG2LRwZY85ZPseHoYw6Al6FDT+o4dAWmSEYSf5igIrJE6xjDFKFnF2CmGZ3NDi1wGGc5OFUucJD
+	CiMsA89zCz2kvTNow9ABZ90/6RFROUNnGdk+jXL8kvptHSz8nN4tdYb6UGk5HBywJOmkhko2M0M
+	xSqt49TCu90QL9X84KJixqVdXJZzHPvbuhrqAy4cLwZe9aiWlIN2NBEPDKSfVomUCckihV0S/qe
+	QNj3REawf0YO+
+X-Received: by 2002:a17:90b:4c4c:b0:39e:4c7f:7307 with SMTP id
+ 98e67ed59e1d1-39e5506f80fmr15344793a91.30.1789975730612; Mon, 21 Sep 2026
+ 00:28:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260731114106.169398-1-clamor95@gmail.com>
+In-Reply-To: <20260731114106.169398-1-clamor95@gmail.com>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Mon, 21 Sep 2026 10:28:39 +0300
+X-Gm-Features: AcwNN1WIubtOA2Pf-MJxcDjvG4Mtn46SZcjDO-qZ5S8wuOcCU4q_uN3xE35GGCo
+Message-ID: <CAPVz0n0jQCLjBPbJcmJLgW7MAjS9pCZUpVv-aMFp768Dqewm_A@mail.gmail.com>
+Subject: Re: [PATCH v3 00/10] ARM: tegra: tf701t: Add new features
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Mikko Perttunen <mperttunen@nvidia.com>, Svyatoslav Ryhel <clamor95@gmail.com>, devicetree@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> Add a Devicetree binding for the PWM fan controller found on the
-> Axiado AX3000 and AX3005 SoCs.
->=20
-> The controller measures fan speed using a hardware tachometer block.
-> Fan speed is controlled through a PWM signal supplied by an external
-> PWM controller.
->=20
-> Add a MAINTAINERS entry for the binding.
->=20
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Signed-off-by: Petar Stepanovic <pstepanovic@axiado.com>
+=D0=BF=D1=82, 31 =D0=BB=D0=B8=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 14:41 Svya=
+toslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> Add new features recently merged like CPU DFLL, MC and EMC timins
+> along with fixing some existing issues.
+>
+> ---
+> Changes in v2:
+> - removed vdd-cpu-supply from CPU node
+> - fixed typo in thermal nodes
+> - adjusted MMC flags
+> - improvements of commit descriptions
+>
+> Changes in v3:
+> - expanded commit description for BCM43341 related commit
+> - added Mikko's reviewed by
+> ---
+>
+> Svyatoslav Ryhel (10):
+>   ARM: tegra: tf701t: Configure CPU DFLL clock node
+>   ARM: tegra: tf701t: Add core-supply to PMC node
+>   ARM: tegra: tf701t: Add MC and EMC timing nodes
+>   ARM: tegra: tf701t: Remove pin_ prefix from PMIC pinmux
+>   ARM: tegra: tf701t: Add thermal zones for nct1008 sensor
+>   ARM: tegra: tf701t: Tune MMC devices
+>   ARM: tegra: tf701t: Fix BCM43341 WiFi/BT chip configuration
+>   ARM: tegra: tf701t: Complete power sensor node
+>   ARM: tegra: tf701t: Configure UART-B line used for GPS
+>   ARM: tegra: tf701t: Add chosen node
+>
+>  .../boot/dts/nvidia/tegra114-asus-tf701t.dts  | 885 +++++++++++++++++-
+>  1 file changed, 848 insertions(+), 37 deletions(-)
+>
+> --
+> 2.53.0
+>
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+Hello Thierry!
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921-axiado-ax3=
-000-pwm-fan-v3-0-3def8b6ffec9@axiado.com?part=3D1
+May you please pick this series if you are fine with it? Thank you.
 
+Best regards,
+Svyatoslav R.
