@@ -1,167 +1,110 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F10BE38E8A2
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 06:57:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16C2538F92D
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 07:00:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789973866; cv=none; b=fO3jyw6t3pL5otRTrby1aT+it90phv79BLeuGGDCTsLf+CNEo0st1fQeIZqSRDWVCG9O9nGsHnKIcRj4P9qUusBy4eF8zvwBvnHR9UzjeT1OLCRYHNo+KCZ6IeQQszQ0ESX0QcXVsK5q5RMVDrPOJ+QzZB4Rhq2nsvG5ncIc8Vc=
+	t=1789974014; cv=none; b=Cm99/OzxCcuRWjX0S8n7AUvCKHaDSkelQoU28gDajmEC3lxEE0Z/g7n7f2ReJOREzLIvfgrqA6ZZyj5CbRx0L+Fv7mm+8Spdf37kVG95WBKKHiwhPWX52zu3iJ/KgeW93Rh1r70YhJthAINn4vZcznxOC2kXk1OfbsDeUCkaBow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789973866; c=relaxed/simple;
-	bh=R6KQCtmBZ/LzQF/AMHskVs6rZH+bFAh197Pym1iNSc8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=q5cbf8YlfnnAl6PJQQs9EyZKd2e/9JPF0MzLPRp68MoCMJ2dL3W27BuqC33iQuscHRlf29ob3QInTVwBLvf+bcphzdyhpLsToY2JQBgR7JoUBF7TXccasdYWmxKBJBbZmOXeZjrPDfUWPRdT2Lp5hxNLHL9EspRv4oL3tOf4tbI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OoOV4dfc; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789974014; c=relaxed/simple;
+	bh=I7NhiAYsf2C/LfFM+omqGp9Id1WNyg7n5w43slUQMA4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Q3emadF130qnJo8HfjEmobG/4TgpTIIX/na0E0jYU7JJRz1Gu4nDuZR8GuwSzqPcWdSD4iP1Cs1I13pJFFLYRpSEKVltFiFYYJC1NIw5ogiqS/H2UX+UivhMH/Md8bPrMNZLo246QPLs0rNA+GPsgEaJgFxbtfPrGGzBdzpQ29s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SoSMbw9k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OoOV4dfc"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-86b90133ae8so1827041b3a.1
-        for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 23:57:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789973864; x=1790578664; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qtif5ZGV6EGkcHsHgZP2vHZuwYDFX6knAp85t7NtDS8=;
-        b=OoOV4dfcsOanBjnNMFNGb2N+03IuSNmrLc+j2MuBehL3Zz6r/F271d7oKgUMCDjb+X
-         Hh8JUXVS6pxp4wFr5Ek3g9yYZ+OcxooU8Z6h2F/OyyDeen4MN96Tgj6g2N06nK0WKato
-         LEIb6AASk6YTw/aUx/WAFTIg8igDFTA4hNeAMYsUNrQAcyXuUaSrcTwR1Eq01ZqFbCWy
-         JJlQN5XbM6Q6ZmHxtGMq7sBfSehqg0muXmslX7V/L48Yi4mpIAPkQ0hNQZtg8HGJ8QVz
-         2BTWK+wo9LODOF8R4LVAQgzVyIyym9QLx5NjTAAcndiD0kRH0C01lYPoFFfA1tIpxPel
-         Sqow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789973864; x=1790578664;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qtif5ZGV6EGkcHsHgZP2vHZuwYDFX6knAp85t7NtDS8=;
-        b=jJDHoL+nsPB/ENGv/2X2a4+KFd0HpCe714AHQvR7NvpsS37eUZTdipHzkEcxoAcNlr
-         BIQfspDc1qg1f7M9pKUBvxdNKor1Mjs9fwAA4Fbx19ufu7Jui6PztZz1TYh6WgHQuz8R
-         Lg3N9hTlLXP/VDCL5Kk3dKv6iQ0CqApdKpAvkg30Ijk+9j2ndU9eSFkoYEc6vKgGWSTI
-         NF7t6Uy2/HIzwxsh9uX1UqBY38vZP/nMowHYCGGvxAeoEKsP3zJGrd0BwmurcbSWs/nm
-         m/rdahy7npbfD9L0VKClHIG8JZKTf+D5LaC6UkTOzKd12+mt5/lZRzeeRPx96bAhnTyd
-         +6jg==
-X-Forwarded-Encrypted: i=1; AKwUvBwZkp5NtCh9Zm6tIicYUBlYxsC3zY5iAG/cUcmI+MgKPLZ+3RTKbESKqPtsiSjGlLLHqAbBZ6VbRK32@vger.kernel.org
-X-Gm-Message-State: AFuF++nmwK/opSholWyBrUCubwxSJVlRES4oCNlHWn3KlOow1KVwS/Qi
-	88TBYDCAcnup5l4XDoHqsG0CL25WVvXa0iRcyl0xZ0vRxf/VKMBK/Lpr
-X-Gm-Gg: AYBFou3Oa8VFMFXU5r66MCOC03BMW+rcwLhBWk/LrKfFOAl6EYAaOFODKxyN7wqmddQ
-	3JSYdiWGrFtwLWsarPKuWwrMah7kuqlQiDEBtcZPOszOo6sovbJ/tNd3atuvz0n0vQfKTh1KjSU
-	zEg7D/Ri1AW9eAl1BerQzCxety8TARqBEw2wTv8wi9AMIz3rVofn4sLX5VNHBLfp0dplUZajF1g
-	8WAVvS6CPd5/TAPnniJnIRq7nCLeru+Q51X0BsuSlTW/wCya4OjMNZ5KhOWwZboO28Hf1Edctj6
-	DHpypHoSCw/DpmKUR3frAD3A+dMzGCWZaomPNgipnnyvma0gFczk4+DBNJnDp/aTugMb8bD7LF+
-	CymaT7QkMCctWk+7FwtvZ8FY0/NhSJf6Bqh4oXfRoaWaz3rn6+Qb25OaNOpCnSAM3kDNKMKkP9K
-	eTzLcairMJBRsVlED8QDw59LduGB+t5Iq3qi/nFRmg2GshYYtLwFF1CDczjzQ0Hz1fnA7NLglUz
-	cRv1aCe82AzeZWjguX1GlHMst1XHBt/
-X-Received: by 2002:a05:6a21:e584:b0:3d7:b3c1:cc34 with SMTP id adf61e73a8af0-3dd8c41a56dmr12576965637.26.1789973863555;
-        Sun, 20 Sep 2026 23:57:43 -0700 (PDT)
-Received: from localhost.localdomain ([2401:4900:9391:ec5e:64c1:1347:62e6:6b8f])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144d55f299fsm31398048c88.15.2026.09.20.23.57.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 23:57:42 -0700 (PDT)
-From: ASHISH YADAV <ashishyadav78@gmail.com>
-X-Google-Original-From: ASHISH YADAV <Ashish.Yadav@infineon.com>
-To: Guenter Roeck <linux@roeck-us.net>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ashish Yadav <ashish.yadav@infineon.com>
-Subject: [PATCH 2/2] hwmon:(pmbus/xdpe1a2g7b) Add support for xdpe1a2g7c controller
-Date: Mon, 21 Sep 2026 12:27:02 +0530
-Message-Id: <20260921065702.93196-3-Ashish.Yadav@infineon.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20260921065702.93196-1-Ashish.Yadav@infineon.com>
-References: <20260921065702.93196-1-Ashish.Yadav@infineon.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SoSMbw9k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27FFD1F000FF;
+	Mon, 21 Sep 2026 07:00:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789974005;
+	bh=ytDoCDtmJ2Lf+oTUkMKDPXWbDzG8zfd1jmrWuh6fyEI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=SoSMbw9k8TBRizgh1+9pgPa8x5DwzzNQ+mwqcGjBL1cKqsmdwQuyj2Mtdh/a555c8
+	 xfOFY/Yn+ySrmN1O4krTSfe3bGUceUjOJaCSa0ny4gp5z2quLZXT3iguk7zHOj1Bkm
+	 WOUkboj+/tnHtz5F0VCmKmHqsfuZy+fPICvpY5pW1M856M/Z+mTySEC+kp6bEM1RYL
+	 etCATybEiFLwy+fLblcgh1qQJTka6fN8B/uldRl+99PxpK66qqX6Y5q1nbkeZua8Rx
+	 uObZDiNN4aBr+PiCGRHuEiiWEu5rrubP83EQ3TRmEdeH+/gj/rOcEZhETkIqpz3Epx
+	 vrbJVDqaX5/9w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] soc: qcom: socinfo: add few more SOC IDs for
+ IPQ5210 family
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Kathiravan Thirumoorthy" <kathiravan.thirumoorthy@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260921-ipq52xx_new_ids-v1-2-63d68a11bbff@oss.qualcomm.com>
+References: <20260921-ipq52xx_new_ids-v1-0-63d68a11bbff@oss.qualcomm.com>
+ <20260921-ipq52xx_new_ids-v1-2-63d68a11bbff@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 21 Sep 2026 07:00:04 +0000
+Message-Id: <20260921070005.27FFD1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Ashish Yadav <ashish.yadav@infineon.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] qcom-cpufreq: kernel panic on boot for new IPQ5210 SoCs
+--
 
-Extend xdpe1a2g7b driver to support xdpe1a2g7c model.
+commit 9ff7f8e096f96a22381e41ab225a2e460fe769da
+Author: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
 
-Signed-off-by: Ashish Yadav <ashish.yadav@infineon.com>
----
- drivers/hwmon/pmbus/Kconfig      |  4 ++--
- drivers/hwmon/pmbus/xdpe1a2g7b.c | 10 ++++++----
- 2 files changed, 8 insertions(+), 6 deletions(-)
+soc: qcom: socinfo: add few more SOC IDs for IPQ5210 family
 
-diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
-index eb71a0ac044b..f65a295d09a4 100644
---- a/drivers/hwmon/pmbus/Kconfig
-+++ b/drivers/hwmon/pmbus/Kconfig
-@@ -867,7 +867,7 @@ config SENSORS_XDPE1A2G7B
- 	tristate "Infineon XDPE1A2G7B"
- 	help
- 	  If you say yes here you get hardware monitoring support for Infineon
--	  XDPE1A2G5B and XDPE1A2G7B.
-+	  XDPE1A2G5B,XDPE1A2G7B and XDPE1A2G7C.
- 
- 	  This driver can also be built as a module. If so, the module will
- 	  be called xdpe1a2g7b.
-@@ -877,7 +877,7 @@ config SENSORS_XDPE1A2G7B_REGULATOR
- 	depends on SENSORS_XDPE1A2G7B && REGULATOR
- 	help
- 	  If you say yes here you get regulator support for Infineon
--	  XDPE1A2G5B and XDPE1A2G7B multi-phase digital controllers.
-+	  XDPE1A2G5B,XDPE1A2G7B and XDPE1A2G7C multi-phase digital controllers.
- 
- 	  This enables the controllers to be used as regulator devices,
- 	  providing voltage control through the regulator framework.
-diff --git a/drivers/hwmon/pmbus/xdpe1a2g7b.c b/drivers/hwmon/pmbus/xdpe1a2g7b.c
-index 9455ef443b2b..48f6f8081c4b 100644
---- a/drivers/hwmon/pmbus/xdpe1a2g7b.c
-+++ b/drivers/hwmon/pmbus/xdpe1a2g7b.c
-@@ -1,7 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0+
- /*
-- * Hardware monitoring driver for Infineon Multi-phase Digital XDPE1A2G5B
-- * and XDPE1A2G7B Controllers
-+ * Hardware monitoring driver for Infineon Multi-phase Digital XDPE1A2G5B,
-+ * XDPE1A2G7B and XDPE1A2G7C Controllers
-  *
-  * Copyright (c) 2026 Infineon Technologies. All rights reserved.
-  */
-@@ -23,7 +23,7 @@ static int xdpe1a2g7b_identify(struct i2c_client *client,
- 	int vout_mode;
- 
- 	/*
--	 * XDPE1A2G5B and XDPE1A2G7B support both Linear and NVIDIA PWM VID data
-+	 * XDPE1A2G5B and XDPE1A2G7B/7C support both Linear and NVIDIA PWM VID data
- 	 * formats via VOUT_MODE. Note that the device pages/loops are not fully
- 	 * independent: configuration is shared, so programming each page/loop
- 	 * separately is not supported.
-@@ -100,6 +100,7 @@ static int xdpe1a2g7b_probe(struct i2c_client *client)
- static const struct i2c_device_id xdpe1a2g7b_id[] = {
- 	{ .name = "xdpe1a2g5b" },
- 	{ .name = "xdpe1a2g7b" },
-+	{ .name = "xdpe1a2g7c" },
- 	{ }
- };
- 
-@@ -108,6 +109,7 @@ MODULE_DEVICE_TABLE(i2c, xdpe1a2g7b_id);
- static const struct of_device_id __maybe_unused xdpe1a2g7b_of_match[] = {
- 	{ .compatible = "infineon,xdpe1a2g5b" },
- 	{ .compatible = "infineon,xdpe1a2g7b" },
-+	{ .compatible = "infineon,xdpe1a2g7c" },
- 	{}
- };
- 
-@@ -125,6 +127,6 @@ static struct i2c_driver xdpe1a2g7b_driver = {
- module_i2c_driver(xdpe1a2g7b_driver);
- 
- MODULE_AUTHOR("Ashish Yadav <ashish.yadav@infineon.com>");
--MODULE_DESCRIPTION("PMBus driver for Infineon XDPE1A2G5B/7B");
-+MODULE_DESCRIPTION("PMBus driver for Infineon XDPE1A2G5B/7B/7C");
- MODULE_LICENSE("GPL");
- MODULE_IMPORT_NS("PMBUS");
--- 
-2.39.5
+QCF3211 and IPQ5211 are the new SoCs based on the IPQ5210 family. This comm=
+it
+adds the SoC IDs for them to the socinfo driver.
 
+> diff --git a/drivers/soc/qcom/socinfo.c b/drivers/soc/qcom/socinfo.c
+> index 63ee5cd561a29..4e7e14fe72317 100644
+> --- a/drivers/soc/qcom/socinfo.c
+> +++ b/drivers/soc/qcom/socinfo.c
+> @@ -558,6 +558,8 @@ static const struct soc_id soc_id[] =3D {
+>  	{ qcom_board_id(IPQ9630) },
+>  	{ qcom_board_id(IPQ9640) },
+>  	{ qcom_board_id(IPQ9670) },
+> +	{ qcom_board_id(QCF3211) },
+> +	{ qcom_board_id(IPQ5211) },
+
+[Severity: High]
+Could this lead to a kernel panic during boot on these new SoCs?=20
+
+When the qcom-cpufreq-nvmem driver probes, it calls
+qcom_cpufreq_kryo_name_version() which checks the SoC ID. Since QCOM_ID_QCF=
+3211
+and QCOM_ID_IPQ5211 are not handled in its switch statement, execution
+appears to fall through to the default case:
+
+drivers/cpufreq/qcom-cpufreq-nvmem.c:qcom_cpufreq_kryo_name_version() {
+...
+	switch (msm_id) {
+...
+	case QCOM_ID_IPQ5200:
+	case QCOM_ID_IPQ5210:
+	case QCOM_ID_QCF2200:
+	case QCOM_ID_QCF3200:
+	case QCOM_ID_QCF3210:
+		drv->versions =3D (*speedbin =3D=3D 0xcd) ? BIT(1) : BIT(0);
+		break;
+...
+	default:
+		BUG();
+		break;
+	}
+...
+}
+
+Does qcom-cpufreq-nvmem.c need to be updated alongside this change to handle
+the newly added IDs and prevent triggering this BUG() trap?
+
+>  };
+> =20
+>  static const char *socinfo_machine(struct device *dev, unsigned int id)
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921-ipq52xx_ne=
+w_ids-v1-0-63d68a11bbff@oss.qualcomm.com?part=3D2
