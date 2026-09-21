@@ -1,174 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42DC8475342;
-	Mon, 21 Sep 2026 15:46:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71F4A4D17A3
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 15:47:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790005592; cv=none; b=n3/kYN3/eiG5wUqeawIURwh3h89qrMQ0+6R1aePTiaiCUMdezoMUlHx1yUkwdQ6qGACmgtIqGqnQWTjx9AgDpjg3kc19ROnPVftYpbbvDR1eDjTUaYkjZRRldqptAlRI02ycg8MJh6AB4CiMyY/54UM50ymEPDufc8TTbJSptDs=
+	t=1790005681; cv=none; b=Twj101jCC5ZZtfLR7rmhTsV4zWaDTowif5yQCplU8nbTbcp+y7UUbDiibmJ02P+xZxOwLHT2HqkMM4oddYh2lUyv30+G12mEhKFBBbH1MjxtJJlBazQokSBePlPoKO6oGx0p0rOpgBFkx2M3Kz3ApTP77doTnQ2oIvFMz5Xly/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790005592; c=relaxed/simple;
-	bh=YH7dd7nmVDIYpExQlL40HE59/Q1O3Y6Z22Cro4sosHA=;
+	s=arc-20240116; t=1790005681; c=relaxed/simple;
+	bh=xGLfA1m+bcd6cQO4yshQSi+ud4HVrdOAi+ou2Af706o=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aC1ZMXUTVypl+u6UNylwBYnNsnzZ32qCs8aOgRmRAIaYBclH/Bp7/WJ7mcPYUxWGlE027uRzt9yGRtXv/UT3aWvsVhoM0YhtOK5XrKdwFMgQDwccbCBtvZbHiWRMXmQIukQkxBm4ST/jctOBbq68tjQIOrxBwC86Ql6ehJuhYoA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Awjc7CQ5; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=LD2XMl0Pm78qUyokXPx8kavVlH89kftAswuKDQebTdDk7NF3+yKv3oStXi5CDitLarThNYqK11Z9FBfyxVLH0q4sB2Z++/J5bUiD5cOT4u1fhePlhoiYZF1KkXSqkzXXA8OfKHGYWvUlnZDueYpjWbW4Wf2d27AuR/KKVkeIe4w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ilcriJut; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Awjc7CQ5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3DDB1F000FF;
-	Mon, 21 Sep 2026 15:46:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790005590;
-	bh=wtAWY4UOgMsDtGmwPaOVo/YohvZdMJTG3nDB7UNWK3c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Awjc7CQ5UAPLZEFbtu6Dr7+Ugo9fVa98qwiPwJ4+sPPjKHIR+2lq5Py4bYSRcD9vU
-	 BN+msvop/XqRX2hXl9RkOiuyIMuHTn158g29NB6tapfs6Z9XInEPOS3qpNadBCf4mp
-	 S/kxtfKP4ganLGDw9slJQhrEZqe4H/+Y7YOlbhcqDzNG6pcR4slGz3HNEUeT5a6ib2
-	 5k0IMdDenXatIBX8YNx/nTnJcP9SsWftWtI3cDOJyGALoDRoZ6ty8nq7KaAHSdgOkV
-	 MBpGKsoj6GV2zajYYBl32o1mVen6VO3jRoBdjf3QGszzBh/OvbxA3b4f1FvjvqRPOQ
-	 270qpH7qVD0KQ==
-Date: Mon, 21 Sep 2026 17:46:22 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-pci@vger.kernel.org, 
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Conor Dooley <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v4 5/6] PCI: dwc: rcar-gen4: Handle PERST via reset
- subsystem
-Message-ID: <zwdqspl2uno35uffgzsel57ed2umpejgfeqrkwvxiqd2pgfpm6@h6w3qsgc6rny>
-References: <20260905212649.360498-1-marek.vasut+renesas@mailbox.org>
- <20260905212649.360498-6-marek.vasut+renesas@mailbox.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ilcriJut"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccafb751so2651046a91.2
+        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 08:47:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790005678; x=1790610478; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NymQllFGW/d7T1ecbWk0XQBpiDM3En0PKGwwReZs9hI=;
+        b=ilcriJuteKpgJx9w4DIEzTEbyBEvAaCunudqidvu03k8m6NT+bwGHE2Bei4elDFfg0
+         Vb0+eqKHd0re1ADu81NZNHOR++DOPWnF3VNPWJIQh6ltQ8MXEDgyNo/Rf8I/KDYrFpJ9
+         X1O/6oMK34h6d5DjkPb1QZwaI7PzKn+TX5caDME7e1XhnvGy+1InDSbtz/lW7wi+GZOG
+         otPUvZwAZtKSFQ2uKUhpA3dvKGinJxk2ajAm7zI93Xg+pSxZf7HIeZkIXqQjDW8Zkucf
+         6ufxxoxRozBD80crQCLfh6iWAyAT6MajCYtEc9vwFFmDYq2jkITULatv3I3+jKtfna4b
+         qg9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790005678; x=1790610478;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NymQllFGW/d7T1ecbWk0XQBpiDM3En0PKGwwReZs9hI=;
+        b=Hqx4as0DrJCDXabjeW2v1LzALgYZgPzjVYXSRfW5CMDtJpo5Dc56jz0rzNDFgu8Vxl
+         Z7Q386bZCms/vJs426C5Tfxl5+FW36qPzqxyivyy8mdBV9/1ciRH3CPDmx0GHq/tzXSR
+         dYBY9H6Xu4/qy0lz3Rfu0fFc3H73aPCEXh2j7+P2k+ZA0pJHSNKXykTiBrTEDdc0Yr5e
+         +hzn5iwY+K/Hfgo3upMawD5YW3P5qVX488UkHhx/gbG2s3GRaZsZsoxxNB8e5cIgOb4Q
+         EdtmBUQUx5P/Eeh4L02wMk3ewO2kW29uaEVurlTYi6dtZ9hSg8HJwZx+fEDuGidLw3Vv
+         QXTQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwy72SeF468SOpU/OC/YMMmHKrEQ+AHepeqZn1KY2JkBqukH+2whXP4L/Pby/eC75nrz/EKFQrW6KJ8@vger.kernel.org
+X-Gm-Message-State: AFuF++ke6X+bNOPZSOEeul7KLp6cQOSHEl84xKjJPcH3vYigGTCfMruF
+	nBPGKUiRd5/+0AcoN8QgFiw/Tk4NcaXvCg+2HBd6lo0q3DfdH+QfRV4EIAtynh7KHl8=
+X-Gm-Gg: AYBFou321cr0ku2IbWY46WeJCKaxs2CaeXwdWgMM3oxF/Cn+2TirhgpieOtfk8x7G4c
+	2KmmfrETqG4ZodcgZYGx22cGFt6G+LHQnpWgDCWGjK8ScUipqSyhK+QwAtpT7oExPcet6PQzumB
+	HRekh3nMevRBgkhym/PYiCtJbFGaGpzNkUl/QS9I401Xjm9MA2V2Z1npqL0GaicwL/JfR92iDzn
+	C7vjF9tBKu9qZmwXoX3dVTvi32uMk9mXT3pl7xPJ5Z3qTY6NPBQuKVMThi82kx/WYuGyGKxN3gI
+	ZLXzmPwItlJdK0rKQwYgzPuNghqZQZsZ7mctKtDaDrTaMRznKPMeoRxXMXVJ1iyyqnbqCOsjt7u
+	KFSLSEpKOp12SA1CDb5xckwxepjMFl7ACtiuGjLsv2Ka8g61epdjDcJ7i9kVuM89k8weJlEeqgv
+	xgj0+ghKv4tPFIIl8ZB5aRg0kl6cZPbU5176xwtxqHgA8bRUeRyZnjAMZJZCGPNfFINqh+D/FrZ
+	Q==
+X-Received: by 2002:a17:90b:2750:b0:39e:6c69:776f with SMTP id 98e67ed59e1d1-39e6c697934mr11058030a91.24.1790005677565;
+        Mon, 21 Sep 2026 08:47:57 -0700 (PDT)
+Received: from p14s ([2604:3d09:148c:c800:a714:d1ef:56ba:be47])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e55c9cabdsm7471419a91.0.2026.09.21.08.47.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 08:47:57 -0700 (PDT)
+Date: Mon, 21 Sep 2026 09:47:54 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Francesco Valla <francesco@valla.it>
+Cc: Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Peng Fan <peng.fan@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, virtualization@lists.linux.dev,
+	imx@lists.linux.dev, iommu@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH RFC 05/12] remoteproc: always report VIRTIO_F_VERSION_1
+ feature
+Message-ID: <arFRqopkkJf7Nlq4@p14s>
+References: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
+ <20260916-remoteproc_virtio_map-v1-5-dac8c5eb4aa9@valla.it>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260905212649.360498-6-marek.vasut+renesas@mailbox.org>
+In-Reply-To: <20260916-remoteproc_virtio_map-v1-5-dac8c5eb4aa9@valla.it>
 
-On Sat, Sep 05, 2026 at 11:26:26PM +0200, Marek Vasut wrote:
-> Handle PERST via both GPIO and reset subsystem. On R-Car Gen4, the
-> PERST signal is operated as a GPIO, on R-Car Gen5 it might only be
-> accessible via SCMI reset via reset subsystem. Support both options.
-> This is a preparatory patch for R-Car Gen5 support.
+On Wed, Sep 16, 2026 at 11:10:50PM +0200, Francesco Valla wrote:
+> There is currently no way to report the VIRTIO_F_VERSION_1 using the
+> resource table alone, as the per-vdev feature array is limited to 32
+> bits.
 > 
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> ---
-> Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
-> Cc: Bjorn Helgaas <bhelgaas@google.com>
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
-> Cc: Manivannan Sadhasivam <mani@kernel.org>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-pci@vger.kernel.org
-> Cc: linux-renesas-soc@vger.kernel.org
-> ---
-> V2: - Use dev_err_probe() for perst in rcar_gen4_pcie_get_resources()
->     - Use of_get_next_available_child() to obtain root port OF node
->     - Switch to of_reset_control_get_optional_exclusive() to deal with
->       R-Car Gen4, where the PERST is handled as GPIO instead of reset
->     - Rename rcar_gen4_pcie_host_perst() to rcar_gen4_pcie_host_perst_assert()
->       and use bool type for assert and deassert selection
->     - Add missing reset_control_put() into rcar_gen4_pcie_probe() fail path
-> V3: - Handle controllers without root port DT node
->     - Swap fail path order
-> V4: Rebase on next-20260904
-> ---
->  drivers/pci/controller/dwc/pcie-rcar-gen4.c | 44 +++++++++++++++++++--
->  1 file changed, 40 insertions(+), 4 deletions(-)
+> Considering that the VirtIO 1.0 specification is now ~10 years old,
+> always report the VIRTIO_F_VERSION_1 feature, as some drivers depend on
+> it.
 > 
-> diff --git a/drivers/pci/controller/dwc/pcie-rcar-gen4.c b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-> index c768a9c7b3b76..89472a4becc46 100644
-> --- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-> +++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-> @@ -99,6 +99,7 @@ struct rcar_gen4_pcie {
->  	void __iomem *base;
->  	void __iomem *phy_base;
->  	struct platform_device *pdev;
-> +	struct reset_control *perst;
->  	const struct rcar_gen4_pcie_drvdata *drvdata;
->  };
->  #define to_rcar_gen4_pcie(_dw)	container_of(_dw, struct rcar_gen4_pcie, dw)
-> @@ -317,12 +318,27 @@ static void rcar_gen4_pcie_unprepare(struct rcar_gen4_pcie *rcar)
+> Signed-off-by: Francesco Valla <francesco@valla.it>
+> ---
+>  drivers/remoteproc/remoteproc_virtio.c | 10 ++++++----
+>  1 file changed, 6 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/remoteproc/remoteproc_virtio.c b/drivers/remoteproc/remoteproc_virtio.c
+> index 74e0da970f1d..cfd66d9d1c9e 100644
+> --- a/drivers/remoteproc/remoteproc_virtio.c
+> +++ b/drivers/remoteproc/remoteproc_virtio.c
+> @@ -249,7 +249,7 @@ static u64 rproc_virtio_get_features(struct virtio_device *vdev)
 >  
->  static int rcar_gen4_pcie_get_resources(struct rcar_gen4_pcie *rcar)
->  {
-> +	struct device *dev = rcar->dw.dev;
-> +	struct device_node *root_port;
-> +
->  	rcar->phy_base = devm_platform_ioremap_resource_byname(rcar->pdev, "phy");
->  	if (IS_ERR(rcar->phy_base))
->  		return PTR_ERR(rcar->phy_base);
+>  	rsc = (void *)rvdev->rproc->table_ptr + rvdev->rsc_offset;
 >  
-> +	root_port = of_get_next_available_child(dev->of_node, NULL);
-> +	if (root_port) {
-> +		rcar->perst = of_reset_control_get_optional_exclusive(root_port, "perst");
-> +		of_node_put(root_port);
-> +		if (IS_ERR(rcar->perst))
-> +			return dev_err_probe(dev, PTR_ERR(rcar->perst), "Failed to get PERST#\n");
-> +	} else {
-> +		rcar->perst = NULL;
+> -	return rsc->dfeatures;
+> +	return rsc->dfeatures | (1ULL << VIRTIO_F_VERSION_1);
 
-'rcar->perst' is NULL by default.
+I understand this.
 
-> +	}
-> +
->  	/* Renesas-specific registers */
->  	rcar->base = devm_platform_ioremap_resource_byname(rcar->pdev, "app");
-> +	if (IS_ERR(rcar->base))
-> +		reset_control_put(rcar->perst);
->  
->  	return PTR_ERR_OR_ZERO(rcar->base);
 >  }
-> @@ -494,6 +510,22 @@ static int rcar_gen4_pcie_enable_device(struct pci_host_bridge *bridge,
+>  
+>  static void rproc_transport_features(struct virtio_device *vdev)
+> @@ -275,14 +275,16 @@ static int rproc_virtio_finalize_features(struct virtio_device *vdev)
+>  	/* Give virtio_rproc a chance to accept features. */
+>  	rproc_transport_features(vdev);
+>  
+> -	/* Make sure we don't have any features > 32 bits! */
+> -	BUG_ON((u32)vdev->features != vdev->features);
+> +	/* Make sure we don't have any features > 32 bits except VIRTIO_F_VERSION_1 */
+> +	if (WARN_ON_ONCE((u32)vdev->features !=
+> +			 (vdev->features & ~(1ULL << VIRTIO_F_VERSION_1))))
+> +		return -1;
+
+And this.
+
+>  
+>  	/*
+>  	 * Remember the finalized features of our vdev, and provide it
+>  	 * to the remote processor once it is powered on.
+>  	 */
+> -	rsc->gfeatures = vdev->features;
+> +	rsc->gfeatures = vdev->features & ~(1ULL << VIRTIO_F_VERSION_1);
+>  
+
+But I'm having trouble with this one.  
+
+First bit 32 of vdev->features gets cleared and then bit 0 to 31 are assigned to
+rsc->gfeatures.  Why bother with clearing bit 32?
+
 >  	return 0;
 >  }
->  
-> +static void rcar_gen4_pcie_host_perst_assert(struct dw_pcie_rp *pp, bool assert)
-> +{
-> +	struct dw_pcie *dw = to_dw_pcie_from_pp(pp);
-> +	struct rcar_gen4_pcie *rcar = to_rcar_gen4_pcie(dw);
-> +
-> +	gpiod_set_value_cansleep(dw->pe_rst, assert);
-> +
-> +	if (!rcar->perst)
-> +		return;
-> +
-> +	if (assert)
-> +		reset_control_assert(rcar->perst);
-> +	else
-> +		reset_control_deassert(rcar->perst);
-
-So the controller will only have one form of PERST# implemented at a time. Even
-though this code is technically correct, it also gives an impression that both
-form could co-exist.
-
-So I'd recommend using:
-
-        if (dw->pe_rst) {
-                gpiod_set_value_cansleep(dw->pe_rst, assert);
-        } else {
-                if (assert)
-                        reset_control_assert(rcar->perst);
-                else
-                        reset_control_deassert(rcar->perst);
-        }
-
-to makes it clear that only one form of PERST# is supported.
-
-I'll implement both of these changes while applying.
-
-- Mani
-
--- 
-மணிவண்ணன் சதாசிவம்
+> 
+> -- 
+> 2.55.0
+> 
