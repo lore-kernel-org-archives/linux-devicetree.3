@@ -1,58 +1,55 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04FBD46D0AF;
-	Mon, 21 Sep 2026 10:21:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B17846AF10;
+	Mon, 21 Sep 2026 10:22:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789986080; cv=none; b=iyVEYZhZtb763kBIQz3oJ/oKz5NUgrG5RRnSGZUroeKBACkmWtf6gaUtxVCQWWHfoELlO2PiftQFelKu9TYh90MFk2V+qZElRD288aLzlDjUogzn7GqLoPf1epVIhsj1+L0KHFl2I5L4ojlgIFzOf6rBWaT4cS53ywZ5Ch9WDvs=
+	t=1789986152; cv=none; b=tLUYkBioMNW1HaDHIqMYNNeQ4aFX+sF+yR7t1h0VX+Wd10yeE1eKHXBSabsuh/GUkegoXYlpnlXD/69OIGSUyY1CTgNGHK03U0aQNesVAgowAA2i+sWmmgxw9UNgp+cT6DgzkKRupWBABpnvDyakh8Q3rPqgrEBW5TFSEs/upY0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789986080; c=relaxed/simple;
-	bh=uw5pdRN2Q9JJj2+CbK1XOe8tJnBuwe3/GQzFs3S+ECE=;
+	s=arc-20240116; t=1789986152; c=relaxed/simple;
+	bh=2zzAiPlCMlsKvglShMlQV7ph8zJ/L+voqaBQavdm2YA=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=ZtYz9nXCOsP9L6te5pRhPWzfC/NDcJIukloRZNQc4IdSEqgNewl23hbm+F24HqBNVHDJRe+fVjUubL6eWKAEpD4qmHQihdL5gJRtLch1JbYA/nY2MuPim6ZD+iXhQ74T8VArftFYAWzOqwGNPMRFUeiNbz49BA2XDHXfsQjmSKM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=m01RtQig; arc=none smtp.client-ip=148.251.105.195
+	 MIME-Version:Content-Type; b=HmchZPzAbWg0wpeK0dxJcrbDXXLf03nSr8ksnQCDn+0MSzA4y1i3ls/+C4PME4ttxsYC3eCHDOdFO3sJJN7Z+2goNIVrLIvzh4loZ/8Vrcb9PXSE9WDjCsBk/qLCrlUpQkBDY5SI54VGnu5so7QwcAMHOe9o/CAU5P6ta5Q28FI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=N5UOaGRE; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="m01RtQig"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="N5UOaGRE"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789986071;
-	bh=uw5pdRN2Q9JJj2+CbK1XOe8tJnBuwe3/GQzFs3S+ECE=;
+	s=mail; t=1789986149;
+	bh=2zzAiPlCMlsKvglShMlQV7ph8zJ/L+voqaBQavdm2YA=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=m01RtQigaCGmATt3Z2RO+l2X3jp6emasy4I7DqrplE+e2RosUCFD10dMp2AviNqgF
-	 CgRL9VAzG34cRLpnhKETmKpvh7tqDrrWrklo486vc8A7FcQFsR/A2WqIvW11KZnPLR
-	 QZvz89UsDAdHgnB80XALmbEbX6MZAkmC8aT2ymc+lHhK2C8NRUBS9sUL4lKZG4aiAD
-	 o+f09zXHEypzLxAYdSFPm73tA8UiDgFytinUCifu7xAggNaqcCEgLHIHkOgyeEVM6L
-	 QeY8HY3C5i5Q+FujPosjf7l9UxTcLI4Sb9jBfuZ04qFfrVXKLcTEbzi+Jtkw5a8n0P
-	 vEtd2aLg3S1Wg==
+	b=N5UOaGREaW4M8VNJGJXTyB1093FUv/1VEXDlrgZLzoEyAGVWo24TyGZHS/XZtFQFU
+	 gRk1eE9RNUUdRFYN5J4SA73arYUfTZzBToEMEfxo1VaGDxp/ZDovL0vGgxQtvPu9Gg
+	 pKTO402q5C+vEarlWIj6hCArDorCe70Fw+/Bky+Wqwcac9V3hfGIB7bzPcLCj35nGH
+	 erlWHSpco2lVv37v817Ls+imGrHt4Q8Hm8fQKH2yLsSolDp3a/cerTROPerTFfIiVG
+	 LfvF9QbDz34U7glJP3cdRIJHD49adFlg1AJDRQHohtvagHuts/R4eJTB69vnYyE03Z
+	 Sww6ZQvMmjEHQ==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 49F6217E03B6;
-	Mon, 21 Sep 2026 12:21:10 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 2120817E03B6;
+	Mon, 21 Sep 2026 12:22:29 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-To: linux-mediatek@lists.infradead.org, 
- Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, CK Hu <ck.hu@mediatek.com>, 
- Jitao shi <jitao.shi@mediatek.com>, dri-devel@lists.freedesktop.org, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ Frank Wunderlich <linux@fw-web.de>
+Cc: Frank Wunderlich <frank-w@public-files.de>, 
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+ Mika Westerberg <mika.westerberg@linux.intel.com>, 
+ Linus Walleij <linusw@kernel.org>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org
-In-Reply-To: <20260918175736.355305-1-l.scorcia@gmail.com>
-References: <20260918175736.355305-1-l.scorcia@gmail.com>
-Subject: Re: (subset) [PATCH 0/4] Add support for the mt8167 display
- pipeline
-Message-Id: <178998607025.21155.9680834242820851509.b4-ty@b4>
-Date: Mon, 21 Sep 2026 12:21:10 +0200
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+In-Reply-To: <20260918143846.30458-1-linux@fw-web.de>
+References: <20260918143846.30458-1-linux@fw-web.de>
+Subject: Re: [PATCH 0/2] Add gpio labels for R4Pro
+Message-Id: <178998614908.21581.16111635463377491991.b4-ty@b4>
+Date: Mon, 21 Sep 2026 12:22:29 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -63,23 +60,25 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.16.0
 
-On Fri, 18 Sep 2026 19:55:24 +0200, Luca Leonardo Scorcia wrote:
-> This series adds support for (almost) all display blocks of mt8167.
-> This SoC supports a DSI or DPI display and has HDMI output via a second
-> DPI block wired to the HDMI phy.
+On Fri, 18 Sep 2026 16:38:41 +0200, Frank Wunderlich wrote:
+> From: Frank Wunderlich <frank-w@public-files.de>
 > 
-> All the hard work was already upstreamed in the past, now all that's left
-> is some glue. In the first two patches we add support for the DPI output
-> blocks. In the third one we describe all the possible combinations of the
-> SoC display pipeline and in the last one we add the required nodes to the
-> SoC dtsi.
+> This Series adds line-names for i2c-gpio adapter and pcie hogs
+> for easier debugging via /sys/kernel/debug/gpio.
+> 
+> Frank Wunderlich (2):
+>   arm64: dts: mediatek: mt7988a-bpi-r4pro: add names for i2c-to-gpio
+>     chip
+>   arm64: dts: mediatek: mt7988a-bpi-r4pro: label gpio-hogs
 > 
 > [...]
 
-Applied to v7.3-next/soc, thanks!
+Applied to v7.3-next/dts64, thanks!
 
-[3/4] soc: mediatek: mt8167-mmsys: add routes for all display paths
-      commit: ae0968038f994d6e275f5dc94a27325ee751fe58
+[1/2] arm64: dts: mediatek: mt7988a-bpi-r4pro: add names for i2c-to-gpio chip
+      commit: ee3f4a1785bd73a865a4aa5e1974c6079f96b2bc
+[2/2] arm64: dts: mediatek: mt7988a-bpi-r4pro: label gpio-hogs
+      commit: bf89276b2db391cbb25d1a0e898280fe85b16fb5
 
 Cheers,
 Angelo
