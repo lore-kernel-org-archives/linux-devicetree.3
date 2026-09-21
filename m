@@ -1,185 +1,152 @@
-Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch [79.135.106.28])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9100942A152
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 07:34:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.28
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789976058; cv=none; b=hn5sAhOjbsukSNZJNuzivMJec3cggFAjgn2QKenF/v3/0mOCN39OQEH+CClPr2iacZJx6sgFyoAot1Dv2VhSt3hLGKSBDCplMnr4SQd+nV6xElCsB+dsNSzZUxNPA/fNrH6nEYxLnp3cra2ZJO57IFdJkUsk79GAzZyUGLn2IQI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789976058; c=relaxed/simple;
-	bh=UVE7R9BB99XXJOqEeXYlbB1DFFirdbSX88LtuA3dPWA=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=gMfXA4R3d5HAarcqjKKVEAsev2cdk/3b11EndxOVXXB/dQcsEJG/aCbQaTEcY3NXCCfKN2imjroxX42RUOtmzwJ4XIH9TxdMlh3YRtVTRrsuCGpKQ2ueR9UZf7RRfA0BC9NqjpFn9hX2dukP+CErsmXYz8Jo869I+O3jUf7pPt4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=TI3qO780; arc=none smtp.client-ip=79.135.106.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7ADE42B301
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 07:34:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789976059; cv=pass; b=TcE1ToruOEuxAMAYoOb9fHFtxMICSTte++/S8znM6+Ig3M11OuqCziLjckk6D9eQ4F8YUwnk+6+WetRqwy0YhPfFfQ2vgHpbWCtWLKF9nnfRMKga8n0OW4cKVhLLFZlLPpAM1V1r1Jq3d9tOiHg/A7Lz3J4Liv/xVQ9jY7wPJbs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789976059; c=relaxed/simple;
+	bh=57Sok7jJDa/57dP/GDfeHEhYnwuYZlpWnaikd4BSZrk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=crniq+feB5WmMHNDANb/c2OA1NuEKdbR/FlV1v4ni+xNe8bWgkwedSTmGmruPKR86QphKorQx0b0D8tStmDP2lU26xxYWr5+qyoVEDrXgAfyCRwvR9L6M2BUViUDyEFf1qBqzM4nLZQwVod6GofcsaSOfsF93zOhexxBggPAeUs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bRho8oHk; arc=pass smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="TI3qO780"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1789976048; x=1790235248;
-	bh=9r3qo3RhW1eT6npY6O91FnLiaqgITql2u6tc4bU4a1o=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=TI3qO780+896QkaRcWVu+n6mwn/ISxwXax7O2mqBo25mKCvCDTvemoTXTYgdHNP7t
-	 1B2pNEuQr/gw+hG05yZ88evybtY/pLzvpgOWUo4GdvbsA2uH82huoJd08S/B3FJ9Hh
-	 F/kH1D5RdQsmtWRrl4oIAFZsE9TFcQYQyFzDo66FAGJW7yaOX3nJ4bdwkad0HZLR8z
-	 2tBHbh1MsW/lcrZ72J7DpSoGtQB+xLsEt7xTalNgiakVhN5ixnXCEFahGUDD2Bu/kR
-	 QvtCkFD2vTxvvw81dMDQ9QdeukYfAfWrDshDae9U65SG5IIjSh/Yi+yDq7lLB110Yp
-	 Zj5dNaJV0IgYg==
-Date: Mon, 21 Sep 2026 07:34:02 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v4 0/3] Add support for the Sony IMX681 camera sensor
-Message-ID: <20260921073352.86357-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 5085e3fc67cf7216ef12953b6bcbbeb01184b320
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bRho8oHk"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccb652d7so2322593a91.0
+        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 00:34:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789976057; cv=none;
+        d=google.com; s=arc-20260327;
+        b=lixheSH1akWfwczu+jRIO5VpAp2bXCCiMTNjdh2RRkqfo+zZjJpWxnROwTDfp/8yg5
+         a7dUKVveK9AdoHoIk2u6mMOox39T7xXae6mbKJTY2koUYLJdEBiGTbUpLEYuyy9SsWKV
+         m67gj6ktFnhTi8k4eptdPtDMLf9BsvvKF+VTGHwotmzMNNHg3J+XZe2B1L8kRoEZaCS8
+         5fof+aPVnQLnQkFlJxeHkoR2fNetmjVhNrku2azLvVkRE+8d16QAd6TSQYZ4Dh2kEX5m
+         QC8pQ9TSh+7dpZT+OY/tfWcI8/JLOQpspMcx3HQeSo6S3zCnTJVrf5xDtT/IwOH8xht6
+         xOyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=i/KB7XKvlLtdNPe51SuZ6hkHW35ikyi0W/vUmCBDQwM=;
+        fh=b36f5qdsCKKypqTpjdowbJ4fuDqDYF2FgvJsGODRa7Q=;
+        b=FLKGjmmMRevrChN7WU00P173B4Lj4kQXPT3fU3/cGdETVqmN51gbarXonQH9OL37jl
+         ngDQuTy+J337vW80MzIcHiCiIS6FvDkPFcCfgCPCHo0oPfoP0IANawkPHub8yeN6SwFv
+         S2Ch4C9VJJH93hJCYCr8uZvHxqcBAn42i1EeBt9vxGkg2GUWdC14s1i2L3wsTFbcxykV
+         5W2Exxhqfkpu70HNoVd8STkS2xsYcIvwTg6VILXy9s4Iwy1vg2GkKHwh3VVMkGY3AZ8p
+         HpWUo2F0BJ79dEhKIxovVAA2A7AsDLitwZDyZTqgz+KbWVo7KimE/xNOaIOrlRLOGRGl
+         oudw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789976057; x=1790580857; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=i/KB7XKvlLtdNPe51SuZ6hkHW35ikyi0W/vUmCBDQwM=;
+        b=bRho8oHkSZ6eNFFlMVFarqQ5ou6tGwP6n0eX0AMCacl0jOnq/EcGvM7lHBlgkmMQP7
+         zLLh08JXmiwSrxOeMNy0Tw7uLfdHnUz1OHewAdYTttaeLiZZIRbpdqKAm1exhBXt0SJ2
+         uwLkghVLI+wKYXaKcDPzLNu4LmatZLIhyK9LSr7vpCufUr4zYs+7bCeFlZ0tLLW0hSZD
+         TgyIWK0sBY2F98z5zFIvPOsTthpcp0n1jNIxNiXIZlkb07px7TcCrRNBMw8uaYpQmBZT
+         ni3Oas86iQDAeF7bEgd4d758qslkBQczuds/1ZuAokt+/PN415MLqRAZdPxSP20gQeeM
+         UVvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789976057; x=1790580857;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=i/KB7XKvlLtdNPe51SuZ6hkHW35ikyi0W/vUmCBDQwM=;
+        b=NzOOE7QUQlCznE9eOj+ot2yWGeQRj7bw3nKdWOKH0BQbma8fwgfpGbXqWt5a70yh+Y
+         q4sdaJ/QTU+X0NzKaJnAwe1kibJ3aBrRhtaBZGGjAAG8m1ePsxrc1mYg73eG/nsYSRI1
+         ogqHK4RDey3Zy9Tv4fG9amsATLaaA+KGuW+/cDE/YGU5luNO4uRvYyARqzGrlBEI/owk
+         g5tLt1E84uD7he4hC95r81wqZ4yGs9dcS2RiZf3aaDshXQKXZim52cxDsE5ZU6B+TfG6
+         pPLxd+oSVZTykPGARW8Tm8p02f8Qo6s3xDNY0ezVEQgaJsj1pDzFNPt9uKqUjlCr1had
+         L2/g==
+X-Gm-Message-State: AFuF++lEoupnBPr0UFdk3W8ZLSqRaPbhjF4f87c3X5kyKyem0eVV4tPd
+	z5uw5yChhtKg7gaQ6GPTdT6ZUcWYXOvTELCZbm0/ACcPeJfXMa0EBgLmlAEKYtC5MxPtzgcsiCh
+	8cwHUXIDy7HTF2VhBsxkuQRdIyN6y6Ow=
+X-Gm-Gg: AYBFou3n1KnICuziNdR8v/CGN2xA718+zrpt5Z/jlX8rRRA9wLEVvSvmu5eelK1llE0
+	nft3Lh028tyXYS4sBiCwZ9kZXv801w5JcicgtW+/Aq7coV8ZTS5FlNmf4V5+JjOH7ue09mlAj0Y
+	OT4F1oc/uoge7hMbHxUPOQyimBrOX7R4pBbzsGOO4GN0eY49nBvZjIXGwWdnl8ObN5owco8Lhho
+	mpnls62rPvFqoeRUn8HFzsF1STFAWEiziJKGhojXx8Zakxtsj7GbVlknrctLpnYQt8B+dW/Kg/X
+	mvNlBvXjAyjN/RY2Zj7kepRheLmD6MeWU/+rhx3ocRjVkWwAOsRWDlRRvommZhJbyCAhy38Bw68
+	ZNMOgYRlt6c+v
+X-Received: by 2002:a17:90b:4b87:b0:39e:345b:3323 with SMTP id
+ 98e67ed59e1d1-39e54fb121dmr14066759a91.22.1789976057124; Mon, 21 Sep 2026
+ 00:34:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <20260721095233.420823-1-clamor95@gmail.com> <20260721095233.420823-5-clamor95@gmail.com>
+ <CAPVz0n2rhZk0fjM06u=C5H4LgVOsN6ACriO1o+byx0dyqTwGzQ@mail.gmail.com> <CAPVz0n2mzwp-ffUu7tw5ojXgM=+G-PT3V9pHN--dT=dnYw5hHw@mail.gmail.com>
+In-Reply-To: <CAPVz0n2mzwp-ffUu7tw5ojXgM=+G-PT3V9pHN--dT=dnYw5hHw@mail.gmail.com>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Mon, 21 Sep 2026 10:34:04 +0300
+X-Gm-Features: AcwNN1W6gcxmcfy1bLN5jucC74BzWiaaqHA32OWE3YHnq2Or7J12ypc4KJW69uA
+Message-ID: <CAPVz0n2ZeYk8WbWfW7L1kLsQN4e0mdQ7nM4Lozy16z9X8kPCWA@mail.gmail.com>
+Subject: Re: [PATCH v10 4/7] input: keyboard: Add driver for ASUS Transformer
+ dock multimedia keys
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, Lee Jones <lee@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-input@vger.kernel.org, linux-leds@vger.kernel.org, 
+	linux-pm@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Pavel Machek <pavel@kernel.org>, Sebastian Reichel <sre@kernel.org>, Ion Agorria <ion@agorria.com>, 
+	=?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-The Sony IMX681 is the user-facing camera on the Microsoft Surface Pro 11 f=
-or
-Business (Intel Lunar Lake, IPU7), enumerated as ACPI device SONY0681. With=
-out
-a driver the camera does not appear at all - not as a degraded device, not =
-at
-all.
-
-  1/3  dt-bindings: media: Add Sony IMX681            (mine)
-  2/3  media: i2c: Add Sony IMX681 sensor driver      (Andre Gilerson's)
-  3/3  media: ipu-bridge: Add Sony IMX681             (mine)
-
-The driver is Andre's work, reverse-engineered from I2C traces taken under
-Windows. I am carrying the submission, not the code: his Signed-off-by is o=
-n
-2/3 with mine beneath it as the person passing it on.
-
-Changes in v4
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-All three are Krzysztof Kozlowski's, from his review of v3 on 11 September.
-
-  - MAINTAINERS: the T: line is gone. He is right that neither Andre nor I
-    have commit rights to that tree, and the line was ours rather than his =
--
-    the MAINTAINERS hunk went in with v2.
-
-  - dev_err() followed by a return is now dev_err_probe(). He flagged one
-    site, at the CCI init. The same shape was in twelve others on the probe
-    path, so all thirteen are converted rather than only the one he quoted.
-    Seven further sites are left alone, in imx681_start_streaming(),
-    imx681_stop_streaming() and imx681_power_on(): dev_err_probe() is wrong
-    outside probe, and power_on() is reached from runtime-PM resume as well
-    as from probe, so it is not a probe path even though probe calls it.
-
-  - The clock-rate dev_dbg is gone. clk_summary says it.
-
-Nothing else changed. No behaviour changes except that the converted sites
-now return the error through dev_err_probe() instead of beside it.
-
-Trailers, and a correction I owe
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D
-
-Krzysztof's Reviewed-by is on 1/3, and on 1/3 only.
-
-German Pablo Lindo's Tested-by is on 2/3 and never on 1/3, per Krzysztof's
-"Just remember that Tested-by does not apply here".
-
-The correction, in the open because the error was: the v3 cover letter call=
-ed
-the tester by a surname I had taken from his email address rather than from
-him. It was wrong. His name is German Pablo Lindo, and the Tested-by below =
-is
-his own wording.
-
-Andre, and why this goes out before your ack
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-Krzysztof asked that Andre ack the binding, since it names him as maintaine=
-r.
-That is properly his and he is away until 28 September, so this version doe=
-s
-not have it.
-
-It goes now anyway, for a reason that is about the tags rather than about
-impatience: patchwork.linuxtv.org populates its tags field for nobody on th=
-is
-instance - not for our two patches and not for four accepted ones I checked
-against today - so a maintainer applying from patchwork picks up neither
-trailer.
-They exist in the lore archive and in these commit messages, and nowhere el=
-se.
-A v4 is the only thing that carries them.
-
-Andre - the ack is yours whenever you are back, and nothing here needs it i=
-n
-order to be read or reviewed.
-
-Not addressed by this version: nobody has commented on 2/3 or 3/3 yet, and
-the mirroring question raised against v3 is still open with Sakari, Dan and
-Hans. If any of that lands, it lands in v5.
-
-Checked
-=3D=3D=3D=3D=3D=3D=3D
-
-checkpatch --strict, sparse and W=3D1 are all clean on 2/3 and 3/3. 1/3's o=
-nly
-checkpatch warning asks whether MAINTAINERS needs updating, which 2/3 does.
-
-Built and run on the machine rather than only compiled: the driver probes,
-ipu-bridge binds it at 3844x2640 over two lanes at 969.6 MHz per lane, and
-captured frames render as a coherent image rather than as noise.
-
-Limitations
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-  error paths       The regulator get succeeds here because INT3472 hands o=
-ut
-                    dummies for dvdd and dovdd, so the fatal path is reason=
-ed
-                    rather than exercised.
-
-  IVSC              None of the IVSC HIDs is present on this machine, so
-                    sensor->csi_dev is NULL and ipu-bridge never enters tho=
-se
-                    paths.
-
-  one machine       One Surface Pro 11 and one sensor sample. German has th=
+=D0=BD=D0=B4, 6 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 20:22 Svyat=
+oslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> =D1=81=D1=80, 19 =D1=81=D0=B5=D1=80=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 12=
+:20 Svyatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
+> >
+> > =D0=B2=D1=82, 21 =D0=BB=D0=B8=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 12:53 =
+Svyatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
+> > >
+> > > From: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
+> > >
+> > > Add support for multimedia top button row of ASUS Transformer's Mobil=
 e
-                    same HID on another machine but reaches IPU7 through th=
-e
-                    staging driver, which is a second path rather than a
-                    second test of this one.
+> > > Dock keyboard. Driver is made that function keys (F1-F12) are used by
+> > > default which suits average Linux use better and with pressing
+> > > ScreenLock + AltGr function keys layout is switched to multimedia key=
+s.
+> > > Only Dock keyboard input events are tracked for AltGr pressing.
+> > >
+> > > Co-developed-by: Ion Agorria <ion@agorria.com>
+> > > Signed-off-by: Ion Agorria <ion@agorria.com>
+> > > Signed-off-by: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
+> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > ---
+> > >  drivers/input/keyboard/Kconfig                |  10 +
+> > >  drivers/input/keyboard/Makefile               |   1 +
+> > >  .../input/keyboard/asus-transformer-ec-keys.c | 310 ++++++++++++++++=
+++
+> > >  3 files changed, 321 insertions(+)
+> > >  create mode 100644 drivers/input/keyboard/asus-transformer-ec-keys.c
+> > >
+> >
+> > Hello Dmitry!
+> >
+> > May you please take a look? ATM only ACK on input patches left.
+> >
+> > Thank you!
+>
+> Hello Dmitry!
+>
+> May you please take a look? ATM only ACK on input patches left. I
+> would like this patch set to move forward.
+>
+> Thank you!
 
-  one mode          3844x2640 SGRBG10 at 969.6 MHz per lane is the only
-                    configuration the driver has, and the only one measured=
-.
+Hello Dmitry!
 
-  no sanitisers     Not built with KASAN or lockdep. That is a kernel rebui=
-ld
-                    here rather than a problem, so ask if it would help.
-
-Based on media/next at aedd77ea8168 ("media: qcom: camss: use
-fwnode_graph_for_each_endpoint_scoped() to simplify code"). That branch
-rewinds - v3's declared base is no longer in it either - so if this does no=
-t
-apply where you are, say so and I will rebase rather than guess.
-
-German reported this HID as a bug on this list on 3 September and has had n=
-o
-reply since; he is on Cc here.
-
-  https://lore.kernel.org/linux-media/20260903080854.16266-1-germanpapulind=
-ez@gmail.com/
---=20
-2.54.0 (Apple Git-157)
-
-
+May you please take a look? ATM only ACK on input patches left. I
+would like this series to move forward. Thank you!
