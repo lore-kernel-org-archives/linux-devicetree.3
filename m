@@ -1,394 +1,205 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5CB736EA8B;
-	Mon, 21 Sep 2026 10:18:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D0BC3C1D7D
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 10:19:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789985883; cv=none; b=VFyK3CkS3VVrwPxy4LtiL3/viKkjSy28Ng/6stDa0kZ5D8qW9mc495dv+Wc7BxIqB2AIRqSbknhnOOTr0rasLekVm4Dpvc/GEMymxFh0PLH0y/ZHmlYYpaSJiAjGMaYNFIynauqavOpCEpP2HhcFFCB2/TzaJnjLI7Ejfy1Jbzw=
+	t=1789985991; cv=none; b=e3DGL0vWsWJ+87Cyzt0o+1QUuK5Zlm6jRoppJOAc8UIOctUyMtiFGp4kaJztl0ac9IICQm5pj0SJwrYc8YhMerb3Txy19QDGYRhbmX8Teeh9BgCFBK5eyt9TdU5OtaAyCOB5XQB9Uv52qXNGQBHykuPH6TkvC8xS5G0Aw19NbxQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789985883; c=relaxed/simple;
-	bh=fHZY4IStNtbOlkeH/lkkLYxztDxxeJfIuR7oEBMyTlg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FOT3O3QEA1kRD+GsaSD8tMxYuWCpChK384jomVWlamF2XsPG2qNQYLPh27bWtXqdSdrC/PViKZCiZUObNIYLqb4WSspp8b9fN6vUgltHnnX1t1EXLoW0QPxXSs5didup0bKfaAn8/flwCXot47b1wvzUOarDKEoadch3/RY43A0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=itfiH9Lr; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789985991; c=relaxed/simple;
+	bh=ZRMQmmu3dbnP69kvMhZ/exq8zb8RNg1Vbkp2u056pmY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=aheEZDAwcyD9idvq/9HFQe7jmdBmGBefWtEyc7zE7527dwQiqNoY9EngOy/al2nbesSRBsVhF5zc+Hxnza/P+HU6Y4mJrlqJGKYiQAMMKDGOY90oKdqYiAgZzafngS/ZcF6v6VwiXSsCprECU6glLjG0ED03M7lJiBBUOuZ0nFs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ol6qaBFE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="itfiH9Lr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789985881; x=1821521881;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=fHZY4IStNtbOlkeH/lkkLYxztDxxeJfIuR7oEBMyTlg=;
-  b=itfiH9LruxTXwSRa1mIC8BcTF5qnPzKTY/woTM1XD+TftSD6KcvmZnD2
-   trOH0dUcrEraC2hABttddrdol+236TkX6+Um6ufTaMmavy9dTbkkaI73/
-   vadHy3EZKgM50E9bZMN2VHxSGrWAk8RhInjYSrb8IqtGyL9DA5tUizNw1
-   Af839taV6m1QsgA8cXJJ10MJXuDnz4vt9RE1/5VEwzaShhB5infxlvrys
-   lj9lHIm+EK0deimPWS/CGJJIEW1FoE3QJGLSyx0HM6cg1FSjWqyzie1T6
-   NB17ImGxmtu3vrgrJFqc869ysomIw+GBZtyxNTFek7ehKIMEY3JzGkE1e
-   A==;
-X-CSE-ConnectionGUID: IqhpRM3bTka8YD9x7iyr5Q==
-X-CSE-MsgGUID: ctaDzZmHRcSxf/tB1IYivg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11911"; a="101080822"
-X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
-   d="scan'208";a="101080822"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 03:18:00 -0700
-X-CSE-ConnectionGUID: aMPcDpcFSJebozUmrpzOMA==
-X-CSE-MsgGUID: HXBtIuivROOVAS0ZmCsMsA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
-   d="scan'208";a="3627293"
-Received: from amilburn-desk.amilburn-desk (HELO kekkonen.fi.intel.com) ([10.245.244.157])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 03:17:56 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 06E9E120370;
-	Mon, 21 Sep 2026 13:17:55 +0300 (EEST)
-Date: Mon, 21 Sep 2026 13:17:54 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Pengyu Luo <mitltlatltl@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Martin Kepplinger-Novakovic <martink@posteo.de>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org
-Subject: Re: [PATCH v6 2/5] media: hi846: Fix link frequency handling
-Message-ID: <arEEUjn0wiWpJjc4@kekkonen.localdomain>
-References: <20260830160025.211384-1-mitltlatltl@gmail.com>
- <20260830160025.211384-3-mitltlatltl@gmail.com>
- <apfrV9FZ1UN8RW55@kekkonen.localdomain>
- <CAH2e8h6eYmych9ESURozoNmn5Xg9SWcUUCo681NBz0FY9LB92w@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ol6qaBFE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31F0E1F000FF;
+	Mon, 21 Sep 2026 10:19:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789985986;
+	bh=HnjGD2yp7rMy/99PzXKmhb3BN4X0XJf8/kQdleyBc24=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ol6qaBFED00w9BOnRRXvnGiOzQF0OkazeLRYzqNeyvQuv2R2JLl3tRpZRnq4N+Ma6
+	 PRwKYtJxEjYVP+YP2dBQRNphKAYA9pU8DywqLWd+U/yTYi4XYETwpFgThKWCvIa+BE
+	 1fnI4CwZXD3Ib1q5Pv3SQ1z1brzaTQW+nxyW8e5oscKY+TTDLyJkOB++2uzY0Gza5z
+	 5R3eXayXOJd2TKovWS2AHN+mal/8cPAdP5PvnQ0xBkwjylrNKV7v9paNE4OPxUpTji
+	 EUW004jSe9Zlzd4yMHunDC86Ol8i2fO2S2heXnOwqhIfCM96g6FvRVTme6FW/uD5Gd
+	 M4GqSdYsinjOw==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH 4/4] spi: cadence-xspi: add ACMD support for SPI NOR
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Fei Xie" <fei.xie@horizon.auto>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260921093701.1341766-5-fei.xie@horizon.auto>
+References: <20260921093701.1341766-1-fei.xie@horizon.auto>
+ <20260921093701.1341766-5-fei.xie@horizon.auto>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 21 Sep 2026 10:19:45 +0000
+Message-Id: <20260921101946.31F0E1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAH2e8h6eYmych9ESURozoNmn5Xg9SWcUUCo681NBz0FY9LB92w@mail.gmail.com>
 
-Hi Pengyu,
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] spi: cadence-xspi: ACMD timeout is too short for SPI NOR erase ope=
+rations
+- [High] spi: cadence-xspi: Type confusion when casting SPI client's drvdat=
+a to struct spi_nor
+- [High] spi: cadence-xspi: Global state pollution breaks multi-device supp=
+ort
+- [Medium] spi: cadence-xspi: SPI NOR ACMD support is dead code
+- [Medium] spi: cadence-xspi: Data race on acmd_info.initialized causes 0-b=
+yte I/O failures
+--
 
-On Sun, Sep 06, 2026 at 12:56:27PM +0800, Pengyu Luo wrote:
-> On Wed, Sep 2, 2026 at 5:24 PM Sakari Ailus
-> <sakari.ailus@linux.intel.com> wrote:
-> >
-> > Hi Pengyu,
-> >
-> > Thanks for the update.
-> >
-> 
-> I am glad to see your review too!
-> 
-> > On Mon, Aug 31, 2026 at 12:00:22AM +0800, Pengyu Luo wrote:
-> > > Link frequency is tied to PLL configuration, lane count, and external
-> > > and configurable clock, so use runtime here instead of hardcoding for
-> > > specific configuration. To implement this, we do
-> > >
-> > > 1. Drop fixed link freqs, we calculate the driver supported values and
-> > > use v4l2_link_freq_to_bitmap() to get the intersection with the DT
-> > > supported values.
-> > >
-> > > 2. Attach mipi_clk_div_{2,4}lane to current mode, and use the div with
-> > > mclk clock, lane count to calculate link frequency.
-> > >
-> > > 3. Drop mclk clock rate check.
-> > >
-> > > Fixes: e8c0882685f9 ("media: i2c: add driver for the SK Hynix Hi-846 8M pixel camera")
-> > > Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
-> > > ---
-> > > v6:
-> > > - Add link freq ctrl back (Sakari)
-> > > - Use v4l2_link_freq_to_bitmap() to get matched link freqs (Sakari)
-> > > - Move clk_get() before than hi846_parse_dt(), since we use clock in hi846_parse_dt()
-> > > v5:
-> > > - Use separated fields instead of raw register values for PLL cfg (Sakari)
-> > > - Use mul_u64_u32_div() to avoid loss of pricision and u64/u32 issues (Sakari)
-> > > - Drop line break (Sakari)
-> > > ---
-> > >  drivers/media/i2c/hi846.c | 151 ++++++++++++++++++++++++--------------
-> > >  1 file changed, 94 insertions(+), 57 deletions(-)
-> > >
-> > > diff --git a/drivers/media/i2c/hi846.c b/drivers/media/i2c/hi846.c
-> > > index 7f069aca0fce..2f8624f9bdf3 100644
-> > > --- a/drivers/media/i2c/hi846.c
-> > > +++ b/drivers/media/i2c/hi846.c
-> > > @@ -1,7 +1,7 @@
-> > >  // SPDX-License-Identifier: GPL-2.0
-> > >  // Copyright (c) 2021 Purism SPC
-> > >
-> > > -#include <linux/unaligned.h>
-> > > +#include <linux/bitfield.h>
-> > >  #include <linux/clk.h>
-> > >  #include <linux/delay.h>
-> > >  #include <linux/gpio/consumer.h>
-> > > @@ -11,6 +11,7 @@
-> > >  #include <linux/pm.h>
-> > >  #include <linux/property.h>
-> > >  #include <linux/regulator/consumer.h>
-> > > +#include <linux/unaligned.h>
-> > >  #include <media/v4l2-ctrls.h>
-> > >  #include <media/v4l2-device.h>
-> > >  #include <media/v4l2-fwnode.h>
-> > > @@ -219,8 +220,8 @@ struct hi846_mode {
-> > >       /* Horizontal timing size */
-> > >       u32 llp;
-> > >
-> > > -     /* Link frequency needed for this resolution */
-> > > -     u8 link_freq_index;
-> > > +     u8 mipi_clk_div_2lane;
-> > > +     u8 mipi_clk_div_4lane;
-> > >
-> > >       u16 fps;
-> > >
-> > > @@ -1040,13 +1041,6 @@ static const char * const hi846_test_pattern_menu[] = {
-> > >       "Resolution Pattern",
-> > >  };
-> > >
-> > > -#define FREQ_INDEX_640       0
-> > > -#define FREQ_INDEX_1280      1
-> > > -static const s64 hi846_link_freqs[] = {
-> > > -     [FREQ_INDEX_640] = 80000000,
-> > > -     [FREQ_INDEX_1280] = 200000000,
-> > > -};
-> > > -
-> > >  static const struct hi846_reg_list hi846_init_regs_list_2lane = {
-> > >       .num_of_regs = ARRAY_SIZE(hi846_init_2lane),
-> > >       .regs = hi846_init_2lane,
-> > > @@ -1061,7 +1055,13 @@ static const struct hi846_mode supported_modes[] = {
-> > >       {
-> > >               .width = 640,
-> > >               .height = 480,
-> > > -             .link_freq_index = FREQ_INDEX_640,
-> > > +             .mipi_clk_div_2lane = 4,
-> > > +             /*
-> > > +              * Dummy but necessary if we set this mode default, otherwise
-> > > +              * hi846_calc_pixel_rate() will be broken in
-> > > +              * hi846_init_controls()
-> > > +              */
-> > > +             .mipi_clk_div_4lane = 8,
-> >
-> > The divider of the 4-lane case appears to be always two times that of the
-> > 2-lane case. Could you calculate the value instead?
-> >
-> 
-> Ack
-> 
-> > I think it'd be better to keep the link frequencies and modes at separate
-> > indices; this is the way it used to be, too.
-> >
-> 
-> You mean add an array for the divider ratios then use the indices in
-> modes like before?
-> 
-> > >               .fps = 120,
-> > >               .frame_len = 631,
-> > >               .llp = HI846_LINE_LENGTH,
-> > > @@ -1086,7 +1086,8 @@ static const struct hi846_mode supported_modes[] = {
-> > >       {
-> > >               .width = 1280,
-> > >               .height = 720,
-> > > -             .link_freq_index = FREQ_INDEX_1280,
-> > > +             .mipi_clk_div_2lane = 2,
-> > > +             .mipi_clk_div_4lane = 4,
-> > >               .fps = 90,
-> > >               .frame_len = 842,
-> > >               .llp = HI846_LINE_LENGTH,
-> > > @@ -1112,7 +1113,8 @@ static const struct hi846_mode supported_modes[] = {
-> > >       {
-> > >               .width = 1632,
-> > >               .height = 1224,
-> > > -             .link_freq_index = FREQ_INDEX_1280,
-> > > +             .mipi_clk_div_2lane = 2,
-> > > +             .mipi_clk_div_4lane = 4,
-> > >               .fps = 30,
-> > >               .frame_len = 2526,
-> > >               .llp = HI846_LINE_LENGTH,
-> > > @@ -1167,6 +1169,9 @@ struct hi846 {
-> > >       struct v4l2_ctrl *hblank;
-> > >       struct v4l2_ctrl *exposure;
-> > >
-> > > +     s64 link_freqs[ARRAY_SIZE(supported_modes)];
-> > > +     int num_link_freqs;
-> > > +
-> > >       struct mutex mutex; /* protect cur_mode, streaming and chip access */
-> > >       const struct hi846_mode *cur_mode;
-> > >       bool streaming;
-> > > @@ -1192,21 +1197,41 @@ static const struct hi846_datafmt *hi846_find_datafmt(u32 code)
-> > >       return NULL;
-> > >  }
-> > >
-> > > -static inline u8 hi846_get_link_freq_index(struct hi846 *hi846)
-> > > +static u64
-> > > +hi846_get_link_freq(const struct hi846 *hi846, const struct hi846_mode *mode)
-> > >  {
-> > > -     return hi846->cur_mode->link_freq_index;
-> > > +     u64 mclk = clk_get_rate(hi846->clock);
-> > > +     u8 mipi_clk_div;
-> > > +
-> > > +     if (hi846->nr_lanes == 2)
-> > > +             mipi_clk_div = mode->mipi_clk_div_2lane;
-> > > +     else
-> > > +             mipi_clk_div = mode->mipi_clk_div_4lane;
-> > > +
-> > > +     /*
-> > > +      * HI846_REG_PLL_CFG_MIPI1_H = 0x025a, it is fixed in listed modes
-> > > +      * [11:8]: 0x02 => pre_div = 3
-> > > +      * [7:0]: 0x5a => multiplier = 90
-> > > +      */
+commit 9403976e689b7174f09268bad857344a4209db95
+Author: fei.xie <fei.xie@horizon.auto>
 
-It seems it'd be also fairly easy to write a PLL calculator for this. Or
-just use the CCS PLL calculator?
+spi: cadence-xspi: add ACMD support for SPI NOR
 
-> > > +     return mul_u64_u32_div(mclk, 90, 3 * mipi_clk_div);
-> > >  }
-> > >
-> > > -static u64 hi846_get_link_freq(struct hi846 *hi846)
-> > > +static int hi846_get_link_freq_index(const struct hi846 *hi846,
-> > > +                                  const struct hi846_mode *mode)
-> > >  {
-> > > -     u8 index = hi846_get_link_freq_index(hi846);
-> > > +     u64 link_freq = hi846_get_link_freq(hi846, mode);
-> > > +     int i;
-> > > +
-> > > +     for (i = 0; i < hi846->num_link_freqs; i++)
-> > > +             if (hi846->link_freqs[i] == link_freq)
-> > > +                     return i;
-> > >
-> > > -     return hi846_link_freqs[index];
-> > > +     return -EINVAL;
-> > >  }
-> > >
-> > >  static u64 hi846_calc_pixel_rate(struct hi846 *hi846)
-> > >  {
-> > > -     u64 link_freq = hi846_get_link_freq(hi846);
-> > > +     u64 link_freq = hi846_get_link_freq(hi846, hi846->cur_mode);
-> > >       u64 pixel_rate = link_freq * 2 * hi846->nr_lanes;
-> > >
-> > >       do_div(pixel_rate, HI846_RGB_DEPTH);
-> > > @@ -1429,8 +1454,8 @@ static int hi846_init_controls(struct hi846 *hi846)
-> > >       hi846->link_freq =
-> > >               v4l2_ctrl_new_int_menu(ctrl_hdlr, &hi846_ctrl_ops,
-> > >                                      V4L2_CID_LINK_FREQ,
-> > > -                                    ARRAY_SIZE(hi846_link_freqs) - 1,
-> > > -                                    0, hi846_link_freqs);
-> > > +                                    hi846->num_link_freqs - 1,
-> > > +                                    0, hi846->link_freqs);
-> > >       if (hi846->link_freq)
-> > >               hi846->link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-> > >
-> > > @@ -1503,10 +1528,9 @@ static int hi846_set_video_mode(struct hi846 *hi846, int fps)
-> > >       u64 frame_length;
-> > >       int ret = 0;
-> > >       int dummy_lines;
-> > > -     u64 link_freq = hi846_get_link_freq(hi846);
-> > > +     u64 link_freq = hi846_get_link_freq(hi846, hi846->cur_mode);
-> > >
-> > > -     dev_dbg(&client->dev, "%s: link freq: %llu\n", __func__,
-> > > -             hi846_get_link_freq(hi846));
-> > > +     dev_dbg(&client->dev, "%s: link freq: %llu\n", __func__, link_freq);
-> > >
-> > >       do_div(link_freq, fps);
-> > >       frame_length = link_freq;
-> > > @@ -1699,6 +1723,7 @@ static int hi846_set_format(struct v4l2_subdev *sd,
-> > >       const struct hi846_datafmt *fmt = hi846_find_datafmt(mf->code);
-> > >       u32 tgt_fps;
-> > >       s32 vblank_def, h_blank;
-> > > +     int idx;
-> > >
-> > >       if (!fmt) {
-> > >               mf->code = hi846_colour_fmts[0].code;
-> > > @@ -1749,7 +1774,14 @@ static int hi846_set_format(struct v4l2_subdev *sd,
-> > >       mf->code = HI846_MEDIA_BUS_FORMAT;
-> > >       mf->field = V4L2_FIELD_NONE;
-> > >
-> > > -     __v4l2_ctrl_s_ctrl(hi846->link_freq, hi846_get_link_freq_index(hi846));
-> > > +     idx = hi846_get_link_freq_index(hi846, hi846->cur_mode);
-> > > +     if (idx < 0) {
-> > > +             dev_err(&client->dev,
-> > > +                     "failed to get link freq index: %d\n", idx);
-> > > +             return -EINVAL;
-> > > +     }
-> > > +
-> > > +     __v4l2_ctrl_s_ctrl(hi846->link_freq, idx);
-> > >       __v4l2_ctrl_s_ctrl_int64(hi846->pixel_rate,
-> > >                                hi846_calc_pixel_rate(hi846));
-> > >
-> > > @@ -1947,20 +1979,33 @@ static int hi846_identify_module(struct hi846 *hi846)
-> > >       return 0;
-> > >  }
-> > >
-> > > -static s64 hi846_check_link_freqs(struct hi846 *hi846,
-> > > -                               struct v4l2_fwnode_endpoint *ep)
-> > > +static int hi846_add_link_freqs(struct hi846 *hi846, struct device *dev,
-> > > +                             struct v4l2_fwnode_endpoint *ep)
-> > >  {
-> > > -     const s64 *freqs = hi846_link_freqs;
-> > > -     int freqs_count = ARRAY_SIZE(hi846_link_freqs);
-> > > -     int i, j;
-> > > -
-> > > -     for (i = 0; i < freqs_count; i++) {
-> > > -             for (j = 0; j < ep->nr_of_link_frequencies; j++)
-> > > -                     if (freqs[i] == ep->link_frequencies[j])
-> > > -                             break;
-> > > -             if (j == ep->nr_of_link_frequencies)
-> > > -                     return freqs[i];
-> > > -     }
-> > > +     s64 hi846_link_freqs[ARRAY_SIZE(supported_modes)];
-> > > +     unsigned long freq_bitmap;
-> > > +     int ret, i;
-> > > +
-> > > +     /*
-> > > +      * Since the MCLK freq varies between platforms, calculating driver
-> > > +      * supported link freqs here.
-> > > +      */
-> > > +     for (i = 0; i < ARRAY_SIZE(supported_modes); i++)
-> > > +             hi846_link_freqs[i] = hi846_get_link_freq(hi846, &supported_modes[i]);
-> > > +
-> > > +     ret = v4l2_link_freq_to_bitmap(dev, ep->link_frequencies,
-> > > +                                    ep->nr_of_link_frequencies,
-> > > +                                    hi846_link_freqs,
-> > > +                                    ARRAY_SIZE(hi846_link_freqs),
-> > > +                                    &freq_bitmap);
-> > > +     if (ret || !freq_bitmap)
-> > > +             return ret;
-> > > +
-> > > +     for (i = 0; i < ARRAY_SIZE(hi846_link_freqs); i++)
-> >
-> > Could you use the hi846_link_freqs array as-is for the control?
-> >
-> 
-> Could you please tell me if an array with repeat numbers is acceptable
-> for v4l2_ctrl_new_int_menu(), if so, keep it as-is is more convenient
-> later.
+Program the automatic command sequences from the SPI NOR operation
+templates. Uses the PIO command path with MDMA data transfers for reads,
+page programs and erases. Unsupported command layouts continue to use STIG
+mode.
 
-No, the link frequency determines the rest rather than the other way
-around. So the values need to be unique.
+> diff --git a/drivers/spi/spi-cadence-xspi.c b/drivers/spi/spi-cadence-xsp=
+i.c
+> --- a/drivers/spi/spi-cadence-xspi.c
+> +++ b/drivers/spi/spi-cadence-xspi.c
+[ ... ]
+> +static int cdns_xspi_nor_init(struct cdns_xspi_dev *cdns_xspi,
+> +			      struct spi_nor *nor)
+> +{
+[ ... ]
+> +	if (!spi_nor_protocol_is_dtr(nor->reg_proto) &&
+> +	    !cdns_xspi->acmd_info.nor_status_initialized) {
+> +		ret =3D cdns_xspi_nor_status_seq_init(cdns_xspi, &status_op);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	cdns_xspi->acmd_info.initialized =3D true;
+> +
+> +	return 0;
+> +}
 
-> 
-> > The selectable modes are expected to depend on the chose link frequency,
-> > which is not affected by setting the format, for instance. I wonder if it'd
-> > be useful to squash the next patch into this one.
-> >
-> 
-> Yes, it seems so, we need to get the index of link freq to set
-> control, so we can filter the mode by the index, and this lets us drop
-> previous checks.
+[Severity: High]
+If multiple SPI NOR flashes are connected on different chip selects,
+will subsequent devices skip initialization and incorrectly reuse the
+first flash's hardware parameters?
 
-Sounds good to me.
+[ ... ]
+> +static int cdns_xspi_send_nor_pio_command(struct cdns_xspi_dev *cdns_xsp=
+i,
+> +					  struct spi_mem *mem,
+> +					  const struct spi_mem_op *op)
+> +{
+> +	struct spi_nor *nor =3D spi_mem_get_drvdata(mem);
+> +	u8 opcode =3D cdns_xspi_get_opcode(op);
+> +	int ret;
+> +
+> +	if (!nor)
+> +		goto use_stig;
+[ ... ]
+> +	if (!nor->mtd.size || !nor->mtd.writebufsize)
+> +		goto use_stig;
 
--- 
-Kind regards,
+[Severity: High]
+If a device other than a SPI NOR flash (like spidev or at25) is bound to
+the controller, could this cast cause an out-of-bounds memory access or
+read garbage data when dereferencing nor->mtd.size?
 
-Sakari Ailus
+[ ... ]
+> +	if (opcode =3D=3D nor->erase_opcode && op->data.dir =3D=3D SPI_MEM_NO_D=
+ATA) {
+> +		if (nor->mtd.numeraseregions ||
+> +		    !cdns_xspi_nor_helper_sequences_ready(cdns_xspi, nor))
+> +			goto use_stig;
+> +
+> +		ret =3D cdns_xspi_nor_erase_seq_init(cdns_xspi, nor, op);
+> +		if (ret =3D=3D -EOPNOTSUPP)
+> +			goto use_stig;
+> +		if (ret)
+> +			return ret;
+> +
+> +		return cdns_xspi_pio_erase(cdns_xspi, op->addr.val);
+
+[Severity: High]
+Does this sector erase operation trigger the hardcoded
+CDNS_XSPI_ACMD_TIMEOUT_MS limit?
+
+Since CDNS_XSPI_ACMD_TIMEOUT_MS is 1000 (1 second), and standard
+block/sector erases commonly take 2-3 seconds, will this cause the
+operation to fail with -ETIMEDOUT and potentially wedge the controller?
+
+> +	}
+> +
+> +use_stig:
+> +	return cdns_xspi_send_stig_command(cdns_xspi, op,
+> +					   op->data.dir !=3D SPI_MEM_NO_DATA);
+> +}
+> +
+> +static int cdns_xspi_send_pio_command(struct cdns_xspi_dev *cdns_xspi,
+> +				      struct spi_mem *mem,
+> +				      const struct spi_mem_op *op)
+> +{
+> +	switch (cdns_xspi->flash_type) {
+> +	case CDNS_XSPI_FLASH_TYPE_NAND:
+> +		return cdns_xspi_send_nand_pio_command(cdns_xspi, mem, op);
+> +
+> +	case CDNS_XSPI_FLASH_TYPE_NOR:
+> +		return cdns_xspi_send_nor_pio_command(cdns_xspi, mem, op);
+
+[Severity: Medium]
+Is this NOR ACMD path actually reachable during normal operation?
+
+Looking at cdns_driver_data, the use_acmd flag defaults to false for
+NOR. This causes cdns_xspi_probe() to fall back to CDNS_XSPI_WORK_MODE_STIG
+mode, completely bypassing the ACMD logic introduced by this patch.
+
+> +
+> +	default:
+> +		return -EOPNOTSUPP;
+> +	}
+> +}
+[ ... ]
+> @@ -1484,8 +1900,18 @@ static int cdns_xspi_adjust_mem_op_size(struct spi=
+_mem *mem, struct spi_mem_op *
+>  {
+>  	struct cdns_xspi_dev *cdns_xspi =3D
+>  		spi_controller_get_devdata(mem->spi->controller);
+> +	size_t max_len =3D cdns_xspi->sdmasize;
+> +
+> +	if (cdns_xspi->work_mode =3D=3D CDNS_XSPI_WORK_MODE_ACMD) {
+> +		if (cdns_xspi->acmd_info.initialized)
+> +			max_len =3D min_t(size_t, max_len,
+> +					cdns_xspi->dma_buf_len);
+
+[Severity: Medium]
+Could this locklessly read initialized =3D=3D true while observing a
+stale dma_buf_len =3D=3D 0 due to a lack of memory barriers?
+
+If Thread A writes initialized =3D true in cdns_xspi_nor_init() after
+configuring dma_buf_len, and Thread B concurrently evaluates this check for
+a different device outside the controller lock, the operation size could
+be incorrectly clamped to 0 bytes.
+
+> +		else if (cdns_xspi->flash_type =3D=3D CDNS_XSPI_FLASH_TYPE_NOR)
+> +			max_len =3D min_t(size_t, max_len,
+> +					CDNS_XSPI_NOR_DMA_BUF_SIZE);
+> +	}
+> =20
+> -	op->data.nbytes =3D clamp_val(op->data.nbytes, 0, cdns_xspi->sdmasize);
+> +	op->data.nbytes =3D min_t(size_t, op->data.nbytes, max_len);
+> =20
+>  	return 0;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921093701.1341=
+766-1-fei.xie@horizon.auto?part=3D4
