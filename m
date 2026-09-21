@@ -1,75 +1,119 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from mail.fris.de (mail.fris.de [116.203.77.234])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D6DD367288;
-	Mon, 21 Sep 2026 10:16:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 138F23C5DC5;
+	Mon, 21 Sep 2026 10:17:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.203.77.234
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789985807; cv=none; b=HRwMICKN2MzIOKrhA8pijW7h+S2KVlrw+kAIEsgH+q/ythFWEL92fxtac8A2SSm556E24u1/nK/GvO2hVtQU+PWtjGp6gh84cFUe4O/wcilbf9qo41fk7twPL4GC0DMjoqxnhYaOZwLd2ReXWp+sT6ZsldEFM+bSHFoC/yE3lR4=
+	t=1789985847; cv=none; b=uuaTACkOdBCM6F0zUSTkmSkszZbp6tLcpSqry3Qq6qGhBpoUsS0pCIhIt1PMx6ffA31F/6rF1Z8/AKw0ZGeDyQYDUxAbZ1r+vkZ+trpu64C1XBFsgb3gPgDxjDpbyGKovDX/ynM/CMj0JXd3RWLMMyNLkPT1P1M3stT5VkAeNmI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789985807; c=relaxed/simple;
-	bh=DVHjoDLlRZ8xarvRTXy+GeqFMaFzqMyhGQvV2Jvh3ms=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RvtIYwapkc09RlftwQbhpxAC7PI/XVVuzCVFUs/Dzo5fm6PbHkaK0css0Sxwod4fQF767RWye3Qt8Slr74fXcljghyHxjiunLDQSLd3SdDRWoSUWBifrnqP5FegZyKdQbYU/Gm3+fHVGG/gPVv26y3jb0ZiQUUbKSf/Sgnmfc7A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=fGkWIRlU; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1789985847; c=relaxed/simple;
+	bh=GacY+jMoFT8nvHAYb3gWh4H6aKjjn0Uux/cosswgUt0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=fb73kJVgGIm+9GDk5jLuFRAwotS7pnFdAfy39h8uaGxqPonygFjAzPd9jzZlIB6zMHuEX/fHltaJrDRwZ+BHgVfZj9hIu5uZKvB18fyq4AihNRgOJ2WIRtcwY7crFuN4DZ01lv+icdpKpfxQXW+gQyzRbciPOXx6BpThXXqE/bE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=Dn2Ai9na; arc=none smtp.client-ip=116.203.77.234
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fris.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="fGkWIRlU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789985804;
-	bh=DVHjoDLlRZ8xarvRTXy+GeqFMaFzqMyhGQvV2Jvh3ms=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=fGkWIRlUpT3FUMIocCMnGjrfqk3tG23xRw/lOgpYwLSIUor1o7zDXMvYSjiBQHNje
-	 82q2pjNI7OynoPk06TSzBBrp2dFXlzZJ4U6C3AGpPNpR9ZYLcK4qwKlTVHi75zdaaF
-	 yxAyEzpnnqnNLNy/9LyacTq82h6slOISlpYVfTRz7ZXjsNUqhN3xVCQRpVTpfKWuI/
-	 Xi8rM57Wyh23iVTXAgSB6eWB3V+uQCykH1qiO5scVgRlgHLYTwOmUD9fLvHVmfNuY1
-	 oHZ5XJ4uUW9kAf4GNCjQmGig2kFW/MHcvJRcFpZt+8W2JV61c/CvnGuPm+I8wCElPG
-	 yzCW6NZE2gZtg==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 070DF17E047B;
-	Mon, 21 Sep 2026 12:16:43 +0200 (CEST)
-Message-ID: <fc0fcb6d-a935-4795-91fb-f3ee17ced650@collabora.com>
-Date: Mon, 21 Sep 2026 12:16:43 +0200
+	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="Dn2Ai9na"
+From: Frieder Schrempf <frieder@fris.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fris.de; s=mail;
+	t=1789985835;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=t+5kItn/dLA8g58laqBchtZJn0cTJ6aBuyxpWo3F+/g=;
+	b=Dn2Ai9na/RuSGFC9OQUKmgxtv3Q7A38cSnV7c0hw/sP0PkYKDkks1x8uqZJ7l6jChn72QI
+	e016oafrslm3pi1fI0tqG0aNwfNLz9E4kJ67fwdZ+nDGKU5a7rtnduq84yA6A0xR0WA1gs
+	CovVSPvR17hS1TDc65XG59m2/PITGUp2VHOQCA0yCTCmnlvPw/y5IZeHomy3lTlonT9Klw
+	2jPn9aJgxCQZoG83kofPlBGrwxJqUzd0PasjA5EcJRrPa40XGdygh4GjlwyPuvAbNi7hBP
+	lnaHBmALz0dXyk/8WsnY5CdKIKTn8WP91nw01/2FJSGr+5F/E0E1a5WC/poCiQ==
+Date: Mon, 21 Sep 2026 12:16:44 +0200
+Subject: [PATCH v2 1/3] spi: dt-bindings: Clarify what rx-sample-delay-ns
+ describes
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/3] mfd: mt6397-core: Add mt6397 AUXADC support
-To: Ryan Brue <ryanbrue.dev@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
- David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>, Lee Jones <lee@kernel.org>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, mfd@lists.linux.dev,
- Roman Vivchar <rva333@protonmail.com>,
- Luca Leonardo Scorcia <l.scorcia@gmail.com>,
- Andy Shevchenko <andriy.shevchenko@intel.com>
-References: <20260920-rbrue-suez-upstreaming-mt6397-auxadc-v3-0-c00edacbee64@gmail.com>
- <20260920-rbrue-suez-upstreaming-mt6397-auxadc-v3-3-c00edacbee64@gmail.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20260920-rbrue-suez-upstreaming-mt6397-auxadc-v3-3-c00edacbee64@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260921-spi-sample-delay-cleanup-v2-1-b460d572fd32@kontron.de>
+References: <20260921-spi-sample-delay-cleanup-v2-0-b460d572fd32@kontron.de>
+In-Reply-To: <20260921-spi-sample-delay-cleanup-v2-0-b460d572fd32@kontron.de>
+To: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, 
+ Frieder Schrempf <frieder.schrempf@kontron.de>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2775;
+ i=frieder.schrempf@kontron.de; h=from:subject:message-id;
+ bh=TlRhZ1qfD0/hQwYMH3NUSnheV4zFAnhEGcsyBBxk8ps=;
+ b=owGbwMvMwCWWWSatKlDTJMZ4Wi2JIWsji9b0f2zdv3o0Ni6tc97psa3G+97TxNBDK1ofL1u9u
+ 2LVwnlqHaUsDGJcDLJiiixS/Bavbc1ifeSPVUfBzGFlAhnCwMUpABM5nsrwP3q7m3Bn4WqrZpHZ
+ XGLeBb5TKrIVp+677OTYoBxQlLwplOGv+IaqTLFZnCWrdPrP9R9UPc/80W1h5K3F/1wVXigcOWr
+ HAwA=
+X-Developer-Key: i=frieder.schrempf@kontron.de; a=openpgp;
+ fpr=1A0F38EB3D365D4C1FC67B5A69761B25107C8216
 
-On 9/20/26 07:31, Ryan Brue wrote:
-> The mt6397 PMIC includes an AUXADC. Register the AUXADC in the mt6397
-> devices array to allow the corresponding driver to probe using compatible
-> string.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+From: Frieder Schrempf <frieder.schrempf@kontron.de>
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+The property is documented as an offset from the controller's default
+sampling time. That says what the value does, but not what it is meant to
+describe, and it leaves room for two readings: a delay that belongs to
+the board, or a stand-in for the peripheral's own clock-to-output-valid
+time, which has no other expression in a device tree today.
+
+The first reading is the original one. The property was introduced for
+Rockchip in commit 76b17e6e4923 ("spi/rockchip: Add device tree property
+to configure Rx Sample Delay") to deal with "boards with high-capacitance
+SPI lines", where "the controller samples the Rx data line too early".
+The current wording arrived later, in commit 5ce78f4456a9 ("dt-bindings:
+snps, dw-apb-ssi: Add sparx5 support, plus rx-sample-delay-ns property"),
+where it described a DesignWare register and was qualified as such. That
+qualification was dropped when the property was moved to the generic
+schema in commit b658be56e867 ("spi: dt-bindings: Move
+'rx-sample-delay-ns' to spi-peripheral-props.yaml"), leaving a register
+description standing in for a definition.
+
+The distinction matters because the two compose. A board delay is
+specific to one design, while a datasheet timing parameter is the same
+wherever the chip is soldered, so a mechanism that derives the chip side
+from the chip would add to a value that already accounts for it.
+
+Spell out that the property describes the board. Nothing changes in what
+the value means or in how existing device trees are interpreted.
+
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
+---
+ Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml b/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
+index 880a9f624566..afcf9c41c058 100644
+--- a/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
++++ b/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
+@@ -91,6 +91,14 @@ properties:
+       The delay from the default sample time before the actual
+       sample of the rxd input signal occurs.
+ 
++      This describes the board rather than the peripheral, namely the extra
++      delay this particular design needs, for example because of the flight time
++      of the clock and data signals between controller and peripheral.
++
++      Timing parameters of the peripheral itself, such as its
++      clock-to-output-valid time, are the same on every board using that chip
++      and should be described with the chip.
++
+   spi-tx-bus-width:
+     description:
+       Bus width to the SPI bus used for write transfers.
+
+-- 
+2.55.0
 
