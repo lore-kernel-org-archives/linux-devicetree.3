@@ -1,113 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC113495500;
-	Mon, 21 Sep 2026 15:14:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38BFE4BD348
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 15:15:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790003655; cv=none; b=Ph5khz/QwEAYUgvijalB7iXfupMRQsZxsrr1hWM4uvaXssn2TvvKG6YrAasxi5LFLK53XCtLXKWaPcRPaSc1NmqftOzuZsFQUqpElVaCFgGvc7ZzTiQJX2kIX+xmBMFcPMSnGNIMcIHWEeMRlm7sdBCroQylTWIVliu40yEpe5E=
+	t=1790003760; cv=none; b=GQS3YZmZpEh/OYfoyRdOC+vI282I/hc+UvSqOsC55fOQQlj/UOPDzdgM4WfZJ3NOUysxDn9WVZcby5ZbT2Dq0b4T+oe77z0OqTQApwsnFKLPI4hp/qwuJDoctsDrUz9mu2r7poE8ScLb6B6mnNhOHvgdoovM+eU77G76zL4R/H0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790003655; c=relaxed/simple;
-	bh=bR6K029sGNSyhgaZTWyi7W10rvwXcbXNTGYn/TM7BYg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cqSq2N84ipe0tdaq1WHmJefmd5ypZiD3mPcUoT80rtrdF4TjdWLubWFrhu+FRUP8N3VVdX10K7ZbGhYlksC7pcJDpzRVWH7/u5JVu0szvqqCK3M7Gw38FOzzu+gay39l5RmsXiVTj+ZfJj31NlwWF4tnw4beZL5HrxgpK4SQMr0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RCxq22/+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790003760; c=relaxed/simple;
+	bh=bfzOEXaWcl7aJ/gD7I3edOuSSJvgDZHj2ulBtif/AMk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=CHT6S8XUEldM/bTS5Lgq7LiaPLLb8w4uhUh+YKjTzqZGtuyW3k48G2yBpqMLWjH0qH4KZd2l90J31P7LAj9gC0xfCxs5+LIlEbFTk+OXmO8oQHso7Uy+esh6/65a/d88hLmrnfMNIeyKJEXBAmbvQbuLzIIrwWX7pY3EqfT4sWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RLqbepcX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RCxq22/+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B9121F000FF;
-	Mon, 21 Sep 2026 15:14:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RLqbepcX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9B351F00893;
+	Mon, 21 Sep 2026 15:15:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790003653;
-	bh=A1vpA9Vu/anVUkgqQq6JZrIZF54n9p7jw4+5ezh/lQY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RCxq22/+ukarhuU4fLef1DBuO4WHwye2i/enhDbY/fN5vk+yc2q8glQdtTR4ar+R4
-	 kpaMNBUNGuZ2D9F7anJo8Tc7jUFessC92tZxVWklyiekG+W3GLDrLW80AZc4gMsvO8
-	 F1m0hqtosUiriuVusd21Dt9o31B5JZSVyrosgeImxruP1y7EXTOX3z3gam7EzpER3H
-	 z0Wcet/tUJg/ft7kI5gfVs//vOKXF69BeEsw6tJu8u7I5VNU37z9OJeWUJlLvNafDM
-	 ot7CzGLz37k3RgxiKDycEa/R/E80OkP5L0jlyZpjZRxgTAKetXHsS+LVitSS+VLOrv
-	 G3p3Ha4HzcvCQ==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 010351AC56A7; Mon, 21 Sep 2026 16:14:09 +0100 (BST)
-Date: Mon, 21 Sep 2026 17:14:09 +0200
-From: Mark Brown <broonie@kernel.org>
-To: James Calligeros <jcalligeros99@gmail.com>
-Cc: Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>,
-	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Sven Peter <sven@kernel.org>,
-	Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>,
-	David Rhodes <david.rhodes@cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Amit Kucheria <amit.kucheria@linaro.org>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Lars-Peter Clausen <lars@metafoo.de>, Vinod Koul <vkoul@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
-	Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
-	James Schulman <james.schulman@cirrus.com>, asahi@lists.linux.dev,
-	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.de>,
-	linux-mediatek@lists.infradead.org,
-	Martin =?utf-8?Q?Povi=C5=A1er?= <povik@protonmail.com>,
-	Hector Martin <marcan@marcan.st>,
-	Sasha Finkelstein <k@chaosmail.tech>
-Subject: Re: [PATCH 00/28] Add speaker and headset jack support for Apple
- Silicon Macs
-Message-ID: <arFJwcfSWqyawDYp@sirena.co.uk>
-References: <20260920-macaudio-v1-0-741cc20a74e5@gmail.com>
+	s=k20260515; t=1790003759;
+	bh=IvVrKT/XddcK5v/YkbCBcrKrESVpUuEUPJugrQvk/QI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=RLqbepcXOALiZ3qHT9V65eGXb8hcCoVbdB0iRgACJDfwPNSNf1kfTjtn95T1SK0VB
+	 A4lvgp7DCgMTshdaxqpMdp5lgBqbADPP+jFqX9+WHuUOKY5pJyytXTJRXw7W8ekYl8
+	 6gV6qgG7KP4aAfxrki3CPhRyaLm+Fml3hYmuUaIo5uEgJPB1GywJ9MEPzmoDhuFGKr
+	 9Yk67Nl9N3+3MJZ2PnRc7JTgcu/sFNTHv9hFOJ93agXkIyxCFmd1vT9nNxJnQ8t/3P
+	 F07Ug6h9PQBUSCQco3n0RBeSG6R3+aeT+rHpUHgw6fv49PVFH0vPFOPN5NQAMGI15b
+	 brVTPvY5sve4A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] riscv: dts: sophgo: sg2002-milkv-duo256m: drop
+ reserved memory node
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Andrei Lalaev" <andrey.lalaev@gmail.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260921-sophgo-remove-coprocessor-node-v1-2-ace29446b327@gmail.com>
+References: <20260921-sophgo-remove-coprocessor-node-v1-0-ace29446b327@gmail.com>
+ <20260921-sophgo-remove-coprocessor-node-v1-2-ace29446b327@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 21 Sep 2026 15:15:58 +0000
+Message-Id: <20260921151558.D9B351F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="jhwW/VhgT1w2TOjQ"
-Content-Disposition: inline
-In-Reply-To: <20260920-macaudio-v1-0-741cc20a74e5@gmail.com>
-X-Cookie: Too clever is dumb.
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Critical] dts: ABI breakage by dropping coprocessor reserved-memory node
+--
 
---jhwW/VhgT1w2TOjQ
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+commit fa1a6e529f0f63c13f25ecb8772efefbd481942e
+Author: Andrei Lalaev <andrey.lalaev@gmail.com>
 
-On Sun, Sep 20, 2026 at 02:53:39PM +1000, James Calligeros wrote:
-> Hi folks,
->=20
-> This series finalises support for the main
-> audio subsystem on Apple Silicon Macs. It adds a machine driver
-> called macaudio, which is based on an RFC sent many years ago
-> by Martin Povi=C5=A1er[1]. The driver uses the DPCM model to dynamically
-> glue a backend DAI (combination of MCA ports and codecs) to a
-> frontend PCM. While this theoretically allows us to route any
-> backend to any frontend, this is not used in practice; the "Primary"
-> frontend is always used for the headset codec and the "Secondary"
-> is always used for the speakers.
+riscv: dts: sophgo: sg2002-milkv-duo256m: drop reserved memory node
 
-This has got a lot of different stuff in it, there's several different
-sets of fixes, a number of framework features, as well as the new driver
-and a huge pile of DT updates.  It would be a lot more digestable were
-these things to be split out, especially the fixes.
+This commit drops the reserved-memory node for the coprocessor from the
+sg2002-milkv-duo256m device tree. The change is based on the premise that
+the current FSBL handles this dynamically at runtime.
 
---jhwW/VhgT1w2TOjQ
-Content-Type: application/pgp-signature; name="signature.asc"
+> diff --git a/arch/riscv/boot/dts/sophgo/sg2002-milkv-duo256m.dts b/arch/r=
+iscv/boot/dts/sophgo/sg2002-milkv-duo256m.dts
+> index a2797c0bd7671..d4e86c15664e6 100644
+> --- a/arch/riscv/boot/dts/sophgo/sg2002-milkv-duo256m.dts
+> +++ b/arch/riscv/boot/dts/sophgo/sg2002-milkv-duo256m.dts
+> @@ -36,17 +36,6 @@ led-0 {
+>  			linux,default-trigger =3D "heartbeat";
+>  		};
+>  	};
+> -
+> -	reserved-memory {
+> -		#address-cells =3D <1>;
+> -		#size-cells =3D <1>;
+> -		ranges;
+> -
+> -		coprocessor_rtos: region@8fe00000 {
+> -			reg =3D <0x8fe00000 0x200000>;
+> -			no-map;
+> -		};
+> -	};
 
------BEGIN PGP SIGNATURE-----
+[Severity: Critical]
+Does removing this static fallback node introduce a regression for systems
+using an older bootloader?
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqxSb4ACgkQJNaLcl1U
-h9ApuAf/ZwCUmddLEXrzSNnteIkRCaFhvQG/Ig3/Uo79xixZgarNV9EQrRh0cr/+
-wF4WqgVixB1t/yQr/ZvXeb2E1cuVxIY5MnqrXVqnFDxy0gZmr3kd1mKGvub6VstW
-E1auraBBQFDoz4/mBlBstM8YiWqmdgerxvqEGsHkjWMagDD/d8YG618XoY668mGW
-jn/w9JtTv9eyrrO3SX4N+MlVvLii06XTCi9Oegvjdo/uvF5tcICk9fZRY7bqXLGF
-KE1vXeSEdwr2ivDAjwMvYd1fjdBx1Ew+UL2mvTO3F1lAeA7o3zVieczdoP97C98C
-XEk5G4Q7u56Q1J2d8Vo0C0yXTyTVCg==
-=6yVp
------END PGP SIGNATURE-----
+While newer FSBLs might dynamically inject or update the reserved-memory
+node, older FSBLs rely on this static reservation in the device tree. Witho=
+ut
+the no-map property for 0x8fe00000, will the kernel treat the 2MB coprocess=
+or
+region as general-purpose RAM, since it falls within the standard memory
+space?
 
---jhwW/VhgT1w2TOjQ--
+This could lead to memory corruption if Linux and the active coprocessor
+overwrite each other's memory when users upgrade their kernel and device
+tree without also upgrading their bootloader, breaking the standard backward
+compatibility contract.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921-sophgo-rem=
+ove-coprocessor-node-v1-0-ace29446b327@gmail.com?part=3D2
