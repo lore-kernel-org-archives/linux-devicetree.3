@@ -1,126 +1,145 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 040974DD3C0
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 18:32:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.204
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790015551; cv=pass; b=GNHTXJ/Pa7pQmz+0DhOMp2MQ4/TeHcN0t4SUxX0FoHygIxF+Sr32Pq7qHBRrnS0MC22eUJCZFLMDHWXBTaedEO9tGYSdloLvlhLJ/3FEPsp/DM7RBQODQDkNGGabMmxXGu6wysnrTrzSaDoJ2kAFSxDvhLsUpf3mpW1Hq6mKA9g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790015551; c=relaxed/simple;
-	bh=qIwSMIYKqd/HyMR94ewi8crt6BwQsBujCc6Lw+X9iRE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NNPXebIsdqeoZD6+uZp8HhGL//KDFjcsxGhBFceJOrjt4T/7iWn5sSduM7oOG3wu9ZUGy9xsrxP2egSMwx+y3MtiR2a/1ECyJLtgisx76JExNDHRgEQ7JMiVFCruyjElnuiftBNRiLCGTnN9EoJHA/tqHUf+p6bk2Xwz8oNZqc8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pe7IN9f/; arc=pass smtp.client-ip=74.125.229.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8C68363097;
+	Mon, 21 Sep 2026 18:34:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790015672; cv=none; b=QPKpwiomW/kXO+mY6TNH6BP2g816sKxZ7D8k8QjRlIboEb6h3x2zf4fS0ik7CZ9vDVFkUmD7XMcHvRonRHuy9zdUlJhHcZf46kSPLyjIim0zuTrge5hLxjyjENEWVoZjHefh3oTHVXn7RwQfFxnRZBpwosrVqqyMrnCuN3A9O4k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790015672; c=relaxed/simple;
+	bh=dk3Fs0cpA0zMtsYsqShFh3dMrxoKlR07YnjThecHsb8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=b4wto8oTLhS/3s7sn1hVOh7MoPeKhZlurJYSUZv7tQJpyx7lqnjqycob61YCMGpgkuFYYOh2jRq1t7YVFUe4iUml9h+y8LfF7l5I+AHTeToLb77PhRHTR3auWY3oNkQQRv+bQfYop7FF09Ho8qLMyKwavxVRX1bYfflPAdexNXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LTOq6PM4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pe7IN9f/"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b899413537so5073089e87.1
-        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 11:32:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790015547; cv=none;
-        d=google.com; s=arc-20260327;
-        b=fNfB4VEdtf6F4B9Lx97pXHKxysZxHodQ8bTK8hhLOSTp4r3/Gm/HlQ/Ab8IA+ELKwX
-         u0zx9xCz5h6XNFlIz9GVHOBNehwzQHqaFQ35Qmgd+6ve51k6hicXErjKVM1+WgSALtJ6
-         U4Tf/bwxxpNRAg7zO3NP1BtbmryQubCO2FuZulhjFUTWUE5xFxic91GQp+t1sVa4Wfhq
-         hmYpaREyeptzFMD89iRiuLXh/ARib1teXTiO/2e6/ccVbYY0SNTyaHoNpPGOkwJtmMMq
-         PsER+2vD/DNYbw+qc/dSmDG6Cnrd7yQs9FfdyWaUFRBKjsKE4N0Lt+m6DfpyFwAqfUSh
-         +saQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=qIwSMIYKqd/HyMR94ewi8crt6BwQsBujCc6Lw+X9iRE=;
-        fh=1fQTDIJ4fljo6BzEqQzhwsTjBzswsxyQJGyK+sncz4I=;
-        b=fctZXBBBDFC38lZ/tF0aLO1mfYUsIOtX7CcuU6X0Ui37EqaHwGpeVVCJV07vS9ztB1
-         +lmjwS/QmL32Lm7iH4Y14/E4NA9pYWGbv7kyrbDxtMuduy5PYvEYKgBvgmYEaM+7yWhN
-         vpjdQhKRhFvDbEISeni6dbmbgdfUgyj2WenhkM7l8zJKaRU4LUnPw2tDoFC52WthSrle
-         S9prdGf3M3pZxnRJrSzxNz4O8nm5Yug64x+D8O++KNJkjTufqikIMZb+WonU0+VW5OYP
-         YyZHxVxRlQR6VGa2Sm3HqvU6Ok0n8MPYYGM2a8POkAB+bAKWHzRKVwThYV+oWDqalKr0
-         xHUQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790015547; x=1790620347; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qIwSMIYKqd/HyMR94ewi8crt6BwQsBujCc6Lw+X9iRE=;
-        b=pe7IN9f/CQzF4VA0m1JpLqlJX4z/u1P4pQQOICgdkgWZCZtv1rB4SroMZ4XoMHwypn
-         F98ue8R4Cr+gy8ZiPDUM9I1ZF8y3cHKp47rDKD6NSQb/ino+xYLNJPvF/fWgsGn+Hjmj
-         v42iv54wgUAoSTG+YbvHj/AO0Fi7QrMa6A7V9Djv5ucvEfc93KSCxkx5dj50iu3vdN/8
-         l6LU2t/s7PcwAU5Rvr8qCGalMUJXFyVfwrhYw7cw7Nw61ZmQOrP4ppnDUpVjXN/u6KMw
-         wbR0/qFcD8KtXjF1JohMhEJXsmBp2EzQNsVBMWZMwZPKABaktVgU7kbLxaBF5MRx/NeV
-         5r/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790015547; x=1790620347;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qIwSMIYKqd/HyMR94ewi8crt6BwQsBujCc6Lw+X9iRE=;
-        b=Iva8E9A4DQEidZ2//QP9xHYMWQZ2XUw4798qeTDg2yu19SSt6CQxMU7togYAlu/Mk2
-         ccUBPkD88xcAog3PhizPylo3HFVApfNAHsR7YXDH5QgyC4aEuZ1xZxJBAhi4ojh3S+bD
-         YbE84kFAcBaa9ReCod6b4U8mjN3/Hp4RO6k7dcfFwlaOKMIXfHf2cYm81L2+O9n4ytJh
-         b68q+oLJ0bjzf6hjCdhoqsX+s4Z9GP8UboEjfXwyEJmSxewkZ9ZozJgux6X7rSaT+sqf
-         KcYKVC1DyhkBJ9anyNW2EI7XmJjCs8IdxgGTvqBRlLI4QkTkBT3pZMvM1XBMahfQXBe+
-         iZ+w==
-X-Gm-Message-State: AFuF++mV+b1o2C8jn8S4M/lDcYlhiPJ7mTUlXR0q9r1xbw0mfGxHV66S
-	GO6NeOl1aGFMEHqK1T7ILl9ebVN4ANYPJLibZLkSaUrOFQk6Ji/KNqUXLra4cgt1dGBl9hrf+5P
-	F3b/aATW51HLDUebQkOFBR/Ppwih2TYc=
-X-Gm-Gg: AYBFou0G5oOdTfXLOQKb8C8O9aZhw1KrpcuouUg71/CLOvlJfesukBhOujKJEayLDGJ
-	reqGKimfaM6CR9PrANJy7tIW4Ho9tAH/vOz/M5EpL6dk6Eiry8LN/VE8LhbhqGboJtNWG6RRpkB
-	dyxRd5y26TO9Ogd8nqB1y36aQFktCzgHhzhvpKIXabtF5ayBBNtWWsqax0vfD6JKmQnfj9WIAGc
-	zHKj7JI/6FU0n8GxgAe/Sk+UddCSXKc3i33uFWIg7Cdrro1N3rNrgn+xUkic6T/u3Qa7SB4GTT2
-	7As4e1X0uiFyMymzYFpB8MWZ3Agk+/rIMRGZWIzimWg169qYQwJvx/18YorqWNHH7imzdTVPnLJ
-	lBM5UrH7XpQ==
-X-Received: by 2002:a05:6512:159c:b0:5b2:9f7a:29aa with SMTP id
- 2adb3069b0e04-5b8c179de22mr3976341e87.0.1790015546739; Mon, 21 Sep 2026
- 11:32:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LTOq6PM4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAFBD1F000FF;
+	Mon, 21 Sep 2026 18:34:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790015670;
+	bh=K4nLHz9z6IQcGHmWPtSRGWzAX0Kugw/YmY22EH4TG4U=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=LTOq6PM4Loabuc4O1F5tiDkMymp923XxpCeXQVC3Ws1Wh+dVWju63c3jIr/bjfko2
+	 o29Fbf1Me9nKgxu+hrpmzZ+n2Y0Xyy9l5SPmJd6pvqy/N1+rSrtFYegX1TcADLU59N
+	 CtxuHex76kAXhFKDdNju2kSA/6QG382zkaKzHIxdrohNZENt7oW2rtYtmVUsDthOSX
+	 LSnEZu5gGgTPPWcTUdt2hSofd/bAEUZvGD3ZeIzfmcxTzOJdezmdLsoL+rM0ZknDku
+	 mOoi5ICWkT0GTosv/hzygADQuXkw52WgMGDt1VQKBzCG3z7WqAQGS56/uhLVzRVgR6
+	 LYK1YzkmWuzmg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 17/19] arm64: dts: qcom: Add initial support for
+ MSM8952
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Muzaffer Kadir" <muzafferkadir@mainlining.org>
+Cc: linux-clk@vger.kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, mfd@lists.linux.dev, lee@kernel.org, linux-input@vger.kernel.org, robh@kernel.org, dmitry.torokhov@gmail.com, conor+dt@kernel.org
+In-Reply-To: <20260921-msm8952-initial-support-v3-17-b96fd3fe298b@mainlining.org>
+References: <20260921-msm8952-initial-support-v3-0-b96fd3fe298b@mainlining.org>
+ <20260921-msm8952-initial-support-v3-17-b96fd3fe298b@mainlining.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 21 Sep 2026 18:34:29 +0000
+Message-Id: <20260921183429.DAFBD1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260920211356.186967-1-rosenp@gmail.com> <20260920211356.186967-2-rosenp@gmail.com>
-In-Reply-To: <20260920211356.186967-2-rosenp@gmail.com>
-From: =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>
-Date: Mon, 21 Sep 2026 20:32:14 +0200
-X-Gm-Features: AcwNN1VdL-Fqcu_uP6CBPAY_SNwPGWfl7hrsVO4b8Qj22YVrcCYQZRsojkFfRw4
-Message-ID: <CACna6ryP-ZySxcK_b+BH-5ckDJxAOXE3tVtLYWP6SYA_Re3HOA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] usb: bcma: control VBUS via a regulator instead of a GPIO
-To: Rosen Penev <rosenp@gmail.com>
-Cc: devicetree@vger.kernel.org, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, Hauke Mehrtens <hauke@hauke-m.de>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Mark Brown <broonie@kernel.org>, 
-	"moderated list:BROADCOM BCM5301X ARM ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>, 
-	open list <linux-kernel@vger.kernel.org>, 
-	"open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-niedz., 20 wrz 2026 o 23:14 Rosen Penev <rosenp@gmail.com> napisa=C5=82(a):
-> bcma-hcd drives the USB power line by grabbing the undocumented
-> "vcc-gpio" from the controller node and poking it through gpiolib.
-> Besides relying on a non-standard binding, this cannot work on boards
-> such as the NETGEAR R7000 and R8000 where one chipcommon GPIO powers
-> both the USB2 and USB3 cores: the two controllers each request that
-> GPIO exclusively, so the second one fails with -EBUSY and its port
-> stays dead.
->
-> Use the standard regulator interface instead. Each core obtains its
-> (shared) VBUS supply through devm_regulator_get_optional() and the
-> regulator core reference-counts the enable/disable requests, allowing
-> both controllers to drive one GPIO without conflicts.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] arm64: dts: qcom: cpu cooling devices bound to 'hot' instead of 'p=
+assive' trip points
+--
 
-You should add support for VBUS without dropping "vcc-gpio" for now.
-Deprecate it. Give it some time and then submit a patch to drop it.
+commit b31c2ca10f75d0572d43b7d8403a096fd44b8429
+Author: Muzaffer Kadir <muzafferkadir@mainlining.org>
+arm64: dts: qcom: Add initial support for MSM8952
 
-This patch as it stands also breaks bisectability (because it drops
-"vcc-gpio" before switching to VBUS.
+Adds initial device tree support for the MSM8952 SoC, porting it from a
+downstream reference and adding calculation support for qfprom nodes.
+
+Link: https://github.com/Asderdd/android_kernel_generalmobile_shamrock/blob=
+/cm-14.1/arch/arm/boot/dts/qcom/msm8952.dtsi
+Link: https://android.googlesource.com/kernel/msm.git/+/refs/tags/android-w=
+ear-7.0.0_r0.3/arch/arm/boot/dts/qcom/msm8952.dtsi
+Link: https://android.googlesource.com/kernel/msm.git/+/refs/tags/android-w=
+ear-7.0.0_r0.3/drivers/thermal/msm-tsens.c#1621
+
+> diff --git a/arch/arm64/boot/dts/qcom/msm8952.dtsi b/arch/arm64/boot/dts/=
+qcom/msm8952.dtsi
+> new file mode 100644
+> index 0000000000000..fa343271a0249
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/msm8952.dtsi
+
+[ ... ]
+
+> @@ -0,0 +1,2696 @@
+
+[ ... ]
+
+> +		cpu4-thermal {
+> +			polling-delay-passive =3D <250>;
+> +
+> +			thermal-sensors =3D <&tsens 5>;
+> +
+> +			cooling-maps {
+> +				map0 {
+> +					trip =3D <&cpu4_alert1>;
+> +					cooling-device =3D <&cpu4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
+
+[Severity: High]
+Does this cooling map bind to the hot trip point instead of the passive one?
+
+The Linux thermal subsystem's default step_wise governor ignores hot and
+critical trip points for cooling devices. Binding CPU frequency cooling
+devices to cpu4_alert1 (which is defined as type hot) completely prevents
+thermal throttling.=20
+
+Under sustained CPU load, the system will keep heating up until it hits the
+critical trip point and undergoes a hard, uncontrolled thermal shutdown.=20
+Should this bind to cpu4_alert0 instead?
+
+> +				};
+> +			};
+> +
+> +			trips {
+> +				cpu4_alert0: trip-point0 {
+> +					temperature =3D <75000>;
+> +					hysteresis =3D <2000>;
+> +					type =3D "passive";
+> +				};
+> +
+> +				cpu4_alert1: trip-point1 {
+> +					temperature =3D <85000>;
+> +					hysteresis =3D <2000>;
+> +					type =3D "hot";
+> +				};
+
+[ ... ]
+
+> +		cpu0-3-thermal {
+> +			polling-delay-passive =3D <250>;
+> +
+> +			thermal-sensors =3D <&tsens 9>;
+> +
+> +			cooling-maps {
+> +				map0 {
+> +					trip =3D <&cpu0_alert1>;
+> +					cooling-device =3D <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+
+[Severity: High]
+Similarly for the little core cluster, does this also incorrectly bind to t=
+he
+hot trip point cpu0_alert1? This will prevent thermal throttling on these
+cores as well.
+
+> +							 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +							 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+> +							 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
+> +				};
+> +			};
 
 --=20
-Rafa=C5=82
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921-msm8952-in=
+itial-support-v3-0-b96fd3fe298b@mainlining.org?part=3D17
