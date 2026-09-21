@@ -1,57 +1,141 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ED1244BC91;
-	Mon, 21 Sep 2026 20:39:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84145476682;
+	Mon, 21 Sep 2026 20:39:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790023181; cv=none; b=ct77YMaPfuGuV/tUkdNySTic5U57uQq+wxuR0czO3jhDmy2CEceOoqP+Ugh9TJAioOckDXAEULPuS+uCqKzSx+Dbw630O16pw+wSdIkGB9e7wBEPmOakXZ6OUt7krwlQXwB81HhGw9r/2B6Ne9N1+X2+l4SwVGuFH5a9VuIvvrc=
+	t=1790023185; cv=none; b=QS5rjn0oqihy5gMc+MENZpoPu40qn7qbxyliyATJdjKALRQcD4YN7+a5VS+NlLQH9lt457CFZXu7IBX54qvAoK6+dGIJT0nQFApPJtWBG942svGhzsHjdFQbVnBp2v9Y4Biulz4iqv+TlDy3IhB7YGV1aSeejUlEjpnvZNk4ZHI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790023181; c=relaxed/simple;
-	bh=/4Gqlt90VL1TypVBsowbQodJE76B3pcG0Ed3lf3e5UU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Dq5t9LxYqzyeAwlQZdzj/zg5uLJD0dkCRrIaM9CgJQDb7MUuLwqVXJczgmErPKaBcjzckUtDzYp+T+pvVCCgVipnbt2Ailrsqepr31zihDCdqH51dygUp5g2TLCN4ZS91sk4pngz9lWvd5BIHESwrCDSYAN3YhvWyxV2AhkcXpk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A5bqOBoi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790023185; c=relaxed/simple;
+	bh=qT04uTaurPQCwegVxclAb4cTisTzk38I9pdbRBeW/D0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=AKRf6ry4EgpY2MdfWs3Kc4wF+ZxQadToGb+Krl4O5i2CfIWGHltR8tv7NC74WtxyegLubR31xZf01wD4N+J4GleoNL1lXNoqKCSgfdwVF5obdiJlTy8btBn8+5W4eIBqdxcsohIKxsch2Nbwi4XUhJeyt//l1djkHRzR9eIrJp0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MIcp8P8Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A5bqOBoi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87BB51F000FF;
-	Mon, 21 Sep 2026 20:39:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MIcp8P8Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF7E51F000FF;
+	Mon, 21 Sep 2026 20:39:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790023180;
-	bh=dittuI7Jo/Uhew1jMl8JLGUl5/koRCSwkzAOXH6YsVQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=A5bqOBoiV0iFung/gNNn0OXJDT+OpJ947kSAPW5YwL8UXBtg8U4WVecDtbGOGnc7E
-	 /7JzcmUTugW+5QTLMxMF1k0E/WZHataiZXGeNHsMsOvmyFnr9VAUXaRWg/rQmjbC2E
-	 +ihBhIxYm/QOL3Y8ncEoR/fwW8PgX5cEBygEimw+qdtwP30Da3y3ZWTEbiC9DI2WIy
-	 rlkZLG7Ojv3nQQIKjw1aNhSwCYEWwzyR7B9zSmxDjrlg1xJbwSCodFfzN0G7v0GT2B
-	 mso2UPRTM0H3JrPnkfhvxP6m1HxGY2pasFARkMF0tRYfleF/9NLDsT4pXjgPmzH0tG
-	 TRl9HgxOO77qA==
-Date: Mon, 21 Sep 2026 13:39:38 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: muhammad.nazim.amirul.nazle.asmade@altera.com
-Cc: dinguyen@kernel.org, maxime.chevallier@bootlin.com,
- rmk+kernel@armlinux.org.uk, krzk+dt@kernel.org, conor+dt@kernel.org,
- robh@kernel.org, davem@davemloft.net, edumazet@google.com,
- pabeni@redhat.com, andrew+netdev@lunn.ch, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 0/4] Add Agilex5 SoCDK TSN Config2 board support
-Message-ID: <20260921133938.003a5a19@kernel.org>
-In-Reply-To: <20260908070557.3585-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
-References: <20260908070557.3585-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
+	s=k20260515; t=1790023183;
+	bh=tWGl7BiS8nBuHbK7FGgbRbZWhiO7S9O9bhvxRVSTAVU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=MIcp8P8ZyH55CpTB6kvuKUvOQJVVOWqGplqeFYQyUylZynfHhT4+HdjCOzQ50ge89
+	 L73MF6xd2g6VbllcuV1O+1B38Oc+64RFjNg7j/KajhNTNuimK+xnsYuNBNz5fVfasN
+	 sqqsRfJ+pr4wN5hzAXMIFXHb+q6hj4/Ia9jZX1r8IDBdE/Lo8uGev4p+z4Wl5luIt7
+	 g5mp1n3g4yTIuhkOBeL7tAgmKuahHQK8zWzjlFfPsIWy7b+TWd1q5+/N628kxlz1gp
+	 kFaArI8Q0UtGvGWDJ/D/6iL/gnzhKCLfx6t6wtkfhIbnrIxsbKUH852HU0h4t+/MAF
+	 DSG1bgZfzgwVw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 1/6] dt-bindings: PCI: rcar-gen4-pci-host: Add R-Car
+ X5H PCIe4 compatible
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Marek Vasut" <marek.vasut+renesas@mailbox.org>
+Cc: wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, robh@kernel.org, linux-pci@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260921202823.72620-2-marek.vasut+renesas@mailbox.org>
+References: <20260921202823.72620-1-marek.vasut+renesas@mailbox.org>
+ <20260921202823.72620-2-marek.vasut+renesas@mailbox.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 21 Sep 2026 20:39:42 +0000
+Message-Id: <20260921203942.CF7E51F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Tue,  8 Sep 2026 00:05:53 -0700
-muhammad.nazim.amirul.nazle.asmade@altera.com wrote:
-> Subject: [PATCH v6 0/4] Add Agilex5 SoCDK TSN Config2 board support
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] dt-bindings: pci: missing phys requirement for Gen5 PCIe
+- [Medium] dt-bindings: pci: missing minItems allows incomplete reg arrays =
+to pass validation
+--
 
-This is about to drop out of patchwork, and we need acks.
-Please repost just patches 3,4 as a separate series for networking
-(if the series is still relevant of course).
+commit 514029652899ad708ecb1a48b34db8779da18327
+Author: Marek Vasut <marek.vasut+renesas@mailbox.org>
+
+dt-bindings: PCI: rcar-gen4-pci-host: Add R-Car X5H PCIe4 compatible
+
+Document bindings for R-Car X5H (R8A78000) PCIe4 host module. The commit
+introduces the "renesas,rcar-gen5-pcie4" compatible string and adjusts the
+"reg" and "reg-names" constraints, as the PHY is now a separate IP for Gen5.
+
+> diff --git a/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yam=
+l b/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
+> index 64f456c6a75a1..9767a52f3904e 100644
+> --- a/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
+> +++ b/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
+
+[ ... ]
+
+> @@ -84,6 +74,46 @@ required:
+>    - resets
+>    - reset-names
+> =20
+> +allOf:
+> +  - $ref: snps,dw-pcie.yaml#
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: renesas,rcar-gen4-pcie
+> +    then:
+> +      properties:
+> +        reg:
+> +          maxItems: 7
+
+[Severity: Medium]
+By moving the "reg" and "reg-names" properties into this allOf conditional
+block, does this bypass the automatic array length constraint inference from
+dt-schema?
+
+Without an explicit "minItems: 7" constraint here, it looks like the schema
+will fall back to inheriting "minItems: 2" from the base schema in
+snps,dw-pcie.yaml#. Could this allow a device tree node with only two
+registers (like "dbi" and "config") to incorrectly pass validation?
+
+> +
+> +        reg-names:
+> +          items:
+> +            - const: dbi
+> +            - const: dbi2
+> +            - const: atu
+> +            - const: dma
+> +            - const: app
+> +            - const: phy
+> +            - const: config
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: renesas,rcar-gen5-pcie4
+> +    then:
+> +      properties:
+> +        reg:
+> +          maxItems: 6
+
+[Severity: Medium]
+Similarly to the Gen4 conditional above, does this Gen5 block need an
+explicit "minItems: 6" constraint to prevent truncated register arrays from
+passing validation?
+
+Also, the commit message mentions that the R-Car X5H PCIe4 controller no
+longer includes the PHY register range and that the PHY is now referenced
+via the "phys" DT property. Since the driver requires this external PHY to
+be present, should "phys" be added to a "required" list within this Gen5
+conditional block so that incomplete device tree nodes fail validation?
+
+> +
+> +        reg-names:
+> +          items:
+> +            - const: dbi
+> +            - const: dbi2
+> +            - const: atu
+> +            - const: dma
+> +            - const: app
+> +            - const: config
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921202823.7262=
+0-1-marek.vasut+renesas@mailbox.org?part=3D1
