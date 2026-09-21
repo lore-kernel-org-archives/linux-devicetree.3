@@ -1,105 +1,83 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16B5D4349BB;
-	Mon, 21 Sep 2026 11:14:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A382848D868;
+	Mon, 21 Sep 2026 11:14:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789989258; cv=none; b=kAiYQLzdf9GO00bv09r0idAtN/6ZvcT/nl9nSw4W7qbbn/dcuIk6bjXIGy15voF/xIMFmp7SivYU4oVBcTjpDRtGIwiIMRwiG433zCl7cWgSZqS50YdNAK273X9t5yqvSvuXcrA2opUHptNBDOy+3do1r5ULZyWfzkV2lgRvmG8=
+	t=1789989278; cv=none; b=c1JGh7dOtxJ7q0sBgdPhPVZxVTntyBOHt4Bt/NFZHYvTFoqwLD+egtiyR2zTG1626O54ci2rVNA/umek6vvQNFvOQxnDFBt8xToIQUHF1KN2RNJoxbd+FMJ+0Xsjt0ZA9txx457sjhEaYyCXDfTHpOEhBaroDEyQphxy48+BU/A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789989258; c=relaxed/simple;
-	bh=79Zf8PL5SVT74IOK8Ah2Wx7z0VraEAo3j14aT30jnoc=;
+	s=arc-20240116; t=1789989278; c=relaxed/simple;
+	bh=tH/74DYnUM5fA7K0gAZxu3XU6JX7KDrSJcjLf3K+ozE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PYqSGxL8KhQ1p3mDJmsO1wBC0ykSpRgMOI2NYtTohNeyovmEYixcFLc8/mrMxLt563CnJhsoEbp9dyp1bUaAHN8AjQ/Z6LZ9vvZXx7KJQ6jwDmAryox7RUJ3iHheulTyyZhppvGqgP+qzpqskpJSD6IoJiXr1Pc/Mw5grUlwKrM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dWbzHUQp; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=N/8m1n1DCCTkSyKwneaNYrxKaTNmCrqkeo4ptKtGiFaCn9n/kr66W25MG7BlswcHFG8/vosC/Ma7OVaqNgm3gVgMqUM5LiJ3+mTsRvD1Kh3P3J2P+NYttp2cV04RMYTmmizsDma8SP8xEkI3RPtMoR0538bKfEWeXRXZwWszjsI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fXmd1bjU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dWbzHUQp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789989257; x=1821525257;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=79Zf8PL5SVT74IOK8Ah2Wx7z0VraEAo3j14aT30jnoc=;
-  b=dWbzHUQpG9en+GYBi5urVeKbgDEdxv66ZMlfLfnoi/5kLSn54LWaebbJ
-   0DtnDnYVBEOB7P7aq/FgckW08IiOiQfwR20xoBdTmxcmGhUphBdbWAuXe
-   wSKfDE6Ovpmmj7//lYsTjBwHD10+fuiDsPPxSI2FyVTjR+RlToEncQu3X
-   8GHXP9iKPS2w0ybdsPNhD8rAMIcedExQu+R8FjHP1PKkmYufeBElpsgB5
-   0HqpOrjbO+NjKz5CD/VB5pWXs3bu6Dql31NNY3qm4WkjvTJlsK1g/wI2t
-   JsVEcu9PAeinNJIsmFFR2bWTbhQtxn2UQSQQCZgdShZzD/PyGnT5Arp2R
-   Q==;
-X-CSE-ConnectionGUID: J/lLvxdWTgOdjfcXaa98vA==
-X-CSE-MsgGUID: /rfBfsNISU6PuWH8Awqv0Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11911"; a="101844191"
-X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
-   d="scan'208";a="101844191"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 04:14:16 -0700
-X-CSE-ConnectionGUID: ZYP5Z+sAQzWerACKC/X+SA==
-X-CSE-MsgGUID: TgHbLUvFR3G5k1L7+2A+Zw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
-   d="scan'208";a="271136809"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa006.fm.intel.com with ESMTP; 21 Sep 2026 04:14:13 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1001)
-	id F26D599; Mon, 21 Sep 2026 13:14:07 +0200 (CEST)
-Date: Mon, 21 Sep 2026 13:14:07 +0200
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
-To: Aniket Limaye <a-limaye@ti.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fXmd1bjU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF6DD1F00893;
+	Mon, 21 Sep 2026 11:14:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789989275;
+	bh=FVPnbDPg6NPVwGQT/C+W1Qu/uMpuyNippfZ5fBWEgG0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fXmd1bjU8aLo6SvjWyXlK7EgKy3qhO9x42gtcVQGXnYHEQrCLkXE8KnqfNfeN4pG3
+	 3HP2dQ6OkDabXncrsuTR0D8KQH5PJd12zw6G4bKcv+hg64C3AclNq190EgNjAUkbG1
+	 1KSo1r9tsi++b/VDebVqOhOM8NaKRtk2MAJqOSbXDby25wNecnx0JX3QkgRJVPXj8J
+	 DW+A63pV82bCeSQGN0SrW0C7Fbb2L9RS/eUEtDZT9x20EhMeyY2vMLuxMm1o+nyM1v
+	 gjI6nfFi+wKOLyHAqhsXvjQPW1cNaoqf/moX9ZWUtAY56OwDsJpgtAGiFQvGrK3HO0
+	 bqDkmc74T4gTQ==
+Date: Mon, 21 Sep 2026 12:14:29 +0100
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: Troy Mitchell <troy.mitchell@linux.dev>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Nirujogi Pratap <pratap.nirujogi@amd.com>, Bin Du <bin.du@amd.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, vigneshr@ti.com, nm@ti.com,
-	u-kumar1@ti.com, lianfeng.ouyang@starfivetech.com,
-	Ritwick.Sharma@arm.com
-Subject: Re: [PATCH 1/3] dt-bindings: i2c: dw: Add DWC_i2c compatible
-Message-ID: <20260921111407.GU106095@black.igk.intel.com>
-References: <20260919-tda54-upstream-i2c-v1-0-b0b9f77be18b@ti.com>
- <20260919-tda54-upstream-i2c-v1-1-b0b9f77be18b@ti.com>
- <20260920-warm-lurking-poodle-dd73ee@quoll>
- <de66ac18-6bc3-4693-bd76-df8113bdb914@ti.com>
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	driver-core@lists.linux.dev, linux-riscv@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH RFC 2/3] arch_topology: Parse die nodes in /cpu-map
+Message-ID: <20260921-rational-frisky-jerboa-0f2ff0@sudeepholla>
+References: <20260920-riscv-die-topology-rfc-v1-0-071c0bf61d5f@linux.dev>
+ <20260920-riscv-die-topology-rfc-v1-2-071c0bf61d5f@linux.dev>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <de66ac18-6bc3-4693-bd76-df8113bdb914@ti.com>
+In-Reply-To: <20260920-riscv-die-topology-rfc-v1-2-071c0bf61d5f@linux.dev>
 
-Hi,
+On Sun, Sep 20, 2026 at 11:18:03AM +0800, Troy Mitchell wrote:
+> The devicetree CPU map can distinguish packages and clusters but cannot
+> describe multiple dies in one package. Such systems have to flatten all
+> clusters into the package, making cluster identifiers package-wide and
+> hiding the die boundary.
+> 
+> Recognize an optional sequence of dieN nodes between a socket and its
+> clusters, and propagate the die identifier to every CPU below it. Enumerate
+> clusters independently below each die.
+> 
+> When a CPU map has no dieN nodes, continue parsing its existing package
+> and cluster hierarchy but pass -1 as the die identifier. Legacy maps
+> therefore remain compatible without being reported as an explicitly
+> described die 0.
+> 
 
-On Mon, Sep 21, 2026 at 01:55:23PM +0530, Aniket Limaye wrote:
-> 
-> On 20/09/26 23:54, Krzysztof Kozlowski wrote:
-> > On Sat, Sep 19, 2026 at 02:36:06PM +0530, Aniket Limaye wrote:
-> > > Add the "snps,dwc-i2c" compatible for Synopsys Advanced I2C Controller
-> > > referred as DWC_i2c. Compared to the existing "snps,designware-i2c"
-> > dwc is designware, so snps,dwc-i2c = snps,designware-i2c
-> > 
-> > I think this is *the* argument why generic compatibles are wrong.
-> 
-> These are 2 different controllers with some different registers and
-> vastly different register offsets.
-> 
-> So, the official product name (short format) for the SNPS Advanced I2C
-> controller is "DWC_i2c", as per SNPS' own reference document [0].
-> Whereas the original "snps,designware-i2c" corresponds to the product
-> name "DW_apb_i2c" as per its own databook [1].
-> 
-> So based on this I though it'd be best to keep "dwc-i2c" close to SNPS'
-> own naming, despite the fact that it does seem very similar to the
-> generic "snps,designware-i2c".
-> 
-> If you'd prefer to make it more explicit, I could change this to something
-> like "snps,dwc-adv-i2c"? Although, again, this does deviate from the
-> convention that SNPS uses in it's own documents.
+Where is the associated bindings ? Am I missing to check it in the series
+or it is really missing ? It is essential to add any code using the binding.
 
-What about just "snps,ai2c" or "snps,advanced-i2c"?
+Also how does it align with ACPI implementation ? It is preferred to be
+in parity here, so we need some binding there as well IMHO.
+
+-- 
+Regards,
+Sudeep
