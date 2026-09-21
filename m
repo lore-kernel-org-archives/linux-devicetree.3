@@ -1,154 +1,132 @@
-Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com [74.125.226.204])
+Received: from va-2-42.ptr.blmpb.com (va-2-42.ptr.blmpb.com [209.127.231.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C24F3BBA0E
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 07:25:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D2A83BC668
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 07:25:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789975536; cv=none; b=UweLwKMKPu744qg4lqnEegQK8sToQs/hdcmLUgwKj2FBY8qiLCRy0AvAJacsy+yVf66YLpt03uN6qzjfEBiYPmV9IjPrf08GfdskrkY8rm88kfHSq1K4UxOlNUgB+kOEJH14q48sfTtERJWDc7GTPjt5JHNWjQdQcnNs+em03V4=
+	t=1789975557; cv=none; b=VY4kJ1QRlTzJFugmgMt2tTS2koJ7W9iQCoQL10FQDQnBimDLUYq5TFfZ3eBRaRuczw5ZSX8lueMaE99KT3Pickm3V0PoZqojkGj5mwwgd9vg7aktI32JMESfo3lUGOjtfcT/IzpciZzI3Wo5KviBnarI/uLk28NfTjKHrk4rxFM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789975536; c=relaxed/simple;
-	bh=6tKTGDS6JtG90Il7+2qAPduVfkvtwUyKRtM8IGgWrL0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oJ9P0DUWO3L8ygulZwpx4b6v6ImTviT+T650re0xYae5gC1FRSFOrvTKHvVeWRThesrOE/JHNLwjT4ktnFxl2+GwsMw4JFkHjZvOD3vWdG3Z21epJ65VwnGDFz3RpZIz1XZhkWPSFKZCG98xFJKdtBQBJKlBPjRf2mCMCVVFQGs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.226.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97e7c8c8602so1154688241.0
-        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 00:25:32 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789975532; x=1790580332;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/Z1SbtUTgxZShJMFyPJ1MYGOC5nK1asEC/Nf/hEw6KQ=;
-        b=1//fyyGFk2Ep5U9S+8NxA5EW4u4vof0qw4YfPHHDWATMfrXYaQmaD5r3PLNzTcx3xA
-         g7lDXpWk4Tq1VnicttBkro7aIIHPbglGe8V4Tx8X+Ptl2TOu7Nz1K1bQcltA7YSObBcw
-         EzdXJMdH1dcP8e8elAzZiuPm6SZNkPaF7wpTDx+H9H0/YZ9CqKQxIk43Jr6dQuB/vFgN
-         LuS+PgRdjWzFzWb6PU5emzKJcx1ucl5ZP1HJXwLlZa4FTTqP5txVo/80J/rF4v+WnEj5
-         ilBLj/yFa2TUW2vJz1rIbwSczRLfroHtw+SiLmjA6Gl9lwDg6HCQOWly2Zj02Kh29p6u
-         xkRQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxPB59BQWLoI1gD+lAwDJDl59ffb5XxFMAI7JeP0N4z0capWGLim5DXT2NuIX3I5LfKK07uwxbPJ57t@vger.kernel.org
-X-Gm-Message-State: AFuF++nGLJzzUCabEgWLcpJER59K2N0riZtrKX6ldc2IkNsjeCNjQf10
-	jyXQ0UsNQdvAwYeUovfmjs52n5sKXY4fqXIjyM5ge47E64olCgQH4aelspvow5Zt
-X-Gm-Gg: AYBFou1l5UzsKxosPvKS6Kjy112pUqckhvLV7huVkC3M83mEKq/f5yOKrRE0yWRw7nX
-	Ia2PPfU6e8Yxo4m7POl0QiaeeKUFEd5JCmouPMyrLBrFgAwkqJKuFmu77nnyAsihJOYMkwcnZu4
-	vhS0jyNrnN/KoufPxitR/ljyIF3gnftEeezYHLs7UhReWDUQMH1VTTArNFUjOOM+ssZ4Cw4sl1I
-	1IYr7US5rBpDJJi7/7I7mqbsWf2jLDECwAeSd7drQgkhPvbrOTkBgS7alPFHb1MpgqtTn5OlVKO
-	z1+J5UngCWByDz6f+V65ei1/upepL04/BrcWZ27jwmWPKusziqYjIxOvE8ORWRhR6kZAjiSOcmg
-	5+U0B0WYlScxSCOIENoxTk9RrwzP49/4s/bWR00qdcoZTSi/NZJEf9sLmqor136ze0/nWIY39ey
-	nYAeKK8idlcw5h7w/IS4FRShkMWmFYW0Q7JhU4li/odmWkzJXNYteTGDo8YaFK0KfnBo5Npc89T
-	eM0hiuY8XofDOpvZMG5lk1cy5fXjyimtaYWaScTuA2hN0k=
-X-Received: by 2002:a05:6102:91c:b0:7a3:2e52:1163 with SMTP id ada2fe7eead31-7a55da9b0damr3569974137.26.1789975531686;
-        Mon, 21 Sep 2026 00:25:31 -0700 (PDT)
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com. [74.125.227.12])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7a74ca21394sm5826620137.3.2026.09.21.00.25.30
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 00:25:30 -0700 (PDT)
-Received: by mail-vs2-f12.google.com with SMTP id ada2fe7eead31-78a7003f9f5so1736222137.1
-        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 00:25:30 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwTRxF1HXVYeYONYjTkgBQjxMYgSKy5uCbvrr4CmkxCzzfGccDVtgzhxblLJlreO7ECNN/gAjySUJCK@vger.kernel.org
-X-Received: by 2002:a05:6102:41ac:b0:7a4:e550:eeb9 with SMTP id
- ada2fe7eead31-7a55d28bba5mr3601642137.22.1789975530039; Mon, 21 Sep 2026
- 00:25:30 -0700 (PDT)
+	s=arc-20240116; t=1789975557; c=relaxed/simple;
+	bh=nzM5gTO1GWA2m5Kh+9CvHaWUY8268pOWjAQZIm4uRck=;
+	h=To:Message-Id:Content-Type:Cc:From:Date:Mime-Version:Subject:
+	 References:In-Reply-To; b=HKTya088a6TB1QO+wmqXLGIEPeDKMxEGxEFiUnlkJT/7nj3aA0UZPDk4b+wl1ReIf7c+cdhQY+PSsXA1Pizufv4J/nrWvYPkdL51kSi2z9T/B+biZAgUV+vZdNayR8wRr4Qemb/B43MaG6N4YDJ8JY9aLFZtTqd7Fc9Ll4FYBUQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bedmex.com; spf=none smtp.mailfrom=bedmex.com; dkim=pass (2048-bit key) header.d=bedmex-com.20200927.dkim.feishu.cn header.i=@bedmex-com.20200927.dkim.feishu.cn header.b=KhQZcEL4; arc=none smtp.client-ip=209.127.231.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bedmex.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bedmex.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=bedmex-com.20200927.dkim.feishu.cn header.i=@bedmex-com.20200927.dkim.feishu.cn header.b="KhQZcEL4"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=bedmex-com.20200927.dkim.feishu.cn; t=1789975548;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=IfqQTnorIK/Xbqjew44KxdBihBD+avY1O83tMYUbxbs=;
+ b=KhQZcEL4Eja+Z9BnuQVDFCmu7JhzeVFg9Y1nv6Iadx1/TGMr1W4f52ZxHP+z/AM9H+5s5D
+ y6GvPU0Kj//OMdQR1ye8LkZ7YIQbbPH6jVeiUXWUtb/eeiCCyltI8Q2+jdZLcy/xyFlFlv
+ Sk/ITibQF28ju8552rDKWeNYd5gy1/m3DaJ+RSAwsONuEzs8hDXWBJpcA8FkANhGmKOm7G
+ TmdP8XI9g98HRH5vO3slNs+oUNC+PAWsyEhgedqOwKzRfnCFu6UdOB5AwmMwUIAe9Wxhz2
+ 786wHWVgUNRgrgZKQd/jjJTQNHRe7hYot2N07FyqLtJ5D583U7Xk8WgDy09QfA==
+To: <linux-bluetooth@vger.kernel.org>
+Message-Id: <cover.1789974593.git.yanli.yang@bedmex.com>
+X-Mailer: git-send-email 2.34.1
+Received: from bmxpxe-virtual-desktop.. ([36.141.79.164]) by smtp.feishu.cn with ESMTPS; Mon, 21 Sep 2026 15:25:45 +0800
+Content-Type: text/plain; charset=UTF-8
+Cc: <marcel@holtmann.org>, <devicetree@vger.kernel.org>, <robh@kernel.org>, 
+	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, 
+	<linux-kernel@vger.kernel.org>, <zhirunliu@aicsemi.com>, 
+	<dijiaxu@aicsemi.com>, <chunqiuliu@aicsemi.com>, <liheng.wei@bedmex.com>, 
+	<yanli.yang@bedmex.com>
+From: "Yanli Yang" <yanli.yang@bedmex.com>
+Date: Mon, 21 Sep 2026 15:25:40 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <60988ce9c4913014e255ecbe127e93374f6a2295.1789570538.git.geert@linux-m68k.org>
- <20260918200033.GA1667835-robh@kernel.org>
-In-Reply-To: <20260918200033.GA1667835-robh@kernel.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 21 Sep 2026 09:25:17 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXDmZs1f+co7EcC8+yp4BU8iNo-1c-TNg6Xe8nYLeXOpg@mail.gmail.com>
-X-Gm-Features: AcwNN1U9s09WD_Fc6q3FVUM3sMCtDOgMMGz5EOC-0K6lXxufMm3wQwxnxJmg5fk
-Message-ID: <CAMuHMdXDmZs1f+co7EcC8+yp4BU8iNo-1c-TNg6Xe8nYLeXOpg@mail.gmail.com>
-Subject: Re: [PATCH] spi: dt-bindings: Relax node name suffixes again
-To: Rob Herring <robh@kernel.org>
-Cc: Mark Brown <broonie@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marek.vasut+renesas@mailbox.org>, 
-	linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, kernel test robot <lkp@intel.com>
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+X-Original-From: Yanli Yang <yanli.yang@bedmex.com>
+Subject: [RFC PATCH v3 0/3] Bluetooth: Add AIC8800D80 support
+References: <cover.1789897503.git.yanli.yang@bedmex.com>
+X-Lms-Return-Path: <lba+26ab0dbfa+2be2e0+vger.kernel.org+yanli.yang@bedmex.com>
+In-Reply-To: <cover.1789897503.git.yanli.yang@bedmex.com>
+Content-Transfer-Encoding: 7bit
 
-Hi Rob,
+Hi,
 
-On Fri, 18 Sept 2026 at 22:00, Rob Herring <robh@kernel.org> wrote:
-> On Wed, Sep 16, 2026 at 05:18:27PM +0200, Geert Uytterhoeven wrote:
-> > From: Geert Uytterhoeven <geert+renesas@glider.be>
-> >
-> > An SPI bus node name can have either a unit address, or a suffix.
-> > Commit c4fb6880edc15866 ("spi: dt-bindings: restrict node name
-> > suffixes") restricted these suffixes to decimal numbers.
-> > However, SPI bus node names with suffixes are typically used for
-> > board-level bit-banged SPI busses ("spi-gpio"), which live at the root
-> > of the device tree.  Limiting their node names to numbers is prone to
-> > conflicts, and may cause silent overwrites, especially when a stack of
-> > sub-boards or expansion boards is involved.
->
-> How is that commit an issue 3 years later?
+This RFC series adds initial Bluetooth support for the AIC8800D80.
+SDIO function 1 loads the Bluetooth firmware; HCI traffic uses a separate
+UART interface with H4 framing at 1500000 baud and hardware flow control.
 
-Because no one cared about avoiding future conflicts and/or no one
-noticed any conflicts?
+The series adds the AIC vendor prefix, Device Tree bindings for the two
+interfaces, and the btaic driver with build and maintainer integration.
+The UART node references its SDIO firmware provider through the
+aic,firmware-sdio property.
 
-> I've commented on the case which I guess prompted this patch.
+Validation status:
+- The vendor has confirmed that SDIO firmware loading works.
+- UART HCI communication, controller initialization, scanning, pairing,
+  connections and data transfer have not yet been validated.
+- Suspend/resume and Wi-Fi/Bluetooth coexistence have not been validated.
+- No hardware functionality beyond firmware loading is claimed.
 
-Yeah, "spi-ws-2ch-canfd" referred in the Closes-tag below.
+This is an RFC for implementation and binding review, not a request for
+merging at this stage. Feedback is particularly welcome on the SDIO/UART
+split, the firmware-provider association and the device lifetime handling.
 
-> BTW, "spi-gpio" or "i2c-gpio" are not good names because you can have
-> more than 1 instance.
+The driver requests the following external firmware files:
+  aic/aic8800d80/fw_adid_8800d80_u02.bin
+  aic/aic8800d80/fw_patch_8800d80_u02.bin
+  aic/aic8800d80/fw_patch_table_8800d80_u02.bin
+Firmware binaries are not included in this kernel patch series.
 
-Yes they are bad names for node names.
-I was referring to the compatible value; sorry if that wasn't clear.
+Changes in v3:
+- Express the SDIO reg constraint using an items list.
+- Drop the max-speed property because the driver selects the fixed
+  1500000 baud rate based on the compatible string.
+- Update MAINTAINERS in each patch that adds new files.
+- Use the Bluetooth subject prefix for all patches.
 
-> > Hence relax node name suffixes to alphanumerical characters, so users
-> > can write more descriptive SPI bus names, which are less prone to
-> > conflicts.
-> >
-> > While at it, reject empty unit addresses.
-> >
-> > Reported-by: kernel test robot <lkp@intel.com>
-> > Closes: https://lore.kernel.org/oe-kbuild-all/202609150228.Nh4nZzbQ-lkp@intel.com
-> > Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> > ---
-> > Other subsystems (regulator, i2c) had similar issues, and numbered
-> > regulators caused conflicts before, see e.g. commit 45f5d5a9e34d3fe4
-> > ("arm64: dts: renesas: r8a77995: draak: Fix backlight regulator name").
->
-> I2C was a case of "too many to fix". Maybe time to revisit that.
-> Regulator binding is a unicorn and not a bus. I really want standard
-> names for buses given that's the only way to identify them generically.
+The BlueZ GitLint check may flag the auto-generated "create mode" summary
+line for the binding path as exceeding 80 columns. No source or commit
+message line is involved.
 
-Aren't "spi-gpio" or "i2c-gpio" (compatible :-) nodes unicorn buses? ;-)
+Changes in v2:
+- Preallocate the SDIO receive buffer used by the interrupt handler.
+- Prevent late responses from timed-out SDIO commands from racing the next
+  command and its completion state.
+- Accept transfers that exactly consume the available SDIO credits.
+- Free the UART receive skb only after receive callbacks have stopped.
+- Use the fixed baud rate required by the controller.
+- Sync the series to bluetooth-next commit 019debf20bfd.
 
-The issue is that they all live at the root node. How do you name
-them in a conflictless way using numerical suffixes?
-  - On the SoM: spi-1,
-  - On the SoM carrier: spi-2, spi-3,
-  - On the expansion board (hat): spi-4?
+v2: https://lore.kernel.org/linux-bluetooth/cover.1789897503.git.yanli.yang@bedmex.com/
+v1: https://lore.kernel.org/linux-bluetooth/cover.1789546358.git.yanli.yang@bedmex.com/
 
-What if your carrier board supports more than one SoM model, with
-a different number of spi-gpio buses? Oh, let's start at 10 on the
-carrier, and 20 on the hat, like we used to number our lines in CBM
-BASIC V2 before Simon's BASIC gave us RENUMBER ;-)
+Thanks,
+Yanli
 
-What if you have multiple hats, each with their own spi-gpio buses?
-Hence node names like "spi-ws-2ch-canfd" make sense, IMO.
-When the WIP connector design is finished, and provides separate name
-spaces for the subboard in a board stack, we can revisit, perhaps...
-Thanks!
+Yanli Yang (3):
+  Bluetooth: dt-bindings: Add AIC vendor prefix
+  Bluetooth: dt-bindings: Add AIC8800D80
+  Bluetooth: btaic: Add AIC8800D80 support
 
-Gr{oetje,eeting}s,
+ .../net/bluetooth/aic,aic8800d80-bt.yaml      |  83 ++
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ MAINTAINERS                                   |  11 +
+ drivers/bluetooth/Kconfig                     |  16 +
+ drivers/bluetooth/Makefile                    |   3 +
+ drivers/bluetooth/btaic.h                     |  26 +
+ drivers/bluetooth/btaic_core.c                | 180 ++++
+ drivers/bluetooth/btaic_sdio.c                | 901 ++++++++++++++++++
+ drivers/bluetooth/btaic_uart.c                | 328 +++++++
+ 9 files changed, 1550 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/bluetooth/aic,aic8800d80-bt.yaml
+ create mode 100644 drivers/bluetooth/btaic.h
+ create mode 100644 drivers/bluetooth/btaic_core.c
+ create mode 100644 drivers/bluetooth/btaic_sdio.c
+ create mode 100644 drivers/bluetooth/btaic_uart.c
 
-                        Geert
 
+base-commit: 019debf20bfd648b40ba10377ee0168db5eb241e
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+2.34.1
