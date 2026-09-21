@@ -1,115 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8CD74A689F;
-	Mon, 21 Sep 2026 15:00:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51D994AD4B7;
+	Mon, 21 Sep 2026 15:02:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790002806; cv=none; b=GaL2yL/9Pi7psxmy5xQ+tHurqA6AdvCYkVVwjMnyCkC42fJ9L9rfcFTHJ7wlwV3j6claV/ESH61SMN3XHa038I2Ak6zsA2hlRcSQEC+OEpoDQ2AXFtwb8O8PQST41UlaUPe+WwhUBBeBCdvkMB/Z1SHe7Wt/NS9aS8E2OmV+tm0=
+	t=1790002941; cv=none; b=jTXZqX83nUGz7T6GZ7u9PSYLbToKOXX1OI39E+KVNdMkefrj2dqpQRNBmdgL8cUS6Ps6+CGQEwP1IALOAiW9mI67mgpqeJrhh/yFDommR4iqnxZQ46TU879wWRrF8JFuh2lZNHbrna4lDAe+aUzEyTvNPWQWnoGSdR1QNimFaUc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790002806; c=relaxed/simple;
-	bh=MgyO3hmEeIytVk3leCcQz91+iE6VmtEbpqO37oSdE/Q=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=DtOtZJ9xivgTGsmGLbhBcDf/Da+tLIwzOC8JMEa2o28yaL3xPh5c+HV0vRe2o27BXkFx3l5JM15+S0h+p6bV2J5/3OGCrNZ7c8lTIJJ3yzoojRPb5OmCQyXrvffCC4AKEHiE2dZ9IU6aoys6Dc72POZLlrUZb2DF/aigVbYhGHY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Za4498Lx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790002941; c=relaxed/simple;
+	bh=v4UVAeTU1JJaiw4t/Qj/n7SDGMX+yxvPEzMCHsSdNF0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aoLp23yPf0EWj6QwHHrqoWbQ1aHkAS5oP4ov1eAEq60p6JnDZ4uCDAkn6v2h+qoHs8euHDdXufu6dCrsRZDUMZbNQDQpNoemEAmHeW5UIbOsMW3jfEIRxnReC44yBbkiiK6+GHikdts3mDttsVHkVwUdpfeuoqG2MSOXqFBFl6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CVSpmy71; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Za4498Lx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EC3D1F000FF;
-	Mon, 21 Sep 2026 15:00:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CVSpmy71"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD5E91F00893;
+	Mon, 21 Sep 2026 15:02:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790002804;
-	bh=zzmFwcjzl9NHlHx1BGHTl7M0L5n7hXhBp+Df5ZcaOfk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Za4498Lx1h3vVRi2G/rdpzhuK38H8iYdGyjhDVaNS6Y8OjiPd+bvjf9xH5P3EiK7u
-	 TnhRQk7jsrUOANeDHztUaLMqxc9MS2P+/0CnQyMl77bolzxnFMl6AY+M4eR5E4eI3g
-	 E7FU5NAB3OuU6QegRoWAjxvlw0KWBC1hpvHIxVPm3Y/hiCwY9Fy94tC9sjyBThozic
-	 wq/Zhd1cF9lHE1uSIPPo1vCPitkKda51z+Aq4KxFualLkYtlOLhRe1LvEsKkqS9jHS
-	 THU3xXsAHKQulhQsG0KL2/yKd6rK/Z6cpgV3E2hOmqsMq5h82Dc6i9Towr4pAsEy4x
-	 8EcUEvO8aoANg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/3] platform/arm64: add Lenovo Yoga Slim 7x Gen 11
- EC driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Oleg Keri" <okerixx@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, linux-hwmon@vger.kernel.org
-In-Reply-To: <20260921144953.15113-3-okerixx@gmail.com>
-References: <20260921144953.15113-1-okerixx@gmail.com>
- <20260921144953.15113-3-okerixx@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 21 Sep 2026 15:00:03 +0000
-Message-Id: <20260921150004.0EC3D1F000FF@smtp.kernel.org>
+	s=k20260515; t=1790002940;
+	bh=v4UVAeTU1JJaiw4t/Qj/n7SDGMX+yxvPEzMCHsSdNF0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CVSpmy71UmB2ms8Rjz8minaI4YrhlvUAq/hKG21gKu5n5xyDm5fsQW8CZ2JM3NuMJ
+	 JhfkZ/BG2dYqYExJdfI56O4f6W/zamyRSG2c0P6fQQaUUz9omjbvee6GFxe9M6Z79N
+	 g/IVuovmT/fyf9DsTWq7xtHxuCAHg9JbnckZYYOKoNVswX0rNP3d7xsiKNR0FExLqs
+	 LD0v5GA0KX+gJyCUw8hogylsV/F8FMEhJE4N3ZweV/dc0HVrspkxn1m9EJBW4jC2S0
+	 17XVnA8L8KAJ9KzOp+kYbVYmYklvat1VXWsEJT38xNGNDnjkckDAmfkinUZSfnWgmy
+	 FnXzF3NE0sv9g==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id 198661AC56A7; Mon, 21 Sep 2026 16:02:16 +0100 (BST)
+Date: Mon, 21 Sep 2026 17:02:16 +0200
+From: Mark Brown <broonie@kernel.org>
+To: James Calligeros <jcalligeros99@gmail.com>
+Cc: Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>,
+	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Sven Peter <sven@kernel.org>,
+	Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>,
+	David Rhodes <david.rhodes@cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Amit Kucheria <amit.kucheria@linaro.org>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Lars-Peter Clausen <lars@metafoo.de>, Vinod Koul <vkoul@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+	Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
+	James Schulman <james.schulman@cirrus.com>, asahi@lists.linux.dev,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.de>,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH 01/28] dt-bindings: sound: Add Apple Macs sound
+ peripherals
+Message-ID: <arFG-KXA9aGlXQ27@sirena.co.uk>
+References: <20260920-macaudio-v1-0-741cc20a74e5@gmail.com>
+ <20260920-macaudio-v1-1-741cc20a74e5@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="mBqIcINAN3k6lMdu"
+Content-Disposition: inline
+In-Reply-To: <20260920-macaudio-v1-1-741cc20a74e5@gmail.com>
+X-Cookie: Too clever is dumb.
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] hwmon: platform EC driver registers hwmon directly instead of us=
-ing aux device
-- [Medium] i2c: device ID name exceeds I2C_NAME_SIZE causing truncation
---
 
-commit a7a9ebb5757758e9760736e7550c333cea597cae
-Author: Oleg Keri <okerixx@gmail.com>
+--mBqIcINAN3k6lMdu
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-platform/arm64: add Lenovo Yoga Slim 7x Gen 11 EC driver
+On Sun, Sep 20, 2026 at 02:53:40PM +1000, James Calligeros wrote:
+> From: Martin Povi=C5=A1er <povik+lin@cutebit.org>
+>=20
+> Add binding for Apple Silicon Macs machine-level integration of sound
+> peripherals.
 
-This commit adds an embedded controller driver for the Lenovo Yoga Slim
-7x Gen 11 laptop. The driver provides thermistors, battery cell voltages,
-and CPU fan speed as hwmon channels, alongside keyboard backlight and
-hotkey controls.
+Please submit patches using subject lines reflecting the style for the
+subsystem, this makes it easier for people to identify relevant patches.
+Look at what existing commits in the area you're changing are doing and
+make sure your subject lines visually resemble what they're doing.
+There's no need to resubmit to fix this alone.
 
-> diff --git a/drivers/platform/arm64/lenovo-yoga-slim7x-gen11-ec.c b/drive=
-rs/platform/arm64/lenovo-yoga-slim7x-gen11-ec.c
-> --- /dev/null
-> +++ b/drivers/platform/arm64/lenovo-yoga-slim7x-gen11-ec.c
+--mBqIcINAN3k6lMdu
+Content-Type: application/pgp-signature; name="signature.asc"
 
-[ ... ]
+-----BEGIN PGP SIGNATURE-----
 
-> +static int yoga_ec_probe(struct i2c_client *client)
-> +{
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqxRvcACgkQJNaLcl1U
+h9Bnswf5Aa0Iwjwij4bsZ+RZaKJ4PAN5qntk+PDpED8uFPRsFPjxayfQQpln/+YE
+sDuji25SQZ7OypbShQhRshvEwun3ovaP2m+Ha4hMrWdOFbsyUBT4/IYUaK7iGUF8
+QU58uLXPlqNSj8Ea7cgKSEcnMMhcIYcvgDKxpbWcugCdpoJEWwLEpSGeRjQNHlzA
+0PMiHY2MlW7mTys8yaPlq0b4N41vHWxzZN+zOD0pRWLf4K33boQziryFUy3K9wfH
+mPY+XVYWGwsPVEq9P/9zFHg9GbLNDIx4LoMBDC1zOgK05uuGRrM5QVgtWp5jqWR8
+G5J4yfk6TU1ORHvckcmhQbBuP1KTsw==
+=Gras
+-----END PGP SIGNATURE-----
 
-[ ... ]
-
-> +	hwmon =3D devm_hwmon_device_register_with_info(dev, "yoga_slim7x_ec", e=
-c,
-> +						     &yoga_ec_chip_info, NULL);
-
-[Severity: Medium]
-Does this code violate the hwmon subsystem guidelines?
-
-The EC driver acts as a platform multi-function device providing hwmon,
-input, and LED capabilities, but registers hwmon directly from
-drivers/platform/arm64/ inside yoga_ec_probe().
-
-According to the hwmon subsystem guidelines, the hardware monitoring
-functionality of a platform multi-function device should be implemented
-as an auxiliary device driver residing in drivers/hwmon/ to avoid layering
-violations and bypass of maintainer review.
-
-[ ... ]
-
-> +static const struct i2c_device_id yoga_ec_i2c_id[] =3D {
-> +	{ "yoga-slim7x-gen11-ec" },
-> +	{ }
-> +};
-
-[Severity: Medium]
-Can this device ID string cause truncation and matching failures?
-
-The string "yoga-slim7x-gen11-ec" is exactly 20 characters long. Since
-I2C_NAME_SIZE is 20, the string literal fully occupies the array without
-a null terminator.
-
-During module build, modpost might read past the array generating garbage
-for modules.alias. At runtime, the client's name populated from device tree
-or ACPI will be truncated to 19 characters plus a null terminator. This
-causes i2c_match_id() to fail because it will compare the truncated
-runtime string against the unterminated string literal.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921144953.1511=
-3-1-okerixx@gmail.com?part=3D2
+--mBqIcINAN3k6lMdu--
