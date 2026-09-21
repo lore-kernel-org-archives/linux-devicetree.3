@@ -1,126 +1,114 @@
-Received: from mslow3.mail.gandi.net (mslow3.mail.gandi.net [217.70.178.249])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90286468C11
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 09:25:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.178.249
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4179A292B2E
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 09:25:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789982718; cv=none; b=VdL+biIyJmkqsjFpFKfDTecE6ubhHxM9/ZWQuFnjJIn4TJalOC0BTfRsIamdsgtby8GIM8deNwUOGUKtVXuLwExjQoS79nrtRSY1wtDBwRL/0Z5TcwMC+O5exsrxBMn0aZ5RE76hnzFSR4EfZfVoFKoL8FExZj+DpQvAe7wOM5E=
+	t=1789982748; cv=none; b=lqmoo7BI4Tn6jjpDyNB2MYn6uJFgeHyiHwahCP0HYZKSOtBHPxNzGHTU6QXxIytk3PjK6TpI1sRx2f+9/mCBG+1+KWcuZtYa+DIgdj0RQx9AAIVYE2p+O+XEnjl60UBhMVaph54f8yoTltv/SC8r4u5NXHE7R0XIDAkcEKHEL/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789982718; c=relaxed/simple;
-	bh=YSCpY8tqNlknDrx0+gBTDvR7njLZyPar6Kwps8b3VhI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hU1r4E2YQOD+JprX6aduYJeJGGm5Of6rLxQaZsGDg828/K2FcF3Nj6VWxi06pEH+/ftuq6hc6tTwbGULNK9USqFgZUEcICEbJloJz/cVrM9yjoaFZB55aB5dbY96PRre7V3FYFEJ0F87YAGLNH2sPp0jybFtuwTZ9GQIXHv6/a4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=SzF/aoSY; arc=none smtp.client-ip=217.70.178.249
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
+	s=arc-20240116; t=1789982748; c=relaxed/simple;
+	bh=9S4nNXkTslX5pHOyRgtxUWTwAas9psRYayeS5EF6hWE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=axJBwDQCSEZiw8HVbua6ZCOD/mj8Ynokv66cCkvlXobOSIGMAAmW0XJ4HS/9FxXLYJVN6A04JI/9K4SDyZNyViBeCCBS9jdqBIiKhgYYeOVk87UvLDF/QSuCN0iDkg3PEF0oTfLJzJLQiBYkeOvCcpGlDB0QhX98TRYq99uCLcw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DsuIwllZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="SzF/aoSY"
-Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net [IPv6:2001:4b98:dc4:8::222])
-	by mslow3.mail.gandi.net (Postfix) with ESMTP id 762F85816BB
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 09:04:41 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 04E263EC33;
-	Mon, 21 Sep 2026 09:04:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
-	s=gm1; t=1789981474; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:  references:references;
-	bh=xlP+IH2SlJ1ApoTn35mCssnsxHazfM1zvnYS3L3OSoM=;
-	b=SzF/aoSYvL5WCOrUN+GxNiTrvYW2GGhNrDRkEifMQBR7ft+qfXbEmBpcecKS1hKZgEQzMS
-	WAeyPF9mMlzA2zPnIzD79RVeWtSDOfzgYsmlSRyPiTGHTpMGjHXG17z2laqZpgaRYQ5Iw9
-	NiCf4452kyaDhXrnVFhsVab7hce6Su5qjaTE1qqHsXT7wF4mWUCNpffrDxYg10pELZtuzJ
-	H6g/VGIJ0dtHk9Psu2x7y3oF/KSI3YPilhtw0yLcx1fZrEX4uJD4dKXNLWX2oW93iFeOc9
-	p5oV3XuoI2+napbf9Rhd2zR0CBJq4KvjKCfafEP/8+Vvx2ftJnHbMhgq5F4YIA==
-Date: Mon, 21 Sep 2026 11:04:32 +0200
-From: Arthur Crepin Leblond <arthur@marmottus.net>
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH net-next v9 3/3] w5100: detect carrier state using link
- status bit and optional interrupt
-Message-ID: <20260921090432.GA84626@marmottus.net>
-Reply-To: arthur@marmottus.net
-References: <20260918-wiznet-link-gpio-v9-0-5536f24d8d6d@marmottus.net>
- <20260918-wiznet-link-gpio-v9-3-5536f24d8d6d@marmottus.net>
- <20260919151421.2FE471F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DsuIwllZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F6EF1F000FF;
+	Mon, 21 Sep 2026 09:25:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789982747;
+	bh=2Cd10CePkTuSMxI6AYRVgSZdt92AtPEsss1i0CcFz0A=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=DsuIwllZQAkVgYVs+HkJo5LLr0hDRu6xMNzliiK7nv6BpqeHGpwsTOk43fobKCboC
+	 5GrOLAWlpNzMpgJA8OlIM/gvUIi0yWh4drOExrV1ChIxVgeNg1CuMbcFI5zvJdPk22
+	 1TvYcM9J9oJyUWlcHYz2R5vUGVd/DYMVEdXW54+d6OJplIYVTX41p4H4CTT8BEnYBb
+	 hurD8pf2vnGis0/JiSjWBQW1mpHyRLdLA7FRsh9h1OkeBpIcfo9f6prquRULI1FqM6
+	 rPv8Zp482OWDViQOiksB8AFTpVkit8uOMpeO/5Kk7zhET8lP1c56c2bvlu3T1ee1v3
+	 /y8cJrCQjwbBg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] ARM: dts: gemini: Use a level-high interrupt for
+ TVE200
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Linus Walleij" <linusw@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260921-gemini-tve200-fix-v1-2-8be03ac2a8f7@kernel.org>
+References: <20260921-gemini-tve200-fix-v1-0-8be03ac2a8f7@kernel.org>
+ <20260921-gemini-tve200-fix-v1-2-8be03ac2a8f7@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 21 Sep 2026 09:25:46 +0000
+Message-Id: <20260921092546.9F6EF1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20260919151421.2FE471F000FF@smtp.kernel.org>
-X-GND-Sasl: arthur@marmottus.net
-X-GND-Score: 0
-X-GND-Cause: dmFkZTGgWBHBy0DWBBmEWHqm0kizxMqPyqjPRcoflXLOVD1xCRWAA97ciK0B7dU0G3o/oZDUTyLVqIZ0yagT77TStZJx60dZsikvFyJUBQ9D0kW1mXA+gb7jIHbe+kOrDwdXqoq+3c7307UXdpUYAGrJ6hIPZ/goW2NLI0gUaUs77oxeO7aEa1BVroT9X/3Qbq4YEyZqMJ6u3S7EjozqNVwzW+6Zzy9xfkJu2SD5iu2/AFJtbI1lfQMQR+v7nP4h8TH5OdikCe0ziQCzVV0PSa2jinqCc6HXGQnf5dz4dnoi8pZbq9lgNWnFSU+QZikatfi8Hbw7KyVos+ATPh+aVFTPsC2kRZJ7SoQ9YuLmsPH7maOVNLPXOM3aBiRxQ3+6lOrxk2reNRyqYxsuYcyXg21E4YeouRMzNammzjZhF9WbS4cWoYyQi92eFdMimQvy7OTRrGe7v8dHXgjck82Md2lgeOYpwMOCFh/FlvAxBGNYG9QiP6LqEC/03z++6DhsQ/dew3YORnxcFfenu/Q9Y3o5hgQJHkKFNfRDIJr5Us8reCPTXfuYQuIi+CbxrW5OzcrFGVosfAQLY9u3PfZHupwekA3vVXz6BHvqsRSIyLFXb3BWAdT3HH7ZRe2XCxXKjoDNi14Pz0NiBqKFupo4IBw+H7UNHbaRncQb3rP1TJbYbOGH2g
-X-GND-State: clean
 
-On Sat, Sep 19, 2026 at 03:14:20PM +0000, sashiko-bot@kernel.org wrote:
->> @@ -448,12 +526,25 @@ static void w5100_restart(struct net_device *ndev)
->>  {
->>  	struct w5100_priv *priv = netdev_priv(ndev);
->>
->> +	if (!netif_running(ndev) || !netif_device_present(ndev))
->> +		return;
->> +
->> +	disable_irq(priv->irq);
->> +	if (priv->link_irq > 0)
->> +		disable_irq(priv->link_irq);
->> +
->
->[Severity: Medium]
->Is it safe to call disable_irq() here? disable_irq() is a sleepable function,
->but w5100_restart() can be called from atomic context when using memory-mapped
->I/O.
->
->Looking at w5100_tx_timeout(), which executes in atomic context, the timeout
->handler falls back to calling w5100_restart() directly if the device cannot
->sleep:
->
->w5100_tx_timeout() {
->    ...
->    if (priv->ops->may_sleep)
->        schedule_work(&priv->restart_work);
->    else
->        w5100_restart(ndev);
->}
->
->While current in-tree drivers might set may_sleep to true, this code path
->explicitly exists to support may_sleep == false. Could this introduce a
->'scheduling while atomic' panic for non-sleepable devices?
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] drm/tve200: IRQ storm / state machine corruption from level-trigge=
+red IRQ
+--
 
-It looks like all the ops in the spi driver are setting may_sleep to
-true but indeed disable_irq should not be called from an atomic context.
+commit c7049bfa3bb673960be589c51d1114e71aa6a360
+Author: Linus Walleij <linusw@kernel.org>
 
-Would disable_irq_nosync just work here? enable_irq is not affected
-from what I understand.
+ARM: dts: gemini: Use a level-high interrupt for TVE200
 
->
->>  	netif_stop_queue(ndev);
->>  	w5100_hw_reset(priv);
->> +	enable_irq(priv->irq);
->>  	w5100_hw_start(priv);
->>  	ndev->stats.tx_errors++;
->>  	netif_trans_update(ndev);
->>  	netif_wake_queue(ndev);
->> +
->> +	if (priv->link_irq > 0) {
->> +		w5500_report_carrier_state(ndev);
->> +		enable_irq(priv->link_irq);
->> +	}
->
->[Severity: Medium]
->Similarly, w5500_report_carrier_state() attempts to acquire a mutex
->(priv->link_lock).
->
->If priv->link_irq > 0 and priv->ops->may_sleep is false, wouldn't taking
->this mutex in the w5100_tx_timeout() -> w5100_restart() call chain also
->result in sleeping in atomic context?
->
->>  }
->
+TVE200's interrupt is configured as rising-edge. On the D-Link DIR-685,
+this can stop interrupt delivery after the first vertical interrupt,
+causing vblank and page-flip timeouts and delaying framebuffer console
+startup. The vertical interrupt can remain pending after acknowledgment. Use
+level-high triggering so the pending condition is delivered again without
+requiring another edge.
 
-Maybe I could use a spin lock instead of a mutex.
+> diff --git a/arch/arm/boot/dts/gemini/gemini.dtsi b/arch/arm/boot/dts/gem=
+ini/gemini.dtsi
+> index 23e68e17ffbbd..d8f64fea0a79d 100644
+> --- a/arch/arm/boot/dts/gemini/gemini.dtsi
+> +++ b/arch/arm/boot/dts/gemini/gemini.dtsi
+> @@ -445,7 +445,7 @@ dma-controller@67000000 {
+>  		display-controller@6a000000 {
+>  			compatible =3D "cortina,gemini-tvc", "faraday,tve200";
+>  			reg =3D <0x6a000000 0x1000>;
+> -			interrupts =3D <13 IRQ_TYPE_EDGE_RISING>;
+> +			interrupts =3D <13 IRQ_TYPE_LEVEL_HIGH>;
 
-Arthur
+[Severity: High]
+Does configuring this as a level-high interrupt break the driver's state
+machine logic in tve200_irq()?
+
+The driver assumes each interrupt corresponds to an exact hardware event and
+blindly toggles the TVE200_CTRL trigger condition between VSYNC and VAI:
+
+drivers/gpu/drm/tve200/tve200_display.c:tve200_irq() {
+    ...
+		/* We have an actual start of vsync */
+		if (!(val & TVE200_VSTSTYPE_BITS)) {
+			drm_crtc_handle_vblank(&priv->pipe.crtc);
+			/* Toggle trigger to start of active image */
+			val |=3D TVE200_VSTSTYPE_VAI;
+		} else {
+			/* Toggle trigger back to start of vsync */
+			val &=3D ~TVE200_VSTSTYPE_BITS;
+		}
+    ...
+}
+
+If the hardware delays deasserting the interrupt line, the level-high
+configuration causes the interrupt controller to immediately re-invoke the
+handler.
+
+The software state machine then incorrectly interprets this spurious
+level-triggered re-fire as the next sequential hardware event, repeatedly
+reversing the trigger condition and potentially causing an IRQ storm or
+dropped vblank events.
+
+>  			resets =3D <&syscon GEMINI_RESET_TVC>;
+>  			clocks =3D <&syscon GEMINI_CLK_GATE_TVC>,
+>  				 <&syscon GEMINI_CLK_TVC>;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921-gemini-tve=
+200-fix-v1-0-8be03ac2a8f7@kernel.org?part=3D2
