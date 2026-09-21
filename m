@@ -1,56 +1,56 @@
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
+Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com [209.85.208.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC67B483BF1
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 11:00:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05497488D82
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 11:01:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789988462; cv=none; b=O+eW1aV7SSBRHGYkr8lj0Q9S3RN3ddXyoBoD9UeiDyp30WwP1ng7dOsoWP1BYZdatBoyu5hhE6DaSvdH5DY43qPRn+UfCr4+NWxAcvU2SL9Eqsj1Ma1Rhx+6GFv1+RaGLjdpuP0lkULN7U/TwHvbOxS8ffyEnqzwxOn5ghGzHSI=
+	t=1789988463; cv=none; b=pP/KaILvtMs9Dgzbfnjvij5hf4OoZjAM5y9wBwJID2cxDBWQibEXyyQHXf2nhq9b8oaTENOyZptnHh0y9r9CWANogjyr5/FGMLKBC1gvpzVItlgXwYg9Xh60RCQZltrY8fHGdExFeonfGfU5qTUTJ9I5ZGPlRc59sj/S5P+Z/Jw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789988462; c=relaxed/simple;
-	bh=oJ0zGW6aMw8rKZXNikPlWrWiaIddi7KYY011U3LJm+k=;
+	s=arc-20240116; t=1789988463; c=relaxed/simple;
+	bh=nq6c2HIL7smpOLcesIc5VsHG9EFe4PxsntTqAaTUuBA=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=qW/4nw5tXDl5/CYsPuOJW79JrCUhKS8IDTv5cF1qXqmGLBrZsXYskwmWAd8CmlPIyikZLbS4fK+8RnnhmoqUQJrttf51U/qILzj1SWIGFgnCzLNC8aHdTpydf7F3MGyMfRi8h5CtbdTGmMX7kq+UglIP+PhlduDlM8O4hEZSUAw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=OuI/EUTY; arc=none smtp.client-ip=209.85.128.70
+	 To:Cc:Content-Type; b=oKbq+aquT7tqyFZhlLISmc4nc7L3CDINmCdpte5ICrZQV6UZLjJT68CtyqfHjRxkm+0ysF9KBJ4d74W5SEcB+IAdRC9yjELH5G0KIqgqvGNCBzl3ejRrPpvEU6O50ry1O5qwxLsCMEMW8KzfG8Zq/MGsmT3VUzunyfNC/GmT1gc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=jo+/E8bc; arc=none smtp.client-ip=209.85.208.71
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="OuI/EUTY"
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49e661c6440so15470635e9.3
-        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 04:00:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="jo+/E8bc"
+Received: by mail-ed1-f71.google.com with SMTP id 4fb4d7f45d1cf-6aa2d82b6ccso4068047a12.2
+        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 04:01:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789988458; x=1790593258; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789988459; x=1790593259; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=IM/pFcIIS9AfJIvDjZJlWaiz8Fy5HD+1VXbC/YTcKBU=;
-        b=OuI/EUTY+aI+2XjRZealZiliZT1lUZwdUyINQ5OkWNAXV1Y7brDogggcADMj2o1yKz
-         pS/SAdObrdE+uJsgXWuNsrLAFC/ACOnCn7ZFfqBwxXci94tzsDLGqpUPAuBz7TcFe+cX
-         83ENq3Ksc2PrL449gtMuK/xjNIFi8kNNvYFqGeeyQFAFjqAWfAkBHy8Xl1Hfy4ZaxuHR
-         rCb4eONiG8pa8vsMm6eOfx6XuRrClHnHffTWDJ8jWGk8DeH7FnganINqoNxbDYrkNlCQ
-         6HPWsthSLGpYMhv0QhbkOctj4DSaWai5uGMKpab3saur2ahCq2vHslI4e2ZUH46szD0Z
-         +C1Q==
+        bh=U06rcgIn0LVt5Do84ZIYuayP7YCGGpRPbIbmdcyZosY=;
+        b=jo+/E8bcBPYZBTDMteRnOWdS8I4C3eHA5hUsw+cky15J/5G7BRyTzWo/J+M80/0w1R
+         Ir287JkavtljC0NP2nhfWflwM72QexeqJPFmldGjE/bYXMs5CNzNCKovyjazcyvkT7Cc
+         G+ttrAPZ/uGLV6Xu3G6ZnGIE0M9sMUg5geSo5RRE6Oz8RswsZnl2Z7Qnb1fkkhBdVXX/
+         3p023XKdCkkQf3+r7UtWwijOtJxDm/JGjki15glYO1ZKf4jXtRc32kFWX/19GHbnTLJY
+         7kN3d2oEBZlK1tpu+8NYOv4oMJeYddorgGVWcB2BSSFTGNXpu7JtgKTq/8jyisAxsUf9
+         9j1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789988458; x=1790593258;
+        d=1e100.net; s=20260707; t=1789988459; x=1790593259;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=IM/pFcIIS9AfJIvDjZJlWaiz8Fy5HD+1VXbC/YTcKBU=;
-        b=PmF4unXznLTaImpc4YCXQStvaAm0LPLv8LLZAGYXCFDzs1YgW8TBqoQAi/sReVFryz
-         /chO7PeWIYYfGBjdHbQyUyVVJ+UlJNCSY1fz0dcwMhkuvcfrydo6uGG8CXI+HUTzUlWr
-         /x43xhBB0yNiothjvclcBYbvvZe4AHEwmmRaPUskrKuBOvsQOjXVkn1gnyQonMDJJ556
-         R1hRfTC4NusQpcMHGT5lAoMoNPYzBm+d+6l+RyDU6qwnfBlp+n3l5WdLvA/b1V1NcE9a
-         +k1kcaXz1nSLMlhFwyuJCDoo/+bu0S/ef0MoKsgJDwJQCUbrbMZUaXAGF1IDM5PEKWGQ
-         lWBw==
-X-Forwarded-Encrypted: i=1; AKwUvBwYDOcaWbMEzGhbJT9J7gz1gCD8krCyP9ZwL8CkAknVWrlnsj3g6j/EmucTvO3yDdar/BhupjMTp6ud@vger.kernel.org
-X-Gm-Message-State: AFuF++liUpslP307ZkWsgLYABEAlikkjLYO/+OdFchj+0UU4z/jL4TCQ
-	bU9eOOBCXHcIbJb9TKzOPS4f080svoZPnz89E1bsxudvBqm3s1tVY3ri8LFIxv3AkX6g6IMSJ9K
-	duXZ+D84ylNO5IpNpe0ibCw==
-X-Received: from wmcn17-n2.prod.google.com ([2002:a05:600c:c0d1:20b0:49e:8399:b77d])
+        bh=U06rcgIn0LVt5Do84ZIYuayP7YCGGpRPbIbmdcyZosY=;
+        b=dnKPdhYAkY8HN+BEz365yi0fhMuc7oQcxN/AwsZYpjyG0K+FuC49PtBOzAsAJHUYOg
+         PvQ6dAijHU8gtsV9JjokY1wIe7fOz/CbxM7m4bTWVE9PTpJL1NBKFUPsYrxXFZEEeFhm
+         Iuf46f5G2GdcdDGYc6344/HE0fHjc02Kn0nG5SWzhYPjIZnXkdK4VQtcaWyB6y+N6pBk
+         AE2NyI9NvU36lfE3/+S05Bph4bl0caxi0nDILlwdYfqBUjzY6Cg77Z40E8sVKqeACtMd
+         OJlnkf1DuYvhkg/24sxc4YSDWtnnVwv0fOLsJxioRm0qDlWookPQeXfGqGAnH/eDGjPy
+         XUIQ==
+X-Forwarded-Encrypted: i=1; AKwUvByPcKWy4Eda2XWYF35jgjiUHGAjPSL8YmB/em+JU0O4cem2m0rOVxNFu2/zhgifmev4/BwLM5hM+sKb@vger.kernel.org
+X-Gm-Message-State: AFuF++nqxjQ6yPG/7WO0j8ic70duCVJjEv7c+kEeSr0gqP9odVNFVLWl
+	sszQZ2kTIPPC7E8qztYfcy1Mboq8O/eSA9K+w0LKcv2naftYwT4hqd9W3sh8bWoTWY4LK8OQH0g
+	ggyCBbtLdx+CxnL9x5Jp6lg==
+X-Received: from edea12.prod.google.com ([2002:a05:6402:a18c:b0:6a6:1a9:f70f])
  (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:3b2a:b0:49e:6861:50f7 with SMTP id 5b1f17b1804b1-49fc5687df8mr141949475e9.5.1789988457579;
- Mon, 21 Sep 2026 04:00:57 -0700 (PDT)
-Date: Mon, 21 Sep 2026 12:00:43 +0100
+ 2002:a05:6402:23d5:b0:6a5:f814:2278 with SMTP id 4fb4d7f45d1cf-6aa577f5a1dmr7324139a12.2.1789988458556;
+ Mon, 21 Sep 2026 04:00:58 -0700 (PDT)
+Date: Mon, 21 Sep 2026 12:00:44 +0100
 In-Reply-To: <20260921110050.3977591-1-vdonnefort@google.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260921110050.3977591-1-vdonnefort@google.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260921110050.3977591-2-vdonnefort@google.com>
-Subject: [PATCH v2 1/8] memblock: Introduce MEMBLOCK_PTEMAP
+Message-ID: <20260921110050.3977591-3-vdonnefort@google.com>
+Subject: [PATCH v2 2/8] arm64: Introduce can_set_direct_map_range()
 From: Vincent Donnefort <vdonnefort@google.com>
 To: catalin.marinas@arm.com, will@kernel.org, rppt@kernel.org, 
 	akpm@linux-foundation.org, sudeep.holla@kernel.org, jenswi@kernel.org, 
@@ -73,128 +73,93 @@ Cc: mark.rutland@arm.com, sumit.garg@kernel.org, ardb@kernel.org,
 	linux-kernel@vger.kernel.org, Vincent Donnefort <vdonnefort@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Keeping PTE-level mappings is interesting on some architectures as it
-allows mapping/unmapping pages from the kernel direct map without the
-risk of splitting blocks which, under the break-before-make rule, may
-trigger page-faults the kernel can't handle.
-
-However, mapping the entire direct map at PTE-level is costly. So
-instead, create a new memblock flag MEMBLOCK_PTEMAP to selectively apply
-a PTE-level mapping.
+For systems where can_set_direct_map() is false, it is still possible
+that a subregion of the direct map can be modified if it is mapped at
+the last-level. Add an implementation for can_set_direct_map_range(). It
+falls back to a page table walk to verify the mapping level if
+can_set_direct_map() is false.
 
 Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
 ---
- include/linux/memblock.h | 18 ++++++++++++++++++
- mm/memblock.c            | 30 ++++++++++++++++++++++++++++++
- 2 files changed, 48 insertions(+)
+ arch/arm64/include/asm/set_memory.h |  3 ++
+ arch/arm64/mm/pageattr.c            | 50 +++++++++++++++++++++++++++++
+ 2 files changed, 53 insertions(+)
 
-diff --git a/include/linux/memblock.h b/include/linux/memblock.h
-index aa845f488327..13263055996d 100644
---- a/include/linux/memblock.h
-+++ b/include/linux/memblock.h
-@@ -52,6 +52,7 @@ extern unsigned long long max_possible_pfn;
-  * kernel that we know is good to use. It is the only memory that
-  * allocations may happen from in this phase.
-  * @MEMBLOCK_RSRV_HUGETLB: memory is reserved for hugetlb pages
-+ * @MEMBLOCK_PTEMAP: memory region to be mapped using PTE-level mapping
-  */
- enum memblock_flags {
- 	MEMBLOCK_NONE		= 0x0,	/* No special request */
-@@ -63,6 +64,7 @@ enum memblock_flags {
- 	MEMBLOCK_RSRV_KERN	= 0x20,	/* memory reserved for kernel use */
- 	MEMBLOCK_KHO_SCRATCH	= 0x40,	/* scratch memory for kexec handover */
- 	MEMBLOCK_RSRV_HUGETLB	= 0x80, /* memory reserved for hugetlb pages */
-+	MEMBLOCK_PTEMAP		= 0x100,/* PTE-level mapping */
- };
+diff --git a/arch/arm64/include/asm/set_memory.h b/arch/arm64/include/asm/set_memory.h
+index 0091ba12200e..80bb94a340fd 100644
+--- a/arch/arm64/include/asm/set_memory.h
++++ b/arch/arm64/include/asm/set_memory.h
+@@ -9,6 +9,9 @@
+ bool can_set_direct_map(void);
+ #define can_set_direct_map can_set_direct_map
  
- /**
-@@ -160,6 +162,8 @@ int memblock_reserved_mark_noinit(phys_addr_t base, phys_addr_t size);
- int memblock_reserved_mark_kern(phys_addr_t base, phys_addr_t size);
- int memblock_mark_kho_scratch(phys_addr_t base, phys_addr_t size);
- int memblock_clear_kho_scratch(phys_addr_t base, phys_addr_t size);
-+int memblock_mark_ptemap(phys_addr_t base, phys_addr_t size);
-+int memblock_clear_ptemap(phys_addr_t base, phys_addr_t size);
++bool can_set_direct_map_range(struct page *page, unsigned long numpages);
++#define can_set_direct_map_range can_set_direct_map_range
++
+ int set_memory_valid(unsigned long addr, int numpages, int enable);
  
- void memblock_free(void *ptr, size_t size);
- 
-@@ -285,8 +289,16 @@ static inline bool memblock_is_mirror(struct memblock_region *m)
- 	return m->flags & MEMBLOCK_MIRROR;
+ int set_direct_map_invalid_noflush(struct page *page, unsigned int numpages);
+diff --git a/arch/arm64/mm/pageattr.c b/arch/arm64/mm/pageattr.c
+index 132938b32eb1..5fcdb292905f 100644
+--- a/arch/arm64/mm/pageattr.c
++++ b/arch/arm64/mm/pageattr.c
+@@ -102,6 +102,56 @@ bool can_set_direct_map(void)
+ 		arm64_kfence_can_set_direct_map() || is_realm_world();
  }
  
-+static inline void memblock_warn_invalid_map_flags(struct memblock_region *m)
++static int can_set_direct_map_pud_entry(pud_t *pud, unsigned long addr,
++					unsigned long next, struct mm_walk *walk)
 +{
-+	enum memblock_flags map_flags = MEMBLOCK_NOMAP | MEMBLOCK_PTEMAP;
++	if (pud_leaf(pudp_get(pud)))
++		return -EINVAL;
 +
-+	WARN_ON_ONCE((m->flags & map_flags) == map_flags);
++	return 0;
 +}
 +
- static inline bool memblock_is_nomap(struct memblock_region *m)
++static int can_set_direct_map_pmd_entry(pmd_t *pmd, unsigned long addr,
++					unsigned long next, struct mm_walk *walk)
++{
++	if (pmd_leaf(pmdp_get(pmd)))
++		return -EINVAL;
++
++	return 0;
++}
++
++static int can_set_direct_map_pte_hole(unsigned long addr, unsigned long next,
++				       int depth, struct mm_walk *walk)
++{
++	return -EINVAL;
++}
++
++static const struct mm_walk_ops can_set_direct_map_ops = {
++	.pud_entry	= can_set_direct_map_pud_entry,
++	.pmd_entry	= can_set_direct_map_pmd_entry,
++	.pte_hole	= can_set_direct_map_pte_hole,
++};
++
++bool can_set_direct_map_range(struct page *page, unsigned long numpages)
++{
++	unsigned long addr = (unsigned long)page_address(page);
++	unsigned long end = addr + numpages * PAGE_SIZE;
++
++	if (can_set_direct_map())
++		return true;
++
++	if (!numpages)
++		return false;
++
++	/*
++	 * If !can_set_direct_map() then no one can split blocks and it is safe
++	 * to walk the page-table lockless.
++	 */
++	return !walk_kernel_page_table_range_lockless(addr, end,
++						      &can_set_direct_map_ops,
++						      NULL, NULL);
++}
++
+ static int update_range_prot(unsigned long start, unsigned long size,
+ 			     pgprot_t set_mask, pgprot_t clear_mask)
  {
-+	memblock_warn_invalid_map_flags(m);
- 	return m->flags & MEMBLOCK_NOMAP;
- }
- 
-@@ -305,6 +317,12 @@ static inline bool memblock_is_kho_scratch(struct memblock_region *m)
- 	return m->flags & MEMBLOCK_KHO_SCRATCH;
- }
- 
-+static inline bool memblock_is_ptemap(struct memblock_region *m)
-+{
-+	memblock_warn_invalid_map_flags(m);
-+	return m->flags & MEMBLOCK_PTEMAP;
-+}
-+
- int memblock_search_pfn_nid(unsigned long pfn, unsigned long *start_pfn,
- 			    unsigned long  *end_pfn);
- void __next_mem_pfn_range(int *idx, int nid, unsigned long *out_start_pfn,
-diff --git a/mm/memblock.c b/mm/memblock.c
-index ea0de4b5f356..8a87d4d2516d 100644
---- a/mm/memblock.c
-+++ b/mm/memblock.c
-@@ -1204,6 +1204,35 @@ __init int memblock_clear_kho_scratch(phys_addr_t base, phys_addr_t size)
- 				    MEMBLOCK_KHO_SCRATCH);
- }
- 
-+/**
-+ * memblock_mark_ptemap - Mark a memory region with flag MEMBLOCK_PTEMAP.
-+ * @base: the base phys addr of the region
-+ * @size: the size of the region
-+ *
-+ * If supported by the architecture, such region is mapped using PTE-level
-+ * mappings in the kernel direct map.
-+ *
-+ * Return: 0 on success, -errno on failure.
-+ */
-+int __init_memblock memblock_mark_ptemap(phys_addr_t base, phys_addr_t size)
-+{
-+	return memblock_setclr_flag(&memblock.memory, base, size, 1,
-+				    MEMBLOCK_PTEMAP);
-+}
-+
-+/**
-+ * memblock_clear_ptemap - Clear flag MEMBLOCK_PTEMAP for a specified region.
-+ * @base: the base phys addr of the region
-+ * @size: the size of the region
-+ *
-+ * Return: 0 on success, -errno on failure.
-+ */
-+int __init_memblock memblock_clear_ptemap(phys_addr_t base, phys_addr_t size)
-+{
-+	return memblock_setclr_flag(&memblock.memory, base, size, 0,
-+				    MEMBLOCK_PTEMAP);
-+}
-+
- static bool should_skip_region(struct memblock_type *type,
- 			       struct memblock_region *m,
- 			       int nid, int flags)
-@@ -2880,6 +2909,7 @@ static const char * const flagname[] = {
- 	[ilog2(MEMBLOCK_RSRV_KERN)] = "RSV_KERN",
- 	[ilog2(MEMBLOCK_KHO_SCRATCH)] = "KHO_SCRATCH",
- 	[ilog2(MEMBLOCK_RSRV_HUGETLB)] = "RSV_HUGETLB",
-+	[ilog2(MEMBLOCK_PTEMAP)] = "PTEMAP",
- };
- 
- static int memblock_debug_show(struct seq_file *m, void *private)
 -- 
 2.55.0.1082.g2b9226bbc0-goog
 
