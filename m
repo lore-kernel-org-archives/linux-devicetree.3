@@ -1,64 +1,64 @@
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B2C638E8A2
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 06:57:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F10BE38E8A2
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 06:57:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789973858; cv=none; b=o9f1z1wIIS3bPx9xO59K/KLqmMpC+jdPcvsJrAK/iTYOeYxIUw+4+LFNmDvVen15qs56VbYQ9ozBy/jErdWtyhCChiV/dfzYB43lexo/YY4E0HGUMVEMlMqvTDeTH59Tt9onSeZik3/3KumyRnAXoTlIx+ppqSSuE0pQcAhZmmg=
+	t=1789973866; cv=none; b=fO3jyw6t3pL5otRTrby1aT+it90phv79BLeuGGDCTsLf+CNEo0st1fQeIZqSRDWVCG9O9nGsHnKIcRj4P9qUusBy4eF8zvwBvnHR9UzjeT1OLCRYHNo+KCZ6IeQQszQ0ESX0QcXVsK5q5RMVDrPOJ+QzZB4Rhq2nsvG5ncIc8Vc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789973858; c=relaxed/simple;
-	bh=lx5t21IxVjxKqvcQUzQZws4GYGjiA99jB9zQc+Wt2dY=;
+	s=arc-20240116; t=1789973866; c=relaxed/simple;
+	bh=R6KQCtmBZ/LzQF/AMHskVs6rZH+bFAh197Pym1iNSc8=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=DlcrdUyiHxaB3FhgkaroRUUe9ZAZqkm07YD1WsrKPhgZENZqhxIhCTcAYEc3q4N48FZUe7od0WRpgOZQvOzwepjUU4xsDW+/+TzQ5amtn5cYrRAlBjRZMsTiTITRcAPt9dp62h0nuhWFXzHBGC21u2LSSFoLnJqm8GTPAjvSetU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RR4s9Tau; arc=none smtp.client-ip=74.125.228.43
+	 MIME-Version; b=q5cbf8YlfnnAl6PJQQs9EyZKd2e/9JPF0MzLPRp68MoCMJ2dL3W27BuqC33iQuscHRlf29ob3QInTVwBLvf+bcphzdyhpLsToY2JQBgR7JoUBF7TXccasdYWmxKBJBbZmOXeZjrPDfUWPRdT2Lp5hxNLHL9EspRv4oL3tOf4tbI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OoOV4dfc; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RR4s9Tau"
-Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469b2e1d5so2744172b3a.1
-        for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 23:57:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OoOV4dfc"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-86b90133ae8so1827041b3a.1
+        for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 23:57:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789973857; x=1790578657; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789973864; x=1790578664; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=vPwV01s3NLUehlhBAA/2Qe72EvcVtk0vUYPcq7aQSs8=;
-        b=RR4s9Tauz7OcckedrUi6FI6dua7owdAFQW/GN7EUPItGRckk+dlvjM0ihjGSUtluS6
-         OIdz6xUUEBbFSyn7+WZ23jV+A9BmeisHPx2CH627LobgtRuFuZJNFbyR4sTgFvHz0EN7
-         5Xk27BCF4EWeE0fKn1Y8hazjM7MzGq3ekzdYVkd5y5YVQMHRIl+P2M1RQB7Xthah2vwY
-         byqknhIUFqVqbHlvgXFL+ZspQk5JNWd1BJeg61UEQGmyNRpI+8CaktT4inOEoyjluVH8
-         ko+nEUwaGI1vd0uq5HUzJryy6WwtzNSD911n9hcG6rbz2AFmg7XSkynD3MkxEMJfKf4f
-         2Fbg==
+        bh=qtif5ZGV6EGkcHsHgZP2vHZuwYDFX6knAp85t7NtDS8=;
+        b=OoOV4dfcsOanBjnNMFNGb2N+03IuSNmrLc+j2MuBehL3Zz6r/F271d7oKgUMCDjb+X
+         Hh8JUXVS6pxp4wFr5Ek3g9yYZ+OcxooU8Z6h2F/OyyDeen4MN96Tgj6g2N06nK0WKato
+         LEIb6AASk6YTw/aUx/WAFTIg8igDFTA4hNeAMYsUNrQAcyXuUaSrcTwR1Eq01ZqFbCWy
+         JJlQN5XbM6Q6ZmHxtGMq7sBfSehqg0muXmslX7V/L48Yi4mpIAPkQ0hNQZtg8HGJ8QVz
+         2BTWK+wo9LODOF8R4LVAQgzVyIyym9QLx5NjTAAcndiD0kRH0C01lYPoFFfA1tIpxPel
+         Sqow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789973857; x=1790578657;
+        d=1e100.net; s=20260707; t=1789973864; x=1790578664;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vPwV01s3NLUehlhBAA/2Qe72EvcVtk0vUYPcq7aQSs8=;
-        b=Chs0bugmsUlHNOVxCQQ7/Pzo7lZR2iF+6h2eipE6DplSIfFFPxT4vYsvhjOHwCVTSi
-         T+ykyq6kq6uSsr4S2BmTYi3gh8kc7a1jJEvAq4AbcFzt9C7FnyhxvagAg+6n9xGOTWPO
-         VCOCk3K0IJrtiY88NhqnJm00DXTBeP2ROOYlqWQhk4g/Lv4afB5h8dtiSj80NRFFda+F
-         T3ZC4ZK+UuNgyAwSBMNc9/5wMl93d/BiUjiqM4ipesAsoWSdKSTvwODHiObQXfO+ZqKR
-         a4L3iO6HrNzYVH7SiJMHOVp5XfRA5zy+iF0NoopT1QDwp/aWtZwGCbMKPR2gOTVOiHa+
-         RGyw==
-X-Forwarded-Encrypted: i=1; AKwUvBxHqODqxtpAHWPbLgmBqHTCa09ZuZKYhQ9fiOZRCN8qKo/jKm+HqUSSvYSjHsWTAmQtQ86S7ttVn4lm@vger.kernel.org
-X-Gm-Message-State: AFuF++mBvBqeJwiLDYK9dajrHYNFtBmVT8oxv2HOfPo4hZiJr1SfRhuF
-	yEzvECiIxn3VlVDYQASzvISCa8gHxVn/RnNNg+Ks31ZE07AMivduOpVX
-X-Gm-Gg: AYBFou2Ug8YR/qQ1vq3DqS8dOBsNHwaV2jRcMpkfQ103uWmPEXtK1HnVRBZih85lvpB
-	l24lkY8tasESZbE63XSyO0gBdsxDoia1BbVoUK5pUcmVDZNoDJbKgpFbaoqiCd9gfiCq2GlokWe
-	/eK+G5djjGox+lwjrwEZvjTKlCQs6V86dTJ5Gl0Uek4Fot8mi1Foa8qpbMSQ1iykJRmj3LXxTnt
-	fScRI5X8V8nMNuka0y/IPsORRijvtNJhwj3OdH7t9N8Kktvj263cYvd9R6avzYzhj+waFVV/Eep
-	0oljkNQvBhpwLAmr1J8UUTDbV6GvWsZmAZ48FlDXd4l6YTx4OWOK6PP6xzotAra8y46QshM8vsE
-	vIJNxiZbGOcQ/65QiAz/6Ci5ODXVV6Tac1jaDRUlbuot5XKJkqyv4P6ftvHbSIUsaTR/e0VLxWo
-	U0RGhEsCME5nW8wpMbuPnQkalFvSZ/0BiOAkK92AOUZV0wWQPpWSawoMSKDl1DZRiEB9pzluv3w
-	jpXIB047NT1jnMkfPkMcg==
-X-Received: by 2002:a05:6a20:7f83:b0:3dd:a006:7b31 with SMTP id adf61e73a8af0-3dda006e165mr10128205637.48.1789973856785;
-        Sun, 20 Sep 2026 23:57:36 -0700 (PDT)
+        bh=qtif5ZGV6EGkcHsHgZP2vHZuwYDFX6knAp85t7NtDS8=;
+        b=jJDHoL+nsPB/ENGv/2X2a4+KFd0HpCe714AHQvR7NvpsS37eUZTdipHzkEcxoAcNlr
+         BIQfspDc1qg1f7M9pKUBvxdNKor1Mjs9fwAA4Fbx19ufu7Jui6PztZz1TYh6WgHQuz8R
+         Lg3N9hTlLXP/VDCL5Kk3dKv6iQ0CqApdKpAvkg30Ijk+9j2ndU9eSFkoYEc6vKgGWSTI
+         NF7t6Uy2/HIzwxsh9uX1UqBY38vZP/nMowHYCGGvxAeoEKsP3zJGrd0BwmurcbSWs/nm
+         m/rdahy7npbfD9L0VKClHIG8JZKTf+D5LaC6UkTOzKd12+mt5/lZRzeeRPx96bAhnTyd
+         +6jg==
+X-Forwarded-Encrypted: i=1; AKwUvBwZkp5NtCh9Zm6tIicYUBlYxsC3zY5iAG/cUcmI+MgKPLZ+3RTKbESKqPtsiSjGlLLHqAbBZ6VbRK32@vger.kernel.org
+X-Gm-Message-State: AFuF++nmwK/opSholWyBrUCubwxSJVlRES4oCNlHWn3KlOow1KVwS/Qi
+	88TBYDCAcnup5l4XDoHqsG0CL25WVvXa0iRcyl0xZ0vRxf/VKMBK/Lpr
+X-Gm-Gg: AYBFou3Oa8VFMFXU5r66MCOC03BMW+rcwLhBWk/LrKfFOAl6EYAaOFODKxyN7wqmddQ
+	3JSYdiWGrFtwLWsarPKuWwrMah7kuqlQiDEBtcZPOszOo6sovbJ/tNd3atuvz0n0vQfKTh1KjSU
+	zEg7D/Ri1AW9eAl1BerQzCxety8TARqBEw2wTv8wi9AMIz3rVofn4sLX5VNHBLfp0dplUZajF1g
+	8WAVvS6CPd5/TAPnniJnIRq7nCLeru+Q51X0BsuSlTW/wCya4OjMNZ5KhOWwZboO28Hf1Edctj6
+	DHpypHoSCw/DpmKUR3frAD3A+dMzGCWZaomPNgipnnyvma0gFczk4+DBNJnDp/aTugMb8bD7LF+
+	CymaT7QkMCctWk+7FwtvZ8FY0/NhSJf6Bqh4oXfRoaWaz3rn6+Qb25OaNOpCnSAM3kDNKMKkP9K
+	eTzLcairMJBRsVlED8QDw59LduGB+t5Iq3qi/nFRmg2GshYYtLwFF1CDczjzQ0Hz1fnA7NLglUz
+	cRv1aCe82AzeZWjguX1GlHMst1XHBt/
+X-Received: by 2002:a05:6a21:e584:b0:3d7:b3c1:cc34 with SMTP id adf61e73a8af0-3dd8c41a56dmr12576965637.26.1789973863555;
+        Sun, 20 Sep 2026 23:57:43 -0700 (PDT)
 Received: from localhost.localdomain ([2401:4900:9391:ec5e:64c1:1347:62e6:6b8f])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144d55f299fsm31398048c88.15.2026.09.20.23.57.32
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144d55f299fsm31398048c88.15.2026.09.20.23.57.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 23:57:36 -0700 (PDT)
+        Sun, 20 Sep 2026 23:57:42 -0700 (PDT)
 From: ASHISH YADAV <ashishyadav78@gmail.com>
 X-Google-Original-From: ASHISH YADAV <Ashish.Yadav@infineon.com>
 To: Guenter Roeck <linux@roeck-us.net>,
@@ -69,9 +69,9 @@ Cc: linux-hwmon@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Ashish Yadav <ashish.yadav@infineon.com>
-Subject: [PATCH 1/2] dt-bindings: trivial-devices: Add support for XDPE1A2G7C
-Date: Mon, 21 Sep 2026 12:27:01 +0530
-Message-Id: <20260921065702.93196-2-Ashish.Yadav@infineon.com>
+Subject: [PATCH 2/2] hwmon:(pmbus/xdpe1a2g7b) Add support for xdpe1a2g7c controller
+Date: Mon, 21 Sep 2026 12:27:02 +0530
+Message-Id: <20260921065702.93196-3-Ashish.Yadav@infineon.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20260921065702.93196-1-Ashish.Yadav@infineon.com>
 References: <20260921065702.93196-1-Ashish.Yadav@infineon.com>
@@ -85,25 +85,83 @@ Content-Transfer-Encoding: 8bit
 
 From: Ashish Yadav <ashish.yadav@infineon.com>
 
-Add Infineon Digital Multi-phase XDPE1A2G7C Controller to trivial devices.
+Extend xdpe1a2g7b driver to support xdpe1a2g7c model.
 
 Signed-off-by: Ashish Yadav <ashish.yadav@infineon.com>
 ---
- Documentation/devicetree/bindings/trivial-devices.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/hwmon/pmbus/Kconfig      |  4 ++--
+ drivers/hwmon/pmbus/xdpe1a2g7b.c | 10 ++++++----
+ 2 files changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/trivial-devices.yaml b/Documentation/devicetree/bindings/trivial-devices.yaml
-index 2de8eb09cb7d..ce9619b382e9 100644
---- a/Documentation/devicetree/bindings/trivial-devices.yaml
-+++ b/Documentation/devicetree/bindings/trivial-devices.yaml
-@@ -174,6 +174,7 @@ properties:
-             # Infineon Multi-phase Digital VR Controller xdpe1a2g7b
-           - infineon,xdpe1a2g5b
-           - infineon,xdpe1a2g7b
-+          - infineon,xdpe1a2g7c
-             # Injoinic IP5108 2.0A Power Bank IC with I2C
-           - injoinic,ip5108
-             # Injoinic IP5109 2.1A Power Bank IC with I2C
+diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
+index eb71a0ac044b..f65a295d09a4 100644
+--- a/drivers/hwmon/pmbus/Kconfig
++++ b/drivers/hwmon/pmbus/Kconfig
+@@ -867,7 +867,7 @@ config SENSORS_XDPE1A2G7B
+ 	tristate "Infineon XDPE1A2G7B"
+ 	help
+ 	  If you say yes here you get hardware monitoring support for Infineon
+-	  XDPE1A2G5B and XDPE1A2G7B.
++	  XDPE1A2G5B,XDPE1A2G7B and XDPE1A2G7C.
+ 
+ 	  This driver can also be built as a module. If so, the module will
+ 	  be called xdpe1a2g7b.
+@@ -877,7 +877,7 @@ config SENSORS_XDPE1A2G7B_REGULATOR
+ 	depends on SENSORS_XDPE1A2G7B && REGULATOR
+ 	help
+ 	  If you say yes here you get regulator support for Infineon
+-	  XDPE1A2G5B and XDPE1A2G7B multi-phase digital controllers.
++	  XDPE1A2G5B,XDPE1A2G7B and XDPE1A2G7C multi-phase digital controllers.
+ 
+ 	  This enables the controllers to be used as regulator devices,
+ 	  providing voltage control through the regulator framework.
+diff --git a/drivers/hwmon/pmbus/xdpe1a2g7b.c b/drivers/hwmon/pmbus/xdpe1a2g7b.c
+index 9455ef443b2b..48f6f8081c4b 100644
+--- a/drivers/hwmon/pmbus/xdpe1a2g7b.c
++++ b/drivers/hwmon/pmbus/xdpe1a2g7b.c
+@@ -1,7 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0+
+ /*
+- * Hardware monitoring driver for Infineon Multi-phase Digital XDPE1A2G5B
+- * and XDPE1A2G7B Controllers
++ * Hardware monitoring driver for Infineon Multi-phase Digital XDPE1A2G5B,
++ * XDPE1A2G7B and XDPE1A2G7C Controllers
+  *
+  * Copyright (c) 2026 Infineon Technologies. All rights reserved.
+  */
+@@ -23,7 +23,7 @@ static int xdpe1a2g7b_identify(struct i2c_client *client,
+ 	int vout_mode;
+ 
+ 	/*
+-	 * XDPE1A2G5B and XDPE1A2G7B support both Linear and NVIDIA PWM VID data
++	 * XDPE1A2G5B and XDPE1A2G7B/7C support both Linear and NVIDIA PWM VID data
+ 	 * formats via VOUT_MODE. Note that the device pages/loops are not fully
+ 	 * independent: configuration is shared, so programming each page/loop
+ 	 * separately is not supported.
+@@ -100,6 +100,7 @@ static int xdpe1a2g7b_probe(struct i2c_client *client)
+ static const struct i2c_device_id xdpe1a2g7b_id[] = {
+ 	{ .name = "xdpe1a2g5b" },
+ 	{ .name = "xdpe1a2g7b" },
++	{ .name = "xdpe1a2g7c" },
+ 	{ }
+ };
+ 
+@@ -108,6 +109,7 @@ MODULE_DEVICE_TABLE(i2c, xdpe1a2g7b_id);
+ static const struct of_device_id __maybe_unused xdpe1a2g7b_of_match[] = {
+ 	{ .compatible = "infineon,xdpe1a2g5b" },
+ 	{ .compatible = "infineon,xdpe1a2g7b" },
++	{ .compatible = "infineon,xdpe1a2g7c" },
+ 	{}
+ };
+ 
+@@ -125,6 +127,6 @@ static struct i2c_driver xdpe1a2g7b_driver = {
+ module_i2c_driver(xdpe1a2g7b_driver);
+ 
+ MODULE_AUTHOR("Ashish Yadav <ashish.yadav@infineon.com>");
+-MODULE_DESCRIPTION("PMBus driver for Infineon XDPE1A2G5B/7B");
++MODULE_DESCRIPTION("PMBus driver for Infineon XDPE1A2G5B/7B/7C");
+ MODULE_LICENSE("GPL");
+ MODULE_IMPORT_NS("PMBUS");
 -- 
 2.39.5
 
