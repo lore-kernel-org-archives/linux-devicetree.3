@@ -1,186 +1,168 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D521499F3D
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 12:36:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8201449AA4B;
+	Mon, 21 Sep 2026 12:37:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789994175; cv=none; b=uWPK0As8LJhtg8q6HdsD/wS0/9d0cxY3LozVJ1ZGL9lJTSDCG7RGCGRTAmMhciP0HzN/diHoADHq7Bt98UktVdg9a96+WQqtHjRKuMCS7yHa6THP6CwpZ1a+cHIwO/p514EfFrQmv5rZ8qmQfhY5PKCyQGF3KPuzPiAbUjx/0AY=
+	t=1789994227; cv=none; b=VKtSMR9Fse6cn0kJK+wWIyVwDGHF/jyiuC3P6MAU+B1XG1LngDwwxR5kWBraXKwv+xeXvVAmZSQY65aeX9IpAFAPFZuwOEB86zYc0UNUHT9vW4zo81WC7e1PvX8RKK6eBRPu9i1LWdIC+qWu9+A0MA5QCYR/YHeOxMy9521Gy2s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789994175; c=relaxed/simple;
-	bh=Q8tNA+Ne53BbQbai86auz3nmCKdXWW4PmWnHJ8YV9OM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SD0X/LXIgdS7A5vfwpXulqjtuAsNXRe9uV8SFXWenXjXjy1s6is9ZEwpkG8MNp/Z1UtG63OMqGMmEaHSyBln8AOhz4GowD6Mt1iWHwcdxzenu7AO46w0UFdwpWvvBttey5bgs5F0mi4b+as7kzZuuvMkoISmpKuCWYtXD8S+YoY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AlU7nzRD; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=c29cCu7p; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789994227; c=relaxed/simple;
+	bh=lQ7+ODtYODGQ2WtkpanJMBFN8HKPdBl6D6z2gi762NQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=sw9QqsxCHWrmP8mJ8i7YXhbC0nVPVt3JSycOkfedmu/Ag9sCOzfoHF14aWjQR6LLgjABXy9HkCBE8pegf+Zhx5WAW+oJ1F2YWJdpqYhOjb2hkezlA0ftpxx6GKFm/nAbRMUj1GFSHwK1+/Ni6hK82sNRQLofwiPR9MRyW6Rhcgk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cb3PSJDo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AlU7nzRD";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="c29cCu7p"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LAe2D1934391
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 12:36:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	BBdHXbwhj7x/KyZpkT+o8a5XuFk7ieS359+BRQZhQcU=; b=AlU7nzRDBpSSuNix
-	eb0wQsDhnrHeBvnGbnQoHxGgITZOsjx29VgEXZtQK4n9DhTCoHVCYVlLm4ljUmiB
-	S6Vn2NMHZTfu4LWeu8f5Qw3o34ThbnEY1JRzndM1cqRtxj4kY0cg8C8bfwQO4qMB
-	VnVeuOrc5HxMDmcrk1lVds5r4hML/B0fug/5+8nO8hUm50MKRBMKpY0tnNBcQHcR
-	lLx3QhrWVXOqgtCsw8STV+Zd8A7TTGa5nSMOqWQc1rsLeKMd3mrktcWGIMRiRN3q
-	/ZYbAstFIi9pY8KwBPl98ijK5c3DBbGC1G6VxC3Yb6qIfyzB9+Ae77SkBIRCTi6v
-	ezt6CA==
-Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gtq8bam9v-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 12:36:07 +0000 (GMT)
-Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5c7d6767d06so94789e0c.2
-        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 05:36:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789994166; x=1790598966; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BBdHXbwhj7x/KyZpkT+o8a5XuFk7ieS359+BRQZhQcU=;
-        b=c29cCu7plzFMXI84fgzpbi4MJ/+boqAHIcB6oPmv86gtSSGiaZcDrAWFcsHhwsO1bK
-         3YQutn3QCOGDKO660OE6++AYYF7zPyy3/I/qgt0piLHZ7z26+1/3zIhWxUeNLoVSvVIZ
-         UmaY06rGToXmF7Nb6JLa3bnG8e8WmRLujO3I7vX58mizHJWITdhJ2LdOGr/br+elqdsm
-         YBCMKV95Xm6PxsI4ac5s3yec+7BWJAgF/cBAsW3VSDQm47UWzBnrpvxGgfd1DJ1fqObJ
-         dZH5uoRoWmcaTENyiixbz/hldiP1byA2jrOfFoFjVwF+BFf+8fOk6fHibyFSbTLZpF/M
-         RMpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789994166; x=1790598966;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BBdHXbwhj7x/KyZpkT+o8a5XuFk7ieS359+BRQZhQcU=;
-        b=Lzcb0Y4660Ev7fmSQ1lIss3EGFnF44nVEU0W++IMpM2+/wwwvXxhPAXazOTZu+IV0m
-         7UWfY1186ygiRkmZw/YzTCsZ5uc6y5tkBQR+wLU+WApm4uFUn8uJdU84w2XCV165PyLw
-         zJV2BTYTYiKHLZEZTgiGlRPR/PNDbkntVjjOfRXGd7+y+mrKHIGwpHO7e5bhnsN3vuv6
-         MRjwUhuZwz8aI07bcWYF7+AO6PCNupSMXE/DAVTM/lxZ/5CqR4fB4/Vj3zewCVsQATEu
-         P0MZGu62AFVZ2usAcBLFmd8sOQNjSUmi6mLlgdt6PglZyh/wcM8K4Lz8OHljSkfPnJkO
-         tjMw==
-X-Forwarded-Encrypted: i=1; AKwUvBzJ1lTtHumhtYtUlQQFQZNjQWUQhu3h7MB3ld2j7+3jtBctekLP2CdZ2ifZASoRg0o9DiKcOawpk3mX@vger.kernel.org
-X-Gm-Message-State: AFuF++m8bbpbpWK+QVhkbinfvcV1wRqR/6sAkLGQH2QPhvTZv5D9qFVx
-	6Bj8Y5S3vOXRH0dOl0KFZ4Wh59REYLGbkxH5u+uzQouivyXyuY8qto4JojfSIBTpFyzXWEua6f/
-	URBgmuP9k4eGW6QoEbfZzKdJpmElXoD+8voO4P25ZvbwuRFOop+WwhlkcMxytCfa7
-X-Gm-Gg: AYBFou08e/y301p+Es/sNZnYM7EacKoF6zgijATStjKzhMZI3OxiEUVC0l4syBfnHyt
-	NbeHpeCSvXOOuA79EbSQykOLGcGE1IFZI1RNXpjFb0tCVzx/chCInYb2bZkB8D+1Zc3aipulrWs
-	JufAl9JMCgZcv2hEHzoPtBcJ0hViDD3IE+Wgbv0TZAaoCl8WeI52ioM8fKPdSms79EX5rEXKr9e
-	T5EiU7ojhry92TXt0ZAZdfITQiLklA88eTh6ZE3/hl9oxVviAmoWeK8Oq4GBVFZ2q0W4dbTMkeN
-	IKPDwvAHo6ntHldIrObKtnii5dVqO/CpcAcSsGKrAlU0AE+RS20SExtqqiVk6ApqduuVN0g0r3d
-	a15y+80tzTWO3s9JN1GcOAw==
-X-Received: by 2002:ac5:cdb2:0:b0:5c6:2128:7cf8 with SMTP id 71dfb90a1353d-5c9b8b8280amr3310883e0c.3.1789994166551;
-        Mon, 21 Sep 2026 05:36:06 -0700 (PDT)
-X-Received: by 2002:ac5:cdb2:0:b0:5c6:2128:7cf8 with SMTP id 71dfb90a1353d-5c9b8b8280amr3310850e0c.3.1789994166135;
-        Mon, 21 Sep 2026 05:36:06 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8c7943e8csm1941019e87.30.2026.09.21.05.36.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 05:36:05 -0700 (PDT)
-Message-ID: <6495b9d1-fbf1-4ab2-bbb7-2ea20e82a1e2@oss.qualcomm.com>
-Date: Mon, 21 Sep 2026 14:36:02 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cb3PSJDo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EC6B1F0089C;
+	Mon, 21 Sep 2026 12:36:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789994224;
+	bh=mVyAaJeaChtzQ6OF0Z5CWn+l4xCID2ZJZHbDAUH1Op4=;
+	h=From:Subject:Date:To:Cc;
+	b=Cb3PSJDoFupnIoWd1GQH18R2JGcVBY1qlSvdhg0SUlsd91j6uKpsDGa9RYJSNTof+
+	 Rr4q0bQyAdKu5gB4++6Fnqdj6479DwoYyc00MFD96zfCWVFbrR9qYQ4TG1NMEJIEtn
+	 THOlLph1EH+UVECUYaqAerPkQs/bG0s7cYvKH5vDZ9mt1/oNJQkHQB/26gVuHVxP7g
+	 2y0oDaENCPQtXfwLKLuAFsYY0AYGJYf51lPnJCFWb1Gyw3WRTEp3nDhgmomE4Jf6Z4
+	 PlvElUPTAa4EQLNSbzf6IwPbFV5f6v4bwrNlKBSTxfrVyI3jsl8ijAP3zTlrc1gaFn
+	 dtebure/CcxeA==
+From: Yixun Lan <dlan@kernel.org>
+Subject: [PATCH v6 0/2] Add UFS Host driver support for SpacemiT K3 SoC
+Date: Mon, 21 Sep 2026 12:36:19 +0000
+Message-Id: <20260921-08-k3-ufs-support-v6-0-3479768a2299@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 4/8] usb: misc: qcom_eud: add per-path role switch
- support
-To: Elson Serrao <elson.serrao@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Rob Herring <robh@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Peter Chen <peter.chen@kernel.org>
-References: <20260831030147.1500616-1-elson.serrao@oss.qualcomm.com>
- <20260831030147.1500616-5-elson.serrao@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260831030147.1500616-5-elson.serrao@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDE4MiBTYWx0ZWRfXzbCx6Jtq3JuT
- q8do4kh9DgeonnMszoaNe03IqAw0heGOFg6H0ZDuEfE2JsWs7+pZXIWt07sOmTAHAt4qU2/e2Cq
- rrp3ihnPkMH7mEZtSSSpW1udY/+qHAQAOYzfkrZtu4Kl9142UQkDhlTQ+RD7Nm9z2YHuATVvz1z
- vdj3p/rtv2TMrJWcohSPzYWmk9OpfCiigkv8HDcSWhbo8ldhcXXgnUl/ZtqZ09yhqjwYmmJxrlK
- BpIm5ygYASAgr7o0iLBEKZQ2nSWwsZptFICS8m3XJmmEF+d6J9e8k4SjpWjc6upH+ITEgZNumID
- 6HND+j+9wHu2uPcQfVr7TbRB37uPDpQzQwb8s+oCdgvh7SZhHrdIyEecRqTuWmX9D3Hv4K5MQW0
- s0PF9pTye1Y4WcedwjBs7JvSinaMx6iWgujnWLU6s34pPVjfhyIA6ScUPM9Sc0gbifsBs/Fxynn
- W0eGxifNDwIueTD5rmg==
-X-Proofpoint-GUID: KNvUC1LzOp6DleeKPfJ3F8_rEpzNQfWi
-X-Authority-Analysis: v=2.4 cv=T/8Z3PKQ c=1 sm=1 tr=0 ts=6ab124b7 cx=c_pps
- a=+D9SDfe9YZWTjADjLiQY5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=XKJJLf0VuBcF_oTi_k8A:9 a=QEXdDO2ut3YA:10
- a=vmgOmaN-Xu0dpDh8OwbV:22
-X-Proofpoint-ORIG-GUID: KNvUC1LzOp6DleeKPfJ3F8_rEpzNQfWi
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDE4MiBTYWx0ZWRfX9oSRGrvuHi5J
- js9C+/fR6bU/e28LtlDg5l9L6sUuphsII55ylpFRlB+mFCvAYGyszJ3xmnDX9uVlWE5YtR5uVDL
- bHre7+A91uc4C7drXnJtxyRt2yt0ans=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_04,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 phishscore=0 spamscore=0 adultscore=0
- clxscore=1015 malwarescore=0 lowpriorityscore=0 suspectscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609210182
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23QTW7DIBAF4KtErEs1DL/pqveougADCU1lW2Bbr
+ SLfvThZJJVZPmneN6O5khJyCoW8Ha4khyWVNPQ1qJcD6c62PwWafM0EARUokBQMvXA6x0LLPI5
+ DnmhnHAcTBJMBSe2NOcT0czM/Pu+5zO4rdNMGbRPnVKYh/96WLmybu/sasOEvjAJlVgnLrWNo4
+ vsl5D58vw75RLYFCz4R2DpxqS4VEriyaFEwsyP4gzCgWgSvBHAdHUe0nXc7QjyIY+03CFGJWrb
+ o/FF7vifkE8GaV8jtF1F6zSID1P4fsa7rH92GlxTRAQAA
+X-Change-ID: 20260605-08-k3-ufs-support-c8b308e415e2
+To: Alim Akhtar <alim.akhtar@samsung.com>, 
+ Avri Altman <avri.altman@sandisk.com>, Bart Van Assche <bvanassche@acm.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, "Martin K. Petersen" <mkp@kernel.org>
+Cc: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>, 
+ Aurelien Jarno <aurelien@aurel32.net>, 
+ Jennifer Berringer <jberring@redhat.com>, linux-scsi@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Yixun Lan <dlan@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3817; i=dlan@kernel.org;
+ h=from:subject:message-id; bh=lQ7+ODtYODGQ2WtkpanJMBFN8HKPdBl6D6z2gi762NQ=;
+ b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBqsSTQ7e8a31139KrE6Adk1R3CN0MdH8LwlkJ+K
+ Jedq922pfWJAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCarEk0BsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDJfFIAAAAAALgAoaXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5
+ maWZ0aGhvcnNlbWFuLm5ldEI1QkFCOEM5QzMxQjcxMTU2NzAyMjNEQzMxQUFFQTQ3NTk0REJCRU
+ QACgkQMarqR1lNu+0RjA/+MyuPt3j9QGkFqyVuGBTCm563VmObHNLZ+Gp4wQqw7qhirpiTQtdUr
+ sOk74KSvNGTjl8lIWPxj9o1k9+MczqPH3HV1+UFzo5QIgzvRT+ww44xZj/Q1uUR+0/QREAfe+WQ
+ CrK6/AkCnRFXoj+sb30JPxu9v4Nvgox3g1DkEUU0pkVIoWUzp8wy8b7AQo3x1wC0KE+HCHDAeJS
+ twFcHOu+TVaRM2aWIGpyzSEmApg9CQHGYWgk2jyS+teXcPTSo1/GFDsrYsw3wbaQ/qeex4FzusJ
+ nEFG8bhMClsYPsViE8IwIa9yB+Z5odVQkQMyKDQG6XKsS2X7RdnQY0v/aUqUYgrC2bh2xwwdRnf
+ G22at6LJM4FRpIYfBkBsaRtRIUKIF6W4f6eMrpS3P9aEOg8ymV3s9grN+W4pH5KAPn+B6L5o02M
+ qZ4A2IhFtu7pQ2Y/s7oKyZi3d0frB6YGzzXtsPR0KMBWxi1u9NMapRl+RbYe6zftRYJeXXS0N9J
+ J9U5sKCLY3TVFBY41q33D3M+OghPczc43H0u/AoUUxbLA/K71ltoBeo0NWZdo9LECpU3ObL9SPg
+ 7KDhQQsJ3As4yKvfmhfOWr1ABQzix4kNcFThMVNx+n/61d/lm2mQMuItv0WGc/NrEYn97SkAhLJ
+ 37lcO4WDZUJVkFZec18GJJJf1LLNG0=
+X-Developer-Key: i=dlan@kernel.org; a=openpgp;
+ fpr=50B03A1A5CBCD33576EF8CD7920C0DBCAABEFD55
 
-On 8/31/26 5:01 AM, Elson Serrao wrote:
-> The EUD hardware can support multiple High-Speed USB paths, each connected
-> to different USB controllers. The current implementation uses a single
-> chip-level role switch, which cannot properly handle multi-path
-> configurations where each path needs independent role management. Since
-> EUD is physically present between the USB connector and the controller,
-> it should also relay the role change requests from the connector.
-> 
-> Restructure the driver to support per-path role switches and remove the
-> chip-level role switch. Additionally, as EUD need not modify the USB
-> role upon enabling, remove the unnecessary role switch call from
-> enable_eud().
-> 
-> Reviewed-by: Peter Chen <peter.chen@kernel.org>
-> Signed-off-by: Elson Serrao <elson.serrao@oss.qualcomm.com>
-> ---
+This series try to add UFS support for SpacemiT K3 SoC, the controller
+components consists of System Bus Interface Unit, UFS Host Controller
+Interface, UFS Transport Protocol Layer, UFS Host Registers, Device
+Management Entity (DME), Transport Layer, Network Layer, Data Link
+Layer, PHY Adapter Layer, and M-PHY Interface. A more detail functional
+block diagram can be found in SpacemiT website, chapter 9.7.3 [1]
 
-[...]
+The DTS patch has been dropped in this series [2], and will send
+in separate series once this patch accepted. For people who want to
+test UFS driver, please grab the DT patch from version v5 [3].
 
-> +	of_property_read_string(controller_node, "dr_mode", &dr_mode);
-> +
-> +	/* No role switch needed for fixed role controllers */
-> +	if (!strcmp(dr_mode, "host")) {
-> +		path->curr_role = USB_ROLE_HOST;
-> +		of_node_put(controller_node);
-> +		return 0;
-> +	}
-> +
-> +	if (!strcmp(dr_mode, "peripheral")) {
-> +		path->curr_role = USB_ROLE_DEVICE;
-> +		of_node_put(controller_node);
-> +		return 0;
-> +	}
+One known issue is that the device will occasionally raise BKOPS interrupt
+when doing some high load test, log from dmesg shows
 
-I was thinking.. wouldn't that also get rid of the virtual detach
-functionality on fixed-role controllers?
+[  806.710763] ufshcd-spacemit c0e00000.ufshc: ufshcd_bkops_exception_event_handler: device raised urgent BKOPS exception for bkops status 1
 
-dwc3 currently only registers a role_switch if it's in OTG mode,
-but other drivers (such as dwc2) do it unconditionally - see
+Link: https://spacemit.com/community/document/info?nodepath=hardware/key_stone/k3/k3_docs/k3_usermanual/09_memory_storage.md&lang=en [1]
+Link: https://lore.kernel.org/all/20260918-belligerent-succinct-kraken-7fa592@quoll/ [2]
+Link: https://lore.kernel.org/all/20260916-08-k3-ufs-support-v5-3-1f5d71f1027d@kernel.org/ [3]
+Signed-off-by: Yixun Lan <dlan@kernel.org>
+---
+Changes in v6:
+- drop unused macro and dev_req_params
+- use global PX_xx macros
+- fix axi clock name
+- drop dts patch
+- collect tags
+- Link to v5: https://patch.msgid.link/20260916-08-k3-ufs-support-v5-0-1f5d71f1027d@kernel.org
 
-https://lore.kernel.org/linux-usb/8fabc049-7fdf-498a-a3ef-6f2570d510c8@oss.qualcomm.com/T/#u
+Changes in v5:
+- adjust clock names
+- add runtime power support
+- collect tags
+- Link to v4: https://patch.msgid.link/20260908-08-k3-ufs-support-v4-0-22aa2bd97d3b@kernel.org
 
-if that's the reason, we can change the dwc3 driver to match
-since the maintainer there expressed he wouldn't mind
+Changes in v4:
+- fix clock and reset settings
+- drop function which retrieve value of tx_lanes
+- propagate return error of ufs_spacemit_dme_set()
+- check return value ufs_spacemit_check_hibern8()
+- drop call to ufshcd_vops_phy_initialization()
+- handle compiling warning if CONFIG_OF not enabled
+ add __maybe_unused to ufs_spacemit_of_match
+- Link to v3: https://patch.msgid.link/20260806-08-k3-ufs-support-v3-0-037fb322acdb@kernel.org
 
-Konrad
+Changes in v3:
+- collect tags
+- fix dt-binding warning reported-by sashiko
+- fix low freq in opp-2 table
+- fix err checking in check_hibern8()
+- propagate err code in link_startup_notify()
+- update documents for event_notify()
+- ufs clock driver is merged into v7.3-rc1, update cover letter
+- Link to v2: https://patch.msgid.link/20260725-08-k3-ufs-support-v2-0-45036a2a2418@kernel.org
+
+Changes in v2:
+- fix missing interrupts property
+- move ufs node to k3-com260.dtsi
+- convert freq-table-hz to operating-points-v2
+- rework reset_control, fix header and drop global variable
+- drop dump_host_regs() debug interface
+- converge and refactor dme_set() operations
+- massive reduce of busy delay() loops
+- drop vendor specific hce_enable_notify(), fallback to default
+- drop unused member from struct ufs_spacemit_host
+- add COMPILE_TEST support to Kconfig
+- comment style fix
+- Link to v1: https://patch.msgid.link/20260702-08-k3-ufs-support-v1-0-1a64a3ab128f@kernel.org
+
+---
+Yixun Lan (2):
+      scsi: ufs: spacemit: dt-bindings: Add UFS controller for K3 SoC
+      scsi: ufs: spacemit: k3: Add UFS Host Controller driver
+
+ .../devicetree/bindings/ufs/spacemit,k3-ufshc.yaml |  56 ++
+ drivers/ufs/host/Kconfig                           |  12 +
+ drivers/ufs/host/Makefile                          |   1 +
+ drivers/ufs/host/ufs-spacemit.c                    | 649 +++++++++++++++++++++
+ drivers/ufs/host/ufs-spacemit.h                    |  77 +++
+ 5 files changed, 795 insertions(+)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260605-08-k3-ufs-support-c8b308e415e2
+
+Best regards,
+--  
+Yixun Lan <dlan@kernel.org>
+
