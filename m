@@ -1,44 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F14A49DBA3;
-	Mon, 21 Sep 2026 23:26:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AF9E47F3B1;
+	Mon, 21 Sep 2026 23:26:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790033185; cv=none; b=JpYDVmtVE7ss/Cwcx/fxY8ws8GbLZ8sgS30aRe3/bRWjnSW5S0HkxWzQEfcPwsHdfzFThHYy5vDjtFnmod+kHLBm8yTqRhPz6KSjXL/JppY0p12SAnB3XvobTdBkmNzusE2XwTN9VX0+OcRp1cM7w7cstO6I4MtDQKWc4VcRfYM=
+	t=1790033187; cv=none; b=mm+NzUQiAMY7Sgo2sypzobVHkE3AeG40xnoFx4D5C9mfad0rkBZBy5Un3HFMjLu6z2JjRyhgIZb1i4yLJVephegQ+Fwxnt2wIw2nTwyOvRpTOUjADL+JuKR8rtOE3AiIgH8tcYxOS9ef6ej9opFJVpP7fTaqRnJp1HTv0S03yWk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790033185; c=relaxed/simple;
-	bh=FuQ5FG02Z45pFqY7t8qLiJteXem04ZaAyluPa+IRt/c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iMonFBWxCiJfsw2HOfGf5BhT5t8+MjILqPfecKJYj+UhEEwh1d7G8fhs2q2n11RndL8ZVJEaVC734H0pQ7SmqJrww/OCFrzUuQqlb4pB7HS7yaz5zLsE4Jmba4qP6R77ntPocBq9oqQ8F3DumNB4KtfdHP6g33CwJ0eI77TxCT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=POkAV19N; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790033187; c=relaxed/simple;
+	bh=H5rdSGcFaJYoGMYc7E9MtJ8OgtV0debLmob9M82ZW04=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tGS4fPwbkhI5uIvEYgfhNja6G3o6aWWf2lh2p/v3rWdUEuuYSyZYXO7F+/O6MJWUeYf88CXiL2o7JKTsZtB6FsP6yzpWPnBxsNRqgp2TI/lvkMzgnYWCc49Se0ejrTjIORmHO2DDKnNLEdZxzy1jxfWUH5mPQKWgGS2tGhWN4ws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HhM5wpxk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="POkAV19N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 129D11F00893;
-	Mon, 21 Sep 2026 23:26:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HhM5wpxk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A73DC1F000FF;
+	Mon, 21 Sep 2026 23:26:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790033166;
-	bh=8GAx9y7yJ/xv7ZzWtq+gXF0YOXtW3406JmpS9FGPHkQ=;
+	s=k20260515; t=1790033181;
+	bh=5e4igy8Yg6g+2jgRPbWk0CuyslNekc1cN6eSy20Zj2Y=;
 	h=From:To:Cc:Subject:Date;
-	b=POkAV19NqyryMrsyWC7a+LyTrBB+FPUhjeYSS84r79quiJ8prDKy5wvDIpRDsAexT
-	 Qr/GpW5AeGdxr4556y65o9MgFKuzSvTNt8tBoj6SaJXH6NDTiD/rn0bNH6yua/cmKK
-	 n5WCSYThWBHaHimzrmPpZUBNgLqmF8+4E6Om/YHEwx3+ZClIk1+VH81SgYztlTGN46
-	 sA+g5ktxfMlcok1NvzAfv2TitX8ZBU9H6Tf30QoVUPJK4gJBHdURUMVbDNbxg/iclv
-	 Mqq/2TPre8jQLD3TbZFuVVZYt83bsLdrsxAv/90HbQ3ZoWCrX6ifI1RZjOQxeuWBCy
-	 sA2Z2vg/gnwnw==
+	b=HhM5wpxkvdgi3g4qrkNNgc0Ci0aIva31czsXlEfB/hVq+4jC7zaAFsO1xKaj2T42j
+	 kLXJyoVeMzLWQivSYxtwB7ym0JKKYho/a324hpHTBlmfp9+HhwmdOaWYuhj9SMRWNF
+	 sRhjoVxKD1sFvj4tJ7VEPTDio8qvBBJY4RSavTsEAoD9J/kpMHpusran0bdqEnaDyk
+	 v83ZJiA57yJ9w3ARh1CoZe8LNeBSpu3PaGefOMVBDcymVpwPZI36FFZ+hm4CiOCjw+
+	 8OA7k3ubtGBhVAhXfcFpX78V7KhmpuAYq6j4RVv9YIuSxpZmTNxi10bNP3h74E0cCl
+	 LmxqvcCp67W8A==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
+To: Peter Rosin <peda@lysator.liu.se>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Wesley Cheng <quic_wcheng@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] dt-bindings: phy: qcom: Relax required supplies
-Date: Mon, 21 Sep 2026 18:26:02 -0500
-Message-ID: <20260921232603.3129898-1-robh@kernel.org>
+Subject: [PATCH] dt-bindings: mux: reg-mux: Allow zero-cell controls
+Date: Mon, 21 Sep 2026 18:26:16 -0500
+Message-ID: <20260921232617.3130745-1-robh@kernel.org>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -48,46 +43,31 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-For the QUSB2 PHY binding, keep the three regulator supplies required
-except for legacy IPQ6018 nodes that do not describe the board rails.
+Some reg-mux users reference a controller without an argument cell
+when there is only one mux control exposed by the provider.
+
+Permit #mux-control-cells to be either 0 or 1 so the converted schema
+matches both existing provider styles.
 
 Assisted-by: LLM
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- .../devicetree/bindings/phy/qcom,qusb2-phy.yaml | 17 ++++++++++++++---
- 1 file changed, 14 insertions(+), 3 deletions(-)
+ Documentation/devicetree/bindings/mux/reg-mux.yaml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/phy/qcom,qusb2-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,qusb2-phy.yaml
-index 001fd0ccc985..2516eab7f6d3 100644
---- a/Documentation/devicetree/bindings/phy/qcom,qusb2-phy.yaml
-+++ b/Documentation/devicetree/bindings/phy/qcom,qusb2-phy.yaml
-@@ -165,12 +165,23 @@ required:
-   - "#phy-cells"
-   - clocks
-   - clock-names
--  - vdd-supply
--  - vdda-pll-supply
--  - vdda-phy-dpdm-supply
-   - resets
+diff --git a/Documentation/devicetree/bindings/mux/reg-mux.yaml b/Documentation/devicetree/bindings/mux/reg-mux.yaml
+index dc4be092fc2f..c8de11a90d90 100644
+--- a/Documentation/devicetree/bindings/mux/reg-mux.yaml
++++ b/Documentation/devicetree/bindings/mux/reg-mux.yaml
+@@ -22,7 +22,7 @@ properties:
+   reg: true
  
- allOf:
-+  - if:
-+      not:
-+        properties:
-+          compatible:
-+            contains:
-+              enum: 
-+                - qcom,ipq6018-qusb2-phy
-+                - qcom,ipq8074-qusb2-phy
-+    then:
-+      required:
-+        - vdd-supply
-+        - vdda-pll-supply
-+        - vdda-phy-dpdm-supply
-+
-   - if:
-       not:
-         properties:
+   '#mux-control-cells':
+-    const: 1
++    enum: [ 0, 1 ]
+ 
+   mux-reg-masks:
+     $ref: /schemas/types.yaml#/definitions/uint32-matrix
 -- 
 2.53.0
 
