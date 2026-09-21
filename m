@@ -1,119 +1,178 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E00DE43DED7
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 08:13:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1559443498F
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 08:13:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789978436; cv=none; b=Ua14CBjblzQ4+abbF8CH7gx5TUIdh4Th2Net3n5CiOy+Tq4UH7laUrDHEScIhHM8BonTBle61I3P0j7PR3HbuH3tx56fSE4RIVSQQspvpCv4y468sudbtbmlVm4JEXYjaPUaBS646lwE7/IgqEfXNMVBBgZsz6rMgjc6wtUR7+c=
+	t=1789978437; cv=none; b=Lc6be15X//JR+DcjH/nbcbQN5fITxR5H1NjIjTkCDFPnBzEp2rQTSaL9MuzZQ/2MW6tcTjzzIRBCN4mZ4v6wYO3KriPHURGeZ6lIKLWCNhf7Yu8zPPgfLdEQCmyqkuHcjrvZDGTVGJhCDXvkerjhDoWL27+dCt3geUAG7qlbtWg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789978436; c=relaxed/simple;
-	bh=14DdJd2gyFd5iE4lLyFJW3jtWmsZihzx/zIP988lSGs=;
+	s=arc-20240116; t=1789978437; c=relaxed/simple;
+	bh=hq1hrRc8fNxJg7Se70rDgteQ01doEvi0ZNVeg8yWWUU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=mWg0ZQ9FcLvBoUr5p6oYNvzsHS+Fu8CHVNQ3pUDcTOypmlHQutFziY0dZiMMAuT74bx7revgDGcJNIJH+3FiLvRDJ9y4MApmyHRfIKLM1v8Jgdts9+z1vmS+DzQ+nxsJU2WtG4MBSql+2H7QAPkwvqZ88TcTyUOfFI9dGaIYJ9A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kfknk6HW; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=aKZbDOIFkJvioiuFIrcI9mBx1lauSzn+wRerrbgbJC88IWIob9U13EJOORDZyCIxLT+bw4tl5ZXv2NNOvOoAz88nWu08GS33bWqi9oNDB8ZRodNhpqGetOdVNlvG18jxRgw6wVWVhIQsV1NFSuCY0ZkSn0Irq0k0S96arRjWRPQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dIHtaix/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kfknk6HW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37C561F000FF;
-	Mon, 21 Sep 2026 08:13:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dIHtaix/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B4951F00893;
+	Mon, 21 Sep 2026 08:13:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789978434;
-	bh=eKCFZ6M4EMEb0RxVM5oBQhZLNCEVB4QYyFA/3HKxp74=;
+	s=k20260515; t=1789978435;
+	bh=kmLTRNY1kc2se1JCA9fEugMVStcIxV4+UhGwHWOQnwo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Kfknk6HWp4BAgO07yCdsDBVLNb+MkKmZRM1DvZB9jcgKpGxqQLexwGHM9h+WGwQ7d
-	 XFQyIWi7URJ52gucYhFi8pgKLGQv0SOjzgUSxngK2oREZb6F73zT9VWk/uzjIbhgz4
-	 dfo1qJbq2lZbmX5NNgkYAaBf1LWnOU2vM5L1aI+uV7mcxrrBoTWahXiJMQdopVA2md
-	 iE5FPbCR5DAto0pffUC4uLbZFqcAr44vWjXJg/jNLXqyyoJf+i8iDPuIY7p45d91qa
-	 YXvLSDvgEuhsdc0u4s2/l+fs10g0BF7zmyIOilJjT8AyUyS4x99nAc1UUDnPpkJwAW
-	 scz/7OaXFBIUw==
+	b=dIHtaix/nXCu2qX9GynTmq3EQFPMc4tQtf2tl+VArguVtyLE+vbrx/JdNNb7xIY25
+	 tQ9eQI1Em3gSTQ77xsmzIOhA0u4iApHYk/+8TwcjM23ZGfQtynLHXOlOassCHnArpB
+	 IN14WIvm4m10MfgbUwZ/QERrfQD0KWLmlhQIfvN4/DA1BK8j4TlCp10ss88ehXLCKh
+	 phRW6kqQXMzpx8J0XV4U0XDEwSqm9pIM4ZGSxamw4S/2kpm7G96tRFTyDNjf4DhscI
+	 zihoiYtucIssNEMNPNcaUaGi2LhaVhSgbrwC2yJ9uIoX71bFr2d+UVufH7JIeQtU9r
+	 X+Nm0MQAmI7Vw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] dt-bindings: net: meson-dwmac: add T7 support
+Subject: Re: [PATCH 3/3] arm64: dts: amlogic: add T7 peripheral nodes
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Xianwei Zhao" <xianwei.zhao@amlogic.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org, linux-amlogic@lists.infradead.org
-In-Reply-To: <20260920-t7-node-new-v1-2-e6e0840c1b0b@amlogic.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, neil.armstrong@linaro.org, linux-amlogic@lists.infradead.org
+In-Reply-To: <20260920-t7-node-new-v1-3-e6e0840c1b0b@amlogic.com>
 References: <20260920-t7-node-new-v1-0-e6e0840c1b0b@amlogic.com>
- <20260920-t7-node-new-v1-2-e6e0840c1b0b@amlogic.com>
+ <20260920-t7-node-new-v1-3-e6e0840c1b0b@amlogic.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 21 Sep 2026 08:13:53 +0000
-Message-Id: <20260921081354.37C561F000FF@smtp.kernel.org>
+Date: Mon, 21 Sep 2026 08:13:54 +0000
+Message-Id: <20260921081355.1B4951F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [Medium] dt-bindings: net: meson-dwmac: missing t7-dwmac in select block
-- [Medium] dt-bindings: net: meson-dwmac: missing t7-dwmac in generational =
-constraints
+- [Medium] dt: i2c2 node is unconditionally enabled in SoC dtsi
+- [Low] dt: ethernet-phy node name violates schema (uses underscore)
+- [Low] dt: fixed regulators define enable-active-high without gpio
+- [Low] dt: new UART nodes omit mandatory clocks properties
 --
 
-commit cf2bd16c5188a0d6d2a0e2fdf91dd50ebfa695b8
+commit 6fa9620003d2e99adee0e1cd106450b9d0aabb2d
 Author: Xianwei Zhao <xianwei.zhao@amlogic.com>
 
-dt-bindings: net: meson-dwmac: add T7 support
+arm64: dts: amlogic: add T7 peripheral nodes
 
-Adds the T7 compatible string to the Meson DWMAC binding and adds a
-conditional schema check to enforce the correct compatible combination.
+Add device tree descriptions for the peripherals on the Amlogic T7
+SoC and the T7 A311D2 AN400 board.
 
-> diff --git a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.ya=
-ml b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
-> index 5c91716d1f21e..f75a275e2d759 100644
-> --- a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
-> +++ b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
-> @@ -28,6 +28,18 @@ select:
+Add support for the T7 Ethernet controller, SPI controllers, I2C
+controllers, UARTs, pinctrl groups, regulators, and reserved memory.
+Also enable the Ethernet controller on the AN400 board.
 
-[Severity: Medium]
-Should amlogic,t7-dwmac be added to the select block?
-
-If a node is added with compatible =3D "amlogic,t7-dwmac";, it appears the
-dt-validator will skip this schema entirely if the string is not explicitly
-listed in the select properties. This would bypass the new allOf.if rules
-added below.
-
-> =20
->  allOf:
->    - $ref: snps,dwmac.yaml#
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: amlogic,t7-dwmac
-> +    then:
-> +      properties:
-> +        compatible:
-> +          items:
-> +            - const: amlogic,t7-dwmac
-> +            - const: amlogic,meson-axg-dwmac
-> +            - const: snps,dwmac-4.00
+> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-an400.dts b/ar=
+ch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-an400.dts
+> index ca7536f772ff1..dfd82148179b0 100644
+> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-an400.dts
+> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-an400.dts
 
 [ ... ]
 
-> @@ -139,8 +151,10 @@ properties:
->            - amlogic,meson-gxbb-dwmac
->            - amlogic,meson-axg-dwmac
->            - amlogic,meson-g12a-dwmac
-> +          - amlogic,t7-dwmac
+> +	vddao_3v3: regulator-vddao-3v3 {
+> +		vin-supply =3D <&dc_in>;
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "VDDAO_3V3";
+> +		regulator-min-microvolt =3D <3300000>;
+> +		regulator-max-microvolt =3D <3300000>;
+> +		startup-delay-us =3D <70000>;
+> +		enable-active-high;
+
+[Severity: Low]
+Does this regulator actually need the enable-active-high property? Without
+specifying a gpio, this property will not have a functional effect.
+
+> +		regulator-boot-on;
+> +		regulator-always-on;
+> +	};
+
+[ ... ]
+
+> +	vdd_ddr: regulator-vdd-ddr {
+> +		vin-supply =3D <&dc_in>;
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "VDD_DDR";
+> +		regulator-min-microvolt =3D <800000>;
+> +		regulator-max-microvolt =3D <800000>;
+> +		startup-delay-us =3D <70000>;
+> +		enable-active-high;
+
+[Severity: Low]
+Similar to vddao_3v3 above, does this regulator need enable-active-high
+without a gpio property?
+
+> +		regulator-boot-on;
+> +		regulator-always-on;
+> +	};
+>  };
+
+[ ... ]
+
+> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi b/arch/arm64/boo=
+t/dts/amlogic/amlogic-t7.dtsi
+> index 8f3f1c0579a0f..a4ca3be358429 100644
+> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
+> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
+
+[ ... ]
+
+> +			uart_b: serial@7a000 {
+> +				compatible =3D "amlogic,t7-uart", "amlogic,meson-s4-uart";
+> +				reg =3D <0x0 0x7a000 0x0 0x18>;
+> +				interrupts =3D <GIC_SPI 169 IRQ_TYPE_EDGE_RISING>;
+> +				status =3D "disabled";
+> +			};
+
+[Severity: Low]
+Is this node missing its clocks and clock-names properties? Omitting them h=
+ere
+might force board files to duplicate the clock configurations.
+
+[ ... ]
+
+> +				int_mdio: mdio@1 {
+> +					reg =3D <1>;
+> +					#address-cells =3D <1>;
+> +					#size-cells =3D <0>;
+> +
+> +					internal_ephy: ethernet_phy@8 {
+
+[Severity: Low]
+Could this node be named ethernet-phy@8 instead? Using an underscore violat=
+es
+the mdio.yaml schema, which expects names matching ^ethernet-phy(@[a-f0-9]+=
+)?$.
+
+> +						compatible =3D "ethernet-phy-id0180.3301",
+> +							     "ethernet-phy-ieee802.3-c22";
+> +						interrupts =3D <GIC_SPI 340 IRQ_TYPE_LEVEL_HIGH>;
+> +						reg =3D <8>;
+> +						max-speed =3D <100>;
+> +					};
+> +				};
+> +			};
+
+[ ... ]
+
+> +			i2c2: i2c@6a000 {
+> +				compatible =3D "amlogic,t7-i2c", "amlogic,meson-axg-i2c";
+> +				reg =3D <0x0 0x6a000 0x0 0x48>;
+> +				interrupts =3D <GIC_SPI 162 IRQ_TYPE_EDGE_RISING>;
+> +				#address-cells =3D <1>;
+> +				#size-cells =3D <0>;
+> +				clocks =3D <&clkc_periphs CLKID_SYS_I2C_M_C>;
+> +				status =3D "okay";
 
 [Severity: Medium]
-Does this new compatible string also need to be added to the existing
-allOf.if blocks that check for amlogic,meson-axg-dwmac?
+Should this node be set to status =3D "disabled" by default? Enabling it
+unconditionally in the SoC dtsi might lead to probe failures or hardware
+conflicts on boards that do not use this controller.
 
-Since T7 uses AXG as a fallback, it shares its hardware constraints like
-clocks and rx-internal-delay-ps. By omitting amlogic,t7-dwmac from those
-existing conditional blocks, the schema implicitly relies on the fallback
-string to trigger validation. A missing fallback string in a device tree
-would bypass these generational constraints.
-
->      contains:
->        enum:
-> +        - snps,dwmac-4.00
->          - snps,dwmac-3.70a
->          - snps,dwmac
+> +			};
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260920-t7-node-ne=
-w-v1-0-e6e0840c1b0b@amlogic.com?part=3D2
+w-v1-0-e6e0840c1b0b@amlogic.com?part=3D3
