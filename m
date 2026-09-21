@@ -1,99 +1,152 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 708863A8743
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 19:32:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 609203AC0E7;
+	Mon, 21 Sep 2026 19:34:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790019130; cv=none; b=sfQ74xTFvkJ5JSsoTl0X2yuj2YjmDoVcBVE6c298+d9iA67YG3t9CvepL1XSuIW3OY5e0AaNfyAJKvTYi46p92ywMF3NPCh3H8gjDoiZyQlb2hYUnSqjiTFHAmTl8x1CnrfbBT3+Eu+KazdowK6MUtuT2ZBCPVjZmHraCTDvuCc=
+	t=1790019253; cv=none; b=NaMrC6vVgxcNDS/hLlY2cJr33I2GnL2a/V6rVAlZYlL7ok1zpp51DgWR/ZDBPIqSP3w44W4hLuXO6KDCBZnCcRCZQ1dZXujBkuSaLSTyXgpwtNlTBSQQxaaa+1smZrC7Uo2bWGKznMgV35C3XAWqOh+bufxFFffh89f0P2AiKHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790019130; c=relaxed/simple;
-	bh=DlxL+7x1lp9tnfFTr4GsXM8J8UTaDQhZyuNIKR35QKE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=O9b15OaHn7BvQ8v4TEEjhAfUSor1+lJ9PKvaza30IErVVf5mkMJWIejsH9//BFM55WAXsIK0J5o05Z8HzLoeIU5aPTSEnXr282OcZyX/Mh0Pj8jzWj8D6Hsz5I3qkPUjTH9YnYjbhPOkxzn7tTbnhfWP2TRUj9ONssB6PaaquEU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AfPF8gHi; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790019253; c=relaxed/simple;
+	bh=lo1KGIe43KIxj33azO3+I0NtBNamGrBs8H0NCVBDZ1I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=I1UyaAknlypBqxU+Lx8M0eJRpz7DyLptgkyjhE3q7hNnARoSf7NbS2vRU/u05MBnXE+HAGQCqOcKohR0xeZGADskdNo6RI3QhmBWvQbrQ0oLXvBjsEzJJuIU5s/qIDR/0J6tcyjIxKeMP+sw7fkTsXZ+teuNWxOdlyqJwykb2ck=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G4mL7IBP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AfPF8gHi"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747ed9866so31789245ad.2
-        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 12:32:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790019128; x=1790623928; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YkVaGp7Cn0+pPyLCGLyICIBFgNNpQjfNjoyqplnwg8g=;
-        b=AfPF8gHihqxKFvtNza2MGwCvpV6MbsDsDRIoNgNIeeSZr0dlfUr+1UeOlB6y0r7mC/
-         rpUes6cMushi0H4WxkjcK/tiOQsKxQXKcjJvFdj2CEv6rAgkxLNvSyKYajFTeNlqdYMR
-         jhKiwujTXvbeHgiU/Y9ZnuQr0MoLCUKjLWXX2cjEy0vsyrMHeTdbEXJd0IBpCgu2xMo/
-         JbuzxKcoAk4Qzzs2RoXWTgfN07VMmY2wzk3AqAUIvdffWPQGD9nb6MxUAEnVjIud+QaE
-         R2dHbz2xAvkONLCvYriwH7njZxfT1m/5YJmZyYKCfvfitj8mINm0eTYldaCLClzfO17j
-         ilxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790019128; x=1790623928;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YkVaGp7Cn0+pPyLCGLyICIBFgNNpQjfNjoyqplnwg8g=;
-        b=LwalbJPfo/GJTwYz+mkx4yAl9xyaoRjHzCU+G+f/suMZ+NJ/lOptrcQV9qpLvEIV/4
-         if2rFSCIZHVhb+tkpaHP73Lk9X8ohRMmDOJAqS19+WI/1/qOG+i/gQKHlccy2nNIV2UJ
-         Rzi20iOwJTtsZY+K8t4bouMTNFBa6zubXznrFIXnZtAySKOUw8CM62zijVWTmD7wfOBD
-         jZFwsjf4i419/MqGKgXhZT/4yAWzd7Qhw8xfp4nFOuSz/a+TQz5QWHkMtdrhFX77E0AX
-         LeWWMpWTP5/wKMEx2IUyWYfTp2PnlO3X87JpKfQ7ynKyJ/HtOysXIsuMZT5Jzmd+toPV
-         SlDA==
-X-Forwarded-Encrypted: i=1; AKwUvByO6csatxd99AlIWBhAuZOwPxd64/dxOyn+YzG4PiH8b1mhrmVNeWy7T4hVw5WMpLfVldDrDpubvHVT@vger.kernel.org
-X-Gm-Message-State: AFuF++k9wxPTIo5shyX9bkUOLhIhVeQAhiH+i8RlWfohVe81KvlZ6Rvp
-	hTyezCNL4iOvUw3axh8tXFcNNyWCei76CELRlAZQCoa9QQSx380OD1a0
-X-Gm-Gg: AYBFou06wmKVEhU/5PqxFPwD/nqeuIoD2V4txMiaUAiNabpSmgqViBL34SMvkxqmVBi
-	UMPCYVdV3UcPVxzdaXRjYzCf67FM2aptouSwLabiuHhFPpiMx/TY4vpYzsq56hU/P9D98+X2YyO
-	QTWJN7ldAuKWF87ZMqsvGIZR69n/hCg7N0F8ee6G774xaDS/cOT6fADf1R9DcOqUgsoKKOKFCUr
-	SysViGTS3lkFEh+8RVW0lHTVwKBjbQnUIGCZ1myIGSSTTGQeEz0qcfZRnh/IjUfRKg0cNPQrMQi
-	336UVMw5ssQDUrTVwr0dLgNfBZh4I2IYwwXC7jPfCfDuyntXJ0fKM/BIZ3ByqtlVGY6ZIWUY3xw
-	JsRLCKjcwag3lB4ZF/Q6TN5TK/rACnbzFXyS7anJUZGi7M0mbJyHHOTW6BGfV4KJZZvjKVD3Sqt
-	F7BN9vpUeRRrvaaxEvONxjtjjIpaXvromVZqpZ5sua6B77QWI9k2E5YRL7Y+4u5GNGi438jEWs3
-	PLv5Fd8viJKlTnNaHnkzSyXlEHVsKhDVcG220EB
-X-Received: by 2002:a17:903:4b28:b0:2dd:c100:a5da with SMTP id d9443c01a7336-2ddc100a676mr100940305ad.46.1790019127634;
-        Mon, 21 Sep 2026 12:32:07 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:e1a7:4f7b:11d4:34fa])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e5ec60d1fsm126954eec.28.2026.09.21.12.32.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 12:32:07 -0700 (PDT)
-Date: Mon, 21 Sep 2026 12:32:02 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Yassine Oudjana <y.oudjana@protonmail.com>, Mattijs Korpershoek <mkorpershoek@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Artur Rojek <contact@artur-rojek.eu>, 
-	Frank Li <Frank.Li@nxp.com>, linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH] dt-bindings: input: Use consistent indentation in the
- example
-Message-ID: <arGGLo9vmxyJQlTo@google.com>
-References: <20260913123310.100170-2-krzysztof.kozlowski@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G4mL7IBP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C42AA1F000FF;
+	Mon, 21 Sep 2026 19:34:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790019251;
+	bh=cHitpSwt77tjtW81X3MjJUOb384DHBJRc9knAkrAfeA=;
+	h=Date:Subject:To:References:From:In-Reply-To;
+	b=G4mL7IBPUYYoEHAxfumSOZ9RTnLTDyFwyt2N24vqHDl6prgPw9KkCK77KiRFiOph0
+	 fZOdFwis1iiydcIUkoQv4VE7paBRYxhupNir7kejXTGIo4wRCUtdhdcbPh2GqywH7z
+	 l64zFpH9g6DG7JxHUGJc/d9s9XxqhRa0aCuZUhP2TEV4nOcLJYaeyXFYPVzwpIIRTk
+	 BjtRVFAyZd8T52OQGGSxFX20WTX6MlS5yCMiNdp0dJiUzP+2tLo6iy/1Q+kwjS847c
+	 j8j3Z33Zbw8LRFCsLOmdUEY6qYAJBSNcjaqEvlR2ZW5G6uNB6Q7+ct0Pi3Vx47cMke
+	 X865Hclm7eg6g==
+Message-ID: <dfc8df6c-170f-4aae-b949-e8f147bfed96@kernel.org>
+Date: Mon, 21 Sep 2026 14:34:09 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260913123310.100170-2-krzysztof.kozlowski@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: Fw: [PATCH v3 0/4] stratix10: Add Interrupt support for
+ asynchronous communication with SDM
+Content-Language: en-US
+To: "NG, TZE YEE" <tze.yee.ng@altera.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Mahesh Rao <mahesh.rao@altera.com>,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <cover.1786600929.git.tze.yee.ng@altera.com>
+ <SJ0PR03MB5950C6799C40C5724B048197A1842@SJ0PR03MB5950.namprd03.prod.outlook.com>
+ <a7641b0d-ff7e-451f-834b-23514e6789fd@altera.com>
+From: Dinh Nguyen <dinguyen@kernel.org>
+In-Reply-To: <a7641b0d-ff7e-451f-834b-23514e6789fd@altera.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 13, 2026 at 02:33:11PM +0200, Krzysztof Kozlowski wrote:
-> Correct indentation in the examples to consistent 2- or 4-spaces
-> indentation to fix dt-check-style warnings ("example 0
-> [indent-consistent] indent mismatch ...").  Preferred is 4-spaces, but
-> re-indenting entire example just for that is too much churn.
+
+
+On 9/21/26 01:40, NG, TZE YEE wrote:
+> On 21/9/2026 2:37 pm, NG, TZE YEE wrote:
+>>
+>> *From:* NG, TZE YEE
+>> *Sent:* Thursday, August 13, 2026 2:35 PM
+>> *To:* Dinh Nguyen <dinguyen@kernel.org>; Rob Herring 
+>> <robh@kernel.org>; Krzysztof Kozlowski <krzk+dt@kernel.org>; Conor 
+>> Dooley <conor+dt@kernel.org>; Rao, Mahesh <mahesh.rao@altera.com>; 
+>> linux- kernel@vger.kernel.org <linux-kernel@vger.kernel.org>; 
+>> devicetree@vger.kernel.org <devicetree@vger.kernel.org>
+>> *Subject:* [PATCH v3 0/4] stratix10: Add Interrupt support for 
+>> asynchronous communication with SDM
+>> From: Tze Yee Ng <tze.yee.ng@altera.com>
+>>
+>> This patch-set adds support for interrupt from Secure Device Manager 
+>> (SDM)
+>> to Stratix10 SoC for asynchronous communication.
+>>
+>> Following things are added in this patch-set:
+>> - Add support for interrupt from SDM to Stratix10 SoC.
+>> - Add documentation for SDM interrupt in Stratix10 SoC.
+>> - Enable SDM interrupt in Stratix10 SoC.
+>> - Enable SDM interrupt in Agilex SoC.
+>>
+>> I am taking over this series from Mahesh Rao and posting v3 on his 
+>> behalf.
+>> Reference:
+>> https://lore.kernel.org/r/20250812-sip_svc_irq- 
+>> v2-0-53098e11705a@altera.com <https:// 
+>> nam10.safelinks.protection.outlook.com/? 
+>> url=https%3A%2F%2Flore.kernel.org%2Fr%2F20250812-sip_svc_irq- 
+>> v2-0-53098e11705a%40altera.com&data=05%7C02%7Ctze.yee.ng%40altera.com%7Ceafe6fcdec264d130fd408df17aad714%7Cfbd72e03d4a54110adce614d51f2077a%7C0%7C0%7C639255694657134969%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=hOumheIvzlbZt1UApZy2F9CCpJFiH25iWSaYeCcdjKo%3D&reserved=0>
+>>
+>> Changes in v3:
+>> - Reflow commit message body to ~75 columns (fix Dinh's comment in v2
+>>    review)
+>> - Add a newline before stratix10_async_workqueue_handler
+>>    description (fix Dinh's comment in v2 review)
+>> - Treat of_irq_get() failure as irq <= 0, since 0 is also a
+>>    failing value (fix Dinh's comment in v2 review)
+>> - Fix IRQ disable race: only call disable_irq_nosync() when
+>>    queue_work() newly queues work, and disable the fired irq
+>>    argument rather than actrl->irq
+>> - Do not invoke client callbacks under trx_list_lock; copy
+>>    cb/cb_arg under the lock and call the callback after unlock
+>> - Use disable_irq() + flush_work() + devm_free_irq() on
+>>    teardown, and treat unset IRQ as 0
+>> - Demote successful IRQ registration log from dev_alert() to
+>>    dev_info(), and demote async poll failure log from
+>>    dev_err() to dev_dbg()
+>> - Clarify INTEL_SIP_SMC_ASYNC_POLL_ON_IRQ kdoc to match
+>>    a1-a4 bitmap usage
+>> - Drop Reviewed-by: Matthew Gerlach from all patches
+>>    (no longer at Altera)
+>> - Link to RESEND v2:
+>> https://lore.kernel.org/r/20250812-sip_svc_irq- 
+>> v2-0-53098e11705a@altera.com <https:// 
+>> nam10.safelinks.protection.outlook.com/? 
+>> url=https%3A%2F%2Flore.kernel.org%2Fr%2F20250812-sip_svc_irq- 
+>> v2-0-53098e11705a%40altera.com&data=05%7C02%7Ctze.yee.ng%40altera.com%7Ceafe6fcdec264d130fd408df17aad714%7Cfbd72e03d4a54110adce614d51f2077a%7C0%7C0%7C639255694657165509%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=uDzBqNLWQSLSTmXyM72mbyHy5JfchKhk9a6xhrFF5pc%3D&reserved=0>
+>>
+>> Changes in v2:
+>> - Separated from the larger SIP SVC upstream series into a
+>>    dedicated interrupt-support series as requested
+>> - Link to v1:
+>> https://lore.kernel.org/r/20250722-sip_svc_irq-v1-0- 
+>> c5b9e02c1ce6@altera.com <https:// 
+>> nam10.safelinks.protection.outlook.com/? 
+>> url=https%3A%2F%2Flore.kernel.org%2Fr%2F20250722-sip_svc_irq-v1-0- 
+>> c5b9e02c1ce6%40altera.com&data=05%7C02%7Ctze.yee.ng%40altera.com%7Ceafe6fcdec264d130fd408df17aad714%7Cfbd72e03d4a54110adce614d51f2077a%7C0%7C0%7C639255694657185496%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=dSLMGTCQPtY6nHXWwKPeen2XIuPzs1vZ6NKBcMYVwEA%3D&reserved=0>
+>>
+>> Mahesh Rao (4):
+>>    dt-bindings: firmware: Add interrupt specification for Intel Stratix
+>>      10 Service Layer.
+>>    dts: stratix10: Add support for SDM mailbox interrupt for Intel
+>>      Stratix10 SoC FPGA.
+>>    dts: agilex: Add support for SDM mailbox interrupt for Intel Agilex
+>>      SoC FPGA.
+>>    firmware: stratix10-svc: Add for SDM mailbox doorbell interrupt
+>>
+>>   .../firmware/intel,stratix10-svc.yaml         |  10 ++
+>>   .../boot/dts/altera/socfpga_stratix10.dtsi    |   4 +
+>>   arch/arm64/boot/dts/intel/socfpga_agilex.dtsi |   2 +
+>>   drivers/firmware/stratix10-svc.c              | 135 ++++++++++++++++--
+>>   include/linux/firmware/intel/stratix10-smc.h  |  21 +++
+>>   5 files changed, 161 insertions(+), 11 deletions(-)
+>>
+>> -- 
+>> 2.43.7
+>>
 > 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Hi,
+> 
+> Gentle ping on this patch. It has been over a month with no feedback.
+> 
+Thanks for the ping. All patches applied!
 
-Applied, thank you.
-
--- 
-Dmitry
+Dinh
