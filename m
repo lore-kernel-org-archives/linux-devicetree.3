@@ -1,261 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F5A0499F25;
-	Mon, 21 Sep 2026 16:04:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 179C44BD363
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 16:06:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790006649; cv=none; b=b9mbDF1mqQ7r93C7n2QhvK+0aKsu+N3CCy6vhE0CSIp30gjcANdRASGyRXwhRY5+720E7EozSs1jkqn+R6F0zyDKr1+ZiSwn/JS0YEEdH0HyF8ANTvwpKXrnDxtc00dm8CkKzSwQi9meDrmNvBOlOA8Mxgmby6Yydvlm8yDaklU=
+	t=1790006794; cv=none; b=O+Zj04mRWbrqSnzK695klw5WccMtnou1Rjs+zoxbu9sHez+7EhcOfeOAzKhdO6gJ/QD4/DtL44l9q+I87dPi0zUbDiud6U9+JBbRFDBShz7UU0mKpPh5AHzPdxg6HgVsuurx5W/sOQQsXxI06JZ8JWg6bUTXqS7CjqlZK0EB0ko=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790006649; c=relaxed/simple;
-	bh=WxHKmuPlyqXl5ZLFByhGHztObAVNEI+Mzf2YcIgIkWY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tbN7ut1V1WZJ7lUul6PE14ZJxo59bZ6GTAqZqXxkChNC4zMWlGAoNUjEOnW2F+IJmmdv9h2bor25DADWBnYuLtsRgzo20RUfUXekETiM5C9gkM6botj7Ud8fVW0Yx18d8zNwMCjMalE0ntZ9ytxRGTPXaP+6W/RODEAbXiDAX8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kiPeRDXq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790006794; c=relaxed/simple;
+	bh=UOTeQSx76a9v/ZV3YujOIEiYlAr7+SRsnm3/O5Z68jU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=LHRj5271k2xtjOOFjQ9J+JZkeEFLGTPhnunUkPkc9704gx9iL3tAtjevNtjGGnQOu1nXiPJyBJFvOgJmCRsixbXnNc3qqJCQJkjnRDWL5mQrCKy8UI9ki6aJXRuWqGe45+xtZHuxVHtlpqX/WlSwgSwNEaCf7rWiG5uACw/gSew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=jNIPkims; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kiPeRDXq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 682771F000FF;
-	Mon, 21 Sep 2026 16:04:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790006647;
-	bh=PJtudqNQATXSC5gOLqR15Av+yGq1Ilm01aKR2BkHfvw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kiPeRDXqlsBGX8xSWU0uaG1b198NJqe5Z2Q8ky1rgKCeE0iKEezdR+vsfxtNkMmTW
-	 0OBmRPNYrZ2vgX1fpigDEPU7MJaU7SUPl7xDwMYfM6UZznny8oCiF1YzAAqxDLJYu7
-	 JwwQD05sp4tMF/xSQh1uOLXEc0VyqDx0tWfCg6zuaG+0zCTiL0qEbuLCyfKomyWfeh
-	 5Wjcn6n1TWPj0MfqliJLAvJFN2WWfSHWZhVYge45AN+hQ9Xad7UHkJQHuZev9cqosm
-	 sO4SXBapQesg3uchrFN2ovdsJe4vchgXNdEeebXtwF4Yp8ET1I9veJd3H+hMYpQy7/
-	 PuBeUTfmW662w==
-Date: Mon, 21 Sep 2026 17:04:03 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Andre Przywara <andre.przywara@arm.com>
-Cc: Mark Rutland <mark.rutland@arm.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Salman Nabi <salman.nabi@arm.com>,
-	Vedashree Vidwans <vvidwans@nvidia.com>,
-	Trilok Soni <trilokkumar.soni@oss.qualcomm.com>,
-	Nirmoy Das <nirmoyd@nvidia.com>, vsethi@nvidia.com,
-	Varun Wadekar <vwadekar@nvidia.com>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
-Subject: Re: [PATCH v4 4/8] firmware: smccc: lfa: Register ACPI notification
-Message-ID: <20260921-smiling-rare-salamander-6c442d@sudeepholla>
-References: <20260918141112.2115555-1-andre.przywara@arm.com>
- <20260918141112.2115555-5-andre.przywara@arm.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="jNIPkims"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-868a9c48f9eso3784349b3a.3
+        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 09:06:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1790006791; x=1790611591; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UOTeQSx76a9v/ZV3YujOIEiYlAr7+SRsnm3/O5Z68jU=;
+        b=jNIPkimsgzwGeAPw1T5J0ZZWbbWbvmf9gqRj40Y/atoUYgKG2yWh3HESwt6126nUDp
+         FD+Rmk79KRReyBBYIl4nF0UXejvRBciVXLpQ0x0P4HGhci5O8iuKBzqiPsMrmLMZpiFB
+         lTbphc8C5mH2TgoQvoSliu53nlAZUPM7gnPf6JVk1XoAUGXqWGbf8eYG4gdjGZ8Be6kE
+         0hW1vjiNk54/tiLuCoDH+rB/8p0unN4PncOQIY7I8fOQderqwGHSfRx+8mIky9QBPvd4
+         jWCVCSqDpodMotBD1r5UZ3EgftUBugTYiLbiO0CekAfIDwDxZ7IOPCqLCaPurh0VfluR
+         DhJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790006791; x=1790611591;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=UOTeQSx76a9v/ZV3YujOIEiYlAr7+SRsnm3/O5Z68jU=;
+        b=zSkzF0lzWZNIqrL0Q1HSdPwyPlc02p3pibP9utc7icoIlaiaPQnZ1cYbsVoBXwpJLA
+         u9zvV7/pgR5y4tB1j2DrmKDmshuCvflOC0LBrdOcjG+v/geqAXszte0CkJ+bepumzB4p
+         dyil27GTF8fUs1IpU25nWd9I0QvZ+L0/4AGlSgeSflb+A+tvCFUobOeWACB2kYaqKExJ
+         u0CKUPN3WPKO8Ck/SdPFkjMU0p2h7piiiauczqb3bqhHQivmqXJOxHtXvN8rUbSQjJLX
+         D8tFVepm2fTr6MEEvNc58w5jG52S4sCCrNCReECRpNEKVFMOfJPI51SB9TTTxt3MUP0u
+         n3AA==
+X-Forwarded-Encrypted: i=1; AKwUvBy6MYaqUw42Z502XVdD6CpNUiRPM+HCfWVtEVdhCi4GHYdn/LWglgBs4dTRgJ29vcE+0qFsh3ALnX+U@vger.kernel.org
+X-Gm-Message-State: AFuF++mu/cfMNw1jfjh1oOyCJ516FF3jcGqc5i9Bsl9U/AUsS3JMCfNq
+	cIxZTUUZlfftUuBIzg5ohlRT8deQLCj4wkBdJXLGD8xaEMh1R3d1aJnOQyPtRN5Ua50=
+X-Gm-Gg: AYBFou1nI09mxS4KFUzvls4QhXIOfF9h8dhJXXKJ7S878G9Lfz49S8MeWMgBs8vWVSY
+	LpYwF4dsWju1bWhgYwH4oaspUdTFLlimNSKYu1zhNeYjkLaT92Nrlx5ILOVDyCQCcBzxHCcQMvA
+	DvyWhooB/ZOQPxANADeQnjF8fiR5Uo1uSbRzA69+PrMZMJuRtx5+VqlLpsK6vcjrLRfd3vAq762
+	Jrlfg+wCnHBxHNVqBXvGnoQ2Sp1t8GUcSTlt9beaKaNQxH2RHVCU1mJpX1YhyRTZdR0Pfg4kdft
+	5PSJ0q+CqMmuOPOsG0dNP6LzUM972dd2f1LTgYnYuro3Ama0zkeVZCOHQ1L2nq1caNwYEf1sKjm
+	wXMmcHKrgS61D+8xA5FTI3A2ragpgHnuhiOcP+uJ7JctO0G8M1Gg712DQA2AONtl2Ntmn/KtVUl
+	NWN1h3HB2lJL8wZer1r9XnVPsv7nSDniEpmTgcp5d9QynbhmUb+2s1FZ+dyWGKBAHcDgU=
+X-Received: by 2002:a05:6a00:ac8:b0:878:34d7:6a30 with SMTP id d2e1a72fcca58-87834d76f20mr8319100b3a.36.1790006791257;
+        Mon, 21 Sep 2026 09:06:31 -0700 (PDT)
+Received: from localhost ([71.212.197.238])
+        by smtp.gmail.com with UTF8SMTPSA id d2e1a72fcca58-877a95f915csm3487490b3a.29.2026.09.21.09.06.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 09:06:30 -0700 (PDT)
+From: Kevin Hilman <khilman@baylibre.com>
+To: Arnd Bergmann <arnd@kernel.org>, soc@lists.linux.dev
+Cc: Arnd Bergmann <arnd@arndb.de>, Andreas Kemnade <andreas@kemnade.info>,
+ Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, Paul
+ Walmsley <paul@pwsan.com>, Herbert Xu <herbert@gondor.apana.org.au>,
+ "David S. Miller" <davem@davemloft.net>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Kyungmin Park <kyungmin.park@samsung.com>, Helge
+ Deller <deller@gmx.de>, Tero Kristo <kristo@kernel.org>, Stephen Boyd
+ <sboyd@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-omap@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-mtd@lists.infradead.org,
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-clk@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>, Aaro
+ Koskinen <aaro.koskinen@iki.fi>
+Subject: Re: [PATCH v2 06/14] ARM: omap2: remove omap24xx support
+In-Reply-To: <20260914140821.1805449-7-arnd@kernel.org>
+References: <20260914140821.1805449-1-arnd@kernel.org>
+ <20260914140821.1805449-7-arnd@kernel.org>
+Date: Mon, 21 Sep 2026 09:06:30 -0700
+Message-ID: <7htsnid1x5.fsf@baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918141112.2115555-5-andre.przywara@arm.com>
+Content-Type: text/plain
 
-On Fri, Sep 18, 2026 at 04:11:07PM +0200, Andre Przywara wrote:
-> From: Vedashree Vidwans <vvidwans@nvidia.com>
-> 
-> The Arm LFA spec describes an ACPI notification mechanism, where the
-> platform (firmware) can notify an LFA client about newly available
-> firmware imag updates ("pending images" in LFA terms).
-> 
-> Add a faux device after discovering the existence of an LFA agent via
-> the SMCCC discovery mechnism, and use that device to check for the ACPI
-> notification description. Register this when one is provided.
-> 
-> The notification just conveys the fact that at least one firmware image
-> has now a pending update, it doesn't say which, also there could be more
-> than one pending. Loop through all images to find every which needs to
-> be activated, and trigger the activation. We need to do this is a loop,
-> since an activation might change the number and the status of available
-> images.
-> 
-> Signed-off-by: Vedashree Vidwans <vvidwans@nvidia.com>
-> [Andre: convert from platform driver to smccc bus]
-> Signed-off-by: Andre Przywara <andre.przywar@arm.com>
-> ---
->  drivers/firmware/smccc/lfa_fw.c | 122 +++++++++++++++++++++++++++++++-
->  1 file changed, 121 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/firmware/smccc/lfa_fw.c b/drivers/firmware/smccc/lfa_fw.c
-> index b6ce478d3fc01..bb89fffde6856 100644
-> --- a/drivers/firmware/smccc/lfa_fw.c
-> +++ b/drivers/firmware/smccc/lfa_fw.c
-> @@ -3,12 +3,14 @@
->   * Copyright (C) 2025 Arm Limited
->   */
->  
-> +#include <linux/acpi.h>
->  #include <linux/arm-smccc.h>
->  #include <linux/arm-smccc-bus.h>
->  #include <linux/array_size.h>
->  #include <linux/delay.h>
->  #include <linux/fs.h>
->  #include <linux/init.h>
-> +#include <linux/kernel.h>
->  #include <linux/kobject.h>
->  #include <linux/ktime.h>
->  #include <linux/list.h>
-> @@ -18,11 +20,13 @@
->  #include <linux/stop_machine.h>
->  #include <linux/string.h>
->  #include <linux/sysfs.h>
-> +#include <linux/types.h>
->  #include <linux/uuid.h>
->  #include <linux/workqueue.h>
->  
->  #include <uapi/linux/psci.h>
->  
-> +#define DRIVER_NAME	"ARM_LFA"
->  #undef pr_fmt
->  #define pr_fmt(fmt) "Arm LFA: " fmt
->  
-> @@ -733,6 +737,112 @@ static int update_fw_images_tree(void)
->  	return 0;
->  }
->  
-> +/*
-> + * Go through all FW images in a loop and trigger activation
-> + * of all activatible and pending images.
-> + * We have to restart enumeration after every triggered activation,
-> + * since the firmware images might have changed during the activation.
-> + */
-> +static int activate_pending_image(void)
-> +{
-> +	struct kobject *kobj;
-> +	bool found_pending = false;
-> +	struct fw_image *image;
-> +	int ret;
-> +
-> +	spin_lock(&lfa_kset->list_lock);
-> +	list_for_each_entry(kobj, &lfa_kset->list, entry) {
-> +		image = kobj_to_fw_image(kobj);
-> +
-> +		if (image->fw_seq_id == -1)
-> +			continue; /* Invalid FW component */
-> +
-> +		update_fw_image_pending(image);
-> +		if (image->activation_capable && image->activation_pending) {
-> +			found_pending = true;
-> +			break;
-> +		}
-> +	}
-> +	spin_unlock(&lfa_kset->list_lock);
-> +
-> +	if (!found_pending)
-> +		return -ENOENT;
-> +
-> +	ret = prime_fw_image(image);
-> +	if (ret)
-> +		return ret;
+Arnd Bergmann <arnd@kernel.org> writes:
+
+> From: Arnd Bergmann <arnd@arndb.de>
 >
-> +	ret = activate_fw_image(image);
-> +	if (ret)
-> +		return ret;
-> +
-> +	pr_info("%s: automatic activation succeeded\n", get_image_name(image));
-> +
-> +	return 0;
-> +}
-> +
-> +#ifdef CONFIG_ACPI
-> +static void lfa_acpi_notify_handler(acpi_handle handle, u32 event, void *data)
-> +{
-> +	int ret;
-> +
+> The omap24xx SoC platform was used in the Nokia N800 and N810 tablets
+> released on 2007 and was among the first ARMv6 CPUs in products that
+> made it into products.
+>
+> Unfortunately the early ARM1136r0 CPU cores had a number of quirks that
+> caused a disproportionate amount of work to keep them compatible with
+> later ARMv6K/v7/v8 implementations.
+>
+> Drop the support for this SoC in order to allow removing ARM1136r0.
+>
+> Cc: Andreas Kemnade <andreas@kemnade.info>
+> Cc: Kevin Hilman <khilman@baylibre.com>
+> Cc: Roger Quadros <rogerq@kernel.org>
+> Cc: Tony Lindgren <tony@atomide.com>
+> Cc: Paul Walmsley <paul@pwsan.com>
+> Cc: Herbert Xu <herbert@gondor.apana.org.au>
+> Cc: "David S. Miller" <davem@davemloft.net>
+> Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
+> Cc: Kyungmin Park <kyungmin.park@samsung.com>
+> Cc: Helge Deller <deller@gmx.de>
+> Cc: Tero Kristo <kristo@kernel.org>
+> Cc: Stephen Boyd <sboyd@kernel.org>
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-omap@vger.kernel.org
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-media@vger.kernel.org
+> Cc: linux-mtd@lists.infradead.org
+> Cc: linux-fbdev@vger.kernel.org
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: linux-clk@vger.kernel.org
+> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de> # omapfb
+> Acked-by: Aaro Koskinen <aaro.koskinen@iki.fi>
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
-DEN0147, Appendix "LFA updates", assigns notification value 0x80 to new
-LFA updates. The handler should ignore all events other than 0x80 before
-attempting automatic activation.
-
-> +	while (!(ret = activate_pending_image()))
-> +		;
-
-Some timeout mechanism needed ? Otherwise can we loop for ever if there is
-a firmware bug ?
-
-> +
-> +	if (ret != -ENOENT)
-> +		pr_warn("notified image activation failed: %d\n", ret);
-> +}
-> +
-> +static int lfa_register_acpi(struct device *dev)
-> +{
-> +	struct acpi_device *acpi_dev;
-> +	acpi_handle handle;
-> +	acpi_status status;
-> +
-> +	acpi_dev = acpi_dev_get_first_match_dev("ARML0003", NULL, -1);
-> +	if (!acpi_dev)
-> +		return -ENODEV;
-> +	handle = acpi_device_handle(acpi_dev);
-> +	if (!handle) {
-> +		acpi_dev_put(acpi_dev);
-> +		return -ENODEV;
-> +	}
-> +
-> +	/* Register notify handler that indicates LFA updates are available */
-> +	status = acpi_install_notify_handler(handle, ACPI_DEVICE_NOTIFY,
-> +					     lfa_acpi_notify_handler, NULL);
-> +	if (ACPI_FAILURE(status)) {
-> +		acpi_dev_put(acpi_dev);
-> +		return -EIO;
-> +	}
-> +
-> +	ACPI_COMPANION_SET(dev, acpi_dev);
-> +
-> +	return 0;
-> +}
-> +
-> +static void lfa_remove_acpi(struct device *dev)
-> +{
-> +	struct acpi_device *acpi_dev = ACPI_COMPANION(dev);
-> +	acpi_handle handle = acpi_device_handle(acpi_dev);
-> +
-> +	if (handle)
-> +		acpi_remove_notify_handler(handle,
-> +					   ACPI_DEVICE_NOTIFY,
-> +					   lfa_acpi_notify_handler);
-> +	acpi_dev_put(acpi_dev);
-> +}
-> +#else	/* !CONFIG_ACPI */
-> +static int lfa_register_acpi(struct device *dev)
-> +{
-> +	return -ENODEV;
-> +}
-> +
-> +static void lfa_remove_acpi(struct device *dev)
-> +{
-> +}
-> +#endif
-> +
->  static int lfa_smccc_probe(struct arm_smccc_device *sdev)
->  {
->  	struct arm_smccc_1_2_regs reg = { 0 };
-> @@ -769,11 +879,21 @@ static int lfa_smccc_probe(struct arm_smccc_device *sdev)
->  		destroy_workqueue(fw_images_update_wq);
->  	}
->  
-Looks like if update_fw_images_tree() failed, the kset and workqueue will be
-destroyed. The ACPI init below overwrites err, and both a successful
-registration and -ENODEV reach return 0(not sure if that is expected).
-Driver removal or a later notification or any activity will then use
-the destroyed global objects happily.
-
-> -	return err;
-> +	if (!acpi_disabled) {
-> +		err = lfa_register_acpi(&sdev->dev);
-
-There is also no cleanup when lfa_register_acpi() returns another error after
-inventory setup succeeded. The probe needs some unwind path that returns
-the original enumeration error and releases the kset and workqueue on every
-later probe failure. How come the LLMs have not pointed out these issues
-already ? I see sashiko is unable to review this because of the way you have
-expressed the dependency. Or make SMCCC patches part of the series for review
-purposes.
-
--- 
-Regards,
-Sudeep
+Acked-by: Kevin Hilman <khilman@baylibre.com>
