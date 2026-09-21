@@ -1,306 +1,131 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B0E2450407
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 09:17:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 675F945FFC1
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 09:17:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789982228; cv=none; b=OjGGzY1i4EigFrSkoUlfwefoXtE89RKVERXEHBKK2osJI8ciEKHl/bAqqYYmbHNcPbLeQ058yaL4euj3Gf6/kMsZb7a9Qcr5QAXakYMCkTmxHqA4DQscnw2i5itEXJbLz1182FUOdS/SkZqpbypLf9/bWfFvVjvOni5W4H+lp28=
+	t=1789982244; cv=none; b=HauVKNLsLkff0cJiX2Q8ucAQuzUtZqwCm6tN0LssHUtr+nl7lmhK/r9cfp1jBaPBT5xyqQOdnYRKzSDxQwrLEPtshNIZcVm72FlLS8CW6fD4BZvmoXqow6T49u+Qww9faVY8PrwKl2z0TQ7qpaxLe15/f4iorhQH3yUgG2OWgSY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789982228; c=relaxed/simple;
-	bh=N0bIQxqL1pceSmmTqY9/CndD0J1iHD2RfX4MzvKlfmY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=U1BHk3bjiA2ubTjtbAGPxl5q2KlxULekaZVitpaaHrk41sdE9fnyOgBS6b3btvwaPYEQlJtflRqwoNoTuq8O8CGITdyO26j39tV7pEimskLxTH6V2+/kXxltqT3Ny9ztxwCY4+XVgGTPhQfqiULOsLruESg9W4V7dunKPlw5GUA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gEW8KNSF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CWo5LuA0; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789982244; c=relaxed/simple;
+	bh=xX4E32CGxlVTnSWLoz0dxmDGTxCPRzhqdRhHxD3wygA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=f8tpdN/zItBK2U1q+Ln7q5z51OxitT+cIN0Sljy3XrXAqMwqDpits20oy8TX/elJvVxYIJpHYdg8kX0kX63lQKBh+gCAU6KoXwdLS/FSHFWEQP8bzwnemsO/dm1kiw/M4GRMfRlRPNX8cYqt1sFUg6CTpzPlAwBI30gbcjwEiLE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JnB9zb72; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gEW8KNSF";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CWo5LuA0"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68L79vNb467198
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 09:17:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	n+zrOo21ugBRzxhcPfBDsYADhDuFT+BowRPcmTeqWkI=; b=gEW8KNSFNdph8A2U
-	QfOZVNgsMzjgLn8evgXNCg4P6gfdTb5QdHay6ueY26RTV1Zu2Z+BxMM2A81srUGZ
-	hJzS62UXXeC44IRGa/fKo3qOV1POjsm0jb0BFe34ljUw6ybu8TimcduBGmEfA3Ku
-	+7w/hGPsEhhCjwXHjgMcbaVraoAlyT+11nnbSPaicfl9BdQl56xoHPYEjemyZLVJ
-	1UDR8iMOFveSSJgyGJQd8uIvza3TsKNrqWkKJec+bHnqlz/OMPBXxxzduMiLZbnx
-	dSKMOvKgjmCN4DJvxsjqFdpz6zE47vG36auq4RBbuNQYxAt2wM3PMzfL62kiA76F
-	H7gomA==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gtq8b9ve2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 09:17:05 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38f97b3f853so4282505a91.3
-        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 02:17:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789982225; x=1790587025; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=n+zrOo21ugBRzxhcPfBDsYADhDuFT+BowRPcmTeqWkI=;
-        b=CWo5LuA0VMQnA3I66FRBAhhFeFU9lRNED8o7YMsfXpFHLRfYyB52/PumD6AP8ccDaE
-         TYXrbwzuuY+UgjVlIOnGr8caFAu3kHbY7Kpml/6g7otDDADlMtP179ioi7KKUUXykfLJ
-         qAV1JU4N4MNenTLpn/jXRoiADNok0pibwhEbmG9s3RF5ymRcER3Y5c45gW7sIca2Xohe
-         bCGzKba4ioE6iuDYP3+6evqbJ2hY/EAamzg/wpuAf68f4H+DJaI+g+yPHQAHxlklJQlG
-         pYMZNYYNBi1hnYXx2dL8Nyql1QEFk0bQLeUd1mjwZQEGo5FJkKq6jPvtw5KZlLcCq70V
-         PzZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789982225; x=1790587025;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=n+zrOo21ugBRzxhcPfBDsYADhDuFT+BowRPcmTeqWkI=;
-        b=pKKB6S/dpqEQfHv9un9/2JlAZQIngVjCJLfGe3Zf+vnXn/eAT8a3OFYZg9Tks6yNT6
-         Bq+k4CtNg/fNkyNGa1YADX7Qbw51CAYXyaPbUKo0P2MFmpHTGaFa7pRjcM99qmDiqz07
-         w+05qp9jJJOBbXmw7XzL/jyFs8D/wqwcR/TXHrc5FYhky7ElBB3Th8Di1vyiXsol4rRC
-         uYyIQ5YLDEkBeXL50pcOKwsTAEWN40Gfgh6i2L9H3JPc8bQIngaM+G0eKURQ33z0CX9+
-         2e8o1X4mO0q3ByADfYAPssqaBxBNGS5JO9C1WnPGfgUR+x9uJRdf5j7xRd1T6Ab621E0
-         TVtw==
-X-Forwarded-Encrypted: i=1; AKwUvBzTkVQgIwALWd3sgbxJRHlhWSpNwydGOsXP+gUbW/rZEbIiQYY0VrjZ+o3iPNj+eD0Nf3RFWCCzyB55@vger.kernel.org
-X-Gm-Message-State: AFuF++l+kn8AzbQRBinahOQK8TJ4NhEMTDZZ/RULMbPEuhyznZIqDiLp
-	50zpeZ9Dc2w2PtYuq0N6+ngop6C1d37mfGjgqhr23Zv2ujk1Vik0KjzCDj8P1ASpltL5C9rva3N
-	uM4vLtC9T16QT/NK3DDvieNO7agG43ENYVzeXR4naKj3ou3YErQGotGz/wIe5UJF5znT/Xyyk
-X-Gm-Gg: AYBFou3VX+b9FvHNrAI0/u+kSn1S+kq7dxelpaZW40Zqe2AWTkaF5ZhB+PjnRkTx3Kz
-	ezXsKF68vFSbR8AC0H7kugM93VF04ATgjvPy60or0dwNOe5+hxnG5rvVz3rYyvpX13x5WNOMlVW
-	/6/okNpg0ctvIqhQBq/3DYjVHAZ+DL5depYj7IcGx7t50KMvIcFuWyl/EEGt9G61V8n9kvd4xQC
-	bHaOLvBJDM1cP9Xkj6gFBrWRuNq2QwE9Cek6WaGdtwBakub6TrY5VuSBscegW9P0zKJyOkPs7w5
-	YP5gGAuktxfQT8fS/WqqgRU49hd3ZHUfEglAsR2CUvPIiUm4+wHsN2fdmPc/7XVouTxyLDw4ERh
-	E7gsGuhpHQp05gCu9dKMuPgyW478=
-X-Received: by 2002:a17:90b:4c52:b0:39e:6a80:b799 with SMTP id 98e67ed59e1d1-39e6a80b896mr10632575a91.41.1789982224938;
-        Mon, 21 Sep 2026 02:17:04 -0700 (PDT)
-X-Received: by 2002:a17:90b:4c52:b0:39e:6a80:b799 with SMTP id 98e67ed59e1d1-39e6a80b896mr10632549a91.41.1789982224459;
-        Mon, 21 Sep 2026 02:17:04 -0700 (PDT)
-Received: from [10.219.57.63] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c331aeeddsm17414763eec.24.2026.09.21.02.16.59
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 02:17:03 -0700 (PDT)
-Message-ID: <22594579-a48f-4343-84e1-5bdd99478b9c@oss.qualcomm.com>
-Date: Mon, 21 Sep 2026 14:46:58 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JnB9zb72"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C33FF1F000FF;
+	Mon, 21 Sep 2026 09:17:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789982243;
+	bh=i54IIVsNJ96LZXw7gKpFjeP62IEwHkNvReD2F6goeWo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=JnB9zb728EmNdFj+XL3F8Gk2cdiD2jO79HtGcqcVlWgvAwSZAxUqB3sy/SFU5U4sz
+	 +BoNnh44zmFsicjK6uqZRidh2Ke59bjCJliiFNoZtHj2dC35JQPp5ZzfDTXbDj9F9+
+	 81VW1Df0NM0dOkHlk+O/yEIU4wdHIWJ6upp4/HwLNtM9+oXIj722ukSE5w77JZZwxd
+	 P9We8QBqsfZdB8QMw/dtdOHvA4a7G8Eau5HVntpw7M90tC9tYK7JSRkMaaCPn0IlWY
+	 eRcD30heb66I5Pnn/0PAhUYmqHmSyfPeJ/ex+EAG/h2jleif8ifSvuCcgNTcLZdK9f
+	 lJq5F3TgjFw4g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 3/3] arm: dts: altera: add Draeger M48 CPU Module
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Petko Manolov" <petko.manolov@konsulko.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260921090735.3174292-4-petko.manolov@konsulko.com>
+References: <20260921090735.3174292-1-petko.manolov@konsulko.com>
+ <20260921090735.3174292-4-petko.manolov@konsulko.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 21 Sep 2026 09:17:22 +0000
+Message-Id: <20260921091722.C33FF1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] misc: fastrpc: iterate CB nodes manually instead
- of of_platform_populate
-To: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>,
-        Srinivas Kandagatla <srini@kernel.org>,
-        Amol Maheshwari <amahesh@qti.qualcomm.com>,
-        Arnd Bergmann <arnd@arndb.de>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        linux-kernel@vger.kernel.org, Bharath Kumar <bkumar@qti.qualcomm.com>,
-        Chenna Kesava Raju <chennak@qti.qualcomm.com>,
-        devicetree@vger.kernel.org
-References: <20260826-dup-sessions-v4-0-35555d2bfed4@oss.qualcomm.com>
- <20260826-dup-sessions-v4-1-35555d2bfed4@oss.qualcomm.com>
-Content-Language: en-US
-From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-In-Reply-To: <20260826-dup-sessions-v4-1-35555d2bfed4@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDEzMSBTYWx0ZWRfX8GxtASv0Cpf7
- 7Z2pExtTLpk5hkarLRSzRLYEd7BepBQmTUDvZZuICPKLJu5LvFQ5S8VyzWdPa4JCfnB6SlLuqzW
- oAd5/aN/1yoCqBaA+qzdu8EsjfdM8/85iCGT/T1ZfAX9gXzd2oVGMd8nJQvBLvQKeLtuaaATSa1
- rE22uoUz+dlDsURor0QAvVAoVyoeuo9nTCqV45Y83qBcwYtnt+6tjitXYwT+HdDrCvlqHhu7ahB
- JnRbbOS+nmgT0bQ1p/MZHk1En3iDNivOWTcGtC/AoegZi7an0kOyPMpMRkU/lIVYznHzJ/mMuFm
- XoeiXEVJz8pDiK+U2+PyWJDT+aSVwml+P70TrWKuN1cCJf4MPnYvgQdVEzy4kz3KHF0XIkKbgak
- u7wrZ7PruMsAA+drmpOh2HdDQ9hhfBpkT5Es3xh2gmBpLWU5wHijXttuCDS6+6k36KP98x2nkH2
- rRP07zwtwViWMQyZGuQ==
-X-Proofpoint-GUID: Pa0jdGiyFtjAn6SSIVOzRO9eQu19gJ01
-X-Authority-Analysis: v=2.4 cv=T/8Z3PKQ c=1 sm=1 tr=0 ts=6ab0f611 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=0HjoTqE-giHM8b9XGacA:9 a=QEXdDO2ut3YA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-ORIG-GUID: Pa0jdGiyFtjAn6SSIVOzRO9eQu19gJ01
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDEzMSBTYWx0ZWRfX1E3vbcxHsAnM
- o4YhkzEOBpR6sQFjfacC/aTmUEFfmWJMcO9YWe7o2xqrjVk6psKcnrrJv7g30fY68JOEUzhhANF
- 914wH+yBGDGrQropWTpZDpXH64ZZxf4=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_03,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 phishscore=0 spamscore=0 adultscore=0
- clxscore=1015 malwarescore=0 lowpriorityscore=0 suspectscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609210131
 
-On 26-08-2026 18:55, Vinayak Katoch wrote:
-> of_platform_populate() only guarantees that child devices are registered,
-> not that their probes have completed before it returns. This creates a
-> window where fastrpc_cb_init() may not have run for all context bank
-> nodes, leaving the channel context partially initialised.
-> 
-> Iterate over the child device tree nodes directly, initialising each
-> qcom,fastrpc-compute-cb device synchronously. This ensures all context
-> banks are fully initialised before fastrpc_rpmsg_probe() returns. Since
-> fastrpc_cb_driver is no longer needed as an independent platform driver,
-> remove it along with its match table and remove callback. Set
-> OF_POPULATED_BUS on the rpmsg node so that of_platform_depopulate()
-> correctly removes the manually created CB devices on teardown.
-> 
-> Signed-off-by: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
-> ---
->  drivers/misc/fastrpc.c | 83 ++++++++++++++++++--------------------------------
->  1 file changed, 29 insertions(+), 54 deletions(-)
-> 
-> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index d4fac2caca86..a153107d0085 100644
-> --- a/drivers/misc/fastrpc.c
-> +++ b/drivers/misc/fastrpc.c
-> @@ -2363,7 +2363,7 @@ static const struct file_operations fastrpc_fops = {
->  	.compat_ioctl = fastrpc_device_ioctl,
->  };
->  
-> -static int fastrpc_cb_probe(struct platform_device *pdev)
-> +static int fastrpc_cb_init(struct platform_device *pdev)
->  {
->  	struct fastrpc_channel_ctx *cctx;
->  	struct fastrpc_session_ctx *sess;
-> @@ -2385,7 +2385,7 @@ static int fastrpc_cb_probe(struct platform_device *pdev)
->  	spin_lock_irqsave(&cctx->lock, flags);
->  	if (cctx->sesscount >= FASTRPC_MAX_SESSIONS) {
->  		spin_unlock_irqrestore(&cctx->lock, flags);
-> -		dev_err(&pdev->dev, "too many sessions\n");
-> +		dev_err(dev, "too many sessions\n");
->  		return -ENOSPC;
->  	}
->  	dma_bits = cctx->soc_data->dma_addr_bits_default;
-> @@ -2419,38 +2419,6 @@ static int fastrpc_cb_probe(struct platform_device *pdev)
->  	return 0;
->  }
->  
-> -static void fastrpc_cb_remove(struct platform_device *pdev)
-> -{
-> -	struct fastrpc_channel_ctx *cctx = dev_get_drvdata(pdev->dev.parent);
-> -	struct fastrpc_session_ctx *sess = dev_get_drvdata(&pdev->dev);
-> -	unsigned long flags;
-> -	int i;
-> -
-> -	spin_lock_irqsave(&cctx->lock, flags);
-> -	for (i = 0; i < FASTRPC_MAX_SESSIONS; i++) {
-> -		if (cctx->session[i].sid == sess->sid) {
-> -			cctx->session[i].valid = false;
-> -			cctx->sesscount--;
-> -		}
-> -	}
-> -	spin_unlock_irqrestore(&cctx->lock, flags);
-> -}
-> -
-> -static const struct of_device_id fastrpc_match_table[] = {
-> -	{ .compatible = "qcom,fastrpc-compute-cb" },
-> -	{ }
-> -};
-> -
-> -static struct platform_driver fastrpc_cb_driver = {
-> -	.probe = fastrpc_cb_probe,
-> -	.remove = fastrpc_cb_remove,
-> -	.driver = {
-> -		.name = "qcom,fastrpc-cb",
-> -		.of_match_table = fastrpc_match_table,
-> -		.suppress_bind_attrs = true,
-> -	},
-> -};
-> -
->  static int fastrpc_device_register(struct device *dev, struct fastrpc_channel_ctx *cctx,
->  				   bool is_secured, const char *domain)
->  {
-> @@ -2642,12 +2610,29 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
->  	data->rpdev = rpdev;
->  	dev_set_drvdata(&rpdev->dev, data);
->  
-> -	err = of_platform_populate(rdev->of_node, NULL, NULL, rdev);
-> -	if (err)
-> -		goto err_deregister_fdev;
-> +	of_node_set_flag(rdev->of_node, OF_POPULATED_BUS);
-> +
-> +	for_each_available_child_of_node_scoped(rdev->of_node, np) {
-> +		struct platform_device *pdev;
-> +
-> +		if (!of_device_is_compatible(np, "qcom,fastrpc-compute-cb"))
-> +			continue;
-> +
-> +		pdev = of_platform_device_create(np, NULL, rdev);
-> +		if (!pdev) {
-> +			err = -EINVAL;
-> +			goto err_depopulate;
-> +		}
-> +
-> +		err = fastrpc_cb_init(pdev);
-> +		if (err)
-> +			goto err_depopulate;
-> +	}
->  
->  	return 0;
->  
-> +err_depopulate:
-> +	of_platform_depopulate(rdev);
->  err_deregister_fdev:
->  	if (data->fdevice)
->  		misc_deregister(&data->fdevice->miscdev);
-> @@ -2677,6 +2662,7 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
->  	struct fastrpc_buf *buf, *b;
->  	struct fastrpc_user *user;
->  	unsigned long flags;
-> +	int i;
->  
->  	/* No invocations past this point */
->  	spin_lock_irqsave(&cctx->lock, flags);
-> @@ -2697,6 +2683,11 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
->  	if (cctx->remote_heap)
->  		fastrpc_buf_free(cctx->remote_heap);
->  
-> +	spin_lock_irqsave(&cctx->lock, flags);
-> +	for (i = 0; i < FASTRPC_MAX_SESSIONS; i++)
-> +		cctx->session[i].valid = false;
-> +	spin_unlock_irqrestore(&cctx->lock, flags);
-> +
->  	of_platform_depopulate(&rpdev->dev);
-should this also be removed?>
->  	fastrpc_channel_ctx_put(cctx);
-> @@ -2786,28 +2777,12 @@ static struct rpmsg_driver fastrpc_driver = {
->  
->  static int fastrpc_init(void)
->  {
-> -	int ret;
-> -
-> -	ret = platform_driver_register(&fastrpc_cb_driver);
-> -	if (ret < 0) {
-> -		pr_err("fastrpc: failed to register cb driver\n");
-> -		return ret;
-> -	}
-> -
-> -	ret = register_rpmsg_driver(&fastrpc_driver);
-> -	if (ret < 0) {
-> -		pr_err("fastrpc: failed to register rpmsg driver\n");
-> -		platform_driver_unregister(&fastrpc_cb_driver);
-> -		return ret;
-> -	}
-> -
-> -	return 0;
-> +	return register_rpmsg_driver(&fastrpc_driver);
->  }
->  module_init(fastrpc_init);
-can you use module_rpmsg_driver() instead?>
->  static void fastrpc_exit(void)
->  {
-> -	platform_driver_unregister(&fastrpc_cb_driver);
->  	unregister_rpmsg_driver(&fastrpc_driver);
->  }
->  module_exit(fastrpc_exit);
-> 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] dts: out-of-bounds IO read in gpio3/4 due to truncated reg size
+--
 
+commit 3110a5bc839de956f70473c018ac9b733616c145
+Author: Petko Manolov <petko.manolov@konsulko.com>
+
+arm: dts: altera: add Draeger M48 CPU Module
+   =20
+M48 is a heterogeneous board made by Draeger that is based on two
+independent cpus, that are monitoring each other. One of them is
+imx6, the other is Altera SoCFPGA Cyclone 5. The latter is booting
+independently off qspi.
+
+> diff --git a/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48=
+.dts b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
+> new file mode 100644
+> index 0000000000000..dae809c02adb8
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
+> @@ -0,0 +1,123 @@
+> +// SPDX-License-Identifier: GPL-2.0+
+
+[ ... ]
+
+> +	soc {
+> +		gpio3: gpio@ff202000 {
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +			compatible =3D "snps,dw-apb-gpio";
+> +			reg =3D <0xff202000 0x20>;
+
+[Severity: High]
+Does mapping a 0x20 byte resource window for the snps,dw-apb-gpio driver
+trigger an out-of-bounds IO memory access on boot?
+
+During probe in drivers/gpio/gpio-dwapb.c, dwapb_gpio_probe() calls
+dwapb_gpio_add_port(), which passes gpio->regs + 0x50 (GPIO_EXT_PORTA)
+to gpio_generic_chip_init(). This results in an unconditional read from
+offset 0x50, which is outside the mapped 0x20 byte window.
+
+On the Altera SoCFPGA's lightweight HPS-to-FPGA bridge, reading unmapped
+addresses typically triggers an AXI bus error, leading to a synchronous
+external abort and a kernel panic.
+
+Is it possible the hardware here is actually an Altera PIO core
+(altr,pio-1.0) given the 0x20 byte size?
+
+> +
+> +			portd: gpio-controller@0 {
+> +				compatible =3D "snps,dw-apb-gpio-port";
+> +				gpio-controller;
+> +				#gpio-cells =3D <2>;
+> +				snps,nr-gpios =3D <2>;
+> +				reg =3D <0>;
+> +			};
+> +		};
+> +
+> +		gpio4: gpio@ff202020 {
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +			compatible =3D "snps,dw-apb-gpio";
+> +			reg =3D <0xff202020 0x20>;
+
+[Severity: High]
+Similarly, does mapping a 0x20 byte window for gpio4 at 0xff202020 cause
+the same out-of-bounds IO read from offset 0x50 into unmapped MMIO space
+during dwapb_gpio_add_port()?
+
+> +
+> +			porte: gpio-controller@0 {
+> +				compatible =3D "snps,dw-apb-gpio-port";
+> +				gpio-controller;
+> +				#gpio-cells =3D <2>;
+> +				snps,nr-gpios =3D <2>;
+> +				reg =3D <0>;
+> +			};
+> +		};
+> +	};
+> +};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921090735.3174=
+292-1-petko.manolov@konsulko.com?part=3D3
