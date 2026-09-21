@@ -1,80 +1,167 @@
-Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net [217.70.183.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FACD1C84A2;
-	Mon, 21 Sep 2026 15:31:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC0A74BB7EA
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 15:31:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790004679; cv=none; b=W0E6VuCUl0A8eeY5ON177fj06KJwISkms8Sdu9f1psjtY3U4HGzX1rtbjhBxLOyDDkpgq90VyaXtCLtpVHkYpQASAHKfStogd/q8hhcjiat2qCCorv3KGQEENYmTUuDONtOKBpp5I3m4rsAQpM/iXETrmMbM1VJb9aqgj4dHkRo=
+	t=1790004693; cv=none; b=KA3tQvjl2A+Atbph3TdxsRd7PtZx75iI9AVygWAAbtBb7MyvPE7hjtlJsQyP+tL/o7PqhJmeR8OZNYsLcbfXcObdIbZx7jcbksHjfv4KrB+Reyaqd+Jno/5hgFnxkRpVWKYRUyS98Bk0DE4MF4UybJs0qInitJdvkfmOg2ZaBuY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790004679; c=relaxed/simple;
-	bh=JBxZa7ECxemIyq8dlOwFYNpgISRTtG32z9tiXkMyBGI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DThKYrirarYqVA/t/CiWmk09VgFBt/lff9a4ueXBGcIvFAWHOlFwDqe6ZMRUMnLQ/9v9DLPB6GWo0SA+ssyH2cSxR7hCur4ixAvDEFSl7hl9lkwnvKWm+EfWFjaUeFpujuYBg/D9Xc9jQr7d72CNJmMycYA/Lq/lYHubC471BXI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=RwoVCf/h; arc=none smtp.client-ip=217.70.183.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
+	s=arc-20240116; t=1790004693; c=relaxed/simple;
+	bh=QIycfM8lSGGpojOIRQ7BJiuB5wrTj6UvPklU28CgqhI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=amTD3ZF9SCKoMbgVbCfj1YinaLdDBbqh6c9Y4atH1DrOGIxpRTk70H4TDkt4RznMC2w7ljmPTvP0M7EFqLQ/yiwrHjvdz6/VItneEhcykt6BEOWMlmwyMzhYlATLopGAjsO2OeOsvXCSBEPXHRMG7IFI67JlSQhIaleKZdrsWIQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gAVHl5f2; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="RwoVCf/h"
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 2634D3ED37;
-	Mon, 21 Sep 2026 15:31:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
-	s=gm1; t=1790004675; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:  references:references;
-	bh=kndgaOttwPZ+kUaDtO0GHPyUH+YzrYrUKKHJTYtyiQY=;
-	b=RwoVCf/h+yvoX2rgU2FuL49s6IqwbVluLjp6FwqoDogg+j7BBbYiLTK2v7Z0aQsb1KToNA
-	1LgZKTPRafvJeZQgXd0BxWIyBsfW6pa3WXk8MDk85A0dQJLmpJnOXB1VC4tjTd0WIj4H55
-	0nqQvgfSTyebM7QLAWEYlq6HI8OQMsyM82FHiRN8jgnulMlIUd9N44RUMpOGAdzGfbKNd4
-	YD8/xf1k+Ngutl57XMNtUndW/DZMQ5upwRyUyXE6lb+i3l/HVkC8Q4rs95S1ND2X33qyDd
-	dxTyRh9weQnhfgpu93tr75PLZ72JWuzQle+VyFuFOop+2LEGXqiZwPmlYfGIuA==
-Date: Mon, 21 Sep 2026 17:31:11 +0200
-From: Arthur Crepin Leblond <arthur@marmottus.net>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v10 3/3] w5100: detect carrier state using link
- status bit and optional interrupt
-Message-ID: <20260921153111.GA473474@marmottus.net>
-Reply-To: arthur@marmottus.net
-References: <20260921-wiznet-link-gpio-v10-0-5874a7a147a2@marmottus.net>
- <20260921-wiznet-link-gpio-v10-3-5874a7a147a2@marmottus.net>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gAVHl5f2"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd4ba9f68so43663855e9.1
+        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 08:31:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790004689; x=1790609489; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=q17BTeQu3f/C2Tj9dpVKkyYMWZ/X3XaQhujghfI7S8w=;
+        b=gAVHl5f2isrhpL8naWtHKgZD0fb8cq/bsGAFDWx5qy+QghiPWqfEQMtoRYBJw7Z6L4
+         RUl5bcfKAt84WTDNTVCJAf2Ak7J4ncG4wllDz7SLe2PGdC/qos7dHHjiqVIKZr8ti4+k
+         gNDOWVOb3jPxWFsCxgDGY1/v1K3qd/GKj/HRtznZuiNrnjUWwl+jGr0EViLFbgGyMooJ
+         zT3axKlVwnbjnMW6quTpBHzr9Ta4CoQrBizulhfFS5J1IrJN6xDpqYyLpi12ydBeORR2
+         0sdEefZxHr9BG48UeRWDMcCheXv5fAZDXdxABu2LiYVb8l7HGNoExiwuLRbIJXzmrVJK
+         BQ3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790004689; x=1790609489;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=q17BTeQu3f/C2Tj9dpVKkyYMWZ/X3XaQhujghfI7S8w=;
+        b=0b7ffC1WSQ3BTsk6wUjtOH+oJ7AZbKCiehCKiYKV9/iVzeRZ6dIZyK/caaHmwT9a5m
+         Dq08J28JXazm1MrO6YMrcitfB6D6Mnv18vKKJdZR9qEAnOiFQcDc7XQAoYlL9AXgPBMx
+         uaK7Hf66NDhEss0iRC9FF/uxV7K2RV98l8ElYczjR1k12l2YeSNUsFKej+r91hf4J1f+
+         Li8H9kzW7ZinuFx9kcr+WfJuZrdP9nCIqZRDMn7q6FtEKCLBBCcKZ32Qe1cKOwtj6C6L
+         8H6/oyGJk6E3HPkbEkaelLZ5u8/bINa7+EBiHNBXXingkUCHEufgTYIB7b3mnFCJeBWG
+         NbfA==
+X-Forwarded-Encrypted: i=1; AKwUvBz97tj7O/tbxO2rWnioJxRdeIJDCo5lAooQpu+zXphPQ1Q6O/eGXm52qHYZeENAnmVWE8vJJUY1vxoA@vger.kernel.org
+X-Gm-Message-State: AFuF++n5OfURAiKezuMkJq+H9B1vUcEye+2eqXH5MiM8PwXHC+2wQyX5
+	28NHexseXTyU/Cv5WwzgSLfiJK66Qwd6rZsuMXG2++a/RwQGHiMLv5wI
+X-Gm-Gg: AYBFou04jkWQq6oLYoHboZFrn8wvAN+8afj7cwzfxrLPn4PEYWCRyg4ycJeggPLaOdR
+	WsK/grDg1b00OOz7kwhTpVGjelvL8onTt2GeArnlhQrDANQgjyqwMT6/eUeH0e8zumWdxQwx79b
+	L0/nhZuM/WyLCd1FxG4Uo/MORcolEar46lRfjV58JhlaVpSKsuGD6lgJvwysXQ3KOKQ93FlVD1R
+	yqbPflOKtS7YWFxlHwcns+Q69ljffQf9niuuoIFSrF/cKeJNn/csU/E5nDk3k3EoquF+pffNFl1
+	P9ALbxCvwITo8azs8ej9wQFe9l83CgZagrZs00wmH0jqrWa+wqiwnJNWjeQHeiyPZZJG55Sle0F
+	Cfb4Sho7VoaMcFFDAPQzBu/IVz8jxoQGoRZVNzD+AAY2NpsirYTTNP7/8X2RkUT8kir5nTAqoz1
+	xom9kb73pQdRZ0Dy4uklrvMX48HSNklD6LEnBQPLvdWknVHFa81wefPRaQj6XuoCSoLMtpVE46+
+	Vrw4O3Q7MTemiM87leiyToimPPBOFicwTbPgh+HJqE82EDl1E6LrDx30A==
+X-Received: by 2002:a05:600c:3ba0:b0:49e:73d3:78ab with SMTP id 5b1f17b1804b1-49fc55adc12mr195005285e9.0.1790004688933;
+        Mon, 21 Sep 2026 08:31:28 -0700 (PDT)
+Received: from [127.0.1.1] (lmontsouris-656-1-83-121.w82-127.abo.wanadoo.fr. [82.127.110.121])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48724562aebsm25313835f8f.14.2026.09.21.08.31.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 08:31:28 -0700 (PDT)
+From: Amin Gattout <amin.gattout@gmail.com>
+Subject: [PATCH v2 0/5] media: rockchip: add support for the RK3576 Video
+ Capture unit
+Date: Mon, 21 Sep 2026 17:29:56 +0200
+Message-Id: <20260921-vicap-rk3576-v2-0-0a4582e20c72@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20260921-wiznet-link-gpio-v10-3-5874a7a147a2@marmottus.net>
-X-GND-Sasl: arthur@marmottus.net
-X-GND-Cause: dmFkZTFk3EfQn6dh5Bsj+M9TyimFVXuktxuO0nReL/UPfGv+6oQvqWasbV+IaeMW0iL0Vyyu+a37201ZBX4ak89sSK4J02MmlDrOnt112hJTDGhWzR5PU9+rT4OFwFSDLlqWK+eHX281VsymAkNbDqngCco5Q6ItcUcGQtL3YGnMmy9r+wva5tNRDObd2tdVNZ1+sFrGEJ8WgJt0Jl9P6Ftc02Ge7cPLjHK6GPHULLgaA4QGGpOBJVViFyWb/wi/NI0lwj9KmhswyBSGoFlkT9FraymFkWj25poLbxMhz2tNx38+0R2WKGKf6jcHZo54szt96cpLPwpFHFg0p9CKBfyWpL1puCHsbygGEsGbjQubyAlvEtIfMUkBax00sDthytIt+WBMZjw/hpkJrMU0aStqCQoLkPWHK9hz7sb9uKVkbePdUMiSQ607AwcfgLvfUkDxb4bsKMT6KffueDK4VSWQHi/PT4BZVuB1lv46D9IU7/2goHa4g1HSieotCdGGZikEOKfNjouAZi4dG/YXpR9/o2XLPzCgPkxb6GHAeFqHUdxt+02qJlprj5dowZd/T07KdJ77+niNfukic5JFqUUS6r8d5p5tmyOVW//dnlNPf8g1kOkaIKBOLlbyKlUM9tdHayRjpsUNtQKXByxFm+UvcliefkrE+JqLwCrdEIsL3rlQWQ
-X-GND-State: clean
-X-GND-Score: -100
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHRNsWoC/1WPzW7DIBCEXyXi3K0MZoH41PeocuBnSWjrOAUHt
+ Yr87sV2parHkWbmm3mwQjlRYcPhwTLVVNJ0bUI8HZi/2OuZIIWmmeiE6owwUJO3N8jvPWoFijT
+ nhmwnpGItcssU09dW93radbm7N/Lz2vHryPR5b5x5t/1hGnWHIPiSQED2FcJcQGsuXDC9DKSGK
+ tYaZwuBn8YxzcPBBYzSYOxjywuBzijUPSEebeycFigpSm4kWyddUpmn/L0drnxbsGGPHP9/qxw
+ 6CH1Ecmhs5/DlPNr08dyo7LQsyw8bfY7wOwEAAA==
+X-Change-ID: 20260828-vicap-rk3576-6e7118ea0246
+To: Mehdi Djait <mehdi.djait@linux.intel.com>, 
+ Michael Riesch <michael.riesch@collabora.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Amin Gattout <amin.gattout@gmail.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790004687; l=3333;
+ i=amin.gattout@gmail.com; s=20260818; h=from:subject:message-id;
+ bh=QIycfM8lSGGpojOIRQ7BJiuB5wrTj6UvPklU28CgqhI=;
+ b=xJZVG8DMwVCT85tBT03zInvpL1eGKUYrkEBIDqUtAM993jolzJTX6rarm5D6/FBRrPwbZBk9W
+ TrrC0yfaAx5BsukaBjJDfNKb5HQLhUoYXudewIoohBijfVtAOh6wHaB
+X-Developer-Key: i=amin.gattout@gmail.com; a=ed25519;
+ pk=MSIqDPkCOkwtyP8Fns1m+KFU9SgqoDl2mpLe18vL+hQ=
 
-On Mon, Sep 21, 2026 at 12:52:51PM +0200, Arthur Crepin Leblond wrote:
->@@ -794,22 +923,44 @@ int w5100_probe(struct device *dev, const struct w5100_ops *ops,
->
-> 	if (ops->may_sleep) {
-> 		err = request_threaded_irq(priv->irq, NULL, w5100_interrupt,
->-					   IRQF_TRIGGER_LOW | IRQF_ONESHOT,
->-					   netdev_name(ndev), ndev);
->+					   IRQF_TRIGGER_LOW | IRQF_ONESHOT |
->+					   IRQF_NO_AUTOEN,
->+					   dev_name(dev), ndev);
-> 	} else {
-> 		err = request_irq(priv->irq, w5100_interrupt,
->-				  IRQF_TRIGGER_LOW, netdev_name(ndev), ndev);
->+				  IRQF_TRIGGER_LOW | IRQF_NO_AUTOEN, dev_name(dev), ndev);
-> 	}
+This series adds support for the Video Capture (VICAP) unit of the
+Rockchip RK3576 to the rkcif driver.
 
-Oh, I exceeded 80 columns here...
+The RK3576 VICAP features a digital video port (DVP) and five MIPI
+CSI-2 capture interfaces. Compared to the RK3588 variant, the MIPI
+register blocks are laid out differently, the ID_CTRL0 bit layout has
+changed, the VC/DT filter has moved from ID_CTRL0 to ID_CTRL1, and the
+capture size is configured in the new ID_SET_SIZE register. In
+addition, the pixel clock of each MIPI port enters the VICAP through a
+dedicated gate in the clock and reset unit, so the VICAP claims five
+interface clocks and five interface resets.
 
-Arthur
+The two driver patches that come first prepare the rkcif driver for
+that, by adding a register index for the capture size and a callback
+for the contents of ID_CTRL1. Neither changes the behavior of the
+existing variants.
+
+The device tree node connects the VICAP to the two MIPI CSI-2
+receivers that are usable with the MIPI D-PHYs in full mode, following
+the approach taken for the RK3588.
+
+Tested on a Radxa ROCK 4D with a Radxa Camera 4K, whose Sony IMX415
+sensor is wired to the first MIPI D-PHY in full mode.
+
+This series applies on top of the RK3576 MIPI CSI-2 receiver
+series [1].
+
+[1] https://lore.kernel.org/r/20260915-csi-2-rcv-dts-v2-0-bdaf8141616a@gmail.com
+
+Signed-off-by: Amin Gattout <amin.gattout@gmail.com>
+---
+Changes in v2:
+- Split the driver patch in three, one adding a register index for the
+  capture size, one adding a callback for the contents of ID_CTRL1, and
+  one adding the RK3576 support itself (Michael)
+- Collected Acked-by from Conor and Reviewed-by from Michael on the
+  binding patch, and Reviewed-by from Michael on the device tree patch
+- Link to v1: https://patch.msgid.link/20260915-vicap-rk3576-v1-0-d3f5eb58a0b5@gmail.com
+
+---
+Amin Gattout (5):
+      media: dt-bindings: add rockchip rk3576 vicap
+      media: rockchip: rkcif: add a register index for the MIPI capture size
+      media: rockchip: rkcif: add a callback for the MIPI ID_CTRL1 register
+      media: rockchip: rkcif: add support for rk3576 vicap mipi capture
+      arm64: dts: rockchip: add vicap node to rk3576
+
+ .../bindings/media/rockchip,rk3568-vicap.yaml      |  46 +++++-
+ arch/arm64/boot/dts/rockchip/rk3576.dtsi           |  83 +++++++++++
+ .../platform/rockchip/rkcif/rkcif-capture-mipi.c   | 155 ++++++++++++++++++++-
+ .../platform/rockchip/rkcif/rkcif-capture-mipi.h   |   1 +
+ .../media/platform/rockchip/rkcif/rkcif-common.h   |   4 +-
+ drivers/media/platform/rockchip/rkcif/rkcif-dev.c  |  21 +++
+ drivers/media/platform/rockchip/rkcif/rkcif-regs.h |   1 +
+ 7 files changed, 308 insertions(+), 3 deletions(-)
+---
+base-commit: bd5f485f3f026225b86573e559af0b7254ef4184
+change-id: 20260828-vicap-rk3576-6e7118ea0246
+prerequisite-change-id: 20260825-csi-2-rcv-dts-7712bd834de6:v2
+prerequisite-patch-id: fbe2d84f88709b8bf846debe6b8ce62c4392ca63
+prerequisite-patch-id: 9bce33933ae69e8cc7f7ef2f0d9acb969620bc85
+prerequisite-patch-id: bff0c668524f94b0b7901c682d5ccdccfe18d46e
+prerequisite-patch-id: 8f45701f840680a35e044f43ebd3087282847990
+prerequisite-patch-id: bdbb3e9b072469900cac21031cd799265b52d734
+prerequisite-patch-id: c91ceb74abc8bc79ac036990abdef4cbd7328f97
+
+Best regards,
+--  
+Amin Gattout <amin.gattout@gmail.com>
+
