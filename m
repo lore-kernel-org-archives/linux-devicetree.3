@@ -1,33 +1,34 @@
 Received: from spam01.horizon.auto (spam01.horizon.auto [42.62.85.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FC223BE154
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 10:27:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9848A3DC4B8
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 10:27:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=42.62.85.75
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789986467; cv=none; b=QzdCdpFSoi1EnlpaUhNYQ34LKEdpt/yJ1yAXSR6z0uRQJzNfCUA8UFKxiHuQhEUk4WrP75O8W4lUEOjh3BRQrMWlrLy7+XW2cGD4bRoEqXBFnkkwcsW5QCk7fHginTg3nqYdSt04NM62q9avckbkCgtcCdsn3iImM32iLTz8E8w=
+	t=1789986473; cv=none; b=WW/IhA/TfIAlQEhFZ/TxVllki8Jl5Z2ej7CSJJjnKjpUpechqH5cFk5aQPFCivd3O9QRt6cm0k8FUzdEXxzpEhlbffgXOV4fQ3W0cXIcKBpjesD9Sn4gCgndw5OXV3T46fiPizRoBeokCXlKdFdaXMwYlCmQ67p8gORHPbUkntw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789986467; c=relaxed/simple;
-	bh=x3k+pzaCNsieQ673T7+7STlat7Yf8FLqkUE3cXkzw3o=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=YZG6Oe/EkPIupMhBgs5YOq6Ejb9k5gWDYjRrdaNPsgWu6Cx0jmls1gKSj0vLPmgwBlnHwFWjOdcHqSPmFCwXxBy2wWayL0MLX0zn/VMB+VyXko5FaFvdSIDhN1Nmbg3gb9wt+mlmMc3ZYcrxj0uLpSA57zVWNpyFoz43jiPnPZI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=horizon.auto; spf=pass smtp.mailfrom=horizon.auto; dkim=fail (2048-bit key) header.d=horizon.auto header.i=@horizon.auto header.b=e0z544Mg reason="signature verification failed"; arc=none smtp.client-ip=42.62.85.75
+	s=arc-20240116; t=1789986473; c=relaxed/simple;
+	bh=pmpN+0+1w1dzWGzHsryR0vhVnLvScL6Pb0G5/lASwR8=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=eaOCDQZ3lUZOJ5xszwP/VhufArYGWPkNhf4xRu7NBQgzLpof/qGTYpg4MUY5wtTfuLfy5ZQIMTemMcS2eoPKpxw/fWlM8O+dP8BQJAqwYrJFP0e0xw8ctGLbZ9AYQjFpEcKDYTgkp4mfuFEs+I+oR4Umi4q65EKoLBY769IVVz0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=horizon.auto; spf=pass smtp.mailfrom=horizon.auto; dkim=fail (2048-bit key) header.d=horizon.auto header.i=@horizon.auto header.b=ex9GAswm reason="signature verification failed"; arc=none smtp.client-ip=42.62.85.75
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=horizon.auto
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=horizon.auto
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=horizon.auto header.i=@horizon.auto header.b="e0z544Mg"
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=horizon.auto header.i=@horizon.auto header.b="ex9GAswm"
 Received: from spam01.horizon.auto (localhost [127.0.0.2] (may be forged))
-	by spam01.horizon.auto with ESMTP id 68L9cCG7068963
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 17:38:12 +0800 (+08)
+	by spam01.horizon.auto with ESMTP id 68L9cGqd069031
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 17:38:16 +0800 (+08)
 	(envelope-from fei.xie@horizon.auto)
 Received: from spam01.horizon.auto (exchange003.hobot.cc [10.69.1.10])
-	by spam01.horizon.auto with ESMTPS id 68L9c0VA068799
+	by spam01.horizon.auto with ESMTPS id 68L9c19D068819
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NO);
-	Mon, 21 Sep 2026 17:38:00 +0800 (+08)
+	Mon, 21 Sep 2026 17:38:01 +0800 (+08)
 	(envelope-from fei.xie@horizon.auto)
 Received: from server227.horizon.auto (10.9.0.252) by exchange003.hobot.cc
  (10.69.1.10) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.27; Mon, 21 Sep 2026
- 17:37:59 +0800
+ 17:38:00 +0800
 From: Fei Xie <fei.xie@horizon.auto>
 To: Mark Brown <broonie@kernel.org>
 CC: Miquel Raynal <miquel.raynal@bootlin.com>,
@@ -42,10 +43,12 @@ CC: Miquel Raynal <miquel.raynal@bootlin.com>,
         <linux-mtd@lists.infradead.org>, <devicetree@vger.kernel.org>,
         <linux-kernel@vger.kernel.org>, "fei.xie"
 	<fei.xie@horizon.auto>
-Subject: [RFC PATCH 0/4] spi: cadence-xspi: add ACMD PIO support for NAND and NOR
-Date: Mon, 21 Sep 2026 17:36:57 +0800
-Message-ID: <20260921093701.1341766-1-fei.xie@horizon.auto>
+Subject: [RFC PATCH 1/4] dt-bindings: spi: cdns,xspi: add SPI NAND compatible
+Date: Mon, 21 Sep 2026 17:36:58 +0800
+Message-ID: <20260921093701.1341766-2-fei.xie@horizon.auto>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260921093701.1341766-1-fei.xie@horizon.auto>
+References: <20260921093701.1341766-1-fei.xie@horizon.auto>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -59,112 +62,45 @@ X-ClientProxiedBy: exchange004.hobot.cc (10.9.15.112) To exchange003.hobot.cc
 X-DKIM-Results: exchange003.hobot.cc; dkim=none;
 X-DNSRBL: 
 X-SPAM-SOURCE-CHECK: pass
-X-MAIL:spam01.horizon.auto 68L9cCG7068963
+X-MAIL:spam01.horizon.auto 68L9cGqd069031
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=horizon.auto;
-	s=auto; t=1789983483;
-	bh=39e/HaE+D1BgE7Sx1CzFyI167JKdJLF6ONVfYDIzyB0=;
-	h=From:To:CC:Subject:Date;
-	b=e0z544Mguqjn1CSH378BSFBllK//9QHBMTtJ6WjzgzaKF661dmxW055UnoS60SvvS
-	 BBiCUW89R0U0z4FuwcbEtF/DKfEw4O6hTD6QqVlGJGzKvx/o8FuZNUTeMhq+EKM7G0
-	 VhtAsjBwOwM1p2dxRvdtrBcQ2JpV/Ml6E7DM0u+mcytOqJJd+9P5c8ymuEvD71MLBq
-	 yzN6uh0ehuZIth8wAcJIDeWEdmF35l8j/o3B/qmNJ5e8iJrixyf2JQVJJMkb/UEIVf
-	 Amq8wFK4DurjPGOk98sENEIRAi2wVRINflENWFePzzYCp0SQrs+HP6WteKnxHplxq/
-	 G571W9F855GzQ==
+	s=auto; t=1789983488;
+	bh=SDAOlAC7vrik7PAuqLK16OWJ52qpC4QqixrLeIZyURc=;
+	h=From:To:CC:Subject:Date:In-Reply-To:References;
+	b=ex9GAswmCgLRF5NDcgpinB+OXxMVKNfrg34uOzVtsFC0UDg3QYk7wHesTylkTmjEw
+	 YSTxxR1v/QTFwBhm/wsQNeFgxvL1lSdk1M4iFOfoBo0xYOJvQbovufHTO6640e6XZk
+	 9CHBNeXA9F949GpK6dUA4EPsQAtiBZC3EqOpG8E7lLD2thCW+U71YeN1b8Ff/C0YH+
+	 TyatVmcR3Wu+5QCRA0Xx9YJtKjQP7r32OX5VraB6ITNqziKwzrOP4H+ZtlRfdSQm04
+	 yeqKj4sfJGjRxDHJbaSXx+kkx+e9AybrQk3Q3E1MLEsZ5Tw6fvuNankwbVU6lPmvV+
+	 RlBcH76o6hWZw==
 
 From: "fei.xie" <fei.xie@horizon.auto>
 
-The Cadence XSPI controller provides an automatic command (ACMD) engine.
-It can execute complete flash transactions, including command sequences,
-device-ready polling and master-DMA data transfers.  Software submits a PIO
-command containing the flash address, DMA address and transfer length.
+Document the Cadence XSPI controller compatible used with SPI NAND.
 
-For SPI NAND, for example, a read transaction combines PAGE READ, status
-polling and READ CACHE in hardware.  Program and erase transactions also
-combine write enable, data or erase commands, and status polling.  This
-avoids submitting each command separately through STIG mode.
+Signed-off-by: fei.xie <fei.xie@horizon.auto>
+---
+ Documentation/devicetree/bindings/spi/cdns,xspi.yaml | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-This RFC contains a working controller-local implementation for both SPI
-NAND and SPI NOR.  Unsupported operations continue to use STIG mode.
-
-There is an important layering issue in this implementation.  In order to
-program the hardware sequences, the controller driver obtains upper-layer
-driver data and directly uses struct spinand_device or struct spi_nor.  It
-also keeps state across individual spi_mem_exec_op() calls in order to
-recognize a complete NAND transaction.  We do not consider either property
-desirable for a final implementation.
-
-The hardware nevertheless needs information which is not available in one
-spi_mem_op.  A NAND read is represented by separate PAGE READ, status-poll
-and READ CACHE operations, while the ACMD engine needs all three before the
-transaction is started.  NAND geometry is also needed to translate row and
-column addresses for the ACMD address space.
-
-We would appreciate guidance on the preferred interface boundary:
-
-  1. Is a controller-local implementation acceptable because these command
-     sequences are specific to the Cadence ACMD engine?
-
-  2. Should SPI mem instead provide an interface for submitting an ordered
-     group of operations, including status-poll semantics, with SPI NAND
-     and SPI NOR constructing the group and the controller translating it
-     into hardware sequences?
-
-  3. If the latter is preferred, should NAND geometry be supplied through
-     the sequence interface, or should it be exposed to controllers
-     separately?
-
-We have prototyped the second approach locally by adding sequence callbacks
-to drivers/spi/spi-mem.c and constructing the NAND transactions in
-drivers/mtd/nand/spi/core.c.  It removes the controller dependency on MTD
-private structures, but the initial version duplicated page/OOB preparation
-and made the generic sequence interface carry NAND-specific geometry.  That
-prototype is therefore not included here; we would first like agreement on
-the interface.
-
-Performance
-===========
-
-The SPI NAND path was tested on a Horizon Robotics J6B platform with a
-GigaDevice GD5F4GM8RE device.  A vendor Linux 6.1 backport of the same ACMD
-implementation was used for the hardware tests.
-
-Under the same 80 MHz transfer configuration, the sequential-read results
-are:
-
-  STIG using readq:  8.24 MB/s (7.86 MiB/s)
-  ACMD PIO + MDMA:  10.08 MB/s (9.61 MiB/s), about 22% higher
-  STIG read CPU:    59.74% / 40.87%
-  ACMD read CPU:    approximately 16%
-
-Using the lower STIG CPU figure for a conservative comparison, ACMD reduced
-read CPU usage by 24.87 percentage points, or approximately 61% relative.
-
-The CPU reduction comes from moving device-ready polling and command
-sequencing into the controller.  Software no longer needs to submit and
-wait for each STIG command while a page is being transferred.
-
-The ACMD program path averaged 2.94 MiB/s over ten 128 KiB writes,
-excluding erase time.  A 128 KiB random-data erase/program/read test
-produced identical SHA-256 hashes and byte-for-byte comparison.  Read,
-program and erase were also traced to confirm that the ACMD path was used.
-
-The mainline series has been compile-tested for arm64.  The SPI NAND
-hardware tests were performed with the Linux 6.1 backport because the test
-platform currently runs the vendor 6.1 kernel.  SPI NOR has been
-compile-tested but has not yet been tested on hardware.
-
-This series is intended to start the API and layering discussion rather
-than to propose the current upper-layer coupling as the final design.
-
-fei.xie (4):
-  dt-bindings: spi: cdns,xspi: add SPI NAND compatible
-  spi: cadence-xspi: add ACMD support for SPI NAND
-  spi: cadence-xspi: factor out reusable ACMD helpers
-  spi: cadence-xspi: add ACMD support for SPI NOR
-
- .../devicetree/bindings/spi/cdns,xspi.yaml    |    3 +-
- drivers/spi/spi-cadence-xspi.c                | 1259 ++++++++++++++++-
- 2 files changed, 1260 insertions(+), 2 deletions(-)
-
+diff --git a/Documentation/devicetree/bindings/spi/cdns,xspi.yaml b/Documentation/devicetree/bindings/spi/cdns,xspi.yaml
+index 38a5795589de2..3decf45d1b484 100644
+--- a/Documentation/devicetree/bindings/spi/cdns,xspi.yaml
++++ b/Documentation/devicetree/bindings/spi/cdns,xspi.yaml
+@@ -13,11 +13,12 @@ maintainers:
+ description: |
+   The XSPI controller allows SPI protocol communication in
+   single, dual, quad or octal wire transmission modes for
+-  read/write access to slaves such as SPI-NOR flash.
++  read/write access to slaves such as SPI-NOR and SPI-NAND flash.
+ 
+ properties:
+   compatible:
+     enum:
++      - cdns,xspi-nand
+       - cdns,xspi-nor
+       - marvell,cn10-xspi-nor
+ 
 -- 
 2.34.1
+
