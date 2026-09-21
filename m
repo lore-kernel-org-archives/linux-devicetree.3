@@ -1,210 +1,250 @@
-Received: from mail-43172.protonmail.ch (mail-43172.protonmail.ch [185.70.43.172])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0AD3353A8E;
-	Mon, 21 Sep 2026 05:35:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB54631E82E
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 05:37:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789968919; cv=none; b=kmtGv2/oqMDW+sDNf6c7Ioj+yO/fBRsIiixpH+e6RFMTa+CA438+3/JU050AYSqb2gdmzjL6xBGTB9V10sQOsamvFxZfRWsd5LEbbN1DZi/QJ4gT+fOCtFH3+Vd9qSeUANB1NTeF+plYnMpSMFaGhblpeQG1Lyxep2gNU6jzfyA=
+	t=1789969044; cv=none; b=bbILlI8AxYZXaGWKfag4hfm1O6o/K3uqonMh03mLc5vGY96cpu8b+3UCCmkm9EA3i8LU9/W4jd5dpbk1lEdWC0PlUIDA6uwckYqcORvpFn6LPAo1W5NXhI2BhyMxHmEncKlLKAx1/EAD647GU05R1yyJ3dsfLXNC60gwIb+0DAM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789968919; c=relaxed/simple;
-	bh=zh83OoNBxSi4NwznNu3yqEEjAZC/P1eMVO44h6RQlTg=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=j3otfDAr5dmfYiMUS2W9ZpOcmpr4Yv97a037+k8Jei4ueJtgTl9bdCun/LyL3YfDwOYENwf/5+uETL6PT1kHqabkclto4IBPqRdvEWcW2Vq/eRKqTX1ZXZOEkj6T1B2IHnY5FON91x9fuWGIIk7PQcO+kXc8oZ9XE53Klu0Ag5Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=iscnauc2; arc=none smtp.client-ip=185.70.43.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	s=arc-20240116; t=1789969044; c=relaxed/simple;
+	bh=9U2el7qhXi1CczJc0aDnMlryL3xXkou20Zt0ZP5PomI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=mcnEyBjcqbTchQYBkUUNlCOF7KNtbwERZ5ZqDdbwS6zm72fOtkPf+vfbg80HMIZ6SEJEbykiV8IjOawsata/Xl6LRsGkRVNe25F1N696NZVprWHRekxeKKitbDQnKsO6UUF9C6LD+qxQ21u+OWvwU1oCCiHJm5r+BvtXf0Bf6Zw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dwTba8zl; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CQgGIuLu; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="iscnauc2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1789968914; x=1790228114;
-	bh=8crlbQymdmkrzwA9LemJUmjDmHSjnoUEJlDLbHUk1gc=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=iscnauc2HhOCHZ1pcxj3rwdTLqsrliFnA9fiJq0QzITbhdNFvFtJvjzmNEbJjAhfX
-	 lVBhJpSSbIzWOlHJSYbVXYD7tYq7eQQzZc3T9TwctFR92X5qxN9K2a/QvmDehR4H6x
-	 ewu/vid5hjB3zSGxHGKSzi+AVOIkauuspH8W2yXzrXTp3KzsnKggBL5IMSFut82vAZ
-	 N7y0cfTcqMNu9aLEb5t0U4AgMUt+fdTRRLy72qPVkSMWVnnuUuSsbzC0h8zpmD8PZC
-	 Gen8nJdrbMNqSDgX8JdovnmwREEYC5r4AcxIBN36+LiQXv7/3/5zO/ym2Sh8oIWZ4W
-	 hOcQPqjCHHMKw==
-X-Pm-Submission-Id: 4hpBl447pPz1DDWh
-From: Esben Haabendal <esben@geanix.com>
-To: "Jonathan Cameron" <jic23@kernel.org>
-Cc: <sashiko-reviews@lists.linux.dev>,  <robh@kernel.org>,
-  <conor+dt@kernel.org>,  <devicetree@vger.kernel.org>,
-  <linux-iio@vger.kernel.org>
-Subject: Re: [PATCH v9 10/10] iio: accel: mma8452: Support interrupt sharing
-In-Reply-To: <20260921015115.4c7d79f3@jic23-hlaptop>
-References: <20260916-mma8452-open-drain-v9-0-0dd24fa2f3d7@geanix.com>
-	<20260916-mma8452-open-drain-v9-10-0dd24fa2f3d7@geanix.com>
-	<l9LG3al0xmawstyXcDwD8OhOBMwn13q6oz0NvCPy4kL0lA4DX5biMlUWcvt9Wwu1AiyugOvUZgQfnFJ4dvuvbA==@protonmail.internalid>
-	<20260916083119.03A8F1F000FF@smtp.kernel.org>
-	<87se38754p.fsf@geanix.com>
-	<DCSg94lOVof3xt7nVMHqUJ4g_0LHFg9-B1_SPzr6YW6Q76JvKW9Wi7VQHgO2chZTHzFjCa--kqtVp7lZLsx5Qw==@protonmail.internalid>
-	<20260921015115.4c7d79f3@jic23-hlaptop>
-Date: Mon, 21 Sep 2026 07:35:11 +0200
-Message-ID: <87bj9r9ng0.fsf@geanix.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dwTba8zl";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CQgGIuLu"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68L3b5jZ2891169
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 05:37:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=jFaEBWUFf1wNsYWOuTWbsW
+	2vcMd0ik36yK685CRq5/E=; b=dwTba8zlpfJGt8JpiyeXQ3QROu1dKkrtM4Tspc
+	PRCOh4Jv5eZwpRYgVkyRw+xP+DcXSW3HWNe5rzKuy6oxmSBs3qARBbgTGvb20Acw
+	Bm6ZGXloB/qyjxfeDd+w9HigNYUAg7T3YlEA2YJ6I2VDT7nAto9kQIOzaQhlsNDa
+	92tYDbHnrFeIcH8HIObfGpvu7v4sUVr0zyEdA9yElCPWLaFrq0OtME6q94xYtuZ9
+	H5hcfnZf/PHJQBL1azm7aBS2PPycJyo588+JVstcK6xDEWGNsx0MVeBIIIWAa/fr
+	uK3RcXltT4hSDcOgQpxaWhbMUXooXvZVQnWxXh1pmlTHT1LQ==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gtq7991sr-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 05:37:21 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-39af92138f9so3932690a91.0
+        for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 22:37:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789969041; x=1790573841; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=jFaEBWUFf1wNsYWOuTWbsW2vcMd0ik36yK685CRq5/E=;
+        b=CQgGIuLuw07psvnWqTwz0wWm8Ax2h9P2xrr6TYcCiQ/vnGUxGN6aUHN79sK2jz4Yml
+         zqVp8iTX5fOYA9NPacrz+dTN+Havhatcolask3CauIz/D443gKeEta3NTwD63dBv67s5
+         A/2ZcA7F7IgXvp/ALUTWRRjZnVQVKeB28EUUWZjZbrJ1DiqOtn9Yc9KlxtAQaT3nXLCL
+         0+9maFKxiL8h+rmwPHjAsuiVskinxDSUSgH+YtySXO1Ft44QGy7eQH3xlTijhLfq/ivZ
+         V5zGXrhSTT+myr0Pu7MTlzI7TSewYWJZzamiLSJlnvXjVjGsaJxl/DXUf+1SNJZI7WOg
+         9FsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789969041; x=1790573841;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=jFaEBWUFf1wNsYWOuTWbsW2vcMd0ik36yK685CRq5/E=;
+        b=uVEMrS2OXHgvLLwjoJBgGhe18iyxL3pnMBnznMFFPfNmORVRT4KCrLxKmi0OmTRmye
+         udDlknCaFvzjTUtll/aJXFi8D10Dy3IC8OKQJuu4A2EqPtZLhtUXmSmL8lX4zZCslhfM
+         mM3pTJwtnZUzZR7UJdeV63TACO0nDE0Uvx7Ob+/453c8YHue3Xzv95zlBl/cTE/Yre0V
+         ozMtNd4ti/pPx6dJ4Ejl8fPj6Vi3qSQlM9mS67OfnS720bMkwkoMHKfuyDEwOPfPxEcM
+         XYNlbdtkktf2qABCfVSTUxVara3ZRTnxOb0kJX98iTjo+aoUqipbmYlEg/FVhtDXfq3f
+         HEGQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy7Zi+X7Pz5NKcLFNvM7V+llhErYFjNEHZpD1EXeuEzT6yoXSiMURnJLK5z+tkMRF3SGZt3OR1JLpWw@vger.kernel.org
+X-Gm-Message-State: AFuF++km8mQiLOakZQbmRMmU/qeDUkwk+eec0DsJ3Zt9Ttzww0Em5J5P
+	rQDh4SuIan0ZFRxxfNx2hB4zatQawo1yuEoL3vLohz7fH/GE8qSuL1L/hhbvdy5RHzkXxaoiKPi
+	aDlzqvTCR5bSuI7sV70qIcXw99HPEovihHF0PgWU/WaIFdBCNdRXljtoWoY6zXoHh
+X-Gm-Gg: AYBFou1Ue1Ab49CE+4E4RMuFKOWANn4CEF6o4ZSn6jzvM421J5Nn2y/6D1mFfHRtWfH
+	/72+PSA8uGi+VM1gTFdvJET2lJHXqSURtvA5unK6iY0LNIrbQK8QK80HJW2xbQIrE+6ZFkiSGOq
+	AB37AYYdzVGaxDkMlCH/eV4PTaHuLlN/AD3b2J7k4ww5QPTTZCBp/t2wclikWA9wlv8G8zADi/y
+	0edvmyxzeV/fQ61/R89yefgJklXEJ/X2UpFkLeaOsqZ3GHmdzT1hDyPTZY62fbnbS2Ld+AYr4Rf
+	G0949s+5TOGwelUH4LChTAmoyw/hQvp20nB8AGo3irJ2Coay/siITvl5GEZVYP9iG+1f2h1d6Ba
+	kt0xrJV4OCh3BscpMhKsI8iEf34yk8qc6jA==
+X-Received: by 2002:a17:90b:4b87:b0:39e:6c68:fd8f with SMTP id 98e67ed59e1d1-39e6c68ff16mr6329924a91.36.1789969041226;
+        Sun, 20 Sep 2026 22:37:21 -0700 (PDT)
+X-Received: by 2002:a17:90b:4b87:b0:39e:6c68:fd8f with SMTP id 98e67ed59e1d1-39e6c68ff16mr6329899a91.36.1789969040772;
+        Sun, 20 Sep 2026 22:37:20 -0700 (PDT)
+Received: from hu-krichai-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144d55d45a6sm15054568c88.9.2026.09.20.22.37.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Sep 2026 22:37:20 -0700 (PDT)
+From: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+Subject: [PATCH v4 0/6] Add PCIe support for Qualcomm Nord platform
+Date: Mon, 21 Sep 2026 11:07:08 +0530
+Message-Id: <20260921-nord-v4-0-ed05c6e09240@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAIXCsGoC/3XOy2oCMRgF4FeRrI38SSY3V32P4iLXmqKTNtHBI
+ vPuTXRAwXYTOHC+8+eKaigpVLRdXVEJU6opjy0M6xVyezN+BJx8y4gCFaAI4DEXjwdBFOhIPDc
+ BtepXCTFdbjPvu3uuZ/sZ3Knb3tinesrl53ZnIr23TNLhPjkRDFgLbZmUFiRjb7nWzffZHFw+H
+ jft6TOL4U9GOqCRWiUFN6+m/2aiz/fUYmmzRNnItSfai/iPZQ+rQS+WNWvBKCopcXyQf9h5nn8
+ BWJNHaF0BAAA=
+X-Change-ID: 20260810-nord-461809f1d5ae
+To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Bjorn Helgaas <bhelgaas@google.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Maxime Chevallier <maxime.chevallier@bootlin.com>,
+        Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+        shengchao.guo@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Qiang Yu <qiang.yu@oss.qualcomm.com>,
+        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789969033; l=4478;
+ i=krishna.chundru@oss.qualcomm.com; s=20230907; h=from:subject:message-id;
+ bh=9U2el7qhXi1CczJc0aDnMlryL3xXkou20Zt0ZP5PomI=;
+ b=78vCJBSTEURDNOvkYHZEXlJYGdromKpI6vIQXnjl6Xu8QFsO0A/bb6W6x7MCwiL1vrGqD3pqE
+ 0JWiKma9RVZCx6bEne6OR7fH7t9/KZzpdZwONI+F9uIuJqBqrsmOduh
+X-Developer-Key: i=krishna.chundru@oss.qualcomm.com; a=ed25519;
+ pk=10CL2pdAKFyzyOHbfSWHCD0X0my7CXxj8gJScmn1FAg=
+X-Authority-Analysis: v=2.4 cv=aJ9lOr9m c=1 sm=1 tr=0 ts=6ab0c292 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8
+ a=1XWaLZrsAAAA:8 a=P-IC7800AAAA:8 a=JfrnYn6hAAAA:8 a=uxWjj-y4xJQSND-wKXoA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22
+ a=FO4_E8m0qiDe52t0p3_H:22 a=cvBusfyB2V15izCimMoJ:22 a=d3PnA9EDa4IxuAV0gXij:22
+ a=1CNFftbPRP8L7MoqJWF3:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDA3OCBTYWx0ZWRfX8nZmAiE3Ho4M
+ u50m1zPxdWnker5R6QIj44sEiShd0HQCz6z/wad7+eDezha88PDcuaIL+AsYYKBbu60sVuC2YAe
+ /1QxKKbuGu1yE23BLurstWL4YdKTSNk=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDA3OCBTYWx0ZWRfX6mfIj/N8u7G0
+ IiuVJnv0kfunMQ4uZN7nUYTVXHx8svhKqGhsyNY150voBfaXpVPOfxgGD2vp/B9Va5h9f12NTlE
+ RX0krcfr+cfdmYXSi6i2JHTpzlfBjEB4APVsRq9RHMHt7q2zS2UktuWUuUydE76qjBzHeb8bw1i
+ ah9sW/h6esRu0RIzS71n1X4MQuEQNOo5+ZsUAaW42WmEBDkJrxp5LQJ2MeYjI4tKGrLJ/thdt64
+ hxqopAYyHLgo4q74b7uQo3Bq0oIq19DoMYpqanpOv85fv/XFNy4C6QvNBV+iblf4dDx0+vRF9Cj
+ Snec+R8INJOwRPY8F3/VGJ+yMKpj8lKS4QJHFF2KH1dMHJLECqCMjgeUFOiDGGYlglFpdkVMiML
+ /gRJo0Z6nPJNuura1DIS5q4Lq2vJ8wjqzhiEwkq9FTx3jQtZotccoQle8r4KoU2Wf1Rfv8/KHvX
+ n/yd4XiNbgEEgom3QzA==
+X-Proofpoint-ORIG-GUID: uuTkjdk_Ro8nwzhB-Nc9w0aeQPAnlV21
+X-Proofpoint-GUID: uuTkjdk_Ro8nwzhB-Nc9w0aeQPAnlV21
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_02,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 phishscore=0 clxscore=1015 bulkscore=0
+ priorityscore=1501 suspectscore=0 adultscore=0 impostorscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210078
 
-"Jonathan Cameron" <jic23@kernel.org> writes:
+This series adds PCIe support for the Qualcomm Nord (SA8797P) platform.
 
-> On Thu, 17 Sep 2026 08:40:06 +0200
-> Esben Haabendal <esben@geanix.com> wrote:
->
->> <sashiko-bot@kernel.org> writes:
->>
->> > Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
->> > - [Critical] iio: accel: mma8452: Interrupt storm livelock when IRQ fires during RPM_SUSPENDING
->> > - [High] iio: accel: mma8452: Invalid I2C access during system suspend due to mishandled -EINVAL
->> > - [Medium] iio: accel: mma8452: Race condition in probe error path due to pm_runtime_disable() before free_irq()
->> > --
->> >
-> So far we haven't enabled sashiko emails to the linux-iio list
-> (will probably move to that fairly soon) so fun side effect is this
-> reply was shouting into the void - except that b4 picks it up.
->
-> +CC linux-iio. I'm too lazy to add everyone by hand who was on original thread.
->
-> Key here is looks like you already plan a v10.
+Nord has a single Gen5-capable QMP PCIe PHY block split into four
+independently-clocked and independently-resettable ports (A/B/C/D).
+Firmware selects the active lane topology at boot via a TCSR
+configuration register, and the same PHY block can appear as a single
+x16 port, x8+x8, x8+x4+x4, or x8+x4+x2+x2 depending on that mode. This
+is similar in spirit to the Glymur multi-PHY support already posted,
+except Nord's PHY registers are programmed by Linux rather than by
+firmware, so this series adds the PLL, TXRXZ, PCS and PCS-lane init
+tables along with the power-up/power-down/soft-reset sequencing needed
+to bring each port up.
 
-Yes, sashiko-bot clearly catches a lot of valid problems. Also flags
-some things that is not valid. And for a patch series with many
-versions, like this one, these invalid findings keeps getting repeated.
+The series also documents and wires up the qcom,nord-pcie compatible
+(reusing the existing SA8775P PCIe controller binding), and adds a
+CORE_CLK_CGC_DIS/AUX_PWR_DET workaround required to avoid a timing
+convergence issue in the PCIe power domain.
 
-Are there some guidelines how to handle this? Is it enough to write a
-reply to the list(s) explaining why the finding is invalid on the first
-report by sashiko-bot, or do we have to repeat every time that
-sashiko-bot repeats the rebuted finding?
+Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+---
+To: Vinod Koul <vkoul@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+To: Lorenzo Pieralisi <lpieralisi@kernel.org>
+To: Krzysztof Wilczyński <kwilczynski@kernel.org>
+To: Manivannan Sadhasivam <mani@kernel.org>
+To: Bjorn Helgaas <bhelgaas@google.com>
+To: Bjorn Andersson <andersson@kernel.org>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: shengchao.guo@oss.qualcomm.com
+Cc: linux-arm-msm@vger.kernel.org
+Cc: linux-phy@lists.infradead.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-pci@vger.kernel.org
+Cc: shengchao.guo@oss.qualcomm.com
 
->> > commit bf19c63685f6fff116a3a5358196fd66dff6090a
->> > Author: Esben Haabendal <esben@geanix.com>
->> >
->> > iio: accel: mma8452: Support interrupt sharing
->> >
->> > This commit adds support for shared interrupts to the mma8452 driver. It
->> > modifies the interrupt handler to check the runtime PM status and ignores
->> > the interrupt if the device is suspended. It also updates the runtime
->> > suspend and resume paths to properly disable and restore interrupt sources.
->> >
->> >> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
->> >> index 5aea6bf3312af..2a980c0c2e03a 100644
->> >> --- a/drivers/iio/accel/mma8452.c
->> >> +++ b/drivers/iio/accel/mma8452.c
->> >
->> > [ ... ]
->> >
->> >> @@ -1086,15 +1088,28 @@ static irqreturn_t mma8452_interrupt(int irq, void *p)
->> >>  {
->> >>  	struct iio_dev *indio_dev = p;
->> >>  	struct mma8452_data *data = iio_priv(indio_dev);
->> >> +	struct device *dev = &data->client->dev;
->> >>  	irqreturn_t ret = IRQ_NONE;
->> >> +	int pm_status;
->> >>  	int src;
->> >>
->> >> +	pm_status = pm_runtime_get_if_active(dev);
->> >> +	if (pm_status == 0)
->> >> +		return IRQ_NONE; /* device is powered down */
->> >
->> > [Severity: Critical]
->> > If the device asserts its level-triggered interrupt when the PM core is
->> > transitioning the device to RPM_SUSPENDING (e.g., when the autosuspend
->> > timer expires), pm_runtime_get_if_active() will return 0.
->> >
->> > Does returning IRQ_NONE without clearing the hardware interrupt here cause
->> > a permanent interrupt storm? Since the IRQ line is shared and unmasked upon
->> > return, the still-asserted hardware interrupt might immediately re-trigger
->> > the handler, potentially starving the worker thread that executes
->> > mma8452_runtime_suspend() and hard-locking the system.
->>
->> This should be handled by the disable of all interrupt sources (clearing
->> CTRL_REG4) in mma8452_runtime_suspend().
->>
->> > [Severity: High]
->> > During system suspend, pm_runtime_force_suspend() disables runtime PM,
->> > which increments the disable depth. If a shared interrupt fires during this
->> > window, pm_runtime_get_if_active() returns -EINVAL.
->> >
->> > Since this check only catches pm_status == 0, does this allow the handler
->> > to proceed and perform I2C reads on unpowered hardware? Per subsystem
->> > guidelines, should this check for pm_status <= 0 instead?
->>
->> If we bail out on pm_status <= 0, the driver would not work on systems
->> with CONFIG_PM not enabled.
->>
->> In order to handle the difference betwen the different reasons for
->> -EINVAL, it would seem like we would need some #ifdef CONFIG_PM in here.
->> Do we really want to do that?
->
-> That if_enabled() function is a pain.  Definitely not ifdef but
-> how about
->
->  if (IS_ENABLED(CONFIG_PM) && ret < 0) or something like that?
+---
+Changes in v4:
+- Couple of nits in dt binding & phy driver (shawn, Mani)
+- Add proper description for link-mode & phy-cells
+- Remove soc node and address cells from example (Mani)
+- change cgc_dis_workaround to disable_cgc (Mani)
+- Split common changes and nord changes (Mani) 
+- Link to v3: https://patch.msgid.link/20260909-nord-v3-0-b0a82721c547@oss.qualcomm.com
 
-That should work. Now, in this case, do we want to report IRQ_HANDLED or
-IRQ_NONE? We obviosly did not really handle it, but we also don't know
-if the irq was for this device.
+Changes in v3:
+- change the name to quadfurcated phy (Konrad).
+- remove min items and change clocks order (Krzysztof).
+- Factor out the common config and create overlays & try to use common
+  symbols for glymur and nord (Konrad).
+- create  qphy_setbit and qphy_clrbit (Qiang Yu).
+- and in qmp_pcie_exit() apply settings only when nocsr is present (Qiang Yu).
+- Link to v2: https://patch.msgid.link/20260828-nord-v2-0-18bf59d19d6f@oss.qualcomm.com
 
->> >> +
->> >> +	/*
->> >> +	 * pm_status is now 1 or -EINVAL. If pm_status==1, runtime PM is enabled
->> >> +	 * and device is RPM_ACTIVE. If pm_status==-EINVAL, runtime PM is
->> >> +	 * disabled (e.g. CONFIG_PM not enabled), and we can/must assume device
->> >> +	 * is active.
->> >> +	 */
->> >> +
->> >>  	src = i2c_smbus_read_byte_data(data->client, MMA8452_INT_SRC);
->> >
->> > [ ... ]
->> >
->> >> @@ -1771,11 +1790,12 @@ static void mma8452_remove(struct i2c_client *client)
->> >>
->> >>  	iio_device_unregister(indio_dev);
->> >>
->> >> -	pm_runtime_disable(dev);
->> >> -	pm_runtime_set_suspended(dev);
->> >> -
->> >>  	if (client->irq)
->> >>  		free_irq(client->irq, indio_dev);
->> >> +	/* No irq will fire beyond this point */
->> >> +
->> >> +	pm_runtime_disable(dev);
->> >> +	pm_runtime_set_suspended(dev);
->> >
->> > [Severity: Medium]
->> > This correctly fixes the race in mma8452_remove() by moving free_irq()
->> > before pm_runtime_disable(), but does the same race still exist in the
->> > mma8452_probe() error path?
->> >
->> > If mma8452_probe() fails after pm_runtime_enable(), it jumps to the
->> > runtime_suspend label:
->> >
->> >   mma8452_probe() {
->> >       /* ... */
->> >   runtime_suspend:
->> >       pm_runtime_disable(dev);
->> >       pm_runtime_set_suspended(dev);
->> >
->> >   free_irq:
->> >       if (client->irq)
->> >           free_irq(client->irq, indio_dev);
->> >       /* ... */
->> >   }
->> >
->> > If a shared interrupt fires between pm_runtime_disable() and free_irq(),
->> > could the handler attempt to access unpowered hardware?
->>
->> I will apply the same reordering in mma8452_probe().
->
-> Sounds good to me
+Changes in v2:
+- Fix dtbinding errors (Krzysztof)
+- Link to v1: https://patch.msgid.link/20260825-nord-v1-0-7c02f2b8765a@oss.qualcomm.com
 
-I will send it when I have the above question resolved.
+---
+Krishna Chaitanya Chundru (6):
+      dt-bindings: phy: qcom: add Nord QMP PCIe PHY binding
+      dt-bindings: pci: qcom: add Nord PCIe controller compatible
+      PCI: qcom: Add Nord PCIe controller support
+      phy: qcom: qmp: Move qphy_setbits/clrbits/checkbits to common header
+      phy: qcom: qmp-pcie: Refactor common multiphy handling
+      phy: qcom: qmp-pcie: Add Nord Gen5x16 PCIe multi-PHY support
 
-/Esben
+ .../devicetree/bindings/pci/qcom,pcie-sa8775p.yaml |   1 +
+ .../phy/qcom,nord-qmp-gen5x16-pcie-phy.yaml        | 267 ++++++
+ drivers/pci/controller/dwc/pcie-qcom.c             |  16 +
+ drivers/phy/qualcomm/phy-qcom-qmp-combo.c          |  24 -
+ drivers/phy/qualcomm/phy-qcom-qmp-common.h         |  32 +
+ drivers/phy/qualcomm/phy-qcom-qmp-pcie-msm8996.c   |  24 -
+ drivers/phy/qualcomm/phy-qcom-qmp-pcie-multiphy.c  | 970 +++++++++++++++++++--
+ drivers/phy/qualcomm/phy-qcom-qmp-pcie.c           |  32 -
+ drivers/phy/qualcomm/phy-qcom-qmp-pcs-pcie-v6_40.h |  55 ++
+ drivers/phy/qualcomm/phy-qcom-qmp-pcs-v6_40.h      |  14 +
+ .../qualcomm/phy-qcom-qmp-qserdes-com-pcie-v6_40.h |  94 ++
+ .../phy-qcom-qmp-qserdes-txrxz-pcie-v6_40.h        | 194 +++++
+ drivers/phy/qualcomm/phy-qcom-qmp-ufs.c            |  24 -
+ drivers/phy/qualcomm/phy-qcom-qmp-usb.c            |  24 -
+ drivers/phy/qualcomm/phy-qcom-qmp-usbc.c           |  24 -
+ 15 files changed, 1566 insertions(+), 229 deletions(-)
+---
+base-commit: 5ad078139f684fa1f018fe0134812d4aa17fa53f
+change-id: 20260810-nord-461809f1d5ae
+
+Best regards,
+--  
+Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+
