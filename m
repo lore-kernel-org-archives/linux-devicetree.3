@@ -1,129 +1,99 @@
-Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net [217.70.183.193])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C45ED479874
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 10:43:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.193
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74A08429037;
+	Mon, 21 Sep 2026 10:43:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789987386; cv=none; b=UiQLTE1yL9qt3Aoj518EVRsBSz7OwPgyPJOYzgOOj9BdifQu9KVUbbntUqvhimNyewCmpXtjyMJE3Ivdc3+JIWzyvxiqcOgt0DDYOiWs9+TNLXhAFpUMiutHn1R495eE6pwGvotmjfTHJ3F+xIPvawgJG/aAXaM4pLqlavDq+M4=
+	t=1789987388; cv=none; b=klpbEYGgvXV5Hb7vNqjUCxBczCLTbKld0qVJCelGoaP80/TSLa1uNwimucNkNLfdQasl06wWvYqr9dlhjAM/Fv/YQDHltigG8Nvvu1ZO3fwi2KfGCi6q0crpiFYf/gSobzxYx2L0pNapPqq53oHV47k8FyPOrZHXFgmK7IPOOa0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789987386; c=relaxed/simple;
-	bh=YiB1rT1BLZ4iTmSDC5HQ8BhCwfePYdi/rMv0Hoez/Nc=;
-	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=om2KFiqsxFhLERP83IbE6Stke5KDM/uKf9JMcfMLb2vTPMf3fugCNy9u3EwsgYghgPHy4YmowhcAdCus08b+j7H0fB7UtWa6lk2xg6x3+xVS0iSxWF2SQUcW69k+UYZgeZ+AYhPpozcSUqeHE1Tif6vYv96HkhArZbg+H3GSqow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=bS0knvca; arc=none smtp.client-ip=217.70.183.193
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
+	s=arc-20240116; t=1789987388; c=relaxed/simple;
+	bh=Jgwpcker6k9rDea0kRKtirRFxf58xRqNK/1bFIhkyeg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=YQcD2If1VEMHxC3iHH5tFKyVrEI8nJSK/4nU7QBMoJ6kXB2KJu8ddfvzCWY2r0UB7JhRyW8bYb1IAiQZ9uNJOqFwMAQIbCtkFm5oov+ofmGBMb7H18C2EGspkTYWKM9imgo/2tODmBKysmgJfLeb0dNv/2HqwvblD1u5Vw+mSw4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=oMTNaCUU; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="bS0knvca"
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 85BD03EBD5;
-	Mon, 21 Sep 2026 10:42:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
-	s=gm1; t=1789987376; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:  references:references;
-	bh=OWQA8Op92XVd4S/Z25ofdeqyhu6F+swOiKuyb8CmnoE=;
-	b=bS0knvcaya0afHLl7IYK4s4vBNcxvYMcjoey7fnA9mqbmUbFZGjRSluETKtP8zdwhC6Oao
-	lIZPpNP17/XhGS0U5iRcrCNuvwDUsTgfl+w6RNDEfgzCXIwomiVh9aGJ6z0mjVBk3Lcwfa
-	W2TFdxipxT2jhAQ77fpeecM2ObxrQ/IQMZiB1QfWBDPvAXtJ4oav5U9FWgYOA/WOWWjgVQ
-	XiEmXYy/sDeKAwsDp3FJ3AdTKvAwC+wVYPetp/6BGAnDwC/ZZXfDKAaeQN8wMAJ06O2xnL
-	gq9IepJk+kO0R+55PwOkNHivBoDAJOVk57b0VHefDIa7cUfPpxIaG3kKCCjvsQ==
-Date: Mon, 21 Sep 2026 12:42:53 +0200
-From: Arthur Crepin Leblond <arthur@marmottus.net>
-To: sashiko-reviews@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH net-next v9 3/3] w5100: detect carrier state using link
- status bit and optional interrupt
-Message-ID: <20260921104253.GA248881@marmottus.net>
-Reply-To: arthur@marmottus.net
-References: <20260918-wiznet-link-gpio-v9-0-5536f24d8d6d@marmottus.net>
- <20260918-wiznet-link-gpio-v9-3-5536f24d8d6d@marmottus.net>
- <20260919151421.2FE471F000FF@smtp.kernel.org>
- <20260921090432.GA84626@marmottus.net>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="oMTNaCUU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789987384;
+	bh=Jgwpcker6k9rDea0kRKtirRFxf58xRqNK/1bFIhkyeg=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=oMTNaCUUQMOFVvWtgJ8FpNZ78+radWm4cFtglDxYayHg0KljOdwH8twiOXi86vS+U
+	 P3VUGiXZmygGnudp9xbNeTLWgolxWIBtpw50uZp180Qt5J6bwhxGXRSHalytZTM+6E
+	 2zxNom4zWTDpnpi/BFF1YgFfhfMoLnQE3suBwwbogv6IekEHfTDrFHDuJrXjjSDohm
+	 6v50HbEataNqYDAVG6gHO69vfRYaEz3UtKyFlL7EmlZNEoGJ11fi/hJYypEtBORh4u
+	 xNxx8Qt4b9iGK7fOa/1MsShkRNlvXC0pUMqKDGSQLNt3bI4p447TOs6WYGN4plBFxQ
+	 2eNtJ8McJQ3/g==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 3C7EA17E09D6;
+	Mon, 21 Sep 2026 12:43:03 +0200 (CEST)
+Message-ID: <bffc0927-26c0-4b36-9d66-d75dc5aa3b89@collabora.com>
+Date: Mon, 21 Sep 2026 12:43:02 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20260921090432.GA84626@marmottus.net>
-X-GND-Sasl: arthur@marmottus.net
-X-GND-State: clean
-X-GND-Score: 0
-X-GND-Cause: dmFkZTFc5sjDS5yO4DZdkaYQ5GCOekVxOEqqhhqOW1dL0dTUSDsz3qMcGoxcC2rL2B2zmd7stoEaWVqWHj2Y5ZrSXMfQ6nlZJ6OCSoXs0zUAgRyxSU05QON6rYRbpt8XEO3oYSIm1BJqW0O+K9n7lCjNBbktj3NZQf8en2UtDFUGyGGWKong6ve1DUr2L6cd3Rolm0WVlLECSn5H4WA6B+uh7z97RlxlZXz5fU7INKHtBgZceDNZlAIj3W4eSWfcAX1Qe43Dz3ZCaHzhWZdMx8KPL2H0f48PN0BwxISVxR9DMmpfmOTc3QpctcqMv2ClKukCa2aGJ7EpW4l28FOJE8rgsJ/7B1uTYzIobixyFRCvI5tHdlNQn0Z+SKl+SN7RKpYLL0yOlDc6qa5fOQmAh1sPBDT+/w6sKttvhMjZM9gniM7PyVE5J9QAUvvFXAGCL3lvpIJruLmrQEgSzyxIX6Mz3VSEzd9zNa9g2uAiORBjQQJCh+DwHoxADdp9a9RyYyQXfD9Z1i7nuhnQtABthA60EXOYRj562yZQdh6ydk4cp90fzjaFx+Y84SWUGXdf6cxwfvPydv7iuc3hQ9iWfrnaEZ9lkQfIosA5A7pFT7IwcVLw//7fqxfR1QF13nSGZ7xmimcFNy1QmMrpfS73GIxqX8AOw5xCmsu2pvSgQUUOkA5MRw
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] media: dt-bindings: Correct white-space style
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Keke Li <keke.li@amlogic.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Zhi Mao <zhi.mao@mediatek.com>,
+ Tiffany Lin <tiffany.lin@mediatek.com>,
+ Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
+ Yunfei Dong <yunfei.dong@mediatek.com>, Bin Liu <bin.liu@mediatek.com>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Bryan O'Donoghue <bod@kernel.org>,
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Xia Jiang
+ <xia.jiang@mediatek.com>, Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org
+References: <20260801195528.235230-2-krzysztof.kozlowski@oss.qualcomm.com>
+ <1505ca0c-4a31-4673-bbe0-8474133fc504@kernel.org>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <1505ca0c-4a31-4673-bbe0-8474133fc504@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 21, 2026 at 11:04:34AM +0200, Arthur Crepin Leblond wrote:
->On Sat, Sep 19, 2026 at 03:14:20PM +0000, sashiko-bot@kernel.org wrote:
->>>@@ -448,12 +526,25 @@ static void w5100_restart(struct net_device *ndev)
->>> {
->>> 	struct w5100_priv *priv = netdev_priv(ndev);
->>>
->>>+	if (!netif_running(ndev) || !netif_device_present(ndev))
->>>+		return;
->>>+
->>>+	disable_irq(priv->irq);
->>>+	if (priv->link_irq > 0)
->>>+		disable_irq(priv->link_irq);
->>>+
+On 9/18/26 12:46, Krzysztof Kozlowski wrote:
+> On 01/08/2026 21:55, Krzysztof Kozlowski wrote:
+>> Correct a few white-space issues, like double space after '=' or before
+>> bracket '{' characters, which will be flagged by dt-check-style.  No
+>> functional changes.
 >>
->>[Severity: Medium]
->>Is it safe to call disable_irq() here? disable_irq() is a sleepable function,
->>but w5100_restart() can be called from atomic context when using memory-mapped
->>I/O.
->>
->>Looking at w5100_tx_timeout(), which executes in atomic context, the timeout
->>handler falls back to calling w5100_restart() directly if the device cannot
->>sleep:
->>
->>w5100_tx_timeout() {
->>   ...
->>   if (priv->ops->may_sleep)
->>       schedule_work(&priv->restart_work);
->>   else
->>       w5100_restart(ndev);
->>}
->>
->>While current in-tree drivers might set may_sleep to true, this code path
->>explicitly exists to support may_sleep == false. Could this introduce a
->>'scheduling while atomic' panic for non-sleepable devices?
->
->It looks like all the ops in the spi driver are setting may_sleep to
->true but indeed disable_irq should not be called from an atomic context.
->
->Would disable_irq_nosync just work here? enable_irq is not affected
->from what I understand.
->
->>
->>> 	netif_stop_queue(ndev);
->>> 	w5100_hw_reset(priv);
->>>+	enable_irq(priv->irq);
->>> 	w5100_hw_start(priv);
->>> 	ndev->stats.tx_errors++;
->>> 	netif_trans_update(ndev);
->>> 	netif_wake_queue(ndev);
->>>+
->>>+	if (priv->link_irq > 0) {
->>>+		w5500_report_carrier_state(ndev);
->>>+		enable_irq(priv->link_irq);
->>>+	}
->>
->>[Severity: Medium]
->>Similarly, w5500_report_carrier_state() attempts to acquire a mutex
->>(priv->link_lock).
->>
->>If priv->link_irq > 0 and priv->ops->may_sleep is false, wouldn't taking
->>this mutex in the w5100_tx_timeout() -> w5100_restart() call chain also
->>result in sleeping in atomic context?
->>
->>> }
->>
->
->Maybe I could use a spin lock instead of a mutex.
->
->Arthur
+>> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+>> ---
+>>   .../bindings/media/amlogic,c3-mipi-csi2.yaml  |  4 +-
+>>   .../bindings/media/i2c/galaxycore,gc05a2.yaml |  2 +-
+>>   .../media/mediatek,vcodec-encoder.yaml        |  2 +-
+>>   .../bindings/media/mediatek-jpeg-decoder.yaml |  4 +-
+>>   .../bindings/media/mediatek-jpeg-encoder.yaml |  2 +-
+>>   .../bindings/media/qcom,msm8996-venus.yaml    | 40 +++++++++----------
+>>   .../bindings/media/raspberrypi,pispbe.yaml    |  2 +-
+>>   7 files changed, 28 insertions(+), 28 deletions(-)
+> 
+> This received reviews, is trivial, waits on the lists for 1.5 monts and
+> it seems people are repeating what I did.
+> 
+> I understand this won't be picked up by media.
+....in any case, for MediaTek:
 
-The easiest is probably to always run w5100_restart in worker.
-
-Arthur
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
