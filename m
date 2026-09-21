@@ -1,359 +1,235 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net [217.70.183.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A83D47A0C2;
-	Mon, 21 Sep 2026 10:51:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9D313B8950;
+	Mon, 21 Sep 2026 10:53:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789987911; cv=none; b=S8ULib+N7RD9ejgMHameBOsXUPspF7cyysf8RD9CgxlpHosW14Dsz9byqEKKksUL0TW7HnqjKMfY0sigFEDyhgkSimvWQxLgmavyi9ggAry9fa590HS/ROJ3oKrFgFRJuKPdCDZZPrFxcPoFsrx7uP8qLCWADzrc4ytjuDa4vfw=
+	t=1789987991; cv=none; b=RscOmI1trq6Xy4+AwisTxY/Wnpb3zVA3d8kLa1XXMa08GRm49XxpA+S+vLEP4obKk4QBzXrIRtrrX8R9/e6h4qOMY2avhgVNClcSnKeaZ7Oxxnhojlk3ceWPxVZDpqQHsSVPAZDnJoDhnzMbVXlWHSbh3+UzOAmgpYMXpyKo9Kc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789987911; c=relaxed/simple;
-	bh=B7xAGKbm+zUqgFqse1/7beuuqa6SMNRQ6ULAavpm9uA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=D7G6qKicnbjfsinH0xTGGt8V68k/Vpo/VmMeVZe7Cn4LMKQP3uCzrkonVzWdeow6zYO91tF25lN1vl2T/JJwgJlbcVAWfsbPq1uVFMJ9a1iQMPZmdCELekYrdac99aNlpPjUADK0ek8JtjgG6ND7ud/sdZfcTNpyyMYuSTQiobI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=g2eF+tgh; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1789987991; c=relaxed/simple;
+	bh=RrJGYdKkxTQlz72pG9pht7EpKJzAaKC1XCSf3BCO5VM=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=DdUzUxWltzql/osvIKVdkeRaMaFWQ8PC8+vE0u2FtV6nLM5qsI609w1Xun+L7F5xM/J/dhXvNxWzJy+dKvP+UCo0yoFcYN5CrLFXEgmuJHzJbo6iGRZaW7a/kIgRX4GE8DcC9mHAXFAqyeOTXBmVYwtLna+Np0c8xOBSs1Ftj1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=lQHFfhIm; arc=none smtp.client-ip=217.70.183.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="g2eF+tgh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789987907;
-	bh=B7xAGKbm+zUqgFqse1/7beuuqa6SMNRQ6ULAavpm9uA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=g2eF+tghtShQlmNjeFmqjYC+9ICEz6zMeUMFuAAzj72BOBbXpaKD3xXYm0PY4zwqF
-	 Zqzq+mrP/dLj0yPzxYlTael9GD+uRYOEC6sqTCGrx2d74JpcQrxWnwqeIfz5CvDlU9
-	 u5iEiz3aEI636MIYcXz+d0eK2CjII3nTLlNy45xqUV6g6aPysCgfpjtQsl/FnNYEwI
-	 E0Fe/hyw2jWUn1QbF0lvfjcYnokgaVIMZm137OQD2GYH0ESOLy3sinO9MppOEWAwd9
-	 tnF3utAoDi9BV8EhQD3lZ5bGgsGPl0UCOZNJVcYeY1kTjLA01CycD/rDqV0jddI1/q
-	 BZc8aE1sPBbGg==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id F0F7C17E03B6;
-	Mon, 21 Sep 2026 12:51:46 +0200 (CEST)
-Message-ID: <0133cf19-709b-41f0-8f2e-e7ffede3ac1c@collabora.com>
-Date: Mon, 21 Sep 2026 12:51:46 +0200
+	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="lQHFfhIm"
+Received: by mail.gandi.net (Postfix) with ESMTPSA id D992F3EC3A;
+	Mon, 21 Sep 2026 10:52:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
+	s=gm1; t=1789987981;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=KNCZjlfW/DFoOfMy9njTLqync4si8qX2FR/TAuNZUXk=;
+	b=lQHFfhImy1Au/8yk3vhs3EWoZt9wL7WnsJjhdSChXLGI9AX7jVpQ7YVO6Ve/svqkwtqd6m
+	NAf/QAKZCgeVo6NUwXTCDk5JMDm2DjwMZ4Kp2gfFDD8zWhZ57FVkTOhhEeOJjgB5aKJALy
+	u5+MDCsrrU5/1Vd+8RheiqUoZ4vimzfELtM7KKAz3gBnVrVj3f1sm1h34PgzMNd/8UU8ma
+	0mXEnNyea5RjO+ecIYSDWrZThQTzrx6e7bHdrtA/xaZCowT1EWpHX2TIVVIalP9tNUUU6G
+	laPUjfhHE95hQCpersHkPT9tgg7Jt7xMV7zZ2rQts8UuPp70NMfN5X/fZnbYDA==
+From: Arthur Crepin Leblond <arthur@marmottus.net>
+Subject: [PATCH net-next v10 0/3] w5100: restore GPIO-based link detection
+Date: Mon, 21 Sep 2026 12:52:48 +0200
+Message-Id: <20260921-wiznet-link-gpio-v10-0-5874a7a147a2@marmottus.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 00/15] usb: enable M.2 E-key slot USB with pwrseq
-To: Chen-Yu Tsai <wenst@chromium.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Daniel Scally <djrscally@gmail.com>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>
-Cc: linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
- linux-pm@vger.kernel.org, linux-usb@vger.kernel.org,
- devicetree@vger.kernel.org, linux-mediatek@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Manivannan Sadhasivam <mani@kernel.org>,
- Alan Stern <stern@rowland.harvard.edu>
-References: <20260916075745.3549953-1-wenst@chromium.org>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20260916075745.3549953-1-wenst@chromium.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAIAMsWoC/4XRzVLDIBAH8FfpcBaH5WMBT76H4yHho0Vt0knSW
+ O303SXxYMZZxyPw39/CcmVjGkoa2cPuyoY0l7H0XV2AuNuxcGi6feIl1g0mhUThhObv5bNLE38
+ r3Svfn0rPrcesMETQ2bNadhpSLpfVfGJLtEuXiT1/n4zn9iWFaRGX7KGMUz98rO1nWCv+bjQDB
+ 96ixBx1tiG0j8dmOPbTdB7va3JtMcv/EMkFVy1EEZwVWRkKUVsECURVxCgZdQNaOUEieoMAEIi
+ uiI4m29g4ZxpHIWaLKAIxFWlCfSpmqTUoCsENoqib4IK0KWEwwSMmCrE/iCcHayuCPgtorahKp
+ hC3QcAQiKtIBKtQSm11CBTit4gjEL/8jlHLRKKLGH8jt9vtC4J8s7b5AgAA
+X-Change-ID: 20260804-wiznet-link-gpio-796f36cd14f9
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>, netdev@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Arthur Crepin Leblond <arthur@marmottus.net>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-GND-Sasl: arthur@marmottus.net
+X-GND-State: clean
+X-GND-Score: -100
+X-GND-Cause: dmFkZTF6b6jgYhyLS1AMsjs3SUF00ycLJG+3ieVql2Kn6qdvxDGf4rTyaSbhAqnwuGsjZ+WJOX/RpUHNPAXw8XKKkZ0KNTXxMTbyh1ZPeLZ/qDIQ7zQj799wFeDFqub8XcxckvuSUxxiBAdBRkbrJE9XHLO58FjG+8nOB+AxI++RzKQrqnmKb3pZEkkmHAA+2m/ZbgRJ7V52Z61a5S70xs3cs1YT95mw5ihF7Av3KbXYeMtfVUMvj9MBJ3vXM+JI4uGUtG2RywLSdFAKmgsJkJo7zgM5jDRsCsm02CYlSfELfbPydAL5xfFMHamzz8rvCADlcg88DIPeXJBwoVlZsuzk2jv2pWUUTvpJCI9sT8v1sGHObRWXCPYv64Pq+NTyZuMIluS5qLuJGEOADqIJYWBO5plZE+rY9LVIG2E43POFlBK0xrH0RNDLaIDE898yi6ucoP9He2T7Ktk1XF46D5F/+7FFFO3JsPwKWdOzYBPCRPx8OUfGf6RRfbOhy3Iuh1GANa89Hfgg3+xKmbtWkJpHGPqTBlQda7vwP+ZicY8LMmHEA/oJKjE1dmF9/Yea9coMbpNFrOoUVhoRMuZybAcOsETdP7/8OnB3uYhiwEXHGFvaZj46sAp7GXo2ETbgPm36hwfQgcNo4mE4IRPlqcXwGkl1QMa7kDc5qUofC8tllUPKyA
 
-On 9/16/26 09:57, Chen-Yu Tsai wrote:
-> Hi everyone,
-> 
-> This is v9 of my attempt at integrating the power sequencing API into
-> the USB core to support the USB connection on M.2 E-key slots. M.2
-> This series was previously titled "arm64: mediatek: Add M.2 E-key slot
-> on Chromebooks", which caused it to be missed by the USB maintainers.
-> E-key was enabled in v7.1-rc1 with just PCIe and UART supported [1].
-> Hopefully this is the last revision. The fwnode patches need a reviewed-by
-> from the fwnode owners.
-> 
-> As for Sashiko's comment about fwnode_get_next_*() not putting the
-> reference to @prev when @node is NULL, I plan to update the kernel-doc
-> for all the functions in a separate patch later.
-> 
-> Another one of Sashiko's comments is related to dropping the wakeup-source
-> property from the PCIe node. AFAIK there is no alternative as there is
-> no longer a node to put it in.
-> 
-> Last, one comment from Qualcomm folks is that the port numbering
-> conflicts with what the dwc3 bindings specify. IMHO the dwc3 bindings
-> should be fixed, as the dwc3 controller embeds a XHCI for host mode,
-> and XHCI port numbering should follow standard USB host hardware port
-> numbering. I will send separate RFC patches for this.
-> 
-> Changes since v8:
-> - Moved Sashiko-related comments from commit message body to footer
-> - Collected tags from Sakari
-> - Dropped USB port related code movement to usb/core/port.[ch]
-> - Link to v8:
->    https://lore.kernel.org/all/20260904084158.1341550-1-wenst@chromium.org/
-> 
-> Changes since v7:
-> - Mention in kernel-doc that the function does not return ports that
->    have no endpoints (Sakari) (patch 1)
-> - Adapted to pwrseq_enable/disable() rename
-> - Link to v7:
->    https://lore.kernel.org/all/20260724084328.3943997-1-wenst@chromium.org/
-> 
-> Changes since v6:
-> - Patch 3 (power: sequencing: Add pwrseq_get_state())
->    - Adopted enum for valid return codes (Bartosz)
-> - Patch 10 (usb hub pwrseq integration)
->    - Added braces ("{}") to for loop in hub_is_port_power_switchable() (Andy)
->    - Adapted usb_port_is_power_on() to new pwrseq_get_state() function
->      return values (Bartosz)
-> - Link to v6:
->    https://lore.kernel.org/all/20260721065413.2306137-1-wenst@chromium.org/
-> 
-> Changes since v5:
-> - Patch 1 (device property: Add fwnode_graph_get_port_by_id())
->    - Dropped left-over declaration in header (Sashiko)
-> - Patch 3 (power: sequencing: Add pwrseq_power_is_on())
->    - Reverted back to returning -EINVAL if descriptor is NULL (Andy /
->      Bartosz)
-> - Patch 6 (usb: hub: Associate port@ fwnode with USB port device)
->    - Added extra |struct fwnode_handle *| local variables to shorten lines (Andy)
->    - Added comment about passing fwnode_graph_get_port_by_id() return value
->      directly to device_set_node() (Andy)
-> - Patch 10 (usb hub pwrseq integration)
->    - Only assign port_dev->pwrseq if successfully retrieved pwrseq
->      descriptor (Andy)
->    - Dropped the pwrseq error pointer check in the release function
->      (Andy)
->    - Added check for port->pwrseq != NULL before calling
->      pwrseq_is_power_on() (API change from patch 3)
-> - Link to v5:
->    https://lore.kernel.org/all/20260715085348.3457359-1-wenst@chromium.org/
-> 
-> Changes since v4:
-> - Added flags parameter to fwnode_graph_get_port_by_id() so users can
->    specify whether incomplete ports are returned or not (Sashiko)
-> - Made pwrseq_power_is_on() return 1 if descriptor is NULL, i.e. if
->    the descriptor is optional, matching the other pwrseq consumer APIs
-> - Added patch to swap out conditional set_bit()/clear_bit() with
->    assign_bit() (split out from "usb: hub: Power on connected M.2 E-key
->    connectors with power sequencing API") (Andy)
-> - Call fwnode_graph_get_port_by_id() with FWNODE_GRAPH_DEVICE_DISABLED
->    so that even incomplete ports can be connected (Sashiko)
-> - Dropped unused |hdev| variable from usb_hub_remove_port_device()
->    (Greg / Sashiko)
-> - Dropped 'extern' from usb_port_is_power_on() header declaration (Andy)
-> 
-> - Patch 10 (usb hub pwrseq integration)
->    - Rewrote usb_port_is_power_on() to better express intent and
->      restrictions of pwrseq API (Andy)
->    - Switched to dev_fwnode() in port_pwrseq_is_supported() (Andy)
->    - Added blank line separating normal variable declarations and __free()
->      type declarations (Andy)
->    - Split out assign_bit() rewrite (Andy)
->    - Moved pwrseq_put() to release function to avoid UAF (Sashiko)
->    - Added back pwrseq_power_off() call in usb_hub_remove_port_device();
->      otherwise power off could be delayed to object release
->    - Don't clear hub->ports[port1 - 1] in main error path;
->      by that time the port device is registered and sysfs attributes are
->      available to userspace (Sashiko)
-> 
-> - Dropped blank line between __free() variable declaration and
->    subsequent use of the variable in conditional (Andy)
-> - Added patch to split Bluetooth pwrseq units (Wei)
-> - Link to v4:
->    https://lore.kernel.org/all/20260709095726.704448-1-wenst@chromium.org/
-> 
-> Changes since v3:
-> - Added missing stub function for !POWER_SEQUENCING (patch 3) (Sashiko)
-> - Added missing fwnode_handle_put() (patch 5) (Sashiko)
-> - Added new patch to move |struct usb_port| related declarations to
->    separate header (patch 6) (Andy)
-> - Patch 9 (usb hub pwrseq integration)
->    - Adapted to move of usb_port_is_power_on() to port.c and port.h
->    - Simplified usb_hub_set_port_pwrseq() (Andy)
->    - Renamed usb_hub_set_port_pwrseq()'s "set" parameter to "on"
->    - Dropped usb_hub_restore_port_pwrseq() (use usb_hub_set_port_pwrseq()
->      with inverted argument)
->    - Fixed off-by-one access in hub_is_port_power_switchable() (Sashiko)
->    - Assign retval from dev_err_probe() instead of the other way around (Andy)
->    - Clear hub->ports[port1 - 1] in USB port error and remove paths to
->      avoid other threads from accidental UAF while the USB hub device is
->      being unwound (Sashiko)
->    - Short-circuit out of helpers if !IS_ENABLED(CONFIG_POWER_SEQUENCING)
->      to avoid errors from stub functions (Sashiko)
-> - Drop redundant device node validity check; device_match_of_node()
->    does it internally (patch 11) (Andy)
-> - Link to v3:
->    https://lore.kernel.org/all/20260703110317.1283411-1-wenst@chromium.org/
-> 
-> Major changes since v2:
-> - Removed changes for MT8192 Asurada family: one of the device is
->    shipped with RTL8822CE-VR, which is PCIe + UART and needs more work.
-> - Removed changes for USB A ports: VBUS one the type A ports on
->    Chromebooks are not directly controllable from the OS and VBUS is
->    modeled as always on. As such the changes I made don't actually
->    change how the system works.
-> - Added new pwrseq_power_is_on() function
-> - Make new pwrseq integration effectively OF only by not assigning the
->    port fwnode if the hub's fwnode is an ACPI node
-> - Added patch to convert remaining instances of directly setting/clearing
->    USB_PORT_FEAT_POWER to usb_hub_set_port_power()
-> - Power sequencing state removed again in favor of state tracking by
->    pwrseq subsystem
-> - Power sequencing descriptor again separately requested for HS and SS
->    ports
-> - Dropped pwrseq_power_off() call before pwrseq_put(); the latter calls
->    the former implicitly if the power state was left on
-> - Squashed DT binding revert and addition into one patch
-> - Link to v2:
->    https://lore.kernel.org/all/20260610084053.2059858-1-wenst@chromium.org/
-> 
-> 
-> Major changes since v1:
-> - No longer adding the "index" parameter the power sequencing API
-> - Switched from OF graph to fwnode graph APIs
-> - Tie "port@" node to usb_port device, and use this device as consumer
->    to acquire power sequencing descriptor
-> - Power sequencing descriptor now only tied to USB 2.0 port to avoid
->    double reference
-> - Power sequencing state tracking added
-> - Link to v1
->    https://lore.kernel.org/all/20260515090149.3169406-1-wenst@chromium.org/
-> 
-> The series is based on next-20260901.
-> 
-> 
-> Patch 1 and 2 add new fwnode graph helpers. These are used by the patch
-> 5 and 8, respectively.
-> 
-> Patch 3 adds a new pwrseq_get_state() for power sequencer consumers
-> to query the current request state. Note that this is not the _actual_
-> state.
-> 
-> Patch 4 swaps out the existing conditional set_bit()/clear_bit() with
-> assign_bit(), which does the same thing.
-> 
-> Patch 5 reworks the USB hub driver to return the actual error code from
-> hub_configure() in hub_probe(). This is needed in the next patch to
-> correctly return -EPROBE_DEFER returned by pwrseq_get() in patch 9.
-> 
-> Patch 6 makes the USB port device associated with a "port@" fwnode if
-> available. This depends on patch 1.
-> 
-> Patch 7 changes usb_port_is_power_on() so that |struct usb_port*| is
-> passed in instead of |struct usb_hub*|. This patch does not change any
-> functionality.
-> 
-> Patch 8 changes some USB hub port power control code that directly
-> toggles USB_PORT_FEAT_POWER to use usb_hub_set_port_power().
-> 
-> Patch 9 lets the USB hub driver look for power sequencers for each port.
-> Currently this only works for M.2 E-key connections, but it could be
-> extended to cover other cases. It should also make port reset via turning
-> off the port VBUS work, even when VBUS is not directly controlled by the
-> hub. This depends on patch 2 and 3 for the new helpers.
-> 
-> Patch 10 reverts an incorrectly modeled OF graph connection for the
-> MediaTek XHCI controller and adds a proper representation.
-> 
-> Patch 11 adds matching pwrseq consumer by "port@" node to the M.2 slot
-> driver. This is only used for the USB target, but there is no attempt
-> to differentiate the connection type. The driver simply tries matching
-> the "port@" node first, then falling back to the port parent or device's
-> node.
-> 
-> Patch 12 reworks the power sequencing targets for the E-key connector in
-> the pcie-m2 driver to add targets for USB and SDIO. The former is used
-> later on in this series.
-> 
-> Patch 13 splits the Bluetooth power sequencing unit so that the USB and
-> serdev consumers can separately toggle the actual state of W_DISABLE#2.
-> This patch is purposefully not squashed into the previous one to provide
-> a clear target for discussions.
-> 
-> Patches 14 and 15 enable the M.2 E-key slots (or slot-like integration)
-> found on MT8195 and MT8188 MediaTek-based Chromebooks.
-> 
-> 
-> This series unfortunately spans multiple trees. The way I see it:
-> 
->    - Patches 1 and 2 go through the driver core, and an immutable tag is
->      provided to be merged together with the USB patches.
-> 
->    - Patch 3 has an ack from Bartosz, and goes through the USB tree. But
->      Bartosz also wants an immutable branch/tag to have a copy in the
->      pwrseq tree.
-> 
->    - Patches 4 through 10 (all the USB related ones) go through the USB
->      tree, along with the dependencies above.
-> 
->    - Patches 11 through 13 go through the power sequencing tree.
-> 
->    - Patches 14 and 15 (device tree only) go through the soc tree via the
->      mediatek tree.
-> 
-> Some of us discussed v1 at Embedded Recipes, and I believe Bartosz, Mani
-> and I agree on this approach. The debate is likely going to be on
-> whether this should be integrated into the USB core or not. I believe it
-> should, so that the power sequencing timing is tied to the USB port
-> being brought up. I do have a fallback option of just enabling the USB
-> power sequencing target inside the M.2 slot driver if a valid OF graph
-> connection is seen. But this is less desired for the reason given above.
-> 
-> I hope we can get this merged in this cycle for v7.4.
-> 
+Hi,
 
-Series is
+In the previous version of the w5100 driver, the LINKLED pin could be
+wired to a GPIO to detect the link status changes via an interrupt.
+This only works on w5500 as it is the only one documenting its LINKLED
+pin to hold the link status (on w5100 the LINKLED pin is changing with
+RX/TX activity).
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+This series of patches is bringing back the link status detection on
+w5500 using the Link Status bit of the PHY Configuration Register.
+Additionally, the LINKLED pin can also be wired to detect link status
+changes and read the register in the interrupt handler.
 
-Cheers,
-Angelo
+Arthur Crepin Leblond
 
-> 
-> Thanks
-> ChenYu
-> 
-> 
-> [1] https://lore.kernel.org/all/20260326-pci-m2-e-v7-0-43324a7866e6@oss.qualcomm.com/
-> 
-> Chen-Yu Tsai (15):
->    device property: Add fwnode_graph_get_port_by_id()
->    device property: Add fwnode_graph_get_next_port_endpoint()
->    power: sequencing: Add pwrseq_get_state()
->    usb: hub: Use assign_bit() in usb_hub_set_port_power()
->    usb: hub: Return actual error from hub_configure() in hub_probe()
->    usb: hub: Associate port@ fwnode with USB port device
->    usb: hub: Pass |struct usb_port*| to usb_port_is_power_on()
->    usb: hub: Use usb_hub_set_port_power() to control port power
->      everywhere
->    usb: hub: Power on connected M.2 E-key connectors with power
->      sequencing API
->    dt-bindings: usb: mediatek,mtk-xhci: Switch to ports for USB
->      connections
->    power: sequencing: pcie-m2: support matching on remote "port" node
->    power: sequencing: pcie-m2: Add usb and sdio targets for E-key
->      connector
->    power: sequencing: pcie-m2: Split Bluetooth unit based on interface
->    arm64: dts: mediatek: mt8195-cherry: Add M.2 E-key slot
->    arm64: dts: mediatek: mt8188-geralt: Add WiFi/BT as M.2 E-key slot
-> 
->   .../bindings/usb/mediatek,mtk-xhci.yaml       | 17 +++-
->   .../boot/dts/mediatek/mt8188-geralt.dtsi      | 92 ++++++++++++++++++-
->   .../boot/dts/mediatek/mt8195-cherry.dtsi      | 73 ++++++++++++++-
->   drivers/base/property.c                       | 56 +++++++++++
->   drivers/power/sequencing/core.c               | 19 ++++
->   drivers/power/sequencing/pwrseq-pcie-m2.c     | 64 ++++++++++---
->   drivers/usb/Kconfig                           |  1 +
->   drivers/usb/core/hub.c                        | 69 +++++++++-----
->   drivers/usb/core/hub.h                        | 14 ++-
->   drivers/usb/core/port.c                       | 80 +++++++++++++++-
->   include/linux/property.h                      |  4 +
->   include/linux/pwrseq/consumer.h               | 12 +++
->   12 files changed, 447 insertions(+), 54 deletions(-)
-> 
+Signed-off-by: Arthur Crepin Leblond <arthur@marmottus.net>
+---
+v9 -> v10:
+ - Address Sashiko review
+  - Always schedule the restart work to avoid atomic context
+  - Move netif_device_detach before disabling irq in w5100_suspend
+  - Flush rx/tx queues in w5100_remove
+
+Link to v9: https://patch.msgid.link/20260918-wiznet-link-gpio-v9-0-5536f24d8d6d@marmottus.net
+Sashiko: https://sashiko.dev/#/patchset/20260918-wiznet-link-gpio-v9-0-5536f24d8d6d@marmottus.net
+
+v8 -> v9:
+ - Address Sashiko review
+  - Rework commit message
+  - Disable the link irq first in w5100_stop()
+  - Call w5100_hw_close earlier in w5100_stop()
+  - Flush rx/tx work and cancel restart in w5100_stop()
+  - Call cancel_work_sync() after unregister_netdev in w5100_remove()
+  - Call cancel_work_sync before netif_carrier_off in w5100_suspend()
+  - Enable/Disable main irq in open()/stop() and suspend()/resume()
+  - Check the number of irqs defined in DT
+  - enable the link irq after checking PHYCFGR
+  - Ignore fwnode_irq_get errors other than EPROBE_DEFER
+
+ - DT binding: Simplify the interrupts description:
+  - Describe the 2 interrupts in the top-level properties
+  - Limit the maximum number to 1 on non-w5500 with a condition
+  - Somehow only adding minItems in the top-level and then describing
+    2 items in the if block led to dt checks errors.
+
+Link to v8: https://patch.msgid.link/20260915-wiznet-link-gpio-v8-0-d173622474cc@marmottus.net
+Sashiko: https://sashiko.dev/#/patchset/20260915-wiznet-link-gpio-v8-0-d173622474cc%40marmottus.net
+Clashiko: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260915-wiznet-link-gpio-v8-0-d173622474cc%40marmottus.net
+
+v7 -> v8:
+- dt-bindings: net: wiznet,w5100: convert to DT schema
+ - Add a myself in MAINTAINERS
+ - Address Sashiko reviews
+  - Change edge-falling to level-low
+  - Clarify the spi max frequency for all devices
+  - Add main interrupt description
+
+- dt-bindings: net: wiznet,w5100: add link status interrupt
+ - Remove Krzysztof Kozlowski reviewed-by tag after Sashiko review changes
+  - Make the interrupts property conditional
+
+- w5100: detect carrier state using link status bit and optional
+  interrupt
+ - Add myself in the MAINTAINERS file
+ - Address Sashiko reviews from online bot and locally run
+  - Add a mutex to synchronize the link state read and interrupt
+  - Return last known carrier state (netif_carrier_ok) in
+    w5500_get_link on SPI error or if the device is not present
+  - Only set ops .get_link on w5500
+  - Check the netif state, disable/enable the irq and re-check the
+    carrier state in w5100_restart
+  - Cancel the restart work on stop/suspend
+  - Only set carrier state to off in w5100_stop/suspend  when a link
+    irq is present
+  - Warn on fwnode_irq_get errors for the link irq
+  - Free the main irq and flush queues before resetting the hardware
+    in w5100_remove
+
+Link to v7: https://patch.msgid.link/20260904-wiznet-link-gpio-v7-0-69f01b70c96f@marmottus.net
+Sashiko : https://sashiko.dev/#/patchset/20260904-wiznet-link-gpio-v7-0-69f01b70c96f%40marmottus.net
+Netdev Sashiko : https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260904-wiznet-link-gpio-v7-0-69f01b70c96f%40marmottus.net
+
+v6 -> v7:
+- Address Sashiko reviews
+ - Propagate spi read error to the caller
+ - Do not change the state of the carrier on SPI read error
+ - Enable the link IRQ before reading the PHYCFGR bit
+ - Call unregister_netdev before reset
+ - Update commit message
+
+Link to v6: https://patch.msgid.link/20260831-wiznet-link-gpio-v6-0-abee6c5c966e@marmottus.net
+
+v5 -> v6:
+- Fix DT error: use minItems
+- Remove conditional properties
+- Put back the reviewed by tag from Krzysztof Kozlowski from v4
+- Revert to the reviewed v4 version by Arnd Bergmann with a few
+  changes based on Sashiko's review
+- Address Sashiko reviews
+ - call netif_carrier_off in open if there is no link_irq or  get_link
+   returns false
+ - call register_netdev at the very end of probe
+ - call unregister_netdev before destroying work queue
+ - handle link irq probe defer error
+ - call netif_device_attach in resume before re enabling the link irq
+ - disable the link irq first in suspend
+ - log netif_err when PHYCFGR cannot be read
+ - enable link irq in open
+ - disable link irq in stop
+ - free irq and invalidate it in remove
+
+Link to v5: https://patch.msgid.link/20260813-wiznet-link-gpio-v5-0-ac8046f24413@marmottus.net
+
+v4 -> v5:
+- Remove gpio/gpio.h include from DT example
+- Make the DT interrupts property dynamic from the compatible one
+- Fix DT bindings errors
+- Address Sashiko review
+ - Read the link status register only on w5500 instead of checking
+   link_irq
+ - call netif_carrier_off on w5500 link status off in open
+ - enable/disable the link irq in open/stop
+ - enable/disable the link irq in resume/suspend
+ - handle link irq probe defer error
+ - register the netdev last
+
+Link to v4: https://patch.msgid.link/20260811-wiznet-link-gpio-v4-0-4d5f7da885a8@marmottus.net
+
+v3 -> v4:
+- Update interrupts in DT bindings
+- Use directly an interrupt line instead of gpio -> irq
+- Address Sashiko reviews
+ - drop devm_ on request_threaded_irq to avoid use after free
+ - disable/enable the link_irq in the suspend/resume
+ - only call netif_carrier_on|off if the link interrupt is present
+
+Link to v3: https://patch.msgid.link/20260806-wiznet-link-gpio-v3-0-532d4a143805@marmottus.net
+
+v2 -> v3:
+- Fix DT binding errors
+- Use the Link Status bit of the PHY Configuration Register
+- Use the LINKLED gpio binding for change detection only
+
+Link to v2: https://patch.msgid.link/20260804-wiznet-link-gpio-v2-0-3b1d0c870f35@marmottus.net
+
+v1 -> v2:
+- Convert device tree binding to YAML
+- Use devm_request_threaded_irq instead of request_any_context_irq
+- Use devm_gpiod_get_optional instead of gpiod_get_optional
+- Call dev_err_probe on gpiod_to_irq failure
+- Remove link_irq from priv
+- Use a fixed string for the IRQ name
+- Remove empty new lines
+
+Link to v1: https://patch.msgid.link/20260804-wiznet-link-gpio-v1-1-b626fd4f7ccb@marmottus.net
+
+---
+Arthur Crepin Leblond (3):
+      dt-bindings: net: wiznet,w5100: convert to DT schema
+      dt-bindings: net: wiznet,w5100: add link status interrupt
+      w5100: detect carrier state using link status bit and optional interrupt
+
+ .../devicetree/bindings/net/wiznet,w5100.yaml      |  88 ++++++++
+ .../devicetree/bindings/net/wiznet,w5x00.txt       |  50 -----
+ MAINTAINERS                                        |   7 +
+ drivers/net/ethernet/wiznet/w5100.c                | 227 ++++++++++++++++++---
+ 4 files changed, 296 insertions(+), 76 deletions(-)
+---
+base-commit: 8830e65ed46de41f849eefb8ba227d4852c460f6
+change-id: 20260804-wiznet-link-gpio-796f36cd14f9
+
