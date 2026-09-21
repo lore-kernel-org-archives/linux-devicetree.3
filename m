@@ -1,63 +1,63 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E99894D17AB
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 18:26:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E3484F7981
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 18:26:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790015205; cv=none; b=l/DUWDDpIM2mL88l2Q5QUzAiZRV7tSHdY/PriXIoB8GncFnkGCVPU1P/rJeXK3kkDkzesYuNNkc0a1ZvYLZMTtSlwvnyv8QZN0ZuZT/3EQWbfC+sTkccKGpTSJ/YC4SFUa9zD9NB9PgVVR6bivs7sYKpp8lypewWGexk+Ph8GNU=
+	t=1790015207; cv=none; b=rWlJuZmh6PEolv/STlLjk43db+6RhRA4haFqUEmE1R70zg0/i5iupem0i12/m0w56zT479PypSPXDSpwQiODbMMmMeE5EsqcuAIHvfwPNAKZwTUacMEZDnnNGbfApFS4YJzBPVxgFLnjrVfT3ooc74wwfw7jywjqmMPhO0w32gI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790015205; c=relaxed/simple;
-	bh=Hrw9uVCkuJ+RImHrQgLm4rRhEErnOvCmxCULmx+qlwg=;
+	s=arc-20240116; t=1790015207; c=relaxed/simple;
+	bh=J8b4zYIQqoa1IElFVUyA20gVC4pPVnEgC7C3+Sw6qko=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sV8xXFkhtNp1A17kf072016SOjg81XkfQXsC4WrzW50E+DS5Hrd+PULfzYp1CwjSdyetOI5xMkx3JjijIzYMnKsJdG5lb9nh3+H0ObXu5Jp8A7gDCvqRRE7RngvloGY7Rgk/rIZ6T1uz+G5h9Oo7ib8Nk2dA/ZxHJh2Im0wUwF4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ffroot.co.za; spf=none smtp.mailfrom=ffroot.co.za; dkim=pass (2048-bit key) header.d=ffroot-co-za.20251104.gappssmtp.com header.i=@ffroot-co-za.20251104.gappssmtp.com header.b=mQHsbUvk; arc=none smtp.client-ip=74.125.225.76
+	 MIME-Version; b=ISU9hwi60HbQIkfnjmwy+m1CHSWHc+cb+sOcCAhOxY0E03APPWHYpOazLks2nBuw5qILjGgsOo3dskPVHyVMisojq0AmM64sosMPOa3q6M9wodgKifj9Oq+qe1xaaqO3+HExW9M4DZZVGvH2wLD3ai7GWiiRRRGE95vQqWqMMCo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ffroot.co.za; spf=none smtp.mailfrom=ffroot.co.za; dkim=pass (2048-bit key) header.d=ffroot-co-za.20251104.gappssmtp.com header.i=@ffroot-co-za.20251104.gappssmtp.com header.b=zgZXe+sw; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ffroot.co.za
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ffroot.co.za
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ffroot-co-za.20251104.gappssmtp.com header.i=@ffroot-co-za.20251104.gappssmtp.com header.b="mQHsbUvk"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f62ccdb1so1150137f8f.1
-        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 11:26:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ffroot-co-za.20251104.gappssmtp.com header.i=@ffroot-co-za.20251104.gappssmtp.com header.b="zgZXe+sw"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7bcb94d3so23031235e9.2
+        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 11:26:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ffroot-co-za.20251104.gappssmtp.com; s=20251104; t=1790015201; x=1790620001; darn=vger.kernel.org;
+        d=ffroot-co-za.20251104.gappssmtp.com; s=20251104; t=1790015204; x=1790620004; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=RfbhD5QaD4wJNjO8bt14TtWKzvgd7QRbHTerWPS0g/w=;
-        b=mQHsbUvkiMq6qrWy2DvyOMK75EQpqsr6QTYLHNBoQLy2D1+G6XchmTCc+qeylPjOkB
-         NDi7jfVVk6w9bGp8PQnntmZi1vqTqhP4CLS4ZgkNlCbhRcazS6Z25U2Ze0vAVBmtwRq+
-         kpL+6Klq5zZpCEtI+eP5teGdz4C9O+LNKhGCwnFkqyC+zqxvrf7MuObBCOYPdgOBnRMJ
-         lpkRI5kZiCiMROm2S/DAwvEHeXyjikuZWLgdRv5VA/5eSi60laSbu9jx8baD79WASg9q
-         ASASY1xh/nWxEXpISXT9pxukEAB4hYYEQ3NCn65QaTf8+Op2uETXCJtSkhbliQ+5jBGC
-         /NRw==
+        bh=20Yw1oK3y3ksu38jNw5LwKcm1H8AlDyDGvzedy2bX0w=;
+        b=zgZXe+swLbDnRJ4iz+JjoTKgk7sOBlpvSdhiTfJ3nFjVdYXhzDfaiKhqsf0Kn81F1/
+         udWA0ypZRQgXXPGwfXsM91PMOf3JzW1sCdpdNxwo5XcygBstW1ZVYeWnQmeTTihiHDm8
+         jpl0Ylco03qfJ9SvMg0qKbxjlzRr0mkhN4xnWmdicSJzJrSh27tNfOeLvG21+AHTXsuF
+         SsYMqDAo54h1nmLLEHp75hfPAWT7DBHMdvNRdzM++moq5MA1EpMbgmPRZKHN6AP+mGs4
+         HNCumyu2mS3ojl2q4P7mPu7OS02OQGI+m5VlD6NclXbbTm0RlfG49ciQsm9obEGCJTpe
+         wE2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790015201; x=1790620001;
+        d=1e100.net; s=20260707; t=1790015204; x=1790620004;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RfbhD5QaD4wJNjO8bt14TtWKzvgd7QRbHTerWPS0g/w=;
-        b=BjLxmkPf3KCxu87VSfScr4NsWly2XQNo3EYkY/2RCIMyL8cAMrDBTT1i+ULlTFjmGu
-         A9ZUWYPLfcd9QhN1GZw+l6HOJ+X4/PYsNDEM3gX6W4u8tqr3GE5i6VGbvHi6qOUe7ZSj
-         yjyw70ytLmwUFO+qTjpj4BYxY0lNJvqMgQQJdQFVoLSwcr//7x9jt3mPdGjPO/VNm5gw
-         uq1oqARt7XCOMetsoQ893XYiWsQM9rYCHyALnR/rGLs3fFAK3waU3YFhRUJdsOXZcBAR
-         yU6rPGKLLsgVRkvA0z4mcXkBZ9dWyvWcaHP1ypzYIKVUoTPaLY7X4nlUG3E81JHVZMzL
-         8pKg==
-X-Gm-Message-State: AFuF++mJne9rbgCFbovbi/rvrJTtMWfMZLBenqxKrEMAzw1yk9Ep8cPm
-	Bn54W4uzbruMLCSqwJy7eTcBulkltxgyCS6OzViyGHgNGZDuIu0HICfHRbDe0030kaQ=
-X-Gm-Gg: AYBFou2r+tqKU4XW91qfK7VKNq1VNHeXnTfTb96c0y59NRuObMNvOsE4hMPpIK349PL
-	XgkPfH1IG1nC60icAeAG3JyTcBzWlOmEqwXVTah0cMbnJvK+4Vpg6z9CPtrD/W5S7YIjQ7RiJoA
-	l7/gyKkWu1BjVVJtzBe59vIUw1sBdlk1BI9J3cGHJGWK3E3ynAh9JejrmRpC8FYftWGTRaftzof
-	YdYEs7c0a73I5noxHc/+uPHSlsVI+8iTnfmEdYnBGSCGSiXwLx/j8H+ygegVGVzPU7IC6KVZxqz
-	kXhHVEToNQ4v7Py9/GiFZ/PAib2HgSRHny+GLWEEpYT4aDI6lhPE+DT20r/za/Eq9pDNhfaBi+i
-	3q+dd7aR0synjW21Rg2L137DpdINn3SmhVXMHn+FpURUUtL0PieS/hAyJwZPO/OcarRw9pOJDy7
-	TGBzRfd5FxEVapxm1+Cxka6Ha4X/mes32uoGcn92d1Qj2I9ybwnmq+65CFMGc/VqsNvb5tWi/67
-	YKElwiINYbtJL5CJ5Nj9YE0QnQnx0sxJ5z4
-X-Received: by 2002:a05:6000:985:b0:486:f3ae:7d93 with SMTP id ffacd0b85a97d-4886100499cmr799279f8f.12.1790015200880;
-        Mon, 21 Sep 2026 11:26:40 -0700 (PDT)
+        bh=20Yw1oK3y3ksu38jNw5LwKcm1H8AlDyDGvzedy2bX0w=;
+        b=uFAhGR3BsQrJ1Me0Wry7VFGRsfuSq7SIyLGVuNeIsw3GrRj+4y3IsShJjQTloA0BI5
+         D8vSNeqNTRN5MQoI8szhOY3spun/vqnlC/QsUSUE7lZpFtXN/DzVEQY6AsP13YVUEnwS
+         W/qJQoVJGOHj+8tI/RYA17SGgCCsRWNTbTlLRY1+pVAFqjlr3H+Gyo8/lJOlYmFdQXLm
+         WR1F9KCApvvXAyNPKLBB1SpB1hFmL0BPfACge7zKd58Tp7qzFmlS9l7cios7fOF4EhsT
+         dF+QkVBlDUlxhzmPjErt37mD/ZTlHZeranwwiqIP2l8I3ITiNQsxA1VL/iYwDyAcgU0L
+         Ny1Q==
+X-Gm-Message-State: AFuF++lotq0Va4Q7OA7wiuZZwnAtmyRXRW+nmru3+OwCiwVsLJYPs0aT
+	7+nK/oul+aSBe6cvrBRW3FMom8bqy9wFmUvLTf4JTukFAuLQ2wle8H0vi0JfOObUzUY=
+X-Gm-Gg: AYBFou03XS6wueQmARHuCV5wBB1d13GEP+qseyNqtUuuk48RmkVQu1ilJBx0HDMbull
+	OU4OhilXxmzWEa3i7atuSSlcSQaTi/wnSJ1/PJK53sxgdvXCl68nUhaAggfNZ0IG8vAt9aKQ8Sy
+	VBJx2u/rfA5ngOgyQ5hV3mb4++AqLbFOzi3yElMxvkrTkmkG4mYgZc7If0nc/7gNEP5zzN0DsdV
+	xxXU5h8PunvF3TwdjJAbS87xmtiEF45dJ/Hp3jRgmkucMG3qQrZ6DvAxJqfS50//aRLnuEtWaSm
+	qEdTX9mveuaG2+gQCvGlpOFwL1aOAVJPZF+0IhMSqxCM7mx0czZsDyF+yya0fN0wDNXGU7VbIzI
+	+wQPSG1oEBpz9zeAlC+OtRzxujQw9VHr3SEFyNp960yJwNOdrPeXEeEvEhoXAI6jToA6LwQXYFx
+	179i6XtXowBg20dVPiwWDU3aWqV8ZlkwCEe1H0b5eLg2nhz6JUYBhonEiLOFv9fmB3vecj7+6uv
+	98dauiCwkgW22MLNLpBlZbxqV7ze4RLpsRI
+X-Received: by 2002:a05:600c:3ba0:b0:49e:73d3:78ab with SMTP id 5b1f17b1804b1-49fc55adc12mr204998805e9.0.1790015204081;
+        Mon, 21 Sep 2026 11:26:44 -0700 (PDT)
 Received: from dev-ag.figment.co.za ([192.145.132.58])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4872446067asm25126184f8f.12.2026.09.21.11.26.38
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4872446067asm25126184f8f.12.2026.09.21.11.26.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 11:26:40 -0700 (PDT)
+        Mon, 21 Sep 2026 11:26:43 -0700 (PDT)
 From: Andrew Gaylard <ag@ffroot.co.za>
 To: linux-arm-kernel@lists.infradead.org
 Cc: devicetree@vger.kernel.org,
@@ -67,9 +67,9 @@ Cc: devicetree@vger.kernel.org,
 	conor+dt@kernel.org,
 	linux@armlinux.org.uk,
 	Andrew Gaylard <ag@ffroot.co.za>
-Subject: [PATCH v3 2/6] dt-bindings: arm: sunplus: add Tibbo LTPP3G2 board compatible string
-Date: Mon, 21 Sep 2026 20:26:16 +0200
-Message-ID: <20260921182620.17597-3-ag@ffroot.co.za>
+Subject: [PATCH v3 3/6] arm: dts: sunplus: add PWM, watchdog and MMC nodes to SP7021 DTSI
+Date: Mon, 21 Sep 2026 20:26:17 +0200
+Message-ID: <20260921182620.17597-4-ag@ffroot.co.za>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260921182620.17597-1-ag@ffroot.co.za>
 References: <20260921182620.17597-1-ag@ffroot.co.za>
@@ -81,34 +81,73 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add tibbo,ltpp3g2 to the list of compatible boards for the Sunplus
-SP7021 SoC binding.
+Add device nodes for the peripherals that have upstream drivers:
+- PWM controller
+- Watchdog controller
+- eMMC controller
+
+Also add a label to the gpio-leds node so board DTS files can override it.
 
 Signed-off-by: Andrew Gaylard <ag@ffroot.co.za>
 ---
- Documentation/devicetree/bindings/arm/sunplus,sp7021.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ arch/arm/boot/dts/sunplus/sunplus-sp7021.dtsi | 39 ++++++++++++++++++-
+ 1 file changed, 37 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/arm/sunplus,sp7021.yaml b/Documentation/devicetree/bindings/arm/sunplus,sp7021.yaml
-index def7d0cfeb31..8ec006576f74 100644
---- a/Documentation/devicetree/bindings/arm/sunplus,sp7021.yaml
-+++ b/Documentation/devicetree/bindings/arm/sunplus,sp7021.yaml
-@@ -9,6 +9,7 @@ title: Sunplus SP7021 Boards
+diff --git a/arch/arm/boot/dts/sunplus/sunplus-sp7021.dtsi b/arch/arm/boot/dts/sunplus/sunplus-sp7021.dtsi
+index ae9bbe0320b8..17185238e7ba 100644
+--- a/arch/arm/boot/dts/sunplus/sunplus-sp7021.dtsi
++++ b/arch/arm/boot/dts/sunplus/sunplus-sp7021.dtsi
+@@ -291,13 +291,48 @@ uart4: serial@8780 {
+ 			pinctrl-0 = <&uart4_pins>;
+ 			status = "disabled";
+ 		};
++
++		pwm: pwm@7a00 {
++			#pwm-cells = <2>;
++			compatible = "sunplus,sp7021-pwm";
++			reg = <0x7a00 0x80>;
++			clocks = <&clkc CLK_DISP_PWM>;
++			status = "disabled";
++		};
++
++		wdt: watchdog@630 {
++			compatible = "sunplus,sp7021-wdt";
++			reg = <0x630 0x08>, <0x274 0x04>;
++			clocks = <&clkc CLK_STC0>;
++			resets = <&rstc RST_STC0>;
++			status = "disabled";
++		};
++
++		mmc0: mmc@3b00 {
++			compatible = "sunplus,sp7021-mmc";
++			reg = <0x3b00 0x180>;
++			interrupts = <20 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&clkc CLK_CARD_CTL0>;
++			resets = <&rstc RST_CARD_CTL0>;
++			pinctrl-names = "default";
++			pinctrl-0 = <&emmc_pins>;
++			bus-width = <8>;
++			max-frequency = <52000000>;
++			non-removable;
++			disable-wp;
++			cap-mmc-highspeed;
++			mmc-ddr-3_3v;
++			no-sdio;
++			no-sd;
++			status = "disabled";
++		};
+ 	};
  
- maintainers:
-   - qinjian <qinjian@cqplus1.com>
-+  - Andrew Gaylard <ag@ffroot.co.za>
- 
- description: |
-   ARM platforms using Sunplus SP7021, an ARM Cortex A7 (4-cores) based SoC.
-@@ -22,6 +23,7 @@ properties:
-       - enum:
-           - sunplus,sp7021-achip
-           - sunplus,sp7021-demo-v3
-+          - tibbo,ltpp3g2
-       - const: sunplus,sp7021
- 
- additionalProperties: true
+-	leds {
++	leds: leds {
+ 		compatible = "gpio-leds";
+ 		pinctrl-names = "default";
+ 		pinctrl-0 = <&leds_pins>;
+-		system-led {
++		led-0 {
+ 			label = "system-led";
+ 			gpios = <&pctl 0 GPIO_ACTIVE_HIGH>;
+ 			default-state = "off";
 -- 
 2.53.0
 
