@@ -1,139 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1653A3AFD16
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 21:56:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41A81229B38
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 21:59:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790027816; cv=none; b=KtbW9HNBNDmSJleUk+2vYKiw/BC9EPPCgX4FwDYSLT0j9FHQfgutsMIi39pHFqjMnVe5sE8+uAw2rhYREf1q/n0vNwATQrC2jtyCCKttK37GvP1h6ytM3T0LRzhJOOasOGNooJPV68nI7WzA398OIvpFXiqVsEoDIKkaycLgJ6I=
+	t=1790027973; cv=none; b=AjxKnLL3i9iLLY+Dlvrjg0j+N2gFAHan2asGpNDLhk0Ue6bmAK70M37y8JQjjafABelgoxdBUf0bdtwJ1rc6huIHf3Movji/QREJb1DtWVSR5cidNyF55M9fGYpNpLL+fZEvqibjbhljMA6Fit8fgXBdQ8gEu+A2g1OrZyyRISs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790027816; c=relaxed/simple;
-	bh=RxwA7RDTA8LzXnh6W8Rsp0fcfilQen7ZKYLDVdQcm2Y=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=EXbtlY+Z9Wld4wstJ9MQOlr29HvGfthiezWfRoXmo+wP1DMLICm1NlRxF6w1yQ5s+YvpNRiaYS7M2kZwItDU82e2b3lzDFsBNNgbBjem7s57a2EOiyyQine9cQtAMWe9UC/edGX0gNoKxBYsRoGjP1dhaq9sWwcQ0epOTWm1JGI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jZ/COO+e; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790027973; c=relaxed/simple;
+	bh=TRdeNXfR3TBad0tHP8EChOJSQIYnhe9sNy3UDCObhoY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZyIyba3mUl95knHPOQ9azkJnNyOOZnduv57w9FpdG2z6fVpkbau+ihpkqUCcGKWjJ9G9sJUOvaQ1go7RUPiUMv32jlJJi1tUAlcE9tX1HRuCYpX2G72aI3kv//sltrj8zzW/jzKsU79hJ+eUbndtVJH5hsoqnqRDJqYq9+ge5hE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ayPDLsRo; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jZ/COO+e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4F631F000FF;
-	Mon, 21 Sep 2026 21:56:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790027814;
-	bh=Q0jGCqsTkMZkahkCz7nppaJNyuzST6hfXuJczgBszMk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jZ/COO+eL5WkAbvrGYDlKpLy8acUzPiyEQnAKSyijiI0eQ30NcUHbDbAtknrhVA/U
-	 2Hgq/oiH8kJSCLp+abloJF0bFNc9uphglvWIk0/jjNu+2Hod1atvYtAsS07PR8sdUs
-	 AUfDeiPNUnUnzSPKgu8hjA409u5vk4lGfAdDd7SmyiPdOLOTIBR2IB2kahoHEJ33CT
-	 RytKZG164owOky2Zf6rEWGGbecguHiXnqkbS1Tqo8hSZem2dubhOVJAp4hP25ANNbS
-	 vxa/neyMsB+/QzVgsrRsCMriHJI/47OOV9D+w7Qjoo2npdd5uCw7133MWtkt5tGrrU
-	 lvMbDLzpQDDSA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCHv2 2/2] ARM: dts: broadcom: model USB VBUS power with
- regulator-fixed
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Rosen Penev" <rosenp@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260921214133.16519-3-rosenp@gmail.com>
-References: <20260921214133.16519-1-rosenp@gmail.com>
- <20260921214133.16519-3-rosenp@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 21 Sep 2026 21:56:54 +0000
-Message-Id: <20260921215654.A4F631F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ayPDLsRo"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f55efe5so544090066b.2
+        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 14:59:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790027968; x=1790632768; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TrkUPYLMl9LKtkW3M3SxTjU77noomALRO+sF6HlftGw=;
+        b=ayPDLsRopvwm7v8XOJzvBPIXF+4TUimTRxlIGy0COADfk2h3ofKrm1qY3feLdOegZI
+         0v8W7JJ2pM/7eiAcsS30ofOLbW4DgLHMcWJzzKBrweER19LPPtx55Afy2hccItcxNKgB
+         L0TlXqqz0X+NIIS9c/d097MvZjnjMU7LEg6enKPx0NYvERJu84AyGuPGZm5Vk6I2whRE
+         t+bWJ+aKFb9elLwngJAKzaTiYTqaHA17WVyEaCWa03aJiBtX7H9Di9Umg8f20dO+JvJv
+         lI4YhvsEh0qqcPNczgHwd6+IC64jd9KBVSN3SeEaxD4hg9dHDOy0H6P2ebLAWN5dBgk9
+         sdyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790027968; x=1790632768;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TrkUPYLMl9LKtkW3M3SxTjU77noomALRO+sF6HlftGw=;
+        b=ZPAvx7QBFojFkzZpYj/a8TvCcaWIDatLrUoU/mWtAON7FPhcyyMQTHg+w+xYKj9Z5w
+         G7rzFBRA1YJQ5gWBz3WX28tsjsBM90nqAMn+YR+rjmgbmaOjof15fdOgLgN+CfWv4XpQ
+         Sf6tt/Pfj3xHYD9qRo2TxxwyjP4FoDunf9Y92uqlSjweuU7LcYK+gDfNnxttVEiL+Z1y
+         mGyhHdiDO3PKP8kWqErmp19S2CffPWIAOX7wFylvBHTKNHNc2YLCzRVFCk2I+AF7ub1e
+         zhr1w6iVtK+F6Rb0zknDLA5Q5sRtmdgcNZ86yk8xsNVgAVPpychWIdvasTjafI8dwc36
+         hjOA==
+X-Forwarded-Encrypted: i=1; AKwUvBw9RE/dK8I/gZRionkqfUFMqTDoBcgTSsrcxMC+SgVTPQPxAxUR07fCvaG4GsjCBzNxH7WSaS2vCkzi@vger.kernel.org
+X-Gm-Message-State: AFuF++kbCF8KKVNq8KaLLG+iY9ZIbY8MSPCFarXcWa+NoRrijhh+sqmk
+	LfSWJMbK6I+W9D/541bdgNAGMjQB0/ZkRz1TDOMTAugN+GYynPX6Ka2i
+X-Gm-Gg: AYBFou0xwLNmw9sm/70zT5O9grIiTFn3tvJ/gRCLlk2zl/r20fqZljKLZ+qtx1FlcJU
+	2AbujeyyCtAvgMLCKBRXQK/B4SLShnt5xA9BgedOONNLdEv0MVZZhTIwked1TJ3ukg92YRUlij3
+	gN5GP2/JJ2bWDenQ8CZ4i82BmTqYJiy/vu+3My87HnzFGN8aN7XiOSjOqqebDoamyQ74mD0AOA6
+	0JglMLUP4MsBSqtGQJfJnRJgAkAHpfMh7JMtsG48zuVPzfWmlCsCR6zlNRuUK8uFaKJgSXLsKs7
+	C80+C05950tkAZJONPdNY4zN2JDdkksGRwe5i60dVyz4akXvbkRLaq+zwONvPrk7ARfW4RTOweS
+	5n3gDu0HGONCRJ+is5ihonExL7woTUq4Y4LAtneclMi4vtEjUw9Qw7yZk0bdN+j+HymTxTGbOwU
+	0OmOUXkqMsnu4Jze2AnkYaUYhtazuHBXqlZ7RTYQy1NfBNuCa+evWGJekleEhVUAsLAuGgi6sBQ
+	t9Msckq6D7v21k/IPIvVCDseg==
+X-Received: by 2002:a17:906:99c9:b0:c29:61b9:7b3b with SMTP id a640c23a62f3a-c2a15829440mr1024592366b.49.1790027968392;
+        Mon, 21 Sep 2026 14:59:28 -0700 (PDT)
+Received: from [192.168.33.7] ([89.151.31.85])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a962c814fsm9185866b.34.2026.09.21.14.59.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 21 Sep 2026 14:59:27 -0700 (PDT)
+Message-ID: <7980fee5-f70a-426d-8cdc-d51e15323852@gmail.com>
+Date: Mon, 21 Sep 2026 23:59:25 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCHv2 1/2] usb: bcma: add regulator support
+To: Rosen Penev <rosenp@gmail.com>, devicetree@vger.kernel.org
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
+ Hauke Mehrtens <hauke@hauke-m.de>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "moderated list:BROADCOM BCM5301X ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>
+References: <20260921214133.16519-1-rosenp@gmail.com>
+ <20260921214133.16519-2-rosenp@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>
+In-Reply-To: <20260921214133.16519-2-rosenp@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] usb: bcma: silent power down of USB ports due to unmanaged vbus-su=
-pply
-- [Medium] usb: bcma: suspend and shutdown power savings broken by missing =
-GPIO
---
+W dniu 21.09.2026 o 23:41, Rosen Penev pisze:
+> @@ -411,6 +422,14 @@ static int bcma_hcd_probe(struct bcma_device *core)
+>   		return dev_err_probe(&core->dev, PTR_ERR(usb_dev->gpio_desc),
+>   				     "error obtaining VCC GPIO");
+>   
+> +	usb_dev->regulator = devm_regulator_get(dev, "vbus");
+> +	if (IS_ERR(usb_dev->regulator))
+> +		return dev_err_probe(dev, PTR_ERR(usb_dev->regulator), "error obtaining VBUS regulator");
 
-commit c18abcaaf29836cfc87135468c83037df7b8de36
-Author: Rosen Penev <rosenp@gmail.com>
+Did you test this for DT without VBUS? You seem to *require* regulator. Shouldn't you make it optional?
 
-ARM: dts: broadcom: model USB VBUS power with regulator-fixed
 
-Replace the undocumented "vcc-gpio" property on the usb2/usb3 controller
-nodes with the standard vbus-supply/regulator-fixed model. Boards now
-declare a regulator bound to the chipcommon GPIO that bcma-hcd used to
-poke directly, one per power rail.
-
-> diff --git a/arch/arm/boot/dts/broadcom/bcm4708-buffalo-wxr-1750dhp.dts b=
-/arch/arm/boot/dts/broadcom/bcm4708-buffalo-wxr-1750dhp.dts
-> index f5c95c9a712ec..80414c72f9129 100644
-> --- a/arch/arm/boot/dts/broadcom/bcm4708-buffalo-wxr-1750dhp.dts
-> +++ b/arch/arm/boot/dts/broadcom/bcm4708-buffalo-wxr-1750dhp.dts
-> @@ -101,6 +101,16 @@ led-usb {
->  			trigger-sources =3D <&xhci_port1 &ehci_port1 &ohci_port1>;
->  		};
->  	};
+> +	err = regulator_enable(usb_dev->regulator);
+> +	if (err)
+> +		return dev_err_probe(dev, err, "error enabling VCC regulator");
 > +
-> +	usb_power: regulator-usb {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "usb-vcc";
-> +		regulator-min-microvolt =3D <5000000>;
-> +		regulator-max-microvolt =3D <5000000>;
-> +		regulator-boot-on;
-> +		gpios =3D <&chipcommon 10 GPIO_ACTIVE_HIGH>;
-> +		enable-active-high;
-> +	};
->  };
 
-[Severity: High]
-Since this regulator lacks the regulator-always-on property, and no driver
-claims it, will the regulator core forcibly disable it shortly after boot?
-
-Looking at bcma_hcd_probe() in drivers/usb/host/bcma-hcd.c, the driver
-still expects a vcc-gpio property and lacks the logic to request or consume
-a vbus-supply regulator:
-
-drivers/usb/host/bcma-hcd.c:bcma_hcd_probe() {
-	...
-	usb_dev->gpio_desc =3D devm_gpiod_get_optional(&core->dev, "vcc",
-						     GPIOD_OUT_HIGH);
-	...
-}
-
-Because the regulator is never claimed, it will be automatically disabled by
-the regulator core via regulator_late_cleanup(), which would cut off power
-to all USB ports and break attached devices.
-
-[ ... ]
-
-> @@ -130,7 +140,7 @@ port@4 {
->  };
-> =20
->  &usb3 {
-> -	vcc-gpio =3D <&chipcommon 10 GPIO_ACTIVE_HIGH>;
-> +	vbus-supply =3D <&usb_power>;
->  };
-
-[Severity: Medium]
-Since the bcma-hcd driver was not updated to handle vbus-supply and still
-looks for vcc-gpio, does this break USB power toggling during system suspend
-and shutdown?
-
-Because usb_dev->gpio_desc now evaluates to NULL, the power-toggling
-function silently returns without asserting the hardware state:
-
-drivers/usb/host/bcma-hcd.c:bcma_hci_platform_power_gpio() {
-	...
-	if (!usb_dev->gpio_desc)
-		return;
-
-	gpiod_set_value(usb_dev->gpio_desc, val);
-	...
-}
-
-This means when system suspend calls bcma_hcd_suspend(), which subsequently
-calls bcma_hci_platform_power_gpio(dev, false), VBUS power won't actually
-be turned off, resulting in a loss of power savings.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921214133.1651=
-9-3-rosenp@gmail.com?part=3D1
+Can't you use one of devm helpers that get and enable regulator for you?
