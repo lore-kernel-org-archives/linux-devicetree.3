@@ -1,66 +1,69 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CC0B136351
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 03:32:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9844E331EB8
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 03:32:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789961544; cv=none; b=u5GBFvCOUYDBlXdWb4e8i8DxHBJgzpROIfHv2cnJz4zBK1ilwfMihloODRi7XOYmwAyLiB1wOAWcrOCjKEm2ucA1OAvLqE1xKwhcf95PAmDA0aABs1z2h6HTHPLZ9ZYQSNjouq2xBspkGnN70o9VUaoUwPPk/C+Wj4aEb+HQ2F8=
+	t=1789961557; cv=none; b=h/A1f+PzJhnKiTThikGygB+P9/9e02jyhYIlsLsEWLPLPSjgTfZw2Xgsu4DU0Nf0gqKgg6qpex8VN9gzae8bM66skmF61DsMMPSmNPPiufQuD+TNLZSa5N6eGhk6ZjLmQWnLGxyDJ+Y1X2C0KMcBHQHCXi1YH0rd/rrg33DoLkE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789961544; c=relaxed/simple;
-	bh=BBExn2VtQFK/zCAqIRlKSN5m1YGyKdZqwUZY34MnYm8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HnhcTBCilb3hGe62pqe+gXrWCRiDnG+MualMPSvU7FJaeT9qThI9eYuAwrzSM0aYJTZCUeUmwfWnIjvti5Du8N57mlw4TPiht3c5QS/Se8aU2bYCp+j6pWofpFnssPyux9GcJ+7bsrhM98+D5plVFHlr/BuTnDZBdqS0Hhr6NgI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=O49mI/D7; arc=none smtp.client-ip=148.163.156.1
+	s=arc-20240116; t=1789961557; c=relaxed/simple;
+	bh=kaep+8JGlEi75KG8br4X3hcoD5Z3ClAPf59Xtj8lM0Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=HXKy1F/CwQeqo+qHXuJukWlNGOeVX+r+v7awPxhv1rbSGNo5yr1wxgMHXOSRWRoIsJR9W/qFAaDVsY8wZ4TeViES765ckefPYLw4dH/LgFMsoPZoKvUynHnmZiPon4xVii+Er6bsedSSIl59RxE8OXnCiSHlPg9Yrpihd3slusA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=CxZlxW1t; arc=none smtp.client-ip=148.163.158.5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="O49mI/D7"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68L15S5D4137288;
-	Mon, 21 Sep 2026 03:32:05 GMT
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="CxZlxW1t"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68L15SUD4167854;
+	Mon, 21 Sep 2026 03:32:06 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=YZquQWjZGeAbplbdG5X5m8RzhCZUR63iLT9FGoWQX
-	x0=; b=O49mI/D7aPrL/vmnmtn3XIoo5ga1ooMOaUaLfHSnoYjFvJQM5EHvqehrq
-	uRfz+Msvhrj8TGUAB9un/ie/THHQSXXGXJl007FQ+YB3kjQVu9cHPGZYcCDNOwbl
-	718LYR4PtAlVJRjd8yv/9azkwWq9FzHw2w+QI52VXcF2Te31bw8JcWtkguJCGviF
-	mEU+VBKopfch1zFubZt2gmD7RIGVSaUICIQ47TBO5GkjoWTgalqytYufMEn2mewj
-	EhvUjPUvdAuDS2Mbcm7yr5w8YUbbYCtCJLUsGyip/pOiKMEV3fb2vLtHG6+HJXh2
-	shTy9vxNraBEIru9iq1hBhAwl5tuA==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskgrxk0y-1
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=UD4No+EruQul7ET9J
+	W/N7gMYIgjwFx+Ie00+K2rqG6Y=; b=CxZlxW1t+CU4IpWMt73fRrwnaSF8ShIjV
+	B1RWNLfR0XllTx8dySpnCEQ4i1DfvWRBlGndUYX/Hw+98LMOVW/quEooyZCyiK0s
+	JjZMI9k7iPUML2+SY94ibaRSirQC8c6PHtnyyWQXjWcJMAMDIXRjtsA/mIRHybev
+	nrSqFPjyqqlzBv9vZiMJD37NxsSIuwqkcdjXjeQ2WTUNGysLwFYwLnVDqXxl1slj
+	NA2BqpRb1oYs9/DQT8eLT2OUCjLvNTDmoh7CZk4dvq0MI5RTCTyYiqqWHVFMI1pE
+	WbEfwHSbKdeNYbGy0CSd76s8CSGhKjsGU7mAUsLGefPAKdm78idbg==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskduxewe-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 21 Sep 2026 03:32:04 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68L0lcFb471371;
-	Mon, 21 Sep 2026 03:32:03 GMT
-Received: from smtprelay07.wdc07v.mail.ibm.com ([172.16.1.74])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gt67gkhvm-1
+	Mon, 21 Sep 2026 03:32:05 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68L0lUkI429134;
+	Mon, 21 Sep 2026 03:32:05 GMT
+Received: from smtprelay03.dal12v.mail.ibm.com ([172.16.1.5])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gt5qjkknk-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 21 Sep 2026 03:32:03 +0000 (GMT)
+	Mon, 21 Sep 2026 03:32:05 +0000 (GMT)
 Received: from smtpav02.dal12v.mail.ibm.com (smtpav02.dal12v.mail.ibm.com [10.241.53.101])
-	by smtprelay07.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68L3W2st37093756
+	by smtprelay03.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68L3W3lY27787888
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 21 Sep 2026 03:32:02 GMT
+	Mon, 21 Sep 2026 03:32:04 GMT
 Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 385E15805A;
-	Mon, 21 Sep 2026 03:32:02 +0000 (GMT)
+	by IMSVA (Postfix) with ESMTP id D92DE58051;
+	Mon, 21 Sep 2026 03:32:03 +0000 (GMT)
 Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 6EDA558051;
-	Mon, 21 Sep 2026 03:32:01 +0000 (GMT)
+	by IMSVA (Postfix) with ESMTP id 1C98A5805C;
+	Mon, 21 Sep 2026 03:32:03 +0000 (GMT)
 Received: from li-4c4c4544-0038-3410-8038-c4c04f423534.ibm.com (unknown [9.61.133.32])
 	by smtpav02.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 21 Sep 2026 03:32:01 +0000 (GMT)
+	Mon, 21 Sep 2026 03:32:03 +0000 (GMT)
 From: Haren Myneni <haren@linux.ibm.com>
 To: linuxppc-dev@lists.ozlabs.org
 Cc: devicetree@vger.kernel.org, maddy@linux.ibm.com, robh@kernel.org,
         mpe@ellerman.id.au, npiggin@gmail.com, saravanak@kernel.org,
         ritesh.list@gmail.com, tyreld@linux.ibm.com, hbabu@us.ibm.com,
         haren@linux.ibm.com
-Subject: [PATCH v2 1/2] drivers/of: Add of_detach_node_no_notify()
-Date: Sun, 20 Sep 2026 20:31:55 -0700
-Message-ID: <20260921033156.991481-1-haren@linux.ibm.com>
+Subject: [PATCH v2 2/2] powerpc/pseries/dlpar: Remove DT entries if failure from CPU ADD notifier
+Date: Sun, 20 Sep 2026 20:31:56 -0700
+Message-ID: <20260921033156.991481-2-haren@linux.ibm.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260921033156.991481-1-haren@linux.ibm.com>
+References: <20260921033156.991481-1-haren@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,90 +73,153 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
 X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=V/XoQuni c=1 sm=1 tr=0 ts=6ab0a535 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+X-Proofpoint-ORIG-GUID: _Ia5yKu_41bbxrv7eiznnOiRQYuKUMzi
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDA0MSBTYWx0ZWRfX6jeDLp8mUQV3
+ vcvnK2YVK7UIkPr7RVcOXYjqaXNAj8wCN72boklBFpsWwAWK8m7XO6wwTtQY+7b8tqdZUpB3bns
+ qsKFsDAsp2NeatGsSEpIUbwfHIiONUQ=
+X-Authority-Analysis: v=2.4 cv=FLiOVOos c=1 sm=1 tr=0 ts=6ab0a535 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
  a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8 a=Yfu1lNDa6tetUWVIbbMA:9
-X-Proofpoint-ORIG-GUID: ThzuiThGIny9TGCt26ANs60FMrGURNzt
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDA0MSBTYWx0ZWRfX2BDKqicpedUU
- ALUFiTl+X9IMlhS6dMWsk8UrCltQW+6ZZfEKOEvn0ai1c/VPoipSIEnY9YhvmKF7uy5KQ/wF/di
- DrMIGXFNHisONHx2SmHqMVAfYlyXk1GAcdK9y5IEaGpPGCyhgIWNQpLsNskxpnY1sLXxjECmBbG
- syh8MZONS0VGn9XSoRW8SjvYkm9lRm6fYcUj3hLnvsD3hiyTcbI4RxC9X+tu7f5buuB1QUb2w+S
- rNNT6fdaNak7ZT36ss9OpLaXW+OqHc+6pbt+nK/XUK62B30m6b2bdNF0uHZUy5Tcn/bbFQZOLQm
- xfCXvUQRbrR6ILtKcrkR7VkMY9oQxsQa1OLM4qA3ImRfda1opRPhP7+mm3liHc6vDISiAyrq9Nr
- jqj9hWv8NjVsK/jtRa+cHwpihZSBWyMMGiLG3qLbeNvMhahIInjYSnhwC/J2ryhMeJEt7/1exuX
- nRf3VP62tJEfuEi5OcQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDA0MSBTYWx0ZWRfX5F6nDRVG6FrL
- ODDWwAw940jeixBm1ujScIClClE7JhKpeLSLhyXOQGsdatwwc0zeTh5NtW2BOrqc2pOvDOaDyUD
- WqVa5PuaZfzPctho6p1Y4NzkhERRNzE=
-X-Proofpoint-GUID: mtxUVzCyxG28VfcbkTSaFwhXJp9TOZi9
+ a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8 a=r6zhGCe8PwBrag2BmykA:9
+X-Proofpoint-GUID: 00WUA8JME8QoOiSJ7B2gJ2LG2haWd5w8
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDA0MSBTYWx0ZWRfX7BkEXY6cCGs8
+ V/H8jDZbLr3UtSfN1+0MPvTJ+1WrhbpQBNbNTgh6wwEMHP4aye/htRe9/tRktHeXxXJOzyFVYmz
+ PEQzK1Dg9OCK/8xAOKf8+270ZTNjmOT5WgMhkQXBDH1bnHvu/bdJ15hY0jQJGgJk1wB9uQNawfY
+ p1Ry5AthiMSyA+j7+wfYt15ukEUqqRkEpUts+fyclL62EY3cWKX7wQD9jX6Vf+VXyHDdoUoxR6v
+ ZyRMZTyn/tHStQoN90JpueS2SDxT1aWaspJAa9fe5joW2mmM0FNCB9iF6yYW01a6tq/tJqUvh1W
+ 5RREXwY2O3CE0IL8dZz+ACCxRNYknYFMPkRVh9HVISqQZMokkfhAr/d0oj0oBtxe4RjmQJJC8kT
+ EHGLOWYHEe7iqo8iSW2v2KyJFUtHMgLE7k1ntsN2maMXwn2+bUc916Mtf69Mcy4n52/ZKUNS1FJ
+ CGZ0NavyG6XIoFZzLRw==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-21_01,2026-09-16_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 malwarescore=0 clxscore=1015 phishscore=0
- bulkscore=0 adultscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210041
+ adultscore=0 impostorscore=0 phishscore=0 spamscore=0 clxscore=1015
+ suspectscore=0 bulkscore=0 lowpriorityscore=0 priorityscore=1501
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609210041
 
-of_changeset_apply() interface adds nodes for action
-OF_RECONFIG_ATTACH_NODE and calls notifiers for each attached node.
-Then the caller uses of_detach_node() to release each node and
-also calls the corresponding notifier function. In the case of
-failure from the add notifier for any node, of_changeset_apply()
-returns failure after adding nodes. The current implementation
-does not the provide any interface to the caller to remove nodes
-from the DT without calling notifiers. It may end up having nodes
-in DT even though ADD is not successful.
+For CPU ADD, the device tree entries are retrieved with
+configure-connector RTAS call and attached to the device tree.
+Then the CPU is added as part of DT node notification. If the CPU
+ADD notifier returns failure, the corresponding CPU node entries
+should be deleted from the device-tree. See pseries_add_processor()
+for the possible failure cases.
 
-This patch introduces of_detach_node_no_notify() interface for the
-caller to only remove node if it is not attached.
+The current code does not remove CPU node entries during CPU ADD
+notifier failure and causing the following issues:
+- Can not add this CPU later since already present in the
+  device-tree.
+- Trying to free memory allocated to CPU node without detaching
+  the node and it causes freeing its sibling node (existing CPU
+  nodes).
+
+This patch fixes this issue by calling of_detach_node_no_notify()
+for the failure from CPU ADD notifier which removes CPU node
+entries without calling CPU REMOVE notifier.
 
 Signed-off-by: Haren Myneni <haren@linux.ibm.com>
 ---
- drivers/of/dynamic.c | 16 ++++++++++++++++
- include/linux/of.h   |  1 +
- 2 files changed, 17 insertions(+)
+v2:
+- Check dn before detach node as pointed by Sashiko AI review.
 
-diff --git a/drivers/of/dynamic.c b/drivers/of/dynamic.c
-index 744ce0e1eb24..fc6f22371a97 100644
---- a/drivers/of/dynamic.c
-+++ b/drivers/of/dynamic.c
-@@ -318,6 +318,22 @@ int of_detach_node(struct device_node *np)
+ arch/powerpc/platforms/pseries/dlpar.c       | 9 ++++++---
+ arch/powerpc/platforms/pseries/hotplug-cpu.c | 6 +++---
+ arch/powerpc/platforms/pseries/mobility.c    | 2 +-
+ arch/powerpc/platforms/pseries/pmem.c        | 2 +-
+ arch/powerpc/platforms/pseries/pseries.h     | 2 +-
+ 5 files changed, 12 insertions(+), 9 deletions(-)
+
+diff --git a/arch/powerpc/platforms/pseries/dlpar.c b/arch/powerpc/platforms/pseries/dlpar.c
+index f4d33b8dffd8..01a9849773cd 100644
+--- a/arch/powerpc/platforms/pseries/dlpar.c
++++ b/arch/powerpc/platforms/pseries/dlpar.c
+@@ -247,15 +247,18 @@ int dlpar_attach_node(struct device_node *dn, struct device_node *parent)
+ 	return 0;
  }
- EXPORT_SYMBOL_GPL(of_detach_node);
  
-+/**
-+ * of_detach_node_no_notify() - "Unplug" a node from the device
-+ * and return without running notifiers.
-+ * @np:	Pointer to the caller's Device Node
-+ */
-+int of_detach_node_no_notify(struct device_node *np)
-+{
-+	mutex_lock(&of_mutex);
-+	if (!of_node_check_flag(np, OF_DETACHED))
-+		__of_detach_node(np);
-+	mutex_unlock(&of_mutex);
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(of_detach_node_no_notify);
-+
- void __of_prop_free(struct property *prop)
+-int dlpar_detach_node(struct device_node *dn)
++int dlpar_detach_node(struct device_node *dn, bool notify)
  {
- 	kfree(prop->name);
-diff --git a/include/linux/of.h b/include/linux/of.h
-index b920aac6b975..7a509341e998 100644
---- a/include/linux/of.h
-+++ b/include/linux/of.h
-@@ -442,6 +442,7 @@ extern int of_update_property(struct device_node *np, struct property *newprop);
+ 	struct device_node *child;
+ 	int rc;
  
- extern int of_attach_node(struct device_node *);
- extern int of_detach_node(struct device_node *);
-+extern int of_detach_node_no_notify(struct device_node *);
+ 	for_each_child_of_node(dn, child)
+-		dlpar_detach_node(child);
++		dlpar_detach_node(child, notify);
  
- #define of_match_ptr(_ptr)	(_ptr)
+-	rc = of_detach_node(dn);
++	if (notify)
++		rc = of_detach_node(dn);
++	else
++		rc = of_detach_node_no_notify(dn);
+ 	if (rc)
+ 		return rc;
  
+diff --git a/arch/powerpc/platforms/pseries/hotplug-cpu.c b/arch/powerpc/platforms/pseries/hotplug-cpu.c
+index bc6926dbf148..15122aab05b2 100644
+--- a/arch/powerpc/platforms/pseries/hotplug-cpu.c
++++ b/arch/powerpc/platforms/pseries/hotplug-cpu.c
+@@ -602,8 +602,8 @@ static ssize_t dlpar_cpu_add(u32 drc_index)
+ 			dn, rc, drc_index);
+ 
+ 		rc = dlpar_release_drc(drc_index);
+-		if (!rc)
+-			dlpar_free_cc_nodes(dn);
++		if (!rc && dn)
++			dlpar_detach_node(dn, false);
+ 
+ 		return saved_rc;
+ 	}
+@@ -616,7 +616,7 @@ static ssize_t dlpar_cpu_add(u32 drc_index)
+ 		pr_warn("Failed to online cpu %pOFn, rc: %d, drc index: %x\n",
+ 			dn, rc, drc_index);
+ 
+-		rc = dlpar_detach_node(dn);
++		rc = dlpar_detach_node(dn, true);
+ 		if (!rc)
+ 			dlpar_release_drc(drc_index);
+ 
+diff --git a/arch/powerpc/platforms/pseries/mobility.c b/arch/powerpc/platforms/pseries/mobility.c
+index b5c2abd12432..e0e4ef04c679 100644
+--- a/arch/powerpc/platforms/pseries/mobility.c
++++ b/arch/powerpc/platforms/pseries/mobility.c
+@@ -112,7 +112,7 @@ static int delete_dt_node(struct device_node *dn)
+ 	}
+ 
+ 	pr_debug("removing node %pOFfp\n", dn);
+-	dlpar_detach_node(dn);
++	dlpar_detach_node(dn, true);
+ 	return 0;
+ }
+ 
+diff --git a/arch/powerpc/platforms/pseries/pmem.c b/arch/powerpc/platforms/pseries/pmem.c
+index 0f1d45f32e4a..b60a01745137 100644
+--- a/arch/powerpc/platforms/pseries/pmem.c
++++ b/arch/powerpc/platforms/pseries/pmem.c
+@@ -85,7 +85,7 @@ static ssize_t pmem_drc_remove_node(u32 drc_index)
+ 	pr_debug("Attempting to remove %pOF, drc index: %x\n", dn, drc_index);
+ 
+ 	/* * NB: tears down the ibm,pmemory device as a side-effect */
+-	rc = dlpar_detach_node(dn);
++	rc = dlpar_detach_node(dn, true);
+ 	if (rc)
+ 		return rc;
+ 
+diff --git a/arch/powerpc/platforms/pseries/pseries.h b/arch/powerpc/platforms/pseries/pseries.h
+index 3968a6970fa8..6f80e58e6186 100644
+--- a/arch/powerpc/platforms/pseries/pseries.h
++++ b/arch/powerpc/platforms/pseries/pseries.h
+@@ -50,7 +50,7 @@ extern void dlpar_free_cc_property(struct property *);
+ extern struct device_node *dlpar_configure_connector(__be32,
+ 						struct device_node *);
+ extern int dlpar_attach_node(struct device_node *, struct device_node *);
+-extern int dlpar_detach_node(struct device_node *);
++extern int dlpar_detach_node(struct device_node *, bool);
+ extern int dlpar_acquire_drc(u32 drc_index);
+ extern int dlpar_release_drc(u32 drc_index);
+ extern int dlpar_unisolate_drc(u32 drc_index);
 -- 
 2.55.0
 
