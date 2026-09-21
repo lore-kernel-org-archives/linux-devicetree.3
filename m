@@ -1,119 +1,104 @@
-Received: from mail-oo2-f6.google.com (mail-oo2-f6.google.com [74.125.231.134])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDBE9246783
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 00:22:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.134
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E12EA247280;
+	Mon, 21 Sep 2026 00:26:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789950136; cv=none; b=MRdxb3dCUCuDMGqyFk2miPKZdGPTZUPxXFKXT/WAXcb0Px7+ewNL/QbIUjym6p4LiMuU324QOGL18SVqi9MR6PQw/wFPgiW3bOTGAMXvc37mJTInZLvQLQZ1jbadYVJqrJqqn8J8xF25OJVxTluhegdULf2mcBMx96Dka6P6L88=
+	t=1789950403; cv=none; b=aESP0uSQ6xGzZMLg4NE8koaB9Gnaz5VBqv59dYB9uCSOWeZ79s3v1XC1lAizOPGq05b4pTE18QhEQp9OsBv2y+AQg/DJ+LpjuGSyfr/391NylV0R2QdeioJbLa2XOk0maflMBwFTcppLwLjjCc7iyJYWUceyO/iOEjWCFrXaTbQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789950136; c=relaxed/simple;
-	bh=XwsRzJLQL722rDOxKBtIkGBU0anBu6ItURQT6kz124Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gFPB4shLkA8RNb51lXJbLDErJO6ujrDR1sSMGlMgMvdvp3tAEaRsmcnaqlPVoZwAkWnpm1K5YNITEetoJ9K6KGlWA8pCFcaawXzUTTK1rAFM5DPgLvo9X7Rvp1Ra8MJLaAe0wSeNbGKIbkCYnC9cEMfigHqSMpkQH3uPvDFLLXM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gRx7OgU8; arc=none smtp.client-ip=74.125.231.134
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789950403; c=relaxed/simple;
+	bh=xE4iQ0PrzGa2C9UPEClrIlu7Uo4/8EFZTS/HoDiSOJU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=rgH0+liEMVpREqxMrDmS4kSj0SLynNlD5q2lvMVLqxeJwhdFxhOlSyeZvFu0sOAqg79p7ONkQ+EaCS6dDSN420e2i0OPGNZlUCYoCo9a2qcVkj0INRBoQ47MQIegiAJ781qxteqAk9c8EgcNRs5xi87yQ5zVvAP9lla120jXhRM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pcL0WDjj; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gRx7OgU8"
-Received: by mail-oo2-f6.google.com with SMTP id 006d021491bc7-6aafac56856so1182978eaf.1
-        for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 17:22:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789950134; x=1790554934; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bMAwtCxGCGY6D0JArwPVVoRyTsw+poPi/tmNRvMJqUI=;
-        b=gRx7OgU8bDTs8tAAAJaQuWCc8DHTk1qHRi4qoJhKM9zAUf7iI5BCIPH6u6cwph9sfl
-         zVnIdfFp6zqFTiCVRFUz4Gp+3jX+i65MxWyxLrMfOogNTrWCBhJQVZvloXOoVchLRrnv
-         sb5N0lONhD+Lf5xDUDhTQl9Ybq8C1dEGtxCOYsUxi6lLAs7WYqsCBNIDyjEFogpJL5j5
-         kPJOiFoksMl28E7DqlFwz6rSrxsNcO+TCXDQNpyZ2T1cE1gCd7xFd1/4T9GcJNt1/Muh
-         FQqiMHwIV/3CrDN9HuP7DqsQl7FtXmiUL89kQ2XadcjIrYM45JwyWgPmaNrzd2GYOBuy
-         5VTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789950134; x=1790554934;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bMAwtCxGCGY6D0JArwPVVoRyTsw+poPi/tmNRvMJqUI=;
-        b=nfWEAeADUUkmA+qZdiOUA98z3xX2iFZY0T4JAKjGxUBwmmoLbPlL9DyRgMLYGkEjDW
-         RqNVzP7SCnJ4b5s10fgpRyclpoYVQEpaQoLqeouUd7DRefTgNklQs7C25IAS1U0EmEso
-         dcj4fkJdCXtaXKm7aZ3G8cEXXvHJ9ixid1cYJkRtW2iP5siqGnox2diHhdfmW5DhUI8e
-         7bRGSnXKKpZEzazXKfn/GDPSlTdE1Qvkt4ZID+q5xtoK4Pt0Gdo4NLBEshX9+nBdMaJT
-         MJlOnAI3TPBH+RBy+VGbrtpNiJnO3651ZKYj1mi47xx5kE3DH9bYVo4alAUXamIb+NVR
-         oAsw==
-X-Forwarded-Encrypted: i=1; AKwUvByc/8Jlw5sQ1OvgXhjTUGWY1g0mNxBclBx2I1OVH5rlogj39pfB5gnUw0YVtkHbi9uxQtAu2xaj3F/M@vger.kernel.org
-X-Gm-Message-State: AFuF++kwJftRvL8ClU6wJwB0XKNIuN5ynP84Bcl3N1/2jzjQO0ggLxOT
-	VVosiJSqUy35+kV8DYxYDQhQ6SfoWKzFr1A2u6nWhEUw5AZaBES33r/L
-X-Gm-Gg: AYBFou2mMXzgNe4kcUsiwzoY1wld4nVxHNbuDH/ek4oGTPlzbBIVSjo1DmuYEtjus25
-	A+dwzArNZUfaHUJQrnb1r26RZqmYlqQR5FB6CVSG5/aYJplPcUL2Qd27tYvTIQw78oh0Xe09WVR
-	Gnl9JUJh4xdU8/aROMViD0v+7SrQ20PZ7tsCINkn3XUPp+ewwDVk/M1mLbUcNwoKjQnqd9mqFv5
-	LYJKxlzZAPcUihv7kpSdgliAwjhI7QJqJWfxvXECi3g6jayyPvlhZApxJVbstYCoSK1ivwvpshZ
-	YebSY9iwJkYYQoD/jkN+1B4LAJsdreSZ0N7V8BFst3rouyG/0gUePzDksnpIUxZFbUb9w3EzQjt
-	cT2OEFOXVviW9HU/ZzRjQnos4VY+oJbmhJfHvpQnkcY2dcjCm37ux84hJeADaZeFd0FFZYgiVYR
-	NTtO2nPew3pvDESpR1RmFqG6MmKa2VcXiJRVdH71UayB3X1RQ+TDLRnUCXch6XoUiT+pxFbNWfz
-	yiuvA4vimtOVQo=
-X-Received: by 2002:a05:6820:1f04:b0:6c2:1018:3f7 with SMTP id 006d021491bc7-6ca9aa4245emr7824820eaf.23.1789950133885;
-        Sun, 20 Sep 2026 17:22:13 -0700 (PDT)
-Received: from ?IPV6:2600:8804:5716:d800::2620? ([2600:8804:5716:d800::2620])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6cd34b3101esm7471632eaf.6.2026.09.20.17.22.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 20 Sep 2026 17:22:12 -0700 (PDT)
-Message-ID: <41503126-2f2b-4ac9-bb9a-610686be4729@gmail.com>
-Date: Sun, 20 Sep 2026 19:22:10 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pcL0WDjj"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8405BC2BCC7;
+	Mon, 21 Sep 2026 00:26:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789950402;
+	bh=xE4iQ0PrzGa2C9UPEClrIlu7Uo4/8EFZTS/HoDiSOJU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=pcL0WDjjlOTmxNTeTMmYeqior8sRZ8hh/cp7PPmru5W4RgaygzG/Lo3YngNmzWe+B
+	 /4kCoTRskG2Wdc1TALZ7tTKhKwJidCnyx+4jyOW3cDg/6Wh2v2pCNntaHAlF4RAKRU
+	 5OCfkMu0EWRGEl13OG7FZpBAV8P9DOqW+OeNyDiL9Ic6eH8yiZTvLfiRuXvFI4V1dQ
+	 or/szAhbfpxqBBHRmUEO3jSbEpILrqENxjiwzNxsv3cEuLyMBa46LF1frFWRP8mLfH
+	 iyMvwbdC7m6IQ+Iazf7dPRrUQdYl/ADHVKRkzCz4NvXLqiLWlX7SYaBnQSnk5N1NjI
+	 I0IVCIm3iiNYw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 72D0FC982D8;
+	Mon, 21 Sep 2026 00:26:42 +0000 (UTC)
+From: Nicolo Giuliani via B4 Relay <devnull+nicolo.giuliani6.studio.unibo.it@kernel.org>
+Date: Mon, 21 Sep 2026 02:26:42 +0200
+Subject: [PATCH v2 2/3] dt-bindings: arm: marvell: Add Sophos XGS 107w NPU
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/3] iio: adc: add mt6397 PMIC AUXADC support
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Lee Jones <lee@kernel.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- mfd@lists.linux.dev, Roman Vivchar <rva333@protonmail.com>,
- Luca Leonardo Scorcia <l.scorcia@gmail.com>,
- Andy Shevchenko <andriy.shevchenko@intel.com>
-References: <20260920-rbrue-suez-upstreaming-mt6397-auxadc-v3-0-c00edacbee64@gmail.com>
- <20260921001702.3a208780@jic23-hlaptop>
-Content-Language: en-US
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-In-Reply-To: <20260921001702.3a208780@jic23-hlaptop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260921-send-dt-v2-2-fb6b81002ad7@studio.unibo.it>
+References: <20260921-send-dt-v2-0-fb6b81002ad7@studio.unibo.it>
+In-Reply-To: <20260921-send-dt-v2-0-fb6b81002ad7@studio.unibo.it>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
+ Gregory Clement <gregory.clement@bootlin.com>, 
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, 
+ Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789950401; l=1394;
+ i=nicolo.giuliani6@studio.unibo.it; s=20260919; h=from:subject:message-id;
+ bh=lyDMMre6EWQH7CiEprIS9UxuPjln7GFy4OUwneOalSI=;
+ b=XH+pUXfYOL6RW3KhZLUS9vw02g1QOZ+Wz32F90LYLT2qMP4KyByADqVmYEIGFa+Qe97WHG1ga
+ XawU60uusXPAG7FuzKQHL2L5NiNGzRHI9893tueFqx6qbKkK7RiRPSd
+X-Developer-Key: i=nicolo.giuliani6@studio.unibo.it; a=ed25519;
+ pk=D652ecdT01GkA1eoFWNFNX85xIg5ZnFwUWyjfestgQw=
+X-Endpoint-Received: by B4 Relay for
+ nicolo.giuliani6@studio.unibo.it/20260919 with auth_id=1040
+X-Original-From: Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
+Reply-To: nicolo.giuliani6@studio.unibo.it
 
-On 9/20/26 6:17 PM, Jonathan Cameron wrote:
-> On Sun, 20 Sep 2026 00:31:50 -0500
-> Ryan Brue <ryanbrue.dev@gmail.com> wrote:
->
->> The MediaTek mt6397 PMIC has a 10-bit AUXADC that nothing in-tree can
->> reach. On boards built around it that ADC is the only path to the battery:
->> the SoC's AUXADC is wired to board thermistors, and the charger ICs these
->> boards use have no ADC at all, so without it there is no pack voltage and
->> no state of charge.
-> Hi Ryan,
->
-> Please slow down between new versions.  Unless a maintainer is specifically
-> asking for a quick turn around (sometimes happen very late in a series) at
-> least a week is typical time to allow multiple reviews to come in
-> and hence save on effort all round.
->
-> Jonathan
-Hi Jonathan,
+From: Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
 
-Got it, thanks for being patient with me while I'm learning the kernel 
-workflow. I'm sure you guys get a lot of newcomers not knowing the ins 
-and outs. Won't happen again.
+The Sophos XGS 87/107 desktop firewalls combine an AMD x86 host with a
+separate network processing unit (NPU). The NPU is a Marvell Armada CN9130
+SoC with its own eMMC and SPI NOR flash, connected to the x86 host over
+PCIe. It serves the front panel ports through a Marvell 88E6193X switch.
 
-Best regards,
-Ryan Brue
+Document the compatible string of the NPU board, with the CN9130 SoC
+compatibles as fallbacks.
+
+Assisted-by: LLM
+Signed-off-by: Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
+---
+ Documentation/devicetree/bindings/arm/marvell/armada-7k-8k.yaml | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/arm/marvell/armada-7k-8k.yaml b/Documentation/devicetree/bindings/arm/marvell/armada-7k-8k.yaml
+index 7e77310da6..130128c462 100644
+--- a/Documentation/devicetree/bindings/arm/marvell/armada-7k-8k.yaml
++++ b/Documentation/devicetree/bindings/arm/marvell/armada-7k-8k.yaml
+@@ -118,6 +118,13 @@ properties:
+           - const: marvell,armada-ap807-quad
+           - const: marvell,armada-ap807
+ 
++      - description:
++          Sophos XGS 87/107 network processing unit (Armada CN9130 SoC
++          with an 88E6193X switch)
++        items:
++          - const: sophos,xgs107w-npu
++          - const: marvell,cn9130
++
+       - description:
+           SolidRun CN9130 SoM based single-board computers
+         items:
+
+-- 
+2.48.1
+
+
