@@ -1,68 +1,86 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA20946E01A
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 09:51:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9ED647277D
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 09:51:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789984301; cv=none; b=lII9xtTvDz1OPGI6rkdNMIpsawZJ0mmKmcuOcUZTL44hqLLh4cjxPaetBtWv+3QA6LAu3fkp3uGd2U1AR3Yiq0VSQxf/eTAp3mgZGqchm6nlEdEgm3DZdGhZa1Rz6H9pluTaxNI1sDr7r8KmD+vw4FVK5+hP+TDtpLwFp6E56JM=
+	t=1789984306; cv=none; b=cLWIBsm8Yhr98Y9N42x7DHfHMj2oUUeeW8CameHd76FLkq7NZBBdwvel+Jfn7ZQs9tOs+KdnTMIrORJ4PwWmcgix7v6WmasBdLIAuEKEOfVam8BriKrCLOpZH2HDuDB+RX6AxCbX+6jBFDgZt7bv8+MwZ37Qzi3onbkVEZUDe0Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789984301; c=relaxed/simple;
-	bh=2Ad1//ANn9jUaWSto1gTo1V2AWdLh+AOOX+UNys/6/8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=IgMp5aoaHX+kVJg+DmDWa7pX3CVyEQd+ob1KCD0vaVnrV/TgKMjlvhbGDtIllFVAiAx16XszwPhDaOF+i0ADzOmwh/bghVSuNWR44vRpTx1wc15+ks36BZ2L89C5aJLcgPFnvSVnAX7omXyIIVjX+qtR6q6ekNkEQiBrkHKYkDY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=o6lASGgL; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1789984306; c=relaxed/simple;
+	bh=NiCAFRxh6ufkCFDFp7mRRvVwAvnQqvM01Vy4s1lcPeg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=MTP9gfwzFakzuIshNt6xBQNn7mm2lsOxcIV56Ke5IHl7BM/GdYhsHdAnCQbtvaD9wmLvEkBt3vgQSyxvNkI54FodsFfr2qH2VeS3h6H1BsOFCbSi9h11aRIjOSIPGyxVI/CUgu7rF3yEa57sgzMXDM1ibmn/R41oMu+izlHsMRE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=H9QITqDE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Qm/0n/pG; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="o6lASGgL"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d37b5so15796225e9.2
-        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 02:51:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="H9QITqDE";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Qm/0n/pG"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68L79xfd607136
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 09:51:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=IsA0Atzw4xv+gWSF4hd/B6
+	YiaWom8ca5sKXkxg9X1nk=; b=H9QITqDEijHFaPvG1ISRdC465FMpJseZRXPqdR
+	BQzidVx8mQjl8o40KlkRVnxtCAAuedb68r6a45M4rnenbQRfOY7Ju1tSIQlPXzax
+	NEvXOI1DLzLVNdg+x+v2/Z7fOBWWKnrE2Uu7MV9xO7uM/MkuI5QtGO3hBxDv6PY3
+	ICXXJ/CVD8QkWyoIkeiQmVg30tV5XYkyCFX9BGUtcB5XXxQm67+Q5o9WOb5K0xdD
+	r2U7boJ5l0ckZOxnz3WEXJdUa0PsKPAwQfJbDENfaKvlU0ErkOYC/4iJY7ThM9Rt
+	Ok5mz0nn1y00Riu5HP3vOUbDFeXT8stC4nvFWLB38pZFVG9g==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gtu1ehpjt-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 09:51:43 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cb48f41343aso3409501a12.1
+        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 02:51:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789984297; x=1790589097; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Jgsi8s/TxKszCjwnnjlFdNO+l6uZRRARfJHburMqhtU=;
-        b=o6lASGgLyrAk12B1GZIa0bwqS2wZwxLfmh0SdiPCFelUA0pmNsWHeUWfC9DxeJ34Yo
-         PfB0MUcY+d/utRx59WPznaOlXsGw47ZSAXmhAr0TnVN84pAKR08EhEdRMS/ySfs+7Lz+
-         FbaAoe++IJyDdVwQNme0bVUGtE1CPwE/Nd3ItTkcYhFirr8Nngm916CCr5M/46q1AkVh
-         SVCogIRCiXQZNLUsz89E81+sSWzRx/T52lvGTgXLLAvpm2cZ5EqkCWw7+IQ/85DoPSC7
-         CQMU6tHYAL+9QsFfzgir0+qXlHOOOY9r1DO80maIVtoV1RQO1kPk8lvAS3f8iby9l6xI
-         yhkA==
+        d=oss.qualcomm.com; s=google; t=1789984303; x=1790589103; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=IsA0Atzw4xv+gWSF4hd/B6YiaWom8ca5sKXkxg9X1nk=;
+        b=Qm/0n/pGp97d+q0q+pGpUZIjG+7Ms3L/T/5iEaD5M3AvhQI/sCouWSPVIJTH5Hn3b/
+         YFPTXej1M2Z4cv0VQmiN5E8Au1qSSeCOfNXmtsFOaI/lekvUDMy9Pns84AoIvUAfzwRn
+         oY7Xj51deAEFmN6nau9UXZLUBhmMs6RMwsmDWwv/BBFjDXZ7QzeMtOIFFYUQ1wEz0XW6
+         tNnegG03/oYerdkWHxEXrDmc3pixmR+BYsdE6vpjFNpzcFPFHK07yeJpuzADLQA+RG4I
+         2m+5bovZF7Q+t1w+ZxBAnG1Rvr7CZCckLRyzsx5FRhGzT0Q45ifpxr5vvQGfYdSOJapC
+         q5oQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789984297; x=1790589097;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Jgsi8s/TxKszCjwnnjlFdNO+l6uZRRARfJHburMqhtU=;
-        b=bhK1COFPv0PDI+xye0yVsoMfeR0m4Zfvf/ARxUocPwz/7jOmyD7l+O0uRQaoYAEuDE
-         Z0PXH5akFmq1fuoW79SVTRiyg98Tin/ET7nsFyBv0/98EP+NI3cuCHaYw4GT9oZbFe23
-         cCP3etZ5zhuTr1MzrTEsoRYjOfeTZG1yrTVBSvGd5mQXzp4o3vlzx1Ox/TEHE+ZFjSGD
-         p7koOuhmqJ4focwqKkYtdxP9il4vU/HhbDXtAw75ET60JVLs7638bk1G/wTGSjoc/dKt
-         MhxUH4zJ7xA6YIqpA2l4b+4D7jUUG3IwdSBjLtEJI6epd5gRdudvGLklSE2hpDIHDoc5
-         V+Bg==
-X-Gm-Message-State: AFuF++kcQMAGcYqupZq7zTe4f9Rj8qGO4kMBLDOQ9bWmqw3x/XRBwDTY
-	9Im4NDXLditKRogRqBIZsthcYOQbkO3Pf4hgjoBMmJEVCN6pVcnmzcfRQLHDgMsnWNI=
-X-Gm-Gg: AYBFou2FBA+LYlhwXhzX2uJEt3AkNxE7FTbsBLWuiQp62VDSm4jcJ2EMg1xw0eQWL1j
-	1Vu8QYnEQAYeo1vq1NeQgKV2ElAa91aks28XiggZF7Ei/jEIijZ42+7yXxJNZhOOMhJ+GMmjfCk
-	wxQpoW871aFnFRnZWeORXdPIS1KrVnjNPHxBc7AkgqsA1THitmoqzVj9ZMgxY0YxeXIoUNWwGHk
-	FJcMMnDmIJTQimFuVg5iaoBb8AQhUV51FN2y8gSBqZDTaH9GFa+Jpeg0y/dDZZ4hn/8MThs158x
-	vp4NW2jNclhqnxXs8rsSlAY3aCeaG8kU9HZT6VfkMDJehyvtpRB0NMwdM7RILVSP0g4LzPhoEde
-	ZkCeDjUXxf/159ybs/N6mPPv+phzPRcYM/rQaghstbrYFOffndsgZCYqtUszlNyE0hYhIEn4i1i
-	mfNMAG1f1/PqYZLILD1f5nNR2vDYhkTxodFvL9d1T0tlLUgkFMs4xIPP9Zuh56b4ueMYOPOZC5B
-	dkNAf3D8E8weVs9bLRR
-X-Received: by 2002:a05:600c:6305:b0:49f:c2ef:cfb9 with SMTP id 5b1f17b1804b1-49fc56719a8mr110540865e9.4.1789984296651;
-        Mon, 21 Sep 2026 02:51:36 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd03fe55sm254330365e9.2.2026.09.21.02.51.36
+        d=1e100.net; s=20260707; t=1789984303; x=1790589103;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=IsA0Atzw4xv+gWSF4hd/B6YiaWom8ca5sKXkxg9X1nk=;
+        b=IqsBMFJIpDao3dAJCOi81zgBCnhYksqeS496ZRAjuS7ErNpyyRGsiJgJsLk/Xa9VaM
+         IpkKtCRlZ3WXIXLAPH/8NVDJ9K5Kp3hd+zJaA1/R2fzRcRJydlX1lnGefgEWlnWR16eh
+         /JOIwgSZX0VcYzlBW5zZUoruj7VNJpsUCElBblLVoNNrDmrzP5wp4Es/HogWGIhOJCTx
+         i/jq+lqlhNi/Do3dM5IJFxp8Hq7lwpdI2G5TXKylHcqxebunzKkatnyFyXcsHYSOjhau
+         0vICKJMBjgPsSwgVvhi96dJStO10X/st8dyDjz+xWEuWC5FEb0VhHnErCVzst74T3Y93
+         +e4Q==
+X-Forwarded-Encrypted: i=1; AKwUvBx8bt13Ypz9ldIcdKI7H7br29swFi/ZhhjnONcoi/ZBzmR9ctVGDUiOHg9a5+AtLBKxOosigEHPEUro@vger.kernel.org
+X-Gm-Message-State: AFuF++l5Dv/eyRehhS9P+roFkPGTiOuUt1BDOtsS1L1LWg81ONVbztb2
+	GZhNJhwdNjE6TWdol9u+3xjd2jjqbdN3FXCjxM2MHo3nfxjXU2OEQrTmZxXbicasc5vTqadplfh
+	ivdXD7l52jIqi2NmpzDlyr21fdicjz3Tr25RU8iEuJI/O5FMJomNsRBAjGqlho2NZ
+X-Gm-Gg: AYBFou0JXR9f0jWXt08FxNuOGJLVz9RKkLtBl+cfkZyoESTdilLNe0EwNfnkFtsEZTq
+	eqU0Oby/a8+xaNP/OpzVjAl4kItXFxk6lsdmFAce4z5Oh3AE0+HgFl4NoUnrtQyyg2rBitx1g6S
+	iSXaH5yZploTPg2oOKVPGSt8+xKhD15jO6x11EwWW+OrcRbVYLu99cCnJ9QD+DK43qhhYneuV0R
+	50IZEQVGeFRSUg0vB3oVuouDLnNbfAMOFU5+3ouaK+9KUCcXsKT795oZEe/XLOkoEggirIfuhJn
+	Y70TLIhMeCuDO2UoVeTeNgv7BDBrbR7Z1wamUXIkySgpluEaFZNytigAJxg51svHXOz1247RN4s
+	fPYSTeZIrXGd3tqIxohfB8ZpROWve+iAVwkW+Spsnzvr5pRhIW3T2RpMqxGv2VdxbdRqUuTFZhA
+	==
+X-Received: by 2002:a17:903:1a2d:b0:2cf:b9f9:18bb with SMTP id d9443c01a7336-2ddb2101d53mr107626825ad.4.1789984303328;
+        Mon, 21 Sep 2026 02:51:43 -0700 (PDT)
+X-Received: by 2002:a17:903:1a2d:b0:2cf:b9f9:18bb with SMTP id d9443c01a7336-2ddb2101d53mr107626595ad.4.1789984302886;
+        Mon, 21 Sep 2026 02:51:42 -0700 (PDT)
+Received: from WANGAOW-LAB01.ap.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc178889dsm30523095ad.18.2026.09.21.02.51.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 02:51:36 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Mon, 21 Sep 2026 11:51:32 +0200
-Subject: [PATCH v2 3/3] regulator: add regulator driver for the Nexperia
- NEX10000UB
+        Mon, 21 Sep 2026 02:51:42 -0700 (PDT)
+From: Wangao Wang <wangao.wang@oss.qualcomm.com>
+Subject: [PATCH v2 0/5] media: iris: Enable Iris video codec on Eliza
+Date: Mon, 21 Sep 2026 17:51:33 +0800
+Message-Id: <20260921-add_iris_for_eliza-v2-0-5fe7be8c0230@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,236 +89,126 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-topic-sm8x50-nex10000ub-v2-3-eeeaf9b0c913@linaro.org>
-References: <20260921-topic-sm8x50-nex10000ub-v2-0-eeeaf9b0c913@linaro.org>
-In-Reply-To: <20260921-topic-sm8x50-nex10000ub-v2-0-eeeaf9b0c913@linaro.org>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
- Mark Brown <broonie@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6646;
- i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=2Ad1//ANn9jUaWSto1gTo1V2AWdLh+AOOX+UNys/6/8=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqsP4lzVzzGMsbjcvCm0G3iY0mqkw/vMvUjfkRC2bE
- WFGSe/WJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCarD+JQAKCRB33NvayMhJ0ZcpEA
- CO18GV/ozAYuwCNWjr0CHoMFZb0rREfFJuq6aDSwZIMwA5kg5dw4HWb+yD3as5TscrpQ/t5JN55YY0
- 9/OrTqRzPpseCcgwmB8zFMlPNASRsX6vUO1xzZdHPTyf+tmoZQ7G2w+BgcV3O6JhEL7dhhD0GpnthX
- Y8iS0prRiE0Wcz0dOFNTY8YiJqUhl2+nqHZaa6LcTrSpLCxvwsginzHMefxH8lgLDDjmx7I+E/8GGj
- vxeCzL01c/yDq7JE+z4ayGWJ8Zwqxx8Nc21hlAuUYLNBfLSiYSveojRXtQh6MDcks+7pos/TeXP9A0
- zeQQyuhddaTgGmHxzAb7KXyokC+uqiUJds4FdGdn+4ZyBKBqYcSAFfG4af9zX1npE0eMBfP9Foj4SH
- b3UGF8yotgn/SnjsJmXUmjZVA4713kRyeZndqnJWf5vvXK5g7LCEmRyApBjgvdCbbJji6NWuOh7s4a
- Iw/skQ9GNVjLbR2m/tEovCwFzsw9yH+xsf0YLkBr+TRjGkAx37LR6avsepergLSnHv8hElrHdraZaJ
- i+vC2bJr5GgNbMUzof7+Y1l0a17AjW3Dr7qjTDwIjy1TGjAiPAcCgv4ztonVleHE6/r8OM6+5BvXec
- J5NBYRv3ulGCjvZSBsswSpbnK5ZEGyONJYezCt+Ftm05tYKO5PCUtuJ0PLdA==
-X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
- fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
+X-B4-Tracking: v=1; b=H4sIACX+sGoC/32Q22rDMAyGXyX4ei6OYydWr/oeYwQfW0EOrZ2Yb
+ SXvPidld2M3gl+gT5/0JMlH9ImcqyeJPmPCeSqBv1XE3vR09RRdyYQz3jKoBdXO9Rgx9WGOvR/
+ wW1MbtGhYAxq6lpTBe/QBPw/o+8crR/9YC3t5NYnRyVM7jyMu56oJXHAZpJHGGOcAaqvBuuCkZ
+ Ny3yikFEkDt6NGnpA+p4virlO9rjwW216z7ou0GnK40C8ooGGCd0F1jRX2ZUzo9Vj3sq0+lkF3
+ vhmmZ49fxglwffv9dm+tC9cpaB0bZ0Ok/qNu2/QC3QkXqWgEAAA==
+X-Change-ID: 20260914-add_iris_for_eliza-cfa43039a976
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Wangao Wang <wangao.wang@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789984298; l=2726;
+ i=wangao.wang@oss.qualcomm.com; s=20251021; h=from:subject:message-id;
+ bh=NiCAFRxh6ufkCFDFp7mRRvVwAvnQqvM01Vy4s1lcPeg=;
+ b=PHjxf9LjnDRKOlCUlirjnpR2r4qPivwUf+WlM6Fjkl4a5paSbOiKsnlkYfch7UUEGNZcQ8x+6
+ 8Euf7UzHrzVBU6SkaDS1g9CBdD0+JH6iKsxCGg8CHAm1evIyL5fnj+V
+X-Developer-Key: i=wangao.wang@oss.qualcomm.com; a=ed25519;
+ pk=bUPgYblBUAsoPyGfssbNR7ZXUSGF8v1VF4FJzSO6/aA=
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDE0MSBTYWx0ZWRfX6R5e86iMeUWp
+ KXNusDpfJSdrn+0gho4F6EcRr3Xq2SCU7YjoOSIIH4n+97/ey+V0tit2n9z+HfALW3BYK360VF4
+ g376c6CZgwRGraTnp9VOi4rym7cCp7I=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDE0MSBTYWx0ZWRfX54zr3hwU16sq
+ q2zZhX3CjcQFoKZNvbwdD8Ftj6nDjWCye1DEwmJL4veixeBQovD305vLLmESDAuPiS4LVnfIsrS
+ IvwPk6M0rmljfWQtO8MReFpjTa//wQz5if6Vks4kKMFbkhTdQEgQq3g0Mq6dlpvo03bK/v8c5O9
+ DncfgmpMC+UWNm7r2DfmCLWGqmffCB05yxc7hsXqhsiecGArFCN0AbfQIuKjO+ru6fbzmalaLri
+ z6Gsst+Vlv8sksJWsQroaKNCSLAwQZ1EgxvpSw32el6H9Yw0+V7R187CsupqB9yixpCLenXD7Gp
+ 6Bb60KaAQCXCyRZgEa5FiwcQX9BLVxdnhobP8494STXSo1jBrH1Bx40+py5xIfE2hyP+Hl90SLa
+ 6dguheVhL//HzL9qLpVtSO+PH/6btLRk328aN+qg2jFde1AXv3gg7LRKyNbQCmCZ1pQ0wrFDdQf
+ FGBaGyM2aTmHvu68Mrg==
+X-Proofpoint-ORIG-GUID: w-e0avGXS6IjwScvlTXb228hTeX9P4_I
+X-Proofpoint-GUID: w-e0avGXS6IjwScvlTXb228hTeX9P4_I
+X-Authority-Analysis: v=2.4 cv=A6r5rKWG c=1 sm=1 tr=0 ts=6ab0fe30 cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=N-TFuj4FxbnEaaYKstYA:9 a=QEXdDO2ut3YA:10
+ a=x9snwWr2DeNwDh03kgHS:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_03,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 suspectscore=0 malwarescore=0 lowpriorityscore=0
+ priorityscore=1501 adultscore=0 bulkscore=0 spamscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210141
 
-Add regulator support for the Nexperia NEX10000UB dual output LCD
-bias power supply which provides programmable positive and negative
-output voltages mainly for display panels applications.
+This series enables the Iris video codec on Eliza, allowing Eliza to
+use hardware-accelerated video encoding and decoding.
 
-The driver supports setting the output voltage from 4V to 6V in
-100mV steps for each output via the I2C programming interface and
-supports the enable GPIOs for both outputs.
+The Iris codec on Eliza is based on the VPU3.3 hardware, sharing the
+Compared to SM8650, Eliza has:
+- 2 VPP pipes instead of 4, limiting the maximum supported resolution
+  to 4K.
 
-Product datashet can be found online at [1].
+fluster result:
+H.264:
+Ran 76/135 tests successfully
 
-[1] https://assets.nexperia.com/documents/data-sheet/NEX10000UB.pdf
+H.265:
+Ran 138/147 tests successfully
 
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+VP9:
+Ran 225/305 tests successfully
+
+Dependency:
+https://lore.kernel.org/linux-media/20260914-vpu_iommu_iova_handling-v4-0-9b9074a73c41@oss.qualcomm.com/
+
+Signed-off-by: Wangao Wang <wangao.wang@oss.qualcomm.com>
 ---
- drivers/regulator/Kconfig                |   8 ++
- drivers/regulator/Makefile               |   1 +
- drivers/regulator/nex10000ub-regulator.c | 147 +++++++++++++++++++++++++++++++
- 3 files changed, 156 insertions(+)
+Changes in v2:
+- Enable iris on eliza-evk.(Abel Vesa)
+- Link to v1: https://lore.kernel.org/r/20260914-add_iris_for_eliza-v1-0-e8ccd9b8cf7a@oss.qualcomm.com
 
-diff --git a/drivers/regulator/Kconfig b/drivers/regulator/Kconfig
-index 89789ac7a786..4b98ce62ba01 100644
---- a/drivers/regulator/Kconfig
-+++ b/drivers/regulator/Kconfig
-@@ -1020,6 +1020,14 @@ config REGULATOR_MTK_DVFSRC
- 	  of Mediatek. It allows for voting on regulator state
- 	  between multiple users.
- 
-+config REGULATOR_NEX10000UB
-+	tristate "Nexperia NEX10000UB Dual Output Power regulators"
-+	depends on I2C && GPIOLIB
-+	select REGMAP_I2C
-+	help
-+	  This driver supports the NEX10000UB single inductor - dual output
-+	  power supply specifically designed for display panels.
-+
- config REGULATOR_PALMAS
- 	tristate "TI Palmas PMIC Regulators"
- 	depends on MFD_PALMAS
-diff --git a/drivers/regulator/Makefile b/drivers/regulator/Makefile
-index 5a764cec8df8..907efdf644eb 100644
---- a/drivers/regulator/Makefile
-+++ b/drivers/regulator/Makefile
-@@ -120,6 +120,7 @@ obj-$(CONFIG_REGULATOR_MT6370) += mt6370-regulator.o
- obj-$(CONFIG_REGULATOR_MT6380)	+= mt6380-regulator.o
- obj-$(CONFIG_REGULATOR_MT6397)	+= mt6397-regulator.o
- obj-$(CONFIG_REGULATOR_MTK_DVFSRC) += mtk-dvfsrc-regulator.o
-+obj-$(CONFIG_REGULATOR_NEX10000UB) += nex10000ub-regulator.o
- obj-$(CONFIG_REGULATOR_QCOM_LABIBB) += qcom-labibb-regulator.o
- obj-$(CONFIG_REGULATOR_QCOM_PM8008) += qcom-pm8008-regulator.o
- obj-$(CONFIG_REGULATOR_QCOM_REFGEN) += qcom-refgen-regulator.o
-diff --git a/drivers/regulator/nex10000ub-regulator.c b/drivers/regulator/nex10000ub-regulator.c
-new file mode 100644
-index 000000000000..f44b8b7906b9
---- /dev/null
-+++ b/drivers/regulator/nex10000ub-regulator.c
-@@ -0,0 +1,147 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Nexperia NEX10000UB Regulator driver
-+ *
-+ * Copyright (C) 2026 Linaro Limited.
-+ */
-+
-+#include <linux/delay.h>
-+#include <linux/err.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/regmap.h>
-+#include <linux/regulator/driver.h>
-+#include <linux/regulator/machine.h>
-+
-+#define NEX10000UB_REG_VPOS		0x00
-+#define NEX10000UB_REG_VNEG		0x01
-+#define NEX10000UB_REG_ID		0x02
-+
-+#define NEX10000UB_VOUT_MASK		0x1F
-+#define NEX10000UB_VOUT_N_VOLTAGE	0x15
-+#define NEX10000UB_VOUT_VMIN		4000000
-+#define NEX10000UB_VOUT_VMAX		6000000
-+#define NEX10000UB_VOUT_STEP		100000
-+
-+#define NEX10000UB_REGULATOR_ID_VPOS	0
-+#define NEX10000UB_REGULATOR_ID_VNEG	1
-+#define NEX10000UB_MAX_REGULATORS	2
-+
-+static const struct regulator_ops nex10000ub_regulator_ops = {
-+	.enable = regulator_enable_regmap,
-+	.disable = regulator_disable_regmap,
-+	.is_enabled = regulator_is_enabled_regmap,
-+	.list_voltage = regulator_list_voltage_linear,
-+	.map_voltage = regulator_map_voltage_linear,
-+	.get_voltage_sel = regulator_get_voltage_sel_regmap,
-+	.set_voltage_sel = regulator_set_voltage_sel_regmap,
-+};
-+
-+static int nex10000ub_of_parse_cb(struct device_node *np,
-+				  const struct regulator_desc *desc,
-+				  struct regulator_config *config)
-+{
-+	struct gpio_desc *ena_gpiod;
-+
-+	ena_gpiod = fwnode_gpiod_get_index(of_fwnode_handle(np), "enable", 0,
-+					   GPIOD_OUT_LOW, desc->name);
-+	if (IS_ERR(ena_gpiod))
-+		return PTR_ERR(ena_gpiod);
-+
-+	config->ena_gpiod = ena_gpiod;
-+
-+	return 0;
-+}
-+
-+#define NEX10000UB_REGULATOR_DESC(_id, _name)			\
-+	[NEX10000UB_REGULATOR_ID_##_id] = {			\
-+		.name = "nex10000ub-"#_name,			\
-+		.supply_name = "vin",				\
-+		.id = NEX10000UB_REGULATOR_ID_##_id,		\
-+		.of_match = of_match_ptr(#_name),		\
-+		.of_parse_cb = nex10000ub_of_parse_cb,		\
-+		.ops = &nex10000ub_regulator_ops,		\
-+		.n_voltages = NEX10000UB_VOUT_N_VOLTAGE,	\
-+		.min_uV = NEX10000UB_VOUT_VMIN,			\
-+		.uV_step = NEX10000UB_VOUT_STEP,		\
-+		.enable_time = 2000,				\
-+		.vsel_mask = NEX10000UB_VOUT_MASK,		\
-+		.vsel_reg = NEX10000UB_REG_##_id,		\
-+		.type = REGULATOR_VOLTAGE,			\
-+		.owner = THIS_MODULE,				\
-+	}
-+
-+static const struct regulator_desc nex10000_regs_desc[NEX10000UB_MAX_REGULATORS] = {
-+	NEX10000UB_REGULATOR_DESC(VPOS, vpos),
-+	NEX10000UB_REGULATOR_DESC(VNEG, vneg),
-+};
-+
-+static const struct regmap_config nex10000ub_regmap_config = {
-+	.reg_bits	= 8,
-+	.val_bits	= 8,
-+	.max_register	= NEX10000UB_REG_ID,
-+	.cache_type	= REGCACHE_NONE,
-+};
-+
-+static int nex10000ub_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct regmap *map;
-+	int id;
-+	int ret;
-+
-+	map = devm_regmap_init_i2c(client, &nex10000ub_regmap_config);
-+	if (IS_ERR(map)) {
-+		ret = PTR_ERR(map);
-+		dev_err(dev, "regmap init failed: %d\n", ret);
-+		return ret;
-+	}
-+
-+	for (id = 0; id < NEX10000UB_MAX_REGULATORS; ++id) {
-+		struct regulator_config config = { };
-+		struct regulator_dev *rdev;
-+
-+		config.regmap = map;
-+		config.dev = dev;
-+
-+		rdev = devm_regulator_register(dev, &nex10000_regs_desc[id],
-+					       &config);
-+		if (IS_ERR(rdev)) {
-+			ret = PTR_ERR(rdev);
-+			dev_err(dev, "regulator %s register failed: %d\n",
-+				nex10000_regs_desc[id].name, ret);
-+			return ret;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct i2c_device_id nex10000ub_id[] = {
-+	{ .name = "nex10000ub" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, nex10000ub_id);
-+
-+static const struct of_device_id __maybe_unused nex10000ub_of_match[] = {
-+	{ .compatible = "nexperia,nex10000ub" },
-+	{},
-+};
-+MODULE_DEVICE_TABLE(of, nex10000ub_of_match);
-+
-+static struct i2c_driver nex10000ub_i2c_driver = {
-+	.driver = {
-+		.name = "nex10000ub",
-+		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
-+		.of_match_table = of_match_ptr(nex10000ub_of_match),
-+	},
-+	.probe = nex10000ub_probe,
-+	.id_table = nex10000ub_id,
-+};
-+
-+module_i2c_driver(nex10000ub_i2c_driver);
-+
-+MODULE_DESCRIPTION("NEX10000UB regulator driver");
-+MODULE_AUTHOR("Neil Armstrong <neil.armstrong@linaro.org>");
-+MODULE_LICENSE("GPL");
+---
+Wangao Wang (5):
+      dt-bindings: media: qcom,sm8550-iris: Document Eliza IRIS accelerator
+      media: iris: Add support for Eliza
+      arm64: dts: qcom: eliza: Add iris video codec node
+      arm64: dts: qcom: eliza-mtp: Enable iris video codec
+      arm64: dts: qcom: eliza-evk: Enable iris video codec
 
+ .../bindings/media/qcom,sm8550-iris.yaml           |  2 +
+ arch/arm64/boot/dts/qcom/eliza-evk.dtsi            |  4 +
+ arch/arm64/boot/dts/qcom/eliza-mtp.dts             |  4 +
+ arch/arm64/boot/dts/qcom/eliza.dtsi                | 98 ++++++++++++++++++++++
+ .../platform/qcom/iris/iris_platform_common.h      |  1 +
+ .../media/platform/qcom/iris/iris_platform_vpu3x.c | 45 ++++++++++
+ drivers/media/platform/qcom/iris/iris_probe.c      |  4 +
+ 7 files changed, 158 insertions(+)
+---
+base-commit: 3f2425f5b5bbbdd991ca9cdfd5502e68d8895998
+change-id: 20260914-add_iris_for_eliza-cfa43039a976
+prerequisite-message-id: 20260914-vpu_iommu_iova_handling-v4-0-9b9074a73c41@oss.qualcomm.com
+prerequisite-patch-id: e1330b5a848460d14cd6574877fcf607d269d9a1
+prerequisite-patch-id: 20d099e89443a097b9ec5b297f0129d9874ca54b
+prerequisite-patch-id: 2a36ab03d78d8e9c19c900e203b05739a9fd1123
+prerequisite-patch-id: 9e326a273e052af2b63300dd20f2fd6cc78dd5ac
+prerequisite-patch-id: bb9ca73889bfca249029efb854fb1634a4360b5c
+prerequisite-patch-id: 9e71460e2d5f1e4e2993819f4d9fa27c076946f1
+prerequisite-patch-id: a2b127d41c7133ea30721a72eca01333334844f7
+prerequisite-patch-id: e34741f76b6919db19236ead27c966b789736e66
+prerequisite-patch-id: 359d24229ad496633892e70b1cf88c2d88dfad24
+prerequisite-patch-id: 6e2e9069cb620143aa305b7b29b8b1982dd0648b
+prerequisite-patch-id: 3e5fe6ef2271be5263a4bf7ffbd77b0996037b27
+prerequisite-patch-id: e051524017c9f39f8593fb9d2e982e6a4c39fb35
+prerequisite-patch-id: 1b4863f7a7f3a8390c825d76805e8e99de97a2a7
+
+Best regards,
 -- 
-2.34.1
+Wangao Wang <wangao.wang@oss.qualcomm.com>
 
