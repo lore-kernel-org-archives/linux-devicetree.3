@@ -1,92 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26EA34A261A;
-	Mon, 21 Sep 2026 14:01:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF91145198C
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 14:03:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789999299; cv=none; b=u9e1Rh8S3XMVInlwK1cGHID+5jehJqcCz/uhXbQN1Pfp4WX8LUc+t53ixkVST7BJtUvSqvDEO58cB05XDVCE6W3STKE4PHB2443x8m55pS8xHvZV1FX+snpJJpI8+tom+jIvWiKbphDc/l63OASi7BGw6d4sNzCqUwY4ZD7R8gM=
+	t=1789999439; cv=none; b=Y8Bl5D16EEZbxyCO5QsxbdjZAE3zkhrP/mYJafWuGCnsLrM7KqbfSFj0XlRIauXjXTu7yTueZfYi0U4NeKP5ZE3XMNcbu1z3EC4Cp83+ooPcEdmHIqS5otNt8sCpqKQv9c22fhGKAcRTKTRKFNd0zeWDQCOSn6in7wb1l3OUFDQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789999299; c=relaxed/simple;
-	bh=ndVjxm8TKIN1nfsjmkl9cnZNSgKhc4ofPbtvhzyMKw8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RlL+kcURk7emDrXwlCfszS14LhWNpRhzHUu29pJzy8XFffQZ5JGkAS//nG1OMqnEjHsYbKls2OveGMoq26ohMB1Ejj/t39CaKJ0o3AQo4IaQLTcuN5JmsJfDI5c59zKR8jj6eSsL1o8pXcPx2n5dn9XmgB7LW0zf+JOoxhWiC1g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WR3O9xtN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789999439; c=relaxed/simple;
+	bh=9yxDWeoXyET7im0vPGRIQQJr112zR1B+CrfA3+RIFIU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UdZYIjMnejXp0sK6YggU3/k097R6l/PtIV8KNhKN/qWe0oBPMeo4qGABS92SU3AXbWFYDrgrpxj61JRHCwiW+iwkXuDj5DpAEkjzXn/KMwLkrYllqkoeJrlkTIJrGrRKX1S4dgWDm4mfOTzVJnimy4lpyPSVeBvHx7Y2BBUTQSk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QAMZDbGf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WR3O9xtN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 929FC1F00893;
-	Mon, 21 Sep 2026 14:01:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QAMZDbGf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADD801F00899
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 14:03:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789999297;
-	bh=ndVjxm8TKIN1nfsjmkl9cnZNSgKhc4ofPbtvhzyMKw8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WR3O9xtN97cDw5OLYA/QFj+rHt1l/6xP9ixUtxbXtWT4WYrnd49yKQbJstWfsDx1R
-	 ANkgFva6ju34F1SqJtXXWxRgJE43aBen0aiN0G7iHZdexrvADdEnlHuVuAtEHrjWoO
-	 Gu5Its2U51ujt1gm+HdIQAIqK25YY8JP6b2uSZL1gqH4glP5Oy5XVq8jMIn8NyXy8O
-	 IRwPCMnR5QEGQD6F9WIHrpiZziPkD8iFKt4DdiXBqpQnutsb8fz2AIJYh6dN5xWp+6
-	 HotR1695hIBx43lcF3olm5Qsu4NGzPE56DaPv6FgqYeHACtsRrgVOqMhMIW/+shekE
-	 350Q3/RcIuPLQ==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 782431AC55A7; Mon, 21 Sep 2026 15:01:33 +0100 (BST)
-Date: Mon, 21 Sep 2026 16:01:33 +0200
-From: Mark Brown <broonie@kernel.org>
-To: Fei Xie <fei.xie@horizon.auto>
-Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
-	Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Parshuram Thombare <pthombar@cadence.com>,
-	linux-spi@vger.kernel.org, linux-mtd@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 1/4] dt-bindings: spi: cdns,xspi: add SPI NAND
- compatible
-Message-ID: <arE4vVKXS3epjgbL@sirena.co.uk>
-References: <20260921093701.1341766-1-fei.xie@horizon.auto>
- <20260921093701.1341766-2-fei.xie@horizon.auto>
+	s=k20260515; t=1789999437;
+	bh=Ds/j0lOmNgNcO3qKBdWYsVX1mHXVi4h0Q6BrQfEfK1k=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=QAMZDbGfazVrrAbAqk2H2IDn8bX6MqsogvVz7NjCI3aA7PjmwbakDHVrUSW7YL/xE
+	 IfELlwqp9rElU7H3VMOxoVKRLtWbfgrucLfxiCikFjrqTI0uZoouS/3OAyrNB04/A5
+	 J2oBZp/eVZuNPGDUIZNsPAVM5wbfx3WclsCnchndo6LGcQwUzXHf0HFTozpuxLpVyF
+	 RpK2iNsyA99qPqWJtGHvOyvBGqTVqQUcQf6GcHTVbA0aGjXBJN1mv0NCIpX2RnKSRo
+	 5OWinWrrbhwFs/088JNoQ+RWKtN9ibfusfjr6bHUWy3UUWvrtCZjHyZQD0QeeIJofR
+	 qrL9YlFUmMn1Q==
+Received: by mail-vs2-f12.google.com with SMTP id ada2fe7eead31-785643199baso1004621137.0
+        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 07:03:57 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwBcs6H8J0khs8AtN6F3wIze3PNdODpNqIP8Vdy/yWLFpjEoFlM5C0vE1Rl8N8AYa73maauhNkSxqMq@vger.kernel.org
+X-Gm-Message-State: AFuF++k6xKmoDR3JxY7kx0K9N0QGdh59LO1u0PgWwPQgE1/rrJTtK/9z
+	3zytkP46X861A4/Eo8xjOqNcWy2I7TzJlRL+Ivy7EXyLPlxxFmye3i+tJE7vsxkUmyuhQGMJCLC
+	4r6P2sihA8eZXzHTnpkmwsQm+PJQL2Rg=
+X-Received: by 2002:a05:6102:5714:b0:7a1:f7d2:e849 with SMTP id
+ ada2fe7eead31-7a55e1a6309mr4024862137.25.1789999436903; Mon, 21 Sep 2026
+ 07:03:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="WV5wcvrA5GFuPAS2"
-Content-Disposition: inline
-In-Reply-To: <20260921093701.1341766-2-fei.xie@horizon.auto>
-X-Cookie: Too clever is dumb.
-
-
---WV5wcvrA5GFuPAS2
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20260915072000.47367-2-krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260915072000.47367-2-krzysztof.kozlowski@oss.qualcomm.com>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Mon, 21 Sep 2026 22:03:39 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H6Q30Go9bTqxC6kZdCmRZbiC+4RjEdmvKd7FJe9brU0mw@mail.gmail.com>
+X-Gm-Features: AcwNN1XoVcahAhjvpratz48o_Y5tLuUmFVbC1pwuKID2bA2ggRg42Clk-YHmhT4
+Message-ID: <CAAhV-H6Q30Go9bTqxC6kZdCmRZbiC+4RjEdmvKd7FJe9brU0mw@mail.gmail.com>
+Subject: Re: [PATCH] LoongArch: dts: loongson-2k0500: Drop unsupported bus_id
+ in DWMAC
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, WANG Xuerui <kernel@xen0n.name>, devicetree@vger.kernel.org, 
+	loongarch@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 21, 2026 at 05:36:58PM +0800, Fei Xie wrote:
-> From: "fei.xie" <fei.xie@horizon.auto>
->=20
-> Document the Cadence XSPI controller compatible used with SPI NAND.
+Applied, thanks.
 
-Please submit patches using subject lines reflecting the style for the
-subsystem, this makes it easier for people to identify relevant patches.
-Look at what existing commits in the area you're changing are doing and
-make sure your subject lines visually resemble what they're doing.
-There's no need to resubmit to fix this alone.
+Huacai
 
---WV5wcvrA5GFuPAS2
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqxOLwACgkQJNaLcl1U
-h9BU7gf/T+vYkaqiUknFKroCfHq87SeL86xlWaFcSnDD2lsSJbsi4OUcn8O63RIK
-9jMqi2unojQsvmiRMjO4sNVL+TZk4V3KMbPkEI+jNJXGev7gnciJnAIwn+ao0m+q
-fGL8Ph7HjeYlKdOSN6DxoZa2dcZpFP8ea84JG9mh56VHre9KnbYwp5Cr87jHXATR
-9/uQ1VVBU5JdIrfQWEzpUlReBLNLiBzsXIP5Cyw+Sstm7SKdZzMSEEdowiex/+kl
-Dh09cwv3j1dacBovZZ/L+9pIyYb1CKHH8lRVVo3U/HoR7agbZoel+2nRR4gQHKZ4
-Owp0NKiLpoNMv48X8sfbNzZ/84Yc1A==
-=PwHT
------END PGP SIGNATURE-----
-
---WV5wcvrA5GFuPAS2--
+On Tue, Sep 15, 2026 at 3:20=E2=80=AFPM Krzysztof Kozlowski
+<krzysztof.kozlowski@oss.qualcomm.com> wrote:
+>
+> There is no "bus_id" property at all defined in the bindings and new DTS
+> is not allowed to bring undocumented properties.  Fix dtbs_check
+> warning:
+>
+>   loongson-2k0500-ref.dtb: ethernet@1f020000 (snps,dwmac-3.70a): bus_id: =
+b'\x00\x00\x00\x00' is not of type 'object', 'integer', 'array', 'boolean',=
+ 'null'
+>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> ---
+>  arch/loongarch/boot/dts/loongson-2k0500-ref.dts | 2 --
+>  1 file changed, 2 deletions(-)
+>
+> diff --git a/arch/loongarch/boot/dts/loongson-2k0500-ref.dts b/arch/loong=
+arch/boot/dts/loongson-2k0500-ref.dts
+> index 7ace54c84244..d2a3ed9fa578 100644
+> --- a/arch/loongarch/boot/dts/loongson-2k0500-ref.dts
+> +++ b/arch/loongarch/boot/dts/loongson-2k0500-ref.dts
+> @@ -73,14 +73,12 @@ &gmac0 {
+>         status =3D "okay";
+>
+>         phy-mode =3D "rgmii-id";
+> -       bus_id =3D <0x0>;
+>  };
+>
+>  &gmac1 {
+>         status =3D "okay";
+>
+>         phy-mode =3D "rgmii-id";
+> -       bus_id =3D <0x1>;
+>  };
+>
+>  &i2c0 {
+> --
+> 2.53.0
+>
