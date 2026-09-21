@@ -1,136 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C84513128AB;
-	Mon, 21 Sep 2026 01:51:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0A072D8378
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 01:56:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789955468; cv=none; b=CbQK24/SkKTqN0PdsbKjzV+gtJCF94OpTxcgcKHu+N8qbAfc6mmE+h7bzBljjwQLhQNhwAwTzU+3oer2sMC5JfoQzW0VZZIUK+GkjZnOIbZnT/IOvNSa+z92LOvyEe22/85sMScRLfpicDNPmLNqdznpQwwjZdaixpHa4vS+Keg=
+	t=1789955798; cv=none; b=X8b+QVrWerYOPnDjLcJn1YeuVMbN+byax950Dq6KiSH1Law6Etrw8H9SvAbjrAzWANmoICjfm1UIqachQYPPBgX842Xv8AYxcZONNVUhlFX7yVOMXiHsFKP/F0bPddzM53G81LDtFiiMJzMNuXFxyMPGFy4TswNRO6cPpy1ql4A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789955468; c=relaxed/simple;
-	bh=kQr1EzOJpH0kD99pcMQ3mEQS+8wfTD3X+BdzjpA4D00=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=aV9/ZPakAQH+mJxTqpFXY19uCspRyuHSrMGlIA68xo35MbBchys+3+vchmHoVOXI/XOA4UNdEhchSlz4yjadDf5H2146/h2JZb3IRS0DT8OQ1ChXkVUUfoPVEDAIsO8Spd9/SF2+3sugLjOMu0mF9WzMgHMqaegrbj9/FsbL4AA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ApFX2cTc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789955798; c=relaxed/simple;
+	bh=kR0GFGBHG6d5S7FTgGsGIl7eHACpc/mLsls1x89xBFQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kxIqTuFzW0GvuyCgkB3GFXjf4jBr1tFSI7/pwK7J7Gf5MOztNUs8mRHh8iR7we7jy6CESOh9HBW6DNBiJJOuRGTDg6631YuNQyWsthYFNGOiRUwgjDk+Z2q37efLxl96bw8irapBRGugggBgSaD2otxz6Rp6Kzt5vJrSN4K0EXA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qvP/S9Cw; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ApFX2cTc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 023A81F000FF;
-	Mon, 21 Sep 2026 01:51:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789955467;
-	bh=tts3F4rct/Y5UM/3ZWSgRuG3ISsgLtpEch8hR8uAh10=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=ApFX2cTcLUsp/okeGvfKrackxG3vAzw2ngJ7J44EbguMUOy1H+k+tshRvH57gVwSs
-	 UYYIaL/p8RGFVKrIKYP+telLTQVrGXm5FubHxfiuRiWtmRARcJ20Ut+mQ1IxaEjKlA
-	 IjYzMGw1ImbrqpcRzkAL2fZ2sm0ArvfrYaSmb9+DSysSSH9Jo31Q+olN8ykLDzakuM
-	 XXH8nbgAImACDjdbsNkrSrhsNJndtqkI1W/epiGAWt+HwwlFy/5Y+gYpcFBVqWOp5a
-	 9TrzbJXK4WhAAoH67daajWmCmfbZVXjqUFmde6d5A4C/7cXFqtE4WUxTW2wRX2EAiK
-	 Bd2VppVDd6iYA==
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qvP/S9Cw"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccda24a3so1828715a91.0
+        for <devicetree@vger.kernel.org>; Sun, 20 Sep 2026 18:56:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789955797; x=1790560597; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9iPlkY3CknuAFyY3M8TOGdUAXhGOxVAJ6BaVRsWDl0M=;
+        b=qvP/S9CwRmx9NmbCSqKy2UpBsxzkdH76BBDcmnb/b8AnZ2mO95O/BFxrlxJmWAqP4n
+         ZzYjJdh2ebGOPoB3L+dODBsOZhRWfRmQMXWaeL/damJKRdZkdrpe/XJlH3Bdw125fquf
+         /gYVeJBRRwIFCevU+A/oAZWRVdexSRDUz4/B9pSBHhv9Ufz7mRTKYR1g6aOZoT0JvxJ4
+         xb8iBBywMxFEJj8xiUI7XR9AIVLha3C66k/bEZmWBC8Hokd8fG2Icf2aknM35Oa0Fbay
+         JZ1yHUNuYaNLlrdIMY4kXJtublD0u/OYbeaJSDYh5kFlaWT8W1q2LVnNjcndLS9Pvvhm
+         p5Tw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789955797; x=1790560597;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9iPlkY3CknuAFyY3M8TOGdUAXhGOxVAJ6BaVRsWDl0M=;
+        b=LCYKL5RrXYAFqbFnuYaqMSWxkpFGZBmaORaSlJOSC0SPZK7LaEqWWAwpycMGR1Z22+
+         EkD+RLEEkXqQ0mPFxugalhGRemAz2yqjJBc1qs01uDNnOE8oWOjQw/1OyF3MeyQUrb+r
+         nUE8V47uwDjGzRYEhf0YR6a2IcCIYlPr/pJg4WlSyhibxJtMYtwSuowXqhY/PeLJY4u1
+         Zrkfm6e2XRS1kvK/15AIENS1KLOxUrPSGVjcXtQ5HfKnzCaJgh2xHYVMyv8Gw6wNYyh3
+         hp07efOEEsaa0+R+RDAH51Vz54ZG8wFavVn/epa70i69dTSaaZB59BH4mBn8zE9YeuUp
+         623A==
+X-Gm-Message-State: AFuF++kYzZZYbCrVuOVY0eYyBGUpHn2lnCpHy01496340Ri0HgxbEda+
+	Rs88JtS4j30XF46rtGAHMuYtN9eqlnhqpyWvBX9bHtOdhnRazQvBerAgtXqnvQ==
+X-Gm-Gg: AYBFou33roNVrwS8FFG/+WrDrmiksa1i1hKvOIfRkvPIaeL3IB8VrMjcqfk1K1TqMej
+	IWZhx+P2ER+MY7BxNq1cKPyHqVxy6FodbxxuH7xrj8uRrNEZxDYNRTP5mnNEyD/9Wh/6Dx8PvfX
+	o+hdJoUWihA11gcAJHwaDgCIlCxR0BtsQ4mqOzJq3POJW3hKpzdhwVcG8DRG9eeQ736AbbUcyFc
+	OiiycQzBVmygFEd8N+Klumxs2aOYHwdpm06cPq6QGE9zzP8zkZQXQlWf7ayt0rLYv2LCMjK6hVo
+	1nRbKhnb3kU9AJRRtTaZkvFeqWpcIZ826lN4/dCoqfsERpzP1/HWM65OxPlSsc7MSdPpTJ2G5xD
+	98tGS4HhnNwj6Rofp/PQAetIMfy/0lkkNk2XsbBIcZS7CxJxSHpC+t6dzR1OchG6i2csSaSm4qv
+	8FSuBDK7LCj/wU8tw+oJDZqahlugTEeKbTcNOyN308G3/mcaaYkRH77PSpNuqT94SegSVPEUOeC
+	t+ToKuhVkPa3SoV5zR/fadKKl0+aGP1myGkhwsLGggFuyEjN8lOt2O1oI/tNv83ArfolNyDbi43
+	U42JCraEDjIadmwYefdQajvOdKlmFCwkT6NaHi4nzJom28GZu65dmi+JfcE=
+X-Received: by 2002:a17:90a:d2ce:b0:3a0:42a8:b357 with SMTP id 98e67ed59e1d1-3a042a8b394mr2631643a91.4.1789955796847;
+        Sun, 20 Sep 2026 18:56:36 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a041b87bfesm4094223a91.3.2026.09.20.18.56.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Sep 2026 18:56:36 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: devicetree@vger.kernel.org
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ray Jui <rjui@broadcom.com>,
+	Scott Branden <sbranden@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	linux-arm-kernel@lists.infradead.org (moderated list:BROADCOM IPROC ARM ARCHITECTURE),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] ARM: dts: broadcom: rename pl330 DMA nodes to dma-controller
+Date: Sun, 20 Sep 2026 18:56:34 -0700
+Message-ID: <20260921015634.1044454-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2 14/15] iio: adc: ad4134: Support high-speed data
- capture
-From: Jonathan Cameron <jic23@kernel.org>
-To: Marcelo Schmitt <marcelo.schmitt@analog.com>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux@analog.com, jic23@kernel.org, 
- nuno.sa@analog.com, dlechner@baylibre.com, andy@kernel.org, 
- Michael.Hennerich@analog.com, robh@kernel.org, krzk+dt@kernel.org, 
- conor+dt@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org, 
- marcelo.schmitt1@gmail.com
-In-Reply-To: <0bf6ca5c7ac264b90429efb2009574db0d0e3315.1789494473.git.marcelo.schmitt@analog.com>
-References: <cover.1789494473.git.marcelo.schmitt@analog.com>
- <0bf6ca5c7ac264b90429efb2009574db0d0e3315.1789494473.git.marcelo.schmitt@analog.com>
-Date: Mon, 21 Sep 2026 02:50:45 +0100
-Message-Id: <178995544508.955708.9260547168625494950.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2085;
- i=jonathan.cameron@oss.qualcomm.com; h=from:subject:message-id;
- bh=kQr1EzOJpH0kD99pcMQ3mEQS+8wfTD3X+BdzjpA4D00=;
- b=owEBfwKA/ZANAwAKAVSFNJnE9BaIAcsmYgBqsI2FArKiPVUQ7fZF61tuUVGVabOhLUOM+JZd3
- cFQM45xkzmJAkUEAAEKAC8WIQRuKWazh4QGUpEmgbFUhTSZxPQWiAUCarCNhREcamljMjNAa2Vy
- bmVsLm9yZwAKCRBUhTSZxPQWiCT/D/0d6jIeWkcC2Rt5DsWpbXBRed8GumyZ6GnAWRb43XxziMf
- gWmHDkWZycHr/uR3KOXgxqrskClA9wroq9KMXaof1KhcrMcMQ2gmyLqqGOW956MaZeRfpWBFJr4
- RSK2YgcVo8ueifQgyluNxvCvy2iY8oR9ap7QWMBAxc5JUy/enPo/BdRaoGKM2b9LjINlycw9Os5
- 8OAgSl842N64cxKgpiX9BmDmKHpnh+dwNBLrxLKWpkFZATtuErw/Ny6awsMmXc2EpQxanTjq8op
- vOfKswFhaXQBXqBFbVMszHqRzWRE/uQ8tYs5Hx1/yQUSIRMbAxhG+ewcm3dxjON/fwfhGbsjNdz
- 9zTDRP/HggY0B08LyCiTHgAeE8EUVvys82WeMYPufhUyMe6KwbFj1fKI4vG547S73d+3eIWY9lA
- Z6hebWrCjv2vsd2ONAZmeozb/DY2T202tAYomH9sCW1zl7w3GnRh6Fp3tANC17snHgF6eHSIGEQ
- zNrtm2URkeiqTW5FoD3/V2Y35QmWXE0iErOiHWTQ3zn+nxXU1mKiPrXXuu1/i50eAau89Wa62oT
- yp1PnyW90BgTcUbNA+f/jvJepqBBJffWG9eiHOM14PHJorCfTg70ASSVyirDrTQfjBDpZDU8ADD
- 7Tjmiq6GTiwMCmlgQhBhew1oihoRmeRKUpmUvXA==
-X-Developer-Key: i=jonathan.cameron@oss.qualcomm.com; a=openpgp;
- fpr=6E2966B387840652912681B154853499C4F41688
+Content-Transfer-Encoding: 8bit
 
-> Make use of SPI transfer offloading to speed up data capture, enabling data
-> acquisition at faster sample rates (up to 1.496 MSPS).
-> 
-> Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
+Each PL330 device node in the Cygnus, HR2, and Northstar Plus dtsi files
+was named dma or dma@<addr>, which does not follow the generic
+recommended node name for DMA controllers (dma-controller).
 
-A lot of sashiko feedback so I only took a cursory look.
-Please address all that (or point out why it is wrong!)
+Rename them accordingly. The phandle labels (dma0/dma) are preserved,
+so existing references via &dma keep working.
 
-Jonathan
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ arch/arm/boot/dts/broadcom/bcm-cygnus.dtsi | 2 +-
+ arch/arm/boot/dts/broadcom/bcm-hr2.dtsi    | 2 +-
+ arch/arm/boot/dts/broadcom/bcm-nsp.dtsi    | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-> diff --git a/drivers/iio/adc/ad4134.c b/drivers/iio/adc/ad4134.c
-> index cc6bc325f6ee..94d979c61501 100644
-> --- a/drivers/iio/adc/ad4134.c
-> +++ b/drivers/iio/adc/ad4134.c
-
-
-...
-
-> +static int ad4134_offload_setup(struct iio_dev *indio_dev, struct ad4134_state *st)
-> +{
-> +	struct device *dev = &st->spi->dev;
-> +	int ret;
-> +
-> +	ret = ad4134_pwm_get(st);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = ad4134_offload_buffer_setup(indio_dev, st->spi);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/*
-> +	 * Start with a sampling rate slower than 374 kSPS because that is the
-> +	 * maximum rate supported with wideband filter (default on power up).
-> +	 */
-> +	st->odr_hz = 250 * HZ_PER_KHZ;
-> +	ret = ad4134_update_conversion_rate(st, st->odr_hz);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to set sampling freq\n");
-> +
-> +	indio_dev->setup_ops = &ad4134_offload_buffer_setup_ops;
-> +	indio_dev->available_scan_masks = ad4134_scan_masks;
-> +
-> +	switch (st->spi->num_rx_lanes) {
-> +	case 1:
-> +		return regmap_update_bits(st->regmap, AD4134_DIG_IF_CFG_REG,
-> +					  AD4134_DIF_IF_CFG_FORMAT_MASK,
-> +					  FIELD_PREP(AD4134_DIF_IF_CFG_FORMAT_MASK,
-> +						     AD4134_DATA_FORMAT_SINGLE_CH_MODE));
-> +	case 4:
-> +		return regmap_update_bits(st->regmap, AD4134_DIG_IF_CFG_REG,
-> +					  AD4134_DIF_IF_CFG_FORMAT_MASK,
-> +					  FIELD_PREP(AD4134_DIF_IF_CFG_FORMAT_MASK,
-> +						     AD4134_DATA_FORMAT_QUAD_CH_PARALLEL));
-> +	default:
-> +		return dev_err_probe(dev, -EINVAL,
-> +			"unsupported number of spi-rx-bus-width elements: %d\n",
-> +			st->spi->num_rx_lanes);
-> +	}
-> +
-> +	return 0;
-
-Unreachable code so drop it.
-
+diff --git a/arch/arm/boot/dts/broadcom/bcm-cygnus.dtsi b/arch/arm/boot/dts/broadcom/bcm-cygnus.dtsi
+index 07ca0d993c9f..a017e46fd78f 100644
+--- a/arch/arm/boot/dts/broadcom/bcm-cygnus.dtsi
++++ b/arch/arm/boot/dts/broadcom/bcm-cygnus.dtsi
+@@ -331,7 +331,7 @@ msi1: msi {
+ 			};
+ 		};
+ 
+-		dma0: dma@18018000 {
++		dma0: dma-controller@18018000 {
+ 			compatible = "arm,pl330", "arm,primecell";
+ 			reg = <0x18018000 0x1000>;
+ 			interrupts = <GIC_SPI 52 IRQ_TYPE_LEVEL_HIGH>,
+diff --git a/arch/arm/boot/dts/broadcom/bcm-hr2.dtsi b/arch/arm/boot/dts/broadcom/bcm-hr2.dtsi
+index 75545b10ef2f..13bc358adcfe 100644
+--- a/arch/arm/boot/dts/broadcom/bcm-hr2.dtsi
++++ b/arch/arm/boot/dts/broadcom/bcm-hr2.dtsi
+@@ -154,7 +154,7 @@ uart1: serial@400 {
+ 			status = "disabled";
+ 		};
+ 
+-		dma@20000 {
++		dma-controller@20000 {
+ 			compatible = "arm,pl330", "arm,primecell";
+ 			reg = <0x20000 0x1000>;
+ 			interrupts = <GIC_SPI 47 IRQ_TYPE_LEVEL_HIGH>,
+diff --git a/arch/arm/boot/dts/broadcom/bcm-nsp.dtsi b/arch/arm/boot/dts/broadcom/bcm-nsp.dtsi
+index 6a4482c93167..5f14cd3ce211 100644
+--- a/arch/arm/boot/dts/broadcom/bcm-nsp.dtsi
++++ b/arch/arm/boot/dts/broadcom/bcm-nsp.dtsi
+@@ -201,7 +201,7 @@ uart1: serial@400 {
+ 			status = "disabled";
+ 		};
+ 
+-		dma: dma@20000 {
++		dma: dma-controller@20000 {
+ 			compatible = "arm,pl330", "arm,primecell";
+ 			reg = <0x20000 0x1000>;
+ 			interrupts = <GIC_SPI 47 IRQ_TYPE_LEVEL_HIGH>,
 -- 
-Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+2.55.0
+
