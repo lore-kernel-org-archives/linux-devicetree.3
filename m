@@ -1,210 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED0472DC783;
-	Mon, 21 Sep 2026 14:52:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31CB04A0128
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 14:53:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790002326; cv=none; b=ZJBksMoa7p4+w+IebOkWyfaAu84AC4IUkkQGL8mKJbOUcNTBx5v/YHCwlaDhnQahVCak38hxb2S0KMvnBmWRQlyC4ul6/oDmCNRUkIbP83hpKLs2rB86+Fek4ji2jfViDwtxHe4kBmY3r+1a+iUBpVR5QMwgQYIEbHZGno1KQMk=
+	t=1790002420; cv=none; b=ndsp80ipCBL5iK0ymhbqb2tBBOe931VhGeyYbqWn9GtpIb3uEECQZb+js/+lgIgTrobAgGzVNhilbrPrJmdmQNtHsPB+aqQ8h8wqW2hIbdQGmw0WWXJjCgCiVhTxTJoDpOYw0sPG4xnNIWCDjzwi3J1hq11UgHEzIcnQYCH9rHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790002326; c=relaxed/simple;
-	bh=Lv0rCi1IVYqOe6nHWc43dTnfrHk4bD7+ZA8Q8tANp3w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rHHVXR4qhx0+w09FHGXVjBkQdQLCLntHYDBAF8RWtfmu7t6fKuKRgW5XJDTWMlMbJCPE6CrcqqPr/nhbzXe5IKRN1A95WUPSMBfUg3ML9MZiWkKRI2ym0whLasVxQsO83OIdWwALoNkHM+bnjq8KE8898NaGRBxI2pxIXxsptOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nTIaEWTO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790002420; c=relaxed/simple;
+	bh=s21KYmbWMUL5+lM0jS/uNX199WycDfBZtk7pUPTs4c4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=q5nhkhn525UGuj6wMt9VFaLzFc5ilfZDWeBLaK6AW8C+OkfR3nVtUob9aLTe0iidqBNoFORDm61HxzCytYDrcfsrQrg3QEvaBGmQyN9rvvh+//XPj+kkin2j6QvWK4TkIl8KzOXLdCTswgUnQZ4s6n7IXUI/R4YVUD7iJui5nVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=xsPtNmpM; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nTIaEWTO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B16451F000FF;
-	Mon, 21 Sep 2026 14:52:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790002324;
-	bh=iBzaDTFhCv8gByiggXKs3p0z6UUKmnCA/sXWzByV9wk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nTIaEWTOjTNWT59X5i/DxMipgg1LluTThVc0M6j+BJ+Li+8rHMbYlh9jdUVTttRU1
-	 fCRV4VKl1H9rZf4Iz7x0jKN7jMx8sfKR4bZhRmexU6t5d5LsYTEfQFoT0809QntJod
-	 HMOsTmd+58OOp4TcHZBt0Vpat1oD/ZnO3zoYv+aqRohnXDPa+FRAd2psKG/6QR3Ij7
-	 AVO4xQIGWG7uEO/1Z98/nYGtBCO1Qe0bLbziRCyrETYnuug1KULsguhszERDmNJJtU
-	 82ICOcgrOtwZdFgfrR784D4liSnYh/GfztC+IsrAUPZ6UDPMChzc8mK3bIOhlzGRe7
-	 f2x858rK/gEhA==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 7836D1AC55A7; Mon, 21 Sep 2026 15:51:59 +0100 (BST)
-Date: Mon, 21 Sep 2026 16:51:59 +0200
-From: Mark Brown <broonie@kernel.org>
-To: Fei Xie <fei.xie@horizon.auto>
-Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
-	Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="xsPtNmpM"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 4ABEEC5CD64;
+	Mon, 21 Sep 2026 14:54:21 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id F20FC5FFB2;
+	Mon, 21 Sep 2026 14:53:34 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0445B1032906F;
+	Mon, 21 Sep 2026 16:53:25 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790002410; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=YIrNPxWdOhK7e8TNUkyAnoQLyi/9GZU5lkXMuOGGMWQ=;
+	b=xsPtNmpMVxHhJ7js+nP2TN/lhzAYZ0kCrnLmIsun0//rxysuJMH15+oSxIEgI7o4NWYHNA
+	//pUIoUXKhbzvJMKzMRzLmz8K13XnFglr11OYUY4KoY1vyCOBHupL4mdW6FzMActyBEBI2
+	myZ1+kFFhvtyoVYCPPx6bo1TL1y5pANBgkz+pK9g1UcRbW0C9ELbsa8lVPi3Ra8vygwoW1
+	+Blxpa7RO4+g/96ReTYyFnVWcxG9CmukRgILVx/YpXk1gX8KDsz5YRyJQxxqxkqbqGh1JC
+	42KH0S22XbpiYjLkKrYLBostPT+xpNECMXjYF5pNKZBsGVCPl7XAVhiKSMK+4w==
+From: "Richard Genoud (TI)" <richard.genoud@bootlin.com>
+To: Nishanth Menon <nm@ti.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>
+Cc: Tero Kristo <kristo@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Parshuram Thombare <pthombar@cadence.com>,
-	linux-spi@vger.kernel.org, linux-mtd@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 2/4] spi: cadence-xspi: add ACMD support for SPI NAND
-Message-ID: <arFEjzkHGMbecWWV@sirena.co.uk>
-References: <20260921093701.1341766-1-fei.xie@horizon.auto>
- <20260921093701.1341766-3-fei.xie@horizon.auto>
+	Udit Kumar <u-kumar1@ti.com>,
+	Abhash Kumar <a-kumar2@ti.com>,
+	Beleswar Padhi <b-padhi@ti.com>,
+	Thomas Richard <thomas.richard@bootlin.com>,
+	Gregory CLEMENT <gregory.clement@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Richard Genoud <richard.genoud@bootlin.com>
+Subject: [PATCH v4 0/7] dts: ti: k3-j7: Reserve memory for LPM metadata
+Date: Mon, 21 Sep 2026 16:53:18 +0200
+Message-ID: <20260921145325.300025-1-richard.genoud@bootlin.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="8lF6WnBuWqq8JydY"
-Content-Disposition: inline
-In-Reply-To: <20260921093701.1341766-3-fei.xie@horizon.auto>
-X-Cookie: Too clever is dumb.
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
+
+For TI Jacinto SoCs (J7200, J721S2, J784S4, J722S, J742S2) which support
+low power modes, a chunk of memory is reserved for LPM metadata, needed
+for saving ATF context and the certificate information of ATF and OPTEE
+and the DM image. This LPM metadata area is firewalled to be accessed
+only by TIFS.
+
+At boot time, U-Boot R5 SPL copies the DM image into this memory region
+so that it doesn't have to be reloaded from storage at resume, speeding
+up the resume time.
+
+U-Boot R5 SPL/TIFS use this area to save and restore:
+- ATF context
+- ATF certificate information
+- OPTEE certificate information
+- DM image
+
+https://software-dl.ti.com/tisci/esd/latest/2_tisci_msgs/pm/lpm.html#lpm-msg-lpm-save-addr
+
+NB: Unlike for Sitara, this memory region is not part of the DM memory,
+which is not retained across suspend, so the Sitara binding can't be
+re-used here.
+
+Patch 1 adds a new binding for this layout.
+Patch 2 skips the firewalled lpm-metadata memory region
+The other patches add the memory region for the TI Jacinto SoCs (J7200,
+J721S2, J784S4, J722S, J742S2)
+
+Changes since v3:
+- rebase on v7.3-rc4
+- skip mapping the firewalled lpm-metadata memory region
+Link to v3: https://lore.kernel.org/lkml/20260703143717.177362-1-richard.genoud@bootlin.com/
+
+Changes since v2:
+- Split the DTS changes per ipc-firmware.dtsi
+- Reference the LPM carveout through a phandle
+- Add a dt-bindings patch documenting the "lpm-metadata" memory-region
+  name for the Jacinto layout.
+- Use the generic @memory node naming instead of @lpm-memory.
+- Clarify how the DM image is handled
+Link to v2: https://lore.kernel.org/lkml/20260427160326.370415-1-richard.genoud@bootlin.com/
+
+Changes since v1:
+- add specific lpm region for j742s2 and j784s4 instead of the common
+  one since the addresses are not the same.
+- add j721s2 lpm_memory_region
+- change j722s addresse to prevent holes
+Link to v1: https://lore.kernel.org/lkml/20260312113446.1857592-1-p-mantena@ti.com/
+
+Richard Genoud (TI) (7):
+  dt-bindings: remoteproc: k3-r5f: Add Jacinto LPM memory region
+  remoteproc: k3: skip mapping firewalled lpm-metadata memory region
+  arm64: dts: ti: k3-j7200-ti-ipc-firmware: Reserve memory for LPM
+    metadata
+  arm64: dts: ti: k3-j721s2-ti-ipc-firmware: Reserve memory for LPM
+    metadata
+  arm64: dts: ti: k3-j784s4-ti-ipc-firmware: Reserve memory for LPM
+    metadata
+  arm64: dts: ti: k3-j722s-ti-ipc-firmware: Reserve memory for LPM
+    metadata
+  arm64: dts: ti: k3-j742s2-ti-ipc-firmware: Reserve memory for LPM
+    metadata
+
+ .../bindings/remoteproc/ti,k3-r5f-rproc.yaml  | 18 ++++++++--
+ .../boot/dts/ti/k3-j7200-ti-ipc-firmware.dtsi | 12 +++++--
+ .../dts/ti/k3-j721s2-ti-ipc-firmware.dtsi     | 12 +++++--
+ .../boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi | 12 +++++--
+ arch/arm64/boot/dts/ti/k3-j742s2-evm.dts      |  2 ++
+ .../dts/ti/k3-j742s2-ti-ipc-firmware.dtsi     | 24 +++++++++++++
+ .../dts/ti/k3-j784s4-ti-ipc-firmware.dtsi     | 15 ++++++++
+ drivers/remoteproc/ti_k3_common.c             | 36 +++++++++++++------
+ 8 files changed, 111 insertions(+), 20 deletions(-)
+ create mode 100644 arch/arm64/boot/dts/ti/k3-j742s2-ti-ipc-firmware.dtsi
 
 
---8lF6WnBuWqq8JydY
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Mon, Sep 21, 2026 at 05:36:59PM +0800, Fei Xie wrote:
-
-> Add PIO master-DMA support for the controller auto-command mode.
-> Configure the SPI NAND read, program, erase, status and reset
-> sequences, retaining STIG for operations not consumed by ACMD.
-
-> +struct cdns_xspi_acmd_info {
-> +	u64 row_addr;
-> +	u64 column_addr;
-> +	size_t data_nbytes;
-> +	bool row_addr_valid;
-> +	bool initialized;
-> +};
->  struct cdns_xspi_dev {
-
-Missing blank line.
-
-> +static void cdns_xspi_nand_erase_seq_init(struct cdns_xspi_dev *cdns_xspi,
-> +					  struct spinand_device *spinand)
-> +{
-> +	u32 erase_seq_cfg0;
-> +	u32 erase_seq_cfg1;
-> +
-> +	/* SPI-NAND block erase is always D8h with a 3-byte row address. */
-> +	erase_seq_cfg0 =
-> +		FIELD_PREP(CDNS_XSPI_ERSS_SEQ_P1_CMD_VAL, 0xd8) |
-
-CDNS_XSPI_NAND_OP_BLOCK_ERASE.
-
-> +static int cdns_xspi_nand_init(struct cdns_xspi_dev *cdns_xspi,
-> +			       struct spinand_device *spinand)
-> +{
-
-How much of this initialisation is parameters based on the specific
-flash passed in - what if there are two different flashes attached to
-the same controller for some reason?
-
-> +	cdns_xspi->dma_buf_len = spinand->base.memorg.pagesize +
-> +				 spinand->base.memorg.oobsize;
-> +	cdns_xspi->dma_buf = dmam_alloc_coherent(cdns_xspi->dev,
-> +						 cdns_xspi->dma_buf_len,
-> +						 &cdns_xspi->dma_addr,
-> +						 GFP_KERNEL);
-> +	if (!cdns_xspi->dma_buf)
-> +		return -ENOMEM;
-
-Why do we need the DMA buffer, I'd expect whatever reaches the driver to
-already be DMA safe?
-
-> +static int cdns_xspi_acmd_run(struct cdns_xspi_dev *cdns_xspi, u32 cmd_regs[6],
-> +			      u32 thread)
-> +{
-> +	unsigned long timeout;
-> +	int ret;
-> +
-> +	cdns_xspi_set_mode_acmd(cdns_xspi);
-> +	reinit_completion(&cdns_xspi->auto_cmd_complete);
-> +	cdns_xspi_set_interrupts(cdns_xspi, true);
-
-We have the set_interrupts() operation.
-
-> +	cdns_xspi_trigger_command(cdns_xspi, cmd_regs);
-> +
-> +	timeout = msecs_to_jiffies(CDNS_XSPI_ACMD_TIMEOUT_MS);
-> +	if (!wait_for_completion_timeout(&cdns_xspi->auto_cmd_complete,
-> +					 timeout)) {
-> +		dev_err(cdns_xspi->dev, "ACMD command timed out\n");
-> +		ret = -ETIMEDOUT;
-
-Don't we need to clean up the hardware if this times out?
-
-> +	} else {
-> +		ret = cdns_xspi_acmd_get_thread_status(cdns_xspi, thread);
-> +	}
-
-Does this need any updates to cover more error types?
-
-> +static int cdns_xspi_pio_mdma_read(struct cdns_xspi_dev *cdns_xspi,
-> +				   struct spinand_device *spinand,
-> +				   const struct spi_mem_op *op)
-> +{
-
-> +	ret = cdns_xspi_acmd_run(cdns_xspi, cmd_regs,
-> +				 CDNS_XSPI_ACMD_DATA_THREAD);
-> +	if (ret) {
-> +		dev_err(cdns_xspi->dev, "ACMD read failed: %d\n", ret);
-> +		goto out_clear_read_state;
-> +	}
-> +
-> +	memcpy(op->data.buf.in, cdns_xspi->dma_buf, op->data.nbytes);
-> +
-> +out_clear_read_state:
-> +	cdns_xspi->acmd_info.row_addr_valid = false;
-> +	cdns_xspi->acmd_info.row_addr = 0;
-> +	return ret;
-> +}
-
-Does this do the right thing for short reads?
-
-> +static int cdns_xspi_send_pio_command(struct cdns_xspi_dev *cdns_xspi,
-> +				      struct spi_mem *mem,
-> +				      const struct spi_mem_op *op)
-> +{
-> +	struct spinand_device *spinand;
-> +	const struct spi_mem_op *read_cache;
-> +	const struct spi_mem_op *write_cache;
-> +	const struct spi_mem_op *update_cache;
-> +	int ret;
-> +
-> +	if (cdns_xspi->flash_type != CDNS_XSPI_FLASH_TYPE_NAND)
-> +		goto use_stig;
-> +
-> +	spinand = spi_mem_get_drvdata(mem);
-
-This appears to be peering into the child's driver data without any
-checking that the child is what we expect, this could go horribly wrong.
-
-> +	case CDNS_XSPI_NAND_OP_GET_FEATURE:
-> +		if (op->addr.val != CDNS_XSPI_NAND_STATUS_REG ||
-> +		    !cdns_xspi->acmd_info.row_addr_valid)
-> +			break;
-> +
-> +		if (op->data.dir != SPI_MEM_DATA_IN || !op->data.nbytes ||
-> +		    !op->data.buf.in)
-> +			return -EINVAL;
-> +
-> +		memset(op->data.buf.in, 0, op->data.nbytes);
-> +		return 0;
-
-Are you sure the zeroing makes sense here, for example with ECC?
-
---8lF6WnBuWqq8JydY
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqxRI4ACgkQJNaLcl1U
-h9B9kQgAgexg4UroYbNqfnTx77dWvyfvZfAkOgGsSxorVl+++uS5zUEC4KFHAcv8
-nkJ+48LXafFUvcS296w9kMf9fYlUgGnOis3kaVXPnjAmJQpf0ESIFMKWc/++sLNT
-aDJxu/DmvkttnSswRXN87rtxXInLpPPXRSXHAc66nPGaa3aq9Uq0iZ9+N9wQfsP9
-yfWJOixMNrFRApiIEMTqvasq+M7YLwTSjbu/aQDQsAflsw0mSqkKuJ6OrqAlJ6EA
-bc7+75b0oBYOr6fiMqUvqlTGV3t1hPVRw1VkavKiRlBz3W9WqX0E4CTy2PEvPyAX
-FrTYRxC4hJK8kkYTmvxPlBNeHszLAw==
-=Mpw7
------END PGP SIGNATURE-----
-
---8lF6WnBuWqq8JydY--
+base-commit: 93f51579e7df248780214094418f205253383cc5
