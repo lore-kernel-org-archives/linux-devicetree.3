@@ -1,107 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net [217.70.183.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91C764908CB;
-	Mon, 21 Sep 2026 15:27:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FACD1C84A2;
+	Mon, 21 Sep 2026 15:31:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790004458; cv=none; b=OgcVMdU5POH8OybBIyekWFFDrYuaCOXZJjSYxAfVsY/Z6GGKzf2GzalN9ewthqK2PWdyFz4pdbpFREzib254EJk6ZbOSIjJeJmNkctNFetK2K6ak1y65SEp4Yt1K+aVolt7181CTeC18F4gtrauOZNaOTdX5+5L5u+yBT5HKDJw=
+	t=1790004679; cv=none; b=W0E6VuCUl0A8eeY5ON177fj06KJwISkms8Sdu9f1psjtY3U4HGzX1rtbjhBxLOyDDkpgq90VyaXtCLtpVHkYpQASAHKfStogd/q8hhcjiat2qCCorv3KGQEENYmTUuDONtOKBpp5I3m4rsAQpM/iXETrmMbM1VJb9aqgj4dHkRo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790004458; c=relaxed/simple;
-	bh=KJL6qrJEYWDTW06lL7uDWewZqJ12jjgFwJH9pMNPMEc=;
+	s=arc-20240116; t=1790004679; c=relaxed/simple;
+	bh=JBxZa7ECxemIyq8dlOwFYNpgISRTtG32z9tiXkMyBGI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=N1DPj1vjkvSvwQ3gWEwT10LVarcdWa8xuaYO/ILrge4GE1Lyp+EtSsolY7jnX+3rSPOKpRq28YxEiJqVkd+G9ZiERUE12kJeXQtYgrv0QyNhBTXJcAZ1zoTaniB9HWT0mpPKbmgfIKS88Iii4++7RI0VO0u1OL7tdduIOYg1JfQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=clldXVd1; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=DThKYrirarYqVA/t/CiWmk09VgFBt/lff9a4ueXBGcIvFAWHOlFwDqe6ZMRUMnLQ/9v9DLPB6GWo0SA+ssyH2cSxR7hCur4ixAvDEFSl7hl9lkwnvKWm+EfWFjaUeFpujuYBg/D9Xc9jQr7d72CNJmMycYA/Lq/lYHubC471BXI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=RwoVCf/h; arc=none smtp.client-ip=217.70.183.201
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="clldXVd1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBD601F000FF;
-	Mon, 21 Sep 2026 15:27:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790004457;
-	bh=PR3QlLkpOllF17ylDcNIQRMmZtuCsB9dWNGolTVMx54=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=clldXVd1qt5JTqeAkuX3EX4mIWHnlMOgEnnMh+oY/nrA318cmAhD5LHyTIc5y2Wbd
-	 //bnRA5kAnB6W8JMUS3dmlaIMqgsPMSkZRnBhR8FLjdXu6zzEmylQbDEqFnvs5Kegd
-	 B4R67LRz7A2CFXy5oBhEW+5vwa3gwzBB+wCZ0h3n2nNV0r3VAyatsbrKGDs5N6KmJl
-	 nVQiXY+jA/6TGI0eQgyN+DPKU9uU0dtSFAbUCmV95QTbJo8vluO6q+yE2CNI49ShaG
-	 nxnSwxj7a3Rl8cjTBM/reYdHFLjBsNJ/jFncfOFzTrPYnNKyNFP8eNQFaZv2ozOqJW
-	 7iIyz1/esJB3A==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 09D661AC56A7; Mon, 21 Sep 2026 16:27:34 +0100 (BST)
-Date: Mon, 21 Sep 2026 17:27:33 +0200
-From: Mark Brown <broonie@kernel.org>
-To: James Calligeros <jcalligeros99@gmail.com>
-Cc: Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>,
-	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="RwoVCf/h"
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 2634D3ED37;
+	Mon, 21 Sep 2026 15:31:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
+	s=gm1; t=1790004675; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:in-reply-to:in-reply-to:  references:references;
+	bh=kndgaOttwPZ+kUaDtO0GHPyUH+YzrYrUKKHJTYtyiQY=;
+	b=RwoVCf/h+yvoX2rgU2FuL49s6IqwbVluLjp6FwqoDogg+j7BBbYiLTK2v7Z0aQsb1KToNA
+	1LgZKTPRafvJeZQgXd0BxWIyBsfW6pa3WXk8MDk85A0dQJLmpJnOXB1VC4tjTd0WIj4H55
+	0nqQvgfSTyebM7QLAWEYlq6HI8OQMsyM82FHiRN8jgnulMlIUd9N44RUMpOGAdzGfbKNd4
+	YD8/xf1k+Ngutl57XMNtUndW/DZMQ5upwRyUyXE6lb+i3l/HVkC8Q4rs95S1ND2X33qyDd
+	dxTyRh9weQnhfgpu93tr75PLZ72JWuzQle+VyFuFOop+2LEGXqiZwPmlYfGIuA==
+Date: Mon, 21 Sep 2026 17:31:11 +0200
+From: Arthur Crepin Leblond <arthur@marmottus.net>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Sven Peter <sven@kernel.org>,
-	Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>,
-	David Rhodes <david.rhodes@cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Amit Kucheria <amit.kucheria@linaro.org>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Lars-Peter Clausen <lars@metafoo.de>, Vinod Koul <vkoul@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
-	Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
-	James Schulman <james.schulman@cirrus.com>, asahi@lists.linux.dev,
-	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.de>,
-	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH 10/28] ASoC: ops: Accept patterns in snd_soc_limit_volume
-Message-ID: <arFM5QGrJx1aYhGK@sirena.co.uk>
-References: <20260920-macaudio-v1-0-741cc20a74e5@gmail.com>
- <20260920-macaudio-v1-10-741cc20a74e5@gmail.com>
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v10 3/3] w5100: detect carrier state using link
+ status bit and optional interrupt
+Message-ID: <20260921153111.GA473474@marmottus.net>
+Reply-To: arthur@marmottus.net
+References: <20260921-wiznet-link-gpio-v10-0-5874a7a147a2@marmottus.net>
+ <20260921-wiznet-link-gpio-v10-3-5874a7a147a2@marmottus.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qy1Q+x+0xkGVmW14"
+Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
-In-Reply-To: <20260920-macaudio-v1-10-741cc20a74e5@gmail.com>
-X-Cookie: Too clever is dumb.
+In-Reply-To: <20260921-wiznet-link-gpio-v10-3-5874a7a147a2@marmottus.net>
+X-GND-Sasl: arthur@marmottus.net
+X-GND-Cause: dmFkZTFk3EfQn6dh5Bsj+M9TyimFVXuktxuO0nReL/UPfGv+6oQvqWasbV+IaeMW0iL0Vyyu+a37201ZBX4ak89sSK4J02MmlDrOnt112hJTDGhWzR5PU9+rT4OFwFSDLlqWK+eHX281VsymAkNbDqngCco5Q6ItcUcGQtL3YGnMmy9r+wva5tNRDObd2tdVNZ1+sFrGEJ8WgJt0Jl9P6Ftc02Ge7cPLjHK6GPHULLgaA4QGGpOBJVViFyWb/wi/NI0lwj9KmhswyBSGoFlkT9FraymFkWj25poLbxMhz2tNx38+0R2WKGKf6jcHZo54szt96cpLPwpFHFg0p9CKBfyWpL1puCHsbygGEsGbjQubyAlvEtIfMUkBax00sDthytIt+WBMZjw/hpkJrMU0aStqCQoLkPWHK9hz7sb9uKVkbePdUMiSQ607AwcfgLvfUkDxb4bsKMT6KffueDK4VSWQHi/PT4BZVuB1lv46D9IU7/2goHa4g1HSieotCdGGZikEOKfNjouAZi4dG/YXpR9/o2XLPzCgPkxb6GHAeFqHUdxt+02qJlprj5dowZd/T07KdJ77+niNfukic5JFqUUS6r8d5p5tmyOVW//dnlNPf8g1kOkaIKBOLlbyKlUM9tdHayRjpsUNtQKXByxFm+UvcliefkrE+JqLwCrdEIsL3rlQWQ
+X-GND-State: clean
+X-GND-Score: -100
 
+On Mon, Sep 21, 2026 at 12:52:51PM +0200, Arthur Crepin Leblond wrote:
+>@@ -794,22 +923,44 @@ int w5100_probe(struct device *dev, const struct w5100_ops *ops,
+>
+> 	if (ops->may_sleep) {
+> 		err = request_threaded_irq(priv->irq, NULL, w5100_interrupt,
+>-					   IRQF_TRIGGER_LOW | IRQF_ONESHOT,
+>-					   netdev_name(ndev), ndev);
+>+					   IRQF_TRIGGER_LOW | IRQF_ONESHOT |
+>+					   IRQF_NO_AUTOEN,
+>+					   dev_name(dev), ndev);
+> 	} else {
+> 		err = request_irq(priv->irq, w5100_interrupt,
+>-				  IRQF_TRIGGER_LOW, netdev_name(ndev), ndev);
+>+				  IRQF_TRIGGER_LOW | IRQF_NO_AUTOEN, dev_name(dev), ndev);
+> 	}
 
---qy1Q+x+0xkGVmW14
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Oh, I exceeded 80 columns here...
 
-On Sun, Sep 20, 2026 at 02:53:49PM +1000, James Calligeros wrote:
-> From: Martin Povi=C5=A1er <povik+lin@cutebit.org>
->=20
-> In snd_soc_limit_volume, instead of looking up a single control by name,
-> also understand wildcard-starting patterns like '* Amp Gain Volume' to
-> touch many controls at one.
-
-> -	return soc_limit_volume(kctl, max);
-> +	return hits;
->  }
->  EXPORT_SYMBOL_GPL(snd_soc_limit_volume);
-
-This will break the existing Cirrus and TI users which treat non-zero
-values as errors, most users ignore the return value but they check.
-
---qy1Q+x+0xkGVmW14
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqxTOUACgkQJNaLcl1U
-h9Dkuwf/e+9+p51dk6ApJjuQ0eXbD7tKMLOu2OSHbM26owrg0ihRHT55cBX3KJ9a
-YXR3LUhWCtuE3nZLpD15aYVuH8Ix8zzDg7S8e+0X8TIwppv3PJoGL3RFQS8/TMh/
-fUwbXTB8oMMTHLZnbJS0L0G6ptXZxb+qYxQj4Sa54U3F3hxla3fMfXfaLPNs0hw/
-b/VWJgr72b30FphSIcZDwLs9PIgLWl3sUA2MLNigqhvcyY882sDZmCYlpvmBR0FL
-f6q1qYUUd+5Sg0AXe/BqCJGnetxnaM3kfQ4FTgRjbHqx9WahPIj9vORlshRbTzCv
-SCf1emZJ+s7LB9sfqe7izn+xljAPrw==
-=LUax
------END PGP SIGNATURE-----
-
---qy1Q+x+0xkGVmW14--
+Arthur
