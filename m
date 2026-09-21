@@ -1,239 +1,162 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 707054A498E;
-	Mon, 21 Sep 2026 14:48:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDEA94A9D5A
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 14:50:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790002127; cv=none; b=MHGZ0ZBzwVylKpY0bgZ1qQLi48A6zcvs4LlMFBEYMAjTCQfJ7gh2vR4dckkB1/Fnh1/dXbVZc33lRbE+evscOW+Ri1TKWXruPYNxlVqcKZYTq6xVM5MA6yHra1HDJ7oN1/CL6UBhc9YObQea4FhjNxt/b6GrIAus8U+/BWOG7R4=
+	t=1790002206; cv=none; b=W19RIg8oCQhHkUtMsDusu1njih0NE4xhtRh3netEc/c7pYJMPiFCZyY49fsvSwWOraaWgj/JwBHv6tzehAqxJlqXFN9tEZHV3zVPqtEfRHv3sIm0y3DDxHyKHBcT13B/EVdkZmVL1B8OpBNGHIiOlWmp6Or5n0hO6jMoCfQebak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790002127; c=relaxed/simple;
-	bh=NKTifSDflitLQjdfAzo5qNWT+zQGTs7TAS2iKtcdBPM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QEPUiVoHneYjTWh//wy+0e6Fa67Re3dYy8YS76EZ4AZLgmOoCdpcATDRijQqTeglcJMr9WLdx+c5vqCztzhs4+Gj4NaAnIZm4HUSNUnCs1PtdLbh5pWszUgwOuXQQXSsi1L4MvyC/j92pZF2JsJcn4YemnFCUPxl5Z89WyEwu9s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QENe3acR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790002206; c=relaxed/simple;
+	bh=MvGGZL4IS4MjWjWviaHP6B+xBpIms7EWjzyjzTLCRMM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=J+MKfOIiVDqREaLD4QQi0C5nYvJ5IjzHIJfca7zed8VKWBW3tFiG/MNSHHXKPRLzMdQI6KJD2gF6bB1X+gUVq4MHVOdOLKy8DjfUViaMFhgE4LUcm3Q911P7Pmy0WQdr62yhYyo48GD5CPz4Q7OO5i51+u0fa1p/HyyAn0G6IzE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ibFJkjo3; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QENe3acR"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 5912C1F000FF;
-	Mon, 21 Sep 2026 14:48:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790002124;
-	bh=95BoNoyBnS7EiZNoov/GT1S0dobxbX/rx/A/TW4Y+lU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QENe3acRXOT+cK9tRA47gQ2P4AbRZaFyBPQIszaBcTHT2aySooj4SuAzq4sp2JXQj
-	 iJnL/x1Vo47KM02dKgb/ba0g0UP+K9GWryG6n9kPqHmPY44xZ8SxW5YwTQ0V6ieeeJ
-	 ScwfJ7aGfWPsGC09fmAvqr1zAVjVMH4nGZeoM+9bfqWNqnEJZrli2YJnLn0PEcUs/O
-	 cdWR5LE+wI7VwwnaAF5xHPrwz3XJ8I0S17k851+AigMqIMXCIlrfX+Ni3Z4qNJ4NY4
-	 rRiG2FvHQTwwr4Agw+ZKc9wfdMt/y9m+HpCMjrfKvTcX2nHibPT/h6CGLckhesaqlZ
-	 vQTb0rFEq5dTQ==
-Date: Mon, 21 Sep 2026 16:48:42 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Petar Stepanovic <pstepanovic@axiado.com>
-Cc: Akhila Kavi <akavi@axiado.com>, 
-	Prasad Bolisetty <pbolisetty@axiado.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Harshit Shah <hshah@axiado.com>, linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
-Subject: Re: [PATCH v5 2/2] pwm: add Axiado AX3000 PWM driver
-Message-ID: <arFAy5wMZ2Rl7ubj@monoceros>
-References: <20260921-axiado-ax3000-pwm-v5-0-202aad28e129@axiado.com>
- <20260921-axiado-ax3000-pwm-v5-2-202aad28e129@axiado.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ibFJkjo3"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e6598dd44so16051775e9.1
+        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 07:50:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790002203; x=1790607003; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8M61Qqjvm/dE/aUDfnFagoCXYMpIF6uiqbbGLV3Yg4M=;
+        b=ibFJkjo3rloeFPr/uQSGRzTdb2rtT3XvdwBejgVrMVEFTSiQGps+NMJ5k7Zon/iFbS
+         d/rWKBmD89UZ01QNl8I9qANU4bdCFHmRJzKV6Xjy0ZRKRgFTdwvY8IHXj3OP0DkpBnfY
+         Tner00BDrTu+acah+vzm2mkvTkaFfAOiUH04wbnKznoiZT0GEFuWhuWhNUTTFxPHdDm4
+         duHF4De1gF4H2w6iTG0U92fS4dizHTZXAKyROVpSKQUNLxlNq4JeuPObP3TvIoSDwJ3B
+         8R0PqNZk1ZaaP4lJeYj0SSIv0LFHC2b6mm919ut1cg59Yrv+cuq4hAgK+25sST20VF6x
+         Aojw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790002203; x=1790607003;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8M61Qqjvm/dE/aUDfnFagoCXYMpIF6uiqbbGLV3Yg4M=;
+        b=Q3Z9Arj71SzC/50q4dNo3DMI6QyL1frcILhKMjP0wuyBNKmG8oLeXv+X1cBJyq7NAv
+         iLNy+0M01ODO0sGw3GqNWCjYjzvXU/ARzsHqxV6Cl6x1WM5ov9ulzWHdQS+oxNs3O5W2
+         MyVltzEhBPtnb7cC1akETZ8bzcLpfxWNy4HNTZ3sHRLbPj1gXfD1ExiWrjr1cqNH1zLV
+         RiewYOfO5sUzHY5tmqH20ZPJdT0NLnZ4xzC6jTvqJKWbTTPNPrl4chsVfPTgwI/GooGC
+         EFxq1bqkYrS5nX+2lxgm1tKa63ePA19kciFjohbUiYb+gY6tbCXURNNHUYI7hhLe7Pv0
+         tF3w==
+X-Forwarded-Encrypted: i=1; AKwUvBzuLdQAi8buTnvwfhyC/TSBqiIq/jE36IgAMbyCMzvVVT3yYiiNWbN/wEoKPoD2cowzicHgTdU2RE2G@vger.kernel.org
+X-Gm-Message-State: AFuF++nMEDr+Tw8/0kzkZGjPxhDcayZMrhAYfPDpamcMWM8K9pPlBA31
+	HfzvFhJpqbq6m4guMqekOnNUMqhGt0fTTbqZiGgAhRgJhn92yzThm+bc
+X-Gm-Gg: AYBFou219DMHzvAwGbsbz3d8ijfby6dXRTQGatIrcymeDqpWoIrB6cRUhBTmKV5NPWl
+	1Fr+uBS4KJMk0PiKwQMpNbRNf50YoR2VKDfZ+8m4ViZGl7PEOOge+3FTglgcUoys68o8sNV0J5W
+	5+e2M2ufVkqncFHP5jMCpyEXzhRd31Obwsp3YaLKxZGXP0HS4sp1XedQrpRPmRguipwZrLSDZ4G
+	dWLZGSkar9rP+EMRKiG5xgLtplEuUmJZ3YxiGVot9GE7up1Q4b5laYn2hqozfrzHcAG8L8qh8ky
+	pgFelklsfELmlRhk8y1zxC1AsiSoNk/8JAxSsr88OwkA+SMgFEAW7HLJrcARAuPLwhGyswiD9wp
+	FaR6R/QuF+GzJkicHZr1iDikrQDyZ/wt1TsJAQlbo+9vInvzfqUT6ToiERuZzmjOR09C6SagSfU
+	8OcKGzDaoGgA8BgF9AfUbMdN12QS4jEz4dJceD4oe+tCcBiRroocCv+qtrD15FbwMqxt2/AwTYX
+	c3EQw/FPviAoFTpTllE
+X-Received: by 2002:a05:600c:3107:b0:49c:ff9f:f6b6 with SMTP id 5b1f17b1804b1-49fc5669346mr157236555e9.6.1790002202748;
+        Mon, 21 Sep 2026 07:50:02 -0700 (PDT)
+Received: from localhost.localdomain ([194.154.195.114])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49fcd8bc15esm191595725e9.1.2026.09.21.07.50.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 07:50:02 -0700 (PDT)
+From: Oleg Keri <okerixx@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	"Bryan O'Donoghue" <bryan.odonoghue@linaro.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org,
+	linux-hwmon@vger.kernel.org
+Subject: [PATCH v3 0/3] platform/arm64: Lenovo Yoga Slim 7x Gen 11 embedded controller
+Date: Mon, 21 Sep 2026 16:49:50 +0200
+Message-ID: <20260921144953.15113-1-okerixx@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="tnydnd7lsyvlx4t2"
-Content-Disposition: inline
-In-Reply-To: <20260921-axiado-ax3000-pwm-v5-2-202aad28e129@axiado.com>
+Content-Transfer-Encoding: 8bit
 
+The Lenovo Yoga Slim 7x Gen 11 is a Qualcomm Snapdragon X2 Elite (glymur)
+laptop. It carries a Compal EF06 embedded controller on I2C at address
+0x70, which is the only source on this machine for the board thermistors,
+the battery cell voltages, the fan tachometer, the keyboard backlight, and
+the mic-mute and airplane-mode keys.
 
---tnydnd7lsyvlx4t2
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH v5 2/2] pwm: add Axiado AX3000 PWM driver
-MIME-Version: 1.0
+Patch 1 documents the binding, patch 2 adds the driver, patch 3 adds the
+node to the board.
 
-On Mon, Sep 21, 2026 at 12:21:31AM -0700, Petar Stepanovic wrote:
-> diff --git a/drivers/pwm/Makefile b/drivers/pwm/Makefile
-> index 0dc0d2b69025..4466a29e780a 100644
-> --- a/drivers/pwm/Makefile
-> +++ b/drivers/pwm/Makefile
-> @@ -8,6 +8,7 @@ obj-$(CONFIG_PWM_ARGON_FAN_HAT)	+= pwm-argon-fan-hat.o
->  obj-$(CONFIG_PWM_ATMEL)		+= pwm-atmel.o
->  obj-$(CONFIG_PWM_ATMEL_HLCDC_PWM)	+= pwm-atmel-hlcdc.o
->  obj-$(CONFIG_PWM_ATMEL_TCB)	+= pwm-atmel-tcb.o
-> +obj-$(CONFIG_PWM_AXIADO)	+= pwm-axiado.o
->  obj-$(CONFIG_PWM_AXI_PWMGEN)	+= pwm-axi-pwmgen.o
->  obj-$(CONFIG_PWM_BCM2835)	+= pwm-bcm2835.o
->  obj-$(CONFIG_PWM_BCM_IPROC)	+= pwm-bcm-iproc.o
-> diff --git a/drivers/pwm/pwm-axiado.c b/drivers/pwm/pwm-axiado.c
-> new file mode 100644
-> index 000000000000..781053e255f0
-> --- /dev/null
-> +++ b/drivers/pwm/pwm-axiado.c
-> @@ -0,0 +1,277 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * SPDX-FileCopyrightText: 2021-2026 Axiado Corporation.
-> + */
-> +
+Why one driver
+--------------
 
-Is there a public reference manual for that hardware? If so, adding a
-link here would be awesome.
+The automated review of v2 asked for the hwmon part to become an
+auxiliary driver under drivers/hwmon/. The hwmon channels, the LED and
+the input device all sit behind one command mailbox and one interrupt,
+so the driver stays in one file, like huawei-gaokun-ec,
+lenovo-thinkpad-t14s and qcom-hamoa-ec next to it. It is documented
+under Documentation/ABI only.
 
-> +/*
-> + * Limitations:
-> + * - Only normal polarity is supported.
-> + * - The hardware has no shadow registers, so configuration changes take
-> + *   effect immediately without waiting for the current period to complete.
-> + * - The output is driven high while the hardware is disabled.
-> + * - Supported period range: 2 through 0xfffffffe PWM input clock cycles;
-> + *   0xffffffff is reserved by the hardware for a constant low output.
-> + *   Longer periods are clamped to the maximum.
-> + * - A 0% duty cycle is emitted using the constant low encoding because the
-> + *   hardware interprets a zero high time as a constant high output. The
-> + *   requested period is lost in that case and is reported as a single clock
-> + *   cycle.
-> + * - A 100% duty cycle is supported and emits a constant high output.
-> + */
-> [...]
-> +static int
-> +axiado_pwm_round_waveform_tohw(struct pwm_chip *chip,
-> +			       struct pwm_device *pwm,
-> +			       const struct pwm_waveform *wf,
-> +			       void *_wfhw)
-> +{
-> +	struct axiado_pwm_chip *axpwm = pwmchip_get_drvdata(chip);
-> +	struct axiado_pwm_waveform *wfhw = _wfhw;
-> +	u64 period;
-> +	u64 duty;
-> +	int ret = 0;
-> +
-> +	/* Encode a disabled request as a zeroed hardware waveform. */
-> +	if (!wf->period_length_ns) {
-> +		*wfhw = (struct axiado_pwm_waveform) { };
-> +
-> +		return 0;
-> +	}
-> +
-> +	period = mul_u64_u64_div_u64(wf->period_length_ns, axpwm->rate,
-> +				     NSEC_PER_SEC);
-> +	duty = mul_u64_u64_div_u64(wf->duty_length_ns, axpwm->rate,
-> +				   NSEC_PER_SEC);
-> +
-> +	if (!duty) {
-> +		/*
-> +		 * A zero high time makes the hardware emit a constant high
-> +		 * output, so use the constant low period encoding for a 0%
-> +		 * duty cycle. The high time must stay non-zero because it
-> +		 * takes precedence over that encoding. The requested period
-> +		 * is lost, .round_waveform_fromhw() reports a single clock
-> +		 * cycle instead.
-> +		 */
-> +		*wfhw = (struct axiado_pwm_waveform) {
-> +			.period = AXIADO_PWM_PERIOD_CONST_LOW,
-> +			.duty = AXIADO_PWM_DUTY_MIN,
-> +			.enabled = true,
-> +		};
-> +
-> +		/* That single cycle is longer than a sub-cycle request. */
-> +		return period ? 0 : 1;
-> +	}
-> +
-> +	if (period < AXIADO_PWM_PERIOD_MIN) {
-> +		period = AXIADO_PWM_PERIOD_MIN;
-> +		ret = 1;
-> +	} else if (period > AXIADO_PWM_PERIOD_MAX) {
-> +		period = AXIADO_PWM_PERIOD_MAX;
-> +	}
-> +
-> +	/*
-> +	 * Period clamping can leave the converted duty greater than the
-> +	 * final hardware period. In that case, clamp it to 100% duty.
-> +	 */
-> +	if (duty > period)
-> +		duty = period;
+Notes
+-----
 
-So with period in [AXIADO_PWM_PERIOD_MIN, AXIADO_PWM_PERIOD_MAX], duty =
-period yields a constant high output? If so, why is there a special
-encoding for const high?
+Fan speed is reported but not controlled, deliberately - the EC enforces no
+thermal floor over a manual setpoint. Patch 2 has the measurement.
 
-> +	*wfhw = (struct axiado_pwm_waveform) {
-> +		.period = period,
-> +		.duty = duty,
-> +		.enabled = true,
-> +	};
-> +
-> +	return ret;
-> +}
-> +
-> +static int
-> +axiado_pwm_round_waveform_fromhw(struct pwm_chip *chip,
-> +				 struct pwm_device *pwm,
-> +				 const void *_wfhw,
-> +				 struct pwm_waveform *wf)
-> +{
-> +	struct axiado_pwm_chip *axpwm = pwmchip_get_drvdata(chip);
-> +	const struct axiado_pwm_waveform *wfhw = _wfhw;
-> +	u32 period = wfhw->period;
-> +	u32 duty = wfhw->duty;
-> +
-> +	if (!wfhw->enabled) {
-> +		*wf = (struct pwm_waveform) {
-> +			.period_length_ns = 0,
-> +		};
-> +
-> +		return 0;
-> +	}
-> +
-> +	/*
-> +	 * The constant low encoding doesn't hold a period. Report the
-> +	 * shortest one, the output is low for all of it either way.
-> +	 */
-> +	if (period == AXIADO_PWM_PERIOD_CONST_LOW) {
-> +		period = 1;
-> +		duty = 0;
-> +	} else if (duty > period) {
-> +		duty = period;
-> +	}
+Tested on a Lenovo Yoga Slim 7x Gen 11 (DMI 83QR, "Yoga Slim 7 14Q8Y11").
 
-You don't handle wfhw->duty == 0 here. I think this is what Sashiko
-pointed out. While .round_waveform_tohw() doens't produce this setting,
-it would still be good to handle that in case the driver is loaded with
-this setting applied in hardware.
+Changes in v3:
+- Add the board DT node as patch 3. It was posted on its own [1], and a
+  node cannot be merged before its binding (Konrad).
+- Add the "Why one driver" section above.
+- Patch 2: name the driver after the module, and the i2c id after the
+  compatible.
+- Patch 2: spell out both SCUK bits the Fn-lock toggle moves instead of
+  the 0xa0/0x5f masks.
+- Patch 2: return -ENODATA for a thermistor reading of 0, as probe already
+  treats 0 as "not fitted".
+- Patch 2: ten tries for a cell-voltage sample instead of thirty.
+- Patch 2: include what is used directly, devm_mutex_init(), comment the
+  mutex, fix the address in MODULE_AUTHOR, say in the commit message that
+  results cannot be matched to commands.
+- Link to v2: https://lore.kernel.org/all/20260908183403.2107-1-okerixx@gmail.com/
 
-> +	*wf = (struct pwm_waveform) {
-> +		.period_length_ns =
-> +			mul_u64_u64_div_u64_roundup(period, NSEC_PER_SEC,
-> +						    axpwm->rate),
-> +		.duty_length_ns =
-> +			mul_u64_u64_div_u64_roundup(duty, NSEC_PER_SEC,
-> +						    axpwm->rate),
-> +		.duty_offset_ns = 0,
-> +	};
-> +
-> +	return 0;
-> +}
+Changes in v2:
+- Patch 2: drop #include <linux/mod_devicetable.h>; <linux/i2c.h> already
+  provides both of_device_id (via linux/of.h) and i2c_device_id (via
+  linux/device-id/i2c.h), and the header is on its way out.
+  Reported-by: Uwe Kleine-Koenig <u.kleine-koenig@baylibre.com>
+- Patch 2: add "depends on INPUT" to EC_LENOVO_YOGA_SLIM7X_GEN11; the driver
+  registers an input device unconditionally, so a config with INPUT=n did
+  not link.
+- Patch 1: pick up Conor Dooley's Acked-by.
+- Link to v1: https://lore.kernel.org/all/20260908091752.5508-1-okerixx@gmail.com/
 
-Best regards
-Uwe
+[1] https://lore.kernel.org/all/20260914082950.9393-1-okerixx@gmail.com/
 
---tnydnd7lsyvlx4t2
-Content-Type: application/pgp-signature; name="signature.asc"
+Oleg Keri (3):
+  dt-bindings: embedded-controller: add Lenovo Yoga Slim 7x Gen 11 EC
+  platform/arm64: add Lenovo Yoga Slim 7x Gen 11 EC driver
+  arm64: dts: qcom: glymur-lenovo-yoga-slim7x: add the embedded controller
 
------BEGIN PGP SIGNATURE-----
+ .../sysfs-driver-lenovo-yoga-slim7x-gen11-ec       |  21 +
+ .../lenovo,yoga-slim7x-gen11-ec.yaml               |  56 ++
+ MAINTAINERS                                        |   8 +
+ .../boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts    |  12 +-
+ drivers/platform/arm64/Kconfig                     |  23 +
+ drivers/platform/arm64/Makefile                    |   1 +
+ .../platform/arm64/lenovo-yoga-slim7x-gen11-ec.c   | 653 +++++++++++++++++++++
+ 7 files changed, 772 insertions(+), 2 deletions(-)
+ create mode 100644 Documentation/ABI/testing/sysfs-driver-lenovo-yoga-slim7x-gen11-ec
+ create mode 100644 Documentation/devicetree/bindings/embedded-controller/lenovo,yoga-slim7x-gen11-ec.yaml
+ create mode 100644 drivers/platform/arm64/lenovo-yoga-slim7x-gen11-ec.c
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqxQ8cACgkQj4D7WH0S
-/k7Uigf/XkGXqZJB9VBHl6LGR9+YtK2QKCI4RtGM5Ejt+6pf4XPIlnKLVZflNdDe
-kLLMOwwQ1cQUv53G6g/oDfrnJGEYsjklgxOXYxKNJLnoElDreJVtnq0G/kf8f0qG
-sGhWC43SeibhUgxvZlN7M4AvqqFJkp/y+Ra/P8msoGm6mVsm+c0lqQnomHb0cpps
-MP7NPeAVc9JJznYm3LtFOJt0lNXWQf3WQDipRIgkI5Af+KyszHg+YCvME9I4yoXF
-mKARwyvvlryrYraVwyQPbeoWMePZqWD8gYFUC4EVVQ3Lv3V2+4uNoxpyUkbM6HWI
-s/JhDbyOClE/G4bnhHGOt/wiy6HgGg==
-=4Tg2
------END PGP SIGNATURE-----
-
---tnydnd7lsyvlx4t2--
+-- 
+2.55.0
