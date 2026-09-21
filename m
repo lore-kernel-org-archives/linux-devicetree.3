@@ -1,100 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42D874EDCB8;
-	Mon, 21 Sep 2026 17:40:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04DCD472076;
+	Mon, 21 Sep 2026 17:43:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790012405; cv=none; b=UyQcxPWKG43NZh8cuFn7IpefgbSlBgAQKYKlAeI5h0RNvgs5X8I97yPYqo9m82/LH3rMThOorz4LltTdHdMnaELMVLFmjhNC6JQpF7cOOVmB+obytC758pGjdNnrCK6DN8W4WHUZAqBfPhAiY8QmRygLClAHLsinXIu0gIAHjjQ=
+	t=1790012598; cv=none; b=DBu8YvoqaOlVNMxGO8vuH5pRB5ONUjs6TS6rvABUpq009rSLOPl9QPA6RitnKbaeMWjJzN5C5VwyTctZjKrSPS7WmZpMiLSmgtATLQ12iflNRie19JVsJrW6lCiGrFwyIfj59Vb3t/W7aL3ctkbhD3VToE9MyL8JrVkJGPfI7KE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790012405; c=relaxed/simple;
-	bh=wEdb2onoGd+0N3YRvy84piZxdofOc/X+2IBdDlNIHQw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EfeHMcbrlKnpfxBW7yCvD5cmXsh29hBX2a+VES+MwzMf1nhc9VX3oJPvsk/J+FZ/ukmKUv90mtQmMbN7LiebXJMq8YFJ1VIZUHMeYuDgDNuFn73ezXIPAent3jF0smYFDWLuw1jQwPRPZPUP57k9q08FM5ebdQLiaXZ2U9cSvqE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ihE1IqtX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790012598; c=relaxed/simple;
+	bh=ts3SGfoYgDGEjdP4CgWylwBY5zqFnwUmk4GDhX33tYg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=jZthjG46+2smED848hglj2uohvbfZhJ3/ia0fEyG2mXhx4lfwMgrmmvFJrwF3YkgNpmJahWXY/hXdUWpLemzUOCaeQDOEbprXvscUOaVlEvrh45lWrFrRRtTRKtoGqJxpN2Kw4jCHwW1qOD37Nkvs4bscX2LkaKkpKwpAPcV0Ps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=RbRITSIv; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=2owwHg34; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ihE1IqtX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 976A31F000FF;
-	Mon, 21 Sep 2026 17:40:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790012403;
-	bh=Gz8Aa5aaLqPaIk+EG6zeB6qbVwKWKtCmjjrWvq6RsMU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ihE1IqtXFvFzHYoEISBQL26c3Xlq1k8cg2/jRjui10maX9lL++zNeY+tj9eawSbKb
-	 YIzfVd1Jh1fzBA6N/jQLWiCRXjbsxv13G97uE3D7qshxORL8kvpL4Vv8FKj4BPZeT9
-	 NBK2wr/sUBgPnQj15e06nBYwbi9PwyIhvS6S+zLwNiPDOuRa2wvyBEBVBlza0ueMsA
-	 fdy9CHza/hCxZw28Q5jGrn40vr25lakyWjaYC3CJaSa5mdm6vAtdOTSfyj92AX2Ddf
-	 3uwAtSmp3dDnAPc0tsJ/URQSvdQZ9MBP0uBfiaSXmJSbFOu+WPk3CFXWE1nUg0z2zE
-	 LMhN/hgP2wKEw==
-Date: Mon, 21 Sep 2026 12:40:02 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Quchaosheng <quchaosheng000406@163.com>
-Cc: Vincent Mailhol <mailhol@kernel.org>,
-	Marc Kleine-Budde <mkl@pengutronix.de>,
-	Conor Dooley <conor+dt@kernel.org>, linux-can@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>
-Subject: Re: [PATCH v6] dt-bindings: net: can: ifi,canfd-1.0: Convert to DT
- schema
-Message-ID: <179001240193.1044469.15908523529395448607.robh@kernel.org>
-References: <20260914030116.437424-1-quchaosheng000406@163.com>
- <20260916015805.112354-1-quchaosheng000406@163.com>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="RbRITSIv";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="2owwHg34"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=To:Message-Id:Subject:Date:From; t=1790012587; bh=3oSwz5Zy6nXS6A8/l4jcI14
+	ITh4f4paNeE4tpHkpxOA=; b=RbRITSIvxu7PW06a9RPqJy9zce5ylLFVFJdmgihdc6EKOc/dOL
+	rrtRo4K2NKj885xIAMkBSIOHRp1Gi/HAoJK/ee0yZERJf9zteR7YY231SshgTLLez1fvhBqytc9
+	PYxry0wGpzzA1yyI8ZXhNkWysrMRyG3kWL00aEGAv+rZcLlW9y4yXZglh0gG3pVRFk4u1tVBsuK
+	n5sWvb3j+WLk6LO17vR6VNzm+3oYCQGuoW9ubQ+5Yjeg/ROWi2kJWiMIUOyKlMiqRuWZgky+ai1
+	3fLpSKfGoYv1p+qoifmPEmwu1pu/N1jkeemAQ31yPnBB1hNQxJo6cVRbV6q6Cuk9KuQ==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=To:Message-Id:Subject:Date:From; t=1790012587; bh=3oSwz5Zy6nXS6A8/l4jcI14
+	ITh4f4paNeE4tpHkpxOA=; b=2owwHg34QWVsXMZgDu7V6Fc3Ab7jJLLTLwon1jzPdBgpytaz4X
+	jCgBXLL9GGpJQ0DGuB/P0HV6QkHqUQhnO9Dg==;
+From: =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>
+Date: Mon, 21 Sep 2026 19:43:02 +0200
+Subject: [PATCH 1/4] arm64: dts: qcom: msm8917-xiaomi-wingtech: add
+ notification led
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916015805.112354-1-quchaosheng000406@163.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260921-xiaomi-aw2013-v1-1-a0c3084076de@mainlining.org>
+References: <20260921-xiaomi-aw2013-v1-0-a0c3084076de@mainlining.org>
+In-Reply-To: <20260921-xiaomi-aw2013-v1-0-a0c3084076de@mainlining.org>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790012584; l=2397;
+ i=barnabas.czeman@mainlining.org; s=20240730; h=from:subject:message-id;
+ bh=ts3SGfoYgDGEjdP4CgWylwBY5zqFnwUmk4GDhX33tYg=;
+ b=948sjmebBYLMGdM1WCvcGjdp84U8zOITq4uh3Ue5YwyNsvgXqlTagq1yuZZpFPWPFk1T9uwUv
+ +t8sAvwD5M1ACZUmfseFcAQ17aIx7qc/5Jkur19X/qb3h+tnvA7jL94
+X-Developer-Key: i=barnabas.czeman@mainlining.org; a=ed25519;
+ pk=TWUSIGgwW/Sn4xnX25nw+lszj1AT/A3bzkahn7EhOFc=
 
+Add the aw2013 led-controller node for controlling the notification LED.
+The same led controller is in use for Redmi 4A and Redmi 5A the
+only difference is Redmi 4A have RGB leds attached to the controller.
 
-On Wed, 16 Sep 2026 09:58:05 +0800, Quchaosheng wrote:
-> Convert the IFI CAN-FD controller binding from free-form text to DT
-> schema, and reference the common can-controller.yaml schema.
-> 
-> The driver matches on the "ifi,canfd-1.0" compatible and obtains its
-> interrupt through platform_get_irq(), so interrupts is required.
-> 
-> The example uses the GIC and irq header defines instead of the raw
-> numbers from the original text, which keeps the values unchanged
-> (GIC_SPI is 0, IRQ_TYPE_NONE is 0 and 1 is IRQ_TYPE_EDGE_RISING). The
-> node name is changed from "canfd" to "can" so that it matches the
-> $nodename pattern required by can-controller.yaml.
-> 
-> Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
-> ---
-> v2:
->  - Correct the description: this is a soft IP block typically synthesised
->    into an FPGA or CPLD, not a controller found on Renesas SoCs.
->    Wording now follows the driver's Kconfig entry.
-> 
-> v3:
->  - Use unevaluatedProperties: false instead of additionalProperties: false.
->    As can-controller.yaml is referenced through allOf, additionalProperties
->    would have rejected properties defined by that common schema, such as
->    termination-gpios and termination-ohms.
-> 
-> v4:
->  - Use defines instead of raw numbers in the example, and rename the
->    example node from canfd to can. No functional change.
-> 
-> v5:
->  - Re-send the patch on its own. The v4 posting accidentally included
->    unrelated changes to the xilinx-xadc binding and did not remove
->    ifi_canfd.txt. Only the intended change is present now.
-> 
-> v6:
->  - No content change. Fix the patch format: the changelog was placed in the
->    commit message instead of after the '---' separator, which confused
->    Patchwork. Move it back where it belongs.
->  .../bindings/net/can/ifi,canfd.yaml           | 46 +++++++++++++++++++
->  .../devicetree/bindings/net/can/ifi_canfd.txt | 15 ------
->  2 files changed, 46 insertions(+), 15 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/net/can/ifi,canfd.yaml
->  delete mode 100644 Documentation/devicetree/bindings/net/can/ifi_canfd.txt
-> 
+Signed-off-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
+---
+ arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts   | 26 +++++++++-------------
+ .../boot/dts/qcom/msm8917-xiaomi-wingtech.dtsi     | 15 +++++++++++++
+ 2 files changed, 25 insertions(+), 16 deletions(-)
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+diff --git a/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts b/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts
+index 7c323214abf1..8ea8ef80fb38 100644
+--- a/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts
++++ b/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts
+@@ -5,7 +5,6 @@
+ 
+ /dts-v1/;
+ 
+-#include <dt-bindings/leds/common.h>
+ #include "msm8917-xiaomi-wingtech.dtsi"
+ 
+ / {
+@@ -36,26 +35,21 @@ vibrator {
+ 	};
+ };
+ 
+-&blsp1_i2c2 {
++&aw2013 {
+ 	status = "okay";
+ 
+-	led-controller@45 {
+-		compatible = "awinic,aw2013";
+-		reg = <0x45>;
+-		vcc-supply = <&pm8937_l10>;
+-		vio-supply = <&pm8937_l5>;
+-		#address-cells = <1>;
+-		#size-cells = <0>;
+-
+-		led@0 {
+-			reg = <0>;
+-			led-max-microamp = <5000>;
+-			function = LED_FUNCTION_INDICATOR;
+-			color = <LED_COLOR_ID_WHITE>;
+-		};
++	led@0 {
++		reg = <0>;
++		led-max-microamp = <5000>;
++		function = LED_FUNCTION_STATUS;
++		color = <LED_COLOR_ID_WHITE>;
+ 	};
+ };
+ 
++&blsp1_i2c2 {
++	status = "okay";
++};
++
+ &blsp1_uart2 {
+ 	status = "okay";
+ };
+diff --git a/arch/arm64/boot/dts/qcom/msm8917-xiaomi-wingtech.dtsi b/arch/arm64/boot/dts/qcom/msm8917-xiaomi-wingtech.dtsi
+index 69eda5f42c06..cdbf2d4fa92c 100644
+--- a/arch/arm64/boot/dts/qcom/msm8917-xiaomi-wingtech.dtsi
++++ b/arch/arm64/boot/dts/qcom/msm8917-xiaomi-wingtech.dtsi
+@@ -7,6 +7,8 @@
+ 
+ #include <dt-bindings/arm/qcom,ids.h>
+ #include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/leds/common.h>
++
+ #include "msm8917.dtsi"
+ #include "pm8937.dtsi"
+ 
+@@ -85,6 +87,19 @@ framebuffer_mem: memory@90001000 {
+ 	};
+ };
+ 
++&blsp1_i2c2 {
++	aw2013: led-controller@45 {
++		compatible = "awinic,aw2013";
++		reg = <0x45>;
++		vcc-supply = <&pm8937_l10>;
++		vio-supply = <&pm8937_l5>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		status = "disabled";
++	};
++};
++
+ &blsp1_i2c3 {
+ 	status = "okay";
+ 
+
+-- 
+2.55.0
 
