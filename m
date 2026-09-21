@@ -1,83 +1,58 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A10D939DBCC;
-	Mon, 21 Sep 2026 23:32:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00CE447A883;
+	Mon, 21 Sep 2026 23:33:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790033577; cv=none; b=EHnT/t97aVJmr5uD2gtiZIEI1RVPiFOjNrXV82zOByOn0f4MnOctmsEGMXmJ6zv6RAOjNMHKg9jFJkRW9AgAVWSxUb1fLNKNgwcu5q4ImBarQ7VkH1C92TGAzRcyFMD+qd5FuhYo/9kxEeN0VSseHMb175TzWoXF9g6TCJg9opk=
+	t=1790033605; cv=none; b=F2oDk/SfQquYwhvVzvSxeyUnLu/VHI6Q9bvCLNxQp8IrSFzXIVEwrZfGoD1xmT2bhxGDdhBCFp72Xd51+RKuHXTRbnnyR5dDbPOgiW2mqCVu4UReYoJP+sBiSf2+dPPuBTJD4dVcGw2oDaSU9OWOMC4dEWdZaTaz8vvfNK63SjE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790033577; c=relaxed/simple;
-	bh=fCen0g4qVuo3G8S/vPTSWQ8fa3QzFNn5w+HJ1PMMDJ4=;
+	s=arc-20240116; t=1790033605; c=relaxed/simple;
+	bh=rPUcZVEIA4jza5Ui5HUvywZOkm+AJz5Za3DCs2xY6tM=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=OziU+pj1SxMznMBK+sDkpDXSFitxUJFGVsIL+ks45G/FqnJG5qhxMOJdl0fqaPHksX+RSOxkLf1euRRSMVsjVSCZ/iDMpQpCb/C+tLlmismce2YYQfvJm9L2Qf2+gxlkU5+qyUNseQM9B6QfN7f7XnsOttjQE3Fm0uD4XsrEn/o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GxW47k9V; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=GuTk36ia6tyTHsPcbQLnCosf9cM7/5uilzWee4jY5+y6MGpRVPi3KFUXx2cB7E9ap3F1s0MFW6orrzfZu+F1vl7rdeGMw8WSodLELx+V50kMp/chw8BgWnqsSAqZqmT+ZboyyNpiLJSGyaGXbqE4ob1gQaIO/MF+V2d3FHICD4A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HO8Y4/Fu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GxW47k9V"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 355351F000FF;
-	Mon, 21 Sep 2026 23:32:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HO8Y4/Fu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1241C1F000FF;
+	Mon, 21 Sep 2026 23:33:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790033570;
-	bh=S9QCRLpNsIde2LK4+knTgVJKcVsnMGHI0siP8bBvLms=;
+	s=k20260515; t=1790033601;
+	bh=rPUcZVEIA4jza5Ui5HUvywZOkm+AJz5Za3DCs2xY6tM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=GxW47k9VaBhXjMDhay3v+O8eeF+QK1ubSgQIyFGjY1Qx2t8rP7sJje2PraarAzFPT
-	 MZBxbHPnKZLf6TKb80YTYGW6JtvnGiyGTwoQ0DuA4CRjK71j6p2tiw3D/tD4OgNcqd
-	 8qI8ilRH4J/tFiqjZAYRbKcSFmH6htdOltGwA0VxA+p8SQzqZ1z/6bhzr9Fk3AZlKB
-	 Gyi86BWWCcXVcdReUdT0LXowMzd+KVVTrhPiZLxq53yNd2gh27ltvfrBClptFTQCQd
-	 Vv35JVFzR9ETsuh6d8LePOHBp8S4VASkoKCNjUSY/aSU93ldG5BV7sO4LzSBOj4qRd
-	 sBgeTapEqGuww==
+	b=HO8Y4/FujTnUDkdlOZieVgY0BzNz1Nw7mo+/YWJIaZPFwPJOlUz2mXwtiV3gw5xgX
+	 ryIupquSaGauBQsXhVuXTtqynek9mMt4whrHz3mf0PTA98GtN0spR0vQYRWU6PBEOz
+	 2qIn4kNu774nAaimxwetGeU3MtgO/ntJwMkOC57tgLcXppz4FIfujEJorZmfMeVyME
+	 UHmw2+I8bqdsEfVHt6TaC1CiNsB/qws/uo5hudufKOC46hqxlO+IPksT95K3c+yqZW
+	 Ew+Fc+tRjEEOS1keQPmN9c3X+kxuTVctYk3HNUKu3yrln+iadAtLyFKLec1kmibocZ
+	 tcrOPLa80tGLQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] dt-bindings: mfd: Allow MT6360 interrupt flags
+Subject: Re: [PATCH] dt-bindings: leds: Allow PHY RX triggers
 Reply-To: sashiko-reviews@lists.linux.dev
 To: =?utf-8?b?Um9iIEhlcnJpbmcgKEFybSk=?= <robh@kernel.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, mfd@lists.linux.dev, lee@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260921232701.3133291-1-robh@kernel.org>
-References: <20260921232701.3133291-1-robh@kernel.org>
+Cc: devicetree@vger.kernel.org, lee@kernel.org, conor+dt@kernel.org, linux-leds@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260921232709.3133716-1-robh@kernel.org>
+References: <20260921232709.3133716-1-robh@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 21 Sep 2026 23:32:49 +0000
-Message-Id: <20260921233250.355351F000FF@smtp.kernel.org>
+Date: Mon, 21 Sep 2026 23:33:20 +0000
+Message-Id: <20260921233321.1241C1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] dt-bindings: #interrupt-cells uses enum instead of required cons=
-t constraint
---
+> The ZynqMP ZCU100 revC DTS uses separate phy0tx and phy0rx triggers for
+> its WLAN activity LEDs. Allow the RX form alongside the existing TX
+> form.
+>=20
+> Assisted-by: LLM
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 
-commit 3c231e0793c5c72fac7dc860b2b89ed70228f7a3
-Author: Rob Herring (Arm) <robh@kernel.org>
-
-dt-bindings: mfd: Allow MT6360 interrupt flags
-
-This commit updates the MT6360 device tree binding to allow the interrupt
-controller to use either one or two cells. It replaces the constant cell
-count constraint with an enum to support an optional second cell for
-trigger flags.
-
-> diff --git a/Documentation/devicetree/bindings/mfd/mediatek,mt6360.yaml b=
-/Documentation/devicetree/bindings/mfd/mediatek,mt6360.yaml
-> index fb65abf30d57b..828ed7f558f66 100644
-> --- a/Documentation/devicetree/bindings/mfd/mediatek,mt6360.yaml
-> +++ b/Documentation/devicetree/bindings/mfd/mediatek,mt6360.yaml
-> @@ -33,9 +33,10 @@ properties:
->    interrupt-controller: true
-> =20
->    "#interrupt-cells":
-> -    const: 1
-> +    enum: [1, 2]
-
-[Severity: Medium]
-Does this change conflict with the device tree binding subsystem rules?=20
-
-The subsystem guidelines mandate that cell-count properties like
-#interrupt-cells must use a const constraint rather than an enum to prevent
-ambiguous or variable cell sizes during schema validation.
+Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921232701.3133=
-291-1-robh@kernel.org?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921232709.3133=
+716-1-robh@kernel.org?part=3D1
+
