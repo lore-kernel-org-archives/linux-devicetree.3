@@ -1,86 +1,134 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B17846AF10;
-	Mon, 21 Sep 2026 10:22:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9CA93A8388;
+	Mon, 21 Sep 2026 10:23:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789986152; cv=none; b=tLUYkBioMNW1HaDHIqMYNNeQ4aFX+sF+yR7t1h0VX+Wd10yeE1eKHXBSabsuh/GUkegoXYlpnlXD/69OIGSUyY1CTgNGHK03U0aQNesVAgowAA2i+sWmmgxw9UNgp+cT6DgzkKRupWBABpnvDyakh8Q3rPqgrEBW5TFSEs/upY0=
+	t=1789986225; cv=none; b=cNaNbXKwvEhvwZXU3hVsZCD8yUsEDc8tjU+ZhonI9MQPXG+cPaIGMuWJhPTxgtwdWjp91IoaVnFqYI4/Wf7wLxuuBhkt/1gBq+4KnJwsE+jUqY3pN08J52MzZcM0ue4h1KZ0sLm5ys+FJi4dwC5sVAKHlSkIMfdq+kgPnGBfeZM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789986152; c=relaxed/simple;
-	bh=2zzAiPlCMlsKvglShMlQV7ph8zJ/L+voqaBQavdm2YA=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=HmchZPzAbWg0wpeK0dxJcrbDXXLf03nSr8ksnQCDn+0MSzA4y1i3ls/+C4PME4ttxsYC3eCHDOdFO3sJJN7Z+2goNIVrLIvzh4loZ/8Vrcb9PXSE9WDjCsBk/qLCrlUpQkBDY5SI54VGnu5so7QwcAMHOe9o/CAU5P6ta5Q28FI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=N5UOaGRE; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1789986225; c=relaxed/simple;
+	bh=7GAn0SQrJZf8k+Cj17Zb29X4ig34iegCyfKKDdzx8c4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CZuMSJpEdxQ8GPIGianGipRQZl6i93yelab4E39MOWXkKbCuM9SIpAnpLaW1D3ltTPBREZtC5O8mgpVxNSdzBuOxdqN+IiSvfqciWOCDEksHgCDEY5BGhTanpQQyTpJrA75fAY0BoDbHp7BxIhzSyaOQoGoacFHkpB80tXRt4W0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l1StiYi4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="N5UOaGRE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789986149;
-	bh=2zzAiPlCMlsKvglShMlQV7ph8zJ/L+voqaBQavdm2YA=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=N5UOaGREaW4M8VNJGJXTyB1093FUv/1VEXDlrgZLzoEyAGVWo24TyGZHS/XZtFQFU
-	 gRk1eE9RNUUdRFYN5J4SA73arYUfTZzBToEMEfxo1VaGDxp/ZDovL0vGgxQtvPu9Gg
-	 pKTO402q5C+vEarlWIj6hCArDorCe70Fw+/Bky+Wqwcac9V3hfGIB7bzPcLCj35nGH
-	 erlWHSpco2lVv37v817Ls+imGrHt4Q8Hm8fQKH2yLsSolDp3a/cerTROPerTFfIiVG
-	 LfvF9QbDz34U7glJP3cdRIJHD49adFlg1AJDRQHohtvagHuts/R4eJTB69vnYyE03Z
-	 Sww6ZQvMmjEHQ==
-Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 2120817E03B6;
-	Mon, 21 Sep 2026 12:22:29 +0200 (CEST)
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- Frank Wunderlich <linux@fw-web.de>
-Cc: Frank Wunderlich <frank-w@public-files.de>, 
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
- Mika Westerberg <mika.westerberg@linux.intel.com>, 
- Linus Walleij <linusw@kernel.org>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-In-Reply-To: <20260918143846.30458-1-linux@fw-web.de>
-References: <20260918143846.30458-1-linux@fw-web.de>
-Subject: Re: [PATCH 0/2] Add gpio labels for R4Pro
-Message-Id: <178998614908.21581.16111635463377491991.b4-ty@b4>
-Date: Mon, 21 Sep 2026 12:22:29 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l1StiYi4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A95551F000FF;
+	Mon, 21 Sep 2026 10:23:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789986223;
+	bh=KeiDS35e7oDHwVYJ1jbiHDTcydj3LPI1RqwdLg/V/rc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=l1StiYi4RfoOPqgoNX1poiOFcPxlad0HHVR4LgotRAP93zWrY35dmUG4Nvdg5CTj3
+	 YrQKm155U8J7D3AjlI8Kam8U4CJ3SWheQ0s0bd8y0qZiByYR08hVKUy8kFygMnNSFp
+	 /f27J7sCr3AhKDtucR0BNgSXW5dRy+IoifrobCIrlLNO1+N90f5iyTTceK0AmRE98D
+	 jmlrxOdHpx1TU89FFNIgIBN3SM1Jh6mFo11g9sLj3mIJP+u6tvzy+dy23bBnRQelyw
+	 4YHseQfrcmJ2L1CJVofEZEjtG6AZZKgZ22oFtLJYYe9n4A454D2l7YpQ0VX8xOmCuX
+	 WThWlEhsEp7jg==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id 44EA21AC52F5; Mon, 21 Sep 2026 11:23:39 +0100 (BST)
+Date: Mon, 21 Sep 2026 12:23:39 +0200
+From: Mark Brown <broonie@kernel.org>
+To: zain_zhou@realsil.com.cn
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Vikash Bansal <vikash.bansal@nxp.com>,
+	Aman Kumar Pandey <aman.kumarpandey@nxp.com>,
+	Lakshay Piplani <lakshay.piplani@nxp.com>,
+	devicetree@vger.kernel.org, linux-i3c@lists.infradead.org,
+	linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
+	Wei Wang <wei_wang@realsil.com.cn>
+Subject: Re: [RFC PATCH 3/4] regulator: rts490x: Add driver for on-die
+ regulators
+Message-ID: <arEFq_jDaUcbbDvo@sirena.co.uk>
+References: <20260920100501.4091351-1-zain_zhou@realsil.com.cn>
+ <20260920100501.4091351-4-zain_zhou@realsil.com.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-
-On Fri, 18 Sep 2026 16:38:41 +0200, Frank Wunderlich wrote:
-> From: Frank Wunderlich <frank-w@public-files.de>
-> 
-> This Series adds line-names for i2c-gpio adapter and pcie hogs
-> for easier debugging via /sys/kernel/debug/gpio.
-> 
-> Frank Wunderlich (2):
->   arm64: dts: mediatek: mt7988a-bpi-r4pro: add names for i2c-to-gpio
->     chip
->   arm64: dts: mediatek: mt7988a-bpi-r4pro: label gpio-hogs
-> 
-> [...]
-
-Applied to v7.3-next/dts64, thanks!
-
-[1/2] arm64: dts: mediatek: mt7988a-bpi-r4pro: add names for i2c-to-gpio chip
-      commit: ee3f4a1785bd73a865a4aa5e1974c6079f96b2bc
-[2/2] arm64: dts: mediatek: mt7988a-bpi-r4pro: label gpio-hogs
-      commit: bf89276b2db391cbb25d1a0e898280fe85b16fb5
-
-Cheers,
-Angelo
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="f5/rSFUp8Yji7O/g"
+Content-Disposition: inline
+In-Reply-To: <20260920100501.4091351-4-zain_zhou@realsil.com.cn>
+X-Cookie: Too clever is dumb.
 
 
+--f5/rSFUp8Yji7O/g
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Sun, Sep 20, 2026 at 06:05:00PM +0800, zain_zhou@realsil.com.cn wrote:
+
+> Add regulator support for the four programmable LDO outputs in the
+> Realtek RTS490x I3C hub. The driver exposes the LDO voltage and enable
+> controls through the regulator framework while preserving protected
+> register state across updates.
+
+> +static int rts490x_regulator_unprotect(struct regulator_dev *rdev,
+> +				       struct rts490x_reg_state *state)
+> +{
+> +	int ret;
+> +
+> +	state->restore = false;
+> +
+> +	ret = regmap_read(rdev->regmap, RTS490X_PROTECTION_CODE,
+> +			  &state->original);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (state->original == RTS490X_REGISTERS_UNLOCK_CODE)
+> +		return 0;
+> +
+> +	ret = regmap_write(rdev->regmap, RTS490X_PROTECTION_CODE,
+> +			   RTS490X_REGISTERS_UNLOCK_CODE);
+> +	if (!ret)
+> +		state->restore = true;
+> +
+> +	return ret;
+> +}
+
+What's going on with all this restore tracking?
+
+> +static int rts490x_regulator_probe(struct platform_device *pdev)
+> +{
+
+> +	if (!pdev->dev.of_node) {
+> +		dev_warn(&pdev->dev,
+> +			 "no OF node; skipping on-chip LDO registration\n");
+> +		return 0;
+> +	}
+
+The hardware is there no matter what, you should just load the driver so
+the state is visible.  Without constraints the hardware state won't be
+touched.
+
+> +	regulators = of_get_available_child_by_name(pdev->dev.of_node, "regulators");
+> +	if (!regulators)
+> +		return 0;
+
+The driver should just register all the regulators the silicon has
+unconditionally.
+
+--f5/rSFUp8Yji7O/g
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqxBaoACgkQJNaLcl1U
+h9DrEgf+KXidvn27tUTXYgVYcFZ0ex7DvlXgyKZmRRxKrLvcmKP7zfArl7kU5hn2
+SI1FLzc3ZUSfJ91wZIe+loFnf/Vx7/pmt9KvN0IZqtmuI0q8pbsGGDPOb4xc/Mx6
+MX/5aOUIrcHRGsxWUVJld1AYkG/Hp5z38/TlPxtdxQpP09artOzs4F1qXFUdcKMN
+QtrtPgyUrMf9vJV3+QaEfIzU3XslZOqr7igO4+jeJbGtc8Za5FG7/StjbvrQoOkd
+mxsTFhFLO9R4/QUjXz7ARi8JlAXl5WHaJiNhyoTrXXLlt/DbCIKLFA5cGd3gCA40
+5VnO2kac3TjTifouGM5EgKWlv2P6Eg==
+=RDhc
+-----END PGP SIGNATURE-----
+
+--f5/rSFUp8Yji7O/g--
