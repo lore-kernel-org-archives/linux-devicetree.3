@@ -1,87 +1,133 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F849466B03;
-	Mon, 21 Sep 2026 10:03:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF70E3E451B
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 10:03:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789984988; cv=none; b=M0rFn3rz9u/nSJFUY8obRnFMVH+TuaAgGnwhVt0iD/bKHwQUTmuUg8HvShi8qvrRMwFYb/wpKPaohTa7Us0coeK50x5hR1VSecOct6aubiR0LhVqW9RRSRyb3eYvdUOMyJ0Q4/voZyxj4j3ARun6KLDe7GdWq92pets2EtSJH0Y=
+	t=1789985039; cv=none; b=rva0+O5x14lr4oAFcZG9GDBz3VgziFC+THWFIX19v6C+R9Eag2pzKEITsIDmn81CsuHVvhIKnnaffUHMF3VR9v/mXYB/EWos64C1nR8ACCrhH7muHdyF4KmVZ54p/0QboDbF6aHGaewkngK7K1qsTUFrVFAy4bgfpTgmytbq4Ag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789984988; c=relaxed/simple;
-	bh=wse+kezUK4OPr1Q8vimIEyV46wqlvIFGwwV3Za4Rx2E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UNEfZsQmHmfTbKJDQXGLF4EeD8wf1QemYUGORtfQUS0gdm8mqQOlcfrLEBbnNvn0LsyTTAG94azZmPq7jBXKUwWduLCu/GOBsw/V0Wc5mzOIPCVrkytISbleFdEjI7TIDMJhC8YShJp4wpKv16OQhJmbacnCF7nVlgtvPqzgUfg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=cuLLnOrI; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1789985039; c=relaxed/simple;
+	bh=JFFGMZU2a69jxy1Jmk4EqMHiAA0TpGKX+b+R3gZNpdA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=YB+aJ7WLFH0DQMjv/9Ct2KjzMZC8zNSQEFJTu2zUPF6zYAA3TTOvxeG1GD/jgnpt1IzOyiFAEYD+xe9vMRtS5CX2AIecMLhRZ8A4dwB5lABsUNsj3RZstqUTcI0R/bQJpcmFD88WNkrEytu/2lgOI9y5xS2wVIZWwnBqOXsfvsk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PJOkJ/8I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="cuLLnOrI"
-Received: from francesco-nb (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
-	by mail11.truemail.it (Postfix) with ESMTPA id 1A4FC1F947;
-	Mon, 21 Sep 2026 12:03:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1789984984;
-	bh=4lv/4qA49zZhVU6Mtn/HDxpZJGQJyADrP9l8XahpZC0=; h=From:To:Subject;
-	b=cuLLnOrIpN8MYL71+U54afnRLtYNj/apQyXqHsXD9V/kHSFYbwoBTBFnCQcYdNKDH
-	 fMg36K1GT5vECr5fNb2Db3WPSzoY1SLhnGhqu8eYP4g1TnaBRQxUZ92knI4Ka3haIW
-	 +P2RCIwINK245R2oFTShmrgCQJcLEfMR79X9ovppMS2DxPcGQdDacjfU8LwDyRu4nE
-	 JAy9bK13RJq9ryRnODkiNkcdIr/RtUDSo0YvvkB7DBaYELvv5NFoSGOdaRujsitttc
-	 wGenHDupm2H7gCaGJ98fMkAx1rkJUNRn72umjS/GD/kz5KbhwC/qzbmeDNK+HGsL3t
-	 mMY8HON3Y+o9Q==
-Date: Mon, 21 Sep 2026 12:02:59 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Francesco Dolcini <francesco@dolcini.it>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v1 0/3] drm/bridge: Add Thine THC63LVD827 LVDS encoder
- and 10inch LVDS panel on Colibri iMX7
-Message-ID: <20260921100259.GA61633@francesco-nb>
-References: <20260908100230.83796-1-francesco@dolcini.it>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PJOkJ/8I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34C941F000FF;
+	Mon, 21 Sep 2026 10:03:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789985037;
+	bh=WFYeTECLxec45XeDzuY6/UOvuIEpMtQigp3H1DplaJA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=PJOkJ/8Io0Qj0YA6Oa0PBpXPg1j9rnybC225dmMXX0jhVfrggx6RnBmgCDubcuYKX
+	 JVb509pshqmfw7/1Js5irOFCY2MGlngcGTTuigUP3J9VguHnkXWowy2anlF/SakDPP
+	 8UpsZZmTmQwJrCTdRXwjRqXEPRdyIYL6gC2Q+dDmL4Ds3mAIWuAPl7UzuZssQ7ll2Q
+	 iaMw/SwpsB7xswL5lv2qQmwPy6FFtZd6YqzrsjZDNtVAUJYMoKPesZowGKHoxhplmy
+	 wBT8J0on0VRPAX08s/7V3tL/k3Lm8AG6bLHGdYZWFoqb02X0hGr0hPE604Afn2neCn
+	 3ld9tHnjSDgJw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/3] regulator: add regulator driver for the Nexperia
+ NEX10000UB
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Neil Armstrong" <neil.armstrong@linaro.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260921-topic-sm8x50-nex10000ub-v2-3-eeeaf9b0c913@linaro.org>
+References: <20260921-topic-sm8x50-nex10000ub-v2-0-eeeaf9b0c913@linaro.org>
+ <20260921-topic-sm8x50-nex10000ub-v2-3-eeeaf9b0c913@linaro.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 21 Sep 2026 10:03:56 +0000
+Message-Id: <20260921100357.34C941F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260908100230.83796-1-francesco@dolcini.it>
 
-Hello,
-just a gentle ping on this.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] regulator: nex10000ub: fatal error on missing optional enable-gpio=
+s and unsafe flags
+- [High] regulator: nex10000ub: bogus regmap enable operations due to missi=
+ng descriptor fields
+--
 
-On Tue, Sep 08, 2026 at 12:02:24PM +0200, Francesco Dolcini wrote:
-> From: Francesco Dolcini <francesco.dolcini@toradex.com>
-> 
-> This series adds support for the Thine THC63LVD827 DPI to LVDS encoder and
-> afterward uses it to add a DT overlay to enable the Toradex 10inch LVDS panel
-> on Colibri iMX7 / Iris
+commit 0697e8f972779073ad47133056d9851d3d08dfc2
+Author: Neil Armstrong <neil.armstrong@linaro.org>
 
-I did not get any feedback on the binding (apart a small comment from
-Frank -> thanks!) and zero feedback on the driver. Maybe some DT and DRM
-bridge people can have a look?
+regulator: add regulator driver for the Nexperia NEX10000UB
 
-Thanks a lot, appreciated.
+Add regulator support for the Nexperia NEX10000UB dual output LCD
+bias power supply which provides programmable positive and negative
+output voltages mainly for display panels applications.
 
-Francesco
+[ ... ]
 
+> --- /dev/null
+> +++ b/drivers/regulator/nex10000ub-regulator.c
 
+[ ... ]
+
+> +static int nex10000ub_of_parse_cb(struct device_node *np,
+> +				  const struct regulator_desc *desc,
+> +				  struct regulator_config *config)
+> +{
+> +	struct gpio_desc *ena_gpiod;
+> +
+> +	ena_gpiod =3D fwnode_gpiod_get_index(of_fwnode_handle(np), "enable", 0,
+> +					   GPIOD_OUT_LOW, desc->name);
+> +	if (IS_ERR(ena_gpiod))
+> +		return PTR_ERR(ena_gpiod);
+
+[Severity: High]
+If the enable-gpios property is omitted in the device tree, does this cause
+fwnode_gpiod_get_index() to return -ENOENT and cause DT initialization to f=
+ail
+entirely?
+
+Also, does requesting the GPIO with GPIOD_OUT_LOW instead of GPIOD_ASIS for=
+ce
+the output low during boot, potentially disabling the display abruptly?
+
+Finally, if the VPOS and VNEG regulators share the same physical enable pin
+(which is common for dual-output PMICs), will omitting
+GPIOD_FLAGS_BIT_NONEXCLUSIVE cause a failure with -EBUSY?
+
+> +
+> +	config->ena_gpiod =3D ena_gpiod;
+> +
+> +	return 0;
+> +}
+> +
+> +#define NEX10000UB_REGULATOR_DESC(_id, _name)			\
+> +	[NEX10000UB_REGULATOR_ID_##_id] =3D {			\
+> +		.name =3D "nex10000ub-"#_name,			\
+> +		.supply_name =3D "vin",				\
+> +		.id =3D NEX10000UB_REGULATOR_ID_##_id,		\
+> +		.of_match =3D of_match_ptr(#_name),		\
+> +		.of_parse_cb =3D nex10000ub_of_parse_cb,		\
+> +		.ops =3D &nex10000ub_regulator_ops,		\
+> +		.n_voltages =3D NEX10000UB_VOUT_N_VOLTAGE,	\
+> +		.min_uV =3D NEX10000UB_VOUT_VMIN,			\
+> +		.uV_step =3D NEX10000UB_VOUT_STEP,		\
+> +		.enable_time =3D 2000,				\
+> +		.vsel_mask =3D NEX10000UB_VOUT_MASK,		\
+> +		.vsel_reg =3D NEX10000UB_REG_##_id,		\
+> +		.type =3D REGULATOR_VOLTAGE,			\
+> +		.owner =3D THIS_MODULE,				\
+> +	}
+
+[Severity: High]
+Since nex10000ub_regulator_ops uses regulator_enable_regmap and
+regulator_is_enabled_regmap, will omitting enable_reg and enable_mask here
+cause them to default to 0?
+
+If so, won't regulator_is_enabled_regmap() erroneously read the VPOS voltage
+setting register (0x00), mask it with 0, and incorrectly return disabled? It
+also seems regulator_enable_regmap() would generate useless I2C traffic
+to register 0x00.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921-topic-sm8x=
+50-nex10000ub-v2-0-eeeaf9b0c913@linaro.org?part=3D3
