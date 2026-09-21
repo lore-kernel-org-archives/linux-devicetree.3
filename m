@@ -1,206 +1,282 @@
-Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11011030.outbound.protection.outlook.com [52.101.125.30])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AEB743C7D0;
-	Mon, 21 Sep 2026 10:07:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.30
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789985237; cv=fail; b=Ud3f4cjZNPgrlDP415CEoj1FZD/3V1JxTelCBqCzAZEr+LW05t4+Iul32svY7kH8tug0TtsWqxaLZFRxzeKk1zsyol8M1otGPJTPg3SrWeqMxOUKuYliZ9oegjmTRRQEEeEgd8GIiOth4l/pAP+x+G4MbtJukZTSLWsknnEDeu8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789985237; c=relaxed/simple;
-	bh=rSh50ahNaOZDNYk/5KM9YmVAoRctT1P4ra4bTrL2k+Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=nLtRLeniK1fOhmRtbNZjbIfwwh+c/06alBaWVaH8LmWwfA1P3BeqxTPGWCEjK861ngymTSHv8a1FX6vrPr8ejr664y4+DhNc5wXWDOCsKa3192Vc8MMh2rOwwLSENTTGkhANBlfZhmeBfZwR5e3tjEOuyP4DMgvMqkZ3ZW+Gv1k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=beFdIZT7; arc=fail smtp.client-ip=52.101.125.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85B563932D5;
+	Mon, 21 Sep 2026 10:15:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789985739; cv=none; b=PMQpHRfnc1ds+1KGNtWQvfjqH7LtRhY2w15Sduad3Ya8mSJXM9VPIGGHQFNwtVNlI9e2eU5pMWxMg3iq0NdfXXOQY3IocQiw7B+MCbCmMPyDMJ6ZtvMWL5nZJsQkK6a8o6qg0OUOI39nBO7BwOWhcLdC1J8u1ZwH75bAfGoCJow=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789985739; c=relaxed/simple;
+	bh=tZtMCjyRjEVpTYK9a7RCqJ/OJnIZNfwPzTXTJARyiqM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YExBAzTFYkY4YfJdojQbwDvkJCChypEw7CCTpaxCo3UVcu8l5lsauoRDTvHO3YAfF/hLMWVdrZhIGniEh67u+cEnrripjk45wkVCAbmmN5lZjJbsxl0XRx4EMoKKk/lwNRuNHpCbgcrGA5QFAMjhVNIYtHRuJmAuRQ/fOe8CnXU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=mXwGSfjC; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="beFdIZT7"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xB4lSlm/LsOqHiy3xyQLg3su3QGSA+vtMI3BpEPE6HtrC6z4qkgGjK6qfYY30xEWXlnA91TIBLs/kCB0wTN2RV9dB5I3nq6rjXJYKctU96fFRmKqiCpHtWdQVUw5pQznv0AoQM8GP1DplB62D4bGYuhSRU9RcCRE954TBhRqi6bWcroO88cPziwEwO2pkGgrpw8FFM2wLosEBt5DY5XA9+BAJC+pZYETTiDsCWpGKYMj16enExHyzGWFq/CQhjgw/7V7eQCWA2DNTN4QhBt3EOcVO8ybFbMGd03Pf0vKKpyfd52CQ0HqIxQsomDOCCtKes3BXKkkDe6VcAcFRnqs4g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cpsUduWqs1PG2jV41hrM9d9lr+7bHRmXJqPc7LWPlC0=;
- b=AoN5mRDdZfU/lg43NHu7E6b4YCi6Ubn3EREWwdmR0cRJQGbV9S1GXlkjLHQ8R8ErMEv9SuhhNdmzc8KFH3tAJoqECogpafJyF/cNqVgyRHuRfFJWCLi/vtbN+BgDolPJiYXxUB3myD56kCwdIxn3FMeB8mCDeC64KJdcX3BiA/jUWTQSoJLGK3budQA6V6kSLMjUpEP/xvdGq101W5wSfnbhm3W7dVwxYIbWi3SUZoSVLFTE/O10/iMPI/BZD3vn7MJCBwDsH66rEOV7WRyDVGD2zBGabHWNxKLSbJGVDLfpU1btuYmHls24cPSdfQhhlM7sRAr+eeXDB9kX/tc4vg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cpsUduWqs1PG2jV41hrM9d9lr+7bHRmXJqPc7LWPlC0=;
- b=beFdIZT7rsn6nyOGEwYbEYtCgkX+k3vveJhoGERqq4BK4OLDTJDGyBvoyhiKhLjZKTtP/edLk2K0Nh10nvc/bKiPICsTqNY6DPU6OGERNzzwnpv6uvnlFfsDB94ntvd0DZs4zTpChWOtHaUqJf6ArUfZ3jnqz2i1iMNHVHxoAiA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com (2603:1096:405:18d::7)
- by OS9PR01MB16122.jpnprd01.prod.outlook.com (2603:1096:604:3d9::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
- 2026 10:07:12 +0000
-Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com
- ([fe80::2f5b:8560:48ed:3828]) by TYRPR01MB13588.jpnprd01.prod.outlook.com
- ([fe80::2f5b:8560:48ed:3828%4]) with mapi id 15.21.0428.015; Mon, 21 Sep 2026
- 10:07:11 +0000
-Date: Mon, 21 Sep 2026 12:06:55 +0200
-From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: tomm.merciai@gmail.com, prabhakar.mahadev-lad.rj@bp.renesas.com,
-	linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 4/4] arm64: dts: renesas: r9a09g047e57-smarc: Enable
- USB2.0 support
-Message-ID: <arEBv5HpjCgx9u4e@tom-desktop>
-References: <cover.1788943229.git.tommaso.merciai.xr@bp.renesas.com>
- <34a6d23e309aab5fbf369132d75794222097396d.1788943229.git.tommaso.merciai.xr@bp.renesas.com>
- <CAMuHMdUYC2m3YgayTrCvZHoTVkj4v+7a5cvO1g=UFxR+6dJiJw@mail.gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAMuHMdUYC2m3YgayTrCvZHoTVkj4v+7a5cvO1g=UFxR+6dJiJw@mail.gmail.com>
-X-ClientProxiedBy: FR5P281CA0039.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f3::18) To TYRPR01MB13588.jpnprd01.prod.outlook.com
- (2603:1096:405:18d::7)
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="mXwGSfjC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789985735;
+	bh=tZtMCjyRjEVpTYK9a7RCqJ/OJnIZNfwPzTXTJARyiqM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=mXwGSfjC43zRsHGRv+b3VYs9+SM/XZumFJR8wiN1GnOLRQgPqtyB3HPTLbTo6Xcmm
+	 diCckJQntmudlTEfHjY/bJgOAKq30axoN1qb9NBscKfniEEiz0nCFotPzAA1MJtR3A
+	 7x7wk/dh5tZnmJ7LWIZfLQsLQijoXGB1RmBhrBxUdE6NnDw46PH6tDKdWlj1lXU8Yb
+	 ABcs3SsTxkL2wGGhVzVVpVtSOJwkuOxWCwILObqwTHrOt7YTPkoUEwmTa4EmqAYjv/
+	 F50Dkz0OIiiGU3IFXMYfuX2s8sXb1rJ/ySozxlV25vurscmYniZGESKOL02aPzY16n
+	 BEX50MZjDC4xg==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 1932017E01D1;
+	Mon, 21 Sep 2026 12:15:35 +0200 (CEST)
+Message-ID: <9d9648f8-2097-492a-ba20-6345e8661174@collabora.com>
+Date: Mon, 21 Sep 2026 12:15:34 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYRPR01MB13588:EE_|OS9PR01MB16122:EE_
-X-MS-Office365-Filtering-Correlation-Id: 08fbb447-5ba8-413d-144a-08df17c81a9c
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|52116014|376014|23010399003|1800799024|366016|38350700014|22082099003|18002099003|56012099006|11063799006|4143699003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	8sR+Jn6MdODNymn8YgepPpri/o8DoQ2nSqwt0hnyaH0TMj0kUs8IFnJ/YQYDlKINmNfPVQL0pTaRIBm255LatQLrhk9EJE1KcPCzB+ubjm+8PJO6t4nDRkkA66uB3UYVRlz93yJrcXe+BwCWezAAIlI/P+Xzdh+ggCk3S31xR1NyUQIVbmOUtMHbpM2W81k+Vqpin/fhvRKR3gP9KMQueqRMY+SKeeYMqaMy7tR40oUCb5yUXScJxkM3mlEm2FipIxXdhfIQEa3FLoNSMf0uCR9Cu6+fr+e6jT70TsW778knN56mmCdCbEXjFWyVFemvAI1yDE3AOIKFh3KZrlUxEXP90qjyKf49pJnRJM8KzrVKDAVlA4/RLEvhYP9brHhrJVcsi1urEmV/IX+dkSYu9zWqx9/4tGqmlmSSaYm82U/vZ5LQmHDftFvwDFE+G1wu/LA8l6mhm33zpc+J95UTWf0NRwwXnPUpjTeyj+u0sVAXYja1MWS2Rm3+T1QcMyUUsTEjM5Pw+/ny6IJNyzv7ncjfolQMEIljmavAwLErVlP18odawVjIHnqwbN5p4Tp92KNA/QvtPoXz83h8j9tc2iBbpTu9Oke+4UI2QpLI13vFrOjJxz/UAwID42hxmdhsg9S+m/2eKcLOACpOMVBRR4u7HNanNMo0BQS8kgAhIGkZVbkqxjT19sObHzcF8r5srVJdFM9Ltl84VbKzO9bFD+Gol7tgtCdGkjHXfsN/uhM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYRPR01MB13588.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(52116014)(376014)(23010399003)(1800799024)(366016)(38350700014)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?wC5jhyfnXf+vyJ8JW579VH5tzSQ97MLB4trM22ExiEgzud4Gr+oBdzZQfCNY?=
- =?us-ascii?Q?q++vOyKvJoBFPFUp6iICR8gt15EtEyG/qIjNVZnP8vEMVjkqfGGHl5HUEVVJ?=
- =?us-ascii?Q?hYm0rm81LmhRSMQt2co2bWhQYAaf99TQp1U2mOkq06UVi3AyiDDGSD0euZDl?=
- =?us-ascii?Q?RyqcNv6NJgW2UdW86Y08IHu48pmKFZynGw1BGz3g7As6sskLi88zfKch5h+r?=
- =?us-ascii?Q?WG3rlLKOB5VTi4xy3dlJa4RbS45T89ih8iiBT9b43XzFUKh4jb7vZZyEUVgi?=
- =?us-ascii?Q?sjs6w5s6WyBEbmBrFtTbOaQggwaW7kXEoGWoe+HWUyOngGOS2T6EyT+ggheL?=
- =?us-ascii?Q?nbwuEVKqlr/RE4SJga5nGNxSkgij4ooVrznKIg6bzv0nwB3OeMA8v7kTRcYf?=
- =?us-ascii?Q?C3RHkW6mQp5vQ4jqxSqoVGuOJTKBS6P9nlyazv/K24RHIW5iLziqC0+LtKne?=
- =?us-ascii?Q?dDO3rtjQG7KLIs+An3tSIf3LIZwhWhCsCIHktZ3bwnb9Yjtt6I9uUWtpQgW8?=
- =?us-ascii?Q?q1EW+ucKrV3K8flles100+OB8bSj4je8bIKT5aOGwQI3ESz81+WP3r8+x0ME?=
- =?us-ascii?Q?81fwFPaClBfTw5ISq9O0TRevUg8MJ7XlTAWjCUYuCso9czZCW+6t/3q3TBBn?=
- =?us-ascii?Q?cPwse05LUwc0BTkQLHUw8L8HnaGSQvkX1mN5qNYiPOO0y2fDSpUdTYm5Zpy9?=
- =?us-ascii?Q?p+qX67x2/MdC/r2sSigf9l4UoDzjtmXBI5hZZaTSA42EcI60wFu/cNlyKKqh?=
- =?us-ascii?Q?OaCEmATwh8r+BTJuYnJ7wWIyrzIWMJS75sdk4Xvd9GLtTRflUO1tVXnPWQlH?=
- =?us-ascii?Q?dugWqAvXQWrOC+xBhEERr8RtwyOiTwFBs9V+OKv1iPO3Epwyfo7KLIzN/wYE?=
- =?us-ascii?Q?6V6CU4lKE9Sjge/zMQhmb8zy7Px8azdHuFlL+V6Bs4fZFulLgYrpCtXgN08B?=
- =?us-ascii?Q?h9Ki/+yaOiZPs58+/0CF1unmphuwxViuOMMOHnJ2ku2PPidfkblvo49toai7?=
- =?us-ascii?Q?Ui08MBqC5ohSWCkcSRgNjo9jBBsPC09jpNO5qHwStLDdr5ntl6F+pkbysMHl?=
- =?us-ascii?Q?gh3mns9BIXBT5lu23qSNBqEy/b9KW2MTQpzsQddJCbM3Vp5bZbTXowncBUVn?=
- =?us-ascii?Q?uakxA6sm5ltam9qtyvWrCueDATV6GObSM5JFKQrM82LnLaPzpslQW2b1mTJK?=
- =?us-ascii?Q?U34ABjgdyiW62TXMjbzJvK63k/FOxgFZQonmpDe4whKV2iqFd+o7tWS24gfy?=
- =?us-ascii?Q?OjFGBq2hKxYgtlUXLg5wYQN/M14bnwa/Ny3BD2q6K2lg3zQ+bmJgLwGZkvCv?=
- =?us-ascii?Q?zvlrwYkPnYF5eCBduKKiak7NOYrV2FS2xjhw/NDp0zr/pFnDswKiO7vP5T6V?=
- =?us-ascii?Q?ZNKGZIUe4jbM/hF0EKUWNwQb5ofX5s3KiOsDGrHzcz+ChcnNB1aep0ddYabJ?=
- =?us-ascii?Q?bPFcfMJy1PT9h5DFxv5W8dJF/wsxadFOmqDFZ/dkIjwiLeMxE0IqamZ3JT2F?=
- =?us-ascii?Q?zjSZYXZQkaQBAmWLdh4FKJ0KSYprg+76VHkro77t+M052VWN3xEu1WdNEfRu?=
- =?us-ascii?Q?8TyXIg80Jxq9HiG8h0r39+iPhxbCgz0MxeD/dq4c9J4OOmb/ornyH1Xz1SM9?=
- =?us-ascii?Q?kthXW9D/34tD9O2uVaB2jkAOSxk7rafnI7PWXgGhaswh1Dx6MWiDXFulkFY5?=
- =?us-ascii?Q?6jrvgcyR4I9qRoKgoR3VMvmENMEeXTD8k9iI4Tu3tXGtJn+3emODKUkYeT+O?=
- =?us-ascii?Q?8L3nsLuaTldmcnT8fEZPisbWds7t/G3nlPPLFKe+ESRABY2leFfz?=
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 08fbb447-5ba8-413d-144a-08df17c81a9c
-X-MS-Exchange-CrossTenant-AuthSource: TYRPR01MB13588.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 10:07:11.8784
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gQgIKd8hBicbIFNdC7wPo6qj54HAGmm9K+WewL5Hp4y959mHmbchhM80zJSHJSKo44QWyb7QghIdhtHKaHyqUwGvxE7Iy7pIGxn5DH1u1aXOEuVehOrW1mojEE+Ekwge
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS9PR01MB16122
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/3] iio: adc: mt6397-auxadc: add mt6397 PMIC AUXADC
+ driver
+To: Ryan Brue <ryanbrue.dev@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
+ David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>, Lee Jones <lee@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, mfd@lists.linux.dev,
+ Roman Vivchar <rva333@protonmail.com>,
+ Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+ Andy Shevchenko <andriy.shevchenko@intel.com>
+References: <20260920-rbrue-suez-upstreaming-mt6397-auxadc-v3-0-c00edacbee64@gmail.com>
+ <20260920-rbrue-suez-upstreaming-mt6397-auxadc-v3-2-c00edacbee64@gmail.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20260920-rbrue-suez-upstreaming-mt6397-auxadc-v3-2-c00edacbee64@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Geert,
-Thanks for your review.
+On 9/20/26 07:31, Ryan Brue wrote:
+> The mt6397 AUXADC is a 10-bit ADC behind the SoC's PMIC wrapper. On boards
+> built around this PMIC it is the only way to read the battery: the SoC's
+> AUXADC is wired to board thermistors and the charger ICs these boards use
+> have no ADC of their own.
+> 
+> Add a driver exposing the battery voltage and battery temperature
+> channels. Only those two are described, so a channel ID in the device tree
+> indexes the driver's channel array rather than the PMIC's channel number,
+> as mt6323-auxadc does. The ready bit lives in a channel's raw result
+> register, but the value comes from the chip's factory-calibrated copy.
+> 
+> The battery voltage is measured through ISENSE, because a board with a
+> switching charger in the power path leaves BATSNS on the charger's system
+> rail instead of on the pack. The thermistor only reads correctly with the
+> PMIC's battery-detect bias and input buffer enabled, which take 20 ms to
+> settle. Both are switched back off afterwards.
+> 
+> Reads average sixteen conversions in software; the chip's sample
+> accumulator makes no measurable difference at any setting, so it is left
+> at one sample per conversion.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+> 
+> ---
+> 
+> A new driver was created here, instead of modifying an existing driver such
+> as mt6323-auxadc or mt6359-auxadc, for the following reasons:
+> 
+>   - Both mt6323-auxadc and mt6359-auxadc select channels through a request
+>     register (1 bit per channel), while mt6397 uses a 4-bit numeric field
+>     CHSEL in CON1 (10:7), and then pulses a START bit (CON1 bit 0).
+> 
+>   - For mt6323-auxadc, which is the closest I could find to the mt6397
+>     (CON0..CON27), it has 13 more registers than the mt6397 (CON0..CON14).
+>     It uses CON22 for its request register, and reads the result value
+>     from the same register as the ready bit. We don't do that - the mt6397
+>     has a factory-calibrated value for each channel at 0x16 higher than the
+>     raw value. mt6323 also has a 1800 mV / 15 bit scale / resolution while
+>     we have 1200 mV / 10 bits. We also have some per-channel preparation
+>     that we have to do before the burst, that the mt6323 doesn't have to
+>     do.
+> 
+>   - For mt6359-auxadc, it has a more generic framework for describing the
+>     AUXADC, but it assumes requests are channel-per-bit, and so we would
+>     have to basically ignore req_idx, req_mask, rdy_idx, and rdy_mask.
+> 
+>   - We also have our own software sampling, which the vendor does too
+>     (Amazon Fire OS based on Linux 3.18). We'd have to have our own
+>     sampling callback to do it.
+> ---
+>   MAINTAINERS                     |   1 +
+>   drivers/iio/adc/Kconfig         |  11 ++
+>   drivers/iio/adc/Makefile        |   1 +
+>   drivers/iio/adc/mt6397-auxadc.c | 391 ++++++++++++++++++++++++++++++++++++++++
+>   4 files changed, 404 insertions(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 41d7b3a67415..9b254f98b5d7 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -16717,6 +16717,7 @@ MEDIATEK MT6397 PMIC AUXADC DRIVER
+>   M:	Ryan Brue <ryanbrue.dev@gmail.com>
+>   L:	linux-iio@vger.kernel.org
+>   S:	Maintained
+> +F:	drivers/iio/adc/mt6397-auxadc.c
+>   F:	include/dt-bindings/iio/adc/mediatek,mt6397-auxadc.h
+>   
+>   MEDIATEK MT6735 CLOCK & RESET DRIVERS
+> diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
+> index 415e519ad4eb..9a1d36ed53cb 100644
+> --- a/drivers/iio/adc/Kconfig
+> +++ b/drivers/iio/adc/Kconfig
+> @@ -1233,6 +1233,17 @@ config MEDIATEK_MT6370_ADC
+>   	  This driver can also be built as a module. If so, the module
+>   	  will be called "mt6370-adc".
+>   
+> +config MEDIATEK_MT6397_AUXADC
+> +	tristate "MediaTek MT6397 PMIC AUXADC driver"
+> +	depends on MFD_MT6397
+> +	help
+> +	  Say yes here to enable support for MediaTek MT6397 PMIC Auxiliary ADC.
+> +	  This driver provides the battery voltage and battery temperature
+> +	  channels used by the fuel gauge on boards built around this PMIC.
+> +
+> +	  This driver can also be built as a module. If so, the module will be
+> +	  called mt6397-auxadc.
+> +
+>   config MEDIATEK_MT6577_AUXADC
+>   	tristate "MediaTek AUXADC driver"
+>   	depends on ARCH_MEDIATEK || COMPILE_TEST
+> diff --git a/drivers/iio/adc/Makefile b/drivers/iio/adc/Makefile
+> index dcec0abb03b7..13cb4206bdb7 100644
+> --- a/drivers/iio/adc/Makefile
+> +++ b/drivers/iio/adc/Makefile
+> @@ -105,6 +105,7 @@ obj-$(CONFIG_MEDIATEK_MT6323_AUXADC) += mt6323-auxadc.o
+>   obj-$(CONFIG_MEDIATEK_MT6359_AUXADC) += mt6359-auxadc.o
+>   obj-$(CONFIG_MEDIATEK_MT6360_ADC) += mt6360-adc.o
+>   obj-$(CONFIG_MEDIATEK_MT6370_ADC) += mt6370-adc.o
+> +obj-$(CONFIG_MEDIATEK_MT6397_AUXADC) += mt6397-auxadc.o
+>   obj-$(CONFIG_MEDIATEK_MT6577_AUXADC) += mt6577_auxadc.o
+>   obj-$(CONFIG_MEN_Z188_ADC) += men_z188_adc.o
+>   obj-$(CONFIG_MESON_SARADC) += meson_saradc.o
+> diff --git a/drivers/iio/adc/mt6397-auxadc.c b/drivers/iio/adc/mt6397-auxadc.c
+> new file mode 100644
+> index 000000000000..d860cd3a8922
+> --- /dev/null
+> +++ b/drivers/iio/adc/mt6397-auxadc.c
+> @@ -0,0 +1,391 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * MediaTek MT6397 PMIC AUXADC IIO driver
+> + *
+> + * Copyright (c) 2026 Ryan Brue <ryanbrue.dev@gmail.com>
+> + *
+> + * Based on drivers/iio/adc/mt6323-auxadc.c
+> + */
+> +
 
-On Mon, Sep 14, 2026 at 07:42:34PM +0200, Geert Uytterhoeven wrote:
-> Hi Tommaso,
-> 
-> On Wed, 9 Sept 2026 at 10:55, Tommaso Merciai
-> <tommaso.merciai.xr@bp.renesas.com> wrote:
-> > Enable USB2.0 support on the RZ/G3E EVK board. The USB1B_1A_HOST and
-> > USB5_4_HOST connectors support host operation only, while USB0_OTG
-> > supports both host and peripheral operation.
-> >
-> > renesas-smarc2.dtsi is shared by all boards based on the RZ SMARC
-> > Carrier II Board. USB2.0 is not yet supported on the RZ/G3L SMARC
-> > EVK, so disable the common USB2.0 nodes in its board DTS until proper
-> > support is added.
-> >
-> > Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> 
-> Thanks for your patch!
-> 
-> > --- a/arch/arm64/boot/dts/renesas/r9a09g047e57-smarc.dts
-> > +++ b/arch/arm64/boot/dts/renesas/r9a09g047e57-smarc.dts
-> > @@ -298,6 +298,28 @@ sd1-data {
-> >                 };
-> >         };
-> >
-> > +       usb20_pins: usb20 {
-> > +               ovc {
-> > +                       pinmux = <RZG3E_PORT_PINMUX(0, 0, 12)>; /* USB20_OVRCURN */
-> > +                       bias-pull-up;
-> > +               };
-> > +
-> > +               vbus {
-> > +                       pinmux = <RZG3E_PORT_PINMUX(0, 1, 12)>; /* USB20_VBUSEN */
-> > +               };
-> > +       };
-> > +
-> > +       usb21_pins: usb21 {
-> > +               ovc {
-> > +                       pinmux = <RZG3E_PORT_PINMUX(G, 6, 12)>; /* USB21_OVRCURN */
-> > +                       bias-pull-up;
-> > +               };
-> > +
-> > +               vbus {
-> > +                       pinmux = <RZG3E_PORT_PINMUX(K, 3, 12)>; /* USB21_VBUSEN */
-> > +               };
-> 
-> While these two signals are wired to the SLG46108, which generates
-> USB1_EN_OC# from that, the latter does not seem to be wired on the
-> carrier board (SMARC_MODULE_CN P67)?
+..snip..
 
-You are correct, USB1_EN_OC# -> P67 is not wired on the carrier board.
-I will drop usb21_pins in v4.
+> +
+> +static int mt6397_auxadc_battemp_bias_on(struct mt6397_auxadc *adc)
+> +{
+> +	struct regmap *map = adc->regmap;
+> +	int ret;
+> +
+> +	ret = regmap_set_bits(map, MT6397_AUXADC_CON0,
+> +			      MT6397_AUXADC_CON0_BUF_PWD_ON);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_set_bits(map, MT6397_AUXADC_CON0,
+> +			      MT6397_AUXADC_CON0_BUF_PWD_B);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return regmap_set_bits(map, MT6397_CHR_CON7,
+> +			       MT6397_CHR_CON7_BATON_TDET_EN);
+> +}
+> +
+> +static int mt6397_auxadc_battemp_bias_off(struct mt6397_auxadc *adc)
+> +{
+> +	struct regmap *map = adc->regmap;
+> +	int ret;
+> +
+> +	ret = regmap_clear_bits(map, MT6397_CHR_CON7, MT6397_CHR_CON7_BATON_TDET_EN);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_clear_bits(map, MT6397_AUXADC_CON0, MT6397_AUXADC_CON0_BUF_PWD_B);
+> +	if (ret)
+> +		return ret;
 
-Kind regards,
-Tommaso
+If this fails, and the internal buffers are kept enabled, are you sure that
+the AUXADC won't lock up?
 
+Should it lock up, I imagine that the best thing that could happen is a power
+leakage, but can be as bad as a system lockup.
 
-> 
-> > +       };
-> > +
-> >         usb3_pins: usb3 {
-> >                 pinmux = <RZG3E_PORT_PINMUX(4, 1, 12)>, /* USB30_VBUSEN */
-> >                          <RZG3E_PORT_PINMUX(4, 0, 12)>; /* USB30_OVRCURN */
-> 
-> The rest LGTM.
-> 
-> Gr{oetje,eeting}s,
-> 
->                         Geert
-> 
-> -- 
-> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-> 
-> In personal conversations with technical people, I call myself a hacker. But
-> when I'm talking to journalists I just say "programmer" or something like that.
->                                 -- Linus Torvalds
+Should we unconditionally also clear the MT6397_AUXADC_CON0_BUF_PWD_ON bit
+even if MT6397_AUXADC_CON0_BUF_PWD_B clearing fails?
+
+> +
+> +	return regmap_clear_bits(map, MT6397_AUXADC_CON0,
+> +				 MT6397_AUXADC_CON0_BUF_PWD_ON);
+> +}
+> +
+> +static int mt6397_auxadc_isense_enable(struct mt6397_auxadc *adc)
+> +{
+> +	struct regmap *map = adc->regmap;
+> +	int ret;
+> +
+> +	/*
+> +	 * Two of the five independent input enables, not a select field:
+> +	 * BATSNS is cleared first so that the two inputs are never enabled
+> +	 * onto the battery channel at the same time.
+> +	 */
+> +	ret = regmap_clear_bits(map, MT6397_CHR_CON16, MT6397_CHR_CON16_ADCIN_VBAT_EN);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_set_bits(map, MT6397_CHR_CON16, MT6397_CHR_CON16_ADCIN_VSEN_EN);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return regmap_set_bits(map, MT6397_AUXADC_CON14,
+> +			       MT6397_AUXADC_CON14_CH0_NORM_SEL |
+> +			       MT6397_AUXADC_CON14_CH0_LBAT_SEL);
+> +}
+> +
+> +static int mt6397_auxadc_isense_disable(struct mt6397_auxadc *adc)
+> +{
+> +	struct regmap *map = adc->regmap;
+> +	int ret;
+> +
+> +	ret = regmap_clear_bits(map, MT6397_AUXADC_CON14,
+> +				MT6397_AUXADC_CON14_CH0_NORM_SEL |
+> +				MT6397_AUXADC_CON14_CH0_LBAT_SEL);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return regmap_clear_bits(map, MT6397_CHR_CON16,
+> +				 MT6397_CHR_CON16_ADCIN_VSEN_EN |
+> +				 MT6397_CHR_CON16_ADCIN_VBAT_EN);
+
+Same here, but makes even more sense: if clearing the channel selector
+fails, you still want to disable the ADCIN in an effort to avoid power
+leakage.
+
+Everything else looks good, so I'm sure that you're getting my R-b on
+version 4.
+
+Cheers,
+Angelo
