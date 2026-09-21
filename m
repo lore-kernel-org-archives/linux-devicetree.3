@@ -1,196 +1,129 @@
-Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C9093AE1AF
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 19:35:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.40
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 806863AE704
+	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 19:36:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790019323; cv=none; b=j3p6HS63Yhyhwu3OPWmp/jxT8NozCr7y2WXT+gABu90dfj/r6UMyO1IEAOm9HWbgVnHBnwVClSvtMktqMDMDrxSxirN784Bb2q/VoVW58gvrjdziT4ZuxBYO8nJ/jCrpTiCJaJFIaTLjJw6tQpX+mxjjIH7G1S1BgRVvEexuQZo=
+	t=1790019394; cv=none; b=M98nrN/9B1L13Wrh0PcxyXsFR1yDNm8rmdhAYyTI3R5nnjZgOs4pxzx7AflBwIQqnUucNRLP/mF0+ghg/2UUK3pcWR/iG62xg/G6wv/BoXbfBaZd4A/ZZGoqgVKOCe30lDaaiQPhTopd+3AZVCynciCIzT5Kb8hjMahUAomw6jA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790019323; c=relaxed/simple;
-	bh=91BpiKRhcNi1oMd/UANA8vqZpXHfK9YQo9UgwaLw3GU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uFDt9Glcu9lbuIKvh83aUlD+wz6rO9wrfDF2mrP7eNzuh6A4pM8myYE+/Dp/HS/8sRJMT0/pgql4mPeNMxmmcP1dgYSXQ/aFUnNgYFozH4kG6eohcr+9yCybPu1lt/7qqkDlTSAmHKhcBGMIbDlL9A8pVTfFSthLxEIS4yvlaHw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BZedd+hX; arc=none smtp.client-ip=74.125.228.40
+	s=arc-20240116; t=1790019394; c=relaxed/simple;
+	bh=OaVkxkmraawHNTKTHsTGdgc0Vs97xI/bTkINePWEX74=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=N0OZVSA2JYnTdHAuWmxj65v+9b26S0mwlrWjX7Lc50X6voJal+hIeIzcMYubY/1dWmct+ddNdbcRjC/dxNRe31weRUmV80qh/FzjZpihHTSxbH2RnYfclXb4OGQ0+xGiX4AHGg8mKi1y5OEBVTL7FwBGDkOegT8uHZBCrR0CnsY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pIfd9lf9; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BZedd+hX"
-Received: by mail-pz2-f40.google.com with SMTP id 41be03b00d2f7-cc745abb731so820349a12.2
-        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 12:35:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pIfd9lf9"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e721b5503so33463025e9.0
+        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 12:36:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790019321; x=1790624121; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DVG44XaWD5VRhIgKZtC9m13XRRvje7+lB6Y1xmS7mQI=;
-        b=BZedd+hXG+IvgdlJY+Odc5OL5Mz05SKEz8WZZXbTMGy+8naGt3b4Rkew9r/WHcUpJr
-         sop/v5rgJs/f1XcWbx38YFwk9Xjpjbi2Yu8kpcAN/DY4eKLmRfhygooH2Keg2HudwDG2
-         XC2phHioeooHN28pmiEgfVoPDKaWmEkZ1Vm7z+e/5ewjs9mTuRMVLH9MDWnk83oBspZe
-         W9ViLRB/NDaM3Ye5c40LfYz02LTqMbkvf6n/FqZO5FiGOIhFNmBpEEYciHWFOkFNR8IG
-         MjUHcEfgqC+0KE7uOkMgUa5XWhUGHtCLKKhTlXhl/YAwlz1rja4b55RIBkZmrfmz7vgh
-         6jYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790019321; x=1790624121;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1790019390; x=1790624190; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=DVG44XaWD5VRhIgKZtC9m13XRRvje7+lB6Y1xmS7mQI=;
-        b=do20I2/yrEP3sO+//C3r6pfIMt/cvvq26VVh0xGWc8dqj+v7qLFSJ9x4hmGF40MAnj
-         Uj5vxhv/9KsK/SZb2WFsdHvbeUa9ngKIaVtVoNWSCVf2+kpH8yQXI0I++dxhbRyMuwHa
-         mHo6O65hWmwhwcCvnnxhp1y3jyE873kpHoHqayDs7kWwzbjtQjvFnfulj9z0vIQ4hryw
-         V9nw4LqCN9B+9RVhdE/48OE4Ouf+dk6JpdmIoKDTAhA5diQLORJJN4+Ux/mrIGhDIbOR
-         EHiihJtkWCwM4J5k/v6JCK9Pxiisf+eFIeEpPQTJ3EzATik4na+ggLPy4XTHfHdYvCEv
-         fV8g==
-X-Forwarded-Encrypted: i=1; AKwUvBxCVUE5BNqAU9PE94hPnLXs1pGei6PgFYXc0bzwGjK3LkHtsKeFVc9443SBBgJHfC6bsq7r12vIwS1a@vger.kernel.org
-X-Gm-Message-State: AFuF++kT0WGsA6uEl5s+ZGpnJyCx1ulIfbzElqO2HEb9adZY2ejxP+UU
-	Gvo4bKEF9x3/FI3/I0KrFle0cludkM594wTYL+aU8V9jrra+Sp4mjmB7GOZ6c5qF
-X-Gm-Gg: AYBFou1lolfJC8zZK65dXsr3TANwsMuVVryZ+aGiu5CK8GH5+DCv79ksx60dk2B767f
-	EC7QFXhPU7XPMkRzUVfZCzmgu4xs/FYXlZAPSrMsRHwW7kz40kUo/L+nW58YiWJy0MY9WK0W90J
-	/4araYUoGIguVEzHulpoyMNyN6ohhLbGXjKdyZIx9T5IkwHdnkgMRP3ujY7NfGPGozGP+SipJ+0
-	0/A0BWTNY3Z1peV1ONMvhinpNEftSOivE8+BzOMJk4pHJwzbV/0LTUpUDLKli5hsBHsYbCjK2xW
-	4VGcPCBTDYT526/DiL1VDuhVEjTxhjKNt9BCw4Fep8FVMV5W4+NbzuyPFZeaFJz4xPzEpfylRRR
-	5nTeaFrdG3WVsNzTs68iv+ZGf29RXvO93vTKXLnQDfIKBXZmCyziYBoVtYeju2LP2yVWokPnWWA
-	O79HK+RmEAm9CR0jJvrGAnpTzAbYlBvI8hVa5yHd7GdZaeAwJxL2JDW7DSTGG3pjDx+G1YAWOrr
-	9RLTavEORpVxn/QN+UQQklQtTe4LH5V1c+uhdopjhybcZmqLtg=
-X-Received: by 2002:a05:6a21:6b05:b0:3da:c2f5:a2aa with SMTP id adf61e73a8af0-3dd8c3323a9mr19869710637.18.1790019321421;
-        Mon, 21 Sep 2026 12:35:21 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:e1a7:4f7b:11d4:34fa])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144d55cef9bsm21067568c88.10.2026.09.21.12.35.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 12:35:20 -0700 (PDT)
-Date: Mon, 21 Sep 2026 12:35:16 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Markus Schneider-Pargmann <msp@baylibre.com>, 
-	Kendall Willis <k-willis@ti.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, s-kochidanadu@ti.com, 
-	a-kaur@ti.com, s-tripathi1@ti.com, vishalm@ti.com, linux-input@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: input: gpio-keys: add pinctrl states
-Message-ID: <arGGhvIieis2_sZ9@google.com>
-References: <20260912-upstream-gpio-wakeup-v1-0-f0e12484b836@ti.com>
- <20260912-upstream-gpio-wakeup-v1-1-f0e12484b836@ti.com>
- <20260914-unbreakable-competent-beluga-efb5ad@quoll>
- <20260915164819.nlgpuvf37rhzgc66@uda0506412>
- <dec4f6e1-115e-46dd-8fb9-a3c67f1a8811@kernel.org>
- <da881fb0-93da-4d75-88da-8898b2c734eb@kernel.org>
- <20260915174103.ad6tjy6w6s24h2yc@uda0506412>
- <20260916-dancing-loud-guan-fbb1eb@quoll>
- <DLGUOGCLFAI9.2JSS4DCFRYTNI@baylibre.com>
- <dfd82438-1c40-42b7-8a90-bd349a476489@kernel.org>
+        bh=MGcvaZSPcorP6DNYm+a0nDXUDpyXPezZYvSZ9UhvaG0=;
+        b=pIfd9lf9FrU+l8KQYa0sYtiSa9yESMeTa1/gvq4MPS433hEfZoKAD7WCF+Gy3gg9n5
+         WGemnkxg0UZSi5tcOheCVKI94sWTWLZ/0HivkQGgAnnUtJnXVaRag36RzeZaN6fwCsNJ
+         qnBTujA0Hcu8QvTykdTrkb9YA0xOmvbhEqPt4QdIx8mubxqxB6YzR58oYgXZd3ccMRXM
+         ftObY82r8C3erfJli+7SPdmFWrp2AqjjT08ZhIu/qH8tusZbYSx/XPbBbx6kHqigB9eD
+         5/NhIiugh4yKa/DUFufbb8GWxYj6bUmLpQymunQve4bJdY6UNSmmZz8l1bu5e3Xd4QC8
+         //nw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790019390; x=1790624190;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MGcvaZSPcorP6DNYm+a0nDXUDpyXPezZYvSZ9UhvaG0=;
+        b=HHQuXk0oihNLsyN+IekDyZpDyqDEDd52Y8EdEpAuJLWpzMNbbQxarg+MTpDEMBccuQ
+         6DJjGsNcq+ys+4yrE3fLnrgWkmkUVUThf/r+zdUELA8bgopM3D+4HeYr7owLqlKaS9ul
+         HgQXNAsS6v0+LqqDElH8Z3T4fOaaPVtPDBUS6+R2ye5hHkexZ8n1y5dGSIE4TnZvw4d1
+         nUt/AEXUglZB1rDGV9bW6pEL+LkTU8WqjikeTHu82TfGzkaHj1QRC1Rka7K7PDKpHP6a
+         ZQNXy0YYzySLQmzXsaAIBd+MlGYJrXZmJA2oMix5DlLry/7Ez/8Eb71ubEnjd9DgsLrT
+         MEpw==
+X-Forwarded-Encrypted: i=1; AKwUvBz+gAqewn9hIA+ij5V1WSEmydwBovJWTTEkfn37I3sxlkj/F80cyETjAkkmM50MOXenYB9pY3mkWKY/@vger.kernel.org
+X-Gm-Message-State: AFuF++m16BJL2595loE6yW7I4k3W4QAuR7PZRo3IhtHo1yVP2MK38xHd
+	EKxKA7CiImcYPNqd+28OoA7PnUkNbKodH4AijUSu2DiBvTXuS6xkh/XQ
+X-Gm-Gg: AYBFou0YvTEv5o3GVUaJXHM8I+DXp4IHIQTMB3XTzt5msBe0sNOWGjRkNRIi5GHPkK7
+	3nz6xWcTPGSsCobd8S780+hKUY6oQU5CdlKn0aySBc2ntfddwNLzIoFGtU0sqzcDXSvUsRnQReX
+	G192e9JsHVi2mEPkiqoL6viMUp1LDT1aBMynHauJMAwvBamaIRpcyq5jaE28OHA6BU/SrDoOAdm
+	M8WZqNu/3ydlcTkhq71YI0bNf2TN627anfQrDysMj1pQxjhzg/lhYFlFy9iZMNyM7Mnl2uyz2gW
+	r0hW7uSmSVB5h7SsR+N6k2qrcW9K1Mkepd0wA3hYOtA7gR9BlYChPSQ1oAyj4AtBQ8Hb4egltab
+	yvUD8ky5Id39urv1pRndgzCG5IdM0vq30QcY64oF8s20bwPqztg5rFMzgKS/D2mZ+V1nqXUUJJP
+	MOwpqyGR0IOgitNobtifXLNGhhkO+Mr7sWMeqWly7V6HnT0US21kwqbcToZe+xXlp2mzKNDVusv
+	X610/GcRjiJ4mpR/EIqKS87DR3qHtihph+IZ+ZxeOf9zAWYwNh5vQ==
+X-Received: by 2002:a05:600c:4e8f:b0:49c:fc6c:be19 with SMTP id 5b1f17b1804b1-49fc574c2b9mr174061695e9.31.1790019389438;
+        Mon, 21 Sep 2026 12:36:29 -0700 (PDT)
+Received: from [192.168.0.40] (212.71.14.70.adsl.dyn.edpnet.net. [212.71.14.70])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fd8b96cefsm13450625e9.1.2026.09.21.12.36.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 21 Sep 2026 12:36:28 -0700 (PDT)
+Message-ID: <9dd42965-f39b-49e5-aeef-5d03647b2005@gmail.com>
+Date: Mon, 21 Sep 2026 21:36:27 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <dfd82438-1c40-42b7-8a90-bd349a476489@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] rtc: Add Raspberry Pi 5 RTC driver
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Jonathan Bell <jonathan@raspberrypi.com>, Stefan Wahren <wahrenst@gmx.net>,
+ linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ Dom Cobley <popcornmix@gmail.com>
+References: <20260917135841.841680-1-sander.speetjens@gmail.com>
+ <20260917135841.841680-3-sander.speetjens@gmail.com>
+ <20260918-outrageous-myrtle-giraffe-80dfdc@quoll>
+ <20260921185949d6debd17@mail.local>
+Content-Language: en-US
+From: Sander Speetjens <sander.speetjens@gmail.com>
+In-Reply-To: <20260921185949d6debd17@mail.local>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 20, 2026 at 12:24:32PM +0200, Krzysztof Kozlowski wrote:
-> On 16/09/2026 17:36, Markus Schneider-Pargmann wrote:
-> > On Wed Sep 16, 2026 at 9:17 AM CEST, Krzysztof Kozlowski wrote:
-> >> On Tue, Sep 15, 2026 at 12:41:03PM -0500, Kendall Willis wrote:
-> >>> On 19:07-20260915, Krzysztof Kozlowski wrote:
-> >>>> On 15/09/2026 19:05, Krzysztof Kozlowski wrote:
-> >>>>> On 15/09/2026 18:48, Kendall Willis wrote:
-> >>>>>> On 12:13-20260914, Krzysztof Kozlowski wrote:
-> >>>>>>> On Sat, Sep 12, 2026 at 04:33:53PM -0500, Kendall Willis wrote:
-> >>>>>>>> Document pinctrl properties on the gpio-keys device node. By using the
-> >>>>>>>> wakeup pinctrl state, the pins are able to wakeup the system from a
-> >>>>>>>> low-power state. The default pinctrl state describes the default pin
-> >>>>>>>> configuration.
-> >>>>>>>>
-> >>>>>>>> Signed-off-by: Kendall Willis <k-willis@ti.com>
-> >>>>>>>> ---
-> >>>>>>>>  Documentation/devicetree/bindings/input/gpio-keys.yaml | 16 ++++++++++++++++
-> >>>>>>>>  1 file changed, 16 insertions(+)
-> >>>>>>>>
-> >>>>>>>> diff --git a/Documentation/devicetree/bindings/input/gpio-keys.yaml b/Documentation/devicetree/bindings/input/gpio-keys.yaml
-> >>>>>>>> index cc78c2152921308fe0cad3e29ca78a5fad08f066..b554933e93412d8b6c2ec401dc1e1eeff57d4190 100644
-> >>>>>>>> --- a/Documentation/devicetree/bindings/input/gpio-keys.yaml
-> >>>>>>>> +++ b/Documentation/devicetree/bindings/input/gpio-keys.yaml
-> >>>>>>>> @@ -22,6 +22,22 @@ properties:
-> >>>>>>>>  
-> >>>>>>>>    poll-interval: true
-> >>>>>>>>  
-> >>>>>>>> +  pinctrl-0:
-> >>>>>>>> +    description: Default pinctrl state
-> >>>>>>>> +
-> >>>>>>>> +  pinctrl-1:
-> >>>>>>>> +    description: Wakeup pinctrl state
-> >>>>>>>> +
-> >>>>>>>> +  pinctrl-names:
-> >>>>>>>> +    description:
-> >>>>>>>> +      When present should contain at least "default" describing the default pin
-> >>>>>>>> +      states. The second state called "wakeup" describes the pins in their
-> >>>>>>>> +      wakeup configuration required to exit sleep states.
-> >>>>>>>> +    minItems: 1
-> >>>>>>>> +    items:
-> >>>>>>>> +      - const: default
-> >>>>>>>> +      - const: wakeup
-> >>>>>>>
-> >>>>>>> This will introduce new warnings, which should be being fixed in this
-> >>>>>>> patchset (e.g. at91-kizbox3-hs.dts).
-> >>>>>>>
-> >>>>>>
-> >>>>>> Will fix the binding to work with current device trees.
-> >>>>>>
-> >>>>>>> But nevertheless, isn't second state the sleep state? How can you
-> >>>>>>> configure pins for the wakeup state - like being in the wakeup? You
-> >>>>>>> configure the pins for given state, which will be a system suspend, so
-> >>>>>>> sleep?
-> >>>>>>>
-> >>>>>>
-> >>>>>> The sleep state usually refers to putting the pins in a state to save
-> >>>>>> power. The wakeup pinctrl state is for putting the pins in a state to
-> >>>>>> allow wakeup from suspend for that device. Both 'sleep' and 'wakeup'
-> >>>>>> are for system suspend, but they fill different functions. The CAN
-> >>>>>> subsystem also uses the 'wakeup' state in addition to the 'sleep' state
-> >>>>>> [1].
-> >>>>>
-> >>>>> So you mean sleep would be a separate state? But then aren't both
-> >>>>> exactly the same states? IOW, if device is wakeup-source, it will have
-> >>>>> for "sleep" state pin configuration allowing to wakeup.
-> >>>
-> >>> The 'sleep' and 'wakeup' pin states are both used for suspend. They
-> >>> would just be used separately since only one could be used at a time.
-> >>> The reason 'wakeup' is separated out is because it is more specific for
-> >>> allowing wakeup from the device.
-> >>
-> >> If they cannot be used together, then it is the same state.
-> > 
-> > If I understand this patch correctly, 'sleep' is not relevant here.
-> > But 'sleep' and 'wakeup' serve different purposes and can be
-> > used/defined together in a single device in the devicetree:
-> >  - 'sleep' describes the pin state during suspend if wakeup is not
-> >    enabled by the user or there is no 'wakeup' pin state defined.
-> >  - 'wakeup' describes the pin state during suspend if wakeup is enabled
-> >    by the user.
-> > If the user enables wakeup, 'wakeup' is the relevant state and otherwise
-> > 'sleep'. Which one applieas is a runtime decision of the the user.
-> > 
-> > I introduced these two states for m_can for that reason. This was
-> > discussed here:
-> >   https://lore.kernel.org/r/DCD1YPX4T779.ADK4JCGW1MU7@baylibre.com
-> > 
-> > And then reviewed/applied in v10:
-> >   https://lore.kernel.org/r/175993598226.3512549.5295923279078928995.robh@kernel.org
-> 
-> So we seems to be discussing same issue again, because commit msg lacks
-> proper explanations.
-> 
-> The problem and difference here is that there is no sleep state.
+> This was my comment on the previous revision, I'm not sure why it was
+> ignored.
+Looks like that email got lost on my end, I found it in the archive.
 
-Isn't there? The wakeup can be controlled from userspace and can't we
-possible have 2 distinct pin control states, one for when a device is a
-potential wakeup source, and another one when the device is in "off"
-state while system is asleep?
+> This undocumented sysfs interface has to be removed.
+Just to make sure I understand correctly: does "This undocumented
+sysfs interface has to be removed" mean that
+   a) the attributes themselves are not wanted and should be dropped, or
+   b) they are acceptable but must be properly documented under
+      Documentation/ABI/ before they can stay?
 
-Thanks.
+Kind regards
+Sander Speetjens
 
--- 
-Dmitry
+On 9/21/26 20:59, Alexandre Belloni wrote:
+> On 18/09/2026 13:47:22+0200, Krzysztof Kozlowski wrote:
+>> On Thu, Sep 17, 2026 at 03:58:41PM +0200, Sander Speetjens wrote:
+>>> +	return devm_rtc_register_device(vrtc->rtc);
+>>> +}
+>>> +
+>>> +static const struct of_device_id rpi_rtc_dt_match[] = {
+>>> +	{ .compatible = "raspberrypi,firmware-rtc"},
+>> Please fixup white space issues, see existing drivers (missing space
+>> before }
+>>
+>>> +	{},
+>> and unnecessary ,.
+>>
+>> Just take existing latest code as starting point, otherwise you
+>> reintroduce discouraged patterns.
+>>
+>> More important: undocumented ABI.
+>>
+> This was my comment on the previous revision, I'm not sure why it was
+> ignored.
+>
+>
