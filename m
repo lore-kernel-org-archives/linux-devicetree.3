@@ -1,152 +1,82 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72CAE324B20
-	for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 03:47:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789962453; cv=none; b=SkFmWReu/En0LnLx7wLt/QYNpl7RUeUofrchO0QBOY4YsZQap1z8I2oheMnnsIbMnJ95f+cvZmGDNshRER6EnqdsSOl29df+LpXVMQ831g5Ow3NvbyT4DK0RPxKL6uDFDirW9QRWfyCPuZdVTrBmE2loc0WkBRvyGJGvZvA16k0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789962453; c=relaxed/simple;
-	bh=UN4ts6M0IGOwpamMJM2Yl3Whw7uAGMgzvGdWbIvZk2Y=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=MBBIbiqHmYc1BjwyeH2HWQQuEtZ5Aj/gRb3twGDmLYshuN7c7k+rD3EAMH5/YtYoHVCTfQDxQZBEHi7VPEJCs60VzeeX0O9hCu9i2tq66mCVAnqsPDPk3teCxMvbJXWHdjm0H3WmCQjwDBVOaeOBzmrx8ptawn0P58e9QjC81Ng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fWi7OWVz; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fWi7OWVz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7F391F000FF;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11EFB136351;
 	Mon, 21 Sep 2026 03:47:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789962452;
-	bh=zpdd70rDti43uud6vySxGWujqM9e/sSGDXzAlhCaFjk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fWi7OWVz4BVzM4jM5L4hVjLDnkA8ZbcaA5RM+7VuNtzPgcs9yx01cDfEtd1ft6I16
-	 IASr7oM4WuKr5qexFzqwcpywOw0+qAlAL3+HVaxCEHNklBqldJFVlbYtsjQnr/mTe6
-	 1/wGa4upgIyGIBmUro9X5hlTOfz0BK1vMTsTZHQxJ4RfBzeUrcJpAj6WlD4Xkt5uhj
-	 uMGkaBe9OpiYZwvzhpz69y/UNyLl9DtnBBKVY5k3SSkczpFAVXL+tg9NgFBBJNEW+S
-	 7ltxsSEZFsc0GaxTg9dAPQvWpYTyzw7UL9H1XPxwWmJJaymd9wt5YbLY3q56rmpkXj
-	 LwSQ2K8TgkKZg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] powerpc/pseries/dlpar: Remove DT entries if
- failure from CPU ADD notifier
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Haren Myneni" <haren@linux.ibm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260921033156.991481-2-haren@linux.ibm.com>
-References: <20260921033156.991481-1-haren@linux.ibm.com>
- <20260921033156.991481-2-haren@linux.ibm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 21 Sep 2026 03:47:31 +0000
-Message-Id: <20260921034731.D7F391F000FF@smtp.kernel.org>
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789962454; cv=none; b=UD03tpLpx9Vr0eqsLrRb/47m9FEr/TzGBVUKfv37zROLY1ZV3aNuZyZpoPMk6lnFU2bcHhOJn+LQ/BecsZOT4yNaIbmRtFlvYq9SXjl9af6DLTMuo95WNR++2Fee7V2XsB7X+hJ8duC8TyNaOdU/2SfJ6rfKHfj4566TXAvqnW8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789962454; c=relaxed/simple;
+	bh=KAkKDvhFORf2LGfFzHZLo3KGCvvHSMaEiCLfrj0YM7Q=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=gn0vJnWK8/t4LnZzcicHzuHU61CwY9r5lESWKmIp8IKm/G2Pw4jjwrTTDe83C1Q7c/MLUnAxRKbzs88ukZglsnsHqW5u7eUcbpu88UCG4JxY1ahVlNaVHB4EvBTA21N7BYK1hloIY5ueKXiHsDdLZSZDUCDWSkPwpeFVJr65Jiw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realsil.com.cn; spf=pass smtp.mailfrom=realsil.com.cn; dkim=pass (2048-bit key) header.d=realsil.com.cn header.i=@realsil.com.cn header.b=VYkMiv7W; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realsil.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realsil.com.cn
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=realsil.com.cn header.i=@realsil.com.cn header.b="VYkMiv7W"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68L3kXoD52233309, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realsil.com.cn;
+	s=dkim; t=1789962394;
+	bh=KAkKDvhFORf2LGfFzHZLo3KGCvvHSMaEiCLfrj0YM7Q=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=VYkMiv7WfFsI4wqT3xs3o0U0ksuLZwwJC0DCtuStaboWSg5GfFa8fy9PUr69YnGE6
+	 TBbYdhYw1NUPhIuA16mYTPve7ghhcbKEypQEIb2QgV14fkQ0+u93gEcec4Z+huhD/O
+	 yuJtBrIUEHjRLzK+WfbdFccEf1MhopUwQJETBCI7zL5/SAFrVEJNMwDtJ4wPw+EcWa
+	 puLDSBA7+lsECcPxoi9srQrpqZwHsnXGvfJMAmt8vD1KciIbzgpVix/utN8lIIvYqn
+	 AO44Rnb4016fdqw2gHTgoDEJrbuVx2kPL0mbfq6GKycrJLmX5LNd1Wq/SQSJy9BA/B
+	 4BTU127Ckf2Yg==
+Received: from RS-EX-MBS2.realsil.com.cn ([172.29.17.102])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68L3kXoD52233309
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 21 Sep 2026 11:46:34 +0800
+Received: from RS-EX-MBS2.realsil.com.cn (172.29.17.102) by
+ RS-EX-MBS2.realsil.com.cn (172.29.17.102) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 21 Sep 2026 11:46:33 +0800
+Received: from RS-EX-MBS2.realsil.com.cn ([fe80::d17c:2fd0:cf8e:635]) by
+ RS-EX-MBS2.realsil.com.cn ([fe80::d17c:2fd0:cf8e:635%9]) with mapi id
+ 15.02.2562.049; Mon, 21 Sep 2026 11:46:33 +0800
+From: =?utf-8?B?5ZGo5a+F?= <zain_zhou@realsil.com.cn>
+To: Krzysztof Kozlowski <krzk@kernel.org>, Alexandre Belloni
+	<alexandre.belloni@bootlin.com>, Frank Li <Frank.Li@nxp.com>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, Liam Girdwood
+	<lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Vikash Bansal
+	<vikash.bansal@nxp.com>, Aman Kumar Pandey <aman.kumarpandey@nxp.com>,
+	Lakshay Piplani <lakshay.piplani@nxp.com>
+CC: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-i3c@lists.infradead.org" <linux-i3c@lists.infradead.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"mfd@lists.linux.dev" <mfd@lists.linux.dev>, =?utf-8?B?546L54Kc?=
+	<wei_wang@realsil.com.cn>
+Subject: =?utf-8?B?5Zue5aSNOiBbUkZDIFBBVENIIDMvNF0gcmVndWxhdG9yOiBydHM0OTB4OiBBZGQgZHJpdmVyIGZvciBvbi1kaWUgcmVndWxhdG9ycw==?=
+Thread-Topic: [RFC PATCH 3/4] regulator: rts490x: Add driver for on-die
+ regulators
+Thread-Index: AQHdSOfKLIR/IAtYvU2nf5+oMdLbTLbW6X4AgAF7WJA=
+Date: Mon, 21 Sep 2026 03:46:33 +0000
+Message-ID: <fe92f1275efe4451978fc473cbad39dc@realsil.com.cn>
+References: <20260920100501.4091351-1-zain_zhou@realsil.com.cn>
+ <20260920100501.4091351-4-zain_zhou@realsil.com.cn>
+ <58c3ea87-b7df-4c68-b22b-5102c158d5f7@kernel.org>
+In-Reply-To: <58c3ea87-b7df-4c68-b22b-5102c158d5f7@kernel.org>
+Accept-Language: en-US, zh-CN
+Content-Language: zh-CN
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] powerpc/pseries: NULL pointer deref in __of_detach_node on error p=
-ath
-- [Medium] powerpc/pseries: memory leak of unattached sibling device nodes
---
-
-commit 79a5af10ba412eed58ff43cc8d6339b8b6eee45f
-Author: Haren Myneni <haren@linux.ibm.com>
-
-powerpc/pseries/dlpar: Remove DT entries if failure from CPU ADD notifier
-
-For CPU ADD, the device tree entries are retrieved with
-configure-connector RTAS call and attached to the device tree.
-Then the CPU is added as part of DT node notification. If the CPU
-ADD notifier returns failure, the corresponding CPU node entries
-should be deleted from the device-tree.
-
-> diff --git a/arch/powerpc/platforms/pseries/dlpar.c b/arch/powerpc/platfo=
-rms/pseries/dlpar.c
-> index f4d33b8dffd85..01a9849773cd1 100644
-> --- a/arch/powerpc/platforms/pseries/dlpar.c
-> +++ b/arch/powerpc/platforms/pseries/dlpar.c
-> @@ -247,15 +247,18 @@ int dlpar_attach_node(struct device_node *dn, struc=
-t device_node *parent)
->  	return 0;
->  }
-> =20
-> -int dlpar_detach_node(struct device_node *dn)
-> +int dlpar_detach_node(struct device_node *dn, bool notify)
->  {
->  	struct device_node *child;
->  	int rc;
-> =20
->  	for_each_child_of_node(dn, child)
-> -		dlpar_detach_node(child);
-> +		dlpar_detach_node(child, notify);
-
-[Severity: Medium]
-Will this leak unattached sibling device nodes on the error path?
-
-dlpar_configure_connector() can return a chain of device nodes linked via
-dn->sibling. The error path in dlpar_cpu_add() previously called
-dlpar_free_cc_nodes(dn), which handles sibling traversal.
-
-By replacing it with dlpar_detach_node(dn, false), which recursively
-processes children but explicitly does not traverse dn->sibling, do we
-permanently leak any unattached sibling nodes returned by the connector?
-
-> =20
-> -	rc =3D of_detach_node(dn);
-> +	if (notify)
-> +		rc =3D of_detach_node(dn);
-> +	else
-> +		rc =3D of_detach_node_no_notify(dn);
-
-[ ... ]
-
-> diff --git a/arch/powerpc/platforms/pseries/hotplug-cpu.c b/arch/powerpc/=
-platforms/pseries/hotplug-cpu.c
-> index bc6926dbf1489..15122aab05b24 100644
-> --- a/arch/powerpc/platforms/pseries/hotplug-cpu.c
-> +++ b/arch/powerpc/platforms/pseries/hotplug-cpu.c
-> @@ -602,8 +602,8 @@ static ssize_t dlpar_cpu_add(u32 drc_index)
->  			dn, rc, drc_index);
-> =20
->  		rc =3D dlpar_release_drc(drc_index);
-> -		if (!rc)
-> -			dlpar_free_cc_nodes(dn);
-> +		if (!rc && dn)
-> +			dlpar_detach_node(dn, false);
-
-[Severity: High]
-Does this code trigger a NULL pointer dereference when
-pseries_cpuhp_attach_nodes() fails?
-
-In dlpar_cpu_add(), if pseries_cpuhp_attach_nodes() fails, the device node
-dn remains unattached from the device tree. This error path then calls
-dlpar_detach_node(dn, false), which invokes __of_detach_node().
-
-Because dlpar_parse_cc_node() does not set the OF_DETACHED flag on
-allocation, __of_detach_node() assumes the node is attached and iterates
-over its parent's children to unlink it:
-
-drivers/of/dynamic.c:__of_detach_node() {
-	...
-		for (prevsib =3D np->parent->child;
-		     prevsib->sibling !=3D np;
-		     prevsib =3D prevsib->sibling)
-			;
-		prevsib->sibling =3D np->sibling;
-	...
-}
-
-Since the node was never linked, it is not in the list, and the traversal
-pointer prevsib reaches NULL.  Will this cause a guaranteed NULL pointer
-dereference (prevsib->sibling) and kernel panic?
-
-> =20
->  		return saved_rc;
->  	}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921033156.9914=
-81-1-haren@linux.ibm.com?part=3D2
+T24gU3VuLCBTZXAgMjAsIDIwMjYsIEtyenlzenRvZiBLb3psb3dza2kgd3JvdGU6DQo+IFlvdSBs
+ZWFrIE9GIG5vZGVzLg0KDQpUaGFua3MgZm9yIHRoZSByZXZpZXcuDQoNCkJvdGggcmVndWxhdG9y
+cyBhbmQgbm9kZSBhcmUgZGVjbGFyZWQgd2l0aCBfX2ZyZWUoZGV2aWNlX25vZGUpLCBzbyB0aGUN
+CnJlZmVyZW5jZXMgcmV0dXJuZWQgYnkgb2ZfZ2V0X2F2YWlsYWJsZV9jaGlsZF9ieV9uYW1lKCkg
+c2hvdWxkIGJlDQpkcm9wcGVkIG9uIHNjb3BlIGV4aXQsIGluY2x1ZGluZyB0aGUgY29udGludWUg
+YW5kIGVycm9yIHBhdGhzLg0KDQpDb3VsZCB5b3UgY2xhcmlmeSB3aGljaCByZWZlcmVuY2UgaXMg
+bGVha2luZz8NCg0KQmVzdCByZWdhcmRzLA0KWmFpbg0K
