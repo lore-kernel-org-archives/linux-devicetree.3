@@ -1,57 +1,125 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DAD0390609;
-	Tue, 22 Sep 2026 14:55:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37B4238F25C;
+	Tue, 22 Sep 2026 14:56:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790088933; cv=none; b=Sk6zVOpuqF9wb/clZS3VKYMK8bKDseMpgW5uw5IQQ5/uoqQZncBN7jNm+vpeUJuuBcX71GrZPvt5SkymUkBEHdX2WKLJrnNnWpQyPVHZQzZRXC40Zw1CaFH/79wecwZg2L4jrc/xv1PF0iHLsTF/KnkWOEBC5qfFCzHJNPjkmJ0=
+	t=1790088968; cv=none; b=GOoJt7DwjSt4BWSsNq/uB1BGmlVScyA312IXAoRMr65IFKogYw+ynzU4PG3YXbcPq+yCDtahLnBM8PDRwBXXUD0YvkWvnOEqceEVpDHWRM4e4He+5kCKZfFPMCQ4fBt/Td4adw9YjfJgoIojmGOUll63Xn4538d5ongAJ3RdnG4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790088933; c=relaxed/simple;
-	bh=JuzZzm7VbyEX2xcNXWX9EwWqQ2LHfuAOqMjRCz2DSjs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=pAr4shExPM8voxDkQdgWxqT5hq7uxHY+5eszFxSzzwZre++SQzK7nSgKxD6YG4VYxTRE6A9NNRtOY+wMPVA/hYCxdmjiWdr3ytHxM3+R0P9+ZSmKHTa9GE+/GbfWj56xe5jARv2J9H65BiLmEeiWbIUvaxSEA+WZaRFQ4zuKZjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VH5ntRoh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790088968; c=relaxed/simple;
+	bh=VFn7AGwFHOaKpg+AY+4Scgkb8JiG8OVp+BlxXZ0bbzE=;
+	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pOIqQh/Dl9GOYE/p6cn/eL+PhZ38mSclq+AMI7nQ2OvsgQyBs+RvtB8zoYfajk65OvB95faucPKzepq8gqlqw8m3c3WmGjbiv/ps7yFWy3/ZxccBUwkDNoRzCyzROoFvWB/3ZrjkSZE+h9vKYLft2s+k+p1e2bqewDNAv0F2B/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NC3hIEgS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VH5ntRoh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E84D1F000FF;
-	Tue, 22 Sep 2026 14:55:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NC3hIEgS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8973B1F00893;
+	Tue, 22 Sep 2026 14:56:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790088931;
-	bh=JuzZzm7VbyEX2xcNXWX9EwWqQ2LHfuAOqMjRCz2DSjs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VH5ntRohUQmwVpl6jMygmbgkqVWO6jorCCtJTJhyZVhmR8mYVpdqjcD6deT2/3jkf
-	 jWmJ7KfF74BLCivY/ikvx6nEjzKFW6Ceo1ka9zocN3aTdP47yqRBs5VbdYaL+Ds67p
-	 bumDu31JJHr+UBeCyd8rewczx4/iGFWm2LOeyvw5iZ3Z/mq31JTjbXjKiIaWxt1BPr
-	 OSWLRz5r92oZB9YOvyvfUS9ndVtvjOeFPsN5AJ22ggB0o++Q5HrybEMzwlbcv7kMrh
-	 nhuZME0Eug18az/B5I3q6xA8/BnZB1kWW/P3Y2Xf2jDYjbQD46h/yQT8n1B9WV4PFu
-	 ZzvmEUDR7YADQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 06/10] leds: pca995x: Add support for reset GPIO
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Nora Schiffer" <nora.schiffer@ew.tq-group.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, linux-leds@vger.kernel.org, lee@kernel.org
-In-Reply-To: <ffbbfaf03a2b7b859a4ee01e18a161026ca319cd.1790087890.git.nora.schiffer@ew.tq-group.com>
-References: <cover.1790087890.git.nora.schiffer@ew.tq-group.com>
- <ffbbfaf03a2b7b859a4ee01e18a161026ca319cd.1790087890.git.nora.schiffer@ew.tq-group.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 22 Sep 2026 14:55:30 +0000
-Message-Id: <20260922145531.1E84D1F000FF@smtp.kernel.org>
+	s=k20260515; t=1790088965;
+	bh=0yx1KVYmcOfYVjEzVIyo9QwiUPN5oXN2wUlmjKnOCc0=;
+	h=Date:From:To:Subject:References:In-Reply-To;
+	b=NC3hIEgSJs/USe6Ql93fEv9ZrzabtkxNqEUZB4aQ2SanG3FKZCPBc+TZiQPr4OO1+
+	 O/6s4bE+yPy8fmQm4C0uovI54n6HOD5kXMGyFVDFMz0p4JyjLJeDN3FsiwdR8cE49m
+	 pRL3TJMlnfzuq3j8KgbL028p7w0xufIWVgMhb9Nvb5EkJpPUqXOWSkwk2N/5ocvPwV
+	 0WeurwzhpDPAgSniGFO3HvgOjhUCfPTFDJ+Tx5GVONm/+U/AHgqsjkCy0ci6hyTZia
+	 6Ofp14oLq8Roe4awmztMutLjIBhCFpEenyJ3ICn2F/EiI/xkjMGnnGw3FQWXK0ozQ/
+	 JPe2j74jLLNgw==
+Date: Tue, 22 Sep 2026 15:55:59 +0100
+From: Will Deacon <will@kernel.org>
+To: Vincent Donnefort <vdonnefort@google.com>, catalin.marinas@arm.com,
+	rppt@kernel.org, akpm@linux-foundation.org, sudeep.holla@kernel.org,
+	jenswi@kernel.org, robh@kernel.org, mark.rutland@arm.com,
+	ardb@kernel.org, thierry.reding@kernel.org, david@kernel.org,
+	danielmentz@google.com, linux-arm-kernel@lists.infradead.org,
+	linux-mm@kvack.org, op-tee@lists.trustedfirmware.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/8] arm64: Unmap FF-A lent memory from direct map
+Message-ID: <arKW_91EeKA-w96m@willie-the-truck>
+References: <20260921110050.3977591-1-vdonnefort@google.com>
+ <arIYtjmSKCs14SqO@sumit-xelite>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arIYtjmSKCs14SqO@sumit-xelite>
 
-> The PCA9952/9955B/9956B have a reset pin. Use it to reset the LED driver
-> if provided in the Device Tree.
->=20
-> Signed-off-by: Nora Schiffer <nora.schiffer@ew.tq-group.com>
+On Tue, Sep 22, 2026 at 11:27:10AM +0530, Sumit Garg wrote:
+> On Mon, 21 Sep 2026 at 12:00:42 +0100, Vincent Donnefort wrote:
+> > This series is a follow-up to the discussion that has started here [1].
+> > 
+> > When memory is lent to the Secure world via FF-A, CPU speculative
+> > accesses from NS to the lent pages can still occur as long as it retains
+> > a cacheable mapping to it.
+> > 
+> > Ideally, lent memory would be "no-map" but that would mean giving up
+> > MiBs of useful memory, so let's try to do better with the help of a CMA
+> > pool.
+> > 
+> > On arm64, modifying the direct map at runtime is generally restricted
+> > because the linear map defaults to block mapping and splitting blocks at
+> > runtime may trigger fatal page fault, unless the CPU implements BBML3
+> > or the entire direct map was mapped at page granularity from boot.
+> > Forcing last-level mappings system-wide incurs a severe penalty we want
+> > to avoid. Instead, this series introduces targeted last-level mappings
+> > for designated memory regions, along with the "arm,ffa-lend-pool" CMA
+> > driver to manage unmapping and remapping on lend/reclaim transitions:
+> > 
+> > 1. memblock:
+> >   - Introduce MEMBLOCK_PTEMAP to force PTE mappings only for a specific region.
+> > 
+> > 2. set_memory infrastructure:
+> >   - Introduce can_set_direct_map_range() to check if a specific address
+> >     range is mapped with last-level entries and can be modified safely.
+> >   - Introduce __set_direct_map_*() variants that bypass redundant checks
+> >     when the caller has already validated the range.
+> > 
+> > 3. "arm,ffa-lend-pool" driver
+> >   - Introduce the "arm,ffa-lend-pool" CMA reserved-memory driver, which
+> >     unmaps pages prior to lending (ffa_prepare_lend()) and restores them
+> >     when reclaimed (ffa_lend_reclaimed()).
+> > 
+> > 4. Optee support
+> >   - Hook OP-TEE dynamic protected memory pools to "arm,ffa-lend-pool" for
+> >     both SMC (via DT memory-region phandle) and FF-A (via
+> >     ffa_lend_pool_attach()) transports.
+> 
+> 
+> Thanks for your proposal in trying to solve this hard problem of
+> unmapping pages from kernel linear map. I remember discussing this
+> problem last year at LPC too.
+> 
+> Have you had a chance to look at a more generic MM proposal around this
+> issue here [1]?
+> 
+> One of the major concern for me with your proposal is tying the
+> protected memory allocation to fixed sized platform specific pool size
+> based on DT. Then the cost of granular mappings/unmapping if the
+> platforms choose to enlarge these pools.
+> 
+> As you maybe aware one of the major use-cases here for protected DMAbufs
+> is the secure media pipeline use-case which is memory intensive
+> workload. IMO, the solution proposed at [1] seems to address it although
+> people have flagged rough edges there but should be addressable.
+> 
+> Can you try a port of [1] for arm64 since the author did all the work
+> with x86 as reference?
+> 
+> [1] https://lore.kernel.org/all/20260726-page_alloc-unmapped-v3-0-6f5729aa9832@google.com/
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+I spoke to Brendan at LPC (?) last year but this doesn't really work
+for arm64 because it relies on being able to unmap arbitrary parts of
+the linear map, which isn't generally possible unless you force pte-level
+mappings for everything, which is prohibitive for perf/power.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1790087890.gi=
-t.nora.schiffer@ew.tq-group.com?part=3D6
+Vincent's series tackles that by using a pool so that only that part of
+memory requires the pte-level mappings in the linear map. That's the
+whole point of it, so I don't think it makes sense to drop it in favour
+of Brendan's approach (which doesn't work).
 
+Will
