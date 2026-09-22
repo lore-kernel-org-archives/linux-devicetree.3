@@ -1,88 +1,113 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E03FC3AFCE6;
-	Tue, 22 Sep 2026 09:17:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78435479867
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 09:17:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790068627; cv=none; b=keeNLZe4yHGf5KvRW5WZcaZRN+Ot1PxqGiW8eANhEjbBeJrxYP8lWfCwtBguZAZqUZ2LI4N61+S+nvfa7proYcxNskHyA/tWKWXwimvhDlrxPIFdfTLDKTYTvXIs3/CBfKVrZ/tfDh77FTCB1tv7RTpsJjN26hvVxz9cob0U39M=
+	t=1790068664; cv=none; b=q25FtlzGWTQVHBOJgyZBidZ77+DE8pWN91m/x5vgYD88GurJ9578eZTAGDixjrNDufVBEydrWWv5y3vuyO3OUlU9pgfmR23M0ZkHCDA3vHmBZA+4mn5NZGkJKkz4kUBig3K8V5niUXsKsJloqg17ox+ku8p/RM1yDsplXP3GkjU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790068627; c=relaxed/simple;
-	bh=COqmZ9blzsdE06kCsTbYVCP8lIXdluTDk5+2o3BtcU8=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=PTLyyvlZCnxuljdnTC9UqTVTwY4j2XZJZiYa+nZNrFfdOmtNvulz1nVQmLAVuKYJV+X3xA5HtsCUbA2GtC3Ls1nDIZMpTOpZjQA1o59zkW0yNWZwTtXhaEJWaAmoNb4naEy4SCpUNR+RpjCxRB+zO+/umZM08K+7kH6e8wO8jaI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realsil.com.cn; spf=pass smtp.mailfrom=realsil.com.cn; dkim=pass (2048-bit key) header.d=realsil.com.cn header.i=@realsil.com.cn header.b=lZdHcwJy; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realsil.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realsil.com.cn
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realsil.com.cn header.i=@realsil.com.cn header.b="lZdHcwJy"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68M9G7X503502099, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realsil.com.cn;
-	s=dkim; t=1790068568;
-	bh=COqmZ9blzsdE06kCsTbYVCP8lIXdluTDk5+2o3BtcU8=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=lZdHcwJyA0E3ZPLZ5wfAyCqMN6WkkJ7SmU2iR10JiJsbn+CUCBEHd+rayolAHR0/4
-	 ncMtgh54sH3hs5g01OQJ10UsuScjDZqCG6pae8AlHW8oJOFmNwsI4o1oVxf6KX2kR4
-	 7eg32c25/vcLGdwsjhvaaoB3eQxg78KsgdcvKYFnYs3KGy2dGj1DkEYsO5fMG6fx5p
-	 sXp+ufHs8L+h3/6VgIFzih5V0KUwBvU0fISvqEHRc76NINAJfQ/7K7Yk5vQWwP1Ea+
-	 ZQ3v5AiKA+VARmxeCyuwFDdchWyz8lGzB9rBj50Br/RWgYSTOUvh9xQmA4lK0Z9G4O
-	 vbEntYTo5bwEw==
-Received: from RS-EX-MBS1.realsil.com.cn ([172.29.17.101])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68M9G7X503502099
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 22 Sep 2026 17:16:08 +0800
-Received: from RS-EX-MBS2.realsil.com.cn (172.29.17.102) by
- RS-EX-MBS1.realsil.com.cn (172.29.17.101) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 22 Sep 2026 17:16:07 +0800
-Received: from RS-EX-MBS2.realsil.com.cn ([fe80::d17c:2fd0:cf8e:635]) by
- RS-EX-MBS2.realsil.com.cn ([fe80::d17c:2fd0:cf8e:635%9]) with mapi id
- 15.02.2562.049; Tue, 22 Sep 2026 17:16:07 +0800
-From: =?utf-8?B?5ZGo5a+F?= <zain_zhou@realsil.com.cn>
-To: Krzysztof Kozlowski <krzk@kernel.org>, Alexandre Belloni
-	<alexandre.belloni@bootlin.com>, Frank Li <Frank.Li@nxp.com>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, Liam Girdwood
-	<lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Vikash Bansal
-	<vikash.bansal@nxp.com>, Aman Kumar Pandey <aman.kumarpandey@nxp.com>,
-	Lakshay Piplani <lakshay.piplani@nxp.com>
-CC: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-i3c@lists.infradead.org" <linux-i3c@lists.infradead.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"mfd@lists.linux.dev" <mfd@lists.linux.dev>, =?utf-8?B?546L54Kc?=
-	<wei_wang@realsil.com.cn>
-Subject: =?utf-8?B?5Zue5aSNOiDlm57lpI06IFtSRkMgUEFUQ0ggMy80XSByZWd1bGF0b3I6IHJ0czQ5MHg6IEFkZCBkcml2ZXIgZm9yIG9uLWRpZSByZWd1bGF0b3Jz?=
-Thread-Topic: =?utf-8?B?5Zue5aSNOiBbUkZDIFBBVENIIDMvNF0gcmVndWxhdG9yOiBydHM0OTB4OiBB?=
- =?utf-8?Q?dd_driver_for_on-die_regulators?=
-Thread-Index: AQHdSOfKLIR/IAtYvU2nf5+oMdLbTLbW6X4AgAF7WJCAACgwAIABxRsw
-Date: Tue, 22 Sep 2026 09:16:07 +0000
-Message-ID: <d04e4ab9469c4d0fbb0425030acc2e9f@realsil.com.cn>
-References: <20260920100501.4091351-1-zain_zhou@realsil.com.cn>
- <20260920100501.4091351-4-zain_zhou@realsil.com.cn>
- <58c3ea87-b7df-4c68-b22b-5102c158d5f7@kernel.org>
- <fe92f1275efe4451978fc473cbad39dc@realsil.com.cn>
- <86d282f5-9221-4a62-85db-2d46524dd817@kernel.org>
-In-Reply-To: <86d282f5-9221-4a62-85db-2d46524dd817@kernel.org>
-Accept-Language: en-US, zh-CN
-Content-Language: zh-CN
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	s=arc-20240116; t=1790068664; c=relaxed/simple;
+	bh=CZ3oPkSBqFVLdsQgqxzEWOijGFMKadDxp1f+3SNDcts=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=EMW7IqJLZc2ltM7wVa/LczgI3ZcZ9702JQG9Y95oG+9vjJ3OoQuhnJ3HPiBtm/uehqkqweh+uCjNwY8hrzxpFBWhJmhc5DZH3a7Nu0sKPal+doNkpCzyZ7rPGn3BXlm6RE1WWl1DoiYo31F4tY9mfTqB0AHx5tiJsC9taB5VZD4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c67e2ff27eso3044129e0c.0
+        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 02:17:43 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790068662; x=1790673462;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=oT5SmnnEiCJkeSE3HgFIBSVwvA/3E4ZeuxsouiwktnY=;
+        b=zV1QaH4A/56gzoG77BNxIHKfZzlFta8QndRjrE7vQvhBN7cyoU3i6/E3hngl+GQWqY
+         YbxJFa0qvS0Hd0yCCmbuElC2M3RE+hYw8f/i8Wm02G2qf2wxMzICag3nDKP9QE18b0ou
+         jVeYyW5irz+FAww86tTit9KsA/ZCS7GwSxDoNs9CFbrG56qrR7awK0gm50eAQ9dmPuhD
+         hO3tH5WZj91a+rbbCDZTfKKLEcekS4jDGxtXrJ1ewJu6WN/NqM0nfeEH3Dh1bha5CaN4
+         rDQLOtaRx0dy7KKHWccdYnl/0PvRQbIMWU2flrzLPB/H0WzNpN3IfQ+Alb71H7OqbttU
+         P7cg==
+X-Forwarded-Encrypted: i=1; AKwUvBxDdT0K5jop8GBSXK+PSWAOv6fs2/eXm0LWeu55M2umx7C4iaHuube45m5sVkbeU/NWEH6GndZku7ME@vger.kernel.org
+X-Gm-Message-State: AFuF++nNgmdlkhTSaF9gxODrzSyj6pqNK/3EgjdgoiqGIMgToKXiYO6p
+	n0WRF+gEcsOcbGc9r55EFYQB8+Niiv09doVKjuOl3oc5n8UGyBniQHGsJGJZsihvJRU=
+X-Gm-Gg: AYBFou1LQsO0zcRA+tfQ1ceIWtjVH2XmBHTIq6zDNke0Y++Oz5yle4cqXGHhp3VwYMQ
+	SH77JaWiHkXNZOqX9iRyR39nppG+A3qNqD8BaZ5IzpwjAcyL0WWUWx8Q67X3BRFB/tcJOfuSTvt
+	1B8lKUB+L2rscJfy7mgusdf/nvv61MKHW7JO/uLXPvAbKlPaZQJ+xobNYfkORL/G4q6psdaFG5f
+	NpfZthg5r/rxX/D9ozo4ipm3eZPWuUprHKHVW99dm8QPtOaAPOM1h/jk5Yn0KXYa/6hoJEk3bVx
+	SzkJkgwsWUUR+NX4Q8j0s5/zyvEmikF0hHUUHUtgeJepjyUauIioilXP3L7UTZD8H+g8Zo/LX2R
+	IdXvRJv99HowmMuIbyP602I+sBGykx15TldZKM/Hs+an1psNkdbjKVNxP6WC0RnUwlQeEYxq9Rq
+	9YjDkgtoaRp7UdW18G7b3mav1FUmprOFG/7CKY4GCNGldDk5VWMF5V0n0P2A3V/BkqG3uhANmZb
+	mXcQjiwtEWp4WvPgCItzzJRwJDo0IxkJptl4Q==
+X-Received: by 2002:a05:6122:1c02:b0:5c9:a60b:e5a5 with SMTP id 71dfb90a1353d-5c9b59afdc9mr7606052e0c.16.1790068662290;
+        Tue, 22 Sep 2026 02:17:42 -0700 (PDT)
+Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com. [74.125.226.204])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c9e7d09aa0sm975692e0c.10.2026.09.22.02.17.39
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 22 Sep 2026 02:17:40 -0700 (PDT)
+Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97eaa1155b1so2060040241.3
+        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 02:17:39 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz6aIBnqgrP7mtOgp10CY61KIF5XP6glOSlPP4HHLy0NFtt7u1TUC2+FTG9jajhvxkpc13zfUmUrzZ3@vger.kernel.org
+X-Received: by 2002:a05:6102:1492:b0:7a7:198a:c2b6 with SMTP id
+ ada2fe7eead31-7a7198ad381mr4988859137.30.1790068658957; Tue, 22 Sep 2026
+ 02:17:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260910-rk3588-dts-rtl-eth-describe-dt-alias-v5-0-c1b9e5f10cd6@pardini.net>
+In-Reply-To: <20260910-rk3588-dts-rtl-eth-describe-dt-alias-v5-0-c1b9e5f10cd6@pardini.net>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 22 Sep 2026 11:17:27 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXMjxgj+pT5A=jd_A5BVQctHXJqeiU4EhPA_ZSANZAAmQ@mail.gmail.com>
+X-Gm-Features: AclHuK9pjyjJZh6DYzu8j0CaKCcKmJ8CfBcbQ8aIBw9Bf-OTlVvyy4dIW39Xywc
+Message-ID: <CAMuHMdXMjxgj+pT5A=jd_A5BVQctHXJqeiU4EhPA_ZSANZAAmQ@mail.gmail.com>
+Subject: Re: [PATCH v5 0/7] describe RTL8125 PCIe NICs on Rockchip boards (and
+ add DT binding)
+To: ricardo@pardini.net
+Cc: Heiner Kallweit <hkallweit1@gmail.com>, nic_swsd@realtek.com, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Sebastian Reichel <sebastian.reichel@collabora.com>, 
+	netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-T24gTW9uLCBTZXAgMjEsIDIwMjYgYXQgMDQ6MDc6MDJQTSArMDIwMCwgS3J6eXN6dG9mIEtvemxv
-d3NraSB3cm90ZToNCj4gSSBtaXNzZWQgdGhlIF9fZnJlZSwgYnV0IHRoZW4gd2h5IGRvIHlvdSBk
-ZWNsYXJlIF9fZnJlZSB2YXJpYWJsZSB3aXRoDQo+IE5VTEwgYXMgY29uc3RydWN0b3I/IERvbid0
-IGdyb3cgdGhpcyBwYXR0ZXJuLiBTZWUgY2xlYW51cC5oIChvcg0KPiBkaXNjdXNzaW9ucyBvbiB0
-aGUgbGlzdHMpLg0KDQpUaGFua3MgZm9yIHRoZSBjbGFyaWZpY2F0aW9uLiBJIHdpbGwgaW5pdGlh
-bGl6ZSBib3RoIF9fZnJlZSB2YXJpYWJsZXMNCmRpcmVjdGx5IGF0IGRlY2xhcmF0aW9uIGluIHRo
-ZSBuZXh0IHJldmlzaW9uLiBJIGFsc28gcmV2aWV3ZWQgdGhlIHJlc3QNCm9mIHRoZSBzZXJpZXMg
-Zm9yIHNpbWlsYXIgY2xlYW51cCBpc3N1ZXMgYW5kIGZvdW5kIGEgY291cGxlIG9mIGZ1bmN0aW9u
-cw0KdGhhdCBtaXggZ290by1iYXNlZCByZXNvdXJjZSBjbGVhbnVwIHdpdGggZ3VhcmQoKS4gSSB3
-aWxsIGZpeCB0aG9zZSBpbg0KdGhlIG5leHQgcmV2aXNpb24gYXMgd2VsbC4NCg0KQmVzdCByZWdh
-cmRzLA0KWmFpbg0K
+Hi Ricardo,
+
+On Thu, 10 Sept 2026 at 22:08, Ricardo Pardini via B4 Relay
+<devnull+ricardo.pardini.net@kernel.org> wrote:
+> Several Rockchip rk35xx boards carry on-board Realtek RTL8125 2.5GbE
+> NICs whose PCI function nodes are not described in the DT. Describing
+> them allows for stable ethernetN aliases (matching the GMAC alias
+> convention on these boards) and lets U-Boot's fdt_fixup_ethernet()
+> inject mac-address properties from its ethaddr/ethNaddr env, so MACs
+> stay stable across boots and U-Boot and kernel MAC match.
+>
+> Tested on a NanoPC-T6: /sys/bus/pci/devices/0004:41:00.0/of_node ->
+> /sys/firmware/devicetree/base/pcie@fe190000/pcie@0,0/ethernet@0,0 and
+> u-boot correctly adds local-mac-address property there which is
+> correctly picked up kernel-side:
+
+Have you tested this at 2.5Gbps? With which firmware?
+I am asking because I have problems at 2.5Gbps using the firmware from
+linux-firmware (on a different platform, though)
+https://lore.kernel.org/CAMuHMdXPAeHoeaQbM9rXbXukoMbFV+0k28n6sRMw8XF8720WUA@mail.gmail.com
+
+Thanks!
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
