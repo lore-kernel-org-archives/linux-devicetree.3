@@ -1,110 +1,81 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 040374189C5
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 08:24:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D671142903F
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 08:26:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790065461; cv=none; b=m3vlXh5EZtIi+OMkOiRBqC7nCDPPnc1TpJTmzV0I0kvlJkkTBKfYcWy74mhYVGZY8WVn48VzZyfyyjHmaGoWEWC3yealblx75Eabp9BLYHvz0xv1lOfo42ktCbX/v75LBU+x8esABpgN9jpoTpUOAdzNukAXloK/if6IL2u8IpU=
+	t=1790065598; cv=none; b=CpiQN1SlaTASsFjDK+j3hsROJnW77Crb48B6z6fShzu9oCXlK2dYX5vTbflh3JE+L/4LTEgGltCo+RXA1yKPS6lwUkA4OvXGgndgGzbIZi1zjKaCxT8Uz9yHV1RnpoUyxHkwVFA6KCA2UduNATcGyVjYZyX3oGkz2ro6wa0X0hs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790065461; c=relaxed/simple;
-	bh=dIzwvHbubNIxzeAGu/6wR8vR/VcsOB80Qhi7H+evobY=;
+	s=arc-20240116; t=1790065598; c=relaxed/simple;
+	bh=fQOOmMfKDT561LEYSJ7U+Zz4WZB+sak2H6OqPNYH1ls=;
 	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tJln4D1Tr2SJm4dpqozwlhIEiAErHSfCEcu6KV71c70OZsQjhmW0fQh6/fZHLUTKmhgk/i8JsAsgDJRYhy+DImlgQ4t7mnBAY9KVPtRJLzsl5bopZBxtlgauoyxG9+dT/LKrUq8LDDl8OrVc/K/9IuCSVAb1LSaDD5iR6IxQQxQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bPS+1GyV; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=n/LDUg2lKSfNheO76f/D9u9mHerMgwDGjWz/6gTRdk027PW1MCmfB/nOmhyv3sarcwtKw3mNYM9NeLMPnSqlmqv5FGp6HwDfEF3lFd73Nc4d8b8EeRTuwmWO/8kUs5mwnAhAbQT1FfgBK4BOi8HNBSVWM2Mh8EMgq7vz1hBjhaI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=avtgnRRr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bPS+1GyV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7ADA41F0089A
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 08:24:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="avtgnRRr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91E441F00893
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 08:26:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790065459;
-	bh=QktO34jPXBfKdoHn+g231ToSz9I4E6jz14gUwoW6nA8=;
+	s=k20260515; t=1790065596;
+	bh=fQOOmMfKDT561LEYSJ7U+Zz4WZB+sak2H6OqPNYH1ls=;
 	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=bPS+1GyVPa7XdVUiPA9k9+7yAa7xzmGu/WihUxoOrYyIg4jmIIk8rG9ar2msGlT1b
-	 XZse7Bb7wM/ST11PV5YpFYVzgjTFPRwsktBUE+thaF7vFFsLQdMDBLuHp2d5etL9jq
-	 QFJvMYdYRlBGke4Qxnri07n4W3y266itxD5UuU8m4jU1VykJQ/m69If93sTwODaNk9
-	 wYteKpT/AOs1Q8Es9F60ZJBIoBkxk2vr3fiX+zRhMCp8q4SLyFAdlVRn9DBhyFuPBn
-	 XLPX3JO+csjYHVzmWDy0oWaMzs34nx07GVPSex6iWFnobOJ8dcCzX3hPWAkt29aDzk
-	 ViUxiHxWoBVFw==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8d6489419so101612e87.3
-        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 01:24:19 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwgr0jyJzEouUnLrssAUe6jvcq64orZVfouf/z2pG+py6rHcleLeYAX2xeT4ddPQ/PvAZF9pLSLsN8m@vger.kernel.org
-X-Gm-Message-State: AFuF++ktwhs1RQ/BANpF1e5a+2eIfZGgpq1CM1WDYO/GPOCTFalDpZiN
-	uOKUnEStgnw5vi7qVxMckXLD2dVJo/eI3Ob6jc4/KxorF2QUA8kYMvsm21JiQFy3kamKXPNVNjX
-	pQeewWNe9nSNaVgJULJukZKe+x/Ae7hrIdVulKau69Q==
-X-Received: by 2002:a05:6512:6281:b0:5b8:babd:dc2c with SMTP id
- 2adb3069b0e04-5b8c1849028mr3748521e87.37.1790065458151; Tue, 22 Sep 2026
- 01:24:18 -0700 (PDT)
+	b=avtgnRRr7383dZ2H9vDMQTpZTawV6P2LxP+zXvnXHrPclzCFvHzCV7cQcuYEfZsSL
+	 g7jUQRAflRTcyjOqrzGQDpotadtRhQowCtx9k969Wzds+p7v3PKHjkRV4dDemcl8XO
+	 pFklkOsiA+s7fVHP0hc5ywdiQE9upT8VHNnTBs/NEwo05d88SwT/2AqD9NNTKZ7PJg
+	 9+A+VoIjvGHUqxHM3ChrEVOwj/Sng3S8UoWKGAQdC4liT7ShWg23NIu57CFWxNJvsK
+	 wCgD5BUSNgLocXAlRjwKgfyLxG3KTbpy5DN+8QUXCnJZ1+HOrifKErcTzaavk9/Rye
+	 xa6vKJC7ox/nQ==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8c1b8d7b5so2979529e87.0
+        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 01:26:36 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxxl/B54TUEg0JGBn18hS/+59DxJjHKpJmTPzfunext0LinelVGSsfbNZDiiNOq66tVwgA/TNvvtYQj@vger.kernel.org
+X-Gm-Message-State: AFuF++mgDXvgK34mR0gw3AxmsL/d68Dz+IDHzCKf/iFH5Le0RuNXJIgT
+	vGqqFWiw8e6JsERV9OflBSgjT0dtSoxx6zuRmqEGaGCnPHFoyiWM+M4SvU4iJPMTUVjOdmZnYdA
+	XdMjvrw5MDGJThvKfZCvZtUSttpV/hlGQjYibmRA3qg==
+X-Received: by 2002:a05:6512:a8c:b0:5b8:bc5e:d10a with SMTP id
+ 2adb3069b0e04-5b8c1967f69mr4437538e87.52.1790065595307; Tue, 22 Sep 2026
+ 01:26:35 -0700 (PDT)
 Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 22 Sep 2026 01:24:16 -0700
+ HTTPREST; Tue, 22 Sep 2026 01:26:33 -0700
 Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 22 Sep 2026 01:24:16 -0700
+ HTTPREST; Tue, 22 Sep 2026 01:26:33 -0700
 From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <16f1b504-c414-4072-98d3-49f60d552028@oss.qualcomm.com>
+In-Reply-To: <20260922080416.484280-1-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921-nord-gpi-dts-v2-0-4f297c983b94@oss.qualcomm.com>
- <20260921-nord-gpi-dts-v2-1-4f297c983b94@oss.qualcomm.com> <16f1b504-c414-4072-98d3-49f60d552028@oss.qualcomm.com>
-Date: Tue, 22 Sep 2026 01:24:16 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MfBGgJXhn_c6RY9qhe-JAYjcy8vZOeKgK=cSpOW1ap0zA@mail.gmail.com>
-X-Gm-Features: AcwNN1Uq-ON_akzO8Lb9slxy7TzsEXI6PEo-ClWH4f2m7UXrx1dbaD36Ih7SNas
-Message-ID: <CAMRc=MfBGgJXhn_c6RY9qhe-JAYjcy8vZOeKgK=cSpOW1ap0zA@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] arm64: dts: qcom: nord: add GPI DMA controller nodes
-To: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Shawn Guo <shawnguo@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, brgl@kernel.org
+References: <20260922080416.484280-1-shengchao.guo@oss.qualcomm.com>
+Date: Tue, 22 Sep 2026 01:26:33 -0700
+X-Gmail-Original-Message-ID: <CAMRc=Mej3sBp-Mcgc4XQrMQ4Q2ABLTnnku88Rp=DH=u7dtY9zw@mail.gmail.com>
+X-Gm-Features: AcwNN1X-M6i8-qVUkr4jM0BLuDzHI2QmSBNutCFVmjBiGEXfgO6bYYVWn9_zLaI
+Message-ID: <CAMRc=Mej3sBp-Mcgc4XQrMQ4Q2ABLTnnku88Rp=DH=u7dtY9zw@mail.gmail.com>
+Subject: Re: [PATCH] arm64: dts: qcom: nord: Add bwmon node for Nord
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Pushpendra Singh <pussin@qti.qualcomm.com>, 
+	Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>, Bjorn Andersson <andersson@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 22 Sep 2026 07:34:25 +0200, Mukesh Savaliya
-<mukesh.savaliya@oss.qualcomm.com> said:
+On Tue, 22 Sep 2026 10:04:16 +0200, Shawn Guo
+<shengchao.guo@oss.qualcomm.com> said:
+> From: Pushpendra Singh <pussin@qti.qualcomm.com>
 >
+> Add BWMON nodes and associated OPP tables to enable dynamic DDR/LLCC
+> frequency scaling.
 >
-> On 9/21/2026 8:16 PM, Bartosz Golaszewski wrote:
-> [...]
+> The compatible is added in nord-embedded.dtsi rather than nord.dtsi,
+> because Embedded variant specific 'interconnects' is required by
+> the compatible.
 >
->> +#include <dt-bindings/dma/qcom-gpi.h>
->>   #include <dt-bindings/interrupt-controller/arm-gic.h>
->>
->>   / {
->> @@ -909,6 +910,28 @@ soc: soc@0 {
->>   		dma-ranges = <0 0 0 0 0x10 0>;
->>   		ranges = <0 0 0 0 0x10 0>;
->>
->> +		gpi_dma2: dma-controller@800000 {
->> +			compatible = "qcom,nord-gpi-dma", "qcom,sm6350-gpi-dma";
->> +			reg = <0x0 0x00800000 0x0 0x60000>;
->> +			#dma-cells = <3>;
->> +			interrupts = <GIC_SPI 588 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 589 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 590 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 591 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 592 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 593 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 594 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 595 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 596 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 597 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 359 IRQ_TYPE_LEVEL_HIGH>,
->> +				     <GIC_SPI 360 IRQ_TYPE_LEVEL_HIGH>;
->> +			dma-channels = <12>;
->> +			dma-channel-mask = <0xfff>;
->> +			iommus = <&apps_smmu_0 0x15b6 0x0>;
->> +			status = "disabled";
->
-> we should be keeping GPI node default enabled similar to common QUPv3
-> wrapper node.
-> status = "ok" for all the nodes.
->
+> Co-developed-by: Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>
+> Signed-off-by: Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>
+> Signed-off-by: Pushpendra Singh <pussin@qti.qualcomm.com>
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> ---
 
-The pattern across Qualcomm platforms seems to disable the GPI DMA nodes at
-SoC-level and only enable them at board-level.
-
-Bart
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
