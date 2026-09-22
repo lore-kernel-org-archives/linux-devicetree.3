@@ -1,65 +1,65 @@
 Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66B0B522EE7
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 08:01:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFCE25237A0
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 08:01:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790064100; cv=none; b=KaE1lReOat5oCi9PsWjJrBmBnf2q3G3XshPlqKFvaf1Cy0D0Lh+Q4nw7FEp24JUsF6ANZwPyKqPc1kC6ZlpmzyeF0bRmLUNGopo7lACaX2cja3gqaKVvJHONJHXDw71OQ4xfnX/BkTPHU+jcpEyP5GPkIUZKthDCjF5jzIauGFE=
+	t=1790064102; cv=none; b=ZTlYgdyTTRScNQmGMTNaj8D4TDuBdDWTql3jbsOAUYDn00yM7pnh/moWfK+SOn3x1kuySpfVMPR73zsLtrclH6DwUjicPlBCEaOktHvCYu65AZLj/MRur9r4rLJolNvphVHZtOvob0qUx+/nzHl1UiJ4VAlWruCs3fkZRDYcq94=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790064100; c=relaxed/simple;
-	bh=0xrVY0R026KpNfsviBE2/QZKTNvfEgT3VjQqd30Zu1k=;
+	s=arc-20240116; t=1790064102; c=relaxed/simple;
+	bh=CT/RCzxKrrCttvy9qEHMfrwnpwtAFxBYeP2FfoG304A=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=izdDVXSkJf1JpyjVvieOlP6gdYQq1mDrOTtS/mZSc63IhAwIwDpd1trwXkcrFfHX+zuMKd7y0br60A21gXtGXpEwqcej1yFi6IQoNEMW4Fa7NtSvEn6TpRR5yW9nmYE1g1RgV/7v0sFQ2Op87ogyXFJOcFA6i7hLw2XgBnA6/vE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q040+peI; arc=none smtp.client-ip=74.125.225.141
+	 MIME-Version; b=h5SU87OmumqbgY9YnjNMx4JYM2zJ4C24MJ+48g0wXXFO8l1O5cvxtlxYEqEYWfshGh9AsjVdFz+fpqWu2AB32VxnWf0+oLdWTupofxn2TdVCytkkDhAgTopkTKJ7ZtFz7uf/zE2OzR4R/luJ/FnPXEuR8i1YUwo+zeIxSiqoesg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xsa2yV6B; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q040+peI"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e82ea30faso2294905e9.1
-        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 01:01:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xsa2yV6B"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6baf77afso1695445e9.2
+        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 01:01:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790064093; x=1790668893; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790064088; x=1790668888; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=hGF28/ongkg1pjDH+01IcEm6dgrPiae6qX55Ok4Xvzs=;
-        b=q040+peIpfvQZ4ZAgW4XeVoL008HSoNc/UbVBj+MbSAHtnFdJ8CMFiwxnoqed94mOo
-         hULVWBApRB1EMLkMIO39WqaN42Na0cTCb6xtCCeFWyRKwWS59LIGvnqiOLHu88FNy+TY
-         b48yP85bGxVpwbo4ijGVRfJOCRD7n63MDloN8XNT911wEFKrePn9LfT74O6OFTPlLOxq
-         qFKxsLJ+mHU8lANLX7hh6CWxUsufoC7Ljv/1xHdQsdzJ2JjPGrvrp8sfL0rJDkU+quG5
-         cIXiJBOGCNx27b7RZzn07MODGVIyjcjdzAIkxAWhqQSR4IQxm7KmLTsSYHfh7b/jdCA6
-         zHHQ==
+        bh=VxEjmrMLU3ArphO/8yrozyx0jV5tnXGHISJN2k9QOtM=;
+        b=Xsa2yV6BCJsZXDyz+BN1mAjcnQftUKoKmSLj735UQaL8pyETkyzkCl+sqDwWdG9jf+
+         2FxB4DwD82G0B0LRB7zNL1tfk6zsFHrArnC5Gi0kfActdq2YKEaD/9i0AmTycaqKxBpr
+         ljMyN+LpPFkt6UybFjOHyMGbofR4Kpu3DV+FpBf/seX1pFDR5/ZTik8M881jP3LyRVuh
+         TQOY6b1bFhL30pbXTGmc+8C0gOXxJr8Xbo9U2MyIHSm4S9u0jDmIPaCYEoDVa9IndhmF
+         xg8ZrYPGnGpJhBjl6yuDxCBHPrLLfS1ZWQ4uOYLxzKpZ1dYEsAVtporNWu5XO00mQQ9z
+         2gOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790064093; x=1790668893;
+        d=1e100.net; s=20260707; t=1790064088; x=1790668888;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hGF28/ongkg1pjDH+01IcEm6dgrPiae6qX55Ok4Xvzs=;
-        b=jtKZTuzKbeILupYM8tkqkLc27ByS0oY5aA/AZiFRumaMZ1PxjwXsKk6ZUrX1OZshat
-         weDqveNLzbMAV65Owm2CulG6P8IRf2/uq7/X+NZQAiXHtrZInjDhr9bKJMYBFo9NyEVT
-         wZdv28O0A1kX/VQsi9L/66/8cfNmHUc+EpHOcxnuIuGmK4ayWuiTbI02hCPYCGLmRbsZ
-         zmmWe/KDWsYfhrbykJ5+Enge8Ysux8cllHFQGNyrBqI1CWurDz2xfIh/UaW+FNv8favP
-         0zw0tWCnym9T8RNASjCtLn0quPSJ4B9dDEF7JZ/VkXuc6sh4jRa5rzEJwIApcXQ6ao1E
-         u1/w==
-X-Forwarded-Encrypted: i=1; AKwUvBy20WpA5SxdCDOOb27zXqwbp1A16VhPQxRuqX6/h0TS/73RnmL6VJgh3lC0XMrNCTx5swUrSJ6mJVsV@vger.kernel.org
-X-Gm-Message-State: AFuF++khzMI0Gf2F/Pz7EoLjOJIx4fqKygk8TWudKYAqVqsKBbzGTg0x
-	gdHG/2U5hbrcDasNlea0pP/7f10mxG/MCn0J9t5Voqd21EEmx2wtSzD4
-X-Gm-Gg: AYBFou10tJftRuVUyOSW7xnHNIowaATM3qmQXgONAn8Eln0DIVlyGKh0JD1W3mqwN7M
-	HE1SaGNpgdNJ/rH9eMfzSWhCd15uwjgv1mb0OJH6UFORh6b5VqCO6CsCE2DKRj+++hblfrjLFjy
-	xBL7rVLFkEWjlGw9qCRrTScdN6ArBY0bw//twK3CPFn6j5DrvMgVO3iuKE0WblMr3o3Bpxm515T
-	ZdwB4RIhTSYzX3yDtGo7YwHug6R6Ma1HdNJs6FN7WL9Zgutlh1IvdD+ZMmTpPiCh/o96gWWhzex
-	3yg5ea2SsjA5evbB24zHgY3KaUHj3iQ+EhnQHauDuPLWckl9gc57afPD8MW3xK7zW9G6ZnTWvo9
-	OUs7hw48BVzEO6HO93Ivzd/B70TGDe5mJ2LGUTaYmlJYcE3ECexf6+V6ESnEhzQRLjf2f8eYsmL
-	D2jnTNgXmpbmr0sDK0/p1gKcJtK5V3xbWLQSmzWx9IsQGBDC8jaOIj62IxL4VEkKIozEH13ir+3
-	kmnoraeqt6S+GL8B1cyWF+ERNUOWK/Pkqc6LVc3RYWyxyRxkXNsTtSj+IKoUw7YppWLLe7yl+oo
-	MrI=
-X-Received: by 2002:a05:600c:3b99:b0:49e:6683:d227 with SMTP id 5b1f17b1804b1-49fc7bbfe4bmr199176535e9.0.1790064092385;
-        Tue, 22 Sep 2026 01:01:32 -0700 (PDT)
+        bh=VxEjmrMLU3ArphO/8yrozyx0jV5tnXGHISJN2k9QOtM=;
+        b=dMhhicQmTIoOTpJp65DylUNUQXhegBcbtHx+5YsknCD5tikP1dzQPFELTiAVdkhjZl
+         fb5FKVggfdorVRAJ0PSFCt6DvFjkMccOALWGaW3YgYWXvXAi2Lcw7PvqqmwAiuEmm9O2
+         BKXIDO5cX8586C+XXwbN35HTzzo8YLrPBDjpGnyveyWsVUwm/YML8vQz+YjdhkvSzycv
+         snp6shU+ueu7p4wTXeXhYRux5ovWzRHJx6CQNG2Oa/VXuXfVBSMai8TuTL2iWvrtFbsG
+         ib7z/O5ki9vbl6/L9+mKuuQTTE5Seh9hKzKuBGBG4Vd81txdiurmMYWUWGJX+DLSHEdh
+         pAfA==
+X-Forwarded-Encrypted: i=1; AKwUvBy6QrXIYbQc70mRyXcIu73rRBOPlCsIAeuxPbNnVxtd1VCocYeM5nRDnsuDcEfkMsu3BENpsMNADuk+@vger.kernel.org
+X-Gm-Message-State: AFuF++noJHj7MbgTafa9Dc4SzXjKBptCsL8H2eKeb2QIBaap8ha0mZcs
+	5476obrRDWOFABX13ivAVyRlDX5vUpXuMTU1x2aTCnQgwSCFxxTbZeel
+X-Gm-Gg: AYBFou3snPGeQVMSuxpbb2k5D94nNdT8xIrB/L10M9ep400/Ocv/Ck/gmVjNTJ21GJN
+	4gwu/PK90yYUrzw1ixRE0wowQhes1Rb+sO2bX98yXuM4orNjOSf0ke1PKjc/XtbX3qhftL0m6Q4
+	3C0UYu6SbXosWrkFYvwMycGlixrp0RCUc4lzC/HhTB1RPsJBsVynMw3mOk59dVFhIRUAAkbxJNy
+	XoBEVak7QL/6XchypJNx6HFV1+3HLM/MoVGAKLP5IT4ENwcOTEN1GN0u0m8DoUWWRYt2iRXO83D
+	mRVIfNv8IgRTTg8taaO32CFOugmmuJYBkSAQR/TFXXnMavOLOUVEPY7eroJp5kDfbAYtKpOUIYm
+	YtGzGOvQhgdFX2P59zWLi0s0KatNQk0Yoya5bZBW89aM9IR0yH2/5NLnMp96dpJ2CdR6T57/kFx
+	6vPJpZ/ZvIZC6LFZlauJfrby9H3ZkWJlxLKyJAmTzVkbzk8bcz9L1RcrDdypDBTj2cACFQK42x8
+	O8RhuwT/Rf39oQz66Grg4lvEqrGyh0wMbC9ifWIPMU5iozeznW4QZ+s+/h/bWS5QaY7ZlcppFRy
+	sac=
+X-Received: by 2002:a05:600c:1c13:b0:49e:7186:f36e with SMTP id 5b1f17b1804b1-49fc7dc1e75mr208969905e9.1.1790064088073;
+        Tue, 22 Sep 2026 01:01:28 -0700 (PDT)
 Received: from OrangePi5-Plus.BB-HOME (20014C4E1B80530056971C6280202175.dsl.pool.telekom.hu. [2001:4c4e:1b80:5300:5697:1c62:8020:2175])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdaaf97e2sm18248625e9.2.2026.09.22.01.01.31
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdaaf97e2sm18248625e9.2.2026.09.22.01.01.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 01:01:31 -0700 (PDT)
+        Tue, 22 Sep 2026 01:01:26 -0700 (PDT)
 From: Igor Paunovic <royalnet026@gmail.com>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
 	Oded Gabbay <ogabbay@kernel.org>,
@@ -83,9 +83,9 @@ Cc: Rob Herring <robh@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Igor Paunovic <royalnet026@gmail.com>
-Subject: [PATCH v2 05/11] accel/rocket: request the core clocks by name
-Date: Tue, 22 Sep 2026 10:01:08 +0200
-Message-ID: <20260922080114.44662-6-royalnet026@gmail.com>
+Subject: [PATCH v2 02/11] accel/rocket: number the cores by devicetree position, not bind order
+Date: Tue, 22 Sep 2026 10:01:05 +0200
+Message-ID: <20260922080114.44662-3-royalnet026@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260922080114.44662-1-royalnet026@gmail.com>
 References: <20260922080114.44662-1-royalnet026@gmail.com>
@@ -97,88 +97,123 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-rocket_core_init() hands core->clks to devm_clk_bulk_get() without ever
-setting the .id members. The rocket_core array is allocated with
-devm_kcalloc() in rocket_device_init(), and rocket_probe() only fills in
-.rdev, .dev and .index, so all four clk_bulk_data entries are requested
-with a NULL con_id (unlike core->resets, whose ids are set a few lines
-above).
+rocket_job_hw_submit() programs the S_POINTER registers of a core with an
+extra bit derived from core->index, the way the vendor driver derives it
+from the hardware number of the core. rocket_probe() sets core->index to
+the slot the core takes in rdev->cores[], which is the order the cores
+bind in.
 
-clk_get(dev, NULL) ends up in of_clk_get_hw(np, 0, NULL), and
-of_parse_clkspec() only consults "clock-names" when a name was passed,
-so the index stays 0 for all four entries. Every entry therefore ends up
-holding a handle to the *first* clock of the DT "clocks" property, i.e.
-ACLK_NPUn. Nothing fails: probe succeeds and the driver believes it owns
-four different clocks.
+The two agree only while the cores that bind are a prefix of the core
+nodes in the devicetree, in devicetree order. Unbind them and bind them
+back with a different core first, have one core's probe deferred behind a
+sibling's, or disable a core other than the last one, and every task
+submitted to a core whose slot is not its hardware number times out after
+500 ms. The reset that follows does not help, and the inference finishes
+with wrong output.
 
-The consequence is that rocket_device_runtime_resume() prepares and
-enables the AXI clock four times, while hclk, pclk and - most
-importantly - the NPU compute clock ("npu", SCMI_CLK_NPU on RK3588) are
-never prepared or enabled by this driver at all. The NPU still works
-only because the Rockchip power-domain driver sets GENPD_FLAG_PM_CLK and
-its attach_dev() callback walks the device node with of_clk_get() and
-adds every clock to the pm_clk list, so genpd happens to keep the
-remaining clocks running. The bug is therefore latent today, but it
-means the driver holds no reference to the clock that actually feeds the
-NPU, which stands in the way of any future frequency scaling
-(OPP/devfreq) work.
+Observed on an Orange Pi 5 Plus with a KASAN build, over all six bind
+orders of the three cores: only the devicetree order ran clean. The other
+five produced 27 to 141 "NPU job timed out". In four of them no output
+tensor changed with the input, and the harness gave up before its first
+measured round; the fifth got through a six-second run with 27 timeouts
+and a wrong top-1 class. All but one of the timeouts land on the cores
+whose slot is not their hardware number, in proportion to the tasks the
+scheduler hands them, and in both directions of the mismatch.
 
-Found on an Orange Pi 5 Plus (RK3588) by reading the live clock tree:
-/sys/kernel/debug/clk/clk_summary shows four "fdab0000.npu" consumer
-handles on aclk_npu0 (and likewise on aclk_npu1/aclk_npu2 for the other
-two cores), while hclk_npu0, pclk_npu_root and scmi_clk_npu have no
-"fdab0000.npu" consumer at all - their only consumers are the
-"npu@fdab0000" handles created by the power-domain driver via
-of_clk_get().
+Number the cores by their position among the core nodes in the devicetree
+instead, which is what the hardware number is.
 
-Set the ids explicitly, in the order mandated by the binding
-(Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml):
-aclk, hclk, npu, pclk. After the change the driver holds one handle per
-distinct clock and clk_bulk_prepare_enable() covers all four.
+The wrong value has been assigned since the driver was added, but it only
+reached the hardware once the extra bit was introduced, hence the Fixes
+tag below.
 
-Note that this is a user-visible tightening for out-of-tree DTs: the
-old NULL-id requests resolved by index and succeeded no matter what
-"clock-names" contained, while the named requests fail probe with
--ENOENT when one of the four names is missing. That is the right
-outcome for in-tree users - the binding requires exactly these four
-clock-names and rk3588-base.dtsi carries them on all three cores - but
-a DT that relied on the permissive lookup goes from silently running on
-the wrong clock handles to not probing at all, so record the change
-here where git log will find it.
-
-Fixes: ed98261b4168 ("accel/rocket: Add a new driver for Rockchip's NPU")
+Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
+Cc: stable@vger.kernel.org
 Assisted-by: LLM sparse checkpatch
 Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
-Tested-by: Sidong Yang <sidong.yang@furiosa.ai>
-Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, NanoPC-T6 Plus
-Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-Reviewed-by: Jiaxing Hu <gahing@gahingwoo.com>
 ---
-Same diff and the same message text (his copy re-wraps the lines) as
-01/14 of Jiaxing Hu's RK3576 series, which carries this patch as well;
-whichever lands first, the other drops it. The trailers differ: Jiaxing
-asked me to drop his Signed-off-by from my own posting of it, as he did
-not pass this copy along, and Assisted-by is added because an LLM helped
-with the checks on this v2.
+Supersedes the standalone posting:
+https://lore.kernel.org/r/20260905135612.7324-1-royalnet026@gmail.com
+Same diff. The message now says the numbers come from a KASAN build,
+corrects the timeout range to 27-141 against the raw log (it said 140),
+says what the four failed orders showed (the output did not change with
+the input; it said an oracle rejected the output), notes the one timeout
+that landed on a matching core, and drops the throughput figure, which
+was measured under KASAN.
 
- drivers/accel/rocket/rocket_core.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/accel/rocket/rocket_core.h |  5 +++++
+ drivers/accel/rocket/rocket_drv.c  | 31 +++++++++++++++++++++++++++++-
+ 2 files changed, 35 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/accel/rocket/rocket_core.c b/drivers/accel/rocket/rocket_core.c
-index b3b2fa9ba645a..5dd260bacbff6 100644
---- a/drivers/accel/rocket/rocket_core.c
-+++ b/drivers/accel/rocket/rocket_core.c
-@@ -28,6 +28,10 @@ int rocket_core_init(struct rocket_core *core)
- 	if (err)
- 		return dev_err_probe(dev, err, "failed to get resets for core %d\n", core->index);
+diff --git a/drivers/accel/rocket/rocket_core.h b/drivers/accel/rocket/rocket_core.h
+index f6d7382854ca9..46ed8352a79d2 100644
+--- a/drivers/accel/rocket/rocket_core.h
++++ b/drivers/accel/rocket/rocket_core.h
+@@ -30,6 +30,11 @@
+ struct rocket_core {
+ 	struct device *dev;
+ 	struct rocket_device *rdev;
++	/*
++	 * Hardware number of the core: its position among the core nodes in
++	 * the devicetree. Not an index into rdev->cores[] - that slot is what
++	 * find_core_for_dev() returns.
++	 */
+ 	unsigned int index;
  
-+	core->clks[0].id = "aclk";
-+	core->clks[1].id = "hclk";
-+	core->clks[2].id = "npu";
-+	core->clks[3].id = "pclk";
- 	err = devm_clk_bulk_get(dev, ARRAY_SIZE(core->clks), core->clks);
- 	if (err)
- 		return dev_err_probe(dev, err, "failed to get clocks for core %d\n", core->index);
+ 	int irq;
+diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/rocket_drv.c
+index 2bcfe4ab3c68f..7d927bb6b322d 100644
+--- a/drivers/accel/rocket/rocket_drv.c
++++ b/drivers/accel/rocket/rocket_drv.c
+@@ -157,10 +157,39 @@ static const struct drm_driver rocket_drm_driver = {
+ 	.desc			= "rocket DRM",
+ };
+ 
++/*
++ * The extra bit that rocket_job_hw_submit() sets in the S_POINTER registers
++ * is the hardware number of the core, which is its position among the core
++ * nodes in the devicetree: a disabled core keeps its number. The slot a core
++ * takes in rdev->cores[] is the order the cores happened to bind in, and the
++ * two only agree while the cores that bind are a prefix of those nodes, in
++ * devicetree order. Every task submitted to a core whose slot is not its
++ * hardware number then times out.
++ */
++static int rocket_core_hw_index(struct device *dev)
++{
++	struct device_node *np;
++	int index = 0;
++
++	for_each_matching_node(np, dev->driver->of_match_table) {
++		if (np == dev->of_node) {
++			of_node_put(np);
++			return index;
++		}
++		index++;
++	}
++
++	return -ENODEV;
++}
++
+ static int rocket_probe(struct platform_device *pdev)
+ {
++	int index = rocket_core_hw_index(&pdev->dev);
+ 	int ret;
+ 
++	if (index < 0)
++		return index;
++
+ 	if (rdev == NULL) {
+ 		/* First core probing, initialize DRM device. */
+ 		rdev = rocket_device_init(drm_dev, &rocket_drm_driver);
+@@ -176,7 +205,7 @@ static int rocket_probe(struct platform_device *pdev)
+ 
+ 	rdev->cores[core].rdev = rdev;
+ 	rdev->cores[core].dev = &pdev->dev;
+-	rdev->cores[core].index = core;
++	rdev->cores[core].index = index;
+ 
+ 	rdev->num_cores++;
+ 
 -- 
 2.43.0
 
