@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43E364D7D3E
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 20:56:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACAC7331EB4
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 20:57:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790110589; cv=none; b=ozJtp9fU0O4QXkVuXRXGFwRwC2d3LuwHW+vo8vogsz5HmSJkGUuSa5PPPRSdTlD5Y7L5kxKFbHkjcXFf8Y4AsfD0+bvPvWwPoH9WvDYEj82SYhchxswT/GXwR0FmQ3b5dTMxJfCBbSMsSF3TCq/lN7cAQBok1K2V2NH3EWOObdI=
+	t=1790110665; cv=none; b=rjLNTuLWk8qNNMxHjEQKt670rWySTsdiwOzGr3Y5WDGYZ09C+qou6T78lPe+nvrGYbLaGp5QlGmWvrzXlWVi+vqBVZtERJXlnk5bFjjEi0lEnlwIs4wh3wYFCjyvJeaS3dDjV2THuk+1ot+ieNEUD45lxzSGeQB8w6tNjebiAvs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790110589; c=relaxed/simple;
-	bh=+rwds6xvmjfxQyKDCKuSrmI34sOE/hB1rtRrSZkcDD0=;
+	s=arc-20240116; t=1790110665; c=relaxed/simple;
+	bh=zQx7zBaGL7r/ZENxpj5peY8oqbcBQ4UP5rjKkzrxw9U=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=WPMpKPE89EUzEEyj1MG5CsVorHWi/v5ZZXoDc5m1FqfxLY48naVJJhpcbSaysbU4SNLN0C6h+fVbGNBfOySokr1t50EDK5HRv96PJYjnU+0W255uu3/7FwqUCRjyeNvBQi5paRaibetDM2MVJT90334jBcgYzRa9qZnhINIxecU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hibyFyvI; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=KDedbi/RxaVrNR6HSba4e20K/L5PoNz9CWT5QkADTYHl/WGrbNKkqeoMUofxChVTWPa5FnTLTxT5ZHxaZ4OApYhA52XuHJ37EhPk1TLbHWnqmOOHRwH65Hrwn5bb2elrjliUY8Ovcjd1Ic013CyrM1979Lpl7510qOq+N3sMDLM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KxAOfnY9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hibyFyvI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CB691F000FF;
-	Tue, 22 Sep 2026 20:56:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KxAOfnY9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9374B1F000FF;
+	Tue, 22 Sep 2026 20:57:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790110572;
-	bh=br27E775Ef6V3hjYJ5DVqLcsFln+S0c6xgQgfQvHvJU=;
+	s=k20260515; t=1790110655;
+	bh=aE4VN3PaEhS2/labyEAErQSWe0WL0wa79CAuXQb0A/w=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hibyFyvIOOCtCx3BSErDRrtLoc+XVW5xUCE80tCMM/oXDv69GssePRoTH0VeDZvJd
-	 BcrhCHm11/yaQ32ZGgyzfiIMIDaE58UcruNOu8eGYpV6tTbTJOkKA/TgpxIch5ezOn
-	 75M2Wbgk5SXn59NPAS48dMT0EwD0s5H8N4NEJNnudUrSUNsSd9hYtb7PUiyUbowmEi
-	 ydgMuO8eZqLsRAst2LwLCUpOFqUN3ft2yqoOH6O6g9YlpP9HE7gEIfJndrF2kQjU9a
-	 DnKipBCK5j+hA0zZKEqP5VNrinBVIrdS6XH/VH5nFUbC556l3PYrIPz1ihGzmWOfNQ
-	 kRZ1M2Td86kAQ==
+	b=KxAOfnY9KXXkIx6oafSb0rk5URIzMOqF2YRgZrCWfe+3P0+2QZxKv0ycqrxOwosKd
+	 37TdAQ5goeM4JFhjJyp1I5U3zjVufvkPMRvVd8Ni4Tovz4CdMb42O05unSLWRQ5tea
+	 APNKhCNuWG+mzc2N6hBItPg2BQnoQ8ow/XIK2iA4EYcXaE4TxeXuv/7UditupL9/an
+	 8XF6v/fZKIBybGoGB9fOryo5LTfWPXCw8qOPdGcflGDmYtczUoRUKTjYbm5RD2F1Y5
+	 T0KJq1wB8aMo1ofZooOWfhE0lMGtIpufORfEVIZp5kEcjFFO/Nkt/xdQ9lCT2SHEGO
+	 wyuHovlLkodMw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 10/27] dt-bindings: gpu: panthor: Document
- panthor-system bindings
+Subject: Re: [PATCH v1 18/27] dt-bindings: gpu: panthor: Document AW
+ assignment DT property
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Karunika Choo" <karunika.choo@arm.com>
-Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260922204535.2850094-11-karunika.choo@arm.com>
+Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260922204535.2850094-19-karunika.choo@arm.com>
 References: <20260922204535.2850094-1-karunika.choo@arm.com>
- <20260922204535.2850094-11-karunika.choo@arm.com>
+ <20260922204535.2850094-19-karunika.choo@arm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 22 Sep 2026 20:56:12 +0000
-Message-Id: <20260922205612.9CB691F000FF@smtp.kernel.org>
+Date: Tue, 22 Sep 2026 20:57:35 +0000
+Message-Id: <20260922205735.9374B1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,58 +47,52 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] dt-bindings: use of OS-specific driver name 'panthor' in DT node na=
-me
+- [Low] dt-bindings: gpu: software resource policy in device tree
 --
 
-commit ee6d231b5dc0544f3b9572b62d9e84b81e33eedd
+commit c9c432471efad1a2abcbaf062de9fa8ddb5708c3
 Author: Karunika Choo <karunika.choo@arm.com>
 
-dt-bindings: gpu: panthor: Document panthor-system bindings
+dt-bindings: gpu: panthor: Document AW assignment DT property
+   =20
+Introduce arm,access-window-mask property to allow partitions to define
+the assigned access windows at probe time.
 
-This commit introduces DT bindings for the ARM Mali 5th-Gen AM GPU's
-AM_SYSTEM block. It documents the compatible string, registers, interrupts,
-clocks, and regulators for this system node.
-
-> diff --git a/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-syste=
-m.yaml b/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-system.yaml
-> new file mode 100644
-> index 0000000000000..f0689bb8f05a2
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-system.yaml
-[ ... ]
-> +properties:
-> +  $nodename:
-> +    pattern: '^panthor-system@[a-f0-9]+$'
+> diff --git a/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-arbit=
+ration.yaml b/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-arbitr=
+ation.yaml
+> index 9ea2b4bb9a344..4e7933829e2be 100644
+> --- a/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-arbitration.=
+yaml
+> +++ b/Documentation/devicetree/bindings/gpu/arm,mali-gen5-am-arbitration.=
+yaml
+> @@ -52,6 +52,15 @@ patternProperties:
+>            Hardware partition control index. Must identify a partition pr=
+esent on
+>            the GPU and be unique among this device's partition nodes.
+> =20
+> +      arm,access-window-mask:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        maximum: 0xffff
+> +        default: 0
+> +        description:
+> +          Initial access window assignment mask. Bit N selects global
+> +          access window ID N. Masks must be disjoint across partitions.
+> +          If omitted, no access windows are assigned by default.
+> +
 
 [Severity: Low]
-Does this node name pattern violate the Device Tree specification's generic
-names recommendation?
+Does this new property improperly introduce software policy into the
+hardware description bindings?
 
-Device tree bindings are expected to describe the underlying hardware in an
-OS-agnostic manner. Since 'panthor' is the name of the Linux DRM driver
-rather than the hardware itself (ARM Mali 5th-Gen AM GPU's AM_SYSTEM block),
-should this use a generic class name like '^gpu-system@[a-f0-9]+$' or
-'^system-controller@[a-f0-9]+$' instead?
+Encoding dynamic resource assignment with arm,access-window-mask in the
+device tree dictates software policy rather than describing pure hardware
+topology.=20
 
-[ ... ]
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +
-> +    panthor_system: panthor-system@68000000 {
-
-[Severity: Low]
-Similarly, this example demonstrates the OS-specific node name. Should it
-be updated to match a generic functional name as well?
-
-> +      compatible =3D "arm,mali-gen5-am-system";
-> +      reg =3D <0x68000000 0x10000>;
-[ ... ]
+This restricts the kernel's flexibility to dynamically assign resources
+based on runtime workloads, as it forces an initial hardcoded allocation
+upon driver probe.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922204535.2850=
-094-1-karunika.choo@arm.com?part=3D10
+094-1-karunika.choo@arm.com?part=3D18
