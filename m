@@ -1,162 +1,70 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B7B1541442
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 12:15:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46DED54147A
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 12:17:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790079344; cv=none; b=NlzMi2/vtXbnoM3r3ovJrhKm+qIT1ct59dmgbQVqHvLPwvrXXYVIcpNLGgWVqiBuAkBXEEu0thfgdHPd5jPKpf3S80V6GQMjeUgAVRRUm4dTtrVAl9XWg6YCVufaXj7uuEytC5XMArs3kjHiiGe/Qnj9MeMH6tEFLg23dAxa/XA=
+	t=1790079435; cv=none; b=ksWXyrifAhSCWiti/oDo8qEnLZkmbrmjk0YijGdzl9/ac7noU4KbOJsj8+muWPy7F5HFt0Zdaqf23ueih0jPij/kAUfMkbun49vsQjrZgoL9JoMSRLeefk7Jye9R4v1Z+tQ/A8DHINlK7sg4mMF9q3dn2Dnvm7XW2U6Kr0VH0+I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790079344; c=relaxed/simple;
-	bh=T6dJRCGr0tg8CyVITnaV4caTAtiMkYaG9rXKeW1fy/E=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=kgSE8OP99cTeQcWH4IwdoHsM2RR67lmVMnY1xkBRrNLUN1f+BaLuEgrX/Fg2gjLvAbu93963bMXuo/HHhEwYBD8a92Hu7mxVyOgpD62dgAv7N0JtAa3SgGMVYsyaOZ/sfzEybjt9Si+mJ6oIwq+xbCVYAz1y+XYlLDK8CvA3NuA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Gn34GsXr; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790079435; c=relaxed/simple;
+	bh=yTxnbSiAz/ON6hMopB3NB3+oXSxRjwZpBmdV0YxRmss=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=LmOYY9p2oDJ9iI5pG34koZwiJyu34aamlVVvuudkndDpDqBR/lGecRZJpexuimOdc9zEC4N1PRXyzx1MkVTCdmGZcDoLNwt/nKYvn0ju68ULxyhABZZXdzFY0sL5yC7ajWu6LL4XRGKrU84NQUGTR+BrqvAiHu8rsKJIfCYGAf0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hYeIFFE+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Gn34GsXr"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd4ba9f68so54493355e9.1
-        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 05:15:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790079340; x=1790684140; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=y6o4kVB7SdHxVgXCadG4g08z3sTOxxFvqJY26n9s0pM=;
-        b=Gn34GsXrBVO8f2Xeu+bkc2ESjW0C/nNTs7JQa83zBUWOyd4Ny+1jm7N893xcEYl4sV
-         DB75wCfxrUVV7QgE3oRdLwLCeUob61i9YHTvTfjI73yNPywD50ziMiSSXAv2mM0XJBsp
-         WW3atJb7WUixWizH0HQvqdQkFQ2z/iLtJidX1qrJdUQ0z+DjSBbcmYGbPQumLWEUrnrJ
-         qYI+JJF3arxSDhp0tBwqZl7f6l8emrAKXNGw44Mp1ePNVmUgas/AJJafzfcZuRgNSHg9
-         YoF1AChFUUXPG6T4Q/syLm493aCodZWW0fTqjqD7cAaNRbzKd2Z9Y/Z7BRKHnYW/jjV/
-         WyNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790079340; x=1790684140;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=y6o4kVB7SdHxVgXCadG4g08z3sTOxxFvqJY26n9s0pM=;
-        b=MbVeb/T3NVQGIXF6t/PlUeXDjXWIB4Z1UEMDz7NDCUmNpEez9yuQPzF4qdAU37XZzw
-         tJySf5tRD4jBJgjEF5XKLMl2aiKQL4hUKNc4+nK0iDtiIfqARFhIWwHRVl1k5OCR2XvY
-         SpvXtmCoxw2Ws3yzVyGeOm6VkA7u5HWE6Yzq7+jsT/JeLTeGPIOIvo0P2nzErQqRThYc
-         OioyUsp6872vCsiatr08YksJ/qGwMBDKDy1NkEwNlQ21bt5ZMhsE78ZXq/hYQeygByv9
-         8KSd+n/mzpNJmd3wq0phqolR3YIiKaWkMtq77tsJNvwZB9b5fBla+nkYYJoKRCk1gIS1
-         82qA==
-X-Forwarded-Encrypted: i=1; AKwUvByYwnzh65JbtEyjnQWw5qgJdaHTQklJzpHi3vyoTAruS3LERq20T9I4i+Tj7xTalQfC7QX0eZXBJizJ@vger.kernel.org
-X-Gm-Message-State: AFuF++nzoP6TNTOuxN6LmEG0xIcIvPY+y0ou798nfPFFHnV3WXVCm5Vw
-	OA7Wlj3MASWOaowZwPNvUe6SyJFdZfbad1WEx5kcWQoOG5LQmtXp9deaHkErs8BqJS8=
-X-Gm-Gg: AYBFou29WH1jaiOFHvgyoAh7Ii/hyDmJdAfbFGJ2mwl/dMgSBZdHnV0+NmIwLrEZieR
-	wdNi9ui/SYrmuOgpRtMyTHMWFT5hSNp3NY5unu1ZYZCX7Uqf1kIKvUHRmuCB9tMeIWf9Q+fjJQL
-	3/JWZ7fj6eer6ORrUiOvD9W9eGHKWT29V2luz/6CqQKs6F/998v/4Lah1G3eJrvJ/vEQ1z3kzaO
-	x2T/lmVVBhktCJLdRxxu6Po4l2uAqdF+JFegn5aZZG+/wO5g9gEix95EfKZTSKfSFpkysrZ+U7F
-	2zwhveTisNfDj5FukvL5SJjfeMycdYRZlVERrEmndC+42Xa2F0RAp/Y0ZxAp1Rc67yj+DjMTPJO
-	enIhtJVsVtcpZA9U6b0RTqa/hJ4lIu+jtqLQRcccGfh/C9QjW0e32Rt0oFdHUe5SMNzkI5BsDDT
-	rmUKEuQz/vS+YtFCGIrNOxJ0QY1J/HT8rpaQOaEXM0ek/SQ2qC5FmddWk8PGSBnykpoyv+4XdwK
-	E7HtXuKBXmc5lsB10pzuTZP2VbOpynsk4PpWpjEG9K0RgT0gpiNeA0=
-X-Received: by 2002:a05:600c:138c:b0:49d:1842:f001 with SMTP id 5b1f17b1804b1-49fc56ef0cbmr194687665e9.14.1790079340130;
-        Tue, 22 Sep 2026 05:15:40 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:ddd0:8cc7:9887:fa82? ([2a01:e0a:106d:1080:ddd0:8cc7:9887:fa82])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdad29ee8sm46774625e9.4.2026.09.22.05.15.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 05:15:39 -0700 (PDT)
-Message-ID: <749294f5-9640-46a8-990e-b59abe9cb9d3@linaro.org>
-Date: Tue, 22 Sep 2026 14:15:38 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hYeIFFE+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CF041F0089B
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 12:17:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790079434;
+	bh=yTxnbSiAz/ON6hMopB3NB3+oXSxRjwZpBmdV0YxRmss=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=hYeIFFE+UckDo7eRQGCMqyMbVRk0RsKmaSBK5lJuoIsqZcU4u2weY4f8eh2+QWCtw
+	 GxJNLRlnyvRUiMLcF7eRXvVKb6VPHXGS+4vOXis/ljhS/LeYFKcRUupCaUPEKDrO6g
+	 zJdLOGTl6UL9HE6vYYgTy8Im8fR4v8kbFBx0l5FoZtEQ79qICjW45aDZe+/oRWiNbA
+	 938/bnQc0CJcBF1wqKYgaGXY96Gc3k7yYxrrUSmVvD2OlfSzjzEEB1MYxza5+H9+pk
+	 WvQ/AZzVZ/S1zGKcJ07O/Lzn3lGwEzmKVdvMKJhCOSE0fsuZ50VoG6A3u01yCkSDlx
+	 Q7zNNXyxspA4w==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b76668f4ddso1470954e87.1
+        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 05:17:14 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw8MGCiS0O4cxbZl6lFGH2oz//grZK1lNLyTXqkttRn0zVgL6RJIOhwD0LNU5lNA1wY5OdeJlZ8pU7G@vger.kernel.org
+X-Gm-Message-State: AFuF++mUR1cv5O19xwLYIvYaRh7CsYPY+x38FgHapz2XnGIoQpZn0cID
+	ysyrjFfS9yx1fNxG3sa02MxI9S6n/eyGBblepoocP0CUt75Bb/+cQWhRWEXF4bDypvevXFxE37l
+	LK9MujPGleHLARt6dLBuopjXsjxL9xfs=
+X-Received: by 2002:a05:6512:3ca9:b0:5b8:9a95:e259 with SMTP id
+ 2adb3069b0e04-5b8d295e4afmr834266e87.27.1790079432863; Tue, 22 Sep 2026
+ 05:17:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v18 2/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260917-x1e-csi2-phy-v18-0-6515b5255fa9@linaro.org>
- <20260917-x1e-csi2-phy-v18-2-6515b5255fa9@linaro.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260917-x1e-csi2-phy-v18-2-6515b5255fa9@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260921-gemini-tve200-fix-v1-0-8be03ac2a8f7@kernel.org>
+ <20260921-gemini-tve200-fix-v1-2-8be03ac2a8f7@kernel.org> <20260921092546.9F6EF1F000FF@smtp.kernel.org>
+In-Reply-To: <20260921092546.9F6EF1F000FF@smtp.kernel.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 22 Sep 2026 14:16:59 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnMvzC2wmWiLY1aVDHqG39ZiJv2FyCg4-V93APpjihpRQ@mail.gmail.com>
+X-Gm-Features: AclHuK-bjk8vEyyJGB6e_jRIydjSMNUQ5bfkMux8cNhlhOVbt-7gvd6Cmxs_sAA
+Message-ID: <CAD++jLnMvzC2wmWiLY1aVDHqG39ZiJv2FyCg4-V93APpjihpRQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] ARM: dts: gemini: Use a level-high interrupt for TVE200
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, 
+	devicetree@vger.kernel.org, conor+dt@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/17/26 01:58, Bryan O'Donoghue wrote:
-> Add a new MIPI CSI2 driver in DPHY mode initially. The entire set of
-> existing CAMSS CSI PHY init sequences are imported in order to save time
-> and effort in later patches.
-> 
-> The following devices are supported in this drop:
-> "qcom,x1e80100-csi2-phy"
-> 
-> In-line with other PHY drivers the process node is included in the name.
-> Data-lane and clock lane positioning and polarity selection via newly
-> amended struct phy_configure_opts_mipi_dphy{} is supported.
-> 
-> The Qualcomm 3PH class of PHYs can do both DPHY and CPHY mode. For now only
-> DPHY is supported.
-> 
-> In porting some of the logic over from camss-csiphy*.c to here its also
-> possible to rationalise some of the code.
-> 
-> In particular use of regulator_bulk and clk_bulk as well as dropping the
-> seemingly useless and unused interrupt handler.
-> 
-> The PHY sequences and a lot of the logic that goes with them are well
-> proven in CAMSS and mature so the main thing to watch out for here is how
-> to get the right sequencing of regulators, clocks and register-writes.
-> 
-> The register init sequence table is imported verbatim from the existing
-> CAMSS csiphy driver. A follow-up series will rework the table to extract
-> the repetitive per-lane pattern into a loop.
-> 
-> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> ---
->   MAINTAINERS                                        |  10 +
->   drivers/phy/qualcomm/Kconfig                       |  15 +
->   drivers/phy/qualcomm/Makefile                      |   5 +
->   drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c | 385 +++++++++++++++++
->   drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c     | 463 +++++++++++++++++++++
->   drivers/phy/qualcomm/phy-qcom-mipi-csi2.h          |  97 +++++
->   6 files changed, 975 insertions(+)
-> 
+On Mon, Sep 21, 2026 at 11:25=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
 
-LGTM
+> [Severity: High]
+> Does configuring this as a level-high interrupt break the driver's state
+> machine logic in tve200_irq()?
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Nope.
 
-Thanks,
-Neil
+Tested on hardware.
+
+Yours,
+Linus Walleij
