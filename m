@@ -1,77 +1,136 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2209E3CFF61;
-	Tue, 22 Sep 2026 07:06:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29E204AA591;
+	Tue, 22 Sep 2026 07:06:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790060800; cv=none; b=Z53K9SjlI7diglUq6jjiu1vWGPakTUxtueuzk0wUOCL9upGZkVSCRA3eh09YceFw8esJucVApy1P/2by8AfllDt+Cjg2TCkBa5AkcILkYX69lvMURKpCcvNh0p6ZN+5vPESrvdFFh7PPfaBRU6IOlr165FrNeeqqjGsmVJ8h4WE=
+	t=1790060817; cv=none; b=utdvMFASOp3zigoXf9ROUpHx9of2lGawQGKOVHLYj4CqpYrYOT4Palk0D+K0TIPDcvVStT8Zgp2QGNK7njilSwZYCuLQ7EP6TsQpt9V3xOlCs5TNdYpSs2FL3PG7vhvPEbIj00O0EKxcAZhYXr5mmxh1efbzyIFNozuB6xGru14=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790060800; c=relaxed/simple;
-	bh=2v0J08ekGKInAg8ts2eGxoSmJnRe5kmyENO/PM955mI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ULOfuxVT8NbjtATVQymXbHWvZtuWshZJeZ1anFn9Cd1q80YhgRZdJSe3YDcFVxuPE4TllUNawG7Gt9VISmH9XkHWDFN6knovjWN/aGmxV/Fq1NLsongIJOGPsRvE7mhbUyE/5CmfNoBfv4hw8IkDsFZlEW+oVvVD3a3JLGBvRQE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=HoCziJ5g; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790060817; c=relaxed/simple;
+	bh=IqtUZr48pWoEZYfF/d/fQg7U9fzgqQXywMPH3FQ3JxQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=nbICtvAhV7FkGQQfCtcpjjAVNqPwtfkmPJ++h34ewO2CkKerdgh6DDIKo+MIu0X9cEmi6g3Jsk7rPKxPoxFwLhU8PBmtpAHBKBr4xIh5n69osTv5F7y7qFfn4Y6S4Dabsj7259NAApE0QlR5V/qXdW+INjjYO1sQvrReEGllO3k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h3CT8dkO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="HoCziJ5g"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=lq
-	GzawzzxGlJIRbzx4Y7DEqOE6+8eDPsHRwSEPRv0Cg=; b=HoCziJ5gURp2NCXNa8
-	13oVkQUem//grJcv1n1swDl5GfR64e12YT0TiMAEaJChgw31LPIFqO6CHkABGHX4
-	0aBxKyeLmyDRvu6W57eZvQifwul2+d0b3cdQZCuL6qXjoHjyP+b7/1qMXK69cv/c
-	qudzhImrVCi0dPnT68ozQHw1E=
-Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
-	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wD335fqKLJqnRpFAA--.27844S2;
-	Tue, 22 Sep 2026 15:06:19 +0800 (CST)
-From: Quchaosheng <quchaosheng000406@163.com>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Marc Kleine-Budde <mkl@pengutronix.de>,
-	linux-can@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	quchaosheng000406@163.com
-Subject: Re: [PATCH v5] dt-bindings: net: can: convert ifi_canfd to DT schema
-Date: Tue, 22 Sep 2026 15:06:09 +0800
-Message-ID: <20260922070609.70057-1-quchaosheng000406@163.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <70ae05a5-2415-4895-bc64-37b3d3ba54ac@kernel.org>
-References: <70ae05a5-2415-4895-bc64-37b3d3ba54ac@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h3CT8dkO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58DB81F000FF;
+	Tue, 22 Sep 2026 07:06:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790060815;
+	bh=1c1E3XWF8eiju0LA9Da6x7szB1ABur1NPrEC3yhxwMo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=h3CT8dkOf+xuBXZ5FBzBAQRU/8EI96Mg/B3M9I9+FURNmJjp9GxO/ZE7pV/gcHpIP
+	 t9+/vU5NVYZT4i8Gi794sCOO5DhX5mB6yCkQtgv/QZfW3iPg+SmdCWjTmOfX3fxpVV
+	 egHVC0RX67lxjb6UkRuZgF7vpiwwWi/IjDiBxg8Mt/Ek7AKnVScWxeW+BrEp9LWt5J
+	 jjiDeuIRZ0yw9uEP4fGe6Nniap9aNJLr7AN2nQhQLpbkVG82VUJdM32FetNQbBhAlc
+	 xhzwGa+uSWa1rQbv45hsFc1h0Ivtu9wBT1z2hEB32uj0HRbj6n0vdIMj4g5DBxkuD5
+	 EqtpgAfHjB0pw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 12/19] drivers: soc: ti: k3-ringacc: handle absence
+ of tisci
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sai Sree Kartheek Adivi" <s-adivi@ti.com>
+Cc: Frank.Li@kernel.org, conor+dt@kernel.org, robh@kernel.org, dmaengine@vger.kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org
+In-Reply-To: <20260922064902.2719979-13-s-adivi@ti.com>
+References: <20260922064902.2719979-1-s-adivi@ti.com>
+ <20260922064902.2719979-13-s-adivi@ti.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 22 Sep 2026 07:06:54 +0000
+Message-Id: <20260922070655.58DB81F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD335fqKLJqnRpFAA--.27844S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrZw1DGF1kWw18GFWktw1UKFg_yoWfCrgEga
-	9Yqw1kZa17ZF97uan3CFWYvr48CasIkF15CrWvqry8K34rCF1DW3ykAr9Iqry8GFZxX3Zx
-	Aa4rJr4DC39IqjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7VUb2Q6PUUUUU==
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC5AuLAWqyKOvoxgAA3Q
 
-Krzysztof,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] soc: ti: k3-ringacc: base address zeroed before size in ring_free
+- [Medium] soc: ti: k3-ringacc: missing interrupt disable during ring free
+--
 
-On 09-15 you asked me to slow down and I said the three CAN bindings
-would stay put until you asked for them. One thing has changed since:
-Rob reviewed the v6 postings on 09-21. holt,hi311x and ifi,canfd-1.0 came
-back with his Reviewed-by; fsl,mpc5xxx-mscan came back with four comments,
-all of which are addressed now.
+commit a7de7c5cbd863cd6f1879ceaa2a3c115f7f1b58b
+Author: Sai Sree Kartheek Adivi <s-adivi@ti.com>
 
-What changed in mscan, so you can judge it without opening the patch:
+drivers: soc: ti: k3-ringacc: handle absence of tisci
 
- - clock-names is an ordered list of ipg, ips, sys, ref, mclk, and clocks
-   is minItems 5. fsl,mpc5121-mscan requires both.
- - The fsl,mpc5121-mscan if/then that only restated the enum is gone; the
-   per-compatible defaults moved into the property description.
- - fsl,mscan-clock-divider has a minimum of 1, the driver divides by it.
- - One example instead of two.
+This commit adds support for platforms without tisci firmware, such as AM62=
+L.
+It does this by handling the absence of tisci using direct register writes =
+for
+ring configuration and reset.
 
-If that is enough, may I send it as v7 - one series, one thread, one
-version? If you would rather it wait, say so and it stays where it is.
+> diff --git a/drivers/soc/ti/k3-ringacc.c b/drivers/soc/ti/k3-ringacc.c
+> index 5966db4327b13..0ef07207e1dfa 100644
+> --- a/drivers/soc/ti/k3-ringacc.c
+> +++ b/drivers/soc/ti/k3-ringacc.c
 
-Quchaosheng
+[ ... ]
 
+> @@ -576,10 +653,25 @@ static void k3_ringacc_ring_free_sci(struct k3_ring=
+ *ring)
+>  	ring_cfg.index =3D ring->ring_id;
+>  	ring_cfg.valid_params =3D TI_SCI_MSG_VALUE_RM_ALL_NO_ORDER;
+> =20
+> -	ret =3D ringacc->tisci_ring_ops->set_cfg(ringacc->tisci, &ring_cfg);
+> -	if (ret)
+> -		dev_err(ringacc->dev, "TISCI ring free fail (%d) ring_idx %d\n",
+> -			ret, ring->ring_id);
+> +	if (!ringacc->tisci) {
+> +		u32 reg;
+> +
+
+[Severity: Medium]
+When k3_ringacc_ring_cfg_sci() configures a ring in the !tisci path, it
+explicitly enables interrupts by writing to ring->intr->enable_set:
+
+	writel(K3_RINGACC_RT_INT_ENABLE_SET_COMPLETE |=20
+	       K3_RINGACC_RT_INT_ENABLE_SET_TR,
+	       &ring->intr->enable_set);
+
+Should k3_ringacc_ring_free_sci() symmetrically disable these interrupts
+during teardown? Failing to disable interrupts while setting the size to 0
+might leave the hardware in an inconsistent state or cause spurious IRQs if
+the ring is reallocated.
+
+> +		writel(ring_cfg.addr_lo, &ring->cfg->ba_lo);
+> +		writel((ring_cfg.addr_hi & K3_DMARING_CFG_ADDR_HI_MASK) +
+> +				(ring_cfg.asel << K3_DMARING_CFG_ASEL_SHIFT),
+> +				&ring->cfg->ba_hi);
+
+[Severity: High]
+Does writing the base addresses before clearing the size register introduce=
+ a
+race condition?
+
+Since the size is not yet updated to 0 here, the DMA engine remains technic=
+ally
+active. By clearing ba_lo and ba_hi first, any background transaction execu=
+ting
+in this narrow window could initiate a memory access at physical address 0x=
+0,
+potentially causing memory corruption or an IOMMU fault.
+
+Would it be safer to clear the size register before updating the base addre=
+ss
+registers?
+
+> +
+> +		reg =3D readl(&ring->cfg->size);
+> +		reg &=3D ~K3_DMARING_CFG_SIZE_MASK;
+> +		reg |=3D ring_cfg.count & K3_DMARING_CFG_SIZE_MASK;
+> +
+> +		writel(reg, &ring->cfg->size);
+> +	} else {
+> +		ret =3D ringacc->tisci_ring_ops->set_cfg(ringacc->tisci, &ring_cfg);
+> +		if (ret)
+> +			dev_err(ringacc->dev, "TISCI ring free fail (%d) ring_idx %d\n",
+> +				ret, ring->ring_id);
+> +	}
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922064902.2719=
+979-1-s-adivi@ti.com?part=3D12
