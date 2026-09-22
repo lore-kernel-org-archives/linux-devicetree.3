@@ -1,186 +1,101 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73E47562605
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 15:53:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CE545632A4;
+	Tue, 22 Sep 2026 15:53:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790092430; cv=none; b=au9MAXfNcxBfCxhB7VHsVf8msAkgfn4W6DNONtGvTWlX/QcAsSdwA/MvFyo4box0Q/bkX9oxOiAAAr/aDsqG0i4lb98WNBV1pUPwZMYUG86WoNR7xSYNQ5T/bPSExhmqMduGb4aQA7YAfo+xYcyZILhidjFDxLcOlpv6SJqBhfQ=
+	t=1790092431; cv=none; b=Sd7QHKbOzfOvtWSUX45rHlX3k3d02W97pRUmv+U3hHKNhWd9gUeIS8Ds7FsUkhFu8S8XkQMJymT+vF91OszMU7/DW4p0EEXzOpJBZziZQg4Vf/o/8Qmva/IkKEw4/rUzozy0dHnuO39tQBTO5343LQ8/kQAogvLb1F3I9nNyp98=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790092430; c=relaxed/simple;
-	bh=x2Afa3TS2BODsNDUCq1vjP7z73/Tlk0WEhCAaO8UvBU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cAP2HOAISlnh+bZ7d3eC3BjbUcIsfmZ3d42+4cs5hI7VqoIgEejMGzrnPJQaRCyQXn/jPpfuxxmVDRuWiqff5f1c7Ir1iJ/VOXztySRGUlCNZhmqk+v8ETJznc/n97r5TaW2c1LyasFGyJB1UqTYohMnN8Qx8sWqoAaXGeag7ZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NuMeLAuR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RPbDacHO; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790092431; c=relaxed/simple;
+	bh=uy4WH0w/V8fjO5KV1dH4paOiSlECTwqiGH2t8k7HDZ8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=BrlWc7cvRVuay1A9SOntqLVNwnEIf99NhyzVEPWvrlLM+OjdB/Bv1xKjgOhSATDB5cryt9xv9Q5EhBRwgLIqZScsflHOH79Y4PhpeL2REm1zHsl7hWBgBTJpVePwgWqSCpXtqoqi9f1Q5Qn52oE64hC0fXznOPF6Mc3AXDvn1/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AhEm0OPu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NuMeLAuR";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RPbDacHO"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MEjJPp449502
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 15:53:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	c+J89754OJs4CwOKUDXJfrEClFP9Q3mGTwu9yywPVJA=; b=NuMeLAuRxk12TzIe
-	2IIKpHxD60B9aAf3ow+MH682YLp0nF6MS2HFAXX94vXONizlwGdqGAAN8sPJWzRg
-	Gq9U9BEcMqtYxGyeZcoJHRdXXPjfWEKYhfaW82mTj7tzVT3UJGpzXdnzX5Az7ynb
-	LUwkFaaqqddedNOJCQ6c+4ubxNthQFBXxxquvTjrvVD5uIQzbIwt62deMogHfY8C
-	khe+yMHcpSwhrgpX8EZpa2sgiN5eKaNVnSncvYPVQpJmTS5cG1Si5f8ADGD3bwBX
-	Z5QlZFbkrJKiizsw8ODUnvVcpZDrcDW3vrswzq0u/yc40XqZGiBcUblpn/jX5HwO
-	FBIZtQ==
-Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com [209.85.221.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gunjyt6y8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 15:53:46 +0000 (GMT)
-Received: by mail-vk1-f197.google.com with SMTP id 71dfb90a1353d-5c82f9e26ebso238715e0c.1
-        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 08:53:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790092426; x=1790697226; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=c+J89754OJs4CwOKUDXJfrEClFP9Q3mGTwu9yywPVJA=;
-        b=RPbDacHOCxGzYv2JRPFvwEIMRF2F+24ayYtBgrBWOc7Bjjb8zUYGIfkXsvCg1OACsg
-         akGd1+GqXDxH/mwacI8cmPg1JIWhVnOVtsxLt7D9OpQCO4SXkESeoqEwFfKtBjUy0v+a
-         68hd1G61G/QEMtUJVS6L1sYMFEwNtGniwUAPLvdZMmWj1Td/Tdf48GEiTD07ElHdM+dW
-         XYcYtonhP2dJ08K0LrM0n0MDVaZ7RXbA/O/H3h6+y/JuNx+fXIG44M134suqXwLwJ7lu
-         5K1Zv7PrsBB24FB1L1splC+DQiKNK8a+5MW/xQsA24vvjIJC4BukWBNt+vxMiWlb+XQ3
-         g3AQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790092426; x=1790697226;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=c+J89754OJs4CwOKUDXJfrEClFP9Q3mGTwu9yywPVJA=;
-        b=TqUDpDqmHrVnGSSVmN6zonsmRGhD3t4aX0OiXK7Q+FhBoJHAeXJ0T7sZraSR2OD0KE
-         WmPkcmgsd7f6BkQEBHQ98Td+o5LfT6dsJ/BbmdJ8MpGOG/rJsOk/1Hw7Ht3i1ayBQ5wd
-         vQEthd/jQEKxf8Cyq2cB8ucLOf/8oT01RFYlHB5oBx1WdNx4e0VOvhkZq2sRk3Hfki0/
-         FYPV2kn4FqouanoSON0yHjyHAVhu/+UvlPB4UUhIGcHgDa8zall2M8pxI9cvwNR/cAwV
-         0Pj9hfhWVjYGKgOGk0xQkEzp319v1koGPRCqB6Xn+0OOKTbJzy4JfKuIFRMA6BfEFm3k
-         ih6g==
-X-Forwarded-Encrypted: i=1; AKwUvByU17qsfB7UihnuEWVrpECumsLsxAzNtjTNCfbnUxftryJCfVSqEXQxuBsCCrXFCfYh3Ulpa8I+bJh4@vger.kernel.org
-X-Gm-Message-State: AFuF++kjuLNeqlPU9m339m2d0fb6UEHA8Z40jYdV/iTvS0BzDKRpqmdM
-	sMtlTZS1K7tIIysNx2uYhtnZLp2lntXbnjwNpHmQOvq5FXsTIL7SFFG2+goFziEbQ47jLj2VXww
-	zC+ROs231KEMcIVtGUtNRHHW4M6SFkgpdnYhJxxqgHNCLvxr6WZ+R+KaRtBH/k0Lq
-X-Gm-Gg: AYBFou0JILdv6or/BO+MC7+urR/wt2NPvPYnQ71IDh3l7+xJJwJ8jVwdqB6mYg9MnCJ
-	gOKQhAvP0ydR/k+9YPTxY7jTzRPXDF3nXpW7XzW+K/KUsUYVklUCrwwqr4Nm98e88OE0/sQ0m7X
-	a9Cg49Kx/rSCnKgZZjtskpHBdIMoghX2oNjy8Ect9j6ZLDkuOGWGQhGSAmaxHAnNDiy4RL3K5X/
-	IuZTqwkeYnkrVUm/qLBxwBmrUOKrh3Y9xCmGAu3bj7AhDzlnCR0mMz2DObArg/j84i3IOs4m0PM
-	MFmYuOYoL8d1HC5RCGhWuGyTNFa9cs1C4gtxdQFyenRw6AZ46JMPUQ6nA2DH8mwsCuK+A9f8U1U
-	fXbUqXdDjgxVEGSYs7EkRHg==
-X-Received: by 2002:a05:6102:3710:b0:7a7:326b:688d with SMTP id ada2fe7eead31-7a7326b6d93mr6495474137.2.1790092426358;
-        Tue, 22 Sep 2026 08:53:46 -0700 (PDT)
-X-Received: by 2002:a05:6102:3710:b0:7a7:326b:688d with SMTP id ada2fe7eead31-7a7326b6d93mr6495425137.2.1790092425877;
-        Tue, 22 Sep 2026 08:53:45 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a9c5808dasm107428966b.23.2026.09.22.08.53.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 08:53:44 -0700 (PDT)
-Message-ID: <578c26c4-a340-4158-aea8-40944a1067c2@oss.qualcomm.com>
-Date: Tue, 22 Sep 2026 17:53:41 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AhEm0OPu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE0451F00893;
+	Tue, 22 Sep 2026 15:53:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790092430;
+	bh=mLP7ngSOOjFnQa/m4wcizjk0PfUojtkYKtIjNhEq640=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=AhEm0OPubyvBPwd/4JPSIPlUyyyOhl/9qByucpJ/RwDNZyJ5euY4HHbYVek06QflC
+	 qZKcZ/ixu0Wsl0kI8+Up28yCGJayUs9zS2lKvc0dyZiqHrSf1zccEl2/AaKaojY+F8
+	 cEt/B3/QoGyPkljOWj/2CCdNjqLUFTGUZ5WYFj0/lNqx/I/axS0ft0X57EaQJY4dIG
+	 Q1kNLbNF/3B28C41TsBjoKlufCNznaMqaDQYXH65fgHqXcrRps9iIxD6HMorbFp1J5
+	 KnaFQLDhqKUd2JTp/txiJweq/kUrG19FechWTnQFfbAPlzpRoDiRE0q1KGLTpkxje9
+	 Ip5OYjZhBCXgA==
+From: Mark Brown <broonie@kernel.org>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-renesas-soc@vger.kernel.org
+In-Reply-To: <cover.1790065451.git.geert+renesas@glider.be>
+References: <cover.1790065451.git.geert+renesas@glider.be>
+Subject: Re: [PATCH 0/2] spi: sh-msiof: Add support for R-Car X5H
+Message-Id: <179008178775.322763.16248581785473182715.b4-ty@b4>
+Date: Tue, 22 Sep 2026 14:56:27 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 5/5] arm64: dts: qcom: shikra-iqs-evk-imx577-camera:
- Add DT overlay for Shikra
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
-        Andi Shyti <andi.shyti@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-        Sascha Hauer <s.hauer@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Fabio Estevam <festevam@gmail.com>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-i2c@vger.kernel.org, imx@lists.linux.dev,
-        linux-arm-kernel@lists.infradead.org,
-        Suresh Vankadara <quic_svankada@quicinc.com>,
-        Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-References: <20260917-shikra-camss-review-v8-0-9b9596221cfa@oss.qualcomm.com>
- <20260917-shikra-camss-review-v8-5-9b9596221cfa@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260917-shikra-camss-review-v8-5-9b9596221cfa@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: yqB7YfeWEq_2DkLklaPyBq4rn6hqPQNp
-X-Authority-Analysis: v=2.4 cv=KqHYSmWN c=1 sm=1 tr=0 ts=6ab2a48b cx=c_pps
- a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=XE-wypd_VeY0GsksmEIA:9 a=QEXdDO2ut3YA:10
- a=tNoRWFLymzeba-QzToBc:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDIzMSBTYWx0ZWRfX+D2MQaivevjn
- Om26Tacl7tbifrm+MsCnKJXcviohiErNGvJ//G3F+PgQ21Dbbk09/LsAytJECXf6aWtDC2ZwRI8
- c1SgrArKvD4M1y3umvOqt+7KXwazBMV0Lb5kl3BzionHs6RayVEdtGPqOML4l+deXUShZPABDN2
- CmIxyvRE9ny3co+Uybh5bAIN9jon8yFQc+4JdOYLW2bhT+C3MeubRZZhQqXu+1ZeMsBo7ZJ9GPQ
- i9xuS/n7k1hu9fwrShfvhuTOBh5ly/eOUlyw1jU3BWpAyFhGrtJo7TUTnTK4Nsunoy5fZdkDVW5
- G8HLhJvw4MzX4R4pTV/cFDLllOgzOpi9O9cKeZNcnBYQpaNMbSi/Qjwcg/DGAbxBPEsi0zZ228H
- XH8F0eiyPxSx4ja/0MtfO7+ARpFocFleoxEJKxlwoXlJbf8fh4lp51pBNkZDuGVzvGnpSji3Oxb
- 4ICnOJCn0EsvadRRqKA==
-X-Proofpoint-ORIG-GUID: yqB7YfeWEq_2DkLklaPyBq4rn6hqPQNp
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDIzMSBTYWx0ZWRfX+RRrXnYBEpBE
- MZmxp3f0Xil10OwDJM1il0oYw6ABrMkVSqW4n/IxGSj6qOHPAfKYyJA7+NR1DyxXYy7sMTSFn3K
- Yl6wR+fW0LBTimG1QxiW5R274/PsPb4=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-22_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 bulkscore=0 priorityscore=1501 phishscore=0
- malwarescore=0 suspectscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220231
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1456; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=uy4WH0w/V8fjO5KV1dH4paOiSlECTwqiGH2t8k7HDZ8=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqsqSJGplXnfIZhDDsHPhQbn2HWMTa0MHSL6KVi
+ D4GGNdxfguJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCarKkiQAKCRAk1otyXVSH
+ 0GcxB/9hAnAH6q/Vczro0N+1aBnFhwe7vi56Jk9AMar9oxUFqLlmKKDTBfol3BOGrVFsatX6T2S
+ C/LC/2fd04jsxPmPKF2FhYK5IrkIGYU5QMrQjJ1Dm1uJrGcY3TlUYP5U98+q2qKIog/y9kKVjGw
+ z4N6ctXXSHT5+t0SJAlniopeS8vBkgZlWudF4rl5dm7nbm6yaF/q43Bz4vFXynK+RpEoTX5+6oh
+ v28a0amadGMYOocrIONp+9UTe0C4yab/bCw5K9D7XBVFvfLfREWXlFNQ9enDLxsABMvVLoG4vuB
+ w4M3uEhmJI1y7CVzBC0JvlSbd8kZ+n1v8+GFnCiP6uRRA4Ej
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On 9/17/26 1:41 PM, Nihal Kumar Gupta wrote:
-> Shikra IQS is an industrial-grade variant using PM8150 PMIC, requiring
-> different CSIPHY and sensor supply rails compared to the retail boards
-> (CQM and CQS) which use PM4125.
+On Tue, 22 Sep 2026 10:26:59 +0200, Geert Uytterhoeven wrote:
+> spi: sh-msiof: Add support for R-Car X5H
 > 
-> Add a dedicated overlay for optional IMX577 integration via CSIPHY1.
+> 	Hi all,
 > 
-> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-> ---
+> This patch series adds support for the Clock-Synchronized Serial
+> Interfaces with FIFO (MSIOF) in the Renesas R-Car X5H (R8A78000) SoC,
+> which is the first member of the R-Car Gen5 family.
+> 
+> [...]
 
-[...]
+Applied to
 
-> +&camss {
-> +	vdd-csiphy-1p2-supply = <&pm8150_l11>;
-> +	vdd-csiphy-1p8-supply = <&pm8150_l12>;
-> +
-> +	status = "okay";
-> +
-> +	ports {
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +
-> +		port@1 {
-> +			reg = <1>;
-> +
-> +			csiphy1_ep: endpoint {
-> +				data-lanes = <0 1 2 3>;
-> +				remote-endpoint = <&imx577_ep1>;
-> +			};
-> +		};
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.4
 
-Likewise
+Thanks!
 
-Konrad
+[1/2] dt-bindings: spi: renesas,sh-msiof: Add support for R-Car X5H
+      https://git.kernel.org/broonie/spi/c/51e04054e299
+[2/2] spi: sh-msiof: Add support for R-Car Gen5
+      https://git.kernel.org/broonie/spi/c/8157bb8232a4
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
