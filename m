@@ -1,180 +1,229 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B13B535FD7;
-	Tue, 22 Sep 2026 10:36:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790073403; cv=none; b=rSwF7PaAMsqBdCTa1jvdh8FdYy4BL19Z+zv89AI1g8QcIXT1HXCKVHhWk/mfdXt1CAO5pyqy+Ce1vHD84q3hiWQihFgxKn1wbNxHPuK3CQ/CkuvDdWMPB7LgOTzDOFMIFsYu1WEc4vHYh51pGOWqBbE0LMbRX2KlcK8y36Vupg0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790073403; c=relaxed/simple;
-	bh=0ui00qdYqGIqavaMCgWtVbPGeJpWwJ+VrrPOX5IcVo0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=YpcGJp5VdQLEdswhjKf8pQwqt90K+4yjjxCWJ7xN8NX/7rP5uFkyb3G/VP2hR8Ox3NZGtbCy8qoyGr78vLYIutKwKsbyAw83DwB8DwKdi0wj8ya4NA0VJadtcqd3wj/OzHPiORNwVLYtmE8ZvvzZCf8B2VK5dG6NjE8o7N1Txiw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F36bTwA+; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8589552F299;
+	Tue, 22 Sep 2026 10:37:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790073425; cv=fail; b=i3yc1TMwEl6ocB7IPhs6gp2EDrT20zQqwe1mKtdMcNwk2WoXoIs7WFaExKXUVNBJsPZ04f8H/9cHV1M6pXWA+C0zpIuntSN6p7cDteL1c6TgynfdcngWmhvXI/IVn+cNtsXR8hUf4oIlLI2fRMtJ+SDj1VHblxKhsqM/oKZWwJk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790073425; c=relaxed/simple;
+	bh=ARnunrr330rRedV/VMKd0QCAbiEwV8NS20Yw81H82uk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=RkIF74yeUXlpf6u1yJ3qfLTwLvNIYUH+jHnQ19QW0MEKNvKFnQOnyXZdiW9pJfHwqw20RHueg5/mp4YEdtqxxH6d9WMVJF9eXCB/Sv0EYaEdemLRHGRz/BZCikPHZcaKI9S9HG161WbIykxKFkidd2GmXzawWM1lPHzkDmdm1sg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=AHlJ98DE; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=sYSu1tOY; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F36bTwA+"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C9EABC2BCFC;
-	Tue, 22 Sep 2026 10:36:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790073402;
-	bh=0ui00qdYqGIqavaMCgWtVbPGeJpWwJ+VrrPOX5IcVo0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=F36bTwA+ob9kFmV4iydZyJzKTqPSNEjK+tLm+irTFR8s4mppO8/c8ZIsYy7kpveRZ
-	 doeuR6LGsKza+F5kmdzc1pqO3jQ9oJPSIuSsQ03zbCgz/xT+4xfDpFzRdQzNWQLLXo
-	 BXSR86+VEwUDul0KR/TxfziHpFVAQuhX7nJrRnCXfg6OFcD9fBNVekxOLNjD4IgMZG
-	 tBgOFpRYpcCt1exLdKuXTpEna9Q5CHZgGhHgPhtfu7PoCAbQBsqJ9Uw/I3n1n0j4lq
-	 xXamn6IkgR+iyqfHv/vGF5x9NJmaQevRgm5bl296CTr0UdNM9bErulbaWJKWTKnQz7
-	 zIqFnejkMCGCA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AB4EEC982F1;
-	Tue, 22 Sep 2026 10:36:42 +0000 (UTC)
-From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
-Date: Tue, 22 Sep 2026 13:36:41 +0300
-Subject: [PATCH v2 2/3] usb: mtu3: add SoC platform data for FIFO quirk
- handling
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="AHlJ98DE";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="sYSu1tOY"
+Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
+	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68M8j2ed3143896;
+	Tue, 22 Sep 2026 05:36:54 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=UcM6sjLXUgVoan+6RDzPG8Z5mRz/5UvVG1kmv39pt
+	Oo=; b=AHlJ98DE8MpJPXR5YZXahTiZyQUXXKWM3SdGhPA6TRClbE7TmpDzz+/TN
+	hEtlLXnbL0w3D6p+lW3OC52Yd4X+8aTJxTeNEnfMBSSdlje7bNsHAPbZps0l8upw
+	LgkMF2cb91izo+4SqydlOnZUIbgmjSf7SfgOOrwWGzl3BiWomvoIe0Cgim2/cwYY
+	PPvN/+MQB0y+XlpxdyWZ06sl7lccWYyKxlKbKQk/bYl31o5Wo13xcDv0Sc6OXEMV
+	2PVZyXZzRLo5mpxJmJdz7xNLBS9J9omRE/gTPAlClL8jrAgK4iFij8LqCMcgNVvV
+	14H4Tpv+TwBnk15Y95Vfza8QbgO7w==
+Received: from ph0pr06cu001.outbound.protection.outlook.com (mail-westus3azon11011060.outbound.protection.outlook.com [40.107.208.60])
+	by m0384305.ppops.net (PPS) with ESMTPS id 4gupea0gj5-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 22 Sep 2026 05:36:54 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FFFOhZe3gqBjko5UzCwapXQHNxH9ShZbBsQQ+eWhasgTdnHW88oxrsqqVrw85sF2UtjAKyBwXV17/ixCM9xfssAbQHcH8exnlbOn4SNCZ6bCnD6WbZMgXbB/5x0wdq++trpZHxyBLSKBt5xBI3dObvVp0wQaHk0rGPz66aTZR7T8E+9vycpJANHnNfV7aSkzxZh5k4rUN/NbzzK8r2eQL2nLHtUe6fsNaXzvdj3UWUznE71WIjAvTE95ysw94UOFjRd+o6L737GUH9F2W7yW2J8HW4FY2GgE+WtsAbRSqrSSOiwL9Y1+ifoC88ejHKLUhY+o+hqsfXSsrEtAMrjdBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UcM6sjLXUgVoan+6RDzPG8Z5mRz/5UvVG1kmv39ptOo=;
+ b=pKJFsXlWbxyGVFrJYxZ5KzTcsGCK153mbcXGD2b2Cj8N0wzvJqfAuWb3eJHvj6RZ6H6s5DkobTYulsbRZx50fg0jRHOzGhf7Zw5bM9jDiDNXfgbnpL9fjkVqATfUA6ncCo6kuqy8hYOU2Z90PvvDZUfGAzip0fBK4aZcP+V+gooxf1ehd9f7jvahU1qTaVBtzadfMroCszzWNJANPhxeSaRoKeTdFlLWnF1oz4LePqBVYsTXm8JlasevdOgiy2xYrJXkwrWets1xlEISsdAv5FsZf3Rnf0oAHJFvyc4zfBClNprv1o+9Fifwd7YFXGZGrcF9FsDdkHMbxG9h+f3Gsg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UcM6sjLXUgVoan+6RDzPG8Z5mRz/5UvVG1kmv39ptOo=;
+ b=sYSu1tOYeNwSri28TCaf5z+nR4YtHBECCKfc9QsL2pgD3TMQsRQjhZzozLMVVyBID+eQPWbolkqQpFejrjZ1x2kxTcvtytSAmKIOqKDl0I7o6zAC/EeUPSYuJ4gGoANRYysyM305lKBzAvAhMN5ANByPtnem4rVlndfra938N6k=
+Received: from BY1P220CA0012.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:59d::8)
+ by BN0PR10MB4999.namprd10.prod.outlook.com (2603:10b6:408:129::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Tue, 22 Sep
+ 2026 10:36:50 +0000
+Received: from MWH0EPF000C618B.namprd02.prod.outlook.com
+ (2603:10b6:a03:59d:cafe::8b) by BY1P220CA0012.outlook.office365.com
+ (2603:10b6:a03:59d::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.13 via Frontend Transport; Tue,
+ 22 Sep 2026 10:36:49 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
+Received: from flwvzet201.ext.ti.com (198.47.21.195) by
+ MWH0EPF000C618B.mail.protection.outlook.com (10.167.249.123) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Tue, 22 Sep 2026 10:36:48 +0000
+Received: from DFLE205.ent.ti.com (10.64.6.63) by flwvzet201.ext.ti.com
+ (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 22 Sep
+ 2026 05:36:05 -0500
+Received: from DFLE203.ent.ti.com (10.64.6.61) by DFLE205.ent.ti.com
+ (10.64.6.63) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 22 Sep
+ 2026 05:36:05 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE203.ent.ti.com
+ (10.64.6.61) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Tue, 22 Sep 2026 05:36:05 -0500
+Received: from [10.24.53.39] (akashdeep-hp-z2-tower-g5-workstation.dhcp.ti.com [10.24.53.39])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68MAa1VC3974168;
+	Tue, 22 Sep 2026 05:36:02 -0500
+Message-ID: <adf3f06f-d2c9-424e-966b-9ef9d51e5104@ti.com>
+Date: Tue, 22 Sep 2026 16:06:01 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] arm64: dts: ti: k3-pinctrl: Add virtual GPIO select
+ mux macros
+To: Nishanth Menon <nm@ti.com>
+CC: <vigneshr@ti.com>, <kristo@kernel.org>, <robh@kernel.org>,
+        <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <sebin.francis@ti.com>,
+        <k-willis@ti.com>
+References: <20260921063505.3986565-1-a-kaur@ti.com>
+ <20260921174321.vaf2krmhnuhnmael@record>
+Content-Language: en-US
+From: Akashdeep Kaur <a-kaur@ti.com>
+In-Reply-To: <20260921174321.vaf2krmhnuhnmael@record>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260922-6595-mtu3-v2-2-71203a362b36@protonmail.com>
-References: <20260922-6595-mtu3-v2-0-71203a362b36@protonmail.com>
-In-Reply-To: <20260922-6595-mtu3-v2-0-71203a362b36@protonmail.com>
-To: Chunfeng Yun <chunfeng.yun@mediatek.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Roman Vivchar <rva333@protonmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790073400; l=3783;
- i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
- bh=PeSYuhPfs9FYqWgAteG4UF+yJ7jUWVa+ILkv9Zw8AWk=;
- b=UNtHttnLwZMsvRPEU3t9LvSZ86hbB5MJFPwU4zkNlZ4JO2xLNtTaugjEPrxpBTUyyP30uXVui
- T5jVG/BHCwlC+0hld/Y/bjlvXK1adHefosMc/nm/JfNbzVayziQLNEw
-X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
- pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
-X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
- auth_id=777
-X-Original-From: Roman Vivchar <rva333@protonmail.com>
-Reply-To: rva333@protonmail.com
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000C618B:EE_|BN0PR10MB4999:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6b74efa1-8502-4aad-d6fc-08df18956806
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|82310400026|23010399003|36860700016|13003099007|3023799007|6133799003|10067099003|56012099006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	sq/dO2Rx+jwzDalz2zOAOx0hQt24SY4JUjBON7bPVP6pIw2RheiTR7BXACaVf3ZfJHmgVRcLphTl6YHx6sc9z+1oKKTtNpsSzlAWR4HHYeJVW3rt1ivQIUeZ1bzT4DOuxekE/m2NrPyEqb9RbcVBqy62tR/vR+l5z5G8TIiID9SpsQuqyx/t/HLOUOJSf2RXeL1SVgQrFZflmh/43S+j6ncXe0y35s4FtsHCxZSYYAdyBEUi3aCE4uVGlm6sGav1uktPtYrLUAH23GlxeBxmgAiMMNnchuN/yKc3JcTXj+C+LkpPlXU4/SO9Z8U9R+oSIkGZjaLLLaIi2CD0tYxpANkVqWU96sWyz9RHyTbFpoG7lmZKc2uuvdAK01ocvyZh/NDheSg9cNWr1VeH+py1+jeQjUjUdBAR4XRXGPqzn16G7sYaAxqgaOmow3a0TemLlwnB6N+mYvI64p7LyeeeIvmqW059rssYhwHJ+8rSGlI45PL0YXby6fdf7MEAKxodBPjTcxXn9SFBb/4+0Fj2AKPkE/PskFfS6UlcQ6XYCHuR9GVG1cP2iPE4PIGTYMKWhhmjQsvXxxy3KU7pyEfXwwkDq8/rAcfHZr0IG0JSDbfw6A1CpOlBmMDrO+bHItLnfw+Y7XJG5mPxIXRlz2ePUw==
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(376014)(1800799024)(82310400026)(23010399003)(36860700016)(13003099007)(3023799007)(6133799003)(10067099003)(56012099006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	351akbLF5Mgo1XQef8gLjn7EnvSL+guavlG35ibD6JnJKaFszGIvhMJYcdezrd8VVoSTLb/MvtROlBsgvfnndDeMpAx3Bhzgd1sd8Axp9yHbV6yh64ZCMOzb37xkuqb2rDgKUAOaLyFm9Gc+vWf5YX1n0bRT9uJEKJscLOGnDQwsGWV7wipkTK6wxjjU5K9eFXZw172hokakPFwzg3YxRNupE4Z1uN3hbJ292o/RR8v1YXDDKkdu9E5RjMf3Zu9UvK63SsbK9TdfDoUc8Zr60q8eGUicc7XjkORILVeOnaVF++pnpr8Kfrq+6AdRTAwaUhBBUuHzd+DHcMfJbYNuCQyVbn1rzUFh2eDTyL6HTt5SqqXNERVBlGd7jk19fHQw7JWfeIHDCGUWKdM0CU3B4DS0JUNL+UuJcpIvUtrKaTxMvbNC4czQiZllZePmMeIo
+X-Exchange-RoutingPolicyChecked:
+	pru5zdyZsfmSWaDMBSJ+yF/cM1bF0ELuWZ20m9/gEhxGBaWEscxnmT7yUm6D7J7LBEyw/2rNsernA7X0oCyuitBpghQwITx2w1yHTiEJeq48FPNFydMqrasXK6DfwN7cnGdwulhEp66nqoaS4fkid22Fy4lv+dZvgd93s56bXc9455bPSlQhM0LW9jt44Uskpn1g3SJ2Y/o5XNAdFW/XpMHdamXw+7JEYYSlIukL4Xwd9dEJDYVIxZuNYqtjkqSOnkzbO3yksCi38Kt/sWlQ3MLXXOUTj0mj8/5TxtqbAX/t8YLRHE5KPD1LpkYxx6+6AT3vb4o92wUKn6NokmT3DQ==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 10:36:48.3068
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6b74efa1-8502-4aad-d6fc-08df18956806
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MWH0EPF000C618B.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN0PR10MB4999
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDE1MyBTYWx0ZWRfX1n59GJd0hRCt
+ YD7OaxHgRcqgXvhiDrCeSzRWQ5tFFsYyJEhvX865O0RryM1ZB4gUOWtznb3W3HlJ3XN94TA8Bb1
+ UhkB9oWs5XPVOveUQYP9oWSsTMfJP+/2Cv4qgh7QGgla6S/aAAMJHMc7RRH/DiLz3HDSmLDEN9n
+ HKdm7javLCU1VdibDkRv3IqFpiFyeFC7wZ8Hj93FJjIOpwqaRiN2uNDBgZjoduoOzJWdWLDlzpL
+ KZi9F21BUyCSCWGx7nK3oZDcMYezMqMv2DxJSnS00fWXPsZktzqg4jP0T1bRVW3IMEn+Q7sYog9
+ vsG9MPZ+6KWY5GzHs5alI1QAFhdNabdmXwDMmJWWea6C+nb4pfdxZDpkX1ra/SWXdCcUdhW34Ah
+ xxwn5rLLg+Nj3wqEyCis/sgyR5zO+5e0EGJjB5F5SYnibAfLXpcdXUNpMrjCtAidzuX/gxpfVbe
+ 9a6nKtTpoegwuWPfAVA==
+X-Proofpoint-ORIG-GUID: MXt9ICb-mWWOYHb9j4bm-jRAE77DyJR6
+X-Proofpoint-GUID: MXt9ICb-mWWOYHb9j4bm-jRAE77DyJR6
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDE1MyBTYWx0ZWRfXzl1smrhtTLHZ
+ qBZNOO3ZV6mYkvF9sMCdN3YwYwcAH9IfX3mHE83v4VVkTILk9zM1NviX/tWekq2xQPj2OMY1B59
+ ZkNhHHb92UoHDywZ5vAIph1R0L33lFs=
+X-Authority-Analysis: v=2.4 cv=Mdz5KJ/f c=1 sm=1 tr=0 ts=6ab25a46 cx=c_pps
+ a=5tz+rB/kfTqQMEo17N6B4w==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=taLDd7a_hP9WKsMzeGRc:22 a=sozttTNsAAAA:8 a=fQNsR_918SZIXC6XwWwA:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_07,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 impostorscore=0 adultscore=0 bulkscore=0 clxscore=1015
+ priorityscore=1501 phishscore=0 suspectscore=0 malwarescore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609220153
 
-From: Roman Vivchar <rva333@protonmail.com>
+Hi Nishanth,
 
-Some SoCs, such as mt6595, require specific quirks for the MTU3 to
-function properly.
+On 21/09/26 23:13, Nishanth Menon wrote:
+> On 12:05-20260921, Akashdeep Kaur wrote:
+>> Add virtual GPIO select mux macros for configuring the vgpio_sel
+...
+>> @@ -3,11 +3,12 @@
+>>    * This header provides constants for pinctrl bindings for TI's K3 SoC
+>>    * family.
+>>    *
+>> - * Copyright (C) 2018-2025 Texas Instruments Incorporated - https://www.ti.com/
+>> + * Copyright (C) 2018-2026 Texas Instruments Incorporated - https://www.ti.com/
+> 
+> Drop this for trivial changes.
 
-The mt6595 IP block doesn't support multiple slots for the FIFO,
-resulting FIFO wrap.
+Done
+> 
+>>    */
+>>   #ifndef DTS_ARM64_TI_K3_PINCTRL_H
+>>   #define DTS_ARM64_TI_K3_PINCTRL_H
+>>   
+>> +#define VGPIO_SEL_SHIFT         (4)
+> 
+> Tabs like the rest of the macros? I assume checkpatch --strict didn't catch this?
+> 
+> Did you check *all* k3 devices to ensure the offset is the same for all
+> K3? in the next revision, please add that audit in the diffstat section.
 
-Fix this by adding platform data with a field to handle FIFO limitation.
-No functional changes for existing SoCs.
-
-Assisted-by: LLM (debugging)
-Signed-off-by: Roman Vivchar <rva333@protonmail.com>
----
- drivers/usb/mtu3/mtu3.h        | 9 +++++++++
- drivers/usb/mtu3/mtu3_core.c   | 3 +++
- drivers/usb/mtu3/mtu3_gadget.c | 8 ++++++--
- drivers/usb/mtu3/mtu3_plat.c   | 8 ++++++--
- 4 files changed, 24 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/usb/mtu3/mtu3.h b/drivers/usb/mtu3/mtu3.h
-index ba5a63669e5f..349e5b20f285 100644
---- a/drivers/usb/mtu3/mtu3.h
-+++ b/drivers/usb/mtu3/mtu3.h
-@@ -315,6 +315,14 @@ static inline struct ssusb_mtk *dev_to_ssusb(struct device *dev)
- 	return dev_get_drvdata(dev);
- }
- 
-+/**
-+ * struct mtu3_platform_data - platform data for the driver.
-+ * @fifo_single_slot: the IP can handle only one buffer for bulk transfers
-+ */
-+struct mtu3_platform_data {
-+	bool fifo_single_slot;
-+};
-+
- /**
-  * struct mtu3 - device driver instance data.
-  * @slot: MTU3_U2_IP_SLOT_DEFAULT for U2 IP only,
-@@ -369,6 +377,7 @@ struct mtu3 {
- 	unsigned connected:1;
- 	unsigned async_callbacks:1;
- 	unsigned separate_fifo:1;
-+	unsigned fifo_single_slot:1;
- 
- 	u8 address;
- 	u8 test_mode_nr;
-diff --git a/drivers/usb/mtu3/mtu3_core.c b/drivers/usb/mtu3/mtu3_core.c
-index 66dbfe1705d5..15f1b80fd0e2 100644
---- a/drivers/usb/mtu3/mtu3_core.c
-+++ b/drivers/usb/mtu3/mtu3_core.c
-@@ -922,6 +922,7 @@ static int mtu3_set_dma_mask(struct mtu3 *mtu)
- int ssusb_gadget_init(struct ssusb_mtk *ssusb)
- {
- 	struct device *dev = ssusb->dev;
-+	const struct mtu3_platform_data *pdata = device_get_match_data(dev);
- 	struct platform_device *pdev = to_platform_device(dev);
- 	struct mtu3 *mtu = NULL;
- 	int ret = -ENOMEM;
-@@ -930,6 +931,8 @@ int ssusb_gadget_init(struct ssusb_mtk *ssusb)
- 	if (mtu == NULL)
- 		return -ENOMEM;
- 
-+	mtu->fifo_single_slot = pdata->fifo_single_slot;
-+
- 	mtu->irq = platform_get_irq_byname_optional(pdev, "device");
- 	if (mtu->irq < 0) {
- 		if (mtu->irq == -EPROBE_DEFER)
-diff --git a/drivers/usb/mtu3/mtu3_gadget.c b/drivers/usb/mtu3/mtu3_gadget.c
-index f224f2ee379a..8ac244d40afd 100644
---- a/drivers/usb/mtu3/mtu3_gadget.c
-+++ b/drivers/usb/mtu3/mtu3_gadget.c
-@@ -112,8 +112,12 @@ static int mtu3_ep_enable(struct mtu3_ep *mep)
- 	mep->ep.desc = desc;
- 	mep->ep.comp_desc = comp_desc;
- 
--	/* slot mainly affects bulk/isoc transfer, so ignore int */
--	mep->slot = usb_endpoint_xfer_int(desc) ? 0 : mtu->slot;
-+	if (mtu->fifo_single_slot)
-+		/* older IPs can handle only one slot reliably */
-+		mep->slot = 0;
-+	else
-+		/* slot mainly affects bulk/isoc transfer, so ignore int */
-+		mep->slot = usb_endpoint_xfer_int(desc) ? 0 : mtu->slot;
- 
- 	ret = mtu3_config_ep(mtu, mep, interval, burst, mult);
- 	if (ret < 0)
-diff --git a/drivers/usb/mtu3/mtu3_plat.c b/drivers/usb/mtu3/mtu3_plat.c
-index cc8a864dbd63..bb67da4704b2 100644
---- a/drivers/usb/mtu3/mtu3_plat.c
-+++ b/drivers/usb/mtu3/mtu3_plat.c
-@@ -611,9 +611,13 @@ static const struct dev_pm_ops mtu3_pm_ops = {
- 
- #define DEV_PM_OPS (IS_ENABLED(CONFIG_PM) ? &mtu3_pm_ops : NULL)
- 
-+static const struct mtu3_platform_data mt8173_platform_data = {
-+	.fifo_single_slot = false,
-+};
-+
- static const struct of_device_id mtu3_of_match[] = {
--	{.compatible = "mediatek,mt8173-mtu3",},
--	{.compatible = "mediatek,mtu3",},
-+	{ .compatible = "mediatek,mt8173-mtu3", .data = &mt8173_platform_data },
-+	{ .compatible = "mediatek,mtu3", .data = &mt8173_platform_data },
- 	{},
- };
- MODULE_DEVICE_TABLE(of, mtu3_of_match);
-
--- 
-2.55.0
-
+Published the audit findings in the diffstat section of v3.
+No, --strict did not catch this. Thanks for the catch! Fixed
+> 
+>>   #define WKUP_LVL_EN_SHIFT	(7)
+>>   #define WKUP_LVL_POL_SHIFT	(8)
+>>   #define DEBOUNCE_SHIFT		(11)
+>> @@ -111,6 +112,11 @@
+>>   #define PIN_WKUP_EN_LEVEL_HIGH		(WKUP_ENABLE | WKUP_ON_LEVEL | WKUP_LEVEL_HIGH)
+>>   #define PIN_WKUP_EN			(WKUP_ENABLE | WKUP_ON_EDGE)
+>>   
+>> +#define PIN_VGPIO_SEL0                  (0 << VGPIO_SEL_SHIFT)
+>> +#define PIN_VGPIO_SEL1                  (1 << VGPIO_SEL_SHIFT)
+>> +#define PIN_VGPIO_SEL2                  (2 << VGPIO_SEL_SHIFT)
+>> +#define PIN_VGPIO_SEL3                  (3 << VGPIO_SEL_SHIFT)
+> 
+> Same - use tabs (consistent with rest of the file) - also add
+> a comment above these to indicate the user should read the trm
+> corresponding to the SoC for the meaning of the values - people are
+> not going to do git log to know these values should be selected
+> carefully based on SoC (same value means different things on different
+> SoCs).
+Added a comment above as recommended. Fixed to use tabs.
+> 
+>> +
+>>   /* Default mux configuration for gpio-ranges to use with pinctrl */
+>>   #define PIN_GPIO_RANGE_IOPAD	(PIN_INPUT | 7)
+>>   
+>> -- 
+>> 2.34.1
+>>
+> 
+Thanks and Regards,
+Akashdeep Kaur
 
