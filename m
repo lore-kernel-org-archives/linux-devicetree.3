@@ -1,105 +1,140 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C272228726E;
-	Tue, 22 Sep 2026 00:13:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2075923BD06;
+	Tue, 22 Sep 2026 00:16:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790036034; cv=none; b=VYfL8Lg/4pSUdrXacVM+IWtPSe7OjOQd+WI9npDL0LYJUCfDBIJA7GEH6vh1eggkkta3HOjD7dvQMB12qctJKo4bRWsrrs0tJbHY89DspvVeOk/f7aMfcsg+1uYCqYi//7h/pRX4amS1VnzSzfVQZNFKu2BV+jalpkYPpip6Bo8=
+	t=1790036211; cv=none; b=t9w8e3JHMqaVsMT6vno5RWSbebzLQ+2MdFADBpORhNG8VnhU71y+qXZNSkUwlX25xrQiL5+Yd0ke8b8Z10MruxxkOnZZ5CiUy5RDrRxVmp9aQxvW8GwgwzeYeiry8xXrEXB2OKeCeBLYC7CdK/iLp1oYzK2Fl8xwi1iGEpGKNvM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790036034; c=relaxed/simple;
-	bh=EjV9dfHR2y7DqcxoV4cR9MIh6oreQRkK5gMDxJTWYus=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OJKOtujZ/y2k5GjB39DylOocCO+jvBDjD7pnPo+Ap8GyYjl+l5491vp4quJrj68n/1JENSEAZEz9nJb6kav+ZGfi2DHZ3LgoCLJ39I4hGpWXqTlgKxxm8khPQe0eQz6pubvE3Z4tw+JXhnPj4+JG9GRj+Xj5LTs3hepgCapbrYs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bnXnzWIN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790036211; c=relaxed/simple;
+	bh=BeQqE4VZaXS0MvM6vR6HDa49zYpfup78vXqbWx1F/yU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=fVh4ZgGTB+oxfG47p9dKyd/rX0RKkc2a401fAskeo1bOJ9U6t9ZhXgnyghXcLQoObxQZXvurt/nJO8MCPio7yWqp+ItHMgtMcN0gAsB3aPzoTSex8l/03Fngd9iX4x72BagzVjpNivbB78x3JTP51k2iFZfNx7VsCH4Q+2rCJQ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IkI1di6u; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bnXnzWIN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 932DB1F00898;
-	Tue, 22 Sep 2026 00:13:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IkI1di6u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FBEE1F000FF;
+	Tue, 22 Sep 2026 00:16:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790036021;
-	bh=RmkLO6VWEOj6U21HO13TxLisuarthLMORrQkVWFvFJc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=bnXnzWINCxRnonXQCHU5sXqtlxUISGd7GxjvEHhB6cY3ImR6m0fsys/kmmCDl48LT
-	 BT84i84S4whbQC1AdJMD5L2lvSKEgAjEnaJK7fIyddcuRgddKPxPsSAsSZBbEfbLL4
-	 8LDKMPwQ8qZGrKp5JOF4WVhYtXKT0CWd/vqDvCtlbHf/ZHsKp39EqCcgNwdGNFHIEr
-	 RUynKX24N7LU50F+iAePbbXVz6VrvX2enR6IkrVwHLPdXNi33u17QRB+WxpxN/XypA
-	 1hdLWGdqGcbU2FqvjhnoCzSwi/6EkFJXbrfoy2pVnTmzWeKdt0Wd3vyG5sAd4rKYNy
-	 kZPA2bhtGaV1Q==
-Date: Tue, 22 Sep 2026 01:13:36 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Janani Sunil <jananisunil.dev@gmail.com>
-Cc: Janani Sunil <janani.sunil@analog.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
- David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Olivier Moysan
- <olivier.moysan@foss.st.com>, Philipp Zabel <p.zabel@pengutronix.de>, Linus
- Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Michael Walle <mwalle@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
- linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-doc@vger.kernel.org, Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?=
- <u.kleine-koenig@baylibre.com>, Conor Dooley <conor.dooley@microchip.com>,
- Andy Shevchenko <andriy.shevchenko@intel.com>, Bartosz Golaszewski
- <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH v8 00/17] iio: adc: Add AD7768/AD7768-4 ADC driver
- support
-Message-ID: <20260922011336.3a52aa05@jic23-hlaptop>
-In-Reply-To: <457da50e-a633-4508-a8e9-7e000933623c@gmail.com>
-References: <20260916-ad7768-driver-v8-0-27aa24db5225@analog.com>
-	<20260921013732.6c5399e7@jic23-hlaptop>
-	<457da50e-a633-4508-a8e9-7e000933623c@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1790036209;
+	bh=DXSRb0hanI+IsthfMCoktX8o/BnRO9xl61bsf7Sl3+o=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=IkI1di6uLU/KglIH1NFyRSeegDVKshr0+8tJCOddLIKgYYAsDyiLu02y79I6WiWsA
+	 wRXyxHdVNDPuM/AGfilQurUVlcJbhtzVR9FZQmLSj8iCmZDO+2QEqPWwyQ07YqH33F
+	 MQzW4IjxaC7qbckiaLUbASHz/7uRX049mXTOK8cCpbLEc2rQbl7tDaiaz8edLopg/B
+	 MAUxXGEwzZ9YlauNqFoeO3iAVBky87nf0TuZUk7MTel1Hnyu5CwDqO6FAGsxrAd4xk
+	 8sPlSAi8DIOJb5lVVZAw+vewTYjo+jpDK2xoVIXhXtpdHuJeDbG3dfBNmr0ZLJgVG9
+	 kbFxvCVN3CZAw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 2/5] pwm: sun8i: Add H616 PWM support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "James Hilliard" <james.hilliard1@gmail.com>
+Cc: linux-clk@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev, robh@kernel.org
+In-Reply-To: <20260921-h616-pwm-v8-v9-2-37bec6201ff5@gmail.com>
+References: <20260921-h616-pwm-v8-v9-0-37bec6201ff5@gmail.com>
+ <20260921-h616-pwm-v8-v9-2-37bec6201ff5@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 22 Sep 2026 00:16:48 +0000
+Message-Id: <20260922001649.5FBEE1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Mon, 21 Sep 2026 10:46:41 +0200
-Janani Sunil <jananisunil.dev@gmail.com> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] goto mixing with scoped_guard() cleanup helpers
+--
 
-> On 9/21/26 02:37, Jonathan Cameron wrote:
-> > On Wed, 16 Sep 2026 13:13:49 +0200
-> > Janani Sunil <janani.sunil@analog.com> wrote:
-> >  
-> >> Add support for Analog Devices AD7768 and AD7768-4, 24-bit simultaneous
-> >> sampling Sigma-Delta ADCs with automatic power mode selection.
-> >> Changes in v8:
-> >> - Introduce the DCLK divider helper in the core patch to avoid moving its
-> >>    register-programming logic later in the series.
-> >> - Document why register caching is not used  
-> > Other than open question on regcache vs volatile registers
-> > this series looks good to me now.  So let us get that resolved
-> > nice and quickly.  If it turns out regcache can be used I don't mind
-> > just tweaking that comment for now and taking a follow up patch to
-> > turn regcache on when you have it ready.
-> >
-> > Jonathan  
-> 
-> volatile_reg would handle the live GPIO and status registers. I will remove the regcache sentence from the comments, leaving just the SPI framing explanation. I'll look at enabling regcache in a separate patch.
+commit d272817b7f4a414d55278ac7371a0119d48346da
+Author: Richard Genoud <richard.genoud@bootlin.com>
 
-I was in process of taking this series and applying that tweak
-so you could build on top and found something curious.
-The ad7768-1 driver. However, I asked claude to tell me if they
-were similar and indeed it provided a bunch of evidence
-to support your statement that they aren't that close.
-So fair enough and someone should talk to your chip naming
-department :)  Applied to the testing branch of iio.git for
-the bots to take a look.
+pwm: sun8i: Add H616 PWM support
 
-Thanks,
+Add waveform support for the six-channel Allwinner H616 PWM controller.
+Each pair of outputs shares a source mux, gate and power-of-two divider;
+each channel has its own prescaler and period/duty registers. Model the
+shared pair clocks in CCF and program the channel-local dividers directly.
 
-Jonathan
+> diff --git a/drivers/pwm/pwm-sun8i.c b/drivers/pwm/pwm-sun8i.c
+> new file mode 100644
+> index 0000000000000..7e6c39815c183
+> --- /dev/null
+> +++ b/drivers/pwm/pwm-sun8i.c
+[ ... ]
+> +static int sun8i_pwm_request(struct pwm_chip *chip, struct pwm_device *p=
+wm)
+> +{
+> +	struct sun8i_pwm_chip *sun8i_chip =3D sun8i_pwm_from_chip(chip);
+> +	struct sun8i_pwm_channel *chan =3D &sun8i_chip->channels[pwm->hwpwm];
+> +	unsigned int idx =3D pwm->hwpwm;
+> +	struct clk_hw *parent =3D sun8i_chip->pairs[SUN8I_PWM_PAIR_IDX(idx)].hw;
+> +	bool was_enabled;
+> +	int ret;
+> +
+> +	scoped_guard(spinlock_irqsave, &sun8i_chip->lock) {
+> +		was_enabled =3D
+> +			sun8i_pwm_channel_is_enabled_locked(sun8i_chip, idx);
+> +	}
+> +
+> +	chan->pair_clk =3D clk_hw_get_clk(parent, NULL);
+> +	if (IS_ERR(chan->pair_clk)) {
+> +		ret =3D PTR_ERR(chan->pair_clk);
+> +		goto err_clear_clock;
+> +	}
 
+[Severity: Low]
+This isn't a bug, but does this mix goto-based error handling and scope-bas=
+ed
+cleanup helpers?
 
-> 
-> Best Regards,
-> Jan
-> 
+The cleanup subsystem guidelines recommend avoiding mixing goto labels with
+cleanup helpers like scoped_guard() in the same function. Could the resourc=
+es
+that need goto cleanup be converted to use scope-based cleanup, or the
+scoped_guard() converted to regular locking?
 
+[ ... ]
+> +static int sun8i_pwm_prepare_update(struct pwm_chip *chip, unsigned int =
+idx,
+> +				    const struct sun8i_pwm_waveform *wfhw,
+> +				  struct sun8i_pwm_waveform *old)
+> +{
+> +	struct sun8i_pwm_chip *sun8i_chip =3D sun8i_pwm_from_chip(chip);
+> +	struct sun8i_pwm_channel *chan =3D &sun8i_chip->channels[idx];
+> +	unsigned long rate, bus_rate;
+> +	bool had_exclusive, stop;
+> +	u32 pccr;
+> +	int ret, restore_ret;
+> +
+> +	scoped_guard(spinlock_irqsave, &sun8i_chip->lock)
+> +		had_exclusive =3D chan->rate_exclusive;
+> +
+> +	if (!had_exclusive) {
+> +		ret =3D clk_rate_exclusive_get(chan->pair_clk);
+> +		if (ret)
+> +			return ret;
+> +		scoped_guard(spinlock_irqsave, &sun8i_chip->lock)
+> +			chan->rate_exclusive =3D true;
+> +	}
+> +
+> +	/* Sample the old rate only after excluding other rate changes. */
+> +	rate =3D sun8i_pwm_get_pair_rate(sun8i_chip, idx);
+> +	if (!rate || rate > U32_MAX) {
+> +		ret =3D -ERANGE;
+> +		goto put_rate;
+> +	}
+
+[Severity: Low]
+Is it intentional to mix goto-based cleanup and scope-based cleanup helpers
+here?
+
+Similar to sun8i_pwm_request(), this function mixes scoped_guard() with goto
+error handling paths, which goes against the cleanup subsystem guidelines.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921-h616-pwm-v=
+8-v9-0-37bec6201ff5@gmail.com?part=3D2
