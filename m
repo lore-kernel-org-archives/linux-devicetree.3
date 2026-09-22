@@ -1,155 +1,146 @@
-Received: from mail-ej2-f5.google.com (mail-ej2-f5.google.com [74.125.228.133])
+Received: from mail-yx2-f23.google.com (mail-yx2-f23.google.com [74.125.224.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 318A6550DA5
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 13:26:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF9E75519B0
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 13:26:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.151
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790083600; cv=pass; b=UC27b+NStT+axyIPE0rTiap19nKVD/M9+t1yreaUAIhJiX6UkdhQtNjBlqHtwaVQhL/oUDG0swN49O828LGP1cbQudgwn2EDeKvu4PiWHEwZ0Nmm8jyFwr6vdjNeEEZJqrcE3+SM9S2CSquZAkGKlPJd1O/1RliRYOqCjrzYj9o=
+	t=1790083605; cv=pass; b=TcuAfF9wWA2D5sYRbNNJeQZc1/h5AqYaP3yn5AuJOKcekXl4cWkFLvj5svIBKu9k3mSs4AwSbPGUpTPHNrOnWqAAwEkKzUttL7lo/YWkAE/GGU4938/kZMn/AeKNNt8k2MG9BxTQsiYSF6am1RT0twlhofcM4o0NJTuM0m0RUl0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790083600; c=relaxed/simple;
-	bh=ofxcWs5wvUKXDp1OvqNuIaoTkk52/+tItoWNT6uQhGU=;
+	s=arc-20240116; t=1790083605; c=relaxed/simple;
+	bh=KZk3ftFgsljw+yHRBP7QV66dcAilUaP73F6UAmO5w1Y=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=H/YLQ0fyx5U7RxJpSTRdH98qrgX/gAMbSY0eK5GAhHUUxFh6/6Etc2pcY+3W9zy4KZApRV844W7K8n0IrFCFtA4I3kvLaxLqF57FQB3TTS2eqlrwvflfGn58Vcd7I7E6yp++MavrdYt+X3av8N/+7Cf4Ej6v0bFw9/Uih1uKQOg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k7QG8UfG; arc=pass smtp.client-ip=74.125.228.133
+	 To:Cc:Content-Type; b=UTzNiN/FMkrYvezfmDIYbI3K2I5muRmLsAi3EbQVU1iezwBp5EzyjcKvRjLmyyABmmvzdGUdgfxuZWASi4IeHI383oKiOnUD0OM6HigENDhxZFNrhvWohUqsmm2PSLxBMNz+Z7Q5uz+2JqF9yFNAZX5RtpxbFVe+H4J+S5U4/WY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g75hIR5U; arc=pass smtp.client-ip=74.125.224.151
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k7QG8UfG"
-Received: by mail-ej2-f5.google.com with SMTP id a640c23a62f3a-c2950c25486so346237266b.1
-        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 06:26:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790083596; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g75hIR5U"
+Received: by mail-yx2-f23.google.com with SMTP id 956f58d0204a3-66e4aa8e6bdso2221207d50.1
+        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 06:26:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790083603; cv=none;
         d=google.com; s=arc-20260327;
-        b=mxoKtxsoqa6yENPdMvKOdmDWj2kGH0gcFdWWQDoXudABKDzXf7AEGiVkmJeByF40ge
-         47pWR393SalBuQCAngjP8oPDqG/wqXlTxongNAD+4XvCtAkSoXWsyeEDGbaO2jFpA2Sb
-         +Yb4qgpyqWfjlqjUVn3MP7cwgSahg4F65aN/lt0Z0YgUnZ4V4wS0M2wPsfJXjfnrIrYU
-         g7mjqfR4gNBpCp4OrvlOxU/XGfotLC0wZR3/XBRz37jf4gkn5WBG/seaBS0TEKDkavmH
-         +VJ1cxRy0kCGMO9bGLYxaiaQ1FA3rju1y4dtHm7DzHdqgQYM7jpOd5zYaFNXmPyxcxDi
-         SBWA==
+        b=rQmXcs/6+aAS7VOO5529YTCfZjMpGhSeggmIYNvmGdP4sVyLeI4gczvoXz0tzCdlDy
+         zBcDCDjfty0eC1MXqNVtOYKPlaY4Bfjba+rYLv+2NtFrxJh4jogcLZEhLStsyqN9uCWP
+         4AURsVHAHtnESnuppdHjQ4qdb7vZs21SrY4mTuk1L6Q9a0sV2yEvIbCHPjh0gbIV3SpG
+         vRhrp3JcHrc0IVOsOM+RvhXLeYWVXrEcF+S7eD26j2X/CCdjlOm+OWfdBO2xV9arJdtg
+         LZrP1KmtwnZMrHCqIu1tv5EzYWLL1Ky80nnHXpWSqkCe9N/vDBeKS86lTd+C07o+WHzj
+         kMkw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=ofxcWs5wvUKXDp1OvqNuIaoTkk52/+tItoWNT6uQhGU=;
-        fh=3fnBxH0hRGkKrAGYPGnuTE+bc3WpNeO7S4+3ehHWFcw=;
-        b=fV2BDn9u/fQX6wwzWSW8kgPxyJzhXpE6SiiCXM7gbFxjgmeF27l5A8VL/DPa6larfp
-         4GQ0uzjsXy8DapifqHJSOQU2UvpzIz0p6MMgZAo0EMSuROpuF8MvgkHErDF+R290FIOV
-         yvI6iw4KEA1yd+x+YV7JGsYD1OctMXgeoKzu0TgmXsUxwooXwfPCQyQYp1MWgfNQOxNn
-         DWMrlxWhLr+6O7lGP3YN0GnmTdlXxChN71voo9JgmTETkpdugUcsjrlf7UnPSkhs4Qrj
-         vLwX+cVIfSTuFqzgqzWR5SrD3xm/9Pqv2agpCYd4rHVirvAzTq58uRj5EXe3zXGSxwtk
-         WTIw==;
+        bh=KZk3ftFgsljw+yHRBP7QV66dcAilUaP73F6UAmO5w1Y=;
+        fh=kdHgTvX9LFFMyeFv/GMtZ25ZtfCvBgUOfEE4Nig+kVA=;
+        b=F6nZY4G2EiCFMpGhtTNNDKNDyDMTYj+jvBB1O6DcvEWjiAdIKrdD5fplGy0nO0Uw3C
+         herVOpH5t8Bf2qEBUFsmKUkTH/gE87nsi+xP1GmN5wJR7MKjSgQoD5z/rt5lxNCpJYwO
+         Pc+4NFa7gVtvNvClr41rdCROMMvqUi0qDjFSaSGdn1HFhTwfj4Gqu8FfmG6rZiXY6OkN
+         fJS5aN03ZM8sw8e4hWLwIsffB85ZniqAXx+0J82xa5pVCPM7Ctkc5moS1o4r24oCwBzq
+         uX+40mbKg4KrcXwAwNHZjsmN3zPCCpbu/pAMEluARUiFbixl37YIYDCIfqcttfQNQ3gG
+         M/Qw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790083596; x=1790688396; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790083603; x=1790688403; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ofxcWs5wvUKXDp1OvqNuIaoTkk52/+tItoWNT6uQhGU=;
-        b=k7QG8UfGL/xP5ISOf4kC+7AALJAldDYhkiDW+EjNQKPVre7w3pFTtuQx+F+/KMLY+B
-         YQmhjQkIYSLCNZ1JXYpF9virZ98xE1C/ssWGcowtGqjvaPoLhucfgT53NF68R6LqfkR2
-         nUcDirZ3oSzhh5OOSp1WrpuA5v9W1BB4FhLutTyYulsKBFPQKlxNoBNncxDSnAwE0g8I
-         epzOsk4jHMYeYjTrgSOqjCbUOiXAIHVrs/Mne5wM2BpEPM9Lu4Ab/vUJGhKJDdndxiTm
-         4GdLNe48KukkU+J5NHIAhpHK7spOdXzUrbNJo8Rje2uNNTU3sdmbD7Gqvx5pfc64tw5y
-         hSMg==
+        bh=KZk3ftFgsljw+yHRBP7QV66dcAilUaP73F6UAmO5w1Y=;
+        b=g75hIR5UuVknX1OcK23E9JT+2EGsFu06ipzx3XkK288iChAS54pYGNDgOLyGLGMlpT
+         GAcczYCGRR6ckNGXcWBSk8+QEruijUthVehhwdCAxskMPD07aWshTQiVhcpXSMnIm3qG
+         BZXdU9Pm2KOQj6mmoQv6bSkm7FjL/8WU7MCARH/TpAt8nbOdbeJRkVvBVyDV5flcYKPp
+         zZjcReauhKT8/GYlpu8/F0GZjkD25cBMl5Xj1e1qaUIWWMgJawk4TeZqsNWJCq7r1W/Q
+         jgjyxzQ4WUBFUQz+K7nJDPf2YZMCq6MSH7ikEvJS7jWOBwcjAR3zd2/HvsFEsRuRw9q2
+         WQDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790083596; x=1790688396;
+        d=1e100.net; s=20260707; t=1790083603; x=1790688403;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ofxcWs5wvUKXDp1OvqNuIaoTkk52/+tItoWNT6uQhGU=;
-        b=EbDOLsIlJfjtqth5Vz1i5fPdSUvXtVhnm4jYb4Y8/w/iPzZ8JeOJwWjS6Yz4QeQw1F
-         lPcuSOLRtLs/Rbgk3R6oxKfpJpfolc87lwcbIp6vZca8xSuduJh3O20vxEKpwZ9Zf/dk
-         qpoU3eXD52AVl0VgA5/DrbvU0wO7CV2wA8ZLisiYRbO6TLfpYZcRMAerCuRWZ6iZdPFu
-         ErANooicAaH0nvE4CMu5gfxGPrXJBBApqRRYm0Vb7Infm84KYGhd8JOieayK7dqeVIRM
-         OmA3k4FRUmQGZct8Ba54I+GnQQhUaUEBOExLzFcO9ZIa2ivIeHbjFoHI1gn16yUcnMOI
-         akZQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxOeRKQp/HoQ1wrXNRBaa5qQ8wvJHlHXrW5unuEc5BibNP29RsbRhr0++qjqaHZBpk658fL0M8eglyY@vger.kernel.org
-X-Gm-Message-State: AFuF++nU0xee+j5tlkbadflSfRWM6jTdXZ5lqSp7/Skl2msQzX7PXPP+
-	yoDiIu10Zdlx+CJ+iVzOBFC6Si0Lkrm4gYUOCHgQRY7odyHMsAUF9xM5qLNlawAfb4xwl5OZqjF
-	HJxKGDTt4lIaJn4vC2pfaBSGrD+bb/Ac=
-X-Gm-Gg: AYBFou0+w9GHmzZxKNZPs155HVeX1RZ0vLgNu4aCqwadjGQodt9DjiKFrD520HAvgUm
-	tMQsMWsz3lkJ8q5Er15yiKh82IoCwU9+Vwm1wnPFbLBtA9gSSGjeNB0JfucSSfugiGMh7UBpL/z
-	P8luhl2BujmN1g06TJDo8xrPQgodqoSNVWZpIecgscFC8JgFF7MNTctuoS/Abz6rXfdWjIL23Jp
-	gu3NOBNcD2ldMpLMyjbDA2cATOZB1pOln3sYUA3MSL12ZHU34LotrDrP7I0gfBqJFi20nHk+fny
-	It+if13+q5EexAp6DReB10PIaWGy0IJP6+PGv6+lbgj+q1lnZtObQKFuVg==
-X-Received: by 2002:a17:907:962a:b0:c25:6c9a:88bc with SMTP id
- a640c23a62f3a-c2a156ed781mr1064393666b.19.1790083595818; Tue, 22 Sep 2026
- 06:26:35 -0700 (PDT)
+        bh=KZk3ftFgsljw+yHRBP7QV66dcAilUaP73F6UAmO5w1Y=;
+        b=xQ7L3LIFaNH5mC+7jrK3ev07Q0Ll2wnKQ5KBuSXvoo+0zSTnGK8yFR+jYrcEmugrYs
+         yaYhuNFUXxXNRtHeIX/m/KMc7h8U2ICJur7usSX1GL4TxNagcGCLHx+irzpAJWGBOIQC
+         EVKexWfESeTb8yippjHgC3kz/y2WMWl68n7j8DEKncFbbMHen72TuHtgBKQianwM9yvW
+         RZPB5ROBqpKksqx/SJt01Qt5hKQdXJVtZabikmfd+eje8HW9Z0aEvRPJiR5jZEacXVIy
+         XiieLOshjZOHGE2pSglJC6QFpdmyX5j4ed9TZguL1waDf49VuXNRe6Ln5kN8l7hEs3tk
+         aemw==
+X-Forwarded-Encrypted: i=1; AKwUvBxbB9nwvtDd6sGjwr38zX1eRN5xw8yGXPCbO6JLIghaGlYae8/k6kxDwxlJ6nqkyXRYqjsAm/vQZfR+@vger.kernel.org
+X-Gm-Message-State: AFuF++n9aQmPlK1KpjyBk2SPmz7F6rRl4QKHUQ6RerYyaIEzQGnQEKsS
+	kkJqol/y8y740zuLtOYatPA0R5rkJlGqkMk0S4wCrRd9YcZfncYgi7JyKgJedYA8VRp8YsQoQEp
+	ogz/vzIk4HfS7q/gbrZkTm2PNAQ46rQ7w6TcG
+X-Gm-Gg: AYBFou2m3aAaanJNLJuLkiXszUnT21xXV4gx+QSONMtr4hAUm637dcY4IqAjzZPZFx/
+	0JRryc6y1h7mF//xVm0DXBP0nJDYVfHLe6hJhLPBWtXwFrxceFqglHiU5XEfHFsJcpCT8DZ9gd4
+	LoGsp1UTOU68DMUkH+ZQdhgIPp7PjJwFetcwZlVIcjnMyj3az4QtXkPedvgDmIgbkBIg3tbVV1n
+	Ie9gGVvpWiq06uv/+FYIZqCtymAWjfVT9LWSkviD6FV7YgYYP9d1ioGEsJ840T2cvKm4pcKgmz8
+	6plo+BcIcCLTWwgHV9TBA19hQFbBFSb576I8fiyLIf7Lol5Whou/w0JRFPTEtzCyBJBeCA==
+X-Received: by 2002:a05:690e:144e:b0:671:4e37:a832 with SMTP id
+ 956f58d0204a3-672c2a1492amr1424683d50.22.1790083602711; Tue, 22 Sep 2026
+ 06:26:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916235200.20712-1-ansuelsmth@gmail.com> <20260921135933.7e8857ba@kernel.org>
- <CA+_ehUwy9RUKCCHDnqoED3AMVnErgGr9RCrCR4ceg5QONq1wOQ@mail.gmail.com> <033fc935-c37a-4b0f-8b79-68248e45da8f@bootlin.com>
-In-Reply-To: <033fc935-c37a-4b0f-8b79-68248e45da8f@bootlin.com>
-From: Coia Prant <coiaprant@gmail.com>
-Date: Tue, 22 Sep 2026 21:26:23 +0800
-X-Gm-Features: AcwNN1Ur2tt8b16s6pIVEQsDoiyvx1gOYWr_ba3DyTwWp74e1eP8TDNhMjUzs84
-Message-ID: <CALj3r0gyfggFP-T+yXM2P=ooyQMk0AUfnpxtArk5ioU+wMNrxw@mail.gmail.com>
-Subject: Re: [PATCH net-next v16 00/12] net: pcs: Introduce support for fwnode PCS
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: "Christian Marangi (Ansuel)" <ansuelsmth@gmail.com>, Jakub Kicinski <kuba@kernel.org>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Lorenzo Bianconi <lorenzo@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>, 
-	Russell King <linux@armlinux.org.uk>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
-	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, netdev@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-mediatek@lists.infradead.org, llvm@lists.linux.dev
+References: <cover.1790079398.git.prasanth.padarthi10@gmail.com> <8cb38ff6-1210-4c5a-b0bc-b0b50dd2b9aa@9elements.com>
+In-Reply-To: <8cb38ff6-1210-4c5a-b0bc-b0b50dd2b9aa@9elements.com>
+From: Prasanth <prasanth.padarthi10@gmail.com>
+Date: Tue, 22 Sep 2026 18:56:31 +0530
+X-Gm-Features: AcwNN1XaRXA3PPjiOAu8sy9beqIj3WvHMknSJQK0T_ZOITGdCWmSpx7UdDH1Lq4
+Message-ID: <CAMFFDGjJcmpaQYHe=F+jpstbdk9-uXPKkBxLkJqAJRiyyTkBvg@mail.gmail.com>
+Subject: Re: [PATCH v7 0/2] ARM: dts: aspeed: Add ASRock Rack B650D4U BMC support
+To: Tan Siewert <tan.siewert@9elements.com>
+Cc: joel@jms.id.au, andrew@codeconstruct.com.au, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, ryan_chen@aspeedtech.com, 
+	billy_tsai@aspeedtech.com, andrew@lunn.ch, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Maxime Chevallier <maxime.chevallier@bootlin.com> =E4=BA=8E2026=E5=B9=B49=
-=E6=9C=8822=E6=97=A5=E5=91=A8=E4=BA=8C 20:50=E5=86=99=E9=81=93=EF=BC=9A
->
-> I'm attending a Rust training until thursday, I'll see if I can squeeze i=
-n some
-> time to re-test on mvpp2 :(
->
-> There're a few series pending for rockchip and S32 on stmmac that deal wi=
-th
-> PCS support and their PCS handle. It would be nice to have some stmmac gl=
-ue
-> maintainers that are using complex PCS to help with maintainance or at le=
-ast
-> testing, maybe Coia can help with the tests ?
->
-> Maxime
+Hi Tan,
 
-Hi Maxime,
+Thank you for catching these issues.
 
-Thanks for thinking of me. I should be upfront about where I am though.
+You're correct about the defconfig. I used `aspeed_g5_defconfig` for
+the DTB build and incorrectly reported it as validation for the
+AST2600. I'll rebuild using the appropriate AST2600 configuration and
+correct the statement in the next revision.
 
-My focus this cycle is landing the RK3568 XPCS glue before the next
-merge window so it lands in the next LTS, and so downstreams like
-OpenWrt and ImmortalWrt don't have to carry a backport.
-
-On testing Christian's series: my current glue goes from
-ethernet-pcs-mii@N up to the XPCS platform device and hands the virtual
-MDIO bus to xpcs_create_mdiodev(). Christian's series changes how the
-PCS is looked up, so testing it now would mean restructuring the
-Rockchip glue and rewriting the binding, and I can't fit that into this
-cycle on top of the initial merge.
-
-Once my glue is in and the lookup story has settled, I'll be glad to
-rebase and test =E2=80=94 and convert to xlate if that turns out to be the
-direction. I'd like to use xlate long-term, the timing just doesn't
-work for this window.
-
-On maintenance: I'm a student and fairly new to this, so I can't take
-on the PCS subsystem as a whole. What I can commit to is helping where
-I have the bandwidth: testing when I can, and sharing some of the load
-on the XPCS glue layer (pcs-xpcs-plat and the platform glue drivers),
-plus a bit of pcs-xpcs work. If there are stmmac glue maintainers who
-can help cover the rest, that would be very welcome.
+I'll also carry forward Andrew's Reviewed-by trailer for the unchanged
+MAC0 and MDIO nodes, preserving the scope of his review.
 
 Thanks,
-Coia
+Prasanth
+
+On Tue, Sep 22, 2026 at 6:51=E2=80=AFPM Tan Siewert <tan.siewert@9elements.=
+com> wrote:
+>
+> On 9/22/26 2:34 PM, Prasanth Kumar Padarthi wrote:
+> > Add support for the ASRock Rack B650D4U BMC, based on the ASPEED AST260=
+0 SoC.
+> >
+> > The series adds the board compatible string and describes the BMC memor=
+y, SPI NOR flash layout, UART console, GPIO line names, graphics reserved m=
+emory, I2C EEPROM, and MAC0 connected to an RTL8211F Ethernet PHY.
+> >
+> > MAC0 obtains its MAC address from the EEPROM on I2C7 and uses RGMII-ID =
+mode.
+> >
+> > Changes in v7:
+> >
+> > * Correct the GPIOP bank line names for the reset, power and NMI button=
+/control signals according to the confirmed board mapping.
+> > * Remove the obsolete GPIOF5 reset-button line name.
+> > * Leave the binding patch unchanged.
+> >
+> > The B650D4U DTB builds successfully using aspeed_g5_defconfig.
+>
+> What? The B650D4U has an AST2600, so using `aspeed_g5_defconfig` means
+> you're using a config set for the AST2*5*00...
+>
+> Also, please preserve the trailers from previous serieses (i.e. Andrew's
+> Reviewed-by trailer) if you don't change anything significantly for the
+> parts that got reviewed.
+>
+> Tan
