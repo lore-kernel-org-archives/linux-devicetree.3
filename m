@@ -1,153 +1,92 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12E9C4DA540;
-	Tue, 22 Sep 2026 07:10:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A8344ACC90
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 07:11:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790061055; cv=none; b=NDChjEQbLXeNCxwNTw54cK1V4gll39pdCQXPcSl4IQvGLeoN1TEV5U5OtJlTBFO+h8oUWdSG45CQPpwZJjoPPgamSgmEPWNZRcRVJVp/KxSIZlmhR350ZUhvIw7A6Wt854N3azkiF9yelkwtr9p7WppoTiaR7xCsGoTCOqhRmks=
+	t=1790061095; cv=none; b=IwKkCgq2IOCYXlZf/FtJp/Rc8VaoRHeVQD5M1HtNq8qG7a7Y70Oa5DBvtZflkMmkuIWExvV/2ebTd9v/IQnOW2n43r7SbHMRwn2Oswq9F32DV8avpeQDIpIL4ntWtD58E/L6/1TN0prWcPa+xG2e+6t9DnWyGWkzOWJhTs8rjpc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790061055; c=relaxed/simple;
-	bh=sgUqBDspS08OgP6LhtLDWXUxtzsk4tKXHjkISz493UA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Mhe6v+8iQaM+bYFIfWHhDiFe4P0DuA6jxONaHNVzT303kMRi9kU2s+f3cor5jcXj4ndnZnq4qIsuWHdzoH71l+7xZRghiU4EirgStjM+2kVtKMmnP/KyU/K6F32WMJHIhO73uDs2a9wWKt1gECpa7JXffgC5k2+jo98HEYZDzFw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KGhx1DeY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790061095; c=relaxed/simple;
+	bh=1DQEnJFVllHwbW40pTjtz3mCOVWOR/ZxQR6GILf0wtA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=anwqEiiBWC5R+461oh6uhSj2rDOVddKMt3ytypvUy6xuimDBknKIo8tLa6HKIhYRE+Jo05CrJNON/e9S7oUISnjiArQ7QOy3pm2mZ/kbOyvsW828d5J3K39nsyUJ8EzWzGVftyHPgpJyuH4634KYGvk41owLfJVIRvbZSxpsiYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fNsaA6B7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KGhx1DeY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5669E1F000FF;
-	Tue, 22 Sep 2026 07:10:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fNsaA6B7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 299901F0089D
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 07:11:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790061053;
-	bh=ZdR6emMrSPRStPpxZnSBpcHi66tgsEosPebW94ipPVY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KGhx1DeYoJZyt408zxNj+fMcNacyHoImmaDvcBuSxF/czf6e+TenHVzdlMDDA6Huj
-	 6ZM7lrKPV1kPZTuC7/IvFizvICt12CVdyR29rPmB65V2bAP35FhqMdMhuZfhSUkn+4
-	 cQbWXAgL63kEbXIpDARgEujhkZ5JGA6fdtBSJg4KG0P7myCDTui87VwP4USVw5fDAI
-	 zFheJ5gLE6ZTkSlMD+e/Ol+yqsshegDnLuL5b5AKVg8m+AbsgKJw5exh78HWce6/Mm
-	 5Yt+K3KpOU5vU5qVB8DoOE5r3H6T0RKsck2H41pSf30E+Da+InVahALUOqya9brXby
-	 YDbwR26o+e0Pg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 18/19] dmaengine: ti: k3-udma-v2: Update glue layer
- to support PKTDMA V2
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sai Sree Kartheek Adivi" <s-adivi@ti.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org, dmaengine@vger.kernel.org
-In-Reply-To: <20260922064902.2719979-19-s-adivi@ti.com>
-References: <20260922064902.2719979-1-s-adivi@ti.com>
- <20260922064902.2719979-19-s-adivi@ti.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 22 Sep 2026 07:10:52 +0000
-Message-Id: <20260922071053.5669E1F000FF@smtp.kernel.org>
+	s=k20260515; t=1790061093;
+	bh=1DQEnJFVllHwbW40pTjtz3mCOVWOR/ZxQR6GILf0wtA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=fNsaA6B7GRuwLvYuXQcayIRY4asybossgKMwLKRABuip02ua4A61yZWh4iesmCjft
+	 aaILkaPVfCUJUMa/KErN+dLjURjqguFpeVphaLeXZFaz4jzdbmv4d53daBHoydx06w
+	 XNtxbIB1HX0DTUiHgSkcYGIkYa8qwi96lFVVH+qz8KHECYPCRdSQgdl4dFweRhRmBH
+	 D2KIxl9rUkSjg9kbWqnkChinhE6PVPhb7EiW6jdf6LLY3IP3XYlJPRZXykjzhZqkeG
+	 jF7MgmoYvKj9R/a5zdIJ5WInRhvW5kqpbFwxeiDMXkxqDJA7zquY9XCeD9KEJXD4OG
+	 w0EVOxdf+oo8A==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f1e023so1393367e87.0
+        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 00:11:33 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwUbnjKCQ9adD7+196rEY4XU/JkkqY5WxYAeCmBA+TnyfpIM8btmgJub7j4hcrNIc1WUzIQ6rbvjXvI@vger.kernel.org
+X-Gm-Message-State: AFuF++n4J13ClITmBPFMmHtaEVKINPNvUJFQyOHNe7jrLEeQDqlsDaiH
+	6zysLfsXhR7ZAVP1NA6yt+OXvZUvWScXxzYwWhIhTrVOb6Ryez9SPG+1RWrz6AbgEKzfte+ZLLP
+	QTaOvrzQvblvwuf4KU9JKKT6VLq8vJ5U=
+X-Received: by 2002:a05:6512:669a:20b0:5b7:5cbb:661a with SMTP id
+ 2adb3069b0e04-5b8d28a2bd4mr380020e87.0.1790061091499; Tue, 22 Sep 2026
+ 00:11:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260921-cv75-v5-v8-0-282ff5d98dda@ambarella.com> <20260921-cv75-v5-v8-4-282ff5d98dda@ambarella.com>
+In-Reply-To: <20260921-cv75-v5-v8-4-282ff5d98dda@ambarella.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 22 Sep 2026 09:11:19 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnUVOAtq-h_qDdWpEhZFZehFKo4qqgcTHD9zDQTdF4yhg@mail.gmail.com>
+X-Gm-Features: AclHuK8Ptv8BXFdyCOuHHolcneppaQqVWDApnFcw2pV5vhsl1672OQ5Dk_LeJfk
+Message-ID: <CAD++jLnUVOAtq-h_qDdWpEhZFZehFKo4qqgcTHD9zDQTdF4yhg@mail.gmail.com>
+Subject: Re: [PATCH v8 04/18] dt-bindings: pinctrl: add Ambarella CV75 pinctrl
+To: longzhao@ambarella.com
+Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Jerome Brunet <jbrunet@baylibre.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Long Zhao <zl020895@163.com>, 
+	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] dmaengine: ti: inverted hardware teardown sequence for PKTDMA V2 T=
-X channels
-- [Medium] dmaengine: ti: missing configuration of error handling flags for=
- PKTDMA V2
---
+Hi Long,
 
-commit c9030c9c505174820633d0b6b095c2b74c127474
-Author: Sai Sree Kartheek Adivi <s-adivi@ti.com>
+On Mon, Sep 21, 2026 at 6:23=E2=80=AFAM Long Zhao via B4 Relay
+<devnull+longzhao.ambarella.com@kernel.org> wrote:
 
-dmaengine: ti: k3-udma-v2: Update glue layer to support PKTDMA V2
+> From: Long Zhao <longzhao@ambarella.com>
+>
+> Document the CV75 pin controller binding using generic function and
+> groups properties for pinmux configuration.
+>
+> Reviewed-by: Linus Walleij <linusw@kernel.org>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Long Zhao <longzhao@ambarella.com>
 
-This patch updates the glue layer to support PKTDMA V2 for non DMAengine us=
-ers.
-It adds handling for the absence of TISCI, direct IRQs, and autopairing.
+Is this something I should just apply to the pinctrl tree?
 
-> diff --git a/drivers/dma/ti/k3-udma-glue.c b/drivers/dma/ti/k3-udma-glue.c
-> index 3721edf71f9b3..5a3cac685a46c 100644
-> --- a/drivers/dma/ti/k3-udma-glue.c
-> +++ b/drivers/dma/ti/k3-udma-glue.c
-> @@ -267,6 +268,19 @@ static int k3_udma_glue_cfg_tx_chn(struct k3_udma_gl=
-ue_tx_channel *tx_chn)
->  	const struct udma_tisci_rm *tisci_rm =3D tx_chn->common.tisci_rm;
->  	struct ti_sci_msg_rm_udmap_tx_ch_cfg req;
-> =20
-> +	if (!tisci_rm->tisci) {
-> +		u32 val =3D 0;
-> +
-> +		if (tx_chn->tx_filt_einfo)
-> +			val |=3D UDMA_CHAN_CFG_FILT_EINFO;
-> +		if (tx_chn->tx_filt_pswords)
-> +			val |=3D UDMA_CHAN_CFG_FILT_PSWORDS;
-> +
-> +		xudma_tchanrt_write(tx_chn->udma_tchanx, UDMA_CHAN_RT_CFG_REG, val);
-> +
-> +		return 0;
-> +	}
+Same question about the driver.
 
-[Severity: Medium]
-When configuring the channel without TISCI, is it intentional that
-tx_pause_on_err and tx_supr_tdpkt are silently ignored before the early
-return? In the TISCI configuration path further down in this function, these
-flags are evaluated and applied, but here they seem to be dropped.
+I'm not sure you'll get all of the Ambarella in for v7.4 anyway
+so what about putting some pieces in place to begin with?
 
-[ ... ]
-
-> @@ -573,8 +605,16 @@ void k3_udma_glue_tdown_tx_chn(struct k3_udma_glue_t=
-x_channel *tx_chn,
-> =20
->  	k3_udma_glue_dump_tx_rt_chn(tx_chn, "txchn tdown1");
-> =20
-> -	xudma_tchanrt_write(tx_chn->udma_tchanx, UDMA_CHAN_RT_CTL_REG,
-> -			    UDMA_CHAN_RT_CTL_EN | UDMA_CHAN_RT_CTL_TDOWN);
-> +	if (tx_chn->common.udmax->match_data->version =3D=3D K3_UDMA_V1) {
-> +		xudma_tchanrt_write(tx_chn->udma_tchanx, UDMA_CHAN_RT_CTL_REG,
-> +				    UDMA_CHAN_RT_CTL_EN | UDMA_CHAN_RT_CTL_TDOWN);
-> +	} else {
-> +		val =3D xudma_tchanrt_read(tx_chn->udma_tchanx, UDMA_CHAN_RT_CTL_REG);
-> +		xudma_tchanrt_write(tx_chn->udma_tchanx, UDMA_CHAN_RT_CTL_REG,
-> +				    val | UDMA_CHAN_RT_CTL_TDOWN);
-> +		xudma_tchanrt_write(tx_chn->udma_tchanx, UDMA_CHAN_RT_PEER_REG(8),
-> +				    UDMA_CHAN_RT_PEER_REG8_FLUSH);
-> +	}
-
-[Severity: High]
-Does this sequence invert the hardware teardown requirements for PKTDMA V2 =
-TX
-channels? It looks like the teardown bit (UDMA_CHAN_RT_CTL_TDOWN) is being
-written to UDMA_CHAN_RT_CTL_REG before sending the flush command to the peer
-via UDMA_CHAN_RT_PEER_REG(8). Does the hardware require flushing the peer
-before initiating the teardown to avoid locking up or leaving the channel in
-an inconsistent state?
-
-[ ... ]
-
-> @@ -826,6 +883,19 @@ static int k3_udma_glue_cfg_rx_flow(struct k3_udma_g=
-lue_rx_channel *rx_chn,
->  		rx_ringfdq_id =3D k3_ringacc_get_ring_id(flow->ringrxfdq);
->  	}
-> =20
-> +	if (!tisci_rm->tisci) {
-> +		u32 val =3D 0;
-> +
-> +		if (rx_chn->common.epib)
-> +			val |=3D UDMA_FLOWRT_RFA_RX_EINFO_PRESENT;
-> +		if (rx_chn->common.psdata_size)
-> +			val |=3D UDMA_FLOWRT_RFA_RX_PSINFO_PRESENT;
-> +
-> +		xudma_rflowrt_write(flow->udma_rflow, UDMA_RX_FLOWRT_RFA, val);
-> +		rx_chn->flows_ready++;
-> +		return 0;
-> +	}
-
-[Severity: Medium]
-Are we missing the configuration for flow_cfg->rx_error_handling in this new
-no-TISCI path? Callers using the glue layer for PKTDMA V2 could request
-rx_error_handling, but it appears to be silently ignored here instead of be=
-ing
-written to the hardware registers (like bit 28 of UDMA_RX_FLOWRT_RFA) to en=
-able
-hardware flow error handling.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922064902.2719=
-979-1-s-adivi@ti.com?part=3D18
+Yours,
+Linus Walleij
