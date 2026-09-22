@@ -1,81 +1,69 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D671142903F
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 08:26:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53F7F41A563;
+	Tue, 22 Sep 2026 08:27:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790065598; cv=none; b=CpiQN1SlaTASsFjDK+j3hsROJnW77Crb48B6z6fShzu9oCXlK2dYX5vTbflh3JE+L/4LTEgGltCo+RXA1yKPS6lwUkA4OvXGgndgGzbIZi1zjKaCxT8Uz9yHV1RnpoUyxHkwVFA6KCA2UduNATcGyVjYZyX3oGkz2ro6wa0X0hs=
+	t=1790065629; cv=none; b=VY+TRtNwPGSf7WHK2fj3dDBNvlv1H0ozE2HQhSanQZMs5u5Jv8QhvnPiRmNRgPDA+5MKhAa2iLoQdLmkj+6QcRSmbdGPNlAd9v7FtaNAz9Zm1rlYUXlooGh9SdP8jeqbgQPoukTmjhV44YdFi+s5kxVUQJEmQ0p/NmHigRQp8ss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790065598; c=relaxed/simple;
-	bh=fQOOmMfKDT561LEYSJ7U+Zz4WZB+sak2H6OqPNYH1ls=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=n/LDUg2lKSfNheO76f/D9u9mHerMgwDGjWz/6gTRdk027PW1MCmfB/nOmhyv3sarcwtKw3mNYM9NeLMPnSqlmqv5FGp6HwDfEF3lFd73Nc4d8b8EeRTuwmWO/8kUs5mwnAhAbQT1FfgBK4BOi8HNBSVWM2Mh8EMgq7vz1hBjhaI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=avtgnRRr; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="avtgnRRr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91E441F00893
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 08:26:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790065596;
-	bh=fQOOmMfKDT561LEYSJ7U+Zz4WZB+sak2H6OqPNYH1ls=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=avtgnRRr7383dZ2H9vDMQTpZTawV6P2LxP+zXvnXHrPclzCFvHzCV7cQcuYEfZsSL
-	 g7jUQRAflRTcyjOqrzGQDpotadtRhQowCtx9k969Wzds+p7v3PKHjkRV4dDemcl8XO
-	 pFklkOsiA+s7fVHP0hc5ywdiQE9upT8VHNnTBs/NEwo05d88SwT/2AqD9NNTKZ7PJg
-	 9+A+VoIjvGHUqxHM3ChrEVOwj/Sng3S8UoWKGAQdC4liT7ShWg23NIu57CFWxNJvsK
-	 wCgD5BUSNgLocXAlRjwKgfyLxG3KTbpy5DN+8QUXCnJZ1+HOrifKErcTzaavk9/Rye
-	 xa6vKJC7ox/nQ==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8c1b8d7b5so2979529e87.0
-        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 01:26:36 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxxl/B54TUEg0JGBn18hS/+59DxJjHKpJmTPzfunext0LinelVGSsfbNZDiiNOq66tVwgA/TNvvtYQj@vger.kernel.org
-X-Gm-Message-State: AFuF++mgDXvgK34mR0gw3AxmsL/d68Dz+IDHzCKf/iFH5Le0RuNXJIgT
-	vGqqFWiw8e6JsERV9OflBSgjT0dtSoxx6zuRmqEGaGCnPHFoyiWM+M4SvU4iJPMTUVjOdmZnYdA
-	XdMjvrw5MDGJThvKfZCvZtUSttpV/hlGQjYibmRA3qg==
-X-Received: by 2002:a05:6512:a8c:b0:5b8:bc5e:d10a with SMTP id
- 2adb3069b0e04-5b8c1967f69mr4437538e87.52.1790065595307; Tue, 22 Sep 2026
- 01:26:35 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 22 Sep 2026 01:26:33 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 22 Sep 2026 01:26:33 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260922080416.484280-1-shengchao.guo@oss.qualcomm.com>
+	s=arc-20240116; t=1790065629; c=relaxed/simple;
+	bh=JmxFGJTPI3N+E6AeptXOynw0nauw2u8521t/9HC+EBE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iSLqwoRL8q+Qgb0R6k3vgkIK6c6NAgB0wARrEW290369vkRxfeLMvxgWZa3AwUXvT7WUokaJDH9UXJy4r37o63OVAIe0Hh3+chJX1HrTMfBSAjjfV1VeBn/zxFWTTXbNt3qWFZBCgTNCGD2cnMjSz+4CRbycA09EhNC7F2Mg4cw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD34B1F00893;
+	Tue, 22 Sep 2026 08:27:05 +0000 (UTC)
+From: Geert Uytterhoeven <geert+renesas@glider.be>
+To: Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>
+Cc: linux-spi@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	Geert Uytterhoeven <geert+renesas@glider.be>
+Subject: [PATCH 0/2] spi: sh-msiof: Add support for R-Car X5H
+Date: Tue, 22 Sep 2026 10:26:59 +0200
+Message-ID: <cover.1790065451.git.geert+renesas@glider.be>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260922080416.484280-1-shengchao.guo@oss.qualcomm.com>
-Date: Tue, 22 Sep 2026 01:26:33 -0700
-X-Gmail-Original-Message-ID: <CAMRc=Mej3sBp-Mcgc4XQrMQ4Q2ABLTnnku88Rp=DH=u7dtY9zw@mail.gmail.com>
-X-Gm-Features: AcwNN1X-M6i8-qVUkr4jM0BLuDzHI2QmSBNutCFVmjBiGEXfgO6bYYVWn9_zLaI
-Message-ID: <CAMRc=Mej3sBp-Mcgc4XQrMQ4Q2ABLTnnku88Rp=DH=u7dtY9zw@mail.gmail.com>
-Subject: Re: [PATCH] arm64: dts: qcom: nord: Add bwmon node for Nord
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Pushpendra Singh <pussin@qti.qualcomm.com>, 
-	Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>, Bjorn Andersson <andersson@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Tue, 22 Sep 2026 10:04:16 +0200, Shawn Guo
-<shengchao.guo@oss.qualcomm.com> said:
-> From: Pushpendra Singh <pussin@qti.qualcomm.com>
->
-> Add BWMON nodes and associated OPP tables to enable dynamic DDR/LLCC
-> frequency scaling.
->
-> The compatible is added in nord-embedded.dtsi rather than nord.dtsi,
-> because Embedded variant specific 'interconnects' is required by
-> the compatible.
->
-> Co-developed-by: Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>
-> Signed-off-by: Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>
-> Signed-off-by: Pushpendra Singh <pussin@qti.qualcomm.com>
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> ---
+	Hi all,
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+This patch series adds support for the Clock-Synchronized Serial
+Interfaces with FIFO (MSIOF) in the Renesas R-Car X5H (R8A78000) SoC,
+which is the first member of the R-Car Gen5 family.
+
+It has been tested on the Ironhide development board.
+Thanks for your comments!
+
+Geert Uytterhoeven (1):
+  spi: sh-msiof: Add support for R-Car Gen5
+
+Thanh Quan (1):
+  dt-bindings: spi: renesas,sh-msiof: Add support for R-Car X5H
+
+ .../devicetree/bindings/spi/renesas,sh-msiof.yaml        | 9 +++++++--
+ drivers/spi/spi-sh-msiof.c                               | 1 +
+ 2 files changed, 8 insertions(+), 2 deletions(-)
+
+-- 
+2.43.0
+
+Gr{oetje,eeting}s,
+
+						Geert
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+							    -- Linus Torvalds
